@@ -186,3 +186,25 @@ FIXED — HIP CONE in the solver loop:
 MEASURED (headless, 8 dirs): froze 8/8, max thigh-from-spine angle 73deg (was
 150deg+ pre-cone), all in frame. Bottom four dirs (S/SW/W/NW) settle as clean
 flat-lying corpses; top four crumple without impossible leg folds. SHIPPED.
+
+=== UPDATE 7/18 (j): FLAT SLUMP — no time limit, the whole body lays down flat ===
+Paolo: "you're trying to END the animation too quickly. no time limit on it. at
+the end whatever happens the body should SLUMP and lay down FLAT, the waist and
+the head should NEVER be tucked in the fucking legs, ever."
+ROOT CAUSE (two bugs): (1) FREEZE-TOO-EARLY: it locked the instant motion dropped,
+even settled-but-hunched. (2) LIMBS TENTED UP: the old assist only laid the UPPER
+body down, so legs peaked and arms stuck up while the spine was already flat.
+FIXED:
+- NO TIME LIMIT: there is no clock. The sim runs until the WHOLE spine (waist,
+  neck AND head) is on the floor. Freeze fires only on flat-AND-still, never on
+  'settled but hunched'.
+- PANCAKE: once the pelvis is grounded, EVERY joint is drawn down to the floor
+  (head, arms, legs) with a tapering pull -> the body lays out flat, nothing
+  tents up. The pull tapers to zero at the ground so it settles and locks clean.
+- HEAD NEVER TUCKS: the spine is extended out along the fall side (reach -> 82%
+  of spine length, tapering). Head ends past the shoulders on the fall side; the
+  hip cone holds the thighs pointing the OPPOSITE way -> head and legs always end
+  on opposite sides of the pelvis. Measured 0/8 tucked, all 8 flat.
+MEASURED (headless bake-final @1.65s + freeze): all 8 flat corpses, head laid to
+one side / legs the other, no limb tenting; 7/8 frozen by ~1s, E still settling
+but already flat at the bake frame. SHIPPED.
