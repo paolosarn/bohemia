@@ -79,7 +79,12 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    (2) RANGE — a true 'spec' brass tone sampled at p97 of the lamp rides the
    highlight bands, rims, and clamp tops; (3) CALM — grain cut to 10%, bands
    decisive; (4) STORY — rust blob centers seeded below collars, base skirt,
-   arm junction (where water sits), not scattered. Laws:
+   arm junction (where water sits), not scattered. THEN v7 (Paolo circled
+   the base on his phone): OCCLUSION LESSON — the base discs drew AFTER
+   the pole and read as standing in FRONT of it. Draw order IS depth:
+   base first bottom-up, pole planted INTO the top disc (ends at its
+   center line), back halves hidden, front rims wrapping the foot.
+   Applies to every planted prop from now on. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

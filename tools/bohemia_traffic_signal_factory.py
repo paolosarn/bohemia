@@ -401,15 +401,19 @@ def draw_signal(K, variant, state, seed):
         t = (yy - pole_top) / float(pole_bot - pole_top)
         return 10 + int(5 * t)
 
-    # the mast: painted cylinder, dark iron with a highlight band
-    paint_cyl_v(a, K, r, POLE_CX, pole_top, pole_bot + 3, pole_w, rust=rust)
-    # stacked base: three ellipse discs, tops visible, walls in shadow
-    ellipse_disc(a, K, r, POLE_CX, cy1, 8, 2, 2, tone_shift=1)
-    ellipse_disc(a, K, r, POLE_CX, cy2, 11, 3, 3)
+    # stacked base FIRST, bottom disc up, so each disc sits on the one
+    # below — and THE POLE DRAWS OVER THE BASE (Paolo 7/17: the ringed base
+    # read as standing in FRONT of the pole; occlusion says the pole rises
+    # OUT of the base, hiding the discs' back halves, front rims proud)
     ellipse_disc(a, K, r, POLE_CX, cy3, 13, 4, 3)
+    ellipse_disc(a, K, r, POLE_CX, cy2, 11, 3, 3)
+    ellipse_disc(a, K, r, POLE_CX, cy1, 8, 2, 2, tone_shift=1)
     # anchor bolts sitting ON the base's top face
     put(a, POLE_CX - 9, cy3 - 1, K['ramp'][4]); put(a, POLE_CX - 9, cy3, K['outline'])
     put(a, POLE_CX + 9, cy3 - 1, K['ramp'][4]); put(a, POLE_CX + 9, cy3, K['outline'])
+    # the mast: painted cylinder, planted INTO the top disc — it ends at the
+    # disc's center line, so the disc's front half stays in front of the foot
+    paint_cyl_v(a, K, r, POLE_CX, pole_top, cy1 + 1, pole_w, rust=rust)
     # cap: a lidded ellipse + knob, tops visible from the 45
     ellipse_disc(a, K, r, POLE_CX, pole_top - 1, 7, 2, 2, tone_shift=1)
     ellipse_disc(a, K, r, POLE_CX, pole_top - 4, 3, 1, 1, tone_shift=1)
