@@ -983,11 +983,41 @@ def main():
                 entry['variant'] = spec['variant']
             out['signals'].append(entry)
             n += 1
+    # v19 (Paolo: "I love the idea of people taking these red green yellow
+    # stop lights for themselves... save this as a texture, maybe we'll see
+    # it in random locations around the whole map, world building"): the
+    # SALVAGED HEAD — a lone dead signal head as a standalone portable
+    # prop, four carry poses. WHERE they appear on the map is Paolo's
+    # (MAP LAW: plumbing only); this is the texture, ready.
+    out['salvaged_heads'] = []
+    out['salvage_lore'] = ('survivors take the red-green-yellow for themselves; '
+                           'trophies, lamps, doorway marks. Placement around the '
+                           'map is PENDING Paolo (MAP LAW). DEAD until the grid '
+                           'ruling; heads are mast-color-agnostic (housings were '
+                           'always the same steel).')
+    Ksalv = palette('galv')
+    for pi, pose in enumerate(('kept', 'side_l', 'side_r', 'flipped')):
+        r2 = rng(99100 + pi * 271)
+        temp = np.zeros((70, 46, 4), dtype=np.uint8)
+        draw_head(temp, Ksalv, 10, 6, 'dead', r2)
+        rot = {'kept': 0, 'side_l': 1, 'side_r': 3, 'flipped': 2}[pose]
+        piece = np.rot90(temp, rot).copy() if rot else temp
+        ph, pw = piece.shape[:2]
+        arr = np.zeros((ph + 8, pw + 8, 4), dtype=np.uint8)
+        composite(arr, piece, 4, 4)
+        outline_pass(arr, Ksalv['outline'])
+        outline_pass(arr, (5, 5, 5))
+        buf = io.BytesIO()
+        Image.fromarray(arr).save(buf, 'PNG')
+        out['salvaged_heads'].append({'pose': pose, 'w': int(arr.shape[1]),
+                                      'h': int(arr.shape[0]),
+                                      'b64': base64.b64encode(buf.getvalue()).decode()})
     json.dump(out, open(OUT, 'w'))
     kinds = {}
     for s in out['signals']:
         kinds[s['kind']] = kinds.get(s['kind'], 0) + 1
-    print('drew %d signal sprites -> %s' % (n, OUT))
+    print('drew %d signal sprites + %d salvaged heads -> %s'
+          % (n, len(out['salvaged_heads']), OUT))
     print('  ' + ', '.join('%s: %d' % kv for kv in sorted(kinds.items())))
     return 0
 

@@ -107,7 +107,8 @@ console.log(JSON.stringify({H:b.H,meta:b.meta,grid}));
 
 def main():
     if sys.argv[1] == '--intersection':
-        bake_intersection(int(sys.argv[2]), int(sys.argv[3]))
+        mode = sys.argv[4] if len(sys.argv) > 4 else 'mixed'
+        bake_intersection(int(sys.argv[2]), int(sys.argv[3]), corner_mode=mode)
         return
     cx, cy = int(sys.argv[1]), int(sys.argv[2])
     blk = engine_block(cx, cy)
@@ -191,7 +192,7 @@ img{width:100%%;image-rendering:pixelated;border:2px solid #332e26;border-radius
 
 
 
-def bake_intersection(lanes_ew, lanes_ns):
+def bake_intersection(lanes_ew, lanes_ns, corner_mode='mixed'):
     """The proper intersection, baked: orientation-aware tiles (NS = rot90 of
     the EW-authored pools), the clean box, four crosswalks, BOLD candidate
     markings (UNJUDGED: this proof IS the judging surface)."""
@@ -244,7 +245,7 @@ def bake_intersection(lanes_ew, lanes_ns):
     # waits for Paolo's approval. DEAD state: act-1 grid default.
     sigbank = json.load(open('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt'))
 
-    def sig_pick(color, direction, face, arm_dir=None, kind='intact'):
+    def sig_pick(color, direction, face, arm_dir=None, kind='intact', variant=None):
         # ARM LAW: 3-lane arterial -> long arm; dead (act-1); real e/w sprite;
         # FACE LAW: s/n = horizontal arm faces/backs; e/w = VERTICAL arm
         # (spans the EW road), arm_dir n up-screen / s down-screen
@@ -252,7 +253,8 @@ def bake_intersection(lanes_ew, lanes_ns):
             if (s['kind'] == kind and s['state'] == 'dead' and s['arm'] == 'long'
                     and s['color'] == color and s['dir'] == direction
                     and s.get('face', 's') == face
-                    and (arm_dir is None or s.get('arm_dir') == arm_dir)):
+                    and (arm_dir is None or s.get('arm_dir') == arm_dir)
+                    and (variant is None or s.get('variant') == variant)):
                 return s
         fail('signal bank missing %s/%s/%s long dead %s' % (color, direction, face, kind))
 
@@ -267,16 +269,30 @@ def bake_intersection(lanes_ew, lanes_ns):
     # (its lenses point north at the southbound cars beside it), E side
     # arms DOWN + lights east (eastbound arrives under it), S side arms
     # west + lenses south-visible, W side arms UP + lights west.
-    # HALF BROKEN, HALF GOOD (Paolo 7/18): two survivors, two wrecks —
-    # sixty years of desert take their toll unevenly
-    corners = (
-        (c0 - cwn, r0 - cwn - 1,
-         sig_pick('galv', 'e', 's', kind='dropped_heads')),            # N: heads on the floor
-        (c1 + cwn, r0 - cwn - 1,
-         sig_pick('bronze', 'w', 'w', 's', kind='fallen_arm')),        # E: span down at the base
-        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),        # S: intact, faces
-        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'w', 'n')),            # W: intact, arm up
-    )
+    if corner_mode == 'scattered':
+        # ALL FOUR DIRECTIONS scattered (Paolo 7/18: "now do it for all
+        # directions") — every side its own debris field, no two alike
+        corners = (
+            (c0 - cwn, r0 - cwn - 1,
+             sig_pick('galv', 'e', 's', kind='scattered', variant=0)),     # N
+            (c1 + cwn, r0 - cwn - 1,
+             sig_pick('bronze', 'w', 'w', 's', kind='scattered', variant=0)),  # E
+            (c1 + cwn, r1 + cwn + 1,
+             sig_pick('bronze', 'w', 's', kind='scattered', variant=1)),   # S
+            (1, r1 + cwn + 1,
+             sig_pick('galv', 'e', 'e', 'n', kind='scattered', variant=1)),    # W
+        )
+    else:
+        # HALF BROKEN, HALF GOOD (Paolo 7/18, APPROVED): two survivors,
+        # two wrecks — sixty years of desert take their toll unevenly
+        corners = (
+            (c0 - cwn, r0 - cwn - 1,
+             sig_pick('galv', 'e', 's', kind='dropped_heads')),        # N: heads on the floor
+            (c1 + cwn, r0 - cwn - 1,
+             sig_pick('bronze', 'w', 'w', 's', kind='fallen_arm')),    # E: span down at the base
+            (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),    # S: intact, faces
+            (1, r1 + cwn + 1, sig_pick('galv', 'e', 'w', 'n')),        # W: intact, arm up
+        )
 
     # ONE POST PER CORNER (Paolo 7/18): where a signal mast stands, the
     # engine's corner lamp yields — no doubled furniture on the proof.
@@ -310,7 +326,9 @@ def bake_intersection(lanes_ew, lanes_ns):
               (a[..., 2] - a[..., 1] > 50) & (a[..., 0] - a[..., 1] > 30)).sum()
     if purple:
         fail('PURPLE in the bake (%d px)' % purple)
-    png = 'slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png'
+    png = ('slices/BOHEMIA_V12_SCATTER_PROOF_7_18_26.png'
+           if corner_mode == 'scattered' else
+           'slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png')
     out.save(png)
     m = blk['meta']
     print('intersection baked: %dx%d, box=%s, crosswalks=%d, pockets X%s Y%s -> %s'
