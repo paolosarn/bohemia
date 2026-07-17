@@ -32,6 +32,15 @@
 > the private channel, the Dreamstride as [READ]-traversal, the metagame that
 > votes for the devil). **150 files, 1-150, zero gaps. 66 of >90.**
 >
+> **[BATCH 12 LANDED 7/17/26 — THE QUEUE IS CLOSED]** #151 the First Wall
+> (Kenshi's outpost story: ownership is an address, the tax is the recognition,
+> sieges that learn — the city-builder core's design document) and #152 the
+> Greymarch (Shivering Isles: inheriting the mad god's office — succession as
+> the prize, lawful accession rites, the employer whose briefing omits what he
+> becomes). **152 files, 1-152, zero gaps. 68 of >90.** Every name on the 7/16
+> FRESH MINING QUEUE is now mined. Next fork is Paolo's: fresh names, the
+> systematic ~72-pool re-mine, or the 136-file backfill queue.
+>
 > **[STALE COUNT CORRECTED 7/16 MERGE]** This index said 126 files in one place and
 > 124 in another. **There are 138 questbook files on disk** (verified: numbers 1-138,
 > zero gaps, zero collisions, audited BY NUMBER per the #102 lesson). The 12 fresh

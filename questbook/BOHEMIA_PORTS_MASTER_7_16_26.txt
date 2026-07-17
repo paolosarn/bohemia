@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
-1266 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
+1276 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2833,3 +2833,37 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 5 — TRUST TESTS COMPOUND OR THEY EVAPORATE [F3's law]
       system: the fold / the finale reads (#140/#143) / companion dialogue
       Divine-class deception survived writes a fold entry; the companion gained carries the debt in their lines; the finale's read can cite the altar. The quest that taught the medium's best trust lesson also proved (by lacking one) why Bohemia's ledger exists: scenes like N-3 must COMPOUND. This port is one schema line and a handful of text variants — the cheapest port in the corpus, purchased against 
+
+### #151  THE FIRST WALL (THE OUTPOST STORY) (Kenshi)
+  ->  PORT 1 — THE FINDABLE FLAG [W1, W2 — the core port]
+      system: city-builder core / the 13 factions / CLUSTERED POWER / territory
+      Bohemia's settlement mechanics adopt the address law: the moment the player's plot crosses visibility thresholds (walls, light, smoke, traffic — LIGHT=TERRITORY already makes light a broadcast), faction arithmetic acquires the address: collectors, scouts, the desperate, on schedules the faction sim prices from visible prosperity. The world's first acknowledgment arrives as a demand. Mechanism mine
+  ->  PORT 2 — THE LEDGER'S OTHER SIDE [F2's law]
+      system: faction graph / envoy verbs / the .bq format
+      Ownership opens verbs: once billed, the settlement can SEND — envoys, terms, tribute renegotiation, raid redirection onto rivals, joint-defense pacts — along the faction graph's typed edges. Compile rule: every threat-class relationship a settlement can RECEIVE must have at least one player-initiable verb pointing back. Read-only politics don't ship.
+  ->  PORT 3 — SIEGES THAT LEARN [F1's law]
+      system: the dial / faction memory / the fold
+      Siege-class attackers read the previous siege's fold entry (the breach point, the kill-box, the casualty ledger) and vary: composition, timing, target — burn the granary the defense wasn't built around. The #146 curriculum property pointed back at the player: the world's institutions also train on failure. Frequency-capped so sieges stay events, never subscriptions. [PENDING, Paolo's call: which f
+  ->  PORT 4 — THE GATE POLICY AS STANDING .bq STATE [W5]
+      system: settlement systems / reputation-without-meters
+      The gate's rules (who it opens for, on what schedule) are a player-set policy object the world READS: traders, the starving, collectors, and scouts all consult it, and settlement reputation derives from the gate's observed history — no meter, just witnesses. The conduct book (#143) gets a settlement-scale sibling: the door's diary. Mechanism mine; the policy vocabulary is canon-adjacent. [PENDING,
+  ->  PORT 5 — THE SETTLEMENT TESTIFIES [F3's law, W10]
+      system: citizen web (#149) / barks / the fold
+      Post-event, the interior speaks: residents reference the siege, the defied tax, the night the gate stayed open for the starving — bark-scale lines drawn from fold entries, echoing for a generation (the #147 maintenance-counter machinery generalized: the record says "again," the people say "remember"). One night of consequence, a generation of texture, a handful of text variants. The cheapest port 
+
+### #152  THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion — The Shivering Isles)
+  ->  PORT 1 — THE OFFICE WITH VERBS [W9, F1's law — the core port]
+      system: the fold / succession / settlement institutions (#151)
+      When Bohemia seats a player in an office (settlement head, faction seat, whatever canon builds), the seat ships with its working ledger: petitions that spend real resources, policies with teeth, and — the fold's signature — the office's own succession paperwork, because the player's dynast will die holding it. The #144 will-reading and the #145 succession chronicle already handle the handoff; this
+  ->  PORT 2 — THE EMPLOYER'S OMITTED BRIEFING [W1, W2]
+      system: the Amalgamation arc / quest-giver design
+      One Bohemia arc should run the Sheogorath shape: a patron whose recruitment is secretly onboarding for their own replacement, whose briefing omits the one fact they cannot survive stating, and whose reveal is performed by SUBSTITUTION (the patron's slot in the story occupied, one scene, by what they become). The Amalgamation's recorded-dead composition makes the mechanism native: a voice that is m
+  ->  PORT 3 — LAWFUL ACCESSION RITES [W3, W4, F2's law]
+      system: the 13 factions / succession mechanics
+      Faction leadership changes hands by each faction's own RITE — and where a rite requires the player's hands, the deed is lawful-and-still-murder (the complicity machine, G-1's finding). F2's law enforced at compile: every rite writes exclusive downstream consequence (the passed-over court acts passed-over; the fold's finale read cites the rite chosen and the method). Method-wears-the-victim (W4) as
+  ->  PORT 4 — THE CHAMBERLAIN CLASS [W8]
+      system: settlement institutions / NPC continuity / the fold
+      An NPC class that outlives officeholders: the clerk, the keeper, the steward — continuity made flesh, unimpressed by succession, carrying institutional memory across generations in their dialogue (past-tense variants, #144 PORT 3, plus office-history: "the last one who sat there ruled the other way"). The record keeper already staged in #145's briefing is this class's first member; the singleton r
+  ->  PORT 5 — CYCLES PRICED IN GENERATIONS [F3's law]
+      system: the fold / the three arcs / endgame structure
+      Any Bohemia cycle-breaking (standing Edicts #145, purge cycles, the Greymarch-analog if canon builds one) costs generation-denominated currency: a lineage's banked record, an office's continuity, a fold-held debt spent forever. The validator can enforce the shape once cycles enter the .bq grammar: cycle-ending nodes must declare their generational price. Cheap exits teach that the cycle was scener

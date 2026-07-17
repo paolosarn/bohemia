@@ -1,4 +1,4 @@
-BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
+BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
 ====================================================================================================
 
 #     TITLE                                                 LINES  CRAFT  FLAWS  PORTS  FLOW  CONV   V2?
@@ -160,3 +160,5 @@ MINING POOL REMAINING: ~72 whole-game teardowns.
 148   DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher     192     10      3      5     Y     Y     Y
 149   THE SAD SAINT (THE CITIZEN WEB) (Vampyr)                182     10      3      5     Y     Y     Y
 150   WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (T    188     10      3      5     Y     Y     Y
+151   THE FIRST WALL (THE OUTPOST STORY) (Kenshi)             190     10      3      5     Y     Y     Y
+152   THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The    193     10      3      5     Y     Y     Y

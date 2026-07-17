@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
-687 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
+693 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1933,3 +1933,25 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE TRUST BRANCH GOES UNREAD
      Decline the god, gain a follower — and the world never remarks on any of it. No priest of Mara notes the reformed man's vindication; no record exists that a god personally lied and lost. Skyrim's radial structure spends its best scene and banks nothing; the quest's meaning lives entirely in the player's head (which is why it's beloved by the few and skipped-to-the-Skull by the many).
      LAW: when a player passes a trust test a GOD set, the ledger writes it. The fold records divine-class deception survived; the read-back surfaces (#140/#143) can cite it; the companion's own dialogue should carry the debt. Bohemia's whole architecture exists so that scenes like this one compound instead of evaporating — the flaw is the strongest possible argument for the fold, banked from the game that lacked one.
+
+### #151  THE FIRST WALL (THE OUTPOST STORY) (Kenshi)
+  X  THE SIEGE AI COLLAPSES INTO PATTERNS
+     Raids path predictably, funnel into kill-boxes, and veteran bases become farms that harvest their own attackers — the world's terrifying bill matures into a turret-fed income stream. The pool banked the general seams; at outpost scale the seam is fatal: the arc's crown event becomes a routine the player designed once.
+     LAW: siege-class threats must read the defense and vary the approach (composition, timing, target selection — burn the crops, not the kill-box), or cap their own frequency below routine-formation. A siege the player can schedule is a subscription, not a story. (Bohemia's beat-world and faction sim can vary by LAW: attackers who learned the last siege's shape — the #146 curriculum property, pointed back at the player.)
+  X  THE POLITICS HAVE ONE VERB
+     The collectors demand, the raiders raid — but there is no envoy TO them: no tribute renegotiation, no alliance offer, no buying a raid's redirection onto a rival. The settlement is addressable by everyone and can address no one; the world's politics remain read-only, and the arc's midgame thins into pay-or-fight.
+     LAW: ownership must open VERBS, not just liabilities. The moment the settlement enters the world's books, the player gets the ledger's other side: envoys, terms, redirections, joint defenses — the faction graph is already typed for it. A settlement that can be billed but cannot negotiate is scenery with a health bar.
+  X  THE INTERIOR LIFE IS SILENT
+     The recruits the siege spends have no reaction to any of it — no one resents the defied tax, mourns the burned forge, or credits the held wall. The attachment is real (the investment law) but entirely player-side; the settlement never speaks about itself, and post-siege mornings are emotionally load-bearing moments the game leaves mute.
+     LAW: the settlement testifies. Bohemia's citizen web (#149) plus bark-scale reactions give the interior a voice: the fold logs the siege, the residents reference it, the gate's history is spoken of. One night of consequence should echo in the settlement's text for a generation — that echo is what Kenshi's silence proves is missing.
+
+### #152  THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion — The Shivering Isles)
+  X  THE OFFICE IS A TROPHY, NOT A JOB
+     After coronation, ruling amounts to a throne-room chair, a couple of petitioner novelties, and the chamberlain's shrug. The genre's boldest reward — BECOMING the god — ships with almost no verbs; the title is a hat. Community consensus for two decades: the ending writes a check the systems never cash.
+     LAW: never grant an office without granting its VERBS. If Bohemia's fold ever seats a player in an institution (settlement head, faction chair, the throne-analog), the seat must come with the working ledger: petitions with stakes, policies with teeth (#151's gate policy is the scale model), succession paperwork of its own. An office without verbs is a cosmetic — cut it or staff it.
+  X  THE ACCESSION FORK IS WEIGHTLESS DOWNSTREAM
+     Mania or Dementia colors the regalia and a handful of scenes, then the endgame funnels identically. The expansion's one exclusive moral fork — WHO the player murders for advancement — barely differentiates the world after; players compare notes and find mostly palette.
+     LAW: an exclusive rite must write exclusive CONSEQUENCE — the court passed over should act like it (grudges, defections, a rival claimant), and the fold should read which throne was taken and how, at the finale (#140/#143's machinery exists for exactly this). If both branches converge, converge the STORY, never the ACCOUNTABILITY.
+  X  THE CYCLE'S BREAKING IS FREE
+     The curse ends because the player wins a duel: no cost, no trade, no residue — the realm's thousand-era tragedy resolves as a boss health bar. Even sympathetic critics note the finale's metaphysics outweigh its mechanics: the deepest lore event in the setting is mechanically a Tuesday.
+     LAW: breaking a cycle must cost cycle-denominated currency. Bohemia's generational frame prices this natively: ending a standing curse-class system (an Edict, #145; a faction's cyclical purge; the Greymarch-analog if one exists) should spend something only generations can bank — a lineage's accumulated record, a fold-held debt, an office's own continuity. Cheap exits from expensive cycles teach the player the cycle was never real. [PENDING, Paolo's call: what Bohemia's cycles even are — the law stands ready either way.]

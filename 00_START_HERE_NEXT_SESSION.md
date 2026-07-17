@@ -160,6 +160,14 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
+THE 7/16 MINING QUEUE IS CLOSED (BATCH 12, 7/17): #151 the outpost story (the
+city-builder core's own design document: findable-flag, the ledger's other
+side, sieges that learn, the settlement testifies) and #152 the Greymarch
+(succession as the prize: offices with verbs, lawful accession rites, the
+chamberlain class, cycles priced in generations). 68 of >90. THE FORK IS NOW
+PAOLO'S: (a) fresh game names, (b) systematic re-mine of the ~72-game pool,
+(c) the 136-file backfill queue. Flagged [PENDING, Paolo's call] per the
+standing rule; mining pauses at 68 until he picks.
 THE ARCHIVE IS BACK (7/17): tools/bohemia_questbook_archive.py machine-appends
 dives into BOHEMIA_QUESTBOOK_ARCHIVE.html's data array without touching the
 shell or any old entry. All 12 new dives (139-150) are in: 150 files, 3,686

@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
-1507 findings / 150 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
+1527 findings / 152 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3315,3 +3315,47 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Decline the artifact and gain a companion — the quest pays its faithful in relationship, its faithless in equipment, and lets the player discover which currency their game runs on.
   W10 THE GOD'S INTERVENTION IS THE TELL
       A deity personally lobbying one mortal at one altar is desperation legible AS desperation to any player calm enough to ask why the whisper is happening at all. The scene's best clue is its own existence — design trusting inference over exposition, one last time.
+
+### #151  THE FIRST WALL (THE OUTPOST STORY) (Kenshi)
+  W1  OWNERSHIP IS AN ADDRESS
+      Building flips one flag — findable — and the entire dormant political simulation acquires a place to happen. The cheapest possible trigger for the deepest possible consequence-class.
+  W2  THE TAX IS THE RECOGNITION
+      The collector's visit is insult and milestone in one: the world's first acknowledgment that the player EXISTS arrives as a bill. No fanfare could land harder than an invoice.
+  W3  RAIDS SCALE WITH VISIBLE PROSPERITY
+      Success generates its own antagonists by arithmetic — the difficulty curve is the player's balance sheet, and modesty becomes a viable defensive strategy. Wealth as aggro is post-collapse truth, mechanized.
+  W4  BUILDING IS THE SURRENDER OF MOBILITY
+      The game's real armor was always the ability to leave; the base trades it away voluntarily. The arc's dread flows from one honest exchange rate, never from a script.
+  W5  THE GATE IS THE POSTURE
+      Door policy broadcasts the settlement's ethics to everyone who approaches — reputation without a meter, values as architecture. (LIGHT=TERRITORY's sibling law, found in the wild.)
+  W6  THE SIEGE HAPPENS WHERE THE HOURS LIVE
+      The fight's arena is the player's own labor, so every breach costs biography. No authored setpiece can buy the stakes that hauling your own walls builds for free.
+  W7  THE FLEE OPTION NEVER CLOSES
+      Abandoning everything mid-siege stays on the table, always — and its standing availability is what makes staying a CHOICE instead of a checkpoint. (The Q140 off-ramp law, at settlement scale.)
+  W8  THE SCALE-SHIFT IS SEAMLESS
+      Lone survivor to squad to settlement in one unbroken system-set — no mode switch, no genre seam. The proof that the fold's arc (dynast → settlement → city) can be ONE game, not three bolted together.
+  W9  ATTACHMENT IS MANUFACTURED BY LABOR
+      Unwritten recruits become devastating losses purely through invested hours — the pool's investment law, and the siege's ammunition. Authored backstory is optional; leveled-by-hand is not.
+  W10 THE WORLD NEVER APPLAUDS
+      Stand the siege and nothing congratulates you; the region just quietly re-prices. The indifference that made #146's captivity honest makes the freehold's survival honest too — and hands Bohemia the same lesson twice: the LEDGER must witness what the world won't (#146 F1, confirmed at scale).
+
+### #152  THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The Elder Scrolls IV: Oblivion — The Shivering Isles)
+  W1  THE QUEST-GIVER IS THE APOCALYPSE ON A TIMER
+      Employer and enemy are one being, sequentially revealed — the highest form of the unreliable quest-giver: he isn't lying; he's DOOMED, and the briefing's omission is his survival strategy.
+  W2  THE RECRUITMENT IS ONBOARDING
+      Every errand, in hindsight, was training for the seat: the fetch quests were rehearsals of rulership (someone pays, you pick who). The second-playthrough re-read is designed, not incidental.
+  W3  ACCESSION IS ASSASSINATION, FORMALIZED
+      The realm's succession law makes the player's murder lawful and the lawfulness makes it heavier — complicity with the paperwork done. The court's blessing removes the alibi of transgression.
+  W4  THE MURDER WEARS THE VICTIM'S NATURE
+      Thadon dies of pleasure, Syl dies of vindicated paranoia — each rite is a portrait of its throne. Method as characterization: the how of the kill IS the duchy's lore.
+  W5  THE DESPAIR SCENE CHANGES REGISTER, ONCE
+      The joke character speaks plainly exactly one time, and the register break carries the reveal better than any exposition. A voice's consistency is a resource you spend once.
+  W6  THE SUBSTITUTION REVEAL
+      Sheogorath vanishes mid-scene and Jyggalag stands in his place — the twist performed as staging, not stated. The corpus's cleanest show-don't-tell at plot scale.
+  W7  THE BOSS WANTED TO LOSE
+      Jyggalag's defeat frees him; the finale's violence is, from the enemy's side, a rescue. The duel re-reads as the curse's last formality — and the player's victory is also the antagonist's.
+  W8  THE CHAMBERLAIN OUTLIVES THE GOD
+      Haskill's unimpressed continuity is the institution's real memory: staff as the realm's spine. The quietest worldbuilding in the expansion and its most load-bearing.
+  W9  THE REWARD IS THE JOB
+      The arc ends in an office, not a payout — succession as prize, with the timer attached. The genre's boldest ending shape, even underfunded (F1): what you win is what he was.
+  W10 THE WHOLE SCRIPT REPLAYS ITSELF
+      After G-4, every earlier scene re-reads — the jokes, the errands, the interview. A quest that retroactively rewrites its own first half is doing with structure what twists usually fake with surprise.
