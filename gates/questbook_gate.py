@@ -89,7 +89,10 @@ no_end = []
 full_machine = []   # THE OFFICIAL >90 COUNTER (Paolo ruling 7/17: full machine
                     # only — laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 zero_dialogue = {99, 110, 114}   # zero-dialogue-by-design registry: never "fix".
-                                 # [PENDING Paolo] whether they count without option lines.
+                                 # RULED 7/17 (Paolo): they COUNT toward the 90 —
+                                 # "that's okay if they genuinely have no talking."
+                                 # Genuine silence satisfies the conversation-machine
+                                 # requirement; every other element still required.
 for n in nums:
     fn = files[n][0]
     text = open(os.path.join(QB, fn), encoding='utf-8').read()
@@ -105,7 +108,8 @@ for n in nums:
     # Files 01-16 run 11-13 craft points BY DESIGN (early format, banked lesson:
     # not damage, do not fix). The counter honors that; everything after is 10 exact.
     w_ok = (wc == 10) or (n <= 16 and 11 <= wc <= 13)
-    if (w_ok and optc > 0
+    machine_ok = optc > 0 or n in zero_dialogue
+    if (w_ok and machine_ok
             and 'CAST + WHAT EACH ONE WANTS' in text
             and 'THE BRANCH MAP' in text):
         full_machine.append(n)
@@ -136,8 +140,8 @@ ok('archive carries the newest file (#%d)' % nums[-1], ('[%d,"' % nums[-1]) in a
 print('\n  FULL-MACHINE COUNT: %d of >90 target (10 W-points + conversation '
       'machine + CAST + BRANCH MAP)' % len(full_machine))
 print('  ' + ','.join(str(x) for x in full_machine))
-print('  zero-dialogue-by-design, not counted, [PENDING Paolo] whether they count: '
-      + ','.join(str(x) for x in sorted(zero_dialogue)))
+print('  zero-dialogue-by-design, COUNTED per Paolo ruling 7/17 (genuine silence '
+      'satisfies the machine): ' + ','.join(str(x) for x in sorted(zero_dialogue)))
 print('\n  backfill queue (pre-v2-era files with no conversation machine yet): %d files'
       % len(backfill))
 print('  ' + ','.join(str(x) for x in backfill))

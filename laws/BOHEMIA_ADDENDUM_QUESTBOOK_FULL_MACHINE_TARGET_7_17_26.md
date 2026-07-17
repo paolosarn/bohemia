@@ -36,11 +36,15 @@ AUDIT WHAT THE LAW SAYS, NOT WHAT THE GATE HAPPENS TO GREP. When a count
 surprises you, diff the gate against the law's own template before trusting
 either.
 
-## ZERO-DIALOGUE-BY-DESIGN [PENDING, Paolo's call]
-#99, #110, #114 are zero-dialogue quests (never-fix registry). They can never
-carry option lines without violating their own design. The gate reports them
-separately and does NOT count them toward the 90. Whether a by-design silent
-file counts is Paolo's call, flagged every gate run until ruled.
+## ZERO-DIALOGUE-BY-DESIGN — RULED 7/17 (Paolo): THEY COUNT
+"That's okay if they genuinely have no talking." Verified genuine before
+counting: #99 Ocean House (zero dialogue nodes between entering and leaving
+IS the architecture), #110 Cannibal Cage (no parley interface at all; speech
+structurally impossible), #114 Substory Engine (same registry). GENUINE
+SILENCE SATISFIES THE CONVERSATION-MACHINE REQUIREMENT; every other element
+(craft points, CAST, BRANCH MAP) still required. The never-fix registry
+stands: giving these files option lines would be damage, not compliance.
+The gate counts them and prints the ruling every run.
 
 ## THE GATE (same turn, per A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED)
 gates/questbook_gate.py computes and prints the official counter every run:
