@@ -137,3 +137,65 @@ inventory carry, the sin-as-tool exploit, background reactivity/fugitive-speed g
 origin/3M downloads, the canon ending as most-satisfying). Cross-ref Questbook 11 (loop), 18 (knowledge),
 19 (deduction), 12 (argue-the-boss), 16 (red-herring/MacGuffin), 06 (escalating prep). FUTURE: a Modern
 Storyteller design talk on adapting the mod; Twelve Minutes / Outer Wilds as loop-design contrasts.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE OUTSIDER (the player, origin chosen)** — wants out, then wants everyone out, in that order, and the distance between those wants is the game. Will trade: loops. Will never say out loud: that the rewind makes their compassion cheap until the day it doesn't. FUNCTION: the only person in the city whose mistakes are refundable, which is the loudest moral spotlight ever aimed at a protagonist.
+
+**SENTIUS (the magistrate)** — wants the loops to CONTINUE; they are keeping him alive. Will trade: the mission itself ("find who breaks the Rule") — a red herring he manufactures fresh each loop. Will never say out loud: that a solved mystery is his death sentence. FUNCTION: the quest-giver as the hidden antagonist (W5). The task is the trap; the employer is the case.
+
+**THE ~23 CITIZENS** — want, severally: an election won (Galerius), a debt escaped (Duli), a love kept, a shrine tended, a secret buried — and, unanimously, want NOBODY ELSE to sin, because anyone's sin is everyone's execution. Will never say out loud: their own candidate sins; the surveillance state lives in every hushed voice. FUNCTION: the pressure-cooker (W1). One rule makes every small want a public safety issue.
+
+**THE GOLDEN RULE** — wants obedience to a definition it refuses to provide (W2). FUNCTION: the antagonist-as-law. Murder counts. Theft counts. Does a lie? An intent? A failure to act? The ambiguity is the philosophy engine and the fear.
+
+**THE CREATOR** — wants, beneath everything, not to be argued with. FUNCTION: the finale. The horror has an author, the author has reasons, and the reasons can be beaten by a mortal who did the reading (W9).
+
+**THE PORTAL** — wants nothing; it simply always takes you back. FUNCTION: the mercy that makes the cruelty studyable.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the loop is a meta-node every tree can exit through)
+
+NODE: SENTIUS_TASKING — the magistrate's office, entry: loop 1, and re-entry every loop (he remembers nothing; you remember everything)
+  Someone will break the Rule today. Find them. Stop them.
+  > "Who do you suspect?"           [gate: none] -> a name; a DIFFERENT name if your actions changed the day; the culprit is weather, not plot (W5)
+  > "What counts as a sin?"         [gate: none] -> he doesn't know either, and rules the city on it anyway; the ONE LINE DOING THE WORK
+  > "Why are you so calm?"          [gate: loop knowledge] -> the crack: a man this serene about doom has an arrangement with it
+  TRAP: doing the assignment. Diligently chasing culprits serves Sentius forever; the loop count is his pulse. The quest's stated objective is its own misdirection.
+
+NODE: STREET_OF_FEAR — any citizen, any loop
+  Everyone speaks in the soft voice of people who share one noose.
+  > (press about the Rule)          [gate: none] -> philosophy, rationed by terror: is evil universal or is it whatever the statues say
+  > (press about each other)        [gate: none] -> the surveillance state out loud: everyone is watching everyone, politely
+  > (origin line: archaeologist)    [gate: origin] -> the historical read others can't see; NODE-TEXT CHANGES BY WHO YOU WERE BEFORE THE PORTAL (W6)
+  NOVERB: "You're all going to be fine." Nobody can promise it, including you, and the game writes no line for the comfort. Cross-ref #126's removed comfort verb: the reassurance that would be a lie does not exist.
+
+NODE: THE_DARK_EXPLOIT — anywhere, any loop; the machine's most honest node
+  The cure is behind a merchant's counter. Someone is dying across town. The portal is right there.
+  > [steal it]                      [gate: none] -> THE RULE TRIGGERS: the city turns gold screaming, you run for the portal, and next loop THE CURE IS IN YOUR POCKET (W3, W4)
+  > (earn it instead)               [gate: time, persuasion, errands] -> slower, cleaner, sometimes impossible this loop
+  > (let the victim die this loop)  [gate: none] SILENCE -> the loop resets that too; mercy deferred is refundable here, and the refund is the moral vertigo
+  WHAT THIS NODE COSTS: nothing mechanical. Everything else. Sinning is a TOOL, the tool works, and the only witness who persists across loops is you.
+
+NODE: GALERIUS_ELECTION — the plaza, entry: mid-arc
+  A good man can win the city, if enough small kindnesses stack.
+  > (help citizen after citizen, loop after loop) [gate: accumulated aid] -> Galerius wins -> Duli freed -> the CISTERN KEY: the canon path is paved with errands (W7)
+  > (skip it)                       [gate: none] -> endings 1-3 remain; the city keeps its magistrate and its arithmetic
+
+NODE: THE_OBELISK — the Grand Temple, entry: FOUR TABLETS gathered, the cistern passed
+  The Creator, at last. The debate the whole game was tuition for.
+  > "The Rule is unjust, and here is the evidence." [gate: accumulated understanding: the tablets, the citizens' stories, the Rule's own contradictions] -> THE ARGUMENT LANDS: the Golden Rule ENDS (W9)
+  > (argue from anger, not evidence) [gate: none] TRAP -> the Creator has heard anger for millennia; only comprehension is novel
+  > (attack)                        [gate: none] -> the horror survives another mortal
+  KNOWLEDGE COLLAPSES THE LOOPS (W8): a player who knows this path can reach this node by loop 4. Mastery is speed; the grind was only ever ignorance.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 4 terminal states, ordered by depth of engagement (the map's shape: how much of the city you understood = how much of it you saved).
+
+E1 — FLEE ALONE (available almost immediately): the portal, used selfishly. WRITES: one survivor, a city of gold behind you.
+E2 / E3 — THE PARTIAL SOLVES (a quarter and a third in): some saved, some truths, the inscription read literally. WRITES: survivors proportional to understanding.
+E4 — THE CANON (the Golden Ending): Galerius elected, Duli freed, four tablets, the Obelisk, the Creator argued down. The Rule ENDS; the most people live; the deepest mystery resolves. WRITES: the debate won by the whole playthrough as evidence.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: this file is the Rosetta Stone the header promised: it fuses the loop (#11), knowledge-carry (#18), deduction (#19), and argue-the-author (#12) into ONE quest, and proves they compose. Bohemia's ports, in rank order: (1) the GOLDEN-RULE pressure-cooker is the Amalgamation's own logic ("no one may be lost") worn by a district: bank a collective-punishment scenario where the RULE charges every interaction and its definition is contestable; (2) SINNING-AS-A-TOOL belongs in our systemic verb set with the cost ledgered, never graded (the no-karma law holds even here); (3) the RED-HERRING PREMISE (the quest-giver whose task is his own life-support) is a whole quest shape we don't have yet — flag it for a fresh cook; (4) the finale lineage is now confirmed four deep (Planescape -> Deus Ex -> MotB #142 -> here): END THE HORROR BY ARGUING WITH ITS AUTHOR, evidence assembled across the whole playthrough. And W10 is the repo's own pep talk: this masterpiece shipped first as a MOD. Quest-craft is writing + structure. The art can wait; the machine cannot.

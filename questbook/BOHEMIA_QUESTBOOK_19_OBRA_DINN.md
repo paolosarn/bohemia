@@ -139,3 +139,63 @@ Mechanism (the confirmation system's necessity, the under-clued/ambiguous-art fl
 Questbook 18 (Outer Wilds knowledge-progression sibling), 17 (social battle), 03 (investigation), 12
 (comprehension). FUTURE: a Lucas Pope design talk on the Rule-of-Three + clue-density; The Case of the
 Golden Idol / The Forgotten City as deduction-quest siblings.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE INSPECTOR (the player)** — wants the ledger closed. An insurance adjuster, of all things: the least heroic frame the medium has ever put on a necromantic power, and the frame is the genius. Will trade: patience, in any quantity. Will never say out loud: anything; the inspector has no lines. FUNCTION: the reasoning engine. The game's entire cast of verbs lives in this one head.
+
+**THE MEMENTO MORTEM (the watch)** — wants to be pointed at the dead. Will trade: the final seconds of sound, then the frozen instant, walkable. FUNCTION: the single evocative verb (W4). It is clue-source and horror at once, and it never editorializes: it shows the moment and lets the moment testify.
+
+**THE LOGBOOK** — wants three fields per face: name, fate, hand that caused it. Will trade: validation, in threes (W7). Will never say out loud: which of your entries is the wrong one; only that the chime hasn't come. FUNCTION: the deduction workspace and the anti-brute-force law in one binding.
+
+**THE SIXTY** — wanted, severally: wages, home, mutiny, mercy, the treasure, each other. All dead or gone, every want frozen mid-sentence in some tableau. Will trade: their identities, to a reader patient enough to notice who stands near whom. FUNCTION: the puzzle. Not one of them is the clue to himself (W3); each is the clue to the others. A crew even in death.
+
+**THE ABSENT (lost at sea)** — want to be counted anyway. FUNCTION: the chaining rule (W5): unreachable in the world, reachable through any memory where their corpse appears. The game's tenderest mechanic is that nobody is beyond the ledger.
+
+**THE STORM** — wants you to finish, eventually, and will not enforce it. FUNCTION: the no-timer clock (W8): a pressure that is pure suggestion.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: the dead speak once, in audio, seconds before dying, and the LOGBOOK is the only dialogue the living get)
+
+NODE: WATCH_RAISE — any corpse, entry: remains found
+  The watch offers the moment.
+  > [witness the death]              [gate: none] -> the audio (a name shouted, an accent, a plea), then the TABLEAU
+  > (walk away)                      [gate: none] SILENCE -> the corpse keeps; the storm does not hurry you (W8)
+  THE AUDIO IS THE ONLY SPOKEN DIALOGUE IN THE GAME, and it is always the last thing someone said. The game's script is sixty final sentences. Every name spoken aloud in one is a gift; count them.
+
+NODE: TABLEAU_WALK — inside the frozen instant
+  A moment of death, walkable, zoomable, and everyone in it is evidence.
+  > (examine the corpse)             [gate: none] -> the fate's HOW, sometimes ambiguously (the banked flaw: an unreadable bite/poison frame breaks the fairness contract, W10)
+  > (examine everyone ELSE)          [gate: none] -> the real payload: who stands near whom, whose hammock, whose uniform, who is ALREADY MISSING from this scene (W3)
+  > (find a corpse WITHIN the memory) [gate: visible remains] -> a white-aura door: a memory within a memory (W5); the unreachable dead become reachable
+  TRAP: reading only the victim. The tableau's subject is never its corpse; strip the scene for parts. The player who stares at the dead man learns one fate; the player who reads the room learns four.
+
+NODE: LOGBOOK_ENTRY — the book, entry: any face examined
+  Three fields. Who is this? How did they die? By whose hand?
+  > (enter a certainty)              [gate: evidence] -> the field holds, unvalidated
+  > (enter a reasoned guess beside two certainties) [gate: exactly the Rule of Three] -> THE CHIME: three lock forever (W7). The mechanic that makes a 60-body mystery fair: brute force starves, but one earned inference rides on two proofs
+  > (enter blind guesses)            [gate: none] TRAP -> the book stays silent; wrongness is never located, only unconfirmed. The anti-cheese is also the tension: your errors live among your truths, indistinguishable, until the chime sorts them
+  NOVERB: "Am I right about this one?" No per-entry confirmation exists. The book answers in threes or not at all; certainty must be BUILT, not requested.
+
+NODE: THE_MESH — no speaker; the case as a whole
+  Most memories require information from other memories. A bunk number in chapter one names a corpse in chapter seven; an absence in a later scene is a death certificate for an earlier one.
+  > (cross-reference: manifest x hammocks x ranks x accents x absences) [gate: accrued knowledge] -> the cascade: solving one unlocks three (W6)
+  WHAT THIS NODE COSTS: nothing but attention, which is the entire currency of the game.
+
+NODE: STORM_COMING — the deck, entry: all memories witnessed
+  The signal that the evidence is complete. Not a deadline; a statement of completeness.
+  > (stay and finish the book)       [gate: none] -> the final identifications; near the end the rule softens from three to two (W9): the design easing its own tail
+  > (leave with the book unfinished) [gate: none] SILENCE -> an ending for inspectors who accept an open ledger; the game permits incompleteness rather than falsifying certainty
+
+## V2-C THE BRANCH MAP
+
+COUNT: 1 terminal state at full completion + the graded partials (the branch variable is not WHAT happened — the ship's story is fixed — but HOW MUCH of it the player proved).
+
+B1 — THE LEDGER CLOSED: all 60 named, fated, attributed. WRITES: the complete insurance assessment, the full six-chapter tragedy reconstructed in deducible order. The fixed story, fully earned.
+B-PARTIAL — THE OPEN LEDGER: any subset locked in threes; departure permitted. The completeness is the player's choice and the only score.
+
+THE ANTI-BRANCH FINDING (paired with #18): the sibling proof. Outer Wilds has one ending gated by understanding a world; Obra Dinn has one story gated by proving sixty people. Neither branches at the OUTCOME; both branch per-player at the ORDER OF COMPREHENSION. The deduction genre's branch map is the player's notebook.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: the Amalgamation is LITERALLY an archive of data-portraits of the dead: Obra Dinn's machine ports almost without translation. Build the identification quest (face -> method -> name for the uploaded), the witness-verb (walk a stored moment), death-chaining for the dive's deducible order, and ABOVE ALL the Rule of Three as Bohemia's validation law for deduction content: conclusions lock on cross-confirmation, never singly, so mysteries stay fair without waypoints. Gate the fairness contract at compile (every answer fairly clueable, no ambiguous gotchas — Obra Dinn's few under-clued fates are the cautionary tale). Cross-ref #143's hidden behavioral verdict engine (the ledger the player can't perform for) and #18's trust contract: between them, Bohemia's mystery layer has its three laws: always a way, always fair, always locked in threes.

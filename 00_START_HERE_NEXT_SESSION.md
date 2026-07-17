@@ -63,16 +63,24 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    purple-zero, deterministic). NEXT: wrecks + fire barrels + plot/building
    strips into the baker, then the full V12 slice (all four cells + payload
    wiring) — at that point V11's overlay era ends.
-2. Questbook: LANE PICKED 7/17 (Paolo): THE BACKFILL QUEUE. 72 of >90
-   full-machine after backfill batch 1 (7/17: #05 Disco Tribunal, #06 ME2
-   Suicide Mission, #08 KCD, #11 Anju+Kafei, #12 Planescape, #13 Yakuza
-   substories, #15 Fort Joy — all of 01-16 now full). 77 files remain
-   (#17-94); 19+ graduations to cross the line. The line: work the queue
-   in numeric order, append a V2 PAYLOAD (CAST + node-tree CONVERSATIONS
-   + BRANCH MAP, original content above untouched — #01's payload is the
-   pattern), gate green, commit per batch. #99/#110/#114 are
-   zero-dialogue-by-design: [PENDING Paolo] whether they count; never give
-   them option lines.
+2. Questbook: LANE PICKED 7/17 (Paolo): THE BACKFILL QUEUE. 77 of >90
+   full-machine after backfill batches 1+2 (7/17). Batch 1: #05 #06 #08
+   #11 #12 #13 #15 (all of 01-16 now full). Batch 2: #17 Deus Ex (the
+   social-battle system), #18 Outer Wilds (rumor web, trust contract),
+   #19 Obra Dinn (Rule of Three validation law), #20 Forgotten City (the
+   Rosetta Stone: loop+knowledge+deduction+argue-the-author composed),
+   #21 Pathologic (time-as-resource-to-lose; the finale that CANNOT be
+   argued with). 72 files remain (#22-94); 14 graduations to cross the
+   line (>90 = 91). The line: work the queue in numeric order, append a
+   V2 PAYLOAD (CAST + node-tree CONVERSATIONS + BRANCH MAP, original
+   content above untouched — #01's payload is the pattern), gate green,
+   commit per batch. #99/#110/#114 are zero-dialogue-by-design: [PENDING
+   Paolo] whether they count; never give them option lines.
+   LAW SEEDS SURFACED BY THE BACKFILL (for the compile, not yet locked):
+   THE LOG IS DIEGETIC OR IT IS WRONG (#18+#19+#21 converge); the Rule
+   of Three as the deduction validation law (#19); the social battle as
+   a built system (#17); know whether each finale ARGUES or IS WEATHER
+   (#12/#17/#20 vs #21).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
 ## NEXT ACTION

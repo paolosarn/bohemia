@@ -146,3 +146,77 @@ Quill + Steam (the save-town-vs-save-magic finale, both reasonable, the fourth-w
 clean finale), 19/18/05 (diegetic log/knowledge), our death-math + Difficulty Packages. FUTURE: the
 full Alphyna mindmap GDC transcript as an interface-design reference; Pathologic 1's dual-protagonist
 structure as a perspective-design study.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**ARTEMY BURAKH (the Haruspex)** — wants to clear his name, honor his father, heal a town, and eat today, and cannot afford all four before dark. Will trade: hours. Hours are the only currency that never inflates and never refunds. Will never say out loud: whose district he has already, silently, written off. FUNCTION: the triage officer. The player IS the shortage, walking.
+
+**THE FATHER (dead before the game opens)** — wanted the children protected first: "they are the key to the future." Will trade: nothing; the dead trade in instructions. FUNCTION: the inherited priority. His dying wish is a standing order the player may honor or overrule, and the game never grades which.
+
+**THE TOWN vs THE KIN** — the town wants order, medicine, and someone to blame; the Kin wants its old ways and its own blood kept. Often opposed; both right by their own arithmetic. FUNCTION: the faction triage. Backing one is unbacking the other, in medicine and in meaning.
+
+**THE SAND PLAGUE** — wants districts, in sequence, on a schedule. Will trade: odds. Treatment raises survival PROBABILITY, never certainty (W6). FUNCTION: the antagonist as weather system. It cannot be argued with (contrast every argue-the-author file: #12, #17, #20); it can only be budgeted against.
+
+**THE BODY (hunger, thirst, exhaustion, infection)** — wants maintenance, hourly. FUNCTION: the second clock (W4). Merely existing is a quest with a deadline, and its costs manufacture the moral compromises the story then bills you for.
+
+**THE POLYHEDRON (the miracle)** — wants to keep standing. FUNCTION: half of the finale's scale. The other half is the town, and the beam balances on so few survivors that "winning" is a word the ending refuses to use (W8).
+
+**THE THEATRE** — wants you to know it's a play. FUNCTION: the metanarrative frame. Miss the ending's window and the stage itself turns and berates you (W9): the form commenting on the failure the whole game is about.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the deepest trees here have no speaker, because the cruelest dialogues in Pathologic are with the clock)
+
+NODE: THE_DAY_PLAN — dawn, every day, no speaker. The town's events are already scheduled; you are the only unscheduled thing in it.
+  > (go where the mindmap's freshest thread points)  [gate: none] -> that thread advances; every unchosen thread ages, and some expire TODAY
+  > (go earn food/water/sleep instead)               [gate: meters] -> the body paid; the story billed
+  > (try to do both)                                 [gate: none] TRAP -> the halves of a day save nobody whole
+  NOVERB: "Pause the town." The world runs without you (W1). The loading screens say the thesis out loud: you can't save everyone. The player's daily verb is not "solve"; it is CHOOSE WHOM TO FAIL.
+
+NODE: INFECTED_DOOR — a plagued district, entry: someone's name on your list
+  Behind the door: a person you know, feverish, and your bag with never enough in it.
+  > (spend the tincture here)       [gate: has:tincture] -> the ODDS improve; the outcome stays a die roll (W6); the tincture is now not-somewhere-else
+  > (diagnose, promise nothing)     [gate: none] -> honesty as the only free item in the game
+  > (walk past the door)            [gate: none] SILENCE -> the door stays in the fold's memory; permanence is the game's only abundant resource
+  WHAT THIS NODE COSTS: whatever the NEXT door needed. Triage is a conversation between doors (W5).
+
+NODE: FATHERS_WISH — the memory, standing entry across all 12 days
+  Protect the children first.
+  > (honor it: the children's odds get your scarcest hours) [gate: none] -> a standing order obeyed; adults die of your obedience
+  > (overrule it: triage by your own arithmetic)            [gate: none] -> the wish stays unhonored, and it does not haunt you, which is worse
+  THE CRAFT: the inherited priority is real, stated once, and never enforced. The game trusts the player to argue with a dead man alone.
+
+NODE: HARD_BARGAIN — a shop, prices tripled by plague-day-six, entry: empty pockets, full meters
+  > (pay the gouge)                 [gate: coin] -> poorer, alive, resentful
+  > [steal]                         [gate: unseen] TRAP -> the survival sim's oldest trap: the theft works, and the town you're saving now includes one more person who steals
+  > (barter something a dying trade left you)  [gate: inventory] -> scarcity's economy: everything you own was recently someone's
+  SCARCITY MANUFACTURES COMPROMISE (W4): the game never asks you to be worse; it just prices being good out of reach and watches.
+
+NODE: KIN_OR_TOWN — the two claims, mid-arc
+  > (back the Kin's way)            [gate: bond] -> the town's ledger suffers; the old blood holds
+  > (back the Town's order)         [gate: bond] -> the Kin recedes; the future gets more modern and less itself
+  > (split your hours between)      [gate: none] TRAP -> the two-masters trap, again: halves save nobody whole
+  LOCKS: each day's backing forecloses meetings on the other side; the factions experience your schedule as loyalty.
+
+NODE: TOWN_OR_MIRACLE — the finale, entry: day 12, the survivors countable on your fingers
+  Destroy the Polyhedron and save the town, or let the plague take the town and keep the miracle.
+  > "The town. People over wonder."      [gate: none] -> reasonable, defensible, mourned by half the players
+  > "The miracle. Wonder over remnant."  [gate: none] -> reasonable, defensible, mourned by the other half
+  > (refuse to choose)                    [gate: clock] TRAP -> indecision is the one option the game punishes without ambivalence: everyone loses
+  NOVERB: "Save both." Twelve days of triage were the tutorial for this absence. The finale is the thesis with a lever attached (W8).
+
+NODE: THE_NON_ENDING — the theatre, entry: the ending's window MISSED
+  The stage berates the audience of one. No resolution is performed, because none was earned.
+  WRITES: the fourth wall's verdict (W9). The game about failure fails you formally, in costume.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 2 terminal states + the metanarrative non-ending, over a 12-day ledger of permanent per-name deaths (the real branching is the necrology; the finale just names its scale).
+
+B1 — THE TOWN SAVED, THE MIRACLE DESTROYED. WRITES: the remnant lives; the wonder is rubble; the survivors are the ones your calendar chose.
+B2 — THE MIRACLE KEPT, THE TOWN LOST. WRITES: the inverse, argued just as well.
+B3 — THE NON-ENDING: the window missed; the theatre's contempt. WRITES: formally, nothing; that is the punishment.
+THE LEDGER UNDERNEATH: every named death across 12 days, each traceable to an hour you spent elsewhere. Un-100%-able BY DESIGN; the missable content IS the theme.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Pathologic is the master text for Bohemia's survival core, with one law and one warning. The law: TIME IS A RESOURCE TO LOSE, NOT BEAT — build our crisis arcs (plague, siege, winter, purge) so triage is the gameplay, the unsaved die permanently into the fold, treatment buys ODDS not outcomes, and the pressure CREEPS (calm day one, dire day five). The warning, non-negotiable per W10: our Difficulty Packages MUST extend to survival scarcity, not just the Dead-Eye dial — Ice-Pick shipped the cruelty unturnable and had to patch in mercy; Bohemia ships the knobs day one. And the mindmap (W7) confirms what the unrecorded ledger was already becoming alongside #18's rumor web and #19's logbook: the questlog belongs INSIDE the fiction. Three files, one interface law: THE LOG IS DIEGETIC OR IT IS WRONG. NOTE THE CONTRAST for the finale bank: this is the rare masterpiece finale that CANNOT be argued with — the plague is weather, not an author. Bohemia holds both: the Amalgamation door argues (#12/#17/#20 lineage); the winter does not (this file). Know which kind of ending each quest is building toward.

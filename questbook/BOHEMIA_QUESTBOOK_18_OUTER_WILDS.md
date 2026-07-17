@@ -127,3 +127,64 @@ Obra Dinn/Return-of-the-Obra-Dinn kinship). Cross-ref Questbook 11 (living-clock
 (failure-as-learning), 12 (comprehension->acceptance), 09 (contrast: deliberate withheld closure), 06
 (the clock). FUTURE: a Return of the Obra Dinn deep-dive (deduction-as-progression sibling); an Outer
 Wilds designer talk on the rumor-web/ship-log system.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE HATCHLING (the player)** — wants, at minute one, only to fly. Wants, by the end, to understand why the sky keeps ending. Will trade: 22 minutes at a time, forever if needed. FUNCTION: the only save file that matters. Nothing in the world levels; the person holding the controller does (W1).
+
+**THE NOMAI (all dead)** — wanted to find the Eye of the Universe, the signal older than the universe itself, and died mid-search, all at once, with their arguments still on the walls. Will trade: everything they knew, freely, to anyone who learns to read. Will never say out loud: nothing; they say EVERYTHING out loud. Their wall-texts are preserved conversations — two scientists disagreeing, a teacher chiding a student, a mother worrying — and the corpus of their bickering is the game's script. FUNCTION: the cast that speaks entirely from the grave. The most alive characters in the file have been dead for 280,000 years.
+
+**THE SHIP LOG (the rumor web)** — wants to show you what you know and what you merely suspect. Will trade: a thread to pull, always, with no waypoint ever. FUNCTION: the quest log as a portrait of the player's own curiosity (W3). It grows in a different shape for every person who plays.
+
+**THE ANGLERFISH** — want to eat what they hear. Blind, huge, and honest about both. FUNCTION: the knowledge-gate wearing a monster suit (W5). The gadget that beats them does not exist; the sentence that beats them is written in a fossil cave: they're blind. Drift.
+
+**THE SUN** — wants to die on schedule. FUNCTION: the 22-minute metronome. Pressure, not tyranny (W8); the loop is a unit of learning and the supernova is the bell.
+
+**THE EYE OF THE UNIVERSE** — wants an observer. FUNCTION: the finale that cannot be reached by force, luck, or grinding: only by understanding assembled across every loop (W9).
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: almost every speaker is dead, and reading IS the dialogue. The options are where you point your curiosity)
+
+NODE: CAMPFIRE_WAKE — Timber Hearth, entry: every loop, forever
+  The same marshmallow, the same sky, the statue's eyes glowing with what you now both remember.
+  > (launch: chase the newest thread)   [gate: none] -> wherever the rumor web's "more to discover" flag pointed
+  > (launch: chase an old suspicion)    [gate: none] -> the order is the player's; the web only guarantees a thread exists (W3)
+  > (sit at the fire a minute)          [gate: none] SILENCE -> the game permits it; the sun does not extend the courtesy
+  NOVERB: "Tell someone about the loop." The village cannot hear it in any way that matters. The loneliness of the knower is structural: the knowledge cannot be delegated, only used.
+
+NODE: NOMAI_WALL — any ruin, entry: translator raised
+  A conversation between dead people, mid-disagreement, preserved in spiral script.
+  > (translate the next line)           [gate: none] -> the argument continues; one voice doubts, one insists; the doctrine emerges from the friction
+  > (follow the name they mention)      [gate: none] -> a new rumor-web node: KNOWN points to IMPLIED
+  > (walk away mid-text)                [gate: none] SILENCE -> the wall keeps its patience; it has kept it a quarter million years
+  THE CRAFT: the Nomai never lecture. They ARGUE, tease, worry, and grieve with each other, and the player eavesdrops on a civilization's character through its disagreements. Exposition as overheard love.
+
+NODE: DARK_BRAMBLE_MOUTH — the fog, entry: engines hot, fish unseen
+  > [fly in, engines on]                [gate: none] TRAP -> the sound is the dinner bell; the loop ends in teeth
+  > [cut engines, drift]                [gate: KNOWLEDGE: the fossil cave's lesson — they are blind] -> silent passage; the monster was a reading-comprehension question (W5)
+  > (turn back)                         [gate: none] SILENCE -> the web keeps the node flagged; there is always a way (W4), and the way is a sentence
+  THE ONE LINE DOING THE WORK is in a cave on another planet, written beside a dead fish's skeleton, by a Nomai child. The key to the scariest place in the game is a child's observation, and the game trusts you to carry it.
+
+NODE: THE_CLOCKWORK — no speaker; the solar system during one loop
+  Sand drains from one twin planet to the other, burying ruins here, exposing them there. A crust crumbles into a black hole. A cyclone lifts what it lifted last loop, on time.
+  > (be at the right place at the right MINUTE)  [gate: knowledge of the schedule] -> the ruin is open this once, as it was always going to be
+  > (arrive late)                       [gate: clock] -> next loop. The reset costs nothing but time, and banks everything you saw (W6, W7)
+
+NODE: THE_EYE_APPROACH — endgame, entry: comprehension assembled (the warp core's location, the vessel, the coordinates: three knowings, no items)
+  > (go, because you finally know why and how)   [gate: UNDERSTANDING, nothing else] -> the finale: knowledge resolving into acceptance (W9)
+  > (keep looping instead)              [gate: none] SILENCE -> the sun keeps its schedule; the game never forces the ending on the unready
+  NOVERB: "Save the sun." It was never that kind of story. The removed verb is the meditation: some endings are not problems, and the game's deepest kindness is refusing to pretend otherwise.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 1 terminal state, and the count being ONE is the design finding. (Plus the quit-anytime non-terminal the loop makes eternal.)
+
+B1 — THE EYE. Reached only by assembled understanding; identical in mechanism for every player and unique in ROUTE for every player, because the branching all happened in the ORDER of comprehension (W2, W3). WRITES: nothing to a save file; everything to the person.
+
+THE NON-TERMINAL — THE LOOP ITSELF: every death and reset. Not a branch; the corridor between insights. Failure costs 22 minutes and pays in ship-log entries (W7).
+
+THE ANTI-BRANCH FINDING: Outer Wilds proves a masterpiece can have ZERO outcome-branches when the player's KNOWLEDGE is the state that changes. The branch map lives in the rumor web's per-player growth pattern, not in endings.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: this is the master text for Bohemia's generational fold: the heir wakes at the campfire with the dynasty's ship log. Port the four load-bearing pieces: (1) the unrecorded ledger as a RUMOR WEB (known vs implied, no waypoints, always a thread); (2) Amalgamation truths physically present from act 1 and gated ONLY by comprehension (Q050's door was always reachable; the dynasty just didn't know what to say); (3) the trust contract, gated at compile: every locked truth in Bohemia MUST have a knowledge-key somewhere in the district or the generations, no dead mysteries (the deliberate withheld-closure of #09 is a separate, narrow tool with its own registry); (4) a few TRUE once-only revelations guarded as sacred (W10): the fold must never cheapen the Amalgamation's origin into a repeatable beat. And bank the Nomai lesson for every dead voice in Bohemia's walls: the dead teach best when they are overheard DISAGREEING, not when they lecture.
