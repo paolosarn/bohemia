@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.
-1206 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
+1221 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2630,3 +2630,53 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.
   ->  THE RECEIPT-MASK [W8, F3 fixed]
       When a Bohemia healing leaves equipment (and it should — the wrappings-as-mask image is too good to leave), the item carries its receipt per Q131 PORT 4: the [READ] names whose condition it was; the healed one reacts if they see it worn. The corpus's two mask-laws (Q128's testifying relic, Q131's receipt-bearing armor) close here as one.
 
+### #139  THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)
+  ->  PORT 1 — THE EXCUSE MERCHANT [W8, F2 — the core port]
+      system: conscience-no-karma-bar / the fold / [READ]
+      Bohemia must never do Branch A to its player (F2's law). What it CAN steal — the best thing in the scene — is the lie at the pit. Not the atrocity: the authorship-laundering afterward. Port it as a conversation that happens AFTER any player deed the dial recorded as ugly-but-chosen: a witness offers to sell the player the excuse. The fold records the deed either way. What this conversation writes 
+  ->  PORT 2 — THE PRICED REFUSAL [F2's law made mechanical]
+      system: the dial / survival accounting / 120 BPM combat
+      The anti-Gate. Wherever Bohemia stages an overwhelming-force problem with a terrible tool nearby, the refusal EXISTS and is PRICED: turning back is on the sheet and costs real, survivable, painful resources (the detour's days of water, a generation flag, a faction door closing). The tool stays genuinely tempting on the numbers (the Q126 F1 lesson: a temptation must be the better deal). The scene's
+  ->  PORT 3 — AGENCY OVER SEQUENCE AS A TELL, NEVER A CHEAT [W5]
+      system: .bq format / quest validation
+      W5 is a scalpel with two edges. Used against the player (the Gate), it is F2 waiting to happen. Used diegetically it is gold: let NPCs offer the player sequence-agency as a manipulation ("you pick which checkpoint we hit first") and let a sharp player NOTICE that outcome-agency was never on the table — noticing is a knowledge-gate. Port as a validator-testable pattern: a @TALK whose OPTs all conve
+  ->  PORT 4 — THE MANDATORY WALK, ON THE BEAT [W6]
+      system: 120 BPM LAW / I-MOVE-YOU-MOVE / the live slice
+      Bohemia's rhythm is uniquely built for W6 and no other game has this: the world advances ONLY on the player's step, so an aftermath cannot be sprinted past — every beat of it is individually chosen. After any large consequence, route the player's exit THROUGH the consequence with run disabled (the slice already supports per-context movement rules; the patrol wiring proved the loop takes law-driven
+  ->  PORT 5 — THE UI THAT READS THE LEDGER BACK [W9, tied to the staged finale-is-a-ledger-read law]
+      system: the Amalgamation / [READ] / act boundaries
+      The loading-screen turn, done Bohemia's way: the Amalgamation already owns the game's one unanswerable channel (it is made of the recorded dead). At act boundaries, its interstitials shift from ambient to second-person, quoting the player's OWN fold entries back — never inventing, never scoring, just reading selected lines aloud in the one surface with no reply verb. This is confirmation data for 
+
+### #140  THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)
+  ->  PORT 1 — THE READ IS A FUNCTION OF THE FOLD [W1, W2 — core port; fourth confirmation of the staged law]
+      system: the fold / [READ] / act boundaries / conscience-no-karma-bar
+      THE FINALE IS A LEDGER-READ now has its fourth and cleanest data point (Q136 theater, Q137 arithmetic, Q102 rooftop, Q140 corridor). The corridor adds the missing spec: **the read must be a FUNCTION of stored deeds, visibly, so the player can feel that a different life would have produced a different speech.** Not tiers of a meter — branches on actual entries. ``` @TALK ledger_read speaker=reader 
+  ->  PORT 2 — THE VERDICT ARRIVES REGARDLESS OF SKILL [F1's law, made testable]
+      system: the dial / quest validation
+      Gate-rule for Bohemia's endgame: every terminal read must be reachable through defeat. If the finale involves a fight, losing it routes to the read (a different POSTURE of the read, fine — a locked-out read, never). Testable invariant for the eventual finale quest file: every combat outcome edge must land in a node carrying the read. [PENDING, Paolo's call: what defeat COSTS at the finale — the re
+  ->  PORT 3 — MERCY THAT REMEMBERS BEING TAUGHT [W6]
+      system: .bq TRAPs / faction memory / the 13 factions
+      Bohemia already bans karma meters; what it can steal is the epistemically-clean trap: an NPC's offered mercy becomes a trap ONLY where the player's own recorded conduct taught that faction that mercy is a free hit. The trap must cite its education. ``` @TALK surrender_offer speaker=cornered_enemy entry=combat:enemy_breaking @SAY Okay. Okay! I'm done. Weapons down, look. Done. @OPT "Stand down. You
+  ->  PORT 4 — THE OFF-RAMP THAT BANKS NOTHING AND PROVES EVERYTHING [W8]
+      system: quest structure / the fold
+      Before any point-of-no-return Bohemia finale, one free, real, unpunished exit: walk away and the door stays open (Q126 PORT 2's patient offer, inverted to the player's side). The fold records the visit and the retreat as entries WITHOUT weight — their only function is that the eventual read can say "you stood at the door twice." Proof-of-choice as pure record. No mechanical cost, ever, or it stops
+  ->  PORT 5 — THE RETRY LEDGER [W10]
+      system: death/generation loop / the fold / 120 BPM
+      Bohemia is a roguelite with generations: W10 ports natively. Deaths against a finale-class opponent write fold entries the opponent's dialogue consumes on the next attempt (and the next generation's attempt — the opponent remembers the LINE, not the body). Undertale varies openers by death count; Bohemia can vary them by WHOSE death count, which no other game can do. [PENDING, Paolo's call: whethe
+
+### #141  THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)
+  ->  PORT 1 — THE MISSING-PERSONS ORGAN, WHOLE [the demanded engine, Q133/Q134/Q138 — core port]
+      system: settlement systems / the fold / [READ] / survival accounting
+      This game is the missing-persons organ's design document. The Bohemia shape: the settlement keeps a BOOK — rows generated from the fold's real events (who left the walls and never returned, who was found, who was traded away). The player-as-inspector takes cases: evidence classes are testimonies (living NPCs' [READ]-able memories), effects (items with owner-tags — the record item class already exi
+  ->  PORT 2 — CASES FROM THE FOLD, NOT FROM AUTHORS [F2's law made structural]
+      system: roguelite generation / generational persistence
+      The organ's cases are the run's real absences: the fold already records every NPC's true fate (the world simulates deaths the player never sees). A case = a fold entry the SETTLEMENT doesn't know yet. The player closes the gap between what happened and what is known — which makes the organ the first system where Bohemia's simulation depth pays out as CONTENT. Generational escalation Obra Dinn cann
+  ->  PORT 3 — ABSENCE AS AN EVIDENCE CLASS [W6]
+      system: [READ] / muster mechanics / 120 BPM world
+      Bohemia's beat-world takes musters natively: rolls, ration lines, watch rotations are all periodic events the fold logs. Port the negative-space verb: the player can [READ] a muster RECORD and diff it against a later one — presence/absence across two documents as provable evidence. Mechanically cheap (two lists and a diff), epistemically deep, and it teaches players to treat the settlement's borin
+  ->  PORT 4 — THE WATCH IS [READ], LITERALIZED [W7]
+      system: [READ] / the Amalgamation
+      The watch's contract — replay without editorial — is exactly [READ]'s law. Port the DISCIPLINE, not the prop: whatever Bohemia surface replays a recorded moment (a record item, an Amalgamation portrait, a data ghost), it must never highlight, annotate, or score. Evidence renders; inference stays the player's. Any UI helper that marks "the important detail" in a replay is a violation of the organ's
+  ->  PORT 5 — THE PAYOUT TABLE FINALE [W9, W10 — feeds Q137's generational audit engine]
+      system: survival economy / act boundaries / the staged finale-is-a-ledger-read law
+      The assessment epilogue is the ledger-read law's ECONOMIC register (Q140 delivered the moral register the same day; the two files are a matched pair). At generation end, Bohemia runs the settlement's assessment: every case closed pays, every case left open is read aloud as open — graded honesty, W10, no scolding, the empty rows simply named. The audit engine (Q137 PORT 1) gets its output format fr

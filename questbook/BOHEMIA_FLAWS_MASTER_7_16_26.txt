@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7
-651 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
+660 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1802,3 +1802,35 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7
   X  THE QUEST IS GEOGRAPHICALLY BURIED
      Ikana's late-game gating means most players never meet Pamela at all; the corpus's tenderest quest lives in its least-visited postcode. Placement as quiet erasure (cf. Q128 F1's guide-dependence — the sibling quests share the flaw family).
 
+### #139  THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)
+  X  THE THOUSAND UNINDICTED KILLS
+     The game's most-repeated criticism, a decade running: the scene indicts one atrocity while the surrounding game has the player gun down hundreds of the same soldiers with zero narrative weight, in combat that plays like the genre it is condemning. If shooting the 33rd man 400 is heroic gameplay and burning man 401 is a war crime, the difference is authored, not moral.
+     LAW: the ledger has no genre exemptions. If a death class is meaningful once, it is meaningful every time, and NO DAMAGE BEFORE THE DIAL already encodes this — the dial is the same dial in setpiece and corridor. Never build a scene whose weight depends on the surrounding game agreeing to forget itself.
+  X  THE ACCUSATION OF A CHOICE THE MECHANISM MADE
+     Second-most-repeated criticism: the game removes the alternative, then blames the player for not taking it. "You could have stopped playing" is real but external — inside the fiction the player is railroaded into the act and then held individually responsible. Critics called it having its cake and shooting it too.
+     LAW: never accuse the player of an authored act. If Bohemia wants the player to feel the weight of a deed, the deed must have been available to refuse AT COST, on-screen, with the refusal priced and survivable. The accusation must always be able to survive the reply "I had another option and I know what it was." Verbs-removed is a tool for the HEARER's side of a conversation (the locked law), never for the player's own moral verbs.
+  X  MEDIOCRE MOMENT-TO-MOMENT COMBAT
+     Broadly noted at launch and after: the shooting the game deconstructs is also just serviceable-at-best shooting. Some argued intentionality; intentional tedium is still tedium (same lesson banked from Undertale's genocide grind, Q28).
+     LAW: deconstruction is not an excuse. The loop being critiqued must be GOOD, or the critique lands on the developer. Bohemia's dial combat must be excellent first and meaningful second; a boring system cannot afford a message.
+
+### #140  THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)
+  X  THE MESSAGE IS DIFFICULTY-GATED
+     The route's full argument (the fight's cheating AS rhetoric, the nothing-turn, the taint) is only witnessed by players skilled and stubborn enough to beat the hardest fight in the game. The audience for the deepest content is, by construction, the players most committed to the conduct being indicted — everyone else watches it on video, which launders the exact complicity the design depends on.
+     LAW: never lock the LEDGER-READ behind execution skill. The read must arrive for everyone whose ledger earned it; difficulty may gate victory, never the verdict. In dial terms: losing the finale must still deliver the finale.
+  X  CHECKLIST MORALITY AT THE ROUTE GATE
+     The no-mercy route demands a strict kill-count checklist per region; miss one and the world quietly reverts to neutral. Widely criticized: it makes the game's darkest moral state something you can FAIL INTO NEUTRAL by sloppiness, and conversely something achievable only with a wiki open — intent laundered through bookkeeping.
+     LAW: moral state derives from deeds, never from quota completion. The fold records what happened; it never requires the player to have been thorough about it. If Bohemia ever needs an "everyone is gone" state, it must emerge from the state of the world, not from a counter hitting a target.
+  X  THE CULTURAL ECHO FLATTENED THE CRAFT
+     A decade of memes turned the corridor's carefully-earned menace into a costume; the character's judgment scene now arrives pre-parodied for many players. Not the game's fault, but a real transmission loss — the design depended on the judge being underestimated, and fame revoked that.
+     LAW: the judge figure must be structurally protected from front-loading. Bohemia's equivalent (whoever reads the ledger) should be established by FUNCTION at the moment of the read, not by a marketable persona beforehand. Singleton registry discipline (one Papyrus-class, one Sheogorath-class) already points this way; add: the reader of the finale-ledger is never the mascot.
+
+### #141  THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)
+  X  THE TAIL DEGRADES INTO ELIMINATION
+     The consensus criticism: the final identities (the interchangeable topmen and seamen) hang on evidence thin enough that most players finish by disciplined guess-cycling — the rule of three used as a slot machine with good odds. The game's deepest promise (every row REASONED) is broken by its own last mile.
+     LAW: in any identification organ, every single case must carry at least one authored, sufficient evidence path — the mesh may make cases EASIER together, but no case may be closable ONLY by elimination. If the evidence budget runs out, cut the case, never pad the roster. (MECHANISM-MINE / CONTENTS-PAOLO'S: the organ validates evidence-sufficiency per case at build time; which cases exist is canon.)
+  X  ONE-SHOT BY CONSTRUCTION
+     The game is unrepeatable: knowledge is the only content, so a second run contains nothing. Widely accepted as the honest price of the form — but it is a price, and a Bohemia that spends big authoring budget on knowledge-quests pays it every run UNLESS the knowledge is generated.
+     LAW: identification content must be roguelite-native: the ORGAN is authored once (the verbs, the evidence classes, the rule-of-three verification), the CASES are generated per run from the settlement's actual births, deaths, and disappearances. Obra Dinn hand-built sixty rows; Bohemia's sixty rows are whoever actually went missing this generation. The fold already stores the truth; the organ sells the player the chance to LEARN it.
+  X  ACCESSIBILITY RIDES ON SENSORY CHANNELS
+     Accents carry nationalities, audio carries names, the 1-bit dither carries everything else; players with hearing or visual difficulties lose evidence CLASSES, not just polish. Documented, discussed, only partially mitigated.
+     LAW: every evidence class must exist in at least two channels (a spoken name also appears written somewhere; a visual tell also has a testimonial echo). Redundancy is not hand-holding; it is the same mesh principle the game already loves, applied to senses.

@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)
-1387 findings / 138 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
+1417 findings / 141 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3052,3 +3052,68 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)
   W10 SILENCE IS THE WINNING STRATEGY
       No argument defeats Pamela; patience and infrastructure do. The quest's persuasion model — make things safe enough that the guard can afford to look away — is the tenderest mechanic in the corpus.
 
+### #139  THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: The Line)
+  W1  THE REMOVED VERB AS THESIS
+      The game does not argue that people surrender agency under pressure; it builds a control scheme where the surrender is the only mapped input, then lets the player discover their own hands agreeing. The argument is somatic, not rhetorical.
+  W2  THE CONSCIENCE SPEAKS FIRST
+      Lugo's line lands BEFORE the crime, not after. Objection-in-advance converts the player from ignorant to warned, which converts the aftermath from tragedy to verdict. Cheap version: a post-hoc lecture. This: a dare, accepted.
+  W3  THE WITNESS IS THE INSTRUMENT
+      The man who objects holds the targeting camera. No clean hands anywhere in the frame — the machine forces every moral position to also be a job in the firing solution.
+  W4  THE INTERFACE IS THE UNRELIABLE NARRATOR
+      White dots are not a rendering budget; they are the scene's actual villain. The game weaponizes the genre's own abstraction layer, so the indictment reads on anyone who has ever enjoyed a mission like this, which is everyone holding the controller.
+  W5  AGENCY OVER SEQUENCE, NONE OVER OUTCOME
+      The player chooses the order of fire and nothing else, and it FEELS like authorship at the exact moment it must, because hands moving reads as choosing. The cheapest agency, deployed at the most expensive moment.
+  W6  THE MANDATORY SLOW WALK
+      Consequence at walking pace, sprint disabled, weapons down. The game understands that speed is the player's anesthetic and simply confiscates it. Bohemia's beat system can do this natively: the world that only moves when you move cannot be hurried past what you did.
+  W7  THE COST REVEALED AFTER COMMITMENT, NOT BEFORE
+      The huddled cluster is visible during targeting — readable in hindsight, unreadable in genre. The information was THERE. The player's exoneration dies on replay, which is when the scene does its deepest work.
+  W8  THE ALIBI CHARACTER
+      Walker inventing Konrad at the pit is the most honest depiction in games of how people actually process guilt: not denial of the event, but reassignment of the author. The quest's true product is not the atrocity; it is the lie, manufactured on-screen, from parts the player supplied.
+  W9  THE UI TURNS HOSTILE
+      Moving the judgment into loading screens — unskippable, unanswerable, second-person — finds the one room in the house where the player cannot talk back. A ledger-read delivered where no dialogue tree exists to soften it.
+  W10 THE EXIT LIVES OUTSIDE THE SOFTWARE
+      The only winning move is authored to be invisible from inside the fiction, and the developers said so in the press instead of the game. The design trusts its negative space all the way to the storefront. (Exit-design theory, no-exit class — the staged law's darkest data point.)
+
+### #140  THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)
+  W1  THE STATS WERE THE CONFESSION
+      EXP/LOVE re-translation converts thirty hours of the player's own optimization into testimony, retroactively, in two sentences. The cheapest possible data (two integers) becomes the heaviest possible scene, because the player generated every point of it.
+  W2  THE READ VARIES BY THE ACTUAL NUMBER
+      Not three flavors of flattery — materially different postures at EXP 0, low EXP, and the route threshold, plus reload-awareness on top. The judgment is a function, and the player can feel that it is a function, which is what makes it fair.
+  W3  THE JUDGE HAS THE LEAST POWER AND THE MOST STANDING
+      One HP, one damage, no ambition, and the moral center of the entire game. Authority is borrowed entirely from what he knows and what he lost — never from stats. (The anti-boss. Bohemia's dial should meet him someday.)
+  W4  LAZINESS AS FORESHADOWED GRIEF
+      The comedy of his sloth is re-read, in the corridor, as the rational response to a world someone keeps resetting. The game hides its saddest systems-lore inside its funniest character and cashes the whole account in one scene.
+  W5  THE CHEATING FIGHT AS RHETORIC
+      Every broken rule maps one-to-one onto a rule the player broke socially (first strike for first strike, revoked sanctuary for revoked sanctuary, dodging for a world that stopped standing still). Mechanics AS argument, with a bijection you can teach from.
+  W6  MERCY WEAPONIZED EXACTLY ONCE
+      One trap-SPARE in the whole game, held by the honest character, on the route where the player proved mercy was exploitable. The trap is epistemically clean: it only lies to people who made lying true.
+  W7  THE NOTHING-TURN
+      The final attack is a refusal to take one — victory-by-waiting inverted into siege-by-waiting. The most hostile possible use of a menu, and the best SILENCE node ever authored: the game goes quiet and simply outlasts.
+  W8  THE OFF-RAMP BEFORE THE FIGHT IS REAL
+      Walk away at the threshold and he genuinely lets you. It changes nothing banked and everything known: the scene proves the player CAN stop, so that continuing means what it means. (The exact mercy Q139's Gate refuses to extend — pair these two files at compile.)
+  W9  THE VERDICT OUTLIVES THE SAVE SYSTEM
+      The completed route's taint survives True Reset. The one thing the player cannot take back is having been the kind of player who did it, and the GAME AGREES, at the file level. Persistence as moral architecture.
+  W10 THE FIGHT'S FAILURE STATES FEED THE TEXT
+      Death counters alter his openers; even losing writes lines. No attempt is outside the record — the corridor is a ledger even about its own retries.
+
+### #141  THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Return of the Obra Dinn)
+  W1  COMPREHENSION IS THE ONLY VERB
+      No combat, no economy, no locks: understanding is the complete gameplay loop, and it holds sixty cases without a single fetch quest. The twelfth and terminal confirmation of the staged law: comprehension doesn't need to be A branch — it can be the game.
+  W2  THE INVERTED MYSTERY
+      Not "who killed this known man" but "who IS this body" — identity itself as the puzzle object. The genre's rarest question, and the one a post-collapse city asks every single day.
+  W3  IDENTITY IS SOCIAL
+      The clue to a man is almost never on the man: it is in who he stands near, who calls to him, whose boots are under whose berth. Sixty puzzles that are one mesh — solving anyone testifies about everyone.
+  W4  THE RULE OF THREE
+      Verification in batches makes brute force combinatorially absurd while making REASONED commitment cheap, and even converts gambling into inference (the two-plus-one bundle). The cleanest anti-cheese mechanism ever attached to a knowledge system.
+  W5  THE JUDGE IS SILENT BETWEEN VERDICTS
+      Wrong entries fail without feedback. The withheld error signal is what forces actual understanding — a grading machine that hints would collapse the epistemics. Bohemia's validator culture should study the courage of this silence.
+  W6  NEGATIVE SPACE IS EVIDENCE
+      Deaths provable only by absence across scenes: the game trusts players to reason from what is NOT there, and pays that trust in its most advanced identifications.
+  W7  THE WITNESS CANNOT EDITORIALIZE
+      The watch replays; it never explains, never highlights, never scores. Total separation between EVIDENCE (the world's job) and INFERENCE (the player's job) — the division most detective games fumble by making the detective smart.
+  W8  FURNITURE TESTIFIES
+      Hammock numbers, shoe placement, uniform details: the environment is deposed like a witness. Authored density over interactivity — nothing is touchable and everything speaks.
+  W9  THE PAYOUT TABLE AS CATHARSIS
+      The ending converts sixty verified truths into compensations and fines — the ledger cashed out as the emotional climax. Proof that ACCOUNTING CAN BE THE FINALE when every row was earned: Q137's generational audit engine has a shipped precedent.
+  W10 GRADED HONESTY AT EVERY EXIT
+      Partial books get partial assessments, no scolding, no pretending. The quest respects exactly what the player established and nothing more — the model for how an organ reports half-finished truth.

@@ -27,7 +27,8 @@ a real layout:
   /archive    superseded files, ARCHIVE_ prefix dropped (the folder IS the tag)
   root        CLAUDE.md, this file, ARCHITECTURE_MAP, CANON_INDEX, _MANIFEST
 
-ALL GATES GREEN at handoff: 15 gates, ~30s, every gate path repo-aware.
+ALL GATES GREEN at handoff: 16 gates (QUESTBOOK joined 7/17), ~40s, every
+gate path repo-aware.
   python3 gates/bohemia_gates.py          (everything)
   python3 gates/bohemia_gates.py --fast   (skips the two pixel sweeps)
 
@@ -143,15 +144,28 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    Amalgamation's). Gate: test_v11.js now 28 checks incl. roster-must-match-
    modules and a parse check on every script block after injection.
 3. HD TILE REPOS: DONE 7/17. Joined md5-exact, live in /banks, chunks deleted.
-4. FRESH QUEST MINING: ~72 whole-game teardowns still in the pool. Target >90
-   individual quests at v2 before master compile; currently 54.
+4. FRESH QUEST MINING: BATCH 8 LANDED 7/17 (#139 the Spec Ops white phosphorus
+   machine, #140 the Undertale judgment corridor, #141 Obra Dinn's
+   identification loop; the last one IS the missing-persons organ's design
+   document, Q133/Q134/Q138's demanded engine). 57 of >90. THE QUESTBOOK HAS
+   TEETH NOW: gates/questbook_gate.py is gate #16 in the suite: 10 W-points,
+   option lines, sections, branch counts, END markers, and every .bq port
+   block parsed through the real bohemia_bq.js (a port that cannot be pasted
+   into the lab is a wish). Masters + gap matrix are machine-appended by
+   tools/bohemia_questbook_extract.py. NAMED FAILURES, standing jobs: the full
+   extraction REGENERATOR did not survive the dead chat (the appender is the
+   working half); ARCHIVE.html not regenerated this batch for the same reason.
+   Backfill queue confirmed by the gate: 136 pre-v2 files with no conversation
+   machine. Two law locks got fresh confirmations: FINALE-IS-A-LEDGER-READ
+   (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
-Slice track is clear: lamps ON (item 1), patrol WIRED (item 2), HD repos joined
-(item 3). Next up is item 4, FRESH QUEST MINING from the queue (target >90
-individual quests at v2, currently 54), plus the shelf waiting on Paolo:
-GitHub write access for the push, WALL_PICKER_BATCH2 thumbs (48 candidates),
-and the (16,44)/(2,44) lamp-pairing eye call.
+Keep mining: next batch from the queue (Witcher contracts, Kenshi, Sunless Sea,
+Mask of the Betrayer, Tyranny, SH2 Eddie, Vampyr, Shivering Isles, Vaermina,
+the Pamela-sibling files). 57 of >90. Also on deck: rebuild the questbook
+ARCHIVE/extraction regenerator as a real factory. Waiting on Paolo: GitHub
+write access for the push, WALL_PICKER_BATCH2 thumbs (48), the (16,44)/(2,44)
+lamp-pairing eye call, patrol owner colors.
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
 GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white

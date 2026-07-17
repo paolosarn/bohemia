@@ -1,4 +1,14 @@
 # BOHEMIA QUESTBOOK — MASTER INDEX
+> **[BATCH 8 LANDED 7/17/26]** Files #139-#141 mined fresh from the pool at v2
+> depth (Spec Ops white phosphorus, the Undertale judgment corridor, Obra Dinn's
+> identification loop), gated by the NEW gates/questbook_gate.py (now gate #16 in
+> the suite: 10 W-points, option lines, sections, branch counts, END markers, and
+> every .bq port block parsed through the real bohemia_bq.js). **There are now 141
+> questbook files on disk, 1-141, zero gaps, zero collisions.** Individual quests
+> at v2-bound depth: 57 of the >90 target. Masters + gap matrix machine-appended
+> (tools/bohemia_questbook_extract.py); ARCHIVE.html regen still pending the full
+> generator rebuild (named failure, standing job).
+>
 > **[STALE COUNT CORRECTED 7/16 MERGE]** This index said 126 files in one place and
 > 124 in another. **There are 138 questbook files on disk** (verified: numbers 1-138,
 > zero gaps, zero collisions, audited BY NUMBER per the #102 lesson). The 12 fresh
