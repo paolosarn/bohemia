@@ -258,22 +258,27 @@ def bake_intersection(lanes_ew, lanes_ns):
     # mirror for the opposite approach. DEAD state: act-1 grid default.
     sigbank = json.load(open('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt'))
 
-    def sig_pick(color, direction):
-        # ARM LAW: 3-lane arterial -> long arm; dead (act-1); real e/w sprite
+    def sig_pick(color, direction, face):
+        # ARM LAW: 3-lane arterial -> long arm; dead (act-1); real e/w sprite;
+        # FACE LAW: south-side masts show faces (s), north-side show backs (n)
         for s in sigbank['signals']:
             if (s['kind'] == 'intact' and s['state'] == 'dead' and s['arm'] == 'long'
-                    and s['color'] == color and s['dir'] == direction):
+                    and s['color'] == color and s['dir'] == direction
+                    and s.get('face', 's') == face):
                 return s
-        fail('signal bank missing %s/%s long dead intact' % (color, direction))
+        fail('signal bank missing %s/%s/%s long dead intact' % (color, direction, face))
 
     c0, r0, c1, r1 = blk['meta']['box']
     cwn = 0
     while blk['grid'][r1 + 1 + cwn][blk['meta']['medCol']]['g'] == 'crosswalk':
         cwn += 1
-    ax, ay = c0 - cwn, r1 + cwn + 1        # SW corner: arm east over the approach
-    bx, by = c1 + cwn, r0 - cwn - 1        # NE corner: arm west (real w sprite)
-    for (cx2, cy2, s) in ((ax, ay, sig_pick('galv', 'e')),
-                          (bx, by, sig_pick('bronze', 'w'))):
+    corners = (
+        (c0 - cwn, r1 + cwn + 1, sig_pick('galv', 'e', 's')),    # SW: faces
+        (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'n')),  # NE: backs
+        (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 'n')),    # NW: backs
+        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),  # SE: faces
+    )
+    for (cx2, cy2, s) in corners:
         if 0 <= cy2 < H and 0 <= cx2 < 24:
             art = img_of(s['b64'], 'RGBA')
             outa.alpha_composite(art, (cx2 * T + T // 2 - s['pcx'],

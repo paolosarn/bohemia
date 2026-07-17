@@ -371,6 +371,71 @@ def draw_sign_plate(a, K, x0, y, w, r):
                   (168, 172, 160))
 
 
+def draw_head_back(a, K, hx, hy, state, r, big=True):
+    """A signal head seen from BEHIND (v9, Paolo: "what about when it's
+    facing north or south"). Heads serving the southbound approach face
+    north, so the world's 45 camera sees their backs: the yellowed
+    backplate, the housing's ribbed back panel, visor edges poking out at
+    each lens height — NO lenses. A lit head shows only as light SPILL
+    haloing the housing edges."""
+    hw, lens = (20, 12) if big else (14, 9)
+    hh = lens * 3 + 14
+    back = (38, 36, 20)
+    HRAMP = [(12, 12, 14), (24, 24, 26), (40, 40, 44), (64, 66, 74)]
+    # backplate, full face of it this time (it's what faces the camera)
+    rect(a, hx - 3, hy - 2, hx + hw + 3, hy + hh + 2, back)
+    for yy in range(hy - 2, hy + hh + 2):
+        for xx in range(hx - 3, hx + hw + 3):
+            if r() < 0.15:
+                put(a, xx, yy, shade_of(back, 0.8 + 0.4 * r()))
+    for xx in range(hx - 3, hx + hw + 3):
+        u = (xx - hx + 3 + 0.5) / (hw + 6.0)
+        dy = bow(u, 1)
+        put(a, xx, hy - 2 + dy, shade_of(back, 1.5))
+        put(a, xx, hy + hh + 1 + dy, shade_of(back, 0.55))
+    # housing back panel, inset, with rib seams between the lens chambers
+    rect(a, hx + 2, hy + 1, hx + hw - 2, hy + hh - 1, HRAMP[1])
+    vline(a, hx + 2, hy + 1, hy + hh - 1, HRAMP[2])
+    for i in range(1, 3):
+        sy = hy + 4 + i * (lens + 3) - 3
+        hline(a, hx + 2, hx + hw - 2, sy, HRAMP[0])
+        hline(a, hx + 2, hx + hw - 2, sy + 1, HRAMP[2])
+    # hatch bolts on the back panel
+    for bx2, by2 in ((hx + 4, hy + 3), (hx + hw - 5, hy + 3),
+                     (hx + 4, hy + hh - 4), (hx + hw - 5, hy + hh - 4)):
+        put(a, bx2, by2, K['outline'])
+    LENS_LIT = {'red': (235, 60, 38), 'amber': (250, 176, 40), 'green': (60, 220, 110)}
+    for i, name in enumerate(('red', 'amber', 'green')):
+        cy = hy + 4 + i * (lens + 3)
+        # visor edges poke out past the plate at each lens height
+        put(a, hx - 4, cy - 1, HRAMP[0]); put(a, hx - 4, cy, HRAMP[1])
+        put(a, hx + hw + 3, cy - 1, HRAMP[0]); put(a, hx + hw + 3, cy, HRAMP[1])
+        if state == name:
+            lit = LENS_LIT[name]
+            # light SPILL: rgb-only tint on the plate rim + visor tips
+            for xx in range(hx - 4, hx + hw + 4):
+                for yy in (cy - 2, cy - 1, cy, cy + 1):
+                    if 0 <= xx < a.shape[1] and 0 <= yy < a.shape[0] and a[yy, xx, 3] > 0:
+                        if xx < hx or xx >= hx + hw:
+                            base = a[yy, xx, :3].astype(int)
+                            a[yy, xx, :3] = np.clip(
+                                (base * 0.55 + np.array(lit) * 0.45).astype(int), 0, 255)
+    return hh
+
+
+def draw_sign_back(a, K, x0, y, w, r):
+    """The street-name plate from behind: unpainted metal back, bracket,
+    no green, no marks (there is nothing to read on the back of a sign)."""
+    for xx in range(x0, x0 + w):
+        dy = 1 if xx >= x0 + w // 2 else 0
+        for yy in range(y + dy, y + 15 + dy):
+            v = (yy - y - dy) / 15.0
+            ti = 3 if v < 0.2 else (2 if v < 0.75 else 1)
+            put(a, xx, yy, shade_of(K['ramp'][ti], 0.9 + 0.16 * r()))
+    vline(a, x0 + w // 2, y + 1, y + 15, K['ramp'][0])   # mounting channel
+    put(a, x0 + 3, y - 2, K['ramp'][1]); put(a, x0 + w - 4, y - 1, K['ramp'][1])
+
+
 def outline_pass(a, col):
     """1px rim drawn into the transparent pixels touching the silhouette."""
     op = a[..., 3] > 0
@@ -496,10 +561,16 @@ def draw_signal(K, spec, seed):
             hline(a, hx + 6, hx + 12, arm_y(hx + 8) - 1,
                   K['spec'] if r() < 0.5 else K['ramp'][3])
             hang(hx, sag)
-            draw_head(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
+            if spec.get('face', 's') == 'n':
+                draw_head_back(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
+            else:
+                draw_head(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
         if spec['arm_cells'] < 4 and n <= 2 and head_xs[-1] - 20 > POLE_CX + 30:
-            draw_sign_plate(a, K, POLE_CX + 26,
-                            arm_lvl + 14, min(48, head_xs[-1] - 24 - POLE_CX - 26), r)
+            sw2 = min(48, head_xs[-1] - 24 - POLE_CX - 26)
+            if spec.get('face', 's') == 'n':
+                draw_sign_back(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)
+            else:
+                draw_sign_plate(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)
     elif kind == 'headless':
         for hx in head_xs:
             rect(a, hx + 6, arm_y(hx + 8) - 1, hx + 12, arm_y(hx + 8) + 5, K['ramp'][1])
@@ -578,19 +649,28 @@ def main():
            'sprite_h': CH,
            'anchor': 'pole base bottom; pcx per entry is the pole centerline; '
            'dir e = arm extends east (right), dir w = arm extends west (left)',
+           'face_law': ('v9 (Paolo: "what about when it\'s facing north or south"): '
+                        'face s = lenses toward the camera (heads serve the approach '
+                        'coming FROM the south, i.e. northbound traffic); face n = the '
+                        'BACKS (ribbed panel, visor edges, no lenses; lit = light spill '
+                        'only) for heads serving the southbound approach. Wrecks ship '
+                        'face s only.'),
            'signals': []}
     n = 0
     STATE_SEED = {'dead': 0, 'red': 1, 'amber': 2, 'green': 3}
     jobs = []
     for ci, color in enumerate(('galv', 'bronze')):
         for ai, (arm, cells, heads) in enumerate(ARMS):
-            for state in ('dead', 'red', 'amber', 'green'):
-                jobs.append((color, {'arm_cells': cells, 'heads': heads,
-                                     'kind': 'intact', 'state': state}, arm,
-                             81000 + ci * 7919 + ai * 761 + STATE_SEED[state] * 131))
+            for fi, face in enumerate(('s', 'n')):
+                for state in ('dead', 'red', 'amber', 'green'):
+                    jobs.append((color, {'arm_cells': cells, 'heads': heads,
+                                         'kind': 'intact', 'state': state, 'face': face},
+                                 arm,
+                                 81000 + ci * 7919 + ai * 761 + fi * 373 +
+                                 STATE_SEED[state] * 131))
         for wi, (kind, cells) in enumerate(WRECKS):
             jobs.append((color, {'arm_cells': cells, 'heads': 2 if kind == 'jury_rigged' else 3,
-                                 'kind': kind, 'state': 'dead'},
+                                 'kind': kind, 'state': 'dead', 'face': 's'},
                          [nm for nm, c, _ in ARMS if c == cells][0],
                          88000 + ci * 7919 + wi * 977))
     for color, spec, arm, seed in jobs:
@@ -598,8 +678,8 @@ def main():
         a = draw_signal(K, spec, seed)
         err = verify(a, spec['state'])
         if err:
-            print('FACTORY REFUSES [%s %s %s %s]: %s'
-                  % (color, arm, spec['kind'], spec['state'], err))
+            print('FACTORY REFUSES [%s %s %s %s %s]: %s'
+                  % (color, arm, spec['kind'], spec['face'], spec['state'], err))
             return 1
         for direction in ('e', 'w'):
             arr = a if direction == 'e' else np.ascontiguousarray(a[:, ::-1])
@@ -608,6 +688,7 @@ def main():
             Image.fromarray(arr).save(buf, 'PNG')
             out['signals'].append({'color': color, 'arm': arm, 'kind': spec['kind'],
                                    'state': spec['state'], 'dir': direction,
+                                   'face': spec['face'],
                                    'w': int(arr.shape[1]), 'h': int(arr.shape[0]),
                                    'pcx': int(pcx),
                                    'b64': base64.b64encode(buf.getvalue()).decode()})

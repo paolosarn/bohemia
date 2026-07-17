@@ -95,7 +95,15 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    splice, sags past it), headless (empty hangers, dangling cable).
    EAST+WEST both shipped per sprite with per-entry pcx anchors (bake
    reads pcx, no transpose). DOUBLE BORDER — sampled rim + 1px true black
-   (Paolo: reading thin). 60 sprites total, all UNJUDGED. Laws:
+   (Paolo: reading thin). THEN v9 (Paolo: "what about when it's facing
+   north or south"): FACE LAW — in the billboard convention heads either
+   face the camera (face s, lenses, serves northbound) or away (face n =
+   the BACKS: yellowed plate, ribbed panel, visor edges poking out, no
+   lenses; lit shows only as colored light SPILL around the housing;
+   sign backs are unpainted metal, no green, nothing to read). Every
+   intact mast ships both faces; the proof now stands all FOUR corners
+   (south side faces, north side backs). 108 sprites total, all
+   UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
