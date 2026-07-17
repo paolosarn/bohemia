@@ -191,10 +191,22 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    from the demo prop pool, provenance recorded, corpus art not new canon);
    the baker composites car_wreck per the engine's w x h + facing (rot90 for
    EW) and fire_barrel/lamp props over them. ALL FOUR live cells baked:
-   slices/BOHEMIA_V12_BAKE_PROOF_{33,34,35,36}_6.{png,html}. NEXT: the
-   plot/building strips (HOUSE_FACTORY_BANK + plot art between the street
-   bands), then assemble the full V12 slice (all four cells + payload
-   wiring) — at that point V11's overlay era ends.
+   slices/BOHEMIA_V12_BAKE_PROOF_{33,34,35,36}_6.{png,html}.
+   THE V12 SLICE EXISTS — THE OVERLAY ERA IS OVER (7/18):
+   tools/bohemia_v12_slice.py bakes the same four canonical cells V11 walked
+   ((33,6)(34,6)(35,6)(36,6), seed 12345 — all pure street variants, NO
+   buildings so NO map canon needed), stitches them into one native DAY
+   image (markings + cars + barrels + dead lamps all BAKED IN), builds
+   OCCUPANCY from the baked prop footprints, and reuses V11's harness
+   VERBATIM (light-pass module, patrol module, walk loop) with the three
+   overlay payloads REMOVED. Result: slices/BOHEMIA_LIVE_SLICE_V12_7_18_26
+   .html — 24x56, 1.46MB (half V11's 3.1MB, atlases gone), verified in
+   chromium: renders clean (0 console errors), day/night + free-run +
+   dpad + mode toggle all work, player walks the native-baked arterial.
+   THE THESIS PROVED: the bake IS the world; the only live layers are what
+   moves (you, survivors, the sun). NEXT for the bake track: plot/building
+   strips (HOUSE_FACTORY_BANK) are the expansion when Paolo gives plot
+   canon — the current four cells needed none.
 2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
