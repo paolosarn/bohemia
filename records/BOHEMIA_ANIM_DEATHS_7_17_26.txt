@@ -92,3 +92,19 @@ Verified headless: in frame on all 8, all freeze, 8 distinct rests, head rotates
 Peak per-frame ~12px is the fast topple ROTATION (a limb arcing), not a teleport
 (post-landing settle is <2px on the crumple facings). v1 THE TOPPLE untouched.
 Combat bakes both. UNJUDGED -- Paolo judges the FEEL; headshot-3 still on the table.
+
+=== UPDATE 7/18 (d): RIGID CROSS + FASTER ===
+Paolo: "the shoulders and neck and head form a CROSS... the neck and head can
+wiggle a little bit, but there's no reason why that head should be flopping
+around" + "it should really be faster, it looks like it's gliding to death."
+FIXED:
+- RIGID CROSS: the head is held within ~20deg of the SPINE LINE (waC->neck
+  extended), enforced every solver iteration so it holds through the fast
+  tumble. The head now rotates WITH the torso (turns as the body turns) but
+  never flops off the cross. Head deviation: 180deg (flopping) -> 21deg max
+  (little wiggle). BUG FOUND: the cone's rotation sign was inverted -- it was
+  pushing the head AWAY from the spine (to 180) instead of toward it.
+- FASTER: gravity 205->340, move cap 2.5->5.0, knees buckle harder, air damp
+  0.995. Most facings hit the floor in 0.3-0.7s (was ~2s "gliding"); the lateral
+  arcs (E/NE) ~1.2s. All 8 freeze, all in frame, 8 distinct.
+Paolo: "a lot better but still got some work to do" -- more tuning expected.
