@@ -1,6 +1,6 @@
 # BOHEMIA — ARCHITECTURE MAP (what depends on what)
 Built 7/16/26 at the GREAT MERGE. Regenerate the file list with
-`python3 bohemia_canon_index.py .`; this file is the human map above it.
+`python3 gates/bohemia_canon_index.py`; this file is the human map above it.
 
 ## THE ONE RULE FOR READING THIS
 Nothing in this repo knows anything automatically. Truth is BUILT, in this order,
@@ -39,7 +39,7 @@ Each version is the SOLE home of load-bearing canon:
     BOHEMIA_GDD_v5.md   7/3 through 7/6: valley scale, the overmap, the survival
                         economy, 120 BPM Request Law, vehicles, Factory Law.
 
-GATE: `node gdd_gate.js` (26 checks, runs FIRST in bohemia_gates.py). It fails if
+GATE: `node gates/gdd_gate.js` (26 checks, runs FIRST in gates/bohemia_gates.py). It fails if
 any of the four is archived, if the sole-home terms go missing, if v5 stops
 declaring itself an extension, or if the registry ever re-adds the false claim.
 
@@ -104,8 +104,8 @@ It sorts to the top so it cannot be missed. Git history is the archive of old on
 
 # 3. THE GATES — a law without a machine gate is not enforced
 
-    python3 bohemia_gates.py            everything, ~20s
-    python3 bohemia_gates.py --fast     skips the two pixel sweeps
+    python3 gates/bohemia_gates.py            everything, ~30s
+    python3 gates/bohemia_gates.py --fast     skips the two pixel sweeps
 
     GATE            GUARDS                              READS
     ─────────────── ─────────────────────────────────── ──────────────────────────

@@ -1,0 +1,35 @@
+{
+ "version": "REAL_VEGAS_VERDICTS_R2_7_14_26",
+ "items": {
+  "T0": "DOWN",
+  "T1": "DOWN",
+  "TV2-0": "DOWN",
+  "TV2-1": "DOWN",
+  "RF0": "DOWN",
+  "SP0": "DOWN",
+  "SP1": "DOWN",
+  "SP2": "DOWN",
+  "TV3-0": "UP",
+  "TV3-1": "UP",
+  "R2-0": "UP",
+  "R2-1": "UP",
+  "R2-2": "UP",
+  "R2-3": "UP",
+  "R2-4": "UP"
+ },
+ "paolo_laws": {
+  "one_wall_per_community": "each plot = ONE wall design (seeded per plot); variety BETWEEN plots; per-cell wall shuffle BANNED",
+  "gates_touch_streets": "entrances must align with adjacent street network; entrance segment = suburb road type",
+  "gated_is_rich": "most Vegas communities are walled but NOT gated; gates = boujee/richer pre-apocalypse (story fuel post-apocalypse)"
+ },
+ "kill_forever": [
+  "SP0",
+  "SP1",
+  "SP2",
+  "RF0",
+  "T0",
+  "T1",
+  "TV2-0",
+  "TV2-1"
+ ]
+}

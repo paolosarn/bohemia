@@ -1,0 +1,150 @@
+BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7
+====================================================================================================
+
+#     TITLE                                                 LINES  CRAFT  FLAWS  PORTS  FLOW  CONV   V2?
+--------------------------------------------------------------------------------------------------------------
+1     THE BLOODY BARON (The Witcher 3)                        300     13      0     10     Y     Y     Y
+2     BEYOND THE BEEF (Fallout: New Vegas)                    239     11      0      8     Y     Y     Y
+3     THERE STANDS THE GRASS / VAULT 22 (Fallout: New Vega    216     11      0      8     Y     Y     Y
+4     THE WHISPERING HILLOCK (The Witcher 3)                  205     10      0      7     Y     Y     Y
+5     DISCO ELYSIUM (the whole-game quest MODEL + The Trib    168     10      0     10     .     .    NO
+6     THE SUICIDE MISSION + LOYALTY SYSTEM (Mass Effect 2)    159     10      0      9     .     .    NO
+7     WHODUNIT? (The Elder Scrolls IV: Oblivion, Dark Brot    200     10      0      9     Y     Y     Y
+8     THE IMMERSIVE-SIM QUEST (Kingdom Come: Deliverance)     167     11      0     10     .     .    NO
+9     DREAM ON / THE PERALEZ ARC (Cyberpunk 2077)             194     10      0     10     Y     Y     Y
+10    "I KNOW YOU" / THE STRANGE MAN (Red Dead Redemption)    189     10      0     10     Y     Y     Y
+11    ANJU & KAFEI / "ANJU'S ANGUISH" (The Legend of Zelda    138     10      0     12     .     .    NO
+12    "WHAT CAN CHANGE THE NATURE OF A MAN?" (Planescape:     145     10      0     10     .     .    NO
+13    THE SUBSTORY MODEL (Yakuza / Like a Dragon)             130     10      0     12     .     .    NO
+14    LADY BOYLE'S LAST PARTY (Dishonored)                    177     10      0      8     Y     Y     Y
+15    ESCAPE FROM FORT JOY + THE SURFACE SYSTEM (Divinity:    151     10      0     10     .     .    NO
+16    THE NIGHTSONG / SHADOWHEART'S CHOICE (Baldur's Gate     186     11      0     10     Y     Y     Y
+17    THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus     153     10      3      9     .     .    NO
+18    KNOWLEDGE-AS-PROGRESSION (Outer Wilds)                  130     10      0      9     .     .    NO
+19    THE DEDUCTION ENGINE (Return of the Obra Dinn)          142     10      2      8     .     .    NO
+20    THE GOLDEN RULE / TIME-LOOP MORALITY (The Forgotten     140     10      0      9     .     .    NO
+21    "YOU CAN'T SAVE EVERYONE" (Pathologic 2)                149     10      2      9     .     .    NO
+22    SIDE QUESTS AS PHILOSOPHICAL DESPAIR (NieR: Automata    143     10      3      9     .     .    NO
+23    THE NO-MARKER QUESTLINE (Elden Ring / FromSoftware)     152     10      4      9     .     .    NO
+24    THE REACTIVITY ENGINE (Alpha Protocol)                  163     10      3      8     .     .    NO
+25    FAVOR & WRATH / PLAYING AFTER EVIL WON (Tyranny)        146     10      3      9     .     .    NO
+26    THE UNSOLVABLE ACCUSATION (Pentiment)                   158     10      2     10     .     .    NO
+27    THE ILLUSION OF CHOICE / PLAYER COMPLICITY (Spec Ops    159     10      4      9     .     .    NO
+28    MERCY AS A MECHANIC (Undertale)                         154     10      3     10     .     .    NO
+29    THE BOOK OF LAWS / SOCIETY-SURVIVAL (Frostpunk)         151     10      3     10     .     .    NO
+30    THE CIVILIAN PERSPECTIVE / GUILT AS A SYSTEM (This W    157     10      3     10     .     .    NO
+31    THE IRON CAGE / COMPLICITY AS A JOB (Papers, Please)    148     10      3      9     .     .    NO
+32    "YOU ARE THE VILLAIN" / THE IDENTITY TWIST (KOTOR)      143     10      0      9     .     .    NO
+33    "WOULD YOU KINDLY" / THE AGENCY TWIST (BioShock)        155     10      3      9     .     .    NO
+34    THE COIN TOSS IS A LIE / CONSCIOUSNESS-COPY HORROR (    157     10      3      8     .     .    NO
+35    THE TOWN AS PSYCHE / GUILT MADE LEVEL DESIGN (Silent    166     10      3      9     .     .    NO
+36    THE BETRAYING GUIDE-VOICE (Portal / GLaDOS)             157     10      3      9     .     .    NO
+37    DIRECTIONS, NOT MARKERS / RADICAL FREEDOM (Morrowind    154     10      3      9     .     .    NO
+38    THE FOUNDATIONAL CRPG / CHOICE-CHANCE-CONSEQUENCE (F    159     10      4      8     .     .    NO
+39    THE HAUNTED HOUSE + CLAN REACTIVITY (Vampire: The Ma    157     10      4      7     .     .    NO
+40    MORAL DISCOMFORT WITH NO EASY EXIT (Cyberpunk 2077:     220     10      4      9     Y     Y     Y
+41    THE STRESS & AFFLICTION SYSTEM (Darkest Dungeon)        161     10      4      9     .     .    NO
+42    THE ORIGIN STORY / WHO-YOU-WERE SHAPES EVERYTHING (D    163     10      3      8     .     .    NO
+43    THE PARTY AS A POWDER KEG / COMPANIONS AS PEOPLE (Ba    169     10      4      9     .     .    NO
+44    THE AI STORYTELLER / STORY-GENERATOR (RimWorld)         182     10      4      9     .     .    NO
+45    "LOSING IS FUN" / DEEP-SIMULATION EMERGENCE (Dwarf F    175     10      4     10     .     .    NO
+46    THE DYNASTY SIMULATOR / PLAY THE BLOODLINE (Crusader    181     10      5      8     .     .    NO
+47    DEATH AS NARRATIVE PROGRESSION (Hades)                  173     10      4      8     .     .    NO
+48    THE NEMESIS SYSTEM / PROCEDURAL PERSONAL RIVALS (Sha    183     10      4      9     .     .    NO
+49    THE HEIR ROGUELITE / "YOU NEVER DIE, YOU SHIFT PERSP    166     10      4      9     .     .    NO
+50    NEW GAME PLUS + THE META-NARRATIVE (Chrono Trigger)     175     10      4      9     .     .    NO
+51    YOU START AS NOBODY / THE WORLD THAT DOESN'T REVOLVE    184     10      5      9     .     .    NO
+52    THE DECKBUILDING ROGUELITE / SYSTEMS THAT FEED EACH     175     10      4     10     .     .    NO
+53    MECHANICS WEDDED TO META-HORROR (Inscryption)           181     10      4     10     .     .    NO
+54    PURE DEDUCTION / ASSEMBLE-THE-WORDS ACCUSATION (The     193     10      5      9     .     .    NO
+55    THE PURE SANDBOX / A WORLD THAT LIVES WITHOUT YOU (K    193     10      5     10     .     .    NO
+56    HANDWRITTEN STORY THROUGH DEEP SIMULATION (Caves of     208     10      5      9     .     .    NO
+57    METAFICTION HORROR / THE GAME BECOMES SELF-AWARE (Do    200     10      5      9     .     .    NO
+58    MENTAL ILLNESS FROM THE INSIDE / DUTY-OF-CARE HORROR    201     10      5      8     .     .    NO
+59    ASSIST MODE / DIFFICULTY-AS-THEME + ACCESSIBILITY DO    213     10      5     10     .     .    NO
+60    PERFECT INFORMATION / TELEGRAPHED FAIR CHALLENGE (In    199     10      5      9     .     .    NO
+61    THE BOTTOM-UP RISE / A LIVING POLITICAL SANDBOX (Mou    198     10      6      9     .     .    NO
+62    THE PHASMID ENDING / THE OPTIONAL TRANSCENDENT PAYOF    187     10      0      8     .     .    NO
+63    THE COMPANION YOU CHOOSE AN ENDING FOR / DIVERGENT B    204     10      5      8     .     .    NO
+64    IS THE SYSTEM ITSELF UNJUST? / ARGUING A CRUEL COSMI    208     10      5      7     .     .    NO
+65    DICE, CLOCKS & A DECAYING BODY / SURVIVAL AS THE THE    208     10      5      9     .     .    NO
+66    FUEL, TERROR & A LEGACY TO YOUR HEIR / DREAD-EXPLORA    208     10      5      9     .     .    NO
+67    THE FIRST GENERATIONAL SAGA / MARRY, BEGET, PLAY YOU    202     10      5      7     .     .    NO
+68    THE PILGRIMAGE + REFUSE THE CYCLE / A CORRUPT ORDER     243     10      5      9     .     .    NO
+69    A WHOLE LIFE, BIRTH TO FATHERHOOD / THE GENERATIONAL    226     10      5      9     .     .    NO
+70    THE FAUSTIAN PACT / THREE WISHES + A DEVIL YOU CAN'T    248     10      5      8     .     .    NO
+71    A PARALLEL SECOND CAMPAIGN, HIDDEN IN PLAIN SIGHT /     255     10      5      9     .     .    NO
+72    "LET GO, BEGIN AGAIN" / THE TRAP THAT TEACHES THE PL    251     10      5      9     .     .    NO
+73    A FIXED DEATH, AN OPEN QUESTION / WHO DO YOU BECOME     261     10      5     10     .     .    NO
+74    THE PROPHECY MIGHT BE A LIE / EARNING A DESTINY BY C    270     10      5      9     .     .    NO
+75    RECRUITED BY MURDER / THEY GIVE YOU A HOME, THEN BUR    247     10      5      8     .     .    NO
+76    A PERSON MADE OF STOLEN MEMORY / WHO ARE YOU WHEN YO    252     10      5      8     .     .    NO
+77    EVERYONE IS LYING, PICK ONE / THE CURE THAT COSTS YO    250     10      5      8     .     .    NO
+78    A GOD IN A SUBURB / THE MERCY THAT IS A MASSACRE (Fa    265     10      5      7     .     .    NO
+79    A ROCKET TO HEAVEN / COMEDY THAT EARNS SINCERITY (Fa    262     10      5      9     .     .    NO
+80    WHO HOLDS THE REINS OF HISTORY / A POLITICAL EPIC WH    338     10      6      8     .     .    NO
+81    THE MAN THEY ERASED / HISTORY IS WRITTEN BY THE CHUR    295     10      5      9     .     .    NO
+82    A MAN BUILT FROM A FALSE MEMORY / THE CITY THAT EATS    302     10      6      9     .     .    NO
+83    EVERY PERSON HAS A BED / THE SELF-HELP CULT THAT ATE    331     10      6     10     .     .    NO
+84    THE SERVANT WHO BECOMES A PERSON / KILL GOD, THEN KI    311     10      6      9     .     .    NO
+85    THE WORLD RUNS WITHOUT YOU / SEVEN MINDS WHO TRIED T    309     10      5      9     .     .    NO
+86    THE WORLD IS CHANGING AND IT WILL COST YOU / THE VIL    339     10      7      8     .     .    NO
+87    YOU CANNOT DIE AND THAT IS THE PUNISHMENT / THE DEBT    348     10      6      9     .     .    NO
+88    THIS IS HOW YOU DIED / THE POWER GOES OUT ON A SCHED    354     10      6     10     .     .    NO
+89    THE ROPE, NOT THE STICK / STRANGERS BUILT THE BRIDGE    334     10      6      9     .     .    NO
+90    WE ACCIDENTALLY MADE A HORROR GAME / THE ENEMY IS A     363     10      5      8     .     .    NO
+91    THE FIRE HAS TO BE FED WITH PEOPLE / GWYN WAS AFRAID    347     10      5      8     .     .    NO
+92    THE CURE IS THE DISEASE / EVERY FACTION IS A CHARACT    348     10      6      9     .     .    NO
+93    NO MORAL SYSTEM MEANS REAL MORAL DILEMMAS / TRUST IS    328     10      5      8     .     .    NO
+94    THE WAR STARTED WITH AN UNPAID BILL / TEN MONTHS TO     340     10      6      8     .     .    NO
+95    THEY BROKE THE SPELL TO FIND OUT IF IT WAS REAL (The    358     10      5      7     Y     Y     Y
+96    HAD TO BE ME / SOMEONE ELSE MIGHT HAVE GOTTEN IT WRO    288     10      5      7     Y     Y     Y
+97    THE CURSE IS THE ECONOMY / THE MALIGNANT ENTITY IS A    326     10      5      7     Y     Y     Y
+98    THE EARTH WILL NOT ACCEPT HIM / YOUR FATHER LET THE     417     10      5      7     Y     Y     Y
+99    THE LEVEL WITH NO ENEMY / A VAMPIRE, TERRIFIED (The     345     10      6      8     Y     Y     Y
+100   THE UTOPIA THAT WORKS / DON'T CALL THEM SLAVES (Vaul    385     10      6      7     Y     Y     Y
+101   THE ONLY WAY UP IS A FALLEN RADIO TOWER / FOUR PEOPL    376     10      6      7     Y     Y     Y
+102   SEVEN DOORS ON ONE ROOF / WRONG CITY, WRONG PEOPLE (    355     10      6      8     Y     Y     Y
+103   SHE HANDS YOU YOUR ORDERS TO KILL HER / THE FAMILY W    363     10      7      7     Y     Y     Y
+104   THE TEST WAS TO SAY NO / EVERYBODY DIED BEING GOOD C    411     10      6      8     Y     Y     Y
+105   BEGIN AGAIN / GETTING TO IT ISN'T THE HARD PART (The    414     10      6      8     Y     Y     Y
+106   THE INFORMATION IS BEHIND A HANGOVER / YOU HAVE TO P    406     10      6      7     Y     Y     Y
+107   THEY WANT TO WALK HOME AND DIE / THE MURDER YOU CAUS    457     10      6      7     Y     Y     Y
+108   THE FAVOR YOUR COWORKER ASKS / WE WILL BE TOGETHER I    362     10      6      8     Y     Y     Y
+109   THE BOUNTY HUNTER WANTS YOU TO PAY HIS BAR TAB / YOU    398     10      6      8     Y     Y     Y
+110   LOSING IS A LOCATION / YOU WAKE UP IN THE CAGE (The     409     10      6      8     Y     Y     Y
+111   THE PLACE THAT ONLY EXISTS WHILE YOU LOOK AT IT / SH    391     10      6      8     Y     Y     Y
+112   HE FELT MORE DIGNIFIED WHILE HUNG FROM THE TREE / TH    455     10      6      7     Y     Y     Y
+113   YOUR FATHER LEFT YOU A LIST OF CHILDREN / SAVE THEM     414     10      6      7     Y     Y     Y
+114   A HUNDRED SIDE STORIES AND NOT ONE OF THEM CAN BE MI    402     10      6      7     Y     Y     Y
+115   YOU LOST THE COIN TOSS / THERE WAS NEVER A COIN (The    427     10      6      7     Y     Y     Y
+116   THE WINDOW KILLS YOUR BROTHER AND NOBODY TELLS YOU (    386     10      6      7     Y     Y     Y
+117   THE BOSS WHO WON'T LET YOU LOSE / A DOG STOLE MY SPE    354     10      6      7     Y     Y     Y
+118   YOU CAN SEE IT TOO? FOR ME, IT'S ALWAYS LIKE THIS (A    395     10      6      7     Y     Y     Y
+119   THE TWO-HOUR SHOT, AND THE TAPE THAT SAYS WHY HER FA    374     10      6      7     Y     Y     Y
+120   HE MADE HER LOVE HIM SO HER GHOST WOULD BE USEFUL (D    374     10      6      7     Y     Y     Y
+121   KILL THEM OR CHANGE THEIR MINDS, AND THE MACHINE WON    391     10      6      7     Y     Y     Y
+122   A CORPORATION BOUGHT A MAN'S DEATH AND YOU HOLD THE     389     10      6      7     Y     Y     Y
+123   TELL HIM HE'S NOT A MONSTER AND HE'LL BLOW UP THE RO    408     10      6      6     Y     Y     Y
+124   THE CURE IS UNDER HIS OWN HOUSE / HE WAS BUILT TO KI    388     10      6      7     Y     Y     Y
+125   "TALI: TREASON"                                         457     10     12     36     Y     Y     Y
+126   "RAPHAEL'S DEAL / THE HOUSE OF HOPE"                    551     10     12     42     Y     Y     Y
+127   "HEARTS OF STONE / O'DIMM'S PACT"                       123     10     10      6     Y     Y     Y
+128   "ANJU & KAFEI"                                          116     10     10      6     Y     Y     Y
+129   "TENPENNY TOWER"                                        114     10     10      6     Y     Y     Y
+130   "PARANOIA / GLARTHIR"                                   111     10     10      6     Y     Y     Y
+131   "BOETHIAH'S CALLING"                                    113     10     10      6     Y     Y     Y
+132   "THE ARL OF REDCLIFFE / CONNOR"                         118     10     10      6     Y     Y     Y
+133   "THE TASTE OF DEATH / NAMIRA"                           109     10     10      6     Y     Y     Y
+134   "THE HOUSE OF HORRORS / MOLAG BAL"                      108     10     10      6     Y     Y     Y
+135   "THE MIND OF MADNESS / SHEOGORATH"                      113     10     10      6     Y     Y     Y
+136   "THE LANDSMEET"                                         108     10     10      6     Y     Y     Y
+137   "THE SUICIDE MISSION"                                   117     10     10      6     Y     Y     Y
+138   "PAMELA'S FATHER"                                       106     10     10      6     Y     Y     Y
+
+====================================================================================================
+TOTALS: 138 files | craft 1387 | flaws 651 | ports 1206 | nodes 176 | GRAND 3420
+WITH FLOW: 54 | AT v2 DEPTH: 54
+INDIVIDUAL-QUEST COUNT AT FULL v2: 54 (target: >90)
+BATCH 7 (fresh): 133 Namira, 134 Molag Bal, 135 Sheogorath, 136 Landsmeet, 137 Suicide Mission, 138 Pamela.
+MINING POOL REMAINING: ~72 whole-game teardowns.

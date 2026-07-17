@@ -1,0 +1,469 @@
+BOHEMIA DEMO VERDICTS (Paolo, 7/10/26)
+- HATCH: variant 1 VAULT — LOCKED (spoked door, purple core)
+- BAKE floor idx 2: KILL — reads as lava (dark-red cracks slipped past the hot-pixel gate)
+- BAKE water category: KILL ALL — those were toxic-waste barrels/props, not water. Rebuild with real liquid ground tiles.
+- RAGS: APPROVED (8 outfits stand)
+- DEMO MAP RENDER: REJECTED — rebuild (walls missing, scatter too noisy)
+- AGENT REVEAL state 3: too much purple — tone the glow way down (eyes-level subtlety)
+- MAP BUILDING BY CLAUDE: REJECTED PERMANENTLY (7/10/26). Claude does not design
+  layouts. My composed layout is RETIRED as the demo map. What SURVIVES (plumbing):
+  the gated tile bake, prop pools, the map DATA FORMAT (grid/zones/walls/spawns/props
+  schema), wall-computation, purity gate. The demo map itself will come from Paolo's
+  hand or proc-gen under Paolo's rules; the data format is ready to receive it.
+- E/W DOOR EDGES: D0 + D1 at 7px APPROVED (Paolo 7/10/26) — for THESE two doorways
+  only; width is not a universal law, future doorways judged fresh. Baked as
+  sewer_door_ew (west + east positions, painted strip, zero transforms).
+- SEAM v1 offset-wrap: APPROVED + baked (v5). Lighter v2: dead.
+
+=== CATEGORY AUDIT RAW VERDICTS (Paolo 7/10/26, permanent training data) ===
+A0 WRONG | A1 stop sign -> misc street cat | A2 WRONG | A3 triangle skull sign
+A4 triangle electricity sign | A5-A9 LAVA | A10 concrete cross | A11 fence != wall
+A12 house shape? | A13 tree roots | A14 hanging chain | A15 unknown | A16 plant
+A17 urn with fire | A18 spiderweb | A19 shoehorn? | A20-21 floor rubble
+A22-24 plants (overlay on real grass) | A25 rock not dirt | A26 DELETE (a "2")
+A27 blank wooden sign | A28 too tiny | A29-30 purple glowing brick (law) 
+A31/A42 bones NW-SE / SW-NE (correct) | A33 window w/ sun or furnace
+A34-46 grass-stone path N-S (big cluster) | A47 correct | A48 fence | A49 correct
+A50 magical fountain w/ crystal | A51 wall sign | A52 too tiny | A53 skull
+A54 old pickax | A55 broom | A56 blossoming flower | A57 banner sign | A58 map
+A59 diamond | A60 wrong | A61 treasure map | A62 too tiny (steel wheel bar?)
+A63 wheelbarrow w/ grain or gold | A64/A77 crowbar | A65-66 bones SW-NE
+A67 futuristic wall machine (plutonium?) | A68 birdbath | A69 fountain MULTICELL
+A70 coffee pot | A71 red hazard wall sign | A72 yellow-black wall sign
+A73 baseball bat w/ duct tape | A74 table w/ 4 chairs (see bigger) | A75 milk
+steaming cup | A76 iron ingot | A78-79 correct (round table w/ chairs) | A80 pallet
+A81 scale/weight plate | A82 gated door | A83 4-way power conduit (wall, NSEW
+connect) | A84 brick window | A85 suitcase | A86 ruined concrete wall w/ foliage
+A87 steam vent | A88 straw hut | A89 correct
+OVERALL: Paolo cannot hand-categorize everything. Claude must LEARN, generalize,
+propagate, and remember. Feedback saved permanently.
+
+=== SEAM SCHOOL VERDICTS (Paolo 7/10/26) ===
+F7 water UP | F0-F6 (all structured grounds) DOWN.
+LESSON LEARNED: blend-healing works on ORGANIC textures (water), SMEARS
+STRUCTURED patterns (concrete/tile grids). Offset-wrap on structured grounds =
+DEAD (graveyard). New method: SEAM-AWARE RE-CROP — search the HD master for the
+crop window whose edges naturally wrap; pure crop, zero invented pixels.
+
+=== SEAM R2 RECROP VERDICTS (Paolo 7/10/26) ===
+R0-R4 UP (re-crop method VALIDATED). R5,R6 DOWN: "went a little too deep" —
+crop window too small, texture zoomed. RULE LEARNED: texture scale > seam math;
+crop-size floor = 85% of master. Overall: method good, keep quality bar high.
+
+=== SEAM R3 VERDICTS (Paolo 7/10/26) ===
+R6redo UP -> baked. R5redo DOWN, REP0 DOWN, REP1 DOWN -> R5's wash tile DEAD,
+no replacement. Wash pool runs on 3 tiles. Graveyard final.
+
+=== BAKE v8 GALLERY VERDICTS (Paolo 7/10/26) ===
+WASH: all 3 UP | FLOOR: 0-2 UP, 3-5 DEAD | WATER: 0 UP, 1-3 DEAD
+WALL: 0-1 UP, 2-7 DEAD | DOORS: liked; demo presence questionable (see canon)
+E/W door edges: decent, stand.
+PROP_BED: ALL DEAD for sewers (no beds in a modern storm sewer)
+PROP_TRASH: 0-2 UP, 3-5 DEAD | PROP_CRATE: 0,4 -> MOVE to prop_trash; rest DEAD
+PROP_MISC: all UP except cannonball/urn-reading items (not modern) — killed by
+shape read; Paolo vetoes in next gallery if wrong.
+
+=== MODERN SEWER CANON (Paolo, LOCKED) ===
+Vegas storm sewers are MODERN infrastructure — NOT 1700s London. Consequences:
+few/no locked gates or doors, no beds, no urns/cannonballs/ye-olde props,
+contemporary trash. All sewer set dressing obeys this era check.
+CORRECTION v9.1: Claude's cannonball/urn shape-read over-fired and killed all 6
+misc props — REVERTED. All 6 restored; the cannonball/urn indices await Paolo's
+tap in the next gallery. Lesson: concept kills need Paolo's index, not Claude's
+shape heuristics.
+
+=== LIGHTING PLAYGROUND VERDICT (Paolo 7/10/26) ===
+Lighting MODEL VALIDATED — "clear grasp", very impressed. All falloff modes
+liked; per-source profiles praised (different lights, different levels). Final
+falloff pick: OPEN (can be context-mixed / per-source, Paolo leaning positive
+on all). Ambient buttons read as inert: with one strong source + canvas boost
+the 0/2/4 floor difference is subtle — needs a clearer demo in a big dark
+stretch. SHADOWS: Paolo invites design thinking -> addendum filed.
+
+=== GROUND SPOT-CHECK LESSON (Paolo 7/10/26) ===
+Tool retired unjudged. Two metric flaws exposed: (1) wrap-err rewards FLAT
+tiles -> S-tier was bland mush ("everything looks the same"); (2) CORNERS
+unmeasured — the 4-copy junction point is its own failure mode ("don't have
+good corners on each other"). Also: every interactive must state plainly WHAT
+QUESTION each item answers. Re-scored with edges + corners + detail.
+
+=== SPOT-CHECK v2 (Paolo 7/10/26): ALL 14 DOWN — "do better" ===
+DIAGNOSIS FILED: (1) metric measured pixel-edge match; humans read PATTERN
+continuity (grout/brick/crack lines) + BRIGHTNESS stepping from baked-in tile
+vignettes that no crop fixes; (2) 96->44 Lanczos mushes pixel art. FIXES:
+seam-saliency metric on the ASSEMBLED 2x2 (seam must be no louder than the
+tile's own internal edges), vignette detrend before scoring, prefer exact 2:1
+downscale (crop 88 -> 44) for crispness.
+
+=== CLARIFICATION (Paolo 7/10/26, IMPORTANT) ===
+Spot-check "all bad" verdicts = the SEAMS/corners were bad, NOT the tiles.
+NO TILE was killed, demoted, or graveyarded from ground passes. Tiers in the
+GROUND MASTER SET rank the SEAM-READINESS OF CLAUDE'S CURRENT CROP on each
+tile — they are NOT tile-quality verdicts. A C-tier tile is a good tile whose
+seam solution is unsolved. Only Paolo's explicit tile verdicts kill tiles.
+
+=== QUILT-CUT VERDICTS (Paolo 7/10/26): Q0-Q4 ALL UP ===
+SEAM METHOD VALIDATED + LOCKED. Pipeline law: per ground tile, compute BOTH
+crop-only and quilt-cut; ship whichever has lower seam saliency; rigid patterns
+that resist both stay flagged for period-align or purpose art. No blur ever.
+
+=== SEAMLESS PROOF GALLERY VERDICTS (Paolo 7/10/26) ===
+GOOD except 6: Cracked street #33 (1.04), Floor tiles(1) #17 (0.09!),
+Rusted metal floor #12, Metal floor #25, Scrap wall/panels #14, Special
+hazard #12. LESSONS PROPAGATED: (1) S ceiling tightened (borderline ~1.0
+fails); (2) saliency was luminance-only — chroma seams invisible to it; now
+per-channel; (3) manufactured regular patterns (metal/panel/hazard/grate)
+break at PATTERN PHASE, not brightness — auto-classed PATTERN regardless of
+saliency until period-aligned. Tiles alive; their seam solutions demoted.
+
+=== PERIOD SOLVER STATUS (7/10/26, honest log) ===
+Attempt 1 (1D autocorr): 3 rescued of 263. Attempt 2 (2D shift-match): 0 —
+suspiciously fast, normalization gate likely buggy (filed for next solver
+session). PATTERN tiles remain quarantined, unharmed, awaiting a real
+period-alignment solve or purpose art. Cook continues per Continuous Cooking rule.
+
+=== COOK 5 SELF-KILLED (7/10/26) ===
+Prop silhouette "audit" flagged 100% of 3,694 props — meaning the heuristic was
+misreading the packs' INTENTIONAL soft anti-aliased edges as junk. Shipping it
+would have hardened every silhouette = art vandalism. Bank deleted, masters
+never touched. LESSON: an audit needs a style baseline first; a 100% hit rate
+means the auditor is wrong, not the art.
+
+=== BRIDGE DIRECTION NOTE (Paolo 7/10/26) ===
+All bridge tiles seen in the mega-session P-section run NORTH-SOUTH. Bridges
+are DIRECTIONAL structures (like paths and doors): direction tags mandatory in
+the future bridge category; E-W bridges = separate drawn art per NO-TRANSFORM
+law, never rotated/flipped from N-S art.
+
+=== MEGA-JUDGING 2 VERDICTS (Paolo 7/10/26) — mapped to exact tiles ===
+OVERLAYS: ALL 12 UP -> 174-piece OVERLAY BANK VALIDATED wholesale.
+GORE: 5/6 UP; G3 (BLOOD AND GORE #3) DEAD. Gore layer validated.
+BRIDGES (pack "17. Bridges and walkways" dominated the sample):
+- B2 #25 + B5 #6: NOT bridges — "sunken Roman city / Atlantis" pieces.
+- B3 #30: not a bridge — reads as multi-tile staircase/tiered monument, WAY
+  bigger than one tile.
+- B4 #11: broken bridge running EAST-WEST -> E-W bridge art EXISTS; direction
+  must be DETECTED per tile, never assumed N-S.
+- B6 (bridges and walkways #25): a DIRT bridge -> material tags matter.
+- B0 DIRECTIVE: bridges must read as continuous S->N runs — segments must
+  join deck-to-deck. Current cuts don't connect. Bridge-run continuity pass
+  = pending engineering (within no-transform law: alignment/cropping, not
+  squishing art).
+STANDINGS (floaters):
+- S1 (15. Street props #15) + S3 (19. Signs and village boards #24): DEAD —
+  "Atlantis corner pieces", disliked everywhere they appear.
+- S2 (Signs and misc #2): a BENCH — should be TWO GRIDS WIDE.
+- S4 (trees and vegetation #16): HANGS OFF THE TOP OF A WALL -> new placement
+  class: WALL-MOUNTED/HANGING.
+- S6 (Signs and misc #20) + S0 (Village furniture #12): BIGGER THAN ONE TILE.
+- S0 also: winter/seasonal content — NO SEASONS for now, seasonal tiles PARKED.
+- S5, S7: standing type confirmed correct.
+
+=== NEW LEARNED RULES (propagate forever) ===
+1. ATLANTIS/SUNKEN-CLASSICAL class: quarantine flag; Paolo dislikes these
+   consistently (bridges AND standings). Not Vegas.
+2. DISPLAY-FOOTPRINT flag: objects cut as 1x1 that READ bigger (bench 2-wide,
+   monuments, staircases) get a display_footprint tag; render spans cells.
+3. WALL-MOUNTED placement class exists (hangs off wall tops).
+4. NO SEASONS now: winter/seasonal tiles parked, not killed.
+5. Bridge direction detected per tile (N-S AND E-W art both exist).
+6. Bridge material tags (stone/wood/dirt).
+
+=== MULTICELL TRAINING EXPORT (Paolo 7/10/26) ===
+DOORS: all trimmed very good for their 2x2 / 2x1 cells — VALIDATED. Open
+check filed: door-to-FLOOR and door-to-WALL junction integration (render
+bridge concern, not an art failure).
+VEHICLES: all good BUT family-wide rule — ALL VEHICLES ARE 2x3 CELLS. Trained
+and propagated to all 64.
+
+=== FAMILY SORT TRAINING EXPORT (Paolo 7/10/26) — mapped + executed ===
+NEW FAMILIES BORN: ESCALATOR (Stairs/ladders #1,4,5,19 — footprint 1x2 or 1x3,
+Claude's call, very Vegas); SHRUB (Nature and plants: #0,10 shrub, #11 weed,
+#12 shrub w/ berries); CRYSTAL (Crystals and bioluminescence #3,7,8,10 +
+Alien tech #5 "crystal technology").
+NIGHTMARE-ONLY TAG (idea seed, NOT locked): Psychological elements #12 "crazy
+nightmare tile" — Paolo: keep IF we want a quest inside a nightmare. Fantasy/
+surreal tiles get NIGHTMARE-ONLY tag instead of quarantine. Filed as idea.
+RECLASSES: Structures and columns #6 = stone pillar w/ religious iron bars
+(NOT door -> monument); Furnaces #21 + Lights/emergency #4 = steampunk
+furnace (machine); Hazard tiles #22 = caution WALL SIGN (sign, WALL-MOUNTED);
+Lights/emergency #0 = MOBILE POWER GENERATOR FACING SOUTHEAST (machine,
+facing=SE — props carry 8-facing metadata like the rig); Mythological Symbols
+#4 = medical help symbol (sign); Water Tiles #29 = T-shaped water pool,
+footprint 3x3; Water Tiles #36 sign-guess RIGHT.
+CALIBRATION: hi-confidence bucket mostly right; vegetation/crystal packs are
+where visual sorting fails -> pack-keyword families beat visual NN there.
+
+=== DOOR FOOTPRINT LAW (Paolo 7/10/26, HARD) ===
+ALL REAL DOORS = 2x1 or 2x2 cells. NEVER 1x1. Claude violated this in the
+first junction lab (rendered demo's 1x1 doors into single wall cells) —
+lab rebuilt with true multicell doors. Demo bake sewer_door (1x1) FLAGGED:
+replace with multicell doors from the validated door family.
+
+=== DOOR JUNCTION LAB v2 VERDICTS (Paolo 7/10/26) ===
+Doors 3+4: ALL treatments UP — doors validated, all three junction treatments
+acceptable. Door 1: tagged ACT 3 (cyberpunk-flavored door). Door 2: "nuke
+shit, NOT a door" — reclassed machine + NUCLEAR-FLAVORED content flag (canon
+is economic collapse, not nuclear; nuclear-aesthetic assets need canon check).
+JUNCTION RULE: default = FLUSH (art untouched); threshold + shadowline live
+as approved variants. Final aesthetic pick = open, Paolo's whenever.
+
+=== DOOR JUNCTION LAB v2 VERDICTS (Paolo 7/10/26) ===
+Doors C+D: ALL treatments UP — doors VALIDATED. Door A: "Act 3 door" ->
+ACT-3 content tag born (cyberpunk door art banked for act 3). Door B: "nuke
+shit, not a door" -> expelled to machine + NUKE flag (canon is post-ECONOMIC
+collapse, not nuclear — Paolo future call on nuke-styled art).
+JUNCTION TREATMENT: no single winner declared (all passed on good doors) —
+[PENDING, Paolo's call]. Flush = placeholder default only.
+
+=== HEURISTIC LESSONS LEDGER (7/10/26, cumulative) ===
+SEMANTIC dimensions that heuristics CANNOT judge (Paolo eyes only):
+1. Aesthetic classes (Atlantis) — v1 hit 8,673/8,674
+2. Content identity (items, what-is-this) — concept groups suggest-only
+3. Prop silhouette intent (anti-aliasing is style) — audit hit 100%, self-killed
+4. Display footprint ("reads bigger than one tile") — hit 570/575, reverted
+MEASURABLE dimensions where trained heuristics WORK: seam saliency (chroma),
+corner junctions, deck continuity, base anchoring, transparency/ground-hug,
+purity (purple/hot), family sorting at high confidence (calibrated 0.99).
+LAW: 100% (or near-total) hit rate = the auditor is wrong. Revert, file, move.
+
+=== CLUSTER TOOL KILLED (Paolo 7/10/26) ===
+Visual clusters read incoherent — semantic failure #5 for the heuristics
+ledger. Lesson: packs are the only trustworthy grouping (human-made).
+Future misc sweeps ship PACK-PAGED.
+
+=== VERDICT SESSION FX/ACT3/PURPLE (Paolo 7/10/26): ALL ASS ===
+Blanket fail, all three sections. FX strips: found-animation detection NOT
+validated — strips bank demoted, does not feed engine. ACT-3 keyword net:
+does not capture the act-3 feel — ACT-3? tags remain suggestions but the net
+is untrusted. Purple scope: unresolved, presentation failed — the 1,600 list
+stays raw data, law scope still open. Lesson: novel-heuristic cooks keep
+failing his bar; proven lanes (seam pipeline, verdict execution) keep passing.
+Quality over volume.
+
+=== BRIDGES PARKED (Paolo 7/10/26, GAME-FIRST correction) ===
+Paolo: lived in Vegas all his life, never seen a bridge. CORRECT — no rivers,
+nothing to span. The bridge category existed because the PACKS had bridges,
+not because the GAME needs them: game-first violation, Claude's error.
+ENTIRE bridge set PARKED (203 tiles + run-continuity engineering + planned
+run proof CANCELLED). Deck-continuity math kept in the file (transferable IF
+Paolo ever wants Strip pedestrian overpasses / flyovers / flood-channel
+crossings — his call entirely, filed as [PENDING], not pushed).
+LESSON: category existence must be justified by VEGAS/GAME reality, not by
+what art the packs happen to contain. Applies to all future category births.
+
+=== BRIDGE CLARIFICATION (Paolo 7/10/26) ===
+Bridges NOT deleted — parked with all 203 tiles intact. Paolo: Vegas bridges
+don't look like the pack art (stone/fantasy). Real Vegas bridge forms =
+modern concrete/steel (pedestrian overpasses, flyovers). Any future in-game
+bridge must be Vegas-modern style; the parked bank is style-mismatched but kept.
+
+=== MISC PACK SWEEP 1 (Paolo 7/10/26) ===
+K0 Miscellaneous: PIRATE content (off-canon quarantine); ONLY #39,#40 usable
+-> light family (lanterns).
+K1 Barricades: COVER FAMILY BORN — combat cover props, all cover except #12
+-> fence. Gameplay tie: cover system world-art now exists.
+K2 Grass tiles -> grass. K3 Amphoras -> pottery.
+K4 Control panels: SPACESHIP class — doubtful even rare act-3 (Paolo's words).
+K5 Cannons: pirate, "prob never see this" -> pirate quarantine.
+K6 Decor/details: chains family, USABLE SUBSET #1-7 only (scary chains).
+K7 Decorations: FANTASY-MEDIEVAL — "not going in the game at all" -> quarantine.
+NEW CONTENT CLASSES: PIRATE, FANTASY-MEDIEVAL (both off-canon, kept not
+deleted), SPACESHIP (act-3-doubtful). NEW FAMILIES: cover, grass, pottery, chains.
+
+=== MISC PACK SWEEP 2 (Paolo 7/10/26) ===
+K0 Miscellaneous -> ACT3_FUTURE (Paolo pack-level act-3 assignment)
+K1 Structures and columns -> TEMPLE_RUIN
+K2 Environment set pieces -> FANTASY_MONUMENT (fantasy flag, kept)
+K3 Weapons and armory -> FANTASY_MEDIEVAL (existing off-canon class)
+K4 Blacksmith props -> BLACKSMITH
+K5 Animals and creatures -> ANIMAL
+K6 miscellaneous props -> MEDIEVAL_MISC (chains/candles/medieval blend per Paolo)
+K7 Toxic and infection growths -> TOXIC (tunnel-relevant)
+
+=== MISC PACK SWEEP 3 (Paolo 7/10/26) ===
+NEW CONTENT STATE: UNSCHEDULED — kept, not banned, no place yet ("don't know
+when we'll see it"). Softer than quarantine.
+K0 Zombie bodies -> REMAINS family; USABLE: #12,13,15,16,29,30,33; rest
+excluded from game (kept in bank).
+K1 Weapons/shields -> medieval_weapons, UNSCHEDULED.
+K2 Misc objects -> viking_medieval, UNSCHEDULED.
+K3 Windows/observation -> spaceship class, UNSCHEDULED.
+K4 Deep sea props -> deep_sea; MAYBE-usable: #2, #4; rest UNSCHEDULED.
+K5 Laboratory equipment -> laboratory, ACT-3? + IDEA SEED (Paolo): "act three
+crazy Amalgamation laboratory possibility maybe" — NOT locked, filed as idea.
+K6 Decorations -> decor_misc, UNSCHEDULED.
+K7 Cracked floor w/ lava -> lava_cracks, UNSCHEDULED ("probably not"), lava
+content noted for purity relevance.
+
+=== MISC PACK SWEEP 4 (Paolo 7/10/26) ===
+K0 Cauldrons -> cauldron, NEVER-SEE (kept, excluded).
+K1 Ship details: #20-24 = LADDERS -> ladder family; rest ship_details UNSCHEDULED.
+K2 Trash and debris -> trash_debris, ALL USABLE ("I love all of these") — canon
+collapse dressing, big win.
+K3 Cozy details -> cozy, MAYBE.
+K4 Town square decorations -> town_square, NEVER-SEE.
+K5 Treasure/loot -> treasure, NEVER-SEE (fantasy chest style wrong; loot the
+CONCEPT lives elsewhere — item piles).
+K6 Petals/ground details -> petals, ground-overlay candidates, MAYBE.
+K7 Staircases -> stairs_vertical, STYLE-MISMATCH (too stony/medieval) —
+mechanically useful class, wrong look; verticality calls still pending.
+NEW STATE: NEVER-SEE (Paolo "don't think ever") — stronger than UNSCHEDULED,
+weaker than deletion. All kept.
+
+=== FINAL SWEEP EXECUTED (Paolo 7/10/26) — MULTICELL SORT COMPLETE ===
+All 34 remaining packs Paolo-named; all 2,503 multicell tiles sorted.
+PAOLO DELETES (only kills of session): '1. Ground Tiles', '2. Cliffs and ledges'.
+NEW FROM FINAL: ACT-2? tag (cozy homey items); gun-reference candidates
+(weapons pack, "use them to draw guns later"); skeleton rig-reference interest
+(K1 question — answered); drinks = USABLE at nice bars/casinos; broken windows
+USABLE ("would love to see"); multicell GORE usable ("I'd love to see this");
+burn-marks realism doubt (grenade floor impacts); demonic gore -> nightmare-maybe.
+
+=== PURPLE DEPRIORITIZED (Paolo 7/10/26) ===
+Paolo called out Claude's purple fixation. RESOLUTION: purple law stays
+DEMO-SCOPED (hatch glow + agent eyes purity in Network/sewer contexts).
+The 1,600 alpha purple-bearing tiles = shelf data, NOT a blocker, NOT to be
+pushed. Claude stops raising purple scope unless it actually collides with
+something Paolo is building.
+
+=== TRANSITIONS (Paolo 7/10/26): "Looks decent" — VALIDATED ===
+12-piece demo transition set passes. Harvest method (min-error cut between
+terrain pairs' own tiles) trusted for future pairs.
+
+=== THE GREAT SWEEP COMPLETE (Paolo, 7/13/26) — 2,604/2,604 ===
+UP 1,927 / DOWN 677 / TOO-BIG 542 / TOO-SMALL 306 / 38 comments.
+ACT-1 art pool now Paolo-confirmed tile by tile. Files:
+BOHEMIA_ACT1_SWEEP_VERDICTS_MASTER.txt + BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt.
+COMMENT GOLD MINED:
+- MISFILED-AS-FLOOR: Floor tiles (1) #16/25/28/32 are WALLS; Metal floor
+  #15/28/30/32/33 are WALL VENTS/FAN; Rusted metal #28/29 air vents ->
+  reclass to wall/wall-mounted.
+- CURRENCY LOGO IDEA SEED: Survival props #39/45/46 = logos for
+  supplies / energy / medicine currencies ("1/3 currency?") — matches
+  three-resource economy; Paolo call pending.
+- GRENADE SCORCH: Burned ground #0/#1 = grenade marks; #21 tagged
+  "1730-1750 grenade animation" (frame-range note).
+- NIGHTMARE: skeletons #0/#1/#6 nightmare pool ("2478-2484 nightmare mode").
+- FREEWAY SIGNAGE class: Warning signs #10/15/18 "on the freeway".
+- TRAINING-DATA-FOR-X pattern: tents, broom, traffic lights, street signs,
+  weapons "use as model" -> REFERENCE class: art kept as drawing reference
+  for purpose-made Bohemia versions, not direct spawn.
+- Cars comment "2x3 i told you" — vehicle law reconfirmed with attitude.
+SCALE FINDINGS (systematic, 848 flags): hand-object packs (jars, food,
+survival, blood splats, screens) = TOO BIG rendered at 1 cell -> need
+sub-cell item scale; structure packs (cars, building parts, walls, fences,
+roofs, market stalls) = TOO SMALL -> need multi-cell footprints. My fp=source
+aspect assumption was wrong in both directions; Paolo's flags are the
+scale map.
+HIGH-KILL packs logged (16 packs >50% culled) — act-1 pool is now curated,
+not assumed.
+
+=== MATRIX RULE LESSON (7/13/26, Claude self-caught) ===
+Family rules must match NAMES ONLY, never free-text notes. Note-keyword
+matching marked 28 survival items as light emitters because their note
+mentioned lanterns. Fixed v1.1; unknowns now flagged UNKNOWN and queued for
+per-item vision follow-up instead of guessed.
+
+=== DEMO-SOURCE LESSON (Paolo 7/13/26) ===
+The two bake v12 sewer doors = Paolo DISLIKED ("dog shit, barely never wanna
+see") -> near-never pool; demo needs approved replacements. LAW: factory
+demos and proofs ALWAYS source from Paolo's highest-approval pool
+(Great Sweep UPs), never from whatever is convenient.
+
+=== DOOR STYLE VERDICT (Paolo 7/13/26): industrial #1 rolls up, ALL other doors swing ===
+Factory full run: 27/27 approved doors, per-clip gates (residue + freeze) all pass.
+Fire flicker factory v1 launched on approved light sources (pixel-law verified loops).
+
+=== STREET GEN v0 VERDICT (Paolo 7/13/26): DOWN — premature, idea credited ===
+Failures: raw footprints used (cars read 2x2, human-sized fire extinguisher —
+scale_fix never applied in render path); no crosswalks; no middle lane;
+toy street width. CANON FILED: realistic widths (~16 cells for 2+2 lanes,
+possibly more), full street anatomy required. STREET GEN PARKED until vision
+audit + scale application complete (Paolo steer: training before generating).
+FIX SHIPPED: bohemia_prop_scale.js = mandatory scale choke point, tests green
+(car 2x3 enforced, flagged items sub-cell, passthrough clean).
+
+=== PAOLO STREET ROLE LABELS (7/13/26) — AUTHORITATIVE ===
+LANE_DIV: cracked street #4/5/13/14/26. MEDIAN (fat, u-turns): #18-22.
+CROSSWALK: #15-17. PLAIN: the rest. #23 diagonal retired ("not a fan").
+Hazard pack: NOT street; #34-43 = sign faces -> POLE PRODUCTION queued
+("you'll probably have to make that pole"). NO edge-line class in Vegas
+anatomy. Claude's guessed classes fully replaced.
+
+=== LINE COLOR LAW (Paolo 7/13/26) ===
+Yellow/orange lines ALWAYS separate direction of traffic; white lines
+separate same-direction lanes; orientation must run with the road axis.
+Filed: BOHEMIA_ADDENDUM_LINE_COLOR_LAW_7_13_26.md; anatomy pool metadata
+updated (color_class + line_axis per tile).
+
+=== STREET FIX ROUND (Paolo 7/13/26) ===
+Paolo caught: lines running wrong axis (uniform-rotation assumption), yellow
+mixed into white divider rows, lane width wrong. FIXES: per-tile pixel
+DETECTION of line axis + color (no assumptions); #26 excluded from LANE_DIV
+(pixels yellow — Line Color Law conflict, Paolo to rule); LANE WIDTH LAW:
+lanes = 2 cells; composed rows MACHINE-VERIFIED before ship (lane_div row:
+white-only + EW runs PASS; median row: yellow-dominant + EW runs PASS).
+
+=== VISION NAMING CORRECTION PASS (7/14/26, sleep cook) ===
+Claude self-audit: sheets 2-4 banked names were MISALIGNED FABRICATIONS
+(batch-positional naming against an assumed pack composition; the 10
+'p_light_streetlamp' entries were literally SACKS AND CRATES). LESSON LOCKED:
+names may only come from directly-seen name->image pairs keyed by the sheet
+map (pack,idx); batch-positional naming is banned. Correction executed:
+sheets 2-8 renamed per item from ground truth (328 final names), matrix and
+queues rebuilt, LIGHT REGISTRY v2 shipped with real emitters (lantern sv#24
+matching Paolo's own sweep comment, campstove, flashlight, campfires, fx
+flame) and electric lights held PENDING Paolo's act-1 grid-power ruling.
+
+=== HOUSE FACTORY v1 VERDICT (Paolo 7/14/26): ALL 24 DOWN — "really really bad" ===
+Batch killed, approach retired. Diagnosis: naive tile-fill produced texture
+rectangles, not architecture (flat roof fill, no ridge/eaves/corners, wrong
+wall vocabulary, no silhouette). LESSON: assembly factories need PAOLO PART
+ANATOMY first (proven workflow: street roles, door leaf markups). Fix lane:
+HOUSE PART ROLES labeler over his approved building-scale pieces.
+
+=== SEAM DIAGNOSIS CORRECTED (Paolo 7/14/26: "seams getting WORSE") ===
+Claude was fixing SELF-wrap; the street's visible seams are CROSS-TILE
+(different pool variants meeting). Blend/toroidal passes = blur bands, worse
+in pixel art. REAL FIX: clean raw sources + FAMILY EDGE RING harmonization
+(hard pixels) + canonical line stamped across line-class variants (rows
+machine-verified identical). LESSON: pixel art seams die by construction
+(shared edges), never by blur.
+
+=== BLACK GRID REGRESSION (Paolo screenshot 7/14/26) ===
+Root cause: source tiles carry baked dark outlines; proven GROUND_SEAMLESS
+set had cropped inside them; Claude regressed by rebuilding pools "from
+clean raws" (raws are NOT clean). LAW: processed seamless banks are the
+source of truth; never rebuild from raw masters. Line tiles now frame-shaved
+on the HD before any other processing.
+
+=== LIGHT PHILOSOPHY LAW (Paolo 7/14/26) ===
+"Everything can be touched by light, nothing is above light." Per-sprite
+tinting BANNED (it is how sprites escape the light). Architecture forever:
+full-bright scene pass -> whole-frame lightmap multiply -> emissives only
+above darkness. Filed: BOHEMIA_ADDENDUM_LIGHT_PHILOSOPHY_7_14_26.md.
+Machine-verified in LIVE SLICE V2: door + walker draw BEFORE the multiply,
+only flames after.
+
+=== GAME TIME BUG (Paolo 7/14/26: walked all blocks, no time passed) ===
+Root cause: tryStep never RETURNED success; the world-advance wrapper saw
+undefined and never ticked TURN. LESSON LOCKED: static string checks are not
+behavior — every interactive with game logic now gets a HEADLESS BEHAVIORAL
+GATE (stubbed DOM, simulated inputs, asserted world state) before shipping.
+Fixed + behaviorally verified: 40 steps -> world beats advance, NPCs walk,
+sun crawls; FREE RUN regression green.
+
+=== TERRAIN v1 GRAVEYARD (Paolo 7/14/26: "desert and mountains both look
+like shit — tiles I did not agree with in placement, seams all fucked") ===
+POST-MORTEM, two root causes:
+1. SEAMS: the GROUND_SEAMLESS bank STORES each tile's finished processed
+   pixels (b64 field). Terrain v1 ignored them and re-cut HD raws with
+   half-applied crop metadata = destroyed the 7/10 pipeline's work.
+   LESSON LOCKED: processed banks are the SOURCE OF TRUTH — never re-derive
+   from raws when finished pixels exist.
+2. PLACEMENT: pools were machine-picked; Paolo never approved those tiles
+   for terrain duty. LESSON: pool MEMBERSHIP is a Paolo verdict, not a
+   heuristic. Terrain pools now come only from BOHEMIA_TERRAIN_PICKER
+   exports.
+Terrain blocks stay in the gallery as DOWN reference until picker-driven v2.

@@ -1,4 +1,4 @@
-=== BOHEMIA HANDOFF 7/16/26 (post GREAT MERGE) ===
+=== BOHEMIA HANDOFF 7/17/26 (REPO BORN) ===
 FILENAME LAW: this file is always named 00_START_HERE_NEXT_SESSION.md, lives at
 repo root, sorts to the top of every file list, and is REWRITTEN at the end of
 every working session. There is only ever ONE. It is the first thing any
@@ -8,15 +8,96 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md (what depends
 on what) -> BOHEMIA_CANON_INDEX.md (newest-date-wins map) -> STATE_OF_PLAY.
 
 ## WHERE WE ARE
-The chat era is over. Two chats each built a seed and neither was whole: the
-graphics chat had every gate, slice and bank but zero questbook; the questbook
-chat had 138 deep-dives and 53 quests but nothing from the graphics era, plus
-STUB copies of the shared tooling. They are now ONE MASTER, 521 files,
-conflict-resolved by content and not by the date in the filename.
+THE REPO IS BORN (7/17/26). The master seed landed via 4 part zips + chunk
+sets, every delivered file md5-verified against _MANIFEST.md5.txt, the HD tile
+repos and the alpha rejoined byte-exact from chunks, and the flat pile is now
+a real layout:
 
-ALL GATES GREEN at handoff: 15 gates, 359 checks, ~22s.
-  python3 bohemia_gates.py          (everything)
-  python3 bohemia_gates.py --fast   (skips the two pixel sweeps)
+  /engine     game + graphics engine .js, tests, bundle, faction/region json
+  /gates      every gate + every registry (graveyard, superseded, sync canon,
+              purity allow, light sources v5) + canon index generator
+  /laws       GDD v2-v5, STATE_OF_PLAY, all addenda, laws masters
+  /banks      cooked art banks, verdict banks, tile repos (HD parts 1-4 live
+              here, joined; they no longer travel as chunks)
+  /slices     BOHEMIA_ALPHA_0_9.html (the ONE alpha) + LIVE_SLICE_V9
+  /tools      chunk/intake/master/split tools, QUEST_LAB, PIPELINE_STATUS
+  /records    csv records, audits, proposals
+  /questbook  the 138 research dives + index + format/batch laws + gap matrix
+  /quests     production quests 001-053 + vault index + .bq sample (PARKED)
+  /archive    superseded files, ARCHIVE_ prefix dropped (the folder IS the tag)
+  root        CLAUDE.md, this file, ARCHITECTURE_MAP, CANON_INDEX, _MANIFEST
+
+ALL GATES GREEN at handoff: 15 gates, ~30s, every gate path repo-aware.
+  python3 gates/bohemia_gates.py          (everything)
+  python3 gates/bohemia_gates.py --fast   (skips the two pixel sweeps)
+
+## THE MISSING 54 (THE ZIP INCIDENT, THIRD BITE. READ THIS FIRST.)
+The manifest promises 534 files. The four part zips delivered 480. 54 files
+listed in _MANIFEST.md5.txt never made it into any zip, and they include
+LOAD-BEARING pieces: bohemia_engine.js (the game engine itself),
+BOHEMIA_GRAPHICS_LAWS_MASTER_7_16_26.md, BOHEMIA_LIVE_SLICE_V11 (the live
+slice), PORTS_MASTER (the build queue), CRAFT/FLAWS/CONVERSATIONS masters,
+QUEST_VAULT, QUESTBOOK_ARCHIVE.html, the street pools, and every picker/
+gallery/proof awaiting Paolo's thumbs. Same failure class as the two banked
+ZIP INCIDENT lessons: the wrap dropped files silently, the diff caught it.
+_MANIFEST.md5.txt stays at root as the checklist; re-run the verify after the
+missing files land. Gates are green WITHOUT these files only because none of
+the 15 gates reads them; the repo is NOT whole until they land. Full list:
+
+  ARCHIVE_BOHEMIA_BLOCKGEN_RENDER_PROOF_7_14_26.html
+  BOHEMIA_ALPHA_SURFACE_UPGRADES_7_10_26.txt
+  BOHEMIA_ANIM_GAP_COOK_7_14_26.txt
+  BOHEMIA_ANIM_GAP_PROOF_7_14_26.html
+  BOHEMIA_BAKE_V8_GALLERY_7_10_26.html
+  BOHEMIA_BRIDGE_SET_7_10_26.txt
+  BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt
+  BOHEMIA_CRAFT_MASTER_7_16_26.txt
+  BOHEMIA_DEMO_TILE_BAKE_7_10_26.txt
+  BOHEMIA_DIRECTIONAL_VARIANT_BANK_7_10_26.txt
+  BOHEMIA_DOOR_EW_BANK_7_10_26.txt
+  BOHEMIA_DOOR_LEAF_COOK_V3_7_14_26.txt
+  BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html
+  BOHEMIA_FLAWS_MASTER_7_16_26.txt
+  BOHEMIA_GORE_OVERLAY_BANK_7_10_26.txt
+  BOHEMIA_GRAPHICS_LAWS_MASTER_7_16_26.md
+  BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt
+  BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt
+  BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt
+  BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html
+  BOHEMIA_HOUSE_PART_ROLES_7_14_26.html
+  BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt
+  BOHEMIA_LIVE_SLICE_V11_7_16_26.html
+  BOHEMIA_MOUNTED_SIGNS_7_13_26.txt
+  BOHEMIA_MULTICELL_TRAINING_7_10_26.html
+  BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html
+  BOHEMIA_OVERLAY_BANK_7_10_26.txt
+  BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt
+  BOHEMIA_PARTICLE_LOOP_COOK_7_14_26.txt
+  BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt
+  BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt
+  BOHEMIA_PORTS_MASTER_7_16_26.txt
+  BOHEMIA_QUESTBOOK_ARCHIVE.html
+  BOHEMIA_QUEST_VAULT.md
+  BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html
+  BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt
+  BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt
+  BOHEMIA_SESSION_SHOWCASE_7_10_26.html
+  BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt
+  BOHEMIA_STALL_STRIPING_PROOF_7_14_26.html
+  BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt
+  BOHEMIA_STREET_GEN_GALLERY_7_13_26.html
+  BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt
+  BOHEMIA_STREET_TILE_ROLES_7_13_26.html
+  BOHEMIA_STREET_TUNER_7_13_26.html
+  BOHEMIA_TERRAIN_PICKER_7_14_26.html
+  BOHEMIA_TRANSITION_SET_7_10_26.txt
+  BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt
+  BOHEMIA_WALL_PICKER_7_14_26.html
+  BOHEMIA_WALL_PICKER_BATCH2_7_14_26.html
+  BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt
+  BOHEMIA_WALL_VARIANT_BANK_7_10_26.txt
+  BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt
+  bohemia_engine.js
 
 ## THE RE-AUDIT (Paolo forced a second pass. It found four more. Read this.)
 7. **THE REGISTRY ATE TWO LIVE FILES.** `bohemia_superseded.txt` had a line
@@ -68,7 +149,7 @@ ALL GATES GREEN at handoff: 15 gates, 359 checks, ~22s.
   succession, character stack, Bunkerguy. v5 = 7/3-7/6 systems. Gated: gdd_gate.js
 - BOHEMIA_LIVE_SLICE_V11_7_16_26.html = the LIVE slice (V9 = blessed art base)
 - BOHEMIA_ALPHA_0_9.html = the ONE alpha (stale, absorption pending, ONE-ALPHA LAW)
-- bohemia_gates.py = every law's teeth, one command
+- gates/bohemia_gates.py = every law's teeth, one command
 - BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js = 14-module reference bundle
   (standalone .js files are CANONICAL, the bundle is a copy, sync gate enforces)
 - bohemia_engine.js = game engine, 12 modules + bohemia_tests.js (80 checks)
@@ -90,13 +171,14 @@ ALL GATES GREEN at handoff: 15 gates, 359 checks, ~22s.
    The dead chat's LT0 patch used V8's H=62 on V9's H=60 bake. That file is dead.
 2. PATROL INTO THE SLICE: bohemia_patrol.js built and gated 28/28, not yet wired
    into V11's walkable loop.
-3. HD TILE REPOS: four ~45MB files travel as .chunk sets. join, verify md5, commit.
+3. HD TILE REPOS: DONE 7/17. Joined md5-exact, live in /banks, chunks deleted.
 4. FRESH QUEST MINING: ~72 whole-game teardowns still in the pool. Target >90
    individual quests at v2 before master compile; currently 54.
 
 ## NEXT ACTION
-Launch the repo (seed is verified, gates green), join the HD chunks, then LAMPS
-ONTO V11.
+Get THE MISSING 54 into the repo (Paolo re-zips or uploads them; verify against
+_MANIFEST.md5.txt, then file them into the layout above). Then LAMPS ONTO V11
+(V11 itself is among the missing files).
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
 GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white

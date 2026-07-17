@@ -1,0 +1,9 @@
+# ENGINE SYNC GATE — superseded carriers.
+# These are historical artifacts kept for the record. They are NOT re-inlined;
+# rewriting a shipped slice would be rewriting history. The gate skips them.
+BOHEMIA_LIVE_SLICE_V5_7_14_26.html
+BOHEMIA_LIVE_SLICE_V6_7_14_26.html
+BOHEMIA_LIVE_SLICE_V7_7_14_26.html
+BOHEMIA_LIVE_SLICE_V8_7_14_26.html
+BOHEMIA_LIVE_SLICE_V9_7_14_26.html
+BOHEMIA_LIVE_SLICE_V10_7_14_26.html

@@ -1,0 +1,369 @@
+=== BOHEMIA MUSIC REPO, EMBEDDED (7/8/26, Paolo: important files ride IN the alpha) ===
+THIS BLOCK IS THE MUSIC REPO. It lives inside the alpha so one file
+carries the whole music brain: laws, ledger, verdict history, cook
+prompt. Every cook updates this block IN PLACE the same turn. At wrap, a
+standalone BOHEMIA_MUSIC_REPO.txt is spun out of this block for the
+project upload. Any session holding this alpha holds everything.
+
+=== BOHEMIA MUSIC COOK PROMPT ===
+
+SHORT FORM (iPhone text replacement, trigger suggestion: ccook):
+Cook fresh Bohemia music: all locked laws per the alpha's embedded lawbook. Horror FF creepy, melodic under dread. Birth new voices, new synthesis topologies, no shared scale/feel/kick, screech law, graveyard final, no remakes. Update embedded repo, gate green, ship alpha same turn.
+
+(Paste this whole block into any session to fire a cook with zero trust
+required. Typing just "cook" hits the same laws because they live in the
+project, but this is the full spell.)
+
+Cook me a fresh music batch for Bohemia. Follow every locked music law:
+
+DIRECTION (standing default, every session, every batch): POST-APOCALYPTIC
+FINAL FANTASY, HORROR, CREEPY. Ruined grandeur: dead chapel choirs, music
+boxes that play the note wrong, bells tolling in empty casinos, heartbeat
+subs, breath and wind through broken structures, dissonance as material
+(semitone rubs, tritones, clusters, drift). But MELODIC AND EMOTIVE
+underneath the dread: hooks, calls, hymns, beauty in the ruin. Never
+drone-flat. Never aggression without melody. FF orchestral soul filtered
+through collapse.
+
+NEW VOICES LAW (amended 7/8, Paolo: old voices may touch new songs): the
+rack is a living orchestra, canon voices are fair game in new songs. The
+teeth are DIVERSITY: every new song still BIRTHS at least one newly
+synthesized voice (post-apoc FF horror named, ledgered to its owner), and
+the variety law below is the hard rule. Sameness was never about reuse,
+it was about skeletons.
+
+MUSIC VARIETY LAW: every batch introduces synthesis TOPOLOGIES the catalog
+has never used, not reskinned old skeletons. No two songs in a batch share
+scale + feel + kick pattern. Vary roots, scales, feels, kick placements.
+
+SCREECH LAW: no feedback loops, no createDelay, ever. Anything that rings
+is excited-and-decaying. The brickwall limiter stays in the master chain.
+
+GRAVEYARD IS FINAL: no remakes ever. Dead songs stay dead, out of the
+working list, out of every play pool. Fresh cooks answer dead slots.
+Faction slot-2s are the only structural recooks: fresh song, new name,
+new voices, SONG2_VER bump so the slot shows NEW with clean thumbs.
+
+EVERY COOK SHIPS SAME TURN: _newvoice_gate.js green + syntax checks, all
+data baked in source, NEW badges on the fresh batch, BOHEMIA_MUSIC_REPO.txt
+updated (entries verbatim + voice ledger + song notes), md5 stamped, alpha
+AND repo presented tap-to-download.
+
+VERDICT PASTES auto-process every time: canon baked into defaults, downs
+BURIED (collapsed ☠ GRAVEYARD section, excluded from all pools), kill
+reasons logged when given.
+
+Batch default: 4 songs. Modifiers: a number = batch size, "menu" =
+include a menu attempt, a SCENE IMAGE steers the whole batch and is the
+strongest input I can give you.
+=== END PROMPT ===
+
+
+=== BOHEMIA MUSIC REPO (7/6/26) ===
+THE MUSIC SAVE FILE. ALPHA is a build; this file is the truth.
+Recovered from session transcripts 7/6/26 after the merge gap.
+
+--- RECOVERED SONGS (23, transcripts verbatim; 4 reconstructed byte-exact via the generator's own entry() mapping) ---
+{n:'REMNANTS — ASHES OF THE PARADE',acc:'#9aa23a',root:45,scale:[0,2,3,7,8],wave:'sawtooth',kick:[0,4,8,12],bass:[0,3,7,10],hat:[0,4,8,12],inst:{b:'ivalicebrass',l:'warhorn'},am:'mournhorn',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'drums',ff:true},
+{n:'NETWORK — HYMN OF THE AMALGAM',acc:'#1fbf9c',root:52,scale:[0,2,3,7,9],wave:'square',kick:[0,4,8,12],bass:[0,4,7,11],hat:[2,6,10,14],inst:{b:'datachant',l:'glasshope'},am:'dreadbed',kit:{k:'punchk',h:'clickh'},mel:'drive16',swing:0,klay:'melody',ff:true},
+{n:'MOB — THE HOUSE REMEMBERS',acc:'#caa83a',root:47,scale:[0,3,5,7,9],wave:'triangle',kick:[0,8,11],bass:[0,5,9],hat:[2,10],inst:{b:'wornstrings',l:'tollbell'},am:'ashchoir',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.5,klay:'stabs',ff:true},
+{n:'CARTEL — SAINTS OF THE DUST',acc:'#a01818',root:46,scale:[0,1,4,6,8,11],wave:'sawtooth',kick:[0,4,7,8,12],bass:[0,4,8,11],hat:[2,6,10,14],inst:{b:'crashchoir',l:'spiralbell'},am:'mournhorn',kit:{k:'boom',h:'clickh'},mel:'call',swing:0,klay:'drums',ff:true},
+{n:'REDS — INTEREST NEVER SLEEPS',acc:'#c0392b',root:43,scale:[0,1,5,6,10],wave:'sawtooth',kick:[0,3,8,11],bass:[0,5,6,10],hat:[2,6,10,14],inst:{b:'ivalicebrass',l:'risenlead'},am:'dreadbed',kit:{k:'boom',h:'sizzle'},mel:'call',swing:0,klay:'drums',ff:true},
+{n:'RUST ANTHEM',acc:'#c85a3a',root:50,scale:[0,3,5,6,10],wave:'sawtooth',kick:[0,4,8,12],bass:[0,3,6,10],hat:[2,6,10,14],inst:{b:'crashchoir',l:'risenlead'},am:'ember',kit:{k:'dropkick',h:'clickh'},mel:'drive16',swing:0,klay:'stabs',ff:true},
+{n:'MENU — DEAD VALLEY DAWN',menu:true,acc:'#9a7ac8',root:45,scale:[0,2,3,7,9],wave:'sine',kick:[],bass:[0,7],hat:[],inst:{b:'dawnpad',l:'glasshope'},am:'faythhum',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'PROCESSION OF ASH',acc:'#c8b060',root:45,scale:[0,2,3,7,8],wave:'sawtooth',kick:[0,6,8,14],bass:[0,7,3,7],hat:[4,12],inst:{b:'processional',l:'tollbell'},am:'glasshope',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'drums',ff:true},
+{n:'COLD TABLE',acc:'#caa83a',root:47,scale:[0,3,5,7,10],wave:'triangle',kick:[0,8],bass:[0,7,10,7],hat:[2,6,10,14],inst:{b:'swaggerbass',l:'hollowtrumpet'},am:'nightpad',kit:{k:'boom',h:'clickh'},mel:'call',swing:0,feel:'half',klay:'stabs',ff:true},
+{n:'MOB — BOSS WALKS IN',acc:'#caa83a',root:47,scale:[0,3,5,7,10],wave:'triangle',kick:[0,4,8,12],bass:[0,3,7,10,12],hat:[2,6,10,14],inst:{b:'swaggerbass',l:'coolkeys'},am:'hollowtrumpet',kit:{k:'punchk',h:'ride'},mel:'call',swing:0.16,klay:'stabs',ff:true},
+{n:'THE VAULT',acc:'#a82828',root:41,scale:[0,2,3,7,8],wave:'sawtooth',kick:[0,8],bass:[0,7,10,12],hat:[4,12],inst:{b:'nightpad',l:'duskorgan'},am:'ledgerbell',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'RED LEDGER',acc:'#c83a3a',root:43,scale:[0,1,5,6,10],wave:'sawtooth',kick:[0,4,8,12],bass:[0,5,6,10,12],hat:[2,6,10,14],inst:{b:'ivalicebrass',l:'risenlead'},am:'dreadbed',kit:{k:'boom',h:'sizzle'},mel:'call',swing:0,feel:'half',klay:'drums',ff:true},
+{n:'SLOW BLEED',acc:'#c0392b',root:41,scale:[0,1,5,6,10],wave:'sawtooth',kick:[0,8],bass:[0,6,10,6],hat:[4,12],inst:{b:'powergrid',l:'rustlead'},am:'deadsat',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'GHOST IN THE GRID',acc:'#1fbf9c',root:52,scale:[0,2,3,7,9],wave:'square',kick:[0,8],bass:[0,7,11,7],hat:[2,6,10,14],inst:{b:'powergrid',l:'signalfade'},am:'deadsat',kit:{k:'punchk',h:'clickh'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'LAST BROADCAST',acc:'#3ad0b0',root:52,scale:[0,2,4,7,9],wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,11],hat:[2,6,10,14],inst:{b:'signalfade',l:'hopecircuit'},am:'powergrid',kit:{k:'punchk',h:'clickh'},mel:'call',swing:0,klay:'melody',ff:true},
+{n:'REPO MAN',acc:'#b83030',root:41,scale:[0,2,3,7,8],wave:'sawtooth',kick:[0,8],bass:[0,7,10,12],hat:[4,12],inst:{b:'powergrid',l:'coldpiano'},am:'deadsat',kit:{k:'boom',h:'tight'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'SATELLITE PRAYER',acc:'#2fc0a8',root:52,scale:[0,2,4,7,9],wave:'sine',kick:[0,8],bass:[0,7,11],hat:[4,12],inst:{b:'deadsat',l:'solarhymn'},am:'powergrid',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'HIGHWAY 15 SOUTH',acc:'#c8a878',root:50,scale:[0,2,4,7,9],wave:'triangle',kick:[0,8],bass:[0,7,9,7],hat:[4,12],inst:{b:'coldpiano',l:'wanderlead'},am:'solarhymn',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'melody',ff:true},
+{n:'CARAVAN DUST',acc:'#b89a6a',root:48,scale:[0,2,3,7,9],wave:'triangle',kick:[0,6,10],bass:[0,7,10,12],hat:[3,7,11],inst:{b:'sub',l:'wanderlead'},am:'drifter',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.15,klay:'melody',ff:true},
+{n:'ONE CANDLE',acc:'#c8b060',root:50,scale:[0,2,3,7,8],wave:'sine',kick:[0],bass:[0,7],hat:[],inst:{b:'processional',l:'coldpiano'},am:'solarhymn',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'SLOW CREEP',acc:'#c85a3a',root:45,scale:[0,1,5,6,10],wave:'sawtooth',kick:[0,10],bass:[0,6,10,6],hat:[6,14],inst:{b:'nightpad',l:'rustlead'},am:'deadsat',kit:{k:'boom',h:'clickh'},mel:'call',swing:0,feel:'half',klay:'drums',ff:true},
+{n:'MOJAVE GHOST',acc:'#c8a878',root:50,scale:[0,2,4,7,9],wave:'triangle',kick:[0,8],bass:[0,7,9,12],hat:[3,11],inst:{b:'drifter',l:'wanderlead'},am:'solarhymn',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.1,klay:'melody',ff:true},
+{n:'LONG WALK HOME',acc:'#b89a6a',root:48,scale:[0,2,3,7,9],wave:'triangle',kick:[0,8],bass:[0,7,10],hat:[4,12],inst:{b:'wanderlead',l:'coldpiano'},am:'drifter',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+
+--- STANDING DIRECTION DEFAULT (Paolo 7/8, LOCKED, EVERY SESSION) ---
+POST-APOCALYPTIC FINAL FANTASY HORROR CREEPY is the DEFAULT direction for
+all music work in every future session, with or without the full prompt.
+Melodic and emotive under the dread, never drone-flat, never aggression
+without melody. Full paste-able spell: BOHEMIA_MUSIC_COOK_PROMPT.txt
+(ships to the project; any cook honors it even off the one word "cook").
+
+--- MUSIC COMMANDS (Paolo 7/8, THE shared language, LOCKED) ---
+"cook" = Claude cooks a fresh batch NOW under ALL music laws: every song
+  ships its own new voices, post-apocalyptic Final Fantasy creepy horror
+  direction, MUSIC VARIETY LAW (new topologies, no two songs share
+  scale+feel+kick), SCREECH LAW, no remakes ever, repo file ships same
+  turn. Default batch = 4 songs. Modifiers: "cook 6" (batch size),
+  "cook menu" (include a menu attempt), "cook <scene image>" (the scene
+  steers the whole batch, strongest input).
+"mm" = batch music judging mode (existing).
+PASTED VERDICTS = auto-processed every time: canon baked, downs BURIED
+  (removed from working list into the collapsed ☠ GRAVEYARD section,
+  excluded from every play pool), faction slot-2 downs recooked fresh.
+No other ritual needed. Type cook, get songs.
+
+--- GRAVEYARD REMOVAL + HORROR UI (7/8, BUILT) ---
+Thumbed-down songs now LEAVE the working list: they collapse into a
+☠ GRAVEYARD (N) section at the bottom of the music tab (tap to open,
+thumbs stay live inside for rare redemptions) and are filtered out of
+every play pool (menu, overworld, any category pick). The music tab
+wears the direction now: FF-apocalypse horror styling, violet-bone-blood
+palette, glowing ☠ M U S I C ☠ header, ✠ FACTION HYMNS ✠ / ✦ OVERWORLD ✦
+/ ✦ VIBE LOOPS ✦ section marks, crypt-dark radial background.
+
+--- NEW VOICES LAW (Paolo 7/7/26, LOCKED) ---
+1. AMENDED 7/8 (Paolo): old rack voices MAY appear in new songs; every
+   new song still births at least one NEW voice, and every batch brings
+   never-used synthesis topologies (variety law is the hard rule).
+   2. All new voices are POST-APOCALYPTIC FINAL FANTASY themed, always.
+   3. GRAVEYARD IS FINAL (Paolo 7/7): no remakes ever again, dead songs
+   stay dead, cook FRESH songs instead. Volume wanted: keep cooking.
+   Enforced by _newvoice_gate.js every ship.
+
+--- MUSIC VARIETY LAW + HORROR DIRECTION (Paolo 7/8, LOCKED) ---
+Direction: horror creepy post-apocalyptic Final Fantasy. Law: every batch
+uses synthesis topologies never used before; no two songs in a batch share
+scale+feel+kick. Full text: BOHEMIA_ADDENDUM_MUSIC_VARIETY_HORROR_LAW.
+HORROR KIT now in engine: noise buffers, karplus-strong strings, ring mod,
+waveshaper distortion, random pitch-drift, semitone/tritone dissonance,
+heartbeat subs.
+
+--- SCREECH INCIDENT + SCREECH LAW (7/8, Paolo's eardrums, LOCKED) ---
+The karplus-strong voices (wireharp, boneshuffle) were feedback loops that
+never died: every bass note spawned a permanent ringing loop, stacking
+into a screech wall. FIXED same turn: both rewritten as noise-excited
+RESONATOR plucks (same wire character, physically cannot self-sustain),
+plus a BRICKWALL limiter stage added after the master compressor
+(threshold -5, ratio 20). SCREECH LAW, gate-enforced forever: no
+createDelay, no feedback loops in any voice; anything that rings must be
+excited-and-decaying, never self-feeding.
+
+--- HORROR BATCH 6 (7/8, all UNJUDGED, post-fix data unchanged) ---
+{n:'THE CHOIR THAT STAYED',acc:'#9a8ab8',root:45,scale:[0,1,5,7,8],wave:'square',kick:[0,9],bass:[0,1,7],hat:[],inst:{b:'cryptorgan',l:'ghostvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'MUSIC BOX FOR THE GONE',acc:'#d8c0d8',root:52,scale:[0,2,3,7,8],wave:'sine',kick:[0,11],bass:[0,3,8],hat:[6],inst:{b:'wireharp',l:'gonebox'},am:'nurserydust',kit:{k:'thud',h:'tight'},mel:'call',swing:0.06,klay:'melody',ff:true},
+{n:'IT WALKS THE STRIP AT 3AM',acc:'#6a3a4a',root:41,scale:[0,1,6,7,10],wave:'sine',kick:[0,7,11],bass:[0,6,7],hat:[3,13],inst:{b:'heartbeatsub',l:'neonhowl'},am:'pressurefront',kit:{k:'boom',h:'clickh'},mel:'longs',swing:0,klay:'drums',ff:true},
+{n:'PHANTOM CASINO',acc:'#4aa088',root:47,scale:[0,1,3,6,8],wave:'square',kick:[0,5,8,13],bass:[0,3,6,8],hat:[2,10],inst:{b:'boneshuffle',l:'jackpotghost'},am:'emptyfloorhum',kit:{k:'knock',h:'ride'},mel:'call',swing:0.3,klay:'stabs',ff:true},
+VOICE LEDGER BATCH 6: THE CHOIR THAT STAYED owns cryptorgan, ghostvox,
+chapelbreath. MUSIC BOX FOR THE GONE owns wireharp, gonebox, nurserydust.
+IT WALKS THE STRIP AT 3AM owns heartbeatsub, neonhowl, pressurefront.
+PHANTOM CASINO owns boneshuffle, jackpotghost, emptyfloorhum.
+
+--- VERDICTS 7/8 ROUND 4 (Paolo, supersedes) ---
+REMNANTS s2 THE LONG SALUTE: CANON. HYMN FOR RUNNING WATER: CANON.
+PAWNSHOP PSALM: CANON. SUNRISE OVER THE BONEYARD: CANON. DOWN + final:
+MENU — LIGHTS ACROSS THE VALLEY, ANARCHISTS s2 EVICTION PARTY (recooked).
+
+--- BATCH 5 (7/8) ---
+ANARCHISTS s2 v16 DANCE ON THE RUBBLE (attempt 4: three ska angles died,
+this one is bright 2-tone with the horn carrying an actual HOOK, seed8
+melody, organ skank): {root:52,wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9,12],hat:[2,6,10,14],scale:[0,2,4,7,9],inst:{b:'skankorgan',l:'rudehorn'},am:'unionhall',kit:{k:'dropkick',h:'skahat'},mel:'seed8',swing:0.25,klay:'melody'}
+{n:'MENU — WIND OVER THE MESA',menu:true,acc:'#b8a888',root:43,scale:[0,2,3,7,9],wave:'sine',kick:[],bass:[0],hat:[],inst:{b:'mesawind',l:'farbell'},am:'stillair',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'CATHEDRAL OF CRANES',acc:'#c8a040',root:47,scale:[0,2,4,7,9],wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9],hat:[2,6,10,14],inst:{b:'riveter',l:'cranesong'},am:'scaffoldair',kit:{k:'knock',h:'tight'},mel:'call',swing:0,klay:'melody',ff:true},
+{n:'MOTHS AROUND THE LAST LIGHT',acc:'#e8d8a8',root:50,scale:[0,2,3,7,9],wave:'sine',kick:[0,8],bass:[0,7],hat:[4,12],inst:{b:'lampbass',l:'mothflutter'},am:'porchglow',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'A THOUSAND MILES OF COPPER',acc:'#c87838',root:46,scale:[0,2,3,7,9],wave:'triangle',kick:[0,6,8,14],bass:[0,3,7,10],hat:[3,7,11,14],inst:{b:'coppertwang',l:'linewalker'},am:'oxidechoir',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.15,klay:'melody',ff:true},
+NOTES: WIND OVER THE MESA = menu attempt 4 built on the ONLY menu recipe
+that ever went canon (DEAD VALLEY DAWN minimalism): swept wind, one far
+bell, still air, no drums at all. CATHEDRAL OF CRANES = rebuild as
+worship, rivet FM plucks under crane-call horns. MOTHS AROUND THE LAST
+LIGHT = tiny and tender, a real 9Hz wingbeat tremolo on the lead.
+A THOUSAND MILES OF COPPER = wire-strip caravan epic, copper twang plucks.
+VOICE LEDGER BATCH 5: DANCE ON THE RUBBLE owns skankorgan, rudehorn,
+unionhall. WIND OVER THE MESA owns mesawind, farbell, stillair. CATHEDRAL
+OF CRANES owns riveter, cranesong, scaffoldair. MOTHS owns lampbass,
+mothflutter, porchglow. THOUSAND MILES owns coppertwang, linewalker,
+oxidechoir.
+
+--- VERDICTS 7/7 NIGHT ROUND 3 (Paolo, supersedes) ---
+REDS s2 DIVIDEND DAY: CANON. TWO COINS FOR THE FERRYMAN: CANON. THE GARDEN
+AT WORLDS END: CANON. DOWN + graveyarded final: MENU — EMBER VIGIL, NEON
+NECROPOLIS. Slot recooks ordered: ANARCHISTS#2 (v14 too aggressive),
+REMNANTS#2 (v10 too funeral).
+
+--- BATCH 4 (7/7 night, melodic lean per the verdict pattern) ---
+SLOT-2 RECOOKS (SONG2_VER: ANARCHISTS 15, REMNANTS 11):
+ANARCHISTS s2 EVICTION PARTY: {root:55,wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9],hat:[2,6,10,14],scale:[0,2,4,5,7,9],inst:{b:'brickbass',l:'streethorns'},am:'barricadegang',kit:{k:'dropkick',h:'skahat'},mel:'call',swing:0.2,klay:'stabs'}
+REMNANTS s2 THE LONG SALUTE: {root:45,wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9],hat:[2,6,10,14],scale:[0,2,4,7,9],inst:{b:'ironheart',l:'silverhorn'},am:'honorguard',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'drums'}
+FRESH VIBES + MENU:
+{n:'MENU — LIGHTS ACROSS THE VALLEY',menu:true,acc:'#c8b880',root:45,scale:[0,2,4,7,9],wave:'sine',kick:[],bass:[0,7],hat:[],inst:{b:'valleykeys',l:'farlights'},am:'duskveil',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'HYMN FOR RUNNING WATER',acc:'#6ab8c8',root:48,scale:[0,2,4,7,9],wave:'sine',kick:[0,8],bass:[0,4,7],hat:[4,12],inst:{b:'reservoirbass',l:'watervoice'},am:'mistchoir',kit:{k:'thud',h:'tight'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'PAWNSHOP PSALM',acc:'#b09048',root:45,scale:[0,3,5,7,10],wave:'triangle',kick:[0,7,8],bass:[0,3,7,10],hat:[2,10,14],inst:{b:'pawnbass',l:'brokenkeys'},am:'smokehalo',kit:{k:'knock',h:'ride'},mel:'call',swing:0.35,klay:'stabs',ff:true},
+{n:'SUNRISE OVER THE BONEYARD',acc:'#e0a060',root:50,scale:[0,2,4,7,9],wave:'triangle',kick:[0,6,10],bass:[0,4,7,9],hat:[3,11],inst:{b:'boneyardbass',l:'neonrelic'},am:'dawnwash',kit:{k:'knock',h:'wood'},mel:'call',swing:0.08,klay:'melody',ff:true},
+NOTES: LIGHTS ACROSS THE VALLEY = menu attempt 3, overlooking dark Vegas,
+FM keys + staggered far-light sparkles over a dusk veil. HYMN FOR RUNNING
+WATER = Lake Mead rising, awe, vibrato watervoice over a deep reservoir
+swell. PAWNSHOP PSALM = money-noir (VAULT/COLD TABLE family), detuned
+piano nobody tuned since the crash, heavy swing. SUNRISE OVER THE
+BONEYARD = the neon sign graveyard at dawn, relic bell over a rising
+dawn-wash. EVICTION PARTY = ska joy-riot with actual melody. THE LONG
+SALUTE = ceremony not funeral, silverhorn legato over an honor guard pad.
+VOICE LEDGER BATCH 4: EVICTION PARTY owns brickbass, streethorns,
+barricadegang. THE LONG SALUTE owns ironheart, silverhorn, honorguard.
+LIGHTS ACROSS THE VALLEY owns valleykeys, farlights, duskveil. HYMN FOR
+RUNNING WATER owns reservoirbass, watervoice, mistchoir. PAWNSHOP PSALM
+owns pawnbass, brokenkeys, smokehalo. SUNRISE OVER THE BONEYARD owns
+boneyardbass, neonrelic, dawnwash.
+FIX: remake-clear now leaves recooked slots UNJUDGED instead of falsely
+stamping GRAVEYARD.
+
+--- VERDICTS 7/7 EVENING ROUND 2 (Paolo, supersedes) ---
+BATCH 2 JUDGED: THRONE OF STATIC, CHOIR FOR THE MACHINE, FLOWERS ON THE
+FREEWAY, CRYSTAL IN THE RUBBLE, SOMEWHERE A FOUNTAIN STILL RUNS all CANON.
+MARCH OF THE UNPAID and AIRSHIP GRAVE DOWN (graveyard, final). The 7/7
+morning remakes all DOWN (graveyard, final): SOLAR CHURCH, SPEAKEASY
+SWING, both old MENUs, HOUSE REMEMBERS, ONE CANDLE, MOJAVE GHOST, LONG
+WALK HOME. Faction slot-2 downs: REDS#2, ANARCHISTS#2, REMNANTS#2,
+recooked fresh same turn (below). Dead vibes stay dead per GRAVEYARD IS
+FINAL; fresh cooks fill the air instead.
+
+--- EXPORT FORMAT FIX (Paolo 7/7): DATA blob REMOVED from the music
+export. It broke iOS copy-paste (huge JSON turned the paste into an
+attachment). Safe forever: all song + voice data is BAKED IN SOURCE, the
+human verdict list is the entire export now. ---
+
+--- SAINTS DEDUPE: standalone SAINTS OF THE DUST vibe entry deleted; it
+lives solely as CARTEL slot 2. Faction slot names now display in studio:
+CARTEL (RED LEDGER / SAINTS OF THE DUST), REDS s2 DIVIDEND DAY,
+ANARCHISTS s2 NO GODS NO LANDLORDS, REMNANTS s2 COLORS AT HALF MAST. ---
+
+--- FACTION SLOT-2 RECOOKS (7/7 evening, SONG2_VER bumped: REDS 14,
+ANARCHISTS 14, REMNANTS 10, NEW badges + clean thumbs on device) ---
+REDS s2 DIVIDEND DAY: {root:45,wave:'sawtooth',kick:[0,3,8,11],bass:[0,5,7,10],hat:[2,6,10,14],scale:[0,2,4,7,9],inst:{b:'foreclosurebass',l:'dustbowlguitar'},am:'prairiestatic',kit:{k:'boom',h:'tight'},mel:'call',swing:0.12,klay:'melody'}
+ANARCHISTS s2 NO GODS NO LANDLORDS: {root:55,wave:'sawtooth',kick:[0,4,8,10,12],bass:[0,4,7,10],hat:[2,6,10,14],scale:[0,2,4,5,7,9],inst:{b:'squatbass',l:'molotovhorn'},am:'riotchoir',kit:{k:'dropkick',h:'skahat'},mel:'drive16',swing:0.14,klay:'stabs'}
+REMNANTS s2 COLORS AT HALF MAST: {root:43,wave:'sawtooth',kick:[0,4,8,12],bass:[0,3,7,8],hat:[2,6,10,14],scale:[0,2,3,7,8],inst:{b:'halfmasthorn',l:'lastbugle'},am:'foldedflag',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'drums'}
+
+--- FRESH BATCH 3 (7/7 evening, all UNJUDGED, NEW badges live) ---
+{n:'MENU — EMBER VIGIL',menu:true,acc:'#d8905a',root:45,scale:[0,2,3,7,9],wave:'sine',kick:[0],bass:[0,7],hat:[],inst:{b:'vigilkeys',l:'emberline'},am:'nightwatch',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'TWO COINS FOR THE FERRYMAN',acc:'#8a98b0',root:43,scale:[0,2,3,7,8],wave:'triangle',kick:[0,8],bass:[0,3,7],hat:[4,12],inst:{b:'ferrypluck',l:'obolbell'},am:'styxhaze',kit:{k:'thud',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'NEON NECROPOLIS',acc:'#c848a0',root:46,scale:[0,1,4,6,8,11],wave:'sawtooth',kick:[0,6,8,14],bass:[0,4,6,11],hat:[2,6,10,14],inst:{b:'necrobass',l:'ghostsign'},am:'vacancyhum',kit:{k:'punchk',h:'clickh'},mel:'call',swing:0,klay:'stabs',ff:true},
+{n:'THE GARDEN AT WORLDS END',acc:'#8ac878',root:50,scale:[0,2,4,7,9],wave:'triangle',kick:[0,6,10],bass:[0,4,7,12],hat:[3,11],inst:{b:'seedbass',l:'bloomvoice'},am:'edenmist',kit:{k:'knock',h:'wood'},mel:'call',swing:0.1,klay:'melody',ff:true},
+SONG NOTES: EMBER VIGIL = new menu music, FM keys + slow-breathing ember
+line over a nightwatch pad. TWO COINS FOR THE FERRYMAN = somber crossing,
+resonant low plucks + FM coin bell over a styx haze. NEON NECROPOLIS =
+the dead strip at night, resonant wobble bass + a flickering neon-sign
+lead. THE GARDEN AT WORLDS END = ending-theme hope, seed bass +
+blooming formant voice under eden mist.
+
+--- VOICE LEDGER, BATCH 3 (7/7 evening) ---
+DIVIDEND DAY owns: foreclosurebass, dustbowlguitar, prairiestatic.
+NO GODS NO LANDLORDS owns: squatbass, molotovhorn, riotchoir.
+COLORS AT HALF MAST owns: halfmasthorn, lastbugle, foldedflag.
+MENU — EMBER VIGIL owns: vigilkeys, emberline, nightwatch.
+TWO COINS FOR THE FERRYMAN owns: ferrypluck, obolbell, styxhaze.
+NEON NECROPOLIS owns: necrobass, ghostsign, vacancyhum.
+THE GARDEN AT WORLDS END owns: seedbass, bloomvoice, edenmist.
+
+--- FRESH BATCH 2 (7/7/26, judged above) ---
+{n:'CRYSTAL IN THE RUBBLE',acc:'#8ad0e8',root:52,scale:[0,2,4,7,9],wave:'triangle',kick:[0,8],bass:[0,4,7,12],hat:[2,6,10,14],inst:{b:'shardglass',l:'crystalline'},am:'rubblelight',kit:{k:'thud',h:'tight'},mel:'call',swing:0,klay:'melody',ff:true},
+{n:'MARCH OF THE UNPAID',acc:'#a04a30',root:43,scale:[0,2,3,7,8],wave:'sawtooth',kick:[0,4,8,10,12],bass:[0,3,7,8],hat:[2,6,10,14],inst:{b:'ironstep',l:'unpaidhorn'},am:'ledgerdrone',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'drums',ff:true},
+{n:'SOMEWHERE A FOUNTAIN STILL RUNS',acc:'#7ac8a8',root:50,scale:[0,2,4,7,9],wave:'sine',kick:[0,6,10],bass:[0,4,7,9],hat:[3,11],inst:{b:'fountainpluck',l:'stillwater'},am:'gardenhum',kit:{k:'knock',h:'wood'},mel:'call',swing:0.1,klay:'melody',ff:true},
+{n:'AIRSHIP GRAVE',acc:'#98a8c0',root:45,scale:[0,2,3,7,9],wave:'triangle',kick:[0,8],bass:[0,7,10],hat:[4,12],inst:{b:'hullwind',l:'altitudecall'},am:'skyrust',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+SONG NOTES: CRYSTAL IN THE RUBBLE = the crystal theme energy through
+collapse, glass shard plucks + FM crystal bells over highpass light.
+MARCH OF THE UNPAID = dark battle march for the economic dead, pitch-drop
+iron bass, horn stabs, beat-frequency ledger drone. SOMEWHERE A FOUNTAIN
+STILL RUNS = town-theme hope, resonant water plucks, vibrato sine with a
+fifth shadow, breathing garden pad. AIRSHIP GRAVE = fallen sky wistful,
+wind through the hull (swept bandpass), altitude horn calls, rusting
+detuned sky pad.
+
+--- VOICE LEDGER, BATCH 2 (7/7/26) ---
+CRYSTAL IN THE RUBBLE owns: shardglass, crystalline, rubblelight.
+MARCH OF THE UNPAID owns: ironstep, unpaidhorn, ledgerdrone.
+SOMEWHERE A FOUNTAIN STILL RUNS owns: fountainpluck, stillwater, gardenhum.
+AIRSHIP GRAVE owns: hullwind, altitudecall, skyrust.
+
+--- VOICE LEDGER, BATCH 1 UNDER THE LAW (7/7/26) ---
+THRONE OF STATIC owns: ruinbrass, staticfanfare, kingsdust.
+CHOIR FOR THE MACHINE owns: machinechant, foundrybell, serverchoir.
+FLOWERS ON THE FREEWAY owns: weedbloom, overpasslight, freewayhaze.
+(The 31 recovered voices + the base rack predate the law and stay shared.)
+
+--- VERDICTS MASTER 7/7/26 EVENING (Paolo's list, supersedes all prior) ---
+ALL 28 FACTION SLOTS CANON. HIGHWAY 15 SOUTH v2: CANON. CARAVAN DUST v2:
+CANON. LAST BROADCAST v2: CANON but PULLED FROM OVERWORLD (plays with the
+general vibes); overworld = FIVE creepers: SLOW CREEP, SATELLITE PRAYER,
+REPO MAN, GHOST IN THE GRID, SLOW BLEED. SLOW CREEP CANON. NEW DOWNS,
+REMADE 7/7 (fresh slots, NEW badges, clean thumbs, originals graveyarded
+in source): SOLAR CHURCH, SPEAKEASY SWING, MENU — PURPLE DAWN, MENU —
+FIRST MORNING, MOB — THE HOUSE REMEMBERS, ONE CANDLE (v3), MOJAVE GHOST,
+LONG WALK HOME.
+
+--- REMAKE BATCH 2 + NEW SONGS 7/7/26 (all baked in alpha source) ---
+{n:'SOLAR CHURCH',acc:'#e8c860',root:45,scale:[0,2,4,7,9],wave:'triangle',kick:[0,8],bass:[0,7,9],hat:[4,12],inst:{b:'processional',l:'solarhymn'},am:'faythhum',kit:{k:'thud',h:'tight'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'SPEAKEASY SWING',acc:'#caa83a',root:47,scale:[0,3,5,7,10],wave:'triangle',kick:[0,7,8,14],bass:[0,3,7,10],hat:[2,6,10,14],inst:{b:'swaggerbass',l:'coolkeys'},am:'hollowtrumpet',kit:{k:'knock',h:'ride'},mel:'call',swing:0.45,klay:'stabs',ff:true},
+{n:'MENU — PURPLE DAWN',menu:true,acc:'#9a7ac8',root:43,scale:[0,2,3,7,9],wave:'sine',kick:[],bass:[0,5,7],hat:[],inst:{b:'dawnpad',l:'coldpiano'},am:'nightpad',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'MENU — FIRST MORNING',menu:true,acc:'#e8d8a0',root:50,scale:[0,2,4,7,9],wave:'sine',kick:[0],bass:[0,7,12],hat:[],inst:{b:'coldpiano',l:'solarhymn'},am:'dawnpad',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'MOB — THE HOUSE REMEMBERS',acc:'#caa83a',root:45,scale:[0,3,5,7,9],wave:'triangle',kick:[0,8,11],bass:[0,5,9,10],hat:[2,10,14],inst:{b:'wornstrings',l:'ledgerbell'},am:'ashchoir',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.33,klay:'stabs',ff:true},
+{n:'ONE CANDLE',acc:'#c8b060',root:48,scale:[0,2,3,7,8],wave:'sine',kick:[0,8],bass:[0,3,7,10],hat:[4,12],inst:{b:'coldpiano',l:'tollbell'},am:'glasshope',kit:{k:'thud',h:'tight'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'MOJAVE GHOST',acc:'#c8a878',root:50,scale:[0,2,3,7,8],wave:'triangle',kick:[0,8],bass:[0,7,10],hat:[3,11],inst:{b:'nightpad',l:'wanderlead'},am:'deadsat',kit:{k:'knock',h:'shakerh'},mel:'longs',swing:0.1,feel:'half',klay:'melody',ff:true},
+{n:'LONG WALK HOME',acc:'#b89a6a',root:48,scale:[0,2,3,7,9],wave:'triangle',kick:[0,8],bass:[0,7,10,12],hat:[4,12],inst:{b:'wanderlead',l:'glasshope'},am:'coldpiano',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'THRONE OF STATIC',acc:'#b8b0c8',root:45,scale:[0,2,3,7,8],wave:'sawtooth',kick:[0,4,8,12],bass:[0,3,7,8],hat:[2,6,10,14],inst:{b:'ivalicebrass',l:'warhorn'},am:'dreadbed',kit:{k:'boom',h:'tight'},mel:'call',swing:0,klay:'drums',ff:true},
+{n:'CHOIR FOR THE MACHINE',acc:'#1fbf9c',root:52,scale:[0,2,3,7,9],wave:'square',kick:[0,8],bass:[0,7,11],hat:[4,12],inst:{b:'datachant',l:'tollbell'},am:'ashchoir',kit:{k:'punchk',h:'clickh'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'FLOWERS ON THE FREEWAY',acc:'#c87aa0',root:48,scale:[0,2,4,7,9],wave:'triangle',kick:[0,6,10],bass:[0,4,7,9],hat:[3,7,11],inst:{b:'dawnpad',l:'glasshope'},am:'solarhymn',kit:{k:'knock',h:'wood'},mel:'call',swing:0.08,klay:'melody',ff:true},
+NEW SONGS DIRECTION: post-apocalyptic Final Fantasy per Paolo. THRONE OF
+STATIC = fallen-kingdom brass march (Ivalice brass + warhorn over dread).
+CHOIR FOR THE MACHINE = Amalgam cathedral (datachant + toll bells + ash
+choir). FLOWERS ON THE FREEWAY = world-map wistful (dawn pad + glass hope
+over solar hymn). All three UNJUDGED, NEW badges live.
+UI: CANON stamps + new GRAVEYARD stamps now render on every slot row;
+NEW badges via NEW_VIBES = the 11 fresh tracks. Total catalog: 84 songs.
+
+--- REMAKE BATCH 7/7/26 (cooked overnight, Paolo's owed list, NEW badges in studio, clean thumbs) ---
+{n:'HIGHWAY 15 SOUTH',nw:true,acc:'#c8a878',root:48,scale:[0,2,4,7,9],wave:'triangle',kick:[0,6,8,14],bass:[0,4,7,9],hat:[2,6,10,14],inst:{b:'drifter',l:'wanderlead'},am:'coldpiano',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.12,klay:'melody',ff:true},
+{n:'CARAVAN DUST',nw:true,acc:'#b89a6a',root:46,scale:[0,2,3,7,9],wave:'triangle',kick:[0,7,10],bass:[0,3,7,10],hat:[3,7,11,14],inst:{b:'karp',l:'wanderlead'},am:'drifter',kit:{k:'knock',h:'wood'},mel:'call',swing:0.2,klay:'stabs',ff:true},
+{n:'ONE CANDLE',nw:true,acc:'#c8b060',root:50,scale:[0,2,3,7,8],wave:'sine',kick:[0,8],bass:[0,7,12],hat:[4,12],inst:{b:'coldpiano',l:'glasshope'},am:'faythhum',kit:{k:'thud',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+{n:'LAST BROADCAST',nw:true,acc:'#3ad0b0',root:52,scale:[0,2,4,7,9],wave:'triangle',kick:[0,8],bass:[0,4,7,11],hat:[4,12],inst:{b:'signalfade',l:'hopecircuit'},am:'powergrid',kit:{k:'thud',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+REMAKE NOTES: HIGHWAY 15 SOUTH v2 puts a road-trot under it (drifter bass,
+knock/shaker, swing .12); v1 post-mortem: too static. CARAVAN DUST v2
+tightens to a plod with karp stabs; v1 post-mortem: rhythm too loose.
+ONE CANDLE v2 keeps the intimacy but adds a pulse (kick 0/8, glasshope
+lead); v1 post-mortem: too empty to register. LAST BROADCAST v2 is the
+ordered intensity rework: 4-on-floor punchk drive replaced with half-feel
+thud, long melody, sparse hats; the signal identity (signalfade/
+hopecircuit/powergrid) kept. Originals preserved verbatim as graveyard
+comments in the alpha source. Verdicts: the three downs reset to
+UNJUDGED; LAST BROADCAST stays canon-overworld so it keeps playing for
+judgment in the world.
+
+--- VOICE RACK RECOVERED (31 voices, spliced into synthV) ---
+ivalicebrass, warhorn, mournhorn, crashchoir, risenlead, ember, dawnpad, glasshope, faythhum, processional, tollbell, swaggerbass, hollowtrumpet, nightpad, coolkeys, duskorgan, ledgerbell, dreadbed, powergrid, rustlead, deadsat, signalfade, hopecircuit, coldpiano, solarhymn, wanderlead, drifter, datachant, wornstrings, ashchoir, spiralbell
+
+--- OVERWORLD CATEGORY LAW (Paolo 7/7/26, LOCKED) ---
+OVERWORLD is a first-class music CATEGORY like the faction structure, baked
+into code defaults (fresh save AND stale save both re-bake it): SLOW CREEP,
+SATELLITE PRAYER, REPO MAN, LAST BROADCAST, GHOST IN THE GRID, SLOW BLEED
+carry the OVERWORLD tag. The city shuffle reads the category (hardcoded set
+kept as failsafe). All 31 recovered voices + all 73 songs are HARD-BAKED in
+the alpha source code as of 7/7: they are engine code now, not save data,
+and cannot be lost by any storage wipe. This repo file remains the portable
+save file shipped every music session.
+
+--- OVERWORLD PLAYLIST LAW (Paolo 7/7/26, LOCKED) ---
+The overworld shuffle plays ONLY: SLOW CREEP, SATELLITE PRAYER, REPO MAN,
+LAST BROADCAST, GHOST IN THE GRID, SLOW BLEED. Everything else (faction
+themes, action tracks, the other vibes) is for scenes, dialogue, texting,
+interiors. SLOW CREEP is REDEEMED from DOWN to CANON as an overworld theme.
+LAST BROADCAST stays in the playlist but OWES AN INTENSITY REWORK (Paolo:
+"intensity needs to change, sounds like shit after 2 kills").
+
+--- CARTEL THRONE SWAP (Paolo 7/7/26, LOCKED, clarified same day) ---
+CARTEL slot 1 = RED LEDGER. CARTEL slot 2 = SAINTS OF THE DUST. Both data
+blocks copied verbatim into the faction slots. GRAVEYARDED with preserved
+data + post-mortems: old CARTEL slot-1 (dark vox war drums) and old slot-2
+THE HUNT, both outclassed by the recovered batch. The standalone vibe copy
+of SAINTS stays verdict-0 so it never double-plays as a loop; it lives as
+the faction song now.
+
+--- VERDICTS (Paolo latest) ---
+ALL 28 FACTION SLOTS: CANON.
+VIBES CANON: all 46 titles per BOHEMIA_MUSIC_VERDICTS_MASTER_7_6_26.md
+DOWN, REMAKE: HIGHWAY 15 SOUTH, CARAVAN DUST, ONE CANDLE (SLOW CREEP redeemed 7/7, now overworld canon)
+UNRESOLVED: MOJAVE GHOST, LONG WALK HOME (down on earlier list, absent from latest; data recovered, fate pending Paolo)
+BONUS FOUND IN TRANSCRIPTS, NEVER JUDGED: MOB — THE HOUSE REMEMBERS [PENDING verdict]
