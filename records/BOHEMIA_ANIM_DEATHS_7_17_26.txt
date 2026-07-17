@@ -1,0 +1,29 @@
+BOHEMIA — THE SECOND DEATH (7/17/26, Paolo's order: "make a second one...
+I'm pretty sure I'm gonna need like a lot of animations anyway")
+
+TWO 8-WAY HEADSHOT RAGDOLL DEATHS NOW LIVE:
+- headshot   (v1, THE TOPPLE): force ARRIVING. The blast knocks the body over.
+  Untouched, exactly as Paolo left it 7/2.
+- headshot-2 (v2, THE CRUMPLE): force LEAVING. The signal stops, the knees
+  buckle first (slightly uneven, deterministic), the body drops down its own
+  axis, then settles sideways along the knock. New clip, fresh name; the dead
+  'ragdoll'/'death' clips from the 7/2 graveyard stay dead, this is not a
+  re-add, it is a second HEADSHOT rendering.
+
+EVERY LOCKED LAW RUNS UNTOUCHED FOR BOTH: FACE LAW (N-family reseeds front),
+NO N/S FALLS, GLUE LAW, STATIC SHOULDERS, RIGID LIMB (rest-length renormalize),
+ARM NATURAL FOLD, ANTI-JACKKNIFE, SPINE PARALLEL, WAIST TENSION, DEAD THUD,
+HINGE LIMITS, TRACKING CAMERA, 120-grid EXEMPTION (terminal clips uncached).
+
+MACHINE-VERIFIED 7/17 (all 8 facings, both variants, headless Chromium):
+frozen corpse reached; spine parallel to knock (cross <= v1 envelope, worst
+0.049); rigid-limb drift <= 0.94px (inside the documented 1px bulge note);
+zero NaN; face law remap on N. v2 waist drops 10.65px at 0.3s vs v1's 4.44:
+the two deaths are mechanically distinct, not a reskin.
+
+COMBAT: both deaths fire in real kills, picked deterministically per
+facing+knock (bakes reproduce exactly). ANIMATION tab: 'headshot-2' button
+next to 'headshot', KNOCK selector works on both.
+
+STATUS: UNJUDGED. Paolo judges motion in the ANIMATION tab. v1 stays even if
+it is not his favorite (his call: variety in deaths is a feature).

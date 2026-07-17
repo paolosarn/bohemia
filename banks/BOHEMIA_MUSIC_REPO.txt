@@ -58,6 +58,28 @@ include a menu attempt, a SCENE IMAGE steers the whole batch and is the
 strongest input I can give you.
 === END PROMPT ===
 
+=== VERDICT PASS 7/17/26 (b) — "Good cookups today" ===
+CANON baked: batch 8 cleared (SALT ON THE HIGHWAY, WHAT GROWS IN THE VAULT,
+THE LAST TABLE STANDING) + batch 9b cleared ON FIRST LISTEN (TAPS FOR THE
+VALLEY, WHAT THE DAM HELD BACK). Batch 9 final score: 2 canon 2 buried 2
+canon replacements. DOWNS re-confirmed: SUNKEN VESPERS, UNDERTOW stay buried.
+THE GRAVEYARD REDEMPTION (Paolo's fresh ears, 7/17): the 7/8(b) burials
+(MENU WIND OVER THE MESA, CATHEDRAL OF CRANES, MOTHS AROUND THE LAST LIGHT,
+A THOUSAND MILES OF COPPER, THE CHOIR THAT STAYED, MUSIC BOX FOR THE GONE,
+IT WALKS THE STRIP AT 3AM, PHANTOM CASINO, THE DEBT COLLECTOR AT DAWN,
+A HYMN NOBODY FINISHED) were NEVER BAKED into CANON_DEFAULTS — the same
+claimed-not-baked bug class as the 7/8 canons, now proven on both sides of
+the ledger. On the fresh GitHub Pages origin they rendered unjudged; Paolo
+re-heard all ten and thumbed CANON. Newest verdict wins; precedent: SLOW
+CREEP redeemed 7/7. All ten are CANON, baked for real this time. GRAVEYARD
+IS FINAL still governs REMAKES (Claude never recooks a dead slot); it never
+bound Paolo's own ears. Graveyard now holds 12 true dead.
+STILL OPEN after this pass: SOLAR CHURCH, SPEAKEASY SWING, MENU PURPLE DAWN,
+MENU FIRST MORNING, MOB THE HOUSE REMEMBERS, ONE CANDLE, MOJAVE GHOST, LONG
+WALK HOME, MARCH OF THE UNPAID, AIRSHIP GRAVE, MENU EMBER VIGIL, NEON
+NECROPOLIS, MENU LIGHTS ACROSS THE VALLEY (all '--', many baked 0 from old
+passes; they render in the graveyard and can be redeemed the same way).
+
 === VERDICT PASS 7/17/26 (Paolo's paste, processed same turn) ===
 CANON baked into defaults: THE CANCELLED MAN, THE WIND LEARNS WORDS (batch 9
 survivors, canon on first listen), THE PIT BOSS IS GONE (Paolo: "I really like
