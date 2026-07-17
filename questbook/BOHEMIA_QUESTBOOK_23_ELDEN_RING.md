@@ -149,3 +149,66 @@ storytelling). Cross-ref Questbook 19 (fairness contract/holistic clues), 03/01 
 18 (rumor-web discovery), 15/08 (interlocking quests), 06/16 (side-is-the-game), 21 (missable events),
 22/01 (tragedy tone). FUTURE: a Miyazaki interview on cryptic-quest philosophy; a Dark Souls
 interlocking-NPC study (Solaire) as a smaller-scale success of the same design.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**RANNI THE WITCH** — wants OUT of the gods' order: her own death half-done, her destiny severed, an age of cold stars where no Greater Will fingers the board. Will trade: purpose, a retinue, an ending. Will never say out loud (early): that "Renna" at the church was an audition you didn't know you were taking. FUNCTION: the questgiver whose reward is a WORLDVIEW. Complete her and you don't get loot; you get a different universe.
+
+**BLAIDD THE HALF-WOLF** — wants to serve Ranni faithfully AND remain what the Greater Will built him to be, and cannot forever be both. Will trade: help freely, hours before you know who he serves. FUNCTION: the early stranger revealed as the tapestry's thread (W5): the bell-hunt in Mistwood was HER quest wearing an errand's clothes.
+
+**IJI / SELUVIS** — the warsmith who grieves properly and the sorcerer who schemes improperly; both hers. FUNCTION: the retinue as a moral spectrum. And Seluvis is the hidden ordering trap: progress his scheme too far, in the wrong order, and threads break silently (the banked flaw).
+
+**RADAHN (a main boss)** — wants nothing from you; he's mad, holding the stars in place by raw gravity of will. FUNCTION: the structural interlock (W9): a MAIN boss gating a SIDE quest's city, because his death lets the stars MOVE, and Ranni's fate is written in them. The gating is lore-load-bearing, not arbitrary.
+
+**THE ITEMS** — want to be read. A blade that slew fingers; a ring's inscription; a doll you can talk to if you try three times. FUNCTION: the quest log, distributed into flavor text (W3). The narrative is an excavation.
+
+**THE WORLD** — wants to continue without you. NPCs walk, progress, and die on world-time, witnessed or not (W6). FUNCTION: the quest log's other half, and the design's whole gamble: a world that doesn't wait is alive; a world that doesn't wait AT SCALE is a wiki dependency. Both true. That's the file.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the machine's signature is that half the "options" are world-actions — revisits, readings, arrivals — because the world is the dialogue)
+
+NODE: RENNA_CHURCH — Church of Elleh, entry: night, early, MISSABLE (she may simply not be there)
+  A witch on a wall, offering a whistle for a spectral steed.
+  > "Who are you?"                  [gate: none] -> "Renna," and no more; the alias is a bookmark the game will pay off later
+  > (accept the gift)               [gate: none] -> Torrent's whistle; the questline's first thread, disguised as a tutorial kindness
+  > (never pass through at night)   [gate: world-time] SILENCE -> the hook simply doesn't fire. THE DESIGN'S FULL PRICE, PAID UP FRONT: the most consequential questline in the game can fail to begin, and no system will ever tell you.
+
+NODE: RANNIS_RISE — the tower, entry: found (finding it is the check)
+  The witch's soul in a doll's body asks for service.
+  > "I will serve."                 [gate: none] -> the retinue introduced: Blaidd, Iji, Seluvis; three shadows with three agendas
+  > "Why a doll?"                   [gate: none] -> a half-death, chosen, to escape the Fingers; the questline's thesis stated cryptically at hour one
+  > (refuse)                        [gate: none] -> the tower empties; the age of stars waits for a different Tarnished
+  NOVERB: "What should I do next?" THE ENTIRE DESIGN IS THIS ABSENT LINE. No journal fills; no marker lights. The next step lives in a servant's hint, an item's text, a place-name overheard. The removed verb is the genre's most-debated design decision, and this file banks both verdicts.
+
+NODE: BLAIDD_MISTWOOD — hours EARLIER, entry: a howl in the forest, an unrelated errand
+  > (snap the finger, call him down) [gate: knowledge: a merchant's tip] -> a courteous half-wolf hunting a runaway; help him or don't
+  > (help him fight Darriwil)        [gate: none] -> gratitude, a whetblade, a stranger filed away
+  RECONTEXT, LATER: he was hers all along (W5). The tapestry reveals itself in hindsight, which is the no-marker design at its BEST: the world was coherent before you understood it.
+
+NODE: THE_DOLL — Nokron's threshold, entry: Ranni silent, miniaturized, carried
+  > (talk to the doll)              [gate: none] -> nothing
+  > (talk to the doll)              [gate: none] -> nothing
+  > (talk to the doll, a third time) [gate: stubbornness] -> she answers. THE CRUELEST CLUE-DESIGN IN THE FILE: progression behind repeating a failed action, unhinted. Banked as flaw and as thrill, because it is genuinely both.
+
+NODE: SELUVIS_SCHEME — the ordering trap, entry: his tower, his puppets, his potion
+  > (run his errands eagerly)       [gate: none] TRAP -> progress his quest too far, in the wrong order, and threads elsewhere break SILENTLY (the hidden-dependency flaw: no warning, no recovery, no legibility)
+  > (serve Ranni first, him warily) [gate: order knowledge, usually wiki-bought] -> the tapestry holds
+  THE BANKED LESSON, verbatim from the flaw ledger: if order matters, TELEGRAPH it, or make failure legible. The no-brick-wall law exists because of nodes like this one.
+
+NODE: FINGERSLAYER_RETURN — the Rise, entry: Nokron survived, the blade retrieved
+  > (give her the blade)            [gate: has:fingerslayer] -> she severs her ties to the Greater Will and departs; the questline goes quiet for a long time, ON PURPOSE: the world holds her thread while the main game turns (W6)
+  THE PAYOFF, much later: summon her sign after the final boss.
+  > (call the Age of Stars)         [gate: questline complete] -> a cold, alien, self-authored future; a SIDE quest that is an ENDING (W7)
+  > (choose any other ending)       [gate: none] -> her moon sets unseen; the questline you finished becomes a road not taken, which is the design trusting you with real stakes
+
+## V2-C THE BRANCH MAP
+
+COUNT: 3 terminal states for the questline itself, over a mesh of silent fail-points (the real map is the FAILURE topology, which is the file's cautionary payload).
+
+B1 — AGE OF THE STARS: the full thread walked, the ending claimed, the Dark Moon Greatsword carried. WRITES: a whole game ending; the maximum possible payoff for optional content in the medium (W7).
+B2 — COMPLETED, UNCLAIMED: the questline done, another ending chosen. WRITES: the sword, the memory, the road not taken.
+B3 — THE SILENT DEATHS: never met Renna at night; Seluvis progressed wrong; a window closed by world-time. WRITES: nothing, which is the point and the problem: the questline's failure modes are indistinguishable from its not-existing.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Elden Ring is the maximum dose of the medicine the whole backfill has been prescribing (#18's rumor web, #19's fairness contract, #21's diegetic log): THE WORLD AS THE QUEST LOG works, and it works BECAUSE it can fail. Bohemia's single district is the built-in antidote to the scale flaw: cryptic discovery in an enfolded space is Ranni without the wiki. Bank the three cautions as compile gates: (1) every quest fairly clueable IN-WORLD (the Obra Dinn contract, restated by FromSoft's own worst quests); (2) ordering dependencies TELEGRAPHED or recoverable (Seluvis is the anti-pattern); (3) no band-aid markers ever: if a thread needs a waypoint, the fix is better diegetic clues, not UI (W10's false-binary rejection). Marker-lightness itself stays [PENDING, Paolo's call]: it is a feel decision about HIS district, and the map law applies to quest signposting too.

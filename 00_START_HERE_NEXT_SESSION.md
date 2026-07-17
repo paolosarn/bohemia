@@ -70,12 +70,19 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    #19 Obra Dinn (Rule of Three validation law), #20 Forgotten City (the
    Rosetta Stone: loop+knowledge+deduction+argue-the-author composed),
    #21 Pathologic (time-as-resource-to-lose; the finale that CANNOT be
-   argued with). 72 files remain (#22-94); 14 graduations to cross the
-   line (>90 = 91). The line: work the queue in numeric order, append a
-   V2 PAYLOAD (CAST + node-tree CONVERSATIONS + BRANCH MAP, original
-   content above untouched — #01's payload is the pattern), gate green,
-   commit per batch. #99/#110/#114 are zero-dialogue-by-design: [PENDING
-   Paolo] whether they count; never give them option lines.
+   argued with). RULED 7/17: the zero-dialogue trio (#99/#110/#114)
+   COUNTS — "that's okay if they genuinely have no talking"; genuine
+   silence satisfies the machine; never give them option lines. Batch 3
+   (same night): #22 NieR (the imitation engine = the Amalgamation's;
+   one secret-detonating side quest per act), #23 Elden Ring (world as
+   quest log; three cautions banked as compile gates; marker-lightness
+   [PENDING Paolo]), #24 Alpha Protocol (multidimensional standing:
+   fear/trust/respect/resentment as separate axes; reactivity must reach
+   into mechanics; SURFACE THE CONSEQUENCE). Counter at 83 of >90; 69
+   files remain (#25-94); 8 graduations to cross. The line: work the
+   queue in numeric order, append a V2 PAYLOAD (CAST + node-tree
+   CONVERSATIONS + BRANCH MAP, original content above untouched — #01's
+   payload is the pattern), gate green, commit per batch.
    LAW SEEDS SURFACED BY THE BACKFILL (for the compile, not yet locked):
    THE LOG IS DIEGETIC OR IT IS WRONG (#18+#19+#21 converge); the Rule
    of Three as the deduction validation law (#19); the social battle as

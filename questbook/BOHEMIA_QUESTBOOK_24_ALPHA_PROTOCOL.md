@@ -160,3 +160,67 @@ Shapes.inc (the decade-long narrative-design case-study legacy, delisting). Cros
 battle/CASIE), 02 (NV faction reputation), 06 (prep + roll-call), 04/16 (delayed consequence), 19 (intel/
 deduction), 15 (systems-as-toolset), 14 (know-them-to-beat-them). FUTURE: an Obsidian/Chris Avellone talk
 on Alpha Protocol's reactivity systems; a New Vegas cross-study (same studio, reactivity DNA).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**MICHAEL THORTON** — wants, nominally, the mission; actually wants to find out which persona is really his. Will trade: stances, under a shrinking timer, forever. FUNCTION: the persona engine. The game never asks what Thorton says; it asks what KIND of man says it, and bills accordingly.
+
+**KONSTANTIN BRAYKO** — wants the '80s back, chemically if necessary. A cocaine mobster in a velvet suit who LOVES professional address and HATES flippancy. Will trade: nothing at the table; everything through the people around him. FUNCTION: the boss whose fight is negotiable three missions early: stay right with Steven Heck and the coke gets poisoned before the first bullet (W5, W6).
+
+**MARBURG** — wants a worthy opponent, and holds flippancy in contempt. Will never say out loud: that your consistent defiance is the only conversation he respects. FUNCTION: the like-vs-respect axis made a man (W4): to earn the option to kill him later you need him to RESPECT and DISLIKE you, cultivated deliberately across the whole game. Antagonism as a rewarded persona.
+
+**STEVEN HECK** — wants chaos, appreciation, and errands that would horrify an oversight committee. FUNCTION: the ally whose friendship is a combat modifier. The most unhinged man in the cast is the most reliable mechanical payoff in the web.
+
+**THE DOSSIERS** — want filling. Every file on every player in the web. FUNCTION: intel as social power (W7): a complete dossier is a dialogue option that didn't exist; knowing a person is leverage on them.
+
+**THE WEB ITSELF** — wants nothing forgotten. 32 endings' worth of remembered stances, spared enemies, defied handlers, poisoned coke. FUNCTION: the antagonist and the reward, the same system: the game that remembers everything, including what you'd forgotten you did.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; NOTE THE FORM: options here are STANCES, not scripts — the timer forces commitment to an attitude, and the label is all you get)
+
+NODE: ANY_CONVERSATION — the system's atom, entry: everywhere, always timed
+  A shrinking bar. Three stances and sometimes a fourth.
+  > [PROFESSIONAL]                  [gate: none] -> the reliable default; most NPCs neutral-to-warm; wrong reads cost reputation, rarely disaster
+  > [SUAVE]                         [gate: none] -> charms Bond-lovers, infuriates Marburgs; the highest-variance stance
+  > [AGGRESSIVE]                    [gate: none] -> cows some, alienates others; fear is a currency some people bank
+  > [SPECIAL: execute / exploit intel] [gate: class, dossier, or reputation] -> the drastic fourth option the build and the web unlock
+  > (let the timer expire)          [gate: none] SILENCE -> the highlighted stance fires anyway; in a live conversation, not-choosing IS a choice, mechanized
+  THE FORM IS THE FINDING: you commit to INTENT and hear the words after. Regret is native to the system, exactly like talking.
+
+NODE: BRAYKO_COURT — Moscow, entry: the mobster's orbit
+  > [PROFESSIONAL]                  [gate: none] -> he warms; the velvet suit approves of straight dealing
+  > [SUAVE]                         [gate: none] TRAP -> flippancy at HIS table; reputation bleeds; the fight to come gets its full cocaine
+  DOSSIER LINE: know his '80s obsession [gate: dossier filled] -> the flattery only research affords (W7)
+  UPSTREAM, THREE MISSIONS EARLY: NODE: HECK_ERRANDS — Taipei, entry: Heck's madness accepted at face value
+  > (do his errands, no questions)  [gate: stomach] -> Heck's loyalty -> LATER, UNANNOUNCED: the coke is poisoned; Brayko's invulnerability phase gutted (W5, W6)
+  > (judge him)                     [gate: none] -> the boss fight ships at full strength, and no screen ever tells you what you paid
+  THE DEEPEST REACTIVITY IN THE FILE IS INVISIBLE, which is both its glory and its banked flaw (W10): surface the consequence or it lands only on the wiki.
+
+NODE: MARBURG_LONG_GAME — Rome, entry: every meeting across the campaign
+  > (defy him, consistently, with competence) [gate: persona discipline] -> LOW like, HIGH respect: the axes separate (W4)
+  > (flatter him)                   [gate: none] TRAP -> he files you under flippant; the unique payoff dies quietly
+  PAYOFF, ENDGAME: [execute Marburg] [gate: low reputation + specific suave perks, cultivated since Act 1] -> the kill option exists ONLY for the player who committed to antagonism as a persona for the whole game
+  THE CRAFT: the game rewards a CONSISTENT self, not a correct one. There is no right stance; there is only who you decided to be, kept up under timers, for thirty hours.
+
+NODE: THE_HANDLER_CALLS — between missions, entry: the web adjusting
+  Allies reference your stances from missions ago; enemies quote your own words back with interest.
+  WRITES: per-person reputation, multidimensional (feared / trusted / respected / resented), each axis buying different aid (W3, W4)
+  NOVERB: "Reset. Let me try that again." No take-backs exist anywhere in the system. The timer took your answer and the web filed it. The removed verb is the save-scum, removed at the design layer.
+
+NODE: MISSION_PREP — the vendor screen, entry: before every mission
+  > (buy intel)                     [gate: money] -> guard patterns known, dialogue options unlocked, sometimes a mission SKIPPED outright
+  > (buy gear instead)              [gate: money] -> the loud answer, funded
+  > (go in cold)                    [gate: none] -> the mission at full price
+  PREP IS A REACTIVITY INPUT (W9): what you spent before the door opens decides which doors exist.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 32 endings, assembled combinatorially from a per-person web (the count is the marketing number; the finding is that the endings are a TALLY of the web's state, not a fork at the end).
+
+THE WEB'S AXES: per-NPC multidimensional reputation (like x respect x fear), faction postures, who lived, who was defied, which dossiers filled, which seeds (a poisoned stash, a spared rival) planted hours before their bloom (W8).
+THE TERMINAL SHAPE: every ending is the web read out loud: who stands with Thorton, who hunts him, which agency exists. The FINALE-IS-A-LEDGER-READ law, eighth confirmation, in its purest combinatorial form.
+THE BANKED SPLIT: 10/10 reactivity carrying 6/10 moment-to-moment gameplay. Beloved, delisted, sequel-less. The web could not rescue the shooting.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Alpha Protocol is the master upgrade path for Bohemia's standing system, in rank order: (1) make standing MULTIDIMENSIONAL per faction and per person: fear, trust, respect, resentment as separate axes with separate aid, so antagonism becomes a valid, rewarded dynasty persona (the Marburg mechanic); (2) let relationships REACH INTO MECHANICS: an ally sabotages the stronghold before the fight, a favor cuts the power mid-mission — reactivity that lands in the Dead-Eye layer and the city-builder, not just in dialogue (the Heck mechanic); (3) [READ] + the ledger ARE dossiers: filled files unlock leverage lines that don't otherwise exist; (4) the timed STANCE choice is banked for high-pressure beats only, paired with #17's social battle. And the two cautions are compile gates: SURFACE THE CONSEQUENCE (the world says what it remembers: NPCs cite the dynasty's deeds; the fold tallies them — deep-but-invisible reactivity is wasted work) and BOTH LAYERS MUST STAND ALONE (the reactivity web cannot rescue weak combat; Alpha Protocol is the tombstone that proves it).
