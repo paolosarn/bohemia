@@ -142,7 +142,15 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    REFINEMENT (Paolo: "these should be under the pole, not jutting out
    to the side"): heads center DIRECTLY BENEATH the arm with a 4px lean
    toward the facing side (lens column clears the pipe), arm over their
-   middles, clamps riding the arm. 300 sprites, all UNJUDGED. Laws:
+   middles, clamps riding the arm. INTACT LOOK APPROVED by Paolo
+   ("Awesomeee nice") — THEN v16 wrecks derived from it untouched
+   ("take it how it is and break it and add it to the floor"): the
+   horizontal fallen span now carries its lane-count of dead heads
+   lying on their sides with glass; NEW vertical fallen_arm (both
+   arm_dirs): jagged stub at the junction, the span lying on the ROAD
+   beside its old line, dead heads on their backs staring at the sky,
+   shattered lens glass. 308 sprites; wrecks + non-approved classes
+   still UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

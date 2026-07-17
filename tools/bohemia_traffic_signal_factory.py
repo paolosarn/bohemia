@@ -524,8 +524,9 @@ def draw_signal_vert(K, spec, seed):
     arm_len = int(spec['arm_cells'] * T)
     up = spec['arm_dir'] == 'n'
     hf = spec.get('head_facing', 1)
+    kind = spec['kind']
     pcx = 26
-    W = 96
+    W = 108
     junction_local = 42                     # junction depth below sprite-local top
     pad_top = max(0, arm_len + 8 - junction_local) if up else 0
     pad_bot = max(0, (junction_local + arm_len + 40) - (CH - 4)) if not up else 0
@@ -541,28 +542,62 @@ def draw_signal_vert(K, spec, seed):
         t = abs(yy - junction_y) / float(arm_len)
         return 7 - int(2 * t)
 
-    # heads FIRST, at the LANE CENTERS measured from the median end,
-    # DIRECTLY UNDER the arm (v15, Paolo: "these should be under the pole,
-    # not just jutting out to the side") — the box centers beneath the
-    # pipe with a small lean toward the facing side so the lens column
-    # clears the arm, then the arm paints OVER their middles (v14: we are
-    # looking down at it)
     n = spec['heads']
-    clamp_ys = [(ay0 + int((0.5 + 3 * i) * T)) if up else
-                (ay1 - int((0.5 + 3 * i) * T)) for i in range(n)]
-    hx = ax - 13 + 4 * hf
-    for cy in clamp_ys:
-        draw_head(a, K, hx, cy - 26, spec['state'], r, facing=hf)
-    # elbow stub from the pole into the vertical arm + junction collar
-    paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
-    bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
-    # the arm OVER the heads
-    paint_cyl_v(a, K, r, ax, ay0, ay1, aw)
-    hline(a, ax - 3, ax + 4, (ay0 - 1) if up else ay1, K['ramp'][1])  # tip cap
-    # clamps riding the arm over each hidden hanger
-    for cy in clamp_ys:
-        rect(a, ax - 3, cy - 2, ax + 4, cy + 2, K['ramp'][1])
-        hline(a, ax - 3, ax + 4, cy - 2, K['spec'] if r() < 0.5 else K['ramp'][3])
+    if kind == 'fallen_arm':
+        # v16 (Paolo: "take it how it is and break it and add it to the
+        # floor"): the vertical arm sheared at the junction — a jagged
+        # stub remains, and the span lies on the ROAD beside its old
+        # line, dead heads still bolted, lenses staring at the sky.
+        paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
+        bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
+        stub = 24
+        s0, s1 = (junction_y - stub, junction_y) if up else (junction_y, junction_y + stub)
+        paint_cyl_v(a, K, r, ax, s0, s1, aw)
+        for _ in range(10):                            # jagged shear
+            by = (s0 + int(r() * 5)) if up else (s1 - 1 - int(r() * 5))
+            bx = ax - 3 + int(r() * 7)
+            if 0 <= by < H:
+                a[by, bx] = 0
+        drips(a, K, r, ax - 4, ax + 4, (s0 + 2) if up else (s1 - 8), n=2)
+        gx = ax + 14                                   # where the span fell
+        glen = int(arm_len * 0.85)
+        g0, g1 = (junction_y - 34 - glen, junction_y - 34) if up else \
+                 (junction_y + 34, junction_y + 34 + glen)
+        paint_cyl_v(a, K, r, gx, g0, g1, lambda yy: 7)
+        for _ in range(8):                             # sheared both ends
+            for ey in (g0 + int(r() * 4), g1 - 1 - int(r() * 4)):
+                ex = gx - 3 + int(r() * 7)
+                if 0 <= ey < H:
+                    a[ey, ex] = 0
+        for i in range(min(2, n)):                     # heads on their backs
+            cy = (g0 + int((0.5 + 3 * i) * T)) if up else \
+                 (g1 - 56 - int((0.5 + 3 * i) * T))
+            draw_head(a, K, gx + 8, cy, 'dead', r)
+            for _ in range(8):                         # shattered lens glass
+                put(a, gx - 4 + int(r() * 44), cy + 30 + int(r() * 26),
+                    (70, 18, 16) if r() < 0.5 else (66, 44, 12))
+    else:
+        # heads FIRST, at the LANE CENTERS measured from the median end,
+        # DIRECTLY UNDER the arm (v15, Paolo: "these should be under the
+        # pole, not just jutting out to the side") — the box centers
+        # beneath the pipe with a small lean toward the facing side so the
+        # lens column clears the arm, then the arm paints OVER their
+        # middles (v14: we are looking down at it)
+        clamp_ys = [(ay0 + int((0.5 + 3 * i) * T)) if up else
+                    (ay1 - int((0.5 + 3 * i) * T)) for i in range(n)]
+        hx = ax - 13 + 4 * hf
+        for cy in clamp_ys:
+            draw_head(a, K, hx, cy - 26, spec['state'], r, facing=hf)
+        # elbow stub from the pole into the vertical arm + junction collar
+        paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
+        bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
+        # the arm OVER the heads
+        paint_cyl_v(a, K, r, ax, ay0, ay1, aw)
+        hline(a, ax - 3, ax + 4, (ay0 - 1) if up else ay1, K['ramp'][1])  # tip cap
+        # clamps riding the arm over each hidden hanger
+        for cy in clamp_ys:
+            rect(a, ax - 3, cy - 2, ax + 4, cy + 2, K['ramp'][1])
+            hline(a, ax - 3, ax + 4, cy - 2, K['spec'] if r() < 0.5 else K['ramp'][3])
     drips(a, K, r, pcx - 5, pcx + 5, junction_y + 8, n=2)
     outline_pass(a, K['outline'])
     outline_pass(a, (5, 5, 5))
@@ -681,14 +716,16 @@ def draw_signal(K, spec, seed):
                 ey = gy(ex) + int(r() * 7)
                 if 0 <= ey < CH:
                     a[ey, ex] = 0
-        temp = np.zeros((70, 40, 4), dtype=np.uint8)
-        draw_head(temp, K, 8, 6, 'dead', r)
-        piece = np.rot90(temp, 1).copy()               # lying on its side
-        composite(a, piece, gx0 + plen - 52, ground_y - 40)
-        for _ in range(14):                            # shattered lens glass
-            gxx = gx0 + plen - 40 + int(r() * 44)
-            put(a, gxx, ground_y - 2 - int(r() * 4),
-                (70, 18, 16) if r() < 0.5 else (66, 44, 12))
+        # dead heads still bolted along the fallen span at the lane spots
+        for gi in range(min(2, spec['heads'])):
+            px_ = gx0 + plen - 52 - gi * int(3 * T * 0.6)
+            temp = np.zeros((70, 40, 4), dtype=np.uint8)
+            draw_head(temp, K, 8, 6, 'dead', r)
+            piece = np.rot90(temp, 1 if gi % 2 == 0 else 3).copy()  # on its side
+            composite(a, piece, px_, ground_y - 40)
+            for _ in range(10):                        # shattered lens glass
+                put(a, px_ + 6 + int(r() * 48), ground_y - 2 - int(r() * 5),
+                    (70, 18, 16) if r() < 0.5 else (66, 44, 12))
 
     drips(a, K, r, POLE_CX - 5, POLE_CX + 5, junction_y + 8, n=2)
     # THE BORDER (Paolo 7/18: "one more pixel... looking a little thin"):
@@ -783,6 +820,13 @@ def main():
                                       'kind': kind, 'state': 'dead', 'face': 's'},
                          [nm for nm, c, _ in ARMS if c == cells][0],
                          88000 + ci * 7919 + wi * 977))
+        # v16: the VERTICAL masts break too — the span on the road floor
+        for di, arm_dir in enumerate(('n', 's')):
+            jobs.append(('v', color, {'arm_cells': 9.0, 'heads': 3,
+                                      'kind': 'fallen_arm', 'state': 'dead',
+                                      'face': 'e', 'arm_dir': arm_dir,
+                                      'head_facing': 1},
+                         'long', 96500 + ci * 7919 + di * 449))
     for shape, color, spec, arm, seed in jobs:
         K = palette(color)
         if shape == 'v':
