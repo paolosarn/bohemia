@@ -1,4 +1,4 @@
-BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
+BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
 ====================================================================================================
 
 #     TITLE                                                 LINES  CRAFT  FLAWS  PORTS  FLOW  CONV   V2?
@@ -154,3 +154,6 @@ MINING POOL REMAINING: ~72 whole-game teardowns.
 142   THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (N    210     10      3      5     Y     Y     Y
 143   EDDIE AND THE VERDICT ENGINE (Silent Hill 2)            197     10      3      5     Y     Y     Y
 144   THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)      199     10      3      5     Y     Y     Y
+145   THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)       181     10      3      5     Y     Y     Y
+146   THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)      190     10      3      5     Y     Y     Y
+147   SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zeld    188     10      3      5     Y     Y     Y

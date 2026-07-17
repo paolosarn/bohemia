@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
-1447 findings / 144 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
+1477 findings / 147 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3183,3 +3183,69 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       The heir's early game is repriced by inherited geography and the player's own trained dread — progress the interface never has to claim, because the player EXPERIENCES being their own inheritance.
   W10 THE CHRONICLE FRAME
       The game names a full history of play a chronicle of tragedies: the unit of the work is the LINE, not the life. The framing alone does design work — players narrate their dynasties unprompted. Bohemia's three-arc, hundred-year shape is this frame at full scale.
+
+### #145  THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)
+  W1  THE PAST IS PLAYER-AUTHORED AT SYSTEM RESOLUTION
+      The Conquest writes the exact currencies the game consumes — standings, regional states, named flags — so backstory reactivity lands on the player's own signature. Guilt with a receipt.
+  W2  AUTHORITY IS THE VERB SET
+      Every Conquest option is judicial — attach, counsel, adjudicate, proclaim — teaching the player their role's grammar before teaching them combat. The fantasy is jurisdiction, established in the sequence's verbs alone.
+  W3  THE BYSTANDER VERB IS REMOVED FROM THE PAST
+      No "I wasn't part of it" exists; presence is jurisdiction. Dirty hands as an initial condition is the boldest opening state in the genre.
+  W4  THE EDICT IS A SIGNATURE WITH WEATHER
+      Law that persists as terrain until its own wording releases it: the player's counsel becomes a standing feature of the map, and READING THE LAW CLOSELY becomes endgame content. Consequence you can stand in, then lawyer your way out of.
+  W5  COMPOUNDING IS VISIBLE AT AUTHORING TIME
+      The chronicle re-asks with prior answers echoing, so the player watches their lean harden into a reputation before the game starts — the fold's compounding, compressed into twenty minutes.
+  W6  HISTORY FIXED, POSTURE PLAYED
+      The main game grades ownership (claim/regret/double down) separately from deeds — the one authoring the past can still choose who its author became. The redemption architecture every guilt system needs.
+  W7  MERCY PLANTED BLIND PAYS OFF NAMED
+      Conquest sparings return as individuals with memory; the design banks player kindness before the player knows the currency. Q126's mercy-banked pattern, moved to pre-play.
+  W8  THE TWO ARMIES PRE-LOAD THE CIVIL WAR
+      The main conflict detonates along the attachment line the player drew — the game's central war is the player's own Conquest record, weaponized. Premise and player-state fused.
+  W9  WORLD-EDITING WEARS A CHRONICLE'S CLOTHES
+      The player is handed regional-content forks (Edict arcs exist or don't) inside a diegetic war summary — content authorship disguised as memory. The trust this extends is repaid in investment.
+  W10 THE OPENING IS AN AFTERMATH
+      Starting after the ending — evil won, now administrate — remains the sharpest premise inversion in the genre, and the Conquest is what makes it PERSONAL rather than decorative: the aftermath is specifically yours.
+
+### #146  THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)
+  W1  DEFEAT CONTINUES INSTEAD OF ENDING
+      Losing produces a NEW GAME STATE (captivity) rather than a load screen — the single rule doing the most narrative work in the entire design. No continuation, no arc.
+  W2  THE INSTITUTION HAS A SCHEDULE
+      Feedings, shifts, counts: routine makes captivity LEGIBLE, and legibility turns suffering into a puzzle. The quest's dialogue tree is a timetable.
+  W3  PUNISHMENT TRAINS
+      Failed escapes teach escaping; beatings teach surviving beatings. The curriculum property — consequence that transfers skill to its victim — is what converts a fail-loop into rising action.
+  W4  STATUS IS A FACTION RELATIONSHIP, ENFORCED
+      "Slave" is not a cutscene state; the world defends it (recapture, bounty-return, property logic), so exiting it is a real transition with real enemies. States that nothing enforces are costumes.
+  W5  THE PROTAGONIST IS MUTE AND THE VILLAIN HAS NO SPEECH
+      Intent lives in the player; the antagonist is a price list. With both mouths empty, the player's own narration fills the arc — which is why every testimony sounds authored: it was, by its teller.
+  W6  WITNESSES SHARE THE CONDITION
+      Other slaves make the state communal: solidarity, betrayal, and the carry-them-out verb all emerge from mere co-presence. One rule (others suffer this too) buys the whole ensemble drama.
+  W7  THE CENTRAL GATE IS PURE KNOWLEDGE
+      The rotation's gap is stored nowhere but the player's head — no journal, no marker. The game trusts observation absolutely, and the trust is why the break feels EARNED beyond any authored quest's capacity.
+  W8  TIME IS THE ONLY FEE
+      The camp charges calendar, and the world's other lives visibly spend theirs meanwhile — urgency without timers, dread without music. The indifferent simulation IS the clock.
+  W9  THE SEQUEL SELF-GENERATES
+      The return-and-burn-it ending is unprompted, unrewarded, near-universal: institutions that teach their victims recruit their destroyers. The design's deepest finding, and it emerged from the systems' shape, not a writer's plan.
+  W10 THE ARC IS STATISTICALLY STABLE
+      Thousands of testimonies, one beat structure, all different in detail: the mark of an attractor built from rules, which is the only kind of quest a proc-gen world can mass-produce. The existence proof Bohemia's emergent layer needs.
+
+### #147  SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)
+  W1  THE QUEST-GIVER IS DEAD AND WANTS A DELIVERY, NOT A DEED
+      No vengeance, no rescue — a message. The relay frame makes the player a musician's postal service, and the humility of the role is the scene's dignity.
+  W2  UTILITIES AND GRIEF ARE ONE SYSTEM
+      The river is dry because a soul is; fixing the relationship fixes the water. Infrastructure as emotional state is the suite's signature and Bohemia's native tongue (survival accounting with a heart under it).
+  W3  THE DELIVERABLE IS KNOWLEDGE WITH PROVENANCE
+      The song works because of WHO taught it — the same notes from a book would be noise to Sharp. Quest items that are knowledge-with-a-source outclass every fetchable object. (#141's watch, #144's chart, and this song are one family.)
+  W4  THE BOSS FIGHT IS STANDING IN PAIN AND ANSWERING CORRECTLY
+      Damage falls while the player performs the remedy — courage rendered as holding a song steady under a life-drain. No sword; the whole confrontation is delivery-under-fire.
+  W5  THE CURSED ONE IS THE VICTIM, AND BREAKING THE CURSE UNCORKS THE CONFESSION
+      The boss's death-rattle slot is filled with weeping and account-giving: violence's usual payout replaced by testimony. (Q135's monster-as-patient, run one screen upstream of #138's domestic version — the suite teaches the machine twice.)
+  W6  THE UNMARKED CONNECTION
+      Grave to cave, song to brother — no journal, no marker; the link lives in the player's comprehension. The suite trusts understanding as its only thread (twelfth-plus echo of comprehension-as-the-key, and the smallest, cleanest instance in the corpus).
+  W7  THE FAILURE STATE IS VISIBLE GEOGRAPHY
+      Skip the suite and the dry river stays, walkably, for the whole game — unfinished business as terrain. The world wearing its open quests is reactivity's cheapest, most honest form.
+  W8  THE REWARD IS WATER
+      The payout is the most survival-denominated resource in the region, cashed downstream by people the player hasn't met yet. Doing right upstream of strangers is the quest's actual moral, delivered mechanically.
+  W9  AUTHORITY OVER THE DEAD IS THE DOOR
+      Even finding the giver requires out-ranking corpses — the necro-bureaucratic entry fee sets the whole country's tone: in Ikana the dead have chains of command, and the player enters by borrowing one.
+  W10 REPAIRS ARE LOOP-LOCAL, KNOWLEDGE PERMANENT
+      The world's undo erases the river but not the song: the design states, mechanically, what survives resets — what you learned. The roguelite thesis in miniature, shipped in 2000.

@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
-1236 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
+1251 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2731,3 +2731,54 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 5 — TESTED AGAINST THE MERCIFUL QUESTION [F3's law — a standing design gate]
       system: the fold / the dial / hardcore identity
       Every fold feature answers one question at review: IF THIS RUN WERE RETRIED, WHAT WOULD STILL MATTER? Anything whose entire meaning evaporates under retry is re-anchored in record (the world remembers, the ledger keeps the entry, the taint survives) or rejected. Bohemia stays hardcore; the meaning stays even where mercy someday intrudes. Add the question to the STATE_OF_PLAY review checklist verba
+
+### #145  THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)
+  ->  PORT 1 — THE SUCCESSION CHRONICLE [W1, W5, F2's law — the core port]
+      system: the fold / succession / generational persistence
+      Bohemia's generation N+1 opens with a Conquest-shaped scene that is READ, not authored: the chronicle of the parent generation's actual recorded play — attachments, adjudications, standing "edicts" (the deals and laws the dynast signed that still execute) — presented as the heir's briefing, with the POSTURE layer played live (claim / regret / disown each cited deed, writing the heir's opening stan
+  ->  PORT 2 — STANDING EDICTS IN THE VALLEY [W4]
+      system: territory systems / the survival economy / quest generation
+      The signed-thing-that-keeps-executing: dynast-level decisions (a water treaty, a quarantine, a bounty proclamation) persist as WORLD STATE with written terminal conditions, and later generations can end them only by satisfying or lawyering the original wording — the document itself becomes a quest object under [READ]. Mechanism mine; which proclamations exist is canon. [PENDING, Paolo's call.]
+  ->  PORT 3 — THE FOUNDER STARTS THIN [F2's law, made structural]
+      system: run structure / world-seed
+      Run one, generation one: the world-seed shapes TERRAIN and factions, never the founder's personal ledger. No pre-authored deeds, no inherited guilt for the first life — the conduct and fold books open empty, so that every read-back forever after lands on player-authored history only. This is a compile-time invariant worth a gate line: generation-1 fold ledgers must initialize empty.
+  ->  PORT 4 — TWO-AXIS STANDING, ENFORCED IN THE GRAMMAR [F3's law]
+      system: the 13 factions / faction graph / .bq gates
+      Adopt favor+wrath as separate faction axes (the graph's edges already carry typed relationships), and enforce F3's law at the format level: when standings enter the .bq gate grammar, gates name the axis explicitly (favor>=X, wrath>=Y, both), and the validator rejects any collapsed reputation check. Respected-and-resented must be a reachable, mechanically distinct state — it is the post-collapse de
+  ->  PORT 5 — MERCY BANKED ACROSS THE LINE [W7]
+      system: the fold / NPC memory
+      Adjudication-class fold entries (spared, conscripted, made example) persist on NAMED NPCs across generations, and at least some repayments must skip a generation — the person the grandmother spared answers the grandchild's need. Tyranny pays mercy back in forty hours; Bohemia can pay it back in forty years, which no other game can do. [PENDING, Paolo's call: the canon cases.]
+
+### #146  THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)
+  ->  PORT 1 — THE UNAUTHORED-QUEST CHECKLIST [W1-W6 — the core port; the emergent layer's spec]
+      system: the dial / factions / the world simulation
+      The five portable properties, adopted as REQUIREMENTS for any Bohemia condition-state intended to generate stories (captivity, conscription, debt-bondage, quarantine — whichever survive Paolo's canon): (1) defeat CONTINUES into the state, never ends the run at the dial's mercy tiers; (2) the institution runs a LEGIBLE ROUTINE (Bohemia's 120 BPM world makes schedules native — shifts on the beat); (
+  ->  PORT 2 — THE LEDGER AS THE MISSING WITNESS [F1's law]
+      system: the fold / settlement barks / the missing-persons organ (#141)
+      Every emergent arc's completion writes fold entries the world can SEE: the settlement's bark tables react to escape-class entries, the organ can close the player's own disappearance case, and the finale's read (#140/#143) can cite it. Emergence tells the story; the record proves someone was watching. Mechanism mine; bark contents Paolo's.
+  ->  PORT 3 — ANTI-FARM DISCIPLINE FOR CONDITION-STATES [F2's law]
+      system: progression / the conduct book (#143 PORT 1)
+      Training inside condition-states carries diminishing returns, and VOLUNTARY re-entry is itself a recorded conduct signal (three re-entries = the ledger has opinions). The cage can teach; it cannot be a subscription.
+  ->  PORT 4 — THE WORLD WARNS ABOUT ITSELF [F3's law]
+      system: rumor/testimony systems / [READ]
+      Degradation-class dangers are telegraphed diegetically before they can apply: survivor testimony in settlements, visible slaver/pressgang activity on roads, records readable in the organ. The warning layer is world-building that doubles as consent. Mechanism mine, contents empty per MECHANISM-MINE / CONTENTS-PAOLO'S.
+  ->  PORT 5 — SCHEDULES ON THE BEAT [W2, W8]
+      system: 120 BPM LAW / I-MOVE-YOU-MOVE / the patrol module
+      Bohemia's institutions already tick on the beat, and BOH_PATROL already walks owners on schedules — extend the same machinery to institutional routine (counts, feeds, shift-changes as beat-quantized events the player can LEARN the way Kenshi players learn rotations). The knowledge-gate (W7) then works natively: the gap in a routine is real, observable, and stored only in the player's head. The pat
+
+### #147  SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)
+  ->  PORT 1 — THE GRIEF RELAY [W1, W3, F2's law — the core port]
+      system: the fold / [READ] / the missing-persons organ (#141)
+      The relay frame, Bohemia-shaped: a dead person's record (the fold holds it; the organ surfaces it) contains a message addressed to a living person the deceased could not face — and the player can carry it. F2's law applied: the player can [READ] enough of the account to be TEMPTED (withhold, edit, take a side), and carrying it clean is a chosen discipline the record notices. ``` @TALK relay_offer 
+  ->  PORT 2 — WOUNDS AS GEOGRAPHY, POINTERS AS TESTIMONY [W7, F1's law]
+      system: world generation / settlement talk / the organ
+      Every standing unresolved quest-class problem renders as VISIBLE world state (the dry channel, the dark district, the sealed door — Bohemia's LIGHT=TERRITORY already thinks this way), and the talk/testimony layer carries at least one pointer chain toward its cause. Compile-checkable: quest entries of the hidden class must declare their visible-wound and their pointer chain, or they don't ship.
+  ->  PORT 3 — DELIVERY UNDER FIRE [W4]
+      system: the dial / 120 BPM / non-combat verbs
+      One Bohemia confrontation class where the resolving verb is performed UNDER active harm on the beat — holding a broadcast, a song, a rite, a repair steady while the dial's pressure falls on you — and no damage-dealing verb exists in the scene. The patrol/beat machinery times it natively. NO DAMAGE BEFORE THE DIAL governs as always. [PENDING, Paolo's call: which scenes earn it; candidates touch the
+  ->  PORT 4 — MAINTENANCE AS MEANING, COUNTED [W10, F3's law]
+      system: the fold / repair systems / barks
+      Repair-class fold entries carry a count, and world text references the count (the ninth-winter pump line). Cheap integer, deep register: Bohemia's loops stop erasing devotion the moment the record says "again." Mechanism mine; the lines are Paolo's.
+  ->  PORT 5 — KNOWLEDGE-WITH-PROVENANCE AS AN ITEM CLASS [W3, W6]
+      system: [READ] / quest items / the .bq format
+      A formal item class: knowledge whose EFFECT gates on its SOURCE (the song that only works because the right person taught it; the password that only opens the door if learned from the dying guard, not the wiki-equivalent note). In .bq terms: knowledge flags carry a taught_by field, and gates can require the provenance, not just the fact. One schema field; it makes every #141-class investigation an

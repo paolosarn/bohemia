@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
-669 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
+678 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1867,3 +1867,36 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  MERCIFUL MODE EXPOSED THE DESIGN'S DEPENDENCE ON DEATH
      The later-added save-retention mode (and the permadeath debate around it) revealed how much of the game's meaning was load-bearing on loss being real; with death defanged, the legacy machine becomes set dressing, and community consensus split on whether the game survives it.
      LAW: the fold's meaning budget must not sit entirely on permadeath. Bohemia is hardcore by identity, but the design should be tested against its own merciful-mode question: if a run were retried, what would still matter? The answer must be "the ledger and the world's memory," which do not reset — meaning anchored in RECORD, not solely in loss. (The Q28/Q140 taint mechanism is the model: consequence that survives even the undo.)
+
+### #145  THE CONQUEST (THE GAME BEFORE THE GAME) (Tyranny)
+  X  THE CONQUEST OUTRUNS THE BUDGET
+     The sequence promises a hundred world-states; the shipped game reads back the big axes loudly and the fine grain thinly — players comparing notes found many Conquest differences cash out as a line or two. The front-loaded reactivity is real but SHALLOWER than the authoring interface implies, and the famous unfinished third act compounds it.
+     LAW: never let the authoring surface promise more state than the reader consumes. If the player can set it, something in the world must SAY it — rule of thumb from this file: every pre-play choice needs at least one loud, unmissable read-back plus the systemic one, or it gets cut from the authoring surface. (The gate can count read-backs per seed-choice at compile.)
+  X  HISTORY WITHOUT WEIGHT AT AUTHORING TIME
+     Conquest choices are made in twenty minutes, before the player knows the world, the armies, or the stakes — so the deeds the game spends forty hours holding them to were chosen half-blind. Some players report the read-backs landing as accusations about a stranger's decisions.
+     LAW: Bohemia's structure dissolves this — the "Conquest" of generation N is generation N-1's ACTUAL PLAY, chosen with full knowledge, at full weight. But the law still bites for run one: the founder generation's pre-history must be THIN by design (the world-seed authors terrain, never the founder's personal deeds), because unearned guilt reads as the writer's, not the player's. Personal ledgers start empty; only inherited WORLD state arrives pre-shaped.
+  X  THE DUAL METER LEAKS INTO A SLIDER AT THE EDGES
+     Favor/wrath is the anti-morality-meter, but reviewers and players documented edge cases where content gates check only one axis, quietly collapsing the two-axis idea back into like/dislike where it mattered most.
+     LAW: if Bohemia ships dual-axis standing (and the faction graph should — respected-and-resented is the truest post-collapse relationship), every gate that reads the relationship must be WRITTEN two-axis: checks name (favor, wrath) pairs, never a single collapsed value. Validator-checkable at compile once standings enter the .bq gate grammar.
+
+### #146  THE SLAVE'S ESCAPE (THE UNAUTHORED QUEST) (Kenshi)
+  X  THE WORLD'S INDIFFERENCE EXTENDS TO THE TRIUMPH
+     The escape completes and NOTHING marks it — no reaction, no recognition, not a line. The indifference that made the captivity honest also starves the payoff; players supply the meaning themselves or feel nothing. The pool file banked the general form (investment-makes-you-care carries everything); here it bites hardest, at the arc's climax.
+     LAW: the world may stay indifferent; the RECORD may not. Bohemia's fold writes the escape, the settlement's talk reflects it (bark-scale, cheap), and the missing-persons organ (#141) can even close the player's own case. Emergence supplies the story; the ledger supplies the witness. Never ship an emergent arc whose completion no system can see.
+  X  THE CURRICULUM IS EXPLOITABLE INTO FARCE
+     The same training rules that make the cage a school make it a GYM: veteran players deliberately enslave themselves to speed-train stats, cage-grinding toughness like a treadmill. The institution's horror collapses into an optimization spa the moment the player metagames it — documented endlessly, half-celebrated by the community.
+     LAW: condition-states must resist being farmed for their training value: diminishing returns inside institutional states, and fold entries that RECORD voluntary re-entry (the ledger noticing you keep checking into cages is itself the deterrent — and material for the conduct book, #143 PORT 1). Suffering that improves you must not be bookable like a facility.
+  X  THE ARC IS BRUTAL BY DEFAULT AND INVISIBLE BY DESIGN
+     New players meet the slavery arc with no framing, no content signal, and no difficulty mediation — for some it is the moment Kenshi becomes beloved; for others it is a wall of misery that ends the game unrefunded. The pure sandbox's honesty is also its total abdication of onboarding and consent.
+     LAW: Bohemia is hardcore, but conditions of degradation get DIEGETIC telegraphing before they can apply (the valley's reputation, survivor testimony, visible slaver activity — the world warning about itself is world-building, not softening), and the dial governs their intensity. NO DAMAGE BEFORE THE DIAL extends to institutional cruelty: the system exists at full honesty, and the player meets it informed. [PENDING, Paolo's call: whether enslavement-class states exist in Bohemia at all — the mechanism analysis stands either way, for any captivity/conscription/debt-bondage state.]
+
+### #147  SHARP AND FLAT (THE IKANA SUITE) (The Legend of Zelda: Majora's Mask)
+  X  THE SUITE HIDES ITS OWN FRONT DOOR
+     The chain (graveyard authority → night → the specific grave → the song → the unmarked connection to a cave across the canyon) is famously obtuse; generations of players finished the game with Ikana's river mysteriously dry, never knowing the brothers existed. A masterpiece gated behind guide-tier discovery.
+     LAW: hidden quests may hide their CONTENT, never their EXISTENCE. The world must visibly carry the wound (the dry river IS visible — good) AND at least one diegetic pointer chain toward its cause (testimony, records, the organ's cases — Bohemia's #141 machinery is exactly this). A drought with no witnesses is content that doesn't exist; a drought people TALK about is a quest hook. (Pairs with #146 F1: the ledger as witness.)
+  X  THE RELAY HAS NO STAKES FOR THE COURIER'S CONSCIENCE
+     The player carries absolution between brothers whose history (a kingdom's fall, service to the dark, whatever passed between them) is delivered as backstory paint — the quest never lets the courier LEARN enough to have a position, so the reconciliation, gorgeous as staging, is morally weightless for its deliverer. Compare Q126's Hope or #141's letter-writer, where the player's knowledge implicates them.
+     LAW: if the player carries a message that settles an account, let them READ enough of the account to be tempted — to edit, withhold, or take a side — and make carrying it CLEAN a chosen discipline rather than the only line (the F-1 NOVERB done Bohemia's way: the adjudication verb exists and costs). A courier who could have meddled and didn't has done something; one who couldn't has done a fetch.
+  X  THE RESET ECONOMY CHEAPENS THE REPAIR FOR SOME, DEEPENS IT FOR OTHERS
+     The three-day undo of every emotional repair is the game's thesis, but the criticism is real and old: players who experience the resets as futility disengage from exactly the scenes the design most wants to matter, and the game provides no register acknowledging REPEATED tending (the tenth delivery plays like the first).
+     LAW: where Bohemia loops (runs, generations), repeated tending must be SEEN by the record: the fold counts the times, and the world's text can reference the count (the keeper who has now fixed the same pump every winter for nine years deserves a line about it). Repetition acknowledged is devotion; repetition ignored is a chore. The mechanism is one integer per repair-class entry.

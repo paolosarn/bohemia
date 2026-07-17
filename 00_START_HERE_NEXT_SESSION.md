@@ -160,7 +160,14 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
-Keep mining. BATCH 9 landed 7/17 (#142 MotB argue-the-god, #143 SH2 Eddie +
+Keep mining. BATCH 10 landed 7/17 (#145 the Conquest: the succession-chronicle
+blueprint + standing-edicts port; #146 the unauthored quest: the five-property
+emergent-condition checklist, schedules-on-the-beat rides the patrol wiring;
+#147 Sharp and Flat: the grief relay, wounds-as-geography, provenance-gated
+knowledge): 63 of >90. Remaining queue: Witcher contracts (needs a source-pull
+session for contract-level facts), Kenshi second story (the pool's OTHER arc),
+Vampyr, Shivering Isles, Vaermina, plus whatever fresh games Paolo names.
+BATCH 9 landed 7/17 (#142 MotB argue-the-god, #143 SH2 Eddie +
 the behavioral verdict engine, #144 Sunless Sea legacy fold): 60 of >90.
 Remaining queue: Witcher contracts, Kenshi, Tyranny, Vampyr, Shivering Isles,
 Vaermina, Undertale non-Sans cuts, the Pamela-sibling files (#138 exists;

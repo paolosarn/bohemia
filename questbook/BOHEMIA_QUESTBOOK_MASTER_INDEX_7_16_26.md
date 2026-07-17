@@ -17,6 +17,13 @@
 > will as a played scene; what refuses to cross the line makes the line real).
 > **144 files, 1-144, zero gaps. 60 of >90 individual quests.** Gate green.
 >
+> **[BATCH 10 LANDED 7/17/26]** #145 Tyranny's Conquest (the game before the
+> game: player-authored history at system resolution, the succession chronicle
+> blueprint), #146 Kenshi's slave-escape (the unauthored quest: the five-property
+> checklist for emergent condition-states), #147 Sharp and Flat (the Ikana suite,
+> #138's first act: the grief relay, utilities-as-grief, knowledge-with-
+> provenance). **147 files, 1-147, zero gaps. 63 of >90 individual quests.**
+>
 > **[STALE COUNT CORRECTED 7/16 MERGE]** This index said 126 files in one place and
 > 124 in another. **There are 138 questbook files on disk** (verified: numbers 1-138,
 > zero gaps, zero collisions, audited BY NUMBER per the #102 lesson). The 12 fresh
