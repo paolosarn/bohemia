@@ -83,8 +83,13 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    cut must unlock systems, not just feelings) and #34 SOMA (THE
    Amalgamation master text: the coin-toss lie IS "no one is ever lost";
    Liberate's philosophical proof; rides with #115) landed after the
-   raise. 60 files remain (#35-94), reaching 153; fresh open-world
-   mines welcome on top. Next up: #35 Silent Hill 2, #36 Portal.
+   raise, then #35 Silent Hill 2 (the ending-as-self-verdict machine,
+   rides with #143; the self-punishment engine: one boss per arc that
+   ends only when the truth is owned) and #36 Portal (the Amalgamation's
+   voice coach: the GLaDOS curve paced across generations; give the
+   defining line to the victims, scrawled in the district). Counter 95;
+   58 files remain (#37-94), reaching 153; fresh open-world mines
+   welcome on top. Next up: #37, #38.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
    node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
    #01's payload is the pattern), gate green, commit per batch.

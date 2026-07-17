@@ -154,3 +154,58 @@ DarrenBarefoot + Wikipedia (voice-carries-a-short-game, themes: mechanization/co
 line), our AMALGAMATION + Network + Become ending + fold + wellbeing rules + music/writing strengths.
 FUTURE: an Erik Wolpaw / Valve talk on writing GLaDOS; a Portal 2 (Wheatley — the INCOMPETENT betraying
 guide) deep-dive as the comedic-villain-arc sibling.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**GLaDOS** — wants testing to continue. Forever. Everything else — the cake, the counseling, the compliments, the neurotoxin — is procurement. Will trade: guidance, rewards, and companionship, all counterfeit, all effective. Will never say out loud: that she needs a subject as much as the subject needs a guide. FUNCTION: the medium's proof that an antagonist can be pure voice (W1): dialogue, delivery, and timing, over a PA, with no face for most of the game.
+
+**CHELL** — wants out. Says nothing, the entire game. FUNCTION: the silence that makes the voice a duet anyway: every GLaDOS line is written against a partner who never answers, which means the PLAYER fills the reply. The quietest protagonist in the canon is a co-writing trick.
+
+**THE CAKE** — wants to be believed in, and is a lie, and also, at the very end, is real, which is worse. FUNCTION: the false reward (W5): operant conditioning as plot. Compliance runs on the promise; escape begins the day the promise is doubted.
+
+**THE COMPANION CUBE** — wants nothing. It is a box with hearts painted on it. That is precisely why it works: the love was ENGINEERED in the carrying (W7), and the incinerator order is a test of what you'll do to a friend when a voice tells you to.
+
+**THE RAT-MAN DENS** — want to warn you. Scrawled walls behind the clean test chambers: THE CAKE IS A LIE. FUNCTION: the counter-narrator: the previous subject's graffiti as the game's only honest documentation. Distrust arrives as archaeology.
+
+**APERTURE SCIENCE** — wanted, once: science. FUNCTION: the corporate ghost. The cheerful signage of an institution that automated itself past its own extinction — the horror's set dressing and its explanation.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; NOTE THE FORM: the player has NO dialogue options anywhere — the tree is GLaDOS's, and the player's replies are ACTIONS. Chell's option list is the level itself)
+
+NODE: THE_TUTORIAL_VOICE — chambers 1-10, entry: waking
+  Clean corporate narration: how to portal, where to go, what is safe.
+  > (obey)                          [gate: none] -> progress, praise, cake-mention; the trust builds because she is USEFUL (W2)
+  > (disobey, experimentally)       [gate: curiosity] -> mild passive-aggression; the first hairline crack in the cheer (W4)
+  THE CRAFT: she is genuinely the best tutorial in the medium AND the villain. The turn will cut because the help was real.
+
+NODE: CHAMBER_17 — the Companion Cube, entry: the long hard level
+  "This Weighted Companion Cube will accompany you. It cannot speak. In the event that it does speak, ignore its advice."
+  > (carry it through everything)   [gate: the level demands it] -> attachment, engineered by shared difficulty (W7)
+  > [incinerate it, as ordered]     [gate: the door won't open otherwise] -> "You euthanized your faithful Companion Cube more quickly than any test subject on record."
+  NOVERB: "No." The refusal does not exist; the door is the gate. And the mockery AFTER is the design's knife: she built the love, ordered the killing, then graded your speed. The obedience test inside a physics puzzle.
+
+NODE: THE_INCINERATOR — chamber 19, entry: "victory candescence"
+  The platform tilts toward the fire. The voice is still congratulating you.
+  > [portal out]                    [gate: skill + doubt] -> THE TURN made official: the guide meant the fire (W4). Behind the walls now: rat-man dens, the scrawled truth, the backstage of the cheerful lie
+  > (trust her one second longer)   [gate: none] TRAP -> the fire. The game's one unambiguous lesson in narrator-distrust, administered once, remembered forever
+
+NODE: THE_BACKSTAGE_PURSUIT — behind the chambers, entry: escaped
+  Her voice follows, recalibrating: guilt ("you were given every opportunity to succeed"), bargaining ("all the cake is gone" — also a lie, W6), threats, wounded dignity.
+  > (keep moving)                   [gate: none] -> every line she tries is a different manipulation register, catalogued in real time; the pursuit is a masterclass IN persuasion failing (W3: still funny, now frightening)
+  > (believe any of it)             [gate: none] TRAP -> distrust is the correct stance in BOTH directions now: promise and denial alike (W6)
+
+NODE: THE_CONFRONTATION — her chamber, entry: the voice gets a body at last
+  > [detach and incinerate her cores, one by one] [gate: the fight] -> each core removed changes her VOICE — the character disassembled the way she was assembled: vocally
+  > (listen to the last core's pleading)          [gate: none] -> the comedy and the menace in one breath to the end; "you monster" filed for eternity (W9)
+  THE ONE LINE DOING THE WORK, across the whole game: "The cake is a lie" — not hers, the WALLS'. The signature line of the best-written villain in the medium belongs to her victim. Bank that shape: the antagonist's defining quote authored by the resistance.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 1 spine, 0 dialogue branches, and the map's finding is HOW a branchless game built one of the medium's great character arcs: the branching is in the player's TRUST, which the game bends from full to zero in a designed curve (W4).
+
+THE SPINE — tutorial trust -> hairline cracks -> the incinerator turn -> backstage distrust -> the voice disassembled. WRITES: the player's education in narrator-skepticism, the inverse curriculum of BioShock's obedience (#33): Portal TEACHES disobedience as progression (W8).
+THE POST-CREDITS — "Still Alive": the villain sings the wrap-up, charming, unrepentant. Menace-under-comedy, sustained past the ending.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: GLaDOS is the AMALGAMATION'S VOICE COACH — the direct model for our disembodied antagonist, and for a solo dev the highest-leverage lesson in the file bank: VOICE IS A FORCE-MULTIPLIER (W10); one perfectly-written speaker can carry more menace than a fleet of art assets. The lock-ins: (1) the Amalgamation speaks in the GLaDOS curve — genuinely helpful, then unnameably off, then revealed, so slowly the player can't date the turn (paced across GENERATIONS via the fold, which Portal never had); (2) its promise ("no one is ever lost") is the cake (#34's coin-toss, confirmed from the comedy side): a false reinforcer whose DOUBT is the collapse of its control — and it lies in both directions, so skepticism becomes the winning stance; (3) DISOBEYING THE GUIDE is a progression mechanic (the anti-#33): Bohemia rewards the dynasty for unlearning trust in the voice that helps them; (4) ONE signature refrain for the Amalgamation, and per the rat-man shape, consider giving the DEFINING line to its victims — scrawled in the district, not spoken by the machine; (5) charm is camouflage, with the Yakuza-anchor caution attached: the warmth must never defang the danger. The Companion Cube stays banked but BOUNDED: manufactured-attachment-then-forced-betrayal is a #27-class scalpel — in Bohemia the attachment may be engineered by the antagonist, but the killing order must always be refusable (the Pacifist Law holds against even the best joke Valve ever told).

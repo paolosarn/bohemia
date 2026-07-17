@@ -163,3 +163,63 @@ enemies), 20 (per-person manifestation), 12 (self-judgment/change), 06/28/16 (be
 01 (grief-as-horror), 24 (dream-dive), our Amalgamation + Liberate/Respect/Become + unrecorded ledger +
 wellbeing/child-safety rules. FUTURE: a Team Silent / Masahiro Ito design talk on symbolic monster design;
 a Hellblade deep-dive (psychosis-as-mechanic) as a psyche-horror sibling.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+(Cross-ref #143, the 7/17 fresh mine on SH2's hidden behavioral verdict engine: #35 is the PSYCHE file —
+the town, the monsters, the endings; #143 is the VERDICT-MACHINE file. They ride together.)
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**JAMES SUNDERLAND** — wants, stated: to find Mary, who wrote him a letter. Wants, real: to be punished for what he cannot admit he did. Will trade: three years of false memory for one town's worth of staged trial. Will never say out loud, until the tape: that Mary died a year ago, by his hands, in her sickbed. FUNCTION: the unreliable protagonist whose psyche is the level design. The game is a trial he prosecutes against himself with monsters for evidence.
+
+**MARY** — wanted, at the end: to not die alone, and to not be a burden, and both at once, said in anger and taken back too late. FUNCTION: the absent center (the Anna structure, #01, turned inward): the whole town is about a woman who is only in it as a letter, a tape, and a shape under a sheet.
+
+**MARIA** — wants to be wanted, because that is what she was made FOR: Mary's double, built by the town from James's need. Will never say out loud: what she is. Her cough says it for her, at the end of the wrong ending. FUNCTION: the temptation to repeat instead of grieve.
+
+**PYRAMID HEAD** — wants nothing. It is a want of JAMES'S, wearing a helmet: the executioner he hired without knowing. FUNCTION: the self-punishment engine (W4): unkillable until its employer is ready to fire it. It kills itself when James finally says the sentence out loud.
+
+**ANGELA and EDDIE** — want, respectively: for the burning to stop, and for the laughing to stop. Each walks a DIFFERENT Silent Hill, shaped by their own wound; James only glimpses the flames on her stairs. FUNCTION: the personalized hells (W6): proof the town is not a place but a verdict, issued per visitor.
+
+**THE LETTER** — wants to be read while it still says anything. Its text fades across the game until the page is blank. FUNCTION: the diegetic tell (W5): the premise dissolving in the inventory, unnarrated.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the deepest machine here is BEHAVIORAL — the game's most important dialogue reads the player's hands, not their lines. See #143 for that engine's teardown)
+
+NODE: THE_LETTER_READ — the overlook, entry: game start
+  Mary, dead three years, has written: come to our special place.
+  > (go into the fog)               [gate: none] -> the whole game; there is no other option and no player notices, because grief walks into fog willingly
+  NOVERB: "Mary is dead. Letters don't come from graves." The sane sentence exists in no dialogue box. The delusion is load-bearing; the game builds its town on the player's willingness not to say it either.
+
+NODE: PYRAMID_ENCOUNTERS — throughout, entry: the executioner appears
+  > [fight]                         [gate: none] TRAP -> it cannot be hurt; James has not yet earned release; survive until it leaves (W4)
+  > [run, hide, endure]             [gate: none] -> the only verb that works, and the point: punishment is not defeated, it is outlasted or OWNED
+  NODE: PYRAMID_FINALE — two of them, converging
+  > (deal enough damage)            [gate: the truth faced first — the tape heard, the words said] -> THEY KILL THEMSELVES. The executioner resigns when the client stops paying (W4)
+  THE ONE LINE DOING THE WORK, James's: "I was weak. That's why I needed you... needed someone to punish me for my sins." The boss fight's win condition is a CONFESSION.
+
+NODE: THE_TAPE — the hotel, entry: the trial's last exhibit
+  A video: Mary alive, sick, and then James's hands and the pillow.
+  > (watch it to the end)           [gate: none] -> the repressed year returns; three years collapse into one; the letter in the inventory is now blank (W2, W5)
+  > (there is no look-away option)  -> the game that let you run from every monster does not let you run from this
+  WHAT THIS NODE COSTS: the protagonist the player thought they were playing. Retroactive re-reading, the #32/#33 lesson, done here with grief instead of a twist-villain: the reveal is not that someone lied to you; it's that YOU did.
+
+NODE: ANGELAS_STAIRS — the burning stairway, entry: late, her hell bleeding into his
+  She climbs into the flames. "For me, it's always like this."
+  > "Let me help you."              [gate: none] -> declined, gently; her hell is hers; James's fog cannot firefight her fire (W6)
+  > (watch her go)                  [gate: none] SILENCE -> the game's cruelest kindness: some people cannot be saved by a man who cannot yet save himself
+  CROSS-REF the RESCUE-DENIAL register (staged law): this is its most famous instrument.
+
+NODE: THE_VERDICT_ENGINE — no scene; the whole playthrough (the #143 machine, summarized)
+  The game reads conduct, silently: Mary's photo examined or ignored; her health item kept or discarded; time spent near Maria; playing wounded as if wanting to die.
+  WRITES: James's self-judgment, compiled from the player's subconscious hands (W7). Nobody performs for this ledger, because nobody knows it's being kept. The endings are its output.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 4 core terminal states, NONE menu-selected — all compiled from behavior (the medium's purest ending-as-self-verdict, W7/W8).
+
+E1 — LEAVE: self-forgiveness earned; out of the fog with Laura, Mary's real letter read at last. The sentence served.
+E2 — IN WATER: the verdict "unforgivable," passed by a player who played like a man wanting to die; the lake, with Mary's body.
+E3 — MARIA: the lesson refused; the double embraced; her cough already starting. The cycle re-armed.
+E4 — REBIRTH: grief denied; the ritual sought; SOMA's ARK in occult costume (the #34 rhyme: resurrection as the refusal to mourn).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: SH2 pairs with SOMA as the Amalgamation's two horror engines — #34 is the IDEA (the copy is not the person) and #35 is the EMOTION (the guilt of the living toward the dead), and Bohemia's endgame needs both barrels. The lock-ins: (1) the ENDING-AS-SELF-VERDICT machine — Liberate/Respect/Become earned by cumulative conduct read from the unrecorded ledger, never menu-picked, with the behavioral reads UNPERFORMABLE (#143's law: the ledger the player can't perform for); (2) the SELF-PUNISHMENT ENGINE — one obstacle in the arc that cannot be out-fought, only out-grown: it ends when the dynast owns the truth (the Pacifist Law's most elegant boss design); (3) PERSONALIZED MANIFESTATION — the Amalgamation, which holds the dead, stages each visitor's own guilt back at them: the same dive is a different hell per heir (the fold makes this replayable ACROSS GENERATIONS, which SH2 could never do); (4) the DIEGETIC FADING TELL — a ledger entry that erases as a delusion cracks; show unreliability, never narrate it. And the care line is absolute, banked from Ito's own regret: symbolic darkness serves theme and character or it doesn't ship — grief with weight, never shock, never exploitation.
