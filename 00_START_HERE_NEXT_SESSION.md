@@ -143,7 +143,7 @@ largest unblocked item in IN FLIGHT.
 - STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
   pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
   garment art / currency logos.
-- ANIMATION, THE SECOND DEATH (7/17, UNJUDGED, now v3): 'headshot-2' THE
+- ANIMATION, THE SECOND DEATH (7/17-18, UNJUDGED, keyframed + 8-DIRECTIONAL): 'headshot-2' THE
   CRUMPLE beside 'headshot' THE TOPPLE (v1, physics, untouched). Paolo rejected
   the physics crumple ("jumping around, not falling fast enough, unnatural,
   care about how the skeleton works"). Measured cause: the Verlet sim's stacked
@@ -156,7 +156,9 @@ largest unblocked item in IN FLIGHT.
   animation by WATCHING continuous motion (clock-driven render sheets), never
   static frame samples -- static hid the jitter twice. Record:
   records/BOHEMIA_ANIM_DEATHS_7_17_26.txt. Open: face-up (FACE LAW) vs Paolo's
-  "stomach" (needs a face-law exception). Judge in ANIMATION tab, 'headshot-2'.
+  "stomach" (needs a face-law exception). Judge in ANIMATION tab, 'headshot-2'. 7/18: now falls its OWN way per
+  facing (8/8 distinct, was one-direction-for-all); Paolo flagged a headshot-3
+  will still come ('even then not what I want'), gated on the 8 dirs first (done).
 - MUSIC (verdict pass 7/17 PROCESSED; gate #17 gates/music_gate.js guards it
   all): CANON now: THE CANCELLED MAN, THE WIND LEARNS WORDS, THE PIT BOSS IS
   GONE (Paolo loves it; added to the OVERWORLD playlist, now six, his verbatim

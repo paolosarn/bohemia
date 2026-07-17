@@ -39,3 +39,17 @@ that was the earlier mistake.
 STILL PAOLO'S CALL: face-up (FACE LAW) vs his "stomach" (face-down needs a face-
 law exception); the exact corpse splay; fall speed. UNJUDGED. Deaths are a
 factory: name the flaw in a word, get a v4.
+
+
+=== UPDATE 7/18: THE CRUMPLE IS NOW 8-DIRECTIONAL ===
+Paolo: "it's only going One Direction for everything... you have to make it for
+each cardinal direction." Right: deathCorpse built one fixed side-on splay for
+all facings. FIXED: the corpse now lies along a per-facing FALL AXIS (AUTO knock
+= topple backward, opposite the facing, y-compressed by FALL_YC for the 3/4
+view). All 8 facings verified DISTINCT (spine angles N52 NE150 E180 SE-150 S-128
+SW-30 W0 NW30), smooth (worst 5.4px/frame), framed. The pure toward/away-camera
+falls (N,S) would lie vertical and read as a headstand / near-standing, so each
+is biased onto its OWN diagonal (still distinct, now sprawls like the rest).
+Paolo's standing note: "even then it's still not what I want but we can move
+onto headshot three" — so a headshot-3 is expected next; this satisfied his
+gate (all 8 made) before that. v1 THE TOPPLE still untouched. UNJUDGED.
