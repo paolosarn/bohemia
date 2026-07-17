@@ -168,3 +168,21 @@ FIXED:
   flat body), harder floor damp, freeze catches. All 8 freeze, in frame, no
   split (leg-spread cap), head 90-deg snap (no morph). v1 THE TOPPLE untouched.
 UNJUDGED. Physics is real now: any further note = tune the numbers.
+
+=== UPDATE 7/18 (i): HIP CONE — LEGS STAY ATTACHED TO THE WAIST ===
+Paolo (2 screenshots): "ur ragdoll physics with the body is dogshit, the waist
+to the legs are you serious" — thighs folding up over the torso / splaying
+backward at angles no hip joint can make.
+ROOT CAUSE: the hips had NO constraint. Distance bones held leg LENGTH but let a
+thigh point in ANY direction off the pelvis, so the solver was free to fold a
+leg flat against the spine. A real hip has a cone of travel; there was none.
+FIXED — HIP CONE in the solver loop:
+- Spine-down axis = normalize(waC - neck). Each thigh (waA->knA, waB->knB) is
+  held within MAXH=1.25 rad (~72deg) of that axis. Past the limit, the knee+foot
+  rotate rigidly back toward the cone (sign from the cross product, 0.5/iter).
+- Knees keep their one-way hinge, the no-split leg cap still holds the ankles
+  apart, so legs bend at the knee and dangle from the hip like a body, never
+  fold onto the trunk.
+MEASURED (headless, 8 dirs): froze 8/8, max thigh-from-spine angle 73deg (was
+150deg+ pre-cone), all in frame. Bottom four dirs (S/SW/W/NW) settle as clean
+flat-lying corpses; top four crumple without impossible leg folds. SHIPPED.
