@@ -58,6 +58,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `BOHEMIA_TURN_MARKINGS_PROOF_7_14_26.html` -> BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt
   - `BOHEMIA_TRANSITIONS_PROOF_7_10_26.html` -> BOHEMIA_TRANSITION_SET_7_10_26.txt + bohemia_transitions.js
   - `BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html` -> seamless sets banked as .txt
+  - `BOHEMIA_STATE_OF_PLAY_7_16_26.md` -> superseded 7/17/26 by laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the repo-born day rolled the state; 7/16 preserved in archive/)
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT
@@ -207,9 +208,9 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 
 ### UNCLASSIFIED (35) — add keywords to DOMAINS
 - `BOHEMIA_ADDENDUM_WALL_TAXONOMY_7_17_26.md`
+- `BOHEMIA_STATE_OF_PLAY_7_17_26.md`
 - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`
 - `BOHEMIA_ADDENDUM_PATROL_7_16_26.md`
-- `BOHEMIA_STATE_OF_PLAY_7_16_26.md`
 - `BOHEMIA_ADDENDUM_ALPHA_ABSORPTION_PLAN_7_14_26.md`
 - `BOHEMIA_ADDENDUM_WORLD_CLOCK_WALK_LAW_7_14_26.md`
 - `BOHEMIA_ADDENDUM_CURRENCY_LOGOS_IDEA_7_13_26.md`

@@ -1,289 +1,65 @@
-=== BOHEMIA HANDOFF 7/17/26 (REPO BORN) ===
+=== BOHEMIA HANDOFF 7/17/26 (REPO DAY ONE COMPLETE) ===
 FILENAME LAW: this file is always named 00_START_HERE_NEXT_SESSION.md, lives at
 repo root, sorts to the top of every file list, and is REWRITTEN at the end of
 every working session. There is only ever ONE. It is the first thing any
 session reads after CLAUDE.md.
 
-READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md (what depends
-on what) -> BOHEMIA_CANON_INDEX.md (newest-date-wins map) -> STATE_OF_PLAY.
+READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
+BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
+account of repo day one lives THERE; this file stays the pointer, not a pile).
 
 ## WHERE WE ARE
-THE REPO IS BORN (7/17/26). The master seed landed via 4 part zips + chunk
-sets, every delivered file md5-verified against _MANIFEST.md5.txt, the HD tile
-repos and the alpha rejoined byte-exact from chunks, and the flat pile is now
-a real layout:
+The repo is born, whole, and on main. 534/534 seed files verified. The layout:
+/engine /gates /laws /banks /slices /tools /records /questbook /quests
+/archive, spine docs at root. Push access works; everything commits to main
+the turn it passes the gates.
 
-  /engine     game + graphics engine .js, tests, bundle, faction/region json
-  /gates      every gate + every registry (graveyard, superseded, sync canon,
-              purity allow, light sources v5) + canon index generator
-  /laws       GDD v2-v5, STATE_OF_PLAY, all addenda, laws masters
-  /banks      cooked art banks, verdict banks, tile repos (HD parts 1-4 live
-              here, joined; they no longer travel as chunks)
-  /slices     BOHEMIA_ALPHA_0_9.html (the ONE alpha) + LIVE_SLICE_V9
-  /tools      chunk/intake/master/split tools, QUEST_LAB, PIPELINE_STATUS
-  /records    csv records, audits, proposals
-  /questbook  the 138 research dives + index + format/batch laws + gap matrix
-  /quests     production quests 001-053 + vault index + .bq sample (PARKED)
-  /archive    superseded files, ARCHIVE_ prefix dropped (the folder IS the tag)
-  root        CLAUDE.md, this file, ARCHITECTURE_MAP, CANON_INDEX, _MANIFEST
-
-ALL GATES GREEN at handoff: 16 gates (QUESTBOOK joined 7/17), ~40s, every
-gate path repo-aware.
+ALL GATES GREEN: 16 gates (QUESTBOOK joined 7/17), ~35s.
   python3 gates/bohemia_gates.py          (everything)
   python3 gates/bohemia_gates.py --fast   (skips the two pixel sweeps)
 
-## THE MISSING 54: RESOLVED SAME DAY (but bank the lesson)
-The four original part zips delivered 480 of the manifest's 534 files. The 54
-absent files (including bohemia_engine.js, GRAPHICS_LAWS_MASTER, LIVE_SLICE_V11,
-PORTS/CRAFT/FLAWS/CONVERSATIONS masters, QUEST_VAULT, the street pools, and
-every picker/gallery/proof) were a zip-build drop, the ZIP INCIDENT's third
-bite. Paolo re-uploaded corrected part2+part3 zips the same turn; all 54 landed,
-md5-verified EXACT, and were filed into the layout. FINAL SCORE: all 534
-manifest entries verified. 509 live byte-identical on disk (3 of them renamed
-into archive/, the folder replacing the old ARCHIVE_ prefix), 5 chunk-transport
-manifests verified then retired with their chunks (git history holds them), and
-22 files verified EXACT at delivery then deliberately edited the same session
-(gate path fixes for the folder layout, the /mnt/project bug, the handoff and
-map rewrites). _MANIFEST.md5.txt stays at root as the delivery record.
-LESSON, same as the two banked ZIP INCIDENT bites: THE DIFF IS THE GATE. The
-manifest-vs-disk diff caught the drop within minutes.
-
-ALSO RUN THIS SESSION (beyond the 15): engine/bohemia_tests.js 80/80, the bq
-parser 29/29. gates/bohemia_loop_gate.js still fails on its POURED checks
-because bohemia_loop.js's faction/economy/spawner pours are declared [SEAM]
-comments, unbuilt by design. That is the engine backlog, not rot.
-## THE RE-AUDIT (Paolo forced a second pass. It found four more. Read this.)
-7. **THE REGISTRY ATE TWO LIVE FILES.** `bohemia_superseded.txt` had a line
-   reading `BOHEMIA_QUESTBOOK_40_SINNERMAN.md | #122 is the primary (40 still
-   rides)`. The prose said STILL RIDES. The parser reads column 1 and skips.
-   #40 and #79 were DROPPED from the master: 44KB of research, silently gone.
-   FIXED + LAW: if a file must keep riding, its name NEVER starts a registry
-   line. Notes go in comments. Gated by carry_gate.py, which proves every
-   skip-listed name is really absent from disk.
-8. **THE CANON INDEX SPAWNED A NEW MAP EVERY RUN.** It wrote a date-stamped
-   filename, so three indexes existed at merge time and a session could cite any
-   of them. Now ONE name, `BOHEMIA_CANON_INDEX.md`. Git holds history.
-9. **THE CHAIN DETECTOR WAS BLIND TO ITS OWN CORPUS.** It matched topics exactly,
-   so SIDEWALK_SANCTITY and SIDEWALK_SANCTITY_ENFORCED read as unrelated: it
-   reported ZERO supersession chains on a corpus full of them. The tool built to
-   catch stale rulings masquerading as current could not see the commonest case.
-   Now suffix-aware. Also its registry path was hardcoded to a dead directory, so
-   DECLARED chains never loaded either. Both fixed.
-10. **THE GDDs WERE MISSING FROM THE CANON INDEX.** They carry no date stamp, so
-   they scored (0,0,0) and sorted to the BOTTOM as four bare filenames: the top
-   of the truth hierarchy ranked below every addendum with no note that all four
-   are live. THAT IS HOW THE FALSE "v2 IS SUPERSEDED" CLAIM SURVIVED TWO
-   REGISTRIES: the map never showed it. The lineage is now PINNED to the top of
-   the index with what each version alone holds.
-
-## WHAT THE MERGE FOUND (all fixed, all gated)
-1. Graphics tests hardcoded /mnt/user-data/outputs/ paths. Dead on arrival in a
-   repo. Now repo-relative.
-2. lightreg_gate.js was reading BOHEMIA_ACT1_LIGHT_SOURCES_7_13_26.txt, a file
-   its OWN superseded registry declared dead. Now reads v5.
-3. The lightreg purity test proved normalize() was pure by asserting a literal
-   (firewood radius===4). v5 baked UNLIT FUEL LAW into the source data, so the
-   stack now ships radius 0 / type fuel: the law was applied twice, once in data
-   and once in code. Test is now registry-agnostic (snapshot in, compare out) and
-   will survive every future registry version.
-4. ENGINE SYNC drift: graphics_tests.js and prop_scale.js each had two bodies
-   (bundle vs standalone). Standalone were newer. Bundle rebuilt. Zero drift.
-5. Three canon indexes existed. Three maps, one territory. Newest is the map.
-6. Questbook seed's laws master still taught SKIN_TONES_HOMELESS, dead since 7/10.
-   The graphics copy won. This is exactly the rot class the truth hierarchy kills.
-
-## ACTIVE FILES (entry points)
-- CLAUDE.md = operating manual + TRUTH HIERARCHY (now carries THE HANDOFF FILE law)
-- BOHEMIA_ARCHITECTURE_MAP.md = NEW. what depends on what. the whole graph.
-- BOHEMIA_GDD_v2/v3/v4/v5.md = the bible, ALL FOUR LIVE. v5 EXTENDS, it does not
-  replace. v2 = lore foundation (dynasties, Project Angel, the Amalgamation's
-  origin, the Fifth Dimensional Element). v3 = Dead Eye Dial core + the ENDGAME
-  (the Nuke, the last moral choice, Bohemia Is the Only Free City). v4 = the fold,
-  succession, character stack, Bunkerguy. v5 = 7/3-7/6 systems. Gated: gdd_gate.js
-- BOHEMIA_LIVE_SLICE_V11_7_16_26.html = the LIVE slice (V9 = blessed art base)
-- BOHEMIA_ALPHA_0_9.html = the ONE alpha (stale, absorption pending, ONE-ALPHA LAW)
-- gates/bohemia_gates.py = every law's teeth, one command
-- BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js = 14-module reference bundle
-  (standalone .js files are CANONICAL, the bundle is a copy, sync gate enforces)
-- bohemia_engine.js = game engine, 12 modules + bohemia_tests.js (80 checks)
-- BOHEMIA_QUESTBOOK_MASTER_INDEX_7_16_26.md -> 138 dives -> PORTS_MASTER = build queue
-- bohemia_bq.js = quest parser (29/29). STAT/KARMA GATES BANNED AT PARSER LEVEL.
-- bohemia_superseded.txt = what stopped riding and why. registry, never deletion.
-- bohemia_chunk.py = the 25MB-door transport for the HD tile repos
+DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
+- V11 slice track CLEARED: lamps on (powergrid-ruled dark), patrol wired
+  (empty roster IS the law), approved marking paint on the ground. Slice gate
+  13 -> 33 checks.
+- Engine: blockgen places turn pockets (cell.mk, certified vocabulary); LINE
+  COLOR gate grew 6 checks.
+- Graphics: a FULL verdict cycle in one day — arrows cooked, all 84 markings
+  approved in chat, volume banked (224 tiles), act-1 art_gaps EMPTY. Wall
+  batch 2: WB4 into perimeter pool v2; the 47 await other wall classes
+  (REJECTION IS PER CLASS, taxonomy addendum 7/17).
+- Questbook: batches 8-12, files #139-152, the 7/16 mining queue CLOSED,
+  68 of >90. Gate #16 enforces the format; the searchable archive is back
+  and freshness-gated.
 
 ## IN FLIGHT (resume here)
-1. LAMPS ONTO V11: DONE 7/17. tools/bohemia_lamps_v11.py is the factory: it
-   verifies V11's anatomy against its own bake (the four blocks live at rows
-   3-9 / 12-18 / 21-41 / 44-62; V11 is NOT V9's stitch, the warning below was
-   right), asks BOH_POWERGRID per cell (all four dead, exactly as recorded),
-   and injects 11 dead lamps per the blockgen STAGGERED LAW using Paolo's
-   dark pairs 0-4. Slot (10,9) skipped: its sidewalk cell is already occupied
-   by baked art (an existing pole). Lamp bases join the blocked set
-   (OCCUPANCY LAW). Gated: test_v11.js now runs 20 checks, 7 of them lamp
-   law. [EYE, Paolo]: baked V10 lit lamp at (16,44) + static warm light at
-   (2,44) now sit next to grid lamps (18,44)/(2,44); if the pairing reads
-   wrong, the factory can skip those two slots, one line.
-   THE OLD NOTE (V9 anatomy, kept for the record): from real blockgen anatomy. V9's four blocks RECOVERED EXACTLY:
-   B2 street 2+2 w/crosswalk (lanes2 med1 side1 H13) + B0 street (lanes3 med1
-   side2 H21) + B5 residential (lanes1 med1 side1 H7) + B1 arterial (lanes3 med1
-   side1 H19) = 60 rows, seed 12345, cells (33,6)(34,6)(35,6)(36,6). Lamps on
-   grid[0]/grid[H-1] sidewalk rows, x every 8 alternating sides, lampH =
-   lanes>=3?4:3, state dead, lit via BOH_POWERGRID. Powergrid says all four cells
-   DEAD; nearest live circuit (31,7) settlement. Lamp art: LIT #0-6 in
-   BOHEMIA_DEMO_PROP_POOL, DARK variants bank 7_14 (pairs 0-4 usable).
-   WARNING: V11 is W=24 H=63. Verify its own bake height before placing anything.
-   The dead chat's LT0 patch used V8's H=62 on V9's H=60 bake. That file is dead.
-2. PATROL INTO THE SLICE: DONE 7/17. tools/bohemia_patrol_v11.py wires it:
-   BOH_PATROL rides V11 verbatim (sync gate arbitrates), the roster is computed
-   at build time from the real overmap+powergrid+patrol modules exactly like
-   V10 computed its powerMap truth, walkers advance on the player's step and
-   join the occupancy check. THE ROSTER IS EMPTY AND THAT IS THE LAW: all four
-   cells are dead, nobody patrols the dark; the empty street is the reading.
-   The walkers/occupancy/render wiring is live code for the first lit slice.
-   Patrol owner COLORS are placeholder grays [PENDING Paolo] (purple stays the
-   Amalgamation's). Gate: test_v11.js now 28 checks incl. roster-must-match-
-   modules and a parse check on every script block after injection.
-3. HD TILE REPOS: DONE 7/17. Joined md5-exact, live in /banks, chunks deleted.
-4. FRESH QUEST MINING: BATCH 8 LANDED 7/17 (#139 the Spec Ops white phosphorus
-   machine, #140 the Undertale judgment corridor, #141 Obra Dinn's
-   identification loop; the last one IS the missing-persons organ's design
-   document, Q133/Q134/Q138's demanded engine). 57 of >90. THE QUESTBOOK HAS
-   TEETH NOW: gates/questbook_gate.py is gate #16 in the suite: 10 W-points,
-   option lines, sections, branch counts, END markers, and every .bq port
-   block parsed through the real bohemia_bq.js (a port that cannot be pasted
-   into the lab is a wish). Masters + gap matrix are machine-appended by
-   tools/bohemia_questbook_extract.py. NAMED FAILURES, standing jobs: the full
-   extraction REGENERATOR did not survive the dead chat (the appender is the
-   working half); ARCHIVE.html not regenerated this batch for the same reason.
-   Backfill queue confirmed by the gate: 136 pre-v2 files with no conversation
-   machine. Two law locks got fresh confirmations: FINALE-IS-A-LEDGER-READ
-   (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
+1. V12-class bake: next slice generation carries cell.mk markings natively
+   (the overlay proved the cell.mk -> bank -> slice pipeline end to end).
+2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
+3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
 ## NEXT ACTION
-MARKINGS ARE ON THE GROUND (7/17, the renderer pass): tools/bohemia_markings_
-v11.py draws the approved pocket paint onto the live slice. THE LESSON THAT
-MATTERS: the first pixel detector found parked WHITE CARS and called them
-crosswalks (912 white px in a wreck outweighed a weathered zebra). Row-COVERAGE
-detection fixed it (a zebra spans the road's rows; a car is a blob), and then
-the engine's own crosswalk draw MATCHED the bake at the commercial block
-(cx=17), so the engine grid was used wholesale there; suburb1's narrow crossing
-got law-anchored pockets; arterial + suburb2 have no baked crosswalks and got
-NOTHING (no guesses). 30 cells, approved bank art, drawn under everything that
-moves. SLICE V11 gate now 33 checks (markings payload, road-rows-only, art
-valid, never under a lamp). NEXT: V12 bake-class work when the next slice
-generation happens; the cell.mk -> bank pipeline is proven end to end.
-WALL BATCH 2 JUDGED + SCOPE CORRECTED (7/17): 1 of 48 UP for PERIMETER (WB4,
-in pool v2). Paolo's correction, same day: REJECTION IS PER CLASS. The 47 are
-final for the perimeter pool ONLY and stay eligible as walls for other classes
-("there's more walls than just gated communities"). They live in banks/
-BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt awaiting future wall classes (which
-classes exist beyond perimeter + building is [PENDING, Paolo's call]).
-Graveyard line re-scoped; taxonomy addendum refined; the per-class rule now
-governs every future wall verdict. WB4 (Paolo's label: PERIMETER) went
-through the tan factory into PERIMETER_WALL_POOL v2 (13 keys, weights
-renormalized, tan variant via the pool-derived transform). The 47 rejects are
-in the graveyard with the post-mortem THAT MATTERS: the pack vein is DRY for
-perimeter walls; future variety = variants of the 13 approved keys, never
-re-mined packs. The batch-2 picker tool is deleted (verdicts banked; one-shot
-judging tools are disposable, established 7/16). WALL TAXONOMY addendum (7/17)
-governs: perimeter/community walls and building walls NEVER share a pool.
-The GRAPHICS shelf is now: lamp-pairing eye call, patrol colors, purple-tiles
-kill-or-REDMAG, and the rest of the 7/16 open forks.
-POCKETS ARE IN THE ENGINE (7/17, same day as the art): bohemia_blockgen.js now
-places turn pockets at intersections per the researched Vegas anatomy: left
-pockets on the innermost lane(s) ending one cell before the crosswalk, DUAL at
-lanes>=3, TRIPLE at 4, right pockets on the curb lane at 3+, approach-side
-correct per direction. Markings ride as cell.mk in the certified vocabulary
-(pocket_line / turn_arrow_left / turn_arrow_right -> BOHEMIA_MARKING_BANK
-classes; arrows white, LINE COLOR LAW). centerTurn (TWLT, blessed 7/14) was
-already in the engine and stands untouched. LINE COLOR gate grew 6 pocket-law
-checks (24 total, green, 11,664 marked cells swept clean). ENGINE SYNC caught
-the graphics core's inlined blockgen copy going stale and it was re-inlined
-from canon, bundle sections rebuilt (blockgen + engine_graphics md5s). ALSO:
-WALL_PICKER_BATCH2 is published as an artifact for Paolo's thumbs (the marking-
-picker flow, proven 7/17). NEXT: a renderer pass maps cell.mk to bank tiles in
-the next slice bake (V12-class work, ONE-ALPHA/slice rules apply).
-MARKINGS APPROVED AND AT VOLUME (7/17): Paolo thumbed ALL 84 marking candidates
-UP in one chat session (verdict verbatim in records/BOHEMIA_MARKING_VERDICTS_
-7_17_26.txt, landed same turn). Both banks flipped APPROVED; volume unlocked
-and COOKED the same turn: banks/BOHEMIA_MARKING_BANK_7_17_26.txt, 14 classes x
-16 = 224 tiles (tools/bohemia_marking_volume_factory.py: approved originals
-verbatim, new variants are approved geometry re-weathered on certified bases,
-no new shapes after approval, self-gated + purity-swept). The act-1 art_gaps
-queue is EMPTY. NEXT ENGINE TURN: blockgen places turn pockets + TWLT from the
-researched Vegas anatomy (STREET_ANATOMY_POOL + the 7/14 street pools), with
-line_gate extended to certify pocket/arrow placement. That is an engine change:
-own turn, own gate checks, one session.
-GRAPHICS COOK 7/17: the act-1 art_gaps item (turn-pocket arrows) is COOKED.
-tools/bohemia_turn_arrow_factory.py built 48 tiles (left/right/thru x v/h +
-TWLT opposing pairs, 6 weathered variants each), white-only per LINE COLOR
-LAW, on the certified 7/14 candidates' own asphalt (paint erased + inpainted),
-self-gated (yellow=0, purple=0, paint budget, base-faithful) and swept by the
-purity gate in the suite (15,089 images, green). JUDGING SURFACE READY:
-tools/BOHEMIA_MARKING_PICKER_7_17_26.html = both marking banks, 84 candidates,
-SUN MODE, thumbs, per-item notes, comment box, exports .txt. Awaiting Paolo's
-thumbs alongside WALL_PICKER_BATCH2. Dual/triple pockets = the arrow tile
-repeated per pocket lane; placement is blockgen's job (MAP LAW: plumbing only).
-THE 7/16 MINING QUEUE IS CLOSED (BATCH 12, 7/17): #151 the outpost story (the
-city-builder core's own design document: findable-flag, the ledger's other
-side, sieges that learn, the settlement testifies) and #152 the Greymarch
-(succession as the prize: offices with verbs, lawful accession rites, the
-chamberlain class, cycles priced in generations). 68 of >90. THE FORK IS NOW
-PAOLO'S: (a) fresh game names, (b) systematic re-mine of the ~72-game pool,
-(c) the 136-file backfill queue. Flagged [PENDING, Paolo's call] per the
-standing rule; mining pauses at 68 until he picks.
-THE ARCHIVE IS BACK (7/17): tools/bohemia_questbook_archive.py machine-appends
-dives into BOHEMIA_QUESTBOOK_ARCHIVE.html's data array without touching the
-shell or any old entry. All 12 new dives (139-150) are in: 150 files, 3,686
-findings, searchable. The questbook gate now FAILS if the archive ever falls
-behind the corpus (the freshness check). The batch law's last named failure is
-CLOSED. Keep mining next: Kenshi second story, Shivering Isles, plus fresh
-names from Paolo, or the systematic re-mine of the ~72-game pool (that fork is
-Paolo's call, on the shelf). BATCH 11 landed 7/17, the first SOURCE-PULLED
-batch (web research per file, cited in each SOURCES section): #148 the
-contract formula, #149 the citizen web, #150 the god who lies at the finale
-(the Network's whisper machine for the argue-finale, #142's companion piece).
-66 of >90. BATCH 10 landed 7/17 (#145 the Conquest: the succession-chronicle
-blueprint + standing-edicts port; #146 the unauthored quest: the five-property
-emergent-condition checklist, schedules-on-the-beat rides the patrol wiring;
-#147 Sharp and Flat: the grief relay, wounds-as-geography, provenance-gated
-knowledge): 63 of >90. Remaining queue: Witcher contracts (needs a source-pull
-session for contract-level facts), Kenshi second story (the pool's OTHER arc),
-Vampyr, Shivering Isles, Vaermina, plus whatever fresh games Paolo names.
-BATCH 9 landed 7/17 (#142 MotB argue-the-god, #143 SH2 Eddie +
-the behavioral verdict engine, #144 Sunless Sea legacy fold): 60 of >90.
-Remaining queue: Witcher contracts, Kenshi, Tyranny, Vampyr, Shivering Isles,
-Vaermina, Undertale non-Sans cuts, the Pamela-sibling files (#138 exists;
-Sharp/Flat + Ikana still to mine). Law-lock scoreboard: FINALE-IS-A-LEDGER-READ
-now 5 confirmations (#140 moral, #143 behavioral registers); the argue-finale
-has its blueprint (#142); the fold has its cornerstone (#144, pairs with Q46/
-Q47/Q49/Q137). Also on deck: rebuild the questbook ARCHIVE/extraction
-regenerator as a real factory. Waiting on Paolo: GitHub write access for the
-push (SIX commits queued), WALL_PICKER_BATCH2 thumbs (48), the (16,44)/(2,44)
-lamp-pairing eye call, patrol owner colors.
+Whatever Paolo picks off the PENDING shelf; if he says "do what's next"
+without picking, the standing default is: keep the gates green, consolidate
+(this file stays a pointer; STATE_OF_PLAY carries the day), and take the
+largest unblocked item in IN FLIGHT.
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
-GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white
-/ siren_blue emits orange / 11 proposed sidewalk furniture names / fire_23-32-40
-baked glow repaint-or-keep / reveal layer vocab / stall-tree-container footprints
-/ ASPHALT_BASE rgb / lamp spacing game math / NETWORK zone placement / wall picker
-batch-2 48 candidates awaiting thumbs / single-file alpha vs streaming launcher
-(speed+mobility words lean streaming, NOT locked) / alpha absorption session
-(ONE-ALPHA: with Paolo, one session, preflight GO)
-QUEST: which relationships gate which arc (Liberate/Respect/Become as three
-ledgers, Q102/Q136 model) / Amalgamation mindscape-therapy centerpiece (Q135
-PORT 1) / Glarthir-at-scale Act 2 spine (Q130 PORT 5) / the Emil/Halua
-origin-grammar for the Amalgamation's center (Q124, ENTIRELY PAOLO'S) /
-whether Bohemia stages a betrayal-in-loyalty's-UI quest at all (Q131 PORT 3) /
-does anyone discover the SOMA-truth on-screen in 100 years (Q115) / when to end
-the research phase and start the master compile (target >90 individual quests,
-at 54) / whether to re-mine the whole-game teardowns systematically or keep
-pulling fresh games / production quests 046-053 + master compile PARKED until
-Paolo says go
-STANDING: act-1 grid-power ruling (resolver built, canon call open) / ragdoll head
-+ neck rigidity / multi-enemy dial model (3 candidates unlocked) / pinch-zoom R=26
-cap / perks system (known gap, never documented) / female + child rigs / gloves slot
-/ mirrored-facing asymmetric garment art / currency logo design / suburban kit path
+- THE MINING FORK: fresh game names / systematic re-mine of the ~72-game pool
+  / the 136-file backfill queue (the gate counts it every run).
+- THE NEXT WALL CLASS: names one -> the 47 waiting candidates re-enter
+  judging under its banner (banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt).
+- GRAPHICS EYE-CALLS: lamp pairing at (16,44)/(2,44); patrol owner colors
+  (placeholder grays); 101 purple world tiles kill-or-REDMAG; flashlight_36
+  orange-or-cool-white; siren_blue; ASPHALT_BASE rgb; NETWORK zone placement;
+  suburban kit path; single-file alpha vs streaming launcher (NOT locked).
+- QUEST: the 7/16 list stands unchanged (relationships-gate-arcs, Q135
+  mindscape centerpiece, Q130 Act 2 spine, Q124 Emil grammar, Q131 betrayal
+  staging, Q115 SOMA-truth, when to end research/start compile, production
+  quests 046-053 + master compile PARKED).
+- STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
+  pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
+  garment art / currency logos.
 
 ## THE QUESTBOOK TRACK — LOCKED LAWS (folded 7/16 from the launch handoff)
 Every law below is CONFIRMED in the research corpus (verified by grep at the

@@ -91,3 +91,4 @@ BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html | seamless sets banked as .txt
 #     so a /archive subfolder silently did not ride. Superseded files now carry an
 #     ARCHIVE_ prefix instead. They are HISTORY, never current. Never cite them.
 #     First Code session may move them into /archive/ once git is the transport.
+BOHEMIA_STATE_OF_PLAY_7_16_26.md | superseded 7/17/26 by laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the repo-born day rolled the state; 7/16 preserved in archive/)
