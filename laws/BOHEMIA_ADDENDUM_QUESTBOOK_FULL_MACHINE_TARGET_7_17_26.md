@@ -1,37 +1,50 @@
 # ADDENDUM — THE >90 TARGET COUNTS FULL-MACHINE FILES ONLY (7/17/26)
+(amended same day: the hidden-backfill discovery, the indentation ruling,
+the 01-16 exception, the zero-dialogue pending flag)
 
 PAOLO RULING, 7/17/26 evening, verbatim intent: "We need 90 of these bro" —
 "these" being files that carry the FULL machine. The counter is redefined.
+LANE PICKED same session: THE BACKFILL QUEUE (the standing mining fork is
+resolved; fresh mines still count when they happen).
 
 ## THE RULING
-The >90-before-master-compile target (raised 7/16, master index) counts ONLY
-files with the whole enchilada:
-- exactly 10 W-points (craft points)
+The >90-before-master-compile target counts ONLY files with the whole
+enchilada:
+- 10 W-points (craft points) — EXCEPTION: files 01-16 run 11-13 BY DESIGN
+  (early format, banked lesson 7/16: not damage, do not fix; they count)
 - conversation trees with >0 option lines (the conversation machine)
 - CAST + WHAT EACH ONE WANTS section
 - THE BRANCH MAP section
 
-A file with 10 W-points but no conversation machine is RESEARCH, not a quest.
+A file with W-points but no conversation machine is RESEARCH, not a quest.
 It does not count. It sits in the backfill queue until it grows the machine.
 
-## WHAT THIS CORRECTS
-The old counter ran from file #85 onward and counted 10-W-point depth:
-54 on 7/16, 68 at the 7/17 queue close. That number measured mining volume,
-not compile-readiness. The real count on ruling day:
+## THE HIDDEN-BACKFILL DISCOVERY (same evening, minutes after the ruling)
+The first count under the ruling said 16. It was WRONG, and the error was in
+the GATE, not the files: the format law's own node-tree template indents its
+'> ' option lines, and the 7/16 backfill payloads (40 files marked "V2
+PAYLOAD", plus the 7/16-era mines #95-124) followed the law. The gate greppped
+'^> ' at column 0 and could not see them. A law-vs-gate contradiction is a
+BUG with a mechanical fix: THE LAW WINS. The gate now matches '^\s*> '.
 
-**16 of >90.** (#125, #126, #139-152.)
+**Real count at ruling, law-correct: 65 of >90.** 26+ more needed.
+True backfill queue: 84 files (the gate prints the numbers every run).
 
-74+ more full-machine files needed before the master compile. Two roads feed
-the same counter and BOTH count:
-1. Fresh mines (v2-era, gate-enforced full machine from birth)
-2. Backfill (any of the 136 queue files that grows its conversation machine
-   graduates and counts)
+LESSON BANKED: this is the #102 incident's shape again — work that was done,
+verified, and invisible because the audit tool measured the wrong thing.
+AUDIT WHAT THE LAW SAYS, NOT WHAT THE GATE HAPPENS TO GREP. When a count
+surprises you, diff the gate against the law's own template before trusting
+either.
 
-The lane pick between them is STILL PAOLO'S (the standing mining fork).
+## ZERO-DIALOGUE-BY-DESIGN [PENDING, Paolo's call]
+#99, #110, #114 are zero-dialogue quests (never-fix registry). They can never
+carry option lines without violating their own design. The gate reports them
+separately and does NOT count them toward the 90. Whether a by-design silent
+file counts is Paolo's call, flagged every gate run until ruled.
 
 ## THE GATE (same turn, per A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED)
-gates/questbook_gate.py now computes and prints the official counter every
-run: FULL-MACHINE COUNT: N of >90. Nobody carries this number in prose again;
+gates/questbook_gate.py computes and prints the official counter every run:
+FULL-MACHINE COUNT: N of >90. Nobody carries this number in prose again;
 the gate is the counter. Handoffs cite the gate.
 
 ## SUPERSEDES

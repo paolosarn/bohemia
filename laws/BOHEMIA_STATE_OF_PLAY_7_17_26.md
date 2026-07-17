@@ -58,8 +58,11 @@ Gap queue art_gaps -> factory -> candidates -> Paolo's thumbs -> volume:
   Sharp and Flat, Deadly Delights, Vampyr's citizen web, Waking Nightmare,
   the Greymarch. **THE 7/16 MINING QUEUE IS CLOSED.** (The "68 of >90" counted
   here originally was RETIRED the same evening: Paolo redefined the target to
-  count FULL-MACHINE files only. Real count 16 of >90; the questbook gate
-  prints it every run. laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
+  count FULL-MACHINE files only. Real count 65 of >90 after the gate was
+  fixed to read option lines the way the format law's template writes them;
+  the first post-ruling count of 16 was a gate artifact that hid 49
+  law-compliant backfills. The questbook gate prints the number every run.
+  laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 - QUESTBOOK GATE born (gate #16): 10 W-points, option lines, sections, branch
   counts, END markers, .bq blocks parsed through the real parser, numbers
   audited, ARCHIVE freshness enforced.
@@ -94,8 +97,9 @@ everything path-fixed for the layout.
 
 ## PENDING PAOLO (never decide these)
 - **The mining fork**: fresh names / systematic re-mine of the ~72 pool /
-  the 136-file backfill queue. Mining pauses at 16-of->90 full-machine
-  (counter redefined 7/17 evening) until picked. Both lanes feed the counter.
+  the 136-file backfill queue. RESOLVED same evening: Paolo picked THE
+  BACKFILL QUEUE. 65 of >90 full-machine; 84 files remain in the queue;
+  26+ graduations to cross the line.
 - **The next wall class** (frees the 47 for judging).
 - Graphics eye-calls: baked lit lamp at (16,44) + static light at (2,44)
   beside the new grid lamps; patrol owner colors (grays placeholder); the

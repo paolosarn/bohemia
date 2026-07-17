@@ -88,15 +88,24 @@ backfill = []
 no_end = []
 full_machine = []   # THE OFFICIAL >90 COUNTER (Paolo ruling 7/17: full machine
                     # only — laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
+zero_dialogue = {99, 110, 114}   # zero-dialogue-by-design registry: never "fix".
+                                 # [PENDING Paolo] whether they count without option lines.
 for n in nums:
     fn = files[n][0]
     text = open(os.path.join(QB, fn), encoding='utf-8').read()
     lines = text.split('\n')
     wc = sum(1 for l in lines if re.match(r'^W[0-9]+\.', l))
-    optc = sum(1 for l in lines if l.startswith('> '))
+    # OPTION LINES MATCH THE LAW, NOT COLUMN 0: the format law's own node-tree
+    # template indents '> ' inside the node. The 7/16 backfills followed the law;
+    # this gate's original '^> ' anchor hid 49 of them (found 7/17, law-vs-gate
+    # contradiction, mechanical fix: the law wins).
+    optc = sum(1 for l in lines if re.match(r'^\s*> ', l))
     if ('*END #%d*' % n) not in text:
         no_end.append(n)
-    if (wc == 10 and optc > 0
+    # Files 01-16 run 11-13 craft points BY DESIGN (early format, banked lesson:
+    # not damage, do not fix). The counter honors that; everything after is 10 exact.
+    w_ok = (wc == 10) or (n <= 16 and 11 <= wc <= 13)
+    if (w_ok and optc > 0
             and 'CAST + WHAT EACH ONE WANTS' in text
             and 'THE BRANCH MAP' in text):
         full_machine.append(n)
@@ -115,7 +124,7 @@ for n in nums:
             ok('#%d: all %d .bq blocks parse clean (lab-pasteable)' % (n, bq['blocks']),
                bq['bad'] == 0)
             if bq['bad']: print('    ' + bq.get('err', ''))
-    elif optc == 0:
+    elif optc == 0 and n not in zero_dialogue:
         backfill.append(n)
 
 # THE ARCHIVE NEVER FALLS BEHIND (7/17): the searchable archive must contain
@@ -127,6 +136,8 @@ ok('archive carries the newest file (#%d)' % nums[-1], ('[%d,"' % nums[-1]) in a
 print('\n  FULL-MACHINE COUNT: %d of >90 target (10 W-points + conversation '
       'machine + CAST + BRANCH MAP)' % len(full_machine))
 print('  ' + ','.join(str(x) for x in full_machine))
+print('  zero-dialogue-by-design, not counted, [PENDING Paolo] whether they count: '
+      + ','.join(str(x) for x in sorted(zero_dialogue)))
 print('\n  backfill queue (pre-v2-era files with no conversation machine yet): %d files'
       % len(backfill))
 print('  ' + ','.join(str(x) for x in backfill))

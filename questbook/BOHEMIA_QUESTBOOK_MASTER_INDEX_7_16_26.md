@@ -3,10 +3,13 @@
 > The >90 target counts FULL-MACHINE files ONLY (10 W-points + conversation
 > machine with option lines + CAST + BRANCH MAP). Every "N of >90" line below
 > counted 10-W-point depth from #85 onward and is superseded AS THE COUNT
-> (kept as batch history). **Real count at ruling: 16 of >90** (#125, #126,
-> #139-152). The questbook gate prints the official number every run — cite
-> the gate, never a carried number.
-> (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
+> (kept as batch history). **Real count at ruling: 65 of >90** — the first
+> post-ruling count (16) was a gate artifact: the gate greppped '^> ' at
+> column 0 while the format law's own template indents option lines, hiding
+> 49 law-compliant 7/16 backfills. Gate fixed same turn, law wins. Backfill
+> lane picked by Paolo; 84 files remain in the queue. The questbook gate
+> prints the official number every run — cite the gate, never a carried
+> number. (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 >
 > **[BATCH 8 LANDED 7/17/26]** Files #139-#141 mined fresh from the pool at v2
 > depth (Spec Ops white phosphorus, the Undertale judgment corridor, Obra Dinn's

@@ -32,8 +32,11 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   Gate #16 enforces the format; the searchable archive is back and
   freshness-gated. COUNTER REDEFINED 7/17 evening (Paolo): the >90 target
   counts FULL-MACHINE files only (10 W-points + conversation machine + CAST
-  + BRANCH MAP). Real count: 16 of >90. The gate prints the official number
-  every run; never carry it in prose.
+  + BRANCH MAP; 01-16 keep their by-design 11-13). Real count: 65 of >90 —
+  the first count said 16 because the gate greppped '^> ' while the format
+  law's template indents option lines; the 7/16 backfills followed the LAW
+  and were invisible. Gate fixed (law wins), 49 files surfaced. The gate
+  prints the official number every run; never carry it in prose.
   (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 
 ## IN FLIGHT (resume here)
@@ -60,10 +63,13 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    purple-zero, deterministic). NEXT: wrecks + fire barrels + plot/building
    strips into the baker, then the full V12 slice (all four cells + payload
    wiring) — at that point V11's overlay era ends.
-2. Questbook mining: PAUSED at 16 of >90 FULL-MACHINE (counter redefined
-   7/17, gate prints it) pending Paolo's lane pick (see below). Both lanes
-   feed the counter: fresh mines are born full-machine; backfill files
-   graduate when they grow their conversation machine.
+2. Questbook: LANE PICKED 7/17 (Paolo): THE BACKFILL QUEUE. 65 of >90
+   full-machine (gate prints it); 84 files in the queue; 26+ graduations
+   needed. The line: work the queue in numeric order, append a V2 PAYLOAD
+   (CAST + node-tree CONVERSATIONS + BRANCH MAP, original content above
+   untouched — #01's payload is the pattern), gate green, commit per batch.
+   #99/#110/#114 are zero-dialogue-by-design: [PENDING Paolo] whether they
+   count; never give them option lines.
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
 ## NEXT ACTION
