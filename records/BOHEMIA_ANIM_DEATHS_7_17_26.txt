@@ -108,3 +108,22 @@ FIXED:
   0.995. Most facings hit the floor in 0.3-0.7s (was ~2s "gliding"); the lateral
   arcs (E/NE) ~1.2s. All 8 freeze, all in frame, 8 distinct.
 Paolo: "a lot better but still got some work to do" -- more tuning expected.
+
+=== UPDATE 7/18 (e): HEAD NEVER MORPHS + NO SPLIT REST ===
+Paolo (with a screenshot of a split-legged rest): "a body should never end like
+this" + "for the head I never want to see its pixels change shape as the head
+wiggle ever... static asf... not morphing shape and size depending on its
+movement and angle, just the head."
+FIXED:
+- HEAD NEVER MORPHS: headStampFrame under RG_HEADROT now returns the head bone
+  at exactly its REST length (angle from the posed bone, length forced to rest),
+  so the head stamp is a PURE RIGID ROTATION -- scale is always 1, the head
+  pixels never stretch/shrink/change shape. (Feeding the raw posed bone let its
+  length wobble under the solver -> the head morphed.) The head still turns WITH
+  the body (not locked north), it just never deforms. Verified: head size
+  constant across the whole tumble.
+- NO SPLIT: legs can't splay wider than ~1.7x their standing spread (a pair
+  distance cap on knees + feet in the solver) + gentler outward knee buckle.
+  Bodies settle in believable heaps, not side-splits. Verified all 8.
+Still a touch sit-uppy on N/S (torso braces hold it up on landing) -- candidate
+for the next note. UNJUDGED.
