@@ -160,6 +160,16 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
+GRAPHICS COOK 7/17: the act-1 art_gaps item (turn-pocket arrows) is COOKED.
+tools/bohemia_turn_arrow_factory.py built 48 tiles (left/right/thru x v/h +
+TWLT opposing pairs, 6 weathered variants each), white-only per LINE COLOR
+LAW, on the certified 7/14 candidates' own asphalt (paint erased + inpainted),
+self-gated (yellow=0, purple=0, paint budget, base-faithful) and swept by the
+purity gate in the suite (15,089 images, green). JUDGING SURFACE READY:
+tools/BOHEMIA_MARKING_PICKER_7_17_26.html = both marking banks, 84 candidates,
+SUN MODE, thumbs, per-item notes, comment box, exports .txt. Awaiting Paolo's
+thumbs alongside WALL_PICKER_BATCH2. Dual/triple pockets = the arrow tile
+repeated per pocket lane; placement is blockgen's job (MAP LAW: plumbing only).
 THE 7/16 MINING QUEUE IS CLOSED (BATCH 12, 7/17): #151 the outpost story (the
 city-builder core's own design document: findable-flag, the ledger's other
 side, sieges that learn, the settlement testifies) and #152 the Greymarch
