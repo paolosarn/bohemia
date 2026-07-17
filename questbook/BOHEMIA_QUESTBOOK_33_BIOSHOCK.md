@@ -152,3 +152,58 @@ Ops — complicity/illusion-of-choice), 09 (false-guide/mind-edit), 25 (false-ne
 (thesis-as-twist), 28 (restored-choice test), our Amalgamation + Network + Liberate/Respect/Become +
 care rules. FUTURE: a Ken Levine talk on the twist's design; a Soma deep-dive (consciousness/agency
 horror sibling) and Portal's GLaDOS (the betraying-guide-voice sibling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**JACK (the player)** — wants, he believes, to survive a plane crash and help a kind stranger find his family. Actually wants nothing: wanting requires a self, and his is on a leash he cannot hear. FUNCTION: the agency twist's vessel. The most obedient protagonist in the medium, because he is every protagonist, named.
+
+**ATLAS (the voice)** — wants, stated: his family saved, would you kindly. Wants, real: Ryan dead by a hand that cannot be traced or refused. He is FONTAINE, and the working-class warmth is a costume over a con man's patience. Will trade: directions, comfort, purpose — everything a player needs in an unknown world (W9). FUNCTION: the false guide. The betrayal lands because the dependence was REAL.
+
+**ANDREW RYAN** — wants his city's premise (a man chooses) to be true, and has one demonstration left that it isn't: his own murder, ordered politely. Will trade: his life, deliberately, to teach the slave what he is. FUNCTION: the thesis speaker. He dies proving the point the whole city was built to deny (W6, W7).
+
+**THE TRIGGER PHRASE ("would you kindly")** — wants to be unheard. Spoken before nearly every objective from minute one, disguised as a verbal tic. FUNCTION: the seed hidden in plain sight (W3): audible always, visible never, chilling forever on replay.
+
+**RAPTURE** — wants to be the proof that free will works. Its corridors are locked doors and rubble-blocked paths — a linear shooter's ordinary skeleton. FUNCTION: the masterstroke (W2): the rails ARE the mind control; the medium's constraint reframed as the theme.
+
+**THE LITTLE SISTERS** — want, per the design: to be the game's one real choice, seeded throughout, cashed at the ending. FUNCTION: agency's control group. While everything else was a leash, this was always yours — which is how the game can TEST you the moment the leash comes off (W8).
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the machine's cruelty is that most "options" below are RETROSPECTIVE — the player discovers they were never options at all)
+
+NODE: THE_RADIO — the whole first act, entry: a friendly voice in a hostile city
+  Atlas orients, warns, mourns, asks.
+  > "Would you kindly find..." (comply)  [gate: none, or so it reads] -> the objective completes; the game continues
+  > (refuse)                             -> DOES NOT EXIST, and the absence is invisible: what player refuses the quest log?
+  NOVERB: "Why should I?" The question no player asks of a helper-voice, which is the entire con (W1). The trigger phrase hides inside the medium's most trusted convention: the guide who tells you where to go.
+
+NODE: RYANS_OFFICE — the golf club, entry: the reveal detonating
+  Ryan, putting, calm: the trigger phrase explained. Then: sit, stand, run, stop — Jack obeying each like a dog shown its collar. Then: "A man chooses. A slave obeys." And the order.
+  > (resist the swing)                   [gate: none] -> THE CONTROLS LOCK. The player physically cannot (W4). The game's first murder committed by the GAME'S hand through the player's
+  > (look away)                          -> the scene does not permit it either
+  WHAT THIS NODE COSTS: the entire prior playthrough, retroactively. Every "would you kindly" replays itself in memory. The mechanical proof is the argument: you don't hear about lost agency, you FEEL the lock (W4). Cross-ref #27's closed fist — BioShock's version is crueler because the fist was closed the WHOLE GAME and you never noticed.
+
+NODE: THE_LEASH_CUT — post-reveal, entry: the conditioning removed
+  Agency returns. The game continues as... the same shooter. (The banked flaw rides here: the reveal changes how you FEEL, not how you PLAY — the sag the compile must do better than, W10.)
+  > (keep shooting toward the ending)    [gate: none] -> the remaining third, linear as ever; the critique of rails, delivered from rails
+
+NODE: THE_SISTERS — throughout, entry: each Little Sister rescued from her Big Daddy
+  The one node that was ALWAYS real.
+  > [harvest]                            [gate: none] -> more ADAM now; the ending darkens by accumulation
+  > [save]                               [gate: none] -> less power, and the ending the city's children write for you
+  THE DESIGN'S QUIET GENIUS (W8): the game hid its only genuine choice inside the leash's whole length, so that after the reveal the player can look back and find ONE thread that was theirs. Agency restored is then TESTED: now that you can choose, what did you already choose?
+
+NODE: THE_CRYSTALLIZING_LINE — Ryan's office, one sentence
+  "A man chooses. A slave obeys."
+  FUNCTION (W7): the whole theme in six words, aimed simultaneously at Jack, the player, and the medium. The economy is the craft: no essay, one line, said while proving it.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 2-3 ending-terminals (save/harvest accumulation), hinged on 1 mid-game agency reveal — and the SHAPE is the finding: a game about no-choice with exactly one real choice, tested after the reveal names all the fake ones.
+
+B1 — THE SISTERS SAVED: the good ending; the city's orphans as the family the false guide only pretended to have.
+B2/B3 — HARVEST-WEIGHTED: the dark endings by accumulation.
+THE HINGE — Ryan's office: not a branch, a RE-READING (the #32 Leviathan lesson, metatextual edition): every objective before it was a command; every choice after it is an answer to the question the golf club asked.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: BioShock completes the twist pair (#32 identity, #33 agency) and the two files share one law: THE TWIST MUST BE A ONE-SHOT, SEEDED FAIR, AND FOLLOWED BY RESTORED-THEN-TESTED CHOICE. Bohemia's agency-twist fuel is native (the Amalgamation edits minds; the Network steers; a handler's recurring phrase in the ledger is our trigger-in-plain-sight) — candidates stay [PENDING, Paolo's call], the machine is locked: (1) seed via ubiquity from act 1; (2) prove the control MECHANICALLY once, briefly, within the Pacifist Law's bounds (a locked verb, never a forced atrocity — the #27 boundary holds); (3) then CHANGE THE GAMEPLAY — BioShock's sag is the anti-pattern; the leash cut must unlock systems, not just feelings; (4) end on the restored-agency test our finale already is (Liberate/Respect/Become). And bank W2 for the lore sessions: if any Bohemia constraint is ever revealed as diegetic (the 120 BPM grid as the Network's metronome, the fold as the Amalgamation's bookkeeping), that reveal is THIS file's move — the structure weaponized into meaning, once, perfectly seeded, or not at all.

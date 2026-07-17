@@ -154,3 +154,66 @@ Questbook 09 (epistemic/withheld-closure horror), 33/27 (player-implication/self
 our AMALGAMATION + Liberate + unrecorded-ledger + "what survives when a life ends" spine + wellbeing rules.
 FUTURE: a Frictional/Thomas Grip design talk on SOMA's idea-horror; a Talos Principle deep-dive
 (consciousness/identity philosophy-puzzle sibling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+(Cross-ref #115 THE COIN TOSS, the 7/16-era mined file: #34 is the SYSTEM file — the consciousness-copy
+philosophy; #115 carries the SOMA-truth thread on the quest shelf. They ride together.)
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**SIMON JARRETT (1 through 4)** — wants to survive. Each of him. That plural is the horror. Simon-1 wants his headache cured in 2015; Simon-2 wants to reach Omicron; Simon-3 wants to wake up on the ARK; Simon-4, on the ARK, believes he did. Will never say out loud, any of them, until forced: that "I" stopped being singular at the first scan. FUNCTION: the POV as the argument (W3): the player rides the copies and lives the lie of continuity until the game stages its collapse.
+
+**CATHERINE CHUN** — wants the ARK launched. Everything else, including honesty, is negotiable in service of that. Will trade: the coin-toss story — a 50/50 "you might wake up there" she may half-believe herself. Will never say out loud: that copying is copy-paste, never cut-paste, because Simon compliant is Simon useful (W8). FUNCTION: the motivated deception. The lie has a caretaker, and the caretaker has a mission.
+
+**THE COIN TOSS** — wants to be believed. It is the kindest sentence in the game and it is false. FUNCTION: the comforting lie (W2): the coping mechanism that lets every "transfer" feel like travel instead of abandonment.
+
+**THE ABANDONED SIMONS** — want to know why it didn't work. It did. For the other one. FUNCTION: the demonstration (W4): the game's masterstroke is that the truth is never argued, it is LEFT RUNNING in a chair behind you, screaming.
+
+**THE ARK** — wants nothing; it is a satellite full of happy successors. FUNCTION: the false salvation (W7): theology by engineers — comfort for the copies, nothing for the originals. Our Amalgamation, in miniature, with better marketing.
+
+**THE WAU / PATHOS-II'S DYING CREW** — want, variously: to persist, to be unplugged, to be told the truth, to not be told. FUNCTION: the triage gallery (W6): a station of half-copied, half-alive minds whose fates the player must decide with no clean option anywhere.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the machine's signature: the most important nodes happen AFTER the player thinks the scene is over, in the chair behind them)
+
+NODE: THE_PITCH — Catherine, entry: the ARK explained
+  A satellite. Humanity's minds, preserved. A way out of the dark.
+  > "Will I wake up there?"         [gate: none] -> the coin toss: fifty-fifty, she says. Maybe she believes it (W2, W8)
+  > "How does the scan work?"       [gate: attention] -> answers that are true and incomplete, the way load-bearing lies are built
+  > (believe her)                   [gate: hope] TRAP -> the entire remaining game is this trap, chosen willingly, because the alternative is unbearable
+  NOVERB: "What happens to the me that stays?" The question is askable and the answer is dodged, every time, until the game stops dodging it ON you.
+
+NODE: THE_TRANSFER — the diving-suit copy, entry: the abyss requires a new body
+  The scan completes. The player's POV opens new eyes. It worked.
+  (then, behind you): the OLD Simon, awake in the chair, realizing.
+  > (talk to him)                   [gate: none] -> he didn't make it. He IS you, and he didn't make it. There is nothing to say and the game makes you stand in the room anyway (W4)
+  > [leave him running]             [gate: none] -> a version of you, alone, in the dark, forever-adjacent
+  > [pull the plug]                 [gate: none] -> is that murder or mercy? The game files no verdict (W6)
+  WHAT THIS NODE COSTS: the coin toss. You watched the coin land on both sides at once. Continuity was never transferred; it was FORKED, and someone always keeps the suffering.
+
+NODE: OMICRON_SLEEP — Simon-2 and Simon-3 both active, entry: the second copy
+  Catherine, quietly, puts Simon-2 to sleep so the player doesn't have to hear him.
+  > (object)                        [gate: none] -> too late; the kindness was preemptive and it was also a killing
+  THE CRAFT: the game euthanizes YOUR previous self off-screen and lets you notice at your own speed. The horror is administrative (the #31 kinship: the worst things happen as procedure).
+
+NODE: THE_LAUNCH — the ending, entry: the ARK ready, the gun loaded with hope
+  The upload runs. Simon closes his eyes to wake up in paradise.
+  He opens them in the same chair. The ARK is already gone.
+  > "Why didn't it work?!"          [gate: none] -> Catherine: it DID. The scream and the answer are both correct (W5)
+  > (rage at her)                   [gate: none] -> she blinks out mid-argument; the last conversation in the world ends on a hardware fault
+  (elsewhere, simultaneously): Simon-4 wakes in sunlight, whole, happy, convinced he made it. The game gives the player BOTH scenes, in order, and the order is the knife: paradise first, then the chair.
+  THE STRUCTURALLY-HONEST ENDING (W5): the game refuses its own comfort. The wound is reliable because it is TRUE to the premise: every "moving on" leaves someone behind, and this time it's the one whose eyes you're behind.
+
+NODE: THE_TRIAGE_GALLERY — throughout Pathos-II
+  Half-copied minds in machines, dying crew in suits, a robot certain she's human.
+  > (unplug / preserve / tell the truth / keep the lie) [gate: none, ever] -> per soul, no clean option, no karma, no verdict (W6)
+  THE FORM: SOMA scatters small versions of its central question so the ending has been rehearsed a dozen times before it arrives. The finale doesn't introduce the dilemma; it PERSONALIZES it.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 1 terminal state, deliberately unforked, with the branching pushed into per-encounter triage (the SOMA finding: the ending's power REQUIRES its inevitability — a choice would have been the coin-toss lie mechanized).
+
+THE SPINE — Simon-1 -> 2 -> 3, each fork demonstrated, each abandoned self shown. The triage gallery's per-soul decisions WRITE the player's private ledger of what they decided a copy is worth; the game reads none of it back. No karma. Just what you did, remembered by you.
+THE TERMINAL — the chair and the sunlight, both true at once. Simon-4 lives happily on the ARK. Simon-3 is the player's final seat. WRITES: the question that doesn't leave (W10).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: SOMA is THE Amalgamation master text — closer to our core than any other file in the corpus, and the compile should open its antagonist chapter with it. The lock-ins: (1) the Amalgamation's promise ("no one is ever lost") IS the coin-toss lie at civilizational scale — it generates SUCCESSORS, not survival; grief rewritten by engineers who never solved grief; (2) its seduction is REAL because people WANT the lie (the #18-adjacent trust inverted: the cult of the Homeless worships the comfort, not the truth); (3) Bohemia STAGES the copy-horror once, unavoidably — the dynasty meets a happy upload of a dead loved one AND the truth in the same scene, demonstrated never argued (wellbeing rules: grief, not cruelty); (4) LIBERATE is SOMA's honest ending made playable — refuse the fantasy, let the dead be dead, bear it; the compile should cite this file as Liberate's philosophical proof; (5) the triage gallery is the shape for our upload-quests: many small versions of the central question before the door personalizes it at Q050. And the tenth tombstone for the pile: Frictional shipped a wuss-mode so the ideas could outrun the monsters — our difficulty packages extend to horror intensity, day one.

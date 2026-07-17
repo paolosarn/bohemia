@@ -78,8 +78,13 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    >90 was MET 7/17 at 91 — then RAISED the same night: after the FNV
    comparison (~140-165 marked quests after DLC), Paolo set the floor at
    **150 FULL-MACHINE FILES. "Let's keep hunting. The best open-world
-   [games] of all time."** The queue (62 files, #33-94) alone reaches
-   153; fresh open-world mines welcome on top. Compile waits for 150.
+   [games] of all time."** Compile waits for 150. Counter at 93 (gate
+   prints it): #33 BioShock (the agency twist pairs with #32; the leash
+   cut must unlock systems, not just feelings) and #34 SOMA (THE
+   Amalgamation master text: the coin-toss lie IS "no one is ever lost";
+   Liberate's philosophical proof; rides with #115) landed after the
+   raise. 60 files remain (#35-94), reaching 153; fresh open-world
+   mines welcome on top. Next up: #35 Silent Hill 2, #36 Portal.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
    node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
    #01's payload is the pattern), gate green, commit per batch.
