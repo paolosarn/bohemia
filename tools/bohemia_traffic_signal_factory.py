@@ -541,14 +541,16 @@ def draw_signal_vert(K, spec, seed):
         t = abs(yy - junction_y) / float(arm_len)
         return 7 - int(2 * t)
 
-    # heads FIRST, at the LANE CENTERS measured from the median end, offset
-    # to the facing side of the arm — then the arm paints OVER them (v14,
-    # Paolo: "we are looking down at it... the pole is drawn on top of the
-    # red green yellow lights")
+    # heads FIRST, at the LANE CENTERS measured from the median end,
+    # DIRECTLY UNDER the arm (v15, Paolo: "these should be under the pole,
+    # not just jutting out to the side") — the box centers beneath the
+    # pipe with a small lean toward the facing side so the lens column
+    # clears the arm, then the arm paints OVER their middles (v14: we are
+    # looking down at it)
     n = spec['heads']
     clamp_ys = [(ay0 + int((0.5 + 3 * i) * T)) if up else
                 (ay1 - int((0.5 + 3 * i) * T)) for i in range(n)]
-    hx = (ax + 5) if hf > 0 else (ax - 5 - 26)
+    hx = ax - 13 + 4 * hf
     for cy in clamp_ys:
         draw_head(a, K, hx, cy - 26, spec['state'], r, facing=hf)
     # elbow stub from the pole into the vertical arm + junction collar
@@ -557,14 +559,10 @@ def draw_signal_vert(K, spec, seed):
     # the arm OVER the heads
     paint_cyl_v(a, K, r, ax, ay0, ay1, aw)
     hline(a, ax - 3, ax + 4, (ay0 - 1) if up else ay1, K['ramp'][1])  # tip cap
-    # clamps riding the arm + side brackets reaching to each head
+    # clamps riding the arm over each hidden hanger
     for cy in clamp_ys:
         rect(a, ax - 3, cy - 2, ax + 4, cy + 2, K['ramp'][1])
         hline(a, ax - 3, ax + 4, cy - 2, K['spec'] if r() < 0.5 else K['ramp'][3])
-        if hf > 0:
-            hline(a, ax + 4, ax + 8, cy - 1, K['ramp'][2], 2)
-        else:
-            hline(a, ax - 8, ax - 3, cy - 1, K['ramp'][2], 2)
     drips(a, K, r, pcx - 5, pcx + 5, junction_y + 8, n=2)
     outline_pass(a, K['outline'])
     outline_pass(a, (5, 5, 5))

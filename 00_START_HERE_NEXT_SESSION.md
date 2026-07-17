@@ -138,9 +138,11 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    the arm extends HALFWAY ACROSS THE STREET covering every forward
    driving lane (1 lane -> 3 cells, 2 -> 6, 3 -> 9, heads ONE PER LANE
    at the lane centers, measured from the median end), and because the
-   camera looks DOWN, the arm paints OVER the hanging heads (vertical
-   masts: heads first offset to the facing side, arm over, clamps +
-   side brackets last). 300 sprites, all UNJUDGED. Laws:
+   camera looks DOWN, the arm paints OVER the hanging heads. FINAL
+   REFINEMENT (Paolo: "these should be under the pole, not jutting out
+   to the side"): heads center DIRECTLY BENEATH the arm with a 4px lean
+   toward the facing side (lens column clears the pipe), arm over their
+   middles, clamps riding the arm. 300 sprites, all UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
