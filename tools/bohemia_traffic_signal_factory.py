@@ -276,9 +276,14 @@ def drips(a, K, r, x0, x1, y, n=3):
                                             K['rust'][int(r() * 3) % 3], 0.5))
 
 
-def draw_head(a, K, hx, hy, state, r, big=True):
+def draw_head(a, K, hx, hy, state, r, big=True, facing=0):
     """3-lens signal head: outlined box with a 45-view top + side face,
-    wrapping visors, radial lenses. state: dead | red | amber | green"""
+    wrapping visors, radial lenses. state: dead | red | amber | green.
+    facing: 0 = at the camera; +1/-1 = east/west (v11, Paolo's circle:
+    an east/west stoplight still LOOKS LIKE THE STOPLIGHT — full-mass
+    head, lights readable; the facing shows as the lenses biased toward
+    that edge and the visor cowls reaching out on that side, never a
+    skinny sliver)."""
     hw, lens = (20, 12) if big else (14, 9)
     hh = lens * 3 + 14
     side = 3 if big else 2
@@ -318,11 +323,15 @@ def draw_head(a, K, hx, hy, state, r, big=True):
         dark, lit = LENS[name]
         on = (state == name)
         col = lit if on else dark
-        cx = hx + hw // 2
+        cx = hx + hw // 2 + facing * 3      # lenses ride the facing edge
         rad = lens // 2
-        for xx in range(cx - rad - 3, cx + rad + 4):
-            u = (xx - (cx - rad - 3) + 0.5) / (2.0 * rad + 7)
+        vx0 = cx - rad - 3 - (4 if facing < 0 else 0)
+        vx1 = cx + rad + 4 + (4 if facing > 0 else 0)
+        for xx in range(vx0, vx1):
+            u = (xx - vx0 + 0.5) / float(vx1 - vx0)
             dy = bow(u, 1)
+            if facing and ((facing > 0 and xx >= vx1 - 2) or (facing < 0 and xx < vx0 + 2)):
+                dy += 1                     # the cowl tip droops past the box
             put(a, xx, cy - 3 + dy, (88, 92, 102) if r() < 0.3 else HRAMP[3])
             put(a, xx, cy - 2 + dy, HRAMP[0])
         for yy in range(-rad, rad + 1):
@@ -421,76 +430,6 @@ def draw_head_back(a, K, hx, hy, state, r, big=True):
                             a[yy, xx, :3] = np.clip(
                                 (base * 0.55 + np.array(lit) * 0.45).astype(int), 0, 255)
     return hh
-
-
-def draw_head_side(a, K, hx, hy, state, r, facing=1, big=True):
-    """A signal head in PROFILE (v10, Paolo: "make your face east and
-    west"). The camera sees the housing's SIDE: a narrow box, the yellowed
-    backplate edge on the trailing side, visor hoods sticking out as
-    tongues toward the facing direction, and only a SLIVER of lens on the
-    leading edge. Lit = the sliver + spill on the visor tongues.
-    facing: +1 = east (right), -1 = west (left)."""
-    hw, lens = (20, 12) if big else (14, 9)
-    hh = lens * 3 + 14
-    d = 9 if big else 7                       # housing depth seen side-on
-    back = (38, 36, 20)
-    HRAMP = [(12, 12, 14), (24, 24, 26), (40, 40, 44), (64, 66, 74)]
-    x0 = hx + 9 - d // 2                      # centered under the hanger
-    bx = (x0 - 2) if facing > 0 else (x0 + d)     # backplate edge, trailing
-    fx = (x0 + d - 1) if facing > 0 else x0       # leading (lens) edge
-    # backplate seen edge-on: a 2px yellowed strip, slightly taller
-    rect(a, bx, hy - 2, bx + 2, hy + hh + 2, back)
-    vline(a, bx if facing > 0 else bx + 1, hy - 2, hy + hh + 2, shade_of(back, 1.35))
-    # housing side panel with a lit top edge (45 law: sky on the top face)
-    for yy in range(hy, hy + hh):
-        for xx in range(x0, x0 + d):
-            u = (xx - x0 + 0.5) / d
-            ti = 2 if (u < 0.3) == (facing > 0) else 1
-            if r() < 0.10:
-                ti = max(0, ti - 1)
-            put(a, xx, yy, HRAMP[ti])
-    for xx in range(x0, x0 + d):
-        u = (xx - x0 + 0.5) / d
-        put(a, xx, hy + bow(u, 1), HRAMP[3])
-        put(a, xx, hy + hh + bow(u, 1), HRAMP[0])
-    LENS = {
-        'red':   ((70, 18, 16), (235, 60, 38)),
-        'amber': ((66, 44, 12), (250, 176, 40)),
-        'green': ((14, 48, 30), (60, 220, 110)),
-    }
-    for i, name in enumerate(('red', 'amber', 'green')):
-        cy = hy + 4 + i * (lens + 3)
-        dark, lit = LENS[name]
-        on = (state == name)
-        # visor hood tongue protruding toward the facing direction
-        for k in range(5):
-            tx = fx + facing * (k + 1)
-            put(a, tx, cy - 2 + (1 if k >= 3 else 0), HRAMP[3])
-            put(a, tx, cy - 1 + (1 if k >= 3 else 0), HRAMP[0])
-        # the lens SLIVER on the leading edge, tucked under the visor
-        col = lit if on else dark
-        for k in range(3):
-            put(a, fx, cy + 1 + k, shade_of(col, 1.0 if on else 0.7))
-            put(a, fx + facing, cy + 1 + k, shade_of(col, 0.9 if on else 0.5))
-        if on:
-            # spill: rgb-only tint on the visor tongue + housing edge
-            for xx in range(min(fx, fx + facing * 5), max(fx, fx + facing * 5) + 1):
-                for yy in range(cy - 2, cy + 5):
-                    if 0 <= xx < a.shape[1] and 0 <= yy < a.shape[0] and a[yy, xx, 3] > 0:
-                        base = a[yy, xx, :3].astype(int)
-                        a[yy, xx, :3] = np.clip(
-                            (base * 0.6 + np.array(lit) * 0.4).astype(int), 0, 255)
-    return hh
-
-
-def draw_sign_edge(a, K, x0, y, r):
-    """The street-name plate seen edge-on: a 2px sliver of green steel."""
-    plate = (24, 62, 44)
-    for yy in range(y, y + 15):
-        put(a, x0, yy, shade_of(plate, 0.9 + 0.2 * r()))
-        put(a, x0 + 1, yy, shade_of(plate, 0.55))
-    put(a, x0, y - 1, shade_of(plate, 1.5))
-    put(a, x0, y - 2, K['ramp'][1])
 
 
 def draw_sign_back(a, K, x0, y, w, r):
@@ -634,18 +573,13 @@ def draw_signal(K, spec, seed):
             face = spec.get('face', 's')
             if face == 'n':
                 draw_head_back(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
-            elif face in ('e', 'w'):
-                draw_head_side(a, K, hx, arm_lvl + 13 + sag, spec['state'], r,
-                               facing=1 if face == 'e' else -1)
             else:
-                draw_head(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
+                draw_head(a, K, hx, arm_lvl + 13 + sag, spec['state'], r,
+                          facing={'e': 1, 'w': -1}.get(face, 0))
         if spec['arm_cells'] < 4 and n <= 2 and head_xs[-1] - 20 > POLE_CX + 30:
             sw2 = min(48, head_xs[-1] - 24 - POLE_CX - 26)
-            face = spec.get('face', 's')
-            if face == 'n':
+            if spec.get('face', 's') == 'n':
                 draw_sign_back(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)
-            elif face in ('e', 'w'):
-                draw_sign_edge(a, K, POLE_CX + 26 + sw2 // 2, arm_lvl + 14, r)
             else:
                 draw_sign_plate(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)
     elif kind == 'headless':
@@ -726,14 +660,16 @@ def main():
            'sprite_h': CH,
            'anchor': 'pole base bottom; pcx per entry is the pole centerline; '
            'dir e = arm extends east (right), dir w = arm extends west (left)',
-           'face_law': ('v9-v10 (Paolo: "facing north or south... now east and west"): '
-                        'face s = lenses toward the camera (serves northbound); face n '
-                        '= the BACKS (ribbed panel, visor edges, no lenses; lit = light '
-                        'spill only) serving southbound; face e / face w = PROFILES '
-                        '(narrow housing side, backplate edge trailing, visor tongues '
-                        'toward the facing, lens sliver on the leading edge; lit = '
-                        'sliver + spill) serving west/eastbound. Mirroring an arm flips '
-                        'e<->w faces and the bank stores the TRUE face after the flip. '
+           'face_law': ('v9-v11 (Paolo\'s circle, 7/18: "if it\'s facing east or west '
+                        'THIS is how the stoplight has to look"): the stoplight always '
+                        'keeps its classic full-mass silhouette. face s = lenses at '
+                        'the camera; face n = the BACKS (ribbed panel, visor edges, '
+                        'no lenses; lit = spill only); face e / face w = the SAME '
+                        'full-size head with the lens column biased 3px toward the '
+                        'facing edge and the visor cowls reaching out + drooping on '
+                        'that side (the v10 skinny slivers are DEAD: an east-facing '
+                        'stoplight is still a stoplight). Mirroring an arm flips '
+                        'e<->w and the bank stores the TRUE face after the flip. '
                         'Wrecks ship face s only.'),
            'signals': []}
     n = 0
