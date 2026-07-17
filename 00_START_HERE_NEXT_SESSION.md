@@ -100,9 +100,20 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    Dead-Eye 3x; PROVEN on iPad), #42 Dragon Age Origins (the DIRECT
    model for the upbringing system: converge-then-color, the Landsmeet
    = Q050's blueprint, the fold = cross-game import internalized).
-   **Counter 100 of 150 — two-thirds.** 50 files remain (#43-94),
-   reaching 150 exactly; fresh open-world mines stack on top. Next up:
-   #43.
+   two-thirds crossed, then #43 Baldur's Gate 2 (the COMPANION TAPROOT:
+   the party-as-powder-keg wires our faction web to the individual
+   layer; ambient banter as solo-dev gold; the traitor-as-victim
+   pre-built for the Amalgamation), #44 RimWorld (DEAD-CENTER: the AI
+   Storyteller = our difficulty packages made diegetic; wealth-scaled
+   pressure; personify the Storyteller AS the Amalgamation), #45 Dwarf
+   Fortress (the deep-sim root: Legends = our unrecorded ledger, the
+   tantrum spiral = the conscience pillar's most dangerous form, and
+   the #1 lesson: DEPTH UNDER ACCESSIBILITY ALWAYS — the deepest sim is
+   worthless if the phone can't reach it).
+   **Counter 103 of 150.** 47 files remain (#46-94), reaching 150
+   exactly; fresh open-world mines stack on top. Next up: #46.
+   NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
+   pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
    node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
    #01's payload is the pattern), gate green, commit per batch.

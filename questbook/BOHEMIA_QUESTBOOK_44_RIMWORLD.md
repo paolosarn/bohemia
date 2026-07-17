@@ -179,3 +179,63 @@ packages + death-math + city-builder economy + entities + conscience system + fo
 Amalgamation-as-Storyteller + wellbeing/tone/child-safety rules. FUTURE: a Tynan Sylvester talk / his book
 "Designing Games" on the Storyteller; a Dwarf Fortress deep-dive (the deeper emergent-sim ancestor + legends/
 retelling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE PLAYER (the colony's unseen hand)** — wants a story worth telling, whether or not the colony lives. Will trade: the fantasy of "winning" for the drama of what actually happened. Will never say out loud: that a tragic collapse is a SATISFYING ending, not a failure. FUNCTION: the co-author. RimWorld reframes the player from optimizer to collaborator-with-an-algorithm.
+
+**THE AI STORYTELLER (Cassandra / Phoebe / Randy)** — wants the best STORY, per its dramatic shape: Cassandra wants a rising tragedy, Phoebe wants long calm then a spike, Randy wants absurdist chaos. Will trade: raids, windfalls, plagues, caravans — weighted by what the colony's state makes dramatic. FUNCTION: the procedural author (W2, W3): the L4D Director grown into a named, chosen genre. The unseeable God pacing your drama.
+
+**THE COLONISTS** — want, each, their procedurally-generated bundle: a trait satisfied, a body kept whole, a mood kept above the break, a lover kept alive. Will trade: their labor, their sanity, their loyalty, all simulated part-by-part. FUNCTION: the story-engines (W6): people whose collision — a wound, a surgeon, a jealousy, a break — IS the narrative.
+
+**COLONY WEALTH** — wants to grow, and every point of growth invites a proportionate blow. FUNCTION: the self-limiting pressure (W4): success breeds threat; the raid scales to what you can lose.
+
+**COMMITMENT MODE** — wants one save, no reloads, every turn final. FUNCTION: the story's integrity (W8): permanence is what makes the generated drama MEAN something.
+
+**THE THROUGHLINE (absent, by design)** — RimWorld wants nothing, thematically; it signifies whatever the player projects. FUNCTION: the crucial contrast (the banked flaw): pure emergence has NO authored arc — the exact gap Bohemia fills by blending the generator UNDER an authored spine.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: there is no dialogue — the "conversation" is between the STORYTELLER and the COLONY STATE, and the player's replies are decisions. The trees below are the authoring loop written as nodes)
+
+NODE: CHOOSE_YOUR_AUTHOR — before the game, entry: new colony
+  Three named algorithms, each a different genre.
+  > (Cassandra Classic)            [gate: none] -> a rising Aristotelian curve: exposition, rising action, climax, catastrophe (classical tragedy)
+  > (Phoebe Chillax)               [gate: none] -> long calm to build, rare hard hits (pastoral, false security -> spike)
+  > (Randy Random)                 [gate: none] -> flat probability: a wedding then a plague, equally likely (absurdism, W3)
+  WRITES: the dramatic shape of everything downstream. THE CRAFT (W10): personifying the algorithm as an AUTHOR makes the pacing rules transparent AND a player choice. This is our difficulty packages, made diegetic and given a face.
+
+NODE: THE_STORYTELLER_READS — continuous, no speaker, entry: the colony existing
+  The algorithm factors: wealth, colonist count, recent deaths, time since last event, time at location, population intent.
+  > (colony thriving, too safe)    [gate: adaptation] -> difficulty RISES; the system pushes toward DRAMA over comfort (W5)
+  > (colony just gutted by a raid) [gate: benevolence] -> a trade caravan, a helpful traveler; the ebb after the flow (W7)
+  THE L4D DIRECTOR INHERITANCE: the event table is WEIGHTED by state, not rolled raw. Tension paced the way a human author would pace it — quiet, loud, quiet.
+
+NODE: THE_CASCADE — emergent, entry: a single event lands
+  A colonist takes a bullet to the leg. Watch it propagate:
+  > (surgery)                      [gate: a surgeon] -> the surgeon is her husband's crush; the operation plants a jealousy
+  > (the jealousy festers)         [gate: mood sim] -> a fight; a punch; a death
+  > (the death spirals)            [gate: relationships] -> the widower's mental break; a colony crisis from one leg wound (W6)
+  THE FINDING: the drama is the SIMULATION INTERACTING, not a script. Body + mood + relationship systems colliding — the #43 companion chemistry, running without a writer.
+
+NODE: COMMITMENT_MODE — the save system as a story rule, entry: enabled
+  > (one save, play it out)        [gate: none] -> every dramatic turn, tragic or hopeful, lands at full weight (W8)
+  > (reload to undo)               [gate: DISABLED] -> the verb removed on purpose
+  NOVERB: "Load an earlier save." Commitment mode deletes the undo. The removed verb is the story's integrity: permanence is what makes the generated tale MEAN something. (Undertale's unforgetting save #28, the survival triptych's permadeath #30/#41 — same law, colony-scale.)
+
+NODE: THE_RETELLING — outside the game, entry: the colony's saga ends
+  The player recounts it on a forum, a video, a friend's ear.
+  WRITES: shareable narrative (W9). RimWorld's actual output is a STORY the player authors and RETELLS — built by incomplete info, minimal hand-holding, and expressive systems.
+  THE BANKED GUARDRAIL: the freedom that enables expression enables UGLY expression; the systems must bake VALUES into what they REWARD and how the world REACTS (the #38 consistency principle, our wellbeing rules).
+
+## V2-C THE BRANCH MAP
+
+COUNT: infinite emergent terminals, ZERO authored — the branch map is whatever the Storyteller + the simulation + the player's choices generate, ending in a colony that thrives, collapses, or flees, none of it scripted.
+
+THE AUTHOR LAYER — 3 Storytellers, 3 genres, the dramatic shape chosen at the start (W3).
+THE PRESSURE LAYER — wealth-scaled threats + the adaptation push toward drama (W4, W5).
+THE EMERGENCE LAYER — body/mood/relationship systems colliding into unscripted stories (W6).
+THE ENDING — a valid narrative terminal in any direction; "Game Over" is a story, not a loss (W1).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: RimWorld is DEAD-CENTER for Bohemia's city-builder — the master model for the STORY-GENERATOR layer, and it hands us four lock-ins and one edge. Lock-ins: (1) a BOHEMIA AI STORYTELLER in the loop/scheduler that reads district state (population, resources, standing, recent deaths, Amalgamation pressure) and picks the event that makes the best STORY — and it IS our difficulty packages made diegetic and given a face (tragedy pace / builder pace / chaos pace, the RimWorld framing of a system we already have); (2) WEALTH-SCALED PRESSURE — a thriving district draws bigger raids and more Amalgamation attention, so success breeds danger and growth self-balances, with the adaptation push toward drama when the player is too safe; (3) EMERGENT NARRATIVE FROM COLLIDING SYSTEMS — our survivors are story-engines (the #43 chemistry + the #41 conscience system running live), one event cascading through body, mood, and relationship; (4) COMMITMENT MODE is our roguelite/generational-fold stance already — permanence makes the dynasty-saga MEAN something, and a fallen dynasty is a weighty ending, not a loss. THE EDGE, banked as a mandate: pure emergence has NO theme — RimWorld can feel like sound and fury signifying whatever. BOHEMIA IS NOT PURE EMERGENCE: we layer emergent TEXTURE UNDER an AUTHORED SPINE (the Amalgamation arc, our themes, Liberate/Respect/Become). And the on-theme masterstroke: PERSONIFY OUR STORYTELLER AS THE AMALGAMATION ITSELF — the unseeable God pacing the dynasty's drama is the archive that authors your story, which is the #36 voice lesson and the #34 antagonist fused. Compile gates from the flaws: emergent loss must feel AUTHORED not dice-cruel (agency + warning, the #41 odds-feel-fair law); scaffold meaning-making (name people, surface the chronicle — the ledger); and bake VALUES into what the systems reward (never reward cruelty as "just drama" — the #38 consistency principle, our wellbeing/child-safety rules absolute).

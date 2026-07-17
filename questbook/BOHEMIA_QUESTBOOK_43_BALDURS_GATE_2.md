@@ -166,3 +166,59 @@ roster descendant), 42 (DA:O — approval/companions descendant), 16 (BG3 — mo
 upbringing + death-math + fold + Megaton law + tone/wellbeing rules + music/writing strengths. FUTURE: a
 David Gaider / BioWare talk on BG2 companion writing; a Mass Effect 2 cross-study (already Q06) on how
 loyalty formalized this; a Planescape companion cross-study (Q12) on party-as-philosophy.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**GORION'S WARD (the player)** — wants their heritage answered and their people kept alive, and cannot fully control either. Will trade: leadership, which the party grants conditionally, not by default. Will never say out loud: that they are one of the crew, not its puppeteer. FUNCTION: the boss who gets yelled at (W1). The root protagonist of the modern companion RPG: authority you must earn from people who won't be servants.
+
+**JAHEIRA** — wants the Harpers served and the Ward kept from folly, and (if tended) the Ward. Will trade: counsel, sharp and unbidden; a whole romance that advances on rest and dies on neglect. Will never say out loud, early: grief for Khalid, dead pre-game. FUNCTION: the autonomous companion (W1) and a real relationship that requires tending (W5).
+
+**KORGAN / VICONIA / KELDORN (the powder keg)** — want incompatible things: a dwarf's vulgar spite, a drow heretic's survival, a paladin's righteousness. Will trade: their presence, conditionally on WHO ELSE is in the party. FUNCTION: interparty conflict with stakes (W3): Korgan makes Aerie LEAVE; Keldorn and Viconia clash; composition is a social risk with teeth.
+
+**AERIE / ANOMEN (the tended arcs)** — want, respectively: to overcome fragility, and to pass a knighthood test that reshapes his whole character on pass or fail. FUNCTION: every companion a protagonist (W7): personal quests you invest in, arcs that change by your involvement.
+
+**YOSHIMO** — wants out from under a geas he never chose, and cannot get it. An immediately likeable bounty hunter, magically COMPELLED to betray the Ward at the climax, then dead. FUNCTION: the traitor-as-victim (W8): the turn that hurts because you cared, tragic not villainous — the Amalgamation-compulsion blueprint.
+
+**KHALID and DYNAHEIR (the pre-game dead)** — wanted to keep adventuring; the game opens on their irreversible murder. FUNCTION: the permanent loss (W9): instant stakes, even heroes lose people, no resurrection.
+
+## V2-B THE CONVERSATIONS (node trees; the signature is that the most important "conversations" happen BETWEEN companions, not with the player — the party talks to ITSELF, and the player manages the chemistry)
+
+NODE: THE_BANTER — ambient, entry: any two companions in the party long enough
+  They talk to EACH OTHER, unprompted.
+  > (Jaheira berates Aerie's optimism)   [gate: both present] -> characterization through overheard relationship (W4)
+  > (Korgan insults everyone)            [gate: present] -> the cast alive without a single quest spent
+  > (Minsc and Boo)                      [gate: present] -> the beloved texture that outlived the plot
+  THE CRAFT (W4): the party comes alive in dialogue the player only overhears. Cheapest high-impact characterization in the RPG toolkit — the solo-dev's gold, native to our music/voice strengths.
+
+NODE: THE_INCOMPATIBILITY — entry: two companions who cannot coexist
+  > (keep both anyway)             [gate: none] TRAP -> Korgan + Aerie: she LEAVES. Keldorn + Viconia: they clash. Anomen, if failed, can be GOADED into attacking (W3)
+  > (choose the party)             [gate: none] -> composition as a social decision; some people end each other
+  NOVERB: "Everyone get along." The command does not exist. You cannot order chemistry; you can only cast the party and live with the reactions. Relationships aren't flavor — they can DELETE a companion.
+
+NODE: THE_ROMANCE — over rest and game-time, entry: a romanceable companion present and tended
+  > (advance it: rest, time, presence) [gate: conditions] -> exclusive dialogue, a personal subplot, a bond that GATES content (W6)
+  > (juggle two or three)           [gate: none] TRAP -> the cat-fight: Aerie, Jaheira, Viconia force a choice; pursuing one silently ENDS another (W5)
+  > (bench them too long)           [gate: neglect] -> the romance dies, quietly; relationships require tending or they wither
+  THE MODEL: romance as a real relationship with real jealousy and real death-by-neglect. The banked flaw rides here too: silent state-changes are opaque — Bohemia's version must keep relationship STATE legible.
+
+NODE: YOSHIMO_TURN — the climax, entry: the geas triggers
+  The likeable bounty hunter draws on you, against his will, and falls.
+  > (learn the geas, too late)     [gate: the reveal] -> he was compelled; the betrayal was never his (W8)
+  THE ONE LINE DOING THE WORK is the discovery of the compulsion AFTER the death: a traitor who was himself the victim. The turn hurts precisely as much as you liked him — engineered grief, the #01/#32/#33/#34 compulsion lineage.
+
+NODE: THE_OPENING_LOSS — game start, entry: BG1 companions accounted for
+  Khalid and Dynaheir: dead. Irreversibly. Before you had any say.
+  WRITES: the stakes, instantly. Even the protagonist's old crew is mortal and gone (W9). The #01 permanent-loss note, aimed at people you already loved.
+
+## V2-C THE BRANCH MAP
+
+COUNT: no single ending-tree — the branch map is the PARTY YOU BUILT (who you recruited, who feuded out, who you romanced, whose personal quest you finished, who betrayed you) x the anti-completionist lockouts (6 slots, mutual exclusivity).
+
+THE COMPOSITION LAYER — every recruit a social choice; incompatible pairs end each other (W3); the party is a curated chemistry.
+THE BOND LAYER — romances tended or neglected, personal quests invested or skipped, each gating content (W5, W6, W7).
+THE LOCKOUT LAYER — "you'll miss content, and that's life" (W10): mutual exclusivity makes each run's party YOURS.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Baldur's Gate 2 is the COMPANION TAPROOT — the root ME2 (#06), DA:O (#42), and BG3 (#16) all refined, and Bohemia's crew/settlement layer descends from it. Lock-ins: (1) companions and key survivors as AUTONOMOUS PEOPLE who react to the dynasty AND each other — the powder keg wires our FACTION WEB directly to the individual layer (a Church zealot and an Anarchist in one crew generate friction that ends in a departure or worse; composition is a social risk); (2) AMBIENT BANTER as the cheapest high-impact characterization tool, native to our music/voice/writing strengths — survivors talk to each other and the district comes alive without a quest spent; (3) EVERY COMPANION A PROTAGONIST — personal quests that are bundles of stories, not stat-sticks; (4) the TRAITOR-AS-VICTIM is on-theme and pre-built for us — an Amalgamation edit or a Network hold compels a beloved crew member to betray the dynasty, then they're lost, and it hurts because you cared (the #01/#32/#34 compulsion lineage, wearing a friend's face); (5) PERMANENT LOSS for instant stakes, which the FOLD makes native across generations. Compile gates from the flaws, all four: handle crew swaps with GRACE (a home base where the benched wait happily, no guilt-busywork); keep approval reactions IN CHARACTER (no nuanced person reduced to nagging — the standing-system caution); make relationship STATE legible and robust (clear UI + regression-gate, not a hidden variable soup); and spread characterization so no companion is a stub (the #42 uneven-origins trap, restated for the crew).

@@ -172,3 +172,61 @@ city-builder + world-model/entities + conscience system + death-math + fold + un
 + ~100-year-dynasty-arc + SUN-MODE/legibility/mobile constraints + FACTORY LAW + scope discipline. FUTURE:
 a Tarn Adams (Bay 12) talk / the "Getting Started" DF ethos on emergence; a Caves of Qud deep-dive (the
 narrative-forward deep-sim sibling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE OVERSEER (the player)** — wants a fortress worth the story of its fall, because it WILL fall. Will trade: attention, spent on new obsessions while the basics rot. Will never say out loud: that the collapse is the point, and that "Losing is Fun" is a design thesis, not a consolation. FUNCTION: the tinkerer (W7): no avatar, no win screen — a hand in a simulation, authoring its own downfall by ambition.
+
+**THE SEVEN DWARVES (and the migrants after)** — want their specific, simulated preferences met: the banana-lover overjoyed by banana roast, the rain-hater sulking when sent out, and above all their loved ones ALIVE. Will trade: labor, artistry, sanity. FUNCTION: the tragedy engine's fuel (W4): each carries tracked family and romance, and each death is a grief bomb with a blast radius.
+
+**THE GLOBAL HISTORY SIMULATOR** — wants nothing; it simply tracks. A dragon's migration, its hunger, its attraction to the net worth of your gold statues. FUNCTION: the scriptless author (W1): there are NO scripted events — the dragon comes for your WEALTH because a hundred-year state machine did the math. The RimWorld Storyteller (#44) with the smoothing removed.
+
+**LEGENDS MODE** — wants every figure who ever lived and died recorded, every war, every civilization. FUNCTION: history as a simulated substrate (W3): a hundred years of pre-simulated past your fortress is merely the newest chapter of. Bohemia's three-dynasty arc, structurally.
+
+**THE TANTRUM SPIRAL** — wants a feedback loop: a death, then grief, then a break, then more deaths, then more grief. FUNCTION: the emergent tragic arc (W4, W6): the positive-feedback collapse that ends a thriving fortress from ONE mismanaged loss. Grief made contagious and systemic.
+
+**THE UI (pre-2022)** — wanted, apparently, to keep you out. FUNCTION: the accessibility counter-example (W10): the deepest game ever made, gated for a DECADE by impenetrability — Bohemia's single most important cautionary lesson.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: there is NO dialogue and NO storyteller — just systems colliding, read back through logs. The trees below are the emergence loop and the tragedy engine written as nodes)
+
+NODE: THE_EMBARK — a procedurally-generated world with 100 years of history, entry: seven dwarves, one wagon
+  > (read Legends first)            [gate: curiosity] -> the wars, heroes, and monsters your fort is layering onto (W3)
+  > (just dig in)                   [gate: none] -> the present, sitting on a simulated deep past that makes it feel real
+  WRITES: a chapter onto a history that existed before you and will note your fall after. The #42 cross-game memory, internalized into ONE world's timeline.
+
+NODE: THE_DRAGON_MATH — no trigger, entry: your dwarves carved gold statues
+  > (get rich, build grand)         [gate: none] TRAP -> the net worth registers in the global sim; a dragon's hunger + migration + greed align; it comes FOR THE GOLD (W1)
+  THE FINDING: nothing attacked because you hit level 10. The dragon attacked because a state machine tracked its appetite against your wealth. Emergence from systems, not scripts — and the RimWorld wealth-scaling lesson (#44) at its uncompromising root.
+
+NODE: THE_COMBAT_LOG — a pet dog fights a barn owl, entry: the dog was grouchy about the rain
+  > (read it back, tendon by tendon) [gate: none] -> the fight replayed second-by-second, which specific tendon tore, why the dog was in a mood (W5)
+  THE CRAFT: specificity is the SOUL of emergence. A generated event feels real because the sim knows WHO, HOW, and WHY down to absurd depth. Bohemia scopes this (not per-tendon) but banks the principle: named, readable, specific.
+
+NODE: THE_TANTRUM_SPIRAL — the tragedy engine, entry: a loved one dies (flood, siege, fire, your mistake)
+  > (the survivor grieves)          [gate: relationship tracked] -> negative thoughts accumulate
+  > (grief tips to tantrum)         [gate: mood sim] -> they attack buildings, other dwarves; MORE die (W4)
+  > (or grief tips to depression)   [gate: mood sim] -> work refused, sometimes suicide; the fort's labor collapses
+  > (the deaths breed more grief)   [gate: the loop] -> the POSITIVE FEEDBACK: each death is fuel for the next; a thriving fortress unwinds from one mismanaged loss
+  NOVERB: "Everyone calm down and mourn properly." No such command exists. You cannot order grief to resolve; you can only have BUILT the fort (temples, memorials, meals, spare time) to metabolize it before the spiral. The removed verb is the entire conscience-management pillar (#41's stress-prevention, at fortress scale, unauthored).
+
+NODE: THE_DENOUEMENT — the collapse, entry: the spiral run to its end
+  > (watch it fall)                 [gate: none] -> "Losing is Fun" (W2): the fort ends in a fast, dramatic arc (rise -> disaster -> spiral -> fall, W6), and that arc IS the story worth telling
+  THE ONE LINE DOING THE WORK is the community's motto: Losing is Fun. Failure reframed as the CONTENT, the deepest root of the roguelite death-as-story stance (#05, #44).
+
+NODE: THE_RETELLING — outside the game, entry: the fort's saga ends
+  > (narrate it: Legends, a video, a forum)  [gate: none] -> the game's best output is the RETELLING (W8); the ASCII barrier meant many fell in love via YouTubers before they could play
+  THE SURFACING PROBLEM (banked flaw): the richest stories need deep engagement or a narrator to SURFACE them. Bohemia's ledger must do the surfacing the DF UI couldn't.
+
+## V2-C THE BRANCH MAP
+
+COUNT: infinite emergent terminals, ZERO authored, ZERO win-states — every fortress falls; the branch map is the SHAPE and STORY of each fall, read back through Legends and the combat log.
+
+THE HISTORY LAYER — 100 years pre-simulated, your fort one chapter, Legends recording all (W3).
+THE EMERGENCE LAYER — geology, thermodynamics, fluids, biomes, and dwarf psychology colliding into unscripted events (W1, W5, W9).
+THE TRAGEDY LAYER — the tantrum spiral turning one death into a collapse with an Aristotelian shape nobody wrote (W4, W6).
+THE ENDING — always a fall, always a story; "Losing is Fun" (W2).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Dwarf Fortress is the DEEP-SIM ROOT — the ancestor RimWorld (#44) made accessible — and it validates Bohemia's story-generator ambitions while handing us our single most important survival lesson. Lock-ins: (1) DRAMA EMERGES FROM SYSTEMS COLLIDING — the survival economy, the conscience/mood system (#41), relationships (#43), factions, and the Amalgamation, scoped to what a solo dev keeps STABLE; (2) "LOSING IS FUN" IS OUR ROGUELITE STANCE — a fallen dynasty is a weighty, storyable ending with a shape (rise -> disaster -> spiral -> fall), not a fail-state; (3) HISTORY AS A SIMULATED SUBSTRATE is a near-perfect structural match — our ~100-year three-dynasty arc IS Legends mode, and the UNRECORDED LEDGER IS OUR LEGENDS: every survivor, heir, and deed recorded, a deep past making the present real; (4) THE TANTRUM SPIRAL is the deep-sim root of our whole conscience pillar — a death can cascade grief into breakdown into more loss into collapse, a positive feedback loop that emergently ends a dynasty from ONE mismanaged tragedy (the #41/#30 mechanic given its most dangerous form). THE #1 LESSON, underlined for a solo dev on iPhone: DF proves the deepest simulation is WORTHLESS if players can't ACCESS it — gated a decade by UI. Our SUN-MODE, legibility, single-file, and mobile-first constraints are not limitations; they are what lets our depth REACH anyone. DEPTH UNDER ACCESSIBILITY, ALWAYS. Compile gates from the flaws: SCOPE the simulation (emergent depth multiplies edge cases — the regression gate and FACTORY LAW are survival); blend deep systems UNDER an authored spine with legible goals (the RimWorld/DF shared lesson — pure emergence has no theme; the Amalgamation is ours); and SURFACE the drama (the ledger does what the DF UI couldn't). With #44 the emergent-story pair is complete: Dwarf Fortress is the root, RimWorld the accessible refinement, and Bohemia the authored-spine descendant that keeps the depth and adds the meaning.
