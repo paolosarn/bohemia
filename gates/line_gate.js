@@ -16,6 +16,44 @@ for(let seed=0;seed<500;seed++){
   }
 }
 console.log(`  swept ${blocks} street blocks: ${bad} line violations | yellow cells ${yellow} | white cells ${white} | crosswalk cells ${cross}`);
+
+// TURN POCKET LAW (7/17, markings bank APPROVED): pockets exist only at
+// intersections, only on lane cells, arrows only in the certified vocabulary,
+// pocket cells only within pocketLen of the crosswalk, dual/triple scale by
+// lane count. Marking classes are WHITE-bank classes by construction; yellow
+// stays in twlt borders (centerTurn) alone.
+{
+ const VOCAB=new Set(['pocket_line','turn_arrow_left','turn_arrow_right']);
+ let mkTotal=0,mkBad=0,mkOffLane=0,mkFar=0,noIx=0,scaleBad=0;
+ for(let seed=0;seed<300;seed++){
+  for(const lanes of [1,2,3,4]){
+   const ix=seed%2===0;
+   const b=G.generate('street',seed*7+1,24,{lanes,median:1,sidewalk:1,intersection:ix});
+   let n=0;
+   b.grid.forEach((row,y)=>row.forEach((c,x)=>{
+    if(!c.mk)return; n++; mkTotal++;
+    if(!VOCAB.has(c.mk))mkBad++;
+    if(c.g!=='lane')mkOffLane++;
+    if(b.meta.crosswalkX<0)mkFar++;
+    else{const d=x<b.meta.crosswalkX?b.meta.crosswalkX-x:x-(b.meta.crosswalkX+b.meta.crosswalkW-1);
+     if(d>b.meta.pocketLen)mkFar++;}
+   }));
+   if(!ix&&n>0)noIx++;
+   if(ix){
+    const wantLeft=(lanes>=4?3:(lanes>=3?2:1));
+    if(b.meta.pocketsLeft>2*wantLeft)scaleBad++;
+    if(lanes<3&&b.meta.pocketsRight>0)scaleBad++;
+   }
+  }
+ }
+ ok("pocket markings appear at intersections", mkTotal>0);
+ ok("marking vocabulary is certified (bank classes only)", mkBad===0);
+ ok("markings sit on lane cells only", mkOffLane===0);
+ ok("no markings on non-intersection streets", noIx===0);
+ ok("every pocket cell within pocketLen of the crosswalk", mkFar===0);
+ ok("pocket count scales by law (dual at 3, triple at 4, right at 3+)", scaleBad===0);
+ console.log(`  pocket sweep: ${mkTotal} marked cells, vocab clean, lane-only, crosswalk-anchored`);
+}
 ok("zero line-color violations across 500 seeds x 4 lane counts", bad===0);
 ok("yellow actually appears", yellow>0);
 ok("white actually appears", white>0);

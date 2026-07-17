@@ -114,14 +114,48 @@ const BOH_BLOCKGEN=(function(){
         dir:L.rows[y].dir||null,axis:L.rows[y].axis?'EW':null,props:[]});}
     // crosswalk only if this block hosts an intersection
     const hasIntersection=(opts&&opts.intersection!=null)?opts.intersection:(r()<0.35);
+    let cwX=-1, cwW=0;
     if(hasIntersection){
       const cw=r()<0.8?1:2, cx=2+Math.floor(r()*(W-6));
+      cwX=cx; cwW=cw;
       for(let y=L.sidewalk;y<H-L.sidewalk;y++)for(let i=0;i<cw;i++){
         const c=grid[y][cx+i];
         // A crosswalk is perpendicular BY DEFINITION (law rule 3). It must not
         // keep the with-axis line colour it inherited from the row underneath,
         // or the renderer draws a lane stripe running through the crossing.
         c.g='crosswalk'; c.color=null; c.axis='NS';
+      }
+    }
+    // TURN POCKETS (7/17, markings bank APPROVED): at intersections, the
+    // innermost lane(s) of each approach carry a left-turn pocket ending one
+    // cell before the crosswalk; arterials (lanes>=3) run DUAL left pockets
+    // plus a right pocket on the outer lane; 4-lane runs go TRIPLE (researched
+    // Vegas anatomy, act-1 gap queue closed 7/17). Markings are cell.mk; the
+    // renderer maps mk -> BOHEMIA_MARKING_BANK classes (arrows WHITE, per the
+    // LINE COLOR LAW; the yellow lives only in twlt border tiles).
+    let pocketsLeft=0,pocketsRight=0;const PL=6;
+    if(hasIntersection){
+      const laneRowsOf=d=>{const out=[];L.rows.forEach((rw,i)=>{if(rw.t==='lane'&&rw.dir===d)out.push(i);});return out;};
+      const nLeft=L.lanes>=4?3:(L.lanes>=3?2:1);
+      const nRight=L.lanes>=3?1:0;
+      const mark=(y,x0,x1,arrow)=>{
+        for(let x=Math.max(1,x0);x<=Math.min(W-2,x1);x++){
+          const c=grid[y][x];
+          if(c.g!=='lane')continue;
+          c.mk=((x-x0)%3===1)?arrow:'pocket_line';
+        }
+      };
+      const A=laneRowsOf('A'),B=laneRowsOf('B');
+      // A approaches from the west of the crossing; B from the east.
+      for(let p=0;p<nLeft;p++){
+        const ya=A[A.length-1-p*LANE_W], yb=B[p*LANE_W];
+        if(ya!=null&&cwX-1-PL>=1){mark(ya,cwX-PL,cwX-1,'turn_arrow_left');pocketsLeft++;}
+        if(yb!=null&&cwX+cwW+PL<=W-2){mark(yb,cwX+cwW,cwX+cwW+PL-1,'turn_arrow_left');pocketsLeft++;}
+      }
+      for(let p=0;p<nRight;p++){
+        const ya=A[p*LANE_W], yb=B[B.length-1-p*LANE_W];
+        if(ya!=null&&cwX-1-PL>=1){mark(ya,cwX-PL,cwX-1,'turn_arrow_right');pocketsRight++;}
+        if(yb!=null&&cwX+cwW+PL<=W-2){mark(yb,cwX+cwW,cwX+cwW+PL-1,'turn_arrow_right');pocketsRight++;}
       }
     }
     // lamps: STAGGERED LAW
@@ -149,7 +183,7 @@ const BOH_BLOCKGEN=(function(){
       // resolves onto a sidewalk cell. It counts only if it actually landed.
       if(placeProp(grid[gy][gx],{p:'car_wreck',w,h,facing:ns?'NS':'EW'}))placed++;
     }
-    return {type:'street',W,H,grid,meta:{lanes:L.lanes,median:L.median,sidewalk:L.sidewalk,intersection:hasIntersection,wrecks:placed}};
+    return {type:'street',W,H,grid,meta:{lanes:L.lanes,median:L.median,sidewalk:L.sidewalk,intersection:hasIntersection,wrecks:placed,pocketsLeft,pocketsRight,pocketLen:PL,crosswalkX:cwX,crosswalkW:cwW}};
   }
   // recipe registry per BLOCK CANON (street-scene-first; others are presets/stubs)
   // TERRAIN TYPES (7/14): the valley's edges.

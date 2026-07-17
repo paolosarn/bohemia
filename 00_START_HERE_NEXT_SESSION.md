@@ -160,6 +160,20 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
+POCKETS ARE IN THE ENGINE (7/17, same day as the art): bohemia_blockgen.js now
+places turn pockets at intersections per the researched Vegas anatomy: left
+pockets on the innermost lane(s) ending one cell before the crosswalk, DUAL at
+lanes>=3, TRIPLE at 4, right pockets on the curb lane at 3+, approach-side
+correct per direction. Markings ride as cell.mk in the certified vocabulary
+(pocket_line / turn_arrow_left / turn_arrow_right -> BOHEMIA_MARKING_BANK
+classes; arrows white, LINE COLOR LAW). centerTurn (TWLT, blessed 7/14) was
+already in the engine and stands untouched. LINE COLOR gate grew 6 pocket-law
+checks (24 total, green, 11,664 marked cells swept clean). ENGINE SYNC caught
+the graphics core's inlined blockgen copy going stale and it was re-inlined
+from canon, bundle sections rebuilt (blockgen + engine_graphics md5s). ALSO:
+WALL_PICKER_BATCH2 is published as an artifact for Paolo's thumbs (the marking-
+picker flow, proven 7/17). NEXT: a renderer pass maps cell.mk to bank tiles in
+the next slice bake (V12-class work, ONE-ALPHA/slice rules apply).
 MARKINGS APPROVED AND AT VOLUME (7/17): Paolo thumbed ALL 84 marking candidates
 UP in one chat session (verdict verbatim in records/BOHEMIA_MARKING_VERDICTS_
 7_17_26.txt, landed same turn). Both banks flipped APPROVED; volume unlocked
