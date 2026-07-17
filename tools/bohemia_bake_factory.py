@@ -244,17 +244,17 @@ def bake_intersection(lanes_ew, lanes_ns):
     # waits for Paolo's approval. DEAD state: act-1 grid default.
     sigbank = json.load(open('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt'))
 
-    def sig_pick(color, direction, face, arm_dir=None):
+    def sig_pick(color, direction, face, arm_dir=None, kind='intact'):
         # ARM LAW: 3-lane arterial -> long arm; dead (act-1); real e/w sprite;
         # FACE LAW: s/n = horizontal arm faces/backs; e/w = VERTICAL arm
         # (spans the EW road), arm_dir n up-screen / s down-screen
         for s in sigbank['signals']:
-            if (s['kind'] == 'intact' and s['state'] == 'dead' and s['arm'] == 'long'
+            if (s['kind'] == kind and s['state'] == 'dead' and s['arm'] == 'long'
                     and s['color'] == color and s['dir'] == direction
                     and s.get('face', 's') == face
                     and (arm_dir is None or s.get('arm_dir') == arm_dir)):
                 return s
-        fail('signal bank missing %s/%s/%s long dead intact' % (color, direction, face))
+        fail('signal bank missing %s/%s/%s long dead %s' % (color, direction, face, kind))
 
     c0, r0, c1, r1 = blk['meta']['box']
     cwn = 0
@@ -267,11 +267,15 @@ def bake_intersection(lanes_ew, lanes_ns):
     # (its lenses point north at the southbound cars beside it), E side
     # arms DOWN + lights east (eastbound arrives under it), S side arms
     # west + lenses south-visible, W side arms UP + lights west.
+    # HALF BROKEN, HALF GOOD (Paolo 7/18): two survivors, two wrecks —
+    # sixty years of desert take their toll unevenly
     corners = (
-        (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 'n')),          # N: backs
-        (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'e', 's')),   # E: arm down
-        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),        # S: faces
-        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'w', 'n')),            # W: arm up
+        (c0 - cwn, r0 - cwn - 1,
+         sig_pick('galv', 'e', 's', kind='dropped_heads')),            # N: heads on the floor
+        (c1 + cwn, r0 - cwn - 1,
+         sig_pick('bronze', 'w', 'w', 's', kind='fallen_arm')),        # E: span down at the base
+        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),        # S: intact, faces
+        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'w', 'n')),            # W: intact, arm up
     )
 
     # ONE POST PER CORNER (Paolo 7/18): where a signal mast stands, the
