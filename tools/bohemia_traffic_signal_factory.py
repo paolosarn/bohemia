@@ -471,6 +471,48 @@ def composite(a, piece, x0, y0):
     a[y0:y1, x0:x1][m] = sub[m]
 
 
+def scatter_debris(a, K, r, x0, x1, y0, y1, n_heads=2, n_pipes=3):
+    """v18 (Paolo: "broken street lights scattered around randomly on the
+    floor nearby"): a seeded debris field — pipe chunks with sheared ends,
+    dead heads thrown in random orientations, glass, stray hardware."""
+    for _ in range(n_pipes):
+        px = x0 + int(r() * max(1, x1 - x0 - 74))
+        py = y0 + int(r() * max(1, y1 - y0 - 14))
+        if r() < 0.5:
+            plen = 28 + int(r() * 44)
+            tilt = int(r() * 3) - 1
+            paint_cyl_h(a, K, r, px, min(x1, px + plen),
+                        lambda xx: py + tilt * ((xx - px) // 24), lambda xx: 6)
+            for _ in range(6):
+                for ex in (px + int(r() * 3), min(x1, px + plen) - 1 - int(r() * 3)):
+                    ey = py + int(r() * 6)
+                    if 0 <= ey < a.shape[0] and 0 <= ex < a.shape[1]:
+                        a[ey, ex] = 0
+        else:
+            plen = 24 + int(r() * 36)
+            paint_cyl_v(a, K, r, px + 3, py, min(a.shape[0] - 4, py + plen),
+                        lambda yy: 6)
+            for _ in range(6):
+                ey = py + int(r() * 4)
+                ex = px + int(r() * 6)
+                if 0 <= ey < a.shape[0] and 0 <= ex < a.shape[1]:
+                    a[ey, ex] = 0
+    for _ in range(n_heads):
+        hxp = x0 + int(r() * max(1, x1 - x0 - 74))
+        hyp = y0 + int(r() * max(1, y1 - y0 - 74))
+        rot = int(r() * 4)
+        temp = np.zeros((70, 46, 4), dtype=np.uint8)
+        draw_head(temp, K, 10, 6, 'dead', r)
+        piece = np.rot90(temp, rot).copy() if rot else temp
+        composite(a, piece, hxp, hyp)
+        for _ in range(8):
+            put(a, hxp + int(r() * 54), hyp + 28 + int(r() * 34),
+                (70, 18, 16) if r() < 0.5 else (66, 44, 12))
+    for _ in range(14):                       # stray bolts and rust flakes
+        put(a, x0 + int(r() * max(1, x1 - x0)), y0 + int(r() * max(1, y1 - y0)),
+            K['outline'] if r() < 0.5 else K['rust'][int(r() * 3) % 3])
+
+
 def draw_mast(a, K, r, pcx, y_off=0):
     """The standing mast: ellipse base stack, planted pole, cap, collars,
     rivets (v7 occlusion order). Shared by every signal orientation.
@@ -534,6 +576,10 @@ def draw_signal_vert(K, spec, seed):
     if kind == 'fallen_arm' and not up:
         # the fallen span lies from the BASE southward along the road
         pad_bot = max(pad_bot, int(arm_len * 0.85) + 24)
+    if kind == 'scattered':
+        # no standing arm: the debris field hugs the base instead
+        pad_top = 0
+        pad_bot = 150 if not up else 0
     H = CH + pad_top + pad_bot
     a = np.zeros((H, W, 4), dtype=np.uint8)
     M = draw_mast(a, K, r, pcx, y_off=pad_top)
@@ -547,7 +593,28 @@ def draw_signal_vert(K, spec, seed):
         return 7 - int(2 * t)
 
     n = spec['heads']
-    if kind == 'fallen_arm':
+    if kind == 'scattered':
+        # v18: sheared stub + a random debris field along the road east
+        # of the mast line (never over the shaft: occlusion stays honest)
+        paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
+        bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
+        stub = 24
+        s0, s1 = (junction_y - stub, junction_y) if up else (junction_y, junction_y + stub)
+        paint_cyl_v(a, K, r, ax, s0, s1, aw)
+        for _ in range(10):
+            by = (s0 + int(r() * 5)) if up else (s1 - 1 - int(r() * 5))
+            bx = ax - 3 + int(r() * 7)
+            if 0 <= by < H:
+                a[by, bx] = 0
+        base_row = pad_top + CH - 8
+        if up:
+            scatter_debris(a, K, r, pcx + 12, W - 6,
+                           max(6, base_row - 210), base_row, n_heads=2, n_pipes=2)
+        else:
+            scatter_debris(a, K, r, pcx + 12, W - 6,
+                           base_row - 50, min(H - 6, base_row + 140),
+                           n_heads=2, n_pipes=2)
+    elif kind == 'fallen_arm':
         # v16 (Paolo: "take it how it is and break it and add it to the
         # floor"): the vertical arm sheared at the junction — a jagged
         # stub remains, and the span lies on the ROAD beside its old
@@ -653,7 +720,7 @@ def draw_signal(K, spec, seed):
 
     arust = RustField(r, POLE_CX, arm_x1, arm_lvl - 4, junction_y + 6, k=4,
                       centers=[(POLE_CX + 14, junction_y - 10)])
-    if kind == 'fallen_arm':
+    if kind in ('fallen_arm', 'scattered'):
         stub_x1 = POLE_CX + 22
         paint_cyl_h(a, K, r, POLE_CX, stub_x1, arm_y, arm_h, rust=arust)
         for _ in range(10):                            # jagged shear at the break
@@ -738,6 +805,10 @@ def draw_signal(K, spec, seed):
             for _ in range(8):
                 put(a, hx - 4 + int(r() * 40), ground_y - 3 - int(r() * 5),
                     (70, 18, 16) if r() < 0.5 else (66, 44, 12))
+    elif kind == 'scattered':
+        # v18: no tidy span — the wreckage is strewn across the floor nearby
+        scatter_debris(a, K, r, POLE_CX + 26, min(W - 8, POLE_CX + 340),
+                       ground_y - 70, ground_y, n_heads=spec['heads'], n_pipes=3)
     elif kind == 'fallen_arm':
         # the broken span lies beside the base, one dead head still bolted on
         plen = int(spec['arm_cells'] * T * 0.6)
@@ -865,6 +936,20 @@ def main():
                                           'face': 'e', 'arm_dir': arm_dir,
                                           'head_facing': 1},
                              'long', 96500 + ci * 7919 + di * 449 + ki * 173))
+        # v18: SCATTERED debris variants — every seed strews the floor
+        # differently, so corners never repeat
+        for vi in range(3):
+            jobs.append(('h', color, {'arm_cells': 9.0, 'heads': 3,
+                                      'kind': 'scattered', 'state': 'dead',
+                                      'face': 's', 'variant': vi},
+                         'long', 97300 + ci * 7919 + vi * 613))
+        for di, arm_dir in enumerate(('n', 's')):
+            for vi in range(2):
+                jobs.append(('v', color, {'arm_cells': 9.0, 'heads': 2,
+                                          'kind': 'scattered', 'state': 'dead',
+                                          'face': 'e', 'arm_dir': arm_dir,
+                                          'head_facing': 1, 'variant': vi},
+                             'long', 98200 + ci * 7919 + di * 449 + vi * 613))
     for shape, color, spec, arm, seed in jobs:
         K = palette(color)
         if shape == 'v':
@@ -894,6 +979,8 @@ def main():
                      'b64': base64.b64encode(buf.getvalue()).decode()}
             if shape == 'v':
                 entry['arm_dir'] = spec['arm_dir']
+            if 'variant' in spec:
+                entry['variant'] = spec['variant']
             out['signals'].append(entry)
             n += 1
     json.dump(out, open(OUT, 'w'))

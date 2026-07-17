@@ -154,8 +154,15 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    road), and a NEW wreck kind dropped_heads — pole and arm stay UP,
    the lights themselves lie dead on the floor below their clamps, one
    tipped sideways, glass around them (horizontal + vertical, both
-   arm_dirs). 320 sprites; wrecks + non-approved classes still
-   UNJUDGED. Laws:
+   arm_dirs). Proof went HALF BROKEN HALF GOOD (N dropped_heads, E
+   fallen, S+W intact) — Paolo: "So good!!!! Awesome!" THEN v18
+   (Paolo: "broken street lights scattered around randomly on the
+   floor nearby"): new kind SCATTERED — sheared stub + a seeded debris
+   field: pipe chunks with torn ends at random angles, dead heads
+   thrown in random rotations, glass, stray bolts; 3 variants per
+   color horizontal + 2 per arm_dir vertical, every seed different so
+   corners never repeat. 348 sprites; wrecks + non-approved classes
+   still UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
