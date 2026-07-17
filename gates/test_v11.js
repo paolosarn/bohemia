@@ -82,5 +82,42 @@ if(lm&&am){
  ok(html.includes("LAMPS.forEach(l=>blocked.add(l.x+','+l.y));"),"lamp bases join the blocked set (OCCUPANCY LAW)");
  ok(LAMPS.every(l=>!taken.has(l.x+','+l.y)),"no lamp stacked on an occupied cell");
 }
+
+// PATROL LAW (7/17): owners walk what they light; NOBODY PATROLS THE DARK.
+// The slice ships a bake-time roster; this gate recomputes it from the real
+// modules and the two must agree exactly.
+// (string split so the sync scanner doesn't read this gate as a module carrier)
+ok(html.includes('const BOH_'+'PATROL='),"V11 carries BOH_PATROL verbatim (sync gate arbitrates the body)");
+const pmatch=html.match(/const PATROLS=(\[.*?\]);/s);
+ok(!!pmatch,"V11 carries the PATROLS roster payload");
+if(pmatch){
+ const PATROLS=JSON.parse(pmatch[1]);
+ const PT=require('../engine/bohemia_patrol.js');
+ const OM2=require('../engine/bohemia_overmap.js');
+ const PG2=require('../engine/bohemia_powergrid.js');
+ const pm2=PG2.powerMap(OM2.buildOvermap(12345),12345);
+ // anatomy table: (top, H, sidewalk-per-side, overmap cell)
+ const PBLOCKS=[[3,7,1,33,6],[12,7,1,34,6],[21,21,2,35,6],[44,19,1,36,6]];
+ let want=0;
+ for(const [top,H,sw,cx,cy] of PBLOCKS){
+  const grid=[];for(let y=0;y<H;y++){const side=(y<sw||y>=H-sw);
+   grid.push(Array.from({length:24},()=>({g:side?'side':'lane'})));}
+  want+=PT.patrolsFor({W:24,H,grid},[cx,cy],pm2,12345).length;
+ }
+ ok(PATROLS.length===want,"roster = exactly what the modules dictate ("+want+" on this dark street)");
+ ok(html.includes('/*PATROL-STEP*/'),"patrols advance on the player's step (I-MOVE-YOU-MOVE wiring)");
+ ok(html.includes('/*PATROL-OCC*/'),"patrol bodies join the occupancy check");
+ ok(html.includes('/*PATROL-DRAW*/'),"patrol render pass wired");
+}
+
+// INJECTION SAFETY: every script the factories touch must still parse.
+{
+ const bodies=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
+ ok(bodies.length>=4,"slice ships its script blocks");
+ let bad=0;
+ for(const b of bodies){ if(!b.trim())continue;
+  try{new Function(b);}catch(e){bad++;console.log("  parse error: "+e.message);} }
+ ok(bad===0,"every script block parses after injection");
+}
 console.log("PASS",pass,"FAIL",fail);
 process.exit(fail?1:0);

@@ -196,8 +196,132 @@ const BOH_SLICE=(function(){
 <label style="font-size:13px;font-weight:800">TIME OF DAY: <span id="tval">22:00</span> <button id="mode" style="float:right;margin-left:6px;font-size:12px;padding:4px 10px;border-radius:8px;border:2px solid #6a3fb5;background:#2a2a34;color:#e8e4da;font-weight:800">GAME TIME</button><button id="tauto" style="float:right;font-size:12px;padding:4px 10px;border-radius:8px;border:2px solid #3a3a44;background:#2a2a34;color:#e8e4da;font-weight:800">AUTO: ON</button></label>
 <input type="range" id="tod" min="0" max="1000" value="917" style="width:100%">
 </div>
-<div class="expl">The first multi-block city: four generated blocks stitched (2-lane w/ crosswalk, 2-lane, residential 1+1, 3-lane), two tappable doors, every fire lighting the whole frame through the engine's light-pass module (your philosophy law as reusable code, 5/5 tests). MOVEMENT LAW live: tap = step on the beat; HOLD a direction 2+ beats = RUN, 2 cells per beat. The view follows you. GAME TIME is the law here (I-MOVE-YOU-MOVE canon): the world is FROZEN until you step — every step you take, the survivors take their beat and the sun crawls its share of the day (WORLD CLOCK WALK LAW: each step = 1.9s of game time, 0.9s running; 128 steps = one city grid = 4 minutes; the whole valley = the researched 6h23m). THIS IS A REAL ADDRESS: you are walking canonical cells (33,6) suburb -> (34,6) suburb -> (35,6) commercial -> (36,6) arterial from seed 12345 — the same ground the finished game will generate.. Flames still flicker (cosmetic only, no world state). Tap GAME TIME to switch to FREE RUN for graphics-demo purposes. LAMPS LAW: lamp slots come from the block generator (x every 8, staggered sides, arterial poles taller), the power grid decides who lights up, and today the answer is nobody: this is act-1 dark. One slot (10,9) is skipped, its sidewalk cell is already occupied.</div>
-<script>
+<div class="expl">The first multi-block city: four generated blocks stitched (2-lane w/ crosswalk, 2-lane, residential 1+1, 3-lane), two tappable doors, every fire lighting the whole frame through the engine's light-pass module (your philosophy law as reusable code, 5/5 tests). MOVEMENT LAW live: tap = step on the beat; HOLD a direction 2+ beats = RUN, 2 cells per beat. The view follows you. GAME TIME is the law here (I-MOVE-YOU-MOVE canon): the world is FROZEN until you step — every step you take, the survivors take their beat and the sun crawls its share of the day (WORLD CLOCK WALK LAW: each step = 1.9s of game time, 0.9s running; 128 steps = one city grid = 4 minutes; the whole valley = the researched 6h23m). THIS IS A REAL ADDRESS: you are walking canonical cells (33,6) suburb -> (34,6) suburb -> (35,6) commercial -> (36,6) arterial from seed 12345 — the same ground the finished game will generate.. Flames still flicker (cosmetic only, no world state). Tap GAME TIME to switch to FREE RUN for graphics-demo purposes. LAMPS LAW: lamp slots come from the block generator (x every 8, staggered sides, arterial poles taller), the power grid decides who lights up, and today the answer is nobody: this is act-1 dark. One slot (10,9) is skipped, its sidewalk cell is already occupied. PATROL LAW wired: owners walk what they light, on your beat, one body per cell. The power grid rules every circuit here dead, so the roster is empty: an empty street IS the reading. Walk into owned light someday and somebody will be walking it.</div>
+<script>/*PATROL-MODULE: verbatim engine/bohemia_patrol.js, the sync gate arbitrates*/
+// BOHEMIA PATROL — owners patrol what they light (7/16/26)
+//
+// This module exists because of one locked line: LIGHT = TERRITORY.
+// If a live circuit is owned, the owner is not an abstraction on a map. Somebody
+// walks it. The patrol IS the ownership, made visible at street level.
+//
+// LAWS THIS OBEYS (all Paolo's, none new):
+//   CLUSTERED POWER LAW  — 12% of circuits alive, every living cluster owned.
+//                          Dead blocks are nobody's. Nobody patrols the dark.
+//   NETWORK EERILY PERFECT — Paolo's word. So NETWORK patrols never drift, never
+//                          pause, never vary their gap. The wrongness is that
+//                          they are too correct. Everyone else is human.
+//   120 BPM LAW          — patrol steps land on the grid tick, never between.
+//   I-MOVE-YOU-MOVE      — patrols advance on the player's step, not wall time.
+//   OCCUPANCY LAW        — one body per cell. A patrol waits rather than clips.
+//   SIDEWALK SANCTITY    — patrols walk the sidewalk rows. They are not props;
+//                          the whitelist governs objects, not people.
+const BOH_PATROL=(function(){
+
+  // Patrol styles per owner. These are read straight off the power law's own
+  // owner list; the BEHAVIOUR of each is the one design call and it is derived
+  // from Paolo's "NETWORK zones eerily perfect".
+  const STYLE={
+    network:    {count:2, pause:0.00, drift:0.00, reverse:false, gapExact:true,
+                 note:'eerily perfect: fixed gap, no pause, no drift, never turns early'},
+    faction:    {count:2, pause:0.10, drift:0.15, reverse:true,  gapExact:false,
+                 note:'armed and irregular: checks corners, doubles back'},
+    settlement: {count:1, pause:0.25, drift:0.25, reverse:true,  gapExact:false,
+                 note:'human: stops, loiters, wanders off pattern'},
+    solar_lone: {count:0, pause:0,    drift:0,    reverse:false, gapExact:false,
+                 note:'one survivor with a panel does not patrol. Nobody walks.'},
+  };
+
+  function rng(seed){let s=(seed>>>0)||1;return function(){
+    s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296;};}
+
+  // ---- ROUTE ---------------------------------------------------------------
+  // A patrol walks the block's sidewalk rows: up one side, down the other, and
+  // crosses at the block ENDS. A patrol that never closes its loop is a guard
+  // teleporting home every lap, and the eye catches that immediately.
+  //
+  // The crossing legs sit at x=0 and x=W-1 — the block boundaries, which is
+  // where the intersections are. Nobody jaywalks mid-block. That is the same
+  // reason CROSSWALKS ONLY AT INTERSECTIONS exists: the corner is where you
+  // cross, in Vegas and everywhere else.
+  function routeFor(block){
+    const H=block.H,W=block.W;
+    const rows=[];
+    for(let y=0;y<H;y++) if(block.grid[y][0].g==='side') rows.push(y);
+    if(!rows.length) return null;
+    const top=rows[0], bot=rows[rows.length-1];
+    const route=[];
+    for(let x=0;x<W;x++) route.push([x,top]);            // west -> east, top walk
+    if(bot!==top){
+      for(let y=top+1;y<bot;y++) route.push([W-1,y]);    // cross at the east end
+      for(let x=W-1;x>=0;x--) route.push([x,bot]);       // east -> west, bottom walk
+      for(let y=bot-1;y>top;y--) route.push([0,y]);      // cross back at the west end
+    }
+    return route;   // true closed loop: last cell is adjacent to first
+  }
+
+  // ---- PATROLS FOR A BLOCK -------------------------------------------------
+  // power.at(cell) decides everything. No circuit, no patrol. This is the whole
+  // point: you can read who owns a block by who is walking it, and you can read
+  // that from a rooftop before anyone sees you.
+  function patrolsFor(block, cell, power, seed){
+    if(!power||!cell) return [];
+    const st=power.at(cell[0],cell[1]);
+    if(!st.live||!st.owner) return [];          // the dark is nobody's
+    const style=STYLE[st.owner]||STYLE.settlement;
+    if(!style.count) return [];
+    const route=routeFor(block);
+    if(!route) return [];
+    // the two sidewalk legs are what a patrol is FOR; the crossing legs are
+    // transit. Recorded so a renderer can tell a walking guard from a crossing one.
+    const walkCells=route.filter(([x,y])=>block.grid[y][x].g==='side').length;
+    const r=rng((seed^(cell[0]*73856093)^(cell[1]*19349663))>>>0);
+    const out=[];
+    const gap=Math.floor(route.length/style.count);
+    for(let i=0;i<style.count;i++){
+      // NETWORK: exact gap, every time, forever. Everyone else starts wherever.
+      const at=style.gapExact ? i*gap
+             : (i*gap + Math.floor(r()*gap*0.6))%route.length;
+      out.push({owner:st.owner,style,route,i:at,dir:1,paused:0,walkCells,
+        id:'patrol_'+cell[0]+'_'+cell[1]+'_'+i});
+    }
+    return out;
+  }
+
+  // ---- STEP ----------------------------------------------------------------
+  // Called once per player step (I-MOVE-YOU-MOVE). Returns the cell it wants.
+  // The caller owns the occupancy check, because the caller owns the world.
+  function makeWalker(p,seed){
+    const r=rng(seed>>>0);
+    return {
+      p,
+      cell(){return p.route[p.i];},
+      // returns the NEXT cell it intends to enter, or null if it is standing still
+      intent(){
+        if(p.paused>0) return null;
+        const n=(p.i+p.dir+p.route.length)%p.route.length;
+        return p.route[n];
+      },
+      // commit(ok): ok=false means something was in the way. A patrol waits; it
+      // does not clip through and it does not teleport.
+      commit(ok){
+        if(p.paused>0){p.paused--;return;}
+        if(!ok){p.paused=1;return;}
+        p.i=(p.i+p.dir+p.route.length)%p.route.length;
+        if(p.style.gapExact) return;            // NETWORK: nothing below applies
+        if(r()<p.style.pause) p.paused=1+Math.floor(r()*2);
+        if(p.style.reverse&&r()<p.style.drift*0.2) p.dir*=-1;
+      },
+      facing(){
+        const a=p.route[p.i], b=p.route[(p.i+p.dir+p.route.length)%p.route.length];
+        return [Math.sign(b[0]-a[0]),Math.sign(b[1]-a[1])];
+      }
+    };
+  }
+
+  return {STYLE,routeFor,patrolsFor,makeWalker};
+})();
+if(typeof module!=='undefined')module.exports=BOH_PATROL;
+</script><script>
 const cv=document.getElementById('cv');cv.width=W*CELL;cv.height=H*CELL;
 const ctx=cv.getContext('2d');ctx.imageSmoothingEnabled=false;
 const dayImg=new Image();dayImg.src='data:image/jpeg;base64,'+DAY;
@@ -205,7 +329,7 @@ const fireImgs=FIRES.map(f=>f.frames.map(b=>{const i=new Image();i.src='data:ima
 const doorImgs=DOORS.map(d=>d.frames.map(b=>{const i=new Image();i.src='data:image/png;base64,'+b;return i;}));
 const blocked=new Set(OCC.map(o=>o[0]+','+o[1]));/*LAMPS-IMGS*/const lampImgs=LAMP_ART.map(b=>{const i=new Image();i.src='data:image/png;base64,'+b;return i;});LAMPS.forEach(l=>blocked.add(l.x+','+l.y));/*/LAMPS-IMGS*/
 const doorSt=DOORS.map(()=>({f:0,open:false,anim:0,last:0}));
-let guy={x:12,y:6,px:12,py:6,fx:1,fy:0};
+let guy={x:12,y:6,px:12,py:6,fx:1,fy:0};/*PATROL-PAYLOAD*/const PATROLS=[];const patrolWalkers=PATROLS.map((p,k)=>BOH_PATROL.makeWalker(p,4242+k*31));/*/PATROL-PAYLOAD*/
 const CLOCK=BOH_SLICE.makeClock(0);const TURN=BOH_SLICE.makeTurnClock();const WCLOCK=BOH_SLICE.makeWorldClock(0.917);let FREERUN=false;
 // OCCUPANCY LAW (extends the cars-never-overlap rule to bodies): one body per
 // cell, player included. Asked per-actor so nobody blocks themselves.
@@ -213,7 +337,7 @@ function actorAt(nx,ny,self){
  if(self!=='player'&&guy.x===nx&&guy.y===ny)return true;
  for(let i=0;i<NPCS.length;i++){const s=NPCS[i].mv.st;
   if(s.id===self)continue;
-  if(s.x===nx&&s.y===ny)return true;}
+  if(s.x===nx&&s.y===ny)return true;}/*PATROL-OCC*/ for(let i=0;i<patrolWalkers.length;i++){const w=patrolWalkers[i];if(w.p.id===self)continue;const c=w.cell();if(c[0]===nx&&c[1]===ny)return true;}/*/PATROL-OCC*/
  return false;
 }
 const WORLD={passable:(nx,ny,self)=>{
@@ -245,7 +369,7 @@ function tryStepAdv(dx,dy,running){const ok=tryStep(dx,dy);if(ok){markDirty();TU
  // I-MOVE-YOU-MOVE: NPCs resolve on the player's step, but they are STAMPED
  // with render time so lerpPos() still slides them. t=0 teleported them.
  const rt=performance.now()-start;
- NPCS.forEach(n=>n.brain.tick(rt,TURN,WORLD));}
+ NPCS.forEach(n=>n.brain.tick(rt,TURN,WORLD));/*PATROL-STEP*/patrolWalkers.forEach(w=>{const n=w.intent();w.commit(n?WORLD.passable(n[0],n[1],w.p.id):true);});/*/PATROL-STEP*/}
  return ok;}
 function tryStep(dx,dy){guy.fx=dx;guy.fy=dy;
  const nx=guy.x+dx,ny=guy.y+dy;
@@ -290,7 +414,7 @@ function frame(){
    sctx.drawImage(img,d.x*CELL,d.y*CELL,img.width*s,img.height*s);}
  });
 
-/*LAMPS-DRAW*/LAMPS.forEach(L=>{const img=lampImgs[L.i];if(img&&img.complete){const dh=L.h*CELL,dw=img.width*(dh/img.height);sctx.drawImage(img,L.x*CELL+CELL/2-dw/2,(L.y+1)*CELL-dh,dw,dh);}});/*/LAMPS-DRAW*/ NPCS.forEach(n=>{
+/*PATROL-DRAW*/const PATROL_TONE={settlement:'#8a7f6a',faction:'#6a5f56',network:'#9aa0a8'};patrolWalkers.forEach(w=>{const c=w.cell();const qx=c[0]*CELL,qy=c[1]*CELL;sctx.fillStyle=PATROL_TONE[w.p.owner]||'#777';sctx.beginPath();sctx.arc(qx+CELL/2,qy+CELL*0.28,CELL*0.17,0,7);sctx.fill();sctx.fillRect(qx+CELL*0.3,qy+CELL*0.42,CELL*0.4,CELL*0.42);});/*/PATROL-DRAW*//*LAMPS-DRAW*/LAMPS.forEach(L=>{const img=lampImgs[L.i];if(img&&img.complete){const dh=L.h*CELL,dw=img.width*(dh/img.height);sctx.drawImage(img,L.x*CELL+CELL/2-dw/2,(L.y+1)*CELL-dh,dw,dh);}});/*/LAMPS-DRAW*/ NPCS.forEach(n=>{
   if(FREERUN)n.brain.tick(t,CLOCK,WORLD);
   const [wx,wy]=n.mv.lerpPos(t);
   const qx=wx*CELL,qy=wy*CELL;

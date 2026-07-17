@@ -132,15 +132,26 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    BOHEMIA_DEMO_PROP_POOL, DARK variants bank 7_14 (pairs 0-4 usable).
    WARNING: V11 is W=24 H=63. Verify its own bake height before placing anything.
    The dead chat's LT0 patch used V8's H=62 on V9's H=60 bake. That file is dead.
-2. PATROL INTO THE SLICE: bohemia_patrol.js built and gated 28/28, not yet wired
-   into V11's walkable loop.
+2. PATROL INTO THE SLICE: DONE 7/17. tools/bohemia_patrol_v11.py wires it:
+   BOH_PATROL rides V11 verbatim (sync gate arbitrates), the roster is computed
+   at build time from the real overmap+powergrid+patrol modules exactly like
+   V10 computed its powerMap truth, walkers advance on the player's step and
+   join the occupancy check. THE ROSTER IS EMPTY AND THAT IS THE LAW: all four
+   cells are dead, nobody patrols the dark; the empty street is the reading.
+   The walkers/occupancy/render wiring is live code for the first lit slice.
+   Patrol owner COLORS are placeholder grays [PENDING Paolo] (purple stays the
+   Amalgamation's). Gate: test_v11.js now 28 checks incl. roster-must-match-
+   modules and a parse check on every script block after injection.
 3. HD TILE REPOS: DONE 7/17. Joined md5-exact, live in /banks, chunks deleted.
 4. FRESH QUEST MINING: ~72 whole-game teardowns still in the pool. Target >90
    individual quests at v2 before master compile; currently 54.
 
 ## NEXT ACTION
-PATROL INTO THE SLICE: bohemia_patrol.js is built and gated 28/28 but not yet
-wired into V11's walkable loop (IN FLIGHT item 2). Lamps are on (item 1, DONE).
+Slice track is clear: lamps ON (item 1), patrol WIRED (item 2), HD repos joined
+(item 3). Next up is item 4, FRESH QUEST MINING from the queue (target >90
+individual quests at v2, currently 54), plus the shelf waiting on Paolo:
+GitHub write access for the push, WALL_PICKER_BATCH2 thumbs (48 candidates),
+and the (16,44)/(2,44) lamp-pairing eye call.
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
 GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white
