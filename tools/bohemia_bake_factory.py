@@ -88,7 +88,27 @@ def pick(pools, weather, cls, r, rarity):
     return src[int(r() * len(src)) % len(src)]
 
 
+def engine_intersection(lanes_ew, lanes_ns, seed):
+    js = """
+const G=require('./engine/bohemia_blockgen.js');
+const b=G.generate('intersection',%d,24,{lanesEW:%d,lanesNS:%d});
+const grid=[];
+for(let y=0;y<b.H;y++){const row=[];
+ for(let x=0;x<24;x++){const c=b.grid[y][x];
+  row.push({g:c.g,o:c.o||null,mk:c.mk||null,props:(c.props||[]).map(p=>({p:p.p,hTiles:p.hTiles||1,state:p.state||null}))});}
+ grid.push(row);}
+console.log(JSON.stringify({H:b.H,meta:b.meta,grid}));
+""" % (seed, lanes_ew, lanes_ns)
+    r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
+    if r.returncode != 0:
+        fail('engine: ' + r.stderr[:300])
+    return json.loads(r.stdout)
+
+
 def main():
+    if sys.argv[1] == '--intersection':
+        bake_intersection(int(sys.argv[2]), int(sys.argv[3]))
+        return
     cx, cy = int(sys.argv[1]), int(sys.argv[2])
     blk = engine_block(cx, cy)
     H = blk['H']
@@ -167,6 +187,81 @@ img{width:100%%;image-rendering:pixelated;border:2px solid #332e26;border-radius
     print('baked (%d,%d): %dx%d cells, lanes=%s intersection=%s pockets L%s R%s -> %s + %s'
           % (cx, cy, 24, H, meta.get('lanes'), meta.get('intersection'),
              meta.get('pocketsLeft'), meta.get('pocketsRight'), png, hpath))
+
+
+
+
+def bake_intersection(lanes_ew, lanes_ns):
+    """The proper intersection, baked: orientation-aware tiles (NS = rot90 of
+    the EW-authored pools), the clean box, four crosswalks, BOLD candidate
+    markings (UNJUDGED: this proof IS the judging surface)."""
+    blk = engine_intersection(lanes_ew, lanes_ns, SEED)
+    H = blk['H']
+    P = json.load(open(POOLS))
+    pools, weather = P['pools'], P['weather_variants']
+    rarity = 1.0 - P['weather_rarity_law']['parent_share']
+    bold = json.load(open('banks/BOHEMIA_MARKING_BOLD_CANDIDATES_7_17_26.txt'))['candidates']
+    lampbank = json.load(open(LAMPS))['lamps'][:5]
+
+    # bold set orientation: *_v points WEST (EW road), *_h points NORTH (NS road)
+    MK = {  # mk -> (class, rotate_degrees)
+        'turn_arrow_left_w': ('bold_left_v', 0), 'turn_arrow_left_e': ('bold_left_v', 180),
+        'turn_arrow_left_n': ('bold_left_h', 0), 'turn_arrow_left_s': ('bold_left_h', 180),
+    }
+    out = Image.new('RGB', (24 * T, H * T))
+    for y in range(H):
+        for x in range(24):
+            c = blk['grid'][y][x]
+            r = rng((SEED ^ (x * 73856093) ^ (y * 19349663) ^ 0xA11CE) & 0xffffffff)
+            rot = 0
+            if c['mk']:
+                if c['mk'] in MK:
+                    cls, rot = MK[c['mk']]
+                elif c['mk'] == 'pocket_edge':
+                    cls = 'edge_h' if c['o'] == 'ew' else 'edge_v'
+                    # edge sits against the through lane: flip for the far side
+                    if c['o'] == 'ew' and y > blk['meta']['medRow']: rot = 180
+                    if c['o'] == 'ns' and x > blk['meta']['medCol']: rot = 180
+                else:
+                    fail('unknown mk %r' % c['mk'])
+                tile = img_of(bold[cls][int(r() * 6) % len(bold[cls])])
+            else:
+                base_cls = {'side': 'side', 'lane': 'street', 'box': 'street',
+                            'lane_div': 'lane_div', 'median': 'median',
+                            'crosswalk': 'cross'}.get(c['g'])
+                if base_cls is None:
+                    fail('no mapping for %r' % c['g'])
+                b64 = pick(pools, weather, base_cls, r, rarity)
+                tile = img_of(b64)
+                if c['o'] == 'ns' and c['g'] in ('lane_div', 'median', 'crosswalk'):
+                    rot = 90
+            if rot:
+                tile = tile.rotate(rot, expand=False)
+            out.paste(tile, (x * T, y * T))
+
+    outa = out.convert('RGBA')
+    for y in range(H):
+        for x in range(24):
+            for p in blk['grid'][y][x]['props']:
+                if p['p'] != 'street_lamp':
+                    continue
+                art = img_of(lampbank[(x * 7 + y) % len(lampbank)]['b64'], 'RGBA')
+                dh = p['hTiles'] * T
+                dw = round(art.width * dh / art.height)
+                art = art.resize((dw, dh), Image.NEAREST)
+                outa.alpha_composite(art, (x * T + T // 2 - dw // 2, (y + 1) * T - dh))
+    out = outa.convert('RGB')
+
+    a = np.asarray(out).astype(int)
+    purple = ((a[..., 2] > 100) & (a[..., 0] > 80) & (a[..., 1] < 70) &
+              (a[..., 2] - a[..., 1] > 50) & (a[..., 0] - a[..., 1] > 30)).sum()
+    if purple:
+        fail('PURPLE in the bake (%d px)' % purple)
+    png = 'slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png'
+    out.save(png)
+    m = blk['meta']
+    print('intersection baked: %dx%d, box=%s, crosswalks=%d, pockets X%s Y%s -> %s'
+          % (24, H, m['box'], m['crosswalks'], m['pocketLenX'], m['pocketLenY'], png))
 
 
 if __name__ == '__main__':

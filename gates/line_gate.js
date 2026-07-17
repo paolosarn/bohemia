@@ -98,5 +98,28 @@ ok("audit catches a line colour left on a crosswalk", G.auditLines(forged3).some
 
 ok("determinism survives", JSON.stringify(G.generate('street',7,24,{}))===JSON.stringify(G.generate('street',7,24,{})));
 ok("sidewalk sanctity untouched", G.auditSidewalks(G.generate('street',3,24,{})).length===0);
+
+// INTERSECTION LAW (7/17): the box stays clean, crosswalks guard all four
+// approaches, yellow lives only on medians, pockets touch only lanes.
+{
+ const b=G.generate('intersection',4242,24,{lanesEW:3,lanesNS:2});
+ const [c0,r0,c1,r1]=b.meta.box;
+ let boxDirty=0,yBad=0,cwE=0,cwN=0,mkBad=0,adjBad=0;
+ for(let y=0;y<b.H;y++)for(let x=0;x<24;x++){const c=b.grid[y][x];
+  if(y>=r0&&y<=r1&&x>=c0&&x<=c1){if(c.mk||c.color)boxDirty++;continue;}
+  if(c.color==='yellow_direction'&&c.g!=='median')yBad++;
+  if(c.g==='crosswalk'&&c.o==='ew')cwE++;
+  if(c.g==='crosswalk'&&c.o==='ns')cwN++;
+  if(c.mk&&c.g!=='lane')mkBad++;
+ }
+ ok('intersection: the box is clean (no paint, no markings inside)',boxDirty===0);
+ ok('intersection: yellow only on median cells',yBad===0);
+ ok('intersection: EW crosswalk columns guard both sides',cwE===2*(r1-r0+1));
+ ok('intersection: NS crosswalk rows guard both sides',cwN===2*(c1-c0+1));
+ ok('intersection: markings only on lane cells',mkBad===0);
+ ok('intersection: lanes flank the median on all four sides',
+    b.grid[b.meta.medRow-1][2].g==='lane'&&b.grid[b.meta.medRow+1][2].g==='lane'&&
+    b.grid[2][b.meta.medCol-1].g==='lane'&&b.grid[2][b.meta.medCol+1].g==='lane');
+}
 console.log(`\n=== LINE COLOR LAW GATE: ${p} passed, ${f} failed ===`);
 process.exit(f?1:0);

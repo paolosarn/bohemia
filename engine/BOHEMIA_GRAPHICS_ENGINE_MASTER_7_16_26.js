@@ -66,7 +66,7 @@ const CYBER_TELL={subdermal:[122,42,96],glint:[196,84,160]};
 
 ==============================================================================
 ### FILE: bohemia_blockgen.js
-### MD5: 25cc76bd672827e2b8314da59d539f3a  | 16.6 KB
+### MD5: fb29897e26361a70ffad487d5d137c50  | 21.2 KB
 ==============================================================================
 
 // BOHEMIA BLOCK GENERATOR — worldgen Phase B harness (7/14/26)
@@ -353,7 +353,80 @@ const BOH_BLOCKGEN=(function(){
     return {W,H,grid,meta:{type:'airfield',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
       pending:['runway/taxiway concrete art','marking art','derelict aircraft props']}};
   }
+  // INTERSECTION (7/17, Paolo: "is it time I can see a proper intersection").
+  // Two streets CROSSING, per the researched Vegas anatomy: the BOX stays
+  // clean (no lane paint, no median inside), crosswalks guard all four
+  // approaches at the box edges, medians stop at the crosswalks, and each
+  // approach's innermost lane carries a left-turn pocket ending one cell
+  // before its crosswalk (arrows face travel; the baker resolves rotation).
+  // Corners are sidewalk with lamps. Cell fields: g (role), o ('ew'|'ns'),
+  // dir, mk. LINE COLOR LAW: yellow only on median cells; pockets are white.
+  function genIntersection(seed,W,opts){
+    const o=opts||{};const r=rng(seed);
+    const lanesEW=o.lanesEW!=null?o.lanesEW:2, lanesNS=o.lanesNS!=null?o.lanesNS:2;
+    const bandEW=2*(lanesEW*LANE_W+(lanesEW-1))+1;  // lanes+divs both dirs + median
+    const bandNS=2*(lanesNS*LANE_W+(lanesNS-1))+1;
+    const cw=1;
+    const H=o.H||(bandEW+2*(cw+8));   // auto-size: room for crosswalks + pockets
+    const PLx=Math.max(0,Math.min(6,(((W-bandNS)/2)|0)-cw-2));   // EW approaches
+    const PLy=Math.max(0,Math.min(6,(((H-bandEW)/2)|0)-cw-2));   // NS approaches
+    const r0=(H-bandEW)>>1, r1=r0+bandEW-1;
+    const c0=(W-bandNS)>>1, c1=c0+bandNS-1;
+    const medRow=r0+(bandEW>>1), medCol=c0+(bandNS>>1);
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++)row.push({g:'side',o:null,dir:null,color:null,axis:null,mk:null,props:[]});
+      grid.push(row);}
+    const laneRowsEW=[],laneColsNS=[];
+    const halfEW=bandEW>>1, halfNS=bandNS>>1;
+    // side A counts up to the median; side B restarts AFTER it, so both sides
+    // put LANES against the median (the real anatomy; a div there was the bug)
+    const divAt=(i,half)=>{const l=i<half?i:i-half-1;return (l%(LANE_W+1))===LANE_W;};
+    for(let i=0;i<bandEW;i++){const y=r0+i;
+      if(y===medRow)continue;
+      const isDiv=divAt(i,halfEW);
+      for(let x=0;x<W;x++){const c=grid[y][x];c.o='ew';
+        c.g=isDiv?'lane_div':'lane';
+        c.dir=isDiv?null:(y<medRow?'A':'B');
+        if(isDiv){c.color='white_lane';c.axis='road';}}
+      if(!isDiv)laneRowsEW.push(y);}
+    for(let x=0;x<W;x++){const c=grid[medRow][x];c.o='ew';c.g='median';c.color='yellow_direction';c.axis='road';c.dir=null;}
+    for(let j=0;j<bandNS;j++){const x=c0+j;
+      if(x===medCol){for(let y=0;y<H;y++){const c=grid[y][x];if(c.g==='side'){c.o='ns';c.g='median';c.color='yellow_direction';c.axis='road';}}continue;}
+      const isDiv=divAt(j,halfNS);
+      for(let y=0;y<H;y++){const c=grid[y][x];
+        if(c.g!=='side')continue;         // EW band + box already claimed
+        c.o='ns';c.g=isDiv?'lane_div':'lane';
+        c.dir=isDiv?null:(x<medCol?'A':'B');
+        if(isDiv){c.color='white_lane';c.axis='road';}}
+      if(!isDiv)laneColsNS.push(x);}
+    // THE BOX: rows r0..r1 x cols c0..c1 -> clean asphalt, nothing painted
+    for(let y=r0;y<=r1;y++)for(let x=c0;x<=c1;x++){const c=grid[y][x];
+      c.g='box';c.o=null;c.dir=null;c.color=null;c.axis=null;c.mk=null;}
+    // CROSSWALKS at the four box edges (never inside the box)
+    for(let y=r0;y<=r1;y++){grid[y][c0-cw].g='crosswalk';grid[y][c0-cw].o='ew';grid[y][c0-cw].color=null;
+      grid[y][c1+cw].g='crosswalk';grid[y][c1+cw].o='ew';grid[y][c1+cw].color=null;}
+    for(let x=c0;x<=c1;x++){grid[r0-cw][x].g='crosswalk';grid[r0-cw][x].o='ns';grid[r0-cw][x].color=null;
+      grid[r1+cw][x].g='crosswalk';grid[r1+cw][x].o='ns';grid[r1+cw][x].color=null;}
+    // POCKETS: innermost lane per approach, ending one cell before its crosswalk
+    const innerA=medRow-1, innerB=medRow+1;   // EW inner lane rows
+    const innerL=medCol-1, innerR=medCol+1;   // NS inner lane cols
+    const mark=(cells,arrow)=>{cells.forEach(([x,y],i)=>{const c=grid[y][x];
+      if(c.g!=='lane')return;c.mk=(i%3===1)?arrow:'pocket_edge';});};
+    const west=[],east=[],north=[],south=[];
+    for(let k=0;k<PLx;k++){west.push([c0-cw-1-k,innerB]);east.push([c1+cw+1+k,innerA]);}
+    for(let k=0;k<PLy;k++){north.push([innerL,r0-cw-1-k]);south.push([innerR,r1+cw+1+k]);}
+    mark(west,'turn_arrow_left_e');mark(east,'turn_arrow_left_w');
+    mark(north,'turn_arrow_left_s');mark(south,'turn_arrow_left_n');
+    // corner lamps (LAMP HEIGHT LAW: majors get 4)
+    const lampH=(Math.max(lanesEW,lanesNS)>=3)?4:3;
+    for(const [ly,lx] of [[r0-cw-1,c0-cw-1],[r0-cw-1,c1+cw+1],[r1+cw+1,c0-cw-1],[r1+cw+1,c1+cw+1]]){
+      if(grid[ly]&&grid[ly][lx]&&grid[ly][lx].g==='side')placeProp(grid[ly][lx],{p:'street_lamp',hTiles:lampH,state:'dead'});}
+    return {type:'intersection',W,H,grid,meta:{lanesEW,lanesNS,box:[c0,r0,c1,r1],
+      crosswalks:4,pocketLenX:PLx,pocketLenY:PLy,medRow,medCol}};
+  }
   const RECIPES={
+    intersection:(seed,W,o)=>genIntersection(seed,W,o),
     street:(seed,W,o)=>{
       const b=genStreet(seed,W,o);
       // CENTER TURN LANE (7/14, pools blessed): opts.centerTurn converts the
@@ -427,7 +500,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 ==============================================================================
 ### FILE: bohemia_engine_graphics_7_14_26.js
-### MD5: acfd3305624d3a6c923cd8336aa4c058  | 42.4 KB
+### MD5: 7a387d58979e9fbc355fc9b2a0662e47  | 47.0 KB
 ==============================================================================
 
 // BOHEMIA GRAPHICS ENGINE BUNDLE (7/14/26) — one import for the absorption session.
@@ -910,7 +983,80 @@ const BOH_BLOCKGEN=(function(){
     return {W,H,grid,meta:{type:'airfield',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
       pending:['runway/taxiway concrete art','marking art','derelict aircraft props']}};
   }
+  // INTERSECTION (7/17, Paolo: "is it time I can see a proper intersection").
+  // Two streets CROSSING, per the researched Vegas anatomy: the BOX stays
+  // clean (no lane paint, no median inside), crosswalks guard all four
+  // approaches at the box edges, medians stop at the crosswalks, and each
+  // approach's innermost lane carries a left-turn pocket ending one cell
+  // before its crosswalk (arrows face travel; the baker resolves rotation).
+  // Corners are sidewalk with lamps. Cell fields: g (role), o ('ew'|'ns'),
+  // dir, mk. LINE COLOR LAW: yellow only on median cells; pockets are white.
+  function genIntersection(seed,W,opts){
+    const o=opts||{};const r=rng(seed);
+    const lanesEW=o.lanesEW!=null?o.lanesEW:2, lanesNS=o.lanesNS!=null?o.lanesNS:2;
+    const bandEW=2*(lanesEW*LANE_W+(lanesEW-1))+1;  // lanes+divs both dirs + median
+    const bandNS=2*(lanesNS*LANE_W+(lanesNS-1))+1;
+    const cw=1;
+    const H=o.H||(bandEW+2*(cw+8));   // auto-size: room for crosswalks + pockets
+    const PLx=Math.max(0,Math.min(6,(((W-bandNS)/2)|0)-cw-2));   // EW approaches
+    const PLy=Math.max(0,Math.min(6,(((H-bandEW)/2)|0)-cw-2));   // NS approaches
+    const r0=(H-bandEW)>>1, r1=r0+bandEW-1;
+    const c0=(W-bandNS)>>1, c1=c0+bandNS-1;
+    const medRow=r0+(bandEW>>1), medCol=c0+(bandNS>>1);
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++)row.push({g:'side',o:null,dir:null,color:null,axis:null,mk:null,props:[]});
+      grid.push(row);}
+    const laneRowsEW=[],laneColsNS=[];
+    const halfEW=bandEW>>1, halfNS=bandNS>>1;
+    // side A counts up to the median; side B restarts AFTER it, so both sides
+    // put LANES against the median (the real anatomy; a div there was the bug)
+    const divAt=(i,half)=>{const l=i<half?i:i-half-1;return (l%(LANE_W+1))===LANE_W;};
+    for(let i=0;i<bandEW;i++){const y=r0+i;
+      if(y===medRow)continue;
+      const isDiv=divAt(i,halfEW);
+      for(let x=0;x<W;x++){const c=grid[y][x];c.o='ew';
+        c.g=isDiv?'lane_div':'lane';
+        c.dir=isDiv?null:(y<medRow?'A':'B');
+        if(isDiv){c.color='white_lane';c.axis='road';}}
+      if(!isDiv)laneRowsEW.push(y);}
+    for(let x=0;x<W;x++){const c=grid[medRow][x];c.o='ew';c.g='median';c.color='yellow_direction';c.axis='road';c.dir=null;}
+    for(let j=0;j<bandNS;j++){const x=c0+j;
+      if(x===medCol){for(let y=0;y<H;y++){const c=grid[y][x];if(c.g==='side'){c.o='ns';c.g='median';c.color='yellow_direction';c.axis='road';}}continue;}
+      const isDiv=divAt(j,halfNS);
+      for(let y=0;y<H;y++){const c=grid[y][x];
+        if(c.g!=='side')continue;         // EW band + box already claimed
+        c.o='ns';c.g=isDiv?'lane_div':'lane';
+        c.dir=isDiv?null:(x<medCol?'A':'B');
+        if(isDiv){c.color='white_lane';c.axis='road';}}
+      if(!isDiv)laneColsNS.push(x);}
+    // THE BOX: rows r0..r1 x cols c0..c1 -> clean asphalt, nothing painted
+    for(let y=r0;y<=r1;y++)for(let x=c0;x<=c1;x++){const c=grid[y][x];
+      c.g='box';c.o=null;c.dir=null;c.color=null;c.axis=null;c.mk=null;}
+    // CROSSWALKS at the four box edges (never inside the box)
+    for(let y=r0;y<=r1;y++){grid[y][c0-cw].g='crosswalk';grid[y][c0-cw].o='ew';grid[y][c0-cw].color=null;
+      grid[y][c1+cw].g='crosswalk';grid[y][c1+cw].o='ew';grid[y][c1+cw].color=null;}
+    for(let x=c0;x<=c1;x++){grid[r0-cw][x].g='crosswalk';grid[r0-cw][x].o='ns';grid[r0-cw][x].color=null;
+      grid[r1+cw][x].g='crosswalk';grid[r1+cw][x].o='ns';grid[r1+cw][x].color=null;}
+    // POCKETS: innermost lane per approach, ending one cell before its crosswalk
+    const innerA=medRow-1, innerB=medRow+1;   // EW inner lane rows
+    const innerL=medCol-1, innerR=medCol+1;   // NS inner lane cols
+    const mark=(cells,arrow)=>{cells.forEach(([x,y],i)=>{const c=grid[y][x];
+      if(c.g!=='lane')return;c.mk=(i%3===1)?arrow:'pocket_edge';});};
+    const west=[],east=[],north=[],south=[];
+    for(let k=0;k<PLx;k++){west.push([c0-cw-1-k,innerB]);east.push([c1+cw+1+k,innerA]);}
+    for(let k=0;k<PLy;k++){north.push([innerL,r0-cw-1-k]);south.push([innerR,r1+cw+1+k]);}
+    mark(west,'turn_arrow_left_e');mark(east,'turn_arrow_left_w');
+    mark(north,'turn_arrow_left_s');mark(south,'turn_arrow_left_n');
+    // corner lamps (LAMP HEIGHT LAW: majors get 4)
+    const lampH=(Math.max(lanesEW,lanesNS)>=3)?4:3;
+    for(const [ly,lx] of [[r0-cw-1,c0-cw-1],[r0-cw-1,c1+cw+1],[r1+cw+1,c0-cw-1],[r1+cw+1,c1+cw+1]]){
+      if(grid[ly]&&grid[ly][lx]&&grid[ly][lx].g==='side')placeProp(grid[ly][lx],{p:'street_lamp',hTiles:lampH,state:'dead'});}
+    return {type:'intersection',W,H,grid,meta:{lanesEW,lanesNS,box:[c0,r0,c1,r1],
+      crosswalks:4,pocketLenX:PLx,pocketLenY:PLy,medRow,medCol}};
+  }
   const RECIPES={
+    intersection:(seed,W,o)=>genIntersection(seed,W,o),
     street:(seed,W,o)=>{
       const b=genStreet(seed,W,o);
       // CENTER TURN LANE (7/14, pools blessed): opts.centerTurn converts the
@@ -949,8 +1095,6 @@ const BOH_BLOCKGEN=(function(){
   return {generate,LANE_W,placeProp,sidewalkLegal,auditSidewalks,auditLines,
     SIDEWALK_LEGAL,SIDEWALK_PROPOSED,types:Object.keys(RECIPES)};
 })();
-
-
 
 // ===== bohemia_overmap_bridge.js =====
 // BOHEMIA OVERMAP->BLOCK BRIDGE (7/14/26)

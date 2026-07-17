@@ -33,6 +33,21 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   and freshness-gated.
 
 ## IN FLIGHT (resume here)
+0. THE INTERSECTION EXISTS (7/17 evening, Paolo asked, same turn): blockgen
+   type 'intersection' — two roads crossing, clean box (no paint inside, per
+   real anatomy), four crosswalks at the box edges, medians stopping at the
+   crossings, left-turn pockets feeding every approach, corner lamps. LINE
+   COLOR gate grew 6 intersection checks (30 total). A real anatomy bug was
+   caught mid-build (B-side lanes started with a divider against the median;
+   fixed half-aware). The graphics core's inlined blockgen re-inlined from
+   canon AGAIN (second time today — the sync gate keeps earning). Baked proof:
+   slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png. ALSO: the v1 arrows were
+   ruled illegible at phone zoom (Paolo: "wtf is the purpose of these lines")
+   — BOLD marking candidates cooked (banks/BOHEMIA_MARKING_BOLD_CANDIDATES_
+   7_17_26.txt, UNJUDGED: 5px shafts, solid tips, edge-positioned pocket
+   lines); the intersection proof renders them and IS their judging surface.
+   If Paolo blesses the proof, bold goes through the verdict->volume flow and
+   the v1 confetti arrows get graveyarded FOR ARROWS (per-class rule).
 1. V12-class bake: THE BAKE FACTORY EXISTS (7/17, tools/bohemia_bake_factory.py
    — rebuilt from the harmonized pools' data-laws: 88/12 weather rarity, family
    edge harmonization, the APPROVED marking bank for native cell.mk, dark lamps).
