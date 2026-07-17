@@ -143,13 +143,20 @@ largest unblocked item in IN FLIGHT.
 - STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
   pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
   garment art / currency logos.
-- ANIMATION, THE SECOND DEATH (7/17, UNJUDGED): 'headshot-2' THE CRUMPLE now
-  lives beside 'headshot' THE TOPPLE. v1 is force arriving, v2 is force
-  leaving (knees buckle, body drops its own axis, settles along the knock).
-  All locked ragdoll laws run untouched for both; machine-verified on all 8
-  facings inside v1's envelope; both fire in combat deterministically per
-  facing+knock. Full record: records/BOHEMIA_ANIM_DEATHS_7_17_26.txt. Paolo
-  judges in the ANIMATION tab ('headshot-2' button, KNOCK selector works).
+- ANIMATION, THE SECOND DEATH (7/17, UNJUDGED, now v3): 'headshot-2' THE
+  CRUMPLE beside 'headshot' THE TOPPLE (v1, physics, untouched). Paolo rejected
+  the physics crumple ("jumping around, not falling fast enough, unnatural,
+  care about how the skeleton works"). Measured cause: the Verlet sim's stacked
+  laws fight -> 17-25px single-frame joint POPS. REBUILT KEYFRAMED per Paolo's
+  own 7/2 law: forward-kinematics angle interpolation (smooth by construction,
+  no pops), follow-through timeline (legs buckle -> mass drops -> arms lag then
+  follow -> hold), side-on corpse from rig rest lengths so it reads on every
+  facing, fixed frame so the body visibly drops (head falls 33px). Verified all
+  8 facings x 60 frames: worst jump 3.6px (was 25). LESSON BANKED: verify
+  animation by WATCHING continuous motion (clock-driven render sheets), never
+  static frame samples -- static hid the jitter twice. Record:
+  records/BOHEMIA_ANIM_DEATHS_7_17_26.txt. Open: face-up (FACE LAW) vs Paolo's
+  "stomach" (needs a face-law exception). Judge in ANIMATION tab, 'headshot-2'.
 - MUSIC (verdict pass 7/17 PROCESSED; gate #17 gates/music_gate.js guards it
   all): CANON now: THE CANCELLED MAN, THE WIND LEARNS WORDS, THE PIT BOSS IS
   GONE (Paolo loves it; added to the OVERWORLD playlist, now six, his verbatim
