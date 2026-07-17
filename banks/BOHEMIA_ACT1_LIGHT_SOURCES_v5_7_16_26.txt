@@ -1,0 +1,872 @@
+{
+ "version": "BOHEMIA_ACT1_LIGHT_SOURCES_v5",
+ "built": "2026-07-16",
+ "note": "v5: RESOLVED against locked law by bohemia_light_registry.js. GRID QUESTION IS ANSWERED and no longer pending: DARK LAMP CANON (7/14 MEGA) makes dark the act-1 default state and the lit sprite the powered state; CLUSTERED POWER LAW (~12pct of feeder circuits alive, owned, never alternating) decides which circuits are live. So electric is never a per-sprite yes/no. type electric_PENDING is retired: every electric row is default_state=dark, powered_by=circuit. 16 corrections applied, all of them the old file disagreeing with a law it already quoted: unlit fuel emitter stripped (firewood stack), road flare reclassed electric->fire (combustion is not on the grid), flat r=12 stamp replaced by the meter-grounded height law per pole family, item lights 4->3. Emitters are only ever produced by BOH_LIGHTREG.resolve(). || OPEN FLAGS FOR PAOLO: (1) i_survival_flashlight_36 is typed fire with campfire color 255,150,60 and 0.22 flame flicker \u2014 a battery torch is not a flame; (2) p_light_siren_red_00 / p_light_siren_blue_01 / floodlight / strobe all share 255,120,60, so the blue siren emits orange. Both are color calls, held for Paolo.",
+ "counts": 47,
+ "radius_classes": {
+  "residential_lamp": 8,
+  "arterial_lamp": 12,
+  "highway_mast": 15,
+  "fire": 4,
+  "item_light": 3
+ },
+ "ambient_night": [
+  2.42,
+  2.64,
+  3.52
+ ],
+ "corrections_applied": [
+  {
+   "source": "i_survival_lantern_24",
+   "fix": "radius 4 -> 3 (class item_light, height law)"
+  },
+  {
+   "source": "i_survival_campstove_25",
+   "fix": "radius 4 -> 3 (class item_light, height law)"
+  },
+  {
+   "source": "i_survival_flashlight_36",
+   "fix": "radius 4 -> 3 (class item_light, height law)"
+  },
+  {
+   "source": "p_camp_firewood_stack_21",
+   "fix": "UNLIT FUEL NO FLICKER: emitter stripped, becomes fuel awaiting ignition"
+  },
+  {
+   "source": "p_street_ped_signal_02",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_street_lamp_cane_post_03",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_street_traffic_light_tall_16",
+   "fix": "radius 12 -> 15 (class highway_mast, height law)"
+  },
+  {
+   "source": "p_lamp_cane_lit_00",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_lamp_cane_lit_01",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_lamp_post_lit_02",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_lamp_cane_lit_03",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_lamp_cane_lit_04",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_lamp_cane_lit_06",
+   "fix": "radius 12 -> 8 (class residential_lamp, height law)"
+  },
+  {
+   "source": "p_light_floodlight_02",
+   "fix": "radius 5 -> 12 (class arterial_lamp, height law)"
+  },
+  {
+   "source": "p_light_flare_road_05",
+   "fix": "road flare is pyrotechnic combustion, not grid \u2014 reclassed electric -> fire"
+  },
+  {
+   "source": "p_light_flare_road_05",
+   "fix": "radius 5 -> 4 (class fire, height law)"
+  }
+ ],
+ "open_flags": [
+  {
+   "source": "i_survival_flashlight_36",
+   "issue": "typed fire, campfire color, flame flicker. battery torch is not combustion.",
+   "status": "PENDING Paolo"
+  },
+  {
+   "source": "p_light_siren_blue_01",
+   "issue": "blue siren emits 255,120,60 orange. placeholder color shared across siren/flood/strobe.",
+   "status": "PENDING Paolo"
+  }
+ ],
+ "sources": [
+  {
+   "source": "i_survival_lantern_24",
+   "pack": "11. Survival props",
+   "idx": 24,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 3,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "item_light"
+  },
+  {
+   "source": "i_survival_campstove_25",
+   "pack": "11. Survival props",
+   "idx": 25,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 3,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "item_light"
+  },
+  {
+   "source": "i_survival_flashlight_36",
+   "pack": "11. Survival props",
+   "idx": 36,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 3,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "item_light"
+  },
+  {
+   "source": "p_camp_cookfire_tripod_14",
+   "pack": "14. Camp and tents",
+   "idx": 14,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_camp_campfire_15",
+   "pack": "14. Camp and tents",
+   "idx": 15,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_camp_cookfire_pot_16",
+   "pack": "14. Camp and tents",
+   "idx": 16,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_camp_cookfire_spit_17",
+   "pack": "14. Camp and tents",
+   "idx": 17,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_camp_campfire_small_18",
+   "pack": "14. Camp and tents",
+   "idx": 18,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_camp_firewood_stack_21",
+   "pack": "14. Camp and tents",
+   "idx": 21,
+   "type": "fuel",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 0,
+   "flicker_amp": 0,
+   "anim_clip": null,
+   "sfx": "fire_crackle",
+   "lights_when": "ignited"
+  },
+  {
+   "source": "p_street_traffic_light_01",
+   "pack": "15. Street props",
+   "idx": 1,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 12,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "arterial_lamp"
+  },
+  {
+   "source": "p_street_ped_signal_02",
+   "pack": "15. Street props",
+   "idx": 2,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_street_lamp_cane_post_03",
+   "pack": "15. Street props",
+   "idx": 3,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_street_lamp_curved_04",
+   "pack": "15. Street props",
+   "idx": 4,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 12,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "arterial_lamp"
+  },
+  {
+   "source": "p_street_traffic_light_08",
+   "pack": "17. Warning Signs and road props",
+   "idx": 8,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 12,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "arterial_lamp"
+  },
+  {
+   "source": "p_street_traffic_light_tall_16",
+   "pack": "17. Warning Signs and road props",
+   "idx": 16,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 15,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "highway_mast"
+  },
+  {
+   "source": "p_lamp_cane_lit_00",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 0,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_lamp_cane_lit_01",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 1,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_lamp_post_lit_02",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 2,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_lamp_cane_lit_03",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 3,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_lamp_cane_lit_04",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 4,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_lamp_double_05",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 5,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 12,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "arterial_lamp"
+  },
+  {
+   "source": "p_lamp_cane_lit_06",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 6,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 8,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "residential_lamp"
+  },
+  {
+   "source": "p_lantern_hanging_12",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 12,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_12",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_lantern_tall_13",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 13,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_13",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_beacon_amber_16",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 16,
+   "type": "beacon",
+   "emit_color": [
+    255,
+    180,
+    40
+   ],
+   "radius_cells": 2,
+   "flicker_amp": 0.5,
+   "anim_clip": "fire_16",
+   "sfx": null
+  },
+  {
+   "source": "p_beacon_red_17",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 17,
+   "type": "beacon",
+   "emit_color": [
+    255,
+    60,
+    40
+   ],
+   "radius_cells": 2,
+   "flicker_amp": 0.5,
+   "anim_clip": "fire_17",
+   "sfx": null
+  },
+  {
+   "source": "p_lantern_hanging_19",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 19,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_19",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_lantern_caged_21",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 21,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_21",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_spotlight_tripod_23",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 23,
+   "type": "electric",
+   "emit_color": [
+    235,
+    225,
+    180
+   ],
+   "radius_cells": 12,
+   "flicker_amp": 0.03,
+   "anim_clip": null,
+   "sfx": "electric_hum",
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "arterial_lamp"
+  },
+  {
+   "source": "p_firebarrel_24",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 24,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_24",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_skull_25",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 25,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_25",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_26",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 26,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_26",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_radiation_27",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 27,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_27",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firecage_brazier_28",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 28,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_28",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_29",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 29,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_29",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_rad_30",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 30,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_30",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_31",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 31,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_31",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_striped_32",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 32,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_32",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firecage_33",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 33,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_33",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_34",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 34,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_34",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firebarrel_skull_35",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 35,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_35",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_firecrate_36",
+   "pack": "18. Light sources and fire barrels",
+   "idx": 36,
+   "type": "fire",
+   "emit_color": [
+    255,
+    150,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.22,
+   "anim_clip": "fire_36",
+   "sfx": "fire_crackle",
+   "radius_class": "fire"
+  },
+  {
+   "source": "p_light_siren_red_00",
+   "pack": "18. Lights and emergency props",
+   "idx": 0,
+   "type": "electric",
+   "emit_color": [
+    255,
+    120,
+    60
+   ],
+   "radius_cells": 5,
+   "flicker_amp": 0.03,
+   "default_state": "dark",
+   "powered_by": "circuit"
+  },
+  {
+   "source": "p_light_siren_blue_01",
+   "pack": "18. Lights and emergency props",
+   "idx": 1,
+   "type": "electric",
+   "emit_color": [
+    255,
+    120,
+    60
+   ],
+   "radius_cells": 5,
+   "flicker_amp": 0.03,
+   "default_state": "dark",
+   "powered_by": "circuit"
+  },
+  {
+   "source": "p_light_floodlight_02",
+   "pack": "18. Lights and emergency props",
+   "idx": 2,
+   "type": "electric",
+   "emit_color": [
+    255,
+    120,
+    60
+   ],
+   "radius_cells": 12,
+   "flicker_amp": 0.03,
+   "default_state": "dark",
+   "powered_by": "circuit",
+   "radius_class": "arterial_lamp"
+  },
+  {
+   "source": "p_light_warning_strobe_03",
+   "pack": "18. Lights and emergency props",
+   "idx": 3,
+   "type": "electric",
+   "emit_color": [
+    255,
+    120,
+    60
+   ],
+   "radius_cells": 5,
+   "flicker_amp": 0.03,
+   "default_state": "dark",
+   "powered_by": "circuit"
+  },
+  {
+   "source": "p_light_flare_road_05",
+   "pack": "18. Lights and emergency props",
+   "idx": 5,
+   "type": "fire",
+   "emit_color": [
+    255,
+    120,
+    60
+   ],
+   "radius_cells": 4,
+   "flicker_amp": 0.03,
+   "note": "act-1 grid ruling pending; REAL lamp sprite family (lit heads \u2014 act-1 dark state needs unlit variant or head-dim overlay)",
+   "radius_class": "fire"
+  }
+ ]
+}

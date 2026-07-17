@@ -1,0 +1,9 @@
+{
+ "version": "V7_VERDICTS",
+ "date": "2026-07-14",
+ "items": {
+  "V7-0": "UP",
+  "V7-1": "UP | push wash deeper"
+ },
+ "action": "second wash pass 0.40 relaxed thresholds applied to all marking pools + variants"
+}

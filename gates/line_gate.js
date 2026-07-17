@@ -1,0 +1,64 @@
+const G=require('../engine/bohemia_blockgen.js');
+let p=0,f=0; const ok=(n,c)=>{c?p++:(f++,console.log("FAIL "+n));};
+
+let blocks=0,bad=0,yellow=0,white=0,cross=0;
+for(let seed=0;seed<500;seed++){
+  for(const lanes of [1,2,3,4]){
+    const b=G.generate('street',seed,24,{lanes,intersection:seed%3===0});
+    blocks++;
+    const v=G.auditLines(b);
+    bad+=v.length;
+    if(v.length&&bad<=3)console.log("  violation seed",seed,"lanes",lanes,JSON.stringify(v[0]));
+    b.grid.forEach(row=>row.forEach(c=>{
+      if(c.color==='yellow_direction')yellow++;
+      if(c.color==='white_lane')white++;
+      if(c.g==='crosswalk')cross++;}));
+  }
+}
+console.log(`  swept ${blocks} street blocks: ${bad} line violations | yellow cells ${yellow} | white cells ${white} | crosswalk cells ${cross}`);
+ok("zero line-color violations across 500 seeds x 4 lane counts", bad===0);
+ok("yellow actually appears", yellow>0);
+ok("white actually appears", white>0);
+ok("crosswalks actually appear", cross>0);
+
+// the law, checked one claim at a time
+const b=G.generate('street',11,24,{lanes:3,median:1,intersection:true});
+const rows=b.grid.map(r=>r[0]);
+const med=rows.findIndex(c=>c.g==='median');
+ok("median exists", med>0);
+ok("median is yellow (separates direction)", rows[med].color==='yellow_direction');
+const upDir=(()=>{for(let i=med-1;i>=0;i--)if(rows[i].g==='lane')return rows[i].dir;})();
+const dnDir=(()=>{for(let i=med+1;i<rows.length;i++)if(rows[i].g==='lane')return rows[i].dir;})();
+ok("traffic really does oppose across the median", upDir&&dnDir&&upDir!==dnDir);
+const div=rows.findIndex(c=>c.g==='lane_div');
+ok("lane divider is white (same direction)", rows[div].color==='white_lane');
+const dUp=(()=>{for(let i=div-1;i>=0;i--)if(rows[i].g==='lane')return rows[i].dir;})();
+const dDn=(()=>{for(let i=div+1;i<rows.length;i++)if(rows[i].g==='lane')return rows[i].dir;})();
+ok("lanes either side of a white divider really do agree", dUp===dDn);
+ok("every line cell declares its axis", rows.filter(c=>c.g==='lane_div'||c.g==='median').every(c=>c.axis==='EW'));
+
+// rule 3: a crosswalk is perpendicular by definition
+const cw=b.grid.flat().filter(c=>c.g==='crosswalk');
+ok("crosswalks exist in this block", cw.length>0);
+ok("no crosswalk keeps an inherited with-axis line colour", cw.every(c=>c.color===null));
+ok("crosswalk axis is perpendicular to the road", cw.every(c=>c.axis==='NS'));
+
+// a yellow line must NEVER sit between same-direction lanes — forge one and catch it
+const forged=G.generate('street',11,24,{lanes:3,median:1});
+const dv=forged.grid.findIndex(r=>r[0].g==='lane_div');
+forged.grid[dv].forEach(c=>c.color='yellow_direction');
+ok("audit catches yellow forged between same-direction lanes", G.auditLines(forged).some(v=>/law says white/.test(v.why)));
+// and white must never sit between opposing lanes
+const forged2=G.generate('street',11,24,{lanes:3,median:1});
+const mv=forged2.grid.findIndex(r=>r[0].g==='median');
+forged2.grid[mv].forEach(c=>c.color='white_lane');
+ok("audit catches white forged between opposing lanes", G.auditLines(forged2).some(v=>/law says yellow/.test(v.why)));
+// and a stale line on a crosswalk
+const forged3=G.generate('street',11,24,{lanes:3,intersection:true});
+forged3.grid.flat().filter(c=>c.g==='crosswalk')[0].color='white_lane';
+ok("audit catches a line colour left on a crosswalk", G.auditLines(forged3).some(v=>/crosswalk carries/.test(v.why)));
+
+ok("determinism survives", JSON.stringify(G.generate('street',7,24,{}))===JSON.stringify(G.generate('street',7,24,{})));
+ok("sidewalk sanctity untouched", G.auditSidewalks(G.generate('street',3,24,{})).length===0);
+console.log(`\n=== LINE COLOR LAW GATE: ${p} passed, ${f} failed ===`);
+process.exit(f?1:0);

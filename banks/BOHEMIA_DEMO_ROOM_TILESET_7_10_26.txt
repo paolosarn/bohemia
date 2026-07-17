@@ -1,0 +1,19 @@
+BOHEMIA DEMO ROOM TILESET (7/10/26)
+exported 2026-07-11T00:20:47.419594+00:00
+purpose: the minimal harmonized tileset for the combat + light-movement demo stage
+a 10x7 top-down room: border WALL, one DOOR gap bottom-center, mid-tone floor inside
+all pointers reference HD masters (BOHEMIA_HD_TILE_REPO_part1-4)
+============================================================
+FLOOR (4 tiles, one cohesive surface):
+  BOHEMIA_HD_TILE_REPO_part2.txt | 1. Ground Tiles | idx=23 | 1x1
+  BOHEMIA_HD_TILE_REPO_part3.txt | 1. Cracked street tiles | idx=15 | 1x1
+  BOHEMIA_HD_TILE_REPO_part2.txt | 1. Ground Tiles | idx=9 | 1x1
+  BOHEMIA_HD_TILE_REPO_part3.txt | Wall and floor details (3) | idx=25 | 1x1
+WALL:
+  BOHEMIA_HD_TILE_REPO_part2.txt | Wall tiles (1) | idx=16 | 1x2
+DOOR:
+  BOHEMIA_HD_TILE_REPO_part3.txt | 4. Doors and entrances | idx=0 | 1x2
+
+NEXT: render bridge loads these 6 pointers, draws the 10x7 grid,
+drop rig at center, wire 120bpm grid-step movement, drop one enemy for Dead Eye Dial.
+NOTE: floor/wall/door were auto-picked for tonal cohesion. Paolo has final say on the look.

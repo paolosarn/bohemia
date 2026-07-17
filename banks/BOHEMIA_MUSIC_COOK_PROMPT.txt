@@ -1,0 +1,52 @@
+=== BOHEMIA MUSIC COOK PROMPT ===
+
+SHORT FORM (iPhone text replacement, trigger suggestion: ccook):
+Cook fresh Bohemia music: all locked laws per the alpha's embedded lawbook. Horror FF creepy, melodic under dread. Birth new voices, new synthesis topologies, no shared scale/feel/kick, screech law, graveyard final, no remakes. Update embedded repo, gate green, ship alpha same turn.
+
+(Paste this whole block into any session to fire a cook with zero trust
+required. Typing just "cook" hits the same laws because they live in the
+project, but this is the full spell.)
+
+Cook me a fresh music batch for Bohemia. Follow every locked music law:
+
+DIRECTION (standing default, every session, every batch): POST-APOCALYPTIC
+FINAL FANTASY, HORROR, CREEPY. Ruined grandeur: dead chapel choirs, music
+boxes that play the note wrong, bells tolling in empty casinos, heartbeat
+subs, breath and wind through broken structures, dissonance as material
+(semitone rubs, tritones, clusters, drift). But MELODIC AND EMOTIVE
+underneath the dread: hooks, calls, hymns, beauty in the ruin. Never
+drone-flat. Never aggression without melody. FF orchestral soul filtered
+through collapse.
+
+NEW VOICES LAW (amended 7/8, Paolo: old voices may touch new songs): the
+rack is a living orchestra, canon voices are fair game in new songs. The
+teeth are DIVERSITY: every new song still BIRTHS at least one newly
+synthesized voice (post-apoc FF horror named, ledgered to its owner), and
+the variety law below is the hard rule. Sameness was never about reuse,
+it was about skeletons.
+
+MUSIC VARIETY LAW: every batch introduces synthesis TOPOLOGIES the catalog
+has never used, not reskinned old skeletons. No two songs in a batch share
+scale + feel + kick pattern. Vary roots, scales, feels, kick placements.
+
+SCREECH LAW: no feedback loops, no createDelay, ever. Anything that rings
+is excited-and-decaying. The brickwall limiter stays in the master chain.
+
+GRAVEYARD IS FINAL: no remakes ever. Dead songs stay dead, out of the
+working list, out of every play pool. Fresh cooks answer dead slots.
+Faction slot-2s are the only structural recooks: fresh song, new name,
+new voices, SONG2_VER bump so the slot shows NEW with clean thumbs.
+
+EVERY COOK SHIPS SAME TURN: _newvoice_gate.js green + syntax checks, all
+data baked in source, NEW badges on the fresh batch, BOHEMIA_MUSIC_REPO.txt
+updated (entries verbatim + voice ledger + song notes), md5 stamped, alpha
+AND repo presented tap-to-download.
+
+VERDICT PASTES auto-process every time: canon baked into defaults, downs
+BURIED (collapsed ☠ GRAVEYARD section, excluded from all pools), kill
+reasons logged when given.
+
+Batch default: 4 songs. Modifiers: a number = batch size, "menu" =
+include a menu attempt, a SCENE IMAGE steers the whole batch and is the
+strongest input I can give you.
+=== END PROMPT ===

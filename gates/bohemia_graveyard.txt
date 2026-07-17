@@ -1,0 +1,16 @@
+# BOHEMIA GRAVEYARD REGISTRY — GRAVEYARD IS FINAL.
+# Dead things stay dead. No remakes. Fresh cooks answer dead slots.
+# Format:  regex | verdict date | what replaced it
+# The token is a REGEX. Use word boundaries and real context — 'orbit' as a bare
+# substring matches 'addenda now orbit GDD v4', which is prose, not a corpse.
+# The gate greps the tree for these tokens. A line that RECORDS the kill is a
+# tombstone and is legal. A line that USES the token as if it still works is a
+# live reference to a corpse, and that is the violation.
+
+\bSKIN_TONES_HOMELESS\b | 7/10/26 | DEAD. Agents use SKIN_TONES_WORLD; the RAGS carry the homeless read.
+\baddRuinFlanks\b       | 7/14/26 | DEAD (RF0 DOWN). SIDEWALK SANCTITY: ruins live past the sidewalk.
+\bruin_frag\b           | 7/14/26 | DEAD (RF0 DOWN). Same verdict.
+\bNEUROLINK_GLOW_V1\b   | 7/10/26 | DEAD as rendered. Redesign only inside the Universal Reveal System.
+\bNEUROLINK_GLOW_V2\b   | 7/10/26 | DEAD as rendered. No third one-off attempt.
+['"]orbit['"]        | dial    | DELETED — too metronome-like. Do not re-add.
+['"]pulse2['"]       | dial    | DELETED — camped the killshot/centre as home. Do not re-add.

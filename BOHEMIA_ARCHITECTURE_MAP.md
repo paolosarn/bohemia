@@ -1,6 +1,18 @@
 # BOHEMIA — ARCHITECTURE MAP (what depends on what)
 Built 7/16/26 at the GREAT MERGE. Regenerate the file list with
-`python3 bohemia_canon_index.py .`; this file is the human map above it.
+`python3 gates/bohemia_canon_index.py`; this file is the human map above it.
+
+## DAY ONE LAYOUT (7/17/26, the repo's folder truth)
+Everything below still holds; only the addresses changed. From repo root:
+/engine (both engines + bundle + json data) · /gates (every gate, test and
+registry) · /laws (GDDs, addenda, laws masters, STATE_OF_PLAY, CANON_INDEX) ·
+/banks (art + music + the four HD tile repos, whole) · /slices (live slices +
+proofs) · /tools (pickers, tuners, QUEST_LAB, chunk/intake scripts) · /records
+(csv + verdicts + audits) · /questbook (research) · /quests (production,
+PARKED) · /archive (history, never current). Root keeps CLAUDE.md, the
+handoff, this map, BOHEMIA_GRAPHICS_LAWS_MASTER and the ONE alpha.
+Gates run from anywhere: `python3 gates/bohemia_gates.py` (the runner pins
+cwd to repo root; pixel gates need `pip install numpy pillow` once).
 
 ## THE ONE RULE FOR READING THIS
 Nothing in this repo knows anything automatically. Truth is BUILT, in this order,

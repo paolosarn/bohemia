@@ -1,0 +1,62 @@
+BOHEMIA TILE CATEGORY: GREEN
+exported 2026-07-11T17:47:25.469189+00:00
+total: 155 tiles
+definition: toxic, sickly moss, vegetation
+FULL-SWEEP v2: entire library assigned, one tile = one category
+source: HD masters (BOHEMIA_HD_TILE_REPO_part1-4)
+pointer format: file | pack | idx=list
+============================================================
+BOHEMIA_HD_TILE_REPO_part1.txt | 14. Lights and neon elements | n=1 | idx=0
+BOHEMIA_HD_TILE_REPO_part1.txt | 16. Lab equipment | n=1 | idx=13
+BOHEMIA_HD_TILE_REPO_part1.txt | 18. Space station props | n=1 | idx=14
+BOHEMIA_HD_TILE_REPO_part1.txt | 20. Nature and environment | n=8 | idx=0,1,6,7,10,11,12,13
+BOHEMIA_HD_TILE_REPO_part1.txt | 5. Potion bottles and ingredients | n=7 | idx=5,9,20,28,36,44,49
+BOHEMIA_HD_TILE_REPO_part1.txt | Barrels, crates and sacks | n=1 | idx=30
+BOHEMIA_HD_TILE_REPO_part1.txt | Floor tiles | n=6 | idx=3,4,15,26,29,32
+BOHEMIA_HD_TILE_REPO_part1.txt | Interior rooms | n=1 | idx=19
+BOHEMIA_HD_TILE_REPO_part1.txt | Lightning and fx | n=1 | idx=4
+BOHEMIA_HD_TILE_REPO_part1.txt | lightning fx | n=1 | idx=10
+BOHEMIA_HD_TILE_REPO_part1.txt | wall and floor details (1) | n=1 | idx=50
+BOHEMIA_HD_TILE_REPO_part2.txt | 1. Ground Tiles | n=4 | idx=5,6,13,14
+BOHEMIA_HD_TILE_REPO_part2.txt | 10. Abandoned cars | n=1 | idx=10
+BOHEMIA_HD_TILE_REPO_part2.txt | 11. Sci-fi furniture | n=1 | idx=3
+BOHEMIA_HD_TILE_REPO_part2.txt | 16. Trees and nature | n=8 | idx=4,11,15,16,17,18,19,20
+BOHEMIA_HD_TILE_REPO_part2.txt | 19. Deep sea props | n=3 | idx=3,9,10
+BOHEMIA_HD_TILE_REPO_part2.txt | 19. Miscellaneous | n=2 | idx=5,6
+BOHEMIA_HD_TILE_REPO_part2.txt | 20. Environment set pieces | n=1 | idx=10
+BOHEMIA_HD_TILE_REPO_part2.txt | 20. Special Sci-fi tiles | n=3 | idx=4,11,23
+BOHEMIA_HD_TILE_REPO_part2.txt | 6. Cauldrons and brewing stations | n=1 | idx=17
+BOHEMIA_HD_TILE_REPO_part2.txt | Banners and posters | n=4 | idx=11,22,43,49
+BOHEMIA_HD_TILE_REPO_part2.txt | Containers and items | n=3 | idx=23,52,58
+BOHEMIA_HD_TILE_REPO_part2.txt | Jars, bottles and items | n=7 | idx=1,6,14,20,26,33,49
+BOHEMIA_HD_TILE_REPO_part2.txt | Plants and bushes | n=2 | idx=45,46
+BOHEMIA_HD_TILE_REPO_part2.txt | Streets props and urban | n=6 | idx=6,14,19,26,27,28
+BOHEMIA_HD_TILE_REPO_part2.txt | Water and ponds | n=1 | idx=7
+BOHEMIA_HD_TILE_REPO_part2.txt | doors and structures | n=5 | idx=19,41,51,58,60
+BOHEMIA_HD_TILE_REPO_part2.txt | special tiles | n=1 | idx=24
+BOHEMIA_HD_TILE_REPO_part3.txt | 14. Shells and small details | n=1 | idx=4
+BOHEMIA_HD_TILE_REPO_part3.txt | 7. Water fountains and pools | n=2 | idx=1,2
+BOHEMIA_HD_TILE_REPO_part3.txt | 8. Treasure and loot | n=1 | idx=20
+BOHEMIA_HD_TILE_REPO_part3.txt | Cargo, crates and containers | n=1 | idx=6
+BOHEMIA_HD_TILE_REPO_part3.txt | Doors and arches (1) | n=3 | idx=5,12,18
+BOHEMIA_HD_TILE_REPO_part3.txt | Furtniure and fixtures | n=1 | idx=34
+BOHEMIA_HD_TILE_REPO_part3.txt | Machines and tech | n=1 | idx=10
+BOHEMIA_HD_TILE_REPO_part3.txt | Plants and greenery | n=4 | idx=13,32,36,51
+BOHEMIA_HD_TILE_REPO_part3.txt | Signs and holograms | n=5 | idx=4,11,15,22,33
+BOHEMIA_HD_TILE_REPO_part3.txt | Special effects | n=2 | idx=27,37
+BOHEMIA_HD_TILE_REPO_part3.txt | Statues and monuments | n=4 | idx=18,20,38,42
+BOHEMIA_HD_TILE_REPO_part3.txt | Wall and floor details (3) | n=2 | idx=10,13
+BOHEMIA_HD_TILE_REPO_part3.txt | Water and liquids | n=16 | idx=1,2,6,9,12,13,15,21,22,23,24,25,27,36,37,50
+BOHEMIA_HD_TILE_REPO_part3.txt | wall tiles and cliffs | n=3 | idx=54,55,56
+BOHEMIA_HD_TILE_REPO_part4.txt | 11. Survival props | n=1 | idx=2
+BOHEMIA_HD_TILE_REPO_part4.txt | 12. Treasure and loot | n=1 | idx=19
+BOHEMIA_HD_TILE_REPO_part4.txt | 15. Statues and ancient relics | n=1 | idx=0
+BOHEMIA_HD_TILE_REPO_part4.txt | 16. Crates and cargo props | n=1 | idx=16
+BOHEMIA_HD_TILE_REPO_part4.txt | 17. Mailboxes and birdhouses | n=1 | idx=14
+BOHEMIA_HD_TILE_REPO_part4.txt | 18. Pots and planters | n=2 | idx=12,45
+BOHEMIA_HD_TILE_REPO_part4.txt | 5. Water and ponds | n=12 | idx=9,10,11,12,13,16,17,18,19,20,21,22
+BOHEMIA_HD_TILE_REPO_part4.txt | 9. Cables and wiring | n=1 | idx=12
+BOHEMIA_HD_TILE_REPO_part4.txt | Jars, pots and urns | n=1 | idx=32
+BOHEMIA_HD_TILE_REPO_part4.txt | Miscellaneous props (1) | n=1 | idx=35
+BOHEMIA_HD_TILE_REPO_part4.txt | Roof tiles | n=2 | idx=0,2
+BOHEMIA_HD_TILE_REPO_part4.txt | trees and vegetation | n=3 | idx=2,20,49

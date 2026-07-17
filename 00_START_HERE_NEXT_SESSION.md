@@ -1,105 +1,108 @@
-=== BOHEMIA HANDOFF 7/16/26 (post GREAT MERGE) ===
+=== BOHEMIA HANDOFF 7/17/26 (REPO BORN) ===
 FILENAME LAW: this file is always named 00_START_HERE_NEXT_SESSION.md, lives at
 repo root, sorts to the top of every file list, and is REWRITTEN at the end of
 every working session. There is only ever ONE. It is the first thing any
 session reads after CLAUDE.md.
 
 READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md (what depends
-on what) -> BOHEMIA_CANON_INDEX.md (newest-date-wins map) -> STATE_OF_PLAY.
+on what) -> laws/BOHEMIA_CANON_INDEX.md (newest-date-wins map) ->
+laws/BOHEMIA_STATE_OF_PLAY_7_16_26.md
 
 ## WHERE WE ARE
-The chat era is over. Two chats each built a seed and neither was whole: the
-graphics chat had every gate, slice and bank but zero questbook; the questbook
-chat had 138 deep-dives and 53 quests but nothing from the graphics era, plus
-STUB copies of the shared tooling. They are now ONE MASTER, 521 files,
-conflict-resolved by content and not by the date in the filename.
+THE REPO IS BORN. Day One (per BOHEMIA_CODE_DAY_ONE_7_16_26.md, now in /laws)
+executed 7/17/26:
+- All six seed zips unpacked. 534 files verified against _MANIFEST.md5.txt:
+  527 md5-exact, 7 expected diffs (the 5 chunkmanifests + bohemia_chunk.py +
+  bohemia_master.py were regenerated AFTER the manifest was stamped; their
+  zip copies are the newer ones and they PROVED themselves, see next line).
+- All five chunked fatties rejoined md5 EXACT: BOHEMIA_ALPHA_0_9.html (31MB)
+  + BOHEMIA_HD_TILE_REPO_part1-4.txt (~45MB each). Chunks and zips deleted.
+- 535 files organized into the Day One layout: /engine /gates /laws /banks
+  /slices /tools /records /questbook /quests /archive. Root keeps CLAUDE.md,
+  this file, BOHEMIA_ARCHITECTURE_MAP.md, BOHEMIA_GRAPHICS_LAWS_MASTER, and
+  BOHEMIA_ALPHA_0_9.html (the ONE alpha rides at root, visible, one of a kind).
+- Every gate path rewired for the layout. TWO REAL BUGS FIXED in the process:
+  bohemia_graphics_tests.js and patrol_gate.js still hardcoded
+  /mnt/project/bohemia_overmap.js, a chat-era path. Dead on arrival in the
+  repo: ENGINE TESTS and PATROL both failed on a clean checkout. This is the
+  same failure class the 7/16 merge fixed for /mnt/user-data/outputs and the
+  /mnt/project variant slipped through. Both now require ../engine/ relative.
+  The bundle's graphics_tests section was rebuilt from the corrected
+  standalone (ENGINE SYNC LAW: standalone is canonical, bundle is a copy).
 
-ALL GATES GREEN at handoff: 15 gates, 359 checks, ~22s.
-  python3 bohemia_gates.py          (everything)
-  python3 bohemia_gates.py --fast   (skips the two pixel sweeps)
+ALL GATES GREEN post-reorg: 15 gates, ~31s, full pixel sweeps included.
+  python3 gates/bohemia_gates.py          (everything)
+  python3 gates/bohemia_gates.py --fast   (skips the two pixel sweeps)
+Plus, run by hand and green: bohemia_tests.js 80/80, bohemia_bq_tests.js 29/29,
+graphics tests 105/105 inside the suite.
+NOTE: the pixel gates need numpy + pillow (pip install numpy pillow once per
+fresh container; a SessionStart hook could pin this).
 
-## THE RE-AUDIT (Paolo forced a second pass. It found four more. Read this.)
-7. **THE REGISTRY ATE TWO LIVE FILES.** `bohemia_superseded.txt` had a line
-   reading `BOHEMIA_QUESTBOOK_40_SINNERMAN.md | #122 is the primary (40 still
-   rides)`. The prose said STILL RIDES. The parser reads column 1 and skips.
-   #40 and #79 were DROPPED from the master: 44KB of research, silently gone.
-   FIXED + LAW: if a file must keep riding, its name NEVER starts a registry
-   line. Notes go in comments. Gated by carry_gate.py, which proves every
-   skip-listed name is really absent from disk.
-8. **THE CANON INDEX SPAWNED A NEW MAP EVERY RUN.** It wrote a date-stamped
-   filename, so three indexes existed at merge time and a session could cite any
-   of them. Now ONE name, `BOHEMIA_CANON_INDEX.md`. Git holds history.
-9. **THE CHAIN DETECTOR WAS BLIND TO ITS OWN CORPUS.** It matched topics exactly,
-   so SIDEWALK_SANCTITY and SIDEWALK_SANCTITY_ENFORCED read as unrelated: it
-   reported ZERO supersession chains on a corpus full of them. The tool built to
-   catch stale rulings masquerading as current could not see the commonest case.
-   Now suffix-aware. Also its registry path was hardcoded to a dead directory, so
-   DECLARED chains never loaded either. Both fixed.
-10. **THE GDDs WERE MISSING FROM THE CANON INDEX.** They carry no date stamp, so
-   they scored (0,0,0) and sorted to the BOTTOM as four bare filenames: the top
-   of the truth hierarchy ranked below every addendum with no note that all four
-   are live. THAT IS HOW THE FALSE "v2 IS SUPERSEDED" CLAIM SURVIVED TWO
-   REGISTRIES: the map never showed it. The lineage is now PINNED to the top of
-   the index with what each version alone holds.
+## KNOWN SEAM (pre-existing, verified present in the untouched seed too)
+gates/bohemia_loop_gate.js CRASHES at 'factions loaded from canon':
+bohemia_loop.js boots factions/economy/spawner as null [SEAM] placeholders
+(lines 68, 173-174). The gate was written ahead of the wiring. It is NOT in
+the 15-gate suite, so ALL GATES GREEN stands. Wiring those seams is real
+engine work, not path work: it needs its own session.
 
-## WHAT THE MERGE FOUND (all fixed, all gated)
-1. Graphics tests hardcoded /mnt/user-data/outputs/ paths. Dead on arrival in a
-   repo. Now repo-relative.
-2. lightreg_gate.js was reading BOHEMIA_ACT1_LIGHT_SOURCES_7_13_26.txt, a file
-   its OWN superseded registry declared dead. Now reads v5.
-3. The lightreg purity test proved normalize() was pure by asserting a literal
-   (firewood radius===4). v5 baked UNLIT FUEL LAW into the source data, so the
-   stack now ships radius 0 / type fuel: the law was applied twice, once in data
-   and once in code. Test is now registry-agnostic (snapshot in, compare out) and
-   will survive every future registry version.
-4. ENGINE SYNC drift: graphics_tests.js and prop_scale.js each had two bodies
-   (bundle vs standalone). Standalone were newer. Bundle rebuilt. Zero drift.
-5. Three canon indexes existed. Three maps, one territory. Newest is the map.
-6. Questbook seed's laws master still taught SKIN_TONES_HOMELESS, dead since 7/10.
-   The graphics copy won. This is exactly the rot class the truth hierarchy kills.
+## PURITY SWEEP GREW (flag for Paolo, no ruling made)
+The purity gate now sweeps /banks INCLUDING the four rejoined HD tile repos,
+which never traveled inside the seed before: 15,041 images checked, 2,098
+violations recorded (was 793 on the smaller pre-repo sweep), 5,630
+warm-suspect. Same standing question as before, now with the full corpus in
+view: kill or quarantine into REDMAG. [PENDING, Paolo's call]
 
-## ACTIVE FILES (entry points)
-- CLAUDE.md = operating manual + TRUTH HIERARCHY (now carries THE HANDOFF FILE law)
-- BOHEMIA_ARCHITECTURE_MAP.md = NEW. what depends on what. the whole graph.
-- BOHEMIA_GDD_v2/v3/v4/v5.md = the bible, ALL FOUR LIVE. v5 EXTENDS, it does not
-  replace. v2 = lore foundation (dynasties, Project Angel, the Amalgamation's
-  origin, the Fifth Dimensional Element). v3 = Dead Eye Dial core + the ENDGAME
-  (the Nuke, the last moral choice, Bohemia Is the Only Free City). v4 = the fold,
-  succession, character stack, Bunkerguy. v5 = 7/3-7/6 systems. Gated: gdd_gate.js
-- BOHEMIA_LIVE_SLICE_V11_7_16_26.html = the LIVE slice (V9 = blessed art base)
-- BOHEMIA_ALPHA_0_9.html = the ONE alpha (stale, absorption pending, ONE-ALPHA LAW)
-- bohemia_gates.py = every law's teeth, one command
-- BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js = 14-module reference bundle
-  (standalone .js files are CANONICAL, the bundle is a copy, sync gate enforces)
-- bohemia_engine.js = game engine, 12 modules + bohemia_tests.js (80 checks)
-- BOHEMIA_QUESTBOOK_MASTER_INDEX_7_16_26.md -> 138 dives -> PORTS_MASTER = build queue
-- bohemia_bq.js = quest parser (29/29). STAT/KARMA GATES BANNED AT PARSER LEVEL.
-- bohemia_superseded.txt = what stopped riding and why. registry, never deletion.
-- bohemia_chunk.py = the 25MB-door transport for the HD tile repos
+## ACTIVE FILES (entry points, new layout)
+- CLAUDE.md = operating manual + TRUTH HIERARCHY (root)
+- BOHEMIA_ARCHITECTURE_MAP.md = what depends on what (root; commands updated)
+- BOHEMIA_ALPHA_0_9.html = the ONE alpha, WHOLE AGAIN at root (stale,
+  absorption pending, ONE-ALPHA LAW)
+- laws/BOHEMIA_GDD_v2/v3/v4/v5.md = the bible, ALL FOUR LIVE (gdd_gate enforces)
+- laws/BOHEMIA_CANON_INDEX.md = newest-date-wins map
+  (regenerate: python3 gates/bohemia_canon_index.py)
+- slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html = the LIVE slice (V9 = blessed base)
+- gates/bohemia_gates.py = every law's teeth, one command
+- engine/ = both engines: bohemia_engine.js (12 modules) + the 14 graphics
+  modules + BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js (reference bundle)
+- questbook/BOHEMIA_QUESTBOOK_MASTER_INDEX_7_16_26.md -> 138 dives ->
+  questbook/BOHEMIA_PORTS_MASTER_7_16_26.txt = build queue
+- engine/bohemia_bq.js = quest parser (29/29). STAT/KARMA GATES BANNED.
+- gates/bohemia_superseded.txt = registry, never deletion
+- banks/ = all art + music (BOHEMIA_MUSIC_REPO.txt rides there) + the four
+  HD tile repos, whole
+- tools/bohemia_chunk.py = the 25MB-door transport (only needed at GitHub's
+  web-upload door; inside the repo 100MB files are fine)
 
 ## IN FLIGHT (resume here)
-1. LAMPS ONTO V11 from real blockgen anatomy. V9's four blocks RECOVERED EXACTLY:
-   B2 street 2+2 w/crosswalk (lanes2 med1 side1 H13) + B0 street (lanes3 med1
-   side2 H21) + B5 residential (lanes1 med1 side1 H7) + B1 arterial (lanes3 med1
-   side1 H19) = 60 rows, seed 12345, cells (33,6)(34,6)(35,6)(36,6). Lamps on
-   grid[0]/grid[H-1] sidewalk rows, x every 8 alternating sides, lampH =
-   lanes>=3?4:3, state dead, lit via BOH_POWERGRID. Powergrid says all four cells
-   DEAD; nearest live circuit (31,7) settlement. Lamp art: LIT #0-6 in
-   BOHEMIA_DEMO_PROP_POOL, DARK variants bank 7_14 (pairs 0-4 usable).
-   WARNING: V11 is W=24 H=63. Verify its own bake height before placing anything.
-   The dead chat's LT0 patch used V8's H=62 on V9's H=60 bake. That file is dead.
-2. PATROL INTO THE SLICE: bohemia_patrol.js built and gated 28/28, not yet wired
-   into V11's walkable loop.
-3. HD TILE REPOS: four ~45MB files travel as .chunk sets. join, verify md5, commit.
-4. FRESH QUEST MINING: ~72 whole-game teardowns still in the pool. Target >90
+1. LAMPS ONTO V11 from real blockgen anatomy. V9's four blocks RECOVERED
+   EXACTLY: B2 street 2+2 w/crosswalk (lanes2 med1 side1 H13) + B0 street
+   (lanes3 med1 side2 H21) + B5 residential (lanes1 med1 side1 H7) + B1
+   arterial (lanes3 med1 side1 H19) = 60 rows, seed 12345, cells
+   (33,6)(34,6)(35,6)(36,6). Lamps on grid[0]/grid[H-1] sidewalk rows, x every
+   8 alternating sides, lampH = lanes>=3?4:3, state dead, lit via
+   BOH_POWERGRID. Powergrid says all four cells DEAD; nearest live circuit
+   (31,7) settlement. Lamp art: LIT #0-6 in BOHEMIA_DEMO_PROP_POOL, DARK
+   variants bank 7_14 (pairs 0-4 usable). WARNING: V11 is W=24 H=63. Verify
+   its own bake height before placing anything.
+2. PATROL INTO THE SLICE: bohemia_patrol.js built and gated 28/28, not yet
+   wired into V11's walkable loop.
+3. FRESH QUEST MINING: ~72 whole-game teardowns still in the pool. Target >90
    individual quests at v2 before master compile; currently 54.
+4. THE ONE-ALPHA SESSION (with Paolo, preflight GO): absorption + launcher UI
+   tying alpha + music menus + character customization, fast on phones. The
+   alpha is whole again as of today, so this is finally possible.
 
 ## NEXT ACTION
-Launch the repo (seed is verified, gates green), join the HD chunks, then LAMPS
-ONTO V11.
+Pick up IN FLIGHT #1 (LAMPS ONTO V11), or if Paolo is present, the ONE-ALPHA
+session. Music track note: last cook was 7/7-7/8; the remake batch (HIGHWAY 15
+SOUTH v2, CARAVAN DUST v2, ONE CANDLE v2) plus THRONE OF STATIC, CHOIR FOR THE
+MACHINE, FLOWERS ON THE FREEWAY and MOB THE HOUSE REMEMBERS all sit UNJUDGED,
+and MOJAVE GHOST / LONG WALK HOME are still fate-pending. A music verdict
+session is cheap now that the alpha is whole.
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
-GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white
+GRAPHICS: 101 purple world tiles kill-or-REDMAG (now 2,098 hits on the full
+corpus, see PURITY SWEEP GREW above) / flashlight_36 orange-or-cool-white
 / siren_blue emits orange / 11 proposed sidewalk furniture names / fire_23-32-40
 baked glow repaint-or-keep / reveal layer vocab / stall-tree-container footprints
 / ASPHALT_BASE rgb / lamp spacing game math / NETWORK zone placement / wall picker
@@ -116,6 +119,11 @@ the research phase and start the master compile (target >90 individual quests,
 at 54) / whether to re-mine the whole-game teardowns systematically or keep
 pulling fresh games / production quests 046-053 + master compile PARKED until
 Paolo says go
+MUSIC: remake batch v2 thumbs (HIGHWAY 15 SOUTH / CARAVAN DUST / ONE CANDLE) /
+THRONE OF STATIC + CHOIR FOR THE MACHINE + FLOWERS ON THE FREEWAY verdicts /
+MOB THE HOUSE REMEMBERS verdict / MOJAVE GHOST + LONG WALK HOME fate
+CHARACTER: agent reveal glow placement (temple vs crown vs behind eyes) / one
+shared purple vs variation by conversion age / the 8 rag outfits eyeball
 STANDING: act-1 grid-power ruling (resolver built, canon call open) / ragdoll head
 + neck rigidity / multi-enemy dial model (3 candidates unlocked) / pinch-zoom R=26
 cap / perks system (known gap, never documented) / female + child rigs / gloves slot
@@ -129,12 +137,12 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 - **FORMAT LAW v2**: every quest file carries CAST + WHAT EACH WANTS,
   CONVERSATIONS as node trees (gates/TRAPs/SILENCE/NOVERBs), BRANCH MAP with
   counts. Gate: exactly 10 W-points, >0 option lines, END marker.
-  (`BOHEMIA_QUESTBOOK_FORMAT_LAW_7_16_26.md`)
+  (`questbook/BOHEMIA_QUESTBOOK_FORMAT_LAW_7_16_26.md`)
 - **.bq FORMAT**: plain-text quest format, roles cast at runtime (Bethesda alias
   model), **STAT/KARMA GATES BANNED AT PARSER LEVEL**. Validator: alias-fill,
-  orphans, dead links, named-body zero-loot, round-trip. (`bohemia_bq.js`, 29/29)
+  orphans, dead links, named-body zero-loot, round-trip. (`engine/bohemia_bq.js`, 29/29)
 - **Target RAISED: >90 individual quests at v2 before master compile.** At 54.
-- **BATCH LAW**: `BOHEMIA_QUESTBOOK_BATCH_LAW_7_16_26.md`
+- **BATCH LAW**: `questbook/BOHEMIA_QUESTBOOK_BATCH_LAW_7_16_26.md`
 
 **LAW LOCKS STAGED FOR COMPILE** (confirmation counts live in the questbook index):
   - COMPREHENSION IS A BRANCH (11x confirmed)
@@ -165,10 +173,12 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
     vigilant-order response states
   - generational audit engine (Q137 PORT 1)
   - Fold ledger-view (Q136 PORT 1)
+  - loop seams: factions/economy/spawner POURED (bohemia_loop_gate.js is the
+    named test, currently red by design, see KNOWN SEAM)
 
 **EXTRACTION REPOS** (what the research is FOR):
   CRAFT_MASTER / FLAWS_MASTER / CONVERSATIONS_MASTER / **PORTS_MASTER = THE BUILD
-  QUEUE**. PORTS is the one that turns research into game.
+  QUEUE**. PORTS is the one that turns research into game. All in /questbook.
 
 ## BANKED LESSONS (folded from the questbook handoff, 7/16 merge. Do not lose.)
 - **THE #102 INCIDENT.** A carried note said "two files at #102, fix the collision
@@ -194,6 +204,12 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
   Caught only because Paolo asked "did you read the GDDs." LESSON, now gated by
   gdd_gate.js: a registry line is a CLAIM, not evidence. Read both documents
   before anything stops riding.
+- **THE /mnt/project GHOST (7/17, Day One).** The 7/16 merge fixed the
+  /mnt/user-data/outputs hardcodes and declared the class dead. A SECOND
+  chat-era absolute path (/mnt/project) survived in two gate files and killed
+  ENGINE TESTS + PATROL on the repo's first real run. Same class, one day
+  later, different prefix. LESSON: sweep for the CLASS (`grep -r '/mnt/'`),
+  never for the instance.
 - Questbook files 01-16 run 11-13 craft points BY DESIGN (early format). Not
   damage. Do not "fix."
 - Flaw laws locked 7/16: (12) the music repo's most emotional cue must have a KILL
@@ -209,11 +225,13 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 - Paolo works from iPhone + two laptops. The alpha is stale and he wants ONE
   beautiful package: launcher UI tying alpha + music menus + character
   customization, fast on phones. First big build of the repo era. ONE session,
-  with him, ONE-ALPHA LAW.
+  with him, ONE-ALPHA LAW. The alpha is WHOLE at repo root as of 7/17.
 - Zero-dialogue-by-design registry (never "fix"): questbook #99 #104 #110 #114.
 - 40/79 questbook files are superseded AS PRIMARY only (#122/#123 are primary).
   Both still ride. Registry-not-deletion.
-- HD tile repos are NOT in the seed. They travel as chunks, separately.
+- HD tile repos are WHOLE in /banks now (repo holds them fine; chunking is only
+  for GitHub's 25MB web-upload door).
 - 103+ songs, faction genre bible locked for all 13 factions, music repo embedded
-  in the alpha (lines 3249-5465), extractable as bohemia_music.js.
+  in the alpha (lines 3249-5465), extractable as bohemia_music.js; the portable
+  save file is banks/BOHEMIA_MUSIC_REPO.txt.
 === END HANDOFF ===

@@ -1,0 +1,93 @@
+# BOHEMIA SUPERSEDED REGISTRY — what no longer rides in the master, and why.
+# NOTHING IS DELETED (never-lose-files law). Superseded files live in /archive.
+# A stale file riding next to its replacement is misinformation for the next
+# session. That is the only reason anything stops riding.
+# Format: filename | replaced by / reason
+#
+# ============ 7/16/26 GREAT MERGE: graphics seed + questbook seed -> one master
+# Two chats each built a seed. Neither was whole. Conflict rule applied: NEWEST
+# WINS, file by file, verified by content not by date-in-filename.
+BOHEMIA_MASTER (graphics-only, 318 files) | merged into the one master, 7/16
+BOHEMIA_MASTER (questbook-only, 312 files)| merged into the one master, 7/16
+CLAUDE.md (5419b, no HANDOFF FILE section)| CLAUDE.md 5843b (adds THE HANDOFF FILE law)
+CLAUDE.md (1912b, questbook-seed stub)    | CLAUDE.md 5843b (stub lacked the laws + truth hierarchy)
+bohemia_master.py (1508b stub)            | bohemia_master.py 10055b (html-count hard fail + by-ext proof)
+bohemia_chunk.py (500b stub)              | bohemia_chunk.py 2351b (md5-verified join, no silent corruption)
+bohemia_canon_index.py (791b stub)        | bohemia_canon_index.py 6908b (full newest-wins map)
+bohemia_purity_gate.py (1724b stub)       | bohemia_purity_gate.py 7878b (PURPLE RESERVATION + NO VOLCANO)
+BOHEMIA_GRAPHICS_LAWS_MASTER (questbook copy) | graphics copy (questbook copy still taught DEAD SKIN_TONES_HOMELESS)
+bohemia_engine.js (questbook copy)        | graphics copy (newer Retarget export, no global clobber)
+BOHEMIA_QUESTBOOK_MASTER_INDEX (graphics copy, 124 dives) | questbook copy (126 dives, newer)
+#
+# --- canon index: three maps, one territory. Newest is the map.
+BOHEMIA_CANON_INDEX.md (auto-gen, 311 files) | BOHEMIA_CANON_INDEX.md (07/17 regen)
+BOHEMIA_CANON_INDEX_7_16_26.md               | BOHEMIA_CANON_INDEX.md (07/17 regen)
+#
+# --- handoffs: FILENAME LAW says there is only ever ONE, named 00_START_HERE_NEXT_SESSION.md
+BOHEMIA_HANDOFF_7_16_26.md                | 00_START_HERE_NEXT_SESSION.md (CONTENT FOLDED IN FIRST, not dropped: #102 incident + 4 lessons, ZIP incident, flaw laws 12/15, six craft findings, the 01-16 craft-point rule)
+000_START_HERE_LAUNCH_HANDOFF_7_16_26.md  | 00_START_HERE_NEXT_SESSION.md (CONTENT FOLDED IN FIRST, verified by token sweep: FORMAT LAW v2, .bq format, the 15 staged law locks with confirmation counts, the fresh-mining queue, the engine backlog w/ named tests, the quest-side open forks. Both handoffs also ride as ARCHIVE_* so nothing is judged away.)
+#
+# --- GDD lineage: CORRECTED 7/16. v2, v3 and v4 are LIVE. Do not archive them.
+#     Two earlier registries claimed "superseded by v5." THAT WAS WRONG, and it was
+#     wrong because nobody read the documents. v5's own opening line says it:
+#     "GDD v2 remains the lore foundation. GDD v3 remains the Dead Eye Dial combat
+#     core and endgame. GDD v4 remains the master reference for time/persistence,
+#     the fold, the character stack, and the engine laws through 7/2/26."
+#     v5 EXTENDS. It does not contain. Proof by term count:
+#       dynasty:        v2=32  v5=0     (the three-dynasty arc lives ONLY in v2)
+#       data portrait:  v2=2   v5=0     (the Amalgamation's origin)
+#       Amalgamation:   v2=34  v5=2
+#       killshot:       v3=4   v5=0
+#       bunker:         v4=5   v5=0
+#     v2 alone holds: Project Angel, The Crypto Collapse, The Mars and Moon Factor,
+#     Neuralink, Dubai The Warning City, The Fifth Dimensional Element.
+#     v3 alone holds: the endgame (The Nuke, the last moral choice), The
+#     Three-Generation Device, Bohemia Is the Only Free City, the 52 patterns.
+#     v4 alone holds: the fold, succession, the character stack, Bunkerguy.
+#     ARCHIVING THESE WOULD HAVE DELETED THE ANTAGONIST AND THE ENDING.
+#     THE LESSON, now a rule: a registry line is a CLAIM, not evidence. Verify
+#     supersession by READING BOTH DOCUMENTS before anything stops riding.
+#
+# --- stale registries: the replacement is on disk and contradicts the original
+BOHEMIA_ACT1_LIGHT_SOURCES_7_13_26.txt      | BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt (16 corrections, electric_PENDING retired)
+BOHEMIA_SFX_HOOK_MANIFEST_7_13_26.txt       | BOHEMIA_SFX_HOOK_MANIFEST_7_14_26.txt
+#
+# --- superseded slices: V11 is live, V9 is the Paolo-blessed art base it stands on
+BOHEMIA_LIVE_SLICE_V10_7_14_26.html         | BOHEMIA_LIVE_SLICE_V11_7_16_26.html (V11 = V10 + occupancy + lerp fix + static lights)
+BOHEMIA_BLOCKGEN_RENDER_PROOF_7_14_26.html  | superseded per graphics registry; blockgen proven by gate
+#
+# --- judging surfaces whose outcomes are BANKED as .txt (the bank is the record)
+BOHEMIA_DOOR_ANIM_PROOF_7_13_26.html        | BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt (27 approved clips, gated)
+BOHEMIA_FIRE_FLICKER_PROOF_7_13_26.html     | BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt (34 loops, gated)
+BOHEMIA_DOOR_LEAF_V3_PROOF_7_14_26.html     | BOHEMIA_DOOR_LEAF_COOK_V3_7_14_26.txt
+BOHEMIA_PARTICLE_LOOP_PROOF_7_14_26.html    | BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt
+BOHEMIA_TAN_WALL_PROOF_7_14_26.html         | TAN WALL LAW wired into bohemia_tilepool.js, gate 12/12
+BOHEMIA_SEAM_FIX_PROOF_7_14_26.html         | BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt
+BOHEMIA_WALLMOUNT_PROOF_7_10_26.html        | BOHEMIA_WINDOW_SET_7_10_26.txt
+BOHEMIA_MOUNTED_SIGNS_PROOF_7_13_26.html    | BOHEMIA_MOUNTED_SIGNS_7_13_26.txt
+BOHEMIA_PARKING_LAW_PROOF_7_14_26.html      | BOHEMIA_PARKING_LAW_7_14_26.txt
+BOHEMIA_TURN_MARKINGS_PROOF_7_14_26.html    | BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt
+BOHEMIA_TRANSITIONS_PROOF_7_10_26.html      | BOHEMIA_TRANSITION_SET_7_10_26.txt + bohemia_transitions.js
+BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html | seamless sets banked as .txt
+#
+# --- questbook: superseded AS PRIMARY only. Both files carry v2 and both RIDE.
+#     CAUGHT 7/16 (Paolo's re-audit): these were written as normal registry lines
+#     and the MASTER BUILDER DROPPED BOTH FILES. The line said "(40 still rides)"
+#     in prose; the machine only reads "name |" and skips. 44KB of research nearly
+#     lost to a comment the parser cannot see.
+#     THE FIX, now a syntax law: a note that is NOT a stop-riding order is written
+#     as a comment (#) so the parser never sees a filename in column 1. If you want
+#     a file to KEEP RIDING, its name must never start a registry line. Ever.
+#     bohemia_master.py's skip() reads column 1 and nothing else.
+# NOTE-ONLY (both files RIDE, this is a primacy note, not a supersession):
+#   BOHEMIA_QUESTBOOK_40_SINNERMAN.md        -> #122 is the clipboard-lens primary
+#   BOHEMIA_QUESTBOOK_79_COME_FLY_WITH_ME.md -> #123 is the primary per its header
+#   Fold at compile. DO NOT DELETE. DO NOT STOP CARRYING.
+#
+# --- kept deliberately, do NOT archive
+# BOHEMIA_MUSIC_COOK_PROMPT.txt | prompts evolve per NEW VOICES LAW; kept as reference
+#
+# --- ARCHIVE_ PREFIX (7/16 merge): the master builder walks top-level files only,
+#     so a /archive subfolder silently did not ride. Superseded files now carry an
+#     ARCHIVE_ prefix instead. They are HISTORY, never current. Never cite them.
+#     First Code session may move them into /archive/ once git is the transport.

@@ -1,0 +1,13 @@
+# Canon is DECLARED, never inferred. mtime is not authority: dropping an old
+# ENGINE SYNC GATE — declared canon.
+# copy of a file into the working dir makes it the newest file on disk while
+# making it the most wrong file on disk. That exact thing happened 7/16/26.
+# module <TAB or space> canonical carrier file
+BOH_BLOCKGEN     bohemia_blockgen.js
+BOH_DAYCYCLE     bohemia_daycycle.js
+BOH_LIGHT        bohemia_light_pass.js
+BOH_LIGHTREG     bohemia_light_registry.js
+BOH_PATROL       bohemia_patrol.js
+BOH_SCALE        bohemia_prop_scale.js
+BOH_SLICE        bohemia_slice_engine.js
+BOH_TILEPOOL     bohemia_tilepool.js
