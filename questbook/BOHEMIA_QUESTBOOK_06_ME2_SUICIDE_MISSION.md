@@ -156,3 +156,74 @@ ScreenRant + RPG Site (the three essential upgrades, role-assignment rules, the 
 best mission order); TV Tropes Analysis (the survival MATH — the 2.0/1.0 thresholds, weak-link
 sacrifice-to-escort strategy). FUTURE: a BioWare postmortem on the survival-formula design; the Lair of
 the Shadow Broker DLC as a companion-quest deep-dive (the "side story that outshines the main").
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**SHEPARD (the player as commander)** — wants everyone home. Will trade: the whole game's runtime, spent as preparation. Will never say out loud: that the finale is a test of whether they were PAYING ATTENTION to their people, not whether they love them. FUNCTION: the assigner. Every death in the base is a sentence Shepard wrote on the assignment screen.
+
+**THE SQUAD (10-12 specialists)** — each wants their personal wound closed (the loyalty mission: the betrayal avenged, the father faced, the sin answered). Will trade: their survival odds. A companion whose story you finished holds the line harder. Will never say out loud: that loyalty is a NUMBER. The game keeps the math under the fiction. FUNCTION: the variables. Each is a survival score wearing a face you've come to know.
+
+**JACK and MIRANDA (the clash)** — each wants the other proven wrong, and Shepard's word is the verdict. Will trade: their loyalty, ALREADY EARNED, put back on the table. FUNCTION: the fragility mechanism. Trust is a live state; this scene exists to prove it can break at the worst possible hour, with no time left to mend it.
+
+**THE CREW (the non-combatants)** — want rescue, on a clock nobody shows you. FUNCTION: the hidden timer. Every mission flown after the abduction is paid for in their bodies; Dr. Chakwas is always spared, kept alive to bear witness.
+
+**THE ILLUSIVE MAN (offstage)** — wants the base, not the people. FUNCTION: the frame. The mission is named suicide by the man who isn't going.
+
+**THE COLLECTORS / THE HUMAN-REAPER** — want the crew as raw material. FUNCTION: the fixed collision (the ME2 Tribunal). The base doesn't negotiate; it computes.
+
+## V2-B THE CONVERSATIONS (node trees; the finale's "dialogue" is assignment, and assignment is a node tree with people as options)
+
+NODE: JACK_MIRANDA_CLASH — the Normandy, entry: both loyal, both missions done
+  Two loyal companions at each other's throats; Shepard must rule.
+  > (side with Jack)                 [gate: none]                    -> MIRANDA_DISLOYAL (her score drops; the finale remembers)
+  > (side with Miranda)              [gate: none]                    -> JACK_DISLOYAL (same, mirrored)
+  > "Stand down. Both of you."       [gate: Paragon/Renegade high]   -> BOTH_KEPT (the mediation check; the only clean exit)
+  TRAP: ruling on the MERITS. The argument has no right answer; the check is whether Shepard's accumulated character (the Paragon/Renegade meter, i.e. the whole playthrough's tone) is strong enough to hold two proud people at once. Rule honestly and cheaply, lose one anyway.
+  LOCKS: a failed mediation this late often locks the repair forever; the relay is waiting.
+
+NODE: VENT_ASSIGN — the base door, entry: finale running
+  The vents need a crawler. The roster is the option list.
+  > "Tali/Legion/Kasumi, you're in."  [gate: assignee is tech AND loyal] -> VENTS_LIVE
+  > "(anyone else), you're in."        [gate: none] TRAP                  -> VENTS_DIE (staged as the character failing at a job they weren't right for)
+  NOVERB: "I'll crawl the vents myself." Shepard cannot self-assign. Command means sending someone, every time. The removed verb is the burden of the office.
+
+NODE: LEADER_ASSIGN — twice (escort beat, distraction beat)
+  > "Garrus/Miranda/Jacob leads."      [gate: assignee is a proven leader AND loyal] -> TEAM_HOLDS
+  > "(a follower leads)"               [gate: none] TRAP                              -> TEAM_BLEEDS (their people die; a wrong leader kills the tech specialist too)
+  THE CHECK IS CHARACTER-KNOWLEDGE (W4): the game knows Garrus ran C-Sec. It is checking whether YOU know it. The stat sheet won't tell you; the two games of fiction will.
+
+NODE: BIOTIC_ASSIGN — the swarm corridor
+  > "Jack/Samara/Morinth holds the field." [gate: strong biotic AND loyal] -> CORRIDOR_CLEAN
+  > "(a weak biotic holds it)"             [gate: none] TRAP               -> A_SQUADMATE_DIES (the barrier flickers; someone crossing pays)
+
+NODE: ESCORT_DECIDE — the rescued crew, entry: crew found alive (see THE CLOCK)
+  > "Take them home."   [gate: any loyal squadmate assigned] -> CREW_LIVE + assignee REMOVED from the deadly stretch (the sacrifice-in-reverse: sending a weak link here SAVES them)
+  > (no escort)         [gate: none] SILENCE                 -> CREW_DIE, all of them, off-screen
+  THE BEST OPTION IS DISGUISED AS A COST: giving up a gun hand is how you save two lists at once. The system rewards understanding, not completion (W9).
+
+NODE: THE_CLOCK — no speaker. The galaxy map itself, entry: crew abducted
+  Every mission flown before the relay converts crew to corpses; zero missions = everyone lives; the map never says so.
+  NOVERB: "How long do they have?" Nobody can be asked. The clock is real, hidden, and fair only in hindsight (W6). One opening exists to bank Legion's loyalty first; the knife-edge is the design.
+
+NODE: HOLD_THE_LINE — the final door
+  > "You two, with me."  [gate: none] -> the rest defend; their AVERAGE survival score (>=2.0 all live / 1.0-2.0 lose one / <1.0 lose more) runs the arithmetic
+  WHAT THIS NODE COSTS: the strongest two are safest with you, which weakens the line. Every pick is a transfer of risk from one name to others. The math is invisible and legible at once (W7).
+
+NODE: ROLL_CALL — the escape, no options
+  The game tallies the survivors, name by name, to Shepard's face.
+  NOVERB: (there is nothing to say. The preparation already said it.)
+
+## V2-C THE BRANCH MAP
+
+COUNT: 3 terminal classes x a per-name ledger (~12 independent life/death writes; the ledger IS the ending).
+
+B1 — EVERYONE LIVES. Condition: three critical ship upgrades + loyalties + correct assignments + escort sent + defenders' average >=2.0. WRITES: full roster into ME3. The "perfect run" exists and is made of comprehension, not grind (W9).
+
+B2 — PARTIAL LOSSES. The default. Each name dies at a legible failure point: the un-upgraded hull (approach), the wrong crawler (vents), the wrong leader (fire-team), the weak barrier (corridor), the empty escort slot (crew), the thin line (average). WRITES: each name separately; ME3 reads every one. CASHES: in the sequel, permanently.
+
+B3 — SHEPARD DIES. Condition: too few survivors at the end (under-prepared, over-sacrificed). WRITES: the save line ENDS; no import to ME3. The game will let the protagonist be the last name on their own casualty list.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: this is the FINALE-IS-A-LEDGER-READ law at whole-game scale, and the exact blueprint Q050-053's endgame computation already echoes: side content as survival variables, a hidden fair formula, assignment as character-knowledge, and a roll call that makes the player face the arithmetic. The Bohemia upgrade over ME2: our ledger crosses GENERATIONS (the fold reads what the grandmother assigned), and the validator's GEN_FLAG_TEST exists because ME2's math ran once and Bohemia's must survive a hundred years of saves.

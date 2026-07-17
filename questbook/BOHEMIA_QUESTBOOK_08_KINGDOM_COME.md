@@ -164,3 +164,86 @@ literacy gate, surrender-your-goods, live-the-routine, capture-vs-kill Pious, th
 PowerPyx + gamepressure + GamerGuides + Neoseeker + Shacknews + Guides4Gamers (stage-by-stage);
 Steam community (the detection-inconsistency critique). FUTURE: a Warhorse design talk on the "friction
 is the feature" philosophy; the KCD2 systemic-quest evolution (bathhouse/heist quests) as a follow-on.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**SIR RADZIG** — wants intel first, sabotage second, and Pious taken ALIVE, quietly. Will trade: standing and coin. Will never say out loud: why alive matters to him (the game banks it for later). FUNCTION: the tasker whose preference creates the moral fork; killing Pious is allowed and is a small betrayal of the man who asked.
+
+**KARL (the noble who won't be a monk)** — wants OUT of the future his family bought him. Will trade: his name, his acceptance writ, his entire identity, to a stranger, for an escape purse. Will never say out loud: that he's terrified, not rebellious. FUNCTION: the door. The monastery opens for a name, not a face.
+
+**MANFRED (the guardian)** — wants Karl delivered to the cloister and his own evening pleasant. Will trade: his vigilance, one tankard and one dice game at a time. FUNCTION: the human lock on the door. Every method of removing him (drink, pickpocket, chokehold, bypass) is a different Henry.
+
+**THE BROTHER PORTER** — wants novices who can copy books. Will trade: entry, for proof. FUNCTION: the incorruptible gate. He does not check your name or your face; he checks whether you can READ. The one lock in the file no coin or fist opens.
+
+**PIOUS (the needle)** — wants to stay a face among faces. Will trade: nothing; he is hiding, not negotiating. Will never say out loud: anything, until found. FUNCTION: the whodunit-in-reverse. He is not behind a door; he is inside a routine, and only someone LIVING the routine can read him out of it.
+
+**THE CUMANS / THE BANDIT CAMP** — want to not be burned and poisoned by the man in the stolen helmet. FUNCTION: the density. The camp's crowdedness is the antagonist; patience is the weapon it respects.
+
+**KOZLIEK** — wants to be helpful. FUNCTION: the map. He names both doors (the cave, the novice route) and decides nothing.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the sim's non-verbal gates written as nodes because in KCD the WORLD is the dialogue)
+
+NODE: MANFRED_TABLE — the Sasau inn, entry: Karl spotted, guardian attached
+  Manfred is between you and Karl and does not know it.
+  > "A drink, friend? And dice?"      [gate: coin for rounds]   -> MANFRED_DRUNK (rounds + games until he staggers to bed; a social problem solved by a WORLD ACTIVITY, not a check)
+  > [pickpocket the writ]             [gate: pickpocket skill]  TRAP -> caught = cover dead before it exists
+  > [choke him out, quietly]          [gate: unseen]            -> MANFRED_DOWN (writ + purse; a bruise he wakes with)
+  > (skip Karl entirely)              [gate: lockpick]  SILENCE -> WRIT_STOLEN (the upstairs chest at night; the whole cast bypassed)
+  WHAT THIS NODE COSTS: nothing, or your face in Sasau. The elegant route is the slowest and the cheapest; the sim prices patience at zero and impatience at the mission.
+
+NODE: KARL_DEAL — Karl alone, entry: Manfred removed
+  He agrees fast; monastic life was never his. The purse is the real conversation.
+  > "The full purse. Go."             [gate: has:purse]  -> KARL_GONE_CLEAN (WRITES: karl_happy)
+  > "Half. I need the rest."          [gate: none]       -> KARL_SOUR (he goes, upset; a small debt in the world's memory)
+  > "No purse. The writ's enough."    [gate: none] TRAP  -> KARL_FISTFIGHT (the polite-looking stinginess ends in knuckles at an inn you needed quiet)
+  NOVERB: "Come with me instead." Henry cannot recruit him, hide him, or fix his life. The quest lets you take his name, not his problem.
+
+NODE: PORTER_GATE — the monastery door, entry: writ in hand, habit ready
+  He asks one question: can you read.
+  > "Yes." [gate: LITERACY, trained in the open world] -> INSIDE (the gate passes)
+  > "Yes." [gate: none, lying]                          -> the scriptorium finds you out; a disguise is not a claim, it's a COMPETENCE (W4)
+  > "No."  [gate: none]                                 -> the door stays shut. Politely. Forever, until Henry learns.
+  THE ONE LINE DOING THE WORK: the sealed door's question is not "who are you" but "what can you do." The identity heist's final lock is a life skill, and no quest flag opens it.
+
+NODE: THE_TRUNK — the gatehouse, no speaker
+  Everything Henry owns goes into the box: armor, sword, coin, potions, the whole accumulated game.
+  WRITES: inventory=NOTHING, habit=ON. The vow of poverty executed as a mechanic (W3).
+  NOVERB: "I'll keep the knife." No exceptions verb exists. The disguise costs the entire kit or it isn't entered.
+
+NODE: THE_ROUTINE — the cloister, running clock, entry: inside
+  Matins on time. Supper at the bell. Transcription. Chores. The dormitory. Days of it.
+  > (keep the schedule)               [gate: discipline] -> suspicion stays low; observation windows open; the six sub-quests weave through
+  > (miss prayers / wander / get caught out of place)    TRAP -> suspicion rises; the cover is a PERFORMANCE, and every slip is a line flubbed (W2)
+  > [murder a novice and run]         [gate: none]       -> CLOISTER_BAILED (the blunt exit; the sim allows it and quietly keeps the strange die and the clean coin)
+  THE IDENTIFICATION PUZZLE runs inside this node: Pious is one of the faces at prayer. Only a Henry actually LIVING the schedule sees which novice's routine has a lie in it.
+
+NODE: PIOUS_END — the needle found
+  > "You're coming to Rattay."        [gate: fists]      -> CAPTURED (the lawful route; 1050 groschen; what Radzig wanted)
+  > [kill him, outside]               [gate: none]       -> DEAD_CLEAN (the strange die on the corpse; the sim pays precision, W10)
+  > [kill him, inside]                [gate: none] TRAP  -> DEAD_SLOPPY (same corpse, reward missed; doing it wrong looks identical until you check your pockets)
+  > (walk away)                       [gate: none] SILENCE -> he stays a monk. The quest does not force the hand that got this far.
+
+NODE: CUMAN_STOP — Nest of Vipers, the camp, entry: disguise worn (helmet ON, nothing of your own)
+  A Cuman gets curious.
+  > (bluff, stat pass 1)              [gate: stat check, ONE use] -> cover holds
+  > (bluff, stat pass 2/3)            [gate: different stats, ONE use each] -> cover holds, twice more, never again
+  > (fail / caught sabotaging)        -> CAMP_HOSTILE (the disguise was permission to walk, never permission to act)
+  WHAT THIS NODE COSTS: three lies. The camp's patience is literally enumerable, and the player can count what's left.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 4 terminal states for the monastery x 4 approach-families for the camp (the camp's approaches converge on one report; the monastery's exits do not).
+
+NEST OF VIPERS (approaches converge, the REPORT diverges):
+A1 DISGUISE / A2 PRIOR-INFILTRATION CARRYOVER (the earlier quest paid forward) / A3 NIGHT STEALTH vs the density / A4 BRUTE FORCE. All feed: caches burned 0-2, pots poisoned 0-2, camp mapped y/n -> WRITES: the intel Radzig gets, which shapes the siege after. The approach is the moral stance (W8); the quest never says so out loud.
+
+MONASTERY:
+B1 — PIOUS CAPTURED ALIVE. The lawful exit; Radzig's preference honored; 1050 groschen. WRITES: pious_jailed.
+B2 — PIOUS KILLED RIGHT (outside). WRITES: pious_dead + the strange die. Precision paid in secret.
+B3 — PIOUS KILLED WRONG (inside) or the cloister BAILED by murder. Same flag, lesser pockets, a monastery that remembers a dead novice.
+B4 — WALKED AWAY. The needle stays in the haystack. The rarest exit and the sim honors it.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: KCD's machine is GOAL + SIMULATION with the conversation nodes EMBEDDED IN THE WORLD (a dice game is a persuasion tree; a schedule is a suspicion meter; a literacy exam is a stat gate). For Bohemia's systemic gap (P7): write objectives, then let the city-builder's own systems (shifts, routines, meals, trades) BE the dialogue options. The monastery's deepest lesson pairs with Q122's clipboard: the most human conversation in the file has no lines at all, just a trunk you empty and a bell you obey.

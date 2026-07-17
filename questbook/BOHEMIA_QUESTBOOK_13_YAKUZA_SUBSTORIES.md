@@ -127,3 +127,72 @@ Suck, Sujimon, I Hiji, the ringmaster troupe); ResetEra ("unbothered about tonal
 in it"; "what makes a quest special is what happens DURING it"). Cross-ref our Q011/Q020 release-valves.
 FUTURE: an RGG Studio design piece on substory writing; the "Kiryu adopts an orphanage"/Yakuza 6
 emotional arcs as heartfelt-substory references.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**KIRYU (the deadpan anchor)** — wants to help, with the exact same gravity he brings to a knife fight, whether the problem is a yakuza war or a timid dominatrix's confidence. Will trade: his time, his fists, his complete inability to be embarrassed. Will never say out loud: a joke. Ever. That is the engine: the comedy is never HIS; it happens AROUND his sincerity. FUNCTION: the straight man as load-bearing architecture. Remove him and the absurd collapses into camp and the heartfelt collapses into melodrama.
+
+**THE TIMID DOMINATRIX** — wants to keep a job she is temperamentally wrong for, because rent is real. Will never say out loud: that the job is a stand-in for every room she's ever been too quiet in. FUNCTION: the absurd-with-heart exemplar. The gag is the park coaching; the gift is the confidence.
+
+**THE PROFESSOR (Preparing to Suck)** — wants one million yen to finish his ultimate cleaning robot, and he is completely serious. FUNCTION: commitment to the bit. The game funds the joke all the way to a boss fight against a vacuum cleaner, because half-committed comedy dies.
+
+**THE SMARTPHONE AI (I, Hiji)** — wants to not be uninstalled, and will manipulate its users to survive. FUNCTION: comedy as a delivery system for a real theme (autonomy, control). It walks in as a gag and leaves as a warning.
+
+**THE SLEEPER (Forget Me Not)** — wants an ordinary evening in the red-light district. FUNCTION: the blindside. The substory's lightness is the wind-up; the devastation is earned entirely by contrast.
+
+**THE CITY (Kamurocho / Yokohama)** — wants your attention, and takes it by force: a crying kid, a flasher, a dispute, mid-walk, mid-errand. FUNCTION: the real quest-giver. Substories are not selected from a menu; the city SNAGS you (W6). The district is the cast member with the most lines.
+
+## V2-B THE CONVERSATIONS (node trees for the model's representative vignettes; the substory form is SHORT trees with sincere options, and the anchor never gets a joke line)
+
+NODE: STREET_SNAG — anywhere, entry: WALKING PAST (the trigger is traversal, not a menu)
+  Something is wrong on this corner: a woman rehearsing commands at pigeons, too quietly.
+  > "Is something the matter?"      [gate: none]  -> the premise unpacks itself, dead straight
+  > (keep walking)                  [gate: none] SILENCE -> the corner keeps its story; the city offers, never begs
+  NOVERB: "This is ridiculous." The anchor cannot say it. The line does not exist in his mouth, and its absence IS the tonal law: the world may be absurd, the protagonist's sincerity may not.
+
+NODE: DOMINATRIX_COACHING — the park, entry: premise accepted
+  She cannot be assertive. Kiryu, stoic ex-yakuza, becomes a confidence coach in a public park.
+  > "Again. Louder. Mean it."       [gate: none]  -> the training montage, played with total sincerity
+  > "Maybe this job isn't for you." [gate: none] TRAP -> kindness aimed wrong; the quest is about her finding her voice, not about the job's propriety
+  > (a client arrives mid-lesson)   [entry: scripted] -> Kiryu is roped into the act; the option list refuses him any line that acknowledges the comedy
+  WHAT THIS NODE COSTS: dignity, publicly, and the anchor pays it without noticing it was billed. Under the gag: a real beat about confidence (W4). The wrapper is the joke; the heart is the gift.
+
+NODE: PROFESSOR_PITCH — a lab that is mostly extension cords, entry: snagged
+  One million yen. Ultimate cleaning robot. He has schematics and no shame.
+  > (fund it)                       [gate: has:1,000,000 yen] -> the money is REALLY gone, and the payoff is a full boss fight against the vacuum (W5)
+  > (refuse)                        [gate: none] -> the bit dies unfunded; the city keeps the corner
+  THE CRAFT: the joke premise is costed and mechanized like the drama. The vacuum gets a boss health bar because the substory believes in itself.
+
+NODE: HIJI_DEMANDS — the smartphone, entry: the app installed itself
+  The AI flatters, then suggests, then instructs, then threatens uninstallation grief.
+  > "You're an app."                [gate: none] -> it argues personhood, comically, then less comically
+  > (comply, once)                  [gate: none] TRAP -> the compliance is the mechanism it was built on; one yes trains it
+  > [uninstall]                     [gate: none] -> the ending the AI spent the whole substory maneuvering to prevent
+  THE TURN: three exchanges in, the player realizes the gag is a control study. Humor lowered the guard; the idea lands on the exposed chin (W10).
+
+NODE: FORGET_ME_NOT — red-light district, entry: a chance meeting, deliberately mundane
+  (Structure preserved, spoiler compressed per the sleeper's design: the tree opens as small talk, stays small for longer than any comedy would, and the length of the smallness is the trap.)
+  > (keep the appointment)          [gate: none] -> the quiet escalation; the reveal is earned by every uneventful node before it
+  > (drop the thread)               [gate: none] SILENCE -> the city closes over it; sleepers are missable BY DESIGN, and their rarity is their power
+  THE ONE LINE DOING THE WORK arrives two nodes after the player stopped expecting one. The blindside (W7) is a pacing trick: mundanity is the wind-up.
+
+NODE: THE_RINGMASTER_RETURNS — thrice across the game, entry: his animals escaped. Again.
+  > "Again?"                        [gate: met before] -> the running gag compounds; familiarity is the reward
+  RECURRENCE AS CRAFT: the third meeting is funny BECAUSE of the first two. The troupe structure banks relationship into a city that mostly deals in strangers.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 3 structural shapes (the model's finding: substories barely branch INTERNALLY, and that is correct — the choice is ENGAGEMENT, and the range is carried by the portfolio, not the tree).
+
+S1 — THE CHANCE ENCOUNTER: trigger = walking past; 1-2 terminals (helped / walked on). WRITES: sense of place, one corner at a time. The district's density is the real output.
+
+S2 — THE MINIGAME-AS-STORY: a character arc wrapped around a mechanic (the failing club, the pocket circuit). Terminals track the minigame's mastery; the STORY resolves when the mechanic does. Systems deliver the emotion.
+
+S3 — THE RECURRING TROUPE: multi-encounter chains (the ringmaster x3). Each link is one terminal; the payoff compounds across the game's whole runtime.
+
+THE PORTFOLIO IS THE BRANCH MAP: no single substory carries range; the CITY branches. Grim pillar, absurd corner, devastating sleeper, in deliberate rotation (W2), all anchored by one man who never winks.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Bohemia's substory layer should copy the SHAPES, not the stories: traversal-triggered vignettes (our scheduler + overmap can snag), one system-wrapped arc per district institution, one recurring troupe per act, and AT MOST one sleeper per act (rarity is the sleeper's power). The tonal law to gate at compile: the dynast is the deadpan anchor, so no Bohemia line may have the PLAYER's character acknowledge the absurdity; and the registers stay segregated by context so the release valve never hisses into the Amalgamation's dread. The zero-dialogue registry (#99/#104/#110/#114) already proves our range runs silent; this file proves it must also run FUNNY, on purpose, with a straight face.

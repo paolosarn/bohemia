@@ -63,13 +63,16 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    purple-zero, deterministic). NEXT: wrecks + fire barrels + plot/building
    strips into the baker, then the full V12 slice (all four cells + payload
    wiring) — at that point V11's overlay era ends.
-2. Questbook: LANE PICKED 7/17 (Paolo): THE BACKFILL QUEUE. 65 of >90
-   full-machine (gate prints it); 84 files in the queue; 26+ graduations
-   needed. The line: work the queue in numeric order, append a V2 PAYLOAD
-   (CAST + node-tree CONVERSATIONS + BRANCH MAP, original content above
-   untouched — #01's payload is the pattern), gate green, commit per batch.
-   #99/#110/#114 are zero-dialogue-by-design: [PENDING Paolo] whether they
-   count; never give them option lines.
+2. Questbook: LANE PICKED 7/17 (Paolo): THE BACKFILL QUEUE. 72 of >90
+   full-machine after backfill batch 1 (7/17: #05 Disco Tribunal, #06 ME2
+   Suicide Mission, #08 KCD, #11 Anju+Kafei, #12 Planescape, #13 Yakuza
+   substories, #15 Fort Joy — all of 01-16 now full). 77 files remain
+   (#17-94); 19+ graduations to cross the line. The line: work the queue
+   in numeric order, append a V2 PAYLOAD (CAST + node-tree CONVERSATIONS
+   + BRANCH MAP, original content above untouched — #01's payload is the
+   pattern), gate green, commit per batch. #99/#110/#114 are
+   zero-dialogue-by-design: [PENDING Paolo] whether they count; never give
+   them option lines.
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
 ## NEXT ACTION

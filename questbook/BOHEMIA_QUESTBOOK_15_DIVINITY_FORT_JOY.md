@@ -148,3 +148,85 @@ by-stage, the gloves-pass-back trick, the get-caught route, high-Wits hatches); 
 optional). Cross-ref Questbook 08 (KCD systemic), 02/03 (multiple solutions), 14 (approach-as-character).
 FUTURE: a Larian systemic-design talk (the "developers never intended" philosophy -> BG3); a BG3
 reactivity deep-dive as the modern evolution.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**GAWIN (the teleporter mage)** — wants the Gloves of Teleportation fetched and a disposable partner for the crossing. Will trade: the promise of escape, sincerely made to your face. Will never say out loud: that "hand in hand" has a last handhold with only him on it. FUNCTION: the betrayal that arms you (W5). He is the rare traitor whose treachery leaves you STRONGER, because the tool was in your half of the bargain.
+
+**LORD WITHERMOORE** — wants to die properly. A Source Hunter impaled under the fort for an age, he asks for his own soul jar broken. Will trade: the hidden way out, for mercy. Will never say out loud: fear that you'll USE the jar instead (a soul jar in hand is leverage over its owner, and the quest lets you keep it). FUNCTION: the mercy route, with a temptation folded inside the errand.
+
+**GRIFF** — wants his oranges back and his ghetto kingdom's discipline visible; the caged elf is a billboard. Will trade: Amyro's freedom for proof, grudgingly. FUNCTION: the small tyrant whose court makes deduction a route: prove the theft, free the passage.
+
+**AMYRO / STINGTAIL** — the accused (wants out of the cage) and the actual thief (wants to not be found, and is wanted dead by a companion's own quest). FUNCTION: the justice route, and the interlock: Sebille's blade and your investigation want the same beach.
+
+**MIGO & MAGISTER YARROW** — a half-mad father on the beach and a daughter on the wall, each convinced the other is lost. Will trade: a ring for a flower; a key for a ring. FUNCTION: the tender route. The prison's most human path is a family errand, and its key still needs Path 1's gloves: the routes weave (W4).
+
+**KNILES THE FLENSER** — wants materials for his work, and Atusa's leg qualifies. FUNCTION: the convergence gate. Even the single exit has two keys (kill, or the grisliest barter in Act 1) (W8).
+
+**THE COLLAR / THE MAGISTERS** — want every Sourcerer visible and inventoried. FUNCTION: the failure state that is secretly a door: remove the collar, be SEEN, get thrown exactly where the exits are (W6).
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; half these "conversations" are with the island itself, because in a sim the space negotiates)
+
+NODE: GAWIN_PROPOSAL — the ghetto, entry: he approaches YOU (con men do)
+  Escape, together, hand in hand. He just needs one thing fetched.
+  > "Why me?"                       [gate: none] -> flattery with a manifest inside it: you look capable (of surviving crocodiles)
+  > "Deal."                         [gate: none] -> the beach, the crocodiles, the GLOVES
+  > "I'll find my own way."         [gate: none] SILENCE -> he waits; the ghetto is full of other capable-looking people
+  TRAP: trusting the PLAN, not the man. The quest never asks you to trust Gawin; it asks you to fetch an item that will outlive the partnership. Read carefully: the gloves enter YOUR inventory. The betrayal is pre-solved by the loot table.
+
+NODE: GAWIN_ALCOVE — the chasm, entry: gloves delivered
+  He teleports across, thanks you warmly, and leaves you standing there.
+  NOVERB: "Wait." There is no line that stops him. The removed verb is the con's period. WHAT THIS NODE COSTS: nothing mechanical, and the game wants you to notice that: you are holding the gloves. The lesson is priced at one moment of feeling stupid.
+  > (teleport a companion across, pass the gloves back, repeat) [gate: has:gloves + party] -> the chasm was never the obstacle; the FRIENDSHIP is the bridge, mechanically
+
+NODE: WITHERMOORE_PLEA — under the fort, entry: the spear speaks
+  An impaled knight asks you to find the jar his soul is chained to, and break it.
+  > "I'll free you."                [gate: none] -> the jar room (a shelf of OTHER jars; the quest quietly shows you a library of leverage)
+  > "What's in it for me?"          [gate: none] -> the route out, named plainly; mercy here has a listed price and that honesty is the craft
+  > (find the jar, then SQUEEZE)    [gate: has:jar] TRAP -> a soul in your pocket obeys; the mercy route contains a domination route, unmarked
+  > (break the jar)                 [gate: has:jar] -> he thanks you and ends. WRITES: the tunnel, and one act of unwatched decency
+
+NODE: GRIFF_COURT — the kitchen, entry: the caged elf seen
+  > "The elf didn't do it."         [gate: knows:stingtail] -> proof demanded; the court runs on evidence, not compassion
+  > (return the oranges)            [gate: has:oranges]     -> Amyro freed -> the secret passage
+  > "Let him go or else."           [gate: strength/rep] TRAP -> Griff's ghetto runs on face; threats buy a brawl in a room full of his men
+  > (say nothing, walk on)          [gate: none] SILENCE    -> the cage stays; the route stays shut; the island does not grade you
+
+NODE: STINGTAIL_BEACH — the SW sands, entry: the trail read
+  > "Give them back. Quietly."      [gate: persuasion] -> oranges, no blood
+  > [kill him]                      [gate: none]       -> oranges, blood, and if Sebille is with you her own quest arrives mid-swing; two questlines share one throat
+  > (let Sebille work)              [gate: party:sebille] -> her needle, her history, your route: the companion quest pays the escape quest
+
+NODE: MIGO_BEACH — entry: a flower in hand
+  A half-mad man asks the sand the same question daily.
+  > (give the yarrow flower)        [gate: has:yarrow] -> his ring, and two minutes of a mind coming back
+  > [fight him]                     [gate: provoked] TRAP -> the "murderous gheist" the title promised; the tender route has a violent skin and the flower is how you get under it
+  NODE: YARROW_WALL — entry: ring in hand
+  > "Your father is alive."         [gate: has:ring] -> the key, and a magister deciding family outranks uniform
+  THE INTERLOCK: her key opens a catwalk the gloves must reach (W4). The tender route leans on the con man's tool. The mesh is the map.
+
+NODE: THE_COLLAR — no speaker. The island's one rule, worn at the throat.
+  > (remove it, be seen)            [gate: none] -> "caught" -> the cells beneath the fort, which is where the exits are (W6). The punishment is a shortcut for anyone thinking sideways
+  > (keep it, stay invisible)       [gate: none] SILENCE -> the long way, any of the five
+
+NODE: KNILES_TABLE — the convergence, entry: any route's funnel
+  > [kill him]                      [gate: combat] -> the sewer key, bloody
+  > "I have something you want."    [gate: has:atusas_leg] -> the key, bloodless, and the worst trade you'll feel good about
+  > (sneak past)                    [gate: stealth] -> no key needed; the exit's third key is not being seen
+
+## V2-C THE BRANCH MAP
+
+COUNT: 5 authored routes + 2 lateral routes, converging on 1 exit with 3 keys. (The branch map is SPATIAL: the terminals differ in WHO you were on the way out, not WHERE you end up.)
+
+R1 — THE TELEPORTER: betrayed, armed, over the chasm. WRITES: gloves (the all-game universal key, W3).
+R2 — THE SOUL JAR: mercy (or leverage) under the fort. WRITES: withermoore_freed | jar_kept.
+R3 — COMMON KNOWLEDGE: the elf cleared by deduction. WRITES: amyro_freed, griff_faced.
+R4 — MIGO & YARROW: the family reunited across a wall. WRITES: the key, one humanized magister. Leans on R1.
+R5 — BRUTE FORCE: the gate, the spree. WRITES: a body count the island remembers.
+L1 — GET CAUGHT ON PURPOSE (the collar). L2 — THE HATCHES (high Wits, the observant, W7).
+CONVERGENCE — the cells -> Kniles (kill/barter/sneak) -> sewer -> harbor -> out.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: with KCD (#08) this closes the P7 case: Bohemia's escape/reach objectives need N full authored routes (each a moral flavor, W10) OVER a reactive substrate (our power grid, water plant, logistics, collapse physics = our surface system, W2), with earned universal keys (W3), tactical interlocks between questlines (W4), and failure states that are secretly doors (W6). Audit every Bohemia chokepoint against W8: any gate with one key is a bug. And bank R1's writing lesson beside Q126's honest devil: the best teacher of systemic thinking in the file is a CON MAN whose betrayal is survivable by inventory-reading. The island never punishes trust; it just bills it, once, and hands you the gloves.
