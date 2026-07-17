@@ -86,6 +86,8 @@ if gaps: print('    gaps:', gaps)
 
 backfill = []
 no_end = []
+full_machine = []   # THE OFFICIAL >90 COUNTER (Paolo ruling 7/17: full machine
+                    # only — laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 for n in nums:
     fn = files[n][0]
     text = open(os.path.join(QB, fn), encoding='utf-8').read()
@@ -94,6 +96,10 @@ for n in nums:
     optc = sum(1 for l in lines if l.startswith('> '))
     if ('*END #%d*' % n) not in text:
         no_end.append(n)
+    if (wc == 10 and optc > 0
+            and 'CAST + WHAT EACH ONE WANTS' in text
+            and 'THE BRANCH MAP' in text):
+        full_machine.append(n)
 
     if n >= V2_ERA:
         ok('#%d: exactly 10 craft points (has %d)' % (n, wc), wc == 10)
@@ -118,6 +124,9 @@ for n in nums:
 arch = open(os.path.join(QB, 'BOHEMIA_QUESTBOOK_ARCHIVE.html'), encoding='utf-8').read()
 ok('archive carries the newest file (#%d)' % nums[-1], ('[%d,"' % nums[-1]) in arch)
 
+print('\n  FULL-MACHINE COUNT: %d of >90 target (10 W-points + conversation '
+      'machine + CAST + BRANCH MAP)' % len(full_machine))
+print('  ' + ','.join(str(x) for x in full_machine))
 print('\n  backfill queue (pre-v2-era files with no conversation machine yet): %d files'
       % len(backfill))
 print('  ' + ','.join(str(x) for x in backfill))

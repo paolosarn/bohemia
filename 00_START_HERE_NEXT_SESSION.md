@@ -28,9 +28,13 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   approved in chat, volume banked (224 tiles), act-1 art_gaps EMPTY. Wall
   batch 2: WB4 into perimeter pool v2; the 47 await other wall classes
   (REJECTION IS PER CLASS, taxonomy addendum 7/17).
-- Questbook: batches 8-12, files #139-152, the 7/16 mining queue CLOSED,
-  68 of >90. Gate #16 enforces the format; the searchable archive is back
-  and freshness-gated.
+- Questbook: batches 8-12, files #139-152, the 7/16 mining queue CLOSED.
+  Gate #16 enforces the format; the searchable archive is back and
+  freshness-gated. COUNTER REDEFINED 7/17 evening (Paolo): the >90 target
+  counts FULL-MACHINE files only (10 W-points + conversation machine + CAST
+  + BRANCH MAP). Real count: 16 of >90. The gate prints the official number
+  every run; never carry it in prose.
+  (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 
 ## IN FLIGHT (resume here)
 0. THE INTERSECTION EXISTS (7/17 evening, Paolo asked, same turn): blockgen
@@ -56,7 +60,10 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    purple-zero, deterministic). NEXT: wrecks + fire barrels + plot/building
    strips into the baker, then the full V12 slice (all four cells + payload
    wiring) — at that point V11's overlay era ends.
-2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
+2. Questbook mining: PAUSED at 16 of >90 FULL-MACHINE (counter redefined
+   7/17, gate prints it) pending Paolo's lane pick (see below). Both lanes
+   feed the counter: fresh mines are born full-machine; backfill files
+   graduate when they grow their conversation machine.
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
 ## NEXT ACTION
@@ -94,7 +101,8 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 - **.bq FORMAT**: plain-text quest format, roles cast at runtime (Bethesda alias
   model), **STAT/KARMA GATES BANNED AT PARSER LEVEL**. Validator: alias-fill,
   orphans, dead links, named-body zero-loot, round-trip. (`bohemia_bq.js`, 29/29)
-- **Target RAISED: >90 individual quests at v2 before master compile.** At 54.
+- **Target RAISED: >90 individual quests at v2 before master compile.**
+  REDEFINED 7/17: counts FULL-MACHINE files only. Gate prints the count.
 - **BATCH LAW**: `BOHEMIA_QUESTBOOK_BATCH_LAW_7_16_26.md`
 
 **LAW LOCKS STAGED FOR COMPILE** (confirmation counts live in the questbook index):

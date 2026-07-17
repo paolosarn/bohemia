@@ -1,4 +1,13 @@
 # BOHEMIA QUESTBOOK — MASTER INDEX
+> **[COUNTER REDEFINED 7/17/26 EVENING — PAOLO RULING, NEWEST DATE WINS]**
+> The >90 target counts FULL-MACHINE files ONLY (10 W-points + conversation
+> machine with option lines + CAST + BRANCH MAP). Every "N of >90" line below
+> counted 10-W-point depth from #85 onward and is superseded AS THE COUNT
+> (kept as batch history). **Real count at ruling: 16 of >90** (#125, #126,
+> #139-152). The questbook gate prints the official number every run — cite
+> the gate, never a carried number.
+> (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
+>
 > **[BATCH 8 LANDED 7/17/26]** Files #139-#141 mined fresh from the pool at v2
 > depth (Spec Ops white phosphorus, the Undertale judgment corridor, Obra Dinn's
 > identification loop), gated by the NEW gates/questbook_gate.py (now gate #16 in
