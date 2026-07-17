@@ -150,3 +150,21 @@ The tradeoff Paolo should know: it steps through 4 crisp orientations, not a
 smooth continuous spin (smooth spin is the thing that morphs). If he wants finer
 steps with no morph, the next level is pre-drawn head views per angle (authored
 art, also crisp). This is the 'rotate without resampling' he asked for.
+
+=== UPDATE 7/18 (h): SKELETON, NOT A BOX + BODIES ACTUALLY FALL OVER ===
+Paolo: "the animation is still ass, some angles so weird, the body isnt acting
+like an actual skeleton, i seen someone turn into a SQUARE."
+FIXED:
+- DE-BOXED the torso: the side-rail braces (shL-waA, shR-waB) + waC-shL/shR
+  wired shoulders straight to hips = a rigid RECTANGLE = the "square." Removed.
+  Now a rigid SHOULDER YOKE + rigid PELVIS joined ONLY by the spine (waC-neck),
+  so the trunk BENDS at the waist and limbs dangle = acts like a skeleton.
+- BODIES FALL OVER (no more standing/sitting-up): head-on falls (N/S) have no
+  sideways push, so the body compressed straight down and STOOD there. Now the
+  shot forces a sideways topple whenever the natural push is too vertical, PLUS
+  a LIE-DOWN ASSIST: once the pelvis is grounded and the torso is still upright,
+  it keeps toppling until flat. All 8 now settle lying/crumpled, none upright.
+- Stability held: centroid-X camera (waist-center pushed a limb off-screen on a
+  flat body), harder floor damp, freeze catches. All 8 freeze, in frame, no
+  split (leg-spread cap), head 90-deg snap (no morph). v1 THE TOPPLE untouched.
+UNJUDGED. Physics is real now: any further note = tune the numbers.
