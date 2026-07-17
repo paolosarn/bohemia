@@ -160,6 +160,18 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
+MARKINGS ARE ON THE GROUND (7/17, the renderer pass): tools/bohemia_markings_
+v11.py draws the approved pocket paint onto the live slice. THE LESSON THAT
+MATTERS: the first pixel detector found parked WHITE CARS and called them
+crosswalks (912 white px in a wreck outweighed a weathered zebra). Row-COVERAGE
+detection fixed it (a zebra spans the road's rows; a car is a blob), and then
+the engine's own crosswalk draw MATCHED the bake at the commercial block
+(cx=17), so the engine grid was used wholesale there; suburb1's narrow crossing
+got law-anchored pockets; arterial + suburb2 have no baked crosswalks and got
+NOTHING (no guesses). 30 cells, approved bank art, drawn under everything that
+moves. SLICE V11 gate now 33 checks (markings payload, road-rows-only, art
+valid, never under a lamp). NEXT: V12 bake-class work when the next slice
+generation happens; the cell.mk -> bank pipeline is proven end to end.
 WALL BATCH 2 JUDGED + SCOPE CORRECTED (7/17): 1 of 48 UP for PERIMETER (WB4,
 in pool v2). Paolo's correction, same day: REJECTION IS PER CLASS. The 47 are
 final for the perimeter pool ONLY and stay eligible as walls for other classes

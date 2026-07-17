@@ -110,6 +110,24 @@ if(pmatch){
  ok(html.includes('/*PATROL-DRAW*/'),"patrol render pass wired");
 }
 
+// MARKINGS LAW (7/17): ground paint comes from the APPROVED bank, lands only
+// on road rows, and ships as a parseable payload (the renderer pass's teeth).
+{
+ const mm=html.match(/const MARKINGS=(\[.*?\]);/s), ma=html.match(/const MARK_ART=(\[.*?\]);/s);
+ ok(!!mm&&!!ma,"V11 carries MARKINGS + MARK_ART payloads");
+ if(mm&&ma){
+  const MK=JSON.parse(mm[1]), MA=JSON.parse(ma[1]);
+  ok(MK.length>0,"markings present ("+MK.length+" cells)");
+  ok(MK.every(m=>m.i>=0&&m.i<MA.length),"every marking points at shipped art");
+  // road bands from the verified anatomy: (top,H,sidewalkPerSide)
+  const BANDS=[[3,7,1],[12,7,1],[21,21,2],[44,19,1]];
+  const onRoad=(y)=>BANDS.some(([t,H,sw])=>y>=t+sw&&y<t+H-sw);
+  ok(MK.every(m=>onRoad(m.y)&&m.x>=0&&m.x<24),"ground paint only on road rows, in bounds");
+  const lampCells=new Set((JSON.parse(html.match(/const LAMPS=(\[.*?\]);/s)[1])).map(l=>l.x+','+l.y));
+  ok(MK.every(m=>!lampCells.has(m.x+','+m.y)),"paint never under a lamp base");
+ }
+}
+
 // INJECTION SAFETY: every script the factories touch must still parse.
 {
  const bodies=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
