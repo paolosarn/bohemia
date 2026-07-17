@@ -160,7 +160,12 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
-Keep mining. BATCH 10 landed 7/17 (#145 the Conquest: the succession-chronicle
+Keep mining. BATCH 11 landed 7/17, the first SOURCE-PULLED batch (web research
+per file, cited in each SOURCES section): #148 the contract formula, #149 the
+citizen web, #150 the god who lies at the finale (the Network's whisper machine
+for the argue-finale, #142's companion piece). 66 of >90. Queue remaining:
+Kenshi second story, Shivering Isles, plus fresh names from Paolo. Then the
+ARCHIVE/extraction regenerator factory. BATCH 10 landed 7/17 (#145 the Conquest: the succession-chronicle
 blueprint + standing-edicts port; #146 the unauthored quest: the five-property
 emergent-condition checklist, schedules-on-the-beat rides the patrol wiring;
 #147 Sharp and Flat: the grief relay, wounds-as-geography, provenance-gated

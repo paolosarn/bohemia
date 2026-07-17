@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
-678 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
+687 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1900,3 +1900,36 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE RESET ECONOMY CHEAPENS THE REPAIR FOR SOME, DEEPENS IT FOR OTHERS
      The three-day undo of every emotional repair is the game's thesis, but the criticism is real and old: players who experience the resets as futility disengage from exactly the scenes the design most wants to matter, and the game provides no register acknowledging REPEATED tending (the tenth delivery plays like the first).
      LAW: where Bohemia loops (runs, generations), repeated tending must be SEEN by the record: the fold counts the times, and the world's text can reference the count (the keeper who has now fixed the same pump every winter for nine years deserves a line about it). Repetition acknowledged is devotion; repetition ignored is a chore. The mechanism is one integer per repair-class entry.
+
+### #148  DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)
+  X  THE TROPHY LAUNDERS TOO CLEAN
+     The spare route's white lie has zero risk, zero later cost, and no possible discovery — the client can never learn, the city never reacts, Salma never resurfaces. Critics of the contract system note the sparing choice is thereby cheapened: mercy with a guaranteed alibi is barely a choice.
+     LAW: white lies to clients must be DISCOVERABLE in principle — a small, real probability path by which the fiction surfaces (the spared thing seen again; the trophy convention questioned), so that sparing is priced in risk, not just in conscience. The fold makes this natural: what the player told the client and what happened are BOTH entries, and any later system may read the gap.
+  X  THE FORMULA'S INVESTIGATIONS DON'T FAIL
+     Witcher-sense trails cannot be lost, misread clues cannot send the player to a wrong conclusion with consequences — the investigation phase is a corridor dressed as deduction (long-standing series criticism). Contrast #141, where wrong reasoning costs real time.
+     LAW: contract investigations must be ABLE to conclude wrong: a false-positive resolution (wrong culprit, paid anyway) that the world records and can surface later. If the deduction cannot fail, it is a tour. (The organ's rule-of-three machinery, #141, gives Bohemia the verification frame the formula lacks.)
+  X  REPEATABLE FORMAT, DIMINISHING PERSONHOOD
+     Across dozens of contracts the formula's monster-is-somebody twist becomes the expected shape; late-game contracts telegraph their sympathy beats, and the class's power dilutes with volume (a criticism the series' own writers acknowledged in retrospectives).
+     LAW: the job system's moral forks must be a MINORITY of contracts, on an unpredictable schedule. Most jobs should be exactly what they say (the monster is just a monster, the pay is just pay) so that the somebody-contracts land as discoveries, not genre beats. Ration the twist; volume is the twist's predator.
+
+### #149  THE SAD SAINT (THE CITIZEN WEB) (Vampyr)
+  X  THE ECONOMY OVERPOWERS THE THEME FOR POWER-PLAYERS
+     The XP gap between abstaining and feeding is so large that a no-feed run is a difficulty mode (underleveled for every boss), while a feeding run trivializes combat. Widely criticized: the moral economy becomes a DIFFICULTY SLIDER, and players choose their ethics by their appetite for boss fights.
+     LAW: conscience must never be the difficulty setting. Price mercy in TEXTURE (options, relationships, world-state, the fold's read) — never in raw combat viability. If the merciful player is mechanically weaker, ethics collapses into masochism and predation into convenience; the dial's balance must hold at every conscience level.
+  X  THE SPARE TRAP PUNISHES WITHOUT TELEGRAPHING
+     Spare-as-is reads as the good option and detonates into the worst outcome, with little in-scene warning that untreated hunger MUST win. Players report feeling tricked rather than taught — the lesson (intentions aren't verbs) lands, but by ambush, and the massacre is discovered late or never connected.
+     LAW: the world must testify BEFORE the fork about what untreated conditions do (the sewer skals' own histories, a prior case, a doctor's warning) — the information available, the sentiment still tempting, the trap then FAIR. Bohemia's telegraphing law (#146 F3) extends to moral traps: the player may be wrong, never uninformed.
+  X  THE WEB'S SCHEDULES ARE SHALLOW UNDER PRESSURE
+     Citizens keep static routes and conversation loops; outside their quests they idle, and the "living district" reads as a diorama between story beats — the criticism that the web is a menu of meals wearing a neighborhood's face.
+     LAW: the citizen web must run on the world's clock, not the quest log's. Bohemia's beat-driven sim and patrol machinery (7/17 wiring) already move people by law; settlement citizens need the same treatment — schedules, absences, and reactions that tick with the world so the web stays alive between adjudications. (The #146 five-property checklist, applied to friendly institutions.)
+
+### #150  WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)
+  X  THE METAGAME ARGUES FOR THE DEVIL, TOO LOUDLY
+     The Oblivion Walker achievement counts daedric artifacts; the Skull is permanently missable; guides therefore instruct the murder as a matter of completion hygiene. For a large share of players the finale was never a trust test — it was a checklist item, and the god's lie won by default through the achievement system.
+     LAW: out-of-fiction completion incentives must NEVER side with a moral fork's dark branch by construction. If Bohemia ships collection meta (records, banks, the graveyard's own registers), forks must be either meta-neutral (both branches feed the collection differently) or meta-silent (the fork's outputs live outside collection accounting). The dial's choices belong to the fiction; the checklist must recuse itself.
+  X  THE STAKES FLATTEN AT THE FORK
+     Dawnstar's nightmares end on BOTH branches — the town, the quest's entire motivating suffering, is fine either way. The fork's real stakes (a man's life, a god's weapon, the truth) are strong, but the design quietly removes the civic stakes at the exact moment of decision, and players who murdered report barely noticing a cost.
+     LAW: never detach the fork from the suffering that motivated the quest. If the choice at the altar is real, the town's fate should ride some part of it — or the design should own, loudly, that the remaining stakes are persons and truths, and make THOSE consequences visible enough to carry the weight (the fold's read, the companion's absence, the organ's record).
+  X  THE TRUST BRANCH GOES UNREAD
+     Decline the god, gain a follower — and the world never remarks on any of it. No priest of Mara notes the reformed man's vindication; no record exists that a god personally lied and lost. Skyrim's radial structure spends its best scene and banks nothing; the quest's meaning lives entirely in the player's head (which is why it's beloved by the few and skipped-to-the-Skull by the many).
+     LAW: when a player passes a trust test a GOD set, the ledger writes it. The fold records divine-class deception survived; the read-back surfaces (#140/#143) can cite it; the companion's own dialogue should carry the debt. Bohemia's whole architecture exists so that scenes like this one compound instead of evaporating — the flaw is the strongest possible argument for the fold, banked from the game that lacked one.

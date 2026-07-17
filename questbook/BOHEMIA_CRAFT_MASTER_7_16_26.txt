@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
-1477 findings / 147 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
+1507 findings / 150 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3249,3 +3249,69 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Even finding the giver requires out-ranking corpses — the necro-bureaucratic entry fee sets the whole country's tone: in Ikana the dead have chains of command, and the player enters by borrowing one.
   W10 REPAIRS ARE LOOP-LOCAL, KNOWLEDGE PERMANENT
       The world's undo erases the river but not the song: the design states, mechanically, what survives resets — what you learned. The roguelite thesis in miniature, shipped in 2000.
+
+### #148  DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)
+  W1  THE FEE LOCKS BEFORE THE TRUTH
+      Haggling at maximum ignorance separates money from morality forever after — no later choice can be about the coin, because the coin was settled by a person who didn't know yet. The cleanest de-contamination design in any job system.
+  W2  THE BOARD IS A DIGNIFIED FRONT DOOR
+      Public postings make paid work diegetic, repeatable, and opt-in — a job system that never begs. The notice board is the genre's best-loved piece of furniture for a reason.
+  W3  THE EVIDENCE IS BUILT TO BE MISREAD ONCE
+      Hoofprints/two legs: the scene plants a genre-reflex wrong answer, then pays the player for looking again. One clue teaches the class's whole epistemics.
+  W4  PREPARATION CASHES AS SOCIAL BYPASS
+      The Axii route converts a long-ago build choice into minutes saved and doors opened — investment paying off in VERBS, not damage numbers.
+  W5  THE SOCIAL LOCK OUTRANKS THE LEGAL ONE
+      The client's paper means nothing inside the brothel's solidarity; the trail's hardest wall is loyalty. Investigations that route through communities, not just clues, get their drama free.
+  W6  THE MONSTER GIVES THE TROPHY
+      Salma understanding the paperwork better than her hunter is the fork's genius: mercy is made PRACTICAL by its beneficiary, and the profession's fiction is co-authored by the one it protects.
+  W7  NO REFORM IS ON SALE
+      She won't promise it stops. Sparing a nature rather than a redemption keeps the choice adult: the player owns the arithmetic, not a comforting arc.
+  W8  THE KILL IS HONESTLY PRICED IN POWER
+      The mutagen (scarce, build-relevant) sits in the corpse and the game lets it whisper. Temptation with a real number on it beats any devil's speech (Q126's F1 law, satisfied in miniature).
+  W9  THE CLIENT'S CLOSURE IS OUTCOME-INVARIANT
+      Trophy in, coin out, both worlds. Quarantining consequence to the professional's side of the counter is what makes it a PROFESSION — and the loneliness of that is the class's real subject.
+  W10 ONE HOUR, WHOLE ARC
+      Notice to payment in a session, full formula every time: the contract is the genre's best-scoped quest container, and its scope discipline is why the fork lands — nothing has time to dilute it.
+
+### #149  THE SAD SAINT (THE CITIZEN WEB) (Vampyr)
+  W1  EVERY CITIZEN IS PRICED
+      Named, scheduled, connected, and worth XP: the population is simultaneously the game's heart and its loot table, and the interface refuses to hide either fact. The most honest predation economy ever shipped.
+  W2  KNOWING PEOPLE MAKES THEM MORE NUTRITIOUS
+      The hint system fuses intimacy with appetite — investigation raises blood quality — so every act of care builds capacity for harm. Dual-use knowledge as a core loop, not a theme statement.
+  W3  THE DISTRICT IS A HEALTH BAR MADE OF PEOPLE
+      Aggregated wellness with tipping points turns neighborhoods into stakes without a single scripted consequence — the world's judgment is arithmetic the player can watch coming.
+  W4  THE HARDEST CASE IS THE LOAD-BEARING CITIZEN
+      Putting the fork on the district's pillar makes the moral choice and the systemic one the same choice. Structure and story fused at the exact point of maximum pressure.
+  W5  REDEMPTION IS GATED ON INTIMACY
+      The third option exists only if the player learned the man — the same hints that fatten his blood unlock his salvation. One ledger, two doors: the system's knowledge economy pays out in whichever direction the player's hands choose.
+  W6  THE CLEAN EXIT COSTS THE PLAYER'S OWN COIN
+      Giving blood spends progression backward. Mercy priced in the predator's currency is conscience-no-karma-bar in its purest shipped form: no meter moves; the player is simply POORER and the saint is simply saved.
+  W7  FALSE MERCY IS THE WORST BRANCH
+      Spare-as-is out-damages predation — the game's harshest authored opinion, delivered entirely through consequences: sentiment without treatment is abandonment. (Bank the fairness fix in F2; keep the opinion.)
+  W8  CONSEQUENCES BILL THREE LEDGERS
+      District, hidden community, player power — the fork's prices land on different accounts, so no single meter can summarize the choice. Judgment by distributed arithmetic beats any alignment system.
+  W9  THE VERDICT ARRIVES AS WORLD-STATE
+      Health bars, locked shelters, a newspaper headline: the game replies in city, never in interface. The Q139 loading-screen judge's benign twin — the world as the read-back surface.
+  W10 THE WEB EXTENDS PAST THE PLAYER'S SIGHT AND BILLS ANYWAY
+      The sewer skals — a community most players barely meet — pay for the fork's failure modes. Consequences that flow to the barely-known make the city feel infinite in exactly the way a settlement sim needs.
+
+### #150  WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)
+  W1  THE LIAR IS THE HIGHEST AUTHORITY IN THE ROOM
+      Divine voice, private channel, perfect timing — the unreliable quest-giver pattern escalated to its ceiling. Every lesser liar in the corpus is calibration for this one.
+  W2  THE BRIBE IS REAL AND ONLY THE ACCUSATION IS FALSE
+      Vaermina's offer is genuine — unique artifact, truly missable. Lies wrapped around true payment are the only lies worth designing; the player's greed does the persuading, not the prose.
+  W3  THE CONFESSION ARRIVES IN VOLUNTEERED INSTALLMENTS
+      Erandur stays half a step ahead of suspicion by admitting first, each time. The pattern IS his characterization and the player's evidence — trustworthiness rendered as pacing.
+  W4  THE DREAMSTRIDE: TRAVERSAL BY TESTIMONY
+      The only way past the barrier is through a participant's memory of the atrocity, performed from inside. Memory as a door; testimony as level design; the player converted from listener to witness by walking.
+  W5  THE FINALE'S GATE IS PURE JUDGMENT
+      No speech check, no stat, no flag — the fork reads nothing but the player's assessment of a man versus a god. The rarest gate in the genre: unassisted human judgment, with the interface refusing to help.
+  W6  THE PRIVATE CHANNEL ISOLATES THE JUROR
+      The whisper cannot be shared, tested, or subpoenaed; no verb exists to confront Erandur with it. The test's apparatus is loneliness — exactly how real manipulation prefers its targets.
+  W7  THE CONTROL GROUP IS ARMED AND WAKES UP
+      Veren and Thorek — what staying loyal to Vaermina looks like after a decade — are met and fought at the altar's threshold. Reform is proven against its alternative, on screen, in the same room.
+  W8  THE MURDER BRANCH BURIES ITS OWN EXONERATION
+      Kill him and the betrayal claim is never tested; the killer keeps their rationalization forever. Information asymmetry as moral architecture: the wrong choice protects itself from being known as wrong.
+  W9  THE REWARD FOR TRUST IS A PERSON
+      Decline the artifact and gain a companion — the quest pays its faithful in relationship, its faithless in equipment, and lets the player discover which currency their game runs on.
+  W10 THE GOD'S INTERVENTION IS THE TELL
+      A deity personally lobbying one mortal at one altar is desperation legible AS desperation to any player calm enough to ask why the whisper is happening at all. The scene's best clue is its own existence — design trusting inference over exposition, one last time.

@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]
-1251 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]
+1266 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2782,3 +2782,54 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 5 — KNOWLEDGE-WITH-PROVENANCE AS AN ITEM CLASS [W3, W6]
       system: [READ] / quest items / the .bq format
       A formal item class: knowledge whose EFFECT gates on its SOURCE (the song that only works because the right person taught it; the password that only opens the door if learned from the dying guard, not the wiki-equivalent note). In .bq terms: knowledge flags carry a taught_by field, and gates can require the provenance, not just the fact. One schema field; it makes every #141-class investigation an
+
+### #148  DEADLY DELIGHTS (THE CONTRACT FORMULA) (The Witcher 3: Wild Hunt)
+  ->  PORT 1 — THE BOHEMIA CONTRACT BOARD [W1, W2, W10 — the core port]
+      system: survival economy / settlement systems / the .bq format
+      The job loop, whole: settlement boards post contracts (threats, retrievals, investigations — generated from the world sim's actual events, #146's emergent layer feeding the board); the player interviews the client and HAGGLES AT IGNORANCE (fee locked before the job's truth is knowable — W1 as a hard rule of the contract schema: no fee renegotiation node may exist after stage 2); investigation; res
+  ->  PORT 2 — THE DISCOVERABLE LIE [F1's law]
+      system: the fold / faction memory / the conduct book (#143)
+      Client-facing fictions write TWO fold entries: told and happened. Any later system may surface the gap (the spared thing seen by a witness; a rival checking the story; the organ, #141, re-opening the case) with small real probability. Mercy keeps its price; the alibi stops being free. Mechanism mine; discovery scenes canon. [PENDING, Paolo's call.]
+  ->  PORT 3 — INVESTIGATIONS THAT CAN CONCLUDE WRONG [F2's law]
+      system: the missing-persons organ (#141) / contract generation
+      Contract investigations resolve against the player's SUBMITTED conclusion, not the world's truth: name the wrong culprit with convincing-enough evidence and the contract PAYS AND CLOSES — wrong — and the world records it (the real cause persists; the organ can later surface the miss). #141's rule-of-three keeps brute-force out; this port adds the right to be honestly mistaken. Deduction with stake
+  ->  PORT 4 — RATION THE SOMEBODY [F3's law]
+      system: contract generation / quest scheduling
+      Generated contracts default to EXACTLY-WHAT-IT-SAYS; the monster-is-somebody fork attaches to a strict minority on an unpredictable schedule (generation-level rationing, validator-countable). The twist stays a discovery for a hundred hours because most jobs are only jobs. Bohemia's advantage: the sim can decide WHICH threat happens to be somebody based on the world's actual history, so the ration 
+  ->  PORT 5 — PREPARATION AS VERBS [W4]
+      system: character systems / [READ] / the dial
+      Build investments cash out as INVESTIGATION VERBS (a read-people skill opening social locks; a records skill shortcutting via the organ's files; a streetcraft skill reading track-class evidence faster) — never as bigger numbers on the same verb. The Axii lesson generalized: preparation should change what you can DO at a locked door, and every contract ships at least two routes through its lock (pr
+
+### #149  THE SAD SAINT (THE CITIZEN WEB) (Vampyr)
+  ->  PORT 1 — THE SETTLEMENT WEB [W1, W3, W4 — the core port]
+      system: settlement systems / the 13 factions / survival accounting
+      The citizen web, adopted whole for Bohemia's settlements: named citizens with schedules on the beat (F3's law — the patrol/routine machinery is already wired), relationship edges, wellness states aggregating to settlement health with tipping points, and PILLAR citizens whose fates move the aggregate hard. The dark twin (citizens as XP) does NOT port — Bohemia's player isn't a predator — but the PR
+  ->  PORT 2 — DUAL-USE INTIMACY [W2, W5]
+      system: [READ] / the conduct book (#143) / faction mechanics
+      Learning a citizen (testimony, records, their web) unlocks BOTH care-verbs and harm-verbs for that citizen — the same knowledge opening the door to help them, leverage them, or sell them out, with the interface honest about the symmetry. The conduct book logs which door the knowledge went through. Intimacy as escrowed power is the web's deepest truth and it ports without the vampire.
+  ->  PORT 3 — CONSCIENCE IS NEVER THE DIFFICULTY SLIDER [F1's law — a balance gate]
+      system: the dial / progression
+      Hard rule for the dial's economy: no conscience-path may change combat viability class. Mercy prices in texture — options, standing, the fold's read, who answers your letters — never in the numbers the dial checks. Machine-checkable once progression tables exist: the validator diffs power curves across conscience-paths and rejects divergence beyond threshold.
+  ->  PORT 4 — THE INFORMED TRAP [W7 kept, F2 fixed]
+      system: quest structure / testimony systems
+      Bohemia keeps the false-mercy branch (sentiment-without-followthrough detonating) — the corpus's best-taught lesson — but the world testifies FIRST (#146 F3's telegraphing law): prior cases, witness accounts, a professional's warning, all available before the fork. Wrong remains possible; uninformed does not. The trap becomes a test of listening instead of an ambush.
+  ->  PORT 5 — THREE-LEDGER BILLING [W8, W10]
+      system: the fold / settlement health / hidden communities
+      Every settlement-scale fork prices across at least two distinct ledgers, and at least one consequence flows to a community the player has barely met (the web past sight, billed anyway). Compile-countable: fork specs declare their ledgers; single-ledger forks get sent back. [PENDING, Paolo's call: Bohemia's hidden communities — the sewer-skal slot is pure canon.]
+
+### #150  WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE PRIVATE CHANNEL AT THE FINALE [W1, W5, W6 — the core port]
+      system: the argue-the-Amalgamation finale (#142) / the Network / [READ]
+      At Bohemia's endgame, the NETWORK gets Vaermina's move: a private channel to the player — untestable, unshareable, perfectly timed — asserting that the Amalgamation (or whoever the finale's trust object is) will betray them, with a REAL bribe attached. The claim's truth is authored per Paolo's canon; the MACHINE is the port: highest authority, private whisper, true payment, judgment-only gate (no 
+  ->  PORT 2 — THE DREAMSTRIDE IS [READ] AS TRAVERSAL [W4]
+      system: [READ] / the Amalgamation's data-portraits / level design
+      The fold and the Amalgamation already hold recorded lives; the Dreamstride ports as [READ]'s deepest register: entering a recorded moment inside the recorded person, walking their choice from within, and EXITING SOMEWHERE NEW — memory as a door through otherwise-impassable world (a sealed district crossed via the memory of its sealing; the barrier's other side reached by having been there in someo
+  ->  PORT 3 — VOLUNTEERED CONFESSION AS TRUST PACING [W3]
+      system: companion/NPC arcs / dialogue authoring law
+      The Erandur pattern as an authoring rule for any Bohemia character built to be trusted against evidence: their damning history arrives VOLUNTEERED, in installments, each a beat ahead of discovery — never extracted, never dumped. Compile-checkable shape: confession nodes must precede the evidence nodes that would force them. (The inverse pattern — confession always trailing discovery — is how the q
+  ->  PORT 4 — THE METAGAME RECUSES ITSELF [F1's law — a standing gate rule]
+      system: records/collection systems / the graveyard registers / the dial
+      Bohemia's own collection surfaces (banks, records, verdict registries) must be audited at compile against every moral fork: no fork may have a branch that uniquely feeds a collection register. Where it would, the register goes meta-neutral or meta-silent. One gate line, permanent: the checklist never votes.
+  ->  PORT 5 — TRUST TESTS COMPOUND OR THEY EVAPORATE [F3's law]
+      system: the fold / the finale reads (#140/#143) / companion dialogue
+      Divine-class deception survived writes a fold entry; the companion gained carries the debt in their lines; the finale's read can cite the altar. The quest that taught the medium's best trust lesson also proved (by lacking one) why Bohemia's ledger exists: scenes like N-3 must COMPOUND. This port is one schema line and a handful of text variants — the cheapest port in the corpus, purchased against 

@@ -24,6 +24,14 @@
 > #138's first act: the grief relay, utilities-as-grief, knowledge-with-
 > provenance). **147 files, 1-147, zero gaps. 63 of >90 individual quests.**
 >
+> **[BATCH 11 LANDED 7/17/26 — the first SOURCE-PULLED batch]** #148 Deadly
+> Delights (the witcher-contract formula: fee locked before truth, the trophy
+> that launders, the discoverable-lie law), #149 the Sad Saint (Vampyr's
+> citizen web: priced people, district health made of names, mercy paid in the
+> player's own coin), #150 Waking Nightmare (the god who lies at the finale:
+> the private channel, the Dreamstride as [READ]-traversal, the metagame that
+> votes for the devil). **150 files, 1-150, zero gaps. 66 of >90.**
+>
 > **[STALE COUNT CORRECTED 7/16 MERGE]** This index said 126 files in one place and
 > 124 in another. **There are 138 questbook files on disk** (verified: numbers 1-138,
 > zero gaps, zero collisions, audited BY NUMBER per the #102 lesson). The 12 fresh
