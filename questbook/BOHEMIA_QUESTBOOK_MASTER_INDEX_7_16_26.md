@@ -9,6 +9,14 @@
 > (tools/bohemia_questbook_extract.py); ARCHIVE.html regen still pending the full
 > generator rebuild (named failure, standing job).
 >
+> **[BATCH 9 LANDED 7/17/26]** #142 the MotB argue-the-god finale (the
+> argue-the-Amalgamation blueprint: enforcer vs architect, evidence beats
+> principle, insight buys hearing not winning), #143 SH2's Eddie + the hidden
+> behavioral verdict engine (FIFTH ledger-read confirmation, and the only
+> ledger the player can't perform for), #144 Sunless Sea's legacy fold (the
+> will as a played scene; what refuses to cross the line makes the line real).
+> **144 files, 1-144, zero gaps. 60 of >90 individual quests.** Gate green.
+>
 > **[STALE COUNT CORRECTED 7/16 MERGE]** This index said 126 files in one place and
 > 124 in another. **There are 138 questbook files on disk** (verified: numbers 1-138,
 > zero gaps, zero collisions, audited BY NUMBER per the #102 lesson). The 12 fresh

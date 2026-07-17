@@ -1,4 +1,4 @@
-BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
+BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
 ====================================================================================================
 
 #     TITLE                                                 LINES  CRAFT  FLAWS  PORTS  FLOW  CONV   V2?
@@ -151,3 +151,6 @@ MINING POOL REMAINING: ~72 whole-game teardowns.
 139   THE WHITE PHOSPHORUS MORTAR (THE GATE) (Spec Ops: Th    254     10      3      5     Y     Y     Y
 140   THE LAST CORRIDOR (THE JUDGEMENT) (Undertale)           225     10      3      5     Y     Y     Y
 141   THE BOOK OF THE DEAD (THE IDENTIFICATION LOOP) (Retu    215     10      3      5     Y     Y     Y
+142   THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (N    210     10      3      5     Y     Y     Y
+143   EDDIE AND THE VERDICT ENGINE (Silent Hill 2)            197     10      3      5     Y     Y     Y
+144   THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)      199     10      3      5     Y     Y     Y

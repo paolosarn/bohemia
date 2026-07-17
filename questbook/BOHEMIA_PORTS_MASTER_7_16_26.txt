@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
-1221 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
+1236 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2680,3 +2680,54 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 5 — THE PAYOUT TABLE FINALE [W9, W10 — feeds Q137's generational audit engine]
       system: survival economy / act boundaries / the staged finale-is-a-ledger-read law
       The assessment epilogue is the ledger-read law's ECONOMIC register (Q140 delivered the moral register the same day; the two files are a matched pair). At generation end, Bohemia runs the settlement's assessment: every case closed pays, every case left open is read aloud as open — graded honesty, W10, no scolding, the empty rows simply named. The audit engine (Q137 PORT 1) gets its output format fr
+
+### #142  THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)
+  ->  PORT 1 — THE AMALGAMATION AUDIENCE [W1-W5 — the finale's spine; cross-ref Q12, Q17, Q20, Q140]
+      system: the argue-the-Amalgamation finale / [READ] / the fold
+      The structure, whole: the finale's opponent is the RECORDING ORDER itself, the Amalgamation its reluctant administrator, the Network its architect-beneficiary (W2's split, made canon-shaped). The audience opens with the Amalgamation CONCEDING the case's facts (W3) — it is made of the recorded dead; it knows exactly what the order costs — and defending continuation with a genuinely good case (W4). 
+  ->  PORT 2 — EVIDENCE BEATS PRINCIPLE, AS A GATE RULE [W7]
+      system: .bq gates / the missing-persons organ (Q141 PORT 1)
+      Finale petition nodes gate on WITNESSED flags, not on lore stats: the player who found the named dead (the organ's cases, the fold's entries) argues with exhibits; the player with only the principle loops. Q141's organ becomes the finale's evidence locker — close cases all game, spend them in the last room. The two files ship as one system.
+  ->  PORT 3 — THE SMALLER DOOR, ALWAYS OPEN [W8]
+      system: quest structure / conscience-no-karma-bar
+      Every systemic-injustice quest carries a personal-exit track priced only in tone (the epilogue reads relief differently than justice, and reads BOTH without a meter). Rule for the compile: where Bohemia stages an unjust order, the take-mine-and-go option must exist, work, and be read back honestly. Never punished, never free.
+  ->  PORT 4 — RIGHT CAUSE, WRONG REMEDY, AT FULL SCALE [W9, F2's law]
+      system: faction endgames / the three arcs
+      One Bohemia endgame branch should let the player burn a system they are RIGHT about — with the remedy's cost played, not narrated (F2's budget rule: the biggest consequence gets the biggest scene). [PENDING, Paolo's call: which order earns the crusade treatment; candidates run through the three-arc structure and are not mine to pick.]
+  ->  PORT 5 — THE CLOCK THAT RESPECTS THE ROOM [F3's law]
+      system: 120 BPM / I-MOVE-YOU-MOVE / dialogue scenes
+      Bohemia's beat-clock naturally solves MotB's self-sabotage: the world advances on player steps, so a conversation is ALREADY clock-free unless a quest deliberately beats it. Encode F3's law as a validator rule: any @TALK carrying a timed @DO must declare it in its entry line, so no conversation silently taxes reading. Mechanism testable at parse time; the validator hook belongs in bohemia_bq.js's 
+
+### #143  EDDIE AND THE VERDICT ENGINE (Silent Hill 2)
+  ->  PORT 1 — THE CONDUCT BOOK [W1, W3, F1 — the core port; fifth confirmation of the staged ledger-read law]
+      system: the fold / conscience-no-karma-bar / the dial
+      The fold already records deeds; this port adds the CONDUCT CLASS: unmarked behavioral entries (how the player treats their own wounds, their dead, their tempting replicas — Bohemia has all three natively) logged without any UI acknowledgment, then read at the finale ONLY where three independent signals corroborate (F1's law). The staged law gains its radical register: part of Bohemia's final read 
+  ->  PORT 2 — THE FAILED TWIN, SCHEDULED [W2, F3's law]
+      system: the 13 factions / NPC arcs / singleton registry
+      One Bohemia arc should run a failed twin: an NPC losing the player's own argument (whatever the act's central temptation is) three scenes ahead of them, with every meeting mandatory and individually weighty (F3's law), ending in a verdict the player watches land. Slot it in the singleton registry — one Eddie-class per game, like one Strange-Man. [PENDING, Paolo's call: which temptation, which act,
+  ->  PORT 3 — TEACH THE REGISTER, HIDE THE WEIGHTS [F2's law]
+      system: settlement NPCs / barks / [READ]
+      Early and diegetically, once: an NPC reads the player's conduct aloud ("you've been walking on that leg for two days — who are you punishing?") so attentive players learn that conduct is A register without learning any weight. The bark table mechanism is mine and ships EMPTY; the lines are Paolo's.
+  ->  PORT 4 — SCRIPT-GUILT AND PLAYER-GUILT, SEPARATE BOOKS [W4 — the Q139 pairing completed]
+      system: the fold / quest validation
+      Compile rule, machine-checkable: any deed a quest FORCES (no reachable refusal path in the .bq graph) must be flagged authored, and authored deeds are excluded from the player's conduct book (they may still scar the CHARACTER's story). Q139 banked "never accuse the player of an authored act"; this file supplies the enforcement mechanism: the validator can walk the option graph, prove no-refusal, a
+  ->  PORT 5 — THE REWARD THAT DIAGNOSES [W9]
+      system: endgame structure / the three arcs
+      One Bohemia ending should be the MARIA shape: the player receives exactly what their recorded orbit kept choosing — faction, person, or power — delivered sincerely, with one cough-equivalent: a single, quiet, in-world detail that prices it. No lecture, no meter, one detail. [PENDING, Paolo's call: everything about which reward and which detail.]
+
+### #144  THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)
+  ->  PORT 1 — THE WILL AS A PLAYED SCENE [W1, W6 — the core port]
+      system: the fold / succession (GDD v4) / dying-generation play
+      Bohemia's fold currently specifies WHAT persists; this port specifies the SCENE: when a dynast's death becomes legible in advance, the game enters testament play — the dying generation's remaining actions reframed (diegetically, not via UI mode) as estate work: bank testimony into the record, resolve bonds, place the heir. Then the READING: a fold-transfer scene that itemizes what crosses AND name
+  ->  PORT 2 — THE ESTATE'S CURRENCY RULE [W2, F2's law — a compile-time gate rule]
+      system: the fold / survival accounting
+      Machine-checkable compile rule: fold-heritable classes are KNOWLEDGE (map/case/testimony), BOND-STATES (resolved relationships), and RECORD entries. Repeatable-labor outputs (resources, currency beyond a fixed remnant) are non-heritable by schema. If a proposed fold field can be ground, the validator rejects it. F2's law with teeth; the schema whitelist ships EMPTY of specific items per MECHANISM-
+  ->  PORT 3 — PAST-TENSE VARIANTS FOR EVERY CROSSING NPC [W7, F1's law]
+      system: .bq roles / generational persistence
+      Compile rule for the questbook's own build queue: any NPC flagged fold-crossing must ship previous-dynast dialogue variants (grief register, stranded-arc register, past-tense register) — the validator counts them like it counts W-points. One line class, highest freight (W7). The .bq role model already casts against whoever exists this run; add the requirement that inherited bonds carry inherited t
+  ->  PORT 4 — THE HEIR-PREMIUM, PAID IN PRESENT STRENGTH [W4, W5]
+      system: survival economy / succession
+      Raising the successor costs the current generation real, felt resources on a schedule (the L-2 machine): skipped payments produce colder succession profiles, never game-overs. The dilemma must live in the SURVIVAL layer (food, fuel, protection money), so that loving the future is always priced against surviving the present. [PENDING, Paolo's call: what raising a dynast-heir costs per act, and what
+  ->  PORT 5 — TESTED AGAINST THE MERCIFUL QUESTION [F3's law — a standing design gate]
+      system: the fold / the dial / hardcore identity
+      Every fold feature answers one question at review: IF THIS RUN WERE RETRIED, WHAT WOULD STILL MATTER? Anything whose entire meaning evaporates under retry is re-anchored in record (the world remembers, the ledger keeps the entry, the taint survives) or rejected. Bohemia stays hardcore; the meaning stays even where mercy someday intrudes. Add the question to the STATE_OF_PLAY review checklist verba

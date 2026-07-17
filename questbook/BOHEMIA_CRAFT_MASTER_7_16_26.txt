@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
-1417 findings / 141 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
+1447 findings / 144 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3117,3 +3117,69 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       The ending converts sixty verified truths into compensations and fines — the ledger cashed out as the emotional climax. Proof that ACCOUNTING CAN BE THE FINALE when every row was earned: Q137's generational audit engine has a shipped precedent.
   W10 GRADED HONESTY AT EVERY EXIT
       Partial books get partial assessments, no scolding, no pretending. The quest respects exactly what the player established and nothing more — the model for how an organ reports half-finished truth.
+
+### #142  THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)
+  W1  THE ANTAGONIST IS A POLICY
+      No villain to kill: a functioning system whose function is the injustice. The fight/argue/petition trichotomy exists because the target is a LAW, and laws don't have hit points.
+  W2  ENFORCER AND ARCHITECT ARE TWO PEOPLE
+      Myrkul built it, Kelemvor runs it, and the game makes the player learn the difference by making rage at the wrong one useless. The single most portable structure in the file.
+  W3  THE ENFORCER CONCEDES THE FACTS FIRST
+      The debate opens with agreement about the injustice, which forecloses the cheap version of the argument and forces the real one: not "is this wrong" but "what does wrong obligate."
+  W4  THE OPPOSITION'S CASE IS GENUINELY GOOD
+      The order defense holds up. The player who wins the debate does it by reading the MAN, not by out-logicking a strawman.
+  W5  INSIGHT BUYS HEARING, NOT WINNING
+      The gated content is the judge's own doubt — stats unlock PERCEPTION of hints, and the hints are things he was always almost-saying. The check is diegetic: wise characters notice more because noticing is what wisdom is.
+  W6  SILENCE EXTRACTS
+      The uninterrupted god volunteers more than the questioned god. A SILENCE option that outperforms speech, authored deliberately, teachable directly.
+  W7  EVIDENCE BEATS PRINCIPLE
+      The named soul, witnessed, moves the court; the abstract argument loops forever. The quest mechanically enforces its own theme: systems answer to cases, not to essays.
+  W8  THE PERSONAL EXIT IS ALWAYS OPEN AND ALWAYS SMALLER
+      The petition track runs beside the crusade the whole way — mercy for yours, silence for the rest — and the game prices the difference in tone alone. Conscience without a karma bar.
+  W9  YOU CAN BE RIGHT AND WRONG AT ONCE
+      The crusade validates the player's justice and damns their judgment. The genre's best proof that a game can honor a conviction while showing its remedy burning.
+  W10 THE FIGHT SETTLES NOTHING BY DESIGN
+      Beating the god leaves the Wall standing: violence decoupled from change, on purpose, as the finale's last lesson. The player who shot the judge learns the bench survives him.
+
+### #143  EDDIE AND THE VERDICT ENGINE (Silent Hill 2)
+  W1  THE LEDGER IS BEHAVIORAL AND INVISIBLE
+      The verdict reads unmarked conduct — healing, lingering, re-reading — so the evidence is uncontaminated by performance. The only ledger in the corpus the player cannot act for.
+  W2  THE FAILED TWIN RUNS THE ARGUMENT AHEAD OF YOU
+      Eddie is James's excuse machinery at full volume, three scenes early. The player hears where the reasoning goes before the protagonist arrives there — dread by precedent, not by music.
+  W3  SPEECH IS WEIGHTLESS, CONDUCT IS TESTIMONY
+      The game inverts the genre's grading surface: conversations carry zero verdict weight, footsteps carry it all. The inversion is why the endings feel X-rayed rather than chosen.
+  W4  THE AUTHORED KILL IS QUARANTINED FROM THE LEDGER
+      James's one human kill is mandatory, and the engine deliberately does not weigh it — script-culpability and player-culpability kept in separate books. The discipline Q139's game lacked, shipped four years earlier.
+  W5  THE TOWN IS THE COURTROOM
+      Guilt as level design: the meat locker says what Eddie won't, the corridor plays what James buries. Environments as testimony means the read never needs a narrator.
+  W6  THE CONTROL GROUP WALKS THROUGH
+      Laura, guiltless, is untouched by the machinery — the design proves its own rule on-screen, so the monsters read as sentences rather than wildlife.
+  W7  THE REMOVED VERB BELONGS TO THE HEARER
+      No line reaches Eddie in the locker because Eddie can no longer hear — mercy is removed from HIS side, not the player's. The locked Bohemia law, in its cleanest source form.
+  W8  SILENCE WRITES FLAGS
+      Saying nothing at the body scene changes the locker's opening — the game files the player's quiet as a position taken. Costless-looking options with downstream text is reactivity at its cheapest and best.
+  W9  THE REWARD-ENDING IS A DIAGNOSIS
+      MARIA gives the player exactly what their footsteps kept choosing, then adds one cough. Having-it-your-way as the bleakest verdict — judgment delivered inside a gift.
+  W10 THE VERDICT SURVIVED THE PLAYERBASE
+      The algorithm stayed opaque long enough to generate years of genuine argument about what the game valued — the read was so diegetic that the DISCOURSE became part of the work. Invisibility executed at production quality.
+
+### #144  THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)
+  W1  THE WILL IS AUTHORED BY LIVING, NOT BY A MENU
+      Every mid-run choice (scion funding, arc-finishing, secret-banking) is secretly testament-drafting. The death screen only READS what the life already wrote — the fold as consequence, never as feature-checklist.
+  W2  KNOWLEDGE IS THE ESTATE'S GOLD STANDARD
+      The chart — pure geography-knowledge — is the one always-offered inheritance, and the game's best one. What crosses generations best is what was LEARNED. (Twelfth-plus echo of comprehension-as-progression; the fold speaks the same currency.)
+  W3  THE REFUSALS MAKE THE LINE REAL
+      Unbanked secrets burn, open ambitions die, stranded arcs stay stranded. A generational game earns its deaths by what it will NOT carry — the meaning lives in the non-heritable remainder.
+  W4  THE HEIR IS A PERSON, NOT A RESPAWN
+      Heir-shapes with different inheritance profiles — raised scion versus claiming rival — make the successor an authored relationship, priced during the predecessor's life. Who inherits is itself a life's-work question.
+  W5  THE SCION IS PAID FOR WITH PRESENT STRENGTH
+      Funding the heir costs fuel-money NOW: the game mechanizes the parent's dilemma (this life versus the next one) into every port visit. The fold's emotional core, denominated in the survival economy.
+  W6  DOOMED RUNS BECOME TESTAMENT RUNS
+      Because deaths are slow and legible, endgame play reorganizes around dying WELL — racing to bank, resolve, and bequeath. The game invents an entire late-life genre: playing your own probate.
+  W7  INHERITED NPCS SPEAK IN PAST TENSE
+      Officers who cross remember the previous captain in their lines, arcs visibly stranded. The cheapest possible reactivity (a text variant) carrying the heaviest possible freight (grief), and the model for every fold-crossing character Bohemia ships.
+  W8  THE TRUE ENDINGS ARE EXITS, NOT VICTORIES OVER DEATH
+      Completing an ambition ends the line ALIVE — retirement as the rare, expensive alternative to legacy. Death stays the default without becoming the only author.
+  W9  THE SECOND LIFE PROVES THE FIRST ONE HAPPENED
+      The heir's early game is repriced by inherited geography and the player's own trained dread — progress the interface never has to claim, because the player EXPERIENCES being their own inheritance.
+  W10 THE CHRONICLE FRAME
+      The game names a full history of play a chronicle of tragedies: the unit of the work is the LINE, not the life. The framing alone does design work — players narrate their dynasties unprompted. Bohemia's three-arc, hundred-year shape is this frame at full scale.

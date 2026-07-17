@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]
-660 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]
+669 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1834,3 +1834,36 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  ACCESSIBILITY RIDES ON SENSORY CHANNELS
      Accents carry nationalities, audio carries names, the 1-bit dither carries everything else; players with hearing or visual difficulties lose evidence CLASSES, not just polish. Documented, discussed, only partially mitigated.
      LAW: every evidence class must exist in at least two channels (a spoken name also appears written somewhere; a visual tell also has a testimonial echo). Redundancy is not hand-holding; it is the same mesh principle the game already loves, applied to senses.
+
+### #142  THE WALL AND THE JUDGE (THE ARGUE-THE-GOD FINALE) (Neverwinter Nights 2: Mask of the Betrayer)
+  X  THE DEBATE IS STAT-GATED AT ITS PEAK
+     The insight/wisdom thresholds lock the K-3 track — the quest's best content — behind build choices made 40 hours earlier. Community consensus and long-standing criticism: a dump-stat character meets the finale with its heart locked out (same wound as Q120's Deionarra check, ~10th confirmation).
+     LAW: [READ] needs a FLOOR at finales. The deepest node may open WIDER with earned insight, but a version of the hidden-truth beat must be reachable by every build. Gate the width, never the existence.
+  X  THE CRUSADE IS UNDERBUILT RELATIVE TO ITS WEIGHT
+     The most consequential branch (ending a cosmology) resolves largely in epilogue text and a boss gauntlet; players who chose it report the war feeling like a summary of itself. The remedy's catastrophe is TOLD more than PLAYED.
+     LAW: if a branch's consequence is apocalyptic, its PLAYABLE length must scale with it, or the branch teaches that apocalypse is cheap. Budget rule: the biggest consequence gets the biggest scene, or it gets cut. No obituary-only endings for player-authored catastrophes.
+  X  THE HUNGER CLOCK FIGHTS THE TALKING
+     The spirit-eater mechanic — the game's thematic spine — actively punishes the player for lingering in dialogue-heavy zones, and the finale is the most dialogue-heavy zone in the game. Widely reported: players metagame the hunger down (or mod it out) precisely to enjoy the writing the hunger was built to weight.
+     LAW: a pressure mechanic must never tax the player for engaging the content it exists to make weighty. If Bohemia ever clocks a conversation (and the beat system can), the clock pauses inside load-bearing nodes and says so. Dread between scenes, never metered against reading.
+
+### #143  EDDIE AND THE VERDICT ENGINE (Silent Hill 2)
+  X  THE INVISIBLE LEDGER MISFIRES ON HONEST PLAYSTYLES
+     The engine cannot distinguish meaning from habit: a cautious player who hoards healing items reads as suicidal; a completionist who re-examines everything reads as grief-obsessed. Two decades of players report endings that felt like misdiagnoses of their intent. The community literally reverse-engineered the algorithm to stop being misread.
+     LAW: behavioral evidence must be CORROBORATED before it convicts. The fold may log conduct-class entries, but any verdict assembled from unmarked behavior needs multiple independent signal types agreeing (the Q141 rule-of-three, applied to the player). One habit is a fact; three convergent habits are testimony.
+  X  THE MISDIRECTION TAX: PLAYERS GRADE THE WRONG SURFACE
+     Because every other game grades dialogue, players assumed the Eddie conversations and endgame choices carried the weight — and communities spent years optimizing scenes that count for nothing. The design's invisibility is its genius AND a usability wound: the game never once signals which register matters.
+     LAW: invisible ledgers are legal; UNLEARNABLE ones are not. Somewhere diegetic, at least once, the world must demonstrate that conduct is being read (an NPC who comments on the player's limp; a faction that reacts to self-neglect) so the attentive can learn the register exists without ever seeing the meter. Teach the CLASS of evidence, never the weights.
+  X  THE FAILED TWIN IS UNDERBUILT
+     Eddie gets three scenes to Angela's five-plus and the fandom's least attention; critics have long noted his arc reads thinner — the bullying backstory arrives mostly in his final monologue, so his kill can land as boss-fight furniture rather than tragedy for players who missed lines in earlier scenes.
+     LAW: a mirror character's load-bearing scenes cannot be optional-feeling. If the twin exists to preview the player's verdict, every one of his scenes must be unmissable AND individually weighty — three strong meetings minimum, none of them skippable smalltalk (the format already counts stages; the compile should count MIRROR-stages separately).
+
+### #144  THE CAPTAIN'S WILL (THE LEGACY FOLD) (Sunless Sea)
+  X  THE SECOND LIFE REPLAYS TOO MUCH PROSE
+     The famous criticism: story content is largely static per port, so an heir re-sails into vignettes the player has already read — the game's greatest asset (the writing) is exactly what repetition cheapens. The pool file banked it as story-becomes-a-vending-machine; at legacy scale it compounds: every death re-serves more known text.
+     LAW: the fold must never hand the heir the parent's SCENES. Inherited knowledge changes what the heir can DO, never re-runs what the parent READ — and inherited-state variants (L-3's past-tense officers) must exist precisely so that repeated places speak differently to a second generation. Bohemia's proc-gen city is structurally immune to the geography half; the dialogue half is a compile rule: every heritable NPC needs previous-captain variants.
+  X  GRIND CAN OUTWEIGH GRIEF
+     Widely reported: mid-game economics turn voyages into port-report milk runs, and death then reads as losing PROGRESS toward a spreadsheet rather than losing a person. When the estate is mostly denominated in tedium, the legacy scene's poetry goes flat.
+     LAW: the heritable estate must be denominated in EXPERIENCES (map knowledge, resolved arcs, banked testimony), never in repeatable-labor outputs. If a Bohemia player can grind the fold's value, the fold is mispriced — survival accounting keeps the labor; the fold keeps only what a eulogy could mention.
+  X  MERCIFUL MODE EXPOSED THE DESIGN'S DEPENDENCE ON DEATH
+     The later-added save-retention mode (and the permadeath debate around it) revealed how much of the game's meaning was load-bearing on loss being real; with death defanged, the legacy machine becomes set dressing, and community consensus split on whether the game survives it.
+     LAW: the fold's meaning budget must not sit entirely on permadeath. Bohemia is hardcore by identity, but the design should be tested against its own merciful-mode question: if a run were retried, what would still matter? The answer must be "the ledger and the world's memory," which do not reset — meaning anchored in RECORD, not solely in loss. (The Q28/Q140 taint mechanism is the model: consequence that survives even the undo.)

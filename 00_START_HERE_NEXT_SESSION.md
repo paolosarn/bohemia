@@ -160,11 +160,16 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
-Keep mining: next batch from the queue (Witcher contracts, Kenshi, Sunless Sea,
-Mask of the Betrayer, Tyranny, SH2 Eddie, Vampyr, Shivering Isles, Vaermina,
-the Pamela-sibling files). 57 of >90. Also on deck: rebuild the questbook
-ARCHIVE/extraction regenerator as a real factory. Waiting on Paolo: GitHub
-write access for the push, WALL_PICKER_BATCH2 thumbs (48), the (16,44)/(2,44)
+Keep mining. BATCH 9 landed 7/17 (#142 MotB argue-the-god, #143 SH2 Eddie +
+the behavioral verdict engine, #144 Sunless Sea legacy fold): 60 of >90.
+Remaining queue: Witcher contracts, Kenshi, Tyranny, Vampyr, Shivering Isles,
+Vaermina, Undertale non-Sans cuts, the Pamela-sibling files (#138 exists;
+Sharp/Flat + Ikana still to mine). Law-lock scoreboard: FINALE-IS-A-LEDGER-READ
+now 5 confirmations (#140 moral, #143 behavioral registers); the argue-finale
+has its blueprint (#142); the fold has its cornerstone (#144, pairs with Q46/
+Q47/Q49/Q137). Also on deck: rebuild the questbook ARCHIVE/extraction
+regenerator as a real factory. Waiting on Paolo: GitHub write access for the
+push (SIX commits queued), WALL_PICKER_BATCH2 thumbs (48), the (16,44)/(2,44)
 lamp-pairing eye call, patrol owner colors.
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
