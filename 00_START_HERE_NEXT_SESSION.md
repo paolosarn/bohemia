@@ -31,74 +31,26 @@ ALL GATES GREEN at handoff: 15 gates, ~30s, every gate path repo-aware.
   python3 gates/bohemia_gates.py          (everything)
   python3 gates/bohemia_gates.py --fast   (skips the two pixel sweeps)
 
-## THE MISSING 54 (THE ZIP INCIDENT, THIRD BITE. READ THIS FIRST.)
-The manifest promises 534 files. The four part zips delivered 480. 54 files
-listed in _MANIFEST.md5.txt never made it into any zip, and they include
-LOAD-BEARING pieces: bohemia_engine.js (the game engine itself),
-BOHEMIA_GRAPHICS_LAWS_MASTER_7_16_26.md, BOHEMIA_LIVE_SLICE_V11 (the live
-slice), PORTS_MASTER (the build queue), CRAFT/FLAWS/CONVERSATIONS masters,
-QUEST_VAULT, QUESTBOOK_ARCHIVE.html, the street pools, and every picker/
-gallery/proof awaiting Paolo's thumbs. Same failure class as the two banked
-ZIP INCIDENT lessons: the wrap dropped files silently, the diff caught it.
-_MANIFEST.md5.txt stays at root as the checklist; re-run the verify after the
-missing files land. Gates are green WITHOUT these files only because none of
-the 15 gates reads them; the repo is NOT whole until they land. Full list:
+## THE MISSING 54: RESOLVED SAME DAY (but bank the lesson)
+The four original part zips delivered 480 of the manifest's 534 files. The 54
+absent files (including bohemia_engine.js, GRAPHICS_LAWS_MASTER, LIVE_SLICE_V11,
+PORTS/CRAFT/FLAWS/CONVERSATIONS masters, QUEST_VAULT, the street pools, and
+every picker/gallery/proof) were a zip-build drop, the ZIP INCIDENT's third
+bite. Paolo re-uploaded corrected part2+part3 zips the same turn; all 54 landed,
+md5-verified EXACT, and were filed into the layout. FINAL SCORE: all 534
+manifest entries verified. 509 live byte-identical on disk (3 of them renamed
+into archive/, the folder replacing the old ARCHIVE_ prefix), 5 chunk-transport
+manifests verified then retired with their chunks (git history holds them), and
+22 files verified EXACT at delivery then deliberately edited the same session
+(gate path fixes for the folder layout, the /mnt/project bug, the handoff and
+map rewrites). _MANIFEST.md5.txt stays at root as the delivery record.
+LESSON, same as the two banked ZIP INCIDENT bites: THE DIFF IS THE GATE. The
+manifest-vs-disk diff caught the drop within minutes.
 
-  ARCHIVE_BOHEMIA_BLOCKGEN_RENDER_PROOF_7_14_26.html
-  BOHEMIA_ALPHA_SURFACE_UPGRADES_7_10_26.txt
-  BOHEMIA_ANIM_GAP_COOK_7_14_26.txt
-  BOHEMIA_ANIM_GAP_PROOF_7_14_26.html
-  BOHEMIA_BAKE_V8_GALLERY_7_10_26.html
-  BOHEMIA_BRIDGE_SET_7_10_26.txt
-  BOHEMIA_CONVERSATIONS_MASTER_7_16_26.txt
-  BOHEMIA_CRAFT_MASTER_7_16_26.txt
-  BOHEMIA_DEMO_TILE_BAKE_7_10_26.txt
-  BOHEMIA_DIRECTIONAL_VARIANT_BANK_7_10_26.txt
-  BOHEMIA_DOOR_EW_BANK_7_10_26.txt
-  BOHEMIA_DOOR_LEAF_COOK_V3_7_14_26.txt
-  BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html
-  BOHEMIA_FLAWS_MASTER_7_16_26.txt
-  BOHEMIA_GORE_OVERLAY_BANK_7_10_26.txt
-  BOHEMIA_GRAPHICS_LAWS_MASTER_7_16_26.md
-  BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt
-  BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt
-  BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt
-  BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html
-  BOHEMIA_HOUSE_PART_ROLES_7_14_26.html
-  BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt
-  BOHEMIA_LIVE_SLICE_V11_7_16_26.html
-  BOHEMIA_MOUNTED_SIGNS_7_13_26.txt
-  BOHEMIA_MULTICELL_TRAINING_7_10_26.html
-  BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html
-  BOHEMIA_OVERLAY_BANK_7_10_26.txt
-  BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt
-  BOHEMIA_PARTICLE_LOOP_COOK_7_14_26.txt
-  BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt
-  BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt
-  BOHEMIA_PORTS_MASTER_7_16_26.txt
-  BOHEMIA_QUESTBOOK_ARCHIVE.html
-  BOHEMIA_QUEST_VAULT.md
-  BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html
-  BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt
-  BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt
-  BOHEMIA_SESSION_SHOWCASE_7_10_26.html
-  BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt
-  BOHEMIA_STALL_STRIPING_PROOF_7_14_26.html
-  BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt
-  BOHEMIA_STREET_GEN_GALLERY_7_13_26.html
-  BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt
-  BOHEMIA_STREET_TILE_ROLES_7_13_26.html
-  BOHEMIA_STREET_TUNER_7_13_26.html
-  BOHEMIA_TERRAIN_PICKER_7_14_26.html
-  BOHEMIA_TRANSITION_SET_7_10_26.txt
-  BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt
-  BOHEMIA_WALL_PICKER_7_14_26.html
-  BOHEMIA_WALL_PICKER_BATCH2_7_14_26.html
-  BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt
-  BOHEMIA_WALL_VARIANT_BANK_7_10_26.txt
-  BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt
-  bohemia_engine.js
-
+ALSO RUN THIS SESSION (beyond the 15): engine/bohemia_tests.js 80/80, the bq
+parser 29/29. gates/bohemia_loop_gate.js still fails on its POURED checks
+because bohemia_loop.js's faction/economy/spawner pours are declared [SEAM]
+comments, unbuilt by design. That is the engine backlog, not rot.
 ## THE RE-AUDIT (Paolo forced a second pass. It found four more. Read this.)
 7. **THE REGISTRY ATE TWO LIVE FILES.** `bohemia_superseded.txt` had a line
    reading `BOHEMIA_QUESTBOOK_40_SINNERMAN.md | #122 is the primary (40 still
@@ -176,9 +128,8 @@ the 15 gates reads them; the repo is NOT whole until they land. Full list:
    individual quests at v2 before master compile; currently 54.
 
 ## NEXT ACTION
-Get THE MISSING 54 into the repo (Paolo re-zips or uploads them; verify against
-_MANIFEST.md5.txt, then file them into the layout above). Then LAMPS ONTO V11
-(V11 itself is among the missing files).
+LAMPS ONTO V11 (slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html, now in the repo).
+All anatomy notes for it are in IN FLIGHT item 1 below.
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
 GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white
