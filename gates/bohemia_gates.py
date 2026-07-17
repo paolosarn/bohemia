@@ -52,6 +52,8 @@ GATES = [
      'screech law, voices exist, fresh-batch variety', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
+    ('ART 45',         ['python3', 'gates/art_45_gate.py'],
+     'original art is three-quarter view, never flat', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
      'structure frozen in every clip', True),
     ('PURITY',         ['python3', 'gates/bohemia_purity_gate.py'],

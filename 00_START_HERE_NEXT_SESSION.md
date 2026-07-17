@@ -63,7 +63,16 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    silhouette outline pass, rust as coherent BLOTCHES + drip streaks below
    joints (never confetti), stacked base discs, bulged collars, rivet seam,
    cap. ALSO FIXED: seed used hash(state), which is process-salted — the
-   determinism law was silently broken v1-v3; fixed mapping now. Laws:
+   determinism law was silently broken v1-v3; fixed mapping now. THEN v5,
+   because Paolo ruled a NEW LAW off v4: THE 45 DEGREE ART LAW ("every art
+   ... has to be viewed from like a 45 degree angle... yours is like a flat
+   90, like it's a 2D scroller"). All original art is three-quarter view:
+   ellipse cross-sections, sky-lit visible tops, bands bow toward the
+   viewer. Law: laws/BOHEMIA_ADDENDUM_45_DEGREE_ART_LAW_7_17_26.md +
+   CLAUDE.md law list; GATE THE SAME TURN: gates/art_45_gate.py (gate #18,
+   ellipse-base + top-lit machine proxies on every registered commission
+   bank). v5 stands on stacked ellipse discs with a lidded cap, bowed
+   collars, sky-lit arm, heads with visible top + side faces. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

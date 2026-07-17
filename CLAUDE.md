@@ -38,6 +38,10 @@ research partner. He DECIDES, you PRODUCE.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
 - MECHANISM-MINE / CONTENTS-PAOLO'S: build tables and whitelists EMPTY except
   what has a ruling. Never fill in canon he reserved.
+- 45 DEGREE ART LAW (7/17): every original art Claude draws is seen from the
+  world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
+  scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the
+  viewer. The blessed lamp bank is the reference. Gate: art_45_gate.py.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)

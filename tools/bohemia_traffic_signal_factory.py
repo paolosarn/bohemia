@@ -133,6 +133,45 @@ def cyl_index(u, r):
     return 3
 
 
+def bow(u, depth=2):
+    """THE 45 DEGREE LAW (Paolo 7/17): horizontal edges wrap the cylinder
+    toward the viewer. 0 at the edges, `depth` px at the center."""
+    return int(round(depth * (1.0 - (2.0 * u - 1.0) ** 2)))
+
+
+def ellipse_disc(a, K, r, cx, cy, rx, ry, wall_h, tone_shift=0):
+    """A disc seen from the world's 45: a lit elliptical top face plus a
+    cylinder-wall skirt hanging from its front edge. This is what separates
+    the corpus from a 2D scroller: you can SEE the tops of things."""
+    ramp = K['ramp']
+    for xx in range(-rx, rx + 1):
+        u = (xx + rx + 0.5) / (2.0 * rx + 1.0)
+        edge = int(round(ry * math.sqrt(max(0.0, 1.0 - (xx / (rx + 0.001)) ** 2))))
+        for yy in range(-edge, edge + 1):
+            ti = 4 if yy <= 0 else 3
+            if r() < 0.15:
+                ti -= 1
+            ti = min(4, max(0, ti + tone_shift))
+            put(a, cx + xx, cy + yy, shade_of(ramp[ti], 0.9 + 0.18 * r()))
+        for k in range(1, wall_h + 1):
+            ti = max(0, cyl_index(u, r) - 1)
+            put(a, cx + xx, cy + edge + k, shade_of(ramp[ti], 0.9 + 0.16 * r()))
+
+
+def bowed_band(a, K, r, cx, y, w, h=3, depth=2, tone_shift=1):
+    """A ring wrapping the pole, seen from 45: edges ride high, the center
+    bows down toward the viewer, the top lip catches the sky."""
+    ramp = K['ramp']
+    x0 = int(round(cx - w / 2.0))
+    for i in range(w):
+        u = (i + 0.5) / w
+        dy = bow(u, depth)
+        for k in range(h):
+            ti = min(4, max(0, cyl_index(u, r) + tone_shift))
+            c = ramp[min(4, ti + 1)] if k == 0 else ramp[ti]
+            put(a, x0 + i, y + dy + k, shade_of(c, 0.92 + 0.16 * r()))
+
+
 class RustField(object):
     """Coherent rust: seeded elliptical blotches, not per-pixel confetti."""
     def __init__(self, r, x0, x1, y0, y1, k=6):
@@ -170,14 +209,16 @@ def paint_cyl_v(a, K, r, cx, y0, y1, w_of, rust=None, tone_shift=0):
 
 
 def paint_cyl_h(a, K, r, x0, x1, y_of, h_of, rust=None):
-    """Horizontal cylinder: the mast arm. Highlight rides the top."""
+    """Horizontal cylinder: the mast arm. THE 45 LAW: the sky lights the
+    TOP of the cylinder, so the highlight rides the upper surface and the
+    tones fall away underneath."""
     ramp = K['ramp']
     for xx in range(x0, x1):
         h = h_of(xx)
         yt = y_of(xx)
         for i in range(h):
-            u = (i + 0.5) / h
-            ti = cyl_index(u, r)
+            u = (i + 0.5) / h + (r() - 0.5) * 0.08
+            ti = 4 if u < 0.26 else (3 if u < 0.5 else (2 if u < 0.72 else (1 if u < 0.9 else 0)))
             c = shade_of(ramp[ti], 0.93 + 0.14 * r())
             if rust is not None:
                 rw = rust.w(xx, yt + i)
@@ -203,14 +244,22 @@ def draw_head(a, K, hx, hy, state, r, big=True):
     state: dead | red | amber | green"""
     hw, lens = (20, 12) if big else (14, 9)
     hh = lens * 3 + 14
+    side = 3 if big else 2                    # visible right side face (the 45 view)
     back = (38, 36, 20)                       # weathered backplate, desert-yellowed
     HRAMP = [(14, 14, 16), (24, 24, 26), (38, 38, 42), (54, 54, 60)]
-    # backplate with a ridge highlight on its left edge
+    # backplate with a ridge highlight on its left edge + 45-view side face
     rect(a, hx - 3, hy - 2, hx + hw + 3, hy + hh + 2, back)
     vline(a, hx - 3, hy - 2, hy + hh + 2, shade_of(back, 1.45))
-    hline(a, hx - 3, hx + hw + 3, hy - 2, shade_of(back, 1.3))
-    hline(a, hx - 3, hx + hw + 3, hy + hh + 1, shade_of(back, 0.6))
-    # housing: horizontal gradient (light catches the left)
+    for k in range(side):                     # right side face, shadowed depth
+        vline(a, hx + hw + 3 + k, hy - 1 + k, hy + hh + 2, shade_of(back, 0.5))
+    # top + bottom edges BOW toward the viewer (the box seen from 45 above)
+    for xx in range(hx - 3, hx + hw + 3 + side):
+        u = (xx - hx + 3 + 0.5) / (hw + 6.0 + side)
+        dy = bow(u, 1)
+        put(a, xx, hy - 2 + dy, shade_of(back, 1.5))     # sky-lit top face
+        put(a, xx, hy - 1 + dy, shade_of(back, 1.2))
+        put(a, xx, hy + hh + 1 + dy, shade_of(back, 0.55))
+    # housing: horizontal gradient (light catches the left) + lit top face
     for yy in range(hy, hy + hh):
         for xx in range(hx, hx + hw):
             u = (xx - hx + 0.5) / hw
@@ -218,6 +267,9 @@ def draw_head(a, K, hx, hy, state, r, big=True):
             if r() < 0.10:
                 ti = max(0, ti - 1)
             put(a, xx, yy, HRAMP[ti])
+    for xx in range(hx, hx + hw):
+        u = (xx - hx + 0.5) / hw
+        put(a, xx, hy + bow(u, 1), HRAMP[3])
     # corner bolts
     for bx2, by2 in ((hx + 1, hy + 1), (hx + hw - 2, hy + 1),
                      (hx + 1, hy + hh - 2), (hx + hw - 2, hy + hh - 2)):
@@ -235,11 +287,13 @@ def draw_head(a, K, hx, hy, state, r, big=True):
         col = lit if on else dark
         cx = hx + hw // 2
         rad = lens // 2
-        # visor hood: protrudes past the housing, dark top with a lit lip
-        hline(a, cx - rad - 2, cx + rad + 3, cy - 2, HRAMP[0])
-        hline(a, cx - rad - 2, cx + rad + 3, cy - 1, HRAMP[3])
-        put(a, cx - rad - 3, cy - 1, HRAMP[1]); put(a, cx + rad + 3, cy - 1, HRAMP[1])
-        put(a, cx - rad - 3, cy, HRAMP[0]); put(a, cx + rad + 3, cy, HRAMP[0])
+        # visor hood: wraps the lens, BOWED toward the viewer (45 view),
+        # sky-lit top over a shadowed underside
+        for xx in range(cx - rad - 3, cx + rad + 4):
+            u = (xx - (cx - rad - 3) + 0.5) / (2.0 * rad + 7)
+            dy = bow(u, 1)
+            put(a, xx, cy - 3 + dy, HRAMP[3])
+            put(a, xx, cy - 2 + dy, HRAMP[0])
         # lens: radial shading; dead glass keeps a cold glint top-left
         for yy in range(-rad, rad + 1):
             for xx in range(-rad, rad + 1):
@@ -276,8 +330,12 @@ def draw_sign_plate(a, K, x0, y, w, r):
             v = (yy - y - dy) / 15.0
             f = 1.25 if v < 0.2 else (1.0 if v < 0.7 else 0.72)
             put(a, xx, yy, shade_of(plate, f * (0.92 + 0.16 * r())))
+    # 45 view: lit top edge, shadowed right end cap
+    for xx in range(x0, x0 + w):
+        put(a, xx, y - 1 + (1 if xx >= half else 0), shade_of(plate, 1.55))
+    vline(a, x0 + w - 1, y + 2, y + 16, shade_of(plate, 0.5))
     # mounting tabs
-    put(a, x0 + 3, y - 1, K['ramp'][1]); put(a, x0 + w - 4, y, K['ramp'][1])
+    put(a, x0 + 3, y - 2, K['ramp'][1]); put(a, x0 + w - 4, y - 1, K['ramp'][1])
     # unreadable wear-marks where text would be
     for k in range(w // 5):
         if r() < 0.7:
@@ -303,8 +361,16 @@ def draw_signal(K, variant, state, seed):
     a = np.zeros((CH, CW, 4), dtype=np.uint8)
     ground_y = CH - 2
     top_y = 12
+    # THE 45 DEGREE LAW (Paolo 7/17, verbatim: "every art... has to be viewed
+    # from like a 45 degree angle... yours is like a flat 90, like it's a 2D
+    # scroller"). Horizontal cross-sections are ELLIPSES, tops are visible
+    # and sky-lit, bands bow toward the viewer. The blessed lamp is the
+    # reference. The art_45 gate machine-checks the base ellipse + top-light.
+    cy3 = ground_y - 7                 # base disc centers, stacked ellipses
+    cy2 = cy3 - 7
+    cy1 = cy2 - 5
     pole_top = top_y + 4
-    pole_bot = ground_y - 10
+    pole_bot = cy1 - 2
     rust = RustField(r, POLE_CX - 8, POLE_CX + 8, pole_top, pole_bot, k=6)
 
     def pole_w(yy):
@@ -312,28 +378,28 @@ def draw_signal(K, variant, state, seed):
         return 10 + int(5 * t)
 
     # the mast: painted cylinder, dark iron with a highlight band
-    paint_cyl_v(a, K, r, POLE_CX, pole_top, pole_bot, pole_w, rust=rust)
-    # cap: a squat disc + tip
-    paint_cyl_v(a, K, r, POLE_CX, top_y, pole_top, lambda yy: 12, tone_shift=1)
-    hline(a, POLE_CX - 3, POLE_CX + 4, top_y - 1, K['ramp'][3])
-    # collar rings: bulged, brighter, with drips below
+    paint_cyl_v(a, K, r, POLE_CX, pole_top, pole_bot + 3, pole_w, rust=rust)
+    # stacked base: three ellipse discs, tops visible, walls in shadow
+    ellipse_disc(a, K, r, POLE_CX, cy1, 8, 2, 2, tone_shift=1)
+    ellipse_disc(a, K, r, POLE_CX, cy2, 11, 3, 3)
+    ellipse_disc(a, K, r, POLE_CX, cy3, 13, 4, 3)
+    # anchor bolts sitting ON the base's top face
+    put(a, POLE_CX - 9, cy3 - 1, K['ramp'][4]); put(a, POLE_CX - 9, cy3, K['outline'])
+    put(a, POLE_CX + 9, cy3 - 1, K['ramp'][4]); put(a, POLE_CX + 9, cy3, K['outline'])
+    # cap: a lidded ellipse + knob, tops visible from the 45
+    ellipse_disc(a, K, r, POLE_CX, pole_top - 1, 7, 2, 2, tone_shift=1)
+    ellipse_disc(a, K, r, POLE_CX, pole_top - 4, 3, 1, 1, tone_shift=1)
+    # collar rings: bowed toward the viewer, drips below
     plen = pole_bot - pole_top
     for frac in (0.22, 0.52, 0.78):
         by = pole_top + int(plen * frac)
         w = pole_w(by) + 4
-        paint_cyl_v(a, K, r, POLE_CX, by, by + 4, lambda yy: w, tone_shift=1)
-        hline(a, POLE_CX - w // 2, POLE_CX + w // 2 + 1, by + 4, K['outline'])
-        drips(a, K, r, POLE_CX - w // 2, POLE_CX + w // 2, by + 5, n=2)
+        bowed_band(a, K, r, POLE_CX, by, w, h=3, depth=2)
+        drips(a, K, r, POLE_CX - w // 2, POLE_CX + w // 2, by + 6, n=2)
     # rivet seam down the centerline
-    for yy in range(pole_top + 6, pole_bot - 4, 11):
+    for yy in range(pole_top + 8, pole_bot - 4, 11):
         put(a, POLE_CX + 1, yy, K['outline'])
         put(a, POLE_CX + 1, yy + 1, K['ramp'][4])
-    # stacked base discs with anchor bolts
-    for k, (dw, dh) in enumerate(((19, 3), (23, 3), (27, 4))):
-        y0 = pole_bot + sum(h for _, h in ((19, 3), (23, 3), (27, 4))[:k])
-        paint_cyl_v(a, K, r, POLE_CX, y0, y0 + dh, lambda yy: dw, tone_shift=1 if k == 0 else 0)
-    put(a, POLE_CX - 11, ground_y - 2, K['ramp'][4])
-    put(a, POLE_CX + 11, ground_y - 2, K['ramp'][4])
 
     # the arm: horizontal cylinder rising off the mast, tapering out
     arm_y0 = top_y + 10
@@ -350,8 +416,8 @@ def draw_signal(K, variant, state, seed):
 
     paint_cyl_h(a, K, r, POLE_CX, arm_x1, arm_y, arm_h, rust=arust)
     arm_tip_y = arm_y0 - 6
-    # arm-to-pole joint collar + gusset strut underneath
-    paint_cyl_v(a, K, r, POLE_CX, arm_y0 - 2, arm_y0 + 6, lambda yy: pole_w(yy) + 4, tone_shift=1)
+    # arm-to-pole joint collar (bowed, 45 view) + gusset strut underneath
+    bowed_band(a, K, r, POLE_CX, arm_y0 - 2, pole_w(arm_y0) + 6, h=5, depth=2)
     for k in range(16):
         put(a, POLE_CX + 6 + k, arm_y0 + 16 - k, K['ramp'][1])
         put(a, POLE_CX + 7 + k, arm_y0 + 16 - k, K['ramp'][2])
@@ -404,7 +470,10 @@ def verify(a, state):
 
 def main():
     K = tone_ramp()
-    out = {'version': 'BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_v2', 'date': '2026-07-17',
+    out = {'version': 'BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_v3', 'date': '2026-07-17',
+           'perspective': ('45deg three-quarter (THE 45 LAW, Paolo 7/17: all original '
+                           'art is seen from the world\'s 45, never flat side-on like a '
+                           '2D scroller; ellipse tops, sky-lit top faces, bowed bands)'),
            'status': 'UNJUDGED (first commissioned original; Paolo judges on the intersection proof)',
            'commission': ('Paolo 7/17 verbatim intent: large hanging street light, red yellow '
                           'green, very tall, hangs above, street signs and stuff. Vegas mast-arm.'),
