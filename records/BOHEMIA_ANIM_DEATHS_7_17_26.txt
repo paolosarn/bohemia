@@ -127,3 +127,12 @@ FIXED:
   Bodies settle in believable heaps, not side-splits. Verified all 8.
 Still a touch sit-uppy on N/S (torso braces hold it up on landing) -- candidate
 for the next note. UNJUDGED.
+
+=== UPDATE 7/18 (f): HEAD IS TRULY STATIC (translate-only) ===
+Paolo: "the head is still morphing." The rigid ROTATION still resampled the
+pixel head at each angle (pixels reflow = morph). FINAL FIX: the head is now
+translate-ONLY -- always drawn at its exact rest orientation (upright, never
+rotated, never scaled), only moved to follow the head position. Identical
+pixels every frame; it wiggles WITH the body (position) but the sprite is
+static. This rule is now global (ragdoll + every clip). Paolo: "the animations
+came out a lot better" (the body motion is landing; head was the last note).
