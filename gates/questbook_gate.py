@@ -137,8 +137,11 @@ for n in nums:
 arch = open(os.path.join(QB, 'BOHEMIA_QUESTBOOK_ARCHIVE.html'), encoding='utf-8').read()
 ok('archive carries the newest file (#%d)' % nums[-1], ('[%d,"' % nums[-1]) in arch)
 
-print('\n  FULL-MACHINE COUNT: %d of >90 target (10 W-points + conversation '
-      'machine + CAST + BRANCH MAP)' % len(full_machine))
+# TARGET RAISED 7/17 EVENING (Paolo, after the FNV quest-count comparison:
+# ~140-165 marked quests after DLC): "at the very least we need 150."
+# The >90 line was crossed at 91 the same night; 150 is the new floor.
+print('\n  FULL-MACHINE COUNT: %d of 150 target (10 W-points + conversation '
+      'machine + CAST + BRANCH MAP; raised from >90 on 7/17)' % len(full_machine))
 print('  ' + ','.join(str(x) for x in full_machine))
 print('  zero-dialogue-by-design, COUNTED per Paolo ruling 7/17 (genuine silence '
       'satisfies the machine): ' + ','.join(str(x) for x in sorted(zero_dialogue)))

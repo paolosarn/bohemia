@@ -1,6 +1,18 @@
-# ADDENDUM — THE >90 TARGET COUNTS FULL-MACHINE FILES ONLY (7/17/26)
-(amended same day: the hidden-backfill discovery, the indentation ruling,
-the 01-16 exception, the zero-dialogue pending flag)
+# ADDENDUM — THE FULL-MACHINE TARGET: 150 (7/17/26)
+(amended same day, three times: the hidden-backfill discovery, the
+indentation ruling, the 01-16 exception, the zero-dialogue ruling, and
+finally THE RAISE)
+
+## THE RAISE (7/17 evening, the last ruling of the night)
+The >90 line was CROSSED at 91 the same night it was redefined. Paolo then
+calibrated against Fallout: New Vegas (~140-165 marked quests after DLC,
+~250 authored pieces counting unmarked) and ruled: "at the very least we
+need 150 individual quests with their whole enchilada, so let's keep
+hunting. The best open-world [games] of all time."
+THE TARGET IS 150 FULL-MACHINE FILES, floor not ceiling. The hunt lane
+stays the backfill queue (62 files, #33-94, which alone reaches 153) plus
+fresh mines from the best open-world games of all time as the queue's
+teardowns point to them. The gate prints N of 150 every run.
 
 PAOLO RULING, 7/17/26 evening, verbatim intent: "We need 90 of these bro" —
 "these" being files that carry the FULL machine. The counter is redefined.

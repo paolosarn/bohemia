@@ -75,11 +75,11 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    (same night): #22 NieR, #23 Elden Ring, #24 Alpha Protocol, #25
    Tyranny, #26 Pentiment, #27 Spec Ops, #28 Undertale, #29 Frostpunk,
    #30 This War of Mine, #31 Papers Please, #32 KOTOR.
-   **>90 TARGET MET 7/17: 91 OF >90 FULL-MACHINE. THE MASTER COMPILE IS
-   UNBLOCKED.** Starting it is Paolo's call (the 7/16 shelf item "when to
-   end research/start compile" is now LIVE, no longer hypothetical).
-   62 files remain in the queue (#33-94) as volume beyond the target;
-   backfilling can continue in parallel or pause for the compile.
+   >90 was MET 7/17 at 91 — then RAISED the same night: after the FNV
+   comparison (~140-165 marked quests after DLC), Paolo set the floor at
+   **150 FULL-MACHINE FILES. "Let's keep hunting. The best open-world
+   [games] of all time."** The queue (62 files, #33-94) alone reaches
+   153; fresh open-world mines welcome on top. Compile waits for 150.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
    node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
    #01's payload is the pattern), gate green, commit per batch.
