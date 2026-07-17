@@ -93,8 +93,16 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    severed-thread recovery path our fold upgrades) and #38 Fallout 1/2
    (THE taproot: build-is-the-solution-space, the consistency principle
    with our care boundary, the ending reel as FINALE-IS-A-LEDGER-READ's
-   birthplace). Counter 97; 55 files remain (#39,#41-94), reaching 153;
-   fresh open-world mines welcome on top. Next up: #39 Bloodlines.
+   birthplace), then #39 Bloodlines (the zero-combat dread set-piece
+   spec + the clan lens, rides with #99), #41 Darkest Dungeon (the
+   BUILD SPEC for the conscience system #30 sketched: stress/resolve,
+   contagious breakdown, recovery economy, the greed lever = our
+   Dead-Eye 3x; PROVEN on iPad), #42 Dragon Age Origins (the DIRECT
+   model for the upbringing system: converge-then-color, the Landsmeet
+   = Q050's blueprint, the fold = cross-game import internalized).
+   **Counter 100 of 150 — two-thirds.** 50 files remain (#43-94),
+   reaching 150 exactly; fresh open-world mines stack on top. Next up:
+   #43.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
    node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
    #01's payload is the pattern), gate green, commit per batch.

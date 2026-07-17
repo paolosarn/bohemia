@@ -158,3 +158,64 @@ anti-superhero), 22 (NieR — hope-in-despair), 27 (Spec Ops — people-as-consu
 health system + upbringing + succession + death-math + Dead-Eye greed + currencies + wellbeing/SUN-MODE/
 difficulty rules. FUTURE: a Red Hook talk on the stress/affliction design; a RimWorld/Dwarf Fortress
 deep-dive (emergent psychological simulation siblings).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE HEIR / THE PLAYER (the estate's inheritor)** — wants the family curse cleaned up, and will spend other people to do it. Will trade: heroes, by the roster, into the dark. Will never say out loud: that the estate consumes the people sent to save it, and that this was always the deal. FUNCTION: the manager of breakable people (W4). Not a power fantasy — a payroll of trauma.
+
+**THE HEROES** — want, each, to survive one more run, and carry quirks and afflictions that make even that hard: a Faithless one who won't pray, a Kleptomaniac, a God-Fearing one who won't gamble. Will trade: their nerve, spent as STRESS, until it breaks. FUNCTION: fragile resources with faces (W4) — the game's whole moral weight is that the numbers have names.
+
+**THE STRESS METER** — wants 100, then 200. FUNCTION: the second HP bar, deadlier than the first (W1). It kills by heart attack independent of health: the mind as the real battlefield.
+
+**THE RESOLVE CHECK** — wants to roll badly, ~85% of the time. FUNCTION: the fork (W2): at the brink, a hero either CRACKS into affliction (paranoid, abusive, hopeless — and STRESSES the others, W3) or, rarely, STEELS into virtue (the ~15% clutch that saves the run, W10). The unplannable crisis that gives the system its drama.
+
+**THE NARRATOR** — wants to editorialize your every triumph and corpse. "Overconfidence is a slow and insidious killer." FUNCTION: the voice-as-character (W8) that turns a spreadsheet of stress into gothic dread — the GLaDOS lesson (#36) in a systems game.
+
+**THE TORCH** — wants to go out, because darkness pays. FUNCTION: the greed lever (W6): dim the light for more loot and more stress — Bohemia's Dead-Eye 3x multiplier, wearing a lantern.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: the "dialogue" here is with SYSTEMS and a narrator, not NPCs — the resolve check is the most dramatic conversation, and it's the hero talking to their own breaking point)
+
+NODE: THE_TORCH_DIAL — any dungeon, entry: the light meter visible
+  > (keep it bright)                [gate: torches] -> less stress, better odds, less loot; the coward's percentage, which is to say the survivor's
+  > (let it burn low)               [gate: greed] -> more reward, more stress, more danger (W6); the voluntary gamble that IS the game's risk verb
+  THE DIRECT PARALLEL: this is our Dead-Eye greed multiplier, already in Bohemia's DNA. The file's gift is proof the lever generalizes from combat to EXPLORATION.
+
+NODE: THE_RESOLVE_CHECK — at 100 stress, entry: a hero's breaking point
+  The splash screen. The narrator leans in. The dice roll.
+  > (AFFLICTION ~85%)               [gate: the roll] -> PARANOID / ABUSIVE / HOPELESS / FEARFUL: control LOST. The hero refuses heals, insults allies, skips turns, self-harms — and RAISES everyone else's stress (W2, W3)
+  > (VIRTUE ~15%)                   [gate: the roll] -> STALWART / COURAGEOUS / FOCUSED: self-heals, buffs, CURES the party's stress; the clutch you can't plan (W10)
+  NOVERB: "Pull yourself together." The command does not exist. You cannot ORDER resolve; you can only have PREVENTED the stress that got here (the design's thesis: play to prevent, never to overcome). The removed verb is the whole risk-management loop.
+
+NODE: THE_ABUSIVE_CASCADE — post-affliction, entry: one broken mind in a party of four
+  > (keep pushing)                  [gate: none] TRAP -> the abusive hero stresses the others toward THEIR checks; one crack becomes four; the party dooms itself from inside (W3)
+  > (retreat, cut losses)           [gate: none] -> abandon the loot, save the people; the triage the whole game teaches
+  THE INTERDEPENDENCE (W3): psychological damage is contagious. The #30 lesson (community as resource) shown from its dark side: community as a stress vector.
+
+NODE: THE_TOWN_RELIEF — between runs, the Hamlet, entry: gold in hand
+  > (Tavern: drink, gamble, brothel) [gate: gold + slots + quirk allows] -> stress down, unless a quirk REFUSES it
+  > (Abbey: pray, meditate, flagellate) [gate: gold + slots + quirk allows] -> stress down, unless Faithless
+  > (send them back unrested)       [gate: none] TRAP -> the roster too thin, the mission too soon; the estate's appetite outpacing recovery
+  THE ECONOMY (W5): recovery is BUDGETED, slotted, gold-gated, and quirk-blocked. You cannot heal everyone, so you ROTATE — a large roster of the breakable (the #06/#29 roster-triage lineage).
+
+NODE: THE_CAMP — mid-long-run, entry: limited camp actions
+  > (stress-heal skills)            [gate: actions] -> minds tended at the cost of buffs
+  > (buff / cook / watch)           [gate: actions] -> the body tended at the cost of the mind
+  THE TRIAGE (W7): the ME2 assignment screen (#06) compressed into a firelit minute — heal-vs-buff-vs-eat, never all three.
+
+NODE: THE_FINAL_DUNGEON — the estate's heart, entry: the endgame
+  Heroes enter at 80 stress on reuse. One-use. The theme, literalized.
+  > (choose who to spend)           [gate: none] -> the mechanic IS the thesis (W9): this quest CONSUMES people, and the last choice is whose life the cure costs
+  THE ONE LINE DOING THE WORK is the narrator's, over a veteran walking in for the last time: the estate does not return what it takes. Spec Ops' complicity (#27) and ME2's roll call (#06) fused into a resource cost.
+
+## V2-C THE BRANCH MAP
+
+COUNT: no authored ending-branches — the branch map is the ROSTER's fate (who cracked, who steeled, who died, who you spent at the end), compiled run by run. (The estate's story is fixed; WHO survives it is the whole variable.)
+
+THE STRESS LAYER — per hero: intact / afflicted (6 negative states) / virtuous (5 positive) / heart-attacked / dead. Compounding, contagious (W2, W3).
+THE ECONOMY LAYER — recovery budgeted, quirk-gated, roster-rotated (W5).
+THE CONSUMPTION LAYER — the final dungeon spends people by name (W9): the ledger of who the cure cost.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Darkest Dungeon is the BUILD SPEC for the conscience system #30 only sketched — This War of Mine proved guilt should be sticky and chosen; Darkest Dungeon proves HOW to make psychological attrition a SYSTEM. Lock-ins: (1) a STRESS/RESOLVE meter on survivors, companions, and heirs — grim events, cruelty, loss, and Amalgamation-horror raise it; at the brink they CRACK (an affliction that costs reliability and STRESSES others) or rarely STEEL (a virtue that buffs the settlement), with breakdown CONTAGIOUS across a family/block (the #30 community-as-resource shown from both sides); (2) PSYCHOLOGICAL RECOVERY as a budgeted city-builder resource — a tavern/abbey-class building with limited slots, gold cost, and quirk-refusals (a faith-averse survivor won't pray), forcing roster rotation and recovery triage (the #06/#29 lineage); (3) the GREED LEVER generalized — the Dead-Eye 3x multiplier is Darkest Dungeon's torch, and it should extend to EXPLORATION and the city-builder (push a zone harder for more yield at more stress); (4) the VIRTUE GLIMMER banked as the counter to unrelenting misery — an unplannable steeling that makes the dread bearable (the #22 chosen-meaning note, mechanized). Compile gates from the flaws, all four: breakdowns must feel EARNED not dice-cruel (player mitigation, the odds-feel-fair law from #06/#21); recovery PACED so it isn't grind; dread given TEXTURE and triumphs (SUN-MODE, the packages); and no single relief-system made mandatory. And the platform note is not incidental — Darkest Dungeon ships this depth on iPad, which is exactly Bohemia's target: the psychological-attrition system is PROVEN to fit the phone.

@@ -154,3 +154,67 @@ the DNA/Troika lineage), 34/35 (SOMA/SH2 — dread + space-as-antagonist), 23/03
 stable + surface-reactivity), our upbringing + [READ] + Amalgamation-horror + music/audio + Pacifist Law +
 regression-gate/never-lose laws. FUTURE: a Brian Mitsoda talk on Ocean House / reactive dialogue design;
 a Disco Elysium cross-study (his lineage of reactive writing).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+(Cross-ref #99 THE GHOST HAUNTS AT MIDNIGHT, the zero-dialogue Ocean House deep-dive: #99 is the
+SET-PIECE file — the haunted hotel as pure dread; #39 is the GAME file — Ocean House inside the clan-
+reactivity whole. They ride together; #99 counts as zero-dialogue-by-design, #39 carries the machine.)
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE FLEDGLING (the player)** — wants to survive being sired into a war they didn't enlist in. What KIND of survivor is set at creation: the CLAN choice is not a costume, it is a different game. Will trade: whatever the clan permits — a Malkavian trades sanity for prophecy, a Nosferatu trades the streets for the sewers. FUNCTION: the lens (W1). The most consequential character-creation choice in the medium: it rewrites dialogue, perception, and which doors exist.
+
+**THE MALKAVIAN VOICE** — wants to say the true thing sideways, to everyone, all the time. Playing Malkavian rewrites the ENTIRE script into cryptic prophecy; the fledgling occasionally predicts the endgame in madness only that clan hears. FUNCTION: the insanity-lens (W8): a whole second game's worth of writing for one creation click — reactivity as an alternate register on the same world.
+
+**THE OCEAN HOUSE HOTEL** — wants to finish telling you about the murder it remembers. No enemies live in it; the HOUSE is the enemy — flung tableware, gas, a falling elevator, a bulldozer that repositions to threaten. Will never say out loud: anything; it writes in blood and moves furniture. FUNCTION: the space-as-antagonist (W5): the dread set-piece that proves a combat-free level can be the best part of an action game.
+
+**THE GLIMPSED GHOST** — wants to be almost seen. He stalks, he never attacks; the anticipation is the whole horror (W3). FUNCTION: the Alien/Jaws principle in a character slot: withhold the monster and the fear has no ceiling.
+
+**KNOX (and every liar in LA)** — wants to play you like a fiddle, and can, unless your Perception clears the bar. FUNCTION: perception-gated truth (W9): the build decides whether you are deceived — deception is a STAT CHECK you don't know you're failing.
+
+**THE HOSPITAL VAMPIRE** — wants to be left alone with her meal. She causes every scare on her floor and attacks only if provoked. FUNCTION: the non-hostile monster (W10): the fight is optional, authored to exist and authored to be avoidable.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the signature is that the SAME node speaks differently per CLAN — the Malkavian column is a different game, and Ocean House's "dialogue" is with a building)
+
+NODE: CHARACTER_CREATION — before the game, entry: new fledgling
+  Seven clans. The choice reads as a class pick and is a script pick.
+  > (Ventrue / Toreador / Brujah...) [gate: none] -> powers, weaknesses, standard dialogue trees, NPC reactions tuned to your blood
+  > (Malkavian)                      [gate: none] -> EVERY line rewritten into prophetic madness; unique quest routes; endgame foreknowledge nobody else receives (W8)
+  > (Nosferatu)                      [gate: none] -> too hideous for the street: a DIFFERENT PHYSICAL GAME through the sewers
+  WRITES: the lens for everything downstream (W1). The most expensive reactivity investment in the file bank, most of it invisible per playthrough (the banked flaw: surface it or it goes unseen).
+
+NODE: OCEAN_HOUSE_ENTRY — the haunted hotel, entry: a fetch quest that becomes the best level in the game
+  Quiet. Then a knock. Then quiet.
+  > (explore, read the walls)       [gate: none] -> the murder assembled from clippings and blood-writing (W6); the story is IN the house
+  > (proceed deeper)                [gate: none] -> QUIET/LOUD/QUIET (W4): long dread, a boiler blast or flung tableware, release; scored like music
+  > (look carefully down the hall)  [gate: attention] -> a GLIMPSE of the killer-ghost, who never attacks (W3)
+  > [attack the empty room]         [gate: none] TRAP -> nothing to hit; the threat is the SPACE (W5), and swinging at it is the level laughing at you
+  NOVERB: "Fight the ghost." The verb the entire rest of the game is built on DOES NOT WORK here. Ocean House removes combat and keeps the player, and the removal is the design. (See #99 for the full set-piece teardown — it counts as zero-dialogue-by-design; this node is its hinge to the clan-reactive whole.)
+
+NODE: KNOX_PITCH — Santa Monica, entry: a friendly Kindred with a favor and an angle
+  He spins a story. It is a good story. It is not true.
+  > (believe him)                   [gate: Perception < 3] -> played like a fiddle; the lie becomes your next quest
+  > "You're lying."                 [gate: Perception 3+] -> the deception SEEN; the build gated whether you were fooled (W9)
+  THE CRAFT: the same conversation is honest or a con depending on a stat you set at creation. Deception as a check the deceived cannot perceive they failed.
+
+NODE: THE_HOSPITAL_FLOOR — a companion horror level, entry: scares everywhere
+  A flesh-eater causes every noise, every shadow, every dread beat.
+  > (avoid her, leave)              [gate: none] -> the level's horror without a fight; restraint rewarded (W10)
+  > [attack her]                    [gate: none] -> the provokable bonus-boss; violence was always optional and always yours to start
+  CROSS-REF Undertale (#28): the enemy you needn't fight, in first-person horror register. The Pacifist Law's proof that a monster can be authored to be SPARED by default.
+
+NODE: THE_CLIMAX — the final act, entry: the plot's endgame
+  The rich social-horror game becomes a corridor of fights.
+  > (fight through)                 [gate: combat] TRAP -> the banked flaw made playable: the ending ABANDONS the game's real strengths (writing, dread, choice)
+  THE LESSON, verbatim from the ledger: don't let the climax betray what the game was FOR. Bohemia's Q050 leans on knowing and dread, not a corridor (the #17/#25 caution, third confirmation).
+
+## V2-C THE BRANCH MAP
+
+COUNT: 7 clan-lenses x N per-quest solution routes (combat/stealth/Discipline/seduction/dialogue/perception) x 4-ish faction endings — but the deepest branching is the CLAN LENS, which forks the game at the character-creation screen.
+
+THE LENS LAYER — 7 clans, each a different script/perception/route-set; Malkavian a whole alternate game (W1, W8).
+THE SOLUTION LAYER — the Fallout DNA in first-person: every quest multi-approach, build-gated (W9, and #38's inheritance).
+THE FACTION ENDINGS — Camarilla / Anarch / Kuei-Jin / your-own-play, the LA night reshuffled by allegiance.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Bloodlines is two gifts to Bohemia at once. (1) THE ZERO-COMBAT DREAD SET-PIECE — Ocean House is the master build spec for an Amalgamation-dive or haunted-ruin: dread not jumpscares (glimpse and withhold), QUIET/LOUD/QUIET pacing scored like music, the SPACE as antagonist, the story assembled from the walls, SOUND as the primary tool (our music/audio strength is the lever) — and a combat-free level can be Bohemia's BEST, exactly as it was Troika's (rides with #99, #34, #35). (2) THE CLAN LENS confirms and maximizes the upbringing spec from #20/#25/#38: a Church- vs Trades- vs Anarchist-raised heir should get different dialogue, routes, NPC reactions, and PERCEPTIONS — and the "Amalgamation-touched visionary lens" (cryptic, prophetic, seeing what others can't) is the Malkavian move, native to our lore. Compile gates from the solo-dev cautions, all three underlined: SHIP STABLE (Bloodlines nearly died on bugs — the regression-gate and never-lose laws are survival, not bureaucracy); SURFACE the reactivity (NPCs cite the dynasty's upbringing so the lens lands on one playthrough); and DON'T LET THE CLIMAX ABANDON THE STRENGTHS (Q050 is knowing and dread, never a corridor). With #38 the Troika lineage is fully banked: Fallout is the taproot, Bloodlines the first-person heir, and Bohemia the post-collapse descendant of both.

@@ -160,3 +160,67 @@ Conquest/background), 20 (Forgotten City — backgrounds), 05/26 (Disco/Pentimen
 ledger + standing + Liberate/Respect/Become + FACTORY LAW + scope discipline. FUTURE: a BioWare talk on
 authoring the six origins; a Baldur's Gate 2 deep-dive (companion-rivalry/conflict system) as a
 relationship-reactivity sibling.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE WARDEN (the player, six possible people)** — wants, per the plot: the Blight ended. Wants, per the origin: something older — a City Elf wants vengeance for the alienage, a Human Noble wants Howe's head, a Dwarf Commoner wants to stop being a brand-marked nothing. Will trade: the past, which the game refuses to let go of. FUNCTION: the lens with a surname (W1, W2): six openings, one convergence, and the coloring never washes out.
+
+**THE SIX ORIGINS** — want to be more than a tutorial. Each is a complete short story teaching Thedas from a different social position: caste, oppression, privilege, faith. FUNCTION: the character-defining beginning (W1, W8): the world gains dimension through WHOSE eyes it's first seen.
+
+**ARL HOWE (and each origin's nemesis)** — wants the Human Noble's family erased, and returns in the main plot to be answered for. FUNCTION: the origin's tragedy paying off late (W4): the opening seeds the climax — but only for the origin it belongs to (the banked flaw: uneven callbacks).
+
+**THE LANDSMEET** — wants a reckoning: every favor, every dirt-file, every alliance, cashed in one assembly. FUNCTION: the choice-culmination set-piece (W5): the whole game's reactivity made visible and decisive in a single room. Our Q050's blueprint.
+
+**MORRIGAN** — wants a way around the price, and offers one with an unknown cost: a ritual so no Warden dies, at the price of a god-souled child loose in the world. FUNCTION: the no-clean-sacrifice climax (W6): the murky escape versus the clean heroic death.
+
+**THE ARCHITECT** — wants to end the Blights' cause, and asks to be spared to try. FUNCTION: the delayed consequence (W7): sparing him plants a seed that ripens across SEQUELS — the fold's cross-game move, which Bohemia does across generations natively.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the signature is the ORIGIN COLUMN — the same main-plot node speaks differently per who you were, and the culmination reads the whole game back)
+
+NODE: THE_ORIGIN_OPENING — before convergence, entry: character creation's six doors
+  A bespoke hour: your home, your people, your tragedy, your recruitment.
+  > (Human Noble: your family slaughtered by Howe) [gate: origin] -> a nemesis filed for the main plot (W4)
+  > (City Elf: a wedding shattered in the alienage) [gate: origin] -> oppression learned from inside it (W8)
+  > (Dwarf Commoner: casteless, brand-marked)       [gate: origin] -> dignity as the whole subject
+  > (Circle Mage / Dalish / Dwarf Noble)            [gate: origin] -> three more complete short stories
+  WRITES: surname, standing, and the reaction-lens for the ENTIRE game (W2). The beginning is authored to WHO you are, and then it refuses to become irrelevant.
+
+NODE: MAIN_PLOT_NODE — anywhere post-convergence, entry: the core story, colored
+  The same scene, six tints.
+  > (Human Noble line: nobles defer)   [gate: origin] -> doors open on blood
+  > (City Elf line: elves trust, nobles sneer) [gate: origin] -> the same room, a different temperature
+  > (unique recognition)               [gate: origin] -> an NPC who knew your home, your caste, your crime
+  THE SCALABLE PATTERN (W3): author the CORE once, layer origin-reactions on top. The efficient reactivity that makes six games from one plot — the exact pattern our single district needs.
+
+NODE: THE_LANDSMEET — the political assembly, entry: the game's accumulated reputation due
+  Every favor and every secret you gathered, now votes.
+  > (rally the backers you earned)     [gate: accumulated standing/favors/dirt] -> who supports you is the whole game, tallied (W5)
+  > (decide the throne)                [gate: alliances] -> Anora / Alistair / co-rule / marry in
+  > (execute Loghain)                  [gate: none] -> the traitor dead; a clean line
+  > (recruit Loghain to the Wardens)   [gate: none] TRAP -> pragmatic, and Alistair LEAVES over it (W10): companion approval as hard consequence
+  THE CULMINATION: the reactivity made VISIBLE and decisive, one room, one afternoon (W5). Q050 is this.
+
+NODE: THE_ARCHDEMON_RITUAL — the climax, entry: the god must be killed and a Warden must die to do it
+  Morrigan, at the last door, offers the way around.
+  > (accept the ritual)                [gate: Morrigan's terms] -> no Warden dies; a tainted god-soul child enters the world, consequence unknown (W6)
+  > (refuse: a Warden dies a hero)     [gate: none] -> the clean cost, paid in a life
+  > (make the sacrifice yourself)      [gate: none] -> the hero's death, chosen
+  NOVERB: "Save everyone at no cost." The climax has no such line. Every option is a price or a mortgage. The no-clean-sacrifice peak (W6), the #04/#34 lineage.
+
+NODE: THE_ARCHITECT — a sentient Darkspawn, entry: a spare-or-kill with a horizon past this game
+  > (kill him)                         [gate: none] -> the safe, final answer
+  > (spare him, gamble on his cure)    [gate: nerve] -> a seed; later characters warn its impact isn't seen YET (W7)
+  THE DELAYED CONSEQUENCE: mercy whose bill arrives in a sequel — Bohemia's fold makes that bill arrive in a grandchild.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 6 origins x N main-plot colorings x the Landsmeet's throne/traitor forks x the Archdemon ritual (accept/refuse/self) x cross-game import flags — the deepest branching is at BIRTH (the origin) and at the CULMINATION (the Landsmeet reads it all back).
+
+THE ORIGIN LAYER — 6 bespoke openings, each a persistent lens (W1, W2, W8).
+THE CULMINATION LAYER — the Landsmeet tallies accumulated standing; the Archdemon ritual forks the ending's moral cost (W5, W6).
+THE IMPORT LAYER — dozens of flags carried into sequels: who ruled, who lived, who you spared (W9): the world remembering across GAMES.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Dragon Age: Origins is the DIRECT MODEL for the upbringing system (Q003) and, with Bloodlines (#39), Fallout (#38), and Tyranny (#25), completes the identity-lens spec: BOHEMIA'S UPBRINGING IS A DA:O ORIGIN ENGINE. Lock-ins: (1) a bespoke opening + a persistent LENS per background (Trades/Church/Anarchist/Homeless-raised heirs get different openings, standing, NPC reactions, and dialogue for the WHOLE playthrough, learning the district from a different SOCIAL POSITION); (2) CONVERGE-THEN-COLOR is the scalable pattern our FACTORY LAW demands — author the core district once, layer upbringing-reactions on top; (3) the LANDSMEET is Q050's blueprint: one culmination set-piece where the dynasty's whole accumulated standing pays out visibly (who rallies at the Amalgamation door); (4) the NO-CLEAN-SACRIFICE climax (the Morrigan-ritual-equivalent: cheat the Amalgamation's price at an unknown future cost, or pay it honestly) belongs in Liberate/Respect/Become; (5) the FOLD is DA's cross-game import internalized — the unrecorded ledger is our import-save, and it lets an origin's tragedy or a spared enemy ripen GENERATIONS later (which DA could only do across sequels). Compile gates from the flaws, all three sharp for a solo dev: SUSTAIN callbacks for EVERY upbringing across the whole game (don't front-load then abandon — the uneven-origin flaw is the trap); pick a SUSTAINABLE scope (fewer upbringings with deep callbacks beat six shallow — FACTORY LAW); and be HONEST about choice-vs-rails, making the forks that exist land hard and be respected.
