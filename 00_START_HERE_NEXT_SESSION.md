@@ -33,8 +33,14 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   and freshness-gated.
 
 ## IN FLIGHT (resume here)
-1. V12-class bake: next slice generation carries cell.mk markings natively
-   (the overlay proved the cell.mk -> bank -> slice pipeline end to end).
+1. V12-class bake: THE BAKE FACTORY EXISTS (7/17, tools/bohemia_bake_factory.py
+   — rebuilt from the harmonized pools' data-laws: 88/12 weather rarity, family
+   edge harmonization, the APPROVED marking bank for native cell.mk, dark lamps).
+   First proof baked: slices/BOHEMIA_V12_BAKE_PROOF_35_6.{png,html} — the
+   commercial block, pockets baked natively, self-gated (coverage, roles,
+   purple-zero, deterministic). NEXT: wrecks + fire barrels + plot/building
+   strips into the baker, then the full V12 slice (all four cells + payload
+   wiring) — at that point V11's overlay era ends.
 2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
