@@ -1,47 +1,41 @@
-BOHEMIA — THE TWO DEATHS (7/17/26). Paolo orders a second 8-way headshot
-ragdoll, then directs its rebuild from real forensics + his own eye.
+BOHEMIA — THE TWO DEATHS (7/17/26). headshot-2 rebuilt THREE times to Paolo's
+eye; v3 is a ground-up rethink.
 
-THE TWO:
-- headshot   (v1, THE TOPPLE): force ARRIVING. The blast knocks the body over.
-  Untouched, exactly as Paolo left it 7/2.
-- headshot-2 (v2, THE CRUMPLE): force LEAVING. Rebuilt 7/17 to Paolo's phase
-  spec + research.
+PAOLO'S VERDICTS drove it:
+- v1 (physics crumple): "tweaking, jumping around, not falling fast enough,
+  unnatural, looks like dog shit... care more about how the human skeleton
+  actually works."
+- Root cause, MEASURED (headless, per-frame joint deltas): the Verlet ragdoll
+  with a dozen stacked correction laws (glue/spine-parallel/anti-jackknife/
+  static-shoulders/hinge/renorm) FIGHT each other -> single-frame joint POPS of
+  17-25px (teleports). That is the "jumping around." And the fall was shallow +
+  floaty (waist dropped ~19px then twitched for a second).
 
-PAOLO'S DIRECTION (verbatim intent): "body flopped down first then their arms
-followed... then they went back and their arms are curling up — looks like dog
-shit." He named the exact motion he wants AND the two bugs.
+THE FIX = KEYFRAMED, not physics (Paolo's own 7/2 law: "arm inertia stays
+keyframed... real ragdoll physics only if a clip provably cannot sell it." It
+provably couldn't). headshot-2 (THE CRUMPLE) is now authored:
+- FORWARD-KINEMATICS ANGLE INTERPOLATION: every bone's angle eases from its
+  standing angle to its corpse angle along the shortest arc, at exact rest
+  length. Angles vary continuously in ph, so motion is SMOOTH BY CONSTRUCTION
+  -- no direction flip, no pop. (Position-lerp+renormalize, tried first, popped
+  6-25px when bone directions flipped; angle-interp fixed it.)
+- FOLLOW-THROUGH TIMELINE (Disney overlapping action + forensic flaccid
+  collapse): legs buckle first (0-0.24), the mass drops (hip 0.03-0.46, torso
+  0.08-0.55), the head lolls, the ARMS LAG then follow (0.42-0.90). Body down
+  by ph~0.55, arms settle by ~0.88, then HOLD. Fast, decisive.
+- DEATH CORPSE: a side-on splay built from the rig's own rest bone lengths, so
+  the collapse READS on every facing (a body lying straight into the screen is
+  invisible; every corpse now lies along a screen diagonal, face up per FACE
+  LAW, arms flopped out/back, one knee sprawled).
+- FIXED FRAME (not per-frame centering): the body visibly DROPS inside a locked
+  frame; head falls a consistent 33px on all 8 facings.
 
-RESEARCH (the "big brain" pass Paolo asked for):
-- FORENSIC (Godoy Medical Forensics): a HEAD shot destroys CNS motor control
-  instantly. The corpse is FLACCID — zero muscle tone. It does not brace, fight,
-  or try to rise. It folds straight down under dead weight. (Distinct from a
-  torso/limb hit, where a body can stay up and even run.)
-- ANIMATION CRAFT (Disney 12 principles: follow-through + overlapping action;
-  the DRAG technique): "more drag = floppier, less drag = stiffer." A dead limb
-  is MAX drag, so the arms lag far behind the torso. That IS "body first, arms
-  follow."
+MACHINE-VERIFIED (headless, all 8 facings, 60 frames each): worst single-frame
+joint jump 3.6px (was 17-25px), body fully in frame, head drop 33px, holds as a
+corpse. v1 THE TOPPLE (physics) is UNTOUCHED and still fires as the other death.
+Watched via clock-driven render sheets (E/S/N), not just static samples --
+that was the earlier mistake.
 
-THE TWO BUGS, NAMED AND KILLED:
-1. "then they went back" = the WAIST TENSION law (the living body's "almost gets
-   up" muscular kick) was firing on the corpse. A flaccid head-shot has no
-   tension to spend. SKIPPED for v2 (fires for v1 only).
-2. "arms curling up" = the CURL phase pulled the hands to the belly (a
-   deliberate, alive motion). Replaced for v2 with DEAD SPLAY: arms sag to the
-   floor where they fell and lie splayed; they never pull inward.
-PLUS: arm DRAG cranked (hand-lag window 0.22s -> 0.55s, damp floppier) so the
-arms visibly hang back then follow; harder pelvis drop + torso jackknife so the
-body gives first.
-
-MACHINE-VERIFIED 7/17 (headless, all 8 facings): every locked law still holds
-inside v1's envelope (FACE, GLUE, RIGID LIMB, ARM FOLD, SPINE PARALLEL,
-ANTI-JACKKNIFE, NO N/S FALLS, hinges, tracking cam); frozen corpse reached;
-zero NaN. TIMELINE PROOF (E-facing): waist drops +20px by 0.5s while hands are
-still near rest; hands only drop (to -13px) at 0.75s. Body leads, arms follow.
-Frame strip rendered and eyeballed (verify-by-rendering law).
-
-OPEN FORK FOR PAOLO: the corpse lands FACE-UP because FACE LAW (his locked 7/2
-law: the headshot must SHOW THE FACE) mandates it. His word "stomach" wants
-face-DOWN. Face law won by default (locked canon beats a verbal aside). If he
-wants a face-down death, it needs a FACE LAW exception for this clip — his call.
-
-STATUS: UNJUDGED. Deaths are a factory now: name the flaw in a word, get a v3.
+STILL PAOLO'S CALL: face-up (FACE LAW) vs his "stomach" (face-down needs a face-
+law exception); the exact corpse splay; fall speed. UNJUDGED. Deaths are a
+factory: name the flaw in a word, get a v4.
