@@ -58,6 +58,80 @@ include a menu attempt, a SCENE IMAGE steers the whole batch and is the
 strongest input I can give you.
 === END PROMPT ===
 
+=== COOK BATCH 9 (7/17/26) — 4 songs, FIRST COOK OF THE REPO ERA. Horror FF10, melodic under dread. ===
+NEW VOICES BORN (ledgered to owner song):
+- faythchoir   -> SUNKEN VESPERS        (vowel-TRAJECTORY formant choir: three formants WALK ah->oh->oo inside one note; formantvox holds one vowel still, this one travels; detuned saw trio + sub-octave sine)
+- undertowbass -> UNDERTOW              (undertone-series divider organ: f, f/2, f/3, f/4 each breathing on its own LFO clock; the harmonic series upside down, catalog first)
+- phasetwin    -> THE CANCELLED MAN     (phase-cancellation twin: identical saw + polarity-inverted saw at unison = silence; the twin drifts 1.1 percent and the sound fades IN from self-erasure, then re-converges to nothing)
+- stormlarynx  -> THE WIND LEARNS WORDS (audio-rate noise-FM voice: 70Hz-filtered noise wired INTO osc.frequency, growl settles toward speech; syllable gain gate, 4 almost-words per note)
+VARIETY (no two share scale+feel+kick; roots spread 40-53):
+- SUNKEN VESPERS        root45 scale[0,1,5,7,8]    feel half   kick[0,9]
+- UNDERTOW              root40 scale[0,3,4,7,10]   feel half   kick[0,5,8]
+- THE CANCELLED MAN     root47 scale[0,1,6,7,10]   feel normal kick[0,3,8,11]
+- THE WIND LEARNS WORDS root53 scale[0,2,3,5,7,10] feel normal kick[0,4,10]
+ENTRIES (verbatim):
+{n:'SUNKEN VESPERS',acc:'#5a7a9a',root:45,scale:[0,1,5,7,8],wave:'sine',kick:[0,9],bass:[0,7,8,12],hat:[4,12],inst:{b:'processional',l:'faythchoir'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'UNDERTOW',acc:'#3a5a6a',root:40,scale:[0,3,4,7,10],wave:'triangle',kick:[0,5,8],bass:[0,4,7,10],hat:[6,14],inst:{b:'undertowbass',l:'watervoice'},am:'styxhaze',kit:{k:'boom',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'THE CANCELLED MAN',acc:'#8a8a92',root:47,scale:[0,1,6,7,10],wave:'sawtooth',kick:[0,3,8,11],bass:[0,6,7,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'phasetwin'},am:'vacancyhum',kit:{k:'knock',h:'tight'},mel:'call',swing:0,feel:'normal',klay:'stabs',ff:true,nu:true},
+{n:'THE WIND LEARNS WORDS',acc:'#a8925a',root:53,scale:[0,2,3,5,7,10],wave:'triangle',kick:[0,4,10],bass:[0,3,7,10],hat:[3,7,11,14],inst:{b:'hullwind',l:'stormlarynx'},am:'mesawind',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.12,feel:'normal',klay:'melody',ff:true,nu:true}
+ALL FOUR UNJUDGED, NEW badges live (NEW_VIBES updated to this batch; the old
+list was 8 already-judged names, 6 of them graveyarded). No remakes: all four
+titles checked against the graveyard (8 dead titles), zero collisions.
+SCREECH LAW: clean. Zero createDelay calls in the whole build; nothing feeds
+back (phasetwin SUBTRACTS its twin, it does not loop).
+REPO-ERA NOTE: _newvoice_gate.js did not survive the chat->repo transport (it
+is not in the 534-file seed). REBUILT THIS TURN as gates/music_gate.js and
+wired into gates/bohemia_gates.py as the MUSIC gate: screech sweep on the
+build (lawbook text excluded), every inst/am/kit voice must have a synthV
+body, NEW_VIBES must exist in MLOOPS, batch variety law enforced on the NEW
+set, limiter presence check. A law without a machine gate is not enforced.
+
+=== VERDICT PASS 7/8/26 (b) ===
+CANON baked: THE LAST DEALER FOLDS, WHAT THE MIRRORS KEPT (batch7 survivors) + all prior canons.
+BURIED (graveyard final, no remake): MENU WIND OVER THE MESA, A THOUSAND MILES OF COPPER,
+  THE CHOIR THAT STAYED, MUSIC BOX FOR THE GONE, IT WALKS THE STRIP AT 3AM, PHANTOM CASINO,
+  THE DEBT COLLECTOR AT DAWN, A HYMN NOBODY FINISHED. (8 dead, excluded from all pools.)
+
+=== COOK BATCH 8 (7/8/26) — 4 songs answering dead slots. Horror FF10, melodic under dread. ===
+NEW VOICES BORN:
+- rouletteghost -> THE PIT BOSS IS GONE     (ring-mod decelerando bell wheel; bell x sub VCA, decelerating click gate)
+- windpsaltery  -> SALT ON THE HIGHWAY      (noise-burst tuned-resonator-bank pluck; 3 bandpass Q22 at 1/2.01/3.02)
+- moldorgan     -> WHAT GROWS IN THE VAULT  (beating-detune LFO-breathed reed; detuned saws beating, lowpass on 0.7Hz LFO)
+- emberharp     -> THE LAST TABLE STANDING  (FM-decay-morph harp; mod index decays metallic->pure + detune shimmer)
+VARIETY (no two share scale+feel+kick):
+- THE PIT BOSS IS GONE    root41 scale[0,2,3,7,8]     feel half   kick[0,7,12]
+- SALT ON THE HIGHWAY     root46 scale[0,1,5,7,8,11]   feel drive  kick[0,4,8,10]
+- WHAT GROWS IN THE VAULT root50 scale[0,3,5,6,9]      feel normal kick[0,6,9,13]
+- THE LAST TABLE STANDING root55 scale[0,2,4,7,11]     feel normal kick[0,10,14]
+ENTRIES (verbatim):
+{n:'THE PIT BOSS IS GONE',acc:'#7a4a5a',root:41,scale:[0,2,3,7,8],wave:'sine',kick:[0,7,12],bass:[0,3,7,3],hat:[4,12],inst:{b:'nightpad',l:'rouletteghost'},am:'dreadbed',kit:{k:'boom',h:'shakerh'},mel:'call',swing:0,feel:'half',klay:'stabs',ff:true,nu:true},
+{n:'SALT ON THE HIGHWAY',acc:'#c89a5a',root:46,scale:[0,1,5,7,8,11],wave:'sawtooth',kick:[0,4,8,10],bass:[0,5,8,11],hat:[2,6,10,14],inst:{b:'foreclosurebass',l:'windpsaltery'},am:'mistchoir',kit:{k:'punchk',h:'tight'},mel:'drive16',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
+{n:'WHAT GROWS IN THE VAULT',acc:'#5a7a5a',root:50,scale:[0,3,5,6,9],wave:'triangle',kick:[0,6,9,13],bass:[0,3,6,9],hat:[6,14],inst:{b:'ashchoir',l:'moldorgan'},am:'edenmist',kit:{k:'thud',h:'clickh'},mel:'call',swing:0,feel:'normal',klay:'melody',ff:true,nu:true},
+{n:'THE LAST TABLE STANDING',acc:'#c8b06a',root:55,scale:[0,2,4,7,11],wave:'sine',kick:[0,10,14],bass:[0,4,7,11],hat:[4,12],inst:{b:'gonebox',l:'emberharp'},am:'mistchoir',kit:{k:'knock',h:'ride'},mel:'call',swing:0.2,feel:'normal',klay:'stabs',ff:true,nu:true}
+SCREECH LAW: clean. Gate: newvoice green.
+
+
+=== COOK BATCH 7 (7/8/26) — 4 songs, horror FF, new voices + new topologies ===
+NEW VOICES BORN (ledgered to owner song):
+- rotviola      -> THE LAST DEALER FOLDS   (tremolo-AM waveshaped bowed triangle-stack string)
+- glassrequiem  -> WHAT THE MIRRORS KEPT   (inharmonic additive struck glass, partials 1/2.76/5.40/8.93, random decay)
+- dustpipeorgan -> THE DEBT COLLECTOR AT DAWN (PWM-morph square rank through comb bandpass sweep)
+- brokencelesta -> A HYMN NOBODY FINISHED  (tritone-FM music box 1:1.414, pitch-drift + dropout gate)
+
+VARIETY LAW (no two share scale+feel+kick):
+- THE LAST DEALER FOLDS      root43 scale[0,2,3,6,7,10] feel normal kick[0,6,11]
+- WHAT THE MIRRORS KEPT      root49 scale[0,1,4,5,8]    feel half   kick[0,8]
+- THE DEBT COLLECTOR AT DAWN root45 scale[0,3,5,7,8,11] feel drive  kick[0,4,7,11]
+- A HYMN NOBODY FINISHED     root52 scale[0,2,5,7,9]    feel normal kick[0,10,13]
+
+ENTRIES (verbatim):
+{n:'THE LAST DEALER FOLDS',acc:'#8a3a4a',root:43,scale:[0,2,3,6,7,10],wave:'triangle',kick:[0,6,11],bass:[0,3,7,3],hat:[4,12],inst:{b:'ashchoir',l:'rotviola'},am:'dreadbed',kit:{k:'thud',h:'shakerh'},mel:'call',swing:0,feel:'normal',klay:'melody',ff:true,nu:true},
+{n:'WHAT THE MIRRORS KEPT',acc:'#5a6a8a',root:49,scale:[0,1,4,5,8],wave:'sine',kick:[0,8],bass:[0,4,8,5],hat:[6,14],inst:{b:'nightpad',l:'glassrequiem'},am:'mistchoir',kit:{k:'boom',h:'clickh'},mel:'call',swing:0,feel:'half',klay:'stabs',ff:true,nu:true},
+/* ☠ GRAVEYARD (down 7/8, no remake): THE DEBT COLLECTOR AT DAWN */
+/* ☠ GRAVEYARD (down 7/8, no remake): A HYMN NOBODY FINISHED */
+SCREECH LAW: clean (no createDelay/feedback). Gate: newvoice green 126/0.
+
+
 
 === BOHEMIA MUSIC REPO (7/6/26) ===
 THE MUSIC SAVE FILE. ALPHA is a build; this file is the truth.
@@ -146,10 +220,10 @@ createDelay, no feedback loops in any voice; anything that rings must be
 excited-and-decaying, never self-feeding.
 
 --- HORROR BATCH 6 (7/8, all UNJUDGED, post-fix data unchanged) ---
-{n:'THE CHOIR THAT STAYED',acc:'#9a8ab8',root:45,scale:[0,1,5,7,8],wave:'square',kick:[0,9],bass:[0,1,7],hat:[],inst:{b:'cryptorgan',l:'ghostvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
-{n:'MUSIC BOX FOR THE GONE',acc:'#d8c0d8',root:52,scale:[0,2,3,7,8],wave:'sine',kick:[0,11],bass:[0,3,8],hat:[6],inst:{b:'wireharp',l:'gonebox'},am:'nurserydust',kit:{k:'thud',h:'tight'},mel:'call',swing:0.06,klay:'melody',ff:true},
-{n:'IT WALKS THE STRIP AT 3AM',acc:'#6a3a4a',root:41,scale:[0,1,6,7,10],wave:'sine',kick:[0,7,11],bass:[0,6,7],hat:[3,13],inst:{b:'heartbeatsub',l:'neonhowl'},am:'pressurefront',kit:{k:'boom',h:'clickh'},mel:'longs',swing:0,klay:'drums',ff:true},
-{n:'PHANTOM CASINO',acc:'#4aa088',root:47,scale:[0,1,3,6,8],wave:'square',kick:[0,5,8,13],bass:[0,3,6,8],hat:[2,10],inst:{b:'boneshuffle',l:'jackpotghost'},am:'emptyfloorhum',kit:{k:'knock',h:'ride'},mel:'call',swing:0.3,klay:'stabs',ff:true},
+/* ☠ GRAVEYARD (down 7/8, no remake): THE CHOIR THAT STAYED */
+/* ☠ GRAVEYARD (down 7/8, no remake): MUSIC BOX FOR THE GONE */
+/* ☠ GRAVEYARD (down 7/8, no remake): IT WALKS THE STRIP AT 3AM */
+/* ☠ GRAVEYARD (down 7/8, no remake): PHANTOM CASINO */
 VOICE LEDGER BATCH 6: THE CHOIR THAT STAYED owns cryptorgan, ghostvox,
 chapelbreath. MUSIC BOX FOR THE GONE owns wireharp, gonebox, nurserydust.
 IT WALKS THE STRIP AT 3AM owns heartbeatsub, neonhowl, pressurefront.
@@ -164,10 +238,10 @@ MENU — LIGHTS ACROSS THE VALLEY, ANARCHISTS s2 EVICTION PARTY (recooked).
 ANARCHISTS s2 v16 DANCE ON THE RUBBLE (attempt 4: three ska angles died,
 this one is bright 2-tone with the horn carrying an actual HOOK, seed8
 melody, organ skank): {root:52,wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9,12],hat:[2,6,10,14],scale:[0,2,4,7,9],inst:{b:'skankorgan',l:'rudehorn'},am:'unionhall',kit:{k:'dropkick',h:'skahat'},mel:'seed8',swing:0.25,klay:'melody'}
-{n:'MENU — WIND OVER THE MESA',menu:true,acc:'#b8a888',root:43,scale:[0,2,3,7,9],wave:'sine',kick:[],bass:[0],hat:[],inst:{b:'mesawind',l:'farbell'},am:'stillair',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+/* ☠ GRAVEYARD (down 7/8, no remake): MENU — WIND OVER THE MESA */
 {n:'CATHEDRAL OF CRANES',acc:'#c8a040',root:47,scale:[0,2,4,7,9],wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9],hat:[2,6,10,14],inst:{b:'riveter',l:'cranesong'},am:'scaffoldair',kit:{k:'knock',h:'tight'},mel:'call',swing:0,klay:'melody',ff:true},
 {n:'MOTHS AROUND THE LAST LIGHT',acc:'#e8d8a8',root:50,scale:[0,2,3,7,9],wave:'sine',kick:[0,8],bass:[0,7],hat:[4,12],inst:{b:'lampbass',l:'mothflutter'},am:'porchglow',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
-{n:'A THOUSAND MILES OF COPPER',acc:'#c87838',root:46,scale:[0,2,3,7,9],wave:'triangle',kick:[0,6,8,14],bass:[0,3,7,10],hat:[3,7,11,14],inst:{b:'coppertwang',l:'linewalker'},am:'oxidechoir',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.15,klay:'melody',ff:true},
+/* ☠ GRAVEYARD (down 7/8, no remake): A THOUSAND MILES OF COPPER */
 NOTES: WIND OVER THE MESA = menu attempt 4 built on the ONLY menu recipe
 that ever went canon (DEAD VALLEY DAWN minimalism): swept wind, one far
 bell, still air, no drums at all. CATHEDRAL OF CRANES = rebuild as
@@ -367,3 +441,4 @@ VIBES CANON: all 46 titles per BOHEMIA_MUSIC_VERDICTS_MASTER_7_6_26.md
 DOWN, REMAKE: HIGHWAY 15 SOUTH, CARAVAN DUST, ONE CANDLE (SLOW CREEP redeemed 7/7, now overworld canon)
 UNRESOLVED: MOJAVE GHOST, LONG WALK HOME (down on earlier list, absent from latest; data recovered, fate pending Paolo)
 BONUS FOUND IN TRANSCRIPTS, NEVER JUDGED: MOB — THE HOUSE REMEMBERS [PENDING verdict]
+

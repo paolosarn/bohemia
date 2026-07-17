@@ -59,6 +59,13 @@ same turn. Approval unlocks volume (variants). Rejects go to the graveyard with
 post-mortems. Continuous cooking: big batches, machine gates, surface judgment
 rarely as one mega-session.
 
+## SHIP FLOW (Paolo 7/17/26, standing law)
+- A finished update MERGES TO MAIN THE SAME TURN, by Claude, without asking.
+  Paolo never clicks merge buttons. PRs exist for the record only.
+- Every turn that ships to main ends with the play link as the LAST LINE of
+  the reply, always: https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
+  (GitHub Pages auto-redeploys main in ~2 minutes; the link never changes.)
+
 ## THE HANDOFF FILE
 `00_START_HERE_NEXT_SESSION.md` at repo root: read it immediately after this
 file, every session. It is the live state: where we are, what is in flight,
