@@ -156,3 +156,64 @@ spy quest). Cross-ref Questbook 02/03 (NV — direct descendants), 17 (Deus Ex p
 + child-safety/wellbeing rules. FUTURE: a Tim Cain design talk (his YouTube "Fallout Classic Revisited")
 on the original systemic design; a Vampire the Masquerade Bloodlines deep-dive (Troika — the same DNA in
 first-person) as a sibling.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE VAULT DWELLER** — wants a water chip, then wants a home, and by the ending has been priced out of both. Will trade: 150 days, spent by deduction, not markers. FUNCTION: the taproot protagonist: everything the genre later called "player agency" is this character's inheritance paperwork.
+
+**THE OVERSEER** — wants the Vault saved AND sealed: the chip found, the finder kept OUT (the ending's famous cruelty: you saved them, you've changed, you can't come home). FUNCTION: the quest-giver whose gratitude is a closed door — the earliest, coldest defy-your-giver beat in the lineage (W8's mirror).
+
+**THE CLOCK (the Vault's water)** — wants 150 days, non-negotiable, in the first game and never quite again. FUNCTION: the failable countdown (W4): urgency's proof-of-power and its cautionary tale in one design — F2 loosened it because explorers hated it, and BOTH facts are the lesson.
+
+**FIRST CITIZEN LYNETTE** — wants Gecko's ghouls dead and calls it policy. Will trade: Vault City citizenship for compliance with a small atrocity. FUNCTION: the giver you defy (W8): the quest's moral solution (fix the reactor, save both towns) is the one she didn't order.
+
+**THE CHILDKILLER TITLE** — wants nothing; it is a brand on a stat screen. FUNCTION: narrative consistency over comfort (W6): the world's most famous consequence mechanic — a permanent title, closed shops, and bounty hunters scaling from leather jackets to power armor, pursuing across the whole map (W9). (CARE, restated from the file: Bohemia banks the CONSISTENCY PRINCIPLE only; our child-safety rules are absolute and the content itself is never ported.)
+
+**THE CHARACTER SHEET (SPECIAL)** — wants to be consulted about everything. Speech bluffs the guard; Doctor unlocks the database; low INT rewrites every conversation in the game into a different, tragically simple tree. FUNCTION: the build as the solution space (W2, W5): the sheet is not your combat math, it is your LENS.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the ur-form of everything this questbook has cataloged — read these trees as fossils with living descendants)
+
+NODE: THE_BRIEFING — Vault 13's door, entry: game start, no tutorial
+  The chip is dying. 150 days. Go.
+  > "Where do I look?"              [gate: none] -> fragments, not markers: water traders exist, somewhere south; a place called Necropolis has water rumors
+  > (leave)                         [gate: none] -> the wasteland, undirected. NAVIGATION IS DEDUCTION (W3): you go to Necropolis because you REASONED about where water comes from. The quest log is your own inference.
+  NOVERB: "Show me on the map." Same absent sentence as Morrowind (#37), five years earlier. The lineage's founding refusal.
+
+NODE: GECKO_REACTOR — Fallout 2, entry: Vault City despises its ghoul neighbors
+  Lynette wants the plant dealt with. The plant is full of people.
+  > (Speech: bluff the official)    [gate: SPEECH high] -> the door opens on a lie about an outsider disease
+  > (bribe)                         [gate: money] -> the door opens on money
+  > (Repair/Science: FIX the reactor) [gate: build] -> both towns saved; the moral route runs through a SKILL, not a dialogue flag (W2, W5)
+  > [violence]                      [gate: none] -> always available, never required
+  > (do what Lynette actually wanted) [gate: none] TRAP -> her approval, a town's worth of dead, and the world files it
+  THE FINDING (W8): the quest's right answer DEFIES the giver. The genre's moral spine — Vault 22 (#03), Beyond the Beef (#02), the whole defiance lineage — starts in rooms like this one.
+
+NODE: LOW_INT_WORLD — entry: INT dumped at character creation
+  Every conversation in the game rewrites itself: monosyllables, pity, doors closed and one or two strange ones opened.
+  THE CRAFT (W5): the build changes the STORY, not the numbers. A whole alternate script for one stat — the most expensive joke in CRPG history and the deepest proof that the sheet is a lens.
+
+NODE: THE_TABOO — anywhere, entry: the option exists, because the world is real
+  (the act, unspeakable; the file banks the CONSEQUENCE MACHINE, not the act)
+  WRITES, permanently: the TITLE on the stat screen; shops refuse; NPCs shoot on sight; and the world DISPATCHES: bounty hunters, scaling with time, leather to power armor, forever (W6, W9)
+  THE PRINCIPLE, Tim Cain's, verbatim from the record: people can decide what they want to do — and the world stays consistent about what that DOES. No invincibility flags, no comfort padding: a real place that reviles what it should revile.
+  NOVERB: "I didn't mean it." The world has no undo verb for the unforgivable. The ledger keeps it, the hunters carry it, and the save file is the only confessional. (Undertale's unforgetting save, #28, is this fossil's living descendant.)
+
+NODE: THE_RETURN — Vault 13's door, endgame
+  The chip delivered. The mutants stopped. Home, finally.
+  The Overseer: you've changed. You'll unsettle them. You can't come in.
+  > (argue)                         [gate: none] -> the door stays shut
+  > (walk away)                     [gate: none] -> the ending: the hero exiled by the people he saved
+  THE ONE LINE DOING THE WORK is the door closing. The genre's first great betrayal-by-gratitude, and the shape Bohemia's fold was born for: what the dynasty sacrifices for the district is not always what the district repays.
+
+## V2-C THE BRANCH MAP
+
+COUNT: per-quest N-solution junctions (build-gated) x a persistent reputation-title layer x 2 clocks (one hard, one hidden) -> the town-by-town endings reel (the slideshow that reads each settlement's fate back by name).
+
+THE SOLUTION LAYER — every major quest: speech/bribe/skill/violence/defiance, doors existing per the sheet (W1, W2).
+THE REPUTATION LAYER — titles branded, towns reacting, hunters dispatched: consequence as pursuit, not event (W7, W9).
+THE ENDING REEL — per-town slides: saved, ruined, enslaved, forgotten, each traceable to specific deeds. The FINALE-IS-A-LEDGER-READ law's actual birthplace: the tenth confirmation in this backfill is the oldest of them all.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: this is the TAPROOT FILE — the DNA that NV (#02/#03), Deus Ex (#17), DOS2 (#15), KCD (#08), and Morrowind (#37) all descend from, and Bohemia is this lineage's direct heir: a post-collapse RPG where the build is the lens, the world remembers, and the finale reads the ledger. Lock-ins: (1) UPBRINGING/SKILLS OPEN CONTENT (databases, unique trees, whole alternate scripts — the low-INT lesson: one trait can rewrite the game's voice); (2) the CONSISTENCY PRINCIPLE with our care boundary stated plainly: the district's logic outranks player comfort, extreme acts carry severe persistent PURSUING consequences on the ledger — and Bohemia never ports the taboo content itself, only the machine's honesty; (3) the ENDING REEL is ours by inheritance — the fold's per-generation slideshow reads every block's fate back by name; (4) the F1-vs-F2 clock verdict pre-decides our crisis tuning: hard clocks are potent and optional-intensity (the packages law, third confirmation). Compile gates from the flaws: EVERY branch tested (a broken solution path poisons the whole many-solutions promise — the regression gate's founding purpose), and the depth ships in a modern iPhone-legible skin: steal the DNA, never the friction.

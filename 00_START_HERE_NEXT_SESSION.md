@@ -87,9 +87,14 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    rides with #143; the self-punishment engine: one boss per arc that
    ends only when the truth is owned) and #36 Portal (the Amalgamation's
    voice coach: the GLaDOS curve paced across generations; give the
-   defining line to the victims, scrawled in the district). Counter 95;
-   58 files remain (#37-94), reaching 153; fresh open-world mines
-   welcome on top. Next up: #37, #38.
+   defining line to the victims, scrawled in the district), then #37
+   Morrowind (the FAIR half of marker-light design — flood the world
+   with diegetic direction; the ledger as detective notebook; the
+   severed-thread recovery path our fold upgrades) and #38 Fallout 1/2
+   (THE taproot: build-is-the-solution-space, the consistency principle
+   with our care boundary, the ending reel as FINALE-IS-A-LEDGER-READ's
+   birthplace). Counter 97; 55 files remain (#39,#41-94), reaching 153;
+   fresh open-world mines welcome on top. Next up: #39 Bloodlines.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
    node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
    #01's payload is the pattern), gate green, commit per batch.

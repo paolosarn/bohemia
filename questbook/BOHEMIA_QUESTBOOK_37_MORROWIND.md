@@ -151,3 +151,65 @@ path). Cross-ref Questbook 23 (Elden Ring — the sparse-cryptic contrast; Morro
 (systemic multi-path/environment-toolset), our unrecorded ledger + Pacifist/Megaton laws + fold + [READ]
 + MAP LAW + SUN-MODE. FUTURE: a Ken Rolston / Bethesda talk on Morrowind's directions design; a Gothic
 deep-dive (another no-handholding, reputation-gated open world) as a sibling.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE NEREVARINE (the player)** — wants, per the prophecy: to be its fulfillment. Wants, per the design: to be TRUSTED — with directions instead of arrows, with the freedom to murder the plot, with a world that assumes adult literacy. FUNCTION: the trusted reader. Morrowind's protagonist is anyone willing to actually read the journal.
+
+**THE JOURNAL** — wants everything written down: what the mage said, which river to cross, whose tomb is past the mushroom tower. FUNCTION: the detective notebook (W3): the log as a case file the player reconstructs routes from. It is a map made of PROSE, and prose is the game's whole navigation stack.
+
+**THE NPCS (all of Vvardenfell)** — want to be asked. Every topic asked adds route detail; the district someone lives in is a QUESTION away. FUNCTION: dialogue as the map (W4): the population is the wayfinding system, and curiosity is the compass.
+
+**VIVEC (the living god)** — wants worship, and the plot needs him alive, and the game will let you kill him anyway. FUNCTION: radical freedom's proof (W6): the murder the design survives. "The thread of prophecy is severed" — a WARNING, not a wall.
+
+**YAGRUM BAGARN (the last Dwemer)** — wants company, mostly. A bloated immortal in a Corprusarium who can re-forge what your god-murder broke. FUNCTION: the unmarked recovery path (W7): the world's quiet promise that breaking it is survivable. Freedom with a safety net nobody signposts.
+
+**THE SIGNPOSTS, THE LABELED DOORS, THE SILT STRIDERS** — want you oriented. FUNCTION: the fairness flood (W2): the no-marker design's real secret is not withholding — it is LAYERED ABUNDANCE of diegetic direction. The contrast with Elden Ring (#23) in a single cast entry.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the signature form: DIRECTIONS AS DIALOGUE — the option lists below are how a world replaces a GPS with people)
+
+NODE: CAIUS_ORDERS — Balmora, entry: the main quest's handler
+  A spymaster with a task and, crucially, DIRECTIONS.
+  > "Where exactly?"                [gate: none] -> the route, spoken like a person: north past the river, the fork at the tomb, ask again in town. WRITES: all of it to the journal (W1, W3)
+  > (ask every topic)               [gate: patience] -> more detail per topic; the conversation is the map filling in (W4)
+  > (leave with half the directions) [gate: none] TRAP -> the wander; the journal holds only what you asked for. The system's honesty: it gave you the tools and respects your refusal of them
+  NOVERB: "Just mark it on my map." The sentence the entire modern genre is built on DOES NOT EXIST here, and its absence is the design.
+
+NODE: ASK_THE_STREET — any town, entry: hunting a name
+  > "Do you know [name]?"           [gate: none] -> a district, a landmark, a "past the temple, blue door"
+  > "Which way to [place]?"         [gate: none] -> real directions, logged
+  > (read the signposts, the door plates) [gate: literacy] -> the world labeling itself as you pass (W2)
+  THE CRAFT: no single source is sufficient; the LAYERING is (verbal + signage + labels + services). Fairness through abundance — the exact lesson Elden Ring's sparse version (#23) needed.
+
+NODE: THE_SEVERED_THREAD — anywhere, entry: a plot-critical corpse (yours to make)
+  You killed someone the prophecy needed. Even the god.
+  (the message): "With this character's death, the thread of prophecy is severed. Restore a saved game... or persist in the doomed world you have created."
+  > (reload)                        [gate: none] -> the offered mercy
+  > (PERSIST)                       [gate: nerve] -> the doomed world continues, and quietly, unmarked, the back-path exists: Yagrum Bagarn can re-forge Wraithguard; the main quest is STILL completable (W6, W7)
+  THE ONE LINE DOING THE WORK is "persist in the doomed world you have created" — a warning written like a dare. The game honors the murder, mourns the plot, and keeps a locksmith on staff anyway. Radical agency with a hidden safety net: the no-brick-wall law, twenty years early.
+
+NODE: THE_JUNCTION — many quests, entry: the objective stated
+  Four or five viable approaches; no marker because there is no ONE path (W8).
+  > (the guild teleport route)      [gate: membership]
+  > (the levitation route)          [gate: build]
+  > (the ask-around social route)   [gate: patience]
+  > (the walk-and-read route)       [gate: literacy]
+  > (the sequence-break: go NOW, unprepared, because you know something) [gate: knowledge] -> permitted; the sim does not check whether the plot introduced this yet (W9)
+  FREEDOM OF BUILD = FREEDOM OF APPROACH (W10): use-based skills, mark/recall, enchanting — the toolset routes around anything, including the designers.
+
+NODE: THE_RUST_CUBE — a Dwemer dungeon, entry: the banked flaw, preserved as a warning
+  A tiny rust-colored puzzle box in a rust-colored ruin. Hours of squinting.
+  THE LESSON, verbatim from the ledger: clue density is EVERYTHING. One under-clued objective poisons the trust the whole system runs on. The fairness contract (#19, #23) applies to navigation: every findable thing FAIRLY findable, or the wiki becomes the journal.
+
+## V2-C THE BRANCH MAP
+
+COUNT: the main quest's branch map is 2 spines (the prophesied path / the severed-thread back-path) x N junction-approaches per quest — and the real map is NAVIGATIONAL: every quest branches at the level of HOW YOU FIND IT.
+
+S1 — THE PROPHECY WALKED: informants, Hortator, Nerevarine, the mountain. The authored spine, navigated by prose.
+S2 — THE DOOMED WORLD, PERSISTED IN: god dead, thread severed, Wraithguard re-forged by the last Dwemer. The unmarked recovery: the game's deepest statement of trust (W6, W7).
+THE JUNCTION LAYER — four-to-five approaches per quest, sequence-breaking permitted, build-freedom multiplying routes (W8, W9, W10).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Morrowind is the FAIR HALF of the marker-light case, and with #23 the file pair is complete: Elden Ring proves the thrill, Morrowind proves the METHOD — no-marker design works by FLOODING the world with diegetic direction, not by withholding. Bohemia's lock-ins: (1) if Paolo goes marker-light (his call, standing), it is the MORROWIND way: NPCs give real directions, signage, labeled doors, ask-the-district — our single-district scale makes the flood cheap and the fairness natural; (2) the UNRECORDED LEDGER as the detective notebook — directions and quest detail accrue as prose the player reconstructs routes from (the #18/#19/#21 diegetic-log law gets its navigation chapter); (3) the SEVERED-THREAD pattern — Bohemia warns, then honors, then keeps an unmarked recovery path; and our FOLD upgrades it: a thread severed in one generation can be re-forged by an heir, which Morrowind could only do with one immortal Dwemer; (4) dialogue as the map: [READ] and ask-everything reward curiosity with ORIENTATION. Compile gates from the flaws: clue-density regression (no rust-cubes — every objective fairly findable, machine-checkable where possible), log CLARITY (per-quest focus views), and teach the navigation literacy in act 1 (ease players off the marker habit before the district assumes it).
