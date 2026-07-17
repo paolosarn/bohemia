@@ -103,19 +103,21 @@ largest unblocked item in IN FLIGHT.
 - STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
   pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
   garment art / currency logos.
-- MUSIC (COOK BATCH 9 shipped 7/17, first cook of the repo era, all UNJUDGED,
-  NEW badges live in the alpha's music tab): SUNKEN VESPERS (faythchoir,
-  vowel-trajectory formant choir) / UNDERTOW (undertowbass, undertone-series
-  divider organ) / THE CANCELLED MAN (phasetwin, phase-cancellation twin) /
-  THE WIND LEARNS WORDS (stormlarynx, audio-rate noise-FM voice). Four new
-  topologies, screech clean, variety law holds. ALSO: the chat-era
-  _newvoice_gate.js never made it into the seed; REBUILT as gates/music_gate.js,
-  wired into the suite (gate #17). Older unjudged stack still standing:
-  remake batch v2 (HIGHWAY 15 SOUTH / CARAVAN DUST / ONE CANDLE), THRONE OF
-  STATIC, CHOIR FOR THE MACHINE, FLOWERS ON THE FREEWAY, MOB THE HOUSE
-  REMEMBERS, plus MOJAVE GHOST + LONG WALK HOME fate. VERIFIED 7/17: all nine
-  ARE live MLOOPS entries in this alpha, playable in the music tab right now.
-  One verdict mega-session (batch 9's four + these nine) clears the whole shelf.
+- MUSIC (verdict pass 7/17 PROCESSED; gate #17 gates/music_gate.js guards it
+  all): CANON now: THE CANCELLED MAN, THE WIND LEARNS WORDS, THE PIT BOSS IS
+  GONE (Paolo loves it; added to the OVERWORLD playlist, now six, his verbatim
+  "add to overworld rn"). BURIED 7/17: SUNKEN VESPERS, UNDERTOW (no kill
+  reason given; post-mortem in the embedded repo block). FRESH + UNJUDGED
+  (batch 9b, NEW badges live): TAPS FOR THE VALLEY (ladderhorn, harmonic-ladder
+  bugle) / WHAT THE DAM HELD BACK (tidewheel, nested-AM cascade). STILL
+  UNJUDGED from before: SALT ON THE HIGHWAY, WHAT GROWS IN THE VAULT, THE LAST
+  TABLE STANDING, MOJAVE GHOST, LONG WALK HOME, ONE CANDLE, MOB THE HOUSE
+  REMEMBERS. UI shipped 7/17 per Paolo: export COPY fixed (modern clipboard
+  first; the old order burned the iOS gesture window), COMMENT SECTION at the
+  bottom of the music page always (persists, rides the export as PAOLO
+  COMMENTS). Repair banked: the 7/8 "CANON baked" claim for THE LAST DEALER
+  FOLDS + WHAT THE MIRRORS KEPT had never landed in CANON_DEFAULTS; landed now.
+  A verdict claimed is not a verdict baked.
 
 ## THE QUESTBOOK TRACK — LOCKED LAWS (folded 7/16 from the launch handoff)
 Every law below is CONFIRMED in the research corpus (verified by grep at the
