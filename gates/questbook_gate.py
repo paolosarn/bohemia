@@ -112,6 +112,12 @@ for n in nums:
     elif optc == 0:
         backfill.append(n)
 
+# THE ARCHIVE NEVER FALLS BEHIND (7/17): the searchable archive must contain
+# an entry for the corpus's newest file. The dead chat's regenerator was lost
+# and the archive silently froze at #138 for three batches; this line ends that.
+arch = open(os.path.join(QB, 'BOHEMIA_QUESTBOOK_ARCHIVE.html'), encoding='utf-8').read()
+ok('archive carries the newest file (#%d)' % nums[-1], ('[%d,"' % nums[-1]) in arch)
+
 print('\n  backfill queue (pre-v2-era files with no conversation machine yet): %d files'
       % len(backfill))
 print('  ' + ','.join(str(x) for x in backfill))
