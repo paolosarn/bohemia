@@ -53,3 +53,15 @@ is biased onto its OWN diagonal (still distinct, now sprawls like the rest).
 Paolo's standing note: "even then it's still not what I want but we can move
 onto headshot three" — so a headshot-3 is expected next; this satisfied his
 gate (all 8 made) before that. v1 THE TOPPLE still untouched. UNJUDGED.
+=== UPDATE 7/18 (b): SPREAD-EAGLE -> CRUMPLED HEAP ===
+Paolo: "it looks like the guy is laying on the floor and then spreads his hands
+out... like a real headshot." Online research (ScienceInsights/ScienceABC:
+loss of neck control, NOT the movie spread; TV Tropes 'Knee Fold Fall' + MoCap
+death packs: bodies FOLD into a heap, not spread-eagle) confirmed the pose was
+wrong. Rebuilt the corpse as a COMPACT HEAP: knees FOLD under (shins bend back
+toward the hips), arms fall LIMP + CLOSE to the torso (forearms bent to the
+belly, never splayed wide), head lolled but face-up (FACE LAW). Retuned timing
+so the arms settle EARLY and small -- no late wide splay, which was the "spreads
+his hands" beat. Motion now reads stand -> knees buckle -> sink -> fold -> heap.
+All 8 facings distinct heaps, smooth (3.6px/frame), 0 overflow. Still Paolo's
+call whether a headshot-3 is wanted.
