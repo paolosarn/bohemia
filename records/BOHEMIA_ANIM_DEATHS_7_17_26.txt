@@ -65,3 +65,30 @@ so the arms settle EARLY and small -- no late wide splay, which was the "spreads
 his hands" beat. Motion now reads stand -> knees buckle -> sink -> fold -> heap.
 All 8 facings distinct heaps, smooth (3.6px/frame), 0 overflow. Still Paolo's
 call whether a headshot-3 is wanted.
+
+=== UPDATE 7/18 (c): headshot-2 IS NOW A FAKE-PHYSICS RAGDOLL ===
+Paolo killed the keyframe crumple: "so stiff... you keep trying to animate this
+headshot shit and i hate it. what you should be doing is having rules for the
+limbs and have it ragdoll based on a fake physics thing for all direction." He
+also revoked the FACE LAW head-lock for this clip: "theres a rule where the head
+will always face north and i dont like that anymore... have the head move
+properly with the body."
+
+REBUILT headshot-2 as a clean Verlet ragdoll (RG, screen space, deterministic):
+- Gravity + rigid bones + TORSO BRACES (semi-rigid trunk via distance, not a pin).
+- LIMB RULES: one-way hinges on elbows/knees (no hyperextend, partial-correction
+  so no snap-pop) + a NECK CONE (head flops within a human range, capped per step).
+- FREE HEAD: the head is a physics segment; headStampFrame now follows the real
+  neck->headTop bone when RG_HEADROT is set, so the head sprite ROTATES/flops with
+  the body (the old rigid-upright stamp was the 'always faces north').
+- Per-direction shot impulse (topple backward, opposite facing) -> 8 distinct falls.
+- STABILITY (the anti-jitter): speed cap + SOFT floor push (hard clamps fought the
+  solver = 20-30px leaf teleports) + a hard 2.5px/frame per-joint MOVE CAP +
+  freeze-on-settle. NONE of v1's fighting laws (glue/spine-parallel/static-
+  shoulders/rigid-renorm/axis-projection/face-swap).
+- CAMERA: waist-centered horizontally (stable point; bbox-edge centering popped
+  when the extreme joint switched limbs) + floor pinned to y48 so the fall reads.
+Verified headless: in frame on all 8, all freeze, 8 distinct rests, head rotates.
+Peak per-frame ~12px is the fast topple ROTATION (a limb arcing), not a teleport
+(post-landing settle is <2px on the crumple facings). v1 THE TOPPLE untouched.
+Combat bakes both. UNJUDGED -- Paolo judges the FEEL; headshot-3 still on the table.
