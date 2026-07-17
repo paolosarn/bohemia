@@ -149,8 +149,13 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    lying on their sides with glass; NEW vertical fallen_arm (both
    arm_dirs): jagged stub at the junction, the span lying on the ROAD
    beside its old line, dead heads on their backs staring at the sky,
-   shattered lens glass. 308 sprites; wrecks + non-approved classes
-   still UNJUDGED. Laws:
+   shattered lens glass. THEN v17 (Paolo): the broke-off span moved to
+   THE BASE of the mast (lies on the floor from the foot out along the
+   road), and a NEW wreck kind dropped_heads — pole and arm stay UP,
+   the lights themselves lie dead on the floor below their clamps, one
+   tipped sideways, glass around them (horizontal + vertical, both
+   arm_dirs). 320 sprites; wrecks + non-approved classes still
+   UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

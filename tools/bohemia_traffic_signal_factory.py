@@ -61,7 +61,8 @@ POLE_CX = 16        # pole centerline in every EAST sprite (pcx in the bank)
 # lane at the lane centers.
 ARMS = [('short', 3.0, 1), ('med', 6.0, 2), ('long', 9.0, 3)]  # name, cells, heads
 ARM_LAW = {1: 'short', 2: 'med', 3: 'long'}                    # street lanes -> arm
-WRECKS = [('fallen_arm', 9.0), ('jury_rigged', 6.0), ('headless', 9.0)]
+WRECKS = [('fallen_arm', 9.0), ('jury_rigged', 6.0), ('headless', 9.0),
+          ('dropped_heads', 9.0)]
 
 
 def rng(seed):
@@ -530,6 +531,9 @@ def draw_signal_vert(K, spec, seed):
     junction_local = 42                     # junction depth below sprite-local top
     pad_top = max(0, arm_len + 8 - junction_local) if up else 0
     pad_bot = max(0, (junction_local + arm_len + 40) - (CH - 4)) if not up else 0
+    if kind == 'fallen_arm' and not up:
+        # the fallen span lies from the BASE southward along the road
+        pad_bot = max(pad_bot, int(arm_len * 0.85) + 24)
     H = CH + pad_top + pad_bot
     a = np.zeros((H, W, 4), dtype=np.uint8)
     M = draw_mast(a, K, r, pcx, y_off=pad_top)
@@ -559,10 +563,13 @@ def draw_signal_vert(K, spec, seed):
             if 0 <= by < H:
                 a[by, bx] = 0
         drips(a, K, r, ax - 4, ax + 4, (s0 + 2) if up else (s1 - 8), n=2)
-        gx = ax + 14                                   # where the span fell
+        # v17 (Paolo): the broke-off part lies AT THE BASE of the mast,
+        # on the floor, running out along the road from the foot
+        gx = ax + 14
         glen = int(arm_len * 0.85)
-        g0, g1 = (junction_y - 34 - glen, junction_y - 34) if up else \
-                 (junction_y + 34, junction_y + 34 + glen)
+        base_row = pad_top + CH - 8
+        g0, g1 = (base_row - glen, base_row) if up else \
+                 (base_row - 16, base_row - 16 + glen)
         paint_cyl_v(a, K, r, gx, g0, g1, lambda yy: 7)
         for _ in range(8):                             # sheared both ends
             for ey in (g0 + int(r() * 4), g1 - 1 - int(r() * 4)):
@@ -586,8 +593,18 @@ def draw_signal_vert(K, spec, seed):
         clamp_ys = [(ay0 + int((0.5 + 3 * i) * T)) if up else
                     (ay1 - int((0.5 + 3 * i) * T)) for i in range(n)]
         hx = ax - 13 + 4 * hf
-        for cy in clamp_ys:
-            draw_head(a, K, hx, cy - 26, spec['state'], r, facing=hf)
+        if kind != 'dropped_heads':
+            for cy in clamp_ys:
+                draw_head(a, K, hx, cy - 26, spec['state'], r, facing=hf)
+        else:
+            # v17 (Paolo): pole and arm stay UP, the lights themselves lie
+            # on the floor — each head dropped straight down from its old
+            # clamp, on its back beside the pipe, glass around it
+            for cy in clamp_ys:
+                draw_head(a, K, ax + 6, cy - 12, 'dead', r)
+                for _ in range(7):
+                    put(a, ax - 6 + int(r() * 44), cy + 46 + int(r() * 10),
+                        (70, 18, 16) if r() < 0.5 else (66, 44, 12))
         # elbow stub from the pole into the vertical arm + junction collar
         paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
         bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
@@ -702,6 +719,25 @@ def draw_signal(K, spec, seed):
         for k in range(14):
             put(a, cx0 + int(1.5 * math.sin(k * 0.8)), arm_lvl + 13 + k, (22, 20, 16))
         put(a, cx0, arm_lvl + 27, K['rust'][1])
+    elif kind == 'dropped_heads':
+        # v17 (Paolo): the arm stays attached, the lights themselves are
+        # on the floor — each head dropped from its clamp lies dead on the
+        # road below, one tipped on its side, glass around them
+        for hx in head_xs:
+            rect(a, hx + 6, arm_y(hx + 8) - 1, hx + 12, arm_y(hx + 8) + 5, K['ramp'][1])
+            hang(hx)
+        for gi, hx in enumerate(head_xs):
+            gy0 = ground_y - 58
+            if gi % 2 == 0:
+                draw_head(a, K, hx, gy0, 'dead', r)
+            else:
+                temp = np.zeros((70, 40, 4), dtype=np.uint8)
+                draw_head(temp, K, 8, 6, 'dead', r)
+                piece = np.rot90(temp, 3).copy()
+                composite(a, piece, hx - 8, ground_y - 42)
+            for _ in range(8):
+                put(a, hx - 4 + int(r() * 40), ground_y - 3 - int(r() * 5),
+                    (70, 18, 16) if r() < 0.5 else (66, 44, 12))
     elif kind == 'fallen_arm':
         # the broken span lies beside the base, one dead head still bolted on
         plen = int(spec['arm_cells'] * T * 0.6)
@@ -820,13 +856,15 @@ def main():
                                       'kind': kind, 'state': 'dead', 'face': 's'},
                          [nm for nm, c, _ in ARMS if c == cells][0],
                          88000 + ci * 7919 + wi * 977))
-        # v16: the VERTICAL masts break too — the span on the road floor
+        # v16-17: the VERTICAL masts break too — the span at the base on
+        # the floor, or the arm holding while the heads lie dropped
         for di, arm_dir in enumerate(('n', 's')):
-            jobs.append(('v', color, {'arm_cells': 9.0, 'heads': 3,
-                                      'kind': 'fallen_arm', 'state': 'dead',
-                                      'face': 'e', 'arm_dir': arm_dir,
-                                      'head_facing': 1},
-                         'long', 96500 + ci * 7919 + di * 449))
+            for ki, vkind in enumerate(('fallen_arm', 'dropped_heads')):
+                jobs.append(('v', color, {'arm_cells': 9.0, 'heads': 3,
+                                          'kind': vkind, 'state': 'dead',
+                                          'face': 'e', 'arm_dir': arm_dir,
+                                          'head_facing': 1},
+                             'long', 96500 + ci * 7919 + di * 449 + ki * 173))
     for shape, color, spec, arm, seed in jobs:
         K = palette(color)
         if shape == 'v':
