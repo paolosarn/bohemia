@@ -119,6 +119,13 @@ largest unblocked item in IN FLIGHT.
 - STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
   pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
   garment art / currency logos.
+- ANIMATION, THE SECOND DEATH (7/17, UNJUDGED): 'headshot-2' THE CRUMPLE now
+  lives beside 'headshot' THE TOPPLE. v1 is force arriving, v2 is force
+  leaving (knees buckle, body drops its own axis, settles along the knock).
+  All locked ragdoll laws run untouched for both; machine-verified on all 8
+  facings inside v1's envelope; both fire in combat deterministically per
+  facing+knock. Full record: records/BOHEMIA_ANIM_DEATHS_7_17_26.txt. Paolo
+  judges in the ANIMATION tab ('headshot-2' button, KNOCK selector works).
 - MUSIC (verdict pass 7/17 PROCESSED; gate #17 gates/music_gate.js guards it
   all): CANON now: THE CANCELLED MAN, THE WIND LEARNS WORDS, THE PIT BOSS IS
   GONE (Paolo loves it; added to the OVERWORLD playlist, now six, his verbatim
