@@ -178,3 +178,66 @@ health system + multidimensional standing (fear-axis) + city-builder + loop/sche
 + SUN-MODE/legibility/mobile constraints. FUTURE: a Paradox / Henrik Fahraeus talk on CK's dynasty +
 stress design; a Mount & Blade / Bannerlord deep-dive (dynasty + emergent-sandbox sibling) or a Shadow of
 Mordor Nemesis-system deep-dive (procedural personal-rivalry sibling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE CURRENT RULER (the player, this generation)** — wants a throne worth leaving to an heir, and a self worth being while they hold it. Will trade: a lifetime's built perks, lost at death, for a bloodline that outlives them. Will never say out loud: that they are temporary, one chapter of a family that is the real protagonist. FUNCTION: the relay runner (W1, W5): a distinct build and arc, holding the baton for a life, then handing it on or dropping it.
+
+**THE HEIR** — wants the realm intact, and inherits it hated (opinion doesn't transfer) and endangered (the dangerous first years). Will trade: the grooming you invested, if you invested it. FUNCTION: the succession's beating heart (W2): the handoff is the core tension, and partition law can split everything you built across several of them.
+
+**THE BLOODLINE (traits carried in the blood)** — wants to persist: its congenital gifts (strong health, genius) and its curses (hemophilia, madness) passed down, mate by chosen mate. FUNCTION: inherited identity (W3): the family literally carries its history, and its SINS, in its genes — on-theme for our guilt spine.
+
+**THE STRESS SYSTEM** — wants you to be who your character IS. A brave ruler who flees, a just one who murders, pays in stress, up to breakdown and death. FUNCTION: identity with mechanical weight (W4): the game rewards ROLEPLAY over cold optimization, punishing out-of-character min-maxing.
+
+**DREAD** — wants you afraid to be loved. A violent ruler builds a fearsome reputation that cows vassals into obedience. FUNCTION: fear as a rewarded governance axis (W6): the mechanical validation of the fear-path our standing system has been building toward.
+
+**RENOWN / DYNASTY LEGACIES** — want the FAMILY to level up, above any one life. FUNCTION: the meta-progression (W7): bonuses applied to all living members, the bloodline itself advancing across the century.
+
+**THE STORY ENGINE** — wants to fire, and between firings leaves dead air. FUNCTION: the banked flaw made cast (the #1 CK3 lesson): the drama is magic when it hits and rote administration when it doesn't — the exact gap our authored spine and engaging quiet loop must fill.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: the "dialogue" is with SYSTEMS, EVENTS, and your own nature — the succession screen and the stress meter are the most consequential conversations in the game)
+
+NODE: THE_DEATH_AND_HANDOFF — a ruler dies, entry: the reign ends
+  The camera slides to the heir. Or, if there is none viable, to the end.
+  > (continue as the groomed heir)  [gate: a viable heir exists] -> the relay continues; some pre-built perks survive; the realm's opinion of them does NOT (W2)
+  > (partition splits the realm)    [gate: succession law] -> your century of gains carved among several heirs; a death can undo a life's expansion
+  > (no viable heir)                [gate: none] -> GAME OVER. The bloodline is the save file; when it ends, everything does (W1)
+  NOVERB: "Keep playing this character." Death is not refusable; the ruler you attached to is spent. The removed verb is the whole thesis: you do not play a person, you play a family, and people are mortal.
+
+NODE: THE_STRESS_CHECK — acting against your nature, entry: a choice that betrays your traits
+  A Just ruler is offered an expedient murder. A Craven one must lead a charge.
+  > (act in character)              [gate: traits] -> no stress; the roleplay rewarded
+  > (act against character, optimally) [gate: none] TRAP -> STRESS accrues; at high levels: drink, breakdown, mental illness, DEATH (W4)
+  > (cope with the stress: vices)   [gate: none] -> a temporary release that plants a worse habit
+  THE CRAFT: identity has teeth. The game NUDGES you to be who your character is, and punishes cold optimization with a body count. Fuses directly with our conscience system (#41/#30/#45) and the Pacifist ethos.
+
+NODE: THE_SCHEME — subterfuge, entry: a rival who cannot be beaten by arms
+  > (find their SECRET)             [gate: intrigue] -> a HOOK: leverage that bends them without a war (W8)
+  > (seduce / abduct / murder)      [gate: scheme] -> the non-military toolkit; politics as a full system
+  > (rule by DREAD instead)         [gate: violent reputation] -> cow them by fear; the rewarded dark path (W6)
+  THE FINDING: force is one verb among many. The subterfuge toolkit is the intrigue lineage (#24) given a dynasty's scope — and Dread is the fear-axis our multidimensional standing has been reaching for.
+
+NODE: THE_LIFESTYLE — a ruler's chosen build, entry: each new reign
+  > (pick 1 of 5 lifestyles)        [gate: none] -> a skill tree built over a life, LOST at death (W5)
+  > (groom the heir toward it)      [gate: guardianship] -> pre-build some of the next life's perks; the relay's baton-pass
+  THE RELAY (W5): each ruler is a distinct arc that resets, while the DYNASTY (Renown/Legacies, W7) persists above them all. The per-generation reset with a meta-progression floor — our upbringing-plus-fold, exactly.
+
+NODE: THE_DEAD_AIR — between dramatic beats, entry: the story engine quiet
+  No assassination, no romance, no crisis — just administration.
+  > (the admin loop carries it)     [gate: an engaging minute-to-minute] -> the gaps don't sag
+  > (the admin loop is rote)        [gate: none] TRAP -> "when the story engine isn't firing, actions feel rote" — the banked flaw, verbatim
+  THE ONE LESSON DOING THE WORK: a systemic dynasty game has dead air, and the fix is a PACED Storyteller (#44) over an ENGAGING quiet loop. This is precisely why Bohemia is MORE than a dynasty sim.
+
+## V2-C THE BRANCH MAP
+
+COUNT: no authored endings — the branch map is the DYNASTY'S CENTURY (which heirs inherited, what was lost to partition, which traits carried, who ruled by love or Dread, when the bloodline ended), compiled reign by reign until 1453 or the last heir dies.
+
+THE SUCCESSION LAYER — every death a handoff or an ending; partition splitting realms; heirs inheriting hatred and danger (W1, W2).
+THE BLOODLINE LAYER — congenital traits carried, the family leveling up via Legacies, each ruler a distinct arc that resets (W3, W5, W7).
+THE IDENTITY LAYER — stress rewarding roleplay, Dread rewarding fear, schemes rewarding intrigue (W4, W6, W8).
+THE TERMINAL — the run ends when no heir survives; the bloodline IS the save.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Crusader Kings III is THE CLOSEST MECHANICAL COUSIN in all of games to Bohemia's three-dynasty ~100-year arc — no other file in the corpus matches our core structure this precisely, and it is the master model for our SUCCESSION and generational persistence. Lock-ins: (1) PLAY THE BLOODLINE — the dynasty is the unit, death continues as the heir, no viable heir ends the run; the handoff (contested first years, what partition costs on a death) is the beating-heart tension our succession system is built around; (2) INHERITED IDENTITY + FAMILY-WIDE META-PROGRESSION — heirs inherit traits AND the bloodline's SINS (on-theme for our guilt spine), each dynast a distinct build (upbringing, #42) that partly resets, WHILE a Renown/Legacy-equivalent (the dynasty's standing, knowledge, infrastructure) persists above any one life — the bloodline levels up across the century; (3) STRESS FROM ACTING AGAINST YOUR NATURE fuses directly with our conscience system and Pacifist ethos — a merciful dynast forced to execute SUFFERS, identity with mechanical weight; (4) DREAD validates the fear-as-a-rewarded-standing-axis our multidimensional standing (#24/#25) has been assembling — a dynasty CAN rule by fear, a supported dark path with its own costs; (5) SUBTERFUGE (hooks, secrets, schemes) gives our Pacifist/intrigue paths a dynasty-scope toolkit. THE #1 LESSON, banked as our sharpest CK3 takeaway: "when the story engine isn't firing, actions feel rote" — Bohemia must PACE the dynastic drama (the #44 Storyteller in the loop) AND make the moment-to-moment city-builder and combat engaging so the gaps don't sag; the systemic drama needs a compelling QUIET loop under it, which is exactly why we are MORE than a dynasty sim (authored spine + engaging minute-to-minute + paced drama). Compile gates from the flaws: LAYERED legible onboarding (don't define jargon with jargon — the #45 accessibility law, our mobile #1); a CRYSTAL-LEGIBLE family tree (the bloodline is our core — the unrecorded ledger and succession UI must be clear); the heir-handoff difficulty EARNED and legible (why the distrust), never a flat penalty; and no over-investment in spectacle the game isn't about. With the emergence pair (#44/#45), this completes the generational-simulation spine: RimWorld the pacer, Dwarf Fortress the depth, and Crusader Kings the DYNASTY — and Bohemia is all three under an authored Amalgamation arc.

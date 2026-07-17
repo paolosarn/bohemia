@@ -170,3 +170,59 @@ personal-scale), our roguelite + generational fold + settlement/dynasty hub + me
 difficulty packages. FUTURE: a Greg Kasavin / Supergiant GDC talk on Hades' narrative-reactivity system;
 a Slay the Spire / Dead Cells deep-dive (roguelite meta-progression siblings) or Rogue Legacy (the
 generational-heir roguelite — direct cousin of our fold).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**ZAGREUS** — wants out of the Underworld, and beneath that wants his mother, and beneath THAT wants his father to say one true thing. Will trade: death, again and again, because he is immortal and each dying is a chapter, not an ending. Will never say out loud, early: that the escaping is really a reaching-toward-family. FUNCTION: the immortal protagonist (W1, W10): the one design choice that makes forced repetition NARRATIVELY MEANINGFUL — death returns him home, where the story advances.
+
+**HADES (the father)** — wants his son to stop, to stay, to obey, and cannot say he wants him near. FUNCTION: the personal-scale antagonist (W8, W9): not a world-ender, a difficult dad. The stakes are a broken family, and that is why they land.
+
+**THE HOUSE OF HADES (the hub and its denizens)** — want their own sub-plots advanced: Nyx, Achilles, Dusa, Hypnos, each a relationship you deepen between runs. FUNCTION: the persistent hub (W4): death returns you to PEOPLE and progress, not a start screen — the anchor that makes repetition mean something.
+
+**THE REACTIVE DIALOGUE ENGINE** — wants to NOTICE you. Die to a specific enemy and Zagreus complains about THAT enemy; Hypnos jokes about THAT death; carry a weapon and the relevant god comments. 40-50 hours without a repeated line. FUNCTION: the "noticed your haircut" feeling (W5): the emotional core — characters feel alive and the player feels SEEN.
+
+**NECTAR (the gift)** — wants to be given. FUNCTION: the relationship system (W6): investing in people unlocks story, keepsakes, AND mechanical perks — bonding is progression.
+
+**THE NARRATOR (and the wall of VO)** — wants to carry you over the disruption of dying constantly. FUNCTION: voice as a force-multiplier (W7), BORN of budget: Supergiant couldn't animate every emotion, so a narrator carries it — constraint became the hallmark.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: the dialogue IS the game, gated by an absurd number of variables — the trees below show reactivity as the core mechanic)
+
+NODE: THE_RESPAWN — the blood pool in the House, entry: every death
+  Zagreus rises. The room reacts to HOW he died.
+  > (died to a specific enemy)      [gate: death context] -> he complains about THAT enemy; Hypnos quips about THAT death (W5)
+  > (died on a deep run)            [gate: progress] -> the House notes how far he got; the story position tracked
+  > (advance a hub sub-plot)        [gate: presence] -> Achilles, Nyx, Dusa: their arcs move BETWEEN runs (W4)
+  NOVERB: "Start over, forget it happened." The reset-to-zero verb of every other roguelite DOES NOT EXIST. Death is not erasure; it is a return home where things have CHANGED. The removed verb is the genre's whole reinvention (W1).
+
+NODE: THE_DRIP_FEED — narrative earned through play, entry: system engagement
+  > (grab the fishing pole)         [gate: the item] -> Poseidon dialogue opens; a system-engagement unlocking story (W3)
+  > (reach the ~10th attempt)       [gate: run count] -> THE TWIST: Persephone is Zagreus's true mother; the plot blooms on schedule
+  > (never engage the systems)      [gate: none] TRAP -> the story stays sparse; the banked flaw (slow to start) bites the disengaged
+  THE FINDING: you UNLOCK narrative by PLAYING, not by watching (W3). The #18 knowledge-gate, applied to a family drama instead of a solar system.
+
+NODE: THE_NECTAR_GIFT — a hub denizen, entry: a bottle of Nectar in hand
+  > (gift it)                       [gate: has:nectar] -> deeper dialogue, a storyline, a keepsake, AND a gameplay perk (summon, stat bonus) (W6)
+  > (hoard it for perks only)       [gate: none] -> the mechanical path; the game rewards the relational one MORE
+  THE CRAFT: investing in PEOPLE is both narrative and mechanical progression. The #43/#06 relationship-content-gate, in a roguelite frame.
+
+NODE: THE_GOD_BOON — mid-run, entry: a god offers a blessing
+  > (accept Zeus / Aphrodite / ...) [gate: the run] -> a boon that reshapes the build AND a line of reactive lore about YOUR current loadout (W2)
+  THE HARMONY (W2, W10): the plot is not an extra on top of the gameplay — story hides in every boon, every weapon comment, every death. Progression and narrative are inseparable, the #05 dialogue-as-gameplay lesson at speed.
+
+NODE: THE_PERSONAL_STAKES — the whole game, no single node
+  The escape is a son reaching for his mother; the villain is a hard father; the cast is a dysfunctional family of gods you see yourself in (W8, W9).
+  THE ONE THING DOING THE WORK: the stakes are NOT the end of the world. An intimate family story is more affecting than an apocalypse — scale DOWN for impact.
+
+## V2-C THE BRANCH MAP
+
+COUNT: no fail-terminals — the branch map is the RELATIONSHIP + STORY STATE accumulated across runs (which hub arcs advanced, which gods bonded, how far the escape/family reconciliation progressed), with death as the connective tissue, not a branch.
+
+THE DEATH LAYER — every death a return home where the story advances (W1); repetition FUELS the narrative (W10).
+THE UNLOCK LAYER — story drip-fed by play and system-engagement (W3); the persistent hub evolving (W4).
+THE RELATIONSHIP LAYER — Nectar-gifted bonds unlocking story and perks (W6); reactive dialogue making the player feel SEEN (W5).
+THE RESOLUTION — the family reconnected, over dozens of runs; a personal ending, not a world saved (W8).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Hades is the master proof that a ROGUELITE can tell a rich, emotional STORY through repetition — directly validating Bohemia's roguelite core and generational fold, and it is a cousin of CK3 (#46): CK3 is the dynasty SIMULATION, Hades is the dynasty EMOTION. Lock-ins: (1) DEATH AS THE NARRATIVE ENGINE — our fold makes a dynasty's fall or an heir's death a STORY ADVANCE, not a reset: the next generation inherits the changed world and the tale continues, and the repetition must FUEL the narrative (ludonarrative harmony — the loop and the story reinforce, never fight); (2) STORY EARNED THROUGH PLAY + the PERSISTENT HUB — drip-feed lore and quests through rebuilding, faction-work, and survival, anchored in the settlement/dynasty hub that evolves between generations (you return to PEOPLE, the #41 Hamlet + the #18 knowledge-gate); (3) THE "NOTICED YOUR HAIRCUT" FEELING, SCOPED — Bohemia NPCs react to the dynasty's recent death, choices, standing, and loadout so the player feels SEEN; our unrecorded ledger and [READ] are built for this, and the volume is SCOPED (smart templated reactivity + our music/text/voice, the #24 cheaper-reactivity route, NOT 40 hours of unique VO); (4) VOICE AS A SOLO-DEV FORCE-MULTIPLIER, born of constraint exactly as Supergiant's was — a narrator or the Amalgamation itself carries the disruption and ties generations together cheaply (the #36/#44 voice lesson, and it dovetails with personifying our Storyteller as the Amalgamation); (5) PERSONAL-SCALE STAKES — Bohemia's most affecting stakes are the FAMILY and the district's specific losses, foregrounded UNDER the epic Amalgamation threat: the apocalypse lands harder when it's about YOUR bloodline than abstract salvation (the #34/#35 personal-horror note). Compile gates from the flaws: SCOPE the reactivity volume (get the effect, not the content mountain); PACE story-unlocks so they don't wall behind a grind; seed EARLY intrigue before the drip pays off; and keep the CORE LOOP fun on its own — the narrative frame HELPS repetition, it never excuses unfair difficulty (the combat dial and packages must stand alone).

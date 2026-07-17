@@ -110,8 +110,18 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    tantrum spiral = the conscience pillar's most dangerous form, and
    the #1 lesson: DEPTH UNDER ACCESSIBILITY ALWAYS — the deepest sim is
    worthless if the phone can't reach it).
-   **Counter 103 of 150.** 47 files remain (#46-94), reaching 150
-   exactly; fresh open-world mines stack on top. Next up: #46.
+   two-thirds crossed, then the generational-sim spine: #46 Crusader
+   Kings 3 (THE closest mechanical cousin to our 100-year arc — play
+   the bloodline; the #1 lesson: "when the story engine isn't firing,
+   actions feel rote" -> pace the drama + engaging quiet loop),
+   #47 Hades (death-as-narrative validates the fold; the "noticed your
+   haircut" reactivity SCOPED; voice as force-multiplier born of
+   budget; personal-scale family stakes UNDER the epic), #48 Nemesis
+   System (build our OWN rivalry engine from the DNA not the patent:
+   defeat fuels the rival, inherited grudges via the fold, anchors +
+   player-filled gaps as THE solo-dev story economy).
+   **Counter 106 of 150.** 44 files remain (#49-94), reaching 150
+   exactly; fresh open-world mines stack on top. Next up: #49.
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +

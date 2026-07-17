@@ -180,3 +180,66 @@ entities + face/rig + persistent-consequence + fold + RimWorld-Storyteller + Pac
 scope discipline/FACTORY LAW + ad-free/no-exploit ethos. FUTURE: the Michael de Plater DICE 2015 talk on
 the Nemesis design; a Watch_Dogs Legion deep-dive (the "play as anyone" systemic-NPC sibling, same lineage
 of systemic-character generation).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE PLAYER (the rival-maker)** — wants to climb Sauron's army and, along the way, keeps accidentally MANUFACTURING enemies with names. Will trade: clean anonymous combat for messy personal history. Will never say out loud: that the best villains in the game are the ones the player's own failures created. FUNCTION: the co-author (W8): every action the system accepts and builds on, improv-style.
+
+**THE ORC (any grunt, procedurally elevated)** — wants to rise, and wants to remember. Given an identity FIRST (weakness, mannerism, a hundred voice lines), then a HISTORY WITH YOU. Will trade: a taunt about the exact arrow you killed it with last time. Will never say out loud: nothing — it says everything, referencing every prior encounter. FUNCTION: the procedural personal enemy (W1, W2): a bespoke rival no other player will ever meet.
+
+**YOUR DEATH** — wants to promote whoever caused it. FUNCTION: the masterstroke (W3): when an orc kills you, it rises, strengthens, and takes your death as its LEGEND, sometimes renaming itself for how it did it. Your failure builds and powers your nemesis — loss is narratively generative.
+
+**THE HIERARCHY (grunts to Warchiefs)** — wants a stable board, and offers you a chessboard to disrupt. FUNCTION: the legible strategic frame (W4): promotions, betrayals, branding — the rivalry engine sits on a readable, manipulable structure.
+
+**THE SCARS** — want to record what you did. Burn an orc and flee: it returns disfigured AND deathly afraid of fire — a weakness YOU authored on its body. FUNCTION: consequence made visible (W6): your history written on the enemy's face.
+
+**THE SECRET DRAMA-STATS ("a knob we can turn")** — want the rivalry to stay compelling. If you're steamrolling, they SEND someone to betray you and create a revenge target. FUNCTION: the Storyteller hand (W9): the #44 AI Storyteller, pointed at ENEMIES.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: the "dialogue" is a co-authored REVENGE STORY between the player's actions and the orc's memory — the taunts are the visible surface of a systemic conversation)
+
+NODE: THE_FIRST_ENCOUNTER — a grunt in a warband, entry: ordinary combat
+  > (kill it clean)                 [gate: none] -> anonymous; the board barely shifts
+  > (it kills YOU)                  [gate: your death] -> it is PROMOTED, named, strengthened; your nemesis is born of your loss (W3)
+  > (you wound it and it flees)     [gate: escape] -> it returns scarred, remembering, with a grudge and a taunt (W2, W6)
+  THE FINDING: the system's best characters are accidents of failure. Loss is not a setback; it is CHARACTER GENERATION (W3).
+
+NODE: THE_RETURN — a named rival you've met before, entry: it remembers
+  It swaggers up and references the LAST time.
+  > (it taunts your prior death)    [gate: memory] -> "the arrow, remember the arrow?" — the enemy references your METHODS (W2)
+  > (it fears what you did to it)   [gate: scar] -> the fire-burned one flinches from your torch; exploit the weakness YOU made (W6)
+  > (brand it to your side)         [gate: the power] -> the rival becomes a mole; the #28 spare/recruit, weaponized on the chessboard (W4)
+  NOVERB: "Have we met?" The amnesia verb does not exist for the orc — it always remembers, and the always-remembering is the whole engine. The player may forget; the nemesis never does.
+
+NODE: THE_BOARD — Sauron's hierarchy, entry: the strategic layer
+  > (assassinate a Warchief)        [gate: access] -> a vacancy; new captains rush in; the board reshuffles
+  > (spark a rivalry between two)   [gate: manipulation] -> arrange betrayals, promotions; author the politics (W4)
+  > (let it run)                    [gate: none] -> the orcs feud among themselves; the world lives without you
+  THE CRAFT: the rivalry engine has a legible chessboard (W4) — the #46 CK3 hierarchy in an enemy army, manipulable by intrigue.
+
+NODE: THE_KNOB — the drama balancer, no player-facing UI, entry: you're steamrolling
+  > (the system SENDS a betrayal)   [gate: secret stats] -> an orc you trusted turns; a revenge target manufactured to restore the drama (W9)
+  THE STORYTELLER HAND (W9): "that's a knob we can turn." The #44 AI Storyteller applied to enmity — the invisible author keeping the rivalry compelling.
+
+NODE: THE_ANCHORS — the story economy, no single node
+  The system authors PEAKS (the promotion, the taunt, the rename, the betrayal, the reckoning) and lets the player's mind fill the gaps.
+  THE ONE LESSON DOING THE WORK (W7): "much of the narrative takes place in the player's head." Author the peaks, not every beat — the efficient story economy a solo dev NEEDS.
+
+NODE: THE_RECKONING — you hunt the orc that killed you, entry: the vendetta
+  > (kill your nemesis)             [gate: the fight] -> BETTER LOOT; emotion and reward point the same way (W10)
+  > (brand it instead)              [gate: mercy path] -> the killer becomes your lieutenant; revenge is ONE verb, not the only one
+  THE ALIGNMENT (W10): the personal vendetta is mechanically rewarded, so the emotional pull and the loot pull agree — within a Pacifist frame where branding is the alternative to killing.
+
+## V2-C THE BRANCH MAP
+
+COUNT: infinite procedural rival-terminals, ZERO authored — the branch map is the WEB OF RIVALRIES the player generated (who you made, who made themselves off your deaths, who you branded, who betrayed whom), a bespoke revenge saga per playthrough.
+
+THE GENERATION LAYER — any grunt to a named rival, identity-first, memory-bearing (W1, W2, W5).
+THE FAILURE LAYER — your deaths promoting and legending your nemeses (W3): loss as character generation.
+THE BOARD LAYER — the manipulable hierarchy, branding, betrayals (W4).
+THE STORYTELLER LAYER — the secret knob restoring drama when you dominate (W9).
+THE TERMINAL — no ending; a personal web of grudges resolved, inherited, or left running.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: the Nemesis System is the master model for PROCEDURAL PERSONAL RIVALS, and it completes the emergent-character quartet (#44 RimWorld colonists, #45 DF dwarves, #43 BG2 companions, #48 enemies) — Bohemia studies the PRINCIPLES and builds its OWN engine in its OWN genre, NOT a copy of the patented orc-hierarchy form (WB patent to 2036). Lock-ins: (1) a BOHEMIA RIVALRY ENGINE where faction figures, raiders, and Amalgamation-agents become NAMED, persistent PERSONAL rivals who REMEMBER encounters and REFERENCE them — the enemy-facing use of our unrecorded ledger, and a grudge can span GENERATIONS via the fold (an inherited nemesis is deeply on-theme); (2) DEFEAT FUELS THE RIVALRY — a raider who beats the dynasty RISES in their faction and takes the defeat as their legend: loss BUILDS the antagonist, the #47 death-as-progress applied to enemies, ideal for a hardcore survival game; (3) the LEGIBLE HIERARCHY — rivals sit on our FACTION web as a chessboard the player reads and MANIPULATES (arrange promotions, turn agents, spark betrayals — the #46 CK3 structure, the Pacifist/intrigue path); (4) IDENTITY-FIRST GENERATION + SCARS ON THE BODY — procedural skeleton, handcrafted personality/voice, and the dynasty's actions physically and psychologically mark rivals (our face/rig makes visible history possible); (5) ANCHORS + PLAYER-FILLED GAPS is THE key solo-dev lesson, shared with #44/#45/#37 — author the PEAK rivalry moments and let the player's mind fill the rest; the narrative is in the player's head, the story economy a solo dev needs; (6) the SECRET DRAMA-KNOB is the #44 Storyteller pointed at enmity, and the Amalgamation/Network as the hand ARRANGING rivals is on-theme. Compile gates from the flaws and care, all four hard: build our OWN mechanic from the DNA, never the patented form; the procedural skeleton needs handcrafted CHARACTER and reactive VOICE to sing, SCOPED (our strengths, not hundreds of lines per rival); don't let a killer system excuse a forgettable core (the #39 Bloodlines lesson — combat and city-builder must stand); and NEVER corrupt the emotional attachment with exploitative monetization (the Shadow of War mistake — our ad-free/no-exploit ethos is a design LAW here).
