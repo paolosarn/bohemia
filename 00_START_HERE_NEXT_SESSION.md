@@ -72,7 +72,14 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    CLAUDE.md law list; GATE THE SAME TURN: gates/art_45_gate.py (gate #18,
    ellipse-base + top-lit machine proxies on every registered commission
    bank). v5 stands on stacked ellipse discs with a lidded cap, bowed
-   collars, sky-lit arm, heads with visible top + side faces. Laws:
+   collars, sky-lit arm, heads with visible top + side faces. THEN v6
+   (Paolo: "so close... do better. It's not good enough yet"), self-diagnosed
+   against the lamp: (1) SHAPE — the arm is now a real smooth quadratic
+   curve off a low junction, capped pole showing above it, nothing straight;
+   (2) RANGE — a true 'spec' brass tone sampled at p97 of the lamp rides the
+   highlight bands, rims, and clamp tops; (3) CALM — grain cut to 10%, bands
+   decisive; (4) STORY — rust blob centers seeded below collars, base skirt,
+   arm junction (where water sits), not scattered. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

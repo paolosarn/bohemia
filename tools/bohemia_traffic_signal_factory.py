@@ -81,8 +81,10 @@ def tone_ramp():
         rust = [tuple(warm[wo[len(wo) // 5]].tolist()),
                 tuple(warm[wo[len(wo) // 2]].tolist()),
                 tuple(warm[wo[(4 * len(wo)) // 5]].tolist())]
+    # v6: the lamp's tonal RANGE is the point — its brass glints run far
+    # brighter than my old p90 cap. 'spec' is the true specular cluster.
     return {'outline': smooth(2), 'ramp': [smooth(15), smooth(35), smooth(55),
-            smooth(75), smooth(90)], 'rust': rust}
+            smooth(75), smooth(90)], 'rust': rust, 'spec': smooth(97, win=60)}
 
 
 def put(a, x, y, c, alpha=255):
@@ -119,16 +121,17 @@ def mix(c1, c2, t):
 
 
 def cyl_index(u, r):
-    """Tone index 0..4 across a cylinder: dark edges, highlight band at ~0.35.
-    Dithered boundaries so bands read painted, not vector."""
-    u = u + (r() - 0.5) * 0.09
-    if u < 0.07 or u >= 0.93:
+    """Tone index 0..4 across a cylinder: dark edges, a NARROW bright band
+    at ~0.33 (v6: the lamp's bands are smooth and decisive; wide dither made
+    v5 muddy). Small dither only at the boundaries."""
+    u = u + (r() - 0.5) * 0.05
+    if u < 0.055 or u >= 0.945:
         return 0
-    if u < 0.16 or u >= 0.80:
+    if u < 0.14 or u >= 0.82:
         return 1
-    if u < 0.24 or u >= 0.62:
+    if u < 0.23 or u >= 0.60:
         return 2
-    if 0.28 <= u < 0.46:
+    if 0.27 <= u < 0.40:
         return 4
     return 3
 
@@ -149,13 +152,17 @@ def ellipse_disc(a, K, r, cx, cy, rx, ry, wall_h, tone_shift=0):
         edge = int(round(ry * math.sqrt(max(0.0, 1.0 - (xx / (rx + 0.001)) ** 2))))
         for yy in range(-edge, edge + 1):
             ti = 4 if yy <= 0 else 3
-            if r() < 0.15:
+            if r() < 0.12:
                 ti -= 1
             ti = min(4, max(0, ti + tone_shift))
-            put(a, cx + xx, cy + yy, shade_of(ramp[ti], 0.9 + 0.18 * r()))
+            c = ramp[ti]
+            # brass catch-light on the upper-left rim (the lamp's read)
+            if yy == -edge and xx < 0 and r() < 0.45:
+                c = K['spec']
+            put(a, cx + xx, cy + yy, shade_of(c, 0.94 + 0.12 * r()))
         for k in range(1, wall_h + 1):
             ti = max(0, cyl_index(u, r) - 1)
-            put(a, cx + xx, cy + edge + k, shade_of(ramp[ti], 0.9 + 0.16 * r()))
+            put(a, cx + xx, cy + edge + k, shade_of(ramp[ti], 0.92 + 0.12 * r()))
 
 
 def bowed_band(a, K, r, cx, y, w, h=3, depth=2, tone_shift=1):
@@ -168,14 +175,22 @@ def bowed_band(a, K, r, cx, y, w, h=3, depth=2, tone_shift=1):
         dy = bow(u, depth)
         for k in range(h):
             ti = min(4, max(0, cyl_index(u, r) + tone_shift))
-            c = ramp[min(4, ti + 1)] if k == 0 else ramp[ti]
-            put(a, x0 + i, y + dy + k, shade_of(c, 0.92 + 0.16 * r()))
+            if k == 0:
+                c = K['spec'] if r() < 0.3 else ramp[min(4, ti + 1)]
+            else:
+                c = ramp[ti]
+            put(a, x0 + i, y + dy + k, shade_of(c, 0.94 + 0.12 * r()))
 
 
 class RustField(object):
-    """Coherent rust: seeded elliptical blotches, not per-pixel confetti."""
-    def __init__(self, r, x0, x1, y0, y1, k=6):
+    """Coherent rust: seeded elliptical blotches, not per-pixel confetti.
+    v6: pass `centers` to put the rust where water actually sits (below
+    collars, on the base skirt, at the arm junction)."""
+    def __init__(self, r, x0, x1, y0, y1, k=6, centers=None):
         self.blobs = []
+        for cx, cy in (centers or []):
+            self.blobs.append((cx + (r() - 0.5) * 3, cy + r() * 4,
+                               1.5 + r() * 2.0, 3.0 + r() * 7.0))
         for _ in range(k):
             self.blobs.append((x0 + r() * (x1 - x0), y0 + r() * (y1 - y0),
                                1.5 + r() * 2.5, 3.0 + r() * 9.0))
@@ -190,17 +205,21 @@ class RustField(object):
 
 
 def paint_cyl_v(a, K, r, cx, y0, y1, w_of, rust=None, tone_shift=0):
-    """Vertical cylinder: pole sections, collars, base discs."""
+    """Vertical cylinder: pole sections, collars, base discs. v6: calm
+    grain, and the highlight band carries true specular glints — the lamp's
+    brass catch-light, not a slightly-lighter brown."""
     ramp = K['ramp']
     for yy in range(y0, y1):
         w = w_of(yy)
         x0 = int(round(cx - w / 2.0))
-        wob = 0.05 * math.sin(yy * 0.11)
+        wob = 0.03 * math.sin(yy * 0.07)
         for i in range(w):
             u = (i + 0.5) / w + wob
             ti = min(4, max(0, cyl_index(u, r) + tone_shift))
             c = ramp[ti]
-            c = shade_of(c, 0.93 + 0.14 * r())      # gentle grain, not noise
+            if ti == 4 and r() < 0.22:
+                c = K['spec']
+            c = shade_of(c, 0.95 + 0.10 * r())      # calm grain, not fuzz
             if rust is not None:
                 rw = rust.w(x0 + i, yy)
                 if rw > 0.18 and r() < rw:
@@ -217,9 +236,10 @@ def paint_cyl_h(a, K, r, x0, x1, y_of, h_of, rust=None):
         h = h_of(xx)
         yt = y_of(xx)
         for i in range(h):
-            u = (i + 0.5) / h + (r() - 0.5) * 0.08
+            u = (i + 0.5) / h + (r() - 0.5) * 0.06
             ti = 4 if u < 0.26 else (3 if u < 0.5 else (2 if u < 0.72 else (1 if u < 0.9 else 0)))
-            c = shade_of(ramp[ti], 0.93 + 0.14 * r())
+            c = K['spec'] if (ti == 4 and r() < 0.18) else ramp[ti]
+            c = shade_of(c, 0.95 + 0.10 * r())
             if rust is not None:
                 rw = rust.w(xx, yt + i)
                 if rw > 0.18 and r() < rw:
@@ -246,7 +266,7 @@ def draw_head(a, K, hx, hy, state, r, big=True):
     hh = lens * 3 + 14
     side = 3 if big else 2                    # visible right side face (the 45 view)
     back = (38, 36, 20)                       # weathered backplate, desert-yellowed
-    HRAMP = [(14, 14, 16), (24, 24, 26), (38, 38, 42), (54, 54, 60)]
+    HRAMP = [(12, 12, 14), (24, 24, 26), (40, 40, 44), (64, 66, 74)]
     # backplate with a ridge highlight on its left edge + 45-view side face
     rect(a, hx - 3, hy - 2, hx + hw + 3, hy + hh + 2, back)
     vline(a, hx - 3, hy - 2, hy + hh + 2, shade_of(back, 1.45))
@@ -292,7 +312,7 @@ def draw_head(a, K, hx, hy, state, r, big=True):
         for xx in range(cx - rad - 3, cx + rad + 4):
             u = (xx - (cx - rad - 3) + 0.5) / (2.0 * rad + 7)
             dy = bow(u, 1)
-            put(a, xx, cy - 3 + dy, HRAMP[3])
+            put(a, xx, cy - 3 + dy, (88, 92, 102) if r() < 0.3 else HRAMP[3])
             put(a, xx, cy - 2 + dy, HRAMP[0])
         # lens: radial shading; dead glass keeps a cold glint top-left
         for yy in range(-rad, rad + 1):
@@ -371,7 +391,11 @@ def draw_signal(K, variant, state, seed):
     cy1 = cy2 - 5
     pole_top = top_y + 4
     pole_bot = cy1 - 2
-    rust = RustField(r, POLE_CX - 8, POLE_CX + 8, pole_top, pole_bot, k=6)
+    # v6: rust lives where water sits — below each collar, on the base skirt
+    collar_ys = [pole_top + int((pole_bot - pole_top) * f) for f in (0.22, 0.52, 0.78)]
+    rust = RustField(r, POLE_CX - 8, POLE_CX + 8, pole_top, pole_bot, k=3,
+                     centers=[(POLE_CX - 4, cyy + 5) for cyy in collar_ys] +
+                             [(POLE_CX + 4, collar_ys[1] + 5), (POLE_CX, cy1 - 8)])
 
     def pole_w(yy):
         t = (yy - pole_top) / float(pole_bot - pole_top)
@@ -390,9 +414,7 @@ def draw_signal(K, variant, state, seed):
     ellipse_disc(a, K, r, POLE_CX, pole_top - 1, 7, 2, 2, tone_shift=1)
     ellipse_disc(a, K, r, POLE_CX, pole_top - 4, 3, 1, 1, tone_shift=1)
     # collar rings: bowed toward the viewer, drips below
-    plen = pole_bot - pole_top
-    for frac in (0.22, 0.52, 0.78):
-        by = pole_top + int(plen * frac)
+    for by in collar_ys:
         w = pole_w(by) + 4
         bowed_band(a, K, r, POLE_CX, by, w, h=3, depth=2)
         drips(a, K, r, POLE_CX - w // 2, POLE_CX + w // 2, by + 6, n=2)
@@ -401,54 +423,64 @@ def draw_signal(K, variant, state, seed):
         put(a, POLE_CX + 1, yy, K['outline'])
         put(a, POLE_CX + 1, yy + 1, K['ramp'][4])
 
-    # the arm: horizontal cylinder rising off the mast, tapering out
-    arm_y0 = top_y + 10
+    # arm: a real mast-arm CURVE (v6: the straight pipe with a kink read
+    # stiff, nothing in the corpus is straight plumbing): rises off a LOW
+    # junction in a smooth quadratic and levels out over the road, so the
+    # capped pole shows above the arm the way a real Vegas mast does
+    junction_y = top_y + 30
+    rise = 18
     arm_x1 = CW - 8
-    arust = RustField(r, POLE_CX, arm_x1, arm_y0 - 8, arm_y0 + 8, k=5)
+    arm_lvl = junction_y - rise            # the level cruising height
 
     def arm_y(xx):
-        t = (xx - POLE_CX) / float(arm_x1 - POLE_CX)
-        return arm_y0 - int(6 * min(1.0, t * 2.2) * (1 - t * 0.15))
+        s = (xx - POLE_CX) / float(arm_x1 - POLE_CX)
+        e = min(1.0, s / 0.40)
+        return int(round(junction_y - rise * (1 - (1 - e) ** 2)))
 
     def arm_h(xx):
-        t = (xx - POLE_CX) / float(arm_x1 - POLE_CX)
-        return 8 - int(3 * t)
+        s = (xx - POLE_CX) / float(arm_x1 - POLE_CX)
+        return 9 - int(round(3 * s))
 
+    arust = RustField(r, POLE_CX, arm_x1, arm_lvl - 4, junction_y + 6, k=4,
+                      centers=[(POLE_CX + 14, junction_y - 10)])
     paint_cyl_h(a, K, r, POLE_CX, arm_x1, arm_y, arm_h, rust=arust)
-    arm_tip_y = arm_y0 - 6
-    # arm-to-pole joint collar (bowed, 45 view) + gusset strut underneath
-    bowed_band(a, K, r, POLE_CX, arm_y0 - 2, pole_w(arm_y0) + 6, h=5, depth=2)
-    for k in range(16):
-        put(a, POLE_CX + 6 + k, arm_y0 + 16 - k, K['ramp'][1])
-        put(a, POLE_CX + 7 + k, arm_y0 + 16 - k, K['ramp'][2])
-        put(a, POLE_CX + 8 + k, arm_y0 + 16 - k, K['ramp'][0])
-    # mounting clamps on the arm where heads hang
+    # arm-to-pole joint collar (bowed) + gusset strut tucked under the curve
+    bowed_band(a, K, r, POLE_CX, junction_y - 2, pole_w(junction_y) + 6, h=5, depth=2)
+    for k in range(20):
+        sx = POLE_CX + 6 + k
+        sy = junction_y + 14 - k
+        if sy <= arm_y(sx) + arm_h(sx) - 1:
+            break
+        put(a, sx, sy, K['ramp'][1])
+        put(a, sx + 1, sy, K['ramp'][2])
+        put(a, sx + 2, sy, K['ramp'][0])
+    # mounting clamps on the level span where heads hang
     for cxx in (CW - 36, CW - 88, CW - 128):
-        rect(a, cxx + 6, arm_tip_y - 1, cxx + 12, arm_tip_y + 5, K['ramp'][1])
-        hline(a, cxx + 6, cxx + 12, arm_tip_y - 1, K['ramp'][3])
+        rect(a, cxx + 6, arm_lvl - 1, cxx + 12, arm_lvl + 5, K['ramp'][1])
+        hline(a, cxx + 6, cxx + 12, arm_lvl - 1, K['spec'] if r() < 0.5 else K['ramp'][3])
 
     # heads + sign per variant (hanger brackets first, heads over them)
     def hang(hx):
-        vline(a, hx + 8, arm_tip_y + 4, arm_tip_y + 10, K['ramp'][1], 2)
-        vline(a, hx + 8, arm_tip_y + 4, arm_tip_y + 10, K['ramp'][3], 1)
+        vline(a, hx + 8, arm_lvl + 6, arm_lvl + 13, K['ramp'][1], 2)
+        vline(a, hx + 8, arm_lvl + 6, arm_lvl + 13, K['ramp'][3], 1)
 
     if variant == 0:      # two heads + sign plate mid-arm
         for hx in (CW - 44, CW - 96):
             hang(hx)
-            draw_head(a, K, hx, arm_tip_y + 10, state, r)
-        draw_sign_plate(a, K, POLE_CX + 32, arm_tip_y + 9, 56, r)
+            draw_head(a, K, hx, arm_lvl + 13, state, r)
+        draw_sign_plate(a, K, POLE_CX + 32, arm_lvl + 14, 56, r)
     elif variant == 1:    # three heads across the span (the big arterial mast)
         for hx in (CW - 40, CW - 86, CW - 132):
             hang(hx)
-            draw_head(a, K, hx, arm_tip_y + 10, state, r)
+            draw_head(a, K, hx, arm_lvl + 13, state, r)
     else:                 # two heads + pole-mounted near-side head + sign
         for hx in (CW - 44, CW - 100):
             hang(hx)
-            draw_head(a, K, hx, arm_tip_y + 10, state, r)
-        draw_head(a, K, POLE_CX + 14, arm_y0 + 46, state, r, big=False)
-        draw_sign_plate(a, K, POLE_CX + 32, arm_tip_y + 8, 36, r)
+            draw_head(a, K, hx, arm_lvl + 13, state, r)
+        draw_head(a, K, POLE_CX + 14, junction_y + 34, state, r, big=False)
+        draw_sign_plate(a, K, POLE_CX + 32, arm_lvl + 14, 36, r)
 
-    drips(a, K, r, POLE_CX - 5, POLE_CX + 5, arm_y0 + 6, n=2)
+    drips(a, K, r, POLE_CX - 5, POLE_CX + 5, junction_y + 8, n=2)
     outline_pass(a, K['outline'])
     return a
 
