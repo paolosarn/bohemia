@@ -71,18 +71,26 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    Rosetta Stone: loop+knowledge+deduction+argue-the-author composed),
    #21 Pathologic (time-as-resource-to-lose; the finale that CANNOT be
    argued with). RULED 7/17: the zero-dialogue trio (#99/#110/#114)
-   COUNTS — "that's okay if they genuinely have no talking"; genuine
-   silence satisfies the machine; never give them option lines. Batch 3
-   (same night): #22 NieR (the imitation engine = the Amalgamation's;
-   one secret-detonating side quest per act), #23 Elden Ring (world as
-   quest log; three cautions banked as compile gates; marker-lightness
-   [PENDING Paolo]), #24 Alpha Protocol (multidimensional standing:
-   fear/trust/respect/resentment as separate axes; reactivity must reach
-   into mechanics; SURFACE THE CONSEQUENCE). Counter at 83 of >90; 69
-   files remain (#25-94); 8 graduations to cross. The line: work the
-   queue in numeric order, append a V2 PAYLOAD (CAST + node-tree
-   CONVERSATIONS + BRANCH MAP, original content above untouched — #01's
-   payload is the pattern), gate green, commit per batch.
+   COUNTS — "that's okay if they genuinely have no talking." Batches 3-5
+   (same night): #22 NieR, #23 Elden Ring, #24 Alpha Protocol, #25
+   Tyranny, #26 Pentiment, #27 Spec Ops, #28 Undertale, #29 Frostpunk,
+   #30 This War of Mine, #31 Papers Please, #32 KOTOR.
+   **>90 TARGET MET 7/17: 91 OF >90 FULL-MACHINE. THE MASTER COMPILE IS
+   UNBLOCKED.** Starting it is Paolo's call (the 7/16 shelf item "when to
+   end research/start compile" is now LIVE, no longer hypothetical).
+   62 files remain in the queue (#33-94) as volume beyond the target;
+   backfilling can continue in parallel or pause for the compile.
+   The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
+   node-tree CONVERSATIONS + BRANCH MAP, original content untouched,
+   #01's payload is the pattern), gate green, commit per batch.
+   LAW SEEDS FOR THE COMPILE surfaced by batches 3-5 (recorded in each
+   payload's structural finding): the dual-axis standing spec (#24+#25);
+   the Book of Decrees + slippery slope + hope/discontent + exile
+   (#29); guilt sticky and chosen and never narrated away (#27+#28+#30
+   triptych); the booth/vise/accumulation model (#31); the one-shot
+   identity twist machine, candidates PENDING Paolo (#32); the
+   unsolvable-verdict contract vs the fully-fair contract (#26 vs #19);
+   finales that ARGUE vs finales that are WEATHER (#12/#17/#20 vs #21).
    LAW SEEDS SURFACED BY THE BACKFILL (for the compile, not yet locked):
    THE LOG IS DIEGETIC OR IT IS WRONG (#18+#19+#21 converge); the Rule
    of Three as the deduction validation law (#19); the social battle as

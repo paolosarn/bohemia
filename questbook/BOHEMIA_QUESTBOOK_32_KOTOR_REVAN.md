@@ -140,3 +140,64 @@ ref Questbook 12 (Planescape identity/memory/change), 01/10 (mirror-antagonist),
 at the low point), 06/16/24 (companion/relationship fallout), 19/26 (fairness contract for mysteries/
 twists), our succession + unrecorded ledger + Amalgamation + Liberate/Respect/Become. FUTURE: a BioWare
 talk on seeding the Revan twist; a Bioshock "Would You Kindly" deep-dive (the player-agency twist sibling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE SOLDIER (the player, pre-reveal)** — wants to help hunt the Sith Lord whose war broke the galaxy. Learns fast. Suspiciously fast. Speaks languages nobody taught them. FUNCTION: the hunter who is the quarry: every scene they play is a different scene in hindsight (W1), and the file's craft is that BOTH versions were always on screen.
+
+**DARTH REVAN (the legend)** — wanted, per the war stories: conquest, the Star Forge, the galaxy remade. FUNCTION: the villain as a mirror with a delay on it (W2). Half the game's NPCs describe the monster; the description is a portrait the player is standing inside.
+
+**MALAK** — wants his old master gone, properly this time, and wants him BROKEN first. Will trade: the truth, as a weapon, at the Leviathan's lowest point (W5). FUNCTION: the enemy as the revelation's courier. The cruelest delivery in the canon: your identity, returned to you by the man who shot it out of the sky.
+
+**BASTILA SHAN** — wants the war won and her secret kept, in an order she refuses to examine. She saved the dying Revan, sanctioned the wipe, escorted the result around the galaxy, and is falling for it. Will never say out loud: any of that, until the Leviathan says it for her. FUNCTION: the guilt walking beside you the whole game (W6): re-read every protective line after the reveal.
+
+**CARTH ONASI** — wants trust to be possible again after Revan's war took his family. He is traveling with Revan. FUNCTION: the bond the twist detonates (W6): his arc is the reveal's shrapnel pattern.
+
+**THE JEDI COUNCIL** — wanted a weapon against the Star Forge and called the wipe mercy. Will never say out loud: whether it was. FUNCTION: the institution whose "redemption" of Revan is also a use of Revan — the file's quietest moral rot, and its most Bohemian: the recorded self authored by the powerful (the #26 tie).
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the pre-reveal nodes are listed WITH their post-reveal readings, because the twist's craft is that every tree was two trees)
+
+NODE: THE_SEEDS — scattered across the first half, entry: ordinary play
+  > (master a Force technique in days)     [pre-reveal: talent] [post-reveal: memory]
+  > (understand the alien without a translator) [pre: convenient] [post: you've BEEN here]
+  > (a Jedi Master studies your face too long)  [pre: flavor]     [post: he recognizes you]
+  > (your childhood memory doesn't quite close) [pre: dream logic] [post: the seams of the fabrication]
+  THE FAIRNESS CONTRACT EXECUTED (W4): every seed is visible, none is conclusive, and the player who paid attention feels a CLICK, not a cheat. Obra Dinn's law (#19) applied to a twist: fairly clued or it's a betrayal.
+
+NODE: LEVIATHAN_CELL — Malak's flagship, entry: captured, betrayed, the party broken
+  Malak, amused: they never told you. You want to know who you are?
+  > "I'm nobody. A soldier."        [gate: none] -> he laughs; the denial is the setup line
+  > "Tell me."                      [gate: none] -> YOU ARE REVAN. The game reorganizes itself behind your eyes (W1)
+  > (look to Bastila)               [gate: she's present] -> her face confirms it before her words do; the companion fallout begins in one frame (W6)
+  NOVERB: "That's a lie." The protest exists as a feeling and not as a line that works: too many seeds already germinated. The removed verb is the seeding's receipt — by the time the truth arrives, the player cannot honestly disbelieve it.
+
+NODE: CARTH_AFTER — the escape, entry: the truth loose in the party
+  > "I'm not him anymore."          [gate: none] -> Carth: that's what he'd say. The wound argues back; trust is rebuilt in conduct, not claims
+  > "I never chose any of this."    [gate: none] -> true, and useless; the war dead are indifferent to the mind-wipe's paperwork
+  > (say nothing)                   [gate: none] SILENCE -> he watches you for the rest of the game. That IS the dialogue.
+  NODE: BASTILA_AFTER — mirrored: her confession, her guilt, her question that is also the game's: did the Council redeem you or REUSE you?
+
+NODE: THE_FORK — post-reveal, running to the end, entry: identity returned, unsigned
+  The twist becomes a CHOICE (W3): every remaining decision is now an answer to "who is Revan?"
+  > (stay Light: redeem the name)   [gate: conduct] -> the war criminal, redeemed by the person wearing his hands
+  > (reclaim the dark: usurp Malak) [gate: conduct] -> the wipe undone by appetite; the Jedi's weapon turning in their grip
+  > (waver)                         [gate: none]   -> the companions read every waver; the bonds are the meter (W6)
+  THE ONE LINE DOING THE WORK is the question under all of it, Planescape's question (#12) wearing a mask: are you who you WERE, or who you CHOOSE to be? KOTOR's answer is the RPG's answer: the player authors it, post-reveal, choice by choice (W8).
+
+NODE: STAR_FORGE_THRONE — the end, entry: Malak faced, the galaxy watching
+  > (the Light ending)              [gate: the fork held Light] -> Revan redeemed: the hunted name buried by its own hands
+  > (the Dark ending)               [gate: the fork held Dark]  -> Darth Revan returned: the game's first half retroactively becomes a resurrection story
+  BOTH endings re-read the ENTIRE game (W7): the twist works backward and forward at once, which is the whole architecture.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 2 terminal states (redeem / reclaim), hinged on 1 mid-game reveal — the shallowest count in the backfill and the deepest hinge: the branching is INSIDE the player's re-reading, not on the flowchart.
+
+B1 — REVAN REDEEMED: Light held through the fork; Malak defeated; the name answered with conduct. WRITES: the thesis — identity is authored forward.
+B2 — DARTH REVAN RETURNED: the dark reclaimed; the friends turned on; the throne taken. WRITES: the same thesis, signed in the other hand.
+THE HINGE — the Leviathan: not a branch, a LENS. Every scene before it plays twice; every scene after it is a verdict.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: the identity twist is a ONE-SHOT RESOURCE and Bohemia holds unusually rich fuel for exactly one: the Amalgamation ARCHIVES THE DEAD, so it can know the dynasty's true history better than the dynasty does — the reveal delivered at the lowest point, by the antagonist, from the archive (the on-theme Leviathan). Candidates stay [PENDING, Paolo's call] (a Network plant, an Amalgamation-seeded copy, the revered founder as the collapse's architect); the MACHINE is what this file locks: (1) seed relentlessly and fairly (the #19 contract applies to twists — a regression gate should be able to enumerate the seeds); (2) deliver at the bottom, by the enemy, weaponized; (3) THE TWIST MUST BECOME A FORK — post-reveal agency over the revealed identity, or it's cinema smuggled into a game; (4) detonate the BONDS and let companions grade the aftermath by their own histories; (5) spend it ONCE — the surrounding game must stand when the twist is known, which our systems-and-fold replay model (#24's alternative) already covers. And bank the quiet rot for the lore sessions: the Council's mercy was also a USE. In Bohemia's terms: the recorded self is authored by the powerful — the twist file and the verdict file (#26) are the same law at two scales.

@@ -145,3 +145,63 @@ EZIC resistance, 20 endings). Cross-ref Questbook 19 (Obra Dinn — same designe
 29 (Frostpunk — escalating governance), 24 (Alpha Protocol — many-choices->endings), 11 (separated
 families), our death-math + verdicts + Pacifist Law + wellbeing rules. FUTURE: a Lucas Pope talk on the
 document-thriller loop; a Beholder / Republia Times deep-dive (propaganda-clerk complicity siblings).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE INSPECTOR (the player)** — wants his family warm, fed, and medicined, in a booth where those three things are purchased with stamps. Will trade: judgment for procedure, daily, at a per-head rate. Will never say out loud: which stamp was the one he stopped noticing the faces. FUNCTION: the cog who could be a saboteur (W7). The most powerless protagonist in the canon, holding the most power anyone in the queue will ever stand before.
+
+**THE FAMILY (wife, son, uncle, mother-in-law)** — want heat, food, medicine. They appear only as end-of-day budget lines: names with conditions attached. FUNCTION: the vise (W3). Every mercy shown a stranger is deducted, in currency, from these four names. The cruelest cast in the file never gets a scene.
+
+**THE QUEUE** — wants to cross. One at a time, documents in hand, each a collision between the rulebook and a life: the wife following her husband through, the Antegrian couple with one bad passport between them. FUNCTION: the semantic intruding on the procedural (W6): the rules become personal because the faces RETURN.
+
+**THE RULEBOOK** — wants compliance with today's version, which is longer than yesterday's. FUNCTION: the escalating cage (W4): the difficulty curve is the bureaucracy's growth; by week's end, keeping up is frantic and errors are structural.
+
+**EZIC (the shadow order)** — wants the regime down, and needs a man in a booth. Will trade: purpose, at the risk of everything the family lines represent. FUNCTION: the cage's exit (W7): complicity revealed as a choice by the existence of its refusal.
+
+**ARSTOTZKA** — wants glory, quotas, and detainees, and pays bonuses for the last. FUNCTION: the regime as employer: cruelty incentivized, mercy penalized, the moral price list printed in the pay slip (W5).
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the atom is the BOOTH ENCOUNTER — thirty seconds, two stamps, and a life on the counter)
+
+NODE: THE_BOOTH — the atom, entry: NEXT! (the queue advances)
+  Documents slide across. The clock runs. The rulebook is open to today.
+  > [APPROVE]                       [gate: papers valid]   -> paid; next
+  > [DENY]                          [gate: papers invalid] -> paid; the face leaves; sometimes it returns tomorrow with a story attached (W6)
+  > [APPROVE despite the discrepancy] [gate: conscience]   -> MERCY, priced: a citation risked; the family lines thinner tonight (W3)
+  > [DETAIN]                        [gate: discrepancy]    -> the guards, the dragging, and later: the BONUS (W5). The regime tips you for the desperate
+  > (interrogate the discrepancy)   [gate: spot it]        -> sometimes an explanation, sometimes a bribe, sometimes a plea that makes the stamp heavier
+  WHAT THIS NODE COSTS: thirty seconds and a fraction of the man you were at breakfast. The accumulation IS the machine (W8): no single stamp is the crime; the shift is.
+
+NODE: THE_WIFE_FOLLOWS — day N+1, entry: yesterday you approved her husband
+  Her papers are wrong. She says: he just went through. Please.
+  > [APPROVE]                       [gate: conscience] -> a family stays whole; a citation lands; your own family pays it (W3, W6)
+  > [DENY]                          [gate: the rulebook] -> lawful, correct, and you will think about her at the family budget screen
+  NOVERB: "Wait here, I'll fix this." No fixing verb exists in the booth. The inspector can bend TODAY's stamp; he cannot repair the system it serves. The removed verb is the cage's wall.
+
+NODE: FAMILY_LEDGER — every night, entry: the day's pay counted
+  Four names. Rent, food, heat, medicine. Not enough for all of it, most nights.
+  > (heat over food / medicine over heat / ...) [gate: arithmetic] -> the family's version of the booth: triage in your own kitchen (the #21 kinship)
+  > (a saved bribe spent)           [gate: took it] -> warmth purchased with a compromise the ledger doesn't itemize
+  THE VISE CLOSES HERE (W3): the mercy shown at the booth this morning is the medicine missing tonight. The game's cruelest arithmetic is done by the player, at home, in silence.
+
+NODE: EZIC_CONTACT — a note slipped between passports, entry: mid-game
+  The order asks small things first: pass this man. Withhold that stamp.
+  > (serve the cage)                [gate: none] -> safety, quota, glory to Arstotzka; the endings where nothing changed
+  > (serve EZIC)                    [gate: nerve] -> sabotage from inside the booth: the cog reversing its own thread (W7); arrest and execution priced in
+  > (serve only the family)         [gate: none] SILENCE -> the narrowest loyalty; the game respects it and grades nothing
+  THE ONE LINE DOING THE WORK is EZIC's first note, which asks for something so small it feels free. The slippery slope (#29's law) runs BOTH directions: toward tyranny stamp by stamp, and toward revolution note by note.
+
+NODE: THE_CHECKPOINT_WALL — no speaker; the booth itself, day after day
+  The rulebook thickens. The quota holds. The queue never shortens.
+  WRITES: the iron cage, FELT (W2): judgment replaced by procedure so gradually the player performs the replacement themselves. Form = theme, tenth confirmation in this backfill: the interface IS the argument (W10, the Lucas Pope signature shared with #19).
+
+## V2-C THE BRANCH MAP
+
+COUNT: ~20 endings from the DRIFT (obey / bend / resist / flee / EZIC), not from any single fork — the accumulation model's proof (W8, W9).
+
+THE FAMILIES OF TERMINALS: imprisonment and execution (the cage wins); the border flight with whoever's left of the family (the cage escaped); Arstotzka overthrown (the cage broken, EZIC's thread walked whole); and the gray middles: employed, compliant, diminished, alive.
+THE AXES UNDERNEATH: family alive/dead per name x citations x EZIC thread x detain count. Every ending is the sum of stamps.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Papers, Please closes the complicity trilogy (#27 forced, #30 chosen, #31 EMPLOYED) and hands Bohemia its administration-layer spec: (1) the BOOTH SHAPE — a governance loop where the dynasty processes the district (rations, entry, judgment) through a felt, diegetic interface, complicit one small decision at a time; (2) the VISE — mercy to strangers priced against the dynasty's OWN (the medicine spared costs your heir), the single most on-theme mechanic in the file bank, handled under wellbeing rules; (3) CRUELTY INCENTIVIZED — the Network pays bonuses for the immoral option, so virtue carries a visible price tag; (4) the ACCUMULATION MODEL as a legitimate alternative to big branch-quests: many small weighted choices summing to divergent fates — our death-math already speaks this cadence. Compile gates from the flaws: the grind needs RHYTHM and human intrusions (the recurring faces are what keep the booth alive), and the bleakness needs small warmths (the family dinner law: texture or the player bounces). Cross-ref #19 for the designer's fingerprint on both files: the interface IS the argument — the logbook proves, the booth implicates.

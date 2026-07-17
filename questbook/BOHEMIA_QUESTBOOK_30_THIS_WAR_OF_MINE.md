@@ -154,3 +154,64 @@ ref Questbook 29 (Frostpunk — governance sibling), 21 (survival/triage/no-onbo
 allocation), our Pacifist Law + death-math + upbringing + unrecorded ledger + wellbeing rules. FUTURE: an
 11 bit talk on TWoM's emergent-emotion design method; a Papers, Please deep-dive (bureaucratic complicity)
 as a grey-morality sibling.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE SURVIVORS (the playable)** — want their people fed and their hands clean, and the siege prices those against each other nightly. Each carries a MIND as well as a body: guilt erodes it (sad, broken, gone); kindness and community sustain it. Will never say out loud: what they did at the quiet house. The game says it for them, in the depression spiral. FUNCTION: conscience as a cast — the choosers who are also the cost.
+
+**THE ELDERLY COUPLE (the Quiet House)** — want to be left alone with what remains: a warm room, food, medicine, each other. Unarmed. He begs; she is sick. FUNCTION: the emblematic dilemma (W4): the door nothing guards except the player's conscience. The most famous scene in the survival genre has no enemy, no lock, and no reward for mercy but the self you keep.
+
+**THE SCAVENGER (whoever goes tonight)** — wants to come home with something and come home themselves. FUNCTION: the nightly allocation gamble: one body risked outside, the rest exposed at home (W9's cascade begins with whoever you pick).
+
+**THE NEIGHBORS** — want help: a door braced, medicine spared, a child walked somewhere safer. Will trade: morale, gratitude, occasionally return-aid. FUNCTION: altruism with a price tag: every kindness costs resources the ledger needed.
+
+**THE CHILDREN (non-playable)** — want the war to be over. FUNCTION: the designed vulnerability that weights every scarcity choice. Handled with weight, never exploitation: our care rules quote this line at compile.
+
+**THE RAIDERS / THE SIEGE** — want what you have; the siege wants nothing, it just continues. FUNCTION: the pressure that makes every moral choice load-bearing. The war is weather here too (#21's kin): it cannot be argued with, only survived, and HOW is the game.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the deepest nodes have almost no dialogue — the moral machine runs on what you DO in rooms where someone is watching)
+
+NODE: THE_QUIET_HOUSE — a scavenging night, entry: the untouched home found
+  An old man at the door: what are you doing here? His wife coughs upstairs. He begs you to leave.
+  > (take everything)               [gate: nothing but conscience — the door is open, they are unarmed] -> food and medicine for days; WRITES: guilt onto the scavenger, compounding nightly toward breakdown (W2)
+  > (take some, leave the rest)     [gate: none] -> the middle a playtester invented before the designers did (W5)
+  > (leave empty-handed)            [gate: none] -> your people hungrier; your survivor intact; no reward but that
+  > (violence)                      [gate: none] TRAP -> the fastest route and the deepest scar; some survivors never come back from it, alive
+  NOVERB: "I'm sorry. We have a sick child too." The justification line does not exist. You can DO the robbery; you cannot NARRATE it into okay-ness. The removed verb is the mirror (W6): the game withholds the speech that would launder the act.
+
+NODE: THE_PLAYTEST_GHOST — not in the game; in its origin, recorded here per the FACTORY LAW's respect for provenance
+  A tester stole everything, felt something, went BACK, and returned half.
+  THE DESIGN METHOD (W5): the guilt system exists because a player felt guilt unprompted. Watch what players do unprompted; mechanize THAT. Banked as a playtesting law for Paolo's sessions.
+
+NODE: NIGHT_ALLOCATION — dusk, every day, entry: the map of scavenging sites
+  > (send the fit one to the risky site) [gate: roster] -> best haul odds; worst raid defense at home
+  > (send the guilty one, keep busy)     [gate: none] TRAP -> guilt doesn't sweat out; untreated minds break on schedule (W2, W9)
+  > (nobody scavenges tonight)           [gate: none] SILENCE -> safety tonight, deficit tomorrow; the cascade's first quiet domino
+  NODE: THE_DAY_AFTER — dawn: wounds treated or septic, moods spoken or festering
+  > (survivors talk, tell stories, care) [gate: time spent] -> trauma mitigated; community as a survival resource (W8)
+  > (all hands on production)            [gate: none] TRAP -> efficient, and the minds fray; isolation is a resource leak with a body count
+
+NODE: NEIGHBOR_AT_THE_DOOR — daytime, entry: a knock
+  Someone needs help that costs something real: medicine, a guard, a share.
+  > (help)                          [gate: resources] -> morale rises across the shelter; the ledger thins (W3)
+  > (refuse)                        [gate: none] -> the ledger holds; something else thins
+  THE CRAFT: altruism is never free and never worthless. The game refuses to price kindness at zero from either direction.
+
+NODE: THE_BREAKDOWN — entry: a survivor's mind spent
+  Not a conversation. A body in a bed that won't get up, or worse.
+  > (the others rally: talk, comfort, time) [gate: bonds built earlier] -> sometimes, a return
+  > (nothing left to give)           [gate: none] -> the siege's quietest casualty; permadeath includes minds
+  WHAT THIS NODE COSTS, retroactively: every earlier node where guilt was treated as a meter to manage instead of a person to tend. The banked flaw and its fix in one scene: conscience must STICK (a scar that never fully heals), or the ethics deflate into upkeep.
+
+## V2-C THE BRANCH MAP
+
+COUNT: no authored terminals — the siege ends on a timer and the branch map is the ROSTER: who survived, who broke, who healed, and what each of them did to get there. (The epilogue reads each survivor's ledger: the TWoM ending is a per-person conscience tally.)
+
+THE AXES: alive/dead x intact/scarred/broken x clean/compromised hands — per survivor, compounding through attrition cascades (W9) and mitigated by community (W8).
+THE PACIFIST TRUTH (W10): the clean-hands run EXISTS: harder, hungrier, real. Mercy is a viable build, priced honestly.
+THE EPILOGUE: each survivor's post-war card reads what the siege made of them. Ninth confirmation of FINALE-IS-A-LEDGER-READ, and the most intimate: this ledger has one name per line.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: TWoM completes the survival core's spec that #21 and #29 opened: Pathologic is time, Frostpunk is governance, THIS is conscience — the ground-level psychological cost, systemized. Ports in rank order: (1) GUILT AS A STICKY MECHANIC — dynasty members carry minds that cruel choices scar toward hardening or breakdown, tied to upbringing (Q003) and the succession traits, and the scar STICKS (never a toppable meter — the flaw's fix is the law); (2) the QUIET-HOUSE SCENE SHAPE — one vivid, unguarded moral image per act, no enemy, no reward for mercy but the self you keep, and NO justification line offered (the removed-narration verb); (3) COMMUNITY AS LOAD-BEARING — bonds mechanically resist despair; isolation kills; this is the anti-Amalgamation thesis IN SYSTEMS (connection vs the archive of the lonely dead); (4) the PLAYTEST LAW for Paolo: watch what players do unprompted and mechanize that. With #28's chosen mercy and #27's forbidden fist, the triptych is complete and the compile should state it as one law: BOHEMIA'S GUILT IS ALWAYS CHOSEN, ALWAYS STICKY, AND NEVER NARRATED AWAY.

@@ -151,3 +151,70 @@ Cross-ref Questbook 27 (Spec Ops — the forced-atrocity opposite), 17 (social b
 read), 22/01 (humanize enemy), 14 (dark-mercy/earned pacifism), 25 (route-as-theme), our Pacifist Path
 Law + fold + Dead-Eye dial. FUTURE: a Toby Fox design note on the mercy system; a Deltarune cross-study
 on evolving the spare mechanic.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+(Cross-ref #140, the 7/17 fresh mine on the judgment corridor: #28 is the SYSTEM file — mercy as a
+mechanic; #140 is the Sans/corridor SCENE file. They ride together.)
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE CHILD (the player)** — wants to go home. What they're WILLING to do on the way is the entire game. Will trade: patience for mercy or EXP for speed; both are priced honestly. FUNCTION: the tested. The game is a personality instrument disguised as a bullet-hell.
+
+**PAPYRUS** — wants to capture a human, join the Royal Guard, and be admired — and wants a friend more than any of it, which he will never admit in those words. Will trade: capture attempts, cooked spaghetti, a date if you're up for it. FUNCTION: the enemy whose fight is a friendship request with attack patterns (W2, W3). Killing him is possible and the save file will know forever what kind of person found that acceptable.
+
+**UNDYNE** — wants the human DEAD, heroically, for the kingdom. Will never say out loud (until the pacifist path drags it from her): respect. FUNCTION: mercy-is-earned (W6): her fights offer every reason to just hit back; refusing all of them is the discipline the true route demands.
+
+**ASGORE** — wants nobody to die, and has therefore prepared to kill you. He DESTROYS the MERCY button before the fight, then asks you to kill him after it. FUNCTION: the nudge's final form: the game's kindest character removing the kind option, begging you to take the easy out.
+
+**FLOWEY** — wants the save file's power back, and knows EXACTLY what you did with yours, including the resets. FUNCTION: the meta-witness (W4, W8): the character who reads your history across playthroughs and asks the question underneath: why were you WILLING?
+
+**THE RANDOM ENCOUNTERS** — want: to be petted, encouraged, flexed at, out-waited, complimented. Every trash mob has a name and a want. FUNCTION: the thesis distributed (W2): nothing in the Underground is faceless, so nothing dies free.
+
+**THE SAVE FILE** — wants to remember. Complete Genocide once and every future True Pacifist ending is soulless, forever, past any reset. FUNCTION: the unforgetting world (W4): the one game mechanic that refuses to be a game mechanic.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; NOTE THE FORM: combat IS the conversation — ACT options are dialogue lines that dodge bullets between sentences)
+
+NODE: ANY_ENCOUNTER — the atom, entry: a monster with a name blocks the way
+  > [FIGHT]                        [gate: none] -> damage, EXP, a body; the fast lane, always open (W9: the choice is real because both paths are)
+  > [ACT: Check]                   [gate: none] -> WHO they are: the read that reveals the solution (W3)
+  > [ACT: the right verb]          [gate: reading them] -> hostility drops; repeat under fire (the bullet-hell continues while you de-escalate — mercy has teeth, W10)
+  > [MERCY: Spare]                 [gate: name glows yellow] -> the fight ends with everyone alive
+  > [MERCY: Spare, too early]      [gate: none] TRAP -> nothing happens; mercy without understanding is just a button (the thesis in one dud input)
+  WHAT THIS NODE COSTS: time, dodging skill, and EXP forgone. The game prices mercy honestly and lets you feel the price.
+
+NODE: PAPYRUS_CAPTURE — Snowdin's edge, entry: his blue attack rehearsed all zone
+  > (endure the puzzle-fight, spare) [gate: patience] -> capture, escape, re-fight, spare again -> eventually: friendship, a date, a phone number that works for the rest of the game
+  > [kill him]                       [gate: none] -> his last words forgive you. The save file does not (W4).
+  THE ONE LINE DOING THE WORK is his: even dying, he believes you can be better. The game's whole moral architecture is a skeleton's optimism.
+
+NODE: UNDYNE_PURSUIT — Waterfall, entry: the hero of the kingdom hunting a child
+  > (flee, endure, refuse to strike) [gate: discipline across a long chase] -> the fight becomes a cooking lesson becomes a friendship (W6)
+  > (strike back, once)              [gate: none] TRAP -> the route forks quietly; one hit is a stance
+  NOVERB: "I'm not your enemy." Unsayable in words; sayable ONLY by conduct across the whole pursuit. The game removes the declarative and demands the demonstrative.
+
+NODE: ASGORE_THRONE — the end of Neutral, entry: the garden, the trident, the kind king
+  (he destroys the MERCY button — the interface itself wounded)
+  > [fight, because he left no button] [gate: forced] -> and AFTER, his plea: kill me, take the soul, go home
+  > (refuse, at the last)              [gate: the pacifist thread alive] -> another way opens, eventually, through everyone you refused to kill
+  THE NUDGE'S MASTERPIECE: the violent out is offered BY ITS VICTIM, sincerely, as a kindness to you. True Pacifist means refusing even the mercy-kill the kind man begs for.
+
+NODE: GENOCIDE_MARCH — any region, entry: the kill counter engaged
+  > (grind until "but nobody came")   [gate: tedium accepted] -> empty towns, eerie slowed music, pre-solved puzzles; the world evacuating ahead of your reputation (W5)
+  > (abort mid-route)                 [gate: none] -> Neutral resumes; the already-dead stay dead
+  THE BANKED FLAW RIDES HERE: cruelty-as-tedium is a valid statement and still tedium. The judgment corridor (#140's file) is where the route pays its one unforgettable toll.
+
+NODE: FLOWEY_KNOWS — everywhere, entry: any playthrough after the first
+  He remembers your resets, your kills, your reloads-to-see.
+  > "I was just curious."             [gate: none] -> named as the point: curiosity as its own kind of cruelty (W8)
+  NOVERB: "That run didn't count." No such line exists anywhere in the game, which IS the mechanic: the save file's memory cannot be argued with, only lived with (W4).
+
+## V2-C THE BRANCH MAP
+
+COUNT: 3 routes as the terminal architecture (Neutral's many shades / True Pacifist / Genocide), plus the PERMANENT cross-playthrough taint (the branch that outlives the branch map).
+
+R1 — NEUTRAL: the default stumble; kill some, spare some; dozens of ending variants tallying who you left alive. The mirror most players get first.
+R2 — TRUE PACIFIST: everyone spared, the cast befriended, the barrier broken warm. Locked to those who refused every nudge (W6). The earned ending.
+R3 — GENOCIDE: everything dead, the world evacuated, the fourth wall down. WRITES, PERMANENTLY: the soulless taint on every future R2, past any reset (W4). The one branch no reload launders.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Undertale is the PACIFIST PATH LAW's master validation and its build spec, the bright twin of #27 filed three numbers apart on purpose: Spec Ops forces the atrocity, Undertale OFFERS both paths whole, and only the second produces meaning the player owns (W9). Ports in rank order: (1) mercy as a FULL SYSTEM on the combat dial — de-escalation with its own skill demand, solutions gated on READING the person ([READ] as the ACT menu), never a stealth-skip; (2) THE FOLD AS THE UNFORGETTING SAVE — an atrocity sticks across generations and resists laundering; the unrecorded ledger is our Flowey, and NO in-world reset clears it; (3) the district DECAYS with cruelty (emptier streets, warier factions — the world-state as the tally); (4) mercy stays EARNED: tempting violent outs, including the beg-for-death, refused actively. Compile gates from the flaws, FACTORY LAW applied: SYSTEMATIZE de-escalation into categories (the scared want reassurance, the proud want witness, the grieving want the name said) — hand-authored one-offs don't scale; and the mercy path's requirements must be LEGIBLE — nobody loses True Pacifist by accident in Bohemia.
