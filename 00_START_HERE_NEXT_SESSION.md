@@ -167,22 +167,24 @@ largest unblocked item in IN FLIGHT.
 - STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
   pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
   garment art / currency logos.
-- ANIMATION, THE SECOND DEATH (7/17-18, UNJUDGED, keyframed + 8-DIRECTIONAL): 'headshot-2' THE
-  CRUMPLE beside 'headshot' THE TOPPLE (v1, physics, untouched). Paolo rejected
-  the physics crumple ("jumping around, not falling fast enough, unnatural,
-  care about how the skeleton works"). Measured cause: the Verlet sim's stacked
-  laws fight -> 17-25px single-frame joint POPS. REBUILT KEYFRAMED per Paolo's
-  own 7/2 law: forward-kinematics angle interpolation (smooth by construction,
-  no pops), follow-through timeline (legs buckle -> mass drops -> arms lag then
-  follow -> hold), side-on corpse from rig rest lengths so it reads on every
-  facing, fixed frame so the body visibly drops (head falls 33px). Verified all
-  8 facings x 60 frames: worst jump 3.6px (was 25). LESSON BANKED: verify
-  animation by WATCHING continuous motion (clock-driven render sheets), never
-  static frame samples -- static hid the jitter twice. Record:
-  records/BOHEMIA_ANIM_DEATHS_7_17_26.txt. Open: face-up (FACE LAW) vs Paolo's
-  "stomach" (needs a face-law exception). Judge in ANIMATION tab, 'headshot-2'. 7/18: now falls its OWN way per
-  facing (8/8 distinct, was one-direction-for-all); Paolo flagged a headshot-3
-  will still come ('even then not what I want'), gated on the 8 dirs first (done).
+- ANIMATION, THE SECOND DEATH (7/18, UNJUDGED, now a FAKE-PHYSICS RAGDOLL):
+  'headshot-2' beside 'headshot' THE TOPPLE (v1, untouched). The whole arc:
+  physics-crumple -> keyframe-crumple (Paolo: "so stiff") -> RAGDOLL. Paolo's
+  order: "have RULES FOR THE LIMBS and ragdoll it based on a fake physics thing
+  for all directions" + he REVOKED the FACE-LAW head lock ("head always faces
+  north, i dont like that anymore -- move it with the body"). Built a clean
+  Verlet ragdoll (RG in the alpha): gravity + rigid bones + torso braces +
+  LIMB HINGE rules (elbow/knee one-way, partial-correct) + a NECK CONE so the
+  head flops in range. FREE HEAD that ROTATES with the body via headStampFrame
+  (RG_HEADROT follows the real neck->headTop bone; the rigid-upright stamp WAS
+  the 'faces north'). Per-direction shot impulse = 8 distinct falls. Anti-jitter
+  (the hard part): speed cap + SOFT floor push (hard clamps caused 20-30px leaf
+  teleports) + 2.5px/frame per-joint MOVE CAP + freeze-on-settle; waist-centered
+  camera + fixed floor. None of v1's fighting laws. Verified all 8 in frame,
+  freeze, distinct rests, head rotates. Record: records/BOHEMIA_ANIM_DEATHS_
+  7_17_26.txt. Combat bakes both deaths. Judge the FEEL in ANIMATION tab,
+  'headshot-2'; headshot-3 still on the table if the ragdoll feel needs tuning.
+  LESSON BANKED: verify animation by WATCHING motion, never static frames.
 - MUSIC (verdict pass 7/17 PROCESSED; gate #17 gates/music_gate.js guards it
   all): CANON now: THE CANCELLED MAN, THE WIND LEARNS WORDS, THE PIT BOSS IS
   GONE (Paolo loves it; added to the OVERWORLD playlist, now six, his verbatim
