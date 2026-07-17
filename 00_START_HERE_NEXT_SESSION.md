@@ -102,15 +102,25 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    lenses; lit shows only as colored light SPILL around the housing;
    sign backs are unpainted metal, no green, nothing to read). Every
    intact mast ships both faces; the proof now stands all FOUR corners
-   (south side faces, north side backs). THEN v10 (Paolo: "make your
-   face east and west"): PROFILES — face e / face w heads seen side-on
-   (narrow housing, trailing backplate edge, visor tongues toward the
-   facing, lens sliver on the leading edge; lit = sliver + spill on the
-   tongues; signs edge-on as a 2px green sliver). MIRROR TRUTH RULE:
-   flipping an arm flips which way a profile head points, so the bank
-   stores the face AFTER the flip, never the drawn one. 204 sprites
-   total (s/n/e/w x colors x arms x states x dirs + wrecks), all
-   UNJUDGED. Laws:
+   (south side faces, north side backs). THEN v10-v12, THE EAST/WEST
+   SAGA (two wrong swings, banked so nobody swings wrong again): v10
+   made skinny side-profile heads — Paolo circled them ("this is how the
+   stoplight has to look, bro come on"): a stoplight NEVER diets, full
+   mass always. v11 kept full heads on the horizontal arm with biased
+   lenses — still wrong. THE RULING (v12, Paolo verbatim): "if its
+   facing west or east it wont be having the stop lights extending east
+   or west, left or right — it will be UP OR DOWN." Face e/w = the arm
+   runs VERTICALLY on screen, spanning the EW road: arm_dir n (up) or s
+   (down), FULL map length per the ARM LAW (grid distances never
+   foreshorten in the billboard world), elbow + junction collar + tip
+   cap, full-mass heads hanging along the arm at 66px spacing (46
+   overlapped them into a totem), lenses biased toward the facing edge.
+   draw_mast extracted and shared by both orientations. base_y per bank
+   entry (vertical-south sprites extend below the pole foot; the bake
+   anchors on base_y). MIRROR TRUTH RULE: flipping swaps e<->w and the
+   bank stores the face AFTER the flip. The proof stands SIX masts: four
+   corners + two vertical-arm masts spanning the EW road. 204 sprites
+   total, all UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
