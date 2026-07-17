@@ -171,7 +171,11 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    flipped), in the bank under salvaged_heads with salvage_lore.
    [PENDING Paolo]: WHERE salvaged heads appear around the map (MAP
    LAW — texture ready, placement is his). 348 sprites + 4 salvage
-   props; wrecks + non-approved classes still UNJUDGED. Laws:
+   props; wrecks + non-approved classes still UNJUDGED. JUDGING SURFACE
+   READY: tools/BOHEMIA_SIGNAL_PICKER_7_18_26.html (gen:
+   tools/bohemia_signal_picker_gen.py) — 16 classes, SUN MODE, thumbs +
+   comments + export .txt. Paolo taps when ready; UP unlocks the cooked
+   volume, NO -> graveyard w/ post-mortem; verdicts land in /records. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
