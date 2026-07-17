@@ -239,23 +239,9 @@ def bake_intersection(lanes_ew, lanes_ns):
                 tile = tile.rotate(rot, expand=False)
             out.paste(tile, (x * T, y * T))
 
-    outa = out.convert('RGBA')
-    for y in range(H):
-        for x in range(24):
-            for p in blk['grid'][y][x]['props']:
-                if p['p'] != 'street_lamp':
-                    continue
-                art = img_of(lampbank[(x * 7 + y) % len(lampbank)]['b64'], 'RGBA')
-                dh = p['hTiles'] * T
-                dw = round(art.width * dh / art.height)
-                art = art.resize((dw, dh), Image.NEAREST)
-                outa.alpha_composite(art, (x * T + T // 2 - dw // 2, (y + 1) * T - dh))
-
-    # TRAFFIC SIGNALS (7/17 commission, UNJUDGED): composited here so this
-    # proof is their judging surface, exactly like the bold markings above.
-    # Proof placement only; engine prop placement waits for Paolo's approval.
-    # Anchor law from the bank: pole base bottom-left, arm extends right,
-    # mirror for the opposite approach. DEAD state: act-1 grid default.
+    # TRAFFIC SIGNALS (7/17 commission, UNJUDGED): composited so this proof
+    # is their judging surface. Proof placement only; engine prop placement
+    # waits for Paolo's approval. DEAD state: act-1 grid default.
     sigbank = json.load(open('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt'))
 
     def sig_pick(color, direction, face, arm_dir=None):
@@ -274,18 +260,40 @@ def bake_intersection(lanes_ew, lanes_ns):
     cwn = 0
     while blk['grid'][r1 + 1 + cwn][blk['meta']['medCol']]['g'] == 'crosswalk':
         cwn += 1
-    # THE FACING-THE-STREET ARRANGEMENT (Paolo's arrow sketch, 7/18): one
-    # mast per side, arms circling the intersection counterclockwise, and
-    # every mast's LIGHTS face the oncoming traffic on the road they hang
-    # over: N side arms east + lenses south (serves northbound), E side
-    # arms DOWN + lights west (serves eastbound), S side arms west + backs
-    # north (serves southbound), W side arms UP + lights east (westbound).
+    # THE FACING-THE-STREET ARRANGEMENT, corrected by Paolo 7/18 ("the
+    # direction the light is facing needs to be opposite on all"): one mast
+    # per side, arms circling counterclockwise, each mast's lights facing
+    # the NEAR approach on the road it hangs over: N side arms east + backs
+    # (its lenses point north at the southbound cars beside it), E side
+    # arms DOWN + lights east (eastbound arrives under it), S side arms
+    # west + lenses south-visible, W side arms UP + lights west.
     corners = (
-        (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 's')),          # N: faces
-        (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'w', 's')),   # E: arm down
-        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 'n')),        # S: backs
-        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'e', 'n')),            # W: arm up
+        (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 'n')),          # N: backs
+        (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'e', 's')),   # E: arm down
+        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),        # S: faces
+        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'w', 'n')),            # W: arm up
     )
+
+    # ONE POST PER CORNER (Paolo 7/18): where a signal mast stands, the
+    # engine's corner lamp yields — no doubled furniture on the proof.
+    sig_cells = set()
+    for (cx2, cy2, _s) in corners:
+        for ddx in (-2, -1, 0, 1, 2):
+            for ddy in (-2, -1, 0, 1, 2):
+                sig_cells.add((cx2 + ddx, cy2 + ddy))
+
+    outa = out.convert('RGBA')
+    for y in range(H):
+        for x in range(24):
+            for p in blk['grid'][y][x]['props']:
+                if p['p'] != 'street_lamp' or (x, y) in sig_cells:
+                    continue
+                art = img_of(lampbank[(x * 7 + y) % len(lampbank)]['b64'], 'RGBA')
+                dh = p['hTiles'] * T
+                dw = round(art.width * dh / art.height)
+                art = art.resize((dw, dh), Image.NEAREST)
+                outa.alpha_composite(art, (x * T + T // 2 - dw // 2, (y + 1) * T - dh))
+
     for (cx2, cy2, s) in corners:
         if 0 <= cy2 < H and 0 <= cx2 < 24:
             art = img_of(s['b64'], 'RGBA')

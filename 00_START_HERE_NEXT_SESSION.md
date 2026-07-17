@@ -126,8 +126,15 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    + lights west (eastbound), S side arms west + backs north
    (southbound), W side arms UP + lights east (westbound). The proof
    stands exactly these four; this is the placement law the engine
-   wiring will follow once Paolo approves the art. 204 sprites total,
-   all UNJUDGED. Laws:
+   wiring will follow once Paolo approves the art. CORRECTED same
+   night (Paolo): (1) ONE POST PER CORNER — the engine's corner lamp
+   yields wherever a signal mast stands; (2) every facing FLIPPED to
+   the near approach: N side backs, E side lights east, S side faces,
+   W side lights west. That flip exposed that arm chirality and lens
+   facing are INDEPENDENT axes (a pole east of its road carries the arm
+   west while lights still face east), so the vertical drawer grew
+   head_facing and the bank now carries all four arm-side x facing
+   combos. 300 sprites total, all UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

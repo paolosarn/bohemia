@@ -510,7 +510,10 @@ def draw_signal_vert(K, spec, seed):
     the EW road, which on screen is VERTICAL. Same mast; the arm runs up
     (north, arm_dir n) or down (south, arm_dir s) from the junction, full
     map length (arm_cells * T, the ARM LAW on the grid), with the full-mass
-    heads hanging along it. Drawn face-east; the mirror makes face-west.
+    heads hanging along it. spec['head_facing'] (+1 east / -1 west) is
+    INDEPENDENT of the arm side, because a pole east of its road carries
+    the arm on its west side while the lights can still face east (the
+    v13 lesson: arm chirality and lens facing are separate axes).
     Returns (array, base_y)."""
     r = rng(seed)
     kind = spec['kind']
@@ -548,7 +551,8 @@ def draw_signal_vert(K, spec, seed):
         hline(a, ax - 3, ax + 4, cy - 1, K['spec'] if r() < 0.5 else K['ramp'][3])
         vline(a, ax - 1, cy + 3, cy + 9, K['ramp'][1], 2)
         vline(a, ax - 1, cy + 3, cy + 9, K['ramp'][3], 1)
-        draw_head(a, K, ax - 11, cy + 9, spec['state'], r, facing=1)
+        draw_head(a, K, ax - 11, cy + 9, spec['state'], r,
+                  facing=spec.get('head_facing', 1))
     drips(a, K, r, pcx - 5, pcx + 5, junction_y + 8, n=2)
     outline_pass(a, K['outline'])
     outline_pass(a, (5, 5, 5))
@@ -748,16 +752,20 @@ def main():
                                  arm,
                                  81000 + ci * 7919 + ai * 761 + fi * 373 +
                                  STATE_SEED[state] * 131))
-            # v12: east/west-facing masts arm UP or DOWN the screen (the arm
-            # spans the EW road); drawn face-east, mirrored to face-west
+            # v12-v13: east/west-facing masts arm UP or DOWN the screen (the
+            # arm spans the EW road); head facing is drawn BOTH ways because
+            # arm chirality and lens facing are independent axes
             for di, arm_dir in enumerate(('n', 's')):
-                for state in ('dead', 'red', 'amber', 'green'):
-                    jobs.append(('v', color, {'arm_cells': cells, 'heads': heads,
-                                              'kind': 'intact', 'state': state,
-                                              'face': 'e', 'arm_dir': arm_dir},
-                                 arm,
-                                 91000 + ci * 7919 + ai * 761 + di * 449 +
-                                 STATE_SEED[state] * 131))
+                for hi, hf in enumerate((1, -1)):
+                    for state in ('dead', 'red', 'amber', 'green'):
+                        jobs.append(('v', color, {'arm_cells': cells, 'heads': heads,
+                                                  'kind': 'intact', 'state': state,
+                                                  'face': 'e' if hf > 0 else 'w',
+                                                  'arm_dir': arm_dir,
+                                                  'head_facing': hf},
+                                     arm,
+                                     91000 + ci * 7919 + ai * 761 + di * 449 +
+                                     hi * 239 + STATE_SEED[state] * 131))
         for wi, (kind, cells) in enumerate(WRECKS):
             jobs.append(('h', color, {'arm_cells': cells,
                                       'heads': 2 if kind == 'jury_rigged' else 3,
