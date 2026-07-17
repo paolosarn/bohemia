@@ -257,20 +257,27 @@ def bake_intersection(lanes_ew, lanes_ns):
     # Anchor law from the bank: pole base bottom-left, arm extends right,
     # mirror for the opposite approach. DEAD state: act-1 grid default.
     sigbank = json.load(open('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt'))
-    dead = {s['variant']: s['b64'] for s in sigbank['signals'] if s['state'] == 'dead'}
+
+    def sig_pick(color, direction):
+        # ARM LAW: 3-lane arterial -> long arm; dead (act-1); real e/w sprite
+        for s in sigbank['signals']:
+            if (s['kind'] == 'intact' and s['state'] == 'dead' and s['arm'] == 'long'
+                    and s['color'] == color and s['dir'] == direction):
+                return s
+        fail('signal bank missing %s/%s long dead intact' % (color, direction))
+
     c0, r0, c1, r1 = blk['meta']['box']
     cwn = 0
     while blk['grid'][r1 + 1 + cwn][blk['meta']['medCol']]['g'] == 'crosswalk':
         cwn += 1
-    pc = sigbank.get('pole_center_px', 11)
     ax, ay = c0 - cwn, r1 + cwn + 1        # SW corner: arm east over the approach
-    bx, by = c1 + cwn, r0 - cwn - 1        # NE corner: arm west (mirrored)
-    if 0 <= ay < H and 0 <= ax < 24:
-        sa = img_of(dead[1], 'RGBA')
-        outa.alpha_composite(sa, (ax * T + T // 2 - pc, (ay + 1) * T - sa.height))
-    if 0 <= by < H and 0 <= bx < 24:
-        sb = img_of(dead[0], 'RGBA').transpose(Image.FLIP_LEFT_RIGHT)
-        outa.alpha_composite(sb, (bx * T + T // 2 - (sb.width - pc), (by + 1) * T - sb.height))
+    bx, by = c1 + cwn, r0 - cwn - 1        # NE corner: arm west (real w sprite)
+    for (cx2, cy2, s) in ((ax, ay, sig_pick('galv', 'e')),
+                          (bx, by, sig_pick('bronze', 'w'))):
+        if 0 <= cy2 < H and 0 <= cx2 < 24:
+            art = img_of(s['b64'], 'RGBA')
+            outa.alpha_composite(art, (cx2 * T + T // 2 - s['pcx'],
+                                       (cy2 + 1) * T - art.height))
     out = outa.convert('RGB')
 
     a = np.asarray(out).astype(int)

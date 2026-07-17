@@ -84,7 +84,18 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    the pole and read as standing in FRONT of it. Draw order IS depth:
    base first bottom-up, pole planted INTO the top disc (ends at its
    center line), back halves hidden, front rims wrapping the foot.
-   Applies to every planted prop from now on. Laws:
+   Applies to every planted prop from now on. THEN v8 (Paolo's expansion,
+   7/18 early): ARM LAW — arm reach tracks street width (1 lane -> short
+   2 cells / 2 -> med 3 / 3 -> long 4.5, heads 1/2/3 like real warrants;
+   mapping shipped in the bank as arm_law). COLOR RESEARCH — real masts
+   are hot-dip galvanized (25-50yr zinc coat): majority weather to dull
+   GRAY with rust at joints; only stripped ones brown to the lamp family.
+   Two families cooked: galv + bronze. WRECKS — fallen_arm (jagged stub,
+   span on the ground with a dead head still bolted), jury_rigged (lash
+   splice, sags past it), headless (empty hangers, dangling cable).
+   EAST+WEST both shipped per sprite with per-entry pcx anchors (bake
+   reads pcx, no transpose). DOUBLE BORDER — sampled rim + 1px true black
+   (Paolo: reading thin). 60 sprites total, all UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
