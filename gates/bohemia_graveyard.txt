@@ -14,3 +14,4 @@
 \bNEUROLINK_GLOW_V2\b   | 7/10/26 | DEAD as rendered. No third one-off attempt.
 ['"]orbit['"]        | dial    | DELETED — too metronome-like. Do not re-add.
 ['"]pulse2['"]       | dial    | DELETED — camped the killshot/centre as home. Do not re-add.
+\bWALL_BATCH2_REJECTS\b | 7/17/26 | 47 of 48 batch-2 wall candidates DOWN (Paolo; sole survivor WB4 -> perimeter pool v2). POST-MORTEM: the pack vein is DRY for perimeter-grade walls (12/60 batch 1, 1/48 batch 2). Variety comes from VARIANTS of the 13 approved keys, never from re-mining the packs. The 47 stay dead.

@@ -160,6 +160,16 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
+WALL BATCH 2 JUDGED (7/17): 1 of 48 UP. WB4 (Paolo's label: PERIMETER) went
+through the tan factory into PERIMETER_WALL_POOL v2 (13 keys, weights
+renormalized, tan variant via the pool-derived transform). The 47 rejects are
+in the graveyard with the post-mortem THAT MATTERS: the pack vein is DRY for
+perimeter walls; future variety = variants of the 13 approved keys, never
+re-mined packs. The batch-2 picker tool is deleted (verdicts banked; one-shot
+judging tools are disposable, established 7/16). WALL TAXONOMY addendum (7/17)
+governs: perimeter/community walls and building walls NEVER share a pool.
+The GRAPHICS shelf is now: lamp-pairing eye call, patrol colors, purple-tiles
+kill-or-REDMAG, and the rest of the 7/16 open forks.
 POCKETS ARE IN THE ENGINE (7/17, same day as the art): bohemia_blockgen.js now
 places turn pockets at intersections per the researched Vegas anatomy: left
 pockets on the innermost lane(s) ending one cell before the crosswalk, DUAL at
