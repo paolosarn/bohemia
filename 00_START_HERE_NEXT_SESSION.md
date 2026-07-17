@@ -111,7 +111,18 @@ comments, unbuilt by design. That is the engine backlog, not rot.
 - bohemia_chunk.py = the 25MB-door transport for the HD tile repos
 
 ## IN FLIGHT (resume here)
-1. LAMPS ONTO V11 from real blockgen anatomy. V9's four blocks RECOVERED EXACTLY:
+1. LAMPS ONTO V11: DONE 7/17. tools/bohemia_lamps_v11.py is the factory: it
+   verifies V11's anatomy against its own bake (the four blocks live at rows
+   3-9 / 12-18 / 21-41 / 44-62; V11 is NOT V9's stitch, the warning below was
+   right), asks BOH_POWERGRID per cell (all four dead, exactly as recorded),
+   and injects 11 dead lamps per the blockgen STAGGERED LAW using Paolo's
+   dark pairs 0-4. Slot (10,9) skipped: its sidewalk cell is already occupied
+   by baked art (an existing pole). Lamp bases join the blocked set
+   (OCCUPANCY LAW). Gated: test_v11.js now runs 20 checks, 7 of them lamp
+   law. [EYE, Paolo]: baked V10 lit lamp at (16,44) + static warm light at
+   (2,44) now sit next to grid lamps (18,44)/(2,44); if the pairing reads
+   wrong, the factory can skip those two slots, one line.
+   THE OLD NOTE (V9 anatomy, kept for the record): from real blockgen anatomy. V9's four blocks RECOVERED EXACTLY:
    B2 street 2+2 w/crosswalk (lanes2 med1 side1 H13) + B0 street (lanes3 med1
    side2 H21) + B5 residential (lanes1 med1 side1 H7) + B1 arterial (lanes3 med1
    side1 H19) = 60 rows, seed 12345, cells (33,6)(34,6)(35,6)(36,6). Lamps on
@@ -128,8 +139,8 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    individual quests at v2 before master compile; currently 54.
 
 ## NEXT ACTION
-LAMPS ONTO V11 (slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html, now in the repo).
-All anatomy notes for it are in IN FLIGHT item 1 below.
+PATROL INTO THE SLICE: bohemia_patrol.js is built and gated 28/28 but not yet
+wired into V11's walkable loop (IN FLIGHT item 2). Lamps are on (item 1, DONE).
 
 ## OPEN FORKS PENDING PAOLO (never decide these)
 GRAPHICS: 101 purple world tiles kill-or-REDMAG / flashlight_36 orange-or-cool-white
