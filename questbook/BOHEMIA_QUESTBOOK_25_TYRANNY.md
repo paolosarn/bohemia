@@ -143,3 +143,69 @@ perspective); RPGnet (mixed-reputation gives MORE abilities, factions like actio
 Cross-ref Questbook 24 (Alpha Protocol reactivity/like-respect), 02 (NV faction fame/infamy), 06/16
 (companion loyalty->epilogue), 20 (collective rule/authority), our standing + faction-graph + Network.
 FUTURE: an Obsidian talk on the favor/wrath system design; a Pillars of Eternity reactivity cross-study.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE FATEBINDER (the player)** — wants, per the office: the law delivered. Wants, per the person holding it: whatever the player decides authority is FOR — stability, terror, or a throne. Will trade: verdicts; every ruling spends the office's weight somewhere. Will never say out loud: that being the law and being just are different jobs. FUNCTION: authority as the fantasy (W4). Not a nobody ascending; an officer deciding.
+
+**KYROS (never on screen)** — wants obedience so total that even the civil war is licensed. Will trade: edicts — magic as legislation. FUNCTION: the absent absolute. The Overlord rules the file by not appearing in it; power that never needs the room.
+
+**THE DISFAVORED (Graven Ashe)** — want order, purity, the war fought properly by the properly born. Judge every act by discipline. FUNCTION: lawful-evil's recruiting poster, and one jaw of the vise.
+
+**THE SCARLET CHORUS (the Voices of Nerat)** — want everyone, literally: conscription as digestion; anyone with a pulse can be Chorus, which is mercy and horror in one policy. Judge every act by savage pragmatism. FUNCTION: chaotic-evil's HR department, the other jaw.
+
+**THE COMPANIONS** — want, severally, to serve something that deserves it. Each tracks LOYALTY and FEAR as separate meters, and both work. Will never say out loud: which meter is filling. The epilogue says it for them (W9). FUNCTION: the proof that HOW service is earned is a stat.
+
+**THE SCHOOL OF INK AND QUILL** — wants to be underestimated. Claims to preserve knowledge; actually plays the realms against each other. FUNCTION: the false-neutral puppeteer (W10). Every setting has one; ours is called the Network.
+
+**THE CONQUEST (the pre-game)** — wants answers before scene one: which cities burned, which Archon you favored, what the war cost. FUNCTION: reactivity front-loaded past the title screen (W6). The world is born already remembering you.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the recurring form is the RULING — a verdict node where every option is legal and none is clean)
+
+NODE: CONQUEST — before the game, entry: new save
+  The war is already won; the questions are about HOW you won it.
+  > (razed the city / spared it)     [gate: none] -> the map starts different; survivors remember
+  > (favored the Disfavored / the Chorus at each front) [gate: none] -> stewardships pre-assigned; grudges pre-loaded
+  > (invoked the Edict early / late) [gate: none] -> a region's weather is your old order, still executing
+  WRITES: the STARTING WORLD. NPCs in hour one cite decisions made before scene one (W6). The character creator is a war-crimes questionnaire, and the game's boldest design is that it bills you for answers you gave when it "didn't count."
+
+NODE: THE_RULING — the recurring atom: a village, a dispute, the office's weight
+  Two parties, one law, and the law is Kyros'.
+  > (rule for stability)            [gate: none] -> Disfavored favor rises, Chorus wrath rises; the same verdict, two ledgers (W3)
+  > (rule for fear)                 [gate: none] -> wrath accrues where it's resented, favor where terror reads as strength (W2)
+  > (rule for your own ambition)    [gate: none] -> both blocs notice; the third path begins as a pattern of self-serving verdicts
+  > (defer to Kyros' letter)        [gate: none] SILENCE -> the safest ruling and the emptiest; the office used as a shield
+  THE BANALITY IS THE CONTENT (W5): no option is cartoon-evil; every option is administration. The unsettling part is how ordinary the tyranny feels from behind the bench.
+
+NODE: ASHE_AUDIENCE — Disfavored command, entry: allegiance courting
+  > (speak of discipline, order, the long war) [gate: none] -> favor, by HIS principle
+  > (speak of mercy for conscripts)  [gate: none] -> wrath, by HIS principle; the same sentence would earn Chorus favor (W3)
+  > (defy him with competence)       [gate: consistent persona] -> favor AND wrath both climb: the dual-axis at work — he can respect and resent the same Fatebinder (W1)
+  NODE: NERAT_AUDIENCE — the Chorus mirror: every polarity reversed; the Voices approve of exactly what Ashe punishes.
+  THE VISE (W8): the two audiences are one mechanism. Pleasing both is impossible; holding the middle is a build.
+
+NODE: COMPANION_CAMPFIRE — any rest, entry: meters moving
+  > (earn them by respect)          [gate: loyalty track] -> tier-3 loyalty abilities; a warm epilogue slide forming
+  > (earn them by terror)           [gate: fear track]    -> tier-3 FEAR abilities — different powers, equally real (W2)
+  > (max both)                      [gate: both meters]   -> the unique both-axes bonuses: the system's thesis in a stat line (W1)
+  NOVERB: "Do you actually like me?" The game declines the direct question; the meters answer it in the epilogue, where each companion's fate states whether they served from love or fear (W9).
+
+NODE: ACT_THREE_LICENSE — Kyros' proclamation, entry: the civil war open
+  Whichever Archon subjugates the others rules the Tiers. The Overlord will watch.
+  > (deliver the Tiers to the Disfavored) [gate: allegiance] -> order's victory, purity's price
+  > (deliver them to the Chorus)     [gate: allegiance] -> the horde's victory, digestion as governance
+  > (take the throne yourself)       [gate: the ambition pattern + your own forces] -> the Anarchy path: the office outgrows the law
+  THE BANKED FLAW RIDES HERE: the back half thins; the front-loaded web pays off in fewer branches than the opening promised. LESSON, verbatim from the ledger: budget reactivity so Act III doesn't collapse the web.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 4 allegiance-terminals (Disfavored / Chorus / Anarchy-throne / the middle held) x per-companion love-or-fear epilogue slides x the Conquest's pre-game permutations (the map's real width is BEFORE scene one and AFTER the last one).
+
+B1-B4 — the allegiance terminals above. WRITES: who rules the Tiers, and under what principle.
+THE EPILOGUE LAYER — every companion and faction slide reads its two meters: served from loyalty, served from fear, abandoned, destroyed. The manner of service IS the fate (W9).
+THE PRE-GAME LAYER — the Conquest's choices thread through everything; the world's starting shape was the first branch.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Tyranny completes the standing-system case #24 opened, and together they spec Bohemia's reputation upgrade: TWO INDEPENDENT AXES PER FACTION AND COMPANION (favor/wrath, or trust/fear), BOTH unlocking real abilities, maxing both conferring its own payoff, every act judged by each faction's OWN principles — no global good. Fear must be a build, not a penalty; that is the pacifist law's dark mirror and it is legitimate. The Conquest port is already native: our generational fold IS a pre-game that shapes the heir's starting world — lean into NPCs citing deeds from before this dynast was born. The Network is our School of Ink and Quill, confirmed twice now. And the ruling-node FORM (every option legal, none clean, all administration) is the shape for the dynasty's governance beats: the banality of evil is a city-builder mechanic waiting to happen. Compile gates from the flaws: deliver FELT authority (not just admin), and protect the endgame's branch budget — Act III collapse is how front-loaded webs die.

@@ -155,3 +155,59 @@ most," the three end-choices, the decades-long ripple). Cross-ref Questbook 21 (
 (deduction/validation/fairness), 09 (withheld-answer-as-subject), 04 (delayed/pure-ethics), 49-adjacent
 (our verdicts), 05/17/20 (build-gates-perception). FUTURE: a Josh Sawyer talk on Pentiment's investigation
 design; a Disco Elysium cross-study on failure/uncertainty in detective RPGs.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**ANDREAS MALER** — wants his friend saved from a kangaroo court, then wants to be RIGHT, then has to settle for having CHOSEN. Will trade: day-slots; his hours are the investigation's whole budget. Will never say out loud, for twenty-five years: that he doesn't know either. FUNCTION: the judge who is also the town's memory. His self-defined past (languages, travels, schooling) gates what he can even perceive (W8).
+
+**THE FOUR SUSPECTS (Act 1)** — Prior Ferenc, Ottilia, Lucky the stonemason, Sister Matilda: each wants their own secret kept, each has a motive that holds water, each has a findable maybe-weapon, and each is reachable only through their own questline (W4). Will never say out loud: the confession. NOBODY confesses. That is the design.
+
+**THE ARCHDEACON** — wants a culprit, on schedule, with a persuasive case; the truth is optional and he never claims otherwise. FUNCTION: the pass/fail (W7). He is deadline and audience in one robe: the authority for whom a MOTIVE must be performed.
+
+**THE ACCUSED'S KIN** — want, in Act 1, mercy. In Act 2, seven years later: an accounting. In Act 3, a generation on: they ARE the town, shaped by what Andreas chose. FUNCTION: the aftermath made cast (W6, W10). The consequence doesn't trigger; it GROWS UP.
+
+**THE TOWN OF TASSING** — wants a story it can live with: who did it, why, and what it means. FUNCTION: the real client. The accusation becomes the RECORDED history whether or not it was true, and the town builds on it (W9).
+
+**THE TRUTH** — wants nothing, because it never appears. FUNCTION: the absence the whole machine is built around (W1). There is no confirmed culprit, no reveal, no answer to google. The game's subject is the space where the answer should be.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the clock rides every node — each is paid for in day-slots that other nodes needed)
+
+NODE: THE_DAY_BOOK — each morning, entry: the time budget visible as meals and tasks
+  > (spend the day on Ferenc's thread)   [gate: day-slot] -> "Occult Hands" advances; three other threads age
+  > (spend it on Ottilia / Lucky / Matilda) [gate: day-slot] -> likewise, exclusively
+  > (spend it on your friend's comfort)  [gate: day-slot] -> humanity purchased at evidence's expense
+  THE CHILLING TRUTH THE FORM ENCODES (W3): the "culprit" is partly a function of ATTENTION. You will accuse whoever you had time to understand, and the game knows it, and later so do you.
+
+NODE: SUSPECT_THREAD — the atom, one per suspect, entry: their questline opened
+  A person with a secret, a motive that fits, and a weapon that could fit.
+  > (press on the motive)          [gate: background — Latin readers, travelers, and scholars see clues others can't (W8)] -> evidence, circumstantial, always
+  > (press on the alibi)           [gate: none] -> it bends and does not break; NOTHING in this game breaks
+  > (sit with them as a person)    [gate: none] SILENCE -> the worst outcome for a clean conscience: the suspect becomes a person before the deadline
+  NOVERB: "Did you do it?" Askable, technically — but no phrasing exists that produces a confession or a clearance. The genre's master verb is present and PERMANENTLY BROKEN, on purpose (W1).
+
+NODE: THE_ARCHDEACON_COURT — time's end, entry: the inquisitor arrived
+  Present a case. He judges the PERFORMANCE of motive, not the truth (W7).
+  > (accuse who you BELIEVE did it)      [gate: evidence gathered] -> the best-evidenced case; maybe right; never confirmed
+  > (accuse who DESERVES punishment)     [gate: conscience]        -> justice split from truth (W5): the gallows aimed by moral judgment, not proof
+  > (bungle the case)                    [gate: none] TRAP          -> the court condemns someone anyway; abdication is also a verdict, made by fate wearing your silence
+  WHAT THIS NODE COSTS: a life, spent on incomplete proof, plus twenty-five years of the town's history built on your guess. And your friend may hang regardless. The fork's cruelty is that OPTION ONE AND OPTION TWO FEEL IDENTICAL AT THE MOMENT OF CHOOSING.
+
+NODE: ACT_TWO_STREETS — seven years later, entry: the Peasants' Revolt brewing
+  The accused's kin, grown into their grief. The town, built on the record you authored.
+  > (face them)                    [gate: none] -> no absolution available; the game writes no line that resolves it (the removed comfort verb again — #126's law, aged seven years)
+  > (avoid them)                   [gate: none] SILENCE -> the town remembers FOR you
+  NODE: ACT_THREE_RETURN — a generation on, a NEW protagonist: the judgment now lives in other people's childhoods. The player inhabits the aftermath of their own uncertainty (W6, W10).
+
+## V2-C THE BRANCH MAP
+
+COUNT: 3 accusation-terminals per act x the decades-long ripple (the map's depth is TEMPORAL: each terminal is a seed, and acts 2 and 3 are its tree).
+
+B1 — ACCUSED ON BELIEF: the best case built with the hours you happened to spend. WRITES: a death/exile, a recorded history, an unconfirmable maybe.
+B2 — ACCUSED ON DESERT: justice split from truth; the town's worst person pays for a crime that may not be theirs. WRITES: the same, plus the player's knowledge of exactly what they did.
+B3 — THE BUNGLED CASE: fate's verdict through your failure. WRITES: a condemnation you caused by not choosing.
+THE RIPPLE — all three feed acts 2 and 3: the kin, the grudges, the revolt's kindling, the official record diverging from the unrecorded truth (W9). No branch is ever graded; every branch is INHABITED.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Pentiment is the verdict-quest master text and the fold's proof-of-concept from outside: judgment under uncertainty, lived with across decades, is a STRUCTURE, and ours is generational natively. Port in rank order: (1) ONE unsolvable verdict quest per act — no confirmed answer EVER, the accusation becomes the RECORDED history while the unrecorded ledger keeps the doubt (this is the recorded-vs-unrecorded theme given its sharpest mechanical form); (2) the TRUTH/JUSTICE fork as the standard shape for Bohemia verdicts (convict the likely vs punish the deserving — Q049's machinery, upgraded); (3) time-triage on knowledge for investigations (attention determines the verdict, and the game should let the player realize that AFTERWARD); (4) upbringing gates perception (the Q003 tie: who the heir is shapes what they can know). Compile gates from the flaws: the no-answer must be FRAMED as the subject (else it reads as withholding — #09's registry holds the contrast), and the time pressure needs the Pathologic knobs. Cross-ref #19 for the boundary: Obra Dinn's contract is EVERYTHING FAIRLY SOLVABLE; Pentiment's is NOTHING TRULY SOLVABLE. Both are laws. A Bohemia quest must know which contract it signed, and the gate should be able to tell.

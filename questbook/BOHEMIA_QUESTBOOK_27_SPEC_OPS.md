@@ -156,3 +156,63 @@ screens, sympathy-then-slaughter, Walker's degradation, genre deconstruction); a
 24/25 (reactivity outshining weak combat). CARE: our wellbeing + tone + pacifist + no-preaching rules
 govern ANY use of these techniques. FUTURE: a Walt Williams (writer) talk on Spec Ops' complicity design;
 an Undertale cross-study on subverting the kill-fantasy WITHOUT forcing it.
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+(Cross-ref #139 THE WHITE PHOSPHORUS MORTAR, the 7/17 fresh mine at full v2 depth: #27 is the SYSTEM
+file — the complicity engine; #139 is the SCENE file. They ride together.)
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**CAPTAIN WALKER** — wants, at the gate, to find survivors. Wants, by the tower, to have been the hero of what happened, and will remodel reality until he is. Will trade: his squad, his face, his voice, his sanity, in that order. Will never say out loud: "I did this." The entire game is the distance between him and that sentence. FUNCTION: the self-deceiving narrator (W6): a protagonist who invents his own villain rather than read his own ledger.
+
+**LUGO and ADAMS** — want, respectively, a conscience heard ("you ALWAYS have a choice") and a mission completed ("we may have no choice"). They are the two halves of the player, arguing in the front seat. FUNCTION: the chorus that names the machine's theme out loud, once, before the fist closes.
+
+**KONRAD** — wants nothing. He is dead before the game begins; the voice on the radio is Walker's guilt, ventriloquized. FUNCTION: the invented villain. When the truth is undeniable, you create your own — and the game gives that psychology a radio frequency.
+
+**THE 33RD BATTALION** — want the refugees they are sheltering to survive Dubai. They are the "enemy force" of the targeting screen. FUNCTION: the white dots (W3). The interface's oldest lie, cast as characters.
+
+**THE LOADING SCREENS** — want, at first, to help. Then they want to know how many Americans you've killed today, and whether you feel like a hero yet. FUNCTION: the accusatory UI (W4): the system itself pivoting from servant to witness.
+
+**THE PLAYER** — wanted to feel like a hero. The game knows, names it, and holds it up (W7). FUNCTION: the actual protagonist, indicted through the character's hands.
+
+## V2-B THE CONVERSATIONS (node trees; lines paraphrased, structure exact; the machine's signature node has NO options at the decision and FULL control at the execution — read the shape carefully)
+
+NODE: THE_MORTAR — the ridge over the Gate, entry: overwhelming force below, a WP mortar found
+  Adams: we may have no choice. Lugo: you always have a choice.
+  (the decision): NONE. Walker orders the strike in a cutscene. The player is not consulted.
+  (the execution): FULL. Control returns for the aiming:
+  > [aim the mortar at the white dots]   [gate: none — and that is the point] -> each shell placed BY THE PLAYER, on a monitor where people are dots
+  > (refuse)                              -> DOES NOT EXIST. The only refusal is the power button, and the game knows you won't
+  NOVERB: "No." The removed verb IS the machine (W2): complicity without decision. You didn't choose the atrocity; you performed it. The genre's every convention — the order given, the objective marker, the trigger pull — arrives at its honest destination.
+  THE WALK AFTER: the aftermath on foot, the charred families, the dying soldier's one word: "Why?" No dialogue options. The game declines to let you answer because Walker has no answer, and neither do you.
+
+NODE: LOADING_SCREEN — between deaths, entry: the descent underway
+  Not a conversation. Then, gradually, exactly a conversation:
+  "Do you feel like a hero yet?" / "To kill for yourself is murder. To kill for your government is heroic." / "You are still a good person."
+  > (keep playing)                 [gate: none] -> the only option offered, which is the accusation restated
+  THE CRAFT (W4): the helper-text decays into second person. The UI stops serving the fantasy and starts witnessing it. Cheapest trick in the file; nobody who saw it forgot it.
+
+NODE: RADIO_KONRAD — the descent's spine, entry: the tower talking
+  A courteous voice examines Walker's conduct after each horror.
+  > "The 33rd forced this."         [gate: none] TRAP -> the blame relayed outward; Konrad agrees too readily; the invented villain grows
+  > "We had no choice."             [gate: none] TRAP -> Lugo's line, inverted and hollow by now
+  > (late game) "...there is no Konrad." [gate: the reveals survived] -> the radio goes quiet; the caller was the guilt
+  THE ONE LINE DOING THE WORK, endgame, Konrad to Walker/you: "You came here because you wanted to feel like something you are not: a hero." The player's motive, named in second person (W7).
+
+NODE: THE_MIRAGES — scattered, entry: replaying in memory
+  Choices Walker "made" revealed as hallucination: live captives that were rotting corpses, mercies that never happened.
+  WRITES: the record Walker authored diverging from the events. The self-deceiving narrator's ledger (W6) — cross-ref #26's authored history: Walker is Tassing's court compressed into one skull.
+
+NODE: THE_TOWER — the end, entry: everything faced or nothing
+  > (the pistol, the reflection, the choice the game FINALLY hands back) [gate: none] -> the endings: surrender, defiance, the shot, the long walk home in a stolen coat
+  THE SHAPE: the game withholds real choice throughout and returns it exactly once, at the point where every option is only a way of holding what was done. Agency restored as a form of sentencing.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 1 spine with zero meaningful branches until the final scene's 4 terminals — and the zero is the design (the illusion-of-choice engine documented as architecture).
+
+THE SPINE — mandatory descent: the WP mortar, the water, the mob, Lugo. Choices presented en route are furniture; the fist stays closed (W2). WRITES: Walker's degradation, visible on his body and audible in his callouts (W8).
+T1-T4 — the tower's terminals: hand the gun over / raise it / take Konrad's way / survive to be found, epilogue variants included. The one real fork, placed after the point where forking could save anyone.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: #27 is the SCALPEL FILE, and the compile must quote its handling label verbatim: Bohemia's PACIFIST PATH LAW structurally forbids the closed fist — we never railroad an atrocity and then bill the player. What ports, with care: (1) COMPLICITY VIA CONSEQUENCE, not coercion — the dynasty realizes a choice already made (via the fold) caused unforeseen harm; the player owns a past act instead of being forced into a new one; (2) WEAPONIZE THE ABSTRACTION, once, honestly: one beat where a number the player optimized (the death-math's "12 lost") unfolds into named people — the ledger de-abstracting itself; (3) the QUIET MIRROR, never the mocking one: our diegetic record may reflect deeds back ("the record will remember this differently than you do") but never taunts — the accusatory UI violates our care rules in its raw form; (4) the SELF-DECEIVING NARRATOR as a character: a founder or Network apologist who authors his own truth (the #26 tie, the Amalgamation's curated memory). The banked paradox is the boundary stone: a critique the player must TEDIOUSLY ENDURE undercuts itself — theme-through-mechanic (W9) only works while the mechanic stays meaningful. And the third tombstone in a row reads the same (with #24, #25): the story cannot rescue the shooting. Ours has to be good.
