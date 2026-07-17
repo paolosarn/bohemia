@@ -1,0 +1,14 @@
+BOHEMIA MARKING VERDICTS 7/17/26
+banks: TURN_MARKING_CANDIDATES_7_14_26 (36 items) + TURN_ARROW_CANDIDATES_7_17_26 (48 items)
+surface: tools/BOHEMIA_MARKING_PICKER_7_17_26.html (artifact, judged in chat)
+
+VERDICT (Paolo, verbatim): "I like all of them I like all of them good job"
+
+ALL 84 ITEMS: UP
+- LINES 7/14: twlt_v_L, twlt_v_R, twlt_h_T, twlt_h_B, pocket_line_v, pocket_line_h (6 classes x 6) ALL UP
+- ARROWS 7/17: arrow_left_v, arrow_right_v, arrow_thru_v, arrow_left_h, arrow_right_h,
+  arrow_thru_h, twlt_arrow_v, twlt_arrow_h (8 classes x 6) ALL UP
+
+CONSEQUENCE: approval unlocks volume. Volume bank cooked same turn:
+banks/BOHEMIA_MARKING_BANK_7_17_26.txt (all 14 classes at production width).
+Gap queue art_gaps turn_pocket_tiles + two_way_left_turn_lane: CLOSED.

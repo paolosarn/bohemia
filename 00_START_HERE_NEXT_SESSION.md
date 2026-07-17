@@ -160,6 +160,17 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
+MARKINGS APPROVED AND AT VOLUME (7/17): Paolo thumbed ALL 84 marking candidates
+UP in one chat session (verdict verbatim in records/BOHEMIA_MARKING_VERDICTS_
+7_17_26.txt, landed same turn). Both banks flipped APPROVED; volume unlocked
+and COOKED the same turn: banks/BOHEMIA_MARKING_BANK_7_17_26.txt, 14 classes x
+16 = 224 tiles (tools/bohemia_marking_volume_factory.py: approved originals
+verbatim, new variants are approved geometry re-weathered on certified bases,
+no new shapes after approval, self-gated + purity-swept). The act-1 art_gaps
+queue is EMPTY. NEXT ENGINE TURN: blockgen places turn pockets + TWLT from the
+researched Vegas anatomy (STREET_ANATOMY_POOL + the 7/14 street pools), with
+line_gate extended to certify pocket/arrow placement. That is an engine change:
+own turn, own gate checks, one session.
 GRAPHICS COOK 7/17: the act-1 art_gaps item (turn-pocket arrows) is COOKED.
 tools/bohemia_turn_arrow_factory.py built 48 tiles (left/right/thru x v/h +
 TWLT opposing pairs, 6 weathered variants each), white-only per LINE COLOR
