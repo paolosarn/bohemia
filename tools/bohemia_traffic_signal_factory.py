@@ -465,45 +465,106 @@ def composite(a, piece, x0, y0):
     a[y0:y1, x0:x1][m] = sub[m]
 
 
-def draw_signal(K, spec, seed):
-    """spec: {'arm_cells','heads','kind','state'} -> east-facing RGBA array."""
-    r = rng(seed)
-    W = int(POLE_CX + 12 + spec['arm_cells'] * T)
-    a = np.zeros((CH, W, 4), dtype=np.uint8)
-    ground_y = CH - 4
-    top_y = 12
-    kind = spec['kind']
-
-    # base geometry (v7 occlusion order: base first, pole planted over it)
+def draw_mast(a, K, r, pcx, y_off=0):
+    """The standing mast: ellipse base stack, planted pole, cap, collars,
+    rivets (v7 occlusion order). Shared by every signal orientation.
+    Returns the layout dict."""
+    ground_y = y_off + CH - 4
+    top_y = y_off + 12
     cy3 = ground_y - 7
     cy2 = cy3 - 7
     cy1 = cy2 - 5
     pole_top = top_y + 4
     pole_bot = cy1 - 2
     collar_ys = [pole_top + int((pole_bot - pole_top) * f) for f in (0.22, 0.52, 0.78)]
-    rust = RustField(r, POLE_CX - 8, POLE_CX + 8, pole_top, pole_bot, k=3,
-                     centers=[(POLE_CX - 4, cyy + 5) for cyy in collar_ys] +
-                             [(POLE_CX + 4, collar_ys[1] + 5), (POLE_CX, cy1 - 8)])
+    rust = RustField(r, pcx - 8, pcx + 8, pole_top, pole_bot, k=3,
+                     centers=[(pcx - 4, cyy + 5) for cyy in collar_ys] +
+                             [(pcx + 4, collar_ys[1] + 5), (pcx, cy1 - 8)])
 
     def pole_w(yy):
         t = (yy - pole_top) / float(pole_bot - pole_top)
         return 10 + int(5 * t)
 
-    ellipse_disc(a, K, r, POLE_CX, cy3, 13, 4, 3)
-    ellipse_disc(a, K, r, POLE_CX, cy2, 11, 3, 3)
-    ellipse_disc(a, K, r, POLE_CX, cy1, 8, 2, 2, tone_shift=1)
-    put(a, POLE_CX - 9, cy3 - 1, K['ramp'][4]); put(a, POLE_CX - 9, cy3, K['outline'])
-    put(a, POLE_CX + 9, cy3 - 1, K['ramp'][4]); put(a, POLE_CX + 9, cy3, K['outline'])
-    paint_cyl_v(a, K, r, POLE_CX, pole_top, cy1 + 1, pole_w, rust=rust)
-    ellipse_disc(a, K, r, POLE_CX, pole_top - 1, 7, 2, 2, tone_shift=1)
-    ellipse_disc(a, K, r, POLE_CX, pole_top - 4, 3, 1, 1, tone_shift=1)
+    ellipse_disc(a, K, r, pcx, cy3, 13, 4, 3)
+    ellipse_disc(a, K, r, pcx, cy2, 11, 3, 3)
+    ellipse_disc(a, K, r, pcx, cy1, 8, 2, 2, tone_shift=1)
+    put(a, pcx - 9, cy3 - 1, K['ramp'][4]); put(a, pcx - 9, cy3, K['outline'])
+    put(a, pcx + 9, cy3 - 1, K['ramp'][4]); put(a, pcx + 9, cy3, K['outline'])
+    paint_cyl_v(a, K, r, pcx, pole_top, cy1 + 1, pole_w, rust=rust)
+    ellipse_disc(a, K, r, pcx, pole_top - 1, 7, 2, 2, tone_shift=1)
+    ellipse_disc(a, K, r, pcx, pole_top - 4, 3, 1, 1, tone_shift=1)
     for by in collar_ys:
         w = pole_w(by) + 4
-        bowed_band(a, K, r, POLE_CX, by, w, h=3, depth=2)
-        drips(a, K, r, POLE_CX - w // 2, POLE_CX + w // 2, by + 6, n=2)
+        bowed_band(a, K, r, pcx, by, w, h=3, depth=2)
+        drips(a, K, r, pcx - w // 2, pcx + w // 2, by + 6, n=2)
     for yy in range(pole_top + 8, pole_bot - 4, 11):
-        put(a, POLE_CX + 1, yy, K['outline'])
-        put(a, POLE_CX + 1, yy + 1, K['ramp'][4])
+        put(a, pcx + 1, yy, K['outline'])
+        put(a, pcx + 1, yy + 1, K['ramp'][4])
+    return {'ground_y': ground_y, 'top_y': top_y, 'junction_y': top_y + 30,
+            'pole_w': pole_w}
+
+
+def draw_signal_vert(K, spec, seed):
+    """v12 (Paolo, 7/18: "if its facing west or east... the stop lights
+    [arm] will be UP OR DOWN"): the east/west-facing stoplight's arm spans
+    the EW road, which on screen is VERTICAL. Same mast; the arm runs up
+    (north, arm_dir n) or down (south, arm_dir s) from the junction, full
+    map length (arm_cells * T, the ARM LAW on the grid), with the full-mass
+    heads hanging along it. Drawn face-east; the mirror makes face-west.
+    Returns (array, base_y)."""
+    r = rng(seed)
+    kind = spec['kind']
+    arm_len = int(spec['arm_cells'] * T)
+    up = spec['arm_dir'] == 'n'
+    pcx = 20
+    W = 84
+    junction_local = 42                     # junction depth below sprite-local top
+    pad_top = max(0, arm_len + 8 - junction_local) if up else 0
+    pad_bot = max(0, (junction_local + arm_len + 64) - (CH - 4)) if not up else 0
+    H = CH + pad_top + pad_bot
+    a = np.zeros((H, W, 4), dtype=np.uint8)
+    M = draw_mast(a, K, r, pcx, y_off=pad_top)
+    junction_y = M['junction_y']
+    ax = pcx + 12                           # the arm rides just off the pole line
+    ay0, ay1 = (junction_y - arm_len, junction_y) if up else \
+               (junction_y, junction_y + arm_len)
+
+    def aw(yy):
+        t = abs(yy - junction_y) / float(arm_len)
+        return 7 - int(2 * t)
+
+    # elbow stub from the pole into the vertical arm + junction collar
+    paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
+    bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
+    paint_cyl_v(a, K, r, ax, ay0, ay1, aw)
+    hline(a, ax - 3, ax + 4, (ay0 - 1) if up else ay1, K['ramp'][1])  # tip cap
+    # clamps from the far end inward, full-mass heads hanging off each
+    # (66px spacing: a head is ~60px tall with its hanger — 46 made the
+    # heads overlap into one unreadable totem)
+    n = spec['heads']
+    for i in range(n):
+        cy = (ay0 + 4 + i * 66) if up else (ay1 - 4 - i * 66)
+        rect(a, ax - 3, cy - 1, ax + 4, cy + 3, K['ramp'][1])
+        hline(a, ax - 3, ax + 4, cy - 1, K['spec'] if r() < 0.5 else K['ramp'][3])
+        vline(a, ax - 1, cy + 3, cy + 9, K['ramp'][1], 2)
+        vline(a, ax - 1, cy + 3, cy + 9, K['ramp'][3], 1)
+        draw_head(a, K, ax - 11, cy + 9, spec['state'], r, facing=1)
+    drips(a, K, r, pcx - 5, pcx + 5, junction_y + 8, n=2)
+    outline_pass(a, K['outline'])
+    outline_pass(a, (5, 5, 5))
+    return a, pad_top + CH - 2
+
+
+def draw_signal(K, spec, seed):
+    """spec: {'arm_cells','heads','kind','state'} -> east-facing RGBA array."""
+    r = rng(seed)
+    W = int(POLE_CX + 12 + spec['arm_cells'] * T)
+    a = np.zeros((CH, W, 4), dtype=np.uint8)
+    kind = spec['kind']
+    M = draw_mast(a, K, r, POLE_CX)
+    ground_y = M['ground_y']
+    top_y = M['top_y']
+    pole_w = M['pole_w']
 
     # the arm: smooth quadratic off a low junction, leveling over the road
     junction_y = top_y + 30
@@ -660,58 +721,79 @@ def main():
            'sprite_h': CH,
            'anchor': 'pole base bottom; pcx per entry is the pole centerline; '
            'dir e = arm extends east (right), dir w = arm extends west (left)',
-           'face_law': ('v9-v11 (Paolo\'s circle, 7/18: "if it\'s facing east or west '
-                        'THIS is how the stoplight has to look"): the stoplight always '
-                        'keeps its classic full-mass silhouette. face s = lenses at '
-                        'the camera; face n = the BACKS (ribbed panel, visor edges, '
-                        'no lenses; lit = spill only); face e / face w = the SAME '
-                        'full-size head with the lens column biased 3px toward the '
-                        'facing edge and the visor cowls reaching out + drooping on '
-                        'that side (the v10 skinny slivers are DEAD: an east-facing '
-                        'stoplight is still a stoplight). Mirroring an arm flips '
-                        'e<->w and the bank stores the TRUE face after the flip. '
-                        'Wrecks ship face s only.'),
+           'face_law': ('v9-v12 (Paolo 7/18, final ruling: "if its facing west or '
+                        'east it wont be having the stop lights extending east or '
+                        'west, it will be UP OR DOWN"): face s = horizontal arm, '
+                        'lenses at the camera; face n = horizontal arm, the BACKS '
+                        '(ribbed panel, no lenses, lit = spill only); face e / face '
+                        'w = the arm runs VERTICALLY on screen (it spans the EW '
+                        'road): arm_dir n = arm extends north (up-screen), arm_dir '
+                        's = south (down-screen), full map length per the ARM LAW, '
+                        'full-mass heads hanging along the vertical arm with lenses '
+                        'biased toward the facing edge. base_y per entry anchors the '
+                        'pole foot for the bake (vertical-south sprites extend BELOW '
+                        'the base). Mirroring flips e<->w and the bank stores the '
+                        'TRUE face after the flip. Wrecks ship face s only.'),
            'signals': []}
     n = 0
     STATE_SEED = {'dead': 0, 'red': 1, 'amber': 2, 'green': 3}
     jobs = []
     for ci, color in enumerate(('galv', 'bronze')):
         for ai, (arm, cells, heads) in enumerate(ARMS):
-            for fi, face in enumerate(('s', 'n', 'e', 'w')):
+            for fi, face in enumerate(('s', 'n')):
                 for state in ('dead', 'red', 'amber', 'green'):
-                    jobs.append((color, {'arm_cells': cells, 'heads': heads,
-                                         'kind': 'intact', 'state': state, 'face': face},
+                    jobs.append(('h', color, {'arm_cells': cells, 'heads': heads,
+                                              'kind': 'intact', 'state': state,
+                                              'face': face},
                                  arm,
                                  81000 + ci * 7919 + ai * 761 + fi * 373 +
                                  STATE_SEED[state] * 131))
+            # v12: east/west-facing masts arm UP or DOWN the screen (the arm
+            # spans the EW road); drawn face-east, mirrored to face-west
+            for di, arm_dir in enumerate(('n', 's')):
+                for state in ('dead', 'red', 'amber', 'green'):
+                    jobs.append(('v', color, {'arm_cells': cells, 'heads': heads,
+                                              'kind': 'intact', 'state': state,
+                                              'face': 'e', 'arm_dir': arm_dir},
+                                 arm,
+                                 91000 + ci * 7919 + ai * 761 + di * 449 +
+                                 STATE_SEED[state] * 131))
         for wi, (kind, cells) in enumerate(WRECKS):
-            jobs.append((color, {'arm_cells': cells, 'heads': 2 if kind == 'jury_rigged' else 3,
-                                 'kind': kind, 'state': 'dead', 'face': 's'},
+            jobs.append(('h', color, {'arm_cells': cells,
+                                      'heads': 2 if kind == 'jury_rigged' else 3,
+                                      'kind': kind, 'state': 'dead', 'face': 's'},
                          [nm for nm, c, _ in ARMS if c == cells][0],
                          88000 + ci * 7919 + wi * 977))
-    for color, spec, arm, seed in jobs:
+    for shape, color, spec, arm, seed in jobs:
         K = palette(color)
-        a = draw_signal(K, spec, seed)
+        if shape == 'v':
+            a, base_y = draw_signal_vert(K, spec, seed)
+        else:
+            a = draw_signal(K, spec, seed)
+            base_y = a.shape[0]
         err = verify(a, spec['state'])
         if err:
             print('FACTORY REFUSES [%s %s %s %s %s]: %s'
                   % (color, arm, spec['kind'], spec['face'], spec['state'], err))
             return 1
+        drawn_pcx = 20 if shape == 'v' else POLE_CX
         for direction in ('e', 'w'):
             arr = a if direction == 'e' else np.ascontiguousarray(a[:, ::-1])
-            pcx = POLE_CX if direction == 'e' else arr.shape[1] - 1 - POLE_CX
-            # mirroring flips which way a PROFILE head points: store truth
+            pcx = drawn_pcx if direction == 'e' else arr.shape[1] - 1 - drawn_pcx
+            # mirroring flips which way a head FACES: store the truth
             face_out = spec['face']
             if direction == 'w' and face_out in ('e', 'w'):
                 face_out = 'w' if face_out == 'e' else 'e'
             buf = io.BytesIO()
             Image.fromarray(arr).save(buf, 'PNG')
-            out['signals'].append({'color': color, 'arm': arm, 'kind': spec['kind'],
-                                   'state': spec['state'], 'dir': direction,
-                                   'face': face_out,
-                                   'w': int(arr.shape[1]), 'h': int(arr.shape[0]),
-                                   'pcx': int(pcx),
-                                   'b64': base64.b64encode(buf.getvalue()).decode()})
+            entry = {'color': color, 'arm': arm, 'kind': spec['kind'],
+                     'state': spec['state'], 'dir': direction, 'face': face_out,
+                     'w': int(arr.shape[1]), 'h': int(arr.shape[0]),
+                     'pcx': int(pcx), 'base_y': int(base_y),
+                     'b64': base64.b64encode(buf.getvalue()).decode()}
+            if shape == 'v':
+                entry['arm_dir'] = spec['arm_dir']
+            out['signals'].append(entry)
             n += 1
     json.dump(out, open(OUT, 'w'))
     kinds = {}

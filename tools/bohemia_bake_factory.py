@@ -258,13 +258,15 @@ def bake_intersection(lanes_ew, lanes_ns):
     # mirror for the opposite approach. DEAD state: act-1 grid default.
     sigbank = json.load(open('banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt'))
 
-    def sig_pick(color, direction, face):
+    def sig_pick(color, direction, face, arm_dir=None):
         # ARM LAW: 3-lane arterial -> long arm; dead (act-1); real e/w sprite;
-        # FACE LAW: south-side masts show faces (s), north-side show backs (n)
+        # FACE LAW: s/n = horizontal arm faces/backs; e/w = VERTICAL arm
+        # (spans the EW road), arm_dir n up-screen / s down-screen
         for s in sigbank['signals']:
             if (s['kind'] == 'intact' and s['state'] == 'dead' and s['arm'] == 'long'
                     and s['color'] == color and s['dir'] == direction
-                    and s.get('face', 's') == face):
+                    and s.get('face', 's') == face
+                    and (arm_dir is None or s.get('arm_dir') == arm_dir)):
                 return s
         fail('signal bank missing %s/%s/%s long dead intact' % (color, direction, face))
 
@@ -277,12 +279,15 @@ def bake_intersection(lanes_ew, lanes_ns):
         (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'n')),  # NE: backs
         (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 'n')),    # NW: backs
         (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),  # SE: faces
+        # the EW road's own signals: VERTICAL arms spanning it (v12)
+        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'e', 'n')),      # west edge
+        (22, r1 + cwn + 1, sig_pick('bronze', 'w', 'w', 'n')),   # east edge
     )
     for (cx2, cy2, s) in corners:
         if 0 <= cy2 < H and 0 <= cx2 < 24:
             art = img_of(s['b64'], 'RGBA')
             outa.alpha_composite(art, (cx2 * T + T // 2 - s['pcx'],
-                                       (cy2 + 1) * T - art.height))
+                                       (cy2 + 1) * T - s.get('base_y', art.height)))
     out = outa.convert('RGB')
 
     a = np.asarray(out).astype(int)
