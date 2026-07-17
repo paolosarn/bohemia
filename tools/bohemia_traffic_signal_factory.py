@@ -423,6 +423,76 @@ def draw_head_back(a, K, hx, hy, state, r, big=True):
     return hh
 
 
+def draw_head_side(a, K, hx, hy, state, r, facing=1, big=True):
+    """A signal head in PROFILE (v10, Paolo: "make your face east and
+    west"). The camera sees the housing's SIDE: a narrow box, the yellowed
+    backplate edge on the trailing side, visor hoods sticking out as
+    tongues toward the facing direction, and only a SLIVER of lens on the
+    leading edge. Lit = the sliver + spill on the visor tongues.
+    facing: +1 = east (right), -1 = west (left)."""
+    hw, lens = (20, 12) if big else (14, 9)
+    hh = lens * 3 + 14
+    d = 9 if big else 7                       # housing depth seen side-on
+    back = (38, 36, 20)
+    HRAMP = [(12, 12, 14), (24, 24, 26), (40, 40, 44), (64, 66, 74)]
+    x0 = hx + 9 - d // 2                      # centered under the hanger
+    bx = (x0 - 2) if facing > 0 else (x0 + d)     # backplate edge, trailing
+    fx = (x0 + d - 1) if facing > 0 else x0       # leading (lens) edge
+    # backplate seen edge-on: a 2px yellowed strip, slightly taller
+    rect(a, bx, hy - 2, bx + 2, hy + hh + 2, back)
+    vline(a, bx if facing > 0 else bx + 1, hy - 2, hy + hh + 2, shade_of(back, 1.35))
+    # housing side panel with a lit top edge (45 law: sky on the top face)
+    for yy in range(hy, hy + hh):
+        for xx in range(x0, x0 + d):
+            u = (xx - x0 + 0.5) / d
+            ti = 2 if (u < 0.3) == (facing > 0) else 1
+            if r() < 0.10:
+                ti = max(0, ti - 1)
+            put(a, xx, yy, HRAMP[ti])
+    for xx in range(x0, x0 + d):
+        u = (xx - x0 + 0.5) / d
+        put(a, xx, hy + bow(u, 1), HRAMP[3])
+        put(a, xx, hy + hh + bow(u, 1), HRAMP[0])
+    LENS = {
+        'red':   ((70, 18, 16), (235, 60, 38)),
+        'amber': ((66, 44, 12), (250, 176, 40)),
+        'green': ((14, 48, 30), (60, 220, 110)),
+    }
+    for i, name in enumerate(('red', 'amber', 'green')):
+        cy = hy + 4 + i * (lens + 3)
+        dark, lit = LENS[name]
+        on = (state == name)
+        # visor hood tongue protruding toward the facing direction
+        for k in range(5):
+            tx = fx + facing * (k + 1)
+            put(a, tx, cy - 2 + (1 if k >= 3 else 0), HRAMP[3])
+            put(a, tx, cy - 1 + (1 if k >= 3 else 0), HRAMP[0])
+        # the lens SLIVER on the leading edge, tucked under the visor
+        col = lit if on else dark
+        for k in range(3):
+            put(a, fx, cy + 1 + k, shade_of(col, 1.0 if on else 0.7))
+            put(a, fx + facing, cy + 1 + k, shade_of(col, 0.9 if on else 0.5))
+        if on:
+            # spill: rgb-only tint on the visor tongue + housing edge
+            for xx in range(min(fx, fx + facing * 5), max(fx, fx + facing * 5) + 1):
+                for yy in range(cy - 2, cy + 5):
+                    if 0 <= xx < a.shape[1] and 0 <= yy < a.shape[0] and a[yy, xx, 3] > 0:
+                        base = a[yy, xx, :3].astype(int)
+                        a[yy, xx, :3] = np.clip(
+                            (base * 0.6 + np.array(lit) * 0.4).astype(int), 0, 255)
+    return hh
+
+
+def draw_sign_edge(a, K, x0, y, r):
+    """The street-name plate seen edge-on: a 2px sliver of green steel."""
+    plate = (24, 62, 44)
+    for yy in range(y, y + 15):
+        put(a, x0, yy, shade_of(plate, 0.9 + 0.2 * r()))
+        put(a, x0 + 1, yy, shade_of(plate, 0.55))
+    put(a, x0, y - 1, shade_of(plate, 1.5))
+    put(a, x0, y - 2, K['ramp'][1])
+
+
 def draw_sign_back(a, K, x0, y, w, r):
     """The street-name plate from behind: unpainted metal back, bracket,
     no green, no marks (there is nothing to read on the back of a sign)."""
@@ -561,14 +631,21 @@ def draw_signal(K, spec, seed):
             hline(a, hx + 6, hx + 12, arm_y(hx + 8) - 1,
                   K['spec'] if r() < 0.5 else K['ramp'][3])
             hang(hx, sag)
-            if spec.get('face', 's') == 'n':
+            face = spec.get('face', 's')
+            if face == 'n':
                 draw_head_back(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
+            elif face in ('e', 'w'):
+                draw_head_side(a, K, hx, arm_lvl + 13 + sag, spec['state'], r,
+                               facing=1 if face == 'e' else -1)
             else:
                 draw_head(a, K, hx, arm_lvl + 13 + sag, spec['state'], r)
         if spec['arm_cells'] < 4 and n <= 2 and head_xs[-1] - 20 > POLE_CX + 30:
             sw2 = min(48, head_xs[-1] - 24 - POLE_CX - 26)
-            if spec.get('face', 's') == 'n':
+            face = spec.get('face', 's')
+            if face == 'n':
                 draw_sign_back(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)
+            elif face in ('e', 'w'):
+                draw_sign_edge(a, K, POLE_CX + 26 + sw2 // 2, arm_lvl + 14, r)
             else:
                 draw_sign_plate(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)
     elif kind == 'headless':
@@ -649,19 +726,22 @@ def main():
            'sprite_h': CH,
            'anchor': 'pole base bottom; pcx per entry is the pole centerline; '
            'dir e = arm extends east (right), dir w = arm extends west (left)',
-           'face_law': ('v9 (Paolo: "what about when it\'s facing north or south"): '
-                        'face s = lenses toward the camera (heads serve the approach '
-                        'coming FROM the south, i.e. northbound traffic); face n = the '
-                        'BACKS (ribbed panel, visor edges, no lenses; lit = light spill '
-                        'only) for heads serving the southbound approach. Wrecks ship '
-                        'face s only.'),
+           'face_law': ('v9-v10 (Paolo: "facing north or south... now east and west"): '
+                        'face s = lenses toward the camera (serves northbound); face n '
+                        '= the BACKS (ribbed panel, visor edges, no lenses; lit = light '
+                        'spill only) serving southbound; face e / face w = PROFILES '
+                        '(narrow housing side, backplate edge trailing, visor tongues '
+                        'toward the facing, lens sliver on the leading edge; lit = '
+                        'sliver + spill) serving west/eastbound. Mirroring an arm flips '
+                        'e<->w faces and the bank stores the TRUE face after the flip. '
+                        'Wrecks ship face s only.'),
            'signals': []}
     n = 0
     STATE_SEED = {'dead': 0, 'red': 1, 'amber': 2, 'green': 3}
     jobs = []
     for ci, color in enumerate(('galv', 'bronze')):
         for ai, (arm, cells, heads) in enumerate(ARMS):
-            for fi, face in enumerate(('s', 'n')):
+            for fi, face in enumerate(('s', 'n', 'e', 'w')):
                 for state in ('dead', 'red', 'amber', 'green'):
                     jobs.append((color, {'arm_cells': cells, 'heads': heads,
                                          'kind': 'intact', 'state': state, 'face': face},
@@ -684,11 +764,15 @@ def main():
         for direction in ('e', 'w'):
             arr = a if direction == 'e' else np.ascontiguousarray(a[:, ::-1])
             pcx = POLE_CX if direction == 'e' else arr.shape[1] - 1 - POLE_CX
+            # mirroring flips which way a PROFILE head points: store truth
+            face_out = spec['face']
+            if direction == 'w' and face_out in ('e', 'w'):
+                face_out = 'w' if face_out == 'e' else 'e'
             buf = io.BytesIO()
             Image.fromarray(arr).save(buf, 'PNG')
             out['signals'].append({'color': color, 'arm': arm, 'kind': spec['kind'],
                                    'state': spec['state'], 'dir': direction,
-                                   'face': spec['face'],
+                                   'face': face_out,
                                    'w': int(arr.shape[1]), 'h': int(arr.shape[0]),
                                    'pcx': int(pcx),
                                    'b64': base64.b64encode(buf.getvalue()).decode()})

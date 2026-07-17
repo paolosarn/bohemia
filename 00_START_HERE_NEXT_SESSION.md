@@ -102,7 +102,14 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    lenses; lit shows only as colored light SPILL around the housing;
    sign backs are unpainted metal, no green, nothing to read). Every
    intact mast ships both faces; the proof now stands all FOUR corners
-   (south side faces, north side backs). 108 sprites total, all
+   (south side faces, north side backs). THEN v10 (Paolo: "make your
+   face east and west"): PROFILES — face e / face w heads seen side-on
+   (narrow housing, trailing backplate edge, visor tongues toward the
+   facing, lens sliver on the leading edge; lit = sliver + spill on the
+   tongues; signs edge-on as a 2px green sliver). MIRROR TRUTH RULE:
+   flipping an arm flips which way a profile head points, so the bank
+   stores the face AFTER the flip, never the drawn one. 204 sprites
+   total (s/n/e/w x colors x arms x states x dirs + wrecks), all
    UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
