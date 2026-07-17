@@ -118,9 +118,16 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    draw_mast extracted and shared by both orientations. base_y per bank
    entry (vertical-south sprites extend below the pole foot; the bake
    anchors on base_y). MIRROR TRUTH RULE: flipping swaps e<->w and the
-   bank stores the face AFTER the flip. The proof stands SIX masts: four
-   corners + two vertical-arm masts spanning the EW road. 204 sprites
-   total, all UNJUDGED. Laws:
+   bank stores the face AFTER the flip. THEN THE FACING-THE-STREET
+   ARRANGEMENT (Paolo's arrow sketch on the proof, 7/18): one mast per
+   SIDE, arms circling the intersection counterclockwise, every mast's
+   lights facing the oncoming traffic on the road they hang over — N
+   side arms east + lenses south (serves northbound), E side arms DOWN
+   + lights west (eastbound), S side arms west + backs north
+   (southbound), W side arms UP + lights east (westbound). The proof
+   stands exactly these four; this is the placement law the engine
+   wiring will follow once Paolo approves the art. 204 sprites total,
+   all UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW

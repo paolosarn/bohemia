@@ -274,14 +274,17 @@ def bake_intersection(lanes_ew, lanes_ns):
     cwn = 0
     while blk['grid'][r1 + 1 + cwn][blk['meta']['medCol']]['g'] == 'crosswalk':
         cwn += 1
+    # THE FACING-THE-STREET ARRANGEMENT (Paolo's arrow sketch, 7/18): one
+    # mast per side, arms circling the intersection counterclockwise, and
+    # every mast's LIGHTS face the oncoming traffic on the road they hang
+    # over: N side arms east + lenses south (serves northbound), E side
+    # arms DOWN + lights west (serves eastbound), S side arms west + backs
+    # north (serves southbound), W side arms UP + lights east (westbound).
     corners = (
-        (c0 - cwn, r1 + cwn + 1, sig_pick('galv', 'e', 's')),    # SW: faces
-        (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'n')),  # NE: backs
-        (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 'n')),    # NW: backs
-        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),  # SE: faces
-        # the EW road's own signals: VERTICAL arms spanning it (v12)
-        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'e', 'n')),      # west edge
-        (22, r1 + cwn + 1, sig_pick('bronze', 'w', 'w', 'n')),   # east edge
+        (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 's')),          # N: faces
+        (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'w', 's')),   # E: arm down
+        (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 'n')),        # S: backs
+        (1, r1 + cwn + 1, sig_pick('galv', 'e', 'e', 'n')),            # W: arm up
     )
     for (cx2, cy2, s) in corners:
         if 0 <= cy2 < H and 0 <= cx2 < 24:
