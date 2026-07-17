@@ -48,6 +48,20 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    lines); the intersection proof renders them and IS their judging surface.
    If Paolo blesses the proof, bold goes through the verdict->volume flow and
    the v1 confetti arrows get graveyarded FOR ARROWS (per-class rule).
+0b. FIRST COMMISSIONED ORIGINAL ART (7/17 night, Paolo's call: "you could
+   hallucinate and actually draw yourself"): Vegas mast-arm TRAFFIC SIGNALS,
+   drawn from scratch in the corpus style. tools/bohemia_traffic_signal_
+   factory.py -> banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt: 12
+   sprites, 3 mast variants (two-head+sign / three-head arterial / two-head+
+   pole-mount+sign) x dead/red/amber/green. Laws honored: palette SAMPLED
+   from the blessed lamp bank (v3 lesson: the lamps' dominant metal is the
+   NEAR-BLACK cluster; v2 sampled lum 40-150 and got all-rust orange poles —
+   dark iron is the base, rust is the accent), DEAD is default (act-1 grid
+   pending), lit lenses rgb-only glow, sign plates ILLEGIBLE (names are
+   Paolo's), zero purple, deterministic. STATUS: UNJUDGED. Two dead-state
+   masts are composited onto the intersection proof (SW arm-east + NE
+   mirrored) as the judging surface, same as the bold markings. PROOF
+   PLACEMENT ONLY: engine prop placement waits for approval.
 1. V12-class bake: THE BAKE FACTORY EXISTS (7/17, tools/bohemia_bake_factory.py
    — rebuilt from the harmonized pools' data-laws: 88/12 weather rarity, family
    edge harmonization, the APPROVED marking bank for native cell.mk, dark lamps).
