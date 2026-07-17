@@ -5,13 +5,12 @@ surface: WALL_PICKER_BATCH2 artifact, judged in chat, export pasted verbatim bel
 RESULT: 1 UP of 48. WB4 -> PERIMETER (Paolo's own label). All others NO.
 
 WB4 = wall tiles #33 -> tan factory -> PERIMETER_WALL_POOL v2 (13 keys now).
-WB0-WB3, WB5-WB47: REJECTED -> graveyard, post-mortem in the registry.
+WB0-WB3, WB5-WB47: REJECTED FOR PERIMETER ONLY (Paolo 7/17: rejection is per class; they await other wall classes in banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt). Graveyard line is scoped to the perimeter pool.
 
 POST-MORTEM (production lesson): batch 1 took 12 of the packs' wall tiles,
 batch 2 took 1 of the remaining 48. THE PACK VEIN IS DRY for perimeter-grade
 walls. Future perimeter variety comes from VARIANTS of the 13 approved keys
-(the tan factory's job), never from re-mining the packs. Do not re-surface
-the 47; the graveyard holds them.
+(the tan factory's job), never from re-mining the packs. Never re-judge the 47 for PERIMETER; other classes may surface them freely.
 
 --- PAOLO'S EXPORT, VERBATIM ---
 WB0: NO

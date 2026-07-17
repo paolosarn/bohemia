@@ -160,7 +160,14 @@ comments, unbuilt by design. That is the engine backlog, not rot.
    (#140, fourth and cleanest) and COMPREHENSION-IS-A-BRANCH (#141, twelfth).
 
 ## NEXT ACTION
-WALL BATCH 2 JUDGED (7/17): 1 of 48 UP. WB4 (Paolo's label: PERIMETER) went
+WALL BATCH 2 JUDGED + SCOPE CORRECTED (7/17): 1 of 48 UP for PERIMETER (WB4,
+in pool v2). Paolo's correction, same day: REJECTION IS PER CLASS. The 47 are
+final for the perimeter pool ONLY and stay eligible as walls for other classes
+("there's more walls than just gated communities"). They live in banks/
+BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt awaiting future wall classes (which
+classes exist beyond perimeter + building is [PENDING, Paolo's call]).
+Graveyard line re-scoped; taxonomy addendum refined; the per-class rule now
+governs every future wall verdict. WB4 (Paolo's label: PERIMETER) went
 through the tan factory into PERIMETER_WALL_POOL v2 (13 keys, weights
 renormalized, tan variant via the pool-derived transform). The 47 rejects are
 in the graveyard with the post-mortem THAT MATTERS: the pack vein is DRY for
