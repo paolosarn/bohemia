@@ -1,29 +1,47 @@
-BOHEMIA — THE SECOND DEATH (7/17/26, Paolo's order: "make a second one...
-I'm pretty sure I'm gonna need like a lot of animations anyway")
+BOHEMIA — THE TWO DEATHS (7/17/26). Paolo orders a second 8-way headshot
+ragdoll, then directs its rebuild from real forensics + his own eye.
 
-TWO 8-WAY HEADSHOT RAGDOLL DEATHS NOW LIVE:
+THE TWO:
 - headshot   (v1, THE TOPPLE): force ARRIVING. The blast knocks the body over.
   Untouched, exactly as Paolo left it 7/2.
-- headshot-2 (v2, THE CRUMPLE): force LEAVING. The signal stops, the knees
-  buckle first (slightly uneven, deterministic), the body drops down its own
-  axis, then settles sideways along the knock. New clip, fresh name; the dead
-  'ragdoll'/'death' clips from the 7/2 graveyard stay dead, this is not a
-  re-add, it is a second HEADSHOT rendering.
+- headshot-2 (v2, THE CRUMPLE): force LEAVING. Rebuilt 7/17 to Paolo's phase
+  spec + research.
 
-EVERY LOCKED LAW RUNS UNTOUCHED FOR BOTH: FACE LAW (N-family reseeds front),
-NO N/S FALLS, GLUE LAW, STATIC SHOULDERS, RIGID LIMB (rest-length renormalize),
-ARM NATURAL FOLD, ANTI-JACKKNIFE, SPINE PARALLEL, WAIST TENSION, DEAD THUD,
-HINGE LIMITS, TRACKING CAMERA, 120-grid EXEMPTION (terminal clips uncached).
+PAOLO'S DIRECTION (verbatim intent): "body flopped down first then their arms
+followed... then they went back and their arms are curling up — looks like dog
+shit." He named the exact motion he wants AND the two bugs.
 
-MACHINE-VERIFIED 7/17 (all 8 facings, both variants, headless Chromium):
-frozen corpse reached; spine parallel to knock (cross <= v1 envelope, worst
-0.049); rigid-limb drift <= 0.94px (inside the documented 1px bulge note);
-zero NaN; face law remap on N. v2 waist drops 10.65px at 0.3s vs v1's 4.44:
-the two deaths are mechanically distinct, not a reskin.
+RESEARCH (the "big brain" pass Paolo asked for):
+- FORENSIC (Godoy Medical Forensics): a HEAD shot destroys CNS motor control
+  instantly. The corpse is FLACCID — zero muscle tone. It does not brace, fight,
+  or try to rise. It folds straight down under dead weight. (Distinct from a
+  torso/limb hit, where a body can stay up and even run.)
+- ANIMATION CRAFT (Disney 12 principles: follow-through + overlapping action;
+  the DRAG technique): "more drag = floppier, less drag = stiffer." A dead limb
+  is MAX drag, so the arms lag far behind the torso. That IS "body first, arms
+  follow."
 
-COMBAT: both deaths fire in real kills, picked deterministically per
-facing+knock (bakes reproduce exactly). ANIMATION tab: 'headshot-2' button
-next to 'headshot', KNOCK selector works on both.
+THE TWO BUGS, NAMED AND KILLED:
+1. "then they went back" = the WAIST TENSION law (the living body's "almost gets
+   up" muscular kick) was firing on the corpse. A flaccid head-shot has no
+   tension to spend. SKIPPED for v2 (fires for v1 only).
+2. "arms curling up" = the CURL phase pulled the hands to the belly (a
+   deliberate, alive motion). Replaced for v2 with DEAD SPLAY: arms sag to the
+   floor where they fell and lie splayed; they never pull inward.
+PLUS: arm DRAG cranked (hand-lag window 0.22s -> 0.55s, damp floppier) so the
+arms visibly hang back then follow; harder pelvis drop + torso jackknife so the
+body gives first.
 
-STATUS: UNJUDGED. Paolo judges motion in the ANIMATION tab. v1 stays even if
-it is not his favorite (his call: variety in deaths is a feature).
+MACHINE-VERIFIED 7/17 (headless, all 8 facings): every locked law still holds
+inside v1's envelope (FACE, GLUE, RIGID LIMB, ARM FOLD, SPINE PARALLEL,
+ANTI-JACKKNIFE, NO N/S FALLS, hinges, tracking cam); frozen corpse reached;
+zero NaN. TIMELINE PROOF (E-facing): waist drops +20px by 0.5s while hands are
+still near rest; hands only drop (to -13px) at 0.75s. Body leads, arms follow.
+Frame strip rendered and eyeballed (verify-by-rendering law).
+
+OPEN FORK FOR PAOLO: the corpse lands FACE-UP because FACE LAW (his locked 7/2
+law: the headshot must SHOW THE FACE) mandates it. His word "stomach" wants
+face-DOWN. Face law won by default (locked canon beats a verbal aside). If he
+wants a face-down death, it needs a FACE LAW exception for this clip — his call.
+
+STATUS: UNJUDGED. Deaths are a factory now: name the flaw in a word, get a v3.
