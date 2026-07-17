@@ -58,6 +58,51 @@ include a menu attempt, a SCENE IMAGE steers the whole batch and is the
 strongest input I can give you.
 === END PROMPT ===
 
+=== VERDICT PASS 7/17/26 (Paolo's paste, processed same turn) ===
+CANON baked into defaults: THE CANCELLED MAN, THE WIND LEARNS WORDS (batch 9
+survivors, canon on first listen), THE PIT BOSS IS GONE (Paolo: "I really like
+the pit boss is gone"). ALSO REPAIRED: THE LAST DEALER FOLDS + WHAT THE MIRRORS
+KEPT were declared "CANON baked" in the 7/8 pass but never actually landed in
+CANON_DEFAULTS; landed now. A verdict claimed is not a verdict baked.
+OVERWORLD ADDITION (Paolo 7/17, verbatim "add to overworld rn"): THE PIT BOSS
+IS GONE joins the overworld playlist. All three code copies updated (CITYMUS,
+load() re-bake, music tab OWSET). The playlist is now SIX: SLOW CREEP,
+SATELLITE PRAYER, REPO MAN, GHOST IN THE GRID, SLOW BLEED, THE PIT BOSS IS GONE.
+BURIED (graveyard final, fresh cooks answer the slots): SUNKEN VESPERS,
+UNDERTOW. No kill reason given. Post-mortem guess, banked for direction: both
+were the slow washy half-feel pair; the two survivors are the ones with a
+MECHANISM you can hear working (the twin erasing itself, the wind almost
+speaking). Concept audible = alive; texture alone = dead.
+/* ☠ GRAVEYARD (down 7/17, no remake): SUNKEN VESPERS */
+/* ☠ GRAVEYARD (down 7/17, no remake): UNDERTOW */
+Unjudged still standing after this pass: SALT ON THE HIGHWAY, WHAT GROWS IN THE
+VAULT, THE LAST TABLE STANDING (batch 8), MOJAVE GHOST, LONG WALK HOME, ONE
+CANDLE, MOB — THE HOUSE REMEMBERS (all '--' in the paste, verdicts still open).
+
+=== UI ORDERS SHIPPED 7/17 (Paolo, same paste) ===
+1. COPY FIX: the export modal's COPY ran deprecated execCommand FIRST and the
+   real clipboard API second; on iOS the tap's gesture window was spent before
+   writeText ran, so COPY silently did nothing. Order flipped: modern
+   navigator.clipboard synchronously inside the tap, execCommand as fallback,
+   honest failure text when both are blocked.
+2. COMMENT SECTION, bottom of the music page, ALWAYS (standing law): persistent
+   textarea under the graveyard, saved with the music save, rides the export as
+   a PAOLO COMMENTS block. Talk lands in the paste, the paste lands in the repo.
+
+=== COOK BATCH 9b (7/17/26) — 2 fresh songs answering the batch-9 graves. ===
+NEW VOICES BORN (ledgered to owner song):
+- ladderhorn -> TAPS FOR THE VALLEY      (harmonic-ladder bugle: frequency STAIRCASE through exact integer partials 1-2-3-4-3-2-1; drift curves wander, this one climbs and falls back)
+- tidewheel  -> WHAT THE DAM HELD BACK   (nested-AM cascade: a 0.06Hz tide modulates the DEPTH of a 0.8Hz swell; second-order modulation, catalog first)
+VARIETY (vs each other and the whole catalog):
+- TAPS FOR THE VALLEY     root43 scale[0,2,4,7,10] feel half   kick[0,12]
+- WHAT THE DAM HELD BACK  root41 scale[0,1,3,5,8]  feel normal kick[0,7,11]
+ENTRIES (verbatim):
+{n:'TAPS FOR THE VALLEY',acc:'#b09a5a',root:43,scale:[0,2,4,7,10],wave:'triangle',kick:[0,12],bass:[0,7,10,12],hat:[4,12],inst:{b:'lastbugle',l:'ladderhorn'},am:'stillair',kit:{k:'thud',h:'tight'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'WHAT THE DAM HELD BACK',acc:'#4a6a7a',root:41,scale:[0,1,3,5,8],wave:'sine',kick:[0,7,11],bass:[0,3,5,8],hat:[6,14],inst:{b:'tidewheel',l:'coldpiano'},am:'pressurefront',kit:{k:'boom',h:'wood'},mel:'longs',swing:0,feel:'normal',klay:'melody',ff:true,nu:true}
+BOTH UNJUDGED, NEW badges live. Names checked against the graveyard (10 dead
+now), zero collisions, zero remakes. SCREECH LAW: clean, nothing feeds back.
+Gate: gates/music_gate.js green.
+
 === COOK BATCH 9 (7/17/26) — 4 songs, FIRST COOK OF THE REPO ERA. Horror FF10, melodic under dread. ===
 NEW VOICES BORN (ledgered to owner song):
 - faythchoir   -> SUNKEN VESPERS        (vowel-TRAJECTORY formant choir: three formants WALK ah->oh->oo inside one note; formantvox holds one vowel still, this one travels; detuned saw trio + sub-octave sine)
