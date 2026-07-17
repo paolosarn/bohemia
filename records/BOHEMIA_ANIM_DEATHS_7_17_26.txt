@@ -136,3 +136,17 @@ rotated, never scaled), only moved to follow the head position. Identical
 pixels every frame; it wiggles WITH the body (position) but the sprite is
 static. This rule is now global (ragdoll + every clip). Paolo: "the animations
 came out a lot better" (the body motion is landing; head was the last note).
+
+=== UPDATE 7/18 (g): HEAD ROTATES IN LOSSLESS 90-DEG SNAPS ===
+Paolo: "WHY CANT U ROTATE THE SPRITE WITHOUT IT MORPHING AND RESAMPLING." The
+honest answer: rotating raster pixel art to an ARBITRARY angle MUST resample
+(the rotated pixels don't fall on the grid), which reshapes a low-res head =
+"morph." That's a hard fact of pixel graphics. BUT a rotation by a MULTIPLE OF
+90deg is LOSSLESS -- pixels land exactly on the grid, zero resampling. SOLUTION:
+the ragdoll head snaps to the nearest 90deg of the real neck bone. It TURNS to
+face the way the body fell (fixes 'always facing north') in crisp quarter-turns
+and never morphs one pixel. Drawn at exact rest length so it never scales either.
+The tradeoff Paolo should know: it steps through 4 crisp orientations, not a
+smooth continuous spin (smooth spin is the thing that morphs). If he wants finer
+steps with no morph, the next level is pre-drawn head views per angle (authored
+art, also crisp). This is the 'rotate without resampling' he asked for.
