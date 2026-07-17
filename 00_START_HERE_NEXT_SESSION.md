@@ -181,10 +181,15 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
 1. V12-class bake: THE BAKE FACTORY EXISTS (7/17, tools/bohemia_bake_factory.py
    — rebuilt from the harmonized pools' data-laws: 88/12 weather rarity, family
    edge harmonization, the APPROVED marking bank for native cell.mk, dark lamps).
-   First proof baked: slices/BOHEMIA_V12_BAKE_PROOF_35_6.{png,html} — the
-   commercial block, pockets baked natively, self-gated (coverage, roles,
-   purple-zero, deterministic). NEXT: wrecks + fire barrels + plot/building
-   strips into the baker, then the full V12 slice (all four cells + payload
+   7/18: WRECKS + FIRE BARRELS ARE IN — tools/bohemia_street_prop_extract.py
+   derives banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (20 top-down cars from
+   HD part2 "Abandoned cars" — the V11 bake's own family — + 12 burn barrels
+   from the demo prop pool, provenance recorded, corpus art not new canon);
+   the baker composites car_wreck per the engine's w x h + facing (rot90 for
+   EW) and fire_barrel/lamp props over them. ALL FOUR live cells baked:
+   slices/BOHEMIA_V12_BAKE_PROOF_{33,34,35,36}_6.{png,html}. NEXT: the
+   plot/building strips (HOUSE_FACTORY_BANK + plot art between the street
+   bands), then assemble the full V12 slice (all four cells + payload
    wiring) — at that point V11's overlay era ends.
 2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.

@@ -35,6 +35,7 @@ from PIL import Image
 POOLS = 'banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt'
 MARKS = 'banks/BOHEMIA_MARKING_BANK_7_17_26.txt'
 LAMPS = 'banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt'
+SPROPS = 'banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt'   # cars + fire barrels
 T = 44
 SEED = 12345
 
@@ -151,15 +152,33 @@ def main():
     if filled != 24 * H:
         fail('cell coverage %d != %d' % (filled, 24 * H))
 
-    # lamps: street_lamp props, dark (these cells are powergrid-dark)
+    # props: wrecked cars ON the road first (ground furniture), then fire
+    # barrels + dark lamps standing over everything
+    sprops = json.load(open(SPROPS))
     outa = out.convert('RGBA')
     for y in range(H):
         for x in range(24):
             for p in blk['grid'][y][x]['props']:
-                if p['p'] != 'street_lamp':
+                if p['p'] != 'car_wreck':
                     continue
-                li = (x * 7 + y) % len(lampbank)
-                art = img_of(lampbank[li]['b64'], 'RGBA')
+                # CAR OVERLAP LAW: prop spans w x h cells from its anchor;
+                # top-down art faces NS natively, rot90 for EW
+                car = img_of(sprops['car_wreck'][(x * 13 + y * 7) % 20], 'RGBA')
+                if p.get('facing') == 'EW':
+                    car = car.rotate(90, expand=True)
+                dw, dh = p.get('w', 2) * T, p.get('h', 2) * T
+                car = car.resize((dw - 6, dh - 6), Image.NEAREST)
+                outa.alpha_composite(car, (x * T + 3, y * T + 3))
+    for y in range(H):
+        for x in range(24):
+            for p in blk['grid'][y][x]['props']:
+                if p['p'] == 'street_lamp':
+                    li = (x * 7 + y) % len(lampbank)
+                    art = img_of(lampbank[li]['b64'], 'RGBA')
+                elif p['p'] == 'fire_barrel':
+                    art = img_of(sprops['fire_barrel'][(x * 11 + y * 5) % 12], 'RGBA')
+                else:
+                    continue
                 dh = p['hTiles'] * T
                 dw = round(art.width * dh / art.height)
                 art = art.resize((dw, dh), Image.NEAREST)
