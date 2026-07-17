@@ -54,9 +54,14 @@ T = 44
 CH = 232            # sprite height: ~5 tiles tall
 POLE_CX = 16        # pole centerline in every EAST sprite (pcx in the bank)
 
-ARMS = [('short', 2.0, 1), ('med', 3.0, 2), ('long', 4.5, 3)]  # name, cells, heads
+# ARM LAW v2 (Paolo 7/18: "extend to half way of the street... cover the
+# whole forward facing driving lane"): the arm reaches the MEDIAN — one
+# cell from the sidewalk pole to the curb plus lanes*(2+1) cells of
+# forward lanes. 1 lane -> 3 cells, 2 -> 6, 3 -> 9. Heads hang one per
+# lane at the lane centers.
+ARMS = [('short', 3.0, 1), ('med', 6.0, 2), ('long', 9.0, 3)]  # name, cells, heads
 ARM_LAW = {1: 'short', 2: 'med', 3: 'long'}                    # street lanes -> arm
-WRECKS = [('fallen_arm', 4.5), ('jury_rigged', 3.0), ('headless', 4.5)]
+WRECKS = [('fallen_arm', 9.0), ('jury_rigged', 6.0), ('headless', 9.0)]
 
 
 def rng(seed):
@@ -516,19 +521,19 @@ def draw_signal_vert(K, spec, seed):
     v13 lesson: arm chirality and lens facing are separate axes).
     Returns (array, base_y)."""
     r = rng(seed)
-    kind = spec['kind']
     arm_len = int(spec['arm_cells'] * T)
     up = spec['arm_dir'] == 'n'
-    pcx = 20
-    W = 84
+    hf = spec.get('head_facing', 1)
+    pcx = 26
+    W = 96
     junction_local = 42                     # junction depth below sprite-local top
     pad_top = max(0, arm_len + 8 - junction_local) if up else 0
-    pad_bot = max(0, (junction_local + arm_len + 64) - (CH - 4)) if not up else 0
+    pad_bot = max(0, (junction_local + arm_len + 40) - (CH - 4)) if not up else 0
     H = CH + pad_top + pad_bot
     a = np.zeros((H, W, 4), dtype=np.uint8)
     M = draw_mast(a, K, r, pcx, y_off=pad_top)
     junction_y = M['junction_y']
-    ax = pcx + 12                           # the arm rides just off the pole line
+    ax = pcx + 16                           # the arm rides off the pole line
     ay0, ay1 = (junction_y - arm_len, junction_y) if up else \
                (junction_y, junction_y + arm_len)
 
@@ -536,23 +541,30 @@ def draw_signal_vert(K, spec, seed):
         t = abs(yy - junction_y) / float(arm_len)
         return 7 - int(2 * t)
 
+    # heads FIRST, at the LANE CENTERS measured from the median end, offset
+    # to the facing side of the arm — then the arm paints OVER them (v14,
+    # Paolo: "we are looking down at it... the pole is drawn on top of the
+    # red green yellow lights")
+    n = spec['heads']
+    clamp_ys = [(ay0 + int((0.5 + 3 * i) * T)) if up else
+                (ay1 - int((0.5 + 3 * i) * T)) for i in range(n)]
+    hx = (ax + 5) if hf > 0 else (ax - 5 - 26)
+    for cy in clamp_ys:
+        draw_head(a, K, hx, cy - 26, spec['state'], r, facing=hf)
     # elbow stub from the pole into the vertical arm + junction collar
     paint_cyl_h(a, K, r, pcx + 2, ax + 4, lambda xx: junction_y - 2, lambda xx: 6)
     bowed_band(a, K, r, pcx, junction_y - 2, M['pole_w'](junction_y) + 6, h=5, depth=2)
+    # the arm OVER the heads
     paint_cyl_v(a, K, r, ax, ay0, ay1, aw)
     hline(a, ax - 3, ax + 4, (ay0 - 1) if up else ay1, K['ramp'][1])  # tip cap
-    # clamps from the far end inward, full-mass heads hanging off each
-    # (66px spacing: a head is ~60px tall with its hanger — 46 made the
-    # heads overlap into one unreadable totem)
-    n = spec['heads']
-    for i in range(n):
-        cy = (ay0 + 4 + i * 66) if up else (ay1 - 4 - i * 66)
-        rect(a, ax - 3, cy - 1, ax + 4, cy + 3, K['ramp'][1])
-        hline(a, ax - 3, ax + 4, cy - 1, K['spec'] if r() < 0.5 else K['ramp'][3])
-        vline(a, ax - 1, cy + 3, cy + 9, K['ramp'][1], 2)
-        vline(a, ax - 1, cy + 3, cy + 9, K['ramp'][3], 1)
-        draw_head(a, K, ax - 11, cy + 9, spec['state'], r,
-                  facing=spec.get('head_facing', 1))
+    # clamps riding the arm + side brackets reaching to each head
+    for cy in clamp_ys:
+        rect(a, ax - 3, cy - 2, ax + 4, cy + 2, K['ramp'][1])
+        hline(a, ax - 3, ax + 4, cy - 2, K['spec'] if r() < 0.5 else K['ramp'][3])
+        if hf > 0:
+            hline(a, ax + 4, ax + 8, cy - 1, K['ramp'][2], 2)
+        else:
+            hline(a, ax - 8, ax - 3, cy - 1, K['ramp'][2], 2)
     drips(a, K, r, pcx - 5, pcx + 5, junction_y + 8, n=2)
     outline_pass(a, K['outline'])
     outline_pass(a, (5, 5, 5))
@@ -620,9 +632,10 @@ def draw_signal(K, spec, seed):
             vline(a, xs + dx, top, bot, c)
         rect(a, xs - 4, arm_y(xs - 4) + 1, xs - 1, arm_y(xs - 4) + 4, K['ramp'][3])
 
-    # heads, hangers, sign
+    # heads, hangers, sign — ONE HEAD PER LANE at the lane centers,
+    # measured from the median end of the arm (ARM LAW v2)
     n = spec['heads']
-    head_xs = [arm_x1 - 32 - i * 46 for i in range(n)]
+    head_xs = [arm_x1 - int((0.5 + 3 * i) * T) - 13 for i in range(n)]
 
     def hang(hx, sag=0):
         vline(a, hx + 8, arm_lvl + 6 + sag, arm_lvl + 13 + sag, K['ramp'][1], 2)
@@ -641,7 +654,7 @@ def draw_signal(K, spec, seed):
             else:
                 draw_head(a, K, hx, arm_lvl + 13 + sag, spec['state'], r,
                           facing={'e': 1, 'w': -1}.get(face, 0))
-        if spec['arm_cells'] < 4 and n <= 2 and head_xs[-1] - 20 > POLE_CX + 30:
+        if n <= 2 and head_xs[-1] - 20 > POLE_CX + 30:
             sw2 = min(48, head_xs[-1] - 24 - POLE_CX - 26)
             if spec.get('face', 's') == 'n':
                 draw_sign_back(a, K, POLE_CX + 26, arm_lvl + 14, sw2, r)

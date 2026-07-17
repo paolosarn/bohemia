@@ -134,7 +134,13 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    facing are INDEPENDENT axes (a pole east of its road carries the arm
    west while lights still face east), so the vertical drawer grew
    head_facing and the bank now carries all four arm-side x facing
-   combos. 300 sprites total, all UNJUDGED. Laws:
+   combos. THEN ARM LAW v2 + LOOK-DOWN OCCLUSION (Paolo, same night):
+   the arm extends HALFWAY ACROSS THE STREET covering every forward
+   driving lane (1 lane -> 3 cells, 2 -> 6, 3 -> 9, heads ONE PER LANE
+   at the lane centers, measured from the median end), and because the
+   camera looks DOWN, the arm paints OVER the hanging heads (vertical
+   masts: heads first offset to the facing side, arm over, clamps +
+   side brackets last). 300 sprites, all UNJUDGED. Laws:
    DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
    plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
    Two dead-state masts are composited onto the intersection proof (SW
