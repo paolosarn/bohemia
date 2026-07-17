@@ -53,14 +53,22 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    drawn from scratch in the corpus style. tools/bohemia_traffic_signal_
    factory.py -> banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt: 12
    sprites, 3 mast variants (two-head+sign / three-head arterial / two-head+
-   pole-mount+sign) x dead/red/amber/green. Laws honored: palette SAMPLED
-   from the blessed lamp bank (v3 lesson: the lamps' dominant metal is the
-   NEAR-BLACK cluster; v2 sampled lum 40-150 and got all-rust orange poles —
-   dark iron is the base, rust is the accent), DEAD is default (act-1 grid
-   pending), lit lenses rgb-only glow, sign plates ILLEGIBLE (names are
-   Paolo's), zero purple, deterministic. STATUS: UNJUDGED. Two dead-state
-   masts are composited onto the intersection proof (SW arm-east + NE
-   mirrored) as the judging surface, same as the bold markings. PROOF
+   pole-mount+sign) x dead/red/amber/green. FOUR COOKS TO GET HERE, lessons
+   banked: v2 sampled lum 40-150 off the lamp and built all-rust orange
+   poles (the lamps' DOMINANT metal is the near-black cluster); v3 went
+   dark-flat with per-pixel flecks and Paolo's zoom verdict was "looks like
+   dog shit in comparison" — THE CRAFT LESSON: the corpus is PAINTED, not
+   filled. v4 paints: tone ramp sampled from the lamp (5 steps + warm rust
+   cluster), cylindrical shading with a dithered highlight band, 1px
+   silhouette outline pass, rust as coherent BLOTCHES + drip streaks below
+   joints (never confetti), stacked base discs, bulged collars, rivet seam,
+   cap. ALSO FIXED: seed used hash(state), which is process-salted — the
+   determinism law was silently broken v1-v3; fixed mapping now. Laws:
+   DEAD is default (act-1 grid pending), lit lenses rgb-only glow, sign
+   plates ILLEGIBLE (names are Paolo's), zero purple. STATUS: UNJUDGED.
+   Two dead-state masts are composited onto the intersection proof (SW
+   arm-east + NE mirrored) as the judging surface, same as the bold
+   markings; bank carries pole_center_px for the bake's anchor math. PROOF
    PLACEMENT ONLY: engine prop placement waits for approval.
 1. V12-class bake: THE BAKE FACTORY EXISTS (7/17, tools/bohemia_bake_factory.py
    — rebuilt from the harmonized pools' data-laws: 88/12 weather rarity, family

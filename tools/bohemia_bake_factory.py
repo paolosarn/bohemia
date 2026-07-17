@@ -262,14 +262,15 @@ def bake_intersection(lanes_ew, lanes_ns):
     cwn = 0
     while blk['grid'][r1 + 1 + cwn][blk['meta']['medCol']]['g'] == 'crosswalk':
         cwn += 1
+    pc = sigbank.get('pole_center_px', 11)
     ax, ay = c0 - cwn, r1 + cwn + 1        # SW corner: arm east over the approach
     bx, by = c1 + cwn, r0 - cwn - 1        # NE corner: arm west (mirrored)
     if 0 <= ay < H and 0 <= ax < 24:
         sa = img_of(dead[1], 'RGBA')
-        outa.alpha_composite(sa, (ax * T + T // 2 - 11, (ay + 1) * T - sa.height))
+        outa.alpha_composite(sa, (ax * T + T // 2 - pc, (ay + 1) * T - sa.height))
     if 0 <= by < H and 0 <= bx < 24:
         sb = img_of(dead[0], 'RGBA').transpose(Image.FLIP_LEFT_RIGHT)
-        outa.alpha_composite(sb, (bx * T + T // 2 - (sb.width - 11), (by + 1) * T - sb.height))
+        outa.alpha_composite(sb, (bx * T + T // 2 - (sb.width - pc), (by + 1) * T - sb.height))
     out = outa.convert('RGB')
 
     a = np.asarray(out).astype(int)
