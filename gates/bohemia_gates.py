@@ -48,6 +48,8 @@ GATES = [
      'owners patrol what they light', False),
     ('SLICE V11',      ['node', 'gates/test_v11.js'],
      'occupancy, beat, world clock', False),
+    ('MUSIC',          ['node', 'gates/music_gate.js'],
+     'screech law, voices exist, fresh-batch variety', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

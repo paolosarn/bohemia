@@ -81,6 +81,19 @@ largest unblocked item in IN FLIGHT.
 - STANDING: act-1 grid-power ruling / ragdoll head+neck / multi-enemy dial /
   pinch-zoom cap / perks gap / female + child rigs / gloves slot / mirrored
   garment art / currency logos.
+- MUSIC (COOK BATCH 9 shipped 7/17, first cook of the repo era, all UNJUDGED,
+  NEW badges live in the alpha's music tab): SUNKEN VESPERS (faythchoir,
+  vowel-trajectory formant choir) / UNDERTOW (undertowbass, undertone-series
+  divider organ) / THE CANCELLED MAN (phasetwin, phase-cancellation twin) /
+  THE WIND LEARNS WORDS (stormlarynx, audio-rate noise-FM voice). Four new
+  topologies, screech clean, variety law holds. ALSO: the chat-era
+  _newvoice_gate.js never made it into the seed; REBUILT as gates/music_gate.js,
+  wired into the suite (gate #17). Older unjudged stack still standing:
+  remake batch v2 (HIGHWAY 15 SOUTH / CARAVAN DUST / ONE CANDLE), THRONE OF
+  STATIC, CHOIR FOR THE MACHINE, FLOWERS ON THE FREEWAY, MOB THE HOUSE
+  REMEMBERS, plus MOJAVE GHOST + LONG WALK HOME fate. VERIFIED 7/17: all nine
+  ARE live MLOOPS entries in this alpha, playable in the music tab right now.
+  One verdict mega-session (batch 9's four + these nine) clears the whole shelf.
 
 ## THE QUESTBOOK TRACK — LOCKED LAWS (folded 7/16 from the launch handoff)
 Every law below is CONFIRMED in the research corpus (verified by grep at the
