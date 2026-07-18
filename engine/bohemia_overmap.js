@@ -582,18 +582,22 @@ function skeleton(x,y,L){
   // SURFACE STREETS THROUGH THE BLOCKS (Paolo 7/5/26, grounded): real Vegas
   // runs ~10 blocks per mile and collectors at half-mile spacing, so every mile
   // block ALWAYS gets a full collector both ways (quarters of ~4x4), and 40%
-  // roll an EXTRA local split which may dead-end mid-block (streets that do
-  // not run through). No giant interior masses.
+  // roll an EXTRA local split.
+  // NO-STREET-BREAK LAW (Paolo 7/18/26): every surface street runs THROUGH,
+  // connecting arterial to arterial — no mid-block dead-ends. Only the Strip
+  // and its casinos (big architecture, handled above) interrupt the grid.
+  // The old `half` truncation that dead-ended extras is REMOVED; the curvy
+  // cul-de-sac character lives in the suburb PLOT interior (a finer layer),
+  // not the overmap arterial grid. Gate: street_connectivity_gate.js.
   const bx=(x/9)|0, by=(y/9)|0, hb=hash2(L.seed,bx,by);
   const colPick=4+((hb>>>3)&1), rowPick=4+((hb>>>5)&1);
   if((x%9)===colPick)return DISTRICT.ARTERIAL;       // full collector, always
   if((y%9)===rowPick)return DISTRICT.ARTERIAL;       // full collector, always
   const extra=hb%10;                                  // 40%: one extra local street
-  const half=((hb>>>10)&1)===1;                       // extras may dead-end
-  if(extra<2){ const c2=colPick<=4?7:2;               // second col
-    if((x%9)===c2&&(!half||(y%9)<=rowPick))return DISTRICT.ARTERIAL; }
-  else if(extra<4){ const r2=rowPick<=4?7:2;          // second row
-    if((y%9)===r2&&(!half||(x%9)<=colPick))return DISTRICT.ARTERIAL; }
+  if(extra<2){ const c2=colPick<=4?7:2;               // second col, runs FULL
+    if((x%9)===c2)return DISTRICT.ARTERIAL; }
+  else if(extra<4){ const r2=rowPick<=4?7:2;          // second row, runs FULL
+    if((y%9)===r2)return DISTRICT.ARTERIAL; }
   return null;
 }
 
@@ -820,6 +824,35 @@ function buildOvermap(seed){
   for(const t of tiles){ if(t.district!==DISTRICT.COMMERCIAL)continue;
     const n=[at(t.x+1,t.y),at(t.x-1,t.y),at(t.x,t.y+1),at(t.x,t.y-1)];
     if(!n.some(nn=>nn&&ROAD[nn.district])) t.district=DISTRICT.SUBURB;
+  }
+  // STREET DEAD-END PRUNE (Paolo 7/18/26, NO-STREET-BREAK LAW): runs LAST, so
+  // the stubs left dangling by the freeway sweep + parallel-side-street pass
+  // get healed. Iteratively return any surface-street cell that dead-ends into
+  // buildable lots (<=1 road neighbor, no real terminator, not the map edge)
+  // back to desert, until the grid has no mid-block breaks. Mile arterials
+  // (x%9==0 || y%9==0) are the grade-separated spine and are never pruned;
+  // streets ending at a freeway/water/mountain/wash/strip/edge are real ends.
+  // OPEN = the only two "empty lot" districts a street must NOT dead-end into.
+  // Ending at ANYTHING else (a freeway, water, mountain, wash, OR any claimed
+  // big-architecture landmark: strip/casino/estate/mall/solar/gated/airport/
+  // ...) is a real, legitimate street end, not a break.
+  {
+    const OPEN={desert:1,suburb:1};
+    let changed=true, guard=0;
+    while(changed && guard++<60){ changed=false;
+      for(const t of tiles){ if(t.district!==DISTRICT.ARTERIAL)continue;
+        if(t.x%9===0||t.y%9===0)continue;
+        let roadN=0, termN=0, edge=false;
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nn=at(t.x+dx,t.y+dy);
+          if(!nn){edge=true;continue;}
+          if(ROAD[nn.district])roadN++; else if(!OPEN[nn.district])termN++;
+        }
+        // a dangling stub: <=1 road neighbor and NO real terminator, only open
+        // lots around it -> it breaks into empty desert. Return it to desert.
+        if(roadN<=1 && termN===0 && !edge){ t.district=DISTRICT.DESERT; changed=true; }
+      }
+    }
   }
   // ===== UNDERGROUND THIRD LAYER (Paolo 7/5/26) =====
   // Storm tunnels (the wash system the Homeless live in, 600+ real miles),

@@ -38,6 +38,8 @@ GATES = [
      'sidewalk sanctity', False),
     ('LINE COLOR',     ['node', 'gates/line_gate.js'],
      'yellow=direction, white=lane', False),
+    ('STREET CONNECT', ['node', 'gates/street_connectivity_gate.js'],
+     'no street dead-ends into empty lots', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],
      '85/15 tan, independent of weathering', False),
     ('ITEM SCALE',     ['node', 'gates/scale_gate.js'],
