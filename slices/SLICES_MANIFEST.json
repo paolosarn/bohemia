@@ -1,8 +1,15 @@
 {
   "version": "BOHEMIA_SLICES_MANIFEST_v1",
   "note": "Single source of truth for the alpha's live-slice section. The alpha points at ONE stable URL (BOHEMIA_CURRENT_SLICE.html); this manifest decides which slice that URL shows. Update the slice = bump 'current' + regen the loader (python3 tools/bohemia_slice_host.py). The alpha itself never changes. 'entries' stays short until the game ships, then it can become a real catalog.",
-  "current": "suburb",
+  "current": "subwalk",
   "entries": [
+    {
+      "id": "subwalk",
+      "title": "WALK CAMPANA — the approved block, playable",
+      "file": "BOHEMIA_SUBURB_WALK_7_18_26.html",
+      "date": "2026-07-18",
+      "note": "The suburb block you APPROVED, now the world. Spawn at the gate, walk the dead streets between the houses. Every yellow tile is a front door — step on it and you are standing inside that house's live-generated rooms. Walk out the door, back to the street. 22 homes, all enterable. Same generator the judge showed — approval graduated straight into the walkable alpha."
+    },
     {
       "id": "scale",
       "title": "SCALE \u2014 house vs human",

@@ -651,6 +651,26 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## SUBURB — APPROVED + GRADUATED TO WALKABLE (Paolo 7/18 verdict: THE BLOCK is UP)
+VERDICT (records/BOHEMIA_SUBURB_VERDICT_BLOCK_APPROVED_7_18_26.txt): THE BLOCK (packed
+grid) UP = canonical suburb; the central cul-de-sac court DOWN = graveyard (post-mortem
+logged, court branch/throughStreet REMOVED from the generator, no respawn). Path taken
+through the rejections that got here: empty-band bug (self-inflicted asymmetric wall
+reject) -> rail+rung dense fill packing the whole block; dead ground rendered near-black
+-> textured dead-dirt so backyards read as dead earth not void.
+GRADUATED SAME TURN (approval -> implement): slices/BOHEMIA_SUBURB_WALK_7_18_26.html
+(tools/bohemia_suburb_walk.py) — the approved block, WALKABLE. Spawn at the gate, walk
+the dead streets, step on any yellow front door -> stand INSIDE that house's live
+floorplan rooms (engine/bohemia_floorplan.js), walk out. 22 homes, all enterable.
+Verified chromium (0 errors, interior render confirmed). SLICE current='subwalk'.
+Gate #22 now 11 checks (added: no-vegetation dead-world, wall-backyard, campana n/a,
+enter-path = every house yields a valid floorplan). engine/bohemia_suburb.js
+generate(seed) is the ONE canonical block (style arg ignored, court gone).
+NEXT (mine, unblocked): fold suburb houses into the FULL world model — bridge/blockgen
+must emit these house footprints at the world scale so world().plot() over a residential
+cell returns real homes (today the walk is a standalone slice; the world model still owes
+suburb footprints via the bridge). Then LIFE (agents) once homes exist valley-wide.
+
 ## SUBURB — DEAD WORLD + 3-TILE WALL BACKYARD + YOUR TRACT (Paolo 7/18, three angry corrections)
 Paolo rejected the block hard with three concrete complaints. ALL THREE fixed + machine-gated this turn:
 1. "WHERE IS MY NEIGHBORHOOD I CAN THUMBS UP." -> Added the CAMPANA DR candidate (engine/bohemia_suburb.js style 'campana'): his real tract at 8xxx Campana Dr / 89147 reconstructed at 0.75 m/tile — walled block, homes packed all around the perimeter, an interior cul-de-sac court (the real "perimeter + court" Vegas tract off Tropicana: Van Carol->Mt Nido->Jadero->Campana). It is now the FIRST card in the judge, thumbs-up-able. ~14-16 homes (matches real ~0.15-acre lots on a 96 m block).

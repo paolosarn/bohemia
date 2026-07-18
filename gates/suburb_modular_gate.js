@@ -109,6 +109,20 @@ ok('footprints are house-sized, not runways (w,h within 6..30 tiles)',
 // determinism
 ok('deterministic per seed', JSON.stringify(S.generate(99, 'culs', 1, 1).g) === JSON.stringify(S.generate(99, 'culs', 1, 1).g));
 
+// GRADUATED + WALKABLE (Paolo 7/18): the approved block is implemented — every house
+// footprint must yield a valid, enterable floorplan (the WALK CAMPANA enter path).
+let enterOk = true, checked = 0;
+try {
+  const FP = require('../engine/bohemia_floorplan.js');
+  const wres = S.generate(7, 'ring', 1, 1);
+  for (const [i, f] of S.homeFootprints(wres).entries()) {
+    const fp = FP.generate((7 ^ ((i + 1) * 0x9E3779B1)) >>> 0, f.w, f.h, { zone: 'residential', entrance: 'S' });
+    checked++;
+    if (!(fp.rooms.length > 0 && fp.doors.length > 0)) enterOk = false;
+  }
+} catch (e) { enterOk = false; console.log('  enter-path threw: ' + e.message); }
+ok('every approved house is enterable — a live floorplan (WALK CAMPANA, ' + checked + ' homes)', enterOk && checked > 0);
+
 console.log('SUBURB MODULARITY GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
   STYLES.length + ' styles x ' + SIZES.length + ' sizes)');
 process.exit(fail ? 1 : 0);

@@ -1,0 +1,355 @@
+<h1 style="font:600 15px/1.3 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA — WALK CAMPANA: the block you approved, now the world. You spawn at the gate. Walk the dead streets between the houses. Every yellow tile is a front door — step on it and you are standing inside that house's rooms. Walk out the door and you are back on the street. Same generator the judge showed, now walkable.</h1>
+<div id="hud" style="font:13px -apple-system,sans-serif;color:#a99;padding:2px 10px 6px"></div>
+<div style="padding:0 10px"><canvas id="cv" style="width:100%;height:60vh;background:#12140f;border-radius:8px;display:block"></canvas></div>
+<div style="display:flex;justify-content:center;gap:8px;margin-top:10px;user-select:none">
+  <button id="bl" style="width:64px;height:56px;font-size:22px">◀</button>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <button id="bu" style="width:64px;height:56px;font-size:22px">▲</button>
+    <button id="bd" style="width:64px;height:56px;font-size:22px">▼</button>
+  </div>
+  <button id="br" style="width:64px;height:56px;font-size:22px">▶</button>
+</div>
+<script>
+/* ==== engine/bohemia_suburb.js ==== */
+// BOHEMIA SUBURB (canonical, 7/18/26) — Paolo APPROVED cul-de-sacs + the scale.
+// Real dimensions at the game scale (TILE=0.75 m, 128 tiles = 96 m per cell):
+// a ~14x8 m house body + a 6x6 m front garage + a 6 m driveway to the street, on
+// ~16 m lots, lining cul-de-sac streets off the gate. Cluster-aware (cw,ch) per
+// the MERGE LAW: fills the union as ONE connected neighborhood, wall wrapping the
+// union, a gate per street-facing cell. Homes are exposed as footprints the world
+// model floorplans (residential). Loops + garden were graveyarded (7/18 verdict).
+// codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage
+// ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
+// dead ground (code 0). Homes NEVER touch the wall — 3-tile dead backyard minimum.
+(function(root){
+  var SZ=128, TILE=0.75;                                  // tiles/cell, m/tile
+  var M=function(m){return Math.round(m/TILE);};          // meters -> tiles
+  function rng(seed){var s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
+  function Wd(g){return g[0].length;} function Ht(g){return g.length;}
+  function blank(w,h){var g=[];for(var y=0;y<h;y++){var r=[];for(var x=0;x<w;x++)r.push(0);g.push(r);}return g;}
+  function inb(g,x,y){return x>=1&&y>=1&&x<Wd(g)-1&&y<Ht(g)-1;}
+  function road(g,x,y,w){for(var dy=-w;dy<=w;dy++)for(var dx=-w;dx<=w;dx++){var nx=(x+dx)|0,ny=(y+dy)|0;
+    if(inb(g,nx,ny)&&g[ny][nx]!==2&&g[ny][nx]!==6&&g[ny][nx]!==4)g[ny][nx]=1;}}
+  function seg(g,x0,y0,x1,y1,w){var n=Math.max(1,Math.max(Math.abs(x1-x0),Math.abs(y1-y0))|0);
+    for(var i=0;i<=n;i++)road(g,x0+(x1-x0)*i/n,y0+(y1-y0)*i/n,w);}
+  function disc(g,cx,cy,rr){for(var dy=-rr;dy<=rr;dy++)for(var dx=-rr;dx<=rr;dx++)if(dx*dx+dy*dy<=rr*rr)road(g,cx+dx,cy+dy,0);}
+  function frame(g,cw){var W=Wd(g),H=Ht(g);
+    for(var x=0;x<W;x++){g[0][x]=4;g[H-1][x]=4;}for(var y=0;y<H;y++){g[y][0]=4;g[y][W-1]=4;}
+    for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0;for(var d=-3;d<=3;d++)g[H-1][gx+d]=5;
+      for(var s=1;s<=6;s++)if(inb(g,gx,H-1-s))g[H-1-s][gx]=1;}}
+  // Vegas home (top-down): a SHORT driveway (a car apron, 3 tiles long x 4 wide
+  // for 2 cars) leads to a garage that is the FRONT CORNER of the house. The
+  // house is the bulk; the driveway is tiny. Home faces the street (nx,ny),
+  // backyard goes to the wall behind it.
+  // GAP = Paolo's law: at worst 3 tiles of backyard AND 3 tiles between neighbors.
+  var DRIVE=3, DVW=4, HW=M(14), HD=M(9), GARW=M(5), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3, LOTW=M(14)+GAP;
+  function isHome(v){return v===2||v===3||v===6;}
+  function home(g,rx,ry,nx,ny){var px=-ny,py=nx;
+    var h0=-(HW>>1), garOff=h0+HW-GARW;                 // garage at one front corner
+    var dv=[],ga=[],bd=[],foot=[];
+    for(var d=DRIVE+1;d<DRIVE+1+HD;d++)for(var w=h0;w<h0+HW;w++){
+      var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0]; foot.push(c);
+      ((d<DRIVE+1+GARD && w>=garOff && w<garOff+GARW)?ga:bd).push(c);}
+    var dvOff=garOff+((GARW-DVW)>>1);
+    for(var d2=1;d2<=DRIVE;d2++)for(var w2=dvOff;w2<dvOff+DVW;w2++){var c2=[(rx+nx*d2+px*w2)|0,(ry+ny*d2+py*w2)|0];dv.push(c2);foot.push(c2);}
+    // footprint must sit on open land
+    for(var i=0;i<foot.length;i++){var c=foot[i];if(!inb(g,c[0],c[1])||g[c[1]][c[0]]!==0)return false;}
+    // 3-tile skirt on the two SIDES + the BACK must be clear of any other home
+    for(var d3=1;d3<=DRIVE+HD+GAP;d3++)for(var w3=h0-GAP;w3<h0+HW+GAP;w3++){
+      var side=(w3<h0||w3>=h0+HW), back=(d3>DRIVE+HD);
+      if(!side&&!back)continue;
+      var mx=(rx+nx*d3+px*w3)|0,my=(ry+ny*d3+py*w3)|0;
+      if(mx<0||my<0||mx>=Wd(g)||my>=Ht(g))continue;
+      if(isHome(g[my][mx]))return false;}
+    // NEVER let a home touch the wall: 3-tile DEAD backyard to any wall (Paolo 7/18).
+    for(var fi=0;fi<foot.length;fi++){var fc=foot[fi];
+      for(var wy=-GAP;wy<=GAP;wy++)for(var wx=-GAP;wx<=GAP;wx++){
+        var wxx=fc[0]+wx,wyy=fc[1]+wy;
+        if(wxx<0||wyy<0||wxx>=Wd(g)||wyy>=Ht(g))continue;
+        if(g[wyy][wxx]===4)return false;}}
+    dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});bd.forEach(function(c){g[c[1]][c[0]]=2;});return true;}
+  // even lot spacing along every road frontage (position-based, not a global counter)
+  function fillHomes(g){var W=Wd(g),H=Ht(g);
+    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(g[y][x]!==1)continue;
+      for(var s=0;s<4;s++){var nx=[1,-1,0,0][s],ny=[0,0,1,-1][s];
+        if(!inb(g,x+nx*2,y+ny*2)||g[y+ny*2][x+nx*2]!==0)continue;   // frontage opens to buildable land
+        var along=(nx!==0)?y:x;                                     // coordinate running along the road
+        if((along%LOTW)!==((nx>0||ny>0)?0:(LOTW>>1)))continue;      // stagger the two sides
+        home(g,x,y,nx,ny);}}}
+  function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
+  // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
+  // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
+  // exist to give them driveways. So: homes back onto the perimeter wall on all
+  // four sides (a ring of lots), and the INTERIOR is packed with rows of lots
+  // served by streets spaced exactly one back-to-back lot-pair apart. Houses are
+  // the primary unit; roads serve them; every home keeps its 3-tile yards.
+  function placeRow(g,streetY,W,lotw,lo,hi){   // pack houses on BOTH sides of a horizontal street
+    for(var lx=lo+((lotw/2)|0); lx<hi; lx+=lotw){
+      home(g,lx,streetY-RD,0,-1);              // north side: backyard up, driveway down to the street
+      home(g,lx,streetY+RD,0, 1);              // south side: backyard down
+    }}
+  function placeCol(g,streetX,H,lotw,lo,hi){   // pack houses on BOTH sides of a vertical street
+    for(var ly=lo+((lotw/2)|0); ly<hi; ly+=lotw){
+      home(g,streetX-RD,ly,-1,0); home(g,streetX+RD,ly,1,0);
+    }}
+  // houses along one straight ring edge, on BOTH sides (outer backs the wall,
+  // inner backs the center), packed every LOTW.
+  function placeEdge(g,x0,y0,dx,dy,len,nx,ny,lotw){
+    for(var t=(lotw>>1); t<len-2; t+=lotw){ var rx=(x0+dx*t)|0, ry=(y0+dy*t)|0;
+      home(g,rx+nx*RD,ry+ny*RD,nx,ny);          // outer side: start just past the road edge
+      home(g,rx-nx*RD,ry-ny*RD,-nx,-ny); }}      // inner side
+  function placeEdge2(g,x0,y0,dx,dy,len,nx,ny,lotw){   // OUTER side only (backs the wall)
+    for(var t=(lotw>>1); t<len-2; t+=lotw){ var rx=(x0+dx*t)|0, ry=(y0+dy*t)|0; home(g,rx+nx*RD,ry+ny*RD,nx,ny); }}
+  function ringHomes(g,R,W,H,lotw){
+    placeEdge(g,R,R,1,0,W-2*R,0,-1,lotw);        // top edge: outer backs up
+    placeEdge(g,R,H-R,1,0,W-2*R,0,1,lotw);       // bottom edge: outer backs down
+    placeEdge(g,R,R,0,1,H-2*R,-1,0,lotw);        // left edge: outer backs left
+    placeEdge(g,W-R,R,0,1,H-2*R,1,0,lotw);       // right edge: outer backs right
+  }
+  // one column of houses backing a SIDE wall, fronting a vertical rail (outer side only)
+  function placeColOuter(g,streetX,dir,lo,hi){
+    for(var ly=lo+(LOTW>>1); ly<hi-2; ly+=LOTW) home(g,(streetX+dir*RD)|0,ly,dir,0);
+  }
+  // THE BLOCK — the canonical Bohemia suburb (Paolo APPROVED 7/18; the central-court
+  // variant was rejected -> graveyard). DENSE, HOUSES-FIRST fill of the whole block:
+  // a rail+rung LADDER is the minimum road that serves a full block of lots — two
+  // vertical rails near the side walls, horizontal rungs between them. Houses pack
+  // EVERY frontage: both sides of every rung (top+bottom wall rows and all interior
+  // rows), and the outer side of each rail (left+right wall columns). Nothing is left
+  // as empty band; every home keeps its 3-tile dead backyard to the wall.
+  function denseFill(g,W,H,gx){
+    var back=RD+DRIVE+HD, R=back+5;                              // 23: house back stays >=4 tiles off the wall (3-tile dead yard)
+    var Lx=R, Rx=W-R, span=(H-R)-R;
+    var n=Math.max(2, Math.ceil(span/(2*back+2*GAP))+1);        // as many rung streets as fit with back-to-back yards
+    var ys=[]; for(var i=0;i<n;i++) ys.push(Math.round(R+span*i/(n-1)));
+    // ROADS FIRST: rails + rungs (a fully connected ladder, no dead ends), gate spoke.
+    seg(g,Lx,ys[0],Lx,ys[n-1],RD); seg(g,Rx,ys[0],Rx,ys[n-1],RD);
+    for(i=0;i<n;i++) seg(g,Lx,ys[i],Rx,ys[i],RD);
+    seg(g,gx,H-4,gx,ys[n-1],RD);                                 // entrance from the gate to the bottom rung
+    // THEN houses, packing every frontage.
+    for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,Lx,Rx);
+    placeColOuter(g,Lx,-1,ys[0],ys[n-1]);                        // left wall column
+    placeColOuter(g,Rx, 1,ys[0],ys[n-1]);                        // right wall column
+  }
+  function generate(seed,style,cw,ch){
+    if(typeof style!=='string'){ch=cw;cw=style;style='ring';}   // back-compat
+    cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
+    var W=Wd(g),H=Ht(g);
+    for(var ci=0;ci<cw;ci++){ var gx=(SZ*ci+SZ/2)|0; denseFill(g,W,H,gx); }   // the one canonical block, packed
+
+    // NO BACKYARD FILL: Act 1 is a dead world. Water is not wasted on landscaping;
+    // there are no trees, no pools, no grass. Backyards are dead ground (code 0).
+    var houses=0;
+    for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++)if(g[yy][xx]===2&&g[yy-1][xx]!==2&&g[yy][xx-1]!==2)houses++;
+    return {g:g,W:W,H:H,houses:houses,cw:cw,ch:ch};
+  }
+  // building footprints (house bodies) for the world model: bounding box of each
+  function homeFootprints(res){var g=res.g,W=res.W,H=res.H,seen={},out=[];
+    var d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(g[y][x]!==2||seen[x+','+y])continue;
+      var st=[[x,y]];seen[x+','+y]=1;var x0=x,y0=y,x1=x,y1=y;
+      while(st.length){var p=st.pop();if(p[0]<x0)x0=p[0];if(p[1]<y0)y0=p[1];if(p[0]>x1)x1=p[0];if(p[1]>y1)y1=p[1];
+        for(var i=0;i<4;i++){var nx=p[0]+d4[i][0],ny=p[1]+d4[i][1],k=nx+','+ny;
+          if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&g[ny][nx]===2){seen[k]=1;st.push([nx,ny]);}}}
+      out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1});}
+    return out;}
+  function roadConnected(res){var g=res.g,W=res.W,H=res.H,start=null,total=0;
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===1||c===5||c===3||c===6){total++;if(!start&&c===5)start=[x,y];}}
+    if(!start)return false;var seen={},st=[start];seen[start[0]+','+start[1]]=1;var reach=0;
+    while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
+      if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===5||cc===3||cc===6){seen[k]=1;st.push([nx,ny]);}}}
+    return reach/total>0.9;}
+  var API={generate:generate,homeFootprints:homeFootprints,roadConnected:roadConnected,SZ:SZ,TILE:TILE};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaSuburb=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ==== engine/bohemia_floorplan.js ==== */
+// BOHEMIA FLOORPLAN (7/18/26) — the ENTERABLE rung of the world model.
+// The valley -> district -> plot -> building ladder had no bottom rung: a
+// building was a solid footprint you could not go inside. This generates the
+// INTERIOR: given a footprint (W x H fine tiles) + a zone + seed, it BSP-splits
+// the space into rooms, walls the gaps, carves a door graph that GUARANTEES
+// every room is reachable, and cuts a street-facing entrance. Zoning assigns
+// room roles the Shadows-of-Doubt way (the room by the street door gets the
+// public role, back rooms go private/service). Deterministic per (seed,W,H,zone).
+// Semantic only: 'floor'/'wall'/'door' + role labels; art resolves at bake, the
+// same contract as every other generator.
+const BOH_FLOORPLAN=(function(){
+  function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
+  // zone -> ordered room roles (public first) + minimum room dimension
+  const ZONES={
+    residential:{roles:['living','kitchen','bed','bed','bath'],minRoom:4},
+    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],minRoom:5},
+    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],minRoom:4},
+    civic:      {roles:['hall','reception','office','records','bath'],minRoom:5},
+    institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
+    warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
+    landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    'default':  {roles:['room','room','service'],minRoom:4},
+  };
+  // union-find for the door spanning tree
+  function UF(n){const p=Array.from({length:n},(_,i)=>i);
+    const find=i=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;};
+    return {find,union:(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb){p[ra]=rb;return true;}return false;}};}
+
+  function generate(seed,W,H,opts){
+    const o=opts||{}; const r=rng(seed);
+    const Z=ZONES[o.zone]||ZONES['default'];
+    const minR=o.minRoom||Z.minRoom;
+    const entrance=o.entrance||'S';   // street-facing side
+    W=Math.max(minR+2,W|0); H=Math.max(minR+2,H|0);
+    // 1) BSP the interior (inside a 1-cell perimeter wall)
+    const rooms=[];
+    (function split(x,y,w,h,depth){
+      const canH=w>=minR*2+1, canV=h>=minR*2+1;
+      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){rooms.push({x,y,w,h});return;}
+      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
+      if(horiz){const cut=minR+((r()*(w-2*minR-1))|0)+1; split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
+      else     {const cut=minR+((r()*(h-2*minR-1))|0)+1; split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
+    })(1,1,W-2,H-2,0);
+    // 2) paint grid: everything wall, then stamp room floors
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:'wall',room:-1,door:false,role:null});grid.push(row);}
+    rooms.forEach((rm,i)=>{for(let y=rm.y;y<rm.y+rm.h;y++)for(let x=rm.x;x<rm.x+rm.w;x++){grid[y][x].g='floor';grid[y][x].room=i;}});
+    // 3) door graph: find wall cells separating two rooms, carve a spanning tree
+    const at=(x,y)=>(x<0||y<0||x>=W||y>=H)?null:grid[y][x];
+    const pairKey=(a,b)=>Math.min(a,b)+','+Math.max(a,b);
+    const cand={};   // "a,b" -> [door cells]
+    for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){
+      if(grid[y][x].g!=='wall')continue;
+      const hz=[at(x-1,y),at(x+1,y)], vt=[at(x,y-1),at(x,y+1)];
+      for(const [c0,c1] of [hz,vt]){
+        if(c0&&c1&&c0.room>=0&&c1.room>=0&&c0.room!==c1.room){
+          (cand[pairKey(c0.room,c1.room)]=cand[pairKey(c0.room,c1.room)]||[]).push([x,y]);
+        }
+      }
+    }
+    const uf=UF(rooms.length); const doors=[];
+    const pairs=Object.keys(cand).sort((a,b)=>{const s=(k)=>{const c=cand[k][0];return c[1]*W+c[0];};return s(a)-s(b);});
+    const carve=(x,y)=>{grid[y][x].g='door';grid[y][x].door=true;doors.push([x,y]);};
+    for(const k of pairs){const [a,b]=k.split(',').map(Number);
+      if(uf.union(a,b)){const cells=cand[k];carve(...cells[(cells.length>>1)]);}}
+    // a few loop doors so it is not a strict tree (still fully reachable)
+    for(const k of pairs){if(r()<0.18){const cells=cand[k];const c=cells[(r()*cells.length)|0];if(!grid[c[1]][c[0]].door)carve(...c);}}
+    // 4) street entrance: a perimeter door on `entrance` side into the front room
+    const front=(()=>{ // room whose edge touches the entrance side, nearest the middle
+      let best=null,bd=1e9;const midX=W/2,midY=H/2;
+      rooms.forEach((rm,i)=>{let touches,d;
+        if(entrance==='S'){touches=(rm.y+rm.h===H-1);d=Math.abs(rm.x+rm.w/2-midX);}
+        else if(entrance==='N'){touches=(rm.y===1);d=Math.abs(rm.x+rm.w/2-midX);}
+        else if(entrance==='W'){touches=(rm.x===1);d=Math.abs(rm.y+rm.h/2-midY);}
+        else {touches=(rm.x+rm.w===W-1);d=Math.abs(rm.y+rm.h/2-midY);}
+        if(touches&&d<bd){bd=d;best=i;}});
+      return best==null?0:best;})();
+    const fr=rooms[front];
+    if(entrance==='S')carve(Math.min(W-1,fr.x+(fr.w>>1)),H-1);
+    else if(entrance==='N')carve(Math.min(W-1,fr.x+(fr.w>>1)),0);
+    else if(entrance==='W')carve(0,Math.min(H-1,fr.y+(fr.h>>1)));
+    else carve(W-1,Math.min(H-1,fr.y+(fr.h>>1)));
+    // 5) zoning: role by distance from the entrance room (public near door)
+    const order=[...rooms.keys()].sort((a,b)=>{
+      const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
+      const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
+      return da-db;});
+    order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+      rooms[ri].role=role;
+      for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
+      pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
+  }
+  return {generate,ZONES};
+})();
+if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
+
+
+// ===== SUBURB WALK — the approved block, walkable + enterable =====
+var SEED=7;
+var res = BohemiaSuburb.generate(SEED,'ring',1,1);
+var W=res.W, H=res.H, G=res.g;
+var feet = BohemiaSuburb.homeFootprints(res);
+// each house gets a front DOOR: a house-body cell touching its driveway (fallback road/ground)
+var doorOf={}, spawn=null;
+function pref(x,y,want){var nb=[[0,1],[0,-1],[1,0],[-1,0]];
+  for(var k=0;k<4;k++){var ax=x+nb[k][0],ay=y+nb[k][1];
+    if(ax>=0&&ay>=0&&ax<W&&ay<H&&G[ay][ax]===want)return true;}return false;}
+feet.forEach(function(f,i){
+  var pick=null;
+  for(var pass=0;pass<3&&!pick;pass++){var want=[3,1,0][pass];
+    for(var y=f.y;y<f.y+f.h&&!pick;y++)for(var x=f.x;x<f.x+f.w;x++){
+      if(G[y][x]===2&&pref(x,y,want)){pick=[x,y];break;}}}
+  if(pick)doorOf[pick[0]+','+pick[1]]=i;
+});
+// spawn on the gate's inner road
+for(var y=0;y<H&&!spawn;y++)for(var x=0;x<W;x++){ if(G[y][x]===5){
+  var cands=[[x,y-1],[x,y+1],[x-1,y],[x+1,y]];
+  for(var c=0;c<4;c++){var sx=cands[c][0],sy=cands[c][1];
+    if(sx>=0&&sy>=0&&sx<W&&sy<H&&(G[sy][sx]===1||G[sy][sx]===3)){spawn=[sx,sy];break;}}
+  if(spawn)break;}}
+if(!spawn){ for(var yy=H-2;yy>0&&!spawn;yy--)for(var xx=0;xx<W;xx++)if(G[yy][xx]===1){spawn=[xx,yy];break;} }
+
+// ---- dead-world palette (matches the approved judge look) ----
+function gcol(x,y){var h=((x*73856093)^(y*19349663))>>>0,v=h%3;return ['#463f30','#3d382a','#4e4838'][v];}
+var EXTCOL={1:'#3a3a44',2:'#9c8e76',3:'#5a5a62',4:'#6a5c44',5:'#c79a3f',6:'#6d5f4b'};
+var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',dining:'#aaa078',
+  hall:'#b9af91',closet:'#8c877d',garage:'#6d5f4b',entry:'#b4a582','null':'#96917d'};
+
+var mode='ext', px=spawn?spawn[0]:(W>>1), py=spawn?spawn[1]:(H-4);
+var fp=null, fpDoor=null, backAt=null, curHouse=-1;
+var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+var HUD=document.getElementById('hud');
+
+function passExt(x,y){ if(x<0||y<0||x>=W||y>=H)return false;
+  if(doorOf[x+','+y]!=null)return true; var c=G[y][x]; return c===0||c===1||c===3||c===5; }
+function passInt(x,y){ if(!fp||x<0||y<0||x>=fp.W||y>=fp.H)return false;
+  var c=fp.grid[y][x]; return c.g==='floor'||c.g==='door'; }
+
+function enter(i){ curHouse=i; var f=feet[i];
+  fp=BOH_FLOORPLAN.generate((SEED^((i+1)*0x9E3779B1))>>>0, f.w, f.h, {zone:'residential',entrance:'S'});
+  fpDoor=fp.doors.filter(function(d){return d[0]===0||d[1]===0||d[0]===fp.W-1||d[1]===fp.H-1;})[0]||[fp.W>>1,fp.H-1];
+  mode='int'; px=fpDoor[0]; py=Math.max(0,Math.min(fp.H-1,fpDoor[1]-1)); if(!passInt(px,py)){px=fpDoor[0];py=fpDoor[1];}
+  refreshHUD(); }
+
+function draw(){
+  var gw=mode==='ext'?W:fp.W, gh=mode==='ext'?H:fp.H;
+  var CELL=Math.max(6,Math.floor(Math.min(cv.width/28, cv.height/28)));
+  var halfW=Math.floor(cv.width/CELL/2), halfH=Math.floor(cv.height/CELL/2);
+  ctx.fillStyle='#12140f'; ctx.fillRect(0,0,cv.width,cv.height);
+  for(var sy=-halfH;sy<=halfH;sy++)for(var sx=-halfW;sx<=halfW;sx++){
+    var gx=px+sx, gy=py+sy; if(gx<0||gy<0||gx>=gw||gy>=gh)continue;
+    var col;
+    if(mode==='ext'){ var c=G[gy][gx]; col=(c===0)?gcol(gx,gy):(EXTCOL[c]||'#463f30');
+      if(doorOf[gx+','+gy]!=null)col='#f0cd78'; }
+    else { var ic=fp.grid[gy][gx]; col= ic.g==='wall'?'#2c2824' : ic.g==='door'?'#f0cd78' : (INT_ROLE[ic.role]||'#96917d'); }
+    var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL;
+    ctx.fillStyle=col; ctx.fillRect(X,Y,CELL-1,CELL-1);
+  }
+  var pxs=halfW*CELL, pys=halfH*CELL;
+  ctx.fillStyle='#ff5a3c'; ctx.beginPath(); ctx.arc(pxs+CELL/2,pys+CELL/2,CELL*0.38,0,7); ctx.fill();
+  ctx.strokeStyle='#12140f'; ctx.lineWidth=2; ctx.stroke();
+}
+function refreshHUD(){
+  if(mode==='ext') HUD.innerHTML='OUTSIDE — Campana Dr, the dead block. '+feet.length+' homes. Walk the streets (yellow = a front door; step on it to go inside).';
+  else HUD.innerHTML='INSIDE house #'+(curHouse+1)+' — '+fp.rooms.length+' rooms, generated live. Walk out the ▲ door to the street.';
+}
+function move(dx,dy){ var nx=px+dx, ny=py+dy;
+  if(mode==='ext'){
+    if(doorOf[nx+','+ny]!=null){ backAt=[px,py]; enter(doorOf[nx+','+ny]); draw(); return; }
+    if(!passExt(nx,ny))return; px=nx; py=ny;
+  } else {
+    if(nx===fpDoor[0]&&ny===fpDoor[1]){ mode='ext'; if(backAt){px=backAt[0];py=backAt[1];} refreshHUD(); draw(); return; }
+    if(!passInt(nx,ny))return; px=nx; py=ny;
+  }
+  draw();
+}
+document.addEventListener('keydown',function(e){var k=e.key;
+  if(k==='ArrowUp'||k==='w')move(0,-1); else if(k==='ArrowDown'||k==='s')move(0,1);
+  else if(k==='ArrowLeft'||k==='a')move(-1,0); else if(k==='ArrowRight'||k==='d')move(1,0);
+  else return; e.preventDefault();});
+['u','d','l','r'].forEach(function(id){var b=document.getElementById('b'+id);
+  if(b)b.addEventListener('click',function(){move(id==='l'?-1:id==='r'?1:0, id==='u'?-1:id==='d'?1:0);});});
+function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight; draw(); }
+window.addEventListener('resize',fit); refreshHUD(); fit();
+window.__SUBWALK_READY=true;
+
+</script>

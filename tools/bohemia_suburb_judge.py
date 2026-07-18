@@ -23,8 +23,7 @@ GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read
 UI = r"""
 var G = BohemiaSuburb;
 var STYLES=[
-  {id:'campana',name:'CAMPANA DR — your tract',blurb:'8361 Campana / 89147, packed the way you approved: homes fill the WHOLE block, a central cul-de-sac court in the middle. dead world, dead-dirt backyards, no vegetation. every home 3-tile backyard to the wall.'},
-  {id:'ring',name:'THE BLOCK — packed grid',blurb:'houses-first walled block, homes both sides of every street, every home a 3-tile DEAD backyard to the wall. no grass, no pools, no trees — act 1 is dead.'}
+  {id:'ring',name:'THE BLOCK — canonical suburb (APPROVED)',blurb:'houses-first walled block, homes both sides of every street, every home a 3-tile DEAD backyard to the wall. no grass, no pools, no trees. APPROVED 7/18 and now walkable in the alpha (WALK CAMPANA).'}
 ];
 var SUN=false, seedBase=7, verdict={}, comments={};
 // DEAD WORLD palette: dead dirt ground (textured so it reads as real dead earth,
