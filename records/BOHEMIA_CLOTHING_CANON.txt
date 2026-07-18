@@ -105,3 +105,25 @@ Lesson banked: I must LOOK at the rendered pixels (zoomed) before shipping, not
 ship blind and let Paolo be the QA. Down-hood is inherently a small back/side
 detail at this scale; a hood-UP variant (covers the head) is the option if he
 wants it prominent -- offered, not built.
+
+--- THE ACTUAL HOODIE-SKIN BUG (7/18/26) — Paolo: "you KEEP adding skin textures
+    to the hoodie, what's wrong with you." ---
+It was a RENDER-ORDER BUG, not a drawing problem -- which is why no hood I drew
+could fix it. In buildFrame the SKIN_DETAIL pass (which repaints skin, incl. the
+neck grid===3) ran AFTER the CLO_PREVIEW garment hook, so it painted skin back
+over every hoodie collar, every time. FIX: moved the garment hook to run LAST
+(after SKIN_DETAIL). Probe now confirms: neck + torso are skin-free in all 8
+facings; the only remaining skin is the FACE/chin (correct -- hood is down).
+Lesson: when a symptom survives every content change, suspect the PIPELINE order.
+
+--- HOODIE-SKIN, ROUND 2: THE BACK-VIEW HOLE (7/18/26) — Paolo screenshot: skin
+    notch at the collar in the back view, "why can't you have clothing there" ---
+The render-order fix killed the NECK repaint leak, but a second bug hid under it:
+the hood painter had a blanket "never paint over head pixels" rule. Right for the
+FACE; wrong from BEHIND -- a hood drapes OVER the lower skull. So the hood mass
+skipped the skull-bottom pixels and left a skin hole in its center. (My probe
+missed it because it whitelisted all head skin as legit.)
+FIX: in back views (N/NE/NW) the hood covers the lower skull + nape as one solid
+bunch (face stays untouchable). Probe now scans the collar band with NO head
+whitelist: N/NE/NW CLEAN. E/W show only the visible jaw/cheek -- correct, a
+down-hood does not cover the head from the side.
