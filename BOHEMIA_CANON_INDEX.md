@@ -59,6 +59,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `BOHEMIA_TRANSITIONS_PROOF_7_10_26.html` -> BOHEMIA_TRANSITION_SET_7_10_26.txt + bohemia_transitions.js
   - `BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html` -> seamless sets banked as .txt
   - `BOHEMIA_STATE_OF_PLAY_7_16_26.md` -> superseded 7/17/26 by laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the repo-born day rolled the state; 7/16 preserved in archive/)
+  - `GDD_v2 six-ending framing (Liberation/Surrender/Compromise/Unknown/Nuked/Space)` -> folded 7/18/26 into the THREE endings (Liberate/Respect/Become) in laws/BOHEMIA_STORY_MASTER_7_18_26.md. GDD v2 stays the sole home of its other canon (not archived); only the six-ending list is superseded by the three.
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT
