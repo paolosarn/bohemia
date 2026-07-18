@@ -40,6 +40,20 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
 
 ## IN FLIGHT (resume here)
+!!! MUSIC BATCH 9 IS COOKED AND WAITING FOR THE ALPHA-CONNECTED SESSION (7/18).
+   Paolo asked for a fresh horror-FF cook; it is DONE, gated green, in the repo.
+   WHOEVER IS LIVE ON THE CANONICAL ALPHA: drop it in. Everything you need is
+   ONE file: banks/BOHEMIA_MUSIC_BATCH9_DROPIN.txt (4 synthV voice blocks + 4
+   song entries + exact paste points + master-chain note). Both halves required
+   (songs reference the new voices; songs alone play silent). New voices:
+   hollowvowl, wrongbox, shatterbell, gravechoir. New songs: THE ORGAN IN THE
+   DROWNED CHAPEL, THE BOX THAT COUNTS THE DEAD, WHAT SHATTERED IN THE VAULT
+   DOOR, THE SWELL BENEATH THE FLOOR. Screech-clean. Gate: gates/music_gate.py
+   (born this cook; wired into bohemia_gates.py). NOTE: this session (quest-log
+   branch) integrated + tested batch 9 in slices/BOHEMIA_ALPHA_0_9.html, but per
+   ONE-ALPHA LAW that slices/ file is the STANDALONE uploaded copy, NOT the
+   canonical alpha — the drop-in is how it enters the real one. ONE session
+   touches the alpha at a time; do not fight the other live session for it.
 0. THE INTERSECTION EXISTS (7/17 evening, Paolo asked, same turn): blockgen
    type 'intersection' — two roads crossing, clean box (no paint inside, per
    real anatomy), four crosswalks at the box edges, medians stopping at the
