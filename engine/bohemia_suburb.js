@@ -5,7 +5,9 @@
 // the MERGE LAW: fills the union as ONE connected neighborhood, wall wrapping the
 // union, a gate per street-facing cell. Homes are exposed as footprints the world
 // model floorplans (residential). Loops + garden were graveyarded (7/18 verdict).
-// codes: 0 lawn 1 road 2 house 3 driveway 4 wall 5 gate 6 garage
+// codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage
+// ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
+// dead ground (code 0). Homes NEVER touch the wall — 3-tile dead backyard minimum.
 (function(root){
   var SZ=128, TILE=0.75;                                  // tiles/cell, m/tile
   var M=function(m){return Math.round(m/TILE);};          // meters -> tiles
@@ -46,6 +48,12 @@
       var mx=(rx+nx*d3+px*w3)|0,my=(ry+ny*d3+py*w3)|0;
       if(mx<0||my<0||mx>=Wd(g)||my>=Ht(g))continue;
       if(isHome(g[my][mx]))return false;}
+    // NEVER let a home touch the wall: 3-tile DEAD backyard to any wall (Paolo 7/18).
+    for(var fi=0;fi<foot.length;fi++){var fc=foot[fi];
+      for(var wy=-GAP;wy<=GAP;wy++)for(var wx=-GAP;wx<=GAP;wx++){
+        var wxx=fc[0]+wx,wyy=fc[1]+wy;
+        if(wxx<0||wyy<0||wxx>=Wd(g)||wyy>=Ht(g))continue;
+        if(g[wyy][wxx]===4)return false;}}
     dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});bd.forEach(function(c){g[c[1]][c[0]]=2;});return true;}
   // even lot spacing along every road frontage (position-based, not a global counter)
   function fillHomes(g){var W=Wd(g),H=Ht(g);
@@ -85,31 +93,50 @@
     placeEdge(g,R,R,0,1,H-2*R,-1,0,lotw);        // left edge: outer backs left
     placeEdge(g,W-R,R,0,1,H-2*R,1,0,lotw);       // right edge: outer backs right
   }
+  // CAMPANA DR — Paolo's actual tract (8xxx Campana Dr, 89147), reconstructed at
+  // game scale. Off Tropicana: Van Carol -> Mt Nido -> Jadero -> Campana, the real
+  // curvilinear Vegas street pattern. A walled superblock with a curving collector
+  // sweeping up from the entrance in an S, ending in a cul-de-sac bulb, with side
+  // courts branching off. Homes front the curving streets; every one keeps a
+  // 3-tile DEAD backyard to the wall (enforced in home()). ACT 1 = DEAD: no
+  // vegetation anywhere, backyards are dead ground.
+  // CAMPANA tract, reconstructed: a walled block with homes packed all the way
+  // around the perimeter (backing the wall, keeping their 3-tile dead backyard) and
+  // an interior cul-de-sac COURT off the entrance — the classic Vegas "perimeter +
+  // central court" tract Campana actually is. Dense, curvilinear feel, recognizable.
+  function campana(g,seed,W,H){
+    var R=RD+DRIVE+HD+4, SW=RD*2+1, LOTD=DRIVE+HD+M(3), gx=(W/2)|0;
+    var cx=gx, courtTop=R+LOTD+SW+4, courtBot=H-R-LOTD-SW;
+    // ROADS FIRST (so homes never sever a street): perimeter ring, entrance spoke,
+    // and the interior cul-de-sac court (a stub off the bottom ring rising to a bulb).
+    ringRect(g,R,R,W-R,H-R,RD);
+    seg(g,gx,H-6,gx,H-R,RD);
+    seg(g,cx,H-R,cx,courtTop,RD); disc(g,cx,courtTop,RD+2);
+    // THEN homes: packed all around the perimeter (backs to the wall) + both sides
+    // of the interior court. The court every Vegas tract has.
+    ringHomes(g,R,W,H,LOTW);
+    placeCol(g,cx,H,LOTW,courtTop+RD+2,courtBot);
+  }
   function generate(seed,style,cw,ch){
     if(typeof style!=='string'){ch=cw;cw=style;style='ring';}   // back-compat
     cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
     var W=Wd(g),H=Ht(g), SW=RD*2+1, LOTD=DRIVE+HD+M(3);         // lot depth = house + a small backyard
-    // WALLED COMMUNITY, HOUSES FIRST: a PERIMETER loop so homes back all four
-    // walls, then INTERIOR streets pack the middle with rows. Homes line both
-    // sides of every street; no road has empty land beside it. Small backyards
-    // meet back-to-back. Roads are the minimum to serve the lots.
-    // PERIMETER loop (homes back all four walls) + INTERIOR parallel streets that
-    // span loop-to-loop (connected at both ends, no central spine). Homes line
-    // BOTH sides of every street; small backyards meet back-to-back.
-    var R=LOTD;
-    ringRect(g,R,R,W-R,H-R,RD);
-    for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0; seg(g,gx,H-6,gx,H-R,RD);}
-    ringHomes(g,R,W,H,LOTW);                                     // perimeter both sides
-    var band=2*LOTD+SW, first=R+LOTD+SW+LOTD;                    // first interior street clears the perimeter inner row
-    for(var y=first; y<H-first+LOTD; y+=band){ for(var x=R;x<=W-R;x++)road(g,x,y,RD); placeRow(g,y,W,LOTW,R+LOTD,W-R-LOTD); }
-    // BACKYARD CONTENT so yards read as yards, not void: pools + trees + grass in
-    // the lawn behind houses (Paolo: real backyards, and a bougie block a park).
-    var pr=rng(seed*13+7);
-    for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++){ if(g[yy][xx]!==0)continue;
-      var nearHouse=(g[yy-1]&&g[yy-1][xx]===2)||(g[yy+1]&&g[yy+1][xx]===2)||g[yy][xx-1]===2||g[yy][xx+1]===2;
-      if(nearHouse&&pr()<0.5)g[yy][xx]=(pr()<0.22?8:7);          // 8 pool/patio, 7 tree/grass
-      else if(pr()<0.06)g[yy][xx]=7; }
-    var houses=0,rects=[];var seenH={};
+    if(style==='campana'){ campana(g,seed,W,H); }
+    else {
+      // WALLED COMMUNITY, HOUSES FIRST: a PERIMETER loop with homes fronting an
+      // inner ring road, backing a 3-tile DEAD backyard to the wall (NEVER
+      // touching it). INTERIOR parallel streets pack the middle, homes both sides,
+      // backyards meeting back-to-back. ACT 1 = DEAD: no vegetation, dead ground.
+      var R=RD+DRIVE+HD+4;                                       // ring inset so outer homes keep a 3-tile dead backyard to the wall
+      ringRect(g,R,R,W-R,H-R,RD);
+      for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0; seg(g,gx,H-6,gx,H-R,RD);}
+      ringHomes(g,R,W,H,LOTW);                                   // perimeter both sides
+      var band=2*LOTD+SW, first=R+LOTD+SW;
+      for(var y=first; y<H-first+LOTD; y+=band){ for(var x=R;x<=W-R;x++)road(g,x,y,RD); placeRow(g,y,W,LOTW,R+LOTD,W-R-LOTD); }
+    }
+    // NO BACKYARD FILL: Act 1 is a dead world. Water is not wasted on landscaping;
+    // there are no trees, no pools, no grass. Backyards are dead ground (code 0).
+    var houses=0;
     for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++)if(g[yy][xx]===2&&g[yy-1][xx]!==2&&g[yy][xx-1]!==2)houses++;
     return {g:g,W:W,H:H,houses:houses,cw:cw,ch:ch};
   }

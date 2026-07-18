@@ -22,17 +22,21 @@ GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read
 
 UI = r"""
 var G = BohemiaSuburb;
-var STYLES=[{id:'ring',name:'THE BLOCK',blurb:'homes back the walls + pack the interior, small yards with pools/trees, a little green common. reseed for variety'}];
+var STYLES=[
+  {id:'campana',name:'CAMPANA DR — your tract',blurb:'8xxx Campana Dr, 89147 reconstructed at game scale: the real curvilinear streets off Tropicana, cul-de-sac courts, homes fronting the curve. dead world — no vegetation. is this your neighborhood?'},
+  {id:'ring',name:'THE BLOCK — packed grid',blurb:'houses-first walled block, homes both sides of every street, every home a 3-tile DEAD backyard to the wall. no grass, no pools, no trees — act 1 is dead.'}
+];
 var SUN=false, seedBase=7, verdict={}, comments={};
+// DEAD WORLD palette: dead dirt ground, no green, no pool-blue. Everything is dead.
 function col(code){
-  if(SUN)return ['#cfe0b0','#7c7c84','#c2b184','#eceaef','#b8a878','#c7a24a','#8a7454','#8fb96a','#8fc2d8'][code];
-  return ['#4a5c38','#33333c','#9c8e76','#dfe0e6','#4a4030','#c79a3f','#544636','#36683a','#467896'][code];
+  if(SUN)return ['#c9bfa4','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c9bfa4','#c9bfa4'][code];
+  return ['#302b22','#33333c','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#302b22','#302b22'][code];
 }
 function render(cv,style,seed){var res=G.generate(seed,style,1,1),g=res.g,W=res.W,H=res.H,ctx=cv.getContext('2d');
   var PX=Math.min(cv.width/W,cv.height/H);
-  ctx.fillStyle=SUN?'#f2ead2':'#12140f';ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.fillStyle=SUN?'#efe7cf':'#12140f';ctx.fillRect(0,0,cv.width,cv.height);
   var ox=(cv.width-W*PX)/2,oy=(cv.height-H*PX)/2;
-  for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===0&&!SUN)continue;ctx.fillStyle=col(c);ctx.fillRect(ox+x*PX,oy+y*PX,PX+0.5,PX+0.5);}
+  for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];ctx.fillStyle=col(c);ctx.fillRect(ox+x*PX,oy+y*PX,PX+0.5,PX+0.5);}
   return res;}
 function build(){var root=document.getElementById('root');document.body.style.background=SUN?'#efe7cf':'#0d0f0a';root.innerHTML='';
   STYLES.forEach(function(st){
@@ -65,7 +69,7 @@ document.getElementById('exp').onclick=exportTxt;
 build();window.__SUBURB_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB, one block. Rebuilt houses-first, calibrated to Campana Dr / 89147: homes back the four walls and pack the interior, driveways are car aprons, small yards filled with pools + trees (real backyards, not void), a little green common. Reseed for variety. Thumb, comment, export — does this finally feel like the neighborhood?</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB. TWO to judge. First is YOUR neighborhood: Campana Dr / 89147 reconstructed at game scale (the real curving streets off Tropicana, cul-de-sac courts). Second is the packed grid block. Both are DEAD — act 1, no water wasted on landscaping, so NO grass, NO trees, NO pools; backyards are dead ground. Every home keeps a 3-tile dead backyard to the wall (never touching it). Reseed for variety. Thumb each, comment, export.</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>

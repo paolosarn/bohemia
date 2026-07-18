@@ -61,6 +61,44 @@ for (const style of STYLES) for (const [cw, ch] of SIZES) for (let seed = 1; see
   if (!spacingOk(S.generate(seed * 41 + 3, style, cw, ch))) spaced = false;
 ok('homes keep a >=3 tile gap from each other + backyard (SPACING LAW)', spaced);
 
+// WALL BACKYARD LAW (Paolo 7/18): a home NEVER touches the wall. Every house body
+// cell (code 2) must be >3 tiles (Chebyshev) from any wall (code 4) — a 3-tile
+// dead backyard between the house and the perimeter wall, always.
+function wallBackyardOk(res) {
+  const g = res.g, W = res.W, H = res.H;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (g[y][x] !== 2) continue;
+    for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) {
+      const nx = x + dx, ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      if (g[ny][nx] === 4) return false;   // a house body within 3 tiles of a wall
+    }
+  }
+  return true;
+}
+let wallOk = true;
+for (const style of ['ring', 'campana']) for (let seed = 1; seed <= 3; seed++)
+  if (!wallBackyardOk(S.generate(seed * 41 + 3, style, 1, 1))) wallOk = false;
+ok('every home keeps a 3-tile DEAD backyard to the wall (WALL BACKYARD LAW)', wallOk);
+
+// DEAD WORLD (Paolo 7/18): act 1 has no living vegetation. The generator must
+// never emit tree(7) or pool(8) cells anywhere.
+let deadWorld = true;
+for (const style of ['ring', 'campana']) for (let seed = 1; seed <= 3; seed++) {
+  const g = S.generate(seed * 41 + 3, style, 1, 1).g;
+  for (const row of g) for (const c of row) if (c === 7 || c === 8) deadWorld = false;
+}
+ok('no vegetation anywhere — dead world (no trees, no pools)', deadWorld);
+
+// CAMPANA reconstruction: Paolo's real tract must render — connected streets,
+// fronted with homes.
+let campOk = true;
+for (let seed = 1; seed <= 3; seed++) {
+  const r = S.generate(seed * 29 + 5, 'campana', 1, 1);
+  if (!S.roadConnected(r) || r.houses < 8) campOk = false;
+}
+ok('campana (Paolo\'s tract): connected streets + fronted with homes', campOk);
+
 // footprints for the world model: every home yields a bounding-box footprint
 const res = S.generate(7, 'culs', 1, 1);
 const fps = S.homeFootprints(res);
