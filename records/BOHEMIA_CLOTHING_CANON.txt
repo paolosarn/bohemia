@@ -41,3 +41,14 @@ Honest state of these 9:
   (desaturate 25% keeping hue, blend 16% toward ambient). Paolo's call which
   register is canon. grade() lives in window.CLO.
 PENDING PAOLO: keep the clean catalog colors, or bake the world-ambient grade in?
+
+--- BATCH 3 APPROVED (7/18/26) — 9 world-grounded salvage garments UP, canon ---
+Paolo thumbed the salvage tops/pants/boots CANON (the 4 coats went DOWN -> see
+graveyard). Now canon, tagged by LAYER:
+  base:  SCAVENGER FLANNEL, BONE HENLEY, COPPER WORK SHIRT, SOOT TANK
+  legs:  DUST TROUSERS, PATCHED WORK PANTS, SOOT CARGOS
+  feet:  WRAPPED BOOTS, SANDWALKERS
+All dusty world-ambient tones, single-hue-safe (no purple), worn/scavenged.
+LAYER SYSTEM (Paolo's note): every garment now declares a layer -- base (tops),
+legs (pants), feet (shoes), outer (coats/jackets, drawn over a base shirt).
+Canon wardrobe now 18.

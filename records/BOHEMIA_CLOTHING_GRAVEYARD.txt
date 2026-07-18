@@ -49,3 +49,19 @@ band on the collarbone, ever. Verified across all 8 directions (neck_sheet).
 
 UI FIX (same note): killed the cardinal-direction button row. The 8-pose strip is
 now directly tappable -- tap any pose and it becomes the big live idle view.
+
+--- BATCH 2 (7/18/26) — the 4 v1 COATS, all DOWN ---
+DUST DUSTER, ASH LONGCOAT, OXBLOOD COAT, ROADWORN JACKET. GRAVEYARD FINAL.
+PAOLO: "I really like the IDEA of your long coats, but you made it in a way that
+it looks like there's shorts connected to the shirt -- did not look like a long
+coat at all. And the long coat belongs in the JACKET LAYER, a layer on top of a
+shirt. I hope you're putting things in proper layers."
+ROOT CAUSE: genCoat v1 covered each leg (id 9/10) separately down to mid-thigh,
+so it read as two leg-tubes = shorts. It also wasn't layered (rendered on bare
+skin, not as an outer layer over a shirt).
+FIX (fresh cook, new names -- v1 names stay dead): genCoat v2 drapes ONE A-line
+skirt panel from the hips to the ankle, FILLING THE GAP between the legs (via a
+now-additive buildFrame preview hook) and flaring outward, so it reads as hanging
+cloth. Every garment now carries a LAYER (base/legs/feet/outer); coats are 'outer'
+and render OVER a base shirt. Fresh coats: WASTELAND DUSTER, SOOT TRENCH,
+DRIFTER'S COAT, RANGER LONGCOAT (in COOKING, pending verdict).
