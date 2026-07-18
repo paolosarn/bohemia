@@ -181,3 +181,60 @@ system + faction web + upbringing + entities/world-model + roguelite/hardcore di
 no-brick-wall + single-district legibility + MUSIC repo + SUN-MODE/onboarding/accessibility. FUTURE: a
 Piranha Bytes / Kai Rosenkranz retrospective on Gothic's world + score; a Kenshi deep-dive (the ultimate
 "world doesn't care about you / start as nobody" open-world survival sibling).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE NAMELESS HERO (the player)** — wants out of the penal colony, and first must survive being nobody in it. Will trade: dignity, early and often — mocked, shoved, killed, learning to fight with sticks before a blade. Will never say out loud: that the respect he earns feels real precisely because nothing was given. FUNCTION: the earned-standing spine (W1): leveling is SOCIAL ASCENT from prisoner to somebody, not a number.
+
+**THE THREE CAMPS (Old, New, Sect)** — want the colony's future on their terms: the ore-barons' tyranny, the deserters' escape plot, the cultists' Sleeper-worship. Will trade: trainers, quests, armor, a magic path — everything, gated on which you join. FUNCTION: the faction spine of Act 1 (W5): the most consequential choice in the game, political and moral and personal at once.
+
+**THE NPCs (600+ faces on daily schedules)** — want to live their lives: eat, sleep, work, shut the shop at dark, whether or not you're watching. Will trade: nothing to a stranger who hasn't earned it; draw a sword near them and they get angry or afraid. FUNCTION: the living world (W2, W4): they treat YOU as the NPC — a place you must fit into, that exists without you and doesn't reset on reload.
+
+**THE TRAINERS** — want you to have earned access before they teach you anything. FUNCTION: skills gated behind PEOPLE (W7): growth is social — advancement flows through relationships, not a menu.
+
+**THE SHADOW BEAST (and the fixed-danger world)** — wants to kill you exactly as dead at hour 1 as hour 20. FUNCTION: no level-scaling (W6): the world self-gates by power; a one-shot death means you're in the wrong PLACE, not playing badly. Exploration as a risk map you learn by dying.
+
+**KAI ROSENKRANZ'S SCORE** — wants a few notes to recall the whole colony. FUNCTION: music as the immersion anchor (W9): the secret weapon, a core Bohemia strength confirmed twice (with #50).
+
+## V2-B THE CONVERSATIONS (node trees; the signature is that the WORLD reacts to you as an intruder — the "dialogue" is often behavioral: how NPCs treat a nobody who hasn't earned his place)
+
+NODE: THE_ARRIVAL — thrown into the colony, entry: game start, no tutorial, no status
+  Mocked, shoved, pointed vaguely toward the camps.
+  > (approach an NPC humbly)        [gate: none] -> scraps of info, a menial task, the first rung
+  > (draw your weapon in town)      [gate: none] TRAP -> they react as to a threat: anger, fear, drawn blades — you're the NPC here (W2)
+  > (wander into the wrong zone)    [gate: none] TRAP -> a Shadow Beast one-shots you; the world is fixed-danger, no warning (W6)
+  NOVERB: "Don't you know who I am?" Nobody is anybody here, least of all you. The prophecy verb every other RPG opens with DOES NOT EXIST. The removed verb is the whole thesis: you start as nobody and EARN a name.
+
+NODE: THE_CAMP_CHOICE — Chapter 1, entry: three philosophies for surviving the Barrier
+  > (Old Camp: ore-barons, fire mages)   [gate: none] -> tyranny's order; these trainers, this armor, this magic (W5)
+  > (New Camp: deserters, water mages)    [gate: none] -> the escape plot; a different path entirely
+  > (Sect Camp: the Sleeper's cult)       [gate: none] -> zealotry; the third world
+  LOCKS: the other camps' trainers, quests, and how the colony treats you. The most consequential decision in the game, and it's SOCIAL, not statistical.
+
+NODE: THE_TRAINER — an NPC who can make you stronger, entry: reputation earned
+  > (earn access, then learn)       [gate: faction + reputation] -> combat/magic taught; growth flowing through a PERSON (W7)
+  > (try to buy the skill cold)     [gate: DISABLED] -> there is no menu; the skill lives behind a relationship you haven't earned
+  THE CRAFT: advancement is social access. You must become someone the strong will teach — standing as the literal progression gate (the #24/#25 standing-unlocks-mechanics, made the spine).
+
+NODE: THE_WRONG_BUILD — skill points spent, entry: the banked flaw
+  > (dump points into archery you can't afford to finish) [gate: none] TRAP -> punished, unsignposted; hours and save-scums learning the un-taught rules
+  THE LESSON, verbatim from the ledger: "earn it" immersion must NOT mean "decode un-signposted rules by dying for hours." Friction good, OPACITY bad — teach the world's LANGUAGE early and legibly (the #45/#46 accessibility law, our #1 for mobile).
+
+NODE: THE_NAVIGATION — no compass, no minimap, entry: a world to internalize
+  > (buy/find a map, read the land)  [gate: attention] -> roads, tower-spires, treelines become your compass rose (W8)
+  > (talk to EVERY NPC)             [gate: patience] -> quest, trainer, and politics info scattered in dialogue; familiarity IS survival
+  THE FINDING: navigation by the world itself (the #37 Morrowind method), immersion through friction — and our single-district scale is the built-in fix for Gothic's backtracking tedium.
+
+## V2-C THE BRANCH MAP
+
+COUNT: 3 camp-spines (Old/New/Sect) x an earned-standing progression x the fixed-danger world map — the branching is SOCIAL (which faction, how much respect) and SPATIAL (which zones you've grown strong enough to enter), converging on the escape.
+
+THE STANDING LAYER — nobody to somebody, respect earned scrap by scrap, skills gated behind people (W1, W7).
+THE FACTION LAYER — the camp choice gating trainers, quests, gear, and the world's treatment of you (W5).
+THE WORLD LAYER — NPC schedules running without you, fixed-danger zones self-gating by power (W2, W4, W6).
+THE CONVERGENCE — the Barrier breached, the colony's fate decided by your earned place in it.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Gothic is the master model for a LIVING WORLD THAT EXISTS WITHOUT YOU + progression as EARNED SOCIAL STANDING — both central to Bohemia, and its single-district cousin fixes Gothic's worst flaw (backtracking) for free. Lock-ins: (1) PROGRESSION AS EARNED SOCIAL ASCENT — a new dynast/heir starts with little standing and must EARN respect, access, and skills through PEOPLE (trainers/mentors/factions gated by reputation), making our MULTIDIMENSIONAL STANDING the BACKBONE of progression, not a side-stat (the #24/#25 standing-unlocks-mechanics promoted to spine); (2) THE DISTRICT AS A LIVING WORLD that operates without the dynasty — survivors follow daily routines, react to the dynasty as if IT'S the outsider, and never reset (our entities/world-model + the #11/#10/#44/#45 living-world lineage); (3) EARN IT = MEAN IT — hardcore difficulty makes every gain unforgettable, friction as a FEATURE not sadism (the #23/#37 philosophy, our packages); (4) FACTION ALIGNMENT as the spine-of-the-early-game choice gating trainers, quests, gear, and treatment (the #46/#43/#42/#39 faction-spine, confirmed); (5) NO LEVEL-SCALING / a FIXED PLACE-BASED WORLD — zones self-gate by power, the Amalgamation's core lethal until earned (on-theme, with the regression-gate still preventing a hard brick-wall); (6) MUSIC AS A PILLAR of world-identity, confirmed twice with #50 — a core Bohemia strength, not decoration. Compile gates from the flaws, all hard: "earn it" must NEVER mean "decode un-signposted rules by dying for hours" — teach the world's LANGUAGE early and legibly (the accessibility #1, friction good / opacity bad); POLISH THE CORE VERB so a beloved world isn't gated behind bad feel (our combat dial is the opposite priority to Gothic's eurojank); keep the world engaging so no-fast-travel traversal doesn't drag (single-district scale mitigates); sustain content density into the endgame; and PAIR the living world WITH character/roleplay agency (our upbringing/dynast is the edge over Gothic's blank Hero). With #37 (Morrowind) and #23 (Elden Ring), the no-handholding open-world trio is complete: Gothic is the EARNED-STANDING and LIVING-WORLD half, Morrowind the FAIR-NAVIGATION half, Elden Ring the CRYPTIC-THRILL half — and Bohemia takes all three under an accessible mobile skin.

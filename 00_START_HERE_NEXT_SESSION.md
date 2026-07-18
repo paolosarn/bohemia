@@ -120,8 +120,19 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    System (build our OWN rivalry engine from the DNA not the patent:
    defeat fuels the rival, inherited grudges via the fold, anchors +
    player-filled gaps as THE solo-dev story economy).
-   **Counter 106 of 150.** 44 files remain (#49-94), reaching 150
-   exactly; fresh open-world mines stack on top. Next up: #49.
+   the generational-sim spine, then the replay/living-world cluster:
+   #49 Rogue Legacy (THE most direct mechanical match to our fold —
+   the city-builder IS the manor realized fully; go beyond flavor-only
+   traits into narrative meaning; the anti-Legacy-Plus law: the grind
+   needs a DESTINATION = our finales), #50 Chrono Trigger (replay-as-
+   narrative ROOT of Undertale/NieR/Hades; the fold is its meta-
+   narrative made diegetic; choice-TIMING authors the finale; small
+   choices teach big choices; leitmotifs), #51 Gothic (living world
+   that exists without you + progression as EARNED SOCIAL STANDING =
+   our multidimensional standing promoted to the progression SPINE;
+   completes the no-handholding open-world trio with #37/#23).
+   **Counter 109 of 150.** 41 files remain (#52-94), reaching 150
+   exactly; fresh open-world mines stack on top. Next up: #52.
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +

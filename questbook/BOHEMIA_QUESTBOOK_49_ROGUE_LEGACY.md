@@ -163,3 +163,60 @@ upbringing (Q003) + city-builder-as-manor + generational persistence + conscienc
 difficulty packages + Liberate/Respect/Become finales + tone/wellbeing rules. FUTURE: the Cellar Door
 "making of Rogue Legacy" (Eurogamer) on the heir-system genesis; a Dead Cells / Hades cross-study on how
 the heir-roguelite evolved (Hades = the narrative maturation of RL's mechanic).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**THE HEIR (this generation's pick)** — wants to get further into the castle than the last one did, and dies trying, and that is the design working. Will trade: their whole run's progress, keeping only the gold for the family. Will never say out loud: that they are the 95th warrior in a long line and the line is the real hero. FUNCTION: the shifted perspective (W1): "you never die, you shift perspective" — the fold as a shipped, beloved mechanic.
+
+**THE THREE CHILDREN (the handoff pool)** — want to be chosen. Each a different class and 0-2 randomized traits: a colorblind mage, a giant barbarian, an OCD assassin who heals by smashing furniture. FUNCTION: the handoff choice (W4): pick your next self from the lineage, a small roleplay-and-strategy decision at every death.
+
+**THE MANOR** — wants to grow, wing by wing, across generations. FUNCTION: the persistent meta-progression made VISIBLE (W2, W8): not an abstract menu but a TOWER the family physically builds, each parapet a permanent inherited stat. Progress you can SEE as a home.
+
+**THE INHERITED TRAITS** — want to reshape the run and humanize the runner: dwarfism fits through gaps, vertigo flips the screen, nostalgia tints it sepia. FUNCTION: identity as mechanics (W3): each heir a distinct person AND a distinct playthrough — charming, but (the banked flaw) flavor-only where Bohemia goes deeper.
+
+**CHARON** — wants all the gold before you re-enter. FUNCTION: the spend-it-all economy (W5): the anti-hoarding toll that keeps the meta-progression FLOWING, converting each life into permanent family growth immediately.
+
+**THE ARCHITECT** — wants 40% of your gold to lock the castle's layout. FUNCTION: player-chosen variance (W7): trade income for a learnable, farmable map — a voluntary knob over procedural chaos.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: there is almost no dialogue — the "conversation" is with the LINEAGE and the ECONOMY. The handoff screen is the most consequential conversation, and it's the player choosing who to be next)
+
+NODE: THE_DEATH_HANDOFF — a hero falls, entry: every death
+  The haul is tallied and passed to the family. Three children wait.
+  > (pick the mage-with-dwarfism)   [gate: the roll] -> a small body that fits the gaps; a run shaped by the trait (W3, W4)
+  > (pick the barbarian-with-gigantism) [gate: the roll] -> big, tanky, clumsy; a different game
+  > (accept a doomed heir, hope the next is better) [gate: bad roll] TRAP -> the trait-lottery flaw: sometimes the hand is bad through no fault of yours (the fairness caution)
+  NOVERB: "Keep playing the one who died." The revive verb does not exist; death is a HANDOFF, not a setback to undo (W1). The removed verb is the fold's whole thesis — the line continues, the individual does not.
+
+NODE: THE_CHARON_TOLL — before re-entering, entry: gold in hand
+  > (spend it ALL on the manor)     [gate: none] -> permanent family growth NOW; a new wing, a new inherited stat (W2, W5)
+  > (try to hoard for a big upgrade) [gate: DISABLED] -> Charon takes the remainder; you CANNOT hoard
+  THE ANTI-HOARD (W5): each life's gains MUST convert to permanent legacy immediately. The meta-progression flows because the economy refuses stagnation — a tuning knob Bohemia can borrow.
+
+NODE: THE_MANOR_BUILD — between runs, entry: the tower
+  > (add a wing / turret / parapet)  [gate: gold] -> a stat/ability inherited by ALL future heirs; progress SEEN as a growing home (W8)
+  THE VISUAL METAPHOR (W8): the meta-progression has a physical, emotional FORM. Bohemia realizes this fully — the rebuilt DISTRICT is the manor, the settlement growing IS the bloodline's legacy. A near-perfect structural fit RL only hinted at.
+
+NODE: THE_SCALING_CASTLE — re-entry, entry: the manor buffed you
+  > (enter the toughened castle)    [gate: none] -> bigger rooms, harder enemies; the world scales to your strength (W6)
+  > (grind past the cap into Legacy Plus) [gate: none] TRAP -> infinite scaling with no payoff: the banked flaw — the treadmill that discourages, the reason our grind needs a DESTINATION
+  THE SUSTAINED CHALLENGE (W6): growth doesn't trivialize the game — until it scales forever with nothing at the end. The lesson: our finales (Liberate/Respect/Become) are the destination RL lacked.
+
+NODE: THE_ARCHITECT_DEAL — the layout lock, entry: a known map tempting
+  > (pay 40%, lock the castle)      [gate: gold] -> predictability: learn and farm a fixed layout for reduced income (W7)
+  > (take the chaos, full income)   [gate: none] -> fresh procedural castle, full gold
+  THE VARIANCE KNOB (W7): the player chooses their own procedural-vs-stable balance. Bohemia's procedural-vs-authored tuning has a shipped precedent here.
+
+## V2-C THE BRANCH MAP
+
+COUNT: no authored endings — the branch map is the LINEAGE's accumulated progress (manor built, blueprints found, how deep each generation reached), with death as the connective handoff, not a branch. (RL 1 ends at the final boss; the JOURNEY is the generational grind.)
+
+THE HANDOFF LAYER — every death a choice of the next self from a small pool (W1, W4).
+THE PERSISTENCE LAYER — the manor/gold/gear passing down; the family leveling up across deaths (W2).
+THE IDENTITY LAYER — inherited traits reshaping each run and humanizing each heir (W3).
+THE ECONOMY LAYER — spend-it-all keeping progress flowing; difficulty scaling with power (W5, W6).
+THE TERMINAL — the castle cleared, generations later; the lineage the true protagonist.
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Rogue Legacy is the SINGLE MOST DIRECT mechanical cousin of Bohemia's generational fold in all of games — a shipped, acclaimed, genre-DEFINING proof that "death = the next heir" WORKS as a roguelite core, and it completes the fold trilogy with CK3 (#46, the dynasty DEPTH) and Hades (#47, the narrative FLESH): RL is the mechanical SKELETON. Lock-ins: (1) the FOLD IS VALIDATED as a proven roguelite spine — on a dynasty's or heir's fall, the player CHOOSES the next heir (class/upbringing + traits) and continues; death is a HANDOFF, "you shift perspective," never a reset; (2) THE CITY-BUILDER IS THE MANOR, REALIZED FULLY — our single most direct structural win: the district is the persistent tower the family visibly builds across generations, each building a permanent inherited upgrade, the growing city SEEN as the bloodline's legacy (RL only hinted at what our rebuilt district makes literal and emotional); (3) INHERITED TRAITS with OUR EDGE — heirs carry traits that reshape play AND humanize them, but go BEYOND RL's comedic flavor into NARRATIVE meaning (an heir inherits the bloodline's guilt, a founder's sin, a faction tie — identity as mechanics AND story, the #46/#47 depth); (4) the SPEND-IT-ALL economy as an anti-hoarding tuning knob keeping the meta-progression flowing; (5) DIFFICULTY SCALES WITH POWER (the Amalgamation and raiders toughen as the district thrives — the #44/#41 confirmation in a roguelite-heir frame). Compile gates from the flaws, all four sharp: upbringing/traits must NEVER be a pure lottery-debuff (real choice from a heir pool, every heir playable — fairness); the generational grind needs a DESTINATION and meaningful end-states (Liberate/Respect/Become — the anti-Legacy-Plus law: don't scale infinitely with no payoff); go BEYOND flavor-only traits (narrative/emotional meaning is our edge); and handle inherited quirks with RESPECT, never punching down at real conditions (RL's dyslexia/IBS/Tourette's-as-jokes is a clear DON'T under our tone/wellbeing rules).

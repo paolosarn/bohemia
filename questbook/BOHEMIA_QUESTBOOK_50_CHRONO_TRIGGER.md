@@ -172,3 +172,62 @@ FOLD + Liberate/Respect/Become finales + unrecorded ledger + ~100-year arc + per
 discipline + MUSIC repo/leitmotifs + Megaton law. FUTURE: a Masato Kato / Dream Team retrospective on the
 multiple-endings + NG+ design; a Chrono Cross or Radiant Historia deep-dive (time/branching-narrative
 siblings); a Phantasy Star III deep-dive (the generational-ending ancestor, direct cousin of our fold).
+
+---
+# V2 PAYLOAD — BACKFILLED 7/17/26 (FORMAT LAW v2). Original content above untouched.
+
+## V2-A CAST + WHAT EACH ONE WANTS
+
+**CRONO (the silent player-avatar)** — wants to stop Lavos, and along the way learns his smallest fair-day actions were being watched. Will trade: a completed playthrough, carried forward into a New Game Plus that is a REWARD, not a punishment. Will never say out loud: anything — he is mute, and his silence hands the moral weight to the player. FUNCTION: the meta-narrative's vessel (W1): the choice to REPLAY him is part of the story.
+
+**LAVOS** — wants to devour the world, on a schedule you can interrupt at almost ANY point. FUNCTION: the choice-timing engine (W3): confront it at minute 10 or hour 15, and WHEN + HOW you fight authors which of ~13 endings the world receives. The frame of the final act, not a menu pick.
+
+**THE TRIAL (Crono's day in court)** — wants to judge you on things you thought didn't count: the old man's lunch, the girl's pendant, how you treated the fairgoers. FUNCTION: small choices teach big choices (W4): a low-stakes reactivity lesson front-loaded so every dialogue box afterward feels weighted — teaching "the world watches" early and cheaply.
+
+**THE ERAS (prehistory to the End of Time)** — want their cause-and-effect honored: plant a seed in 600 AD and a forest grows in 1000; heal the past and the future heals. FUNCTION: the consequence engine (W5): time travel as a living cross-state system — the DIRECT thematic cousin of our fold.
+
+**THE OPTIONAL REVIVAL (Crono's death)** — wants you to CHOOSE to undo an unjust fate, using your mastery of time. FUNCTION: the irresistible thematic quest (W6): optional content that is emotionally magnetic AND enacts the game's whole thesis.
+
+**THE LEITMOTIFS (Frog's theme, Magus's)** — want to recur, deepening emotion across eras. FUNCTION: music as narrative memory (W10): a core Bohemia strength, validated as top-tier craft.
+
+## V2-B THE CONVERSATIONS (node trees; the machine's honesty: the pivotal "conversations" are with the WORLD ACROSS TIME and with the player's own accumulated actions — the trial and the final-boss timing are the load-bearing ones)
+
+NODE: THE_FAIR — the opening, entry: the game's first hour, low stakes
+  A festival. Small interactions nobody flags as important.
+  > (return the girl's pendant)     [gate: none] -> a kindness logged, silently
+  > (eat the old man's lunch)        [gate: none] -> a pettiness logged, silently
+  > (how you treat the fairgoers)   [gate: none] -> all of it, remembered
+  THE SETUP (W4): none of it seems to matter. It all does — the world was watching from minute one.
+
+NODE: THE_TRIAL — the courtroom, entry: the fair's actions tallied
+  Crono is judged on the micro-choices you forgot you made.
+  > (the verdict shaped by the fair) [gate: prior actions] -> guilty or sympathetic; imprisoned regardless, but the LESSON lands
+  THE METATEXT (W4): Crono is jailed no matter what — the point is not the outcome, it's teaching the PLAYER that every dialogue box has weight, so the big choices later (kill or recruit Magus) are taken seriously. Front-loaded reactivity as onboarding.
+
+NODE: THE_SEED — 600 AD, entry: a barren future known
+  > (plant it in the past)          [gate: the item] -> a forest in 1000 AD; the past materially reshaping the future (W5)
+  > (fix the past's wound)          [gate: quest] -> the future heals; the world is a responsive cross-state system
+  NOVERB: "Just fix the future directly." The consequence engine forbids the shortcut: the future is downstream of the past, always. The removed verb is the fold's thesis — you change the next era by acting in this one.
+
+NODE: THE_REVIVAL — after Crono's death, entry: an optional quest
+  Use your mastery of time to undo an unjust fate. Or don't.
+  > (move heaven and earth to revive him) [gate: optional] -> the theme enacted: time-mastery undoes death; most players do it though nothing forces them (W6)
+  > (leave him dead, press on)       [gate: none] -> the game and endings adjust; loss honored instead of reversed
+  THE CRAFT: optional content that is emotionally irresistible AND thematically perfect. The #06/#34 optional-depth note — and the Bohemia fork is sharp: revive via the fold, or honor the loss (the SOMA/Liberate choice).
+
+NODE: THE_FINAL_TIMING — Lavos, confrontable at almost any point, entry: the endgame OR minute 10 of NG+
+  > (fight him now, early)          [gate: nerve] -> an ending that reveals different consequences and fates
+  > (fight him late, fully prepared) [gate: the full arc] -> a different, fuller ending
+  > (New Game Plus, carry your power) [gate: a completed run] -> replay as EXPERIMENT: hunt the ~13 endings without monotony (W2)
+  THE ONE THING DOING THE WORK: the FRAME of the final act authors the ending (W3). Not a menu — the WHEN and HOW. The #35 behavior-ending, at the scale of a whole playthrough's timing.
+
+## V2-C THE BRANCH MAP
+
+COUNT: ~13 endings (several thin/joke vignettes — the banked flaw: quality over quantity), authored by WHEN/HOW you fight Lavos + side-quest state, unlocked across playthroughs via New Game Plus.
+
+THE TIMING LAYER — confront Lavos at different points for different endings; the frame of the final act as the author (W3).
+THE META LAYER — endings ADD rather than replace; full meaning accumulates across replays (W1); NG+ enables the hunt (W2).
+THE CONSEQUENCE LAYER — cross-era actions materially reshaping world-states beneath it all (W5).
+THE QUALITY CAVEAT — of ~13, only a few are substantial arcs; the rest are gags (the banked flaw).
+
+THE STRUCTURAL FINDING FOR THE COMPILE: Chrono Trigger is the FOUNDATIONAL ROOT of replay-as-a-meaningful-narrative-act — the ancestor of Undertale (#28), NieR (#22), and Hades (#47) — and its time-travel-as-consequence-engine is a DIRECT thematic cousin of our generational fold. Lock-ins: (1) THE FOLD IS CHRONO'S META-NARRATIVE MADE DIEGETIC — each generation ADDS to a cumulative understanding whose full meaning emerges across the 100-year arc; later generations REVEAL more, and continuing the bloodline is itself a meaningful choice; (2) CHOICE-TIMING AUTHORS THE FINALE — Liberate/Respect/Become should hinge on the FRAME of the final act (WHEN and HOW the dynasty confronts the Amalgamation, plus accumulated state), not a menu; confronting it EARLY vs LATE yields different revealing endings (the #35 behavior-ending at playthrough scale); (3) SMALL CHOICES TEACH BIG CHOICES — front-load a Bohemia trial-equivalent where tiny early actions visibly shape an outcome, teaching "the ledger WATCHES" cheaply, a high-value onboarding beat (the #28 watching-world); (4) THE CROSS-STATE CONSEQUENCE ENGINE is the fold's thematic heart, validated — actions in one generation MATERIALLY reshape the next (plant now, forest later; a sin now, a haunted heir later), and the player SEES the downstream weight; (5) LEITMOTIF SCORING is a CORE Bohemia strength confirmed as top-tier craft — recurring faction/Amalgamation themes as narrative memory across the arc (our music repo + the #36/#47 voice lineage). And the anti-padding mandate: Chrono is ~15 hours that "feels huge" via REPLAY not bloat — Bohemia's depth comes from the fold and reactivity, NOT a bloated map; our single district + generational replay = compact-but-huge, and it's on iOS, our platform. Compile gates from the flaws: QUALITY over QUANTITY in endings (a few deeply divergent finales, not a dozen joke-vignettes — keep Liberate/Respect/Become substantial); keep endgame divergence SEPARATE from mid-game branching in the design (don't let finales substitute for reactivity); SUSTAIN momentum into the endgame (the #25 Act III caution); and decide DELIBERATELY whether fold-carry replay is for story-ease or challenge-scaling (the #49 knob).
