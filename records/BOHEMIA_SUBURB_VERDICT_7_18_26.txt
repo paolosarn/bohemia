@@ -1,0 +1,20 @@
+=== BOHEMIA SUBURB INTERIOR VERDICT (Paolo 7/18/26) ===
+CUL-DE-SACS: UP    <- APPROVED, the Vegas tract layout
+THE LOOPS: DOWN
+GARDEN CURVE: DOWN
+--- PER-STYLE COMMENTS ---
+CUL-DE-SACS: "before we continue I want to see how big the houses are compared to
+the character, based on real-life ratios of a human vs a house (single or two
+story)."
+
+--- PROCESSING ---
+- Winner: CUL-DE-SACS. Graduates into bohemia_plotgen as the canonical suburb
+  interior ONCE Paolo signs off on the house-to-human scale (his gate before we
+  continue). SCALE STUDY built + set as the SLICE-menu current:
+  slices/BOHEMIA_SCALE_STUDY_7_18_26.html (real meters, 1.75 m human vs single/
+  two-story house, 0.75 m/tile).
+- Rejects: THE LOOPS + GARDEN CURVE. To the graveyard WITH the winner's
+  graduation (same turn the loser style code is removed from the generator, so
+  the graveyard stays reference-clean). Post-mortem: both connected + snapped
+  fine; Paolo's read was cul-de-sacs simply feels like the Vegas tract and the
+  others did not. Not a defect, a taste call.
