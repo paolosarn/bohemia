@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
-1527 findings / 152 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
+1587 findings / 158 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3359,3 +3359,135 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       The arc ends in an office, not a payout — succession as prize, with the timer attached. The genre's boldest ending shape, even underfunded (F1): what you win is what he was.
   W10 THE WHOLE SCRIPT REPLAYS ITSELF
       After G-4, every earlier scene re-reads — the jokes, the errands, the interview. A quest that retroactively rewrites its own first half is doing with structure what twists usually fake with surprise.
+
+### #153  A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (The Elder Scrolls V: Skyrim)
+  W1  THE PLAYER IS THE CRIMINAL
+      The mystery is your own off-screen night, so the detective work is self-confrontation — the rarest and best investigation subject: yourself, unwatched.
+  W2  THE WORLD KNOWS WHAT YOU DON'T
+      Inverted dramatic irony: every NPC is a witness to a you that you can't access, and their straight-faced grievances are the comedy engine.
+  W3  SINCERITY IS THE JOKE
+      The quest never winks; the priest and the bride treat the aftermath as real, and the player's mortified reconstruction lands because nobody in it is laughing.
+  W4  THE CRIME SCENE IS TESTIMONY
+      The night is reassembled from people, not flashback — a social reconstruction that makes the witnesses the level design.
+  W5  THE BLACKOUT IS UNRECOVERABLE DIRECTLY
+      No flashback verb exists; the player must go ask, which turns a memory gap into a tour of the people it touched.
+  W6  THE HUMAN NOTE UNDER THE FARCE
+      The jilted wedding keeps the comedy from weightlessness — one witness whose grievance has an ache, played almost straight.
+  W7  THE BENDER IS A JOB INTERVIEW
+      Sanguine was auditioning the player through chaos; the reconstruction was the résumé — the reward reframes the whole night as a test passed.
+  W8  SCOPE DISCIPLINE
+      Contest to Rose in one arc; the comedy never dilutes because the container is tight — the release valve does one thing perfectly.
+  W9  RESTITUTION IS OPTIONAL AND UNJUDGED
+      At each witness the player may make amends or not, with no mechanical push — the conscience slot is real and entirely theirs.
+  W10 THE TONE IS A COUNTERWEIGHT
+      Placed among Skyrim's grim Daedric quests, the levity relieves and, by contrast, sharpens the dread of the darker ones. Range is the point.
+
+### #154  THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE (THE CITY THAT FRAMED YOU) (The Elder Scrolls V: Skyrim)
+  W1  THE CITY IS THE ANTAGONIST
+      Not a villain in the city — the city itself: guards, jarl, market, mine, one machine that turns on the player for looking. The best "the institution is the crime" structure in the game.
+  W2  INVESTIGATION IS THE OFFENSE
+      The player is framed and jailed FOR asking; curiosity is reframed as the crime, which is a chillingly real depiction of how closed systems defend themselves.
+  W3  THE PROSPERITY IS BUILT ON THE SUPPRESSION
+      Markarth's silver, order, and tidy market sit directly on the wound the quest uncovers — the peace and the crime are the same structure.
+  W4  NO CLEAN INSTITUTION TO APPEAL TO
+      Every authority is compromised; the removed "honest authority" verb is the thesis. There is nowhere to take the truth.
+  W5  THE REAL POWER IS UNTOUCHABLE
+      The Silver-Bloods engineer it all and pay nothing; the fork lets you choose their instrument, never punish them — a bitter, adult depiction of where power actually sits.
+  W6  NO CLEAN EXIT
+      Both escape routes stain the player — an uprising's massacre or a cover-up's complicity. The quest refuses to let anyone leave innocent.
+  W7  THE TRUTH LIVES WHERE IT WAS BURIED
+      The full picture is only available inside the mine the city threw the player into — the geography of the cover-up is the quest's structure.
+  W8  THE SYMPATHETIC-AND-TERRIBLE FORK
+      Madanach is a freedom-fighter and a murderer, the same act; the Silver-Bloods are order and oppression, the same act. No side is clean, and the quest names it.
+  W9  THE FRAME ESCALATES LEGIBLY
+      Note, then guards, then prison — the city's hostility rises in readable steps, so the trap closes at a pace the player feels shutting.
+  W10 THE WOUND STAYS OPEN
+      Neither ending fixes Markarth; the player leaves a place still sick, still quiet about it. The refusal to resolve is the point — some rots outlast the visitor who found them.
+
+### #155  NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MONSTER) (Dragon Age: Origins)
+  W1  THE MONSTER HUNT IS A TRUTH COMMISSION
+      The quest opens as a straight beast-kill and becomes the excavation of an old mutual atrocity — the genre's cleanest bait-and-switch from violence to history.
+  W2  THE CURSE IS A GRIEVANCE IN ANIMAL FORM
+      The werewolves are a wound wearing fur; the plague is grief that wouldn't die. The monster is literally somebody's refusal to forgive.
+  W3  EVERY PARTY IS VICTIM AND PERPETRATOR
+      Humans wronged elves, elves cursed humans, the cursed kill the innocent — no one is clean, and the quest names the whole chain.
+  W4  THE VILLAIN IS THE WRONGED PARTY
+      Zathrian is the victim who became the perpetrator by refusing to heal — the hardest, truest kind of antagonist, sympathetic and culpable at once.
+  W5  THE RESOLUTION IS ABOUT THE WOUND, NOT THE MONSTERS
+      The three endings are three answers to "feed the grievance or release it" — the monsters are the symptom, the grief is the disease.
+  W6  THE BEST ENDING IS FORGIVENESS
+      Peace requires convincing the wronged to stop being wronged — the hardest human act, gated as the game's hardest outcome. Mercy is earned, not given.
+  W7  NO COST-FREE PATH
+      Peace costs Zathrian his life; blood costs a whole people. The quest refuses an exit where nobody pays, which is what makes the choice real.
+  W8  THE MONSTERS ARGUE REASONABLY
+      The Lady of the Forest makes the case for mercy with unsettling calm — the "beast" is the most morally lucid voice in the forest.
+  W9  THE CRIME IS CENTURIES DEAD AND STILL KILLING
+      No living person committed the original wrong, yet it still demands blood — the clearest depiction of how inherited grievance outlives its cause.
+  W10 THE FORGIVENESS IS A DEATH
+      Zathrian can only release the wound by dying with it — the peace is not free, it is paid by the one who held the grief. Letting go is the last thing he does.
+
+### #156  A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE ENDS THAT EAT THE MEANS) (Dragon Age: Origins)
+  W1  THE TOOL IS MADE OF THE ATROCITY
+      The golem-army isn't guarded by an atrocity — it IS one; every unit a murdered soul. The weapon and the crime are the same object, which is the purest means-vs-ends form.
+  W2  THE COST IS SHOWN BEFORE THE PRIZE
+      The descent walks the player through Branka's dead House and Hespith's ruin before revealing the Anvil — you feel the price before you see what it buys.
+  W3  THE MAKER TURNS AGAINST HIS MASTERPIECE
+      Caridin built the Anvil and wants it destroyed, having lived inside its cost for centuries — the most credible possible witness against a tool: its inventor.
+  W4  THE ENDS HAVE A REAL CASE
+      Branka is not lying — the dwarves are dying and the Anvil could save them. The dilemma is real because the monstrous option might actually work.
+  W5  NO CLEAN FORK
+      Keep the tool and own the slavery; destroy it and forgo the salvation. Both cost a Paragon and a principle; the game refuses a free exit.
+  W6  THE PRICE IS PERSONAL
+      Branka spent her own wife; the atrocity has a face the antagonist loved. The abstraction of "souls bound to metal" gets a name.
+  W7  THE VILLAIN ISN'T ONE
+      Branka is a good goal pursued past every line, not evil for its own sake — the scariest antagonist is the one whose ends you can't dismiss.
+  W8  THE POLITICAL STAKES FRAME THE MORAL ONES
+      The whole descent is for a succession crown; the means-vs-ends fork is nested inside a governance need, so the choice has downstream weight beyond itself.
+  W9  THE MAKER PAYS LAST
+      Caridin, if he wins, unmakes his creation and then himself — the atrocity's author choosing to end with it. Letting go is a death he chooses.
+  W10 THE QUESTION SURVIVES THE CREDITS
+      Players argue the Anvil choice for years — the sign the dilemma was real. A tool worth its atrocity has no settled answer, and the quest is honest enough not to give one.
+
+### #157  THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED BY HER) (Mass Effect 2)
+  W1  THE FORK IS TWO TERRIBLE FAMILY MEMBERS
+      Samara is a mother who will execute her child; Morinth is a child who murders for pleasure — both monstrous, both bound by a nature (law or curse) they didn't fully choose. No clean party.
+  W2  THE PLAYER IS THE BAIT AND THE TARGET
+      Posing as Morinth's next victim puts the player in exactly the position of her dead — the trap is set with the player's own body, and the seduction is aimed at them.
+  W3  THE SEDUCTION CAN WIN
+      The player can be talked into the wrong choice in the moment — the monster's charm works on the person meant to be baiting it, which is the rarest and best kind of test: your own judgment under pressure.
+  W4  THE MONSTER HAS A REAL CASE
+      Morinth's nature isn't her fault; her mother's law is genuinely a prison; the seduction lands because it is partly true. The killer feels, for a moment, like the victim.
+  W5  THE LAW IS A TRAGEDY, NOT A VIRTUE
+      Samara's code is what lets her murder her own daughter — the quest shows the cost of absolute principle, not just its correctness.
+  W6  THE BODY COUNT IS SHOWN FIRST
+      The grieving mother of a real victim guides the player in, so Morinth's charm arrives already stained — the seduction fights against a corpse the player has seen.
+  W7  NO BOTH-LIVE
+      The Ardat-Yakshi nature admits no cure; the fork admits no mercy for both. One family member dies, and the player only chooses which — the tragedy is structural.
+  W8  THE CURSE IS NOT CHOSEN
+      Morinth was born into a killing body; the monster is a person the nature made lethal, which is what makes killing her hard and sparing her deadly.
+  W9  THE SURVIVOR CARRIES THE GRIEF
+      Samara, if she wins, has executed her daughter and gives loyalty carrying that — the victory is a wound, not a triumph.
+  W10 THE SEDUCTION OUTLASTS THE MISSION
+      Players remember being ALMOST talked into siding with a serial killer — the sign the writing worked. A trap that can catch the trapper is unforgettable.
+
+### #158  HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN FAIL) (Cyberpunk 2077)
+  W1  THE ONLY WEAPON IS WORDS
+      No combat, no puzzle, no item — a life saved or lost entirely through conversation. The genre's purest demonstration that dialogue can be the whole quest and the whole stakes.
+  W2  THE PLAYER CAN FAIL
+      Barry really dies if the words go wrong — the intervention is failable without a reload prompt, which is what gives the conversation its weight. Real stakes require real failure.
+  W3  THE GAME WON'T FLAG THE RIGHT WORDS
+      No marker, no highlight, no "correct" glow — the player must READ the man, not the UI. Compassion is a skill the player brings, not a checkbox.
+  W4  THE PLAYER'S INSTINCTS ARE THE ENEMY
+      Efficiency, rushing, treating the NPC as a dispenser — every trained gamer reflex kills Barry. The quest is won by unlearning how you play.
+  W5  THE KEY IS IN THE GRIEF, NOT AGAINST IT
+      Barry is reached by honoring his dead, not by arguing him out of mourning — the solution is redirecting the pain, not denying it. Compassion that works with the wound.
+  W6  NO SAFETY NET, NO CEREMONY
+      No failure fanfare, no reload prompt — just a man who was alive and isn't. The absence of ritual is the stakes: this is what it feels like to be the one someone depended on.
+  W7  THE QUEST IS MISSABLE AND UNCHASING
+      Ignore it and Barry dies off-screen; the world doesn't force you to be his rescuer. The freedom to fail by absence makes the choice to try meaningful.
+  W8  THE FAVOR HID THE WEIGHT
+      It arrives as a minor errand from River — the disguise of the small ask makes the reveal of what's actually being asked land harder.
+  W9  SILENCE CAN BE THE ANSWER
+      Sometimes letting the pause hold reaches Barry better than any line — the game honors listening over speaking, the rarest dialogue-design humility.
+  W10 THE OUTCOME IS QUIET EITHER WAY
+      Saved, you learn it without fanfare; lost, you learn it as an absence. The refusal to celebrate or mourn loudly is what makes it feel like a real life, not a game beat.

@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
-693 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
+711 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -1955,3 +1955,69 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE CYCLE'S BREAKING IS FREE
      The curse ends because the player wins a duel: no cost, no trade, no residue — the realm's thousand-era tragedy resolves as a boss health bar. Even sympathetic critics note the finale's metaphysics outweigh its mechanics: the deepest lore event in the setting is mechanically a Tuesday.
      LAW: breaking a cycle must cost cycle-denominated currency. Bohemia's generational frame prices this natively: ending a standing curse-class system (an Edict, #145; a faction's cyclical purge; the Greymarch-analog if one exists) should spend something only generations can bank — a lineage's accumulated record, a fold-held debt, an office's own continuity. Cheap exits from expensive cycles teach the player the cycle was never real. [PENDING, Paolo's call: what Bohemia's cycles even are — the law stands ready either way.]
+
+### #153  A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (The Elder Scrolls V: Skyrim)
+  X  THE RECONSTRUCTION IS A CORRIDOR
+     The witnesses come in a fixed order and the player cannot investigate wrong, reach a false conclusion, or miss a beat — the "detective" work is a guided tour of pre-written comedy. The mystery cannot fail, so it is a delivery mechanism, not a deduction.
+     LAW: a reconstruction quest must be ABLE to assemble wrong — the player accuses their own blackout self of something they didn't do, or misses a witness and carries a false version — with the world recording the gap. A blackout you can only reassemble one correct way is a cutscene with steps.
+  X  THE HARM HAS NO WEIGHT
+     The jilted bride, the sold goat, the trashed tavern — none of it persists; the world resets, no witness stays wronged, the wedding thread's ache evaporates on quest completion. The comedy is consequence-free, which is safe and also thin.
+     LAW: at least one grievance from a blackout must STICK — a person who stays hurt, a debt that stays owed, a reputation the district remembers. Release-valve comedy earns its lightness by letting one thing not be funny.
+  X  THE VOLUNTARY BLACKOUT ISN'T INTERROGATED
+     The player CHOOSES to drink into oblivion and the quest never asks why or costs them the choosing — the loss of control is pure setup, never a theme. For a game about edited memory, that is a missed depth.
+     LAW: if a Bohemia quest offers a voluntary blackout (drink, a memory edit, a fold-skip), the CHOICE to lose control should itself be a recorded act with a cost — the player elected not to be present, and something happened in their absence they now own.
+
+### #154  THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE (THE CITY THAT FRAMED YOU) (The Elder Scrolls V: Skyrim)
+  X  THE REAL VILLAIN CAN'T BE TOUCHED, AND THE GAME DOESN'T LET THAT LAND
+     The Silver-Bloods engineer everything and face no reckoning, which is thematically sharp — but the quest offers no path even to make them PAY later, no thread that resurfaces, so their untouchability reads as an unfinished quest rather than a deliberate cruelty.
+     LAW: when a quest's real power is deliberately beyond reach, plant a DISCOVERABLE later thread — a way the untouchable can be made to answer generations on, or at least a record that names them. Untouchable-by-design must be distinguishable from untouchable-because-unfinished; the fold is how.
+  X  THE FRAME PUNISHES CURIOSITY WITH NO OFF-RAMP
+     Once the investigation starts, the imprisonment is unavoidable; a cautious player who reads the warning and stops is railroaded into the mine anyway. The "investigating is the crime" theme is undercut by the player having no real agency to heed the warning.
+     LAW: if looking is punished, let the player CHOOSE to stop looking, with a real (worse-in-other-ways) consequence — a district where the wound stays buried and the player stays free, ignorant, and complicit-by-omission. Forced imprisonment removes the choice the theme is about.
+  X  THE FORSWORN ARE FLATTENED TO THE FORK
+     Madanach and his people exist mostly to be the escape's other lever; their cause gets one speech and their victimhood is told, not felt, so the "sympathetic terrorist" lands thinner than the setup earns.
+     LAW: a faction the player is asked to free or betray needs enough prior PRESENCE that the choice has felt weight — witnessed grievances, named individuals, seen suppression — not a single cell-block monologue. Earn the fork with worldbuilding, not exposition.
+
+### #155  NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MONSTER) (Dragon Age: Origins)
+  X  THE BEST ENDING IS A SKILL-CHECK, NOT AN EARNED TRUTH
+     Peace is gated behind a persuasion stat; a player who understands the situation perfectly but lacks the check is forced into blood. The forgiveness that is the quest's moral heart is bought with a dialogue skill, not with the player's comprehension.
+     LAW: the hardest, best outcome must be gated on ASSEMBLED UNDERSTANDING (evidence, the truth reconstructed, the wound's history known), not a raw stat — so that a player who does the moral work can always reach it, and the check tests knowing, not build. (#38/#17's lesson: earn the argument with the case.)
+  X  ZATHRIAN'S CENTURIES ARE TOLD, NOT FELT
+     The keeper's grief is exposited in a few lines; the player never witnessed the atrocity, the vengeance, or the long feeding of the wound, so his refusal to forgive reads as stubbornness rather than a tragedy the player understands from inside.
+     LAW: a wound the player is asked to help release must be SHOWN across the arc — the original crime witnessed, the grief's long persistence seen (the fold is built for this: a grievance the player watched a prior generation refuse to put down). Told grief cannot carry a forgiveness this heavy.
+  X  THE WEREWOLVES REVERT TO STAKES AT THE FORK
+     After the humanizing reveal, the werewolves become mostly the "other lever" in the ending; their individual personhood (glimpsed in the reveal) doesn't carry into the resolution, so slaughtering them costs less than the setup earned.
+     LAW: a humanized "monster" faction must keep its individual faces through the RESOLUTION — named victims present at the choice, so that wiping them out has the weight the reveal promised. Humanize through the ending, not just the twist.
+
+### #156  A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE ENDS THAT EAT THE MEANS) (Dragon Age: Origins)
+  X  BRANKA IS RIGHT AND THE GAME UNDERSELLS IT
+     The dwarves ARE dying; the Anvil COULD save them; Branka's utilitarian case is genuinely strong — but the quest stacks the presentation so heavily toward "she's a monster" (the dead House, mad Hespith) that the ends-side is emotionally foreclosed before the argument is fair. The hardest version would make keeping the Anvil genuinely tempting.
+     LAW: when a quest forks on means-vs-ends, the ENDS must be made genuinely tempting — the salvation real, present, and costed, not pre-buried under the villain's atrocities. If the "use the tool" path is obviously monstrous, it is a difficulty setting, not a dilemma (Q126's F1 law, at civilizational scale).
+  X  THE GOLEMS DON'T GET TO SPEAK FOR THEMSELVES ENOUGH
+     The murdered-volunteer horror is delivered mostly through Caridin and Hespith; the individual golems, the actual price, are largely mute scenery. The atrocity is told about more than it is heard from.
+     LAW: the PRICE of an atrocity-tool must have its own voices — the consumed should testify directly, not only through the maker and the madwoman. Let the Amalgamation's uploaded speak for what was done to them (SOMA's abandoned Simon, #34, is the model).
+  X  THE "EVERYONE LIVES" MIDDLE IS A HIDDEN SKILL PUZZLE
+     A player can maneuver a less-bloody resolution, but only via non-obvious dialogue paths; the clean-ish outcome is gated behind meta-knowledge rather than the player's understanding, so most players hit a harder ending without knowing a gentler one existed.
+     LAW: if a gentler resolution exists, its PATH must be discoverable in-world (a clue, a reachable insight), not walkthrough-only — so that the player who does the moral work can find the mercy, per the #26/#155 earned-outcome law.
+
+### #157  THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED BY HER) (Mass Effect 2)
+  X  THE "HELP MORINTH" PATH IS A LOSING TRAP, NOT A REAL CHOICE
+     Siding with Morinth is mechanically inferior (a serial killer imitating a justicar, worse for the squad, no real upside) and the game frames it as the obviously-wrong pick — so the seduction, however well-written, is a choice the player is punished for taking rather than a genuine fork. The dilemma is one-sided.
+     LAW: if a quest offers a seductive-but-wrong choice, the choice must have a REAL upside the player forgoes by refusing it — so that resisting the seduction costs something and the temptation is genuine, not a trap with a loss attached. A seduction you're simply penalized for is a lecture; make the wrong choice genuinely tempting on the merits.
+  X  MORINTH'S PERSONHOOD DIES WITH HER, UNEXAMINED
+     The quest builds Morinth as a genuine person trapped in a lethal nature, then kills her (in the common ending) with no space to sit with what was lost — the "she is a victim too" thread is raised and dropped. The tragedy of the curse is stated but not mourned.
+     LAW: when a quest kills a humanized monster, it must leave ROOM to mourn what the nature made unavoidable — an aftermath beat where the loss is felt, not just tallied. The fold can carry Morinth's kind forward as a grief, not a closed case (Nature of the Beast's #155 law, restated).
+  X  THE SEDUCTION REQUIRES A PERFORMANCE THE PLAYER CAN'T FULLY AUTHOR
+     To bait Morinth the player must pose as her type via fixed dialogue picks; a player roleplaying differently is railroaded into the seduction script or fails the trap. The bait's performance is a corridor.
+     LAW: a bait/undercover quest must let the player author their OWN cover from their established character, with multiple valid performances reaching the trap — not one scripted seduction. The undercover self should be a choice, not a forced role (KCD's monastery, #08, is the model for lived cover).
+
+### #158  HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN FAIL) (Cyberpunk 2077)
+  X  THE RIGHT PATH IS OPAQUE TO THE POINT OF LUCK
+     The lines that reach Barry are unmarked, which is the design's strength — but they are ALSO not fully legible even to a compassionate player; some correct-feeling choices fail, so a player doing genuine emotional work can still lose him to a guess. The line between "unmarked" and "unfair" is crossed here for some.
+     LAW: an unmarked compassion quest must still be FAIR — the reaching lines must be legible to attention (the grief points at the thread; listening reveals the key), so that a player who does the emotional work reliably succeeds, and only the rushing/dismissive player fails. Unmarked must mean "read the person," not "guess the flag" (the #26/#155 earned-outcome fairness law, applied to compassion).
+  X  BARRY IS A VESSEL FOR THE MECHANIC MORE THAN A PERSON
+     Barry exists to be reached-or-lost; his interiority, his friends, his life before the collapse are thin, so the intervention can feel like a compassion CHECK rather than a relationship with a specific man. The stakes are real but the person is sketch.
+     LAW: the life on the table must be a SPECIFIC person the player has reason to know — witnessed before the bottom, given a texture the intervention draws on — so that reaching them is knowing them, not passing a kindness test. The fold and prior encounters can build the person the compassion is for.
+  X  THE FAILURE HAS NO WEIGHT ON THE PLAYER AFTERWARD
+     Barry's death, if it happens, registers as a quiet log entry; the player character does not carry it, no one holds them accountable, and the world does not change. The consequence is real for Barry and weightless for everyone else.
+     LAW: a life lost to the player's failure must LAND on the player and the world — River's grief and blame, the district's memory, a mark the dynast carries. The absence of ceremony is right; the absence of consequence is not. The fold records who the dynast could not reach.

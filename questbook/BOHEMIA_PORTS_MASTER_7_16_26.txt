@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
-1276 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
+1300 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2867,3 +2867,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 5 — CYCLES PRICED IN GENERATIONS [F3's law]
       system: the fold / the three arcs / endgame structure
       Any Bohemia cycle-breaking (standing Edicts #145, purge cycles, the Greymarch-analog if canon builds one) costs generation-denominated currency: a lineage's banked record, an office's continuity, a fold-held debt spent forever. The validator can enforce the shape once cycles enter the .bq grammar: cycle-ending nodes must declare their generational price. Cheap exits teach that the cycle was scener
+
+### #153  A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE BLACKOUT RECONSTRUCTION QUEST [W1, W4, W5 — the core port]
+      system: the release-valve quest layer / the unrecorded ledger / dialogue scenes
+      A Bohemia quest where the dynast loses a night (drink, a fever, a fold-skip, an Amalgamation edit) and must RECONSTRUCT it by interviewing the people it touched — comedy on the surface, a memory-gap detective story underneath, deeply on-theme for a game about the edited record. ``` @TALK blackout_witness speaker=neighbor entry=night_lost @SAY You don't remember. Of course you don't. You were three
+  ->  PORT 2 — THE RECONSTRUCTION THAT ASSEMBLES WRONG [F1's law]
+      system: the missing-persons organ (#141) / the fold
+      The reconstruction can conclude FALSE — the dynast pieces together a version of their lost night that didn't happen, accuses their own blackout self of the wrong grievance, and the fold records both the believed version and the true one. Any later system may surface the gap. A blackout you can only reassemble correctly is a corridor; ours can be honestly misremembered.
+  ->  PORT 3 — ONE GRIEVANCE STICKS [F2's law]
+      system: faction memory / the conduct book (#143)
+      Most of a blackout's harm is comic and resets; ONE grievance persists — a person who stays hurt, a debt the district remembers, a reputation dinged. The release valve earns its lightness by letting exactly one thing not be funny, and the fold carries it.
+  ->  PORT 4 — CHOOSING TO NOT BE PRESENT [F3's law]
+      system: the fold / the dial / conscience
+      When a Bohemia quest offers a VOLUNTARY loss of control (drink to oblivion, elect a memory edit, skip a fold beat), the choosing is itself a recorded act with a cost: the dynast elected absence, and something happened while they were gone that they now own. The voluntary blackout as a moral act, not just a setup.
+
+### #154  THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE (THE CITY THAT FRAMED YOU) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE DISTRICT THAT FRAMES YOU [W1, W2, W3 — the core port]
+      system: the district / faction web / the unrecorded ledger
+      A Bohemia arc where pulling one thread on a quiet wrong turns the DISTRICT itself against the dynast — its enforcers, its powers, its prosperity all one machine defending a buried crime. Investigation reframed as the offense; the district's order revealed as a lie the powerful maintain. ``` @TALK the_warning speaker=fixer entry=thread_pulled @SAY You found a loose brick and started pulling. Stop. 
+  ->  PORT 2 — THE UNTOUCHABLE WITH A LATER THREAD [F1's law]
+      system: the fold / faction memory
+      The arc's real power is beyond the dynast's reach NOW — but the fold plants a discoverable thread by which a later generation can make them answer, or at least a record that NAMES them. Untouchable-by-design carries its own future reckoning, so the cruelty is deliberate, not unfinished.
+  ->  PORT 3 — THE RIGHT TO STOP LOOKING [F2's law]
+      system: conscience / the unrecorded ledger
+      If looking is punished, the dynast may CHOOSE to stop — and live free, ignorant, complicit-by-omission, in a district whose wound stays buried. The fold records the choice to not-know. Forced imprisonment removes the very agency the theme is about; ours keeps it, and prices the looking-away.
+  ->  PORT 4 — NO CLEAN EXIT, WHICHEVER OPPRESSED YOU SERVE [W6, W8]
+      system: the faction web / Liberate-Respect-Become adjacency
+      When the dynast must choose which victim-oppressor to free, both routes STAIN — an uprising's blood or a cover-up's complicity — and the district remembers which. The Pacifist Law still holds a third, harder path (expose the architect at ruinous cost), but the default fork refuses innocence. [PENDING, Paolo's call: the factions.]
+
+### #155  NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MONSTER) (Dragon Age: Origins)
+  ->  PORT 1 — THE CURSE THAT IS A GRIEVANCE [W1, W2, W5 — the core port]
+      system: the Amalgamation / the fold / faction web
+      A Bohemia arc where a "monster" or an Amalgamation-plague turns out to be an old wound in another form — a grievance a prior generation refused to release, still killing people who never committed the original crime. The hunt becomes a truth commission; the resolution is about the WOUND. ``` @TALK the_curse_speaks speaker=lady entry=forest_inverted @SAY You came to kill us. Look closer. We were pe
+  ->  PORT 2 — FORGIVENESS GATED ON UNDERSTANDING, NOT A STAT [F1's law]
+      system: [READ] / the fold / Liberate adjacency
+      The best ending — releasing the wound — is gated on the dynast having RECONSTRUCTED the grievance's full history (the crime, the vengeance, the long feeding), not on a persuasion number. A player who does the moral work can always reach the peace; the check tests knowing. This is Liberate's mechanic: you can only make someone let go if you understand what they're holding.
+  ->  PORT 3 — THE WOUND SHOWN ACROSS GENERATIONS [F2's law]
+      system: the fold / the ~100-year arc
+      The grievance the dynast is asked to help release was WITNESSED — a prior generation's atrocity and its refusal to forgive, seen in play, so a later dynast's forgiveness carries the weight of a history they lived. The fold does what Nature of the Beast could only exposit: it lets the player see the centuries.
+  ->  PORT 4 — THE HUMANIZED FACTION KEEPS ITS FACES [F3's law]
+      system: entities / faction web
+      An Amalgamation-plague or cursed faction that the arc humanizes keeps NAMED individuals present through the resolution, so that choosing to wipe them out costs the weight the reveal promised. Humanize through the ending, not just the twist — the fold remembers each face erased.
+
+### #156  A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE ENDS THAT EAT THE MEANS) (Dragon Age: Origins)
+  ->  PORT 1 — THE ANVIL AS THE AMALGAMATION [W1, W4, W7 — the core port]
+      system: the Amalgamation / the fold / the endgame
+      The Amalgamation IS an Anvil: a technology that promises to save everyone by consuming people, defended by a true believer whose case is genuinely strong. A Bohemia arc where the dynast finds the tool that could end the crisis and learns every unit of it is a murdered volunteer — the means-vs-ends machine at civilizational scale. ``` @TALK the_maker_regrets speaker=caridin entry=anvil_revealed @SA
+  ->  PORT 2 — MAKE THE ENDS TEMPTING [F1's law]
+      system: the endgame / the difficulty of Liberate
+      The "use the tool" path (Become) must be genuinely tempting — the salvation real, present, costed, not pre-buried under obvious monstrosity. If destroying the Amalgamation is obviously correct, it is a difficulty setting; the Liberate ending only means something if Become was a real temptation with a real case. (Q126's honest-devil law, at endgame scale.)
+  ->  PORT 3 — THE CONSUMED TESTIFY [F2's law]
+      system: the Amalgamation / [READ] / SOMA-adjacency (#34)
+      The price of the Amalgamation-Anvil has its OWN voices — the uploaded dead speak directly for what was done to them, not only through the maker and the believer. The dynast hears the consumed, so the atrocity is heard, not just described. SOMA's abandoned self is the model: the price screaming in the chair behind you.
+  ->  PORT 4 — THE GENTLER PATH IS DISCOVERABLE [F3's law]
+      system: the fold / [READ] / Liberate
+      If a less-costly resolution exists, its path is discoverable IN-WORLD — a reachable insight, a reconstructed truth — never walkthrough-only, so the dynast who does the moral work can find the mercy. The #26/#155 earned-outcome law applied to the endgame's hardest fork.
+
+### #157  THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED BY HER) (Mass Effect 2)
+  ->  PORT 1 — THE SEDUCTION THAT TESTS THE PLAYER [W2, W3, W4 — the core port]
+      system: the Amalgamation / dialogue scenes / [READ]
+      A Bohemia arc where the dynast must draw out a threat by posing as its prey, and the threat SEDUCES — makes a real case, offers real power, and can talk the player into the wrong choice in the moment. The Amalgamation's seduction (#34/#36) made intimate: the archive that promises to save the dead, arguing directly to the one sent to end it. ``` @TALK the_seduction speaker=morinth entry=alone_with_
+  ->  PORT 2 — THE SEDUCTIVE CHOICE WITH A REAL UPSIDE [F1's law]
+      system: the fork / Become adjacency
+      The seductive-but-dangerous choice must carry a REAL upside the dynast forgoes by refusing — power, knowledge, a genuine good — so resisting costs something and the temptation is honest, not a trap with a penalty. This is the Become ending's mechanic: siding with the Amalgamation must be genuinely tempting, or Liberate means nothing (#156's F1 law, restated intimate).
+  ->  PORT 3 — ROOM TO MOURN THE CURSED [F2's law]
+      system: the fold / conscience
+      When the dynast kills a humanized threat born into its nature, the arc leaves ROOM to mourn what was unavoidable — an aftermath beat, a fold entry that carries the loss as grief, not a closed case. The Amalgamation's cursed dead are mourned, not just tallied (#155's law).
+  ->  PORT 4 — AUTHOR YOUR OWN COVER [F3's law]
+      system: [READ] / upbringing / dialogue
+      A bait or undercover beat lets the dynast author their cover from their established character — multiple valid performances reaching the trap, not one scripted seduction. The undercover self is a choice, per KCD's lived monastery cover (#08). [PENDING, Paolo's call: the cover types.]
+
+### #158  HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN FAIL) (Cyberpunk 2077)
+  ->  PORT 1 — THE INTERVENTION QUEST [W1, W2, W3 — the core port]
+      system: dialogue scenes / [READ] / the conscience system
+      A Bohemia quest that is one conversation with one life on it — a survivor at the bottom, reachable only by patience and reading them, losable by rushing or the wrong words, with no marker for the right lines and no reload ceremony. The RESCUE-DENIAL register (our staged law) as a playable, failable intervention. ``` @TALK the_bottom speaker=barry entry=wellness_check @SAY I told River I'm fine. I'
+  ->  PORT 2 — UNMARKED BUT FAIR [F1's law]
+      system: [READ] / dialogue
+      The reaching lines are UNMARKED but LEGIBLE to attention — the grief points at the thread, listening reveals the key — so a dynast who does the emotional work reliably succeeds, and only the rushing player fails. Unmarked means "read the person," never "guess the flag." The #26/#155 fairness law, applied to compassion. [PENDING, Paolo's call.]
+  ->  PORT 3 — THE LIFE IS A SPECIFIC PERSON [F2's law]
+      system: the fold / prior encounters
+      The survivor on the table is someone the dynast has REASON to know — witnessed before the bottom, given texture the intervention draws on — so reaching them is knowing them, not passing a kindness check. The fold builds the person the compassion is for, across prior beats.
+  ->  PORT 4 — THE FAILURE LANDS [F3's law]
+      system: the fold / conscience / faction memory
+      A life lost to the dynast's failure LANDS — the grief and blame of those who loved them, the district's memory, a mark carried. The absence of ceremony is kept; the absence of consequence is not. The fold records who the dynast could not reach, and that record has weight. (Contrast Q122: no karma bar, but the world remembers.)

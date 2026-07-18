@@ -1,4 +1,4 @@
-BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]
+BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
 ====================================================================================================
 
 #     TITLE                                                 LINES  CRAFT  FLAWS  PORTS  FLOW  CONV   V2?
@@ -162,3 +162,9 @@ MINING POOL REMAINING: ~72 whole-game teardowns.
 150   WAKING NIGHTMARE (THE GOD WHO LIES AT THE FINALE) (T    188     10      3      5     Y     Y     Y
 151   THE FIRST WALL (THE OUTPOST STORY) (Kenshi)             190     10      3      5     Y     Y     Y
 152   THE GREYMARCH (INHERITING THE MAD GOD'S OFFICE) (The    193     10      3      5     Y     Y     Y
+153   A NIGHT TO REMEMBER (THE BLACKOUT RECONSTRUCTION) (T    173     10      3      4     Y     Y     Y
+154   THE FORSWORN CONSPIRACY / NO ONE ESCAPES CIDHNA MINE    171     10      3      4     Y     Y     Y
+155   NATURE OF THE BEAST (THE CURSE IS A WOUND, NOT A MON    175     10      3      4     Y     Y     Y
+156   A PARAGON OF HER KIND / THE ANVIL OF THE VOID (THE E    174     10      3      4     Y     Y     Y
+157   THE ARDAT-YAKSHI (KILL YOUR DAUGHTER, OR BE SEDUCED     172     10      3      4     Y     Y     Y
+158   HAPPY TOGETHER (YOU CAN TALK HIM DOWN, AND YOU CAN F    169     10      3      4     Y     Y     Y

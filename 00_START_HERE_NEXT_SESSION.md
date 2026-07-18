@@ -131,17 +131,30 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 68 of 150.** (Full-machine total is 109;
-   41 of those are system studies that don't count.)
-   **THE HUNT REDIRECTS:** the numeric backfill queue (#52-94) is mostly
-   MORE system/sandbox studies — converting them does NOT advance the
-   150. The lane is now MINING FRESH INDIVIDUAL QUESTS, one specific
-   quest at a time (the #124-152 pattern): Witcher contracts, specific
-   Fallout/BG3/Kenshi/Disco/Skyrim/etc. quests torn down with CAST +
-   node-tree CONVERSATIONS + BRANCH MAP. 82 more individual quests to
-   150. Backfilling a system file is still worthwhile for PORTS but is a
-   SEPARATE, non-counting activity — do it only if a system's teardown
-   is directly needed, not to chase the number.
+   **INDIVIDUAL-QUEST COUNT: 74 of 150.** (Full-machine total 115; 41
+   are system studies that don't count.)
+   **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
+   #153+ pattern), NOT converting the #52-94 system queue (those don't
+   advance the 150). Fresh mines land as NEW files #153+, full template
+   (header + Game + 0 CORE IDEA + CAST + node-tree CONVERSATIONS with a
+   parseable @TALK block + BRANCH MAP w/ **COUNT:** + W1-W10 + >=1 flaw
+   in **F# — T.** ... **LAW FOR BOHEMIA:** ... form + >=1 **### PORT #**
+   w/ **System:** + *END #N*). WORKFLOW PER BATCH: write files ->
+   `python3 tools/bohemia_questbook_archive.py N N ...` (archive, else
+   the newest-file gate check fails) -> `python3
+   tools/bohemia_questbook_extract.py N N ...` (masters) -> gate -> commit.
+   The .bq @TALK format that parses clean: @TALK id speaker=X entry=Y /
+   @SAY / @OPT "..." [gate: none] -> target / @NOVERB "..." / @END.
+   BATCH 1 (7/17, #153-158): A Night to Remember (Skyrim, blackout
+   reconstruction), Cidhna Mine (Skyrim, the city that framed you),
+   Nature of the Beast (DA:O, the curse is a wound), Anvil of the Void
+   (DA:O, the Amalgamation IS an Anvil), the Ardat-Yakshi (ME2, kill your
+   daughter or be seduced), Happy Together (CP2077, talk him down or
+   fail). 76 more individual quests to 150. RICH UNMINED VEINS in the
+   catalogue: Skyrim (Whispering Door, Blood on the Ice, Boethiah done),
+   BG3 (Auntie Ethel, House of Grief), ME2 loyalty missions (Thane,
+   Mordin, Jack, Zaeed), DA:O (Broken Circle, Urn of Sacred Ashes),
+   Witcher contracts, Fallout 4 (Silver Shroud, Cabot House), NV, KOTOR.
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
