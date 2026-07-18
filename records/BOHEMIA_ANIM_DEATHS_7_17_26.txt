@@ -227,3 +227,19 @@ BANNED N/S falls). Softened here to a LEAN: floor |cos th|>=0.5 so N/S get a
 diagonal cant -- still up/down-biased, but enough spread to read as lying.
 MEASURED: all 8 freeze flat by ~0.85s, each in a distinct compass orientation,
 none standing. SHIPPED.
+
+=== UPDATE 7/18 (l): NO DISLOCATED ARMS — rigid-length arm chain at render ===
+Paolo: "almost done with headshot two -- only thing is I need to NOT see the arms
+get dislocated. I really hate to see that."
+ROOT CAUSE: the omni projection + the fast tumble change a bone's on-screen length
+(the projection scales the horizontal share by cos th; the MAXMOVE cap lets leaf
+joints lag a frame). The ragdoll, unlike v1, never re-normalised bones at render,
+so the arm could stretch and read as pulled out of its socket.
+FIXED (v1's RIGID LIMB LAW, arms only): after the projection + centring, rgPose
+re-normalises the arm chain from the neck OUTWARD every frame -- neck->shL->elL->
+handL and neck->shR->elR->handR -- keeping the sim's dangle DIRECTION but forcing
+each bone back to its exact rest length. The shoulder can't leave the neck and the
+elbow/hand can't stretch, so the arm stays whole through the entire fall. Legs and
+spine (the compass slump reads right) left untouched.
+MEASURED (8 dirs x 5 time samples motion strip): arm bones hold constant length
+end to end, no stretch at any frame, arms still swing/dangle naturally. SHIPPED.
