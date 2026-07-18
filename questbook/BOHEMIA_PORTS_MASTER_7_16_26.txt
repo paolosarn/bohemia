@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]
-1492 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]
+1516 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3623,3 +3623,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE UNCERTAINTY IS OWNED [F3's law]
       system: the endings / the unrecorded ledger
       If a quest's point is that no worldview can be confirmed right, the un-referee-ability is OWNED as the condition — the absence of a correct answer made the lesson — so it reads as "there was no shared reality to be right about," not a withheld solution (#195's the-ambiguity-must-be-owned law).
+
+### #207  THE JUSTICAR AND HER DAUGHTER (A HOLY WARRIOR SWORN TO KILL HER OWN CHILD, WHO IS A MONSTER SHE MADE) (Mass Effect 2)
+  ->  PORT 1 — THE CODE THAT FORCES YOU TO DESTROY YOUR OWN [W1, W3, W4 — the core port]
+      system: the fold / the dynasty spine / companions
+      A Bohemia arc where a character bound by an absolute CODE (a law, an oath, a dynastic duty) is forced to destroy someone they love — a child, an heir — who is both a genuine danger AND a victim of a nature the character's own blood created, with the very principle that makes them trustworthy being exactly what forbids mercy, and a seductive alternative tempting the dynast to trade the person of pr
+  ->  PORT 2 — THE MONSTER'S VICTIM-HALF WEIGHS [F1's law]
+      system: companions / the fold
+      If a quest's monster is also a victim of their own nature, the VICTIM half is given real weight — the un-chosen curse, the lifetime hunted, made felt — so destroying them carries tragedy, not just justice (#177's the-monster-must-also-be-a-victim law).
+  ->  PORT 3 — THE TEMPTATION IS REACHABLE [F2's law]
+      system: companions / the fold
+      If a quest's point is a temptation to trade principle for thrill, the temptation is AVAILABLE enough to actually tempt — offered, not locked behind an invisible gate — so the test is taken, not skipped (#191's the-temptation-must-tempt law).
+  ->  PORT 4 — THE CODE'S WORTH IS SHOWN [F3's law]
+      system: the fold / factions / the dynasty spine
+      If a quest turns on an absolute code being both admirable and terrible, the code's VALUE is shown alongside its cost — why the rigidity is trustworthy, not just cruel — so its collision with love is a tragedy of a good principle (#201's the-rigidity-must-have-worth law).
+
+### #208  HONEST HEARTS (A REFORMED WAR CRIMINAL TURNED PREACHER ASKS WHETHER A MAN CAN OUTRUN WHAT HE WAS) (Fallout: New Vegas — Honest Hearts (2011 DLC))
+  ->  PORT 1 — THE REPENTANCE YOU CAN'T PROVE [W1, W2, W4 — the core port]
+      system: the conduct book / the conscience system / the fold
+      A Bohemia arc where a genuinely reformed monster (a former killer, a dynast with a bloody past) cannot tell whether their continued violence is JUSTICE or RELAPSE — the same act reading as either depending on a heart no one can access — and the dynast tips them toward a mercy they could righteously decline (evidence of change) or a justified slaughter (evidence they never left), with no certainty 
+  ->  PORT 2 — THE OLD SELF STAYS CLOSE [F1's law]
+      system: the conscience system / companions / the fold
+      If a quest's tension is whether a reformed monster changed, the DANGER stays live — the old self visibly close under the charisma — so the player feels the risk of relapse, not just the appeal of redemption (#186's the-old-self-must-stay-close law).
+  ->  PORT 3 — REDEMPTION AND RELAPSE BOTH COST [F2's law]
+      system: the conduct book / factions / the endings
+      If a quest's choice is redemption vs relapse, both carry real CONSEQUENCE — mercy that risks something, slaughter that stains something — so it's a weighted act, not a toggle (#197's the-choice-must-cost law).
+  ->  PORT 4 — THE UN-PROVABILITY IS OWNED [F3's law]
+      system: the conduct book / the conscience system
+      If a quest's point is that redemption is unprovable, the un-provability is OWNED as the truth — the impossibility of certainty made the lesson — so it reads as "no one can see the heart," not withheld closure (#195's the-ambiguity-must-be-owned law).
+
+### #209  DREAM ON (A COUPLE ARE BEING REWRITTEN IN THEIR SLEEP AND THE ONLY WAY TO PROVE IT MIGHT BE TO STOP) (Cyberpunk 2077)
+  ->  PORT 1 — THE UNDETECTABLE CONTROL, THE USELESS TRUTH [W1, W2, W4 — the core port]
+      system: the Amalgamation / the unrecorded ledger / factions
+      A Bohemia arc where someone (a dynast, an ally, a faction leader) is being REWRITTEN so completely by a hidden power that they cannot detect it — their memories and will authored nightly, the edited self feeling exactly like the real self — and the dynast uncovers it only to find the puppeteer faceless and unreachable and the truth useless: telling frees no one and spreads the danger, keeping sile
+  ->  PORT 2 — THE FACELESSNESS IS THE HORROR [F1's law]
+      system: the Amalgamation / the unrecorded ledger
+      If a quest denies a confrontable villain on purpose, the FACELESSNESS is framed as the horror, not a gap — the unreachability made legibly the point — so it reads as "you can never find the hand," not an unfinished plot (#182's the-absence-must-be-owned law).
+  ->  PORT 3 — THE HELPLESSNESS CARRIES EMOTIONAL WEIGHT [F2's law]
+      system: the Amalgamation / companions
+      If a quest's point is the dynast's helplessness, the EMOTIONAL stakes carry what the mechanical ones can't — the horror and the burden made felt — so powerlessness is devastating, not empty (#205's the-powerlessness-must-weigh law).
+  ->  PORT 4 — BOTH OPTIONS ARE GENUINELY BAD [F3's law]
+      system: the conscience system / the Amalgamation
+      If a quest's choice is between a useless truth and a merciful silence, BOTH are genuinely bad — telling cruel and futile, keeping an abandonment — so neither is the clean answer and the uselessness of the knowledge lands (#181's both-options-must-be-bad law).
+
+### #210  THE MASTER'S CATHEDRAL (A PROPHET OFFERS TO END ALL DIVISION BY MELTING EVERYONE INTO ONE, AND HE IS RIGHT THAT IT WOULD WORK) (Fallout)
+  ->  PORT 1 — THE COHERENT UTOPIA OF FORCED UNITY [W1, W2, W3 — the core port]
+      system: the Amalgamation / the endings / factions
+      A Bohemia antagonist (the Amalgamation itself, a prophet, a faction visionary) whose plan to end all division by MERGING everyone into one is sincere, internally coherent, and seductive — correctly diagnosing the sickness of difference-driven conflict — and the dynast can defeat them by force OR by finding the fatal flaw (the forced unity is sterile, a dead end that cannot perpetuate itself) and m
+  ->  PORT 2 — THE ARGUMENT-WIN IS REACHABLE [F1's law]
+      system: the Amalgamation / the endings
+      If a quest's profound victory is winning by argument, the KNOWLEDGE needed is gatherable and its relevance discoverable — the path signposted enough to be reachable — so the truth-win isn't locked away (#179's the-better-path-must-be-findable law).
+  ->  PORT 3 — THE PROPHET'S SINCERITY IS ESTABLISHED [F2's law]
+      system: the Amalgamation / factions
+      If a climax is an antagonist undone by truth because they're sincere, the SINCERITY is established first — the genuine aim shown — so the self-destruction is earned, not a convenient collapse (#196's the-belief-must-be-real law).
+  ->  PORT 4 — THE FLAW CARRIES ITS METAPHOR [F3's law]
+      system: the Amalgamation / the endings
+      If a quest defeats a utopia with a practical flaw that is also a metaphor, the METAPHOR is carried alongside the literal — the flaw meaning something about difference and life, not just a gotcha — so the victory is thematic (#184's the-flaw-must-mean-something law).
+
+### #211  THE DEVIL'S BARGAIN (A HERO SOLD HIS SOUL TO SAVE HIS CITY AND THE BILL COMES DUE AS HIS FATHER) (Baldur's Gate 3)
+  ->  PORT 1 — THE IDENTITY FINANCED BY A HIDDEN PRICE [W1, W3, W4 — the core port]
+      system: the Amalgamation / the fold / companions
+      A Bohemia arc where a character's admired identity (a hero, a dynast, a benefactor) is secretly FINANCED by a hidden debt — a bargain made in genuine good faith that did real good — and when the debt-holder calls it in, the price demanded is the person the character loves most, so the good-faith deal becomes a weapon against their own blood, and no option keeps the clean identity built on the conc
+  ->  PORT 2 — THE BARGAIN'S GOOD FAITH IS ESTABLISHED [F1's law]
+      system: the Amalgamation / companions / the fold
+      If a quest's tragedy is a good-faith bargain turned weapon, the GOODNESS of the original deal is established — the desperate love, the real good it did — so the reckoning is a tragedy of noble intent, not a punishment for foolishness (#189's the-bargain-must-be-sympathetic law).
+  ->  PORT 3 — THE LOVED ONE IS VIVID [F2's law]
+      system: companions / the fold
+      If a quest demands sacrificing a loved one, that person is VIVID and the relationship real — the love and estrangement shown — so the sacrifice cuts, rather than being a token on a scale (#204's the-loved-one-must-be-real law).
+  ->  PORT 4 — THE THIRD PATH STILL COSTS [F3's law]
+      system: the Amalgamation / the fold / the endings
+      If a quest offers a third path out of a terrible bargain, it carries its OWN irreplaceable cost — no clean escape — so it's a different sacrifice, not a defusing of the dilemma (#189's no-clean-exit-from-the-bargain law).
+
+### #212  TRANQUILITY LANE (A WHOLE TOWN IS TRAPPED IN A 1950s PARADISE RUN BY A SADIST, AND FREEING THEM MEANS KILLING THEM) (Fallout 3)
+  ->  PORT 1 — THE FALSE PARADISE WHOSE ONLY EXIT IS DEATH [W1, W2, W6 — the core port]
+      system: the Amalgamation / the endings / factions
+      A Bohemia site where a perfect, comforting paradise (an Amalgamation idyll, a preserved town, a simulated heaven) is a PRISON holding real people under a sadist or a system, its beauty the instrument of its cruelty, and the only liberation available KILLS the captives — so escape and mercy-killing collapse into one act, and the dynast is made complicit in the cruelty to progress, then made the kil
+  ->  PORT 2 — THE KILLING ISN'T LAUNDERED [F1's law]
+      system: the endings / the Amalgamation
+      If a quest's liberation is also a killing, the DEATH is felt as death, not laundered into a clean win — the residents' names and the massacre held — so mercy-as-slaughter lands as the horror it is (#180's the-cost-must-not-be-laundered law).
+  ->  PORT 3 — THE COMPLICITY HAS AN AUTHOR [F2's law]
+      system: the Amalgamation / factions
+      If a quest forces the dynast into complicity, the forcing is legibly the VILLAIN'S design — a deliberate corruption, not arbitrary cruelty — so complicity indicts the sadist and implicates the player (#193's the-complicity-must-have-an-author law).
+  ->  PORT 4 — THE CAPTIVES ARE VIVID [F3's law]
+      system: the Amalgamation / the endings / companions
+      If a quest's climax is mercy-killing captives, those captives are VIVID — named, known, their suffering witnessed — so the fail-safe is felt as ending specific people, not clearing a level (#204's the-victims-must-be-known law).

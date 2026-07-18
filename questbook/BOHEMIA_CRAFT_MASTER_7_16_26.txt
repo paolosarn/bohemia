@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]
-2067 findings / 206 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]
+2127 findings / 212 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4543,3 +4543,135 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Someone choosing the other worldview, equally sure, saves and loses different people — the contingency of the ledger.
   W10 IT IS INCOMPATIBLE-CURES UNDER A CLOCK IN ONE PLAGUE
       Committing to a contested reality to save anyone, timed in corpses — Bohemia's whole question of irreconcilable worldviews and time-as-body-count, in a dying town.
+
+### #207  THE JUSTICAR AND HER DAUGHTER (A HOLY WARRIOR SWORN TO KILL HER OWN CHILD, WHO IS A MONSTER SHE MADE) (Mass Effect 2)
+  W1  THE CODE FORCES THE KILL
+      Samara's absolute oath makes destroying her own daughter the only permitted act — the principle against the blood, which is the whole engine.
+  W2  THE MONSTER IS ALSO A VICTIM
+      Morinth is a real serial killer and a child born wrong through the mother's blood — both at once, never simple.
+  W3  THE MOTHER MADE THE MONSTER
+      The condition came from Samara's bloodline — the parent's own nature created the thing she must destroy (#177).
+  W4  THE VIRTUE IS WHAT DAMNS THE CHILD
+      The same code that makes Samara trustworthy is what forbids sparing Morinth — the admirable thing is the fatal thing.
+  W5  THE OFFER TESTS THE PLAYER
+      Morinth's trade (kill the mother, take the killer) tests whether the player values principle or thrill — the third blade.
+  W6  NO ONE ALL-THREE-SURVIVES
+      The removed "spare the daughter, keep the mother" verb is the spine: the code and the daughter's nature both refuse compromise.
+  W7  KILLING HER IS JUST AND TRAGIC
+      Morinth is a murderer who must be stopped and a daughter who never chose her nature — the choice is both at once.
+  W8  THE LAWLESS THING IS SEDUCTIVE
+      Morinth is more powerful and thrilling than the austere mother — the temptation to trade virtue for excitement is real.
+  W9  400 YEARS OF A PARENT'S HUNT
+      The sheer duration makes the code's cost immense — a mother bound for centuries to destroy her child.
+  W10 IT IS THE-CODE-VERSUS-THE-BLOOD IN ONE ROOM
+      An absolute principle forcing a parent to kill their own child — Bohemia's whole dynasty question of duty against love, in a three-body climax.
+
+### #208  HONEST HEARTS (A REFORMED WAR CRIMINAL TURNED PREACHER ASKS WHETHER A MAN CAN OUTRUN WHAT HE WAS) (Fallout: New Vegas — Honest Hearts (2011 DLC))
+  W1  REPENTANCE IS UNFINISHED AND UNPROVABLE
+      Joshua can't tell if he changed — the reckoning has no inside-accessible answer, which is the whole engine.
+  W2  THE SAME ACT IS JUSTICE OR RELAPSE
+      His violence could be righteous protection or the monster in scripture — identical from outside, decided by an invisible heart.
+  W3  THE JUSTIFIED VIOLENCE IS THE DANGER
+      A monster who can justify his killing is more lost than one who admits it — the defensible slaughter is the real trap.
+  W4  THE TEST IS THE MERCY YOU CAN DECLINE
+      Real change is the righteous mercy you could easily refuse and extend anyway — the removed "prove he changed" verb is the spine.
+  W5  HE WAS REALLY A MONSTER
+      The burned man's history is genuine atrocity — the redemption is steep because the sin was real.
+  W6  THE ENEMY IS REALLY DANGEROUS
+      The White Legs are actual killers — sparing them costs something, which makes mercy a real risk, not a free virtue.
+  W7  NO ONE GETS CERTAINTY
+      Neither Joshua nor the player ever confirms the change — the heart stays unknowable, the honest condition of repentance.
+  W8  THE CHARISMA IS A TRAP
+      Joshua's appeal tempts the player to trust him — the danger of a likable reformed monster.
+  W9  HE PUNISHES HIS OWN DOUBT
+      The removed certainty means Joshua must keep choosing mercy without ever being reassured — repentance as a permanent test.
+  W10 IT IS CAN-YOU-OUTRUN-YOURSELF IN ONE PREACHER
+      A reformed monster who can't prove he changed — Bohemia's whole conduct-book question of repentance and relapse, in a burned man's war.
+
+### #209  DREAM ON (A COUPLE ARE BEING REWRITTEN IN THEIR SLEEP AND THE ONLY WAY TO PROVE IT MIGHT BE TO STOP) (Cyberpunk 2077)
+  W1  THE CONTROL IS UNDETECTABLE
+      The Peralezes are rewritten so completely they can't know it — the most total control, which is the whole engine.
+  W2  KNOWING DOESN'T CUT THE STRINGS
+      The truth frees no one; detecting the cage doesn't open it — the removed "expose them" verb is the spine.
+  W3  THE ENEMY IS FACELESS
+      No boss, no server to destroy, no confrontation — the hand you can never find, which denies all catharsis.
+  W4  THE TRUTH IS USELESS AND DANGEROUS
+      The player's only power is a knowledge that helps no one and endangers everyone who holds it.
+  W5  FEELING FREE IS THE PROOF OF THE CAGE
+      The couple's conviction that they act freely is the surest sign of total control — the horror's cruelest inversion.
+  W6  THE VICTIMS ARE SINCERE
+      The Peralezes genuinely want to do good — their idealism, authored by their owner, makes the violation deeper.
+  W7  THE REWRITE IS NIGHTLY AND TOTAL
+      Every night undoes any progress — there is no accumulating toward freedom, only endless re-authoring.
+  W8  TELLING SPREADS THE TARGET
+      Speaking the truth endangers the teller and the told — knowledge as contagion, not liberation.
+  W9  THE MERCY IS ABANDONMENT
+      Keeping the truth leaves them controlled and content — even kindness is a form of leaving them to it.
+  W10 IT IS REWRITE-THE-MIND WITHOUT A VILLAIN
+      Total control by a hand you can't find — Bohemia's whole Amalgamation question of the authored self, with no boss to kill.
+
+### #210  THE MASTER'S CATHEDRAL (A PROPHET OFFERS TO END ALL DIVISION BY MELTING EVERYONE INTO ONE, AND HE IS RIGHT THAT IT WOULD WORK) (Fallout)
+  W1  THE VILLAIN'S DIAGNOSIS IS RIGHT
+      The Master correctly names humanity's sickness (war rooted in difference) — his being partly right is what makes him dangerous and the whole engine.
+  W2  THE UTOPIA IS SINCERE AND COHERENT
+      Forced unity to end conflict is an internally consistent, well-meant plan — not malice, which makes it seductive.
+  W3  YOU WIN BY ARGUMENT, NOT FORCE
+      The deepest victory is making the prophet see the flaw — out-thinking the god of flesh, not out-fighting him (#12).
+  W4  THE FLAW IS PRACTICAL, NOT MORAL
+      The Unity is sterile — a dead end — which is the truest argument against forced sameness: it cannot live.
+  W5  THE SINCERE CAN BE UNDONE BY TRUTH
+      The Master destroys himself because he genuinely wanted to save life — a cynic would deny the proof; a true believer can't.
+  W6  FORCED SAMENESS CAN'T BE FIXED
+      The removed "make the Unity work" verb is the spine: sterility is intrinsic to erasing difference; the dream cannot be repaired.
+  W7  THE VILLAIN IS REFRAMED, NOT JUST SLAIN
+      The profound path makes him a wrong prophet to correct, not a monster to kill — a deeper kind of victory.
+  W8  DIFFERENCE IS THE SOURCE OF LIFE
+      Erasing it erases the future — the metaphor under the biology, the generative power of difference.
+  W9  THE DREAM IS GENUINELY TEMPTING
+      End all war by making everyone one — the appeal is real, which is why the flaw must be this precise.
+  W10 IT IS MELT-EVERYONE-INTO-ONE IN ONE PROPHET
+      A coherent utopia of erased difference, defeated by its own sterility — Bohemia's whole Amalgamation question of forced unity, argued to death.
+
+### #211  THE DEVIL'S BARGAIN (A HERO SOLD HIS SOUL TO SAVE HIS CITY AND THE BILL COMES DUE AS HIS FATHER) (Baldur's Gate 3)
+  W1  THE HEROISM IS MORTGAGED
+      Wyll's celebrated good is financed by a hidden soul-debt — the identity built on a secret price, which is the whole engine.
+  W2  THE BARGAIN WAS GOOD FAITH
+      He sold his soul out of desperate love for his city, and it worked — the nobility of the deal makes the reckoning crueler.
+  W3  THE DEBT DOESN'T CARE ABOUT INTENT
+      The good he did was real; the debt is real; noble intent buys nothing when the note is called.
+  W4  THE PRICE IS WHAT HE LOVES
+      The pact demands his father — the bargain's ultimate leverage is the people he loves, aimed at his own blood.
+  W5  NO OPTION KEEPS THE CLEAN HERO
+      The removed "keep the heroic life without paying" verb is the spine: the borrowed identity can't survive the bill.
+  W6  THE CHOICE IS TRULY TERRIBLE
+      Soul or father, both irreplaceable — a genuine dilemma with no costless answer.
+  W7  THE PACT IS ONGOING OWNERSHIP
+      Not a one-time trade but a leash — the bargain reveals it was always ownership, callable anytime.
+  W8  THE IDENTITY WAS A LIE OF OMISSION
+      The admired hero never told anyone the price — the reckoning exposes the mortgage under the nobility.
+  W9  THE THIRD PATH STILL COSTS
+      Breaking the pact shatters the heroic self and exposes the secret — no clean escape, only a different sacrifice.
+  W10 IT IS SOUL-DEBT-COMES-DUE IN ONE HERO
+      A good-faith bargain turned weapon against love — Bohemia's whole Amalgamation question of hidden prices and identities that are only borrowed, in a devil's note.
+
+### #212  TRANQUILITY LANE (A WHOLE TOWN IS TRAPPED IN A 1950s PARADISE RUN BY A SADIST, AND FREEING THEM MEANS KILLING THEM) (Fallout 3)
+  W1  THE PARADISE IS THE PRISON
+      The perfect suburb is a torture chamber; its beauty is the cage, not its opposite — the whole engine of the horror.
+  W2  LIBERATION IS DEATH
+      The only exit for the residents kills them; escape and mercy-killing are the same act — the sharpest thing the quest says.
+  W3  THE CAPTIVES CAN'T LEAVE ALIVE
+      Held too long, remade too completely — no waking and walking out; only the off switch frees them.
+  W4  THE PLAYER IS MADE COMPLICIT
+      To advance, the player enacts the sadist's cruelties — the villain makes an instrument of the liberator.
+  W5  THE SADIST IS BORED, NOT GRAND
+      The overseer's cruelty is the pettiness of centuries of boredom — evil as amusement, intimate and small.
+  W6  THERE IS NO LIVING EXIT
+      The removed "free them and let them live" verb is the spine: some prisons can't be escaped alive.
+  W7  THE MERCY IS THE HARDEST KIND
+      Release can only be delivered as an ending — the cruelest form of compassion.
+  W8  THE BEAUTY IS THE HORROR'S TOOL
+      The idyll's sunshine serves the cruelty — the false paradise weaponizes its own perfection.
+  W9  THE RESIDENTS ARE NEIGHBORS
+      Named people, a child, a couple — not faceless prisoners, which makes the fail-safe a specific slaughter.
+  W10 IT IS THE FALSE-PARADISE-PRISON IN ONE SIM
+      A perfect lie whose only mercy is the off switch — Bohemia's whole Amalgamation question of comfort-as-cage, where freedom is death.

@@ -145,7 +145,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 122 of 150.** (Full-machine total 163; the
+   **INDIVIDUAL-QUEST COUNT: 128 of 150.** (Full-machine total 169; the
    rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -275,16 +275,26 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    and are right not to trust you; your hurt is a privilege), The Bull
    and the Bachelor (Pathologic — two healers, incompatible diagnoses of
    the disaster; commit to one reality and the other's people die, timed
-   in corpses). **INDIVIDUAL-QUEST COUNT: 122 of 150.** 28 to go.
-   VEINS STILL DEEP: ME2 (the Sun/IFF derelict, Samara/Morinth done,
-   Thane done), Witcher (the Whispering Hillock done, Ghosts of the
-   Past), FO4 (the Nucleus/Far Harbor, Kid in a Fridge, the Cabot done),
-   NV (Ghost Town Gunfight, I Could Make You Care, Beyond the Beef done),
-   KOTOR (the Sand People, the rakghoul serum, Korriban done), Skyrim
-   (the Wolf Queen Potema, the Daedric quests), Disco (the Deserter,
-   Cuno, the Hardie Boys), Pathologic (the three healers, the
-   Bull/Bachelor split), Fallout 3 (Tranquility Lane done, the Replicated
-   Man), CP2077 (the Voodoo Boys, Sam Bright/Riders on the Storm).
+   in corpses). **INDIVIDUAL-QUEST COUNT: 122 of 150.**
+   BATCH 10 (7/18, #207-212): The Justicar and the Ardat (ME2, Samara —
+   an absolute code forces a mother to kill her serial-killer daughter,
+   a monster her own blood made), Honest Hearts (NV, Joshua Graham — a
+   repentant war criminal who can't prove his violence is justice not
+   relapse), Dream On (CP2077, the Peralez — a couple rewritten nightly
+   by a faceless power; the truth frees no one), The Master's Cathedral
+   (Fallout 1 — a sincere prophet's forced-unity utopia defeated by its
+   own sterility; argue him to death), The Devil's Bargain (BG3, Wyll —
+   a soul sold in good faith to save a city, the bill due as his father),
+   Tranquility Lane (FO3 — a false paradise-prison whose only exit is
+   death; liberation and mercy-killing the same act). **INDIVIDUAL-QUEST
+   COUNT: 128 of 150.** 22 to go.
+   VEINS STILL DEEP: ME2 (Samara/Morinth done, Thane done, the IFF done),
+   Witcher (Ghosts of the Past, the Last Wish done), FO4 (Far Harbor's
+   Acadia synths, the Cabot done), NV (Beyond the Beef done, Dead Money's
+   Christine/Dog), KOTOR (the rakghoul serum, Korriban done), Skyrim
+   (the Daedric quests, the Ebony Warrior), Disco (Cuno, the Hardie Boys),
+   BG3 (Shadowheart's Shar/Selune choice, the Emperor), Planescape
+   (Deionarra, the Nameless One's past incarnations).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
