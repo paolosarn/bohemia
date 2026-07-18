@@ -52,23 +52,25 @@ if (typeof genCoat === 'function') {
   fill(20, 23, 18, 33, 5);  fill(32, 35, 18, 33, 6);
   fill(24, 27, 33, 48, 9);  fill(28, 31, 33, 48, 10);
   fill(24, 27, 49, 52, 11); fill(28, 31, 49, 52, 12);
-  let coat = null;
-  try { coat = genCoat(g, { ramp: { dk: [40, 30, 20], mid: [90, 70, 50], lt: [140, 110, 80] }, len: 0.86, open: 1 }); }
-  catch (e) { console.log('  run error: ' + e.message); }
-  ok('genCoat renders on a body', coat && typeof coat === 'object');
-  if (coat) {
-    let sx = 0, sc = 0; for (let i = 0; i < g.length; i++) if (g[i] === 4) { sx += i % CW; sc++; }
-    const cx = Math.round(sx / sc);
-    let leftFlap = 0, rightFlap = 0, centerCoat = 0;
-    for (let y = 20; y <= 46; y++) for (let x = 0; x < CW; x++) {
-      const has = coat[y * CW + x] !== undefined;
-      if (x < cx - 1 && has) leftFlap++;
-      if (x > cx + 1 && has) rightFlap++;
-      if (Math.abs(x - cx) <= 1 && has) centerCoat++;
-    }
-    ok('coat has a left front flap', leftFlap > 10);
-    ok('coat has a right front flap', rightFlap > 10);
-    ok('coat FRONT IS OPEN (center slit unpainted -> clothes underneath show)', centerCoat < 8);
+  const RAMP = { dk: [40, 30, 20], mid: [90, 70, 50], lt: [140, 110, 80] };
+  const center = (coat) => { let sx = 0, sc = 0; for (let i = 0; i < g.length; i++) if (g[i] === 4) { sx += i % CW; sc++; } return Math.round(sx / sc); };
+  const band = (coat, cx) => { let left = 0, right = 0, ctr = 0;
+    for (let y = 20; y <= 46; y++) for (let x = 0; x < CW; x++) { const has = coat[y * CW + x] !== undefined;
+      if (x < cx - 1 && has) left++; if (x > cx + 1 && has) right++; if (Math.abs(x - cx) <= 1 && has) ctr++; }
+    return { left, right, ctr }; };
+  // FRONT (S): must be open — two flaps + an unpainted center slit
+  let front = null; try { front = genCoat(g, { ramp: RAMP, len: 0.86, open: 1, dir: 'S' }); } catch (e) { console.log('  run error(S): ' + e.message); }
+  ok('genCoat renders front-facing', front && typeof front === 'object');
+  if (front) { const cx = center(front), b = band(front, cx);
+    ok('front coat has a left flap', b.left > 10);
+    ok('front coat has a right flap', b.right > 10);
+    ok('front coat is OPEN (center slit unpainted -> clothes show)', b.ctr < 8);
+  }
+  // PROFILE (E): must be SOLID — no slit down the side/legs (Paolo 7/18)
+  let side = null; try { side = genCoat(g, { ramp: RAMP, len: 0.86, open: 1, dir: 'E' }); } catch (e) { console.log('  run error(E): ' + e.message); }
+  ok('genCoat renders profile', side && typeof side === 'object');
+  if (side) { const cx = center(side), b = band(side, cx);
+    ok('profile coat is SOLID (no open center slit in the side view)', b.ctr > 12);
   }
 }
 console.log(`\n=== OPEN-COAT GATE: ${p} passed, ${f} failed ===`);

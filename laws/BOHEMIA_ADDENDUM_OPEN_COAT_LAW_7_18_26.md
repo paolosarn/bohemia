@@ -30,6 +30,10 @@ under-layer (faction color, salvage, whatever Paolo rules) stays visible.
 - **The coat still drapes** (OPEN-COAT does not repeal the v2 drape): one A-line
   panel from the hips to the ankle, filling the gap between the legs via the
   additive buildFrame preview hook.
+- **FRONT-FACING ONLY** (Paolo 7/18, same law): the open slit shows only when you
+  FACE the front (S / SE / SW). From the side or back (E / W / N / NE / NW) a
+  trenchcoat is a SOLID silhouette — a slit running down a profile is wrong. The
+  gen reads the render facing (`curDir`) and closes the coat for non-front views.
 
 ## The gate (a law without a machine gate is not enforced)
 `gates/open_coat_gate.js` (wired into `bohemia_gates.py`, always-run). It does not
