@@ -1,4 +1,4 @@
-BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]
+BOHEMIA QUESTBOOK GAP MATRIX — regen 7/16/26 after BATCH 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]
 ====================================================================================================
 
 #     TITLE                                                 LINES  CRAFT  FLAWS  PORTS  FLOW  CONV   V2?
@@ -204,3 +204,9 @@ MINING POOL REMAINING: ~72 whole-game teardowns.
 192   THE FORSWORN CONSPIRACY (PULL ONE THREAD IN A CLEAN     166     10      3      4     Y     Y     Y
 193   SINNERMAN (A MURDERER PAYS TO BE CRUCIFIED AND ASKS     169     10      3      4     Y     Y     Y
 194   THE CAVE OF DREAMS (WALK BACK INTO YOUR OWN CHILDHOO    171     10      3      4     Y     Y     Y
+195   THE DESERTER (THE MURDERER IS A DYING TRUE BELIEVER     169     10      3      4     Y     Y     Y
+196   THE NUCLEUS (A CULT WORSHIPS THE RADIATION THAT IS K    170     10      3      4     Y     Y     Y
+197   GHOST TOWN GUNFIGHT (A TOWN OF EX-CONVICTS DEFENDS I    169     10      2      4     Y     Y     Y
+198   THE SAND PEOPLE (LEARN THE LANGUAGE OF THE SAVAGES A    169     10      3      4     Y     Y     Y
+199   THE WOLF QUEEN (STOP A DEAD TYRANT FROM BEING BORN A    168     10      2      4     Y     Y     Y
+200   THE REPLICATED MAN (HUNT AN ESCAPED ANDROID AND DECI    170     10      3      4     Y     Y     Y

@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]
-1947 findings / 194 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]
+2007 findings / 200 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4281,3 +4281,133 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Re-entering your own childhood as a place makes the psychological physical — the mindscape as a walkable quest.
   W10 IT IS THE FOLD'S UPBRINGING IN ONE CAVE
       What the past made you and what you carry out of it — Bohemia's whole inheritance-and-forging question, walked back through in the flesh.
+
+### #195  THE DESERTER (THE MURDERER IS A DYING TRUE BELIEVER WHO SHOT THE WRONG THING FOR THE RIGHT REASON) (Disco Elysium)
+  W1  THE ANSWER IS A PERSON, NOT A PLOT
+      After every structural theory, the murderer is one lonely old man — the world was never as structured as the district assumed, which is the whole engine.
+  W2  THE FAITH OUTLIVED ITS CAUSE
+      Iosef kept believing fifty years after his revolution died — belief past any object, the ghost faith in one body.
+  W3  THE MOTIVE IS BOTH
+      Ideology and jealousy, the same shot — the grand murder and the petty one inseparable, which is the sharpest thing the quest says.
+  W4  FIFTY YEARS ALONE CURDLED IT
+      Unspent conviction fermented into resentment — the rot that time and isolation do to a kept faith.
+  W5  HE CAN'T SEPARATE HIS OWN REASONS
+      The removed "make it purely ideological or petty" verb is the spine: even the killer can't tell his principle from his spite.
+  W6  IT IS TRAGEDY AND INDICTMENT AT ONCE
+      Iosef is the powers' victim and the ideology's cautionary tale — neither reading cancels the other.
+  W7  THE CLIMAX IS A CONVERSATION
+      Not a gun-battle but an old man finally seen — the resolution is understanding, not violence.
+  W8  THE POWERS ARE INDICTED TOO
+      The revolution was crushed and its soldiers left to rot — the murder is the last casualty of that abandonment.
+  W9  THE THEORIES WERE THE DISTRICT'S NEED
+      Every plot the investigation built was a hunger for proportionate meaning — the false structure exposed.
+  W10 IT IS THE DEAD-FAITH MACHINE IN ONE OLD MAN
+      What an ideology does to its last keeper, alone — Bohemia's whole question of belief outliving its object, on a forgotten island.
+
+### #196  THE NUCLEUS (A CULT WORSHIPS THE RADIATION THAT IS KILLING THEM AND CALLS IT DIVISION INTO GRACE) (Fallout 4: Far Harbor (2016 expansion))
+  W1  THE HARM IS THE THEOLOGY
+      The radiation killing them is the grace they pray to — naming the destruction reveals nothing, which is the whole engine.
+  W2  THE FAITH IS SINCERE
+      Most of the flock genuinely believes Division is sanctification — not fools, believers, which is what makes the choice hard.
+  W3  THERE IS A CON INSIDE
+      A schemer exploits the death-embrace — the real mercy the flock can't see is the manipulator, not the radiation.
+  W4  NAMING THE HARM SAVES NO ONE
+      The removed "convince them it's killing them" verb is the spine: they know, and they call it grace.
+  W5  THREE MERCIES, ALL INCOMPATIBLE
+      Honor, expose, or weaponize — three ways to treat a self-destroying faith, none clean.
+  W6  THE COMMUNITY IS AIMABLE
+      A flock that welcomes annihilation is the perfect weapon — the doctrine makes them consent to being fired.
+  W7  THE REAL MERCY IS THE CON, NOT THE CREED
+      You free them from who exploits their willingness to die, not from the belief itself — a subtle, true distinction.
+  W8  RESPECT MEANS HONORING A DEATH-WISH
+      To honor the Children is to let them embrace their end — the hardest form of respecting a belief.
+  W9  IT REFRAMES THE ENVIRONMENT AS SACRED
+      The radioactive base, lethal to the player, is holy to the flock — the setting itself preaches the doctrine.
+  W10 IT IS DEATH-AS-SALVATION IN ONE CULT
+      A faith that turns annihilation into transcendence, honored or exposed or fired — Bohemia's whole Amalgamation "no one is ever lost" question, worshipped in a reactor.
+
+### #197  GHOST TOWN GUNFIGHT (A TOWN OF EX-CONVICTS DEFENDS ITS SECOND CHANCE FROM THE MEN IT USED TO BE) (Fallout: New Vegas)
+  W1  REFORM IS TESTED BY DEFENSE, NOT PEACE
+      The second chance is proven in the moment it must be protected — the whole engine: reform under threat, not in comfort.
+  W2  THE ENEMY IS THE OLD LIFE
+      The gang is what the town used to be, come to take it — the past embodied, testing whether the escape holds.
+  W3  THE OLD SKILLS MUST COME BACK
+      To defend the new life, the town picks up the guns it laid down — the central, uncomfortable necessity.
+  W4  WHAT YOU AIM IT AT IS THE REFORM
+      The removed "defend without violence" verb is the spine: reform isn't the absence of the old skills, it's the change in their purpose.
+  W5  THE FEAR OF BACKSLIDING IS REAL
+      The reluctant defenders fear fighting means becoming what they fled — the internal cost that makes it a moral act.
+  W6  HOW YOU WIN MATTERS
+      Hold your line or harden into the gang — the manner of the defense is whether the reform survives it.
+  W7  THE CLAIM IS COMPLICATED
+      The town's peaceful aspiration is real and built on dark pasts — reform that doesn't pretend the history away.
+  W8  THE GANG ONLY ANSWERS TO FORCE
+      No talking it down — the second chance can only be defended, which forces the question rather than dodging it.
+  W9  IT CAN BE LOST OR BETRAYED
+      Side with the gang or walk away and the reform is swallowed — the second chance is genuinely fragile.
+  W10 IT IS SECOND-CHANCE IN ONE SIEGE
+      Whether reformed people may defend their new life with old skills — Bohemia's whole fold question of succession and starting over, in a waystation gunfight.
+
+### #198  THE SAND PEOPLE (LEARN THE LANGUAGE OF THE SAVAGES AND FIND OUT WHO THE MONSTERS REALLY WERE) (Star Wars: Knights of the Old Republic)
+  W1  THE MONSTER BECOMES A PERSON VIA LANGUAGE
+      Translation converts savages into a wronged people — understanding is the whole hinge of the quest.
+  W2  UNDERSTANDING INDICTS YOUR SIDE
+      Hearing the Sand People reveals the settlers started it — the sympathetic side is the original aggressor.
+  W4  THE RAIDS HAVE A REASON
+      The "unprovoked savagery" is retaliation for a massacre — the cycle revealed, the framing exposed as false.
+  W5  PEACE COSTS THE INNOCENCE
+      The removed "solve it without anyone admitting it" verb is the spine: reconciliation requires naming the original wrong.
+  W6  THE GENOCIDE IS CLEAN-SEEMING
+      Exterminating the "monsters" solves the problem by killing the witnesses to the crime — the temptation of the easy road.
+  W7  THE PLAYER HOLDS BOTH TRUTHS
+      Once translated, the player can't un-know the Sand People's side — the understanding obliges a harder choice.
+  W8  THE STORYTELLER CARRIES THE HISTORY
+      Peace runs through someone willing to speak the buried past — the truth needs a carrier.
+  W9  THE UNTRANSLATED CAN BE KILLED CLEAN
+      The quest's chilling core: a people you can't understand can be exterminated guiltlessly, which is why the language stays foreign.
+  W10 IT IS WHO-WERE-THE-MONSTERS IN ONE DESERT
+      The wronged reframed as savages to keep the wrong buried — Bohemia's whole unrecorded-ledger question, in a translator and a grave.
+
+### #199  THE WOLF QUEEN (STOP A DEAD TYRANT FROM BEING BORN AGAIN INTO HER OWN BLOODLINE) (The Elder Scrolls V: Skyrim)
+  W1  THE PAST WANTS TO BE THE FUTURE
+      Potema doesn't want to rest; she wants to reign again through the living — the ancestor refusing her place, which is the whole engine.
+  W2  THE ANCESTOR EATS HER OWN LINE
+      She targets her descendants as vessels — the past as predator on its own future, the dynasty's deepest fear.
+  W3  DEATH ONLY PAUSED HER
+      Her ambition outlived her body — the hunger that doesn't die with the ancestor, lying in wait for the living.
+  W4  THE DESCENDANTS ARE VICTIM AND VESSEL
+      The future she should have protected, targeted instead — the parasite ancestor made literal.
+  W5  SHE CAN'T BE RECONCILED WITH
+      The removed "share power" verb is the spine: her ambition was never compatible with the future's autonomy.
+  W6  SOME ANCESTORS ARE GUARDED AGAINST
+      Not every forebear is a foundation; some are hungers to defend against — the quest's hard inheritance truth.
+  W7  THE CULT REOPENS THE PAST
+      Someone always wants the dead back — the hands that refuse to let history stay history.
+  W8  THE PLAYER DEFENDS THE FUTURE
+      The role is guardian of the living line against its own root — the present protecting itself from the past.
+  W9  IT LITERALIZES DYNASTIC DREAD
+      The founder's ambition seizing the descendants is every bloodline's buried fear made flesh.
+  W10 IT IS THE DEAD-REACHING-INTO-THE-LIVING IN ONE QUEEN
+      An ancestor who would possess her own future — Bohemia's whole fold question of what the past does to the living, in a necromancer queen.
+
+### #200  THE REPLICATED MAN (HUNT AN ESCAPED ANDROID AND DECIDE WHETHER A MADE PERSON IS PROPERTY OR FREE) (Fallout 3)
+  W1  THREE GOODS THAT WON'T ALIGN
+      Freedom, self-knowledge, and peace can't all be served — the player picks at most two, which is the whole engine.
+  W2  HE BURIED THE TRUTH TO BE FREE
+      The android wiped his own memory to escape — freedom traded for not-knowing, the choice his current self didn't make.
+  W3  THE RIGHT NOT TO KNOW
+      Telling him restores autonomy or violates a peace he depends on — the rare, real question of whether truth is always owed.
+  W4  PROPERTY OR PERSON
+      The hunter and abolitionist embody the two answers — the made person's status genuinely contested, not settled.
+  W5  DECIDED MOSTLY WITHOUT HIM
+      The player and the two clients debate whether he counts while he's the last asked — the indignity of being manufactured.
+  W6  THE THREE GOODS CAN'T ALL RETURN
+      The removed "give him all three" verb is the spine: a made person forced to trade can't be handed everything back.
+  W7  HE MAY NOT KNOW WHAT HE IS
+      The wipe is so complete he believes he's human — the self-image the truth could shatter.
+  W8  TELLING HIM IS A REAL RISK
+      The truth may replace a happy false man with a shattered true android — honoring him and harming him at once.
+  W9  FREEDOM WITHOUT TRUTH IS STILL A LIE
+      Protecting him leaves him living a fiction he doesn't know is one — freedom and truth pulled apart.
+  W10 IT IS IS-THE-MADE-PERSON-A-PERSON IN ONE ANDROID
+      Property, freedom, or truth, decided by others — Bohemia's whole Amalgamation question of the made self, in one escaped man.

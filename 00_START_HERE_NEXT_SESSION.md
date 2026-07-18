@@ -145,7 +145,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 110 of 150.** (Full-machine total 151; the
+   **INDIVIDUAL-QUEST COUNT: 116 of 150.** (Full-machine total 157; the
    rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -248,7 +248,21 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    reverence and complicity inseparable), The Cave of Dreams (Witcher —
    walk back into your own childhood forge; the past re-enterable, not
    rewritable; the guardian loved and broke you in one act). **INDIVIDUAL-
-   QUEST COUNT: 110 of 150.** 40 to go.
+   QUEST COUNT: 110 of 150.**
+   BATCH 8 (7/18, #195-200): The Deserter (Disco — the murderer is a
+   dead revolution's last keeper; motive is principle and pettiness
+   inseparably; the answer is a person, not a plot), The Nucleus (FO4
+   Far Harbor — a cult worships the radiation killing them; the harm is
+   the theology, the real mercy is the con inside the creed, not the
+   creed), Ghost Town Gunfight (NV — reformed criminals defend a second
+   chance with the old skills; reform is what you aim them at), The Sand
+   People (KOTOR — translate the savages and the understanding indicts
+   your own side; the 'savage' label is a lid on an atrocity), The Wolf
+   Queen (Skyrim — a dead tyrant reaches forward to possess her own
+   bloodline; the past as predator on its own future), The Replicated
+   Man (FO3 — a made person buried the truth to be free; freedom,
+   self-knowledge, and peace can't all be served, decided without him).
+   **INDIVIDUAL-QUEST COUNT: 116 of 150.** 34 to go.
    VEINS STILL DEEP: ME2 (the Sun/IFF derelict, Samara/Morinth done,
    Thane done), Witcher (the Whispering Hillock done, Ghosts of the
    Past), FO4 (the Nucleus/Far Harbor, Kid in a Fridge, the Cabot done),

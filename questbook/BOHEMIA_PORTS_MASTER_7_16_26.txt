@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]
-1444 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]
+1468 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3455,3 +3455,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE PRESERVED MEMORY CARRIES WEIGHT [F3's law]
       system: the fold / the mindscape / companions
       If a character carries a preserved memory out of their past, the carrying has WEIGHT going forward — the protected self visibly changing later choices — so it's a thing kept, not a line read (#188's the-kept-thing-must-matter law).
+
+### #195  THE DESERTER (THE MURDERER IS A DYING TRUE BELIEVER WHO SHOT THE WRONG THING FOR THE RIGHT REASON) (Disco Elysium)
+  ->  PORT 1 — THE ANSWER IS A ROTTED KEEPER, NOT A PLOT [W1, W2, W3 — the core port]
+      system: the unrecorded ledger / factions / the fold
+      A Bohemia mystery that resolves not into the proportionate conspiracy everyone theorized but into one lonely person who kept a dead faith (a fallen cause, a defunct order, an old loyalty) long past its death, alone, until the conviction fermented into something where principle and pettiness are inseparable — the killing both ideological and petty, and even the killer unable to tell which. The fold
+  ->  PORT 2 — THE MIXED MOTIVE READS AS DECAY [F1's law]
+      system: the unrecorded ledger / the fold
+      If a quest's answer is a mixed, un-separable motive, the MIXTURE is shown as decay, not indecision — principle fermenting into spite over the character's history — so it reads as "this is what happened to him," not a non-answer (#191's the-ambiguity-must-be-owned law).
+  ->  PORT 3 — THE DEFLATION IS THE THESIS [F2's law]
+      system: the unrecorded ledger / quest structure
+      If a quest deflates a big mystery into a small human answer, the deflation is FRAMED as the thesis — the smallness made pointed, the theories shown as the need for structure — so the humble answer reads as truth, not fizzle (#182's the-anticlimax-is-the-point law).
+  ->  PORT 4 — IDEOLOGY AND DECAY BALANCED [F3's law]
+      system: factions / the fold / dialogue scenes
+      If a character embodies both a dead ideology and personal decay, the confrontation BALANCES them — neither politics nor pettiness swamping the other — so the inseparability lands (#193's the-two-readings-must-both-hold law).
+
+### #196  THE NUCLEUS (A CULT WORSHIPS THE RADIATION THAT IS KILLING THEM AND CALLS IT DIVISION INTO GRACE) (Fallout 4: Far Harbor (2016 expansion))
+  ->  PORT 1 — THE FAITH THAT SANCTIFIES ITS OWN DESTRUCTION [W1, W3, W7 — the core port]
+      system: the Amalgamation / factions / the endings
+      A Bohemia faith that reframes the thing destroying its believers (the Amalgamation's upload, a poison, a decay) as the grace they most seek — so naming the harm reveals nothing, they call it transcendence — with a CON inside the sincere creed, and the dynast holding three mercies: HONOR the death-embrace on its terms, EXPOSE the exploiter within, or WEAPONIZE a community that welcomes its own end.
+  ->  PORT 2 — THE CON DOESN'T DEBUNK THE CREED [F1's law]
+      system: the Amalgamation / factions
+      If a quest pairs a sincere faith with a con inside it, the SINCERITY is protected from the con — the belief shown as genuinely held independent of the manipulator — so exposing the schemer doesn't read as debunking the faith (#190's the-faith-is-real-even-when-exploited law).
+  ->  PORT 3 — THE QUIET MERCIES WEIGH AS MUCH AS THE WEAPON [F2's law]
+      system: the endings / factions
+      If a quest offers a spectacular destructive option beside subtle ethical ones, the SUBTLE options get equal dramatic weight — the quiet mercies as consequential as the loud one — so the spectacle doesn't swamp the real question (#190's the-quiet-endings-must-weigh law).
+  ->  PORT 4 — HONORING IS A DISTINCT ACT [F3's law]
+      system: factions / the endings
+      If honoring a faith on its own terms is an option, it has a DISTINCT, felt outcome — respect shown as a consequential act, not an exit — so honoring isn't indistinguishable from walking away (#185's honoring-must-be-an-act law).
+
+### #197  GHOST TOWN GUNFIGHT (A TOWN OF EX-CONVICTS DEFENDS ITS SECOND CHANCE FROM THE MEN IT USED TO BE) (Fallout: New Vegas)
+  ->  PORT 1 — DEFENDING THE SECOND CHANCE WITH THE OLD SKILLS [W1, W3, W4 — the core port]
+      system: the fold / factions / the conduct book
+      A Bohemia arc where a community of the reformed (ex-criminals, a dynasty starting over, people who left a dark faction) must defend their fragile new life against the exact violence they escaped, and can only survive by picking the old skills back up — the question never whether they're capable of what they were, but what they now aim it at, and whether HOW they defend keeps or spends the reform. 
+  ->  PORT 2 — THE REFORM THEME SURFACES IN THE DOING [F1's law]
+      system: the fold / factions
+      If a defense quest carries a reform question underneath, the theme is SURFACED in the doing — a defender's hesitation, a line naming the cost of picking the guns back up — so the moral weight isn't optional atmosphere under a shootout (#185's the-theme-must-surface law).
+  ->  PORT 3 — A DEFENDER'S PAST IS SPECIFIC [F2's law]
+      system: the fold / companions / the conduct book
+      If a quest's edge is reformed people defending against their old life, at least one defender's specific PAST is known — so their choice to aim the old skills at protection reads as a real reversal (#186's the-past-must-be-specific law).
+  ->  PORT 4 — HOW YOU DEFEND BRANCHES [F3's law]
+      system: the fold / factions / the endings
+      If the point is that HOW you defend determines whether reform survives, the manner of the defense produces DIFFERENT outcomes — holding your line vs hardening leading to visibly different communities — so "what you're willing to become to win" is a real fork (#183's the-how-must-branch law).
+
+### #198  THE SAND PEOPLE (LEARN THE LANGUAGE OF THE SAVAGES AND FIND OUT WHO THE MONSTERS REALLY WERE) (Star Wars: Knights of the Old Republic)
+  ->  PORT 1 — THE MONSTER WHO BECOMES A PERSON [W1, W2, W3 — the core port]
+      system: the unrecorded ledger / factions / the endings
+      A Bohemia arc where an "enemy" faction everyone calls mindless savages (raiders, the Amalgamation's rejects, a demonized underclass) becomes a wronged people the instant the dynast can UNDERSTAND them — and the understanding reveals the "civilized" side committed the original atrocity, so peace is possible only if the aggressor admits its crime, and extermination is the clean-seeming road that kee
+  ->  PORT 2 — THE HUMANIZATION HOLDS ELSEWHERE [F1's law]
+      system: factions / the unrecorded ledger
+      If a quest humanizes a faction the dynast fights elsewhere, it RECONCILES the two — the hostility reframed as the shape of the grievance — so the humanization survives contact with the faction's other appearances (#192's the-reframe-must-hold-against-the-deeds law).
+  ->  PORT 3 — THE AGGRESSOR ACTUALLY RECKONS [F2's law]
+      system: factions / the endings / the unrecorded ledger
+      If a quest's point is that peace requires the aggressor to admit its crime, the ADMISSION happens on the aggressor's side — the reckoning shown, not just the enemy standing down — so the named cost is really paid (#192's the-lid-must-actually-lift law).
+  ->  PORT 4 — UNDERSTANDING IS A CHOICE, NOT AN ITEM [F3's law]
+      system: factions / the unrecorded ledger
+      If understanding an enemy is the moral hinge, it's framed as a CHOICE TO LISTEN, not just an item gate — the willingness to hear made the real requirement — so humanization is a posture, not a key (#191's understanding-is-a-choice-not-an-unlock law).
+
+### #199  THE WOLF QUEEN (STOP A DEAD TYRANT FROM BEING BORN AGAIN INTO HER OWN BLOODLINE) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE ANCESTOR WHO WOULD EAT HER OWN LINE [W1, W2, W5 — the core port]
+      system: the fold / the Amalgamation / the dynasty spine
+      A Bohemia arc where a dead forebear (a founder, a prior dynast, an Amalgamation-preserved ancestor) refuses to stay a foundation and reaches forward to POSSESS the living generations of their own bloodline — to be the future through the descendants' bodies and legitimacy, consuming the line they should have protected — and the dynast must defend the present from a past that wants to be it, with no
+  ->  PORT 2 — THE POSSESSION PLAN IS DRAMATIZED [F1's law]
+      system: the fold / the dynasty spine
+      If a quest's horror is an ancestor consuming their own line, the plan is DRAMATIZED, not just lore'd — a descendant shown at risk, the possession made felt — so the dread lands as the family's future in danger (#184's the-cycle-must-be-felt law).
+  ->  PORT 3 — A DESCENDANT IS KNOWN [F2's law]
+      system: the fold / companions / the dynasty spine
+      If the stakes are an ancestor devouring her descendants, at least one descendant is KNOWN — a specific future at risk — so the horror has a face and the defense has someone to protect (#190's the-stakes-need-a-face law).
+  ->  PORT 4 — THE DEAD ARE GUARDED, NOT JUST KILLED [F3's law]
+      system: the fold / the Amalgamation
+      If a quest's theme is that the past refuses to rest, the resolution carries that it's GUARDED against, not merely killed once — a residue, a vigilance, the sense the hunger could recur — so "the dead stay dead" reads as an ongoing duty (#184's the-cycle-doesn't-fully-close law).
+
+### #200  THE REPLICATED MAN (HUNT AN ESCAPED ANDROID AND DECIDE WHETHER A MADE PERSON IS PROPERTY OR FREE) (Fallout 3)
+  ->  PORT 1 — THE MADE PERSON'S THREE INCOMPATIBLE GOODS [W1, W2, W6 — the core port]
+      system: the Amalgamation / the fold / factions
+      A Bohemia arc where a made person (an Amalgamation-created being, a construct) escaped and buried the truth of what they are to be free — so their freedom, their true self-knowledge, and their peace are now three goods that can't all be served — and the dynast, courted by a party that calls them property and one that calls them a person, must decide whether to reclaim them, protect them in a comfo
+  ->  PORT 2 — THE RIGHT NOT TO KNOW IS PRESSED [F1's law]
+      system: the Amalgamation / the conscience system
+      If a quest turns on someone's right NOT to know a buried truth, the COST of telling is pressed as hard as the virtue — the peace destroyed as real as the autonomy restored — so "tell him" isn't the flattering default (#185's the-comfort-has-a-claim-too law).
+  ->  PORT 3 — THE MADE PERSON IS VIVID [F2's law]
+      system: the Amalgamation / companions
+      If a quest debates whether a made person counts, that person's LIFE is vivid enough that its loss weighs — the ordinary self they built shown, not just their status argued — so it's decided about someone real (#191's the-made-person-must-be-a-person law).
+  ->  PORT 4 — ONE PATH RESTORES HIS SAY [F3's law]
+      system: the Amalgamation / the fold / factions
+      If a quest's theme is a made person denied a say in his own fate, at least one path RESTORES his agency — letting him choose — so the critique is a wrong that could be righted, not just reproduced by the design (#191's give-the-subject-a-voice law).
