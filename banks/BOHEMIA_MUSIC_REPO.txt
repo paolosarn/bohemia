@@ -78,6 +78,9 @@ BUG FIX — SATELLITE PRAYER: Paolo, "really like it but a super loud SCREECH br
   3rd/5th became a sustained piercing whistle that stacked. FIX (global to solarhymn, also used
   by SOLAR CHURCH / MENU-FIRST MORNING): dropped the 5th harmonic, hard lowpass cap at 1.7kHz so
   nothing can scream, amps pulled 0.4/0.2/0.1 -> 0.24/0.09/0.045 (way lower). Song kept, pain gone.
+  PASS 2 (Paolo, still too loud): "turn the volume down by 75%." Cap 1.7k->1.3k, amps -75% again
+  (0.24/0.09/0.045 -> 0.06/0.022/0.011). solarhymn only rides SATELLITE PRAYER among canon songs,
+  so this is effectively per-song. Now ~15% of the original level.
 PRIOR DOWNS still disabled at 0 (SUNKEN VESPERS, UNDERTOW) — re-confirmed DOWN, left buried.
 
 === VERDICT PASS 7/17/26 (b) — "Good cookups today" ===
