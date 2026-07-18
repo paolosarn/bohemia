@@ -44,6 +44,8 @@ GATES = [
      'every district type is catalogued', False),
     ('FLOORPLAN',      ['node', 'gates/floorplan_gate.js'],
      'every room reachable, buildings enterable', False),
+    ('SUBURB MODULAR', ['node', 'gates/suburb_modular_gate.js'],
+     'suburbs snap into 1x2 / 2x2, connected', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
      'one API addresses valley down to a room', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],

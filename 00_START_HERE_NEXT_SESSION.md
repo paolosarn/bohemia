@@ -79,9 +79,21 @@ suburb interior (loops/culs) is his under MAP LAW and it's THE unblock for homes
 3 candidate layouts (THE LOOP / CUL-DE-SACS / GARDEN CURVE) generated from the
 anatomy (curvilinear, loops+culs, walled), thumbs + per-style + global comments,
 SUN MODE, RESEED, export .txt (verdict workflow). Wired into the SLICE tab
-(manifest current='suburb'). Verified in chromium (0 errors, 21/15/13 houses,
-export works). STATUS: [PENDING Paolo verdict]. On approval, the chosen generator
-graduates into bohemia_plotgen (suburb houses), homes exist, LIFE opens.
+(manifest current='suburb'). STATUS: [PENDING Paolo verdict]. On approval, the
+chosen generator graduates into bohemia_plotgen (suburb houses), homes exist,
+LIFE opens.
+ITERATED (Paolo verdicts, same session): (1) "all houses in Vegas have proper
+driveways on the street to the garage" -> every home rebuilt as street->driveway
+->front garage->body. (2) MODULARITY LAW (Paolo: "modular to fit into a 1x2 or
+2x2... if you can't easily snap to the other suburbs I don't want it") -> the
+generator is now CLUSTER-AWARE: genSub(seed,style,cw,ch) fills a cw x ch union as
+ONE connected neighborhood; the tool shows each style at 1x1 AND 2x2. Generator
+extracted to tools/bohemia_suburb_gen.js (candidate; the judge tool embeds it AND
+the gate tests it). Law: laws/BOHEMIA_ADDENDUM_MODULARITY_LAW_7_18_26.md. Gate #22
+gates/suburb_modular_gate.js: every style connected + homed + garaged at 1x1/1x2/
+2x1/2x2, deterministic. RESEARCH folded into the law: LV is ~62% single-family /
+~32-38% multifamily BY UNITS, but by LAND AREA suburbs are ~85-90% (apartments
+4-6x denser) -> ~1 apartment cell per ~7-9 suburb cells (tunable, [PENDING Paolo]).
 NEW WORKFLOW LAW (Paolo 7/18): anything needing his judgment/feedback MUST be an
 interactive in the alpha SLICE menu — not a chat proof image. Stop sending PNG
 proofs as pseudo-verdicts.
