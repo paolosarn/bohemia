@@ -68,6 +68,10 @@ BATCH 10 (THE DROWNED CATHEDRAL): all 6 CANON (Paolo reversed the 3 downs same t
   g0*0.95->0.42, submergechoir 0.34->0.17, oraclereed 0.3->0.15, drownbed 0.4->0.2, pyrefly
   0.34->0.18, mournbell 0.36->0.18, abyssbass 0.44->0.24. Songs kept, level way down. LESSON:
   a "too loud" note is a MIX fix, not a kill — never bury a song for loudness.
+  SIREN PASS 2 (Paolo, same day): "that siren shit" = submergechoir's slow pitch-wow wail (the
+  lead of VIA PURIFICO). He loves the aesthetic/ambience, wants it BACKGROUND not the main part.
+  Halved again 0.17->0.075. Character untouched, it now sits under the song as a wash. LESSON:
+  a wailing lead someone loves aesthetically = drop it to a background bed, don't flatten the vibe.
 BUG FIX — SATELLITE PRAYER: Paolo, "really like it but a super loud SCREECH breaking my
   eardrums, has to go way lower." Root cause: solarhymn (its lead) summed harmonics up to the
   5th with NO high cap; on the melody kill-layers it plays in a high register (root-7), so the
