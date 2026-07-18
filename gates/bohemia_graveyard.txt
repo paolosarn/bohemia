@@ -15,3 +15,9 @@
 ['"]orbit['"]        | dial    | DELETED — too metronome-like. Do not re-add.
 ['"]pulse2['"]       | dial    | DELETED — camped the killshot/centre as home. Do not re-add.
 \bWALL_BATCH2_REJECTS\b | 7/17/26 | FINAL FOR THE PERIMETER POOL ONLY: 47 of 48 batch-2 candidates are DOWN as suburb-perimeter walls, forever (sole survivor WB4 -> perimeter pool v2; never re-judge these 47 for PERIMETER). Paolo 7/17: they are NOT dead as walls; "there's more walls than just gated communities." They live in banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt awaiting other wall classes. POST-MORTEM stands: the pack vein is dry for perimeter-grade; perimeter variety = variants of the 13 approved keys.
+n:'SUNKEN VESPERS'          | 7/18/26 | DOWN (music batch). GRAVEYARD FINAL. Fresh cook answers the slot (batch 12: THE TIDE THAT KEEPS THE NAMES). Do not re-add as a playable song.
+n:'UNDERTOW'                | 7/18/26 | DOWN (music batch). GRAVEYARD FINAL. Note: the living voice 'undertowbass' is unrelated and stays. Do not re-add the SONG.
+n:'VIA PURIFICO'            | 7/18/26 | DOWN (was briefly canon, Paolo reversed). GRAVEYARD FINAL. Fresh cook answers the slot. Do not re-add.
+n:'HYMN IN THE FLOOD'       | 7/18/26 | DOWN (was briefly canon). GRAVEYARD FINAL. Do not re-add.
+n:'THE DROWNED CHOIR'       | 7/18/26 | DOWN (was briefly canon). GRAVEYARD FINAL. Do not re-add.
+n:'WHAT THE GLASS REMEMBERS'| 7/18/26 | DOWN (batch 11). GRAVEYARD FINAL. foldchoir voice retired with it. Do not re-add.
