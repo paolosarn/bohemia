@@ -12,10 +12,10 @@
     },
     {
       "id": "suburb",
-      "title": "JUDGE \u2014 the neighborhoods (remade)",
+      "title": "JUDGE \u2014 the neighborhoods (lots first)",
       "file": "BOHEMIA_SUBURB_JUDGE_7_18_26.html",
       "date": "2026-07-18",
-      "note": "Remade with breathing room. Homes back onto the perimeter wall, fronts facing the interior street; a 3-tile backyard and 3 tiles between every home; driveways are car aprons, garage is the front corner. Three interiors for a 96 m block: cul-de-sacs, perimeter+green, courts. Thumb, kill, comment, export. Reseed for variety."
+      "note": "Rebuilt LOTS FIRST, calibrated to Campana Dr / 89147 (~0.15 acre lots, 2-story homes packed). Streets serve the lots, not the other way around. Houses face the streets with car-apron driveways, real front + back yards, rows backing the walls. Three street patterns for a 96 m block: tract rows, cul-de-sac tract, full grid. Thumb, kill, comment, export. Reseed for variety."
     },
     {
       "id": "enter",

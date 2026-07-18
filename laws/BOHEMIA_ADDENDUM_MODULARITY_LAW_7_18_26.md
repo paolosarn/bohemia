@@ -61,3 +61,19 @@ interior street. The driveway is a car apron (3 long x 4 wide, 2 cars); the
 garage is the front corner of the house; the house is the bulk. Generator:
 engine/bohemia_suburb.js, styles culs / double / court, real 0.75 m/tile,
 cluster-aware. Approved style graduates into bohemia_plotgen on Paolo's verdict.
+
+## LOTS FIRST + REAL CALIBRATION (Paolo 7/18)
+Paolo: "compact as many houses as reasonably next to each other... front yard,
+backyard, house, they squeeze in as many as they can." He gave a real address
+to calibrate against (a home on Campana Dr, Las Vegas 89147). Findings from that
+tract (public real-estate data on the street):
+- Lots ~6,100-7,000 sq ft (~0.14-0.16 acre); 2-story homes ~1,970-2,940 sq ft,
+  built ~1990-93; ground footprint ~1,400 sq ft (~18x14 tiles at 0.75 m/tile).
+- Realistic density: ~12-20 homes per 96 m cell (lots ~24 tiles wide x ~40 deep).
+THE RULING: plat LOTS FIRST, streets serve them (not roads-first-sprinkle-homes).
+engine/bohemia_suburb.js rebuilt: horizontal streets spaced one back-to-back
+lot-pair apart; a house is placed on every lot along every street (both sides,
+LOTW apart); top + bottom rows back the walls; front yard + house + backyard per
+lot. Styles: grid (tract rows) / culs (rows + a cul-de-sac cross-street) / double
+(full grid). ~22-25 homes per block. The gate's SPACING + connectivity + garage/
+driveway checks still hold.

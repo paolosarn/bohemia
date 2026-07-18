@@ -23,9 +23,9 @@ GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read
 UI = r"""
 var G = BohemiaSuburb;
 var STYLES=[
-  {id:'culs',   name:'CUL-DE-SACS', blurb:'homes ring the wall; cul-de-sac fingers reach into the middle'},
-  {id:'double', name:'PERIMETER + GREEN', blurb:'homes ring the wall facing in, a green common in the center'},
-  {id:'court',  name:'COURTS', blurb:'homes ring the wall; short courts hang off the interior street'}
+  {id:'grid',   name:'TRACT ROWS', blurb:'packed rows facing the streets, backyards meeting back-to-back — the classic Vegas tract'},
+  {id:'culs',   name:'CUL-DE-SAC TRACT', blurb:'the same packed rows with a cul-de-sac cross-street'},
+  {id:'double', name:'FULL GRID', blurb:'streets both directions, lots on every frontage — the densest'}
 ];
 var SUN=false, seedBase=7, verdict={}, comments={};
 function col(code){
@@ -69,7 +69,7 @@ document.getElementById('exp').onclick=exportTxt;
 build();window.__SUBURB_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB (one block, remade). Homes now BACK ONTO the perimeter wall, fronts facing the interior street; the driveway is a car apron, not a runway; the garage is the front corner of the house. Which interior feels like Bohemia? Thumb, kill, comment, export. Reseed for variety.</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB (one block, LOTS FIRST). Rebuilt the way Vegas really plats: pack the lots, streets serve them. Calibrated to Campana Dr / 89147 (~0.15 acre lots, 2-story homes). Houses face the streets with a car-apron driveway; front yard, house, backyard; top and bottom rows back the walls. Which street pattern feels like Bohemia? Thumb, kill, comment, export. Reseed for variety.</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>

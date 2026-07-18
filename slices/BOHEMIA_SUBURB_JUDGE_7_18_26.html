@@ -1,4 +1,4 @@
-<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB (one block, remade). Homes now BACK ONTO the perimeter wall, fronts facing the interior street; the driveway is a car apron, not a runway; the garage is the front corner of the house. Which interior feels like Bohemia? Thumb, kill, comment, export. Reseed for variety.</h1>
+<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB (one block, LOTS FIRST). Rebuilt the way Vegas really plats: pack the lots, streets serve them. Calibrated to Campana Dr / 89147 (~0.15 acre lots, 2-story homes). Houses face the streets with a car-apron driveway; front yard, house, backyard; top and bottom rows back the walls. Which street pattern feels like Bohemia? Thumb, kill, comment, export. Reseed for variety.</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>
@@ -39,7 +39,7 @@
   // house is the bulk; the driveway is tiny. Home faces the street (nx,ny),
   // backyard goes to the wall behind it.
   // GAP = Paolo's law: at worst 3 tiles of backyard AND 3 tiles between neighbors.
-  var DRIVE=3, DVW=4, HW=M(14), HD=M(9), GARW=M(5), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3, LOTW=M(14)+GAP+1;
+  var DRIVE=3, DVW=4, HW=M(14), HD=M(9), GARW=M(5), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3, LOTW=M(14)+M(4);
   function isHome(v){return v===2||v===3||v===6;}
   function home(g,rx,ry,nx,ny){var px=-ny,py=nx;
     var h0=-(HW>>1), garOff=h0+HW-GARW;                 // garage at one front corner
@@ -68,28 +68,39 @@
         if((along%LOTW)!==((nx>0||ny>0)?0:(LOTW>>1)))continue;      // stagger the two sides
         home(g,x,y,nx,ny);}}}
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
-  // WALLED NEIGHBORHOOD (Paolo 7/18): homes BACK ONTO the perimeter wall, fronts
-  // (driveway->garage) facing an interior street. So the streets run INSIDE, one
-  // home-depth off the wall, and homes fill the band between street and wall
-  // (backs out) plus the interior. cluster-aware: the ring wraps the whole union.
+  // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
+  // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
+  // exist to give them driveways. So: homes back onto the perimeter wall on all
+  // four sides (a ring of lots), and the INTERIOR is packed with rows of lots
+  // served by streets spaced exactly one back-to-back lot-pair apart. Houses are
+  // the primary unit; roads serve them; every home keeps its 3-tile yards.
+  function placeRow(g,streetY,W,lotw,lo,hi){   // pack houses on BOTH sides of a horizontal street
+    for(var lx=lo+((lotw/2)|0); lx<hi; lx+=lotw){
+      home(g,lx,streetY-RD,0,-1);              // north side: backyard up, driveway down to the street
+      home(g,lx,streetY+RD,0, 1);              // south side: backyard down
+    }}
+  function placeCol(g,streetX,H,lotw,lo,hi){   // pack houses on BOTH sides of a vertical street
+    for(var ly=lo+((lotw/2)|0); ly<hi; ly+=lotw){
+      home(g,streetX-RD,ly,-1,0); home(g,streetX+RD,ly,1,0);
+    }}
   function generate(seed,style,cw,ch){
-    if(typeof style!=='string'){ch=cw;cw=style;style='culs';}   // back-comat: (seed,cw,ch)
+    if(typeof style!=='string'){ch=cw;cw=style;style='grid';}   // back-compat: (seed,cw,ch)
     cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
-    var W=Wd(g),H=Ht(g), R=DRIVE+HD+GAP+1;                       // ring inset = home depth + a >=3 tile backyard to the wall
-    for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0;seg(g,gx,H-6,gx,H-R,RD);}   // gate -> perimeter ring
-    ringRect(g,R,R,W-R,H-R,RD);                                  // the perimeter street (homes back the wall outside it)
-    if(style==='culs'){
-      // cul-de-sac fingers reach INTO the interior from the ring; homes line them
-      for(var fx=R+M(16);fx<W-R-M(8);fx+=M(20)){var ey=(fx&M(20))?H-R-M(20):R+M(20);seg(g,fx,R,fx,ey,RD);disc(g,fx,ey,M(5));}
-    } else if(style==='double'){
-      // a second inner ring -> two bands of homes back-to-back, green core
-      var R2=R+M(20)+M(10);
-      if(W-2*R2>M(20)&&H-2*R2>M(20)){ringRect(g,R2,R2,W-R2,H-R2,RD);
-        for(var cc=0;cc<cw;cc++){var lx=(SZ*cc+SZ/2)|0;seg(g,lx,R,lx,R2,RD);}}   // connectors tie inner ring to outer
-    } else { // 'court' : short cul courts hanging off the ring, roomier
-      for(var cxx=R+M(22);cxx<W-R-M(12);cxx+=M(30)){seg(g,cxx,R,cxx,R+M(18),RD);disc(g,cxx,R+M(18),M(6));}
+    var W=Wd(g),H=Ht(g);
+    // LOT sized to 89147/Campana Dr reality (~0.15 acre): the house is the bulk,
+    // with a real front yard, a deeper backyard, and side yards.
+    var homeDepth=DRIVE+HD, LOTD=homeDepth+M(8), band=2*LOTD+RD*2+1;   // two lot-rows back-to-back + a street
+    // horizontal streets: first at one lot-depth off the top wall (top row backs it), then every band
+    var sy=[]; for(var y=LOTD; y<H-LOTD+RD; y+=band){ for(var x=1;x<W-1;x++)road(g,x,y,RD); sy.push(y); }
+    var lastY=H-1-LOTD; if(sy[sy.length-1] < lastY-RD){ for(var x2=1;x2<W-1;x2++)road(g,x2,lastY,RD); sy.push(lastY); }  // bottom row backs bottom wall
+    // vertical spine(s) from the gate connect all streets
+    for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0; seg(g,gx,H-6,gx,sy[0],RD); seg(g,gx,sy[0],gx,sy[sy.length-1],RD);}
+    if(style==='culs'){ // one cross vertical street per cell adds cul-de-sac cross-streets
+      for(var ci3=0;ci3<cw;ci3++){var vx=(SZ*ci3+SZ*0.25)|0; seg(g,vx,sy[0],vx,sy[sy.length-1],RD);}
     }
-    fillHomes(g);
+    // LOTS FIRST: pack a house on every lot along every street (both sides)
+    sy.forEach(function(streetY){ placeRow(g,streetY,W,LOTW,2,W-2); });
+    if(style==='double'){ for(var ci4=0;ci4<cw;ci4++){var vx2=(SZ*ci4+SZ/2)|0; placeCol(g,vx2,H,LOTW,sy[0],sy[sy.length-1]);} }
     var houses=0,rects=[];var seenH={};
     for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++)if(g[yy][xx]===2&&g[yy-1][xx]!==2&&g[yy][xx-1]!==2)houses++;
     return {g:g,W:W,H:H,houses:houses,cw:cw,ch:ch};
@@ -118,9 +129,9 @@
 
 var G = BohemiaSuburb;
 var STYLES=[
-  {id:'culs',   name:'CUL-DE-SACS', blurb:'homes ring the wall; cul-de-sac fingers reach into the middle'},
-  {id:'double', name:'PERIMETER + GREEN', blurb:'homes ring the wall facing in, a green common in the center'},
-  {id:'court',  name:'COURTS', blurb:'homes ring the wall; short courts hang off the interior street'}
+  {id:'grid',   name:'TRACT ROWS', blurb:'packed rows facing the streets, backyards meeting back-to-back — the classic Vegas tract'},
+  {id:'culs',   name:'CUL-DE-SAC TRACT', blurb:'the same packed rows with a cul-de-sac cross-street'},
+  {id:'double', name:'FULL GRID', blurb:'streets both directions, lots on every frontage — the densest'}
 ];
 var SUN=false, seedBase=7, verdict={}, comments={};
 function col(code){
