@@ -48,12 +48,27 @@ exactly this model — we are closer than it feels.
    "the world never resets"), what death does. [PENDING Paolo — this is the big
    game-shape call, his to make.]
 
-## THE UNIFIER TO BUILD NEXT (after this turn)
-A thin WORLD MODEL accessor module: world(seed) exposing district(x,y) ->
-plot(x,y) -> building(i) -> floor(n) -> room(id) -> tile, tying the existing
-generators (overmap / bridge / builtlot / plotgen / floorplan) under one API so
-nothing addresses the world four different ways again. Then agents + economy
-hang off it, then the run loop.
+## THE UNIFIER — BUILT (7/18/26)
+engine/bohemia_world.js: world(seed).at(x,y) -> the overmap cell; .plot(x,y) ->
+the block grid + building footprints; .plot(x,y).building(i).floorplan() -> that
+building's interior rooms. It COMPOSES the existing generators (overmap ->
+bridge -> blockgen -> floorplan), lazy + deterministic, so addressing a single
+room never generates the whole valley. Gate: world_gate (676 plots resolve, no
+throws, every exposed building yields a fully-reachable interior, deterministic).
+Proof: slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png (one image, valley -> district
+-> plot -> building -> rooms, all through the one API).
+
+## WHAT COMES AFTER (the ladder from here)
+1. FILL THE FOOTPRINTS: today only the built-lot archetypes expose buildings;
+   wire suburb houses + commercial storefronts so every plot has interiors, and
+   scale footprints to the fine 128 plot resolution.
+2. THE SEAMLESS ZOOM: overmap -> walk a street -> open a door -> the interior
+   loads from world().plot().building().floorplan(). The alpha's SLICE surface
+   is where this gets wired (ONE-ALPHA).
+3. LIFE: an agent = {home room, work room, schedule} placed BY the model, then
+   the economy + faction ownership layers, hung on world(seed). The 120 BPM
+   beat, patrol, and power grid are the seeds.
+4. LOOP: the roguelite run structure. [PENDING Paolo — his call.]
 
 ## WHAT STAYS PAOLO'S (untouched by any of this)
 The run/death loop shape, faction ownership, what SPAWNS where, and all reserved

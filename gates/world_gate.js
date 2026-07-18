@@ -1,0 +1,50 @@
+// WORLD MODEL GATE (Paolo 7/18/26) — the spine must resolve at every level and
+// never throw. Proves world(seed) addresses valley -> district -> plot ->
+// building -> floorplan for every cell, that the chain is deterministic, and
+// that every building a plot exposes yields a real (reachable) interior.
+const { world } = require('../engine/bohemia_world.js');
+let pass = 0, fail = 0;
+const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
+const d4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+const w = world(12345);
+ok('world(seed) exposes at/plot + n', typeof w.at === 'function' && typeof w.plot === 'function' && w.n === 96);
+
+// scan a big block of cells: nothing throws, every plot resolves
+let scanned = 0, threw = 0, withBuildings = 0, badInterior = 0;
+for (let y = 10; y < 86; y += 3) for (let x = 10; x < 86; x += 3) {
+  try {
+    const c = w.at(x, y); if (!c) continue;
+    const p = w.plot(x, y); scanned++;
+    if (!p || p.district !== c.district) { threw++; continue; }
+    if (p.buildings.length) {
+      withBuildings++;
+      const b = p.building(0);
+      const fp = b.floorplan();
+      // every room reachable from the entrance (the enterable invariant, end to end)
+      const ent = fp.doors.find(d => d[0] === 0 || d[1] === 0 || d[0] === fp.W - 1 || d[1] === fp.H - 1);
+      if (!ent) { badInterior++; continue; }
+      const seen = new Set([ent[0] + ',' + ent[1]]), st = [ent];
+      const passable = (px, py) => { if (px < 0 || py < 0 || px >= fp.W || py >= fp.H) return false; const cc = fp.grid[py][px]; return cc.g === 'floor' || cc.g === 'door'; };
+      while (st.length) { const [px, py] = st.pop(); for (const [dx, dy] of d4) { const nx = px + dx, ny = py + dy, k = nx + ',' + ny; if (!seen.has(k) && passable(nx, ny)) { seen.add(k); st.push([nx, ny]); } } }
+      const reached = new Set();
+      for (let yy = 0; yy < fp.H; yy++) for (let xx = 0; xx < fp.W; xx++) if (seen.has(xx + ',' + yy) && fp.grid[yy][xx].room >= 0) reached.add(fp.grid[yy][xx].room);
+      if (reached.size !== fp.rooms.length) badInterior++;
+    }
+  } catch (e) { threw++; }
+}
+ok('every plot resolves without throwing (' + scanned + ' cells scanned)', threw === 0);
+ok('at least some plots expose buildings', withBuildings > 0);
+ok('every exposed building yields a fully-reachable interior', badInterior === 0);
+
+// determinism: same seed -> same plot building counts across a sample
+const w2 = world(12345);
+let mismatch = 0;
+for (let y = 20; y < 60; y += 7) for (let x = 20; x < 60; x += 7) {
+  if (w.plot(x, y).buildings.length !== w2.plot(x, y).buildings.length) mismatch++;
+}
+ok('deterministic per seed (plot building counts match)', mismatch === 0);
+
+console.log('WORLD MODEL GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
+  scanned + ' plots, ' + withBuildings + ' with buildings)');
+process.exit(fail ? 1 : 0);

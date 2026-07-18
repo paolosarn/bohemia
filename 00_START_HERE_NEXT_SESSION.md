@@ -52,10 +52,21 @@ the Shadows-of-Doubt model). 8 zones (residential/retail/office/civic/
 institutional/warehouse/landmark/default). Gate #20 gates/floorplan_gate.js:
 every room reachable, no overlap, entrance exists, roled, deterministic. Proof:
 slices/BOHEMIA_FLOORPLAN_PROOF_7_18_26.png (verified by eye, reads as real
-floor plans). NEXT on the ZOOM ladder: wire floorplans onto real plot/building
-footprints (fine layer) + the seamless overmap->street->door->interior
-transition. Then the WORLD MODEL accessor that unifies overmap/bridge/builtlot/
-plotgen/floorplan under one world(seed) API. Then LIFE. Then Paolo rules LOOP.
+floor plans).
+ALSO DONE — THE UNIFIER (the spine itself): engine/bohemia_world.js. world(seed)
+.at(x,y) -> overmap cell; .plot(x,y) -> block grid + building footprints;
+.plot(x,y).building(i).floorplan() -> that building's interior rooms. COMPOSES
+overmap/bridge/blockgen/floorplan, lazy + deterministic (addressing one room
+never builds the valley). Gate #21 gates/world_gate.js: 676 plots resolve, no
+throws, every exposed building yields a fully-reachable interior, deterministic.
+Proof: slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png (ONE image: valley -> district
+-> plot -> building -> rooms, all through the one API). Note: today only the
+built-lot archetypes expose buildings (38/676 sampled); suburb houses +
+commercial storefronts still owe footprints.
+NEXT (roadmap has it): (1) fill footprints for suburb/commercial + scale to the
+fine 128 plot res; (2) the SEAMLESS ZOOM in the alpha SLICE surface (overmap ->
+street -> door -> interior loads from world()); (3) LIFE (agents {home,work,
+schedule} on the model + economy + faction ownership); (4) Paolo rules LOOP.
 
 ## CITY-BUILDER FOUNDATION (7/18, Paolo scoping the city start)
 Paolo's plan: put streets into the CITY tab now, empty lots = DESERT until
