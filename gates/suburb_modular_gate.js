@@ -8,8 +8,8 @@ const S = require('../engine/bohemia_suburb.js');
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
-const STYLES = ['grid', 'culs', 'double'];
-const SIZES = [[1, 1], [1, 2], [2, 1], [2, 2]];
+const STYLES = ['ring'];
+const SIZES = [[1, 1]];   // focus: the single block first (Paolo). cluster snapping returns after the block is approved.
 
 for (const style of STYLES) {
   let allConn = true, allHomes = true, allGarage = true;

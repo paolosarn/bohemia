@@ -71,24 +71,44 @@
     for(var ly=lo+((lotw/2)|0); ly<hi; ly+=lotw){
       home(g,streetX-RD,ly,-1,0); home(g,streetX+RD,ly,1,0);
     }}
+  // houses along one straight ring edge, on BOTH sides (outer backs the wall,
+  // inner backs the center), packed every LOTW.
+  function placeEdge(g,x0,y0,dx,dy,len,nx,ny,lotw){
+    for(var t=(lotw>>1); t<len-2; t+=lotw){ var rx=(x0+dx*t)|0, ry=(y0+dy*t)|0;
+      home(g,rx+nx*RD,ry+ny*RD,nx,ny);          // outer side: start just past the road edge
+      home(g,rx-nx*RD,ry-ny*RD,-nx,-ny); }}      // inner side
+  function placeEdge2(g,x0,y0,dx,dy,len,nx,ny,lotw){   // OUTER side only (backs the wall)
+    for(var t=(lotw>>1); t<len-2; t+=lotw){ var rx=(x0+dx*t)|0, ry=(y0+dy*t)|0; home(g,rx+nx*RD,ry+ny*RD,nx,ny); }}
+  function ringHomes(g,R,W,H,lotw){
+    placeEdge(g,R,R,1,0,W-2*R,0,-1,lotw);        // top edge: outer backs up
+    placeEdge(g,R,H-R,1,0,W-2*R,0,1,lotw);       // bottom edge: outer backs down
+    placeEdge(g,R,R,0,1,H-2*R,-1,0,lotw);        // left edge: outer backs left
+    placeEdge(g,W-R,R,0,1,H-2*R,1,0,lotw);       // right edge: outer backs right
+  }
   function generate(seed,style,cw,ch){
-    if(typeof style!=='string'){ch=cw;cw=style;style='grid';}   // back-compat: (seed,cw,ch)
+    if(typeof style!=='string'){ch=cw;cw=style;style='ring';}   // back-compat
     cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
-    var W=Wd(g),H=Ht(g);
-    // LOT sized to 89147/Campana Dr reality (~0.15 acre): the house is the bulk,
-    // with a real front yard, a deeper backyard, and side yards.
-    var homeDepth=DRIVE+HD, LOTD=homeDepth+M(8), band=2*LOTD+RD*2+1;   // two lot-rows back-to-back + a street
-    // horizontal streets: first at one lot-depth off the top wall (top row backs it), then every band
-    var sy=[]; for(var y=LOTD; y<H-LOTD+RD; y+=band){ for(var x=1;x<W-1;x++)road(g,x,y,RD); sy.push(y); }
-    var lastY=H-1-LOTD; if(sy[sy.length-1] < lastY-RD){ for(var x2=1;x2<W-1;x2++)road(g,x2,lastY,RD); sy.push(lastY); }  // bottom row backs bottom wall
-    // vertical spine(s) from the gate connect all streets
-    for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0; seg(g,gx,H-6,gx,sy[0],RD); seg(g,gx,sy[0],gx,sy[sy.length-1],RD);}
-    if(style==='culs'){ // one cross vertical street per cell adds cul-de-sac cross-streets
-      for(var ci3=0;ci3<cw;ci3++){var vx=(SZ*ci3+SZ*0.25)|0; seg(g,vx,sy[0],vx,sy[sy.length-1],RD);}
-    }
-    // LOTS FIRST: pack a house on every lot along every street (both sides)
-    sy.forEach(function(streetY){ placeRow(g,streetY,W,LOTW,2,W-2); });
-    if(style==='double'){ for(var ci4=0;ci4<cw;ci4++){var vx2=(SZ*ci4+SZ/2)|0; placeCol(g,vx2,H,LOTW,sy[0],sy[sy.length-1]);} }
+    var W=Wd(g),H=Ht(g), SW=RD*2+1, LOTD=DRIVE+HD+M(3);         // lot depth = house + a small backyard
+    // WALLED COMMUNITY, HOUSES FIRST: a PERIMETER loop so homes back all four
+    // walls, then INTERIOR streets pack the middle with rows. Homes line both
+    // sides of every street; no road has empty land beside it. Small backyards
+    // meet back-to-back. Roads are the minimum to serve the lots.
+    // PERIMETER loop (homes back all four walls) + INTERIOR parallel streets that
+    // span loop-to-loop (connected at both ends, no central spine). Homes line
+    // BOTH sides of every street; small backyards meet back-to-back.
+    var R=LOTD;
+    ringRect(g,R,R,W-R,H-R,RD);
+    for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0; seg(g,gx,H-6,gx,H-R,RD);}
+    ringHomes(g,R,W,H,LOTW);                                     // perimeter both sides
+    var band=2*LOTD+SW, first=R+LOTD+SW+LOTD;                    // first interior street clears the perimeter inner row
+    for(var y=first; y<H-first+LOTD; y+=band){ for(var x=R;x<=W-R;x++)road(g,x,y,RD); placeRow(g,y,W,LOTW,R+LOTD,W-R-LOTD); }
+    // BACKYARD CONTENT so yards read as yards, not void: pools + trees + grass in
+    // the lawn behind houses (Paolo: real backyards, and a bougie block a park).
+    var pr=rng(seed*13+7);
+    for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++){ if(g[yy][xx]!==0)continue;
+      var nearHouse=(g[yy-1]&&g[yy-1][xx]===2)||(g[yy+1]&&g[yy+1][xx]===2)||g[yy][xx-1]===2||g[yy][xx+1]===2;
+      if(nearHouse&&pr()<0.5)g[yy][xx]=(pr()<0.22?8:7);          // 8 pool/patio, 7 tree/grass
+      else if(pr()<0.06)g[yy][xx]=7; }
     var houses=0,rects=[];var seenH={};
     for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++)if(g[yy][xx]===2&&g[yy-1][xx]!==2&&g[yy][xx-1]!==2)houses++;
     return {g:g,W:W,H:H,houses:houses,cw:cw,ch:ch};

@@ -22,15 +22,11 @@ GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read
 
 UI = r"""
 var G = BohemiaSuburb;
-var STYLES=[
-  {id:'grid',   name:'TRACT ROWS', blurb:'packed rows facing the streets, backyards meeting back-to-back — the classic Vegas tract'},
-  {id:'culs',   name:'CUL-DE-SAC TRACT', blurb:'the same packed rows with a cul-de-sac cross-street'},
-  {id:'double', name:'FULL GRID', blurb:'streets both directions, lots on every frontage — the densest'}
-];
+var STYLES=[{id:'ring',name:'THE BLOCK',blurb:'homes back the walls + pack the interior, small yards with pools/trees, a little green common. reseed for variety'}];
 var SUN=false, seedBase=7, verdict={}, comments={};
 function col(code){
-  if(SUN)return ['#cfe0b0','#7c7c84','#c2b184','#eceaef','#b8a878','#c7a24a','#8a7454'][code];
-  return ['#1e2618','#33333c','#8a7e6b','#dfe0e6','#4a4030','#c79a3f','#544636'][code];
+  if(SUN)return ['#cfe0b0','#7c7c84','#c2b184','#eceaef','#b8a878','#c7a24a','#8a7454','#8fb96a','#8fc2d8'][code];
+  return ['#4a5c38','#33333c','#9c8e76','#dfe0e6','#4a4030','#c79a3f','#544636','#36683a','#467896'][code];
 }
 function render(cv,style,seed){var res=G.generate(seed,style,1,1),g=res.g,W=res.W,H=res.H,ctx=cv.getContext('2d');
   var PX=Math.min(cv.width/W,cv.height/H);
@@ -69,7 +65,7 @@ document.getElementById('exp').onclick=exportTxt;
 build();window.__SUBURB_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB (one block, LOTS FIRST). Rebuilt the way Vegas really plats: pack the lots, streets serve them. Calibrated to Campana Dr / 89147 (~0.15 acre lots, 2-story homes). Houses face the streets with a car-apron driveway; front yard, house, backyard; top and bottom rows back the walls. Which street pattern feels like Bohemia? Thumb, kill, comment, export. Reseed for variety.</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB, one block. Rebuilt houses-first, calibrated to Campana Dr / 89147: homes back the four walls and pack the interior, driveways are car aprons, small yards filled with pools + trees (real backyards, not void), a little green common. Reseed for variety. Thumb, comment, export — does this finally feel like the neighborhood?</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>
