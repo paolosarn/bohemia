@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]
-2127 findings / 212 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]
+2187 findings / 218 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4675,3 +4675,131 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Named people, a child, a couple — not faceless prisoners, which makes the fail-safe a specific slaughter.
   W10 IT IS THE FALSE-PARADISE-PRISON IN ONE SIM
       A perfect lie whose only mercy is the off switch — Bohemia's whole Amalgamation question of comfort-as-cage, where freedom is death.
+
+### #213  DEAD MONEY (FOUR DAMNED PEOPLE CHASE A VAULT OF GOLD THAT WILL KILL THEM, AND THE ONLY WAY TO WIN IS TO LET IT GO) (Fallout: New Vegas — Dead Money (2011 DLC))
+  W1  THE TREASURE IS THE TRAP
+      The gold is carriable and carrying it out is death — the fortune you bled for is the thing that kills you, which is the whole engine.
+  W2  LETTING GO IS THE ONLY WIN
+      The winning move is to leave the gold and walk out with nothing but your life — the abstract wisdom made a hard mechanic.
+  W3  THE PAST IS DEAD WEIGHT
+      The grudge, the obsession, the treasure all drown whoever won't release them — the Sierra Madre as any glittering thing you can't abandon.
+  W4  EVERY CHARACTER IS A CHAIN
+      Each companion embodies an obsession to release or die by — the chorus that rhymes with the central test.
+  W5  ELIJAH IS THE WARNING
+      A man so unable to let go that the casino entombs him — the fate the player narrowly escapes.
+  W6  YOU CAN'T CARRY IT OUT
+      The removed "escape with all the gold" verb is the spine: there is no exit that keeps both the treasure and your life.
+  W7  THE CHOICE IS IN YOUR HANDS
+      The player physically holds the gold and must set it down — the test is literal, not metaphorical.
+  W8  BEGINNING AGAIN IS WHAT YOU LEAVE
+      Survival is defined by what's abandoned, not gained — the fold's whole logic in one vault.
+  W9  THE CRUELTY SERVES THE THEME
+      The fog, the collars, the holograms all pressure the same lesson: linger, cling, and die.
+  W10 IT IS THE-PAST-IS-THE-TRAP IN ONE VAULT
+      A treasure that dooms whoever won't release it — Bohemia's whole fold question of letting go to begin again, in a sealed casino.
+
+### #214  THE DAUGHTER OF DARKNESS (A WOMAN RAISED TO SERVE A GODDESS OF LOSS DISCOVERS HER WHOLE SELF WAS SURGICALLY REMOVED, AND HER PARENTS ARE THE PRISONERS SHE WAS SENT TO KILL) (Baldur's Gate 3)
+  W1  THE DEVOTION WAS THE ERASURE
+      Shadowheart's faith was the mechanism of her own deletion — giving herself away was the theft, which is the whole engine.
+  W2  THEY TOOK HER ABILITY TO MOURN
+      The cult stole not just her past but her knowledge it was taken — she can't grieve what she can't remember losing.
+  W3  THE MURDER IS FRAMED AS VIRTUE
+      Killing the parents is the completion of a devotion she's proud of — the loyalty test's cruelest design.
+  W4  THE PARENTS ARE PROOF, NOT A TEST
+      They are evidence of what her faith cost her — the erasure's price made flesh.
+  W5  RECLAMATION IS SLOW
+      The removed "give back her self in a moment" verb is the spine: a lifetime of forgetting can't be undone in an instant.
+  W6  REFUSING REJECTS HER WHOLE MEANING
+      To stay her hand is to reject everything she was raised to be — not a small choice but a total one.
+  W7  THE ERASURE WAS DRESSED AS GRACE
+      The cult made her grateful for her own deletion — the horror of an institution that thanks you for disappearing.
+  W8  THE CRACKS WERE ALWAYS THERE
+      Her fear of the sun, her suppressed tenderness — the self resisting its own erasure, findable if looked for.
+  W9  THE PLAYER HELPS HER SEE
+      The companion's role is to reveal the devotion as dismantling — the witness to a reclamation.
+  W10 IT IS ENGINEERED-FORGETTING IN ONE DEVOTEE
+      A self deleted piece by piece and called faith — Bohemia's whole Amalgamation question of the taken self, in a cult of loss.
+
+### #215  DEIONARRA (A GHOST STILL LOVES A MAN WHO ISN'T YOU, WHO MANIPULATED HER TO DEATH, AND YOU WEAR HIS FACE) (Planescape: Torment)
+  W1  CONTINUITY SURVIVES MEMORY
+      The player is answerable for a self he can't remember — moral continuity outlasts forgetting, which is the whole engine.
+  W2  THE GRIEF DOESN'T CARE YOU FORGOT
+      Deionarra's love and accusation land regardless of the amnesia — the victim is owed no matter what you recall.
+  W4  THERE'S NO ONE ELSE TO ANSWER
+      The man who wronged her exists now only as the amnesiac before her — the debt falls on whoever wears the face.
+  W5  HE FEELS NO LOVE HE CAN OFFER
+      The player can't make it right with a devotion he never had — the gap is unbridgeable by feeling.
+  W6  THREE ANSWERS, ALL PARTIAL
+      Lie, truth, or responsibility — three ways to pay a debt he didn't knowingly incur, none fully clean.
+  W7  THE CRIME WAS COLD AND DELIBERATE
+      The past self cultivated her love as a tool and killed her knowingly — the wrong is monstrous, not accidental.
+  W8  THE LIE CONTINUES THE KILLER'S DECEPTION
+      Comforting her as the man she loved extends the very deception that doomed her — even mercy is complicated.
+  W9  RESPONSIBILITY CROSSES THE GAP
+      The profound answer is owning a crime without the memory of it — the hardest and truest kind of accountability.
+  W10 IT IS ANSWERABLE-FOR-WHO-YOU-WERE IN ONE GHOST
+      A victim of a self you can't remember, still owed — Bohemia's whole fold question of continuity, guilt, and the unremembered past.
+
+### #216  THE EBONY WARRIOR (A MASTER WHO HAS WON EVERYTHING BEGS A STRANGER TO KILL HIM SO HE CAN FINALLY REACH THE AFTERLIFE) (The Elder Scrolls V: Skyrim)
+  W1  MASTERY IS AN ENDING
+      The Warrior won everything and found the having empty — total accomplishment as its own death, which is the whole engine.
+  W2  THE STRIVING WAS THE LIFE
+      The reaching, not the arriving, held the meaning — the removed "give him a new summit" verb is the spine: another mountain would also empty out.
+  W3  HE ASKS FOR THE ONE THING HE CAN'T GIVE HIMSELF
+      A worthy defeat — the completion mastery cannot provide, sought from the one being who might match him.
+  W4  SPARING IS THE CRUELTY
+      Survival is the unkindness; sending him back to an exhausted life is the one thing he doesn't want — the reward structure inverted.
+  W5  IT'S NOT DESPAIR, IT'S JUDGMENT
+      His request is a clear-eyed conclusion, not suicidal collapse — a warrior's dignified reckoning with the emptiness after victory.
+  W6  HE IS THE TERMINUS OF THE PLAYER'S PATH
+      The player accumulates power all game; he stands at the end of that road and reports it's hollow — a warning from the summit.
+  W7  COMPLETION IS A WORTHY END
+      The only thing left that could fulfill him is a good death — the dignified terminus of a life of striving.
+  W8  THE PARADISE IS BARRED WHILE UNDEFEATED
+      He believes he can't enter the warrior's afterlife unfulfilled — the theology that makes the death a passage, not just an end.
+  W9  THE HAVING-WON IS THE PROBLEM
+      Not failure but total success is the desolation — the rare, true insight that getting everything can end you.
+  W10 IT IS WHAT-COMES-AFTER-YOU-WIN in one master
+      The emptiness on the far side of ambition — Bohemia's whole dynasty question of striving, accomplishment, and what a life is for once it's won, in one warrior's request to die.
+
+### #217  CUNO (A FERAL CHILD PERFORMS INVULNERABILITY BECAUSE THE ALTERNATIVE IS ADMITTING NO ONE IS COMING) (Disco Elysium)
+  W1  THE ARMOR IS THE WOUND
+      Cuno's cruelty is the defense of a neglected child, not the truth of him — the hostility as armor over abandonment, which is the whole engine.
+  W2  THE LOUDEST NOT-CARING IS THE DEEPEST HURT
+      The more he performs invulnerability, the more certainly he's protecting an unbearable wound — the sharpest thing the quest says.
+  W3  HE'S DESIGNED TO BE WRITTEN OFF
+      The performance is calibrated to earn dismissal — and the quest quietly indicts the reflex to take it at face value.
+  W5  REACHING ISN'T GUARANTEED
+      The removed "fix him by seeing him once" verb is the spine: the armor is load-bearing; one kindness doesn't undo a childhood.
+  W6  THE MOST DISMISSIBLE IS THE MOST WOUNDED
+      The character you most want to ignore is the one who most needs seeing — the reversal of the dismissal reflex.
+  W7  GIVING UP CONFIRMS THE ARMOR
+      Writing him off is exactly what the performance expects — the dismissal proves no one comes, which built the armor.
+  W8  HE'S A CHILD
+      Young, small, poor — the cruelty is a kid's, which makes taking it at face value a kind of failure of the adult, not the child.
+  W9  THE FATHER IS THE ABSENCE
+      The passed-out addict is the wound's source — the neglect that made the fortress.
+  W10 IT IS THE-ARMOR-IS-THE-WOUND IN ONE STREET KID
+      A neglected child performing not-needing-anyone — Bohemia's whole question of the hostile-seeming who most need seeing, in the most dismissible character on the map.
+
+### #218  ACADIA (A HIDDEN REFUGE OF SYNTHS DEBATES WHETHER MADE PEOPLE SHOULD HIDE, INTEGRATE, OR REPLACE, AND THE PLAYER CAN KEEP OR SHATTER THE PEACE OF THREE FACTIONS) (Fallout 4: Far Harbor (2016 expansion))
+  W1  THE PEACE IS BUILT ON LIES
+      The island's coexistence rests on buried truths and wrongs — the fragile balance is a concealment, which is the whole engine.
+  W2  WHOEVER HOLDS THE TRUTH HOLDS THE MATCH
+      The player's discovery makes them the island's fulcrum — the truth is a weapon that would collapse the peace.
+  W3  NO OPTION IS HONEST AND PEACEFUL
+      The removed "honest and lasting peace" verb is the spine: the lie can't be made truthful without falling.
+  W4  DIMA IS COMPROMISED, NOT EVIL
+      A synth who did monstrous things to keep his people alive — the keeper whose means indict the peace they preserved.
+  W5  THE SYNTH QUESTION HAS THREE ANSWERS
+      Hide (Acadia), integrate (the replacement), or coexistence is impossible — none safe, all embodied.
+  W6  THE MADE PEOPLE'S SAFETY IS ONE REVELATION FROM ASH
+      Acadia is the fragile best-case, one truth away from destruction — the precarity of made lives among makers.
+  W7  FLAWED SURVIVAL VS HONEST CATASTROPHE
+      The choice is whether a lie-based coexistence beats a truthful war — a genuine, hard trade.
+  W8  THE PLAYER DECIDES FOR EVERYONE
+      The fulcrum resolves the island for all three peoples — enormous, uncomfortable power over others' fates.
+  W9  THE TRUTH IS A WEAPON
+      Exposing the secrets frees the humans to destroy the synths — honesty as detonation, not clean virtue.
+  W10 IT IS MADE-PEOPLE-AMONG-THE-LIVING IN ONE ISLAND
+      Whether synths can coexist, and at what cost of lies — Bohemia's whole Amalgamation question of the made among the born, in a three-faction standoff.

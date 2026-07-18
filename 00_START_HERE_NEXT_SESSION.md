@@ -145,7 +145,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 128 of 150.** (Full-machine total 169; the
+   **INDIVIDUAL-QUEST COUNT: 134 of 150.** (Full-machine total 175; the
    rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -287,7 +287,19 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    a soul sold in good faith to save a city, the bill due as his father),
    Tranquility Lane (FO3 — a false paradise-prison whose only exit is
    death; liberation and mercy-killing the same act). **INDIVIDUAL-QUEST
-   COUNT: 128 of 150.** 22 to go.
+   COUNT: 128 of 150.**
+   BATCH 11 (7/18, #213-218): Dead Money (NV — a vault of gold that
+   kills whoever won't leave it; letting go is the only win), The
+   Daughter of Darkness (BG3, Shadowheart — a cult that deletes the self
+   and calls it devotion; kill the parents you don't remember or reclaim
+   yourself), Deionarra (Planescape — a ghost wronged by a past self you
+   can't remember but are answerable for), The Ebony Warrior (Skyrim — a
+   master who won everything and begs for a worthy death; the striving
+   was the life), Cuno (Disco — a feral child performing invulnerability
+   because no one ever came; the armor is the wound), Acadia (FO4 Far
+   Harbor — a fragile three-faction peace held by hidden truths; keep
+   the lie, expose it, or burn it down). **INDIVIDUAL-QUEST COUNT: 134 of
+   150.** 16 to go.
    VEINS STILL DEEP: ME2 (Samara/Morinth done, Thane done, the IFF done),
    Witcher (Ghosts of the Past, the Last Wish done), FO4 (Far Harbor's
    Acadia synths, the Cabot done), NV (Beyond the Beef done, Dead Money's
