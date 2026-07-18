@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]  [+BATCH appended 225,226,227,228,229,230 (7/17/26, machine-parsed)]
-2307 findings / 230 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]  [+BATCH appended 225,226,227,228,229,230 (7/17/26, machine-parsed)]  [+BATCH appended 231,232,233,234 (7/17/26, machine-parsed)]
+2347 findings / 234 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -5063,3 +5063,89 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       The core truth: pretend long and fully enough and it's no longer pretending — the mask is the face.
   W10 IT IS THE-MASK-BECOMES-THE-FACE IN ONE COP
       A lived lie that made a second real self and two real loyalties — Bohemia's whole faction question of divided belonging and the cost of deep deception, in one undercover officer.
+
+### #231  THE EMPEROR (YOUR PROTECTOR KEEPS YOU ALIVE AND KEEPS YOU LEASHED, AND ASKS YOU TO TRUST THAT THOSE ARE THE SAME THING) (Baldur's Gate 3)
+  W1  PROTECTION AND CONTROL ARE THE SAME ACT
+      The Emperor genuinely keeps the player alive while genuinely leashing them — the guardian-is-a-leash, the whole engine.
+  W2  THE HELP IS GENUINE
+      The protection isn't a lie; without it the player is lost — which is exactly what makes the control hard to reject.
+  W4  THE LEASH IS ALSO A LIFELINE
+      The removed "keep protection without control" verb is the spine: the safety can't be separated from the dependence.
+  W5  DEPENDENCE IS COMFORTABLE AND OFTEN CORRECT
+      Which is precisely what makes it a cage — the short-term rightness of the leash is the trap.
+  W6  THE CHOICE ISN'T TRUST-A-LIAR
+      It's accept-or-refuse a safety that costs autonomy — a subtler, truer dilemma than unmasking a fraud.
+  W7  THE DANGER IS REAL
+      The corruption genuinely threatens the player — the leash is rational, not paranoid, which keeps the tension.
+  W8  AUTONOMY IS THE HARDER ROAD
+      Rejecting the protector means more risk and less guidance — freedom as a costly trade, not a free good.
+  W9  THE BENEFACTOR HAS ITS OWN AGENDA
+      Its help serves its ends too — a lifeline held by someone with their own purposes is a leash.
+  W10 IT IS PROTECTION-IS-CONTROL IN ONE GUARDIAN
+      A benefactor who keeps you safe and small at once — Bohemia's whole Amalgamation question of care, dependence, and the leash, in one protector.
+
+### #232  THE RAKGHOUL SERUM (A CURE FOR THE PLAGUE THAT TURNS THE POOR INTO MONSTERS EXISTS, AND ITS MAKER WANTS TO SELL IT, NOT SPREAD IT) (Star Wars: Knights of the Old Republic)
+  W1  THE CURE IS HOARDED, NOT ABSENT
+      The suffering persists because the remedy is withheld for profit — the hoarding is the injustice, the whole engine.
+  W2  THE POOR CAN'T PAY
+      The cure is denied to those who need it most — the priced-out dying, the sharpest form of the commodity question.
+  W3  WHOSE LIVES COUNT
+      Whether the cure is sold or given is a decision about which lives matter — the moral core.
+  W4  THE SCARCITY IS A CHOICE
+      The removed "cure everyone and keep the monopoly" verb is the spine: the hoarding IS the scarcity; you can't have both.
+  W5  THE SHINING CITY ARRANGED NOT TO SEE
+      The plague festers where the powerful don't look — the engineered blindness above the buried misery.
+  W6  THE PLAGUE FUSES POVERTY AND HORROR
+      The sick become monsters — the underclass's suffering made literal and vivid.
+  W7  THE MAKER HAS A CLAIM
+      He made it, he could profit — which keeps the choice a real dilemma, not obviously robbing a villain.
+  W8  THE CURE BELONGS TO ITS NEED OR ITS OWNER
+      The question the whole quest poses — commodity or right — enacted in one decision.
+  W9  THE INJUSTICE IS ENGINEERED
+      The tiered city and the hoarded cure are choices, not facts — the suffering is made, not inevitable.
+  W10 IT IS THE-REMEDY-HOARDED-FROM-THE-POOR IN ONE SLUM
+      A cure withheld from the dying beneath a shining city — Bohemia's whole power-grid question of who a good is for, in an undercity.
+
+### #233  WHODUNIT! (LOCKED IN A MANSION WITH STRANGERS YOU'RE PAID TO MURDER ONE BY ONE, YOU TURN THEIR FEAR INTO YOUR WEAPON) (The Elder Scrolls IV: Oblivion)
+  W1  THE WEAPON IS PARANOIA, NOT THE BLADE
+      The assassin turns fear into the killer — manufactured suspicion is deadlier than any knife, the whole engine.
+  W2  THE HORROR IS HOW LITTLE IT TAKES
+      A few whispers turn trapped strangers into mutual executioners — the chilling ease of social breakdown.
+  W3  THE GUESTS DO THE KILLING
+      Ordinary, frightened people destroy each other; the assassin barely lifts a blade — the victims made complicit in their own slaughter.
+  W4  THE SEALED ROOM IS THE WEAPON
+      The removed "complete it without anyone's fear turned into a weapon" verb is the spine: the trapped, fearful space only needs aiming.
+  W5  FEAR DEFAULTS TO SUSPICION
+      Isolated and threatened, people suspect each other — the assassin only converts that suspicion into violence.
+  W6  THE GUESTS AREN'T EVIL
+      Just ordinary strangers under dread — which is what makes their turning so unsettling; anyone would.
+  W7  THE METHOD MIRRORS FEAR EVERYWHERE
+      Isolate, convince them a threat is among them, and they destroy each other — how paranoia operates at any scale.
+  W8  THE ELEGANT ROUTE IS THE DISTURBING ONE
+      The psychological method is easier and worse than the blade — the quest makes cleverness chilling.
+  W9  THE ONE WHO UNDERSTANDS ONLY AIMS
+      The assassin need not kill you, only your suspicion of each other — the deepest form of the weapon.
+  W10 IT IS FEAR-TURNS-PEOPLE-ON-EACH-OTHER IN ONE MANOR
+      Trapped strangers made mutual executioners by a whisper — Bohemia's whole question of manufactured paranoia and social breakdown, in a sealed party.
+
+### #234  THE ACCUSATION (YOU MUST NAME A KILLER ON EVIDENCE THAT NEVER ADDS UP, AND THE TOWN WILL LIVE WITH YOUR GUESS FOR GENERATIONS, AND YOU WILL NEVER KNOW IF YOU WERE RIGHT) (Pentiment)
+  W1  YOU DECIDE THE TRUTH WITHOUT VERIFYING IT
+      A name is forced on incomplete evidence and never confirmed — the unverifiable judgment, the whole engine.
+  W2  AN INNOCENT MAY PAY
+      The accused may be guiltless and is executed anyway — the stakes of a verdict authored on a guess.
+  W3  THE TOWN CARRIES IT FOR GENERATIONS
+      The accusation shapes the community for decades — the generational ledger of an uncertain judgment.
+  W4  THE TRUTH IS WITHHELD FOREVER
+      The removed "find out for certain" verb is the spine: no reveal, no epilogue, no confirmation, ever.
+  W5  THE WEIGHT IS THE NOT-KNOWING
+      Not being wrong but never being allowed to know — the true, rare burden the quest makes the player carry.
+  W6  A NAME MUST BE GIVEN
+      "I'm not sure" is not allowed; the decision can't be deferred — the forced authorship of a verdict.
+  W7  THE EVIDENCE NEVER RESOLVES
+      Partial, contradictory, inconclusive — no path to proof, which is the honest condition of most real judgment.
+  W8  TIME IS THE CRUELEST STROKE
+      The player returns years later and sees the verdict still shaping lives — the accusation's permanence made visible.
+  W9  IT MIRRORS EVERY REAL JUDGMENT
+      Deciding with incomplete information and lasting stakes, never confirmed — the universal condition of judging.
+  W10 IT IS DECIDE-AND-NEVER-KNOW IN ONE TOWN
+      A verdict authored on a guess and carried for generations — Bohemia's whole unrecorded-ledger question of who the record convicts, made the capstone of the conduct book.

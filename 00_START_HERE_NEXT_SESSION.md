@@ -145,7 +145,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 146 of 150.** (Full-machine total 187; the
+   **INDIVIDUAL-QUEST COUNT: 150 of 150. TARGET MET.** (Full-machine total 191; the
    rest are system studies that don't count.) 4 to go — ONE batch to 150.
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -322,14 +322,39 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    monster doing atrocities; bet the world or end the chance), The
    Undercover Cop (Sleeping Dogs, Wei Shen — the mask worn long enough
    becomes a real face; every loyalty is a betrayal). **INDIVIDUAL-QUEST
-   COUNT: 146 of 150.** 4 TO GO — ONE MORE BATCH HITS 150.
-   ON 150: the standing plan is the MASTER COMPILE — fold the four
-   extraction masters (CRAFT/FLAWS/CONVERSATIONS/PORTS) into the build
-   queue; PORTS is the game-build list. Research becomes production.
-   VEINS FOR THE FINAL FOUR: BG3 (the Emperor's manipulation, Astarion's
-   ascension), NV (Dead Money's Christine/Dog, Old World Blues), KOTOR
-   (the rakghoul serum), Disco (the Hardie Boys tribunal aftermath),
-   Fallout 2 (the Enclave/Vault City), Skyrim (a Daedric prince quest).
+   COUNT: 146 of 150.**
+   BATCH 14 — THE FINAL FOUR (7/18, #231-234): The Emperor (BG3 — the
+   protector who is also a leash; safety bought with dependence), The
+   Rakghoul Serum (KOTOR — a cure for the poor hoarded for profit
+   beneath a shining city), Whodunit! (Oblivion — a sealed manor where
+   fear is the weapon; turn strangers into their own executioners), and
+   the capstone #150: THE ACCUSATION (Pentiment — name a killer on
+   evidence that never adds up, the town carries it for generations, and
+   you never learn if you were right). **INDIVIDUAL-QUEST COUNT: 150 of
+   150. TARGET MET 7/18/26.** All FNV-free by design (see FNV note below).
+
+   *** 150 REACHED. NEXT: THE MASTER COMPILE. ***
+   The standing plan now fires: fold the four extraction masters
+   (CRAFT/FLAWS/CONVERSATIONS/PORTS) into the build queue; PORTS is the
+   game-build list. 234 full-machine teardowns (150 individual quests +
+   41 system studies + the 01-138 corpus) become the production spec for
+   Bohemia's own quests. Paolo also wants to USE the corpus now: ask
+   about theme, consistency, trends, and as a training set for writing
+   NEW Bohemia quests.
+
+   *** FNV RULING PENDING PAOLO (7/18) ***
+   Paolo: this game will draw comparison to Fallout: New Vegas, so keep
+   DIRECT FNV ports to 1-2 MAX. Current FNV individual quests (6):
+   #169 That Lucky Old Sun, #190 Come Fly with Me, #197 Ghost Town
+   Gunfight, #201 I Could Make You Care, #208 Honest Hearts, #213 Dead
+   Money. RECOMMENDATION (not yet actioned): DON'T delete them — the
+   craft is the whole point of the compile and they're a training set.
+   Instead flag them STUDY-ONLY / NO-DIRECT-PORT in the PORTS master,
+   keep 1-2 as portable (Dead Money's let-go machine and Honest Hearts'
+   repentance are the most Bohemia-load-bearing and least FNV-specific).
+   If Paolo cuts some from the 150 count, backfill with non-FNV mines to
+   hold 150. AWAITING his call on which to keep portable + whether to
+   recount.
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.

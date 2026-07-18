@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]  [+BATCH appended 225,226,227,228,229,230 (7/17/26, machine-parsed)]
-1588 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]  [+BATCH appended 225,226,227,228,229,230 (7/17/26, machine-parsed)]  [+BATCH appended 231,232,233,234 (7/17/26, machine-parsed)]
+1604 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3959,3 +3959,59 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — BOTH LOYALTIES CARRY MIXED WEIGHT [F3's law]
       system: factions / the conduct book
       If a quest tears a person between two loyalties, BOTH carry mixed, genuine weight — neither purely clean nor purely corrupt — so the choice is a true dilemma, not tipped by one side being obviously right (#218's both-claims-must-be-mixed law).
+
+### #231  THE EMPEROR (YOUR PROTECTOR KEEPS YOU ALIVE AND KEEPS YOU LEASHED, AND ASKS YOU TO TRUST THAT THOSE ARE THE SAME THING) (Baldur's Gate 3)
+  ->  PORT 1 — THE GUARDIAN WHO IS ALSO A LEASH [W1, W2, W4 — the core port]
+      system: the Amalgamation / factions / companions
+      A Bohemia benefactor (the Amalgamation, a patron, a protector) who GENUINELY keeps the dynast alive — shields them from a real danger, offers real guidance and power — while GENUINELY controlling them: curating truths, nudging choices, keeping them dependent, and framing every controlling act as care and survival, so the dynast must weigh a lifeline that is also a leash and decide whether safety b
+  ->  PORT 2 — THE HELP IS GENUINELY VALUABLE [F1's law]
+      system: the Amalgamation / factions
+      If a quest weighs a controlling benefactor's help against its leash, the HELP is made genuinely valuable and the danger genuinely real — the lifeline's worth felt — so keeping the leash is a real temptation, not an obvious mistake (#209's the-protection-must-be-real law).
+  ->  PORT 3 — THE CONTROL IS SEDUCTIVE [F2's law]
+      system: the Amalgamation / companions
+      If a quest's engine is control dressed as care, the justifications are genuinely PERSUASIVE — partly true, reasonable — so "for your own good" is a seductive leash the dynast feels the pull of, not a transparent lie (#221's the-control-must-be-seductive law).
+  ->  PORT 4 — AUTONOMY CARRIES REAL RISK [F3's law]
+      system: the Amalgamation / the fold
+      If a quest offers autonomy against a benefactor's safety, the AUTONOMY carries real risk — the danger of going alone felt — so choosing freedom is a genuine trade, not a costless virtue (#201's the-freedom-must-cost law).
+
+### #232  THE RAKGHOUL SERUM (A CURE FOR THE PLAGUE THAT TURNS THE POOR INTO MONSTERS EXISTS, AND ITS MAKER WANTS TO SELL IT, NOT SPREAD IT) (Star Wars: Knights of the Old Republic)
+  ->  PORT 1 — THE CURE HOARDED FROM THE POOR [W1, W2, W3 — the core port]
+      system: the power grid / factions / the unrecorded ledger
+      A Bohemia arc where a remedy for mass suffering (a cure, a resource, a saving technology) EXISTS but is hoarded for profit beneath a shining surface that has arranged not to see the buried underclass dying without it — and the dynast decides whether the remedy is a commodity to be sold (uphold the system, the poor keep dying) or a right to be given (break the hoarding, free the cure), with whose l
+  ->  PORT 2 — THE MORAL QUESTION STAYS FOREGROUND [F1's law]
+      system: the power grid / the unrecorded ledger
+      If a quest's core is a hoarded remedy, the MORAL question (commodity or right) stays foregrounded over the fetch — the injustice made the point, not the errand — so the dynast reckons with who the cure is for (#196's the-question-stays-central law).
+  ->  PORT 3 — THE MAKER'S CLAIM WEIGHS [F2's law]
+      system: factions / the power grid
+      If a quest weighs a maker's claim against the needy, the MAKER'S claim gets real weight — the labor and risk acknowledged — so freeing the cure is a genuine moral choice, not obviously robbing a villain (#180's both-sides-must-weigh law).
+  ->  PORT 4 — THE UNDERCLASS HAS FACES [F3's law]
+      system: the power grid / factions / the unrecorded ledger
+      If a quest's stakes are a suffering underclass, at least some of the poor are VIVID — specific sufferers, a named dying person — so freeing the cure has faces and the injustice weighs (#190's the-many-need-a-face law).
+
+### #233  WHODUNIT! (LOCKED IN A MANSION WITH STRANGERS YOU'RE PAID TO MURDER ONE BY ONE, YOU TURN THEIR FEAR INTO YOUR WEAPON) (The Elder Scrolls IV: Oblivion)
+  ->  PORT 1 — THE SEALED ROOM WHERE FEAR IS THE WEAPON [W1, W2, W4 — the core port]
+      system: the conscience system / factions / the unrecorded ledger
+      A Bohemia scenario where a group of trapped, frightened people (strangers, a besieged community, a paranoid faction) can be turned into their own executioners not by force but by MANUFACTURED SUSPICION — the dynast (or an antagonist) whispering doubts, feeding dread, convincing them a threat walks among them until they destroy each other — demonstrating that the deadliest weapon in a locked room i
+  ->  PORT 2 — THE PEOPLE FEEL REAL [F1's law]
+      system: factions / the conscience system
+      If a quest's horror is people turning on each other under fear, the people read as REAL and frightened — their panic and suspicion human, not scripted-puzzle behavior — so the breakdown chills rather than reading as a mechanism (#209's the-victims-must-feel-real law).
+  ->  PORT 3 — THE PSYCHOLOGICAL METHOD IS PLAYABLE [F2's law]
+      system: the conscience system / factions
+      If a quest's point is fear-as-weapon, the psychological method is genuinely PLAYABLE and rewarded over brute force — the paranoia route made satisfying — so players experience the manufactured-suspicion horror, not just skip to the blade (#210's the-clever-path-must-be-reachable law).
+  ->  PORT 4 — THE PLAYER'S COMPLICITY IS SURFACED [F3's law]
+      system: the conscience system / the unrecorded ledger
+      If a quest lets the dynast weaponize others' fear, the player's own COMPLICITY is surfaced — the disturbing ease of what they did made visible — so the mirror (you turned people into killers with a whisper) lands (#193's the-complicity-must-be-surfaced law).
+
+### #234  THE ACCUSATION (YOU MUST NAME A KILLER ON EVIDENCE THAT NEVER ADDS UP, AND THE TOWN WILL LIVE WITH YOUR GUESS FOR GENERATIONS, AND YOU WILL NEVER KNOW IF YOU WERE RIGHT) (Pentiment)
+  ->  PORT 1 — THE VERDICT AUTHORED ON A GUESS, NEVER CONFIRMED [W1, W4, W5 — the core port]
+      system: the conduct book / the unrecorded ledger / the fold
+      A Bohemia investigation where the dynast is FORCED to name a culprit on incomplete, contradictory evidence before a deadline that forbids deferral — an innocent may be condemned, the community carries the verdict for generations, and the truth is NEVER confirmed, so the dynast authors a judgment they can never verify and lives, with the town, in permanent not-knowing. The unrecorded-ledger's you-d
+  ->  PORT 2 — THE UN-KNOWABILITY IS OWNED [F1's law]
+      system: the conduct book / the unrecorded ledger
+      If a quest's power is a permanently withheld truth, the un-knowability is OWNED as the condition — the weight of judging-without-proof foregrounded — so it reads as "you must decide and never know," not "the game had no answer" (#206's the-ambiguity-must-be-owned law).
+  ->  PORT 3 — THE FORCED VERDICT IS GROUNDED [F2's law]
+      system: the conduct book / factions
+      If a quest forces a verdict on incomplete evidence, the PRESSURE to decide is grounded — the real reason a name can't be deferred made legible — so the forced guess reads as a genuine bind, not an arbitrary clock (#226's the-no-defer-must-be-earned law).
+  ->  PORT 4 — THE VERDICT OUTLIVES THE CHOICE [F3's law]
+      system: the fold / the unrecorded ledger / the conduct book
+      If a quest's weight is a verdict carried for generations, the LONG-TERM consequence is shown and felt — the accusation's decades-long ripple made present — so the dynast experiences the verdict outliving them (#187's the-consequence-must-outlive-the-choice law).
