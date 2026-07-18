@@ -139,6 +139,14 @@ CANDLE, MOB — THE HOUSE REMEMBERS (all '--' in the paste, verdicts still open)
    textarea under the graveyard, saved with the music save, rides the export as
    a PAOLO COMMENTS block. Talk lands in the paste, the paste lands in the repo.
 
+=== BATCH 9 DROP-IN FOLDED (7/18/26) — a parallel session cooked a batch and it was
+never committed; Paolo handed it over as a drop-in .txt. Folded into the canonical
+alpha per ONE-ALPHA LAW. 4 voices born (hollowvowl -> THE ORGAN IN THE DROWNED
+CHAPEL, wrongbox -> THE BOX THAT COUNTS THE DEAD, shatterbell -> WHAT SHATTERED IN
+THE VAULT DOOR, gravechoir -> THE SWELL BENEATH THE FLOOR), each owned by one song.
+All 4 songs distinct scale+feel+kick, screech-safe (no delay/convolver). Added to
+MLOOPS + NEW_VIBES. LESSON: parallel music cooks must COMMIT+PUSH, not die in-session.
+
 === COOK BATCH 10 (7/18/26) — THE DROWNED CATHEDRAL. 6 songs. Horror FF10, melodic under dread: Via Purifico, the Sending, a hymn heard underwater. ===
 SIX VOICES BORN (ledgered to owner song, each used by that ONE song alone):
 - submergechoir -> VIA PURIFICO       (warped-tape choir underwater: wow 0.3Hz + flutter 5.5Hz wired into pitch, one 'oh' vowel throat, the lowpass lid opening)
