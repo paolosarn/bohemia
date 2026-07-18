@@ -72,13 +72,22 @@ verified in a 390px chromium: enter + exit, 0 console errors. Wired into the
 alpha SLICE tab organically (SLICES_MANIFEST current='enter', regenerated
 BOHEMIA_CURRENT_SLICE.html) — ONE-ALPHA safe, the 31MB alpha never changed. Made
 world.js browser-robust (typeof-guarded module resolution) for embedding.
-NEXT (roadmap): (1) suburb/commercial footprints are BLOCKED on MAP LAW — the
-suburb interior (loops/culs) is [PENDING Paolo]; I placed no neighborhood layout.
-(2) overmap-scale walk (streets between plots) + real art in the enter slice;
-(3) LIFE (agents {home,work,schedule} on the model + economy + faction
-ownership) — needs homes, so it waits on footprints/Paolo's suburb ruling;
-(4) Paolo rules LOOP. Cleanest unblocked next: broaden the enter slice to
-overmap-scale walking, or Paolo rules the suburb interior so homes + LIFE open.
+SUBURB INTERIOR — NOW A JUDGING TOOL IN THE SLICE MENU (Paolo 7/18: "if there's
+anything you want me to judge... make an interactive in the slice menu"). The
+suburb interior (loops/culs) is his under MAP LAW and it's THE unblock for homes
+-> LIFE. tools/bohemia_suburb_judge.py -> slices/BOHEMIA_SUBURB_JUDGE_7_18_26.html:
+3 candidate layouts (THE LOOP / CUL-DE-SACS / GARDEN CURVE) generated from the
+anatomy (curvilinear, loops+culs, walled), thumbs + per-style + global comments,
+SUN MODE, RESEED, export .txt (verdict workflow). Wired into the SLICE tab
+(manifest current='suburb'). Verified in chromium (0 errors, 21/15/13 houses,
+export works). STATUS: [PENDING Paolo verdict]. On approval, the chosen generator
+graduates into bohemia_plotgen (suburb houses), homes exist, LIFE opens.
+NEW WORKFLOW LAW (Paolo 7/18): anything needing his judgment/feedback MUST be an
+interactive in the alpha SLICE menu — not a chat proof image. Stop sending PNG
+proofs as pseudo-verdicts.
+NEXT: (a) [PENDING Paolo] the suburb verdict (unblocks homes->LIFE) + he rules
+LOOP; (b) mine, unblocked: overmap-scale walk (streets between plots) + real art
+in the enter slice, then start LIFE once homes exist.
 
 ## CITY-BUILDER FOUNDATION (7/18, Paolo scoping the city start)
 Paolo's plan: put streets into the CITY tab now, empty lots = DESERT until

@@ -1,8 +1,15 @@
 {
   "version": "BOHEMIA_SLICES_MANIFEST_v1",
   "note": "Single source of truth for the alpha's live-slice section. The alpha points at ONE stable URL (BOHEMIA_CURRENT_SLICE.html); this manifest decides which slice that URL shows. Update the slice = bump 'current' + regen the loader (python3 tools/bohemia_slice_host.py). The alpha itself never changes. 'entries' stays short until the game ships, then it can become a real catalog.",
-  "current": "enter",
+  "current": "suburb",
   "entries": [
+    {
+      "id": "suburb",
+      "title": "JUDGE — the neighborhoods",
+      "file": "BOHEMIA_SUBURB_JUDGE_7_18_26.html",
+      "date": "2026-07-18",
+      "note": "YOUR CALL. How a walled Bohemia neighborhood is laid out inside is yours under MAP LAW, and it unlocks homes, then the people who live in them. Three candidate layouts (the loop, cul-de-sacs, garden curve), each from the anatomy. Thumb the ones that feel like Bohemia, kill the rest, comment, hit export. Nothing becomes canon until you pick. Reseed to see the variety each makes."
+    },
     {
       "id": "enter",
       "title": "ENTER — the world, walkable",
