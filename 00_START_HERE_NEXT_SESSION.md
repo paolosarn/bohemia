@@ -159,9 +159,26 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    ME2 loyalty (Thane, Jack, Zaeed, Grunt, Legion done), DA:O (Broken
    Circle, Urn of Sacred Ashes, the Golems of Amgarrak), Witcher
    contracts + Hearts of Stone beats, Fallout 4 (Kid in a Fridge, the
-   USS Constitution), NV (Ghost Town Gunfight, I Put a Spell on You),
-   KOTOR (Korriban, the Leviathan), Skyrim (Boethiah done, the Wolf
-   Queen, Forbidden Legend), Planescape (Ravel, the Pillar of Skulls).
+   USS Constitution), NV, KOTOR, Skyrim, Planescape.
+   BATCH 3 (7/17, #165-170): The House of Grief (BG3, kill the mother
+   who made you — companion fate as accumulated debt, not a menu pick),
+   The Urn of Sacred Ashes (DA:O, the sacred tested by absent
+   punishment), The Leviathan (KOTOR, the reveal delivered as an assault
+   at your lowest — the #32 twist's DELIVERY studied), Ravel Puzzlewell
+   (Planescape, the thesis spoken by the monster, gated behind
+   engagement — #12 crystallized), That Lucky Old Sun (NV, who gets the
+   power — the allocation switch = our power-grid model), Sins of the
+   Father (ME2, stop your son from becoming you — the fold's break-the-
+   cycle beat through a THIRD voice). **INDIVIDUAL-QUEST COUNT: 86 of
+   150.** 64 to go. VEINS STILL DEEP: BG3 (the Gauntlet of Shar, Karlach's
+   heart, Wyll's pact), ME2 loyalty (Jack, Zaeed, Grunt, Tali done),
+   DA:O (Broken Circle/the Fade, the Golems of Amgarrak, the Werewolves
+   done), Witcher (the Last Wish done, Carnal Sins, A Towerful of Mice),
+   FO4 (Kid in a Fridge, USS Constitution, the Nucleus), NV (Ghost Town
+   Gunfight, I Put a Spell on You, Beyond the Beef done), KOTOR
+   (Korriban, Juhani), Skyrim (Forbidden Legend, the Wolf Queen,
+   Sheogorath done), Planescape (the Pillar of Skulls, Fall-from-Grace),
+   Pathologic, Disco (Klaasje, the Deserter), CP2077 (I Fought the Law).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.

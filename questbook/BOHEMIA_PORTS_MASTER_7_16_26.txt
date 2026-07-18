@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]
-1324 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]
+1348 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3035,3 +3035,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — TAKING THE SERUM IS A RECORDED STAIN [F3's law]
       system: the fold / the conduct book (#143)
       If the dynast is bribed with a share of the never-dying, taking it is a recorded MORAL act — the fold marks that they pocketed the not-dying — so the contamination of the choice is felt, not laundered as loot (#31's cruelty-incentivized law).
+
+### #165  THE HOUSE OF GRIEF (KILL THE MOTHER WHO MADE YOU, OR KNEEL) (Baldur's Gate 3)
+  ->  PORT 1 — THE FATE THAT IS EARNED, NOT PICKED [W1, W4, W7 — the core port]
+      system: companions / the fold / the conduct book (#143)
+      A Bohemia companion made into a weapon (by the Amalgamation, a faction, an edit) returns to their makers, and whether they can refuse is GATED by the dynast's accumulated relationship — not a final choice but a debt built across the arc. The companion-fate machine (#06/#43) fused with the edited-self theme; a person saved in a hundred small moments or lost in their absence. ``` @TALK the_unmaker s
+  ->  PORT 2 — THE RELATIONSHIP IS LEGIBLE [F1's law]
+      system: companions / the fold / the unrecorded ledger
+      The accrual that decides a companion's fate gives LEGIBLE feedback — a felt sense of them reclaiming or losing themselves — so the ending is earned by attention, not invisible bookkeeping. A debt the player can't see is a coin-flip (#24's surface-the-reactivity law).
+  ->  PORT 3 — THE FORGETTING TEMPTS [F2's law]
+      system: the Amalgamation / dialogue scenes
+      The lure of forgetting-as-mercy is made genuinely tempting — the relief real, the pain of remembering shown as unbearable — so kneeling is a comprehensible choice, not a villain's trap. The Amalgamation's "no one is ever lost" must tempt (#34/#161's make-it-tempting law).
+  ->  PORT 4 — THE BUILDING MOMENTS FEEL SIGNIFICANT [F3's law]
+      system: companions / the fold
+      The moments that build a companion's fate FEEL significant — the weighting legible to emotional intuition — so a dynast who cares reliably reaches the earned ending. Hidden uneven weighting punishes the attention it should reward (#158's unmarked-but-fair law, applied to relationship).
+
+### #166  THE URN OF SACRED ASHES (DESECRATE THE RELIC, OR KEEP THE FAITH) (Dragon Age: Origins)
+  ->  PORT 1 — THE SACRED TESTED BY ABSENT PUNISHMENT [W1, W7, W10 — the core port]
+      system: faith systems / the district / the fold
+      A Bohemia pilgrimage or relic quest where a sacred thing can be SPENT for a real, unpunished advantage — the dynast offered a genuine boon for desecrating something the district holds holy, with no meter to stop them — testing whether they will spend the sacred when nothing would penalize it. The honest-devil (#126) as a relic; the sacred as a choice, not a property. ``` @TALK the_defiler speaker=
+  ->  PORT 2 — UNPUNISHED, NOT UNNOTICED [F1's law]
+      system: the fold / faction memory / the conduct book (#143)
+      The "will you spend the sacred when nothing punishes it" test is framed so the absent punishment reads as DELIBERATE — a witness who knows, a companion who never forgets, a fold entry — so the silence is the point, not a bug. Unpunished distinguishable from unnoticed (#14/#126 no-karma-but-remembered law).
+  ->  PORT 3 — THE FORCED CONFESSION RETURNS [F2's law]
+      system: the Guardian-beat / the fold / [READ]
+      A forced-honesty beat where the dynast names their own guilt RETURNS — the spoken truth resurfacing, the fold holding it, a mercy or consequence built on it — so the honesty was extracted for a reason. A confession that never echoes is a set piece (#50's small-choices-teach law, extended).
+  ->  PORT 4 — THE FALSE FAITH IS REAL FAITH [F3's law]
+      system: faction web / the district
+      A false-faith faction is given real DEVOTION — sincerity, a comprehensible reason, individual faces — so they mirror the true pilgrims, not just block them. Aimed-wrong faith is only meaningful if felt as faith (#155's humanize-through-resolution law).
+
+### #167  THE LEVIATHAN (THE TRUTH DELIVERED BY THE ENEMY AT YOUR LOWEST) (Star Wars: Knights of the Old Republic)
+  ->  PORT 1 — THE REVEAL DELIVERED AS AN ASSAULT [W1, W2, W3 — the core port]
+      system: the Amalgamation / the fold / the mid-game turn
+      A Bohemia mid-game reveal delivered as a WEAPON — the Amalgamation, which archives the dead and thus knows the dynast's true history better than they do, hands them the truth at their lowest point (captured, broken, betrayed) to shatter them, followed by an escape that denies catharsis and forces the dynast to carry the collapse forward under fire. The identity twist (#32) studied for its DELIVERY
+  ->  PORT 2 — SEEDED SO IT LANDS BOTH WAYS [F1's law]
+      system: the fold / [READ]
+      The reveal is seeded so it is INEVITABLE-in-hindsight for the attentive and earned for the inattentive — clues present but not conclusive (#32's fairness contract) — so the delivery's power isn't undercut by a setup that spoils or blindsides. The seeding is the delivery's foundation.
+  ->  PORT 3 — THE DENIAL OF CATHARSIS IS DESIGNED [F2's law]
+      system: the mid-game turn / the dial
+      The forced action after the reveal is SHAPED to carry the trauma — its demands echoing the collapse, leadership-under-fire mirroring the theme — so the structure weaponizes the reveal on purpose. A designed gut-punch beats an accidental one (#27's theme-through-mechanic law).
+  ->  PORT 4 — THE POISONED BONDS SCAR [F3's law]
+      system: companions / the fold
+      Bonds detonated by a reveal rebuild CARRYING the specific wound — reformed as scarred, different things, not restored to default — so the damage is permanent even when the relationship survives. The fold holds the poison; reconciliation is not erasure (#43's companion-scar law).
+
+### #168  RAVEL PUZZLEWELL (THE HAG WHO ASKS THE ONLY QUESTION) (Planescape: Torment)
+  ->  PORT 1 — THE THESIS SPOKEN BY THE MONSTER [W1, W2, W3 — the core port]
+      system: the Amalgamation / [READ] / the central question
+      A Bohemia quest where the game's deepest truth — the answer to "what survives when a life ends" — is spoken by an unlikely mouth (the Amalgamation itself, a monster, a madwoman), gated behind ENGAGEMENT, so the dynast who thinks and converses receives the thematic key and the skimmer never hears it. The buried climax (#12): the truest thing the game says, earned by attention, from the last place y
+  ->  PORT 2 — ENGAGEMENT, ANY GENUINE PATH [F1's law]
+      system: [READ] / dialogue / the central question
+      The reward for engagement is reachable by ANY genuine engagement, not one exact wording — the buried truth offered to the dynast who thinks, however they phrase it — so reflection reliably earns it. A truth gated behind exact wording punishes the thinker (#158's unmarked-but-fair law, applied to theme).
+  ->  PORT 3 — THE DANGER IS LEGIBLE [F2's law]
+      system: [READ] / dialogue
+      If a wrong answer forecloses the deepest content, the danger is LEGIBLE — the dynast able to sense they are provoking rather than engaging — so losing the truth is a consequence of choosing not to think, not of misreading an obscure trigger (#26/#160's fair-deduction law, applied to dialogue).
+  ->  PORT 4 — THE MONSTER'S LOVE IS SHOWN [F3's law]
+      system: the Amalgamation / dialogue scenes / the fold
+      A monster whose tragedy is love has that love SHOWN with enough weight to be felt, not buried in optional density — so the creature's grief carries the same force as its thesis. The buried climax's emotion is as reachable as its idea (#155/#159's show-the-wound law).
+
+### #169  THAT LUCKY OLD SUN (WHO GETS THE POWER) (Fallout: New Vegas)
+  ->  PORT 1 — THE ALLOCATION SWITCH [W1, W2, W3 — the core port]
+      system: the power grid / currencies / the district
+      A Bohemia quest where the dynast restores a scarce resource (power, water, medicine) and allocates it at a single console — the region, a faction, the faithful who kept it, or a weapon — with no combat, just a switch and its downstream shape. Infrastructure as a moral act; the direct model for our power-grid allocation, the Frostpunk decree (#29) and Pathologic triage (#21) in one lever. ``` @TALK
+  ->  PORT 2 — THE CONSEQUENCES ARE FELT [F1's law]
+      system: the district / the fold / entities
+      An allocation's effects are LEGIBLE and felt — the lit district thriving, the dark one suffering, named people on both sides — so the switch's moral weight lands. A resource decision with invisible outcomes is a menu, not a verdict (#29's faces-not-bars law).
+  ->  PORT 3 — THE RANGE IS LEGIBLE [F2's law]
+      system: the power grid / [READ]
+      The full range of an allocation is LEGIBLE at the point of choice — the alternatives and their theories of desert clear — so the dynast weighs a real decision. Hidden options aren't depth if the player never knows to consider them (#26/#162's discoverable-range law).
+  ->  PORT 4 — THE SWITCH-HOLDER IS ACCOUNTABLE [F3's law]
+      system: standing / faction memory / the fold
+      The one who holds the switch is HELD to it — factions and people remembering who lit them or left them dark, standing shifting on the allocation — so the power to distribute carries its responsibility. An allocation nobody remembers has no weight (#24/#38's world-remembers law).
+
+### #170  SINS OF THE FATHER (STOP YOUR SON FROM BECOMING YOU) (Mass Effect 2)
+  ->  PORT 1 — THE PARENT RACING THE CYCLE [W1, W2, W3 — the core port]
+      system: the fold / companions / the ~100-year arc
+      A Bohemia arc where a parent (a prior dynast, a companion) races to stop their child from inheriting their sins — the killing, the bargain, the Amalgamation pact — before they die or run out of standing, and the intervention must run through a THIRD voice because the parent is the wound. The fold's central question (what passes to the next generation) made a race against a single act; the direct m
+  ->  PORT 2 — BROKEN BY UNDERSTANDING, NOT A STAT [F1's law]
+      system: [READ] / the fold
+      The cycle-breaking intervention is gated on UNDERSTANDING the child's wound (reaching the grief, not the rage), not a persuasion number — so a dynast who does the emotional work can always break the inheritance. The check tests knowing the son, not build (#155/#158's earned-outcome law).
+  ->  PORT 3 — THE ABANDONMENT IS SHOWN [F2's law]
+      system: the fold / the ~100-year arc
+      The abandonment that creates a cycle is SHOWN across the fold — the parent's leaving, the child's grief, the years of absence witnessed — so breaking the inheritance carries a history the dynast lived. The fold shows what exposition can't (#155/#159's show-the-wound law).
+  ->  PORT 4 — THE BROKEN CYCLE HAS AN AFTERMATH [F3's law]
+      system: the fold / companions
+      Breaking a generational cycle has an AFTERMATH proportional to its stakes — the reconciled bond shown growing, the spared child's changed path witnessed across the fold's time — so the success is felt, not noted. A cycle broken deserves more than a closing line (#47's personal-scale-payoff law).

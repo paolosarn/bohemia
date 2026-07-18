@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]
-729 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]
+747 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -2087,3 +2087,69 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE SERUM BRIBE ISN'T INTERROGATED
      The player is paid in immortality by whichever side, but the game never makes the player RECKON with taking a cut of the not-dying — the serum is a loot reward, not a moral stain, so the "your choice is bought" horror is a mechanic, not a theme.
      LAW: if the player is bribed with a share of the atrocity's product (immortality, the Amalgamation's promise), taking it must be a recorded MORAL act with weight — the fold marks that the dynast pocketed the not-dying — so the contamination of the choice is felt. A bribe that's just loot launders the complicity (the #31 cruelty-incentivized law).
+
+### #165  THE HOUSE OF GRIEF (KILL THE MOTHER WHO MADE YOU, OR KNEEL) (Baldur's Gate 3)
+  X  THE GATING IS OPAQUE TO THE PLAYER
+     The relationship-accrual that decides the ending is invisible — there is no legible sense, during the game, that a given camp choice is a debit toward defiance or kneeling — so a player who wanted to free Shadowheart can lose her without ever knowing which moments cost it. The debt is real but unreadable.
+     LAW: an ending gated on accumulated relationship must give the player LEGIBLE feedback that the relationship is moving — a felt sense of the companion reclaiming or losing herself — so the outcome is earned by attention, not by invisible bookkeeping. A debt the player can't see coming is a coin-flip wearing depth (the #24 surface-the-reactivity law).
+  X  VICONIA'S PITCH IS UNDERCUT BY BEING OBVIOUSLY EVIL
+     The cult's lure — forgetting as mercy — is genuinely seductive in concept, but Viconia is staged as such a clear villain that the "come home and forget the pain" offer never lands as a real temptation for Shadowheart or the player. The most interesting idea (that forgetting is a kindness) is buried under menace.
+     LAW: if a cult's lure is that forgetting eases pain, the lure must be made genuinely TEMPTING — the mercy of it real, the pain of remembering shown as truly unbearable — so kneeling is a comprehensible choice, not a villain's trap. The Amalgamation's "no one is ever lost" must tempt, or refusing it means nothing (#34/#161's make-it-tempting law).
+  X  THE HUNDRED SMALL MOMENTS AREN'T ALL WEIGHTED EQUALLY, INVISIBLY
+     Some camp choices matter enormously to the gate and others not at all, with no way to tell which — so a player can do the emotional work in the moments that don't count and miss the ones that do, and lose the ending despite genuine care. The accrual is uneven and hidden.
+     LAW: the moments that BUILD a companion's fate must be the ones that FEEL significant — the weighting legible to emotional intuition — so a player who cares reliably reaches the earned ending. Hidden uneven weighting punishes attention it should reward (the #158 unmarked-but-fair law, applied to relationship).
+
+### #166  THE URN OF SACRED ASHES (DESECRATE THE RELIC, OR KEEP THE FAITH) (Dragon Age: Origins)
+  X  THE DESECRATION HAS NO CONSEQUENCE, WHICH BOTH MAKES AND BREAKS THE POINT
+     The ashes being defilable with zero mechanical or narrative penalty is the quest's sharpest idea — the sacred tested by absent punishment — but the game so completely fails to acknowledge the desecration afterward (no faction reaction, no companion horror lasting, no world change) that it reads to many players as an oversight rather than a deliberate silence.
+     LAW: the test of "will you spend the sacred when nothing punishes it" must be framed so the absence of punishment reads as DELIBERATE — a witness who knows, a companion who never forgets, a fold entry — so the silence is the point, not a bug. Unpunished must be distinguishable from unnoticed (the #14/#126 no-karma-but-remembered law).
+  X  THE GUARDIAN'S QUESTION IS UNDERUSED
+     The forced-honesty moment — being made to name your own guilt — is the quest's most striking beat, but it is a one-off with no callback; the truth the player was forced to speak never returns, so the honesty toll is a moment, not a thread.
+     LAW: a forced-honesty beat where the player names their own guilt must RETURN — the spoken truth resurfacing later, the fold holding it, a consequence or a mercy built on it — so the honesty was extracted for a reason. A confession that never echoes is a set piece (the #50 small-choices-teach-big-choices law, extended: the truth spoken must matter).
+  X  THE HERETIC CULT IS FLATTENED TO AN OBSTACLE
+     Haven's dragon-worshippers — people who took a real faith and aimed it at the wrong god — are a fascinating mirror, but they mostly exist to be fought; their theology, their sincerity, their humanity get one or two lines, so the "devotion aimed wrong" idea is scenery.
+     LAW: a false-faith faction must be given real DEVOTION — sincerity, a comprehensible reason they believe, individual faces — so they mirror the true pilgrims rather than just blocking them. Aimed-wrong faith is only meaningful if it's felt as faith (the #155 humanize-through-the-resolution law).
+
+### #167  THE LEVIATHAN (THE TRUTH DELIVERED BY THE ENEMY AT YOUR LOWEST) (Star Wars: Knights of the Old Republic)
+  X  THE SEEDS ARE UNEVEN, SO THE REVEAL SURPRISES SOME AND BORES OTHERS
+     The Leviathan reveal relies on prior seeding (odd competences, NPC reactions, Force aptitude), but the seeding is inconsistent — attentive players see it coming and find the "shattering" flat, while inattentive ones can find it arbitrary. The delivery is masterful but the setup is uneven.
+     LAW: a reveal delivered as trauma must be seeded so it lands as INEVITABLE-in-hindsight for the attentive AND earned for the inattentive — the clues present but not conclusive, per #32's fairness contract — so the delivery's power isn't undercut by a setup that either spoils or blindsides. The seeding is the delivery's foundation.
+  X  THE ESCAPE'S DENIAL OF CATHARSIS IS ACCIDENTAL, NOT DESIGNED
+     The "no time to process" effect — carrying the collapse forward under fire — is the quest's most powerful structural move, but it emerges from generic gameplay pacing (there's an escape sequence because there's always an escape sequence) rather than deliberate design, so the game doesn't fully exploit the trauma-under-fire it stumbles into.
+     LAW: if a reveal is followed by forced action that denies catharsis, that denial must be DELIBERATE and shaped — the action's demands echoing the identity collapse, the leadership-under-fire mirroring the theme — so the structure carries the trauma on purpose. An accidental gut-punch is a gift; a designed one is a weapon (the #27 theme-through-mechanic law).
+  X  THE POISONED TRUST RECOVERS TOO CLEANLY
+     The reveal detonates the party's bonds, but the back half lets trust rebuild through fairly standard approval mechanics; Carth's betrayal-wound, so sharp at the Leviathan, heals via ordinary companion-quest beats rather than carrying the specific poison the reveal injected. The detonation lands harder than the aftermath honors.
+     LAW: a bond detonated by a reveal must rebuild in a way that CARRIES the specific wound — the trust reformed as a different, scarred thing, not restored to default — so the reveal's damage is permanent even when the relationship survives. The fold holds the poison; reconciliation is not erasure (the #43 companion-scar law).
+
+### #168  RAVEL PUZZLEWELL (THE HAG WHO ASKS THE ONLY QUESTION) (Planescape: Torment)
+  X  THE ENGAGEMENT GATE IS INVISIBLE, SO THE THINKER CAN STILL MISS IT
+     The reward for honest engagement — Ravel's answer — is gated behind specific dialogue choices that a genuinely thoughtful player might not happen to pick; the "thinker gets the truth" design isn't reliable, so a player doing real reflection can leave without the key by choosing the wrong honest option.
+     LAW: the reward for engagement must be reachable by ANY genuine engagement, not one specific path — the buried truth offered to the player who thinks, however they phrase it — so reflection reliably earns it. A truth gated behind exact wording punishes the thinker for not guessing the flag (the #158 unmarked-but-fair law, applied to theme).
+  X  THE FIGHT OPTION IS TOO EASY TO STUMBLE INTO
+     Ravel is deadly and a wrong answer triggers combat, but the line between "answer that opens her" and "answer that starts the fight" is not always legible — so a player can lose the entire buried climax to a misread of a mad hag's mood, which feels like a gotcha rather than a consequence of skimming.
+     LAW: if a wrong answer forecloses the deepest content, the danger must be LEGIBLE — the player able to sense they are provoking rather than engaging — so losing the truth is a consequence of choosing not to think, not of misreading an obscure trigger. The stakes of the conversation must be readable (the #26/#160 fair-deduction law, applied to dialogue).
+  X  RAVEL'S LOVE IS UNDERBUILT RELATIVE TO ITS WEIGHT
+     The revelation that Ravel loved the Nameless One and made him immortal out of devotion is the emotional core of her tragedy, but the game delivers it in dense, easily-missed text; a player can reach the thematic key without ever feeling the ruined love underneath, so the monster's grief lands lighter than her thesis.
+     LAW: a monster whose tragedy is love must have that love SHOWN with enough weight to be felt, not buried in optional density — so the creature's grief carries the same force as its thesis. The buried climax's emotion must be as reachable as its idea (the #155/#159 show-the-wound law).
+
+### #169  THAT LUCKY OLD SUN (WHO GETS THE POWER) (Fallout: New Vegas)
+  X  THE CONSEQUENCES ARE TOO DIFFUSE TO FEEL
+     The allocation's downstream effects — which towns benefit, how a faction is strengthened — are so diffuse and under-shown that the player rarely FEELS the weight of who they lit or left dark; the choice is morally rich in concept but nearly weightless in play, because the region's response is barely dramatized.
+     LAW: an allocation choice must have LEGIBLE, felt consequences — the lit town seen thriving, the dark one seen suffering, named people on both sides — so the switch's moral weight lands. A resource decision whose outcomes are invisible is a menu, not a verdict (the #29 Frostpunk faces-not-bars law, applied to allocation).
+  X  THE OPTIONS AREN'T EQUALLY LEGIBLE
+     The hidden weapon option (ARCHIMEDES) and the full range of allocations aren't clearly surfaced; a player can complete the quest without realizing the depth of the choice they made, picking an allocation without understanding the alternatives. The richness is there but not presented as a real weighing.
+     LAW: the full range of an allocation must be LEGIBLE at the point of choice — the alternatives and their theories of desert clear — so the dynast weighs a real decision, not stumbles into a default. Hidden options aren't depth if the player never knows to consider them (the #26/#162 discoverable-range law).
+  X  NO ONE IS ACCOUNTABLE FOR THE ALLOCATION
+     The player flips the switch and no one — no faction, no town, no companion — ever holds them to account for who they powered; the region doesn't remember the dynast as the one who lit or darkened it, so the moral act has no social consequence. Infrastructure's power is granted without infrastructure's responsibility.
+     LAW: the one who holds the switch must be HELD to it — factions and people remembering who lit them or left them dark, standing shifting on the allocation — so the power to distribute carries the accountability of distributing. An allocation nobody remembers is a decision with no weight (the #24/#38 the-world-remembers law).
+
+### #170  SINS OF THE FATHER (STOP YOUR SON FROM BECOMING YOU) (Mass Effect 2)
+  X  THE INTERVENTION'S SUCCESS LEANS ON A PERSUASION CHECK
+     Talking Kolyat down is gated partly behind Paragon/Renegade points — so a player who understands the boy's grief perfectly but lacks the check can fail to reach him, and the cycle-breaking that is the quest's heart is bought with a stat rather than with comprehension.
+     LAW: the cycle-breaking intervention must be gated on UNDERSTANDING the child's wound (reaching the grief, not the rage), not on a raw persuasion number — so a dynast who does the emotional work can always break the inheritance. The check tests knowing the son, not build (the #155/#158 earned-outcome law).
+  X  THANE'S ABSENCE IS TOLD, NOT LIVED
+     The abandonment that drives the whole quest — Thane leaving Kolyat to grief while he pursued revenge — is delivered as backstory, so the player experiences the wound as exposition rather than as something felt; the father's guilt and the son's abandonment land lighter than the concept demands.
+     LAW: the abandonment that creates a cycle must be SHOWN across the fold — the parent's leaving, the child's grief, the years of absence witnessed — so breaking the inheritance carries the weight of a history the player lived. The fold shows the abandonment that told exposition cannot (the #155/#159 show-the-wound law).
+  X  THE FRAGILE CHANCE ISN'T FOLLOWED THROUGH
+     If Kolyat is saved, the "father-son reckoning in Thane's last weeks" is promised but barely delivered — a brief scene, then the thread mostly drops, so the cycle-breaking's payoff is thinner than its stakes. The intervention's success doesn't get the aftermath its weight earned.
+     LAW: breaking a generational cycle must have an AFTERMATH proportional to its stakes — the reconciled relationship shown growing, the spared child's changed path witnessed, across the fold's time — so the intervention's success is felt, not just noted. A cycle broken deserves more than a closing line (the #47 personal-scale-payoff law).
