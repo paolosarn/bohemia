@@ -4,6 +4,27 @@
 // class picks a blockgen recipe; the CELL'S OWN seed drives generation
 // (deterministic per (seed, cell) — Continuous Walk Law). Quality maps to
 // wreckage/litter density (low quality = more collapse) [tunable, flagged].
+// DISTRICT -> BUILD ARCHETYPE (Paolo 7/18/26). ~9 procedural archetypes cover
+// every landmark type: civic (mid building + parking), bigbox (one big box +
+// apron), institutional (campus of buildings + green), industrial (sheds +
+// fence), utility (fenced yard + tanks), landmark (one big centered structure),
+// green (turf + trees + path), water, rail, extraction (mine pit). Real-Vegas
+// grounding drives the pick; the generator lives in bohemia_blockgen genBuiltLot.
+const ARCHETYPE={
+  resort:'bigbox', mall:'bigbox', convention:'bigbox', swapmeet:'bigbox',
+  industrial:'industrial', railyard:'industrial', storage:'industrial', warehouse:'industrial',
+  medical:'institutional', campus:'institutional', school:'institutional', jail:'institutional', prison:'institutional',
+  reclaim:'utility', landfill:'utility', intake:'utility', substation:'utility', watertreat:'utility',
+  reservoir:'utility', pumpstation:'utility', battery:'utility', fueldepot:'utility', basin:'utility',
+  datafort:'utility', arsenal:'utility', granary:'utility', radio:'utility',
+  firestation:'civic', policestation:'civic', courthouse:'civic', library:'civic', chapel:'civic',
+  terminal:'civic', town:'civic', truckstop:'civic',
+  dam:'landmark', sphere:'landmark', luxor:'landmark', strat:'landmark', highroller:'landmark',
+  sign:'landmark', boneyard:'landmark', fort:'landmark', springs:'landmark', ballpark:'landmark',
+  stadium:'landmark', speedway:'landmark', robofactory:'landmark',
+  park:'green', golf:'green', cemetery:'green', waterpark:'green', minigp:'green', drivein:'green',
+  water:'water', rail:'rail', quarry:'extraction', gypsum:'extraction',
+};
 const BOH_OMBRIDGE=(function(){
   function recipeFor(cell){
     const d=cell.district, q=cell.quality!=null?cell.quality:0.5;
@@ -21,7 +42,12 @@ const BOH_OMBRIDGE=(function(){
       case 'farm': return {type:'farm',opts:{}};
       case 'airport': case 'airbase': return {type:'airfield',opts:{}};
       case 'mountain': return {type:'mountain',opts:{}};
-      default: return null; // district fine-layer template PENDING Paolo (Abstraction Law)
+      case 'estate': return {type:'residential',opts:{wrecks:1}};       // big-lot housing
+      case 'interchange': return {type:'freeway',opts:{}};              // freeway stack
+      // PROCEDURAL BUILT LOT (Paolo 7/18/26): every remaining district generates
+      // from its build archetype instead of returning null. This is a procgen
+      // world — landmarks populate the map procedurally, not by hand-ruling each.
+      default: return {type:'builtlot',opts:{archetype:ARCHETYPE[d]||'civic'}};
     }
   }
   function blockFor(cell,G,W){

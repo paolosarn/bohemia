@@ -13,8 +13,6 @@ Rebuilt 7/16/26 from canonical standalone modules (ENGINE SYNC LAW).
 ==============================================================================
 ### FILE: BOHEMIA_AGENT_LOOK_7_10_26.js
 ### MD5: 2a107f362e77ccadc75b192f2bf23b8e  | 0.8 KB
-==============================================================================
-
 // BOHEMIA — CYBERNETIC HOMELESS AGENT LOOK (7/10/26)
 // extends BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js (SKIN_TONES_WORLD).
 // SKIN_TONES_HOMELESS is DEAD (7/10 verdict) — it does not live there or anywhere.
@@ -32,12 +30,9 @@ const AGENT_STATE={INTACT:0,REVEALED:1,DEAD:2};
 // transition: INTACT -> REVEALED on first surviving hit; any -> DEAD on death.
 // REVEALED persists for the rest of the fight. glow dies with the agent.
 
-
 ==============================================================================
 ### FILE: BOHEMIA_AGENT_RAGS_7_10_26.js
 ### MD5: 07b1bf471506855d187454a53df540e9  | 1.1 KB
-==============================================================================
-
 // BOHEMIA — AGENT RAG OUTFITS (7/10/26)
 // tints sampled from the categorized world tiles (BROWN+NEUTRAL families, dark band)
 // format matches G.tints exactly: {jacket,shirt,pants,shoes:[r,g,b]}
@@ -45,12 +40,9 @@ const AGENT_STATE={INTACT:0,REVEALED:1,DEAD:2};
 const AGENT_RAG_OUTFITS=[{"jacket": [72, 57, 28], "shirt": [51, 47, 44], "pants": [52, 35, 20], "shoes": [42, 36, 27]}, {"jacket": [36, 32, 31], "shirt": [51, 47, 44], "pants": [76, 76, 75], "shoes": [57, 53, 49]}, {"jacket": [53, 51, 48], "shirt": [56, 42, 20], "pants": [37, 35, 33], "shoes": [49, 47, 45]}, {"jacket": [60, 39, 28], "shirt": [60, 58, 56], "pants": [94, 87, 85], "shoes": [53, 51, 48]}, {"jacket": [41, 40, 39], "shirt": [83, 30, 17], "pants": [40, 38, 37], "shoes": [49, 43, 51]}, {"jacket": [72, 57, 28], "shirt": [70, 56, 38], "pants": [55, 55, 54], "shoes": [49, 47, 45]}, {"jacket": [69, 61, 48], "shirt": [92, 64, 28], "pants": [69, 61, 48], "shoes": [37, 35, 33]}, {"jacket": [59, 55, 61], "shirt": [53, 51, 49], "pants": [42, 40, 37], "shoes": [48, 52, 55]}];
 // agents roll one at spawn: G.tints=AGENT_RAG_OUTFITS[rng*8|0]
 
-
 ==============================================================================
 ### FILE: BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js
 ### MD5: bb9305a02134ff2de975ede6e85b782c  | 0.9 KB
-==============================================================================
-
 // BOHEMIA WORLD-GRADED SKIN PALETTES (7/10/26)
 // graded against measured world ambient RGB(67,61,56), world sat 0.23
 // same structure as SKIN_TONES: [name,[light,mid,dark]] — drop-in replacement
@@ -63,12 +55,9 @@ const SKIN_TONES_WORLD=[["pale",[[188,160,138],[153,127,108],[112,94,84]]],["fai
 // subdermal RGB(122,42,96) / glint RGB(196,84,160)
 const CYBER_TELL={subdermal:[122,42,96],glint:[196,84,160]};
 
-
 ==============================================================================
 ### FILE: bohemia_blockgen.js
-### MD5: fb29897e26361a70ffad487d5d137c50  | 21.2 KB
-==============================================================================
-
+### MD5: 4848f4d2a32638eada381692e7bbc113  | 25.4 KB
 // BOHEMIA BLOCK GENERATOR — worldgen Phase B harness (7/14/26)
 // Block = one city-view grid cell (BLOCK CANON). This module turns a block
 // spec into a CELL GRID (semantic layers), never images: renderers consume it.
@@ -425,8 +414,59 @@ const BOH_BLOCKGEN=(function(){
     return {type:'intersection',W,H,grid,meta:{lanesEW,lanesNS,box:[c0,r0,c1,r1],
       crosswalks:4,pocketLenX:PLx,pocketLenY:PLy,medRow,medCol}};
   }
+  // PROCEDURAL BUILT LOT (Paolo 7/18/26: "those can be randomly generated
+  // throughout the map... this is a procedural generated world game"). Every
+  // district that used to have NO recipe (return null -> blank desert lot) now
+  // GENERATES from its build ARCHETYPE: footprints + parking + fence + greenery
+  // laid on the plot, deterministic per (seed,cell). Semantic ground only, art
+  // pools resolve at bake exactly like every other recipe. ~9 archetype rules
+  // cover 60 landmark types instead of 60 hand-authored templates.
+  function genBuiltLot(seed,W,opts){
+    const o=opts||{}; const r=rng(seed);
+    const A=o.archetype||'civic';
+    const H=Math.max(12,Math.floor(W*0.6));
+    const base=(A==='green')?'turf':(A==='water')?'water':(A==='extraction')?'rock':
+               (A==='industrial'||A==='utility')?'gravel_yard':'lot_ground';
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:base,props:[]});grid.push(row);}
+    const inb=(x,y)=>x>=0&&y>=0&&x<W&&y<H;
+    const rect=(x0,y0,w,h,g,prop)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g=g;grid[y][x].props=prop?[prop]:[];}};
+    const bldg=(x0,y0,w,h)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g='building_pad';grid[y][x].props=[{p:'building',impassable:true}];}};
+    const fence=()=>{for(let x=0;x<W;x++){grid[0][x].props.push({p:'fence',impassable:true});grid[H-1][x].props.push({p:'fence',impassable:true});}
+      for(let y=0;y<H;y++){grid[y][0].props.push({p:'fence',impassable:true});grid[y][W-1].props.push({p:'fence',impassable:true});}};
+    const trees=(n)=>{for(let k=0;k<n;k++){const x=1+((r()*(W-2))|0),y=1+((r()*(H-2))|0);if(grid[y][x].g!=='building_pad'){grid[y][x].g='turf';grid[y][x].props=[{p:'tree'}];}}};
+    const mid=(W>>1), midH=(H>>1);
+    switch(A){
+      case 'civic':{ const bw=Math.floor(W*0.5),bh=Math.floor(H*0.34),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(6); break; }
+      case 'bigbox':{ const bw=Math.floor(W*0.62),bh=Math.floor(H*0.4),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(3); break; }
+      case 'institutional':{ const pad=2,cols=2,rows=2,cw=((W-pad*3)/cols)|0,ch=((H-pad*3)/rows)|0;
+        for(let ry=0;ry<rows;ry++)for(let cx=0;cx<cols;cx++){if(r()<0.2)continue;
+          bldg(pad+cx*(cw+pad),pad+ry*(ch+pad),Math.max(2,cw-((r()*3)|0)),Math.max(2,ch-((r()*3)|0)));}
+        rect(mid-1,0,2,H,'path'); rect(0,midH-1,W,2,'path'); trees(8); break; }
+      case 'industrial':{ const ap=Math.floor(H*0.22); rect(0,0,W,ap,'drive_concrete');
+        let y=ap+1; while(y<H-3){const sh=Math.min(H-1-y,3+((r()*4)|0)); bldg(3,y,W-6,sh); y+=sh+2;} fence(); break; }
+      case 'utility':{ for(let k=0;k<5+((r()*4)|0);k++){const w=2+((r()*3)|0),h=2+((r()*3)|0);
+          const x=2+((r()*Math.max(1,W-4-w))|0),y=2+((r()*Math.max(1,H-4-h))|0); rect(x,y,w,h,'equipment_pad',{p:'tank',impassable:true});} fence(); break; }
+      case 'landmark':{ rect(0,0,W,H,'plaza'); const bw=Math.floor(W*0.5),bh=Math.floor(H*0.5);
+        bldg(((W-bw)/2)|0,((H-bh)/2)|0,bw,bh); trees(10); break; }
+      case 'green':{ for(let y=0;y<H;y++){const px=mid+Math.round(Math.sin(y*0.4)*(W*0.22));
+          if(inb(px,y)){grid[y][px].g='path';if(inb(px+1,y))grid[y][px+1].g='path';}} bldg(2,2,4,3); trees(22); break; }
+      case 'water':{ break; }
+      case 'extraction':{ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const d=Math.max(Math.abs(x-mid)/Math.max(1,mid),Math.abs(y-midH)/Math.max(1,midH));
+          grid[y][x].g=d<0.35?'pit_floor':d<0.7?'pit_bench':'rock';} break; }
+      case 'rail':{ const rx=mid; for(let y=0;y<H;y++){grid[y][rx].g='rail_bed';
+          if(inb(rx-1,y))grid[y][rx-1].g='rail_ballast'; if(inb(rx+1,y))grid[y][rx+1].g='rail_ballast';} break; }
+      default:{ const bw=Math.floor(W*0.4),bh=Math.floor(H*0.3);
+        bldg(((W-bw)/2)|0,2,bw,bh); rect(0,2+bh,W,H-(2+bh),'parking_concrete'); }
+    }
+    return {W,H,grid,meta:{type:'builtlot',archetype:A,lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
+      pending:['building art per archetype','signage','yard props']}};
+  }
   const RECIPES={
     intersection:(seed,W,o)=>genIntersection(seed,W,o),
+    builtlot:(seed,W,o)=>genBuiltLot(seed,W,o||{}),
     street:(seed,W,o)=>{
       const b=genStreet(seed,W,o);
       // CENTER TURN LANE (7/14, pools blessed): opts.centerTurn converts the
@@ -467,12 +507,9 @@ const BOH_BLOCKGEN=(function(){
 })();
 if(typeof module!=='undefined')module.exports=BOH_BLOCKGEN;
 
-
 ==============================================================================
 ### FILE: bohemia_daycycle.js
 ### MD5: d3ca07d6a97cfa2cb156a8eb4dad2f08  | 1.2 KB
-==============================================================================
-
 // BOHEMIA DAY CYCLE — ambient light over the day (7/14/26)
 // Grounded: sun color temperature (warm at horizon, neutral at noon);
 // night floor = Paolo's approved ambient (+10% ruling, 7/14).
@@ -497,12 +534,9 @@ const BOH_DAYCYCLE=(function(){
 })();
 if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
-
 ==============================================================================
 ### FILE: bohemia_engine_graphics_7_14_26.js
-### MD5: 7a387d58979e9fbc355fc9b2a0662e47  | 47.0 KB
-==============================================================================
-
+### MD5: e613f887e6254bd0ce7ce845464c2c3f  | 51.6 KB
 // BOHEMIA GRAPHICS ENGINE BUNDLE (7/14/26) — one import for the absorption session.
 // Contains: BOH_LIGHT (light philosophy law), BOH_DAYCYCLE, BOH_SLICE (3 clocks,
 // movers, doors, wanderers), BOH_BLOCKGEN (streets/freeway/residential/desert/
@@ -1055,8 +1089,59 @@ const BOH_BLOCKGEN=(function(){
     return {type:'intersection',W,H,grid,meta:{lanesEW,lanesNS,box:[c0,r0,c1,r1],
       crosswalks:4,pocketLenX:PLx,pocketLenY:PLy,medRow,medCol}};
   }
+  // PROCEDURAL BUILT LOT (Paolo 7/18/26: "those can be randomly generated
+  // throughout the map... this is a procedural generated world game"). Every
+  // district that used to have NO recipe (return null -> blank desert lot) now
+  // GENERATES from its build ARCHETYPE: footprints + parking + fence + greenery
+  // laid on the plot, deterministic per (seed,cell). Semantic ground only, art
+  // pools resolve at bake exactly like every other recipe. ~9 archetype rules
+  // cover 60 landmark types instead of 60 hand-authored templates.
+  function genBuiltLot(seed,W,opts){
+    const o=opts||{}; const r=rng(seed);
+    const A=o.archetype||'civic';
+    const H=Math.max(12,Math.floor(W*0.6));
+    const base=(A==='green')?'turf':(A==='water')?'water':(A==='extraction')?'rock':
+               (A==='industrial'||A==='utility')?'gravel_yard':'lot_ground';
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:base,props:[]});grid.push(row);}
+    const inb=(x,y)=>x>=0&&y>=0&&x<W&&y<H;
+    const rect=(x0,y0,w,h,g,prop)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g=g;grid[y][x].props=prop?[prop]:[];}};
+    const bldg=(x0,y0,w,h)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g='building_pad';grid[y][x].props=[{p:'building',impassable:true}];}};
+    const fence=()=>{for(let x=0;x<W;x++){grid[0][x].props.push({p:'fence',impassable:true});grid[H-1][x].props.push({p:'fence',impassable:true});}
+      for(let y=0;y<H;y++){grid[y][0].props.push({p:'fence',impassable:true});grid[y][W-1].props.push({p:'fence',impassable:true});}};
+    const trees=(n)=>{for(let k=0;k<n;k++){const x=1+((r()*(W-2))|0),y=1+((r()*(H-2))|0);if(grid[y][x].g!=='building_pad'){grid[y][x].g='turf';grid[y][x].props=[{p:'tree'}];}}};
+    const mid=(W>>1), midH=(H>>1);
+    switch(A){
+      case 'civic':{ const bw=Math.floor(W*0.5),bh=Math.floor(H*0.34),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(6); break; }
+      case 'bigbox':{ const bw=Math.floor(W*0.62),bh=Math.floor(H*0.4),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(3); break; }
+      case 'institutional':{ const pad=2,cols=2,rows=2,cw=((W-pad*3)/cols)|0,ch=((H-pad*3)/rows)|0;
+        for(let ry=0;ry<rows;ry++)for(let cx=0;cx<cols;cx++){if(r()<0.2)continue;
+          bldg(pad+cx*(cw+pad),pad+ry*(ch+pad),Math.max(2,cw-((r()*3)|0)),Math.max(2,ch-((r()*3)|0)));}
+        rect(mid-1,0,2,H,'path'); rect(0,midH-1,W,2,'path'); trees(8); break; }
+      case 'industrial':{ const ap=Math.floor(H*0.22); rect(0,0,W,ap,'drive_concrete');
+        let y=ap+1; while(y<H-3){const sh=Math.min(H-1-y,3+((r()*4)|0)); bldg(3,y,W-6,sh); y+=sh+2;} fence(); break; }
+      case 'utility':{ for(let k=0;k<5+((r()*4)|0);k++){const w=2+((r()*3)|0),h=2+((r()*3)|0);
+          const x=2+((r()*Math.max(1,W-4-w))|0),y=2+((r()*Math.max(1,H-4-h))|0); rect(x,y,w,h,'equipment_pad',{p:'tank',impassable:true});} fence(); break; }
+      case 'landmark':{ rect(0,0,W,H,'plaza'); const bw=Math.floor(W*0.5),bh=Math.floor(H*0.5);
+        bldg(((W-bw)/2)|0,((H-bh)/2)|0,bw,bh); trees(10); break; }
+      case 'green':{ for(let y=0;y<H;y++){const px=mid+Math.round(Math.sin(y*0.4)*(W*0.22));
+          if(inb(px,y)){grid[y][px].g='path';if(inb(px+1,y))grid[y][px+1].g='path';}} bldg(2,2,4,3); trees(22); break; }
+      case 'water':{ break; }
+      case 'extraction':{ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const d=Math.max(Math.abs(x-mid)/Math.max(1,mid),Math.abs(y-midH)/Math.max(1,midH));
+          grid[y][x].g=d<0.35?'pit_floor':d<0.7?'pit_bench':'rock';} break; }
+      case 'rail':{ const rx=mid; for(let y=0;y<H;y++){grid[y][rx].g='rail_bed';
+          if(inb(rx-1,y))grid[y][rx-1].g='rail_ballast'; if(inb(rx+1,y))grid[y][rx+1].g='rail_ballast';} break; }
+      default:{ const bw=Math.floor(W*0.4),bh=Math.floor(H*0.3);
+        bldg(((W-bw)/2)|0,2,bw,bh); rect(0,2+bh,W,H-(2+bh),'parking_concrete'); }
+    }
+    return {W,H,grid,meta:{type:'builtlot',archetype:A,lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
+      pending:['building art per archetype','signage','yard props']}};
+  }
   const RECIPES={
     intersection:(seed,W,o)=>genIntersection(seed,W,o),
+    builtlot:(seed,W,o)=>genBuiltLot(seed,W,o||{}),
     street:(seed,W,o)=>{
       const b=genStreet(seed,W,o);
       // CENTER TURN LANE (7/14, pools blessed): opts.centerTurn converts the
@@ -1120,7 +1205,12 @@ const BOH_OMBRIDGE=(function(){
       case 'farm': return {type:'farm',opts:{}};
       case 'airport': case 'airbase': return {type:'airfield',opts:{}};
       case 'mountain': return {type:'mountain',opts:{}};
-      default: return null; // district fine-layer template PENDING Paolo (Abstraction Law)
+      case 'estate': return {type:'residential',opts:{wrecks:1}};       // big-lot housing
+      case 'interchange': return {type:'freeway',opts:{}};              // freeway stack
+      // PROCEDURAL BUILT LOT (Paolo 7/18/26): every remaining district generates
+      // from its build archetype instead of returning null. This is a procgen
+      // world — landmarks populate the map procedurally, not by hand-ruling each.
+      default: return {type:'builtlot',opts:{archetype:ARCHETYPE[d]||'civic'}};
     }
   }
   function blockFor(cell,G,W){
@@ -1425,12 +1515,9 @@ const BOH_POWERGRID=(()=>{
 
 if(typeof module!=='undefined')module.exports={BOH_LIGHT,BOH_DAYCYCLE,BOH_SLICE,BOH_BLOCKGEN,BOH_OMBRIDGE,BOH_PLOTGEN,BOH_POWERGRID};
 
-
 ==============================================================================
 ### FILE: bohemia_graphics_tests.js
 ### MD5: 992872fa8e8afe2e980b6071aed5a835  | 13.8 KB
-==============================================================================
-
 // BOHEMIA GRAPHICS TESTS — one command, every module (7/14/26)
 const E=require('./bohemia_engine_graphics_7_14_26.js');
 const {BOH_LIGHT,BOH_DAYCYCLE,BOH_SLICE,BOH_BLOCKGEN,BOH_OMBRIDGE}=E;
@@ -1631,12 +1718,9 @@ T('wash: amount knob works',(()=>{const px=[255,255,255,255];
 console.log('GRAPHICS ENGINE TESTS:',pass,'pass /',fail,'fail');
 process.exit(fail?1:0);
 
-
 ==============================================================================
 ### FILE: bohemia_light_pass.js
 ### MD5: 3a5d9c4c7f3320ee1f9b63b33a6e3eb0  | 2.5 KB
-==============================================================================
-
 // BOHEMIA LIGHT PASS — engine module (7/14/26)
 // LIGHT PHILOSOPHY LAW: "Everything can be touched by light. Nothing is above light."
 // Whole-frame pass: (1) scene draws FULL-BRIGHT, (2) lightmap multiplies the
@@ -1692,18 +1776,36 @@ const BOH_LIGHT=(function(){
 })();
 if(typeof module!=='undefined')module.exports=BOH_LIGHT;
 
-
 ==============================================================================
 ### FILE: bohemia_overmap_bridge.js
-### MD5: fbce34f5306cf45822ea95e89041f686  | 4.7 KB
-==============================================================================
-
+### MD5: cb5c055641140370279b9fe742c28e0f  | 6.7 KB
 // BOHEMIA OVERMAP->BLOCK BRIDGE (7/14/26)
 // LANES SOURCED (7/14 research): Strip 3/dir, arterials 3/dir, I-15 5/dir (= Paolo's law exactly).
 // The canonical valley meets the block pipeline: an overmap cell's district
 // class picks a blockgen recipe; the CELL'S OWN seed drives generation
 // (deterministic per (seed, cell) — Continuous Walk Law). Quality maps to
 // wreckage/litter density (low quality = more collapse) [tunable, flagged].
+// DISTRICT -> BUILD ARCHETYPE (Paolo 7/18/26). ~9 procedural archetypes cover
+// every landmark type: civic (mid building + parking), bigbox (one big box +
+// apron), institutional (campus of buildings + green), industrial (sheds +
+// fence), utility (fenced yard + tanks), landmark (one big centered structure),
+// green (turf + trees + path), water, rail, extraction (mine pit). Real-Vegas
+// grounding drives the pick; the generator lives in bohemia_blockgen genBuiltLot.
+const ARCHETYPE={
+  resort:'bigbox', mall:'bigbox', convention:'bigbox', swapmeet:'bigbox',
+  industrial:'industrial', railyard:'industrial', storage:'industrial', warehouse:'industrial',
+  medical:'institutional', campus:'institutional', school:'institutional', jail:'institutional', prison:'institutional',
+  reclaim:'utility', landfill:'utility', intake:'utility', substation:'utility', watertreat:'utility',
+  reservoir:'utility', pumpstation:'utility', battery:'utility', fueldepot:'utility', basin:'utility',
+  datafort:'utility', arsenal:'utility', granary:'utility', radio:'utility',
+  firestation:'civic', policestation:'civic', courthouse:'civic', library:'civic', chapel:'civic',
+  terminal:'civic', town:'civic', truckstop:'civic',
+  dam:'landmark', sphere:'landmark', luxor:'landmark', strat:'landmark', highroller:'landmark',
+  sign:'landmark', boneyard:'landmark', fort:'landmark', springs:'landmark', ballpark:'landmark',
+  stadium:'landmark', speedway:'landmark', robofactory:'landmark',
+  park:'green', golf:'green', cemetery:'green', waterpark:'green', minigp:'green', drivein:'green',
+  water:'water', rail:'rail', quarry:'extraction', gypsum:'extraction',
+};
 const BOH_OMBRIDGE=(function(){
   function recipeFor(cell){
     const d=cell.district, q=cell.quality!=null?cell.quality:0.5;
@@ -1721,7 +1823,12 @@ const BOH_OMBRIDGE=(function(){
       case 'farm': return {type:'farm',opts:{}};
       case 'airport': case 'airbase': return {type:'airfield',opts:{}};
       case 'mountain': return {type:'mountain',opts:{}};
-      default: return null; // district fine-layer template PENDING Paolo (Abstraction Law)
+      case 'estate': return {type:'residential',opts:{wrecks:1}};       // big-lot housing
+      case 'interchange': return {type:'freeway',opts:{}};              // freeway stack
+      // PROCEDURAL BUILT LOT (Paolo 7/18/26): every remaining district generates
+      // from its build archetype instead of returning null. This is a procgen
+      // world — landmarks populate the map procedurally, not by hand-ruling each.
+      default: return {type:'builtlot',opts:{archetype:ARCHETYPE[d]||'civic'}};
     }
   }
   function blockFor(cell,G,W){
@@ -1782,12 +1889,9 @@ BOH_OMBRIDGE.plotFor=function(m,x,y,P,opts){
 
 if(typeof module!=='undefined')module.exports=BOH_OMBRIDGE;
 
-
 ==============================================================================
 ### FILE: bohemia_plotgen.js
 ### MD5: cebf0de84138df151fabefe844e889b2  | 10.4 KB
-==============================================================================
-
 // BOHEMIA PLOT GENERATOR (7/14/26) — CELL-IS-PLOT LAW as engine code.
 // Each overmap cell IS its assignment (Paolo 7/14). This module generates
 // the PLOT-level grid (128x128 fine cells) for non-street cells.
@@ -1977,12 +2081,9 @@ const BOH_PLOTGEN=(()=>{
 })();
 if(typeof module!=='undefined')module.exports=BOH_PLOTGEN;
 
-
 ==============================================================================
 ### FILE: bohemia_powergrid.js
 ### MD5: 930679f35f78c1b1d9cc5d9345a477e7  | 2.2 KB
-==============================================================================
-
 // BOHEMIA POWER GRID (7/14/26) — CLUSTERED POWER LAW as engine code.
 // Streetlights fail by CIRCUIT (feeder death + copper theft), never
 // alternating. 12% of circuits live (tunable). Every live circuit is
@@ -2031,12 +2132,9 @@ const BOH_POWERGRID=(()=>{
 })();
 if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 
-
 ==============================================================================
 ### FILE: bohemia_prop_scale.js
 ### MD5: 729979a7885c950c6a8820ad35da0a6d  | 5.3 KB
-==============================================================================
-
 // BOHEMIA PROP SCALE — ITEM SCALE LAW resolver (v2, 7/16/26)
 // Paolo's 848 scale flags split on one fault line (ITEM SCALE LAW, 7/13):
 //   BIG   (542) = hand objects rendered at a full cell -> render sub-cell.
@@ -2140,12 +2238,9 @@ const BOH_SCALE=(function(){
 })();
 if(typeof module!=='undefined')module.exports=BOH_SCALE;
 
-
 ==============================================================================
 ### FILE: bohemia_slice_core.js
 ### MD5: 7a1bf27029242ffdaa332bbed2ce6a5c  | 4.4 KB
-==============================================================================
-
 // BOHEMIA SLICE CORE — beat clock, grid movers, door control (7/14/26)
 // 120 BPM LAW: input is a REQUEST; steps execute on the beat tick.
 // Hold >= 2 beats = RUN (2 cells/beat). Doors: 2-beat swing, passable f>=5.
@@ -2250,12 +2345,9 @@ const BOH_SLICE=(function(){
 })();
 if(typeof module!=='undefined')module.exports=BOH_SLICE;
 
-
 ==============================================================================
 ### FILE: bohemia_transitions.js
 ### MD5: 8495bdba6ba084a66bc0d5904b9e1cf3  | 1.6 KB
-==============================================================================
-
 // BOHEMIA transitions — dual-grid corner sampling (render contract layer 2)
 // Consumes BOHEMIA_TRANSITION_SET_7_10_26.txt. Engine-first: any zone, any pairs.
 // Logic grid = truth (cell terrain ids). Display transition grid = offset half-cell;

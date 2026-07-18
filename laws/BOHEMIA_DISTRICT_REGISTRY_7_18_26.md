@@ -4,13 +4,15 @@ The complete catalog of every procedural district/landmark type. GENERATED from 
 
 ## THE COUNT
 - **77** district types defined + placed on the 96x96 overmap.
-- **9 BAKES**: has a render recipe that bakes to pixels today (street / freeway / desert / mountain families).
-- **8 RECIPE**: engine grid recipe exists, art pool / bake not built yet (wash, solar, farm, airfield).
-- **60 PENDING**: placed on the map, but the fine-layer template is [PENDING Paolo] (MECHANISM-MINE / CONTENTS-PAOLO’S). These render as their desert lot until a ruling + art land.
+- **10 BAKES**: has a render recipe that bakes to pixels today (street / freeway / desert / mountain families).
+- **67 RECIPE**: generates a plot grid procedurally, art pool / bake not built yet. Includes the built-lot archetypes (civic / bigbox / institutional / industrial / utility / landmark / green / water / rail / extraction) that render every landmark type.
+- **0 PENDING**: no recipe at all. (Paolo 7/18/26 ruled the landmarks are PROCEDURALLY GENERATED, not hand-authored, so this should be zero.)
 
-RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = generates a grid, needs art to bake · **PENDING** = reserved for Paolo’s ruling, no recipe yet.
+PAOLO 7/18/26: "those can be randomly generated throughout the map... this is a procedural generated world game." Every district now generates from a build archetype — see the `recipe` column (`builtlot/<archetype>`). None wait on a per-type ruling.
 
-## BAKES — rendered to pixels today (9)
+RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = generates a plot grid, needs art pool to bake · **PENDING** = no recipe (should be none).
+
+## BAKES — rendered to pixels today (10)
 
 | type | status | recipe | what it is |
 |---|---|---|---|
@@ -22,85 +24,80 @@ RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = 
 | `freeway` | BAKES | freeway | The "X": I-15 + US-95/515, grade-separated, breaks the grid. |
 | `arterial` | BAKES | street | The mile-grid surface streets — the connective tissue of the city. |
 | `beltway` | BAKES | freeway | The "C": the 215 ring road hugging the valley rim. |
+| `interchange` | BAKES | freeway | The Spaghetti Bowl — the I-15/US-95 stack interchange. |
 | `casino` | BAKES | street | An off-Strip casino block (locals casinos). |
 
-## RECIPE — grid exists, art pending (8)
+## RECIPE — generates a plot grid procedurally, art pending (67)
 
 | type | status | recipe | what it is |
 |---|---|---|---|
+| `resort` | RECIPE | builtlot/bigbox | A mega-resort block flanking the Strip (rooms + casino floor mass). |
+| `mall` | RECIPE | builtlot/bigbox | An enclosed shopping mall (big-box footprint, ring parking). |
 | `suburb` | RECIPE | residential | A walled residential tract — the bulk fabric of the valley. |
+| `industrial` | RECIPE | builtlot/industrial | Warehouse / light-industry flats (Sunrise, N Las Vegas belts). |
+| `dam` | RECIPE | builtlot/landmark | Hoover Dam — the SOUTH landmark, the way to Lake Mead. |
 | `solar` | RECIPE | solar | The NORTH solar panel field (Paolo cardinal); real: valley solar. |
 | `wash` | RECIPE | wash | Dry flood channel; the entrance to the storm/sewer world below. |
+| `water` | RECIPE | builtlot/water | Lake Mead / Lake Las Vegas surface water. |
+| `park` | RECIPE | builtlot/green | A public park / greenspace lot. |
 | `airport` | RECIPE | airfield | Harry Reid Intl — runways + terminals (SE of the Strip). |
 | `airbase` | RECIPE | airfield | Nellis AFB — military airfield, NE valley. |
+| `campus` | RECIPE | builtlot/institutional | A university campus (UNLV / CSN). |
+| `rail` | RECIPE | builtlot/rail | The rail line, border to border (freight spine). |
+| `railyard` | RECIPE | builtlot/industrial | Rail marshalling yard — tracks, container flats. |
+| `town` | RECIPE | builtlot/civic | Boulder City — a self-contained town with its own street grid. |
+| `medical` | RECIPE | builtlot/institutional | A hospital / medical district (Sunrise, UMC). |
+| `golf` | RECIPE | builtlot/green | A golf course (large green plot, ringed by streets). |
 | `gated` | RECIPE | residential | A gated master-planned community (walled, few entries). |
+| `school` | RECIPE | builtlot/institutional | A K-12 school campus. |
+| `stadium` | RECIPE | builtlot/landmark | Allegiant Stadium — the domed football stadium. |
+| `speedway` | RECIPE | builtlot/landmark | Las Vegas Motor Speedway — the oval track, far NE. |
+| `convention` | RECIPE | builtlot/bigbox | The LVCC convention center complex (halls + the Loop stop). |
+| `waterpark` | RECIPE | builtlot/green | A water park (pools, slides, big footprint). |
+| `minigp` | RECIPE | builtlot/green | A karting / mini-GP track. |
+| `estate` | RECIPE | residential | Foothill estates — large-lot housing on the mountain borders. |
+| `reclaim` | RECIPE | builtlot/utility | The water reclamation plant (the 99% reuse loop terminus). |
+| `landfill` | RECIPE | builtlot/utility | The regional landfill (Apex). |
+| `intake` | RECIPE | builtlot/utility | The Lake Mead intake — "the straw" claiming the shoreline. |
+| `substation` | RECIPE | builtlot/utility | An electrical substation (grid node). |
+| `cemetery` | RECIPE | builtlot/green | A cemetery / memorial ground. |
+| `prison` | RECIPE | builtlot/institutional | A walled correctional facility. |
+| `terminal` | RECIPE | builtlot/civic | A bus / freight terminal. |
+| `sphere` | RECIPE | builtlot/landmark | The Sphere — the spherical venue, a fixed landmark. |
+| `boneyard` | RECIPE | builtlot/landmark | The Neon Boneyard — dead sign graveyard. |
+| `chapel` | RECIPE | builtlot/civic | A wedding chapel (the small-lot Vegas fixture). |
+| `fort` | RECIPE | builtlot/landmark | Old Mormon Fort — the founding adobe site. |
+| `basin` | RECIPE | builtlot/utility | A flood-detention basin (ties into the storm system). |
+| `ballpark` | RECIPE | builtlot/landmark | A ballpark (Cashman / Las Vegas Ballpark). |
+| `swapmeet` | RECIPE | builtlot/bigbox | A swap meet / open-air market lot. |
+| `drivein` | RECIPE | builtlot/green | A drive-in theater lot. |
+| `highroller` | RECIPE | builtlot/landmark | The High Roller observation wheel. |
 | `trailer` | RECIPE | residential | A trailer / RV park (rough-fabric housing). |
+| `storage` | RECIPE | builtlot/industrial | Self-storage sprawl (near arterials). |
+| `watertreat` | RECIPE | builtlot/utility | A water treatment plant. |
+| `reservoir` | RECIPE | builtlot/utility | A covered water reservoir tank field. |
+| `pumpstation` | RECIPE | builtlot/utility | A water pumping station. |
 | `farm` | RECIPE | farm | Homestead farming — yard crops on private well/cistern. |
-
-## PENDING PAOLO — placed, fine-layer reserved (60)
-
-| type | status | recipe | what it is |
-|---|---|---|---|
-| `resort` | PENDING | — | A mega-resort block flanking the Strip (rooms + casino floor mass). |
-| `mall` | PENDING | — | An enclosed shopping mall (big-box footprint, ring parking). |
-| `industrial` | PENDING | — | Warehouse / light-industry flats (Sunrise, N Las Vegas belts). |
-| `dam` | PENDING | — | Hoover Dam — the SOUTH landmark, the way to Lake Mead. |
-| `water` | PENDING | — | Lake Mead / Lake Las Vegas surface water. |
-| `park` | PENDING | — | A public park / greenspace lot. |
-| `campus` | PENDING | — | A university campus (UNLV / CSN). |
-| `rail` | PENDING | — | The rail line, border to border (freight spine). |
-| `railyard` | PENDING | — | Rail marshalling yard — tracks, container flats. |
-| `town` | PENDING | — | Boulder City — a self-contained town with its own street grid. |
-| `medical` | PENDING | — | A hospital / medical district (Sunrise, UMC). |
-| `interchange` | PENDING | — | The Spaghetti Bowl — the I-15/US-95 stack interchange. |
-| `golf` | PENDING | — | A golf course (large green plot, ringed by streets). |
-| `school` | PENDING | — | A K-12 school campus. |
-| `stadium` | PENDING | — | Allegiant Stadium — the domed football stadium. |
-| `speedway` | PENDING | — | Las Vegas Motor Speedway — the oval track, far NE. |
-| `convention` | PENDING | — | The LVCC convention center complex (halls + the Loop stop). |
-| `waterpark` | PENDING | — | A water park (pools, slides, big footprint). |
-| `minigp` | PENDING | — | A karting / mini-GP track. |
-| `estate` | PENDING | — | Foothill estates — large-lot housing on the mountain borders. |
-| `reclaim` | PENDING | — | The water reclamation plant (the 99% reuse loop terminus). |
-| `landfill` | PENDING | — | The regional landfill (Apex). |
-| `intake` | PENDING | — | The Lake Mead intake — "the straw" claiming the shoreline. |
-| `substation` | PENDING | — | An electrical substation (grid node). |
-| `cemetery` | PENDING | — | A cemetery / memorial ground. |
-| `prison` | PENDING | — | A walled correctional facility. |
-| `terminal` | PENDING | — | A bus / freight terminal. |
-| `sphere` | PENDING | — | The Sphere — the spherical venue, a fixed landmark. |
-| `boneyard` | PENDING | — | The Neon Boneyard — dead sign graveyard. |
-| `chapel` | PENDING | — | A wedding chapel (the small-lot Vegas fixture). |
-| `fort` | PENDING | — | Old Mormon Fort — the founding adobe site. |
-| `basin` | PENDING | — | A flood-detention basin (ties into the storm system). |
-| `ballpark` | PENDING | — | A ballpark (Cashman / Las Vegas Ballpark). |
-| `swapmeet` | PENDING | — | A swap meet / open-air market lot. |
-| `drivein` | PENDING | — | A drive-in theater lot. |
-| `highroller` | PENDING | — | The High Roller observation wheel. |
-| `storage` | PENDING | — | Self-storage sprawl (near arterials). |
-| `watertreat` | PENDING | — | A water treatment plant. |
-| `reservoir` | PENDING | — | A covered water reservoir tank field. |
-| `pumpstation` | PENDING | — | A water pumping station. |
-| `sign` | PENDING | — | The "Welcome to Fabulous Las Vegas" sign parcel. |
-| `strat` | PENDING | — | The Stratosphere tower. |
-| `datafort` | PENDING | — | The Data Fortress — the fiber-fed data center (born of Enron fiber). |
-| `arsenal` | PENDING | — | The Arsenal — a fortified munitions/armory site. [Bohemia lore: PENDING Paolo] |
-| `firestation` | PENDING | — | A fire station. |
-| `policestation` | PENDING | — | A police station. |
-| `jail` | PENDING | — | The city/county jail (holding, distinct from prison). |
-| `courthouse` | PENDING | — | A courthouse / civic justice building. |
-| `warehouse` | PENDING | — | A distribution warehouse (big shed + docks). |
-| `truckstop` | PENDING | — | A highway truck stop (fuel + lot) on an approach. |
-| `battery` | PENDING | — | A grid-scale battery storage yard. |
-| `quarry` | PENDING | — | A rock quarry carving the approach hills. |
-| `gypsum` | PENDING | — | The gypsum mine carving the rim (real: Blue Diamond). |
-| `springs` | PENDING | — | The Springs Preserve — the valley’s original water source. |
-| `luxor` | PENDING | — | The Luxor pyramid — a fixed Strip landmark. |
-| `fueldepot` | PENDING | — | A fuel tank-farm depot. |
-| `granary` | PENDING | — | A grain silo / granary. |
-| `library` | PENDING | — | A public library branch. |
-| `radio` | PENDING | — | A radio / broadcast station + antenna. |
-| `robofactory` | PENDING | — | A robotics factory. [Bohemia lore: PENDING Paolo] |
+| `sign` | RECIPE | builtlot/landmark | The "Welcome to Fabulous Las Vegas" sign parcel. |
+| `strat` | RECIPE | builtlot/landmark | The Stratosphere tower. |
+| `datafort` | RECIPE | builtlot/utility | The Data Fortress — the fiber-fed data center (born of Enron fiber). |
+| `arsenal` | RECIPE | builtlot/utility | The Arsenal — a fortified munitions/armory site. [Bohemia lore: PENDING Paolo] |
+| `firestation` | RECIPE | builtlot/civic | A fire station. |
+| `policestation` | RECIPE | builtlot/civic | A police station. |
+| `jail` | RECIPE | builtlot/institutional | The city/county jail (holding, distinct from prison). |
+| `courthouse` | RECIPE | builtlot/civic | A courthouse / civic justice building. |
+| `warehouse` | RECIPE | builtlot/industrial | A distribution warehouse (big shed + docks). |
+| `truckstop` | RECIPE | builtlot/civic | A highway truck stop (fuel + lot) on an approach. |
+| `battery` | RECIPE | builtlot/utility | A grid-scale battery storage yard. |
+| `quarry` | RECIPE | builtlot/extraction | A rock quarry carving the approach hills. |
+| `gypsum` | RECIPE | builtlot/extraction | The gypsum mine carving the rim (real: Blue Diamond). |
+| `springs` | RECIPE | builtlot/landmark | The Springs Preserve — the valley’s original water source. |
+| `luxor` | RECIPE | builtlot/landmark | The Luxor pyramid — a fixed Strip landmark. |
+| `fueldepot` | RECIPE | builtlot/utility | A fuel tank-farm depot. |
+| `granary` | RECIPE | builtlot/utility | A grain silo / granary. |
+| `library` | RECIPE | builtlot/civic | A public library branch. |
+| `radio` | RECIPE | builtlot/utility | A radio / broadcast station + antenna. |
+| `robofactory` | RECIPE | builtlot/landmark | A robotics factory. [Bohemia lore: PENDING Paolo] |
 
 ## PLOT INTERIORS (engine/bohemia_plotgen.js)
 
@@ -112,5 +109,5 @@ Three plot kinds have interior layouts (all with buildings still EMPTY by design
 - laws/BOHEMIA_ADDENDUM_DISTRICT_MERGE_LAW_7_14_26.md — same-type cells merge up to 2x2.
 - engine/bohemia_overmap.js (skeleton + proceduralDistrict) — the live placement rules.
 
-## STILL OWED PAOLO (the honest gap)
-The 60 PENDING types need, per type, your ruling on what they ARE in Bohemia (who owns them, what spawns there) and then art. `arsenal` and `robofactory` carry game-specific lore that is entirely your call. Everything above the PENDING line already generates.
+## STILL OWED (the honest gap)
+Not per-type rulings anymore — every type generates. What is owed is ART POOLS for the built-lot archetypes (building / roof / signage / yard-prop sprites), the same bake-art step every recipe waits on. When those land, the RECIPE rows flip to BAKES. Genuinely reserved lore (the Amalgamation, purple, faction ownership) is untouched by this and stays Paolo’s call.

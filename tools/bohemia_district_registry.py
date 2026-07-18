@@ -32,10 +32,10 @@ def engine_facts():
         "const pairs=[...src.match(/const DISTRICT=\\{([\\s\\S]*?)\\};/)[1]"
         ".matchAll(/([A-Z_]+):[ ]*.([a-z_]+)./g)].map(x=>x[2]);"
         "const P=require('./engine/bohemia_plotgen.js');"
-        "const out={};"
+        "const out={},arch={};"
         "for(const d of pairs){const r=B.recipeFor({district:d,quality:0.5,seed:1,x:0,y:0});"
-        "out[d]=r?r.type:null;}"
-        "console.log(JSON.stringify({order:pairs,recipe:out}));"
+        "out[d]=r?r.type:null; arch[d]=r&&r.opts&&r.opts.archetype?r.opts.archetype:null;}"
+        "console.log(JSON.stringify({order:pairs,recipe:out,arch:arch}));"
     )
     r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
     if r.returncode != 0:
@@ -132,7 +132,7 @@ DESC = {
 
 def main():
     facts = engine_facts()
-    order, recipe = facts['order'], facts['recipe']
+    order, recipe, arch = facts['order'], facts['recipe'], facts['arch']
     missing_desc = [d for d in order if d not in DESC]
     if missing_desc:
         raise SystemExit('DESC missing for: ' + ' '.join(missing_desc))
@@ -153,7 +153,9 @@ def main():
     rows = []
     for d in order:
         st, rt = status(d)
-        rows.append((d, st, rt, DESC[d]))
+        # show the archetype for procedurally-generated built lots
+        label = rt + ('/' + arch[d] if arch.get(d) else '') if rt else '—'
+        rows.append((d, st, label, DESC[d]))
 
     n = len(order)
     baked = [r for r in rows if r[1] == 'BAKES']
@@ -174,15 +176,22 @@ def main():
     L.append('- **%d** district types defined + placed on the 96x96 overmap.' % n)
     L.append('- **%d BAKES**: has a render recipe that bakes to pixels today '
              '(street / freeway / desert / mountain families).' % len(baked))
-    L.append('- **%d RECIPE**: engine grid recipe exists, art pool / bake not '
-             'built yet (wash, solar, farm, airfield).' % len(recipe_only))
-    L.append('- **%d PENDING**: placed on the map, but the fine-layer template is '
-             '[PENDING Paolo] (MECHANISM-MINE / CONTENTS-PAOLO’S). These render as '
-             'their desert lot until a ruling + art land.' % len(pending))
+    L.append('- **%d RECIPE**: generates a plot grid procedurally, art pool / bake '
+             'not built yet. Includes the built-lot archetypes (civic / bigbox / '
+             'institutional / industrial / utility / landmark / green / water / '
+             'rail / extraction) that render every landmark type.' % len(recipe_only))
+    L.append('- **%d PENDING**: no recipe at all. (Paolo 7/18/26 ruled the '
+             'landmarks are PROCEDURALLY GENERATED, not hand-authored, so this '
+             'should be zero.)' % len(pending))
+    L.append('')
+    L.append('PAOLO 7/18/26: "those can be randomly generated throughout the map... '
+             'this is a procedural generated world game." Every district now '
+             'generates from a build archetype — see the `recipe` column '
+             '(`builtlot/<archetype>`). None wait on a per-type ruling.')
     L.append('')
     L.append('RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · '
-             '**RECIPE** = generates a grid, needs art to bake · **PENDING** = '
-             'reserved for Paolo’s ruling, no recipe yet.')
+             '**RECIPE** = generates a plot grid, needs art pool to bake · '
+             '**PENDING** = no recipe (should be none).')
     L.append('')
 
     def table(title, group):
@@ -195,8 +204,9 @@ def main():
         L.append('')
 
     table('BAKES — rendered to pixels today', baked)
-    table('RECIPE — grid exists, art pending', recipe_only)
-    table('PENDING PAOLO — placed, fine-layer reserved', pending)
+    table('RECIPE — generates a plot grid procedurally, art pending', recipe_only)
+    if pending:
+        table('PENDING — no recipe (should be empty)', pending)
 
     L.append('## PLOT INTERIORS (engine/bohemia_plotgen.js)')
     L.append('')
@@ -217,11 +227,13 @@ def main():
     L.append('- engine/bohemia_overmap.js (skeleton + proceduralDistrict) — the '
              'live placement rules.')
     L.append('')
-    L.append('## STILL OWED PAOLO (the honest gap)')
-    L.append('The %d PENDING types need, per type, your ruling on what they ARE in '
-             'Bohemia (who owns them, what spawns there) and then art. `arsenal` and '
-             '`robofactory` carry game-specific lore that is entirely your call. '
-             'Everything above the PENDING line already generates.' % len(pending))
+    L.append('## STILL OWED (the honest gap)')
+    L.append('Not per-type rulings anymore — every type generates. What is owed is '
+             'ART POOLS for the built-lot archetypes (building / roof / signage / '
+             'yard-prop sprites), the same bake-art step every recipe waits on. '
+             'When those land, the RECIPE rows flip to BAKES. Genuinely reserved '
+             'lore (the Amalgamation, purple, faction ownership) is untouched by '
+             'this and stays Paolo’s call.')
     L.append('')
 
     open(OUT, 'w').write('\n'.join(L))

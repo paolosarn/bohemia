@@ -354,8 +354,59 @@ const BOH_BLOCKGEN=(function(){
     return {type:'intersection',W,H,grid,meta:{lanesEW,lanesNS,box:[c0,r0,c1,r1],
       crosswalks:4,pocketLenX:PLx,pocketLenY:PLy,medRow,medCol}};
   }
+  // PROCEDURAL BUILT LOT (Paolo 7/18/26: "those can be randomly generated
+  // throughout the map... this is a procedural generated world game"). Every
+  // district that used to have NO recipe (return null -> blank desert lot) now
+  // GENERATES from its build ARCHETYPE: footprints + parking + fence + greenery
+  // laid on the plot, deterministic per (seed,cell). Semantic ground only, art
+  // pools resolve at bake exactly like every other recipe. ~9 archetype rules
+  // cover 60 landmark types instead of 60 hand-authored templates.
+  function genBuiltLot(seed,W,opts){
+    const o=opts||{}; const r=rng(seed);
+    const A=o.archetype||'civic';
+    const H=Math.max(12,Math.floor(W*0.6));
+    const base=(A==='green')?'turf':(A==='water')?'water':(A==='extraction')?'rock':
+               (A==='industrial'||A==='utility')?'gravel_yard':'lot_ground';
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:base,props:[]});grid.push(row);}
+    const inb=(x,y)=>x>=0&&y>=0&&x<W&&y<H;
+    const rect=(x0,y0,w,h,g,prop)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g=g;grid[y][x].props=prop?[prop]:[];}};
+    const bldg=(x0,y0,w,h)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g='building_pad';grid[y][x].props=[{p:'building',impassable:true}];}};
+    const fence=()=>{for(let x=0;x<W;x++){grid[0][x].props.push({p:'fence',impassable:true});grid[H-1][x].props.push({p:'fence',impassable:true});}
+      for(let y=0;y<H;y++){grid[y][0].props.push({p:'fence',impassable:true});grid[y][W-1].props.push({p:'fence',impassable:true});}};
+    const trees=(n)=>{for(let k=0;k<n;k++){const x=1+((r()*(W-2))|0),y=1+((r()*(H-2))|0);if(grid[y][x].g!=='building_pad'){grid[y][x].g='turf';grid[y][x].props=[{p:'tree'}];}}};
+    const mid=(W>>1), midH=(H>>1);
+    switch(A){
+      case 'civic':{ const bw=Math.floor(W*0.5),bh=Math.floor(H*0.34),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(6); break; }
+      case 'bigbox':{ const bw=Math.floor(W*0.62),bh=Math.floor(H*0.4),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(3); break; }
+      case 'institutional':{ const pad=2,cols=2,rows=2,cw=((W-pad*3)/cols)|0,ch=((H-pad*3)/rows)|0;
+        for(let ry=0;ry<rows;ry++)for(let cx=0;cx<cols;cx++){if(r()<0.2)continue;
+          bldg(pad+cx*(cw+pad),pad+ry*(ch+pad),Math.max(2,cw-((r()*3)|0)),Math.max(2,ch-((r()*3)|0)));}
+        rect(mid-1,0,2,H,'path'); rect(0,midH-1,W,2,'path'); trees(8); break; }
+      case 'industrial':{ const ap=Math.floor(H*0.22); rect(0,0,W,ap,'drive_concrete');
+        let y=ap+1; while(y<H-3){const sh=Math.min(H-1-y,3+((r()*4)|0)); bldg(3,y,W-6,sh); y+=sh+2;} fence(); break; }
+      case 'utility':{ for(let k=0;k<5+((r()*4)|0);k++){const w=2+((r()*3)|0),h=2+((r()*3)|0);
+          const x=2+((r()*Math.max(1,W-4-w))|0),y=2+((r()*Math.max(1,H-4-h))|0); rect(x,y,w,h,'equipment_pad',{p:'tank',impassable:true});} fence(); break; }
+      case 'landmark':{ rect(0,0,W,H,'plaza'); const bw=Math.floor(W*0.5),bh=Math.floor(H*0.5);
+        bldg(((W-bw)/2)|0,((H-bh)/2)|0,bw,bh); trees(10); break; }
+      case 'green':{ for(let y=0;y<H;y++){const px=mid+Math.round(Math.sin(y*0.4)*(W*0.22));
+          if(inb(px,y)){grid[y][px].g='path';if(inb(px+1,y))grid[y][px+1].g='path';}} bldg(2,2,4,3); trees(22); break; }
+      case 'water':{ break; }
+      case 'extraction':{ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const d=Math.max(Math.abs(x-mid)/Math.max(1,mid),Math.abs(y-midH)/Math.max(1,midH));
+          grid[y][x].g=d<0.35?'pit_floor':d<0.7?'pit_bench':'rock';} break; }
+      case 'rail':{ const rx=mid; for(let y=0;y<H;y++){grid[y][rx].g='rail_bed';
+          if(inb(rx-1,y))grid[y][rx-1].g='rail_ballast'; if(inb(rx+1,y))grid[y][rx+1].g='rail_ballast';} break; }
+      default:{ const bw=Math.floor(W*0.4),bh=Math.floor(H*0.3);
+        bldg(((W-bw)/2)|0,2,bw,bh); rect(0,2+bh,W,H-(2+bh),'parking_concrete'); }
+    }
+    return {W,H,grid,meta:{type:'builtlot',archetype:A,lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
+      pending:['building art per archetype','signage','yard props']}};
+  }
   const RECIPES={
     intersection:(seed,W,o)=>genIntersection(seed,W,o),
+    builtlot:(seed,W,o)=>genBuiltLot(seed,W,o||{}),
     street:(seed,W,o)=>{
       const b=genStreet(seed,W,o);
       // CENTER TURN LANE (7/14, pools blessed): opts.centerTurn converts the

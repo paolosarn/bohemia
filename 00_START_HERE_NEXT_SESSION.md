@@ -117,9 +117,24 @@ can't drift). 77 types: 9 BAKES (visible in a slice now), 8 RECIPE (grid exists,
 art pending), 60 PENDING (placed on the map, fine-layer [PENDING Paolo] per
 MECHANISM-MINE/CONTENTS-PAOLO'S). Gate #19 gates/district_registry_gate.js:
 every enum type MUST have a registry row + count must match — a new district
-can never go uncatalogued again. arsenal + robofactory carry game-lore that is
-entirely Paolo's call. THE 60 PENDING are the real owed work: per type, Paolo's
-ruling on what it IS in Bohemia + then art.
+can never go uncatalogued again.
+PROCEDURAL DISTRICTS (7/18, Paolo ruled the 60 pending: "those can be randomly
+generated throughout the map... this is a procedural generated world game"). So
+they are NOT hand-authored — every district generates from a build ARCHETYPE.
+engine/bohemia_blockgen.js genBuiltLot + the ARCHETYPE map in bohemia_overmap_
+bridge.js: ~9 rules (civic/bigbox/institutional/industrial/utility/landmark/
+green/water/rail/extraction) cover all landmark types; the bridge no longer
+returns null (default -> builtlot). estate->residential, interchange->freeway.
+Registry now 10 BAKES / 67 RECIPE / 0 PENDING. Proof: slices/BOHEMIA_BUILTLOT_
+PROOF_7_18_26.png (one lot per archetype, verified by eye, distinct + readable).
+Law: laws/BOHEMIA_ADDENDUM_PROCEDURAL_DISTRICTS_7_18_26.md. REFINES MECHANISM/
+CONTENTS: generic building footprints are procedural; only true game-lore
+(Amalgamation, purple, faction ownership, what SPAWNS) stays reserved.
+SYNC COUPLING (bit me this turn): blockgen + ombridge are INLINED into the
+graphics core (bohemia_engine_graphics) — editing either standalone requires
+re-inlining + bundle resync (scratchpad reinline.py / resync_bundle.py pattern);
+ombridge is now DECLARED in bohemia_sync_canon.txt. OWED next: art pools per
+archetype (building/roof/signage sprites) so the RECIPE rows flip to BAKES.
 NEXT for the city: (a) mark/zoom the landmarks (Strip, Sphere, Luxor, dam
 — all in overmap.layout), (b) a detail bake where you zoom a region to
 walkable streets + desert lots (compose from the street/intersection/
