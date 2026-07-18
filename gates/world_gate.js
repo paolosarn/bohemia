@@ -45,6 +45,19 @@ for (let y = 20; y < 60; y += 7) for (let x = 20; x < 60; x += 7) {
 }
 ok('deterministic per seed (plot building counts match)', mismatch === 0);
 
+// RESIDENTIAL FOLD (Paolo 7/18): every residential cell must be a real suburb of
+// enterable homes, gated to the streets it touches — the approved generator, folded in.
+let resiPlots = 0, resiHomes = 0, resiBad = 0;
+for (let y = 6; y < 90 && resiPlots < 40; y++) for (let x = 6; x < 90 && resiPlots < 40; x++) {
+  const c = w.at(x, y); if (!c || !['suburb', 'gated', 'estate'].includes(c.district)) continue;
+  const p = w.plot(x, y);
+  if (!p.buildings.length) continue;
+  resiPlots++; resiHomes += p.buildings.length;
+  const fp = p.building(0).floorplan();
+  if (!(fp.rooms.length > 0 && fp.doors.some(d => d[0] === 0 || d[1] === 0 || d[0] === fp.W - 1 || d[1] === fp.H - 1))) resiBad++;
+}
+ok('residential cells are real suburbs of enterable homes (' + resiPlots + ' sampled, ' + resiHomes + ' homes)', resiPlots > 0 && resiBad === 0);
+
 console.log('WORLD MODEL GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
   scanned + ' plots, ' + withBuildings + ' with buildings)');
 process.exit(fail ? 1 : 0);

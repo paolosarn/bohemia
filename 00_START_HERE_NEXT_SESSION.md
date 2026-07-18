@@ -651,6 +651,22 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## SUBURB — FOLDED INTO THE WHOLE VALLEY (Paolo 7/18 late: "one done, what's next")
+DONE: the approved suburb generator is now wired into the world model. engine/bohemia_world.js
+plot(x,y) routes any RESIDENTIAL cell (suburb/gated/estate) through BohemiaSuburb.generate
+with streets inferred from road-district neighbors (streetEdges), exposing homeFootprints as
+enterable buildings (residential floorplans) + a suburbBlock() grid in world cells. Result:
+2361 residential plots across the valley are real neighborhoods, ~56,540 homes, every one
+enterable via world().plot().building().floorplan(). world_gate.js +1 check (6 total), 280
+plots-with-buildings (was 38). All gates green.
+STILL 1x1 PER CELL (merge across neighbors not yet done in the world model — the generator
+supports cw/ch but the world addresses per-cell; multi-cell union + shared plot API is the
+next refinement). Interior collector streets from the overmap not yet fed in (gates default
+to road-neighbor edges, else S).
+NEXT FORK (Paolo to call — AskUserQuestion dropped, asked inline): (1) LIFE — agents in the
+houses; (2) the OTHER building types (commercial/civic/etc.) to this modular standard;
+(3) the city-builder delete-to-desert/place-a-plot mechanic.
+
 ## SUBURB — MODULAR, BOTH LEVELS (Paolo 7/18 eve: "houses + neighborhood must be modular")
 DONE + gated (gates/suburb_modular_gate.js, 14 checks; laws/BOHEMIA_ADDENDUM_MODULARITY_LAW):
 - HOUSE FACTORY: typed MODELS[] in engine/bohemia_suburb.js — varied width (13..21),

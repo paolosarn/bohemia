@@ -17,6 +17,22 @@
   var BR = HASREQ ? require('./bohemia_overmap_bridge.js') : (typeof BOH_OMBRIDGE!=='undefined'?BOH_OMBRIDGE:root.BOH_OMBRIDGE);
   var BG = HASREQ ? require('./bohemia_blockgen.js')       : (typeof BOH_BLOCKGEN!=='undefined'?BOH_BLOCKGEN:root.BOH_BLOCKGEN);
   var FP = HASREQ ? require('./bohemia_floorplan.js')      : (typeof BOH_FLOORPLAN!=='undefined'?BOH_FLOORPLAN:root.BOH_FLOORPLAN);
+  var SUB= HASREQ ? require('./bohemia_suburb.js')         : (typeof BohemiaSuburb!=='undefined'?BohemiaSuburb:root.BohemiaSuburb);
+
+  // residential districts route through the APPROVED suburb generator (Paolo 7/18)
+  var RESIDENTIAL = {suburb:1, gated:1, estate:1};
+  var ROADSET = {freeway:1, arterial:1, strip:1, beltway:1};
+  var SUBMAP = {0:'yard_dirt',1:'suburb_road',2:'house',3:'driveway',4:'perimeter_wall',5:'suburb_gate',6:'garage',9:'house_upper'};
+  // which of the cell's four edges face a street (a road-district neighbor); >=1 gate always
+  function streetEdges(m,x,y){var out=[], nb=[['N',0,-1],['S',0,1],['W',-1,0],['E',1,0]], i;
+    for(i=0;i<nb.length;i++){var nc=m.at(x+nb[i][1],y+nb[i][2]); if(nc&&ROADSET[nc.district])out.push(nb[i][0]);}
+    return out.length?out:['S']; }
+  // wrap the suburb code grid as a block of {g,props} cells the world model speaks
+  function suburbBlock(res){var G=res.g,W=res.W,H=res.H,grid=[],y,x;
+    for(y=0;y<H;y++){var row=[];for(x=0;x<W;x++){var code=G[y][x],g=SUBMAP[code]||'yard_dirt',props=[];
+      if(code===4)props.push({p:'perimeter_wall',impassable:true,hTiles:2});
+      row.push({g:g,props:props});}grid.push(row);}
+    return {W:W,H:H,grid:grid}; }
 
   // build archetype -> interior zone (the floorplan's room grammar)
   var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
@@ -52,6 +68,17 @@
       var key=x+','+y; if(plotCache[key])return plotCache[key];
       var cell=m.at(x,y);
       if(!cell) return null;
+      // RESIDENTIAL: a real suburb neighborhood — houses, gates on the streets this
+      // cell touches, every home enterable. The approved generator, folded in.
+      if(SUB && RESIDENTIAL[cell.district]){
+        var sres=SUB.generate(cell.seed>>>0, {cw:1,ch:1,streets:streetEdges(m,x,y)});
+        var homes=SUB.homeFootprints(sres);
+        var rapi={ x:x,y:y,district:cell.district,archetype:'residential',block:suburbBlock(sres),
+          buildings: homes.map(function(f,i){ return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:'residential',story:f.story,
+            floorplan:function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:'residential',entrance:'S'}); } }; }),
+          building:function(i){ return this.buildings[i]; } };
+        plotCache[key]=rapi; return rapi;
+      }
       var recipe=BR.recipeFor(cell);
       var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
       // W=48 gives footprints big enough to carry real interiors
