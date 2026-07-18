@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]
-1564 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]  [+BATCH appended 225,226,227,228,229,230 (7/17/26, machine-parsed)]
+1588 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3875,3 +3875,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE SHARED DOOM IS VIVID [F3's law]
       system: the fold / factions
       If an enemy's motive is saving a shared dying kind, that KIND and its doom are made vivid — the extinction and the belonging felt — so the motive reads as one the dynast understands from inside, not an abstract excuse (#201's the-shared-doom-must-be-felt law).
+
+### #225  PAARTHURNAX (THE ORDER DEMANDS YOU KILL A REFORMED MONSTER FOR CRIMES HE SPENT CENTURIES REPENTING, AND WON'T SAY WHY THAT'S JUSTICE) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — BLOOD FOR AN OUTGROWN SIN [W1, W4, W5 — the core port]
+      system: the conduct book / factions / the fold
+      A Bohemia choice where an institution (a faction, an order) demands the EXECUTION of a reformed monster — someone whose atrocity was real but who has spent an age in proven, disciplined repentance — as the price of alliance, on the absolute principle that the past is permanent and change can never cancel it, refusing to weigh the reform or explain the refusal, so the dynast must weigh proven chang
+  ->  PORT 2 — THE ABSOLUTISM IS COHERENT [F1's law]
+      system: factions / the conduct book
+      If an institution demands something on absolute principle, that ABSOLUTISM is made coherent — the harsh logic of "the past is permanent" given real force — so it reads as a defensible hard stance, not writers withholding a reason (#180's the-hardline-must-be-coherent law).
+  ->  PORT 3 — THE REFORMED DANGER STAYS LIVE [F2's law]
+      system: the conduct book / the fold
+      If a quest weighs reform against a permanent-past absolutism, the reformed one's DANGER stays live — the mastered nature still real — so sparing them is a genuine risk, not an obvious good (#208's the-reformed-danger-must-stay-live law).
+  ->  PORT 4 — THE PRINCIPLE COSTS THE ALLIANCE [F3's law]
+      system: factions / the fold
+      If a quest's principled choice forfeits an alliance, that forfeiture COSTS — the lost aid felt — so defending the reformed one against the order is a real sacrifice, not a free stand (#201's the-principle-must-cost law).
+
+### #226  VIRMIRE (TWO OF YOUR PEOPLE ARE ABOUT TO DIE AND YOU HAVE TIME TO REACH ONLY ONE, SO YOU CHOOSE WHO LIVES) (Mass Effect)
+  ->  PORT 1 — SAVE ONE, LOSE THE OTHER [W1, W3, W5 — the core port]
+      system: the death-math / the fold / companions
+      A Bohemia moment where two people the dynast KNOWS and values are in simultaneous lethal danger under a clock, with no trick and no third option to save both — so the dynast must choose, in seconds, which lives, with full knowledge that the choice kills the other, and the loss is permanent, self-authored, and carried forward. The death-math's you-can-only-save-one machine (#26) fused with the perm
+  ->  PORT 2 — THE UNDO IS DISCOURAGED [F1's law]
+      system: the death-math / the fold
+      If a quest's power is a permanent self-authored loss, the design discourages the UNDO — the choice made sticky enough that the permanence is felt, not save-scummed away — so the weight lands rather than being dodged (#187's the-irreversibility-must-hold law).
+  ->  PORT 3 — BOTH ARE EQUALLY VALUED [F2's law]
+      system: companions / the death-math
+      If a quest forces a choice between two people, both are EQUALLY developed and valued — neither the obvious pick — so the choice is a genuine agony, not a preference (#207's both-must-weigh-equally law).
+  ->  PORT 4 — THE NO-WIN IS STRUCTURAL [F3's law]
+      system: the death-math / the endings
+      If a quest forecloses saving both, the impossibility feels STRUCTURALLY real — grounded in the situation's logic, not just an arbitrary timer — so the no-win reads as genuine, not a contrived gate (#206's the-no-win-must-be-earned law).
+
+### #227  THE DREAD WOLF (THE FRIEND WHO GUIDED YOU ALL ALONG IS THE GOD WHOSE MISTAKE MADE THE WORLD, AND HE'LL UNMAKE IT TO FIX IT) (Dragon Age: Inquisition)
+  ->  PORT 1 — THE TRUSTED FRIEND WHO IS THE APOCALYPSE [W1, W2, W3 — the core port]
+      system: the fold / the Amalgamation / companions
+      A Bohemia reveal where a beloved, trusted advisor (a mentor, a companion, an Amalgamation voice) is the architect of the coming catastrophe — someone whose own earned guilt over a world-breaking mistake has convinced them the only atonement is to unmake the current world — and whose genuine care for the dynast does not stop them, so the betrayal is grief not cruelty, their remorse is what makes th
+  ->  PORT 2 — THE FRIENDSHIP IS BUILT DEEPLY [F1's law]
+      system: companions / the fold
+      If a quest's power is a trusted friend's betrayal, the FRIENDSHIP is built deeply enough beforehand that the reveal is personal — the relationship invested in, not assumed — so the betrayal is grief, not just a plot twist (#221's the-bond-must-be-built law).
+  ->  PORT 3 — THE CARE IS PROVEN, NOT ASSERTED [F2's law]
+      system: companions / the fold / the Amalgamation
+      If a quest's twist is that genuine care doesn't stop the betrayer, that CARE is proven, not asserted — the affection shown as real before and after the reveal — so the betrayal-as-grief holds rather than ringing false (#188's the-love-must-be-shown law).
+  ->  PORT 4 — THE HORROR WEIGHS AS MUCH AS THE REMORSE [F3's law]
+      system: the Amalgamation / the endings / the fold
+      If a quest's antagonist has coherent, sympathetic logic, the HORROR of their plan weighs equally — the cost kept as vivid as the remorse — so they're a terror driven by grief, not a hero excused by it (#210's the-sympathetic-plan-must-still-horrify law).
+
+### #228  THE WATER CHIP (SAVE YOUR HOME FROM A DEADLINE, THEN GET EXILED BY THE HOME YOU SAVED FOR WHAT YOU BECAME OUT THERE) (Fallout)
+  ->  PORT 1 — SAVE THE HOME, LOSE THE HOME [W1, W2, W6 — the core port]
+      system: the fold / the dynasty spine / the endings
+      A Bohemia arc where a sheltered dynast or heir is sent out under a DEADLINE to save their home from a fatal threat, is transformed by what survival demands (hardened, made dangerous), succeeds and saves everyone — and is then EXILED by the home they rescued, because the transformation that let them succeed makes them unfit for the safe place, so saving your home costs you your home, not as punishm
+  ->  PORT 2 — THE EXILER'S LOGIC IS HONORED [F1's law]
+      system: the fold / factions / the dynasty spine
+      If a quest exiles a hero for what they became, the exiler's LOGIC is honored — the genuine incompatibility of the transformed savior and the shelter made coherent — so the exile reads as tragedy, not arbitrary cruelty (#225's the-hardline-must-be-coherent law).
+  ->  PORT 3 — THE TRANSFORMATION IS LIVED [F2's law]
+      system: the fold / the dynasty spine
+      If a quest exiles a savior for their transformation, that TRANSFORMATION is felt across the mission — the hardening experienced, not asserted at the end — so "too dangerous to come home" is grounded in what the dynast became (#197's the-change-must-be-lived law).
+  ->  PORT 4 — THE HOME IS WORTH BELONGING TO [F3's law]
+      system: the fold / the endings
+      If a quest's tragedy is losing your home, that HOME is established as worth belonging to — its warmth and the desire to return made real — so the exile is a genuine loss, not a shrug (#204's the-home-must-be-worth-it law).
+
+### #229  THE ARCHITECT (A MONSTER WHO WANTS TO FREE ALL MONSTERS FROM THE HIVE-MIND COMMITTED ATROCITIES DOING IT, AND ASKS YOU TO LET HIM KEEP TRYING) (Dragon Age: Origins — Awakening (2009 expansion))
+  ->  PORT 1 — THE CURE MADE BY A MONSTER [W1, W2, W6 — the core port]
+      system: the Amalgamation / factions / the endings
+      A Bohemia figure who has done real ATROCITIES in pursuit of a magnificent end — freeing an enslaved kind, ending an eternal war, curing a great evil — so that the noble goal and the monstrous means are inseparable (the cure purchased with horror and requiring more), and asks the dynast to spare them and let the work continue, betting the world on an unverifiable hope that the freed things would ch
+  ->  PORT 2 — THE UNVERIFIABILITY IS OWNED [F1's law]
+      system: the Amalgamation / the endings
+      If a quest's choice is a wager on an unverifiable outcome, the un-knowability is OWNED as the condition — the impossibility of certainty made the point — so it reads as "you must bet blind," not a dodge (#190's the-unverifiability-must-be-owned law).
+  ->  PORT 3 — THE MEANS WEIGH [F2's law]
+      system: factions / the unrecorded ledger
+      If a quest binds a noble end to monstrous means, the ATROCITIES weigh — the real, personal harm kept vivid — so sparing the maker for his goal is a genuine moral cost, not an easy call (#180's the-means-must-weigh law).
+  ->  PORT 4 — THE NOBLE GOAL HAS GRANDEUR [F3's law]
+      system: the Amalgamation / factions
+      If a quest's dilemma rests on a magnificent goal pursued monstrously, that GOAL is given real grandeur — the liberation and the war's end made genuinely worth wanting — so he's a tragic figure, not a mad scientist (#210's the-noble-aim-must-be-real law).
+
+### #230  THE COP AND THE TRIAD (AN UNDERCOVER OFFICER SPENDS SO LONG BEING A GANGSTER THAT SAVING THE PEOPLE WHO TRUST HIM MEANS BETRAYING THE PEOPLE HE SERVES) (Sleeping Dogs)
+  ->  PORT 1 — THE LIVED LIE THAT BECAME A REAL SELF [W1, W2, W3 — the core port]
+      system: factions / the fold / the conduct book
+      A Bohemia arc where a character embedded to DECEIVE (an infiltrator, a planted agent, a false ally) lives the role so long and fully that the lie becomes a second real self — forming genuine bonds with the people they're betraying, earning trust that is not misplaced because the person trusted actually exists — so when the two loyalties collide, both are genuinely theirs and every choice betrays s
+  ->  PORT 2 — THE FALSE LOYALTY IS AS COMPELLING AS THE TRUE [F1's law]
+      system: factions / companions / the fold
+      If a quest's engine is a lived lie becoming a real self, the false loyalty is made as genuinely COMPELLING as the true one — the brotherhood earned and loved — so the mask really becomes a face and the choice is a true tear (#220's both-loyalties-must-weigh law).
+  ->  PORT 3 — THE DIVISION IS FELT BUILDING [F2's law]
+      system: the fold / factions / companions
+      If a quest's tragedy is a divided self forged by a lived lie, the DIVISION is felt building across the arc — the erosion experienced, not announced at the climax — so the two-real-selves collision is earned (#227's the-transformation-must-be-lived law).
+  ->  PORT 4 — BOTH LOYALTIES CARRY MIXED WEIGHT [F3's law]
+      system: factions / the conduct book
+      If a quest tears a person between two loyalties, BOTH carry mixed, genuine weight — neither purely clean nor purely corrupt — so the choice is a true dilemma, not tipped by one side being obviously right (#218's both-claims-must-be-mixed law).

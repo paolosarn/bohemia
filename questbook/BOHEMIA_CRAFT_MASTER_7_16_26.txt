@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]
-2247 findings / 224 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]  [+BATCH appended 225,226,227,228,229,230 (7/17/26, machine-parsed)]
+2307 findings / 230 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4933,3 +4933,133 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       How much shared doom and an old debt outweigh real wrongs — the choice is a valuation, not a verdict.
   W10 IT IS THE-ENEMY-HAD-REASONS IN ONE BROTHER
       A killer who is also your kind, owed and resembled — Bohemia's whole faction question of grievance, debt, and belonging, in a hunted witcher.
+
+### #225  PAARTHURNAX (THE ORDER DEMANDS YOU KILL A REFORMED MONSTER FOR CRIMES HE SPENT CENTURIES REPENTING, AND WON'T SAY WHY THAT'S JUSTICE) (The Elder Scrolls V: Skyrim)
+  W2  THE CRIME WAS REAL
+      Paarthurnax's atrocities happened — the Blades aren't wrong, which is what makes the dilemma genuine, not a strawman.
+  W3  THE REFORM WAS REAL
+      Thousands of years of solitary, disciplined, verifiable penance — the clearest case of change a person could ask for.
+  W4  THE ORDER WON'T EXPLAIN
+      The removed "get them to admit change counts" verb is the spine: absolutism demands blood and refuses to justify why change shouldn't matter.
+  W5  BOTH POSITIONS ARE DEFENSIBLE
+      "Some crimes are unforgivable" and "proven change should count" are both coherent and irreconcilable — no right answer.
+  W6  HE FREED THE VERY KIND HE OPPRESSED
+      Paarthurnax taught humanity to break dragon rule — his good was done for those he once wronged, deepening the case.
+  W7  HIS NATURE STAYS DANGEROUS
+      A dragon's cruelty is real even mastered — the Blades' fear isn't baseless, which keeps the tension.
+  W8  THE PLAYER MUST PLANT THEIR FEET
+      No synthesis, no negotiation — comply with the absolutism or defy it, and own the answer.
+  W9  THE ALLIANCE IS THE PRICE
+      Sparing him costs the Blades' aid — the principle has a real cost, not a free stand.
+  W10 IT IS CAN-CHANGE-CANCEL-THE-PAST IN ONE DRAGON
+      A reformed monster the order demands you kill — Bohemia's whole conduct-book question of penance, permanence, and forgiveness, on a frozen peak.
+
+### #226  VIRMIRE (TWO OF YOUR PEOPLE ARE ABOUT TO DIE AND YOU HAVE TIME TO REACH ONLY ONE, SO YOU CHOOSE WHO LIVES) (Mass Effect)
+  W1  CHOOSING WHO LIVES IS CHOOSING WHO DIES
+      The player actively authors which comrade dies — the loss is theirs, not the situation's, the whole engine.
+  W2  TWO VALUED PEOPLE, ONE SAVE
+      Both squadmates are known and invested-in — not strangers on a trolley, which makes the arithmetic personal.
+  W3  THE GAME FORECLOSES THE TRICK
+      The removed "save both" verb is the spine: no third option, no clever out, the escape denied on purpose.
+  W4  THE CLOCK REMOVES DELIBERATION
+      Seconds, not minutes — no time to agonize into a solution, only time to pick, which is its own cruelty.
+  W5  THE LOSS IS PERMANENT
+      The dead squadmate stays dead across the trilogy — no undo, which makes the weight last and the choice real.
+  W6  THE SURVIVOR IS A REMINDER
+      The one saved carries the memory of the one who wasn't — the loss made present in later games.
+  W7  IT IS THE PUREST DEATH-MATH
+      Not abstract but two specific people, engineered to have no answer but choice — the trolley with faces you love.
+  W8  THE WEIGHT IS SELF-AUTHORED
+      The player cannot blame the situation; they chose, and the choosing is the burden.
+  W9  IT ECHOES FOR THREE GAMES
+      The choice's consequences ripple across the whole trilogy — the loss given the longest possible reach.
+  W10 IT IS YOU-CAN-ONLY-SAVE-ONE IN ONE MISSION
+      Two comrades, one clock, no trick — Bohemia's whole death-math question of who lives when you can't save everyone, in a single irreversible pick.
+
+### #227  THE DREAD WOLF (THE FRIEND WHO GUIDED YOU ALL ALONG IS THE GOD WHOSE MISTAKE MADE THE WORLD, AND HE'LL UNMAKE IT TO FIX IT) (Dragon Age: Inquisition)
+  W1  THE FRIEND IS THE APOCALYPSE
+      The trusted advisor is the architect of the world's end — the mentor-as-apocalypse, the whole engine.
+  W2  THE BETRAYAL IS GRIEF, NOT CRUELTY
+      He was telling the truth about caring; the horror is that he was secretly grieving, not secretly lying.
+  W3  HIS REMORSE MAKES HIM UNSTOPPABLE
+      The removed "convince him his guilt doesn't require it" verb is the spine: you can't argue a man out of a penance he's certain he owes.
+  W4  THE GUILT IS EARNED
+      Solas really did break the world — his culpability is real, which makes his atonement coherent, not delusional.
+  W5  HIS CARE DOESN'T STOP HIM
+      Genuine love, which changes nothing — the love that dooms anyway, larger forces overriding affection.
+  W6  THE LOGIC IS HORRIFYINGLY COHERENT
+      The maker must undo his catastrophe, at any cost — a penitent's reasoning that isn't easily refuted.
+  W7  HE TAKES NO JOY IN IT
+      Not malice but duty — the apocalypse as a sorrowful obligation, which is worse than villainy.
+  W8  THE WISEST VOICE WAS THE END
+      The gentlest, most trusted counsel in the player's life was always going to unmake the world.
+  W9  YOU CAN'T TALK HIM DOWN
+      His guilt is a force larger than his love and his logic is coherent — the reach that fails against certainty.
+  W10 IT IS THE-MENTOR-IS-THE-APOCALYPSE IN ONE FRIEND
+      A beloved advisor who'll end the world to fix his mistake — Bohemia's whole question of guilt, love, and the danger of the one who can't forgive himself, in a quiet god.
+
+### #228  THE WATER CHIP (SAVE YOUR HOME FROM A DEADLINE, THEN GET EXILED BY THE HOME YOU SAVED FOR WHAT YOU BECAME OUT THERE) (Fallout)
+  W1  THE TRANSFORMATION UNFITS YOU
+      The change required to save the vault is exactly what bars you from it — the removed "come home as who you became" verb is the spine.
+  W2  SAVING YOUR HOME COSTS YOUR HOME
+      Success, not failure, causes the exile — the tragic price of salvation, the whole engine.
+  W3  THE EXILE IS INCOMPATIBILITY, NOT PUNISHMENT
+      The Overseer is hard but right; the shelter and the survivor genuinely cannot coexist.
+  W4  THE DEADLINE FORCED THE CHANGE
+      The thirst clock and the lethal wasteland demanded the Dweller become dangerous — the crucible that made them unfit.
+  W5  THEY DID EVERYTHING RIGHT
+      Obeyed the deadline, endured, saved everyone — and are banished for it, which is the cruelest structure.
+  W6  THE SHELTER EXCLUDES ITS SAVIORS
+      The safe world stays safe by barring the ones who paid to keep it — the structural tragedy.
+  W7  THE DARK-GOERS CAN'T RETURN TO THE LIGHT
+      Those who went out and were changed can't rejoin the innocence they preserved — the you-can't-go-home truth.
+  W8  THE SACRIFICE IS PAID IN BELONGING
+      Not death but home — the loss is exile, the rarest and quietest kind of hero's price.
+  W9  THE DOOR CLOSING IS THE IMAGE
+      The hero alone, watching the vault seal — the whole tragedy in one shutting door.
+  W10 IT IS YOU-CAN'T-GO-HOME-AGAIN IN ONE VAULT
+      Save the safe place, lose your right to live in it — Bohemia's whole fold question of transformation, sacrifice, and belonging, in the taproot's first quest.
+
+### #229  THE ARCHITECT (A MONSTER WHO WANTS TO FREE ALL MONSTERS FROM THE HIVE-MIND COMMITTED ATROCITIES DOING IT, AND ASKS YOU TO LET HIM KEEP TRYING) (Dragon Age: Origins — Awakening (2009 expansion))
+  W1  THE CURE WAS MADE BY A MONSTER
+      The Architect found the path to ending monstrousness by committing atrocities — the cure and the horror are one project, the engine.
+  W2  THE NOBLE END AND MONSTROUS MEANS ARE INSEPARABLE
+      The removed "have the cure without the monster" verb is the spine: you can't punish the means without losing the end.
+  W3  THE GOAL IS MAGNIFICENT
+      Freeing an enslaved species to end an eternal war — not power or survival, which makes him a tragic figure, not a villain.
+  W4  THE MEANS ARE GENUINELY MONSTROUS
+      Real experiments, real dead among the player's people — the atrocity isn't softened, which keeps the dilemma real.
+  W5  THE PAYOFF IS UNVERIFIABLE
+      No one knows if freed monsters would choose peace or become worse — the bet is blind, the world at stake.
+  W6  SPARING HIM IS A WORLD-WAGER
+      Betting everything on an unproven cure and the redemption of monsters — a gamble no one can make safely.
+  W7  KILLING HIM ENDS THE ONLY CHANCE
+      Extinguishing the atrocities also extinguishes the one being who tried to end the endless war — both sides doomed.
+  W8  HE ASKS TO CONTINUE
+      Not to be forgiven but to be allowed to keep working — the plea makes the player complicit in whichever choice.
+  W9  HE IS A MONSTER WITH A PHILOSOPHY
+      Self-aware, thoughtful, sincere — the awakened one among the mindless, which makes him unclassifiable.
+  W10 IT IS THE-CURE-IS-THE-ATROCITY IN ONE MONSTER
+      A world-changing good made through horror by a terrible maker — Bohemia's whole question of noble ends, monstrous means, and the wager on redemption, in an awakened darkspawn.
+
+### #230  THE COP AND THE TRIAD (AN UNDERCOVER OFFICER SPENDS SO LONG BEING A GANGSTER THAT SAVING THE PEOPLE WHO TRUST HIM MEANS BETRAYING THE PEOPLE HE SERVES) (Sleeping Dogs)
+  W1  THE MASK BECOMES THE FACE
+      Living the lie long enough makes it partly true — the role becomes a second real self, the whole engine.
+  W2  TWO REAL LOYALTIES, NOT ONE FAKE
+      Wei isn't torn between a true self and a mask; both selves are genuine — the removed "keep both" verb is the spine.
+  W3  EVERY CHOICE BETRAYS REAL TRUST
+      The gangsters' trust isn't misplaced because the brother they trust exists — so betrayal is unavoidable, whichever side.
+  W4  THE BONDS ARE EARNED, NOT FAKED
+      Wei really ran with them, bled with them — the brotherhood is real because he really lived it.
+  W5  THE COP IDENTITY IS ALSO REAL
+      The badge and the oath are genuinely his too — both claims true, which makes the tear complete.
+  W6  HE LOSES HIS SINGLE SELF
+      Deep deception costs the deceiver a unified identity — he ends as neither cleanly cop nor gangster.
+  W7  THE HANDLERS AREN'T CLEAN
+      The police use him too — the badge isn't pure, which keeps the choice from tipping.
+  W8  NO CHOICE LEAVES HIM WHOLE
+      Whichever loyalty he honors, he betrays the other and himself — the completeness of the no-win.
+  W9  YOU BECOME WHAT YOU PRETEND
+      The core truth: pretend long and fully enough and it's no longer pretending — the mask is the face.
+  W10 IT IS THE-MASK-BECOMES-THE-FACE IN ONE COP
+      A lived lie that made a second real self and two real loyalties — Bohemia's whole faction question of divided belonging and the cost of deep deception, in one undercover officer.

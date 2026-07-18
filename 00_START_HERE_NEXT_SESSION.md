@@ -145,8 +145,8 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 140 of 150.** (Full-machine total 181; the
-   rest are system studies that don't count.) 10 to go — two batches.
+   **INDIVIDUAL-QUEST COUNT: 146 of 150.** (Full-machine total 187; the
+   rest are system studies that don't count.) 4 to go — ONE batch to 150.
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
    advance the 150). Fresh mines land as NEW files #153+, full template
@@ -310,14 +310,26 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    (Planescape — a succubus practices chastity as self-authorship; you
    are not your design), Ghosts of the Past (Witcher, Letho — the enemy
    had reasons you share; a grievance doesn't erase a debt). **INDIVIDUAL-
-   QUEST COUNT: 140 of 150.** 10 to go — TWO batches from the target.
-   VEINS STILL DEEP: ME2 (Thane done, the IFF done, Jacob/the base done),
-   Witcher (the Last Wish done, the Whispering Hillock done), FO4 (Far Harbor's
-   Acadia synths, the Cabot done), NV (Beyond the Beef done, Dead Money's
-   Christine/Dog), KOTOR (the rakghoul serum, Korriban done), Skyrim
-   (the Daedric quests, the Ebony Warrior), Disco (Cuno, the Hardie Boys),
-   BG3 (Shadowheart's Shar/Selune choice, the Emperor), Planescape
-   (Deionarra, the Nameless One's past incarnations).
+   QUEST COUNT: 140 of 150.**
+   BATCH 13 (7/18, #225-230): Paarthurnax (Skyrim — kill a reformed
+   monster for an outgrown sin, or let change count; the order won't
+   explain), Virmire (ME1 — two comrades, one clock, save one and the
+   other dies; the pure death-math), The Dread Wolf (DA:I, Solas — the
+   trusted friend is the apocalypse; his remorse is what makes him
+   unstoppable), The Water Chip (Fallout 1 — save your home under a
+   deadline, then be exiled by it for what you became out there), The
+   Architect (DA:Awakening — the cure for the monsters was made by a
+   monster doing atrocities; bet the world or end the chance), The
+   Undercover Cop (Sleeping Dogs, Wei Shen — the mask worn long enough
+   becomes a real face; every loyalty is a betrayal). **INDIVIDUAL-QUEST
+   COUNT: 146 of 150.** 4 TO GO — ONE MORE BATCH HITS 150.
+   ON 150: the standing plan is the MASTER COMPILE — fold the four
+   extraction masters (CRAFT/FLAWS/CONVERSATIONS/PORTS) into the build
+   queue; PORTS is the game-build list. Research becomes production.
+   VEINS FOR THE FINAL FOUR: BG3 (the Emperor's manipulation, Astarion's
+   ascension), NV (Dead Money's Christine/Dog, Old World Blues), KOTOR
+   (the rakghoul serum), Disco (the Hardie Boys tribunal aftermath),
+   Fallout 2 (the Enclave/Vault City), Skyrim (a Daedric prince quest).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
