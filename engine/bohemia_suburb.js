@@ -139,16 +139,24 @@
     var back=RD+DRIVE+HD, R=back+5, Lx=R, Rx=W-R, Ty=R, By=H-R, i;
     var span=By-Ty, n=Math.max(2, Math.ceil(span/(2*back+2*GAP))+1);
     var ys=[]; for(i=0;i<n;i++) ys.push(Math.round(Ty+span*i/(n-1)));
+    // the side rails run PAST the top/bottom rungs into the corners, so corner lots
+    // face the rail (their driveways flip to the side) instead of sitting empty
+    // (Paolo 7/18: "flip the side the driveway fits in so you can put more houses on
+    // the corner"). Same for the rungs, so top/bottom corners fill from both grains.
+    var cLo=Math.max(RD+3, Ty-LOTW), cHi=Math.min(H-RD-3, By+LOTW);
+    var rLo=Math.max(RD+3, Lx-LOTW), rHi=Math.min(W-RD-3, Rx+LOTW);
     // ROADS FIRST: rails + rungs (a fully connected ladder, no dead ends).
-    seg(g,Lx,ys[0],Lx,ys[n-1],RD); seg(g,Rx,ys[0],Rx,ys[n-1],RD);
-    for(i=0;i<n;i++) seg(g,Lx,ys[i],Rx,ys[i],RD);
+    seg(g,Lx,cLo,Lx,cHi,RD); seg(g,Rx,cLo,Rx,cHi,RD);
+    for(i=0;i<n;i++) seg(g,rLo,ys[i],rHi,ys[i],RD);
     var rails={ty:ys[0],by:ys[n-1],lx:Lx,rx:Rx}, gates=[];
     streets.forEach(function(edge){ var cnt=gpe[edge]||1;
       for(var k=0;k<cnt;k++) gates.push(punchGate(g,edge,(k+1)/(cnt+1),W,H,rails)); });
-    // THEN houses, packing every frontage of the whole union.
-    for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,Lx,Rx);
-    placeColOuter(g,Lx,-1,ys[0],ys[n-1]);
-    placeColOuter(g,Rx, 1,ys[0],ys[n-1]);
+    // THEN houses, packing every frontage of the whole union — rows the full rung
+    // width (into the left/right corners) and columns the full rail height (into the
+    // top/bottom corners). Overlaps self-reject, so corners fill without doubling up.
+    for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,rLo,rHi);
+    placeColOuter(g,Lx,-1,cLo,cHi);
+    placeColOuter(g,Rx, 1,cLo,cHi);
     return gates;
   }
   // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
