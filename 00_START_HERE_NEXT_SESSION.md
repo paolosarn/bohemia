@@ -210,6 +210,21 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-3. MUSIC BATCH 12 + GRAVEYARD SWEEP — NEW BADGE, PENDING VERDICT (7/18): Paolo's
+   mega-verdict thumbed nearly the whole catalog CANON, killed 6 (SUNKEN VESPERS,
+   UNDERTOW, VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR, WHAT THE GLASS
+   REMEMBERS — first 3 were briefly canon, newest verdict wins, GRAVEYARD FINAL).
+   Swept from MLOOPS/NEW_VIBES/CANON_DEFAULTS, doc copies tombstoned, registry
+   tokens n:'NAME' added (graveyard gate 0 live refs). BATCH 12 answers the slots:
+   THE TIDE THAT KEEPS THE NAMES, WHERE THE PROCESSION DROWNED, A CHORD OF DROWNED
+   BELLS, THE HYMN THE STATIC ATE, LAST BREATH OF THE ORGAN, THE BELL THAT COOLS
+   TO SALT — 6 new topologies (Chebyshev/noise-flute/cluster/bitcrush/bellows/
+   stretched-bell). Records: BOHEMIA_MUSIC_GRAVEYARD_7_18_26.txt. NEXT: verdict.
+-2b. CLOTHING COOK BATCH 2 — 12 CANDIDATES IN COOKING, PENDING THUMBS (7/18):
+   NAVY LONGSLEEVE, MUSTARD TEE, OLIVE FIELD SHIRT, MAROON HENLEY, CHARCOAL
+   HOODIE, RUST TANK, TAN CHINOS, RAW DENIM, FADED JEANS, RED SNEAKERS, BLACK
+   BOOTS, DESERT BOOTS. Variants off the approved template silhouettes, live on
+   the rig in COOKING. Thumb UP -> CANON menu, DOWN -> graveyard. NEXT: verdict.
 -2. MUSIC BATCH 11 — NEW BADGE, PENDING PAOLO VERDICT (7/18): "THE DROWNED
    CATHEDRAL DEEPENS." 6 FF10-horror songs, each births its own lead voice via a
    topology the catalog never ran: ring modulation (ashenbell), modal synthesis
