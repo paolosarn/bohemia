@@ -59,12 +59,15 @@ strongest input I can give you.
 === END PROMPT ===
 
 === VERDICT PASS 7/18/26 — batch-10 judged + SATELLITE PRAYER screech fix ===
-BATCH 10 (THE DROWNED CATHEDRAL): 3 CANON, 3 DOWN.
-  CANON (baked to CANON_DEFAULTS at 2): THE SENDING, PYREFLIES RISE, NO SENDING LEFT.
-  DOWN (buried, removed from MLOOPS + NEW_VIBES; graveyard-final, fresh cooks answer the slots):
-    VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR.
-  NEW_VIBES now = the 3 survivors. Owned voices of the dead (submergechoir, oraclereed,
-  drownbed) left in synthV as unused bodies; not to be re-slotted (no remakes).
+BATCH 10 (THE DROWNED CATHEDRAL): all 6 CANON (Paolo reversed the 3 downs same turn).
+  First paste: 3 CANON (THE SENDING, PYREFLIES RISE, NO SENDING LEFT), 3 DOWN (VIA PURIFICO,
+  HYMN IN THE FLOOD, THE DROWNED CHOIR). Then Paolo: "whatever you were touching I like it, I
+  don't want it removed, just make the volume way fucking lower." So the 3 downs were RESTORED
+  to MLOOPS, all 6 baked to CANON_DEFAULTS at 2, NEW_VIBES back to all 6.
+  VOLUME: the batch was too loud. All 7 batch-10 voices pulled down ~50% — drownedpiano
+  g0*0.95->0.42, submergechoir 0.34->0.17, oraclereed 0.3->0.15, drownbed 0.4->0.2, pyrefly
+  0.34->0.18, mournbell 0.36->0.18, abyssbass 0.44->0.24. Songs kept, level way down. LESSON:
+  a "too loud" note is a MIX fix, not a kill — never bury a song for loudness.
 BUG FIX — SATELLITE PRAYER: Paolo, "really like it but a super loud SCREECH breaking my
   eardrums, has to go way lower." Root cause: solarhymn (its lead) summed harmonics up to the
   5th with NO high cap; on the melody kill-layers it plays in a high register (root-7), so the
@@ -136,7 +139,7 @@ SIX VOICES BORN (ledgered to owner song, each used by that ONE song alone):
 - mournbell     -> NO SENDING LEFT    (tritone-ratio mourning bell: FM modulator at 1.414, index decays to a long tail, a 3.1Hz tremolo grief)
 - abyssbass (shared support) beating-fifths bass: sub + a slightly-flat fifth ghost, both drifting DOWN over the note.
 VARIETY LAW: all 6 tuples (scale+feel+kick) distinct. SCREECH LAW: no delay/convolver, nothing feeds back (offline-render verified all 6 leads synthesize clean). Catalog now 109 songs.
-JUDGED 7/18 (see verdict pass below): 3 CANON — THE SENDING (drownedpiano), PYREFLIES RISE (pyrefly), NO SENDING LEFT (mournbell). 3 DOWN + buried — VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR (their owned voices submergechoir/oraclereed/drownbed left as dead bodies, unused).
+JUDGED 7/18: all 6 CANON. First paste marked 3 down (VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR) but Paolo reversed it same turn — "whatever you were touching I like it, don't remove it, just make the volume way lower." So all 6 kept + baked; the whole batch's 7 voices pulled down ~50% (see verdict pass).
 
 === COOK BATCH 9b (7/17/26) — 2 fresh songs answering the batch-9 graves. ===
 NEW VOICES BORN (ledgered to owner song):
