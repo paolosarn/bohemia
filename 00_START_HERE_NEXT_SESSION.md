@@ -651,6 +651,25 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## PLACEMENT PLAYBOOK + FIRST COMMERCIAL DISTRICT (Paolo 7/18 late)
+Paolo: the suburb ate half a day; RECORD the issues so it never repeats, then pivot to
+the first commercial district (a corner shopping plaza).
+- POST-MORTEM: laws/BOHEMIA_PLACEMENT_PLAYBOOK_7_18_26.md. THE process rule: render a
+  PNG and LOOK every change (a green gate is not a look); roads-first; spread not
+  blind-stride; fill both grains; straight segments only (rigid footprints can't front
+  curves); never add road to squeeze a house; constant house depth, vary width/story.
+  The bugs that cost most: asymmetric inset (verify ALL four edges), dead-ground-as-void.
+  This is the reference for the ~30 home models Paolo wants + every new district.
+- COMMERCIAL (first cut, gated): engine/bohemia_commercial.js — a CORNER SHOPPING PLAZA.
+  L-shaped store building on the back property lines; parking lot fronting the streets
+  (striped stalls + drive aisles); curb cuts connect the lot back to the streets;
+  storefront doors face the parking. Street-aware (exits the streets it touches, corner=2).
+  generate(seed,{streets:[...]}) -> {g, stores, gates}; storeFootprints + driveConnected
+  exported. Gate #23 gates/commercial_gate.js (8 checks), registered in bohemia_gates.py.
+  Proof (still): tools/bohemia_commercial_proof.py -> slices/BOHEMIA_COMMERCIAL_PROOF.html.
+  Sent Paolo the screenshot. [PENDING Paolo: react to the first cut.] NOT yet folded into
+  the world model or divided into tenant units / pad site at the corner — those are next.
+
 ## SUBURB — FOLDED INTO THE WHOLE VALLEY (Paolo 7/18 late: "one done, what's next")
 DONE: the approved suburb generator is now wired into the world model. engine/bohemia_world.js
 plot(x,y) routes any RESIDENTIAL cell (suburb/gated/estate) through BohemiaSuburb.generate

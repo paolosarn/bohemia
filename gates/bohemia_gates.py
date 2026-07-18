@@ -46,6 +46,8 @@ GATES = [
      'every room reachable, buildings enterable', False),
     ('SUBURB MODULAR', ['node', 'gates/suburb_modular_gate.js'],
      'suburbs snap into 1x2 / 2x2, connected', False),
+    ('COMMERCIAL',     ['node', 'gates/commercial_gate.js'],
+     'corner plaza: stores + parking connected to the streets', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
      'one API addresses valley down to a room', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],

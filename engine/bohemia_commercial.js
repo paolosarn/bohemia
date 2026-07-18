@@ -1,0 +1,114 @@
+// BOHEMIA COMMERCIAL — CORNER SHOPPING PLAZA (7/18/26, Paolo's first commercial district)
+// A Vegas corner strip mall: the L-shaped store building hugs the BACK property lines,
+// the PARKING LOT fronts the two streets, driveways (curb cuts) connect the lot back to
+// the main streets, storefronts face the parking. PARKING FRONTS STORES (plotgen law).
+// Street-aware like the suburb: it exits the streets it TOUCHES (a corner = two).
+// Built by the PLACEMENT PLAYBOOK: roads/parking FIRST, straight segments, explicit
+// placement, dead-world (textured, never void). codes:
+//   0 dead-ground  1 parking-asphalt  2 store  3 drive-aisle  4 stall-stripe
+//   5 street-entrance(curb cut)  6 sidewalk  7 store-door
+(function(root){
+  var SZ=128, TILE=0.75;
+  var M=function(m){return Math.round(m/TILE);};
+  function blank(){var g=[];for(var y=0;y<SZ;y++){var r=[];for(var x=0;x<SZ;x++)r.push(0);g.push(r);}return g;}
+  function inb(x,y){return x>=0&&y>=0&&x<SZ&&y<SZ;}
+  function rect(g,x0,y0,x1,y1,c){for(var y=y0;y<=y1;y++)for(var x=x0;x<=x1;x++)if(inb(x,y))g[y][x]=c;}
+  function hLine(g,x0,x1,y,c,w){for(var x=x0;x<=x1;x++)for(var d=0;d<(w||1);d++)if(inb(x,y+d))g[y+d][x]=c;}
+  function vLine(g,y0,y1,x,c,w){for(var y=y0;y<=y1;y++)for(var d=0;d<(w||1);d++)if(inb(x+d,y))g[y][x+d]=c;}
+
+  var MARGIN=3, SIDE=2, STOREDEEP=M(12), AISLE=M(6), STALLD=M(5), STALLW=M(3);
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S','E'];
+    var g=blank(), W=SZ, H=SZ;
+    var isS=function(e){return streets.indexOf(e)>=0;};
+    // BACK edges (no street) carry the building; a corner plaza backs the two far walls.
+    var buildN=!isS('N'), buildW=!isS('W'), buildS=!isS('S')&&!buildN, buildE=!isS('E')&&!buildW;
+    // ensure at least one building strip even on a 1-street plot (back it to the far side)
+    if(!buildN&&!buildW&&!buildS&&!buildE){ buildN=true; }
+
+    // --- 1) STORE BUILDING first (the anchor of the lot), an L along the back edges ---
+    var innerTop=MARGIN+STOREDEEP;               // where the top strip's front sidewalk sits
+    var innerLeft=MARGIN+STOREDEEP;
+    var innerBot=H-1-MARGIN-STOREDEEP;
+    var innerRight=W-1-MARGIN-STOREDEEP;
+    if(buildN){ rect(g,MARGIN,MARGIN,W-1-MARGIN,innerTop-1,2); }
+    if(buildW){ rect(g,MARGIN,MARGIN,innerLeft-1,H-1-MARGIN,2); }
+    if(buildS){ rect(g,MARGIN,innerBot+1,W-1-MARGIN,H-1-MARGIN,2); }
+    if(buildE){ rect(g,innerRight+1,MARGIN,W-1-MARGIN,H-1-MARGIN,2); }
+
+    // sidewalk + store doors on the INNER face of each strip (facing the parking)
+    var doorEvery=M(6);
+    if(buildN){ hLine(g,MARGIN,W-1-MARGIN,innerTop,6,SIDE);
+      for(var dx=MARGIN+2; dx<W-MARGIN; dx+=doorEvery) if(inb(dx,innerTop-1)) g[innerTop-1][dx]=7; }
+    if(buildW){ vLine(g,MARGIN,H-1-MARGIN,innerLeft,6,SIDE);
+      for(var dy=MARGIN+2; dy<H-MARGIN; dy+=doorEvery) if(inb(innerLeft-1,dy)) g[dy][innerLeft-1]=7; }
+    if(buildS){ hLine(g,MARGIN,W-1-MARGIN,innerBot-SIDE+1,6,SIDE);
+      for(var dx2=MARGIN+2; dx2<W-MARGIN; dx2+=doorEvery) if(inb(dx2,innerBot+1)) g[innerBot+1][dx2]=7; }
+    if(buildE){ vLine(g,MARGIN,H-1-MARGIN,innerRight-SIDE+1,6,SIDE);
+      for(var dy2=MARGIN+2; dy2<H-MARGIN; dy2+=doorEvery) if(inb(innerRight+1,dy2)) g[dy2][innerRight+1]=7; }
+
+    // --- 2) PARKING FIELD (asphalt) fronting the streets ---
+    var px0=(buildW?innerLeft+SIDE+1:MARGIN), py0=(buildN?innerTop+SIDE+1:MARGIN);
+    var px1=(buildE?innerRight-SIDE-1:W-1-MARGIN), py1=(buildS?innerBot-SIDE-1:H-1-MARGIN);
+    // sidewalk along the street edges (curb between lot and street)
+    if(isS('S')) hLine(g,px0,px1,py1,6,SIDE), py1-=SIDE;
+    if(isS('E')) vLine(g,py0,py1,px1,6,SIDE), px1-=SIDE;
+    if(isS('N')) hLine(g,px0,px1,py0,6,SIDE), py0+=SIDE;
+    if(isS('W')) vLine(g,py0,py1,px0,6,SIDE), px0+=SIDE;
+    rect(g,px0,py0,px1,py1,1);                    // asphalt
+
+    // double-loaded stall rows: horizontal drive aisles with stalls striped both sides
+    var band=2*STALLD+AISLE;
+    for(var ay=py0+STALLD; ay+AISLE<=py1; ay+=band){
+      rect(g,px0,ay,px1,ay+AISLE-1,3);            // drive aisle
+      for(var sx=px0+1; sx<px1; sx+=STALLW){      // stall stripes above + below the aisle
+        vLine(g,Math.max(py0,ay-STALLD),ay-1,sx,4,1);
+        vLine(g,ay+AISLE,Math.min(py1,ay+AISLE+STALLD-1),sx,4,1);
+      }
+    }
+
+    // --- 3) STREET ENTRANCES (curb cuts) connecting the aisles back to the main streets ---
+    var gates=[];
+    function entrance(edge){
+      // a curb cut CROSSES the sidewalk (writes drive over everything but a store) and
+      // runs a lane straight into the parking until it hits asphalt/aisle.
+      if(edge==='S'||edge==='N'){ var gx=Math.round(W*(edge==='S'?0.62:0.38)), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
+        for(var i=-3;i<=3;i++)if(inb(gx+i,gy))g[gy][gx+i]=5;
+        for(var s=1;s<=H;s++){var yy=gy+dir*s; if(!inb(gx,yy))break; if(g[yy][gx]===1||g[yy][gx]===3)break;
+          for(var w=-2;w<=2;w++) if(inb(gx+w,yy)&&g[yy][gx+w]!==2) g[yy][gx+w]=3; }
+        gates.push({edge:edge,x:gx,y:gy}); }
+      else { var gy2=Math.round(H*(edge==='E'?0.62:0.38)), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
+        for(var j=-3;j<=3;j++)if(inb(gx2,gy2+j))g[gy2+j][gx2]=5;
+        for(var s2=1;s2<=W;s2++){var xx=gx2+dir2*s2; if(!inb(xx,gy2))break; if(g[gy2][xx]===1||g[gy2][xx]===3)break;
+          for(var w2=-2;w2<=2;w2++) if(inb(xx,gy2+w2)&&g[gy2+w2][xx]!==2) g[gy2+w2][xx]=3; }
+        gates.push({edge:edge,x:gx2,y:gy2}); }
+    }
+    streets.forEach(entrance);
+
+    // building footprints (each contiguous store block) for the world model
+    var res={g:g,W:W,H:H,streets:streets,gates:gates};
+    res.stores=storeFootprints(res);
+    return res;
+  }
+
+  function storeFootprints(res){var g=res.g,W=res.W,H=res.H,seen={},out=[],d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){if(g[y][x]!==2||seen[x+','+y])continue;
+      var st=[[x,y]];seen[x+','+y]=1;var x0=x,y0=y,x1=x,y1=y;
+      while(st.length){var p=st.pop();if(p[0]<x0)x0=p[0];if(p[1]<y0)y0=p[1];if(p[0]>x1)x1=p[0];if(p[1]>y1)y1=p[1];
+        for(var i=0;i<4;i++){var nx=p[0]+d4[i][0],ny=p[1]+d4[i][1],k=nx+','+ny;
+          if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&g[ny][nx]===2){seen[k]=1;st.push([nx,ny]);}}}
+      out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1});}
+    return out;}
+  // parking + aisles + entrances reachable from a street entrance (the drive network)
+  function driveConnected(res){var g=res.g,W=res.W,H=res.H,start=null,total=0;
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===1||c===3||c===5){total++;if(!start&&c===5)start=[x,y];}}
+    if(!start)return false;var seen={},st=[start];seen[start[0]+','+start[1]]=1;var reach=0;
+    while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
+      if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===3||cc===5){seen[k]=1;st.push([nx,ny]);}}}
+    return reach/total>0.85;}
+
+  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,SZ:SZ,TILE:TILE};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaCommercial=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
