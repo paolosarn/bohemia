@@ -25,29 +25,34 @@ function stampRoad(g,x,y,w){for(var dy=-w;dy<=w;dy++)for(var dx=-w;dx<=w;dx++){v
 function seg(g,x0,y0,x1,y1,w){var n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0))|0;n=Math.max(1,n);
   for(var i=0;i<=n;i++)stampRoad(g,x0+(x1-x0)*i/n,y0+(y1-y0)*i/n,w);}
 function ring(g,cx,cy,rx,ry,w){for(var a=0;a<Math.PI*2;a+=0.03)stampRoad(g,cx+Math.cos(a)*rx,cy+Math.sin(a)*ry,w);}
-function houseAt(g,cx,cy,hw,hh){ // returns true if placed
-  var x0=(cx-hw/2)|0,y0=(cy-hh/2)|0;
-  for(var y=y0-1;y<y0+hh+1;y++)for(var x=x0-1;x<x0+hw+1;x++){if(!inb(x,y))return false;if(g[y][x]!==0)return false;}
-  for(var y2=y0;y2<y0+hh;y2++)for(var x2=x0;x2<x0+hw;x2++)g[y2][x2]=2;
+// A Vegas HOME: driveway from the street -> front-facing garage -> house body.
+// codes add: 6 garage. Everything faces the road (nx,ny points road->lot).
+function clearCells(g,cells){for(var i=0;i<cells.length;i++){var c=cells[i];if(!inb(c[0],c[1])||g[c[1]][c[0]]!==0)return false;}return true;}
+function home(g,rx,ry,nx,ny,drive,gw,hw,hh){
+  var px=-ny, py=nx;                          // perpendicular (lot frontage axis)
+  var gw0=-(gw>>1), hw0=-(hw>>1);
+  var driveC=[],garC=[],bodyC=[],all=[];
+  for(var d=1;d<=drive;d++)for(var w=gw0;w<gw0+gw;w++){var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0];driveC.push(c);all.push(c);}
+  for(var d=drive+1;d<=drive+3;d++)for(var w=gw0;w<gw0+gw;w++){var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0];garC.push(c);all.push(c);}
+  for(var d=drive+3;d<drive+3+hh;d++)for(var w=hw0;w<hw0+hw;w++){var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0];bodyC.push(c);all.push(c);}
+  if(!clearCells(g,all))return false;
+  driveC.forEach(function(c){g[c[1]][c[0]]=3;});
+  garC.forEach(function(c){g[c[1]][c[0]]=6;});
+  bodyC.forEach(function(c){g[c[1]][c[0]]=2;});
   return true;
 }
-// place houses along every road cell, set back on each side, with a driveway
-function lineHouses(g,r,setback,hw,hh,spacing){
+// place homes along every road cell, garage + driveway to the street, both sides
+function lineHouses(g,r,drive,hw,hh,spacing){
+  var gw=4;   // ~2-car garage / driveway width
   var roadCells=[];for(var y=1;y<SZ-1;y++)for(var x=1;x<SZ-1;x++)if(g[y][x]===1||g[y][x]===5)roadCells.push([x,y]);
   var k=0;
   for(var i=0;i<roadCells.length;i++){
     var x=roadCells[i][0],y=roadCells[i][1];
-    // only frontage cells: has lawn on some side within setback
     for(var s=0;s<4;s++){
       var nx=[1,-1,0,0][s], ny=[0,0,1,-1][s];
-      var fx=x+nx*(setback+hh/2), fy=y+ny*(setback+hh/2);
-      var lawn=x+nx*2, lawnY=y+ny*2;
-      if(!inb(lawn,lawnY)||g[lawnY][lawn]!==0)continue;
+      if(!inb(x+nx*2,y+ny*2)||g[y+ny*2][x+nx*2]!==0)continue;   // frontage must open to lawn
       if((k++ % spacing)!==0)continue;
-      if(houseAt(g,fx,fy,hw,hh)){
-        // driveway from house edge back to road
-        for(var d=1;d<setback+2;d++){var dx=(x+nx*d)|0,dy=(y+ny*d)|0;if(inb(dx,dy)&&g[dy][dx]===0)g[dy][dx]=3;}
-      }
+      home(g,x,y,nx,ny,drive,gw,hw,hh);
     }
   }
 }
@@ -56,7 +61,7 @@ function genSuburb(seed,style){
   if(style==='loop'){
     seg(g,ex,SZ-3,ex,66,2);                      // entrance connector
     ring(g,ex, (SZ*0.42)|0, (SZ*0.30)|0, (SZ*0.24)|0, 2);   // the loop
-    lineHouses(g, g, 5, 12, 10, 3);
+    lineHouses(g, g, 2, 10, 7, 6);
   } else if(style==='culs'){
     seg(g,ex,SZ-3,ex,14,2);                       // spine
     var ys=[SZ*0.30,SZ*0.55,SZ*0.78];
@@ -64,12 +69,12 @@ function genSuburb(seed,style){
       var bx=(ex+dir*26)|0; seg(g,ex,y,bx,y,2); ring(g,bx,y,6,6,2);       // cul branch + bulb
       if(i<ys.length-1){var bx2=(ex-dir*22)|0; seg(g,ex,(y+ (ys[1]-ys[0])/2)|0,bx2,(y+(ys[1]-ys[0])/2)|0,2);}
     }
-    lineHouses(g, g, 5, 12, 10, 3);
+    lineHouses(g, g, 2, 10, 7, 6);
   } else { // 'garden' : gentle S-curve avenue + short branches
     var pts=[]; for(var t=0;t<=1.001;t+=0.02){var y=(SZ-3)-t*(SZ-14);var x=ex+Math.sin(t*Math.PI*1.6)*(SZ*0.22);pts.push([x,y]);}
     for(var j=0;j<pts.length-1;j++)seg(g,pts[j][0],pts[j][1],pts[j+1][0],pts[j+1][1],2);
     for(var m=1;m<pts.length-1;m+=14){var p=pts[m];var dir2=(m%28===1)?1:-1;seg(g,p[0],p[1],p[0]+dir2*20,p[1],2);}
-    lineHouses(g, g, 5, 12, 9, 3);
+    lineHouses(g, g, 2, 10, 7, 6);
   }
   // count houses
   var houses=0,seen={};
@@ -88,8 +93,9 @@ var SUN=false, seedBase=7;
 var verdict={};   // id -> 'up'|'down'
 var comments={};  // id -> text
 function col(code){
-  if(SUN){return ['#e9e0c8','#8a8a90','#6b5f4f','#c9b98a','#c9c2ad','#7ec77e'][code];}
-  return ['#20281c','#3a3a44','#7a6f5f','#4a4030','#2a3220','#3f8c3f'][code];
+  // 0 lawn 1 road 2 house 3 driveway(bright concrete) 4 wall 5 entrance 6 garage(dark door)
+  if(SUN){return ['#cfe0b0','#7c7c84','#c2b184','#eceaef','#cfc8b2','#7ec77e','#8a7454'][code];}
+  return ['#1e2618','#33333c','#8a7e6b','#c2bfc6','#2a3220','#3f8c3f','#544636'][code];
 }
 function render(cv,style,seed){
   var res=genSuburb(seed,style),g=res.g,ctx=cv.getContext('2d');
@@ -107,9 +113,9 @@ function build(){
     var h=document.createElement('div');h.style.cssText='font:600 15px sans-serif;color:'+(SUN?'#3a3320':'#cdbd8a');
     h.textContent=st.name;
     var b=document.createElement('div');b.style.cssText='font:12px sans-serif;color:'+(SUN?'#6a6045':'#8f8770')+';margin:2px 0 8px';b.textContent=st.blurb;
-    var row=document.createElement('div');row.style.cssText='display:flex;gap:8px;overflow-x:auto';
-    for(var s=0;s<2;s++){var cv=document.createElement('canvas');cv.width=300;cv.height=300;cv.style.cssText='flex:0 0 auto;width:46%;max-width:300px;border-radius:6px;background:#000';row.appendChild(cv);
-      var hc=render(cv,st.id,seedBase+s*97);}
+    var row=document.createElement('div');row.style.cssText='display:block';
+    var cv=document.createElement('canvas');cv.width=500;cv.height=500;cv.style.cssText='width:100%;border-radius:6px;background:#000;display:block';row.appendChild(cv);
+    render(cv,st.id,seedBase);
     var vr=document.createElement('div');vr.style.cssText='display:flex;gap:10px;align-items:center;margin-top:8px';
     var up=document.createElement('button');up.textContent='👍';var dn=document.createElement('button');dn.textContent='👎';
     [up,dn].forEach(function(btn){btn.style.cssText='font-size:22px;width:56px;height:44px;border-radius:8px;border:2px solid #888;background:#0000';});
