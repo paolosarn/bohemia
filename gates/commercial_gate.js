@@ -29,6 +29,17 @@ ok('every plaza has store buildings', allStores);
 ok('every plaza has a real parking lot', allPark);
 ok('the parking lot stays connected to the street (curb cuts reach the aisles)', allConn);
 
+// BACK ENTRANCE LAW (Paolo 7/18): every business can throw out trash — a service door
+// onto a rear service alley (the "mini road" at the back corner).
+let serviceOk = true;
+for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) if (!C.hasServiceAccess(C.generate(s * 37 + 5, cfg))) serviceOk = false;
+ok('every business has a back service door + rear alley (trash-out)', serviceOk);
+
+// GAS STATION in the street corner (needs two streets); and MORE curb cuts (2 per street)
+const cornerG = C.generate(7, { streets: ['S', 'E'] });
+ok('a corner plaza has a gas station pad in the corner', !!cornerG.gas);
+ok('commercial gets 2 curb cuts per street (a corner = 4)', cornerG.gates.length === 4);
+
 // STREET-AWARE entrances: a curb cut (code 5) only on a street-facing edge; every
 // street gets one; a corner exits two.
 let gatesOk = true, cornerOk = true;

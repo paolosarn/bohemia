@@ -674,8 +674,16 @@ the first commercial district (a corner shopping plaza).
   generate(seed,{streets:[...]}) -> {g, stores, gates}; storeFootprints + driveConnected
   exported. Gate #23 gates/commercial_gate.js (8 checks), registered in bohemia_gates.py.
   Proof (still): tools/bohemia_commercial_proof.py -> slices/BOHEMIA_COMMERCIAL_PROOF.html.
-  Sent Paolo the screenshot. [PENDING Paolo: react to the first cut.] NOT yet folded into
-  the world model or divided into tenant units / pad site at the corner — those are next.
+  ITERATED (Paolo 7/18 eve): (1) PARKING now obeys BOHEMIA_PARKING_LAW (2-wide stalls,
+  stripe every 3rd tile, row 4 deep, aisle 4 — the approved ST0 stall tiles texture it).
+  (2) BACK ENTRANCE LAW: every business has a service door (9) onto a rear SERVICE ALLEY
+  (8) that wraps the back corner (the "mini road") for trash/deliveries; hasServiceAccess()
+  gates it. (3) GAS STATION pad (canopy 10 + pumps 11 + kiosk) in the street corner.
+  (4) MORE curb cuts: 2 per street (corner = 4). Gate #23 now 11 checks. All green.
+  NOTE: parking code (1/3/4) maps to the approved parking/stall-line TEXTURES at render
+  time (banks); the proof shows geometry, the real render applies the tiles.
+  NEXT: subdivide the store strip into TENANT UNITS (each own storefront), then fold
+  commercial into the world model like the suburb. [PENDING Paolo: react.]
 
 ## SUBURB — FOLDED INTO THE WHOLE VALLEY (Paolo 7/18 late: "one done, what's next")
 DONE: the approved suburb generator is now wired into the world model. engine/bohemia_world.js

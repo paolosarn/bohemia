@@ -1,14 +1,17 @@
 <h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — FIRST COMMERCIAL DISTRICT: the corner shopping plaza (still proof, not walkable). The L-shaped store building backs the far property lines; the PARKING LOT fronts the streets with striped stalls and drive aisles; curb cuts (gold) connect the lot back to the main streets; storefront doors face the parking. Street-aware like the suburb — a corner exits both streets. Dead world: landscaping is dead dirt, not green.</h1>
 <div id="root"></div>
 <script>// BOHEMIA COMMERCIAL — CORNER SHOPPING PLAZA (7/18/26, Paolo's first commercial district)
-// A Vegas corner strip mall: the L-shaped store building hugs the BACK property lines,
-// the PARKING LOT fronts the two streets, driveways (curb cuts) connect the lot back to
-// the main streets, storefronts face the parking. PARKING FRONTS STORES (plotgen law).
-// Street-aware like the suburb: it exits the streets it TOUCHES (a corner = two).
-// Built by the PLACEMENT PLAYBOOK: roads/parking FIRST, straight segments, explicit
-// placement, dead-world (textured, never void). codes:
-//   0 dead-ground  1 parking-asphalt  2 store  3 drive-aisle  4 stall-stripe
-//   5 street-entrance(curb cut)  6 sidewalk  7 store-door
+// A Vegas corner strip mall, built by the PLACEMENT PLAYBOOK (roads/parking FIRST,
+// straight segments, render+look, dead-world). Paolo's rulings folded in:
+//  - PARKING obeys BOHEMIA_PARKING_LAW: 2-wide stalls, stripe every 3rd tile (shared
+//    dividers), row 4 deep, aisle <=4. (The approved ST0 stall tiles texture these.)
+//  - Every business has a BACK ENTRANCE (service door) onto a rear SERVICE ALLEY (the
+//    "mini road" wrapping the back corner) for trash + deliveries.
+//  - Commercial gets MORE curb cuts on the main streets (2 per street).
+//  - A GAS STATION pad sits in the street corner (canopy + pumps + kiosk).
+// Street-aware like the suburb: it exits the streets it TOUCHES. codes:
+//  0 dead-ground 1 parking-asphalt 2 store 3 drive-aisle 4 stall-stripe 5 curb-cut
+//  6 sidewalk 7 store-door 8 service-alley 9 service-door 10 gas-canopy 11 gas-pump
 (function(root){
   var SZ=128, TILE=0.75;
   var M=function(m){return Math.round(m/TILE);};
@@ -18,78 +21,89 @@
   function hLine(g,x0,x1,y,c,w){for(var x=x0;x<=x1;x++)for(var d=0;d<(w||1);d++)if(inb(x,y+d))g[y+d][x]=c;}
   function vLine(g,y0,y1,x,c,w){for(var y=y0;y<=y1;y++)for(var d=0;d<(w||1);d++)if(inb(x+d,y))g[y][x+d]=c;}
 
-  var MARGIN=3, SIDE=2, STOREDEEP=M(12), AISLE=M(6), STALLD=M(5), STALLW=M(3);
+  var MARGIN=2, SERVLANE=M(4), STOREDEEP=M(11), SIDE=2, DOOR=M(6);
+  var ROW=4, AISLE=4;                          // BOHEMIA_PARKING_LAW: stall 4 deep, aisle 4
+  var BAND=SERVLANE+STOREDEEP+SIDE;            // property line -> parking edge
+
+  // PARKING per law: asphalt, double-loaded aisles, stripes every 3rd tile (2-wide stalls)
+  function parkField(g,x0,y0,x1,y1){
+    rect(g,x0,y0,x1,y1,1);
+    var band=ROW+AISLE+ROW;                    // stalls | aisle | stalls
+    for(var ay=y0+ROW; ay+AISLE<=y1-ROW+AISLE; ay+=band){
+      if(ay+AISLE-1>y1)break;
+      rect(g,x0,ay,x1,ay+AISLE-1,3);           // drive aisle
+      for(var sx=x0; sx<=x1; sx+=3){           // stripe, 2-tile stall, shared divider
+        vLine(g,Math.max(y0,ay-ROW),ay-1,sx,4,1);
+        vLine(g,ay+AISLE,Math.min(y1,ay+AISLE+ROW-1),sx,4,1);
+      }
+    }
+  }
 
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S','E'];
-    var g=blank(), W=SZ, H=SZ;
+    var g=blank(), W=SZ, H=SZ, x, y;
     var isS=function(e){return streets.indexOf(e)>=0;};
-    // BACK edges (no street) carry the building; a corner plaza backs the two far walls.
-    var buildN=!isS('N'), buildW=!isS('W'), buildS=!isS('S')&&!buildN, buildE=!isS('E')&&!buildW;
-    // ensure at least one building strip even on a 1-street plot (back it to the far side)
-    if(!buildN&&!buildW&&!buildS&&!buildE){ buildN=true; }
+    var back={N:!isS('N'),W:!isS('W'),S:false,E:false};
+    if(!back.N&&!back.W){ if(!isS('S'))back.S=true; else if(!isS('E'))back.E=true; else back.N=true; }
 
-    // --- 1) STORE BUILDING first (the anchor of the lot), an L along the back edges ---
-    var innerTop=MARGIN+STOREDEEP;               // where the top strip's front sidewalk sits
-    var innerLeft=MARGIN+STOREDEEP;
-    var innerBot=H-1-MARGIN-STOREDEEP;
-    var innerRight=W-1-MARGIN-STOREDEEP;
-    if(buildN){ rect(g,MARGIN,MARGIN,W-1-MARGIN,innerTop-1,2); }
-    if(buildW){ rect(g,MARGIN,MARGIN,innerLeft-1,H-1-MARGIN,2); }
-    if(buildS){ rect(g,MARGIN,innerBot+1,W-1-MARGIN,H-1-MARGIN,2); }
-    if(buildE){ rect(g,innerRight+1,MARGIN,W-1-MARGIN,H-1-MARGIN,2); }
+    // parking rectangle = inside the store bands (back edges) and street sidewalks
+    var pL=MARGIN+(back.W?BAND:0), pT=MARGIN+(back.N?BAND:0),
+        pR=W-1-MARGIN-(back.E?BAND:0), pB=H-1-MARGIN-(back.S?BAND:0);
+    if(isS('S'))pB-=SIDE; if(isS('N'))pT+=SIDE; if(isS('E'))pR-=SIDE; if(isS('W'))pL+=SIDE;
 
-    // sidewalk + store doors on the INNER face of each strip (facing the parking)
-    var doorEvery=M(6);
-    if(buildN){ hLine(g,MARGIN,W-1-MARGIN,innerTop,6,SIDE);
-      for(var dx=MARGIN+2; dx<W-MARGIN; dx+=doorEvery) if(inb(dx,innerTop-1)) g[innerTop-1][dx]=7; }
-    if(buildW){ vLine(g,MARGIN,H-1-MARGIN,innerLeft,6,SIDE);
-      for(var dy=MARGIN+2; dy<H-MARGIN; dy+=doorEvery) if(inb(innerLeft-1,dy)) g[dy][innerLeft-1]=7; }
-    if(buildS){ hLine(g,MARGIN,W-1-MARGIN,innerBot-SIDE+1,6,SIDE);
-      for(var dx2=MARGIN+2; dx2<W-MARGIN; dx2+=doorEvery) if(inb(dx2,innerBot+1)) g[innerBot+1][dx2]=7; }
-    if(buildE){ vLine(g,MARGIN,H-1-MARGIN,innerRight-SIDE+1,6,SIDE);
-      for(var dy2=MARGIN+2; dy2<H-MARGIN; dy2+=doorEvery) if(inb(innerRight+1,dy2)) g[dy2][innerRight+1]=7; }
+    // --- STORE STRIPS: [service alley][store][sidewalk], back doors onto the alley ---
+    function strip(edge){
+      if(edge==='N'){ var s0=MARGIN+SERVLANE, f0=s0+STOREDEEP;
+        rect(g,MARGIN,MARGIN,W-1-MARGIN,s0-1,8);
+        rect(g,MARGIN,s0,W-1-MARGIN,f0-1,2);
+        hLine(g,MARGIN,W-1-MARGIN,f0,6,SIDE);
+        for(x=MARGIN+3;x<W-MARGIN;x+=DOOR){ if(inb(x,s0))g[s0][x]=9; if(inb(x,f0-1))g[f0-1][x]=7; } }
+      else if(edge==='W'){ var s0=MARGIN+SERVLANE, f0=s0+STOREDEEP;
+        rect(g,MARGIN,MARGIN,s0-1,H-1-MARGIN,8);
+        rect(g,s0,MARGIN,f0-1,H-1-MARGIN,2);
+        vLine(g,MARGIN,H-1-MARGIN,f0,6,SIDE);
+        for(y=MARGIN+3;y<H-MARGIN;y+=DOOR){ if(inb(s0,y))g[y][s0]=9; if(inb(f0-1,y))g[y][f0-1]=7; } }
+    }
+    if(back.N)strip('N'); if(back.W)strip('W');
+    // service connector: the rear alley drives around the building END into the parking
+    // (clears the store to the edge so no tiny sliver is left behind).
+    if(back.N){ var cx=W-1-MARGIN-SERVLANE; rect(g,cx,MARGIN,W-1-MARGIN,pT-1,8); }
+    if(back.W){ var cy=H-1-MARGIN-SERVLANE; rect(g,MARGIN,cy,pL-1,H-1-MARGIN,8); }
 
-    // --- 2) PARKING FIELD (asphalt) fronting the streets ---
-    var px0=(buildW?innerLeft+SIDE+1:MARGIN), py0=(buildN?innerTop+SIDE+1:MARGIN);
-    var px1=(buildE?innerRight-SIDE-1:W-1-MARGIN), py1=(buildS?innerBot-SIDE-1:H-1-MARGIN);
-    // sidewalk along the street edges (curb between lot and street)
-    if(isS('S')) hLine(g,px0,px1,py1,6,SIDE), py1-=SIDE;
-    if(isS('E')) vLine(g,py0,py1,px1,6,SIDE), px1-=SIDE;
-    if(isS('N')) hLine(g,px0,px1,py0,6,SIDE), py0+=SIDE;
-    if(isS('W')) vLine(g,py0,py1,px0,6,SIDE), px0+=SIDE;
-    rect(g,px0,py0,px1,py1,1);                    // asphalt
+    // --- PARKING (fronts the streets) ---
+    parkField(g,pL,pT,pR,pB);
+    // sidewalk curb between lot and each street
+    if(isS('S'))hLine(g,pL,pR,pB+1,6,SIDE); if(isS('N'))hLine(g,pL,pR,pT-SIDE,6,SIDE);
+    if(isS('E'))vLine(g,pT,pB,pR+1,6,SIDE); if(isS('W'))vLine(g,pT,pB,pL-SIDE,6,SIDE);
 
-    // double-loaded stall rows: horizontal drive aisles with stalls striped both sides
-    var band=2*STALLD+AISLE;
-    for(var ay=py0+STALLD; ay+AISLE<=py1; ay+=band){
-      rect(g,px0,ay,px1,ay+AISLE-1,3);            // drive aisle
-      for(var sx=px0+1; sx<px1; sx+=STALLW){      // stall stripes above + below the aisle
-        vLine(g,Math.max(py0,ay-STALLD),ay-1,sx,4,1);
-        vLine(g,ay+AISLE,Math.min(py1,ay+AISLE+STALLD-1),sx,4,1);
-      }
+    // --- GAS STATION pad in the street corner (needs two streets) ---
+    var gas=null;
+    if(isS('S')&&isS('E')){
+      var gw=M(16), gh=M(15), gx0=pR-gw, gy0=pB-gh;
+      rect(g,gx0,gy0,pR,pB,1);                                  // clear to asphalt
+      rect(g,gx0+2,gy0+2,pR-2,gy0+2+M(6),10);                   // canopy
+      for(var pmp=gx0+4; pmp<pR-3; pmp+=4) vLine(g,gy0+4,gy0+6,pmp,11,1);   // pump islands
+      rect(g,gx0+2,pB-M(6),gx0+2+M(8),pB-1,2);                  // kiosk (mini-mart)
+      gas={x:gx0,y:gy0,w:gw,h:gh};
     }
 
-    // --- 3) STREET ENTRANCES (curb cuts) connecting the aisles back to the main streets ---
+    // --- CURB CUTS: commercial gets MORE (2 per street), skipping the gas corner ---
     var gates=[];
-    function entrance(edge){
-      // a curb cut CROSSES the sidewalk (writes drive over everything but a store) and
-      // runs a lane straight into the parking until it hits asphalt/aisle.
-      if(edge==='S'||edge==='N'){ var gx=Math.round(W*(edge==='S'?0.62:0.38)), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
+    function cut(edge,frac){
+      if(edge==='S'||edge==='N'){ var gx=Math.round(W*frac), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
         for(var i=-3;i<=3;i++)if(inb(gx+i,gy))g[gy][gx+i]=5;
         for(var s=1;s<=H;s++){var yy=gy+dir*s; if(!inb(gx,yy))break; if(g[yy][gx]===1||g[yy][gx]===3)break;
           for(var w=-2;w<=2;w++) if(inb(gx+w,yy)&&g[yy][gx+w]!==2) g[yy][gx+w]=3; }
         gates.push({edge:edge,x:gx,y:gy}); }
-      else { var gy2=Math.round(H*(edge==='E'?0.62:0.38)), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
+      else { var gy2=Math.round(H*frac), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
         for(var j=-3;j<=3;j++)if(inb(gx2,gy2+j))g[gy2+j][gx2]=5;
         for(var s2=1;s2<=W;s2++){var xx=gx2+dir2*s2; if(!inb(xx,gy2))break; if(g[gy2][xx]===1||g[gy2][xx]===3)break;
           for(var w2=-2;w2<=2;w2++) if(inb(xx,gy2+w2)&&g[gy2+w2][xx]!==2) g[gy2+w2][xx]=3; }
         gates.push({edge:edge,x:gx2,y:gy2}); }
     }
-    streets.forEach(entrance);
+    streets.forEach(function(edge){ cut(edge,0.34); cut(edge,0.72); });
 
-    // building footprints (each contiguous store block) for the world model
-    var res={g:g,W:W,H:H,streets:streets,gates:gates};
+    var res={g:g,W:W,H:H,streets:streets,gates:gates,gas:gas};
     res.stores=storeFootprints(res);
     return res;
   }
@@ -102,15 +116,19 @@
           if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&g[ny][nx]===2){seen[k]=1;st.push([nx,ny]);}}}
       out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1});}
     return out;}
-  // parking + aisles + entrances reachable from a street entrance (the drive network)
-  function driveConnected(res){var g=res.g,W=res.W,H=res.H,start=null,total=0;
-    for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===1||c===3||c===5){total++;if(!start&&c===5)start=[x,y];}}
+  // service door (9) present + reachable from a rear alley (8): trash-out invariant
+  function hasServiceAccess(res){var g=res.g,doors=0,alley=0;
+    for(var y=0;y<res.H;y++)for(var x=0;x<res.W;x++){if(g[y][x]===9)doors++;if(g[y][x]===8)alley++;}
+    return doors>0 && alley>0;}
+  // drive network (parking + aisles + curb cuts + alley) reachable from a curb cut
+  function driveConnected(res){var g=res.g,W=res.W,H=res.H,start=null,total=0,DR={1:1,3:1,5:1,8:1};
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(DR[c]){total++;if(!start&&c===5)start=[x,y];}}
     if(!start)return false;var seen={},st=[start];seen[start[0]+','+start[1]]=1;var reach=0;
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
-      if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===3||cc===5){seen[k]=1;st.push([nx,ny]);}}}
+      if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;if(DR[g[ny][nx]]){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.85;}
 
-  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,SZ:SZ,TILE:TILE};
+  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,hasServiceAccess:hasServiceAccess,SZ:SZ,TILE:TILE};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaCommercial=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -118,10 +136,11 @@
 
 var C = BohemiaCommercial;
 function gcol(x,y){var h=((x*73856093)^(y*19349663))>>>0,v=h%3;return ['#463f30','#3d382a','#4e4838'][v];}
-// 0 dead-ground 1 asphalt 2 store 3 aisle 4 stripe 5 curb-cut 6 sidewalk 7 door
-var COL={1:'#3a3a40',2:'#8c8477',3:'#4a4a52',4:'#b8b09a',5:'#c79a3f',6:'#6a6a70',7:'#c7a24a'};
+// 0 ground 1 asphalt 2 store 3 aisle 4 stripe 5 curb-cut 6 sidewalk 7 door
+// 8 service-alley 9 back-door 10 gas-canopy 11 gas-pump
+var COL={1:'#3a3a40',2:'#8c8477',3:'#4a4a52',4:'#c9c1aa',5:'#c79a3f',6:'#6a6a70',7:'#c7a24a',8:'#2f2f36',9:'#9a6a3a',10:'#5a6a86',11:'#d0483a'};
 var CFG=[
-  {label:'CORNER PLAZA — two streets (curb cut on each)', opts:{streets:['S','E']}},
+  {label:'CORNER PLAZA — gas pad + back alley + 2 cuts/street', opts:{streets:['S','E']}},
   {label:'ONE STREET — single frontage', opts:{streets:['S']}}
 ];
 function build(){var root=document.getElementById('root');
@@ -134,7 +153,7 @@ function build(){var root=document.getElementById('root');
     for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];ctx.fillStyle=(c===0?gcol(x,y):COL[c]);ctx.fillRect(x*PX,y*PX,PX+0.5,PX+0.5);}
     card.appendChild(h);card.appendChild(cv);
     var cnt=document.createElement('div');cnt.style.cssText='font:11px sans-serif;color:#8f8770;margin-top:4px';
-    cnt.textContent=res.stores.length+' store blocks  ·  curb cuts: '+res.gates.map(function(t){return t.edge;}).join('+')+'  ·  gold = curb cut to the street, grey = sidewalk, striped dark = parking';
+    cnt.textContent=res.stores.length+' store blocks  ·  cuts: '+res.gates.map(function(t){return t.edge;}).join(',')+(res.gas?'  ·  gas pad in the corner':'')+'  ·  dark strip behind stores = service alley + back doors; blue = gas canopy, red = pumps';
     card.appendChild(cnt);root.appendChild(card);
   });
   window.__PROOF_READY=true;}

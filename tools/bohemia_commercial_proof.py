@@ -18,10 +18,11 @@ GEN = open('engine/bohemia_commercial.js', encoding='utf8').read()
 UI = r"""
 var C = BohemiaCommercial;
 function gcol(x,y){var h=((x*73856093)^(y*19349663))>>>0,v=h%3;return ['#463f30','#3d382a','#4e4838'][v];}
-// 0 dead-ground 1 asphalt 2 store 3 aisle 4 stripe 5 curb-cut 6 sidewalk 7 door
-var COL={1:'#3a3a40',2:'#8c8477',3:'#4a4a52',4:'#b8b09a',5:'#c79a3f',6:'#6a6a70',7:'#c7a24a'};
+// 0 ground 1 asphalt 2 store 3 aisle 4 stripe 5 curb-cut 6 sidewalk 7 door
+// 8 service-alley 9 back-door 10 gas-canopy 11 gas-pump
+var COL={1:'#3a3a40',2:'#8c8477',3:'#4a4a52',4:'#c9c1aa',5:'#c79a3f',6:'#6a6a70',7:'#c7a24a',8:'#2f2f36',9:'#9a6a3a',10:'#5a6a86',11:'#d0483a'};
 var CFG=[
-  {label:'CORNER PLAZA — two streets (curb cut on each)', opts:{streets:['S','E']}},
+  {label:'CORNER PLAZA — gas pad + back alley + 2 cuts/street', opts:{streets:['S','E']}},
   {label:'ONE STREET — single frontage', opts:{streets:['S']}}
 ];
 function build(){var root=document.getElementById('root');
@@ -34,7 +35,7 @@ function build(){var root=document.getElementById('root');
     for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];ctx.fillStyle=(c===0?gcol(x,y):COL[c]);ctx.fillRect(x*PX,y*PX,PX+0.5,PX+0.5);}
     card.appendChild(h);card.appendChild(cv);
     var cnt=document.createElement('div');cnt.style.cssText='font:11px sans-serif;color:#8f8770;margin-top:4px';
-    cnt.textContent=res.stores.length+' store blocks  ·  curb cuts: '+res.gates.map(function(t){return t.edge;}).join('+')+'  ·  gold = curb cut to the street, grey = sidewalk, striped dark = parking';
+    cnt.textContent=res.stores.length+' store blocks  ·  cuts: '+res.gates.map(function(t){return t.edge;}).join(',')+(res.gas?'  ·  gas pad in the corner':'')+'  ·  dark strip behind stores = service alley + back doors; blue = gas canopy, red = pumps';
     card.appendChild(cnt);root.appendChild(card);
   });
   window.__PROOF_READY=true;}
