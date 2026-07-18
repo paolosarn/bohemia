@@ -81,6 +81,9 @@ BUG FIX — SATELLITE PRAYER: Paolo, "really like it but a super loud SCREECH br
   PASS 2 (Paolo, still too loud): "turn the volume down by 75%." Cap 1.7k->1.3k, amps -75% again
   (0.24/0.09/0.045 -> 0.06/0.022/0.011). solarhymn only rides SATELLITE PRAYER among canon songs,
   so this is effectively per-song. Now ~15% of the original level.
+  PASS 3 (Paolo): "turn it down by 33% and we're all good." 0.06/0.022/0.011 -> 0.04/0.0147/0.0074.
+  LOCKED GOOD (~10% of original). Lesson: default synth levels ran way too hot; new voices should
+  start quiet and be brought up, never the reverse.
 PRIOR DOWNS still disabled at 0 (SUNKEN VESPERS, UNDERTOW) — re-confirmed DOWN, left buried.
 
 === VERDICT PASS 7/17/26 (b) — "Good cookups today" ===
