@@ -32,6 +32,35 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   68 of >90. Gate #16 enforces the format; the searchable archive is back
   and freshness-gated.
 
+## CITY-BUILDER FOUNDATION (7/18, Paolo scoping the city start)
+Paolo's plan: put streets into the CITY tab now, empty lots = DESERT until
+built; in citybuilder you can delete/blow up a plot down to the desert
+underneath; a big building can span 4 lots. FILES CHECKED — the canon
+already supports ALL of it:
+- CELL-IS-PLOT (laws/...CELL_IS_PLOT_WALLED_SUBURBS): each overmap cell IS
+  a plot, wall to wall (128x128 fine tiles = 96m x 96m, CELL_M 0.75).
+  Commercial = parking+storefront, suburb = walled tract, streets = the
+  connective tissue.
+- THREE-LAYER TILE SYSTEM (laws/...GRID_UNIT_DESIGN): GROUND / STRUCTURE /
+  DECAL per cell. Buildings write STRUCTURE over GROUND; DELETE a building
+  -> the GROUND (desert) shows. Paolo's delete-to-desert mechanic + 4-lot
+  building = 4 plots IS this system, already designed. Cells group 16x16
+  into cached chunks; tile replacement = write layer + dirty-rect redraw.
+- THE FREEWAY IS ALREADY LOCKED (laws/...VEGAS_GEOGRAPHY, 7/5/26): the "C"
+  = 215 beltway (rounded rect hugging the valley rim), the "X" = I-15
+  (SW-NE by the Strip) + US-95 crossing at the Spaghetti Bowl, a near-
+  perfect MILE GRID of surface arterials under them, 3 exit highways,
+  mountain passes. So "lock the freeway" is DONE; the city skeleton is
+  canon. (Suburbs are CURVILINEAR loops/culs, walled, few entries.)
+- DESERT CONFETTI is a NAMED BANNED crime (per-cell shuffle == checkerboard);
+  the perfect desert must be CONTINUOUS, not per-cell random.
+BIG DESERT LOT PERFECTED (the GROUND under the whole city): tools/bohemia_
+desert_lot.py -> slices/BOHEMIA_DESERT_LOT_PROOF_7_18_26.png. Anti-confetti:
+one seamless cropped sand base + multi-octave value noise for tone (spans
+the parcel, no grid) + fine grain + sparse whole-parcel scatter (tan
+pebbles, dry-wash hairlines). 28x28 cells (1232px), deterministic, zero
+purple. [PENDING Paolo: bless the desert -> he "starts the city off".]
+
 ## IN FLIGHT (resume here)
 0. THE INTERSECTION EXISTS (7/17 evening, Paolo asked, same turn): blockgen
    type 'intersection' — two roads crossing, clean box (no paint inside, per
