@@ -93,6 +93,41 @@ zero_dialogue = {99, 110, 114}   # zero-dialogue-by-design registry: never "fix"
                                  # "that's okay if they genuinely have no talking."
                                  # Genuine silence satisfies the conversation-machine
                                  # requirement; every other element still required.
+
+# SYSTEM/DESIGN STUDIES — full-machine teardowns of a game's SYSTEM / MODEL /
+# ENGINE / DESIGN-PHILOSOPHY, NOT individual-quest deep-dives. Paolo ruled 7/17
+# (verbatim: "WE NEED 150 INDIVIDUAL QUESTS BRO WITH THE WHOLE ENCHILADA"): the
+# 150 target counts INDIVIDUAL QUESTS ONLY (the Bloody Baron kind). These files
+# are still VALID full-machine teardowns (they feed the PORTS master) but do NOT
+# count toward the 150 (which feeds CONVERSATIONS/CRAFT: how quests get written).
+# Honest classification by title/subject; BORDERLINE calls noted; Paolo-auditable
+# (flip any number to reclassify). Policy: a main-story ARC or character/companion
+# ARC IS an individual quest (FFX pilgrimage, Ranni, Arthur Morgan, Shadowheart);
+# a structural/mechanical STUDY is not, even riding a specific game's story.
+# See laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md.
+system_studies = {
+    5,      # Disco Elysium — the whole-game quest MODEL (#112/#97/#62 are Disco QUESTS)
+    6,      # Mass Effect 2 — the Suicide Mission + LOYALTY SYSTEM (#137 is the QUEST)
+    8,      # Kingdom Come — the immersive-sim quest MODEL (#106 is a KCD QUEST)
+    12,     # Planescape — the central-question whole-game study (#120 Deionarra is the QUEST)
+    13,     # Yakuza — the substory MODEL
+    114,    # Yakuza 0 — the substory ENGINE (a system study; also zero-dialogue-by-design)
+    15,     # Divinity — Fort Joy escape + the SURFACE SYSTEM
+    17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,  # reactivity/deduction/no-marker/etc. engines
+    32,33,34,35,  # KOTOR/BioShock/SOMA/SH2 twists + whole-game studies (#115/#118 are the QUESTS)
+    36,37,38,39,  # GLaDOS voice / Morrowind directions / Fallout CRPG / Bloodlines system (#74/#99 QUESTS)
+    41,42,43,44,45,46,47,48,49,50,51,52,  # stress/origin/party/storyteller/emergence/dynasty/nemesis/etc.
+    53,54,55,56,57,58,59,60,61,  # Inscryption/Golden-Idol/Kenshi/Qud/DDLC/Hellblade/Celeste/ItB/M&B
+    65,66,67,69,  # Citizen Sleeper / Sunless Sea / Phantasy Star III / DQ5 — survival & generational-saga STRUCTURE studies
+    85,88,89,90,92,93,  # STALKER/Zomboid/Death Stranding/Subnautica/Bloodborne/Rust — sandbox/system studies
+                        # (BORDERLINE, sandbox-leaning; Paolo may flip 85/92 toward quest)
+}
+# INDIVIDUAL QUESTS held as such despite a systemy title (main-story / character arcs):
+# 40 Sinnerman, 62 Phasmid ending, 63 Judy arc, 64 MotB finale, 68 FFX pilgrimage,
+# 70 Hearts of Stone, 71 Ranni, 72 Dead Money, 73 Arthur Morgan, 74 Morrowind main,
+# 75 Dark Brotherhood, 76 Shadowheart, 77 Phantom Liberty, 78 Tranquility Lane,
+# 79 Come Fly With Me, 80 FF12, 81 FF Tactics, 82 Vagrant Story, 83 Ultima VII,
+# 84 Dragon's Dogma, 86 Arcanum, 87 Outward, 91 Dark Souls, 94 EVE, 95-152.
 for n in nums:
     fn = files[n][0]
     text = open(os.path.join(QB, fn), encoding='utf-8').read()
@@ -137,12 +172,20 @@ for n in nums:
 arch = open(os.path.join(QB, 'BOHEMIA_QUESTBOOK_ARCHIVE.html'), encoding='utf-8').read()
 ok('archive carries the newest file (#%d)' % nums[-1], ('[%d,"' % nums[-1]) in arch)
 
-# TARGET RAISED 7/17 EVENING (Paolo, after the FNV quest-count comparison:
-# ~140-165 marked quests after DLC): "at the very least we need 150."
-# The >90 line was crossed at 91 the same night; 150 is the new floor.
-print('\n  FULL-MACHINE COUNT: %d of 150 target (10 W-points + conversation '
-      'machine + CAST + BRANCH MAP; raised from >90 on 7/17)' % len(full_machine))
-print('  ' + ','.join(str(x) for x in full_machine))
+# TARGET RAISED 7/17 EVENING (Paolo, FNV-calibrated): "we need 150." Then
+# REFINED 7/17 late: "WE NEED 150 INDIVIDUAL QUESTS BRO WITH THE WHOLE
+# ENCHILADA" — the 150 counts INDIVIDUAL QUESTS ONLY; system studies excluded.
+individual_quests = [n for n in full_machine if n not in system_studies]
+system_full = [n for n in full_machine if n in system_studies]
+print('\n  === THE OFFICIAL TARGET (Paolo 7/17: individual quests only) ===')
+print('  INDIVIDUAL-QUEST COUNT: %d of 150 (the Bloody Baron kind: a specific '
+      'quest/arc, full machine)' % len(individual_quests))
+print('  ' + ','.join(str(x) for x in individual_quests))
+print('\n  full-machine SYSTEM/DESIGN studies (valid teardowns, feed PORTS master, '
+      'do NOT count toward 150): %d' % len(system_full))
+print('  ' + ','.join(str(x) for x in system_full))
+print('\n  FULL-MACHINE COUNT (all valid teardowns, quests + systems): %d'
+      % len(full_machine))
 print('  zero-dialogue-by-design, COUNTED per Paolo ruling 7/17 (genuine silence '
       'satisfies the machine): ' + ','.join(str(x) for x in sorted(zero_dialogue)))
 print('\n  backfill queue (pre-v2-era files with no conversation machine yet): %d files'

@@ -1,7 +1,7 @@
-# ADDENDUM — THE FULL-MACHINE TARGET: 150 (7/17/26)
-(amended same day, three times: the hidden-backfill discovery, the
-indentation ruling, the 01-16 exception, the zero-dialogue ruling, and
-finally THE RAISE)
+# ADDENDUM — THE TARGET: 150 INDIVIDUAL QUESTS, FULL MACHINE (7/17/26)
+(amended same day, four times: the hidden-backfill discovery, the
+indentation ruling, the 01-16 exception, the zero-dialogue ruling, THE
+RAISE to 150, and finally THE INDIVIDUAL-QUEST RULING — systems excluded)
 
 ## THE RAISE (7/17 evening, the last ruling of the night)
 The >90 line was CROSSED at 91 the same night it was redefined. Paolo then
@@ -13,6 +13,44 @@ THE TARGET IS 150 FULL-MACHINE FILES, floor not ceiling. The hunt lane
 stays the backfill queue (62 files, #33-94, which alone reaches 153) plus
 fresh mines from the best open-world games of all time as the queue's
 teardowns point to them. The gate prints N of 150 every run.
+
+## THE INDIVIDUAL-QUEST RULING (7/17 late — Paolo, verbatim: "WE NEED 150
+## INDIVIDUAL QUESTS BRO WITH THE WHOLE ENCHILADA")
+The 150 counts INDIVIDUAL QUESTS ONLY — the Bloody Baron kind: a specific,
+named quest / questline / main-story arc / character arc torn down with its
+own CAST, node-tree CONVERSATIONS, and BRANCH MAP. It does NOT count
+whole-game SYSTEM/MODEL/ENGINE/DESIGN-PHILOSOPHY teardowns (the reactivity
+engine, the AI storyteller, the dynasty simulator, deckbuilding,
+difficulty-as-theme, deep-sim emergence, etc.).
+
+WHY THIS MATTERS: the corpus was always a MIX. The 7/17 backfill run
+(#37-52) drifted heavily into system studies because that's what sat in the
+numeric queue there. Those files are VALID full-machine teardowns and they
+feed the PORTS master (how Bohemia's ENGINE gets built) — but they are not
+individual quests and do not count toward the 150 (which feeds the
+CONVERSATIONS/CRAFT masters: how individual Bohemia quests get WRITTEN).
+
+THE CLASSIFICATION: gates/questbook_gate.py carries a `system_studies` set
+(honest classification by title/subject, borderline calls noted in-gate,
+Paolo-auditable — flip any number to reclassify). The gate now prints TWO
+counters every run:
+  - FULL-MACHINE COUNT (all valid teardowns, quests + systems)
+  - INDIVIDUAL-QUEST COUNT of 150 (the OFFICIAL target; systems excluded)
+The master compile waits on the INDIVIDUAL-QUEST counter reaching 150.
+
+THE HUNT REDIRECTS: converting more system files (#52-94 are mostly
+system/sandbox studies) does NOT advance the 150. The lane is now MINING
+FRESH INDIVIDUAL QUESTS — specific quests torn down one at a time (Witcher
+contracts, specific Fallout/BG3/Kenshi/Disco/etc. quests), the #124-152
+pattern. Backfilling a system file is still worthwhile for the PORTS master
+but is a SEPARATE, non-counting activity.
+
+BORDERLINE POLICY: a main-story ARC or a companion/character ARC counts as
+an individual quest (FFX pilgrimage, Ranni's questline, Arthur Morgan,
+Shadowheart). A structural/mechanical STUDY does not (the generational-saga
+STRUCTURE, the survival-as-theme system) even when it rides on a specific
+game's story. When genuinely 50/50, the gate's set is the ruling of record;
+Paolo overrides by editing it.
 
 PAOLO RULING, 7/17/26 evening, verbatim intent: "We need 90 of these bro" —
 "these" being files that carry the FULL machine. The counter is redefined.

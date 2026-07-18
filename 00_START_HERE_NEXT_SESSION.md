@@ -120,19 +120,29 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    System (build our OWN rivalry engine from the DNA not the patent:
    defeat fuels the rival, inherited grudges via the fold, anchors +
    player-filled gaps as THE solo-dev story economy).
-   the generational-sim spine, then the replay/living-world cluster:
-   #49 Rogue Legacy (THE most direct mechanical match to our fold —
-   the city-builder IS the manor realized fully; go beyond flavor-only
-   traits into narrative meaning; the anti-Legacy-Plus law: the grind
-   needs a DESTINATION = our finales), #50 Chrono Trigger (replay-as-
-   narrative ROOT of Undertale/NieR/Hades; the fold is its meta-
-   narrative made diegetic; choice-TIMING authors the finale; small
-   choices teach big choices; leitmotifs), #51 Gothic (living world
-   that exists without you + progression as EARNED SOCIAL STANDING =
-   our multidimensional standing promoted to the progression SPINE;
-   completes the no-handholding open-world trio with #37/#23).
-   **Counter 109 of 150.** 41 files remain (#52-94), reaching 150
-   exactly; fresh open-world mines stack on top. Next up: #52.
+   the generational-sim spine, then the replay/living-world cluster
+   (#49 Rogue Legacy, #50 Chrono Trigger, #51 Gothic).
+   **TARGET REFINED 7/17 LATE (Paolo, verbatim: "WE NEED 150 INDIVIDUAL
+   QUESTS BRO WITH THE WHOLE ENCHILADA"):** the 150 counts INDIVIDUAL
+   QUESTS ONLY (the Bloody Baron kind — a specific quest/arc/character
+   arc, full machine). Whole-game SYSTEM/MODEL/ENGINE teardowns (the
+   reactivity engine, AI storyteller, dynasty sim, deckbuilding, etc.)
+   are VALID full-machine files that feed the PORTS master but DO NOT
+   count toward 150. Gate now prints TWO counters; the OFFICIAL one is
+   INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
+   (Paolo-auditable, borderline calls noted).
+   **INDIVIDUAL-QUEST COUNT: 68 of 150.** (Full-machine total is 109;
+   41 of those are system studies that don't count.)
+   **THE HUNT REDIRECTS:** the numeric backfill queue (#52-94) is mostly
+   MORE system/sandbox studies — converting them does NOT advance the
+   150. The lane is now MINING FRESH INDIVIDUAL QUESTS, one specific
+   quest at a time (the #124-152 pattern): Witcher contracts, specific
+   Fallout/BG3/Kenshi/Disco/Skyrim/etc. quests torn down with CAST +
+   node-tree CONVERSATIONS + BRANCH MAP. 82 more individual quests to
+   150. Backfilling a system file is still worthwhile for PORTS but is a
+   SEPARATE, non-counting activity — do it only if a system's teardown
+   is directly needed, not to chase the number.
+   (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
    The line if continuing: numeric order, V2 PAYLOAD appended (CAST +
