@@ -63,10 +63,22 @@ Proof: slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png (ONE image: valley -> distric
 -> plot -> building -> rooms, all through the one API). Note: today only the
 built-lot archetypes expose buildings (38/676 sampled); suburb houses +
 commercial storefronts still owe footprints.
-NEXT (roadmap has it): (1) fill footprints for suburb/commercial + scale to the
-fine 128 plot res; (2) the SEAMLESS ZOOM in the alpha SLICE surface (overmap ->
-street -> door -> interior loads from world()); (3) LIFE (agents {home,work,
-schedule} on the model + economy + faction ownership); (4) Paolo rules LOOP.
+ALSO DONE — THE SEAMLESS ZOOM (first cut, playable): slices/BOHEMIA_ENTER_SLICE
+_7_18_26.html (tools/bohemia_enter_slice.py). Spawn outside a building on a real
+plot, walk to the door (arrows / on-screen d-pad), step INSIDE the exact rooms
+world().plot().building().floorplan() generated, walk back out. Self-contained
+(concatenates overmap/bridge/blockgen/floorplan/world + a compact walk loop),
+verified in a 390px chromium: enter + exit, 0 console errors. Wired into the
+alpha SLICE tab organically (SLICES_MANIFEST current='enter', regenerated
+BOHEMIA_CURRENT_SLICE.html) — ONE-ALPHA safe, the 31MB alpha never changed. Made
+world.js browser-robust (typeof-guarded module resolution) for embedding.
+NEXT (roadmap): (1) suburb/commercial footprints are BLOCKED on MAP LAW — the
+suburb interior (loops/culs) is [PENDING Paolo]; I placed no neighborhood layout.
+(2) overmap-scale walk (streets between plots) + real art in the enter slice;
+(3) LIFE (agents {home,work,schedule} on the model + economy + faction
+ownership) — needs homes, so it waits on footprints/Paolo's suburb ruling;
+(4) Paolo rules LOOP. Cleanest unblocked next: broaden the enter slice to
+overmap-scale walking, or Paolo rules the suburb interior so homes + LIFE open.
 
 ## CITY-BUILDER FOUNDATION (7/18, Paolo scoping the city start)
 Paolo's plan: put streets into the CITY tab now, empty lots = DESERT until

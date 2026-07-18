@@ -62,9 +62,13 @@ Proof: slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png (one image, valley -> distric
 1. FILL THE FOOTPRINTS: today only the built-lot archetypes expose buildings;
    wire suburb houses + commercial storefronts so every plot has interiors, and
    scale footprints to the fine 128 plot resolution.
-2. THE SEAMLESS ZOOM: overmap -> walk a street -> open a door -> the interior
-   loads from world().plot().building().floorplan(). The alpha's SLICE surface
-   is where this gets wired (ONE-ALPHA).
+2. THE SEAMLESS ZOOM — FIRST CUT DONE (7/18/26): slices/BOHEMIA_ENTER_SLICE
+   (tools/bohemia_enter_slice.py). Spawn outside a building on a real plot, walk
+   to the door, step INSIDE the exact rooms world().plot().building().floorplan()
+   returns, walk back out onto the plot. Verified in chromium (enter + exit, 0
+   errors). Wired into the alpha SLICE tab (manifest current='enter'). NEXT here:
+   overmap-scale walk (streets between plots) + real art instead of semantic
+   color, and enter ANY building once footprints are filled.
 3. LIFE: an agent = {home room, work room, schedule} placed BY the model, then
    the economy + faction ownership layers, hung on world(seed). The 120 BPM
    beat, patrol, and power grid are the seeds.

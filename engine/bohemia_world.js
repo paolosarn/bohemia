@@ -11,10 +11,12 @@
 // whole valley. This is the rung the bakes / combat / city-builder / sim all read.
 (function(root){
   var HASREQ = (typeof module!=='undefined' && module.exports && typeof require!=='undefined');
-  var OM = HASREQ ? require('./bohemia_overmap.js')        : root.BohemiaOvermap;
-  var BR = HASREQ ? require('./bohemia_overmap_bridge.js') : root.BOH_OMBRIDGE;
-  var BG = HASREQ ? require('./bohemia_blockgen.js')       : root.BOH_BLOCKGEN;
-  var FP = HASREQ ? require('./bohemia_floorplan.js')      : root.BOH_FLOORPLAN;
+  // browser: the engine modules are script-scope consts in the concatenated
+  // slice (not window props), so fall back to the bare identifier, typeof-guarded.
+  var OM = HASREQ ? require('./bohemia_overmap.js')        : (typeof BohemiaOvermap!=='undefined'?BohemiaOvermap:root.BohemiaOvermap);
+  var BR = HASREQ ? require('./bohemia_overmap_bridge.js') : (typeof BOH_OMBRIDGE!=='undefined'?BOH_OMBRIDGE:root.BOH_OMBRIDGE);
+  var BG = HASREQ ? require('./bohemia_blockgen.js')       : (typeof BOH_BLOCKGEN!=='undefined'?BOH_BLOCKGEN:root.BOH_BLOCKGEN);
+  var FP = HASREQ ? require('./bohemia_floorplan.js')      : (typeof BOH_FLOORPLAN!=='undefined'?BOH_FLOORPLAN:root.BOH_FLOORPLAN);
 
   // build archetype -> interior zone (the floorplan's room grammar)
   var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
