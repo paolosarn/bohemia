@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
 """
-BOHEMIA SUBURB INTERIOR — JUDGING TOOL (7/18/26, v3 MODULAR)
+BOHEMIA SUBURB — JUDGING TOOL (7/18/26, v4: WALLED-BLOCK MODEL, 1x1)
 
-Paolo's rulings:
-- Judgment lives as an interactive in the SLICE menu (not a chat image).
-- MODULARITY LAW: every suburb design must snap into a 1x1, 1x2 OR 2x2 cluster
-  (DISTRICT MERGE LAW). Standalone is fine, but if it cannot easily snap to the
-  neighbor suburbs, he does not want it. So the generator is CLUSTER-AWARE: it
-  fills a cw x ch union with ONE coherent, connected neighborhood (wall wraps the
-  union, gates per street-facing cell, the internal road net is one network).
-- Every Vegas home has a driveway from the street to a front-facing garage.
+Paolo's corrections, folded in:
+- Homes BACK ONTO the perimeter wall (backyards to the wall, fronts facing the
+  interior street). The streets run inside; homes fill the band to the wall.
+- The DRIVEWAY is a car apron (3 tiles long, 4 wide for 2 cars), NOT a runway.
+  The garage is the front corner of the house; the house is the bulk.
+- Start with ONE grid (1x1). Remade a couple designs on the corrected model.
 
-FACTORY LAW: I run the machine, Paolo kills/approves; nothing graduates into
-bohemia_plotgen until he picks. The tool shows each style at 1x1 AND 2x2 so he can
-see it snap. Verdict workflow: SUN MODE, thumbs, comments, export .txt.
+The generator is engine/bohemia_suburb.js (candidate; the judge embeds it and the
+gate tests it). Verdict workflow: SUN MODE, thumbs, comments, export .txt.
 
   python3 tools/bohemia_suburb_judge.py -> slices/BOHEMIA_SUBURB_JUDGE_7_18_26.html
 """
@@ -21,26 +18,24 @@ import os
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 OUT = 'slices/BOHEMIA_SUBURB_JUDGE_7_18_26.html'
-
-GEN = open(os.path.join(REPO, 'tools/bohemia_suburb_gen.js'), encoding='utf8').read()
+GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read()
 
 UI = r"""
-// ===== judging UI: each style shown at 1x1 AND 2x2 (proves it snaps) =====
+var G = BohemiaSuburb;
 var STYLES=[
-  {id:'culs', name:'CUL-DE-SACS', blurb:'collectors off the gate with dead-end bulbs — the classic Vegas tract'},
-  {id:'loop', name:'THE LOOPS',   blurb:'one loop road per cell, tied to the collectors, homes facing in and out'},
-  {id:'garden',name:'GARDEN CURVE',blurb:'curvy avenues + green pockets, sparser and softer'}
+  {id:'culs',   name:'CUL-DE-SACS', blurb:'homes ring the wall; cul-de-sac fingers reach into the middle'},
+  {id:'double', name:'PERIMETER + GREEN', blurb:'homes ring the wall facing in, a green common in the center'},
+  {id:'court',  name:'COURTS', blurb:'homes ring the wall; short courts hang off the interior street'}
 ];
-var SUN=false, seedBase=7;
-var verdict={},comments={};
+var SUN=false, seedBase=7, verdict={}, comments={};
 function col(code){
-  if(SUN)return ['#cfe0b0','#7c7c84','#c2b184','#eceaef','#cfc8b2','#c7a24a','#8a7454'][code];
-  return ['#1e2618','#33333c','#8a7e6b','#c2bfc6','#2a3220','#c79a3f','#544636'][code];
+  if(SUN)return ['#cfe0b0','#7c7c84','#c2b184','#eceaef','#b8a878','#c7a24a','#8a7454'][code];
+  return ['#1e2618','#33333c','#8a7e6b','#dfe0e6','#4a4030','#c79a3f','#544636'][code];
 }
-function render(cv,style,seed,cw,ch){var res=genSub(seed,style,cw,ch),g=res.g,ctx=cv.getContext('2d');
-  var W=g[0].length,H=g.length;var PX=Math.min(cv.width/W,cv.height/H);
+function render(cv,style,seed){var res=G.generate(seed,style,1,1),g=res.g,W=res.W,H=res.H,ctx=cv.getContext('2d');
+  var PX=Math.min(cv.width/W,cv.height/H);
   ctx.fillStyle=SUN?'#f2ead2':'#12140f';ctx.fillRect(0,0,cv.width,cv.height);
-  var ox=(cv.width-W*PX)/2, oy=(cv.height-H*PX)/2;
+  var ox=(cv.width-W*PX)/2,oy=(cv.height-H*PX)/2;
   for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===0&&!SUN)continue;ctx.fillStyle=col(c);ctx.fillRect(ox+x*PX,oy+y*PX,PX+0.5,PX+0.5);}
   return res;}
 function build(){var root=document.getElementById('root');document.body.style.background=SUN?'#efe7cf':'#0d0f0a';root.innerHTML='';
@@ -48,13 +43,11 @@ function build(){var root=document.getElementById('root');document.body.style.ba
     var card=document.createElement('div');card.style.cssText='margin:0 10px 20px;border-radius:10px;padding:10px;background:'+(SUN?'#e4dbc0':'#181a12');
     var h=document.createElement('div');h.style.cssText='font:600 15px sans-serif;color:'+(SUN?'#3a3320':'#cdbd8a');h.textContent=st.name;
     var b=document.createElement('div');b.style.cssText='font:12px sans-serif;color:'+(SUN?'#6a6045':'#8f8770')+';margin:2px 0 8px';b.textContent=st.blurb;
-    var row=document.createElement('div');row.style.cssText='display:flex;gap:8px;align-items:flex-end';
-    var mk=function(cw,ch,lbl,wpct){var box=document.createElement('div');box.style.cssText='flex:0 0 '+wpct+';';
-      var cap=document.createElement('div');cap.style.cssText='font:11px sans-serif;color:'+(SUN?'#6a6045':'#7f7a68')+';margin-bottom:3px';cap.textContent=lbl;
-      var cv=document.createElement('canvas');cv.width=cw*220;cv.height=ch*220;cv.style.cssText='width:100%;border-radius:6px;background:#000;display:block';
-      box.appendChild(cap);box.appendChild(cv);render(cv,st.id,seedBase,cw,ch);return box;};
-    row.appendChild(mk(1,1,'1x1 standalone','32%'));
-    row.appendChild(mk(2,2,'2x2 snapped (merge law)','64%'));
+    var cv=document.createElement('canvas');cv.width=460;cv.height=460;cv.style.cssText='width:100%;border-radius:6px;background:#000;display:block';
+    card.appendChild(h);card.appendChild(b);card.appendChild(cv);
+    var res=render(cv,st.id,seedBase);
+    var cnt=document.createElement('div');cnt.style.cssText='font:11px sans-serif;color:'+(SUN?'#6a6045':'#7f7a68')+';margin-top:4px';cnt.textContent=res.houses+' homes  (a 96 m block)';
+    card.appendChild(cnt);
     var vr=document.createElement('div');vr.style.cssText='display:flex;gap:10px;align-items:center;margin-top:10px';
     var up=document.createElement('button');up.textContent='👍';var dn=document.createElement('button');dn.textContent='👎';
     [up,dn].forEach(function(btn){btn.style.cssText='font-size:22px;width:56px;height:44px;border-radius:8px;border:2px solid #888;background:#0000';});
@@ -63,21 +56,20 @@ function build(){var root=document.getElementById('root');document.body.style.ba
     var cm=document.createElement('input');cm.placeholder='comment on '+st.name+'...';cm.value=comments[st.id]||'';
     cm.style.cssText='flex:1;padding:8px;border-radius:8px;border:1px solid #888;background:'+(SUN?'#fff':'#111')+';color:'+(SUN?'#222':'#ddd');
     cm.oninput=function(){comments[st.id]=cm.value;};
-    vr.appendChild(up);vr.appendChild(dn);vr.appendChild(cm);
-    card.appendChild(h);card.appendChild(b);card.appendChild(row);card.appendChild(vr);root.appendChild(card);
+    vr.appendChild(up);vr.appendChild(dn);vr.appendChild(cm);card.appendChild(vr);root.appendChild(card);
   });}
-function exportTxt(){var lines=['=== BOHEMIA SUBURB INTERIOR VERDICT ==='];
-  STYLES.forEach(function(st){lines.push(st.name+': '+((verdict[st.id]||'--').toUpperCase()));});
-  lines.push('--- PER-STYLE COMMENTS ---');STYLES.forEach(function(st){if(comments[st.id])lines.push(st.name+': '+comments[st.id]);});
-  lines.push('--- PAOLO COMMENTS ---');lines.push(document.getElementById('global').value||'(none)');
-  var blob=new Blob([lines.join('\n')],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='BOHEMIA_SUBURB_VERDICT.txt';a.click();}
+function exportTxt(){var l=['=== BOHEMIA SUBURB VERDICT (walled-block model) ==='];
+  STYLES.forEach(function(st){l.push(st.name+': '+((verdict[st.id]||'--').toUpperCase()));});
+  l.push('--- PER-STYLE COMMENTS ---');STYLES.forEach(function(st){if(comments[st.id])l.push(st.name+': '+comments[st.id]);});
+  l.push('--- PAOLO COMMENTS ---');l.push(document.getElementById('global').value||'(none)');
+  var b=new Blob([l.join('\n')],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='BOHEMIA_SUBURB_VERDICT.txt';a.click();}
 document.getElementById('sun').onclick=function(){SUN=!SUN;build();};
 document.getElementById('reseed').onclick=function(){seedBase=(seedBase*7+13)%9000+1;build();};
 document.getElementById('exp').onclick=exportTxt;
 build();window.__SUBURB_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB INTERIOR: your call. Each style is shown as a 1x1 standalone AND snapped into a 2x2 (the merge law) so you can see it holds together as one neighborhood, not four walled boxes. Every home has a driveway to a front garage. Thumb what feels like Bohemia, kill what does not, comment, export. Nothing is canon until you pick. Reseed for variety.</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB (one block, remade). Homes now BACK ONTO the perimeter wall, fronts facing the interior street; the driveway is a car apron, not a runway; the garage is the front corner of the house. Which interior feels like Bohemia? Thumb, kill, comment, export. Reseed for variety.</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>
@@ -95,4 +87,4 @@ __UI__
 """
 HTML = HTML.replace('__GEN__', GEN).replace('__UI__', UI)
 open(OUT, 'w', encoding='utf8').write(HTML)
-print('suburb judge (modular) -> %s (%d KB)' % (OUT, len(HTML) // 1024))
+print('suburb judge (walled-block) -> %s (%d KB)' % (OUT, len(HTML) // 1024))
