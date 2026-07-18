@@ -1,0 +1,23 @@
+=== BOHEMIA CLOTHING GRAVEYARD (born 7/18/26) ===
+The training data for the clothing factory. Every thumbs-DOWN garment lands here
+with a post-mortem so the next cook is sharper. Dead things stay dead; fresh
+cooks answer the slots (GRAVEYARD LAW). Paolo thumbs, this file remembers.
+
+--- BATCH 1 (7/18/26) — ALL THREE DOWN, no comments ---
+RED SHIRT: DOWN
+BLUE JEANS: DOWN
+WHITE SNEAKERS: DOWN
+
+CLAUDE POST-MORTEM (my honest read, since no note was left):
+These were technically "a red shirt / jeans / sneakers," but crude. What's weak:
+- MECHANICAL SHADING: a flat 3-tone rule (top=light, bottom/side=dark, else mid).
+  No real fabric rendering. Reads as flat colored regions, not cloth.
+- ZERO GARMENT DETAIL: no collar, no cuffs, no hem, no denim seams, no belt/loops,
+  no pockets, no laces, no tongue, no sole shaping. Real garments have these tells.
+- SILHOUETTE JUST TRACES THE BODY: the cloth hugs the region outline exactly, no
+  "give" (a shirt bags a little, a sleeve ends in a cuff, jeans stack at the ankle).
+- BARE MANNEQUIN PRESENTATION: shown on a plain skin body, so they read clinical /
+  half-finished rather than as an outfit in context.
+LESSON (pending Paolo's confirm): the factory's SHADING/DETAIL ceiling was too low.
+Next batches need real fabric craft (garment-specific detail + richer shading), and
+likely to be shown ON the actual Punk, not a mannequin.
