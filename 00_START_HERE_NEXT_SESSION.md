@@ -145,8 +145,8 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 134 of 150.** (Full-machine total 175; the
-   rest are system studies that don't count.)
+   **INDIVIDUAL-QUEST COUNT: 140 of 150.** (Full-machine total 181; the
+   rest are system studies that don't count.) 10 to go — two batches.
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
    advance the 150). Fresh mines land as NEW files #153+, full template
@@ -299,9 +299,20 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    because no one ever came; the armor is the wound), Acadia (FO4 Far
    Harbor — a fragile three-faction peace held by hidden truths; keep
    the lie, expose it, or burn it down). **INDIVIDUAL-QUEST COUNT: 134 of
-   150.** 16 to go.
-   VEINS STILL DEEP: ME2 (Samara/Morinth done, Thane done, the IFF done),
-   Witcher (Ghosts of the Past, the Last Wish done), FO4 (Far Harbor's
+   150.**
+   BATCH 12 (7/18, #219-224): The Assassin's Son (ME2, Thane — a dying
+   killer atones by stopping his son from becoming him), The Demands of
+   the Qun (DA:I, Iron Bull — the men who trust you or the order that
+   gives you a self; no choice keeps both), The Illusive Man (ME3 — the
+   man who fought the enemy became it, sure he still controls it), Lady
+   Boyle's Last Party (Dishonored — the "mercy" option hands her to a
+   captor; sparing can be crueler than killing), Fall-from-Grace
+   (Planescape — a succubus practices chastity as self-authorship; you
+   are not your design), Ghosts of the Past (Witcher, Letho — the enemy
+   had reasons you share; a grievance doesn't erase a debt). **INDIVIDUAL-
+   QUEST COUNT: 140 of 150.** 10 to go — TWO batches from the target.
+   VEINS STILL DEEP: ME2 (Thane done, the IFF done, Jacob/the base done),
+   Witcher (the Last Wish done, the Whispering Hillock done), FO4 (Far Harbor's
    Acadia synths, the Cabot done), NV (Beyond the Beef done, Dead Money's
    Christine/Dog), KOTOR (the rakghoul serum, Korriban done), Skyrim
    (the Daedric quests, the Ebony Warrior), Disco (Cuno, the Hardie Boys),

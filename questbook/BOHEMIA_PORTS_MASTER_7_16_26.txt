@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]
-1540 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]
+1564 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3791,3 +3791,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE SUBTLE ENDINGS WEIGH AS MUCH AS THE DESTRUCTION [F3's law]
       system: the endings / factions
       If a quest offers extermination beside subtler resolutions, the SUBTLE options carry weight equal to the destruction — preserve and expose given their full consequence — so the finer question isn't swamped by the spectacle of genocide (#196's the-quiet-endings-must-weigh law).
+
+### #219  THE ASSASSIN'S SON (A DYING KILLER SEEKS ATONEMENT BY STOPPING HIS BOY FROM BECOMING HIM, AND THE ONLY WAY IN IS THROUGH THE FATHER'S OWN SINS) (Mass Effect 2)
+  ->  PORT 1 — ATONEMENT FOR THE NEXT GENERATION [W1, W2, W4 — the core port]
+      system: the fold / the dynasty spine / companions
+      A Bohemia arc where a dying or departing figure (a parent, a prior dynast, a mentor) discovers the next generation is INHERITING their sins — walking the same harmful road by absence and example — and can only break the cycle by owning their own crimes rather than sermonizing, an atonement aimed at the child not the self, said with the authority of "I was exactly what you must not become." The fol
+  ->  PORT 2 — THE CYCLE-BREAK IS COSTLY AND PARTIAL [F1's law]
+      system: the fold / the dynasty spine / companions
+      If a quest breaks an inherited cycle, the turn is COSTLY and partial — the years of harm not erased by one confrontation — so the cycle-break is hard-won, not a clean scene (#170's the-cycle-break-must-cost law).
+  ->  PORT 3 — THE ATONEMENT SERVES THE CHILD [F2's law]
+      system: companions / the fold / the conduct book
+      If a quest's atonement is aimed at the next generation, the focus stays on the CHILD, not the parent's catharsis — the owning in service of turning the son — so atonement doesn't become the parent centering themselves (#208's the-atonement-serves-the-other law).
+  ->  PORT 4 — THE POINT OF NO RETURN PRESSES [F3's law]
+      system: the fold / the death-math
+      If a quest's stakes are interrupting a point-of-no-return, that threshold is made IMMINENT — the cycle-locking act close and pressing — so the race carries real urgency (#206's the-deadline-must-press law).
+
+### #220  THE DEMANDS OF THE QUN (A SPY MUST CHOOSE BETWEEN THE MEN WHO TRUST HIM AND THE ORDER THAT GIVES HIM A SELF, KNOWING ONE CHOICE ERASES HIM) (Dragon Age: Inquisition)
+  ->  PORT 1 — THE SELF THE ORDER GAVE YOU VS THE FEW WHO TRUST YOU [W1, W3, W4 — the core port]
+      system: factions / the fold / companions
+      A Bohemia arc where a character's entire IDENTITY was constructed by an institution (a faction, a faith, a collective, the Amalgamation) that now demands they sacrifice the few who trust them for the good of the whole — so choosing the people they love means losing the self the order gave them (cast out, unmade, renamed), and obeying keeps the self but carries the betrayal, with no choice keeping 
+  ->  PORT 2 — THE COLLECTIVE'S CLAIM IS COHERENT [F1's law]
+      system: factions / the fold
+      If a quest pits a collective against the few, the COLLECTIVE'S claim is made legitimately coherent — the order's logic and the self it gives shown as real — so sacrificing the few is a genuine choice, not an obvious evil (#191's both-sides-legitimate law).
+  ->  PORT 3 — THE SELF-LOSS IS FELT [F2's law]
+      system: the fold / companions / factions
+      If a quest's cost is losing an institution-given self, that unmaking is FELT — the erasure of identity shown as real self-loss, not a label swap — so disobeying carries the true weight of becoming un-who-you-were (#214's the-self-loss-must-be-real law).
+  ->  PORT 4 — THE FEW ARE VIVID [F3's law]
+      system: companions / factions
+      If a quest weighs a collective against the few, the FEW are vivid enough to weigh — the bond and their trust made real — so the human claim balances the ideological one (#207's the-few-must-be-real law).
+
+### #221  THE ILLUSIVE MAN (A MAN WHO SPENT HIS LIFE FIGHTING THE ENEMY BECAME IT, AND STILL BELIEVES HE CAN CONTROL WHAT OWNS HIM) (Mass Effect 3)
+  ->  PORT 1 — THE ONE WHO THINKS HE CONTROLS THE HORROR [W1, W2, W5 — the core port]
+      system: the Amalgamation / factions / the unrecorded ledger
+      A Bohemia antagonist (a faction leader, a visionary, a dynast) who set out to CONTROL a horror (the Amalgamation, a corrupting power) by studying and using it, and became its instrument through the very effort — insisting to the end that he is the exception in command, his certainty of control the proof of his capture, his noble goal the handle it steered him by — whom the dynast can end by force 
+  ->  PORT 2 — THE ARGUMENT-WIN ISN'T METER-GATED [F1's law]
+      system: the Amalgamation / factions
+      If a quest's profound resolution is winning by argument, it isn't gated behind an ACCUMULATED score the player can't retroactively earn — the truth-path reachable on its own terms — so the argument-win isn't locked away by a meter (#210's the-argument-win-must-be-reachable law).
+  ->  PORT 3 — THE SEDUCTION OF CONTROL IS SHOWN [F2's law]
+      system: the Amalgamation / the unrecorded ledger
+      If a quest's engine is a man owned by the belief he's in control, that SEDUCTION is shown — the logic by which every step deeper felt like mastery — so he reads as tragic hubris, not a fool (#203's the-seduction-must-be-felt law).
+  ->  PORT 4 — THE NOBLE AIM HAS WEIGHT [F3's law]
+      system: factions / the Amalgamation
+      If a quest's tragedy is a noble goal turned into a handle, that goal is given real WEIGHT — the sincerity of the aim shown — so the horror steering him by his best intention lands, rather than reducing him to a power-hungry villain (#210's the-noble-aim-must-be-real law).
+
+### #222  LADY BOYLE'S LAST PARTY (FIND THE RIGHT TARGET AT A MASKED BALL, AND HAND HER TO THE MAN WHO WANTS HER FOR HIMSELF) (Dishonored)
+  ->  PORT 1 — THE MERCY THAT IS A HORROR [W1, W2, W4 — the core port]
+      system: the conduct book / factions / the endings
+      A Bohemia choice where the option that LOOKS merciful (spare instead of kill, the "clean" path a reward system endorses) is secretly a horror — the spared person delivered to a fate worse than death (captivity, ownership, violation) — so the dynast conditioned to take non-lethal as humane is steered into a cruelty and congratulated for gentleness, and must look at what the mercy actually is rather
+  ->  PORT 2 — THE HIDDEN HORROR SURFACES [F1's law]
+      system: the conduct book / the endings
+      If a quest's power is a merciful-seeming option that's secretly a horror, its TRUE nature is discoverable before or shortly after the choice — the cage made visible enough that the dynast can know what they authored — so the reversal lands, not only for the thorough (#212's the-hidden-horror-must-surface law).
+  ->  PORT 3 — THE TARGET-CHOICE CARRIES MORAL WEIGHT [F2's law]
+      system: the conduct book / the unrecorded ledger
+      If a quest requires identifying a target among innocents, the identification carries its MORAL weight — the gravity of condemning the right person, the risk to the innocent — so it's a reckoning, not just a deduction puzzle (#181's the-choice-must-weigh law).
+  ->  PORT 4 — THE LETHAL OPTION CAN BE THE MERCY [F3's law]
+      system: the conduct book / the endings
+      If a quest inverts mercy and cruelty, the LETHAL option is allowed to read as possibly the kinder one — death framed as a real mercy against the cage — so the inversion is fully available, not overridden by a meter that calls killing evil (#193's the-inversion-must-hold law).
+
+### #223  FALL-FROM-GRACE (A SUCCUBUS PRACTICES CHASTITY NOT TO DENY HER NATURE BUT TO PROVE SHE IS MORE THAN IT) (Planescape: Torment)
+  ->  PORT 1 — THE MADE BEING WHO AUTHORS THEMSELVES [W1, W2, W3 — the core port]
+      system: the Amalgamation / the fold / companions
+      A Bohemia made being (an Amalgamation-created person, a construct, someone bred or designed for one function) who refuses to let their DESIGN be their identity — not by denying or hiding their nature, and not out of shame, but by mastering it through daily discipline and re-authoring its domain toward giving rather than consuming — embodying the answer that what you were made to be is a starting p
+  ->  PORT 2 — THE DISCIPLINE IS VISIBLE [F1's law]
+      system: companions / the fold / the Amalgamation
+      If a character embodies mastery-as-discipline, the ONGOING effort is felt even amid serenity — the daily choosing shown as real work, not an effortless given — so the discipline reads as an achievement (#208's the-discipline-must-be-visible law).
+  ->  PORT 3 — SELF-AUTHORSHIP IS DISTINGUISHED FROM REPRESSION [F2's law]
+      system: the Amalgamation / companions
+      If a character's restraint is self-authorship not repression, the DISTINCTION is made clear — the freedom and lack of shame shown against the repression it resembles — so mastery isn't mistaken for denial (#186's the-freedom-must-be-distinguished-from-repression law).
+  ->  PORT 4 — THE EMBODIMENT IS A PERSON [F3's law]
+      system: companions / the fold
+      If a character embodies a central theme, they remain a PERSON with their own texture — wants and flaws beyond the lesson — so the theme is lived, not lectured (#210's the-embodiment-must-be-a-person law).
+
+### #224  GHOSTS OF THE PAST (THE MAN WHO MURDERED YOUR FRIENDS' MASTERS DID IT TO SAVE THEM, AND YOU OWE HIM A DEBT YOU WISH YOU DIDN'T) (The Witcher 3: Wild Hunt)
+  ->  PORT 1 — THE ENEMY WHO IS ALSO YOUR KIND [W1, W2, W6 — the core port]
+      system: factions / the fold / the unrecorded ledger
+      A Bohemia arc where an old ENEMY — someone who did real harm and gave the dynast legitimate grievance — turns out to have acted under coercion, for reasons the dynast shares (saving a dying kind they both belong to), and to be owed a real debt, so the dynast must weigh grievance against debt and brotherhood, with the account refusing to resolve into clean enmity or forgiveness because the enemy is
+  ->  PORT 2 — THE GRIEVANCE STAYS REAL [F1's law]
+      system: factions / the unrecorded ledger
+      If a quest weighs an enemy's reasons against their harm, the HARM stays real alongside the reasons — the grievance kept legitimate, not dissolved by the motive — so the account stays genuinely mixed (#198's the-grievance-must-stay-real law).
+  ->  PORT 3 — THE DEBT IS LEGIBLE IN-QUEST [F2's law]
+      system: factions / the fold
+      If a quest's weighing depends on a prior debt, that debt is made LEGIBLE within the quest — the history surfaced for those who didn't carry it — so the account is balanced, not lopsided toward the grievance (#211's the-history-must-be-present law).
+  ->  PORT 4 — THE SHARED DOOM IS VIVID [F3's law]
+      system: the fold / factions
+      If an enemy's motive is saving a shared dying kind, that KIND and its doom are made vivid — the extinction and the belonging felt — so the motive reads as one the dynast understands from inside, not an abstract excuse (#201's the-shared-doom-must-be-felt law).

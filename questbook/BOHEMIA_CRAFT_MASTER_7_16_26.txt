@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]
-2187 findings / 218 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]  [+BATCH appended 207,208,209,210,211,212 (7/17/26, machine-parsed)]  [+BATCH appended 213,214,215,216,217,218 (7/17/26, machine-parsed)]  [+BATCH appended 219,220,221,222,223,224 (7/17/26, machine-parsed)]
+2247 findings / 224 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4803,3 +4803,133 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Exposing the secrets frees the humans to destroy the synths — honesty as detonation, not clean virtue.
   W10 IT IS MADE-PEOPLE-AMONG-THE-LIVING IN ONE ISLAND
       Whether synths can coexist, and at what cost of lies — Bohemia's whole Amalgamation question of the made among the born, in a three-faction standoff.
+
+### #219  THE ASSASSIN'S SON (A DYING KILLER SEEKS ATONEMENT BY STOPPING HIS BOY FROM BECOMING HIM, AND THE ONLY WAY IN IS THROUGH THE FATHER'S OWN SINS) (Mass Effect 2)
+  W1  ATONEMENT IS FOR THE SON, NOT THE SELF
+      Thane acts to interrupt the harm he set in motion, not to clear his conscience — the removed "be the good father" verb is the spine.
+  W2  THE SON INHERITS THE SINS
+      Kolyat walks the father's exact road by absence and example — the child follows the template, not the sermon.
+  W3  ONLY OWNING IT BREAKS THE CYCLE
+      Thane must confront the boy by naming his own crimes — no pedestal, or the truth won't land.
+  W5  THE DEATH GIVES IT A CLOCK
+      Thane's terminal illness means the atonement may not be completed — urgency and tragedy fused.
+  W6  THE FIRST KILL LOCKS THE PATH
+      Kolyat's impending murder is the point of no return — the cycle-locking act the father races to interrupt.
+  W7  THE FATHER MADE THE SON
+      By abandonment and example, Thane shaped the boy who is now copying him — the worst legacy is the template.
+  W8  RECONCILIATION IS HARD-WON
+      The cycle-break costs and stays partial — a lifetime of absence isn't undone in a scene.
+  W9  THE PLAYER ENABLES, DOESN'T RESOLVE
+      Shepard helps the father reach the son — the atonement is Thane's to make, not the player's to grant.
+  W10 IT IS BREAK-THE-CYCLE IN ONE DYING FATHER
+      Owning your sins to stop your child from inheriting them — Bohemia's whole fold question of succession and the harm passed down, in an assassin's last act.
+
+### #220  THE DEMANDS OF THE QUN (A SPY MUST CHOOSE BETWEEN THE MEN WHO TRUST HIM AND THE ORDER THAT GIVES HIM A SELF, KNOWING ONE CHOICE ERASES HIM) (Dragon Age: Inquisition)
+  W1  THE SELF IS AN INSTITUTION
+      The Qun gave Bull his name, role, and identity — disobeying isn't breaking a rule but losing who he is, which is the whole engine.
+  W2  BOTH CLAIMS ARE LEGITIMATE
+      The collective's command is coherent and the crew's trust is real — neither side is the obvious right.
+  W3  NO CHOICE KEEPS BOTH
+      The removed "keep the crew and the Qun both" verb is the spine: the battlefield forces the men or the self, never both.
+  W4  CHOOSING THE FEW ERASES THE SELF
+      Saving the Chargers means becoming Tal-Vashoth — the people you love bought with who you were told you are.
+  W5  OBEYING KEEPS THE SELF, BREAKS THE BOND
+      Sacrificing the men preserves the identity and carries the betrayal — the other kind of self-loss.
+  W6  THE COLLECTIVE VS THE FEW IS ETERNAL
+      Every belonging eventually demands the choice — the quest names a permanent tension, not a one-off.
+  W7  THE QUN CONSTITUTES, NOT JUST EMPLOYS
+      Bull's sanity and self depend on belonging — which makes the choice existential, not tactical.
+  W8  THE CHARGERS ARE LOVED
+      A real crew who trust their captain — the human bond given weight against the ideology.
+  W9  THE PLAYER COUNSELS, BULL CHOOSES
+      The Inquisitor tips it but the choice is Bull's — his self, his loss.
+  W10 IT IS THE-COLLECTIVE-VERSUS-THE-FEW IN ONE SPY
+      An institution-given self against the people who trust you — Bohemia's whole faction question of belonging and identity, on one battlefield.
+
+### #221  THE ILLUSIVE MAN (A MAN WHO SPENT HIS LIFE FIGHTING THE ENEMY BECAME IT, AND STILL BELIEVES HE CAN CONTROL WHAT OWNS HIM) (Mass Effect 3)
+  W1  HE BECAME WHAT HE FOUGHT
+      The Illusive Man was taken by the very enemy he studied to defeat — fighting the horror by getting close is how you become it, the whole engine.
+  W2  HIS CERTAINTY OF CONTROL IS THE PROOF OF CAPTURE
+      The belief that he's the exception in command is exactly the leash — the surest sign of being owned.
+  W3  INDOCTRINATION PRESENTS AS VINDICATION
+      Every step deeper felt like mastery, so he can't feel the leash — the corruption disguised as control.
+  W4  THE NOBLE GOAL IS THE HANDLE
+      His sincere aim to save humanity is what the enemy steered him by — the best intention as the mechanism of capture.
+  W5  THE MASTERY WAS NEVER REAL
+      The removed "let him keep controlling it" verb is the spine: he never controlled it; the belief was the capture.
+  W6  TRUTH BREAKS WHAT FORCE CAN'T
+      The one thing indoctrination can't survive is the victim genuinely seeing the leash — the argument-win over the bullet.
+  W7  THE LUCID MOMENT GRANTS AGENCY
+      Making him see gives him horror and a choice at the end — his own ending with clarity, not just death.
+  W8  HE IS THE TOO-CLOSE FIGHTER'S TRAGEDY
+      Not weakness or greed but the hubris of thinking exposure makes you stronger — the specific fall of the studier.
+  W9  HE IS NOT, IN HIS MIND, A VILLAIN
+      He believes he's saving everyone — which makes the confrontation a tragedy, not a defeat.
+  W10 IT IS THE-OWNED-WHO-THINKS-HE-OWNS IN ONE MAN
+      The certainty of control as the mark of capture — Bohemia's whole Amalgamation question of who masters whom, in a fallen visionary's last stand.
+
+### #222  LADY BOYLE'S LAST PARTY (FIND THE RIGHT TARGET AT A MASKED BALL, AND HAND HER TO THE MAN WHO WANTS HER FOR HIMSELF) (Dishonored)
+  W1  THE MERCY IS A HORROR
+      The "non-lethal" option delivers the target to lifelong captivity — the merciful-seeming path is a cruelty in a kind mask, the whole engine.
+  W2  THE REWARD SYSTEM ENDORSES THE ATROCITY
+      The game's own morality meter calls handing her to a captor the "clean" choice — the complicit meter congratulating the horror.
+  W3  THE PLAYER'S REFLEX IS WEAPONIZED
+      Prior targets trained "non-lethal = merciful"; here that reflex authors a cage — the conditioning turned into a trap.
+  W4  NON-LETHAL IS NOT HUMANE
+      The removed "trust the kind label" verb is the spine: the label is not the thing; you must look at what the mercy is.
+  W5  DEATH MAY BE THE TRUER MERCY
+      A clean end may be kinder than the cage — the inversion that makes bloody hands possibly the gentler ones.
+  W6  THE IDENTIFICATION DOUBLES THE THEME
+      First be sure of the right target, then reckon that even sparing them is a condemnation — care nested in care.
+  W7  THE HORROR WEARS THE MASK OF KINDNESS
+      Brisby's "love" is a cage; the cruelty is dressed as devotion, chosen because it feels good.
+  W8  THE MASQUERADE IS THE PERFECT STAGE
+      Identical masks literalize the theme: mercy and cruelty, target and innocent, all wearing the same face.
+  W9  THE PLAYER AUTHORS THE FATE
+      Whichever path, the player chose it — the horror or the death is theirs, not the game's.
+  W10 IT IS THE-MERCY-IS-A-HORROR IN ONE BALL
+      A spared life that is a caged one, rewarded as clean — Bohemia's whole conduct-book question of what mercy actually is, at a masquerade.
+
+### #223  FALL-FROM-GRACE (A SUCCUBUS PRACTICES CHASTITY NOT TO DENY HER NATURE BUT TO PROVE SHE IS MORE THAN IT) (Planescape: Torment)
+  W1  YOU ARE NOT YOUR DESIGN
+      A being made to seduce and drain chooses to be more — the removed "amputate or hide" verb is the spine: mastery, not denial, is the freedom.
+  W2  RESTRAINT WITHOUT SHAME IS SELF-AUTHORSHIP
+      Her chastity is not repression but daily self-definition — the discipline that proves design is a starting point, not a sentence.
+  W3  SHE RE-AUTHORS HER NATURE
+      The brothel of the mind takes the domain of her design and makes it give rather than drain — transcendence by owning, not cutting.
+  W4  SHE IS UNASHAMED OF WHAT SHE IS
+      No self-hatred, no torment — she simply refuses to let her function be her identity, which is the rare and hard version.
+  W5  SHE ANSWERS THE GAME'S QUESTION
+      "What changes the nature of a man?" — not magic, not denial, but daily disciplined choosing, embodied in a companion.
+  W6  DESIGN IS A QUESTION, NOT AN ANSWER
+      What you were made to be is what your life answers, never what it is — the deepest reframe of nature.
+  W7  FREEDOM IS MASTERY, NOT ABSENCE
+      The deepest freedom is not lacking your nature but commanding it — the counterintuitive core.
+  W8  THE DISCIPLINE IS DAILY
+      Every day she doesn't do what she was made to do proves she is more — an ongoing choosing, not a one-time escape.
+  W9  SHE TAKES IT UP CONSCIOUSLY
+      She does not flee intimacy but transforms it — owning the nature is how she becomes more than it.
+  W10 IT IS YOU-ARE-NOT-YOUR-DESIGN IN ONE SUCCUBUS
+      A made being who authored herself without shame — Bohemia's whole made-people question of nature, design, and self-definition, in a demon who chose.
+
+### #224  GHOSTS OF THE PAST (THE MAN WHO MURDERED YOUR FRIENDS' MASTERS DID IT TO SAVE THEM, AND YOU OWE HIM A DEBT YOU WISH YOU DIDN'T) (The Witcher 3: Wild Hunt)
+  W1  THE ENEMY HAD REASONS YOU SHARE
+      Letho acted to save your own dying kind — a motive the player understands from inside, the whole engine.
+  W2  HATING HIM IS COMPLICATED BY BEING HIM
+      He's a witcher, your breed, one of the last — the removed "make him a villain or victim" verb is the spine.
+  W3  THE GRIEVANCE IS LEGITIMATE
+      He did the assassinations; they caused real harm — the account isn't exculpation, it's a genuine weighing.
+  W4  THE DEBT IS LEGITIMATE TOO
+      Letho once did right by the player — a real debt that a real grievance doesn't erase.
+  W5  HE WAS COERCED
+      Forced by an overwhelming power as the price of his kind's survival — a bind the player might not have escaped either.
+  W6  THE ACCOUNT WON'T RESOLVE
+      No reading makes him clean or monstrous — the mixed ledger that refuses clean enmity or clean forgiveness.
+  W7  IT IS HARDEST TO JUDGE YOUR OWN KIND
+      Shared breed and doom make clean judgment impossible — the specific difficulty of your own.
+  W8  THREE WEIGHINGS, NONE CLEAN
+      Aid, avenge, or release — three ways to weigh brotherhood against grievance, none resolving the account.
+  W9  THE PLAYER DECIDES WHAT KIND IS WORTH
+      How much shared doom and an old debt outweigh real wrongs — the choice is a valuation, not a verdict.
+  W10 IT IS THE-ENEMY-HAD-REASONS IN ONE BROTHER
+      A killer who is also your kind, owed and resembled — Bohemia's whole faction question of grievance, debt, and belonging, in a hunted witcher.
