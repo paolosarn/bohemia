@@ -80,3 +80,13 @@ back from behind), never covering the face. Not paint on a shirt; geometry.
 This is the groundwork for HAIR (same principle: shape + pixels outside the body).
 Fresh hoodies cooking: ASH / COAL / OLIVE HOODIE. The 2 fake-cowl hoodies +
 2 v-necks are graveyard-final.
+
+--- HOOD, RESTRAINED (7/18/26) — Paolo: "it looked like dogshit, same in all
+    directions -- it's a LITTLE addition, not a centerpiece. A couple extra pixels
+    on the back and side you'll see it." (looked at how pixel games do it) ---
+Redone: the hood is now a FEW pixels, clearly DIFFERENT per facing --
+  front (S/SE/SW): a bare sliver flanking the neck, barely there
+  profile (E/W):   a couple px behind the neck (away from the face)
+  back (N/NE/NW):  a small hood bunch at the nape (most visible)
+Not the big uniform blob. Same additive-geometry tech, dialed way down. This
+restraint is the model for HAIR too: small directional shape, not a masterpiece.
