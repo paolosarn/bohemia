@@ -78,6 +78,12 @@ BUG FIX — SATELLITE PRAYER: Paolo, "really like it but a super loud SCREECH br
   3rd/5th became a sustained piercing whistle that stacked. FIX (global to solarhymn, also used
   by SOLAR CHURCH / MENU-FIRST MORNING): dropped the 5th harmonic, hard lowpass cap at 1.7kHz so
   nothing can scream, amps pulled 0.4/0.2/0.1 -> 0.24/0.09/0.045 (way lower). Song kept, pain gone.
+  PASS 2 (Paolo, still too loud): "turn the volume down by 75%." Cap 1.7k->1.3k, amps -75% again
+  (0.24/0.09/0.045 -> 0.06/0.022/0.011). solarhymn only rides SATELLITE PRAYER among canon songs,
+  so this is effectively per-song. Now ~15% of the original level.
+  PASS 3 (Paolo): "turn it down by 33% and we're all good." 0.06/0.022/0.011 -> 0.04/0.0147/0.0074.
+  LOCKED GOOD (~10% of original). Lesson: default synth levels ran way too hot; new voices should
+  start quiet and be brought up, never the reverse.
 PRIOR DOWNS still disabled at 0 (SUNKEN VESPERS, UNDERTOW) — re-confirmed DOWN, left buried.
 
 === VERDICT PASS 7/17/26 (b) — "Good cookups today" ===
@@ -132,6 +138,25 @@ CANDLE, MOB — THE HOUSE REMEMBERS (all '--' in the paste, verdicts still open)
 2. COMMENT SECTION, bottom of the music page, ALWAYS (standing law): persistent
    textarea under the graveyard, saved with the music save, rides the export as
    a PAOLO COMMENTS block. Talk lands in the paste, the paste lands in the repo.
+
+=== VERDICT PASS 7/18/26 (c) — batch-9 drop-in judged + a star ===
+Batch-9 drop-in: 3 CANON (THE ORGAN IN THE DROWNED CHAPEL, WHAT SHATTERED IN THE
+VAULT DOOR, THE SWELL BENEATH THE FLOOR), 1 DOWN buried (THE BOX THAT COUNTS THE
+DEAD; owned voice wrongbox left as an unused body). WHAT SHATTERED = Paolo standout
+("really like it", wants a star) -> st:true flag; held OUT of the overworld set on
+his own doubt + it is a harsh drive track, not ambient like the overworld tracks.
+PENDING PAOLO: the export re-lists VIA PURIFICO / HYMN IN THE FLOOD / THE DROWNED
+CHOIR as DOWN, BYTE-IDENTICAL to the pre-reversal down-list from the pass where he
+said "don't remove it, just lower the volume" -- so this reads as a stale tool
+re-emission, not a fresh kill. Left them IN (canon, lowered); flagged for his call.
+
+=== BATCH 9 DROP-IN FOLDED (7/18/26) — a parallel session cooked a batch and it was
+never committed; Paolo handed it over as a drop-in .txt. Folded into the canonical
+alpha per ONE-ALPHA LAW. 4 voices born (hollowvowl -> THE ORGAN IN THE DROWNED
+CHAPEL, wrongbox -> THE BOX THAT COUNTS THE DEAD, shatterbell -> WHAT SHATTERED IN
+THE VAULT DOOR, gravechoir -> THE SWELL BENEATH THE FLOOR), each owned by one song.
+All 4 songs distinct scale+feel+kick, screech-safe (no delay/convolver). Added to
+MLOOPS + NEW_VIBES. LESSON: parallel music cooks must COMMIT+PUSH, not die in-session.
 
 === COOK BATCH 10 (7/18/26) — THE DROWNED CATHEDRAL. 6 songs. Horror FF10, melodic under dread: Via Purifico, the Sending, a hymn heard underwater. ===
 SIX VOICES BORN (ledgered to owner song, each used by that ONE song alone):

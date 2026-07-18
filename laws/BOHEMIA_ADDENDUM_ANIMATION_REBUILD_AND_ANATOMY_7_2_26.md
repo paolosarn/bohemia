@@ -84,3 +84,24 @@ So editing a nipple never touches the rig, and editing the rig never wipes skin 
 - BODY edit button is now EDIT SKIN: opens the skin editor with (a) skin tone swatches that retint body + face live across every view, (b) the SKIN DETAIL layer brush (3 skin ramp steps + erase) painting directly on the live naked body per direction, nipples and any skin touch editable here, (c) EXPORT dumps {skinTone, skinDetail} JSON for Claude, the durable save. A separate RIG button still jumps to the rig for geometry. Sec 16 architecture delivered: rig = geometry law, skin detail paints on top, garments above.
 - WIDTH LAW ported into BOHEMIAN_RIG.html itself: the rig's own pose preview no longer stretches pixels in weird ways when the skeleton moves, bones stretch/crunch along their axis only, width never scales, rotations unchanged. Bake: 2026-07-02-widthlaw. Regions untouched, transform code only.
 FORESIGHT (filed): (1) skin detail is authored per skeleton pose, extreme clip deformation moves detail pixels with their bound part, correct but worth eyeballing on headshot; (2) SKIN_DETAIL export must fold into the next build's baked defaults, same as garment edits: send exports, Claude bakes; (3) once female/child rigs land, skin detail layers are per-rig; (4) frame caching still the next perf move before combat-native.
+
+---
+
+## AMENDMENT 7/18/26 — ANATOMY LAW v2 -> v3 (the pixel-look revamp)
+Paolo, after the world's props leveled up to the 45-degree treatment, asked to
+revamp how the CHARACTER reads pixel-wise (RIG LAW intact: geometry untouched,
+this is shading/palette only). Three changes, all in the renderer (buildFrame),
+riding the existing skin-ramp dial so they wear through every pose/clip/direction
+for free:
+1. WORLD PALETTE: SKIN_TONES swapped to the world-graded set (graded to ambient
+   RGB 67,61,56). The character sits IN the scene instead of glowing on top.
+2. SKY TOP-LIGHT (v2's "2 tones" -> 3): forms facing up catch the sky, using the
+   LIGHT skin tone the flat shading never used (sramp[3]). Crown, shoulder caps,
+   arm/thigh tops brighten; borders (the dark contact tone) stay put. This is the
+   props' top>wall>underside model, applied to the body. Kills the 2D-scroller read.
+3. DE-SPECKLE: the bone-warp was rounding lone 1px nubs off limb edges (the E
+   shoulder + W foot strays were not even in the painted art; NE was an authored
+   leg tip). A one-pass cull of body pixels with <=1 orthogonal neighbor removes
+   the strays and any future one, without touching real forms (2+ neighbors).
+Verified across all 8 directions: strays gone, silhouettes intact. Contact-shadow
+deepening (AO at limb-torso seams) is the reserved next step if Paolo wants more.
