@@ -90,3 +90,18 @@ Redone: the hood is now a FEW pixels, clearly DIFFERENT per facing --
   back (N/NE/NW):  a small hood bunch at the nape (most visible)
 Not the big uniform blob. Same additive-geometry tech, dialed way down. This
 restraint is the model for HAIR too: small directional shape, not a masterpiece.
+
+--- HOOD, take 3 (7/18/26) — Paolo: "whatever you did was dogshit, try again."
+    (I looked at the actual rendered pixels this time, zoomed.) ---
+DIAGNOSIS: at 56px the head sits right on the shoulders -- there is NO neck gap,
+so any hood pixels I forced near the front neck just merged into the shirt collar
+as noise. That's WHY it looked like garbage. Reality: a down-hood is not visible
+from the front. So:
+  front (S/SE/SW): NOTHING (clean -- no noise).
+  side (E/W):      a couple px of the hood roll peeking behind the neck.
+  back (N/NE/NW):  a small DARK rolled hood collar at the nape (contrast vs the
+                   lit shirt is what makes it read) + a hint cresting the shoulders.
+Lesson banked: I must LOOK at the rendered pixels (zoomed) before shipping, not
+ship blind and let Paolo be the QA. Down-hood is inherently a small back/side
+detail at this scale; a hood-UP variant (covers the head) is the option if he
+wants it prominent -- offered, not built.
