@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]
-1420 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]
+1444 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3371,3 +3371,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE QUIET IS FRAMED AS THE EVENT [F3's law]
       system: companions / dialogue scenes / romance arcs
       If a quest's content is emotional not mechanical, its stillness is FRAMED as the event — the quiet made legibly the point — so players trained on stakes understand the day itself is the stake (#185's the-quiet-must-be-framed law).
+
+### #189  HEART OF STONE (GRANT A DEAD MAN'S THREE WISHES AND WATCH LOVE ROT INTO A CURSE) (The Witcher 3: Hearts of Stone (2015 expansion))
+  ->  PORT 1 — THE FAIR BARGAIN THAT IS A RUINED LOVE [W1, W2, W3 — the core port]
+      system: the Amalgamation / the fold / factions
+      A Bohemia arc where a soul-broker (the Amalgamation, a devil-figure) never cheats — grants exactly what's asked and lets the ruinous cost surface over years — and the dynast is made the broker's HAND in collecting a bargain that turns out to be a specific destroyed love: someone who traded feeling for invulnerability and lost the ability to be reached. The Amalgamation's soul-bargain (#34/#175) fu
+  ->  PORT 2 — THE SPECTACLE POINTS AT THE WOUND [F1's law]
+      system: the Amalgamation / quest structure
+      If a quest hides its deepest wound inside a spectacle, the spectacle POINTS at the wound — a beat inside the fun that turns the dynast's face to the cost — so the excavation isn't optional (#185's the-comedy-must-crack law).
+  ->  PORT 3 — THE BROKER'S FAIRNESS IS LEGIBLE [F2's law]
+      system: the Amalgamation / factions
+      If a soul-broker's terror is that he's always technically fair, the FAIRNESS is made legible in play — the dynast seeing every ruin was exactly what was asked — so the horror is "he kept his word," not "he's strong" (#175's the-price-must-be-legible law).
+  ->  PORT 4 — THE TRADED-AWAY FEELING ACHES [F3's law]
+      system: companions / the Amalgamation / the fold
+      If a character's tragedy is trading away feeling, the LOSS is glimpsed under the coldness — a moment where the inability to mourn is itself mournful — so pity is possible and the save-choice earned (#177's the-numbness-must-ache law).
+
+### #190  COME FLY WITH ME (A DEAD SPACE-CULT WORSHIPS A ROCKET THAT WILL NEVER FLY, AND YOU DECIDE WHERE THEIR FAITH GOES) (Fallout: New Vegas)
+  ->  PORT 1 — THE THROTTLE ON A DOOMED, UNVERIFIABLE FAITH [W1, W3, W6 — the core port]
+      system: the Amalgamation / the endings / factions
+      A Bohemia arc where a community's whole coherence rides on a faith aimed at a destination that CANNOT be verified — a promised afterlife, an exodus, a transcendence — and the dynast is handed the throttle: FUEL the doomed hope (agency honored, believers sent toward the uncheckable), GROUND it (lives saved, destination stolen), or EXPOSE it (respect as adults, structure shattered), no option purely
+  ->  PORT 2 — ALL THREE ENDINGS EQUALLY SUPPORTED [F1's law]
+      system: the endings / factions
+      If a quest offers fuel-ground-or-expose for a doomed faith, all three are equally SUPPORTED as real endings — each its own resolution and dignity — so the dilemma isn't secretly a single intended answer (#181's equal-outcomes law).
+  ->  PORT 3 — THE UNVERIFIABILITY IS OWNED [F2's law]
+      system: the Amalgamation / the endings
+      If a quest's power is an unverifiable destination, the ambiguity is FRAMED as the condition, not a gap — the un-checkability made legibly the point — so it reads as "you can't know and must choose anyway," not a cop-out (#182's the-ambiguity-must-be-owned law).
+  ->  PORT 4 — ONE BELIEVER IS KNOWN [F3's law]
+      system: factions / the endings / companions
+      If a choice decides a congregation's fate, at least one believer is KNOWN as a person — a specific hope on the line — so the stakes aren't an abstract crowd (#180's the-many-need-a-face law).
+
+### #191  THE HERETICS (REWRITE A RACE OF MACHINES TO BELIEVE, OR RESPECT THEIR RIGHT TO BE WRONG) (Mass Effect 2)
+  ->  PORT 1 — OVERWRITE A MIND OR END IT [W1, W3, W6 — the core port]
+      system: the Amalgamation / the conscience system / factions
+      A Bohemia choice where a faction of thinking beings chose a "wrong" belief, and the dynast can END them (dead but themselves, their choice their own) or REWRITE them (keep the bodies, overwrite the choosers with the "correct" belief) — with the quest refusing to call forced conversion a clean mercy, and no persuasion on offer. The Amalgamation's rewrite-the-dead machine (#34) fused with the consci
+  ->  PORT 2 — NO REWARD TILTS THE ETHICS [F1's law]
+      system: the conscience system / the Amalgamation
+      If a quest poses forced conversion vs destruction, no mechanical REWARD tilts it — the choice weighed on its ethics, not unit-count — so the soul-question isn't decided by a resource bonus (#178's the-conscience-isn't-a-stat-check law).
+  ->  PORT 3 — THE WRONG-BELIEVER SPEAKS [F2's law]
+      system: the Amalgamation / factions
+      If the question is whether to overwrite a being's chosen belief, that being VOICES the belief — even briefly, even alienly — so the right-to-be-wrong is a real party's claim, not an abstraction argued only by its opponent (#181's the-condemned-must-speak law).
+  ->  PORT 4 — THE CONSCIENCE SHOWS ITS STRAIN [F3's law]
+      system: companions / the conscience system
+      If a quest's conscience-figure is genuinely troubled, that TROUBLE is visible, not flattened into neutral option-presentation — so the player feels the weight rather than reading a balanced menu (#182's the-conscience-must-show-its-strain law).
+
+### #192  THE FORSWORN CONSPIRACY (PULL ONE THREAD IN A CLEAN CITY AND THE WHOLE FLOOR IS A MASS GRAVE) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE ORDERLY SURFACE OVER THE GRAVE [W1, W2, W3 — the core port]
+      system: the unrecorded ledger / factions / the power grid
+      A Bohemia city or faction whose prosperity, order, and law all rest on a buried dispossession — and the dynast who pulls the thread finds the "enemy" is the robbed, the powerful already know, and the reward for naming the foundation is to be buried with the wronged. The unrecorded-ledger's buried-foundation machine (#26) fused with who-the-law-serves; the clean surface as a lid on a grave, and the
+  ->  PORT 2 — THE RENAMED ENEMY'S VIOLENCE RECONCILED [F1's law]
+      system: factions / the unrecorded ledger
+      If a quest reframes an "enemy" as the dispossessed, it RECONCILES their present violence with that history — the brutality shown as a wrong unhealed, not erased — so the reframe survives contact with their deeds (#186's the-account-must-match-the-acts law).
+  ->  PORT 3 — PRESERVING THE LID COSTS [F2's law]
+      system: the unrecorded ledger / factions / the power grid
+      If a quest's truth is an order built on a buried crime, preserving the lid COSTS something visible — the grave's weight felt, not waved away — so restoring the clean surface isn't consequence-free (#182's the-lid-must-weigh law).
+  ->  PORT 4 — THE EXIT IMPLICATES THE PLAYER [F3's law]
+      system: factions / the unrecorded ledger
+      If a quest ends choosing between allying with the violent-wronged or preserving the unjust-clean, the COMPLICITY of either exit is surfaced — the dynast made to feel what their escape endorsed — so the choice isn't a consequence-free menu (#181's the-exit-implicates-you law).
+
+### #193  SINNERMAN (A MURDERER PAYS TO BE CRUCIFIED AND ASKS YOU TO HELP HIM MEAN IT) (Cyberpunk 2077)
+  ->  PORT 1 — THE ATONEMENT THAT IS ALSO SPECTACLE [W1, W4, W5 — the core port]
+      system: the conduct book / the Amalgamation / factions
+      A Bohemia arc where a guilty person seeks an extreme, sincere atonement and someone (a faction, the Amalgamation, a media power) turns it into monetized SPECTACLE — the sincere reckoning and the exploitation the same inseparable event — and the dynast is positioned as reverent-and-complicit witness, unable to extract the penance from the product or stand cleanly on either side. The conduct-book's 
+  ->  PORT 2 — THE EXPLOITER ISN'T CARTOONISH [F1's law]
+      system: factions / the conduct book
+      If a quest weighs a person's sincere choice against its exploitation, the exploiter isn't so cartoonish that it decides the question — the sincere claim kept as strong as the exploitation is ugly — so the dilemma stays balanced (#180's both-sides-articulated law).
+  ->  PORT 3 — THE PARTICIPATION IS LEGIBLE [F2's law]
+      system: the conduct book / the unrecorded ledger
+      If a quest's weight is the dynast's complicity in another's suffering, the DEGREE of participation is legible — the dynast knowing exactly what their presence does — so the reverence-complicity tension is sharp (#181's the-participation-must-be-legible law).
+  ->  PORT 4 — THE CHOOSER IS COMPETENT [F3's law]
+      system: the conduct book / companions
+      If a quest turns on a person's right to choose their own extreme suffering, that person's SOUNDNESS is established — sincere and competent, not dismissibly deluded — so the player can't dodge the right-to-atone question by declaring him incapable (#185's the-chooser-must-be-competent law).
+
+### #194  THE CAVE OF DREAMS (WALK BACK INTO YOUR OWN CHILDHOOD TO FIND THE ONE MEMORY THAT STILL LOVES YOU) (The Witcher 3: Wild Hunt)
+  ->  PORT 1 — THE WALK BACK THROUGH THE FORGE [W1, W2, W3 — the core port]
+      system: the mindscape (#135) / the fold / companions
+      A Bohemia mindscape quest where a character RE-ENTERS their own formative past as a walkable place — the rooms of the childhood that forged them, the guardian who loved and broke them in the same act — and must decide what to carry out (forgive the maker, reject them, or protect the one memory that still remembers being loved), knowing the walk changes them but never the past. The fold's inheritan
+  ->  PORT 2 — THE MEMORIES ARE SPECIFIC [F1's law]
+      system: the mindscape (#135) / the fold
+      If a quest walks a character through their own past, the memories are SPECIFIC — this room, this moment, this exact thing said — not generalized dream-symbol — so the wound is personal and particular (#135's the-mindscape-must-be-specific law).
+  ->  PORT 3 — LOVE AND HARM BOTH HELD [F2's law]
+      system: the fold / companions / the conscience system
+      If a quest frames a maker's cruelty as also love, it holds BOTH without dissolving one into the other — the love real, the harm real, neither excusing the other — so forgiveness is clear-eyed, not laundering (#186's the-deed-stays-real law).
+  ->  PORT 4 — THE PRESERVED MEMORY CARRIES WEIGHT [F3's law]
+      system: the fold / the mindscape / companions
+      If a character carries a preserved memory out of their past, the carrying has WEIGHT going forward — the protected self visibly changing later choices — so it's a thing kept, not a line read (#188's the-kept-thing-must-matter law).

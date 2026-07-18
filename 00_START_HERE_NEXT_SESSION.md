@@ -131,7 +131,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 104 of 150.** (Full-machine total 145; the
+   **INDIVIDUAL-QUEST COUNT: 110 of 150.** (Full-machine total 151; the
    rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -220,14 +220,30 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    full of children; the ledger read where it comes due, not rewritten),
    Pyramid Song (CP2077, Judy — the closeness and the goodbye are the
    same scene; a real connection offered once by someone correctly
-   leaving). **INDIVIDUAL-QUEST COUNT: 104 of 150.** 46 to go.
-   VEINS STILL DEEP: ME2 (the Sun/IFF, Legion's heretics), Witcher
-   (the Cave of Dreams, Iris von Everec/Hearts of Stone), FO4 (the
-   Nucleus, Kid in a Fridge), NV (Ghost Town Gunfight, I Could Make
-   You Care, Come Fly With Me), KOTOR (the Sand People, the rakghoul
-   serum), Skyrim (the Wolf Queen, the Forsworn Conspiracy), Disco
-   (the Deserter, Cuno, the Hardie Boys), Pathologic, CP2077 (the
-   Voodoo Boys, Sinnerman, Sam Bright/Riders on the Storm).
+   leaving). **INDIVIDUAL-QUEST COUNT: 104 of 150.**
+   BATCH 7 (7/18, #189-194): Heart of Stone (Witcher — a devil who
+   never cheats collects a soul-bargain that turns out to be a ruined
+   marriage; invulnerability cost the heart), Come Fly with Me (NV —
+   the throttle on a doomed faith aimed at a heaven no one can verify;
+   fuel/ground/expose), The Heretics (ME2, Legion — rewrite a race of
+   minds to agree or respect their right to be wrong; forced conversion
+   as murder), The Forsworn Conspiracy (Skyrim — pull one thread and
+   the clean city is a mass grave; the enemy is the robbed, the truth-
+   teller gets buried), Sinnerman (CP2077 — a murderer pays to be
+   crucified on stream; atonement and exploitation the same frame,
+   reverence and complicity inseparable), The Cave of Dreams (Witcher —
+   walk back into your own childhood forge; the past re-enterable, not
+   rewritable; the guardian loved and broke you in one act). **INDIVIDUAL-
+   QUEST COUNT: 110 of 150.** 40 to go.
+   VEINS STILL DEEP: ME2 (the Sun/IFF derelict, Samara/Morinth done,
+   Thane done), Witcher (the Whispering Hillock done, Ghosts of the
+   Past), FO4 (the Nucleus/Far Harbor, Kid in a Fridge, the Cabot done),
+   NV (Ghost Town Gunfight, I Could Make You Care, Beyond the Beef done),
+   KOTOR (the Sand People, the rakghoul serum, Korriban done), Skyrim
+   (the Wolf Queen Potema, the Daedric quests), Disco (the Deserter,
+   Cuno, the Hardie Boys), Pathologic (the three healers, the
+   Bull/Bachelor split), Fallout 3 (Tranquility Lane done, the Replicated
+   Man), CP2077 (the Voodoo Boys, Sam Bright/Riders on the Storm).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
