@@ -59,6 +59,30 @@ strongest input I can give you.
 === END PROMPT ===
 
 
+=== COOK BATCH 9 (7/18/26) — 4 fresh songs, horror FF, new voices + new topologies. ===
+NEW VOICES BORN (ledgered to owner song):
+- hollowvowl  -> THE ORGAN IN THE DROWNED CHAPEL (time-varying formant-vowel bank; 3 bandpass formants ramp ah->oo, choir dying mid-word)
+- wrongbox    -> THE BOX THAT COUNTS THE DEAD    (sample&hold pitch staircase; triangle tine jumps to tritone neighbors on a stepped clock)
+- shatterbell -> WHAT SHATTERED IN THE VAULT DOOR (granular grain-cloud bell; 16 windowed grains, inharmonic partials 1/2.01/3.76, deterministic detune spread)
+- gravechoir  -> THE SWELL BENEATH THE FLOOR     (downward notch-sweep phase-cancel swell; octave-stacked saws hollowed by a descending band-reject)
+VARIETY LAW (no two share scale+feel+kick):
+- THE ORGAN IN THE DROWNED CHAPEL  root48 scale[0,2,3,7,10]  feel half   kick[0,6]
+- THE BOX THAT COUNTS THE DEAD      root55 scale[0,1,4,6,9]   feel normal kick[0,4,10]
+- WHAT SHATTERED IN THE VAULT DOOR  root43 scale[0,3,5,6,10]  feel drive  kick[0,4,8,10]
+- THE SWELL BENEATH THE FLOOR       root50 scale[0,2,5,7,9]   feel half   kick[0,8,12]
+ENTRIES (verbatim):
+{n:'THE ORGAN IN THE DROWNED CHAPEL',acc:'#6a7a9a',root:48,scale:[0,2,3,7,10],wave:'sawtooth',kick:[0,6],bass:[0,7,10,7],hat:[4,12],inst:{b:'nightpad',l:'hollowvowl'},am:'dreadbed',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true,bt:9},
+{n:'THE BOX THAT COUNTS THE DEAD',acc:'#8a6a9a',root:55,scale:[0,1,4,6,9],wave:'triangle',kick:[0,4,10],bass:[0,4,9,6],hat:[2,6,10,14],inst:{b:'gonebox',l:'wrongbox'},am:'mistchoir',kit:{k:'knock',h:'clickh'},mel:'call',swing:0,feel:'normal',klay:'stabs',ff:true,nu:true,bt:9},
+{n:'WHAT SHATTERED IN THE VAULT DOOR',acc:'#9a3a4a',root:43,scale:[0,3,5,6,10],wave:'square',kick:[0,4,8,10],bass:[0,5,6,10],hat:[2,6,10,14],inst:{b:'ashchoir',l:'shatterbell'},am:'dreadbed',kit:{k:'punchk',h:'sizzle'},mel:'drive16',swing:0,feel:'drive',klay:'drums',ff:true,nu:true,bt:9},
+{n:'THE SWELL BENEATH THE FLOOR',acc:'#5a6a7a',root:50,scale:[0,2,5,7,9],wave:'sine',kick:[0,8,12],bass:[0,7,9,12],hat:[4,12],inst:{b:'gravechoir',l:'coldpiano'},am:'deadsat',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true,bt:9}
+SCREECH LAW: clean (no createDelay/feedback, every node excited-and-decaying). Gate: music_gate green.
+GATE BORN THIS COOK: gates/music_gate.py — the music laws named a _newvoice_gate.js that never
+  shipped to the repo. A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. Now it is: screech (no
+  createDelay), voice integrity (every b/l/am voice defined in synthV), new-voice-per-song and
+  scale+feel+kick variety per bt-tagged batch, graveyard-final (no new name reuses a buried one).
+  Wired into gates/bohemia_gates.py.
+
+
 === BOHEMIA MUSIC REPO (7/6/26) ===
 THE MUSIC SAVE FILE. ALPHA is a build; this file is the truth.
 Recovered from session transcripts 7/6/26 after the merge gap.

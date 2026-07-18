@@ -50,6 +50,8 @@ GATES = [
      'occupancy, beat, world clock', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
+    ('MUSIC',          ['python3', 'gates/music_gate.py'],
+     'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
      'structure frozen in every clip', True),
     ('PURITY',         ['python3', 'gates/bohemia_purity_gate.py'],
