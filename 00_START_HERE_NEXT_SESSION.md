@@ -651,6 +651,26 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## SUBURB — MODULAR, BOTH LEVELS (Paolo 7/18 eve: "houses + neighborhood must be modular")
+DONE + gated (gates/suburb_modular_gate.js, 14 checks; laws/BOHEMIA_ADDENDUM_MODULARITY_LAW):
+- HOUSE FACTORY: typed MODELS[] in engine/bohemia_suburb.js — varied width (13..21),
+  garage size + SIDE (L/R corner), and STORIES (2-story stamps inset upper floor code 9,
+  reads taller). Per-lot deterministic. No more clones.
+- STREET-AWARE + MERGE: generate(seed,{cw,ch,streets:['S','E',...]}). Gates ONLY on the
+  edges that face a street; a CORNER exits two streets; neighbor cells MERGE into a
+  connected cw x ch union (one wall, one network, gates scaled per edge — 2x1 = 2 gates
+  on the main street). ~19 homes 1x1, ~50 at 2x1, ~107 at 2x2. Old generate(seed,'ring',
+  cw,ch) still works.
+- Proof (STILL image, not walkable — Paolo: don't make me walk unless near-done):
+  tools/bohemia_suburb_modular_proof.py -> slices/BOHEMIA_SUBURB_MODULAR_PROOF.html.
+  Sent Paolo the screenshot. WALK CAMPANA slice still current + works with modular houses.
+WORKFLOW NOTE (Paolo 7/18 eve, LOCKED): do NOT spend tokens on walkable demos for him to
+judge unless a thing is ALMOST COMPLETE. Still top-down proof images are fine for progress.
+NEXT (mine, unblocked): fold into the FULL world model — overmap/bridge tells a residential
+cell which edges face streets + whether it merges with same-type neighbors, then calls
+generate() with those streets+shape; world().plot() returns correctly-gated varied homes.
+Then LIFE (agents move in).
+
 ## SUBURB — APPROVED + GRADUATED TO WALKABLE (Paolo 7/18 verdict: THE BLOCK is UP)
 VERDICT (records/BOHEMIA_SUBURB_VERDICT_BLOCK_APPROVED_7_18_26.txt): THE BLOCK (packed
 grid) UP = canonical suburb; the central cul-de-sac court DOWN = graveyard (post-mortem

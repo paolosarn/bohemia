@@ -30,8 +30,8 @@ var SUN=false, seedBase=7, verdict={}, comments={};
 // NOT an empty black hole), asphalt, stucco house, concrete driveway. No green,
 // no pool-blue. Everything is dead but the ground is still GROUND.
 function col(code){
-  if(SUN)return ['#c6bb9c','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c6bb9c','#c6bb9c'][code];
-  return ['#463f30','#3a3a44','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#463f30','#463f30'][code];
+  if(SUN)return ['#c6bb9c','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c6bb9c','#c6bb9c','#d6cbac'][code];
+  return ['#463f30','#3a3a44','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#463f30','#463f30','#b3a488'][code];
 }
 // dead-ground texture: three close dead-dirt shades keyed to the tile, so backyards
 // and yards read as cracked dead earth instead of void.

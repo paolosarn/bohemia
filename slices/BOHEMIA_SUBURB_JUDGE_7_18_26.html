@@ -41,14 +41,32 @@
   // house is the bulk; the driveway is tiny. Home faces the street (nx,ny),
   // backyard goes to the wall behind it.
   // GAP = Paolo's law: at worst 3 tiles of backyard AND 3 tiles between neighbors.
-  var DRIVE=3, DVW=4, HW=M(14), HD=M(9), GARW=M(5), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3, LOTW=M(14)+GAP;
-  function isHome(v){return v===2||v===3||v===6;}
+  var DRIVE=3, DVW=4, HD=M(9), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3;
+  // HOUSE FACTORY (Paolo 7/18: "the houses need to be modular, not all the same").
+  // Typed models: constant DEPTH (so rows still pack cleanly) but varied WIDTH,
+  // garage size, garage side, and STORIES. Two-story homes stamp an inset upper
+  // floor (code 9) so they read taller from the top-down world.
+  var MODELS=[
+    {id:'ranch',   w:M(14), gw:M(5), story:1},
+    {id:'twostory',w:M(11), gw:M(5), story:2},
+    {id:'compact', w:M(10), gw:M(4), story:1},
+    {id:'wide',    w:M(16), gw:M(6), story:1},
+    {id:'bigtwo',  w:M(13), gw:M(5), story:2}
+  ];
+  var MAXW=0; for(var _mi=0;_mi<MODELS.length;_mi++)MAXW=Math.max(MAXW,MODELS[_mi].w);
+  var LOTW=MAXW+GAP, SEED_CTX=1;                          // lot stride fits the widest model
+  function pickModel(x,y){var h=((x*73856093)^(y*19349663)^(SEED_CTX*2654435761))>>>0;
+    return {m:MODELS[h%MODELS.length], gar:(h>>4)&1};}    // deterministic model + garage side per lot
+  function isHome(v){return v===2||v===3||v===6||v===9;}
   function home(g,rx,ry,nx,ny){var px=-ny,py=nx;
-    var h0=-(HW>>1), garOff=h0+HW-GARW;                 // garage at one front corner
-    var dv=[],ga=[],bd=[],foot=[];
+    var sel=pickModel(rx,ry), HW=sel.m.w, GARW=sel.m.gw, story=sel.m.story;
+    var h0=-(HW>>1), garOff=sel.gar?(h0+HW-GARW):h0;      // garage on left OR right front corner
+    var dv=[],ga=[],bd=[],up=[],foot=[];
     for(var d=DRIVE+1;d<DRIVE+1+HD;d++)for(var w=h0;w<h0+HW;w++){
       var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0]; foot.push(c);
-      ((d<DRIVE+1+GARD && w>=garOff && w<garOff+GARW)?ga:bd).push(c);}
+      if(d<DRIVE+1+GARD && w>=garOff && w<garOff+GARW){ga.push(c);continue;}
+      var inset=(story===2 && d>=DRIVE+3 && d<DRIVE+HD-1 && w>h0+1 && w<h0+HW-2);
+      (inset?up:bd).push(c);}
     var dvOff=garOff+((GARW-DVW)>>1);
     for(var d2=1;d2<=DRIVE;d2++)for(var w2=dvOff;w2<dvOff+DVW;w2++){var c2=[(rx+nx*d2+px*w2)|0,(ry+ny*d2+py*w2)|0];dv.push(c2);foot.push(c2);}
     // footprint must sit on open land
@@ -66,7 +84,8 @@
         var wxx=fc[0]+wx,wyy=fc[1]+wy;
         if(wxx<0||wyy<0||wxx>=Wd(g)||wyy>=Ht(g))continue;
         if(g[wyy][wxx]===4)return false;}}
-    dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});bd.forEach(function(c){g[c[1]][c[0]]=2;});return true;}
+    dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});
+    bd.forEach(function(c){g[c[1]][c[0]]=2;});up.forEach(function(c){g[c[1]][c[0]]=9;});return true;}
   // even lot spacing along every road frontage (position-based, not a global counter)
   function fillHomes(g){var W=Wd(g),H=Ht(g);
     for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(g[y][x]!==1)continue;
@@ -116,41 +135,66 @@
   // EVERY frontage: both sides of every rung (top+bottom wall rows and all interior
   // rows), and the outer side of each rail (left+right wall columns). Nothing is left
   // as empty band; every home keeps its 3-tile dead backyard to the wall.
-  function denseFill(g,W,H,gx){
-    var back=RD+DRIVE+HD, R=back+5;                              // 23: house back stays >=4 tiles off the wall (3-tile dead yard)
-    var Lx=R, Rx=W-R, span=(H-R)-R;
-    var n=Math.max(2, Math.ceil(span/(2*back+2*GAP))+1);        // as many rung streets as fit with back-to-back yards
-    var ys=[]; for(var i=0;i<n;i++) ys.push(Math.round(R+span*i/(n-1)));
-    // ROADS FIRST: rails + rungs (a fully connected ladder, no dead ends), gate spoke.
+  // punch a GATE through a street-facing wall edge and run a spoke to the ladder,
+  // so the gate actually touches the street AND connects to the interior network.
+  function punchGate(g,edge,frac,W,H,rails){var i;
+    if(edge==='S'||edge==='N'){ var gx=Math.min(W-4,Math.max(3,Math.round(W*frac))), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
+      for(i=-3;i<=3;i++)if(gx+i>0&&gx+i<W-1)g[gy][gx+i]=5;
+      seg(g,gx,gy+dir,gx,(edge==='S')?rails.by:rails.ty,RD);
+      return {edge:edge,x:gx,y:gy}; }
+    var gy2=Math.min(H-4,Math.max(3,Math.round(H*frac))), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
+    for(i=-3;i<=3;i++)if(gy2+i>0&&gy2+i<H-1)g[gy2+i][gx2]=5;
+    seg(g,gx2+dir2,gy2,(edge==='E')?rails.rx:rails.lx,gy2,RD);
+    return {edge:edge,x:gx2,y:gy2}; }
+  // fill the whole union with the packed ladder + houses; gates only on street edges.
+  function denseFill(g,W,H,streets,gpe){
+    var back=RD+DRIVE+HD, R=back+5, Lx=R, Rx=W-R, Ty=R, By=H-R, i;
+    var span=By-Ty, n=Math.max(2, Math.ceil(span/(2*back+2*GAP))+1);
+    var ys=[]; for(i=0;i<n;i++) ys.push(Math.round(Ty+span*i/(n-1)));
+    // ROADS FIRST: rails + rungs (a fully connected ladder, no dead ends).
     seg(g,Lx,ys[0],Lx,ys[n-1],RD); seg(g,Rx,ys[0],Rx,ys[n-1],RD);
     for(i=0;i<n;i++) seg(g,Lx,ys[i],Rx,ys[i],RD);
-    seg(g,gx,H-4,gx,ys[n-1],RD);                                 // entrance from the gate to the bottom rung
-    // THEN houses, packing every frontage.
+    var rails={ty:ys[0],by:ys[n-1],lx:Lx,rx:Rx}, gates=[];
+    streets.forEach(function(edge){ var cnt=gpe[edge]||1;
+      for(var k=0;k<cnt;k++) gates.push(punchGate(g,edge,(k+1)/(cnt+1),W,H,rails)); });
+    // THEN houses, packing every frontage of the whole union.
     for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,Lx,Rx);
-    placeColOuter(g,Lx,-1,ys[0],ys[n-1]);                        // left wall column
-    placeColOuter(g,Rx, 1,ys[0],ys[n-1]);                        // right wall column
+    placeColOuter(g,Lx,-1,ys[0],ys[n-1]);
+    placeColOuter(g,Rx, 1,ys[0],ys[n-1]);
+    return gates;
   }
-  function generate(seed,style,cw,ch){
-    if(typeof style!=='string'){ch=cw;cw=style;style='ring';}   // back-compat
-    cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
-    var W=Wd(g),H=Ht(g);
-    for(var ci=0;ci<cw;ci++){ var gx=(SZ*ci+SZ/2)|0; denseFill(g,W,H,gx); }   // the one canonical block, packed
-
-    // NO BACKYARD FILL: Act 1 is a dead world. Water is not wasted on landscaping;
-    // there are no trees, no pools, no grass. Backyards are dead ground (code 0).
-    var houses=0;
-    for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++)if(g[yy][xx]===2&&g[yy-1][xx]!==2&&g[yy][xx-1]!==2)houses++;
-    return {g:g,W:W,H:H,houses:houses,cw:cw,ch:ch};
+  // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
+  // Gates go ONLY on street edges (a corner exits two streets; a 1x1 on one street has
+  // one gate on that street). Adjacent same-type cells MERGE into a 2x1/2x2 union: ONE
+  // perimeter wall, ONE connected network, gates scaled per street edge (a 2-wide main
+  // street gets 2 gates). API: generate(seed, {cw,ch,streets:['S','E']}); the old
+  // generate(seed,'ring',cw,ch) still works (defaults to a south street).
+  function generate(seed,a,b,c){
+    var opts={};
+    if(a&&typeof a==='object')opts=a;
+    else if(typeof a==='string'){opts.cw=b;opts.ch=c;}
+    else {opts.cw=a;opts.ch=b;}
+    var cw=opts.cw||1, ch=opts.ch||1, streets=opts.streets||['S'];
+    SEED_CTX=(seed>>>0)||1;
+    var g=blank(SZ*cw,SZ*ch), W=Wd(g), H=Ht(g), x, y;
+    // ONE perimeter wall around the whole union (gates punch through on street edges)
+    for(x=0;x<W;x++){g[0][x]=4;g[H-1][x]=4;} for(y=0;y<H;y++){g[y][0]=4;g[y][W-1]=4;}
+    var gpe={N:cw,S:cw,E:ch,W:ch};                              // gates scale with the edge's length
+    var gates=denseFill(g,W,H,streets,gpe);
+    var res={g:g,W:W,H:H,cw:cw,ch:ch,streets:streets,gates:gates};
+    res.houses=homeFootprints(res).length;
+    return res;
   }
   // building footprints (house bodies) for the world model: bounding box of each
   function homeFootprints(res){var g=res.g,W=res.W,H=res.H,seen={},out=[];
-    var d4=[[1,0],[-1,0],[0,1],[0,-1]];
-    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(g[y][x]!==2||seen[x+','+y])continue;
-      var st=[[x,y]];seen[x+','+y]=1;var x0=x,y0=y,x1=x,y1=y;
-      while(st.length){var p=st.pop();if(p[0]<x0)x0=p[0];if(p[1]<y0)y0=p[1];if(p[0]>x1)x1=p[0];if(p[1]>y1)y1=p[1];
+    var d4=[[1,0],[-1,0],[0,1],[0,-1]], body=function(v){return v===2||v===9;};
+    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){if(!body(g[y][x])||seen[x+','+y])continue;
+      var st=[[x,y]];seen[x+','+y]=1;var x0=x,y0=y,x1=x,y1=y,two=false;
+      while(st.length){var p=st.pop();if(g[p[1]][p[0]]===9)two=true;
+        if(p[0]<x0)x0=p[0];if(p[1]<y0)y0=p[1];if(p[0]>x1)x1=p[0];if(p[1]>y1)y1=p[1];
         for(var i=0;i<4;i++){var nx=p[0]+d4[i][0],ny=p[1]+d4[i][1],k=nx+','+ny;
-          if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&g[ny][nx]===2){seen[k]=1;st.push([nx,ny]);}}}
-      out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1});}
+          if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&body(g[ny][nx])){seen[k]=1;st.push([nx,ny]);}}}
+      out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1,story:two?2:1});}
     return out;}
   function roadConnected(res){var g=res.g,W=res.W,H=res.H,start=null,total=0;
     for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===1||c===5||c===3||c===6){total++;if(!start&&c===5)start=[x,y];}}
@@ -173,8 +217,8 @@ var SUN=false, seedBase=7, verdict={}, comments={};
 // NOT an empty black hole), asphalt, stucco house, concrete driveway. No green,
 // no pool-blue. Everything is dead but the ground is still GROUND.
 function col(code){
-  if(SUN)return ['#c6bb9c','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c6bb9c','#c6bb9c'][code];
-  return ['#463f30','#3a3a44','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#463f30','#463f30'][code];
+  if(SUN)return ['#c6bb9c','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c6bb9c','#c6bb9c','#d6cbac'][code];
+  return ['#463f30','#3a3a44','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#463f30','#463f30','#b3a488'][code];
 }
 // dead-ground texture: three close dead-dirt shades keyed to the tile, so backyards
 // and yards read as cracked dead earth instead of void.

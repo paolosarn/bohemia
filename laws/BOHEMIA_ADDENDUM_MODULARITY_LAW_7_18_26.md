@@ -77,3 +77,31 @@ LOTW apart); top + bottom rows back the walls; front yard + house + backyard per
 lot. Styles: grid (tract rows) / culs (rows + a cul-de-sac cross-street) / double
 (full grid). ~22-25 homes per block. The gate's SPACING + connectivity + garage/
 driveway checks still hold.
+
+## MODULARITY — IMPLEMENTED + LOCKED (Paolo 7/18/26, evening)
+Both levels are now real in engine/bohemia_suburb.js and gated (gates/suburb_modular_gate.js, 14 checks):
+
+HOUSE FACTORY (houses are not clones): typed MODELS[] — constant depth (rows still
+pack) but varied WIDTH (13..21 tiles), garage size, garage SIDE (left/right front
+corner), and STORIES. Two-story homes stamp an inset upper floor (grid code 9) so
+they read taller top-down. Each lot picks a model deterministically from (seed,x,y).
+Gate: a block must show 3+ distinct widths AND both one- and two-story present.
+
+STREET-AWARE NEIGHBORHOOD: generate(seed,{cw,ch,streets:[...]}). `streets` lists the
+UNION edges that face a road (N/S/E/W). Gates punch ONLY through street edges, each
+with a spoke to the interior ladder:
+ - ONE GRID on one street -> one gate on that street.
+ - CORNER (two street edges) -> exits BOTH streets.
+ - MERGE: adjacent same-type cells become a cw x ch UNION — ONE perimeter wall, ONE
+   connected rail+rung network, gates scaled per edge length (a 2-wide main street
+   gets 2 gates). 2x1 ~50 homes, 2x2 ~107 homes, all connected.
+Gate enforces: gates only on street edges, every street gets a gate, corner=2 edges,
+2x1=2 gates on the main street, plus connectivity at 1x1/corner/2x1/1x2/2x2.
+Old API generate(seed,'ring',cw,ch) still works (defaults to a south street).
+Proof (still, not walkable): slices/BOHEMIA_SUBURB_MODULAR_PROOF.html.
+
+WHAT COMES AFTER (the fold into the world model, mine/unblocked): the overmap/bridge
+must tell a residential cell which of its edges face streets (from the street grid)
+and whether it merges with same-type neighbors, then call generate() with those
+streets + shape. Then world().plot() over any residential cell returns a real,
+correctly-gated neighborhood of varied homes — and LIFE (agents) can move in.

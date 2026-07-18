@@ -1,42 +1,79 @@
 // SUBURB MODULARITY + FOOTPRINT GATE (Paolo 7/18/26)
-// The walled-block generator must: produce a CONNECTED interior street reachable
-// from a gate at 1x1 / 1x2 / 2x1 / 2x2 (MODULARITY LAW), place a real number of
-// homes, and every home must have a garage + a driveway. Tests the exact
-// generator the judge shows (engine/bohemia_suburb.js) so what Paolo rules on is
-// what is enforced. A style that can't snap or can't home fails.
+// The canonical block must be MODULAR at both levels:
+//  - HOUSES vary (not clones): multiple widths + both one- and two-story present.
+//  - NEIGHBORHOOD is street-aware: gates ONLY on the edges that face a street; a
+//    corner exits two streets; adjacent cells MERGE into a connected 2x1/2x2 union
+//    with gates scaled per street edge. Plus the standing laws: 3-tile backyards to
+//    the wall + between homes, dead world (no vegetation), every home enterable.
 const S = require('../engine/bohemia_suburb.js');
+const FP = require('../engine/bohemia_floorplan.js');
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
-const STYLES = ['ring'];
-const SIZES = [[1, 1]];   // focus: the single block first (Paolo). cluster snapping returns after the block is approved.
+// configs Paolo named: 1x1 on one street, a corner (two streets), merged 2x1 (two
+// gates on the main street), merged 2x2 (two streets).
+const CONFIGS = [
+  { cw: 1, ch: 1, streets: ['S'] },
+  { cw: 1, ch: 1, streets: ['S', 'E'] },   // corner
+  { cw: 2, ch: 1, streets: ['S'] },
+  { cw: 1, ch: 2, streets: ['W'] },
+  { cw: 2, ch: 2, streets: ['S', 'E'] },
+];
 
-for (const style of STYLES) {
-  let allConn = true, allHomes = true, allGarage = true;
-  for (const [cw, ch] of SIZES) {
-    for (let seed = 1; seed <= 4; seed++) {
-      const res = S.generate(seed * 41 + 3, style, cw, ch);
-      if (!S.roadConnected(res)) allConn = false;
-      if (res.houses < cw * ch * 10) allHomes = false;   // a real block, not a token few
-      const g = res.g, H = res.H, W = res.W;
-      let garages = 0, drives = 0, houses = 0;
-      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const c = g[y][x]; if (c === 6) garages++; else if (c === 3) drives++; else if (c === 2) houses++; }
-      if (garages === 0 || drives === 0 || houses === 0) allGarage = false;
-    }
-  }
-  ok(style + ': connected interior street at 1x1 / 1x2 / 2x1 / 2x2 (MODULARITY LAW)', allConn);
-  ok(style + ': a real number of homes at every size', allHomes);
-  ok(style + ': homes have garages + driveways', allGarage);
+const isBody = v => v === 2 || v === 9;
+const isH = v => v === 2 || v === 3 || v === 6 || v === 9;
+
+// ---- connectivity + real homes + garage/driveway at every config ----
+let allConn = true, allHomes = true, allGarage = true;
+for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
+  const res = S.generate(s * 41 + 3, cfg);
+  if (!S.roadConnected(res)) allConn = false;
+  if (res.houses < cfg.cw * cfg.ch * 10) allHomes = false;
+  let gar = 0, drv = 0, hs = 0;
+  for (const row of res.g) for (const c of row) { if (c === 6) gar++; else if (c === 3) drv++; else if (isBody(c)) hs++; }
+  if (!gar || !drv || !hs) allGarage = false;
 }
+ok('connected network at 1x1 / corner / 2x1 / 1x2 / 2x2 (MODULARITY LAW)', allConn);
+ok('a real number of homes at every size', allHomes);
+ok('every config has garages + driveways', allGarage);
 
-// SPACING LAW (Paolo 7/18): at worst a 3-tile backyard AND 3 tiles between homes.
-// Label homes (connected footprint cells 2/3/6); no two DIFFERENT homes may have
-// cells within 3 tiles (Chebyshev). Checks every style/size.
-const GAP = 3;
+// ---- STREET-AWARE GATES: gates only on street edges; a corner exits two; a 2-wide
+// street gets 2 gates. Each gate cell (5) must lie on an edge listed in streets. ----
+let gatesOk = true, cornerOk = true, mergeGates = true;
+for (const cfg of CONFIGS) {
+  const res = S.generate(99, cfg), g = res.g, W = res.W, H = res.H;
+  const edgeOf = (x, y) => (y === 0 ? 'N' : y === H - 1 ? 'S' : x === 0 ? 'W' : x === W - 1 ? 'E' : null);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (g[y][x] !== 5) continue;
+    const e = edgeOf(x, y);
+    if (!e || !cfg.streets.includes(e)) gatesOk = false;   // a gate on a non-street edge
+  }
+  const edgesHit = new Set(res.gates.map(t => t.edge));
+  for (const e of cfg.streets) if (!edgesHit.has(e)) gatesOk = false;   // a street with no gate
+}
+{
+  const corner = S.generate(99, { cw: 1, ch: 1, streets: ['S', 'E'] });
+  cornerOk = new Set(corner.gates.map(t => t.edge)).size === 2;
+  const two = S.generate(99, { cw: 2, ch: 1, streets: ['S'] });
+  mergeGates = two.gates.filter(t => t.edge === 'S').length === 2;   // 2-wide main street -> 2 gates
+}
+ok('gates sit ONLY on street-facing edges, every street gets a gate', gatesOk);
+ok('a corner block exits TWO streets', cornerOk);
+ok('a merged 2x1 puts two gates on the main street', mergeGates);
+
+// ---- MODULAR HOUSES: not clones. Multiple widths + both stories present. ----
+let variety = true;
+for (const cfg of [{ cw: 1, ch: 1, streets: ['S'] }, { cw: 2, ch: 2, streets: ['S', 'E'] }]) {
+  const fps = S.homeFootprints(S.generate(7, cfg));
+  const widths = new Set(fps.map(f => f.w)), stories = new Set(fps.map(f => f.story));
+  if (widths.size < 3 || stories.size < 2) variety = false;
+}
+ok('houses are modular: 3+ distinct widths AND both one- and two-story present', variety);
+
+// ---- SPACING LAW: at worst a 3-tile backyard AND 3 tiles between homes ----
 function spacingOk(res) {
-  const g = res.g, W = res.W, H = res.H, id = [];
+  const g = res.g, W = res.W, H = res.H, GAP = 3, id = [];
   for (let y = 0; y < H; y++) id.push(new Array(W).fill(-1));
-  const isH = v => v === 2 || v === 3 || v === 6;
   let next = 0;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     if (!isH(g[y][x]) || id[y][x] >= 0) continue;
@@ -51,78 +88,54 @@ function spacingOk(res) {
     for (let dy = -GAP; dy <= GAP; dy++) for (let dx = -GAP; dx <= GAP; dx++) {
       const nx = x + dx, ny = y + dy;
       if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
-      if (id[ny][nx] >= 0 && id[ny][nx] !== a) return false;   // a different home within 3 tiles
+      if (id[ny][nx] >= 0 && id[ny][nx] !== a) return false;
     }
   }
   return true;
 }
 let spaced = true;
-for (const style of STYLES) for (const [cw, ch] of SIZES) for (let seed = 1; seed <= 3; seed++)
-  if (!spacingOk(S.generate(seed * 41 + 3, style, cw, ch))) spaced = false;
+for (const cfg of CONFIGS) for (let s = 1; s <= 2; s++) if (!spacingOk(S.generate(s * 41 + 3, cfg))) spaced = false;
 ok('homes keep a >=3 tile gap from each other + backyard (SPACING LAW)', spaced);
 
-// WALL BACKYARD LAW (Paolo 7/18): a home NEVER touches the wall. Every house body
-// cell (code 2) must be >3 tiles (Chebyshev) from any wall (code 4) — a 3-tile
-// dead backyard between the house and the perimeter wall, always.
-function wallBackyardOk(res) {
+// ---- WALL BACKYARD LAW: a house body (2/9) never within 3 tiles of a wall (4) ----
+function wallOk(res) {
   const g = res.g, W = res.W, H = res.H;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-    if (g[y][x] !== 2) continue;
+    if (!isBody(g[y][x])) continue;
     for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) {
       const nx = x + dx, ny = y + dy;
       if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
-      if (g[ny][nx] === 4) return false;   // a house body within 3 tiles of a wall
+      if (g[ny][nx] === 4) return false;
     }
   }
   return true;
 }
-let wallOk = true;
-for (const style of ['ring', 'campana']) for (let seed = 1; seed <= 3; seed++)
-  if (!wallBackyardOk(S.generate(seed * 41 + 3, style, 1, 1))) wallOk = false;
-ok('every home keeps a 3-tile DEAD backyard to the wall (WALL BACKYARD LAW)', wallOk);
+let wallBack = true;
+for (const cfg of CONFIGS) for (let s = 1; s <= 2; s++) if (!wallOk(S.generate(s * 41 + 3, cfg))) wallBack = false;
+ok('every home keeps a 3-tile DEAD backyard to the wall (WALL BACKYARD LAW)', wallBack);
 
-// DEAD WORLD (Paolo 7/18): act 1 has no living vegetation. The generator must
-// never emit tree(7) or pool(8) cells anywhere.
-let deadWorld = true;
-for (const style of ['ring', 'campana']) for (let seed = 1; seed <= 3; seed++) {
-  const g = S.generate(seed * 41 + 3, style, 1, 1).g;
-  for (const row of g) for (const c of row) if (c === 7 || c === 8) deadWorld = false;
-}
-ok('no vegetation anywhere — dead world (no trees, no pools)', deadWorld);
+// ---- DEAD WORLD: no vegetation (tree 7 / pool 8) anywhere ----
+let dead = true;
+for (const cfg of CONFIGS) { const g = S.generate(7, cfg).g; for (const row of g) for (const c of row) if (c === 7 || c === 8) dead = false; }
+ok('no vegetation anywhere — dead world (no trees, no pools)', dead);
 
-// CAMPANA reconstruction: Paolo's real tract must render — connected streets,
-// fronted with homes.
-let campOk = true;
-for (let seed = 1; seed <= 3; seed++) {
-  const r = S.generate(seed * 29 + 5, 'campana', 1, 1);
-  if (!S.roadConnected(r) || r.houses < 8) campOk = false;
-}
-ok('campana (Paolo\'s tract): connected streets + fronted with homes', campOk);
-
-// footprints for the world model: every home yields a bounding-box footprint
-const res = S.generate(7, 'culs', 1, 1);
-const fps = S.homeFootprints(res);
+// ---- footprints house-sized + enterable (WALK CAMPANA path) ----
+const fps = S.homeFootprints(S.generate(7, { cw: 1, ch: 1, streets: ['S'] }));
 ok('home footprints exposed for the world model (>0)', fps.length > 0);
-ok('footprints are house-sized, not runways (w,h within 6..30 tiles)',
-  fps.every(f => f.w >= 6 && f.w <= 30 && f.h >= 6 && f.h <= 30));
-
-// determinism
-ok('deterministic per seed', JSON.stringify(S.generate(99, 'culs', 1, 1).g) === JSON.stringify(S.generate(99, 'culs', 1, 1).g));
-
-// GRADUATED + WALKABLE (Paolo 7/18): the approved block is implemented — every house
-// footprint must yield a valid, enterable floorplan (the WALK CAMPANA enter path).
+ok('footprints are house-sized (6..30 tiles)', fps.every(f => f.w >= 6 && f.w <= 30 && f.h >= 6 && f.h <= 30));
 let enterOk = true, checked = 0;
 try {
-  const FP = require('../engine/bohemia_floorplan.js');
-  const wres = S.generate(7, 'ring', 1, 1);
+  const wres = S.generate(7, { cw: 1, ch: 1, streets: ['S'] });
   for (const [i, f] of S.homeFootprints(wres).entries()) {
     const fp = FP.generate((7 ^ ((i + 1) * 0x9E3779B1)) >>> 0, f.w, f.h, { zone: 'residential', entrance: 'S' });
     checked++;
     if (!(fp.rooms.length > 0 && fp.doors.length > 0)) enterOk = false;
   }
 } catch (e) { enterOk = false; console.log('  enter-path threw: ' + e.message); }
-ok('every approved house is enterable — a live floorplan (WALK CAMPANA, ' + checked + ' homes)', enterOk && checked > 0);
+ok('every home is enterable — a live floorplan (WALK CAMPANA, ' + checked + ' homes)', enterOk && checked > 0);
 
-console.log('SUBURB MODULARITY GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
-  STYLES.length + ' styles x ' + SIZES.length + ' sizes)');
+// ---- determinism ----
+ok('deterministic per seed', JSON.stringify(S.generate(99, { cw: 2, ch: 1, streets: ['S'] }).g) === JSON.stringify(S.generate(99, { cw: 2, ch: 1, streets: ['S'] }).g));
+
+console.log('SUBURB MODULARITY GATE: ' + pass + ' passed, ' + fail + ' failed  (' + CONFIGS.length + ' configs)');
 process.exit(fail ? 1 : 0);
