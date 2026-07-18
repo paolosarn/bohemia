@@ -127,3 +127,16 @@ FIX: in back views (N/NE/NW) the hood covers the lower skull + nape as one solid
 bunch (face stays untouchable). Probe now scans the collar band with NO head
 whitelist: N/NE/NW CLEAN. E/W show only the visible jaw/cheek -- correct, a
 down-hood does not cover the head from the side.
+
+--- HOODIE-SKIN, THE REAL ONE: THE CREW-NECK CARVE (7/18/26) ---
+After the render-order fix and the back-hole fix, skin STILL showed. Two lessons:
+1. MY PROBES WERE LYING: they called buildFrame directly with a capture-only
+   preview hook -- which renders a DIFFERENT image than the preview canvas (no
+   garment, PD outfit still equipped). Every "CLEAN" verdict was measured on the
+   wrong pixels. New law for me: verify ONLY on the real preview canvas.
+2. THE ACTUAL LEAK: genTop carves a small crew-NECK HOLE in the torso top (skin
+   at the throat -- intentional for shirts) and the hoodie inherited that carve
+   in every facing. Those torso pixels showing skin were the patch in all of
+   Paolo's screenshots. FIX: for neck:'hood' the collar FILLS the hole (no carve)
+   + the collar covers the whole neck part. Canvas probe (per-row skin counts,
+   sandwich detector): ALL 8 facings clean -- head+chin only, then solid fabric.
