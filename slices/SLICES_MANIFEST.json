@@ -1,0 +1,14 @@
+{
+  "version": "BOHEMIA_SLICES_MANIFEST_v1",
+  "note": "Single source of truth for the alpha's live-slice section. The alpha points at ONE stable URL (BOHEMIA_CURRENT_SLICE.html); this manifest decides which slice that URL shows. Update the slice = bump 'current' + regen the loader (python3 tools/bohemia_slice_host.py). The alpha itself never changes. 'entries' stays short until the game ships, then it can become a real catalog.",
+  "current": "v12",
+  "entries": [
+    {
+      "id": "v12",
+      "title": "THE STREETS — V12",
+      "file": "BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
+      "date": "2026-07-18",
+      "note": "Every tile native-baked, zero overlay. Four canonical cells from seed 12345 — markings, wrecked cars, fire barrels and dead lamps baked into the ground. Walk it; day/night runs live over the baked world."
+    }
+  ]
+}

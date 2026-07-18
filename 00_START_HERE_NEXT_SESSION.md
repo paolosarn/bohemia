@@ -207,6 +207,19 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    moves (you, survivors, the sun). NEXT for the bake track: plot/building
    strips (HOUSE_FACTORY_BANK) are the expansion when Paolo gives plot
    canon — the current four cells needed none.
+   LIVE-SLICE HOSTING (7/18, Paolo asked how to host slices in the alpha
+   organically): the alpha's menu is a TAB BAR (char/anim/rig/combat/
+   music/city). The design: ONE new tab points at a STABLE URL,
+   slices/BOHEMIA_CURRENT_SLICE.html, and slices/SLICES_MANIFEST.json
+   decides which slice it shows (current pointer + a short entries list,
+   catalog-ready but no catalog until the game ships). Updating the slice
+   = bump the manifest + rerun tools/bohemia_slice_host.py; the 31MB alpha
+   NEVER changes again. Loader built + verified (card in the alpha's style,
+   ENTER loads the slice full-bleed + BACK bar, 0 errors). [PENDING, alpha
+   session — ONE-ALPHA: music is currently on the alpha]: add the single
+   tab (<div class="tab" data-p="NAME">NAME</div> + an iframe panel to
+   BOHEMIA_CURRENT_SLICE.html). Tab NAME is Paolo's call (proposed: THE
+   STREETS / WORKSHOP / SLICE).
 2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
