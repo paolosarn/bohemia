@@ -21,7 +21,7 @@
   function hLine(g,x0,x1,y,c,w){for(var x=x0;x<=x1;x++)for(var d=0;d<(w||1);d++)if(inb(x,y+d))g[y+d][x]=c;}
   function vLine(g,y0,y1,x,c,w){for(var y=y0;y<=y1;y++)for(var d=0;d<(w||1);d++)if(inb(x+d,y))g[y][x+d]=c;}
 
-  var MARGIN=2, SERVLANE=M(4), STOREDEEP=M(11), SIDE=2, DOOR=M(6);
+  var MARGIN=2, SERVLANE=M(4), STOREDEEP=M(20), SIDE=2, DOOR=M(6);   // stores twice as deep (Paolo 7/18)
   var ROW=4, AISLE=4;                          // BOHEMIA_PARKING_LAW: stall 4 deep, aisle 4
   var BAND=SERVLANE+STOREDEEP+SIDE;            // property line -> parking edge
 
@@ -51,24 +51,28 @@
         pR=W-1-MARGIN-(back.E?BAND:0), pB=H-1-MARGIN-(back.S?BAND:0);
     if(isS('S'))pB-=SIDE; if(isS('N'))pT+=SIDE; if(isS('E'))pR-=SIDE; if(isS('W'))pL+=SIDE;
 
-    // --- STORE STRIPS: [service alley][store][sidewalk], back doors onto the alley ---
-    function strip(edge){
-      if(edge==='N'){ var s0=MARGIN+SERVLANE, f0=s0+STOREDEEP;
-        rect(g,MARGIN,MARGIN,W-1-MARGIN,s0-1,8);
-        rect(g,MARGIN,s0,W-1-MARGIN,f0-1,2);
-        hLine(g,MARGIN,W-1-MARGIN,f0,6,SIDE);
-        for(x=MARGIN+3;x<W-MARGIN;x+=DOOR){ if(inb(x,s0))g[s0][x]=9; if(inb(x,f0-1))g[f0-1][x]=7; } }
-      else if(edge==='W'){ var s0=MARGIN+SERVLANE, f0=s0+STOREDEEP;
-        rect(g,MARGIN,MARGIN,s0-1,H-1-MARGIN,8);
-        rect(g,s0,MARGIN,f0-1,H-1-MARGIN,2);
-        vLine(g,MARGIN,H-1-MARGIN,f0,6,SIDE);
-        for(y=MARGIN+3;y<H-MARGIN;y+=DOOR){ if(inb(s0,y))g[y][s0]=9; if(inb(f0-1,y))g[y][f0-1]=7; } }
+    // --- STORE L: a CONTINUOUS service-alley L wraps the back property corner, the
+    // store L sits inside it (each strip starts one alley-width in from the OTHER back
+    // edge, so the alley never gets walled off — the top-left-connection fix). ---
+    var aT=MARGIN+SERVLANE, fT=aT+STOREDEEP;   // top strip: alley-end row, store-front row
+    var aL=MARGIN+SERVLANE, fL=aL+STOREDEEP;   // left strip: alley-end col, store-front col
+    if(back.N){
+      rect(g,MARGIN,MARGIN,W-1-MARGIN,aT-1,8);                          // top service alley (full width)
+      var nx0=back.W?aL:MARGIN, nsw0=back.W?fL:MARGIN;                  // store + sidewalk start clear of the left strip
+      rect(g,nx0,aT,W-1-MARGIN,fT-1,2);
+      hLine(g,nsw0,W-1-MARGIN,fT,6,SIDE);
+      for(x=nsw0+3;x<W-MARGIN;x+=DOOR){ if(inb(x,aT))g[aT][x]=9; if(inb(x,fT-1))g[fT-1][x]=7; }
     }
-    if(back.N)strip('N'); if(back.W)strip('W');
-    // service connector: the rear alley drives around the building END into the parking
-    // (clears the store to the edge so no tiny sliver is left behind).
-    if(back.N){ var cx=W-1-MARGIN-SERVLANE; rect(g,cx,MARGIN,W-1-MARGIN,pT-1,8); }
-    if(back.W){ var cy=H-1-MARGIN-SERVLANE; rect(g,MARGIN,cy,pL-1,H-1-MARGIN,8); }
+    if(back.W){
+      rect(g,MARGIN,MARGIN,aL-1,H-1-MARGIN,8);                          // left service alley (full height)
+      var wy0=back.N?aT:MARGIN, wsw0=back.N?fT:MARGIN;
+      rect(g,aL,wy0,fL-1,H-1-MARGIN,2);
+      vLine(g,wsw0,H-1-MARGIN,fL,6,SIDE);
+      for(y=wsw0+3;y<H-MARGIN;y+=DOOR){ if(inb(aL,y))g[y][aL]=9; if(inb(fL-1,y))g[y][fL-1]=7; }
+    }
+    // service connector: each alley END drives around the building into the parking.
+    if(back.N){ rect(g,W-1-MARGIN-SERVLANE,MARGIN,W-1-MARGIN,pT-1,8); }
+    if(back.W){ rect(g,MARGIN,H-1-MARGIN-SERVLANE,pL-1,H-1-MARGIN,8); }
 
     // --- PARKING (fronts the streets) ---
     parkField(g,pL,pT,pR,pB);
@@ -79,11 +83,11 @@
     // --- GAS STATION pad in the street corner (needs two streets) ---
     var gas=null;
     if(isS('S')&&isS('E')){
-      var gw=M(16), gh=M(15), gx0=pR-gw, gy0=pB-gh;
+      var gw=M(24), gh=M(22), gx0=pR-gw, gy0=pB-gh;             // twice as big (Paolo 7/18)
       rect(g,gx0,gy0,pR,pB,1);                                  // clear to asphalt
-      rect(g,gx0+2,gy0+2,pR-2,gy0+2+M(6),10);                   // canopy
-      for(var pmp=gx0+4; pmp<pR-3; pmp+=4) vLine(g,gy0+4,gy0+6,pmp,11,1);   // pump islands
-      rect(g,gx0+2,pB-M(6),gx0+2+M(8),pB-1,2);                  // kiosk (mini-mart)
+      rect(g,gx0+2,gy0+2,pR-2,gy0+2+M(9),10);                   // canopy
+      for(var pmp=gx0+5; pmp<pR-4; pmp+=5) vLine(g,gy0+5,gy0+9,pmp,11,1);   // pump islands
+      rect(g,gx0+2,pB-M(9),gx0+2+M(12),pB-1,2);                 // kiosk (mini-mart)
       gas={x:gx0,y:gy0,w:gw,h:gh};
     }
 
