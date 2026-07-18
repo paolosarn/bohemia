@@ -208,9 +208,22 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    street cells) and blocked every wrecked-car footprint on the road ->
    no signals + invisible walls. FIX: show the CONTENT he cares about
    (the intersection + our stoplights) and only block real posts.
-   THE THESIS still holds (bake IS the world, zero overlay). NEXT for the
-   bake track: plot/building strips (HOUSE_FACTORY_BANK) when Paolo gives
-   plot canon.
+   THE THESIS still holds (bake IS the world, zero overlay).
+   THE MOJAVE RENDERS (7/18): the desert around dead Vegas now bakes.
+   tools/bohemia_desert_extract.py -> banks/BOHEMIA_DESERT_POOLS_7_18_26
+   .txt (seamless-certified pale-sand ground from GROUND_SEAMLESS_SET's
+   "Soil and dirt tiles" + HD rocks + rubble, corpus art no canon), and
+   bake_factory --desert renders the engine's procedural desert block
+   (24x14: sand + scattered rocks/rubble + a soft radial scorch scar).
+   GRID-KILL LESSON: raw HD ground tiles have dark borders -> tiling them
+   grids/checkerboards; fix = crop the inner ~78% past the border + use
+   ONE sand tile with per-cell flip + gentle tone jitter (mixing 8
+   variants made a checkerboard). Proof: slices/BOHEMIA_V12_DESERT_PROOF_
+   7_18_26.png. Desert + mountain are the UN-gated wilderness types (no
+   pending art); wash/solar/farm/airfield still need cooked art. NEXT for
+   the bake track: plot/building strips (HOUSE_FACTORY_BANK) when Paolo
+   gives plot canon; the desert can become a walkable slice or feed the
+   overmap whenever wanted.
    LIVE-SLICE HOSTING (7/18, Paolo asked how to host slices in the alpha
    organically): the alpha's menu is a TAB BAR (char/anim/rig/combat/
    music/city). The design: ONE new tab points at a STABLE URL,

@@ -106,7 +106,101 @@ console.log(JSON.stringify({H:b.H,meta:b.meta,grid}));
     return json.loads(r.stdout)
 
 
+def bake_desert(seed=None):
+    """The Mojave around dead Vegas: seamless sand ground + scattered rocks,
+    rubble and a scorch, all from the engine's procedural desert block. No
+    markings, no lanes — open wasteland. (World-building, no map canon:
+    the engine places the props procedurally, Claude only renders them.)"""
+    sd = SEED if seed is None else seed
+    js = """
+const G=require('./engine/bohemia_blockgen.js');
+const b=G.generate('desert',%d,24,{});
+const grid=[];
+for(let y=0;y<b.H;y++){const row=[];
+ for(let x=0;x<24;x++){const c=b.grid[y][x];
+  row.push({g:c.g,props:(c.props||[]).map(p=>({p:p.p,w:p.w||1,h:p.h||1}))});}
+ grid.push(row);}
+console.log(JSON.stringify({H:b.H,grid}));
+""" % sd
+    r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
+    if r.returncode != 0:
+        fail('engine: ' + r.stderr[:300])
+    blk = json.loads(r.stdout)
+    H = blk['H']
+    D = json.load(open('banks/BOHEMIA_DESERT_POOLS_7_18_26.txt'))
+    # ground: ONLY the clean pale-sand tiles (idx 3 then 2); mixing all 8 made
+    # a checkerboard. Per-cell flip/rotate + tone jitter breaks the grid so a
+    # single tile reads as a continuous Mojave field, not repeated stamps.
+    def crop_center(im):
+        # drop the tile's dark frame so tiling shows no grid: crop the inner
+        # 78% then resize up to T
+        w, h = im.size
+        m = int(min(w, h) * 0.11)
+        return im.crop((m, m, w - m, h - m)).resize((T, T))
+    sand = [crop_center(img_of(D['ground'][i])) for i in (3, 2) if i < len(D['ground'])]
+    rocks, rubble = D['rock'], D['rubble']
+    base_arr = np.zeros((H * T, 24 * T, 3), dtype=np.uint8)
+    for y in range(H):
+        for x in range(24):
+            rr = rng((sd ^ (x * 73856093) ^ (y * 19349663) ^ 0xDE5E) & 0xffffffff)
+            tile = sand[0] if rr() < 0.8 else sand[-1]
+            op = int(rr() * 4)
+            if op == 1: tile = tile.transpose(Image.FLIP_LEFT_RIGHT)
+            elif op == 2: tile = tile.transpose(Image.FLIP_TOP_BOTTOM)
+            elif op == 3: tile = tile.rotate(180)
+            ta = np.asarray(tile.convert('RGB')).astype(int)
+            ta = np.clip(ta * (0.96 + 0.06 * rr()), 0, 255)   # gentle jitter only
+            base_arr[y * T:(y + 1) * T, x * T:(x + 1) * T] = ta.astype(np.uint8)
+    out = Image.fromarray(base_arr)
+    # scorch scars: a soft radial burn (dark center fading out), not a hard
+    # black square
+    arr = np.asarray(out).copy()
+    for y in range(H):
+        for x in range(24):
+            for p in blk['grid'][y][x]['props']:
+                if p['p'] != 'scorch_patch':
+                    continue
+                for yy in range(T):
+                    for xx in range(T):
+                        dx, dy = (xx - T / 2) / (T / 2), (yy - T / 2) / (T / 2)
+                        d = (dx * dx + dy * dy) ** 0.5
+                        if d < 1.0:
+                            f = 0.4 + 0.6 * d          # dark center -> edge
+                            px = arr[y * T + yy, x * T + xx].astype(float)
+                            arr[y * T + yy, x * T + xx] = np.clip(px * f, 0, 255)
+    outa = Image.fromarray(arr).convert('RGBA')
+    for y in range(H):
+        for x in range(24):
+            rr = rng((sd ^ (x * 2654435761) ^ (y * 40503) ^ 0xF00D) & 0xffffffff)
+            for p in blk['grid'][y][x]['props']:
+                pool = rocks if p['p'] == 'rock' else rubble if p['p'] == 'rubble' else None
+                if pool is None:
+                    continue
+                art = img_of(pool[int(rr() * len(pool)) % len(pool)], 'RGBA')
+                dh = int(T * (0.9 if p['p'] == 'rock' else 0.75))
+                dw = round(art.width * dh / art.height)
+                art = art.resize((dw, dh), Image.NEAREST)
+                outa.alpha_composite(art, (x * T + T // 2 - dw // 2, (y + 1) * T - dh - 2))
+    out = outa.convert('RGB')
+    a = np.asarray(out).astype(int)
+    purple = ((a[..., 2] > 100) & (a[..., 0] > 80) & (a[..., 1] < 70) &
+              (a[..., 2] - a[..., 1] > 50) & (a[..., 0] - a[..., 1] > 30)).sum()
+    if purple:
+        fail('PURPLE in the desert bake (%d px)' % purple)
+    png = 'slices/BOHEMIA_V12_DESERT_PROOF_7_18_26.png'
+    out.save(png)
+    props = {}
+    for row in blk['grid']:
+        for c in row:
+            for p in c['props']:
+                props[p['p']] = props.get(p['p'], 0) + 1
+    print('desert baked: 24x%d, props=%s -> %s' % (H, json.dumps(props), png))
+
+
 def main():
+    if sys.argv[1] == '--desert':
+        bake_desert()
+        return
     if sys.argv[1] == '--intersection':
         mode = sys.argv[4] if len(sys.argv) > 4 else 'mixed'
         bake_intersection(int(sys.argv[2]), int(sys.argv[3]), corner_mode=mode)
