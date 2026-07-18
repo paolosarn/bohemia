@@ -145,16 +145,23 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    tools/bohemia_questbook_extract.py N N ...` (masters) -> gate -> commit.
    The .bq @TALK format that parses clean: @TALK id speaker=X entry=Y /
    @SAY / @OPT "..." [gate: none] -> target / @NOVERB "..." / @END.
-   BATCH 1 (7/17, #153-158): A Night to Remember (Skyrim, blackout
-   reconstruction), Cidhna Mine (Skyrim, the city that framed you),
-   Nature of the Beast (DA:O, the curse is a wound), Anvil of the Void
-   (DA:O, the Amalgamation IS an Anvil), the Ardat-Yakshi (ME2, kill your
-   daughter or be seduced), Happy Together (CP2077, talk him down or
-   fail). 76 more individual quests to 150. RICH UNMINED VEINS in the
-   catalogue: Skyrim (Whispering Door, Blood on the Ice, Boethiah done),
-   BG3 (Auntie Ethel, House of Grief), ME2 loyalty missions (Thane,
-   Mordin, Jack, Zaeed), DA:O (Broken Circle, Urn of Sacred Ashes),
-   Witcher contracts, Fallout 4 (Silver Shroud, Cabot House), NV, KOTOR.
+   BATCH 1 (7/17, #153-158): A Night to Remember (Skyrim), Cidhna Mine
+   (Skyrim), Nature of the Beast (DA:O), Anvil of the Void (DA:O), the
+   Ardat-Yakshi (ME2), Happy Together (CP2077).
+   BATCH 2 (7/17, #159-164): The Whispering Door (Skyrim, grief farmed
+   into a blade), Blood on the Ice (Skyrim, the whodunit the town won't
+   investigate), Auntie Ethel (BG3, the honest-devil with a kindly face),
+   Mordin/the Genophage (ME2/3, the scientist who can undo his atrocity),
+   The Silver Shroud (FO4, the costume that becomes real), Cabot House
+   (FO4, immortality that runs on a prisoner = the Amalgamation in a
+   mansion). **INDIVIDUAL-QUEST COUNT: 80 of 150.** 70 more to go.
+   STILL-RICH VEINS: BG3 (House of Grief/Shar, the Gauntlet, Karlach),
+   ME2 loyalty (Thane, Jack, Zaeed, Grunt, Legion done), DA:O (Broken
+   Circle, Urn of Sacred Ashes, the Golems of Amgarrak), Witcher
+   contracts + Hearts of Stone beats, Fallout 4 (Kid in a Fridge, the
+   USS Constitution), NV (Ghost Town Gunfight, I Put a Spell on You),
+   KOTOR (Korriban, the Leviathan), Skyrim (Boethiah done, the Wolf
+   Queen, Forbidden Legend), Planescape (Ravel, the Pillar of Skulls).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.

@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
-1587 findings / 158 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]
+1647 findings / 164 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3491,3 +3491,135 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Sometimes letting the pause hold reaches Barry better than any line — the game honors listening over speaking, the rarest dialogue-design humility.
   W10 THE OUTCOME IS QUIET EITHER WAY
       Saved, you learn it without fanfare; lost, you learn it as an absence. The refusal to celebrate or mourn loudly is what makes it feel like a real life, not a game beat.
+
+### #159  THE WHISPERING DOOR (A FATHER'S GRIEF, WEAPONIZED) (The Elder Scrolls V: Skyrim)
+  W1  THE FEEDSTOCK IS ORDINARY LOVE
+      Not a grand evil — a father's worry for his kids and a household's small resentments, farmed by something patient. The horror is domestic, which is what makes it land.
+  W2  THE PRINCE IS HONEST
+      Mephala, the Prince of lies, states the terms plainly; the Blade's price is clear. The horror is not deception — it is that the harvest's logic is offered openly and the player takes it anyway.
+  W3  THE REWARD IS THE THESIS
+      The Ebony Blade IS the quest's idea in your hand: trust converted to power, the same logic that farmed the family, now yours to run.
+  W4  THE HARVEST IS AN ECONOMY
+      Grief, love, secrets, resentments treated as a resource with a refinement process and a payout — emotion as feedstock, which is the Amalgamation's whole logic in miniature.
+  W5  THE DOOR IS A THRESHOLD OF KNOWING
+      The locked, whispering door is the family's unspoken problem made architecture; opening it is choosing to know what a father was afraid to.
+  W6  THE CHILDREN KEEP THE RICHEST SOIL
+      Mephala farms the young because secrets live longest in them — a quietly awful observation about where a household's poisons are stored.
+  W7  THE TERMS ARE CLEAR AND TAKEN ANYWAY
+      The player is not tricked; the Blade's price is stated. The complicity is chosen with full information, which is worse than being fooled.
+  W8  THE QUEST IS QUIET
+      No dragon, no army — a locked door and a worried dad. The scale is the point: the most patient harvests are the ones nobody would call an emergency.
+  W9  THE TOOL CAN BE STARVED
+      The player can take the Blade and refuse to feed it — declining the harvest while holding the option, a small honest choice the game respects.
+  W10 THE LOGIC OUTLASTS THE QUEST
+      The Ebony Blade rides in the inventory forever, a permanent invitation to run the harvest — the quest hands the player a standing temptation, not a closed story.
+
+### #160  BLOOD ON THE ICE (THE MURDER THE TOWN WON'T INVESTIGATE) (The Elder Scrolls V: Skyrim)
+  W1  THE INSTITUTION HAS ABDICATED
+      The guards log bodies and move on; the court is distracted; the city has decided this isn't its problem. The player fills a vacuum the whole apparatus created — the truest depiction of justice-by-default.
+  W2  IT IS A REAL WHODUNIT WITH A WRONG ANSWER
+      Two suspects, evidence to weigh, and a genuine failure state — accuse wrong and the killer strikes again. Deduction with a cost, not a corridor.
+  W3  THE TRAP IS REPUTATION VERSUS EVIDENCE
+      The obvious suspect (creepy mage) is innocent; the respectable helper is guilty. The quest tests whether the player reads clues or vibes — the whole point of detection.
+  W4  THE KILLER HIDES IN CIVIC CONCERN
+      Calixto is the Butcher wearing helpfulness — the most unsettling disguise, because the player is inclined to trust the one offering to assist.
+  W5  THE MISDIRECTED SUSPECT IS THE BEST WITNESS
+      Wuunferth, the man the city wants to blame, is the one who can name the real method — listening to the reviled beats jailing him.
+  W6  THE CORRECT PATH HAS AN UGLY COST
+      Catching Calixto means using the next victim as bait — justice in an abdicated city is done with the only tools available, and they're grim.
+  W7  THE COLD CITY IS THE SETTING AND THE THEME
+      Windhelm's cruelty, war-distraction, and indifference aren't backdrop — they're WHY the murders go uninvestigated, the setting as the crime's enabler.
+  W8  THE FAILURE IS QUIET
+      No fanfare when you get it wrong — just another body and a falsely closed case. The unceremonious failure mirrors the city's unceremonious indifference.
+  W9  THE STAKES ARE ORDINARY AND REAL
+      Not a dragon or a Prince — murdered women in a graveyard, a killer among the citizens. The mundanity is what makes the indifference damning.
+  W10 THE PLAYER IS THE ONLY JUSTICE
+      Everything hinges on one stranger choosing to look; the quest's whole weight is that a functioning city can contain a serial killer and simply not care, until someone does.
+
+### #161  AUNTIE ETHEL (THE BARGAIN THAT COSTS YOU AN EYE) (Baldur's Gate 3)
+  W1  THE MONSTER IS A GRANDMOTHER
+      Ethel arrives as folksy warmth, not menace — the most disarming disguise, because the player wants to trust the maternal voice offering help.
+  W2  THE OFFER IS HONEST
+      She does not lie about the eye; the help is real and the price is real. The horror is the #126 honest-devil: fair terms, permanent cost, taken with full knowledge.
+  W3  THE PRICE IS YOUR BODY, FOREVER
+      Not gold, not a favor — a piece of you, visible, permanent. The bargain is written on the character's face for the rest of the game.
+  W4  THE AFFLICTION MAKES THE PRICE THINKABLE
+      The parasite is real and frightening, so a permanent mutilation becomes a genuine temptation — pressure is what turns a monstrous price into a considered one.
+  W5  REFUSAL CRACKS THE DISGUISE
+      Saying no reveals the hag beneath the auntie — the sweet voice was the lure, and declining is what shows you the monster.
+  W6  THE CAPTIVE IS THE FUTURE YOU'RE PREVENTING
+      Mayrina, groomed toward becoming the next hag, is what the player is fighting to stop — a griever being made into her captor, the horror of the cycle.
+  W7  THE FIGHT WEAPONIZES MERCY
+      Ethel wears innocent faces and holds the hostage; the player's reluctance to harm becomes her armor — combat that punishes the compassionate.
+  W8  GRIEF IS THE LEASH
+      Mayrina is held by the promise of her dead husband's return — the hag farms sorrow, the most reliable lever, which is the Amalgamation's exact method.
+  W9  THE HOSTAGE CAN DIE
+      Push too hard and Mayrina is killed in the fight — the rescue can fail into a killing, so mercy's weaponization has real teeth.
+  W10 THE BARGAIN RIDES ALONG
+      The eye, if taken, is carried the whole game — the quest hands the player a permanent consequence, not a closed story, a standing reminder of what help cost.
+
+### #162  MORDIN AND THE GENOPHAGE (THE SCIENTIST WHO HELD THE SYRINGE) (Mass Effect 2 & 3 (2010/2012))
+  W1  THE ATROCITY WAS DEFENSIBLE
+      The genophage prevented a genocide-by-krogan-expansion; Mordin is not wrong that it was necessary. The dilemma is real because the terrible thing had a real case — the hardest kind of moral weight.
+  W2  THE PERPETRATOR CARRIES IT
+      Mordin did the math, walked the krogan worlds, met the individuals, and holds the guilt under his cheer — the scientist who cannot stop counting the cost of being right.
+  W3  THE POWER TO UNDO IT ARRIVES YEARS LATER
+      The cure forces the perpetrator to choose AGAIN, with the atrocity's consequences visible — being right the first time does not tell him what to do the second.
+  W4  NO CLEAN CHOICE
+      Cure and risk the old war; sabotage and condemn a people; betray Mordin and murder the guilt-bearer. Every path costs; none absolves. The finale's exact machine.
+  W5  THE WRONGED PARTY IS PRESENT AND ARMED
+      The krogan want their future and are watching; the victim's restoration is also the galaxy's risk, so mercy and danger are the same act.
+  W6  HE CHOOSES IN FULL KNOWLEDGE
+      Mordin's arc is that he stops hiding behind necessity and DECIDES, knowing everything — the growth is not changing his mind but owning the choice.
+  W7  HE PAYS WITH HIS LIFE
+      In the cure path, Mordin dies delivering it — the undoing of his atrocity costs him everything, and he pays it singing, because he can no longer be the man who didn't.
+  W8  THE DEFINING LINE IS A REFUSAL TO DELEGATE
+      "Someone else might have gotten it wrong" — the responsibility is his because he trusts no one else to carry it correctly; guilt transmuted into duty.
+  W9  THE CHEER IS A COPING SURFACE
+      Mordin's speed and humor are armor over a wound; the design lets the guilt hide in plain sight, so the crack, when it comes, lands.
+  W10 THE CHOICE HAUNTS FOR YEARS
+      Players argue the genophage cure endlessly — the sign the dilemma was real. An atrocity worth undoing has no settled answer, and the arc is honest enough to make the player hold it.
+
+### #163  THE SILVER SHROUD (THE COSTUME THAT BECOMES REAL) (Fallout 4)
+  W1  THE COSTUME BECOMES REAL
+      A player puts on a fictional hero to answer genuine crimes; the mask accrues a real body count. The fiction-made-flesh is the quest's whole engine and it lands.
+  W2  THE PLAYER PERFORMS THE HERO
+      Custom in-character dialogue lets the player DELIVER the Shroud's lines at targets — you don't just fight, you act, which makes the role-play literal and the identity question real.
+  W3  THE REGISTER IS THE PLAYER'S
+      Sincere, camp, or cynical — the game lets the player choose the tone of their justice, so the mask means what the player decides it means.
+  W4  THE TARGETS ARE REAL
+      The Shroud's justice kills genuine predators; the theatre has a body count, so the costume is never just cosplay.
+  W5  THE BELIEVER NEEDS THE HERO REAL
+      Kent's two-hundred-year hope makes the fiction NEED to become flesh — the emotional stakes are a man's survival-through-story.
+  W6  THE CLIMAX MEETS THE REAL
+      Sinjin, a killer who isn't playing, forces the performance to resolve — theatre confronted by genuine menace, with a life on it.
+  W7  THE HERO WAS A VIGILANTE
+      The Shroud's justice is execution; playing him means killing, so the role-play carries an edge — the fiction the fan loves is a license to kill dressed as heroism.
+  W8  THE MASK ASKS WHO YOU ARE
+      The quest's quiet question — hero or executioner — is Bohemia's exact question about the dynasty-as-role, made playable.
+  W9  THE TONE IS A RELEASE VALVE WITH A BLADE
+      The camp register relieves; the real killings sharpen — the quest swings between fun and grim, and the swing is the point.
+  W10 THE FICTION SURVIVES THE PLAYER
+      Kent's hope, if the player honors it, outlives the quest — a fiction made real by someone willing to wear it, which is the most Bohemian idea in the game.
+
+### #164  THE CABOT HOUSE (THE FATHER IN THE CELL, THE SERUM IN THE VEINS) (Fallout 4)
+  W1  IMMORTALITY RUNS ON A PRISONER
+      The family's never-aging is drawn from a father in a cell — the never-dying has a captive source, which is the Amalgamation's exact logic made a family secret.
+  W2  THE JAILER IS DEFENSIBLE
+      Jack has kept a possibly-godlike madman contained for four hundred years, sparing the world and keeping his family young — the imprisonment is monstrous and arguably right, the hardest kind of antagonist.
+  W3  THE PRISONER IS BOTH VICTIM AND THREAT
+      Lorenzo is caged unjustly AND genuinely dangerous; freeing him is mercy and menace at once, so neither keeping nor opening the cell is clean.
+  W4  THE SERUM CONTAMINATES THE CHOICE
+      Both sides pay the player in immortality, so the decision about the cell is bought — you might keep a father imprisoned forever because it keeps you young too.
+  W5  THE AMBIGUITY IS THE DANGER
+      Lorenzo won't resolve whether he's a god or a madman; the uncertainty is what makes freeing him a real gamble and caging him a real cruelty.
+  W6  FOUR HUNDRED YEARS OF A LOCKED DOOR
+      The sheer duration — centuries of one man holding another in a cell for the family's benefit — is the horror's weight; time makes the arrangement monstrous.
+  W7  NO SAFE THIRD DOOR
+      Lorenzo can't be cured and freed; he is kept or unleashed. The removed middle is the quest's honesty: the source of the never-dying admits no gentle resolution.
+  W8  THE MANSION IS THE AMALGAMATION IN MINIATURE
+      Someone imprisoned so the rest never die, a share offered to keep the door shut — the whole antagonist's bargain in one house.
+  W9  THE CHOICE HAS NO INNOCENT PARTY
+      Family, father, player — all compromised: the jailers, the dangerous victim, the bribed newcomer. The quest refuses anyone clean hands.
+  W10 THE SERUM RIDES ALONG
+      However it ends, the player carries the immortality — a permanent reminder that they took a cut of the not-dying, the choice's stain worn in the veins.

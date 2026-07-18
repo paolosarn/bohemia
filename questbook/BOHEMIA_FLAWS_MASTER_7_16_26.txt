@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
-711 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]
+729 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -2021,3 +2021,69 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE FAILURE HAS NO WEIGHT ON THE PLAYER AFTERWARD
      Barry's death, if it happens, registers as a quiet log entry; the player character does not carry it, no one holds them accountable, and the world does not change. The consequence is real for Barry and weightless for everyone else.
      LAW: a life lost to the player's failure must LAND on the player and the world — River's grief and blame, the district's memory, a mark the dynast carries. The absence of ceremony is right; the absence of consequence is not. The fold records who the dynast could not reach.
+
+### #159  THE WHISPERING DOOR (A FATHER'S GRIEF, WEAPONIZED) (The Elder Scrolls V: Skyrim)
+  X  THE HARVEST OF THE FAMILY IS UNDERBUILT
+     The quest's best idea — a Prince farming a household's ordinary poisons — is mostly implied; the children's cultivation, the court's frictions, Balgruuf's love as feedstock are gestured at, not dramatized, so the domestic-harvest horror lands thinner than the concept promises. The Blade steals focus from the farm.
+     LAW: if the horror is that ordinary emotion is FARMED, the farming must be SHOWN — the small resentments cultivated on screen, the parent's love visibly refined — so the harvest is felt, not inferred. The Amalgamation's bookkeeping on grief must be watchable, not just named (the "horror is the clipboard," Q122, restated).
+  X  THE FATHER GETS NO RESOLUTION
+     Balgruuf handed the player his fear for his children and the quest never returns to him — no scene where he learns what was behind the door, no cost or relief to the parent whose love was the raw material. The human who started it is dropped.
+     LAW: the person whose emotion was harvested must get an AFTERMATH — the parent learns, grieves, or is spared, so the harvest has a human close, not just a loot payout. The fold returns to the wounded; the harvest is not finished until its source is faced.
+  X  THE BLADE'S BETRAYAL COST IS EASILY GAMED
+     Powering the Ebony Blade by killing "those who trust you" reduces, in practice, to killing generic friendly NPCs — the profound premise (trust as fuel) becomes a checklist of disposable townsfolk, draining the horror into a farming chore.
+     LAW: if a tool runs on betrayal, the betrayed must be PEOPLE the player actually trusted — named, known, costly — so feeding it is a real severance, not a chore on strangers. Trust-as-fuel must cost trust, or it is just murder with a counter.
+
+### #160  BLOOD ON THE ICE (THE MURDER THE TOWN WON'T INVESTIGATE) (The Elder Scrolls V: Skyrim)
+  X  THE WRONG ARREST'S CONSEQUENCE IS EASY TO MISS
+     Jailing Wuunferth causes another murder, but the game surfaces this so quietly that many players never realize they got it wrong — the failure state exists but doesn't LAND, so the deduction's stakes evaporate for the inattentive.
+     LAW: a failable investigation's WRONG conclusion must land legibly — the next death traced back to the false arrest, named, on the record — so the player feels the cost of misreading. A failure the player can't perceive is not a stake; the fold surfaces the wrongful outcome (the #26/#154 fairness law, restated for deduction).
+  X  THE BUG-RIDDEN TRIGGER UNDERCUTS THE CRAFT
+     Blood on the Ice is infamous for breaking — starting out of order, failing to advance, requiring console fixes — so the whole taut whodunit is gated behind a fragile script that many players never see work. The best deduction in the game is its least reliable.
+     LAW: an investigation's TRIGGER and progression must be robust — no fragile ordering that can strand the quest — because a whodunit that breaks is worse than one that's simple. Our regression-gate and no-brick-wall laws are the price of shipping deduction that works (the #23 Elden Ring ordering-dependency law, and the #45 accessibility law).
+  X  THE VICTIMS ARE INTERCHANGEABLE
+     The murdered women are named but flat — the horror rests on the pattern, not on any specific life lost, so the murders read as a puzzle's tokens more than as people. The city's indifference is condemned, but the game partly shares it by not making the dead matter individually.
+     LAW: the victims of a serial crime must be SPECIFIC people the player can know — witnessed, mourned, individual — so the investigation is about lives, not tokens, and the city's indifference is felt as a failure toward someone, not a statistic. (Q019's tally law: audit by the person, not the count.)
+
+### #161  AUNTIE ETHEL (THE BARGAIN THAT COSTS YOU AN EYE) (Baldur's Gate 3)
+  X  THE EYE'S COST IS MECHANICALLY TRIVIAL
+     The permanent mutilation is presented as a grave bargain but amounts to a minor, largely cosmetic debuff — so the "you gave up an eye forever" horror is undercut by the mechanics treating it as a shrug. The narrative price and the systemic price don't match.
+     LAW: a bargain sold as a permanent grave cost must BE one mechanically — a real, felt, lasting consequence the player lives with — or the honest-devil's terms are theatre. If the price is trivial in play, the temptation is fake; match the systemic cost to the narrative one (Q126's honestly-priced-power law, restated).
+  X  MAYRINA'S GROOMING IS TOLD MORE THAN SHOWN
+     The horror that Ethel is farming Mayrina into the next hag is powerful but delivered mostly through implication and lore; the player doesn't witness the grooming's mechanism, so the "future being made" dread lands thinner than the concept.
+     LAW: if a captive is being MADE into the thing that holds them, the making must be shown — the mechanism of the grooming witnessed, the grief-lever pulled on screen — so the future-being-farmed horror is felt. The fold can show the slow becoming across time (#155/#159's show-don't-tell law).
+  X  REFUSING IS OBVIOUSLY CORRECT
+     Because the accept-path's cost is trivial-but-permanent and the refuse-path rescues an innocent and stops a monster, refusing is the clearly-superior choice for most players — the "honest bargain" is undercut by there being no real reason to take it. The dilemma tilts.
+     LAW: the honest-devil's bargain must be genuinely TEMPTING — the help must solve something the refuse-path can't, at a cost the player might actually pay — or it is a false choice. Make the bargain a real fork, not an obvious trap (the #156/#157 make-the-ends-tempting law).
+
+### #162  MORDIN AND THE GENOPHAGE (THE SCIENTIST WHO HELD THE SYRINGE) (Mass Effect 2 & 3 (2010/2012))
+  X  THE SABOTAGE PATH REQUIRES META-KNOWLEDGE
+     The outcome where Mordin is talked into faking the cure (galaxy safe, no betrayal-kill) is gated behind specific, non-obvious prior conditions most players never assemble — so the "keep the genophage without murdering the scientist" option is effectively invisible, collapsing a three-way dilemma into a two-way one for most.
+     LAW: the full range of an atrocity-undoing choice must be REACHABLE by in-world understanding, not walkthrough-only prerequisites — so a player who does the moral and investigative work can find the third path. Hidden third options that only the wiki knows are not really choices (the #26/#156 discoverable-path law).
+  X  THE KROGAN'S TRUSTWORTHINESS IS UNRESOLVABLE BY DESIGN, WHICH CUTS BOTH WAYS
+     The whole dilemma rides on "will the krogan repeat the expansion?" and the game deliberately never answers it — powerful, but it means the player chooses in a fog the narrative refuses to thin even slightly, so the choice can feel like a coin-flip rather than a judgment.
+     LAW: when a choice rides on an unknowable (will the restored party repeat the crime), the game must give the player enough EVIDENCE to make it a judgment, not a guess — testimony, history, a read on the wronged party's leadership — so the fog is navigable, not total. Uncertainty should be earned, not absolute (the #21 odds-must-feel-fair law).
+  X  MORDIN'S GUILT IS CARRIED BY CHARM, WHICH CAN HIDE IT
+     Mordin's fast-talking cheer is so entertaining that many players experience him as comic relief and miss the guilt entirely until the death — the coping-surface design works so well it can bury the wound it covers.
+     LAW: if a character's guilt is hidden under a coping surface (cheer, deflection), the surface must CRACK visibly at least once before the climax — a beat where the wound shows — so the player understands what the charm is defending against. The guilt must be legible, or the death is a surprise instead of a culmination (#122's the-horror-is-under-the-procedure law).
+
+### #163  THE SILVER SHROUD (THE COSTUME THAT BECOMES REAL) (Fallout 4)
+  X  THE MORAL QUESTION ISN'T MECHANICALLY WEIGHTED
+     The sincere/camp/cynical registers are pure flavor — the killings, the outcomes, and Kent's fate don't meaningfully differ by which tone the player picks, so the profound "hero or executioner" question is a costume the game never actually charges the player for wearing.
+     LAW: if a role's REGISTER is a moral question, it must have mechanical or consequential weight — the sincere hero and the cynical executioner should reap different worlds (how the district sees the mask, what the role costs the player) — or the question is decoration. A tone with no consequence is not a choice (the #33 agency-twist law: performance must matter).
+  X  THE COSTUME NEVER COSTS THE PLAYER THEIR OWN IDENTITY
+     The player puts on the Shroud and takes it off freely; there is no beat where the mask threatens to REPLACE them, no cost to inhabiting a fiction. The "role becomes real" theme is stated but the player is never actually in danger of losing themselves to it.
+     LAW: if a role can become real, inhabiting it must RISK the self — a beat where the mask starts speaking for the player, where taking it off is harder than putting it on — so the theme is felt, not just narrated. The dynasty-as-role should be able to consume the person (the #32/#35 identity-loss law).
+  X  KENT'S GRIEF IS BACKSTORY, NOT PRESENCE
+     Kent's two-hundred-year love of the Shroud, his survival-through-fiction, is the quest's emotional core but is delivered mostly in a few lines; the player experiences him as a quest-giver more than a person whose hope they're carrying, so the hostage climax lands lighter than the setup earns.
+     LAW: the believer whose hope the player is asked to embody must be a PRESENT person — witnessed, known, their stake felt — so that becoming their hero and risking their life carries weight. The fold builds the believer the mask is for (#158's specific-person law).
+
+### #164  THE CABOT HOUSE (THE FATHER IN THE CELL, THE SERUM IN THE VEINS) (Fallout 4)
+  X  LORENZO'S THREAT IS ASSERTED, NOT DEMONSTRATED
+     The whole "keep him caged" case rides on Lorenzo being a world-level danger, but the game never really SHOWS what he'd do free beyond attacking his family — so the player is asked to endorse eternal imprisonment on the strength of an unproven "he's too dangerous," which tilts the choice toward freeing him by default.
+     LAW: if imprisonment is justified by a threat, the THREAT must be demonstrable — witnessed, evidenced, real — so keeping the cell locked is a genuine weighing, not a claim the player takes on faith. An unproven danger makes the jailer look like the villain by default (the #156 make-the-ends-real law).
+  X  THE FAMILY'S GUILT IS THIN
+     Four hundred years of drugging your relatives young off your imprisoned father is a staggering moral weight, but the Cabots wear it lightly — Jack is anxious, not haunted; Emogene is oblivious — so the horror of the arrangement is under-felt, and the player judges an atrocity the perpetrators barely seem to register.
+     LAW: the beneficiaries of an imprisonment-for-immortality must CARRY it visibly — the guilt of the never-dying shown, not shrugged — so the arrangement's horror lands and the player's choice has moral gravity. A family that doesn't feel the cost makes the cost invisible (the #34 SOMA-honesty law: the never-dying must be haunted).
+  X  THE SERUM BRIBE ISN'T INTERROGATED
+     The player is paid in immortality by whichever side, but the game never makes the player RECKON with taking a cut of the not-dying — the serum is a loot reward, not a moral stain, so the "your choice is bought" horror is a mechanic, not a theme.
+     LAW: if the player is bribed with a share of the atrocity's product (immortality, the Amalgamation's promise), taking it must be a recorded MORAL act with weight — the fold marks that the dynast pocketed the not-dying — so the contamination of the choice is felt. A bribe that's just loot launders the complicity (the #31 cruelty-incentivized law).

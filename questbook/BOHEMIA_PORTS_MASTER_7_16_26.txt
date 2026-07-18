@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]
-1300 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]
+1324 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -2951,3 +2951,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE FAILURE LANDS [F3's law]
       system: the fold / conscience / faction memory
       A life lost to the dynast's failure LANDS — the grief and blame of those who loved them, the district's memory, a mark carried. The absence of ceremony is kept; the absence of consequence is not. The fold records who the dynast could not reach, and that record has weight. (Contrast Q122: no karma bar, but the world remembers.)
+
+### #159  THE WHISPERING DOOR (A FATHER'S GRIEF, WEAPONIZED) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE HARVEST OF ORDINARY GRIEF [W1, W4, W3 — the core port]
+      system: the Amalgamation / the fold / the district
+      A Bohemia arc where the Amalgamation is revealed FARMING ordinary emotion — a parent's love, a household's small resentments, a district's quiet griefs — as feedstock, and pays the dynast in a tool whose logic is the same harvest. The domestic, patient, economic horror of emotion-as-resource. ``` @TALK the_harvester speaker=amalgam entry=door_opened @SAY You think I take the grand things. No. I ta
+  ->  PORT 2 — SHOW THE FARMING [F1's law]
+      system: the Amalgamation / the district / dialogue scenes
+      The harvest of ordinary emotion is SHOWN — the resentments cultivated on screen, the parent's love visibly refined into the Amalgamation's stock — so the domestic horror is felt, not inferred. The bookkeeping on grief is watchable (Q122's clipboard law). [PENDING, Paolo's call.]
+  ->  PORT 3 — THE HARVESTED GET AN AFTERMATH [F2's law]
+      system: the fold / conscience
+      The person whose emotion was farmed — the parent, the griever — gets a human close: they learn, grieve, or are spared, so the harvest ends on a face, not a loot drop. The fold returns to the wounded source; the harvest is not finished until it is faced.
+  ->  PORT 4 — TRUST-AS-FUEL COSTS REAL TRUST [F3's law]
+      system: companions / the fold / the conduct book (#143)
+      If a Bohemia tool runs on betrayal, the betrayed are PEOPLE the dynast actually trusted — named companions, known survivors, costly — so feeding it is a real severance the fold records, not a chore on strangers. Trust-as-fuel must cost trust (the #43 companion-bond made a currency, darkly).
+
+### #160  BLOOD ON THE ICE (THE MURDER THE TOWN WON'T INVESTIGATE) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE MURDER THE DISTRICT WON'T INVESTIGATE [W1, W2, W3 — the core port]
+      system: the missing-persons organ (#141) / the district / [READ]
+      A Bohemia whodunit in a district whose institutions have abdicated — a real crime, evidence to read, two suspects (the reviled-obvious and the respectable-guilty), and a FAILABLE conclusion where accusing wrong lets the killer continue. The player as the only functioning justice in an indifferent district. ``` @TALK the_indifferent_guard speaker=warden entry=body_found @SAY Another one. I'll log i
+  ->  PORT 2 — THE WRONG ANSWER LANDS [F1's law]
+      system: the missing-persons organ (#141) / the fold
+      A wrong accusation's cost is LEGIBLE — the next death traced to the false arrest, named, on the fold — so the dynast feels the misreading. The #143 verdict engine plus the #141 organ make the failure perceivable; a stake the player can't see isn't one (the #26/#154 fairness law).
+  ->  PORT 3 — DEDUCTION THAT SHIPS [F2's law]
+      system: the regression-gate / quest scripting
+      The investigation's trigger and progression are ROBUST — no fragile ordering, machine-tested — because a whodunit that breaks is worse than none. Our regression-gate and no-brick-wall laws are the cost of shippable deduction (the #23/#45 laws).
+  ->  PORT 4 — THE VICTIMS ARE PEOPLE [F3's law]
+      system: the district / the fold / entities
+      A serial crime's victims are SPECIFIC — witnessed, mourned, individual — so the investigation is about lives, and the district's indifference is a failure toward someone, not a statistic. The fold names each; audit by the person, not the count (Q019's law).
+
+### #161  AUNTIE ETHEL (THE BARGAIN THAT COSTS YOU AN EYE) (Baldur's Gate 3)
+  ->  PORT 1 — THE HONEST-DEVIL WITH A KINDLY FACE [W1, W2, W3 — the core port]
+      system: the Amalgamation / the fold / dialogue scenes
+      A Bohemia figure who greets the dynast as a helpful auntie and prices real help in permanent, bodily cost — the honest-devil (#126) wearing warmth, offering to ease the crisis for a piece of you that you carry forever. The Amalgamation's seduction in a maternal voice. ``` @TALK the_kindly_hag speaker=ethel entry=affliction_known @SAY Oh, you poor thing. I can help with that. I truly can. Come here
+  ->  PORT 2 — THE PERMANENT PRICE IS REALLY PERMANENT [F1's law]
+      system: the fold / the dial / character systems
+      A bargain sold as a grave permanent cost IS one — a real, felt, lasting consequence the dynast lives with across the arc, matched systemically to the narrative price. The honest-devil's terms are not theatre; the fold carries the mutilation forever (Q126's honestly-priced law).
+  ->  PORT 3 — SHOW THE GROOMING [F2's law]
+      system: the Amalgamation / the fold / entities
+      If a captive is being MADE into the thing that holds them, the making is SHOWN — the grief-lever pulled on screen, the slow becoming witnessed across the fold's time — so the future-being-farmed horror is felt. (#155/#159's show-don't-tell law.)
+  ->  PORT 4 — THE BARGAIN MUST TEMPT [F3's law]
+      system: the endgame / Become adjacency
+      The honest-devil's help solves something refusing CAN'T, at a cost the dynast might actually pay — a real fork, not an obvious trap. If refusing is clearly correct, the bargain is false; make Become genuinely tempting (the #156/#157 make-the-ends-tempting law).
+
+### #162  MORDIN AND THE GENOPHAGE (THE SCIENTIST WHO HELD THE SYRINGE) (Mass Effect 2 & 3 (2010/2012))
+  ->  PORT 1 — THE PERPETRATOR WHO CAN UNDO IT [W1, W2, W3 — the core port]
+      system: the fold / the Amalgamation / faction web
+      A Bohemia figure who committed a defensible atrocity (a plague loosed, a district sacrificed, an Amalgamation bargain struck) for real reasons, carries the guilt across years, and is handed the power to UNDO it — forced to choose again with the consequences visible, knowing being right before doesn't clean the choice now. The means-vs-ends of #156 carried by one guilt-bearing person across the fol
+  ->  PORT 2 — THE THIRD PATH IS REACHABLE [F1's law]
+      system: [READ] / the fold
+      The full range of an atrocity-undoing choice — including the hardest "keep it without murder" option — is REACHABLE by in-world understanding, not walkthrough prerequisites, so a dynast who does the moral and investigative work can find it. Hidden third options only the wiki knows are not choices (the #26/#156 discoverable-path law).
+  ->  PORT 3 — THE FOG IS NAVIGABLE [F2's law]
+      system: [READ] / faction web / the fold
+      When the choice rides on an unknowable (will the restored party repeat the crime), the dynast gets EVIDENCE to make it a judgment, not a coin-flip — testimony, history, a read on the wronged party's leadership. Uncertainty earned, not absolute (the #21 odds-must-feel-fair law).
+  ->  PORT 4 — THE GUILT CRACKS BEFORE THE END [F3's law]
+      system: dialogue scenes / the fold / conscience
+      A guilt hidden under a coping surface (cheer, deflection) CRACKS visibly at least once before the climax — a beat where the wound shows — so the eventual sacrifice is a culmination, not a surprise. The guilt is legible (#122's horror-under-the-procedure law).
+
+### #163  THE SILVER SHROUD (THE COSTUME THAT BECOMES REAL) (Fallout 4)
+  ->  PORT 1 — THE ROLE THAT BECOMES REAL [W1, W2, W8 — the core port]
+      system: the dynasty-as-role / upbringing / dialogue scenes
+      A Bohemia arc where the dynast inhabits a ROLE — a legend, a founder's persona, a mask the district needs real — and performs it at genuine stakes, choosing the register (sincere / cynical / dropped), the game asking who the mask makes them. The dynasty-as-performed-identity, made a playable question. ``` @TALK the_believer speaker=kent entry=role_offered @SAY The district needs the old hero back.
+  ->  PORT 2 — THE REGISTER HAS WEIGHT [F1's law]
+      system: standing / the fold / the district
+      The dynast's chosen REGISTER (sincere hero / cynical executioner) reaps different worlds — how the district sees the mask, what the role costs — so the tone is a real moral choice, not flavor. A register with no consequence is decoration (#33's performance-must-matter law).
+  ->  PORT 3 — THE ROLE RISKS THE SELF [F2's law]
+      system: the dynasty-as-role / the fold / conscience
+      Inhabiting a legend RISKS the dynast's own identity — a beat where the mask speaks for them, where taking it off is harder than putting it on — so "the role becomes real" is felt. The dynasty-as-role can consume the person (#32/#35 identity-loss law).
+  ->  PORT 4 — THE BELIEVER IS PRESENT [F3's law]
+      system: the fold / prior encounters
+      The person whose hope the dynast embodies is a KNOWN, witnessed presence — their stake felt — so becoming their hero and risking their life carries weight. The fold builds the believer the mask is for (#158's specific-person law).
+
+### #164  THE CABOT HOUSE (THE FATHER IN THE CELL, THE SERUM IN THE VEINS) (Fallout 4)
+  ->  PORT 1 — THE IMMORTALITY THAT RUNS ON A PRISONER [W1, W2, W8 — the core port]
+      system: the Amalgamation / the fold / faction web
+      A Bohemia arc where the never-dying (the Amalgamation's promise, a faction's endurance) is revealed to run on someone KEPT IMPRISONED — a source in a cell so the rest never age or lose anyone — and the dynast is handed the key and offered a share. SOMA's ARK (#34) as a family secret; the Amalgamation's bargain in one locked room. ``` @TALK the_jailer speaker=jack entry=secret_told @SAY Someone has
+  ->  PORT 2 — THE THREAT IS DEMONSTRABLE [F1's law]
+      system: [READ] / the fold
+      If imprisonment is justified by a threat, the THREAT is demonstrable — witnessed, evidenced — so keeping the cell locked is a genuine weighing, not a claim taken on faith. An unproven danger makes the jailer the villain by default (#156's make-the-ends-real law).
+  ->  PORT 3 — THE NEVER-DYING IS HAUNTED [F2's law]
+      system: the Amalgamation / the fold / conscience
+      The beneficiaries of an imprisonment-for-immortality CARRY the guilt visibly — the never-dying shown as haunted, not shrugged — so the arrangement's horror lands. A family that doesn't feel the cost makes it invisible (#34's SOMA-honesty law).
+  ->  PORT 4 — TAKING THE SERUM IS A RECORDED STAIN [F3's law]
+      system: the fold / the conduct book (#143)
+      If the dynast is bribed with a share of the never-dying, taking it is a recorded MORAL act — the fold marks that they pocketed the not-dying — so the contamination of the choice is felt, not laundered as loot (#31's cruelty-incentivized law).
