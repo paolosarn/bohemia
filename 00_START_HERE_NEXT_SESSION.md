@@ -224,11 +224,23 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
      (b) a panel in <div id="stage">:
          <div class="panel" id="p-slice"><iframe src="BOHEMIA_CURRENT_SLICE.html"
            style="width:100%;height:100%;min-height:78vh;border:0"></iframe></div>
-   [PENDING, clean alpha session — ONE-ALPHA]: as of 7/18 an ACTIVE session
-   is on the alpha (the ragdoll-death sequence, PRs #17-#20, last alpha
-   commit ~15min before this note). Per ONE-ALPHA the two-div insert waits
-   for that session to clear, then drops in verbatim (verify: alpha still
-   boots + SLICE tab opens the loader).
+   DONE 7/18 (Paolo reported the mobile menu bug directly — "the top menu
+   is fucked on mobile, I should be able to drag it"): the SLICE tab is IN
+   the alpha, AND the tab bar is now properly mobile-scrollable. The bug:
+   6 tabs summed to ~374px, jammed edge-to-edge at 390, and the game's
+   global touch handlers ate native scroll so it wouldn't drag. Fix (all
+   in #tabs, a region the ragdoll session never touches): touch-action:
+   none + a window-driven pointer-drag handler that owns scrollLeft (works
+   mouse + touch), padding:0 10px breathing room, click-suppression after
+   a >8px drag so a drag never fires a tab, grab cursor. SLICE panel lazy-
+   loads BOHEMIA_CURRENT_SLICE.html on first open. VERIFIED in a 390px
+   mobile chromium: alpha boots, 7 tabs (scrollW 444 > 390, 54px drag
+   range), SLICE activates + loads the slice, 0 console errors.
+   ONE-ALPHA honored by COORDINATION not avoidance: synced the alpha to
+   the latest origin/main FIRST, patched only the tab region, pushed
+   non-force so a concurrent ragdoll push rebases cleanly (different
+   regions). Future: when a slice updates, only the manifest+loader change
+   — this alpha edit never repeats.
 2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
