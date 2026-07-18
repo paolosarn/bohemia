@@ -23,7 +23,7 @@ GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read
 UI = r"""
 var G = BohemiaSuburb;
 var STYLES=[
-  {id:'campana',name:'CAMPANA DR — your tract',blurb:'8xxx Campana Dr, 89147 reconstructed at game scale: the real curvilinear streets off Tropicana, cul-de-sac courts, homes fronting the curve. dead world — no vegetation. is this your neighborhood?'},
+  {id:'campana',name:'CAMPANA DR — your tract',blurb:'8361 Campana Dr, 89147 rebuilt from the county street records: a straight through-street tract, homes on BOTH sides fronting the street, connecting road-to-road (not a gated dead-end). dead world — no vegetation. is this your street?'},
   {id:'ring',name:'THE BLOCK — packed grid',blurb:'houses-first walled block, homes both sides of every street, every home a 3-tile DEAD backyard to the wall. no grass, no pools, no trees — act 1 is dead.'}
 ];
 var SUN=false, seedBase=7, verdict={}, comments={};
@@ -69,7 +69,7 @@ document.getElementById('exp').onclick=exportTxt;
 build();window.__SUBURB_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB. TWO to judge. First is YOUR neighborhood: Campana Dr / 89147 reconstructed at game scale (the real curving streets off Tropicana, cul-de-sac courts). Second is the packed grid block. Both are DEAD — act 1, no water wasted on landscaping, so NO grass, NO trees, NO pools; backyards are dead ground. Every home keeps a 3-tile dead backyard to the wall (never touching it). Reseed for variety. Thumb each, comment, export.</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB. TWO to judge. First is YOUR street: 8361 Campana Dr / 89147, rebuilt from county street records — a straight through-street tract, houses both sides, connecting road-to-road. Second is the packed grid block. Both pack the WHOLE block (houses first, streets serve them). Both DEAD — act 1, no water for landscaping, so NO grass/trees/pools; the dark ground is dead backyard. Every home keeps its 3-tile dead backyard to the wall. Reseed for variety. Thumb each, comment, export.</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>

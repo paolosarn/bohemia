@@ -97,6 +97,26 @@
   function placeColOuter(g,streetX,dir,lo,hi){
     for(var ly=lo+(LOTW>>1); ly<hi-2; ly+=LOTW) home(g,(streetX+dir*RD)|0,ly,dir,0);
   }
+  // one row of houses backing a top/bottom wall, fronting a cross-street (outer side only)
+  function placeRowOuter(g,streetY,dir,lo,hi){
+    for(var lx=lo+(LOTW>>1); lx<hi-2; lx+=LOTW) home(g,lx,(streetY+dir*RD)|0,0,dir);
+  }
+  // CAMPANA DR, the real thing: a straight residential THROUGH-STREET tract. Vertical
+  // streets (Campana + its neighbor streets) run the length of the block and connect
+  // to a cross-street at each end (road-to-road, NOT a gated dead-end). Houses line
+  // BOTH sides of every street, the outer rows backing the tract's side walls, the
+  // top+bottom rows backing the end walls. This is Campana as the county records
+  // describe it: houses both sides, addresses stepping down the street.
+  function throughStreet(g,W,H,gx){
+    var back=RD+DRIVE+HD, R=back+5, Lx=R, Rx=W-R, Ty=R, By=H-R;
+    var span=Rx-Lx, n=Math.max(2, Math.ceil(span/(2*back+2*GAP))+1);
+    var xs=[]; for(var i=0;i<n;i++) xs.push(Math.round(Lx+span*i/(n-1)));
+    seg(g,xs[0],Ty,xs[n-1],Ty,RD); seg(g,xs[0],By,xs[n-1],By,RD);   // end cross-streets
+    for(i=0;i<n;i++) seg(g,xs[i],Ty,xs[i],By,RD);                    // the through-streets
+    seg(g,gx,H-4,gx,By,RD);                                          // entrance from the arterial
+    for(i=0;i<n;i++) placeCol(g,xs[i],H,LOTW,Ty,By);                 // houses both sides of every street
+    placeRowOuter(g,Ty,-1,Lx,Rx); placeRowOuter(g,By,1,Lx,Rx);      // end rows back the end walls
+  }
   // DENSE, HOUSES-FIRST FILL of the whole block (Paolo 7/18: "compact as many houses
   // as possible... houses first then street second, no empty room"). A rail+rung
   // LADDER is the minimum road that serves a full block of lots: two vertical rails
@@ -127,7 +147,10 @@
     if(typeof style!=='string'){ch=cw;cw=style;style='ring';}   // back-compat
     cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
     var W=Wd(g),H=Ht(g);
-    for(var ci=0;ci<cw;ci++){ var gx=(SZ*ci+SZ/2)|0; denseFill(g,W,H,gx,style==='campana'); }
+    for(var ci=0;ci<cw;ci++){ var gx=(SZ*ci+SZ/2)|0;
+      if(style==='campana') throughStreet(g,W,H,gx);              // Campana Dr, the real through-street tract
+      else denseFill(g,W,H,gx,false);                            // the packed grid block
+    }
     // NO BACKYARD FILL: Act 1 is a dead world. Water is not wasted on landscaping;
     // there are no trees, no pools, no grass. Backyards are dead ground (code 0).
     var houses=0;
