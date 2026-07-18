@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]
-1767 findings / 176 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]
+1827 findings / 182 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3885,3 +3885,135 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Truth or lie, someone pays — the quest refuses a resolution where everyone is served, which is what makes the choice real.
   W10 IT IS THE THESIS IN A GHOST STORY
       What survives when a life ends, and what do we owe the dead's story — Bohemia's whole spine, asked by a haunted tower and answered by whether the player tells a ghost the truth.
+
+### #177  JACK'S LOYALTY / THE TEARDOWN (BURN DOWN THE PLACE THEY MADE YOU) (Mass Effect 2)
+  W1  THE WOUND IS REAL AND THE STORY IS FALSE
+      Jack was genuinely tortured, and the narrative she built on it turns out partial — the quest holds both truths at once, which is the rarest and most honest thing to say about trauma.
+  W2  THE SURVIVOR RETURNS TO THE FORGE
+      Jack goes back to the place that made her a weapon — the returning-to-the-forge (#165) with a memory about to be tested against the rooms.
+  W3  THE FOUNDATIONAL MEMORY IS EDITED
+      The story Jack organized her whole self on was distorted by a child's terror — the recorded-vs-unrecorded self (#26) as a survivor's foundational truth.
+  W4  THE REVENGE IS COMPLICATED, NOT ERASED
+      Finding the story was false doesn't un-wound Jack or cancel the revenge — it asks whether the vengeance she needed is the one she's owed, in a truth messier than the rage.
+  W5  THE PLAYER HELPS HER HOLD BOTH
+      Shepard's role is to help Jack hold that she was wronged AND that the story was wrong — the witness to a reckoning, not the fixer of it.
+  W6  CATHARSIS OR ACCURACY
+      Burn the forge for the real wound, or examine the rage in the complicated truth — the choice is between the satisfaction of revenge and the harder honesty of the facts.
+  W7  THE CLEAN STORY CAN'T BE RESTORED
+      Once the memory is revealed as partial, the simple revenge is gone — the removed "give her back the clean story" verb is the quest's honesty: foundational lies don't un-reveal.
+  W8  THE COPING SURFACE IS AGGRESSION
+      Jack's rage is armor over a child's wound — the trauma hidden in attitude, cracked at the reckoning (#162).
+  W9  THE FACILITY TESTIFIES AGAINST THE MEMORY
+      The rooms and records contradict the story — the space is the evidence, the forge itself correcting the survivor's account of it.
+  W10 IT IS THE FOLD'S TRUTH IN ONE LIFE
+      A wound carried forward on a story that turns out false — Bohemia's whole question of what the past really was, and what the living owe a memory, in a single survivor's revenge.
+
+### #178  THE PRICE OF REVENGE (ZAEED, THE BLUE SUNS, AND THE MAN WHO WOULDN'T LET IT GO) (Mass Effect 2)
+  W1  THE REVENGE IS EARNED
+      Zaeed was betrayed, shot, robbed of twenty years — the grudge is legitimate in every way, which is exactly what makes its cost hard to dismiss.
+  W2  THE COST IS INNOCENT
+      The refinery workers never agreed to pay for Zaeed's grudge — the body count is strangers, which is the death-math (#26) at its sharpest: whose life the debt is willing to spend.
+  W3  THE FIRE FORCES THE CHOICE
+      Revenge and rescue on the same clock — the blaze turns an abstract cost into a specific, timed, either-or the player cannot dodge.
+  W4  THE GRUDGE HAS EATEN THE MAN
+      Twenty years have burned the human out of the vendetta; Zaeed can't see the workers, which is the warning the quest carries — what a grudge does to the one who holds it too long.
+  W5  THE PLAYER IS THE SCALE
+      Shepard puts the earned revenge against the innocent lives and chooses — the moral weight is handed to the player, not resolved by the story.
+  W6  NEITHER OUTCOME IS CLEAN
+      The betrayer lives or the innocents die — the quest refuses a costless win, which is the honesty of an earned-but-expensive revenge.
+  W7  THE CLEAN GRUDGE CAN'T COEXIST WITH CLEAN HANDS
+      The removed "have both" verb is the quest's spine: an earned revenge still forces you to choose what it's worth.
+  W8  THE LOYALTY RIDES THE CHOICE
+      Zaeed's respect (or rage) follows whether the player forced the human decision — the relationship weighs the ethics, not just the outcome.
+  W9  THE WOUND IS OLD AND THE VICTIMS ARE NEW
+      The grudge predates the workers by decades — the price is paid by people who had nothing to do with the wound, which is what makes vendetta so dangerous.
+  W10 IT IS THE UNRECORDED LEDGER IN ONE MAN
+      A private revenge with a body count nobody chose — Bohemia's whole question of whose lives a debt is allowed to spend, in one old mercenary's grudge.
+
+### #179  THE TRIALS OF KORRIBAN (PROVE YOU BELONG TO THE THING THAT MADE YOU EVIL) (Star Wars: Knights of the Old Republic)
+  W1  THE INSTITUTION GRADES ACTS, NOT REASONS
+      The academy advances you by exactly the cruelty you perform — the machine that cannot tell cover from conviction, which is the whole engine.
+  W2  EVERY VICTIM IS REAL
+      The betrayed student, the tortured servant, the poisoned rival — each fully harmed regardless of the player's intent, which is the proof that "for the mission" cruelty is real cruelty.
+  W3  THE FIREWALL IS THE PLAYER'S ILLUSION
+      The belief that evil for a good reason leaves the self clean — Korriban is engineered to erode it, which is the quest's real subject.
+  W4  THE ACADEMY REWARDS COVER AND CONVICTION IDENTICALLY
+      The place gives the same prestige whether you meant it — the institutional version of "acting the part becomes the part" (#172).
+  W5  THE MISSION-GOAL JUSTIFIES THE ACTS
+      The Star Map "requires" the cruelty — the price-justifier that tests whether a good end excuses evil means.
+  W6  THE NARROW PATHS PROVE IT WAS A CHOICE
+      Less-bloody routes exist, which means the maximum cruelty was never forced — the player chose the graves.
+  W7  THE EXCUSE NEVER REACHES THE LEDGER
+      The removed "make the murders not count" verb is the spine: the ledger and the grave record the act, not the intent.
+  W8  THE VICTIMS DON'T CARE WHY
+      The dead student is dead whether you killed them for cover or conviction — the cruelty is identical to the one it lands on.
+  W9  IT IS A TOMB-WORLD
+      Korriban is the graveyard of the Sith — the setting itself is a ledger of the dead, the perfect stage for a quest about what the grave records.
+  W10 IT IS THE CONDUCT BOOK IN AN INSTITUTION
+      Does the ledger record what you did or what you meant — Bohemia's whole question of act-versus-intention, staged in a school built to make the answer "what you did."
+
+### #180  INTO THE PITT (STEAL THE CURE OR FREE THE SLAVES, AND FIND OUT THE CURE IS A BABY) (Fallout 3 — The Pitt (2009 DLC))
+  W1  THE CURE IS A CHILD
+      The abstraction the whole DLC chases — "the cure" — resolves into a specific immune infant, which is the greater good getting a face at the end of the road.
+  W2  LIBERATION AND KIDNAPPING ARE THE SAME ACT
+      Freeing the slaves requires taking Marie — the two are one action, which is the dilemma's cruel spine.
+  W3  NO FACTION IS CLEAN
+      Ashur is a slaver who loves his daughter; the rebels are liberators who would bleed a baby — the player chooses which monstrousness wins, not good versus evil.
+  W4  THE MANY ARE REAL
+      The slaves' suffering is horrific and true — the number isn't a strawman, which is what makes taking the child a genuine temptation.
+  W5  THE ONE CAN'T CONSENT
+      Marie is an infant — the cure is developed from a person who cannot agree, which is the sharpest form of the-one-versus-the-many.
+  W6  THERE IS NO SERUM
+      The removed "free the slaves without the child" verb is the spine: no third option, no clean path, the greater good inseparable from the specific person it became.
+  W7  THE TYRANT'S LOVE IS REAL
+      Ashur genuinely loves Marie — the monster is humanized, which is what makes leaving her a real temptation too.
+  W8  THE AFTERMATH SOURS BOTH WAYS
+      A freed Pitt curdles; a slave camp grinds on — neither choice buys a clean future, which is the honesty of an unclean dilemma.
+  W9  IT IS A HELL WORTH FREEING
+      The Pitt's horror is vivid enough that the slaves' freedom feels genuinely urgent — the stakes on the many's side are real, not abstract.
+  W10 IT IS THE ENDING-MATH IN ONE CRIB
+      The greater good with a specific child's face — Bohemia's whole Liberate/Respect/Become question of what the many are worth against the one, staged over a baby.
+
+### #181  KLAASJE AND THE HANGED MAN (THE KILLER YOU CAN'T CHARGE AND THE WITNESS YOU CAN'T KEEP) (Disco Elysium)
+  W1  THE TRUTH-TELLER IS GUILTY OF THE WRONG THING
+      Klaasje's honesty clears the murder and convicts her of tampering — the person who breaks the case open is arrestable for a smaller, realer crime.
+  W2  HONESTY IS FATAL, NOT REDEMPTIVE
+      Her candor doesn't earn mercy — it makes her the easy conviction, which is the quest's sharp inversion of "the truth sets you free."
+  W3  EVERY RESPONSE IS A DISTORTION
+      Arrest is the wrong charge, walking is unauthorized mercy, hand-over is feeding her to worse — the just, legal, and humane point three ways.
+  W4  THE CHORUS SETTLES NOTHING
+      The detective's own inner voices argue every side and resolve none — the un-adjudicated choice, proven un-resolvable even inside one head.
+  W5  SHE ASKS TO BE LET GO
+      Klaasje's plea makes the mercy a temptation and the duty a cruelty — the pull is real in both directions.
+  W6  THE GAME RECORDS, IT DOESN'T JUDGE
+      There is no "correct" outcome flagged — the choice is banked to the detective, which is the unrecorded-ledger (#26) as an interrogation.
+  W7  HER RUNNING IS A WHOLE LIFE
+      The false name, the powers hunting her, the survival-candor — Klaasje is a full person, not a puzzle, which is what makes the weight real.
+  W8  THE THIRD DOOR IS WORSE THAN THE LAW
+      Turning her over feeds her to something crueler than a cell — the choice isn't just mercy-vs-duty, it's mercy-vs-duty-vs-horror.
+  W9  THE WRONG CHARGE WOULD BE TRUE
+      Arresting her for tampering is factually correct and functionally a lie about the murder — the sharpest form of "true and unjust at once."
+  W10 IT IS THE LEDGER IN ONE ROOM
+      What you do with a candid, compromised human being, un-adjudicated — Bohemia's whole question of who the record convicts and who decides, in one interrogation.
+
+### #182  I FOUGHT THE LAW (SOLVE THE MURDER AND LEARN THE SYSTEM ALREADY DECIDED WHO KILLED HIM) (Cyberpunk 2077)
+  W1  THE INVESTIGATION IS GENUINE
+      Real clues, real forensics, a real solve — the procedural is honest, which is what makes its inertness land.
+  W2  THE VERDICT PREDATES THE WORK
+      Department, family, and corp decided before the player started — the pre-decided verdict, which is the quest's whole engine.
+  W3  BEING RIGHT ISN'T POWER
+      The player solves it perfectly and changes nothing — the sharpest form of "correctness and power are different things."
+  W4  THE PAYOFF IS DELIBERATELY REMOVED
+      Every procedural promises the truth will matter; this one denies it on purpose, which is the quest's honest cruelty.
+  W5  RIVER STILL HALF-BELIEVES
+      The honest cop who wants the truth to count — his disillusion is the human face of the systemic point.
+  W6  THE TRUTH IS TRUE AND INERT
+      The correct answer the world has already agreed to ignore — the unrecorded-ledger (#26) as a police case.
+  W7  THE SYSTEM ISN'T BEATEN
+      The removed "make the truth matter" verb is the spine: a perfect solve does not overturn a decided-enough machine.
+  W8  THE SOLIDARITY IS PRIVATE, NOT VICTORIOUS
+      Standing with River changes nothing systemic — the bond is real and the wall is intact, which is the honest version of "at least we have each other."
+  W9  THE POWERS ARE PLURAL
+      Not one villain but department, family, and corp all agreeing — the wall is a structure, not a person, which is what makes it unbeatable by being right.
+  W10 IT IS POWERLESSNESS IN ONE CASE
+      You can be completely right and completely unable to make it count — Bohemia's whole question of who the ledger serves, staged as a murder nobody with power will let you solve out loud.

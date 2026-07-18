@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]
-1372 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]
+1396 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3203,3 +3203,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE DEAD ARE THE DYNAST'S OWN [F3's law]
       system: the fold / the ~100-year arc
       The truth-or-mercy choice cuts deepest when the dead are the dynast's OWN — a bloodline's buried atrocity, an ancestor's false memory — so the question is personal, not a stranger's curse. The fold makes the dead the player's (#158's specific-person law, applied to the dead).
+
+### #177  JACK'S LOYALTY / THE TEARDOWN (BURN DOWN THE PLACE THEY MADE YOU) (Mass Effect 2)
+  ->  PORT 1 — THE WOUND REAL, THE STORY FALSE [W1, W3, W4 — the core port]
+      system: the fold / the Amalgamation / companions
+      A Bohemia arc where a survivor (a companion, a prior dynast's memory) returns to the place or truth that made them and finds their FOUNDATIONAL story was edited — by terror, by the Amalgamation, by time — while the wound remains real, and must take or refuse the revenge in that gap. The recorded-vs-unrecorded self (#26) as a survivor's reckoning; the fold's question of what the past really was, in
+  ->  PORT 2 — THE MEMORY-COLLAPSE IS FELT [F1's law]
+      system: the fold / [READ]
+      The collapse of a foundational memory is FELT as vertigo — the ground shifting, the trusted story contradicted piece by piece — so the edit-revealed lands as trauma, not exposition. A memory correction the player doesn't feel is a footnote (#32/#167's reveal-as-experience law).
+  ->  PORT 3 — CATHARSIS AND ACCURACY DIVERGE [F2's law]
+      system: the fold / companions
+      A survivor's catharsis-vs-accuracy reckoning leads to genuinely DIFFERENT outcomes — the burned forge and the examined rage producing different survivors, different worlds — so the choice matters beyond tone. A fork with one destination is a mood (#25's real-fork law).
+  ->  PORT 4 — THE WOUND CRACKS BEFORE THE RECKONING [F3's law]
+      system: companions / the fold / dialogue scenes
+      If a survivor's wound is hidden under aggression, the surface CRACKS before the reckoning — the child under the rage glimpsed — so the memory-collapse has an emotional foundation. The wound felt before the story is corrected (#162's guilt-cracks-before-the-end law, applied to trauma).
+
+### #178  THE PRICE OF REVENGE (ZAEED, THE BLUE SUNS, AND THE MAN WHO WOULDN'T LET IT GO) (Mass Effect 2)
+  ->  PORT 1 — THE EARNED REVENGE WITH THE INNOCENT PRICE [W1, W2, W3 — the core port]
+      system: the unrecorded ledger / the death-math / companions
+      A Bohemia arc where a character's genuinely EARNED revenge (a real betrayal, a real wound) can only be completed by spending innocent lives — strangers put on the same clock as the target — and the player weighs the grudge against the bodies. The death-math (#26) made personal: whose life a debt is allowed to spend; the unrecorded ledger's question of the cost nobody agreed to pay. ``` @TALK the_g
+  ->  PORT 2 — THE COST MUST HAVE FACES [F1's law]
+      system: the unrecorded ledger / the death-math
+      When a choice weighs a grudge against strangers, the strangers get ENOUGH face that their deaths weigh — a name, a plea, a body walked past — so the scale is real and the choice isn't tipped toward whatever the player wanted anyway (#26's the-ledger-must-have-faces law).
+  ->  PORT 3 — THE CONSCIENCE ISN'T A STAT CHECK [F2's law]
+      system: companions / the conscience system
+      A moral choice's relational consequence follows from the CHOICE and its handling, not a hidden threshold — the character responding to what the dynast did, not an invisible number — so the ethics aren't paywalled behind a build (#169's earned-not-bought law).
+  ->  PORT 4 — THE COMPLETED REVENGE CARRIES ITS PRICE [F3's law]
+      system: the fold / the unrecorded ledger
+      If a revenge is completed at innocents' expense, the cost is CARRIED after — the body count returning, the closed grudge heavier than expected — so the completion isn't a clean win. A revenge whose price vanishes at the credits was never weighed (#170's the-cost-must-return law).
+
+### #179  THE TRIALS OF KORRIBAN (PROVE YOU BELONG TO THE THING THAT MADE YOU EVIL) (Star Wars: Knights of the Old Republic)
+  ->  PORT 1 — THE INSTITUTION THAT REWARDS EVIL BY THE ACT [W1, W3, W7 — the core port]
+      system: the conduct book / factions / the unrecorded ledger
+      A Bohemia faction or institution that grants access and advancement by cruelty, and cannot distinguish "for the mission" acts from real ones — every undercover evil leaving a real victim the institution rewards and the ledger records identically to intent. The "acting the part becomes the part" machine (#172) at institutional scale; the conduct-book (#143) question of whether the ledger records wh
+  ->  PORT 2 — CRUELTY CAN'T BE OFFSET BY A METER [F1's law]
+      system: the conduct book / the conscience system
+      If a quest's point is that cruelty can't be laundered by intent, the system must not let it be laundered by an alignment SCORE either — the specific acts staying on the specific ledger, un-offsettable by unrelated good (#143's the-conduct-book-is-per-act law).
+  ->  PORT 3 — THE RATIONALIZATION GETS PRESSED [F2's law]
+      system: factions / the unrecorded ledger / dialogue scenes
+      If a quest's spine is "your good reason didn't reach the victim," the world PRESSES it — a survivor who names the dead, a consequence that treats the act as real — so the player can't coast on the excuse (#178's the-cost-must-have-a-face law).
+  ->  PORT 4 — THE LESS-BLOODY PATH IS VISIBLE [F3's law]
+      system: factions / quest structure
+      If a cruel institution has a less-bloody path, it's DISCOVERABLE enough that the dynast knows the cruelty was a choice — the alternative seen, even if hard — so "the game made me" isn't an available excuse (#175's the-alternative-must-be-seen law).
+
+### #180  INTO THE PITT (STEAL THE CURE OR FREE THE SLAVES, AND FIND OUT THE CURE IS A BABY) (Fallout 3 — The Pitt (2009 DLC))
+  ->  PORT 1 — THE GREATER GOOD WITH A CHILD'S FACE [W1, W2, W6 — the core port]
+      system: the endings (Liberate/Respect/Become) / the death-math / factions
+      A Bohemia choice where the liberation of the many resolves, at the end, into a specific innocent who cannot consent — the "cure," the "key," the "future" turning out to BE a particular child — so freeing the many and taking the one are the same act, and no faction wanting the child is clean. The trolley-with-a-face (#26) fused with the no-clean-faction machine (#169); the ending-math's question of
+  ->  PORT 2 — BOTH FACTIONS EQUALLY ARTICULATE [F1's law]
+      system: factions / the endings
+      If a choice depends on both factions being equally right and monstrous, both get equal ARTICULATION — the liberator's case as well-argued as the tyrant's — so the scale isn't tilted by who got the better speech (#169's both-sides-fully-built law).
+  ->  PORT 3 — THE TAKEN CHILD'S COST RETURNS [F2's law]
+      system: the fold / the endings / the death-math
+      If the greater good is bought with a specific child, the child's COST returns — what the taken life became, glimpsed after — so the one isn't a price paid once and never seen. A sacrificed innocent who vanishes from the aftermath was never weighed (#170's the-cost-must-return law).
+  ->  PORT 4 — THE PERSON IS STAGED AS A PERSON [F3's law]
+      system: dialogue scenes / the endings
+      When an abstraction is about to resolve into a person, the reveal is STAGED as a person, not a loot-pickup — the child seen, held, humanized before the choice — so the greater-good-has-a-face lands as horror, not inventory (#161's the-victim-must-be-a-person-first law).
+
+### #181  KLAASJE AND THE HANGED MAN (THE KILLER YOU CAN'T CHARGE AND THE WITNESS YOU CAN'T KEEP) (Disco Elysium)
+  ->  PORT 1 — THE TRUTH-TELLER GUILTY OF THE WRONG THING [W1, W2, W3 — the core port]
+      system: the unrecorded ledger / the conduct book / factions
+      A Bohemia interrogation where the person who gives the dynast the truth is thereby convicted of a smaller, real crime — their honesty clearing the big thing and handing you a candid, compromised human being you can charge (wrongly), release (without authority), or turn over (to worse) — none of them justice, and the game records the choice rather than adjudicating it. The unrecorded-ledger (#26) a
+  ->  PORT 2 — THE CONFESSION HAS AN ANCHOR [F1's law]
+      system: the unrecorded ledger / interrogation scenes
+      If a truth-teller is also a known liar, the quest gives the dynast an ANCHOR that the core confession is real — a corroborating fact, an involuntary tell — so the dilemma survives a suspicious read instead of collapsing into "she's lying, done" (#177's the-wound-must-be-verifiable law).
+  ->  PORT 3 — ALL OUTCOMES CARRY EQUAL WEIGHT [F2's law]
+      system: the endings / the conduct book
+      If a choice is meant to be un-adjudicated, all outcomes carry equal NARRATIVE weight — each its full case and consequence — so the game isn't quietly voting. An un-adjudicated choice with one well-lit door is an opinion pretending to be neutral (#180's equal-articulation law).
+  ->  PORT 4 — THE HEAVY CHOICE'S CONSEQUENCE RETURNS [F3's law]
+      system: the fold / the unrecorded ledger
+      If a quest loads a heavy un-adjudicated choice onto the dynast, the CONSEQUENCE returns with weight — the fate of the person decided-upon seen, not deferred — so the burden is honored (#170's the-cost-must-return law).
+
+### #182  I FOUGHT THE LAW (SOLVE THE MURDER AND LEARN THE SYSTEM ALREADY DECIDED WHO KILLED HIM) (Cyberpunk 2077)
+  ->  PORT 1 — THE GENUINE SOLVE, THE INERT TRUTH [W1, W2, W3 — the core port]
+      system: the unrecorded ledger / factions / the power grid
+      A Bohemia investigation where the dynast does the work perfectly and finds the real answer, and the answer changes nothing because the powers (a faction, the Amalgamation, the grid's owners) already decided the verdict before the work began — the truth true and inert, correctness and power revealed as different things. The unrecorded-ledger (#26) as a procedural; the question of who the record ser
+  ->  PORT 2 — THE DENIED PAYOFF IS LEGIBLY THE SYSTEM'S [F1's law]
+      system: factions / the unrecorded ledger
+      When a quest denies the expected payoff on purpose, the DENIAL is legibly the system's doing — the wall shown as a wall, the pre-decision concrete — so "the truth doesn't matter here" reads as the point, not a plot that fizzled (#169's the-refusal-must-be-legible law).
+  ->  PORT 3 — THE BOND DOESN'T ANESTHETIZE THE CRITIQUE [F2's law]
+      system: companions / factions / the power grid
+      If a quest's point is systemic powerlessness, the personal solidarity coexists with the horror but does not RESOLVE it — the system staying unbeaten even as two people connect — so the comfort doesn't cancel the critique (#173's the-bond-doesn't-fix-the-system law).
+  ->  PORT 4 — THE PRE-DECISION IS DEMONSTRATED [F3's law]
+      system: factions / the unrecorded ledger / quest structure
+      If a quest's spine is a pre-decided verdict, the collusion is DEMONSTRATED — the dynast hitting the closed doors, the spiked report, the pre-written outcome — so the wall is experienced, not summarized (#181's the-consequence-must-be-shown law).

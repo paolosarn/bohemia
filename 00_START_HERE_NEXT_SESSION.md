@@ -131,8 +131,8 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 74 of 150.** (Full-machine total 115; 41
-   are system studies that don't count.)
+   **INDIVIDUAL-QUEST COUNT: 98 of 150.** (Full-machine total 139; the
+   rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
    advance the 150). Fresh mines land as NEW files #153+, full template
@@ -190,14 +190,29 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    soul — the Amalgamation given a mouth and a price), A Towerful of
    Mice (Witcher, the truth or the mercy, to a ghost — the central
    question in a haunted tower). **INDIVIDUAL-QUEST COUNT: 92 of 150.**
-   58 to go. VEINS: ME2 loyalty (Jack, Zaeed, Grunt), Witcher (the
-   Whispering Hillock done, Return to Crookback, the Cave of Dreams),
-   FO4 (USS Constitution, the Nucleus, Kid in a Fridge), NV (Ghost Town
-   Gunfight, Beyond the Beef done, I Could Make You Care), KOTOR
-   (Korriban, Juhani, the Sand People), Skyrim (Forbidden Legend, the
-   Wolf Queen), Disco (Klaasje, the Deserter, the tribunal done),
-   Pathologic, Fallout 3 (The Pitt, Tenpenny done), CP2077 (I Fought
-   the Law, Pyramid Song, the Voodoo Boys).
+   BATCH 5 (7/17, #177-182): Jack's Loyalty/The Teardown (ME2, the
+   survivor returns to the forge and finds the foundational memory was
+   edited — wound real, story false, revenge in the gap), The Price of
+   Revenge (ME2, Zaeed — an earned twenty-year grudge weighed against
+   the innocents burning in the building it chases its target through;
+   the death-math made personal), The Trials of Korriban (KOTOR, the
+   institution that rewards evil by the ACT not the reason — undercover
+   cruelty and real cruelty graded identically; the conduct-book at
+   institutional scale), Into the Pitt (FO3, the cure for the many
+   turns out to be one immune baby — the greater good with a specific
+   child's face, no clean faction), Klaasje and the Hanged Man (Disco,
+   the truth-teller guilty of the wrong thing — honesty that clears the
+   murder and convicts her of tampering; un-adjudicated, the ledger as
+   interrogation), I Fought the Law (CP2077, River — the genuine solve
+   into a pre-decided verdict; being right is not the same as having the
+   power to make right count). **INDIVIDUAL-QUEST COUNT: 98 of 150.**
+   52 to go. VEINS: ME2 loyalty (Grunt, Samara done, Thane done),
+   Witcher (Return to Crookback, the Cave of Dreams), FO4 (USS
+   Constitution, the Nucleus, Kid in a Fridge), NV (Ghost Town
+   Gunfight, I Could Make You Care), KOTOR (Juhani, the Sand People),
+   Skyrim (Forbidden Legend, the Wolf Queen), Disco (the Deserter,
+   Cuno), Pathologic, Fallout 3 (Tenpenny done), CP2077 (Pyramid Song,
+   the Voodoo Boys, Sinnerman).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.
