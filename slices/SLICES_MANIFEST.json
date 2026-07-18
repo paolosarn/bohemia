@@ -5,10 +5,10 @@
   "entries": [
     {
       "id": "v12",
-      "title": "THE STREETS — V12",
+      "title": "THE INTERSECTION — V12",
       "file": "BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
       "date": "2026-07-18",
-      "note": "Every tile native-baked, zero overlay. Four canonical cells from seed 12345 — markings, wrecked cars, fire barrels and dead lamps baked into the ground. Walk it; day/night runs live over the baked world."
+      "note": "Stand in the dead intersection we built. All four stoplights at their approaches, lane markings, crosswalks and medians baked into the ground, corner lamps dark (the grid is dead in act 1). The whole road is walkable — walk up to any signal. Native baked, zero overlay."
     }
   ]
 }

@@ -1,27 +1,22 @@
 #!/usr/bin/env python3
-"""BOHEMIA V12 SLICE ASSEMBLER (7/18/26) — the overlay era ends.
+"""BOHEMIA V12 SLICE ASSEMBLER (7/18/26, v2 — the INTERSECTION slice).
 
-V11 baked plain terrain and PAINTED markings + lamps LIVE on top (overlay
-payloads injected into the walk loop). V12's thesis: THE BAKE IS THE WORLD.
-The bake factory already composites markings, wrecked cars, fire barrels
-and dead lamps natively into each cell's image, so the DAY image simply IS
-the ground truth. Every static overlay V11 painted live is gone; the live
-layers shrink to what actually moves — actors, the player, and the day/night
-ambient pass.
+v1 mistake (Paolo, verbatim): "we were so hard on intersections and the
+street lights, they're not even here... there's invisible walls
+everywhere I'm bumping into." Both were real: v1 walked four random
+STREET cells (no intersection, no signals) and blocked every wrecked-car
+footprint on the road, so the road felt full of invisible walls.
 
-This assembler:
-  1. bakes the same four canonical cells V11 walked — (33,6)(34,6)(35,6)
-     (36,6) from seed 12345, all pure street variants (no buildings, so no
-     map canon needed) — natively, and stitches them into one DAY image
-  2. reads each cell's props from the engine and builds OCCUPANCY from the
-     baked footprints (cars w x h, barrels, lamp bases) so the player can't
-     walk through them
-  3. reuses V11's harness VERBATIM (the light-pass module, the patrol
-     module, the walk loop) — only swapping the DAY image, the block dims,
-     and OCC, and REMOVING the markings/lamps overlay injections (native now)
+v2 fixes both. The slice IS the intersection we built, with the stoplights
+standing at all four approaches (facing law), and the ONLY solid cells are
+the mast pole bases and the corner lamps — off the road, at the corners.
+The whole road, crosswalks and box are freely walkable; the signal arms
+just overhang (you walk under them). You walk up to a dead Vegas
+intersection and our stoplights are right there.
 
-Result: slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html — the same canonical
-ground V11 walked, every tile now native-baked, zero overlay.
+The bake stays the world (V12 thesis): markings + signals + lamps baked
+native, zero overlay. Harness (light pass, patrol, walk loop) reused
+verbatim from V11.
 
 Run from repo root: python3 tools/bohemia_v12_slice.py
 """
@@ -36,105 +31,81 @@ from PIL import Image
 
 V11 = 'slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html'
 OUT = 'slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html'
-CELLS = [(33, 6), (34, 6), (35, 6), (36, 6)]
+PNG = 'slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.png'
+OCCJSON = 'slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.occ.json'
 T = 44
-SEED = 12345
-
-
-def bake_cell(cx, cy):
-    r = subprocess.run(['python3', 'tools/bohemia_bake_factory.py', str(cx), str(cy)],
-                       capture_output=True, text=True)
-    if r.returncode != 0:
-        print('BAKE FAILED (%d,%d): %s' % (cx, cy, r.stderr[:300]))
-        sys.exit(1)
-    return Image.open('slices/BOHEMIA_V12_BAKE_PROOF_%d_%d.png' % (cx, cy)).convert('RGB')
-
-
-def cell_props(cx, cy):
-    js = """
-const OM=require('./engine/bohemia_overmap.js');
-const BR=require('./engine/bohemia_overmap_bridge.js');
-const G=require('./engine/bohemia_blockgen.js');
-const m=OM.buildOvermap(%d);
-const b=BR.blockFor(m.at(%d,%d),G,24);
-const out={H:b.H,props:[]};
-for(let y=0;y<b.H;y++)for(let x=0;x<24;x++)
-  for(const p of (b.grid[y][x].props||[]))
-    out.props.push({x,y,p:p.p,w:p.w||1,h:p.h||1});
-console.log(JSON.stringify(out));
-""" % (SEED, cx, cy)
-    r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
-    if r.returncode != 0:
-        print('ENGINE QUERY FAILED (%d,%d): %s' % (cx, cy, r.stderr[:300]))
-        sys.exit(1)
-    return json.loads(r.stdout)
 
 
 def main():
-    # 1. bake + stitch, tracking the y-offset of each cell
-    imgs, occ, y0 = [], [], 0
-    for cx, cy in CELLS:
-        img = bake_cell(cx, cy)
-        eng = cell_props(cx, cy)
-        imgs.append(img)
-        for pr in eng['props']:
-            gx, gy = pr['x'], y0 + pr['y']
-            if pr['p'] == 'car_wreck':
-                for dx in range(pr['w']):
-                    for dy in range(pr['h']):
-                        occ.append([gx + dx, gy + dy])
-            else:                      # fire_barrel / street_lamp: one cell
-                occ.append([gx, gy])
-        y0 += eng['H']
-    W, H = 24, y0
-    stitched = Image.new('RGB', (W * T, H * T))
-    yy = 0
-    for img in imgs:
-        stitched.paste(img, (0, yy)); yy += img.height
-    buf = io.BytesIO(); stitched.save(buf, 'JPEG', quality=88)
-    day = base64.b64encode(buf.getvalue()).decode()
-    occ = sorted({tuple(c) for c in occ if 0 <= c[0] < W and 0 <= c[1] < H})
+    # 1. bake the intersection with all four stoplights standing (writes the
+    #    PNG + an .occ.json sidecar of the solid cells)
+    r = subprocess.run(['python3', 'tools/bohemia_bake_factory.py',
+                        '--intersection', '3', '3', 'intact'],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        print('BAKE FAILED: ' + r.stderr[:400]); return 1
+    sc = json.load(open(OCCJSON))
+    H = sc['H']
+    W = 24
+    c0, r0, c1, r1 = sc['box']
 
-    # a guaranteed-walkable spawn: scan for a cell that is not in OCC, near
-    # the top band's center
+    img = Image.open(PNG).convert('RGB')
+    buf = io.BytesIO(); img.save(buf, 'JPEG', quality=90)
+    day = base64.b64encode(buf.getvalue()).decode()
+
+    # 2. OCC: ONLY the solid furniture — mast pole bases + standing lamps.
+    #    The road box, crosswalks and approaches stay open.
+    occ = set()
+    for cx, cy in sc['signal_cells']:
+        occ.add((cx, cy))
+    for cx, cy in sc['lamp_cells']:
+        occ.add((cx, cy))
+    occ = sorted(o for o in occ if 0 <= o[0] < W and 0 <= o[1] < H)
+
+    # spawn on the SOUTH approach, a few cells below the crosswalk, so the
+    # opening view frames the south stoplight + crosswalk + lane markings
+    # (the box interior is clean by design — don't open on empty asphalt)
     blocked = set(occ)
+    tgtx, tgty = (c0 + c1) // 2, min(H - 3, r1 + sc['cwn'] + 3)
     spawn = None
-    for ny in range(2, H):
-        for nx in range(8, 16):
-            if (nx, ny) not in blocked:
-                spawn = (nx, ny); break
+    for rad in range(0, 14):
+        for dx in range(-rad, rad + 1):
+            for dy in range(-rad, rad + 1):
+                nx, ny = tgtx + dx, tgty + dy
+                if 0 <= nx < W and 0 <= ny < H and (nx, ny) not in blocked:
+                    spawn = (nx, ny); break
+            if spawn:
+                break
         if spawn:
             break
-    sx, sy = spawn or (12, 3)
+    sx, sy = spawn or (tgtx, tgty)
 
-    # 2. reuse V11's harness blocks verbatim
+    # 3. reuse V11's harness blocks verbatim
     h = open(V11, encoding='utf-8').read()
     scripts = re.findall(r'<script>.*?</script>', h, re.S)
-    light_block = scripts[0]          # BOH_LIGHT + DAYCYCLE + SLICE
-    patrol_block = scripts[2]         # BOH_PATROL
-    walk_block = scripts[3]           # the walk loop
-
-    # strip the overlay injections from the walk loop (native now)
+    light_block, patrol_block, walk_block = scripts[0], scripts[2], scripts[3]
     for tag in ('MARKINGS-DRAW', 'LAMPS-IMGS', 'LAMPS-DRAW', 'PATROL-DRAW'):
         walk_block = re.sub(r'/\*%s\*/.*?/\*/%s\*/' % (tag, tag), '', walk_block, flags=re.S)
-    # neutralize the payload references the walk loop still names
     walk_block = walk_block.replace('let guy={x:12,y:6', 'let guy={x:%d,y:%d' % (sx, sy))
+    # open in DAYLIGHT so the intersection + stoplights read immediately
+    # (V11 started the world clock at 22:00 night)
+    walk_block = walk_block.replace('makeWorldClock(0.917)', 'makeWorldClock(0.52)')
+    walk_block = walk_block.replace('let TOD=0.917', 'let TOD=0.52')
 
-    # 3. the new data block — DAY is the whole world; the only live layers are
-    #    empty here (no fires/doors/static lights in a pure street stretch)
     data_block = ('<script>\nconst DAY=%r;\nconst CELL=%d;\nconst W=%d,H=%d;\n'
                   'const OCC=%s;\nconst FIRES=[];\nconst DOORS=[];\n'
                   'const STATIC_LIGHTS=[];\nconst LAMPS=[];\nconst MARKINGS=[];\n'
                   '</script>' % (day, T, W, H, json.dumps([list(c) for c in occ])))
 
-    title = 'BOHEMIA LIVE SLICE V12 — everything baked native, zero overlay'
-    expl = ('V12: THE BAKE IS THE WORLD. The same canonical ground V11 walked '
-            '(cells (33,6)(34,6)(35,6)(36,6), seed 12345) — but every marking, '
-            'wrecked car, fire barrel and dead lamp is now BAKED into the tile '
-            'image by the bake factory, not painted live on top. V11 injected '
-            'three overlay payloads into the walk loop; V12 has NONE. The live '
-            'layers are only what moves: you, the survivors, and the sun. '
-            'Walk it — you are on native-baked cells, the overlay era is over.')
+    title = 'BOHEMIA LIVE SLICE V12 — the intersection, native, walkable'
+    expl = ('V12: you are standing in the dead intersection we built. Every '
+            'stoplight is here at its approach (facing law), the lane markings, '
+            'crosswalks and medians are baked into the ground, the corner lamps '
+            'stand dark (the grid is dead in act 1). The whole road is walkable '
+            '— walk up to any signal; only the poles and lamps are solid, the '
+            'arms just overhang. Tap a direction to step on the beat, hold to '
+            'run. This is the same ground the finished game generates, native '
+            'baked, zero overlay.')
 
     out = (
         '<!DOCTYPE html><html><head><meta charset="utf-8">'
@@ -148,7 +119,7 @@ def main():
         '.pad button{font-size:22px;padding:14px 0;border-radius:10px;border:2px solid #3a3a44;background:#1a1a22;color:#e8e4da;font-weight:800}\n'
         '.expl{background:#1a1a22;border:2px solid #3a3a44;border-radius:10px;padding:10px;font-size:13px;margin-top:10px}\n'
         '</style>%s%s</head><body>\n'
-        '<h1>LIVE SLICE V12 — every tile native-baked, zero overlay payloads</h1>\n'
+        '<h1>LIVE SLICE V12 — the intersection + our stoplights, baked native, walkable</h1>\n'
         '<div id="wrap"><canvas id="cv"></canvas></div>\n'
         '<div class="pad"><span></span><button id="bU">&#9650;</button><span></span>\n'
         '<button id="bL">&#9664;</button><button id="bD">&#9660;</button><button id="bR">&#9654;</button></div>\n'
@@ -156,13 +127,13 @@ def main():
         '<label style="font-size:13px;font-weight:800">TIME OF DAY: <span id="tval">22:00</span> '
         '<button id="mode" style="float:right;margin-left:6px;font-size:12px;padding:4px 10px;border-radius:8px;border:2px solid #6a3fb5;background:#2a2a34;color:#e8e4da;font-weight:800">GAME TIME</button>'
         '<button id="tauto" style="float:right;font-size:12px;padding:4px 10px;border-radius:8px;border:2px solid #3a3a44;background:#2a2a34;color:#e8e4da;font-weight:800">AUTO: ON</button></label>\n'
-        '<input type="range" id="tod" min="0" max="1000" value="917" style="width:100%%"></div>\n'
+        '<input type="range" id="tod" min="0" max="1000" value="520" style="width:100%%"></div>\n'
         '<div class="expl">%s</div>\n'
         '%s%s</body></html>'
     ) % (title, light_block, data_block, expl, patrol_block, walk_block)
 
     open(OUT, 'w', encoding='utf-8').write(out)
-    print('V12 slice: %dx%d cells, %d occ, spawn (%d,%d), %d bytes -> %s'
+    print('V12 intersection slice: %dx%d, %d occ (poles+lamps only), spawn (%d,%d) in box, %d bytes -> %s'
           % (W, H, len(occ), sx, sy, len(out), OUT))
     return 0
 

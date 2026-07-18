@@ -301,6 +301,16 @@ def bake_intersection(lanes_ew, lanes_ns, corner_mode='mixed'):
             (1, r1 + cwn + 1,
              sig_pick('galv', 'e', 'e', 'n', kind='scattered', variant=1)),    # W
         )
+    elif corner_mode == 'intact':
+        # ALL FOUR STANDING (the walkable slice showcase): every mast
+        # intact per the facing law, so you can walk the intersection and
+        # see the stoplights we built at each approach.
+        corners = (
+            (c0 - cwn, r0 - cwn - 1, sig_pick('galv', 'e', 'n')),          # N: backs
+            (c1 + cwn, r0 - cwn - 1, sig_pick('bronze', 'w', 'e', 's')),   # E: arm down, lights east
+            (c1 + cwn, r1 + cwn + 1, sig_pick('bronze', 'w', 's')),        # S: faces
+            (1, r1 + cwn + 1, sig_pick('galv', 'e', 'w', 'n')),            # W: arm up, lights west
+        )
     else:
         # HALF BROKEN, HALF GOOD (Paolo 7/18, APPROVED): two survivors,
         # two wrecks — sixty years of desert take their toll unevenly
@@ -347,8 +357,20 @@ def bake_intersection(lanes_ew, lanes_ns, corner_mode='mixed'):
         fail('PURPLE in the bake (%d px)' % purple)
     png = ('slices/BOHEMIA_V12_SCATTER_PROOF_7_18_26.png'
            if corner_mode == 'scattered' else
+           'slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.png'
+           if corner_mode == 'intact' else
            'slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png')
     out.save(png)
+    # sidecar for the slice assembler: only the SOLID cells (mast pole
+    # bases + standing lamps) so OCC blocks those and the whole road stays
+    # walkable — the arms just overhang (image only, walk under them)
+    lamp_cells = [[x, y] for y in range(H) for x in range(24)
+                  for p in blk['grid'][y][x]['props']
+                  if p['p'] == 'street_lamp' and (x, y) not in sig_cells]
+    sidecar = {'H': H, 'box': blk['meta']['box'], 'cwn': cwn,
+               'signal_cells': [[cx2, cy2] for (cx2, cy2, _s) in corners],
+               'lamp_cells': lamp_cells}
+    json.dump(sidecar, open(png.rsplit('.', 1)[0] + '.occ.json', 'w'))
     m = blk['meta']
     print('intersection baked: %dx%d, box=%s, crosswalks=%d, pockets X%s Y%s -> %s'
           % (24, H, m['box'], m['crosswalks'], m['pocketLenX'], m['pocketLenY'], png))
