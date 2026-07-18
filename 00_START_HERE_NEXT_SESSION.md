@@ -59,7 +59,20 @@ desert_lot.py -> slices/BOHEMIA_DESERT_LOT_PROOF_7_18_26.png. Anti-confetti:
 one seamless cropped sand base + multi-octave value noise for tone (spans
 the parcel, no grid) + fine grain + sparse whole-parcel scatter (tan
 pebbles, dry-wash hairlines). 28x28 cells (1232px), deterministic, zero
-purple. [PENDING Paolo: bless the desert -> he "starts the city off".]
+purple. Paolo BLESSED it ("really impressed, continue moving on") -> CITY
+STARTED.
+THE CITY MAP RENDERS (7/18): tools/bohemia_city_map.py -> slices/BOHEMIA_
+CITY_MAP_PROOF_7_18_26.png — the whole 96x96 generated Vegas from above.
+The overmap generator already lays the canon: 2448 arterial cells = the
+mile grid, 1011 freeway (215 beltway + I-15/95), rail, Lake Mead (water),
+the mountain ring, and 80+ landmark districts. Paolo's rule applied: only
+the SKELETON draws as itself (streets/freeway/rail/water/mountain); every
+BUILDABLE district (suburb/commercial/estate/resort/casino/strip/downtown
+/...) renders as DESERT LOT until grown on. This is the CITY tab's base.
+NEXT for the city: (a) mark/zoom the landmarks (Strip, Sphere, Luxor, dam
+— all in overmap.layout), (b) a detail bake where you zoom a region to
+walkable streets + desert lots (compose from the street/intersection/
+desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
 0. THE INTERSECTION EXISTS (7/17 evening, Paolo asked, same turn): blockgen
