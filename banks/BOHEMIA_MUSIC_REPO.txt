@@ -196,8 +196,8 @@ VARIETY (no two share scale+feel+kick; roots spread 40-53):
 - THE CANCELLED MAN     root47 scale[0,1,6,7,10]   feel normal kick[0,3,8,11]
 - THE WIND LEARNS WORDS root53 scale[0,2,3,5,7,10] feel normal kick[0,4,10]
 ENTRIES (verbatim):
-{n:'SUNKEN VESPERS',acc:'#5a7a9a',root:45,scale:[0,1,5,7,8],wave:'sine',kick:[0,9],bass:[0,7,8,12],hat:[4,12],inst:{b:'processional',l:'faythchoir'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
-{n:'UNDERTOW',acc:'#3a5a6a',root:40,scale:[0,3,4,7,10],wave:'triangle',kick:[0,5,8],bass:[0,4,7,10],hat:[6,14],inst:{b:'undertowbass',l:'watervoice'},am:'styxhaze',kit:{k:'boom',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},
+{n:'SUNKEN VESPERS',acc:'#5a7a9a',root:45,scale:[0,1,5,7,8],wave:'sine',kick:[0,9],bass:[0,7,8,12],hat:[4,12],inst:{b:'processional',l:'faythchoir'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},   <- DOWN 7/18/26 GRAVEYARD (killed; retained as record)
+{n:'UNDERTOW',acc:'#3a5a6a',root:40,scale:[0,3,4,7,10],wave:'triangle',kick:[0,5,8],bass:[0,4,7,10],hat:[6,14],inst:{b:'undertowbass',l:'watervoice'},am:'styxhaze',kit:{k:'boom',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true},   <- DOWN 7/18/26 GRAVEYARD (killed; retained as record)
 {n:'THE CANCELLED MAN',acc:'#8a8a92',root:47,scale:[0,1,6,7,10],wave:'sawtooth',kick:[0,3,8,11],bass:[0,6,7,10],hat:[2,6,10,14],inst:{b:'necrobass',l:'phasetwin'},am:'vacancyhum',kit:{k:'knock',h:'tight'},mel:'call',swing:0,feel:'normal',klay:'stabs',ff:true,nu:true},
 {n:'THE WIND LEARNS WORDS',acc:'#a8925a',root:53,scale:[0,2,3,5,7,10],wave:'triangle',kick:[0,4,10],bass:[0,3,7,10],hat:[3,7,11,14],inst:{b:'hullwind',l:'stormlarynx'},am:'mesawind',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.12,feel:'normal',klay:'melody',ff:true,nu:true}
 ALL FOUR UNJUDGED, NEW badges live (NEW_VIBES updated to this batch; the old
