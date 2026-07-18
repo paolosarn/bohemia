@@ -669,6 +669,42 @@ function buildOvermap(seed){
     tiles[y*OVER_N+x]={x,y,district:d,fixed:!!fixed,quality:qualityAt(x,y,L),seed:(seed^(x*2654435761)^(y*40503))>>>0};
   }
   const at=(x,y)=>(x<0||y<0||x>=OVER_N||y>=OVER_N)?null:tiles[y*OVER_N+x];
+  // BIG ARCHITECTURE (Paolo 7/18/26): the ONLY things allowed to interrupt the
+  // surface-street grid. Real physical masses (mountain/water/freeway/rail/wash/
+  // the mines) and genuinely huge installations (airport/airbase/speedway/prison/
+  // datafort/arsenal/landfill/stadium/ballpark/convention/waterpark) and Paolo's
+  // blessed megablocks (the Strip and its casinos/luxor/sphere/highroller/strat).
+  // EVERYTHING ELSE — a fire station, a school, a mall, a gated community, a
+  // medical campus, downtown — is normal city fabric that sits IN its plot and
+  // must NEVER break a street. "even monuments... would just be in their big ass
+  // plots not breaking any city streets."
+  const BIG=new Set([DISTRICT.MOUNTAIN,DISTRICT.WATER,DISTRICT.FREEWAY,DISTRICT.INTERCHANGE,DISTRICT.BELTWAY,
+    DISTRICT.DAM,DISTRICT.RAIL,DISTRICT.RAILYARD,DISTRICT.WASH,DISTRICT.BASIN,DISTRICT.GYPSUM,DISTRICT.QUARRY,
+    DISTRICT.INTAKE,DISTRICT.SOLAR,DISTRICT.AIRPORT,DISTRICT.AIRBASE,DISTRICT.SPEEDWAY,DISTRICT.PRISON,
+    DISTRICT.DATAFORT,DISTRICT.ARSENAL,DISTRICT.LANDFILL,DISTRICT.BONEYARD,DISTRICT.WATERPARK,DISTRICT.MINIGP,
+    DISTRICT.STADIUM,DISTRICT.BALLPARK,DISTRICT.CONVENTION,DISTRICT.SPRINGS,DISTRICT.STRIP,DISTRICT.RESORT,
+    DISTRICT.CASINO,DISTRICT.LUXOR,DISTRICT.SPHERE,DISTRICT.HIGHROLLER,DISTRICT.STRAT,DISTRICT.SIGN,
+    DISTRICT.TOWN,DISTRICT.TRUCKSTOP]);
+  // GRID RE-ASSERT (Paolo 7/18/26, the aerial-map circles): landmark rects are
+  // stamped in skeleton() BEFORE the arterial/collector lines, so any soft
+  // landmark that overlapped a street cell ERASED it — that is every stub Paolo
+  // circled. Punch the whole street grid (mile arterials + per-strip collectors,
+  // the exact skeleton predicate) back through every soft landmark. BIG masses
+  // keep their cell (they are the only legit street-break). The monument now
+  // sits in its plot and the streets run around/through it, unbroken.
+  for(const t of tiles){
+    const x=t.x, y=t.y;
+    let grid=(x%9===0||y%9===0);
+    if(!grid){
+      const bx=(x/9)|0, by=(y/9)|0;
+      const colPick=4+((hash2(seed,bx,0)>>>3)&1);
+      const rowPick=4+((hash2(seed,0,by)>>>5)&1);
+      grid=((x%9)===colPick)||((y%9)===rowPick);
+    }
+    if(grid && !BIG.has(t.district) && t.district!==DISTRICT.ARTERIAL){
+      t.district=DISTRICT.ARTERIAL; t.fixed=true;
+    }
+  }
   // FREEWAY CONNECTIVITY SWEEP (Paolo 7/5/26): any freeway cell not reachable
   // from the spine is a severed stub (cluster/rect cuts); it returns to desert.
   {
@@ -831,25 +867,25 @@ function buildOvermap(seed){
   // back to desert, until the grid has no mid-block breaks. Mile arterials
   // (x%9==0 || y%9==0) are the grade-separated spine and are never pruned;
   // streets ending at a freeway/water/mountain/wash/strip/edge are real ends.
-  // OPEN = the only two "empty lot" districts a street must NOT dead-end into.
-  // Ending at ANYTHING else (a freeway, water, mountain, wash, OR any claimed
-  // big-architecture landmark: strip/casino/estate/mall/solar/gated/airport/
-  // ...) is a real, legitimate street end, not a break.
+  // A street may END legitimately ONLY at: another road, a BIG mass (the only
+  // thing allowed to break the grid), or the map edge. After the grid re-assert
+  // punched collectors through every SOFT landmark, the only stubs left are
+  // freeway-sweep leftovers and collectors that couldn't span a block. <=1 road
+  // neighbor with NO big mass beside it = a nub poking into fabric (desert /
+  // suburb / a soft landmark) -> prune it back. It unravels the dangling tail to
+  // the last real junction and leaves the spanning grid whole.
   {
-    const OPEN={desert:1,suburb:1};
     let changed=true, guard=0;
     while(changed && guard++<60){ changed=false;
       for(const t of tiles){ if(t.district!==DISTRICT.ARTERIAL)continue;
         if(t.x%9===0||t.y%9===0)continue;
-        let roadN=0, termN=0, edge=false;
+        let roadN=0, bigN=0, edge=false;
         for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
           const nn=at(t.x+dx,t.y+dy);
           if(!nn){edge=true;continue;}
-          if(ROAD[nn.district])roadN++; else if(!OPEN[nn.district])termN++;
+          if(ROAD[nn.district])roadN++; else if(BIG.has(nn.district))bigN++;
         }
-        // a dangling stub: <=1 road neighbor and NO real terminator, only open
-        // lots around it -> it breaks into empty desert. Return it to desert.
-        if(roadN<=1 && termN===0 && !edge){ t.district=DISTRICT.DESERT; changed=true; }
+        if(roadN<=1 && bigN===0 && !edge){ t.district=DISTRICT.DESERT; changed=true; }
       }
     }
   }

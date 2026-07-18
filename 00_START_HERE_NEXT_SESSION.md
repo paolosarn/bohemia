@@ -87,11 +87,27 @@ gate is gates/street_connectivity_gate.js (STREET CONNECT, 3 checks now):
       mountain/edge) -> new STREET ISLAND PRUNE: label road components, keep
       the LARGEST, demote every orphan arterial in any other component to
       desert. Only arterials pruned; freeway/strip/downtown stay put.
-Gate now enforces: 0 dead-ends into empty lots, ONE connected road grid (flood-
-fill, 0 islands), mile grid intact (>=2000 arterials). Seed 12345: 0 breaks,
-0 islands, 2258 arterials. Map re-rendered clean (BOHEMIA_CITY_MAP_PROOF_7_18
-_26.png), all gates green. NOTE: (16,3) engine test repointed to (23,18) —
-the old sample cell was a legit orphan the island-prune correctly removed.
+  (4) MONUMENTS WERE BREAKING STREETS (Paolo circled the map again: "even
+      monuments would just be in their big ass plots not breaking any city
+      streets"). ROOT CAUSE: in skeleton() the landmark rects are stamped
+      BEFORE the arterial/collector lines, so any soft landmark overlapping a
+      street cell ERASED it -> a stub. FIX: GRID RE-ASSERT post-pass punches the
+      full street predicate (mile arterials + per-strip collectors) back through
+      every SOFT landmark; only BIG architecture may break the grid. BIG = real
+      physical masses + huge installations + the blessed Strip/casino megablocks
+      (the set lives in engine + gate, mirrored). Streets 2258 -> 2335. Dead-end
+      prune rewritten: a street ends ONLY at road/BIG/edge; true stubs 153 -> 0.
+Gate (STREET CONNECT, 3 checks): 0 stubs into fabric, ONE connected grid (flood-
+fill, 0 islands), mile grid intact (>=2000). Seed 12345: 0 breaks, 0 islands,
+2335 arterials. Map re-rendered clean + a zoom of the circled region verified
+(monuments sit in plots, streets route around them). NOTE: (16,3) engine test
+repointed to (23,18) — the old sample was a legit orphan the prune removed.
+DOWNSTREAM (expected): +77 arterials re-rolled the power grid's 12%-live
+lottery, relighting one V11 lamp block. The V11 lamp factory's lit path (never
+finished) is now WIRED: a live cell shows the approved lamp body + a runtime
+amber head-glow (rgb-only, per the light law, no new baked art, no verdict
+owed). Verified in chromium (3 lit / 8 dead, 0 errors). Robust to any future
+power reshuffle from map edits.
 NEXT for the city: (a) mark/zoom the landmarks (Strip, Sphere, Luxor, dam
 — all in overmap.layout), (b) a detail bake where you zoom a region to
 walkable streets + desert lots (compose from the street/intersection/

@@ -142,14 +142,16 @@ def main():
             continue
         live = states[sl['cell']]['live']
         variant = USABLE[len(lamps) % len(USABLE)]
-        if live:
-            fail('cell %s is LIVE: wire the LIT art path before shipping it' % (sl['cell'],))
+        # The grid decides lit-ness (CLUSTERED POWER / LIGHT=TERRITORY). Dead uses
+        # the dimmed-glass dark sprite; lit uses the same approved lamp body plus a
+        # runtime amber head-glow (rgb-only glow, per the light law) — no new baked
+        # art, so no verdict owed. Robust to any power reshuffle from map edits.
         key = ('dark', variant)
         if key not in art_key:
             art_key[key] = len(art)
             art.append(dark[variant]['b64'])
         lamps.append({'x': sl['x'], 'y': sl['y'], 'h': sl['h'],
-                      'state': 'dead', 'i': art_key[key]})
+                      'state': 'lit' if live else 'dead', 'i': art_key[key]})
     print('lamps placed: %d   skipped (cell occupied): %s' % (len(lamps), skipped or 'none'))
 
     payload = ('/*LAMPS-PAYLOAD*/const LAMP_ART=%s;const LAMPS=%s;/*/LAMPS-PAYLOAD*/'
@@ -159,7 +161,16 @@ def main():
             "LAMPS.forEach(l=>blocked.add(l.x+','+l.y));/*/LAMPS-IMGS*/")
     draw = ("/*LAMPS-DRAW*/LAMPS.forEach(L=>{const img=lampImgs[L.i];"
             "if(img&&img.complete){const dh=L.h*CELL,dw=img.width*(dh/img.height);"
-            "sctx.drawImage(img,L.x*CELL+CELL/2-dw/2,(L.y+1)*CELL-dh,dw,dh);}});/*/LAMPS-DRAW*/")
+            "const px=L.x*CELL+CELL/2,py=(L.y+1)*CELL-dh;"
+            "sctx.drawImage(img,px-dw/2,py,dw,dh);"
+            "if(L.state==='lit'){const hx=px,hy=py+dh*0.13,R=CELL*1.7,"
+            "g=sctx.createRadialGradient(hx,hy,0,hx,hy,R);"
+            "g.addColorStop(0,'rgba(255,201,102,0.85)');"
+            "g.addColorStop(0.45,'rgba(255,156,48,0.32)');"
+            "g.addColorStop(1,'rgba(255,150,40,0)');"
+            "const pc=sctx.globalCompositeOperation;sctx.globalCompositeOperation='lighter';"
+            "sctx.fillStyle=g;sctx.beginPath();sctx.arc(hx,hy,R,0,6.2832);sctx.fill();"
+            "sctx.globalCompositeOperation=pc;}}});/*/LAMPS-DRAW*/")
 
     # strip any previous injection, then inject fresh (idempotent)
     for tag in ('LAMPS-PAYLOAD', 'LAMPS-IMGS', 'LAMPS-DRAW'):
@@ -176,17 +187,18 @@ def main():
         fail('draw anchor missing')
     html = html.replace(anchor, draw + anchor, 1)
 
+    n_lit = sum(1 for l in lamps if l['state'] == 'lit')
     old_h1 = re.search(r'<h1>.*?</h1>', html, re.S).group(0)
     html = html.replace(old_h1,
         '<h1>LIVE SLICE V11 — LAMPS ON THE GRID: %d street lamps straight from '
-        'blockgen anatomy, every one dead because BOH_POWERGRID says every circuit '
-        'on this street is dead (nearest live circuit: the settlement at (31,7))</h1>'
-        % len(lamps), 1)
+        'blockgen anatomy; BOH_POWERGRID decides who burns. Today %d lit, %d dead '
+        '(LIGHT=TERRITORY: the grid owns the light, not the map)</h1>'
+        % (len(lamps), n_lit, len(lamps) - n_lit), 1)
     html = html.replace('</div>\n<script>',
         ' LAMPS LAW: lamp slots come from the block generator (x every 8, staggered '
-        'sides, arterial poles taller), the power grid decides who lights up, and '
-        'today the answer is nobody: this is act-1 dark. One slot (10,9) is skipped, '
-        'its sidewalk cell is already occupied.</div>\n<script>', 1)
+        'sides, arterial poles taller), and the power grid decides who lights up. '
+        'A lit lamp carries a runtime amber head-glow; the rest are act-1 dark glass. '
+        'One slot (10,9) is skipped, its sidewalk cell is already occupied.</div>\n<script>', 1)
 
     if dry:
         print('DRY RUN: no write. payload %d bytes' % len(payload))

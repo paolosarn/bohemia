@@ -47,12 +47,46 @@ causes, both fixed:
    back to desert. Only arterials are pruned; freeway/strip/downtown/beltway are
    masses of their own and stay put. On seed 12345 this cleared 10 islands to 0.
 
+## THIRD PASS (Paolo 7/18/26, circled the aerial map: "even monuments... would
+## just be in their big ass plots not breaking any city streets")
+Still not clean. ROOT CAUSE: in skeleton(), the landmark rects are stamped
+BEFORE the arterial/collector lines, so ANY landmark that overlapped a street
+cell ERASED it — leaving a stub. That was every break Paolo circled: a school,
+a mall, a fire station sitting ON a street and cutting it.
+
+THE RULE (LOCKED): the ONLY thing allowed to break the surface-street grid is
+BIG ARCHITECTURE — real physical masses (mountain/water/freeway/rail/wash/the
+mines), genuinely huge installations (airport/airbase/speedway/prison/datafort/
+arsenal/landfill/stadium/ballpark/convention/waterpark), and the blessed
+megablocks (the Strip and its casinos/luxor/sphere/highroller/strat). EVERY
+other landmark — school, mall, gated community, golf course, medical campus,
+downtown, fire station — is normal city fabric that sits IN its plot, with the
+streets running around (and through) it, unbroken.
+
+TWO ENGINE CHANGES (engine/bohemia_overmap.js):
+1. GRID RE-ASSERT post-pass: recompute the full street predicate (mile
+   arterials + per-strip collectors) and punch ARTERIAL back through every cell
+   a SOFT landmark had overwritten. BIG masses keep their cell. Result: streets
+   go up 2258 -> 2335 (the erased segments restored).
+2. DEAD-END PRUNE rewritten: a street may end ONLY at another road, a BIG mass,
+   or the map edge. A nub with <=1 road neighbor and no BIG mass beside it =
+   a stub poking into fabric -> pruned. True stubs: 153 -> 0. The 124 remaining
+   dead-ends all terminate AT big architecture (the mile spine meeting a
+   mountain/lake/casino), the one legit break.
+
+DOWNSTREAM (expected, not a regression): adding 77 arterials re-rolls the power
+grid's 12%-live circuit lottery, so the V11 lamp slice relit one block. The V11
+lamp factory's lit-art path (never finished) is now wired: a live cell shows the
+approved lamp body + a runtime amber head-glow (rgb-only, per the light law, no
+new baked art). The demo is now robust to any future power reshuffle.
+
 ## THE GATE (same turn, per the law of laws)
 gates/street_connectivity_gate.js, wired into the suite as STREET CONNECT.
 Three checks:
-- NO DEAD-ENDS: no arterial dead-ends into an open lot (<=1 road neighbor, no
-  real terminator beside it, not the edge). OPEN = {desert, suburb}; everything
-  else is a legitimate street end.
+- NO DEAD-ENDS: a street may end only at another road, a BIG mass, or the map
+  edge. A nub with <=1 road neighbor and no BIG mass beside it (it stops in
+  fabric — desert/suburb/a soft landmark) is a break. The gate's BIG set mirrors
+  the engine's exactly, so a monument breaking a street fails the gate.
 - ONE CONNECTED GRID: flood-fill from a mile arterial across all road cells;
   every road cell must be reached. Any island = "streets not connected to each
   other" and the gate fails.

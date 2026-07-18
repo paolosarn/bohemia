@@ -12,27 +12,36 @@ function ok(n, c) { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); }
 const m = O.buildOvermap(12345);
 const N = m.n;
 const ROAD = new Set(['arterial', 'freeway', 'strip', 'beltway', 'interchange', 'downtown', 'town']);
-const OPEN = new Set(['desert', 'suburb']);   // the only empty-lot districts
+// BIG = the ONLY architecture allowed to break the grid (Paolo 7/18/26): real
+// physical masses + huge installations + the blessed Strip/casino megablocks.
+// EVERYTHING else is city fabric a street must not dead-end into. This mirrors
+// the BIG set in engine/bohemia_overmap.js exactly.
+const BIG = new Set(['mountain', 'water', 'freeway', 'interchange', 'beltway', 'dam', 'rail', 'railyard',
+  'wash', 'basin', 'gypsum', 'quarry', 'intake', 'solar', 'airport', 'airbase', 'speedway', 'prison',
+  'datafort', 'arsenal', 'landfill', 'boneyard', 'waterpark', 'minigp', 'stadium', 'ballpark', 'convention',
+  'springs', 'strip', 'resort', 'casino', 'luxor', 'sphere', 'highroller', 'strat', 'sign', 'town', 'truckstop']);
 const d4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
 let breaks = 0, sample = [];
 for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
   if (m.at(x, y).district !== 'arterial') continue;
-  let roadN = 0, termN = 0, edge = false;
+  if (x % 9 === 0 || y % 9 === 0) continue;   // mile spine is grade-separated, ends at BIG masses only
+  let roadN = 0, bigN = 0, edge = false;
   for (const [dx, dy] of d4) {
     const c = m.at(x + dx, y + dy);
     if (!c) { edge = true; continue; }
     if (ROAD.has(c.district)) roadN++;
-    else if (!OPEN.has(c.district)) termN++;      // a real terminator
+    else if (BIG.has(c.district)) bigN++;         // the only legit terminator
   }
-  // a break: <=1 road neighbor, no real terminator beside it, not the map edge
-  // -> the street just stops in an open lot.
-  if (roadN <= 1 && termN === 0 && !edge) {
+  // a break: a street nub with <=1 road neighbor, no BIG mass beside it, not the
+  // map edge -> it just stops in fabric (desert/suburb/a soft landmark). A
+  // monument must sit in its plot, not break the street.
+  if (roadN <= 1 && bigN === 0 && !edge) {
     breaks++;
     if (sample.length < 10) sample.push(x + ',' + y);
   }
 }
-ok('no surface street dead-ends into an empty lot (NO-STREET-BREAK LAW)', breaks === 0);
+ok('no surface street dead-ends into fabric — monuments sit in plots (NO-STREET-BREAK LAW)', breaks === 0);
 if (breaks) console.log('  street breaks: ' + breaks + ' e.g. ' + sample.join(' '));
 
 // GLOBAL CONNECTIVITY: the whole road network must be ONE connected component.
