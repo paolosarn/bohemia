@@ -46,3 +46,18 @@ Findings (Census/ACS via the City of Las Vegas 2024 Housing Report + metro data)
 Note: no published land-area percentage exists; the ~85-90/10-15 split is derived
 from unit share x typical densities, not a direct stat. Sources: City of Las
 Vegas Housing Report 2024 (ACS), U.S. Census QuickFacts, HUD LV metro CHMA.
+
+## SPACING LAW (Paolo 7/18, added same day)
+"All homes, even tiny as shit, at worst have a 3-tile backyard and 3 tiles
+separating them from the next house." Enforced in engine/bohemia_suburb.js home()
+(a 3-tile clear skirt required on both sides + the back before a home places; the
+ring inset guarantees a >=3 tile backyard to the perimeter wall). Gated in
+gates/suburb_modular_gate.js: homes are labelled and no two different homes may
+have cells within 3 tiles (Chebyshev), across every style + cluster size.
+
+## WALLED-BLOCK MODEL (Paolo 7/18)
+Homes BACK ONTO the perimeter wall (backyards to the wall), fronts facing an
+interior street. The driveway is a car apron (3 long x 4 wide, 2 cars); the
+garage is the front corner of the house; the house is the bulk. Generator:
+engine/bohemia_suburb.js, styles culs / double / court, real 0.75 m/tile,
+cluster-aware. Approved style graduates into bohemia_plotgen on Paolo's verdict.

@@ -29,6 +29,38 @@ for (const style of STYLES) {
   ok(style + ': homes have garages + driveways', allGarage);
 }
 
+// SPACING LAW (Paolo 7/18): at worst a 3-tile backyard AND 3 tiles between homes.
+// Label homes (connected footprint cells 2/3/6); no two DIFFERENT homes may have
+// cells within 3 tiles (Chebyshev). Checks every style/size.
+const GAP = 3;
+function spacingOk(res) {
+  const g = res.g, W = res.W, H = res.H, id = [];
+  for (let y = 0; y < H; y++) id.push(new Array(W).fill(-1));
+  const isH = v => v === 2 || v === 3 || v === 6;
+  let next = 0;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (!isH(g[y][x]) || id[y][x] >= 0) continue;
+    const st = [[x, y]]; id[y][x] = next;
+    while (st.length) { const [cx, cy] = st.pop();
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nx = cx + dx, ny = cy + dy;
+        if (nx >= 0 && ny >= 0 && nx < W && ny < H && isH(g[ny][nx]) && id[ny][nx] < 0) { id[ny][nx] = next; st.push([nx, ny]); } } }
+    next++;
+  }
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (id[y][x] < 0) continue; const a = id[y][x];
+    for (let dy = -GAP; dy <= GAP; dy++) for (let dx = -GAP; dx <= GAP; dx++) {
+      const nx = x + dx, ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      if (id[ny][nx] >= 0 && id[ny][nx] !== a) return false;   // a different home within 3 tiles
+    }
+  }
+  return true;
+}
+let spaced = true;
+for (const style of STYLES) for (const [cw, ch] of SIZES) for (let seed = 1; seed <= 3; seed++)
+  if (!spacingOk(S.generate(seed * 41 + 3, style, cw, ch))) spaced = false;
+ok('homes keep a >=3 tile gap from each other + backyard (SPACING LAW)', spaced);
+
 // footprints for the world model: every home yields a bounding-box footprint
 const res = S.generate(7, 'culs', 1, 1);
 const fps = S.homeFootprints(res);

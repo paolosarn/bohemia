@@ -38,19 +38,26 @@
   // for 2 cars) leads to a garage that is the FRONT CORNER of the house. The
   // house is the bulk; the driveway is tiny. Home faces the street (nx,ny),
   // backyard goes to the wall behind it.
-  var DRIVE=3, DVW=4, HW=M(14), HD=M(9), GARW=M(5), GARD=M(5), RD=Math.max(2,M(5)>>1), LOTW=M(15);
-  function clr(g,cells){for(var i=0;i<cells.length;i++){var c=cells[i];if(!inb(g,c[0],c[1])||g[c[1]][c[0]]!==0)return false;}return true;}
+  // GAP = Paolo's law: at worst 3 tiles of backyard AND 3 tiles between neighbors.
+  var DRIVE=3, DVW=4, HW=M(14), HD=M(9), GARW=M(5), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3, LOTW=M(14)+GAP+1;
+  function isHome(v){return v===2||v===3||v===6;}
   function home(g,rx,ry,nx,ny){var px=-ny,py=nx;
     var h0=-(HW>>1), garOff=h0+HW-GARW;                 // garage at one front corner
-    var dv=[],ga=[],bd=[],all=[];
-    // house body rectangle, garage carved into its street-facing front corner
+    var dv=[],ga=[],bd=[],foot=[];
     for(var d=DRIVE+1;d<DRIVE+1+HD;d++)for(var w=h0;w<h0+HW;w++){
-      var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0]; all.push(c);
+      var c=[(rx+nx*d+px*w)|0,(ry+ny*d+py*w)|0]; foot.push(c);
       ((d<DRIVE+1+GARD && w>=garOff && w<garOff+GARW)?ga:bd).push(c);}
-    // short driveway apron in front of the garage
     var dvOff=garOff+((GARW-DVW)>>1);
-    for(var d2=1;d2<=DRIVE;d2++)for(var w2=dvOff;w2<dvOff+DVW;w2++){var c2=[(rx+nx*d2+px*w2)|0,(ry+ny*d2+py*w2)|0];dv.push(c2);all.push(c2);}
-    if(!clr(g,all))return false;
+    for(var d2=1;d2<=DRIVE;d2++)for(var w2=dvOff;w2<dvOff+DVW;w2++){var c2=[(rx+nx*d2+px*w2)|0,(ry+ny*d2+py*w2)|0];dv.push(c2);foot.push(c2);}
+    // footprint must sit on open land
+    for(var i=0;i<foot.length;i++){var c=foot[i];if(!inb(g,c[0],c[1])||g[c[1]][c[0]]!==0)return false;}
+    // 3-tile skirt on the two SIDES + the BACK must be clear of any other home
+    for(var d3=1;d3<=DRIVE+HD+GAP;d3++)for(var w3=h0-GAP;w3<h0+HW+GAP;w3++){
+      var side=(w3<h0||w3>=h0+HW), back=(d3>DRIVE+HD);
+      if(!side&&!back)continue;
+      var mx=(rx+nx*d3+px*w3)|0,my=(ry+ny*d3+py*w3)|0;
+      if(mx<0||my<0||mx>=Wd(g)||my>=Ht(g))continue;
+      if(isHome(g[my][mx]))return false;}
     dv.forEach(function(c){g[c[1]][c[0]]=3;});ga.forEach(function(c){g[c[1]][c[0]]=6;});bd.forEach(function(c){g[c[1]][c[0]]=2;});return true;}
   // even lot spacing along every road frontage (position-based, not a global counter)
   function fillHomes(g){var W=Wd(g),H=Ht(g);
@@ -68,7 +75,7 @@
   function generate(seed,style,cw,ch){
     if(typeof style!=='string'){ch=cw;cw=style;style='culs';}   // back-comat: (seed,cw,ch)
     cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
-    var W=Wd(g),H=Ht(g), R=DRIVE+HD+M(3);                        // ring inset = home depth + a tiny backyard
+    var W=Wd(g),H=Ht(g), R=DRIVE+HD+GAP+1;                       // ring inset = home depth + a >=3 tile backyard to the wall
     for(var ci=0;ci<cw;ci++){var gx=(SZ*ci+SZ/2)|0;seg(g,gx,H-6,gx,H-R,RD);}   // gate -> perimeter ring
     ringRect(g,R,R,W-R,H-R,RD);                                  // the perimeter street (homes back the wall outside it)
     if(style==='culs'){
