@@ -111,6 +111,17 @@ CANDLE, MOB — THE HOUSE REMEMBERS (all '--' in the paste, verdicts still open)
    textarea under the graveyard, saved with the music save, rides the export as
    a PAOLO COMMENTS block. Talk lands in the paste, the paste lands in the repo.
 
+=== COOK BATCH 10 (7/18/26) — THE DROWNED CATHEDRAL. 6 songs. Horror FF10, melodic under dread: Via Purifico, the Sending, a hymn heard underwater. ===
+SIX VOICES BORN (ledgered to owner song, each used by that ONE song alone):
+- submergechoir -> VIA PURIFICO       (warped-tape choir underwater: wow 0.3Hz + flutter 5.5Hz wired into pitch, one 'oh' vowel throat, the lowpass lid opening)
+- drownedpiano  -> THE SENDING        (prepared piano sunk underwater: inharmonic partials 1/2/3.01/4.97/5.98, hammer-strike then DOUBLE decay, felt tail longest on the fundamentals, lid closing)
+- oraclereed    -> HYMN IN THE FLOOD  (sample-and-hold stepped-formant reed: the bandpass vowel JUMPS on a held-step curve, a stuttering incantation over a saw pair)
+- pyrefly       -> PYREFLIES RISE     (inharmonic FM bell-pluck: modulator at ratio 3.5, index decays strike->hum, a 6.01 sparkle partial; souls coming off the water)
+- drownbed      -> THE DROWNED CHOIR  (tremolo-gated octave shimmer: triangle stack 1/2/3/4 through a highpass, a 6.8Hz amplitude breath; a dread bed that inhales)
+- mournbell     -> NO SENDING LEFT    (tritone-ratio mourning bell: FM modulator at 1.414, index decays to a long tail, a 3.1Hz tremolo grief)
+- abyssbass (shared support) beating-fifths bass: sub + a slightly-flat fifth ghost, both drifting DOWN over the note.
+VARIETY LAW: all 6 tuples (scale+feel+kick) distinct. SCREECH LAW: no delay/convolver, nothing feeds back (offline-render verified all 6 leads synthesize clean). Catalog now 109 songs. NEW_VIBES = this batch. UNJUDGED.
+
 === COOK BATCH 9b (7/17/26) — 2 fresh songs answering the batch-9 graves. ===
 NEW VOICES BORN (ledgered to owner song):
 - ladderhorn -> TAPS FOR THE VALLEY      (harmonic-ladder bugle: frequency STAIRCASE through exact integer partials 1-2-3-4-3-2-1; drift curves wander, this one climbs and falls back)
