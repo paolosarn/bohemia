@@ -153,3 +153,26 @@ The record he asked for is now LAW + GATE:
   fills the crew carve in front AND back; crew shirts keep their intentional
   neck hole; back hood covers the lower skull + adds outside-the-skeleton
   geometry. 11 checks. CLAUDE.md carries the law pointer.
+
+--- HEADWEAR FACTORY BORN (7/18/26) — Paolo: "do what you have to do next and
+    know what comes after." Next = the missing ~20% of the wardrobe target. ---
+genHat: the headwear factory. 4 structures, all facing-aware geometry ON TOP of
+the skull (outside the skeleton), never the body, and never the face below the
+FOREHEAD BAND (top 30% of the head -- a beanie sits on the brow, never the eyes):
+  beanie (knit dome + cuff, deeper on the back of the skull)
+  cap    (crown + brim: across the brow in front, jutting forward in profile,
+          absent from behind)
+  brim   (wide flat ring that reads from every angle)
+  wrap   (low band hugging the skull + knot and tails at the back)
+New layer: 'head'. Gate #HEADWEAR (gates/hat_gate.js, 12 checks) per FACTORY LAW.
+Verified on the REAL canvas (per the new law): beanie + cap eyeballed across all
+8 facings; wide-brim + wraps on the tab; BONE wrap swapped to OXBLOOD (bone-on-
+pale-skin had no contrast -- caught before Paolo had to).
+COOKING (7, pending thumbs): DUST BEANIE, COAL BEANIE, SALVAGE CAP, RUST CAP,
+DESERT WIDE-BRIM, OXBLOOD HEADWRAP, OLIVE HEADWRAP.
+
+WHAT COMES AFTER (the standing wardrobe roadmap, per BOHEMIA_WARDROBE_TARGET):
+  1. accessories factory (~16%: scarf/mask/glasses/belt/gloves) -> categories done
+  2. colorway multiplication off approved bases -> push 58 toward 500-800
+  3. Paolo's passes (his, flagged, never mine): the RENAMING process, act
+     assignment, rarity assignment, faction dress canon, world-grade ruling.

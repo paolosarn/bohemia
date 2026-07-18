@@ -229,9 +229,15 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    pipeline bug; audit blanket rules per facing; audit generator inheritance)
    + gates/hood_gate.js (11 checks) + CLAUDE.md pointer. Render-order note:
    the CLO_PREVIEW garment hook now runs LAST in buildFrame (after SKIN_DETAIL).
-   NEXT COOKS: headwear generator (~20% of the 500-800 wardrobe target) and
-   accessories (~16%) -- see records/BOHEMIA_WARDROBE_TARGET_7_18_26.txt.
-   Rename process + act/rarity assignment are Paolo's, later, his words.
+   HEADWEAR FACTORY BORN (same day, "do what you have to do next"): genHat --
+   beanie/cap/wide-brim/wrap, facing-aware, on the skull, never the eyes (the
+   FOREHEAD BAND rule) or body. Layer 'head'. Gate #HEADWEAR (hat_gate.js, 12
+   checks). 7 hats IN COOKING pending thumbs (DUST/COAL BEANIE, SALVAGE/RUST
+   CAP, DESERT WIDE-BRIM, OXBLOOD/OLIVE HEADWRAP).
+   WHAT COMES AFTER (standing roadmap): accessories factory (~16%: scarf/mask/
+   glasses/belt/gloves) -> colorway multiplication off approved bases toward the
+   500-800 target -> Paolo's passes (renaming process, act + rarity assignment,
+   faction dress, world-grade ruling -- his, never mine).
 -2. MUSIC BATCH 11 — NEW BADGE, PENDING PAOLO VERDICT (7/18): "THE DROWNED
    CATHEDRAL DEEPENS." 6 FF10-horror songs, each births its own lead voice via a
    topology the catalog never ran: ring modulation (ashenbell), modal synthesis
