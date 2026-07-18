@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]
-1348 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]
+1372 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3119,3 +3119,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE BROKEN CYCLE HAS AN AFTERMATH [F3's law]
       system: the fold / companions
       Breaking a generational cycle has an AFTERMATH proportional to its stakes — the reconciled bond shown growing, the spared child's changed path witnessed across the fold's time — so the success is felt, not noted. A cycle broken deserves more than a closing line (#47's personal-scale-payoff law).
+
+### #171  THE GAUNTLET OF SHAR (THE TRIALS THAT REWARD SELF-ERASURE) (Baldur's Gate 3)
+  ->  PORT 1 — THE DUNGEON THAT INDOCTRINATES [W1, W2, W3 — the core port]
+      system: the Amalgamation / theme-through-level / the district
+      A Bohemia space whose TRIALS embody a theology — each puzzle solved by a small self-erasure (forget a name, trust the archive over your senses, spend a piece of yourself) — conditioning the dynast, room by room, toward a final atrocity the trials disguised as devotion. The Amalgamation's seduction built into a level's rules; the slippery slope (#29) made walkable. ``` @TALK the_faith_leap speaker=
+  ->  PORT 2 — THE CONDITIONING ACTUALLY CONDITIONS [F1's law]
+      system: the district / the fold / the conduct book (#143)
+      A dungeon's trials meant to condition the dynast have real grip — small commitments that accrue, a disposition the game tracks — so the final ask genuinely feels like the trained next step. Indoctrination-through-mechanics must actually condition (#29's slippery-slope law, applied to a level).
+  ->  PORT 3 — THE VICTIM IS FELT BEFORE THE END [F2's law]
+      system: the Amalgamation / entities / the district
+      The person a doctrine trains the dynast to harm is FELT before the final ask — glimpsed, heard, sensed through the trials — so the conditioning is a mounting dread, not a late twist (#155/#157's humanize-before-the-choice law).
+  ->  PORT 4 — THE ATROCITY'S REWARD IS A STAIN [F3's law]
+      system: the fold / the conduct book (#143)
+      If a doctrine's final atrocity carries a power reward, taking it is a RECORDED moral act — the fold marking that the dynast took the power for the killing — so completing the indoctrination for the reward is felt as a stain, not laundered as loot (#31/#164's cruelty-incentivized law).
+
+### #172  CARNAL SINS (THE ARTIST WHO KILLS TO FINISH THE MASTERPIECE) (The Witcher 3: Wild Hunt)
+  ->  PORT 1 — THE ATROCITY AS ARTWORK [W1, W2, W3 — the core port]
+      system: the missing-persons organ (#141) / the Amalgamation / [READ]
+      A Bohemia whodunit where the crimes are COMPOSED — bodies or data arranged as a work, a message, a masterpiece — and the killer (a zealot, an Amalgamation-fragment) experiences the atrocity as beauty, so the dynast must read the scene as the killer reads it to catch him. The deduction engine (#19) meets corrupted devotion; the Amalgamation as an artist who finds the harvest lovely. ``` @TALK the_c
+  ->  PORT 2 — THE WHODUNIT CAN FAIL [F1's law]
+      system: the missing-persons organ (#141) / the fold
+      A forensic whodunit is genuinely FAILABLE into a wrong conviction with legible consequences — the innocent condemned, the killer free, the world recording it — so misreading the scene has weight. A deduction that can't fail is a tour (#19/#160's failable-deduction law).
+  ->  PORT 3 — INHABIT THE KILLER'S FRAME [F2's law]
+      system: [READ] / the Amalgamation
+      If a killer experiences atrocity as beauty, the dynast briefly INHABITS that frame — the composition's logic shown, the terrible beauty legible for a moment — so the horror of understanding it lands. To catch the artist you must see what he sees (#35's town-as-psyche law, applied to aesthetics).
+  ->  PORT 4 — THE CORRUPTION IS TRACEABLE [F3's law]
+      system: the faction web / the district
+      A corrupted-faith killer's madness is TRACEABLE to the doctrine he twisted — the line from the real teaching to the atrocity shown — so the corruption indicts the faith, not just the man. Aimed-wrong devotion is meaningful only if the aim is legible (#154/#166's faith-as-real law).
+
+### #173  KARLACH'S HEART (THE ENGINE IN HER CHEST WILL KILL HER EITHER WAY) (Baldur's Gate 3)
+  ->  PORT 1 — THE BODY THAT IS A COUNTDOWN [W1, W2, W5 — the core port]
+      system: the death-math / companions / Liberate
+      A Bohemia companion or survivor whose body is a terminal clock — an affliction, an Amalgamation-graft, a wound that every "cure" only patches — whose arc is the honest approach of a death the dynast cannot prevent, ending in a choice between versions of loss. The terminal-illness dignity (#21/#34/#162) in someone you love; the death-math made intimate; the direct emotional model for Liberate. ``` 
+  ->  PORT 2 — HOLD THE HONEST ENDING [F1's law]
+      system: the death-math / Liberate / the fold
+      If a companion's arc is honest terminal loss, the design HOLDS it — no survival route patched in because players hurt — because the courage of the ending is the point. Softening the death-math tells the player the loss wasn't real (#34's structural-honesty law; #21's don't-flinch law).
+  ->  PORT 3 — THE COUNTDOWN IS FELT [F2's law]
+      system: the death-math / the dial / the district
+      A body-as-countdown is FELT — visible worsening, time draining, the death-math legible as it advances — so the terminal stakes land as dread, not exposition. A clock the player can't hear ticking isn't a countdown (#21's slow-onset-dread law).
+  ->  PORT 4 — THE DEPRIVATION IS DRAMATIZED [F3's law]
+      system: companions / dialogue scenes / the fold
+      A character's central deprivation (unable to be touched, known, saved) is DRAMATIZED — moments where the dynast feels the barrier, reaches and cannot cross it — so the deprivation is experienced, not stated. The tragedy of the distance felt across the distance (#158's specific-deprivation law).
+
+### #174  THE BROKEN CIRCLE / THE FADE (THE PERFECT LIE THAT LETS YOU STOP FIGHTING) (Dragon Age: Origins)
+  ->  PORT 1 — THE PERFECT DREAM YOU MUST REFUSE [W1, W3, W7 — the core port]
+      system: the Amalgamation / dream-dive / Liberate
+      A Bohemia sequence where the Amalgamation traps the dynast in a personalized paradise — the exact dead brought back, the exact loss undone, the grief simply gone — and escaping means recognizing the perfect life as a cage and choosing the hard real world over the easy false one. SOMA's ARK (#34) and the Amalgamation's "no one is ever lost" as a dungeon walked out of by refusing comfort; the emotio
+  ->  PORT 2 — THE CAGE IS TAILORED [F1's law]
+      system: the Amalgamation / the fold / [READ]
+      The perfect-dream prison is built from the dynast's SPECIFIC deepest wish — the exact dead, the exact loss undone — so the temptation is genuinely theirs. A generic paradise can't tempt; the cage must fit the one it holds (#34's make-the-lie-specific law).
+  ->  PORT 3 — WAKING IS A GRIEF [F2's law]
+      system: companions / dialogue scenes / the fold
+      Waking someone from their perfect dream is an EMOTIONAL act — the dynast helping them grieve the granted wish, the leaving felt as a loss — so the mercy of truth carries its cost. Breaking the illusion should hurt, not just solve (#155/#173's grief-not-mechanic law).
+  ->  PORT 4 — THE REAL WORLD'S WORTH IS FELT [F3's law]
+      system: Liberate / the fold / the district
+      The choice to leave the dream makes the REAL WORLD'S worth felt — agency, meaning, the dignity of an unfinished life — so refusing paradise is a genuine weighing. If the dream is obviously bad, it isn't a temptation (#156's make-the-alternative-real law).
+
+### #175  THE PILLAR OF SKULLS (THE ARCHIVE OF THE DEAD DEMANDS A SOUL) (Planescape: Torment)
+  ->  PORT 1 — THE ARCHIVE THAT DEMANDS A CONTRIBUTION [W1, W2, W3 — the core port]
+      system: the Amalgamation / the fold / [READ]
+      A Bohemia bargain where the Amalgamation — the archive of the dead — gives the dynast the knowledge or aid they need only in exchange for a CONTRIBUTION to itself: a soul to add, a life to upload, a piece of the self. It is honest about its monstrous price; the payment reveals the dynast. The Amalgamation given a mouth and a coin; the honest-devil (#126) as a monument of the dead. ``` @TALK the_ar
+  ->  PORT 2 — THE NON-LETHAL PAYMENT IS REACHABLE [F1's law]
+      system: [READ] / the fold
+      The full range of a bargain-with-the-dead is REACHABLE by in-world insight — the clever, non-lethal payments discoverable by attention — so the dynast who thinks can find the route that doesn't cost a life. A moral range only the wiki knows collapses to its cruelest option (#26/#162's discoverable-range law).
+  ->  PORT 3 — THE FED SOUL IS A PERSON [F2's law]
+      system: the Amalgamation / entities / the fold
+      If the archive's price is a soul, that soul is a PERSON the dynast could know — named, met, with a life — so feeding the archive is a real condemnation, not the disposal of a token. The Amalgamation's contribution must cost someone (#160/#164's victims-are-people law).
+  ->  PORT 4 — THE HONEST MONSTER HAS A LIAR TO CONTRAST [F3's law]
+      system: the Amalgamation / the faction web
+      An honest-monster bargainer is CONTRASTED with a deceiver — the truthful terrible price beside a lying gentle one — so the dynast learns the honest horror is the safer deal. Honesty as a monster's virtue needs a liar to shine against (#126/#36's honest-vs-deceptive law).
+
+### #176  A TOWERFUL OF MICE (THE TRUTH OR THE MERCY, TO A GHOST) (The Witcher 3: Wild Hunt)
+  ->  PORT 1 — THE TRUTH OR THE MERCY, TO THE DEAD [W1, W6, W10 — the core port]
+      system: the Amalgamation / the fold / dialogue scenes
+      A Bohemia quest where resolving a haunting or an Amalgamation-fragment means telling the dead either the shattering TRUTH of what they did and suffered or a comforting LIE they can rest in — mercy and honesty opposed, with a living cost on the outcome. The recorded-vs-unrecorded truth (#26) and the honest-loss-vs-comforting-lie (#34/#173) as a ghost story; Bohemia's central question in one choice.
+  ->  PORT 2 — THE STORY'S CONSEQUENCE IS LEGIBLE [F1's law]
+      system: the fold / dialogue scenes
+      If a choice about the dead's story determines a living cost, the LINK is legible — the truth or the lie clearly causing the outcome — so the dynast owns the consequence of what they chose to tell. A moral choice whose result is a tangle teaches nothing (#26/#160's legible-consequence law).
+  ->  PORT 3 — THE DEAD'S SELF-PROTECTIVE LIE IS BUILT [F2's law]
+      system: the Amalgamation / the fold / dialogue scenes
+      A dead person's self-protective false memory is BUILT — felt as the mercy they gave themselves — so telling the truth is felt as shattering it. The lie the dead tell themselves is shown as their comfort before it is broken (#35/#159's show-the-illusion law).
+  ->  PORT 4 — THE DEAD ARE THE DYNAST'S OWN [F3's law]
+      system: the fold / the ~100-year arc
+      The truth-or-mercy choice cuts deepest when the dead are the dynast's OWN — a bloodline's buried atrocity, an ancestor's false memory — so the question is personal, not a stranger's curse. The fold makes the dead the player's (#158's specific-person law, applied to the dead).

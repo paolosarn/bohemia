@@ -179,6 +179,25 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    (Korriban, Juhani), Skyrim (Forbidden Legend, the Wolf Queen,
    Sheogorath done), Planescape (the Pillar of Skulls, Fall-from-Grace),
    Pathologic, Disco (Klaasje, the Deserter), CP2077 (I Fought the Law).
+   BATCH 4 (7/17, #171-176): The Gauntlet of Shar (BG3, trials that
+   reward self-erasure — the slippery slope as a dungeon), Carnal Sins
+   (Witcher, the killer who murders to compose holy art — deduction +
+   corrupted faith), Karlach's Heart (BG3, the engine that kills her
+   either way — the death-math with a heartbeat, Liberate's model),
+   The Broken Circle/the Fade (DA:O, the perfect dream you must refuse —
+   the Amalgamation as a dungeon walked out of by rejecting comfort),
+   The Pillar of Skulls (Planescape, the archive of the dead demands a
+   soul — the Amalgamation given a mouth and a price), A Towerful of
+   Mice (Witcher, the truth or the mercy, to a ghost — the central
+   question in a haunted tower). **INDIVIDUAL-QUEST COUNT: 92 of 150.**
+   58 to go. VEINS: ME2 loyalty (Jack, Zaeed, Grunt), Witcher (the
+   Whispering Hillock done, Return to Crookback, the Cave of Dreams),
+   FO4 (USS Constitution, the Nucleus, Kid in a Fridge), NV (Ghost Town
+   Gunfight, Beyond the Beef done, I Could Make You Care), KOTOR
+   (Korriban, Juhani, the Sand People), Skyrim (Forbidden Legend, the
+   Wolf Queen), Disco (Klaasje, the Deserter, the tribunal done),
+   Pathologic, Fallout 3 (The Pitt, Tenpenny done), CP2077 (I Fought
+   the Law, Pyramid Song, the Voodoo Boys).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.

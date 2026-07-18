@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]
-1707 findings / 170 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]
+1767 findings / 176 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3755,3 +3755,133 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Not the galaxy — a father and a son and a single kill. The intimate scale (the #47 lesson) is what makes the cycle's weight land: this is about these two, and it is enough.
   W10 THE INHERITANCE IS THE THEME
       The quest asks whether what a parent WAS must be what the child BECOMES — the fold's central question, answered by whether the player can break it through the right voice at the right moment. The most Bohemian arc in the game.
+
+### #171  THE GAUNTLET OF SHAR (THE TRIALS THAT REWARD SELF-ERASURE) (Baldur's Gate 3)
+  W1  THE LEVEL IS A THEOLOGY
+      Every trial is Shar's doctrine made a puzzle — the player doesn't hear the faith, they PRACTICE it. Theme-through-level-design (#35) aimed at self-erasure, room by room.
+  W2  THE SOLUTIONS ARE SELF-ERASURES
+      Step into the dark, distrust the light, forget the pain — each "correct" answer is a small self-abandonment, so solving the dungeon IS accepting the goddess.
+  W3  THE CONDITIONING BUILDS TO THE ATROCITY
+      The trials train the pilgrim, rep by rep, into the mindset that makes the final kill thinkable — the dungeon spends hours making the unthinkable feel like the next step.
+  W4  THE FAITH-LEAP IS THE THESIS
+      Stepping into apparent nothingness, trusting the goddess over your senses, is the doctrine in one trial: distrust what you see, embrace what erases you.
+  W5  THE FINAL TRIAL IS A PERSON
+      The Nightsong is revealed as a tortured immortal, not a monster — the "devotion" the trials built toward is an atrocity, disguised as the natural conclusion of faith.
+  W6  THE CHOICE'S DIFFICULTY IS THE POINT
+      The Gauntlet spent hours making the kill feel natural, so refusing it means rejecting everything the dungeon trained — the design's whole purpose is to make the right choice hard.
+  W7  THE DOCTRINE HAS NO CLEAN COMPLETION
+      The final trial IS the killing; there is no way to keep the faith without the crime — the theology's endpoint is the atrocity, and the dungeon is honest about it.
+  W8  SPARING HER BREAKS EVERYTHING
+      Defying Shar means rejecting the trials, the training, the reward, the goddess — the refusal is a repudiation of the whole dungeon, which is why it's hard.
+  W9  IT IS THE PHYSICAL PRELUDE TO THE COMPANION ARC
+      The Gauntlet feeds the House of Grief (#165) — the dungeon's conditioning is the pressure that Shadowheart's whole reclaim-or-kneel arc is measured against.
+  W10 THE SLIPPERY SLOPE IS A DUNGEON
+      Frostpunk's decree-by-decree drift (#29) made spatial: each small acceptable step, rewarded, leading to the monstrous conclusion. The doctrine's gradualism, walkable.
+
+### #172  CARNAL SINS (THE ARTIST WHO KILLS TO FINISH THE MASTERPIECE) (The Witcher 3: Wild Hunt)
+  W1  THE BODIES ARE A TEXT
+      The murders are posed, arranged, composed — a language the player must learn to read. The deduction is forensic literacy: the corpses mean something, and solving is understanding the grammar.
+  W2  THE KILLER IS AN ARTIST
+      The murderer composes rather than rages — corpses as components in a masterpiece. The motive is not passion but aesthetic devotion, which is far more unsettling.
+  W3  THE ATROCITY IS EXPERIENCED AS BEAUTY
+      The killer's madness is that he finds his murders sacred and lovely — the horror is not that he's confused but that he's certain, and certain of beauty.
+  W4  YOU MUST THINK LIKE HIM TO CATCH HIM
+      The deduction requires seeing the bodies as the killer sees them — as art — which is the investigation's power and its unease: to solve it you glimpse what he glimpses.
+  W5  THE RED HERRING IS GRIEF
+      The circumstantial trail points to a grieving innocent whose sorrow looks like guilt — condemning him is the failure, and it lets the artist keep composing.
+  W6  THE FAITH IS CORRUPTED, NOT ABSENT
+      The killer twists a real religion into a license — the atrocity wears devotion, which is the false-faith horror (#166) in a serial killer.
+  W7  THE ZEALOT CANNOT BE REASONED OUT
+      He is sincere; certainty does not negotiate. The removed "reason him out of his faith" verb is the quest's coldest truth: the corrupted devout are not persuadable.
+  W8  THE INVESTIGATION IS FORENSIC
+      Reading corpses, scenes, poses with senses — the quest is detection, not combat, and the tension is comprehension, not violence.
+  W9  THE HORROR IS AESTHETIC
+      Not gore for shock but murder-as-composition — the unease is intellectual and moral, the recognition that beauty and atrocity can be the same act to the wrong mind.
+  W10 TO SOLVE IT IS TO BE COMPLICIT FOR A MOMENT
+      Reading the tableau means, briefly, seeing the murders as the killer does — the deduction implicates the player in the artist's frame, which is the quest's lingering discomfort.
+
+### #173  KARLACH'S HEART (THE ENGINE IN HER CHEST WILL KILL HER EITHER WAY) (Baldur's Gate 3)
+  W1  HER BODY IS A COUNTDOWN
+      The engine keeps Karlach alive and kills her — a terminal clock in a companion you love. The death-math is the arc, and it is unbeatable, which is what makes it devastating.
+  W2  EVERY FIX IS A PATCH
+      The cures buy time, never a life; each step forward is a slower death. The hope keeps almost-working, which is crueler than no hope at all.
+  W3  SHE CANNOT BE TOUCHED
+      A woman starved for contact who burns anyone who tries — the engine's cruelty is intimate, a deprivation of the simplest human thing.
+  W4  THE PLAYER CAN FIX EVERYTHING BUT HER
+      In a game where the player solves so much, the one thing they cannot solve is the person they love — the helplessness is the point, and it lands because everything else is fixable.
+  W5  THE ENDINGS ARE ALL LOSS
+      Return to hell, die on the surface, become a mind flayer — no ending gives her what she wants. The fork is not a choice between good and bad but between unbearable and unbearable.
+  W6  THE HONEST DEATH IS AN OPTION
+      Dying on the surface, among the loved, held at last — the SOMA/Liberate ending with a heartbeat: refusing the false hope, choosing the honest loss.
+  W7  THE CHEER IS ARMOR
+      Karlach is loud and warm because a decade in hell taught her to hide the fear — the coping surface (#162) over a terror the arc lets crack.
+  W8  THE ONLY GIFT LEFT IS PRESENCE
+      When you cannot fix her, the only thing to give is to be there, honestly, for the ending she chooses — the quest's answer to helplessness is company, not a cure.
+  W9  THE KINDEST LIE IS THE PROMISE OF A FIX
+      "We'll find a cure" is the tempting comfort, and the arc teaches that the honest thing is to stop telling it — the mercy is truth, not false hope.
+  W10 YOU CHOOSE WHICH LOSS, NOT WHETHER
+      The agency the quest leaves is helping her pick which unbearable thing to bear — the death-math has no winning setting, and the dignity is in the choosing.
+
+### #174  THE BROKEN CIRCLE / THE FADE (THE PERFECT LIE THAT LETS YOU STOP FIGHTING) (Dragon Age: Origins)
+  W1  THE TEMPTER GIVES, NOT TAKES
+      The Sloth demon wins by fulfillment — it offers everything you want, and the trap is that it's real enough to keep you. Temptation inverted: the genuinely good thing as the leash.
+  W2  THE PRISON HAS NO WALLS
+      The cage is made of contentment; there is nothing to break out of, only a comfort to refuse. Escape is a choice, not a fight, which is far harder.
+  W3  THE DREAM IS PERSONALIZED
+      Each captive gets their deepest wish — the dead alive, the surface, peace — so the trap is tailored to exactly what each person can't refuse.
+  W4  THE WISH IS THE LEASH
+      The thing you most want, given, is the thing keeping you asleep — the recognition that fulfillment is the trap is the hardest and truest thing the quest asks.
+  W5  WAKING IS GRIEVING AGAIN
+      Leaving the dream where the dead live means grieving them a second time, choosing the world where they don't — the escape costs the wish all over.
+  W6  THE COMPANIONS ARE SEPARATE PRISONS
+      Each is asleep in their own paradise, woken only by recognizing it — the player must pull each out of the thing they love most.
+  W7  THE OFFER IS GENUINELY GOOD
+      Not a bad thing dressed as good, but the real wish — which is why refusing it is devastating: you're rejecting the one offer you most want to accept.
+  W8  FREEDOM IS CHOOSING THE WORSE TRUE THING
+      The real world is harder, sadder, unfinished — and worth more than the perfect lie. The quest's answer to the Amalgamation: truth over comfort, even when comfort is heaven.
+  W9  THE DEMON DOESN'T LIE
+      It gives you exactly what you wanted, honestly — the horror is that the fulfillment is real, and the trap is in the staying, not in a deception.
+  W10 IT IS THE AMALGAMATION AS A DUNGEON
+      "No one is ever lost, the grief is gone, the dead are back" — the Amalgamation's whole promise, made a level the player walks out of by refusing it. The perfect lie you choose to leave.
+
+### #175  THE PILLAR OF SKULLS (THE ARCHIVE OF THE DEAD DEMANDS A SOUL) (Planescape: Torment)
+  W1  THE ARCHIVE OF THE DEAD BARGAINS
+      The Pillar is a monument of the conscious dead that WANTS and TRADES — the Amalgamation's exact nature (an archive of the dead you must deal with) given a mouth and a price.
+  W2  THE PRICE IS A CONTRIBUTION
+      It wants more of itself — a fresh soul for the pile — so paying it means feeding the horror. The transaction is participation in the economy of the damned.
+  W3  THE PILLAR IS HONEST
+      It states its monstrous price plainly and has what you need — the honest-devil (#126) as a monument. The horror is not deception but that the terrible terms are true.
+  W4  THE PAYMENT REVEALS THE PLAYER
+      Feed a soul, pay in cleverness, or refuse — what the player is willing to give the archive is the quest's real test, more than whether they pay.
+  W5  IT IS A CONSEQUENCE, NOT A DEMON
+      The Pillar is what betrayal earns — an eternal punishment made architecture — so dealing with it is dealing with a moral fact, not an enemy. The horror is systemic.
+  W6  THE KNOWLEDGE IS WORTH A SOUL
+      The thing the Pillar holds is real and necessary, so the monstrous price is genuinely tempting — the bargain works because the need is real.
+  W7  THE CLEVER ROUTE COSTS THE SELF
+      Paying without a life means giving the archive a cruelty or a secret or a piece of yourself — the non-lethal payment is not free, it is a subtler stain.
+  W8  NOTHING IS GIVEN FOR FREE
+      The archive is a consequence, not a charity; the removed "take it for nothing" verb is the law: to get from the collected dead you must give the collection something.
+  W9  THE HORROR IS BEING PART OF IT
+      To deal with the Pillar is to join the trade of souls among the dead — the player becomes, for a transaction, a participant in the damnation. The unease is complicity.
+  W10 THE SCREAMING IS THE SETTING
+      The dead are conscious, fused, eternal — the punishment is ongoing, and the player bargains with it, which makes the whole scene a meditation on what the dead owe and are owed.
+
+### #176  A TOWERFUL OF MICE (THE TRUTH OR THE MERCY, TO A GHOST) (The Witcher 3: Wild Hunt)
+  W1  MERCY AND HONESTY ARE OPPOSED
+      The truth shatters, the lie comforts, and there is no version where they align — the quest forces the player to choose which the dead are owed, refusing the easy fusion of the two.
+  W2  A LIFE HANGS ON THE STORY
+      The betrothed survives or dies on what the player tells the ghost — the choice about the dead has a living cost, so honesty and mercy are not abstractions.
+  W3  THE TRUTH IS A MASSACRE
+      The buried story is abandonment, starvation, cannibalism — far uglier than the romantic tragedy the survivors tell, so telling it is genuinely brutal.
+  W4  THE GHOST HOLDS A MERCIFUL LIE
+      Annabelle believes a bearable version — the false memory is the mercy she gave herself, and the player must decide whether to take it from her.
+  W5  THE PLAYER KNOWS TOO MUCH TO PRETEND
+      Once the massacre is uncovered, telling the ghost a lie is a choice, not an ignorance — the player owns the falsehood if they give it.
+  W7  THE CURSE FORCES THE RESOLUTION
+      The haunting ends only by speaking to the spirit — the player cannot avoid the choice; the mechanic demands they decide what to tell the dead.
+  W8  THE HORROR IS UNDER A ROMANCE
+      The survivors tell a love story; the truth is atrocity — the gap between the comforting narrative and the ugly fact is the recorded-vs-unrecorded truth (#26) in one island.
+  W9  THERE IS NO CLEAN OUTCOME
+      Truth or lie, someone pays — the quest refuses a resolution where everyone is served, which is what makes the choice real.
+  W10 IT IS THE THESIS IN A GHOST STORY
+      What survives when a life ends, and what do we owe the dead's story — Bohemia's whole spine, asked by a haunted tower and answered by whether the player tells a ghost the truth.

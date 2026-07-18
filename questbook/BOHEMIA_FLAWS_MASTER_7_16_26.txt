@@ -1,5 +1,5 @@
-BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]
-747 findings
+BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]
+765 findings
 ====================================================================================================
 
 ### #17  THE FOUR-PILLAR MISSION + SOCIAL BOSS BATTLES (Deus Ex: Human Revolution / Mankind Divided)
@@ -2153,3 +2153,69 @@ BOHEMIA FLAWS MASTER — regen 7/16/26 after batch 7  [+BATCH appended 139,140,1
   X  THE FRAGILE CHANCE ISN'T FOLLOWED THROUGH
      If Kolyat is saved, the "father-son reckoning in Thane's last weeks" is promised but barely delivered — a brief scene, then the thread mostly drops, so the cycle-breaking's payoff is thinner than its stakes. The intervention's success doesn't get the aftermath its weight earned.
      LAW: breaking a generational cycle must have an AFTERMATH proportional to its stakes — the reconciled relationship shown growing, the spared child's changed path witnessed, across the fold's time — so the intervention's success is felt, not just noted. A cycle broken deserves more than a closing line (the #47 personal-scale-payoff law).
+
+### #171  THE GAUNTLET OF SHAR (THE TRIALS THAT REWARD SELF-ERASURE) (Baldur's Gate 3)
+  X  THE TRIALS' CONDITIONING IS THEMATIC, NOT MECHANICALLY BINDING
+     The trials teach Shar's mindset, but a player can pass them while mentally rejecting the theology the whole time — the "conditioning" is narrative dressing, not a mechanic that actually shifts the player's disposition, so the final kill isn't really made easier by the trials, just contextualized by them.
+     LAW: if a dungeon's TRIALS are meant to condition the player toward a final act, the conditioning must have real mechanical or psychological grip — small commitments that accrue, a disposition the game tracks — so the final ask genuinely feels like the trained next step, not just a themed one. Indoctrination-through-mechanics must actually condition (the #29 slippery-slope law, applied to a dungeon).
+  X  THE NIGHTSONG'S PERSONHOOD ARRIVES LATE
+     Dame Aylin is revealed as a tortured prisoner only at the final trial, so the "atrocity disguised as devotion" lands as a twist rather than a dawning horror; a player who felt her presence earlier would experience the trials as a mounting dread instead of a late reveal. The victim is a reveal, not a build.
+     LAW: the person a doctrine trains you to harm should be FELT before the final ask — glimpsed, heard, sensed through the trials — so the conditioning is a mounting dread, not a late twist. The atrocity's victim built across the dungeon, not sprung at its end (the #155/#157 humanize-before-the-choice law).
+  X  THE REWARD FOR COMPLETING SKEWS THE CHOICE
+     Killing the Nightsong grants a significant power reward, so the "complete the indoctrination" path is mechanically incentivized — the game pays you to do the atrocity, which can tip the choice toward the kill for reasons that have nothing to do with the theology the dungeon built. The doctrine's endpoint is bribed.
+     LAW: if a doctrine's final atrocity carries a power reward, that bribe must be a RECORDED moral act with weight — the fold marking that the dynast took the power for the killing — so completing the indoctrination for the reward is felt as a stain, not laundered as loot (the #31/#164 cruelty-incentivized law).
+
+### #172  CARNAL SINS (THE ARTIST WHO KILLS TO FINISH THE MASTERPIECE) (The Witcher 3: Wild Hunt)
+  X  THE INVESTIGATION CAN'T ACTUALLY FAIL INTO THE WRONG CONVICTION SILENTLY
+     Like most witcher-sense investigations, the deduction is largely a guided corridor; the "condemn the innocent" outcome is hard to reach and, when reached, under-consequenced — so the whodunit's stakes (get it wrong, free the killer, punish the innocent) rarely land as a real risk the player feels.
+     LAW: a forensic whodunit must be genuinely FAILABLE into a wrong conviction with legible consequences — the innocent condemned, the killer free, the world recording it — so reading the scene wrong has weight. A deduction that can't really fail is a tour (the #19/#160 failable-deduction law).
+  X  THE KILLER'S AESTHETIC HORROR IS UNDERPLAYED
+     The idea that the murderer experiences atrocity as beauty — composes corpses as holy art — is the quest's most chilling concept, but it's delivered in a few lines at the end; the player never really inhabits the killer's aesthetic frame, so the "see what he sees" horror is stated more than felt.
+     LAW: if a killer experiences atrocity as beauty, the player must be made to briefly INHABIT that frame — the composition's logic shown, the terrible beauty legible for a moment — so the horror of understanding it lands. To catch the artist you must see what he sees, and the game must let you (the #35 town-as-psyche law, applied to a killer's aesthetic).
+  X  THE CORRUPTED FAITH ISN'T CONNECTED TO THE REAL CHURCH'S DOCTRINE
+     The killer twists the Eternal Fire's faith into a license to compose with corpses, but the quest doesn't dramatize HOW the doctrine enables him — the church is backdrop, so the "faith corrupted into atrocity" theme floats free of the actual religion the setting built.
+     LAW: a corrupted-faith killer's madness must be TRACEABLE to the doctrine he twisted — the line from the real teaching to the atrocity shown — so the corruption indicts the faith, not just the man. Aimed-wrong devotion is only meaningful if the aim is legible (the #154/#166 faith-as-real law).
+
+### #173  KARLACH'S HEART (THE ENGINE IN HER CHEST WILL KILL HER EITHER WAY) (Baldur's Gate 3)
+  X  THE "GOOD" ENDING WAS PATCHED IN, EXPOSING THE DESIGN'S HESITATION
+     Karlach originally shipped with only the bleak endings; a later patch added a path to more time (the mind-flayer route, the Avernus survival), which relieved players but also revealed the design flinching from its own honesty — the death-math was softened after the fact, so the terminal-loss theme is undercut by the studio's own reluctance to hold it.
+     LAW: if a character's arc is honest terminal loss, the design must HOLD it — not patch in a survival route because players hurt — because the courage of the ending is the point. Softening the death-math after the fact tells the player the loss wasn't real. Commit to the honest ending (the #34 SOMA structural-honesty law; the #21 don't-flinch law).
+  X  THE PATCHES-NOT-A-FIX STRUCTURE ISN'T FELT AS A COUNTDOWN
+     Karlach's engine is a terminal clock, but the game never makes the player FEEL the countdown — there's no visible worsening, no sense of time running out, so the "every fix is a slower death" horror is told through dialogue rather than experienced as mounting dread. The bomb doesn't tick.
+     LAW: a body-as-countdown must be FELT — visible worsening, a sense of time draining, the death-math legible as it advances — so the terminal stakes land as dread, not exposition. A clock the player can't hear ticking isn't a countdown (the #21 slow-onset-dread law).
+  X  THE TOUCH-STARVATION IS UNDERUSED MECHANICALLY
+     The engine making Karlach unable to be touched is her most poignant detail — a woman who wants contact and burns anyone who tries — but it's mostly a dialogue note; the game rarely makes the player feel the barrier, so the intimacy-denied tragedy lands lighter than the concept. The distance isn't dramatized.
+     LAW: a character's central deprivation (unable to be touched, unable to be known) must be DRAMATIZED, not just stated — moments where the player feels the barrier, reaches and cannot cross it — so the deprivation is experienced. The tragedy of the distance must be felt across the distance (the #158 specific-deprivation law).
+
+### #174  THE BROKEN CIRCLE / THE FADE (THE PERFECT LIE THAT LETS YOU STOP FIGHTING) (Dragon Age: Origins)
+  X  THE DREAM ISN'T PERSONALIZED ENOUGH TO THE PLAYER
+     The Sloth demon's paradise is powerful in concept, but the player character's version is often generic (a vague "everything is fine") rather than built from THEIR specific loss — so the "everything you ever wanted" trap lands harder for the companions (who have defined wishes) than for the player, whose paradise is under-tailored.
+     LAW: the perfect-dream prison must be built from the dynast's SPECIFIC deepest wish — the exact dead brought back, the exact loss undone — so the temptation is genuinely theirs. A generic paradise can't tempt; the cage must be tailored to the one it holds (the #34 make-the-lie-specific law).
+  X  WAKING THE COMPANIONS IS A PUZZLE, NOT A GRIEF
+     Recognizing each companion's paradise as a cage is largely a gameplay puzzle (find the trigger, break the illusion) rather than an emotional act — the devastating idea (helping someone leave the thing they love most) is mechanized into a fetch, so the grief of waking lands lighter than the concept.
+     LAW: waking someone from their perfect dream must be an EMOTIONAL act, not a puzzle — the dynast helping them grieve the granted wish, the leaving felt as a loss — so the mercy of truth carries its cost. Breaking the illusion should hurt, not just solve (the #155/#173 grief-not-mechanic law).
+  X  THE REAL WORLD ISN'T MADE WORTH THE SACRIFICE ON SCREEN
+     The player leaves heaven for the "hard real world," but the quest doesn't dramatize WHY the broken truth is worth more than the perfect lie — the choice is presented as obviously correct (dreams are traps) rather than as a genuine weighing, so the profound "why choose grief over paradise" question is answered before it's asked.
+     LAW: the choice to leave the perfect dream must make the REAL WORLD'S worth felt — what the truth offers that the lie can't (agency, meaning, the dignity of an unfinished life) — so refusing paradise is a genuine weighing, not a reflex. If the dream is obviously bad, it isn't a temptation (the #156 make-the-alternative-real law).
+
+### #175  THE PILLAR OF SKULLS (THE ARCHIVE OF THE DEAD DEMANDS A SOUL) (Planescape: Torment)
+  X  THE CLEVER ROUTES ARE OBSCURE, SO MANY PLAYERS ONLY SEE THE CRUEL ONE
+     The "pay without a soul" options depend on specific knowledge, items, or dialogue insight that most players won't assemble — so the transaction often collapses into "feed it a life or leave," hiding the richer moral range behind meta-knowledge. The archive's depth is real but gated.
+     LAW: the full range of a bargain-with-the-dead must be REACHABLE by in-world insight — the clever, non-lethal payments discoverable by attention — so the dynast who thinks can find the route that doesn't cost a life. A moral range only the wiki knows collapses to its cruelest option (the #26/#162 discoverable-range law).
+  X  THE FED SOUL ISN'T A PERSON
+     If the player condemns a life to the Pillar, the "soul" is usually a generic or already-doomed NPC, so the horror of feeding the archive lands lighter than it should — condemning an abstraction is not the same as condemning someone the player knew.
+     LAW: if the price of the archive is a soul, that soul must be a PERSON the dynast could know — named, met, with a life — so feeding the archive is a real condemnation, not the disposal of a token. The Amalgamation's contribution must cost someone (the #160/#164 victims-are-people law).
+  X  THE PILLAR'S HONESTY ISN'T CONTRASTED WITH A DECEIVER
+     The Pillar is a fascinating honest-bargainer — monstrous but truthful about its price — but the quest doesn't set it against a deceptive alternative, so the "the honest monster states its price plainly" craft (the #126 honest-devil) isn't sharpened by contrast; its integrity is a detail, not a theme.
+     LAW: an honest-monster bargainer lands hardest when CONTRASTED with a deceiver — the truthful terrible price beside a lying gentle one — so the player learns that the honest horror is the safer deal. Honesty as a monster's virtue needs a liar to shine against (the #126/#36 honest-vs-deceptive law).
+
+### #176  A TOWERFUL OF MICE (THE TRUTH OR THE MERCY, TO A GHOST) (The Witcher 3: Wild Hunt)
+  X  THE OUTCOMES AREN'T CLEANLY TIED TO THE TRUTH/LIE CHOICE
+     The quest's resolution (who survives, how the curse ends) depends on a tangle of factors beyond the truth/lie decision, so the profound "the story you tell the dead decides who lives" clarity is muddied — a player can tell the truth and get a bad outcome for reasons unrelated to honesty, blurring the moral.
+     LAW: if a choice about the dead's story determines a living cost, the LINK must be legible — the truth or the lie clearly causing the outcome — so the player owns the consequence of what they chose to tell. A moral choice whose result is a tangle teaches nothing (the #26/#160 legible-consequence law).
+  X  THE GHOST'S FALSE MEMORY ISN'T BUILT ENOUGH FOR THE TRUTH TO SHATTER
+     Annabelle's comforting version of her death is stated more than shown, so telling her the truth lands as a plot beat rather than the shattering of a person's self-protective illusion; the player never really feels the mercy of the lie she's given herself, so breaking it costs less than it should.
+     LAW: a dead person's self-protective false memory must be BUILT — felt as the mercy they gave themselves — so that telling the truth is felt as shattering it. The lie the dead tell themselves must be shown as their comfort before it is broken (the #35/#159 show-the-illusion law).
+  X  THE PLAYER'S OWN STAKE IS ABSENT
+     The player decides what the dead are owed but has no personal relationship to Annabelle or the betrothed, so the choice is a judgment made from outside — the "what do you owe the dead" question would cut deeper if the dead were the player's own, not strangers on a contract.
+     LAW: the truth-or-mercy choice about the dead cuts deepest when the dead are the dynast's OWN — a bloodline's buried atrocity, an ancestor's false memory — so the question is personal, not a stranger's curse. The fold makes the dead the player's, which is where the choice belongs (the #158 specific-person law, applied to the dead).
