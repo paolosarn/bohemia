@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-131 canon files indexed across 2 locations.
+132 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -70,7 +70,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 
 ## BY DOMAIN — newest first inside each
 
-### LIGHT & POWER (5)
+### LIGHT & POWER (6)
+- `BOHEMIA_ADDENDUM_HOUSE_OF_CARDS_POWER_SHARE_7_18_26.md`
 - `BOHEMIA_ADDENDUM_LIGHT_REGISTRY_RESOLVED_7_16_26.md`
 - `BOHEMIA_ADDENDUM_OCCUPANCY_AND_LIGHT_WIRING_7_16_26.md`
 - `BOHEMIA_ADDENDUM_LIGHT_PHILOSOPHY_7_14_26.md`
