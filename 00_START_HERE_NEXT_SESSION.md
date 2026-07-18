@@ -131,7 +131,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 98 of 150.** (Full-machine total 139; the
+   **INDIVIDUAL-QUEST COUNT: 104 of 150.** (Full-machine total 145; the
    rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -206,13 +206,28 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    interrogation), I Fought the Law (CP2077, River — the genuine solve
    into a pre-decided verdict; being right is not the same as having the
    power to make right count). **INDIVIDUAL-QUEST COUNT: 98 of 150.**
-   52 to go. VEINS: ME2 loyalty (Grunt, Samara done, Thane done),
-   Witcher (Return to Crookback, the Cave of Dreams), FO4 (USS
-   Constitution, the Nucleus, Kid in a Fridge), NV (Ghost Town
-   Gunfight, I Could Make You Care), KOTOR (Juhani, the Sand People),
-   Skyrim (Forbidden Legend, the Wolf Queen), Disco (the Deserter,
-   Cuno), Pathologic, Fallout 3 (Tenpenny done), CP2077 (Pyramid Song,
-   the Voodoo Boys, Sinnerman).
+   52 to go.
+   BATCH 6 (7/18, #183-188): The Rite of Passage (ME2, Grunt — a made
+   being with no past earns the belonging everyone else inherited),
+   Forbidden Legend (Skyrim — the heroes who killed the monster each
+   became it; reassembling the artifact they died keeping broken),
+   Last Voyage of the USS Constitution (FO4 — serve a crew's sustaining
+   delusion to its beautiful doomed end or shatter it with a useless
+   truth; the Amalgamation's comfort-lie in slapstick), Juhani (KOTOR —
+   fell from shame not evil, built a fallen self on a guilt bigger than
+   the deed; redemption as re-accounting), Return to Crookback Bog
+   (Witcher — a choice made far away and half-known detonates in a room
+   full of children; the ledger read where it comes due, not rewritten),
+   Pyramid Song (CP2077, Judy — the closeness and the goodbye are the
+   same scene; a real connection offered once by someone correctly
+   leaving). **INDIVIDUAL-QUEST COUNT: 104 of 150.** 46 to go.
+   VEINS STILL DEEP: ME2 (the Sun/IFF, Legion's heretics), Witcher
+   (the Cave of Dreams, Iris von Everec/Hearts of Stone), FO4 (the
+   Nucleus, Kid in a Fridge), NV (Ghost Town Gunfight, I Could Make
+   You Care, Come Fly With Me), KOTOR (the Sand People, the rakghoul
+   serum), Skyrim (the Wolf Queen, the Forsworn Conspiracy), Disco
+   (the Deserter, Cuno, the Hardie Boys), Pathologic, CP2077 (the
+   Voodoo Boys, Sinnerman, Sam Bright/Riders on the Storm).
    (laws/BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md)
    NOTE: the --fast gate combo occasionally exits 1 transiently (numpy/
    pillow skip race); re-running shows ALL GATES GREEN. Not a failure.

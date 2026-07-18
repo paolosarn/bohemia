@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]
-1396 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]
+1420 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3287,3 +3287,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — THE PRE-DECISION IS DEMONSTRATED [F3's law]
       system: factions / the unrecorded ledger / quest structure
       If a quest's spine is a pre-decided verdict, the collusion is DEMONSTRATED — the dynast hitting the closed doors, the spiked report, the pre-written outcome — so the wall is experienced, not summarized (#181's the-consequence-must-be-shown law).
+
+### #183  THE RITE OF PASSAGE (A CREATURE BUILT WITHOUT A PAST CHOOSES THE TRIBE THAT WOULD KILL HIM) (Mass Effect 2)
+  ->  PORT 1 — THE MADE PERSON EARNS BELONGING [W1, W2, W3 — the core port]
+      system: the Amalgamation / the fold / companions
+      A Bohemia arc where a manufactured being (an Amalgamation-made person, a construct, an heir with no lived past) must EARN a belonging that everyone else inherited — brought before the culture that made them, judged by deed not origin, paying on purpose in a trial for what the born got for free. The recorded-vs-unrecorded self (#26) fused with the fold's succession; the question of whether a made p
+  ->  PORT 2 — BELONGING EASES, NEVER ERASES [F1's law]
+      system: the Amalgamation / companions / the fold
+      If a made person's crisis is the absence of a past, earning belonging EASES it, never erases it — the manufactured origin still present after, belonging tended not switched — so the wound stays honest (#177's the-wound-persists law).
+  ->  PORT 3 — THE PURIST CASE HAS WEIGHT [F2's law]
+      system: factions / the fold
+      If a quest is about a made person earning belonging, the inheritance-purist case gets real WEIGHT — lineage-matters made sympathetic, not a strawman — so the earned belonging costs something to win (#180's both-sides-articulated law).
+  ->  PORT 4 — THE TRIAL IS A CULTURAL JUDGMENT [F3's law]
+      system: factions / the fold / quest structure
+      If belonging is decided by a trial, the trial is legibly a CULTURAL JUDGMENT, not just a combat check — the culture's counting foregrounded over the win condition — so belonging isn't reduced to who out-fought a monster (#179's the-institution-must-judge law).
+
+### #184  FORBIDDEN LEGEND (THREE HEROES KILLED A TYRANT, SPLIT THE PROOF, AND EACH BECAME ONE) (The Elder Scrolls V: Skyrim)
+  ->  PORT 1 — THE GUARDIANS BECAME WHAT THEY GUARDED [W1, W2, W3 — the core port]
+      system: the fold / the Amalgamation / the unrecorded ledger
+      A Bohemia arc where those who fought and then guarded a horror each BECAME it, and the player's own quest to gather the scattered pieces is the reconstitution of the very thing they died keeping broken — completion and endangerment the same act, the player the next turn of the cycle. The fold's cycle-that-repeats (#170) fused with the Amalgamation's immortality-lie; the horror mistaken for a rewar
+  ->  PORT 2 — THE FALLEN ARE KNOWN AS HEROES FIRST [F1's law]
+      system: the fold / companions / lore delivery
+      If a quest's spine is "the guardians became what they guarded," the guardians are felt as PEOPLE before they're fought as monsters — their humanity established so the corruption lands as loss (#175's the-victim-must-be-known law).
+  ->  PORT 3 — THE FORBIDDEN WHOLE CARRIES A COST [F2's law]
+      system: the Amalgamation / items / the unrecorded ledger
+      If the fiction says a reassembled thing is forbidden, the mechanics don't hand it over as a clean upgrade — the whole thing carrying a pull or consequence — so the warning isn't contradicted by the reward (#164's the-cost-must-be-mechanical law).
+  ->  PORT 4 — THE PLAYER SEES THE WHEEL [F3's law]
+      system: the fold / the unrecorded ledger
+      If a quest positions the dynast as the next turn of a corrupting cycle, something SURFACES the mirror — a line, a consequence, a moment that says "you are doing what they did" — so the player can see the wheel they're on (#182's the-mirror-must-be-shown law).
+
+### #185  LAST VOYAGE OF THE USS CONSTITUTION (HELP A CREW OF ROBOTS SAIL A WARSHIP OFF A ROOFTOP 200 YEARS TOO LATE) (Fallout 4)
+  ->  PORT 1 — SERVE THE DELUSION OR SHATTER IT [W1, W4, W5 — the core port]
+      system: the Amalgamation / factions / companions
+      A Bohemia arc where a being (or a whole small community) is held together entirely by a false belief — a mission long dead, a person long gone, a war long over — and the dynast must choose to SERVE the delusion to its beautiful pointless end or SHATTER it with a truth that helps no one, neither clean. The Amalgamation's comfort-lie (#34) in a single embodied crew; the question of whose delusion yo
+  ->  PORT 2 — THE COMEDY CRACKS ONCE [F1's law]
+      system: the Amalgamation / dialogue scenes
+      If a comic quest carries a serious question underneath, ONE beat lets the ache through — a line, a pause where the delusion's cost is briefly visible — so the theme reaches even the player who came for the joke (#163's the-costume-must-crack law).
+  ->  PORT 3 — BOTH PATHS FULLY IMAGINED [F2's law]
+      system: factions / the Amalgamation
+      If a quest offers serve-the-delusion vs shatter-it, both are fully IMAGINED — the truth-path given its own weight, not a flat punishment — so the dilemma is real rather than a preferred ending with a bad option beside it (#181's equal-outcomes law).
+  ->  PORT 4 — THE DELUDED FLICKERS ONCE [F3's law]
+      system: the Amalgamation / companions
+      If the weight depends on a delusion being load-bearing for a person, that person flickers once — a near-doubt, a defended certainty — so the belief reads as coherence held against a crack, not a stuck subroutine (#162's the-crack-makes-it-human law).
+
+### #186  JUHANI (THE FALLEN STUDENT WHO THINKS SHE KILLED HER TEACHER AND HAS BEEN HIDING IN THE GUILT) (Star Wars: Knights of the Old Republic)
+  ->  PORT 1 — THE GUILT BIGGER THAN THE DEED [W1, W2, W4 — the core port]
+      system: the conscience system / companions / the unrecorded ledger
+      A Bohemia arc where a character fell not from evil but from SHAME — did a real but survivable wrong, believed it was worse than it was, and built a whole dark identity on a guilt inflated past the deed — and the dynast's role is to correct the false accounting, not excuse the wrong: right-size the guilt, show the deed smaller than the sentence, offer back a self the character condemned. The record
+  ->  PORT 2 — RE-ACCOUNTING ISN'T A SKILL ROLL [F1's law]
+      system: the conscience system / companions
+      If a quest's heart is correcting a false self-accounting, the correction lands on the TRUTH and its delivery, not a skill check — the self freed by what's shown, not a stat — so redemption isn't a dice roll wearing a soul (#178's the-conscience-isn't-a-stat-check law).
+  ->  PORT 3 — THE DEED STAYS REAL [F2's law]
+      system: the conscience system / the unrecorded ledger
+      If redemption is re-accounting not innocence, the real DEED stays real — the wrong acknowledged even as the inflated verdict is corrected — so redemption means right-sizing guilt, not deleting it (#181's the-wrong-must-stay-real law).
+  ->  PORT 4 — THE ACCOUNT MATCHES THE ACTS [F3's law]
+      system: companions / the conscience system
+      If a fallen character's fall is framed as shame not evil, the harm they've done since is RECONCILED with that framing — shown as the flailing of the self-condemned, not free-floating cruelty — so the sympathetic account isn't contradicted by the villain on screen (#173's the-account-must-match-the-acts law).
+
+### #187  RETURN TO CROOKBACK BOG (THE ORPHANS YOU SAVED GREW UP GRATEFUL TO THE MONSTERS) (The Witcher 3: Wild Hunt)
+  ->  PORT 1 — THE CHOICE THAT COMES DUE ELSEWHERE [W1, W2, W6 — the core port]
+      system: the unrecorded ledger / the fold / factions
+      A Bohemia arc where a choice made in one place and half-known detonates far away and long after, arriving as an irreversible consequence the dynast RECEIVES rather than decides — walking into the aftermath of their own decision like a stranger, understanding it too late to change it. The unrecorded-ledger's delayed-consequence machine (#26) fused with the no-clean-choice engine; the law that some 
+  ->  PORT 2 — THE DISPLACED CHOICE FEELS HEAVY AT THE SOURCE [F1's law]
+      system: the unrecorded ledger / dialogue scenes
+      If a consequence is deliberately delayed and displaced, the choice carries felt WEIGHT at the moment of decision — the dynast sensing they're deciding something heavy, even without knowing what — so the later detonation reads as tragic, not a gotcha (#181's the-choice-must-feel-heavy law).
+  ->  PORT 3 — THE MONSTER-AS-ORDER IS FELT AT THE KILL [F2's law]
+      system: factions / the unrecorded ledger
+      If a quest's monsters are also a region's order, the confrontation makes the DUALITY felt — the cost of removing them present in the moment — so defeating them isn't a clean win by default (#180's the-monster-is-also-the-order law).
+  ->  PORT 4 — THE REVEAL BREATHES [F3's law]
+      system: the fold / the unrecorded ledger / dialogue scenes
+      If the power is the dynast receiving an irreversible consequence of their own past choice, the reveal is given ROOM — a beat to hold the helplessness — so "you did this and cannot change it" lands (#182's the-reveal-must-breathe law).
+
+### #188  PYRAMID SONG (A DAY AT THE BEACH WITH SOMEONE WHO IS ABOUT TO STOP EXISTING) (Cyberpunk 2077)
+  ->  PORT 1 — THE CLOSENESS THAT IS THE GOODBYE [W1, W3, W5 — the core port]
+      system: companions / the fold / romance arcs
+      A Bohemia companion beat where the deepest intimacy the dynast is offered is inseparable from a farewell — a person showing the whole of themselves precisely because they are leaving, their departure CORRECT (the place, the fold, the world is genuinely grinding them down) rather than a problem to solve. The fold's grief-and-departure machine; the once offered completely by someone right to go. ```
+  ->  PORT 2 — EVEN THE HAPPY PATH CARRIES THE COST [F1's law]
+      system: companions / the fold / romance arcs
+      If a connection is inseparable from loss, even the "happy" continuation carries the COST — what was left behind, what the leaving took — so the goodbye isn't erased by a reward path (#173's the-cost-survives-the-happy-ending law).
+  ->  PORT 3 — THE REASON TO LEAVE IS PRESENT [F2's law]
+      system: companions / factions / the fold
+      If a departure must read as correct rather than defeatist, the reason is freshly PRESENT at the goodbye — the toll visible in the moment, not just assumed — so the leaving lands as clarity, not giving up (#182's the-reason-must-be-present law).
+  ->  PORT 4 — THE QUIET IS FRAMED AS THE EVENT [F3's law]
+      system: companions / dialogue scenes / romance arcs
+      If a quest's content is emotional not mechanical, its stillness is FRAMED as the event — the quiet made legibly the point — so players trained on stakes understand the day itself is the stake (#185's the-quiet-must-be-framed law).

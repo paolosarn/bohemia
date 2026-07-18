@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]
-1827 findings / 182 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]
+1887 findings / 188 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4017,3 +4017,135 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Not one villain but department, family, and corp all agreeing — the wall is a structure, not a person, which is what makes it unbeatable by being right.
   W10 IT IS POWERLESSNESS IN ONE CASE
       You can be completely right and completely unable to make it count — Bohemia's whole question of who the ledger serves, staged as a murder nobody with power will let you solve out loud.
+
+### #183  THE RITE OF PASSAGE (A CREATURE BUILT WITHOUT A PAST CHOOSES THE TRIBE THAT WOULD KILL HIM) (Mass Effect 2)
+  W1  THE MADE PERSON HAS NO PAST
+      Grunt was given instincts and denied history — the manufactured being whose missing childhood is the load-bearing absence, which is the whole engine.
+  W2  BELONGING IS THE UN-MANUFACTURABLE THING
+      He was built with everything except belonging, and belonging turns out to be the part that can't be built — the sharpest thing the quest says.
+  W3  HE EARNS ON PURPOSE WHAT OTHERS INHERITED
+      The Rite makes Grunt pay in blood for what the born got for free — belonging chosen, not accidental, which is what makes it his.
+  W4  THE CULTURE THAT MADE HIM JUDGES HIM
+      Grunt asks the krogan to count him on their own terms — the maker culture deciding whether its product gets to be a person.
+  W5  THE OBJECTION IS REAL
+      The purist claim (a tank-thing has no ancestors) is the genuine cost — belonging fought for against conviction, not handed over.
+  W6  THE PAST CAN'T BE RESTORED
+      The removed "give him the past he never had" verb is the spine: belonging is earnable forward only, never backward.
+  W7  THE NAME DOESN'T ERASE THE TANK
+      Grunt stays made, stays the krogan with no childhood — the belonging real because it was chosen on top of the manufacture, not instead of it.
+  W8  THE BREAKDOWN IS AN IDENTITY CRISIS
+      The physical failure is really the loneliness of a made thing with no place — the body carrying what the self can't hold.
+  W9  THE PLAYER CAN SECOND HIM
+      Standing with Grunt in the Rite is backing a made person's claim to belong — the witness to a manufactured being becoming counted.
+  W10 IT IS THE FOLD'S SUCCESSION IN ONE MADE THING
+      Whether a manufactured person gets a lineage and a name — Bohemia's whole question of the Amalgamation's made dead and the dynasty's succession, in one tank-bred krogan asking to be counted.
+
+### #184  FORBIDDEN LEGEND (THREE HEROES KILLED A TYRANT, SPLIT THE PROOF, AND EACH BECAME ONE) (The Elder Scrolls V: Skyrim)
+  W1  FIGHTING THE MONSTER MADE THEM THE MONSTER
+      The three heroes each became the immortality-horror they killed — the cycle that proves hating a thing doesn't immunize you against it.
+  W2  THEY SPLIT IT TO KEEP IT BROKEN
+      The heroes chose fragments over destruction, custody over closure — and custody was what corrupted them, which is the quest's cruel engine.
+  W3  THE REASSEMBLY IS THE UNDOING
+      Gathering the pieces rebuilds the exact thing three people died keeping apart — completion and endangerment as one act.
+  W4  THE GUARDIANS ARE THE FALLEN HEROES
+      Each piece is guarded by the man who hid it, now a monster — the tragedy walked into three times.
+  W5  THE PLAYER IS THE NEXT TURN
+      The one who gathers the pieces to feel complete is just the next to hold the hunger — the wheel turning again.
+  W6  THE PRIZE IS THE WARNING
+      The whole amulet, handed over as a reward, is precisely what the legend warned against — the horror mistaken for loot.
+  W7  COMPLETION CAN'T BE SEPARATED FROM DANGER
+      The removed "complete without reassembling" verb is the spine: finishing the story and rebuilding the horror are the same act.
+  W8  THE WARNING DOESN'T TAKE
+      The legend says "keep it broken" and leads the player to make it whole — the unheeded caution that is the human condition in one quest.
+  W9  IMMORTALITY IS THE HUNGER
+      The tyrant's lust to never die is the shape each guardian assumes — the same lie the Amalgamation tells, in a Nord barrow.
+  W10 IT IS THE FOLD'S CYCLE IN ONE LEGEND
+      A horror that repeats down generations, each holder becoming it — Bohemia's whole question of the cycle that fighting doesn't break, in three tombs and one amulet.
+
+### #185  LAST VOYAGE OF THE USS CONSTITUTION (HELP A CREW OF ROBOTS SAIL A WARSHIP OFF A ROOFTOP 200 YEARS TOO LATE) (Fallout 4)
+  W1  THE DELUSION IS LIFE-SUPPORT
+      The crew's belief that they're still on duty is the only thing holding them coherent — correcting it and killing it are nearly the same act, which is the quest's real engine under the jokes.
+  W2  THE MISSION IS IMPOSSIBLE AND BEAUTIFUL
+      Sailing a rooftop frigate to the sea is doomed and glorious — the fulfillment is absurd and genuinely moving at once.
+  W3  THE CAPTAIN CAN'T BE CORRECTED
+      Ironsides cannot hold the truth — the delusion is his self, not his error, which makes "just tell him" impossible.
+  W4  HELPING IS KINDNESS-AS-LIE
+      Serving the crew means propping up a false belief with real effort — a mercy that is also a deception, held honestly.
+  W5  TRUTH HELPS NO ONE
+      Shattering the delusion strands or destroys the crew and buys only correctness — the honest option that is also the cruel one.
+  W6  THE VOYAGE COMPLETES THE WANT
+      The doomed flight is the only way the crew's built-in purpose could ever be fulfilled — completion instead of correction.
+  W7  THE TRUTH LEAVES NO ONE GRATEFUL
+      The removed "tell them and be thanked" verb is the spine: some truths only strand the people you tell them to.
+  W8  THE COMEDY IS THE MERCY
+      The gag lets the player serve a beautiful lie without being forced to grieve it — the tone is itself a kindness to the player.
+  W9  TWO CENTURIES OF DUTY
+      The crew kept serving because no order came to stop — the horror and tenderness of a duty never rescinded.
+  W10 IT IS THE AMALGAMATION'S LIE IN SLAPSTICK
+      A comfort-belief that holds the broken together, served or shattered — Bohemia's whole "no one is ever lost" question, in a frigate on a roof.
+
+### #186  JUHANI (THE FALLEN STUDENT WHO THINKS SHE KILLED HER TEACHER AND HAS BEEN HIDING IN THE GUILT) (Star Wars: Knights of the Old Republic)
+  W1  SHE FELL FROM SHAME, NOT EVIL
+      Juhani's dark side is a sentence she passed on herself, not a hunger she followed — the fall as self-condemnation, which is the whole engine.
+  W2  THE GUILT IS BIGGER THAN THE DEED
+      She struck her master; she believes she murdered him — the whole fallen identity rests on a guilt inflated past the act.
+  W3  THE CRIME NEVER HAPPENED
+      The master is alive; the murder she was damned for is undone — the false accounting refuted at the root.
+  W4  REDEMPTION IS RE-ACCOUNTING
+      Not forgiveness for a crime but correction of an inflated self-verdict — the sharpest, truest thing the quest says about guilt.
+  W5  THE DEED STAYS REAL
+      The strike is not erased; the freedom is in right-sizing the guilt, not deleting the wrong — redemption without innocence.
+  W6  THE DARK SIDE WAS A SENTENCE
+      Juhani adopted the fallen role as a verdict on herself — the removed "erase the strike" verb is the spine: you correct the weight, not the fact.
+  W7  THE MONSTER WAS SELF-INVENTED
+      She built the creature from a mistake — the most dangerous thing was the conviction that the anger proved her damned.
+  W8  THE PLAYER CORRECTS THE LEDGER
+      Shepard's role is to right the accounting, not excuse the deed — the re-accountant, not the forgiver.
+  W9  THE OVER-SENTENCE CAN BE CONFIRMED
+      Pushing her into darkness executes the verdict she passed on herself — the tragedy of a guilt too load-bearing to release.
+  W10 IT IS THE CONSCIENCE SYSTEM IN ONE FALL
+      A person damned by their story about their worst moment more than the moment itself — Bohemia's whole question of guilt-sticky-and-chosen, in one fallen knight's corrected ledger.
+
+### #187  RETURN TO CROOKBACK BOG (THE ORPHANS YOU SAVED GREW UP GRATEFUL TO THE MONSTERS) (The Witcher 3: Wild Hunt)
+  W1  THE CHOICE IS DISPLACED IN TIME AND SPACE
+      The Hillock decision detonates hours later and miles away in the bog — the consequence separated from the decision, which is the quest's whole engine.
+  W2  THE PLAYER RECEIVES, NOT DECIDES
+      By the bog, the outcome is sealed; the player discovers their own choice like a stranger reading a result — weight as revelation.
+  W3  THE CHOICE WAS HALF-KNOWN
+      The player likely didn't grasp they were deciding the orphans' fate — the tragedy of choosing without full knowledge, which is most real choices.
+  W4  NEITHER OUTCOME IS CLEAN
+      Freed spirit saves children and butchers a village; destroyed spirit saves a village and dooms children — both real, both on the player.
+  W5  THE CONSEQUENCE IS SMALL AND SPECIFIC
+      It arrives as particular children, not an abstraction — the ledger come due in small bodies.
+  W6  UNDERSTANDING ISN'T UNDOING
+      The removed "choose again" verb is the spine: some choices come due where you can't reach them, and knowing changes nothing.
+  W7  THE MONSTERS ARE THE ORDER
+      The Crones are Velen's horror and its protection both — confronting them buys nothing clean, deepening the no-win.
+  W8  THE WEIGHT IS IRREVERSIBLE
+      The bog reveals which way, never lets you rewrite it — the ledger read, not edited.
+  W9  THE ARC EARNS THE DETONATION
+      Hours of Velen build to this room — the delay is long enough to make the consequence feel like fate, not a menu.
+  W10 IT IS THE UNRECORDED LEDGER'S DELAY IN ONE SWAMP
+      A choice that comes due far from where it was made, irreversibly — Bohemia's whole question of decisions that detonate off-screen, in a bog full of children.
+
+### #188  PYRAMID SONG (A DAY AT THE BEACH WITH SOMEONE WHO IS ABOUT TO STOP EXISTING) (Cyberpunk 2077)
+  W1  THE CLOSENESS IS THE GOODBYE
+      The intimacy and the farewell are one scene — the quest's whole engine, refusing to separate the connection from the loss.
+  W2  THE INTIMACY IS REAL AND HONEST
+      Judy offers the genuine thing, un-cynical and complete — rare in this world, which is what makes the goodbye hurt.
+  W3  THE DEPARTURE IS CORRECT
+      The city is genuinely killing her; leaving is right, not a problem to solve — the removed "talk her into staying" verb is the spine.
+  W4  THE DROWNED TOWN IS THE IMAGE
+      A whole life underwater, beautiful and unlivable — the loss made a place you can dive into but not live in.
+  W5  IT IS THE ONCE
+      A real connection offered exactly once, complete because it doesn't continue — the quest's honesty about impermanent intimacy.
+  W6  SHOWING YOU EVERYTHING IS THE FAREWELL
+      Judy's total vulnerability is how she says goodbye — being fully known once, on the way out.
+  W7  THE QUIET IS THE EVENT
+      Nothing mechanical happens; everything emotional does — the stillness is the stake, which is rare and brave.
+  W8  LEAVING WITH HER STILL COSTS
+      Even the continuation is attached to what the city took — the loss present even in the happy path.
+  W9  THE PLAYER CAN'T FIX IT
+      Judy's decision isn't a puzzle; the loving act is to let the goodbye be real — the impotence that is the truth of some departures.
+  W10 IT IS THE FOLD'S GRIEF IN ONE DAY
+      A real connection that doesn't get to last, honored as complete — Bohemia's whole question of loss and departure, in a drowned town and one afternoon.
