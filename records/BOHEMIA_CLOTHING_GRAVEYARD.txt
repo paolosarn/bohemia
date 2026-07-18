@@ -65,3 +65,18 @@ now-additive buildFrame preview hook) and flaring outward, so it reads as hangin
 cloth. Every garment now carries a LAYER (base/legs/feet/outer); coats are 'outer'
 and render OVER a base shirt. Fresh coats: WASTELAND DUSTER, SOOT TRENCH,
 DRIFTER'S COAT, RANGER LONGCOAT (in COOKING, pending verdict).
+
+--- BATCH 3 (7/18/26) — 4 DOWN: 2 hoodies + 2 v-necks ---
+GREY HOODIE, BLACK HOODIE, STEEL V-NECK, OLIVE V-TANK. GRAVEYARD FINAL.
+PAOLO (the lesson): a hoodie is NOT texture painted on a shirt. "You have to
+understand how a hoodie would be ADDITIONAL PIXELS OUTSIDE OF THE SKELETON. The
+hood part actually has to come out the back... same thing with hair -- it's about
+the SHAPE and the pixels that go outside the body skeleton."
+ROOT CAUSE: my genTop neck:'hood' just recolored the top torso rows into a fake
+dark cowl -- paint on the body, no geometry. A hood is a real 3D shape hanging off
+the nape, extending beyond the body silhouette.
+FIX (fresh cook, new names): genHood ADDS pixels outside the skeleton (via the
+additive buildFrame hook, same capability the coat skirt uses) -- a rounded hood
+mass off the back of the neck, facing-aware, never covering the face. The v-necks
+(STEEL V-NECK, OLIVE V-TANK) also DOWN, no comment -- not remade; fresh v-necks
+only if the mechanism improves. This capability is the groundwork for HAIR too.
