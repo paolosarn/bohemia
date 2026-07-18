@@ -1,0 +1,70 @@
+=== BOHEMIA MUSIC — COOK BATCH 9 DROP-IN (7/18/26) ===
+PORTABLE. Paste into the CANONICAL alpha (the main project), per ONE-ALPHA LAW.
+This is the whole batch: 4 new voices + 4 songs. Both halves are required —
+the songs reference the voices; songs without the voice code play SILENT.
+Screech-safe (no createDelay, every node excited-and-decaying). Gate: gates/music_gate.py green.
+
+--------------------------------------------------------------------------
+STEP 1 — VOICE SYNTHESIS. Paste these 4 blocks INSIDE function synthV(...),
+right after the opening batch comment (next to the other new-voice blocks).
+--------------------------------------------------------------------------
+  if(kind==='hollowvowl'){ /* BATCH9: formant-morph dead-chapel choir, vowel ah->oo closing mid-word */
+    const g=AC.createGain(), f0=hz(semi), src=AC.createGain();
+    for(const dt of [-7,0,7,-0.14,0.12]){ const o=AC.createOscillator(); o.type='sawtooth';
+      o.frequency.value = dt>=7?f0*1.5 : dt<=-7?f0*0.5 : f0*(1+dt/100);
+      const og=AC.createGain(); og.gain.value=(Math.abs(dt)>=7?0.06:0.12); o.connect(og); og.connect(src); o.start(t); o.stop(t+sd*5.6); }
+    const F=[[700,320],[1150,760],[2600,2380]], A=[0.5,0.3,0.16];
+    F.forEach((pair,i)=>{ const bp=AC.createBiquadFilter(); bp.type='bandpass'; bp.Q.value=7;
+      bp.frequency.setValueAtTime(pair[0],t); bp.frequency.linearRampToValueAtTime(pair[1],t+sd*4.4);
+      const bg=AC.createGain(); bg.gain.value=A[i]; src.connect(bp); bp.connect(bg); bg.connect(g); });
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*0.28,t+1.1); g.gain.setValueAtTime(g0*0.24,t+sd*3.6); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*5.4);
+    g.connect(MAST); return; }
+  if(kind==='wrongbox'){ /* BATCH9: sample&hold wrong-note music box, pitch staircase into tritone neighbors */
+    const car=AC.createOscillator(), g=AC.createGain(); car.type='triangle';
+    const steps=[0,1,0,6,0,-1,3,6]; const iv=sd*0.75; let ct=t;
+    for(let k=0;k<8 && ct<t+sd*6;k++){ car.frequency.setValueAtTime(hz(semi+steps[k%steps.length]),ct); ct+=iv; }
+    let at=t;
+    for(let k=0;k<8 && at<t+sd*6;k++){ g.gain.setValueAtTime(0.0001,at); g.gain.linearRampToValueAtTime(g0*0.22*(1-k*0.04),at+0.005); g.gain.exponentialRampToValueAtTime(0.0001,at+iv*0.9); at+=iv; }
+    const ov=AC.createOscillator(), og=AC.createGain(); ov.type='sine'; og.gain.value=g0*0.06; ct=t;
+    for(let k=0;k<8;k++){ ov.frequency.setValueAtTime(hz(semi+steps[k%steps.length]+12)*1.01,ct); ct+=iv; }
+    car.connect(g); ov.connect(og); og.connect(g); g.connect(MAST);
+    car.start(t); car.stop(t+sd*6.1); ov.start(t); ov.stop(t+sd*6.1); return; }
+  if(kind==='shatterbell'){ /* BATCH9: granular shatter bell, deterministic grain cloud, inharmonic partials */
+    const f0=hz(semi), N=16, span=sd*3.2;
+    for(let k=0;k<N;k++){ const o=AC.createOscillator(), g=AC.createGain(); o.type='sine';
+      const cents=(((k*67)%80)-40), part=(k%3===0?1:k%3===1?2.01:3.76);
+      o.frequency.value=f0*part*(1+cents/1200);
+      const gt=t+span*(k/N)*(0.7+((k*53)%30)/100), dur=sd*(0.5+((k*29)%40)/80);
+      g.gain.setValueAtTime(0.0001,gt); g.gain.linearRampToValueAtTime(g0*0.12*(1-k/(N*1.5)),gt+0.004); g.gain.exponentialRampToValueAtTime(0.0001,gt+dur);
+      o.connect(g); g.connect(MAST); o.start(gt); o.stop(gt+dur+0.03); } return; }
+  if(kind==='gravechoir'){ /* BATCH9: sub-octave swell hollowed by a downward-sweeping notch (phase-cancel) */
+    const g=AC.createGain(), nf=AC.createBiquadFilter(); nf.type='notch'; nf.Q.value=1.2;
+    nf.frequency.setValueAtTime(hz(semi)*4,t); nf.frequency.exponentialRampToValueAtTime(hz(semi)*0.9,t+sd*5);
+    for(const dt of [-12,0,0.09,-0.11]){ const o=AC.createOscillator(); o.type='sawtooth';
+      o.frequency.value = dt<=-12?hz(semi)*0.5 : hz(semi)*(1+dt/100);
+      const og=AC.createGain(); og.gain.value=(dt<=-12?0.16:0.11); o.connect(og); og.connect(nf); o.start(t); o.stop(t+sd*5.6); }
+    nf.connect(g); g.connect(MAST);
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*0.3,t+1.6); g.gain.setValueAtTime(g0*0.26,t+sd*3.8); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*5.4); return; }
+
+--------------------------------------------------------------------------
+STEP 2 — SONG ENTRIES. Paste these 4 lines into the playable songs array
+(the MLOOPS array), before its closing  ];
+--------------------------------------------------------------------------
+{n:'THE ORGAN IN THE DROWNED CHAPEL',acc:'#6a7a9a',root:48,scale:[0,2,3,7,10],wave:'sawtooth',kick:[0,6],bass:[0,7,10,7],hat:[4,12],inst:{b:'nightpad',l:'hollowvowl'},am:'dreadbed',kit:{k:'boom',h:'tight'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true,bt:9},
+{n:'THE BOX THAT COUNTS THE DEAD',acc:'#8a6a9a',root:55,scale:[0,1,4,6,9],wave:'triangle',kick:[0,4,10],bass:[0,4,9,6],hat:[2,6,10,14],inst:{b:'gonebox',l:'wrongbox'},am:'mistchoir',kit:{k:'knock',h:'clickh'},mel:'call',swing:0,feel:'normal',klay:'stabs',ff:true,nu:true,bt:9},
+{n:'WHAT SHATTERED IN THE VAULT DOOR',acc:'#9a3a4a',root:43,scale:[0,3,5,6,10],wave:'square',kick:[0,4,8,10],bass:[0,5,6,10],hat:[2,6,10,14],inst:{b:'ashchoir',l:'shatterbell'},am:'dreadbed',kit:{k:'punchk',h:'sizzle'},mel:'drive16',swing:0,feel:'drive',klay:'drums',ff:true,nu:true,bt:9},
+{n:'THE SWELL BENEATH THE FLOOR',acc:'#5a6a7a',root:50,scale:[0,2,5,7,9],wave:'sine',kick:[0,8,12],bass:[0,7,9,12],hat:[4,12],inst:{b:'gravechoir',l:'coldpiano'},am:'deadsat',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,nu:true,bt:9}
+
+--------------------------------------------------------------------------
+STEP 3 — MASTER CHAIN. Confirm the BRICKWALL limiter is present (7/8 screech
+incident): a DynamicsCompressor after the master comp, threshold -5, ratio 20.
+If the canonical alpha already has it (it should), do nothing.
+--------------------------------------------------------------------------
+
+NEW VOICES BORN (ledgered to owner song):
+- hollowvowl  -> THE ORGAN IN THE DROWNED CHAPEL (time-varying formant-vowel bank; ah->oo close)
+- wrongbox    -> THE BOX THAT COUNTS THE DEAD    (sample&hold pitch staircase into tritone neighbors)
+- shatterbell -> WHAT SHATTERED IN THE VAULT DOOR (granular grain-cloud bell, inharmonic partials)
+- gravechoir  -> THE SWELL BENEATH THE FLOOR     (downward notch-sweep phase-cancel swell)
+
+VARIETY (no two share scale+feel+kick): root48/half, root55/normal, root43/drive, root50/half.
