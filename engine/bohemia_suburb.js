@@ -148,8 +148,7 @@
     cw=cw||1;ch=ch||1;var g=blank(SZ*cw,SZ*ch);frame(g,cw);
     var W=Wd(g),H=Ht(g);
     for(var ci=0;ci<cw;ci++){ var gx=(SZ*ci+SZ/2)|0;
-      if(style==='campana') throughStreet(g,W,H,gx);              // Campana Dr, the real through-street tract
-      else denseFill(g,W,H,gx,false);                            // the packed grid block
+      denseFill(g,W,H,gx,style==='campana');                      // both FULL packed; campana adds a central cul-de-sac court
     }
     // NO BACKYARD FILL: Act 1 is a dead world. Water is not wasted on landscaping;
     // there are no trees, no pools, no grass. Backyards are dead ground (code 0).

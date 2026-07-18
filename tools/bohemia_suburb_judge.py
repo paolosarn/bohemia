@@ -23,20 +23,26 @@ GEN = open(os.path.join(REPO, 'engine/bohemia_suburb.js'), encoding='utf8').read
 UI = r"""
 var G = BohemiaSuburb;
 var STYLES=[
-  {id:'campana',name:'CAMPANA DR — your tract',blurb:'8361 Campana Dr, 89147 rebuilt from the county street records: a straight through-street tract, homes on BOTH sides fronting the street, connecting road-to-road (not a gated dead-end). dead world — no vegetation. is this your street?'},
+  {id:'campana',name:'CAMPANA DR — your tract',blurb:'8361 Campana / 89147, packed the way you approved: homes fill the WHOLE block, a central cul-de-sac court in the middle. dead world, dead-dirt backyards, no vegetation. every home 3-tile backyard to the wall.'},
   {id:'ring',name:'THE BLOCK — packed grid',blurb:'houses-first walled block, homes both sides of every street, every home a 3-tile DEAD backyard to the wall. no grass, no pools, no trees — act 1 is dead.'}
 ];
 var SUN=false, seedBase=7, verdict={}, comments={};
-// DEAD WORLD palette: dead dirt ground, no green, no pool-blue. Everything is dead.
+// DEAD WORLD palette: dead dirt ground (textured so it reads as real dead earth,
+// NOT an empty black hole), asphalt, stucco house, concrete driveway. No green,
+// no pool-blue. Everything is dead but the ground is still GROUND.
 function col(code){
-  if(SUN)return ['#c9bfa4','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c9bfa4','#c9bfa4'][code];
-  return ['#302b22','#33333c','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#302b22','#302b22'][code];
+  if(SUN)return ['#c6bb9c','#8b8b93','#c2b184','#cfccd2','#b8a878','#c7a24a','#8a7454','#c6bb9c','#c6bb9c'][code];
+  return ['#463f30','#3a3a44','#9c8e76','#5a5a62','#6a5c44','#c79a3f','#6d5f4b','#463f30','#463f30'][code];
 }
+// dead-ground texture: three close dead-dirt shades keyed to the tile, so backyards
+// and yards read as cracked dead earth instead of void.
+function gcol(x,y){var h=((x*73856093)^(y*19349663))>>>0,v=h%3;
+  return SUN?['#c6bb9c','#bdb191','#cdc3a6'][v]:['#463f30','#3d382a','#4e4838'][v];}
 function render(cv,style,seed){var res=G.generate(seed,style,1,1),g=res.g,W=res.W,H=res.H,ctx=cv.getContext('2d');
   var PX=Math.min(cv.width/W,cv.height/H);
-  ctx.fillStyle=SUN?'#efe7cf':'#12140f';ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.fillStyle=SUN?'#b7ac8c':'#2c281e';ctx.fillRect(0,0,cv.width,cv.height);
   var ox=(cv.width-W*PX)/2,oy=(cv.height-H*PX)/2;
-  for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];ctx.fillStyle=col(c);ctx.fillRect(ox+x*PX,oy+y*PX,PX+0.5,PX+0.5);}
+  for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];ctx.fillStyle=(c===0?gcol(x,y):col(c));ctx.fillRect(ox+x*PX,oy+y*PX,PX+0.5,PX+0.5);}
   return res;}
 function build(){var root=document.getElementById('root');document.body.style.background=SUN?'#efe7cf':'#0d0f0a';root.innerHTML='';
   STYLES.forEach(function(st){
@@ -69,7 +75,7 @@ document.getElementById('exp').onclick=exportTxt;
 build();window.__SUBURB_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB. TWO to judge. First is YOUR street: 8361 Campana Dr / 89147, rebuilt from county street records — a straight through-street tract, houses both sides, connecting road-to-road. Second is the packed grid block. Both pack the WHOLE block (houses first, streets serve them). Both DEAD — act 1, no water for landscaping, so NO grass/trees/pools; the dark ground is dead backyard. Every home keeps its 3-tile dead backyard to the wall. Reseed for variety. Thumb each, comment, export.</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — SUBURB, packed. Both fill the WHOLE block (houses first). Campana has a central cul-de-sac court; the block is the tight grid. The ground between houses is DEAD DIRT (act 1, no water for landscaping — no grass/trees/pools), textured so you can see it's dead earth, not empty. Every home keeps its 3-tile dead backyard to the wall. Reseed for variety. Thumb each, comment, export.</h1>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
   <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN MODE</button>
   <button id="reseed" style="padding:8px 12px;border-radius:8px">⟳ RESEED</button>
