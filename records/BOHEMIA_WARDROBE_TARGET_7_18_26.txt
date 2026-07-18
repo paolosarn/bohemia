@@ -1,0 +1,45 @@
+=== BOHEMIA WARDROBE TARGET (7/18/26) — how many clothing items we need ===
+Paolo: "do online research about how many clothing items other games of our
+caliber have after DLC, cause that's how many we will need if not more."
+
+THE NUMBERS (comparable games, post-DLC, cited):
+- Stardew Valley (1.6):  ~265-290 wearables (112 shirts / 122 hats / 15 pants /
+                          18 boots) -- shirts are mostly palette recolors.
+- Sun Haven:             371 clothing items.
+- Terraria (1.4.4):      200+ vanity sets (~287 vanity pages) + 100+ armor sets.
+- RimWorld (+4 DLC):     only ~60-80 hand-authored apparel defs -- multiplied by
+                          MATERIAL x QUALITY into an effectively unlimited wardrobe.
+- Project Zomboid:       several hundred across 100+ body slots.
+- Fallout 4:             400+ armor & clothing (~323 clothing IDs).
+- Fallout 76 (2025):     ~569 cosmetic items.
+- Elden Ring (+SotE):    744 armor pieces (599 + 145 DLC), ~90 sets.
+- Skyrim:                several hundred wearables.
+- Animal Crossing NH:    ~8,000 (pure recolor/pattern factory, the outlier).
+- The Sims 4 (+packs):   thousands (modular slots + color/pattern families).
+- Roguelites (Dead Cells ~40-50, Hades ~0): the FLOOR, not our benchmark.
+
+THE TARGET:
+- FLOOR (of our caliber):     ~300-400 distinct wearables  (Stardew..Sun Haven).
+- TARGET (wardrobe-serious):  500-800  (Fallout 76 ~570, Elden Ring 744).
+- STRETCH (factory ceiling):  1,000-2,000+  (how ACNH/Sims get there).
+=> PLAN FOR 500-800, architected so the factory pushes past 1,000 with NO new
+   hand-art. "That's how many we need, if not more."
+
+CATEGORY SPLIT (for a ~600 target):
+  ~200 tops (30-35%) · ~120 hats (18-22%) · ~100 accessories (15-18%) ·
+  ~70 outerwear (10-12%) · ~60 bottoms (10%) · ~45 shoes (6-8%).
+
+THE PRODUCTION INSIGHT (validates our factory):
+None of these games hand-draw their headline number. They use a SMALL hand-made
+base x cheap multiplication (RimWorld ~60 defs x material x quality; Stardew's
+112 shirts = recolors of a few base sprites; ACNH/Sims = modular slots x color
+families). Our pipeline -- base silhouette GENERATORS + palette swaps + wear
+passes + LAYERS -- IS that engine. The real work is HAND-AUTHORED BASE SILHOUETTES
+(~120-180 unique bases is plenty); the factory turns those into 500-800+ items.
+
+WHERE WE ARE (7/18): 22 canon + 18 cooking (batch 5). Types built: base tops,
+legs, feet, outer (coats + the new open VEST). 
+THE GAP vs the split: we have NO HEADWEAR (~20% of target) and NO ACCESSORIES
+(~16%) -- ~36% of the wardrobe is categories we haven't started. Next base
+generators to build: genHat (beanie/cap/hood/durag/brimmed), genAccessory
+(scarf/mask/glasses/gloves/belt/bag). [Flagged for Paolo; faction dress still his.]
