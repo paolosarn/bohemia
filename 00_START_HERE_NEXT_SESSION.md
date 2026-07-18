@@ -215,11 +215,20 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    catalog-ready but no catalog until the game ships). Updating the slice
    = bump the manifest + rerun tools/bohemia_slice_host.py; the 31MB alpha
    NEVER changes again. Loader built + verified (card in the alpha's style,
-   ENTER loads the slice full-bleed + BACK bar, 0 errors). [PENDING, alpha
-   session — ONE-ALPHA: music is currently on the alpha]: add the single
-   tab (<div class="tab" data-p="NAME">NAME</div> + an iframe panel to
-   BOHEMIA_CURRENT_SLICE.html). Tab NAME is Paolo's call (proposed: THE
-   STREETS / WORKSHOP / SLICE).
+   ENTER loads the slice full-bleed + BACK bar, 0 errors). TAB NAME LOCKED
+   BY PAOLO: "SLICE". The alpha tab handler is generic (removes 'on' from
+   all, adds to clicked, shows #p-<data-p>), so the insert is TWO divs, no
+   JS change:
+     (a) after the CITY tab in <div id="tabs">:
+         <div class="tab" data-p="slice">SLICE</div>
+     (b) a panel in <div id="stage">:
+         <div class="panel" id="p-slice"><iframe src="BOHEMIA_CURRENT_SLICE.html"
+           style="width:100%;height:100%;min-height:78vh;border:0"></iframe></div>
+   [PENDING, clean alpha session — ONE-ALPHA]: as of 7/18 an ACTIVE session
+   is on the alpha (the ragdoll-death sequence, PRs #17-#20, last alpha
+   commit ~15min before this note). Per ONE-ALPHA the two-div insert waits
+   for that session to clear, then drops in verbatim (verify: alpha still
+   boots + SLICE tab opens the loader).
 2. Questbook mining: PAUSED AT 68 pending Paolo's lane pick (see below).
 3. Alpha absorption: preflight GO since 7/14; ONE session, WITH Paolo.
 
