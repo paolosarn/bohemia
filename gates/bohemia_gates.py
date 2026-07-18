@@ -40,6 +40,8 @@ GATES = [
      'yellow=direction, white=lane', False),
     ('STREET CONNECT', ['node', 'gates/street_connectivity_gate.js'],
      'no street dead-ends into empty lots', False),
+    ('DISTRICT REG',   ['node', 'gates/district_registry_gate.js'],
+     'every district type is catalogued', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],
      '85/15 tan, independent of weathering', False),
     ('ITEM SCALE',     ['node', 'gates/scale_gate.js'],

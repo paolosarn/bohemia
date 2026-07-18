@@ -108,6 +108,18 @@ finished) is now WIRED: a live cell shows the approved lamp body + a runtime
 amber head-glow (rgb-only, per the light law, no new baked art, no verdict
 owed). Verified in chromium (3 lit / 8 dead, 0 errors). Robust to any future
 power reshuffle from map edits.
+DISTRICT REGISTRY BORN (7/18, Paolo: "do you have all the info of all the
+types of buildings... for the procedural generation landmarks"): the info was
+scattered across VEGAS_GEOGRAPHY (748 lines) + code comments, 10 types had NO
+write-up. Now ONE catalog: laws/BOHEMIA_DISTRICT_REGISTRY_7_18_26.md, GENERATED
+by tools/bohemia_district_registry.py (render status read LIVE from the bridge,
+can't drift). 77 types: 9 BAKES (visible in a slice now), 8 RECIPE (grid exists,
+art pending), 60 PENDING (placed on the map, fine-layer [PENDING Paolo] per
+MECHANISM-MINE/CONTENTS-PAOLO'S). Gate #19 gates/district_registry_gate.js:
+every enum type MUST have a registry row + count must match — a new district
+can never go uncatalogued again. arsenal + robofactory carry game-lore that is
+entirely Paolo's call. THE 60 PENDING are the real owed work: per type, Paolo's
+ruling on what it IS in Bohemia + then art.
 NEXT for the city: (a) mark/zoom the landmarks (Strip, Sphere, Luxor, dam
 — all in overmap.layout), (b) a detail bake where you zoom a region to
 walkable streets + desert lots (compose from the street/intersection/
