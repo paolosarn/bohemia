@@ -21,3 +21,31 @@ These were technically "a red shirt / jeans / sneakers," but crude. What's weak:
 LESSON (pending Paolo's confirm): the factory's SHADING/DETAIL ceiling was too low.
 Next batches need real fabric craft (garment-specific detail + richer shading), and
 likely to be shown ON the actual Punk, not a mannequin.
+
+--- BATCH 2 (7/18/26) — 5 UP (templates), 4 DOWN (tops) ---
+UP  (these graduate to TEMPLATE bases -> variant factory):
+  BLUE JEANS, BLACK CARGOS, GREY SWEATS  (Paolo: "the pants you did a decent job")
+  WHITE SNEAKERS, BROWN BOOTS            (Paolo: "the shoes are OK")
+DOWN (the tops, all four):
+  RED SHIRT, WHITE TEE, BLACK TANK, GREEN FLANNEL
+
+PAOLO'S NOTE (the reason): the NECKLINE. "You thought a collarbone was a neckline
+from all direction." I loved that he saw the attempt ("I love how you tried to
+have a good neckline") but the execution was wrong: my collar band was painted
+along the whole TORSO TOP EDGE, which follows the shoulder/collarbone contour and
+dips at center -- so it read as a neckline cut down at the collarbone, exposing
+the chest, instead of a proper crew collar at the base of the neck.
+
+ROOT CAUSE (confirmed by probing the deformed grid): in front view the neck part
+(id 3) is a tiny 4px strip at the very top of the torso; the torso top row IS the
+shoulder line. Tracing a dark rim along that whole edge = drawing the collarbone,
+not a neckline.
+
+FIX SHIPPED SAME TURN (Paolo explicitly authorized the remake: "if you want try
+to remake the things I thumbs down"): genTop rewritten -- the shirt now covers the
+WHOLE chest+shoulders, and the collar is only a thin RING hugging the neck's own
+columns (id 3), derived per-facing so it's correct front/3-4/side/back. No dark
+band on the collarbone, ever. Verified across all 8 directions (neck_sheet).
+
+UI FIX (same note): killed the cardinal-direction button row. The 8-pose strip is
+now directly tappable -- tap any pose and it becomes the big live idle view.
