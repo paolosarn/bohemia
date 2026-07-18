@@ -1,0 +1,43 @@
+=== BOHEMIA CLOTHING CANON (born 7/18/26) ===
+Approved garments graduate OUT of the factory to here. These are canon: they can
+be equipped, worn by NPCs, and used as TEMPLATE bases for the variant factory.
+Paolo thumbs, this file remembers the wins (the graveyard remembers the deaths).
+
+--- FULL BATCH APPROVED (7/18/26) — all 9 UP, canon ---
+Paolo: "Damn bro, I'm really impressed. I wanna give everything a thumbs up now
+very good... all of these can be canon."
+
+TOPS (crew neck fixed this turn -- collar is a ring at the neck base, not a band
+on the collarbone; correct in all 8 facings):
+  RED SHIRT
+  WHITE TEE
+  BLACK TANK   (sleeveless)
+  GREEN FLANNEL
+PANTS (waistband + belt + fly + rolled ankle hems; full length waist->ankle):
+  BLUE JEANS
+  BLACK CARGOS
+  GREY SWEATS
+SHOES (dark sole + light midsole + laces on the tongue + padded ankle collar):
+  WHITE SNEAKERS
+  BROWN BOOTS
+
+All render on the LIVE rig at the idle beat, in any of 8 facings.
+
+--- COLOR CONTEXT (Paolo's question this turn: "are you caring about the color
+    context of the current assets we already have?") ---
+Honest state of these 9:
+- PURPLE RESERVATION LAW: CLEAN. Purity test flags purple as (r>g+25 AND b>g+25).
+  Every garment is single-hue-safe: reds are red-only (blue stays low), denim is
+  blue-only (red stays low). No garment trips it. Purple stays the Amalgamation's.
+- 45 ART LAW + sky-top-light: honored. Shading is graded to the world's render
+  conventions (lit tops, dark undersides, form volume), so they read like corpus.
+- WORLD AMBIENT GRADE: the base hues were chosen as clean, legible catalog colors
+  and were NOT pulled to the world ambient RGB(67,61,56) the way the skin ramps
+  were (the 7/18 skin regrade that made the character "sit IN the scene, not on
+  top of it"). So strictly, the current colors are a touch cleaner/brighter than
+  the world's dusty register.
+- LEVER SHIPPED: a "WORLD GRADE" toggle in the CLOTHES tab (default OFF, so the
+  approved colors stand). ON = the same skin-grade math applied to cloth
+  (desaturate 25% keeping hue, blend 16% toward ambient). Paolo's call which
+  register is canon. grade() lives in window.CLO.
+PENDING PAOLO: keep the clean catalog colors, or bake the world-ambient grade in?
