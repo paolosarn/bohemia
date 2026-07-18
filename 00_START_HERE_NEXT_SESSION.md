@@ -32,6 +32,31 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
   68 of >90. Gate #16 enforces the format; the searchable archive is back
   and freshness-gated.
 
+## THE WORLD MODEL — THE STRUCTURAL SPINE (7/18, Paolo: "step back... really
+## think about what structurally we should be building")
+Researched the games closest to our ambition (Shadows of Doubt = enterable
+simulated procgen city; Caves of Qud/Dwarf Fortress = simulated agents +
+factions + history; Against the Storm = city-builder roguelite that beats
+stagnation via run structure). THE READ: we built a beautiful STAGE, not yet the
+play. THE SPINE to build: ONE canonical WORLD MODEL — an addressable hierarchy
+valley -> district -> plot -> building -> floor -> ROOM -> tile — that the
+bakes/combat/city-builder/sim all read and write, instead of today's scattered
+representations. Three ladders climb it: ZOOM (enterable top-to-bottom), LIFE
+(agents/economy/factions), LOOP (the roguelite run — [PENDING Paolo, his call]).
+Full plan: laws/BOHEMIA_WORLD_MODEL_ROADMAP_7_18_26.md.
+DONE THIS TURN — the bottom ZOOM rung (the enterable one): engine/bohemia_
+floorplan.js. Given a footprint + zone + seed it BSP-splits into rooms, walls
+the gaps, carves a door graph that GUARANTEES every room is reachable, cuts a
+street entrance, and zones rooms (public near the door, private/service back,
+the Shadows-of-Doubt model). 8 zones (residential/retail/office/civic/
+institutional/warehouse/landmark/default). Gate #20 gates/floorplan_gate.js:
+every room reachable, no overlap, entrance exists, roled, deterministic. Proof:
+slices/BOHEMIA_FLOORPLAN_PROOF_7_18_26.png (verified by eye, reads as real
+floor plans). NEXT on the ZOOM ladder: wire floorplans onto real plot/building
+footprints (fine layer) + the seamless overmap->street->door->interior
+transition. Then the WORLD MODEL accessor that unifies overmap/bridge/builtlot/
+plotgen/floorplan under one world(seed) API. Then LIFE. Then Paolo rules LOOP.
+
 ## CITY-BUILDER FOUNDATION (7/18, Paolo scoping the city start)
 Paolo's plan: put streets into the CITY tab now, empty lots = DESERT until
 built; in citybuilder you can delete/blow up a plot down to the desert

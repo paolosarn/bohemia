@@ -42,6 +42,8 @@ GATES = [
      'no street dead-ends into empty lots', False),
     ('DISTRICT REG',   ['node', 'gates/district_registry_gate.js'],
      'every district type is catalogued', False),
+    ('FLOORPLAN',      ['node', 'gates/floorplan_gate.js'],
+     'every room reachable, buildings enterable', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],
      '85/15 tan, independent of weathering', False),
     ('ITEM SCALE',     ['node', 'gates/scale_gate.js'],
