@@ -1,5 +1,5 @@
-BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]
-2007 findings / 200 files
+BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]
+2067 findings / 206 files
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -4411,3 +4411,135 @@ BOHEMIA CRAFT MASTER — regen 7/16/26 after BATCH 7 (fresh mines 133-138)  [+BA
       Protecting him leaves him living a fiction he doesn't know is one — freedom and truth pulled apart.
   W10 IT IS IS-THE-MADE-PERSON-A-PERSON IN ONE ANDROID
       Property, freedom, or truth, decided by others — Bohemia's whole Amalgamation question of the made self, in one escaped man.
+
+### #201  I COULD MAKE YOU CARE (A BROKEN GENIUS BUILT A PARADISE THAT ONLY WORKS IF YOU LOBOTOMIZE THE PEOPLE IN IT) (Fallout: New Vegas — Old World Blues / the Veronica arc)
+  W1  LOYALTY AND SURVIVAL ARE OPPOSITES
+      The order's rigidity has made keeping faith and staying alive mutually exclusive — the whole engine of the tragedy.
+  W2  SHE LOVES A DYING FAMILY
+      Veronica can see the doom and cannot stop loving them — the clarity and the devotion at war.
+  W3  EVERY ROAD IS A BETRAYAL
+      Faith betrays the future, reform betrays the rules, exile betrays them all — no clean option.
+  W4  THE DEEPEST LOYALTY LOOKS LIKE TREASON
+      To save the family she must be branded its traitor — the sharpest thing the quest says about rigid institutions.
+  W5  NO ROAD IS BOTH FAITHFUL AND EFFECTIVE
+      The removed "save it without betraying it" verb is the spine: the order made those two things impossible to hold together.
+  W6  THE DOGMA IS THE SUICIDE
+      The traditions keeping them pure are killing them — purity as a grave, rigidity as death.
+  W7  LEAVING IS THE FEARED SELF
+      Exile is the abandonment Veronica most dreads becoming — even the honest road costs her identity.
+  W8  THE PLAYER TIPS, DOESN'T DECIDE
+      The companion voice influences which betrayal she can live with — her reckoning, aided not authored.
+  W9  THE FAMILY WILL MISREMEMBER THE SAVER
+      The one who tried hardest to keep them alive is the one they'll call traitor — the cruel irony of reform.
+  W10 IT IS LOYALTY-TO-A-DYING-THING IN ONE SCRIBE
+      Whether to go down with, reform, or leave a doomed family — Bohemia's whole fold question of institutions that won't change, in one companion's bind.
+
+### #202  THE CAVE OF DREAMS / THE HERMIT (SIT WITH A DYING STRANGER AND WATCH A WHOLE LIFE FIT INTO ONE CONVERSATION) (Disco Elysium)
+  W1  THE REFUSAL OF REWARD MAKES THE CARING REAL
+      No loot, XP, or plot — so the only reward is the person, and caring must be its own reason, which is the whole engine.
+  W2  EVERY FORGOTTEN PERSON IS A UNIVERSE
+      The minor NPC opens into a complete life — the smallest figure on the map is a whole world if entered.
+  W3  IT BREAKS THE VENDING-MACHINE REFLEX
+      The player trained to see NPCs as reward-dispensers meets one with nothing to give — and is measured by whether they stay.
+  W4  THE WHOLE LIFE FITS IN ONE TALK
+      A childhood, a love, a regret unfold unhurried — an entire existence in a single conversation.
+  W5  THE TEST CAN BE FAILED CHEAPLY
+      Walking away costs nothing mechanical and misses everything human — the low stakes are the point.
+  W6  THE GAME CAN'T MAKE YOU CARE
+      The removed "get a real reward" verb is the spine: the game only puts the stranger in front of you and sees what you do.
+  W7  THE MEASURE IS PRESENCE
+      Whether the player sits and listens to a useless life is the whole test of them — caring about the un-useful.
+  W8  THE MAP IS FULL OF THEM
+      The accumulated weight of many such people teaches that every corner holds a complete world.
+  W9  THE UNFLAGGED IS THE POINT
+      No quest marker; the game refuses to tell the player these matter — finding out is the test.
+  W10 IT IS EVERY-LIFE-IS-A-WORLD IN ONE TALK
+      The forgotten person as a full protagonist — Bohemia's whole unrecorded-ledger question of whose life counts, in one unhurried conversation.
+
+### #203  THE DERELICT REAPER (WALK THROUGH THE CORPSE OF THE THING THAT WILL KILL YOU AND FIND YOUR OWN CREW ATE EACH OTHER) (Mass Effect 2)
+  W1  THE HORROR DOESN'T NEED TO BE ALIVE
+      A dead Reaper still corrupts by proximity — the corpse consumes, which is the whole engine and the deepest dread.
+  W2  PROXIMITY IS THE DANGER
+      Not attack, not death — nearness, lingering, exposure; the enemy's true weapon was always influence.
+  W3  THE PREDECESSORS ARE YOUR FUTURE
+      Their logs chart the exact descent the crew is beginning — the found future, pre-recorded.
+  W4  CONVERSION FEELS LIKE REVELATION
+      The indoctrinated felt enlightened, not attacked — so they defend it, which is the horror's cruelest trick.
+  W5  FEELING FINE IS THE SIGN OF BEING TAKEN
+      The removed "make it safe" verb is the spine: you can't trust your own okay-ness, because being consumed feels like clarity.
+  W6  THE HORROR IS ADORED, NOT FEARED
+      It wins by being worshipped — a corpse can still be loved, and being loved is how it kills.
+  W7  THE COMPONENT FORCES THE EXPOSURE
+      The needed salvage justifies the lethal lingering — the price-justifier that makes the crew stay where staying corrupts.
+  W8  IT CAN'T BE DEFEATED, ONLY FLED
+      The corpse still broadcasts; the crew survives by leaving, not by winning — the horror outlasts the mission.
+  W9  THE VICTIMS TURNED ON EACH OTHER
+      The conversion ends in fratricide in the horror's name — worship curdling into mutual destruction.
+  W10 IT IS PROXIMITY-CORRUPTS IN ONE CORPSE
+      A dead god that still eats minds by nearness — Bohemia's whole Amalgamation question of a thing that consumes by being adored, in a derelict hull.
+
+### #204  KID IN A FRIDGE (A CHILD SURVIVED 200 YEARS SEALED IN A BOX AND HIS PARENTS AGED A CENTURY WAITING) (Fallout 4)
+  W1  THE CHILD STAYED, THE LOVE AGED
+      Billy is unchanged; his parents spent two centuries becoming grief — the asymmetry of time, which is the whole engine.
+  W2  TIME IS THE HORROR, NOT THE FRIDGE
+      The survival is a gimmick; the two hundred years of parental waiting it implies is the ache.
+  W3  THE PRESERVED HAVE NO EQUIVALENT FOR THE WAITERS
+      The fridge saved Billy; nothing saved the ones who searched — the removed "give back the years" verb is the spine.
+  W4  THE REUNION IS JOYOUS AND UNBEARABLE
+      The boy gets his parents in an afternoon; the parents get a son they mourned for lifetimes, unchanged — both at once.
+  W5  THE MIRACLE GETS PRICED
+      The slaver converts the reunion into a number — the blade that forces the player to hold cash against a homecoming.
+  W6  THE ABSURD OPENS INTO THE REAL
+      A joke premise resolves into a meditation on waiting, time, and grief — the gimmick as a door.
+  W7  HE ASKS FOR A HOME THAT'S GONE
+      Billy wants a world two centuries dead — the child's need is for something time erased.
+  W8  THE WAITING CAN BE HONORED, SOLD, OR FAILED
+      Three fates for the reunion — carry, sell, or abandon; none un-spends the years.
+  W9  THE TOWN FEARS WHAT HE BECAME
+      The ghoul child unsettles the settlement — even the miracle is met with discomfort, another way to fail him.
+  W10 IT IS TIME-AND-WAITING IN ONE FRIDGE
+      A child preserved while love was ruined by the years — Bohemia's whole fold question of time, grief, and reunion, in an absurd box.
+
+### #205  I WALK THE LINE (THE OPPRESSED MINORITY YOU CAME TO ALLY WITH USES YOU AS A DISPOSABLE PROBE AND IS RIGHT NOT TO TRUST YOU) (Cyberpunk 2077)
+  W1  THE OPPRESSED OWE YOU NOTHING
+      The Voodoo Boys use and betray the player rationally — the marginalized are not obligated to a powerful stranger's expectation of solidarity, which is the whole engine.
+  W2  THEIR PARANOIA IS EARNED
+      Their distrust is the scar of a world that only exploited them — not a flaw to overcome but a rational survival logic.
+  W3  THE PLAYER'S HURT IS A PRIVILEGE
+      Being wounded by the betrayal assumes a good faith the community was never granted — the sharpest, most uncomfortable truth.
+  W4  THEY USE YOU AS YOU'VE BEEN USED
+      The player is treated instrumentally, disposably — exactly how the world treats the Voodoo Boys, turned outward.
+  W5  SOLIDARITY IS A LUXURY
+      Trusting a stranger is a risk only the safe can afford — the marginalized cannot, and the quest refuses to pretend otherwise.
+  W6  GOOD INTENTIONS CAN'T OVERRIDE IT
+      The removed "earn their trust" verb is the spine: the conditions for trust were destroyed before the player arrived.
+  W7  THE BETRAYAL IS COLD, NOT CRUEL
+      Calculated survival, not gratuitous evil — which is what makes it un-dismissable as mere villainy.
+  W8  THE PLAYER IS THE OUTSIDER
+      From the community's side, the player is just another connected stranger who wanted something — the perspective flip is the quest's power.
+  W9  THERE IS NO CLEAN ALLIANCE
+      The quest refuses the sympathetic-ally fantasy — trust was foreclosed by history, not by the player's failure.
+  W10 IT IS THE-OPPRESSED-OWE-YOU-NOTHING IN ONE GANG
+      A marginalized community using a powerful stranger back — Bohemia's whole faction question of trust, exploitation, and earned paranoia, in Pacifica.
+
+### #206  THE BULL AND THE BACHELOR (TWO HEALERS SAVE THE TOWN BY OPPOSITE CURES AND ONLY ONE PLAGUE-LOGIC CAN BE TRUE) (Pathologic 2)
+  W1  THE DISASTER'S NATURE IS CONTESTED
+      The healers disagree on what the plague IS, not just how to cure it — the root incompatibility that is the whole engine.
+  W2  THE CURES CONTRADICT
+      Committing to one worldview forecloses the other — you cannot do both because they disagree about reality.
+  W3  SAVING ANYONE DAMNS THE OTHER'S PEOPLE
+      Your cure reaches some and cannot reach what the other diagnosis would have saved — the cost of committing to one reality.
+  W4  THE CLOCK KILLS HESITATION
+      The plague spreads daily; every hour of deciding is a body — refusing to commit is itself a lethal choice.
+  W5  THERE IS NO SYNTHESIS
+      The removed "combine both cures" verb is the spine: contradicting diagnoses cannot be merged, and no one is saved by trying.
+  W6  YOU NEVER KNOW YOU WERE RIGHT
+      The game refuses to referee — only the ledger of who lived, never certainty the worldview was correct.
+  W7  BOTH ACCOUNTS ARE COHERENT
+      Rational and organic are each internally valid and partly confirmed — neither obviously right, which makes the choice real.
+  W8  HEDGING SAVES NO ONE
+      Splitting the difference saves nobody, because the cures require full commitment to opposite realities.
+  W9  A DIFFERENT COMMITTER SAVES DIFFERENT PEOPLE
+      Someone choosing the other worldview, equally sure, saves and loses different people — the contingency of the ledger.
+  W10 IT IS INCOMPATIBLE-CURES UNDER A CLOCK IN ONE PLAGUE
+      Committing to a contested reality to save anyone, timed in corpses — Bohemia's whole question of irreconcilable worldviews and time-as-body-count, in a dying town.

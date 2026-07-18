@@ -145,7 +145,7 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    count toward 150. Gate now prints TWO counters; the OFFICIAL one is
    INDIVIDUAL-QUEST COUNT. Classification set lives in the gate
    (Paolo-auditable, borderline calls noted).
-   **INDIVIDUAL-QUEST COUNT: 116 of 150.** (Full-machine total 157; the
+   **INDIVIDUAL-QUEST COUNT: 122 of 150.** (Full-machine total 163; the
    rest are system studies that don't count.)
    **THE HUNT IS NOW FRESH INDIVIDUAL-QUEST MINING** (the #124-152 +
    #153+ pattern), NOT converting the #52-94 system queue (those don't
@@ -262,7 +262,20 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    bloodline; the past as predator on its own future), The Replicated
    Man (FO3 — a made person buried the truth to be free; freedom,
    self-knowledge, and peace can't all be served, decided without him).
-   **INDIVIDUAL-QUEST COUNT: 116 of 150.** 34 to go.
+   **INDIVIDUAL-QUEST COUNT: 116 of 150.**
+   BATCH 9 (7/18, #201-206): I Could Make You Care (NV, Veronica — love
+   a dying institution that won't change; faith/reform/exile, every road
+   a betrayal, the deepest loyalty looks like treason), The Hermit /
+   quiet encounter (Disco — a whole life in one reward-less talk; caring
+   about a useless life is the only caring that counts), The Derelict
+   Reaper (ME2 — a dead horror still corrupts by proximity; feeling fine
+   is the sign of being taken), Kid in a Fridge (FO4 — a child preserved
+   200 years while the love that searched aged into grief; time ruins the
+   waiters), The Voodoo Boys (CP2077 — the oppressed use and betray you
+   and are right not to trust you; your hurt is a privilege), The Bull
+   and the Bachelor (Pathologic — two healers, incompatible diagnoses of
+   the disaster; commit to one reality and the other's people die, timed
+   in corpses). **INDIVIDUAL-QUEST COUNT: 122 of 150.** 28 to go.
    VEINS STILL DEEP: ME2 (the Sun/IFF derelict, Samara/Morinth done,
    Thane done), Witcher (the Whispering Hillock done, Ghosts of the
    Past), FO4 (the Nucleus/Far Harbor, Kid in a Fridge, the Cabot done),

@@ -1,5 +1,5 @@
-BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]
-1468 ports
+BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH appended 139,140,141 (7/17/26, machine-parsed)]  [+BATCH appended 142,143,144 (7/17/26, machine-parsed)]  [+BATCH appended 145,146,147 (7/17/26, machine-parsed)]  [+BATCH appended 148,149,150 (7/17/26, machine-parsed)]  [+BATCH appended 151,152 (7/17/26, machine-parsed)]  [+BATCH appended 153,154,155,156,157,158 (7/17/26, machine-parsed)]  [+BATCH appended 159,160,161,162,163,164 (7/17/26, machine-parsed)]  [+BATCH appended 165,166,167,168,169,170 (7/17/26, machine-parsed)]  [+BATCH appended 171,172,173,174,175,176 (7/17/26, machine-parsed)]  [+BATCH appended 177,178,179,180,181,182 (7/17/26, machine-parsed)]  [+BATCH appended 183,184,185,186,187,188 (7/17/26, machine-parsed)]  [+BATCH appended 189,190,191,192,193,194 (7/17/26, machine-parsed)]  [+BATCH appended 195,196,197,198,199,200 (7/17/26, machine-parsed)]  [+BATCH appended 201,202,203,204,205,206 (7/17/26, machine-parsed)]
+1492 ports
 ====================================================================================================
 
 ### #1  THE BLOODY BARON (The Witcher 3)
@@ -3539,3 +3539,87 @@ BOHEMIA PORTS MASTER — regen 7/16/26 after batch 7. THE BUILD QUEUE.  [+BATCH 
   ->  PORT 4 — ONE PATH RESTORES HIS SAY [F3's law]
       system: the Amalgamation / the fold / factions
       If a quest's theme is a made person denied a say in his own fate, at least one path RESTORES his agency — letting him choose — so the critique is a wrong that could be righted, not just reproduced by the design (#191's give-the-subject-a-voice law).
+
+### #201  I COULD MAKE YOU CARE (A BROKEN GENIUS BUILT A PARADISE THAT ONLY WORKS IF YOU LOBOTOMIZE THE PEOPLE IN IT) (Fallout: New Vegas — Old World Blues / the Veronica arc)
+  ->  PORT 1 — THE FAMILY THAT WON'T CHANGE [W1, W3, W4 — the core port]
+      system: the fold / factions / companions
+      A Bohemia arc where a character loves an institution (a faction, a dynasty's old guard, the Amalgamation's keepers) whose RIGIDITY is killing it, and must choose among three betrayals: stay loyal and go down with it (faith kept, future betrayed), reform from within (family saved-if-possible, branded a traitor), or leave (honesty kept, family abandoned) — because the institution has made loyalty an
+  ->  PORT 2 — THE BRANDING IS SHOWN [F1's law]
+      system: factions / companions / the fold
+      If a quest's point is that reform gets the reformer branded a traitor, the branding is SHOWN — the family's rejection of the one saving them made felt — so "the deepest loyalty looks like treason" is a scene, not a summary (#187's the-consequence-must-be-shown law).
+  ->  PORT 3 — THE RIGIDITY HAS A SYMPATHETIC ROOT [F2's law]
+      system: factions / the fold
+      If a quest turns on loving a self-destroying institution, the rigidity has a SYMPATHETIC root — a fear, a wound, a logic — so the love is believable and leaving isn't obviously correct (#189's the-flaw-must-be-understandable law).
+  ->  PORT 4 — THE COMPANION AUTHORS HER OWN CHOICE [F3's law]
+      system: companions / the fold
+      If a companion faces a life-defining choice the dynast influences, the companion stays the AUTHOR of it — the dynast's voice tipping, not deciding — so it's her reckoning, not the player's win (#186's the-choice-stays-theirs law).
+
+### #202  THE CAVE OF DREAMS / THE HERMIT (SIT WITH A DYING STRANGER AND WATCH A WHOLE LIFE FIT INTO ONE CONVERSATION) (Disco Elysium)
+  ->  PORT 1 — THE UNIVERSE ON THE CORNER [W1, W2, W6 — the core port]
+      system: ambient life / the unrecorded ledger / the fold
+      Bohemia populates its world with people who are NOT quests — no loot, no XP, no plot gate — but who open into whole lives if the dynast sits and listens, so the smallest forgotten figure is a complete universe, and the game measures the player by whether they can care about a life that gives them nothing. The fold's every-life-is-a-world machine (#26) fused with the anti-reward-economy engine; car
+  ->  PORT 2 — THE HUMAN VALUE IS SIGNALED [F1's law]
+      system: ambient life / the unrecorded ledger
+      If a quest's value is a human reward with no mechanical one, the game SIGNALS the value without converting it to loot — a texture, a pull, a hint the corner holds a world — so trained players are tempted to stop, not filtered out (#188's the-quiet-must-be-framed law).
+  ->  PORT 3 — THE LIVES ARE VARIOUS [F2's law]
+      system: ambient life / the fold
+      If Bohemia relies on many quiet-life encounters, the lives are genuinely VARIOUS — not all tragic, some dull, some funny, some hostile — so "every person is a world" means different worlds, not one sad template (#185's the-lives-must-vary law).
+  ->  PORT 4 — LISTENING ASKS FOR REAL ATTENTION [F3's law]
+      system: ambient life / dialogue scenes
+      If the reward is the act of genuinely listening, it asks for real ATTENTION, not just clicks — a moment requiring the player to have taken the life in — so presence can't be faked by advancing text (#193's the-presence-must-be-real law).
+
+### #203  THE DERELICT REAPER (WALK THROUGH THE CORPSE OF THE THING THAT WILL KILL YOU AND FIND YOUR OWN CREW ATE EACH OTHER) (Mass Effect 2)
+  ->  PORT 1 — THE HORROR THAT CONSUMES BY PROXIMITY [W1, W4, W5 — the core port]
+      system: the Amalgamation / the unrecorded ledger / factions
+      A Bohemia site where a dead or dormant horror (a defunct Amalgamation node, a ruin, a relic) still CORRUPTS anyone who lingers near it — converting them by proximity into revering the very thing that would destroy them, the conversion presenting as enlightenment so the taken defend it, with the record of a doomed predecessor group charting the dynast's own future. The Amalgamation's proximity-corr
+  ->  PORT 2 — THE PLAYER'S OWN CORRUPTION IS FELT [F1's law]
+      system: the Amalgamation / the conscience system
+      If a quest's horror is a corruption spreading to the dynast's own side, the player's OWN exposure is dramatized — a symptom, a wrong thought, a moment of unearned reverence — so "it's happening to you" lands as personal dread (#194's the-corruption-must-touch-the-player law).
+  ->  PORT 3 — THE GOAL FORCES THE HORROR [F2's law]
+      system: the Amalgamation / the unrecorded ledger
+      If a quest's horror is proximity-corruption, the OBJECTIVE is entangled with the horror — retrieving the prize forcing real exposure — so the salvage can't be done while ignoring the corruption (#196's the-goal-must-force-the-horror law).
+  ->  PORT 4 — THE SEDUCTION IS FELT [F3's law]
+      system: the Amalgamation / dialogue scenes
+      If a quest's insight is that corruption feels like revelation, the SEDUCTION is made felt — the dynast offered a genuinely appealing wrong thought — so "you can't trust feeling fine" is experienced, not just read (#191's the-temptation-must-tempt law).
+
+### #204  KID IN A FRIDGE (A CHILD SURVIVED 200 YEARS SEALED IN A BOX AND HIS PARENTS AGED A CENTURY WAITING) (Fallout 4)
+  ->  PORT 1 — THE PRESERVED CHILD AND THE AGED LOVE [W1, W2, W3 — the core port]
+      system: the fold / the Amalgamation / the unrecorded ledger
+      A Bohemia arc where someone is preserved unchanged across a long span (an Amalgamation-held person, a sealed survivor, a frozen dynast) while the love that waited for them AGED and was ruined by the years — so the reunion is joyous and unbearable at once, one side untouched and the other spent into grief, and nothing un-ages the waiters. The fold's time-and-waiting machine (#26) fused with the reu
+  ->  PORT 2 — THE TIME-HORROR CRACKS THROUGH [F1's law]
+      system: the fold / the Amalgamation
+      If a quest hides an ache under a comic premise, one beat lets the TIME-HORROR through — the aged grief, the gap between preserved and ruined, made felt — so the ache reaches the player who came for the joke (#185's the-comedy-must-crack law).
+  ->  PORT 3 — THE WAITING IS SHOWN [F2's law]
+      system: the fold / companions / the unrecorded ledger
+      If a quest's ache is a long, asymmetric waiting, the WAITERS' toll is shown, not summarized — the years of grief made present before the reunion — so the asymmetry lands as devastation (#187's the-waiting-must-be-shown law).
+  ->  PORT 4 — THE PRICE IS A REAL TEMPTATION [F3's law]
+      system: the unrecorded ledger / factions
+      If a quest prices a person to test the dynast, the price is a real TEMPTATION — the need for it made plausible — so refusing costs something, rather than being a reflexive no to an obvious evil (#180's the-temptation-must-tempt law).
+
+### #205  I WALK THE LINE (THE OPPRESSED MINORITY YOU CAME TO ALLY WITH USES YOU AS A DISPOSABLE PROBE AND IS RIGHT NOT TO TRUST YOU) (Cyberpunk 2077)
+  ->  PORT 1 — THE MARGINALIZED WHO OWE YOU NOTHING [W1, W2, W3 — the core port]
+      system: factions / the unrecorded ledger / the fold
+      A Bohemia faction of the exploited — a community the world has only ever used — who agree to help the dynast only transactionally, USE them instrumentally (as a probe, a tool, a disposable risk), and betray them the moment the transaction closes, because a powerful outsider cannot be trusted, and their distrust is the rational scar of their history, not villainy — so the dynast's hurt at being use
+  ->  PORT 2 — THE PARANOIA IS GROUNDED IN HISTORY [F1's law]
+      system: factions / the unrecorded ledger
+      If a quest's point is that a marginalized faction's distrust is earned, their HISTORY is made present enough that the betrayal reads as a scar, not villainy — the exploitation that taught the paranoia shown — so the player can't file them as simple traitors (#192's the-reframe-must-be-grounded law).
+  ->  PORT 3 — THE PLAYER'S PRIVILEGE IS NAMED [F2's law]
+      system: factions / the fold
+      If a quest's point is that the dynast's hurt at being used is a privilege, something NAMES it — a line that turns the player's wound back on them — so the sharpest idea isn't left entirely implicit (#182's the-mirror-must-be-shown law).
+  ->  PORT 4 — THE POWERLESSNESS IS OWNED AS THEME [F3's law]
+      system: factions / the unrecorded ledger
+      If a quest strips the dynast's agency to make a point about power, the powerlessness is FRAMED as the theme — the lack of control legibly the lesson — so it reads as "you were never in a position to be trusted," not railroading (#191's the-powerlessness-must-be-owned law).
+
+### #206  THE BULL AND THE BACHELOR (TWO HEALERS SAVE THE TOWN BY OPPOSITE CURES AND ONLY ONE PLAGUE-LOGIC CAN BE TRUE) (Pathologic 2)
+  ->  PORT 1 — THE CONTESTED DISASTER, THE INCOMPATIBLE CURES [W1, W2, W5 — the core port]
+      system: the endings / factions / the death-math
+      A Bohemia catastrophe (a plague, a collapse, an Amalgamation crisis) where two rescuers hold INCOMPATIBLE diagnoses of what the disaster even is, so their cures contradict at the root — the dynast must commit fully to one account of reality, foreclosing the other and damning whatever only the other could have saved, under a clock that turns every hour of hedging into a body, and never gets certain
+  ->  PORT 2 — BOTH WORLDVIEWS ARE COHERENT [F1's law]
+      system: factions / the endings
+      If a quest forces a choice between incompatible accounts of a disaster, BOTH accounts are made internally coherent and partially validated — neither obviously right — so the commitment is to a contested reality, not a hunt for the correct answer (#180's both-worldviews-must-hold law).
+  ->  PORT 3 — THE CLOCK COMPELS, NOT CRUSHES [F2's law]
+      system: the death-math / the endings
+      If a quest uses a body-count clock to force commitment, the pressure COMPELS a choice, not induces paralysis — the clock making a decision urgent, not making the player give up — so time-as-corpses drives commitment, not despair (#21's the-clock-must-compel-not-crush law).
+  ->  PORT 4 — THE UNCERTAINTY IS OWNED [F3's law]
+      system: the endings / the unrecorded ledger
+      If a quest's point is that no worldview can be confirmed right, the un-referee-ability is OWNED as the condition — the absence of a correct answer made the lesson — so it reads as "there was no shared reality to be right about," not a withheld solution (#195's the-ambiguity-must-be-owned law).
