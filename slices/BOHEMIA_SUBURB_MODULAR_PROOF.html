@@ -153,10 +153,13 @@
     var rails={ty:ys[0],by:ys[n-1],lx:Lx,rx:Rx}, gates=[];
     streets.forEach(function(edge){ var cnt=gpe[edge]||1;
       for(var k=0;k<cnt;k++) gates.push(punchGate(g,edge,(k+1)/(cnt+1),W,H,rails)); });
-    // THEN houses, packing every frontage.
+    // THEN houses, packing every frontage — rung rows (interior + wall-backing) AND
+    // BOTH sides of each rail: outer backs the side wall, inner FRONTS the rail from
+    // the interior, filling the strip the rung houses can't reach (Paolo 7/18: squeeze
+    // more in beside the rails).
     for(i=0;i<n;i++) placeRow(g,ys[i],W,LOTW,Lx,Rx);
-    placeColOuter(g,Lx,-1,ys[0],ys[n-1]);
-    placeColOuter(g,Rx, 1,ys[0],ys[n-1]);
+    placeColOuter(g,Lx,-1,ys[0],ys[n-1]); placeColOuter(g,Lx, 1,ys[0],ys[n-1]);
+    placeColOuter(g,Rx, 1,ys[0],ys[n-1]); placeColOuter(g,Rx,-1,ys[0],ys[n-1]);
     return gates;
   }
   // MODULAR NEIGHBORHOOD (Paolo 7/18): a block knows which of its edges face STREETS.
