@@ -12,7 +12,7 @@
 
    Scope: registered from /slices/, so it covers the alpha AND every slice under
    it. One worker, the whole live surface always fresh. */
-const FALLBACK='bohemia-fallback-v1';
+const FALLBACK='bohemia-fallback-v2';   /* v2 bump (7/18): forces phones holding an old worker to re-install the network-first one, so the newest deploy is served without a manual hard refresh */
 self.addEventListener('install', e=>self.skipWaiting());
 self.addEventListener('activate', e=>e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', e=>{
