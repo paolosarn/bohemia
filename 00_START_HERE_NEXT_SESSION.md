@@ -210,6 +210,22 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-1. CLOTHING FACTORY v2 — LIVE RIG, PENDING PAOLO THUMBS (7/18): the CLOTHES
+   tab in the alpha now renders every garment ON THE LIVE ANIMATED CHARACTER
+   (not a mannequin — Paolo: "I really wanna see it on the live skeleton"). How
+   it works: buildFrame has a CLO_PREVIEW hook (~line 3628) that paints the
+   garment onto the DEFORMED body grid, so each piece rides the real rig at the
+   idle beat in any of 8 facings. Generators (window.CLO, ~line 8032): genTop
+   (collar + neck hole + button placket + sleeve cuffs), genPants (hip
+   waistband + belt + fly + rolled ankle hems), genShoes (dark sole + light
+   midsole + tongue laces + padded collar). Batch of 9: RED SHIRT, WHITE TEE,
+   BLACK TANK, GREEN FLANNEL, BLUE JEANS, BLACK CARGOS, GREY SWEATS, WHITE
+   SNEAKERS, BROWN BOOTS. Thumb up/down + comments -> exports verdict .txt.
+   Batch 1 (flat body-traced, no detail) all went DOWN -> graveyard
+   (records/BOHEMIA_CLOTHING_GRAVEYARD.txt). NEXT: process Paolo's v2 verdict;
+   the UP ones become silhouette/coverage TEMPLATES that spawn variants
+   (palette-swap + wear-state factory — research banked: seed-vs-variant split,
+   hand-author bases, automate variants). Live canvases throttled ~12fps.
 0. THE INTERSECTION EXISTS (7/17 evening, Paolo asked, same turn): blockgen
    type 'intersection' — two roads crossing, clean box (no paint inside, per
    real anatomy), four crosswalks at the box edges, medians stopping at the
