@@ -69,6 +69,29 @@ the mountain ring, and 80+ landmark districts. Paolo's rule applied: only
 the SKELETON draws as itself (streets/freeway/rail/water/mountain); every
 BUILDABLE district (suburb/commercial/estate/resort/casino/strip/downtown
 /...) renders as DESERT LOT until grown on. This is the CITY tab's base.
+STREETS MADE WHOLE (7/18, Paolo TWO verdicts on the aerial map: first
+"there should really be no breaking in any of the street layouts... unless
+it is the strip and its casinos"; then, seeing it still fragmented, "look
+at all these streets that are not connected to each other. That's not how
+it's gonna be"). THREE root causes, all fixed in engine/bohemia_overmap.js,
+gate is gates/street_connectivity_gate.js (STREET CONNECT, 3 checks now):
+  (1) the old `half` truncation let extra local streets dead-end mid-block
+      -> removed; every surface street runs arterial-to-arterial.
+  (2) collectors were PER-BLOCK (each mile block hashed its own offset, so
+      adjacent blocks' collectors sat a cell apart and never met) -> now
+      PER-STRIP: one column-pick per mile-column, one row-pick per mile-row,
+      so every collector runs the full unbroken length of the valley. The
+      per-block "extra local street" is gone.
+  (3) DEAD-END PRUNE heals stubs into empty lots, but left orphan arterial
+      fragments BOXED IN by real terminators (estate/dam/jail/rail/water/
+      mountain/edge) -> new STREET ISLAND PRUNE: label road components, keep
+      the LARGEST, demote every orphan arterial in any other component to
+      desert. Only arterials pruned; freeway/strip/downtown stay put.
+Gate now enforces: 0 dead-ends into empty lots, ONE connected road grid (flood-
+fill, 0 islands), mile grid intact (>=2000 arterials). Seed 12345: 0 breaks,
+0 islands, 2258 arterials. Map re-rendered clean (BOHEMIA_CITY_MAP_PROOF_7_18
+_26.png), all gates green. NOTE: (16,3) engine test repointed to (23,18) —
+the old sample cell was a legit orphan the island-prune correctly removed.
 NEXT for the city: (a) mark/zoom the landmarks (Strip, Sphere, Luxor, dam
 — all in overmap.layout), (b) a detail bake where you zoom a region to
 walkable streets + desert lots (compose from the street/intersection/

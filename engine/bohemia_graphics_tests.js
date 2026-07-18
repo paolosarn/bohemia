@@ -61,8 +61,8 @@ const m=O.buildOvermap(12345);
 const strip=B.blockFor(m.at(51,29),G);
 T('bridge: strip 3/dir sidewalk3',strip.meta.lanes===3&&strip.meta.sidewalk===3);
 T('bridge: freeway 5/dir',B.blockFor(m.at(21,0),G).meta.lanes===5);
-T('bridge: arterial researched 3',B.blockFor(m.at(16,3),G).meta.lanes>=2);
-T('bridge: deterministic',JSON.stringify(B.blockFor(m.at(16,3),G))===JSON.stringify(B.blockFor(m.at(16,3),G)));
+T('bridge: arterial researched 3',B.blockFor(m.at(23,18),G).meta.lanes>=2);
+T('bridge: deterministic',JSON.stringify(B.blockFor(m.at(23,18),G))===JSON.stringify(B.blockFor(m.at(23,18),G)));
 T('bridge: desert covered',!B.blockFor(m.at(19,3),G).pending);}
 // PLOTGEN (5 in bundle)
 {const P=E.BOH_PLOTGEN;

@@ -579,25 +579,24 @@ function skeleton(x,y,L){
   for(let i=0;i<L.wash.length-1;i++){
     if(segDist(x,y,L.wash[i][0],L.wash[i][1],L.wash[i+1][0],L.wash[i+1][1])<0.8)return DISTRICT.WASH;
   }
-  // SURFACE STREETS THROUGH THE BLOCKS (Paolo 7/5/26, grounded): real Vegas
-  // runs ~10 blocks per mile and collectors at half-mile spacing, so every mile
-  // block ALWAYS gets a full collector both ways (quarters of ~4x4), and 40%
-  // roll an EXTRA local split.
-  // NO-STREET-BREAK LAW (Paolo 7/18/26): every surface street runs THROUGH,
-  // connecting arterial to arterial — no mid-block dead-ends. Only the Strip
-  // and its casinos (big architecture, handled above) interrupt the grid.
-  // The old `half` truncation that dead-ended extras is REMOVED; the curvy
-  // cul-de-sac character lives in the suburb PLOT interior (a finer layer),
-  // not the overmap arterial grid. Gate: street_connectivity_gate.js.
-  const bx=(x/9)|0, by=(y/9)|0, hb=hash2(L.seed,bx,by);
-  const colPick=4+((hb>>>3)&1), rowPick=4+((hb>>>5)&1);
-  if((x%9)===colPick)return DISTRICT.ARTERIAL;       // full collector, always
-  if((y%9)===rowPick)return DISTRICT.ARTERIAL;       // full collector, always
-  const extra=hb%10;                                  // 40%: one extra local street
-  if(extra<2){ const c2=colPick<=4?7:2;               // second col, runs FULL
-    if((x%9)===c2)return DISTRICT.ARTERIAL; }
-  else if(extra<4){ const r2=rowPick<=4?7:2;          // second row, runs FULL
-    if((y%9)===r2)return DISTRICT.ARTERIAL; }
+  // SURFACE STREETS THROUGH THE BLOCKS (Paolo 7/5/26 + NO-STREET-BREAK LAW
+  // 7/18/26): real Vegas is half-mile collectors between the mile arterials,
+  // and they RUN CONTINUOUS for miles. The previous gen picked each block's
+  // collector offset from hash2(seed,bx,by) — per BLOCK — so adjacent blocks'
+  // collectors were offset by a cell and the grid read as a thousand
+  // disconnected fragments (Paolo: "all these streets that are not connected
+  // to each other").
+  // FIX: the collector offset is per STRIP, not per block. A vertical
+  // collector's column depends only on the mile-COLUMN (bx), so it lines up
+  // straight down through every block in that column; a horizontal collector's
+  // row depends only on the mile-ROW (by). Continuous avenues, fully connected.
+  // The per-block "extra local street" is GONE — that fragmentation belongs in
+  // the suburb plot interior (a finer layer), not the overmap grid.
+  const bx=(x/9)|0, by=(y/9)|0;
+  const colPick=4+((hash2(L.seed,bx,0)>>>3)&1);       // per mile-column
+  const rowPick=4+((hash2(L.seed,0,by)>>>5)&1);       // per mile-row
+  if((x%9)===colPick)return DISTRICT.ARTERIAL;        // continuous vertical collector
+  if((y%9)===rowPick)return DISTRICT.ARTERIAL;        // continuous horizontal collector
   return null;
 }
 
@@ -852,6 +851,44 @@ function buildOvermap(seed){
         // lots around it -> it breaks into empty desert. Return it to desert.
         if(roadN<=1 && termN===0 && !edge){ t.district=DISTRICT.DESERT; changed=true; }
       }
+    }
+  }
+  // STREET ISLAND PRUNE (Paolo 7/18/26, "look at all these streets that are not
+  // connected to each other"): the dead-end prune heals stubs into OPEN lots,
+  // but leaves orphan arterial fragments that are BOXED IN by real terminators
+  // (an estate, the dam, a jail, rail, water, the map edge) — those have no OPEN
+  // neighbor so the stub prune never touches them, yet they are cut off from the
+  // mile grid: a street with no way in. Flood the road network from every mile
+  // arterial (the grade-separated spine, always the main component); any ARTERIAL
+  // not reached is an island -> return it to desert. Only arterials are pruned;
+  // freeway/strip/downtown/beltway are masses of their own and stay put.
+  {
+    // road set matches the connectivity gate exactly (interchange/downtown/town
+    // are traversable road too), so the flood measures the same grid the gate does.
+    const ROADSET={freeway:1,arterial:1,strip:1,beltway:1,interchange:1,downtown:1,town:1};
+    // Label every road cell with its connected component; keep the LARGEST (the
+    // main grid) and demote orphan ARTERIALS in every other component. Even mile
+    // arterials get pruned here: the spine itself is chopped by the mountain ring
+    // and the dam, leaving 1-2 cell fragments against the map edge with no road
+    // way in — a street connected to nothing, exactly what Paolo flagged.
+    const comp=new Map();       // "x,y" -> component id
+    const size=[];              // component id -> cell count
+    let cid=0;
+    for(const s of tiles){
+      if(!ROADSET[s.district] || comp.has(s.x+','+s.y)) continue;
+      const stack=[s]; comp.set(s.x+','+s.y,cid); let n=0;
+      while(stack.length){
+        const t=stack.pop(); n++;
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nn=at(t.x+dx,t.y+dy);
+          if(nn && ROADSET[nn.district] && !comp.has(nn.x+','+nn.y)){ comp.set(nn.x+','+nn.y,cid); stack.push(nn); }
+        }
+      }
+      size[cid++]=n;
+    }
+    let main=0; for(let i=1;i<size.length;i++) if(size[i]>size[main]) main=i;
+    for(const t of tiles){
+      if(t.district===DISTRICT.ARTERIAL && comp.get(t.x+','+t.y)!==main) t.district=DISTRICT.DESERT;
     }
   }
   // ===== UNDERGROUND THIRD LAYER (Paolo 7/5/26) =====

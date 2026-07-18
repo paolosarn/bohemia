@@ -1428,7 +1428,7 @@ if(typeof module!=='undefined')module.exports={BOH_LIGHT,BOH_DAYCYCLE,BOH_SLICE,
 
 ==============================================================================
 ### FILE: bohemia_graphics_tests.js
-### MD5: 35fc4b7b871b7717bca97425cbfb2846  | 13.8 KB
+### MD5: 992872fa8e8afe2e980b6071aed5a835  | 13.8 KB
 ==============================================================================
 
 // BOHEMIA GRAPHICS TESTS — one command, every module (7/14/26)
@@ -1494,8 +1494,8 @@ const m=O.buildOvermap(12345);
 const strip=B.blockFor(m.at(51,29),G);
 T('bridge: strip 3/dir sidewalk3',strip.meta.lanes===3&&strip.meta.sidewalk===3);
 T('bridge: freeway 5/dir',B.blockFor(m.at(21,0),G).meta.lanes===5);
-T('bridge: arterial researched 3',B.blockFor(m.at(16,3),G).meta.lanes>=2);
-T('bridge: deterministic',JSON.stringify(B.blockFor(m.at(16,3),G))===JSON.stringify(B.blockFor(m.at(16,3),G)));
+T('bridge: arterial researched 3',B.blockFor(m.at(23,18),G).meta.lanes>=2);
+T('bridge: deterministic',JSON.stringify(B.blockFor(m.at(23,18),G))===JSON.stringify(B.blockFor(m.at(23,18),G)));
 T('bridge: desert covered',!B.blockFor(m.at(19,3),G).pending);}
 // PLOTGEN (5 in bundle)
 {const P=E.BOH_PLOTGEN;

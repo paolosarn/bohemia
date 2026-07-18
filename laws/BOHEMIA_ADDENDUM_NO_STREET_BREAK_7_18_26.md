@@ -27,11 +27,36 @@ to interrupt the grid, because it is a mass unto itself.
 
 Result on seed 12345: 56 breaks -> 0. 2503 arterials, mile grid intact.
 
+## SECOND PASS (Paolo 7/18/26, aerial map: "look at all these streets that are
+## not connected to each other. That's not how it's gonna be.")
+Zero dead-ends was not enough — the grid was still FRAGMENTED. Two more root
+causes, both fixed:
+1. COLLECTORS WERE PER-BLOCK, not per-strip. Each mile block picked its own
+   collector offset (hash of bx,by), so adjacent blocks' collectors were off by
+   a cell and never lined up — a grid of streets that don't meet. Now the
+   collector offset is per-STRIP (one column-pick per mile-column across the
+   whole map, one row-pick per mile-row), so every collector runs unbroken the
+   full length of the valley. The per-block "extra local street" is removed.
+3. ORPHAN ROAD ISLANDS. The dead-end prune heals stubs into empty lots, but
+   leaves arterial fragments BOXED IN by real terminators (an estate, the dam,
+   a jail, rail, water, the mountain ring, the map edge) — they have no OPEN
+   neighbor so the stub prune never touches them, yet no road reaches them: a
+   street with no way in. New STREET ISLAND PRUNE post-pass (runs after the
+   dead-end prune): label every road cell's connected component, keep the
+   LARGEST (the main grid), demote every orphan ARTERIAL in any other component
+   back to desert. Only arterials are pruned; freeway/strip/downtown/beltway are
+   masses of their own and stay put. On seed 12345 this cleared 10 islands to 0.
+
 ## THE GATE (same turn, per the law of laws)
 gates/street_connectivity_gate.js, wired into the suite as STREET CONNECT.
-Fails if any arterial dead-ends into an open lot (<=1 road neighbor, no real
-terminator beside it, not the edge). OPEN = {desert, suburb}; everything else
-is a legitimate street end.
+Three checks:
+- NO DEAD-ENDS: no arterial dead-ends into an open lot (<=1 road neighbor, no
+  real terminator beside it, not the edge). OPEN = {desert, suburb}; everything
+  else is a legitimate street end.
+- ONE CONNECTED GRID: flood-fill from a mile arterial across all road cells;
+  every road cell must be reached. Any island = "streets not connected to each
+  other" and the gate fails.
+- MILE GRID INTACT: >= 2000 arterial cells survive (the spine is not over-pruned).
 
 ## NOTE ON THE CUL-DE-SAC CANON
 This does NOT conflict with VEGAS_NEIGHBORHOOD_ANATOMY (suburbs are

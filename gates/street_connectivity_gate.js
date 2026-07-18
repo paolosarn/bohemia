@@ -35,6 +35,32 @@ for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
 ok('no surface street dead-ends into an empty lot (NO-STREET-BREAK LAW)', breaks === 0);
 if (breaks) console.log('  street breaks: ' + breaks + ' e.g. ' + sample.join(' '));
 
+// GLOBAL CONNECTIVITY: the whole road network must be ONE connected component.
+// Flood-fill from a mile-arterial cell across all ROAD cells; every road cell
+// must be reachable. Any island = "streets not connected to each other".
+const isRoad = (x, y) => { const c = m.at(x, y); return c && ROAD.has(c.district); };
+let total = 0, start = null;
+for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (isRoad(x, y)) {
+  total++; if (!start && x % 9 === 0 && y % 9 === 0) start = [x, y];
+}
+let reached = 0;
+if (start) {
+  const seen = new Uint8Array(N * N), st = [start];
+  seen[start[1] * N + start[0]] = 1;
+  while (st.length) {
+    const [x, y] = st.pop(); reached++;
+    for (const [dx, dy] of d4) {
+      const nx = x + dx, ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+      const k = ny * N + nx;
+      if (!seen[k] && isRoad(nx, ny)) { seen[k] = 1; st.push([nx, ny]); }
+    }
+  }
+}
+const islands = total - reached;
+ok('the road network is ONE connected grid (no islands)', islands === 0);
+if (islands) console.log('  disconnected road cells: ' + islands + ' of ' + total);
+
 // sanity: the mile grid is still dense and continuous (the spine survived)
 let arts = 0;
 for (const t of m.tiles) if (t.district === 'arterial') arts++;
