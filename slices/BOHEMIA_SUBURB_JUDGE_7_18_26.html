@@ -124,9 +124,11 @@
     placeEdge(g,R,R,0,1,H-2*R,-1,0,lotw);        // left edge: outer backs left
     placeEdge(g,W-R,R,0,1,H-2*R,1,0,lotw);       // right edge: outer backs right
   }
-  // one column of houses backing a SIDE wall, fronting a vertical rail (outer side only)
+  // one column of houses backing a SIDE wall, fronting a vertical rail (outer side
+  // only). Starts AT the rail ends (lo, hi) so a house lands in each corner, still
+  // fed by the existing rail — no extra street (Paolo 7/18: fill the corners).
   function placeColOuter(g,streetX,dir,lo,hi){
-    for(var ly=lo+(LOTW>>1); ly<hi-2; ly+=LOTW) home(g,(streetX+dir*RD)|0,ly,dir,0);
+    for(var ly=lo; ly<=hi; ly+=LOTW) home(g,(streetX+dir*RD)|0,ly,dir,0);
   }
   // THE BLOCK — the canonical Bohemia suburb (Paolo APPROVED 7/18; the central-court
   // variant was rejected -> graveyard). DENSE, HOUSES-FIRST fill of the whole block:
