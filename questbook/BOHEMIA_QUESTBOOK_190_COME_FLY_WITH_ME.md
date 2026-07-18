@@ -5,6 +5,7 @@
 **Type:** INDIVIDUAL-QUEST DEEP DIVE (mined fresh 7/18 from the Fallout: New Vegas catalogue; corpus anchor Q03-class for the game's larger machines)
 **FORMAT:** v2 — cast + conversation node trees + branch map.
 **Filed:** 7/18/26
+**PORT POLICY:** STUDY-ONLY — no direct port. FNV-COMPARISON GUARD (Paolo 7/18): this game will draw comparison to Fallout: New Vegas, so direct FNV ports are capped at 2. The craft here feeds the masters and trains new-quest writing; do not build a recognizable FNV quest from it.
 **Why pulled:** Bohemia needs the quest where a doomed faith is aimed at a heaven that may be empty, and the player controls whether the believers launch toward it, get grounded, or learn the truth — where the dream of escape is beautiful, impossible, and possibly built on nothing, and the player is the one who decides which. Come Fly with Me is the specimen: a rocket-worshipping ghoul cult, a preacher promising the stars, and a "Far Beyond" that is either transcendence or vacuum. It is the Amalgamation's promised-afterlife (#34) fused with the comfort-vs-truth machine, and the "do you fuel a beautiful lie or ground it" law our endings can carry.
 
 ---

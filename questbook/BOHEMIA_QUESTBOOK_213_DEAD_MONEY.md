@@ -5,6 +5,7 @@
 **Type:** INDIVIDUAL-QUEST DEEP DIVE (mined fresh 7/18 from the Fallout: New Vegas catalogue; corpus anchor Q03-class for the game's larger machines)
 **FORMAT:** v2 — cast + conversation node trees + branch map.
 **Filed:** 7/18/26
+**PORT POLICY:** PORTABLE (one of the 2 kept direct FNV ports; Paolo 7/18). Least FNV-specific, most Bohemia-load-bearing — reworked into the Vegas dynasty it reads as its own machine, not a New Vegas quest. The other 4 FNV quests are STUDY-ONLY.
 **Why pulled:** Bohemia needs the quest whose whole moral is "letting go" made mechanical — where a vault of gold you can physically carry out is the trap, and the only winning move is to leave it, and each companion embodies a different obsession that must be released or it kills them. Dead Money is the specimen: a collar-bomb heist crew, a poison-fog casino, a literal treasure that dooms whoever won't abandon it, and a chorus of characters chained to their pasts. It is the fold's the-past-is-the-trap machine (#26) fused with the obsession-kills engine, and the "begin again means letting the dead weight go" law our fold can carry.
 
 ---

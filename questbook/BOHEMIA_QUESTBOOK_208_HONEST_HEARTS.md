@@ -5,6 +5,7 @@
 **Type:** INDIVIDUAL-QUEST DEEP DIVE (mined fresh 7/18 from the Fallout: New Vegas catalogue; corpus anchor Q03-class for the game's larger machines)
 **FORMAT:** v2 — cast + conversation node trees + branch map.
 **Filed:** 7/18/26
+**PORT POLICY:** PORTABLE (one of the 2 kept direct FNV ports; Paolo 7/18). Least FNV-specific, most Bohemia-load-bearing — reworked into the Vegas dynasty it reads as its own machine, not a New Vegas quest. The other 4 FNV quests are STUDY-ONLY.
 **Why pulled:** Bohemia needs the quest where a man who did monstrous things and genuinely repented cannot tell whether his continued violence is justice or the old self wearing scripture — where redemption is unfinished and the player tips whether he extends mercy or completes an extermination he can justify. Joshua Graham is the specimen: a war criminal turned preacher, a tribal war, and a climactic choice about whether a reformed monster spares or slaughters a defeated enemy. It is the conduct-book's can-you-outrun-your-worst-self machine (#186) fused with the vengeance-vs-mercy engine, and the "repentance you're not sure is real" law our conscience system can carry.
 
 ---

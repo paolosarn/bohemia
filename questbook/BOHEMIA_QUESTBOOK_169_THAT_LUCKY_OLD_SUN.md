@@ -5,6 +5,7 @@
 **Type:** INDIVIDUAL-QUEST DEEP DIVE (mined fresh 7/17 from the New Vegas catalogue; corpus anchor Q02/Q03 for the game's larger machines)
 **FORMAT:** v2 — cast + conversation node trees + branch map.
 **Filed:** 7/17/26
+**PORT POLICY:** STUDY-ONLY — no direct port. FNV-COMPARISON GUARD (Paolo 7/18): this game will draw comparison to Fallout: New Vegas, so direct FNV ports are capped at 2. The craft here feeds the masters and trains new-quest writing; do not build a recognizable FNV quest from it.
 **Why pulled:** Bohemia IS a survival city-builder where electricity is a currency and allocation is a moral act — and this is the genre's cleanest quest about distributing a scarce resource with a single switch and living with who you starved. That Lucky Old Sun is the specimen: a power plant, a limited output, and a console where you choose who gets the light — the many, the few, the faithful, or a weapon — with the whole region's fate in a menu. It is the Frostpunk decree (#29) and the Pathologic triage (#21) compressed into one lever, and the direct model for our power-grid allocation systems.
 
 ---

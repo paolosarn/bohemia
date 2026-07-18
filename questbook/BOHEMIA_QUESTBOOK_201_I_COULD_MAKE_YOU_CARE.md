@@ -5,6 +5,7 @@
 **Type:** INDIVIDUAL-QUEST DEEP DIVE (mined fresh 7/18 from the Fallout: New Vegas catalogue; corpus anchor Q03-class for the game's larger machines)
 **FORMAT:** v2 — cast + conversation node trees + branch map.
 **Filed:** 7/18/26
+**PORT POLICY:** STUDY-ONLY — no direct port. FNV-COMPARISON GUARD (Paolo 7/18): this game will draw comparison to Fallout: New Vegas, so direct FNV ports are capped at 2. The craft here feeds the masters and trains new-quest writing; do not build a recognizable FNV quest from it.
 **Why pulled:** Bohemia needs the quest where someone loves an institution that is killing itself by refusing to change, and must choose between loyalty to a doomed family and betrayal-to-save-it — where staying faithful means going down with the ship and reforming means being cast out by the people you're trying to rescue. Veronica's arc is the specimen: a member of a hoarding, dogmatic order that hides from the world and will not adapt, a companion who sees the doom coming, and a choice between faith, reform from within, and leaving. It is the fold's loyalty-to-a-dying-institution machine fused with the conduct-book's when-is-betrayal-love question, and the "the family that won't change is doomed and you love it anyway" law our factions can carry.
 
 ---

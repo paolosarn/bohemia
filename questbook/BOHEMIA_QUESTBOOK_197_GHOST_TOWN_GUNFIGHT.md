@@ -5,6 +5,7 @@
 **Type:** INDIVIDUAL-QUEST DEEP DIVE (mined fresh 7/18 from the Fallout: New Vegas catalogue; corpus anchor Q03-class for the game's larger machines)
 **FORMAT:** v2 — cast + conversation node trees + branch map.
 **Filed:** 7/18/26
+**PORT POLICY:** STUDY-ONLY — no direct port. FNV-COMPARISON GUARD (Paolo 7/18): this game will draw comparison to Fallout: New Vegas, so direct FNV ports are capped at 2. The craft here feeds the masters and trains new-quest writing; do not build a recognizable FNV quest from it.
 **Why pulled:** Bohemia needs the quest where a community of former criminals tries to build something honest and must defend it against the exact kind of violence they used to be — where the question is whether a reformed people have the right to their second chance, and whether protecting it means becoming, briefly, what they were trying to leave. Ghost Town Gunfight is the specimen: a waystation of ex-convicts, a besieging gang, and a defense that tests whether reform survives contact with the force needed to protect it. It is the fold's second-chance-and-succession machine fused with the conduct-book's does-your-past-disqualify-you question, and the "defend the new life with the old skills" law.
 
 ---
