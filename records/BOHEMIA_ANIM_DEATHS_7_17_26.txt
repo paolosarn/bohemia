@@ -208,3 +208,22 @@ FIXED:
 MEASURED (headless bake-final @1.65s + freeze): all 8 flat corpses, head laid to
 one side / legs the other, no limb tenting; 7/8 frozen by ~1s, E still settling
 but already flat at the bake frame. SHIPPED.
+
+=== UPDATE 7/18 (k): OMNI PROJECTION — each facing slumps its OWN cardinal way ===
+Paolo: "a lot better -- the only thing is they're only laying down east and west,
+they're not slumping in a cardinal direction."
+ROOT CAUSE: the ragdoll ran in a flat side-view plane with gravity always pulling
+DOWN-screen, so every body pancaked onto the same horizontal ground line = every
+corpse lay E-W no matter which way it faced.
+FIXED (same trick v1 uses): the sim now topples ONE canonical way (+x) and
+pancakes flat; rgPose then PROJECTS that horizontal topple onto the compass axis
+for the facing -- RG.K=[cos th, sin th * 0.55], th = FACEANG[d]+PI (falls backward
+from the facing). Horizontal topple rides K (points N/S/E/W/diagonal, 3/4
+foreshortened); the vertical fall stays vertical. Camera centres on the projected
+centroid so a vertical slump doesn't run off-frame.
+NO STANDING CORPSES: a straight N/S topple lies dead into/out of the screen,
+foreshortens to a narrow vertical blob and reads as STANDING (this is why v1
+BANNED N/S falls). Softened here to a LEAN: floor |cos th|>=0.5 so N/S get a
+diagonal cant -- still up/down-biased, but enough spread to read as lying.
+MEASURED: all 8 freeze flat by ~0.85s, each in a distinct compass orientation,
+none standing. SHIPPED.
