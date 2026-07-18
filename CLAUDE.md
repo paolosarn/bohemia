@@ -70,6 +70,22 @@ rarely as one mega-session.
   the reply, always: https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
   (GitHub Pages auto-redeploys main in ~2 minutes; the link never changes.)
 
+## ONE-LINK LAW (Paolo 7/18/26, LOCKED — he was furious about "?v=arms")
+- There is ONE universal alpha URL and it NEVER changes, for ANY session:
+  https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
+- NEVER append a cache-buster query string (?v=..., ?t=..., anything). Paolo sees
+  the URL. A changing URL reads as a different game and it enrages him. The plain
+  canonical URL is the only thing that ever gets pasted, every turn, every session.
+- Freshness is handled by the machine, not the URL: slices/sw.js is an always-fresh
+  service worker (network-first, registered in the alpha head) so the plain link
+  always serves the newest deploy. That is why the query string is not just banned
+  but UNNEEDED. If a phone still shows stale once, the fix is ONE hard refresh to
+  bootstrap the worker — never a new link.
+- ONE ALPHA, ONE LINK: animation, city/streets, music, characters all live in (or
+  are reached from) the single alpha file. No session ships its own separate link
+  (no CURRENT_SLICE link, no per-feature page) as "the build." Parallel work folds
+  into the alpha (e.g. the SLICE tab) — the surface Paolo taps is always the alpha.
+
 ## THE HANDOFF FILE
 `00_START_HERE_NEXT_SESSION.md` at repo root: read it immediately after this
 file, every session. It is the live state: where we are, what is in flight,
