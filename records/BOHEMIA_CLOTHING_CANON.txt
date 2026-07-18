@@ -68,3 +68,15 @@ TARGET REMINDER (BOHEMIA_WARDROBE_TARGET): 500-800 items; the real work is
 ~120-180 hand-authored BASE LOOKS, then palette/wear/layer multiply. Structural
 diversity (this) is how we get distinct base looks; recolor is the multiplier.
 Still missing categories: headwear (~20%), accessories (~16%).
+
+--- OUTSIDE-THE-SKELETON GEOMETRY (7/18/26) — Paolo: "a hoodie is additional
+    pixels OUTSIDE the skeleton, the hood comes out the back. Same with hair --
+    it's the SHAPE and pixels that go outside the body." ---
+Answer: YES, the pipeline can add pixels off the body. The additive buildFrame
+preview hook (built for coat skirts filling the leg gap) now also drives a REAL
+HOOD: genTop neck:'hood' adds a rounded fabric mass off the nape -- facing-aware
+(peeks around the head from the front, fills as the visible hood over the upper
+back from behind), never covering the face. Not paint on a shirt; geometry.
+This is the groundwork for HAIR (same principle: shape + pixels outside the body).
+Fresh hoodies cooking: ASH / COAL / OLIVE HOODIE. The 2 fake-cowl hoodies +
+2 v-necks are graveyard-final.
