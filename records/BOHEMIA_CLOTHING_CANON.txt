@@ -140,3 +140,16 @@ After the render-order fix and the back-hole fix, skin STILL showed. Two lessons
    Paolo's screenshots. FIX: for neck:'hood' the collar FILLS the hole (no carve)
    + the collar covers the whole neck part. Canvas probe (per-row skin counts,
    sandwich detector): ALL 8 facings clean -- head+chin only, then solid fabric.
+
+--- FULL WARDROBE CANON + THE LAW (7/18/26) — Paolo: "You finally fucking did it
+    ... record that down so you never have these issues ever again." ---
+ALL 51 GARMENTS CANON, hoodies included (ASH/COAL/OLIVE promoted). COOKING empty.
+The record he asked for is now LAW + GATE:
+  laws/BOHEMIA_ADDENDUM_VERIFY_ON_THE_REAL_SURFACE_7_18_26.md (the full
+  post-mortem of the six-round saga distilled into 5 rules: verify on the real
+  surface only; look before shipping; symptom-survives-content = pipeline bug;
+  audit blanket rules per facing; audit what shared generators inherit)
+  gates/hood_gate.js (gate #Hoodie, always-run): hood covers every neck pixel +
+  fills the crew carve in front AND back; crew shirts keep their intentional
+  neck hole; back hood covers the lower skull + adds outside-the-skeleton
+  geometry. 11 checks. CLAUDE.md carries the law pointer.

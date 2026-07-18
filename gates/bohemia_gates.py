@@ -64,6 +64,8 @@ GATES = [
      'screech law, voices exist, fresh-batch variety', False),
     ('OPEN COAT',      ['node', 'gates/open_coat_gate.js'],
      'jackets/coats open in front, clothes show underneath', False),
+    ('HOODIE',         ['node', 'gates/hood_gate.js'],
+     'hood covers neck+carve, crew keeps its hole, back hood real', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
