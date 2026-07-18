@@ -38,11 +38,16 @@ def main():
         except Exception as ex:
             print('  skip soil %s#%d: %s' % (e['file'], e['idx'], ex))
     d2 = json.load(open('banks/BOHEMIA_HD_TILE_REPO_part2.txt'))
+    d1 = json.load(open('banks/BOHEMIA_HD_TILE_REPO_part1.txt'))
+    d4 = json.load(open('banks/BOHEMIA_HD_TILE_REPO_part4.txt'))
     rocks = [x['b64'] for x in d2['packs']['Rocks and stones'][:24]]
     rubble = [x['b64'] for x in d2['packs']['9. Rubble and debris'][:12]]
-    if len(ground) < 3 or not rocks or not rubble:
-        print('DESERT EXTRACTOR REFUSES: pools too thin (%d/%d/%d)'
-              % (len(ground), len(rocks), len(rubble))); return 1
+    # boulders for the mountain: the big rock-formation masses
+    boulder = ([x['b64'] for x in d1['packs']['7. Rock Formations'][:24]] +
+               [x['b64'] for x in d4['packs']['5. Rock Formations'][:26]])
+    if len(ground) < 3 or not rocks or not rubble or not boulder:
+        print('DESERT EXTRACTOR REFUSES: pools too thin (%d/%d/%d/%d)'
+              % (len(ground), len(rocks), len(rubble), len(boulder))); return 1
     out = {
         'version': 'BOHEMIA_DESERT_POOLS_v1', 'date': '2026-07-18',
         'provenance': {
@@ -51,12 +56,13 @@ def main():
             'rock': 'HD "Rocks and stones" (45-view boulders)',
             'rubble': 'HD "9. Rubble and debris"',
         },
-        'note': 'the Mojave floor for the baker; corpus art, no new canon.',
-        'ground': ground, 'rock': rocks, 'rubble': rubble,
+        'note': 'the Mojave floor for the baker; corpus art, no new canon. '
+                'boulder = big rock-formation masses for mountain blocks.',
+        'ground': ground, 'rock': rocks, 'rubble': rubble, 'boulder': boulder,
     }
     json.dump(out, open(OUT, 'w'))
-    print('desert pools: %d ground (seamless) + %d rock + %d rubble -> %s'
-          % (len(ground), len(rocks), len(rubble), OUT))
+    print('desert pools: %d ground + %d rock + %d rubble + %d boulder -> %s'
+          % (len(ground), len(rocks), len(rubble), len(boulder), OUT))
     return 0
 
 

@@ -169,6 +169,15 @@ console.log(JSON.stringify({H:b.H,grid}));
                             px = arr[y * T + yy, x * T + xx].astype(float)
                             arr[y * T + yy, x * T + xx] = np.clip(px * f, 0, 255)
     outa = Image.fromarray(arr).convert('RGBA')
+    def tan_tint(art):
+        # Paolo 7/18: the rocks should be TAN, not gray granite — desert
+        # stone is warm. Warm the RGB (boost R, hold G, drop B) so gray
+        # boulders read as Mojave sandstone; alpha untouched.
+        a = np.asarray(art).astype(float)
+        a[..., 0] = np.clip(a[..., 0] * 1.18 + 14, 0, 255)
+        a[..., 1] = np.clip(a[..., 1] * 1.02 + 4, 0, 255)
+        a[..., 2] = np.clip(a[..., 2] * 0.72, 0, 255)
+        return Image.fromarray(a.astype(np.uint8), 'RGBA')
     for y in range(H):
         for x in range(24):
             rr = rng((sd ^ (x * 2654435761) ^ (y * 40503) ^ 0xF00D) & 0xffffffff)
@@ -176,7 +185,7 @@ console.log(JSON.stringify({H:b.H,grid}));
                 pool = rocks if p['p'] == 'rock' else rubble if p['p'] == 'rubble' else None
                 if pool is None:
                     continue
-                art = img_of(pool[int(rr() * len(pool)) % len(pool)], 'RGBA')
+                art = tan_tint(img_of(pool[int(rr() * len(pool)) % len(pool)], 'RGBA'))
                 dh = int(T * (0.9 if p['p'] == 'rock' else 0.75))
                 dw = round(art.width * dh / art.height)
                 art = art.resize((dw, dh), Image.NEAREST)
@@ -197,9 +206,90 @@ console.log(JSON.stringify({H:b.H,grid}));
     print('desert baked: 24x%d, props=%s -> %s' % (H, json.dumps(props), png))
 
 
+def bake_mountain(seed=None):
+    """The rocky ridges around the valley (Red Rock / Spring Mountains): a
+    dense field of tan-sandstone boulders on stony ground. Same warm palette
+    as the desert. Engine places the boulders procedurally (no map canon)."""
+    sd = SEED if seed is None else seed
+    js = """
+const G=require('./engine/bohemia_blockgen.js');
+const b=G.generate('mountain',%d,24,{});
+const grid=[];
+for(let y=0;y<b.H;y++){const row=[];
+ for(let x=0;x<24;x++){const c=b.grid[y][x];
+  row.push({g:c.g,props:(c.props||[]).map(p=>({p:p.p}))});}
+ grid.push(row);}
+console.log(JSON.stringify({H:b.H,grid}));
+""" % sd
+    r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
+    if r.returncode != 0:
+        fail('engine: ' + r.stderr[:300])
+    blk = json.loads(r.stdout)
+    H = blk['H']
+    D = json.load(open('banks/BOHEMIA_DESERT_POOLS_7_18_26.txt'))
+
+    def crop_center(im):
+        w, h = im.size; m = int(min(w, h) * 0.11)
+        return im.crop((m, m, w - m, h - m)).resize((T, T))
+
+    def tan_tint(art, warm=(1.18, 1.02, 0.72), add=(14, 4, 0)):
+        a = np.asarray(art).astype(float)
+        for i in range(3):
+            a[..., i] = np.clip(a[..., i] * warm[i] + add[i], 0, 255)
+        # tan is r>=g>=b; clamp blue to green so no cool rock-shadow pixel can
+        # ever read as purple (purple needs b-g>50) and the stone stays warm
+        a[..., 2] = np.minimum(a[..., 2], a[..., 1])
+        return Image.fromarray(a.astype(np.uint8), 'RGBA')
+
+    # stony ground: the sand tiles, tinted a touch grayer/darker than open
+    # desert so the ridge reads as rock, not dune
+    sand = [crop_center(img_of(D['ground'][i])) for i in (3, 2) if i < len(D['ground'])]
+    base = np.zeros((H * T, 24 * T, 3), dtype=np.uint8)
+    for y in range(H):
+        for x in range(24):
+            rr = rng((sd ^ (x * 73856093) ^ (y * 19349663) ^ 0x3110) & 0xffffffff)
+            tile = sand[0] if rr() < 0.7 else sand[-1]
+            op = int(rr() * 4)
+            if op == 1: tile = tile.transpose(Image.FLIP_LEFT_RIGHT)
+            elif op == 2: tile = tile.transpose(Image.FLIP_TOP_BOTTOM)
+            elif op == 3: tile = tile.rotate(180)
+            ta = np.asarray(tile.convert('RGB')).astype(float)
+            ta = np.clip(ta * (0.82 + 0.08 * rr()), 0, 255)   # rockier, darker
+            base[y * T:(y + 1) * T, x * T:(x + 1) * T] = ta.astype(np.uint8)
+    outa = Image.fromarray(base).convert('RGBA')
+    # the "Rock Formations" packs turned out to be fantasy green/lava rocks —
+    # use the SAME tan-sandstone boulders as the desert (Rocks and stones),
+    # denser and bigger, so the ridge is coherent Mojave stone
+    boulders = D['rock']
+    for y in range(H):
+        for x in range(24):
+            rr = rng((sd ^ (x * 2654435761) ^ (y * 40503) ^ 0xB0DE) & 0xffffffff)
+            for p in blk['grid'][y][x]['props']:
+                if p['p'] != 'boulder':
+                    continue
+                art = tan_tint(img_of(boulders[int(rr() * len(boulders)) % len(boulders)], 'RGBA'))
+                dh = int(T * (1.05 + 0.35 * rr()))            # big masses, varied
+                dw = round(art.width * dh / art.height)
+                art = art.resize((dw, dh), Image.NEAREST)
+                outa.alpha_composite(art, (x * T + T // 2 - dw // 2, (y + 1) * T - dh))
+    out = outa.convert('RGB')
+    a = np.asarray(out).astype(int)
+    purple = ((a[..., 2] > 100) & (a[..., 0] > 80) & (a[..., 1] < 70) &
+              (a[..., 2] - a[..., 1] > 50) & (a[..., 0] - a[..., 1] > 30)).sum()
+    if purple:
+        fail('PURPLE in the mountain bake (%d px)' % purple)
+    png = 'slices/BOHEMIA_V12_MOUNTAIN_PROOF_7_18_26.png'
+    out.save(png)
+    nb = sum(1 for row in blk['grid'] for c in row for p in c['props'] if p['p'] == 'boulder')
+    print('mountain baked: 24x%d, %d boulders -> %s' % (H, nb, png))
+
+
 def main():
     if sys.argv[1] == '--desert':
         bake_desert()
+        return
+    if sys.argv[1] == '--mountain':
+        bake_mountain()
         return
     if sys.argv[1] == '--intersection':
         mode = sys.argv[4] if len(sys.argv) > 4 else 'mixed'

@@ -219,11 +219,19 @@ DAY ONE IN ONE BREATH (details + lessons in STATE_OF_PLAY 7/17):
    grids/checkerboards; fix = crop the inner ~78% past the border + use
    ONE sand tile with per-cell flip + gentle tone jitter (mixing 8
    variants made a checkerboard). Proof: slices/BOHEMIA_V12_DESERT_PROOF_
-   7_18_26.png. Desert + mountain are the UN-gated wilderness types (no
-   pending art); wash/solar/farm/airfield still need cooked art. NEXT for
-   the bake track: plot/building strips (HOUSE_FACTORY_BANK) when Paolo
-   gives plot canon; the desert can become a walkable slice or feed the
-   overmap whenever wanted.
+   7_18_26.png. ROCKS TANNED (Paolo: "the rocks should be more tan") —
+   bake-time warm tint (R*1.18,G*1.02,B*0.72, then B clamped <= G so no
+   cool shadow reads purple + stone stays sandstone). THE MOUNTAIN
+   RENDERS TOO: bake_factory --mountain -> slices/BOHEMIA_V12_MOUNTAIN_
+   PROOF_7_18_26.png — the engine's dense boulder field (123/block) as
+   tan sandstone (Red Rock / Spring Mountains) on stonier ground. LESSON:
+   the HD "Rock Formations" packs are FANTASY green/lava rocks (wrong);
+   the Mojave stone is HD "Rocks and stones" tan-tinted. Desert + mountain
+   are the two UN-gated wilderness types and BOTH render now;
+   wash/solar/farm/airfield still need cooked+judged art. NEXT for the
+   bake track: plot/building strips (HOUSE_FACTORY_BANK) when Paolo gives
+   plot canon; and folding these terrains into the overmap / a walkable
+   wilderness slice whenever wanted.
    LIVE-SLICE HOSTING (7/18, Paolo asked how to host slices in the alpha
    organically): the alpha's menu is a TAB BAR (char/anim/rig/combat/
    music/city). The design: ONE new tab points at a STABLE URL,
