@@ -210,7 +210,25 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--1. CLOTHING FACTORY v2 — LIVE RIG, PENDING PAOLO THUMBS (7/18): the CLOTHES
+-2. MUSIC BATCH 11 — NEW BADGE, PENDING PAOLO VERDICT (7/18): "THE DROWNED
+   CATHEDRAL DEEPENS." 6 FF10-horror songs, each births its own lead voice via a
+   topology the catalog never ran: ring modulation (ashenbell), modal synthesis
+   (boneplate), wavefolding (foldchoir), rotary/Leslie (roterror), moving-ratio
+   FM (wailmorph), overtone singing (throatsong). Songs: THE CHOIR UNDER THE
+   RESERVOIR, BONE RELIQUARY, WHAT THE GLASS REMEMBERS, THE TURBINE STILL TURNS,
+   A PRAYER WOUND BACKWARDS, THROAT OF THE DROWNED NAVE. Music gate 14/14 (variety
+   + new-voices + screech all green), offline-render verified. NEW_VIBES now
+   points at batch 11 (batch 9/10 judged canon, dropped the badge). Record:
+   records/BOHEMIA_MUSIC_BATCH11_7_18_26.txt. NEXT: process Paolo's verdict.
+-1. CLOTHING FACTORY — CANON MENU LIVE, all 9 approved (7/18): CLOTHES tab now
+   has a COOKING area (fresh candidates + thumbs) and a collapsible CANON WARDROBE
+   (approved items collapse in, each with a CANON chip; only visible rigs animate).
+   Thumb UP promotes cook->canon, DOWN->graveyard. All 9 garments are canon
+   (records/BOHEMIA_CLOTHING_CANON.txt). A WORLD GRADE toggle (default off) grades
+   cloth to world ambient RGB(67,61,56) like the skin — [PENDING Paolo: bake it in
+   or keep clean catalog colors?]. NEXT: cook more clothing batches into COOKING;
+   on an approved template, build the colorway/wear variant factory.
+-1b. CLOTHING FACTORY v2 — LIVE RIG (superseded by -1 above): the CLOTHES
    tab in the alpha now renders every garment ON THE LIVE ANIMATED CHARACTER
    (not a mannequin — Paolo: "I really wanna see it on the live skeleton"). How
    it works: buildFrame has a CLO_PREVIEW hook (~line 3628) that paints the

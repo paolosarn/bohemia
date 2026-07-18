@@ -1,0 +1,30 @@
+=== BOHEMIA MUSIC COOK — BATCH 11 (7/18/26) ===
+THE DROWNED CATHEDRAL DEEPENS. 6 songs. Horror FF10, melodic under dread.
+STATUS: NEW badge on all 6, [PENDING PAOLO VERDICT] via the music tab.
+
+SIX NEW VOICES — each a synthesis topology the catalog had never run, each
+BIRTHED by one song (NEW VOICES LAW: no borrowed leads):
+  ashenbell  -> THE CHOIR UNDER THE RESERVOIR  (TRUE ring modulation, gliding ratio)
+  boneplate  -> BONE RELIQUARY                 (MODAL synthesis: noise -> Q=42 resonators, no osc)
+  foldchoir  -> WHAT THE GLASS REMEMBERS       (WAVEFOLDING: harmonics bloom with drive)
+  roterror   -> THE TURBINE STILL TURNS        (ROTARY/Leslie spin-up: accelerating vibrato+trem)
+  wailmorph  -> A PRAYER WOUND BACKWARDS        (moving-RATIO FM: timbre morphs mid-note)
+  throatsong -> THROAT OF THE DROWNED NAVE      (OVERTONE isolation: razor bandpass picks partials)
+
+LAWS HELD (all machine-gated, green):
+- VARIETY LAW: 6 distinct scale+feel+kick tuples — phrygian / locrian / harmonic
+  minor / aeolian / whole-tone / octatonic. No two share the triple.
+- NEW VOICES LAW: every song's lead voice is used by no other song.
+- SCREECH LAW: zero createDelay / createConvolver in the build; nothing feeds
+  back. Every ring is excited-and-decaying.
+- Brickwall limiter still in the master chain (stacked peaks tamed).
+- GRAVEYARD FINAL: no dead song revived; all 6 names fresh (checked registry).
+
+VERIFICATION (offline OfflineAudioContext render, no page errors):
+  ashenbell 0.168  boneplate 0.125  foldchoir 0.194
+  roterror  0.077  wailmorph 0.166  throatsong 0.092   (peak amplitude)
+  boneplate (0.007->0.125) + throatsong (0.028->0.092) boosted to sit in the mix.
+  A full bar of BONE RELIQUARY (lead+bass x4 + am) rendered clean.
+
+Bass/am reuse the canon dread voices (undertowbass, abyssbass, gravechoir,
+nightpad, ashchoir / deadsat, dreadbed, coldpiano). Music gate: 14/14, 118 songs.
