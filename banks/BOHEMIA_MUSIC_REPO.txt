@@ -58,6 +58,21 @@ include a menu attempt, a SCENE IMAGE steers the whole batch and is the
 strongest input I can give you.
 === END PROMPT ===
 
+=== VERDICT PASS 7/18/26 — batch-10 judged + SATELLITE PRAYER screech fix ===
+BATCH 10 (THE DROWNED CATHEDRAL): 3 CANON, 3 DOWN.
+  CANON (baked to CANON_DEFAULTS at 2): THE SENDING, PYREFLIES RISE, NO SENDING LEFT.
+  DOWN (buried, removed from MLOOPS + NEW_VIBES; graveyard-final, fresh cooks answer the slots):
+    VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR.
+  NEW_VIBES now = the 3 survivors. Owned voices of the dead (submergechoir, oraclereed,
+  drownbed) left in synthV as unused bodies; not to be re-slotted (no remakes).
+BUG FIX — SATELLITE PRAYER: Paolo, "really like it but a super loud SCREECH breaking my
+  eardrums, has to go way lower." Root cause: solarhymn (its lead) summed harmonics up to the
+  5th with NO high cap; on the melody kill-layers it plays in a high register (root-7), so the
+  3rd/5th became a sustained piercing whistle that stacked. FIX (global to solarhymn, also used
+  by SOLAR CHURCH / MENU-FIRST MORNING): dropped the 5th harmonic, hard lowpass cap at 1.7kHz so
+  nothing can scream, amps pulled 0.4/0.2/0.1 -> 0.24/0.09/0.045 (way lower). Song kept, pain gone.
+PRIOR DOWNS still disabled at 0 (SUNKEN VESPERS, UNDERTOW) — re-confirmed DOWN, left buried.
+
 === VERDICT PASS 7/17/26 (b) — "Good cookups today" ===
 CANON baked: batch 8 cleared (SALT ON THE HIGHWAY, WHAT GROWS IN THE VAULT,
 THE LAST TABLE STANDING) + batch 9b cleared ON FIRST LISTEN (TAPS FOR THE
@@ -120,7 +135,8 @@ SIX VOICES BORN (ledgered to owner song, each used by that ONE song alone):
 - drownbed      -> THE DROWNED CHOIR  (tremolo-gated octave shimmer: triangle stack 1/2/3/4 through a highpass, a 6.8Hz amplitude breath; a dread bed that inhales)
 - mournbell     -> NO SENDING LEFT    (tritone-ratio mourning bell: FM modulator at 1.414, index decays to a long tail, a 3.1Hz tremolo grief)
 - abyssbass (shared support) beating-fifths bass: sub + a slightly-flat fifth ghost, both drifting DOWN over the note.
-VARIETY LAW: all 6 tuples (scale+feel+kick) distinct. SCREECH LAW: no delay/convolver, nothing feeds back (offline-render verified all 6 leads synthesize clean). Catalog now 109 songs. NEW_VIBES = this batch. UNJUDGED.
+VARIETY LAW: all 6 tuples (scale+feel+kick) distinct. SCREECH LAW: no delay/convolver, nothing feeds back (offline-render verified all 6 leads synthesize clean). Catalog now 109 songs.
+JUDGED 7/18 (see verdict pass below): 3 CANON — THE SENDING (drownedpiano), PYREFLIES RISE (pyrefly), NO SENDING LEFT (mournbell). 3 DOWN + buried — VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR (their owned voices submergechoir/oraclereed/drownbed left as dead bodies, unused).
 
 === COOK BATCH 9b (7/17/26) — 2 fresh songs answering the batch-9 graves. ===
 NEW VOICES BORN (ledgered to owner song):
