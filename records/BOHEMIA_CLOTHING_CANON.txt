@@ -52,3 +52,19 @@ All dusty world-ambient tones, single-hue-safe (no purple), worn/scavenged.
 LAYER SYSTEM (Paolo's note): every garment now declares a layer -- base (tops),
 legs (pants), feet (shoes), outer (coats/jackets, drawn over a base shirt).
 Canon wardrobe now 18.
+
+--- STRUCTURAL DIVERSITY (7/18/26) — Paolo: "you called a flannel a shirt; I
+    want DIVERSE LOOKS, not recolors. Recoloring is the easy part." ---
+genTop v2: variety is now STRUCTURAL, not palette. Options:
+  pattern: solid / plaid (tartan) / stripe
+  neck:    crew / v / henley (short placket+buttons) / button (full placket +
+           fold collar) / hood (cowl)
+  sleeves: long / short / none
+  pocket:  kangaroo (hoodie)
+A flannel = plaid + button-up; a hoodie = hood + pocket; a v-neck has a V; a
+short-sleeve shows bare forearms. Batch 6 (12, cooking) shows the spread.
+Backward-compatible: the 40 canon tops still render (crew/solid/long) unchanged.
+TARGET REMINDER (BOHEMIA_WARDROBE_TARGET): 500-800 items; the real work is
+~120-180 hand-authored BASE LOOKS, then palette/wear/layer multiply. Structural
+diversity (this) is how we get distinct base looks; recolor is the multiplier.
+Still missing categories: headwear (~20%), accessories (~16%).
