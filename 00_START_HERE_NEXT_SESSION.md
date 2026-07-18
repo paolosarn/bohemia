@@ -220,11 +220,18 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    BELLS, THE HYMN THE STATIC ATE, LAST BREATH OF THE ORGAN, THE BELL THAT COOLS
    TO SALT — 6 new topologies (Chebyshev/noise-flute/cluster/bitcrush/bellows/
    stretched-bell). Records: BOHEMIA_MUSIC_GRAVEYARD_7_18_26.txt. NEXT: verdict.
--2b. CLOTHING COOK BATCH 2 — 12 CANDIDATES IN COOKING, PENDING THUMBS (7/18):
-   NAVY LONGSLEEVE, MUSTARD TEE, OLIVE FIELD SHIRT, MAROON HENLEY, CHARCOAL
-   HOODIE, RUST TANK, TAN CHINOS, RAW DENIM, FADED JEANS, RED SNEAKERS, BLACK
-   BOOTS, DESERT BOOTS. Variants off the approved template silhouettes, live on
-   the rig in COOKING. Thumb UP -> CANON menu, DOWN -> graveyard. NEXT: verdict.
+-2b. CLOTHING — ALL 51 CANON, COOKING EMPTY (7/18 end of day): the whole
+   wardrobe is approved (tops incl. plaid flannels/henleys/button-ups/hoodies,
+   pants, shoes, open coats, vests). The hoodie took SIX rounds because four
+   stacked defects hid behind broken verification -- now LAW + GATE:
+   laws/BOHEMIA_ADDENDUM_VERIFY_ON_THE_REAL_SURFACE_7_18_26.md (verify only on
+   the real preview canvas; look before shipping; symptom-survives-content =
+   pipeline bug; audit blanket rules per facing; audit generator inheritance)
+   + gates/hood_gate.js (11 checks) + CLAUDE.md pointer. Render-order note:
+   the CLO_PREVIEW garment hook now runs LAST in buildFrame (after SKIN_DETAIL).
+   NEXT COOKS: headwear generator (~20% of the 500-800 wardrobe target) and
+   accessories (~16%) -- see records/BOHEMIA_WARDROBE_TARGET_7_18_26.txt.
+   Rename process + act/rarity assignment are Paolo's, later, his words.
 -2. MUSIC BATCH 11 — NEW BADGE, PENDING PAOLO VERDICT (7/18): "THE DROWNED
    CATHEDRAL DEEPENS." 6 FF10-horror songs, each births its own lead voice via a
    topology the catalog never ran: ring modulation (ashenbell), modal synthesis

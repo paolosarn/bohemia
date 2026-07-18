@@ -42,6 +42,11 @@ research partner. He DECIDES, you PRODUCE.
   world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
   scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the
   viewer. The blessed lamp bank is the reference. Gate: art_45_gate.py.
+- VERIFY ON THE REAL SURFACE (7/18): art is verified ONLY on the surface Paolo
+  sees (the real preview canvas / render path) — a side-door probe is a lie. Look
+  at the rendered pixels before shipping; a symptom that survives content changes
+  is a PIPELINE bug. Full law + the hoodie post-mortem in /laws; hood_gate.js
+  machine-locks the regressions.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)
