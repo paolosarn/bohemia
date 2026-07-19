@@ -229,7 +229,16 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    pipeline bug; audit blanket rules per facing; audit generator inheritance)
    + gates/hood_gate.js (11 checks) + CLAUDE.md pointer. Render-order note:
    the CLO_PREVIEW garment hook now runs LAST in buildFrame (after SKIN_DETAIL).
-   HEADWEAR FACTORY BORN (same day, "do what you have to do next"): genHat --
+   ACCESSORIES FACTORY BORN (7/19, "keep cooking"): genAcc -- 5 zone-locked
+   facing-aware types (scarf/mask/shades/gloves/belt), new layers neck/face/
+   hands/waist. THE EYE LINE = the widest rows of the face part (probed, not
+   guessed); masks start below it, shades sit ON it, gate #ACCESSORY (13 checks)
+   enforces. 8 IN COOKING pending thumbs: DUST/OXBLOOD SCARF, BONE/OXBLOOD DUST
+   MASK, BLACK SHADES, LEATHER/SOOT GLOVES, LEATHER BELT. Wardrobe 58 canon
+   (all headwear approved; DESERT WIDE-BRIM renamed CHINESE RICE FARMER HAT by
+   Paolo's ruling). AFTER: colorway multiplication toward 500-800, then Paolo's
+   renaming/act/rarity passes.
+   HEADWEAR FACTORY BORN (7/18, "do what you have to do next"): genHat --
    beanie/cap/wide-brim/wrap, facing-aware, on the skull, never the eyes (the
    FOREHEAD BAND rule) or body. Layer 'head'. Gate #HEADWEAR (hat_gate.js, 12
    checks). 7 hats IN COOKING pending thumbs (DUST/COAL BEANIE, SALVAGE/RUST

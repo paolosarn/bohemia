@@ -209,3 +209,22 @@ wrong for a beanie -- a beanie's cuff is a LEVEL band. FIX: wear depth is now
 UNIFORM (the shallowest durag depth across facings), so the cuff sits at the
 same height in all 8 views; the per-facing durag line remains only the legal
 never-cross bound. Applies to beanie + cap, both fits; the rice hat untouched.
+
+--- HEADWEAR ALL CANON + ACCESSORIES FACTORY BORN (7/19/26) — Paolo: "you got
+    the idea, keep cooking." ---
+All 6 hats + rice hat CANON (wardrobe 58). Next per the standing roadmap: the
+ACCESSORIES factory -- the last missing category (~16% of the 500-800 target).
+genAcc: five zone-locked, facing-aware types:
+  scarf  (wrapped neck bundle + chest drape front / long tail back)
+  mask   (dust bandana: nose/mouth/chin ONLY -- the EYE LINE, found as the
+          widest rows of the face part, is sacred; first cut was a balaclava
+          over the eyes, caught by zoomed real-canvas eyeball before Paolo)
+  shades (dark lenses exactly on the eye rows, arm to the ear in profile,
+          invisible from behind)
+  gloves (hands only)   belt (waist rows + buckle catching light, front)
+New layers: neck / face / hands / waist. Gate #ACCESSORY (acc_gate.js, 13
+checks) per FACTORY LAW: zone lock + eyes-sacred + directional.
+COOKING (8): DUST SCARF, OXBLOOD SCARF, BONE DUST MASK, OXBLOOD DUST MASK,
+BLACK SHADES, LEATHER GLOVES, SOOT GLOVES, LEATHER BELT.
+AFTER THIS (roadmap): colorway multiplication off approved bases toward
+500-800, then Paolo's passes (renaming, act, rarity, faction dress).

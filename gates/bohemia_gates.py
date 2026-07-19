@@ -72,6 +72,8 @@ GATES = [
      'hood covers neck+carve, crew keeps its hole, back hood real', False),
     ('HEADWEAR',       ['node', 'gates/hat_gate.js'],
      'hats sit on the skull, never the eyes/body, directional', False),
+    ('ACCESSORY',      ['node', 'gates/acc_gate.js'],
+     'zone-locked: masks below the eyes, shades on them, gloves/belt/scarf', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
