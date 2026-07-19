@@ -75,7 +75,7 @@
       if(dg && dg.mod){
         var gres=dg.mod.generate(cell.seed>>>0, {cw:1,ch:1,streets:neighborStreets(m,x,y)});
         var feet=dg.foot(gres)||[];
-        var dapi={ x:x,y:y,district:cell.district,archetype:dg.zone,
+        var dapi={ x:x,y:y,district:cell.district,category:KIT.category(cell.district),archetype:dg.zone,
           block:{W:gres.W,H:gres.H,grid:gres.g,codes:true},
           buildings: feet.map(function(f,i){ return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
             floorplan:function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:dg.zone,entrance:'S'}); } }; }),

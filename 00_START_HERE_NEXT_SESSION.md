@@ -683,6 +683,15 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## DISTRICT TAXONOMY (Paolo 7/18: "you have to categorize things nicely")
+Every one of the 77 district types files into ONE of 8 top-level categories (source of
+truth: engine/bohemia_district_kit.js TAXONOMY; law: laws/BOHEMIA_DISTRICT_TAXONOMY_7_18_26.md;
+gate: gates/district_taxonomy_gate.js, nothing can be uncategorized). Grounded in real
+land-use zoning + the two Vegas needs. Counts: residential 5, commercial 5, industrial 9,
+gaming_resort 9, civic 13, leisure 8, infrastructure 24, terrain 4. world().plot() now
+returns .category. The distribution center = INDUSTRIAL. A few judgment calls flagged for
+Paolo in the law (convention/truckstop/fort/springs/farm) — easy to move.
+
 ## THE DISTRICT FACTORY (Paolo 7/18 late: "get this factory going... speed this up")
 Built the shared machine so a NEW district is a short config, not a from-scratch build:
 - engine/bohemia_district_kit.js: grid primitives, street-aware streetEdges(neigh),

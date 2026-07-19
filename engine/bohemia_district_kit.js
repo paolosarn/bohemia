@@ -68,9 +68,47 @@
   // is exactly what was built. rules(res, act) -> res'.
   function act(res,a,rules){ if(!a||a===1||typeof rules!=='function')return res; return rules(res,a)||res; }
 
+  // TAXONOMY (Paolo 7/18: "you have to categorize things nicely"). Every district type
+  // files into ONE top-level category. Grounded in real land-use zoning (residential /
+  // commercial / industrial / institutional / recreational / transportation) + the two
+  // Vegas needs: GAMING_RESORT (the tourism economy) and TERRAIN (the raw land).
+  // Paolo DECIDES final buckets; this is the mechanism + a sensible default, machine-gated
+  // so nothing is ever left uncategorized.
+  var CATEGORIES=['residential','commercial','industrial','gaming_resort','civic','leisure','infrastructure','terrain'];
+  var TAXONOMY={
+    // RESIDENTIAL — where people live
+    suburb:'residential', gated:'residential', estate:'residential', town:'residential', trailer:'residential',
+    // COMMERCIAL — retail, trade, business
+    commercial:'commercial', mall:'commercial', downtown:'commercial', swapmeet:'commercial', truckstop:'commercial',
+    // INDUSTRIAL — production, logistics, salvage, storage of goods
+    industrial:'industrial', warehouse:'industrial', storage:'industrial', railyard:'industrial',
+    robofactory:'industrial', granary:'industrial', boneyard:'industrial', arsenal:'industrial', fueldepot:'industrial',
+    // GAMING & RESORT — the Vegas tourism/gaming economy + Strip icons
+    strip:'gaming_resort', resort:'gaming_resort', casino:'gaming_resort', highroller:'gaming_resort',
+    sphere:'gaming_resort', luxor:'gaming_resort', strat:'gaming_resort', sign:'gaming_resort', springs:'gaming_resort',
+    // CIVIC — government, safety, health, education, worship, death, assembly
+    medical:'civic', school:'civic', campus:'civic', library:'civic', courthouse:'civic', firestation:'civic',
+    policestation:'civic', jail:'civic', prison:'civic', chapel:'civic', cemetery:'civic', convention:'civic', fort:'civic',
+    // LEISURE — parks, sports venues, recreation
+    park:'leisure', golf:'leisure', stadium:'leisure', ballpark:'leisure', speedway:'leisure',
+    minigp:'leisure', waterpark:'leisure', drivein:'leisure',
+    // INFRASTRUCTURE — transport, power, water, comms, extraction, agriculture (the systems)
+    freeway:'infrastructure', arterial:'infrastructure', beltway:'infrastructure', interchange:'infrastructure',
+    rail:'infrastructure', terminal:'infrastructure', airport:'infrastructure', airbase:'infrastructure',
+    dam:'infrastructure', solar:'infrastructure', substation:'infrastructure', watertreat:'infrastructure',
+    reservoir:'infrastructure', pumpstation:'infrastructure', intake:'infrastructure', basin:'infrastructure',
+    battery:'infrastructure', datafort:'infrastructure', radio:'infrastructure', reclaim:'infrastructure',
+    landfill:'infrastructure', gypsum:'infrastructure', quarry:'infrastructure', farm:'infrastructure',
+    // TERRAIN — the raw land itself (not built)
+    mountain:'terrain', desert:'terrain', wash:'terrain', water:'terrain'
+  };
+  function category(type){ return TAXONOMY[type]||null; }
+  function inCategory(cat){ var out=[]; for(var t in TAXONOMY) if(TAXONOMY[t]===cat) out.push(t); return out; }
+
   var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
-    register:register,get:get,types:types,act:act};
+    register:register,get:get,types:types,act:act,
+    CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
