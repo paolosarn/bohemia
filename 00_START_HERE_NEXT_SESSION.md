@@ -229,6 +229,13 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    pipeline bug; audit blanket rules per facing; audit generator inheritance)
    + gates/hood_gate.js (11 checks) + CLAUDE.md pointer. Render-order note:
    the CLO_PREVIEW garment hook now runs LAST in buildFrame (after SKIN_DETAIL).
+   WARDROBE 66 CANON, BATCH 13 COOKING (7/19 latest): shades approved --
+   accessories COMPLETE, every category exists. Batch 13 (12 cooking): new
+   structures (turtlenecks via neck:'turtle', knee-cut shorts via cut:'short',
+   slouch beanie via slouch:true) + first colorway wave off approved bases
+   (slate plaid flannel, sand hoodie, rust striped tee, denim vest, slate
+   sneakers, copper scarf, charcoal dust mask). NEXT: Paolo thumbs -> full
+   colorway multiplication toward 500-800 -> his renaming/act/rarity passes.
    FACE CALIBRATION BAKED CANON (7/19): Paolo calibrated + exported; offsets
    baked VERBATIM into FACE_OFFSETS (records/BOHEMIA_FACE_CALIBRATION_7_19_26
    .txt -- the big one: profile nose moves 6px toward the facing). SHADES v2

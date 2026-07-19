@@ -245,3 +245,18 @@ the real canvas: nudge moves, reset restores byte-identical).
 NEXT: Paolo calibrates + exports -> I bake the offsets as canon defaults ->
 shades v2 re-cooked anchored to the TRUE calibrated eye pixels. His eyebrow/
 lip mini-expressions idea rides the same per-feature offset rails later.
+
+--- ACCESSORIES COMPLETE + BATCH 13 (7/19/26) — Paolo: "Good job. Make some
+    more clothes." ---
+WRAPAROUND SHADES canon (wardrobe 66) -- every category now exists: tops, pants,
+shoes, coats, vests, hats, accessories. Batch 13 cooking (12): three NEW
+STRUCTURES + the first COLORWAY WAVE off approved bases:
+  structures: CHARCOAL/BONE TURTLENECK (neck:'turtle' -- high rolled collar
+    wraps the whole neck, fills the crew carve), CUTOFF DENIM SHORTS + OLIVE
+    SHORTS (cut:'short' -- legs end at the knee with a hem, bare shins; Paolo's
+    own day-one spec), OXBLOOD SLOUCH BEANIE (slouch:true -- deliberately rides
+    the durag-deep back line; the accidental version of this was the 7/19
+    "longer in the back" complaint, now it's a chosen look)
+  colorways: SLATE PLAID FLANNEL, SAND HOODIE, RUST STRIPED TEE, DENIM VEST,
+    SLATE SNEAKERS, COPPER SCARF, CHARCOAL DUST MASK
+All verified on the real canvas across facings. Suite green.
