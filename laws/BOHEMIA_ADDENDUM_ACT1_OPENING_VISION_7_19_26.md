@@ -127,6 +127,25 @@ is Act-2-tier (rebuilt / nicer) asset quality, not Act-1 ruin. So the opening is
 asset-heavy and depends on those "before" assets; it will likely be built alongside
 the Act 2 asset set, not first. Flagged so the opening is not blocked early.
 
+## THE FOUNDING — THE NEIGHBOR (7/19, Paolo) — how the custom faction is born
+After the burial you come down off the ridge, back to the house, and a NEIGHBOR
+pulls up: "damn, I'm really sorry, we heard the commotion last night, is everyone
+okay?" You have to tell him, out loud, that they are not. That small, clumsy act of
+one neighbor who heard your worst night and drove over to check on you is the seed.
+A quest or two later, that bond becomes the FOUNDING OF THE CUSTOM (pseudo) FACTION,
+and from there the rest of the game opens up.
+- TONE: the custom faction is NOT founded on a war, a speech, or a flag. It is
+  founded on someone caring enough to ask if you are okay. The quietest possible
+  founding, which is exactly why it carries the family theme: chosen family begins
+  with a knock at the door.
+- THEME HOOK (locked): this is the first UNRECORDED bond, face-to-face, off the feed,
+  the exact kind of moment the Amalgamation can never see. So the founding brick of
+  the whole hundred-year dynasty is also, unknowingly, the first piece of the weapon
+  that ends the game. The machine can't watch a neighbor standing in your yard not
+  knowing what to say, and that kind of moment is what beats it.
+- [OPEN, Paolo]: whether this neighbor becomes a lasting founding pillar / character
+  of your faction, or is the first of many bonds in a gradual founding.
+
 ## THE 10 START-OPTIONS BECOME THE FIRST QUESTS (locked, Paolo)
 Any of the 10 opening options (The Long Night, The Killing Summer, The Elder's
 Accident, The Flood, The Faction That Died, The Wedding, The Dry Taps, The First
