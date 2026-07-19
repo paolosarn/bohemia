@@ -401,6 +401,24 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    through moves — geometry drives it later, as canon says). Gate 60
    checks. NOTE: player sprite stays center (camera is player-locked);
    the read is the world sliding — matches the demo's polar model.
+   RING MOVEMENT + PILLAR COVER (7/19, fifth pass; Paolo: "we already
+   have eight cardinal directions right next to the action button" +
+   "shuffled pillars that I can take cover from... a wall pillar"):
+   (1) the 7/4 move ring (which only set G.moveIntent, plumbing waiting
+   for movement) now CALLS doMove directly — one tap on N/NE/E/... = one
+   step; the arm-then-tap MOVE button is DEAD. (2) REAL GEOMETRY COVER:
+   G.pillars — 5-7 shuffled world-anchored pillars per encounter (ride
+   worldShift). The locked RF4 line-of-fire model, geometry-driven at
+   last: myCoverAgainst(ang,dist) is pillar-aware (a pillar on the line
+   to the shooter = cover; behind him = not); enemies take pillar cover
+   too (e.gcov in peeking/firing/hasLine/arc — an enemy behind stone is
+   tucked until the line clears); pillars BLOCK the step (occupancy);
+   shove into a pillar = PILLAR SLAM (65% topple); rendered tan with a
+   sky-lit top (45-law nod), zero purple. Hand 3x3 toggles still work,
+   OR'd with geometry (authoring layer stays until full tile geometry).
+   Gate 67 checks. Chromium-verified: ring one-tap moves the world,
+   enemy behind pillar gcov+excluded from exposed pool, my cover true
+   through the same stone, step into pillar refused. 0 errors.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
