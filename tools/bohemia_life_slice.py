@@ -28,7 +28,9 @@ OUT = 'slices/BOHEMIA_LIFE_SLICE_7_19_26.html'
 CUR = 'slices/BOHEMIA_LIFE_CURRENT.html'
 MODULES = ['engine/bohemia_suburb.js', 'engine/bohemia_floorplan.js',
            'engine/bohemia_daycycle.js', 'engine/bohemia_agents.js',
-           'engine/bohemia_dress.js', 'engine/bohemia_economy.js']
+           'engine/bohemia_dress.js']
+# NOTE: bohemia_economy is deliberately NOT embedded. Paolo parked the economy
+# (7/19): no economy numbers surface at him until the world is built.
 engine = '\n'.join('/* ==== %s ==== */\n%s' % (m, open(m, encoding='utf8').read()) for m in MODULES)
 bank = open('banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt', encoding='utf8').read()
 BANK_JS = 'var WARDROBE_TXT=' + repr(bank).replace('\\n', '\\n') + ';'
@@ -79,7 +81,8 @@ var agents = BohemiaAgents.agentsForBlock(SEED, feet, JOBS, fpOf);
 var wardrobe = BohemiaDress.parse(WARDROBE_TXT);
 BohemiaDress.dressAll(agents, wardrobe);
 var sim = BohemiaAgents.makeSim(res, feet, agents, {fpOf:fpOf, doorOf:doorOf, startTurn:6*60-30});
-var ledger = BohemiaEconomy.makeLedger(SEED, agents.length, feet.length);
+var LIVED={}; agents.forEach(function(a){LIVED[a.home.building]=1;});
+var livedN=Object.keys(LIVED).length, day=1;
 
 // ---- render ----
 function gcol(x,y){var h=((x*73856093)^(y*19349663))>>>0,v=h%3;return ['#463f30','#3d382a','#4e4838'][v];}
@@ -160,34 +163,29 @@ function counts(){ var inN=0,outN=0,away=0,asleep=0;
     if(a.loc.mode==='in'){inN++; if(b.act==='sleep')asleep++;}
     else if(a.loc.mode==='out')outN++; else away++; });
   return {inN:inN,outN:outN,away:away,asleep:asleep}; }
+var ROLE_WORD={worker:'works out the gate', scav:'scavenges the block', keeper:'keeps the house', watch:'walks the block at dusk'};
 function refreshHUD(){
   var t=sim.tod(), cs=counts();
-  CLOCK.textContent='DAY '+(ledger.day+1)+' - '+BohemiaAgents.fmt(t)+(BOH_DAYCYCLE.isNightish(t/1440)?' ☾':' ☀');
-  if(mode==='ext') HUD.innerHTML=agents.length+' residents. '+cs.asleep+' asleep · '+(cs.inN-cs.asleep)+' indoors · '+cs.outN+' on the streets · '+cs.away+' away at work (the commercial block east). Yellow tile = a front door; step in to see the household. Tap a person to inspect them.';
+  CLOCK.textContent='DAY '+day+' - '+BohemiaAgents.fmt(t)+(BOH_DAYCYCLE.isNightish(t/1440)?' ☾':' ☀');
+  if(mode==='ext') HUD.innerHTML=agents.length+' people left, in '+livedN+' of '+feet.length+' houses. The rest stand empty. '+cs.asleep+' asleep · '+(cs.inN-cs.asleep)+' indoors · '+cs.outN+' outside · '+cs.away+' out of the neighborhood. Tap a person to meet them.';
   else { var hh=sim.inHouse(curHouse).length;
-    HUD.innerHTML='INSIDE house #'+(curHouse+1)+' - '+fp.rooms.length+' rooms, '+hh+' of the household home right now. Walk out the door to the street.'; }
-  var e=document.getElementById('econ');
-  var rows=BohemiaEconomy.report(ledger).map(function(r2){
-    var warn=r2.daysLeft!==null&&r2.daysLeft<7;
-    return '<tr'+(warn?' style="color:#e06a4a"':'')+'><td>'+r2.good+'</td><td>'+r2.stock+' '+r2.unit+'</td><td>'+(r2.daysLeft===null?'-':r2.daysLeft+'d')+'</td><td>'+r2.price+'</td></tr>';});
-  var sf=Object.keys(ledger.flows.shortfall||{});
-  e.innerHTML='<table style="width:100%;border-collapse:collapse;font:11px monospace"><tr style="opacity:.6"><td>GOOD</td><td>STOCK</td><td>LEFT</td><td>PRICE*</td></tr>'+rows.join('')+'</table>'
-    +'<div style="opacity:.55;font:10px monospace;margin-top:3px">*barter, in salvage-kg. The commodity money is Paolo\'s call, pending.'+(sf.length?' <b style="color:#e06a4a">SHORT: '+sf.join(', ')+'</b>':'')+'</div>';
+    HUD.innerHTML= LIVED[curHouse]==null
+      ? 'INSIDE house #'+(curHouse+1)+' - abandoned. Nobody lives here anymore.'
+      : 'INSIDE house #'+(curHouse+1)+' - '+hh+' of the household home right now.'; }
   var ins=document.getElementById('inspect');
   if(selAgent){ var a=selAgent, b=BohemiaAgents.whereAt(a,sim.turn);
     var fit=Object.keys(a.outfit).map(function(l){return a.outfit[l].n;}).join(', ');
     ins.style.display='block';
-    ins.innerHTML='<b>'+a.id+'</b> - house #'+(a.home.building+1)+', '+(a.job.kind==='site'?('works the '+a.job.district+' block '+a.job.dir):'scavenges this block')
-      +'<br>now: '+b.act.toUpperCase()+' ('+b.where+')'
+    ins.innerHTML='<b>'+a.id+'</b> - house #'+(a.home.building+1)+', '+(ROLE_WORD[a.role]||a.role)
+      +'<br>now: '+b.act.toUpperCase()
       +'<br>wearing: '+fit
-      +'<br>day: '+a.sched.map(function(s2){return BohemiaAgents.fmt(s2.t0)+' '+s2.act;}).join(' → ')
-      +'<br><span style="opacity:.55">faction: none yet (Paolo\'s ruling) · name: pending Paolo (designations only)</span>';
+      +'<br><span style="opacity:.55">name + faction: pending Paolo</span>';
   } else ins.style.display='none';
 }
 function tick(){
   sim.playerAt=(mode==='ext')?[px,py]:null;
   sim.step();
-  if(sim.tod()===0){ BohemiaEconomy.advanceDay(ledger, agents); }
+  if(sim.tod()===0) day++;
   refreshHUD(); draw();
 }
 // WATCH: one world-turn per 120BPM beat (0.5s). x4 = judging speed.
@@ -225,11 +223,10 @@ document.getElementById('watch').onclick=function(){ WATCH=!WATCH; this.textCont
 document.getElementById('speed').onclick=function(){ SPEED=(SPEED===1)?4:1; this.textContent='×'+SPEED; arm(); };
 document.getElementById('sunb').onclick=function(){ SUN=!SUN; draw(); };
 
-// ---- JUDGE (verdict workflow) ----
-var ASPECTS=[['routines','THE ROUTINES (wake/work/eat/sleep on the clock)'],
+// ---- JUDGE (verdict workflow; economy parked by Paolo 7/19, not judged) ----
+var ASPECTS=[['routines','THE ROUTINES (their different clocks and lives)'],
              ['dress','THE DRESS (canon wardrobe on the people)'],
-             ['economy','THE ECONOMY (water/food scarcity, barter prices)'],
-             ['feel','THE FEEL (does the block read ALIVE?)']];
+             ['feel','THE FEEL (does the half-empty block read TRUE?)']];
 var verdict={}, jroot=document.getElementById('judge');
 ASPECTS.forEach(function(p){ var id=p[0],label=p[1];
   var d=document.createElement('div'); d.style.cssText='margin:6px 0;padding:8px;border:1px solid #444;border-radius:8px';
@@ -265,7 +262,7 @@ refreshHUD(); fit(); arm();
 window.__LIFE_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA - LIFE: the block you approved, ALIVE. Every house holds a real household. They sleep at night, ration at dawn, the employed walk out the gate to work the commercial block east, the rest scavenge the streets, everyone shelters from the midday heat, and at dusk they come home. Dressed from your 78-garment canon wardrobe. The ledger below counts the block's real water and food. WATCH runs a day in 12 minutes on the beat; STEP mode is I-move-you-move. Walk in anywhere - the family is home.</h1>
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA - LIFE: the block, half-dead. Most houses stand empty. The people who stayed live on their own clocks: some work out the gate, some scavenge, some barely leave the house. WATCH = a day in 12 minutes. STEP = it only moves when you move. Tap anyone to meet them; walk into any house.</h1>
 <div id="clock" style="font:700 16px monospace;color:#f0cd78;padding:0 10px"></div>
 <div id="hud" style="font:13px -apple-system,sans-serif;color:#a99;padding:2px 10px 6px"></div>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
@@ -283,10 +280,6 @@ HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;m
     <button id="bd" style="width:64px;height:56px;font-size:22px">▼</button>
   </div>
   <button id="br" style="width:64px;height:56px;font-size:22px">▶</button>
-</div>
-<div style="margin:10px;padding:8px;border:1px solid #444;border-radius:8px">
-  <div style="font:12px sans-serif;color:#cdbd8a;margin-bottom:4px">THE BLOCK LEDGER - post-collapse scarcity, real numbers (4L water/day desert need, 2000 kcal rations, water heaters as the block's tank)</div>
-  <div id="econ" style="color:#bdb49a"></div>
 </div>
 <div id="judge" style="margin:0 10px"></div>
 <div style="padding:10px">
