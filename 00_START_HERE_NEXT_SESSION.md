@@ -8,6 +8,26 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## LIFE PARKED DORMANT (7/19, Paolo, same day it opened - SEQUENCING RULING)
+Paolo saw the LIFE tab and ruled the sequencing, distilled from his words:
+(1) TOO EARLY TO SURFACE, not too early to build - "I'm glad you have the
+plumbing done" but judging 20 gray skeletons on semantic tiles violates his
+standing don't-make-me-walk-it-until-almost-complete law. NO VERDICT OWED on
+the LIFE tab; nothing to thumb. The tab stays in the menu un-judged (he may
+ask to hide it).
+(2) THE ECONOMY CANNOT BE TUNED AGAINST A WORLD THAT DOESN'T EXIST - "we
+haven't even put a resort casino... all we really have is one park, one
+suburb, one corner store, one hospital." The gates prove the math behaves;
+they cannot prove the numbers are TRUE until the valley is built (casinos,
+Strip, his placed canon). DO NOT tune economy constants or surface economy
+numbers at Paolo until the world is built enough that they come FROM
+somewhere.
+(3) THE ORDER: build the world out first. LIFE + economy machinery sleeps,
+loses nothing, and reads the real world when it exists (it already reads
+world() - that was the design). When LIFE resurfaces to Paolo it must wear
+the REAL art: actual tiles, the real dressed rig, ~90% less on-screen text.
+The section below stays as the record of what was built and gated.
+
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three
 factories, each gated same turn (gates 21-23 in bohemia_gates.py: LIFE 14 /
