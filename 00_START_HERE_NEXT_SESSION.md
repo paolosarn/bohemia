@@ -836,6 +836,17 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
   car-reachable, corner-pedestrian-gate). v1 super-park + v2 perfect-circle both REJECTED —
   git history has them. NOTE: the canonical-south + rotate-to-street pattern (+ explicit
   drive code 12) is a reusable convention to push into the other districts' parking next.
+  SEED VARIETY (7/19, "we're gonna have several parks"): the generator varies per seed so
+  valley park cells DIFFER while staying realistic — pond present-or-absent (a tree stand
+  fills in when absent), per-seed jitter on the trail waypoints + playground + court. 6 seeds
+  verified as distinct-but-realistic; lawn 75-77%, drivable + street-aware hold on all. Gate
+  makes the pond OPTIONAL (absent or a real pond, never a sliver). NEXT for parks: distinct
+  park TYPES (pocket/plaza/greenbelt/sports) as their own generators when Paolo wants them.
+FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): every
+  thumbs-down catalogued w/ root cause + lesson + guardrail in records/BOHEMIA_FAILURE_
+  GRAVEYARD_7_19_26.md; park v1/v2 tombstoned (PARKFAIL-SUPERPARK/PARKFAIL-CIRCLE, graveyard
+  green); 4 new lessons in laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md (realistic>impressive;
+  research proportions not parts-list; no fake geometry; explain-every-tile != cram).
 FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git

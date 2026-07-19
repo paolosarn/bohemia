@@ -24,9 +24,11 @@ let driveConnected = true, driveOnStreet = true, stallsReachable = true, cornerP
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = P.generate(s * 23 + 5, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
   // amenities: trail(1), playground(8), court(6)+marks(4), shelter+restroom(2), stalls(10)+cars(11),
-  // drive(12), pond(9), trees(3), benches(13) — a FEW, not everything
-  if (!(t[1] > 700 && t[8] > 80 && t[6] > 150 && t[4] > 40 && t[2] > 40 && t[10] > 40 &&
-        t[11] > 15 && t[12] > 200 && t[9] > 80 && t[3] > 120 && t[13] > 15)) hasAmenities = false;
+  // drive(12), trees(3), benches(13) — a FEW, not everything. Pond(9) is OPTIONAL per seed
+  // (some parks have water, some don't) but never a sliver: absent or a real pond.
+  if (!(t[1] > 600 && t[8] > 80 && t[6] > 150 && t[4] > 40 && t[2] > 40 && t[10] > 40 &&
+        t[11] > 15 && t[12] > 200 && t[3] > 120 && t[13] > 15)) hasAmenities = false;
+  if (!((t[9] || 0) === 0 || t[9] > 80)) hasAmenities = false;      // pond: absent OR real, never a sliver
   if (!((t[7] || 0) / AREA > 0.55)) lawnDominant = false;                         // REALISM: lawn dominates
   if (!K.legendOk(r.g, P.palette) || K.voidFraction(r.g) > 0.08) filled = false;
 

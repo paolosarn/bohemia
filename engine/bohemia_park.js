@@ -41,12 +41,19 @@
           var yy=0.5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3);
           stamp(Math.round(xx),Math.round(yy),rr,1); } } }
 
+    // ===== SEED VARIETY (several parks must DIFFER; all stay in the realistic envelope) =====
+    // jitter helper, a pond that may or may not exist, small nudges on the amenities + trail.
+    var jit=function(a){ return Math.round((r()-0.5)*2*a); };
+    var hasPond = r() < 0.72;                                        // some parks have water, some don't
+    var pondCx=95+jit(6), pondCy=30+jit(6), pondR=8+Math.floor(r()*3);
+    var pgJx=jit(3), pgJy=jit(3), ctJx=jit(3), ctJy=jit(2);          // playground + court nudges
+
     // ===== HARD FEATURES first (trail + drive route around them) =====
     // playground (bottom-left, street-visible)
-    var gx0=15,gy0=90,gx1=39,gy1=110; G.rect(gx0,gy0,gx1,gy1,8);
+    var gx0=15+pgJx,gy0=90+pgJy,gx1=39+pgJx,gy1=110+pgJy; G.rect(gx0,gy0,gx1,gy1,8);
     G.rect(gx0+3,gy0+3,gx0+6,gy0+6,13); G.rect(gx1-7,gy1-6,gx1-4,gy1-3,13); G.rect((gx0+gx1>>1)-1,(gy0+gy1>>1)-1,(gx0+gx1>>1)+1,(gy0+gy1>>1)+1,13);
     // basketball court (bottom-center, street-visible)
-    var cx0=44,cy0=92,cx1=64,cy1=111; G.rect(cx0,cy0,cx1,cy1,6);
+    var cx0=44+ctJx,cy0=92+ctJy,cx1=64+ctJx,cy1=111+ctJy; G.rect(cx0,cy0,cx1,cy1,6);
     for(x=cx0;x<=cx1;x++){G.set(x,cy0,4);G.set(x,cy1,4);} for(y=cy0;y<=cy1;y++){G.set(cx0,y,4);G.set(cx1,y,4);}
     for(x=cx0;x<=cx1;x++)G.set(x,(cy0+cy1)>>1,4); G.disc((cx0+cx1)>>1,(cy0+cy1)>>1,M(2),4);
     // PARKING LOT (bottom-right) — asphalt (12) with striped stalls (10) + cars (11); aisles are 12
@@ -58,13 +65,16 @@
     // picnic pavilion + restroom + tables (upper-left, quiet shaded zone)
     var sx=16,sy=16; G.rect(sx,sy,sx+11,sy+8,2); G.rect(sx+15,sy+2,sx+22,sy+8,2);
     for(i=0;i<4;i++){ bench(sx+2+i*2,sy+11); bench(sx+2+i*2,sy+13); }
-    // naturalistic dead pond (upper-right, organic blob + stone rim)
-    G.disc(95,30,9,9); G.disc(103,26,7,9); G.disc(89,38,6,9);
-    for(y=0;y<H;y++)for(x=0;x<W;x++){ if(G.get(x,y)===9 && (G.get(x+1,y)===7||G.get(x-1,y)===7||G.get(x,y+1)===7||G.get(x,y-1)===7)) G.set(x,y,13); }
+    // naturalistic dead pond (upper-right, organic blob + stone rim) — OR a tree stand if none
+    if(hasPond){ G.disc(pondCx,pondCy,pondR,9); G.disc(pondCx+8,pondCy-4,pondR-2,9); G.disc(pondCx-6,pondCy+8,pondR-3,9);
+      for(y=0;y<H;y++)for(x=0;x<W;x++){ if(G.get(x,y)===9 && (G.get(x+1,y)===7||G.get(x-1,y)===7||G.get(x,y+1)===7||G.get(x,y-1)===7)) G.set(x,y,13); } }
 
     // ===== WINDING PEDESTRIAN TRAIL (flows through the lawn, around every feature) =====
-    var loop=[[67,113],[46,98],[28,80],[22,54],[36,40],[54,28],[70,24],[84,42],[96,60],[92,84],[78,98],[68,106]];
+    // base loop with per-seed jitter on the lawn waypoints (the entrance corridor stays fixed)
+    var base=[[67,113],[46,98],[28,80],[22,54],[36,40],[54,28],[70,24],[84,42],[96,60],[92,84],[78,98],[68,106]];
+    var loop=base.map(function(p,idx){ return (idx===0||idx===base.length-1)?p:[p[0]+jit(3),p[1]+jit(3)]; });
     trail(loop,1);
+    if(!hasPond) grove(pondCx,pondCy,pondR+2,26);                    // a stand of trees where the pond would be
     walk(46,98,40,96,1);                 // spur -> playground
     walk(68,106,66,111,1);               // spur -> court
     walk(54,28,36,30,1);                 // spur -> pavilion
