@@ -23,17 +23,16 @@
   var ROW=4, AISLE=4;                          // BOHEMIA_PARKING_LAW: stall 4 deep, aisle 4
   var BAND=SERVLANE+STOREDEEP+SIDE;            // property line -> parking edge
 
-  // PARKING per law: asphalt, double-loaded aisles, stripes every 3rd tile (2-wide stalls)
+  // PARKING per law (stall 2 wide, stripe every 3rd tile, row 4 deep) BUT open, not
+  // maximized (Paolo 7/18): the whole lot is a drive surface, stall rows carved in with
+  // a 4-tile aisle around EVERY row + a perimeter drive lane, so cars circulate — a
+  // drive lane in front of the stores and daylight between the rows.
   function parkField(g,x0,y0,x1,y1){
-    rect(g,x0,y0,x1,y1,1);
-    var band=ROW+AISLE+ROW;                    // stalls | aisle | stalls
-    for(var ay=y0+ROW; ay+AISLE<=y1-ROW+AISLE; ay+=band){
-      if(ay+AISLE-1>y1)break;
-      rect(g,x0,ay,x1,ay+AISLE-1,3);           // drive aisle
-      for(var sx=x0; sx<=x1; sx+=3){           // stripe, 2-tile stall, shared divider
-        vLine(g,Math.max(y0,ay-ROW),ay-1,sx,4,1);
-        vLine(g,ay+AISLE,Math.min(y1,ay+AISLE+ROW-1),sx,4,1);
-      }
+    rect(g,x0,y0,x1,y1,3);                                    // whole lot drivable
+    var ix0=x0+AISLE, ix1=x1-AISLE;                           // stalls inset -> side drive lanes
+    for(var ry=y0+AISLE; ry+ROW-1<=y1-AISLE; ry+=ROW+AISLE){  // a stall row every ROW+AISLE (4-tile aisle each side)
+      rect(g,ix0,ry,ix1,ry+ROW-1,1);
+      for(var sx=ix0; sx<=ix1; sx+=3) vLine(g,ry,ry+ROW-1,sx,4,1);
     }
   }
 
