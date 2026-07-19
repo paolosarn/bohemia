@@ -711,14 +711,16 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
 - solar -> INFRASTRUCTURE (bohemia_solar, utility solar farm: panel arrays, gravel access
   roads, inverter/transformer pads, a substation switchyard + control building, fence+gate;
   fits the CLUSTERED-POWER lore). EXPLAIN-EVERY-TILE (void ~10%). Gate solar_gate.js.
-- park -> LEISURE (bohemia_park, community park, research-first + EXPLAIN-EVERY-TILE: a
-  packed 9-acre park — multipurpose/soccer field, baseball diamond (skinned infield, foul
-  lines, backstop, outfield fence), 3 hard courts, playground, skate park w/ two bowls,
-  fenced dog run, community garden beds, central plaza + picnic pavilion + restroom, dead
-  pond, picnic grove w/ tables, parking lot w/ cars, loop trail + spur path network. ACT-1
-  DEAD: dead-brown turf, bare trees, empty pond, dry garden beds; hardscape intact. void
-  ~3%. Gate park_gate.js (6 checks: all amenities present, legend-complete, no-big-void,
-  street-aware gates, registered+leisure, deterministic).
+- park -> LEISURE (bohemia_park, REALISTIC neighborhood park — v2, Paolo: "not a super
+  park... make it realistic"). MOSTLY OPEN LAWN (~80%) with a FEW well-spaced amenities: a
+  curving oval loop trail (the spine), ONE playground, ONE basketball court, a picnic
+  shelter + restroom + tables, a modest dead pond, a small parking pullout by the entrance,
+  benches along the loop, and tree GROVES clumping in the corners that break up the green.
+  The open lawn is the point (that's what a park IS) — it reads as designed because trees,
+  paths, and benches thread it, not a blank slab. ACT-1 DEAD: dead-brown turf, bare trees,
+  empty pond. void ~3%. v1 was a cram-packed "super park" (diamond+soccer+3 courts+skate+
+  dog run+garden) — REJECTED by Paolo for unrealism, rebuilt calm. Gate park_gate.js (7
+  checks incl. LAWN-IS-DOMINANT >55%, so it can never regress to a super-park).
 FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
