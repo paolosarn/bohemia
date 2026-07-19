@@ -185,3 +185,27 @@ pom, not lighting. At this scale the 45/sky-light law is expressed by FORM
 solid mid with dark edges + cuff; no light band. The rice hat (canon, approved
 as rendered) is untouched. RULE FOR ALL FUTURE SMALL-AREA GARMENTS: highlights
 must never form a contiguous band across the top of a small silhouette.
+
+--- THE HEADWEAR FRAMEWORK: DOME, NOT PYRAMID (7/19/26) — Paolo: "why are the
+    beanies pyramid shaped... glued to the top looking like a triangle. Don't
+    delete those beanies, but understand the headwear framework." ---
+ROOT CAUSE: hats followed the skull's per-row outline, and skulls NARROW toward
+the crown -- so every hat inherited the taper and read as a pyramid. Pixel-art
+convention (researched): a hat is a rounded BLOCK at full head width, flat top,
+1px corner rounding.
+THE FRAMEWORK: genHat fit:'dome' (DEFAULT) = block at the head's max width from
+top to hat line. fit:'skull' = the taper-following variant, KEPT because Paolo
+kept the pointy beanies (CHARCOAL/RUST WATCH CAP + OLIVE FIELD CAP stay exactly
+as cooked, tagged fit:'skull'). Gate: rounded synthetic skull + DOME LAW check
+(13 checks) -- a future pyramid goes red.
+COOKING now 6: the 3 kept pointy + 3 dome-framework (STORM KNIT CAP, SAND KNIT
+CAP, SLATE WORK CAP).
+
+--- LEVEL CUFF (7/19/26) — Paolo: "why are the beanies in the back longer than
+    the other parts of the head?" ---
+Because I filled every facing to the durag line, and the durag is DEEPER from
+behind (it wraps toward the nape: 7 rows vs 4 in front). Right for a durag,
+wrong for a beanie -- a beanie's cuff is a LEVEL band. FIX: wear depth is now
+UNIFORM (the shallowest durag depth across facings), so the cuff sits at the
+same height in all 8 views; the per-facing durag line remains only the legal
+never-cross bound. Applies to beanie + cap, both fits; the rice hat untouched.

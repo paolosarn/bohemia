@@ -37,8 +37,10 @@ ok('genHat evaluates as a pure function', typeof genS === 'function' && typeof g
 if (genS && genN) {
   const CW = 56, g = new Array(CW * CW).fill(0);
   const fill = (x0, x1, y0, y1, id) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) g[y * CW + x] = id; };
-  fill(24, 31, 6, 14, 1);   // head
-  fill(25, 30, 8, 13, 2);   // face (front of the head, brow to chin)
+  fill(27, 28, 6, 6, 1);    // head crown (NARROW -- real skulls taper; the dome law must beat it)
+  fill(25, 30, 7, 7, 1);
+  fill(24, 31, 8, 14, 1);   // head body
+  fill(25, 30, 9, 13, 2);   // face (front of the head, brow to chin)
   fill(26, 29, 15, 15, 3);  // neck
   fill(23, 32, 16, 32, 4);  // torso
   fill(20, 23, 18, 33, 5);  fill(32, 35, 18, 33, 6);   // arms
@@ -64,6 +66,11 @@ if (genS && genN) {
     // 3. on top of the skull: beanie/cap/brim add pixels above the head top
     ok('beanie/cap/brim add geometry above the skull top', ['beanie', 'cap', 'brim'].every(k =>
       Object.keys(outs[k + 'S']).some(i => ((+i / CW) | 0) < hTop)));
+    // DOME LAW (Paolo 7/19): default-fit hats are a BLOCK at full head width --
+    // never a pyramid following the skull taper. Top row must be nearly full width.
+    const topRow = Object.keys(outs.beanieS).filter(i => ((+i / CW) | 0) === hTop - 1).map(i => +i % CW);
+    const topW = topRow.length ? Math.max(...topRow) - Math.min(...topRow) + 1 : 0;
+    ok('DOME LAW: beanie top row is a block (>= head width - 2), not a skull point', topW >= 6);
     // 4. directional cap brim: pokes past the head width in front, not from behind
     const beyond = (o) => Object.keys(o).some(i => { const x = +i % CW; return x < 24 || x > 31; });
     ok('cap brim pokes past the head in FRONT', beyond(outs.capS));
