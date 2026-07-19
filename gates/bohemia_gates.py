@@ -54,6 +54,8 @@ GATES = [
      'every district type files into one category', False),
     ('INDUSTRIAL',     ['node', 'gates/industrial_gate.js'],
      'warehouse yard on the kit: buildings + yard connected', False),
+    ('MEDICAL',        ['node', 'gates/medical_gate.js'],
+     'hospital campus: ER, ambulance, helipad, garage', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
      'one API addresses valley down to a room', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],

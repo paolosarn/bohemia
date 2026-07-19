@@ -13,7 +13,9 @@ uncategorized. Paolo DECIDES final buckets; move any type by editing the kit + r
 2. **COMMERCIAL** — retail, trade, business, lodging-for-trade.
 3. **INDUSTRIAL** — production, logistics, salvage, storage of goods. (The distribution
    center / warehouse is here.)
-4. **GAMING & RESORT** — the Vegas tourism/gaming economy + the Strip icons.
+4. **GAMING & RESORT** — the Vegas tourism/gaming economy + the Strip icons. BESPOKE:
+   these get individual hand-crafted love (Paolo 7/18), NOT the auto-factory. They stay
+   landmark placeholders until built by hand, one at a time.
 5. **CIVIC** — government, safety, health, education, worship, death, public assembly.
 6. **LEISURE** — parks, sports venues, recreation.
 7. **INFRASTRUCTURE** — transport, power, water, comms, extraction, agriculture (the systems).
