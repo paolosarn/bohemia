@@ -17,8 +17,15 @@ const DISTRICTS = [
 ];
 
 for (const d of DISTRICTS) {
-  const L = d.mod.legend, P = d.mod.palette || {};
+  const L = d.mod.legend, P = d.mod.palette || {}, NT = d.mod.notes;
   ok(d.name + ': exposes a LEGEND + PALETTE', !!L && !!d.mod.palette);
+  // the DOSSIER (Paolo 7/19: "record all the notes of what the hell is happening"): every
+  // district carries a NOTES block — summary + real-world reference + layout + circulation +
+  // decisions — so its full build story is recorded, not just the tile legend.
+  ok(d.name + ': carries a full NOTES dossier (summary/reference/layout/circulation/decisions)',
+    !!NT && !!NT.summary && Array.isArray(NT.reference) && NT.reference.length > 0 &&
+    Array.isArray(NT.layout) && NT.layout.length > 0 && !!NT.circulation &&
+    Array.isArray(NT.decisions) && NT.decisions.length > 0);
   if (!L) continue;
   // every legend entry is complete (name + kind + act-1 material)
   const complete = Object.keys(L).every(c => L[c] && L[c].name && L[c].kind && L[c].act1);

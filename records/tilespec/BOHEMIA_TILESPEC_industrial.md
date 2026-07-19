@@ -1,9 +1,27 @@
-# BOHEMIA TILE SPEC — INDUSTRIAL
+# BOHEMIA DISTRICT DOSSIER — INDUSTRIAL
 
 _Category: **industrial**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_industrial.js` (LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_industrial.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
+**Distribution center — one big warehouse, a dock-door row, a truck court, a trailer yard, a front office + employee lot, a guard shack, fenced.**
+
+### Real-world reference
+- Real DC site plans (renoindustrial.com, steelcobuildings.com, alliedbuildings.com): one big box (not equal sheds), dock doors ~14ft o.c., a ~130ft truck court, ~1 trailer stall per dock, a front office + car park, fenced drive-in gates
+
+### Layout — what is where
+- ONE big warehouse backs the far edge (a DC is one box).
+- A row of dock doors along the front feeds a deep truck-court apron for backing trailers.
+- Trailer staging + a parking yard (striped stalls, many parked trailers); an employee car lot + office + guard shack at the front; shipping containers; a perimeter fence.
+
+### Circulation (street-aware / drivable)
+Street-aware: exits the streets it touches with wide drive-in TRUCK gates; the asphalt + truck court form one connected yard reachable from the gate (driveConnected). Verified connected in all 6 placements.
+
+### Decisions & rulings
+- REBUILT from real DC research (Paolo: research the real thing first).
+- Gate hardened to all 6 placements + a drive-reach assertion (7/19).
+
+### Tile legend — every code, its material to skin
 | code | color | tile / name | kind | ACT-1 material (tile this) | in cell | ACT-2/3 |
 |---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt / gravel (setback, yard gaps) | — | [PENDING Paolo] |

@@ -87,15 +87,20 @@ That is what turns "30 districts x tiles x 3 acts" from impossible into a queue.
 9. EXPLAIN-EVERY-TILE != CRAM-EVERY-TILE. Open lawn is a NAMED, intentional thing threaded
    by trees/paths/benches. The target is the REAL density — not maximal, not empty.
 
-## THE TILE-SPEC NOTE SECTION (Paolo 7/19: "every time I approve a district you're recording
-## a note section about everything you built, so when it comes to put TILES on it it's easier")
-Every built district exposes a machine-readable LEGEND (code -> {name, kind, ACT-1 dead-world
-material}) right next to its PALETTE. `node tools/bohemia_tilespec.js` GENERATES a per-district
-sheet in records/tilespec/ (+ an index) from that legend, so the tiling phase opens ONE sheet
-and every tile code maps to known art. `gates/tilespec_gate.js` fails if any district ships a
-tile code without a legend entry — the note section can never drift from the tiles. ACT-2/3
-evolution of each material is [PENDING Paolo] (CONTENTS-PAOLO'S). STANDING FLOW: a new/approved
-district = expose its LEGEND + rerun the generator, same turn.
+## THE DISTRICT DOSSIER — RECORD WHAT THE HELL IS HAPPENING (Paolo 7/19: "record all the notes
+## of what the hell is happening in our district... keep that in mind moving forward")
+Every built district exposes, right next to its PALETTE, two machine-readable blocks:
+- NOTES = the full build story: {summary, reference[] (real-world basis/research), layout[]
+  (what is where), circulation (street-aware/drivable), decisions[] (Paolo's rulings folded in)}.
+- LEGEND = code -> {name, kind, ACT-1 dead-world material}.
+`node tools/bohemia_tilespec.js` GENERATES a full per-district DOSSIER (records/tilespec/
+BOHEMIA_TILESPEC_<name>.md + an index) from both blocks — reference, layout, circulation,
+decisions, then a tile table with a material for every code. So the tiling phase (and any
+future me) opens ONE sheet and knows everything: why it's built that way AND what art each tile
+needs. `gates/tilespec_gate.js` fails if a district lacks a complete NOTES dossier OR ships an
+undocumented tile code — the record can never drift from the district. ACT-2/3 evolution is
+[PENDING Paolo]. STANDING FLOW (keep in mind moving forward): a new/approved district exposes
+NOTES + LEGEND + reruns the generator, SAME TURN. Never build a district without its dossier.
 
 ## THE PROMISE TO PAOLO
 Next builds: I read the relevant law first, I render and look before I show him, I batch

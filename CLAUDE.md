@@ -23,6 +23,12 @@ research partner. He DECIDES, you PRODUCE.
   runs every gate; green or it does not ship.
 - GIT IS THE MEMORY. Commit every decision the turn it is made. (This replaces
   the chat-era FILE-IS-MEMORY and master-zip carry: the repo never resets.)
+- DISTRICT DOSSIER LAW (Paolo 7/19, "keep that in mind moving forward"): NEVER
+  build or approve a district without recording its full note section. Each
+  district module exposes NOTES {summary, reference, layout, circulation,
+  decisions} + LEGEND {code->name,kind,act-1 material}; node tools/bohemia_tilespec.js
+  generates the dossier (records/tilespec/); tilespec_gate.js fails if it's
+  missing. So the tiling phase (and the next session) knows what everything is.
 - GRAVEYARD IS FINAL: dead things stay dead (registry: gates/bohemia_graveyard.txt).
   No remakes. Fresh cooks answer dead slots.
 - ENGINE SYNC LAW: one canonical body per module (gates/bohemia_sync_canon.txt).

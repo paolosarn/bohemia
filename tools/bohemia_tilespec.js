@@ -40,12 +40,22 @@ for (const d of DISTRICTS) {
   const drivable = Object.keys(legend).some(c => legend[c].kind === 'drive');
   const codes = Object.keys(legend).map(Number).sort((a, b) => a - b);
 
-  let md = '# BOHEMIA TILE SPEC — ' + d.name.toUpperCase() + '\n\n';
+  const notes = d.mod.notes;
+  let md = '# BOHEMIA DISTRICT DOSSIER — ' + d.name.toUpperCase() + '\n\n';
   md += '_Category: **' + cat + '**  ·  Cell: 96 m × 96 m = ' + N + '×' + N + ' tiles (' + TILE + ' m/tile)  ·  ';
   md += 'Street-aware + ' + (drivable ? 'drivable (explicit car network)' : 'no car network') + '_\n\n';
-  md += 'GENERATED from `engine/bohemia_' + d.name + '.js` (LEGEND + PALETTE) — do not hand-edit; ';
+  md += 'GENERATED from `engine/bohemia_' + d.name + '.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; ';
   md += 'rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ';
   md += 'ACT-2/3 evolution is Paolo\'s call.\n\n';
+  // ---- the DOSSIER: what the hell is happening in this district ----
+  if (notes) {
+    if (notes.summary) md += '**' + notes.summary + '**\n\n';
+    if (notes.reference && notes.reference.length) md += '### Real-world reference\n' + notes.reference.map(s => '- ' + s).join('\n') + '\n\n';
+    if (notes.layout && notes.layout.length) md += '### Layout — what is where\n' + notes.layout.map(s => '- ' + s).join('\n') + '\n\n';
+    if (notes.circulation) md += '### Circulation (street-aware / drivable)\n' + notes.circulation + '\n\n';
+    if (notes.decisions && notes.decisions.length) md += '### Decisions & rulings\n' + notes.decisions.map(s => '- ' + s).join('\n') + '\n\n';
+  }
+  md += '### Tile legend — every code, its material to skin\n';
   md += '| code | color | tile / name | kind | ACT-1 material (tile this) | in cell | ACT-2/3 |\n';
   md += '|---|---|---|---|---|---|---|\n';
   for (const c of codes) {

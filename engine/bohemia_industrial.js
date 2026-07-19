@@ -104,9 +104,19 @@
     10:{name:'container',         kind:'prop',       act1:'rusted shipping container, dented, stacked'},
     11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark'}
   };
-  K.register('industrial', { generate:generate, body:function(c){return c===2||c===6;}, palette:PALETTE, legend:LEGEND });
+  var NOTES={
+    summary:'Distribution center — one big warehouse, a dock-door row, a truck court, a trailer yard, a front office + employee lot, a guard shack, fenced.',
+    reference:['Real DC site plans (renoindustrial.com, steelcobuildings.com, alliedbuildings.com): one big box (not equal sheds), dock doors ~14ft o.c., a ~130ft truck court, ~1 trailer stall per dock, a front office + car park, fenced drive-in gates'],
+    layout:['ONE big warehouse backs the far edge (a DC is one box).',
+      'A row of dock doors along the front feeds a deep truck-court apron for backing trailers.',
+      'Trailer staging + a parking yard (striped stalls, many parked trailers); an employee car lot + office + guard shack at the front; shipping containers; a perimeter fence.'],
+    circulation:'Street-aware: exits the streets it touches with wide drive-in TRUCK gates; the asphalt + truck court form one connected yard reachable from the gate (driveConnected). Verified connected in all 6 placements.',
+    decisions:['REBUILT from real DC research (Paolo: research the real thing first).',
+      'Gate hardened to all 6 placements + a drive-reach assertion (7/19).']
+  };
+  K.register('industrial', { generate:generate, body:function(c){return c===2||c===6;}, palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaIndustrial=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

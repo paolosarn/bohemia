@@ -1,9 +1,33 @@
-# BOHEMIA TILE SPEC — PARK
+# BOHEMIA DISTRICT DOSSIER — PARK
 
 _Category: **leisure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_park.js` (LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_park.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
+**Realistic neighborhood park — mostly open lawn with a few well-spaced amenities on a winding trail.**
+
+### Real-world reference
+- Neighborhood-park design guides (Miracle Recreation, Park N Play, TX AgriLife, Fresno/Tracy PRMPs)
+- ~half a park is passive open lawn; high-use amenities sit near the street for surveillance
+- paths are curvilinear and route AROUND amenities — never a geometric circle
+
+### Layout — what is where
+- Open dead-turf lawn is ~75% of the cell — the passive heart.
+- A winding Catmull-Rom loop trail threads the lawn and flows AROUND every feature (drawn after the amenities).
+- Playground + one basketball court along the street edge (visible for surveillance).
+- Small parking pullout at the entrance; picnic shelter + restroom in the quiet upper-left with a shade grove.
+- Naturalistic dead pond (present per seed) OR a tree stand in its place; perimeter tree buffer; benches at the trail bends.
+
+### Circulation (street-aware / drivable)
+Street-aware via canonical-south + K.rotateToStreet. ONE car entrance on the primary street (order S>E>W>N) with an explicit asphalt drive (code 12) into the lot; corner side streets get a PEDESTRIAN gate. A car reaches every stall from the curb.
+
+### Decisions & rulings
+- v1 "super park" (every amenity crammed in) REJECTED — rebuilt realistic, lawn-dominant (>55% gate).
+- v2 perfect-circle path + court punching through it REJECTED — curvilinear trail, amenities drawn first.
+- SEED VARIETY: pond present/absent + trail/amenity jitter so several parks differ.
+- STREET-AWARE/DRIVABLE law (7/19): one car entrance + pedestrian side, drive reaches every stall, any placement.
+
+### Tile legend — every code, its material to skin
 | code | color | tile / name | kind | ACT-1 material (tile this) | in cell | ACT-2/3 |
 |---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | edge dead-ground | ground | bare cracked dirt at the parcel edge (setback) | 493 tiles | [PENDING Paolo] |

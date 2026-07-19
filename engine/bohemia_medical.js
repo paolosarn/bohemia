@@ -109,9 +109,21 @@
     10:{name:'parking stall',     kind:'marking',    act1:'faded stall stripe on asphalt'},
     11:{name:'parked vehicle',    kind:'vehicle',    act1:'abandoned car / dead ambulance, dust-caked'}
   };
-  K.register('medical', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND });
+  var NOTES={
+    summary:'Hospital campus — hospital + ER wing, a separate ambulance court with a helipad, a parking garage, a visitor lot, and a medical office building.',
+    reference:['Real hospital site guides (healthfacilityguidelines.com, hdrinc.com): hospital + ER, a separate ambulance court + canopy + helipad, a main-entrance drop-off, a visitor lot, a decked garage, an MOB'],
+    layout:['Big hospital + ER wing back the campus; a main-entrance canopy + drop-off lane + crosswalk across the front.',
+      'A SEPARATE ambulance court at the ER: staging bays (parked ambulances) + a helipad.',
+      'A decked parking garage (with a ramp) on one side; a full visitor lot (striped stalls, parked cars, dead-planter islands); a medical office building at a lot corner.',
+      'A bottom DRIVE BAND ties the gates, the front apron, the lot, and the garage ramp together.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet — the whole campus rotates onto the real street (this FIXED a real bug where a north-only cell left the drive band stranded behind the hospital). Drive = code 1; a car reaches the drive network from the curb in ANY placement (K.driveReachFromStreet).',
+    decisions:['EXPLAIN-EVERY-TILE: no blank slabs — planters/walkways fill the apron.',
+      'Retrofit onto rotateToStreet (7/19) FIXED a real drive-disconnect bug for north-only + N+W-corner cells.',
+      'Two curb cuts on the PRIMARY street (public + emergency) are allowed (same frontage); corner side streets get a pedestrian gate.']
+  };
+  K.register('medical', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaMedical=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

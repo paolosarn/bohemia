@@ -1,9 +1,26 @@
-# BOHEMIA TILE SPEC — SOLAR
+# BOHEMIA DISTRICT DOSSIER — SOLAR
 
 _Category: **infrastructure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  ·  Street-aware + drivable (explicit car network)_
 
-GENERATED from `engine/bohemia_solar.js` (LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
+GENERATED from `engine/bohemia_solar.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
+**Utility solar farm — panel arrays, gravel access roads, inverter/transformer pads, a substation switchyard + control building, fenced. INTACT + generating (clustered-power lore).**
+
+### Real-world reference
+- Real utility-solar sites (pvfarm.io, pvcase.com): long panel rows, 20-30ft gravel O&M roads splitting the field into blocks, an inverter/transformer pad per block, a project substation switchyard, a control building, a perimeter fence + driveway gate
+
+### Layout — what is where
+- Panel array rows fill the field; gravel access roads split it into blocks.
+- An inverter/transformer pad anchors each block; a substation switchyard + control building in a corner link to the grid; a perimeter fence + a driveway gate.
+
+### Circulation (street-aware / drivable)
+Street-aware: a security drive gate off the access road on the street(s) it touches; the gravel roads run edge-to-edge and are reachable from the gate in any placement (driveConnected).
+
+### Decisions & rulings
+- CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — panels/switchgear read maintained, NOT decayed (unlike other districts).
+- driveConnected + full 6-placement gate coverage added 7/19.
+
+### Tile legend — every code, its material to skin
 | code | color | tile / name | kind | ACT-1 material (tile this) | in cell | ACT-2/3 |
 |---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare desert dirt (setback between fence and field) | 1667 tiles | [PENDING Paolo] |

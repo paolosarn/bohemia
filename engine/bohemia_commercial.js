@@ -150,9 +150,19 @@
     10:{name:'gas canopy',        kind:'structure',  act1:'fuel-island canopy, faded brand, sagging'},
     11:{name:'gas pump',          kind:'prop',       act1:'dead fuel pump, dust-caked, hoses down'}
   };
-  if(typeof K!=='undefined'&&K.register) K.register('commercial', { generate:generate, body:function(c){return c===2;}, category:'commercial', palette:PALETTE, legend:LEGEND });
+  var NOTES={
+    summary:'Corner shopping plaza — an L of stores on the back property lines, parking fronting the streets, a rear service alley, a gas station in the corner.',
+    reference:['Vegas corner strip mall via the PLACEMENT PLAYBOOK (roads/parking FIRST, straight segments, dead-world) + BOHEMIA_PARKING_LAW (2-wide stalls, stripe every 3rd tile, row 4 deep, aisle <=4)'],
+    layout:['Stores on the back property lines; a parking lot (striped stalls + drive aisles) fronting the streets; curb cuts connect the lot to the streets.',
+      'Every business has a back service door onto a rear SERVICE ALLEY (the "mini road") wrapping the back corner for trash + deliveries.',
+      'A gas station pad (canopy + pumps + kiosk) sits in the street corner.'],
+    circulation:'Street-aware CORNER form: 2 curb cuts per street; the parking + aisles + curb cuts + alley form one drive network reachable from a curb cut (driveConnected).',
+    decisions:['This is the CORNER form BY DESIGN — Paolo: "we\'d have to completely remake it to squeeze between two other districts."',
+      '[PENDING Paolo] its standalone / mid-block form (how a plaza reshapes off a corner) — gated on S/corners/N only for now, NOT arbitrary single edges.']
+  };
+  if(typeof K!=='undefined'&&K.register) K.register('commercial', { generate:generate, body:function(c){return c===2;}, category:'commercial', palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,hasServiceAccess:hasServiceAccess,palette:PALETTE,legend:LEGEND,SZ:SZ,TILE:TILE};
+  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,hasServiceAccess:hasServiceAccess,palette:PALETTE,legend:LEGEND,notes:NOTES,SZ:SZ,TILE:TILE};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaCommercial=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

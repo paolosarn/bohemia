@@ -212,9 +212,21 @@
     6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)'}
   };
-  if(typeof K!=='undefined'&&K.register) K.register('suburb', { generate:generate, body:function(c){return c===2||c===9;}, category:'residential', palette:PALETTE, legend:LEGEND });
+  var NOTES={
+    summary:'Walled tract-home neighborhood — cul-de-sac streets off the gate, homes with front-garage driveways, packed lots, dead-dirt yards.',
+    reference:['Vegas suburb: ~14x8m house body + 6x6m front garage + 6m driveway on ~16m lots; ~85-90% single-family by land area; curvilinear cul-de-sacs, walled, few entries'],
+    layout:['Cul-de-sac streets branch off the entrance gate; homes line them on packed ~0.15-acre lots.',
+      'Each home: a short driveway apron -> a front-corner garage -> the house body; 2-story homes add an upper-floor mass (code 9).',
+      'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
+      'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
+    circulation:'Street-aware: gates only on street edges (a corner exits two streets); roads reach every lot from the gate (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface.',
+    decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
+      'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
+      'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']
+  };
+  if(typeof K!=='undefined'&&K.register) K.register('suburb', { generate:generate, body:function(c){return c===2||c===9;}, category:'residential', palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,homeFootprints:homeFootprints,roadConnected:roadConnected,palette:PALETTE,legend:LEGEND,SZ:SZ,TILE:TILE};
+  var API={generate:generate,homeFootprints:homeFootprints,roadConnected:roadConnected,palette:PALETTE,legend:LEGEND,notes:NOTES,SZ:SZ,TILE:TILE};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaSuburb=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

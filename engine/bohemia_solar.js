@@ -76,9 +76,18 @@
     6:{name:'substation switchgear',kind:'structure',act1:'switchyard racks, breakers, bus — intact, live'},
     7:{name:'solar panel',        kind:'panel',      act1:'PV panel row, dark blue-black glass, clean (still generating)'}
   };
-  K.register('solar', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND });
+  var NOTES={
+    summary:'Utility solar farm — panel arrays, gravel access roads, inverter/transformer pads, a substation switchyard + control building, fenced. INTACT + generating (clustered-power lore).',
+    reference:['Real utility-solar sites (pvfarm.io, pvcase.com): long panel rows, 20-30ft gravel O&M roads splitting the field into blocks, an inverter/transformer pad per block, a project substation switchyard, a control building, a perimeter fence + driveway gate'],
+    layout:['Panel array rows fill the field; gravel access roads split it into blocks.',
+      'An inverter/transformer pad anchors each block; a substation switchyard + control building in a corner link to the grid; a perimeter fence + a driveway gate.'],
+    circulation:'Street-aware: a security drive gate off the access road on the street(s) it touches; the gravel roads run edge-to-edge and are reachable from the gate in any placement (driveConnected).',
+    decisions:['CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — panels/switchgear read maintained, NOT decayed (unlike other districts).',
+      'driveConnected + full 6-placement gate coverage added 7/19.']
+  };
+  K.register('solar', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaSolar=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

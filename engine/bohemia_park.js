@@ -129,9 +129,27 @@
     12:{name:'driveway / parking aisle',kind:'drive',act1:'cracked asphalt drive surface (car-drivable)'},
     13:{name:'site furniture',    kind:'prop',       act1:'weathered bench / picnic table / trash can'}
   };
-  K.register('park', { generate:generate, body:function(c){return c===2;}, palette:PALETTE, legend:LEGEND, category:'leisure' });
+  // DISTRICT DOSSIER (Paolo 7/19: "record all the notes of what the hell is happening in our
+  // district"). The full build story, generated into the tile-spec sheet alongside the legend.
+  var NOTES={
+    summary:'Realistic neighborhood park — mostly open lawn with a few well-spaced amenities on a winding trail.',
+    reference:['Neighborhood-park design guides (Miracle Recreation, Park N Play, TX AgriLife, Fresno/Tracy PRMPs)',
+      '~half a park is passive open lawn; high-use amenities sit near the street for surveillance',
+      'paths are curvilinear and route AROUND amenities — never a geometric circle'],
+    layout:['Open dead-turf lawn is ~75% of the cell — the passive heart.',
+      'A winding Catmull-Rom loop trail threads the lawn and flows AROUND every feature (drawn after the amenities).',
+      'Playground + one basketball court along the street edge (visible for surveillance).',
+      'Small parking pullout at the entrance; picnic shelter + restroom in the quiet upper-left with a shade grove.',
+      'Naturalistic dead pond (present per seed) OR a tree stand in its place; perimeter tree buffer; benches at the trail bends.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet. ONE car entrance on the primary street (order S>E>W>N) with an explicit asphalt drive (code 12) into the lot; corner side streets get a PEDESTRIAN gate. A car reaches every stall from the curb.',
+    decisions:['v1 "super park" (every amenity crammed in) REJECTED — rebuilt realistic, lawn-dominant (>55% gate).',
+      'v2 perfect-circle path + court punching through it REJECTED — curvilinear trail, amenities drawn first.',
+      'SEED VARIETY: pond present/absent + trail/amenity jitter so several parks differ.',
+      'STREET-AWARE/DRIVABLE law (7/19): one car entrance + pedestrian side, drive reaches every stall, any placement.']
+  };
+  K.register('park', { generate:generate, body:function(c){return c===2;}, palette:PALETTE, legend:LEGEND, notes:NOTES, category:'leisure' });
 
-  var API={generate:generate,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
+  var API={generate:generate,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaPark=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

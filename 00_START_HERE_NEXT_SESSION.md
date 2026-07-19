@@ -871,16 +871,16 @@ Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SU
 in the legend; research what fills the space and put it there. Kit helpers legendOk/
 voidFraction/largestBlob gate it. Applies to EVERY district.
 
-## TILE-SPEC NOTE SECTION (Paolo 7/19: "every time I approve a district you're recording a
-note section about everything you built so putting TILES on it is easier, right"): YES, now
-properly. Each district module exposes a machine-readable LEGEND (code -> {name, kind, ACT-1
-dead-world material}) beside its PALETTE. tools/bohemia_tilespec.js GENERATES per-district
-sheets records/tilespec/BOHEMIA_TILESPEC_<name>.md + records/BOHEMIA_TILESPEC_INDEX.md from
-the legend (can't drift). gates/tilespec_gate.js fails if any district ships an undocumented
-tile code (24 checks, 6 districts). Done for all 6 built districts (suburb/commercial/
-industrial/medical/solar/park). ACT-2/3 evolution of each material = [PENDING Paolo]. STANDING
-FLOW: new/approved district exposes a LEGEND + rerun the generator, same turn. This is the
-"note section" for the tiling phase.
+## DISTRICT DOSSIER — RECORD WHAT THE HELL IS HAPPENING (Paolo 7/19: "record all the notes of
+what the hell is happening in our district... keep that in mind moving forward"): DONE for all
+6 built districts. Each module exposes NOTES {summary, reference[], layout[], circulation,
+decisions[]} + LEGEND {code -> name, kind, ACT-1 material} beside its PALETTE. tools/bohemia_
+tilespec.js GENERATES a full DOSSIER per district (records/tilespec/BOHEMIA_TILESPEC_<name>.md
++ INDEX): real-world reference, layout, circulation, Paolo's rulings, then a tile table with a
+material for every code. gates/tilespec_gate.js (30 checks) fails if a district lacks a complete
+NOTES dossier OR ships an undocumented tile code — the record can't drift. ACT-2/3 = [PENDING
+Paolo]. STANDING FLOW (keep in mind forever): NEVER build/approve a district without its
+NOTES+LEGEND dossier + rerun the generator, same turn.
 
 ## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
 a corner is gonna be super important, for everything moving forward"): every road-fronting
