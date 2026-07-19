@@ -30,3 +30,8 @@ n:'OXBLOOD HEADWRAP' | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Wraps comp
 n:'OLIVE HEADWRAP'   | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same. Do not re-add.
 n:'DESERT WIDE-BRIM' | 7/18/26 | RENAMED by Paolo's ruling -> CHINESE RICE FARMER HAT (canon). The old name is retired, the item lives on renamed.
 n:'BLACK SHADES'     | 7/19/26 | DOWN twice, GRAVEYARD FINAL as an item ("worst shades of all time -- a straight black line that didn't connect and wrap around the head"). The shades CONCEPT lives on (Paolo's earlier ruling); fresh cooks answer with new names + the wraparound mechanism.
+n:'A PRAYER WOUND BACKWARDS'      | 7/19/26 | DOWN (batch 11, Paolo's full-catalog verdict). GRAVEYARD FINAL. wailmorph voice retired with it. Do not re-add.
+n:'THROAT OF THE DROWNED NAVE'    | 7/19/26 | DOWN (batch 11). GRAVEYARD FINAL. throatsong voice retired with it. Do not re-add.
+n:'THE TIDE THAT KEEPS THE NAMES' | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. chebychoir voice retired with it. Do not re-add.
+n:'A CHORD OF DROWNED BELLS'      | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. clusternave voice retired with it. Do not re-add.
+n:'LAST BREATH OF THE ORGAN'      | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. ironlung voice retired with it. Do not re-add.

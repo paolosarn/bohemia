@@ -292,17 +292,42 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    branch claude/life-session) and laws/BOHEMIA_SESSION_BRIEF_COMBAT_7_19_26
    .md (fun-first beat combat, NO DAMAGE BEFORE THE DIAL, branch
    claude/combat-session). Wardrobe stands at 78 CANON, all categories.
+-3b. MUSIC: FULL-CATALOG VERDICT + CATEGORY LAW + BATCH 14 (7/19, PROCESSED):
+   Paolo judged EVERYTHING after 30 min of listening. Nearly all CANON. FIVE
+   DOWN graveyard-final (removed from MLOOPS/NEW_VIBES/CANON_DEFAULTS, registry
+   tokens added, lead voices retired): A PRAYER WOUND BACKWARDS + THROAT OF THE
+   DROWNED NAVE (batch 11), THE TIDE THAT KEEPS THE NAMES + A CHORD OF DROWNED
+   BELLS + LAST BREATH OF THE ORGAN (batch 12). Batch 12 survivors canon.
+   MUSIC CATEGORY LAW (locked, in the embedded lawbook): EDIT button DEAD ("I'm
+   never editing shit"), replaced by the CAT button -- checklist of HIS
+   categories (one per faction, MENU, OVERWORLD NIGHT / DAY / DUSK+DAWN; the
+   old overworld = the NIGHT set, his ruling). His 7/19 assignments baked as
+   CAT_DEFAULTS (SERVER FARM + DELTA BLUES -> NETWORK, FLUORESCENT DAWN ->
+   CHURCH, DEAD MANS SLIDE -> HOMELESS "elder and King Hobo", HIGHWAY 15 SOUTH
+   -> CARAVANS, THRONE OF STATIC -> REMNANTS, PYREFLIES RISE -> DAY, TWO COINS
+   FOR THE FERRYMAN + THE WIND LEARNS WORDS -> DUSK/DAWN, CAMPFIRE CONFESSION +
+   THE VAULT + THE CHOIR THAT STAYED + THE ORGAN IN THE DROWNED CHAPEL ->
+   NIGHT). UI groups by category (faction vibes ride indented under the
+   faction's hymns; 3 overworld sections); categories ride the export; city
+   shuffle picks by CITYMUS.phase (NIGHT until a world clock lands -- the clock
+   builder sets phase). UNJUDGED LAW fix (caught on the real surface): fresh
+   cooks no longer pre-bake CANON_DEFAULTS=2; unjudged = absent = NEW badge +
+   thumbs live. BATCH 14 cooked answering the 5 graves (shepardfall/sourdyad/
+   unisonsplit/spectretide/strikeswell -- Shepard glide, interval morph,
+   detune-spread envelope, noise ring-mod, strike-into-swell). NEW set = batch
+   13 (6) + batch 14 (5) = 11 unjudged. Records: BOHEMIA_MUSIC_VERDICT_RECORD_
+   7_19_26.txt, BOHEMIA_MUSIC_BATCH14_7_19_26.txt. NEXT: his verdict on the 11;
+   [PENDING Paolo] re-file CAMPFIRE CONFESSION / THE VAULT if not night.
 -3a. MUSIC BATCH 13 — NEW BADGE, PENDING VERDICT (7/19): pure expansion, no open
-   slots. 6 songs, 6 voices born, catalog 124: THE REED THAT HOLDS ITS BREATH
+   slots. 6 songs, 6 voices born: THE REED THAT HOLDS ITS BREATH
    (pwmreed, true comparator PWM), SOMETHING SINGS THROUGH THE PIPES
    (filterfmgrowl, audio-rate filter-FM), WIND THROUGH THE COUNTING HOUSE
    (aeolianharp, wind-excited resonator bank), WHAT THE DRAWBARS REMEMBER
    (drawbarmorph, crossing drawbar envelopes), THE SHAPE THE WATER TAKES
    (wavemorph, dual-waveshaper antiphase morph), TWO LIGHTS OVER THE FLOOD
-   (harmonictrem, band-split antiphase tremolo). Variety law holds across ALL
-   12 unjudged (batch 12+13). Offline-render balanced 0.10-0.20. Music gate
-   14/14. Record: BOHEMIA_MUSIC_BATCH13_7_19_26.txt. NEXT: verdict on 12 songs.
--3. MUSIC BATCH 12 + GRAVEYARD SWEEP — NEW BADGE, PENDING VERDICT (7/18): Paolo's
+   (harmonictrem, band-split antiphase tremolo). Offline-render balanced
+   0.10-0.20. Record: BOHEMIA_MUSIC_BATCH13_7_19_26.txt.
+-3. MUSIC BATCH 12 + GRAVEYARD SWEEP — JUDGED 7/19, see -3b (7/18): Paolo's
    mega-verdict thumbed nearly the whole catalog CANON, killed 6 (SUNKEN VESPERS,
    UNDERTOW, VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR, WHAT THE GLASS
    REMEMBERS — first 3 were briefly canon, newest verdict wins, GRAVEYARD FINAL).
@@ -361,16 +386,12 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    glasses/belt/gloves) -> colorway multiplication off approved bases toward the
    500-800 target -> Paolo's passes (renaming process, act + rarity assignment,
    faction dress, world-grade ruling -- his, never mine).
--2. MUSIC BATCH 11 — NEW BADGE, PENDING PAOLO VERDICT (7/18): "THE DROWNED
-   CATHEDRAL DEEPENS." 6 FF10-horror songs, each births its own lead voice via a
-   topology the catalog never ran: ring modulation (ashenbell), modal synthesis
-   (boneplate), wavefolding (foldchoir), rotary/Leslie (roterror), moving-ratio
-   FM (wailmorph), overtone singing (throatsong). Songs: THE CHOIR UNDER THE
-   RESERVOIR, BONE RELIQUARY, WHAT THE GLASS REMEMBERS, THE TURBINE STILL TURNS,
-   A PRAYER WOUND BACKWARDS, THROAT OF THE DROWNED NAVE. Music gate 14/14 (variety
-   + new-voices + screech all green), offline-render verified. NEW_VIBES now
-   points at batch 11 (batch 9/10 judged canon, dropped the badge). Record:
-   records/BOHEMIA_MUSIC_BATCH11_7_18_26.txt. NEXT: process Paolo's verdict.
+-2. MUSIC BATCH 11 — JUDGED (7/18 cook, 7/19 verdict): 3 CANON (THE CHOIR UNDER
+   THE RESERVOIR, BONE RELIQUARY, THE TURBINE STILL TURNS), 3 DOWN graveyard-
+   final across the two verdicts (WHAT THE GLASS REMEMBERS killed 7/18; A PRAYER
+   WOUND BACKWARDS + THROAT OF THE DROWNED NAVE killed 7/19; wailmorph/
+   throatsong/foldchoir voices retired). Record:
+   records/BOHEMIA_MUSIC_BATCH11_7_18_26.txt (tombstoned).
 -1. CLOTHING FACTORY — CANON MENU LIVE, all 9 approved (7/18): CLOTHES tab now
    has a COOKING area (fresh candidates + thumbs) and a collapsible CANON WARDROBE
    (approved items collapse in, each with a CANON chip; only visible rigs animate).

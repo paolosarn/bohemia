@@ -1,0 +1,47 @@
+BOHEMIA MUSIC — COOK BATCH 14 (7/19/26)
+Answers the 5 graveyard slots from Paolo's 7/19 full-catalog verdict (2 batch-11
+dead, 3 batch-12 dead). FF10 horror, melodic under dread. Fresh names, fresh
+voices, no remakes. Catalog: 124 songs.
+
+THE FIVE (each song OWNS its lead; support reuses the canon dread set):
+
+1. THE STAIRS UNDER THE LAKEBED  (root44, [0,1,3,7,8], half, kick[0,10])
+   shepardfall — SHEPARD glide. Five octave-spaced sines all slide DOWN one
+   octave while their gains hand off along a fixed loudness bell: a staircase
+   that descends forever and arrives nowhere. Catalog first.
+
+2. WHAT SOURS IN THE SINGING  (root46, [0,2,3,6,7,9], normal, kick[0,4,11])
+   sourdyad — INTERVAL morph. The second voice glides minor-third -> tritone ->
+   back, so the HARMONY itself curdles mid-note and half-recovers. The melody
+   is fine; the chord is wrong. Catalog first (moving-ratio FM morphed timbre;
+   this morphs the interval).
+
+3. ONE VOICE BECOMES A CROWD  (root42, [0,1,4,7,9], half, kick[0,8,13])
+   unisonsplit — detune-spread ENVELOPE. Five saws start as ONE pure voice and
+   the spread itself is the envelope: they drift apart into a wrong crowd, then
+   only half-return. Catalog first (clusternave had fixed offsets; here the
+   WIDTH moves — and clusternave is retired anyway).
+
+4. THE NOISE THAT TOOK THE VEIL  (root45, [0,2,3,5,8,10], normal, kick[0,9,12])
+   spectretide — noise RING-MOD. Broadband noise MULTIPLIED by a sine carrier
+   through a base-0 gain, dragging static into pitched sidebands around the
+   note; a veil of noise that sings. Catalog first (aeolianharp filters noise;
+   this multiplies it. ashenbell multiplied osc x osc).
+
+5. THE STRIKE THAT BLOOMS  (root48, [0,1,5,6,10], half, kick[0,5,10])
+   strikeswell — strike-into-swell CROSSFADE. A fast-dying metallic strike
+   (inharmonic partials, 0.55s) hands the note to a slow choir swell of the
+   same pitch. Attack and body are two different instruments. Catalog first.
+
+LAWS:
+- SCREECH LAW: zero createDelay/createConvolver, nothing feeds back. Offline
+  render verified all 5 synthesize clean; levels balanced into the canon band.
+- VARIETY LAW: enforced across the full unjudged set (batches 13+14 = 11
+  songs) — all 11 scale+feel+kick tuples distinct. Gate green.
+- NEW VOICES LAW: each song births its own lead, used by no other.
+- GRAVEYARD FINAL / NO REMAKES: all names + voices collision-checked against
+  MLOOPS, synthV, and the registry (28 dead tokens). Zero collisions. None of
+  the five reuses a dead song's tuple fingerprint.
+
+STATUS: NEW badge on all 5 (+ batch 13's 6 = 11 unjudged).
+[PENDING Paolo verdict].
