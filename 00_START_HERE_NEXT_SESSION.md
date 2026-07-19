@@ -711,13 +711,22 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
 - solar -> INFRASTRUCTURE (bohemia_solar, utility solar farm: panel arrays, gravel access
   roads, inverter/transformer pads, a substation switchyard + control building, fence+gate;
   fits the CLUSTERED-POWER lore). EXPLAIN-EVERY-TILE (void ~10%). Gate solar_gate.js.
-FACTORY now spans 5 categories: residential, commercial, industrial, civic, infrastructure.
+- park -> LEISURE (bohemia_park, community park, research-first + EXPLAIN-EVERY-TILE: a
+  packed 9-acre park — multipurpose/soccer field, baseball diamond (skinned infield, foul
+  lines, backstop, outfield fence), 3 hard courts, playground, skate park w/ two bowls,
+  fenced dog run, community garden beds, central plaza + picnic pavilion + restroom, dead
+  pond, picnic grove w/ tables, parking lot w/ cars, loop trail + spur path network. ACT-1
+  DEAD: dead-brown turf, bare trees, empty pond, dry garden beds; hardscape intact. void
+  ~3%. Gate park_gate.js (6 checks: all amenities present, legend-complete, no-big-void,
+  street-aware gates, registered+leisure, deterministic).
+FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
 history has it if ever wanted as a starting sketch). Do NOT auto-generate gaming_resort.
-NEXT non-casino districts to stamp (research-first, on the kit): leisure (park/stadium),
-more commercial (downtown/mall), infrastructure (solar/substation/transit), residential
-(trailer park/town). Then L3 tiles + L4 3-act states (build once, all inherit).
+NEXT non-casino districts to stamp (research-first, on the kit): more leisure (stadium/golf/
+waterpark), more commercial (downtown/mall/swapmeet), more infrastructure (substation/
+transit/airport), residential (trailer park/town/downtown highrise). Then L3 tiles + L4
+3-act states (build once, all inherit).
 
 ## DISTRICT TAXONOMY (Paolo 7/18: "you have to categorize things nicely")
 Every one of the 77 district types files into ONE of 8 top-level categories (source of

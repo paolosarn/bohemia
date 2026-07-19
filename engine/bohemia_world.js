@@ -23,6 +23,7 @@
   var IND= HASREQ ? require('./bohemia_industrial.js')     : (typeof BohemiaIndustrial!=='undefined'?BohemiaIndustrial:root.BohemiaIndustrial);
   var MED= HASREQ ? require('./bohemia_medical.js')        : (typeof BohemiaMedical!=='undefined'?BohemiaMedical:root.BohemiaMedical);
   var SOL= HASREQ ? require('./bohemia_solar.js')          : (typeof BohemiaSolar!=='undefined'?BohemiaSolar:root.BohemiaSolar);
+  var PRK= HASREQ ? require('./bohemia_park.js')           : (typeof BohemiaPark!=='undefined'?BohemiaPark:root.BohemiaPark);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -36,7 +37,8 @@
     commercial: { mod:COM, foot:function(r){return COM.storeFootprints(r);}, zone:'retail' },
     industrial: { mod:IND, foot:function(r){return r.footprints;},           zone:'warehouse' },
     medical:    { mod:MED, foot:function(r){return r.footprints;},           zone:'institutional' },
-    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office' }
+    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office' },
+    park:       { mod:PRK, foot:function(r){return r.footprints;},           zone:'default' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }

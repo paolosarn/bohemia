@@ -58,6 +58,8 @@ GATES = [
      'hospital campus: ER, ambulance, helipad, garage', False),
     ('SOLAR',          ['node', 'gates/solar_gate.js'],
      'solar farm: panels, inverters, substation, filled', False),
+    ('PARK',           ['node', 'gates/park_gate.js'],
+     'community park: field, diamond, courts, skate, dog run, filled', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
      'one API addresses valley down to a room', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],
