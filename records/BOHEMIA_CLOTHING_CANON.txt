@@ -200,3 +200,12 @@ as cooked, tagged fit:'skull'). Gate: rounded synthetic skull + DOME LAW check
 (13 checks) -- a future pyramid goes red.
 COOKING now 6: the 3 kept pointy + 3 dome-framework (STORM KNIT CAP, SAND KNIT
 CAP, SLATE WORK CAP).
+
+--- LEVEL CUFF (7/19/26) — Paolo: "why are the beanies in the back longer than
+    the other parts of the head?" ---
+Because I filled every facing to the durag line, and the durag is DEEPER from
+behind (it wraps toward the nape: 7 rows vs 4 in front). Right for a durag,
+wrong for a beanie -- a beanie's cuff is a LEVEL band. FIX: wear depth is now
+UNIFORM (the shallowest durag depth across facings), so the cuff sits at the
+same height in all 8 views; the per-facing durag line remains only the legal
+never-cross bound. Applies to beanie + cap, both fits; the rice hat untouched.
