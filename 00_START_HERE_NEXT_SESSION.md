@@ -8,6 +8,40 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
+The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three
+factories, each gated same turn (gates 21-23 in bohemia_gates.py: LIFE 14 /
+DRESS 9 / ECONOMY 13 checks): engine/bohemia_agents.js (typed agent =
+{home room, job, 1440-min schedule} placed BY world() - agentsForPlot;
+households mean ~2.2; jobs read off the real overmap within radius 3;
+block sim with OCCUPANCY + BFS walk, one world-turn = one world-minute),
+engine/bohemia_dress.js (outfits from the canon wardrobe; the 78 canon
+garments extracted READ-ONLY from the clothing factory's GARMENTS array into
+banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt by tools/bohemia_wardrobe_extract.py;
+DRESS gate freshness-checks bank vs the alpha's live canon count - wardrobe
+grows, gate goes red, rerun extractor), engine/bohemia_economy.js (grounded
+scarcity: 4L/day desert water, 2000kcal rations, barter in salvage-kg,
+hyperbolic siege pricing capped 40x, conservation gated; commodity money
+[PENDING Paolo]). ALL assignment tables EMPTY per MECHANISM-MINE:
+FACTION_ASSIGN / FACTION_DRESS / FACTION_ECONOMY + agent names are H3-2
+designations until Paolo rules. Full spec: laws/BOHEMIA_LIFE_SPEC_7_19_26.md.
+THE SURFACE (judge, [PENDING Paolo verdict]): a new LIFE tab in the alpha
+(lazy iframe -> slices/BOHEMIA_LIFE_CURRENT.html, stable URL, same pattern as
+SLICE) shows the approved block ALIVE: 47 residents sleep at night, ration at
+dawn, the employed walk out the gate to the commercial block east, scavengers
+sweep with a midday heat shelter, dusk return. WATCH = a day in 12 min on the
+beat / STEP = i-move-you-move; tap-to-inspect any resident (schedule, outfit,
+job); block ledger HUD (water/food days-left + prices); thumbs + comments +
+export .txt. Verified on the real surface in 390px chromium (alpha boots,
+LIFE tab loads, 0 errors) + a real-surface FIND banked in the law: a body on
+the gate's single-file approach BLOCKADES the commute (player spawn moved off
+the choke; the emergent blockade kept - it obeys the laws).
+NEXT for LIFE (unblocked): agents at world scale (many blocks, the commute
+actually crossing cells), patrol integration (factions acting once Paolo
+fills the tables), needs feeding back (hunger/thirst driving behavior),
+economy trade BETWEEN blocks. PENDING PAOLO: the LIFE verdict, the four empty
+tables, the commodity money.
+
 ## WHERE WE ARE
 The repo is born, whole, and on main. 534/534 seed files verified. The layout:
 /engine /gates /laws /banks /slices /tools /records /questbook /quests
