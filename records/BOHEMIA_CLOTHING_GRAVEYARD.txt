@@ -120,3 +120,9 @@ width edge-to-edge (the arms visibly reach the ears), a glint pixel per lens so
 it reads as glass not a blindfold; in profile a lens block on the leading edge
 + the temple arm running back along the head side to the ear. Still anchored to
 the true calibrated iris pixels. Invisible from behind.
+
+--- WRAPAROUND SHADES, EAR-STOP FIX (7/19/26) — Paolo: "facing east/west the
+    shades shouldn't touch the back of the head or they look like goggles --
+    they should end where the ear would be." ---
+Profile arm now stops at the ear: the back ~30% of the head stays bare in E/W.
+Front keeps the full edge-to-edge band (approved read). Item still cooking.
