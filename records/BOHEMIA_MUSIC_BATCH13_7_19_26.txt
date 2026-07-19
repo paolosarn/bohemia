@@ -1,0 +1,62 @@
+BOHEMIA MUSIC — COOK BATCH 13 (7/19/26)
+Session: character & sound. Paolo's order: "Cook fresh Bohemia music: all locked
+laws per the alpha's embedded lawbook. Horror Final Fantasy 10 creepy, melodic
+under dread. Birth new voices, new synthesis topologies, no shared
+scale/feel/kick, screech law, graveyard final, no remakes."
+
+PURE EXPANSION — no open graveyard slots. 6 songs, 6 voices born, catalog 124.
+
+THE SIX (each song OWNS its lead voice; support reuses the canon dread set):
+
+1. THE REED THAT HOLDS ITS BREATH  (root45, [0,1,5,7,8], half, kick[0,11])
+   pwmreed — TRUE comparator PWM. A saw summed with a slow LFO offset through a
+   hard sign curve: the pulse DUTY itself breathes across the note. Not tremolo,
+   not vibrato — the waveform's own width is the motion. Catalog first.
+   NOTE: deliberately NOT the dead SUNKEN VESPERS fingerprint (kick moved 9->11).
+   Dead songs stay dead, their tuples too.
+
+2. SOMETHING SINGS THROUGH THE PIPES  (root43, [0,3,5,6,7,10], drive, kick[0,2,6,8,12])
+   filterfmgrowl — audio-rate FILTER-FM. A modulator oscillator wired INTO the
+   lowpass cutoff at audio rate; the sidebands come out of the FILTER, not the
+   oscillator. The growl is the plumbing itself speaking. Catalog first.
+
+3. WIND THROUGH THE COUNTING HOUSE  (root48, [0,2,5,7,10], half, kick[0,12])
+   aeolianharp — aeolian resonator bank. Continuous wind noise blown across five
+   Q=30 bandpass 'strings' tuned to the harmonic series; each string's gain
+   breathes on its own slow clock, so the WIND chooses which harmonics sing.
+   No oscillator carries the pitch. Catalog first (ghostflute swept ONE
+   resonator; this is a fixed BANK under continuous excitation).
+
+4. WHAT THE DRAWBARS REMEMBER  (root46, [0,2,4,5,7,11], normal, kick[0,5,8,13])
+   drawbarmorph — drawbar crossfade. Additive organ partials 1/2/3/4/5/8, each
+   on its OWN setValueCurveAtTime envelope; some drawbars push in while others
+   pull out mid-note. The registration itself is the motion. Catalog first
+   (distinct from formant morph: no filter; from saltbell: no strike/detune).
+
+5. THE SHAPE THE WATER TAKES  (root41, [0,3,4,7,8,11], half, kick[0,7,11])
+   wavemorph — dual-shaper morph. ONE oscillator split through two parallel
+   WaveShapers (smooth sine-fold vs hard clip) whose output gains crossfade in
+   ANTIPHASE on one slow LFO; the tone rocks between liquid and broken while
+   the pitch never moves. Catalog first (wavefolding used one static curve).
+
+6. TWO LIGHTS OVER THE FLOOD  (root47, [0,2,6,7,10], normal, kick[0,6,12])
+   harmonictrem — band-split antiphase (harmonic) tremolo. One tone split at
+   ~600Hz into lows and highs, each gated by the SAME LFO in OPPOSITE phase;
+   the note never drops, its WEIGHT rolls between chest and head. Catalog first
+   (tremolo/rotary pumped one gain; this is two bands trading).
+
+LAWS:
+- SCREECH LAW: zero createDelay/createConvolver, nothing feeds back. Offline
+  render verified all 6 synthesize clean; levels balanced to peaks 0.10-0.20
+  (filterfmgrowl and drawbarmorph pulled down, aeolianharp and harmonictrem
+  brought up — same pass batch 12 got).
+- VARIETY LAW: enforced across the FULL unjudged set (batches 12+13 = 12
+  NEW_VIBES songs) — all 12 scale+feel+kick tuples distinct. Gate green.
+- NEW VOICES LAW: each fresh song births its own lead, used by no other song.
+- GRAVEYARD FINAL / NO REMAKES: all 6 titles + 6 voice names collision-checked
+  against MLOOPS, synthV, and gates/bohemia_graveyard.txt (23 dead tokens).
+  Zero collisions.
+- Gate: gates/music_gate.js 14/14 — 124 songs, 12 fresh. Full suite green.
+
+STATUS: NEW badge live on all 12 unjudged (batch 12 + batch 13).
+[PENDING Paolo verdict] — both batches judged whenever he opens the music page.

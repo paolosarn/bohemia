@@ -218,6 +218,16 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    branch claude/life-session) and laws/BOHEMIA_SESSION_BRIEF_COMBAT_7_19_26
    .md (fun-first beat combat, NO DAMAGE BEFORE THE DIAL, branch
    claude/combat-session). Wardrobe stands at 78 CANON, all categories.
+-3a. MUSIC BATCH 13 — NEW BADGE, PENDING VERDICT (7/19): pure expansion, no open
+   slots. 6 songs, 6 voices born, catalog 124: THE REED THAT HOLDS ITS BREATH
+   (pwmreed, true comparator PWM), SOMETHING SINGS THROUGH THE PIPES
+   (filterfmgrowl, audio-rate filter-FM), WIND THROUGH THE COUNTING HOUSE
+   (aeolianharp, wind-excited resonator bank), WHAT THE DRAWBARS REMEMBER
+   (drawbarmorph, crossing drawbar envelopes), THE SHAPE THE WATER TAKES
+   (wavemorph, dual-waveshaper antiphase morph), TWO LIGHTS OVER THE FLOOD
+   (harmonictrem, band-split antiphase tremolo). Variety law holds across ALL
+   12 unjudged (batch 12+13). Offline-render balanced 0.10-0.20. Music gate
+   14/14. Record: BOHEMIA_MUSIC_BATCH13_7_19_26.txt. NEXT: verdict on 12 songs.
 -3. MUSIC BATCH 12 + GRAVEYARD SWEEP — NEW BADGE, PENDING VERDICT (7/18): Paolo's
    mega-verdict thumbed nearly the whole catalog CANON, killed 6 (SUNKEN VESPERS,
    UNDERTOW, VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR, WHAT THE GLASS
