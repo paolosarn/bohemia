@@ -5,9 +5,19 @@ of 7/18/26. This FOLDS today's lore session and the older GDD story canon into
 one place so nobody has to reconcile scattered docs again. On any conflict, this
 master + the newest-dated addenda win. Read this for the story spine.
 
-Folds the 7/18/26 addenda: COLLAPSE_ORIGIN_AND_DEATH_MODEL, LAKE_MEAD_HEALTHY_
-OASIS, HOUSE_OF_CARDS_POWER_SHARE, DUBAI_PRECEDENT_SECRECY, WORLD_BREAK_ANSWERS,
-AMALGAMATION_SCOPE_GOOD_ENDING. Extends GDD v2 story canon.
+Folds the 7/18 addenda (COLLAPSE_ORIGIN_AND_DEATH_MODEL, LAKE_MEAD_HEALTHY_OASIS,
+HOUSE_OF_CARDS_POWER_SHARE, DUBAI_PRECEDENT_SECRECY, WORLD_BREAK_ANSWERS,
+AMALGAMATION_SCOPE_GOOD_ENDING) and the 7/19 addenda (ACT3_MOONSHOT_STRUCTURE,
+FAMILY_CORE_THEME, ACT1_OPENING_VISION, ACT1_PROCEDURAL_ENDING_AND_DESTROYERS).
+Extends GDD v2 story canon. Updated 7/19 for the three-act restructure.
+
+## THE CORE THEME (FAMILY) — the spine everything hangs on
+You do not play a hero, you play a FAMILY across three generations and ~100 years
+(the fold, succession). Strong family conquers all; nobody is anything without
+family. The Amalgamation is the COUNTERFEIT FAMILY ("a family that never ends /
+nothing is ever lost"), so the whole game is TRUE family (real, costly, mortal)
+versus the counterfeit (no loss, therefore no one in it ever really there). Grief
+must hurt; the grief is the proof it was real. Detail: FAMILY_CORE_THEME_7_19_26.
 
 ## THE WORLD (locked)
 - CRASH ~2050. Game starts almost 10 years later (~2060). It was a multi-causal
@@ -65,21 +75,41 @@ SUPERSEDED: the older GDD v2 six-ending framing (Liberation / Surrender /
 Compromise / Unknown / Nuked / Space) is FOLDED into these three. The three are
 canon. Any file still reading "six endings" is stale.
 
-## THE FINALE (how it plays)
-Act 3 is the explosion. The player fights toward the core while the broadcast
-that could free the valley goes out in real time, and it cannot fight on two
-fronts at once. PART OF THE BOSS IS PREVENTING ANOTHER NUCLEAR STRIKE: the Dubai
-move returns as a clock, and stop-versus-redirect is the last moral choice, which
-writes the final line of the monument. Which ending you land (Liberate / Respect
-/ Become) is a function of the whole playthrough.
+## THE THREE ACTS (restructured 7/19)
+Generations Animal / Human / Angel; camera levels street / city / planetary zoom
+(Act 3 was always the planetary/Angel level, which is why it ends off-world).
+- ACT 1 — THE ANARCHY DECADE (~2060). Surviving the ruin. Opens with the family
+  loss (the match-cut childhood dinner -> the raid -> a sibling dies -> the grief
+  dinner -> the ridge burial that becomes the menu/title screen), then the founder
+  builds a pseudo-faction from nothing (the neighbor's founding). The explosive Act
+  1 climax is PROCEDURAL (civilization-builders vs the Destroyers who tear it down).
+  Detail: ACT1_OPENING_VISION, ACT1_PROCEDURAL_ENDING_AND_DESTROYERS.
+- ACT 2 — THE WORLD CLAWING BACK (rebuild). Ends with the LOCAL RECKONING: you
+  discover the Amalgamation, the whisper broadcast goes out, you STOP THE EARTH-SIDE
+  NUKE, and you deploy the SUPER-CAPTCHA / VPN that SEVERS the Amalgamation's reach
+  (after it: no nuke, no direct control). Vegas is freed locally, but the thing is
+  international and off-world, so the win is INCOMPLETE, which launches Act 3.
+- ACT 3 — CYBERPUNK, the world healing, and the ONE-WAY trip to the MOON to end the
+  Amalgamation at its off-world source (you cannot nuke the Moon; the crashed world
+  has to BUILD the rocket, the Act 3 city-builder puzzle). Act 3 is also the
+  CRUMBLING OF THE NETWORK (war path or conversion path; NeuroLink carriers cannot
+  be turned). The Angel-gen heir goes and does not return; the dynasty ends looking
+  down at the planet. Detail: ACT3_MOONSHOT_STRUCTURE_7_19_26.
+
+## THE ENDINGS ACROSS THE RESTRUCTURE
+The three stances (Liberate / Respect / Become) resolve at the Moon in Act 3, with
+the Act 2 local reckoning shaping which are reachable. SUPERSEDED: the older "Act 3
+= the local confrontation with a nuke clock" framing; that local confrontation +
+the Earth nuke is now the ACT 2 climax, and Act 3 is the Moon.
 
 ## OPEN, EXPLORING TOGETHER (not locked, do not invent unilaterally)
-- HOW Vegas technologically severs a global service from itself without going
-  blind. Floated: a 2050 "humanity-gate" / super-captcha the new clean net is
-  built on (grounded in real proof-of-personhood tech; ties to the unrecorded
-  self the Amalgamation cannot fake). Paolo's idea, not yet locked.
+- The SUPER-CAPTCHA / VPN is LOCKED as the Act 2 severance mechanism, but HOW it
+  technically works (the "humanity-gate" the clean net is built on, grounded in real
+  proof-of-personhood tech, testing the unrecorded self the Amalgamation can't fake)
+  is still to design together.
 - Whether any character ever understands the coin-toss lie on-screen (that the
   reconstructed dead are copies, the original lost regardless).
-- The vessel / re-embodiment question is a deliberate MAIN-QUEST question, not
-  pre-settled in canon. Paolo is not sold on re-embodiment being possible; treat
-  it as open, likely unanswered until deep in Act 3.
+- The vessel / re-embodiment question is a deliberate MAIN-QUEST question. Paolo is
+  not sold on re-embodiment; treat it as open, likely unanswered until deep in Act 3.
+- THE NEIGHBOR'S FIRST QUEST (the founding) is designed but its specific plan/errand
+  is PINNED pending Paolo (see the handoff). #235 (Kingdom Come) is its template.
