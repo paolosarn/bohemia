@@ -116,9 +116,13 @@ what this hierarchy exists to kill.
 STANDING JOB: periodically fold addenda into the GDD/laws masters and archive
 the folded (the GDD v5 consolidation pattern). Piles rot; masters stay clean.
 
-## PARALLEL SESSIONS (one-alpha law, repo form)
-Factories, research, lore, banks: run parallel freely, own branches.
-THE ALPHA BUILD is touched by ONE session at a time. Never two.
+## PARALLEL SESSIONS (one-alpha law, repo form — AMENDED by Paolo 7/19/26)
+Every session BUILDS THE ALPHA. That is the point: different parts of the game,
+one build, they mesh. The rule is ONE SYSTEM, ONE SESSION: no two sessions may
+edit the SAME system at the same time (two sessions both editing clothing =
+danger; wardrobe + LIFE + COMBAT in parallel = the design). Stay inside your
+session's systems; a rebase conflict inside the alpha means a boundary was
+crossed -- stop and check before pushing.
 
 ## WHAT'S PENDING PAOLO (never decide these yourself)
 See laws/BOHEMIA_STATE_OF_PLAY and the shelf in records/. Flag anything needing

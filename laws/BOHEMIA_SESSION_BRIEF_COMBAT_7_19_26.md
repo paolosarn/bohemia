@@ -25,9 +25,11 @@ existing canon in the alpha (FACTIONS table, fclip pistol/two-hand, the dial)
   Paolo as options, not decisions.
 
 ## HARD BOUNDARIES
-- ONE-ALPHA LAW: the COMBAT tab lives in the alpha -- coordinate; never edit
-  the alpha while another session is flying it. Prototype in standalone judge
-  slices via SLICES_MANIFEST; fold in when clear.
+- BUILD THE ALPHA directly -- the COMBAT tab is yours, in
+  slices/BOHEMIA_ALPHA_0_9.html. The rule (Paolo 7/19): ONE SYSTEM, ONE
+  SESSION -- combat is your system; never edit another session's systems
+  (clothing, music, LIFE, face calibration). A rebase conflict inside the
+  alpha means you crossed a boundary: stop and check.
 - FACTORY LAW: every combat system ships with its own gate, wired into
   gates/bohemia_gates.py, same turn.
 - Anything needing Paolo's judgment = an interactive in the SLICE menu.

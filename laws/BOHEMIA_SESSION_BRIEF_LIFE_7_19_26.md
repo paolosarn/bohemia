@@ -23,11 +23,13 @@ laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md (no run-reset assumptions).
   stays Paolo's.
 
 ## HARD BOUNDARIES
-- NEVER edit slices/BOHEMIA_ALPHA_0_9.html while another session is flying it
-  (ONE-ALPHA LAW: one session touches the alpha at a time). Build in
-  engine/bohemia_life*.js + standalone judge slices, wired via SLICES_MANIFEST
-  (the suburb-judge pattern). Anything needing Paolo's judgment = an
-  interactive in the SLICE menu, never a chat PNG.
+- BUILD THE ALPHA directly -- your systems (a LIFE tab/panel, agent engine,
+  economy) live IN slices/BOHEMIA_ALPHA_0_9.html like everything else. The
+  rule (Paolo 7/19): ONE SYSTEM, ONE SESSION -- never edit another session's
+  systems (clothing factory, music, combat, face calibration). A rebase
+  conflict inside the alpha means you crossed a boundary: stop and check.
+  Anything needing Paolo's judgment = an interactive in the alpha (tab or
+  SLICE menu), never a chat PNG.
 - FACTORY LAW: every system ships as a factory WITH ITS OWN GATE, wired into
   gates/bohemia_gates.py, same turn. Green or it does not ship.
 - VERIFY ON THE REAL SURFACE. GRAVEYARD IS FINAL. Commit every decision.
