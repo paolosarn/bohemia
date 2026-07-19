@@ -22,3 +22,10 @@ n:'HYMN IN THE FLOOD'       | 7/18/26 | DOWN (was briefly canon). GRAVEYARD FINA
 n:'THE DROWNED CHOIR'       | 7/18/26 | DOWN (was briefly canon). GRAVEYARD FINAL. Do not re-add.
 n:'WHAT THE GLASS REMEMBERS'| 7/18/26 | DOWN (batch 11). GRAVEYARD FINAL. foldchoir voice retired with it. Do not re-add.
 suburb central cul-de-sac court (campana court variant) | 7/18/26 | REJECTED by Paolo verdict (thumbs down) in favor of THE BLOCK packed grid. Post-mortem: the central court left a dead hole in the middle and packed fewer homes than the grid. Dead things stay dead: no court remake. The packed grid is the one canonical suburb block.
+n:'DUST BEANIE'      | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Shallow floating cap, ignored the durag hat line. Fresh cooks use durag borders.
+n:'COAL BEANIE'      | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same failure. Do not re-add.
+n:'SALVAGE CAP'      | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same failure. Do not re-add.
+n:'RUST CAP'         | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same failure. Do not re-add.
+n:'OXBLOOD HEADWRAP' | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Wraps compete with Paolo's own durag; do not re-add.
+n:'OLIVE HEADWRAP'   | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same. Do not re-add.
+n:'DESERT WIDE-BRIM' | 7/18/26 | RENAMED by Paolo's ruling -> CHINESE RICE FARMER HAT (canon). The old name is retired, the item lives on renamed.

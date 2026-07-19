@@ -80,3 +80,21 @@ additive buildFrame hook, same capability the coat skirt uses) -- a rounded hood
 mass off the back of the neck, facing-aware, never covering the face. The v-necks
 (STEEL V-NECK, OLIVE V-TANK) also DOWN, no comment -- not remade; fresh v-necks
 only if the mechanism improves. This capability is the groundwork for HAIR too.
+
+--- HAT BATCH 1 (7/18/26) — 6 of 7 DOWN ---
+DUST BEANIE, COAL BEANIE, SALVAGE CAP, RUST CAP, OXBLOOD HEADWRAP, OLIVE
+HEADWRAP. GRAVEYARD FINAL. Sole survivor: DESERT WIDE-BRIM -- renamed by Paolo's
+ruling to CHINESE RICE FARMER HAT, canon.
+PAOLO (the lesson): "look at the DURAG we already have -- that's the borders of
+any sort of hat or beanie. Most people aren't going to be bald for real."
+ROOT CAUSE: I invented a shallow 30% "forehead band" instead of using the canon
+that already existed: SLOT_CONTACT.hat + HAT_MAX_Y (the durag's southernmost row
+per direction = the HAT LINE law, already in the engine). My hats floated as
+slivers on a bald dome; the durag border is ~4 rows deep in front/side and ~7
+from behind. ALSO: wraps compete with Paolo's own painted durag -- retired.
+FIX (fresh cook, new names): genHat now derives its bottom border from
+HAT_MAX_Y mapped onto the deformed head; nothing paints below the hat line,
+ever. Fresh: CHARCOAL WATCH CAP, RUST WATCH CAP (knit, durag-deep), OLIVE FIELD
+CAP (crown + brim riding the hat line). Verified across all 8 facings.
+LESSON BANKED: before inventing a border, GREP FOR THE CANON -- the engine
+already knew the answer (MECHANISM-MINE means using the machine that exists).
