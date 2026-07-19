@@ -701,6 +701,10 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
   ambulance canopy + staging bays + helipad, drop-off lane + walkway/crosswalk, a full
   visitor lot with PARKED CARS + dead-planter islands, garage packed with cars + ramp, MOB).
   Gate medical_gate.js checks legend-complete + no-big-void + parked-cars.
+- solar -> INFRASTRUCTURE (bohemia_solar, utility solar farm: panel arrays, gravel access
+  roads, inverter/transformer pads, a substation switchyard + control building, fence+gate;
+  fits the CLUSTERED-POWER lore). EXPLAIN-EVERY-TILE (void ~10%). Gate solar_gate.js.
+FACTORY now spans 5 categories: residential, commercial, industrial, civic, infrastructure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
 history has it if ever wanted as a starting sketch). Do NOT auto-generate gaming_resort.
