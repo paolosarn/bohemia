@@ -74,6 +74,8 @@ GATES = [
      'occupancy, beat, world clock', False),
     ('MUSIC',          ['node', 'gates/music_gate.js'],
      'screech law, voices exist, fresh-batch variety', False),
+    ('COMBAT LAB',     ['node', 'gates/combat_lab_gate.js'],
+     'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
     ('OPEN COAT',      ['node', 'gates/open_coat_gate.js'],
      'jackets/coats open in front, clothes show underneath', False),
     ('HOODIE',         ['node', 'gates/hood_gate.js'],
