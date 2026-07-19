@@ -265,3 +265,27 @@ All verified on the real canvas across facings. Suite green.
 All 12 approved: turtlenecks, knee shorts, slouch beanie (deliberate, Paolo
 confirmed it knowingly), the fixed fully-open DENIM VEST, and the first
 colorway wave. Every category populated; the multiplication engine is proven.
+
+=== COOK BATCH 14 (7/19/26) — THE COLORWAY MULTIPLICATION, WAVE ONE ===
+Paolo: "work on something important, it doesn't even have to be about the
+music." The standing next step from the wardrobe research (500-800 target,
+~120-180 hand-authored base looks): multiply the 78 APPROVED structures across
+the canon palette pool. 63 candidates, every combo never shipped before, all
+in COOKING awaiting thumbs:
+- 24 tops: 3 plaids (oxblood/steel/copper), 4 hoodies (rust/brick/steel/sage),
+  3 henleys, 4 tees, 3 tanks, 2 striped tees, 3 button-ups, 2 turtlenecks
+- 9 legs: field green / storm sweats / bone / rust cargos / sage / steel jeans
+  / dust brown + khaki and charcoal knee-cut shorts
+- 6 feet: bone + steel sneakers, olive / dust brown / field / rust boots
+- 8 outer: sage field coat, slate trench, bone + khaki dusters, brick
+  longcoat, storm / olive / rust vests
+- 7 head: bone + olive knit caps, brick watch cap (skull fit kept), copper +
+  dust caps, storm + khaki slouch beanies. NO wide-brim recolors: CHINESE RICE
+  FARMER HAT is Paolo's named piece, not multiplied without his ruling.
+- 9 accessories: charcoal/sage/bone scarves, olive/rust dust masks, dust/
+  oxblood gloves, charcoal belt, GREY WRAPAROUNDS (ash shades on the v3
+  wraparound mechanism).
+All names collision-checked against canon + the clothing graveyard (no dead
+names reused). Verified on the real surface: 141 sections render (78 canon +
+63 cooking), sampled rigs paint real pixels in the live preview, zero page
+errors. Wardrobe potential if all approved: 141.

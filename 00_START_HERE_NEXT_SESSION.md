@@ -264,6 +264,21 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-7. MUSIC VERDICT TWO + BATCH 15 + CLOTHING COLORWAY WAVE (7/19, latest):
+   Paolo judged batches 13+14: 4 CANON (SOMETHING SINGS THROUGH THE PIPES,
+   THE SHAPE THE WATER TAKES, TWO LIGHTS OVER THE FLOOD, THE STAIRS UNDER THE
+   LAKEBED), 7 DOWN graveyard-final (registry tokens added, voices retired).
+   BATCH 15 answers the 7 slots -- 7 new topologies: pulseform (VOSIM
+   pulse-train formant), octgate (octave-gate), roundchoir (staggered canon),
+   reversebloom (tail-attack reverse), phasedist (Casio CZ phase distortion),
+   settlebend (arrive-sharp-and-settle), ghosttriad (noise triad). NEW badge
+   on all 7, [PENDING verdict]. COMMENT-BOX LAW: the music comment box now
+   CLEARS when comments ride an export (his complaint: old comments re-rode
+   every export). CLOTHING COOK BATCH 14: the colorway multiplication wave one
+   -- 63 candidates across all layers from approved structures x canon
+   palettes, in COOKING [PENDING thumbs]; wardrobe 78 canon + 63 cooking.
+   NOTE: his verdict-two export tagged the now-dead WIND THROUGH THE COUNTING
+   HOUSE -> CUSTOM; the kill wins, tag died with the song.
 -6. COMBAT SESSION OPENED — RESEARCH PASS + BEAT TACTICS LAB SHIPPED (7/19):
    the COMBAT session (brief: laws/BOHEMIA_SESSION_BRIEF_COMBAT_7_19_26.md)
    ran the mandated research pass on the best beat/tactics combat ever made

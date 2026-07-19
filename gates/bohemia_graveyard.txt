@@ -37,3 +37,10 @@ n:'THROAT OF THE DROWNED NAVE'    | 7/19/26 | DOWN (batch 11). GRAVEYARD FINAL. 
 n:'THE TIDE THAT KEEPS THE NAMES' | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. chebychoir voice retired with it. Do not re-add.
 n:'A CHORD OF DROWNED BELLS'      | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. clusternave voice retired with it. Do not re-add.
 n:'LAST BREATH OF THE ORGAN'      | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. ironlung voice retired with it. Do not re-add.
+n:'THE REED THAT HOLDS ITS BREATH'   | 7/19/26 | DOWN (batch 13, verdict two). GRAVEYARD FINAL. pwmreed voice retired with it. Do not re-add.
+n:'WIND THROUGH THE COUNTING HOUSE'  | 7/19/26 | DOWN (batch 13). GRAVEYARD FINAL. aeolianharp voice retired with it. His CUSTOM tag died with the song. Do not re-add.
+n:'WHAT THE DRAWBARS REMEMBER'       | 7/19/26 | DOWN (batch 13). GRAVEYARD FINAL. drawbarmorph voice retired with it. Do not re-add.
+n:'WHAT SOURS IN THE SINGING'        | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. sourdyad voice retired with it. Do not re-add.
+n:'ONE VOICE BECOMES A CROWD'        | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. unisonsplit voice retired with it. Do not re-add.
+n:'THE NOISE THAT TOOK THE VEIL'     | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. spectretide voice retired with it. Do not re-add.
+n:'THE STRIKE THAT BLOOMS'           | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. strikeswell voice retired with it. Do not re-add.

@@ -1,0 +1,57 @@
+BOHEMIA MUSIC — COOK BATCH 15 (7/19/26)
+Answers the 7 graveyard slots from verdict two (3 batch-13 dead, 4 batch-14
+dead). FF10 horror, melodic under dread. Fresh names, fresh voices, no remakes.
+Catalog: 123 songs.
+
+THE SEVEN (each song OWNS its lead; support reuses the canon dread set):
+
+1. WHAT SPEAKS THROUGH THE GRILLE  (root45, [0,1,4,5,8], half, kick[0,9])
+   pulseform — pulse-train FORMANT (VOSIM throat). A comparator turns a saw
+   into a click train at f0; the train ring-gates a sine parked on a sweeping
+   vowel formant. The pitch is the train, the vowel is the sine: a throat of
+   clicks that speaks. Catalog first.
+
+2. THE LIGHT THAT WONT DECIDE  (root47, [0,2,4,6,9], normal, kick[0,3,8,12])
+   octgate — OCTAVE-GATE. A slowing square LFO wired into detune flicks the
+   voice between its octaves (0 or +1200 cents); a light that cannot decide
+   which floor it is on. Pitch-gating, not tremolo. Catalog first.
+
+3. A PROCESSION THAT FOLLOWS ITSELF  (root43, [0,1,3,7,10], half, kick[0,8,12])
+   roundchoir — staggered CANON. Five copies of the same swell enter 150ms
+   apart: a round sung by one ghost, built entirely from per-copy envelopes.
+   No delay node (screech law kept the hard way). Catalog first.
+
+4. IT HAPPENS BACKWARDS HERE  (root46, [0,2,3,7,9], normal, kick[0,7,10])
+   reversebloom — tail-attack REVERSE bloom. The note swells from silence to
+   FULL at its end and cuts, pitch creeping up as it blooms; the reversed-tape
+   shape without any buffer reversal. The envelope IS the reversal. Catalog
+   first.
+
+5. THE WINDOW BENDS THE HYMN  (root42, [0,1,4,6,7,10], drive, kick[0,2,6,10,12])
+   phasedist — PHASE DISTORTION (the Casio CZ trick). A saw is a phase ramp;
+   reading it through a bent-cosine curve resynthesizes a sine whose phase is
+   warped, buzzing like a resonant organ. Not Chebyshev, not folding, not
+   clipping, not the comparator. Catalog first.
+
+6. EVERYTHING FALLS TO PITCH  (root44, [0,3,5,7,11], half, kick[0,6,11])
+   settlebend — SETTLE-BEND. Every note ARRIVES from a fifth above and sinks
+   onto its true pitch over a full second: a choir that lands wrong and
+   corrects. The bend is the identity. Catalog first.
+
+7. THREE NOTES IN THE DUST  (root48, [0,1,5,8,10], normal, kick[0,4,9,13])
+   ghosttriad — NOISE TRIAD. One breath of noise through three razor
+   bandpasses tuned to a minor triad, one shared swell: a chord with no
+   oscillator in it, sung by static. Distinct from the retired aeolianharp
+   (harmonic series of one pitch, per-string clocks): this is a CHORD on one
+   breath. Catalog first.
+
+LAWS:
+- SCREECH LAW: zero createDelay/createConvolver, nothing feeds back. Offline
+  render verified all 7; levels balanced 0.13-0.20 (pulseform pulled down,
+  reversebloom/settlebend/roundchoir brought up).
+- VARIETY LAW: all 7 scale+feel+kick tuples distinct. Gate green.
+- NEW VOICES LAW: each song births its own lead, used by no other.
+- GRAVEYARD FINAL / NO REMAKES: all names + voices collision-checked against
+  MLOOPS, synthV, and the registry (35 dead tokens). Zero collisions.
+
+STATUS: NEW badge on all 7. [PENDING Paolo verdict].
