@@ -1,0 +1,60 @@
+BOHEMIA MUSIC — VERDICT PASS + CATEGORY REORGANIZATION (7/19/26)
+Paolo spent 30 minutes listening and judged the ENTIRE catalog, then established
+the category system. Processed same turn.
+
+=== VERDICTS ===
+- ALL 28 faction slots (14 factions x SONG 1/2): CANON.
+- The vibe catalog: CANON nearly throughout (see his export paste in the chat
+  log; every name he marked CANON is baked at 2 in CANON_DEFAULTS).
+- '--' items are the already-graveyarded 0s from earlier eras: unchanged.
+- FIVE DOWN, GRAVEYARD FINAL (registry tokens added, entries removed from
+  MLOOPS/NEW_VIBES/CANON_DEFAULTS, lead voices retired as unused bodies):
+    A PRAYER WOUND BACKWARDS      (batch 11; wailmorph retired)
+    THROAT OF THE DROWNED NAVE    (batch 11; throatsong retired)
+    THE TIDE THAT KEEPS THE NAMES (batch 12; chebychoir retired)
+    A CHORD OF DROWNED BELLS      (batch 12; clusternave retired)
+    LAST BREATH OF THE ORGAN      (batch 12; ironlung retired)
+- Batch 12 survivors CANON: WHERE THE PROCESSION DROWNED, THE HYMN THE STATIC
+  ATE, THE BELL THAT COOLS TO SALT. Batch 12's NEW badges drop.
+- Batch 13 was not in his export (he judged before it landed): still unjudged,
+  keeps the NEW badge, alongside fresh batch 14 (answers the 5 slots).
+
+=== PAOLO'S CATEGORY RULINGS (his comments, verbatim intent) ===
+Faction assignments ("the songs I requested to be with the factions"):
+  SERVER FARM        -> NETWORK  ("network third song")
+  DELTA BLUES        -> NETWORK
+  FLUORESCENT DAWN   -> CHURCH   ("the churches third song")
+  DEAD MANS SLIDE    -> HOMELESS ("a song for the elder and King Hobo")
+  HIGHWAY 15 SOUTH   -> CARAVANS
+  THRONE OF STATIC   -> REMNANTS
+Overworld split BY TIME OF DAY (his ruling: "all the music right now that's for
+the overworld is really the overworld at night"):
+  OVERWORLD NIGHT: the old six (SLOW CREEP, SATELLITE PRAYER, REPO MAN, GHOST IN
+    THE GRID, SLOW BLEED, THE PIT BOSS IS GONE) + CAMPFIRE CONFESSION + THE
+    VAULT + THE CHOIR THAT STAYED + THE ORGAN IN THE DROWNED CHAPEL.
+    (CAMPFIRE CONFESSION and THE VAULT were plain "add to the overworld" --
+    filed under NIGHT per his same-message ruling; re-file if he moves them.)
+  OVERWORLD DAY: PYREFLIES RISE.
+  OVERWORLD DUSK/DAWN: TWO COINS FOR THE FERRYMAN ("awesome dusk dawn type
+    song"), THE WIND LEARNS WORDS.
+
+=== WHAT SHIPPED (mechanism mine, contents his) ===
+1. EDIT BUTTON DEAD ("I'm never editing shit, bro"): the per-song pattern editor
+   is removed from the music UI. In its place: the CAT button -- a checklist of
+   HIS categories (one per faction, MENU, the three overworld time slots). Tags
+   show as chips on the row, persist in the save, and ride every export in a
+   new CATEGORIES section.
+2. GROUPED LIBRARY: faction-tagged vibes render indented under that faction's
+   hymns; three OVERWORLD sections (NIGHT / DAY / DUSK+DAWN); untagged songs
+   stay in VIBE LOOPS; graveyard stays collapsed at the bottom.
+3. CAT_DEFAULTS: every ruling above baked in code, survives any stale save.
+   Legacy 'OVERWORLD' tags migrate to 'OVERWORLD NIGHT'.
+4. CITY SHUFFLE: picks from the current time-of-day pool (CITYMUS.phase --
+   NIGHT until a world clock lands; the clock builder sets phase) with
+   any-overworld as failsafe so the streets never go silent.
+5. Batch 14 cooked (5 songs answering the 5 graves):
+   records/BOHEMIA_MUSIC_BATCH14_7_19_26.txt.
+
+[PENDING Paolo]: category for CAMPFIRE CONFESSION / THE VAULT if not night;
+future categories as he establishes them (the list grows; the dropdown reads
+from MUS.mcats()).

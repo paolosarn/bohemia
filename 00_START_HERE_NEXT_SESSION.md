@@ -8,6 +8,40 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
+The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three
+factories, each gated same turn (gates 21-23 in bohemia_gates.py: LIFE 14 /
+DRESS 9 / ECONOMY 13 checks): engine/bohemia_agents.js (typed agent =
+{home room, job, 1440-min schedule} placed BY world() - agentsForPlot;
+households mean ~2.2; jobs read off the real overmap within radius 3;
+block sim with OCCUPANCY + BFS walk, one world-turn = one world-minute),
+engine/bohemia_dress.js (outfits from the canon wardrobe; the 78 canon
+garments extracted READ-ONLY from the clothing factory's GARMENTS array into
+banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt by tools/bohemia_wardrobe_extract.py;
+DRESS gate freshness-checks bank vs the alpha's live canon count - wardrobe
+grows, gate goes red, rerun extractor), engine/bohemia_economy.js (grounded
+scarcity: 4L/day desert water, 2000kcal rations, barter in salvage-kg,
+hyperbolic siege pricing capped 40x, conservation gated; commodity money
+[PENDING Paolo]). ALL assignment tables EMPTY per MECHANISM-MINE:
+FACTION_ASSIGN / FACTION_DRESS / FACTION_ECONOMY + agent names are H3-2
+designations until Paolo rules. Full spec: laws/BOHEMIA_LIFE_SPEC_7_19_26.md.
+THE SURFACE (judge, [PENDING Paolo verdict]): a new LIFE tab in the alpha
+(lazy iframe -> slices/BOHEMIA_LIFE_CURRENT.html, stable URL, same pattern as
+SLICE) shows the approved block ALIVE: 47 residents sleep at night, ration at
+dawn, the employed walk out the gate to the commercial block east, scavengers
+sweep with a midday heat shelter, dusk return. WATCH = a day in 12 min on the
+beat / STEP = i-move-you-move; tap-to-inspect any resident (schedule, outfit,
+job); block ledger HUD (water/food days-left + prices); thumbs + comments +
+export .txt. Verified on the real surface in 390px chromium (alpha boots,
+LIFE tab loads, 0 errors) + a real-surface FIND banked in the law: a body on
+the gate's single-file approach BLOCKADES the commute (player spawn moved off
+the choke; the emergent blockade kept - it obeys the laws).
+NEXT for LIFE (unblocked): agents at world scale (many blocks, the commute
+actually crossing cells), patrol integration (factions acting once Paolo
+fills the tables), needs feeding back (hunger/thirst driving behavior),
+economy trade BETWEEN blocks. PENDING PAOLO: the LIFE verdict, the four empty
+tables, the commodity money.
+
 ## WHERE WE ARE
 The repo is born, whole, and on main. 534/534 seed files verified. The layout:
 /engine /gates /laws /banks /slices /tools /records /questbook /quests
@@ -282,17 +316,42 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    branch claude/life-session) and laws/BOHEMIA_SESSION_BRIEF_COMBAT_7_19_26
    .md (fun-first beat combat, NO DAMAGE BEFORE THE DIAL, branch
    claude/combat-session). Wardrobe stands at 78 CANON, all categories.
+-3b. MUSIC: FULL-CATALOG VERDICT + CATEGORY LAW + BATCH 14 (7/19, PROCESSED):
+   Paolo judged EVERYTHING after 30 min of listening. Nearly all CANON. FIVE
+   DOWN graveyard-final (removed from MLOOPS/NEW_VIBES/CANON_DEFAULTS, registry
+   tokens added, lead voices retired): A PRAYER WOUND BACKWARDS + THROAT OF THE
+   DROWNED NAVE (batch 11), THE TIDE THAT KEEPS THE NAMES + A CHORD OF DROWNED
+   BELLS + LAST BREATH OF THE ORGAN (batch 12). Batch 12 survivors canon.
+   MUSIC CATEGORY LAW (locked, in the embedded lawbook): EDIT button DEAD ("I'm
+   never editing shit"), replaced by the CAT button -- checklist of HIS
+   categories (one per faction, MENU, OVERWORLD NIGHT / DAY / DUSK+DAWN; the
+   old overworld = the NIGHT set, his ruling). His 7/19 assignments baked as
+   CAT_DEFAULTS (SERVER FARM + DELTA BLUES -> NETWORK, FLUORESCENT DAWN ->
+   CHURCH, DEAD MANS SLIDE -> HOMELESS "elder and King Hobo", HIGHWAY 15 SOUTH
+   -> CARAVANS, THRONE OF STATIC -> REMNANTS, PYREFLIES RISE -> DAY, TWO COINS
+   FOR THE FERRYMAN + THE WIND LEARNS WORDS -> DUSK/DAWN, CAMPFIRE CONFESSION +
+   THE VAULT + THE CHOIR THAT STAYED + THE ORGAN IN THE DROWNED CHAPEL ->
+   NIGHT). UI groups by category (faction vibes ride indented under the
+   faction's hymns; 3 overworld sections); categories ride the export; city
+   shuffle picks by CITYMUS.phase (NIGHT until a world clock lands -- the clock
+   builder sets phase). UNJUDGED LAW fix (caught on the real surface): fresh
+   cooks no longer pre-bake CANON_DEFAULTS=2; unjudged = absent = NEW badge +
+   thumbs live. BATCH 14 cooked answering the 5 graves (shepardfall/sourdyad/
+   unisonsplit/spectretide/strikeswell -- Shepard glide, interval morph,
+   detune-spread envelope, noise ring-mod, strike-into-swell). NEW set = batch
+   13 (6) + batch 14 (5) = 11 unjudged. Records: BOHEMIA_MUSIC_VERDICT_RECORD_
+   7_19_26.txt, BOHEMIA_MUSIC_BATCH14_7_19_26.txt. NEXT: his verdict on the 11;
+   [PENDING Paolo] re-file CAMPFIRE CONFESSION / THE VAULT if not night.
 -3a. MUSIC BATCH 13 — NEW BADGE, PENDING VERDICT (7/19): pure expansion, no open
-   slots. 6 songs, 6 voices born, catalog 124: THE REED THAT HOLDS ITS BREATH
+   slots. 6 songs, 6 voices born: THE REED THAT HOLDS ITS BREATH
    (pwmreed, true comparator PWM), SOMETHING SINGS THROUGH THE PIPES
    (filterfmgrowl, audio-rate filter-FM), WIND THROUGH THE COUNTING HOUSE
    (aeolianharp, wind-excited resonator bank), WHAT THE DRAWBARS REMEMBER
    (drawbarmorph, crossing drawbar envelopes), THE SHAPE THE WATER TAKES
    (wavemorph, dual-waveshaper antiphase morph), TWO LIGHTS OVER THE FLOOD
-   (harmonictrem, band-split antiphase tremolo). Variety law holds across ALL
-   12 unjudged (batch 12+13). Offline-render balanced 0.10-0.20. Music gate
-   14/14. Record: BOHEMIA_MUSIC_BATCH13_7_19_26.txt. NEXT: verdict on 12 songs.
--3. MUSIC BATCH 12 + GRAVEYARD SWEEP — NEW BADGE, PENDING VERDICT (7/18): Paolo's
+   (harmonictrem, band-split antiphase tremolo). Offline-render balanced
+   0.10-0.20. Record: BOHEMIA_MUSIC_BATCH13_7_19_26.txt.
+-3. MUSIC BATCH 12 + GRAVEYARD SWEEP — JUDGED 7/19, see -3b (7/18): Paolo's
    mega-verdict thumbed nearly the whole catalog CANON, killed 6 (SUNKEN VESPERS,
    UNDERTOW, VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR, WHAT THE GLASS
    REMEMBERS — first 3 were briefly canon, newest verdict wins, GRAVEYARD FINAL).
@@ -351,16 +410,12 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    glasses/belt/gloves) -> colorway multiplication off approved bases toward the
    500-800 target -> Paolo's passes (renaming process, act + rarity assignment,
    faction dress, world-grade ruling -- his, never mine).
--2. MUSIC BATCH 11 — NEW BADGE, PENDING PAOLO VERDICT (7/18): "THE DROWNED
-   CATHEDRAL DEEPENS." 6 FF10-horror songs, each births its own lead voice via a
-   topology the catalog never ran: ring modulation (ashenbell), modal synthesis
-   (boneplate), wavefolding (foldchoir), rotary/Leslie (roterror), moving-ratio
-   FM (wailmorph), overtone singing (throatsong). Songs: THE CHOIR UNDER THE
-   RESERVOIR, BONE RELIQUARY, WHAT THE GLASS REMEMBERS, THE TURBINE STILL TURNS,
-   A PRAYER WOUND BACKWARDS, THROAT OF THE DROWNED NAVE. Music gate 14/14 (variety
-   + new-voices + screech all green), offline-render verified. NEW_VIBES now
-   points at batch 11 (batch 9/10 judged canon, dropped the badge). Record:
-   records/BOHEMIA_MUSIC_BATCH11_7_18_26.txt. NEXT: process Paolo's verdict.
+-2. MUSIC BATCH 11 — JUDGED (7/18 cook, 7/19 verdict): 3 CANON (THE CHOIR UNDER
+   THE RESERVOIR, BONE RELIQUARY, THE TURBINE STILL TURNS), 3 DOWN graveyard-
+   final across the two verdicts (WHAT THE GLASS REMEMBERS killed 7/18; A PRAYER
+   WOUND BACKWARDS + THROAT OF THE DROWNED NAVE killed 7/19; wailmorph/
+   throatsong/foldchoir voices retired). Record:
+   records/BOHEMIA_MUSIC_BATCH11_7_18_26.txt (tombstoned).
 -1. CLOTHING FACTORY — CANON MENU LIVE, all 9 approved (7/18): CLOTHES tab now
    has a COOKING area (fresh candidates + thumbs) and a collapsible CANON WARDROBE
    (approved items collapse in, each with a CANON chip; only visible rigs animate).
@@ -781,6 +836,20 @@ Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SU
 in the legend; research what fills the space and put it there. Kit helpers legendOk/
 voidFraction/largestBlob gate it. Applies to EVERY district.
 
+## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
+a corner is gonna be super important, for everything moving forward"): every road-fronting
+district is built for BOTH a standalone grid (1 street, any edge) AND a corner (2 streets).
+ONE car entrance on the primary street (order S>E>W>N); corners add a PEDESTRIAN gate on the
+side street, never a 2nd car entrance. The drivable network (driveway + lot aisles) is an
+EXPLICIT car surface separate from walking paths; a car reaches EVERY stall from the curb.
+MECHANISM (author once): build canonical-south, call K.rotateToStreet(g,streets,{...}) ->
+{g,primary,gates}; kit helpers primaryStreet/rotateCW/scanGates/pedGate + gate checks
+driveNetworkOk/driveTouchesEdge/stallsReachable. GATES: district_kit_gate.js (machinery,
+23 checks) + each district gate (park_gate.js reference, 11 checks/6 configs). Law:
+laws/BOHEMIA_ADDENDUM_STREET_AWARE_DRIVABLE_LAW_7_19_26.md + CLAUDE.md law list. RETROFIT
+OWED: commercial/industrial/medical/solar predate it -> move onto rotateToStreet + explicit
+drive code as each is next touched. NEW districts use it from the start.
+
 ## DISTRICTS ON THE FACTORY (running list) — Paolo 7/18
 Built + folded into world.plot (each = a generator on the kit + a gate + one DISTGEN line):
 - suburb/gated/estate -> RESIDENTIAL (bohemia_suburb)
@@ -812,6 +881,17 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
   car-reachable, corner-pedestrian-gate). v1 super-park + v2 perfect-circle both REJECTED —
   git history has them. NOTE: the canonical-south + rotate-to-street pattern (+ explicit
   drive code 12) is a reusable convention to push into the other districts' parking next.
+  SEED VARIETY (7/19, "we're gonna have several parks"): the generator varies per seed so
+  valley park cells DIFFER while staying realistic — pond present-or-absent (a tree stand
+  fills in when absent), per-seed jitter on the trail waypoints + playground + court. 6 seeds
+  verified as distinct-but-realistic; lawn 75-77%, drivable + street-aware hold on all. Gate
+  makes the pond OPTIONAL (absent or a real pond, never a sliver). NEXT for parks: distinct
+  park TYPES (pocket/plaza/greenbelt/sports) as their own generators when Paolo wants them.
+FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): every
+  thumbs-down catalogued w/ root cause + lesson + guardrail in records/BOHEMIA_FAILURE_
+  GRAVEYARD_7_19_26.md; park v1/v2 tombstoned (PARKFAIL-SUPERPARK/PARKFAIL-CIRCLE, graveyard
+  green); 4 new lessons in laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md (realistic>impressive;
+  research proportions not parts-list; no fake geometry; explain-every-tile != cram).
 FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git

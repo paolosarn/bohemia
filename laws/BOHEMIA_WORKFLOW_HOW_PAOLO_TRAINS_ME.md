@@ -72,6 +72,21 @@ street-aware gates, dead-world palette, footprints, service access, gate, act-st
 then each new district is a short config + its unique bits, not a from-scratch build.
 That is what turns "30 districts x tiles x 3 acts" from impossible into a queue.
 
+## LESSONS FROM THUMBS-DOWN (7/19 — the park saga; full record in
+## records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md)
+6. REALISTIC BEATS IMPRESSIVE. "Super" is an insult. Don't cram a district to look
+   thorough/maximal — build the REAL thing calmly. A real park is mostly open lawn + a FEW
+   amenities, not every amenity at once. (Park v1 super-park -> rejected.)
+7. RESEARCH PROPORTIONS + SPATIAL LOGIC, not a parts-list. "A park has courts and a field"
+   is a parts-list; "a park is ~half passive lawn, amenities near the street, a winding
+   trail" is the design. Real research (design guides) on v3 worked first try.
+8. NO FAKE GEOMETRY. Perfect circles/ellipses read as a computer drawing. Real paths are
+   curvilinear/organic and route AROUND features; a feature never sits ON a path. Draw
+   HARDSCAPE first, then lay circulation over open ground only. (Park v2 perfect-circle +
+   court-through-path -> rejected.)
+9. EXPLAIN-EVERY-TILE != CRAM-EVERY-TILE. Open lawn is a NAMED, intentional thing threaded
+   by trees/paths/benches. The target is the REAL density — not maximal, not empty.
+
 ## THE PROMISE TO PAOLO
 Next builds: I read the relevant law first, I render and look before I show him, I batch
 the obvious follow-ups (and offer variants) so he rules once instead of ten times, and I

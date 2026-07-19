@@ -105,6 +105,55 @@
   function category(type){ return TAXONOMY[type]||null; }
   function inCategory(cat){ var out=[]; for(var t in TAXONOMY) if(TAXONOMY[t]===cat) out.push(t); return out; }
 
+  // STREET-AWARE PLACEMENT + DRIVABLE ACCESS (Paolo 7/19/26, STANDING LAW: "whether it has
+  // one street connection or two because it's a corner is gonna be super important... for
+  // everything moving forward"). Real districts have ONE car entrance on the street they front,
+  // and a corner adds a second frontage. The reusable pattern: a generator builds its layout
+  // in a CANONICAL frame with the car entrance at the SOUTH edge, then rotateToStreet() spins
+  // it so that entrance lands on whichever street the cell actually touches, and adds a
+  // PEDESTRIAN gate on each additional (corner) street. So a district is authored ONCE and is
+  // automatically correct for a standalone grid (1 street, any edge) AND a corner (2 streets).
+  var STREET_ORDER=['S','E','W','N'];                 // which frontage becomes the car entrance
+  function primaryStreet(streets,order){ order=order||STREET_ORDER; streets=streets&&streets.length?streets:['S'];
+    for(var i=0;i<order.length;i++) if(streets.indexOf(order[i])>=0) return order[i]; return 'S'; }
+  // rotate a square grid 90° clockwise: out[x][n-1-y] = g[y][x]
+  function rotateCW(g){ var n=g.length,out=[],y,x; for(y=0;y<n;y++)out.push(new Array(n));
+    for(y=0;y<n;y++)for(x=0;x<n;x++)out[x][n-1-y]=g[y][x]; return out; }
+  // scan the four borders; each contiguous run of gateCode becomes one gate {edge,x,y}
+  function scanGates(g,gateCode){ gateCode=gateCode||5; var n=g.length,out=[],run=null,i,cells=[],x,y;
+    for(x=0;x<n;x++)cells.push([x,0,'N']); for(y=0;y<n;y++)cells.push([n-1,y,'E']);
+    for(x=n-1;x>=0;x--)cells.push([x,n-1,'S']); for(y=n-1;y>=0;y--)cells.push([0,y,'W']);
+    for(i=0;i<cells.length;i++){ var c=cells[i],is=(g[c[1]][c[0]]===gateCode);
+      if(is){ if(!run)run={edge:c[2],xs:[c[0]],ys:[c[1]]}; else{run.xs.push(c[0]);run.ys.push(c[1]);} }
+      else if(run){ out.push({edge:run.edge,x:Math.round(run.xs.reduce(function(a,b){return a+b;},0)/run.xs.length),y:Math.round(run.ys.reduce(function(a,b){return a+b;},0)/run.ys.length)}); run=null; } }
+    if(run)out.push({edge:run.edge,x:run.xs[0],y:run.ys[0]}); return out; }
+  // draw a pedestrian gate + short walk-in on an edge (for corner side streets). over(code)->
+  // which cells the walk may overwrite; walkCode is what it lays; inset = how far it reaches.
+  function pedGate(g,edge,gateCode,walkCode,over,inset){ gateCode=gateCode||5; walkCode=(walkCode==null)?1:walkCode; inset=inset||18;
+    var n=g.length,i,s; over=over||function(c){return c===0;};
+    if(edge==='N'||edge==='S'){ var gx=Math.round(n*0.5),gy=(edge==='S')?n-1:0,dir=(edge==='S')?-1:1;
+      for(i=-3;i<=3;i++)g[gy][gx+i]=gateCode;
+      for(s=1;s<=inset;s++){var yy=gy+dir*s; if(yy<=0||yy>=n-1)break; if(over(g[yy][gx]))g[yy][gx]=walkCode; else break;} }
+    else { var gy2=Math.round(n*0.5),gx2=(edge==='E')?n-1:0,dir2=(edge==='E')?-1:1;
+      for(i=-3;i<=3;i++)g[gy2+i][gx2]=gateCode;
+      for(s=1;s<=inset;s++){var xx=gx2+dir2*s; if(xx<=0||xx>=n-1)break; if(over(g[gy2][xx]))g[gy2][xx]=walkCode; else break;} } }
+  // spin a canonical (car-entrance-at-SOUTH) grid so the entrance faces the real street, then
+  // add pedestrian gates on any side streets. Returns {g, primary, gates}.
+  function rotateToStreet(canonicalGrid,streets,opts){ opts=opts||{}; var gateCode=opts.gate||5;
+    var primary=primaryStreet(streets,opts.order); var kmap={S:0,W:1,N:2,E:3}, k=kmap[primary], g=canonicalGrid,t;
+    for(t=0;t<k;t++) g=rotateCW(g);
+    (streets&&streets.length?streets:['S']).forEach(function(e){ if(e!==primary) pedGate(g,e,gateCode,opts.pedWalk==null?1:opts.pedWalk,opts.pedOver,opts.pedInset); });
+    return { g:g, primary:primary, gates:scanGates(g,gateCode) }; }
+
+  // DRIVABLE gate helpers (the machine half of the law): a car must reach every stall.
+  function driveNetworkOk(g,driveCode){ return connectedFrom(g,function(c){return c===driveCode;},function(c){return c===driveCode;})>=0.999; }
+  function driveTouchesEdge(g,driveCode){ var n=g.length,x,y;
+    for(x=0;x<n;x++){ if(g[1][x]===driveCode)return 'N'; if(g[n-2][x]===driveCode)return 'S'; }
+    for(y=0;y<n;y++){ if(g[y][1]===driveCode)return 'W'; if(g[y][n-2]===driveCode)return 'E'; } return null; }
+  function stallsReachable(g,stallCode,driveCode){ var n=g.length,x,y;
+    for(y=0;y<n;y++)for(x=0;x<n;x++){ if(g[y][x]!==stallCode)continue;
+      if(!((g[y+1]&&g[y+1][x]===driveCode)||(g[y-1]&&g[y-1][x]===driveCode)||g[y][x+1]===driveCode||g[y][x-1]===driveCode))return false; } return true; }
+
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
   function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
@@ -120,7 +169,10 @@
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
-    legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob};
+    legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob,
+    STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
+    pedGate:pedGate,rotateToStreet:rotateToStreet,
+    driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

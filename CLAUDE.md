@@ -47,6 +47,14 @@ research partner. He DECIDES, you PRODUCE.
   at the rendered pixels before shipping; a symptom that survives content changes
   is a PIPELINE bug. Full law + the hoodie post-mortem in /laws; hood_gate.js
   machine-locks the regressions.
+- STREET-AWARE / DRIVABLE ACCESS LAW (7/19): every district that fronts the roads
+  is built for BOTH a standalone grid (1 street, any edge) AND a corner (2 streets).
+  ONE car entrance on the primary street (order S>E>W>N); corners add a PEDESTRIAN
+  gate on the side street, never a second car entrance. The drivable network (driveway
+  + lot aisles) is an EXPLICIT car surface, separate from walking paths, and a car
+  reaches EVERY stall from the curb. Authored once via kit rotateToStreet (build
+  canonical-south, rotate to the real street). Gates: district_kit_gate.js (the
+  machinery) + each district's gate (park_gate.js is the reference). Full law in /laws.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)
