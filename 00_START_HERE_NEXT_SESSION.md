@@ -836,6 +836,17 @@ Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SU
 in the legend; research what fills the space and put it there. Kit helpers legendOk/
 voidFraction/largestBlob gate it. Applies to EVERY district.
 
+## TILE-SPEC NOTE SECTION (Paolo 7/19: "every time I approve a district you're recording a
+note section about everything you built so putting TILES on it is easier, right"): YES, now
+properly. Each district module exposes a machine-readable LEGEND (code -> {name, kind, ACT-1
+dead-world material}) beside its PALETTE. tools/bohemia_tilespec.js GENERATES per-district
+sheets records/tilespec/BOHEMIA_TILESPEC_<name>.md + records/BOHEMIA_TILESPEC_INDEX.md from
+the legend (can't drift). gates/tilespec_gate.js fails if any district ships an undocumented
+tile code (24 checks, 6 districts). Done for all 6 built districts (suburb/commercial/
+industrial/medical/solar/park). ACT-2/3 evolution of each material = [PENDING Paolo]. STANDING
+FLOW: new/approved district exposes a LEGEND + rerun the generator, same turn. This is the
+"note section" for the tiling phase.
+
 ## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
 a corner is gonna be super important, for everything moving forward"): every road-fronting
 district is built for BOTH a standalone grid (1 street, any edge) AND a corner (2 streets).

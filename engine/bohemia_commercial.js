@@ -134,7 +134,25 @@
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;if(DR[g[ny][nx]]){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.85;}
 
-  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,hasServiceAccess:hasServiceAccess,SZ:SZ,TILE:TILE};
+  var PALETTE={1:'#33333c',2:'#7a7266',3:'#3f3f47',4:'#c9c1aa',5:'#c79a3f',6:'#8a8a92',7:'#c7a24a',8:'#2b2b31',9:'#b0863a',10:'#6b6b74',11:'#9a5a4a'};
+  // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
+  var LEGEND={
+    0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / landscape gaps)'},
+    1:{name:'parking asphalt',    kind:'drive',      act1:'cracked asphalt parking field (car-drivable)'},
+    2:{name:'store',              kind:'building',   act1:'strip-mall storefront box, dead signage, dark glass'},
+    3:{name:'drive aisle',        kind:'drive',      act1:'cracked asphalt lot drive aisle (drivable)'},
+    4:{name:'stall stripe',       kind:'marking',    act1:'faded parking-stall stripe'},
+    5:{name:'curb cut / gate',    kind:'gate',       act1:'driveway curb cut off the street, amber paint'},
+    6:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete storefront sidewalk'},
+    7:{name:'store door',         kind:'building',   act1:'shop entry, boarded / broken glass door'},
+    8:{name:'service alley',      kind:'drive',      act1:'rear service lane (trash/delivery, drivable)'},
+    9:{name:'service door',       kind:'building',   act1:'back roll-up / steel service door'},
+    10:{name:'gas canopy',        kind:'structure',  act1:'fuel-island canopy, faded brand, sagging'},
+    11:{name:'gas pump',          kind:'prop',       act1:'dead fuel pump, dust-caked, hoses down'}
+  };
+  if(typeof K!=='undefined'&&K.register) K.register('commercial', { generate:generate, body:function(c){return c===2;}, category:'commercial', palette:PALETTE, legend:LEGEND });
+
+  var API={generate:generate,storeFootprints:storeFootprints,driveConnected:driveConnected,hasServiceAccess:hasServiceAccess,palette:PALETTE,legend:LEGEND,SZ:SZ,TILE:TILE};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaCommercial=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

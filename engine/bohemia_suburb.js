@@ -199,7 +199,22 @@
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===5||cc===3||cc===6){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.9;}
-  var API={generate:generate,homeFootprints:homeFootprints,roadConnected:roadConnected,SZ:SZ,TILE:TILE};
+  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a'};
+  // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
+  // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
+  var LEGEND={
+    0:{name:'dead-ground (yard)', kind:'ground',    act1:'dead-dirt front/back yard, no grass, cracked'},
+    1:{name:'road',               kind:'drive',      act1:'cracked residential street asphalt (car-drivable)'},
+    2:{name:'house',              kind:'building',   act1:'single-story stucco tract house, faded, dark windows'},
+    3:{name:'driveway',           kind:'drive',      act1:'cracked concrete driveway apron (drivable to garage)'},
+    4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
+    5:{name:'gate',               kind:'gate',       act1:'neighborhood street entrance off the arterial'},
+    6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented'},
+    9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)'}
+  };
+  if(typeof K!=='undefined'&&K.register) K.register('suburb', { generate:generate, body:function(c){return c===2||c===9;}, category:'residential', palette:PALETTE, legend:LEGEND });
+
+  var API={generate:generate,homeFootprints:homeFootprints,roadConnected:roadConnected,palette:PALETTE,legend:LEGEND,SZ:SZ,TILE:TILE};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaSuburb=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

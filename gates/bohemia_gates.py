@@ -60,6 +60,8 @@ GATES = [
      'solar farm: panels, inverters, substation, filled', False),
     ('PARK',           ['node', 'gates/park_gate.js'],
      'community park: field, diamond, courts, skate, dog run, filled', False),
+    ('TILE SPEC',      ['node', 'gates/tilespec_gate.js'],
+     'every district legend is complete — no undocumented tile ships', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
      'one API addresses valley down to a room', False),
     ('TAN WALL',       ['node', 'gates/tan_gate.js'],

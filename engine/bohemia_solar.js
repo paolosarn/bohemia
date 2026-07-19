@@ -63,9 +63,22 @@
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.9; }
 
   var PALETTE={1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
-  K.register('solar', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE });
+  // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 material. NOTE the
+  // CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — so its
+  // panels/switchgear read maintained (eerily perfect), not decayed, unlike other districts.
+  var LEGEND={
+    0:{name:'dead-ground',        kind:'ground',    act1:'bare desert dirt (setback between fence and field)'},
+    1:{name:'gravel access road', kind:'drive',      act1:'compacted gravel O&M road (maintenance-vehicle drivable)'},
+    2:{name:'control building',   kind:'building',   act1:'small intact concrete control/switch house (powered)'},
+    3:{name:'fence',              kind:'fence',      act1:'intact chain-link security fence + posts (maintained)'},
+    4:{name:'inverter / transformer pad',kind:'structure',act1:'concrete pad + intact inverter/transformer box, humming'},
+    5:{name:'gate',               kind:'gate',       act1:'security drive gate off the access road, amber curb'},
+    6:{name:'substation switchgear',kind:'structure',act1:'switchyard racks, breakers, bus — intact, live'},
+    7:{name:'solar panel',        kind:'panel',      act1:'PV panel row, dark blue-black glass, clean (still generating)'}
+  };
+  K.register('solar', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaSolar=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

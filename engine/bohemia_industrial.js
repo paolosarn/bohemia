@@ -88,10 +88,25 @@
   }
   function driveConnected(res){ return K.connectedFrom(res.g,function(c){return c===5;},function(c){return c===1||c===5||c===7;})>0.85; }
 
-  K.register('industrial', { generate:generate, body:function(c){return c===2||c===6;},
-    palette:{1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a'} });
+  var PALETTE={1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a'};
+  // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
+  var LEGEND={
+    0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt / gravel (setback, yard gaps)'},
+    1:{name:'asphalt drive',      kind:'drive',      act1:'cracked asphalt drive lane / employee lot (car-drivable)'},
+    2:{name:'warehouse',          kind:'building',   act1:'big tilt-up concrete box, rusted metal siding, dark'},
+    3:{name:'fence',              kind:'fence',      act1:'chain-link perimeter fence, sagging, some down'},
+    4:{name:'dock door',          kind:'building',   act1:'roll-up loading dock door, dented, some open black'},
+    5:{name:'gate / truck gate',  kind:'gate',       act1:'wide drive-in yard gate, amber curb paint'},
+    6:{name:'office',             kind:'building',   act1:'small front office block, broken glass'},
+    7:{name:'truck court',        kind:'drive',      act1:'cracked concrete truck apron (backing area, drivable)'},
+    8:{name:'trailer stall stripe',kind:'marking',   act1:'faded trailer-stall stripe on asphalt'},
+    9:{name:'parked trailer',     kind:'vehicle',    act1:'abandoned box trailer, faded, some tagged'},
+    10:{name:'container',         kind:'prop',       act1:'rusted shipping container, dented, stacked'},
+    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark'}
+  };
+  K.register('industrial', { generate:generate, body:function(c){return c===2||c===6;}, palette:PALETTE, legend:LEGEND });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;}};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaIndustrial=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

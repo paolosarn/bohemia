@@ -111,9 +111,27 @@
 
   var PALETTE={1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
     8:'#8a6a5a',9:'#3a4a52',10:'#c9c1aa',11:'#55555f',12:'#41414a',13:'#8f8676'};
-  K.register('park', { generate:generate, body:function(c){return c===2;}, palette:PALETTE, category:'leisure' });
+  // TILE SPEC (the "note section" for the tiling phase): every code -> name, kind, and its
+  // ACT-1 DEAD-WORLD material. act 2/3 evolution is CONTENTS-PAOLO'S ([PENDING] in the sheet).
+  var LEGEND={
+    0:{name:'edge dead-ground',   kind:'ground',    act1:'bare cracked dirt at the parcel edge (setback)'},
+    1:{name:'path / walking trail',kind:'walk',      act1:'worn decomposed-granite / cracked concrete footpath'},
+    2:{name:'building (shelter/restroom)',kind:'building',act1:'weathered CMU + faded metal-roof picnic shelter / restroom block'},
+    3:{name:'dead tree',          kind:'tree-dead', act1:'bare leafless tree, grey bark, no canopy'},
+    4:{name:'court / field marking',kind:'marking',  act1:'faded cream painted line, cracked'},
+    5:{name:'gate / entrance',    kind:'gate',       act1:'park entrance gap + low bollards, amber curb paint'},
+    6:{name:'basketball court',   kind:'court',      act1:'faded sport-court slab, hairline-cracked, ghost of old color'},
+    7:{name:'open lawn (dead turf)',kind:'turf-dead',act1:'dead brown lawn, dry thatch, bald dirt patches'},
+    8:{name:'playground surface', kind:'play',       act1:'sun-bleached rubber/woodchip safety surfacing + faded equipment'},
+    9:{name:'dead pond',          kind:'water-dead', act1:'empty dry basin, cracked mud floor, stone rim'},
+    10:{name:'parking stall',     kind:'marking',    act1:'faded stall stripe on asphalt'},
+    11:{name:'parked car',        kind:'vehicle',    act1:'abandoned dust-caked car'},
+    12:{name:'driveway / parking aisle',kind:'drive',act1:'cracked asphalt drive surface (car-drivable)'},
+    13:{name:'site furniture',    kind:'prop',       act1:'weathered bench / picnic table / trash can'}
+  };
+  K.register('park', { generate:generate, body:function(c){return c===2;}, palette:PALETTE, legend:LEGEND, category:'leisure' });
 
-  var API={generate:generate,footprints:function(r){return r.footprints;},palette:PALETTE};
+  var API={generate:generate,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaPark=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

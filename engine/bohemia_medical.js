@@ -94,9 +94,24 @@
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
-  K.register('medical', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE });
+  // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
+  var LEGEND={
+    0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / unbuilt gaps)'},
+    1:{name:'drive / asphalt',    kind:'drive',      act1:'cracked asphalt drive lane / parking aisle (car-drivable)'},
+    2:{name:'building',           kind:'building',   act1:'concrete/panel hospital, ER wing, MOB — grimy, dark windows'},
+    3:{name:'dead planter island',kind:'tree-dead', act1:'dry curbed planter, dead shrub stumps, gravel'},
+    4:{name:'entrance door',      kind:'building',   act1:'boarded / cracked glass main + ambulance doors, amber frame'},
+    5:{name:'gate / curb cut',    kind:'gate',       act1:'campus vehicle entrance, amber curb paint'},
+    6:{name:'walkway / crosswalk',kind:'walk',       act1:'faded concrete walkway + crosswalk stripes'},
+    7:{name:'canopy',             kind:'structure',  act1:'sagging entrance / ambulance drive-through canopy'},
+    8:{name:'parking garage',     kind:'structure',  act1:'decked concrete garage shell, columns, ramp'},
+    9:{name:'helipad',            kind:'marking',    act1:'faded rooftop-red helipad circle + H, cracked'},
+    10:{name:'parking stall',     kind:'marking',    act1:'faded stall stripe on asphalt'},
+    11:{name:'parked vehicle',    kind:'vehicle',    act1:'abandoned car / dead ambulance, dust-caked'}
+  };
+  K.register('medical', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaMedical=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
