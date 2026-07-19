@@ -98,3 +98,13 @@ ever. Fresh: CHARCOAL WATCH CAP, RUST WATCH CAP (knit, durag-deep), OLIVE FIELD
 CAP (crown + brim riding the hat line). Verified across all 8 facings.
 LESSON BANKED: before inventing a border, GREP FOR THE CANON -- the engine
 already knew the answer (MECHANISM-MINE means using the machine that exists).
+
+--- BLACK SHADES (7/19/26) — DOWN but SHELVED, NOT FINAL (Paolo's explicit words:
+    "don't get rid of those shades forever, we're gonna have to re-orient them
+    for the eyes") ---
+NOT a graveyard-final kill, so NO registry token. Blocked on: FACE CALIBRATION.
+Paolo: "when it comes to shades you really have to be in touch with the eye
+locations and the nose locations... we have to recalibrate the eyes in the
+different cardinal directions." The shades re-cook AFTER he calibrates the
+per-direction eye positions (FACE_OFFSETS, face editor), anchored to the TRUE
+calibrated eye pixels instead of the widest-face-row heuristic.

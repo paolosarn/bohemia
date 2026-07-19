@@ -229,6 +229,16 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    pipeline bug; audit blanket rules per facing; audit generator inheritance)
    + gates/hood_gate.js (11 checks) + CLAUDE.md pointer. Render-order note:
    the CLO_PREVIEW garment hook now runs LAST in buildFrame (after SKIN_DETAIL).
+   FACE CALIBRATION SHIPPED, PENDING PAOLO (7/19): 7/8 accessories canon
+   (wardrobe 65); BLACK SHADES shelved NOT dead (his words) until he
+   recalibrates the per-direction EYE positions. The dormant FACE_OFFSETS
+   system is wired into the render (facial px classified brows+iris/mouth/
+   skin-marks -> eyes/lips/nose, moved never reshaped, cache re-keys) and a
+   FACE CALIBRATION panel lives in the face editor (tap portrait, CHARACTER
+   tab): facing + feature + arrow nudges on the live char + EXPORT .txt.
+   [PENDING Paolo]: calibrate + export -> bake offsets as canon defaults ->
+   re-cook shades v2 on the true eye pixels. Mini-expressions (brows/lips)
+   ride these same per-feature rails later.
    ACCESSORIES FACTORY BORN (7/19, "keep cooking"): genAcc -- 5 zone-locked
    facing-aware types (scarf/mask/shades/gloves/belt), new layers neck/face/
    hands/waist. THE EYE LINE = the widest rows of the face part (probed, not

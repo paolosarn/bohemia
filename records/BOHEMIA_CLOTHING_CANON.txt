@@ -228,3 +228,20 @@ COOKING (8): DUST SCARF, OXBLOOD SCARF, BONE DUST MASK, OXBLOOD DUST MASK,
 BLACK SHADES, LEATHER GLOVES, SOOT GLOVES, LEATHER BELT.
 AFTER THIS (roadmap): colorway multiplication off approved bases toward
 500-800, then Paolo's passes (renaming, act, rarity, faction dress).
+
+--- ACCESSORIES CANON + FACE CALIBRATION SHIPPED (7/19/26) ---
+7 of 8 accessories CANON (wardrobe 65): DUST/OXBLOOD SCARF, BONE/OXBLOOD DUST
+MASK, LEATHER/SOOT GLOVES, LEATHER BELT. BLACK SHADES shelved (NOT final --
+Paolo: "don't get rid of those shades forever") pending EYE RECALIBRATION.
+THE CALIBRATION MACHINE (mechanism mine, placement HIS): the dormant
+FACE_OFFSETS system is now WIRED into the render -- facial pixels classified by
+ramp index (brows+iris='eyes', mouth='lips', skin marks='nose') and shifted by
+per-direction offsets; painted pixels are MOVED never reshaped (RIG LAW); the
+frame cache re-keys on offsets so nudges show live. UI: FACE CALIBRATION in the
+face editor (tap the portrait, CHARACTER tab) -- pick facing, pick feature,
+arrow-nudge on the live character, RESET DIR, EXPORT .txt (verdict workflow).
+Offsets ship ALL ZERO (render pixel-identical until Paolo rules; verified on
+the real canvas: nudge moves, reset restores byte-identical).
+NEXT: Paolo calibrates + exports -> I bake the offsets as canon defaults ->
+shades v2 re-cooked anchored to the TRUE calibrated eye pixels. His eyebrow/
+lip mini-expressions idea rides the same per-feature offset rails later.
