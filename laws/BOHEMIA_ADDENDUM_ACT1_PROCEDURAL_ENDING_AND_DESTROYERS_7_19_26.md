@@ -14,6 +14,12 @@ the ending is a generator over the element set plus the playthrough state, the
 same emergent spirit as the seed-driven overmap and the fold.) A WAR is wanted as
 a common thread through most combinations.
 
+THEME OF THE ACT 1 CLIMAX (Paolo 7/19): the specific event changes playthrough to
+playthrough, but the underlying theme stays constant: THOSE WHO SUPPORT / BUILD
+CIVILIZATION versus THOSE WHO DO NOT (the scattered bandits, and whoever tears
+things down). Whether the player raced to build the city and become pseudo-mayor
+or not shapes which side of that line the climax puts them on.
+
 ## LOCKED — THE APPROVED ELEMENT SET (9; the Dubai Convoy is dropped)
 1. THE LONG NIGHT — the first organized war for the valley; a stand for your
    block's water and power, held at permanent cost. Becomes the dynasty's seat.
@@ -50,14 +56,14 @@ A new hostile group, distinct from every faction:
   all, so even the Cartel opposes them. Every faction in the game hates them.
 - MECHANICAL ROLE: the common enemy. The one threat that can make rival factions
   temporarily cooperate. A natural pressure for the Act 1 war.
-- NOT "the Raiders" (too lazy / generic). Vibe reference: "Pillager"-ish, plain
-  evil.
-- NAMING [PENDING Paolo]: leaning either NAMELESS BY DESIGN (too chaotic to have
-  named themselves; survivors and factions each have their own word for them, none
-  official, which reinforces that they are chaos not an organization) OR a single
-  folk-handle. Claude candidates for a handle: "the Locusts" (a swarm that strips
-  everything and moves on, hated even by other predators), the Wreckers, the
-  Scourge, the Ferals. Paolo's call.
+- NOT A SINGLE GROUP for most of the game (Paolo 7/19). They are scattered
+  bad people, not one organized outfit. They may only COALESCE into a single
+  recognizable group at the very end of Act 1 (or thereabouts). Do not write them
+  as a standing organized force with a leader from the start.
+- NAMING deprioritized (Paolo 7/19): "bandits" or "raiders" is a fine PLACEHOLDER
+  for now, "it's whatever." The evocative name is a later polish, not a blocker.
+  Options on file if wanted: nameless-by-design (spat pest-word like the Locusts /
+  the Ferals) or a folk-handle. Not important yet.
 
 ## CARRIED, LEANING (not locked, saved so it is not lost)
 From the combat conversation, awaiting Paolo's confirm:
