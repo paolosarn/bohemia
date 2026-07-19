@@ -129,8 +129,12 @@ the Act 2 asset set, not first. Flagged so the opening is not blocked early.
 
 ## THE FOUNDING — THE NEIGHBOR (7/19, Paolo) — how the custom faction is born
 After the burial you come down off the ridge, back to the house, and a NEIGHBOR
-pulls up: "damn, I'm really sorry, we heard the commotion last night, is everyone
-okay?" You have to tell him, out loud, that they are not. That small, clumsy act of
+comes up the road ON FOOT: "damn, I'm really sorry, we heard the commotion last
+night, is everyone okay?" You have to tell him, out loud, that they are not.
+(SCARCITY NOTE, Paolo 7/19: a working, driving car is a RARE SUPER-LUXURY this
+early in the anarchy decade. Fuel barely moves and most vehicles are dead. Ordinary
+people walk or bike. Do not casually put working cars in Act 1 scenes; consistent
+with the logistics addendum. This is a texture rule for all Act 1 quest writing.) That small, clumsy act of
 one neighbor who heard your worst night and drove over to check on you is the seed.
 A quest or two later, that bond becomes the FOUNDING OF THE CUSTOM (pseudo) FACTION,
 and from there the rest of the game opens up.
@@ -143,8 +147,9 @@ and from there the rest of the game opens up.
   the whole hundred-year dynasty is also, unknowingly, the first piece of the weapon
   that ends the game. The machine can't watch a neighbor standing in your yard not
   knowing what to say, and that kind of moment is what beats it.
-- [OPEN, Paolo]: whether this neighbor becomes a lasting founding pillar / character
-  of your faction, or is the first of many bonds in a gradual founding.
+- RESOLVED 7/19 (BOTH): the neighbor becomes a LASTING founding pillar/character
+  who is with your family through the first generation, AND the faction also grows
+  brick by brick from many small bonds like his. Both, not either.
 
 ## THE 10 START-OPTIONS BECOME THE FIRST QUESTS (locked, Paolo)
 Any of the 10 opening options (The Long Night, The Killing Summer, The Elder's
