@@ -1,131 +1,137 @@
-// BOHEMIA PARK (7/19/26, v3 — RESEARCHED custom grid. Paolo killed v2's perfect circle +
-// the court punching through it: "not realistic, do online research, find out what a park
-// looks like, create a good custom grid").
-// RESEARCH (neighborhood-park design guides — Miracle Recreation, Park N Play, TX AgriLife,
-// Fresno/Tracy PRMPs): (1) paths are FLOWING CURVILINEAR trails that wind and define use
-// areas — never a geometric circle — and they route AROUND amenities, nothing sits on the
-// path; (2) ~half the park is PASSIVE open lawn — one big central green, mostly empty with a
-// few shade trees; (3) high-use amenities (playground, court) sit NEAR THE STREET for
-// natural surveillance, with LIMITED parking at the entrance; (4) picnic pavilion sits in a
-// quieter shaded zone; (5) TREES buffer the perimeter (screen neighbors) + shade the seating.
-// So: amenities are drawn FIRST, then the winding trail is laid only over open ground, so it
-// naturally flows AROUND every feature — a court can never break through it.
-// Act-1 DEAD: dead-brown turf, bare trees, empty pond; hardscape intact. Every tile named.
+// BOHEMIA PARK (7/19/26, v4 — DRIVABLE + street-aware. Paolo: "do you have drivable parts
+// where a car normally would go, whether it's a corner or a standalone grid").
+// v3 blurred cars and people into one path code and only reached the lot from the south. Now
+// the DRIVABLE network is explicit: an asphalt DRIVEWAY (code 12) runs from the street curb
+// cut into the PARKING LOT, whose aisles (also 12) let a car reach every stall — separate
+// from the pedestrian TRAIL (code 1), which cars never use (you don't drive the walking loop).
+// STREET-AWARE: real parks have ONE car entrance + pedestrian gates elsewhere. So the park is
+// built in a canonical ENTRANCE-AT-SOUTH frame (car driveway + lot on the south street), then
+// ROTATED so that entrance lands on whatever street the cell actually touches. On a CORNER,
+// the primary street gets the car entrance; the other street(s) get pedestrian gates. This
+// makes the drive correct for a standalone grid (1 street) AND a corner (2 streets), any edge.
+// RESEARCH (park design guides): curvilinear trails route AROUND amenities; ~half is passive
+// open lawn; playground/court near the street for surveillance; limited parking at entrance;
+// pavilion in a quiet shaded zone; trees buffer the perimeter. Act-1 DEAD. Every tile named.
 // LEGEND:
-//  0 edge dead-ground   1 path/plaza/drive    2 building(picnic shelter/restroom)
-//  3 dead-tree          4 court marking        5 gate
-//  6 basketball court   7 dead-turf(open lawn) 8 playground safety-surface
-//  9 dead-pond         10 parking-stall       11 parked-car   13 site-furniture(bench/table)
+//  0 edge dead-ground   1 pedestrian path/trail   2 building(picnic shelter/restroom)
+//  3 dead-tree          4 court marking            5 gate
+//  6 basketball court   7 dead-turf(open lawn)     8 playground safety-surface
+//  9 dead-pond         10 parking-stall           11 parked-car
+// 12 DRIVE(driveway/parking aisle — CAR-DRIVABLE)  13 site-furniture(bench/table)
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
 
-  function generate(seed,opts){
-    opts=opts||{}; var streets=opts.streets||['S'];
-    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, i, x, y, r=G.rnd;
+  // rotate a square grid 90° clockwise: out[x][n-1-y] = g[y][x]
+  function rotCW(g){ var n=g.length, out=[]; for(var y=0;y<n;y++){ out.push(new Array(n)); }
+    for(var y2=0;y2<n;y2++)for(var x=0;x<n;x++){ out[x][n-1-y2]=g[y2][x]; } return out; }
 
-    // ---- BASE: open dead-turf lawn to a 1-tile edge ----
-    G.rect(1,1,W-2,H-2,7);
+  function buildCanonical(seed){
+    // entrance is at the SOUTH edge (bottom); car driveway + lot live on the south street.
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, i, x, y, r=G.rnd;
+    G.rect(1,1,W-2,H-2,7);                                            // open dead-turf lawn
 
     function isSoft(c){ return c===7||c===0||c===3; }
-    function stampPath(x,y,rr){ for(var dy=-rr;dy<=rr;dy++)for(var dx=-rr;dx<=rr;dx++){ if(dx*dx+dy*dy<=rr*rr){ var xx=x+dx, yy=y+dy; if(isSoft(G.get(xx,yy)))G.set(xx,yy,1); } } }
-    function line(x0,y0,x1,y1,rr){ var dx=x1-x0, dy=y1-y0, n=Math.max(Math.abs(dx),Math.abs(dy))||1;
-      for(var s=0;s<=n;s++){ stampPath(Math.round(x0+dx*s/n), Math.round(y0+dy*s/n), rr); } }
+    function stamp(x,y,rr,code){ for(var dy=-rr;dy<=rr;dy++)for(var dx=-rr;dx<=rr;dx++){ if(dx*dx+dy*dy<=rr*rr){ if(isSoft(G.get(x+dx,y+dy)))G.set(x+dx,y+dy,code); } } }
+    function walk(x0,y0,x1,y1,rr){ var dx=x1-x0,dy=y1-y0,n=Math.max(Math.abs(dx),Math.abs(dy))||1; for(var s=0;s<=n;s++)stamp(Math.round(x0+dx*s/n),Math.round(y0+dy*s/n),rr,1); }
+    function drive(x0,y0,x1,y1,rr){ var dx=x1-x0,dy=y1-y0,n=Math.max(Math.abs(dx),Math.abs(dy))||1; for(var s=0;s<=n;s++)stamp(Math.round(x0+dx*s/n),Math.round(y0+dy*s/n),rr,12); }
     function bench(x,y){ if(G.get(x,y)===7||G.get(x,y)===1) G.set(x,y,13); }
-    function grove(cx,cy,rad,n){ for(var k=0;k<n;k++){ var a=r()*6.283, d=Math.sqrt(r())*rad, tx=Math.round(cx+Math.cos(a)*d), ty=Math.round(cy+Math.sin(a)*d);
-      if(G.get(tx,ty)===7){ G.set(tx,ty,3); if(r()<0.35&&G.get(tx+1,ty)===7)G.set(tx+1,ty,3); } } }
-    // Catmull-Rom through waypoints -> a smooth WINDING trail (the anti-circle)
-    function trail(pts,closed,rr){ var n=pts.length;
-      function P(i){ if(closed)return pts[(i%n+n)%n]; return pts[Math.max(0,Math.min(n-1,i))]; }
-      var last=closed?n:n-1;
-      for(var i2=0;i2<last;i2++){ var p0=P(i2-1),p1=P(i2),p2=P(i2+1),p3=P(i2+2);
+    function grove(cx,cy,rad,n){ for(var k=0;k<n;k++){ var a=r()*6.283,d=Math.sqrt(r())*rad,tx=Math.round(cx+Math.cos(a)*d),ty=Math.round(cy+Math.sin(a)*d); if(G.get(tx,ty)===7){ G.set(tx,ty,3); if(r()<0.35&&G.get(tx+1,ty)===7)G.set(tx+1,ty,3);} } }
+    function trail(pts,rr){ var n=pts.length; function P(i){return pts[(i%n+n)%n];}
+      for(var i2=0;i2<n;i2++){ var p0=P(i2-1),p1=P(i2),p2=P(i2+1),p3=P(i2+2);
         for(var t=0;t<1;t+=0.02){ var t2=t*t,t3=t2*t;
           var xx=0.5*((2*p1[0])+(-p0[0]+p2[0])*t+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3);
           var yy=0.5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3);
-          stampPath(Math.round(xx),Math.round(yy),rr); } } }
+          stamp(Math.round(xx),Math.round(yy),rr,1); } } }
 
-    // ================= AMENITIES FIRST (the trail will flow AROUND them) =================
+    // ===== HARD FEATURES first (trail + drive route around them) =====
+    // playground (bottom-left, street-visible)
+    var gx0=15,gy0=90,gx1=39,gy1=110; G.rect(gx0,gy0,gx1,gy1,8);
+    G.rect(gx0+3,gy0+3,gx0+6,gy0+6,13); G.rect(gx1-7,gy1-6,gx1-4,gy1-3,13); G.rect((gx0+gx1>>1)-1,(gy0+gy1>>1)-1,(gx0+gx1>>1)+1,(gy0+gy1>>1)+1,13);
+    // basketball court (bottom-center, street-visible)
+    var cx0=44,cy0=92,cx1=64,cy1=111; G.rect(cx0,cy0,cx1,cy1,6);
+    for(x=cx0;x<=cx1;x++){G.set(x,cy0,4);G.set(x,cy1,4);} for(y=cy0;y<=cy1;y++){G.set(cx0,y,4);G.set(cx1,y,4);}
+    for(x=cx0;x<=cx1;x++)G.set(x,(cy0+cy1)>>1,4); G.disc((cx0+cx1)>>1,(cy0+cy1)>>1,M(2),4);
+    // PARKING LOT (bottom-right) — asphalt (12) with striped stalls (10) + cars (11); aisles are 12
+    var lx0=72,ly0=100,lx1=113,ly1=119; G.rect(lx0,ly0,lx1,ly1,12);
+    for(var ry=ly0+2; ry+M(5)<=ly1-1; ry+=M(5)+M(3)) for(x=lx0+2;x+2<lx1;x+=3){ G.vbar(ry,ry+M(5),x,10,1); if(r()<0.5)G.rect(x+1,ry+1,x+1,ry+M(5)-1,11); }
+    // CAR DRIVEWAY: curb cut on the south street straight up into the lot (2 wide)
+    var carx=Math.round((lx0+lx1)/2);
+    drive(carx,H-2,carx,ly0+3,2);
+    // picnic pavilion + restroom + tables (upper-left, quiet shaded zone)
+    var sx=16,sy=16; G.rect(sx,sy,sx+11,sy+8,2); G.rect(sx+15,sy+2,sx+22,sy+8,2);
+    for(i=0;i<4;i++){ bench(sx+2+i*2,sy+11); bench(sx+2+i*2,sy+13); }
+    // naturalistic dead pond (upper-right, organic blob + stone rim)
+    G.disc(95,30,9,9); G.disc(103,26,7,9); G.disc(89,38,6,9);
+    for(y=0;y<H;y++)for(x=0;x<W;x++){ if(G.get(x,y)===9 && (G.get(x+1,y)===7||G.get(x-1,y)===7||G.get(x,y+1)===7||G.get(x,y-1)===7)) G.set(x,y,13); }
 
-    // 1. PLAYGROUND — near the street (lower-left), visible from the entrance for surveillance
-    var px0=16, py0=88, px1=44, py1=107;
-    G.rect(px0,py0,px1,py1,8);
-    G.rect(px0+3,py0+3,px0+6,py0+6,13); G.rect(px1-7,py1-6,px1-4,py1-3,13); G.rect((px0+px1>>1)-1,(py0+py1>>1)-1,(px0+px1>>1)+1,(py0+py1>>1)+1,13);
+    // ===== WINDING PEDESTRIAN TRAIL (flows through the lawn, around every feature) =====
+    var loop=[[67,113],[46,98],[28,80],[22,54],[36,40],[54,28],[70,24],[84,42],[96,60],[92,84],[78,98],[68,106]];
+    trail(loop,1);
+    walk(46,98,40,96,1);                 // spur -> playground
+    walk(68,106,66,111,1);               // spur -> court
+    walk(54,28,36,30,1);                 // spur -> pavilion
+    walk(67,113,carx-6,H-2,1);           // pedestrian entrance walk from the south street
 
-    // 2. BASKETBALL COURT — also near the street (lower-center), its own footprint
-    var bx0=52, by0=90, bx1=75, by1=110;
-    G.rect(bx0,by0,bx1,by1,6);
-    for(x=bx0;x<=bx1;x++){G.set(x,by0,4);G.set(x,by1,4);} for(y=by0;y<=by1;y++){G.set(bx0,y,4);G.set(bx1,y,4);}
-    for(x=bx0;x<=bx1;x++)G.set(x,(by0+by1)>>1,4); G.disc((bx0+bx1)>>1,(by0+by1)>>1,M(2),4);
-
-    // 3. PARKING PULLOUT — small, at the entrance (lower-right)
-    var lx0=84, ly0=98, lx1=115, ly1=119;
-    G.rect(lx0,ly0,lx1,ly1,1);
-    for(var ry=ly0+2; ry+M(5)<=ly1-1; ry+=M(5)+M(3)) for(x=lx0+2;x+2<lx1;x+=3){
-      G.vbar(ry,ry+M(5),x,10,1); if(r()<0.5)G.rect(x+1,ry+1,x+1,ry+M(5)-1,11); }
-
-    // 4. PICNIC PAVILION + RESTROOM + tables — quieter shaded zone (upper-left)
-    var sx=18, sy=18;
-    G.rect(sx,sy,sx+11,sy+8,2);                                    // group picnic shelter
-    G.rect(sx+15,sy+2,sx+22,sy+8,2);                               // restroom
-    for(i=0;i<4;i++){ bench(sx+2+i*2,sy+11); bench(sx+2+i*2,sy+13); } // picnic tables under shade
-
-    // 5. SMALL NATURALISTIC POND — passive water feature, organic (overlapping discs, not a disc)
-    G.disc(96,30,9,9); G.disc(104,26,7,9); G.disc(90,38,6,9);
-    // stone rim where pond meets lawn
-    for(y=0;y<H;y++)for(x=0;x<W;x++){ if(G.get(x,y)===9){ var edge=false;
-      if(G.get(x+1,y)===7||G.get(x-1,y)===7||G.get(x,y+1)===7||G.get(x,y-1)===7)edge=true; if(edge)G.set(x,y,13); } }
-
-    // ================= THE WINDING TRAIL (flows through the open lawn, around amenities) =====
-    // one organic loop; Catmull-Rom keeps it curvilinear. Waypoints sit in open lawn, in the
-    // corridors BETWEEN amenities, so the trail never crosses a court/building/playground.
-    var loop=[[63,114],[46,102],[30,80],[23,54],[36,40],[52,28],[70,22],[85,40],[98,58],[95,82],[80,98],[66,108]];
-    trail(loop,true,1);
-    // spurs: trail -> each amenity edge (stop at the feature since path only writes open ground)
-    line(46,102,42,98,1);            // -> playground
-    line(66,108,68,110,1);           // -> court (south edge)
-    line(52,28,34,30,1);             // -> pavilion/restroom
-    line(95,82,100,98,2);            // -> parking (a drive, wider)
-    // ENTRANCE WALK from the street up into the loop
-    // (drawn per-street below with the gate)
-
-    // ================= TREES: perimeter buffer + shade groves + a few lawn specimens =========
-    // perimeter buffer rows (screen the neighbors) — skip the street edge so amenities stay visible
-    function buffer(){ for(var q=0;q<520;q++){ var side=Math.floor(r()*4); var bx,by;
-      if(side===0){ bx=2+Math.floor(r()*(W-4)); by=2+Math.floor(r()*6); }          // top
-      else if(side===1){ bx=2+Math.floor(r()*6); by=2+Math.floor(r()*(H-4)); }      // left
-      else if(side===2){ bx=W-8+Math.floor(r()*6); by=2+Math.floor(r()*(H-4)); }    // right
-      else { bx=2+Math.floor(r()*(W-4)); by=H-9+Math.floor(r()*6); if(bx>50&&bx<86)continue; } // bottom, keep entrance clear
-      if(G.get(bx,by)===7)G.set(bx,by,3); } }
-    buffer();
-    grove(sx+30,sy+6,9,26);                         // shade grove by the picnic area
-    grove(108,52,8,20); grove(30,66,7,14);          // a couple of groves in the lawn edges
-    // sparse specimen shade trees in the open lawn (keep it OPEN — just a few)
-    for(i=0;i<16;i++){ var tx=40+Math.floor(r()*48), ty=40+Math.floor(r()*40); if(G.get(tx,ty)===7&&r()<0.6)G.set(tx,ty,3); }
-    // benches at the trail's bends and by the amenities
+    // ===== TREES: perimeter buffer + shade groves + sparse lawn specimens =====
+    for(var q=0;q<520;q++){ var side=Math.floor(r()*4),bx,by;
+      if(side===0){bx=2+Math.floor(r()*(W-4));by=2+Math.floor(r()*6);}
+      else if(side===1){bx=2+Math.floor(r()*6);by=2+Math.floor(r()*(H-4));}
+      else if(side===2){bx=W-8+Math.floor(r()*6);by=2+Math.floor(r()*(H-4));}
+      else {bx=2+Math.floor(r()*(W-4));by=H-9+Math.floor(r()*6); if(bx>55&&bx<118)continue;}
+      if(G.get(bx,by)===7)G.set(bx,by,3); }
+    grove(sx+30,sy+6,9,26); grove(107,52,8,18); grove(30,66,7,14);
+    for(i=0;i<16;i++){ var tx=40+Math.floor(r()*44),ty=42+Math.floor(r()*38); if(G.get(tx,ty)===7&&r()<0.6)G.set(tx,ty,3); }
     for(i=0;i<loop.length;i++) bench(loop[i][0],loop[i][1]+2);
-    bench(px1+2,(py0+py1)>>1); bench(bx0-2,(by0+by1)>>1);
+    bench(gx1+2,(gy0+gy1)>>1); bench(cx0-2,(cy0+cy1)>>1);
 
-    // ================= GATE + ENTRANCE WALK/DRIVE from the street =================
-    var gates=[];
-    streets.forEach(function(edge){
-      if(edge==='S'||edge==='N'){ var gx=Math.round(W*0.5), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
-        for(i=-3;i<=3;i++)G.set(gx+i,gy,5);
-        // walk from the gate curving up to the loop, plus a branch into the parking lot
-        line(gx,gy+dir*1,63,114,2); line(gx,gy+dir*1,100,108,2);
-        gates.push({edge:edge,x:gx,y:gy}); }
-      else { var gy2=Math.round(H*0.5), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
-        for(i=-3;i<=3;i++)G.set(gx2,gy2+i,5);
-        line(gx2+dir2*1,gy2,(edge==='E')?98:23,gy2,2);
-        gates.push({edge:edge,x:gx2,y:gy2}); }
-    });
+    // CAR GATE + a PEDESTRIAN GATE on the south street (both rotate to the real street later)
+    G.rect(carx-3,H-1,carx+3,H-1,5);      // car gate (aligned with the driveway)
+    G.rect(64,H-1,70,H-1,5);              // pedestrian gate (aligned with the entrance walk)
+    return g;
+  }
 
-    return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:K.footprints(g,function(v){return v===2;})};
+  // scan the four borders; each contiguous run of gate(5) becomes one gate {edge,x,y}
+  function scanGates(g){ var n=g.length,out=[],run=null;
+    function edgeCells(){ var cells=[],x,y;
+      for(x=0;x<n;x++)cells.push([x,0,'N']); for(y=0;y<n;y++)cells.push([n-1,y,'E']);
+      for(x=n-1;x>=0;x--)cells.push([x,n-1,'S']); for(y=n-1;y>=0;y--)cells.push([0,y,'W']); return cells; }
+    var cells=edgeCells();
+    for(var i=0;i<cells.length;i++){ var c=cells[i],is=(g[c[1]][c[0]]===5);
+      if(is){ if(!run)run={edge:c[2],xs:[c[0]],ys:[c[1]]}; else {run.xs.push(c[0]);run.ys.push(c[1]);} }
+      else if(run){ out.push({edge:run.edge,x:Math.round(run.xs.reduce(function(a,b){return a+b;})/run.xs.length),y:Math.round(run.ys.reduce(function(a,b){return a+b;})/run.ys.length)}); run=null; } }
+    if(run)out.push({edge:run.edge,x:run.xs[0],y:run.ys[0]});
+    return out; }
+
+  // draw a pedestrian gate + short walk-in on an edge (post-rotation, for corner side streets)
+  function pedGate(g,edge){ var n=g.length,i,s;
+    function soft(c){return c===7||c===0||c===3;}
+    if(edge==='N'||edge==='S'){ var gx=Math.round(n*0.5),gy=(edge==='S')?n-1:0,dir=(edge==='S')?-1:1;
+      for(i=-3;i<=3;i++)g[gy][gx+i]=5;
+      for(s=1;s<=18;s++){var yy=gy+dir*s; if(yy<=0||yy>=n-1)break; if(soft(g[yy][gx]))g[yy][gx]=1; else break; } }
+    else { var gy2=Math.round(n*0.5),gx2=(edge==='E')?n-1:0,dir2=(edge==='E')?-1:1;
+      for(i=-3;i<=3;i++)g[gy2+i][gx2]=5;
+      for(s=1;s<=18;s++){var xx=gx2+dir2*s; if(xx<=0||xx>=n-1)break; if(soft(g[gy2][xx]))g[gy2][xx]=1; else break; } } }
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var g=buildCanonical(seed>>>0);
+    // pick the CAR-entrance street (primary), rotate canonical-south to it
+    var order=['S','E','W','N']; var primary='S';
+    for(var o=0;o<order.length;o++){ if(streets.indexOf(order[o])>=0){ primary=order[o]; break; } }
+    var kmap={S:0,W:1,N:2,E:3}, k=kmap[primary];
+    for(var t=0;t<k;t++) g=rotCW(g);
+    // corner: side streets get a pedestrian gate too
+    streets.forEach(function(e){ if(e!==primary) pedGate(g,e); });
+    var gates=scanGates(g);
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:gates,
+      footprints:K.footprints(g,function(v){return v===2;})};
   }
 
   var PALETTE={1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
-    8:'#8a6a5a',9:'#3a4a52',10:'#c9c1aa',11:'#55555f',13:'#8f8676'};
-  K.register('park', { generate:generate, body:function(c){return c===2;}, category:'leisure', palette:PALETTE });
+    8:'#8a6a5a',9:'#3a4a52',10:'#c9c1aa',11:'#55555f',12:'#41414a',13:'#8f8676'};
+  K.register('park', { generate:generate, body:function(c){return c===2;}, palette:PALETTE, category:'leisure' });
 
   var API={generate:generate,footprints:function(r){return r.footprints;},palette:PALETTE};
   if(typeof module!=='undefined')module.exports=API;

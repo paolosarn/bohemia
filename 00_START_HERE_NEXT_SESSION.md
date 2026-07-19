@@ -719,21 +719,25 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
 - solar -> INFRASTRUCTURE (bohemia_solar, utility solar farm: panel arrays, gravel access
   roads, inverter/transformer pads, a substation switchyard + control building, fence+gate;
   fits the CLUSTERED-POWER lore). EXPLAIN-EVERY-TILE (void ~10%). Gate solar_gate.js.
-- park -> LEISURE (bohemia_park, v3 — RESEARCHED custom grid. Paolo killed v2's perfect
-  circle + court punching through it: "not realistic, do online research"). RESEARCH (park
-  design guides): paths are FLOWING CURVILINEAR trails that wind + route AROUND amenities
-  (never a geometric circle, nothing sits on the path); ~half the park is PASSIVE OPEN LAWN
-  (one big central green, mostly empty w/ a few shade trees); high-use amenities (playground
-  + court) sit NEAR THE STREET for surveillance w/ LIMITED parking at the entrance; picnic
-  pavilion in a quieter shaded zone; TREES buffer the perimeter (screen neighbors) + shade
-  seating. BUILD: amenities drawn FIRST, then a Catmull-Rom WINDING trail laid only over
-  open ground so it flows around every feature (a court can't break through it). One
-  organic loop + spurs; playground/court/parking along the bottom street edge; pavilion +
-  restroom + tables upper-left w/ a shade grove; naturalistic blob pond (overlapping discs,
-  stone rim); perimeter tree buffer; sparse lawn specimens; benches at the trail bends. Lawn
-  ~74%. ACT-1 DEAD. void ~3%. Gate park_gate.js (7 checks incl. LAWN-IS-DOMINANT >55% so it
-  can't regress to a super-park). v1 (cram-packed super-park) + v2 (perfect-circle) both
-  REJECTED by Paolo — git history has them.
+- park -> LEISURE (bohemia_park, v4 — RESEARCHED custom grid + DRIVABLE + street-aware).
+  RESEARCH (park design guides): FLOWING CURVILINEAR trails wind + route AROUND amenities
+  (never a geometric circle, nothing sits on the path); ~half the park is PASSIVE OPEN LAWN;
+  high-use amenities (playground + court) near the STREET for surveillance w/ LIMITED parking
+  at the entrance; pavilion in a quieter shaded zone; TREES buffer the perimeter. BUILD:
+  amenities drawn FIRST, then a Catmull-Rom WINDING pedestrian trail (code 1) laid only over
+  open ground so it flows around every feature. DRIVABLE (Paolo 7/19: "do you have drivable
+  parts where a car normally would go, corner or standalone"): the car network is EXPLICIT
+  and separate from the walking trail — an asphalt DRIVEWAY + parking AISLES (code 12) run
+  from the street curb cut into the lot so a car reaches every stall (0 orphan stalls,
+  driveConn 1.0). STREET-AWARE via CANONICAL-SOUTH + ROTATE: the park is built entrance-at-
+  south, then rotCW'd so the car entrance lands on the actual street; a CORNER gets the car
+  entrance on the primary street (order S>E>W>N) + a PEDESTRIAN gate on each side street (one
+  car entrance is realistic). Works for a standalone grid (1 street, any edge) AND a corner.
+  Lawn ~75%. ACT-1 DEAD. void ~3%. Gate park_gate.js (11 checks over 6 configs incl.
+  LAWN-DOMINANT >55%, drive-network-connected, driveway-reaches-primary-street, every-stall-
+  car-reachable, corner-pedestrian-gate). v1 super-park + v2 perfect-circle both REJECTED —
+  git history has them. NOTE: the canonical-south + rotate-to-street pattern (+ explicit
+  drive code 12) is a reusable convention to push into the other districts' parking next.
 FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
