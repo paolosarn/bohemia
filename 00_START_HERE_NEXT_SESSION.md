@@ -719,16 +719,21 @@ Built + folded into world.plot (each = a generator on the kit + a gate + one DIS
 - solar -> INFRASTRUCTURE (bohemia_solar, utility solar farm: panel arrays, gravel access
   roads, inverter/transformer pads, a substation switchyard + control building, fence+gate;
   fits the CLUSTERED-POWER lore). EXPLAIN-EVERY-TILE (void ~10%). Gate solar_gate.js.
-- park -> LEISURE (bohemia_park, REALISTIC neighborhood park — v2, Paolo: "not a super
-  park... make it realistic"). MOSTLY OPEN LAWN (~80%) with a FEW well-spaced amenities: a
-  curving oval loop trail (the spine), ONE playground, ONE basketball court, a picnic
-  shelter + restroom + tables, a modest dead pond, a small parking pullout by the entrance,
-  benches along the loop, and tree GROVES clumping in the corners that break up the green.
-  The open lawn is the point (that's what a park IS) — it reads as designed because trees,
-  paths, and benches thread it, not a blank slab. ACT-1 DEAD: dead-brown turf, bare trees,
-  empty pond. void ~3%. v1 was a cram-packed "super park" (diamond+soccer+3 courts+skate+
-  dog run+garden) — REJECTED by Paolo for unrealism, rebuilt calm. Gate park_gate.js (7
-  checks incl. LAWN-IS-DOMINANT >55%, so it can never regress to a super-park).
+- park -> LEISURE (bohemia_park, v3 — RESEARCHED custom grid. Paolo killed v2's perfect
+  circle + court punching through it: "not realistic, do online research"). RESEARCH (park
+  design guides): paths are FLOWING CURVILINEAR trails that wind + route AROUND amenities
+  (never a geometric circle, nothing sits on the path); ~half the park is PASSIVE OPEN LAWN
+  (one big central green, mostly empty w/ a few shade trees); high-use amenities (playground
+  + court) sit NEAR THE STREET for surveillance w/ LIMITED parking at the entrance; picnic
+  pavilion in a quieter shaded zone; TREES buffer the perimeter (screen neighbors) + shade
+  seating. BUILD: amenities drawn FIRST, then a Catmull-Rom WINDING trail laid only over
+  open ground so it flows around every feature (a court can't break through it). One
+  organic loop + spurs; playground/court/parking along the bottom street edge; pavilion +
+  restroom + tables upper-left w/ a shade grove; naturalistic blob pond (overlapping discs,
+  stone rim); perimeter tree buffer; sparse lawn specimens; benches at the trail bends. Lawn
+  ~74%. ACT-1 DEAD. void ~3%. Gate park_gate.js (7 checks incl. LAWN-IS-DOMINANT >55% so it
+  can't regress to a super-park). v1 (cram-packed super-park) + v2 (perfect-circle) both
+  REJECTED by Paolo — git history has them.
 FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
