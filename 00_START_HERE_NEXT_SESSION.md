@@ -688,6 +688,9 @@ the first commercial district (a corner shopping plaza).
   (4) MORE curb cuts: 2 per street (corner = 4). Gate #23 now 11 checks. All green.
   NOTE: parking code (1/3/4) maps to the approved parking/stall-line TEXTURES at render
   time (banks); the proof shows geometry, the real render applies the tiles.
+  VARIANT NOTE (Paolo 7/18): this is the CORNER form. A commercial cell squeezed
+  between two other districts (frontage on one edge, or mid-block) needs its own
+  layout variant, remade — not just the corner rotated. Build when folding into the map.
   NEXT: subdivide the store strip into TENANT UNITS (each own storefront), then fold
   commercial into the world model like the suburb. [PENDING Paolo: react.]
 

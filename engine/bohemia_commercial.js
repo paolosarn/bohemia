@@ -90,19 +90,24 @@
 
     // --- CURB CUTS: commercial gets MORE (2 per street), skipping the gas corner ---
     var gates=[];
+    var DRIVE_STOP={1:1,3:1,8:1};                // a cut connects once it reaches the lot OR the rear alley
     function cut(edge,frac){
       if(edge==='S'||edge==='N'){ var gx=Math.round(W*frac), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
         for(var i=-3;i<=3;i++)if(inb(gx+i,gy))g[gy][gx+i]=5;
-        for(var s=1;s<=H;s++){var yy=gy+dir*s; if(!inb(gx,yy))break; if(g[yy][gx]===1||g[yy][gx]===3)break;
+        for(var s=1;s<=H;s++){var yy=gy+dir*s; if(!inb(gx,yy))break; if(DRIVE_STOP[g[yy][gx]])break;
           for(var w=-2;w<=2;w++) if(inb(gx+w,yy)&&g[yy][gx+w]!==2) g[yy][gx+w]=3; }
         gates.push({edge:edge,x:gx,y:gy}); }
       else { var gy2=Math.round(H*frac), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
         for(var j=-3;j<=3;j++)if(inb(gx2,gy2+j))g[gy2+j][gx2]=5;
-        for(var s2=1;s2<=W;s2++){var xx=gx2+dir2*s2; if(!inb(xx,gy2))break; if(g[gy2][xx]===1||g[gy2][xx]===3)break;
+        for(var s2=1;s2<=W;s2++){var xx=gx2+dir2*s2; if(!inb(xx,gy2))break; if(DRIVE_STOP[g[gy2][xx]])break;
           for(var w2=-2;w2<=2;w2++) if(inb(xx,gy2+w2)&&g[gy2+w2][xx]!==2) g[gy2+w2][xx]=3; }
         gates.push({edge:edge,x:gx2,y:gy2}); }
     }
     streets.forEach(function(edge){ cut(edge,0.34); cut(edge,0.72); });
+    // SERVICE entrances at the far corners: truck access straight into the rear alley,
+    // separate from the customer lot (Paolo 7/18: two more gates, top-right + bottom-left).
+    if(back.N&&isS('E')) cut('E',(MARGIN+2)/H);
+    if(back.W&&isS('S')) cut('S',(MARGIN+2)/W);
 
     var res={g:g,W:W,H:H,streets:streets,gates:gates,gas:gas};
     res.stores=storeFootprints(res);

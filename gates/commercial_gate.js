@@ -38,7 +38,11 @@ ok('every business has a back service door + rear alley (trash-out)', serviceOk)
 // GAS STATION in the street corner (needs two streets); and MORE curb cuts (2 per street)
 const cornerG = C.generate(7, { streets: ['S', 'E'] });
 ok('a corner plaza has a gas station pad in the corner', !!cornerG.gas);
-ok('commercial gets 2 curb cuts per street (a corner = 4)', cornerG.gates.length === 4);
+{
+  const perEdge = {};
+  for (const t of cornerG.gates) perEdge[t.edge] = (perEdge[t.edge] || 0) + 1;
+  ok('commercial gets 2+ curb cuts per street (front + service)', cornerG.streets.every(e => perEdge[e] >= 2));
+}
 
 // STREET-AWARE entrances: a curb cut (code 5) only on a street-facing edge; every
 // street gets one; a corner exits two.
