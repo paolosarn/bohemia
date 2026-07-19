@@ -13,7 +13,17 @@ Two things ate the day, and BOTH are fixable:
 NOT the cause: thinking too little. The cause: not front-loading (specs, looking,
 batching). Speed comes from doing MORE before he has to speak, not from thinking less.
 
+## RESEARCH-FIRST LAW (Paolo 7/18, standing, EVERY district/thing)
+Before building ANY district (or real-world thing), do ONLINE RESEARCH of what it
+actually looks like — real site plans, aerial layouts, the anatomy — and let what I see
+INSPIRE the generator. Paolo: "I definitely need you inspired by what you see online
+before you build anything, cause I see the vision." Ground every generator in reality
+(the warehouse got a truck court, trailer staging, car lot, office, guard shack from
+research — not invented). Cite the sources. Everything we have (laws/banks) PLUS online
+research, then build. This is step 0 of the fast loop below.
+
 ## THE FAST LOOP (do this, every build)
+0. RESEARCH THE REAL THING (see the law above) — reference before code, always.
 1. READ THE LAWS FIRST. Before writing placement/art code, grep the laws + banks for an
    existing ruling (PARKING_LAW, ART_45, the playbook). I rebuilt parking twice because
    I didn't read BOHEMIA_PARKING_LAW that already existed. Specs first = zero rework.

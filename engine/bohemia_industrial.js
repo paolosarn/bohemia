@@ -1,8 +1,15 @@
-// BOHEMIA INDUSTRIAL — WAREHOUSE YARD (7/18/26). Built on the DISTRICT KIT to prove the
-// factory: warehouses backing the far edge, a fenced truck yard fronting the street with
-// dock doors, drive-in gates, scattered salvage containers. Short because the kit carries
-// the bones (street-aware gates, footprints, connectivity, dead-world ground).
-// codes: 0 dead-ground 1 yard-asphalt 2 warehouse 3 fence 4 dock-door 5 gate 7 drive 10 container
+// BOHEMIA INDUSTRIAL — DISTRIBUTION CENTER (7/18/26). REBUILT from real site-plan research
+// (Paolo 7/18: research the real thing before building). A real DC, aerial-accurate:
+//  - ONE big warehouse backing the far edge (DCs are one big box, not equal small sheds)
+//  - a row of DOCK DOORS along the front, spaced ~14ft (kit 1 per ~5-10k sqft)
+//  - a TRUCK COURT apron (~130ft deep) for backing trailers to the docks
+//  - TRAILER STAGING: rows of striped trailer stalls, many parked trailers
+//  - an OFFICE at the front corner + an EMPLOYEE CAR LOT beside it + a GUARD SHACK at the gate
+//  - fenced, drive-in gates. Built on the DISTRICT KIT. Sources: renoindustrial.com,
+//    steelcobuildings.com, alliedbuildings.com (truck court 130ft, docks 14ft o.c.,
+//    1 trailer stall per dock, office+car park at the front).
+// codes: 0 ground 1 asphalt 2 warehouse 3 fence 4 dock-door 5 gate 6 office 7 truck-court
+//        8 stall-stripe 9 parked-trailer 10 container 11 guard-shack
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
@@ -10,50 +17,79 @@
 
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
-    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, i;
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, i, r=G.rnd;
     var isS=function(e){return streets.indexOf(e)>=0;};
-    var MARGIN=3, DEEP=M(28), DOCK=M(6);
-    G.frame(3);                                                   // perimeter chain-link fence
+    var MARGIN=3, WHDEEP=M(24), COURT=M(20), TLEN=M(13), OFFW=M(14);
+    G.frame(3);                                                       // perimeter chain-link fence
 
-    // WAREHOUSES back the far edge (N if N is not a street, else S), yard fronts the street
-    var backN = !isS('N');
-    var by0 = backN ? MARGIN+1 : H-1-MARGIN-DEEP;
-    var by1 = backN ? MARGIN+1+DEEP : H-1-MARGIN;
-    var dockRow = backN ? by1 : by0;                             // dock face toward the yard
-    var n=3, gap=M(3), span=W-2*(MARGIN+1), bw=Math.floor((span-(n-1)*gap)/n);
-    for(i=0;i<n;i++){ var bx0=MARGIN+1+i*(bw+gap), bx1=bx0+bw-1;
-      G.rect(bx0,by0,bx1,by1,2);                                  // warehouse box
-      for(var dx=bx0+2; dx<bx1-1; dx+=M(4)) G.set(dx,dockRow,4);  // loading dock doors on the yard face
+    // ONE big warehouse backing the far edge (N unless N is the street)
+    var flip = isS('N');                                             // building at bottom if the street is north
+    var wx0=MARGIN+2, wx1=W-1-MARGIN-2;
+    var wy0 = flip ? H-1-MARGIN-2-WHDEEP : MARGIN+2, wy1 = wy0+WHDEEP;
+    G.rect(wx0,wy0,wx1,wy1,2);
+    var frontY = flip ? wy0 : wy1, fdir = flip ? -1 : 1;            // the dock face + which way the yard extends
+
+    // OFFICE at the front-left corner (grade-level, sticks out into the yard) + dock doors
+    var offY0 = flip ? frontY-M(7) : frontY+1;
+    G.rect(wx0, Math.min(offY0,offY0+M(7)), wx0+OFFW, Math.max(offY0,offY0+M(7)), 6);
+    for(var dx=wx0+OFFW+M(3); dx<wx1-1; dx+=M(4)) G.set(dx,frontY,4);   // dock doors, ~14ft on center
+
+    // TRUCK COURT apron in front of the docks (deep, for backing trailers)
+    var tc0 = frontY + fdir, tc1 = frontY + fdir*COURT;
+    G.rect(wx0+OFFW+2, Math.min(tc0,tc1), wx1, Math.max(tc0,tc1), 7);
+    // TRAILER STAGING: striped stalls at the far edge of the court + parked trailers
+    var stallEnd = tc1, stallStart = tc1 - fdir*TLEN;
+    for(var sx=wx0+OFFW+M(3); sx<wx1-2; sx+=M(4)){
+      G.vbar(Math.min(stallStart,stallEnd),Math.max(stallStart,stallEnd),sx,8,1);
+      if(r()<0.55) G.rect(sx+1,Math.min(stallStart,stallEnd)+1,sx+M(3),Math.max(stallStart,stallEnd)-1,9); // a parked trailer
     }
 
-    // TRUCK YARD (asphalt) fronting the street
-    var yy0 = backN ? by1+2 : MARGIN+1, yy1 = backN ? H-1-MARGIN : by0-2;
-    G.rect(MARGIN+1,yy0,W-MARGIN-2,yy1,1);
+    // EMPLOYEE CAR LOT beside the office (small stalls), + GUARD SHACK
+    var cly0 = Math.min(tc0,tc1), cly1 = Math.max(tc0,tc1);
+    G.rect(wx0+2, cly0, wx0+OFFW-1, cly1, 1);                        // car-lot asphalt
+    for(var cy=cly0+2; cy<cly1-M(5); cy+=M(5)+2){                    // rows of car stalls
+      G.rect(wx0+2,cy,wx0+OFFW-1,cy+M(5),1);
+      for(var cx=wx0+2; cx<wx0+OFFW-1; cx+=3) G.vbar(cy,cy+M(5),cx,8,1);
+    }
 
-    // GATES on the streets this cell touches + a drive apron into the yard
+    // TRAILER PARKING YARD: rows of stored trailers filling the rest of the lot (real DCs
+    // stage stored trailers in the yard), drive lanes between rows.
+    var courtFar=tc1, yardEnd = flip ? MARGIN+M(4) : H-1-MARGIN-M(4), yv=courtFar+fdir*M(6);
+    while(fdir>0 ? (yv+TLEN < yardEnd) : (yv-TLEN > yardEnd)){
+      var r0=Math.min(yv,yv+fdir*TLEN), r1=Math.max(yv,yv+fdir*TLEN);
+      for(var tx=wx0+M(3); tx<wx1-M(3); tx+=M(4)){
+        G.vbar(r0,r1,tx,8,1);
+        if(r()<0.5) G.rect(tx+1,r0+1,tx+M(3),r1-1,9);
+      }
+      yv += fdir*(TLEN+M(5));
+    }
+
+    // fill the rest of the fenced lot with yard asphalt (the drive surface) — no void
+    for(var yy=1;yy<H-1;yy++)for(var xx=1;xx<W-1;xx++) if(g[yy][xx]===0) g[yy][xx]=1;
+
+    // GATES on the streets this cell touches (a wide truck gate) + guard shack beside it
     var gates=[];
     streets.forEach(function(edge){
-      if(edge==='S'||edge==='N'){ var gx=Math.round(W*(edge==='S'?0.5:0.5)), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
-        for(i=-4;i<=4;i++)G.set(gx+i,gy,5);
-        for(var s=1;s<=H;s++){var yv=gy+dir*s; if(!K.grid&&false)break; if(G.get(gx,yv)===1)break; if(G.get(gx,yv)===2)break; for(var w=-3;w<=3;w++)if(G.get(gx+w,yv)!==2&&G.get(gx+w,yv)!==3)G.set(gx+w,yv,7);}
+      if(edge==='S'||edge==='N'){ var gx=Math.round(W*0.5), gy=(edge==='S')?H-1:0;
+        for(i=-5;i<=5;i++)G.set(gx+i,gy,5);
+        G.rect(gx+7,(edge==='S')?gy-M(4):gy+1,gx+7+M(3),(edge==='S')?gy-1:gy+M(4),11); // guard shack
         gates.push({edge:edge,x:gx,y:gy}); }
-      else { var gy2=Math.round(H*0.5), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
-        for(i=-4;i<=4;i++)G.set(gx2,gy2+i,5);
-        for(var s2=1;s2<=W;s2++){var xv=gx2+dir2*s2; if(G.get(xv,gy2)===1)break; if(G.get(xv,gy2)===2)break; for(var w2=-3;w2<=3;w2++)if(G.get(xv,gy2+w2)!==2&&G.get(xv,gy2+w2)!==3)G.set(xv,gy2+w2,7);}
+      else { var gy2=Math.round(H*0.5), gx2=(edge==='E')?W-1:0;
+        for(i=-5;i<=5;i++)G.set(gx2,gy2+i,5);
+        G.rect((edge==='E')?gx2-M(4):gx2+1,gy2+7,(edge==='E')?gx2-1:gx2+M(4),gy2+7+M(3),11);
         gates.push({edge:edge,x:gx2,y:gy2}); }
     });
 
-    // SALVAGE CONTAINERS scattered on the yard (only on open asphalt)
-    var r=G.rnd;
-    for(i=0;i<12;i++){ var cx=MARGIN+4+Math.floor(r()*(W-2*MARGIN-14)), cy=yy0+2+Math.floor(r()*Math.max(1,(yy1-yy0-6)));
-      if(G.get(cx,cy)===1 && G.get(cx+M(5),cy+M(2))===1) G.rect(cx,cy,cx+M(5),cy+M(2),10); }
+    // SALVAGE CONTAINER laydown in a back corner (only on open asphalt)
+    for(i=0;i<8;i++){ var lx=W-M(20)+Math.floor(r()*M(14)), ly=(flip?MARGIN+4:H-M(20))+Math.floor(r()*M(12));
+      if(G.get(lx,ly)===1 && G.get(lx+M(6),ly+M(2))===1) G.rect(lx,ly,lx+M(6),ly+M(2),10); }
 
-    return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:K.footprints(g,function(v){return v===2;})};
+    return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:K.footprints(g,function(v){return v===2||v===6;})};
   }
   function driveConnected(res){ return K.connectedFrom(res.g,function(c){return c===5;},function(c){return c===1||c===5||c===7;})>0.85; }
 
-  K.register('industrial', { generate:generate, body:function(c){return c===2;},
-    palette:{1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',7:'#4a4a52',10:'#6b5a3a'} });
+  K.register('industrial', { generate:generate, body:function(c){return c===2||c===6;},
+    palette:{1:'#33333c',2:'#7a7a82',3:'#4a4438',4:'#c7a24a',5:'#c79a3f',6:'#8c8477',7:'#3f3f47',8:'#c9c1aa',9:'#5a5a64',10:'#6b5a3a',11:'#9a8a6a'} });
 
   var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;}};
   if(typeof module!=='undefined')module.exports=API;

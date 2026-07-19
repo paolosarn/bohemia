@@ -670,9 +670,13 @@ Built the shared machine so a NEW district is a short config, not a from-scratch
   footprints, connectedFrom, dead-world ground(), a REGISTRY (register/get/types), and a
   3-ACT hook act(res,a,rules) (act 1 = as-built; act 2/3 rules are CONTENTS-PAOLO'S).
   Gate: gates/district_kit_gate.js (16 checks).
-- engine/bohemia_industrial.js: FIRST district on the kit (~60 lines) — warehouse yard:
-  warehouses backing the far edge, fenced truck yard, dock doors, drive-in gates, salvage
-  containers. Gate: gates/industrial_gate.js (8 checks). Proof screenshotted, verified.
+- engine/bohemia_industrial.js: FIRST district on the kit — a real DISTRIBUTION CENTER,
+  REBUILT from site-plan research (Paolo: research the real thing FIRST): one big warehouse
+  + office, a dock-door row, a truck court apron, trailer STAGING + a trailer PARKING yard
+  (~58 staged trailers), employee car lot, guard shack, containers, fenced gates. Gate:
+  gates/industrial_gate.js (8 checks). Rendered + verified.
+- RESEARCH-FIRST LAW (Paolo 7/18): online research of the REAL thing before building ANY
+  district; the generator is inspired by real reference. Added to the workflow law.
 - engine/bohemia_world.js: routing is now GENERIC. DISTGEN table maps district type ->
   generator (suburb/gated/estate->SUB, commercial->COM, industrial->IND). Adding a
   district = ONE line. world.plot generates + exposes enterable buildings uniformly.
