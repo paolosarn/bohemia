@@ -75,6 +75,10 @@ exports as .txt never .json). Verdicts land as .txt repo files in /records the
 same turn. Approval unlocks volume (variants). Rejects go to the graveyard with
 post-mortems. Continuous cooking: big batches, machine gates, surface judgment
 rarely as one mega-session.
+- NOTES ARE RULINGS (7/19): if Paolo SAID he likes it, that IS the verdict —
+  build it into the real thing the same turn, never ask him to re-confirm or
+  re-thumb his own words. Thumbs are for fresh unseen candidates only.
+  (laws/BOHEMIA_ADDENDUM_NOTES_ARE_RULINGS_7_19_26.md)
 
 ## SHIP FLOW (Paolo 7/17/26, standing law)
 - A finished update MERGES TO MAIN THE SAME TURN, by Claude, without asking.
