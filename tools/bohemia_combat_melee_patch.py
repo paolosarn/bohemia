@@ -333,13 +333,134 @@ if(sb)sb.addEventListener('click',doShove);
     return demo
 
 
+def patch5(demo):
+    """v5 (Paolo 7/19, two rulings in one breath):
+    1. 'We already have eight cardinal directions to click right next to
+       the action button' — the existing move ring (built 7/4 as plumbing
+       that only set G.moveIntent) now CALLS doMove directly. One tap =
+       one step. The MOVE-and-arm button dies.
+    2. 'Shuffled pillars that I can take cover from... a wall pillar' —
+       REAL GEOMETRY COVER lands: seeded shuffled pillars are world
+       objects; a pillar between you and a shooter IS cover (the locked
+       RF4 line-of-fire model, 'hand-set now, geometry later' — this is
+       the later). Pillars block movement, cover enemies too, and a shove
+       into one slams (65% topple)."""
+    if 'PILLAR V5' in demo:
+        print('v5 already applied, skipping')
+        return demo
+
+    # 1a. ring -> doMove
+    demo = sub1(demo,
+        "b.addEventListener('click',ev=>{ev.stopPropagation();G.moveIntent=names[i];",
+        "b.addEventListener('click',ev=>{ev.stopPropagation();G.moveIntent=names[i];doMove(i);   /* PILLAR V5: the ring IS movement (Paolo) */",
+        'ring-domove')
+    # 1b. the MOVE button dies
+    demo = sub1(demo, '\n    <button id="movebtn" class="cbtn">MOVE</button>', '', 'movebtn-gone')
+    demo = sub1(demo, """\
+  const mvb=D('movebtn'); if(mvb)mvb.addEventListener('click',()=>{ audio();
+    G.moveArm=!G.moveArm; updMoveUI();
+    if(G.moveArm)setRead('MOVE ARMED','tap one of the 8 cells around you — 1 tile = 1 turn','#8fd0e8'); });""",
+        '', 'movebtn-wire-gone')
+
+    # 2a. geometry helpers + pillar-aware my-cover
+    demo = sub1(demo, "function myCoverAgainst(ang){ return !!G.pCover[dirIndex(ang)]; }", """\
+function myCoverAgainst(ang,dist){ if(G.pCover[dirIndex(ang)])return true;
+  /* PILLAR V5: a pillar on the line to the shooter IS cover (RF4 law, geometry-driven) */
+  const md=(dist==null?MAX_RANGE:dist);
+  return (G.pillars||[]).some(P=>{ if(P.edist>md||P.edist<0.8)return false;
+    let dA=Math.abs(((ang-P.ea+Math.PI*3)%(Math.PI*2))-Math.PI);
+    return dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9; }); }
+function pXY(o){ return [Math.cos(o.ea)*o.edist, Math.sin(o.ea)*o.edist]; }
+function segNear(ax,ay,bx,by,px,py,r){ const dx=bx-ax,dy=by-ay,L2=dx*dx+dy*dy||1e-6;
+  let t=((px-ax)*dx+(py-ay)*dy)/L2; t=Math.max(0.08,Math.min(0.92,t));
+  return Math.hypot(ax+dx*t-px,ay+dy*t-py)<r; }
+function pillarBetweenMe(e){ const exy=pXY(e);
+  return (G.pillars||[]).some(P=>{ const pxy=pXY(P); return segNear(0,0,exy[0],exy[1],pxy[0],pxy[1],P.r*0.85); }); }
+function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=pillarBetweenMe(e)?1:0; } }""",
+        'geom-cover')
+
+    # 2b. effective cover = hand toggle OR geometry, everywhere it reads
+    demo = sub1(demo, "if(e.stun>0)return true; if(!e.inCover)return true;",
+        "if(e.stun>0)return true; if(!(e.inCover||e.gcov))return true;", 'peeking-gcov')
+    demo = sub1(demo, "if(!e.inCover){const f=efrac(e); return (f>=0.30&&f<=0.30+fw)||(f>=0.70&&f<=0.70+fw);}",
+        "if(!(e.inCover||e.gcov)){const f=efrac(e); return (f>=0.30&&f<=0.30+fw)||(f>=0.70&&f<=0.70+fw);}", 'firing-gcov')
+    demo = sub1(demo, "return e.inCover?peeking(e):true; }",
+        "return (e.inCover||e.gcov)?peeking(e):true; }", 'hasline-gcov')
+    demo = sub1(demo, "if(e.inCover){ const fa=Math.atan2(cy-ey,cx-ex);",
+        "if(e.inCover||e.gcov){ const fa=Math.atan2(cy-ey,cx-ex);", 'arc-gcov')
+    # main pools pass the shooter's distance so a pillar BEHIND him never counts
+    demo = sub1(demo,
+        "function exposedToMe(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst(e.ea)); }",
+        "function exposedToMe(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst(e.ea,e.edist)); }",
+        'exposed-dist')
+    demo = sub1(demo, "const cov=myCoverAgainst(e.ea); const acc=distAccuracy(e)*",
+        "const cov=myCoverAgainst(e.ea,e.edist); const acc=distAccuracy(e)*", 'pool-dist')
+
+    # 2c. spawn shuffled pillars each encounter
+    demo = sub1(demo, "G.e=[]; const N=G.numEnemies; G.mTurn=0;", """\
+G.e=[]; const N=G.numEnemies; G.mTurn=0;
+  /* PILLAR V5 (Paolo): shuffled hard cover, world-anchored, reshuffled per encounter */
+  G.pillars=[]; { const NP=5+Math.floor(Math.random()*3); let pg=0;
+    while(G.pillars.length<NP&&pg++<120){
+      const a=Math.random()*Math.PI*2, d=3+Math.random()*18, r=0.9+Math.random()*0.8;
+      const nx2=Math.cos(a)*d, ny2=Math.sin(a)*d;
+      if(G.pillars.some(P=>{ const q=pXY(P); return Math.hypot(q[0]-nx2,q[1]-ny2)<3.2; }))continue;
+      G.pillars.push({ea:a,edist:d,r:r}); } }""",
+        'pillar-spawn')
+
+    # 2d. pillars ride worldShift; cover refreshes when anything moves
+    demo = sub1(demo, "for(const c of (G.corpses||[]))mv(c);",
+        "for(const c of (G.corpses||[]))mv(c);\n  for(const P of (G.pillars||[]))mv(P);", 'pillar-shift')
+    demo = sub1(demo, "function tickTurnEnd(){ meleeTurnRun();",
+        "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();", 'tick-gcov')
+    demo = sub1(demo, """\
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  worldShift(v[0]/n, v[1]/n);""", """\
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  const sx=v[0]/n, sy=v[1]/n;
+  if((G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.45; })){
+    setRead('BLOCKED','a pillar is there','#8a7d66'); return; }   // OCCUPANCY: solid is solid
+  worldShift(sx,sy); updateGeomCover();""",
+        'move-collide')
+
+    # 2e. shove into a pillar = the wall slam
+    demo = sub1(demo, """\
+  t.edist=Math.min(MAX_RANGE,t.edist+r.pushed);
+  if(r.topple)t.prone=2;""", """\
+  { let nd=Math.min(MAX_RANGE,t.edist+r.pushed), slam=false;
+    for(const P of (G.pillars||[])){ const q=pXY(P);
+      let dA=Math.abs(((t.ea-P.ea+Math.PI*3)%(Math.PI*2))-Math.PI);
+      if(dA<0.5 && P.edist>t.edist-0.2 && P.edist<nd+P.r){ nd=Math.max(t.edist,P.edist-P.r-0.3); slam=true; } }
+    t.edist=nd;
+    if(slam&&!r.braced&&Math.random()<0.65){ t.prone=2; r.topple=true; }   /* PILLAR SLAM: walls make men fall */
+    if(slam)setRead('INTO THE PILLAR',t.n+' ate the stone','#8fe89a'); }
+  if(r.topple)t.prone=2;""",
+        'shove-slam')
+
+    # 2f. render pillars (tan family, sky-lit top per the 45 law, zero purple)
+    demo = sub1(demo, "  // my 3x3 self-cover ring", """\
+  for(const P of (G.pillars||[])){ const pp=fieldPos(P,W,H,cx,cy), pxs=pp[0], pys=pp[1];
+    const s=ring*(0.5+P.r*0.35);
+    x.fillStyle='rgba(0,0,0,0.25)'; x.beginPath(); x.ellipse(pxs,pys+s*0.5,s*0.8,s*0.26,0,0,7); x.fill();
+    x.fillStyle='#6e604a'; x.fillRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6);
+    x.fillStyle='#94836a'; x.beginPath(); x.ellipse(pxs,pys-s*1.15,s*0.55,s*0.2,0,0,7); x.fill();
+    x.strokeStyle='#241f18'; x.lineWidth=1; x.strokeRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6); }
+  // my 3x3 self-cover ring""",
+        'pillar-render')
+
+    # 2g. fresh geometry at encounter birth
+    demo = sub1(demo, "function setupCombat(){ setupEnemies(); buildBoard();",
+        "function setupCombat(){ setupEnemies(); updateGeomCover(); buildBoard();", 'setup-gcov')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch4(patch3(patch2(patch(demo))))
+    patched = patch5(patch4(patch3(patch2(patch(demo)))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

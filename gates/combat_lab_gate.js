@@ -311,13 +311,29 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('id="shovebtn"') && demo.includes('IRON SHOULDER') && demo.includes('FORESIGHT'));
   ok('demo melee turn runs at the one turn-end choke (tickTurnEnd)',
     demo.includes('function tickTurnEnd(){ meleeTurnRun();'));
-  // MOVEMENT (v4, Paolo 7/19: "can I move around now") — locked canon 6/27 finally lands
-  ok('demo has MOVE: doMove + worldShift + armed ring cells',
+  // MOVEMENT (v4+v5, Paolo 7/19): the EXISTING 8-dir ring is one-tap movement
+  ok('demo has MOVE: doMove + worldShift, wired to the move ring (one tap)',
     demo.includes('function doMove(') && demo.includes('function worldShift(') &&
-    demo.includes('id="movebtn"') && demo.includes('if(G.moveArm){ doMove(d); return; }'));
+    demo.includes('G.moveIntent=names[i];doMove(i);'));
+  ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
+    !demo.includes('id="movebtn"'));
   ok('a move costs the turn (routes through endTurnReturn)',
     /function doMove\([\s\S]{0,900}?endTurnReturn\(false\); \}/.test(demo));
-  ok('worldShift carries corpses with the world', /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo));
+  ok('worldShift carries corpses AND pillars with the world',
+    /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo) &&
+    /function worldShift\([\s\S]{0,700}?G\.pillars/.test(demo));
+  // PILLAR COVER (v5, Paolo: "shuffled pillars that I can take cover from")
+  ok('shuffled pillars spawn each encounter', demo.includes('G.pillars=[]; { const NP=5+'));
+  ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
+    demo.includes('function myCoverAgainst(ang,dist)') &&
+    demo.includes('myCoverAgainst(e.ea,e.edist)'));
+  ok('enemies take pillar cover too (gcov in peek/fire/line/arc)',
+    demo.includes('(e.inCover||e.gcov)') && demo.includes('function updateGeomCover()'));
+  ok('pillars block the step (occupancy: solid is solid)',
+    demo.includes("setRead('BLOCKED','a pillar is there'"));
+  ok('shove into a pillar slams (65% topple)', demo.includes('PILLAR SLAM'));
+  ok('pillars render tan with a sky-lit top, zero purple in the palette',
+    demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
 
 /* ---- 3. verdict workflow ---- */
