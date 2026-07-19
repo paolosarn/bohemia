@@ -29,6 +29,18 @@
   #pkgrow button{flex:1;background:#14110c;border:1px solid #2a251c;border-radius:5px;color:#7a6f5c;
     font-size:9px;letter-spacing:1px;padding:6px 2px;font-family:inherit}
   #pkgrow button.on{border-color:#c8a558;color:#e7d8bb}
+  #perkrow{display:flex;gap:4px;padding:0 8px 6px}
+  #perkrow button{flex:1;background:#0f1410;border:1px solid #24352a;border-radius:5px;color:#6a8a72;
+    font-size:9px;letter-spacing:1px;padding:6px 2px;font-family:inherit}
+  #perkrow button.on{border-color:#5aae6a;color:#cfe8c0;background:#12200f}
+  body.sun #perkrow button{background:#d8e0cc;border-color:#9ab88e;color:#3a5a3a}
+  body.sun #perkrow button.on{border-color:#3a7a3a;color:#123312}
+  #shoveB.ready{display:block;border-color:#9ad06a;color:#9ad06a;box-shadow:0 0 10px rgba(90,174,106,0.35)}
+  #choice{position:fixed;left:50%;bottom:150px;transform:translateX(-50%);z-index:55;display:none;gap:8px;
+    background:#14110c;border:1px solid #3a3226;border-radius:10px;padding:10px}
+  #choice.on{display:flex}
+  #choice button{background:#171310;border:1px solid #c8a558;color:#e7d8bb;border-radius:8px;
+    font-family:inherit;font-size:12px;letter-spacing:2px;padding:12px 18px}
   #ctl{display:flex;justify-content:space-between;align-items:flex-end;padding:8px 12px 4px;gap:8px}
   #dpad{display:grid;grid-template-columns:46px 46px 46px;grid-template-rows:46px 46px 46px;gap:4px}
   #dpad button{background:#171310;border:1px solid #2e281e;border-radius:8px;color:#cdbfa6;font-size:16px;font-family:inherit}
@@ -123,6 +135,10 @@
     <button data-pkg="0" class="on">EASY</button><button data-pkg="1">NORMAL</button>
     <button data-pkg="2">HARD</button><button data-pkg="3">V.HARD</button><button data-pkg="4">BOHEMIAN</button>
   </div>
+  <div id="perkrow">
+    <button id="perkForesight" title="Paolo 7/19: see-their-next-move is a PERK">PERK: FORESIGHT</button>
+    <button id="perkShoulder" title="Paolo 7/19: guaranteed 2-turn shove stun">PERK: IRON SHOULDER</button>
+  </div>
   <div id="msg"></div>
   <div id="ctl">
     <div id="dpad">
@@ -139,6 +155,28 @@
 </div>
 
 <div id="research" class="hidden">
+<section>
+  <h3>V2 — REBUILT TO PAOLO'S 7/19 VERDICT</h3>
+  <ul>
+    <li><b>A</b>: melee enemies now carry WEAPONS that move differently (his ruling): S shiv fast, B bat heavy + knockback, P spear keeps distance and pokes a telegraphed line.</li>
+    <li><b>B</b>: seeing enemy next-moves is now the FORESIGHT PERK (toggle above the pad), works in every mode. Mode B stays playable for comparison.</li>
+    <li><b>C</b>: re-taught — the game now announces OPENED / SWIPED as it happens. If it still confuses, it dies.</li>
+    <li><b>D</b>: shove is contextual (button lights when someone's adjacent; tapping an adjacent enemy offers SHOVE or DIAL). Shove = guaranteed 1-turn stun + a chance they FALL (prone, easy dial); walls/bodies raise the odds, barrels guarantee it. IRON SHOULDER perk = guaranteed 2-turn stun. No-stun-lock law still holds.</li>
+  </ul>
+  <p>Verdict record: records/BOHEMIA_COMBAT_LAB_VERDICT_7_19_26.txt. More research below and in the addendum, per "good research, provide some more."</p>
+</section>
+<section>
+  <h3>RESEARCH PASS 2 — enemy variety + knockdown/stun (the "some more")</h3>
+  <p>Full addendum with sources: laws/BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26.md. The short version:</p>
+  <ul>
+    <li><b>NecroDancer's enemy taxonomy:</b> three movement classes only — fixed loops (furniture you route around), seekers with a rule, random anti-reads. Identity = clock rate x targeting rule x a one-beat SPRITE telegraph (skeletons raise their arms the beat before moving). Damage numbers are nearly irrelevant to identity. Faster palette swaps multiply content for free.</li>
+    <li><b>The archetype menu</b> for the next roster (mechanics; names are Paolo's): charger with a wall-crash punish window, zero-damage grabber, leaper, parry-man whose attack triggers when YOU hit him, on-death caster, no-attack support/shield man.</li>
+    <li><b>Guaranteed stun stays fun</b> if you break the degenerate triple (guaranteed + re-applicable + full denial — Divinity OS2's documented collapse). Our NO-STUN-LOCK law already breaks it. The industry answer to "who resists": VISIBLE enemy immunity classes (Breach's Stable, Shogun's Heavy, Battle Brothers' orcs), never a dice roll on the stun. Players never forgive a failed 90% roll; they instantly accept "too heavy to topple."</li>
+    <li><b>Knockdown is its own verb:</b> BG3 prone costs movement + gives melee advantage (a window, not a turn-skip). Our shove-stun + topple-prone pair matches the graduated-ladder doctrine.</li>
+    <li><b>Show odds before commit</b> (BG3 shove trajectory + percentage): built — the SHOVE choice now previews stun, topple % and destination.</li>
+    <li><b>Info perks:</b> Slay the Spire prices intent visibility at ~1 energy/turn (Runic Dome). Doctrine: attack telegraphs free (fairness), movement intent behind FORESIGHT (power), and above it a ladder — see order, see further, rehearse. Exactly the perk Paolo called.</li>
+  </ul>
+</section>
 <section>
   <h3>THE RESEARCH PASS (7/19/26) — what the best beat/tactics combat ever made teaches</h3>
   <p>Full addendum with sources: laws/BOHEMIA_ADDENDUM_BEAT_TACTICS_RESEARCH_7_19_26.md. The short version:</p>
@@ -191,6 +229,7 @@
   <div id="chainrow"><button id="chainB">CHAIN &#8594; NEXT TARGET</button><button id="chainEndB">END TURN</button></div>
   <div id="dialtip">tap anywhere to release the shot on the needle</div>
 </div>
+<div id="choice"><button id="chShove">SHOVE</button><button id="chDial">DIAL</button><button id="chX" style="border-color:#3a3226;color:#7a6f5c">X</button></div>
 <div id="down">
   <h2>DOWN</h2>
   <p>Damage is the price of a slip, never a tax. Bohemia is not one-life — what going down costs is Paolo's open ruling. Here it just costs a reset.</p>
@@ -222,11 +261,21 @@ var W=9,H=12,BPM=120,BEAT_MS=500;
 var PB=2,FAR=10;               // lab range envelope in tiles: <=2 point blank, >=10 full package
 var DMG={vital:60,graze:15};   // two vitals kill a human (locked); numbers still [PENDING Paolo]
 var HIT={strike:18,promise:22,swipe:8,shovemode:15};   // enemy hits = wound %, lawful post-dial return damage
+/* WEAPON-TYPED MELEE (Paolo verdict 7/19: "depending on the weapon they have
+   they will move differently"). Movement identity, not damage numbers:
+   SHIV = fast, closes every beat, quick strike. BAT = heavy, every 2nd beat,
+   strike knocks you back a cell. SPEAR = keeps 2 distance, pokes a 2-tile
+   line after a windup. Names are mechanics placeholders, flavor is Paolo's. */
+var WPN={
+  shiv: {sig:1,dmg:14,glyph:'S'},
+  bat:  {sig:2,dmg:24,glyph:'B',knockback:true},
+  spear:{sig:2,dmg:18,glyph:'P',reach:2}
+};
 var MODES={
-  conductor:{count:4,sigs:[1,2,2,3],pitch:'NecroDancer lesson: every enemy is a beat signature. 1s march each beat, 2s every other, 3s syncopate. Read the rhythm, weave, shoot the gaps.'},
-  promise:  {count:3,sigs:[2,2,2], pitch:'Into the Breach lesson: enemies PROMISE their attack — red tiles land next beat, no dice. Your move is prevention: step off, stun it, or kill it first.'},
-  dance:    {count:4,sigs:[1,1,1,1],pitch:'Hoplite lesson: footwork IS the weapon. Sidestep past a guard = he is OPENED (easier dial). Back straight out of his reach = he swipes you.'},
-  shove:    {count:4,sigs:[1,1,1,1],pitch:'Tight Spaces lesson: SHOVE bodies. Into a wall = staggered. Into each other = both stagger. Into a burn barrel = cooked. Staggered = easy dial.'}
+  conductor:{count:4,wpns:['shiv','bat','spear','shiv'],pitch:'NecroDancer lesson + Paolo 7/19: melee enemies close on you, each WEAPON moves differently. S shiv = every beat. B bat = heavy, every 2nd, knocks you back. P spear = keeps 2 distance, pokes a telegraphed line.'},
+  promise:  {count:3,sigs:[2,2,2], pitch:'Into the Breach lesson: enemies PROMISE their attack — red tiles land next beat, no dice. PAOLO 7/19: this becomes a PERK (foresight). Kept playable for comparison.'},
+  dance:    {count:4,sigs:[1,1,1,1],pitch:'Hoplite lesson, re-taught: while a guard is NEXT to you, step to another cell STILL next to him = you slip past his guard = he is OPENED (green ring, easier dial). Stepping straight OUT of his reach = he swipes you. Stay close, circle him, then shoot.'},
+  shove:    {count:4,sigs:[1,1,1,1],pitch:'Paolo-ruled 7/19: enemy next to you = the SHOVE option lights up. A shove ALWAYS stuns 1 turn, with a chance they FALL OVER (prone, easy dial). Walls and burn barrels raise the odds. IRON SHOULDER perk = guaranteed 2-turn stun.'}
 };
 function key(x,y){return x+','+y;}
 function inB(x,y){return x>=0&&x<W&&y>=0&&y<H;}
@@ -248,7 +297,7 @@ function distT(S,e){var d=Math.max(1,edist(S,e));return Math.min(1,Math.max(0,(d
 function effPackage(S,e,basePkg){
   var p=Math.round(distT(S,e)*(basePkg||0));       // canon distance pull: PB draws EASY even on BOHEMIAN
   var mod=0;
-  if(e.stun>0||e.stagger>0)mod-=1;                 // helpless target: calmer hands
+  if(e.stun>0||e.stagger>0||e.prone>0)mod-=1;      // helpless target (stunned/staggered/knocked down): calmer hands
   if(e.opened>0)mod-=1;                            // footwork/shove opening: the easy dial you built
   var lines=0;for(var i=0;i<S.enemies.length;i++){var o=S.enemies[i];
     if(!o.dead&&o.stun<=0&&o.stagger<=0&&los(S,o.x,o.y,S.px,S.py))lines++;}
@@ -258,10 +307,13 @@ function effPackage(S,e,basePkg){
 function newGame(mode,seed){
   var R=rngFrom(mode+':'+seed);
   var S={mode:mode,seed:seed,beat:0,turn:0,groove:0,grooveBest:0,wound:0,down:false,cleared:false,wave:1,
-    px:4,py:9,enemies:[],solids:{},hazards:{},pendingShot:null,chainKills:0,lastEvents:[]};
+    px:4,py:9,enemies:[],solids:{},hazards:{},pendingShot:null,chainKills:0,lastEvents:[],
+    perks:{foresight:false,shoulder:false}};   // Paolo 7/19: foresight + iron shoulder are PERKS
   spawnField(S,R);
   return S;
 }
+/* deterministic percent roll (determinism law: never Math.random in gameplay) */
+function roll100(S,salt){var h=xmur3(S.seed+':'+S.turn+':'+S.beat+':'+salt);return h()%100;}
 function spawnField(S,R){
   S.solids={};S.hazards={};S.enemies=[];
   var placed=0,g=0;
@@ -277,8 +329,10 @@ function spawnField(S,R){
     if(d<3||d>8)continue;var k=key(x,y);
     if(S.solids[k]||S.hazards[k])continue;
     if(S.enemies.some(function(e){return e.x===x&&e.y===y;}))continue;
-    S.enemies.push({id:idx,x:x,y:y,hp:100,dead:false,stun:0,stunnedTurnsAgo:99,opened:0,stagger:0,
-      face:[0,1],sig:def.sigs[idx%def.sigs.length],windup:false,aim:null,intent:null});
+    var wpn=def.wpns?def.wpns[idx%def.wpns.length]:null;
+    var sig=wpn?WPN[wpn].sig:def.sigs[idx%def.sigs.length];
+    S.enemies.push({id:idx,x:x,y:y,hp:100,dead:false,stun:0,stunnedTurnsAgo:99,opened:0,stagger:0,prone:0,
+      face:[0,1],sig:sig,wpn:wpn,windup:false,aim:null,intent:null});
     idx++;}
   computeIntents(S);
 }
@@ -294,13 +348,11 @@ function planStep(S,e){ // greedy chase step toward player, occupancy-checked
 function isActive(S,e){return ((S.turn+e.id)%e.sig)===0;}
 function computeIntents(S){ // telegraphs for the NEXT world beat (the promise, shown always)
   for(var i=0;i<S.enemies.length;i++){var e=S.enemies[i];if(e.dead){e.intent=null;continue;}
-    if(e.stun>0||e.stagger>0){e.intent={t:'held'};continue;}
+    if(e.stun>0||e.stagger>0||e.prone>0){e.intent={t:'held'};continue;}
+    if(e.windup){e.intent=e.lance?{t:'strike',tiles:e.lance}:{t:'strike'};continue;}  // a pending strike ALWAYS shows (no lying telegraphs)
+    if(e.aim){e.intent={t:'land',tiles:e.aim.tiles};continue;}                        // committed tiles stay visible until they land
     if(!isActive(S,e)){e.intent={t:'rest'};continue;}
-    if(S.mode==='promise'){
-      if(e.aim)e.intent={t:'land',tiles:e.aim.tiles};
-      else e.intent={t:'aim'};
-      continue;}
-    if(e.windup){e.intent={t:'strike'};continue;}
+    if(S.mode==='promise'){e.intent={t:'aim'};continue;}
     if(adj(e.x,e.y,S.px,S.py)){e.intent={t:'windup'};continue;}
     var st=planStep(S,e);
     e.intent=st?{t:'step',d:st}:{t:'rest'};
@@ -325,17 +377,26 @@ function commitPlayer(S,action,pressOffsetMs){
     S.px=nx;S.py=ny;ev.push({t:'pmove'});
   }else if(action.type==='wait'){ev.push({t:'wait'});
   }else if(action.type==='shove'){
+    /* PAOLO RULING 7/19: a shove ALWAYS stuns 1 turn (IRON SHOULDER perk: 2),
+       with a CHANCE the target falls over (prone). Walls raise the odds,
+       burn barrels guarantee it. NO STUN-LOCK still holds: a target that has
+       not had a full turn back gets pushed but not re-frozen. */
     if(S.mode!=='shove')return {ok:false,why:'not this mode'};
     var tx=S.px+action.dx,ty=S.py+action.dy;
     var b=bodyAt(S,tx,ty);
     if(!b||b==='P')return {ok:false,why:'nobody there'};
+    var stunLen=S.perks.shoulder?2:1;
+    if(b.stunnedTurnsAgo>=1){b.stun=Math.max(b.stun,stunLen);b.stunnedTurnsAgo=0;ev.push({t:'shovestun',id:b.id,len:stunLen});}
+    else ev.push({t:'shoveresist',id:b.id});
+    var fall=0;                                  // percent chance to knock down
     var dx2=tx+action.dx,dy2=ty+action.dy;
-    if(!inB(dx2,dy2)||solid(S,dx2,dy2)){b.stagger=2;b.opened=2;ev.push({t:'wallslam',id:b.id});}
+    if(!inB(dx2,dy2)||solid(S,dx2,dy2)){fall=65;ev.push({t:'wallslam',id:b.id});}
     else{var b2=bodyAt(S,dx2,dy2);
-      if(b2&&b2!=='P'){b.stagger=1;b2.stagger=1;ev.push({t:'bodyslam',id:b.id,id2:b2.id});} // OCCUPANCY: shoved body stops, both stagger
-      else if(b2==='P'){b.stagger=1;ev.push({t:'bodyslam',id:b.id});}
-      else{b.x=dx2;b.y=dy2;ev.push({t:'pushed',id:b.id});
-        if(S.hazards[key(dx2,dy2)]){b.stagger=2;b.opened=2;ev.push({t:'cooked',id:b.id});}}}
+      if(b2&&b2!=='P'){fall=50;b2.stagger=1;ev.push({t:'bodyslam',id:b.id,id2:b2.id});} // OCCUPANCY: shoved body stops
+      else if(b2==='P'){fall=50;ev.push({t:'bodyslam',id:b.id});}
+      else{b.x=dx2;b.y=dy2;fall=30;ev.push({t:'pushed',id:b.id});
+        if(S.hazards[key(dx2,dy2)]){fall=100;b.opened=2;ev.push({t:'cooked',id:b.id});}}}
+    if(fall>=100||roll100(S,'fall'+b.id)<fall){b.prone=2;ev.push({t:'felled',id:b.id});}
   }else if(action.type==='fire'){
     var e=null;for(var i=0;i<S.enemies.length;i++)if(!S.enemies[i].dead&&S.enemies[i].id===action.target)e=S.enemies[i];
     if(!e)return {ok:false,why:'no target'};
@@ -372,6 +433,17 @@ function applyDialResult(S,tier){
   if(!out.chain||!out.nextTargets.length)out.chainOver=true;
   return out;
 }
+/* BG3 lesson (research pass 2): show odds + outcome BEFORE commit. */
+function shovePreview(S,targetId){
+  var b=null;for(var i=0;i<S.enemies.length;i++)if(!S.enemies[i].dead&&S.enemies[i].id===targetId)b=S.enemies[i];
+  if(!b)return null;
+  var dx=Math.sign(b.x-S.px),dy=Math.sign(b.y-S.py);
+  var dx2=b.x+dx,dy2=b.y+dy,dest='floor',fall=30;
+  if(!inB(dx2,dy2)||solid(S,dx2,dy2)){dest='wall';fall=65;}
+  else if(bodyAt(S,dx2,dy2)){dest='body';fall=50;}
+  else if(S.hazards[key(dx2,dy2)]){dest='hazard';fall=100;}
+  return {stun:S.perks.shoulder?2:1,fallPct:fall,dest:dest,braced:b.stunnedTurnsAgo<1};
+}
 function chainShot(S,targetId,basePkg){ // next link of the ONE-action chain: stage without a new turn
   if(S.down||S.cleared||S.pendingShot)return {ok:false,why:'busy'};
   var e=null;for(var i=0;i<S.enemies.length;i++)if(!S.enemies[i].dead&&S.enemies[i].id===targetId)e=S.enemies[i];
@@ -386,6 +458,7 @@ function worldStep(S){
   var ev=[];
   for(var i=0;i<S.enemies.length;i++){var e=S.enemies[i];if(e.dead)continue;
     if(e.stun>0){e.stun--;ev.push({t:'stunned',id:e.id});continue;}
+    if(e.prone>0){e.prone--;ev.push({t:'prone',id:e.id});continue;}   // knocked down: getting up costs the turns
     e.stunnedTurnsAgo++;
     if(e.stagger>0){e.stagger--;ev.push({t:'staggered',id:e.id});continue;}
     if(e.opened>0)e.opened--;
@@ -406,10 +479,36 @@ function worldStep(S){
         if(tiles.length){e.aim={tiles:tiles};ev.push({t:'promised',id:e.id});}
       }
       continue;}
-    var strikeDmg=S.mode==='shove'?HIT.shovemode:HIT.strike;
+    var w=e.wpn?WPN[e.wpn]:null;
+    var strikeDmg=w?w.dmg:(S.mode==='shove'?HIT.shovemode:HIT.strike);
+    if(w&&w.reach){ // SPEAR: keeps 2 distance, pokes a telegraphed 2-tile line
+      var dxp=S.px-e.x,dyp=S.py-e.y,cd=Math.max(Math.abs(dxp),Math.abs(dyp));
+      if(e.windup){e.windup=false;
+        var lt=e.lance||[];
+        if(lt.some(function(t){return t[0]===S.px&&t[1]===S.py;})){S.wound=Math.min(100,S.wound+strikeDmg);ev.push({t:'struck',id:e.id});}
+        else ev.push({t:'whiffed',id:e.id});
+        e.lance=null;continue;}
+      var inLine=(dxp===0||dyp===0)&&cd<=2&&cd>=1&&los(S,e.x,e.y,S.px,S.py);
+      if(inLine){var dir=[Math.sign(dxp),Math.sign(dyp)];
+        e.lance=[[e.x+dir[0],e.y+dir[1]],[e.x+dir[0]*2,e.y+dir[1]*2]].filter(function(t){return inB(t[0],t[1])&&!solid(S,t[0],t[1]);});
+        e.windup=true;ev.push({t:'windup',id:e.id});continue;}
+      if(cd<2){ // too close: back off (keeps its reach)
+        var away=[-Math.sign(dxp),-Math.sign(dyp)];
+        var cands=[[away[0],0],[0,away[1]],[away[0],away[1]]];
+        var moved=false;
+        for(var ci=0;ci<cands.length;ci++){var nx2=e.x+cands[ci][0],ny2=e.y+cands[ci][1];
+          if((cands[ci][0]||cands[ci][1])&&freeCell(S,nx2,ny2)){e.x=nx2;e.y=ny2;e.face=cands[ci];moved=true;ev.push({t:'step',id:e.id});break;}}
+        if(!moved)ev.push({t:'rest',id:e.id});
+        continue;}
+      var st0=planStep(S,e);
+      if(st0){e.x+=st0[0];e.y+=st0[1];e.face=st0;ev.push({t:'step',id:e.id});}
+      continue;}
     if(e.windup){ // telegraphed last beat; lands only if you are still in reach
       e.windup=false;
-      if(adj(e.x,e.y,S.px,S.py)){S.wound=Math.min(100,S.wound+strikeDmg);ev.push({t:'struck',id:e.id});}
+      if(adj(e.x,e.y,S.px,S.py)){S.wound=Math.min(100,S.wound+strikeDmg);ev.push({t:'struck',id:e.id});
+        if(w&&w.knockback){ // BAT: the hit throws you back a cell if the cell is free
+          var kdx=Math.sign(S.px-e.x),kdy=Math.sign(S.py-e.y);
+          if(freeCell(S,S.px+kdx,S.py+kdy)){S.px+=kdx;S.py+=kdy;ev.push({t:'knockback'});}}}
       else ev.push({t:'whiffed',id:e.id});
       continue;}
     if(adj(e.x,e.y,S.px,S.py)){e.windup=true;ev.push({t:'windup',id:e.id});continue;}
@@ -424,8 +523,8 @@ function worldStep(S){
 }
 function nextWave(S){var R=rngFrom(S.mode+':'+S.seed+':w'+(S.wave+1));S.wave++;S.cleared=false;spawnField(S,R);}
 return {newGame:newGame,commitPlayer:commitPlayer,applyDialResult:applyDialResult,chainShot:chainShot,
-  worldStep:worldStep,nextWave:nextWave,effPackage:effPackage,los:los,edist:edist,alive:alive,
-  MODES:MODES,K:{W:W,H:H,BPM:BPM,BEAT_MS:BEAT_MS,PB:PB,FAR:FAR,DMG:DMG,HIT:HIT}};
+  worldStep:worldStep,nextWave:nextWave,effPackage:effPackage,los:los,edist:edist,alive:alive,shovePreview:shovePreview,
+  MODES:MODES,WPN:WPN,K:{W:W,H:H,BPM:BPM,BEAT_MS:BEAT_MS,PB:PB,FAR:FAR,DMG:DMG,HIT:HIT}};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports=LabCore;
 /* ===================== LAB CORE END ===================== */
@@ -444,6 +543,7 @@ function msToBeatEdge(){var f=beatFrac();return f<0.5?-f*BEAT_MS:(1-f)*BEAT_MS;}
 
 var S=null, mode='conductor', basePkg=0, seedN=1, muted=false;
 var pendingAction=null, dialG=null, dialOpen=false, shoveArmed=false;
+var perkForesight=false, perkShoulder=false;   // persist across games (Paolo 7/19: perks)
 var verd={}, PKG_NAMES=['EASY','NORMAL','HARD','V.HARD','BOHEMIAN'];
 
 /* --- tiny local audio (metronome + shot cues only; music is the MUSIC session's system) --- */
@@ -457,8 +557,23 @@ function tone(f,d,v,ty){if(!AC||muted)return;var o=AC.createOscillator(),g=AC.cr
 window.addEventListener('message',function(ev){var d=ev.data||{};
   if(typeof d.bohemiaMusicMute==='boolean')muted=d.bohemiaMusicMute;});
 
-function newGame(){S=LC.newGame(mode,'VEGAS'+seedN);pendingAction=null;shoveArmed=false;msg('');}
+function newGame(){S=LC.newGame(mode,'VEGAS'+seedN);
+  S.perks.foresight=perkForesight;S.perks.shoulder=perkShoulder;
+  pendingAction=null;shoveArmed=false;msg('');}
 function msg(t){document.getElementById('msg').textContent=t;}
+function adjEnemies(){if(!S)return [];
+  return LC.alive(S).filter(function(e){return Math.max(Math.abs(e.x-S.px),Math.abs(e.y-S.py))===1;});}
+/* readable labels for what just happened (Paolo 7/19: DANCE was confusing — the game now TELLS you) */
+function eventMsg(evs){if(!evs)return;
+  for(var i=0;i<evs.length;i++){var e=evs[i];
+    if(e.t==='opened'){msg('OPENED — you slipped past his guard. easier dial on him now.');tone(660,0.08,0.06,'triangle');return;}
+    if(e.t==='swipe'){msg('SWIPED — never back straight out of a live guard\'s reach.');return;}
+    if(e.t==='felled'){msg('KNOCKED DOWN — he\'s prone. easy dial while he\'s on the floor.');tone(110,0.15,0.10,'sine');return;}
+    if(e.t==='shovestun'){msg('SHOVED — stunned '+(e.len||1)+(e.len===2?' turns (IRON SHOULDER).':' turn.'));return;}
+    if(e.t==='shoveresist'){msg('HE BRACED — just back up, no re-stun until he gets a turn.');return;}
+    if(e.t==='cooked'){msg('INTO THE BARREL — cooked and wide open.');return;}
+    if(e.t==='knockback'){msg('BAT HIT — it threw you back a cell.');return;}
+  }}
 
 /* --- input: NEVER beat-gated (SILENT-PLAY LAW). Press any time; the
    action resolves on the next whole beat; on-beat presses feed GROOVE. --- */
@@ -473,6 +588,7 @@ function resolvePending(){
   var r=LC.commitPlayer(S,a.action,a.offMs);
   if(!r.ok){if(r.why==='blocked')msg('BLOCKED — one body per cell');else if(r.why==='no line')msg('NO LINE OF SIGHT');else if(r.why==='too far')msg('TOO FAR');else if(r.why!=='busy')msg((r.why||'').toUpperCase());return;}
   tone(415,0.04,0.05);
+  eventMsg(r.events);
   if(r.dial){openDial();return;}
   scheduleWorld();
 }
@@ -483,6 +599,7 @@ function maybeWorld(){if(worldAt==null||!S)return;
     (r.events||[]).forEach(function(e){
       if(e.t==='struck'||e.t==='landed'&&e.hit)tone(140,0.12,0.10,'sawtooth');
       if(e.t==='swipe')tone(180,0.08,0.08,'sawtooth');});
+    eventMsg(r.events);
     if(S.down)document.getElementById('down').classList.add('on');
     if(S.cleared)msg('CLEARED — WAVE '+S.wave+' DOWN. FIRE to run wave '+(S.wave+1)+' (RESET rests the wound).');
   }}
@@ -587,21 +704,29 @@ function draw(){
       c.strokeStyle='rgba(192,57,43,0.30)';c.lineWidth=2;c.beginPath();
       c.moveTo(e.x*t2+t2/2,e.y*t2+t2/2);c.lineTo(S.px*t2+t2/2,S.py*t2+t2/2);c.stroke();}});
   S.enemies.forEach(function(e){if(e.dead)return;
-    if(e.intent&&e.intent.t==='land'&&e.intent.tiles)e.intent.tiles.forEach(function(t){
+    if(e.intent&&(e.intent.t==='land'||e.intent.t==='strike')&&e.intent.tiles)e.intent.tiles.forEach(function(t){
       c.fillStyle='rgba(192,57,43,'+(0.30+pulse*0.25)+')';c.fillRect(t[0]*t2+2,t[1]*t2+2,t2-4,t2-4);});});
   S.enemies.forEach(function(e){if(e.dead)return;
     var ex=e.x*t2+t2/2,ey=e.y*t2+t2/2;
-    c.beginPath();c.fillStyle=e.stagger>0?'#8a6a1a':e.stun>0?'#2e6fae':'#a03a28';
-    c.arc(ex,ey,t2*0.34,0,Math.PI*2);c.fill();
+    if(e.prone>0){ // knocked down: flat on the floor (Paolo 7/19: fall-over chance)
+      c.beginPath();c.fillStyle='#6a3a28';
+      c.ellipse(ex,ey+t2*0.14,t2*0.40,t2*0.18,0,0,Math.PI*2);c.fill();
+      c.strokeStyle='#9ad06a';c.lineWidth=2;c.stroke();
+    }else{
+      c.beginPath();c.fillStyle=e.stagger>0?'#8a6a1a':e.stun>0?'#2e6fae':'#a03a28';
+      c.arc(ex,ey,t2*0.34,0,Math.PI*2);c.fill();
+    }
     if(e.opened>0){c.strokeStyle='#9ad06a';c.lineWidth=3;c.beginPath();c.arc(ex,ey,t2*0.42,0,Math.PI*2);c.stroke();}
     c.fillStyle='#e7d8bb';c.font='bold '+Math.floor(t2*0.28)+'px monospace';c.textAlign='center';c.textBaseline='middle';
-    c.fillText(''+e.sig,ex,ey);
+    c.fillText(e.wpn?LC.WPN[e.wpn].glyph:''+e.sig,ex,ey-(e.prone>0?t2*0.02:0));
     if(e.hp<100){c.fillStyle='#1a0c0a';c.fillRect(ex-t2*0.3,ey+t2*0.38,t2*0.6,4);
       c.fillStyle='#c0392b';c.fillRect(ex-t2*0.3,ey+t2*0.38,t2*0.6*(e.hp/100),4);}
     if(e.intent){var it=e.intent;
-      if(it.t==='step'&&it.d){c.strokeStyle='rgba(231,216,187,0.55)';c.lineWidth=2;c.beginPath();
+      /* Paolo 7/19: seeing their NEXT MOVE is a PERK (foresight); strike/aim
+         telegraphs stay always-on (fairness — an attack is never a surprise) */
+      if(it.t==='step'&&it.d&&S.perks.foresight){c.strokeStyle='rgba(154,208,106,0.7)';c.lineWidth=2;c.beginPath();
         c.moveTo(ex,ey);c.lineTo(ex+it.d[0]*t2*0.55,ey+it.d[1]*t2*0.55);c.stroke();
-        c.beginPath();c.fillStyle='rgba(231,216,187,0.55)';
+        c.beginPath();c.fillStyle='rgba(154,208,106,0.7)';
         c.arc(ex+it.d[0]*t2*0.55,ey+it.d[1]*t2*0.55,3,0,Math.PI*2);c.fill();}
       if(it.t==='windup'||it.t==='strike'){c.strokeStyle='#e8b04a';c.lineWidth=2+pulse*3;
         c.beginPath();c.arc(ex,ey,t2*0.46,0,Math.PI*2);c.stroke();}
@@ -630,7 +755,8 @@ function loop(){
     setTimeout(function(){document.getElementById('beatlamp').classList.remove('hot');},110);}
   if(S){
     document.getElementById('grv').textContent='GROOVE x'+(1+Math.min(S.groove,8)*0.5).toFixed(1)+(S.groove>0?' ('+S.groove+')':'');
-    document.getElementById('wnd').textContent='WOUND '+S.wound+'%';}
+    document.getElementById('wnd').textContent='WOUND '+S.wound+'%';
+    if(mode==='shove')document.getElementById('shoveB').classList.toggle('ready',adjEnemies().length>0&&!dialOpen);}
   if(dialOpen&&dialG){dialG.beatClock=beatNow();ENG.tick(dialG,1/60);drawDial();}
   draw();
 }
@@ -642,8 +768,29 @@ document.querySelectorAll('#dpad button[data-d]').forEach(function(b){
     else queue({type:'move',dx:d[0],dy:d[1]});});});
 document.getElementById('waitB').addEventListener('click',function(){queue({type:'wait'});});
 document.getElementById('shoveB').addEventListener('click',function(){
+  /* CONTEXTUAL (Paolo 7/19): enemy right next to you = the button just works */
+  var a=adjEnemies();
+  if(a.length===1){var e=a[0];queue({type:'shove',dx:e.x-S.px,dy:e.y-S.py});shoveArmed=false;
+    document.getElementById('shoveB').classList.remove('armed');return;}
   shoveArmed=!shoveArmed;document.getElementById('shoveB').classList.toggle('armed',shoveArmed);
   msg(shoveArmed?'SHOVE ARMED — pick a direction':'');});
+var choiceTarget=null;
+function openChoice(e){choiceTarget=e;
+  var pv=LC.shovePreview(S,e.id);
+  document.getElementById('chShove').textContent=pv?('SHOVE ('+(pv.braced?'braced':'stun '+pv.stun)+' · '+pv.fallPct+'% topple'+(pv.dest==='wall'?' · wall':pv.dest==='hazard'?' · BARREL':pv.dest==='body'?' · body':'')+')'):'SHOVE';
+  document.getElementById('choice').classList.add('on');}
+function closeChoice(){choiceTarget=null;document.getElementById('choice').classList.remove('on');}
+document.getElementById('chShove').addEventListener('click',function(){
+  if(choiceTarget)queue({type:'shove',dx:choiceTarget.x-S.px,dy:choiceTarget.y-S.py});closeChoice();});
+document.getElementById('chDial').addEventListener('click',function(){
+  if(choiceTarget)queue({type:'fire',target:choiceTarget.id,basePkg:basePkg});closeChoice();});
+document.getElementById('chX').addEventListener('click',closeChoice);
+document.getElementById('perkForesight').addEventListener('click',function(){
+  perkForesight=!perkForesight;if(S)S.perks.foresight=perkForesight;
+  this.classList.toggle('on',perkForesight);});
+document.getElementById('perkShoulder').addEventListener('click',function(){
+  perkShoulder=!perkShoulder;if(S)S.perks.shoulder=perkShoulder;
+  this.classList.toggle('on',perkShoulder);});
 document.getElementById('fireB').addEventListener('click',function(){
   if(!S)return;audio();
   if(S.cleared){LC.nextWave(S);msg('WAVE '+S.wave);return;}
@@ -657,7 +804,10 @@ cv.addEventListener('click',function(ev){
   var r=cv.getBoundingClientRect(),T=r.width/LC.K.W;
   var gx=Math.floor((ev.clientX-r.left)/T),gy=Math.floor((ev.clientY-r.top)/T);
   var hit=null;LC.alive(S).forEach(function(e){if(e.x===gx&&e.y===gy)hit=e;});
-  if(hit){queue({type:'fire',target:hit.id,basePkg:basePkg});return;}
+  if(hit){
+    /* Paolo 7/19: adjacent enemy = you get the OPTION */
+    if(S.mode==='shove'&&Math.max(Math.abs(hit.x-S.px),Math.abs(hit.y-S.py))===1){openChoice(hit);return;}
+    queue({type:'fire',target:hit.id,basePkg:basePkg});return;}
   var dx=gx-S.px,dy=gy-S.py;
   if(Math.abs(dx)+Math.abs(dy)===1)queue({type:'move',dx:dx,dy:dy});});
 window.addEventListener('keydown',function(ev){
