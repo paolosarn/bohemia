@@ -664,6 +664,25 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## THE DISTRICT FACTORY (Paolo 7/18 late: "get this factory going... speed this up")
+Built the shared machine so a NEW district is a short config, not a from-scratch build:
+- engine/bohemia_district_kit.js: grid primitives, street-aware streetEdges(neigh),
+  footprints, connectedFrom, dead-world ground(), a REGISTRY (register/get/types), and a
+  3-ACT hook act(res,a,rules) (act 1 = as-built; act 2/3 rules are CONTENTS-PAOLO'S).
+  Gate: gates/district_kit_gate.js (16 checks).
+- engine/bohemia_industrial.js: FIRST district on the kit (~60 lines) — warehouse yard:
+  warehouses backing the far edge, fenced truck yard, dock doors, drive-in gates, salvage
+  containers. Gate: gates/industrial_gate.js (8 checks). Proof screenshotted, verified.
+- engine/bohemia_world.js: routing is now GENERIC. DISTGEN table maps district type ->
+  generator (suburb/gated/estate->SUB, commercial->COM, industrial->IND). Adding a
+  district = ONE line. world.plot generates + exposes enterable buildings uniformly.
+  Valley now: suburb 2332 / commercial 405 / industrial 36 / gated 18 / estate 11 plots
+  with real buildings (297 total, was 38). world_gate green.
+NEXT (fast now): stamp out the remaining ~25 district types on the kit (downtown, casino,
+resort, strip, medical, campus, stadium, park, mall...), each a short generator + gate +
+one DISTGEN line. Then the L3 TILE PIPELINE + L4 3-ACT states (build once, all inherit).
+Status doc: records/BOHEMIA_OVERWORLD_STATUS_7_18_26.md. Workflow: laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md.
+
 ## PLACEMENT PLAYBOOK + FIRST COMMERCIAL DISTRICT (Paolo 7/18 late)
 Paolo: the suburb ate half a day; RECORD the issues so it never repeats, then pivot to
 the first commercial district (a corner shopping plaza).
