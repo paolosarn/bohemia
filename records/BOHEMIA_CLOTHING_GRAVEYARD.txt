@@ -108,3 +108,15 @@ locations and the nose locations... we have to recalibrate the eyes in the
 different cardinal directions." The shades re-cook AFTER he calibrates the
 per-direction eye positions (FACE_OFFSETS, face editor), anchored to the TRUE
 calibrated eye pixels instead of the widest-face-row heuristic.
+
+--- BLACK SHADES v2 (7/19/26) — DOWN, now GRAVEYARD FINAL as an item ---
+PAOLO: "literally the worst shades of all time -- a straight black line that
+didn't connect and wrap around the head as it should, the ears and stuff."
+ROOT CAUSE: v2 painted ONLY face-part pixels on the iris rows -- the face part
+doesn't span the head's sides, so the band stopped mid-head: disconnected, no
+wrap, no temples, no ears, 1px tall = a floating line.
+FIX (fresh cook: WRAPAROUND SHADES): a 2-row lens band across the FULL head
+width edge-to-edge (the arms visibly reach the ears), a glint pixel per lens so
+it reads as glass not a blindfold; in profile a lens block on the leading edge
++ the temple arm running back along the head side to the ear. Still anchored to
+the true calibrated iris pixels. Invisible from behind.
