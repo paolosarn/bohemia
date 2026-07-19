@@ -688,13 +688,19 @@ questbook sprint concluded, and it lived in exactly one file. Now it lives here.
 ## SUBURB VERDICT (7/18): CUL-DE-SACS APPROVED, SCALE CHECK PENDING
 Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SUBURB_VERDICT_7_18_26.txt). He HELD graduation: 'before we continue I want to see house size vs the character, real human-vs-house ratios (single/two story).' SCALE STUDY is now the SLICE current: slices/BOHEMIA_SCALE_STUDY_7_18_26.html (tools/bohemia_scale_study.py) — 0.75 m/tile, a 1.75 m human vs single-story (14x11 m, 5 m) + two-story (11x10 m, 7.5 m) houses, top-down + elevation, toggle/check/export. ON SCALE SIGN-OFF: graduate cul-de-sacs into bohemia_plotgen at REAL dimensions, drop loop/garden from the generator + graveyard them (reference-clean), homes exist -> LIFE opens. [PENDING Paolo: scale sign-off].
 
+## EXPLAIN-EVERY-TILE LAW (Paolo 7/18): no blank slabs; every tile maps to a named thing
+in the legend; research what fills the space and put it there. Kit helpers legendOk/
+voidFraction/largestBlob gate it. Applies to EVERY district.
+
 ## DISTRICTS ON THE FACTORY (running list) — Paolo 7/18
 Built + folded into world.plot (each = a generator on the kit + a gate + one DISTGEN line):
 - suburb/gated/estate -> RESIDENTIAL (bohemia_suburb)
 - commercial -> COMMERCIAL (bohemia_commercial, corner plaza)
 - industrial -> INDUSTRIAL (bohemia_industrial, distribution center, research-first)
-- medical -> CIVIC (bohemia_medical, hospital campus: ER + ambulance canopy + helipad +
-  garage + MOB + surface parking, research-first). Gate: gates/medical_gate.js.
+- medical -> CIVIC (bohemia_medical, hospital campus, EXPLAIN-EVERY-TILE: hospital + ER,
+  ambulance canopy + staging bays + helipad, drop-off lane + walkway/crosswalk, a full
+  visitor lot with PARKED CARS + dead-planter islands, garage packed with cars + ramp, MOB).
+  Gate medical_gate.js checks legend-complete + no-big-void + parked-cars.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
 history has it if ever wanted as a starting sketch). Do NOT auto-generate gaming_resort.

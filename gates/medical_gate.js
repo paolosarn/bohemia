@@ -24,6 +24,18 @@ ok('gates sit only on street edges', streetOk);
 // separate emergency vs public entrances: at least 2 entrance canopies worth of area
 ok('separate ambulance + main entrance canopies', counts(Me.generate(7, { streets: ['S'] }))[7] > 100);
 
+// EXPLAIN-EVERY-TILE (Paolo 7/18): every code named in the legend + no big blank void.
+let legendOk = true, filled = true, parkedCars = true;
+for (const cfg of CONFIGS) {
+  const r = Me.generate(13, cfg), t = counts(r);
+  if (!K.legendOk(r.g, Me.palette)) legendOk = false;
+  if (K.voidFraction(r.g) > 0.24 || K.largestBlob(r.g, c => c === 0) > 0.18) filled = false;   // no big bare-GROUND void (drive aisles between parked cars are legit)
+  if (!(t[11] > 200)) parkedCars = false;   // parked vehicles fill the lots + garage
+}
+ok('every tile maps to a named thing (legend complete)', legendOk);
+ok('no big blank void — the grid is filled with purpose', filled);
+ok('lots + garage hold parked vehicles (not empty)', parkedCars);
+
 // enterable buildings + registered + categorized
 const fps = Me.generate(7, { streets: ['S'] }).footprints;
 ok('hospital footprints exposed, building-sized', fps.length > 0 && fps.every(f => f.w >= 8 && f.h >= 8));

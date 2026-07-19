@@ -13,6 +13,19 @@ Two things ate the day, and BOTH are fixable:
 NOT the cause: thinking too little. The cause: not front-loading (specs, looking,
 batching). Speed comes from doing MORE before he has to speak, not from thinking less.
 
+## EXPLAIN-EVERY-TILE LAW (Paolo 7/18, standing, the highest bar)
+"You shouldn't be putting down a single tile without being able to explain what it is."
+If I can't name what EVERY tile is, I'm doing a terrible job. Two hard rules:
+1. NO UNEXPLAINED EMPTY SPACE. A big blank slab of asphalt or dead ground is laziness, not
+   a design. Real places fill their footprint with purpose: a hospital's front isn't a void,
+   it's visitor parking + a drop-off loop + ambulance bays + walkways + dead landscaping
+   islands. Research what actually fills the space and put it there.
+2. EVERY CODE HAS A LEGEND. Every non-ground tile maps to a named thing in the district's
+   palette; I can point at any tile and say what it is and why it's there. Gated: the void
+   fraction must be low and every code must be in the legend.
+Combine with research-first: research the real thing, then fill the grid so nothing is
+unanswered. Thin dead-ground margins are fine; giant blank interiors are not.
+
 ## RESEARCH-FIRST LAW (Paolo 7/18, standing, EVERY district/thing)
 Before building ANY district (or real-world thing), do ONLINE RESEARCH of what it
 actually looks like — real site plans, aerial layouts, the anatomy — and let what I see

@@ -105,10 +105,22 @@
   function category(type){ return TAXONOMY[type]||null; }
   function inCategory(cat){ var out=[]; for(var t in TAXONOMY) if(TAXONOMY[t]===cat) out.push(t); return out; }
 
+  // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
+  // district's legend (palette), and there must be little unexplained void.
+  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
+  function voidFraction(g){ var W=g[0].length,H=g.length,z=0; for(var y=0;y<H;y++)for(var x=0;x<W;x++)if(g[y][x]===0)z++; return z/(W*H); }
+  // largest contiguous blob of a single code that isn't a real structure — catches "big blank slabs"
+  function largestBlob(g,isBlank){ var W=g[0].length,H=g.length,seen={},best=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){ if(!isBlank(g[y][x])||seen[x+','+y])continue; var st=[[x,y]];seen[x+','+y]=1;var n=0,code=g[y][x];
+      while(st.length){var p=st.pop();n++;for(var i=0;i<4;i++){var nx=p[0]+d4[i][0],ny=p[1]+d4[i][1],k=nx+','+ny; if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&g[ny][nx]===code){seen[k]=1;st.push([nx,ny]);}}}
+      if(n>best)best=n; }
+    return best/(W*H); }
+
   var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
-    CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory};
+    CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
+    legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
