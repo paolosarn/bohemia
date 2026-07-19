@@ -49,15 +49,36 @@ finale section of BOHEMIA_STORY_MASTER_7_18_26.md.
 - The exact mapping of the three stances (Liberate / Respect / Become) across the
   new Act 2 (local reckoning) and Act 3 (the Moon) boundary.
 
-## THE LINCHPIN [PENDING Paolo, the 7/19 question]
-For the rocket to ever get built, the Amalgamation must NOT be able to strike the
-launch site. By its own locked kill-rule it destroys anything that threatens its
-survival, and building an anti-Amalgamation rocket in the Network's own wired,
-monitored forge is the single most survival-threatening act possible. So Act 2
-likely has to END with the Amalgamation losing its power to hit Earth (its local
-node severed, the Earth nuke spent and stopped), leaving it able only to WATCH
-from the Moon, unable to reach you. That severed Earth-arm is what buys Act 3 the
-room to build. To confirm with Paolo.
+## THE LINCHPIN — CONFIRMED 7/19 (the severed arm)
+CONFIRMED: Act 2 ends with the Amalgamation's power to strike Earth broken. The
+MECHANISM is the super-captcha / super-VPN the player helps deploy at the END OF
+ACT 2 (graduates from floated to locked as the Act 2 severance; the exact tech is
+still "explore together"). After it goes live the Amalgamation CAN'T drop a nuke
+and CAN'T talk to or directly control people the way it used to. From then on it
+can only WATCH from the Moon. That severed arm is what buys Act 3 the room to
+build the rocket in the open.
+
+## ACT 3 CONFLICT — CONFIRMED 7/19
+- Even cut off, the Amalgamation is not the Act 3 threat; the NETWORK is. On the
+  hostile path (you did not befriend them) the Act 3 Network has gone EXTREMELY
+  CULT-LIKE: their god has gone silent and they are desperate to reach it again.
+- A huge part of Act 3 is fighting off the Network as they try to REVERSE the
+  super-captcha / VPN to restore contact with the Amalgamation. The orders come
+  from the few Network LEADERS who actually spoke to it (only the most trusted
+  members ever even knew the Amalgamation existed).
+- So Act 3's shape: defend the severance and build the rocket while the cult
+  claws to undo your Act 2 win. On the conversion path, the non-implanted members
+  help instead, and Act 3 is the Network crumbling from the inside.
+
+## THE MOON ARRIVAL — CONFIRMED 7/19 (the Act 3 ending)
+- The one-way launch goes up with the player's chosen companions (the ones who
+  agree to go). Arrival at the Moon base is a fight through the AI security robots
+  guarding the Amalgamation, then you reach the base itself.
+- ON THE BASE: the Project Angel founders are there, the tech-billionaire architects
+  of the whole thing, preserved or long dead (skeletons). The loudest ghost in the
+  Amalgamation (canon: "one man fed more of himself in than anyone in history") is
+  paid off here in the flesh. [NAMING LAW: use fictionalized analogs of the
+  real-world billionaires, per the world's altered-names rule. Rich to explore.]
 
 ## UPDATES
 - Supersedes the finale section of BOHEMIA_STORY_MASTER_7_18_26.md: the local
