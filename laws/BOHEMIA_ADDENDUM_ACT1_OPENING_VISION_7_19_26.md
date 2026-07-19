@@ -46,9 +46,48 @@ on night one). This household is generation zero/one, the root of the whole
 theme visceral from the first five minutes: the world takes, and family is what you
 have left.
 
-## RECONCILE [PENDING Paolo]
-Canon (GDD v2) says the founder "loses a PARENT at the start." This opening has the
-parents survive and the SISTER die. Options: (a) the sister-loss REVISES the old
-line (sibling first); (b) the night takes BOTH, the sister here and the father who
-woke you soon after, keeping "lose a parent at the start" true as well. Paolo's call
-(this is the 7/19 opening question).
+## RECONCILE — RESOLVED 7/19 (toward the sibling)
+The opening loss is a SIBLING, not a parent. Both parents survive into the family
+dinner (see below), so the old GDD v2 "loses a PARENT at the start" line is
+superseded for the opening: the founding loss is the sibling. A parent death later
+in Act 1 remains optional/open, but the OPENING death is the sibling.
+[STILL OPEN from the prior turn: whether the surviving sibling is one fixed
+hand-authored companion every run, or the player chooses which sibling lives.]
+
+## OPENING SEQUENCE CRYSTALLIZED (7/19, Paolo) — this is the spine of the open
+The pieces fuse into one unbroken sequence:
+1. NIGHT RAID (cold open): July 4th fireworks, father wakes you, the combat tutorial
+   is defending the home room to room, a sibling is killed, it ends saving the mother.
+2. THE GRIEF DINNER (next day, before the burial): the surviving family sits down to
+   a real meal and a raw, genuinely sad conversation. People crying at the table.
+   "I miss them so much, I can't." "I hate this." Bohemia commits to grief most games
+   flinch from. This is the family-conversation mechanic's first and definitive beat.
+3. THE BURIAL ON THE RIDGE (tutorial ends here): the family climbs a beautiful ridge
+   overlooking Bohemia and buries the sibling together. This is ALSO the first
+   full-scope reveal of the whole valley (the BotW vista). So the first time you ever
+   see Bohemia's beauty, you see it through tears, over a fresh grave. The city's
+   beauty is bound to loss from the first frame, and you can never take that view
+   again without the grave in the foreground.
+
+## THE RIDGE = THE MENU / TITLE SCREEN (locked, Paolo)
+The revisitable overlook is the MENU / TITLE SCREEN view. Every time you boot the
+game or return to menu you are looking at Bohemia from your sibling's grave, and
+per the vista mechanic that view UPGRADES per act (ruin -> rebuilt -> Act 3). The
+title screen becomes a living 100-year record: the city your family built, framed
+by the grave it cost. Bookends with the pre-launch look in Act 3.
+
+## DEPRESSING / REAL CONVERSATIONS AS A PILLAR (locked, Paolo)
+Bohemia deliberately does grief and hard, sad, honest conversation that most games
+avoid. Design bet (Paolo): "Bohemia makes you feel more in five minutes than other
+games do in their whole runtime." A strength, and a marketing/word-of-mouth hook.
+Use across all three acts; you will keep hearing about family members who died.
+MOTIF SEED (Claude, [PENDING]): the sibling's EMPTY CHAIR persists at family meals
+across all three acts, the recurring grief anchor, and the exact seat the
+Amalgamation later offers to fill ("nothing is ever lost").
+
+## THE 10 START-OPTIONS BECOME THE FIRST QUESTS (locked, Paolo)
+Any of the 10 opening options (The Long Night, The Killing Summer, The Elder's
+Accident, The Flood, The Faction That Died, The Wedding, The Dry Taps, The First
+Harvest, The Two Families, The Empty Seat, etc.) not used in the cold open become
+the FIRST FEW ACT 1 QUESTS. Nothing is wasted; the menu of openings is really the
+menu of early Act 1 content.
