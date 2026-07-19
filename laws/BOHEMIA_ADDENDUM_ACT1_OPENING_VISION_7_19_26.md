@@ -94,10 +94,13 @@ the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are
 20-something. Raiders attack; that is the combat tutorial. The single cut shows the
 entire apocalypse without a word (what the world was, what it became). This is the
 answer to "warm open vs cold open": it is BOTH, fused by the cut.
-- THE TABLE IS THE THROUGHLINE. Three dinners at the same table tell the whole story
-  of loss: the childhood dinner (everyone alive, world intact) -> the raid (a sibling
-  killed at that table) -> the grief dinner (the empty chair). The table survives; the
-  world and the family do not. Carry the table as a recurring object.
+- THE TABLE IS THE THROUGHLINE, AND IT STAYS SACRED (Paolo 7/19). The sibling does
+  NOT die at the table; the death happens during the raid, away from it (in motion,
+  in the house). The table is bracketed by two dinners that tell the story of loss:
+  the childhood dinner (everyone alive, world intact) and the grief dinner (the empty
+  chair). Nothing bad ever happens AT the table, which is exactly why it hurts to sit
+  there later. Carry the table as a recurring sacred object; the empty chair, not
+  blood on the table, carries the grief.
 - TIMING (locked): the founder was a CHILD (~10-13) at the crash (~2050); the game
   proper begins ~10 years later (~2060), founder ~20-something. Personalizes the crash.
 
