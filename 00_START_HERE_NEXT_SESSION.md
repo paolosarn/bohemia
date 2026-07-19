@@ -264,6 +264,20 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-8. STRUCTURE-NOT-COLOR LAW + 5 NEW GARMENT SHAPES (7/19, latest): Paolo
+   rejected colorways-as-progress ("I need to see actual different clothes").
+   Law locked (laws addendum + CLAUDE.md): colorways legal, NEVER progress;
+   progress = new shapes, machine-locked by gates/structure_gate.js (28
+   checks, registered). Born same turn, 12 in COOKING: JACKETS (waist-length
+   open outer -- denim/field/leather), PONCHOS (new class: shoulder-wide
+   diamond, fringed hem -- dust/oxblood), TALL BOOTS (shaft up the shin --
+   moto/ranch), ROLLED SLEEVES (third real length -- work shirt/flannel),
+   GEAR (new category: kneepads/pauldron/chest rig). Post-mortems recorded:
+   cloth-ramp shoes crashed per-facing on missing sole colors (fixed with
+   fallbacks, colorway shoes included); poncho v1 left shoulders bare (now
+   starts shoulder-wide). Wardrobe: 78 canon + 75 cooking (12 structures +
+   63 colorway filler). NEXT clothing turns lead with structures: aprons,
+   skirts/wraps, bags, hood-up, tattered hems, suspenders are open territory.
 -7. MUSIC VERDICT TWO + BATCH 15 + CLOTHING COLORWAY WAVE (7/19, latest):
    Paolo judged batches 13+14: 4 CANON (SOMETHING SINGS THROUGH THE PIPES,
    THE SHAPE THE WATER TAKES, TWO LIGHTS OVER THE FLOOD, THE STAIRS UNDER THE
@@ -341,8 +355,46 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    no-stun-lock breaks it; VISIBLE immunity classes as the answer to his
    garbled "different enemy character" line; BG3 show-odds-before-commit;
    info-perk pricing doctrine). Gate now 46 checks. Verified in chromium,
-   0 errors. STILL [PENDING Paolo]: actual thumbs on A-D + currency
-   thesis; which enemy classes resist the shove; the fall-odds table.
+   0 errors. STILL [PENDING Paolo]: which enemy classes resist the shove;
+   the fall-odds table.
+   NOTES-ARE-RULINGS + CANON DEMO INCORPORATION (7/19, third pass): Paolo
+   ruled the workflow itself ("if I told you what I liked, I don't need to
+   double check it... start actually incorporating it into the actual
+   combat demo") -> LAW: laws/BOHEMIA_ADDENDUM_NOTES_ARE_RULINGS_7_19_26.md
+   + CLAUDE.md verdict-workflow amendment. DONE same turn — the canon Dead
+   Eye Dial demo (COMBAT_B64) now carries the ruled mechanics via
+   tools/bohemia_combat_melee_patch.py (idempotent, anchor-asserted, 3
+   passes): weapon-typed MELEE archetypes join encounters (SHIV fast
+   adv3/cad1, BAT heavy cad2 26-38dmg + knockback hit, SPEAR keeps
+   distance reach4.2 — MELEE MIX setting NONE/SOME/PACK default SOME,
+   rides the 7/4 melee plumbing); blades advance/windup/strike AFTER your
+   action at the ONE turn-end choke (tickTurnEnd; doWait now routes
+   through it — v2 fix, caught by the chromium drive); telegraph law
+   (windup ring pulses on the beat, a strike never lands unannounced);
+   contextual SHOVE button in the action row at point-blank ("SHOVE SHIV
+   (stun 1 · 30%)" odds preview): always stuns 1 (IRON SHOULDER setting:
+   2 + 50%), topple -> prone (flat ellipse, gets up over 2 turns), braced
+   under no-stun-lock; FORESIGHT setting draws next-move intent ON THE
+   FIELD (green advance arrow / amber will-windup dot — enemy cards are
+   retired canon, v3). Pure decision logic = MELEE CORE block inside the
+   demo, gate-required headless: combat_lab_gate.js now 57 checks.
+   VERIFIED live in the real alpha (chromium: blades close over WAITs,
+   windup->strike alternation, shove label/stun/prone/push, 0 errors).
+   ENVIRONMENT NOTE (for every future session): the combat tab srcdoc
+   iframe reads BLACK/hung in this sandbox because the Google Fonts
+   stylesheet fetch hangs at the proxy and BLOCKS srcdoc script execution
+   — NOT a production bug (fonts load on real networks). To test locally:
+   abort fonts.g* routes in playwright. Root-caused 7/19 by srcdoc parse
+   bisection; the pristine alpha behaved identically.
+   RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
+   laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
+   1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
+   from the FACTIONS music table — the Bohemia-native pick), 2 THE QUEUE,
+   3 BAR-PHRASE COMBAT (volley on beat 4), 4 THE BREAK (groove cashes into
+   half-time = the time-dilation bar earned), 5 LAST-BEAT DODGE, 6 BODY
+   TELEGRAPHS ON THE OFF-BEAT (art-pipeline law), 7 STREAK-BUILDS-THE-SONG
+   (re-pitch), 8 ELITE SYNCOPATION. [PENDING Paolo: pick numbers; if "you
+   pick": 1+3+4.]
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

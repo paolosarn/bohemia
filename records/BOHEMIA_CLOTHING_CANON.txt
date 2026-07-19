@@ -289,3 +289,26 @@ All names collision-checked against canon + the clothing graveyard (no dead
 names reused). Verified on the real surface: 141 sections render (78 canon +
 63 cooking), sampled rigs paint real pixels in the live preview, zero page
 errors. Wardrobe potential if all approved: 141.
+
+=== COOK BATCH 15 (7/19/26) — STRUCTURE-NOT-COLOR (Paolo's correction) ===
+Paolo, on the colorway wave: "that's not really what I want to see... I need
+to see actual different clothes, not just different colorways." LAW LOCKED
+(laws/BOHEMIA_ADDENDUM_STRUCTURE_NOT_COLOR_7_19_26.md + CLAUDE.md): colorways
+legal, never progress; progress = new garment SHAPES. Same turn, FIVE new
+structures born, 12 candidates in COOKING:
+- JACKET (waist-length open outer, ribbed hem, no skirt): DENIM JACKET,
+  FIELD JACKET, LEATHER JACKET
+- PONCHO (new garment class: shoulder-wide diamond drape, fringed hem,
+  wrapped neck): DUST PONCHO, OXBLOOD PONCHO
+- TALL BOOTS (shaft climbs the shin, fold-over cuff): TALL MOTO BOOTS,
+  RANCH BOOTS
+- ROLLED SLEEVES (real third sleeve length): ROLLED WORK SHIRT, ROLLED FLANNEL
+- GEAR (new category, zone-locked over clothes): SCAV KNEEPADS, SCRAP
+  PAULDRON, CHEST RIG
+Gate: gates/structure_gate.js (28 checks) locks every shape's geometry.
+Post-mortems (real-surface): cloth-ramp shoes crashed probabilistically per
+facing on missing .sole/.mid2 (genShoes fallbacks fixed it, colorway shoes
+included); the poncho's first cut left the under-shirt's shoulders out
+(drape now starts shoulder-wide). All 12 verified in all facings.
+COOKING now: 63 colorways (filler, judged whenever) + 12 structures (the
+actual progress). [PENDING Paolo thumbs]

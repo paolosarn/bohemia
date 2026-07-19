@@ -40,7 +40,10 @@ const gi = src.indexOf('var GARMENTS=');
 const gblock = gi >= 0 ? src.slice(gi, src.indexOf('];', gi)) : '';
 const outerLines = gblock.split('\n').filter(l => /layer:'outer'/.test(l));
 ok('at least one outer garment exists', outerLines.length > 0);
-ok('every outer garment routes through genCoat', outerLines.length > 0 && outerLines.every(l => /genCoat\(/.test(l)));
+// PONCHO EXEMPTION (7/19, structure-not-color batch): the law's own text is
+// "if it's a JACKET or a TRENCHCOAT" -- a poncho is one closed sheet of fabric
+// by nature, so genPoncho outers are legal without a slit.
+ok('every outer garment routes through genCoat or genPoncho', outerLines.length > 0 && outerLines.every(l => /genCoat\(|genPoncho\(/.test(l)));
 // the preview must compose an under-outfit for outer (so the slit reveals real clothes)
 ok('outer garments compose an under-outfit (previewGen)', /layer==='outer'[\s\S]{0,220}underOutfit\(/.test(src));
 
