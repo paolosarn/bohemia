@@ -88,6 +88,8 @@ GATES = [
      'hats sit on the skull, never the eyes/body, directional', False),
     ('ACCESSORY',      ['node', 'gates/acc_gate.js'],
      'zone-locked: masks below the eyes, shades on them, gloves/belt/scarf', False),
+    ('CLOTH STRUCT',   ['node', 'gates/structure_gate.js'],
+     'structure-not-color: jacket/poncho/tall-boot/rolled/gear are real shapes', False),
     ('LIFE',           ['node', 'gates/life_gate.js'],
      'agents homed+scheduled on the world model, occupancy, day shape', False),
     ('DRESS',          ['node', 'gates/dress_gate.js'],

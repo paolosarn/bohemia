@@ -264,6 +264,20 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-8. STRUCTURE-NOT-COLOR LAW + 5 NEW GARMENT SHAPES (7/19, latest): Paolo
+   rejected colorways-as-progress ("I need to see actual different clothes").
+   Law locked (laws addendum + CLAUDE.md): colorways legal, NEVER progress;
+   progress = new shapes, machine-locked by gates/structure_gate.js (28
+   checks, registered). Born same turn, 12 in COOKING: JACKETS (waist-length
+   open outer -- denim/field/leather), PONCHOS (new class: shoulder-wide
+   diamond, fringed hem -- dust/oxblood), TALL BOOTS (shaft up the shin --
+   moto/ranch), ROLLED SLEEVES (third real length -- work shirt/flannel),
+   GEAR (new category: kneepads/pauldron/chest rig). Post-mortems recorded:
+   cloth-ramp shoes crashed per-facing on missing sole colors (fixed with
+   fallbacks, colorway shoes included); poncho v1 left shoulders bare (now
+   starts shoulder-wide). Wardrobe: 78 canon + 75 cooking (12 structures +
+   63 colorway filler). NEXT clothing turns lead with structures: aprons,
+   skirts/wraps, bags, hood-up, tattered hems, suspenders are open territory.
 -7. MUSIC VERDICT TWO + BATCH 15 + CLOTHING COLORWAY WAVE (7/19, latest):
    Paolo judged batches 13+14: 4 CANON (SOMETHING SINGS THROUGH THE PIPES,
    THE SHAPE THE WATER TAKES, TWO LIGHTS OVER THE FLOOD, THE STAIRS UNDER THE

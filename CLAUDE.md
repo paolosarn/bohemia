@@ -55,6 +55,9 @@ research partner. He DECIDES, you PRODUCE.
   reaches EVERY stall from the curb. Authored once via kit rotateToStreet (build
   canonical-south, rotate to the real street). Gates: district_kit_gate.js (the
   machinery) + each district's gate (park_gate.js is the reference). Full law in /laws.
+- STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
+  Progress = new garment SHAPES (new geometry/silhouette/category), machine-
+  locked by structure_gate.js. A recolor is filler, never the headline.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)
