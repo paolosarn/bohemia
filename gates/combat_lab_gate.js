@@ -260,6 +260,59 @@ ok('shove preview shows odds before commit (BG3 lesson)',
   lab.includes('shovePreview') && lab.includes('% topple'));
 ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26'));
 
+/* ---- 2b. THE CANON DEMO CARRIES THE RULED MECHANICS (Paolo 7/19:
+   "you can start actually incorporating it into the actual combat demo") ---- */
+{
+  const ca2 = demo.indexOf('MELEE CORE START'), cb2 = demo.indexOf('MELEE CORE END');
+  ok('canon demo carries MELEE CORE', ca2 > 0 && cb2 > ca2);
+  const mSrc = demo.slice(demo.indexOf('var BohemiaMelee', ca2), demo.lastIndexOf('if(typeof module', cb2));
+  const mm = { exports: {} };
+  new Function('module', 'exports', mSrc + ';module.exports=BohemiaMelee;')(mm, mm.exports);
+  const BM = mm.exports;
+  // telegraph law: NEVER a strike without last turn's windup
+  let telegraphOk = true, struck = false;
+  const em = { edist: 12, stun: 0, prone: 0, windup: false, adv: 3, reach: 1.8, cad: 1, phase: 0, stunCooldown: 0 };
+  let prevWindup = false;
+  for (let t = 1; t <= 12; t++) {
+    const r = BM.decide(em, t);
+    if (r.act === 'strike') { struck = true; if (!prevWindup) telegraphOk = false; em.windup = false; }
+    if (r.act === 'windup') em.windup = true;
+    if (r.act === 'advance') em.edist = r.dist;
+    prevWindup = em.windup;
+  }
+  ok('demo melee: telegraph before every strike', struck && telegraphOk);
+  // spear stops at reach, never enters point blank on its own
+  const sp = { edist: 12, stun: 0, prone: 0, windup: false, adv: 2, reach: 4.2, cad: 2, phase: 0, stunCooldown: 0 };
+  for (let t = 1; t <= 20; t++) { const r = BM.decide(sp, t);
+    if (r.act === 'advance') sp.edist = r.dist; if (r.act === 'strike') sp.windup = false;
+    if (r.act === 'windup') sp.windup = true; }
+  ok('demo melee: spear holds at its reach (keeps distance)', Math.abs(sp.edist - 4.2) < 0.01);
+  // held while stunned/prone
+  ok('demo melee: stun/prone hold the blade',
+    BM.decide({ edist: 1, stun: 1, prone: 0, windup: true, adv: 3, reach: 2, cad: 1 }, 5).act === 'held' &&
+    BM.decide({ edist: 1, stun: 0, prone: 2, windup: true, adv: 3, reach: 2, cad: 1 }, 5).act === 'held');
+  // shove rulings
+  const s1 = BM.shove({ stun: 0, stunCooldown: 0 }, false, 99);
+  const s2 = BM.shove({ stun: 0, stunCooldown: 0 }, true, 99);
+  const s3 = BM.shove({ stun: 0, stunCooldown: 1 }, false, 0);
+  ok('demo shove: always stuns 1 (perk: 2)', s1.stun === 1 && s2.stun === 2);
+  ok('demo shove: no-stun-lock = braced, no stun', s3.braced === true && s3.stun === 0);
+  ok('demo shove: topple thresholds 30/50, roll-driven',
+    BM.shove({ stun: 0, stunCooldown: 0 }, false, 29).topple === true &&
+    BM.shove({ stun: 0, stunCooldown: 0 }, false, 30).topple === false &&
+    BM.shove({ stun: 0, stunCooldown: 0 }, true, 49).topple === true);
+  // static wiring
+  ok('demo carries SHIV/BAT/SPEAR archetypes',
+    demo.includes("shiv: {n:'SHIV'") && demo.includes("bat:  {n:'BAT'") && demo.includes("spear:{n:'SPEAR'"));
+  ok('demo gun pools exclude blades',
+    demo.includes('!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst') &&
+    demo.includes('!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine'));
+  ok('demo has the contextual SHOVE button + perks UI',
+    demo.includes('id="shovebtn"') && demo.includes('IRON SHOULDER') && demo.includes('FORESIGHT'));
+  ok('demo melee turn runs at the one turn-end choke (tickTurnEnd)',
+    demo.includes('function tickTurnEnd(){ meleeTurnRun();'));
+}
+
 /* ---- 3. verdict workflow ---- */
 ok('SUN MODE present', /SUN MODE/.test(lab));
 ok('thumbs for all four modes + the currency thesis',
