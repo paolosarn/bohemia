@@ -23,10 +23,6 @@
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
 
-  // rotate a square grid 90° clockwise: out[x][n-1-y] = g[y][x]
-  function rotCW(g){ var n=g.length, out=[]; for(var y=0;y<n;y++){ out.push(new Array(n)); }
-    for(var y2=0;y2<n;y2++)for(var x=0;x<n;x++){ out[x][n-1-y2]=g[y2][x]; } return out; }
-
   function buildCanonical(seed){
     // entrance is at the SOUTH edge (bottom); car driveway + lot live on the south street.
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, i, x, y, r=G.rnd;
@@ -92,40 +88,14 @@
     return g;
   }
 
-  // scan the four borders; each contiguous run of gate(5) becomes one gate {edge,x,y}
-  function scanGates(g){ var n=g.length,out=[],run=null;
-    function edgeCells(){ var cells=[],x,y;
-      for(x=0;x<n;x++)cells.push([x,0,'N']); for(y=0;y<n;y++)cells.push([n-1,y,'E']);
-      for(x=n-1;x>=0;x--)cells.push([x,n-1,'S']); for(y=n-1;y>=0;y--)cells.push([0,y,'W']); return cells; }
-    var cells=edgeCells();
-    for(var i=0;i<cells.length;i++){ var c=cells[i],is=(g[c[1]][c[0]]===5);
-      if(is){ if(!run)run={edge:c[2],xs:[c[0]],ys:[c[1]]}; else {run.xs.push(c[0]);run.ys.push(c[1]);} }
-      else if(run){ out.push({edge:run.edge,x:Math.round(run.xs.reduce(function(a,b){return a+b;})/run.xs.length),y:Math.round(run.ys.reduce(function(a,b){return a+b;})/run.ys.length)}); run=null; } }
-    if(run)out.push({edge:run.edge,x:run.xs[0],y:run.ys[0]});
-    return out; }
-
-  // draw a pedestrian gate + short walk-in on an edge (post-rotation, for corner side streets)
-  function pedGate(g,edge){ var n=g.length,i,s;
-    function soft(c){return c===7||c===0||c===3;}
-    if(edge==='N'||edge==='S'){ var gx=Math.round(n*0.5),gy=(edge==='S')?n-1:0,dir=(edge==='S')?-1:1;
-      for(i=-3;i<=3;i++)g[gy][gx+i]=5;
-      for(s=1;s<=18;s++){var yy=gy+dir*s; if(yy<=0||yy>=n-1)break; if(soft(g[yy][gx]))g[yy][gx]=1; else break; } }
-    else { var gy2=Math.round(n*0.5),gx2=(edge==='E')?n-1:0,dir2=(edge==='E')?-1:1;
-      for(i=-3;i<=3;i++)g[gy2+i][gx2]=5;
-      for(s=1;s<=18;s++){var xx=gx2+dir2*s; if(xx<=0||xx>=n-1)break; if(soft(g[gy2][xx]))g[gy2][xx]=1; else break; } } }
-
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
-    var g=buildCanonical(seed>>>0);
-    // pick the CAR-entrance street (primary), rotate canonical-south to it
-    var order=['S','E','W','N']; var primary='S';
-    for(var o=0;o<order.length;o++){ if(streets.indexOf(order[o])>=0){ primary=order[o]; break; } }
-    var kmap={S:0,W:1,N:2,E:3}, k=kmap[primary];
-    for(var t=0;t<k;t++) g=rotCW(g);
-    // corner: side streets get a pedestrian gate too
-    streets.forEach(function(e){ if(e!==primary) pedGate(g,e); });
-    var gates=scanGates(g);
-    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:gates,
+    // build canonical (car entrance at SOUTH), then let the KIT rotate it to the real street
+    // + add pedestrian gates on any corner side streets (the shared street-aware machinery).
+    var soft=function(c){ return c===7||c===0||c===3; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:18});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})};
   }
 

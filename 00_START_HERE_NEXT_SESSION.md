@@ -707,6 +707,20 @@ Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SU
 in the legend; research what fills the space and put it there. Kit helpers legendOk/
 voidFraction/largestBlob gate it. Applies to EVERY district.
 
+## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
+a corner is gonna be super important, for everything moving forward"): every road-fronting
+district is built for BOTH a standalone grid (1 street, any edge) AND a corner (2 streets).
+ONE car entrance on the primary street (order S>E>W>N); corners add a PEDESTRIAN gate on the
+side street, never a 2nd car entrance. The drivable network (driveway + lot aisles) is an
+EXPLICIT car surface separate from walking paths; a car reaches EVERY stall from the curb.
+MECHANISM (author once): build canonical-south, call K.rotateToStreet(g,streets,{...}) ->
+{g,primary,gates}; kit helpers primaryStreet/rotateCW/scanGates/pedGate + gate checks
+driveNetworkOk/driveTouchesEdge/stallsReachable. GATES: district_kit_gate.js (machinery,
+23 checks) + each district gate (park_gate.js reference, 11 checks/6 configs). Law:
+laws/BOHEMIA_ADDENDUM_STREET_AWARE_DRIVABLE_LAW_7_19_26.md + CLAUDE.md law list. RETROFIT
+OWED: commercial/industrial/medical/solar predate it -> move onto rotateToStreet + explicit
+drive code as each is next touched. NEW districts use it from the start.
+
 ## DISTRICTS ON THE FACTORY (running list) — Paolo 7/18
 Built + folded into world.plot (each = a generator on the kit + a gate + one DISTGEN line):
 - suburb/gated/estate -> RESIDENTIAL (bohemia_suburb)
