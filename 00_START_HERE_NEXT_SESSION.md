@@ -210,6 +210,14 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
+   (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
+   permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
+   run-resets. He is opening dedicated LIFE and COMBAT sessions -- briefs:
+   laws/BOHEMIA_SESSION_BRIEF_LIFE_7_19_26.md (agents/economy/factions,
+   branch claude/life-session) and laws/BOHEMIA_SESSION_BRIEF_COMBAT_7_19_26
+   .md (fun-first beat combat, NO DAMAGE BEFORE THE DIAL, branch
+   claude/combat-session). Wardrobe stands at 78 CANON, all categories.
 -3. MUSIC BATCH 12 + GRAVEYARD SWEEP — NEW BADGE, PENDING VERDICT (7/18): Paolo's
    mega-verdict thumbed nearly the whole catalog CANON, killed 6 (SUNKEN VESPERS,
    UNDERTOW, VIA PURIFICO, HYMN IN THE FLOOD, THE DROWNED CHOIR, WHAT THE GLASS
