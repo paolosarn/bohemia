@@ -181,18 +181,84 @@ ok('NO DAMAGE BEFORE THE DIAL (simulated): dial never ran, hp never moved', hpBa
   }
 }
 
-/* shove grammar (occupancy-honest) */
+/* shove grammar (Paolo rulings 7/19, occupancy-honest) */
 {
   const S = LC.newGame('shove', 'GATE6');
   const e = LC.alive(S)[0];
-  // wall slam: enemy directly against the north edge, shoved north
-  S.px = 4; S.py = 1; e.x = 4; e.y = 0;
-  delete S.solids['4,0']; delete S.solids['4,1'];
-  const others = LC.alive(S).filter(o => o !== e);
-  others.forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1 - (i % 2); });
+  S.px = 4; S.py = 5; e.x = 4; e.y = 4;
+  delete S.solids['4,3']; delete S.solids['4,4'];
+  LC.alive(S).filter(o => o !== e).forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1; });
   const r = LC.commitPlayer(S, { type: 'shove', dx: 0, dy: -1 }, 0);
-  ok('shove into the wall = stagger + opened', r.ok && e.stagger === 2 && e.opened === 2);
+  ok('PAOLO RULING: a shove ALWAYS stuns (1 turn base)', r.ok && e.stun >= 1);
+  const S2 = LC.newGame('shove', 'GATE6');
+  const e2 = LC.alive(S2)[0];
+  S2.perks.shoulder = true;
+  S2.px = 4; S2.py = 5; e2.x = 4; e2.y = 4;
+  delete S2.solids['4,3']; delete S2.solids['4,4'];
+  LC.alive(S2).filter(o => o !== e2).forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1; });
+  LC.commitPlayer(S2, { type: 'shove', dx: 0, dy: -1 }, 0);
+  ok('PAOLO RULING: IRON SHOULDER perk = guaranteed 2-turn stun', e2.stun === 2);
+  // no stun-lock applies to shoves too: immediate re-shove cannot refresh
+  e2.x = 4; e2.y = 4;
+  const rr = LC.commitPlayer(S2, { type: 'shove', dx: 0, dy: -1 }, 0);
+  ok('NO STUN-LOCK holds for shoves (re-shove = braced, no refresh)',
+    rr.ok && rr.events.some(x => x.t === 'shoveresist'));
+  // fall roll is deterministic (determinism law) and prone counts helpless
+  const A = [0, 0].map(() => {
+    const X = LC.newGame('shove', 'GATE7');
+    const t = LC.alive(X)[0];
+    X.px = 4; X.py = 5; t.x = 4; t.y = 4;
+    delete X.solids['4,3']; delete X.solids['4,4'];
+    LC.alive(X).filter(o => o !== t).forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1; });
+    LC.commitPlayer(X, { type: 'shove', dx: 0, dy: -1 }, 0);
+    return t.prone;
+  });
+  ok('fall-over roll is seeded-deterministic', A[0] === A[1]);
+  const S3 = LC.newGame('shove', 'GATE8');
+  const e3 = LC.alive(S3)[0];
+  LC.alive(S3).filter(o => o !== e3).forEach(o => { o.dead = true; });
+  e3.x = S3.px; e3.y = S3.py - 3;
+  const up = LC.effPackage(S3, e3, 4);
+  e3.prone = 2;
+  ok('prone counts helpless: easier dial on a floored man', LC.effPackage(S3, e3, 4) < up || up === 0);
 }
+
+/* weapon-typed melee (Paolo ruling: movement identity per weapon) */
+{
+  ok('conductor enemies carry weapons (shiv/bat/spear)', (() => {
+    const S = LC.newGame('conductor', 'GATE9');
+    const w = LC.alive(S).map(e => e.wpn);
+    return w.includes('shiv') && w.includes('bat') && w.includes('spear');
+  })());
+  ok('weapon sigs differ (shiv every beat, bat/spear heavy)',
+    LC.WPN.shiv.sig === 1 && LC.WPN.bat.sig === 2 && LC.WPN.spear.sig === 2);
+  // spear never damages without a prior telegraph
+  const S = LC.newGame('conductor', 'GATE10');
+  const sp = LC.alive(S).find(e => e.wpn === 'spear');
+  LC.alive(S).filter(o => o !== sp).forEach(o => { o.dead = true; });
+  S.px = 4; S.py = 6; sp.x = 4; sp.y = 4;
+  ['4,4', '4,5', '4,6'].forEach(k => delete S.solids[k]);
+  let telegraphedBeforeHit = true, sawWindup = false;
+  for (let i = 0; i < 8 && S.wound === 0; i++) {
+    const hadWindup = sp.windup;
+    LC.commitPlayer(S, { type: 'wait' }, 0); LC.worldStep(S);
+    if (S.wound > 0 && !hadWindup) telegraphedBeforeHit = false;
+    if (sp.windup) sawWindup = true;
+  }
+  ok('spear telegraphs (windup + lance tiles) before any damage', sawWindup && telegraphedBeforeHit);
+}
+
+/* perks exist as Paolo ruled them */
+ok('FORESIGHT + IRON SHOULDER perks in the UI',
+  lab.includes('PERK: FORESIGHT') && lab.includes('PERK: IRON SHOULDER'));
+ok('foresight gates movement-intent display (step arrows behind the perk)',
+  lab.includes("it.t==='step'&&it.d&&S.perks.foresight"));
+ok('contextual shove choice (adjacent enemy offers SHOVE or DIAL)',
+  lab.includes('openChoice') && lab.includes('chShove') && lab.includes('chDial'));
+ok('verdict record cited in the lab', lab.includes('BOHEMIA_COMBAT_LAB_VERDICT_7_19_26.txt'));
+ok('shove preview shows odds before commit (BG3 lesson)',
+  lab.includes('shovePreview') && lab.includes('% topple'));
+ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26'));
 
 /* ---- 3. verdict workflow ---- */
 ok('SUN MODE present', /SUN MODE/.test(lab));

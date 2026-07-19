@@ -58,3 +58,34 @@ the overworld is really the overworld at night"):
 [PENDING Paolo]: category for CAMPFIRE CONFESSION / THE VAULT if not night;
 future categories as he establishes them (the list grows; the dropdown reads
 from MUS.mcats()).
+
+=== FOLLOW-UP RULING (Paolo, same day): THE POOL CLAUSE ===
+Q: do faction thirds play in rotation or are they reserved specials?
+A: "it's in the same pool for whatever the two songs were in the pool for so
+it just enters the pool."
+SHIPPED: combat encounter rotation now round-robins the WHOLE pool (SONG 1 +
+SONG 2 + every faction-tagged vibe), superseding the 7/4 two-slot 1,2,1,2.
+Tagged vibes ride the music bus as full song objects; the alpha pushes pools
+at combat boot and on every music-tab play. Six voice bodies ported verbatim
+into the combat slice (drifter, wanderlead, coldpiano, ruinbrass,
+staticfanfare, kingsdust) so SERVER FARM, DELTA BLUES, FLUORESCENT DAWN, DEAD
+MANS SLIDE, HIGHWAY 15 SOUTH, THRONE OF STATIC play true in combat. New gate:
+gates/combat_pool_gate.js (45 checks) locks tag->voice coverage: tagging a
+song whose voices combat lacks turns the suite red.
+
+=== POOL CLAUSE POST-MORTEM (same turn, caught on the real surface) ===
+Two live bugs found by probing the REAL combat frame, both fixed + gate-locked:
+1. THE AUDIT FREEZE: combat announces its boot faction pick to the studio
+   (ONE TRUTH), the studio marked that as "user picked", and the next bus push
+   told combat "the studio is auditioning slot 1" -- freezing every encounter
+   on SONG 1 forever. Fix: a dedicated audit flag that ONLY the music tab's
+   play button sets; combat's own picks and boot pushes clear it. Gate checks
+   the exact wiring.
+2. Environment note: headless probes stall combat's scripts because the
+   slice's Google Fonts stylesheet hangs behind the sandbox proxy (a pending
+   stylesheet blocks script execution). Real phones load or fail the font
+   fast, so production is unaffected -- but probes must abort font requests
+   to see the real behavior. Recorded so no future session mistakes this for
+   a broken combat build.
+PROVEN LIVE: NETWORK encounters rotate SLOT 1 -> SLOT 2 -> SERVER FARM (glitch
+lead) -> DELTA BLUES (bottleneck lead) -> repeat. Pools land at combat boot.

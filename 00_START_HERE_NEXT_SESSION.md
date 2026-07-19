@@ -284,6 +284,30 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    NEXT for combat (mine, after his thumbs): graduate the winning
    grammar(s) into the canon combat demo's spatial field; the queue
    option; enemy archetypes as beat signatures on the winning shell.
+   VERDICT 1 PROCESSED + LAB v2 SHIPPED (7/19 same day): Paolo's first
+   pass landed as notes (verbatim + deciphered: records/BOHEMIA_COMBAT_
+   LAB_VERDICT_7_19_26.txt; rulings law: laws/BOHEMIA_ADDENDUM_COMBAT_
+   LAB_RULINGS_7_19_26.md). RULED + BUILT same turn: (1) melee enemies
+   move differently BY WEAPON — lab A now runs shiv (every beat) / bat
+   (every 2nd, hit knocks you back) / spear (keeps 2 distance, pokes a
+   telegraphed 2-tile lance); (2) FORESIGHT IS A PERK — movement-intent
+   arrows now sit behind the PERK: FORESIGHT toggle (attack telegraphs
+   stay always-on = fairness; converges with the 6/27 catalogued
+   see-next-move ability); (3) THE SHOVE (he loves it): contextual
+   (button lights on adjacency; tapping an adjacent enemy offers SHOVE
+   or DIAL with a BG3-style preview "stun 1 · 65% topple · wall"),
+   ALWAYS stuns 1 turn, seeded-deterministic chance to TOPPLE (prone =
+   helpless = easier dial), IRON SHOULDER perk = guaranteed 2-turn stun,
+   NO-STUN-LOCK holds for shoves (braced). (4) C DANCE was "kind of
+   confused" — re-taught with live OPENED/SWIPED event labels, dies if
+   still confusing. (5) "provide some more" research — PASS 2 shipped:
+   laws/BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26.md (NecroDancer
+   enemy taxonomy + archetype menu; the degenerate-CC triple and why
+   no-stun-lock breaks it; VISIBLE immunity classes as the answer to his
+   garbled "different enemy character" line; BG3 show-odds-before-commit;
+   info-perk pricing doctrine). Gate now 46 checks. Verified in chromium,
+   0 errors. STILL [PENDING Paolo]: actual thumbs on A-D + currency
+   thesis; which enemy classes resist the shove; the fall-odds table.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
