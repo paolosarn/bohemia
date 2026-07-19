@@ -132,16 +132,17 @@ THE NEIGHBOR is the household DIRECTLY BEHIND yours. He comes over (on foot, fro
 right behind the back fence, nobody drives): "damn, I'm really sorry, we heard the
 commotion last night, is everyone okay?" You have to tell him, out loud, that they
 are not.
-- FIRST BASE MECHANIC (locked, Paolo 7/19): because he is the house directly behind
-  you, the founding is literally BREAKING DOWN THE SHARED BACKYARD WALLS to merge the
-  two homes into your first CUSTOMIZABLE BASE / OUTPOST. Two grieving households'
-  backyards become one compound. The pseudo-faction's first physical ground, and the
-  first taste of the city-builder loop.
+- FIRST BASE MECHANIC (locked, Paolo 7/19): he is the house directly behind you. After
+  you do a COUPLE OF QUESTS for him (earning the bond), you BREAK DOWN THE SHARED
+  BACKYARD WALLS to merge the two homes into your first CUSTOMIZABLE BASE / OUTPOST.
+  The wall coming down is an EARNED milestone, not a day-one gift. Two grieving
+  households' backyards become one compound: the pseudo-faction's first physical
+  ground and the first taste of the city-builder loop.
 - TIMING [Claude rec, PENDING Paolo confirm]: the neighbor beat lands AFTER the private
   grief dinner, not before you get inside. The family grieves inward first (the empty
-  chair), THEN the outside world reaches in and pulls you back toward building. Clean
-  flow: grief dinner inside -> step out into the backyard -> the neighbor at the back
-  fence -> the wall comes down -> your first outpost.
+  chair), THEN the outside world reaches in. Clean flow: grief dinner inside -> step
+  out back -> the neighbor at the fence -> a couple of quests for him -> the walls come
+  down -> your first outpost.
 - SCARCITY NOTE (Paolo 7/19): working / driving cars are a RARE SUPER-LUXURY in the
   anarchy decade; fuel barely moves, most vehicles are dead, people walk or bike. A
   texture rule for all Act 1 quest writing; do not casually put working cars in Act 1. That small, clumsy act of
