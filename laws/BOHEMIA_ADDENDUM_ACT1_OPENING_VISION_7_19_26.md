@@ -51,8 +51,10 @@ The opening loss is a SIBLING, not a parent. Both parents survive into the famil
 dinner (see below), so the old GDD v2 "loses a PARENT at the start" line is
 superseded for the opening: the founding loss is the sibling. A parent death later
 in Act 1 remains optional/open, but the OPENING death is the sibling.
-[STILL OPEN from the prior turn: whether the surviving sibling is one fixed
-hand-authored companion every run, or the player chooses which sibling lives.]
+[RESOLVED 7/19: the surviving sibling is the SAME GENDER as the player. Male
+player keeps the older BROTHER (sister dies); female player keeps the older SISTER
+(brother dies). One same-gender older-sibling companion, so the shared companion
+text and questline work, tied to a choice the player already makes at creation.]
 
 ## OPENING SEQUENCE CRYSTALLIZED (7/19, Paolo) — this is the spine of the open
 The pieces fuse into one unbroken sequence:
@@ -84,6 +86,43 @@ Use across all three acts; you will keep hearing about family members who died.
 MOTIF SEED (Claude, [PENDING]): the sibling's EMPTY CHAIR persists at family meals
 across all three acts, the recurring grief anchor, and the exact seat the
 Amalgamation later offers to fill ("nothing is ever lost").
+
+## THE MATCH-CUT OPEN (7/19, Paolo) — before and after in one blink
+The game opens on a PRE-APOCALYPSE family dinner. You are a CHILD, the family
+whole, the world intact, a warm happy moment at the table. Then a blink / match-cut:
+the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are
+20-something. Raiders attack; that is the combat tutorial. The single cut shows the
+entire apocalypse without a word (what the world was, what it became). This is the
+answer to "warm open vs cold open": it is BOTH, fused by the cut.
+- THE TABLE IS THE THROUGHLINE. Three dinners at the same table tell the whole story
+  of loss: the childhood dinner (everyone alive, world intact) -> the raid (a sibling
+  killed at that table) -> the grief dinner (the empty chair). The table survives; the
+  world and the family do not. Carry the table as a recurring object.
+- TIMING (locked): the founder was a CHILD (~10-13) at the crash (~2050); the game
+  proper begins ~10 years later (~2060), founder ~20-something. Personalizes the crash.
+
+## PACIFISM AT THE OPENING (Paolo's concern + resolution [confirm])
+The opening raid is the most morally justified violence possible: a home invasion to
+rob and rape. Paolo wants a real pacifist path to be possible (see
+BOHEMIA_ADDENDUM_PACIFIST_PATH_LAW_7_10_26.md) yet worried the opening forces a kill.
+RESOLUTION (Claude, [PENDING Paolo confirm]): the sibling is killed by the RAIDERS,
+not by the player. So a pacifist can refuse to kill (drive them off / non-lethal) and
+STILL suffer the loss. Pacifism never saves the sibling; the loss is authored. The
+no-kill run stays pure from the very first fight AND the wound still lands. Preserve a
+genuine non-lethal option in the opening (no brick wall in minute five).
+
+## PER-FACTION SCENE VARIATION (confirmed direction, specifics TBD)
+The opening scene LOOKS DIFFERENT based on the faction you start with (a Remnant open
+reads differently from a Cartel open, etc.), while the sacred core (a sibling dies,
+grief dinner, ridge burial, the menu view, the empty chair) stays identical. The
+inciting cause of the sibling's death and the surrounding world flex per faction;
+the aftermath does not. Specifics still to design.
+
+## ASSET NOTE (production sequencing)
+The pre-apocalypse dinner and the "before" house need a FUNCTIONING-WORLD look, which
+is Act-2-tier (rebuilt / nicer) asset quality, not Act-1 ruin. So the opening is
+asset-heavy and depends on those "before" assets; it will likely be built alongside
+the Act 2 asset set, not first. Flagged so the opening is not blocked early.
 
 ## THE 10 START-OPTIONS BECOME THE FIRST QUESTS (locked, Paolo)
 Any of the 10 opening options (The Long Night, The Killing Summer, The Elder's
