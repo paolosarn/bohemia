@@ -43,5 +43,8 @@ LAWS:
   MLOOPS, synthV, and the registry (28 dead tokens). Zero collisions. None of
   the five reuses a dead song's tuple fingerprint.
 
-STATUS: NEW badge on all 5 (+ batch 13's 6 = 11 unjudged).
-[PENDING Paolo verdict].
+STATUS (superseded): JUDGED 7/19 verdict two -- 1 CANON (THE STAIRS UNDER THE
+LAKEBED), 4 DOWN graveyard-final (WHAT SOURS IN THE SINGING, ONE VOICE BECOMES
+A CROWD, THE NOISE THAT TOOK THE VEIL, THE STRIKE THAT BLOOMS -- songs killed,
+sourdyad/unisonsplit/spectretide/strikeswell voices retired; retained here as
+the record).

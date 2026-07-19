@@ -89,3 +89,27 @@ Two live bugs found by probing the REAL combat frame, both fixed + gate-locked:
    a broken combat build.
 PROVEN LIVE: NETWORK encounters rotate SLOT 1 -> SLOT 2 -> SERVER FARM (glitch
 lead) -> DELTA BLUES (bottleneck lead) -> repeat. Pools land at combat boot.
+
+=== VERDICT TWO (7/19/26, same day): BATCHES 13+14 JUDGED ===
+4 CANON, baked at 2: SOMETHING SINGS THROUGH THE PIPES (filterfmgrowl),
+THE SHAPE THE WATER TAKES (wavemorph), TWO LIGHTS OVER THE FLOOD
+(harmonictrem), THE STAIRS UNDER THE LAKEBED (shepardfall).
+7 DOWN, GRAVEYARD FINAL (removed from MLOOPS/NEW_VIBES, registry tokens added,
+lead voices retired as unused bodies):
+  THE REED THAT HOLDS ITS BREATH   (batch 13; pwmreed retired)
+  WIND THROUGH THE COUNTING HOUSE  (batch 13; aeolianharp retired)
+  WHAT THE DRAWBARS REMEMBER       (batch 13; drawbarmorph retired)
+  WHAT SOURS IN THE SINGING        (batch 14; sourdyad retired)
+  ONE VOICE BECOMES A CROWD        (batch 14; unisonsplit retired)
+  THE NOISE THAT TOOK THE VEIL     (batch 14; spectretide retired)
+  THE STRIKE THAT BLOOMS           (batch 14; strikeswell retired)
+NOTE: his export tagged WIND THROUGH THE COUNTING HOUSE -> CUSTOM and thumbed
+it DOWN in the same paste. The kill wins; the tag died with the song. The rest
+of his CATEGORIES export matched the baked CAT_DEFAULTS exactly (the category
+system round-tripped clean on its first live use).
+COMMENT-BOX FIX (his complaint: "comments from my last exports still stuck
+around"): the comment box now CLEARS the moment comments ride an export.
+Delivered means delivered; the repo is the memory. Old comments no longer
+re-ride every future export.
+Batch 15 cooked same turn answering the 7 slots:
+records/BOHEMIA_MUSIC_BATCH15_7_19_26.txt.

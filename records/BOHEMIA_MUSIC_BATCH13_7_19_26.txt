@@ -58,5 +58,8 @@ LAWS:
   Zero collisions.
 - Gate: gates/music_gate.js 14/14 — 124 songs, 12 fresh. Full suite green.
 
-STATUS: NEW badge live on all 12 unjudged (batch 12 + batch 13).
-[PENDING Paolo verdict] — both batches judged whenever he opens the music page.
+STATUS (superseded): JUDGED 7/19 verdict two -- 3 CANON (SOMETHING SINGS
+THROUGH THE PIPES, THE SHAPE THE WATER TAKES, TWO LIGHTS OVER THE FLOOD),
+3 DOWN graveyard-final (THE REED THAT HOLDS ITS BREATH, WIND THROUGH THE
+COUNTING HOUSE, WHAT THE DRAWBARS REMEMBER -- songs killed, pwmreed/
+aeolianharp/drawbarmorph voices retired; retained here as the record).
