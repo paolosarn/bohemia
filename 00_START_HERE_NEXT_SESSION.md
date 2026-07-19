@@ -229,7 +229,12 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    pipeline bug; audit blanket rules per facing; audit generator inheritance)
    + gates/hood_gate.js (11 checks) + CLAUDE.md pointer. Render-order note:
    the CLO_PREVIEW garment hook now runs LAST in buildFrame (after SKIN_DETAIL).
-   FACE CALIBRATION SHIPPED, PENDING PAOLO (7/19): 7/8 accessories canon
+   FACE CALIBRATION BAKED CANON (7/19): Paolo calibrated + exported; offsets
+   baked VERBATIM into FACE_OFFSETS (records/BOHEMIA_FACE_CALIBRATION_7_19_26
+   .txt -- the big one: profile nose moves 6px toward the facing). SHADES v2
+   back in COOKING, anchored to the TRUE iris pixels + calibration + head bob
+   (widest-row heuristic = fallback only; canon masks untouched).
+   FACE CALIBRATION SHIPPED (7/19, superseded by the bake above): 7/8 accessories canon
    (wardrobe 65); BLACK SHADES shelved NOT dead (his words) until he
    recalibrates the per-direction EYE positions. The dormant FACE_OFFSETS
    system is wired into the render (facial px classified brows+iris/mouth/
