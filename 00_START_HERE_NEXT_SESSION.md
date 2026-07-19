@@ -27,6 +27,15 @@ loses nothing, and reads the real world when it exists (it already reads
 world() - that was the design). When LIFE resurfaces to Paolo it must wear
 the REAL art: actual tiles, the real dressed rig, ~90% less on-screen text.
 The section below stays as the record of what was built and gated.
+TWO CORRECTIONS SAME DAY (Paolo, fixed + gated the same turn, LIFE gate now
+20 checks): (1) VACANCY - not every house has inhabitants; most homes are
+abandoned shells. OCCUPIED_RATE dial in bohemia_agents, ships 0.30 as a
+FLAGGED PLACEHOLDER ([PENDING Paolo: the real die-off number for the map]).
+(2) STAGGER - no more lockstep: four life archetypes (worker staggered
+shifts 05:30-09:00 / scav own clock / keeper barely leaves / watch out at
+dusk), wake times spread over hours. Slice regenerated: 14 people in 6 of
+23 houses, economy panel REMOVED from the surface (parked), text cut way
+down. Verified in chromium, 0 errors.
 
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three

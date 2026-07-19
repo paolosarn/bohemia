@@ -40,7 +40,25 @@ block therefore cost world-hours, and the schedule absorbs the commute inside
 the work block. If Paolo ever wants literal time-distance, the dial is one
 constant (tiles per turn) plus the gate.
 
+## VACANCY - THE DIE-OFF (Paolo 7/19, same day: "I hope you're not making
+## every house have inhabitants... the suburb should absolutely reflect that")
+Most homes are ABANDONED SHELLS. OCCUPIED_RATE (bohemia_agents) is the
+die-off dial; deterministic per house. Ships at 0.30 (~70% of the city gone)
+as a FLAGGED PLACEHOLDER - the real number (90% dead? 50%?) is Paolo's canon
+ruling on the map, [PENDING Paolo]. Gate: most homes empty at default, dial
+fills at 1 / empties at 0. Abandoned houses stay enterable (they are world,
+and later: scavenge).
+
 ## THE DAY (jittered per agent; only the NETWORK is ever eerily exact)
+CORRECTED same day (Paolo: "people are gonna wake up at different times,
+they're gonna go to different places at different times"): v1's single mold
+with small jitter made the block surge the gate together. Now FOUR life
+archetypes, gated for coexistence + spread:
+  worker (site job, shift starts staggered 05:30-09:00, walks out the gate)
+  scav   (subsistence sweep on its own clock, midday heat shelter)
+  keeper (barely leaves: tends the house, one daily errand)
+  watch  (sleeps late, walks the block at dusk, in by ~23:30)
+Wake times spread over hours (gated >= 2.5h range on a packed block).
 Grounded in desert subsistence: wake ~06:00 (work early, Mojave heat), morning
 ration at home, employed walk out the gate to the job site (~07:00-15:00),
 scavengers sweep the block with a midday shelter break (~12:00-14:30, the

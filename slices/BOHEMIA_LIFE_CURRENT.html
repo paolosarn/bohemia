@@ -1,4 +1,4 @@
-<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA - LIFE: the block you approved, ALIVE. Every house holds a real household. They sleep at night, ration at dawn, the employed walk out the gate to work the commercial block east, the rest scavenge the streets, everyone shelters from the midday heat, and at dusk they come home. Dressed from your 78-garment canon wardrobe. The ledger below counts the block's real water and food. WATCH runs a day in 12 minutes on the beat; STEP mode is I-move-you-move. Walk in anywhere - the family is home.</h1>
+<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA - LIFE: the block, half-dead. Most houses stand empty. The people who stayed live on their own clocks: some work out the gate, some scavenge, some barely leave the house. WATCH = a day in 12 minutes. STEP = it only moves when you move. Tap anyone to meet them; walk into any house.</h1>
 <div id="clock" style="font:700 16px monospace;color:#f0cd78;padding:0 10px"></div>
 <div id="hud" style="font:13px -apple-system,sans-serif;color:#a99;padding:2px 10px 6px"></div>
 <div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap">
@@ -16,10 +16,6 @@
     <button id="bd" style="width:64px;height:56px;font-size:22px">▼</button>
   </div>
   <button id="br" style="width:64px;height:56px;font-size:22px">▶</button>
-</div>
-<div style="margin:10px;padding:8px;border:1px solid #444;border-radius:8px">
-  <div style="font:12px sans-serif;color:#cdbd8a;margin-bottom:4px">THE BLOCK LEDGER - post-collapse scarcity, real numbers (4L water/day desert need, 2000 kcal rations, water heaters as the block's tank)</div>
-  <div id="econ" style="color:#bdb49a"></div>
 </div>
 <div id="judge" style="margin:0 10px"></div>
 <div style="padding:10px">
@@ -423,48 +419,68 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   function household(seed){ var r=rng(seed)(),c=[0.30,0.65,0.85,1.0];
     for(var i=0;i<4;i++) if(r<c[i]) return i+1; return 4; }
 
+  // ---- VACANCY (Paolo 7/19: "I hope you're not making every house have
+  // inhabitants... the suburb should absolutely reflect" the die-off) --------
+  // Most homes are abandoned shells. OCCUPIED_RATE is the die-off dial:
+  // 0.30 = ~70% of the pre-collapse population gone (dead or left the city).
+  // THE VALUE IS A PLACEHOLDER - how dead Vegas is (90%? 50%?) is Paolo's
+  // canon ruling, [PENDING Paolo]. The MECHANISM (deterministic per-house
+  // vacancy, dial-driven) is locked here and gated.
+  var OCCUPIED_RATE=0.30;
+  function houseOccupied(blockSeed,i,rate){
+    var r=(rate!=null)?rate:OCCUPIED_RATE;
+    return (hash(blockSeed,i+1,777)%1000)/1000 < r;
+  }
+  function inhabitedHomes(agents){ var s={},out=[];
+    agents.forEach(function(a){ s[a.home.building]=1; });
+    Object.keys(s).forEach(function(k){ out.push(+k); });
+    return out.sort(function(a,b){return a-b;});
+  }
+
   // ---- SCHEDULE ------------------------------------------------------------
   // A day plan: ordered blocks covering all 1440 minutes, no gaps, no overlap.
-  // acts: sleep / home (morning ration, evening) / commute / work / scav / free
   // where: 'home' | 'work' | 'street'
-  // Every boundary is jittered per agent (humans vary; only the NETWORK is
-  // eerily perfect, and the NETWORK is factions — Paolo's, not ours yet).
-  function scheduleFor(seed, employed){
-    var r=rng(seed^0xBEEF);
+  //
+  // PAOLO'S CORRECTION (7/19, root-caused): v1 gave everyone one wake time
+  // with a small jitter, so the whole block surged the gate together like a
+  // drill. Real people run on DIFFERENT clocks and live DIFFERENT lives. So:
+  //   - four life ARCHETYPES (worker / scav / keeper / watch), not one mold
+  //   - worker shift starts spread across 05:30-09:00 (real crews stagger)
+  //   - wake times spread over hours, every boundary jittered per agent
+  // Only the NETWORK is ever eerily synchronized, and the NETWORK is a
+  // faction - Paolo's table, still empty.
+  var KINDS=['worker','scav','keeper','watch'];
+  function scheduleFor(seed, kind, shift){
+    var r=rng((seed^0xBEEF)>>>0);
     var j=function(base,spread){ return Math.round(base+(r()-0.5)*2*spread); };
-    var wake=j(6*60,40);            // ~06:00 +-40min (desert: work early)
-    var out =wake+j(45,15);         // ration + gear up at home
-    var workEnd, sleep=j(22*60+30,40);
-    var blocks=[];
-    if(employed){
-      workEnd=j(15*60,30);          // ~15:00, before peak heat is done killing
-      blocks=[
-        {t0:0,        t1:wake,    act:'sleep',   where:'home'},
-        {t0:wake,     t1:out,     act:'home',    where:'home'},
-        {t0:out,      t1:workEnd, act:'work',    where:'work'},   // commute is part of the work block: walking there IS on the clock
-        {t0:workEnd,  t1:j(18*60,40), act:'free',where:'street'},
-        {t0:0,        t1:sleep,   act:'home',    where:'home'},   // t0 patched below
-        {t0:sleep,    t1:DAY_TURNS, act:'sleep', where:'home'}
-      ];
-      blocks[4].t0=blocks[3].t1;
-    } else {
-      // subsistence: scavenge the block in two daylight passes, shelter at peak heat
-      var midIn=j(12*60,30), midOut=j(14*60+30,30);
-      blocks=[
-        {t0:0,     t1:wake,   act:'sleep', where:'home'},
-        {t0:wake,  t1:out,    act:'home',  where:'home'},
-        {t0:out,   t1:midIn,  act:'scav',  where:'street'},
-        {t0:midIn, t1:midOut, act:'home',  where:'home'},   // Mojave midday shelter
-        {t0:midOut,t1:j(18*60,40), act:'scav', where:'street'},
-        {t0:0,     t1:sleep,  act:'home',  where:'home'},
-        {t0:sleep, t1:DAY_TURNS, act:'sleep', where:'home'}
-      ];
-      blocks[5].t0=blocks[4].t1;
+    var blocks=[], cur=0;
+    function until(t,act,where){ t=Math.max(cur,Math.min(DAY_TURNS,Math.round(t)));
+      if(t>cur){ blocks.push({t0:cur,t1:t,act:act,where:where}); cur=t; } }
+    if(kind==='worker'){                    // off-block site job, staggered shift
+      until(Math.max(240,shift-j(50,25)),'sleep','home');
+      until(shift,'home','home');           // ration + gear up
+      until(shift+j(480,45),'work','work'); // walking there is on the clock
+      until(cur+j(150,60),'free','street');
+      until(j(22*60,75),'home','home');
+    } else if(kind==='scav'){               // subsistence sweep, own clock
+      until(j(6*60+45,105),'sleep','home');
+      until(cur+j(40,20),'home','home');
+      until(j(11*60+45,60),'scav','street');
+      until(j(14*60+30,45),'home','home');  // Mojave midday shelter
+      until(j(17*60+45,60),'scav','street');
+      until(j(21*60+45,75),'home','home');
+    } else if(kind==='keeper'){             // barely leaves: tends the house/stock
+      until(j(7*60+30,90),'sleep','home');
+      until(j(9*60+30,90),'home','home');
+      until(cur+j(75,30),'errand','street');// the one daily errand
+      until(j(21*60+30,60),'home','home');
+    } else {                                // 'watch': sleeps late, out at dusk
+      until(j(9*60+30,45),'sleep','home');
+      until(j(17*60,45),'home','home');
+      until(Math.min(23*60+30,j(23*60,25)),'watch','street');
+      // hard cap 23:30 so the walk home lands well before deep night
     }
-    // sanity: monotone, whole-minute (quantized) blocks
-    for(var i2=0;i2<blocks.length;i2++){ var b=blocks[i2];
-      b.t0=Math.max(0,Math.min(DAY_TURNS,Math.round(b.t0)));
-      b.t1=Math.max(b.t0,Math.min(DAY_TURNS,Math.round(b.t1))); }
+    until(DAY_TURNS,'sleep','home');
     return blocks;
   }
   function whereAt(agent, turn){ var t=tod(turn);
@@ -497,18 +513,22 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   function makeAgent(blockSeed, houseI, n, jobSite, fpOf){
     var seed=hash(blockSeed,houseI+1,n+1);
     var employed=!!jobSite && (hash(seed,7,7)%100)<60;  // EMPLOY_RATE 60% where a site is in range
+    var kind, shift=null;
+    if(employed){ kind='worker'; shift=330+hash(seed,5,5)%210; }  // shift starts 05:30-09:00
+    else { var h2=hash(seed,9,9)%100; kind = h2<55?'scav' : h2<85?'keeper' : 'watch'; }
     var bedRooms=[];
     if(fpOf){ var fp=fpOf(houseI);
       if(fp) fp.rooms.forEach(function(rm,ri){ if(rm.role==='bed') bedRooms.push(ri); }); }
     return {
       id:'H'+(houseI+1)+'-'+(n+1),
       seed:seed,
+      role:kind,
       home:{building:houseI, bedRoom: bedRooms.length? bedRooms[n%bedRooms.length] : 0},
       job: employed? {kind:'site', district:jobSite.district, dir:jobSite.dir, dist:jobSite.dist}
                    : {kind:'scav', district:null, dir:null, dist:null},
       faction:null,
       outfit:null,
-      sched:scheduleFor(seed, employed)
+      sched:scheduleFor(seed, kind, shift)
     };
   }
 
@@ -517,10 +537,13 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   // plot); jobs = nearby job sites [{district,dir,dist}] (agentsForPlot scans
   // the real overmap for them). fpOf(i) -> floorplan of house i (injected so
   // block-level callers and world-level callers share one body).
-  function agentsForBlock(blockSeed, feet, jobs, fpOf){
+  function agentsForBlock(blockSeed, feet, jobs, fpOf, opts){
+    opts=opts||{};
+    var rate=(opts.occupiedRate!=null)?opts.occupiedRate:OCCUPIED_RATE;
     var out=[];
     var jobSite=(jobs&&jobs.length)? jobs[0] : null;   // nearest site
     for(var i=0;i<feet.length;i++){
+      if(!houseOccupied(blockSeed,i,rate)) continue;   // abandoned shell: nobody home
       var hh=household(hash(blockSeed,i+1,0));
       for(var n=0;n<hh;n++){
         // alternate: within a household, later members may use a farther site
@@ -700,7 +723,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   }
 
   var API={DAY_TURNS:DAY_TURNS,tod:tod,fmt:fmt,dayFrac:dayFrac,
-    household:household,scheduleFor:scheduleFor,whereAt:whereAt,
+    household:household,scheduleFor:scheduleFor,whereAt:whereAt,KINDS:KINDS,
+    OCCUPIED_RATE:OCCUPIED_RATE,houseOccupied:houseOccupied,inhabitedHomes:inhabitedHomes,
     makeAgent:makeAgent,agentsForBlock:agentsForBlock,agentsForPlot:agentsForPlot,
     jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;
@@ -805,174 +829,6 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   root.BohemiaDress=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
-/* ==== engine/bohemia_economy.js ==== */
-// BOHEMIA ECONOMY — post-collapse scarcity, grounded (7/19/26, LIFE session)
-//
-// The brief's law: GROUNDED IN THE REAL. Real economics of collapse, no
-// fantasy. Every constant below carries its real-world anchor.
-//
-// WHAT COLLAPSE ECONOMIES ACTUALLY DO (research, distilled):
-//   - Fiat dies with the state that backed it. Exchange reverts to BARTER and
-//     then re-converges on COMMODITY MONEY — a divisible, durable, universally
-//     needed good (historical: cigarettes in WWII camps and 1990s Russian
-//     towns, ammunition and fuel in Balkan sieges, ration cans in besieged
-//     Sarajevo, bottled water after hurricanes).
-//   - WHICH commodity becomes Bohemia's money is CANON, so it is [PENDING
-//     Paolo] (currency logos already sit on his shelf). Until he rules, this
-//     ledger quotes barter prices in SALVAGE-KG EQUIVALENT — scrap is the one
-//     thing everyone on a dead grid can produce and everyone needs — and the
-//     numeraire swaps out in one place (NUMERAIRE) when he names the money.
-//   - Price under scarcity is hyperbolic in remaining supply, not linear:
-//     the last week of water costs more per liter than the last month did.
-//     Siege data (Sarajevo 92-95): staple prices moved 10-100x, not 2x.
-//
-// THE MOJAVE NUMBERS (why Vegas is the perfect scarcity stage):
-//   - WATER: a sedentary adult needs ~3L/day; desert labor pushes 6-8L. We
-//     budget 4L/day average across a mixed day. Household plumbing is dead
-//     (SNWA pumps need grid power); standing stock is water heaters (~150-
-//     300L/house), toilet tanks, pools long gone to evaporation. Lake Mead
-//     intakes need power the 12% grid doesn't spend on pumping.
-//   - FOOD: ~2000 kcal/day = 1 ration. Vegas pre-collapse held roughly 1
-//     week of grocery inventory (just-in-time trucking from CA/UT), plus
-//     deep casino/resort dry stores — THE reason downtown matters. Scavenge
-//     yield decays as the easy shelves empty.
-//   - POWER: CLUSTERED POWER LAW — 12% of circuits live, all owned. A dark
-//     suburb block produces and consumes zero grid power; power trades as a
-//     SERVICE (charging, refrigeration) at owned clusters only.
-//   - MEDS: insulin, antibiotics, painkillers — highest value-to-weight of
-//     any salvage class (true in every real collapse market).
-//
-// MECHANISM-MINE / CONTENTS-PAOLO'S: FACTION_ECONOMY (who taxes, who rations,
-// who controls which market) ships EMPTY. The machine prices goods; who OWNS
-// the goods is his canon.
-(function(root){
-  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
-
-  function rng(seed){var s=(seed>>>0)||1;return function(){
-    s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296;};}
-
-  // ---- GOODS (unit, need/adult/day, base barter value in salvage-kg) -------
-  var GOODS={
-    water:  {unit:'L',      need:4.0,  base:0.25, note:'3L sedentary, 6-8 desert labor; 4 mixed'},
-    food:   {unit:'ration', need:1.0,  base:1.5,  note:'1 ration = ~2000 kcal'},
-    salvage:{unit:'kg',     need:0,    base:1.0,  note:'the numeraire until Paolo names the money'},
-    meds:   {unit:'dose',   need:0.02, base:12.0, note:'rare use, extreme value/weight'},
-    fuel:   {unit:'L',      need:0.05, base:3.0,  note:'generators/stoves; stale gas is cut with additives'},
-    power:  {unit:'kWh',    need:0,    base:2.0,  note:'a SERVICE at live clusters only (12% law)'}
-  };
-  var NUMERAIRE='salvage';   // [PENDING Paolo: the commodity money + its logo]
-
-  // ---- WORK YIELDS (per agent per worked day, in goods) --------------------
-  // site job: organized crew at a real district (warehouse floor, market,
-  // clinic, solar yard) — better yield, and pays in the goods the site moves.
-  // scav: subsistence sweep of an already-picked block — thin and decaying.
-  var YIELD={
-    site: {salvage:3.0, food:0.3},
-    scav: {salvage:1.2, food:0.15}
-  };
-  // scavenge decay: yield multiplier halves every ~180 days of picking the
-  // same ground (the easy shelves empty; grounded in real disaster looting
-  // curves — day-one supermarkets vs month-three).
-  function scavDecay(day){ return Math.pow(0.5, (day||0)/180); }
-
-  // ---- FACTION TABLE — EMPTY (CONTENTS-PAOLO'S) ----------------------------
-  var FACTION_ECONOMY={};
-
-  // ---- LEDGER --------------------------------------------------------------
-  // One ledger per settlement/block. Starting stocks are the block's REAL
-  // standing water/food (water heaters + pantries), deterministic per seed.
-  function makeLedger(seed, nAgents, nHouses){
-    var r=rng((seed^0xEC0)>>>0);
-    return {
-      seed:seed>>>0, day:0, agents:nAgents|0, houses:nHouses|0,
-      stocks:{
-        // ~200L water heater + ~30L containers per house, +-20% condition
-        water: Math.round(nHouses*(200+60*r())),
-        // ~10 days pantry per resident at collapse, minus what's been eaten:
-        // this block has been living on it — call it a working reserve
-        food:  Math.round(nAgents*(8+6*r())),
-        salvage: Math.round(nAgents*(2+3*r())),
-        meds:  Math.round(nAgents*0.6+ r()*3),
-        fuel:  Math.round(nHouses*(1.5+2*r())),
-        power: 0                                  // dark block: the 12% law
-      },
-      flows:{produced:{},consumed:{},shortfall:{}} // last advanceDay result
-    };
-  }
-
-  // ---- PRICE — hyperbolic in days-of-supply, monotone in scarcity ----------
-  // daysLeft = stock / dailyNeed. Price multiplies as supply tightens:
-  //   >30 days: base. 30..7: ramp. <7: hyperbolic (last-week water).
-  // Monotone DECREASING in stock — the gate proves it stays that way.
-  function scarcityMult(daysLeft){
-    if(!isFinite(daysLeft)) return 1;
-    if(daysLeft>=30) return 1;
-    if(daysLeft<=0)  return 40;                       // out: siege price
-    var m=30/Math.max(daysLeft,0.75);                 // hyperbola through 1@30d
-    return Math.min(40, m);                           // capped at siege ratio
-  }
-  function price(ledger, good){
-    var g=GOODS[good]; if(!g) return null;
-    var dailyNeed=g.need*ledger.agents;
-    var daysLeft=dailyNeed>0 ? ledger.stocks[good]/dailyNeed : Infinity;
-    return +(g.base*scarcityMult(daysLeft)).toFixed(2);
-  }
-  function daysLeft(ledger, good){
-    var g=GOODS[good]; var dn=g.need*ledger.agents;
-    return dn>0 ? +(ledger.stocks[good]/dn).toFixed(1) : Infinity;
-  }
-
-  // ---- ADVANCE ONE DAY -----------------------------------------------------
-  // agents: the block population (bohemia_agents specs — job.kind drives
-  // yield). CONSERVATION: stock delta EXACTLY equals produced - consumed;
-  // shortfall records unmet need (nothing goes negative, nothing appears).
-  function advanceDay(ledger, agents){
-    var produced={}, consumed={}, shortfall={};
-    var decay=scavDecay(ledger.day);
-    (agents||[]).forEach(function(a){
-      var y=YIELD[a.job&&a.job.kind==='site'?'site':'scav'];
-      var mult=(a.job&&a.job.kind==='site')?1:decay;   // organized sites hold yield longer
-      Object.keys(y).forEach(function(good){
-        produced[good]=(produced[good]||0)+y[good]*mult; });
-    });
-    Object.keys(GOODS).forEach(function(good){
-      var need=GOODS[good].need*ledger.agents;
-      if(need>0) consumed[good]=need;
-    });
-    // apply: produce first, then consume down to zero, log unmet as shortfall
-    Object.keys(produced).forEach(function(good){
-      produced[good]=+produced[good].toFixed(2);
-      ledger.stocks[good]=+(ledger.stocks[good]+produced[good]).toFixed(2); });
-    Object.keys(consumed).forEach(function(good){
-      var want=consumed[good], have=ledger.stocks[good];
-      var take=Math.min(want,have);
-      ledger.stocks[good]=+(have-take).toFixed(2);
-      consumed[good]=+take.toFixed(2);
-      if(want-take>1e-9) shortfall[good]=+(want-take).toFixed(2);
-    });
-    ledger.day++;
-    ledger.flows={produced:produced,consumed:consumed,shortfall:shortfall};
-    return ledger.flows;
-  }
-
-  // human-readable market readout for HUDs/judges
-  function report(ledger){
-    return Object.keys(GOODS).map(function(good){
-      var d=daysLeft(ledger,good);
-      return {good:good, unit:GOODS[good].unit,
-        stock:+(+ledger.stocks[good]).toFixed(1),
-        daysLeft:d===Infinity?null:d,
-        price:price(ledger,good)};
-    });
-  }
-
-  var API={GOODS:GOODS,NUMERAIRE:NUMERAIRE,YIELD:YIELD,scavDecay:scavDecay,
-    makeLedger:makeLedger,advanceDay:advanceDay,price:price,daysLeft:daysLeft,
-    scarcityMult:scarcityMult,report:report,FACTION_ECONOMY:FACTION_ECONOMY};
-  if(HASREQ) module.exports=API;
-  root.BohemiaEconomy=API;
-})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
-
 
 // ===== LIFE SLICE - the approved block, alive =====
 var SEED=7;
@@ -1019,7 +875,8 @@ var agents = BohemiaAgents.agentsForBlock(SEED, feet, JOBS, fpOf);
 var wardrobe = BohemiaDress.parse(WARDROBE_TXT);
 BohemiaDress.dressAll(agents, wardrobe);
 var sim = BohemiaAgents.makeSim(res, feet, agents, {fpOf:fpOf, doorOf:doorOf, startTurn:6*60-30});
-var ledger = BohemiaEconomy.makeLedger(SEED, agents.length, feet.length);
+var LIVED={}; agents.forEach(function(a){LIVED[a.home.building]=1;});
+var livedN=Object.keys(LIVED).length, day=1;
 
 // ---- render ----
 function gcol(x,y){var h=((x*73856093)^(y*19349663))>>>0,v=h%3;return ['#463f30','#3d382a','#4e4838'][v];}
@@ -1100,34 +957,29 @@ function counts(){ var inN=0,outN=0,away=0,asleep=0;
     if(a.loc.mode==='in'){inN++; if(b.act==='sleep')asleep++;}
     else if(a.loc.mode==='out')outN++; else away++; });
   return {inN:inN,outN:outN,away:away,asleep:asleep}; }
+var ROLE_WORD={worker:'works out the gate', scav:'scavenges the block', keeper:'keeps the house', watch:'walks the block at dusk'};
 function refreshHUD(){
   var t=sim.tod(), cs=counts();
-  CLOCK.textContent='DAY '+(ledger.day+1)+' - '+BohemiaAgents.fmt(t)+(BOH_DAYCYCLE.isNightish(t/1440)?' ☾':' ☀');
-  if(mode==='ext') HUD.innerHTML=agents.length+' residents. '+cs.asleep+' asleep · '+(cs.inN-cs.asleep)+' indoors · '+cs.outN+' on the streets · '+cs.away+' away at work (the commercial block east). Yellow tile = a front door; step in to see the household. Tap a person to inspect them.';
+  CLOCK.textContent='DAY '+day+' - '+BohemiaAgents.fmt(t)+(BOH_DAYCYCLE.isNightish(t/1440)?' ☾':' ☀');
+  if(mode==='ext') HUD.innerHTML=agents.length+' people left, in '+livedN+' of '+feet.length+' houses. The rest stand empty. '+cs.asleep+' asleep · '+(cs.inN-cs.asleep)+' indoors · '+cs.outN+' outside · '+cs.away+' out of the neighborhood. Tap a person to meet them.';
   else { var hh=sim.inHouse(curHouse).length;
-    HUD.innerHTML='INSIDE house #'+(curHouse+1)+' - '+fp.rooms.length+' rooms, '+hh+' of the household home right now. Walk out the door to the street.'; }
-  var e=document.getElementById('econ');
-  var rows=BohemiaEconomy.report(ledger).map(function(r2){
-    var warn=r2.daysLeft!==null&&r2.daysLeft<7;
-    return '<tr'+(warn?' style="color:#e06a4a"':'')+'><td>'+r2.good+'</td><td>'+r2.stock+' '+r2.unit+'</td><td>'+(r2.daysLeft===null?'-':r2.daysLeft+'d')+'</td><td>'+r2.price+'</td></tr>';});
-  var sf=Object.keys(ledger.flows.shortfall||{});
-  e.innerHTML='<table style="width:100%;border-collapse:collapse;font:11px monospace"><tr style="opacity:.6"><td>GOOD</td><td>STOCK</td><td>LEFT</td><td>PRICE*</td></tr>'+rows.join('')+'</table>'
-    +'<div style="opacity:.55;font:10px monospace;margin-top:3px">*barter, in salvage-kg. The commodity money is Paolo\'s call, pending.'+(sf.length?' <b style="color:#e06a4a">SHORT: '+sf.join(', ')+'</b>':'')+'</div>';
+    HUD.innerHTML= LIVED[curHouse]==null
+      ? 'INSIDE house #'+(curHouse+1)+' - abandoned. Nobody lives here anymore.'
+      : 'INSIDE house #'+(curHouse+1)+' - '+hh+' of the household home right now.'; }
   var ins=document.getElementById('inspect');
   if(selAgent){ var a=selAgent, b=BohemiaAgents.whereAt(a,sim.turn);
     var fit=Object.keys(a.outfit).map(function(l){return a.outfit[l].n;}).join(', ');
     ins.style.display='block';
-    ins.innerHTML='<b>'+a.id+'</b> - house #'+(a.home.building+1)+', '+(a.job.kind==='site'?('works the '+a.job.district+' block '+a.job.dir):'scavenges this block')
-      +'<br>now: '+b.act.toUpperCase()+' ('+b.where+')'
+    ins.innerHTML='<b>'+a.id+'</b> - house #'+(a.home.building+1)+', '+(ROLE_WORD[a.role]||a.role)
+      +'<br>now: '+b.act.toUpperCase()
       +'<br>wearing: '+fit
-      +'<br>day: '+a.sched.map(function(s2){return BohemiaAgents.fmt(s2.t0)+' '+s2.act;}).join(' → ')
-      +'<br><span style="opacity:.55">faction: none yet (Paolo\'s ruling) · name: pending Paolo (designations only)</span>';
+      +'<br><span style="opacity:.55">name + faction: pending Paolo</span>';
   } else ins.style.display='none';
 }
 function tick(){
   sim.playerAt=(mode==='ext')?[px,py]:null;
   sim.step();
-  if(sim.tod()===0){ BohemiaEconomy.advanceDay(ledger, agents); }
+  if(sim.tod()===0) day++;
   refreshHUD(); draw();
 }
 // WATCH: one world-turn per 120BPM beat (0.5s). x4 = judging speed.
@@ -1165,11 +1017,10 @@ document.getElementById('watch').onclick=function(){ WATCH=!WATCH; this.textCont
 document.getElementById('speed').onclick=function(){ SPEED=(SPEED===1)?4:1; this.textContent='×'+SPEED; arm(); };
 document.getElementById('sunb').onclick=function(){ SUN=!SUN; draw(); };
 
-// ---- JUDGE (verdict workflow) ----
-var ASPECTS=[['routines','THE ROUTINES (wake/work/eat/sleep on the clock)'],
+// ---- JUDGE (verdict workflow; economy parked by Paolo 7/19, not judged) ----
+var ASPECTS=[['routines','THE ROUTINES (their different clocks and lives)'],
              ['dress','THE DRESS (canon wardrobe on the people)'],
-             ['economy','THE ECONOMY (water/food scarcity, barter prices)'],
-             ['feel','THE FEEL (does the block read ALIVE?)']];
+             ['feel','THE FEEL (does the half-empty block read TRUE?)']];
 var verdict={}, jroot=document.getElementById('judge');
 ASPECTS.forEach(function(p){ var id=p[0],label=p[1];
   var d=document.createElement('div'); d.style.cssText='margin:6px 0;padding:8px;border:1px solid #444;border-radius:8px';
