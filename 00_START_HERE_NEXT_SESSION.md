@@ -372,6 +372,21 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    — NOT a production bug (fonts load on real networks). To test locally:
    abort fonts.g* routes in playwright. Root-caused 7/19 by srcdoc parse
    bisection; the pristine alpha behaved identically.
+   MOVEMENT LANDS IN THE CANON DEMO (7/19, fourth pass; Paolo playing the
+   new alpha: "did you fix it so that I can move around now... players
+   are running after me and I can't even move"): the 6/27 locked canon
+   "move 1 tile = 1 turn" is finally BUILT (patch v4 in bohemia_combat_
+   melee_patch.py). MOVE button in the action row arms the 3x3 ring; tap
+   a cell = step that direction; the whole polar world (enemies, corpses,
+   litter) shifts around the player-centered camera (worldShift). A move
+   COSTS the turn (endTurnReturn(false): exposed shooters answer, blades
+   advance) and MOVEMENT IS THE MELEE DODGE — stepping out of a wound-up
+   blade's reach makes its telegraphed strike WHIFF (verified in
+   chromium: dodge test hpLost 0, whiff true; world-shift bearings
+   correct; 0 errors). Cover ring stays hand-authored overlay (persists
+   through moves — geometry drives it later, as canon says). Gate 60
+   checks. NOTE: player sprite stays center (camera is player-locked);
+   the read is the world sliding — matches the demo's polar model.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel

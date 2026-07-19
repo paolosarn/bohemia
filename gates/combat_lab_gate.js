@@ -311,6 +311,13 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('id="shovebtn"') && demo.includes('IRON SHOULDER') && demo.includes('FORESIGHT'));
   ok('demo melee turn runs at the one turn-end choke (tickTurnEnd)',
     demo.includes('function tickTurnEnd(){ meleeTurnRun();'));
+  // MOVEMENT (v4, Paolo 7/19: "can I move around now") — locked canon 6/27 finally lands
+  ok('demo has MOVE: doMove + worldShift + armed ring cells',
+    demo.includes('function doMove(') && demo.includes('function worldShift(') &&
+    demo.includes('id="movebtn"') && demo.includes('if(G.moveArm){ doMove(d); return; }'));
+  ok('a move costs the turn (routes through endTurnReturn)',
+    /function doMove\([\s\S]{0,900}?endTurnReturn\(false\); \}/.test(demo));
+  ok('worldShift carries corpses with the world', /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo));
 }
 
 /* ---- 3. verdict workflow ---- */

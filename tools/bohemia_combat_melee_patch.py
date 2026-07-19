@@ -282,13 +282,64 @@ def patch3(demo):
     return demo
 
 
+def patch4(demo):
+    """v4 (Paolo 7/19: 'did you fix it so that I can move around now...
+    are you just having it to where players are running after me and I
+    can't even move'): MOVEMENT lands in the canon demo. Locked canon
+    since 6/27 — 'move 1 tile to a new position = 1 turn' — never built.
+    MOVE button arms the 3x3 ring; tap a cell = step that way. The whole
+    polar world (enemies, corpses) shifts around the player-centered
+    camera. Moving out of a blade's reach makes its telegraphed strike
+    WHIFF — movement IS the melee dodge."""
+    if 'MOVE V4' in demo:
+        print('v4 already applied, skipping')
+        return demo
+    demo = sub1(demo, "function shoveTarget(){", """\
+/* MOVE V4 — the world is polar around you; a step transforms every bearing */
+function worldShift(vx,vy){
+  const mv=o=>{ if(o.ea==null||o.edist==null)return;
+    const px=Math.cos(o.ea)*o.edist-vx, py=Math.sin(o.ea)*o.edist-vy;
+    o.edist=Math.max(0.6,Math.hypot(px,py)); o.ea=Math.atan2(py,px); };
+  for(const e of G.e)mv(e);
+  for(const c of (G.corpses||[]))mv(c);
+  if(Array.isArray(G.litter))for(const L of G.litter)mv(L);
+}
+function updMoveUI(){ const b=D('movebtn'); if(!b)return;
+  b.textContent=G.moveArm?'MOVE: TAP A CELL':'MOVE';
+  b.style.borderColor=G.moveArm?'#5fbf6a':''; b.style.color=G.moveArm?'#8fe89a':''; }
+function doMove(d){ if(G.phase!=='cover'||G.over||G.inc)return; audio();
+  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  worldShift(v[0]/n, v[1]/n);
+  G.moveArm=false; updMoveUI();
+  G.steady=0;   /* repositioning spends the held stance */
+  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }
+function shoveTarget(){""", 'move-fns')
+    demo = sub1(demo,
+        '<button id="shovebtn" class="cbtn" style="display:none;border-color:#5fbf6a;color:#8fe89a">SHOVE</button>',
+        '<button id="shovebtn" class="cbtn" style="display:none;border-color:#5fbf6a;color:#8fe89a">SHOVE</button>\n    <button id="movebtn" class="cbtn">MOVE</button>',
+        'move-btn')
+    demo = sub1(demo,
+        "if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio(); G.pCover[d]=!G.pCover[d]; updGap(); return; } }",
+        "if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio(); if(G.moveArm){ doMove(d); return; } /* MOVE V4: an armed ring cell is a step */ G.pCover[d]=!G.pCover[d]; updGap(); return; } }",
+        'move-ring-tap')
+    demo = sub1(demo, "if(sb)sb.addEventListener('click',doShove);", """\
+if(sb)sb.addEventListener('click',doShove);
+  const mvb=D('movebtn'); if(mvb)mvb.addEventListener('click',()=>{ audio();
+    G.moveArm=!G.moveArm; updMoveUI();
+    if(G.moveArm)setRead('MOVE ARMED','tap one of the 8 cells around you — 1 tile = 1 turn','#8fd0e8'); });""",
+        'move-wire')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch3(patch2(patch(demo)))
+    patched = patch4(patch3(patch2(patch(demo))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
