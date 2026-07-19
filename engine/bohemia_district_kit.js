@@ -153,6 +153,18 @@
   function stallsReachable(g,stallCode,driveCode){ var n=g.length,x,y;
     for(y=0;y<n;y++)for(x=0;x<n;x++){ if(g[y][x]!==stallCode)continue;
       if(!((g[y+1]&&g[y+1][x]===driveCode)||(g[y-1]&&g[y-1][x]===driveCode)||g[y][x+1]===driveCode||g[y][x-1]===driveCode))return false; } return true; }
+  // fraction of the drive network reachable BY CAR from the street: flood driveCode from every
+  // driveCode tile that touches the border (the curb cuts). The realistic "a car gets in from
+  // the curb and can move around" check for complex sites where the drive isn't one tidy blob
+  // (hospital planters, warehouse yards). High for any placement = street-aware + drivable.
+  function driveReachFromStreet(g,driveCode){ var n=g.length,starts=[],total=0,x,y,i;
+    for(x=0;x<n;x++){ if(g[1][x]===driveCode)starts.push([x,1]); if(g[n-2][x]===driveCode)starts.push([x,n-2]); }
+    for(y=0;y<n;y++){ if(g[y][1]===driveCode)starts.push([1,y]); if(g[y][n-2]===driveCode)starts.push([n-2,y]); }
+    for(y=0;y<n;y++)for(x=0;x<n;x++)if(g[y][x]===driveCode)total++;
+    if(!starts.length||!total)return 0; var seen={},st=starts.slice(),reach=0;
+    starts.forEach(function(s){seen[s[0]+','+s[1]]=1;});
+    while(st.length){var p=st.pop();reach++;var d=[[1,0],[-1,0],[0,1],[0,-1]];for(i=0;i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;if(seen[k]||nx<0||ny<0||nx>=n||ny>=n)continue;if(g[ny][nx]===driveCode){seen[k]=1;st.push([nx,ny]);}}}
+    return reach/total; }
 
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
@@ -172,7 +184,8 @@
     legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob,
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
-    driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable};
+    driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
+    driveReachFromStreet:driveReachFromStreet};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

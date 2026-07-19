@@ -76,21 +76,22 @@
     // bottom full-width DRIVE BAND (connects gates, apron, garage ramp)
     G.rect(rx0,BANDY,W-1-MARGIN,H-1-MARGIN,1);
 
-    // GATES: public + emergency entrances on the streets this cell touches
-    var gates=[];
-    function drive(fx,fy,dir,horiz){ for(var s=0;s<=(horiz?W:H);s++){ var xx=horiz?fx+dir*s:fx, yy=horiz?fy:fy+dir*s;
-      if(!(xx>0&&yy>0&&xx<W-1&&yy<H-1))break; var cur=G.get(xx,yy); if(cur===1)break; if([2,8].indexOf(cur)>=0)break;
-      for(var w=-2;w<=2;w++){ var ax=horiz?xx:xx+w, ay=horiz?yy+w:yy; if([0,10,11,3].indexOf(G.get(ax,ay))>=0)G.set(ax,ay,1); } } }
-    streets.forEach(function(edge){
-      if(edge==='S'||edge==='N'){ var gy=(edge==='S')?H-1:0,dir=(edge==='S')?-1:1;
-        [Math.floor(W*0.4),Math.floor(W*0.72)].forEach(function(gx){ for(i=-3;i<=3;i++)G.set(gx+i,gy,5); drive(gx,gy+dir,dir,false); gates.push({edge:edge,x:gx,y:gy}); }); }
-      else { var gx2=(edge==='E')?W-1:0,dir2=(edge==='E')?-1:1, gy2=BANDY+2;
-        for(i=-3;i<=3;i++)G.set(gx2,gy2+i,5); drive(gx2+dir2,gy2,dir2,true); gates.push({edge:edge,x:gx2,y:gy2}); }
-    });
+    // CAR ENTRANCES (canonical SOUTH): two curb cuts (public + emergency) connecting the south
+    // street to the bottom drive band. STREET-AWARE/DRIVABLE LAW (7/19): build canonical-south,
+    // then the KIT rotates the whole campus onto whatever street the cell touches (fixes the old
+    // bug where a north-only cell left the drive band stranded behind the hospital), and adds a
+    // pedestrian gate on any corner side street.
+    function carEntranceSouth(gx){ for(var i2=-3;i2<=3;i2++)G.set(gx+i2,H-1,5);
+      for(var yy=H-1; yy>=BANDY; yy--) for(var w=-2;w<=2;w++){ var c=G.get(gx+w,yy); if(c===0||c===3)G.set(gx+w,yy,1); } }
+    carEntranceSouth(Math.floor(W*0.40)); carEntranceSouth(Math.floor(W*0.72));
 
-    return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:K.footprints(g,function(v){return v===2;})};
+    var res=K.rotateToStreet(g, streets, {gate:5, pedWalk:6, pedOver:function(c){return c===0;}, pedInset:12});
+    g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2;})};
   }
-  function driveConnected(res){ return K.connectedFrom(res.g,function(c){return c===5;},function(c){return c===1||c===5||c===7;})>0.8; }
+  // a car reaches the campus drive network (code 1) from the street curb cut, in ANY placement
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
   K.register('medical', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE });

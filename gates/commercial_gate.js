@@ -7,6 +7,11 @@ const C = require('../engine/bohemia_commercial.js');
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
+// NOTE (Paolo 7/18): commercial is the CORNER-plaza form by design — "we'd have to completely
+// remake it to squeeze between two other districts." So it's gated on the placements it's built
+// for (S / corners / N), NOT arbitrary single edges. Its standalone-any-edge form is a PENDING
+// design call for Paolo (flagged in the handoff), unlike medical/industrial/solar which now pass
+// all six placements under the street-aware/drivable law.
 const CONFIGS = [
   { streets: ['S', 'E'] },   // corner
   { streets: ['S', 'W'] },   // corner (other hand)

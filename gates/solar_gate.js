@@ -6,19 +6,22 @@ const S = require('../engine/bohemia_solar.js');
 const K = require('../engine/bohemia_district_kit.js');
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
-const CONFIGS = [{ streets: ['S'] }, { streets: ['S', 'E'] }, { streets: ['N'] }];
+// STREET-AWARE/DRIVABLE LAW (7/19): every placement — each single edge + corners.
+const CONFIGS = [{ streets: ['S'] }, { streets: ['N'] }, { streets: ['E'] }, { streets: ['W'] }, { streets: ['S', 'E'] }, { streets: ['N', 'W'] }];
 const counts = r => { const t = {}; for (const row of r.g) for (const c of row) t[c] = (t[c] || 0) + 1; return t; };
 
-let allParts = true, streetOk = true, filled = true;
+let allParts = true, streetOk = true, filled = true, allConn = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = S.generate(s * 19 + 7, cfg), t = counts(r);
   if (!(t[7] > 2000 && t[6] > 100 && t[4] > 40 && t[2] > 40)) allParts = false;   // panels, switchgear, inverters, control building
   if (!K.legendOk(r.g, S.palette) || K.voidFraction(r.g) > 0.18 || K.largestBlob(r.g, c => c === 0) > 0.14) filled = false;
+  if (!S.driveConnected(r)) allConn = false;                                      // maintenance vehicle reaches the gravel roads from the gate, ANY placement
   const g = r.g, W = r.g[0].length, H = r.g.length, edgeOf = (x, y) => (y === 0 ? 'N' : y === H - 1 ? 'S' : x === 0 ? 'W' : x === W - 1 ? 'E' : null);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (g[y][x] !== 5) continue; const e = edgeOf(x, y); if (!e || !cfg.streets.includes(e)) streetOk = false; }
 }
 ok('every farm has panels + switchyard + inverters + control building', allParts);
 ok('gates sit only on street edges', streetOk);
+ok('a vehicle reaches the gravel roads from the gate — EVERY placement', allConn);
 ok('every tile named + no big blank void (EXPLAIN-EVERY-TILE)', filled);
 
 // registered + categorized + footprint (the control building is enterable)

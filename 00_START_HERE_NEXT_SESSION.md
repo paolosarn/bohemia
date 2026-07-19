@@ -822,9 +822,23 @@ MECHANISM (author once): build canonical-south, call K.rotateToStreet(g,streets,
 {g,primary,gates}; kit helpers primaryStreet/rotateCW/scanGates/pedGate + gate checks
 driveNetworkOk/driveTouchesEdge/stallsReachable. GATES: district_kit_gate.js (machinery,
 23 checks) + each district gate (park_gate.js reference, 11 checks/6 configs). Law:
-laws/BOHEMIA_ADDENDUM_STREET_AWARE_DRIVABLE_LAW_7_19_26.md + CLAUDE.md law list. RETROFIT
-OWED: commercial/industrial/medical/solar predate it -> move onto rotateToStreet + explicit
-drive code as each is next touched. NEW districts use it from the start.
+laws/BOHEMIA_ADDENDUM_STREET_AWARE_DRIVABLE_LAW_7_19_26.md + CLAUDE.md law list. NEW districts
+use it from the start.
+RETROFIT DONE (7/19, "do something important"): diagnosed all 4 pre-law districts across the
+6 placements (each single edge + 2 corners). Found + FIXED a real bug: MEDICAL's drive was
+DISCONNECTED for a north-only cell (and N+W corner) — its south-biased "bottom drive band" sat
+stranded behind the hospital. Fixed by retrofitting medical onto canonical-south + K.rotateToStreet
+(the whole campus now rotates onto the real street; ambulance/ER/garage/lot all reached). New kit
+helper K.driveReachFromStreet(g,driveCode) = fraction of the car network reachable from the curb
+(right metric for complex sites whose drive isn't one tidy blob). INDUSTRIAL + SOLAR were NOT
+broken (genuinely street-connected in all placements) but their gates only tested a couple configs
+— HARDENED all gates to the full 6-placement sweep + a drive-reach assertion so this bug class
+can't hide again (the medical gate only ever tested S-configs, which is exactly why the N bug
+slipped through). Gate status now: park 11/6cfg, medical 12/6cfg, industrial 8/6cfg, solar 7/6cfg.
+COMMERCIAL is the exception: it's the CORNER-plaza form by design (Paolo: "we'd have to completely
+remake it to squeeze between two other districts"), so it's gated on S/corners/N only. [PENDING
+Paolo]: commercial's standalone-any-edge / mid-block form is a DESIGN call — how a shopping plaza
+reshapes when it's not on a corner. Everything else obeys the law across all placements.
 
 ## DISTRICTS ON THE FACTORY (running list) — Paolo 7/18
 Built + folded into world.plot (each = a generator on the kit + a gate + one DISTGEN line):

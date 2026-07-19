@@ -7,7 +7,8 @@ const K = require('../engine/bohemia_district_kit.js');
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
-const CONFIGS = [{ streets: ['S', 'E'] }, { streets: ['S'] }, { streets: ['N'] }, { streets: ['S', 'W'] }];
+// STREET-AWARE/DRIVABLE LAW (7/19): every placement — each single edge + corners.
+const CONFIGS = [{ streets: ['S'] }, { streets: ['N'] }, { streets: ['E'] }, { streets: ['W'] }, { streets: ['S', 'E'] }, { streets: ['N', 'W'] }];
 
 let allWare = true, allYard = true, allConn = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {

@@ -58,10 +58,14 @@
     return {g:g, W:W, H:H, streets:streets, gates:gates, footprints:K.footprints(g,function(v){return v===2;})};
   }
 
+  // a maintenance vehicle reaches the gravel access roads (code 1) from the street gate, in ANY
+  // placement (STREET-AWARE/DRIVABLE LAW 7/19). Solar's roads run edge-to-edge so this is high.
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.9; }
+
   var PALETTE={1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
   K.register('solar', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE });
 
-  var API={generate:generate,footprints:function(r){return r.footprints;},palette:PALETTE};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaSolar=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
