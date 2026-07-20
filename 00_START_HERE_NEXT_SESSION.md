@@ -328,6 +328,14 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-14. BUILD WATCHER + WAVE 4 (7/20, latest): third "nothing new" -- deployed
+   bytes were right; causes were the always-open stale tab + no unjudged
+   clothes. BUILD WATCHER now lives in the page (2-min + on-focus network
+   check, NEW BUILD READY tap-to-reload banner). Stamp = BUILD 7/20b. Wave 4
+   COOKING [PENDING thumbs]: HOOD-UP ASH/COAL HOODIES (hood worn, skull =
+   garment, face open + shell), HOODED DUST PONCHO, SCRAP CHEST PLATE (X
+   harness back). structure_gate 62. REMEMBER: every ship bumps #buildstamp
+   and verifies the Pages run concludes SUCCESS (CLAUDE.md ship flow).
 -13. SHUFFLE ANIMATION ON EVERY SQUARE (7/19, latest): Paolo's ask -- every
    big clothing square has a bottom-right shuffle button; tap = random clip
    from the APPROVED animation catalog (CLIPS minus candidates), square

@@ -318,7 +318,15 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
     !demo.includes('id="movebtn"'));
   ok('a move costs the turn (routes through endTurnReturn)',
-    /function doMove\([\s\S]{0,900}?endTurnReturn\(false\); \}/.test(demo));
+    /function doMove\([\s\S]{0,1600}?endTurnReturn\(false\); \}/.test(demo));
+  // v19: victory walk + blood by health
+  ok('VICTORY WALK: the ring keeps working after the win (no turn cost)',
+    demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
+  ok('BLOOD BY HEALTH: <=40% drips, <=20% pours, player <=30 trails; world-anchored',
+    demo.includes('function bleedTick()') && demo.includes('e.hp>e.max*0.4') &&
+    demo.includes('G.pHP<=30') && demo.includes('for(const s of G.bloodSpots)mv(s);'));
+  ok('KILLSHOTS/TURN sits at the top of settings',
+    demo.includes('V19: KILLSHOTS/TURN at the TOP of settings'));
   ok('worldShift carries corpses AND pillars with the world',
     /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo) &&
     /function worldShift\([\s\S]{0,700}?G\.pillars/.test(demo));
@@ -455,4 +463,5 @@ ok('alpha hosts the lab (combatLabFrame -> lab file)',
   alpha.includes('BOHEMIA_COMBAT_LAB_7_19_26.html') && alpha.includes('combatLabFrame'));
 
 console.log('=== COMBAT LAB GATE: ' + pass + ' pass / ' + fail + ' fail ===');
+if (fail) console.log('HINT: if demo markers are missing, a parallel-session merge clobbered COMBAT_B64 -- run: python3 tools/bohemia_combat_melee_patch.py && python3 tools/bohemia_combat_lab_gen.py');
 process.exit(fail ? 1 : 0);

@@ -172,6 +172,24 @@ if (G) {
   ok('every big square has the shuffle-animation button (approved clips only)', src.indexOf("sh.title='shuffle animation'") >= 0 && /CLIPS\.filter\(function\(c\)\{return !\(typeof CANDIDATE_SRC/.test(src) && src.indexOf("cv.__clip||'idle'") >= 0 && src.indexOf("buildFrame(dir,clip||'idle'") >= 0);
   // BUILD STAMP LAW (7/20): the build identifies itself on the front splash
   ok('the build stamp exists on the front splash', /id="buildstamp"[^>]*>BUILD /.test(src));
+  // BUILD WATCHER (7/20): the open page detects newer deploys and offers reload
+  ok('the build watcher runs in the live page', src.indexOf('BUILD WATCHER') >= 0 && src.indexOf("fetch(location.href,{cache:'no-store'})") >= 0 && src.indexOf('NEW BUILD READY') >= 0);
+  // WAVE 4: hood-up covers the SKULL, never the face; hooded poncho same; chest plate front-only
+  let huS = null, huN = null, cpS = null, cpN = null, hpS = null;
+  try { huS = G.genTop(g, { ramp: R, sleeves: 'long', neck: 'hood', hoodUp: true }); huN = GN.genTop(g, { ramp: R, sleeves: 'long', neck: 'hood', hoodUp: true });
+        cpS = G.genGear(g, { ramp: R, kind: 'chestplate' }); cpN = GN.genGear(g, { ramp: R, kind: 'chestplate' });
+        hpS = G.genPoncho(g, { ramp: R, hood: true }); } catch (e) { console.log('  wave4 err: ' + e.message); }
+  ok('wave-4 shapes render', [huS, huN, cpS, cpN, hpS].every(o => o && Object.keys(o).length >= 8));
+  if (huS && huN && cpS && hpS) {
+    const headCov = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 1) { t++; if (o[i] !== undefined) c++; } return c / t; };
+    const faceTouched = (o) => { for (const k in o) if (g[+k] === 2) return true; return false; };
+    ok('hood-up covers the whole skull', headCov(huS) > 0.95 && headCov(huN) > 0.95);
+    ok('hood-up NEVER touches the face', !faceTouched(huS) && !faceTouched(huN));
+    ok('hooded poncho covers the skull, face open', headCov(hpS) > 0.95 && !faceTouched(hpS));
+    ok('chest plate is torso-only, front block vs back straps', [...parts(cpS)].every(pt => pt === 4) && Object.keys(cpS).length > Object.keys(cpN).length);
+  }
+  ok('wave-4 candidates ship', /hoodUp:true/.test(gbAll()) && /hood:true/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()));
+  function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);
 process.exit(f ? 1 : 0);
