@@ -80,6 +80,7 @@ for (let y = 6; y < 90 && dimChecked < 200; y++) for (let x = 6; x < 90 && dimCh
     const it = b.interior(); dimChecked++;
     let iw, ih;
     if (it.kind === 'garage') { iw = it.W; ih = it.H; if (it.decks.some(d => d.length !== b.h || d.some(r => r.length !== b.w))) { dimOk = false; dimBad = 'garage deck grid'; } }
+    else if (it.kind === 'crypt') { iw = it.W; ih = it.H; if (it.grid.length !== b.h || it.grid.some(r => r.length !== b.w)) { dimOk = false; dimBad = 'crypt grid'; } }
     else { iw = it.floorplan.W; ih = it.floorplan.H; }
     if (iw !== b.w || ih !== b.h) { dimOk = false; dimBad = b.kind + ' ' + iw + 'x' + ih + ' != footprint ' + b.w + 'x' + b.h; }
   }

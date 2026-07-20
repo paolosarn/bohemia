@@ -1240,8 +1240,15 @@ exposes the garage as ONE enveloping footprint tagged code:8 (its shell is punch
 world.js building.interior() dispatches on enter text -> garage yields decks, everything else
 rooms; building.kind='garage'. world_gate proves a real valley garage yields multi-deck parking
 (10 checks). NEXT special interiors: the mausoleum CRYPT (cemetery, enter says CRYPT INTERIOR —
-currently falls back to floorplan) and the sewer TUNNEL network (wash mouth -> coordinate w/ LIFE,
-the tunnel people live there).
+DONE 7/19) and the sewer TUNNEL network (wash mouth -> coordinate w/ LIFE, the tunnel people live there).
+CRYPT INTERIOR DONE (7/19): engine/bohemia_crypt.js — the mausoleum interior (cemetery portal,
+enter says CRYPT INTERIOR). A single-floor stone crypt: a central aisle threading a grid of
+burial-VAULT banks, walls lined with stacked niches, an ALTAR terminus, the ENTRANCE at the
+front, some vaults broken open (act-1 dead). INTERIOR===EXTERIOR (grid is exactly the mausoleum
+footprint w x h; verified 29x17 via the world model). world.js interior() now dispatches
+garage/CRYPT/floorplan on the enter text; building.kind='crypt'. Gate crypt_gate.js (7 checks
+incl. footprint-exact any shape + floor reachable from entrance). Registered in the runner.
+Two special interiors live: GARAGE (multi-deck) + CRYPT; generic ROOM FLOORPLAN for the rest.
 INTERIOR===EXTERIOR LAW (Paolo 7/19, LOCKED): a building's interior floor plate is ALWAYS exactly
 its exterior footprint w x h (garage clamps removed; each deck = footprint W x H; room floorplans
 already matched). CLAUDE.md law + world_gate.js hard check (interior dims === footprint dims,

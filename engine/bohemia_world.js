@@ -27,6 +27,7 @@
   var WSH= HASREQ ? require('./bohemia_wash.js')           : (typeof BohemiaWash!=='undefined'?BohemiaWash:root.BohemiaWash);
   var CEM= HASREQ ? require('./bohemia_cemetery.js')       : (typeof BohemiaCemetery!=='undefined'?BohemiaCemetery:root.BohemiaCemetery);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
+  var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -105,7 +106,7 @@
             .map(function(f){ var c=gres.g[f.y][f.x], L=legend[c]; return {x:f.x,y:f.y,w:f.w,h:f.h,code:c,name:L?L.name:'',enter:(L&&L.enter)||null}; }); },
           buildings: feet.map(function(f,i){ var fc=(f.code!=null)?f.code:(gres.g[f.y]&&gres.g[f.y][f.x]), fL=legend[fc];
             var enter=(fL&&fL.enter)||null, iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
-            var kind=(enter&&/GARAGE INTERIOR/i.test(enter))?'garage':'floorplan';
+            var kind=(enter&&/GARAGE INTERIOR/i.test(enter))?'garage':((enter&&/CRYPT INTERIOR/i.test(enter))?'crypt':'floorplan');
             return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
             enter:enter, kind:kind,                                // what this building becomes inside (from the dossier)
             floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'}); },
@@ -113,6 +114,7 @@
             // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
             // levels) is a separate 3D property derived from the seed, not the floor-plate size.
             interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
+              if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
               return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;

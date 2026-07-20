@@ -66,6 +66,8 @@ GATES = [
      'memorial park: grave sections, chapel, mausoleum, columbarium, drivable', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
      'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
+    ('CRYPT',          ['node', 'gates/crypt_gate.js'],
+     'mausoleum crypt interior: vault banks, altar, entrance, footprint-exact', False),
     ('TILE SPEC',      ['node', 'gates/tilespec_gate.js'],
      'every district legend is complete — no undocumented tile ships', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
