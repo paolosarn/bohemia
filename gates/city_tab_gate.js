@@ -114,6 +114,13 @@ if (b64m) {
     decoded.indexOf("g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ)") >= 0);
   ok('the probe surface exists (gates can interrogate the real city)',
     decoded.indexOf('window.__CITY=') >= 0);
+
+  // 7. THE BUFFET LOCK (7/20, Paolo saw DROP IN: "IT STILL LOOKS LIKE THIS!"):
+  // the tile-judging buffet's scatter shipped ON by default, blanketing the
+  // street-level ground in banned confetti. The judging tool may exist; it
+  // may NEVER ship as the default ground again.
+  ok('the tile buffet never ships on by default (scatter:false)',
+    decoded.indexOf('let TP = { on:false, scatter:false,') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
