@@ -386,14 +386,14 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('AIM CAM PIN: no stale killshot offsets, scene biased toward the target',
     demo.includes('AIM CAM PIN V12'));
   ok('floor bounds expand for zoom-out shots (no floating board)',
-    demo.includes('the board outruns ANY zoom or pan'));
+    demo.includes('if(aimo&&aimo.zb&&aimo.zb>0){ _wx0/=aimo.zb;'));
   // v15: the tunnel class is dead
   ok('HARD RESET: transform + canvas cleared every frame; armor resets too',
     demo.includes('HARD RESET V15') && demo.includes("ctx.setTransform(1,0,0,1,0,0);}catch(_e3){}"));
   ok('the frame error is visible (ERR chip), not silent',
     demo.includes("ctx.fillText('ERR '"));
-  ok('floor accounts for user pinch zoom AND pan',
-    demo.includes('const uzS=(G.userZoom&&G.userZoom<1)?1/G.userZoom:1;') && demo.includes('panT'));
+  ok('floor accounts for user pinch zoom AND pan (inverted camera + pad)',
+    demo.includes('const PAD=6;') && demo.includes('uzInvert(W,H,W,H)'));
   ok('the FIRST fight shuffles its faction too',
     demo.includes('the FIRST fight shuffles too'));
   ok('studio pushes never kill the shuffle default (Paolo 7/20)',
