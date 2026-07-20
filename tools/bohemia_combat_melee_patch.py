@@ -652,13 +652,117 @@ function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();
     return demo
 
 
+def patch8(demo):
+    """v8 (Paolo 7/19, furious and right): the ghost tap-cells around the
+    player did NOT sit on the painted board — the floor's lines ran
+    through the player's position, so cells straddled tiles by half a
+    tile. GRID LOCK: the player stands in the CENTER of a painted cell.
+    Floor cells are centered on integer world coords (boundaries at
+    half-integers), pillars snap to integer centers, and the ghost cell
+    is drawn as EXACTLY the painted tile it sits on. One grid, no lies."""
+    if 'GRID LOCK V8' in demo:
+        print('v8 already applied, skipping')
+        return demo
+    demo = sub1(demo, "      const sx2=cx+(wx-offx)*t, sy2=cy+(wy-offy)*t;",
+        "      const sx2=cx+(wx-offx-0.5)*t, sy2=cy+(wy-offy-0.5)*t;   /* cells CENTERED on integers — the player stands mid-cell */",
+        'floor-center')
+    demo = sub1(demo, "    for(let wx=gx0; wx<=gx1; wx++){ const sx2=Math.round(cx+(wx-offx)*t)+0.5;",
+        "    for(let wx=gx0; wx<=gx1; wx++){ const sx2=Math.round(cx+(wx-offx+0.5)*t)+0.5;",
+        'lines-x')
+    demo = sub1(demo, "    for(let wy=gy0; wy<=gy1; wy++){ const sy2=Math.round(cy+(wy-offy)*t)+0.5;",
+        "    for(let wy=gy0; wy<=gy1; wy++){ const sy2=Math.round(cy+(wy-offy+0.5)*t)+0.5;",
+        'lines-y')
+    demo = sub1(demo,
+        "      const nx2=Math.round(Math.cos(a0)*d0-0.5)+0.5, ny2=Math.round(Math.sin(a0)*d0-0.5)+0.5;   /* cover sits ON a tile */",
+        "      const nx2=Math.round(Math.cos(a0)*d0), ny2=Math.round(Math.sin(a0)*d0);   /* cover sits ON a tile (integer centers, same grid as the board) */",
+        'pillar-int')
+    demo = sub1(demo,
+        "    x.beginPath();x.rect(cxx-ring*0.42,cyy-ring*0.42,ring*0.84,ring*0.84);x.fill();x.stroke();",
+        "    x.beginPath();x.rect(cxx-ring*0.5+1.5,cyy-ring*0.5+1.5,ring-3,ring-3);x.fill();x.stroke();   /* GRID LOCK V8: the ghost cell IS the painted tile */",
+        'ghost-is-tile')
+    return demo
+
+
+def patch9(demo):
+    """v9 (Paolo 7/19): (1) 'the dial minigame should be the same tile
+    shit as the previous screen, same location, zoomed in' — the aim
+    phase's stand-in world dies; the REAL board (street tiles, pillars,
+    bodies) renders behind the dial, zoomed about the player so the man
+    you're shooting is the man on the board. (2) 'the power of who to
+    shoot next' — tap any enemy (blades included) to SELECT him as the
+    next target; auto-pick remains the fallback; tapping the selected man
+    again toggles his cover (authoring layer preserved). Also settles the
+    6/27 open fork: manual targeting, ruled."""
+    if 'ZOOMED BOARD V9' in demo:
+        print('v9 already applied, skipping')
+        return demo
+
+    # 1. the dial happens ON the board
+    demo = sub1(demo, """\
+  // ---- minimal stand-in WORLD so the camera has somewhere to go ----
+  // crude ground band + the enemy marker (real sprites/world drop in here later)
+  drawStandInWorld(ctx,cx,cy,base,RAD,S);""", """\
+  // ---- ZOOMED BOARD V9 (Paolo): the dial happens ON the same tiles, zoomed in.
+  //      The stand-in world is dead; the aim backdrop IS the field, scaled about
+  //      the player so the man under the dial is the man on the board.
+  { const ring0=Math.min(W,H)*0.085; const tgtE=G.e[G.fireTarget];
+    const zb=tgtE?Math.max(0.9,Math.min(3.2,(RAD*1.18)/(Math.max(1.2,tgtE.edist)*ring0))):2.0;
+    ctx.save();
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    ctx.globalAlpha=0.85;                                   /* the board carries the scene; the dial stays boss */
+    drawField(ctx,W,H,cx,cy);
+    ctx.globalAlpha=1; ctx.restore(); }""",
+        'zoomed-board')
+
+    # 2. the power of who to shoot next
+    demo = sub1(demo, """\
+function modePool(){ if(G.engageMode==='shoot') return exposedToMe();
+  return G.e.filter(e=>!e.dead&&e.stun<=0&&peeking(e)); }
+function pickTarget(){ const pool=modePool(); if(!pool.length)return -1;
+  let b=-1,bd=1e9; for(const e of pool){ const sc=(G.engageMode==='shoot'?e.edist:e.hp); if(sc<bd){bd=sc;b=e.i;} } return b; }""", """\
+function modePool(){
+  /* TARGET SELECT V9: blades are always in the pool when visible (Paolo:
+     "shoot the melee attacker first"), and a stunned/prone man is a
+     TARGET — he is the easy dial you manufactured. */
+  const mel=G.e.filter(e=>!e.dead&&e.melee&&peeking(e));
+  if(G.engageMode==='shoot') return exposedToMe().concat(mel);
+  return G.e.filter(e=>!e.dead&&peeking(e)); }
+function pickTarget(){ const pool=modePool(); if(!pool.length)return -1;
+  if(G.selTarget!=null){ const s=pool.find(e=>e.i===G.selTarget); if(s)return s.i; }   /* your pick rules; auto is the fallback */
+  let b=-1,bd=1e9; for(const e of pool){ const sc=(G.engageMode==='shoot'?e.edist:e.hp); if(sc<bd){bd=sc;b=e.i;} } return b; }""",
+        'manual-target')
+    demo = sub1(demo, """\
+  for(let i=0;i<G.e.length;i++){ const e=G.e[i]; if(e.dead||!pos[i])continue;
+    if(Math.hypot(x-pos[i][0],y-pos[i][1])<ring*0.5){ audio(); e.inCover=!e.inCover; e.coverLocked=true; renderBoard(); updGap(); return; } }""", """\
+  for(let i=0;i<G.e.length;i++){ const e=G.e[i]; if(e.dead||!pos[i])continue;
+    if(Math.hypot(x-pos[i][0],y-pos[i][1])<ring*0.5){ audio();
+      /* TARGET SELECT V9 (Paolo): first tap SELECTS him as your next shot;
+         tapping the selected man again toggles his cover (authoring stays). */
+      if(G.selTarget!==e.i){ G.selTarget=e.i;
+        setRead('TARGET: '+e.n, e.melee?'the blade goes down first':'he eats the next dial','#e8b04a'); }
+      else { e.inCover=!e.inCover; e.coverLocked=true; }
+      renderBoard(); updGap(); return; } }""",
+        'tap-select')
+    demo = sub1(demo, "G.e=[]; const N=G.numEnemies; G.mTurn=0;",
+        "G.e=[]; const N=G.numEnemies; G.mTurn=0; G.selTarget=null;", 'sel-reset')
+    demo = sub1(demo, """\
+      else if(nx.act==='windup'){ x.fillStyle='rgba(232,176,74,0.9)';
+        x.beginPath(); x.arc(ex,ey-er*1.9,3,0,7); x.fill(); } }""", """\
+      else if(nx.act==='windup'){ x.fillStyle='rgba(232,176,74,0.9)';
+        x.beginPath(); x.arc(ex,ey-er*1.9,3,0,7); x.fill(); } }
+    if(G.selTarget===e.i&&!e.dead){ x.strokeStyle='rgba(232,176,74,0.9)'; x.lineWidth=2.5;   /* your chosen man */
+      x.beginPath(); x.arc(ex,ey,er*1.75,0,7); x.stroke(); }""",
+        'sel-ring')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))
+    patched = patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

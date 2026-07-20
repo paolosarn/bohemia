@@ -273,6 +273,26 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-10. ALL 19 STRUCTURES CANON + STRAP RULING (7/19, latest): Paolo approved
+   every structure candidate (jackets, ponchos, tall boots, rolled, gear,
+   bags, aprons, suspenders, tattered) -- CANON WARDROBE NOW 97 items. The
+   63 colorway fillers stay cooking in their drawer, unjudged. His one note
+   (NOTES ARE RULINGS, rebuilt same turn): the RUCK PACK's front straps --
+   now 2px webbing beside each arm, anchored at the shoulder line, chest
+   buckles, gate-locked (structure_gate 45 checks). NEXT structure wave when
+   clothing continues: skirts/wraps, hood-up variants, bedroll, shemagh,
+   more armor plates. Colorways may now also multiply off the 19 new canon
+   structures -- as FILLER, never the headline.
+-9. STRUCTURE WAVE 2 + COOK UI RE-LED (7/19, latest): Paolo flagged the UI
+   still led with colorways after his ruling -- the CLOTHES tab now renders
+   COOKING - NEW STRUCTURES first and collapses COLORWAY FILLER (63) into a
+   drawer (gate-checked). Four more shapes born (7 candidates): BAGS (genBag,
+   new 'back' layer: RUCK PACK + SALVAGE SATCHEL), APRONS (genApron front
+   panel: SMITH'S/TRADES), WORK SUSPENDERS (genGear Y-crossback), TATTERED
+   hems (genTop tatter, torn-out pixels: TEE + FLANNEL). structure_gate now
+   42 checks. COOKING: 19 structures (the headline) + 63 colorway filler.
+   NEXT structures open: skirts/wraps, hood-up variants, bedroll, shemagh
+   full-wrap, armor plates beyond the pauldron.
 -8. STRUCTURE-NOT-COLOR LAW + 5 NEW GARMENT SHAPES (7/19, latest): Paolo
    rejected colorways-as-progress ("I need to see actual different clothes").
    Law locked (laws addendum + CLAUDE.md): colorways legal, NEVER progress;
@@ -463,6 +483,28 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    don't shoot). Gate 78 checks, ALL GREEN. Chromium-verified: pillars
    snapped, turn-1 wait = zero gun damage + acq 0->1, turn-2 = fire,
    placed N-block covers north. 0 errors.
+   GRID LOCK + DIAL-ON-BOARD + MANUAL TARGETING (7/19-20, passes 8-9;
+   Paolo: "the ghost tiles have to be on the exact same grid" + "the dial
+   should be the same tile shit, same location, zoomed in" + "the power
+   of who to shoot next"): (v8 GRID LOCK) floor cells are centered on
+   integer world coords so the player stands MID-CELL; ghost tap-cells
+   draw as exactly the painted tiles; pillars snap to integer centers —
+   one grid, no half-tile lie. (v9 ZOOMED BOARD) the aim phase's stand-in
+   world is DEAD: the dial renders over the REAL field (street tiles,
+   pillars, bodies) scaled about the player so the man under the dial is
+   the man on the board (zoom = RAD*1.18/(edist*ring), clamp 0.9-3.2,
+   field at 0.85 alpha under the wedge). (v9 TARGET SELECT — settles the
+   6/27 manual-targeting fork): tap any enemy to SELECT him (gold ring,
+   read line); pickTarget honors the pick, auto = fallback; tapping the
+   selected man again toggles his cover (authoring stays); blades always
+   join the shoot pool when visible; stunned/prone men ARE targets (the
+   easy dial you manufactured); selection resets per encounter. Gate 86
+   checks, ALL GREEN, chromium-verified (blade manually picked through a
+   pop while exposed to a gun; dial-over-board screenshot). ALSO: the
+   earlier "alpha not updating" report was deploy timing — all Pages
+   deploys green; the always-fresh sw.js is correct; the b64-packed
+   demo is NOT plaintext-greppable in the alpha (gate decodes it — do
+   not repeat my false clobber scare, check with the gate).
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel

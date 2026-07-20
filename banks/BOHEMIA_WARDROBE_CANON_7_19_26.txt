@@ -1,7 +1,7 @@
 === BOHEMIA WARDROBE CANON (machine bank, generated 7/19/26) ===
 # source: slices/BOHEMIA_ALPHA_0_9.html GARMENTS[st=canon]. regenerate: python3 tools/bohemia_wardrobe_extract.py
 # NAME|layer|midhex  (hex = ramp mid tone, for tiny-agent rendering)
-# count: 78
+# count: 97
 RED SHIRT|base|#963c36
 WHITE TEE|base|#d4d0c8
 BLACK TANK|base|#2a2a32
@@ -80,3 +80,22 @@ DENIM VEST|outer|#40506e
 SLATE SNEAKERS|feet|#545c66
 COPPER SCARF|neck|#506e60
 CHARCOAL DUST MASK|face|#363436
+DENIM JACKET|outer|#40506e
+FIELD JACKET|outer|#40523a
+LEATHER JACKET|outer|#5c422c
+DUST PONCHO|outer|#806e50
+OXBLOOD PONCHO|outer|#5c302a
+TALL MOTO BOOTS|feet|#303034
+RANCH BOOTS|feet|#624e38
+ROLLED WORK SHIRT|base|#4c5a6a
+ROLLED FLANNEL|base|#703a30
+SCAV KNEEPADS|gear|#363436
+SCRAP PAULDRON|gear|#724830
+CHEST RIG|gear|#3c4230
+RUCK PACK|back|#624e38
+SALVAGE SATCHEL|back|#5c422c
+SMITH'S APRON|outer|#5c422c
+TRADES APRON|outer|#363436
+WORK SUSPENDERS|gear|#363436
+TATTERED TEE|base|#a29a86
+TATTERED FLANNEL|base|#586676

@@ -312,3 +312,41 @@ included); the poncho's first cut left the under-shirt's shoulders out
 (drape now starts shoulder-wide). All 12 verified in all facings.
 COOKING now: 63 colorways (filler, judged whenever) + 12 structures (the
 actual progress). [PENDING Paolo thumbs]
+
+=== COOK BATCH 16 (7/19/26) — STRUCTURE WAVE 2 + THE UI CATCHES UP TO THE LAW ===
+Paolo: "Do what you have to do next and know what comes after. I don't think
+you updated the UI for my last selection." Correct: the CLOTHES tab still led
+with the 63 colorways. FIXED: the cook now renders NEW STRUCTURES first as the
+headline section; COLORWAY FILLER collapses into its own drawer ("recolors of
+approved shapes, judge whenever"), machine-checked by structure_gate.
+FOUR MORE SHAPES that never existed (7 candidates, zero recolors):
+- BAGS (genBag, new 'back' layer -- a carried-equipment class): RUCK PACK
+  (pack body seen from behind, protrudes into clear air in profile, straps +
+  edge peeks from the front), SALVAGE SATCHEL (hip box + cross-body strap).
+- APRON (genApron, front-panel garment): chest bib + skirt over the upper
+  legs, neck loop, waist tie; from behind it is just the strings. SMITH'S
+  APRON (leather), TRADES APRON (charcoal). Open-coat gate exemption recorded
+  (an apron shows the clothes around it by nature).
+- SUSPENDERS (genGear): parallel straps + waist buttons from the front,
+  converging Y crossback from behind, shoulder strap in profile.
+- TATTERED HEMS (genTop tatter): pixels torn OUT of the silhouette at hem +
+  cuffs -- missing geometry, not a color. TATTERED TEE, TATTERED FLANNEL.
+Gate: structure_gate.js now 42 checks (directional bag/apron/suspender checks,
+tatter = fewer pixels than solid, UI leads-with-structures check). Verified on
+the real surface in 4 facings each. COOKING: 19 structures + 63 filler.
+
+=== VERDICT 7/19/26 (c) — ALL 19 STRUCTURES CANON + THE STRAP RULING ===
+Paolo approved EVERY structure candidate: jackets (denim/field/leather),
+ponchos (dust/oxblood), tall boots (moto/ranch), rolled sleeves (work shirt/
+flannel), gear (kneepads/pauldron/chest rig), bags (ruck pack/salvage
+satchel), aprons (smith's/trades), work suspenders, tattered (tee/flannel).
+The 63 colorway fillers stay in their drawer, unjudged ("--"), exactly as the
+structure-not-color law intends.
+CANON WARDROBE: 97 items across every category + 63 filler cooking.
+THE STRAP RULING (his note, NOTES ARE RULINGS -- built same turn, no
+re-thumb): "I really liked the ruck pack, but the straps had to be done
+better. The straps that go next to the arms from the shoulders." REBUILT:
+front straps are now 2px webbing hugging the torso edge beside each arm,
+anchored at the shoulder line, dark outer + lit inner edge, chest buckles.
+Gate: structure_gate.js 45 checks (strap width + shoulder anchor + open
+center chest locked). Verified on the real preview in 6 facings.
