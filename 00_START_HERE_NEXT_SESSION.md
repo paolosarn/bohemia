@@ -33,12 +33,23 @@ STATUS AFTER REVERT: the aerial map page (slices/BOHEMIA_CITY_CURRENT.html,
 skeleton-as-itself + city-builder verbs) is a DORMANT STANDALONE, linked
 nowhere; engine/bohemia_cityedit.js (delta verbs, skeleton sacred) stays
 gated + dormant - the delta design still fits whatever save system the
-real city grows. THE REAL OPEN QUESTION [PENDING Paolo]: the embedded city
-builder is the OLD monolith - it REROLLS its own world and predates the
-7/18 canon streets (mile grid, 215/I-15, connectivity laws). Marrying the
-real city builder to the canon overmap streets is the actual "implement
-the streets" job, it is big, and WHO does it (this session, the overworld
-session, a dedicated one) is Paolo's call.
+real city grows. THE MARRIAGE - EXECUTED (7/20, this session, after recon proved it safe):
+the embedded city builder carried a STALE 7/5-ERA FORK of bohemia_overmap
+inside CITY_B64 (a second module body hidden in base64 where the sync gate
+could not see - the exact rot the ENGINE SYNC LAW exists for). The city was
+still rerolling the fragmented pre-7/18 streets Paolo killed. Recon proved
+drop-in safety BEFORE touching anything: identical API line (11 exports),
+identical 77-district enum, identical IIFE wrapper, every om.* field the
+page reads exists in canon. tools/bohemia_city_overmap_resync.py decodes
+CITY_B64, replaces the fork with the CANON body VERBATIM, re-encodes,
+idempotent - rerun it whenever the overworld session evolves the streets
+(city_tab_gate #17-checks now decodes the payload every run and goes RED if
+the canon body is missing: the MARRIAGE LOCK). Verified on the real
+surface: city boots, renders identically (isometric, Strip, HUD, DROP IN),
+its live BohemiaOvermap now IS canon (street counts match canon exactly;
+official street gate green). SAVE NOTE: suspend saves carry a seed; a save
+made on fork streets resumes with the world re-laid canon around the
+player - the world REPAIRED, not reset (flagged, not hidden).
 
 ## SESSION SCOPE AMENDED: LIFE + CITY SURFACE (Paolo 7/19: "add an additional
 ## title to this chat, like life plus tiles")

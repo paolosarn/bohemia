@@ -80,5 +80,25 @@ ok('NO static cityFrame hijack (the guard must find the panel empty)',
   !/<iframe[^>]*id="cityFrame"/.test(alpha));
 ok('the aerial map page is wired NOWHERE in the alpha', alpha.indexOf('BOHEMIA_CITY_CURRENT.html') < 0);
 
+// 5. THE MARRIAGE LOCK (7/20): the embedded city builder must carry the CANON
+// overmap body, byte-for-byte. Before 7/20 it carried a stale 7/5-era fork
+// (pre street-canon) hidden inside base64 where the sync gate couldn't see -
+// the city rerolled the fragmented streets Paolo killed. If the overworld
+// session evolves the canon streets, this goes RED until
+// tools/bohemia_city_overmap_resync.py is rerun.
+const b64m = alpha.match(/const CITY_B64='([^']+)'/);
+ok('CITY_B64 payload extractable', !!b64m);
+if (b64m) {
+  const decoded = Buffer.from(b64m[1], 'base64').toString('utf8');
+  const WRAP_OPEN = '(function(global){';
+  const WRAP_CLOSE = "})(typeof window!=='undefined'?window:globalThis);";
+  const canon = fs.readFileSync('engine/bohemia_overmap.js', 'utf8');
+  const canonModule = canon.slice(canon.indexOf(WRAP_OPEN), canon.indexOf(WRAP_CLOSE) + WRAP_CLOSE.length);
+  ok('MARRIED: the embedded city carries the canon overmap body verbatim',
+    decoded.indexOf(canonModule) >= 0);
+  ok('the canon street fixes ride inside the city (ISLAND PRUNE present)',
+    decoded.indexOf('ISLAND PRUNE') >= 0);
+}
+
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
