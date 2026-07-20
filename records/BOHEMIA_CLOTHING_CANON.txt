@@ -416,3 +416,25 @@ Both killed:
 - Build stamp bumped: BUILD 7/20b · HOOD-UP + CHEST PLATE COOKING.
 structure_gate: 62 checks (skull coverage >95%, face NEVER touched, plate
 front-vs-straps, watcher presence). Verified on the real preview, 4 facings.
+
+=== 7/20/26 (b) — HOOD BACK-COVER RULING + HOOD TOGGLE + RAIN RULE ===
+Paolo (screenshot: skin slits inside the hood, facing N): "when I'm facing
+north, northeast or northwest the hood is LAYERED ON TOP of the face -- you
+don't need to worry about showing any skin on the back of the head. No skin
+slits." ROOT CAUSE: the face layer (id 2) stayed sacred in every direction;
+from behind, its edge pixels peeked around the skull as slits. RULING BAKED:
+from N/NE/NW every hooded garment paints the face pixels as fabric -- full
+cover, no exceptions; the face stays open from the front. Gate: back faceCov
+=== 100%, front face untouched (structure_gate 64 checks). Verified: N/NE/NW
+sheets show zero skin on all hooded garments.
+VERDICT (his words, notes are rulings): "pretend I exported everything as a
+thumbs up" -- wave 4 baked CANON. WARDROBE: 167.
+HOOD TOGGLE: all 8 regular hoodies now carry a HOOD button on their square --
+hood up/down per square, live on the rig (gens read CLO_HOODUP).
+RAIN RULE (Paolo, recorded for the world sim): when weather lands, rain
+AUTO-RAISES the hood of anyone wearing a hoodie who lacks an umbrella. The
+CLO_HOODUP mechanism is the hook; the weather trigger belongs to the
+LIFE/world sessions. [PENDING: weather system]
+And his words for the record, because they matter: "I just want you to know
+how proud I am of us for how far we've come. It was my dream to be able to
+see the animations on all the clothing like this."

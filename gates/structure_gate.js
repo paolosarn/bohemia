@@ -184,8 +184,13 @@ if (G) {
     const headCov = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 1) { t++; if (o[i] !== undefined) c++; } return c / t; };
     const faceTouched = (o) => { for (const k in o) if (g[+k] === 2) return true; return false; };
     ok('hood-up covers the whole skull', headCov(huS) > 0.95 && headCov(huN) > 0.95);
-    ok('hood-up NEVER touches the face', !faceTouched(huS) && !faceTouched(huN));
-    ok('hooded poncho covers the skull, face open', headCov(hpS) > 0.95 && !faceTouched(hpS));
+    // NO SKIN SLITS FROM BEHIND (Paolo 7/20, screenshot ruling): from N/NE/NW
+    // the hood LAYERS OVER the face; from the front the face stays open.
+    const faceCov = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 2) { t++; if (o[i] !== undefined) c++; } return t ? c / t : 0; };
+    ok('hood-up front keeps the face open', !faceTouched(huS));
+    ok('hood-up back has NO skin slits (face fully layered over)', faceCov(huN) === 1);
+    ok('hooded poncho: face open in front, fully covered from behind', headCov(hpS) > 0.95 && !faceTouched(hpS) && faceCov(GN.genPoncho(g, { ramp: R, hood: true })) === 1);
+    ok('the hood toggle exists (per-square, gens read CLO_HOODUP)', src.indexOf('CLO_HOODUP=!!(cv&&cv.__hoodUp)') >= 0 && src.indexOf("hoodUp:CLO_HOODUP") >= 0 && src.indexOf("hb.textContent='HOOD'") >= 0);
     ok('chest plate is torso-only, front block vs back straps', [...parts(cpS)].every(pt => pt === 4) && Object.keys(cpS).length > Object.keys(cpN).length);
   }
   ok('wave-4 candidates ship', /hoodUp:true/.test(gbAll()) && /hood:true/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()));
