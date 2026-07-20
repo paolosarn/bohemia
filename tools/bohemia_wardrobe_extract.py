@@ -33,7 +33,9 @@ for m in re.finditer(r"([A-Z][A-Z0-9_]*)\s*=\s*\{dk:\[([\d,\s]+)\]\s*,\s*mid:\[(
 
 # 2) garment entries (single- or double-quoted names), canon only
 items = []
-pat = re.compile(r"\{n:(['\"])(.+?)\1\s*,\s*st:'canon'\s*,\s*layer:'(\w+)'\s*,\s*gen:(.*?)\}\s*[,\]]")
+# tags like cw:true (colorway filler) or fresh:true (new-in-canon) may sit
+# between st and layer (7/19) -- the parser must not go stale over them
+pat = re.compile(r"\{n:(['\"])(.+?)\1\s*,\s*st:'canon'\s*,\s*(?:\w+:true\s*,\s*)*layer:'(\w+)'\s*,\s*gen:(.*?)\}\s*[,\]]")
 for m in pat.finditer(src):
     name, layer, gen = m.group(2), m.group(3), m.group(4)
     rm = re.search(r"ramp:([A-Z][A-Z0-9_]*)", gen)

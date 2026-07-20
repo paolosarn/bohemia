@@ -135,6 +135,16 @@ growing with familiarity (neighbors outlast strangers, base 12h).
 lastSeenAcross(minds, subject) answers "when did anyone last see H3-2, and
 how sure are they". Testimony verbs, lies, faction use of witnesses: Paolo's.
 
+## BOUNDED DEVIATION (rung 4b, built dormant 7/19, gate: DEVIATION)
+The Radiant AI lesson made law: events may BEND a life, never break it.
+deviate(sim, agent, ev) with mechanism verbs only (goto / flee / stay_home).
+Machine-enforced bounds: every deviation carries an expiry or is REJECTED;
+at most DEVIATION_CAP (20%) of a block deviates at once (SoD's "handful");
+on expiry the agent re-converges to the schedule. The offline plane stays
+the PLAN (whereAt never sees deviations - they are an online-bubble
+phenomenon). WHAT triggers deviations is content: combat, quests, faction
+moves, Paolo's world - never invented here.
+
 ## THE SURFACE (judge tool, per the workflow law: interactive, never chat PNG)
 slices/BOHEMIA_LIFE_SLICE_7_19_26.html, stable pointer slices/BOHEMIA_LIFE_
 CURRENT.html, loaded by the new LIFE tab in the alpha (lazy iframe, same
