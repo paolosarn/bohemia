@@ -396,6 +396,18 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('LOOP ARMOR V13') && demo.includes("G._lastErr=String(_le)"));
   ok('UI COMPACT: wager + pattern move to settings, board owns the screen',
     demo.includes('UI COMPACT V13'));
+  // v14: the feel pass
+  ok('no logo in the fight; the view starts wide',
+    demo.includes('#logo{display:none!important}') && demo.includes('G.userZoom=0.82;'));
+  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 3)',
+    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||3)%8)+1"));
+  ok('WEAPON READ: every body shows blade or gun', demo.includes('WEAPON READ V14'));
+  ok('MISS CINEMATIC: the quick cam plays even when they all miss',
+    demo.split('MISS CINEMATIC V14').length >= 3);
+  ok('AIM CAM GLIDE: your framing swings into the shot (with SNAP toggle)',
+    demo.includes('AIM CAM GLIDE V14') && demo.includes("'AIM CAM: '+(G.aimCamGlide===false?'SNAP':'GLIDE')"));
+  ok('the arm gun reads per weapon (long guns get a stock)',
+    demo.includes("WEAPON==='rifle'?0.68"));
   ok('ghost cells + threat lines stay out of the shot',
     demo.includes('never during the dial') && demo.includes('if(!aimo)for(const e of G.e)'));
   ok('corpses ride the grid-true ruler',
