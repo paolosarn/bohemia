@@ -8,6 +8,38 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## THE CITY TAB HIJACK - POST-MORTEM (7/19, Paolo caught it: "the city
+## builder that we had from the previous build... what's wrong with you")
+WHAT HAPPENED: the CITY tab was NEVER an empty tab. The alpha carries the
+previous build's ENTIRE streaming Las Vegas city builder embedded as
+CITY_B64 (source bohemia_city_unified.html, 22MB decoded: isometric city,
+the Strip, day clock, REROLL, UNDER layer, DROP IN with the character,
+CITYSAVE suspend saves, prefab pool bridge, city music bridge). It boots
+DYNAMICALLY on first CITY tap: the loader creates an iframe named
+cityFrame only if none exists. The LIFE session saw `<div id="p-city">`
+EMPTY in the static DOM, concluded the tab was unbuilt, and planted a
+static iframe... NAMED cityFrame. The loader's guard found it and silently
+never booted the real city. Paolo tapped CITY and got a flat colored map
+instead of his city builder. REVERTED same turn: panel restored empty, the
+real city verified booting again in chromium (isometric render, HUD, 0
+new errors).
+THE LESSON (verify-on-the-real-surface, extended): AN EMPTY DIV IS NOT AN
+EMPTY TAB. Alpha panels boot dynamically on tap. Before claiming ANY alpha
+surface, open the tab on the REAL alpha and watch what it does - and grep
+the alpha for the panel id + B64 payloads first. MACHINE LOCK: city_tab_
+gate now asserts CITY_B64 present, the dynamic boot guard intact, NO
+static cityFrame ever again, and the aerial map page wired nowhere.
+STATUS AFTER REVERT: the aerial map page (slices/BOHEMIA_CITY_CURRENT.html,
+skeleton-as-itself + city-builder verbs) is a DORMANT STANDALONE, linked
+nowhere; engine/bohemia_cityedit.js (delta verbs, skeleton sacred) stays
+gated + dormant - the delta design still fits whatever save system the
+real city grows. THE REAL OPEN QUESTION [PENDING Paolo]: the embedded city
+builder is the OLD monolith - it REROLLS its own world and predates the
+7/18 canon streets (mile grid, 215/I-15, connectivity laws). Marrying the
+real city builder to the canon overmap streets is the actual "implement
+the streets" job, it is big, and WHO does it (this session, the overworld
+session, a dedicated one) is Paolo's call.
+
 ## SESSION SCOPE AMENDED: LIFE + CITY SURFACE (Paolo 7/19: "add an additional
 ## title to this chat, like life plus tiles")
 The LIFE session also owns the CITY TAB SURFACE now. Division per ONE SYSTEM

@@ -64,10 +64,21 @@ ok('the valley reads right: ' + sand + ' desert plots, ' + road + ' arterial cel
 // 3. determinism
 ok('no wall-clock or random in the page script', !/Math\.random|Date\.now/.test(page));
 
-// 4. the alpha points at it
+// 4. THE HIJACK LOCK (post-mortem 7/19: a static iframe named cityFrame was
+// planted in #p-city, which made the ORIGINAL city loader's guard
+// (!document.getElementById('cityFrame')) believe the real city was already
+// booted - so the previous build's streaming Las Vegas (CITY_B64) silently
+// never loaded and Paolo got a flat map instead of his city builder.
+// PERMANENT LOCK: the alpha must keep the dynamic CITY_B64 boot intact and
+// must NEVER contain a static cityFrame again. The aerial map page stays a
+// dormant standalone, wired nowhere.
 const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
-ok('the alpha CITY panel loads the page (no empty-tab regression)',
-  alpha.indexOf('id="cityFrame"') >= 0 && alpha.indexOf('BOHEMIA_CITY_CURRENT.html') >= 0);
+ok('the real city lives: CITY_B64 payload present in the alpha', alpha.indexOf('CITY_B64') >= 0);
+ok('the dynamic city boot is intact (loader guard untouched)',
+  alpha.indexOf("t.dataset.p==='city'&&!document.getElementById('cityFrame')") >= 0);
+ok('NO static cityFrame hijack (the guard must find the panel empty)',
+  !/<iframe[^>]*id="cityFrame"/.test(alpha));
+ok('the aerial map page is wired NOWHERE in the alpha', alpha.indexOf('BOHEMIA_CITY_CURRENT.html') < 0);
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
