@@ -1,4 +1,4 @@
-=== BOHEMIA HANDOFF 7/19/26 (THE STORY-SPINE MARATHON) ===
+=== BOHEMIA HANDOFF 7/20/26 (STORY-SPINE MARATHON + THE QUEST SPINE PLUMBING) ===
 FILENAME LAW: this file is always named 00_START_HERE_NEXT_SESSION.md, lives at
 repo root, sorts to the top of every file list, and is REWRITTEN at the end of
 every working session. There is only ever ONE. It is the first thing any session
@@ -77,16 +77,39 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   SOCKETS POURED so far: ctx.quests (LOOP QUESTS gate) and ctx.spawner (bootEntities
   now creates the deterministic enemy Spawner + shares ctx.deltas; LOOP ENTITIES gate;
   spawnActorsForDistrict/updateDistrictLOD use it).
+  THE LEDGER PIPE (7/20, LOOP LEDGER gate 15/15): quest choices AND COMPLETE/FAIL
+  outcomes played through ctx.quests now flow into the SAME choice-log the fold +
+  amalgamationModel read (E.Save.recordChoice), so a quest actually MOVES THE DYNASTY
+  instead of dying in the runtime. Pure MECHANISM: every event defaults recorded:true;
+  the manager's record-sink wraps the runtime's own choose/begin/setStage (runtime
+  untouched), fires the outcome exactly once, and a restored-already-done quest never
+  re-fires. WHICH choices are SECRET (recorded:false, invisible to the Amalgamation)
+  is Paolo's canon rule and is NOT decided here — the sink forwards evt.recorded (and
+  surfaces the .bq SILENCE/trap flags), so wiring that policy later is a ONE-LINE
+  change at the sink in bootQuests, never a change to the pipe. [PENDING Paolo: the
+  recorded:false classification.]
+  THE TALK-TRIGGER (7/20, LOOP TALK gate 14/14): the join between the walkable world
+  and the quest system. ctx.quests.place(questText,{x,y,layer,speaker}) binds a quest
+  to an NPC's tile (starts it, rides the save). Loop.talkablesNear(ctx,px,py,radius=1)
+  returns the talk nodes begin-able RIGHT NOW — NPC within chebyshev radius AND the
+  quest's own entry condition holding; a finished quest falls silent. Loop.talkTo(ctx,
+  questId,node) begins it and returns the speaker view; choosing feeds the ledger
+  automatically. This is the connective tissue the walkable slice needs; it authors no
+  dialogue and decides no geography (content passes the tile).
   STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
   (faction placement/standings into worldgen slots) and bootEconomy (what the three
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
   is ORPHANED (crashes, not in the suite, expects factions/economy poured) — a real
   future task, left untouched.
-- STILL MISSING (the WITH-PAOLO walkable build): the walkable harness booting into
-  human mode, a faked house exit, an NPC system (placement + proximity "TALK"),
-  WIRING the dialogue UI + save into the walking world, and a written playable .bq
-  (only ONE non-canon sample exists; the neighbor's first quest is pinned). Interiors
-  deferred. Everything left here needs the alpha/V11 slice + Paolo.
+- STILL MISSING (the WITH-PAOLO walkable build) — now SHORTER, the whole quest spine
+  is plumbed headless: what remains is the human-mode RENDER booting on a fixed
+  seed/spawn, a faked house exit, drawing an NPC sprite at a placed tile, and a
+  DIALOGUE OVERLAY drawing runtime.view()/talkTo() on the "TALK" prompt. The NPC
+  SYSTEM logic (placement + proximity TALK) is now BUILT (place/talkablesNear/talkTo,
+  LOOP TALK gate) — the slice only has to DRAW it and feed player position in. Save +
+  the recorded-ledger are wired (ctx.quests -> recordChoice). Left: a written playable
+  .bq (only ONE non-canon sample exists; the neighbor's first quest is pinned).
+  Interiors deferred. Everything left here needs the alpha/V11 slice + Paolo.
 
 ## CITY TAB / WALKABLE ENGINE — AUDITED TRUE STATE (7/19, read the code directly)
 Corrects the gap-analysis agent, which badly UNDERSOLD this (and missed
@@ -120,18 +143,21 @@ the 31MB studio; the combat demo/dial is both the proof this can be done and the
 model for how, a small touchable loop Paolo can judge by feel): 0) harness boots
 straight into human mode on a fixed seed/spawn. 1) FAKE the
 house (a 2s intro at spawn, no interior engine). 2) one static NPC sprite + adjacency
-"TALK" prompt. 3) DIALOGUE — 3a the .bq INTERPRETER is DONE (engine/bohemia_quest_runtime.js, the
+"TALK" prompt — the ADJACENCY LOGIC is now DONE (Loop.place/talkablesNear/talkTo, LOOP
+TALK gate); the slice only draws the sprite + prompt and passes player x,y in. 3) DIALOGUE — 3a the .bq INTERPRETER is DONE (engine/bohemia_quest_runtime.js, the
 QUEST RUNTIME gate). 3b a STANDALONE DIALOGUE DEMO is DONE too:
 slices/BOHEMIA_QUEST_DEMO_7_19_26.html plays a .bq through the runtime with tappable
 options, an objective bar, live gate-unlocking, and a win/lose banner; iPhone-portrait,
 references the canonical engine modules (no copies), browser-verified via Playwright
 (the password option is hidden until earned, then appears; reaches QUEST COMPLETE, zero
 console errors). This is the combat-demo-style proof of the dialogue UI. What REMAINS for
-the full slice is WIRING this UI into the walkable world (NPC placement + human mode +
-faked house), not building the dialogue system from scratch. 4) an objective HUD line. 5) write ONE playable .bq
+the full slice is DRAWING this UI in the walkable world (human mode + faked house);
+NPC placement is now BUILT (Loop.place/talkablesNear), not building the dialogue system
+from scratch. 4) an objective HUD line. 5) write ONE playable .bq
 (the neighbor's first errand once its design is unpinned). 6) SAVE/FOLD/recorded-ledger
-ALREADY EXIST in engine/bohemia_engine.js (ENGINE CORE gate); the walkable build feeds
-quest choices into its recordChoice (recorded flag) — do NOT write a new save.
+ALREADY EXIST in engine/bohemia_engine.js (ENGINE CORE gate) AND are now WIRED: playing
+a quest through ctx.quests feeds its choices/outcomes into recordChoice automatically
+(LOOP LEDGER gate) — do NOT write a new save, and do NOT re-plumb the ledger.
 7) prove the loop + add a slice_proof gate.
 RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
 base64 logistics — build on the V11 live slice, verify it has human mode first; ENGINE
