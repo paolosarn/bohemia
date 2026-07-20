@@ -98,6 +98,22 @@ if (b64m) {
     decoded.indexOf(canonModule) >= 0);
   ok('the canon street fixes ride inside the city (ISLAND PRUNE present)',
     decoded.indexOf('ISLAND PRUNE') >= 0);
+
+  // 6. THE LIGHTS LOCK (7/20, Paolo: "the lights at night... in the city"):
+  // the canon powergrid body rides inside the city verbatim, POWER rebuilds
+  // with every world rebuild, and the lamps draw AFTER the night wash (the
+  // occlusion law: light cuts the dark, tiles never cover a lamp).
+  const pgBody = fs.readFileSync('engine/bohemia_powergrid.js', 'utf8');
+  ok('LIT: the canon powergrid body rides inside the city verbatim',
+    decoded.indexOf(pgBody) >= 0);
+  ok('POWER rebuilds with every world rebuild (3 hooks)',
+    (decoded.match(/POWER=BOH_POWERGRID\.powerMap\(om,seed\)/g) || []).length >= 3);
+  ok('LIGHT=TERRITORY: live arterials queue lamps at night',
+    decoded.indexOf('LIGHT=TERRITORY') >= 0 && decoded.indexOf('__LAMPQ') >= 0);
+  ok('the lamp pass draws AFTER the night wash (light cuts the dark)',
+    decoded.indexOf("g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ)") >= 0);
+  ok('the probe surface exists (gates can interrogate the real city)',
+    decoded.indexOf('window.__CITY=') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
