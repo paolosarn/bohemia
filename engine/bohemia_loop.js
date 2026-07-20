@@ -229,6 +229,7 @@
   function makeQuestManager(opts) {
     opts = opts || {};
     const active = {};   // questId -> { text, rt }
+    const placed = {};   // questId -> { x, y, layer, speaker }  (world binding: see placeQuest)
     const sink = typeof opts.record === 'function' ? opts.record : null;
 
     // Wrap a runtime so its plays fan out to the ledger sink. Idempotent per rt.
@@ -275,9 +276,33 @@
     }
     function get(id)  { return active[id] ? active[id].rt : null; }
     function ids()    { return Object.keys(active); }
+
+    /* WORLD BINDING (the talk-trigger half): bind a quest to an NPC's tile so the
+       walkable world can offer it. Starts the quest if it isn't already live, then
+       records where its speaker stands. Pure placement — it authors nothing and
+       decides no geography (content/worldgen passes the tile). Rides the save so a
+       reload keeps the NPC bound. */
+    function place(text, at) {
+      at = at || {};
+      let id;
+      if (typeof text === 'string' && active[text]) { id = text; }   // already-live questId
+      else { const rt = start(text); if (!rt) return null; id = rt.Q.id; }
+      placed[id] = { x: at.x, y: at.y, layer: at.layer || 'npc', speaker: at.speaker || null };
+      return { questId: id, at: placed[id] };
+    }
+    function placements() {
+      return Object.keys(placed).map(function (id) {
+        return { questId: id, x: placed[id].x, y: placed[id].y,
+                 layer: placed[id].layer, speaker: placed[id].speaker };
+      });
+    }
+
     function serialize() {
       const out = {};
-      for (const id in active) out[id] = { text: active[id].text, state: active[id].rt.state };
+      for (const id in active) {
+        out[id] = { text: active[id].text, state: active[id].rt.state };
+        if (placed[id]) out[id].at = placed[id];   // keep the NPC binding across reload
+      }
       return out;
     }
     function restore(blob) {
@@ -285,9 +310,10 @@
       for (const id in blob) {
         const Q = BQ.parse(blob[id].text);
         active[id] = { text: blob[id].text, rt: _wire(id, BQRT.Runtime.load(Q, blob[id].state)) };
+        if (blob[id].at) placed[id] = blob[id].at;
       }
     }
-    return { start, get, ids, serialize, restore, _active: active };
+    return { start, get, ids, place, placements, serialize, restore, _active: active, _placed: placed };
   }
 
   /* the generation to stamp on a recorded quest choice: the live dynasty gen if
@@ -568,6 +594,46 @@
     return n;
   }
 
+  /* --------------------------------------------------------------------------
+     TALK-TRIGGER — the join between the walkable world and the quest system. A
+     quest is bound to an NPC's tile via ctx.quests.place(...). This asks: standing
+     at (px,py), which quest talk-nodes can I begin RIGHT NOW? A node qualifies when
+     its NPC is within `radius` (chebyshev — step-adjacent by default) AND the
+     runtime's own entry condition passes (available()). This is the connective
+     tissue that will let the walkable slice pop a "talk" prompt; it authors no
+     dialogue and decides no placement. Choosing through the returned node already
+     feeds the ledger (the pipe above). Headless + deterministic.
+     ------------------------------------------------------------------------ */
+  function talkablesNear(ctx, px, py, radius) {
+    radius = (radius == null) ? 1 : radius;
+    const out = [];
+    if (!ctx.quests || typeof ctx.quests.placements !== 'function') return out;
+    ctx.quests.placements().forEach(function (p) {
+      if (p.x == null || p.y == null) return;
+      const dist = Math.max(Math.abs(p.x - px), Math.abs(p.y - py));   // chebyshev adjacency
+      if (dist > radius) return;
+      const rt = ctx.quests.get(p.questId);
+      if (!rt || rt.state.done) return;              // finished quests offer nothing
+      rt.available().forEach(function (nodeId) {
+        out.push({ questId: p.questId, node: nodeId, speaker: p.speaker,
+                   x: p.x, y: p.y, dx: p.x - px, dy: p.y - py, dist: dist });
+      });
+    });
+    out.sort(function (a, b) { return a.dist - b.dist; });
+    return out;
+  }
+
+  /* Begin a talk node returned by talkablesNear — the one call the walkable slice
+     makes when the player taps "talk". Returns the runtime's view (speaker/says/
+     options) or null. The caller renders it; choosing on the runtime feeds the
+     ledger automatically. */
+  function talkTo(ctx, questId, nodeId) {
+    if (!ctx.quests) return null;
+    const rt = ctx.quests.get(questId);
+    if (!rt) return null;
+    return rt.begin(nodeId);
+  }
+
   /* The player commits a grid action. This is the ONE thing that advances the
      world's grid clock by a turn (I move, you move). Animation keeps running via
      tick() every frame regardless; this only moves grid position. Returns the
@@ -599,6 +665,7 @@
   return {
     makeContext, boot, tick, commit, captureSave,
     spawnActorsForDistrict, enemyRuleForDistrict, updateDistrictLOD,
+    talkablesNear, talkTo,
     // individual boot steps exported so each can be tested in isolation
     _steps: {
       bootFoundation, bootSave, bootHeartbeat, bootScheduler, bootWorldGen, bootFactions,

@@ -62,6 +62,8 @@ GATES = [
      'the spawner is pullable from the context, deterministic, dead-stays-dead', False),
     ('LOOP LEDGER',    ['node', 'engine/bohemia_loop_ledger_tests.js'],
      'quest choices/outcomes feed the choice-log (fold + amalgamation see them)', False),
+    ('LOOP TALK',      ['node', 'engine/bohemia_loop_talk_tests.js'],
+     'an NPC tile offers its quest when the player steps up; binding rides the save', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
