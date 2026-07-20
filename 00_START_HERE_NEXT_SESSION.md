@@ -787,6 +787,23 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    spear-drive; graveyard-safe names; combat pulls any clip that lands in
    the pipeline with zero surgery). STILL OWED: rig gun-pose pipeline
    expansion; the plumbing re-examination pass; rhythm picks pending.
+   BRASS IS FLOOR STATE (7/20, pass 21; Paolo's screenshot: "my shell
+   casings follow me around instead of staying on the floor where I shot
+   them"): root cause was the 7/3 AF v2 law written BEFORE movement
+   existed — player brass stored as {p:1,dx,dy} player-anchored offsets;
+   worldShift's mover skips entries with no ea/edist and the renderer
+   drew them at cx+dx, glued to the screen-centered body. v21: brass
+   lands with world coords at the tile you fired from (ea:0,edist:0 +
+   pixel jitter), renders through fieldPos, rides worldShift like blood
+   and corpses; the p-glue render branch is dead; the JUICE AF demo
+   scatter converted too. BONUS: worldShift's 0.6-tile minimum clamp
+   (exists so live enemies never stand inside you) no longer applies to
+   STATICS — corpses, pillars, blood, litter shift with true minimum
+   0.02, so walking over them never nudges them. Gate 127 checks ALL
+   GREEN (one stale v19 blood string updated to mv(s,0.02)). Chromium
+   verified: spawn brass, step E then S, brass reads 1 then 1.414 tiles
+   away; walk back, it is where it fell; real fxShot landings carry
+   world coords, no p flag. Shipped to main (b91d825, BUILD 7/20i).
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
