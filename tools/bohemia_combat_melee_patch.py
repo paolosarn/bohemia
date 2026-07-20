@@ -282,13 +282,383 @@ def patch3(demo):
     return demo
 
 
+def patch4(demo):
+    """v4 (Paolo 7/19: 'did you fix it so that I can move around now...
+    are you just having it to where players are running after me and I
+    can't even move'): MOVEMENT lands in the canon demo. Locked canon
+    since 6/27 — 'move 1 tile to a new position = 1 turn' — never built.
+    MOVE button arms the 3x3 ring; tap a cell = step that way. The whole
+    polar world (enemies, corpses) shifts around the player-centered
+    camera. Moving out of a blade's reach makes its telegraphed strike
+    WHIFF — movement IS the melee dodge."""
+    if 'MOVE V4' in demo:
+        print('v4 already applied, skipping')
+        return demo
+    demo = sub1(demo, "function shoveTarget(){", """\
+/* MOVE V4 — the world is polar around you; a step transforms every bearing */
+function worldShift(vx,vy){
+  const mv=o=>{ if(o.ea==null||o.edist==null)return;
+    const px=Math.cos(o.ea)*o.edist-vx, py=Math.sin(o.ea)*o.edist-vy;
+    o.edist=Math.max(0.6,Math.hypot(px,py)); o.ea=Math.atan2(py,px); };
+  for(const e of G.e)mv(e);
+  for(const c of (G.corpses||[]))mv(c);
+  if(Array.isArray(G.litter))for(const L of G.litter)mv(L);
+}
+function updMoveUI(){ const b=D('movebtn'); if(!b)return;
+  b.textContent=G.moveArm?'MOVE: TAP A CELL':'MOVE';
+  b.style.borderColor=G.moveArm?'#5fbf6a':''; b.style.color=G.moveArm?'#8fe89a':''; }
+function doMove(d){ if(G.phase!=='cover'||G.over||G.inc)return; audio();
+  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  worldShift(v[0]/n, v[1]/n);
+  G.moveArm=false; updMoveUI();
+  G.steady=0;   /* repositioning spends the held stance */
+  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }
+function shoveTarget(){""", 'move-fns')
+    demo = sub1(demo,
+        '<button id="shovebtn" class="cbtn" style="display:none;border-color:#5fbf6a;color:#8fe89a">SHOVE</button>',
+        '<button id="shovebtn" class="cbtn" style="display:none;border-color:#5fbf6a;color:#8fe89a">SHOVE</button>\n    <button id="movebtn" class="cbtn">MOVE</button>',
+        'move-btn')
+    demo = sub1(demo,
+        "if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio(); G.pCover[d]=!G.pCover[d]; updGap(); return; } }",
+        "if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio(); if(G.moveArm){ doMove(d); return; } /* MOVE V4: an armed ring cell is a step */ G.pCover[d]=!G.pCover[d]; updGap(); return; } }",
+        'move-ring-tap')
+    demo = sub1(demo, "if(sb)sb.addEventListener('click',doShove);", """\
+if(sb)sb.addEventListener('click',doShove);
+  const mvb=D('movebtn'); if(mvb)mvb.addEventListener('click',()=>{ audio();
+    G.moveArm=!G.moveArm; updMoveUI();
+    if(G.moveArm)setRead('MOVE ARMED','tap one of the 8 cells around you — 1 tile = 1 turn','#8fd0e8'); });""",
+        'move-wire')
+    return demo
+
+
+def patch5(demo):
+    """v5 (Paolo 7/19, two rulings in one breath):
+    1. 'We already have eight cardinal directions to click right next to
+       the action button' — the existing move ring (built 7/4 as plumbing
+       that only set G.moveIntent) now CALLS doMove directly. One tap =
+       one step. The MOVE-and-arm button dies.
+    2. 'Shuffled pillars that I can take cover from... a wall pillar' —
+       REAL GEOMETRY COVER lands: seeded shuffled pillars are world
+       objects; a pillar between you and a shooter IS cover (the locked
+       RF4 line-of-fire model, 'hand-set now, geometry later' — this is
+       the later). Pillars block movement, cover enemies too, and a shove
+       into one slams (65% topple)."""
+    if 'PILLAR V5' in demo:
+        print('v5 already applied, skipping')
+        return demo
+
+    # 1a. ring -> doMove
+    demo = sub1(demo,
+        "b.addEventListener('click',ev=>{ev.stopPropagation();G.moveIntent=names[i];",
+        "b.addEventListener('click',ev=>{ev.stopPropagation();G.moveIntent=names[i];doMove(i);   /* PILLAR V5: the ring IS movement (Paolo) */",
+        'ring-domove')
+    # 1b. the MOVE button dies
+    demo = sub1(demo, '\n    <button id="movebtn" class="cbtn">MOVE</button>', '', 'movebtn-gone')
+    demo = sub1(demo, """\
+  const mvb=D('movebtn'); if(mvb)mvb.addEventListener('click',()=>{ audio();
+    G.moveArm=!G.moveArm; updMoveUI();
+    if(G.moveArm)setRead('MOVE ARMED','tap one of the 8 cells around you — 1 tile = 1 turn','#8fd0e8'); });""",
+        '', 'movebtn-wire-gone')
+
+    # 2a. geometry helpers + pillar-aware my-cover
+    demo = sub1(demo, "function myCoverAgainst(ang){ return !!G.pCover[dirIndex(ang)]; }", """\
+function myCoverAgainst(ang,dist){ if(G.pCover[dirIndex(ang)])return true;
+  /* PILLAR V5: a pillar on the line to the shooter IS cover (RF4 law, geometry-driven) */
+  const md=(dist==null?MAX_RANGE:dist);
+  return (G.pillars||[]).some(P=>{ if(P.edist>md||P.edist<0.8)return false;
+    let dA=Math.abs(((ang-P.ea+Math.PI*3)%(Math.PI*2))-Math.PI);
+    return dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9; }); }
+function pXY(o){ return [Math.cos(o.ea)*o.edist, Math.sin(o.ea)*o.edist]; }
+function segNear(ax,ay,bx,by,px,py,r){ const dx=bx-ax,dy=by-ay,L2=dx*dx+dy*dy||1e-6;
+  let t=((px-ax)*dx+(py-ay)*dy)/L2; t=Math.max(0.08,Math.min(0.92,t));
+  return Math.hypot(ax+dx*t-px,ay+dy*t-py)<r; }
+function pillarBetweenMe(e){ const exy=pXY(e);
+  return (G.pillars||[]).some(P=>{ const pxy=pXY(P); return segNear(0,0,exy[0],exy[1],pxy[0],pxy[1],P.r*0.85); }); }
+function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=pillarBetweenMe(e)?1:0; } }""",
+        'geom-cover')
+
+    # 2b. effective cover = hand toggle OR geometry, everywhere it reads
+    demo = sub1(demo, "if(e.stun>0)return true; if(!e.inCover)return true;",
+        "if(e.stun>0)return true; if(!(e.inCover||e.gcov))return true;", 'peeking-gcov')
+    demo = sub1(demo, "if(!e.inCover){const f=efrac(e); return (f>=0.30&&f<=0.30+fw)||(f>=0.70&&f<=0.70+fw);}",
+        "if(!(e.inCover||e.gcov)){const f=efrac(e); return (f>=0.30&&f<=0.30+fw)||(f>=0.70&&f<=0.70+fw);}", 'firing-gcov')
+    demo = sub1(demo, "return e.inCover?peeking(e):true; }",
+        "return (e.inCover||e.gcov)?peeking(e):true; }", 'hasline-gcov')
+    demo = sub1(demo, "if(e.inCover){ const fa=Math.atan2(cy-ey,cx-ex);",
+        "if(e.inCover||e.gcov){ const fa=Math.atan2(cy-ey,cx-ex);", 'arc-gcov')
+    # main pools pass the shooter's distance so a pillar BEHIND him never counts
+    demo = sub1(demo,
+        "function exposedToMe(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst(e.ea)); }",
+        "function exposedToMe(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst(e.ea,e.edist)); }",
+        'exposed-dist')
+    demo = sub1(demo, "const cov=myCoverAgainst(e.ea); const acc=distAccuracy(e)*",
+        "const cov=myCoverAgainst(e.ea,e.edist); const acc=distAccuracy(e)*", 'pool-dist')
+
+    # 2c. spawn shuffled pillars each encounter
+    demo = sub1(demo, "G.e=[]; const N=G.numEnemies; G.mTurn=0;", """\
+G.e=[]; const N=G.numEnemies; G.mTurn=0;
+  /* PILLAR V5 (Paolo): shuffled hard cover, world-anchored, reshuffled per encounter */
+  G.pillars=[]; { const NP=5+Math.floor(Math.random()*3); let pg=0;
+    while(G.pillars.length<NP&&pg++<120){
+      const a=Math.random()*Math.PI*2, d=3+Math.random()*18, r=0.9+Math.random()*0.8;
+      const nx2=Math.cos(a)*d, ny2=Math.sin(a)*d;
+      if(G.pillars.some(P=>{ const q=pXY(P); return Math.hypot(q[0]-nx2,q[1]-ny2)<3.2; }))continue;
+      G.pillars.push({ea:a,edist:d,r:r}); } }""",
+        'pillar-spawn')
+
+    # 2d. pillars ride worldShift; cover refreshes when anything moves
+    demo = sub1(demo, "for(const c of (G.corpses||[]))mv(c);",
+        "for(const c of (G.corpses||[]))mv(c);\n  for(const P of (G.pillars||[]))mv(P);", 'pillar-shift')
+    demo = sub1(demo, "function tickTurnEnd(){ meleeTurnRun();",
+        "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();", 'tick-gcov')
+    demo = sub1(demo, """\
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  worldShift(v[0]/n, v[1]/n);""", """\
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  const sx=v[0]/n, sy=v[1]/n;
+  if((G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.45; })){
+    setRead('BLOCKED','a pillar is there','#8a7d66'); return; }   // OCCUPANCY: solid is solid
+  worldShift(sx,sy); updateGeomCover();""",
+        'move-collide')
+
+    # 2e. shove into a pillar = the wall slam
+    demo = sub1(demo, """\
+  t.edist=Math.min(MAX_RANGE,t.edist+r.pushed);
+  if(r.topple)t.prone=2;""", """\
+  { let nd=Math.min(MAX_RANGE,t.edist+r.pushed), slam=false;
+    for(const P of (G.pillars||[])){ const q=pXY(P);
+      let dA=Math.abs(((t.ea-P.ea+Math.PI*3)%(Math.PI*2))-Math.PI);
+      if(dA<0.5 && P.edist>t.edist-0.2 && P.edist<nd+P.r){ nd=Math.max(t.edist,P.edist-P.r-0.3); slam=true; } }
+    t.edist=nd;
+    if(slam&&!r.braced&&Math.random()<0.65){ t.prone=2; r.topple=true; }   /* PILLAR SLAM: walls make men fall */
+    if(slam)setRead('INTO THE PILLAR',t.n+' ate the stone','#8fe89a'); }
+  if(r.topple)t.prone=2;""",
+        'shove-slam')
+
+    # 2f. render pillars (tan family, sky-lit top per the 45 law, zero purple)
+    demo = sub1(demo, "  // my 3x3 self-cover ring", """\
+  for(const P of (G.pillars||[])){ const pp=fieldPos(P,W,H,cx,cy), pxs=pp[0], pys=pp[1];
+    const s=ring*(0.5+P.r*0.35);
+    x.fillStyle='rgba(0,0,0,0.25)'; x.beginPath(); x.ellipse(pxs,pys+s*0.5,s*0.8,s*0.26,0,0,7); x.fill();
+    x.fillStyle='#6e604a'; x.fillRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6);
+    x.fillStyle='#94836a'; x.beginPath(); x.ellipse(pxs,pys-s*1.15,s*0.55,s*0.2,0,0,7); x.fill();
+    x.strokeStyle='#241f18'; x.lineWidth=1; x.strokeRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6); }
+  // my 3x3 self-cover ring""",
+        'pillar-render')
+
+    # 2g. fresh geometry at encounter birth
+    demo = sub1(demo, "function setupCombat(){ setupEnemies(); buildBoard();",
+        "function setupCombat(){ setupEnemies(); updateGeomCover(); buildBoard();", 'setup-gcov')
+    return demo
+
+
+def patch6(demo):
+    """v6 (Paolo 7/19): (1) 'I need to see each tile... add the street' —
+    the combat floor becomes a readable TILE BOARD in street anatomy
+    (asphalt tiles + double-yellow median + white lane dashes, LINE COLOR
+    law), WORLD-ANCHORED so it slides exactly one tile per step — the
+    board is the movement ruler. (2) 'when you shove people they get
+    pushed back one tile' — shove push = 1 tile (was 3); LONG ARM perk
+    pushes 2. (3) full-tile diagonal steps (Chebyshev) so the board is
+    honest."""
+    if 'STREET FLOOR V6' in demo:
+        print('v6 already applied, skipping')
+        return demo
+
+    # 1. shove push = 1 tile, LONG ARM perk = 2 (melee core)
+    demo = sub1(demo, """\
+  shove:function(e,perk,roll){
+    var out={stun:0,pushed:3,topple:false,braced:false};
+    if(e.stun>0||e.stunCooldown>0)out.braced=true;
+    else out.stun=perk?2:1;
+    out.topple=roll<(perk?50:30);
+    return out;
+  },""", """\
+  shove:function(e,perk,roll){
+    var P=(perk&&typeof perk==='object')?perk:{shoulder:!!perk};
+    var out={stun:0,pushed:(P.longarm?2:1),topple:false,braced:false};   /* Paolo 7/19: pushed back ONE tile; LONG ARM perk: two */
+    if(e.stun>0||e.stunCooldown>0)out.braced=true;
+    else out.stun=P.shoulder?2:1;
+    out.topple=roll<(P.shoulder?50:30);
+    return out;
+  },""", 'shove-push1')
+    demo = sub1(demo,
+        "const r=BohemiaMelee.shove(t,!!G.perkShoulder,Math.floor(Math.random()*100));",
+        "const r=BohemiaMelee.shove(t,{shoulder:!!G.perkShoulder,longarm:!!G.perkLongarm},Math.floor(Math.random()*100));",
+        'shove-call')
+    demo = sub1(demo, '<button id="perkforesight">FORESIGHT: OFF</button>',
+        '<button id="perklongarm">LONG ARM: OFF</button>\n      <button id="perkforesight">FORESIGHT: OFF</button>',
+        'longarm-btn')
+    demo = sub1(demo, "const mm=D('meleemix'),ps=D('perkshoulder'),pf=D('perkforesight'),sb=D('shovebtn');",
+        "const mm=D('meleemix'),ps=D('perkshoulder'),pf=D('perkforesight'),sb=D('shovebtn'),pl=D('perklongarm');",
+        'longarm-const')
+    demo = sub1(demo, "if(pf)pf.addEventListener('click',()=>{ G.perkForesight=!G.perkForesight;",
+        """if(pl)pl.addEventListener('click',()=>{ G.perkLongarm=!G.perkLongarm;
+    pl.textContent='LONG ARM: '+(G.perkLongarm?'ON':'OFF'); });
+  if(pf)pf.addEventListener('click',()=>{ G.perkForesight=!G.perkForesight;""",
+        'longarm-wire')
+
+    # 2. full-tile steps, diagonals included
+    demo = sub1(demo, """\
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  const sx=v[0]/n, sy=v[1]/n;""", """\
+  const v=DIRS[d];
+  const sx=v[0], sy=v[1];   /* full tile steps, diagonals included (Chebyshev) — the board reads in tiles */""",
+        'chebyshev')
+
+    # 3. the world remembers how far you have walked (the floor's anchor)
+    demo = sub1(demo, "function worldShift(vx,vy){",
+        "function worldShift(vx,vy){\n  G.worldOff=G.worldOff||{x:0,y:0}; G.worldOff.x+=vx; G.worldOff.y+=vy;",
+        'world-off')
+
+    # 4. the street tile floor, world-anchored, drawn under everything in the field
+    demo = sub1(demo, """\
+  const rMin=ring*1.8, rMax=Math.min(W,H)*0.85;   /* the field is BIGGER than the screen now; pan + zoom navigate it */""", """\
+  const rMin=ring*1.8, rMax=Math.min(W,H)*0.85;   /* the field is BIGGER than the screen now; pan + zoom navigate it */
+  /* STREET FLOOR V6 (Paolo: "I need to see each tile... add the street"):
+     a readable tile board in street anatomy. World-anchored: it slides
+     exactly one tile per step, so the board IS the movement ruler.
+     LINE COLOR law: yellow = direction split (double median), white = lane. */
+  { G.worldOff=G.worldOff||{x:0,y:0}; const t=ring;
+    const offx=G.worldOff.x, offy=G.worldOff.y;
+    const gx0=Math.floor(offx-(cx/t))-1, gx1=Math.floor(offx+((W-cx)/t))+1;
+    const gy0=Math.floor(offy-(cy/t))-1, gy1=Math.floor(offy+((H-cy)/t))+1;
+    for(let wy=gy0; wy<=gy1; wy++){ for(let wx=gx0; wx<=gx1; wx++){
+      const sx2=cx+(wx-offx)*t, sy2=cy+(wy-offy)*t;
+      const h=(Math.imul(wx|0,73856093)^Math.imul(wy|0,19349663))>>>0;
+      const j=(h%7)-3;                                    /* gentle tone jitter, never confetti */
+      const g=50+j*3;
+      x.fillStyle='rgb('+(g+16)+','+(g+9)+','+(g+1)+')';   /* asphalt brown-grey */
+      x.fillRect(sx2,sy2,t+1,t+1); } }
+    x.strokeStyle='rgba(18,14,10,0.6)'; x.lineWidth=1;      /* the grid he can read */
+    for(let wx=gx0; wx<=gx1; wx++){ const sx2=Math.round(cx+(wx-offx)*t)+0.5;
+      x.beginPath(); x.moveTo(sx2,0); x.lineTo(sx2,H); x.stroke(); }
+    for(let wy=gy0; wy<=gy1; wy++){ const sy2=Math.round(cy+(wy-offy)*t)+0.5;
+      x.beginPath(); x.moveTo(0,sy2); x.lineTo(W,sy2); x.stroke(); }
+    /* the street story: double-yellow median at world x=2.5, white lane dashes 4 tiles out */
+    const medX=cx+(2.5-offx)*t;
+    if(medX>-t&&medX<W+t){ x.fillStyle='rgba(184,160,40,0.55)';
+      x.fillRect(medX-3,0,2.4,H); x.fillRect(medX+1,0,2.4,H); }
+    x.fillStyle='rgba(215,205,185,0.38)';
+    for(const lane of [-1.5,6.5]){ const lx=cx+(lane-offx)*t;
+      if(lx<-t||lx>W+t)continue;
+      const dashLen=t*1.2, gap=t*0.9;
+      let sy3=-((offy*t)%(dashLen+gap));
+      for(let yy=sy3; yy<H; yy+=dashLen+gap)x.fillRect(lx-1.4,yy,2.8,dashLen); }
+  }""",
+        'street-floor')
+    return demo
+
+
+def patch7(demo):
+    """v7 (Paolo 7/19, two rulings):
+    1. 'the cover tiles... magical cover in front of me... it has to be
+       the same tiles that you have on the grid' — the magic 3x3 arcs are
+       DEAD. Tapping a cell now places/removes a REAL cover block ON that
+       grid tile, identical rules to shuffled pillars (blocks lines,
+       blocks steps, slammable). Cover is geometry only. And the whole
+       field goes GRID TRUE: fieldPos maps 1 tile of distance to 1 board
+       cell, so enemies, pillars, corpses and the floor share ONE ruler
+       (spawn band compressed to the visible board; far snipers return
+       with the world model).
+    2. 'enemies need to have a red line on you for two turns before they
+       can shoot' — TWO-TURN RED LINE law: a gun's first turn on you is
+       ACQUIRING (bright warning line, cannot fire); it fires only if the
+       bead survives to the next turn. Break the line (move, cover, stun,
+       kill) and the clock resets."""
+    if 'GRID TRUE V7' in demo:
+        print('v7 already applied, skipping')
+        return demo
+
+    # 1a. one ruler: tile-true positions
+    demo = sub1(demo, """\
+  const rr=rMin+Math.max(0,Math.min(1,(e.edist-PT_BLANK)/(MAX_RANGE-PT_BLANK)))*(rMax-rMin);
+  return [cx+Math.cos(e.ea)*rr, cy+Math.sin(e.ea)*rr]; }""", """\
+  const rr=e.edist*ring;   /* GRID TRUE V7: one tile of distance = one board cell, everything on the same ruler */
+  return [cx+Math.cos(e.ea)*rr, cy+Math.sin(e.ea)*rr]; }""", 'tile-true')
+    demo = sub1(demo,
+        "                             : (PT_BLANK+8)+Math.random()*(MAX_RANGE-PT_BLANK-8); // mid..far: never point blank, clear gap from the close one",
+        "                             : (PT_BLANK+2.5)+Math.random()*8; // GRID TRUE V7: the fight lives on the visible board (~6.5-14.5 tiles); long-range returns with the world model",
+        'spawn-band')
+
+    # 1b. pillars sit ON tiles
+    demo = sub1(demo, """\
+      const a=Math.random()*Math.PI*2, d=3+Math.random()*18, r=0.9+Math.random()*0.8;
+      const nx2=Math.cos(a)*d, ny2=Math.sin(a)*d;
+      if(G.pillars.some(P=>{ const q=pXY(P); return Math.hypot(q[0]-nx2,q[1]-ny2)<3.2; }))continue;
+      G.pillars.push({ea:a,edist:d,r:r}); } }""", """\
+      const a0=Math.random()*Math.PI*2, d0=2.2+Math.random()*7;
+      const nx2=Math.round(Math.cos(a0)*d0-0.5)+0.5, ny2=Math.round(Math.sin(a0)*d0-0.5)+0.5;   /* cover sits ON a tile */
+      if(Math.hypot(nx2,ny2)<1.5)continue;
+      if(G.pillars.some(P=>{ const q=pXY(P); return Math.abs(q[0]-nx2)<0.9&&Math.abs(q[1]-ny2)<0.9; }))continue;
+      G.pillars.push({ea:Math.atan2(ny2,nx2),edist:Math.hypot(nx2,ny2),r:0.55}); } }""",
+        'pillar-snap')
+    demo = sub1(demo, "const s=ring*(0.5+P.r*0.35);", "const s=ring*0.62;   /* a block fills its tile */", 'pillar-size')
+
+    # 1c. the magic arcs die; a tapped cell places a REAL block on that tile
+    demo = sub1(demo, "function myCoverAgainst(ang,dist){ if(G.pCover[dirIndex(ang)])return true;",
+        "function myCoverAgainst(ang,dist){   /* V7: the magic arcs are dead — cover is GEOMETRY on tiles only */",
+        'arcs-dead')
+    demo = sub1(demo,
+        "if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio(); if(G.moveArm){ doMove(d); return; } /* MOVE V4: an armed ring cell is a step */ G.pCover[d]=!G.pCover[d]; updGap(); return; } }",
+        """if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio();
+      /* V7 (Paolo): tapping a cell places/removes a REAL cover block ON that tile */
+      const tx3=DIRS[d][0], ty3=DIRS[d][1];
+      G.pillars=G.pillars||[];
+      const at=G.pillars.findIndex(P=>{ const q=pXY(P); return Math.abs(q[0]-tx3)<0.45&&Math.abs(q[1]-ty3)<0.45; });
+      if(at>=0)G.pillars.splice(at,1);
+      else G.pillars.push({ea:Math.atan2(ty3,tx3),edist:Math.hypot(tx3,ty3),r:0.55,placed:true});
+      updateGeomCover(); updGap(); return; } }""",
+        'cell-places-block')
+    demo = sub1(demo, "const cxx=cx+DIRS[d][0]*ring, cyy=cy+DIRS[d][1]*ring, up=G.pCover[d];",
+        "const cxx=cx+DIRS[d][0]*ring, cyy=cy+DIRS[d][1]*ring, up=false;   /* V7: no magic arcs; placed blocks draw as real cover */",
+        'ring-render')
+
+    # 2. TWO-TURN RED LINE
+    demo = sub1(demo, ",prone:0,windup:false,adv:", ",prone:0,windup:false,acq:0,adv:", 'acq-field')
+    demo = sub1(demo,
+        "const pool=exposedToMe(); let hits=0,dmg=0,hitIdx=[];       // tucked: only enemies you can't cover from reach you",
+        "const pool=exposedToMe().filter(e=>(e.acq||0)>=1); let hits=0,dmg=0,hitIdx=[];   // TWO-TURN RED LINE (Paolo 7/19); tucked: only enemies you can't cover from reach you",
+        'wait-acq')
+    demo = sub1(demo,
+        "pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)); }",
+        "pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1); }",
+        'engaged-acq')
+    demo = sub1(demo, "  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe(); }",
+        "  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe().filter(e=>(e.acq||0)>=1); }",
+        'tucked-acq')
+    demo = sub1(demo, "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();", """\
+function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();
+  /* TWO-TURN RED LINE (Paolo 7/19): a gun must hold its bead for two turns
+     before it may fire — the first turn is ACQUIRING, your one-turn warning.
+     Break the line (move, cover, stun, kill) and his clock resets. */
+  for(const e of G.e){ if(e.dead||e.melee){ e.acq=0; continue; }
+    const bead=e.stun<=0&&!(e.prone>0)&&(peeking(e)||firing(e));
+    e.acq=bead?Math.min(9,(e.acq||0)+1):0; }""",
+        'acq-tick')
+    demo = sub1(demo,
+        "for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e); const red=out&&!myCoverAgainst(e.ea);",
+        """for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e);
+    const hot=out&&!myCoverAgainst(e.ea,e.edist);
+    const red=hot&&(e.melee||(e.acq||0)>=1);
+    const acqing=hot&&!red;   /* first-turn bead: the warning line */""",
+        'line-acq')
+    demo = sub1(demo,
+        "let col,w; if(red){col='rgba(232,60,40,0.15)';w=2;} else if(out){col='rgba(222,150,60,0.09)';w=1.4;}",
+        "let col,w; if(red){col='rgba(232,60,40,0.15)';w=2;} else if(acqing){col='rgba(232,140,40,0.32)';w=2;} else if(out){col='rgba(222,150,60,0.09)';w=1.4;}",
+        'line-colors')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch3(patch2(patch(demo)))
+    patched = patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

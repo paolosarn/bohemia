@@ -62,48 +62,68 @@
   function household(seed){ var r=rng(seed)(),c=[0.30,0.65,0.85,1.0];
     for(var i=0;i<4;i++) if(r<c[i]) return i+1; return 4; }
 
+  // ---- VACANCY (Paolo 7/19: "I hope you're not making every house have
+  // inhabitants... the suburb should absolutely reflect" the die-off) --------
+  // Most homes are abandoned shells. OCCUPIED_RATE is the die-off dial:
+  // 0.30 = ~70% of the pre-collapse population gone (dead or left the city).
+  // THE VALUE IS A PLACEHOLDER - how dead Vegas is (90%? 50%?) is Paolo's
+  // canon ruling, [PENDING Paolo]. The MECHANISM (deterministic per-house
+  // vacancy, dial-driven) is locked here and gated.
+  var OCCUPIED_RATE=0.30;
+  function houseOccupied(blockSeed,i,rate){
+    var r=(rate!=null)?rate:OCCUPIED_RATE;
+    return (hash(blockSeed,i+1,777)%1000)/1000 < r;
+  }
+  function inhabitedHomes(agents){ var s={},out=[];
+    agents.forEach(function(a){ s[a.home.building]=1; });
+    Object.keys(s).forEach(function(k){ out.push(+k); });
+    return out.sort(function(a,b){return a-b;});
+  }
+
   // ---- SCHEDULE ------------------------------------------------------------
   // A day plan: ordered blocks covering all 1440 minutes, no gaps, no overlap.
-  // acts: sleep / home (morning ration, evening) / commute / work / scav / free
   // where: 'home' | 'work' | 'street'
-  // Every boundary is jittered per agent (humans vary; only the NETWORK is
-  // eerily perfect, and the NETWORK is factions — Paolo's, not ours yet).
-  function scheduleFor(seed, employed){
-    var r=rng(seed^0xBEEF);
+  //
+  // PAOLO'S CORRECTION (7/19, root-caused): v1 gave everyone one wake time
+  // with a small jitter, so the whole block surged the gate together like a
+  // drill. Real people run on DIFFERENT clocks and live DIFFERENT lives. So:
+  //   - four life ARCHETYPES (worker / scav / keeper / watch), not one mold
+  //   - worker shift starts spread across 05:30-09:00 (real crews stagger)
+  //   - wake times spread over hours, every boundary jittered per agent
+  // Only the NETWORK is ever eerily synchronized, and the NETWORK is a
+  // faction - Paolo's table, still empty.
+  var KINDS=['worker','scav','keeper','watch'];
+  function scheduleFor(seed, kind, shift){
+    var r=rng((seed^0xBEEF)>>>0);
     var j=function(base,spread){ return Math.round(base+(r()-0.5)*2*spread); };
-    var wake=j(6*60,40);            // ~06:00 +-40min (desert: work early)
-    var out =wake+j(45,15);         // ration + gear up at home
-    var workEnd, sleep=j(22*60+30,40);
-    var blocks=[];
-    if(employed){
-      workEnd=j(15*60,30);          // ~15:00, before peak heat is done killing
-      blocks=[
-        {t0:0,        t1:wake,    act:'sleep',   where:'home'},
-        {t0:wake,     t1:out,     act:'home',    where:'home'},
-        {t0:out,      t1:workEnd, act:'work',    where:'work'},   // commute is part of the work block: walking there IS on the clock
-        {t0:workEnd,  t1:j(18*60,40), act:'free',where:'street'},
-        {t0:0,        t1:sleep,   act:'home',    where:'home'},   // t0 patched below
-        {t0:sleep,    t1:DAY_TURNS, act:'sleep', where:'home'}
-      ];
-      blocks[4].t0=blocks[3].t1;
-    } else {
-      // subsistence: scavenge the block in two daylight passes, shelter at peak heat
-      var midIn=j(12*60,30), midOut=j(14*60+30,30);
-      blocks=[
-        {t0:0,     t1:wake,   act:'sleep', where:'home'},
-        {t0:wake,  t1:out,    act:'home',  where:'home'},
-        {t0:out,   t1:midIn,  act:'scav',  where:'street'},
-        {t0:midIn, t1:midOut, act:'home',  where:'home'},   // Mojave midday shelter
-        {t0:midOut,t1:j(18*60,40), act:'scav', where:'street'},
-        {t0:0,     t1:sleep,  act:'home',  where:'home'},
-        {t0:sleep, t1:DAY_TURNS, act:'sleep', where:'home'}
-      ];
-      blocks[5].t0=blocks[4].t1;
+    var blocks=[], cur=0;
+    function until(t,act,where){ t=Math.max(cur,Math.min(DAY_TURNS,Math.round(t)));
+      if(t>cur){ blocks.push({t0:cur,t1:t,act:act,where:where}); cur=t; } }
+    if(kind==='worker'){                    // off-block site job, staggered shift
+      until(Math.max(240,shift-j(50,25)),'sleep','home');
+      until(shift,'home','home');           // ration + gear up
+      until(shift+j(480,45),'work','work'); // walking there is on the clock
+      until(cur+j(150,60),'free','street');
+      until(j(22*60,75),'home','home');
+    } else if(kind==='scav'){               // subsistence sweep, own clock
+      until(j(6*60+45,105),'sleep','home');
+      until(cur+j(40,20),'home','home');
+      until(j(11*60+45,60),'scav','street');
+      until(j(14*60+30,45),'home','home');  // Mojave midday shelter
+      until(j(17*60+45,60),'scav','street');
+      until(j(21*60+45,75),'home','home');
+    } else if(kind==='keeper'){             // barely leaves: tends the house/stock
+      until(j(7*60+30,90),'sleep','home');
+      until(j(9*60+30,90),'home','home');
+      until(cur+j(75,30),'errand','street');// the one daily errand
+      until(j(21*60+30,60),'home','home');
+    } else {                                // 'watch': sleeps late, out at dusk
+      until(j(9*60+30,45),'sleep','home');
+      until(j(17*60,45),'home','home');
+      until(Math.min(23*60+30,j(23*60,25)),'watch','street');
+      // hard cap 23:30 so the walk home lands well before deep night
     }
-    // sanity: monotone, whole-minute (quantized) blocks
-    for(var i2=0;i2<blocks.length;i2++){ var b=blocks[i2];
-      b.t0=Math.max(0,Math.min(DAY_TURNS,Math.round(b.t0)));
-      b.t1=Math.max(b.t0,Math.min(DAY_TURNS,Math.round(b.t1))); }
+    until(DAY_TURNS,'sleep','home');
     return blocks;
   }
   function whereAt(agent, turn){ var t=tod(turn);
@@ -136,18 +156,22 @@
   function makeAgent(blockSeed, houseI, n, jobSite, fpOf){
     var seed=hash(blockSeed,houseI+1,n+1);
     var employed=!!jobSite && (hash(seed,7,7)%100)<60;  // EMPLOY_RATE 60% where a site is in range
+    var kind, shift=null;
+    if(employed){ kind='worker'; shift=330+hash(seed,5,5)%210; }  // shift starts 05:30-09:00
+    else { var h2=hash(seed,9,9)%100; kind = h2<55?'scav' : h2<85?'keeper' : 'watch'; }
     var bedRooms=[];
     if(fpOf){ var fp=fpOf(houseI);
       if(fp) fp.rooms.forEach(function(rm,ri){ if(rm.role==='bed') bedRooms.push(ri); }); }
     return {
       id:'H'+(houseI+1)+'-'+(n+1),
       seed:seed,
+      role:kind,
       home:{building:houseI, bedRoom: bedRooms.length? bedRooms[n%bedRooms.length] : 0},
       job: employed? {kind:'site', district:jobSite.district, dir:jobSite.dir, dist:jobSite.dist}
                    : {kind:'scav', district:null, dir:null, dist:null},
       faction:null,
       outfit:null,
-      sched:scheduleFor(seed, employed)
+      sched:scheduleFor(seed, kind, shift)
     };
   }
 
@@ -156,10 +180,13 @@
   // plot); jobs = nearby job sites [{district,dir,dist}] (agentsForPlot scans
   // the real overmap for them). fpOf(i) -> floorplan of house i (injected so
   // block-level callers and world-level callers share one body).
-  function agentsForBlock(blockSeed, feet, jobs, fpOf){
+  function agentsForBlock(blockSeed, feet, jobs, fpOf, opts){
+    opts=opts||{};
+    var rate=(opts.occupiedRate!=null)?opts.occupiedRate:OCCUPIED_RATE;
     var out=[];
     var jobSite=(jobs&&jobs.length)? jobs[0] : null;   // nearest site
     for(var i=0;i<feet.length;i++){
+      if(!houseOccupied(blockSeed,i,rate)) continue;   // abandoned shell: nobody home
       var hh=household(hash(blockSeed,i+1,0));
       for(var n=0;n<hh;n++){
         // alternate: within a household, later members may use a farther site
@@ -339,7 +366,8 @@
   }
 
   var API={DAY_TURNS:DAY_TURNS,tod:tod,fmt:fmt,dayFrac:dayFrac,
-    household:household,scheduleFor:scheduleFor,whereAt:whereAt,
+    household:household,scheduleFor:scheduleFor,whereAt:whereAt,KINDS:KINDS,
+    OCCUPIED_RATE:OCCUPIED_RATE,houseOccupied:houseOccupied,inhabitedHomes:inhabitedHomes,
     makeAgent:makeAgent,agentsForBlock:agentsForBlock,agentsForPlot:agentsForPlot,
     jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;

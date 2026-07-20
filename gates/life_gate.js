@@ -88,7 +88,30 @@ feet.forEach((f, i) => {
   }
   if (pick) doorOf[pick[0] + ',' + pick[1]] = i;
 });
-const agents = A.agentsForBlock(SEED, feet, [{ district: 'commercial', dir: 'E', dist: 1 }], fpOf);
+const JOBS = [{ district: 'commercial', dir: 'E', dist: 1 }];
+const agents = A.agentsForBlock(SEED, feet, JOBS, fpOf);
+
+// ---- VACANCY (Paolo 7/19: the suburb must reflect the die-off) -------------
+const lived = A.inhabitedHomes(agents);
+ok('most homes are abandoned shells (' + lived.length + ' of ' + feet.length + ' lived-in)',
+  lived.length > 0 && lived.length < feet.length * 0.55);
+const packed = A.agentsForBlock(SEED, feet, JOBS, fpOf, { occupiedRate: 1 });
+ok('the die-off dial works (rate 1 fills every home, rate 0 empties the block)',
+  A.inhabitedHomes(packed).length === feet.length &&
+  A.agentsForBlock(SEED, feet, JOBS, fpOf, { occupiedRate: 0 }).length === 0);
+ok('OCCUPIED_RATE is a flagged placeholder dial, not silently hardcoded',
+  typeof A.OCCUPIED_RATE === 'number' && A.OCCUPIED_RATE > 0 && A.OCCUPIED_RATE < 1);
+
+// ---- STAGGER (Paolo 7/19: different wake times, different lives) -----------
+// measured on a packed population so small-sample luck can't flake the gate
+const wakes = packed.map(a => a.sched[0].t1);
+ok('wake times spread over hours (' + A.fmt(Math.min(...wakes)) + '..' + A.fmt(Math.max(...wakes)) + ')',
+  Math.max(...wakes) - Math.min(...wakes) >= 150);
+const roles = new Set(packed.map(a => a.role));
+ok('life archetypes coexist (' + [...roles].sort().join('/') + ')', roles.size >= 3);
+const shifts = packed.filter(a => a.role === 'worker').map(a => a.sched.find(b => b.act === 'work').t0);
+ok('worker shifts stagger across the morning', shifts.length > 3 && Math.max(...shifts) - Math.min(...shifts) >= 90);
+
 const sim = A.makeSim(res, feet, agents, { fpOf, doorOf, startTurn: 0 });
 
 let occupancyHolds = true, oneStep = true;

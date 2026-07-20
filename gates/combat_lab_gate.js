@@ -311,6 +311,51 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('id="shovebtn"') && demo.includes('IRON SHOULDER') && demo.includes('FORESIGHT'));
   ok('demo melee turn runs at the one turn-end choke (tickTurnEnd)',
     demo.includes('function tickTurnEnd(){ meleeTurnRun();'));
+  // MOVEMENT (v4+v5, Paolo 7/19): the EXISTING 8-dir ring is one-tap movement
+  ok('demo has MOVE: doMove + worldShift, wired to the move ring (one tap)',
+    demo.includes('function doMove(') && demo.includes('function worldShift(') &&
+    demo.includes('G.moveIntent=names[i];doMove(i);'));
+  ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
+    !demo.includes('id="movebtn"'));
+  ok('a move costs the turn (routes through endTurnReturn)',
+    /function doMove\([\s\S]{0,900}?endTurnReturn\(false\); \}/.test(demo));
+  ok('worldShift carries corpses AND pillars with the world',
+    /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo) &&
+    /function worldShift\([\s\S]{0,700}?G\.pillars/.test(demo));
+  // PILLAR COVER (v5, Paolo: "shuffled pillars that I can take cover from")
+  ok('shuffled pillars spawn each encounter', demo.includes('G.pillars=[]; { const NP=5+'));
+  ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
+    demo.includes('function myCoverAgainst(ang,dist)') &&
+    demo.includes('myCoverAgainst(e.ea,e.edist)'));
+  ok('enemies take pillar cover too (gcov in peek/fire/line/arc)',
+    demo.includes('(e.inCover||e.gcov)') && demo.includes('function updateGeomCover()'));
+  ok('pillars block the step (occupancy: solid is solid)',
+    demo.includes("setRead('BLOCKED','a pillar is there'"));
+  ok('shove into a pillar slams (65% topple)', demo.includes('PILLAR SLAM'));
+  // v6 (Paolo): push = ONE tile, LONG ARM perk = two; street tile board floor
+  ok('PAOLO RULING: shove pushes back ONE tile', BM.shove({ stun: 0, stunCooldown: 0 }, false, 99).pushed === 1);
+  ok('LONG ARM perk pushes two', BM.shove({ stun: 0, stunCooldown: 0 }, { longarm: true }, 99).pushed === 2);
+  ok('LONG ARM in the settings UI', demo.includes('id="perklongarm"') && demo.includes('LONG ARM: OFF'));
+  ok('STREET FLOOR: world-anchored tile board with median + lane dashes',
+    demo.includes('STREET FLOOR V6') && demo.includes('G.worldOff') &&
+    demo.includes('rgba(184,160,40') && demo.includes('rgba(215,205,185'));
+  ok('full-tile Chebyshev steps (no normalized diagonals)',
+    demo.includes('const sx=v[0], sy=v[1];'));
+  // v7 (Paolo): grid-true field, real blocks on tiles, two-turn red line
+  ok('GRID TRUE: one tile of distance = one board cell (fieldPos linear)',
+    demo.includes('const rr=e.edist*ring;'));
+  ok('pillars snap to tile centers', demo.includes('cover sits ON a tile'));
+  ok('the magic cover arcs are DEAD (geometry only)',
+    !demo.includes('if(G.pCover[dirIndex(ang)])return true'));
+  ok('tapping a cell places a REAL block on that tile',
+    demo.includes('places/removes a REAL cover block ON that tile') && demo.includes('placed:true'));
+  ok('TWO-TURN RED LINE: pools require an acquired bead',
+    demo.split('.filter(e=>(e.acq||0)>=1)').length >= 3 &&
+    demo.includes('&&(e.acq||0)>=1); }'));
+  ok('acquiring turn is telegraphed (warning line + acq clock)',
+    demo.includes('ACQUIRING') && demo.includes('acq:0,'));
+  ok('pillars render tan with a sky-lit top, zero purple in the palette',
+    demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
 
 /* ---- 3. verdict workflow ---- */

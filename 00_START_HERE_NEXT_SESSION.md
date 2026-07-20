@@ -27,6 +27,15 @@ loses nothing, and reads the real world when it exists (it already reads
 world() - that was the design). When LIFE resurfaces to Paolo it must wear
 the REAL art: actual tiles, the real dressed rig, ~90% less on-screen text.
 The section below stays as the record of what was built and gated.
+TWO CORRECTIONS SAME DAY (Paolo, fixed + gated the same turn, LIFE gate now
+20 checks): (1) VACANCY - not every house has inhabitants; most homes are
+abandoned shells. OCCUPIED_RATE dial in bohemia_agents, ships 0.30 as a
+FLAGGED PLACEHOLDER ([PENDING Paolo: the real die-off number for the map]).
+(2) STAGGER - no more lockstep: four life archetypes (worker staggered
+shifts 05:30-09:00 / scav own clock / keeper barely leaves / watch out at
+dusk), wake times spread over hours. Slice regenerated: 14 people in 6 of
+23 houses, economy panel REMOVED from the surface (parked), text cut way
+down. Verified in chromium, 0 errors.
 
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three
@@ -386,6 +395,74 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    — NOT a production bug (fonts load on real networks). To test locally:
    abort fonts.g* routes in playwright. Root-caused 7/19 by srcdoc parse
    bisection; the pristine alpha behaved identically.
+   MOVEMENT LANDS IN THE CANON DEMO (7/19, fourth pass; Paolo playing the
+   new alpha: "did you fix it so that I can move around now... players
+   are running after me and I can't even move"): the 6/27 locked canon
+   "move 1 tile = 1 turn" is finally BUILT (patch v4 in bohemia_combat_
+   melee_patch.py). MOVE button in the action row arms the 3x3 ring; tap
+   a cell = step that direction; the whole polar world (enemies, corpses,
+   litter) shifts around the player-centered camera (worldShift). A move
+   COSTS the turn (endTurnReturn(false): exposed shooters answer, blades
+   advance) and MOVEMENT IS THE MELEE DODGE — stepping out of a wound-up
+   blade's reach makes its telegraphed strike WHIFF (verified in
+   chromium: dodge test hpLost 0, whiff true; world-shift bearings
+   correct; 0 errors). Cover ring stays hand-authored overlay (persists
+   through moves — geometry drives it later, as canon says). Gate 60
+   checks. NOTE: player sprite stays center (camera is player-locked);
+   the read is the world sliding — matches the demo's polar model.
+   RING MOVEMENT + PILLAR COVER (7/19, fifth pass; Paolo: "we already
+   have eight cardinal directions right next to the action button" +
+   "shuffled pillars that I can take cover from... a wall pillar"):
+   (1) the 7/4 move ring (which only set G.moveIntent, plumbing waiting
+   for movement) now CALLS doMove directly — one tap on N/NE/E/... = one
+   step; the arm-then-tap MOVE button is DEAD. (2) REAL GEOMETRY COVER:
+   G.pillars — 5-7 shuffled world-anchored pillars per encounter (ride
+   worldShift). The locked RF4 line-of-fire model, geometry-driven at
+   last: myCoverAgainst(ang,dist) is pillar-aware (a pillar on the line
+   to the shooter = cover; behind him = not); enemies take pillar cover
+   too (e.gcov in peeking/firing/hasLine/arc — an enemy behind stone is
+   tucked until the line clears); pillars BLOCK the step (occupancy);
+   shove into a pillar = PILLAR SLAM (65% topple); rendered tan with a
+   sky-lit top (45-law nod), zero purple. Hand 3x3 toggles still work,
+   OR'd with geometry (authoring layer stays until full tile geometry).
+   Gate 67 checks. Chromium-verified: ring one-tap moves the world,
+   enemy behind pillar gcov+excluded from exposed pool, my cover true
+   through the same stone, step into pillar refused. 0 errors.
+   STREET TILE BOARD + PUSH-1 (7/19, sixth pass; Paolo: "I need to see
+   each tile... we have a good ass street... add the street" + "when you
+   shove people they get pushed back one tile... maybe a perk for two"):
+   (1) STREET FLOOR V6 — the combat floor is now a readable WORLD-
+   ANCHORED tile board in street anatomy: asphalt tiles with gentle
+   deterministic tone jitter (never confetti), grid lines, double-yellow
+   median + white lane dashes per the LINE COLOR law. It slides exactly
+   one tile per step, so the board IS the movement ruler. (2) Steps are
+   full-tile Chebyshev now (diagonals = 1 tile each axis, worldOff
+   integers). (3) Shove pushback = ONE tile (was 3), LONG ARM perk = two
+   (settings toggle beside IRON SHOULDER); melee-core signature grew a
+   perks object (back-compat). Gate 72 checks, ALL GREEN, chromium-
+   verified (push 2.0->3.0 exact, NE step = worldOff +1,-1, floor
+   renders). NOTE: enemy positions are still analog polar (fieldPos maps
+   distance nonlinearly) — full enemy tile-snap is the next big refactor
+   if Paolo wants the whole fight grid-true.
+   GRID-TRUE FIELD + REAL BLOCKS + TWO-TURN RED LINE (7/19, seventh pass;
+   Paolo: "the cover tiles... magical cover... has to be the same tiles
+   you have on the grid" + "enemies need a red line on you for two turns
+   before they can shoot"): (1) GRID TRUE — fieldPos is linear now (1
+   tile of distance = 1 board cell), so enemies/pillars/corpses/floor
+   share ONE ruler; demo spawn band compressed to the visible board
+   (~6.5-14.5 tiles; long-range returns with the world model; the
+   locked PT_BLANK/FAR/MAX numbers untouched, package math unchanged).
+   (2) THE MAGIC ARCS ARE DEAD: pCover no longer grants cover; tapping a
+   ring cell places/removes a REAL cover block ON that grid tile
+   (identical rules to pillars: blocks lines both ways, blocks steps,
+   slammable); shuffled pillars snap to tile centers, r=0.55, block
+   fills its tile. (3) TWO-TURN RED LINE LAW: a gun must hold its bead
+   two turns before firing — first turn = ACQUIRING (bright warning
+   line, cannot fire; e.acq clock in tickTurnEnd, pools filter acq>=1);
+   breaking the line resets his clock. Blades keep instant red (they
+   don't shoot). Gate 78 checks, ALL GREEN. Chromium-verified: pillars
+   snapped, turn-1 wait = zero gun damage + acq 0->1, turn-2 = fire,
+   placed N-block covers north. 0 errors.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
