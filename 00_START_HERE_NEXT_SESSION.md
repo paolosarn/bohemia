@@ -47,16 +47,26 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   by engine/bohemia_quest_runtime_tests.js (33/33: the reference sample played to
   both a COMPLETE and a FAIL), wired as the QUEST RUNTIME gate. The single hardest,
   no-prior-art piece is DONE.
-- ALSO BUILT 7/19 (solo, tested, gated): the DIALOGUE DEMO
-  (slices/BOHEMIA_QUEST_DEMO_7_19_26.html, browser-verified), the QUEST-AWARE SAVE
-  (engine/bohemia_save.js + SAVE gate), and the TWO-LEDGER ENGINE
-  (engine/bohemia_ledger.js + LEDGER gate: recorded vs unrecorded, the Amalgamation
-  reads only the recorded half; the blind-spot win proven as a test). ASSET-FREE
-  BACKEND PLUMBING now stands: runtime, dialogue UI, save, ledger. NEXT asset-free
-  brick (per Paolo 7/19, keep to plumbing, no fake demos): the FOLD (dynasty state
-  carried across generations, engine/bohemia_generations addenda), then a quest
-  registry. All pure logic, no assets, headless-tested + gated, ready for the assets
-  and the walkable build to plug into.
+- ALSO BUILT 7/19 (dev demo): slices/BOHEMIA_QUEST_DEMO_7_19_26.html, a tappable
+  standalone that plays a .bq through the runtime (browser-verified). Paolo's rule:
+  NO MORE fake demos without real assets — this one stays as a dev/verification tool.
+- CORRECTION 7/19 (READ-BEFORE-BUILD paid off, and a mistake owned): the SAVE, the
+  generational FOLD, deterministic HEIR selection, and the RECORDED/UNRECORDED
+  amalgamation model ALREADY EXIST, mature and tested, in engine/bohemia_engine.js
+  (the 3,600-line chat-era monolith, 80/80 via engine/bohemia_tests.js — see
+  BohemiaEngine.Save recordChoice/reconstruct/Persist and BohemiaEngine.Generations
+  foldGeneration/selectHeir/foldFromSave/amalgamationModel, hardened by the
+  FOLD_DETERMINISM addendum). Earlier this session I built bohemia_save.js and
+  bohemia_ledger.js as "new bricks" — they DUPLICATED those and were REMOVED. The
+  gap-analysis agent MISSED bohemia_engine.js; do not trust that agent's "fold/save
+  is paper only" line. GATE GAP CLOSED: those 80 tests were not in the suite; added
+  as the ENGINE CORE gate. So the real asset-free backend is: the quest RUNTIME (new,
+  genuinely missing) + the existing engine monolith (fold/save/ledger/combat/factions/
+  rig), now both gated. The runtime, when wired, feeds choices into the engine's
+  recordChoice (with the recorded flag) — do NOT write a second save/ledger.
+  [PENDING future: whether to EXTRACT the monolith's Save/Generations into modular
+  files is a deliberate refactor (preserve the determinism laws + 80 tests), NOT a
+  fresh parallel rewrite.]
 - STILL MISSING (the WITH-PAOLO walkable build): the walkable harness booting into
   human mode, a faked house exit, an NPC system (placement + proximity "TALK"),
   WIRING the dialogue UI + save into the walking world, and a written playable .bq
@@ -77,9 +87,10 @@ references the canonical engine modules (no copies), browser-verified via Playwr
 console errors). This is the combat-demo-style proof of the dialogue UI. What REMAINS for
 the full slice is WIRING this UI into the walkable world (NPC placement + human mode +
 faked house), not building the dialogue system from scratch. 4) an objective HUD line. 5) write ONE playable .bq
-(the neighbor's first errand once its design is unpinned). 6) SAVE is DONE
-(engine/bohemia_save.js + SAVE gate: world+quest bundle, resume-mid-quest proven); the
-walkable build just calls it from CITYSAVE. 7) prove the loop + add a slice_proof gate.
+(the neighbor's first errand once its design is unpinned). 6) SAVE/FOLD/recorded-ledger
+ALREADY EXIST in engine/bohemia_engine.js (ENGINE CORE gate); the walkable build feeds
+quest choices into its recordChoice (recorded flag) — do NOT write a new save.
+7) prove the loop + add a slice_proof gate.
 RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
 base64 logistics — build on the V11 live slice, verify it has human mode first; ENGINE
 SYNC LAW: edits go to the canonical source. CUT from the slice: overmap drill-in, real
