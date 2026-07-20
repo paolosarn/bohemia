@@ -52,3 +52,4 @@ n:'THE WINDOW BENDS THE HYMN'         | 7/20/26 | DOWN as a SONG (batch 15). GRA
 # Voices/topologies from dead songs are NOT dead -- earlier lines above saying a
 # voice was "retired with" its song are SUPERSEDED; every such voice is legal to
 # re-try in a different fashion. Full law in the alpha lawbook + records.
+n:'EVERY FLOOR BELOW THIS ONE'        | 7/20/26 | DOWN as a SONG (batch 16, verdict four). GRAVEYARD FINAL for the song; subharmglide + aeolianharp voices LIVE (song-dead-not-voices). Do not re-add the song.

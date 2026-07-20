@@ -339,6 +339,14 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-18. VERDICT FOUR + BATCH 17 + CLOTHING WAVE 5 (7/20, latest): batch 16
+   judged (3 canon incl. the first RETURNED-voice songs; EVERY FLOOR BELOW
+   THIS ONE down as a song, its voices live). BATCH 17 answers: THE GAPS IN
+   THE HYMNAL (holdbreath = composed silence; phasedist bass + reversebloom
+   motif returning) [PENDING verdict]. CLOTHING SHORTCUT ran first time --
+   wave 5 in COOKING [PENDING thumbs]: DESERT SHEMAGH (eye slit only, full
+   back cover), WORN BRACERS, THIGH HOLSTER, TRAILING SCARF. structure_gate
+   74. Stamp: BUILD 7/20h.
 -17. SONG-DEAD-NOT-VOICES LAW + BATCH 16 + CLOTHING SHORTCUT (7/20, latest):
    Verdict three processed (3 canon, 4 songs down). NEW LAW (Paolo, locked):
    graveyard is final for SONGS only -- voices/topologies from dead songs

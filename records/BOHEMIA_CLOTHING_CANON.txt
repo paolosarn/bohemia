@@ -456,3 +456,18 @@ re-verified clean live (comment rides once then the box clears; all 7
 batch-15 songs carry thumbs + NEW). His music page was a stale cached copy;
 the BUILD WATCHER exists precisely so this class of confusion dies once he
 is on 7/20+ one time.
+
+=== COOK BATCH 19 (7/20/26) — STRUCTURE WAVE 5: THE SHORTCUT'S FIRST RUN ===
+Paolo's clothing text-replacement shortcut arrived for the first time. Four
+new shapes, zero recolors, in COOKING [PENDING thumbs]:
+- DESERT SHEMAGH (genAcc): skull + neck + lower face in ONE cloth, an open
+  slit only at the calibrated eye rows; from behind the cloth layers over
+  everything (no-skin-slits law); loose tail on the chest / behind in profile.
+- WORN BRACERS (genGear): forearm guards on both arms, banded leather.
+- THIGH HOLSTER (genGear): two straps + a lit-flap box riding the outer
+  right thigh, hip strap to the belt line.
+- TRAILING SCARF (genAcc scarf tail:'long'): the tail falls to the waist,
+  down the chest in front, down the spine from behind.
+Gate: structure_gate 74 checks (slit-open + full back cover + zone locks +
+trailing longer than standard machine-checked). Verified on the real preview
+in 5 facings. Stamp: BUILD 7/20h.
