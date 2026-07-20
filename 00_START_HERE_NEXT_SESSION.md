@@ -371,7 +371,22 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--18. VERDICT FOUR + BATCH 17 + CLOTHING WAVE 5 (7/20, latest): batch 16
+-19. COMBAT MOVES BATCH #13 (7/20, latest): Paolo ordered nine combat
+   animations, all shipped + wired LIVE (batch #12 take-cover law: used in
+   combat regardless of verdict): cover-rise/cover-drop (player LIVES the
+   crouch in cover phase now, rises into the aim on POP, drops on turn
+   end), gun-walk (MOVE repositions at gunpoint), cover-fire (covered
+   enemies fire as a peek-and-snap, never standing; the V20 counter-snap
+   has a body now via e._snapAt), get-shoved (doShove plays it before the
+   push), floor-rise (prone holds flat on frame 0, the get-up plays when
+   the clock runs), shiv-jab/bat-arc/spear-drive (windup HOLDS as the
+   one-turn warning, strike swings through; swing frames at 0.2/0.5/0.68 --
+   0.42 is a dead zone, envelopes cancel). PRONE OUTRANKS STAGGER law.
+   e.wpn bug fixed (was never assigned; all blades drew shiv-length).
+   Gate: combat_anim_gate.js (67, registered). Record:
+   records/BOHEMIA_COMBAT_ANIM_BATCH13_7_20_26.txt. Nine candidates carry
+   * thumbs in the ANIM tab [PENDING Paolo]. Stamp: BUILD 7/20i.
+-18. VERDICT FOUR + BATCH 17 + CLOTHING WAVE 5 (7/20): batch 16
    judged (3 canon incl. the first RETURNED-voice songs; EVERY FLOOR BELOW
    THIS ONE down as a song, its voices live). BATCH 17 answers: THE GAPS IN
    THE HYMNAL (holdbreath = composed silence; phasedist bass + reversebloom
