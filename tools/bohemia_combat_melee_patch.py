@@ -1584,13 +1584,75 @@ def patch21(demo):
     return demo
 
 
+def patch22(demo):
+    """v22 (7/20, the PLUMBING PASS Paolo asked for — re-examining the flow,
+    not stacking features). Three rots found in the TWO-TURN RED LINE law:
+    - MOVE BREAKS THE BEAD: the law text says 'Break the line (move, cover,
+      stun, kill) and his clock resets' but only stun/kill were built. A gun
+      could hold its bead across your step and shoot the turn you emerged,
+      with zero warning. Now a move resets every gun's acq clock: a moving
+      target must be RE-ACQUIRED. (Movement matters; whiffing after a move
+      is still punished by the v20 counter-snap, melee still hunts you.)
+    - DANGER OUTRANKS ITS WARNING: the live RED threat line rendered at
+      0.15 alpha while its amber ACQUIRING warning rendered 0.32 — the
+      warning shouted louder than the danger. Red now 0.30, amber 0.18.
+    - THE WARNING SPEAKS: acquiring was a silent amber line. Fresh beads
+      now announce themselves in the read on damage-free turns:
+      'ACQUIRING — n guns drawing a bead, one turn to break it'."""
+    if 'V22 MOVE BREAKS THE BEAD' in demo:
+        print('v22 already applied, skipping')
+        return demo
+
+    # a move resets every gun's clock (the law's missing clause)
+    demo = sub1(demo, """\
+  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }""", """\
+  let _broke=0; for(const e2 of G.e){ if(e2.dead||e2.melee)continue; if((e2.acq||0)>=1)_broke++; e2.acq=0; }   /* V22 MOVE BREAKS THE BEAD: a moving target must be re-acquired */
+  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],_broke?('one tile — '+_broke+' red line'+(_broke>1?'s':'')+' broken'):'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }""",
+        'move-breaks-bead')
+
+    # the red line must read stronger than its own warning
+    demo = sub1(demo, "    let col,w; if(red){col='rgba(232,60,40,0.15)';w=2;} else if(acqing){col='rgba(232,140,40,0.32)';w=2;}",
+        "    let col,w; if(red){col='rgba(232,60,40,0.30)';w=2;} else if(acqing){col='rgba(232,140,40,0.18)';w=2;}   /* V22: danger outranks its warning */",
+        'line-hierarchy')
+
+    # count fresh beads so the warning can speak
+    demo = sub1(demo, """\
+  for(const e of G.e){ if(e.dead||e.melee){ e.acq=0; continue; }
+    const bead=e.stun<=0&&!(e.prone>0)&&(peeking(e)||firing(e));
+    e.acq=bead?Math.min(9,(e.acq||0)+1):0; }""", """\
+  G._newBeads=0;
+  for(const e of G.e){ if(e.dead||e.melee){ e.acq=0; continue; }
+    const bead=e.stun<=0&&!(e.prone>0)&&(peeking(e)||firing(e));
+    const was=e.acq||0; e.acq=bead?Math.min(9,was+1):0;
+    if(was===0&&e.acq===1)G._newBeads++; }   /* V22: fresh beads announce themselves */""",
+        'bead-counter')
+    demo = sub1(demo, """\
+  onOffbeat(()=>fxCracks(pool.length-hits));   /* JUICE.D */
+  tickTurnEnd(); G.phase='cover'; G._dropAt=performance.now(); G._riseAt=0; setPhaseUI(); renderBoard(); updGap(); }   /* b13: stand down INTO the crouch */""", """\
+  onOffbeat(()=>fxCracks(pool.length-hits));   /* JUICE.D */
+  tickTurnEnd();
+  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('ACQUIRING',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' drawing a bead — one turn to break it','#e8a04a');   /* V22: the warning speaks */
+  G.phase='cover'; G._dropAt=performance.now(); G._riseAt=0; setPhaseUI(); renderBoard(); updGap(); }   /* b13: stand down INTO the crouch */""",
+        'warning-read-return')
+    demo = sub1(demo, """\
+  tickTurnEnd();   /* MELEE V2 DOWAIT: waiting is a turn — blades advance through the one choke */
+  renderBoard(); updGap(); }""", """\
+  tickTurnEnd();   /* MELEE V2 DOWAIT: waiting is a turn — blades advance through the one choke */
+  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('ACQUIRING',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' drawing a bead — one turn to break it','#e8a04a');   /* V22 */
+  renderBoard(); updGap(); }""",
+        'warning-read-wait')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))
+    patched = patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
