@@ -46,8 +46,11 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   objective/choice state saved), enterable interiors (none), an objective HUD, and
   any content wired to run (53 quest .md + 151 questbook are DESIGN DOCS; only ONE
   .bq exists and it's a non-canon sample).
-SMALLEST PATH (ruthlessly scoped; build a NEW small harness, do NOT grow the 31MB
-alpha): 0) harness boots straight into human mode on a fixed seed/spawn. 1) FAKE the
+SMALLEST PATH (ruthlessly scoped; BUILD IT LIKE THE COMBAT DEMO, Paolo 7/19 — a
+tight, standalone, actually-PLAYABLE demo you hold with your thumbs, NOT bolted into
+the 31MB studio; the combat demo/dial is both the proof this can be done and the
+model for how, a small touchable loop Paolo can judge by feel): 0) harness boots
+straight into human mode on a fixed seed/spawn. 1) FAKE the
 house (a 2s intro at spawn, no interior engine). 2) one static NPC sprite + adjacency
 "TALK" prompt. 3) THE DIALOGUE RUNTIME (the real build): a .bq node-walker that renders
 @SAY/@OPT, follows targets, evaluates simple gates, and executes ONLY the @DO verbs the
