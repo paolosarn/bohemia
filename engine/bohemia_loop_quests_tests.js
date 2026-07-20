@@ -55,5 +55,25 @@ ok(!!fin, 'after learning, the gated finish option appears on resume');
 rt2.choose(fin.i);
 ok(rt2.state.done===true && rt2.state.outcome==='COMPLETE', 'the resumed quest reaches COMPLETE');
 
+/* ONCE LAW: a completed one-time quest (@ONCE defaults true) never restarts;
+   re-calling start hands back the finished runtime. A @ONCE false quest is
+   repeatable and starts fresh. */
+var ctx3 = Loop.boot({ seed:'bohemia' });
+var ONCEQ = ['@QUEST onceq Once Quest','@ACT 1','@STAGE 10','@STAGE 20 COMPLETE',
+  '@TALK s speaker=x entry=stage>=10','  @OPT "end" [gate: none] @DO set_stage 20 -> END','@END'].join('\n');
+var oq = ctx3.quests.start(ONCEQ);
+oq.begin('s'); oq.choose(0);
+ok(oq.state.done===true, 'once quest completed');
+var oq2 = ctx3.quests.start(ONCEQ);
+ok(oq2===oq && oq2.state.done===true, 'restarting a completed @ONCE quest returns the finished runtime (no reset)');
+
+var REPEATQ = ['@QUEST repeatq Repeat Quest','@ACT 1','@ONCE false','@STAGE 10','@STAGE 20 COMPLETE',
+  '@TALK s speaker=x entry=stage>=10','  @OPT "end" [gate: none] @DO set_stage 20 -> END','@END'].join('\n');
+var rq = ctx3.quests.start(REPEATQ);
+rq.begin('s'); rq.choose(0);
+ok(rq.state.done===true, 'repeatable quest completed once');
+var rq2 = ctx3.quests.start(REPEATQ);
+ok(rq2!==rq && rq2.state.done===false && rq2.state.stage===10, 'restarting a @ONCE false quest gives a fresh run');
+
 console.log('LOOP QUESTS TESTS: '+pass+' passed, '+fail+' failed');
 if(fail>0) process.exit(1);

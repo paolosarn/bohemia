@@ -270,6 +270,12 @@
     function start(text) {
       if (!BQ || !BQRT) return null;
       const Q = BQ.parse(text);
+      // ONCE LAW (dead-stays-dead for quests): @ONCE defaults true. A completed
+      // one-time quest never restarts, even across a fold — re-calling start just
+      // hands back the finished runtime. A @ONCE false quest is repeatable and
+      // starts fresh each call. This keeps a done errand from re-offering forever.
+      const prior = active[Q.id];
+      if (prior && prior.rt.state.done && Q.once !== false) return prior.rt;
       const rt = _wire(Q.id, new BQRT.Runtime(Q).start());
       active[Q.id] = { text: text, rt: rt };
       return rt;
