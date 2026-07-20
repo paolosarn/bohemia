@@ -692,18 +692,16 @@
   }
 
   /* --------------------------------------------------------------------------
-     THE FEED — the master window Paolo described: "a huge window... the menu of
-     seeing all the quest logs and what quests and what you have written down." The
-     feed is the chronological POST STREAM over the recorded choice-log (the deeds
-     already saved). This is a pure PROJECTION of data that exists (save.choices);
-     it authors nothing and decides no follower math (that is Paolo's, PENDING). By
-     TOTAL RECALL every recorded deed is a post, whether it came over the phone or
-     from pulling up on someone in person. Newest-first (like a real feed).
+     THE FEED — the phone's front page. Paolo 7/20: ONE POST PER COMPLETED QUEST
+     ("you complete a quest, you make a post"), so posts == quests done. The feed is
+     NOT a log of every choice — that granular record still lives in the choice-log
+     for the fold (the game remembers everything), but what you SEE is a clean post
+     per finished quest. A projection over save.choices; authors nothing; decides no
+     follower math (Paolo's, PENDING). Newest-first.
 
-     Each post: { beat, gen, kind:'choice'|'outcome'|'event', questId, title,
-                  outcome?, node?, to?, id }. Quest posts are enriched with the live
-     quest's title when it is still loaded; anything else becomes a generic 'event'
-     post so the feed never hides a recorded deed.
+     Each post: { beat, gen, kind:'outcome', questId, title, outcome, id }. Pass
+     {all:true} to include the granular per-choice entries too (debugging); the
+     default feed is completions only. {limit:N} trims to the latest N.
      ------------------------------------------------------------------------ */
   function buildFeed(ctx, opts) {
     opts = opts || {};
@@ -712,7 +710,7 @@
       const rt = ctx.quests ? ctx.quests.get(qid) : null;
       return rt && rt.Q && rt.Q.title ? rt.Q.title : qid;
     };
-    const posts = ctx.save.choices.map(function (c, idx) {
+    let posts = ctx.save.choices.map(function (c, idx) {
       const eff = c.effect || {};
       const qid = eff.quest || null;
       let kind = 'event', outcome = null, node = null, to = null;
@@ -724,6 +722,8 @@
                questId: qid, title: qid ? titleOf(qid) : null,
                outcome: outcome, node: node, to: to, id: c.id };
     });
+    // ONE POST PER COMPLETED QUEST: the feed is completions only unless {all}.
+    if (!opts.all) posts = posts.filter(function (p) { return p.kind === 'outcome'; });
     // newest-first: primary by beat desc, tiebreak by insertion order desc (stable).
     posts.sort(function (a, b) { return (b.beat - a.beat) || (b.seq - a.seq); });
     if (opts.limit) return posts.slice(0, opts.limit);
@@ -738,18 +738,24 @@
      With no scoreFn, reach is 0 (the weight table is EMPTY by law until he rules
      on it). Whether followers and clout are one number or two is not decided here:
      call this once per metric with its own scoreFn.
-       returns { posts, questsTouched, questsCompleted, reach } */
+       returns { posts, questsTouched, questsCompleted, reach }
+     posts == quests done (one post per completion). questsTouched counts every quest
+     you have engaged (from the full choice-log). reach = followers, summed by scoreFn
+     over the POSTS (completions) only — you gain followers when you complete and post. */
   function socialProfile(ctx, scoreFn) {
-    const feed = buildFeed(ctx);
-    const quests = {}, completed = {};
-    let reach = 0;
-    feed.forEach(function (p) {
-      if (p.questId) quests[p.questId] = true;
-      if (p.kind === 'outcome' && p.outcome === 'COMPLETE' && p.questId) completed[p.questId] = true;
-      if (typeof scoreFn === 'function') reach += (scoreFn(p) || 0);
+    const all = buildFeed(ctx, { all: true });
+    const touched = {}, completed = {};
+    let reach = 0, posts = 0;
+    all.forEach(function (p) {
+      if (p.questId) touched[p.questId] = true;
+      if (p.kind === 'outcome') {                       // a completion == a post
+        posts++;
+        if (p.outcome === 'COMPLETE' && p.questId) completed[p.questId] = true;
+        if (typeof scoreFn === 'function') reach += (scoreFn(p) || 0);
+      }
     });
-    return { posts: feed.length,
-             questsTouched: Object.keys(quests).length,
+    return { posts: posts,
+             questsTouched: Object.keys(touched).length,
              questsCompleted: Object.keys(completed).length,
              reach: reach };
   }

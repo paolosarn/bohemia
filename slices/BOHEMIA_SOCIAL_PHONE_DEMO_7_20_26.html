@@ -66,9 +66,18 @@
     vertical-align:middle; margin-left:2px; }
   .tag.done{ background:var(--good-soft); color:var(--good); }
   .tag.act{ background:#20262e; color:var(--dim); }
-  .post .eng{ display:flex; gap:16px; margin-top:12px; padding-top:11px;
-    border-top:1px solid var(--line); font-size:12.5px; color:var(--dim); }
-  .post .eng .g{ color:var(--gold); font-weight:700; }
+  .post .photo{ margin:11px 0 2px; height:150px; border-radius:12px; border:1px solid var(--line);
+    position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .post .photo .ph-t{ font-weight:800; font-size:17px; color:rgba(255,255,255,.82); letter-spacing:.3px; }
+  .post .photo .ph-tag{ position:absolute; left:9px; bottom:8px; font-size:10px; color:rgba(255,255,255,.6);
+    background:rgba(0,0,0,.35); padding:2px 7px; border-radius:6px; }
+  .post .eng{ display:flex; gap:16px; margin-top:11px; padding-top:11px;
+    border-top:1px solid var(--line); font-size:12.5px; color:var(--dim); align-items:center; }
+  .post .eng .g{ color:var(--gold); font-weight:700; margin-left:auto; }
+  .comments{ margin-top:10px; border-top:1px solid var(--line); padding-top:10px; }
+  .comments .cm{ font-size:13px; margin-bottom:5px; line-height:1.35; color:var(--ink); }
+  .comments .cm .cw{ font-weight:700; color:var(--teal); }
+  .comments .cmore{ font-size:12px; color:var(--faint); margin-top:3px; }
 
   /* offers */
   .offer .otop{ display:flex; align-items:center; gap:11px; }
@@ -209,6 +218,31 @@ function avatar(name, cls){ var c=AV_COLORS[hash(name)%AV_COLORS.length];
   return '<div class="av '+(cls||'sm')+'" style="background:'+c+'">'+esc(initials(name))+'</div>'; }
 el('me-av').style.background = AV_COLORS[0];
 
+/* PLACEHOLDER photo slot for a completed-quest post (no real art yet). */
+function photoFor(qid){
+  var c1=AV_COLORS[hash(qid)%AV_COLORS.length], c2=AV_COLORS[hash(qid+'x')%AV_COLORS.length];
+  var rt=ctx.quests.get(qid), t=rt&&rt.Q?rt.Q.title:qid;
+  return '<div class="photo" style="background:linear-gradient(135deg,'+c1+'33,'+c2+'22)">'+
+         '<span class="ph-t">'+esc(t)+'</span><span class="ph-tag">📷 field photo · placeholder</span></div>';
+}
+/* PLACEHOLDER comments. COUNT scales with followers (Paolo: "people commenting
+   depending on how many followers you have"). Bodies are stand-in, not canon. */
+var COMMENTERS=['@wash_rat','@nell_87','@dust_ryder','@saltflat','@neon_mona','@tunnel_ed','@vato_prime','@grid_sister'];
+var CBODIES=['carried us fr','respect 🤝','this the one','you built diff','saw the smoke, glad ur ok','bohemia stand up','goat behavior','need more like u'];
+function commentsFor(qid, followers){
+  var count = Math.max(0, Math.floor(followers/12));   // more followers -> more comments
+  var sample=[]; var n=Math.min(3, count), base=hash(qid);
+  for(var i=0;i<n;i++){ sample.push({ who:COMMENTERS[(base+i*3)%COMMENTERS.length], text:CBODIES[(base+i*5)%CBODIES.length] }); }
+  return { count:count, sample:sample };
+}
+function commentsBlock(ci){
+  if(!ci.count) return '';
+  var h='<div class="comments">';
+  ci.sample.forEach(function(c){ h += '<div class="cm"><span class="cw">'+esc(c.who)+'</span> '+esc(c.text)+'</div>'; });
+  if(ci.count>ci.sample.length) h += '<div class="cmore">View all '+ci.count+' comments</div>';
+  return h+'</div>';
+}
+
 function refreshTop(){
   var prof = Loop.socialProfile(ctx, FOLLOWER_SCORE);
   el('st-foll').textContent = prof.reach;
@@ -225,19 +259,20 @@ function render(){
   refreshTop();
   var s = el('screen'), h='';
   if(TAB==='feed'){
-    var feed = Loop.buildFeed(ctx);
-    if(!feed.length) h += '<div class="empty-state">Your feed is quiet.<br>Go do something worth posting about.</div>';
+    var feed = Loop.buildFeed(ctx);      // ONE post per completed quest
+    var followers = Loop.socialProfile(ctx, FOLLOWER_SCORE).reach;
+    if(!feed.length) h += '<div class="empty-state">Your feed is quiet.<br>Complete a quest and it posts here.</div>';
     feed.forEach(function(p, idx){
-      var isOut = p.kind==='outcome';
-      var tag = isOut ? '<span class="tag done">'+esc(p.outcome)+'</span>' : '<span class="tag act">update</span>';
-      var body = isOut ? ('Wrapped up <b>'+esc(p.title)+'</b>. It is done. '+tag)
-                       : ('Made a call on <b>'+esc(p.title)+'</b>. '+tag);
       var gain = FOLLOWER_SCORE(p);
+      var likes = Math.max(1, Math.round(followers*0.4));
+      var ci = commentsFor(p.questId, followers);
       h += '<div class="card post"><div class="head">'+avatar('@founder_gen1')+
            '<div><div class="h2n">Founder <span class="at">@founder_gen1</span></div></div>'+
            '<div class="time">'+(idx===0?'now':('beat '+p.beat))+'</div></div>'+
-           '<div class="body">'+body+'</div>'+
-           '<div class="eng"><span class="g">+'+gain+' followers</span><span>remembered on the feed</span></div></div>';
+           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span></div>'+
+           photoFor(p.questId)+
+           '<div class="eng"><span>♥ '+likes+'</span><span>💬 '+ci.count+'</span><span class="g">+'+gain+' followers</span></div>'+
+           commentsBlock(ci)+'</div>';
     });
   }
   else if(TAB==='offers'){

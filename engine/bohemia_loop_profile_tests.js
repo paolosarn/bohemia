@@ -34,20 +34,19 @@ var b = ctx.quests.start(mkQuest('q2','Second'));
 b.begin('hi'); b.choose(pick(b.view(),'learn').i);
 
 var p1 = Loop.socialProfile(ctx);
-ok(p1.posts===4, 'posts counts every feed entry (3 from q1 + 1 from q2)');
-ok(p1.questsTouched===2, 'questsTouched counts distinct quests appearing on the feed');
+ok(p1.posts===1, 'ONE POST PER COMPLETED QUEST: q1 completed => 1 post (q2 only touched)');
+ok(p1.posts===p1.questsCompleted, 'posts == quests done (Paolo 7/20)');
+ok(p1.questsTouched===2, 'questsTouched still counts every quest engaged (from the full log)');
 ok(p1.questsCompleted===1, 'questsCompleted counts only the quest that reached COMPLETE');
 
 /* DEFAULT reach is 0: the weight table is EMPTY until Paolo rules on it */
 ok(p1.reach===0, 'with no scoreFn, follower reach is 0 (empty content hook, MECHANISM-MINE/CONTENTS-PAOLO)');
 
-/* supplying a scoreFn proves the tally: e.g. a placeholder where a COMPLETE is worth
-   10 and any other post 1. This is a STAND-IN, not canon — Paolo owns the real rule. */
+/* supplying a scoreFn proves the tally: followers come from POSTS (completions).
+   Placeholder: a COMPLETE post worth 10. This is a STAND-IN, not canon. */
 var score = function (post) { return (post.kind==='outcome' && post.outcome==='COMPLETE') ? 10 : 1; };
 var p2 = Loop.socialProfile(ctx, score);
-ok(p2.reach === (3*1 - 1 + 10) + 1, 'follower reach sums the supplied scoreFn over the feed');
-// q1: learn(1)+finish-choice(1)+COMPLETE(10)=12 ; q2: learn(1)=1 ; total 13
-ok(p2.reach === 13, 'reach math checks out (12 from the completed quest + 1 from the touched one)');
+ok(p2.reach === 10, 'follower reach sums the scoreFn over the POSTS only (one COMPLETE post = 10)');
 
 /* the profile is a pure projection: same feed -> same profile after reload */
 var blob = Loop.captureSave(ctx);
