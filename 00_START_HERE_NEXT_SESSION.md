@@ -1387,6 +1387,18 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   graveside access — correct here, not fake geometry, unlike the organic park). Full dossier +
   layering (mausoleum = crypt interior; headstones = props you weave between). Gate
   cemetery_gate.js (8 checks/6 configs). 8 built districts now.
+- drivein -> LEISURE (bohemia_drivein, 7/20 autonomous, research-first: drive-in site-plan
+  guides — conceptdraw / drive-insdownunder / Film-Tech). A dead drive-in movie theater: a torn
+  SCREEN TOWER spanning the back (its ¾ face IS the giant screen), a fan of ARCED PARKING ROWS
+  centered on the screen (wheel-stop arc markings + speaker poles + abandoned cars rusting nosed
+  to the screen), a central SNACK BAR + PROJECTION booth (enterable concession interior) with a
+  little playground + picnic tables beside it, a drive-up TICKET BOOTH + roadside MARQUEE at the
+  entrance. The WHOLE cracked-asphalt field is the drivable surface (you drive in and park),
+  reachable from the curb in every placement (driveReachFromStreet). Act-1 DEAD. Street-aware +
+  drivable via rotateToStreet. Full dossier + layering. Gate drivein_gate.js (11 checks/6
+  configs). BUG CAUGHT + FIXED on the real render: the marquee had walled the entrance lane off
+  from the field (single-street drive-reach failed while corners passed via the ped-walk leak) —
+  moved the marquee roadside, off the lane. 9 built districts now. Stamp BUILD 7/20c.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git

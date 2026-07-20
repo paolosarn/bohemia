@@ -26,6 +26,7 @@
   var PRK= HASREQ ? require('./bohemia_park.js')           : (typeof BohemiaPark!=='undefined'?BohemiaPark:root.BohemiaPark);
   var WSH= HASREQ ? require('./bohemia_wash.js')           : (typeof BohemiaWash!=='undefined'?BohemiaWash:root.BohemiaWash);
   var CEM= HASREQ ? require('./bohemia_cemetery.js')       : (typeof BohemiaCemetery!=='undefined'?BohemiaCemetery:root.BohemiaCemetery);
+  var DRV= HASREQ ? require('./bohemia_drivein.js')        : (typeof BohemiaDrivein!=='undefined'?BohemiaDrivein:root.BohemiaDrivein);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -44,7 +45,8 @@
     solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office' },
     park:       { mod:PRK, foot:function(r){return r.footprints;},           zone:'default' },
     wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default' },
-    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' }
+    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
