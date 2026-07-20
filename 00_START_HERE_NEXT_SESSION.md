@@ -1004,7 +1004,17 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   GRAVEYARD_7_19_26.md; park v1/v2 tombstoned (PARKFAIL-SUPERPARK/PARKFAIL-CIRCLE, graveyard
   green); 4 new lessons in laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md (realistic>impressive;
   research proportions not parts-list; no fake geometry; explain-every-tile != cram).
-FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
+- wash -> TERRAIN (bohemia_wash, Paolo 7/19: "a wash where homeless people can get into the
+  sewers — a sewer entrance by the street"). A LV concrete flood-control channel: wide lined
+  channel (banks + invert + dead trickle), fenced maintenance O&M roads (drivable), riprap
+  shoulders, clumped desert margins — and the HEADLINE: a headwall + a dark BOX-CULVERT TUNNEL
+  MOUTH where the channel dives under the street, with a hole in the fence + a scramble path +
+  a homeless CAMP (cart/tarps/crates) at the mouth. Grounded in the real LV flood tunnels
+  (~600mi, ~1,200-1,500 unhoused "tunnel people"). Act-1 DEAD. Street-aware + drivable via
+  rotateToStreet. footprints EMPTY (the mouth = future LIFE tunnel-interior hook, not a surface
+  building). Gate wash_gate.js (9 checks/6 configs). The "tunnel people" are LIFE (agents); this
+  district gives them the DOOR.
+FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
 history has it if ever wanted as a starting sketch). Do NOT auto-generate gaming_resort.

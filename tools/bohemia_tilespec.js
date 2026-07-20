@@ -22,6 +22,7 @@ const DISTRICTS = [
   { name: 'medical',    mod: require('../engine/bohemia_medical.js') },
   { name: 'solar',      mod: require('../engine/bohemia_solar.js') },
   { name: 'park',       mod: require('../engine/bohemia_park.js') },
+  { name: 'wash',       mod: require('../engine/bohemia_wash.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;
