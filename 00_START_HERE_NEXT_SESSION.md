@@ -1706,7 +1706,31 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   overhead/pass-under (solid:false) so the forecourt stays drivable UNDER it — the gate asserts
   tileLayer(canopy)=overhead+pass-under. Street-aware + drivable. Full dossier + layering. Gate
   truckstop_gate.js (13 checks/6 configs, incl no-purple + the overhead-canopy assertion). 12
-  built districts now. Stamp BUILD 7/20n.
+  built districts now. Stamp BUILD 7/20n. (Then REBUILT after Paolo "it kinda looks like shit":
+  first pass was a sparse dark lot + thin canopy outline + dirt-noise; now a bold filled canopy
+  roof, a light concrete pad focal plaza, zoned rows + landscaping planters, proper tonal ladder.
+  Gate enforces the bold canopy + pad + planters. Stamp 7/20q.)
+- BATCH OF FOUR (7/20 autonomous, Paolo "stop doing tiny things, do a lot"): school, fire station,
+  swap meet, self-storage — one turn, four categories, research-first each, dense + zoned + tonal-
+  laddered (the truck-stop lesson applied up front), street-aware + drivable, full dossier +
+  layering, own gate (6 configs), all wired. Stamp 7/20u.
+  - school -> CIVIC: E-shaped building + gym on dead lawn, a sports FIELD ringed by a running TRACK
+    (hero), basketball courts, a playground, and SEPARATE bus-loop / drop-off / staff-parking drives
+    (the SC-Ed safety rule). Gate 12 checks. Bug caught: bus-loop connectors were code 3 (broke the
+    drive net) + field crossed the drop-off -> re-zoned field west, drives east, all knit to the gate.
+  - firestation -> CIVIC: apparatus bays with RED engines nosed onto a LIGHT concrete apron (drive-
+    through pull-out), a hose/drying tower, guideline stripes, staff parking. The apron is drive-code
+    1 (light) so the red engines pop — a deliberate dark-asphalt inversion. Gate 12 checks.
+  - swapmeet -> COMMERCIAL: rows of torn COLOR-CODED canopy stalls (OVERHEAD tents: bleached/red/
+    teal) on packed-dirt aisles, a market hall, a gravel lot. THE BARTER-ECONOMY STAGE for LIFE/
+    ECONOMY to populate with traders. Gate 12 checks. (Tents got per-row color after a monotone
+    first render.)
+  - storage -> INDUSTRIAL: rows of unit buildings with roll-up doors, ~40% pried OPEN + ransacked
+    (each looted unit a PORTAL — the collapse story + a loot hook), drive aisles reaching every unit,
+    fortress-perimeter fence, office. Gate 13 checks. Bug caught: inner keypad gate used code 5 off-
+    edge (street-aware reserves 5) + entrance blocked by the south unit bar -> carved the lane through,
+    office beside it.
+  16 built districts now, across all 7 non-casino categories.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
