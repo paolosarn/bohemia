@@ -48,9 +48,15 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   both a COMPLETE and a FAIL), wired as the QUEST RUNTIME gate. The single hardest,
   no-prior-art piece is DONE.
 - ALSO BUILT 7/19 (solo, tested, gated): the DIALOGUE DEMO
-  (slices/BOHEMIA_QUEST_DEMO_7_19_26.html, browser-verified) AND the QUEST-AWARE SAVE
-  (engine/bohemia_save.js + SAVE gate: bundles world+quest state, resume-mid-quest
-  proven). So the three self-contained bricks are done: runtime, dialogue UI, save.
+  (slices/BOHEMIA_QUEST_DEMO_7_19_26.html, browser-verified), the QUEST-AWARE SAVE
+  (engine/bohemia_save.js + SAVE gate), and the TWO-LEDGER ENGINE
+  (engine/bohemia_ledger.js + LEDGER gate: recorded vs unrecorded, the Amalgamation
+  reads only the recorded half; the blind-spot win proven as a test). ASSET-FREE
+  BACKEND PLUMBING now stands: runtime, dialogue UI, save, ledger. NEXT asset-free
+  brick (per Paolo 7/19, keep to plumbing, no fake demos): the FOLD (dynasty state
+  carried across generations, engine/bohemia_generations addenda), then a quest
+  registry. All pure logic, no assets, headless-tested + gated, ready for the assets
+  and the walkable build to plug into.
 - STILL MISSING (the WITH-PAOLO walkable build): the walkable harness booting into
   human mode, a faked house exit, an NPC system (placement + proximity "TALK"),
   WIRING the dialogue UI + save into the walking world, and a written playable .bq
