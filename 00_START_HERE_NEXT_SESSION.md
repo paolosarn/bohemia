@@ -19,6 +19,47 @@ first ORIGINAL Bohemia quests. All gates green (python3 gates/bohemia_gates.py
 [--fast], ~51s). Questbook hit 150 on 7/18 and is now 151 (added #235, the
 Kingdom Come opening teardown, as the template for our own opening).
 
+## THE PLAYABILITY PIVOT + THE VERTICAL-SLICE MAP (7/19 — the new north star)
+PAOLO'S REALIZATION (7/19): he cannot judge a quest by READING it, only by PLAYING
+it. He is the sole playtester. So QUEST-JUDGING IS GATED ON A PLAYABLE SLICE, and
+his involvement in quest design is limited until then. This does NOT put quests on
+hold; it REORDERS priority toward PLAYABILITY. He also said "I don't think we're
+ready" for the big build, and "we'll try whatever you need" — so the near-term job
+is getting READY, not forcing the build. The build itself is the deliberate
+WITH-PAOLO, one-session, ONE-ALPHA-LAW job, done when he's ready.
+
+THE GOAL SLICE: walk out of a house -> cross a small neighborhood -> reach an NPC
+-> talk -> receive & play ONE quest (tracked objectives + one branch) -> SAVE/LOAD.
+That one loop switches on his director's eye.
+
+CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
+- HAVE (reusable): a walkable ANIMATED player in a streamed Las Vegas, 8-dir
+  beat-quantized movement + collision + a bike ladder + day/night (the CITY module's
+  human mode; ALSO likely present editable in slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html
+  — the intended BUILD BASE, far better than the 31MB alpha blob). A working
+  localStorage save/restore (CITYSAVE, but position/seed/time ONLY). The .bq parser
+  (engine/bohemia_bq.js — PARSE/VALIDATE only). Combat dial (works; OUT of slice
+  scope). Music (done; irrelevant to slice).
+- MISSING (all paper, must be built): a QUEST RUNTIME / interpreter (the .bq is
+  parse-only; nothing executes @STAGE/@TALK/@DO — THIS IS THE CRUX), a dialogue UI,
+  an NPC system (placement + proximity "TALK" trigger), quest-aware SAVE (no flag/
+  objective/choice state saved), enterable interiors (none), an objective HUD, and
+  any content wired to run (53 quest .md + 151 questbook are DESIGN DOCS; only ONE
+  .bq exists and it's a non-canon sample).
+SMALLEST PATH (ruthlessly scoped; build a NEW small harness, do NOT grow the 31MB
+alpha): 0) harness boots straight into human mode on a fixed seed/spawn. 1) FAKE the
+house (a 2s intro at spawn, no interior engine). 2) one static NPC sprite + adjacency
+"TALK" prompt. 3) THE DIALOGUE RUNTIME (the real build): a .bq node-walker that renders
+@SAY/@OPT, follows targets, evaluates simple gates, and executes ONLY the @DO verbs the
+one quest needs (set_flag, show_objective, complete_objective, stage advance) — implement
+for ONE quest, NOT the whole spec. 4) an objective HUD line. 5) write ONE playable .bq
+(the neighbor's first errand once its design is unpinned). 6) add quest state to the
+existing CITYSAVE payload. 7) prove the loop + add a slice_proof gate.
+RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
+base64 logistics — build on the V11 live slice, verify it has human mode first; ENGINE
+SYNC LAW: edits go to the canonical source. CUT from the slice: overmap drill-in, real
+interiors, combat, role-casting/factions, the generational fold, inventory.
+
 ## THE 7/18-19 STORY LOCKS (each is its own addendum in /laws)
 - THE WORLD (LAKE_MEAD_HEALTHY_OASIS, HOUSE_OF_CARDS_POWER_SHARE,
   WORLD_BREAK_ANSWERS, COLLAPSE_ORIGIN_AND_DEATH_MODEL): crash ~2050, game starts
