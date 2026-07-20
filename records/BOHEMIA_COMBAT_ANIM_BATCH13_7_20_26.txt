@@ -63,3 +63,19 @@ counter-snap), the player crouches in cover phase, all melee carry weapons.
 [PENDING Paolo]: thumbs on the nine (ANIM tab, marked *); they stay live in
 combat either way per the batch #12 law — a kill verdict swaps the combat
 frames for a recook, never removes the mechanic.
+
+=== FOLLOW-UP (same day): PAOLO'S VERDICT + THE NE LAYERING FIX ===
+Paolo: "all the animations you made are good for now. I saw them I like
+them" -- NOTES ARE RULINGS: the nine stand. His correction: NE hand/arm
+layering "fucked up for so many animations."
+ROOT CAUSE (pipeline, not clips): every layer law re-placed only the HANDS
+and read only X displacement; the away diagonals carry depth in -Y, and
+Paolo's authored NE baseline holds the camera-side arm NEAREST at rest --
+so a clip throwing that arm along the facing sent the hand behind (gun
+law) while its own forearm crossed the face at layer 0.
+THE FIX: NE/NW ARM-UNIT DEPTH law (laws/BOHEMIA_ADDENDUM_NE_ARM_UNIT_
+7_20_26.md): arm+hand move as one unit, judged by the hand's rest
+displacement dotted on the facing vector, behind head+face+torso when
+thrown away, nearest when pulled to camera, authored baseline inside the
++-2.5 deadband. NE and NW only; every other facing byte-identical.
+A/B verified old-vs-new on both facings (8 clips each); gate grew to 74.

@@ -402,7 +402,18 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--19. COMBAT MOVES BATCH #13 (7/20, latest): Paolo ordered nine combat
+-20. NE/NW ARM-UNIT DEPTH LAW (7/20, latest): Paolo LIKED all nine combat
+   moves (notes are rulings, they stand) but called the NE hand/arm
+   layering broken. Root cause was pipeline: layer laws re-placed only
+   HANDS and read only X; away diagonals carry depth in -Y and the
+   authored NE baseline holds the camera-side arm nearest, so thrown arms
+   crossed the face while their hands hid behind. Fix: handOrder now moves
+   arm+hand as ONE UNIT on NE/NW, judged by the hand's rest displacement
+   dotted on the facing vector (deadband +-2.5 keeps the authored baseline
+   exact, RIG LAW safe, all other facings byte-identical). Law:
+   laws/BOHEMIA_ADDENDUM_NE_ARM_UNIT_7_20_26.md; gate 74; A/B verified NE
+   + NW, 8 clips each. Stamp: BUILD 7/20j.
+-19. COMBAT MOVES BATCH #13 (7/20): Paolo ordered nine combat
    animations, all shipped + wired LIVE (batch #12 take-cover law: used in
    combat regardless of verdict): cover-rise/cover-drop (player LIVES the
    crouch in cover phase now, rises into the aim on POP, drops on turn

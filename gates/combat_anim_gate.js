@@ -141,5 +141,21 @@ ok('prone expiry arms the get-up', /e\._roseAt=performance\.now\(\)/.test(demo))
 ok('the strike arms the swing', /e\._swingAt=performance\.now\(\)/.test(demo));
 ok('every blade knows its weapon (wpn bug fixed)', /wpn:\(a\.melee\?arch:null\)/.test(demo));
 
+/* ---- 4. NE/NW ARM-UNIT DEPTH LAW (Paolo 7/20: "the hand and arm layering
+   behind in front of the torso is fucked up" on NE). The fix is pipeline law
+   in handOrder: on the away diagonals the arm and its hand move as ONE UNIT,
+   judged by the hand's rest displacement ALONG THE FACING VECTOR (both
+   axes), behind head+face+torso when thrown away, nearest when pulled to
+   camera, authored baseline inside the deadband. ---- */
+const ho = alpha.slice(alpha.indexOf('function handOrder'), alpha.indexOf('const REST_GRID'));
+ok('ARM-UNIT: branch covers NE and NW', /d==='NE'\|\|d==='NW'/.test(ho));
+ok('ARM-UNIT: signal is the along-facing dot, both axes', /\*_ux\+.*\*_uy/.test(ho));
+ok('ARM-UNIT: deadband holds the authored baseline', /f>2\.5/.test(ho) && /f<-2\.5/.test(ho));
+ok('ARM-UNIT: arm and hand move TOGETHER', /splice\(hi\+1,0,armP,handP\)/.test(ho) && /unshift\(armP,handP\)/.test(ho));
+ok('ARM-UNIT: behind means behind head, face AND torso', /ord\.indexOf\(1\),ord\.indexOf\(2\),ord\.indexOf\(4\)/.test(ho));
+ok('ARM-UNIT: subsumes the gun-unit rule on these facings (runs first)',
+  ho.indexOf("d==='NE'||d==='NW'") < ho.indexOf('present._gun'));
+ok('ARM-UNIT: baked layerOverride untouched (RIG LAW)', !/layerOverride\s*\[/.test(ho.slice(ho.indexOf("d==='NE'"), ho.indexOf('present._gun'))));
+
 console.log('\n=== COMBAT ANIM GATE: ' + pass + ' passed, ' + fail + ' FAILED ===');
 process.exit(fail ? 1 : 0);
