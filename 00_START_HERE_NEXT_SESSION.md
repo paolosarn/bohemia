@@ -108,6 +108,14 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   follower SCORING ("what counts as cool shit," how many followers a deed is worth)
   is an EMPTY hook — no scoreFn => reach 0. Whether followers/clout are one number or
   two is NOT decided (call once per metric). [PENDING Paolo: the scoring + one-vs-two.]
+  THE PHONE DEMO (7/20, slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html): a tappable
+  iPhone-portrait SYSTEMS PREVIEW driving the REAL modules (no copies, ENGINE SYNC
+  safe) — feed / offers (over-the-phone vs pull-up-in-person) / quest log / profile
+  with followers + a multi-screen dialogue overlay. Browser-verified (quest completes,
+  posts to feed, followers 0->60, in-person gates, zero console errors). Sent to Paolo
+  as a self-contained portable copy (engine inlined). Demo quests are throwaway, NOT
+  canon; UI is placeholder, the DATA is live. This is the judge-able artifact for the
+  phone data layer.
   STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
   (faction placement/standings into worldgen slots) and bootEconomy (what the three
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
