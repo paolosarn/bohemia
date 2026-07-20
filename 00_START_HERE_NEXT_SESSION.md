@@ -74,10 +74,14 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   now WIRED as ctx.quests (bootQuests + a QuestManager wrapping BQ+BQRuntime),
   save-bridged (in-flight quests resume on reload). Gated: LOOP QUESTS (12/12).
   RULE GOING FORWARD: any new system hangs off the GameContext, never a silo.
-  KNOWN INCOMPLETE (next wiring gaps, not touched): the loop's bootFactions/
-  bootEconomy/bootEntities are still [SEAM]/[GAP] empty stubs, and the old
-  gates/bohemia_loop_gate.js is ORPHANED (crashes, not in the suite, expects those
-  poured). Pouring those sockets is a real future task.
+  SOCKETS POURED so far: ctx.quests (LOOP QUESTS gate) and ctx.spawner (bootEntities
+  now creates the deterministic enemy Spawner + shares ctx.deltas; LOOP ENTITIES gate;
+  spawnActorsForDistrict/updateDistrictLOD use it).
+  STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
+  (faction placement/standings into worldgen slots) and bootEconomy (what the three
+  currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
+  is ORPHANED (crashes, not in the suite, expects factions/economy poured) — a real
+  future task, left untouched.
 - STILL MISSING (the WITH-PAOLO walkable build): the walkable harness booting into
   human mode, a faked house exit, an NPC system (placement + proximity "TALK"),
   WIRING the dialogue UI + save into the walking world, and a written playable .bq
