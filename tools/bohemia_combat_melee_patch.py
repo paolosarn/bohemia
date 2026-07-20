@@ -1342,13 +1342,79 @@ def patch18(demo):
     return demo
 
 
+def patch19(demo):
+    """v19 (Paolo 7/20):
+    1. VICTORY WALK: after the fight is won, the move ring keeps working —
+       wander the field over the corpses (loot comes later).
+    2. BLOOD BY HEALTH: wounded bodies BLEED into the world. An enemy at
+       or under 40% health drips every turn; under 20% it pours; the
+       player under 30 HP leaves a trail behind every step. Spots are
+       world-anchored so they smear into a trail as bodies move and pool
+       where they stand.
+    3. KILLSHOTS/TURN could not be found — the SKILLS group now moves to
+       the very TOP of the settings drawer at boot."""
+    if 'VICTORY WALK V19' in demo:
+        print('v19 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, "function doMove(d){ if(G.phase!=='cover'||G.over||G.inc)return; audio();", """\
+function doMove(d){ if(G.inc)return;
+  const roam=(G.over&&G.win);   /* VICTORY WALK V19: the field is yours after the fight */
+  if(!roam&&(G.phase!=='cover'||G.over))return; audio();""",
+        'roam-gate')
+    demo = sub1(demo, """\
+  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }""", """\
+  if(roam){ setRead('WALKING THE FIELD','yours now — loot comes later','#8fd0e8'); renderBoard(); updGap(); return; }
+  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }""",
+        'roam-free')
+
+    # blood by health
+    demo = sub1(demo, "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); updateGeomCover();", """\
+/* BLOOD BY HEALTH V19 (Paolo): wounded bodies bleed into the world.
+   <=40% hp drips each turn, <=20% pours; the player under 30 leaves a
+   trail behind every step. World-anchored: moving smears a trail,
+   standing still pools. */
+function bleedTick(){ G.bloodSpots=G.bloodSpots||[];
+  for(const e of G.e){ if(e.dead||e.hp>e.max*0.4)continue;
+    const heavy=e.hp<=e.max*0.2;
+    G.bloodSpots.push({ea:e.ea,edist:e.edist,r:(heavy?2.6:1.5)+Math.random()*1.2,
+      jx:(Math.random()-0.5)*0.5,jy:(Math.random()-0.5)*0.5});
+    if(heavy)G.bloodSpots.push({ea:e.ea,edist:e.edist,r:1.2+Math.random(),
+      jx:(Math.random()-0.5)*0.8,jy:(Math.random()-0.5)*0.8}); }
+  if(G.pHP<=30)G.bloodSpots.push({ea:0,edist:0.15,r:2.0+Math.random()*1.4,
+    jx:(Math.random()-0.5)*0.6,jy:(Math.random()-0.5)*0.6});
+  while(G.bloodSpots.length>90)G.bloodSpots.shift(); }
+function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); updateGeomCover(); bleedTick();""",
+        'bleed-tick')
+    demo = sub1(demo, "  for(const P of (G.pillars||[]))mv(P);",
+        "  for(const P of (G.pillars||[]))mv(P);\n  if(Array.isArray(G.bloodSpots))for(const s of G.bloodSpots)mv(s);   /* the trail stays where it fell */",
+        'blood-shift')
+    demo = sub1(demo, "  for(const P of (G.pillars||[])){ const pp=fieldPos(P,W,H,cx,cy), pxs=pp[0], pys=pp[1];", """\
+  if(Array.isArray(G.bloodSpots))for(const s of G.bloodSpots){
+    const sp=fieldPos(s,W,H,cx,cy);
+    x.fillStyle='rgba(118,16,14,0.32)';
+    x.beginPath(); x.ellipse(sp[0]+(s.jx||0)*ring,sp[1]+(s.jy||0)*ring,(s.r||2),(s.r||2)*0.6,0,0,7); x.fill(); }
+  for(const P of (G.pillars||[])){ const pp=fieldPos(P,W,H,cx,cy), pxs=pp[0], pys=pp[1];""",
+        'blood-draw')
+
+    # skills to the top of the drawer
+    demo = sub1(demo, "      panel.insertBefore(grp,panel.children[1]||null); }", """\
+      panel.insertBefore(grp,panel.children[1]||null);
+      const csB=document.getElementById('chainskill'), sg=csB&&csB.closest('.setgrp');
+      if(sg)panel.insertBefore(sg,panel.children[1]||null);   /* V19: KILLSHOTS/TURN at the TOP of settings */ }""",
+        'skills-top')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))
+    patched = patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
