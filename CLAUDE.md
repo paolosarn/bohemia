@@ -109,6 +109,16 @@ rarely as one mega-session.
 - Every turn that ships to main ends with the play link as the LAST LINE of
   the reply, always: https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
   (GitHub Pages auto-redeploys main in ~2 minutes; the link never changes.)
+- BUILD STAMP + DEPLOY VERIFY (7/20, after "I didn't see nothing new" twice):
+  (1) every ship UPDATES #buildstamp in the alpha's front splash (date-letter +
+  the headline, e.g. "BUILD 7/20a · SHUFFLE ANIMS") so Paolo can SEE which
+  build he is on; the gate checks the stamp exists. (2) pushing main is NOT
+  shipped: parallel-session push storms make GitHub Pages CANCEL in-flight
+  builds, so the live site can lag many pushes behind. After pushing, CHECK
+  the "pages build and deployment" workflow (GitHub MCP actions_list) until a
+  run whose sha contains your content concludes SUCCESS -- only then is the
+  link true. If your build got cancelled, a LATER sha carries your content;
+  wait for that one.
 
 ## ONE-LINK LAW (Paolo 7/18/26, LOCKED — he was furious about "?v=arms")
 - There is ONE universal alpha URL and it NEVER changes, for ANY session:
