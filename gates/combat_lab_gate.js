@@ -359,7 +359,7 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('places/removes a REAL cover block ON that tile') && demo.includes('placed:true'));
   ok('TWO-TURN RED LINE: pools require an acquired bead',
     demo.split('.filter(e=>(e.acq||0)>=1)').length >= 3 &&
-    demo.includes('&&(e.acq||0)>=1); }'));
+    demo.includes('&&(e.acq||0)>=1);'));
   ok('acquiring turn is telegraphed (warning line + acq clock)',
     demo.includes('ACQUIRING') && demo.includes('acq:0,'));
   // v8 GRID LOCK: the ghost cells ARE the painted tiles
@@ -486,6 +486,20 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('the warning speaks: fresh beads announce on damage-free turns (both turn ends)',
     demo.includes('V22: fresh beads announce themselves') &&
     demo.split("setRead('ACQUIRING',G._newBeads+' gun'").length >= 3);
+  // v23: honest player crouch, roam facing, exposure honesty, auto frame
+  ok('V23 HONEST PLAYER CROUCH: your crouch needs stone within 1.8 tiles too',
+    demo.includes('function playerNearCover()') &&
+    demo.includes('V23: no stone, no crouch'));
+  ok('the victory walk faces the step, not the last shot',
+    demo.includes('V23: the walk faces the step, not the last shot'));
+  ok('EXPOSURE HONESTY: firing from behind the stone never opens the covered side',
+    demo.includes('V23 EXPOSURE HONESTY') && demo.includes('G._poppedOut=G._poppedOut||!!myCoverAgainst(tgt.ea,tgt.edist)') &&
+    demo.includes('G._poppedOut=false;'));
+  ok('AUTO FRAME: cover-phase camera holds the farthest enemy, action-ring margin, through uzEff',
+    demo.includes('V23 AUTO FRAME') && demo.includes('function uzEff()') &&
+    demo.includes('uzApply(c,W,H){c.translate(W/2+G.userPan.x,H/2+G.userPan.y);c.scale(uzEff(),uzEff())') &&
+    !demo.includes('c.scale(G.userZoom,G.userZoom)') &&
+    demo.includes(')/uzEff()+W/2') && demo.includes('-96)'));
 }
 
 /* ---- 3. verdict workflow ---- */

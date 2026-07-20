@@ -128,7 +128,8 @@ ok('enemyFrame: windup holds frame 0, strike swings through', /e\.windup&&L\.swi
 ok('enemyFrame: counter-snap answers from the crouch', /_snapAt.*cfire112/.test(ef));
 ok('enemyFrame: covered fire never stands', /firing\(e\)&&\(e\.gcov\|\|\(e\.inCover&&nearPillar\(e\)\)\)&&L\.cfire112/.test(ef));
 ok('PRONE OUTRANKS THE STAGGER', ef.indexOf('e.prone>0&&L.prone112') < ef.indexOf('_hitAt') && ef.indexOf('_shovedAt') < ef.indexOf('_hitAt'));
-ok('player lives the crouch in cover phase', /G\.phase==='cover'&&!G\.over&&fset\.crouch/.test(demo));
+ok('player lives the crouch in cover phase (V23: only with real stone near — Paolo 7/20, "crouching even though there\'s no cover")',
+  /G\.phase==='cover'&&!G\.over&&playerNearCover\(\)&&fset\.crouch/.test(demo));
 ok('player rises INTO the aim', /_riseAt.*fset\.rise/.test(demo));
 ok('player drops back down', /_dropAt.*fset\.drop/.test(demo));
 ok('player repositions at gunpoint', /fset\.gunwalk/.test(demo));

@@ -1646,13 +1646,90 @@ def patch22(demo):
     return demo
 
 
+def patch23(demo):
+    """v23 (Paolo 7/20, four asks in one message):
+    - HONEST PLAYER CROUCH: b13 made you live the crouch in EVERY cover
+      phase, stone or not ('I'm crouching even though there's no cover
+      around me'). Same law as the enemies' v20 honest crouch: the pose
+      needs a pillar within 1.8 tiles, otherwise you stand.
+    - ROAM FACES THE WALK: after the win you stayed locked at the last
+      shot's facing; victory-walk steps now face the direction you step.
+      (Mid-fight facing stays threat-driven per the 7/4 LOCKED law.)
+    - EXPOSURE HONESTY ('why am I double exposing myself'): engaging a
+      target you are ALREADY exposed to is fired from BEHIND your stone —
+      the side you're covered from gets NO free aimed volley (they still
+      counter-snap a whiff at 0.35x). Only popping AROUND your cover to
+      hit someone you were covered from opens you to everyone.
+    - AUTO FRAME: during the cover phase the camera automatically stays
+      zoomed out far enough to hold EVERY living enemy, with a margin so
+      the bottom-right action ring never hides a body. Pinch still works;
+      it just can't LOSE an enemy while the fight is on."""
+    if 'V23 AUTO FRAME' in demo:
+        print('v23 already applied, skipping')
+        return demo
+
+    # honest player crouch: stone or stand
+    demo = sub1(demo, "function nearPillar(e){ const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;\n  return (G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-ex,q[1]-ey)<1.8; }); }",
+        "function nearPillar(e){ const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;\n  return (G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-ex,q[1]-ey)<1.8; }); }\nfunction playerNearCover(){ return (G.pillars||[]).some(P=>P.edist<1.8); }   /* V23: your crouch needs stone too */",
+        'player-near-cover')
+    demo = sub1(demo, "    if(G.phase==='cover'&&!G.over&&fset.crouch&&fset.crouch.length){",
+        "    if(G.phase==='cover'&&!G.over&&playerNearCover()&&fset.crouch&&fset.crouch.length){   /* V23: no stone, no crouch */",
+        'honest-player-crouch')
+
+    # the victory walk faces where it walks
+    demo = sub1(demo, "  if(roam){ setRead('WALKING THE FIELD','yours now — loot comes later','#8fd0e8'); renderBoard(); updGap(); return; }",
+        "  if(roam){ G.faceAng=Math.atan2(sy,sx); G.facing=dirIndex(G.faceAng);   /* V23: the walk faces the step, not the last shot */\n    setRead('WALKING THE FIELD','yours now — loot comes later','#8fd0e8'); renderBoard(); updGap(); return; }",
+        'roam-facing')
+
+    # exposure honesty: firing from behind your stone never opens the covered side
+    demo = sub1(demo, "  if(!isChain)G._chainN=1;",
+        "  if(!isChain){G._chainN=1;G._poppedOut=false;}   /* V23: track whether this turn ever left the stone */",
+        'popped-reset')
+    demo = sub1(demo, "  { const tgt=G.e[G.fireTarget]; if(tgt){ if(tgt.ea!=null) G.faceAng=tgt.ea;",
+        "  { const tgt=G.e[G.fireTarget]; if(tgt){ if(tgt.ea!=null) G.faceAng=tgt.ea;\n      G._poppedOut=G._poppedOut||!!myCoverAgainst(tgt.ea,tgt.edist);   /* V23: shooting who you're covered FROM = popping around the stone */",
+        'popped-track')
+    demo = sub1(demo, "    pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1); }",
+        "    pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1);\n    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */ }",
+        'exposure-honesty')
+
+    # auto frame: the camera holds every living body
+    demo = sub1(demo, "function uzApply(c,W,H){c.translate(W/2+G.userPan.x,H/2+G.userPan.y);c.scale(G.userZoom,G.userZoom);c.translate(-W/2,-H/2);}",
+        "function uzEff(){ return G._uzE!=null?G._uzE:G.userZoom; }   /* V23 AUTO FRAME: the applied zoom, floored to hold every enemy */\nfunction uzApply(c,W,H){c.translate(W/2+G.userPan.x,H/2+G.userPan.y);c.scale(uzEff(),uzEff());c.translate(-W/2,-H/2);}",
+        'uz-eff')
+    demo = sub1(demo, "  px2=(px2-W/2)*G.userZoom+W/2+G.userPan.x; py2=(py2-H/2)*G.userZoom+H/2+G.userPan.y;",
+        "  px2=(px2-W/2)*uzEff()+W/2+G.userPan.x; py2=(py2-H/2)*uzEff()+H/2+G.userPan.y;",
+        'uz-eff-scr')
+    demo = sub1(demo, "function uzInvert(x,y,W,H){return [(x-W/2-G.userPan.x)/G.userZoom+W/2,(y-H/2-G.userPan.y)/G.userZoom+H/2];}",
+        "function uzInvert(x,y,W,H){return [(x-W/2-G.userPan.x)/uzEff()+W/2,(y-H/2-G.userPan.y)/uzEff()+H/2];}",
+        'uz-eff-inv')
+    demo = sub1(demo, """\
+  applyShake();
+  const W=cv.width,H=cv.height;
+""", """\
+  applyShake();
+  const W=cv.width,H=cv.height;
+  { /* V23 AUTO FRAME: in the cover phase the camera is at least wide enough
+       to hold the FARTHEST living enemy, with margin so the bottom-right
+       action ring never sits on a body. Pinch works, but can't LOSE anyone. */
+    let uzT=G.userZoom;
+    if(G.phase==='cover'&&!G.over&&!G.ks&&G.e&&G.e.length){
+      const ringF=Math.min(W,H)*0.085; let md=0;
+      for(const e of G.e)if(!e.dead&&e.edist>md)md=e.edist;
+      if(md>0){ const fit=(Math.min(W/2,H/2)-96)/Math.max(80,md*ringF+70);
+        uzT=Math.min(G.userZoom,Math.max(0.45,Math.min(1,fit))); } }
+    G._uzE=(G._uzE==null)?uzT:G._uzE+(uzT-G._uzE)*0.10; }
+""",
+        'auto-frame')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))
+    patched = patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
