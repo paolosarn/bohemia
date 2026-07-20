@@ -1,50 +1,36 @@
-# BOHEMIA — ADDENDUM: THE QUEST LOG IS THE SOCIAL FEED (followers, not a Skyrim list)
-### 7.20.26 — Paolo locked the PRESENTATION of the quest log. This does not invent a new system; it SHARPENS and unifies three things already in canon: GDD v2 §18 (Social Media Hub & The Feed), the CLOUT currency (GDD v2 §currencies), and the RECORDED vs UNRECORDED two-ledger engine (7/1/26). Extends GDD v2 §18. Newest-date-wins over any older "quest log" phrasing.
+# BOHEMIA — ADDENDUM: THE QUEST LOG IS THE SOCIAL FEED + TOTAL RECALL
+### 7.20.26 — Paolo locked TWO things: (1) the quest log's PRESENTATION is a social-media phone app, and (2) TOTAL RECALL — everything is remembered on the feed, no exceptions. This SHARPENS GDD v2 §18 (Social Media Hub & The Feed) and the CLOUT currency, and it RETIRES the recorded/unrecorded two-ledger split (BOHEMIA_ADDENDUM_RECORDED_VS_UNRECORDED_7_1_26.md, now archived) plus GDD v2 §blind-spot's "off-feed is the dynasty's advantage" premise. Newest-date-wins.
 
 ---
 
 ## WHAT PAOLO LOCKED (his words, 7/20)
-The quest log is NOT a Skyrim-style menu list. It is presented as a SOCIAL-MEDIA PHONE APP — the "social tab." Through it:
-- you PICK UP quests (available/random quests surface in the feed),
-- all your quests are DOCUMENTED "in a cool way" (the feed IS the quest history),
-- you gain FOLLOWERS when you do cool shit (notable deeds grow your audience).
+1. The quest log is NOT a Skyrim-style menu list. It is a SOCIAL-MEDIA PHONE APP — the "social tab." Through it you PICK UP quests (they surface in the feed), all your quests are DOCUMENTED "in a cool way" (the feed IS the quest history), and you gain FOLLOWERS when you do cool shit.
+2. TOTAL RECALL: "I want everything to be remembered in the social media shit, end of story." No secret channel, no off-feed exception. Even people who logically would not have phones (the homeless) are on the feed: "fuck it, give them phones." Everyone is on the feed. Everything is remembered.
 
-The quest journal and the social feed are the SAME surface. Followers are the visible readout of your reputation.
+## WHY (1) IS ALREADY CANON (read-before-speak, 7/20)
+GDD v2 §18 SOCIAL MEDIA HUB & THE FEED, verbatim: "The player's daily hub. A social media feed functioning as the primary interface... Clout currency earned through the feed. QUESTS SURFACE THROUGH THE FEED. Faction movements tracked through the feed." The feed is MANDATORY ("going dark is not a strategic option... you participate or you fall behind"). It EVOLVES per act; in the back half of Act 3 "the feed becomes the battlefield where the truth about the Amalgamation either spreads or gets suppressed." CLOUT (§currencies): "anyone with feed access can post, going viral accumulates clout." So the social-media quest log with followers is the FEED made concrete; Paolo's lock names that the quest LOG and the feed are ONE surface and FOLLOWERS is the readout.
 
-## WHY THIS IS ALREADY CANON (read-before-speak, 7/20)
-GDD v2 §18 SOCIAL MEDIA HUB & THE FEED already says, verbatim:
-- "The player's daily hub. A social media feed functioning as the primary interface for understanding Bohemia and the wider world."
-- "Clout currency earned through the feed. QUESTS SURFACE THROUGH THE FEED. Faction movements tracked through the feed."
-- The feed is MANDATORY: "going dark on the feed is not a strategic option... You participate or you fall behind. This is a deliberate design decision and a deliberate commentary."
-- The feed EVOLVES per act: Act 1 primitive/scrappy, Act 3 almost professional (faction PR), and in the back half of Act 3 the feed becomes the battlefield where the truth about the Amalgamation either spreads or gets suppressed.
+## WHAT (2) OVERRIDES (the retirement, done honestly)
+The old design said the dynasty's advantage against the Amalgamation was the UNRECORDED: face-to-face trust, tunnel talk, choices that left no digital trace, "the most important things about them were never compiled" (GDD v2 §blind-spot), formalized into a two-ledger engine with a `recorded:false` flag (7/1 addendum). PAOLO RETIRED THIS 7/20. There is no off-feed ledger. Everything a quest does is remembered on the feed. The 7/1 two-ledger addendum is archived; GDD v2 §blind-spot's off-feed premise no longer governs.
 
-CLOUT (GDD v2 §currencies): "Most democratized currency. Anyone with feed access can post. Going viral accumulates clout. The Amalgamation watches viral moments most carefully."
-
-So Paolo's "followers when you do cool shit" is the FEED/CLOUT audience made concrete, and "quest log = the social phone" confirms the quest journal and §18's feed are ONE interface. Nothing here contradicts canon; it names the UI.
-
-## THE CONVERGENCE WITH THE ENGINE (the reason this is beautiful, not just a skin)
-The RECORDED vs UNRECORDED addendum (7/1/26) already locked: the CLOUT economy and the UNRECORDED ledger are OPPOSITE POLES — "power-via-visibility vs safety-via-invisibility," and "the Amalgamation watches viral moments most carefully." The recorded ledger IS the feed-touching public footprint, and it is EXACTLY the data the Amalgamation reads.
-
-Wired 7/20 (LOOP LEDGER gate): a quest choice/outcome played through ctx.quests records to the engine choice-log with `recorded:true` by default. THE FOLLOWER COUNT IS A NATURAL READOUT OF THE RECORDED LEDGER. Doing cool shit publicly -> posts to the feed -> recorded:true -> grows followers AND is seen by the Amalgamation. The same act that makes you famous makes you legible to the enemy. The social-media quest log is, mechanically, the antagonist's surveillance surface. That is the theme (true family vs the counterfeit family that "never loses anything") rendered as the UI the player lives in.
+CONSEQUENCE (stated, not relitigated): the Act 3 win against the Amalgamation runs THROUGH the feed, not around it — which is exactly §18's own finale ("the feed becomes the battlefield where the truth spreads or gets suppressed"). You beat it by winning the feed war (truth spreads faster than it can bury), not by hiding in a blind spot it can't see. The homeless faction is on the feed too now; whatever makes them special is no longer "they're off-grid."
 
 ## LOCKED
-- The quest log's presentation is the SOCIAL FEED / phone app (the social tab). No separate Skyrim list.
-- FOLLOWERS is the visible reputation metric grown by notable deeds; it sits alongside CLOUT (clout = the spendable currency; followers = the audience/reputation readout). [Their exact relationship — same number or two numbers — is PENDING below.]
+- The quest log's presentation IS the social feed / phone app (the social tab). No separate Skyrim list.
+- FOLLOWERS is the visible reputation metric grown by notable deeds. CLOUT stays the spendable currency (§currencies). Followers = audience/reputation readout.
 - Quests are picked up through the feed and documented through the feed.
-- The feed evolves in polish per act (already canon, §18) — the quest-log UI upgrades with it.
+- TOTAL RECALL: everything is remembered on the feed. No secret / off-feed channel exists. Everyone is on the feed (homeless included).
+- The feed's polish evolves per act (§18); the quest-log UI upgrades with it.
 
-## MECHANISM-MINE (safe to build toward, no new lore)
-- A FEED VIEW over the recorded ledger: the `recorded:true` choice-log entries can be rendered as a chronological feed of "posts" (the documented quest history). Pure read over data that already exists (Save.choices).
-- A FOLLOWER/CLOUT tally derived from the recorded ledger. The HOOK is mine; the MATH (how much per deed, what counts as "cool shit," decay) is Paolo's.
-- Quest availability surfacing through the feed reuses the existing journal/available machinery (ctx.quests.journal / talkablesNear).
+## DONE IN CODE THIS TURN (7/20) — matches the lock
+The quest FEED pipe (engine/bohemia_loop.js) records every quest choice and outcome into the choice-log with `recorded:true`, ALWAYS. The `recorded:false` / silence pathway was removed: even a .bq option marked SILENCE still hits the feed. LOOP LEDGER gate updated to assert total recall (nothing off-feed; blind spot is always zero).
 
-## PENDING — PAOLO'S CALLS (do not decide these)
-- THE CORE FORK: is the follower count literally the recorded-ledger readout, so quests done QUIETLY / off-feed (the unrecorded, family/tunnel path) earn ZERO followers by design? If yes, "chase clout (famous, powerful, but the machine models you) vs stay small (invisible, safe, unfamous)" becomes the central strategic axis, and the follower number becomes the enemy's view of you. [Claude's strong read, unconfirmed.]
-- FOLLOWERS vs CLOUT: one number or two? (Candidate: clout = spendable currency; followers = the reputation gauge that unlocks/gates. PENDING.)
-- What deeds post automatically vs by player choice (ties to the recorded:false policy, still Paolo's).
-- Follower FACTIONS/REACH: do different factions or the international feed follow you separately (§18: the feed is international)?
-- The "cool way" of documentation: visual/verdict-tool design, deferred to art.
+## PENDING — PAOLO'S CALLS (small, not blocking)
+- FOLLOWERS vs CLOUT: one number or two, and how followers gate/unlock things.
+- Which deeds auto-post vs are chosen; how followers grow/decay per deed ("what counts as cool shit").
+- The homeless faction's new distinguishing trait now that off-feed is retired.
+- The "cool way" of documenting quests: the feed's visual design (art, deferred).
 
 ---
-*BOHEMIA — The Quest Log Is The Social Feed — 7.20.26*
-*Not a menu you check. A feed you live in. The followers you earn are the enemy's view of you. What you do off-feed, it never sees.*
+*BOHEMIA — The Quest Log Is The Social Feed, Total Recall — 7.20.26*
+*Not a menu you check. A feed you live in, and it remembers everything. You win it by flooding it with the truth, not by hiding from it.*

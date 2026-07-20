@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-140 canon files indexed across 2 locations.
+139 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -60,6 +60,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html` -> seamless sets banked as .txt
   - `BOHEMIA_STATE_OF_PLAY_7_16_26.md` -> superseded 7/17/26 by laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the repo-born day rolled the state; 7/16 preserved in archive/)
   - `GDD_v2 six-ending framing (Liberation/Surrender/Compromise/Unknown/Nuked/Space)` -> folded 7/18/26 into the THREE endings (Liberate/Respect/Become) in laws/BOHEMIA_STORY_MASTER_7_18_26.md. GDD v2 stays the sole home of its other canon (not archived); only the six-ending list is superseded by the three.
+  - `BOHEMIA_ADDENDUM_RECORDED_VS_UNRECORDED_7_1_26.md` -> RETIRED 7/20/26 by Paolo's TOTAL RECALL call (laws/BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md): everything is remembered on the feed, no recorded:false / off-feed channel. The two-ledger split was a Claude-originated engine framing Paolo rejected. Also overrides GDD v2 section blind-spot's "off-feed is the dynasty's advantage" premise; the Act 3 win runs through the feed (section 18: the feed is the battlefield), not around it. Moved to archive/.
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT
@@ -168,7 +169,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md`
 - `BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md`
 
-### QUESTS & LORE (14)
+### QUESTS & LORE (13)
 - `BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md`
 - `BOHEMIA_ADDENDUM_AMALGAMATION_SCOPE_GOOD_ENDING_7_18_26.md`
 - `BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md`
@@ -180,7 +181,6 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md`
 - `BOHEMIA_ADDENDUM_AMALGAMATION_THREAT_LOGIC_7_1_26.md`
 - `BOHEMIA_ADDENDUM_GENERATIONAL_PERSISTENCE_7_1_26.md`
-- `BOHEMIA_ADDENDUM_RECORDED_VS_UNRECORDED_7_1_26.md`
 - `BOHEMIA_ADDENDUM_SUCCESSION_AND_BUNKERGUY_7_1_26.md`
 - `BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md`
 

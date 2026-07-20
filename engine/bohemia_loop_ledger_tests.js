@@ -57,10 +57,10 @@ ok(ids(ctx.save).indexOf('quest:ledgerq:complete')>=0, 'the COMPLETE outcome is 
 var completeCount = ids(ctx.save).filter(function(x){return x==='quest:ledgerq:complete';}).length;
 ok(completeCount===1, 'the outcome is recorded exactly once (no double-fire)');
 
-/* the fold + the Amalgamation actually SEE these recorded choices now */
+/* the fold actually SEES every quest choice now */
 var am = E.Generations.amalgamationModel(ctx.save);
-ok(am.knows === ctx.save.choices.length, 'the Amalgamation knows every recorded quest choice (fold sees the ledger)');
-ok(am.blindSpot === 0, 'no secret choices yet, so the Amalgamation has no blind spot');
+ok(am.knows === ctx.save.choices.length, 'the fold sees every quest choice on the feed');
+ok(am.blindSpot === 0, 'TOTAL RECALL: nothing is off-feed, so there is no blind spot');
 
 /* the pipe survives save/reload: a RESTORED quest still feeds the ledger */
 var blob = Loop.captureSave(ctx);
@@ -76,24 +76,18 @@ var rt2 = ctx2.quests.start(Q2);
 rt2.begin('start'); rt2.choose(pick(rt2.view(),'go').i);
 ok(ctx2.save.choices.length === before+1, 'a quest played after reload still records through the rebound pipe');
 
-/* MECHANISM PROOF: the pipe forwards evt.recorded, so a secret-choice policy is a
-   one-line hookup at the sink and never a change to the pipe. Prove the sink honors
-   recorded:false by calling a manager built with a policy sink directly. */
-var seen=[];
-var mgr = Loop.makeQuestManager({ record:function(evt){
-  // stand-in policy: a 'silence' option is a secret (recorded:false). NOT wired in
-  // the real bootQuests — that classification is Paolo's call — but proves the pipe
-  // carries the flag faithfully.
-  seen.push({ kind:evt.kind, recorded: evt.silence ? false : evt.recorded });
-}});
+/* TOTAL RECALL (Paolo 7/20): everything hits the feed, no exceptions. Even an option
+   the .bq marks SILENCE still records — there is NO secret / off-feed channel. */
+var beforeSilent = ctx2.save.choices.length;
 var Q3 = [
  '@QUEST ledgerq3  Silent Choice', '@ACT 1', '@ONCE false',
  '@ROLE k REQ is=demo', '@STAGE 10',
  '@TALK start speaker=k entry=stage>=10', '  @SAY psst.',
  '  @OPT "keep it quiet" SILENCE [gate: none] -> END', '@END'
 ].join('\n');
-var rt3 = mgr.start(Q3); rt3.begin('start'); rt3.choose(rt3.view().options[0].i);
-ok(seen.length>=1 && seen[0].recorded===false, 'the pipe faithfully forwards a recorded:false event (policy stays swappable at the sink)');
+var rt3 = ctx2.quests.start(Q3); rt3.begin('start'); rt3.choose(rt3.view().options[0].i);
+ok(ctx2.save.choices.length === beforeSilent+1, 'even a SILENCE option is remembered on the feed (total recall, no off-feed channel)');
+ok(ctx2.save.choices[ctx2.save.choices.length-1].recorded === true, 'the silent choice is still recorded:true (nothing is hidden from the feed)');
 
 console.log('LOOP LEDGER TESTS: '+pass+' passed, '+fail+' failed');
 if(fail>0) process.exit(1);

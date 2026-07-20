@@ -215,17 +215,14 @@
      Serializable so in-flight quests ride the save. Content-agnostic: it plays
      whatever .bq text it is handed and authors nothing.
 
-     THE LEDGER PIPE (mechanism-mine, policy-Paolo's): if constructed with a
-     `record` sink, the manager fires that sink for every quest CHOICE and every
-     COMPLETE/FAIL OUTCOME played through a runtime it owns. This is the pipe that
-     lets quest outcomes reach the engine's choice-log (Save.recordChoice) and so
-     feed the fold + the Amalgamation's knowledge, instead of dying inside the
-     runtime. The pipe is pure MECHANISM: every event carries `recorded:true` by
-     default. WHICH choices are secret (recorded:false, invisible to the
-     Amalgamation) is Paolo's canon rule and is NOT decided here — the sink just
-     forwards `evt.recorded`, so wiring that policy later is a one-line change at
-     the sink, never a change to this pipe. Non-invasive: it wraps the runtime's
-     own choose()/setStage() so the runtime code is untouched. */
+     THE FEED PIPE (Paolo 7/20: TOTAL RECALL — everything is remembered on the
+     feed, no exceptions): if constructed with a `record` sink, the manager fires
+     that sink for every quest CHOICE and every COMPLETE/FAIL OUTCOME played through
+     a runtime it owns, so quest outcomes reach the engine's choice-log and feed the
+     fold + the world instead of dying inside the runtime. EVERYTHING is recorded,
+     period. There is no secret / off-feed channel (the old recorded:false split was
+     retired 7/20 — see the SOCIAL FEED addendum). Non-invasive: it wraps the
+     runtime's own choose()/setStage() so the runtime code is untouched. */
   function makeQuestManager(opts) {
     opts = opts || {};
     const active = {};   // questId -> { text, rt }
@@ -241,7 +238,7 @@
       function checkOutcome() {
         if (!firedOutcome && rt.state && rt.state.done) {
           firedOutcome = true;
-          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome, recorded: true });
+          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome });
         }
       }
       const origChoose = rt.choose.bind(rt);
@@ -250,11 +247,9 @@
         const opt = (before && before.opts) ? before.opts[i] : null;
         const view = origChoose(i);
         if (opt) {
+          // TOTAL RECALL: every choice hits the feed. No silence/off-feed exception.
           sink({ questId: id, kind: 'choice', node: before.id, choiceId: i,
-                 text: opt.text, to: opt.to,
-                 // silence/trap are surfaced so the recorded-policy CAN key off them
-                 // later (Paolo's rule); the pipe itself still defaults to recorded.
-                 silence: !!opt.silence, trap: !!opt.trap, recorded: true });
+                 text: opt.text, to: opt.to });
         }
         checkOutcome();     // a choice can drive a stage to COMPLETE/FAIL
         return view;
@@ -364,10 +359,10 @@
 
   // 8b. Quests. The .bq runtime, made pullable from the context and save-bridged:
   //     any in-flight quests restore from the save so a reload resumes mid-quest.
-  //     The ledger pipe is bound here: quest choices/outcomes flow into the SAME
-  //     choice-log the fold + amalgamationModel read (Save.recordChoice), so a
-  //     quest played through ctx.quests actually moves the dynasty. Mechanism only:
-  //     recorded defaults true; the secret-choice (recorded:false) policy is Paolo's.
+  //     The FEED pipe is bound here: quest choices/outcomes flow into the choice-log
+  //     the fold reads, so a quest played through ctx.quests actually moves the
+  //     dynasty. TOTAL RECALL (Paolo 7/20): everything is remembered on the feed,
+  //     no exceptions, no secret/off-feed channel.
   function bootQuests(ctx) {
     ctx.quests = makeQuestManager({
       record: function (evt) {
@@ -378,7 +373,7 @@
           : 'quest:' + evt.questId + ':' + evt.node + ':' + evt.choiceId;
         E.Save.recordChoice(ctx.save, id, beat, {
           gen: currentGen(ctx),
-          recorded: evt.recorded !== false,   // MECHANISM default; the false-policy is Paolo's [SEAM]
+          recorded: true,   // TOTAL RECALL: everything is on the feed, always
           effect: (evt.kind === 'outcome')
             ? { quest: evt.questId, outcome: evt.outcome }
             : { quest: evt.questId, node: evt.node, to: evt.to },
