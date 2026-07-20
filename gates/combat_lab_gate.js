@@ -387,6 +387,15 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('AIM CAM PIN V12'));
   ok('floor bounds expand for zoom-out shots (no floating board)',
     demo.includes('const spanF=(aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1;'));
+  // v13: cover AI + loop armor + compact UI
+  ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
+    demo.includes('COVER AI V13') && demo.includes('function coverSeekAI()') &&
+    demo.includes('coverSeekAI(); updateGeomCover();') &&
+    !demo.includes('inCover:!a.melee'));
+  ok('LOOP ARMOR: one bad frame can never kill the game',
+    demo.includes('LOOP ARMOR V13') && demo.includes("G._lastErr=String(_le)"));
+  ok('UI COMPACT: wager + pattern move to settings, board owns the screen',
+    demo.includes('UI COMPACT V13'));
   ok('ghost cells + threat lines stay out of the shot',
     demo.includes('never during the dial') && demo.includes('if(!aimo)for(const e of G.e)'));
   ok('corpses ride the grid-true ruler',

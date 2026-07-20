@@ -525,6 +525,32 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    TEST-HARNESS NOTE: clicking INTO the combat iframe with playwright
    page coords needs the iframe's page offset added, and a missed click
    can PAN the user camera (reset G.userPan/userZoom before screenshots).
+   BOARD BODY + COVER AI + LOOP ARMOR (7/20, passes 11-13; Paolo: "change
+   the size... integrate it better" then "got shot and it broke" + "remove
+   auto cover, work on their AI" + "more game on screen"):
+   (v11 BOARD BODY) the full-body pose-silhouette needle is DEAD — the
+   field sprite stays as you during the dial and the needle is an ARM+
+   weapon at board scale from your sprite's shoulder (the 6/28 locked
+   canon made literal). drawArmNeedle; ghost fan = arm echoes; ARML =
+   ring*(G._zb)*1.05. (v12) AIM CAM PIN: cam pinned each non-ks frame +
+   biased 35% to the target; floor bounds expand 1/zb on zoom-out (no
+   floating board); median/lane/grid overdraw. (v13) LOOP ARMOR: the rAF
+   body is try/caught, one bad frame can never freeze the game (Paolo's
+   "broke when shot" could not be reproduced headless — shot/death/
+   restart all clean — so the class got fixed; G._lastErr holds the last
+   frame error, bomb-tested). COVER AI: nobody spawns behind magic
+   cover (inCover:false all); coverSeekAI runs at the turn-end choke:
+   uncovered gunmen run up to 2.2 tiles/turn for the far side of the
+   nearest pillar until geometry covers them (verified: 0 spawn-covered,
+   2/4 reached stone in 6 turns), blades charge as before, hand cover
+   toggles remain Paolo's tool. UI COMPACT: logo 30px, WAGER + PATTERN
+   moved into the SETTINGS drawer (TABLE group), WAIT/SHOVE/NEW
+   ENCOUNTER stay at hand. Gate 96 checks, ALL GREEN.
+   PAOLO'S STANDING NOTE (7/20): "a lot of the game mechanics still
+   aren't good... look back in the plumbing" — next passes should
+   re-examine the turn/pool plumbing end-to-end (engagement modes, pop
+   vs shoot semantics on the board, chain flow on the one scene, wound/
+   attrition curve) rather than only adding features.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
