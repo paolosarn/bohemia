@@ -213,13 +213,63 @@
      quest runtimes so ANY part of the game can pull a quest off ctx.quests at any
      time (the pull-from-anywhere law). Wraps BQ (parse) + BQRuntime (play).
      Serializable so in-flight quests ride the save. Content-agnostic: it plays
-     whatever .bq text it is handed and authors nothing. */
-  function makeQuestManager() {
+     whatever .bq text it is handed and authors nothing.
+
+     THE LEDGER PIPE (mechanism-mine, policy-Paolo's): if constructed with a
+     `record` sink, the manager fires that sink for every quest CHOICE and every
+     COMPLETE/FAIL OUTCOME played through a runtime it owns. This is the pipe that
+     lets quest outcomes reach the engine's choice-log (Save.recordChoice) and so
+     feed the fold + the Amalgamation's knowledge, instead of dying inside the
+     runtime. The pipe is pure MECHANISM: every event carries `recorded:true` by
+     default. WHICH choices are secret (recorded:false, invisible to the
+     Amalgamation) is Paolo's canon rule and is NOT decided here — the sink just
+     forwards `evt.recorded`, so wiring that policy later is a one-line change at
+     the sink, never a change to this pipe. Non-invasive: it wraps the runtime's
+     own choose()/setStage() so the runtime code is untouched. */
+  function makeQuestManager(opts) {
+    opts = opts || {};
     const active = {};   // questId -> { text, rt }
+    const sink = typeof opts.record === 'function' ? opts.record : null;
+
+    // Wrap a runtime so its plays fan out to the ledger sink. Idempotent per rt.
+    function _wire(id, rt) {
+      if (!sink || !rt || rt.__ledgerWired) return rt;
+      rt.__ledgerWired = true;
+      // fire the OUTCOME exactly once, whenever any interaction flips done true.
+      let firedOutcome = rt.state && rt.state.done;   // a restored-already-done quest never re-fires
+      function checkOutcome() {
+        if (!firedOutcome && rt.state && rt.state.done) {
+          firedOutcome = true;
+          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome, recorded: true });
+        }
+      }
+      const origChoose = rt.choose.bind(rt);
+      rt.choose = function (i) {
+        const before = rt.node;
+        const opt = (before && before.opts) ? before.opts[i] : null;
+        const view = origChoose(i);
+        if (opt) {
+          sink({ questId: id, kind: 'choice', node: before.id, choiceId: i,
+                 text: opt.text, to: opt.to,
+                 // silence/trap are surfaced so the recorded-policy CAN key off them
+                 // later (Paolo's rule); the pipe itself still defaults to recorded.
+                 silence: !!opt.silence, trap: !!opt.trap, recorded: true });
+        }
+        checkOutcome();     // a choice can drive a stage to COMPLETE/FAIL
+        return view;
+      };
+      // completion can also come from a node/stage @DO set_stage (not just choose).
+      const origBegin = rt.begin.bind(rt);
+      rt.begin = function (nid) { const v = origBegin(nid); checkOutcome(); return v; };
+      const origSetStage = rt.setStage.bind(rt);
+      rt.setStage = function (n) { const v = origSetStage(n); checkOutcome(); return v; };
+      return rt;
+    }
+
     function start(text) {
       if (!BQ || !BQRT) return null;
       const Q = BQ.parse(text);
-      const rt = new BQRT.Runtime(Q).start();
+      const rt = _wire(Q.id, new BQRT.Runtime(Q).start());
       active[Q.id] = { text: text, rt: rt };
       return rt;
     }
@@ -234,16 +284,43 @@
       if (!blob || !BQ || !BQRT) return;
       for (const id in blob) {
         const Q = BQ.parse(blob[id].text);
-        active[id] = { text: blob[id].text, rt: BQRT.Runtime.load(Q, blob[id].state) };
+        active[id] = { text: blob[id].text, rt: _wire(id, BQRT.Runtime.load(Q, blob[id].state)) };
       }
     }
     return { start, get, ids, serialize, restore, _active: active };
   }
 
+  /* the generation to stamp on a recorded quest choice: the live dynasty gen if
+     the fold is loaded, else the save's, else gen 1. Kept tiny + guessing-free. */
+  function currentGen(ctx) {
+    if (ctx.folds && typeof ctx.folds.gen === 'number') return ctx.folds.gen;
+    if (ctx.save && ctx.save.meta && typeof ctx.save.meta.gen === 'number') return ctx.save.meta.gen;
+    return 1;
+  }
+
   // 8b. Quests. The .bq runtime, made pullable from the context and save-bridged:
   //     any in-flight quests restore from the save so a reload resumes mid-quest.
+  //     The ledger pipe is bound here: quest choices/outcomes flow into the SAME
+  //     choice-log the fold + amalgamationModel read (Save.recordChoice), so a
+  //     quest played through ctx.quests actually moves the dynasty. Mechanism only:
+  //     recorded defaults true; the secret-choice (recorded:false) policy is Paolo's.
   function bootQuests(ctx) {
-    ctx.quests = makeQuestManager();
+    ctx.quests = makeQuestManager({
+      record: function (evt) {
+        if (!ctx.save || !E.Save || typeof E.Save.recordChoice !== 'function') return;
+        const beat = ctx.clock ? ctx.clock.snapshot().beat : (ctx.save.beat || 0);
+        const id = (evt.kind === 'outcome')
+          ? 'quest:' + evt.questId + ':' + String(evt.outcome || 'END').toLowerCase()
+          : 'quest:' + evt.questId + ':' + evt.node + ':' + evt.choiceId;
+        E.Save.recordChoice(ctx.save, id, beat, {
+          gen: currentGen(ctx),
+          recorded: evt.recorded !== false,   // MECHANISM default; the false-policy is Paolo's [SEAM]
+          effect: (evt.kind === 'outcome')
+            ? { quest: evt.questId, outcome: evt.outcome }
+            : { quest: evt.questId, node: evt.node, to: evt.to },
+        });
+      },
+    });
     if (ctx.save && ctx.save.quests) ctx.quests.restore(ctx.save.quests);
     return ctx;
   }
