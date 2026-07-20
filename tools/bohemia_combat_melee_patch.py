@@ -961,13 +961,105 @@ def patch12(demo):
     return demo
 
 
+def patch13(demo):
+    """v13 (Paolo 7/20, three asks):
+    1. 'it broke when I got shot' — could not reproduce headless, so fix
+       the CLASS: the rAF loop gets armor. Any uncaught frame error is
+       caught and logged, the next frame still schedules — one bad frame
+       can never freeze the game again (a dead rAF was exactly what
+       'broke' feels like).
+    2. 'remove the auto cover, they better try to GET cover — we gotta
+       work on their AI now' — gunmen no longer spawn behind magic cover.
+       COVER AI: an uncovered gunman runs for the far side of the nearest
+       pillar (up to 2.2 tiles/turn) until real geometry covers him; then
+       he holds and works his peek cycle. Blades keep charging.
+    3. 'more of the game on screen' — the header logo shrinks and WAGER +
+       PATTERN move into the SETTINGS drawer; WAIT / SHOVE / NEW
+       ENCOUNTER stay at hand."""
+    if 'COVER AI V13' in demo:
+        print('v13 already applied, skipping')
+        return demo
+
+    # 1. loop armor
+    demo = sub1(demo, """\
+function loop(ts){
+  if(!last)last=ts; let dt=Math.min((ts-last)/1000,0.05);last=ts;""", """\
+function loop(ts){
+ try{   /* LOOP ARMOR V13: one bad frame must never kill the game */
+  if(!last)last=ts; let dt=Math.min((ts-last)/1000,0.05);last=ts;""",
+        'loop-armor-open')
+    demo = sub1(demo, "  draw();requestAnimationFrame(loop);",
+        "  draw();\n }catch(_le){ G._lastErr=String(_le); try{console.error('BOHEMIA frame error',_le);}catch(_e2){} }\n  requestAnimationFrame(loop);",
+        'loop-armor-close')
+
+    # 2. no auto cover; the AI earns it
+    demo = sub1(demo,
+        "return {i,arch,E:a,n:a.n,hp:a.hp,max:a.hp,armor:(a.armor||0),melee:!!a.melee,dead:false,inCover:!a.melee,beatOffset:0,stun:0,stunCooldown:0,prone:0,windup:false,acq:0,adv:(a.adv||0),reach:(a.reach||0),cad:(a.cad||1),phase:i%2};",
+        "return {i,arch,E:a,n:a.n,hp:a.hp,max:a.hp,armor:(a.armor||0),melee:!!a.melee,dead:false,inCover:false,beatOffset:0,stun:0,stunCooldown:0,prone:0,windup:false,acq:0,adv:(a.adv||0),reach:(a.reach||0),cad:(a.cad||1),phase:i%2};   /* COVER AI V13: nobody spawns behind magic cover — they RUN for the real thing */",
+        'no-auto-cover')
+    demo = sub1(demo, "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();", """\
+/* COVER AI V13 (Paolo: 'they better try to get cover'): an uncovered gunman
+   picks the nearest pillar and runs for its far side (the spot where the
+   stone sits between him and the player), up to 2.2 tiles a turn. Covered
+   (geometry or hand-toggle) = hold and work the peek cycle. */
+function coverSeekAI(){
+  for(const e of G.e){
+    if(e.dead||e.melee||e.stun>0||e.prone>0||e.stagger>0)continue;
+    if(e.gcov||e.inCover)continue;
+    let best=null,bd=1e9;
+    for(const P of (G.pillars||[])){ const q=pXY(P); const L=Math.hypot(q[0],q[1])||1;
+      const sx=q[0]*(1+1.15/L), sy=q[1]*(1+1.15/L);
+      const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;
+      const d=Math.hypot(sx-ex,sy-ey);
+      if(d<bd){bd=d;best=[sx,sy];} }
+    if(!best)continue;
+    const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;
+    const step=Math.min(2.2,bd);
+    let nx=ex+(best[0]-ex)/(bd||1)*step, ny=ey+(best[1]-ey)/(bd||1)*step;
+    if(Math.hypot(nx,ny)<1.6)continue;                       /* never scramble INTO the player */
+    let blocked=false;                                        /* one body per spot */
+    for(const o of G.e){ if(o===e||o.dead)continue;
+      const ox=Math.cos(o.ea)*o.edist, oy=Math.sin(o.ea)*o.edist;
+      if(Math.hypot(ox-nx,oy-ny)<0.9){blocked=true;break;} }
+    if(blocked)continue;
+    e.edist=Math.max(0.8,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx);
+  }
+}
+function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); updateGeomCover();""",
+        'cover-ai')
+
+    # 3. more game on screen
+    demo = sub1(demo, "(function(){ const mm=D('meleemix'),ps=D('perkshoulder'),pf=D('perkforesight'),sb=D('shovebtn'),pl=D('perklongarm');", """\
+(function(){ /* UI COMPACT V13: the board owns the screen */
+  try{
+    const st=document.createElement('style');
+    st.textContent='#logo{height:30px!important;width:160px!important}'+
+      'header{margin:0!important;padding:2px 6px!important}'+
+      '#topbar{padding:2px 4px!important}'+
+      '#chud{padding:3px 8px!important;gap:3px!important}';
+    document.head.appendChild(st);
+    const panel=document.querySelector('.setpanel');
+    if(panel){ const grp=document.createElement('div'); grp.className='setgrp';
+      grp.innerHTML='<span class="gl">TABLE (moved off the main screen)</span>';
+      const row=document.createElement('div'); row.className='controls';
+      const wb=D('wagerbtn'), ps2=D('patsel');
+      if(wb)row.appendChild(wb); if(ps2)row.appendChild(ps2);
+      grp.appendChild(row);
+      panel.insertBefore(grp,panel.children[1]||null); }
+  }catch(_ui){}
+})();
+(function(){ const mm=D('meleemix'),ps=D('perkshoulder'),pf=D('perkforesight'),sb=D('shovebtn'),pl=D('perklongarm');""",
+        'ui-compact')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))
+    patched = patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
