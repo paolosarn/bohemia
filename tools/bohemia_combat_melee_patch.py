@@ -552,13 +552,113 @@ def patch6(demo):
     return demo
 
 
+def patch7(demo):
+    """v7 (Paolo 7/19, two rulings):
+    1. 'the cover tiles... magical cover in front of me... it has to be
+       the same tiles that you have on the grid' — the magic 3x3 arcs are
+       DEAD. Tapping a cell now places/removes a REAL cover block ON that
+       grid tile, identical rules to shuffled pillars (blocks lines,
+       blocks steps, slammable). Cover is geometry only. And the whole
+       field goes GRID TRUE: fieldPos maps 1 tile of distance to 1 board
+       cell, so enemies, pillars, corpses and the floor share ONE ruler
+       (spawn band compressed to the visible board; far snipers return
+       with the world model).
+    2. 'enemies need to have a red line on you for two turns before they
+       can shoot' — TWO-TURN RED LINE law: a gun's first turn on you is
+       ACQUIRING (bright warning line, cannot fire); it fires only if the
+       bead survives to the next turn. Break the line (move, cover, stun,
+       kill) and the clock resets."""
+    if 'GRID TRUE V7' in demo:
+        print('v7 already applied, skipping')
+        return demo
+
+    # 1a. one ruler: tile-true positions
+    demo = sub1(demo, """\
+  const rr=rMin+Math.max(0,Math.min(1,(e.edist-PT_BLANK)/(MAX_RANGE-PT_BLANK)))*(rMax-rMin);
+  return [cx+Math.cos(e.ea)*rr, cy+Math.sin(e.ea)*rr]; }""", """\
+  const rr=e.edist*ring;   /* GRID TRUE V7: one tile of distance = one board cell, everything on the same ruler */
+  return [cx+Math.cos(e.ea)*rr, cy+Math.sin(e.ea)*rr]; }""", 'tile-true')
+    demo = sub1(demo,
+        "                             : (PT_BLANK+8)+Math.random()*(MAX_RANGE-PT_BLANK-8); // mid..far: never point blank, clear gap from the close one",
+        "                             : (PT_BLANK+2.5)+Math.random()*8; // GRID TRUE V7: the fight lives on the visible board (~6.5-14.5 tiles); long-range returns with the world model",
+        'spawn-band')
+
+    # 1b. pillars sit ON tiles
+    demo = sub1(demo, """\
+      const a=Math.random()*Math.PI*2, d=3+Math.random()*18, r=0.9+Math.random()*0.8;
+      const nx2=Math.cos(a)*d, ny2=Math.sin(a)*d;
+      if(G.pillars.some(P=>{ const q=pXY(P); return Math.hypot(q[0]-nx2,q[1]-ny2)<3.2; }))continue;
+      G.pillars.push({ea:a,edist:d,r:r}); } }""", """\
+      const a0=Math.random()*Math.PI*2, d0=2.2+Math.random()*7;
+      const nx2=Math.round(Math.cos(a0)*d0-0.5)+0.5, ny2=Math.round(Math.sin(a0)*d0-0.5)+0.5;   /* cover sits ON a tile */
+      if(Math.hypot(nx2,ny2)<1.5)continue;
+      if(G.pillars.some(P=>{ const q=pXY(P); return Math.abs(q[0]-nx2)<0.9&&Math.abs(q[1]-ny2)<0.9; }))continue;
+      G.pillars.push({ea:Math.atan2(ny2,nx2),edist:Math.hypot(nx2,ny2),r:0.55}); } }""",
+        'pillar-snap')
+    demo = sub1(demo, "const s=ring*(0.5+P.r*0.35);", "const s=ring*0.62;   /* a block fills its tile */", 'pillar-size')
+
+    # 1c. the magic arcs die; a tapped cell places a REAL block on that tile
+    demo = sub1(demo, "function myCoverAgainst(ang,dist){ if(G.pCover[dirIndex(ang)])return true;",
+        "function myCoverAgainst(ang,dist){   /* V7: the magic arcs are dead — cover is GEOMETRY on tiles only */",
+        'arcs-dead')
+    demo = sub1(demo,
+        "if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio(); if(G.moveArm){ doMove(d); return; } /* MOVE V4: an armed ring cell is a step */ G.pCover[d]=!G.pCover[d]; updGap(); return; } }",
+        """if(Math.abs(x-cxx)<ring*0.45 && Math.abs(y-cyy)<ring*0.45){ audio();
+      /* V7 (Paolo): tapping a cell places/removes a REAL cover block ON that tile */
+      const tx3=DIRS[d][0], ty3=DIRS[d][1];
+      G.pillars=G.pillars||[];
+      const at=G.pillars.findIndex(P=>{ const q=pXY(P); return Math.abs(q[0]-tx3)<0.45&&Math.abs(q[1]-ty3)<0.45; });
+      if(at>=0)G.pillars.splice(at,1);
+      else G.pillars.push({ea:Math.atan2(ty3,tx3),edist:Math.hypot(tx3,ty3),r:0.55,placed:true});
+      updateGeomCover(); updGap(); return; } }""",
+        'cell-places-block')
+    demo = sub1(demo, "const cxx=cx+DIRS[d][0]*ring, cyy=cy+DIRS[d][1]*ring, up=G.pCover[d];",
+        "const cxx=cx+DIRS[d][0]*ring, cyy=cy+DIRS[d][1]*ring, up=false;   /* V7: no magic arcs; placed blocks draw as real cover */",
+        'ring-render')
+
+    # 2. TWO-TURN RED LINE
+    demo = sub1(demo, ",prone:0,windup:false,adv:", ",prone:0,windup:false,acq:0,adv:", 'acq-field')
+    demo = sub1(demo,
+        "const pool=exposedToMe(); let hits=0,dmg=0,hitIdx=[];       // tucked: only enemies you can't cover from reach you",
+        "const pool=exposedToMe().filter(e=>(e.acq||0)>=1); let hits=0,dmg=0,hitIdx=[];   // TWO-TURN RED LINE (Paolo 7/19); tucked: only enemies you can't cover from reach you",
+        'wait-acq')
+    demo = sub1(demo,
+        "pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)); }",
+        "pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1); }",
+        'engaged-acq')
+    demo = sub1(demo, "  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe(); }",
+        "  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe().filter(e=>(e.acq||0)>=1); }",
+        'tucked-acq')
+    demo = sub1(demo, "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();", """\
+function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();
+  /* TWO-TURN RED LINE (Paolo 7/19): a gun must hold its bead for two turns
+     before it may fire — the first turn is ACQUIRING, your one-turn warning.
+     Break the line (move, cover, stun, kill) and his clock resets. */
+  for(const e of G.e){ if(e.dead||e.melee){ e.acq=0; continue; }
+    const bead=e.stun<=0&&!(e.prone>0)&&(peeking(e)||firing(e));
+    e.acq=bead?Math.min(9,(e.acq||0)+1):0; }""",
+        'acq-tick')
+    demo = sub1(demo,
+        "for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e); const red=out&&!myCoverAgainst(e.ea);",
+        """for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e);
+    const hot=out&&!myCoverAgainst(e.ea,e.edist);
+    const red=hot&&(e.melee||(e.acq||0)>=1);
+    const acqing=hot&&!red;   /* first-turn bead: the warning line */""",
+        'line-acq')
+    demo = sub1(demo,
+        "let col,w; if(red){col='rgba(232,60,40,0.15)';w=2;} else if(out){col='rgba(222,150,60,0.09)';w=1.4;}",
+        "let col,w; if(red){col='rgba(232,60,40,0.15)';w=2;} else if(acqing){col='rgba(232,140,40,0.32)';w=2;} else if(out){col='rgba(222,150,60,0.09)';w=1.4;}",
+        'line-colors')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch6(patch5(patch4(patch3(patch2(patch(demo))))))
+    patched = patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

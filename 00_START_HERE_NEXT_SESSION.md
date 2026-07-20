@@ -444,6 +444,25 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    renders). NOTE: enemy positions are still analog polar (fieldPos maps
    distance nonlinearly) — full enemy tile-snap is the next big refactor
    if Paolo wants the whole fight grid-true.
+   GRID-TRUE FIELD + REAL BLOCKS + TWO-TURN RED LINE (7/19, seventh pass;
+   Paolo: "the cover tiles... magical cover... has to be the same tiles
+   you have on the grid" + "enemies need a red line on you for two turns
+   before they can shoot"): (1) GRID TRUE — fieldPos is linear now (1
+   tile of distance = 1 board cell), so enemies/pillars/corpses/floor
+   share ONE ruler; demo spawn band compressed to the visible board
+   (~6.5-14.5 tiles; long-range returns with the world model; the
+   locked PT_BLANK/FAR/MAX numbers untouched, package math unchanged).
+   (2) THE MAGIC ARCS ARE DEAD: pCover no longer grants cover; tapping a
+   ring cell places/removes a REAL cover block ON that grid tile
+   (identical rules to pillars: blocks lines both ways, blocks steps,
+   slammable); shuffled pillars snap to tile centers, r=0.55, block
+   fills its tile. (3) TWO-TURN RED LINE LAW: a gun must hold its bead
+   two turns before firing — first turn = ACQUIRING (bright warning
+   line, cannot fire; e.acq clock in tickTurnEnd, pools filter acq>=1);
+   breaking the line resets his clock. Blades keep instant red (they
+   don't shoot). Gate 78 checks, ALL GREEN. Chromium-verified: pillars
+   snapped, turn-1 wait = zero gun damage + acq 0->1, turn-2 = fire,
+   placed N-block covers north. 0 errors.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel

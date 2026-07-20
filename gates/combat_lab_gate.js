@@ -341,6 +341,19 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('rgba(184,160,40') && demo.includes('rgba(215,205,185'));
   ok('full-tile Chebyshev steps (no normalized diagonals)',
     demo.includes('const sx=v[0], sy=v[1];'));
+  // v7 (Paolo): grid-true field, real blocks on tiles, two-turn red line
+  ok('GRID TRUE: one tile of distance = one board cell (fieldPos linear)',
+    demo.includes('const rr=e.edist*ring;'));
+  ok('pillars snap to tile centers', demo.includes('cover sits ON a tile'));
+  ok('the magic cover arcs are DEAD (geometry only)',
+    !demo.includes('if(G.pCover[dirIndex(ang)])return true'));
+  ok('tapping a cell places a REAL block on that tile',
+    demo.includes('places/removes a REAL cover block ON that tile') && demo.includes('placed:true'));
+  ok('TWO-TURN RED LINE: pools require an acquired bead',
+    demo.split('.filter(e=>(e.acq||0)>=1)').length >= 3 &&
+    demo.includes('&&(e.acq||0)>=1); }'));
+  ok('acquiring turn is telegraphed (warning line + acq clock)',
+    demo.includes('ACQUIRING') && demo.includes('acq:0,'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
     demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
