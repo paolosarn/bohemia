@@ -50,6 +50,8 @@ GATES = [
      'occupancy, beat, world clock', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
+    ('BQ FORMAT',      ['node', 'engine/bohemia_bq_tests.js'],
+     'the .bq parser/validator contract (alias-fill, dead links, no stat gates)', False),
     ('QUEST RUNTIME',  ['node', 'engine/bohemia_quest_runtime_tests.js'],
      'the .bq runtime plays a quest to COMPLETE/FAIL', False),
     ('ENGINE CORE',    ['node', 'engine/bohemia_tests.js'],
