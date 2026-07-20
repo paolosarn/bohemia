@@ -60,6 +60,8 @@ GATES = [
      'solar farm: panels, inverters, substation, filled', False),
     ('PARK',           ['node', 'gates/park_gate.js'],
      'community park: field, diamond, courts, skate, dog run, filled', False),
+    ('WASH',           ['node', 'gates/wash_gate.js'],
+     'flood-control wash: channel + sewer tunnel mouth by the street, drivable', False),
     ('TILE SPEC',      ['node', 'gates/tilespec_gate.js'],
      'every district legend is complete — no undocumented tile ships', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],

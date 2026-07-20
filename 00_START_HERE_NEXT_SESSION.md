@@ -273,6 +273,16 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-9. STRUCTURE WAVE 2 + COOK UI RE-LED (7/19, latest): Paolo flagged the UI
+   still led with colorways after his ruling -- the CLOTHES tab now renders
+   COOKING - NEW STRUCTURES first and collapses COLORWAY FILLER (63) into a
+   drawer (gate-checked). Four more shapes born (7 candidates): BAGS (genBag,
+   new 'back' layer: RUCK PACK + SALVAGE SATCHEL), APRONS (genApron front
+   panel: SMITH'S/TRADES), WORK SUSPENDERS (genGear Y-crossback), TATTERED
+   hems (genTop tatter, torn-out pixels: TEE + FLANNEL). structure_gate now
+   42 checks. COOKING: 19 structures (the headline) + 63 colorway filler.
+   NEXT structures open: skirts/wraps, hood-up variants, bedroll, shemagh
+   full-wrap, armor plates beyond the pauldron.
 -8. STRUCTURE-NOT-COLOR LAW + 5 NEW GARMENT SHAPES (7/19, latest): Paolo
    rejected colorways-as-progress ("I need to see actual different clothes").
    Law locked (laws addendum + CLAUDE.md): colorways legal, NEVER progress;
@@ -1081,7 +1091,17 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   GRAVEYARD_7_19_26.md; park v1/v2 tombstoned (PARKFAIL-SUPERPARK/PARKFAIL-CIRCLE, graveyard
   green); 4 new lessons in laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md (realistic>impressive;
   research proportions not parts-list; no fake geometry; explain-every-tile != cram).
-FACTORY now spans 6 categories: residential, commercial, industrial, civic, infrastructure, leisure.
+- wash -> TERRAIN (bohemia_wash, Paolo 7/19: "a wash where homeless people can get into the
+  sewers — a sewer entrance by the street"). A LV concrete flood-control channel: wide lined
+  channel (banks + invert + dead trickle), fenced maintenance O&M roads (drivable), riprap
+  shoulders, clumped desert margins — and the HEADLINE: a headwall + a dark BOX-CULVERT TUNNEL
+  MOUTH where the channel dives under the street, with a hole in the fence + a scramble path +
+  a homeless CAMP (cart/tarps/crates) at the mouth. Grounded in the real LV flood tunnels
+  (~600mi, ~1,200-1,500 unhoused "tunnel people"). Act-1 DEAD. Street-aware + drivable via
+  rotateToStreet. footprints EMPTY (the mouth = future LIFE tunnel-interior hook, not a surface
+  building). Gate wash_gate.js (9 checks/6 configs). The "tunnel people" are LIFE (agents); this
+  district gives them the DOOR.
+FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
 history has it if ever wanted as a starting sketch). Do NOT auto-generate gaming_resort.
