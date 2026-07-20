@@ -62,6 +62,8 @@ GATES = [
      'community park: field, diamond, courts, skate, dog run, filled', False),
     ('WASH',           ['node', 'gates/wash_gate.js'],
      'flood-control wash: channel + sewer tunnel mouth by the street, drivable', False),
+    ('CEMETERY',       ['node', 'gates/cemetery_gate.js'],
+     'memorial park: grave sections, chapel, mausoleum, columbarium, drivable', False),
     ('TILE SPEC',      ['node', 'gates/tilespec_gate.js'],
      'every district legend is complete — no undocumented tile ships', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],

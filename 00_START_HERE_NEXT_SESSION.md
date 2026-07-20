@@ -1161,6 +1161,17 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   rotateToStreet. footprints EMPTY (the mouth = future LIFE tunnel-interior hook, not a surface
   building). Gate wash_gate.js (9 checks/6 configs). The "tunnel people" are LIFE (agents); this
   district gives them the DOOR.
+- cemetery -> CIVIC (bohemia_cemetery, 7/19 autonomous, research-first: memorial-park design
+  guides). A dead-world cemetery: a rectilinear grid of grave SECTIONS (rows of headstones on
+  dead memorial lawn) laced by memorial drives for graveside access (you DRIVE through it), a
+  chapel + office + parking by the entrance, a MAUSOLEUM terminus (enterable crypt), a
+  COLUMBARIUM cremation garden (niche wall + reflecting pool + monument), a central FOUNTAIN +
+  OBELISK roundabout plaza, dead memorial trees lining the drives, a maintenance shed. Act-1
+  DEAD (weathered stone, empty fountain, bare trees, no living lawn). Street-aware + drivable
+  via rotateToStreet (drive reach 1.0 all placements). RECTILINEAR by design (grid maximizes
+  graveside access — correct here, not fake geometry, unlike the organic park). Full dossier +
+  layering (mausoleum = crypt interior; headstones = props you weave between). Gate
+  cemetery_gate.js (8 checks/6 configs). 8 built districts now.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
