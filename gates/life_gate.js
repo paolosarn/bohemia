@@ -151,5 +151,33 @@ ok('nobody teleports (every move is one step)', oneStep);
 ok('03:00 — the block sleeps (all ' + agents.length + ' home)', at3 === agents.length);
 ok('11:00 — the block lives (' + at11 + ' out working/scavenging)', at11 !== null && at11 > 0);
 
+// ---- ROOM ADVERTISEMENTS (rung 3: the placed house positions its people) ---
+let advertsOk = true, bedAt3 = true, kitchenAtBreak = true, spotsDistinct = true;
+for (const a of agents) {
+  const fp = fpOf(a.home.building);
+  // 03:00: asleep in the agent's own bed room
+  const nightSpot = A.homeSpotFor(a, fp, 180, 0);
+  const bedRm = fp.rooms[a.home.bedRoom];
+  if (!(nightSpot.act === 'sleep' && nightSpot.x >= bedRm.x && nightSpot.x < bedRm.x + bedRm.w
+    && nightSpot.y >= bedRm.y && nightSpot.y < bedRm.y + bedRm.h)) bedAt3 = false;
+  // 20 min after wake: the morning ration, in a room that advertises 'eat' (if the house has one)
+  const wake = a.sched[0].t1;
+  const morning = A.homeSpotFor(a, fp, wake + 20, 0);
+  const hasKitchen = fp.rooms.some(rm => (A.ADVERTS[rm.role] || []).indexOf('eat') >= 0);
+  if (morning.act !== 'eat') kitchenAtBreak = false;
+  if (hasKitchen && (A.ADVERTS[morning.room] || []).indexOf('eat') < 0) kitchenAtBreak = false;
+  // spots are stable + in-bounds
+  const again2 = A.homeSpotFor(a, fp, 180, 0);
+  if (JSON.stringify(nightSpot) !== JSON.stringify(again2)) advertsOk = false;
+  if (nightSpot.x < 0 || nightSpot.y < 0 || nightSpot.x >= fp.W || nightSpot.y >= fp.H) advertsOk = false;
+  // two occupants of the same room never stack on one cell (room interiors are >=2 cells)
+  const s0 = A.homeSpotFor(a, fp, 180, 0), s1 = A.homeSpotFor(a, fp, 180, 1);
+  if (s0.x === s1.x && s0.y === s1.y) spotsDistinct = false;
+}
+ok('ADVERTS: at 03:00 everyone sleeps in their OWN bed room', bedAt3);
+ok('ADVERTS: the morning ration happens where the house serves food', kitchenAtBreak);
+ok('ADVERTS: spots deterministic and inside the floorplan', advertsOk);
+ok('ADVERTS: occupants spread, never stack on one cell', spotsDistinct);
+
 console.log('LIFE GATE: ' + pass + ' passed, ' + fail + ' failed  (' + agents.length + ' agents simmed, ' + plots.length + ' world plots)');
 process.exit(fail ? 1 : 0);

@@ -117,6 +117,24 @@ Rungs 1-2 of the research roadmap, pure plumbing, nothing surfaced at Paolo:
   deep into long schedule blocks, simmed bodies are where the offline plane
   says (home->in, work->away, street->out).
 
+## ROOM ADVERTISEMENTS (rung 3 v1, built dormant 7/19, LIFE gate +4 checks)
+Sims pattern: people are dumb on purpose, the PLACED WORLD is smart. Rooms
+advertise acts (ADVERTS: bed->sleep/rest, kitchen/dining->eat, living->idle,
+bath->wash); an at-home agent's in-house position follows its sub-act:
+morning ration in the room that serves food, evening in the living room,
+own bed room at night, occupants spread never stacking. Adding life to a
+house = the house itself; props join the table when the world grows objects.
+sim.homeSpots(house) hands the render layer the placed household.
+
+## WITNESS MEMORY (rung 4 first half, built dormant 7/19, gate: MEMORY)
+engine/bohemia_memory.js - the seed of the questbook's MISSING-PERSONS ORGAN
+(Q133/Q134/Q138). SoD-grounded: sightings recorded during the online sim
+(co-visibility, radius 8), ring-buffer minds (memory is finite), re-seeing
+refreshes + builds familiarity, clarity = 0.5^(age/halflife) with halflife
+growing with familiarity (neighbors outlast strangers, base 12h).
+lastSeenAcross(minds, subject) answers "when did anyone last see H3-2, and
+how sure are they". Testimony verbs, lies, faction use of witnesses: Paolo's.
+
 ## THE SURFACE (judge tool, per the workflow law: interactive, never chat PNG)
 slices/BOHEMIA_LIFE_SLICE_7_19_26.html, stable pointer slices/BOHEMIA_LIFE_
 CURRENT.html, loaded by the new LIFE tab in the alpha (lazy iframe, same

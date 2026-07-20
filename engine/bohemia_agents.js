@@ -248,6 +248,49 @@
     return s;
   }
 
+  // ---- ROOM ADVERTISEMENTS (rung 3 v1, Sims pattern, research bank 7/19) ---
+  // The people are dumb on purpose; the PLACED WORLD is smart. Rooms
+  // advertise the acts they serve, and an at-home agent's position in the
+  // house follows what its current sub-act needs: kitchen at meal times,
+  // living room through the evening, own bed room at night. Content = the
+  // floorplan Paolo's world placed; adding life to a house = the house
+  // itself, zero new brain code. Props join the advertisement table when
+  // the world grows objects.
+  var ADVERTS={bed:['sleep','rest'],kitchen:['eat'],dining:['eat'],
+    living:['idle'],bath:['wash'],hall:[],closet:[],garage:[],entry:[]};
+  // the in-house sub-act across a home block: personal breakfast window
+  // right after wake, a personal supper window, wind-down after 21:00.
+  function homeActAt(agent, turn){
+    var b=whereAt(agent,turn); if(b.where!=='home') return null;
+    if(b.act==='sleep') return 'sleep';
+    var t=tod(turn);
+    var wake=(agent.sched.length&&agent.sched[0].act==='sleep')?agent.sched[0].t1:6*60;
+    if(t>=wake&&t<wake+45) return 'eat';               // morning ration
+    var sup=18*60+(hash(agent.seed,17,3)%60);          // personal supper 18:00-19:00
+    if(t>=sup-20&&t<sup+25) return 'eat';
+    if(t>=21*60) return 'rest';
+    return 'idle';
+  }
+  var ACT_IX={sleep:1,rest:2,eat:3,idle:4,wash:5};
+  function homeSpotFor(agent, fp, turn, k){
+    if(!fp||!fp.rooms||!fp.rooms.length) return {x:1,y:1,act:'idle'};
+    var act=homeActAt(agent,turn)||'idle';
+    var cand=[];
+    fp.rooms.forEach(function(rm,ri){
+      if(act==='sleep'||act==='rest'){ if(ri===agent.home.bedRoom) cand.push(rm); }
+      else if((ADVERTS[rm.role]||[]).indexOf(act)>=0) cand.push(rm);
+    });
+    if(!cand.length&&(act==='sleep'||act==='rest'))
+      cand=fp.rooms.filter(function(rm){return rm.role==='bed';});
+    if(!cand.length) cand=fp.rooms.filter(function(rm){return rm.role==='living';});
+    if(!cand.length) cand=fp.rooms;
+    var rm2=cand[hash(agent.seed,ACT_IX[act]||0,7)%cand.length];   // stable per (agent, act)
+    var iw=Math.max(1,rm2.w-2), ih=Math.max(1,rm2.h-2), kk=(k|0);
+    var idx=(hash(agent.seed,ACT_IX[act]||0,11)+kk)%(iw*ih);       // linear index: occupants spread, never stack
+    var cx=rm2.x+1+(idx%iw), cy=rm2.y+1+((idx/iw)|0);
+    return {x:Math.min(cx,rm2.x+rm2.w-1), y:Math.min(cy,rm2.y+rm2.h-1), act:act, room:rm2.role};
+  }
+
   // ---- GENERATOR: agents for a WORLD plot ----------------------------------
   // The roadmap's sentence, literal: "an agent = {home room, work room,
   // schedule} placed BY the model." Takes world(seed) and a residential plot
@@ -335,7 +378,11 @@
       occ:{},                          // exterior occupancy 'x,y' -> agent id (caller adds player)
       playerAt:opts.playerAt||null,    // [x,y] or null; OCCUPANCY includes the player
       step:step, whereAt:whereAt, tod:function(){return tod(sim.turn);},
-      inHouse:inHouse, outAgents:outAgents
+      inHouse:inHouse, outAgents:outAgents,
+      // the household as the room advertisements place them right now
+      homeSpots:function(hi){ var fp=fpOf(hi), out=[];
+        inHouse(hi).forEach(function(a,k){ out.push({agent:a, spot:homeSpotFor(a,fp,sim.turn,k)}); });
+        return out; }
     };
     agents.forEach(function(a,ai){
       a.loc={mode:'in',x:0,y:0};       // day 0 starts at 00:00: everyone home asleep
@@ -422,6 +469,7 @@
     makeAgent:makeAgent,agentsForBlock:agentsForBlock,agentsForPlot:agentsForPlot,
     censusForBlock:censusForBlock,censusForPlot:censusForPlot,sampleValley:sampleValley,
     offlineSummary:offlineSummary,RESIDENTIAL:RESIDENTIAL,
+    ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
     jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
