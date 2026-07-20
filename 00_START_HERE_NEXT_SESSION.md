@@ -101,15 +101,27 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
   is ORPHANED (crashes, not in the suite, expects factions/economy poured) — a real
   future task, left untouched.
-- STILL MISSING (the WITH-PAOLO walkable build) — now SHORTER, the whole quest spine
-  is plumbed headless: what remains is the human-mode RENDER booting on a fixed
-  seed/spawn, a faked house exit, drawing an NPC sprite at a placed tile, and a
-  DIALOGUE OVERLAY drawing runtime.view()/talkTo() on the "TALK" prompt. The NPC
-  SYSTEM logic (placement + proximity TALK) is now BUILT (place/talkablesNear/talkTo,
-  LOOP TALK gate) — the slice only has to DRAW it and feed player position in. Save +
-  the recorded-ledger are wired (ctx.quests -> recordChoice). Left: a written playable
-  .bq (only ONE non-canon sample exists; the neighbor's first quest is pinned).
-  Interiors deferred. Everything left here needs the alpha/V11 slice + Paolo.
+- THE WHOLE GOAL-SLICE LOOP IS PROVEN HEADLESS (7/20, LOOP SLICE gate 20/20). One
+  driver (engine/bohemia_loop_slice_tests.js) runs the ENTIRE loop with NO render:
+  spawn the player as a real scheduler actor, WALK him across actual passable map
+  tiles (occupancy + collision) via Loop.commit + finishSlides to an NPC a quest is
+  bound to, confirm the talk only offers ON ARRIVAL, play the first-errand quest
+  through its learn-the-plan BRANCH to COMPLETE, read the objective HUD, then SAVE ->
+  reload -> and confirm the dynasty MOVED (choice-log carries it, quest still done,
+  NPC binding restored). This is the "prove the loop" milestone: the render session
+  now only has to DRAW what this already runs. Also added the QUEST JOURNAL
+  (pull-from-anywhere): ctx.quests.journal() = every live quest's title/act/stage/
+  done/objectives/available nodes; ctx.quests.activeObjectives() = the flat
+  objective-HUD line across all quests.
+- STILL MISSING (the WITH-PAOLO walkable build) — now just the FACE: the human-mode
+  RENDER booting on a fixed seed/spawn, a faked house exit, drawing an NPC sprite at
+  the placed tile, a DIALOGUE OVERLAY drawing runtime.view()/talkTo() on the "TALK"
+  prompt, and the objective-HUD line drawing activeObjectives(). ALL the LOGIC beneath
+  each of those is built and gated (walk, adjacency-TALK, dialogue play, journal/HUD,
+  save, recorded-ledger, fold) and PROVEN TO COMPOSE by LOOP SLICE. Left besides the
+  render: a written playable .bq (only ONE non-canon sample exists; the neighbor's
+  first quest is pinned). Interiors deferred. The render needs the alpha/V11 slice +
+  Paolo (one-alpha law) or clean assets.
 
 ## CITY TAB / WALKABLE ENGINE — AUDITED TRUE STATE (7/19, read the code directly)
 Corrects the gap-analysis agent, which badly UNDERSOLD this (and missed
@@ -153,12 +165,15 @@ references the canonical engine modules (no copies), browser-verified via Playwr
 console errors). This is the combat-demo-style proof of the dialogue UI. What REMAINS for
 the full slice is DRAWING this UI in the walkable world (human mode + faked house);
 NPC placement is now BUILT (Loop.place/talkablesNear), not building the dialogue system
-from scratch. 4) an objective HUD line. 5) write ONE playable .bq
+from scratch. 4) an objective HUD line — the DATA is DONE (ctx.quests.activeObjectives(),
+LOOP SLICE gate); the slice only draws the line. 5) write ONE playable .bq
 (the neighbor's first errand once its design is unpinned). 6) SAVE/FOLD/recorded-ledger
 ALREADY EXIST in engine/bohemia_engine.js (ENGINE CORE gate) AND are now WIRED: playing
 a quest through ctx.quests feeds its choices/outcomes into recordChoice automatically
 (LOOP LEDGER gate) — do NOT write a new save, and do NOT re-plumb the ledger.
-7) prove the loop + add a slice_proof gate.
+7) prove the loop + add a slice_proof gate — DONE HEADLESS (LOOP SLICE gate, 20/20): the
+whole walk->talk->play->journal->save/reload->fold loop composes and passes with no
+render. The render session becomes "draw what LOOP SLICE already runs."
 RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
 base64 logistics — build on the V11 live slice, verify it has human mode first; ENGINE
 SYNC LAW: edits go to the canonical source. CUT from the slice: overmap drill-in, real
