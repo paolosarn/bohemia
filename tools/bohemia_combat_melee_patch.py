@@ -1514,13 +1514,83 @@ def patch20(demo):
     return demo
 
 
+def patch21(demo):
+    """v21 (Paolo 7/20, screenshot: 'my shell casings follow me around
+    instead of staying on the floor where I shot them'):
+    BRASS IS FLOOR STATE. Root cause: player brass was stored as {p:1,dx,dy}
+    (a player-anchored offset, the 7/3 AF v2 law written BEFORE movement
+    existed). worldShift already moves litter, but its mover skips entries
+    with no ea/edist, and the renderer drew p-brass at cx+dx — glued to your
+    screen-centered body. Fix: player brass lands AT YOUR WORLD SPOT
+    (ea:0, edist:0 = the tile you fired from) and rides worldShift like
+    blood and corpses. Plus: the shift's 0.6-tile minimum clamp exists so
+    enemies never stand inside you — statics (corpses, pillars, blood,
+    litter) now keep TRUE positions so walking over them never nudges them."""
+    if 'V21 BRASS' in demo:
+        print('v21 already applied, skipping')
+        return demo
+
+    # brass lands at the shooter's world spot
+    demo = sub1(demo, "        litterAdd({p:1,dx:rdx/mag*cl,dy:Math.max(8,Math.abs(rdy/mag*cl))+4,r:Math.random()*Math.PI}); } } }",
+        "        litterAdd({ea:0,edist:0,dx:rdx/mag*cl,dy:Math.max(8,Math.abs(rdy/mag*cl))+4,r:Math.random()*Math.PI}); } } }   /* V21 BRASS: lands at YOUR WORLD SPOT and stays on the floor */",
+        'brass-world-spawn')
+    demo = sub1(demo, """\
+/* AF v2 (Paolo 7/3/26, ONE WORLD LAW): brass is WORLD STATE. It lands close
+   to whoever fired it and reads the same in the dial view and the field
+   view, because those are ONE world. Player brass anchors to you; enemy
+   volleys drop brass at the shooter's field spot. */""", """\
+/* AF v3 (Paolo 7/20, V21 BRASS): brass is FLOOR STATE. Everyone's brass —
+   yours included — drops at the shooter's WORLD spot the moment it lands
+   and stays on that floor tile forever (worldShift carries it like blood
+   and corpses). The old v2 player-anchor predates movement and is dead. */""",
+        'brass-law-comment')
+
+    # renderer: all brass reads through fieldPos (world), no player-glue branch
+    demo = sub1(demo, """\
+    let lx,ly;
+    if(l.p){lx=cx+l.dx;ly=cy+l.dy;}
+    else{const [ex4,ey4]=fieldPos(l,W,H,cx,cy);lx=ex4+l.dx;ly=ey4+l.dy;}""", """\
+    const _bp=(l.ea!=null)?fieldPos(l,W,H,cx,cy):[cx,cy];   /* V21: ALL brass is world state */
+    const lx=_bp[0]+l.dx, ly=_bp[1]+l.dy;""",
+        'brass-world-draw')
+
+    # the JUICE panel's AF demo scatter converts too
+    demo = sub1(demo, """\
+  if(k==='AF'){ for(let w=0;w<5;w++)setTimeout(()=>litterAdd({p:1,
+    dx:-14+w*7+(Math.random()-0.5)*4,dy:9+((w*17)%8),r:Math.random()*Math.PI}),w*250); }""", """\
+  if(k==='AF'){ for(let w=0;w<5;w++)setTimeout(()=>litterAdd({ea:0,edist:0,
+    dx:-14+w*7+(Math.random()-0.5)*4,dy:9+((w*17)%8),r:Math.random()*Math.PI}),w*250); }""",
+        'brass-demo-spawn')
+
+    # statics keep TRUE spots; only live enemies keep the body-bubble clamp
+    demo = sub1(demo, """\
+  const mv=o=>{ if(o.ea==null||o.edist==null)return;
+    const px=Math.cos(o.ea)*o.edist-vx, py=Math.sin(o.ea)*o.edist-vy;
+    o.edist=Math.max(0.6,Math.hypot(px,py)); o.ea=Math.atan2(py,px); };
+  for(const e of G.e)mv(e);
+  for(const c of (G.corpses||[]))mv(c);
+  for(const P of (G.pillars||[]))mv(P);
+  if(Array.isArray(G.bloodSpots))for(const s of G.bloodSpots)mv(s);   /* the trail stays where it fell */
+  if(Array.isArray(G.litter))for(const L of G.litter)mv(L);""", """\
+  const mv=(o,mn)=>{ if(o.ea==null||o.edist==null)return;
+    const px=Math.cos(o.ea)*o.edist-vx, py=Math.sin(o.ea)*o.edist-vy;
+    o.edist=Math.max(mn==null?0.6:mn,Math.hypot(px,py)); o.ea=Math.atan2(py,px); };
+  for(const e of G.e)mv(e);   /* live bodies keep the bubble: nobody stands inside you */
+  for(const c of (G.corpses||[]))mv(c,0.02);   /* V21: statics keep TRUE spots — walking over them never nudges them */
+  for(const P of (G.pillars||[]))mv(P,0.02);
+  if(Array.isArray(G.bloodSpots))for(const s of G.bloodSpots)mv(s,0.02);   /* the trail stays where it fell */
+  if(Array.isArray(G.litter))for(const L of G.litter)mv(L,0.02);""",
+        'statics-true-spots')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))
+    patched = patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
