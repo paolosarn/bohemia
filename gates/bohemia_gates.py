@@ -54,6 +54,8 @@ GATES = [
      'the .bq runtime plays a quest to COMPLETE/FAIL', False),
     ('SAVE',           ['node', 'engine/bohemia_save_tests.js'],
      'world+quest save/load, resume mid-quest', False),
+    ('LEDGER',         ['node', 'engine/bohemia_ledger_tests.js'],
+     'recorded vs unrecorded; the machine reads one ledger, the dynasty wins on the other', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
