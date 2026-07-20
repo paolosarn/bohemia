@@ -1558,6 +1558,17 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   (12 checks/6 configs). RENDER BUG CAUGHT + FIXED: cart paths first read as a dark tree-trunk up
   the middle (dark + thick + radial) — recolored to receding concrete, thinned, rerouted as the
   perimeter loop; now reads unmistakably as golf. 10 built districts now. Stamp BUILD 7/20j.
+- stadium -> LEISURE (bohemia_stadium, 7/20 autonomous, research-first: stadium bowl + site-plan
+  guides — Preferred-Seating "Stadium Bowl Design", conceptdraw, Wabash Valley, Carroll Eng). A
+  dead sports stadium: a tiered seating BOWL (concentric ellipses) rings a cracked dead FIELD
+  (faded sidelines/midline/center circle), a CONCOURSE loop runs under the stands cut by 12 radial
+  VOMITORY aisles + tier walkways, the FACADE wall wraps it with the entry GATES, a PARKING APRON
+  rings the whole parcel, LIGHT TOWERS at the four bowl corners, a dead SCOREBOARD over the north
+  end. Street-aware + drivable (the apron reaches the curb every placement). Full dossier +
+  layering; facade -> concourse interior. Gate stadium_gate.js (12 checks/6 configs, incl an
+  explicit no-purple swatch check). PURPLE CATCH: the stands first rendered a purple-leaning gray
+  -> recolored to NEUTRAL warm gray (PURPLE RESERVATION LAW), purity sweep passes. 11 built
+  districts now. Stamp BUILD 7/20l.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
