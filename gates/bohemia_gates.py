@@ -64,6 +64,8 @@ GATES = [
      'quest choices/outcomes feed the choice-log (fold + amalgamation see them)', False),
     ('LOOP TALK',      ['node', 'engine/bohemia_loop_talk_tests.js'],
      'an NPC tile offers its quest when the player steps up; binding rides the save', False),
+    ('LOOP SLICE',     ['node', 'engine/bohemia_loop_slice_tests.js'],
+     'the whole goal-slice loop headless: walk->talk->play->journal->save/reload->fold', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

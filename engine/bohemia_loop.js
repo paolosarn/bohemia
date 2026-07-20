@@ -297,6 +297,37 @@
       });
     }
 
+    /* THE JOURNAL (pull-from-anywhere): one read that gives the HUD + the quest-log
+       screen everything they draw — every live quest with its title/act, current
+       stage, done/outcome, its objectives (active + done), and which talk nodes are
+       begin-able right now. Content-agnostic; it reports state, authors nothing. */
+    function journal() {
+      return Object.keys(active).map(function (id) {
+        const rt = active[id].rt, Q = rt.Q;
+        return {
+          id: id, title: Q.title || id, act: Q.act || null,
+          stage: rt.state.stage, done: !!rt.state.done, outcome: rt.state.outcome || null,
+          objectives: rt.objectives(),          // [{n, text, target, status}]
+          available: rt.available(),            // begin-able talk nodes right now
+          placed: placed[id] ? { x: placed[id].x, y: placed[id].y,
+                                 layer: placed[id].layer, speaker: placed[id].speaker } : null,
+        };
+      });
+    }
+    /* Just the active (not-done) objectives across ALL quests, for the objective
+       HUD line. Flat + sorted by quest then objective number; stable for render. */
+    function activeObjectives() {
+      const out = [];
+      journal().forEach(function (j) {
+        if (j.done) return;
+        j.objectives.forEach(function (o) {
+          if (o.status === 'active') out.push({ questId: j.id, title: j.title, n: o.n, text: o.text });
+        });
+      });
+      out.sort(function (a, b) { return a.questId < b.questId ? -1 : a.questId > b.questId ? 1 : a.n - b.n; });
+      return out;
+    }
+
     function serialize() {
       const out = {};
       for (const id in active) {
@@ -313,7 +344,8 @@
         if (blob[id].at) placed[id] = blob[id].at;
       }
     }
-    return { start, get, ids, place, placements, serialize, restore, _active: active, _placed: placed };
+    return { start, get, ids, place, placements, journal, activeObjectives,
+             serialize, restore, _active: active, _placed: placed };
   }
 
   /* the generation to stamp on a recorded quest choice: the live dynasty gen if
