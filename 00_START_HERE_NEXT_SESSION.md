@@ -428,6 +428,22 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    Gate 67 checks. Chromium-verified: ring one-tap moves the world,
    enemy behind pillar gcov+excluded from exposed pool, my cover true
    through the same stone, step into pillar refused. 0 errors.
+   STREET TILE BOARD + PUSH-1 (7/19, sixth pass; Paolo: "I need to see
+   each tile... we have a good ass street... add the street" + "when you
+   shove people they get pushed back one tile... maybe a perk for two"):
+   (1) STREET FLOOR V6 — the combat floor is now a readable WORLD-
+   ANCHORED tile board in street anatomy: asphalt tiles with gentle
+   deterministic tone jitter (never confetti), grid lines, double-yellow
+   median + white lane dashes per the LINE COLOR law. It slides exactly
+   one tile per step, so the board IS the movement ruler. (2) Steps are
+   full-tile Chebyshev now (diagonals = 1 tile each axis, worldOff
+   integers). (3) Shove pushback = ONE tile (was 3), LONG ARM perk = two
+   (settings toggle beside IRON SHOULDER); melee-core signature grew a
+   perks object (back-compat). Gate 72 checks, ALL GREEN, chromium-
+   verified (push 2.0->3.0 exact, NE step = worldOff +1,-1, floor
+   renders). NOTE: enemy positions are still analog polar (fieldPos maps
+   distance nonlinearly) — full enemy tile-snap is the next big refactor
+   if Paolo wants the whole fight grid-true.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel

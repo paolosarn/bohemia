@@ -454,13 +454,111 @@ G.e=[]; const N=G.numEnemies; G.mTurn=0;
     return demo
 
 
+def patch6(demo):
+    """v6 (Paolo 7/19): (1) 'I need to see each tile... add the street' —
+    the combat floor becomes a readable TILE BOARD in street anatomy
+    (asphalt tiles + double-yellow median + white lane dashes, LINE COLOR
+    law), WORLD-ANCHORED so it slides exactly one tile per step — the
+    board is the movement ruler. (2) 'when you shove people they get
+    pushed back one tile' — shove push = 1 tile (was 3); LONG ARM perk
+    pushes 2. (3) full-tile diagonal steps (Chebyshev) so the board is
+    honest."""
+    if 'STREET FLOOR V6' in demo:
+        print('v6 already applied, skipping')
+        return demo
+
+    # 1. shove push = 1 tile, LONG ARM perk = 2 (melee core)
+    demo = sub1(demo, """\
+  shove:function(e,perk,roll){
+    var out={stun:0,pushed:3,topple:false,braced:false};
+    if(e.stun>0||e.stunCooldown>0)out.braced=true;
+    else out.stun=perk?2:1;
+    out.topple=roll<(perk?50:30);
+    return out;
+  },""", """\
+  shove:function(e,perk,roll){
+    var P=(perk&&typeof perk==='object')?perk:{shoulder:!!perk};
+    var out={stun:0,pushed:(P.longarm?2:1),topple:false,braced:false};   /* Paolo 7/19: pushed back ONE tile; LONG ARM perk: two */
+    if(e.stun>0||e.stunCooldown>0)out.braced=true;
+    else out.stun=P.shoulder?2:1;
+    out.topple=roll<(P.shoulder?50:30);
+    return out;
+  },""", 'shove-push1')
+    demo = sub1(demo,
+        "const r=BohemiaMelee.shove(t,!!G.perkShoulder,Math.floor(Math.random()*100));",
+        "const r=BohemiaMelee.shove(t,{shoulder:!!G.perkShoulder,longarm:!!G.perkLongarm},Math.floor(Math.random()*100));",
+        'shove-call')
+    demo = sub1(demo, '<button id="perkforesight">FORESIGHT: OFF</button>',
+        '<button id="perklongarm">LONG ARM: OFF</button>\n      <button id="perkforesight">FORESIGHT: OFF</button>',
+        'longarm-btn')
+    demo = sub1(demo, "const mm=D('meleemix'),ps=D('perkshoulder'),pf=D('perkforesight'),sb=D('shovebtn');",
+        "const mm=D('meleemix'),ps=D('perkshoulder'),pf=D('perkforesight'),sb=D('shovebtn'),pl=D('perklongarm');",
+        'longarm-const')
+    demo = sub1(demo, "if(pf)pf.addEventListener('click',()=>{ G.perkForesight=!G.perkForesight;",
+        """if(pl)pl.addEventListener('click',()=>{ G.perkLongarm=!G.perkLongarm;
+    pl.textContent='LONG ARM: '+(G.perkLongarm?'ON':'OFF'); });
+  if(pf)pf.addEventListener('click',()=>{ G.perkForesight=!G.perkForesight;""",
+        'longarm-wire')
+
+    # 2. full-tile steps, diagonals included
+    demo = sub1(demo, """\
+  const v=DIRS[d], n=Math.hypot(v[0],v[1]);
+  const sx=v[0]/n, sy=v[1]/n;""", """\
+  const v=DIRS[d];
+  const sx=v[0], sy=v[1];   /* full tile steps, diagonals included (Chebyshev) — the board reads in tiles */""",
+        'chebyshev')
+
+    # 3. the world remembers how far you have walked (the floor's anchor)
+    demo = sub1(demo, "function worldShift(vx,vy){",
+        "function worldShift(vx,vy){\n  G.worldOff=G.worldOff||{x:0,y:0}; G.worldOff.x+=vx; G.worldOff.y+=vy;",
+        'world-off')
+
+    # 4. the street tile floor, world-anchored, drawn under everything in the field
+    demo = sub1(demo, """\
+  const rMin=ring*1.8, rMax=Math.min(W,H)*0.85;   /* the field is BIGGER than the screen now; pan + zoom navigate it */""", """\
+  const rMin=ring*1.8, rMax=Math.min(W,H)*0.85;   /* the field is BIGGER than the screen now; pan + zoom navigate it */
+  /* STREET FLOOR V6 (Paolo: "I need to see each tile... add the street"):
+     a readable tile board in street anatomy. World-anchored: it slides
+     exactly one tile per step, so the board IS the movement ruler.
+     LINE COLOR law: yellow = direction split (double median), white = lane. */
+  { G.worldOff=G.worldOff||{x:0,y:0}; const t=ring;
+    const offx=G.worldOff.x, offy=G.worldOff.y;
+    const gx0=Math.floor(offx-(cx/t))-1, gx1=Math.floor(offx+((W-cx)/t))+1;
+    const gy0=Math.floor(offy-(cy/t))-1, gy1=Math.floor(offy+((H-cy)/t))+1;
+    for(let wy=gy0; wy<=gy1; wy++){ for(let wx=gx0; wx<=gx1; wx++){
+      const sx2=cx+(wx-offx)*t, sy2=cy+(wy-offy)*t;
+      const h=(Math.imul(wx|0,73856093)^Math.imul(wy|0,19349663))>>>0;
+      const j=(h%7)-3;                                    /* gentle tone jitter, never confetti */
+      const g=50+j*3;
+      x.fillStyle='rgb('+(g+16)+','+(g+9)+','+(g+1)+')';   /* asphalt brown-grey */
+      x.fillRect(sx2,sy2,t+1,t+1); } }
+    x.strokeStyle='rgba(18,14,10,0.6)'; x.lineWidth=1;      /* the grid he can read */
+    for(let wx=gx0; wx<=gx1; wx++){ const sx2=Math.round(cx+(wx-offx)*t)+0.5;
+      x.beginPath(); x.moveTo(sx2,0); x.lineTo(sx2,H); x.stroke(); }
+    for(let wy=gy0; wy<=gy1; wy++){ const sy2=Math.round(cy+(wy-offy)*t)+0.5;
+      x.beginPath(); x.moveTo(0,sy2); x.lineTo(W,sy2); x.stroke(); }
+    /* the street story: double-yellow median at world x=2.5, white lane dashes 4 tiles out */
+    const medX=cx+(2.5-offx)*t;
+    if(medX>-t&&medX<W+t){ x.fillStyle='rgba(184,160,40,0.55)';
+      x.fillRect(medX-3,0,2.4,H); x.fillRect(medX+1,0,2.4,H); }
+    x.fillStyle='rgba(215,205,185,0.38)';
+    for(const lane of [-1.5,6.5]){ const lx=cx+(lane-offx)*t;
+      if(lx<-t||lx>W+t)continue;
+      const dashLen=t*1.2, gap=t*0.9;
+      let sy3=-((offy*t)%(dashLen+gap));
+      for(let yy=sy3; yy<H; yy+=dashLen+gap)x.fillRect(lx-1.4,yy,2.8,dashLen); }
+  }""",
+        'street-floor')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch5(patch4(patch3(patch2(patch(demo)))))
+    patched = patch6(patch5(patch4(patch3(patch2(patch(demo))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

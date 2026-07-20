@@ -332,6 +332,15 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('pillars block the step (occupancy: solid is solid)',
     demo.includes("setRead('BLOCKED','a pillar is there'"));
   ok('shove into a pillar slams (65% topple)', demo.includes('PILLAR SLAM'));
+  // v6 (Paolo): push = ONE tile, LONG ARM perk = two; street tile board floor
+  ok('PAOLO RULING: shove pushes back ONE tile', BM.shove({ stun: 0, stunCooldown: 0 }, false, 99).pushed === 1);
+  ok('LONG ARM perk pushes two', BM.shove({ stun: 0, stunCooldown: 0 }, { longarm: true }, 99).pushed === 2);
+  ok('LONG ARM in the settings UI', demo.includes('id="perklongarm"') && demo.includes('LONG ARM: OFF'));
+  ok('STREET FLOOR: world-anchored tile board with median + lane dashes',
+    demo.includes('STREET FLOOR V6') && demo.includes('G.worldOff') &&
+    demo.includes('rgba(184,160,40') && demo.includes('rgba(215,205,185'));
+  ok('full-tile Chebyshev steps (no normalized diagonals)',
+    demo.includes('const sx=v[0], sy=v[1];'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
     demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
