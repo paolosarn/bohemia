@@ -8,6 +8,26 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## SESSION SCOPE AMENDED: LIFE + CITY SURFACE (Paolo 7/19: "add an additional
+## title to this chat, like life plus tiles")
+The LIFE session also owns the CITY TAB SURFACE now. Division per ONE SYSTEM
+ONE SESSION: the overworld session keeps the GENERATORS (bohemia_overmap /
+world / districts); this session renders them READ-ONLY into the CITY tab,
+exactly like it consumes the clothing factory's wardrobe. DONE SAME TURN:
+the CITY tab (empty div since birth) now shows the whole generated Vegas
+live - tools/bohemia_city_tab.py -> slices/BOHEMIA_CITY_CURRENT.html (stable
+URL, lazy iframe): mile grid, 215 beltway, I-15/95, rail, Lake Mead,
+mountain ring drawn as themselves, every buildable district as DESERT until
+grown on (the blessed 7/18 aerial proof's exact palette + rules); drag pan,
+pinch/wheel zoom, tap a plot for its district. Gate #CITY TAB (9 checks):
+embedded overmap BYTE-LOCKED to the canon engine body (overworld reshapes
+streets -> gate red until the page is rebuilt), skeleton law replayed
+against the live enum, no empty-tab regression. Verified 390px chromium.
+NEXT for the CITY surface (in order, mine): (a) the city-builder verbs on
+this map (delete-to-desert, place-a-plot - Paolo's 7/18 plan), (b) zoom a
+region into the walkable street/desert bakes, (c) LIFE's census layered on
+the map (population per district once the die-off dial is ruled).
+
 ## LIFE PARKED DORMANT (7/19, Paolo, same day it opened - SEQUENCING RULING)
 Paolo saw the LIFE tab and ruled the sequencing, distilled from his words:
 (1) TOO EARLY TO SURFACE, not too early to build - "I'm glad you have the
