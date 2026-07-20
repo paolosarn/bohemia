@@ -945,6 +945,38 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    no crouch; far enemy at 24 tiles pulls uzE to 0.45 vs userZoom 1.4;
    covered-north gunman excluded from the volley when engaging the
    exposed-south target; roam step east faces east.
+   THE FEEL RULING (7/20, passes 24-25; Paolo's big message): SEVEN
+   builds. (1) VITAL NEVER CHAINS (LOCKED): a vital = 2-turn stun and
+   the turn ENDS clean; only a KILLSHOT buys the next target. (2) NO
+   DOUBLE EXPOSURE (LOCKED, supersedes v23's version): POSITIONAL
+   exposure (posExposed: anyone you lack cover from, out OR cycling)
+   kills the pop-out entirely — button reads SHOOT (they're out) /
+   HOLD (exposed side cycling; melee still engageable) / POP OUT (only
+   when fully covered). (3) LOS BEAD (LOCKED, supersedes v22 move-
+   breaks-all): moving only resets guns whose LINE the step broke
+   (myCoverAgainst after the shift); walking in the open keeps you
+   tracked — verified pinned: open gun 2->3, broken-line gun 2->0->1.
+   (4) THE DEAD LIE UNDER THE LIVING: corpse+dead-enemy under-pass
+   before the player; the old over-draws stripped (flies stay on top,
+   they fly). (5) UI cluster (fire + move ring) 18px->44px from the
+   corner, ring never clips. (6) A VOLLEY IS A BIG DEAL: 2+ shooters
+   play the FULL incoming cam even on a total miss + every volley
+   rattles the frame (G._vShakeAt in applyShake). (7) KICK-LOCK +
+   EAR-LOCK: machine sweep of every song table (records/BOHEMIA_COMBAT_
+   MUSIC_SYNC_ANALYSIS_7_20_26.txt): the KICK is the one layer all 14
+   combat songs share (step0 14/14, step8 12/14; alpha-wide 215/224).
+   The dial ember + a new rim flash now pulse on FAC().kick (override-
+   aware), and the pulse clock auto-compensates the device's AudioContext
+   outputLatency (the research-consensus mobile feel-killer). Research
+   addendum: laws/BOHEMIA_ADDENDUM_DIAL_SYNC_AND_LAB_RESEARCH_7_20_26.md
+   — also pitches LAB ROUND 3 modes (E QUEUE, F PHRASE, G BREAK,
+   H METRONOME DUEL), build on thumbs; my pick E then F. PROCESS NOTE
+   (banked): v24 rewrote v22's marker text and broke patch22's
+   idempotence guard — guards must accept successor markers when a later
+   patch rewrites their text (fixed: patch22 accepts 'V24 LOS BEAD').
+   Gate 140 checks ALL GREEN. [PENDING Paolo]: tap-to-calibrate setting;
+   whether kick-timed shots should ever earn anything mechanically;
+   lab round 3 thumbs.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
