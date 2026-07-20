@@ -1,10 +1,13 @@
-<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA - THE CITY: your generated Vegas from above, live. The mile grid, the 215 beltway, I-15 and US-95, rail, Lake Mead, the mountain ring. Only the skeleton draws as itself; everything buildable is desert until the city grows on it.</h1>
-<div id="hud" style="font:12px -apple-system,sans-serif;color:#a99;padding:2px 10px 8px"></div>
+<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA - THE CITY: your generated Vegas from above, live. Tap a plot: demolish it down to the desert underneath, or build onto empty desert. The skeleton - streets, freeway, rail, water, mountains - is sacred and cannot be touched. Edits stay on this device until the save system.</h1>
+<div id="hud" style="font:12px -apple-system,sans-serif;color:#a99;padding:2px 10px 6px"></div>
+<div id="actions" style="padding:0 10px 6px;min-height:40px"></div>
 <div style="display:flex;gap:8px;padding:0 10px 8px">
   <button id="fit" style="padding:8px 12px;border-radius:8px">⌂ WHOLE VALLEY</button>
+  <button id="reset" style="padding:8px 12px;border-radius:8px">⟲ RESET EDITS</button>
 </div>
-<div style="padding:0 10px 12px"><canvas id="cv" style="width:100%;height:74vh;background:#171512;border-radius:8px;display:block;touch-action:none"></canvas></div>
-<!-- engine-md5:6dc92bfd79aa3c552b235a0ef045d23e (city_tab_gate freshness-locks this to engine/bohemia_overmap.js) -->
+<div style="padding:0 10px 12px"><canvas id="cv" style="width:100%;height:66vh;background:#171512;border-radius:8px;display:block;touch-action:none"></canvas></div>
+<!-- engine-md5:engine/bohemia_overmap.js:6dc92bfd79aa3c552b235a0ef045d23e -->
+<!-- engine-md5:engine/bohemia_cityedit.js:f8991553b06b63259ade0c7daed48929 -->
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
@@ -1018,28 +1021,111 @@ if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
 
+/* ==== engine/bohemia_cityedit.js ==== */
+// BOHEMIA CITY EDIT — the city-builder verbs (7/19/26, LIFE+CITY session)
+//
+// Paolo's plan (7/18, canon): "put streets into the CITY tab now, empty lots
+// = DESERT until built; in citybuilder you can delete/blow up a plot down to
+// the desert underneath; a big building can span 4 lots."
+//
+// This is the VERB layer: DEMOLISH (a buildable plot -> the desert under it)
+// and BUILD (empty desert -> a district). Mechanism only:
+//   - THE SKELETON IS SACRED: streets, freeway, rail, water, mountains can
+//     never be demolished or built over. The mile grid Paolo made whole
+//     stays whole. (MAP LAW: layouts are his; the machine only protects.)
+//   - what can be PLACED is exactly the canon district enum's buildable
+//     types - no invented content. Costs, rules, unlocks: [PENDING Paolo].
+//   - edits are a DELTA over the generated overmap (the generator is never
+//     touched), serializable so a save system can carry them. Until the
+//     save exists they live device-local (like the clothing thumbs).
+//   - 4-lot buildings ride the same delta later (one building, 4 cells).
+//
+// This module also owns the ONE canonical category function the CITY tab
+// renders from (skeleton-as-itself vs buildable-as-desert, the blessed
+// 7/18 aerial proof's rules) so the render and the verbs can never disagree.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
 
-// ===== CITY TAB - the valley from above, skeleton as itself, plots as desert =====
+  // the blessed categories (tools/bohemia_city_map.py proof, Paolo-approved)
+  var WATER={water:1,reservoir:1,reservoirs:1,basin:1,dam:1,intake:1,watertreat:1,springs:1,lakeLV:1,mead:1,reclaim:1};
+  var ROAD={arterial:1}, FREEWAY={freeway:1,interchange:1,exits:1};
+  var RAILT={rail:1,railyard:1,monorail:1}, MOUNT={mountain:1,quarry:1,gypsum:1,boulder:1};
+  var OPEN={desert:1,wash:1,boneyard:1,landfill:1};
+  function cat(d){ if(WATER[d])return 'water'; if(ROAD[d])return 'road';
+    if(FREEWAY[d])return 'freeway'; if(RAILT[d])return 'rail';
+    if(MOUNT[d])return 'mount'; if(OPEN[d])return 'open'; return 'sand'; }
+  function isSkeleton(d){ return cat(d)!=='sand' && cat(d)!=='open'; }
+
+  // every buildable type in the canon enum (nothing invented; sorted stable)
+  function buildableTypes(DISTRICT){
+    var out=[];
+    Object.keys(DISTRICT||{}).forEach(function(k){
+      var d=DISTRICT[k];
+      if(cat(d)==='sand') out.push(d);
+    });
+    return out.sort();
+  }
+
+  // ---- THE DELTA -----------------------------------------------------------
+  function makeEdits(){ return {v:1, cells:{}}; }
+  function resolve(edits, x, y, generated){
+    var k=x+','+y;
+    return (edits&&edits.cells&&(k in edits.cells)) ? edits.cells[k] : generated;
+  }
+  function count(edits){ return Object.keys(edits&&edits.cells||{}).length; }
+  function serialize(edits){ return JSON.stringify(edits); }
+  function parse(s){ try{ var e=JSON.parse(s);
+      if(e&&e.v===1&&e.cells&&typeof e.cells==='object') return e; }catch(err){}
+    return makeEdits(); }
+
+  // ---- THE VERBS -----------------------------------------------------------
+  // demolish: a BUILDABLE plot goes down to the desert underneath.
+  function demolish(edits, x, y, current){
+    if(isSkeleton(current)) return {ok:false, why:'the skeleton is sacred'};
+    if(cat(current)==='open' && current==='desert') return {ok:false, why:'already desert'};
+    edits.cells[x+','+y]='desert';
+    return {ok:true};
+  }
+  // build: only onto empty desert, only a canon buildable type.
+  function build(edits, x, y, current, type, DISTRICT){
+    if(current!=='desert') return {ok:false, why:'build only on empty desert'};
+    if(cat(type)!=='sand') return {ok:false, why:'not a buildable district'};
+    var legal=buildableTypes(DISTRICT);
+    if(legal.indexOf(type)<0) return {ok:false, why:'unknown district'};
+    edits.cells[x+','+y]=type;
+    return {ok:true};
+  }
+
+  var API={cat:cat,isSkeleton:isSkeleton,buildableTypes:buildableTypes,
+    makeEdits:makeEdits,resolve:resolve,count:count,serialize:serialize,parse:parse,
+    demolish:demolish,build:build,
+    WATER:WATER,ROAD:ROAD,FREEWAY:FREEWAY,RAILT:RAILT,MOUNT:MOUNT,OPEN:OPEN};
+  if(HASREQ) module.exports=API;
+  root.BohemiaCityEdit=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+
+// ===== CITY TAB v2 - the valley from above + the city-builder verbs =====
 var SEED=12345;
-var WATER={water:1,reservoir:1,reservoirs:1,basin:1,dam:1,intake:1,watertreat:1,springs:1,lakeLV:1,mead:1,reclaim:1};
-var ROAD={arterial:1}, FREEWAY={freeway:1,interchange:1,exits:1};
-var RAILT={rail:1,railyard:1,monorail:1}, MOUNT={mountain:1,quarry:1,gypsum:1,boulder:1};
-var OPEN={desert:1,wash:1,boneyard:1,landfill:1};
+var CE=BohemiaCityEdit;
 var COL={sand:[196,166,120],road:[78,76,78],freeway:[46,45,50],rail:[66,56,46],
   water:[64,92,96],mount:[150,120,84],open:[186,158,116]};
-function cat(d){ if(WATER[d])return 'water'; if(ROAD[d])return 'road';
-  if(FREEWAY[d])return 'freeway'; if(RAILT[d])return 'rail';
-  if(MOUNT[d])return 'mount'; if(OPEN[d])return 'open'; return 'sand'; }
 function hsh(x,y){ var h=((x*73856093)^(y*19349663))>>>0; h=(h^(h>>>13))>>>0; return (h*2654435761)>>>0; }
 
 var m=BohemiaOvermap.buildOvermap(SEED);
 var N=m.n, GRID=[];
 for(var y=0;y<N;y++){ var r=[]; for(var x=0;x<N;x++) r.push(m.at(x,y).district); GRID.push(r); }
+var BUILDABLE=CE.buildableTypes(BohemiaOvermap.DISTRICT);
+
+// device-local delta until the save system (RESET restores the generator)
+var LSKEY='BOHEMIA_CITY_EDITS';
+var edits=CE.parse((function(){try{return localStorage.getItem(LSKEY)||'';}catch(e){return '';}})());
+function persist(){ try{ localStorage.setItem(LSKEY, CE.serialize(edits)); }catch(e){} }
+function distAt(x,y){ return CE.resolve(edits,x,y,GRID[y][x]); }
 
 var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
-var HUD=document.getElementById('hud');
-var px=N/2, py=N/2, Z=6;                 // camera center (cells) + px per cell
-var ZMIN=3, ZMAX=40;
+var HUD=document.getElementById('hud'), ACT=document.getElementById('actions');
+var px=N/2, py=N/2, Z=6, ZMIN=3, ZMAX=40;
 var sel=null;
 
 function draw(){
@@ -1048,8 +1134,8 @@ function draw(){
   var x0=Math.max(0,Math.floor(px-w/Z/2)), x1=Math.min(N-1,Math.ceil(px+w/Z/2));
   var y0=Math.max(0,Math.floor(py-h/Z/2)), y1=Math.min(N-1,Math.ceil(py+h/Z/2));
   for(var y=y0;y<=y1;y++)for(var x=x0;x<=x1;x++){
-    var c=COL[cat(GRID[y][x])];
-    var g=(hsh(x,y)%17)-8;               // the proof's gentle within-category grain
+    var c=COL[CE.cat(distAt(x,y))];
+    var g=(hsh(x,y)%17)-8;
     ctx.fillStyle='rgb('+Math.max(0,Math.min(255,c[0]+g))+','+Math.max(0,Math.min(255,c[1]+g))+','+Math.max(0,Math.min(255,c[2]+g))+')';
     ctx.fillRect(Math.round((x-px)*Z+w/2), Math.round((y-py)*Z+h/2), Math.ceil(Z), Math.ceil(Z));
   }
@@ -1059,11 +1145,34 @@ function draw(){
   }
 }
 function refreshHUD(){
-  if(sel){ var d=GRID[sel[1]][sel[0]], k=cat(d);
-    HUD.textContent='('+sel[0]+','+sel[1]+') '+d.toUpperCase()+' - '+(k==='sand'?'buildable plot (desert until grown on)':'skeleton: '+k); }
-  else HUD.textContent='The valley. Streets, freeway, rail, water, mountains draw as themselves; every buildable plot is desert until the city grows on it. Drag to pan, pinch or wheel to zoom, tap a plot.';
+  var n=CE.count(edits);
+  var tail=n?(' · '+n+' edit'+(n>1?'s':'')+' on this device'):'';
+  if(sel){ var d=distAt(sel[0],sel[1]), k=CE.cat(d);
+    HUD.textContent='('+sel[0]+','+sel[1]+') '+d.toUpperCase()+' - '+(k==='sand'?'buildable plot':(d==='desert'?'empty desert (buildable land)':'skeleton: '+k))+tail;
+    ACT.innerHTML='';
+    if(CE.isSkeleton(d)){ ACT.innerHTML='<span style="font:11px sans-serif;color:#8f8770">the skeleton is sacred - streets, water, rail and mountains cannot be touched</span>'; }
+    else if(d!=='desert'){
+      var b=document.createElement('button'); b.textContent='✕ DEMOLISH TO DESERT';
+      b.style.cssText='padding:8px 12px;border-radius:8px;background:#8c3f3f;color:#fff;border:0';
+      b.onclick=function(){ var r=CE.demolish(edits,sel[0],sel[1],d);
+        if(r.ok){ persist(); refreshHUD(); draw(); } };
+      ACT.appendChild(b);
+    } else {
+      var s=document.createElement('select');
+      s.style.cssText='padding:8px;border-radius:8px;background:#111;color:#ddd;border:1px solid #555;max-width:46%';
+      BUILDABLE.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t.toUpperCase(); s.appendChild(o); });
+      var b2=document.createElement('button'); b2.textContent='⚒ BUILD';
+      b2.style.cssText='padding:8px 12px;border-radius:8px;background:#3f8c3f;color:#fff;border:0;margin-left:6px';
+      b2.onclick=function(){ var r=CE.build(edits,sel[0],sel[1],distAt(sel[0],sel[1]),s.value,BohemiaOvermap.DISTRICT);
+        if(r.ok){ persist(); refreshHUD(); draw(); } };
+      ACT.appendChild(s); ACT.appendChild(b2);
+    }
+  } else {
+    HUD.textContent='The valley. Skeleton draws as itself; every buildable plot is desert until grown on. Tap a plot to demolish it to desert or build on empty desert. Drag to pan, pinch or wheel to zoom.'+tail;
+    ACT.innerHTML='';
+  }
 }
-// ---- input: drag pan, wheel + pinch zoom (clamped), tap select ----
+// ---- input ----
 var ptrs={}, lastPan=null, lastPinch=null, moved=0;
 cv.addEventListener('pointerdown',function(e){ ptrs[e.pointerId]=[e.clientX,e.clientY]; moved=0;
   var ks=Object.keys(ptrs); if(ks.length===1) lastPan=[e.clientX,e.clientY]; cv.setPointerCapture(e.pointerId); });
@@ -1093,6 +1202,9 @@ cv.addEventListener('wheel',function(e){ setZoom(Z*(e.deltaY<0?1.15:0.87)); draw
 function setZoom(z){ Z=Math.max(ZMIN,Math.min(ZMAX,z)); clampCam(); }
 function clampCam(){ px=Math.max(0,Math.min(N,px)); py=Math.max(0,Math.min(N,py)); }
 document.getElementById('fit').onclick=function(){ px=N/2; py=N/2; Z=Math.max(ZMIN,Math.min(cv.width,cv.height)/N); sel=null; refreshHUD(); draw(); };
+document.getElementById('reset').onclick=function(){
+  if(!CE.count(edits)) return;
+  edits=CE.makeEdits(); persist(); refreshHUD(); draw(); };
 function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight;
   if(!fit.done){ Z=Math.max(ZMIN,Math.min(cv.width,cv.height)/N); fit.done=true; }
   draw(); }

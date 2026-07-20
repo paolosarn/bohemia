@@ -23,10 +23,21 @@ pinch/wheel zoom, tap a plot for its district. Gate #CITY TAB (9 checks):
 embedded overmap BYTE-LOCKED to the canon engine body (overworld reshapes
 streets -> gate red until the page is rebuilt), skeleton law replayed
 against the live enum, no empty-tab regression. Verified 390px chromium.
-NEXT for the CITY surface (in order, mine): (a) the city-builder verbs on
-this map (delete-to-desert, place-a-plot - Paolo's 7/18 plan), (b) zoom a
-region into the walkable street/desert bakes, (c) LIFE's census layered on
-the map (population per district once the die-off dial is ruled).
+CITY-BUILDER VERBS SHIPPED (7/19 later, v2): engine/bohemia_cityedit.js -
+DEMOLISH a buildable plot to the desert underneath, BUILD a canon district
+onto empty desert, THE SKELETON IS SACRED (streets/freeway/rail/water/
+mountains untouchable, machine-enforced). Edits are a serializable DELTA
+over the generator, device-local (localStorage) until the save system;
+RESET restores the generated valley. One canonical category body shared by
+render + verbs. Gates #CITY EDIT (13) + #CITY TAB (11, both embedded
+modules byte-locked) BOTH registered in bohemia_gates.py (the tab gate had
+been left unregistered a turn - caught, fixed). Verified on the real
+surface: demolish/build/persist-across-reload/skeleton-refuses, 0 errors.
+NEXT for the CITY surface (in order, mine): (a) 4-lot big buildings on the
+delta (Paolo's plan), (b) zoom a region into the walkable street/desert
+bakes, (c) LIFE's census layered on the map (population per district once
+the die-off dial is ruled). Costs/unlocks/what-can-build-where: [PENDING
+Paolo].
 
 ## LIFE PARKED DORMANT (7/19, Paolo, same day it opened - SEQUENCING RULING)
 Paolo saw the LIFE tab and ruled the sequencing, distilled from his words:
