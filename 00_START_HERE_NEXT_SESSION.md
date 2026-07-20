@@ -60,9 +60,14 @@ model for how, a small touchable loop Paolo can judge by feel): 0) harness boots
 straight into human mode on a fixed seed/spawn. 1) FAKE the
 house (a 2s intro at spawn, no interior engine). 2) one static NPC sprite + adjacency
 "TALK" prompt. 3) DIALOGUE — 3a the .bq INTERPRETER is DONE (engine/bohemia_quest_runtime.js, the
-QUEST RUNTIME gate: plays stages/nodes/gates/@DO/objectives to COMPLETE/FAIL, state as
-JSON). 3b the DIALOGUE UI that renders runtime.view() (say lines + tappable options)
-and calls runtime.choose() REMAINS — this is now UI work, not logic. 4) an objective HUD line. 5) write ONE playable .bq
+QUEST RUNTIME gate). 3b a STANDALONE DIALOGUE DEMO is DONE too:
+slices/BOHEMIA_QUEST_DEMO_7_19_26.html plays a .bq through the runtime with tappable
+options, an objective bar, live gate-unlocking, and a win/lose banner; iPhone-portrait,
+references the canonical engine modules (no copies), browser-verified via Playwright
+(the password option is hidden until earned, then appears; reaches QUEST COMPLETE, zero
+console errors). This is the combat-demo-style proof of the dialogue UI. What REMAINS for
+the full slice is WIRING this UI into the walkable world (NPC placement + human mode +
+faked house), not building the dialogue system from scratch. 4) an objective HUD line. 5) write ONE playable .bq
 (the neighbor's first errand once its design is unpinned). 6) add quest state to the
 existing CITYSAVE payload. 7) prove the loop + add a slice_proof gate.
 RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
