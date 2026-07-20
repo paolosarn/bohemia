@@ -1291,13 +1291,64 @@ def patch17(demo):
     return demo
 
 
+def patch18(demo):
+    """v18 (Paolo 7/20, ERR chip screenshot: "ReferenceError: Can't find
+    variable: DIRS"):
+    1. THE PHONE GHOST, KILLED: v10 wrapped drawField's DIRS table inside
+       the not-during-dial block, but the ring-cell FX further down (the
+       cover-save flash — which fires exactly WHEN YOUR COVER EATS A
+       SHOT) still read DIRS. Getting shot at while covered = dead frame
+       = the dial stops drawing. DIRS is now scoped to the whole field.
+    2. THE REAL CROUCH: the alpha already bakes 'take-cover' frames into
+       every enemy look (cover112/coverE/coverW, Paolo 7/3 canon) and
+       enemyFrame renders them beat-bobbed — but only for the hand
+       inCover flag. Pillar cover (gcov) now triggers the SAME baked
+       crouch; peek/fire windows still stand them up (the readable pop).
+       The v17 squash placeholder is removed — real frames win.
+    3. KILLSHOTS/TURN: the chain-skill button is labeled in Paolo's own
+       words and highlighted, in a SKILLS-labeled group."""
+    if 'V18 DIRS' in demo:
+        print('v18 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, """\
+  // my 3x3 self-cover ring (never during the dial — the scene stays clean)
+  if(!aimo){
+  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];""", """\
+  // my 3x3 self-cover ring (never during the dial — the scene stays clean)
+  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];   /* V18 DIRS: whole-field scope — the ring FX below read it too (the phone's ReferenceError) */
+  if(!aimo){""",
+        'dirs-scope')
+
+    demo = sub1(demo, "  if(e.inCover&&!peeking(e)&&!firing(e)){",
+        "  if((e.inCover||e.gcov)&&!peeking(e)&&!firing(e)){   /* V18: pillar cover crouches with the SAME baked take-cover frames */",
+        'gcov-crouch')
+
+    # the squash placeholder dies — the real frames carry it
+    demo = sub1(demo, """\
+    const _cov=(e.inCover||e.gcov)&&!e.dead&&!(e.prone>0);
+    if(_cov){ x.save(); x.translate(ex,ey+er); x.scale(1,0.72); x.translate(-ex,-(ey+er)); }   /* CROUCH V17: covered men duck (real cover anim comes from Paolo's art chat) */
+    if(!drawEnemySprite(x,e,ex,ey,nowMs)){""", """\
+    const _cov=false;   /* V18: the baked take-cover frames carry the crouch now */
+    if(!drawEnemySprite(x,e,ex,ey,nowMs)){""",
+        'squash-gone')
+
+    demo = sub1(demo, '<span class="gl">MELEE + PERKS (Paolo 7/19 rulings)</span>',
+        '<span class="gl">SKILLS + PERKS (killshots per turn lives here)</span>', 'skills-label')
+    demo = sub1(demo, '<button id="chainskill">CHAIN: 3</button>',
+        '<button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 3</button>', 'chain-label')
+    demo = sub1(demo, "cs.textContent='CHAIN: '+G.chainSkill;",
+        "cs.textContent='KILLSHOTS/TURN: '+G.chainSkill;", 'chain-label-wire')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))
+    patched = patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
