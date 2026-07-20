@@ -26,9 +26,15 @@ research partner. He DECIDES, you PRODUCE.
 - DISTRICT DOSSIER LAW (Paolo 7/19, "keep that in mind moving forward"): NEVER
   build or approve a district without recording its full note section. Each
   district module exposes NOTES {summary, reference, layout, circulation,
-  decisions} + LEGEND {code->name,kind,act-1 material}; node tools/bohemia_tilespec.js
-  generates the dossier (records/tilespec/); tilespec_gate.js fails if it's
-  missing. So the tiling phase (and the next session) knows what everything is.
+  LAYERING, decisions} + LEGEND {code->name, kind, act-1 material, and per tile
+  layer/solid/enter}. LAYERING is required (Paolo 7/19, "very important"): every
+  tile resolves to a render/occupancy layer — ground (flat floor) / structure
+  (¾ front face, blocks) / overhead (pass under: canopy, deck) / prop / portal
+  (go INTO an interior: door, garage ramp, tunnel mouth) — plus solid? and what
+  you see INSIDE. node tools/bohemia_tilespec.js generates the dossier
+  (records/tilespec/); tilespec_gate.js fails if the dossier, a tile material,
+  or a tile's layer is missing. So the tiling AND interior/zoom phases know what
+  everything is, what blocks, what you walk under, and what you go inside.
 - GRAVEYARD IS FINAL: dead things stay dead (registry: gates/bohemia_graveyard.txt).
   No remakes. Fresh cooks answer dead slots.
 - ENGINE SYNC LAW: one canonical body per module (gates/bohemia_sync_canon.txt).

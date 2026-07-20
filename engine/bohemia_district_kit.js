@@ -166,6 +166,28 @@
     while(st.length){var p=st.pop();reach++;var d=[[1,0],[-1,0],[0,1],[0,-1]];for(i=0;i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;if(seen[k]||nx<0||ny<0||nx>=n||ny>=n)continue;if(g[ny][nx]===driveCode){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total; }
 
+  // LAYERING (Paolo 7/19: "you have to understand the layering you're making and what it looks
+  // like when the player goes INSIDE — a building, a parking garage, the tunnel — record what
+  // tiles, what positions"). Every tile resolves to a render/occupancy LAYER so the ¾-view
+  // renderer + the interior/zoom system know how to treat it:
+  //   ground   - flat floor plane; walk/drive ON it (roads, invert, paths, turf, markings)
+  //   structure- vertical mass with a FRONT FACE in the ¾ view; SOLID at grade; may be enterable
+  //   overhead - drawn ABOVE the ground; the player passes UNDER it (canopy, upper parking deck)
+  //   prop     - an object sitting on the ground (cart, pump, tree, furniture); solid per its size
+  //   portal   - a TRANSITION into an interior (door, garage ramp, tunnel mouth, gate)
+  // solid = does the tile block a body's cell (occupancy) at grade. enter = the interior it opens.
+  // A tile inherits its layer from its `kind` unless it sets an explicit layer/solid/enter.
+  var KIND_LAYER={
+    ground:{layer:'ground',solid:false}, drive:{layer:'ground',solid:false}, walk:{layer:'ground',solid:false},
+    marking:{layer:'ground',solid:false}, 'turf-dead':{layer:'ground',solid:false}, 'water-dead':{layer:'ground',solid:false},
+    court:{layer:'ground',solid:false}, play:{layer:'ground',solid:false},
+    building:{layer:'structure',solid:true}, structure:{layer:'structure',solid:true}, fence:{layer:'structure',solid:true},
+    panel:{layer:'structure',solid:true}, 'tree-dead':{layer:'prop',solid:true}, prop:{layer:'prop',solid:true},
+    vehicle:{layer:'prop',solid:true}, gate:{layer:'portal',solid:false}, overhead:{layer:'overhead',solid:false}, portal:{layer:'portal',solid:false}
+  };
+  function tileLayer(entry){ var d=KIND_LAYER[entry&&entry.kind]||{layer:'ground',solid:false};
+    return { layer: (entry&&entry.layer)||d.layer, solid: (entry&&entry.solid!=null)?entry.solid:d.solid, enter: (entry&&entry.enter)||null }; }
+
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
   function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
@@ -185,7 +207,7 @@
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
-    driveReachFromStreet:driveReachFromStreet};
+    driveReachFromStreet:driveReachFromStreet,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

@@ -93,16 +93,16 @@
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt / gravel (setback, yard gaps)'},
     1:{name:'asphalt drive',      kind:'drive',      act1:'cracked asphalt drive lane / employee lot (car-drivable)'},
-    2:{name:'warehouse',          kind:'building',   act1:'big tilt-up concrete box, rusted metal siding, dark'},
+    2:{name:'warehouse',          kind:'building',   act1:'big tilt-up concrete box, rusted metal siding, dark', enter:'WAREHOUSE INTERIOR: one big open floor, tall racking aisles, the dock doors seen from inside, a small office corner'},
     3:{name:'fence',              kind:'fence',      act1:'chain-link perimeter fence, sagging, some down'},
-    4:{name:'dock door',          kind:'building',   act1:'roll-up loading dock door, dented, some open black'},
+    4:{name:'dock door',          kind:'building',   act1:'roll-up loading dock door, dented, some open black', layer:'portal', solid:false, enter:'through the dock into the warehouse floor'},
     5:{name:'gate / truck gate',  kind:'gate',       act1:'wide drive-in yard gate, amber curb paint'},
-    6:{name:'office',             kind:'building',   act1:'small front office block, broken glass'},
+    6:{name:'office',             kind:'building',   act1:'small front office block, broken glass', enter:'office interior: reception + a few rooms'},
     7:{name:'truck court',        kind:'drive',      act1:'cracked concrete truck apron (backing area, drivable)'},
     8:{name:'trailer stall stripe',kind:'marking',   act1:'faded trailer-stall stripe on asphalt'},
     9:{name:'parked trailer',     kind:'vehicle',    act1:'abandoned box trailer, faded, some tagged'},
     10:{name:'container',         kind:'prop',       act1:'rusted shipping container, dented, stacked'},
-    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark'}
+    11:{name:'guard shack',       kind:'building',   act1:'small guard booth at the gate, dark', enter:'tiny guard-booth interior (one room)'}
   };
   var NOTES={
     summary:'Distribution center — one big warehouse, a dock-door row, a truck court, a trailer yard, a front office + employee lot, a guard shack, fenced.',
@@ -111,6 +111,7 @@
       'A row of dock doors along the front feeds a deep truck-court apron for backing trailers.',
       'Trailer staging + a parking yard (striped stalls, many parked trailers); an employee car lot + office + guard shack at the front; shipping containers; a perimeter fence.'],
     circulation:'Street-aware: exits the streets it touches with wide drive-in TRUCK gates; the asphalt + truck court form one connected yard reachable from the gate (driveConnected). Verified connected in all 6 placements.',
+    layering:'GROUND plane: asphalt, truck court, trailer stall stripes (flat, drive on them). STRUCTURES (¾ front face, solid): the warehouse (2, ENTERABLE -> open floor + racking), the office (6) + guard shack (11, both enterable), the fence (3). PORTAL: the dock doors (4) — solid wall when closed, an opening into the warehouse floor when up; the truck gate (5). PROPS solid: parked trailers (9, big boxes you route around), containers (10). The warehouse occupies its whole footprint (block) and draws up as a tall face along the dock row.',
     decisions:['REBUILT from real DC research (Paolo: research the real thing first).',
       'Gate hardened to all 6 placements + a drive-reach assertion (7/19).']
   };

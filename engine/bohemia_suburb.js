@@ -205,12 +205,12 @@
   var LEGEND={
     0:{name:'dead-ground (yard)', kind:'ground',    act1:'dead-dirt front/back yard, no grass, cracked'},
     1:{name:'road',               kind:'drive',      act1:'cracked residential street asphalt (car-drivable)'},
-    2:{name:'house',              kind:'building',   act1:'single-story stucco tract house, faded, dark windows'},
+    2:{name:'house',              kind:'building',   act1:'single-story stucco tract house, faded, dark windows', enter:'house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage'},
     3:{name:'driveway',           kind:'drive',      act1:'cracked concrete driveway apron (drivable to garage)'},
     4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
     5:{name:'gate',               kind:'gate',       act1:'neighborhood street entrance off the arterial'},
-    6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented'},
-    9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)'}
+    6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented', enter:'garage interior: 1-2 car bays, junk shelves, a door into the house'},
+    9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
   var NOTES={
     summary:'Walled tract-home neighborhood — cul-de-sac streets off the gate, homes with front-garage driveways, packed lots, dead-dirt yards.',
@@ -220,6 +220,7 @@
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
     circulation:'Street-aware: gates only on street edges (a corner exits two streets); roads reach every lot from the gate (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface.',
+    layering:'GROUND plane: roads, driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']

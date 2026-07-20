@@ -54,15 +54,18 @@ for (const d of DISTRICTS) {
     if (notes.reference && notes.reference.length) md += '### Real-world reference\n' + notes.reference.map(s => '- ' + s).join('\n') + '\n\n';
     if (notes.layout && notes.layout.length) md += '### Layout — what is where\n' + notes.layout.map(s => '- ' + s).join('\n') + '\n\n';
     if (notes.circulation) md += '### Circulation (street-aware / drivable)\n' + notes.circulation + '\n\n';
+    if (notes.layering) md += '### Layering — exterior vs interior, what blocks, what you go under/into\n' + notes.layering + '\n\n';
     if (notes.decisions && notes.decisions.length) md += '### Decisions & rulings\n' + notes.decisions.map(s => '- ' + s).join('\n') + '\n\n';
   }
-  md += '### Tile legend — every code, its material to skin\n';
-  md += '| code | color | tile / name | kind | ACT-1 material (tile this) | in cell | ACT-2/3 |\n';
-  md += '|---|---|---|---|---|---|---|\n';
+  md += '### Tile legend — every code: material to skin + layer/occupancy/interior\n';
+  md += '_layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=drawn above, pass under · prop=object on the ground · portal=go through into an interior._\n\n';
+  md += '| code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |\n';
+  md += '|---|---|---|---|---|---|---|---|---|\n';
   for (const c of codes) {
-    const L = legend[c], col = c === 0 ? 'dead-dirt (kit ground)' : (palette[c] || '—');
+    const L = legend[c], col = c === 0 ? 'dead-dirt (kit ground)' : (palette[c] || '—'), ly = K.tileLayer(L);
     md += '| ' + c + ' | `' + col + '` | ' + L.name + ' | ' + L.kind + ' | ' + L.act1 +
-          ' | ' + (present[c] ? present[c] + ' tiles' : '—') + ' | [PENDING Paolo] |\n';
+          ' | ' + ly.layer + ' | ' + (ly.solid ? 'yes' : 'no') + ' | ' + (ly.enter || '—') +
+          ' | ' + (present[c] ? present[c] : '—') + ' |\n';
   }
   md += '\n**Gate:** `gates/' + d.name + '_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).\n';
   md += '**Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.\n';

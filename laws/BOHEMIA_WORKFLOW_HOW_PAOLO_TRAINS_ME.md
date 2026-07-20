@@ -91,8 +91,14 @@ That is what turns "30 districts x tiles x 3 acts" from impossible into a queue.
 ## of what the hell is happening in our district... keep that in mind moving forward")
 Every built district exposes, right next to its PALETTE, two machine-readable blocks:
 - NOTES = the full build story: {summary, reference[] (real-world basis/research), layout[]
-  (what is where), circulation (street-aware/drivable), decisions[] (Paolo's rulings folded in)}.
-- LEGEND = code -> {name, kind, ACT-1 dead-world material}.
+  (what is where), circulation (street-aware/drivable), LAYERING (exterior vs interior — what
+  has a ¾ front face + blocks, what you pass UNDER, what you go INTO), decisions[] (Paolo's
+  rulings folded in)}.
+- LEGEND = code -> {name, kind, ACT-1 dead-world material, and layer/solid/enter} — the
+  render/occupancy LAYER (ground/structure/overhead/prop/portal), whether it blocks, and the
+  interior it opens. LAYERING IS REQUIRED (Paolo 7/19, "very important"): understand what a tile
+  looks like front-facing vs when the player goes INSIDE (a building, a parking garage, the
+  tunnel), what blocks, what you walk under. Record it AS you build, never after.
 `node tools/bohemia_tilespec.js` GENERATES a full per-district DOSSIER (records/tilespec/
 BOHEMIA_TILESPEC_<name>.md + an index) from both blocks — reference, layout, circulation,
 decisions, then a tile table with a material for every code. So the tiling phase (and any

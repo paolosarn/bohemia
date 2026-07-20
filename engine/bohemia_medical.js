@@ -98,13 +98,13 @@
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / unbuilt gaps)'},
     1:{name:'drive / asphalt',    kind:'drive',      act1:'cracked asphalt drive lane / parking aisle (car-drivable)'},
-    2:{name:'building',           kind:'building',   act1:'concrete/panel hospital, ER wing, MOB — grimy, dark windows'},
+    2:{name:'building',           kind:'building',   act1:'concrete/panel hospital, ER wing, MOB — grimy, dark windows', enter:'hospital floorplan: ER + intake, wards, halls, service back-of-house'},
     3:{name:'dead planter island',kind:'tree-dead', act1:'dry curbed planter, dead shrub stumps, gravel'},
-    4:{name:'entrance door',      kind:'building',   act1:'boarded / cracked glass main + ambulance doors, amber frame'},
+    4:{name:'entrance door',      kind:'building',   act1:'boarded / cracked glass main + ambulance doors, amber frame', layer:'portal', solid:false, enter:'into the hospital lobby / ER intake'},
     5:{name:'gate / curb cut',    kind:'gate',       act1:'campus vehicle entrance, amber curb paint'},
     6:{name:'walkway / crosswalk',kind:'walk',       act1:'faded concrete walkway + crosswalk stripes'},
-    7:{name:'canopy',             kind:'structure',  act1:'sagging entrance / ambulance drive-through canopy'},
-    8:{name:'parking garage',     kind:'structure',  act1:'decked concrete garage shell, columns, ramp'},
+    7:{name:'canopy',             kind:'structure',  act1:'sagging entrance / ambulance drive-through canopy', layer:'overhead', solid:false},
+    8:{name:'parking garage',     kind:'structure',  act1:'decked concrete garage shell, columns, ramp', enter:'GARAGE INTERIOR: multiple decks of parked cars, a spiral/switchback ramp between levels, columns — you drive up the ramp and the shell you saw outside becomes the deck you are on'},
     9:{name:'helipad',            kind:'marking',    act1:'faded rooftop-red helipad circle + H, cracked'},
     10:{name:'parking stall',     kind:'marking',    act1:'faded stall stripe on asphalt'},
     11:{name:'parked vehicle',    kind:'vehicle',    act1:'abandoned car / dead ambulance, dust-caked'}
@@ -117,6 +117,7 @@
       'A decked parking garage (with a ramp) on one side; a full visitor lot (striped stalls, parked cars, dead-planter islands); a medical office building at a lot corner.',
       'A bottom DRIVE BAND ties the gates, the front apron, the lot, and the garage ramp together.'],
     circulation:'Street-aware via canonical-south + K.rotateToStreet — the whole campus rotates onto the real street (this FIXED a real bug where a north-only cell left the drive band stranded behind the hospital). Drive = code 1; a car reaches the drive network from the curb in ANY placement (K.driveReachFromStreet).',
+    layering:'GROUND plane: drives, aisles, walkways, stalls, helipad (flat). STRUCTURES (¾ front face, solid): the hospital/ER/MOB (2, ENTERABLE -> floorplan rooms) and the parking GARAGE (8) — the garage reads as a solid decked shell from outside, and going in it becomes the multi-deck interior (ramp up, parked cars per level); its footprint is solid at grade except the ramp mouth. OVERHEAD (walk/drive UNDER, drawn above): the entrance + ambulance canopies (7) — the drop-off lane runs beneath them. PORTALS: the entrance doors (4) into the lobby/ER; the gate/curb cut (5). PROPS solid: parked vehicles (11), planters (3). This is the key "capacity when front-facing" case: the garage/hospital occupy their ground cells (block) but draw UP with a face, while canopies do NOT block the cells under them.',
     decisions:['EXPLAIN-EVERY-TILE: no blank slabs — planters/walkways fill the apron.',
       'Retrofit onto rotateToStreet (7/19) FIXED a real drive-disconnect bug for north-only + N+W-corner cells.',
       'Two curb cuts on the PRIMARY street (public + emergency) are allowed (same frontage); corner side streets get a pedestrian gate.']

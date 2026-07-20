@@ -23,11 +23,20 @@ for (const d of DISTRICTS) {
   // the DOSSIER (Paolo 7/19: "record all the notes of what the hell is happening"): every
   // district carries a NOTES block — summary + real-world reference + layout + circulation +
   // decisions — so its full build story is recorded, not just the tile legend.
-  ok(d.name + ': carries a full NOTES dossier (summary/reference/layout/circulation/decisions)',
+  ok(d.name + ': carries a full NOTES dossier (summary/reference/layout/circulation/layering/decisions)',
     !!NT && !!NT.summary && Array.isArray(NT.reference) && NT.reference.length > 0 &&
-    Array.isArray(NT.layout) && NT.layout.length > 0 && !!NT.circulation &&
+    Array.isArray(NT.layout) && NT.layout.length > 0 && !!NT.circulation && !!NT.layering &&
     Array.isArray(NT.decisions) && NT.decisions.length > 0);
   if (!L) continue;
+  // LAYERING (Paolo 7/19): every tile resolves to a valid render/occupancy layer + a solid
+  // flag, so the ¾ renderer + the interior/zoom system know how to treat it (what has a front
+  // face, what you pass under, what you go into). No tile ships with an unknown layer.
+  const LAYERS = new Set(['ground', 'structure', 'overhead', 'prop', 'portal']);
+  const layerOk = Object.keys(L).every(c => { const t = K.tileLayer(L[c]); return LAYERS.has(t.layer) && typeof t.solid === 'boolean'; });
+  ok(d.name + ': every tile resolves to a valid layer + occupancy (layering recorded)', layerOk);
+  // anything with an interior (enter) must be a structure or a portal (you enter through a face/door)
+  const enterOk = Object.keys(L).every(c => { const t = K.tileLayer(L[c]); return !t.enter || t.layer === 'structure' || t.layer === 'portal'; });
+  ok(d.name + ': every enterable tile is a structure or a portal', enterOk);
   // every legend entry is complete (name + kind + act-1 material)
   const complete = Object.keys(L).every(c => L[c] && L[c].name && L[c].kind && L[c].act1);
   ok(d.name + ': every legend entry has name + kind + ACT-1 material', complete);

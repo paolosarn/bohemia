@@ -69,7 +69,7 @@
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare desert dirt (setback between fence and field)'},
     1:{name:'gravel access road', kind:'drive',      act1:'compacted gravel O&M road (maintenance-vehicle drivable)'},
-    2:{name:'control building',   kind:'building',   act1:'small intact concrete control/switch house (powered)'},
+    2:{name:'control building',   kind:'building',   act1:'small intact concrete control/switch house (powered)', enter:'control-room interior: switchgear panels, a monitoring desk (lit, powered)'},
     3:{name:'fence',              kind:'fence',      act1:'intact chain-link security fence + posts (maintained)'},
     4:{name:'inverter / transformer pad',kind:'structure',act1:'concrete pad + intact inverter/transformer box, humming'},
     5:{name:'gate',               kind:'gate',       act1:'security drive gate off the access road, amber curb'},
@@ -82,6 +82,7 @@
     layout:['Panel array rows fill the field; gravel access roads split it into blocks.',
       'An inverter/transformer pad anchors each block; a substation switchyard + control building in a corner link to the grid; a perimeter fence + a driveway gate.'],
     circulation:'Street-aware: a security drive gate off the access road on the street(s) it touches; the gravel roads run edge-to-edge and are reachable from the gate in any placement (driveConnected).',
+    layering:'GROUND plane: the gravel O&M roads (walk/drive). STRUCTURES (¾ front face, solid): the panel arrays (7) sit on waist-to-head-high racks and block movement — you route BETWEEN them on the gravel roads (the field is not a walkable floor); the control building (2, ENTERABLE -> switch room), the substation switchgear (6, a fenced equipment yard, solid, not enterable), the fence (3). PROP solid: the inverter/transformer pads (4). PORTAL: the gate (5). Panels could later be a walk-under overhead in spots, but for now treat the array as solid — the roads are the movement network.',
     decisions:['CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — panels/switchgear read maintained, NOT decayed (unlike other districts).',
       'driveConnected + full 6-placement gate coverage added 7/19.']
   };

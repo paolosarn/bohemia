@@ -1000,16 +1000,24 @@ Paolo verdict: CUL-DE-SACS UP; THE LOOPS + GARDEN CURVE DOWN (records/BOHEMIA_SU
 in the legend; research what fills the space and put it there. Kit helpers legendOk/
 voidFraction/largestBlob gate it. Applies to EVERY district.
 
-## DISTRICT DOSSIER — RECORD WHAT THE HELL IS HAPPENING (Paolo 7/19: "record all the notes of
-what the hell is happening in our district... keep that in mind moving forward"): DONE for all
-6 built districts. Each module exposes NOTES {summary, reference[], layout[], circulation,
-decisions[]} + LEGEND {code -> name, kind, ACT-1 material} beside its PALETTE. tools/bohemia_
-tilespec.js GENERATES a full DOSSIER per district (records/tilespec/BOHEMIA_TILESPEC_<name>.md
-+ INDEX): real-world reference, layout, circulation, Paolo's rulings, then a tile table with a
-material for every code. gates/tilespec_gate.js (30 checks) fails if a district lacks a complete
-NOTES dossier OR ships an undocumented tile code — the record can't drift. ACT-2/3 = [PENDING
-Paolo]. STANDING FLOW (keep in mind forever): NEVER build/approve a district without its
-NOTES+LEGEND dossier + rerun the generator, same turn.
+## DISTRICT DOSSIER + LAYERING — RECORD WHAT THE HELL IS HAPPENING (Paolo 7/19: "record all the
+notes of what the hell is happening... understand the LAYERING and what it looks like when the
+player goes INSIDE — a building, a parking garage, the tunnel — what tiles, what positions, what
+blocks. very important"): DONE for all 7 built districts. Each module exposes NOTES {summary,
+reference[], layout[], circulation, LAYERING, decisions[]} + LEGEND {code -> name, kind, ACT-1
+material, + layer/solid/enter} beside its PALETTE. LAYERING: every tile resolves (via kit
+KIND_LAYER/tileLayer) to a render+occupancy LAYER — ground (flat floor) / structure (¾ front
+face, blocks) / overhead (pass UNDER: canopy, garage deck) / prop / portal (go INTO an interior:
+door, garage ramp, tunnel mouth) — plus solid? + what's INSIDE (enter). Examples recorded: the
+medical parking GARAGE (solid shell outside -> multi-deck interior inside, ramp portal), store/
+dock/house doors as portals, canopies as overhead (walk under, block nothing), the wash as a
+BELOW-GRADE 3-layer descent (street road/fence -> slope bank -> sunken invert -> tunnel-mouth
+PORTAL into the underground). tools/bohemia_tilespec.js GENERATES the full DOSSIER (records/
+tilespec/ + INDEX) incl. a LAYERING section + a per-tile layer/solid/enter table. gates/
+tilespec_gate.js (49 checks) fails if a district lacks the NOTES dossier (incl. layering), ships
+an undocumented tile, OR has a tile with no valid layer. ACT-2/3 = [PENDING Paolo]. STANDING FLOW
+(keep in mind forever): NEVER build/approve a district without its NOTES+LEGEND+LAYERING dossier
++ rerun the generator, same turn. The ¾ renderer + the interior/zoom system READ these flags.
 
 ## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
 a corner is gonna be super important, for everything moving forward"): every road-fronting

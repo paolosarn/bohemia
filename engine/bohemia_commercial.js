@@ -139,15 +139,15 @@
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / landscape gaps)'},
     1:{name:'parking asphalt',    kind:'drive',      act1:'cracked asphalt parking field (car-drivable)'},
-    2:{name:'store',              kind:'building',   act1:'strip-mall storefront box, dead signage, dark glass'},
+    2:{name:'store',              kind:'building',   act1:'strip-mall storefront box, dead signage, dark glass', enter:'retail interior: open sales floor up front, stock room + office in back'},
     3:{name:'drive aisle',        kind:'drive',      act1:'cracked asphalt lot drive aisle (drivable)'},
     4:{name:'stall stripe',       kind:'marking',    act1:'faded parking-stall stripe'},
     5:{name:'curb cut / gate',    kind:'gate',       act1:'driveway curb cut off the street, amber paint'},
     6:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete storefront sidewalk'},
-    7:{name:'store door',         kind:'building',   act1:'shop entry, boarded / broken glass door'},
+    7:{name:'store door',         kind:'building',   act1:'shop entry, boarded / broken glass door', layer:'portal', solid:false, enter:'into the store sales floor'},
     8:{name:'service alley',      kind:'drive',      act1:'rear service lane (trash/delivery, drivable)'},
-    9:{name:'service door',       kind:'building',   act1:'back roll-up / steel service door'},
-    10:{name:'gas canopy',        kind:'structure',  act1:'fuel-island canopy, faded brand, sagging'},
+    9:{name:'service door',       kind:'building',   act1:'back roll-up / steel service door', layer:'portal', solid:false, enter:'into the store back-of-house / stock room'},
+    10:{name:'gas canopy',        kind:'structure',  act1:'fuel-island canopy, faded brand, sagging', layer:'overhead', solid:false},
     11:{name:'gas pump',          kind:'prop',       act1:'dead fuel pump, dust-caked, hoses down'}
   };
   var NOTES={
@@ -157,6 +157,7 @@
       'Every business has a back service door onto a rear SERVICE ALLEY (the "mini road") wrapping the back corner for trash + deliveries.',
       'A gas station pad (canopy + pumps + kiosk) sits in the street corner.'],
     circulation:'Street-aware CORNER form: 2 curb cuts per street; the parking + aisles + curb cuts + alley form one drive network reachable from a curb cut (driveConnected).',
+    layering:'GROUND plane: parking asphalt, aisles, sidewalk, service alley, stall stripes (flat, walk/drive). STRUCTURES (¾ front face, solid): the store boxes (2, ENTERABLE -> sales floor + back stock). OVERHEAD (drive/walk UNDER, drawn above on posts): the gas canopy (10) — you fuel beneath it. PORTALS: the storefront door (7) into the sales floor, the rear service door (9) into back-of-house, the curb cut/gate (5). PROP solid: the gas pumps (11). The store fronts occupy their cells (block) and draw up with a signed face toward the lot; the canopy blocks nothing at grade.',
     decisions:['This is the CORNER form BY DESIGN — Paolo: "we\'d have to completely remake it to squeeze between two other districts."',
       '[PENDING Paolo] its standalone / mid-block form (how a plaza reshapes off a corner) — gated on S/corners/N only for now, NOT arbitrary single edges.']
   };

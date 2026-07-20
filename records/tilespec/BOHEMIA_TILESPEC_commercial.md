@@ -17,25 +17,30 @@ GENERATED from `engine/bohemia_commercial.js` (NOTES + LEGEND + PALETTE) — do 
 ### Circulation (street-aware / drivable)
 Street-aware CORNER form: 2 curb cuts per street; the parking + aisles + curb cuts + alley form one drive network reachable from a curb cut (driveConnected).
 
+### Layering — exterior vs interior, what blocks, what you go under/into
+GROUND plane: parking asphalt, aisles, sidewalk, service alley, stall stripes (flat, walk/drive). STRUCTURES (¾ front face, solid): the store boxes (2, ENTERABLE -> sales floor + back stock). OVERHEAD (drive/walk UNDER, drawn above on posts): the gas canopy (10) — you fuel beneath it. PORTALS: the storefront door (7) into the sales floor, the rear service door (9) into back-of-house, the curb cut/gate (5). PROP solid: the gas pumps (11). The store fronts occupy their cells (block) and draw up with a signed face toward the lot; the canopy blocks nothing at grade.
+
 ### Decisions & rulings
 - This is the CORNER form BY DESIGN — Paolo: "we'd have to completely remake it to squeeze between two other districts."
 - [PENDING Paolo] its standalone / mid-block form (how a plaza reshapes off a corner) — gated on S/corners/N only for now, NOT arbitrary single edges.
 
-### Tile legend — every code, its material to skin
-| code | color | tile / name | kind | ACT-1 material (tile this) | in cell | ACT-2/3 |
-|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt (setback / landscape gaps) | 972 tiles | [PENDING Paolo] |
-| 1 | `#33333c` | parking asphalt | drive | cracked asphalt parking field (car-drivable) | 2160 tiles | [PENDING Paolo] |
-| 2 | `#7a7266` | store | building | strip-mall storefront box, dead signage, dark glass | 5329 tiles | [PENDING Paolo] |
-| 3 | `#3f3f47` | drive aisle | drive | cracked asphalt lot drive aisle (drivable) | 4675 tiles | [PENDING Paolo] |
-| 4 | `#c9c1aa` | stall stripe | marking | faded parking-stall stripe | 1120 tiles | [PENDING Paolo] |
-| 5 | `#c79a3f` | curb cut / gate | gate | driveway curb cut off the street, amber paint | 21 tiles | [PENDING Paolo] |
-| 6 | `#8a8a92` | sidewalk | walk | cracked concrete storefront sidewalk | 500 tiles | [PENDING Paolo] |
-| 7 | `#c7a24a` | store door | building | shop entry, boarded / broken glass door | 22 tiles | [PENDING Paolo] |
-| 8 | `#2b2b31` | service alley | drive | rear service lane (trash/delivery, drivable) | 1563 tiles | [PENDING Paolo] |
-| 9 | `#b0863a` | service door | building | back roll-up / steel service door | 22 tiles | [PENDING Paolo] |
-| 10 | `#6b6b74` | gas canopy | structure | fuel-island canopy, faded brand, sagging | — | [PENDING Paolo] |
-| 11 | `#9a5a4a` | gas pump | prop | dead fuel pump, dust-caked, hoses down | — | [PENDING Paolo] |
+### Tile legend — every code: material to skin + layer/occupancy/interior
+_layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=drawn above, pass under · prop=object on the ground · portal=go through into an interior._
+
+| code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
+|---|---|---|---|---|---|---|---|---|
+| 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt (setback / landscape gaps) | ground | no | — | 972 |
+| 1 | `#33333c` | parking asphalt | drive | cracked asphalt parking field (car-drivable) | ground | no | — | 2160 |
+| 2 | `#7a7266` | store | building | strip-mall storefront box, dead signage, dark glass | structure | yes | retail interior: open sales floor up front, stock room + office in back | 5329 |
+| 3 | `#3f3f47` | drive aisle | drive | cracked asphalt lot drive aisle (drivable) | ground | no | — | 4675 |
+| 4 | `#c9c1aa` | stall stripe | marking | faded parking-stall stripe | ground | no | — | 1120 |
+| 5 | `#c79a3f` | curb cut / gate | gate | driveway curb cut off the street, amber paint | portal | no | — | 21 |
+| 6 | `#8a8a92` | sidewalk | walk | cracked concrete storefront sidewalk | ground | no | — | 500 |
+| 7 | `#c7a24a` | store door | building | shop entry, boarded / broken glass door | portal | no | into the store sales floor | 22 |
+| 8 | `#2b2b31` | service alley | drive | rear service lane (trash/delivery, drivable) | ground | no | — | 1563 |
+| 9 | `#b0863a` | service door | building | back roll-up / steel service door | portal | no | into the store back-of-house / stock room | 22 |
+| 10 | `#6b6b74` | gas canopy | structure | fuel-island canopy, faded brand, sagging | overhead | no | — | — |
+| 11 | `#9a5a4a` | gas pump | prop | dead fuel pump, dust-caked, hoses down | prop | yes | — | — |
 
 **Gate:** `gates/commercial_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
