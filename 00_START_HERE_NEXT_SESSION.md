@@ -102,6 +102,12 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   authors nothing; computes NO follower math (Paolo's call, PENDING). ctx.quests also
   exposes journal() (every live quest's title/act/stage/done/objectives/available/
   channel) and activeObjectives() (the flat objective-HUD line).
+  THE SOCIAL PROFILE (7/20, LOOP PROFILE gate 8/8): Loop.socialProfile(ctx, scoreFn)
+  = the phone's top-of-page readout (posts / questsTouched / questsCompleted /
+  follower reach) over the feed. MECHANISM-MINE: the tally. CONTENTS-PAOLO'S: the
+  follower SCORING ("what counts as cool shit," how many followers a deed is worth)
+  is an EMPTY hook — no scoreFn => reach 0. Whether followers/clout are one number or
+  two is NOT decided (call once per metric). [PENDING Paolo: the scoring + one-vs-two.]
   STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
   (faction placement/standings into worldgen slots) and bootEconomy (what the three
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
