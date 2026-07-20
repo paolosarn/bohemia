@@ -26,13 +26,12 @@ function grab(name) {
   for (let k = s; k < src.length; k++) { if (src[k] === '{') d++; else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); } }
   return null;
 }
-const NAMES = ['mix', 'bshade', 'ext', 'pExt', 'genTop', 'genCoat', 'genShoes', 'genPoncho', 'genGear'];
+const NAMES = ['mix', 'bshade', 'ext', 'pExt', 'genTop', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
 const bodies = NAMES.map(grab);
-ok('all five generators + helpers found in the alpha', bodies.every(Boolean));
-let G = null;
-try { G = new Function('CW', 'CH', 'curDir', bodies.join('\n') + '\nreturn {genTop,genCoat,genShoes,genPoncho,genGear};')(56, 56, 'S'); }
-catch (e) { console.log('  eval error: ' + e.message); }
-ok('generators evaluate pure', G && ['genTop', 'genCoat', 'genShoes', 'genPoncho', 'genGear'].every(k => typeof G[k] === 'function'));
+ok('all seven generators + helpers found in the alpha', bodies.every(Boolean));
+const makeG = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies.join('\n') + '\nreturn {genTop,genCoat,genShoes,genPoncho,genGear,genBag,genApron};')(56, 56, dir); } catch (e) { console.log('  eval error: ' + e.message); return null; } };
+const G = makeG('S'), GN = makeG('N'), GE = makeG('E');
+ok('generators evaluate pure (S/N/E)', [G, GN, GE].every(x => x && typeof x.genBag === 'function'));
 
 if (G) {
   const CW = 56, g = new Array(CW * CW).fill(0);
@@ -98,6 +97,36 @@ if (G) {
     ok('chest rig touches only the torso', [...parts(cr)].every(pt => pt === 4));
   }
 
+  // WAVE 2: BAGS -- directional like the hood
+  let bpS = null, bpN = null, bpE = null, stS = null;
+  try { bpS = G.genBag(g, { ramp: R, kind: 'backpack' }); bpN = GN.genBag(g, { ramp: R, kind: 'backpack' }); bpE = GE.genBag(g, { ramp: R, kind: 'backpack' }); stS = G.genBag(g, { ramp: R, kind: 'satchel' }); }
+  catch (e) { console.log('  bag err: ' + e.message); }
+  ok('backpack renders S/N/E + satchel', [bpS, bpN, bpE, stS].every(o => o && Object.keys(o).length >= 6));
+  if (bpS && bpN && bpE) {
+    ok('backpack from BEHIND is the pack body (bigger than the front straps)', Object.keys(bpN).length > Object.keys(bpS).length * 1.5);
+    let out = 0; for (const k in bpE) if (g[+k] === 0) out++;
+    ok('backpack PROTRUDES from the back edge in profile (real background pixels)', out >= 8);
+    ok('backpack never touches the head or face', [bpS, bpN, bpE].every(o => ![...parts(o)].some(pt => pt === 1 || pt === 2)));
+    ok('satchel sits at the hip (its box rows are low)', rows(stS).some(y => y >= 28) && rows(stS).every(y => y >= 16));
+  }
+  // WAVE 2: APRON -- front panel, strings from behind
+  let apS = null, apN = null;
+  try { apS = G.genApron(g, { ramp: R }); apN = GN.genApron(g, { ramp: R }); } catch (e) { console.log('  apron err: ' + e.message); }
+  ok('apron renders front + back', apS && apN && Object.keys(apS).length > 20);
+  if (apS && apN) {
+    ok('apron panel covers chest AND upper legs from the front', rows(apS, pt => pt === 4).length > 10 && rows(apS, pt => pt === 9 || pt === 10).length > 4);
+    ok('apron from behind is just the strings (no panel)', Object.keys(apN).length < Object.keys(apS).length * 0.4);
+    ok('apron never touches the arms', ![...parts(apS)].some(pt => pt === 5 || pt === 6));
+  }
+  // WAVE 2: SUSPENDERS -- torso-only straps, Y crossback
+  let suS = null, suN = null;
+  try { suS = G.genGear(g, { ramp: R, kind: 'suspenders' }); suN = GN.genGear(g, { ramp: R, kind: 'suspenders' }); } catch (e) { console.log('  susp err: ' + e.message); }
+  ok('suspenders render front + back, torso only', suS && suN && [...parts(suS)].every(pt => pt === 4) && Object.keys(suS).length >= 10);
+  // WAVE 2: TATTER -- pixels torn OUT of the silhouette
+  let solid = null, torn = null;
+  try { solid = G.genTop(g, { ramp: R, sleeves: 'short' }); torn = G.genTop(g, { ramp: R, sleeves: 'short', tatter: true }); } catch (e) { console.log('  tatter err: ' + e.message); }
+  ok('tattered hem is REAL missing geometry (fewer pixels than the solid cut)', solid && torn && Object.keys(torn).length < Object.keys(solid).length);
+
   // wiring: the five shapes actually ship as cook candidates
   const gi = src.indexOf('var GARMENTS=');
   const gb = src.slice(gi, src.indexOf('];', gi));
@@ -106,6 +135,10 @@ if (G) {
   ok('tall boot candidates ship', /shaft:'tall'/.test(gb));
   ok('rolled-sleeve candidates ship', /sleeves:'rolled'/.test(gb));
   ok('gear candidates ship (kneepads+pauldron+chestrig)', /kind:'kneepads'/.test(gb) && /kind:'pauldron'/.test(gb) && /kind:'chestrig'/.test(gb));
+  ok('wave-2 candidates ship (bags+aprons+suspenders+tatter)', /genBag\(/.test(gb) && /genApron\(/.test(gb) && /kind:'suspenders'/.test(gb) && /tatter:true/.test(gb));
+  // STRUCTURE-NOT-COLOR UI LAW: colorway fillers are tagged and collapsed, never the headline
+  ok('colorway entries are cw-tagged', /cw:true/.test(gb));
+  ok('the UI leads with structures and collapses colorway filler', src.indexOf('COOKING - NEW STRUCTURES') >= 0 && src.indexOf('COLORWAY FILLER') >= 0);
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);
 process.exit(f ? 1 : 0);

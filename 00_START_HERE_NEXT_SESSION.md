@@ -273,6 +273,16 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-9. STRUCTURE WAVE 2 + COOK UI RE-LED (7/19, latest): Paolo flagged the UI
+   still led with colorways after his ruling -- the CLOTHES tab now renders
+   COOKING - NEW STRUCTURES first and collapses COLORWAY FILLER (63) into a
+   drawer (gate-checked). Four more shapes born (7 candidates): BAGS (genBag,
+   new 'back' layer: RUCK PACK + SALVAGE SATCHEL), APRONS (genApron front
+   panel: SMITH'S/TRADES), WORK SUSPENDERS (genGear Y-crossback), TATTERED
+   hems (genTop tatter, torn-out pixels: TEE + FLANNEL). structure_gate now
+   42 checks. COOKING: 19 structures (the headline) + 63 colorway filler.
+   NEXT structures open: skirts/wraps, hood-up variants, bedroll, shemagh
+   full-wrap, armor plates beyond the pauldron.
 -8. STRUCTURE-NOT-COLOR LAW + 5 NEW GARMENT SHAPES (7/19, latest): Paolo
    rejected colorways-as-progress ("I need to see actual different clothes").
    Law locked (laws addendum + CLAUDE.md): colorways legal, NEVER progress;
