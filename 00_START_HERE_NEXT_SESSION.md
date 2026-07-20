@@ -668,6 +668,26 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    boot pushes; live audit behavior unchanged. Gate 107 checks, ALL
    GREEN. STILL OWED: the real rig gun-pose animation on field sprites;
    the plumbing re-examination pass.
+   THE PHONE GHOST NAMED AND KILLED (7/20, passes 17-18): Paolo's ERR
+   chip caught it on day one — "ReferenceError: Can't find variable:
+   DIRS". Root cause: v10 wrapped drawField's DIRS table inside the
+   not-during-dial block while the ring cover-save FX below still read
+   it; that FX fires exactly when YOUR COVER EATS A SHOT, so getting
+   shot at while covered killed the frame (the original "it broke when
+   I got shot" + the dial-stopped-drawing). v18 scopes DIRS whole-field;
+   the exact scenario reproduces clean. ALSO v17: EXACT FLOOR (bounds
+   from uzInvert-ed viewport corners + PAD 6 — no heuristics; kills
+   "he's outside the map"), SHOT n/skill counter in the aim readout,
+   DIAL FACING menu removed (obsolete). v18: THE REAL CROUCH — the
+   alpha has ALWAYS baked 'take-cover' frames per enemy look (7/3
+   canon: cover112/coverE/coverW) and enemyFrame beat-bobs them, but
+   only for the hand inCover flag; pillar gcov now triggers the same
+   baked crouch (peek/fire stand them up — the readable pop is built
+   in). v17's squash placeholder removed. Chain-skill button reads
+   KILLSHOTS/TURN in the SKILLS + PERKS group. Gate 113 checks, ALL
+   GREEN. PROCESS NOTE: a red gate reached main for two commits because
+   the ship chain PIPED the gate (exit code swallowed by tail) — ship
+   commands now run the gate unpiped and refuse to push on red.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
