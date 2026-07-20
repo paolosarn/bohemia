@@ -56,6 +56,8 @@ GATES = [
      'the monolith: fold, heir, save, recorded/unrecorded amalgamation model', False),
     ('LOOP QUESTS',    ['node', 'engine/bohemia_loop_quests_tests.js'],
      'quests are pullable from the GameContext and resume from the save', False),
+    ('LOOP ENTITIES',  ['node', 'engine/bohemia_loop_entities_tests.js'],
+     'the spawner is pullable from the context, deterministic, dead-stays-dead', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

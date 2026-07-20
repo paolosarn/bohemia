@@ -184,9 +184,15 @@
     return ctx;
   }
 
-  // 7. Entities. [GAP per map] spawn regions come from worldMap districts.
+  // 7. Entities. Pour the spawner onto the context so ANY part of the game pulls it
+  //    from ctx.spawner. Safe to share one instance: entityAt derives per-tile from
+  //    (seed|layer|x,y) with no live RNG stream, so it is stateless + reload-stable,
+  //    identical to per-call spawners. Shares ctx.deltas by reference, so kills
+  //    persist and dead stays dead. Spawn REGIONS still come from worldMap districts
+  //    at call sites (spawnActorsForDistrict / updateDistrictLOD).
   function bootEntities(ctx) {
-    // [GAP] ctx.spawner = new E.Entities.Spawner(...); regions from ctx.worldMap.
+    if (!ctx.deltas) ctx.deltas = new E.Entities.DeltaStore();
+    ctx.spawner = new E.Entities.Spawner(ctx.save.seed, ctx.deltas);
     return ctx;
   }
 
@@ -346,7 +352,7 @@
     opts = opts || {};
     const radius = opts.radius || 6;
     if (!ctx.deltas) ctx.deltas = new E.Entities.DeltaStore();
-    const spawner = new E.Entities.Spawner(ctx.save.seed, ctx.deltas);
+    const spawner = ctx.spawner || new E.Entities.Spawner(ctx.save.seed, ctx.deltas);
     const rule = enemyRuleForDistrict(district);
     const [cx, cy] = district.pos;
     const found = spawner.scanRegion(rule, cx - radius, cy - radius, cx + radius, cy + radius, {});
@@ -457,7 +463,7 @@
         if (tier === E.Core.TIER.WARM) {
           summary.warm++;
           // cheap count only (no instantiation) — WARM threat awareness
-          const spawner = new E.Entities.Spawner(ctx.save.seed, ctx.deltas || (ctx.deltas = new E.Entities.DeltaStore()));
+          const spawner = ctx.spawner || new E.Entities.Spawner(ctx.save.seed, ctx.deltas || (ctx.deltas = new E.Entities.DeltaStore()));
           const er = enemyRuleForDistrict(district);
           const [cx, cy] = district.pos;
           summary.warmCounts[district.id] = spawner.countRegion(er, cx - 8, cy - 8, cx + 8, cy + 8, {});
