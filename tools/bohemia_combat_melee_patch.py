@@ -1408,13 +1408,189 @@ function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); update
     return demo
 
 
+def patch20(demo):
+    """v20 (Paolo 7/20, the animation pass — pulled from bakes we already own):
+    - WALK: the parent now bakes 'walk' frames (player 4-phase, enemies
+      2-phase); stepping plays them — you and the blades stop gliding.
+    - THE DEADEYE POSE IS THE NEEDLE: during the dial the field player
+      renders the baked gun-holding deadeye sprite AT THE CURRENT NEEDLE
+      ANGLE (sprAimFrame) — the body itself sweeps. The drawn live arm
+      goes compute-only (muzzle math), ghosts stay.
+    - DEATH POSES ARE STATIC: a corpse's look was re-picked by bearing
+      every step (worldShift changes bearings) — the look now LOCKS at
+      death.
+    - 1v1 RISK: a MISS is punishable at any enemy count — tucked gunmen
+      counter-snap from cover at 0.35x accuracy (0.7x damage) when you
+      engage and blow it. No more free whiffing at the last man.
+    - GLIDE, actually gliding: ease 0.14->0.055 and the aim ZOOM eases
+      too (G._zbS), reset on return to cover.
+    - HONEST CROUCH: the take-cover pose needs REAL stone nearby (gcov,
+      or hand-flag within 1.8 tiles of a pillar) — no more men ducking
+      behind air."""
+    if 'V20 WALK' in demo:
+        print('v20 already applied, skipping')
+        return demo
+
+    # SPR loaders learn the walk frames
+    demo = sub1(demo, "    SPR.cv[dir]={idle:mk(d.dirs[dir].idle),aim:d.dirs[dir].aim.map(a=>({off:a.off,cv:mk(a.rgba)})),",
+        "    SPR.cv[dir]={idle:mk(d.dirs[dir].idle),walk:(d.dirs[dir].walk||[]).map(mk),   /* V20 WALK */\n      aim:d.dirs[dir].aim.map(a=>({off:a.off,cv:mk(a.rgba)})),",
+        'cv-walk')
+    demo = sub1(demo, "      cover112:L.cover112.map(b=>mkAt(b,112,112)),",
+        "      cover112:L.cover112.map(b=>mkAt(b,112,112)),\n      walk112:L.walk112?L.walk112.map(b=>mkAt(b,112,112)):null,",
+        'look-walk')
+
+    # the player: aim pose sweeps, steps walk
+    demo = sub1(demo, """\
+    const fset=SPR.cv[sprFacing(G.faceAng)]||SPR.cv.S;
+    const pst=(G._pHitAt&&performance.now()-G._pHitAt<600&&fset.stag)?fset.stag[Math.min(3,Math.floor((performance.now()-G._pHitAt)/150))]:fset.idle;""", """\
+    const fset=SPR.cv[sprFacing(G.faceAng)]||SPR.cv.S;
+    let pst=(G._pHitAt&&performance.now()-G._pHitAt<600&&fset.stag)?fset.stag[Math.min(3,Math.floor((performance.now()-G._pHitAt)/150))]:fset.idle;
+    if(aimo){ const af=sprAimFrame(sprFacing(G.faceAng),G.angle); if(af)pst=af; }   /* the baked DEADEYE pose IS the needle */
+    else if(G._stepAt&&performance.now()-G._stepAt<520&&fset.walk&&fset.walk.length){
+      pst=fset.walk[Math.floor((performance.now()-G._stepAt)/130)%fset.walk.length]; }   /* V20 WALK: steps read as steps */""",
+        'player-frames')
+    demo = sub1(demo, "  worldShift(sx,sy); updateGeomCover();\n  G.moveArm=false; updMoveUI();",
+        "  worldShift(sx,sy); updateGeomCover(); G._stepAt=performance.now();\n  G.moveArm=false; updMoveUI();",
+        'step-at')
+
+    # enemies walk when they moved
+    demo = sub1(demo, "    else if(r.act==='advance'){ e.edist=r.dist; }",
+        "    else if(r.act==='advance'){ e.edist=r.dist; e._movedAt=performance.now(); }", 'blade-moved')
+    demo = sub1(demo, "    e.edist=Math.max(0.8,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx);\n  }\n}",
+        "    e.edist=Math.max(0.8,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); e._movedAt=performance.now();\n  }\n}",
+        'seeker-moved')
+    demo = sub1(demo, "  if(e._hitAt&&now-e._hitAt<600&&L.stag112)return L.stag112[Math.min(3,Math.floor((now-e._hitAt)/150))];",
+        "  if(e._hitAt&&now-e._hitAt<600&&L.stag112)return L.stag112[Math.min(3,Math.floor((now-e._hitAt)/150))];\n  if(e._movedAt&&now-e._movedAt<520&&L.walk112)return L.walk112[Math.floor((now-e._movedAt)/170)%L.walk112.length];   /* V20: movers walk */",
+        'enemy-walk')
+
+    # corpse look locks at death
+    demo = sub1(demo, "function enemyLook(e){if(!SPR.enemy)return null;return SPR.enemyByFace[SPR_DIRNAME[dirIndex(e.ea+Math.PI)]]||null;}",
+        "function enemyLook(e){if(!SPR.enemy)return null;\n  if(e._lookLock)return e._lookLock;   /* V20: the dead keep the pose they died in */\n  const L=SPR.enemyByFace[SPR_DIRNAME[dirIndex(e.ea+Math.PI)]]||null;\n  if(e.dead&&L)e._lookLock=L;\n  return L;}",
+        'look-lock')
+
+    # the live arm goes compute-only; the sprite carries the gun
+    demo = sub1(demo, "  const [hx,hy,gl]=drawArmNeedle(ctx,pcx,pcy,ang,ARML,1);   /* BOARD BODY: your sprite stands, the arm swings */",
+        "  const [hx,hy,gl]=drawArmNeedle(ctx,pcx,pcy,ang,ARML,0);   /* compute-only: the baked deadeye sprite IS the swinging gun (V20) */",
+        'arm-ghost-only')
+
+    # a miss is punishable at any count: tucked counter-snap
+    demo = sub1(demo, """\
+    else if(cov)onOffbeat(()=>fxCoverSave(e.ea));   /* R: your cover ate that one */ }
+  if(dmg>0){ G.pHP=Math.max(0,G.pHP-dmg); updPlayer(); const _lethal=G.pHP<=0;
+    onOffbeat(()=>{hurtFlash(); sndReturn(); setRead('RETURN FIRE',hits+' of '+pool.length+' hit you — '+dmg,'#e8593a');""", """\
+    else if(cov)onOffbeat(()=>fxCoverSave(e.ea));   /* R: your cover ate that one */ }
+  if(engaged){ /* V20 COUNTER-SNAP (Paolo: 'even 1v1 I never take damage if I miss a million shots'):
+     tucked gunmen answer your blown engagement from cover — 0.35x accuracy, 0.7x damage. */
+    const snap=G.e.filter(e2=>!e2.dead&&!e2.melee&&e2.stun<=0&&!(e2.prone>0)&&(e2.inCover||e2.gcov)&&pool.indexOf(e2)<0);
+    for(const e2 of snap){ const cov2=myCoverAgainst(e2.ea,e2.edist);
+      const acc2=distAccuracy(e2)*0.35*(cov2?0.4:1)*((e2.E.acc||0.55)/0.55);
+      if(Math.random()<acc2){ hits++; hitIdx.push(e2.i);
+        const a2=e2.E.dmg; dmg+=Math.round((a2[0]+Math.floor(Math.random()*(a2[1]-a2[0]+1)))*0.7); } } }
+  if(dmg>0){ G.pHP=Math.max(0,G.pHP-dmg); updPlayer(); const _lethal=G.pHP<=0;
+    onOffbeat(()=>{hurtFlash(); sndReturn(); setRead('RETURN FIRE',hits+' of '+pool.length+' hit you — '+dmg,'#e8593a');""",
+        'counter-snap')
+
+    # glide slower + zoom eases too
+    demo = sub1(demo, "      else { const k=0.14;   /* AIM CAM GLIDE V14: however you framed it, the camera swings into the shot */",
+        "      else { const k=0.055;   /* AIM CAM GLIDE V14 (V20: actually glides — slower) */",
+        'glide-slow')
+    demo = sub1(demo, """\
+    const zb=tgtE?Math.max(0.35,Math.min(3.6,(RAD*1.18)/(Math.max(0.8,tgtE.edist)*ring0))):2.0;""", """\
+    const zbT=tgtE?Math.max(0.35,Math.min(3.6,(RAD*1.18)/(Math.max(0.8,tgtE.edist)*ring0))):2.0;
+    G._zbS=(G._zbS==null||G.aimCamGlide===false)?zbT:G._zbS+(zbT-G._zbS)*0.08;   /* V20: the zoom glides too */
+    const zb=G._zbS;""",
+        'zb-glide')
+    demo = sub1(demo, "  if(G.phase!=='aim' && !G.ks){\n    if(G.inc)incApply(ctx,W,H,cx,cy);",
+        "  if(G.phase!=='aim' && !G.ks){ G._zbS=null;\n    if(G.inc)incApply(ctx,W,H,cx,cy);",
+        'zb-reset')
+
+    # honest crouch: needs real stone nearby
+    demo = sub1(demo, "function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=pillarBetweenMe(e)?1:0; } }",
+        "function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=pillarBetweenMe(e)?1:0; } }\nfunction nearPillar(e){ const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;\n  return (G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-ex,q[1]-ey)<1.8; }); }",
+        'near-pillar')
+    demo = sub1(demo, "  if((e.inCover||e.gcov)&&!peeking(e)&&!firing(e)){   /* V18: pillar cover crouches with the SAME baked take-cover frames */",
+        "  if((e.gcov||(e.inCover&&nearPillar(e)))&&!peeking(e)&&!firing(e)){   /* V18+V20: the crouch needs REAL stone nearby — nobody ducks behind air */",
+        'honest-crouch')
+    return demo
+
+
+def patch21(demo):
+    """v21 (Paolo 7/20, screenshot: 'my shell casings follow me around
+    instead of staying on the floor where I shot them'):
+    BRASS IS FLOOR STATE. Root cause: player brass was stored as {p:1,dx,dy}
+    (a player-anchored offset, the 7/3 AF v2 law written BEFORE movement
+    existed). worldShift already moves litter, but its mover skips entries
+    with no ea/edist, and the renderer drew p-brass at cx+dx — glued to your
+    screen-centered body. Fix: player brass lands AT YOUR WORLD SPOT
+    (ea:0, edist:0 = the tile you fired from) and rides worldShift like
+    blood and corpses. Plus: the shift's 0.6-tile minimum clamp exists so
+    enemies never stand inside you — statics (corpses, pillars, blood,
+    litter) now keep TRUE positions so walking over them never nudges them."""
+    if 'V21 BRASS' in demo:
+        print('v21 already applied, skipping')
+        return demo
+
+    # brass lands at the shooter's world spot
+    demo = sub1(demo, "        litterAdd({p:1,dx:rdx/mag*cl,dy:Math.max(8,Math.abs(rdy/mag*cl))+4,r:Math.random()*Math.PI}); } } }",
+        "        litterAdd({ea:0,edist:0,dx:rdx/mag*cl,dy:Math.max(8,Math.abs(rdy/mag*cl))+4,r:Math.random()*Math.PI}); } } }   /* V21 BRASS: lands at YOUR WORLD SPOT and stays on the floor */",
+        'brass-world-spawn')
+    demo = sub1(demo, """\
+/* AF v2 (Paolo 7/3/26, ONE WORLD LAW): brass is WORLD STATE. It lands close
+   to whoever fired it and reads the same in the dial view and the field
+   view, because those are ONE world. Player brass anchors to you; enemy
+   volleys drop brass at the shooter's field spot. */""", """\
+/* AF v3 (Paolo 7/20, V21 BRASS): brass is FLOOR STATE. Everyone's brass —
+   yours included — drops at the shooter's WORLD spot the moment it lands
+   and stays on that floor tile forever (worldShift carries it like blood
+   and corpses). The old v2 player-anchor predates movement and is dead. */""",
+        'brass-law-comment')
+
+    # renderer: all brass reads through fieldPos (world), no player-glue branch
+    demo = sub1(demo, """\
+    let lx,ly;
+    if(l.p){lx=cx+l.dx;ly=cy+l.dy;}
+    else{const [ex4,ey4]=fieldPos(l,W,H,cx,cy);lx=ex4+l.dx;ly=ey4+l.dy;}""", """\
+    const _bp=(l.ea!=null)?fieldPos(l,W,H,cx,cy):[cx,cy];   /* V21: ALL brass is world state */
+    const lx=_bp[0]+l.dx, ly=_bp[1]+l.dy;""",
+        'brass-world-draw')
+
+    # the JUICE panel's AF demo scatter converts too
+    demo = sub1(demo, """\
+  if(k==='AF'){ for(let w=0;w<5;w++)setTimeout(()=>litterAdd({p:1,
+    dx:-14+w*7+(Math.random()-0.5)*4,dy:9+((w*17)%8),r:Math.random()*Math.PI}),w*250); }""", """\
+  if(k==='AF'){ for(let w=0;w<5;w++)setTimeout(()=>litterAdd({ea:0,edist:0,
+    dx:-14+w*7+(Math.random()-0.5)*4,dy:9+((w*17)%8),r:Math.random()*Math.PI}),w*250); }""",
+        'brass-demo-spawn')
+
+    # statics keep TRUE spots; only live enemies keep the body-bubble clamp
+    demo = sub1(demo, """\
+  const mv=o=>{ if(o.ea==null||o.edist==null)return;
+    const px=Math.cos(o.ea)*o.edist-vx, py=Math.sin(o.ea)*o.edist-vy;
+    o.edist=Math.max(0.6,Math.hypot(px,py)); o.ea=Math.atan2(py,px); };
+  for(const e of G.e)mv(e);
+  for(const c of (G.corpses||[]))mv(c);
+  for(const P of (G.pillars||[]))mv(P);
+  if(Array.isArray(G.bloodSpots))for(const s of G.bloodSpots)mv(s);   /* the trail stays where it fell */
+  if(Array.isArray(G.litter))for(const L of G.litter)mv(L);""", """\
+  const mv=(o,mn)=>{ if(o.ea==null||o.edist==null)return;
+    const px=Math.cos(o.ea)*o.edist-vx, py=Math.sin(o.ea)*o.edist-vy;
+    o.edist=Math.max(mn==null?0.6:mn,Math.hypot(px,py)); o.ea=Math.atan2(py,px); };
+  for(const e of G.e)mv(e);   /* live bodies keep the bubble: nobody stands inside you */
+  for(const c of (G.corpses||[]))mv(c,0.02);   /* V21: statics keep TRUE spots — walking over them never nudges them */
+  for(const P of (G.pillars||[]))mv(P,0.02);
+  if(Array.isArray(G.bloodSpots))for(const s of G.bloodSpots)mv(s,0.02);   /* the trail stays where it fell */
+  if(Array.isArray(G.litter))for(const L of G.litter)mv(L,0.02);""",
+        'statics-true-spots')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))
+    patched = patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

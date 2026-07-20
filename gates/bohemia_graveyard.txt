@@ -44,3 +44,12 @@ n:'WHAT SOURS IN THE SINGING'        | 7/19/26 | DOWN (batch 14). GRAVEYARD FINA
 n:'ONE VOICE BECOMES A CROWD'        | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. unisonsplit voice retired with it. Do not re-add.
 n:'THE NOISE THAT TOOK THE VEIL'     | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. spectretide voice retired with it. Do not re-add.
 n:'THE STRIKE THAT BLOOMS'           | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. strikeswell voice retired with it. Do not re-add.
+n:'WHAT SPEAKS THROUGH THE GRILLE'    | 7/20/26 | DOWN as a SONG (batch 15, verdict three). GRAVEYARD FINAL for the song. Its pulseform voice LIVES for new fashions (SONG-DEAD-NOT-VOICES law 7/20). Do not re-add the song.
+n:'A PROCESSION THAT FOLLOWS ITSELF'  | 7/20/26 | DOWN as a SONG (batch 15). GRAVEYARD FINAL for the song; roundchoir voice LIVES. Do not re-add the song.
+n:'IT HAPPENS BACKWARDS HERE'         | 7/20/26 | DOWN as a SONG (batch 15). GRAVEYARD FINAL for the song; reversebloom voice LIVES. Do not re-add the song.
+n:'THE WINDOW BENDS THE HYMN'         | 7/20/26 | DOWN as a SONG (batch 15). GRAVEYARD FINAL for the song; phasedist voice LIVES. Do not re-add the song.
+# SONG-DEAD-NOT-VOICES LAW (Paolo 7/20/26): the graveyard is final for SONGS only.
+# Voices/topologies from dead songs are NOT dead -- earlier lines above saying a
+# voice was "retired with" its song are SUPERSEDED; every such voice is legal to
+# re-try in a different fashion. Full law in the alpha lawbook + records.
+n:'EVERY FLOOR BELOW THIS ONE'        | 7/20/26 | DOWN as a SONG (batch 16, verdict four). GRAVEYARD FINAL for the song; subharmglide + aeolianharp voices LIVE (song-dead-not-voices). Do not re-add the song.

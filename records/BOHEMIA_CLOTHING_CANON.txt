@@ -438,3 +438,36 @@ LIFE/world sessions. [PENDING: weather system]
 And his words for the record, because they matter: "I just want you to know
 how proud I am of us for how far we've come. It was my dream to be able to
 see the animations on all the clothing like this."
+
+=== 7/20/26 (c) — TIGHT PONCHO RULING + HOOD TOGGLE EVERYWHERE ===
+Paolo: "the poncho could be a little tighter on the body through all the
+animations and directions -- it was moving pretty big, and you can never see
+the arms." RULING BAKED into genPoncho: the drape spans ONE pixel past the
+torso (was four), never covers the arms below the shoulder cap, hands always
+free. Arm animation reads through every clip; the silhouette stops
+ballooning in motion. Gate: zero pixels past torso+1, arm coverage <15%.
+HOOD TOGGLE EVERYWHERE: he could not find the toggle (it lived only on the
+8 closet hoodies). Now EVERY hooded garment carries the HOOD button --
+including HOOD-UP ASH/COAL and the HOODED DUST PONCHO, which default to
+hood-up (their pose strips too). Applies live on the rig.
+MUSIC EXPORT NOTE: his report of sticky comments + unvotable new songs
+matches the two bugs fixed in earlier builds exactly; the current build
+re-verified clean live (comment rides once then the box clears; all 7
+batch-15 songs carry thumbs + NEW). His music page was a stale cached copy;
+the BUILD WATCHER exists precisely so this class of confusion dies once he
+is on 7/20+ one time.
+
+=== COOK BATCH 19 (7/20/26) — STRUCTURE WAVE 5: THE SHORTCUT'S FIRST RUN ===
+Paolo's clothing text-replacement shortcut arrived for the first time. Four
+new shapes, zero recolors, in COOKING [PENDING thumbs]:
+- DESERT SHEMAGH (genAcc): skull + neck + lower face in ONE cloth, an open
+  slit only at the calibrated eye rows; from behind the cloth layers over
+  everything (no-skin-slits law); loose tail on the chest / behind in profile.
+- WORN BRACERS (genGear): forearm guards on both arms, banded leather.
+- THIGH HOLSTER (genGear): two straps + a lit-flap box riding the outer
+  right thigh, hip strap to the belt line.
+- TRAILING SCARF (genAcc scarf tail:'long'): the tail falls to the waist,
+  down the chest in front, down the spine from behind.
+Gate: structure_gate 74 checks (slit-open + full back cover + zone locks +
+trailing longer than standard machine-checked). Verified on the real preview
+in 5 facings. Stamp: BUILD 7/20h.

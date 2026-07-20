@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 07/19/26
+# BOHEMIA CANON INDEX — regenerated 07/20/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-141 canon files indexed across 2 locations.
+142 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -212,12 +212,13 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (42) — add keywords to DOMAINS
+### UNCLASSIFIED (43) — add keywords to DOMAINS
 - `BOHEMIA_ADDENDUM_BEAT_TACTICS_RESEARCH_7_19_26.md`
 - `BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26.md`
 - `BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md`
 - `BOHEMIA_ADDENDUM_NOTES_ARE_RULINGS_7_19_26.md`
 - `BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md`
+- `BOHEMIA_ADDENDUM_STRUCTURE_NOT_COLOR_7_19_26.md`
 - `BOHEMIA_ADDENDUM_MODULARITY_LAW_7_18_26.md`
 - `BOHEMIA_ADDENDUM_OPEN_COAT_LAW_7_18_26.md`
 - `BOHEMIA_ADDENDUM_WALL_TAXONOMY_7_17_26.md`

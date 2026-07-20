@@ -113,3 +113,31 @@ Delivered means delivered; the repo is the memory. Old comments no longer
 re-ride every future export.
 Batch 15 cooked same turn answering the 7 slots:
 records/BOHEMIA_MUSIC_BATCH15_7_19_26.txt.
+
+=== VERDICT THREE (7/20/26): BATCH 15 JUDGED + SONG-DEAD-NOT-VOICES LAW ===
+3 CANON baked: THE LIGHT THAT WONT DECIDE (octgate), EVERYTHING FALLS TO
+PITCH (settlebend), THREE NOTES IN THE DUST (ghosttriad).
+4 DOWN as SONGS: WHAT SPEAKS THROUGH THE GRILLE, A PROCESSION THAT FOLLOWS
+ITSELF, IT HAPPENS BACKWARDS HERE, THE WINDOW BENDS THE HYMN.
+THE LAW (his ruling, LOCKED): "I didn't like the elements together as that
+song -- don't throw the voices in the graveyard because they were part of a
+bad song. Try them again in a different fashion." Graveyard = final for
+SONGS only. Voices/topologies from dead songs stay legal for new fashions.
+All earlier "voice retired with it" registry lines SUPERSEDED (correcting
+note added to the registry).
+BATCH 16 (first cook under the law): each song births a new lead (combfake
+comb-spectrum, glissharp pitch-gliss, subharmglide undertone staircase,
+retrig burst train) AND retired voices return in new fashions -- ironlung as
+a BASS, strikeswell / aeolianharp / sourdyad as A-motifs.
+ALSO: the export round-tripped CLEAN this time on the fresh build (comments
+empty, all 7 judged, categories intact) -- the stale-tab saga is closed.
+
+=== VERDICT FOUR (7/20/26): BATCH 16 JUDGED — THE LAW WORKS ===
+3 CANON: THE TEETH THE SONG LOST, A HARP OF SALVAGED WIRE, A HAND THAT WONT
+STOP COUNTING -- the first approved songs carrying RETURNED voices (ironlung
+as bass, strikeswell/sourdyad as motifs). 1 DOWN as a SONG: EVERY FLOOR BELOW
+THIS ONE (subharmglide + aeolianharp stay live).
+BATCH 17 answers: THE GAPS IN THE HYMNAL -- holdbreath (composed SILENCE: two
+dead-silent holds cut mid-note, the rests are load-bearing), with phasedist
+returning as the BASS and reversebloom as the A-motif. Offline-render 0.21.
+NEW badge, [PENDING verdict].

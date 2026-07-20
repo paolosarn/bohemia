@@ -8,6 +8,38 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## THE CITY TAB HIJACK - POST-MORTEM (7/19, Paolo caught it: "the city
+## builder that we had from the previous build... what's wrong with you")
+WHAT HAPPENED: the CITY tab was NEVER an empty tab. The alpha carries the
+previous build's ENTIRE streaming Las Vegas city builder embedded as
+CITY_B64 (source bohemia_city_unified.html, 22MB decoded: isometric city,
+the Strip, day clock, REROLL, UNDER layer, DROP IN with the character,
+CITYSAVE suspend saves, prefab pool bridge, city music bridge). It boots
+DYNAMICALLY on first CITY tap: the loader creates an iframe named
+cityFrame only if none exists. The LIFE session saw `<div id="p-city">`
+EMPTY in the static DOM, concluded the tab was unbuilt, and planted a
+static iframe... NAMED cityFrame. The loader's guard found it and silently
+never booted the real city. Paolo tapped CITY and got a flat colored map
+instead of his city builder. REVERTED same turn: panel restored empty, the
+real city verified booting again in chromium (isometric render, HUD, 0
+new errors).
+THE LESSON (verify-on-the-real-surface, extended): AN EMPTY DIV IS NOT AN
+EMPTY TAB. Alpha panels boot dynamically on tap. Before claiming ANY alpha
+surface, open the tab on the REAL alpha and watch what it does - and grep
+the alpha for the panel id + B64 payloads first. MACHINE LOCK: city_tab_
+gate now asserts CITY_B64 present, the dynamic boot guard intact, NO
+static cityFrame ever again, and the aerial map page wired nowhere.
+STATUS AFTER REVERT: the aerial map page (slices/BOHEMIA_CITY_CURRENT.html,
+skeleton-as-itself + city-builder verbs) is a DORMANT STANDALONE, linked
+nowhere; engine/bohemia_cityedit.js (delta verbs, skeleton sacred) stays
+gated + dormant - the delta design still fits whatever save system the
+real city grows. THE REAL OPEN QUESTION [PENDING Paolo]: the embedded city
+builder is the OLD monolith - it REROLLS its own world and predates the
+7/18 canon streets (mile grid, 215/I-15, connectivity laws). Marrying the
+real city builder to the canon overmap streets is the actual "implement
+the streets" job, it is big, and WHO does it (this session, the overworld
+session, a dedicated one) is Paolo's call.
+
 ## SESSION SCOPE AMENDED: LIFE + CITY SURFACE (Paolo 7/19: "add an additional
 ## title to this chat, like life plus tiles")
 The LIFE session also owns the CITY TAB SURFACE now. Division per ONE SYSTEM
@@ -23,10 +55,21 @@ pinch/wheel zoom, tap a plot for its district. Gate #CITY TAB (9 checks):
 embedded overmap BYTE-LOCKED to the canon engine body (overworld reshapes
 streets -> gate red until the page is rebuilt), skeleton law replayed
 against the live enum, no empty-tab regression. Verified 390px chromium.
-NEXT for the CITY surface (in order, mine): (a) the city-builder verbs on
-this map (delete-to-desert, place-a-plot - Paolo's 7/18 plan), (b) zoom a
-region into the walkable street/desert bakes, (c) LIFE's census layered on
-the map (population per district once the die-off dial is ruled).
+CITY-BUILDER VERBS SHIPPED (7/19 later, v2): engine/bohemia_cityedit.js -
+DEMOLISH a buildable plot to the desert underneath, BUILD a canon district
+onto empty desert, THE SKELETON IS SACRED (streets/freeway/rail/water/
+mountains untouchable, machine-enforced). Edits are a serializable DELTA
+over the generator, device-local (localStorage) until the save system;
+RESET restores the generated valley. One canonical category body shared by
+render + verbs. Gates #CITY EDIT (13) + #CITY TAB (11, both embedded
+modules byte-locked) BOTH registered in bohemia_gates.py (the tab gate had
+been left unregistered a turn - caught, fixed). Verified on the real
+surface: demolish/build/persist-across-reload/skeleton-refuses, 0 errors.
+NEXT for the CITY surface (in order, mine): (a) 4-lot big buildings on the
+delta (Paolo's plan), (b) zoom a region into the walkable street/desert
+bakes, (c) LIFE's census layered on the map (population per district once
+the die-off dial is ruled). Costs/unlocks/what-can-build-where: [PENDING
+Paolo].
 
 ## LIFE PARKED DORMANT (7/19, Paolo, same day it opened - SEQUENCING RULING)
 Paolo saw the LIFE tab and ruled the sequencing, distilled from his words:
@@ -328,6 +371,31 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-18. VERDICT FOUR + BATCH 17 + CLOTHING WAVE 5 (7/20, latest): batch 16
+   judged (3 canon incl. the first RETURNED-voice songs; EVERY FLOOR BELOW
+   THIS ONE down as a song, its voices live). BATCH 17 answers: THE GAPS IN
+   THE HYMNAL (holdbreath = composed silence; phasedist bass + reversebloom
+   motif returning) [PENDING verdict]. CLOTHING SHORTCUT ran first time --
+   wave 5 in COOKING [PENDING thumbs]: DESERT SHEMAGH (eye slit only, full
+   back cover), WORN BRACERS, THIGH HOLSTER, TRAILING SCARF. structure_gate
+   74. Stamp: BUILD 7/20h.
+-17. SONG-DEAD-NOT-VOICES LAW + BATCH 16 + CLOTHING SHORTCUT (7/20, latest):
+   Verdict three processed (3 canon, 4 songs down). NEW LAW (Paolo, locked):
+   graveyard is final for SONGS only -- voices/topologies from dead songs
+   stay legal, re-try them in different fashions; all "voice retired" lines
+   superseded (registry note added). BATCH 16 answers the 4 slots under the
+   law: new leads (combfake/glissharp/subharmglide/retrig) + retired voices
+   returning (ironlung bass, strikeswell/aeolianharp/sourdyad A-motifs).
+   NEW badge on 4, [PENDING verdict]. CLOTHING COOK SHORTCUT written for his
+   keyboard (laws/BOHEMIA_CLOTHING_COOK_SHORTCUT_7_20_26.md) -- when that
+   paste arrives, run the full clothing factory per its spelled-out bindings.
+   Stamp: BUILD 7/20g.
+-16. TIGHT PONCHO + HOOD TOGGLE EVERYWHERE (7/20, latest): poncho now 1px
+   past the torso, arms + hands always free (gate: <15% arm coverage, zero
+   px past torso+1). HOOD button on every hooded garment incl. HOOD-UP
+   pieces + hooded poncho (default up, strips too). Music export re-verified
+   clean on current build (his stale tab explains his report). Stamp: BUILD
+   7/20d. Music: 7 batch-15 songs still [PENDING verdict].
 -15. HOOD BACK-COVER + TOGGLE + RAIN RULE (7/20, latest): Paolo's screenshot
    ruling -- from N/NE/NW the hood LAYERS OVER the face, zero skin slits
    (face stays open from the front). Baked into genTop hoodUp + genPoncho
@@ -712,6 +780,62 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    TELEGRAPHS ON THE OFF-BEAT (art-pipeline law), 7 STREAK-BUILDS-THE-SONG
    (re-pitch), 8 ELITE SYNCOPATION. [PENDING Paolo: pick numbers; if "you
    pick": 1+3+4.]
+   THE AFTERMATH PASS (7/20, pass 19; shipped in 5360119, logged here late):
+   VICTORY WALK — when the last body drops the fight does not slam to a
+   result screen; you keep the board and WALK it (loot-pretend per Paolo),
+   NEW ENCOUNTER when he is done. BLOOD BY HEALTH — thresholds, not events:
+   under 66% a wounded body drips a trail as it moves, under 33% it stands
+   in a growing pool; corpses pool where they fell (canvas-persistent
+   spots ride worldShift). KILLSHOTS/TURN group moved to the TOP of
+   settings (he could not find it mid-drawer). Gate 116, ALL GREEN.
+   THE ANIMATION PASS (7/20, pass 20; his list): V20 WALK — the alpha
+   bakes 'walk' for the player (4 phases, all 8 dirs) and every enemy look
+   (2 phases); stepping plays them (G._stepAt/e._movedAt windows), blades
+   and cover-seekers walk too. THE DEADEYE POSE IS THE NEEDLE — his ask
+   ("there's an Animation for the dead shot dial me holding a gun"): during
+   the dial the field body renders the baked deadeye gun pose AT the
+   current needle angle (sprAimFrame, all 9 offsets x 8 dirs were already
+   baked); the drawn live arm went compute-only (muzzle math for ghosts/
+   tracer), so the BODY sweeps. DEATH POSES ARE STATIC — corpses re-rolled
+   their look every step because enemyLook keys off bearing and worldShift
+   changes bearings; the look now LOCKS at death (e._lookLock). 1v1 RISK
+   (his "I can miss a million shots and never take damage"): COUNTER-SNAP —
+   tucked gunmen (in cover, not in the return pool) answer a BLOWN
+   engagement from cover at 0.35x accuracy, 0.7x damage, so a miss is
+   punishable at ANY enemy count; NO DAMAGE BEFORE THE DIAL holds (fires
+   only after your dial resolves). GLIDE actually glides — cam ease
+   0.14->0.055 AND the aim zoom eases (G._zbS, reset off-aim); SNAP toggle
+   unchanged. HONEST CROUCH — take-cover pose now requires real stone
+   (gcov, or hand-flag within 1.8 tiles of a pillar): nobody ducks behind
+   air. Parent-side: combatSendSprites bakes walk both places (plaintext
+   edits at out.dirs[d].walk / L.look.walk112). Gate 124 checks ALL GREEN;
+   chromium-verified on the real alpha: walk bakes present all dirs, step
+   plays frames, corpse look identical across worldShift, counter-snap
+   sim 100->90 vs tucked gunman, zbS mid-ease, aim shot shows the deadeye
+   body + board-scale dial arc. ANIMATION REQUESTS FOR PAOLO'S ANIMATION
+   CHAT: records/BOHEMIA_COMBAT_ANIM_REQUESTS_7_20_26.txt (9 clips,
+   priority-ordered: cover-rise + cover-drop are his named asks, then
+   gun-walk, cover-fire, get-shoved, floor-rise, shiv-jab/bat-arc/
+   spear-drive; graveyard-safe names; combat pulls any clip that lands in
+   the pipeline with zero surgery). STILL OWED: rig gun-pose pipeline
+   expansion; the plumbing re-examination pass; rhythm picks pending.
+   BRASS IS FLOOR STATE (7/20, pass 21; Paolo's screenshot: "my shell
+   casings follow me around instead of staying on the floor where I shot
+   them"): root cause was the 7/3 AF v2 law written BEFORE movement
+   existed — player brass stored as {p:1,dx,dy} player-anchored offsets;
+   worldShift's mover skips entries with no ea/edist and the renderer
+   drew them at cx+dx, glued to the screen-centered body. v21: brass
+   lands with world coords at the tile you fired from (ea:0,edist:0 +
+   pixel jitter), renders through fieldPos, rides worldShift like blood
+   and corpses; the p-glue render branch is dead; the JUICE AF demo
+   scatter converted too. BONUS: worldShift's 0.6-tile minimum clamp
+   (exists so live enemies never stand inside you) no longer applies to
+   STATICS — corpses, pillars, blood, litter shift with true minimum
+   0.02, so walking over them never nudges them. Gate 127 checks ALL
+   GREEN (one stale v19 blood string updated to mv(s,0.02)). Chromium
+   verified: spawn brass, step E then S, brass reads 1 then 1.414 tiles
+   away; walk back, it is where it fell; real fxShot landings carry
+   world coords, no p flag. Shipped to main (b91d825, BUILD 7/20i).
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

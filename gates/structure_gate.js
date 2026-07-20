@@ -59,10 +59,14 @@ if (G) {
 
   // PONCHO: wider than the body, hem below the waist, neck wrapped, head sacred
   let po = null; try { po = G.genPoncho(g, { ramp: R }); } catch (e) { console.log('  poncho err: ' + e.message); }
-  ok('poncho renders', po && Object.keys(po).length > 80);
+  ok('poncho renders', po && Object.keys(po).length > 60);
   if (po) {
-    let wide = 0; for (const k in po) { const x = (+k) % CW, y = ((+k) / CW) | 0; if (g[+k] === 0 && (x < 20 || x > 35) && y >= 17 && y <= 30) wide++; }
-    ok('poncho is WIDER than the body (real background pixels past the arms)', wide >= 6);
+    // TIGHT PONCHO RULING (Paolo 7/20): the drape hugs the torso (1px past it)
+    // and the ARMS STAY FREE below the shoulder cap so arm animation reads.
+    let past = 0; for (const k in po) { const x = (+k) % CW; if (x < 22 || x > 33) past++; }
+    ok('poncho is TIGHT: nothing past 1px beyond the torso', past === 0);
+    let armCov = 0, armTot = 0; for (let i = 0; i < g.length; i++) if ((g[i] === 5 || g[i] === 6) && ((i / CW) | 0) > 18) { armTot++; if (po[i] !== undefined) armCov++; }
+    ok('poncho leaves the arms FREE (animation reads through)', armTot > 0 && armCov / armTot < 0.15);
     ok('poncho hem falls below the waist', rows(po).some(y => y >= 34));
     let neck = 0, neckTot = 0; for (let i = 0; i < g.length; i++) if (g[i] === 3) { neckTot++; if (po[i] !== undefined) neck++; }
     ok('poncho wraps the whole neck (no skin seam)', neckTot > 0 && neck === neckTot);
@@ -155,6 +159,34 @@ if (G) {
   // NEW IN CANON surfacing (Paolo: a verdict must never hide the new clothes)
   ok('the freshest canon batch stays visible (NEW IN CANON section)', src.indexOf('NEW IN CANON') >= 0 && /fresh:true/.test(src.slice(src.indexOf('var GARMENTS='), src.indexOf('];', src.indexOf('var GARMENTS=')))));
 
+  // WAVE 5 (the shortcut's first run): shemagh / bracers / holster / trailing scarf
+  const NAMES2 = ['mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
+  const bodies2 = NAMES2.map(grab);
+  const makeA = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies2.join('\n') + '\nreturn {genAcc,genGear};')(56, 56, dir); } catch (e) { console.log('  eval2: ' + e.message); return null; } };
+  const A = makeA('S'), AN = makeA('N'), AE = makeA('E');
+  ok('acc/gear generators evaluate for wave 5', A && AN && AE);
+  if (A && AN && AE) {
+    let shS = null, shN = null, brS = null, hoS = null, scL = null, scStd = null;
+    try { shS = A.genAcc(g, { ramp: R, kind: 'shemagh' }); shN = AN.genAcc(g, { ramp: R, kind: 'shemagh' });
+          brS = A.genGear(g, { ramp: R, kind: 'bracers' }); hoS = A.genGear(g, { ramp: R, kind: 'holster' });
+          scL = A.genAcc(g, { ramp: R, kind: 'scarf', tail: 'long' }); scStd = A.genAcc(g, { ramp: R, kind: 'scarf' }); }
+    catch (e) { console.log('  wave5 err: ' + e.message); }
+    ok('wave-5 shapes render', [shS, shN, brS, hoS, scL, scStd].every(o => o && Object.keys(o).length >= 6));
+    if (shS && shN) {
+      const faceCov2 = (o) => { let c = 0, t2 = 0; for (let i = 0; i < g.length; i++) if (g[i] === 2) { t2++; if (o[i] !== undefined) c++; } return c / t2; };
+      const headCov2 = (o) => { let c = 0, t2 = 0; for (let i = 0; i < g.length; i++) if (g[i] === 1) { t2++; if (o[i] !== undefined) c++; } return c / t2; };
+      // the slit: in front some contiguous face rows stay OPEN while most of the face is cloth
+      const openRows = (o) => { const rs = new Set(); for (let i = 0; i < g.length; i++) if (g[i] === 2 && o[i] === undefined) rs.add((i / 56) | 0); return rs.size; };
+      ok('shemagh covers the skull + wraps the neck', headCov2(shS) > 0.95 && (() => { for (let i = 0; i < g.length; i++) if (g[i] === 3 && shS[i] === undefined) return false; return true; })());
+      ok('shemagh keeps an eye slit open in front (cloth above and below)', openRows(shS) >= 1 && openRows(shS) <= 2 && faceCov2(shS) > 0.4 && faceCov2(shS) < 0.95);
+      ok('shemagh from behind has NO skin slits', faceCov2(shN) === 1);
+    }
+    if (brS) ok('bracers sit on the forearms only', [...parts(brS)].every(pt => pt === 5 || pt === 6) && rows(brS).every(y => y >= 25));
+    if (hoS) ok('holster: thigh rig on one leg + hip strap', [...parts(hoS)].every(pt => pt === 10 || pt === 4) && rows(hoS, pt => pt === 10).every(y => y >= 33 && y <= 40));
+    if (scL && scStd) ok('trailing scarf is genuinely LONGER than the standard scarf', Object.keys(scL).length > Object.keys(scStd).length + 3);
+  }
+  ok('wave-5 candidates ship', /kind:'shemagh'/.test(gbAll()) && /kind:'bracers'/.test(gbAll()) && /kind:'holster'/.test(gbAll()) && /tail:'long'/.test(gbAll()));
+
   // wiring: the five shapes actually ship as cook candidates
   const gi = src.indexOf('var GARMENTS=');
   const gb = src.slice(gi, src.indexOf('];', gi));
@@ -193,7 +225,7 @@ if (G) {
     ok('the hood toggle exists (per-square, gens read CLO_HOODUP)', src.indexOf('CLO_HOODUP=!!(cv&&cv.__hoodUp)') >= 0 && src.indexOf("hoodUp:CLO_HOODUP") >= 0 && src.indexOf("hb.textContent='HOOD'") >= 0);
     ok('chest plate is torso-only, front block vs back straps', [...parts(cpS)].every(pt => pt === 4) && Object.keys(cpS).length > Object.keys(cpN).length);
   }
-  ok('wave-4 candidates ship', /hoodUp:true/.test(gbAll()) && /hood:true/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()));
+  ok('wave-4 candidates ship (hoods toggleable everywhere)', /hoodUp:CLO_HOODUP/.test(gbAll()) && /hood:CLO_HOODUP/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()) && /hoodDefaultUp:true/.test(gbAll()));
   function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);

@@ -324,7 +324,7 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
   ok('BLOOD BY HEALTH: <=40% drips, <=20% pours, player <=30 trails; world-anchored',
     demo.includes('function bleedTick()') && demo.includes('e.hp>e.max*0.4') &&
-    demo.includes('G.pHP<=30') && demo.includes('for(const s of G.bloodSpots)mv(s);'));
+    demo.includes('G.pHP<=30') && demo.includes('for(const s of G.bloodSpots)mv(s,0.02);'));
   ok('KILLSHOTS/TURN sits at the top of settings',
     demo.includes('V19: KILLSHOTS/TURN at the TOP of settings'));
   ok('worldShift carries corpses AND pillars with the world',
@@ -410,7 +410,7 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('EXACT FLOOR: bounds from the inverted camera, not heuristics',
     demo.includes('EXACT FLOOR V17') && demo.includes('uzInvert(0,0,W,H)'));
   ok('covered men CROUCH with the REAL baked take-cover frames (pillar cover included)',
-    demo.includes('V18: pillar cover crouches with the SAME baked take-cover frames') &&
+    demo.includes('V18+V20: the crouch needs REAL stone nearby') &&
     !demo.includes('x.scale(1,0.72);'));
   ok('the phone DIRS ReferenceError is dead (whole-field scope)',
     demo.includes('V18 DIRS: whole-field scope'));
@@ -446,6 +446,37 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('const rr=c.edist*ring;'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
     demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
+  // v20: the animation pass (walk, static corpses, counter-snap, real glide)
+  ok('V20 WALK: loaders carry walk frames for player and enemies',
+    demo.includes('V20 WALK') && demo.includes('walk:(d.dirs[dir].walk||[]).map(mk)') &&
+    demo.includes('walk112:L.walk112?L.walk112.map(b=>mkAt(b,112,112)):null'));
+  ok('stepping plays walk frames; movers walk too',
+    demo.includes('G._stepAt=performance.now()') && demo.includes('V20: movers walk') &&
+    demo.includes('e._movedAt=performance.now()'));
+  ok('THE DEADEYE POSE IS THE NEEDLE: dial body sweeps via sprAimFrame, live arm compute-only',
+    demo.includes('the baked DEADEYE pose IS the needle') &&
+    demo.includes('sprAimFrame(sprFacing(G.faceAng),G.angle)') &&
+    demo.includes(',ARML,0);') && !demo.includes(',ARML,1);'));
+  ok('DEATH POSES ARE STATIC: corpse look locks at death, never re-rolls on your step',
+    demo.includes('the dead keep the pose they died in') && demo.includes('e._lookLock=L'));
+  ok('COUNTER-SNAP: a blown engagement is punishable at ANY enemy count (1v1 included)',
+    demo.includes('V20 COUNTER-SNAP') && demo.includes('*0.35*') && demo.includes('*0.7)'));
+  ok('the glide actually glides: cam ease 0.055 and the zoom eases too (reset off-aim)',
+    demo.includes('const k=0.055;') && !demo.includes('const k=0.14;') &&
+    demo.includes('G._zbS+(zbT-G._zbS)*0.08') && demo.includes('G._zbS=null'));
+  ok('HONEST CROUCH: the take-cover pose needs real stone within 1.8 tiles',
+    demo.includes('function nearPillar(e)') && demo.includes('<1.8') &&
+    demo.includes('nobody ducks behind air'));
+  // v21: brass is floor state
+  ok('V21 BRASS: player casings land at the world spot, never player-glued',
+    demo.includes('V21 BRASS') && demo.includes('litterAdd({ea:0,edist:0,') &&
+    !demo.includes('litterAdd({p:1,'));
+  ok('all brass renders through fieldPos (world), the p-glue branch is dead',
+    demo.includes('V21: ALL brass is world state') &&
+    !demo.includes('if(l.p){lx=cx+l.dx;ly=cy+l.dy;}'));
+  ok('statics keep TRUE spots on worldShift; only live enemies keep the 0.6 bubble',
+    demo.includes('const mv=(o,mn)=>{') && demo.includes('mv(c,0.02)') &&
+    demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
 }
 
 /* ---- 3. verdict workflow ---- */
@@ -461,6 +492,9 @@ ok('research tab cites the addendum', lab.includes('BOHEMIA_ADDENDUM_BEAT_TACTIC
 /* ---- 4. alpha wiring ---- */
 ok('alpha hosts the lab (combatLabFrame -> lab file)',
   alpha.includes('BOHEMIA_COMBAT_LAB_7_19_26.html') && alpha.includes('combatLabFrame'));
+ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
+  alpha.includes("out.dirs[d].walk=[0,0.25,0.5,0.75].map(p=>bake112(d,'walk',p))") &&
+  alpha.includes("L.look.walk112=[0.25,0.75].map(p=>bake112(L.d,'walk',p))"));
 
 console.log('=== COMBAT LAB GATE: ' + pass + ' pass / ' + fail + ' fail ===');
 if (fail) console.log('HINT: if demo markers are missing, a parallel-session merge clobbered COMBAT_B64 -- run: python3 tools/bohemia_combat_melee_patch.py && python3 tools/bohemia_combat_lab_gen.py');
