@@ -837,13 +837,137 @@ def patch10(demo):
     return demo
 
 
+def patch11(demo):
+    """v11 (Paolo 7/20: 'you want to change the size of the shit...
+    integrate it better'): BOARD BODY. The full-body pose silhouette was
+    the standalone demo's needle and it can never match the board's
+    scale. The 6/28 LOCKED canon already says the answer: no separate
+    shooting pose — the WORLD SPRITE stays, and the combat ARM becomes
+    the dial, pinned at the shoulder. So: the field player sprite stays
+    visible during the dial (he IS you, board scale), and the needle is
+    an arm+weapon drawn at board scale from his shoulder. Ghost fan =
+    faint arm echoes. Wedge/zones/reticle untouched (the exact zoom
+    already lands the target on the rim)."""
+    if 'BOARD BODY V11' in demo:
+        print('v11 already applied, skipping')
+        return demo
+
+    # the field player IS you, dial included
+    demo = sub1(demo, """\
+  if(aimo){ /* ONE SCENE: during the dial the sweeping pose IS you — no duplicate body */ }
+  else if(SPR.ready&&SPR.cv.S){""", """\
+  if(SPR.ready&&SPR.cv.S){   /* BOARD BODY V11: the field sprite IS you, dial included */""",
+        'player-back')
+
+    # remember the aim zoom so the arm can live at board scale
+    demo = sub1(demo, """\
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    drawField(ctx,W,H,cx,cy,{dial:true});""", """\
+    G._zb=zb;   /* the arm needle reads this to live at board scale */
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    drawField(ctx,W,H,cx,cy,{dial:true});""",
+        'zb-out')
+
+    # the arm needle (board scale), replacing the pose silhouette
+    demo = sub1(demo, "function draw(){", """\
+/* BOARD BODY V11: the needle is an ARM at board scale, pinned at the field
+   player's shoulder — the 6/28 locked canon ('the combat arm becomes part
+   of the dial'), finally literal on the board. */
+function drawArmNeedle(c2,px,py,ang,L,al){
+  const sx=px, sy=py-L*0.42;
+  const hx=sx+Math.cos(ang)*L, hy=sy+Math.sin(ang)*L;
+  c2.save(); c2.globalAlpha=al;
+  c2.strokeStyle='#241f18'; c2.lineWidth=Math.max(3,L*0.16); c2.lineCap='round';
+  c2.beginPath(); c2.moveTo(sx,sy); c2.lineTo(hx,hy); c2.stroke();
+  c2.strokeStyle='#caa07a'; c2.lineWidth=Math.max(2,L*0.10);
+  c2.beginPath(); c2.moveTo(sx+Math.cos(ang)*L*0.55,sy+Math.sin(ang)*L*0.55); c2.lineTo(hx,hy); c2.stroke();
+  const gl=L*0.45;
+  c2.strokeStyle='#3a3632'; c2.lineWidth=Math.max(2.5,L*0.13); c2.lineCap='butt';
+  c2.beginPath(); c2.moveTo(hx,hy); c2.lineTo(hx+Math.cos(ang)*gl,hy+Math.sin(ang)*gl); c2.stroke();
+  c2.restore();
+  return [hx,hy,gl];
+}
+function draw(){""",
+        'arm-needle-fn')
+
+    demo = sub1(demo, """\
+  // ---- GHOST FAN: faint echo of the FULL pose (both arms + weapon) sweeping the wedge ----
+  for(let i=8;i>=1;i--){
+    const ga=base + G.angleTrail(i);
+    drawPose(ctx,cx,cy,ga,S,0.005*i,true);
+  }""", """\
+  // ---- GHOST FAN (BOARD BODY V11): faint echoes of the ARM sweeping the wedge ----
+  const ARML=Math.min(W,H)*0.085*(G._zb||2)*1.05;   /* one arm ≈ one board tile at the current zoom */
+  for(let i=8;i>=1;i--){
+    const ga=base + G.angleTrail(i);
+    drawArmNeedle(ctx,cx,cy,ga,ARML,0.045*i/8);
+  }""",
+        'ghost-arm')
+
+    demo = sub1(demo, """\
+  body(ctx,pcx,pcy,S);
+  const [hx,hy,gl]=drawPose(ctx,pcx,pcy,ang,S,1,false);""", """\
+  const [hx,hy,gl]=drawArmNeedle(ctx,pcx,pcy,ang,ARML,1);   /* BOARD BODY: your sprite stands, the arm swings */""",
+        'live-arm')
+    return demo
+
+
+def patch12(demo):
+    """v12 (same hour, finishing v11's integration): (1) the street floor's
+    tile bounds ignored the aim zoom, so zoom-out shots showed a floating
+    floor rectangle in the void — bounds now expand by 1/zb and the
+    median/lane/grid strokes overdraw generously. (2) the aim camera is
+    PINNED each non-killshot frame (no stale killshot offsets) and biased
+    35% toward the target so shooter and target both sit comfortably on
+    screen — the whole scene (field + instrument) shifts together through
+    the one cam transform."""
+    if 'AIM CAM PIN V12' in demo:
+        print('v12 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, """\
+    G._zb=zb;   /* the arm needle reads this to live at board scale */
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    drawField(ctx,W,H,cx,cy,{dial:true});""", """\
+    G._zb=zb;   /* the arm needle reads this to live at board scale */
+    /* AIM CAM PIN V12: no stale killshot offsets; bias the whole scene
+       toward the target so shooter and target share the frame. */
+    if(!G.ks){ G.cam.zoom=1;
+      G.cam.x=W/2+Math.cos(base)*RAD*0.35;
+      G.cam.y=H/2+Math.sin(base)*RAD*0.35; }
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    drawField(ctx,W,H,cx,cy,{dial:true,zb:zb});""",
+        'cam-pin')
+
+    demo = sub1(demo, """\
+    const gx0=Math.floor(offx-(cx/t))-1, gx1=Math.floor(offx+((W-cx)/t))+1;
+    const gy0=Math.floor(offy-(cy/t))-1, gy1=Math.floor(offy+((H-cy)/t))+1;""", """\
+    const spanF=(aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1;   /* zoom-out shots need a wider board */
+    const gx0=Math.floor(offx-(cx/t)*spanF)-1, gx1=Math.floor(offx+((W-cx)/t)*spanF)+1;
+    const gy0=Math.floor(offy-(cy/t)*spanF)-1, gy1=Math.floor(offy+((H-cy)/t)*spanF)+1;""",
+        'floor-span')
+    demo = sub1(demo, "      x.beginPath(); x.moveTo(sx2,0); x.lineTo(sx2,H); x.stroke(); }",
+        "      x.beginPath(); x.moveTo(sx2,-H*2); x.lineTo(sx2,H*3); x.stroke(); }", 'vline-span')
+    demo = sub1(demo, "      x.beginPath(); x.moveTo(0,sy2); x.lineTo(W,sy2); x.stroke(); }",
+        "      x.beginPath(); x.moveTo(-W*2,sy2); x.lineTo(W*3,sy2); x.stroke(); }", 'hline-span')
+    demo = sub1(demo, "    if(medX>-t&&medX<W+t){ x.fillStyle='rgba(184,160,40,0.55)';\n      x.fillRect(medX-3,0,2.4,H); x.fillRect(medX+1,0,2.4,H); }",
+        "    if(medX>-t*20&&medX<W+t*20){ x.fillStyle='rgba(184,160,40,0.55)';\n      x.fillRect(medX-3,-H*2,2.4,H*5); x.fillRect(medX+1,-H*2,2.4,H*5); }", 'median-span')
+    demo = sub1(demo, """\
+      let sy3=-((offy*t)%(dashLen+gap));
+      for(let yy=sy3; yy<H; yy+=dashLen+gap)x.fillRect(lx-1.4,yy,2.8,dashLen); }""", """\
+      let sy3=-H*2-((offy*t)%(dashLen+gap));
+      for(let yy=sy3; yy<H*3; yy+=dashLen+gap)x.fillRect(lx-1.4,yy,2.8,dashLen); }""",
+        'dash-span')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))
+    patched = patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
