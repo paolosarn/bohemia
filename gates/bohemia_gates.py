@@ -92,6 +92,8 @@ GATES = [
      'conservation, monotone scarcity pricing, grounded needs', False),
     ('POPULATION',     ['node', 'gates/population_gate.js'],
      'two-plane sim: census === bodies, offline plane agrees with online', False),
+    ('MEMORY',         ['node', 'gates/memory_gate.js'],
+     'witnesses: clarity decays, familiarity holds, missing-persons answerable', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],

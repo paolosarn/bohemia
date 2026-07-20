@@ -50,6 +50,17 @@ REAL ART (tiles + dressed rig at world scale); factions acting waits on
 Paolo's tables (FACTION_ASSIGN/DRESS/ECONOMY); economy tuning waits on the
 built world. The LIFE lane is now built to the edge of what the world's
 readiness allows.
+RUNGS 3 + 4a BUILT DORMANT (7/19 later, "do what you have to do next"):
+ROOM ADVERTISEMENTS (Sims pattern) - rooms advertise acts, at-home agents
+live through the house across the day (kitchen at meals, living evenings,
+own bed at night, occupants never stack); sim.homeSpots() feeds any future
+render; LIFE gate 20 -> 24 checks. WITNESS MEMORY (SoD pattern) -
+engine/bohemia_memory.js + gate #MEMORY (9 checks): ring-buffer minds,
+familiarity slows decay, lastSeenAcross answers "when did anyone last see
+H3-2" - THE SEED OF THE QUESTBOOK'S MISSING-PERSONS ORGAN (Q133/Q134/Q138).
+Remaining LIFE rungs all BLOCKED by design: deviation layer needs events,
+resurfacing needs real art, factions/names/money need Paolo's tables,
+economy tuning needs the built world. LIFE lane: fully built out, dormant.
 
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three
