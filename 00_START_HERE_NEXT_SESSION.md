@@ -328,6 +328,12 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-16. TIGHT PONCHO + HOOD TOGGLE EVERYWHERE (7/20, latest): poncho now 1px
+   past the torso, arms + hands always free (gate: <15% arm coverage, zero
+   px past torso+1). HOOD button on every hooded garment incl. HOOD-UP
+   pieces + hooded poncho (default up, strips too). Music export re-verified
+   clean on current build (his stale tab explains his report). Stamp: BUILD
+   7/20d. Music: 7 batch-15 songs still [PENDING verdict].
 -15. HOOD BACK-COVER + TOGGLE + RAIN RULE (7/20, latest): Paolo's screenshot
    ruling -- from N/NE/NW the hood LAYERS OVER the face, zero skin slits
    (face stays open from the front). Baked into genTop hoodUp + genPoncho

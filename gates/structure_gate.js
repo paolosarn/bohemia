@@ -59,10 +59,14 @@ if (G) {
 
   // PONCHO: wider than the body, hem below the waist, neck wrapped, head sacred
   let po = null; try { po = G.genPoncho(g, { ramp: R }); } catch (e) { console.log('  poncho err: ' + e.message); }
-  ok('poncho renders', po && Object.keys(po).length > 80);
+  ok('poncho renders', po && Object.keys(po).length > 60);
   if (po) {
-    let wide = 0; for (const k in po) { const x = (+k) % CW, y = ((+k) / CW) | 0; if (g[+k] === 0 && (x < 20 || x > 35) && y >= 17 && y <= 30) wide++; }
-    ok('poncho is WIDER than the body (real background pixels past the arms)', wide >= 6);
+    // TIGHT PONCHO RULING (Paolo 7/20): the drape hugs the torso (1px past it)
+    // and the ARMS STAY FREE below the shoulder cap so arm animation reads.
+    let past = 0; for (const k in po) { const x = (+k) % CW; if (x < 22 || x > 33) past++; }
+    ok('poncho is TIGHT: nothing past 1px beyond the torso', past === 0);
+    let armCov = 0, armTot = 0; for (let i = 0; i < g.length; i++) if ((g[i] === 5 || g[i] === 6) && ((i / CW) | 0) > 18) { armTot++; if (po[i] !== undefined) armCov++; }
+    ok('poncho leaves the arms FREE (animation reads through)', armTot > 0 && armCov / armTot < 0.15);
     ok('poncho hem falls below the waist', rows(po).some(y => y >= 34));
     let neck = 0, neckTot = 0; for (let i = 0; i < g.length; i++) if (g[i] === 3) { neckTot++; if (po[i] !== undefined) neck++; }
     ok('poncho wraps the whole neck (no skin seam)', neckTot > 0 && neck === neckTot);
@@ -193,7 +197,7 @@ if (G) {
     ok('the hood toggle exists (per-square, gens read CLO_HOODUP)', src.indexOf('CLO_HOODUP=!!(cv&&cv.__hoodUp)') >= 0 && src.indexOf("hoodUp:CLO_HOODUP") >= 0 && src.indexOf("hb.textContent='HOOD'") >= 0);
     ok('chest plate is torso-only, front block vs back straps', [...parts(cpS)].every(pt => pt === 4) && Object.keys(cpS).length > Object.keys(cpN).length);
   }
-  ok('wave-4 candidates ship', /hoodUp:true/.test(gbAll()) && /hood:true/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()));
+  ok('wave-4 candidates ship (hoods toggleable everywhere)', /hoodUp:CLO_HOODUP/.test(gbAll()) && /hood:CLO_HOODUP/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()) && /hoodDefaultUp:true/.test(gbAll()));
   function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);
