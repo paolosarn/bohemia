@@ -387,3 +387,16 @@ TWO UI FAILURES HE CALLED OUT, BOTH FIXED + VERIFIED LIVE:
 Also: tools/bohemia_wardrobe_extract.py parser fixed (cw:/fresh: tags had
 gone stale-invisible to it -- it banked 97 of 163; the DRESS gate caught it,
 bank now carries all 163 so street agents dress from the full closet).
+
+=== 7/19/26 (f) — SHUFFLE ANIMATION BUTTON (Paolo's ask, verbatim intent) ===
+"At the bottom right of every idle animation square... a shuffle animation
+button, and I'll go through the approved animations so I can see the clothes
+in any random animation." SHIPPED: every big rig square (cooking, new-in-
+canon, closet -- all 166 rendered squares) carries a shuffle button at its
+bottom right. Tap = a random clip from the APPROVED catalog (the baked CLIPS
+list, unjudged candidates excluded), the square re-renders live on that clip,
+and the clip name shows in the square's corner. Every square runs its own
+clip independently (per-canvas clip + per-clip beat length on the 120 grid).
+Verified live: taps landed rage / sit-ground, frame re-rendered, pool
+approved-only. Gate: structure_gate 54 checks (button + approved pool +
+per-canvas clip render path locked).

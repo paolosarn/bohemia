@@ -8,6 +8,26 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## SESSION SCOPE AMENDED: LIFE + CITY SURFACE (Paolo 7/19: "add an additional
+## title to this chat, like life plus tiles")
+The LIFE session also owns the CITY TAB SURFACE now. Division per ONE SYSTEM
+ONE SESSION: the overworld session keeps the GENERATORS (bohemia_overmap /
+world / districts); this session renders them READ-ONLY into the CITY tab,
+exactly like it consumes the clothing factory's wardrobe. DONE SAME TURN:
+the CITY tab (empty div since birth) now shows the whole generated Vegas
+live - tools/bohemia_city_tab.py -> slices/BOHEMIA_CITY_CURRENT.html (stable
+URL, lazy iframe): mile grid, 215 beltway, I-15/95, rail, Lake Mead,
+mountain ring drawn as themselves, every buildable district as DESERT until
+grown on (the blessed 7/18 aerial proof's exact palette + rules); drag pan,
+pinch/wheel zoom, tap a plot for its district. Gate #CITY TAB (9 checks):
+embedded overmap BYTE-LOCKED to the canon engine body (overworld reshapes
+streets -> gate red until the page is rebuilt), skeleton law replayed
+against the live enum, no empty-tab regression. Verified 390px chromium.
+NEXT for the CITY surface (in order, mine): (a) the city-builder verbs on
+this map (delete-to-desert, place-a-plot - Paolo's 7/18 plan), (b) zoom a
+region into the walkable street/desert bakes, (c) LIFE's census layered on
+the map (population per district once the die-off dial is ruled).
+
 ## LIFE PARKED DORMANT (7/19, Paolo, same day it opened - SEQUENCING RULING)
 Paolo saw the LIFE tab and ruled the sequencing, distilled from his words:
 (1) TOO EARLY TO SURFACE, not too early to build - "I'm glad you have the
@@ -308,6 +328,11 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-13. SHUFFLE ANIMATION ON EVERY SQUARE (7/19, latest): Paolo's ask -- every
+   big clothing square has a bottom-right shuffle button; tap = random clip
+   from the APPROVED animation catalog (CLIPS minus candidates), square
+   re-renders live on that clip with the clip name shown. Per-canvas clip,
+   per-clip beats. structure_gate 54 checks. Verified live.
 -12. EVERYTHING CANON: WARDROBE 163 + CANON CLOSET + THUMBS PERSIST (7/19,
    latest): Paolo approved ALL clothing (wave 3 + the 63 colorways). Wardrobe
    163 pieces across 11 categories; cooking empty. Fixed his two callouts:
@@ -622,6 +647,27 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    OWED (his ask, bigger lift): the REAL rig gun-pose animation (the
    alpha's _gun aim frames) on the combat field sprites instead of the
    drawn arm — needs the rig bake piped into the demo's SPR sheets.
+   THE TUNNEL POST-MORTEM (7/20, passes 15-16; Paolo's screenshot showed
+   a recursive-frame tunnel + smeared bodies): ROOT CAUSE — a frame that
+   THROWS between ctx.save() and restore() leaks its transform; v13's
+   loop armor kept the game alive but let the leak compound every frame
+   (the armor caught the error, wore the transform). CLASS FIX (v15):
+   draw() hard-resets the transform AND clearRects the canvas at frame
+   start; the armor catch also resets and paints a visible ERR chip with
+   the message (so Paolo can screenshot the underlying error — it is
+   still unidentified, iPhone-only). Bomb-tested: 1.5s of forced
+   every-frame mid-draw throws while zoomed+panned = clean screen.
+   ALSO v15: street floor bounds now account for USER pinch zoom AND pan
+   (his "world map too small / doesn't fit the screen" was the floor
+   under-covering at userZoom<1); boot fight shuffles its faction.
+   v16: the MUSIC studio's boot push was killing factionShuffle on every
+   COMBAT tab open (userPicked persists) — per Paolo's ruling, studio
+   pushes steer the CURRENT song, SHUFFLE stays the encounter default
+   unless the studio is live-driving (m.audit). Cross-system note for
+   the MUSIC session: combat now ignores userPicked's shuffle-kill on
+   boot pushes; live audit behavior unchanged. Gate 107 checks, ALL
+   GREEN. STILL OWED: the real rig gun-pose animation on field sprites;
+   the plumbing re-examination pass.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel

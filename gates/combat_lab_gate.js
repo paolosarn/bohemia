@@ -386,7 +386,18 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('AIM CAM PIN: no stale killshot offsets, scene biased toward the target',
     demo.includes('AIM CAM PIN V12'));
   ok('floor bounds expand for zoom-out shots (no floating board)',
-    demo.includes('const spanF=(aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1;'));
+    demo.includes('the board outruns ANY zoom or pan'));
+  // v15: the tunnel class is dead
+  ok('HARD RESET: transform + canvas cleared every frame; armor resets too',
+    demo.includes('HARD RESET V15') && demo.includes("ctx.setTransform(1,0,0,1,0,0);}catch(_e3){}"));
+  ok('the frame error is visible (ERR chip), not silent',
+    demo.includes("ctx.fillText('ERR '"));
+  ok('floor accounts for user pinch zoom AND pan',
+    demo.includes('const uzS=(G.userZoom&&G.userZoom<1)?1/G.userZoom:1;') && demo.includes('panT'));
+  ok('the FIRST fight shuffles its faction too',
+    demo.includes('the FIRST fight shuffles too'));
+  ok('studio pushes never kill the shuffle default (Paolo 7/20)',
+    demo.includes('SHUFFLE stays the encounter default'));
   // v13: cover AI + loop armor + compact UI
   ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
     demo.includes('COVER AI V13') && demo.includes('function coverSeekAI()') &&
