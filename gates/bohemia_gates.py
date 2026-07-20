@@ -66,6 +66,8 @@ GATES = [
      'memorial park: grave sections, chapel, mausoleum, columbarium, drivable', False),
     ('DRIVE-IN',       ['node', 'gates/drivein_gate.js'],
      'dead drive-in theater: screen tower, arced parking rows, snack bar, drivable', False),
+    ('GOLF',           ['node', 'gates/golf_gate.js'],
+     'dead golf course: holes (tee/fairway/green/bunker/pond), clubhouse, cart-path loop, drivable', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
      'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
     ('CRYPT',          ['node', 'gates/crypt_gate.js'],
