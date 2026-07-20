@@ -361,6 +361,17 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('Math.round(Math.cos(a0)*d0), ny2=Math.round(Math.sin(a0)*d0)'));
   ok('GRID LOCK: the ghost tap-cell is drawn as exactly one painted tile',
     demo.includes('GRID LOCK V8: the ghost cell IS the painted tile'));
+  // v9 (Paolo): the dial happens ON the board; the power of who to shoot next
+  ok('ZOOMED BOARD: the aim backdrop is the real field, stand-in world dead',
+    demo.includes('ZOOMED BOARD V9') && !demo.includes('drawStandInWorld(ctx,cx,cy,base,RAD,S);'));
+  ok('manual TARGET SELECT: tap an enemy to pick him, auto is fallback',
+    demo.includes('if(G.selTarget!=null){ const s=pool.find(e=>e.i===G.selTarget); if(s)return s.i; }') &&
+    demo.includes('TARGET SELECT V9'));
+  ok('blades are always targetable when visible (melee joins the shoot pool)',
+    demo.includes('exposedToMe().concat(mel)'));
+  ok('stunned/prone men are targets (the easy dial you manufactured)',
+    demo.includes('return G.e.filter(e=>!e.dead&&peeking(e)); }'));
+  ok('the chosen man wears the selection ring', demo.includes('your chosen man'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
     demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
