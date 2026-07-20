@@ -52,6 +52,8 @@ GATES = [
      'v2 files are implementable, numbers audited', False),
     ('QUEST RUNTIME',  ['node', 'engine/bohemia_quest_runtime_tests.js'],
      'the .bq runtime plays a quest to COMPLETE/FAIL', False),
+    ('SAVE',           ['node', 'engine/bohemia_save_tests.js'],
+     'world+quest save/load, resume mid-quest', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
