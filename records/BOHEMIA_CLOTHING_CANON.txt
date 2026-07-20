@@ -350,3 +350,21 @@ front straps are now 2px webbing hugging the torso edge beside each arm,
 anchored at the shoulder line, dark outer + lit inner edge, chest buckles.
 Gate: structure_gate.js 45 checks (strap width + shoulder anchor + open
 center chest locked). Verified on the real preview in 6 facings.
+
+=== 7/19/26 (d) — "I'M NOT SEEING THE NEW CLOTHES" + STRUCTURE WAVE 3 ===
+Paolo, after his all-canon verdict: "Re-update the alpha. I'm not seeing the
+new clothes that you made." Root cause was NOT the deploy (origin/main
+verified carrying all 19) -- it was the UI: the verdict collapsed his newest
+approvals into the closed CANON menu and COOKING went bare, so the tab showed
+him nothing. He never digs in menus; the machine must surface.
+FIXED, gate-locked: ★ NEW IN CANON section -- the freshest approved batch
+(fresh:true tags) stays EXPANDED and visible right under COOKING until the
+next batch supersedes it. Empty-cooking header reads "next structure wave
+incoming" instead of a bare (0).
+STRUCTURE WAVE 3 (so cooking is never empty): BEDROLL (rolled blanket across
+the upper back, ties at both ends, protrudes in profile), WRAP SKIRT (one
+panel over both legs, the between-legs gap closes, diagonal overlap fold, hem
+mid-shin -- a real silhouette change), SHIN GUARDS (strapped plates down both
+shins). structure_gate: 53 checks. Verified on the real preview.
+Tab order now: COOKING structures (3) -> NEW IN CANON (19) -> COLORWAY FILLER
+drawer (63) -> CANON WARDROBE (97).

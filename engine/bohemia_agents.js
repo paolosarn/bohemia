@@ -197,6 +197,100 @@
     return out;
   }
 
+  // ---- THE POPULATION LAYER (Zomboid pattern, research bank 7/19) ----------
+  // The valley holds a population as NUMBERS per cell; real agent objects
+  // only materialize inside the player's bubble. The census runs the SAME
+  // vacancy + household hashes agentsForBlock runs, so the numbers and the
+  // materialized people can never disagree (gated: census === agents.length).
+  var RESIDENTIAL={suburb:1,gated:1,estate:1};
+  function censusForBlock(blockSeed, feet, rate){
+    var lived=0, people=0;
+    for(var i=0;i<feet.length;i++){
+      if(!houseOccupied(blockSeed,i,rate)) continue;
+      lived++; people+=household(hash(blockSeed,i+1,0));
+    }
+    return {homes:feet.length, lived:lived, people:people};
+  }
+  function censusForPlot(worldApi,x,y,opts){
+    opts=opts||{};
+    var cell=worldApi.at(x,y);
+    if(!cell||!RESIDENTIAL[cell.district]) return {district:cell?cell.district:null,homes:0,lived:0,people:0};
+    var plot=worldApi.plot(x,y);
+    if(!plot||!plot.buildings||!plot.buildings.length) return {district:cell.district,homes:0,lived:0,people:0};
+    var c=censusForBlock(cell.seed>>>0, plot.buildings, opts.occupiedRate);
+    c.district=cell.district; return c;
+  }
+  // deterministic sampled estimate for valley-scale readouts. An ESTIMATE,
+  // never presented as an exact count (the exact count exists per cell).
+  function sampleValley(worldApi, nSamples, opts){
+    opts=opts||{}; nSamples=nSamples||24;
+    var cells=[], n=worldApi.n;
+    for(var y=0;y<n;y++)for(var x=0;x<n;x++){
+      var c=worldApi.at(x,y); if(c&&RESIDENTIAL[c.district]) cells.push([x,y]); }
+    if(!cells.length) return {residentialCells:0,sampled:0,avgPeople:0,estimatedPeople:0};
+    var step=Math.max(1,Math.floor(cells.length/nSamples)), tot=0, k=0;
+    for(var i=(opts.offset|0)%step;i<cells.length&&k<nSamples;i+=step){
+      tot+=censusForPlot(worldApi,cells[i][0],cells[i][1],opts).people; k++;
+    }
+    var avg=k?tot/k:0;
+    return {residentialCells:cells.length, sampled:k, avgPeople:+avg.toFixed(2),
+      estimatedPeople:Math.round(avg*cells.length)};
+  }
+
+  // ---- THE OFFLINE PLANE (STALKER pattern, research bank 7/19) -------------
+  // The schedule IS the offline simulation: whereAt answers "where is this
+  // person, doing what" for ANY agent at ANY turn in O(blocks), no stepping,
+  // no pathfinding. The online bubble (makeSim) is the only place bodies
+  // exist. These two views are gated to agree (population gate).
+  function offlineSummary(agents, turn){
+    var s={home:0,work:0,street:0};
+    (agents||[]).forEach(function(a){ s[whereAt(a,turn).where]++; });
+    return s;
+  }
+
+  // ---- ROOM ADVERTISEMENTS (rung 3 v1, Sims pattern, research bank 7/19) ---
+  // The people are dumb on purpose; the PLACED WORLD is smart. Rooms
+  // advertise the acts they serve, and an at-home agent's position in the
+  // house follows what its current sub-act needs: kitchen at meal times,
+  // living room through the evening, own bed room at night. Content = the
+  // floorplan Paolo's world placed; adding life to a house = the house
+  // itself, zero new brain code. Props join the advertisement table when
+  // the world grows objects.
+  var ADVERTS={bed:['sleep','rest'],kitchen:['eat'],dining:['eat'],
+    living:['idle'],bath:['wash'],hall:[],closet:[],garage:[],entry:[]};
+  // the in-house sub-act across a home block: personal breakfast window
+  // right after wake, a personal supper window, wind-down after 21:00.
+  function homeActAt(agent, turn){
+    var b=whereAt(agent,turn); if(b.where!=='home') return null;
+    if(b.act==='sleep') return 'sleep';
+    var t=tod(turn);
+    var wake=(agent.sched.length&&agent.sched[0].act==='sleep')?agent.sched[0].t1:6*60;
+    if(t>=wake&&t<wake+45) return 'eat';               // morning ration
+    var sup=18*60+(hash(agent.seed,17,3)%60);          // personal supper 18:00-19:00
+    if(t>=sup-20&&t<sup+25) return 'eat';
+    if(t>=21*60) return 'rest';
+    return 'idle';
+  }
+  var ACT_IX={sleep:1,rest:2,eat:3,idle:4,wash:5};
+  function homeSpotFor(agent, fp, turn, k){
+    if(!fp||!fp.rooms||!fp.rooms.length) return {x:1,y:1,act:'idle'};
+    var act=homeActAt(agent,turn)||'idle';
+    var cand=[];
+    fp.rooms.forEach(function(rm,ri){
+      if(act==='sleep'||act==='rest'){ if(ri===agent.home.bedRoom) cand.push(rm); }
+      else if((ADVERTS[rm.role]||[]).indexOf(act)>=0) cand.push(rm);
+    });
+    if(!cand.length&&(act==='sleep'||act==='rest'))
+      cand=fp.rooms.filter(function(rm){return rm.role==='bed';});
+    if(!cand.length) cand=fp.rooms.filter(function(rm){return rm.role==='living';});
+    if(!cand.length) cand=fp.rooms;
+    var rm2=cand[hash(agent.seed,ACT_IX[act]||0,7)%cand.length];   // stable per (agent, act)
+    var iw=Math.max(1,rm2.w-2), ih=Math.max(1,rm2.h-2), kk=(k|0);
+    var idx=(hash(agent.seed,ACT_IX[act]||0,11)+kk)%(iw*ih);       // linear index: occupants spread, never stack
+    var cx=rm2.x+1+(idx%iw), cy=rm2.y+1+((idx/iw)|0);
+    return {x:Math.min(cx,rm2.x+rm2.w-1), y:Math.min(cy,rm2.y+rm2.h-1), act:act, room:rm2.role};
+  }
+
   // ---- GENERATOR: agents for a WORLD plot ----------------------------------
   // The roadmap's sentence, literal: "an agent = {home room, work room,
   // schedule} placed BY the model." Takes world(seed) and a residential plot
@@ -284,7 +378,11 @@
       occ:{},                          // exterior occupancy 'x,y' -> agent id (caller adds player)
       playerAt:opts.playerAt||null,    // [x,y] or null; OCCUPANCY includes the player
       step:step, whereAt:whereAt, tod:function(){return tod(sim.turn);},
-      inHouse:inHouse, outAgents:outAgents
+      inHouse:inHouse, outAgents:outAgents,
+      // the household as the room advertisements place them right now
+      homeSpots:function(hi){ var fp=fpOf(hi), out=[];
+        inHouse(hi).forEach(function(a,k){ out.push({agent:a, spot:homeSpotFor(a,fp,sim.turn,k)}); });
+        return out; }
     };
     agents.forEach(function(a,ai){
       a.loc={mode:'in',x:0,y:0};       // day 0 starts at 00:00: everyone home asleep
@@ -369,6 +467,9 @@
     household:household,scheduleFor:scheduleFor,whereAt:whereAt,KINDS:KINDS,
     OCCUPIED_RATE:OCCUPIED_RATE,houseOccupied:houseOccupied,inhabitedHomes:inhabitedHomes,
     makeAgent:makeAgent,agentsForBlock:agentsForBlock,agentsForPlot:agentsForPlot,
+    censusForBlock:censusForBlock,censusForPlot:censusForPlot,sampleValley:sampleValley,
+    offlineSummary:offlineSummary,RESIDENTIAL:RESIDENTIAL,
+    ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
     jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;

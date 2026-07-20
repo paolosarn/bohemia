@@ -36,6 +36,31 @@ shifts 05:30-09:00 / scav own clock / keeper barely leaves / watch out at
 dusk), wake times spread over hours. Slice regenerated: 14 people in 6 of
 23 houses, economy panel REMOVED from the surface (parked), text cut way
 down. Verified in chromium, 0 errors.
+RUNGS 1-2 BUILT DORMANT (7/19 late, "do what you have to do next"): the
+TWO-PLANE SIM off the research bank, pure plumbing, zero surface. Population
+layer (Zomboid): censusForPlot/sampleValley in bohemia_agents - the valley
+holds people as numbers, same hashes as materialization so census ===
+bodies EXACTLY. Offline plane (STALKER): whereAt/offlineSummary = the far
+sim, zero stepping, gated cheap + gated to AGREE with the online bubble.
+Gate #POPULATION (8 checks) in bohemia_gates.py. WHAT COMES AFTER for LIFE,
+in order, all waiting: rung 3 smart advertisements (roled rooms/props
+advertise acts - needs the world's objects to exist), rung 4 bounded
+deviation + witness memory (quest fuel); resurfacing LIFE to Paolo waits on
+REAL ART (tiles + dressed rig at world scale); factions acting waits on
+Paolo's tables (FACTION_ASSIGN/DRESS/ECONOMY); economy tuning waits on the
+built world. The LIFE lane is now built to the edge of what the world's
+readiness allows.
+RUNGS 3 + 4a BUILT DORMANT (7/19 later, "do what you have to do next"):
+ROOM ADVERTISEMENTS (Sims pattern) - rooms advertise acts, at-home agents
+live through the house across the day (kitchen at meals, living evenings,
+own bed at night, occupants never stack); sim.homeSpots() feeds any future
+render; LIFE gate 20 -> 24 checks. WITNESS MEMORY (SoD pattern) -
+engine/bohemia_memory.js + gate #MEMORY (9 checks): ring-buffer minds,
+familiarity slows decay, lastSeenAcross answers "when did anyone last see
+H3-2" - THE SEED OF THE QUESTBOOK'S MISSING-PERSONS ORGAN (Q133/Q134/Q138).
+Remaining LIFE rungs all BLOCKED by design: deviation layer needs events,
+resurfacing needs real art, factions/names/money need Paolo's tables,
+economy tuning needs the built world. LIFE lane: fully built out, dormant.
 
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three
@@ -273,6 +298,14 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-11. NEW-IN-CANON SURFACING + WAVE 3 (7/19, latest): Paolo could not see his
+   newly approved clothes -- the verdict had collapsed them into the closed
+   CANON menu (deploy was fine; UI failure). LAW OF THE SURFACE now baked:
+   the freshest approved batch stays EXPANDED in a ★ NEW IN CANON section
+   (fresh:true tags -- MOVE the tag to each newest batch on promotion) until
+   superseded. Wave 3 cooking: BEDROLL, WRAP SKIRT (gap closes, diagonal
+   fold), SHIN GUARDS. structure_gate 53 checks. Tab: COOKING (3) -> NEW IN
+   CANON (19) -> COLORWAY FILLER (63) -> CANON (97).
 -10. ALL 19 STRUCTURES CANON + STRAP RULING (7/19, latest): Paolo approved
    every structure candidate (jackets, ponchos, tall boots, rolled, gear,
    bags, aprons, suspenders, tattered) -- CANON WARDROBE NOW 97 items. The
@@ -525,6 +558,32 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    TEST-HARNESS NOTE: clicking INTO the combat iframe with playwright
    page coords needs the iframe's page offset added, and a missed click
    can PAN the user camera (reset G.userPan/userZoom before screenshots).
+   BOARD BODY + COVER AI + LOOP ARMOR (7/20, passes 11-13; Paolo: "change
+   the size... integrate it better" then "got shot and it broke" + "remove
+   auto cover, work on their AI" + "more game on screen"):
+   (v11 BOARD BODY) the full-body pose-silhouette needle is DEAD — the
+   field sprite stays as you during the dial and the needle is an ARM+
+   weapon at board scale from your sprite's shoulder (the 6/28 locked
+   canon made literal). drawArmNeedle; ghost fan = arm echoes; ARML =
+   ring*(G._zb)*1.05. (v12) AIM CAM PIN: cam pinned each non-ks frame +
+   biased 35% to the target; floor bounds expand 1/zb on zoom-out (no
+   floating board); median/lane/grid overdraw. (v13) LOOP ARMOR: the rAF
+   body is try/caught, one bad frame can never freeze the game (Paolo's
+   "broke when shot" could not be reproduced headless — shot/death/
+   restart all clean — so the class got fixed; G._lastErr holds the last
+   frame error, bomb-tested). COVER AI: nobody spawns behind magic
+   cover (inCover:false all); coverSeekAI runs at the turn-end choke:
+   uncovered gunmen run up to 2.2 tiles/turn for the far side of the
+   nearest pillar until geometry covers them (verified: 0 spawn-covered,
+   2/4 reached stone in 6 turns), blades charge as before, hand cover
+   toggles remain Paolo's tool. UI COMPACT: logo 30px, WAGER + PATTERN
+   moved into the SETTINGS drawer (TABLE group), WAIT/SHOVE/NEW
+   ENCOUNTER stay at hand. Gate 96 checks, ALL GREEN.
+   PAOLO'S STANDING NOTE (7/20): "a lot of the game mechanics still
+   aren't good... look back in the plumbing" — next passes should
+   re-examine the turn/pool plumbing end-to-end (engagement modes, pop
+   vs shoot semantics on the board, chain flow on the one scene, wound/
+   attrition curve) rather than only adding features.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
