@@ -1530,6 +1530,19 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   configs). BUG CAUGHT + FIXED on the real render: the marquee had walled the entrance lane off
   from the field (single-street drive-reach failed while corners passed via the ped-walk leak) —
   moved the marquee roadside, off the lane. 9 built districts now. Stamp BUILD 7/20c.
+- golf -> LEISURE (bohemia_golf, 7/20 autonomous, research-first: golf course design guides —
+  Under Armour "Golf Course Layout 101", Keiser College of Golf, Archweb). A dead golf course
+  SECTION (a full course is ~50ha, dwarfs a 96m cell, so one cell = the clubhouse end + a few
+  holes): dead ROUGH dominates the parcel, brown mown FAIRWAYS wind through it (worm-of-discs,
+  never straight) from TEE BOXES to GREENS (each with a leaning PIN), guarded by pale SAND
+  BUNKERS + a seed-optional dry cracked WATER HAZARD; the abandoned CLUBHOUSE + two PARKING lots
+  + DRIVING RANGE (tee line + mats + downrange targets) + practice PUTTING GREEN cluster at the
+  south street entrance; a thin pale-concrete CART-PATH perimeter loop (front-nine-out/back-nine-
+  in) hugs the fairway edges with stubs to each green. Street-aware + drivable (parking + cart
+  paths reachable from the curb). Full dossier + layering; enterable clubhouse. Gate golf_gate.js
+  (12 checks/6 configs). RENDER BUG CAUGHT + FIXED: cart paths first read as a dark tree-trunk up
+  the middle (dark + thick + radial) — recolored to receding concrete, thinned, rerouted as the
+  perimeter loop; now reads unmistakably as golf. 10 built districts now. Stamp BUILD 7/20j.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
