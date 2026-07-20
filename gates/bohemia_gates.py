@@ -70,6 +70,8 @@ GATES = [
      'feed quests pick up over the phone; phoneless (homeless) only in person', False),
     ('LOOP FEED',      ['node', 'engine/bohemia_loop_feed_tests.js'],
      'the feed: every deed is a newest-first post over the recorded choice-log', False),
+    ('LOOP PROFILE',   ['node', 'engine/bohemia_loop_profile_tests.js'],
+     'the social profile: posts/quests/reach over the feed; follower scoring left empty', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

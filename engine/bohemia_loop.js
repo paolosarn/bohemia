@@ -730,6 +730,30 @@
     return posts;
   }
 
+  /* THE SOCIAL PROFILE — the readout at the top of the phone: how much you've done
+     and how far it reached. A pure projection over the feed, PLUS one deliberately
+     EMPTY content hook. Paolo 7/20: "you gain FOLLOWERS when you do cool shit." The
+     MECHANISM (tally the feed) is mine; WHAT COUNTS as cool shit and HOW MANY
+     followers a deed is worth is HIS — passed in as `scoreFn(post) -> number`.
+     With no scoreFn, reach is 0 (the weight table is EMPTY by law until he rules
+     on it). Whether followers and clout are one number or two is not decided here:
+     call this once per metric with its own scoreFn.
+       returns { posts, questsTouched, questsCompleted, reach } */
+  function socialProfile(ctx, scoreFn) {
+    const feed = buildFeed(ctx);
+    const quests = {}, completed = {};
+    let reach = 0;
+    feed.forEach(function (p) {
+      if (p.questId) quests[p.questId] = true;
+      if (p.kind === 'outcome' && p.outcome === 'COMPLETE' && p.questId) completed[p.questId] = true;
+      if (typeof scoreFn === 'function') reach += (scoreFn(p) || 0);
+    });
+    return { posts: feed.length,
+             questsTouched: Object.keys(quests).length,
+             questsCompleted: Object.keys(completed).length,
+             reach: reach };
+  }
+
   /* The player commits a grid action. This is the ONE thing that advances the
      world's grid clock by a turn (I move, you move). Animation keeps running via
      tick() every frame regardless; this only moves grid position. Returns the
@@ -761,7 +785,7 @@
   return {
     makeContext, boot, tick, commit, captureSave,
     spawnActorsForDistrict, enemyRuleForDistrict, updateDistrictLOD,
-    talkablesNear, talkTo, buildFeed,
+    talkablesNear, talkTo, buildFeed, socialProfile,
     // individual boot steps exported so each can be tested in isolation
     _steps: {
       bootFoundation, bootSave, bootHeartbeat, bootScheduler, bootWorldGen, bootFactions,
