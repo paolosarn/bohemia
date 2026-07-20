@@ -1080,6 +1080,15 @@ tilespec_gate.js (49 checks) fails if a district lacks the NOTES dossier (incl. 
 an undocumented tile, OR has a tile with no valid layer. ACT-2/3 = [PENDING Paolo]. STANDING FLOW
 (keep in mind forever): NEVER build/approve a district without its NOTES+LEGEND+LAYERING dossier
 + rerun the generator, same turn. The ¾ renderer + the interior/zoom system READ these flags.
+LAYERING IS NOW CONSUMABLE (7/19): world.js plot() exposes it live — plot.tileInfo(x,y) ->
+{code,name,layer,solid,enter}, plot.solidAt(x,y) (OCCUPANCY: does the cell block a body),
+plot.portals() (every way INTO an interior: doors/garage-ramps/tunnel-mouths/gates), and each
+building carries .enter (its interior from the dossier). world_gate.js asserts these (9 checks).
+So the render/collision/interior systems read what blocks + what you go into, not just raw codes.
+Proof: a LAYER VIEW render colors each tile by resolved layer (portals glow green) —
+scratchpad only, regenerate from bohemia_wash/medical/cemetery via K.tileLayer. NEXT for this:
+the actual interior GENERATORS the portals point to (garage decks, the crypt, the tunnel network
+[coordinate w/ LIFE]).
 
 ## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
 a corner is gonna be super important, for everything moving forward"): every road-fronting

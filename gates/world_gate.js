@@ -37,6 +37,24 @@ ok('every plot resolves without throwing (' + scanned + ' cells scanned)', threw
 ok('at least some plots expose buildings', withBuildings > 0);
 ok('every exposed building yields a fully-reachable interior', badInterior === 0);
 
+// LAYERING API (Paolo 7/19): a factory plot must expose the recorded per-tile layering so
+// the renderer/collision/interior systems can read what blocks + what you go into.
+let layPlots = 0, layBad = 0, portalsSeen = 0, entersSeen = 0;
+for (let y = 6; y < 90 && layPlots < 30; y++) for (let x = 6; x < 90 && layPlots < 30; x++) {
+  const c = w.at(x, y); if (!c) continue;
+  const p = w.plot(x, y);
+  if (!p || typeof p.tileInfo !== 'function') continue;   // only factory-district plots carry it
+  layPlots++;
+  const ti = p.tileInfo(64, 64);
+  if (!ti || !['ground', 'structure', 'overhead', 'prop', 'portal'].includes(ti.layer) || typeof p.solidAt(64, 64) !== 'boolean') layBad++;
+  const ports = p.portals();
+  if (ports.length) portalsSeen++;
+  if (p.buildings.some(b => b.enter)) entersSeen++;
+}
+ok('factory plots expose tileInfo/solidAt with a valid layer + boolean occupancy', layPlots > 0 && layBad === 0);
+ok('factory plots expose portals() — the ways into interiors', portalsSeen > 0);
+ok('buildings carry their interior (enter) from the dossier', entersSeen > 0);
+
 // determinism: same seed -> same plot building counts across a sample
 const w2 = world(12345);
 let mismatch = 0;

@@ -87,9 +87,24 @@
       if(dg && dg.mod){
         var gres=dg.mod.generate(cell.seed>>>0, {cw:1,ch:1,streets:neighborStreets(m,x,y)});
         var feet=dg.foot(gres)||[];
+        // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the
+        // renderer + collision + interior/zoom systems can READ what blocks, what you pass
+        // under, and what you go INTO — not just the raw code.
+        var legend=dg.mod.legend||{};
+        function tinfo(xx,yy){ var row=gres.g[yy]; var c=(row&&xx>=0&&xx<gres.W)?row[xx]:-1;
+          var L=legend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          return { code:c, name:L?L.name:(c===0?'dead-ground':(c<0?'(off-plot)':'?')),
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; }
         var dapi={ x:x,y:y,district:cell.district,category:KIT.category(cell.district),archetype:dg.zone,
-          block:{W:gres.W,H:gres.H,grid:gres.g,codes:true},
-          buildings: feet.map(function(f,i){ return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
+          block:{W:gres.W,H:gres.H,grid:gres.g,codes:true}, legend:legend,
+          tileInfo:tinfo,
+          solidAt:function(xx,yy){ return tinfo(xx,yy).solid; },   // OCCUPANCY: does this cell block a body
+          // PORTALS: every way INTO an interior on this plot (doors, garage ramps, tunnel mouths, gates)
+          portals:function(){ return KIT.footprints(gres.g,function(v){ var L=legend[v]; return !!(L&&KIT.tileLayer(L).layer==='portal'); })
+            .map(function(f){ var c=gres.g[f.y][f.x], L=legend[c]; return {x:f.x,y:f.y,w:f.w,h:f.h,code:c,name:L?L.name:'',enter:(L&&L.enter)||null}; }); },
+          buildings: feet.map(function(f,i){ var fc=gres.g[f.y]&&gres.g[f.y][f.x], fL=legend[fc];
+            return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
+            enter:(fL&&fL.enter)||null,                            // what this building becomes inside (from the dossier)
             floorplan:function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:dg.zone,entrance:'S'}); } }; }),
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;
