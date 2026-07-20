@@ -40,22 +40,29 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   localStorage save/restore (CITYSAVE, but position/seed/time ONLY). The .bq parser
   (engine/bohemia_bq.js — PARSE/VALIDATE only). Combat dial (works; OUT of slice
   scope). Music (done; irrelevant to slice).
-- MISSING (all paper, must be built): a QUEST RUNTIME / interpreter (the .bq is
-  parse-only; nothing executes @STAGE/@TALK/@DO — THIS IS THE CRUX), a dialogue UI,
-  an NPC system (placement + proximity "TALK" trigger), quest-aware SAVE (no flag/
-  objective/choice state saved), enterable interiors (none), an objective HUD, and
-  any content wired to run (53 quest .md + 151 questbook are DESIGN DOCS; only ONE
-  .bq exists and it's a non-canon sample).
+- BUILT 7/19 (the crux, done ahead of the build session): THE QUEST RUNTIME /
+  interpreter. engine/bohemia_quest_runtime.js now actually PLAYS a parsed .bq
+  (stages, talk nodes, entry/gate conditions, @DO verbs, objectives, COMPLETE/FAIL),
+  UI-agnostic, state as plain JSON (ready for the quest-aware save). Proven headless
+  by engine/bohemia_quest_runtime_tests.js (33/33: the reference sample played to
+  both a COMPLETE and a FAIL), wired as the QUEST RUNTIME gate. The single hardest,
+  no-prior-art piece is DONE.
+- STILL MISSING (must be built, mostly UI/wiring now): the DIALOGUE UI that renders
+  the runtime's view() and feeds choose() (on-screen say/option/HUD), an NPC system
+  (placement + proximity "TALK" trigger), the walkable harness booting into human
+  mode, a faked house exit, quest-state added to the existing CITYSAVE payload, and
+  a written playable .bq (only ONE non-canon sample exists; 53 quest .md + 151
+  questbook are DESIGN DOCS). Interiors deferred.
 SMALLEST PATH (ruthlessly scoped; BUILD IT LIKE THE COMBAT DEMO, Paolo 7/19 — a
 tight, standalone, actually-PLAYABLE demo you hold with your thumbs, NOT bolted into
 the 31MB studio; the combat demo/dial is both the proof this can be done and the
 model for how, a small touchable loop Paolo can judge by feel): 0) harness boots
 straight into human mode on a fixed seed/spawn. 1) FAKE the
 house (a 2s intro at spawn, no interior engine). 2) one static NPC sprite + adjacency
-"TALK" prompt. 3) THE DIALOGUE RUNTIME (the real build): a .bq node-walker that renders
-@SAY/@OPT, follows targets, evaluates simple gates, and executes ONLY the @DO verbs the
-one quest needs (set_flag, show_objective, complete_objective, stage advance) — implement
-for ONE quest, NOT the whole spec. 4) an objective HUD line. 5) write ONE playable .bq
+"TALK" prompt. 3) DIALOGUE — 3a the .bq INTERPRETER is DONE (engine/bohemia_quest_runtime.js, the
+QUEST RUNTIME gate: plays stages/nodes/gates/@DO/objectives to COMPLETE/FAIL, state as
+JSON). 3b the DIALOGUE UI that renders runtime.view() (say lines + tappable options)
+and calls runtime.choose() REMAINS — this is now UI work, not logic. 4) an objective HUD line. 5) write ONE playable .bq
 (the neighbor's first errand once its design is unpinned). 6) add quest state to the
 existing CITYSAVE payload. 7) prove the loop + add a slice_proof gate.
 RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
