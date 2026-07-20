@@ -70,6 +70,8 @@ GATES = [
      'dead golf course: holes (tee/fairway/green/bunker/pond), clubhouse, cart-path loop, drivable', False),
     ('STADIUM',        ['node', 'gates/stadium_gate.js'],
      'dead stadium: seating bowl, field, concourse, facade gates, light towers, parking, drivable', False),
+    ('TRUCK STOP',     ['node', 'gates/truckstop_gate.js'],
+     'dead gas/truck stop: overhead fuel canopy, pumps, store, wash, rig parking, pylon, drivable', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
      'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
     ('CRYPT',          ['node', 'gates/crypt_gate.js'],

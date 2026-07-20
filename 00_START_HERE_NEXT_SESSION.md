@@ -1611,6 +1611,18 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   explicit no-purple swatch check). PURPLE CATCH: the stands first rendered a purple-leaning gray
   -> recolored to NEUTRAL warm gray (PURPLE RESERVATION LAW), purity sweep passes. 11 built
   districts now. Stamp BUILD 7/20l.
+- truckstop (GAS STATION) -> COMMERCIAL (bohemia_truckstop, 7/20 autonomous, research-first: gas-
+  station + fuel-station site-plan guides — plan7architect, Scottsdale design guidelines,
+  architecture4design, Venture Fuels). A dead highway fuel stop (fuel = the scarcity-economy
+  currency, so this is core Bohemia): an overhead FUEL CANOPY on columns over dry rusted PUMP
+  ISLANDS, a boarded STORE/diner (enterable) + customer parking, a dead WASH bay (enterable,
+  drive-through), long pull-through BIG-RIG stalls with abandoned rigs, a blank price PYLON at the
+  street, pole lights, all on a cracked drivable FORECOURT. Filed 'truckstop' (the taxonomy home
+  for a fuel stop; category commercial). FIRST district to use the OVERHEAD layer: the canopy is
+  overhead/pass-under (solid:false) so the forecourt stays drivable UNDER it — the gate asserts
+  tileLayer(canopy)=overhead+pass-under. Street-aware + drivable. Full dossier + layering. Gate
+  truckstop_gate.js (13 checks/6 configs, incl no-purple + the overhead-canopy assertion). 12
+  built districts now. Stamp BUILD 7/20n.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
