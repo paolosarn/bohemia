@@ -50,6 +50,26 @@ its live BohemiaOvermap now IS canon (street counts match canon exactly;
 official street gate green). SAVE NOTE: suspend saves carry a seed; a save
 made on fork streets resumes with the world re-laid canon around the
 player - the world REPAIRED, not reset (flagged, not hidden).
+THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
+the streets, even the lights at night - when do I see that in the city"):
+tools/bohemia_city_lights_patch.py marries the canon powergrid
+(engine/bohemia_powergrid.js, CLUSTERED POWER 12%, LIGHT=TERRITORY) into
+the city builder the same way the streets were married. POWER=powerMap(om,
+seed) rebuilt at all 3 world-rebuild hooks (boot/reroll/save-restore). At
+night every LIVE arterial cell glows lamp-amber (~240 cells at seed 2026);
+dead circuits stay dark, freeways stay dark, the Strip keeps its own glow.
+TWO LESSONS RE-EARNED ON THE WAY (both banked in the tool + gate): (1) the
+OCCLUSION LAW again - lamps drawn in the cell pass got painted over by
+neighbor tiles/prisms AND dimmed by the end-of-frame night wash; fix =
+lamps QUEUE during the pass and draw AFTER the wash (light cuts the dark).
+(2) the city page is all let/const scope - invisible to gates and probes;
+the patch now installs window.__CITY (read-only probe surface: power/
+night/state/isoAt/rerender) so the REAL surface is interrogable forever.
+Gate #CITY TAB now 22 checks (powergrid body byte-present, 3 rebuild
+hooks, lamp-pass-after-wash, probe present). Verified: whole-map night
+view shows amber circuit clusters readable as territory. LIGHT PIERCES
+THE FOG: lamps draw full-alpha through fog-of-war - distant light is
+visible truth, per the patrol law ("read who owns a block from a rooftop").
 
 ## SESSION SCOPE AMENDED: LIFE + CITY SURFACE (Paolo 7/19: "add an additional
 ## title to this chat, like life plus tiles")
