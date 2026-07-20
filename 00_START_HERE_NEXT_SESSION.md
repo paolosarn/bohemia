@@ -328,6 +328,17 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-17. SONG-DEAD-NOT-VOICES LAW + BATCH 16 + CLOTHING SHORTCUT (7/20, latest):
+   Verdict three processed (3 canon, 4 songs down). NEW LAW (Paolo, locked):
+   graveyard is final for SONGS only -- voices/topologies from dead songs
+   stay legal, re-try them in different fashions; all "voice retired" lines
+   superseded (registry note added). BATCH 16 answers the 4 slots under the
+   law: new leads (combfake/glissharp/subharmglide/retrig) + retired voices
+   returning (ironlung bass, strikeswell/aeolianharp/sourdyad A-motifs).
+   NEW badge on 4, [PENDING verdict]. CLOTHING COOK SHORTCUT written for his
+   keyboard (laws/BOHEMIA_CLOTHING_COOK_SHORTCUT_7_20_26.md) -- when that
+   paste arrives, run the full clothing factory per its spelled-out bindings.
+   Stamp: BUILD 7/20g.
 -16. TIGHT PONCHO + HOOD TOGGLE EVERYWHERE (7/20, latest): poncho now 1px
    past the torso, arms + hands always free (gate: <15% arm coverage, zero
    px past torso+1). HOOD button on every hooded garment incl. HOOD-UP
