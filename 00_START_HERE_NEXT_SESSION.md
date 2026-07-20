@@ -36,6 +36,20 @@ shifts 05:30-09:00 / scav own clock / keeper barely leaves / watch out at
 dusk), wake times spread over hours. Slice regenerated: 14 people in 6 of
 23 houses, economy panel REMOVED from the surface (parked), text cut way
 down. Verified in chromium, 0 errors.
+RUNGS 1-2 BUILT DORMANT (7/19 late, "do what you have to do next"): the
+TWO-PLANE SIM off the research bank, pure plumbing, zero surface. Population
+layer (Zomboid): censusForPlot/sampleValley in bohemia_agents - the valley
+holds people as numbers, same hashes as materialization so census ===
+bodies EXACTLY. Offline plane (STALKER): whereAt/offlineSummary = the far
+sim, zero stepping, gated cheap + gated to AGREE with the online bubble.
+Gate #POPULATION (8 checks) in bohemia_gates.py. WHAT COMES AFTER for LIFE,
+in order, all waiting: rung 3 smart advertisements (roled rooms/props
+advertise acts - needs the world's objects to exist), rung 4 bounded
+deviation + witness memory (quest fuel); resurfacing LIFE to Paolo waits on
+REAL ART (tiles + dressed rig at world scale); factions acting waits on
+Paolo's tables (FACTION_ASSIGN/DRESS/ECONOMY); economy tuning waits on the
+built world. The LIFE lane is now built to the edge of what the world's
+readiness allows.
 
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three

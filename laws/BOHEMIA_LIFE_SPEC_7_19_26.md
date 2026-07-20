@@ -103,6 +103,20 @@ Post-collapse scarcity, real anchors:
 - A dark block holds zero grid power (CLUSTERED POWER 12% law). Scavenge
   yield halves per ~180 days of picking the same ground.
 
+## THE TWO-PLANE SIM (built 7/19 off the research bank, gate: POPULATION)
+Rungs 1-2 of the research roadmap, pure plumbing, nothing surfaced at Paolo:
+- POPULATION LAYER (Zomboid pattern): the valley holds people as NUMBERS.
+  censusForPlot runs the SAME vacancy/household hashes agentsForBlock runs,
+  so census === materialized bodies EXACTLY (gated). Non-residential cells
+  census zero (jobs are not residents). sampleValley gives a deterministic
+  sampled ESTIMATE for valley readouts (exact counts exist only per cell).
+- OFFLINE PLANE (STALKER pattern): the schedule IS the far simulation.
+  whereAt/offlineSummary answer "where is anyone, doing what" at any turn
+  with zero stepping (gated cheap: a whole day of summaries in ms). Bodies
+  exist only in the online bubble (makeSim). Gate proves the planes agree:
+  deep into long schedule blocks, simmed bodies are where the offline plane
+  says (home->in, work->away, street->out).
+
 ## THE SURFACE (judge tool, per the workflow law: interactive, never chat PNG)
 slices/BOHEMIA_LIFE_SLICE_7_19_26.html, stable pointer slices/BOHEMIA_LIFE_
 CURRENT.html, loaded by the new LIFE tab in the alpha (lazy iframe, same

@@ -197,6 +197,57 @@
     return out;
   }
 
+  // ---- THE POPULATION LAYER (Zomboid pattern, research bank 7/19) ----------
+  // The valley holds a population as NUMBERS per cell; real agent objects
+  // only materialize inside the player's bubble. The census runs the SAME
+  // vacancy + household hashes agentsForBlock runs, so the numbers and the
+  // materialized people can never disagree (gated: census === agents.length).
+  var RESIDENTIAL={suburb:1,gated:1,estate:1};
+  function censusForBlock(blockSeed, feet, rate){
+    var lived=0, people=0;
+    for(var i=0;i<feet.length;i++){
+      if(!houseOccupied(blockSeed,i,rate)) continue;
+      lived++; people+=household(hash(blockSeed,i+1,0));
+    }
+    return {homes:feet.length, lived:lived, people:people};
+  }
+  function censusForPlot(worldApi,x,y,opts){
+    opts=opts||{};
+    var cell=worldApi.at(x,y);
+    if(!cell||!RESIDENTIAL[cell.district]) return {district:cell?cell.district:null,homes:0,lived:0,people:0};
+    var plot=worldApi.plot(x,y);
+    if(!plot||!plot.buildings||!plot.buildings.length) return {district:cell.district,homes:0,lived:0,people:0};
+    var c=censusForBlock(cell.seed>>>0, plot.buildings, opts.occupiedRate);
+    c.district=cell.district; return c;
+  }
+  // deterministic sampled estimate for valley-scale readouts. An ESTIMATE,
+  // never presented as an exact count (the exact count exists per cell).
+  function sampleValley(worldApi, nSamples, opts){
+    opts=opts||{}; nSamples=nSamples||24;
+    var cells=[], n=worldApi.n;
+    for(var y=0;y<n;y++)for(var x=0;x<n;x++){
+      var c=worldApi.at(x,y); if(c&&RESIDENTIAL[c.district]) cells.push([x,y]); }
+    if(!cells.length) return {residentialCells:0,sampled:0,avgPeople:0,estimatedPeople:0};
+    var step=Math.max(1,Math.floor(cells.length/nSamples)), tot=0, k=0;
+    for(var i=(opts.offset|0)%step;i<cells.length&&k<nSamples;i+=step){
+      tot+=censusForPlot(worldApi,cells[i][0],cells[i][1],opts).people; k++;
+    }
+    var avg=k?tot/k:0;
+    return {residentialCells:cells.length, sampled:k, avgPeople:+avg.toFixed(2),
+      estimatedPeople:Math.round(avg*cells.length)};
+  }
+
+  // ---- THE OFFLINE PLANE (STALKER pattern, research bank 7/19) -------------
+  // The schedule IS the offline simulation: whereAt answers "where is this
+  // person, doing what" for ANY agent at ANY turn in O(blocks), no stepping,
+  // no pathfinding. The online bubble (makeSim) is the only place bodies
+  // exist. These two views are gated to agree (population gate).
+  function offlineSummary(agents, turn){
+    var s={home:0,work:0,street:0};
+    (agents||[]).forEach(function(a){ s[whereAt(a,turn).where]++; });
+    return s;
+  }
+
   // ---- GENERATOR: agents for a WORLD plot ----------------------------------
   // The roadmap's sentence, literal: "an agent = {home room, work room,
   // schedule} placed BY the model." Takes world(seed) and a residential plot
@@ -369,6 +420,8 @@
     household:household,scheduleFor:scheduleFor,whereAt:whereAt,KINDS:KINDS,
     OCCUPIED_RATE:OCCUPIED_RATE,houseOccupied:houseOccupied,inhabitedHomes:inhabitedHomes,
     makeAgent:makeAgent,agentsForBlock:agentsForBlock,agentsForPlot:agentsForPlot,
+    censusForBlock:censusForBlock,censusForPlot:censusForPlot,sampleValley:sampleValley,
+    offlineSummary:offlineSummary,RESIDENTIAL:RESIDENTIAL,
     jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
