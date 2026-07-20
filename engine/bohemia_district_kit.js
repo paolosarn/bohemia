@@ -7,6 +7,7 @@
 // A district generator built on the kit exposes: generate(seed,{streets}) -> a result
 // {g, W, H, streets, gates, footprints}. It registers a spec {generate, palette, body}
 // so the world model + renderers treat every district uniformly.
+// HOW TO BUILD A DISTRICT (the method + this kit's usage): laws/BOHEMIA_HOW_TO_BUILD_A_DISTRICT.md.
 (function(root){
   var SZ=128, TILE=0.75;
   function M(m){return Math.round(m/TILE);}

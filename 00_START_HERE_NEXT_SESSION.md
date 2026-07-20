@@ -1246,6 +1246,15 @@ INTERIOR===EXTERIOR LAW (Paolo 7/19, LOCKED): a building's interior floor plate 
 its exterior footprint w x h (garage clamps removed; each deck = footprint W x H; room floorplans
 already matched). CLAUDE.md law + world_gate.js hard check (interior dims === footprint dims,
 every building, 11 checks).
+HOW-TO-BUILD-A-DISTRICT PLAYBOOK (Paolo 7/19: "make instructions for even how you make
+instructions for yourself... the district kit... we're learning things together"):
+laws/BOHEMIA_HOW_TO_BUILD_A_DISTRICT.md is the read-this-BEFORE-you-build brief — the DISTRICT
+KIT (the shared machine + its helpers) and the 9-step method (research -> canonical-south on the
+kit -> street-aware/drivable via rotateToStreet -> dossier NOTES+LEGEND -> render+look -> gate ->
+wire (DISTGEN+tilespec) -> interior=exterior -> ship), plus how the self-instructions get made
+(the dossier is GENERATED, not hand-written) + a module template. district_kit_gate asserts it
+exists + covers the kit/method. So: this playbook (build) + per-district dossiers (record) + the
+tiling brief (tile) = the full self-instruction stack, all gated.
 TILING-PHASE INSTRUCTIONS (Paolo 7/19: "leave instructions for yourself when it's time to place
 tiles"): laws/BOHEMIA_TILING_PHASE_INSTRUCTIONS.md is the single read-this-when-you-tile brief —
 scale, act-1-dead, 45-degree, purple ban, layering->render/occupancy, INTERIOR===EXTERIOR,

@@ -18,6 +18,11 @@ research partner. He DECIDES, you PRODUCE.
 ## THE LAWS THAT GOVERN EVERYTHING (full text in /laws)
 - FACTORY LAW: every system is a mass-production factory: typed spec, generator,
   batch output, kill/approve pipeline, and its OWN regression gate.
+- BUILDING A DISTRICT: read laws/BOHEMIA_HOW_TO_BUILD_A_DISTRICT.md first — the
+  method (research -> canonical-south on the DISTRICT KIT -> street-aware/drivable
+  -> dossier -> render+look -> gate -> wire -> interior=exterior -> ship) and how
+  the self-instructions get made. That doc + the per-district dossiers (records/
+  tilespec/) + the tiling brief are the full build->record->tile instruction stack.
 - A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. Proven 7/16: six of nine gated
   laws were already broken. New law = new gate, same turn. `python3 gates/bohemia_gates.py`
   runs every gate; green or it does not ship.

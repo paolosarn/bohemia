@@ -61,5 +61,13 @@ ok('act 1 returns the base untouched', K.act(base, 1) === base);
 ok('act rule applies for act 2', K.act(base, 2, (r, a) => ({ tag: 'act' + a })).tag === 'act2');
 ok('act with no rule returns base', K.act(base, 3).tag === 'act1');
 
+// the HOW-TO-BUILD-A-DISTRICT playbook must exist (Paolo 7/19: "make instructions for even how
+// you make instructions for yourself... the district kit") and name the kit + the method.
+const fs = require('fs'), path = require('path'), ROOT = path.dirname(__dirname);
+const play = path.join(ROOT, 'laws', 'BOHEMIA_HOW_TO_BUILD_A_DISTRICT.md');
+const pt = fs.existsSync(play) ? fs.readFileSync(play, 'utf8') : '';
+ok('how-to-build-a-district playbook exists + covers the kit + the method',
+  pt.length > 1500 && /district_kit/.test(pt) && /rotateToStreet/.test(pt) && /RESEARCH FIRST/i.test(pt) && /DOSSIER/i.test(pt));
+
 console.log('DISTRICT KIT GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
