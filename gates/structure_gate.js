@@ -26,10 +26,10 @@ function grab(name) {
   for (let k = s; k < src.length; k++) { if (src[k] === '{') d++; else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); } }
   return null;
 }
-const NAMES = ['mix', 'bshade', 'ext', 'pExt', 'genTop', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
+const NAMES = ['mix', 'bshade', 'ext', 'pExt', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
 const bodies = NAMES.map(grab);
 ok('all seven generators + helpers found in the alpha', bodies.every(Boolean));
-const makeG = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies.join('\n') + '\nreturn {genTop,genCoat,genShoes,genPoncho,genGear,genBag,genApron};')(56, 56, dir); } catch (e) { console.log('  eval error: ' + e.message); return null; } };
+const makeG = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies.join('\n') + '\nreturn {genTop,genPants,genCoat,genShoes,genPoncho,genGear,genBag,genApron};')(56, 56, dir); } catch (e) { console.log('  eval error: ' + e.message); return null; } };
 const G = makeG('S'), GN = makeG('N'), GE = makeG('E');
 ok('generators evaluate pure (S/N/E)', [G, GN, GE].every(x => x && typeof x.genBag === 'function'));
 
@@ -134,6 +134,26 @@ if (G) {
   let solid = null, torn = null;
   try { solid = G.genTop(g, { ramp: R, sleeves: 'short' }); torn = G.genTop(g, { ramp: R, sleeves: 'short', tatter: true }); } catch (e) { console.log('  tatter err: ' + e.message); }
   ok('tattered hem is REAL missing geometry (fewer pixels than the solid cut)', solid && torn && Object.keys(torn).length < Object.keys(solid).length);
+
+  // WAVE 3: BEDROLL / WRAP SKIRT / SHIN GUARDS
+  let brN = null, brE = null, skS = null, pnS = null, sgS = null;
+  try { brN = GN.genBag(g, { ramp: R, kind: 'bedroll' }); brE = GE.genBag(g, { ramp: R, kind: 'bedroll' }); } catch (e) { console.log('  bedroll err: ' + e.message); }
+  try { skS = G.genPants(g, { ramp: R, cut: 'skirt' }); pnS = G.genPants(g, { ramp: R }); } catch (e) { console.log('  skirt err: ' + e.message); }
+  try { sgS = G.genGear(g, { ramp: R, kind: 'shinguards' }); } catch (e) { console.log('  shin err: ' + e.message); }
+  ok('bedroll renders behind + profile', brN && brE && Object.keys(brN).length >= 20 && Object.keys(brE).length >= 4);
+  if (brN) { const cols = new Set(); for (const k in brN) cols.add((+k) % CW);
+    ok('bedroll spans the full shoulder width from behind', cols.has(21) && cols.has(34)); }
+  ok('wrap skirt + pants render', skS && pnS);
+  if (skS && pnS) {
+    const cols2 = new Set(); for (const k in skS) { const y = ((+k) / 56) | 0; if (y >= 35 && y <= 40) cols2.add((+k) % 56); }
+    ok('the wrap skirt panel spans PAST the legs (a real silhouette change)', cols2.has(23) && cols2.has(32));
+    const maxY = Math.max.apply(null, Object.keys(skS).map(k => ((+k) / 56) | 0));
+    ok('the skirt hem stops mid-shin (legs show below)', maxY <= 45);
+    ok('regular pants still reach the ankle', Math.max.apply(null, Object.keys(pnS).map(k => ((+k) / 56) | 0)) >= 47);
+  }
+  ok('shin guards sit on the lower legs only', sgS && [...parts(sgS)].every(pt => pt === 9 || pt === 10) && rows(sgS).every(y => y >= 41) && Object.keys(sgS).length >= 10);
+  // NEW IN CANON surfacing (Paolo: a verdict must never hide the new clothes)
+  ok('the freshest canon batch stays visible (NEW IN CANON section)', src.indexOf('NEW IN CANON') >= 0 && /fresh:true/.test(src.slice(src.indexOf('var GARMENTS='), src.indexOf('];', src.indexOf('var GARMENTS=')))));
 
   // wiring: the five shapes actually ship as cook candidates
   const gi = src.indexOf('var GARMENTS=');

@@ -287,6 +287,14 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-11. NEW-IN-CANON SURFACING + WAVE 3 (7/19, latest): Paolo could not see his
+   newly approved clothes -- the verdict had collapsed them into the closed
+   CANON menu (deploy was fine; UI failure). LAW OF THE SURFACE now baked:
+   the freshest approved batch stays EXPANDED in a ★ NEW IN CANON section
+   (fresh:true tags -- MOVE the tag to each newest batch on promotion) until
+   superseded. Wave 3 cooking: BEDROLL, WRAP SKIRT (gap closes, diagonal
+   fold), SHIN GUARDS. structure_gate 53 checks. Tab: COOKING (3) -> NEW IN
+   CANON (19) -> COLORWAY FILLER (63) -> CANON (97).
 -10. ALL 19 STRUCTURES CANON + STRAP RULING (7/19, latest): Paolo approved
    every structure candidate (jackets, ponchos, tall boots, rolled, gear,
    bags, aprons, suspenders, tattered) -- CANON WARDROBE NOW 97 items. The
