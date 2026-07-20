@@ -50,6 +50,8 @@ GATES = [
      'occupancy, beat, world clock', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
+    ('QUEST RUNTIME',  ['node', 'engine/bohemia_quest_runtime_tests.js'],
+     'the .bq runtime plays a quest to COMPLETE/FAIL', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
