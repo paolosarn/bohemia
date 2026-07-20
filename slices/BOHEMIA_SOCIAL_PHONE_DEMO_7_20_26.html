@@ -1,0 +1,280 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>BOHEMIA — The Phone (systems preview)</title>
+<!-- Drives the REAL engine modules (no copies, ENGINE SYNC safe). This is a
+     SYSTEMS PREVIEW of the phone's data layer Paolo asked to see: the feed, quest
+     pickups (over the phone vs pull-up-in-person), the quest log, and the social
+     profile with followers. UI is placeholder; the DATA is the real thing running
+     live off engine/bohemia_loop.js. Quests here are throwaway demo text, NOT canon. -->
+<script src="../engine/bohemia_engine.js"></script>
+<script src="../engine/bohemia_scheduler.js"></script>
+<script src="../engine/bohemia_bq.js"></script>
+<script src="../engine/bohemia_quest_runtime.js"></script>
+<script src="../engine/bohemia_loop.js"></script>
+<style>
+  :root{ --bg:#e9edf2; --card:#fff; --ink:#10151c; --dim:#5b6675; --line:#d3dae2;
+         --accent:#1666e8; --good:#128a3a; --gold:#b8860b; --lock:#8a94a3; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; background:#c3ccd6; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  #phone{ max-width:430px; margin:0 auto; min-height:100vh; background:var(--bg);
+    display:flex; flex-direction:column; position:relative; }
+  .statusbar{ background:#0b0f14; color:#fff; font-size:12px; padding:6px 16px;
+    display:flex; justify-content:space-between; letter-spacing:.3px; }
+  .profile{ background:#0b0f14; color:#fff; padding:16px 16px 14px; }
+  .phandle{ font-weight:700; font-size:17px; }
+  .psub{ color:#9aa6b4; font-size:12px; margin-top:2px; }
+  .pstats{ display:flex; gap:18px; margin-top:12px; }
+  .pstat b{ font-size:18px; display:block; }
+  .pstat span{ font-size:11px; color:#9aa6b4; text-transform:uppercase; letter-spacing:.5px; }
+  .followers b{ color:#4ea1ff; }
+  .objbar{ background:#fff7df; color:#6b5a12; font-size:13px; padding:8px 16px;
+    border-bottom:1px solid var(--line); display:flex; gap:8px; align-items:center; }
+  .objbar.empty{ display:none; }
+  .screen{ flex:1; overflow-y:auto; padding:10px 12px 84px; }
+  .tabs{ position:sticky; bottom:0; display:flex; background:#fff; border-top:1px solid var(--line);
+    position:fixed; left:0; right:0; max-width:430px; margin:0 auto; }
+  .tab{ flex:1; text-align:center; padding:11px 0 13px; font-size:12px; color:var(--dim); }
+  .tab.active{ color:var(--accent); font-weight:700; }
+  .tab .ic{ display:block; font-size:19px; margin-bottom:2px; }
+  h2.sec{ font-size:12px; text-transform:uppercase; letter-spacing:.7px; color:var(--dim);
+    margin:14px 4px 8px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:13px 14px; margin-bottom:10px; }
+  .post .who{ font-weight:700; font-size:14px; }
+  .post .who .badge{ font-weight:600; font-size:11px; color:#fff; background:var(--good);
+    border-radius:6px; padding:1px 6px; margin-left:6px; }
+  .post .who .badge.choice{ background:#5b6675; }
+  .post .txt{ font-size:14px; margin-top:5px; line-height:1.35; }
+  .post .meta{ font-size:11px; color:var(--dim); margin-top:8px; }
+  .offer .title{ font-weight:700; font-size:15px; }
+  .offer .by{ font-size:12px; color:var(--dim); margin-top:2px; }
+  .offer .row{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+  .chan{ font-size:11px; padding:3px 8px; border-radius:20px; }
+  .chan.feed{ background:#e4efff; color:var(--accent); }
+  .chan.inperson{ background:#f2e6d0; color:var(--gold); }
+  button{ font:inherit; border:0; border-radius:10px; padding:9px 15px; font-weight:600;
+    background:var(--accent); color:#fff; }
+  button.ghost{ background:#eef1f5; color:var(--ink); }
+  button:disabled{ background:#eef1f5; color:var(--lock); }
+  .locknote{ font-size:12px; color:var(--gold); margin-top:8px; }
+  .empty-state{ text-align:center; color:var(--dim); padding:40px 20px; font-size:14px; }
+  /* dialogue overlay */
+  #overlay{ position:fixed; inset:0; background:rgba(6,10,16,.55); display:none;
+    align-items:flex-end; justify-content:center; z-index:20; }
+  #overlay.on{ display:flex; }
+  .sheet{ background:var(--bg); width:100%; max-width:430px; border-radius:18px 18px 0 0;
+    padding:16px 16px 22px; max-height:82vh; overflow-y:auto; }
+  .sp{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.6px;
+    color:var(--accent); }
+  .say{ font-size:16px; line-height:1.4; margin:8px 0 4px; }
+  .opt{ display:block; width:100%; text-align:left; background:#fff; color:var(--ink);
+    border:1px solid var(--line); border-radius:12px; padding:13px 14px; margin-top:9px; font-weight:600; }
+  .opt .ar_g{ float:right; color:var(--lock); font-weight:400; }
+  .banner{ text-align:center; font-weight:800; font-size:17px; padding:14px; border-radius:12px; margin-top:6px; }
+  .banner.win{ background:#d8f5e0; color:var(--good); }
+  .disclaimer{ font-size:11px; color:var(--dim); text-align:center; padding:14px 20px 4px; }
+</style>
+
+<div id="phone">
+  <div class="statusbar"><span>BOHEMIA</span><span id="clock">the valley · live</span></div>
+
+  <div class="profile">
+    <div class="phandle" id="handle">@founder_gen1</div>
+    <div class="psub">Bohemia · post-collapse Las Vegas</div>
+    <div class="pstats">
+      <div class="pstat followers"><b id="st-foll">0</b><span>followers</span></div>
+      <div class="pstat"><b id="st-posts">0</b><span>posts</span></div>
+      <div class="pstat"><b id="st-done">0</b><span>quests done</span></div>
+    </div>
+  </div>
+
+  <div class="objbar empty" id="objbar"><span>◎</span><span id="obj-text"></span></div>
+
+  <div class="screen" id="screen"></div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="feed" onclick="setTab('feed')"><span class="ic">📰</span>Feed</div>
+    <div class="tab" data-tab="offers" onclick="setTab('offers')"><span class="ic">📍</span>Quests</div>
+    <div class="tab" data-tab="log" onclick="setTab('log')"><span class="ic">🗂️</span>Log</div>
+    <div class="tab" data-tab="profile" onclick="setTab('profile')"><span class="ic">👤</span>Me</div>
+  </div>
+</div>
+
+<div id="overlay" onclick="if(event.target.id==='overlay')closeTalk()">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+/* ---- boot the REAL engine ---------------------------------------------------- */
+var Loop = window.BohemiaLoop, Sched = window.BohemiaScheduler;
+var ctx = Loop.boot({ seed:'bohemia' });
+
+/* a demo player actor so "pull up on them" is a real adjacency, not a fake */
+var player = Sched.makeActor({ id:'player', tile:{x:0,y:0}, isPlayer:true, layer:'player' });
+Sched.addActor(ctx.scheduler, player);
+
+/* PLACEHOLDER follower scoring (Paolo owns the real rule; this is a stand-in so the
+   number visibly moves): a completed quest is worth 50, any other post 5. */
+function FOLLOWER_SCORE(post){ return (post.kind==='outcome' && post.outcome==='COMPLETE') ? 50 : 5; }
+
+/* ---- throwaway DEMO quests (NOT canon) --------------------------------------- */
+function demoQuest(id,title,who,l1,o1,l2,l3){
+  /* a clean two-screen conversation that completes in one sitting: intro -> a
+     follow-up line -> the accept option that finishes the objective. */
+  return ['@QUEST '+id+'  '+title, '@ACT 1', '@ONCE true',
+    '@STAGE 10','  @DO show_objective 10','@STAGE 20 COMPLETE',
+    '@OBJ 10 "'+o1+'"',
+    '@TALK hi speaker='+who+' entry=stage>=10',
+    '  @SAY '+l1,
+    '  @OPT "'+l2+'" [gate: none] -> hi2',
+    '@END',
+    '@TALK hi2 speaker='+who,
+    '  @SAY '+ '"so that is the ask. you in?"',
+    '  @OPT "'+l3+'" [gate: none] @DO complete_objective 10 @DO set_stage 20 -> END',
+    '@END'
+  ].join('\n');
+}
+/* over the phone */
+ctx.quests.place(demoQuest('waterrun','Water Run','trader',
+  '"my hauler cracked a valve near the wash. cap it and the block drinks tonight."',
+  'Cap the valve at the wash','how bad is it?','i will cap it'),
+  { x:40,y:40, speaker:'trader', channel:'feed' });
+ctx.quests.place(demoQuest('rooftop','Rooftop Antenna','signalman',
+  '"the feed goes dead on the east blocks. help me raise the antenna."',
+  'Raise the east antenna','what is out there?','lets raise it'),
+  { x:44,y:41, speaker:'signalman', channel:'feed' });
+/* in person only (phoneless) */
+ctx.quests.place(demoQuest('tunnelfavor','Tunnel Favor','king_hobo',
+  '"no phones down here, kid. thats why you had to walk. carry a word to the surface for me."',
+  'Carry the tunnel word up','who are you?','ill carry it'),
+  { x:90,y:90, speaker:'king_hobo', channel:'inperson' });
+
+/* ---- UI ---------------------------------------------------------------------- */
+var TAB='feed', openQuestId=null;
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+
+function refreshTop(){
+  var prof = Loop.socialProfile(ctx, FOLLOWER_SCORE);
+  el('st-foll').textContent = prof.reach;
+  el('st-posts').textContent = prof.posts;
+  el('st-done').textContent = prof.questsCompleted;
+  var objs = ctx.quests.activeObjectives();
+  var bar = el('objbar');
+  if(objs.length){ bar.classList.remove('empty'); el('obj-text').textContent = objs[0].text + (objs.length>1?('  (+'+(objs.length-1)+' more)'):''); }
+  else bar.classList.add('empty');
+}
+
+function setTab(t){ TAB=t; [].forEach.call(document.querySelectorAll('.tab'),function(x){ x.classList.toggle('active', x.dataset.tab===t); }); render(); }
+
+function render(){
+  refreshTop();
+  var s = el('screen'), h='';
+  if(TAB==='feed'){
+    var feed = Loop.buildFeed(ctx);
+    if(!feed.length) h += '<div class="empty-state">Nothing on the feed yet.<br>Go do something worth posting.</div>';
+    feed.forEach(function(p){
+      var isOut = p.kind==='outcome';
+      var badge = isOut ? '<span class="badge">'+esc(p.outcome)+'</span>' : '<span class="badge choice">did a thing</span>';
+      var line = isOut ? ('Wrapped up "'+esc(p.title)+'". It is done.') : ('Made a call on "'+esc(p.title)+'".');
+      h += '<div class="card post"><div class="who">'+esc(p.title||'You')+badge+'</div>'+
+           '<div class="txt">'+line+'</div><div class="meta">gen '+p.gen+' · beat '+p.beat+' · remembered on the feed</div></div>';
+    });
+  }
+  else if(TAB==='offers'){
+    h += '<h2 class="sec">Available over the phone</h2>';
+    var offers = ctx.quests.feedOffers();
+    if(!offers.length) h += '<div class="empty-state">No open quests on the feed.</div>';
+    offers.forEach(function(o){
+      h += '<div class="card offer"><div class="title">'+esc(o.title)+'</div>'+
+           '<div class="by">from @'+esc(o.speaker||'someone')+'</div>'+
+           '<div class="row"><span class="chan feed">📱 over the phone</span>'+
+           '<button onclick="openTalk(\''+o.questId+'\')">Pick up</button></div></div>';
+    });
+    /* in-person: NOT on the feed. must pull up. */
+    h += '<h2 class="sec">Not on the feed &middot; go find them</h2>';
+    var anyInPerson=false;
+    ctx.quests.placements().forEach(function(pl){
+      if(pl.channel!=='inperson') return;
+      var rt = ctx.quests.get(pl.questId); if(!rt || rt.state.done) return;
+      anyInPerson=true;
+      var near = Loop.talkablesNear(ctx, player.tile.x, player.tile.y, 1).some(function(t){return t.questId===pl.questId;});
+      h += '<div class="card offer"><div class="title">'+esc(rt.Q.title)+'</div>'+
+           '<div class="by">@'+esc(pl.speaker||'?')+' has no phone</div>'+
+           '<div class="row"><span class="chan inperson">🚶 in person only</span>'+
+           (near ? '<button onclick="openTalk(\''+pl.questId+'\')">Talk</button>'
+                 : '<button class="ghost" onclick="pullUp(\''+pl.questId+'\')">Pull up on them</button>')+'</div>'+
+           (near ? '' : '<div class="locknote">You cannot get this one over the phone. Walk over to them.</div>')+'</div>';
+    });
+    if(!anyInPerson) h += '<div class="empty-state" style="padding:16px">(none nearby)</div>';
+  }
+  else if(TAB==='log'){
+    var j = ctx.quests.journal();
+    if(!j.length) h += '<div class="empty-state">No quests yet.</div>';
+    j.forEach(function(q){
+      var stat = q.done ? ('<span class="chan feed">'+esc(q.outcome)+'</span>') : '<span class="chan inperson">active</span>';
+      var objs = q.objectives.map(function(o){ return '<div class="txt">'+(o.status==='done'?'✅':'◎')+' '+esc(o.text)+'</div>'; }).join('');
+      h += '<div class="card"><div class="who">'+esc(q.title)+' '+stat+
+           '  <span class="meta">via '+(q.channel==='inperson'?'in person':'the phone')+'</span></div>'+objs+'</div>';
+    });
+  }
+  else if(TAB==='profile'){
+    var prof = Loop.socialProfile(ctx, FOLLOWER_SCORE);
+    h += '<div class="card"><div class="who">@founder_gen1</div>'+
+         '<div class="txt">'+prof.reach+' followers · '+prof.posts+' posts · '+prof.questsCompleted+' quests done · '+prof.questsTouched+' touched</div></div>';
+    h += '<div class="disclaimer">Follower number uses a PLACEHOLDER score (complete = 50, other = 5). '+
+         'What actually counts as cool shit, and how many followers it is worth, is Paolo\'s call. '+
+         'The feed, pickups, log, and this profile are all live off the real engine.</div>';
+  }
+  s.innerHTML = h;
+}
+
+/* simulate walking over to a phoneless NPC: snap the player next to them */
+function pullUp(qid){
+  var pl = ctx.quests.placements().filter(function(p){return p.questId===qid;})[0];
+  if(!pl) return;
+  player.tile = { x:pl.x-1, y:pl.y };   // step-adjacent
+  render();                              // now the "Talk" button appears (talkablesNear sees them)
+}
+
+function openTalk(qid){
+  var rt = ctx.quests.get(qid); if(!rt) return;
+  var node = rt.available()[0] || 'hi';
+  openQuestId = qid;
+  var view = Loop.talkTo(ctx, qid, node);
+  drawSheet(view);
+  el('overlay').classList.add('on');
+}
+function drawSheet(view){
+  var h='';
+  if(!view || view.ended){
+    h += '<div class="banner win">'+(view&&view.outcome?esc(view.outcome):'DONE')+'</div>'+
+         '<button style="width:100%;margin-top:12px" onclick="closeTalk()">Back to the phone</button>';
+    el('sheet').innerHTML=h; return;
+  }
+  h += '<div class="sp">'+esc(view.speaker||'')+'</div>';
+  (view.says||[]).forEach(function(s){ h += '<div class="say">'+esc(s)+'</div>'; });
+  (view.options||[]).forEach(function(o){
+    h += '<button class="opt" onclick="choose('+o.i+')">'+esc(o.text)+
+         (o.to&&o.to!=='END'?'<span class="ar_g">›</span>':'')+'</button>';
+  });
+  if(!(view.options||[]).length){
+    h += '<button class="opt" onclick="closeTalk()">(leave)</button>';
+  }
+  el('sheet').innerHTML=h;
+}
+function choose(i){
+  var rt = ctx.quests.get(openQuestId); if(!rt) return;
+  var view = rt.choose(i);
+  if(view && view.done && (!view.options||!view.options.length) && view.ended){
+    drawSheet({ended:true, outcome:view.outcome});
+  } else {
+    drawSheet(view);
+  }
+  refreshTop();
+}
+function closeTalk(){ el('overlay').classList.remove('on'); openQuestId=null; render(); }
+
+render();
+window.__ready = true;   // for headless verification
+</script>
