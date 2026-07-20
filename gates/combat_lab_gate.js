@@ -374,10 +374,19 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('the chosen man wears the selection ring', demo.includes('your chosen man'));
   // v10 ONE SCENE: the zoomed board IS the aim stage, no duplicates
   ok('ONE SCENE: exact zoom, full opacity, aim opts into drawField',
-    demo.includes('ONE SCENE V10') && demo.includes('drawField(ctx,W,H,cx,cy,{dial:true});') &&
+    demo.includes('ONE SCENE V10') && demo.includes('drawField(ctx,W,H,cx,cy,{dial:true,zb:zb});') &&
     !demo.includes("ctx.globalAlpha=0.85;"));
-  ok('no duplicate player during the dial (the sweeping pose IS you)',
-    demo.includes('the sweeping pose IS you'));
+  // v11 BOARD BODY + v12 cam pin
+  ok('BOARD BODY: the field sprite IS you during the dial; the needle is an arm at board scale',
+    demo.includes('BOARD BODY V11') && demo.includes('function drawArmNeedle(') &&
+    !demo.includes('drawPose(ctx,cx,cy,ga,S,0.005*i,true)') &&
+    !demo.includes('drawPose(ctx,pcx,pcy,ang,S,1,false)'));
+  ok('the arm lives at board scale (reads the aim zoom)',
+    demo.includes("Math.min(W,H)*0.085*(G._zb||2)*1.05"));
+  ok('AIM CAM PIN: no stale killshot offsets, scene biased toward the target',
+    demo.includes('AIM CAM PIN V12'));
+  ok('floor bounds expand for zoom-out shots (no floating board)',
+    demo.includes('const spanF=(aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1;'));
   ok('ghost cells + threat lines stay out of the shot',
     demo.includes('never during the dial') && demo.includes('if(!aimo)for(const e of G.e)'));
   ok('corpses ride the grid-true ruler',
