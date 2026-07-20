@@ -756,13 +756,94 @@ function pickTarget(){ const pool=modePool(); if(!pool.length)return -1;
     return demo
 
 
+def patch10(demo):
+    """v10 (Paolo 7/20: 'you literally slapped it on top of it instead of
+    it being what it actually is'): ONE SCENE. v9 layered the board UNDER
+    the dial stage, so two worlds drew at once (field player + pose-
+    silhouette needle, clutter cells, dimmed tiles, target not under the
+    reticle because of the zoom clamp). Now: during aim the zoomed board
+    IS the stage — exact zoom puts the real target token precisely at the
+    wedge rim where the needle sweeps; the field's player token hides
+    (the sweeping pose silhouette IS you); ghost cells and threat lines
+    stay out of the shot; full opacity. Also: corpses join the grid-true
+    mapping (they were still on the old nonlinear radius)."""
+    if 'ONE SCENE V10' in demo:
+        print('v10 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, "function drawField(x,W,H,cx,cy){", "function drawField(x,W,H,cx,cy,aimo){", 'field-sig')
+
+    # threat lines: not during the dial
+    demo = sub1(demo, """\
+  for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e);
+    const hot=out&&!myCoverAgainst(e.ea,e.edist);
+    const red=hot&&(e.melee||(e.acq||0)>=1);
+    const acqing=hot&&!red;   /* first-turn bead: the warning line */""", """\
+  if(!aimo)for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e);
+    const hot=out&&!myCoverAgainst(e.ea,e.edist);
+    const red=hot&&(e.melee||(e.acq||0)>=1);
+    const acqing=hot&&!red;   /* first-turn bead: the warning line */""",
+        'lines-aimo')
+
+    # ghost cells: not during the dial
+    demo = sub1(demo, """\
+  // my 3x3 self-cover ring
+  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];""", """\
+  // my 3x3 self-cover ring (never during the dial — the scene stays clean)
+  if(!aimo){
+  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];""",
+        'cells-aimo-open')
+    demo = sub1(demo, """\
+      x.beginPath();x.arc(cxx,cyy,ring*0.3,ang-0.85,ang+0.85);x.stroke(); } }
+  // me: the pers""", """\
+      x.beginPath();x.arc(cxx,cyy,ring*0.3,ang-0.85,ang+0.85);x.stroke(); } } }
+  // me: the pers""",
+        'cells-aimo-close')
+
+    # the field player hides during aim — the sweeping pose IS you
+    demo = sub1(demo, """\
+// me: the person, same size as every other human on the field
+  if(SPR.ready&&SPR.cv.S){""", """\
+// me: the person, same size as every other human on the field
+  if(aimo){ /* ONE SCENE: during the dial the sweeping pose IS you — no duplicate body */ }
+  else if(SPR.ready&&SPR.cv.S){""",
+        'player-aimo')
+
+    # corpses join the grid-true ruler
+    demo = sub1(demo,
+        "    const rr=rMin+Math.max(0,Math.min(1,(c.edist-PT_BLANK)/(MAX_RANGE-PT_BLANK)))*(rMax-rMin);",
+        "    const rr=c.edist*ring;   /* grid-true: the dead lie on the same ruler as the living */",
+        'corpse-grid')
+
+    # exact zoom, full opacity, one scene
+    demo = sub1(demo, """\
+  { const ring0=Math.min(W,H)*0.085; const tgtE=G.e[G.fireTarget];
+    const zb=tgtE?Math.max(0.9,Math.min(3.2,(RAD*1.18)/(Math.max(1.2,tgtE.edist)*ring0))):2.0;
+    ctx.save();
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    ctx.globalAlpha=0.85;                                   /* the board carries the scene; the dial stays boss */
+    drawField(ctx,W,H,cx,cy);
+    ctx.globalAlpha=1; ctx.restore(); }""", """\
+  { /* ONE SCENE V10 (ZOOMED BOARD V9 corrected): EXACT zoom — the real
+       target token stands precisely at RAD*1.18 where the needle sweeps
+       and the reticle locks. No dimming, no duplicates: this IS the shot. */
+    const ring0=Math.min(W,H)*0.085; const tgtE=G.e[G.fireTarget];
+    const zb=tgtE?Math.max(0.35,Math.min(3.6,(RAD*1.18)/(Math.max(0.8,tgtE.edist)*ring0))):2.0;
+    ctx.save();
+    ctx.translate(cx,cy); ctx.scale(zb,zb); ctx.translate(-cx,-cy);
+    drawField(ctx,W,H,cx,cy,{dial:true});
+    ctx.restore(); }""",
+        'one-scene')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))
+    patched = patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

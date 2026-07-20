@@ -495,6 +495,26 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    deploys green; the always-fresh sw.js is correct; the b64-packed
    demo is NOT plaintext-greppable in the alpha (gate decodes it — do
    not repeat my false clobber scare, check with the gate).
+   ONE SCENE (7/20, pass 10; Paolo on v9: "you literally slapped it on
+   top of it instead of it being what it actually is" — he was right):
+   v9 layered the board UNDER the intact dial stage = two worlds at once
+   (field player + pose-silhouette needle, ghost cells, dimmed tiles,
+   clamped zoom putting the target away from the reticle). v10 makes the
+   zoomed board THE stage: EXACT zoom (zb=RAD*1.18/(edist*ring), clamp
+   0.35-3.6) puts the real target token precisely at the wedge rim where
+   the needle sweeps and the reticle locks; drawField grew an aim mode
+   ({dial:true}) that hides the player token (the canon sweeping POSE is
+   you), ghost cells and threat lines; full opacity; corpses moved onto
+   the grid-true ruler (they were still nonlinear). enterAim already
+   faces the target (canon), so the wedge points at your PICK. Gate 90
+   checks, ALL GREEN, chromium-verified with clean screenshots (selected
+   blade at the rim under the reticle). KNOWN AESTHETIC OPEN: the pose
+   needle draws at dial scale OUTSIDE the board zoom, so at far shots
+   (zb<1) it reads bigger than board sprites — if Paolo flags it, scale
+   the pose layer by zb or draw the arm on the board player.
+   TEST-HARNESS NOTE: clicking INTO the combat iframe with playwright
+   page coords needs the iframe's page offset added, and a missed click
+   can PAN the user camera (reset G.userPan/userZoom before screenshots).
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
