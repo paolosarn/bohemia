@@ -328,6 +328,13 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-15. HOOD BACK-COVER + TOGGLE + RAIN RULE (7/20, latest): Paolo's screenshot
+   ruling -- from N/NE/NW the hood LAYERS OVER the face, zero skin slits
+   (face stays open from the front). Baked into genTop hoodUp + genPoncho
+   hood; gate asserts back faceCov 100%. Wave 4 all CANON (his words), 
+   wardrobe 167, bank re-extracted. HOOD TOGGLE on all 8 hoodies (CLO_HOODUP
+   per square). RAIN RULE recorded: rain auto-raises hoods (no umbrella) --
+   hook exists, weather belongs to LIFE/world. Stamp: BUILD 7/20c.
 -14. BUILD WATCHER + WAVE 4 (7/20, latest): third "nothing new" -- deployed
    bytes were right; causes were the always-open stale tab + no unjudged
    clothes. BUILD WATCHER now lives in the page (2-min + on-focus network
