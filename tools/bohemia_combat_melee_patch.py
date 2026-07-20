@@ -1155,13 +1155,83 @@ if(sb)sb.addEventListener('click',doShove);
     return demo
 
 
+def patch15(demo):
+    """v15 (Paolo 7/20, with the tunnel screenshot): the recursive-tunnel /
+    smeared-bodies screen was a LEAKED CANVAS TRANSFORM — when a frame
+    throws between save() and restore(), the half-applied zoom survives
+    and compounds every frame (v13's armor kept the game alive but wore
+    the leak). THE CLASS FIX:
+    - draw() hard-resets the transform AND clears the canvas at frame
+      start — nothing survives a frame, ever.
+    - the loop-armor catch also resets the transform and paints a small
+      ERR chip with the message so the underlying error becomes visible
+      and reportable instead of invisible.
+    - the street floor now outruns ANY zoom (user pinch included) and any
+      pan — no more small floating board ('make the world map bigger').
+    - the FIRST fight at boot shuffles its faction too (newEncounter
+      already did; boot stayed on CUSTOM, which read as no-shuffle)."""
+    if 'HARD RESET V15' in demo:
+        print('v15 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, """\
+function draw(){
+  applyShake();
+  const W=cv.width,H=cv.height;""", """\
+function draw(){
+  ctx.setTransform(1,0,0,1,0,0);               /* HARD RESET V15: no transform survives a frame */
+  ctx.clearRect(0,0,cv.width,cv.height);       /* no stale pixels either — the tunnel dies here */
+  applyShake();
+  const W=cv.width,H=cv.height;""",
+        'hard-reset')
+    demo = sub1(demo,
+        " }catch(_le){ G._lastErr=String(_le); try{console.error('BOHEMIA frame error',_le);}catch(_e2){} }",
+        """ }catch(_le){ G._lastErr=String(_le);
+   try{ctx.setTransform(1,0,0,1,0,0);}catch(_e3){}
+   try{console.error('BOHEMIA frame error',_le);}catch(_e2){}
+   try{ctx.fillStyle='rgba(220,70,45,0.95)';ctx.font='10px monospace';
+     ctx.fillText('ERR '+String(_le).slice(0,70),8,12);}catch(_e4){} }""",
+        'armor-reset')
+    demo = sub1(demo,
+        "    const spanF=(aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1;   /* zoom-out shots need a wider board */",
+        """    const uzS=(G.userZoom&&G.userZoom<1)?1/G.userZoom:1;
+    const panT=Math.ceil((Math.abs((G.userPan&&G.userPan.x)||0)+Math.abs((G.userPan&&G.userPan.y)||0))/(t*(G.userZoom||1)))+2;
+    const spanF=(((aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1)*uzS)*1.25;   /* the board outruns ANY zoom or pan */""",
+        'floor-uz-span')
+    demo = sub1(demo,
+        "    const gx0=Math.floor(offx-(cx/t)*spanF)-1, gx1=Math.floor(offx+((W-cx)/t)*spanF)+1;\n    const gy0=Math.floor(offy-(cy/t)*spanF)-1, gy1=Math.floor(offy+((H-cy)/t)*spanF)+1;",
+        "    const gx0=Math.floor(offx-(cx/t)*spanF)-panT, gx1=Math.floor(offx+((W-cx)/t)*spanF)+panT;\n    const gy0=Math.floor(offy-(cy/t)*spanF)-panT, gy1=Math.floor(offy+((H-cy)/t)*spanF)+panT;",
+        'floor-pan-bounds')
+    demo = sub1(demo,
+        "function setupCombat(){ setupEnemies(); updateGeomCover(); buildBoard();",
+        "function setupCombat(){ if(G.factionShuffle)try{pickRandomFaction();}catch(_e){}   /* V15: the FIRST fight shuffles too */\n  setupEnemies(); updateGeomCover(); buildBoard();",
+        'boot-shuffle')
+    return demo
+
+
+def patch16(demo):
+    """v16: the music studio's boot push was killing the shuffle default
+    every time the COMBAT tab opened (userPicked persists from an old
+    studio pick). Per Paolo's 7/20 ruling, studio pushes steer the
+    CURRENT song; SHUFFLE stays the encounter default unless the studio
+    is live-driving (m.audit)."""
+    if 'SHUFFLE stays the encounter default' in demo:
+        print('v16 already applied, skipping')
+        return demo
+    demo = sub1(demo,
+        "      G.faction=m.faction; G.factionShuffle=false; _seq.step=0;",
+        "      G.faction=m.faction; if(m.audit)G.factionShuffle=false; _seq.step=0;   /* V16 (Paolo 7/20): studio pushes steer the CURRENT song; SHUFFLE stays the encounter default unless the studio is live-driving */",
+        'shuffle-survives-push')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))
+    patched = patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
