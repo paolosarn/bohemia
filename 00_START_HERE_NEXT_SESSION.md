@@ -67,6 +67,17 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   [PENDING future: whether to EXTRACT the monolith's Save/Generations into modular
   files is a deliberate refactor (preserve the determinism laws + 80 tests), NOT a
   fresh parallel rewrite.]
+- ACCESS SPINE (Paolo 7/19: "any part of the game can pull from it at any time"):
+  the pull-from-anywhere architecture already exists — engine/bohemia_loop.js's
+  GameContext (ctx), the single object every system hangs off (rng/clock/world/save/
+  scheduler/worldMap/folds/...). It boots clean. The quest runtime was the one silo;
+  now WIRED as ctx.quests (bootQuests + a QuestManager wrapping BQ+BQRuntime),
+  save-bridged (in-flight quests resume on reload). Gated: LOOP QUESTS (12/12).
+  RULE GOING FORWARD: any new system hangs off the GameContext, never a silo.
+  KNOWN INCOMPLETE (next wiring gaps, not touched): the loop's bootFactions/
+  bootEconomy/bootEntities are still [SEAM]/[GAP] empty stubs, and the old
+  gates/bohemia_loop_gate.js is ORPHANED (crashes, not in the suite, expects those
+  poured). Pouring those sockets is a real future task.
 - STILL MISSING (the WITH-PAOLO walkable build): the walkable harness booting into
   human mode, a faked house exit, an NPC system (placement + proximity "TALK"),
   WIRING the dialogue UI + save into the walking world, and a written playable .bq
