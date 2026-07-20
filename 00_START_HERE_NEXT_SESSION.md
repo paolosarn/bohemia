@@ -584,6 +584,23 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    re-examine the turn/pool plumbing end-to-end (engagement modes, pop
    vs shoot semantics on the board, chain flow on the one scene, wound/
    attrition curve) rather than only adding features.
+   THE FEEL PASS (7/20, pass 14; Paolo's big list): logo REMOVED from the
+   fight + view starts wide (userZoom 0.82). CHAIN SKILL: how many people
+   you can shoot in one turn is now a SKILL setting 1..8 (settings,
+   default 3; '8 perfect kills = 1 turn' stays the ceiling at max) —
+   verified: skill 2 killed exactly 2 then the turn ended. WEAPON READ:
+   every body draws what it holds pointed at you (spear pole, bat club,
+   shiv blade, gun barrel) so blades vs guns read at a glance (answers
+   his LOS confusion — the pools were right, the READ was missing).
+   MISS CINEMATIC: every return volley plays the quick incoming camera
+   even on an all-miss (you always see WHO shot at you) — verified via
+   forced-miss volley. AIM CAM GLIDE: the player's own pan/zoom framing
+   eases (k=0.14) into the shot framing when the dial opens; settings
+   toggle AIM CAM GLIDE/SNAP. The aiming arm's gun reads per weapon
+   (pistol short, rifle long + stock). Gate 102 checks, ALL GREEN.
+   OWED (his ask, bigger lift): the REAL rig gun-pose animation (the
+   alpha's _gun aim frames) on the combat field sprites instead of the
+   drawn arm — needs the rig bake piped into the demo's SPR sheets.
    RHYTHM IDEAS BATCH DELIVERED (Paolo: "give me more good ideas"):
    laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md — 8 pitched, none built:
    1 FACTION RHYTHM IDENTITY (fighters inherit their faction's swing/feel
