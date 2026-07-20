@@ -54,6 +54,8 @@ GATES = [
      'the .bq runtime plays a quest to COMPLETE/FAIL', False),
     ('ENGINE CORE',    ['node', 'engine/bohemia_tests.js'],
      'the monolith: fold, heir, save, recorded/unrecorded amalgamation model', False),
+    ('LOOP QUESTS',    ['node', 'engine/bohemia_loop_quests_tests.js'],
+     'quests are pullable from the GameContext and resume from the save', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

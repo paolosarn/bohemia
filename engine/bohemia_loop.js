@@ -27,16 +27,15 @@
    ========================================================================== */
 
 (function (root, factory) {
-  const E = (typeof require !== 'undefined')
-    ? require('./bohemia_engine.js')
-    : (root.BohemiaEngine);
-  const Sched = (typeof require !== 'undefined')
-    ? require('./bohemia_scheduler.js')
-    : (root.BohemiaScheduler);
-  const mod = factory(E, Sched);
+  const req = (typeof require !== 'undefined');
+  const E     = req ? require('./bohemia_engine.js')        : root.BohemiaEngine;
+  const Sched = req ? require('./bohemia_scheduler.js')     : root.BohemiaScheduler;
+  const BQ    = req ? require('./bohemia_bq.js')            : root.BQ;
+  const BQRT  = req ? require('./bohemia_quest_runtime.js') : root.BQRuntime;
+  const mod = factory(E, Sched, BQ, BQRT);
   if (typeof module !== 'undefined' && module.exports) module.exports = mod;
   if (typeof root !== 'undefined') root.BohemiaLoop = mod;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, BQ, BQRT) {
   'use strict';
 
   const Core = E.Core;
@@ -71,6 +70,10 @@
 
       // --- LAYER 4b: DYNASTY (the fold, already save-bridged) [ISLAND] ---
       folds: null,        // Generations.foldFromSave(save) result. Recomputed on load & at each handoff.
+
+      // --- LAYER 4c: QUESTS (the .bq runtime, pullable from anywhere) [WIRED at boot] ---
+      quests: null,       // QuestManager: parse/start/get a .bq quest via BQ + BQRuntime.
+                          // Any part of the game pulls a quest off ctx.quests at any time.
 
       // --- LAYER 5: PRESENTATION ---
       skinner: null,      // Skinner — pure fn, fed heartbeat.beatsFloat() each frame. [SEAM: render step]
@@ -200,6 +203,45 @@
     return ctx;
   }
 
+  /* QUEST MANAGER — the .bq system as a first-class engine citizen. Holds live
+     quest runtimes so ANY part of the game can pull a quest off ctx.quests at any
+     time (the pull-from-anywhere law). Wraps BQ (parse) + BQRuntime (play).
+     Serializable so in-flight quests ride the save. Content-agnostic: it plays
+     whatever .bq text it is handed and authors nothing. */
+  function makeQuestManager() {
+    const active = {};   // questId -> { text, rt }
+    function start(text) {
+      if (!BQ || !BQRT) return null;
+      const Q = BQ.parse(text);
+      const rt = new BQRT.Runtime(Q).start();
+      active[Q.id] = { text: text, rt: rt };
+      return rt;
+    }
+    function get(id)  { return active[id] ? active[id].rt : null; }
+    function ids()    { return Object.keys(active); }
+    function serialize() {
+      const out = {};
+      for (const id in active) out[id] = { text: active[id].text, state: active[id].rt.state };
+      return out;
+    }
+    function restore(blob) {
+      if (!blob || !BQ || !BQRT) return;
+      for (const id in blob) {
+        const Q = BQ.parse(blob[id].text);
+        active[id] = { text: blob[id].text, rt: BQRT.Runtime.load(Q, blob[id].state) };
+      }
+    }
+    return { start, get, ids, serialize, restore, _active: active };
+  }
+
+  // 8b. Quests. The .bq runtime, made pullable from the context and save-bridged:
+  //     any in-flight quests restore from the save so a reload resumes mid-quest.
+  function bootQuests(ctx) {
+    ctx.quests = makeQuestManager();
+    if (ctx.save && ctx.save.quests) ctx.quests.restore(ctx.save.quests);
+    return ctx;
+  }
+
   /* Run the whole boot in the one correct order. Returns a ready ctx. */
   function boot(opts) {
     opts = opts || {};
@@ -218,6 +260,7 @@
     bootEconomy(ctx);
     bootEntities(ctx);
     bootDynasty(ctx);
+    bootQuests(ctx);
     bootPresentation(ctx);
     ctx.booted = true;
     ctx.ready = true;
@@ -466,6 +509,7 @@
     ctx.save.beat = snap.beat;
     if (ctx.scheduler) ctx.save.turn = ctx.scheduler.turn;   // sun/day phase
     if (ctx.deltas) ctx.save.deltas = ctx.deltas.toJSON();   // permanent world changes
+    if (ctx.quests) ctx.save.quests = ctx.quests.serialize(); // in-flight quests resume on reload
     return E.Save.serialize(ctx.save);
   }
 
@@ -475,7 +519,8 @@
     // individual boot steps exported so each can be tested in isolation
     _steps: {
       bootFoundation, bootSave, bootHeartbeat, bootScheduler, bootWorldGen, bootFactions,
-      bootEconomy, bootEntities, bootDynasty, bootPresentation,
+      bootEconomy, bootEntities, bootDynasty, bootQuests, bootPresentation,
     },
+    makeQuestManager,
   };
 });
