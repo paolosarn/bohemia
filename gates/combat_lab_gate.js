@@ -324,7 +324,7 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
   ok('BLOOD BY HEALTH: <=40% drips, <=20% pours, player <=30 trails; world-anchored',
     demo.includes('function bleedTick()') && demo.includes('e.hp>e.max*0.4') &&
-    demo.includes('G.pHP<=30') && demo.includes('for(const s of G.bloodSpots)mv(s);'));
+    demo.includes('G.pHP<=30') && demo.includes('for(const s of G.bloodSpots)mv(s,0.02);'));
   ok('KILLSHOTS/TURN sits at the top of settings',
     demo.includes('V19: KILLSHOTS/TURN at the TOP of settings'));
   ok('worldShift carries corpses AND pillars with the world',
@@ -467,6 +467,16 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('HONEST CROUCH: the take-cover pose needs real stone within 1.8 tiles',
     demo.includes('function nearPillar(e)') && demo.includes('<1.8') &&
     demo.includes('nobody ducks behind air'));
+  // v21: brass is floor state
+  ok('V21 BRASS: player casings land at the world spot, never player-glued',
+    demo.includes('V21 BRASS') && demo.includes('litterAdd({ea:0,edist:0,') &&
+    !demo.includes('litterAdd({p:1,'));
+  ok('all brass renders through fieldPos (world), the p-glue branch is dead',
+    demo.includes('V21: ALL brass is world state') &&
+    !demo.includes('if(l.p){lx=cx+l.dx;ly=cy+l.dy;}'));
+  ok('statics keep TRUE spots on worldShift; only live enemies keep the 0.6 bubble',
+    demo.includes('const mv=(o,mn)=>{') && demo.includes('mv(c,0.02)') &&
+    demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
 }
 
 /* ---- 3. verdict workflow ---- */
