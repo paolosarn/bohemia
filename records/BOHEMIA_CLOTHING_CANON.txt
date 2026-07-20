@@ -400,3 +400,19 @@ clip independently (per-canvas clip + per-clip beat length on the 120 grid).
 Verified live: taps landed rage / sit-ground, frame re-rendered, pool
 approved-only. Gate: structure_gate 54 checks (button + approved pool +
 per-canvas clip render path locked).
+
+=== 7/20/26 — BUILD WATCHER + STRUCTURE WAVE 4 (third "nothing new" root-caused) ===
+Paolo reported nothing new in clothing a third time. Deployed bytes verified
+carrying everything -- so the remaining causes were (a) an always-open phone
+tab that never re-fetches, and (b) genuinely no unjudged garments cooking.
+Both killed:
+- BUILD WATCHER: the OPEN page now checks the network for a newer deploy
+  (every 2 min + on every return to the tab) and shows a one-tap NEW BUILD
+  READY reload banner. A stale open tab can never lie silently again.
+- STRUCTURE WAVE 4 in COOKING: HOOD-UP ASH/COAL HOODIES (the hood WORN: the
+  skull becomes garment with a lit crown, face open, fabric shell framing the
+  head in every view), HOODED DUST PONCHO (the drape climbs over the skull),
+  SCRAP CHEST PLATE (front armor plate, X harness across the back).
+- Build stamp bumped: BUILD 7/20b · HOOD-UP + CHEST PLATE COOKING.
+structure_gate: 62 checks (skull coverage >95%, face NEVER touched, plate
+front-vs-straps, watcher presence). Verified on the real preview, 4 facings.
