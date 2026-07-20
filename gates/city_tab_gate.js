@@ -19,12 +19,14 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 const PAGE = 'slices/BOHEMIA_CITY_CURRENT.html';
 const page = fs.readFileSync(PAGE, 'utf8');
-const engine = fs.readFileSync('engine/bohemia_overmap.js', 'utf8');
 
-// 1. freshness: embedded body === canon body
-ok('embedded overmap is the canon body (freshness)', page.indexOf(engine) >= 0);
-const md5 = crypto.createHash('md5').update(engine, 'utf8').digest('hex');
-ok('page stamps the engine md5 it was built from', page.indexOf('engine-md5:' + md5) >= 0);
+// 1. freshness: every embedded module is byte-identical to its canon body
+for (const mod of ['engine/bohemia_overmap.js', 'engine/bohemia_cityedit.js']) {
+  const body = fs.readFileSync(mod, 'utf8');
+  const md5 = crypto.createHash('md5').update(body, 'utf8').digest('hex');
+  ok('embedded ' + mod + ' is the canon body (freshness)', page.indexOf(body) >= 0);
+  ok('page stamps the ' + mod + ' md5 it was built from', page.indexOf('engine-md5:' + mod + ':' + md5) >= 0);
+}
 
 // 2. the category law, replayed against the page's own tables
 const grab = name => {
