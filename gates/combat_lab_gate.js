@@ -372,6 +372,16 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('stunned/prone men are targets (the easy dial you manufactured)',
     demo.includes('return G.e.filter(e=>!e.dead&&peeking(e)); }'));
   ok('the chosen man wears the selection ring', demo.includes('your chosen man'));
+  // v10 ONE SCENE: the zoomed board IS the aim stage, no duplicates
+  ok('ONE SCENE: exact zoom, full opacity, aim opts into drawField',
+    demo.includes('ONE SCENE V10') && demo.includes('drawField(ctx,W,H,cx,cy,{dial:true});') &&
+    !demo.includes("ctx.globalAlpha=0.85;"));
+  ok('no duplicate player during the dial (the sweeping pose IS you)',
+    demo.includes('the sweeping pose IS you'));
+  ok('ghost cells + threat lines stay out of the shot',
+    demo.includes('never during the dial') && demo.includes('if(!aimo)for(const e of G.e)'));
+  ok('corpses ride the grid-true ruler',
+    demo.includes('const rr=c.edist*ring;'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
     demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
