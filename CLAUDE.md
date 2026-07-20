@@ -34,7 +34,9 @@ research partner. He DECIDES, you PRODUCE.
   you see INSIDE. node tools/bohemia_tilespec.js generates the dossier
   (records/tilespec/); tilespec_gate.js fails if the dossier, a tile material,
   or a tile's layer is missing. So the tiling AND interior/zoom phases know what
-  everything is, what blocks, what you walk under, and what you go inside.
+  everything is, what blocks, what you walk under, and what you go inside. WHEN IT
+  IS TIME TO PLACE TILES read laws/BOHEMIA_TILING_PHASE_INSTRUCTIONS.md first (the
+  full brief), then tile each district from its records/tilespec/ sheet.
 - INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED, "not having it any other
   way"): a building's INTERIOR is ALWAYS exactly the same width x length as its
   EXTERIOR footprint pixels. Never clamp/resize an interior. Garage decks, room

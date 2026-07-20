@@ -1,5 +1,7 @@
 # BOHEMIA TILE SPEC — INDEX (the district "note sections" for the tiling phase)
 
+**START HERE when tiling:** read `laws/BOHEMIA_TILING_PHASE_INSTRUCTIONS.md` — the full brief (scale, act-1-dead, 45-degree, layering->render/occupancy, interior===exterior, order of operations). Then tile each district from its sheet below.
+
 One sheet per built district: every tile code -> name, kind, ACT-1 dead-world material, color. GENERATED from each module's LEGEND — run `node tools/bohemia_tilespec.js` after a district changes. The tiling phase reads these so every code maps to known art.
 
 | district | category | tile codes | drivable |

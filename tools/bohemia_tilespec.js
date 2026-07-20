@@ -76,6 +76,9 @@ for (const d of DISTRICTS) {
 }
 
 let idx = '# BOHEMIA TILE SPEC — INDEX (the district "note sections" for the tiling phase)\n\n';
+idx += '**START HERE when tiling:** read `laws/BOHEMIA_TILING_PHASE_INSTRUCTIONS.md` — the full ';
+idx += 'brief (scale, act-1-dead, 45-degree, layering->render/occupancy, interior===exterior, ';
+idx += 'order of operations). Then tile each district from its sheet below.\n\n';
 idx += 'One sheet per built district: every tile code -> name, kind, ACT-1 dead-world material, ';
 idx += 'color. GENERATED from each module\'s LEGEND — run `node tools/bohemia_tilespec.js` after ';
 idx += 'a district changes. The tiling phase reads these so every code maps to known art.\n\n';

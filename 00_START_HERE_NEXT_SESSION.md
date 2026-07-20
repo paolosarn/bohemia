@@ -1196,6 +1196,15 @@ rooms; building.kind='garage'. world_gate proves a real valley garage yields mul
 (10 checks). NEXT special interiors: the mausoleum CRYPT (cemetery, enter says CRYPT INTERIOR —
 currently falls back to floorplan) and the sewer TUNNEL network (wash mouth -> coordinate w/ LIFE,
 the tunnel people live there).
+INTERIOR===EXTERIOR LAW (Paolo 7/19, LOCKED): a building's interior floor plate is ALWAYS exactly
+its exterior footprint w x h (garage clamps removed; each deck = footprint W x H; room floorplans
+already matched). CLAUDE.md law + world_gate.js hard check (interior dims === footprint dims,
+every building, 11 checks).
+TILING-PHASE INSTRUCTIONS (Paolo 7/19: "leave instructions for yourself when it's time to place
+tiles"): laws/BOHEMIA_TILING_PHASE_INSTRUCTIONS.md is the single read-this-when-you-tile brief —
+scale, act-1-dead, 45-degree, purple ban, layering->render/occupancy, INTERIOR===EXTERIOR,
+exterior<->interior zoom, order of operations, what's Paolo's. The tilespec INDEX points to it;
+tilespec_gate asserts it exists + is linked (58 checks). So when tiling starts, one doc has it all.
 
 ## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
 a corner is gonna be super important, for everything moving forward"): every road-fronting

@@ -54,5 +54,13 @@ for (const d of DISTRICTS) {
   if (orphan !== null) console.log('        orphan code: ' + orphan);
 }
 
+// the tiling-phase INSTRUCTIONS must exist (Paolo 7/19: leave yourself instructions for when
+// it's time to place tiles) and the index must point to them.
+const fs = require('fs'), path = require('path'), ROOT = path.dirname(__dirname);
+const instr = path.join(ROOT, 'laws', 'BOHEMIA_TILING_PHASE_INSTRUCTIONS.md');
+const idx = path.join(ROOT, 'records', 'BOHEMIA_TILESPEC_INDEX.md');
+ok('tiling-phase instructions exist', fs.existsSync(instr) && fs.readFileSync(instr, 'utf8').length > 800);
+ok('the tile-spec index points to the tiling instructions', fs.existsSync(idx) && /BOHEMIA_TILING_PHASE_INSTRUCTIONS/.test(fs.readFileSync(idx, 'utf8')));
+
 console.log('TILESPEC GATE: ' + pass + ' passed, ' + fail + ' failed  (' + DISTRICTS.length + ' districts)');
 process.exit(fail ? 1 : 0);
