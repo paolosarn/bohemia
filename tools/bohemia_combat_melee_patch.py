@@ -652,13 +652,44 @@ function tickTurnEnd(){ meleeTurnRun(); updateGeomCover();
     return demo
 
 
+def patch8(demo):
+    """v8 (Paolo 7/19, furious and right): the ghost tap-cells around the
+    player did NOT sit on the painted board — the floor's lines ran
+    through the player's position, so cells straddled tiles by half a
+    tile. GRID LOCK: the player stands in the CENTER of a painted cell.
+    Floor cells are centered on integer world coords (boundaries at
+    half-integers), pillars snap to integer centers, and the ghost cell
+    is drawn as EXACTLY the painted tile it sits on. One grid, no lies."""
+    if 'GRID LOCK V8' in demo:
+        print('v8 already applied, skipping')
+        return demo
+    demo = sub1(demo, "      const sx2=cx+(wx-offx)*t, sy2=cy+(wy-offy)*t;",
+        "      const sx2=cx+(wx-offx-0.5)*t, sy2=cy+(wy-offy-0.5)*t;   /* cells CENTERED on integers — the player stands mid-cell */",
+        'floor-center')
+    demo = sub1(demo, "    for(let wx=gx0; wx<=gx1; wx++){ const sx2=Math.round(cx+(wx-offx)*t)+0.5;",
+        "    for(let wx=gx0; wx<=gx1; wx++){ const sx2=Math.round(cx+(wx-offx+0.5)*t)+0.5;",
+        'lines-x')
+    demo = sub1(demo, "    for(let wy=gy0; wy<=gy1; wy++){ const sy2=Math.round(cy+(wy-offy)*t)+0.5;",
+        "    for(let wy=gy0; wy<=gy1; wy++){ const sy2=Math.round(cy+(wy-offy+0.5)*t)+0.5;",
+        'lines-y')
+    demo = sub1(demo,
+        "      const nx2=Math.round(Math.cos(a0)*d0-0.5)+0.5, ny2=Math.round(Math.sin(a0)*d0-0.5)+0.5;   /* cover sits ON a tile */",
+        "      const nx2=Math.round(Math.cos(a0)*d0), ny2=Math.round(Math.sin(a0)*d0);   /* cover sits ON a tile (integer centers, same grid as the board) */",
+        'pillar-int')
+    demo = sub1(demo,
+        "    x.beginPath();x.rect(cxx-ring*0.42,cyy-ring*0.42,ring*0.84,ring*0.84);x.fill();x.stroke();",
+        "    x.beginPath();x.rect(cxx-ring*0.5+1.5,cyy-ring*0.5+1.5,ring-3,ring-3);x.fill();x.stroke();   /* GRID LOCK V8: the ghost cell IS the painted tile */",
+        'ghost-is-tile')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))
+    patched = patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

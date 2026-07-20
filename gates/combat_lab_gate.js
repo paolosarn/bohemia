@@ -354,6 +354,13 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('&&(e.acq||0)>=1); }'));
   ok('acquiring turn is telegraphed (warning line + acq clock)',
     demo.includes('ACQUIRING') && demo.includes('acq:0,'));
+  // v8 GRID LOCK: the ghost cells ARE the painted tiles
+  ok('GRID LOCK: floor cells centered on integers (player stands mid-cell)',
+    demo.includes('(wx-offx-0.5)*t') && demo.includes('(wx-offx+0.5)*t') && demo.includes('(wy-offy+0.5)*t'));
+  ok('GRID LOCK: pillars snap to integer centers (same grid as the board)',
+    demo.includes('Math.round(Math.cos(a0)*d0), ny2=Math.round(Math.sin(a0)*d0)'));
+  ok('GRID LOCK: the ghost tap-cell is drawn as exactly one painted tile',
+    demo.includes('GRID LOCK V8: the ghost cell IS the painted tile'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
     demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
 }
