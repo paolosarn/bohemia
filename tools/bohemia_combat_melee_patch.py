@@ -1599,7 +1599,7 @@ def patch22(demo):
     - THE WARNING SPEAKS: acquiring was a silent amber line. Fresh beads
       now announce themselves in the read on damage-free turns:
       'ACQUIRING — n guns drawing a bead, one turn to break it'."""
-    if 'V22 MOVE BREAKS THE BEAD' in demo:
+    if 'V22 MOVE BREAKS THE BEAD' in demo or 'V24 LOS BEAD' in demo:   # v24 supersedes the v22 marker text
         print('v22 already applied, skipping')
         return demo
 
@@ -1723,13 +1723,158 @@ def patch23(demo):
     return demo
 
 
+def patch24(demo):
+    """v24 (Paolo 7/20, the big feel message):
+    - VITAL NEVER CHAINS: a vital = 2-turn stun and your turn ENDS clean.
+      Only a KILLSHOT buys the next target ('get a killshot, choose your
+      next target'). The double-shoot off a vital is dead.
+    - NO DOUBLE EXPOSURE: POSITIONAL exposure (anyone you lack cover from,
+      out or cycling) kills the pop-out option entirely — the button reads
+      HOLD while the exposed side cycles, SHOOT when they're out, and only
+      a fully-covered player ever sees POP OUT.
+    - LOS BEAD (his nerf of my v22): perpetual walking no longer blanks
+      every gun. Moving only resets the clocks of guns whose LINE you
+      actually broke (you have cover from them after the step). Walking in
+      the open keeps you tracked — line of sight for a turn, then they fire.
+    - THE DEAD LIE UNDER THE LIVING: corpses painted in an under-pass
+      before the player; no more bodies layered on top of you on the walk.
+    - UI CLUSTER UP-LEFT: fire button + move ring 18px -> 44px from the
+      corner so the ring never clips off screen.
+    - A VOLLEY IS A BIG DEAL: 2+ shooters play the FULL incoming camera
+      even on a total miss, and every volley rattles the frame.
+    - KICK-LOCK: the dial pulses on the SONG'S kick pattern (the one layer
+      every faction song shares), not the bare beat grid — you SEE the
+      kick you HEAR: ember pump + rim flash ride FAC().kick."""
+    if 'V24 KICK-LOCK' in demo:
+        print('v24 already applied, skipping')
+        return demo
+
+    # vital: stun, never a second shot
+    demo = sub1(demo, """\
+    setRead('VITAL — STUN', tgt.n+' frozen · chain on','#c8a23a');
+    setTimeout(()=>{ if(!G.over) enterAim(true); },150);   // vital continues your turn
+    return;""", """\
+    setRead('VITAL — STUN', tgt.n+' frozen 2 turns — turn ends','#c8a23a');
+    G.phase='resolve'; setTimeout(()=>{ if(!G.over) endTurnClean(); },170);   /* V24 (Paolo): a vital STUNS — it never buys another shot. Only a KILLSHOT chains. */
+    return;""",
+        'vital-no-chain')
+
+    # positional exposure: pop-out cannot exist while anyone has you lined up
+    demo = sub1(demo, "function exposedToMe(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst(e.ea,e.edist)); }   /* blades don't SHOOT; their damage is meleeTurnRun's */",
+        "function exposedToMe(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst(e.ea,e.edist)); }   /* blades don't SHOOT; their damage is meleeTurnRun's */\nfunction posExposed(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&!myCoverAgainst(e.ea,e.edist)); }   /* V24: POSITIONAL exposure — who could line you up, out or cycling */",
+        'pos-exposed')
+    demo = sub1(demo, "function updGap(){ if(G.phase!=='cover')return; G.pkgDiff=G.userPkg; const fb=D('fire'); const exp=exposedToMe(); let green=false;\n  let bg,glow,col,txt;\n  if(exp.length>0){          // forced: someone has a clean line on you -> you MUST shoot\n    bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #d0543a,0 0 26px 5px rgba(232,89,58,.6)'; col='#ffeae6'; txt='SHOOT';\n  } else {",
+        "function updGap(){ if(G.phase!=='cover')return; G.pkgDiff=G.userPkg; const fb=D('fire'); const exp=exposedToMe(); const pexp=posExposed(); let green=false;\n  let bg,glow,col,txt;\n  if(exp.length>0){          // forced: someone has a clean line on you -> you MUST shoot\n    bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #d0543a,0 0 26px 5px rgba(232,89,58,.6)'; col='#ffeae6'; txt='SHOOT';\n  } else if(pexp.length>0){   /* V24 NO DOUBLE EXPOSURE (Paolo): a side has you lined up — POP OUT does not exist */\n    bg='radial-gradient(circle at 50% 40%,#6a4a1e,#241a0a 72%)'; glow='0 0 0 1px #9a7a3a,0 0 18px 3px rgba(200,150,60,.35)'; col='#e8d0a0'; txt='HOLD';\n  } else {",
+        'no-double-expose-ui')
+    if demo.count("txt='POP';") != 4:
+        sys.exit('FAIL anchor [pop-labels]: found %d times (want 4)' % demo.count("txt='POP';"))
+    demo = demo.replace("txt='POP';", "txt='POP OUT';")
+    demo = sub1(demo, """\
+  const exp=exposedToMe();
+  if(exp.length===0 && !anyPeeking()){ setRead('NO TARGET','nobody is out — wait for a peek','#8a7d66'); return; }
+  G.engageMode = exp.length>0 ? 'shoot' : 'pop';     // forced engagement vs voluntary pop""", """\
+  const exp=exposedToMe();
+  if(exp.length===0 && posExposed().length>0){   /* V24 NO DOUBLE EXPOSURE: never pop around your stone while a side has you lined up */
+    const mel=G.e.filter(e=>!e.dead&&e.melee&&peeking(e));
+    if(!mel.length){ setRead('EXPOSED — HOLD','they are cycling: shoot when they pop, or move','#c88a3a'); return; }
+    G.engageMode='shoot'; }
+  else if(exp.length===0 && !anyPeeking()){ setRead('NO TARGET','nobody is out — wait for a peek','#8a7d66'); return; }
+  else G.engageMode = exp.length>0 ? 'shoot' : 'pop';     // forced engagement vs voluntary pop""",
+        'no-double-expose-flow')
+
+    # LOS bead: only a broken line resets the clock
+    demo = sub1(demo, "  let _broke=0; for(const e2 of G.e){ if(e2.dead||e2.melee)continue; if((e2.acq||0)>=1)_broke++; e2.acq=0; }   /* V22 MOVE BREAKS THE BEAD: a moving target must be re-acquired */",
+        "  let _broke=0; for(const e2 of G.e){ if(e2.dead||e2.melee)continue;\n    if(myCoverAgainst(e2.ea,e2.edist)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; } }   /* V24 LOS BEAD (Paolo: 'it has to be a line of sight thing'): only BREAKING THE LINE resets his clock — walking in the open keeps you tracked */",
+        'los-bead')
+
+    # the dead lie under the living
+    demo = sub1(demo, "  // me: the person, same size as every other human on the field\n  if(SPR.ready&&SPR.cv.S){",
+        """\
+  // V24 UNDER THE LIVING (Paolo): the dead lie on the FLOOR — they never paint over a standing body
+  { const _nowD=performance.now();
+    if(G.corpses)for(const c of G.corpses){ if(!c.look)continue;
+      const rr=c.edist*ring, cxx=cx+Math.cos(c.ea)*rr, cyy=cy+Math.sin(c.ea)*rr;
+      drawBloodPool(x,cxx,cyy,1);
+      const cs=c.look.death[Math.min(c.dv||0,c.look.death.length-1)];
+      drawHuman(x,cs[cs.length-1],cxx,cyy); drawCorpseHoles(x,c,cxx,cyy); }
+    for(const e of G.e){ if(!e.dead)continue; const _ep=fieldPos(e,W,H,cx,cy);
+      drawEnemySprite(x,e,_ep[0],_ep[1],_nowD);
+      if(JUICE.AN&&!e._landed&&fallLanded(e,_nowD)){e._landed=true;landDust(_ep[0],_ep[1]+16,false);} } }
+  // me: the person, same size as every other human on the field
+  if(SPR.ready&&SPR.cv.S){""",
+        'under-pass')
+    demo = sub1(demo, """\
+  if(G.corpses)for(const c of G.corpses){ if(!c.look)continue;
+    const rr=c.edist*ring;   /* grid-true: the dead lie on the same ruler as the living */
+    const cseq=c.look.death[Math.min(c.dv||0,c.look.death.length-1)];
+    const cxx=cx+Math.cos(c.ea)*rr,cyy=cy+Math.sin(c.ea)*rr;
+    drawBloodPool(x,cxx,cyy,1);
+    drawHuman(x,cseq[cseq.length-1],cxx,cyy);
+    drawCorpseHoles(x,c,cxx,cyy);
+    fly(cxx,cyy,(c.ea*13)|0,nowMs); }   /* harvested corpses always have them; they are old */""", """\
+  if(G.corpses)for(const c of G.corpses){ if(!c.look)continue;
+    const rr=c.edist*ring;   /* V24: the body itself paints in the under-pass; only the flies live up here */
+    const cxx=cx+Math.cos(c.ea)*rr,cyy=cy+Math.sin(c.ea)*rr;
+    fly(cxx,cyy,(c.ea*13)|0,nowMs); }   /* harvested corpses always have them; they are old */""",
+        'corpse-loop-strip')
+    demo = sub1(demo, "    if(e.dead){pos.push(null);drawEnemySprite(x,e,ex,ey,nowMs);\n      if(JUICE.AN&&!e._landed&&fallLanded(e,nowMs)){e._landed=true;landDust(ex,ey+16,false);}   /* AN: the ground answers the body */",
+        "    if(e.dead){pos.push(null);   /* V24: the body painted in the under-pass */",
+        'dead-branch-strip')
+
+    # the button cluster comes up and in
+    demo = sub1(demo, "#fire{position:fixed;right:18px;bottom:18px;z-index:60;",
+        "#fire{position:fixed;right:44px;bottom:44px;z-index:60;   /* V24: up-left, the ring never clips */",
+        'fire-pos')
+    demo = sub1(demo, "  wrap.style.cssText='position:fixed;right:18px;bottom:18px;width:92px;height:92px;z-index:59;pointer-events:none;';",
+        "  wrap.style.cssText='position:fixed;right:44px;bottom:44px;width:92px;height:92px;z-index:59;pointer-events:none;';   /* V24 */",
+        'ring-pos')
+
+    # a volley is a big deal, hit or MISS
+    demo = sub1(demo, "    if(G.incomingCam&&pool.length)startIncoming(pool.map(e2=>e2.i),false,'quick'); }   /* MISS CINEMATIC V14 */",
+        "    if(G.incomingCam&&pool.length){startIncoming(pool.map(e2=>e2.i),false,pool.length>=2?null:'quick');G._vShakeAt=performance.now();} }   /* MISS CINEMATIC V24: a volley is a BIG DEAL even when it misses */",
+        'miss-cam-return')
+    demo = sub1(demo, "    if(G.incomingCam&&pool.length)startIncoming(pool.map(e2=>e2.i),false,'quick'); }   /* MISS CINEMATIC V14: you see WHO shot, even on a miss */",
+        "    if(G.incomingCam&&pool.length){startIncoming(pool.map(e2=>e2.i),false,pool.length>=2?null:'quick');G._vShakeAt=performance.now();} }   /* MISS CINEMATIC V24: you see WHO shot, and the frame feels it */",
+        'miss-cam-wait')
+    demo = sub1(demo, "  if(G.over){cv.style.transform='';return;}\n  let dx=0,dy=0;",
+        "  if(G.over){cv.style.transform='';return;}\n  let dx=0,dy=0;\n  if(G._vShakeAt){ const q=(performance.now()-G._vShakeAt)/420;\n    if(q<1){ const mg=(1-q)*5; dx+=(Math.random()-0.5)*mg; dy+=(Math.random()-0.5)*mg; } else G._vShakeAt=0; }   /* V24: incoming fire rattles the frame, hit or miss */",
+        'volley-shake')
+
+    # KICK-LOCK: the dial rides the song's kick, not the bare grid
+    demo = sub1(demo, "  const fgv=(G.pkgDiff>=1?1.10:1)*(G.pkgDiff===4?1.10:G.pkgDiff===3?1.05:1)*(1+((G._steadyAtPop||0)*0.05));   // bands SHOW the true forgiven window (high-tier forgiveness + JUICE.L steady)",
+        "  const _ks16=Math.floor(_bpmClock/(BPM_MS/4))%16, _kkA=((typeof FAC==='function'&&FAC().kick)||[0,8]);\n  const _kAge=(_bpmClock%(BPM_MS/4))/(BPM_MS/4);\n  const _kickP=_kkA.includes(_ks16)?Math.pow(1-_kAge,2):0;   /* V24 KICK-LOCK: the dial pulses on the SONG'S kick — the one layer every faction shares */\n  const fgv=(G.pkgDiff>=1?1.10:1)*(G.pkgDiff===4?1.10:G.pkgDiff===3?1.05:1)*(1+((G._steadyAtPop||0)*0.05));   // bands SHOW the true forgiven window (high-tier forgiveness + JUICE.L steady)",
+        'kick-vars')
+    demo = sub1(demo, "  band(G.W.vZ*fgv*KILL_GRACE,'rgba(230,168,74,0.85)',4,0);   // vital= amber (+10% grace)",
+        "  band(G.W.vZ*fgv*KILL_GRACE,'rgba(230,168,74,0.85)',4,0);   // vital= amber (+10% grace)\n  if(_kickP>0.03){ ctx.save(); ctx.lineCap='butt'; ctx.lineWidth=2.2*S; ctx.strokeStyle='rgba(232,196,120,'+(0.34*_kickP).toFixed(3)+')';\n    ctx.shadowBlur=14*_kickP; ctx.shadowColor='rgba(255,190,90,0.75)';\n    ctx.beginPath();ctx.arc(cx,cy,RR+4*S,base-span,base+span);ctx.stroke(); ctx.restore(); }   /* V24 KICK-LOCK rim: you SEE the kick you hear */",
+        'kick-rim')
+    demo = sub1(demo, "  const _hb=_hot?Math.pow(1-_bpmPhase,2):0;",
+        "  const _hb=_hot?Math.max(Math.pow(1-_bpmPhase,2)*0.35,_kickP):0;   /* V24: the ember pump rides the audible kick */",
+        'kick-ember')
+    return demo
+
+
+def patch25(demo):
+    """v25 EAR-LOCK (research: NecroDancer/Rhythm Quest calibration lesson):
+    phone speakers deliver the kick AFTER the visual clock (AudioContext
+    outputLatency, tens of ms on mobile). The kick pulse now judges by what
+    the EAR hears: the pulse clock shifts by the device's measured output
+    latency, automatically, no settings needed."""
+    if 'V25 EAR-LOCK' in demo:
+        print('v25 already applied, skipping')
+        return demo
+    demo = sub1(demo, "  const _ks16=Math.floor(_bpmClock/(BPM_MS/4))%16, _kkA=((typeof FAC==='function'&&FAC().kick)||[0,8]);\n  const _kAge=(_bpmClock%(BPM_MS/4))/(BPM_MS/4);",
+        "  const _lms=((typeof AC!=='undefined'&&AC&&((AC.outputLatency||0)||(AC.baseLatency||0)))*1000)||0;   /* V25 EAR-LOCK: pulse to what the EAR hears — auto latency compensation */\n  const _bpmEar=_bpmClock-_lms;\n  const _ks16=Math.floor(_bpmEar/(BPM_MS/4))%16, _kkA=((typeof FAC==='function'&&FAC().kick)||[0,8]);\n  const _kAge=(((_bpmEar%(BPM_MS/4))+(BPM_MS/4))%(BPM_MS/4))/(BPM_MS/4);",
+        'ear-clock')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))
+    patched = patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
