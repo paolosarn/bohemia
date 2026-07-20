@@ -110,7 +110,9 @@
             enter:enter, kind:kind,                                // what this building becomes inside (from the dossier)
             floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'}); },
             // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
-            interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:Math.max(2,Math.min(5,Math.round(f.h/7)))});
+            // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
+            // levels) is a separate 3D property derived from the seed, not the floor-plate size.
+            interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
               return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;

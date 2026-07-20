@@ -35,6 +35,12 @@ research partner. He DECIDES, you PRODUCE.
   (records/tilespec/); tilespec_gate.js fails if the dossier, a tile material,
   or a tile's layer is missing. So the tiling AND interior/zoom phases know what
   everything is, what blocks, what you walk under, and what you go inside.
+- INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED, "not having it any other
+  way"): a building's INTERIOR is ALWAYS exactly the same width x length as its
+  EXTERIOR footprint pixels. Never clamp/resize an interior. Garage decks, room
+  floorplans, crypts, tunnels — every interior floor plate === the footprint w x h,
+  every time. (Decks/levels are a separate 3D axis; each level still === w x h.)
+  Gate: world_gate.js asserts interior dims === footprint dims for every building.
 - GRAVEYARD IS FINAL: dead things stay dead (registry: gates/bohemia_graveyard.txt).
   No remakes. Fresh cooks answer dead slots.
 - ENGINE SYNC LAW: one canonical body per module (gates/bohemia_sync_canon.txt).

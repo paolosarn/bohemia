@@ -68,6 +68,24 @@ for (let y = 6; y < 90 && !garageProven; y++) for (let x = 6; x < 90 && !garageP
 }
 ok('building.interior() dispatches — a garage yields multi-deck parking with a ground entrance', interiorOk && garageProven);
 
+// INTERIOR === EXTERIOR FOOTPRINT (Paolo 7/19, LOCKED: "if your interior does not match the
+// width and length of the exterior every time, you are failing... I am not having it any other
+// way"). EVERY enterable building's interior must be EXACTLY the footprint's w x h.
+let dimOk = true, dimChecked = 0, dimBad = null;
+for (let y = 6; y < 90 && dimChecked < 200; y++) for (let x = 6; x < 90 && dimChecked < 200; x++) {
+  const c = w.at(x, y); if (!c) continue; const p = w.plot(x, y);
+  if (!p || typeof p.tileInfo !== 'function' || !p.buildings) continue;   // factory plots
+  for (const b of p.buildings) {
+    if (typeof b.interior !== 'function') continue;
+    const it = b.interior(); dimChecked++;
+    let iw, ih;
+    if (it.kind === 'garage') { iw = it.W; ih = it.H; if (it.decks.some(d => d.length !== b.h || d.some(r => r.length !== b.w))) { dimOk = false; dimBad = 'garage deck grid'; } }
+    else { iw = it.floorplan.W; ih = it.floorplan.H; }
+    if (iw !== b.w || ih !== b.h) { dimOk = false; dimBad = b.kind + ' ' + iw + 'x' + ih + ' != footprint ' + b.w + 'x' + b.h; }
+  }
+}
+ok('INTERIOR matches EXTERIOR footprint w x h EXACTLY, every building (' + dimChecked + ' checked)' + (dimBad ? ' — ' + dimBad : ''), dimOk && dimChecked > 0);
+
 // determinism: same seed -> same plot building counts across a sample
 const w2 = world(12345);
 let mismatch = 0;
