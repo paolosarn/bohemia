@@ -55,6 +55,19 @@ ok('factory plots expose tileInfo/solidAt with a valid layer + boolean occupancy
 ok('factory plots expose portals() — the ways into interiors', portalsSeen > 0);
 ok('buildings carry their interior (enter) from the dossier', entersSeen > 0);
 
+// INTERIOR DISPATCH (Paolo 7/19): a building.interior() returns the right space — a parking
+// GARAGE yields multi-deck decks (the exterior shell becomes the deck you stand on), everything
+// else rooms. Prove it end to end on a real garage building in the valley.
+let interiorOk = true, garageProven = false;
+for (let y = 6; y < 90 && !garageProven; y++) for (let x = 6; x < 90 && !garageProven; x++) {
+  const c = w.at(x, y); if (!c) continue; const p = w.plot(x, y);
+  if (!p || typeof p.tileInfo !== 'function' || !p.buildings || !p.buildings.length) continue;  // factory plots only
+  if (typeof p.buildings[0].interior !== 'function') { interiorOk = false; break; }
+  const g = p.buildings.find(bb => bb.kind === 'garage');
+  if (g) { const it = g.interior(); garageProven = (it.kind === 'garage' && it.levels >= 2 && it.decks[0].some(r => r.includes(6))); if (!garageProven) interiorOk = false; }
+}
+ok('building.interior() dispatches — a garage yields multi-deck parking with a ground entrance', interiorOk && garageProven);
+
 // determinism: same seed -> same plot building counts across a sample
 const w2 = world(12345);
 let mismatch = 0;

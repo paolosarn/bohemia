@@ -87,8 +87,17 @@
 
     var res=K.rotateToStreet(g, streets, {gate:5, pedWalk:6, pedOver:function(c){return c===0;}, pedInset:12});
     g=res.g;
-    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
-      footprints:K.footprints(g,function(v){return v===2;})};
+    // footprints = enterable buildings: the hospital/ER/MOB (code 2) AND the parking GARAGE
+    // (code 8) — the garage carries legend[8].enter ("GARAGE INTERIOR"), so the world model
+    // routes it to the multi-deck garage interior instead of the generic room floorplan.
+    // code-2 buildings (each tagged code:2) + the parking GARAGE as ONE envelope (its shell is
+    // punched through by stalls/cars, so take the bbox of all code-8) tagged code:8. The code:
+    // tag tells the world which legend cell to read (legend[8].enter = "GARAGE INTERIOR").
+    var feet=K.footprints(g,function(v){return v===2;}).map(function(f){ f.code=2; return f; });
+    var gW=g[0].length, gH=g.length, x8, y8, gx0=1e9,gy0=1e9,gx1=-1,gy1=-1;
+    for(y8=0;y8<gH;y8++)for(x8=0;x8<gW;x8++){ if(g[y8][x8]===8){ if(x8<gx0)gx0=x8; if(y8<gy0)gy0=y8; if(x8>gx1)gx1=x8; if(y8>gy1)gy1=y8; } }
+    if(gx1>=0) feet.push({x:gx0,y:gy0,w:gx1-gx0+1,h:gy1-gy0+1,code:8});
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates, footprints:feet};
   }
   // a car reaches the campus drive network (code 1) from the street curb cut, in ANY placement
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }

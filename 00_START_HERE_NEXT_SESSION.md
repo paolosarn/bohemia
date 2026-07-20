@@ -1086,9 +1086,19 @@ plot.portals() (every way INTO an interior: doors/garage-ramps/tunnel-mouths/gat
 building carries .enter (its interior from the dossier). world_gate.js asserts these (9 checks).
 So the render/collision/interior systems read what blocks + what you go into, not just raw codes.
 Proof: a LAYER VIEW render colors each tile by resolved layer (portals glow green) —
-scratchpad only, regenerate from bohemia_wash/medical/cemetery via K.tileLayer. NEXT for this:
-the actual interior GENERATORS the portals point to (garage decks, the crypt, the tunnel network
-[coordinate w/ LIFE]).
+scratchpad only, regenerate from bohemia_wash/medical/cemetery via K.tileLayer.
+FIRST SPECIAL INTERIOR — THE PARKING GARAGE (7/19): engine/bohemia_garage.js — a multi-DECK
+parking structure (NOT rooms; the generic BSP floorplan can't do it): each deck = a central
+drive aisle + 90-degree stalls + abandoned cars + a stair/elevator core, decks joined by an
+aligned RAMP, the ground deck holding the ENTRANCE (from the exterior ramp). The solid garage
+shell you see in the overworld becomes the deck you stand on. Gate garage_gate.js (7 checks incl.
+a 3D reachability test: drive from the entrance UP THE RAMPS to every deck). WIRED: medical
+exposes the garage as ONE enveloping footprint tagged code:8 (its shell is punched by stalls),
+world.js building.interior() dispatches on enter text -> garage yields decks, everything else
+rooms; building.kind='garage'. world_gate proves a real valley garage yields multi-deck parking
+(10 checks). NEXT special interiors: the mausoleum CRYPT (cemetery, enter says CRYPT INTERIOR —
+currently falls back to floorplan) and the sewer TUNNEL network (wash mouth -> coordinate w/ LIFE,
+the tunnel people live there).
 
 ## STREET-AWARE / DRIVABLE ACCESS LAW (Paolo 7/19, LOCKED — "one street vs two because it's
 a corner is gonna be super important, for everything moving forward"): every road-fronting

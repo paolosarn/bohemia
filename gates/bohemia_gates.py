@@ -64,6 +64,8 @@ GATES = [
      'flood-control wash: channel + sewer tunnel mouth by the street, drivable', False),
     ('CEMETERY',       ['node', 'gates/cemetery_gate.js'],
      'memorial park: grave sections, chapel, mausoleum, columbarium, drivable', False),
+    ('GARAGE',         ['node', 'gates/garage_gate.js'],
+     'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
     ('TILE SPEC',      ['node', 'gates/tilespec_gate.js'],
      'every district legend is complete — no undocumented tile ships', False),
     ('WORLD MODEL',    ['node', 'gates/world_gate.js'],
