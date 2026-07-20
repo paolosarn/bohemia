@@ -1,0 +1,65 @@
+BOHEMIA — COMBAT MOVES, CLIP BATCH #13 (7/20/26)
+Paolo's direct order, his list verbatim:
+  1. cover-rise  — out of the ducked cover crouch UP into the gun-ready stance
+  2. cover-drop  — the mirror, standing down INTO the crouch
+  3. gun-walk    — walking with the pistol up, for repositioning mid-fight
+  4. cover-fire  — firing FROM the crouch, a peek-and-snap, sells the new counter-snap
+  5. get-shoved  — hard stumble-back reaction to the shove
+  6. floor-rise  — getting up off the ground after a topple
+  7. shiv-jab / bat-arc / spear-drive — one swing per melee weapon so each windup reads
+
+=== WHAT SHIPPED (BUILD 7/20i) ===
+NINE clips, authored as CANDIDATE batch #13 on the live rig (thumbs in the
+ANIM tab decide civilian rotation; batch #12 take-cover law applies: they are
+USED LIVE IN COMBAT regardless of verdict status).
+
+THE COMBAT WIRING (all through the baked-sprite bus, engine block untouched):
+- The player now LIVES THE CROUCH: cover phase renders the ducked take-cover
+  hold breathing on the beat. POP plays cover-rise up into the aim frames;
+  the turn ending plays cover-drop back down. Repositioning (MOVE) plays
+  gun-walk instead of the civilian walk — the pistol never drops mid-fight.
+- Enemies: the SHOVE plays get-shoved before anything else; a TOPPLED man
+  holds flat on the deck (floor-rise frame 0) for his whole prone clock and
+  then visibly pays the get-up (floor-rise); a blade's WINDUP holds the
+  windup frame as your one-turn warning and the STRIKE swings through, per
+  weapon (shiv-jab / bat-arc / spear-drive); a covered gun that fires does it
+  as a PEEK-AND-SNAP (cover-fire) and never stands; the V20 COUNTER-SNAP now
+  has a body — tucked gunmen answering your blown engagement snap from the
+  crouch.
+- Frame priority law: shoved/prone OUTRANK the hit stagger. A man on the
+  deck never staggers standing.
+
+BUG FIXED IN PASSING: e.wpn was read by the weapon-read renderer (V14) but
+never assigned — every blade drew shiv-length. makeEnemy now carries
+wpn:(melee?arch:null), so bats draw bat-long, spears spear-long, and the
+swing frames pick the right weapon.
+
+CLIP MECHANICS (why they read):
+- cover-rise/drop interpolate the take-cover crouch (hip +4.6, legs 0.38)
+  into the pistol IK stance; the gun hand rides gunT so all 8 facings work.
+- cover-fire peeks to 45% height MAX — the law of the clip is it never
+  stands; the snap fully extends at ph 0.4 with recoil + _fire.
+- get-shoved whips the spine back, flings both arms, travels back 5.5px and
+  recovers to ZERO by loop end (the board carries the real push distance).
+- floor-rise starts flat (hip +11, legs folded, both hands planted at
+  offset points — the clap lesson), pushes through the crouch, stands.
+- swings share a grammar (windup 0.2 / full extension 0.5 / follow 0.68 —
+  0.42 was a dead zone where windup and swing envelopes cancel) but are
+  three different mechanisms: shiv = low IK jab, bat = shoulder arc with no
+  IK, spear = two-handed double-IK drive.
+
+GATE: gates/combat_anim_gate.js (67 checks) — clip mechanics EVALUATED (not
+grepped): crouch depths, envelope timing, strike-vs-windup separation, the
+three-swings-three-mechanisms law, prone-outranks-stagger, every bake line,
+every playback branch, every arming site, the wpn fix. Registered in
+bohemia_gates.py as COMBAT ANIM.
+
+VERIFIED ON THE REAL SURFACE: 288-cell contact sheet (9 clips x 8 facings x
+4 phases) through drawChar, zoomed strip for the key reads, and a LIVE
+combat-frame probe: all frame sets delivered in the sprite bus, enemyFrame
+resolves every forced state (prone hold, shove, get-up, windup hold, strike,
+counter-snap), the player crouches in cover phase, all melee carry weapons.
+
+[PENDING Paolo]: thumbs on the nine (ANIM tab, marked *); they stay live in
+combat either way per the batch #12 law — a kill verdict swaps the combat
+frames for a recook, never removes the mechanic.
