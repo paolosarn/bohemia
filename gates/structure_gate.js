@@ -170,6 +170,8 @@ if (G) {
   // SHUFFLE ANIMATION (Paolo 7/19): every big square carries the shuffle button,
   // pool = approved clips only, and the render path honors a per-canvas clip
   ok('every big square has the shuffle-animation button (approved clips only)', src.indexOf("sh.title='shuffle animation'") >= 0 && /CLIPS\.filter\(function\(c\)\{return !\(typeof CANDIDATE_SRC/.test(src) && src.indexOf("cv.__clip||'idle'") >= 0 && src.indexOf("buildFrame(dir,clip||'idle'") >= 0);
+  // BUILD STAMP LAW (7/20): the build identifies itself on the front splash
+  ok('the build stamp exists on the front splash', /id="buildstamp"[^>]*>BUILD /.test(src));
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);
 process.exit(f ? 1 : 0);

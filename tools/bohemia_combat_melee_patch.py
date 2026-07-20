@@ -1225,13 +1225,79 @@ def patch16(demo):
     return demo
 
 
+def patch17(demo):
+    """v17 (Paolo 7/20, with the outside-the-map screenshot):
+    - EXACT FLOOR: the street tile bounds are now computed by inverse-
+      transforming the real viewport corners (uzInvert) + the aim zoom,
+      padded 6 tiles — the board covers exactly what the camera shows,
+      any zoom, any pan, no heuristics to lose ('he's outside the map').
+    - CROUCH: covered men (hand cover or pillar) draw squashed to a duck
+      (0.72 height, feet-anchored) until the real cover animation lands
+      from his art chat.
+    - SHOT COUNTER: the aim readout shows 'SHOT n/skill' so you always
+      know how many the chain allows this turn.
+    - MENU SWEEP: the DIAL FACING group (N/E/S/W) is obsolete — the dial
+      faces your target on the board now. Removed."""
+    if 'EXACT FLOOR V17' in demo:
+        print('v17 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, """\
+    const uzS=(G.userZoom&&G.userZoom<1)?1/G.userZoom:1;
+    const panT=Math.ceil((Math.abs((G.userPan&&G.userPan.x)||0)+Math.abs((G.userPan&&G.userPan.y)||0))/(t*(G.userZoom||1)))+2;
+    const spanF=(((aimo&&aimo.zb&&aimo.zb<1)?1/aimo.zb:1)*uzS)*1.25;   /* the board outruns ANY zoom or pan */
+    const gx0=Math.floor(offx-(cx/t)*spanF)-panT, gx1=Math.floor(offx+((W-cx)/t)*spanF)+panT;
+    const gy0=Math.floor(offy-(cy/t)*spanF)-panT, gy1=Math.floor(offy+((H-cy)/t)*spanF)+panT;""", """\
+    /* EXACT FLOOR V17: invert the real camera — the board covers exactly
+       what the viewport shows, any zoom, any pan. No heuristics to lose. */
+    const _c0=uzInvert(0,0,W,H), _c1=uzInvert(W,H,W,H);
+    let _wx0=(Math.min(_c0[0],_c1[0])-cx)/t, _wx1=(Math.max(_c0[0],_c1[0])-cx)/t;
+    let _wy0=(Math.min(_c0[1],_c1[1])-cy)/t, _wy1=(Math.max(_c0[1],_c1[1])-cy)/t;
+    if(aimo&&aimo.zb&&aimo.zb>0){ _wx0/=aimo.zb; _wx1/=aimo.zb; _wy0/=aimo.zb; _wy1/=aimo.zb; }
+    const PAD=6;   /* cam bias + incoming pans live inside this */
+    const gx0=Math.floor(offx+_wx0)-PAD, gx1=Math.ceil(offx+_wx1)+PAD;
+    const gy0=Math.floor(offy+_wy0)-PAD, gy1=Math.ceil(offy+_wy1)+PAD;""",
+        'exact-floor')
+
+    demo = sub1(demo, "    if(!drawEnemySprite(x,e,ex,ey,nowMs)){", """\
+    const _cov=(e.inCover||e.gcov)&&!e.dead&&!(e.prone>0);
+    if(_cov){ x.save(); x.translate(ex,ey+er); x.scale(1,0.72); x.translate(-ex,-(ey+er)); }   /* CROUCH V17: covered men duck (real cover anim comes from Paolo's art chat) */
+    if(!drawEnemySprite(x,e,ex,ey,nowMs)){""",
+        'crouch-open')
+    demo = sub1(demo, """\
+      if(e.prone>0){ x.beginPath();x.ellipse(ex,ey+er*0.4,er*1.2,er*0.5,0,0,7);x.fill(); }
+      else { x.beginPath();x.arc(ex,ey,er,0,7);x.fill(); }
+    }""", """\
+      if(e.prone>0){ x.beginPath();x.ellipse(ex,ey+er*0.4,er*1.2,er*0.5,0,0,7);x.fill(); }
+      else { x.beginPath();x.arc(ex,ey,er,0,7);x.fill(); }
+    }
+    if(_cov)x.restore();""",
+        'crouch-close')
+
+    demo = sub1(demo,
+        "pl.innerHTML='<b style=\"color:'+rangeCol(tg)+'\">'+rangeTier(tg)+'</b> ~'+m+'m · <b style=\"color:#e89a4a\">'+pkgName(G.pkgDiff)+'</b> dial · '+G.pat.toUpperCase(); }",
+        "pl.innerHTML='<b style=\"color:'+rangeCol(tg)+'\">'+rangeTier(tg)+'</b> ~'+m+'m · <b style=\"color:#e89a4a\">'+pkgName(G.pkgDiff)+'</b> dial · '+G.pat.toUpperCase()+' · <b style=\"color:#8fe89a\">SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)+'</b>'; }   /* V17: you always know what the chain allows */",
+        'shot-counter')
+
+    demo = sub1(demo, """\
+  <div class="setgrp"><span class="gl">DIAL FACING</span>
+    <div class="controls">
+      <button data-f="0">N</button><button data-f="2">E</button>
+      <button data-f="4" class="on">S</button><button data-f="6">W</button>
+    </div>
+  </div>
+
+""", "", 'facing-gone')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))
+    patched = patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

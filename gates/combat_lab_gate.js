@@ -386,18 +386,26 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('AIM CAM PIN: no stale killshot offsets, scene biased toward the target',
     demo.includes('AIM CAM PIN V12'));
   ok('floor bounds expand for zoom-out shots (no floating board)',
-    demo.includes('the board outruns ANY zoom or pan'));
+    demo.includes('if(aimo&&aimo.zb&&aimo.zb>0){ _wx0/=aimo.zb;'));
   // v15: the tunnel class is dead
   ok('HARD RESET: transform + canvas cleared every frame; armor resets too',
     demo.includes('HARD RESET V15') && demo.includes("ctx.setTransform(1,0,0,1,0,0);}catch(_e3){}"));
   ok('the frame error is visible (ERR chip), not silent',
     demo.includes("ctx.fillText('ERR '"));
-  ok('floor accounts for user pinch zoom AND pan',
-    demo.includes('const uzS=(G.userZoom&&G.userZoom<1)?1/G.userZoom:1;') && demo.includes('panT'));
+  ok('floor accounts for user pinch zoom AND pan (inverted camera + pad)',
+    demo.includes('const PAD=6;') && demo.includes('uzInvert(W,H,W,H)'));
   ok('the FIRST fight shuffles its faction too',
     demo.includes('the FIRST fight shuffles too'));
   ok('studio pushes never kill the shuffle default (Paolo 7/20)',
     demo.includes('SHUFFLE stays the encounter default'));
+  // v17: exact floor, crouch, shot counter, menu sweep
+  ok('EXACT FLOOR: bounds from the inverted camera, not heuristics',
+    demo.includes('EXACT FLOOR V17') && demo.includes('uzInvert(0,0,W,H)'));
+  ok('covered men CROUCH (until the real cover anim lands)',
+    demo.includes('CROUCH V17') && demo.includes('x.scale(1,0.72);'));
+  ok('the aim readout shows SHOT n/skill',
+    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)"));
+  ok('obsolete DIAL FACING menu removed', !demo.includes('data-f="0"'));
   // v13: cover AI + loop armor + compact UI
   ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
     demo.includes('COVER AI V13') && demo.includes('function coverSeekAI()') &&
