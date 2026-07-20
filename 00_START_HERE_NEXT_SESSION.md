@@ -47,12 +47,15 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   by engine/bohemia_quest_runtime_tests.js (33/33: the reference sample played to
   both a COMPLETE and a FAIL), wired as the QUEST RUNTIME gate. The single hardest,
   no-prior-art piece is DONE.
-- STILL MISSING (must be built, mostly UI/wiring now): the DIALOGUE UI that renders
-  the runtime's view() and feeds choose() (on-screen say/option/HUD), an NPC system
-  (placement + proximity "TALK" trigger), the walkable harness booting into human
-  mode, a faked house exit, quest-state added to the existing CITYSAVE payload, and
-  a written playable .bq (only ONE non-canon sample exists; 53 quest .md + 151
-  questbook are DESIGN DOCS). Interiors deferred.
+- ALSO BUILT 7/19 (solo, tested, gated): the DIALOGUE DEMO
+  (slices/BOHEMIA_QUEST_DEMO_7_19_26.html, browser-verified) AND the QUEST-AWARE SAVE
+  (engine/bohemia_save.js + SAVE gate: bundles world+quest state, resume-mid-quest
+  proven). So the three self-contained bricks are done: runtime, dialogue UI, save.
+- STILL MISSING (the WITH-PAOLO walkable build): the walkable harness booting into
+  human mode, a faked house exit, an NPC system (placement + proximity "TALK"),
+  WIRING the dialogue UI + save into the walking world, and a written playable .bq
+  (only ONE non-canon sample exists; the neighbor's first quest is pinned). Interiors
+  deferred. Everything left here needs the alpha/V11 slice + Paolo.
 SMALLEST PATH (ruthlessly scoped; BUILD IT LIKE THE COMBAT DEMO, Paolo 7/19 — a
 tight, standalone, actually-PLAYABLE demo you hold with your thumbs, NOT bolted into
 the 31MB studio; the combat demo/dial is both the proof this can be done and the
@@ -68,8 +71,9 @@ references the canonical engine modules (no copies), browser-verified via Playwr
 console errors). This is the combat-demo-style proof of the dialogue UI. What REMAINS for
 the full slice is WIRING this UI into the walkable world (NPC placement + human mode +
 faked house), not building the dialogue system from scratch. 4) an objective HUD line. 5) write ONE playable .bq
-(the neighbor's first errand once its design is unpinned). 6) add quest state to the
-existing CITYSAVE payload. 7) prove the loop + add a slice_proof gate.
+(the neighbor's first errand once its design is unpinned). 6) SAVE is DONE
+(engine/bohemia_save.js + SAVE gate: world+quest bundle, resume-mid-quest proven); the
+walkable build just calls it from CITYSAVE. 7) prove the loop + add a slice_proof gate.
 RISKS: (a) over-building the interpreter — discipline: one quest, not the spec; (b) the
 base64 logistics — build on the V11 live slice, verify it has human mode first; ENGINE
 SYNC LAW: edits go to the canonical source. CUT from the slice: overmap drill-in, real
