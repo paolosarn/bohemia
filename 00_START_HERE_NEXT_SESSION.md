@@ -893,6 +893,27 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    ground gunmen just stand); (c) enemy archetypes with VISIBLE immunity
    classes per the 7/19 research addendum (shove-resist classes still
    [PENDING Paolo]); (d) balance watch on move->pop after real play.
+   FOUR ASKS, ONE PASS (7/20, pass 23; Paolo's screenshot message):
+   (1) HONEST PLAYER CROUCH — b13 crouched you in EVERY cover phase,
+   stone or not; now playerNearCover() (pillar within 1.8 tiles) gates
+   the crouch, same law as the enemies' v20 honest crouch. The b13 gate
+   (combat_anim_gate.js) had machine-locked always-crouch; check updated
+   to the newer ruling. (2) ROAM FACES THE WALK — victory-walk steps set
+   facing to the step direction (mid-fight facing stays threat-driven
+   per the 7/4 LOCKED cover-stance law). (3) EXPOSURE HONESTY (his
+   "why am I double exposing myself"): engaging a target you are ALREADY
+   exposed to = fired from BEHIND your stone; the covered side gets NO
+   aimed volley (they still counter-snap a whiff). Only popping AROUND
+   the stone (target you were covered from) opens you to everyone.
+   G._poppedOut tracks it per turn, chain-aware. (4) AUTO FRAME — in the
+   cover phase the applied zoom (uzEff(), floors G.userZoom) always
+   holds the farthest living enemy with a 96px margin for the bottom-
+   right action ring; pinch works but cannot LOSE an enemy; aim glide
+   and killshot cams untouched (they run outside the cover phase).
+   Gate 134 checks ALL GREEN. Chromium verified all four: pillars=[] ->
+   no crouch; far enemy at 24 tiles pulls uzE to 0.45 vs userZoom 1.4;
+   covered-north gunman excluded from the volley when engaging the
+   exposed-south target; roam step east faces east.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
