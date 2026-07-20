@@ -401,8 +401,13 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   // v17: exact floor, crouch, shot counter, menu sweep
   ok('EXACT FLOOR: bounds from the inverted camera, not heuristics',
     demo.includes('EXACT FLOOR V17') && demo.includes('uzInvert(0,0,W,H)'));
-  ok('covered men CROUCH (until the real cover anim lands)',
-    demo.includes('CROUCH V17') && demo.includes('x.scale(1,0.72);'));
+  ok('covered men CROUCH with the REAL baked take-cover frames (pillar cover included)',
+    demo.includes('V18: pillar cover crouches with the SAME baked take-cover frames') &&
+    !demo.includes('x.scale(1,0.72);'));
+  ok('the phone DIRS ReferenceError is dead (whole-field scope)',
+    demo.includes('V18 DIRS: whole-field scope'));
+  ok('the chain skill speaks Paolo (KILLSHOTS/TURN)',
+    demo.includes('KILLSHOTS/TURN: '));
   ok('the aim readout shows SHOT n/skill',
     demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)"));
   ok('obsolete DIAL FACING menu removed', !demo.includes('data-f="0"'));
