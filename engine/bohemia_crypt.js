@@ -21,22 +21,24 @@
     for(x=1;x<W-1;x++){ set(x,1, r()<0.2?3:2); set(x,H-2, r()<0.2?3:2); }
     for(y=1;y<H-1;y++){ set(1,y, r()<0.2?3:2); set(W-2,y, r()<0.2?3:2); }
 
-    // a GRID of freestanding vault banks, leaving 2-wide aisles between (walk among the crypts)
-    var cx=W>>1;
-    for(y=4;y<H-4;y+=4)for(x=3;x<W-3;x+=5){
-      if(Math.abs(x-cx)<=1) continue;                                                 // keep the central aisle clear
-      for(var by=0;by<3&&y+by<H-3;by++)for(var bx=0;bx<3&&x+bx<W-3;bx++) set(x+bx,y+by, r()<0.15?3:2);
+    // LONG CORRIDORS lined with WALLS OF STACKED CRYPTS (community-mausoleum form, not a maze):
+    // vertical crypt-wall bands (2 wide, faced with niches) alternate with 2-wide walkable
+    // corridors. Front + back cross-corridors join them all (every corridor reachable).
+    var cx=W>>1, y2;
+    for(var bx=2; bx<W-3; bx+=4){
+      if(Math.abs(bx-cx)<=1) continue;                                                // keep the central corridor open
+      for(y2=3;y2<H-3;y2++){ set(bx,y2, r()<0.15?3:2); set(bx+1,y2, r()<0.15?3:2); }  // a 2-wide crypt wall
     }
-    // central AISLE clear (floor) + a colonnade of columns flanking it
-    for(y=2;y<H-2;y++){ set(cx,y,1); set(cx-1,y,1); set(cx+1,y,1); }
-    for(y=4;y<H-4;y+=4){ set(cx-2,y,6); set(cx+2,y,6); }
+    for(x=1;x<W-1;x++){ set(x,2,1); set(x,H-3,1); }                                    // back + front cross-corridors
+    for(y=2;y<H-2;y++){ set(cx,y,1); set(cx-1<1?1:cx-1,y,1); }                         // main central corridor
 
-    // ALTAR / memorial statue at the far (top) terminus; a couple of sarcophagi in the aisle
-    set(cx,2,5); set(cx-1,2,5); set(cx+1,2,5);
-    for(y=6;y<H-6;y+=6){ set(cx, y, 7); }
-
+    // a colonnade of columns down the central corridor; sarcophagi set into it
+    for(y=4;y<H-4;y+=5){ if(cx-2>0)set(cx-2,y,6); if(cx+2<W-1)set(cx+2,y,6); }
+    for(y=7;y<H-6;y+=7){ set(cx,y,7); }
+    // ALTAR / memorial at the far (top) terminus
+    set(cx,1,5); if(cx-1>0)set(cx-1,1,5); if(cx+1<W-1)set(cx+1,1,5);
     // ENTRANCE at the front (bottom center) — from the exterior mausoleum door
-    set(cx,H-1,4); set(cx-1,H-1,4); set(cx+1,H-1,4); set(cx,H-2,1);
+    set(cx,H-1,4); if(cx-1>0)set(cx-1,H-1,4); if(cx+1<W-1)set(cx+1,H-1,4); set(cx,H-2,1);
     return { kind:'crypt', W:W, H:H, grid:g, entrance:{x:cx,y:H-1}, altar:{x:cx,y:2} };
   }
 

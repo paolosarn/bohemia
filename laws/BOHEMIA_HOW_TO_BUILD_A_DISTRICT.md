@@ -27,9 +27,13 @@ its unique bits, never from scratch. What the kit gives you:
 Gate for the machine itself: `gates/district_kit_gate.js`.
 
 ## THE METHOD (in order) — build a district AND its self-instructions in one turn
-1. **RESEARCH FIRST.** Online-research the REAL thing before building. Take its PROPORTIONS +
-   spatial logic, not a parts-list. (Park lesson: "a park is ~half open lawn", not "a park has
-   courts+field+playground".)
+1. **RESEARCH FIRST — DISTRICTS *AND* INTERIORS.** Online-research the REAL thing before
+   building ANYTHING: every district AND every interior (garage, crypt, tunnel, any room type).
+   Take its PROPORTIONS + spatial logic, not a parts-list. (Park lesson: "a park is ~half open
+   lawn", not "a park has courts+field+playground". Garage lesson 7/19: I built the garage +
+   crypt interiors from memory, skipped the search, and got the proportions wrong — a ~24ft
+   drive aisle became 3 tiles, community-mausoleum corridors became a scattered grid. NEVER
+   skip the search, even for an interior, even when it "seems obvious".)
 2. **BUILD CANONICAL-SOUTH on the kit.** Author the layout with the car entrance at the SOUTH
    edge, using kit primitives. EXPLAIN-EVERY-TILE: no blank slabs; every tile is a named legend
    item; research what fills the space and put it there. Dead-world act 1 (no living vegetation).
@@ -49,9 +53,12 @@ Gate for the machine itself: `gates/district_kit_gate.js`.
 7. **WIRE IT.** One line in `engine/bohemia_world.js` DISTGEN (`type -> {mod, foot, zone}`); add
    the module to the DISTRICTS lists in `tools/bohemia_tilespec.js` + `gates/tilespec_gate.js`;
    regenerate the dossiers: `node tools/bohemia_tilespec.js`.
-8. **INTERIORS.** Every enterable structure opens an interior via `plot.building(i).interior()`
-   — a special generator (garage) or the room floorplan. INTERIOR===EXTERIOR LAW: the interior
-   floor plate is ALWAYS exactly the footprint w x h (each deck too). Gate: world_gate.js.
+8. **INTERIORS (research these too).** Every enterable structure opens an interior via
+   `plot.building(i).interior()` — a special generator (garage/crypt) or the room floorplan.
+   RESEARCH the real interior first (step 1 applies), then match its proportions: garage =
+   ~24ft aisle + ~18ft-deep 90-degree stall banks (Schaefer/THA); crypt = long corridors lined
+   with walls of stacked crypts (Rome Monument/mausoleums.com). INTERIOR===EXTERIOR LAW: the
+   interior floor plate is ALWAYS exactly the footprint w x h (each deck too). Gate: world_gate.js.
 9. **SHIP.** Gates green -> commit -> merge main (same turn, no asking) -> push -> end with the
    play link.
 
