@@ -121,6 +121,15 @@ if (b64m) {
   // may NEVER ship as the default ground again.
   ok('the tile buffet never ships on by default (scatter:false)',
     decoded.indexOf('let TP = { on:false, scatter:false,') >= 0);
+
+  // 8. THE STREET ART LOCK (7/20, Paolo: "WE ACTUALLY MADE STREETS"): the
+  // approved V11/V12 street pools ARE the city's street-level ground.
+  ok('the approved street pools ride in the city (SA_TILES embedded)',
+    decoded.indexOf('const SA_TILES=') >= 0 && decoded.indexOf('BOHEMIA_STREET_POOLS_HARMONIZED') >= 0);
+  ok('texFor serves the real art for street ground colors',
+    decoded.indexOf("const sp=SA_MAP[col]") >= 0);
+  ok('center lines draw the median art with orientation',
+    decoded.indexOf("saTex(_vert?'median_v':'median_h',v)") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
