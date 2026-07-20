@@ -30,6 +30,10 @@
   var GLF= HASREQ ? require('./bohemia_golf.js')           : (typeof BohemiaGolf!=='undefined'?BohemiaGolf:root.BohemiaGolf);
   var STD= HASREQ ? require('./bohemia_stadium.js')        : (typeof BohemiaStadium!=='undefined'?BohemiaStadium:root.BohemiaStadium);
   var TKS= HASREQ ? require('./bohemia_truckstop.js')      : (typeof BohemiaTruckstop!=='undefined'?BohemiaTruckstop:root.BohemiaTruckstop);
+  var SCH= HASREQ ? require('./bohemia_school.js')         : (typeof BohemiaSchool!=='undefined'?BohemiaSchool:root.BohemiaSchool);
+  var FIR= HASREQ ? require('./bohemia_firestation.js')    : (typeof BohemiaFirestation!=='undefined'?BohemiaFirestation:root.BohemiaFirestation);
+  var SWP= HASREQ ? require('./bohemia_swapmeet.js')       : (typeof BohemiaSwapmeet!=='undefined'?BohemiaSwapmeet:root.BohemiaSwapmeet);
+  var STO= HASREQ ? require('./bohemia_storage.js')        : (typeof BohemiaStorage!=='undefined'?BohemiaStorage:root.BohemiaStorage);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -52,7 +56,11 @@
     drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
     golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
     stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure' },
-    truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' }
+    truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' },
+    school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
+    firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
+    swapmeet:   { mod:SWP, foot:function(r){return r.footprints;},           zone:'retail' },
+    storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }

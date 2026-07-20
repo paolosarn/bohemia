@@ -28,6 +28,10 @@ const DISTRICTS = [
   { name: 'golf',       mod: require('../engine/bohemia_golf.js') },
   { name: 'stadium',    mod: require('../engine/bohemia_stadium.js') },
   { name: 'truckstop',  mod: require('../engine/bohemia_truckstop.js') },
+  { name: 'school',     mod: require('../engine/bohemia_school.js') },
+  { name: 'firestation',mod: require('../engine/bohemia_firestation.js') },
+  { name: 'swapmeet',   mod: require('../engine/bohemia_swapmeet.js') },
+  { name: 'storage',    mod: require('../engine/bohemia_storage.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;
