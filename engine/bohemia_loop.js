@@ -691,6 +691,45 @@
     return rt.begin(nodeId);
   }
 
+  /* --------------------------------------------------------------------------
+     THE FEED — the master window Paolo described: "a huge window... the menu of
+     seeing all the quest logs and what quests and what you have written down." The
+     feed is the chronological POST STREAM over the recorded choice-log (the deeds
+     already saved). This is a pure PROJECTION of data that exists (save.choices);
+     it authors nothing and decides no follower math (that is Paolo's, PENDING). By
+     TOTAL RECALL every recorded deed is a post, whether it came over the phone or
+     from pulling up on someone in person. Newest-first (like a real feed).
+
+     Each post: { beat, gen, kind:'choice'|'outcome'|'event', questId, title,
+                  outcome?, node?, to?, id }. Quest posts are enriched with the live
+     quest's title when it is still loaded; anything else becomes a generic 'event'
+     post so the feed never hides a recorded deed.
+     ------------------------------------------------------------------------ */
+  function buildFeed(ctx, opts) {
+    opts = opts || {};
+    if (!ctx.save || !Array.isArray(ctx.save.choices)) return [];
+    const titleOf = function (qid) {
+      const rt = ctx.quests ? ctx.quests.get(qid) : null;
+      return rt && rt.Q && rt.Q.title ? rt.Q.title : qid;
+    };
+    const posts = ctx.save.choices.map(function (c, idx) {
+      const eff = c.effect || {};
+      const qid = eff.quest || null;
+      let kind = 'event', outcome = null, node = null, to = null;
+      if (qid) {
+        if (eff.outcome != null) { kind = 'outcome'; outcome = eff.outcome; }
+        else { kind = 'choice'; node = eff.node != null ? eff.node : null; to = eff.to != null ? eff.to : null; }
+      }
+      return { seq: idx, beat: c.beat || 0, gen: c.gen || 1, kind: kind,
+               questId: qid, title: qid ? titleOf(qid) : null,
+               outcome: outcome, node: node, to: to, id: c.id };
+    });
+    // newest-first: primary by beat desc, tiebreak by insertion order desc (stable).
+    posts.sort(function (a, b) { return (b.beat - a.beat) || (b.seq - a.seq); });
+    if (opts.limit) return posts.slice(0, opts.limit);
+    return posts;
+  }
+
   /* The player commits a grid action. This is the ONE thing that advances the
      world's grid clock by a turn (I move, you move). Animation keeps running via
      tick() every frame regardless; this only moves grid position. Returns the
@@ -722,7 +761,7 @@
   return {
     makeContext, boot, tick, commit, captureSave,
     spawnActorsForDistrict, enemyRuleForDistrict, updateDistrictLOD,
-    talkablesNear, talkTo,
+    talkablesNear, talkTo, buildFeed,
     // individual boot steps exported so each can be tested in isolation
     _steps: {
       bootFoundation, bootSave, bootHeartbeat, bootScheduler, bootWorldGen, bootFactions,

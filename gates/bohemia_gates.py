@@ -68,6 +68,8 @@ GATES = [
      'the whole goal-slice loop headless: walk->talk->play->journal->save/reload->fold', False),
     ('LOOP CHANNEL',   ['node', 'engine/bohemia_loop_channel_tests.js'],
      'feed quests pick up over the phone; phoneless (homeless) only in person', False),
+    ('LOOP FEED',      ['node', 'engine/bohemia_loop_feed_tests.js'],
+     'the feed: every deed is a newest-first post over the recorded choice-log', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
