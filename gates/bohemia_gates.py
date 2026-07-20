@@ -104,6 +104,8 @@ GATES = [
      'two-plane sim: census === bodies, offline plane agrees with online', False),
     ('MEMORY',         ['node', 'gates/memory_gate.js'],
      'witnesses: clarity decays, familiarity holds, missing-persons answerable', False),
+    ('DEVIATION',      ['node', 'gates/deviation_gate.js'],
+     'events bend a life, never break it: expiry required, cap held, re-convergence', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],

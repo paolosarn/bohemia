@@ -58,9 +58,19 @@ render; LIFE gate 20 -> 24 checks. WITNESS MEMORY (SoD pattern) -
 engine/bohemia_memory.js + gate #MEMORY (9 checks): ring-buffer minds,
 familiarity slows decay, lastSeenAcross answers "when did anyone last see
 H3-2" - THE SEED OF THE QUESTBOOK'S MISSING-PERSONS ORGAN (Q133/Q134/Q138).
-Remaining LIFE rungs all BLOCKED by design: deviation layer needs events,
-resurfacing needs real art, factions/names/money need Paolo's tables,
-economy tuning needs the built world. LIFE lane: fully built out, dormant.
+RUNG 4b BUILT DORMANT (7/19 latest): BOUNDED DEVIATION - deviate() with
+mechanism verbs (goto/flee/stay_home), expiry REQUIRED, 20% cap, re-
+convergence to schedule, offline plane stays the plan. Gate #DEVIATION
+(11 checks). The Radiant lesson is now machine law.
+THE LIFE LANE IS COMPLETE TO ITS DESIGNED EDGE. Every remaining item is
+blocked on its proper unlock: RESURFACING needs real art (tiles + dressed
+rig at world scale - the art/world sessions' rung, LIFE's engine is ready
+to receive it); FACTIONS ACTING needs Paolo's tables (FACTION_ASSIGN /
+DRESS / ECONOMY); NAMES + THE MONEY are Paolo's; ECONOMY TUNING needs the
+built world; DEVIATION TRIGGERS need events (combat/quests). A future LIFE
+session's standing default: keep gates green, re-bank the wardrobe when
+DRESS goes red, and wait for the unlock - do NOT invent content to fill
+the silence.
 
 ## LIFE OPENED - THE VALLEY HAS PEOPLE (7/19, LIFE session, branch claude/bohemia-life-session-9fbnyj)
 The LIFE ladder from the world-model roadmap is BUILT and in the alpha. Three

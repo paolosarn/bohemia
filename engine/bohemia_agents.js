@@ -318,6 +318,32 @@
     return agentsForBlock(cell.seed>>>0, plot.buildings, jobs, fpOf);
   }
 
+  // ---- BOUNDED DEVIATION (rung 4b, the Radiant lesson made law) ------------
+  // Events may push an agent off plan, but the bounds are machine-enforced:
+  //   - every deviation carries an EXPIRY (until turn) or it is rejected -
+  //     nobody wanders off their life forever
+  //   - at most DEVIATION_CAP of a block's population deviates at once
+  //     (Shadows of Doubt: "never more than a handful")
+  //   - when it expires, the agent RE-CONVERGES to the schedule; the offline
+  //     plane stays the plan (deviation is an online-bubble phenomenon)
+  // WHAT triggers a deviation is content (combat, quests, faction moves) -
+  // not decided here. Kinds are mechanism verbs only:
+  //   goto:{x,y,until}  be somewhere else for a while
+  //   flee:{x,y,until}  get away from a point (indoors counts as safe)
+  //   stay_home:{until} shelter in place
+  var DEVIATION_CAP=0.2;
+  function deviate(sim, agent, ev){
+    if(!ev||typeof ev.until!=='number') return {ok:false,why:'unbounded'};
+    if(ev.until<=sim.turn) return {ok:false,why:'expired'};
+    var cap=Math.max(1,Math.floor(sim.agents.length*DEVIATION_CAP));
+    var active=0;
+    sim.agents.forEach(function(a){ if(a.dev&&a.dev.until>sim.turn) active++; });
+    if(active>=cap && !(agent.dev&&agent.dev.until>sim.turn)) return {ok:false,why:'cap'};
+    agent.dev={kind:ev.kind, x:ev.x, y:ev.y, until:ev.until|0};
+    agent._path=null;
+    return {ok:true};
+  }
+
   // ---- THE SIM: a block living a day ---------------------------------------
   // Advances ONE world-turn per step() call. The caller decides what a step is
   // (player action per I-MOVE-YOU-MOVE, or one 120BPM beat in a judge tool's
@@ -409,6 +435,31 @@
       sim.turn++;
       var t=tod(sim.turn);
       agents.forEach(function(a){
+        // DEVIATION overrides the plan, inside its bounds, until it expires
+        if(a.dev){
+          if(sim.turn>=a.dev.until){ a.dev=null; a._path=null; a._act='__reconverge'; }
+          else { var dv=a.dev, ddoor=doorCell[a.home.building]||gate;
+            if(a.loc.mode==='away'){            // deviations act on the block: come back first
+              if(gate&&occFree(gate[0],gate[1],a.id)){ a.loc.mode='out'; place(a,gate[0],gate[1]); a._path=null; }
+              return; }
+            if(dv.kind==='stay_home'){
+              if(a.loc.mode==='in') return;
+              walkTo(a,ddoor,function(){ leaveGrid(a,'in'); }); return; }
+            if(dv.kind==='goto'){
+              if(a.loc.mode==='in'){ stepOut(a,ddoor); return; }
+              walkTo(a,[dv.x,dv.y],null); return; }
+            if(dv.kind==='flee'){
+              if(a.loc.mode==='in') return;      // indoors is safe
+              var best=null,bd=-1,nb=[[1,0],[-1,0],[0,1],[0,-1]];
+              for(var q=0;q<4;q++){ var fx=a.loc.x+nb[q][0],fy=a.loc.y+nb[q][1];
+                if(!passable(fx,fy)||!occFree(fx,fy,a.id)) continue;
+                var dd=Math.abs(fx-dv.x)+Math.abs(fy-dv.y);
+                if(dd>bd){bd=dd;best=[fx,fy];} }
+              var cur=Math.abs(a.loc.x-dv.x)+Math.abs(a.loc.y-dv.y);
+              if(best&&bd>cur) place(a,best[0],best[1]);
+              return; }
+            return; }
+        }
         var b=whereAt(a,sim.turn);
         var want=b.where, act=b.act;
         if(act!==a._act){ a._act=act; a._path=null; }   // activity change -> replan
@@ -470,6 +521,7 @@
     censusForBlock:censusForBlock,censusForPlot:censusForPlot,sampleValley:sampleValley,
     offlineSummary:offlineSummary,RESIDENTIAL:RESIDENTIAL,
     ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
+    deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
