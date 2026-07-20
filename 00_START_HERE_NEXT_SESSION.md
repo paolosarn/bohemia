@@ -50,6 +50,25 @@ its live BohemiaOvermap now IS canon (street counts match canon exactly;
 official street gate green). SAVE NOTE: suspend saves carry a seed; a save
 made on fork streets resumes with the world re-laid canon around the
 player - the world REPAIRED, not reset (flagged, not hidden).
+STREET LEVEL WEARS THE REAL ART (7/20, Paolo furious and right: "WE
+ACTUALLY MADE STREETS BEFORE THE SESSIONS WENT TO CODE"): two root causes
+found and killed the same day. (1) THE TILE BUFFET (an old tile-judging
+experiment) shipped with scatter:true DEFAULT, blanketing the whole street
+level in banned confetti - his screenshot was the verdict; scatter now
+defaults false, gate-locked, buffet button remains for deliberate judging.
+(2) Under it the ground was PROCEDURAL GRAY while the APPROVED street art
+(banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26: 18 weathered asphalt, 36
+sidewalk, washed-yellow medians, 30-yr law) sat unused. tools/bohemia_city_
+streetart_patch.py embeds the pools (44px -> 16px TPX) and patches texFor:
+road colors -> real asphalt, sidewalk color -> real sidewalk, shoulders ->
+certified desert, center-line cells -> median art WITH orientation
+(bank tiles authored horizontal, rot90 vertical, neighbors decide);
+caches flush when art decodes. Verified DROP IN: real weathered asphalt +
+washed yellow line under the player, 0 errors. Gate #CITY TAB now 26
+checks (buffet lock + SA_TILES + texFor + median orientation). NEXT for
+street-level art: crosswalks/lane_div/turn pockets at intersections (needs
+band geometry, the bake factory's anatomy), building/lot art (the district
+factory tilespecs), lamps as the V11 body not a dot.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid
