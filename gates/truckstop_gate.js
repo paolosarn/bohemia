@@ -14,10 +14,12 @@ const CONFIGS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 let anatomy = true, filled = true, streetOk = true, cornerPed = true, driveConnected = true, noPurple = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = D.generate(s * 29 + 5, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
-  // ANATOMY: forecourt(1) dominant + store(2) + canopy(4) + pumps(6) + wash(7) + pylon(8) +
-  // pole lights(9) + abandoned vehicles(10) + stall markings(11) + rubble(3).
-  if (!(t[1] > 8000 && t[2] > 400 && (t[4] || 0) > 40 && (t[6] || 0) > 20 && (t[7] || 0) > 150 &&
-        (t[8] || 0) > 15 && (t[9] || 0) >= 5 && (t[10] || 0) > 30 && (t[11] || 0) > 100 && (t[3] || 0) > 40)) anatomy = false;
+  // ANATOMY: forecourt(1) dominant + store(2) + a BOLD filled canopy roof(4) + pumps(6) + wash(7) +
+  // pylon(8) + pole lights(9) + abandoned vehicles(10) + stalls(11) + rubble(3) + concrete pad(12) +
+  // landscaping planters(13). The canopy + pad are enforced substantial (the "looks like shit" fix).
+  if (!(t[1] > 7000 && t[2] > 400 && (t[4] || 0) > 600 && (t[6] || 0) > 40 && (t[7] || 0) > 150 &&
+        (t[8] || 0) > 15 && (t[9] || 0) >= 5 && (t[10] || 0) > 30 && (t[11] || 0) > 100 && (t[3] || 0) > 40 &&
+        (t[12] || 0) > 600 && (t[13] || 0) > 60)) anatomy = false;
   if (!K.legendOk(r.g, D.palette) || K.voidFraction(r.g) > 0.22) filled = false;
 
   // DRIVABLE: a car reaches the forecourt from the curb, any placement
@@ -37,7 +39,7 @@ for (const c of Object.keys(D.palette)) {
     if (mx === R) h = 60 * (((G - B) / d) % 6); else if (mx === G) h = 60 * ((B - R) / d + 2); else h = 60 * ((R - G) / d + 4);
     if (h < 0) h += 360; if (h >= 255 && h < 320) noPurple = false; }
 }
-ok('forecourt + store + canopy + pumps + wash bay + pylon + pole lights + abandoned vehicles + stalls + rubble', anatomy);
+ok('forecourt + store + bold canopy roof + pumps + wash + pylon + lights + vehicles + stalls + concrete pad + planters', anatomy);
 ok('every tile named + low void (EXPLAIN-EVERY-TILE)', filled);
 ok('DRIVABLE: a car reaches the forecourt from the curb in every placement', driveConnected);
 ok('gates sit only on street edges', streetOk);
