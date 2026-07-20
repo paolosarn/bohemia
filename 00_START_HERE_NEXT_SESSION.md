@@ -72,6 +72,33 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   WIRING the dialogue UI + save into the walking world, and a written playable .bq
   (only ONE non-canon sample exists; the neighbor's first quest is pinned). Interiors
   deferred. Everything left here needs the alpha/V11 slice + Paolo.
+
+## CITY TAB / WALKABLE ENGINE — AUDITED TRUE STATE (7/19, read the code directly)
+Corrects the gap-analysis agent, which badly UNDERSOLD this (and missed
+bohemia_engine.js entirely — do not trust that agent's engine claims).
+- BUILT + MODULAR + TESTED (gates/test_v11.js, the SLICE V11 gate): the walkable
+  ENGINE LOGIC in engine/bohemia_slice_engine.js (+ bohemia_slice_core.js):
+  grid MOVERS with the occupancy law (no overlap, chain-step, run, smooth lerp),
+  the 120 BPM beat clock + the I-MOVE-YOU-MOVE turn clock + a WORLD CLOCK (walk
+  1.9s / run 0.9s per step -> time-of-day -> the 100-year arc), full day/night
+  LIGHT pass, DOORS (2-beat swing, passable), a WANDERER NPC brain, occupancy-aware
+  LAMPS. This is a real walkable engine, not a stub.
+- BUILT + MODULAR: the CITY MAP + CONTENT: bohemia_overmap.js (overmap gen, big
+  API), bohemia_blockgen.js (drill-in block types: street/desert/mountain/wash/
+  solar/farm/airfield... each a grid + meta), bohemia_plotgen.js, bohemia_powergrid.js,
+  bohemia_overmap_bridge.js.
+- THE ONE REAL WALL (confirmed by grep: renderHuman/cityWalkable/stepOnce/drillIn
+  appear NOWHERE in engine/ or the readable slices): the human-mode RENDER, the
+  drill-in from overmap to walkable, and the on-screen city view live ONLY inside
+  the 31MB alpha's CITY_B64 base64 blob (source bohemia_city_unified.html, which
+  does NOT exist standalone). The city's brain is modular and editable; its FACE is
+  trapped in a blob. That extraction/rebuild is the logistics crux of the walkable build.
+- SO THE WALKABLE BUILD (with Paolo) IS: reuse the solid modular engine logic;
+  rebuild the human-mode RENDER cleanly on top of it (recommended over editing the
+  blob); then the quest slice adds a TALK-trigger NPC (a mover + proximity check —
+  the wanderer brain is the primitive), a DIALOGUE OVERLAY drawing runtime.view(),
+  and wiring runtime choices -> the engine's recordChoice. Smaller than it first looked.
+
 SMALLEST PATH (ruthlessly scoped; BUILD IT LIKE THE COMBAT DEMO, Paolo 7/19 — a
 tight, standalone, actually-PLAYABLE demo you hold with your thumbs, NOT bolted into
 the 31MB studio; the combat demo/dial is both the proof this can be done and the
