@@ -434,8 +434,10 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 3)',
     demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||3)%8)+1"));
   ok('WEAPON READ: every body shows blade or gun', demo.includes('WEAPON READ V14'));
-  ok('MISS CINEMATIC: the quick cam plays even when they all miss',
-    demo.split('MISS CINEMATIC V14').length >= 3);
+  ok('MISS CINEMATIC: a volley plays the camera even on a total miss; 2+ shooters get the FULL cam + shake (V24)',
+    demo.split('MISS CINEMATIC V24').length >= 3 &&
+    demo.split("pool.length>=2?null:'quick'").length >= 3 &&
+    demo.includes('G._vShakeAt='));
   ok('AIM CAM GLIDE: your framing swings into the shot (with SNAP toggle)',
     demo.includes('AIM CAM GLIDE V14') && demo.includes("'AIM CAM: '+(G.aimCamGlide===false?'SNAP':'GLIDE')"));
   ok('the arm gun reads per weapon (long guns get a stock)',
@@ -478,8 +480,8 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('const mv=(o,mn)=>{') && demo.includes('mv(c,0.02)') &&
     demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
   // v22: the plumbing pass — the red line law finally complete
-  ok('V22 MOVE BREAKS THE BEAD: a step resets every gun\'s acq clock',
-    demo.includes('V22 MOVE BREAKS THE BEAD') && demo.includes('e2.acq=0;'));
+  ok('V24 LOS BEAD (supersedes v22): a step only resets guns whose LINE you broke',
+    demo.includes('V24 LOS BEAD') && demo.includes('if(myCoverAgainst(e2.ea,e2.edist)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));
   ok('danger outranks its warning: red line 0.30, acquiring amber 0.18',
     demo.includes("'rgba(232,60,40,0.30)'") && demo.includes("'rgba(232,140,40,0.18)'") &&
     !demo.includes("'rgba(232,140,40,0.32)'"));
@@ -500,6 +502,27 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
     demo.includes('uzApply(c,W,H){c.translate(W/2+G.userPan.x,H/2+G.userPan.y);c.scale(uzEff(),uzEff())') &&
     !demo.includes('c.scale(G.userZoom,G.userZoom)') &&
     demo.includes(')/uzEff()+W/2') && demo.includes('-96)'));
+  // v24: the feel ruling
+  ok('V24 VITAL NEVER CHAINS: a vital stuns 2 and ENDS the turn; only a killshot chains',
+    demo.includes('a vital STUNS') && demo.includes("frozen 2 turns — turn ends") &&
+    !demo.includes('// vital continues your turn'));
+  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out; button reads HOLD/SHOOT/POP OUT',
+    demo.includes('function posExposed()') && demo.includes("txt='HOLD';") &&
+    demo.split("txt='POP OUT';").length >= 5 && !demo.includes("txt='POP';") &&
+    demo.includes('never pop around your stone while a side has you lined up'));
+  ok('THE DEAD LIE UNDER THE LIVING: corpse under-pass before the player, old draws stripped',
+    demo.includes('V24 UNDER THE LIVING') &&
+    demo.includes('V24: the body painted in the under-pass') &&
+    demo.includes('only the flies live up here'));
+  ok('UI cluster up-left: fire + ring at 44px, never clipped',
+    demo.includes('#fire{position:fixed;right:44px;bottom:44px;') &&
+    demo.includes("right:44px;bottom:44px;width:92px;height:92px;z-index:59"));
+  ok('KICK-LOCK: the dial pulses on FAC().kick — ember + rim ride the audible kick',
+    demo.includes('V24 KICK-LOCK') && demo.includes('_kkA.includes(_ks16)') &&
+    demo.includes('V24 KICK-LOCK rim') && demo.includes('the ember pump rides the audible kick'));
+  ok('V25 EAR-LOCK: the pulse clock compensates for measured audio output latency',
+    demo.includes('V25 EAR-LOCK') && demo.includes('AC.outputLatency') &&
+    demo.includes('_bpmEar=_bpmClock-_lms'));
 }
 
 /* ---- 3. verdict workflow ---- */
