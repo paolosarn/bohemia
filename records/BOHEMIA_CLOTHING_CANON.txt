@@ -334,3 +334,19 @@ FOUR MORE SHAPES that never existed (7 candidates, zero recolors):
 Gate: structure_gate.js now 42 checks (directional bag/apron/suspender checks,
 tatter = fewer pixels than solid, UI leads-with-structures check). Verified on
 the real surface in 4 facings each. COOKING: 19 structures + 63 filler.
+
+=== VERDICT 7/19/26 (c) — ALL 19 STRUCTURES CANON + THE STRAP RULING ===
+Paolo approved EVERY structure candidate: jackets (denim/field/leather),
+ponchos (dust/oxblood), tall boots (moto/ranch), rolled sleeves (work shirt/
+flannel), gear (kneepads/pauldron/chest rig), bags (ruck pack/salvage
+satchel), aprons (smith's/trades), work suspenders, tattered (tee/flannel).
+The 63 colorway fillers stay in their drawer, unjudged ("--"), exactly as the
+structure-not-color law intends.
+CANON WARDROBE: 97 items across every category + 63 filler cooking.
+THE STRAP RULING (his note, NOTES ARE RULINGS -- built same turn, no
+re-thumb): "I really liked the ruck pack, but the straps had to be done
+better. The straps that go next to the arms from the shoulders." REBUILT:
+front straps are now 2px webbing hugging the torso edge beside each arm,
+anchored at the shoulder line, dark outer + lit inner edge, chest buckles.
+Gate: structure_gate.js 45 checks (strap width + shoulder anchor + open
+center chest locked). Verified on the real preview in 6 facings.

@@ -273,6 +273,16 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-10. ALL 19 STRUCTURES CANON + STRAP RULING (7/19, latest): Paolo approved
+   every structure candidate (jackets, ponchos, tall boots, rolled, gear,
+   bags, aprons, suspenders, tattered) -- CANON WARDROBE NOW 97 items. The
+   63 colorway fillers stay cooking in their drawer, unjudged. His one note
+   (NOTES ARE RULINGS, rebuilt same turn): the RUCK PACK's front straps --
+   now 2px webbing beside each arm, anchored at the shoulder line, chest
+   buckles, gate-locked (structure_gate 45 checks). NEXT structure wave when
+   clothing continues: skirts/wraps, hood-up variants, bedroll, shemagh,
+   more armor plates. Colorways may now also multiply off the 19 new canon
+   structures -- as FILLER, never the headline.
 -9. STRUCTURE WAVE 2 + COOK UI RE-LED (7/19, latest): Paolo flagged the UI
    still led with colorways after his ruling -- the CLOTHES tab now renders
    COOKING - NEW STRUCTURES first and collapses COLORWAY FILLER (63) into a

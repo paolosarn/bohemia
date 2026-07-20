@@ -103,11 +103,19 @@ if (G) {
   catch (e) { console.log('  bag err: ' + e.message); }
   ok('backpack renders S/N/E + satchel', [bpS, bpN, bpE, stS].every(o => o && Object.keys(o).length >= 6));
   if (bpS && bpN && bpE) {
-    ok('backpack from BEHIND is the pack body (bigger than the front straps)', Object.keys(bpN).length > Object.keys(bpS).length * 1.5);
+    // back = the solid pack body over the center; front = straps beside the arms
+    // with the CENTER CHEST OPEN (the shirt shows between the straps)
+    ok('backpack from BEHIND is a solid pack block over the center', bpN[(21) * 56 + 27] !== undefined && bpN[(23) * 56 + 28] !== undefined && Object.keys(bpN).length >= 60);
+    ok('backpack front keeps the center chest open between the straps', (() => { let c = 0; for (let y = 18; y <= 28; y++) if (bpS[y * 56 + 27] !== undefined || bpS[y * 56 + 28] !== undefined) c++; return c === 0; })());
     let out = 0; for (const k in bpE) if (g[+k] === 0) out++;
     ok('backpack PROTRUDES from the back edge in profile (real background pixels)', out >= 8);
     ok('backpack never touches the head or face', [bpS, bpN, bpE].every(o => ![...parts(o)].some(pt => pt === 1 || pt === 2)));
     ok('satchel sits at the hip (its box rows are low)', rows(stS).some(y => y >= 28) && rows(stS).every(y => y >= 16));
+    // THE STRAP RULING (Paolo 7/19, canon note): front straps are REAL --
+    // 2px wide beside each arm, anchored at the shoulder line
+    const strapCols = new Set(); for (const k in bpS) if (g[+k] === 4) strapCols.add((+k) % CW);
+    ok('backpack front straps are 2px webbing beside each arm', strapCols.has(24) && strapCols.has(25) && strapCols.has(30) && strapCols.has(31));
+    ok('backpack front straps anchor at the shoulder line', rows(bpS, pt => pt === 4).includes(16));
   }
   // WAVE 2: APRON -- front panel, strings from behind
   let apS = null, apN = null;
