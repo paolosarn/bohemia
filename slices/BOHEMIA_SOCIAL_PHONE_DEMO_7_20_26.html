@@ -27,7 +27,12 @@
   /* header / profile */
   .statusbar{ display:flex; justify-content:space-between; align-items:center;
     padding:8px 18px 2px; font-size:12px; font-weight:600; color:var(--ink); letter-spacing:.4px; }
+  .statusbar #sig{ cursor:pointer; }
   .statusbar .dot{ color:var(--good); font-size:9px; vertical-align:middle; }
+  .statusbar .dot.off{ color:#e5623d; }
+  .offline{ background:#2a1913; border:1px solid #4a2a1c; color:#e8a06f; font-size:12.5px;
+    padding:10px 12px; border-radius:12px; margin:6px 2px 12px; line-height:1.4; }
+  button:disabled{ background:#222932; color:var(--faint); }
   .hero{ padding:14px 18px 16px; position:relative;
     background:radial-gradient(120% 90% at 80% -10%, rgba(233,178,74,.16), transparent 60%), #0d1116;
     border-bottom:1px solid var(--line); }
@@ -130,7 +135,7 @@
 </style>
 
 <div id="phone">
-  <div class="statusbar"><span>BOHEMIA</span><span><span class="dot">●</span> the valley · live</span></div>
+  <div class="statusbar"><span>BOHEMIA</span><span id="sig" onclick="toggleSignal()"><span class="dot">●</span> the valley · live</span></div>
 
   <div class="hero">
     <div class="hrow">
@@ -207,7 +212,13 @@ ctx.quests.place(demoQuest('tunnelfavor','Tunnel Favor','king_hobo',
   { x:90,y:90, speaker:'king_hobo', channel:'inperson' });
 
 /* ---- helpers ----------------------------------------------------------------- */
-var TAB='feed', openQuestId=null;
+var TAB='feed', openQuestId=null, online=true;
+function toggleSignal(){
+  online=!online;
+  el('sig').innerHTML = online ? '<span class="dot">●</span> the valley · live'
+                               : '<span class="dot off">●</span> the tunnels · NO SIGNAL';
+  render();
+}
 function el(id){ return document.getElementById(id); }
 function esc(s){ return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
 var AV_COLORS=['#e9b24a','#57c6d6','#d98a3a','#8bc34a','#c98bde','#e77b7b','#6fa8ff'];
@@ -259,7 +270,8 @@ function render(){
   refreshTop();
   var s = el('screen'), h='';
   if(TAB==='feed'){
-    var feed = Loop.buildFeed(ctx);      // ONE post per completed quest
+    if(!online) h += '<div class="offline">📵 No signal in the tunnels. Your posts are saved and go up when you\'re back in range. Everything else on the phone still works.</div>';
+    var feed = Loop.buildFeed(ctx);      // ONE post per completed quest (cached locally, viewable offline)
     var followers = Loop.socialProfile(ctx, FOLLOWER_SCORE).reach;
     if(!feed.length) h += '<div class="empty-state">Your feed is quiet.<br>Complete a quest and it posts here.</div>';
     feed.forEach(function(p, idx){
@@ -277,13 +289,15 @@ function render(){
   }
   else if(TAB==='offers'){
     h += '<h2 class="sec">Available over the phone</h2>';
+    if(!online) h += '<div class="offline">📵 No signal. You can\'t pull quests off the feed down here, you have to find people in person.</div>';
     var offers = ctx.quests.feedOffers();
     if(!offers.length) h += '<div class="empty-state" style="padding:20px">No open quests on the feed right now.</div>';
     offers.forEach(function(o){
-      h += '<div class="card offer"><div class="otop">'+avatar('@'+(o.speaker||'x'))+
+      h += '<div class="card offer"'+(online?'':' style="opacity:.5"')+'><div class="otop">'+avatar('@'+(o.speaker||'x'))+
            '<div><div class="otitle">'+esc(o.title)+'</div><div class="oby">from @'+esc(o.speaker||'someone')+'</div></div></div>'+
            '<div class="orow"><span class="chip feed">📱 over the phone</span>'+
-           '<button onclick="openTalk(\''+o.questId+'\')">Pick up</button></div></div>';
+           (online ? '<button onclick="openTalk(\''+o.questId+'\')">Pick up</button>'
+                   : '<button disabled>No signal</button>')+'</div></div>';
     });
     h += '<h2 class="sec">Not on the feed · go find them</h2>';
     var any=false;
