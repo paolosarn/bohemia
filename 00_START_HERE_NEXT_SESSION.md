@@ -51,8 +51,9 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   standalone that plays a .bq through the runtime (browser-verified). Paolo's rule:
   NO MORE fake demos without real assets — this one stays as a dev/verification tool.
 - CORRECTION 7/19 (READ-BEFORE-BUILD paid off, and a mistake owned): the SAVE, the
-  generational FOLD, deterministic HEIR selection, and the RECORDED/UNRECORDED
-  amalgamation model ALREADY EXIST, mature and tested, in engine/bohemia_engine.js
+  generational FOLD, deterministic HEIR selection, and the amalgamation model (which
+  still carries a recorded flag, now ALWAYS true per TOTAL RECALL, so blindSpot=0)
+  ALREADY EXIST, mature and tested, in engine/bohemia_engine.js
   (the 3,600-line chat-era monolith, 80/80 via engine/bohemia_tests.js — see
   BohemiaEngine.Save recordChoice/reconstruct/Persist and BohemiaEngine.Generations
   foldGeneration/selectHeir/foldFromSave/amalgamationModel, hardened by the
@@ -77,25 +78,30 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   SOCKETS POURED so far: ctx.quests (LOOP QUESTS gate) and ctx.spawner (bootEntities
   now creates the deterministic enemy Spawner + shares ctx.deltas; LOOP ENTITIES gate;
   spawnActorsForDistrict/updateDistrictLOD use it).
-  THE LEDGER PIPE (7/20, LOOP LEDGER gate 15/15): quest choices AND COMPLETE/FAIL
-  outcomes played through ctx.quests now flow into the SAME choice-log the fold +
-  amalgamationModel read (E.Save.recordChoice), so a quest actually MOVES THE DYNASTY
-  instead of dying in the runtime. Pure MECHANISM: every event defaults recorded:true;
-  the manager's record-sink wraps the runtime's own choose/begin/setStage (runtime
-  untouched), fires the outcome exactly once, and a restored-already-done quest never
-  re-fires. WHICH choices are SECRET (recorded:false, invisible to the Amalgamation)
-  is Paolo's canon rule and is NOT decided here — the sink forwards evt.recorded (and
-  surfaces the .bq SILENCE/trap flags), so wiring that policy later is a ONE-LINE
-  change at the sink in bootQuests, never a change to the pipe. [PENDING Paolo: the
-  recorded:false classification.]
-  THE TALK-TRIGGER (7/20, LOOP TALK gate 14/14): the join between the walkable world
-  and the quest system. ctx.quests.place(questText,{x,y,layer,speaker}) binds a quest
-  to an NPC's tile (starts it, rides the save). Loop.talkablesNear(ctx,px,py,radius=1)
-  returns the talk nodes begin-able RIGHT NOW — NPC within chebyshev radius AND the
-  quest's own entry condition holding; a finished quest falls silent. Loop.talkTo(ctx,
-  questId,node) begins it and returns the speaker view; choosing feeds the ledger
-  automatically. This is the connective tissue the walkable slice needs; it authors no
-  dialogue and decides no geography (content passes the tile).
+  THE FEED PIPE (7/20, LOOP LEDGER gate 16/16): quest choices AND COMPLETE/FAIL
+  outcomes played through ctx.quests flow into the SAME choice-log the fold reads
+  (E.Save.recordChoice), so a quest actually MOVES THE DYNASTY instead of dying in
+  the runtime. TOTAL RECALL (Paolo 7/20): everything is remembered on the feed,
+  ALWAYS recorded:true. There is NO secret/off-feed channel (the recorded:false
+  split was a Claude-originated framing Paolo REJECTED and RETIRED 7/20 — see
+  CANON CHANGE below). The record-sink wraps the runtime's own choose/begin/setStage
+  (runtime untouched), fires the outcome once, and a restored-already-done quest
+  never re-fires.
+  THE TALK-TRIGGER + ACQUISITION CHANNELS (7/20, LOOP TALK 14/14, LOOP CHANNEL 11/11):
+  ctx.quests.place(text,{x,y,layer,speaker,channel}) binds a quest to an NPC tile
+  (starts it, rides the save). channel = 'feed' (pick up over the PHONE; surfaces in
+  ctx.quests.feedOffers()) or 'inperson' (the phoneless, like the homeless: NOT on
+  the phone, only reachable by pulling up). Loop.talkablesNear(ctx,px,py,radius=1) is
+  "pull up on them" — the talk nodes begin-able now (NPC within chebyshev radius +
+  entry holds; a done quest falls silent), and the ONLY way to reach an in-person
+  quest. Loop.talkTo(ctx,questId,node) begins it, returns the speaker view; choosing
+  feeds the feed automatically. Authors no dialogue, decides no geography.
+  THE FEED VIEW (7/20, LOOP FEED gate 11/11): Loop.buildFeed(ctx,{limit}) = the master
+  window Paolo described (the phone menu of everything you've done), the newest-first
+  post stream projected over the recorded choice-log. Pure projection of save.choices;
+  authors nothing; computes NO follower math (Paolo's call, PENDING). ctx.quests also
+  exposes journal() (every live quest's title/act/stage/done/objectives/available/
+  channel) and activeObjectives() (the flat objective-HUD line).
   STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
   (faction placement/standings into worldgen slots) and bootEconomy (what the three
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
@@ -179,6 +185,21 @@ base64 logistics — build on the V11 live slice, verify it has human mode first
 SYNC LAW: edits go to the canonical source. CUT from the slice: overmap drill-in, real
 interiors, combat, role-casting/factions, the generational fold, inventory.
 
+## CANON CHANGE 7/20 — TOTAL RECALL + THE QUEST LOG IS THE SOCIAL FEED
+Paolo locked (SOCIAL_FEED_QUEST_LOG_7_20_26): the quest log's PRESENTATION is a
+social-media phone app (the "social tab") — you pick up quests through the feed, all
+quests are documented there, you gain FOLLOWERS by doing cool shit. And TOTAL RECALL:
+everything is remembered on the feed, no exceptions. This RETIRED the recorded/
+unrecorded two-ledger split (RECORDED_VS_UNRECORDED_7_1_26 -> archive/) — a
+Claude-originated framing Paolo rejected ("I never brought up the ledger, you did") —
+and overrides GDD v2 §blind-spot's "off-feed is the dynasty's advantage." The Act 3
+win now runs THROUGH the feed (§18: the feed is the battlefield), not around it.
+ACQUISITION has two channels: FEED (over the phone) vs IN-PERSON (the phoneless, like
+the homeless: no phone, you must pull up on them). Memory stays total — the player
+posts about in-person deeds. LESSON FOR NEXT SESSION: do not reintroduce any
+unrecorded/secret-ledger/off-feed mechanic; do not present Claude-coined systems back
+as Paolo's canon.
+
 ## THE 7/18-19 STORY LOCKS (each is its own addendum in /laws)
 - THE WORLD (LAKE_MEAD_HEALTHY_OASIS, HOUSE_OF_CARDS_POWER_SHARE,
   WORLD_BREAK_ANSWERS, COLLAPSE_ORIGIN_AND_DEATH_MODEL): crash ~2050, game starts
@@ -246,9 +267,11 @@ interiors, combat, role-casting/factions, the generational fold, inventory.
 - COMBAT / CAMP LEAN (NOT fully locked, awaiting Paolo confirm): companions do NOT
   die (permadeath = unfun chore); a downed companion sits at ~1 HP until healed at a
   safe place/medic, and healing ADVANCES IN-GAME TIME (I-move-you-move). FFXV-style
-  CAMP / HANGOUT (cook, tell stories, heal) = where the UNRECORDED bonds form = the
-  secret anti-Amalgamation weapon. Retiring the old "companion death permanent on
-  sleep" rule is PENDING his confirm.
+  CAMP / HANGOUT (cook, tell stories, heal) = where family bonds form. (NOTE 7/20:
+  the old "these are UNRECORDED, the secret anti-Amalgamation weapon" framing is DEAD
+  — Paolo retired the recorded/unrecorded split; TOTAL RECALL now, camp bonds are
+  remembered on the feed like everything else. See CANON CHANGE below.) Retiring the
+  old "companion death permanent on sleep" rule is PENDING his confirm.
 - QUEST #235 (KCD teardown, questbook/BOHEMIA_QUESTBOOK_235_THE_HUNT_BEGINS.md):
   the grief-to-action opening machine (Kingdom Come's Skalitz arc), the direct
   template for our opening + the neighbor's first quest. 3 laws (warm-before-earns-
