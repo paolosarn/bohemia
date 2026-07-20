@@ -308,6 +308,17 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-12. EVERYTHING CANON: WARDROBE 163 + CANON CLOSET + THUMBS PERSIST (7/19,
+   latest): Paolo approved ALL clothing (wave 3 + the 63 colorways). Wardrobe
+   163 pieces across 11 categories; cooking empty. Fixed his two callouts:
+   thumbs now persist on-device (localStorage, applyV on load; bake = truth),
+   and the CANON CLOSET browses the whole approved wardrobe by category
+   (replaces the one closed fold). fresh:true = wave 3 (move the tag per
+   newest batch on every promotion). Wardrobe extractor parser fixed for
+   cw:/fresh: tags (banked 97 of 163 -- DRESS gate caught it; now 163, street
+   agents dress from the full closet). NEXT: structure wave 4 (skirts done;
+   hood-up, shemagh, armor plates, more bags open); colorways may multiply
+   off all 25 structures as filler.
 -11. NEW-IN-CANON SURFACING + WAVE 3 (7/19, latest): Paolo could not see his
    newly approved clothes -- the verdict had collapsed them into the closed
    CANON menu (deploy was fine; UI failure). LAW OF THE SURFACE now baked:

@@ -368,3 +368,22 @@ mid-shin -- a real silhouette change), SHIN GUARDS (strapped plates down both
 shins). structure_gate: 53 checks. Verified on the real preview.
 Tab order now: COOKING structures (3) -> NEW IN CANON (19) -> COLORWAY FILLER
 drawer (63) -> CANON WARDROBE (97).
+
+=== VERDICT 7/19/26 (e) — "I LIKE IT ALL": EVERYTHING CANON, CLOSET BORN ===
+Paolo: thumbs up on everything clothing-wise. BAKED: wave 3 (BEDROLL, WRAP
+SKIRT, SHIN GUARDS) + all 63 colorways -> CANON. THE WARDROBE IS 163 PIECES:
+57 tops, 22 legs, 16 feet, 26 outer, 15 headwear, 6 neck, 7 face, 4 hands,
+2 waist, 5 gear, 3 bags. Zero cooking (next structure wave incoming).
+TWO UI FAILURES HE CALLED OUT, BOTH FIXED + VERIFIED LIVE:
+1. "previous thumbs didn't get transferred": his in-page thumbs were
+   memory-only and died on reload. Every thumb now SAVES TO THE DEVICE
+   immediately (localStorage, like the music tab) and re-applies on load;
+   the export->repo bake stays the permanent truth.
+2. "how do I see the ones I've already approved?": the CANON CLOSET -- the
+   entire approved wardrobe browsable BY CATEGORY (TOPS/LEGS/FEET/OUTER/
+   HEADWEAR/NECK/FACE/HANDS/WAIST/GEAR/BAGS), one tap per category, every
+   piece on the live rig. Replaces the single closed CANON fold he could
+   never find anything in.
+Also: tools/bohemia_wardrobe_extract.py parser fixed (cw:/fresh: tags had
+gone stale-invisible to it -- it banked 97 of 163; the DRESS gate caught it,
+bank now carries all 163 so street agents dress from the full closet).
