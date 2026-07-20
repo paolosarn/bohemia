@@ -1053,13 +1053,115 @@ function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); update
     return demo
 
 
+def patch14(demo):
+    """v14 (Paolo 7/20, the big feel pass):
+    - logo OFF in combat, default view starts wider (0.82 zoom).
+    - CHAIN SKILL: how many people you can shoot in one turn is a skill
+      setting 1..8 (settings, default 3). '8 perfect kills = 1 turn'
+      stays the ceiling at max skill.
+    - WEAPON READ: every body shows what it holds — spear pole, bat club,
+      shiv blade, gun barrel — pointed at you. You always know who is a
+      blade and who is a gun.
+    - MISS CINEMATIC: every return volley plays the quick incoming camera
+      even when they all miss — you see WHO shot at you, every time.
+    - AIM CAM GLIDE: your own framing (pan/zoom) eases into the shot
+      framing when the dial opens; settings toggle GLIDE/SNAP.
+    - The aiming arm's gun reads per weapon (pistol short, rifle long)."""
+    if 'AIM CAM GLIDE V14' in demo:
+        print('v14 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, "st.textContent='#logo{height:30px!important;width:160px!important}'+",
+        "st.textContent='#logo{display:none!important}'+   /* V14: Paolo — no logo in the fight */",
+        'logo-off')
+    demo = sub1(demo, "G.userZoom=1;G.userPan={x:0,y:0};",
+        "G.userZoom=0.82;G.userPan={x:0,y:0};   /* V14: start wide — see the board */",
+        'wide-start')
+
+    # chain skill
+    demo = sub1(demo,
+        "function enterAim(isChain){ G.popTarget>=0||(G.popTarget=pickTarget()); G.fireTarget=(isChain?nextChainTarget():G.popTarget); if(G.fireTarget<0){ return endTurnReturn(); }",
+        """function enterAim(isChain){
+  /* CHAIN SKILL V14 (Paolo): how many people you can shoot in ONE turn is a
+     SKILL (1..8, settings). The locked '8 perfect kills = 1 turn' is the
+     ceiling at max skill. */
+  if(!isChain)G._chainN=1;
+  else { G._chainN=(G._chainN||1)+1;
+    if(G._chainN>(G.chainSkill||3)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||3)+' this turn','#8a7d66'); return endTurnReturn(); } }
+  G.popTarget>=0||(G.popTarget=pickTarget()); G.fireTarget=(isChain?nextChainTarget():G.popTarget); if(G.fireTarget<0){ return endTurnReturn(); }""",
+        'chain-skill')
+    demo = sub1(demo, '<button id="perkforesight">FORESIGHT: OFF</button>',
+        '<button id="perkforesight">FORESIGHT: OFF</button>\n      <button id="chainskill">CHAIN: 3</button>\n      <button id="aimcam">AIM CAM: GLIDE</button>',
+        'skill-btns')
+    demo = sub1(demo, "if(sb)sb.addEventListener('click',doShove);", """\
+if(sb)sb.addEventListener('click',doShove);
+  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||3)%8)+1; cs.textContent='CHAIN: '+G.chainSkill; });
+  const ac=D('aimcam'); if(ac)ac.addEventListener('click',()=>{ G.aimCamGlide=(G.aimCamGlide===false); ac.textContent='AIM CAM: '+(G.aimCamGlide===false?'SNAP':'GLIDE'); });""",
+        'skill-wire')
+
+    # weapon read on every body
+    demo = sub1(demo, """\
+    if(G.selTarget===e.i&&!e.dead){ x.strokeStyle='rgba(232,176,74,0.9)'; x.lineWidth=2.5;   /* your chosen man */
+      x.beginPath(); x.arc(ex,ey,er*1.75,0,7); x.stroke(); }""", """\
+    if(G.selTarget===e.i&&!e.dead){ x.strokeStyle='rgba(232,176,74,0.9)'; x.lineWidth=2.5;   /* your chosen man */
+      x.beginPath(); x.arc(ex,ey,er*1.75,0,7); x.stroke(); }
+    if(!e.dead&&!(e.prone>0)){ /* WEAPON READ V14: you always see who holds what */
+      const wa=Math.atan2(cy-ey,cx-ex);
+      if(e.melee){ const wl=e.wpn==='spear'?er*1.9:e.wpn==='bat'?er*1.1:er*0.75;
+        x.strokeStyle=e.wpn==='bat'?'#6a4a26':'#b8b4a8'; x.lineWidth=e.wpn==='bat'?4:2.5; x.lineCap='round';
+        x.beginPath(); x.moveTo(ex+Math.cos(wa)*er*0.6,ey+Math.sin(wa)*er*0.6);
+        x.lineTo(ex+Math.cos(wa)*(er*0.6+wl),ey+Math.sin(wa)*(er*0.6+wl)); x.stroke(); x.lineCap='butt'; }
+      else { x.strokeStyle='#242220'; x.lineWidth=3;
+        x.beginPath(); x.moveTo(ex+Math.cos(wa)*er*0.7,ey+Math.sin(wa)*er*0.7);
+        x.lineTo(ex+Math.cos(wa)*er*1.3,ey+Math.sin(wa)*er*1.3); x.stroke(); } }""",
+        'weapon-read')
+
+    # miss volleys get the camera too
+    demo = sub1(demo,
+        "  else setRead('WAITED', pool.length?'they fired, missed':'world moves — new windows','#8a7d66');",
+        """  else { setRead('WAITED', pool.length?'they fired, missed':'world moves — new windows','#8a7d66');
+    if(G.incomingCam&&pool.length)startIncoming(pool.map(e2=>e2.i),false,'quick'); }   /* MISS CINEMATIC V14: you see WHO shot, even on a miss */""",
+        'miss-cam-wait')
+    demo = sub1(demo,
+        "  else setRead(pool.length?'RETURN FIRE':'CLEAR', pool.length?(pool.length+' fired, all missed'):'you stayed covered','#8fe89a');",
+        """  else { setRead(pool.length?'RETURN FIRE':'CLEAR', pool.length?(pool.length+' fired, all missed'):'you stayed covered','#8fe89a');
+    if(G.incomingCam&&pool.length)startIncoming(pool.map(e2=>e2.i),false,'quick'); }   /* MISS CINEMATIC V14 */""",
+        'miss-cam-return')
+
+    # your framing glides into the shot
+    demo = sub1(demo, """\
+    if(!G.ks){ G.cam.zoom=1;
+      G.cam.x=W/2+Math.cos(base)*RAD*0.35;
+      G.cam.y=H/2+Math.sin(base)*RAD*0.35; }""", """\
+    if(!G.ks){ const tx3=W/2+Math.cos(base)*RAD*0.35, ty3=H/2+Math.sin(base)*RAD*0.35;
+      if(G.aimCamGlide===false){ G.cam.zoom=1; G.cam.x=tx3; G.cam.y=ty3; }
+      else { const k=0.14;   /* AIM CAM GLIDE V14: however you framed it, the camera swings into the shot */
+        G.cam.zoom+=(1-G.cam.zoom)*k; G.cam.x+=(tx3-G.cam.x)*k; G.cam.y+=(ty3-G.cam.y)*k;
+        G.userZoom+=(1-G.userZoom)*k; G.userPan.x*=(1-k); G.userPan.y*=(1-k); } }""",
+        'cam-glide')
+
+    # the arm's gun reads per weapon
+    demo = sub1(demo, """\
+  const gl=L*0.45;
+  c2.strokeStyle='#3a3632'; c2.lineWidth=Math.max(2.5,L*0.13); c2.lineCap='butt';
+  c2.beginPath(); c2.moveTo(hx,hy); c2.lineTo(hx+Math.cos(ang)*gl,hy+Math.sin(ang)*gl); c2.stroke();""", """\
+  const wf=(typeof WEAPON!=='undefined')?(WEAPON==='rifle'?0.68:WEAPON==='shotgun'?0.60:WEAPON==='smg'?0.50:0.38):0.45;
+  const gl=L*wf;   /* the gun reads per weapon: pistol short, rifle long */
+  c2.strokeStyle='#3a3632'; c2.lineWidth=Math.max(2.5,L*0.13); c2.lineCap='butt';
+  c2.beginPath(); c2.moveTo(hx,hy); c2.lineTo(hx+Math.cos(ang)*gl,hy+Math.sin(ang)*gl); c2.stroke();
+  if(wf>0.55){ c2.strokeStyle='#241f18'; c2.lineWidth=Math.max(2,L*0.09);   /* long guns get a stock */
+    c2.beginPath(); c2.moveTo(hx-Math.cos(ang)*L*0.14,hy-Math.sin(ang)*L*0.14); c2.lineTo(hx,hy); c2.stroke(); }""",
+        'gun-read')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))
+    patched = patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
