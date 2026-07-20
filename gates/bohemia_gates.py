@@ -66,6 +66,8 @@ GATES = [
      'an NPC tile offers its quest when the player steps up; binding rides the save', False),
     ('LOOP SLICE',     ['node', 'engine/bohemia_loop_slice_tests.js'],
      'the whole goal-slice loop headless: walk->talk->play->journal->save/reload->fold', False),
+    ('LOOP CHANNEL',   ['node', 'engine/bohemia_loop_channel_tests.js'],
+     'feed quests pick up over the phone; phoneless (homeless) only in person', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

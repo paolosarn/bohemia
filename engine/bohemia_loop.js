@@ -288,14 +288,37 @@
       let id;
       if (typeof text === 'string' && active[text]) { id = text; }   // already-live questId
       else { const rt = start(text); if (!rt) return null; id = rt.Q.id; }
-      placed[id] = { x: at.x, y: at.y, layer: at.layer || 'npc', speaker: at.speaker || null };
+      // ACQUISITION CHANNEL (Paolo 7/20): 'feed' = pick it up over the phone
+      // (surfaces in the feed, remote). 'inperson' = you cannot get it over the
+      // phone, you have to PULL UP on them physically (the phoneless, like the
+      // homeless). Either way, once done it is still remembered on the feed (total
+      // recall — the player posts about the in-person deed). The channel is
+      // MECHANISM; WHICH npcs are 'inperson' (homeless) is content, Paolo's call.
+      const channel = at.channel === 'inperson' ? 'inperson' : 'feed';
+      placed[id] = { x: at.x, y: at.y, layer: at.layer || 'npc', speaker: at.speaker || null, channel: channel };
       return { questId: id, at: placed[id] };
     }
     function placements() {
       return Object.keys(placed).map(function (id) {
         return { questId: id, x: placed[id].x, y: placed[id].y,
-                 layer: placed[id].layer, speaker: placed[id].speaker };
+                 layer: placed[id].layer, speaker: placed[id].speaker, channel: placed[id].channel };
       });
+    }
+
+    /* THE FEED OFFERS: the quests you can pick up OVER THE PHONE right now — the
+       'feed' channel, live, not done. In-person quests (the phoneless: homeless)
+       are deliberately EXCLUDED; the only way to get those is to pull up on them
+       (talkablesNear). This is "you can't get their quest over the phone." */
+    function feedOffers() {
+      const out = [];
+      Object.keys(placed).forEach(function (id) {
+        if (placed[id].channel !== 'feed') return;
+        const rt = active[id] ? active[id].rt : null;
+        if (!rt || rt.state.done) return;
+        out.push({ questId: id, title: rt.Q.title || id, act: rt.Q.act || null,
+                   speaker: placed[id].speaker, available: rt.available() });
+      });
+      return out;
     }
 
     /* THE JOURNAL (pull-from-anywhere): one read that gives the HUD + the quest-log
@@ -310,6 +333,7 @@
           stage: rt.state.stage, done: !!rt.state.done, outcome: rt.state.outcome || null,
           objectives: rt.objectives(),          // [{n, text, target, status}]
           available: rt.available(),            // begin-able talk nodes right now
+          channel: placed[id] ? placed[id].channel : null,   // feed = phone pickup; inperson = pull up
           placed: placed[id] ? { x: placed[id].x, y: placed[id].y,
                                  layer: placed[id].layer, speaker: placed[id].speaker } : null,
         };
@@ -345,7 +369,7 @@
         if (blob[id].at) placed[id] = blob[id].at;
       }
     }
-    return { start, get, ids, place, placements, journal, activeObjectives,
+    return { start, get, ids, place, placements, feedOffers, journal, activeObjectives,
              serialize, restore, _active: active, _placed: placed };
   }
 

@@ -10,6 +10,15 @@
 ## WHY (1) IS ALREADY CANON (read-before-speak, 7/20)
 GDD v2 §18 SOCIAL MEDIA HUB & THE FEED, verbatim: "The player's daily hub. A social media feed functioning as the primary interface... Clout currency earned through the feed. QUESTS SURFACE THROUGH THE FEED. Faction movements tracked through the feed." The feed is MANDATORY ("going dark is not a strategic option... you participate or you fall behind"). It EVOLVES per act; in the back half of Act 3 "the feed becomes the battlefield where the truth about the Amalgamation either spreads or gets suppressed." CLOUT (§currencies): "anyone with feed access can post, going viral accumulates clout." So the social-media quest log with followers is the FEED made concrete; Paolo's lock names that the quest LOG and the feed are ONE surface and FOLLOWERS is the readout.
 
+## QUEST ACQUISITION: TWO CHANNELS, ONE MEMORY (Paolo 7/20, refinement)
+Getting a quest and remembering a quest are separate. The homeless do NOT have phones (this reverses the throwaway "give them phones" from earlier the same day).
+- SOURCING has two channels. FEED: most quests come to you over the phone (they surface in the feed, remote pickup — GDD v2 §18 "quests surface through the feed"). IN-PERSON: the phoneless (the homeless) are not on the feed at all; you cannot get their quest over the phone, you have to PULL UP on them physically.
+- REMEMBERING is still TOTAL RECALL. Even an in-person homeless quest lands on the feed, because YOU post about it afterward ("I'd still make a post about it like crazy... I might take a picture of that"). The deed is remembered; only the SOURCE was off-phone.
+- So the homeless faction's distinguishing trait (was PENDING) is now: they are an IN-PERSON-ONLY quest source. Not "invisible to surveillance" (that retired premise is dead) — the player's own post still puts the deed on the feed. Their thing is you have to physically show up.
+- THE PHONE/FEED IS THE MASTER MENU: "a huge window... the menu of seeing all the quest logs and what quests and what you have written down." The feed is where you view everything, whether it came from the phone or from pulling up on someone.
+
+WIRED IN CODE (7/20, LOOP CHANNEL gate): placement carries a `channel` ('feed' | 'inperson', default 'feed'). feedOffers() = the quests pickable over the phone (feed channel, excludes in-person). The talk-trigger (talkablesNear) is "pull up on them" and works for any placed NPC when adjacent — the ONLY way to reach an in-person quest. Total recall unchanged: finishing an in-person quest still records to the feed. Channel is MECHANISM; which NPCs are in-person (homeless) is content, Paolo's call.
+
 ## WHAT (2) OVERRIDES (the retirement, done honestly)
 The old design said the dynasty's advantage against the Amalgamation was the UNRECORDED: face-to-face trust, tunnel talk, choices that left no digital trace, "the most important things about them were never compiled" (GDD v2 §blind-spot), formalized into a two-ledger engine with a `recorded:false` flag (7/1 addendum). PAOLO RETIRED THIS 7/20. There is no off-feed ledger. Everything a quest does is remembered on the feed. The 7/1 two-ledger addendum is archived; GDD v2 §blind-spot's off-feed premise no longer governs.
 
@@ -28,7 +37,6 @@ The quest FEED pipe (engine/bohemia_loop.js) records every quest choice and outc
 ## PENDING — PAOLO'S CALLS (small, not blocking)
 - FOLLOWERS vs CLOUT: one number or two, and how followers gate/unlock things.
 - Which deeds auto-post vs are chosen; how followers grow/decay per deed ("what counts as cool shit").
-- The homeless faction's new distinguishing trait now that off-feed is retired.
 - The "cool way" of documenting quests: the feed's visual design (art, deferred).
 
 ---
