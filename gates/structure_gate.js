@@ -167,6 +167,9 @@ if (G) {
   // STRUCTURE-NOT-COLOR UI LAW: colorway fillers are tagged and collapsed, never the headline
   ok('colorway entries are cw-tagged', /cw:true/.test(gb));
   ok('the UI leads with structures and collapses colorway filler', src.indexOf('COOKING - NEW STRUCTURES') >= 0 && src.indexOf('COLORWAY FILLER') >= 0);
+  // SHUFFLE ANIMATION (Paolo 7/19): every big square carries the shuffle button,
+  // pool = approved clips only, and the render path honors a per-canvas clip
+  ok('every big square has the shuffle-animation button (approved clips only)', src.indexOf("sh.title='shuffle animation'") >= 0 && /CLIPS\.filter\(function\(c\)\{return !\(typeof CANDIDATE_SRC/.test(src) && src.indexOf("cv.__clip||'idle'") >= 0 && src.indexOf("buildFrame(dir,clip||'idle'") >= 0);
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);
 process.exit(f ? 1 : 0);

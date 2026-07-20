@@ -308,6 +308,11 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-13. SHUFFLE ANIMATION ON EVERY SQUARE (7/19, latest): Paolo's ask -- every
+   big clothing square has a bottom-right shuffle button; tap = random clip
+   from the APPROVED animation catalog (CLIPS minus candidates), square
+   re-renders live on that clip with the clip name shown. Per-canvas clip,
+   per-clip beats. structure_gate 54 checks. Verified live.
 -12. EVERYTHING CANON: WARDROBE 163 + CANON CLOSET + THUMBS PERSIST (7/19,
    latest): Paolo approved ALL clothing (wave 3 + the 63 colorways). Wardrobe
    163 pieces across 11 categories; cooking empty. Fixed his two callouts:
