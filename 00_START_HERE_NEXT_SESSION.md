@@ -712,6 +712,45 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    TELEGRAPHS ON THE OFF-BEAT (art-pipeline law), 7 STREAK-BUILDS-THE-SONG
    (re-pitch), 8 ELITE SYNCOPATION. [PENDING Paolo: pick numbers; if "you
    pick": 1+3+4.]
+   THE AFTERMATH PASS (7/20, pass 19; shipped in 5360119, logged here late):
+   VICTORY WALK — when the last body drops the fight does not slam to a
+   result screen; you keep the board and WALK it (loot-pretend per Paolo),
+   NEW ENCOUNTER when he is done. BLOOD BY HEALTH — thresholds, not events:
+   under 66% a wounded body drips a trail as it moves, under 33% it stands
+   in a growing pool; corpses pool where they fell (canvas-persistent
+   spots ride worldShift). KILLSHOTS/TURN group moved to the TOP of
+   settings (he could not find it mid-drawer). Gate 116, ALL GREEN.
+   THE ANIMATION PASS (7/20, pass 20; his list): V20 WALK — the alpha
+   bakes 'walk' for the player (4 phases, all 8 dirs) and every enemy look
+   (2 phases); stepping plays them (G._stepAt/e._movedAt windows), blades
+   and cover-seekers walk too. THE DEADEYE POSE IS THE NEEDLE — his ask
+   ("there's an Animation for the dead shot dial me holding a gun"): during
+   the dial the field body renders the baked deadeye gun pose AT the
+   current needle angle (sprAimFrame, all 9 offsets x 8 dirs were already
+   baked); the drawn live arm went compute-only (muzzle math for ghosts/
+   tracer), so the BODY sweeps. DEATH POSES ARE STATIC — corpses re-rolled
+   their look every step because enemyLook keys off bearing and worldShift
+   changes bearings; the look now LOCKS at death (e._lookLock). 1v1 RISK
+   (his "I can miss a million shots and never take damage"): COUNTER-SNAP —
+   tucked gunmen (in cover, not in the return pool) answer a BLOWN
+   engagement from cover at 0.35x accuracy, 0.7x damage, so a miss is
+   punishable at ANY enemy count; NO DAMAGE BEFORE THE DIAL holds (fires
+   only after your dial resolves). GLIDE actually glides — cam ease
+   0.14->0.055 AND the aim zoom eases (G._zbS, reset off-aim); SNAP toggle
+   unchanged. HONEST CROUCH — take-cover pose now requires real stone
+   (gcov, or hand-flag within 1.8 tiles of a pillar): nobody ducks behind
+   air. Parent-side: combatSendSprites bakes walk both places (plaintext
+   edits at out.dirs[d].walk / L.look.walk112). Gate 124 checks ALL GREEN;
+   chromium-verified on the real alpha: walk bakes present all dirs, step
+   plays frames, corpse look identical across worldShift, counter-snap
+   sim 100->90 vs tucked gunman, zbS mid-ease, aim shot shows the deadeye
+   body + board-scale dial arc. ANIMATION REQUESTS FOR PAOLO'S ANIMATION
+   CHAT: records/BOHEMIA_COMBAT_ANIM_REQUESTS_7_20_26.txt (9 clips,
+   priority-ordered: cover-rise + cover-drop are his named asks, then
+   gun-walk, cover-fire, get-shoved, floor-rise, shiv-jab/bat-arc/
+   spear-drive; graveyard-safe names; combat pulls any clip that lands in
+   the pipeline with zero surgery). STILL OWED: rig gun-pose pipeline
+   expansion; the plumbing re-examination pass; rhythm picks pending.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
