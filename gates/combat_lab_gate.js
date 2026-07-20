@@ -477,6 +477,15 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('statics keep TRUE spots on worldShift; only live enemies keep the 0.6 bubble',
     demo.includes('const mv=(o,mn)=>{') && demo.includes('mv(c,0.02)') &&
     demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
+  // v22: the plumbing pass — the red line law finally complete
+  ok('V22 MOVE BREAKS THE BEAD: a step resets every gun\'s acq clock',
+    demo.includes('V22 MOVE BREAKS THE BEAD') && demo.includes('e2.acq=0;'));
+  ok('danger outranks its warning: red line 0.30, acquiring amber 0.18',
+    demo.includes("'rgba(232,60,40,0.30)'") && demo.includes("'rgba(232,140,40,0.18)'") &&
+    !demo.includes("'rgba(232,140,40,0.32)'"));
+  ok('the warning speaks: fresh beads announce on damage-free turns (both turn ends)',
+    demo.includes('V22: fresh beads announce themselves') &&
+    demo.split("setRead('ACQUIRING',G._newBeads+' gun'").length >= 3);
 }
 
 /* ---- 3. verdict workflow ---- */

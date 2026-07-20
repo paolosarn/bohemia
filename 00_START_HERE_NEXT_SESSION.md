@@ -851,6 +851,37 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    verified: spawn brass, step E then S, brass reads 1 then 1.414 tiles
    away; walk back, it is where it fell; real fxShot landings carry
    world coords, no p flag. Shipped to main (b91d825, BUILD 7/20i).
+   THE PLUMBING PASS, part 1 (7/20, pass 22; Paolo: "do what you have to
+   do next"): re-read the whole engagement pipeline (doWait/doPop/
+   enterAim/endTurnReturn/tickTurnEnd/coverSeekAI/acq clocks/wounds).
+   THREE ROTS FOUND AND FIXED, all in the TWO-TURN RED LINE law:
+   (1) MOVE BREAKS THE BEAD — the law text ruled "break the line (move,
+   cover, stun, kill)" but only stun/kill were built; a gun held its bead
+   across your step and shot you the turn you emerged, no warning. Now a
+   move resets every gun's acq clock (a moving target is re-acquired);
+   verified live: held beads acq 3 and 1 both reset on a step, guns
+   restart at ACQUIRING. Balance note to watch: mobile play is now
+   strong (move->pop = no aimed return fire, only the 0.35x counter-snap
+   on a whiff); melee pressure + zero damage while dancing are the
+   counterweights. (2) DANGER OUTRANKS ITS WARNING — the live RED threat
+   line drew at 0.15 alpha vs its amber ACQUIRING warning at 0.32; red
+   now 0.30, amber 0.18. (3) THE WARNING SPEAKS — fresh beads announce
+   on damage-free turn ends: "ACQUIRING — n guns drawing a bead, one
+   turn to break it" (both doWait and endTurnReturn ends). Gate 130
+   checks ALL GREEN. CROSS-SESSION NOTE: commit b12842e ("Combat moves
+   batch #13") — Paolo's Animation chat cooked the 9 requested clips and
+   a sibling session wired them into the combat B64 (crouch-live cover
+   phase, cover-rise into the aim, cover-drop on turn end, gun-walk
+   steps, weapon swings, shoved/prone/rise bodies, counter-snap from the
+   crouch); my v22 anchors updated to the b13 text, all markers green.
+   STILL OWED / WHAT COMES AFTER (the roadmap): (a) rhythm build once
+   Paolo picks numbers (my pick if told "you pick": 1 faction rhythm +
+   3 bar phrases + 4 the break); (b) plumbing part 2 — wounds are
+   cosmetic only (no mechanical bite), prone/stun stand-up has no
+   telegraph, coverSeekAI has no behavior when no pillar exists (open-
+   ground gunmen just stand); (c) enemy archetypes with VISIBLE immunity
+   classes per the 7/19 research addendum (shove-resist classes still
+   [PENDING Paolo]); (d) balance watch on move->pop after real play.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
