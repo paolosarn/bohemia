@@ -141,7 +141,20 @@ if (b64m) {
     && decoded.indexOf('strip:{lanes:4,med:2,side:2}') >= 0
     && decoded.indexOf('freeway:{lanes:4,med:2,side:0}') >= 0);
   ok('LINE COLOR LAW at street level: yellow median, white lane dashes',
-    decoded.indexOf("c.g='#b8a040'") >= 0 && decoded.indexOf("c.g='#d8d4c4'") >= 0);
+    decoded.indexOf("'#b8a040'") >= 0 && decoded.indexOf("c.g='#d8d4c4'") >= 0);
+
+  // 10. THE INTERSECTION LOCK (7/20): V12 anatomy at street level - clean
+  // box, crosswalks at the box edges (approved cross art, oriented), median
+  // and lane lines stop at the crossing. Plus the walker teleport probe so
+  // any coordinate stays verifiable on the real surface.
+  ok('V12 XING: crossings carry the approved anatomy',
+    decoded.indexOf('V12 XING') >= 0);
+  ok('crosswalk art embedded both orientations',
+    decoded.indexOf("'cross_ns'") >= 0 && decoded.indexOf("'cross_ew'") >= 0);
+  ok('median and dashes stop at the crossing (nearX)',
+    decoded.indexOf('nearX') >= 0);
+  ok('the walker teleport probe exists (__CITY.human)',
+    decoded.indexOf('window.__CITY.human=') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
