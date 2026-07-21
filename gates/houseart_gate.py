@@ -59,8 +59,9 @@ check('enough candidates', len(tiles) >= 20, '%d' % len(tiles))
 cls = {}
 for t in tiles:
     cls.setdefault(t['cls'], []).append(t)
-check('all classes present', all(k in cls for k in ('roof', 'wall', 'window', 'door')),
+check('all classes present', all(k in cls for k in ('roof', 'wall', 'window', 'door', 'yard')),
       ','.join(sorted(cls)))
+check('s-tile roofs exist (7/21 research)', any('stile' in t['id'] for t in cls.get('roof', [])))
 check('boarded windows exist', any('boarded' in t['id'] for t in cls.get('window', [])))
 
 # 2) pixels: purity, tan walls, dead glass

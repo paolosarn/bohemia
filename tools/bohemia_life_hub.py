@@ -24,7 +24,8 @@ CUR = 'slices/BOHEMIA_LIFE_CURRENT.html'
 
 bank = json.load(open(BANK))
 by_id = {t['id']: t for t in bank['tiles']}
-teasers = [by_id[i]['b64'] for i in ('roof_shingle_0', 'wall_boarded_15', 'wall_door_19')]
+teasers = [by_id[i]['b64'] for i in ('roof_stile_terracotta_21', 'wall_boarded_15', 'yard_mojavegold_28')]
+count = len(bank['tiles'])
 
 html = r"""<title>BOHEMIA LIFE</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -38,9 +39,10 @@ html = r"""<title>BOHEMIA LIFE</title>
   <a href="BOHEMIA_HOUSE_SKIN_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #3f8c3f;border-radius:12px;padding:14px;margin-bottom:14px">
     <div style="font:700 15px -apple-system,sans-serif;color:#8fd08f">HOUSE SKIN JUDGE <span style="font:600 10px sans-serif;background:#3f8c3f;color:#fff;border-radius:4px;padding:2px 6px;vertical-align:2px">NEW 7/21</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
-      21 painted house skins from the overnight cook: shingle and gravel roofs, tan stucco
-      walls, dead dark windows, BOARDED windows, weathered doors. Each shown on a composed
-      house. Thumb them and export - the canon suburbs get real art the moment you rule.
+      __COUNT__ painted house skins: real-Vegas S-TILE roofs in desert blends (from the
+      7/21 45-degree research) vs the shingle batch, tan stucco walls, dead dark windows,
+      BOARDED windows, weathered doors, DG gravel yards. Each shown on a composed house.
+      Thumb them and export - the canon suburbs get real art the moment you rule.
     </div>
     <div style="display:flex;gap:6px">__TEASERS__</div>
   </a>
@@ -55,6 +57,6 @@ html = r"""<title>BOHEMIA LIFE</title>
 </body>
 """
 imgs = ''.join('<img src="data:image/png;base64,%s" style="width:56px;height:56px;image-rendering:pixelated;border-radius:6px">' % b for b in teasers)
-html = html.replace('__TEASERS__', imgs)
+html = html.replace('__TEASERS__', imgs).replace('__COUNT__', str(count))
 open(CUR, 'w', encoding='utf8').write(html)
 print('LIFE hub -> %s (judge + dormant living block)' % CUR)
