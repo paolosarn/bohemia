@@ -65,10 +65,18 @@ certified desert, center-line cells -> median art WITH orientation
 (bank tiles authored horizontal, rot90 vertical, neighbors decide);
 caches flush when art decodes. Verified DROP IN: real weathered asphalt +
 washed yellow line under the player, 0 errors. Gate #CITY TAB now 26
-checks (buffet lock + SA_TILES + texFor + median orientation). NEXT for
-street-level art: crosswalks/lane_div/turn pockets at intersections (needs
-band geometry, the bake factory's anatomy), building/lot art (the district
-factory tilespecs), lamps as the V11 body not a dot.
+checks (buffet lock + SA_TILES + texFor + median orientation). STREET WIDTHS + INTERSECTIONS LANDED (7/20 later): CANON XSEC (the
+blockgen width models: arterial 3 lanes/dir + median + sidewalks, strip 4
++ wide median, freeway no sidewalks, LANE_W=2, white dashes/yellow median
+per LINE COLOR) via tools/bohemia_city_streetwidth_patch.py; V12 XING
+(clean box, crosswalks at box edges with approved cross art both
+orientations, median/dashes stop at the crossing) via tools/bohemia_city_
+intersections_patch.py. __CITY.human(x,y) teleport probe added - it caught
+that TILE_FINE=32 (not 128): always compute fine coords as tile*32.
+Verified at a live 4-way (color probe + screenshot). Gate #CITY TAB 33.
+NEXT for street-level art: turn-pocket arrows (cell.mk vocabulary),
+building/lot art (the district factory tilespecs), lamps as the V11 body
+not a dot.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid
