@@ -162,6 +162,8 @@ GATES = [
      'the CITY tab: embedded modules byte-locked to canon, skeleton-as-itself', False),
     ('CITY EDIT',      ['node', 'gates/cityedit_gate.js'],
      'city-builder verbs: skeleton sacred, demolish-to-desert, canon builds only', False),
+    ('HOUSE ART',      ['python3', 'gates/houseart_gate.py'],
+     'house-skin cook: purity, tan 85/15, dead glass, deterministic, judge wired, not canon yet', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],

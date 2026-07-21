@@ -294,5 +294,6 @@ __GAME__
 """
 HTML = HTML.replace('__BANK__', BANK_JS).replace('__ENGINE__', engine).replace('__GAME__', GAME)
 open(OUT, 'w', encoding='utf8').write(HTML)
-shutil.copyfile(OUT, CUR)
-print('life slice -> %s + %s (%d KB)' % (OUT, CUR, len(HTML) // 1024))
+# CUR is owned by bohemia_life_hub.py since 7/21 (the LIFE tab is a hub now);
+# this tool writes only its dated build.
+print('life slice -> %s (%d KB); hub owns %s' % (OUT, len(HTML) // 1024, CUR))

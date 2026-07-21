@@ -5326,11 +5326,122 @@ root.BQRuntime=API;
   #phone.nosig .fx-scan{ opacity:.85; animation:roll 6s linear infinite; }
   @keyframes roll{ from{background-position:0 0} to{background-position:0 12px} }
   #phone.nosig .fx-vig{ box-shadow:inset 0 0 90px rgba(60,10,4,.5), inset 0 0 26px rgba(0,0,0,.5); }
+
+  /* ---- device shell: home screen, messages app, boot, nav ---- */
+  #nav .homebtn{ background:none; color:var(--gold); font-family:var(--mono); font-size:11px;
+    padding:0; letter-spacing:1px; box-shadow:none; text-transform:none; }
+  #home,#messages,#map{ display:none; }
+  #phone.view-home #home{ display:block; }
+  #phone.view-messages #messages{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  #phone.view-map #map{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  #phone:not(.view-feed) .hero,#phone:not(.view-feed) #objbar,#phone:not(.view-feed) #screen,#phone:not(.view-feed) .tabs{ display:none !important; }
+
+  /* MAP app — salvaged GPS of the real generated valley */
+  .map-hd{ display:flex; align-items:center; justify-content:space-between; padding:11px 14px;
+    border-bottom:1px solid var(--line); font-family:var(--mono); }
+  .map-hd .t{ font-weight:800; font-size:15px; letter-spacing:.4px; } .map-hd .t small{ display:block; color:var(--good); font-size:9px; letter-spacing:.6px; text-transform:uppercase; }
+  .map-hd .co{ font-family:var(--mono); font-size:10px; color:var(--faint); text-align:right; letter-spacing:.5px; }
+  .map-wrap{ position:relative; margin:12px; border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    background:#0a0805; box-shadow:inset 0 0 40px rgba(0,0,0,.6); }
+  .map-wrap canvas{ display:block; width:100%; }
+  .map-sweep{ position:absolute; inset:-25%; pointer-events:none; border-radius:50%;
+    background:conic-gradient(from 0deg, rgba(134,172,82,.18), transparent 32%);
+    animation:sweep 4s linear infinite; mix-blend-mode:screen; }
+  @keyframes sweep{ to{ transform:rotate(360deg); } }
+  .map-scan{ position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
+  .map-brk{ position:absolute; width:14px; height:14px; border:2px solid var(--good); opacity:.5; }
+  .map-brk.tl{ top:6px; left:6px; border-right:0; border-bottom:0; }
+  .map-brk.tr{ top:6px; right:6px; border-left:0; border-bottom:0; }
+  .map-brk.bl{ bottom:6px; left:6px; border-right:0; border-top:0; }
+  .map-brk.br{ bottom:6px; right:6px; border-left:0; border-top:0; }
+  .map-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:2px 16px 10px; font-family:var(--mono);
+    font-size:9.5px; color:var(--dim); letter-spacing:.3px; }
+  .map-legend i{ display:inline-block; width:8px; height:8px; margin-right:5px; vertical-align:middle; border-radius:2px; }
+  .map-pins{ overflow-y:auto; flex:1; padding:2px 12px 16px; }
+  .mpin{ display:flex; align-items:center; gap:11px; padding:11px 4px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .mpin .g{ width:26px; height:26px; flex:none; display:flex; align-items:center; justify-content:center;
+    border-radius:5px; font-size:13px; }
+  .mpin .g.feed{ background:var(--gold-soft); color:var(--gold); } .mpin .g.inp{ background:var(--amber-soft); color:var(--amber); }
+  .mpin .tx{ flex:1; min-width:0; } .mpin .nm{ font-weight:700; font-size:14px; }
+  .mpin .sub{ font-family:var(--mono); font-size:10.5px; color:var(--dim); margin-top:1px; }
+  .mpin .dz{ color:var(--danger); }
+
+  #home{ padding:20px 16px 30px; }
+  .home-hd{ font-family:var(--mono); color:var(--dim); font-size:12px; letter-spacing:.4px; margin:2px 2px 20px; }
+  .home-hd b{ color:var(--ink); display:block; font-size:23px; font-weight:800; letter-spacing:.5px; margin-bottom:4px; }
+  .apps{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px 10px; }
+  .tile{ position:relative; display:flex; flex-direction:column; align-items:center; gap:7px; cursor:pointer; }
+  .tile .ic{ width:62px; height:62px; border-radius:15px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#1e1810,#110d07); border:1px solid var(--line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 5px 12px rgba(0,0,0,.45); }
+  .tile .ic svg{ width:28px; height:28px; stroke:var(--gold); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .tile .lb{ font-family:var(--mono); font-size:10px; letter-spacing:.7px; color:var(--ink); text-transform:uppercase; }
+  .tile .sub{ font-family:var(--mono); font-size:8.5px; color:var(--faint); margin-top:-3px; letter-spacing:.3px; }
+  .tile.soon{ opacity:.38; } .tile.soon .ic svg{ stroke:var(--dim); }
+  .tile .badge{ position:absolute; top:-5px; right:16px; min-width:19px; height:19px; border-radius:10px;
+    background:var(--danger); color:#0c0a07; font-family:var(--mono); font-size:10px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; padding:0 5px; box-shadow:0 0 9px rgba(217,86,58,.6); }
+
+  .msg-hd{ display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:1px solid var(--line); }
+  .msg-hd .t{ font-weight:800; font-size:15px; letter-spacing:.4px; } .msg-hd .t small{ display:block; color:var(--good); font-size:9px; letter-spacing:.6px; font-family:var(--mono); text-transform:uppercase; }
+  .msg-back{ background:none; color:var(--gold); box-shadow:none; padding:0 4px 0 0; font-size:18px; }
+  .threads{ overflow-y:auto; flex:1; }
+  .thread{ display:flex; align-items:center; gap:12px; padding:13px 15px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .thread .tx{ flex:1; min-width:0; } .thread .nm{ font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
+  .thread .pv{ color:var(--dim); font-size:12.5px; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .thread .tm{ font-family:var(--mono); color:var(--faint); font-size:10px; align-self:flex-start; margin-top:2px; }
+  .thread .un{ width:8px; height:8px; border-radius:50%; background:var(--danger); box-shadow:0 0 7px rgba(217,86,58,.7); }
+  .convo{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  .bubbles{ flex:1; overflow-y:auto; padding:14px 14px 6px; display:flex; flex-direction:column; gap:8px; }
+  .bub{ max-width:78%; padding:9px 13px; border-radius:15px; font-size:14.5px; line-height:1.38; }
+  .bub.them{ align-self:flex-start; background:var(--surface); border:1px solid var(--line); border-bottom-left-radius:4px; }
+  .bub.you{ align-self:flex-end; background:linear-gradient(160deg,#3a2c12,#281e0f); color:#f1ddb0; border-bottom-right-radius:4px; }
+  .sysmsg{ align-self:center; font-family:var(--mono); font-size:10px; color:var(--good); letter-spacing:.5px;
+    background:var(--good-soft); border:1px solid #2c3a18; padding:4px 10px; border-radius:3px; margin:4px 0; text-align:center; }
+  .replies{ padding:10px 14px 16px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:8px; }
+  .reply{ background:var(--raised); color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:12px 14px;
+    text-align:left; font-weight:600; font-size:14.5px; box-shadow:none; text-transform:none; letter-spacing:0; font-family:var(--sans); }
+
+  #boot{ position:absolute; inset:0; z-index:30; background:#070503; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:12px; font-family:var(--mono); color:var(--good); transition:opacity .5s ease; }
+  #boot.off{ opacity:0; pointer-events:none; }
+  #boot .logo{ font-size:27px; font-weight:800; letter-spacing:7px; }
+  #boot .ln{ font-size:11px; letter-spacing:1px; opacity:.85; }
+  #boot .bar{ width:190px; height:4px; background:#1a140c; border-radius:2px; overflow:hidden; margin-top:6px; }
+  #boot .bar i{ display:block; height:100%; width:0; background:var(--good); animation:boot 1.3s ease forwards; }
+  @keyframes boot{ to{ width:100%; } }
+
+  /* LOCK SCREEN */
+  #lock{ position:absolute; inset:0; z-index:28; background:linear-gradient(180deg,#0a0806,#0c0a07);
+    display:none; flex-direction:column; align-items:center; padding:58px 22px 26px; cursor:pointer; }
+  #phone.locked #lock{ display:flex; }
+  .lk-time{ font-family:var(--mono); font-size:62px; font-weight:800; letter-spacing:2px; color:var(--ink); line-height:1; }
+  .lk-date{ font-family:var(--mono); font-size:12px; color:var(--dim); letter-spacing:1px; margin-top:9px; text-align:center; }
+  .lk-notifs{ width:100%; margin-top:38px; display:flex; flex-direction:column; gap:10px; }
+  .lk-nf{ display:flex; gap:11px; align-items:center; background:rgba(30,24,16,.6); border:1px solid var(--line);
+    border-radius:13px; padding:12px 13px; }
+  .lk-nf .tx{ flex:1; min-width:0; } .lk-nf .nm{ font-weight:700; font-size:13px; }
+  .lk-nf .bd{ font-size:12.5px; color:var(--dim); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lk-unlock{ margin-top:auto; font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:2px;
+    text-transform:uppercase; animation:flick 5s infinite steps(1); }
+  .toast{ position:absolute; left:50%; bottom:78px; transform:translateX(-50%) translateY(18px); z-index:25;
+    background:linear-gradient(160deg,#1e2610,#141a0b); border:1px solid #2c3a18; color:var(--good);
+    font-family:var(--mono); font-size:12px; padding:10px 16px; border-radius:8px; letter-spacing:.5px;
+    opacity:0; transition:opacity .35s ease, transform .35s ease; pointer-events:none;
+    box-shadow:0 6px 20px rgba(0,0,0,.5); white-space:nowrap; max-width:90%; overflow:hidden; text-overflow:ellipsis; }
+  .toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 
-<div id="phone">
+<div id="phone" class="view-home">
   <div class="fx-vig"></div><div class="fx-scan"></div>
-  <div class="statusbar"><span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span><span id="sig" onclick="toggleSignal()"><span class="bars ok">▁▃▅▇</span> LIVE · the valley</span></div>
+  <div id="boot"><div class="logo neon">BOHEMIA</div><div class="ln">NETWORK OS · v0.9</div><div class="bar"><i></i></div><div class="ln" id="bootln">connecting to the network…</div></div>
+  <div id="lock"></div>
+  <div class="toast" id="toast"></div>
+  <div class="statusbar"><span id="nav"><span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span></span><span id="sig" onclick="toggleSignal()"><span class="bars ok">▁▃▅▇</span> LIVE · the valley</span></div>
+  <div id="home"></div>
+  <div id="messages"></div>
+  <div id="map"></div>
 
   <div class="hero">
     <div class="hrow">
@@ -5371,7 +5482,7 @@ root.BQRuntime=API;
 var Loop = window.BohemiaLoop, Sched = window.BohemiaScheduler;
 var ctx = Loop.boot({ seed:'bohemia' });
 
-var player = Sched.makeActor({ id:'player', tile:{x:0,y:0}, isPlayer:true, layer:'player' });
+var player = Sched.makeActor({ id:'player', tile:{x:128,y:128}, isPlayer:true, layer:'player' });
 Sched.addActor(ctx.scheduler, player);
 
 /* PLACEHOLDER follower scoring (Paolo owns the real rule): complete = 50, else 5. */
@@ -5412,7 +5523,7 @@ function toggleSignal(){
   el('sig').innerHTML = online ? '<span class="bars ok">▁▃▅▇</span> LIVE · the valley'
                                : '<span class="bars no">▇▅▁▁</span> NO SIGNAL · tunnels';
   document.getElementById('phone').classList.toggle('nosig', !online);
-  render();
+  rerender();
 }
 function el(id){ return document.getElementById(id); }
 function esc(s){ return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
@@ -5564,9 +5675,231 @@ function choose(i){
   if(view && view.ended) drawSheet({ended:true, outcome:view.outcome});
   else drawSheet(view);
   refreshTop();
+  if(view && view.ended && view.outcome==='COMPLETE') notify('POSTED TO THE FEED · +50 followers');
 }
 function closeTalk(){ el('overlay').classList.remove('on'); openQuestId=null; render(); }
 
-render();
-window.__ready = true;
+/* ===== DEVICE SHELL: home screen, messages app, boot, navigation ============== */
+var phone = document.getElementById('phone');
+var VIEW = 'home', openThreadId = null;
+
+/* app icons (line SVGs) */
+var ICON = {
+  feed:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="13" y2="17"/></svg>',
+  msg:'<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>',
+  map:'<svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><line x1="9" y1="4" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="20"/></svg>',
+  wallet:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1.3"/></svg>',
+  cam:'<svg viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></svg>',
+  me:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>'
+};
+
+/* character DM threads. The neighbor delivers a quest by text (family/first-errand). */
+var THREADS = [
+  { id:'neighbor', who:'The Neighbor', av:'neighbor', unread:1, tm:'now', msgs:[
+      { from:'them', t:'you up? saw your lights on.' },
+      { from:'them', t:'we gotta talk about the wall between our yards. come by when you can.' } ],
+    reply:[
+      { t:'on my way', act:'startquest', qtitle:'The Wall', after:'good. bring your hands, not just your face.',
+        quest: demoQuest('thewall','The Wall','neighbor',
+          'two yards, one fence between them. we take that wall down, we got a real base.',
+          'Break the shared wall','why now?','lets do it'),
+        at:{ x:2, y:2, speaker:'neighbor', channel:'inperson' } },
+      { t:'not tonight', act:'dismiss', after:'dont wait too long, kid.' } ] },
+  { id:'sister', who:'Your Sister', av:'sister', unread:0, tm:'2h', msgs:[
+      { from:'them', t:'did you eat today?' }, { from:'you', t:'yeah' },
+      { from:'them', t:'liar. come to camp, i made too much.' } ] },
+  { id:'trader', who:'@trader', av:'trader', unread:0, tm:'1d', msgs:[
+      { from:'them', t:'water runs are open if you want the work. its on the feed.' } ] }
+];
+
+function unreadCount(){ return THREADS.reduce(function(a,t){ return a+(t.unread||0); }, 0); }
+
+function setView(v){
+  VIEW = v;
+  phone.classList.remove('view-home','view-feed','view-messages');
+  phone.classList.add('view-'+v);
+  el('nav').innerHTML = (v==='home')
+    ? '<span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span>'
+    : '<button class="homebtn" onclick="setView(\'home\')">&#9664; HOME</button>';
+  if(v==='home') renderHome();
+  else if(v==='messages'){ openThreadId=null; renderMessages(); }
+  else if(v==='map') renderMap();
+  else { setTab('feed'); }
+}
+function rerender(){ if(VIEW==='home') renderHome(); else if(VIEW==='messages') renderMessages(); else if(VIEW==='map') renderMap(); else render(); }
+
+function tile(app,label,icon,sub,badge){
+  var soon = (badge==='soon');
+  var b = (badge && badge!=='soon' && badge>0) ? '<div class="badge">'+badge+'</div>' : '';
+  var oc = soon ? '' : (app==='me'
+        ? ' onclick="setView(\'feed\');setTab(\'profile\')"'
+        : ' onclick="setView(\''+app+'\')"');
+  return '<div class="tile'+(soon?' soon':'')+'"'+oc+'>'+b+'<div class="ic">'+icon+'</div><div class="lb">'+label+'</div><div class="sub">'+esc(sub)+'</div></div>';
+}
+function renderHome(){
+  var pr = Loop.socialProfile(ctx, FOLLOWER_SCORE);
+  var offersN = ctx.quests.feedOffers().length;
+  el('home').innerHTML =
+    '<div class="home-hd"><b>the phone</b>@founder_gen1 · '+pr.reach+' followers on the Network</div>'+
+    '<div class="apps">'+
+      tile('feed','Feed', ICON.feed, pr.posts+' posts', offersN)+
+      tile('messages','Messages', ICON.msg, 'direct', unreadCount())+
+      tile('map','Map', ICON.map, 'the valley', 0)+
+      tile('wallet','Wallet', ICON.wallet, 'soon', 'soon')+
+      tile('camera','Camera', ICON.cam, 'soon', 'soon')+
+      tile('me','Profile', ICON.me, pr.reach+' foll', 0)+
+    '</div>';
+}
+
+function renderMessages(){
+  if(!openThreadId){
+    var h = '<div class="msg-hd"><div class="t">Messages<small>Network · direct</small></div></div><div class="threads">';
+    THREADS.forEach(function(t){
+      var last = t.msgs[t.msgs.length-1];
+      h += '<div class="thread" onclick="openThread(\''+t.id+'\')">'+avatar('@'+t.av)+
+           '<div class="tx"><div class="nm">'+esc(t.who)+(t.unread?' <span class="un"></span>':'')+'</div>'+
+           '<div class="pv">'+(last.from==='you'?'you: ':'')+esc(last.t)+'</div></div>'+
+           '<div class="tm">'+esc(t.tm||'now')+'</div></div>';
+    });
+    el('messages').innerHTML = h+'</div>';
+  } else {
+    var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0];
+    var h = '<div class="msg-hd"><button class="msg-back" onclick="backThreads()">&#9664;</button>'+avatar('@'+t.av)+
+            '<div class="t">'+esc(t.who)+'<small>on the network</small></div></div><div class="convo"><div class="bubbles">';
+    t.msgs.forEach(function(m){
+      if(m.from==='sys') h += '<div class="sysmsg">'+esc(m.t)+'</div>';
+      else h += '<div class="bub '+(m.from==='you'?'you':'them')+'">'+esc(m.t)+'</div>';
+    });
+    h += '</div>';
+    if(t.reply && t.reply.length){
+      h += '<div class="replies">';
+      t.reply.forEach(function(r,i){ h += '<button class="reply" onclick="replyThread('+i+')">'+esc(r.t)+'</button>'; });
+      h += '</div>';
+    }
+    el('messages').innerHTML = h+'</div>';
+    var bl = el('messages').querySelector('.bubbles'); if(bl) bl.scrollTop = bl.scrollHeight;
+  }
+}
+function openThread(id){ openThreadId=id; var t=THREADS.filter(function(x){return x.id===id;})[0]; if(t) t.unread=0; renderMessages(); }
+function backThreads(){ openThreadId=null; renderMessages(); }
+function replyThread(i){
+  var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0]; if(!t || !t.reply) return;
+  var r = t.reply[i];
+  t.msgs.push({ from:'you', t:r.t });
+  if(r.act==='startquest'){
+    ctx.quests.place(r.quest, r.at);                       // deliver the quest via DM
+    t.msgs.push({ from:'sys', t:'QUEST ADDED · '+r.qtitle+' — find them in person' });
+    if(r.after) t.msgs.push({ from:'them', t:r.after });
+    notify('QUEST ADDED · '+r.qtitle);
+  } else if(r.act==='dismiss'){
+    if(r.after) t.msgs.push({ from:'them', t:r.after });
+  }
+  t.reply = null;
+  renderMessages();
+}
+
+/* ===== MAP app — a salvaged GPS of the REAL generated valley (MAP LAW: render the
+   generated world + pin quests at their real tiles; design no layout). ============ */
+function diamond(g,x,y,r){ g.beginPath(); g.moveTo(x,y-r); g.lineTo(x+r,y); g.lineTo(x,y+r); g.lineTo(x-r,y); g.closePath(); g.fill(); }
+function triangle(g,x,y,r){ g.beginPath(); g.moveTo(x,y-r); g.lineTo(x+r,y+r); g.lineTo(x-r,y+r); g.closePath(); g.fill(); }
+function drawMap(cv){
+  var wm=ctx.worldMap, N=wm.size||256, W=cv.width, H=cv.height, s=W/N, g=cv.getContext('2d');
+  g.clearRect(0,0,W,H);
+  var base=g.createLinearGradient(0,0,0,H); base.addColorStop(0,'#171106'); base.addColorStop(1,'#0c0905');
+  g.fillStyle=base; g.fillRect(0,0,W,H);
+  // valley walls (mountain borders)
+  var mb=wm.mountainBorders||[], t=Math.max(6,s*7); g.fillStyle='#070504';
+  if(mb.indexOf('N')>=0) g.fillRect(0,0,W,t);
+  if(mb.indexOf('S')>=0) g.fillRect(0,H-t,W,t);
+  if(mb.indexOf('W')>=0) g.fillRect(0,0,t,H);
+  if(mb.indexOf('E')>=0) g.fillRect(W-t,0,t,H);
+  // Network signal coverage glow (derived: near Strip / districts / hubs). Corners = dead zones.
+  g.globalCompositeOperation='lighter';
+  function glow(x,y,r){ var rg=g.createRadialGradient(x,y,0,x,y,r); rg.addColorStop(0,'rgba(96,150,74,.15)'); rg.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=rg; g.beginPath(); g.arc(x,y,r,0,7); g.fill(); }
+  var sf=wm.strip.from, se=wm.strip.to;
+  for(var i=0;i<=8;i++) glow((sf[0]+(se[0]-sf[0])*i/8)*s,(sf[1]+(se[1]-sf[1])*i/8)*s,s*24);
+  (wm.districts||[]).forEach(function(d){ glow(d.pos[0]*s,d.pos[1]*s,s*16); });
+  (wm.hubs||[]).forEach(function(h){ glow(h[0]*s,h[1]*s,s*18); });
+  g.globalCompositeOperation='source-over';
+  // routes
+  g.strokeStyle='rgba(150,130,90,.3)'; g.lineWidth=Math.max(1,s*1.1);
+  (wm.routes||[]).forEach(function(r){ if(r.from&&r.gate){ g.beginPath(); g.moveTo(r.from[0]*s,r.from[1]*s); g.lineTo(r.gate[0]*s,r.gate[1]*s); g.stroke(); } });
+  // the Strip
+  g.strokeStyle='rgba(216,167,66,.9)'; g.lineWidth=Math.max(2,s*2.2); g.shadowColor='rgba(216,167,66,.7)'; g.shadowBlur=7;
+  g.beginPath(); g.moveTo(sf[0]*s,sf[1]*s); g.lineTo(se[0]*s,se[1]*s); g.stroke(); g.shadowBlur=0;
+  // districts
+  (wm.districts||[]).forEach(function(d){
+    var col=d.texture==='recovering'?'#5f7a3a':d.texture==='modern'?'#5a86a0':'#7a3a2a', w=Math.max(4,s*6.5);
+    g.fillStyle=col; g.globalAlpha=.88; g.fillRect(d.pos[0]*s-w/2,d.pos[1]*s-w/2,w,w); g.globalAlpha=1;
+    g.strokeStyle='rgba(0,0,0,.5)'; g.lineWidth=1; g.strokeRect(d.pos[0]*s-w/2,d.pos[1]*s-w/2,w,w);
+  });
+  // landmarks: dam (N) + solar (S)
+  g.textAlign='center';
+  function land(pt,glyph,col,label,ly){ var x=pt[0]*s, y=Math.min(H-4,Math.max(10,pt[1]*s)); g.fillStyle=col; g.font=Math.max(9,s*8)+'px ui-monospace,monospace'; g.fillText(glyph,x,y); g.fillStyle='rgba(236,226,207,.65)'; g.font='7px ui-monospace,monospace'; g.fillText(label,x,y+ly); }
+  if(wm.dam) land(wm.dam.at,'▣','#7fa8c8','DAM',12);
+  if(wm.solar) land(wm.solar.at,'▤','#d8b84a','SOLAR',-8);
+  // hubs
+  (wm.hubs||[]).forEach(function(h){ g.fillStyle='#c8b070'; diamond(g,h[0]*s,h[1]*s,Math.max(2.5,s*3)); });
+  // quest pins
+  ctx.quests.placements().forEach(function(p){ if(p.x==null) return; var rt=ctx.quests.get(p.questId); if(!rt||rt.state.done) return;
+    var x=p.x*s,y=p.y*s; g.shadowColor='rgba(0,0,0,.7)'; g.shadowBlur=4;
+    if(p.channel==='inperson'){ g.fillStyle='#d47a30'; triangle(g,x,y,Math.max(3,s*3.6)); }
+    else { g.fillStyle='#d8a742'; diamond(g,x,y,Math.max(3,s*3.6)); }
+    g.shadowBlur=0;
+  });
+  // player
+  var px=player.tile.x*s, py=player.tile.y*s;
+  g.fillStyle='rgba(134,172,82,.22)'; g.beginPath(); g.arc(px,py,s*6,0,7); g.fill();
+  g.fillStyle='#9ed060'; g.beginPath(); g.arc(px,py,Math.max(2.5,s*2.3),0,7); g.fill();
+  g.strokeStyle='#0a0805'; g.lineWidth=1.5; g.stroke();
+}
+function renderMap(){
+  el('map').innerHTML =
+    '<div class="map-hd"><div class="t">Map<small>'+(online?'Network · live position':'NO SIGNAL · last known')+'</small></div>'+
+      '<div class="co">VALLEY 256×256<br>X'+player.tile.x+' Y'+player.tile.y+'</div></div>'+
+    '<div class="map-wrap"><canvas id="mapcv"></canvas><div class="map-scan"></div>'+(online?'<div class="map-sweep"></div>':'')+
+      '<div class="map-brk tl"></div><div class="map-brk tr"></div><div class="map-brk bl"></div><div class="map-brk br"></div></div>'+
+    '<div class="map-legend"><span><i style="background:#d8a742"></i>Strip</span><span><i style="background:#7a3a2a"></i>apocalypse</span>'+
+      '<span><i style="background:#5f7a3a"></i>recovering</span><span><i style="background:#d47a30"></i>in-person</span><span><i style="background:#9ed060"></i>you</span></div>'+
+    '<div class="map-pins" id="mappins"></div>';
+  var wrap=el('map').querySelector('.map-wrap'), cv=document.getElementById('mapcv');
+  var w=(wrap&&wrap.clientWidth)||380; cv.width=w; cv.height=w; drawMap(cv);
+  var ph='';
+  ctx.quests.placements().forEach(function(p){ if(p.x==null) return; var rt=ctx.quests.get(p.questId); if(!rt||rt.state.done) return;
+    var dz=p.channel==='inperson';
+    ph += '<div class="mpin" onclick="mapPin(\''+p.questId+'\')"><div class="g '+(dz?'inp':'feed')+'">'+(dz?'▲':'◆')+'</div>'+
+          '<div class="tx"><div class="nm">'+esc(rt.Q.title)+'</div><div class="sub">'+
+          (dz?('<span class="dz">in person · X'+p.x+' Y'+p.y+' · dead zone</span>'):('over the phone · X'+p.x+' Y'+p.y))+
+          '</div></div></div>';
+  });
+  document.getElementById('mappins').innerHTML = ph || '<div class="empty-state" style="padding:30px">No active pins in the valley.</div>';
+}
+function mapPin(qid){ var p=ctx.quests.placements().filter(function(x){return x.questId===qid;})[0]; if(!p) return;
+  if(p.channel==='inperson'){ setView('feed'); setTab('offers'); } else { setView('feed'); openTalk(qid); }
+}
+
+/* toast notifications — the phone reacts to what you do */
+function notify(text){ var t=el('toast'); if(!t) return; t.textContent=text; t.classList.add('on');
+  clearTimeout(notify._t); notify._t=setTimeout(function(){ t.classList.remove('on'); }, 2600); }
+
+/* LOCK SCREEN — the salvaged phone boots into this: time + notifications, tap to unlock */
+function notifCard(av,nm,bd){ return '<div class="lk-nf">'+av+'<div class="tx"><div class="nm">'+esc(nm)+'</div><div class="bd">'+esc(bd)+'</div></div></div>'; }
+function renderLock(){
+  var offers=ctx.quests.feedOffers().length, nf='';
+  var neigh=THREADS.filter(function(t){ return t.unread; })[0];
+  if(neigh){ var last=neigh.msgs[neigh.msgs.length-1]; nf+=notifCard(avatar('@'+neigh.av), neigh.who, last.t); }
+  if(offers) nf+=notifCard('<div class="av sm" style="background:'+AV_COLORS[0]+'">&#9670;</div>','Network', offers+' quest'+(offers>1?'s':'')+' available near you');
+  if(!nf) nf=notifCard('<div class="av sm" style="background:'+AV_COLORS[1]+'">&#9679;</div>','Network','all quiet on the feed');
+  el('lock').innerHTML =
+    '<div class="lk-time">07:14</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
+    '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
+}
+function unlockPhone(){ phone.classList.remove('locked'); setView('home'); window.__phoneReady=true; window.__ready=true; }
+
+/* boot the salvaged phone -> lock screen -> (tap) -> home */
+function finishBoot(){ var b=el('boot'); if(!b || b.classList.contains('off')) return; b.classList.add('off');
+  phone.classList.add('locked'); renderLock(); window.__bootDone=true; }
+el('boot').addEventListener('click', finishBoot);
+el('lock').addEventListener('click', unlockPhone);
+setTimeout(finishBoot, 1600);
 </script>

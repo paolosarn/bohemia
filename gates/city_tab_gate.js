@@ -195,6 +195,30 @@ if (b64m) {
     && decoded.indexOf("'wallface'") >= 0 && decoded.indexOf("'wallwin'") >= 0);
   ok('faces serve facade art (plain/window by deterministic variant)',
     decoded.indexOf("saTex(variant===3?'wallwin':'wallface',variant)") >= 0);
+
+  // 15. THE CANON SUBURB LOCK (7/20, Paolo: "we have SUBURBS for this
+  // reason, and REAL HOUSE SIZES"): residential tiles generate Paolo's
+  // approved block (engine/bohemia_suburb.js, byte-locked verbatim),
+  // street-gated to real road neighbors, downsampled with presence-priority
+  // so walls survive; structures wear the APPROVED judge palette (real
+  // house ART is PENDING a Paolo verdict cycle - the house-factory stamps
+  // proved dungeon-styled, unusable as suburb skins); ground is DEAD DIRT
+  // (act-1: the green lawn is gone). Freestyle prefabs are DEAD for
+  // residential.
+  const subBody = fs.readFileSync('engine/bohemia_suburb.js', 'utf8');
+  ok('CANON SUBURB: the approved generator rides the city verbatim',
+    decoded.indexOf(subBody) >= 0 && decoded.indexOf('CANON SUBURB') >= 0);
+  ok('residential tiles route through the canon block (freestyle prefabs dead)',
+    decoded.indexOf('SUB_RES[d]') >= 0 && decoded.indexOf('__subGrid') >= 0);
+  ok('structures wear the approved judge palette, ground is dead dirt',
+    decoded.indexOf("'#9c8e76'") >= 0 && decoded.indexOf("'#8a7a5e'") >= 0);
+  // v2 (Paolo: "pull me a picture of a suburb I approved" - the 4:1 downsample
+  // mushed THE BLOCK; now a 96m block spans a 4x4 TILE GROUP at 1:1, the same
+  // 0.75m fine scale as the approved walk slice, and rerolls drop the cache)
+  ok('CANON SUBURB v2: full-resolution 4x4-group windows, no downsample',
+    decoded.indexOf('4x4 TILE GROUP') >= 0 && decoded.indexOf('__subBlock') >= 0);
+  ok('REGEN: the group-block cache drops on reroll',
+    decoded.indexOf('__subCache.clear();') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

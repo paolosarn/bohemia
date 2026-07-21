@@ -31,3 +31,14 @@ CONVENTIONS (same as always)
 120 BPM grid, leaf-pixel law, 45-degree view, baked from YOUR pose.
 Graveyard names stay dead (crouch/kneel/lean-* are gone as NAMES; these
 new names are clean).
+
+ROUND 2B (added same day, the DOWNED ruling)
+--------------------------------------------
+3. crawl-dying    ~4 beats  The zombie crawl: a downed man dragging
+                            himself along the floor, one arm pulling,
+                            legs limp. Plays when a dying man crawls his
+                            tile toward a downed friend (v30 built; the
+                            prone pose slides until this clip lands —
+                            wire is automatic on landing).
+NOTE: the FINISH death blow reuses 'stomp' (already canon) later if you
+want the stomp read; hands-up (canon) already carries the surrender.
