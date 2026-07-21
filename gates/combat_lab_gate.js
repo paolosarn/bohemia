@@ -401,6 +401,12 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('const WEAPON_LETHAL={pistol:0.20,smg:0.35,rifle:0.55,shotgun:1.0}'));
   ok('V33 nerve retuned down further on top of the v32 event-gating',
     demo.includes('0.10+0.05*(_down-_half)') && !demo.includes('0.18+0.08*(_down-_half)'));
+  // v34: KILL ARC treated as a vital — armor buys a real turn, never a free chain
+  ok('V34 KILL ARC = VITAL: an armored survivor stuns 2 and ends the turn CLEAN, no auto-chain',
+    demo.includes('V34 KILL ARC = VITAL') &&
+    demo.includes("setRead('KILL ARC — STUN'") &&
+    demo.includes("G.phase='resolve'; setTimeout(()=>{ if(!G.over) endTurnClean(); },170); return;\n    }") &&
+    !demo.includes("setRead('KILL ARC', tgt.n+' took '+KILL_DMG+' — still up · chain on'"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

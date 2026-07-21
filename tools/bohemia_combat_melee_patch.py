@@ -2670,13 +2670,45 @@ def patch33(demo):
     return demo
 
 
+def patch34(demo):
+    """v34 (Paolo 7/21, the killshot-armor design answer he liked): a
+    perfect killshot that doesn't finish an armored target (took max
+    damage, still standing) now resolves exactly like a VITAL — stun 2
+    (no stun-lock), turn ends CLEAN, no chain, no same-turn re-target.
+    Armor used to cost nothing but an extra click; now surviving a
+    killshot buys the target a real turn (move, cover, return fire)
+    before you can finish the job, whether it's a man or a robot."""
+    if 'V34 KILL ARC = VITAL' in demo:
+        print('v34 already applied, skipping')
+        return demo
+    demo = sub1(demo, """\
+      /* SURVIVED THE KILL ARC (future elites/bosses/robots): took 100-armor, still
+         standing. No death, but the kill arc still buys the clean turn -> chain on,
+         NO return fire from this target. */
+      tgt._hitAt=performance.now(); addWound(tgt); renderBoard();
+      setRead('KILL ARC', tgt.n+' took '+KILL_DMG+' — still up · chain on','#c8a23a');
+      setTimeout(()=>{ if(!G.over) enterAim(true); },150); return;
+    }""", """\
+      /* V34 KILL ARC = VITAL (Paolo, ruled): took max damage, still standing — a
+         perfect shot doesn't waive armor. Same treatment as a vital: stun 2 (no
+         stun-lock), turn ends CLEAN, no chain. Surviving buys him a real turn. */
+      if(tgt.stunCooldown<=0) tgt.stun=2; tgt.windup=false;
+      tgt._hitAt=performance.now(); addWound(tgt); renderBoard();
+      sndVital(); if(navigator.vibrate)navigator.vibrate(24);
+      setRead('KILL ARC — STUN', tgt.n+' took '+KILL_DMG+' and held — frozen 2 turns, turn ends','#c8a23a');
+      G.phase='resolve'; setTimeout(()=>{ if(!G.over) endTurnClean(); },170); return;
+    }""",
+        'killarc-is-vital')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))
+    patched = patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

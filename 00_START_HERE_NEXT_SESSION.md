@@ -1388,6 +1388,20 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    doctrine as grit shots. [PENDING Paolo: perk-gate this when that
    pass comes; flat table is the honest baseline until then.] Gate 131
    (combat) + 74 (anim) ALL GREEN.
+   ARMOR COSTS A REAL TURN (7/21, pass 34): the killshot-armor design
+   question got answered without code first, Paolo liked the call —
+   "even if we deal maximum damage it will be treated as a vital for
+   armored opponents I like that robot or people." Built exactly that:
+   a KILL ARC survivor (took KILL_DMG, still standing — bots, elites)
+   now resolves like a VITAL — stun 2 (no stun-lock), turn ends CLEAN,
+   no auto-chain, no same-turn re-target. Armor used to cost nothing
+   but an extra click; now surviving buys the target a real turn back.
+   Also answered "wtf is a grit shot" plainly in the reply (the floor
+   to KILLSHOTS/TURN's ceiling — a miss spends a grit instead of ending
+   your turn) since the v32 readout fix meant he'd never actually SEEN
+   its message fire. Verified live: 160hp SEC-BOT takes a shotgun
+   killshot, ends at stun 2, alive, not dead/downed/broken, no chain.
+   Gate 132 (combat) + 74 (anim) ALL GREEN.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
