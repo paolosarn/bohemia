@@ -195,6 +195,23 @@ if (b64m) {
     && decoded.indexOf("'wallface'") >= 0 && decoded.indexOf("'wallwin'") >= 0);
   ok('faces serve facade art (plain/window by deterministic variant)',
     decoded.indexOf("saTex(variant===3?'wallwin':'wallface',variant)") >= 0);
+
+  // 15. THE CANON SUBURB LOCK (7/20, Paolo: "we have SUBURBS for this
+  // reason, and REAL HOUSE SIZES"): residential tiles generate Paolo's
+  // approved block (engine/bohemia_suburb.js, byte-locked verbatim),
+  // street-gated to real road neighbors, downsampled with presence-priority
+  // so walls survive; structures wear the APPROVED judge palette (real
+  // house ART is PENDING a Paolo verdict cycle - the house-factory stamps
+  // proved dungeon-styled, unusable as suburb skins); ground is DEAD DIRT
+  // (act-1: the green lawn is gone). Freestyle prefabs are DEAD for
+  // residential.
+  const subBody = fs.readFileSync('engine/bohemia_suburb.js', 'utf8');
+  ok('CANON SUBURB: the approved generator rides the city verbatim',
+    decoded.indexOf(subBody) >= 0 && decoded.indexOf('CANON SUBURB') >= 0);
+  ok('residential tiles route through the canon block (freestyle prefabs dead)',
+    decoded.indexOf('SUB_RES[d]') >= 0 && decoded.indexOf('__subGrid') >= 0);
+  ok('structures wear the approved judge palette, ground is dead dirt',
+    decoded.indexOf("'#9c8e76'") >= 0 && decoded.indexOf("'#8a7a5e'") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
