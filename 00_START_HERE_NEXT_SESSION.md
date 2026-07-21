@@ -508,6 +508,63 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-26. COMBAT v35: CAMERA TIGHTENS, REAL COVER, DIAL-BY-EXPOSURE, LAST-MAN-
+   ONLY SURRENDER (7/21, combat session, branch claude/bohemia-combat-
+   session-ni978x): Paolo sent one dense diagnostic message covering six
+   things. FOUR WERE REAL BUGS, root-caused fresh (not re-guessed off the
+   prior "fix"): (1) camera wouldn't tighten as the fight thinned -- the
+   auto-frame fit distance was still measuring dead/downed/broken bodies,
+   fixed to only measure ACTIVE fighters; verified mdOld=25 (buggy, reading
+   a far corpse) vs mdNew=5 (correct, the one live fighter) on the same
+   state. (2) camera fought the killshot cinematic's own zoom -- the auto-
+   frame easing now freezes entirely while G.ks (killcam) is active. (3)
+   auto-targeting still felt sticky toward whatever was tapped -- root
+   cause #3 under this one symptom this session (threat-ladder formula v28,
+   reach/windup blindness v33, and now this: chip/field taps were locking
+   G.selTarget even in AUTO mode); taps now only lock a manual pick when
+   G.targetMode==='manual'. (4) enemies read as covered while crouched
+   behind nothing -- pillarBetweenMe and nearPillar could each be satisfied
+   by a DIFFERENT pillar; now realCoverPillar requires ONE pillar to
+   satisfy both checks together.
+   TWO NEW MECHANICS, both his asks: dial difficulty now scales with
+   target exposure (G.pkgDiff +1 if covered, -1 if exposed, clamped 0-4);
+   and NERVE rewritten so only the last enemy standing can surrender --
+   everyone else who breaks while their side still fights FLEES instead
+   (runs away, doesn't drop the gun), elites break at half rate. Faction/
+   rank slider on break odds explicitly [PENDING Paolo, his framing: "on a
+   slider, no one surrenders or more people do"].
+   TWO NON-BUGS, explained not coded: the casino ledger's "100% hits" was
+   already counting body hits as hits per his own stated definition of
+   accuracy (any hit, not just killshots) -- confirmed correct, not
+   touched. Grit shots re-confirmed in plain text: a miss spends a banked
+   grit shot instead of ending your turn, dial reopens same target.
+   "Falling before the bullets hit" should read as fixed by the killcam-
+   freeze (fix #2) but wasn't independently re-tested visually -- tell him
+   to flag it again if it's still off.
+   HIS FACE QUESTION ("wtf is on my face, is this the battle scar") --
+   answered plain: it's the pre-existing addWound() wound-marking system
+   (predates this session, unrelated to this patch), not a new scar
+   system. He does NOT want it expanded/changed right now -- a real scar
+   system is a separate future project elsewhere, not combat-session scope.
+   Verified via Playwright evaluate() probes against the live decoded
+   alpha (not screenshots): dial-by-cover {"pkgCovered":2,"pkgExposed":0,
+   "harderWhenCovered":true}; last-man-only {"b_broken":false,
+   "b_fleeing":true,"d_broken":true,"d_fleeing":false} (self-correcting
+   cascade -- whoever the loop reaches when only 1 is left alive gets
+   surrender, everyone evaluated earlier flees); camera convergence
+   mdOld=25/mdNew=5; real-cover mismatch test {"mismatchGrantsCover":
+   false,"realCoverWorks":true}; auto-tap-never-locks {"selTargetAfterTap":
+   null}; manual-tap-still-works {"selTargetAfterTap":0}. Zero page errors
+   on every probe.
+   tools/bohemia_combat_melee_patch.py patch35() (idempotent, guarded on
+   'V35 FLEEING' marker... NOTE this guard string never actually lands in
+   the output verbatim, only its pieces do (FLEEING/V35 both present
+   separately) -- harmless since the function is otherwise idempotent via
+   sub1's exactly-once assertions, but worth tightening if patch36 reuses
+   this pattern.) gates/combat_lab_gate.js: 138 checks (7 new + 3 fixed
+   stale string-anchors from the v35 rewrite -- same "gate matches shipped
+   reality, never the reverse" precedent as every prior pass). Full suite
+   ALL GREEN. Stamp: BUILD 7/21p.
 -25. DRESS CODE BY RANK, THE MECHANISM (7/21, latest): Paolo picked the next
    lane -- dress codes, starting with color. His rule: rookies wear
    whatever as long as >=50% of BODY SURFACE reads the faction color;
