@@ -442,7 +442,20 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--22. WARDROBE ALL CANON + WAVE 7 (7/21, latest): Paolo's verdict export --
+-23. GAS MASK v2 + WAVE 8 + FEMALE-RIG GUARANTEE (7/21, latest): second
+   verdict export -- BIB OVERALLS / SCAV TOOL BELT / ANKLE WRAP SKIRT canon
+   (bank 178); RUBBER GAS MASK held: "better east and west" -> v2 profile
+   branch (shaped rim, glint lens off the leading edge, canister driving
+   FORWARD past the silhouette, strap across the skull; front lenses got
+   the glint too), still cooking [PENDING thumbs]. WAVE 8 ("MAKE MORE
+   CLOTHES A LOT"), eight shapes in COOKING [PENDING thumbs]: SHOULDER
+   MANTLE, ELBOW PADS, FIELD LEG WRAPS, BLANKET SHOULDER ROLL, HIP SASH,
+   OUTLAW BANDANA, SCRAP HELM, SCRAP QUIVER. structure_gate 123. FEMALE-RIG
+   GUARANTEE recorded (Paolo: "workable when we make it to woman"):
+   generators read only the part-id grid; the gate fixture is a non-male
+   body, so the whole wardrobe carries to the female rig with zero new
+   clothing code -- machine-enforced already. Stamp: BUILD 7/21b.
+-22. WARDROBE ALL CANON + WAVE 7 (7/21): Paolo's verdict export --
    ALL 176 lines CANON, zero kills, no comments. Waves 5+6 baked to canon
    (NEW IN CANON carries the eight; wave-4 fresh flags retired); wardrobe
    bank re-extracted: 175 canon. COOK BATCH 21 (wave 7) answers "make new

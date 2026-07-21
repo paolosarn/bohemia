@@ -287,8 +287,8 @@ if (G) {
     if (gm && gmN) {
       const fCov7 = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 2) { t++; if (o[i] !== undefined) c++; } return c / t; };
       ok('gas mask covers the WHOLE face, eyes included (its own class, not the dust mask)', fCov7(gm) === 1);
-      let lens = 0; for (const k in gm) { const c = gm[k]; if (c[0] === R.lt[0] && c[1] === R.lt[1]) lens++; }
-      ok('the lenses read', lens >= 2);
+      let lens = 0; for (const k in gm) { const c = gm[k]; if (c[0] === 142 && c[1] === 152) lens++; }
+      ok('the lenses read (glass glint)', lens >= 2);
       ok('from behind: the head strap shows, no skin slits', fCov7(gmN) === 1 && (() => { for (const k in gmN) if (g[+k] === 1) return true; return false; })());
       const dm = G2A('S').genAcc(g, { ramp: R, kind: 'mask' });
       ok('the dust mask keeps its below-the-eyes law (both masks coexist)', dm && fCov7(dm) < 1); }
@@ -300,6 +300,64 @@ if (G) {
       ok('ankle skirt is a REAL third length: wrap < ankle', hem(wsk) < hem(lsk) && hem(lsk) >= 46); }
   }
   ok('wave-7 candidates ship', /bib:true/.test(gbAll()) && /kind:'gasmask'/.test(gbAll()) && /kind:'toolbelt'/.test(gbAll()) && /cut:'longskirt'/.test(gbAll()));
+
+  // GAS MASK v2 (Paolo 7/21: "have to look better east and west"): in profile
+  // the mask is a SHAPE -- glint lens, canister FORWARD past the silhouette
+  if (W) {
+    let gmE = null, gmW2 = null;
+    try { gmE = G2A('E').genAcc(g, { ramp: R, kind: 'gasmask' }); gmW2 = G2A('W').genAcc(g, { ramp: R, kind: 'gasmask' }); }
+    catch (e) { console.log('  gasv2 err: ' + e.message); }
+    if (gmE && gmW2) {
+      const glint = (o) => { let c = 0; for (const k in o) { const v = o[k]; if (v[0] === 142 && v[1] === 152) c++; } return c; };
+      const fwd = (o, sgn) => { let c = 0; for (const k in o) { const x = (+k) % 56; if (g[+k] === 0 && ((sgn > 0 && x > 30) || (sgn < 0 && x < 25))) c++; } return c; };
+      ok('profile gas mask: the lens glints (E and W)', glint(gmE) >= 1 && glint(gmW2) >= 1);
+      ok('profile gas mask: the canister drives FORWARD past the face (E)', fwd(gmE, 1) >= 3);
+      ok('profile gas mask: the canister drives FORWARD past the face (W)', fwd(gmW2, -1) >= 3);
+    }
+  }
+
+  // WAVE 8 ("MAKE MORE CLOTHES A LOT"): eight shapes, all part-grid derived --
+  // the FEMALE-RIG GUARANTEE: this very fixture is not the male rig, so every
+  // pass here proves the garment works on any body wearing the 12 part ids.
+  if (W && WN) {
+    let mtN = null, cpN8 = null, ep = null, lw2 = null, sr = null, sa = null, bn = null, bnN = null, hm = null, hmN = null, qvN = null, qvS = null;
+    try { mtN = WN.genCape(g, { ramp: R, mantle: true }); cpN8 = WN.genCape(g, { ramp: R });
+          ep = G2A('S').genGear(g, { ramp: R, kind: 'elbowpads' }); lw2 = G2A('S').genGear(g, { ramp: R, kind: 'legwraps' });
+          sr = G2A('S').genGear(g, { ramp: R, kind: 'shoulderroll' }); sa = G2A('S').genAcc(g, { ramp: R, kind: 'sash' });
+          bn = G2A('S').genAcc(g, { ramp: R, kind: 'bandana' }); bnN = G2A('N').genAcc(g, { ramp: R, kind: 'bandana' });
+          hm = G2A('S').genAcc(g, { ramp: R, kind: 'helm' }); hmN = G2A('N').genAcc(g, { ramp: R, kind: 'helm' });
+          qvN = GN.genBag(g, { ramp: R, kind: 'quiver' }); qvS = G.genBag(g, { ramp: R, kind: 'quiver' }); }
+    catch (e) { console.log('  wave8 err: ' + e.message); }
+    ok('wave-8 shapes render', [mtN, ep, lw2, sr, sa, bn, bnN, hm, hmN, qvN, qvS].every(o => o && Object.keys(o).length >= 5));
+    if (mtN && cpN8) {
+      const hem8 = (o) => Math.max.apply(null, Object.keys(o).map(k => ((+k) / 56) | 0));
+      ok('mantle is a REAL second cape length: stops at the mid-back', hem8(mtN) < 30 && hem8(cpN8) >= 38); }
+    if (ep) ok('elbow pads: arm zone only, at the elbow band', [...parts(ep)].every(pt => pt === 5 || pt === 6) && rows(ep).every(y => y >= 22 && y <= 29));
+    if (lw2) ok('leg wraps: lower legs only, cloth from mid-shin down', [...parts(lw2)].every(pt => pt === 9 || pt === 10) && rows(lw2).every(y => y >= 40));
+    if (sr) {
+      ok('shoulder roll: torso-only and THICKER than the bandolier', [...parts(sr)].every(pt => pt === 4) && Object.keys(sr).length > Object.keys(G2A('S').genGear(g, { ramp: R, kind: 'bandolier' })).length);
+      const pts8 = Object.keys(sr).map(k => [(+k) % 56, ((+k) / 56) | 0]);
+      const lo8 = pts8.filter(pt => pt[1] <= 22), hi8 = pts8.filter(pt => pt[1] >= 28);
+      const avg8 = a => a.reduce((s2, pt) => s2 + pt[0], 0) / (a.length || 1);
+      ok('shoulder roll runs the OPPOSITE diagonal from the bandolier', lo8.length > 0 && hi8.length > 0 && avg8(lo8) - avg8(hi8) >= 4); }
+    if (sa) ok('hip sash: waist band + a tail HANGING below the waist', rows(sa).some(y => y >= 34) && rows(sa).some(y => y <= 32));
+    if (bn && bnN) {
+      let above = 0; for (const k in bn) { const i = +k; if (g[i] === 2 && (((i / 56) | 0) <= 10)) above++; }
+      ok('bandana keeps the below-the-eyes law', above === 0);
+      ok('bandana hangs to a POINT past the chin', (() => { for (const k in bn) { const i = +k; if ((g[i] === 0 || g[i] === 3) && ((i / 56) | 0) >= 14) return true; } return false; })());
+      ok('bandana from behind: the knot, not a face', (() => { for (const k in bnN) if (g[+k] === 2 && bnN[k] === undefined) return false; return true; })()); }
+    if (hm && hmN) {
+      const headCov8 = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 1) { t++; if (o[i] !== undefined) c++; } return c / t; };
+      const slitOpen = (o) => { let open = 0; for (let i = 0; i < g.length; i++) if (g[i] === 2 && ((i / 56) | 0) === 10 && o[i] === undefined) open++; return open; };
+      const faceCov8 = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 2) { t++; if (o[i] !== undefined) c++; } return c / t; };
+      ok('scrap helm domes the whole skull', headCov8(hm) > 0.9 && headCov8(hmN) > 0.9);
+      ok('scrap helm keeps the EYE SLIT open in front', slitOpen(hm) >= 3);
+      ok('scrap helm from behind: full metal, no skin', faceCov8(hmN) === 1); }
+    if (qvN && qvS) {
+      ok('quiver: the tube rides the BACK, the front carries only the strap', Object.keys(qvN).length > Object.keys(qvS).length);
+      ok('the arrow tips poke past the shoulder line', (() => { for (const k in qvN) { const i = +k; if (g[i] === 0 && ((i / 56) | 0) < 16) return true; } return false; })()); }
+  }
+  ok('wave-8 candidates ship', /mantle:true/.test(gbAll()) && /kind:'elbowpads'/.test(gbAll()) && /kind:'legwraps'/.test(gbAll()) && /kind:'shoulderroll'/.test(gbAll()) && /kind:'sash'/.test(gbAll()) && /kind:'bandana'/.test(gbAll()) && /kind:'helm'/.test(gbAll()) && /kind:'quiver'/.test(gbAll()));
   function G2A(dir) { const NAMES7 = ['mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
     return new Function('CW', 'CH', 'curDir', NAMES7.map(grab).join('\n') + '\nreturn {genAcc,genGear};')(56, 56, dir); }
   function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
