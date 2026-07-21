@@ -350,6 +350,11 @@ as Paolo's canon.
 - Branch this session works on: claude/quest-log-access-ufcu1u (everything pushed).
 
 ## DO NOT LOSE (carries)
+- ALWAYS give Paolo the ALPHA LINK whenever you present anything (7/20 rule: "give me
+  the alpha link at all times you present me something"). The link (latest on the work
+  branch): https://github.com/paolosarn/bohemia/blob/<branch>/slices/BOHEMIA_ALPHA_0_9.html
+  (current branch: claude/quest-log-access-ufcu1u). He opens the alpha to judge, so
+  every deliverable must come WITH the link and which tab to open (e.g. the PHONE tab).
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
