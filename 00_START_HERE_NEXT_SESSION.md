@@ -423,6 +423,28 @@ as Paolo's canon.
   signature" squiggle in the dialogue overlay as a preview. NO AUDIO EXISTS —
   that's a real production step for later; today is the assignment mechanism +
   a visual stand-in only.
+- TEXT-CAM: PHOTOS ARE TEXT ART, NOT IMAGES (7/21, LOCKED, own addendum
+  TEXT_ART_NETWORK_7_21_26.md). Paolo caught a real plausibility hole: a barely-
+  surviving internet can't host real photo/video sharing. Researched BBS-era
+  ANSI/ASCII art (existed purely because modems couldn't send real images, became
+  real craft/social currency) and Shift-JIS art (still thriving on Japanese
+  textboards 20+ years after bandwidth stopped being scarce — proves it becomes
+  real culture, not just a workaround), plus real disaster-comms precedent (SMS
+  survives congestion that kills voice/data). LOCKED: the Network is text-first
+  by necessity; "photos" on the feed are community-made TEXT ART. Built:
+  photoFor() renders small hand-drafted TEXT-CAM art per quest instead of a
+  gradient placeholder. PENDING (not decided): whether an in-fiction text-art-
+  crew subculture (echoing real ACiD/iCE groups) becomes a clout/reputation
+  source.
+- BOTH NOTIFICATION PATTERNS COEXIST (7/21, LOCKED): Paolo wants the live
+  cross-app push banner (built earlier, Cyberpunk-style) AND the lock-screen
+  recap-when-you-open-the-phone behavior, not one replacing the other. Built:
+  the phone is now re-lockable anytime (a lock icon in the status bar) so
+  "put the phone away, pick it back up, see what you missed" is demonstrable
+  beyond first boot — reuses the existing renderLock(), no longer one-time.
+  DESIGN NOTE FOR LATER POLISH: never let the push banner look like a literal
+  iOS/Android system notification — keep it in Bohemia's own salvaged/mono
+  visual language as fidelity increases, don't drift toward a real-phone-OS copy.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
