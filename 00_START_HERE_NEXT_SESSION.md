@@ -352,12 +352,24 @@ as Paolo's canon.
 ## DO NOT LOSE (carries)
 - ALWAYS give Paolo THIS exact ALPHA LINK whenever you present anything (7/20 rule,
   his words): https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
-  This is the GitHub PAGES link and it is THE link he wants, every time, no other
-  format (not github blob source, not raw.githack). CRITICAL: Pages deploys from the
-  `main` branch, so ANYTHING you want him to see at that link must be MERGED TO MAIN.
-  Work done only on the feature branch will NOT appear at that link. So the delivery
-  flow is: build on the branch, get it onto main (merge), THEN the Pages link shows
-  it. Always tell him which tab to open (e.g. PHONE).
+  This is the GitHub PAGES link, THE link he wants every time (not github blob source,
+  not raw.githack). Pages deploys from `main`.
+- HOW HE SEES NEW WORK — THE SLICE TAB (learned 7/20, the big lesson). The REAL alpha
+  on main has tabs CHARACTER/CLOTHES/ANIMATION/RIG/COMBAT/MUSIC/CITY/**SLICE**/LIFE.
+  The SLICE tab is an IFRAME: `<iframe data-src="BOHEMIA_CURRENT_SLICE.html">`. So to
+  show Paolo new work you DO NOT edit the 31MB alpha — you make your work be
+  slices/BOHEMIA_CURRENT_SLICE.html (SELF-CONTAINED, no external refs, since it loads
+  standalone in the iframe) and deploy THAT ONE FILE to main. Then he opens the Pages
+  link and taps SLICE. Delivery flow: build self-contained -> write
+  slices/BOHEMIA_CURRENT_SLICE.html -> browser-verify -> push ONLY that file to main
+  (base a temp branch off origin/main, checkout just that file, push to main;
+  surgical, never merge this whole branch). The phone is the current slice as of 7/20.
+- WARNING / STALE ALPHA: this feature branch's copy of slices/BOHEMIA_ALPHA_0_9.html is
+  OLDER than main's (main has CLOTHES/SLICE/LIFE tabs this branch lacks). NEVER merge
+  this branch's alpha to main — it would clobber the good newer alpha. main's alpha is
+  authoritative. The PHONE-tab-in-alpha edit + tools/bohemia_inject_phone.js done
+  earlier this session were based on the STALE alpha and are DEPRECATED; use the
+  current-slice iframe mechanism above, not an injected tab.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
