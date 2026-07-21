@@ -40,10 +40,11 @@ for t in tiles:
                  'mate': feat_mate.get(t['id'])})
 
 SECTIONS = [
-    ('ROOFS', 'roof', 'the visible top of every house. Shingle courses and gravel flats, sky-lit per the 45 law.'),
-    ('WALLS', 'wall', 'the tan stucco face family (85/15). Cracks from the top plate, 30 years of wear.'),
+    ('ROOFS', 'roof', 'the visible top of every house. RULED (Paolo 7/21): SHINGLE is the Bohemia roof - "most houses look like shingles... idgaf about the material." The S-tile candidates from the material research stay here for the record, not as the winner. Gravel flats for the odd flat roof.'),
+    ('WALLS', 'wall', 'the tan stucco face family (85/15) - research confirms Vegas HOA earth tones ARE this palette. Cracks from the top plate, 30 years of wear.'),
     ('WINDOWS', 'window', 'dead world: glass is DARK, or the window is BOARDED. No lit rooms ever in act 1.'),
     ('DOORS', 'door', 'weathered plank doors, frame catches the sun, one knob highlight.'),
+    ('YARDS', 'yard', 'the ground between houses. Real Vegas yards are decomposed-granite rock (lawns are banned out there), in the trade blends: Desert Tan, Mojave Gold, Rebel Red. Shown as the ground around the house.'),
 ]
 
 html = r"""<title>BOHEMIA HOUSE SKINS 7/21</title>
@@ -74,14 +75,18 @@ function img(id){ if(IMG[id])return IMG[id];
 function compose(cv,m){
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const FACE_Y=H-T-14, ROOF_Y=10, cols=(W/T)|0;
-  // dead dirt ground (act 1: nothing grows)
-  ctx.fillStyle=SUN?'#9c8a68':'#8a7a5e'; ctx.fillRect(0,0,W,H);
-  let g=1234;const rnd=()=>{g=(g*1103515245+12345)>>>0;return g/4294967296;};
-  ctx.fillStyle=SUN?'#8e7c5c':'#7d6e54';
-  for(let i=0;i<160;i++)ctx.fillRect((rnd()*W)|0,(rnd()*H)|0,2,1);
+  if(m.cls==='yard'){ // the candidate IS the ground: DG gravel around the house
+    const gp=ctx.createPattern(img(m.id),'repeat'); ctx.fillStyle=gp; ctx.fillRect(0,0,W,H);
+  } else { // dead dirt ground (act 1: nothing grows)
+    ctx.fillStyle=SUN?'#9c8a68':'#8a7a5e'; ctx.fillRect(0,0,W,H);
+    let g=1234;const rnd=()=>{g=(g*1103515245+12345)>>>0;return g/4294967296;};
+    ctx.fillStyle=SUN?'#8e7c5c':'#7d6e54';
+    for(let i=0;i<160;i++)ctx.fillRect((rnd()*W)|0,(rnd()*H)|0,2,1);
+  }
   const roofId = m.cls==='roof' ? m.id : 'roof_shingle_2';
+  const DEFAULT_FACE=['wall_plain_9','wall_window_13','wall_plain_9','wall_door_19','wall_plain_9','wall_window_13','wall_plain_9','wall_plain_9'];
   let faceIds;
-  if(m.cls==='roof'){ faceIds=['wall_plain_9','wall_window_13','wall_plain_9','wall_door_19','wall_plain_9','wall_window_13','wall_plain_9','wall_plain_9']; }
+  if(m.cls==='roof'||m.cls==='yard'){ faceIds=DEFAULT_FACE; }
   else if(m.cls==='wall'){ faceIds=Array(cols).fill(m.id); }
   else { const p=m.mate; faceIds=Array(cols).fill(p);
     if(m.cls==='door'){ faceIds[3]=m.id; }

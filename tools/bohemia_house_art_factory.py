@@ -94,6 +94,64 @@ def roof_shingle(seed, base):
     return im
 
 
+def roof_stile(seed, blend):
+    """concrete S-tile (the REAL Vegas roof, per the 7/21 45-degree research):
+    vertical barrel ribs down the slope (crest lit, trough in deep shadow),
+    soft course steps, mottled multi-tone desert blend, lit ridge-cap band."""
+    im = Image.new('RGB', (T, T))
+    px = im.load()
+    r = rng(seed)
+    ramps = [ramp(b) for b in blend]
+    RIB, COURSE = 8, 7
+    for y in range(T):
+        cy = y % COURSE
+        for x in range(T):
+            seg = (x // RIB) * 31 + (y // COURSE) * 17 + (seed & 7)
+            R = ramps[(seg * 2654435761 >> 8) % len(ramps)]   # mottle per tile
+            phase = (x % RIB) / RIB
+            if phase < 0.15:
+                t = 1                          # barrel rising off the trough
+            elif phase < 0.3:
+                t = 2                          # shoulder
+            elif phase < 0.55:
+                t = 3                          # sun on the crest
+            elif phase < 0.8:
+                t = 2                          # falling side
+            else:
+                t = 0                          # deep trough shadow between barrels
+            if cy == COURSE - 1:
+                t = max(0, t - 1)              # course overlap step shadow
+            if y < 3:
+                t = 4 if phase < 0.6 else 3    # sky-lit ridge caps
+            c = R[t]
+            j = (r() - 0.5) * 8
+            px[x, y] = tuple(clamp(v + j) for v in c)
+    blotch(px, T, T, rng(seed ^ 0xAB), (92, 76, 60), 2, 5)
+    return im
+
+
+def yard_gravel(seed, base):
+    """decomposed-granite yard (Vegas front yards are ROCK, lawns banned):
+    a calm speckled tone field with sparse pebbles, coherent drift, no confetti."""
+    im = Image.new('RGB', (T, T))
+    px = im.load()
+    r = rng(seed)
+    R = ramp(base)
+    for y in range(T):
+        for x in range(T):
+            c = R[2]
+            j = (r() - 0.5) * 16               # fine DG speckle, low contrast
+            px[x, y] = tuple(clamp(v + j) for v in c)
+    for _ in range(26):                        # sparse larger pebbles
+        gx, gy = int(r() * (T - 2)), int(r() * (T - 2))
+        t = 1 if r() < 0.6 else 3
+        for dy in range(2):
+            for dx in range(2):
+                px[gx + dx, gy + dy] = R[t]
+    blotch(px, T, T, rng(seed ^ 0xCD), (128, 110, 84), 2, 8)   # tone drift
+    return im
+
+
 def roof_gravel(seed, base):
     im = Image.new('RGB', (T, T))
     px = im.load()
@@ -222,6 +280,24 @@ for b in WALL_BASES[:3]:
 for b in WALL_BASES[:3]:
     bank['tiles'].append({'id': 'wall_door_%d' % i, 'cls': 'door',
                           'b64': enc(wall(9400 + i, b, 'door'))}); i += 1
+
+# 7/21 45-degree research additions (records/BOHEMIA_DESERT_HOUSE_45_RESEARCH):
+# the REAL Vegas roof is concrete S-tile in mottled desert blends; the real
+# yard is decomposed granite. v1 shingles stay in the judge for the kill call.
+STILE_BLENDS = [
+    ('terracotta', [(168, 96, 64), (148, 84, 58), (178, 110, 74)]),
+    ('desertbrown', [(134, 100, 72), (118, 88, 64), (150, 114, 82)]),
+    ('graybrown', [(122, 104, 88), (106, 92, 78), (134, 116, 98)]),
+]
+YARD_BASES = [('deserttan', (186, 160, 120)), ('mojavegold', (190, 156, 96)),
+              ('rebelred', (158, 104, 78))]
+for name, blend in STILE_BLENDS:
+    for v in range(2):
+        bank['tiles'].append({'id': 'roof_stile_%s_%d' % (name, i), 'cls': 'roof',
+                              'b64': enc(roof_stile(9500 + i, blend))}); i += 1
+for name, b in YARD_BASES:
+    bank['tiles'].append({'id': 'yard_%s_%d' % (name, i), 'cls': 'yard',
+                          'b64': enc(yard_gravel(9600 + i, b))}); i += 1
 
 json.dump(bank, open(OUT, 'w'), indent=0)
 cls = {}
