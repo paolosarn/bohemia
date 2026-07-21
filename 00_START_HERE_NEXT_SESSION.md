@@ -1854,6 +1854,23 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   unmistakably OUTDOOR: individual peaked tents + corner poles + open sky between). Storage (the one
   he liked) kept as the density reference. fire/school/swap gates now assert content dominates.
   THE DENSITY BAR IS NOW LAW: a walkable district must read FINISHED + USED, never a sparse lot.
+  BATCH OF FOUR under the new law (7/20-21, "do what you're supposed to and know what comes next"):
+  water treatment, salvage yard, police station, library — research-first, dense + content-dominant
+  from the start, all pass the WALKABLE-LAND sweep. Stamp 7/20ab. 20 built districts.
+  - watertreat -> INFRASTRUCTURE: circular CLARIFIERS (core + sweep arm) + rectangular aeration
+    basins + a filter-bed grid + control/blower/chem building + pipe galleries, fenced. content 82%.
+  - boneyard (SALVAGE YARD) -> INDUSTRIAL: rows of stripped wrecks (rust/blue/white), a crushed-car
+    wall, a claw CRANE + crusher, office + truck scale, fenced. THE SALVAGE ECONOMY'S LARDER (LIFE/
+    ECONOMY pull parts/scrap here). content 76%. Bug caught: entrance lane erased the gate -> gate
+    drawn LAST (watch this pattern: draw drives THEN stamp the gate).
+  - policestation -> CIVIC: big HQ (public front / secure back), fenced secure yard w/ SALLY PORT +
+    patrol-fleet motor pool + maintenance bay, fenced IMPOUND of wrecks, public plaza + visitor lot.
+    Public/secure separation honored. content 67%.
+  - library -> CIVIC: big columned building around an inner reading COURTYARD, a colonnade + steps
+    down to a piazza w/ a dead fountain, admin/community wings, reading garden. content 58%.
+  FACTORY NOW 18 auto-districts (20 built total incl gaming placeholders) across all 7 non-casino
+  categories. NEXT batch candidates (research-first, dense): chapel/church, courthouse, jail/prison,
+  landfill, railyard, substation, waterpark, speedway, mall/downtown, trailer park, granary.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
