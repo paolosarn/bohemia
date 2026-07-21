@@ -27,7 +27,8 @@ by_id = {t['id']: t for t in bank['tiles']}
 teasers = [by_id[i]['b64'] for i in ('roof_shingle_2', 'wall_boarded_15', 'yard_mojavegold_28')]
 count = len(bank['tiles'])
 
-html = r"""<title>BOHEMIA LIFE</title>
+html = r"""<meta charset="utf-8">
+<title>BOHEMIA LIFE</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <body style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
 <div style="padding:14px 12px 30px;max-width:480px;margin:0 auto">
@@ -46,6 +47,14 @@ html = r"""<title>BOHEMIA LIFE</title>
       get real art the moment you rule.
     </div>
     <div style="display:flex;gap:6px">__TEASERS__</div>
+  </a>
+  <a href="BOHEMIA_ASSET_ROUNDUP_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #3f8c3f;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#8fd08f">UNJUDGED ASSET ROUNDUP <span style="font:600 10px sans-serif;background:#3f8c3f;color:#fff;border-radius:4px;padding:2px 6px;vertical-align:2px">NEW 7/21</span></div>
+    <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin-top:4px">
+      Reuse-first: 258 wall/roof/door candidates already sitting in the corpus, never
+      thumbed. Purple pre-filtered. Anything you tag UP here becomes real material
+      before anything gets freshly cooked.
+    </div>
   </a>
   <a href="BOHEMIA_LIFE_SLICE_7_19_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px">
     <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">THE LIVING BLOCK <span style="font:600 10px sans-serif;background:#444;color:#ccc;border-radius:4px;padding:2px 6px;vertical-align:2px">DORMANT</span></div>

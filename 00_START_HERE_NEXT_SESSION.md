@@ -64,6 +64,63 @@ connect chance, not high, matching real subdivision privacy/traffic patterns).
 PENDING PAOLO: apartment complex district type doesn't exist yet — the landlocked law
 currently only recognizes suburb/gated/estate as the residential family. Build it
 whenever that's next up, and it slots into SUBURB_FAMILY (world.js) automatically.
+## REUSE-FIRST LAW + THE PERIMETER WALL WIRED + ASSET ROUNDUP (7/21, same
+## session, Paolo: "use these assets as much as you can before u create
+## your own... present me in the slice any assets i didnt approve yet")
+NEW LAW recorded: laws/BOHEMIA_ADDENDUM_ACT_ASSET_TIERS_7_21_26.md - (1)
+each act has its OWN graphic tier, but placement follows NARRATIVE STATE
+not chronology (a neglected corner of a later act can wear Act 1 art; a
+cared-for Act 1 interior can wear a later act's tier - deliberate, never
+default); (2) REUSE-FIRST: sweep an act's own corpus before cooking
+anything fresh. Regenerate BOHEMIA_CANON_INDEX after any future addendum
+(python3 gates/bohemia_canon_index.py - done this turn).
+ACTED ON SAME TURN: swept banks/ and found banks/BOHEMIA_PERIMETER_WALL_
+POOL_7_14_26 was ALREADY Paolo-approved (WB4 = his own pick, records/
+BOHEMIA_WALL_PICKS_BATCH2_VERDICTS_7_17_26) and sitting completely unused -
+the suburb's perimeter wall was still a flat color. tools/bohemia_city_
+perimeterwall_patch.py wires the 13 approved tan tiles in, riding the same
+saTex/SA_IMG machinery the street art already uses (one more pool key, same
+cache-flush) - texFor AND texForKind both route the wall's structure color
+through the real art now. Verified mechanically on the real surface
+(window.__CITY.wallArtReady() confirms the pool decodes and serves a tile;
+a visual walk-up proved harder than expected in a 96x96 sparse-suburb
+valley within the session's time budget, so the probe check stood in).
+Added window.__CITY.district(x,y) to the probe surface (tools/bohemia_
+city_probe_district_patch.py) so future sessions can FIND a district type
+instead of trial-teleporting blind - this is now the standing way to
+verify anything suburb-specific in the city. Gate #CITY TAB 50 (+3: WALL_MAP
+embedded, texFor/texForKind both route it, wallArtReady present).
+THE ASSET ROUNDUP (Paolo's explicit ask): tools/bohemia_asset_roundup_judge.py
+-> slices/BOHEMIA_ASSET_ROUNDUP_JUDGE_7_21_26.html - surfaces 258 never-
+judged candidates directly relevant to the house work and already carrying
+ready b64 art (no repo-crop resolution needed): WALL_CANDIDATES_POOL (43
+of 47, the ones Paolo rejected as PERIMETER-only - "rejection is per class",
+HOUSE is another class), ROOF_KIT_EXPANSION (33 of 36, act-1 roof family),
+DOOR_EW_BANK (182 of 184, west-edge crop shown). PURITY LAW pre-filter ran
+BEFORE anything reached the page (mechanical, not taste: 4 wall + 3 roof +
+2 door tiles pulled for containing a purple pixel). Compact tap-to-cycle
+grid (SKIP->UP->DOWN), not full cards - this is raw material, not finished
+candidates. NOT included this round: WALL_SEAMLESS_SET (303) / WINDOW_SET
+(83) / ROOF_SEAMLESS_SET (47) - these need resolving crops out of the
+4x45MB HD_TILE_REPO parts (tools proven feasible, tested working), AND a
+resolver test showed the underlying packs are a MIXED-GENRE corpus (sci-fi/
+fantasy dungeon tiles - blue-lit tech panels, hazard stripes) mined from
+the same broad source as the graveyarded HOUSE_FACTORY_BANK. [PENDING
+Paolo: does he want that bigger, messier sweep too, or is today's scoped
+batch enough for now.]
+CHARSET BUG CAUGHT AND FIXED (same turn, verify-on-the-real-surface catch):
+none of my three generated judge pages (house skin judge, LIFE hub, asset
+roundup) declared <meta charset="utf-8">. It went unnoticed on pages using
+only HTML entities/emoji (browser guessed right), but the roundup's raw
+▸/▾ unicode characters rendered as mojibake (â–¸) - a real bug that would
+have hit Paolo's phone too. Fixed in all three generators; NEW HOUSE RULE:
+every future judge-tool generator declares charset="utf-8" as the literal
+first line of its HTML, no exceptions.
+Both new gates registered (bohemia_gates.py): #ASSET ROUNDUP (10 checks:
+charset, sections, tap-cycle, purity-sampled, hub-linked, reproducible).
+Hub (tools/bohemia_life_hub.py) now three cards: HOUSE SKIN JUDGE, UNJUDGED
+ASSET ROUNDUP, THE LIVING BLOCK (dormant). Stamp: BUILD 7/21i (or later,
+check the live buildstamp for the exact letter this turn shipped).
 
 ## OVERNIGHT: HOUSE SKIN FACTORY COOKED, JUDGE LIVE IN THE LIFE TAB (7/21,
 ## LIFE+CITY session, Paolo asleep: "do some big brain awesome shit")

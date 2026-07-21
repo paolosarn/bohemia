@@ -47,7 +47,8 @@ SECTIONS = [
     ('YARDS', 'yard', 'the ground between houses. Real Vegas yards are decomposed-granite rock (lawns are banned out there), in the trade blends: Desert Tan, Mojave Gold, Rebel Red. Shown as the ground around the house.'),
 ]
 
-html = r"""<title>BOHEMIA HOUSE SKINS 7/21</title>
+html = r"""<meta charset="utf-8">
+<title>BOHEMIA HOUSE SKINS 7/21</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <h1 id="hdr" style="font:600 15px/1.4 -apple-system,sans-serif;color:#cdbd8a;margin:10px 10px 4px">BOHEMIA - HOUSE SKINS (overnight cook 7/21). The canon suburbs stand in placeholder tones because no judged house art exists yet. These are the candidates: every tile is shown ON a composed house (roof top + front face) so you judge it the way the world will show it. Thumb each, comment what you want changed, hit EXPORT and send me the .txt. Nothing touches the city until you rule.</h1>
 <div style="display:flex;gap:8px;padding:8px 10px;flex-wrap:wrap;position:sticky;top:0;z-index:5" id="bar">
