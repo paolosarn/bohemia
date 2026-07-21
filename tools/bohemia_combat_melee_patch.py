@@ -2120,13 +2120,81 @@ function pickTarget(){ const pool=modePool(); if(!pool.length)return -1;
     return demo
 
 
+def patch29(demo):
+    """v29 (Paolo 7/20, the crouch-fire + reckless-pop message):
+    - RECKLESS POP: the button ALWAYS fires. Popping when nobody is out
+      (or while the exposed side cycles) stands you up INTO every held
+      bead: acq-holders take an opportunity shot, NO cover softening (you
+      left it), and the turn is spent either way. LAW NOTE: this is the
+      same class as waiting exposed (enemy-turn fire) — NO DAMAGE BEFORE
+      THE DIAL governs the ENGAGE flow (your shot always resolves before
+      their answer) and still holds on every engagement path.
+    - CROUCH-FIRE PLUMBING: when you engage FROM cover (not popped out,
+      stone near you), the aim body prefers the crouched gun sweep
+      (caim bakes) the day Paolo cooks 'crouch-aim-1h'/'crouch-aim-2h'
+      in the Animation chat — zero surgery later, falls back to the
+      standing deadeye until then."""
+    if 'V29 RECKLESS POP' in demo:
+        print('v29 already applied, skipping')
+        return demo
+
+    # the button always fires: no-target and hold states become the reckless pop
+    demo = sub1(demo, """\
+  const exp=exposedToMe();
+  if(exp.length===0 && posExposed().length>0){   /* V24 NO DOUBLE EXPOSURE: never pop around your stone while a side has you lined up */
+    const mel=G.e.filter(e=>!e.dead&&e.melee&&peeking(e));
+    if(!mel.length){ setRead('EXPOSED — HOLD','they are cycling: shoot when they pop, or move','#c88a3a'); return; }
+    G.engageMode='shoot'; }
+  else if(exp.length===0 && !anyPeeking()){ setRead('NO TARGET','nobody is out — wait for a peek','#8a7d66'); return; }
+  else G.engageMode = exp.length>0 ? 'shoot' : 'pop';     // forced engagement vs voluntary pop""", """\
+  const exp=exposedToMe();
+  if(exp.length===0 && posExposed().length>0){   /* V24 NO DOUBLE EXPOSURE: never pop around your stone while a side has you lined up */
+    const mel=G.e.filter(e=>!e.dead&&e.melee&&peeking(e));
+    if(!mel.length){ return recklessPop(); }   /* V29: the click is YOURS — and so is the price */
+    G.engageMode='shoot'; }
+  else if(exp.length===0 && !anyPeeking()){ return recklessPop(); }   /* V29: popping at nothing is allowed, and punished */
+  else G.engageMode = exp.length>0 ? 'shoot' : 'pop';     // forced engagement vs voluntary pop""",
+        'reckless-routes')
+    demo = sub1(demo, "function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;",
+        """\
+function recklessPop(){ /* V29 RECKLESS POP (Paolo: 'no risk for clicking pop out at the wrong time... not punishing me for fucking up'):
+   the button always fires. Standing up with nothing to shoot presents you to every gun that was
+   holding a bead — opportunity fire, NO cover softening (you left it), turn spent either way.
+   Same class as waiting exposed: enemy-turn fire, never engage-flow damage — the dial law holds. */
+  audio(); G._steadyAtPop=0; G.steady=0; G._riseAt=performance.now(); G._dropAt=0;
+  const holders=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(e.acq||0)>=1);
+  let hits=0,dmg=0,hitIdx=[];
+  for(const e of holders){ const acc=distAccuracy(e)*0.8*((e.E.acc||0.55)/0.55);
+    if(Math.random()<acc){hits++;hitIdx.push(e.i);const a=e.E.dmg;dmg+=a[0]+Math.floor(Math.random()*(a[1]-a[0]+1));} }
+  if(dmg>0){ G.pHP=Math.max(0,G.pHP-dmg); updPlayer(); const _l=G.pHP<=0;
+    onOffbeat(()=>{hurtFlash(); sndReturn(); setRead('RECKLESS POP',holders.length+' beads were waiting — '+dmg,'#e8593a');
+      if(G.incomingCam&&_l)startIncoming(hitIdx.length?hitIdx:[0],true);
+      else if(G.incomingCam)startIncoming(hitIdx,false,hitIdx.length>=2?null:'quick');});
+    addWound(G); wagerBust('you took a hit'); try{parent.postMessage({type:'BOHEMIA_PLAYER_HIT',dmg:dmg,hp:G.pHP},'*');}catch(_e){}
+    if(G.pHP<=0)return loseGame(); }
+  else { setRead('POPPED INTO NOTHING',holders.length?(holders.length+' fired and missed — turn wasted'):'you broke cover for nothing — turn wasted','#c88a3a');
+    if(G.incomingCam&&holders.length)startIncoming(holders.map(e=>e.i),false,holders.length>=2?null:'quick',true); }
+  tickTurnEnd(); G.popTarget=-1; G.phase='cover'; G._dropAt=performance.now(); G._riseAt=0; setPhaseUI(); renderBoard(); updGap(); }
+function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;""",
+        'reckless-pop-fn')
+
+    # crouch-fire plumbing: caim bakes load and win when firing FROM cover
+    demo = sub1(demo, "    SPR.cv[dir]={idle:mk(d.dirs[dir].idle),walk:(d.dirs[dir].walk||[]).map(mk),   /* V20 WALK */",
+        "    SPR.cv[dir]={idle:mk(d.dirs[dir].idle),walk:(d.dirs[dir].walk||[]).map(mk),   /* V20 WALK */\n      caim:(d.dirs[dir].caim||[]).map(a=>({off:a.off,cv:mk(a.rgba)})),   /* V29: crouched gun sweep (empty until the clips land) */",
+        'caim-loader')
+    demo = sub1(demo, "    if(aimo){ let af=sprAimFrame(sprFacing(G.faceAng),G.angle);\n      if(G._riseAt&&_pn-G._riseAt<520&&fset.rise&&fset.rise.length)af=fset.rise[Math.min(3,Math.floor((_pn-G._riseAt)/130))];   /* out of the crouch UP into the gun */",
+        "    if(aimo){ let af=sprAimFrame(sprFacing(G.faceAng),G.angle);\n      if(!G._poppedOut&&playerNearCover()&&fset.caim&&fset.caim.length){ let _bs=1e9,_bf=null;   /* V29: firing FROM the crouch — the low sweep wins when baked */\n        for(const _a of fset.caim){ const _dd=Math.abs((_a.off||0)-(G.angle||0)); if(_dd<_bs){_bs=_dd;_bf=_a.cv;} }\n        if(_bf)af=_bf; }\n      if(G._riseAt&&_pn-G._riseAt<520&&fset.rise&&fset.rise.length)af=fset.rise[Math.min(3,Math.floor((_pn-G._riseAt)/130))];   /* out of the crouch UP into the gun */",
+        'caim-pose')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))
+    patched = patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
