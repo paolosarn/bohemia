@@ -1360,6 +1360,48 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    mode. Gate 128 (combat) + 74 (anim) ALL GREEN. Full scene chromium-
    verified together: log legible, "I'm done, I'm done" begging text,
    FINISH GOON (dying) button, all reading correctly at once.
+   THREAT-REACH FIX + LETHALITY/NERVE RETUNE (7/21, pass 33, his design
+   Q + follow-up bug): "not a big concern rn" design chat about KILL
+   ARC chaining answered without code (recommended: end the turn like
+   vital does, don't auto-chain, so armor costs real tempo — his call
+   pending). Then the REAL bug: v28's threat-order rank-0 check used a
+   flat 1.6-tile distance, ignoring each blade's ACTUAL reach and
+   windup state — a spear (reach 4.2) or even a shiv at 1.9 tiles
+   (just past the old flat cutoff) could rank BELOW a distant gun even
+   while genuinely about to strike; his exact "jumping over my cover
+   to shank me and I'm still not targeting them." Fixed: rank-0 is now
+   windup (a LOCKED strike, no matter the distance) OR within the
+   enemy's own reach stat + margin. Verified live: spear at 3.5/reach
+   4.2 now ranks first (old check would've missed it); windup locks
+   priority even at edist=6; shiv at 1.9/reach 1.8 now ranks first
+   (old flat 1.6 would've missed it too). Also retuned per his ask +
+   fresh research (records/BOHEMIA_COMBAT_LETHALITY_RESEARCH_7_21_26
+   .txt, addended): pistol killshot lethality 0%->20% (general civilian
+   handgun GSW fatality runs 10-22% even unaimed — 0% was dishonest),
+   smg 15%->35%, rifle 35%->55%, shotgun unchanged 100%. NERVE roll
+   0.18/0.08 -> 0.10/0.05 on top of v32's event-gating (his "kill half,
+   walk away, they all surrendered" — hit twice now). Verified live:
+   pistol killshot at roll 0.15 (under the new 0.20) now kills outright.
+   DESIGN INTENT BANKED for later: Paolo wants mercy/surrender rates
+   to eventually live behind PERKS (an unlock investment) rather than
+   flat baseline numbers, once the game nears feature-complete — same
+   doctrine as grit shots. [PENDING Paolo: perk-gate this when that
+   pass comes; flat table is the honest baseline until then.] Gate 131
+   (combat) + 74 (anim) ALL GREEN.
+   ARMOR COSTS A REAL TURN (7/21, pass 34): the killshot-armor design
+   question got answered without code first, Paolo liked the call —
+   "even if we deal maximum damage it will be treated as a vital for
+   armored opponents I like that robot or people." Built exactly that:
+   a KILL ARC survivor (took KILL_DMG, still standing — bots, elites)
+   now resolves like a VITAL — stun 2 (no stun-lock), turn ends CLEAN,
+   no auto-chain, no same-turn re-target. Armor used to cost nothing
+   but an extra click; now surviving buys the target a real turn back.
+   Also answered "wtf is a grit shot" plainly in the reply (the floor
+   to KILLSHOTS/TURN's ceiling — a miss spends a grit instead of ending
+   your turn) since the v32 readout fix meant he'd never actually SEEN
+   its message fire. Verified live: 160hp SEC-BOT takes a shotgun
+   killshot, ends at stun 2, alive, not dead/downed/broken, no chain.
+   Gate 132 (combat) + 74 (anim) ALL GREEN.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
