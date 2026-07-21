@@ -219,6 +219,19 @@ if (b64m) {
     decoded.indexOf('4x4 TILE GROUP') >= 0 && decoded.indexOf('__subBlock') >= 0);
   ok('REGEN: the group-block cache drops on reroll',
     decoded.indexOf('__subCache.clear();') >= 0);
+
+  // 16. THE PERIMETER WALL LOCK (7/21, reuse-first law): the suburb's
+  // walled ring wears Paolo's OWN approved perimeter wall pool (WB4 is his
+  // pick, records/BOHEMIA_WALL_PICKS_BATCH2_VERDICTS_7_17_26), not a flat
+  // color. Reuses the street pools' saTex/SA_IMG machinery - one more pool
+  // key, same cache-flush.
+  ok('PERIMETER WALL ART: the approved pool embedded (WALL_MAP present)',
+    decoded.indexOf('PERIMETER WALL ART') >= 0 && decoded.indexOf('const WALL_MAP=') >= 0
+    && decoded.indexOf('BOHEMIA_PERIMETER_WALL_POOL') >= 0);
+  ok('texFor + texForKind both route the suburb wall color through the real art',
+    decoded.indexOf('const wp=WALL_MAP[col]') >= 0 && decoded.indexOf("kind==='wall'&&WALL_MAP[col]") >= 0);
+  ok('the wall art decodes and serves a real tile (wallArtReady probe)',
+    decoded.indexOf('wallArtReady:function') >= 0 || decoded.indexOf('.wallArtReady=function') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

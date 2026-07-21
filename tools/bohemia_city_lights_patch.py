@@ -68,7 +68,8 @@ PROBE = ("\nwindow.__CITY={power:function(){return POWER;},night:function(){retu
          "rerender:function(){render();},"
          "state:function(){return {seed:seed,TW:TW,TH:TH,cx:city.x,cy:city.y,panX:panX,panY:panY,mode:MODE};},"
          "isoAt:function(x,y){var ox=cv.width/2-(city.x-city.y)*TW/2+panX,"
-         "oy=cv.height/2-(city.x+city.y)*TH/2+panY;return iso(x,y,ox,oy);}};\n")
+         "oy=cv.height/2-(city.x+city.y)*TH/2+panY;return iso(x,y,ox,oy);},"
+         "district:function(x,y){var c=om.at(x,y);return c&&c.district;}};\n")
 
 if 'BOH_POWERGRID' in decoded:
     print('already lit. no-op.')
