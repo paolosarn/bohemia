@@ -155,6 +155,21 @@ if (b64m) {
     decoded.indexOf('nearX') >= 0);
   ok('the walker teleport probe exists (__CITY.human)',
     decoded.indexOf('window.__CITY.human=') >= 0);
+
+  // 11. THE REGEN LOCK (7/20, Paolo: "make sure everything is seed regen
+  // friendly"): REROLL must rebuild the WHOLE world deterministically -
+  // LCG seed advance (no wall randomness), both caches dropped, POWER
+  // re-rolled (gated above), and the world path free of Math.random.
+  // Verified live 7/20: reroll chain 2026 -> 2338904795 -> 783686144
+  // identical across fresh boots; power lottery 366/392/458 re-rolls with
+  // the world; street art re-bakes; 0 errors.
+  ok('REGEN: reroll advances the seed by deterministic LCG',
+    decoded.indexOf('seed=(seed*1103515245+12345)>>>0') >= 0);
+  ok('REGEN: reroll drops the stream (both caches cleared)',
+    decoded.indexOf('chunkCache.clear(); metaCache.clear();') >= 0);
+  const worldPath = decoded.slice(decoded.indexOf('function tileMeta'), decoded.indexOf('function chunkCanvas'));
+  ok('REGEN: the world path holds zero Math.random (pure f(seed))',
+    worldPath.indexOf('Math.random') < 0 && worldPath.length > 1000);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
