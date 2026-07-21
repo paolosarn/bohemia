@@ -109,9 +109,9 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
     demo.includes('function myCoverAgainst(ang,dist)') &&
     demo.includes('myCoverAgainst(e.ea,e.edist)'));
-  ok('enemies take pillar cover too — REAL cover only (V26: fake flag dead, stone must be near HIM)',
+  ok('enemies take pillar cover too — REAL cover only (V35: ONE pillar must both block and sit near him)',
     demo.includes('function updateGeomCover()') &&
-    demo.includes('e.gcov=(pillarBetweenMe(e)&&nearPillar(e))?1:0;') &&
+    demo.includes('e.gcov=realCoverPillar(e)?1:0;') &&
     !demo.includes('(e.inCover||e.gcov)') && !demo.includes('e.inCover=!e.inCover'));
   ok('pillars block the step (occupancy: solid is solid)',
     demo.includes("setRead('BLOCKED','a pillar is there'"));
@@ -370,8 +370,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('function coveredFromMe()') &&
     demo.includes('pexp.length>0 && coveredFromMe().length>0') &&
     demo.includes('posExposed().length>0 && coveredFromMe().length>0'));
-  ok('posExposed excludes the dying and the surrendered (they can never hold you hostage)',
-    demo.includes('!e.dead&&!e.downed&&!e.broken&&!e.melee&&e.stun<=0&&!myCoverAgainst'));
+  ok('posExposed excludes the dying, the surrendered, and the fled (they can never hold you hostage)',
+    demo.includes('!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&!e.melee&&e.stun<=0&&!myCoverAgainst'));
   ok('THE SILENT READOUT IS FIXED: every setRead call now reaches a visible action log',
     demo.includes('V32 THE SILENT READOUT') && demo.includes('function drawActionLog') &&
     demo.includes('drawActionLog(ctx,W,H)'));
@@ -380,8 +380,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes("(WEAPON==='shotgun')||(Math.random()<(WEAPON_LETHAL[WEAPON]||0))"));
   ok('blood drops the INSTANT a killshot downs someone, not next turn',
     demo.includes('the pool starts the instant he drops, not next turn'));
-  ok('V32 NERVE is event-gated: the roll only fires the turn a NEW casualty happens',
-    demo.includes('The roll fires ONLY the turn a NEW casualty happens') &&
+  ok('NERVE is event-gated: the roll only fires the turn a NEW casualty happens',
     demo.includes('_down>(G._nerveLastDown||0)') && demo.includes('G._nerveLastDown=_down;'));
   ok('KNEEL AND BEG: adjacency swaps the downed pose to hands-up, begging text renders on downed+broken',
     demo.includes('V32 KNEEL AND BEG') && demo.includes('BEG_LINES') &&
@@ -407,6 +406,28 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes("setRead('KILL ARC — STUN'") &&
     demo.includes("G.phase='resolve'; setTimeout(()=>{ if(!G.over) endTurnClean(); },170); return;\n    }") &&
     !demo.includes("setRead('KILL ARC', tgt.n+' took '+KILL_DMG+' — still up · chain on'"));
+  // v35: the diagnosis-heavy pass
+  ok('V35 CAMERA: the fit loop only counts ACTIVE fighters, and AUTO FRAME freezes during the killcam',
+    demo.includes('only ACTIVE fighters hold the frame open') &&
+    demo.includes('!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&e.edist>md') &&
+    demo.includes('if(!G.ks)G._uzE='));
+  ok('V35 REAL COVER: one pillar must both block AND sit near him — no mismatched-pillar fake cover',
+    demo.includes('function realCoverPillar(e)') &&
+    demo.includes('e.gcov=realCoverPillar(e)?1:0'));
+  ok('V35 AUTO MEANS AUTO: chip and field taps only lock a pick in manual mode',
+    demo.split("G.targetMode!=='manual'").length >= 3);
+  ok('V35 DIAL DIFFICULTY BY EXPOSURE: covered pulls it harder, exposed pulls it easier',
+    demo.includes('covered pulls the package HARDER, exposed pulls it EASIER') &&
+    demo.includes('tgt.gcov?1:-1'));
+  ok('V35 LAST-MAN-ONLY SURRENDER + FLEE: only the last fighter can surrender, everyone else panics and runs, elites hardened',
+    demo.includes('V35 NERVE, LAST-MAN-ONLY SURRENDER') &&
+    demo.includes('const _isLastMan=aliveEnemies().length<=1') &&
+    demo.includes('(e.elite?0.5:1)') &&
+    demo.includes("setRead('PANICKED'"));
+  ok('V35 FLEEING: excluded from every combat pool, runs away every turn, distinct pose + chip label',
+    demo.split('e.fleeing').length >= 10 &&
+    demo.includes("e.fleeing?'FLEEING'") &&
+    demo.includes('if(e.fleeing){ if(L.walk112'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
