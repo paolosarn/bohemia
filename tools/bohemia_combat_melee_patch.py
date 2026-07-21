@@ -1868,13 +1868,210 @@ def patch25(demo):
     return demo
 
 
+def patch26(demo):
+    """v26 (Paolo 7/20, the three-message feedback stack):
+    - HONEST MISS: the incoming camera was playing your full hit reaction
+      (stagger, hit-stop, red punch, hit sound, blood spray) on volleys
+      that MISSED. Misses now whip PAST you: cracks + frame rattle, tracer
+      flies wide, no contact spray, your body stays cool.
+    - ONLY A KILLSHOT CHAINS: a vital or hit that incidentally kills still
+      plays the death, but the turn ENDS after. The double-shot without a
+      killshot is dead at the root.
+    - THE WOUNDED LEAK: at <=30 HP you leave a blood trail behind every
+      step and a fat pool where you stand.
+    - FAKE COVER IS DEAD: the debug-era hand toggle (tap a chip = magic
+      cover) is deleted; e.inCover no longer drives ANY behavior. Real
+      cover = a pillar between him and you AND stone within 1.8 tiles of
+      HIM. Anyone without it reads as open and the cover AI runs him to
+      real stone. Chip/body taps now only ever SELECT the victim.
+    - SMART CAM: auto-frame frames the LIVING (kill the far men and it
+      tightens in, up to 1.30x); your pinch/pan takes the wheel for 5s,
+      then the auto resumes. Manual zoom-in is back.
+    - DEFAULT 8 ENEMIES in the playtest.
+    - TARGETING AUTO/MANUAL (settings, default AUTO): auto order is
+      closest-first, always — the knife in your face outranks the far
+      gun; you can still tap a first victim. MANUAL: after each killshot
+      the chain PAUSES on CHOOSE NEXT until you tap the next victim
+      (WAIT/MOVE ends the engagement).
+    - GRIT SHOTS (the floor perk, 0..3, default 0): a miss spends a grit
+      shot instead of your turn — the dial reopens on the same man. The
+      chain skill stays the ceiling."""
+    if 'V26 HONEST MISS' in demo:
+        print('v26 already applied, skipping')
+        return demo
+
+    # --- honest miss ---
+    demo = sub1(demo, ",idx:list,lethal:!!lethal,hitDone:{},",
+        ",idx:list,lethal:!!lethal,miss:!!arguments[3],hitDone:{},   /* V26 HONEST MISS */", 'inc-miss-flag')
+    demo = sub1(demo, "    if(inc.t>=c&&!inc.hitDone[i]){ inc.hitDone[i]=true; feltHit(); try{sndHit();}catch(_e){}",
+        "    if(inc.t>=c&&!inc.hitDone[i]){ inc.hitDone[i]=true;\n      if(inc.miss){ try{fxCracks(1);}catch(_e){} G._vShakeAt=performance.now(); }   /* V26: the crack whips PAST — your body stays cool */\n      else { feltHit(); try{sndHit();}catch(_e){} }",
+        'inc-miss-tick')
+    demo = sub1(demo, "      const bx=ex+(cx-ex)*tp, by=(ey-27)+((cy-20)-(ey-27))*tp;",
+        "      const _mx=inc.miss?((i%2?1:-1)*(30+i*9)):0;   /* V26: misses fly PAST you */\n      const bx=ex+((cx+_mx)-ex)*tp, by=(ey-27)+((cy-20)-(ey-27))*tp;",
+        'inc-miss-tracer')
+    demo = sub1(demo, "    else if(dt2<0.34){ const ip=(dt2-0.16)/0.18;   /* contact spray on your body */",
+        "    else if(dt2<0.34&&!inc.miss){ const ip=(dt2-0.16)/0.18;   /* contact spray only when blood was real (V26) */",
+        'inc-miss-spray')
+    demo = sub1(demo, "    if(G.incomingCam&&pool.length){startIncoming(pool.map(e2=>e2.i),false,pool.length>=2?null:'quick');G._vShakeAt=performance.now();} }   /* MISS CINEMATIC V24: a volley is a BIG DEAL even when it misses */",
+        "    if(G.incomingCam&&pool.length){startIncoming(pool.map(e2=>e2.i),false,pool.length>=2?null:'quick',true);G._vShakeAt=performance.now();} }   /* MISS CINEMATIC V24+V26: big deal, honest body */",
+        'miss-caller-return')
+    demo = sub1(demo, "    if(G.incomingCam&&pool.length){startIncoming(pool.map(e2=>e2.i),false,pool.length>=2?null:'quick');G._vShakeAt=performance.now();} }   /* MISS CINEMATIC V24: you see WHO shot, and the frame feels it */",
+        "    if(G.incomingCam&&pool.length){startIncoming(pool.map(e2=>e2.i),false,pool.length>=2?null:'quick',true);G._vShakeAt=performance.now();} }   /* MISS CINEMATIC V24+V26: you see WHO shot; your body stays honest */",
+        'miss-caller-wait')
+
+    # --- only a killshot chains ---
+    _death = "if(tgt.hp<=0){ tgt.dead=true; G.killStreak++; G.enemiesLeft=aliveEnemies().length; renderBoard(); tgt._deathVar=Math.floor(Math.random()*3); addWound(tgt); sndKill(); startKillshot();"
+    if demo.count(_death) != 2:
+        sys.exit('FAIL anchor [incidental-death]: found %d times (want 2)' % demo.count(_death))
+    demo = demo.replace(_death,
+        "if(tgt.hp<=0){ tgt.dead=true; G._noChain=true;   /* V26: an incidental kill is not a KILLSHOT — no chain */\n      G.killStreak++; G.enemiesLeft=aliveEnemies().length; renderBoard(); tgt._deathVar=Math.floor(Math.random()*3); addWound(tgt); sndKill(); startKillshot();")
+    demo = sub1(demo, """\
+function afterKill(){ if(aliveEnemies().length===0)return winGame();
+  const next=nextChainTarget();
+  if(next>=0){ G.popTarget=next; G.inFU=true; enterAim(true); }
+  else { endTurnReturn(); } }""", """\
+function afterKill(){ if(aliveEnemies().length===0)return winGame();
+  if(G._noChain){ G._noChain=false; return endTurnReturn(); }   /* V26: only a true KILLSHOT buys the next man */
+  const next=nextChainTarget();
+  if(next<0)return endTurnReturn();
+  if(G.targetMode==='manual'){ G._chainWait=true; G.phase='cover'; setPhaseUI(); renderBoard(); updGap();
+    setRead('CHOOSE NEXT','tap the next victim — WAIT or MOVE ends the turn','#e8b04a'); return; }   /* V26 MANUAL TARGETING */
+  G.popTarget=next; G.inFU=true; enterAim(true); }""",
+        'afterkill-flow')
+    demo = sub1(demo, "  G.popTarget=pickTarget();\n",
+        "  G._noChain=false; G._gritUsed=0;   /* V26: fresh engagement, fresh floors */\n  G.popTarget=pickTarget();\n",
+        'engage-resets')
+
+    # --- the wounded leak ---
+    demo = sub1(demo, "  worldShift(sx,sy); updateGeomCover(); G._stepAt=performance.now();",
+        "  if(G.pHP<=30){ (G.bloodSpots=G.bloodSpots||[]).push({ea:0,edist:0.05,r:1.8+Math.random()*1.2,jx:(Math.random()-0.5)*0.5,jy:(Math.random()-0.5)*0.5}); }   /* V26: the wounded leave a TRAIL */\n  worldShift(sx,sy); updateGeomCover(); G._stepAt=performance.now();",
+        'blood-trail')
+    demo = sub1(demo, "  if(G.pHP<=30)G.bloodSpots.push({ea:0,edist:0.15,r:2.0+Math.random()*1.4,\n    jx:(Math.random()-0.5)*0.6,jy:(Math.random()-0.5)*0.6});",
+        "  if(G.pHP<=30){ G.bloodSpots.push({ea:0,edist:0.15,r:3.2+Math.random()*1.8,jx:(Math.random()-0.5)*0.6,jy:(Math.random()-0.5)*0.6});\n    G.bloodSpots.push({ea:Math.random()*6.28,edist:0.3,r:1.6+Math.random()*1.2,jx:(Math.random()-0.5)*0.8,jy:(Math.random()-0.5)*0.8}); }   /* V26: at 30 you are LEAKING */",
+        'blood-pool-beef')
+
+    # --- fake cover dies ---
+    demo = sub1(demo, "function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=pillarBetweenMe(e)?1:0; } }",
+        "function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=(pillarBetweenMe(e)&&nearPillar(e))?1:0; } }   /* V26: real cover NEEDS stone near HIM — no more ducking behind a pillar that sits by YOU */",
+        'gcov-near')
+    demo = sub1(demo, "function peeking(e){ if(e.dead)return false; if(e.stun>0)return true; if(!(e.inCover||e.gcov))return true;",
+        "function peeking(e){ if(e.dead)return false; if(e.stun>0)return true; if(!e.gcov)return true;   /* V26: fake cover dead */",
+        'peek-gcov')
+    demo = sub1(demo, "function firing(e){ if(e.dead||e.stun>0||e.melee)return false; const fw=coverTuning().fire; if(!(e.inCover||e.gcov)){",
+        "function firing(e){ if(e.dead||e.stun>0||e.melee)return false; const fw=coverTuning().fire; if(!e.gcov){",
+        'fire-gcov')
+    demo = sub1(demo, "function hasLine(e){ if(e.dead||e.stun>0)return false; return (e.inCover||e.gcov)?peeking(e):true; }",
+        "function hasLine(e){ if(e.dead||e.stun>0)return false; return e.gcov?peeking(e):true; }",
+        'line-gcov')
+    demo = sub1(demo, "    const snap=G.e.filter(e2=>!e2.dead&&!e2.melee&&e2.stun<=0&&!(e2.prone>0)&&(e2.inCover||e2.gcov)&&pool.indexOf(e2)<0);",
+        "    const snap=G.e.filter(e2=>!e2.dead&&!e2.melee&&e2.stun<=0&&!(e2.prone>0)&&e2.gcov&&pool.indexOf(e2)<0);",
+        'snap-gcov')
+    demo = sub1(demo, "    if(e.gcov||e.inCover)continue;",
+        "    if(e.gcov)continue;   /* V26: no fake flag saves you from running for stone */",
+        'ai-gcov')
+    demo = sub1(demo, "    if(e.inCover||e.gcov){ const fa=Math.atan2(cy-ey,cx-ex);",
+        "    if(e.gcov){ const fa=Math.atan2(cy-ey,cx-ex);",
+        'arc-gcov')
+    demo = sub1(demo, "  if(firing(e)&&(e.gcov||(e.inCover&&nearPillar(e)))&&L.cfire112)",
+        "  if(firing(e)&&e.gcov&&L.cfire112)", 'cfire-gcov')
+    demo = sub1(demo, "  if((e.gcov||(e.inCover&&nearPillar(e)))&&!peeking(e)&&!firing(e)){",
+        "  if(e.gcov&&!peeking(e)&&!firing(e)){", 'crouch-gcov')
+    demo = sub1(demo, "    let cls='echip '+(e.inCover?'cov':'exp');",
+        "    let cls='echip '+(e.gcov?'cov':'exp');", 'chip-cls-gcov')
+    demo = sub1(demo, "et.textContent=e.inCover?'COV':'EXP';",
+        "et.textContent=e.gcov?'COV':'EXP';", 'chip-label-gcov')
+    demo = sub1(demo, "    if(prev[i]&&prev[i].coverLocked){ e.inCover=prev[i].inCover; e.coverLocked=true; }\n",
+        "", 'coverlock-dead')
+    demo = sub1(demo, """\
+    d.onclick=ev=>{ ev.stopPropagation(); if(G.phase!=='cover')return; e.inCover=!e.inCover; e.coverLocked=true; renderBoard(); updGap(); };
+    D('et'+i).onclick=ev=>{ ev.stopPropagation(); if(G.phase!=='cover')return; e.inCover=!e.inCover; e.coverLocked=true; renderBoard(); updGap(); };""", """\
+    const selFn=ev=>{ ev.stopPropagation(); if(e.dead)return;   /* V26: a tap only ever PICKS the victim — the fake cover toggle is dead */
+      if(G._chainWait){ G.selTarget=e.i; G._chainWait=false; G.inFU=true; enterAim(true); return; }
+      if(G.phase!=='cover')return; G.selTarget=e.i; setRead('TARGET: '+e.n,'he eats the next dial','#e8b04a'); renderBoard(); updGap(); };
+    d.onclick=selFn; D('et'+i).onclick=selFn;""",
+        'chip-select')
+    demo = sub1(demo, """\
+      if(G.selTarget!==e.i){ G.selTarget=e.i;
+        setRead('TARGET: '+e.n, e.melee?'the blade goes down first':'he eats the next dial','#e8b04a'); }
+      else { e.inCover=!e.inCover; e.coverLocked=true; }""", """\
+      if(G._chainWait){ G.selTarget=e.i; G._chainWait=false; G.inFU=true; enterAim(true); return; }   /* V26 MANUAL CHAIN: the chosen next victim */
+      G.selTarget=e.i;
+      setRead('TARGET: '+e.n, e.melee?'the blade goes down first':'he eats the next dial','#e8b04a');""",
+        'field-select')
+
+    # --- smart cam ---
+    demo = sub1(demo, """\
+    let uzT=G.userZoom;
+    if(G.phase==='cover'&&!G.over&&!G.ks&&G.e&&G.e.length){
+      const ringF=Math.min(W,H)*0.085; let md=0;
+      for(const e of G.e)if(!e.dead&&e.edist>md)md=e.edist;
+      if(md>0){ const fit=(Math.min(W/2,H/2)-96)/Math.max(80,md*ringF+70);
+        uzT=Math.min(G.userZoom,Math.max(0.45,Math.min(1,fit))); } }
+    G._uzE=(G._uzE==null)?uzT:G._uzE+(uzT-G._uzE)*0.10; }""", """\
+    let uzT=G.userZoom;
+    const _man=G._camTouchAt&&performance.now()-G._camTouchAt<5000;   /* V26 SMART CAM: your pinch drives for 5s, then the auto resumes */
+    if(!_man&&G.phase==='cover'&&!G.over&&!G.ks&&G.e&&G.e.length){
+      const ringF=Math.min(W,H)*0.085; let md=0;
+      for(const e of G.e)if(!e.dead&&e.edist>md)md=e.edist;
+      if(md>0){ const fit=(Math.min(W/2,H/2)-96)/Math.max(80,md*ringF+70);
+        uzT=Math.max(0.45,Math.min(1.30,fit)); } }   /* frames the LIVING: drop the far men and it tightens IN */
+    G._uzE=(G._uzE==null)?uzT:G._uzE+(uzT-G._uzE)*0.10; }""",
+        'smart-cam')
+    demo = sub1(demo, "function setUserZoom(z){G.userZoom=Math.max(0.6,Math.min(2.4,z));}",
+        "function setUserZoom(z){G.userZoom=Math.max(0.45,Math.min(2.4,z));G._camTouchAt=performance.now();}   /* V26: touching the camera takes the wheel */",
+        'cam-touch-zoom')
+    demo = sub1(demo, "  G.userPan.x=Math.max(-L,Math.min(L,px2));G.userPan.y=Math.max(-L,Math.min(L,py2));}",
+        "  G.userPan.x=Math.max(-L,Math.min(L,px2));G.userPan.y=Math.max(-L,Math.min(L,py2));G._camTouchAt=performance.now();}",
+        'cam-touch-pan')
+
+    # --- default 8 ---
+    demo = sub1(demo, "  numEnemies:3, e:[],",
+        "  numEnemies:8, e:[],   /* V26 (Paolo): the playtest defaults to a real fight */", 'default-8')
+    demo = sub1(demo, '<button class="nb" data-n="1">1</button><button class="nb on" data-n="3">3</button><button class="nb" data-n="5">5</button><button class="nb" data-n="8">8</button>',
+        '<button class="nb" data-n="1">1</button><button class="nb" data-n="3">3</button><button class="nb" data-n="5">5</button><button class="nb on" data-n="8">8</button>', 'default-8-ui')
+
+    # --- targeting auto/manual + grit ---
+    demo = sub1(demo, '<button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 3</button>',
+        '<button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 3</button><button id="gritskill" style="border-color:#c8a23a;color:#e8d0a0">GRIT SHOTS: 0</button><button id="targmode" style="border-color:#8fb0e8;color:#c0d0e8">TARGETING: AUTO</button>',
+        'skill-buttons')
+    demo = sub1(demo, "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||3)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });",
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||3)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });\n  const gs=D('gritskill'); if(gs)gs.addEventListener('click',()=>{ audio(); G.gritShots=((G.gritShots||0)+1)%4; gs.textContent='GRIT SHOTS: '+G.gritShots; });   /* V26: the floor perk */\n  const tm=D('targmode'); if(tm)tm.addEventListener('click',()=>{ audio(); G.targetMode=(G.targetMode==='manual'?'auto':'manual'); tm.textContent='TARGETING: '+G.targetMode.toUpperCase(); });",
+        'skill-handlers')
+    demo = sub1(demo, "  let b=-1,bd=1e9; for(const e of pool){ const sc=(G.engageMode==='shoot'?e.edist:e.hp); if(sc<bd){bd=sc;b=e.i;} } return b; }",
+        "  let b=-1,bd=1e9; for(const e of pool){ const sc=e.edist; if(sc<bd){bd=sc;b=e.i;} } return b; }   /* V26 AUTO ORDER: closest first, always — the knife in your face outranks the far gun */",
+        'closest-first')
+    demo = sub1(demo, "function doWait(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;   /* cutscene law */ audio();",
+        "function doWait(){ if(G._chainWait){G._chainWait=false; return endTurnReturn();}   /* V26: declining the chain ends the engagement */\n  if(G.phase!=='cover'||G.over)return; if(G.inc)return;   /* cutscene law */ audio();",
+        'chainwait-wait')
+    demo = sub1(demo, "function doMove(d){ if(G.inc)return;",
+        "function doMove(d){ if(G.inc)return;\n  if(G._chainWait){G._chainWait=false; return endTurnReturn();}   /* V26: moving forfeits the chain */",
+        'chainwait-move')
+    demo = sub1(demo, """\
+  // MISS -> turn ends, return fire
+  G.killStreak=0; sndMiss(); showVerd('MISS','#777'); flash=1;
+  if(navigator.vibrate)navigator.vibrate(8);
+  setRead('MISS','turn ends','#e8593a');
+  G.phase='resolve'; setTimeout(()=>{ if(!G.over) endTurnReturn(); },170);""", """\
+  // MISS -> turn ends, return fire (V26 GRIT: the floor perk buys the shot back)
+  G.killStreak=0; sndMiss(); showVerd('MISS','#777'); flash=1;
+  if(navigator.vibrate)navigator.vibrate(8);
+  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)){
+    G._gritUsed=(G._gritUsed||0)+1; if(tgt&&!tgt.dead)G.selTarget=tgt.i;
+    setRead('GRIT','missed — the floor holds, shoot again ('+((G.gritShots||0)-G._gritUsed)+' left)','#c8a23a');
+    setTimeout(()=>{ if(!G.over) enterAim(true); },200); return; }
+  setRead('MISS','turn ends','#e8593a');
+  G.phase='resolve'; setTimeout(()=>{ if(!G.over) endTurnReturn(); },170);""",
+        'grit-floor')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))
+    patched = patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

@@ -318,7 +318,7 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
     !demo.includes('id="movebtn"'));
   ok('a move costs the turn (routes through endTurnReturn)',
-    /function doMove\([\s\S]{0,1600}?endTurnReturn\(false\); \}/.test(demo));
+    /function doMove\([\s\S]{0,2400}?endTurnReturn\(false\); \}/.test(demo));
   // v19: victory walk + blood by health
   ok('VICTORY WALK: the ring keeps working after the win (no turn cost)',
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
@@ -335,8 +335,10 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
     demo.includes('function myCoverAgainst(ang,dist)') &&
     demo.includes('myCoverAgainst(e.ea,e.edist)'));
-  ok('enemies take pillar cover too (gcov in peek/fire/line/arc)',
-    demo.includes('(e.inCover||e.gcov)') && demo.includes('function updateGeomCover()'));
+  ok('enemies take pillar cover too — REAL cover only (V26: fake flag dead, stone must be near HIM)',
+    demo.includes('function updateGeomCover()') &&
+    demo.includes('e.gcov=(pillarBetweenMe(e)&&nearPillar(e))?1:0;') &&
+    !demo.includes('(e.inCover||e.gcov)') && !demo.includes('e.inCover=!e.inCover'));
   ok('pillars block the step (occupancy: solid is solid)',
     demo.includes("setRead('BLOCKED','a pillar is there'"));
   ok('shove into a pillar slams (65% topple)', demo.includes('PILLAR SLAM'));
@@ -523,6 +525,49 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('V25 EAR-LOCK: the pulse clock compensates for measured audio output latency',
     demo.includes('V25 EAR-LOCK') && demo.includes('AC.outputLatency') &&
     demo.includes('_bpmEar=_bpmClock-_lms'));
+  // v26: the three-message ruling
+  ok('V26 HONEST MISS: miss volleys never play your hit reaction — cracks past, no spray',
+    demo.includes('V26 HONEST MISS') && demo.includes('miss:!!arguments[3]') &&
+    demo.includes('your body stays cool') && demo.includes('contact spray only when blood was real') &&
+    demo.split("?null:'quick',true)").length >= 3);
+  ok('only a true KILLSHOT chains: incidental vital/hit deaths end the turn',
+    demo.split('an incidental kill is not a KILLSHOT').length >= 3 &&
+    demo.includes('only a true KILLSHOT buys the next man'));
+  ok('the wounded LEAK: trail on every step + fat pool at <=30',
+    demo.includes('the wounded leave a TRAIL') && demo.includes('at 30 you are LEAKING'));
+  ok('SMART CAM: frames the living, tightens on kills, pinch drives for 5s',
+    demo.includes('V26 SMART CAM') && demo.includes('G._camTouchAt') &&
+    demo.includes('Math.min(1.30,fit)'));
+  ok('playtest defaults to 8 enemies',
+    demo.includes('numEnemies:8,') && demo.includes('<button class="nb on" data-n="8">8</button>'));
+  ok('TARGETING AUTO/MANUAL: closest-first order, manual CHOOSE NEXT pause, taps only pick victims',
+    demo.includes("closest first, always") && demo.includes("G.targetMode==='manual'") &&
+    demo.includes("setRead('CHOOSE NEXT'") && demo.includes('V26 MANUAL CHAIN') &&
+    demo.includes('id="targmode"'));
+  ok('GRIT SHOTS: the floor perk buys a missed shot back, ceiling still caps',
+    demo.includes('V26 GRIT') && demo.includes('id="gritskill"') &&
+    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)"));
+}
+/* ---- lab round 3: the queue + the metronome duel are PLAYABLE ---- */
+ok('LAB E THE QUEUE: mode exists, bar loads and runs, enemies act between',
+  lab.includes('data-m="queue"') && lab.includes('RUN BAR') &&
+  lab.includes('barQ.push(action)') && lab.includes('barRunning') &&
+  lab.includes("queue:up"));
+ok('LAB H THE METRONOME DUEL: kick-beat gunman, telegraphed, blockable',
+  lab.includes('data-m="duel"') && lab.includes("t:'kickshot'") &&
+  lab.includes('kickblocked') && lab.includes("duel:up") &&
+  lab.includes('(S.turn%2)===0'));
+{ // headless: the duel alternates and the kick lands on an open line
+  const D1 = LC.newGame('duel','VEGAS1');
+  D1.solids = {}; D1.enemies[0].x = D1.px; D1.enemies[0].y = D1.py - 5;
+  const evs = [];
+  for (let t = 0; t < 4; t++) { LC.commitPlayer(D1,{type:'wait'},0); const w = LC.worldStep(D1); evs.push((w.events||[]).map(e=>e.t).join(',')); }
+  ok('DUEL SIM: kick/off alternation, wound only on kicks',
+    evs[0].includes('kickshot') && evs[1].includes('offbeat') && evs[2].includes('kickshot') && D1.wound === 36);
+  const Q1 = LC.newGame('queue','VEGAS2');
+  let qok = true;
+  for (let t = 0; t < 4; t++) { const r = LC.commitPlayer(Q1,{type:'wait'},0); if (!r.ok) qok = false; LC.worldStep(Q1); }
+  ok('QUEUE SIM: 4-enemy weapon mix runs clean under the queue mode', qok && Q1.enemies.length === 4);
 }
 
 /* ---- 3. verdict workflow ---- */

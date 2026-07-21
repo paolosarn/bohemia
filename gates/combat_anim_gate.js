@@ -126,7 +126,8 @@ ok('enemyFrame: DOWN holds the deck', /e\.prone>0&&L\.prone112/.test(ef));
 ok('enemyFrame: the get-up plays', /_roseAt.*rise112/.test(ef));
 ok('enemyFrame: windup holds frame 0, strike swings through', /e\.windup&&L\.swing112\[e\.wpn\]/.test(ef.replace(/L\.swing112&&/g,'')) && /_swingAt/.test(ef));
 ok('enemyFrame: counter-snap answers from the crouch', /_snapAt.*cfire112/.test(ef));
-ok('enemyFrame: covered fire never stands', /firing\(e\)&&\(e\.gcov\|\|\(e\.inCover&&nearPillar\(e\)\)\)&&L\.cfire112/.test(ef));
+ok('enemyFrame: covered fire never stands (V26: gcov is the ONE cover truth, near-stone built in)',
+  /firing\(e\)&&e\.gcov&&L\.cfire112/.test(ef));
 ok('PRONE OUTRANKS THE STAGGER', ef.indexOf('e.prone>0&&L.prone112') < ef.indexOf('_hitAt') && ef.indexOf('_shovedAt') < ef.indexOf('_hitAt'));
 ok('player lives the crouch in cover phase (V23: only with real stone near — Paolo 7/20, "crouching even though there\'s no cover")',
   /G\.phase==='cover'&&!G\.over&&playerNearCover\(\)&&fset\.crouch/.test(demo));
