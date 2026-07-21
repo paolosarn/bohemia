@@ -8,6 +8,63 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## LANDLOCKED DISTRICT LAW: SEED GENERATION NOW ENFORCES IT (7/21, district-factory
+## session, Paolo reviewing the valley aerial: "new rule, if there is an interior
+## district not touching a street it has to be a suburb or apt complex...")
+NEW LOCKED LAW (laws/BOHEMIA_ADDENDUM_LANDLOCKED_DISTRICT_LAW_7_21_26.md): a cell with
+NO real street touching it (no freeway/arterial/beltway/strip neighbor) can only be
+suburb-family (suburb/gated/estate; apt complex [PENDING, not built]) or bare desert —
+and a landlocked suburb/apt cell must gain access by RELAYING through a same-family
+neighbor's road all the way out to a real street ("the two districts' street touch").
+BUILT THIS TURN, both halves, machine-gated (gates/landlocked_gate.js, registered):
+- TYPE half — engine/bohemia_overmap.js `proceduralDistrict()`: a `streetAdjacent` flag
+  (one tile off a real mile-arterial line) now gates every non-suburb/non-desert roll
+  (park/trailer/storage/industrial/commercial). A truly interior cell short-circuits to
+  DISTRICT.SUBURB. Also hoisted the `BIG` architecture-exemption set to module scope +
+  exported it (was local to buildOvermap) so the gate can reuse the exact same
+  "allowed to sit without touching the grid" whitelist instead of drifting a copy; added
+  granary + pumpstation to it (deliberately-nudged 1x1 narrative landmarks, same class
+  as the rest of BIG).
+- CONNECTIVITY half — engine/bohemia_world.js: `rawStreetEdges(m,x,y)` (real, no-default
+  street check, unlike neighborStreets which fakes ['S']) + `buildLandlockConnect(m)`, a
+  one-time BFS (computed once per world(seed), ~9216 cells, trivial cost) that finds for
+  every landlocked cell the shortest chain of SAME-FAMILY neighbors out to a real street,
+  marking the connect edge on BOTH sides of every hop. `plot()` now unions real edges with
+  relay edges for EVERY DISTGEN type (generalized past suburb — downtown/farm are
+  multi-cell BLOBS with the identical problem one level up, and relay through the same
+  machinery via `familyOf()`). Gate position is always centered (n/2) regardless of
+  rotation, so two neighbors that both open toward each other land on the same tile
+  offset — the roads actually meet.
+KNOWN RESIDUAL (reported honestly, not hidden): isolated single-cell landmarks (school/
+medical/jail/courthouse/policestation/substation/chapel/cemetery/industrial/commercial/
+golf/park), each its own hand-tuned fixed rect in skeleton()/layoutFromSeed() with no
+same-type neighbor to relay through, can still land landlocked. Measured ~5-6% of
+landlocked cells across seeds, gate ceiling set at 12% (regression trap). Fixing each
+landmark's placement individually is a separate pass through overmap.js's ~20 bespoke
+rects — NEXT SESSION'S JOB if Paolo wants it tightened further.
+SIDE EFFECT CAUGHT: editing bohemia_overmap.js broke CITY TAB GATE freshness (it embeds
+overmap.js byte-locked, ENGINE SYNC LAW) — re-ran tools/bohemia_city_tab.py to resync
+slices/BOHEMIA_CITY_CURRENT.html (NOT bohemia_city_overmap_resync.py, which only patches
+the alpha's inline CITY_B64 blob and doesn't refresh the engine-md5 stamps the gate
+checks — that tripped the gate's "MARRIED" check even after a resync). Whoever next
+edits an engine module CITY TAB embeds: run bohemia_city_tab.py, not just the resync.
+ALSO shipped this session (Paolo: "looks like shit" -> fixed -> "so how do you see this
+fitting"): THE VALLEY AERIAL rebuilt from a broken 34px downsample to native tile
+resolution with real intersection topology (roads read from actual neighbor
+connectivity, not a coin flip) + honest reserved-placeholder tags for bespoke/unbuilt
+landmark types (casino/ballpark/etc, diagonal hatch + name tag instead of a flat void) +
+street color matched exactly to the canon in-district asphalt tone (#33333c). Also did
+real research (Vegas/Sunbelt-specific, not Barcelona — caught and corrected mid-session)
+on what real mile-grid cities put at the center vs the corners of a superblock: corners
+get commercial (traffic/visibility economics, ALREADY how bohemia_overmap.js places it —
+confirmed, not changed), centers get quiet residential with cul-de-sac-style low
+inter-tract connectivity (informs the future "connect to all vs connect to one" cosmetic
+knob — NOT built, just recommended: suburb-to-suburb interior edges should default LOW
+connect chance, not high, matching real subdivision privacy/traffic patterns).
+PENDING PAOLO: apartment complex district type doesn't exist yet — the landlocked law
+currently only recognizes suburb/gated/estate as the residential family. Build it
+whenever that's next up, and it slots into SUBURB_FAMILY (world.js) automatically.
+
 ## OVERNIGHT: HOUSE SKIN FACTORY COOKED, JUDGE LIVE IN THE LIFE TAB (7/21,
 ## LIFE+CITY session, Paolo asleep: "do some big brain awesome shit")
 THE MORNING VERDICT IS WAITING: alpha -> LIFE tab -> HOUSE SKIN JUDGE.

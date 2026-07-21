@@ -91,6 +91,59 @@
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
 
+  // LANDLOCKED DISTRICT LAW (Paolo 7/21/26, LOCKED): "if there is an interior district not
+  // touching a street it has to be a suburb or apt complex that has roads from another
+  // suburb/apt complex touching the street, so the two districts' street touch." The overmap
+  // generator (bohemia_overmap.js) enforces the TYPE half for the common case: a RANDOM-ROLL
+  // interior cell can only become suburb/desert, never commercial/industrial/park/etc. Some
+  // district types still place as multi-cell CLUSTERS/blobs (downtown's rect, a farm/park blob,
+  // a granary/pumpstation landmark pair) where the interior of that same-type blob can still be
+  // 2+ tiles off the nearest real street even though the blob's seed cell was street-checked —
+  // the exact same shape of problem, one level up. This is the CONNECTIVITY half, generalized to
+  // every auto-factory type (not just suburb): a real, no-default street-edge check (unlike
+  // neighborStreets, which fakes ['S'] when nothing real is there), and a one-time BFS that finds,
+  // for every landlocked cell, the shortest chain of SAME-FAMILY neighbors out to a cell that
+  // truly touches a mile arterial — then marks the connecting edge on BOTH sides of every hop so
+  // the two districts' gates land on the same tile offset (K.pedGate/suburb's denseFill always
+  // center a gate at n/2, so two neighbors that both open toward each other line up automatically).
+  var SUBURB_FAMILY={suburb:1,gated:1,estate:1};  // apt complex: [PENDING Paolo, not yet built]
+  function familyOf(d){ return SUBURB_FAMILY[d] ? 'suburb' : d; }
+  var ROADSET={freeway:1,arterial:1,strip:1,beltway:1};
+  function rawStreetEdges(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var out=[]; if(ROADSET[at(x,y-1)])out.push('N'); if(ROADSET[at(x,y+1)])out.push('S');
+    if(ROADSET[at(x-1,y)])out.push('W'); if(ROADSET[at(x+1,y)])out.push('E'); return out; }
+  function buildLandlockConnect(m){
+    var N=m.n, extra={}, touchesCache={}, key=function(x,y){return x+','+y;};
+    function isBuilt(d){ return !!DISTGEN[d]; }  // only real auto-factory districts relay
+    function touches(x,y){ var k=key(x,y); if(k in touchesCache)return touchesCache[k];
+      return touchesCache[k]=rawStreetEdges(m,x,y).length>0; }
+    function addEdge(k,e){ (extra[k]=extra[k]||{})[e]=1; }
+    var DIRS=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], OPP={N:'S',S:'N',E:'W',W:'E'};
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var cell=m.at(x,y); if(!cell||!isBuilt(cell.district)||touches(x,y))continue;
+      var fam=familyOf(cell.district);
+      var seen={}; seen[key(x,y)]=1;
+      var q=[{x:x,y:y,path:[]}], head=0, found=null;
+      while(head<q.length && !found){
+        var cur=q[head++];
+        for(var i=0;i<4;i++){
+          var e=DIRS[i][0], nx=cur.x+DIRS[i][1], ny=cur.y+DIRS[i][2], nk=key(nx,ny);
+          if(seen[nk])continue; var nc=m.at(nx,ny); if(!nc||familyOf(nc.district)!==fam)continue;
+          seen[nk]=1;
+          var hop={fromX:cur.x,fromY:cur.y,edge:e,toX:nx,toY:ny};
+          var np={x:nx,y:ny,path:cur.path.concat([hop])};
+          if(touches(nx,ny)){ found=np; break; }
+          q.push(np);
+        }
+      }
+      if(found) found.path.forEach(function(hop){
+        addEdge(key(hop.fromX,hop.fromY),hop.edge);
+        addEdge(key(hop.toX,hop.toY),OPP[hop.edge]);
+      });
+    }
+    var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
+  }
+
   // build archetype -> interior zone (the floorplan's room grammar)
   var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
     industrial:'warehouse', utility:'office', landmark:'landmark',
@@ -120,6 +173,7 @@
   function world(seed){
     seed=(seed>>>0)||1;
     var m = OM.buildOvermap(seed);
+    var landlockConnect = buildLandlockConnect(m);
     var plotCache = {};
     function plot(x,y){
       var key=x+','+y; if(plotCache[key])return plotCache[key];
@@ -129,7 +183,15 @@
       // industrial / ...), gated to the streets it touches, every building enterable.
       var dg=DISTGEN[cell.district];
       if(dg && dg.mod){
-        var gres=dg.mod.generate(cell.seed>>>0, {cw:1,ch:1,streets:neighborStreets(m,x,y)});
+        // LANDLOCKED DISTRICT LAW: real street edges + whatever landlockConnect computed toward
+        // a same-family neighbor that relays back out to a real mile arterial. For any cell that
+        // already touches a real street this is identical to neighborStreets() (no default ever
+        // fires when real edges exist), so ordinary street-fronting districts are unaffected.
+        var realEdges=rawStreetEdges(m,x,y), relayEdges=landlockConnect[x+','+y]||[];
+        var eset={}; realEdges.forEach(function(e){eset[e]=1;}); relayEdges.forEach(function(e){eset[e]=1;});
+        var uniq=Object.keys(eset);
+        var streets = uniq.length ? uniq : ['S'];
+        var gres=dg.mod.generate(cell.seed>>>0, {cw:1,ch:1,streets:streets});
         var feet=dg.foot(gres)||[];
         // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the
         // renderer + collision + interior/zoom systems can READ what blocks, what you pass
@@ -183,7 +245,10 @@
       seed:seed, n:m.n, overmap:m,
       at:function(x,y){return m.at(x,y);},
       plot:plot,
-      DISTRICT: OM.DISTRICT
+      DISTRICT: OM.DISTRICT,
+      landlockConnect: landlockConnect,          // LANDLOCKED DISTRICT LAW audit surface
+      rawStreetEdges: function(x,y){ return rawStreetEdges(m,x,y); },
+      SUBURB_FAMILY: SUBURB_FAMILY
     };
   }
 

@@ -22,6 +22,18 @@ const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
 SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
+// BIG ARCHITECTURE (Paolo 7/18/26): "even monuments... would just be in their big ass plots not
+// breaking any city streets" — the ONLY district types allowed to sit without touching the
+// surface-street grid: real physical masses + genuinely huge installations + the blessed
+// megablocks. Hoisted to module scope (was local to buildOvermap) so the LANDLOCKED DISTRICT LAW
+// (Paolo 7/21/26) can reuse this exact whitelist instead of drifting a second copy.
+const BIG=new Set([DISTRICT.MOUNTAIN,DISTRICT.WATER,DISTRICT.FREEWAY,DISTRICT.INTERCHANGE,DISTRICT.BELTWAY,
+  DISTRICT.DAM,DISTRICT.RAIL,DISTRICT.RAILYARD,DISTRICT.WASH,DISTRICT.BASIN,DISTRICT.GYPSUM,DISTRICT.QUARRY,
+  DISTRICT.INTAKE,DISTRICT.SOLAR,DISTRICT.AIRPORT,DISTRICT.AIRBASE,DISTRICT.SPEEDWAY,DISTRICT.PRISON,
+  DISTRICT.DATAFORT,DISTRICT.ARSENAL,DISTRICT.LANDFILL,DISTRICT.BONEYARD,DISTRICT.WATERPARK,DISTRICT.MINIGP,
+  DISTRICT.STADIUM,DISTRICT.BALLPARK,DISTRICT.CONVENTION,DISTRICT.SPRINGS,DISTRICT.STRIP,DISTRICT.RESORT,
+  DISTRICT.CASINO,DISTRICT.LUXOR,DISTRICT.SPHERE,DISTRICT.HIGHROLLER,DISTRICT.STRAT,DISTRICT.SIGN,
+  DISTRICT.TOWN,DISTRICT.TRUCKSTOP,DISTRICT.GRANARY,DISTRICT.PUMPSTATION]);
 function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 function hash2(seed,x,y){let h=(seed^Math.imul(x,73856093)^Math.imul(y,19349663))>>>0;h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return(h^h>>>16)>>>0;}
 function segDist(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay;const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy)));return Math.hypot(px-(ax+t*dx),py-(ay+t*dy));}
@@ -618,28 +630,33 @@ function qualityAt(x,y,L){
   return Math.max(0.1,Math.min(0.95,q));
 }
 
+// LANDLOCKED DISTRICT LAW (Paolo 7/21/26, LOCKED): "if there is an interior district not
+// touching a street it has to be a suburb or apt complex." A cell 2+ tiles off every mile
+// arterial line has no real street to front — only the suburb family (residential, whose own
+// generator can relay a driveway/road out through a neighboring suburb cell, world.js's
+// landlockConnect pass) is allowed there. DESERT stays legal (undeveloped land needs no access).
 function proceduralDistrict(x,y,r,L){
   const N=OVER_N;
   const dStrip=Math.abs(x-L.stripX);
   const edge=Math.min(x,y,N-1-x,N-1-y);
   if(edge<8&&r()<0.5)return DISTRICT.DESERT;
   const q=qualityAt(x,y,L);
+  const nearAx=(x%9===1||x%9===8), nearAy=(y%9===1||y%9===8);
+  const streetAdjacent=nearAx||nearAy;                // touches (or is one tile off) a real mile arterial
   // SUMMERLIN LAKES: the west master-planned zone rolls small neighborhood lakes
   const dir=(L.fwyX<L.stripX)?1:-1, side=(x-L.stripX)*dir;
   if(side<-12&&y>N*0.20&&y<N*0.70&&r()<0.009)return DISTRICT.WATER; // rare, a touch of Summerlin lake vibe, not a lake district
-  if(r()<0.02+q*0.06)return DISTRICT.PARK;          // parks follow quality
+  if(streetAdjacent&&r()<0.02+q*0.06)return DISTRICT.PARK;          // parks follow quality (street-fronting only)
   if(q<0.35&&r()<0.12)return DISTRICT.DESERT;       // rough side: vacant lots
-  if(q<0.42&&r()<0.03)return DISTRICT.TRAILER;      // trailer/RV parks in the rough fabric
+  if(streetAdjacent&&q<0.42&&r()<0.03)return DISTRICT.TRAILER;      // trailer/RV parks in the rough fabric
   // HOMESTEADS (Paolo 7/5/26): people who took farming on their own, yard
   // crops + private well/cistern (real: the valley sits on groundwater,
   // thousands of private wells). Flag rides on the suburb cell.
   // (flag applied in post-pass so the suburb render + quality stay intact)
-  const nearAx0=(x%9===1||x%9===8), nearAy0=(y%9===1||y%9===8);
-  if(q<0.6&&(nearAx0||nearAy0)&&r()<0.012)return DISTRICT.STORAGE; // self-storage sprawl
+  if(streetAdjacent&&q<0.6&&r()<0.012)return DISTRICT.STORAGE; // self-storage sprawl
   const d1=Math.hypot(x-L.ind1.x,y-L.ind1.y), d2=Math.hypot(x-L.ind2.x,y-L.ind2.y);
-  if((d1<3.2||d2<3.2)&&r()<0.9)return DISTRICT.INDUSTRIAL;
-  const nearAx=(x%9===1||x%9===8), nearAy=(y%9===1||y%9===8);
-  if(nearAx&&nearAy&&r()<0.7)return DISTRICT.COMMERCIAL;
+  if(streetAdjacent&&(d1<3.2||d2<3.2)&&r()<0.9)return DISTRICT.INDUSTRIAL;
+  if(nearAx&&nearAy&&r()<0.7)return DISTRICT.COMMERCIAL;   // the mile-grid CORNER: real Vegas piles retail here
   // CA HIGHWAY APPROACH: the 15 enters through DIRT before the city swallows it
   if(y>N*0.80&&Math.abs(x-L.fwyX)<6&&r()<0.93)return DISTRICT.DESERT;
   // DESERT POCKETS (Paolo 7/5/26): two DISTINCT desert zones, not a band:
@@ -650,6 +667,7 @@ function proceduralDistrict(x,y,r,L){
     if((nearR(L.mead,6)||nearR(L.lakeLV,6)||nearR(L.boulder,6)||nearR(L.damR,6))&&r()<0.6)return DISTRICT.DESERT;
     if((nearR(L.airbase,5)||nearR(L.speedway,5))&&r()<0.55)return DISTRICT.DESERT;
   }
+  if(!streetAdjacent) return DISTRICT.SUBURB; // LANDLOCKED: suburb/apt only, no exceptions (see law above)
   const v=r();
   const busier=(side<0&&(y<N*0.18||y>N*0.80))?0.10:0;  // west fringe busier
   if(dStrip<8){ return v<0.35+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
@@ -1004,7 +1022,7 @@ function buildOvermap(seed){
 }
 function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
