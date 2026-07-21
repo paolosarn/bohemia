@@ -1264,6 +1264,39 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    broke a survivor. NEXT: re-pitch 3 (suppressing burst) + 4
    (overwatch) convincingly; design 5 (human shield) concrete;
    NERVE tuning + perks pending Paolo.
+   AUTONOMOUS HARDENING PASS v31 (7/21 overnight, Paolo asleep: "do some
+   big brain awesome shit"): I hunted the DOWNED/NERVE system for bugs
+   before Paolo could hit them. FOUND + KILLED A SOFTLOCK: tickTurnEnd
+   runs the nerve roll, but NO turn-settle path re-checked the win after
+   it — so a nerve break (or a downing) that cleared the last standing
+   fighter during a WAIT/covered turn left aliveEnemies()===0 with the
+   win screen NEVER firing. You'd be stranded among crawling bodies,
+   WAIT/MOVE doing nothing, no AREA CLEAR. This would have enraged him.
+   FIX: checkClear() helper wins the instant nobody can fight; called
+   after tickTurnEnd on EVERY path (doWait, endTurnReturn, recklessPop,
+   endTurnClean). ALSO v31: the FINISH now lands with weight (hitstop 10
+   + heavier double blood pool + haptic thud); the crawl DRAGS a smear
+   at both ends (where he was + where he dragged to), reads as a body
+   hauled, not a drip. VERIFICATION (rigorous): (S1) nerve breaks the
+   last fighter on a WAIT -> win fires (over/win/phase=over, alive 0);
+   (S2) downing the last man + settle -> win fires; (S3) FINISH on the
+   victory walk works, hitstop applied, 0 errors. FUZZ: 15 fights of
+   randomized real actions (39 real fire() shots, doPop/doWait/doMove/
+   finish) -> 0 page errors, every fight reached a terminal state
+   except random hide-and-run-forever (legit player choice, not a dead
+   state). WAIT-FOREVER probe: pure passivity -> enemies build beads ->
+   you DIE at turn 135 (passivity punished, always terminates). VISUAL
+   QA on the real canvas: dying men lie in death poses with blood pools,
+   crawl smears extend, FINISH button appears, button reads HOLD with a
+   live exposed enemy — the "killing isn't clean" aesthetic confirmed.
+   Gate 118 (combat) + 74 (anim) ALL GREEN. Shipped c02e395, stamp
+   7/21e. DISCIPLINE NOTE: stopped after v31 rather than sprawl into
+   reserved canon (nerve numbers) or un-greenlit features (3/4/5) while
+   he slept. STILL TEED UP FOR HIS "GO": pitches 3 SUPPRESSING BURST +
+   4 OVERWATCH STANCE + 5 HUMAN SHIELD (concrete designs in the reply
+   + laws/BOHEMIA_ADDENDUM_JUICY_COMBAT_IDEAS_7_20_26.md) build fast
+   the moment he says go; crawl-dying + crouch-aim-1h/2h clips owed
+   from his Animation chat (pre-wired, live on landing).
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning
