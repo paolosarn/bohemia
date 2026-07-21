@@ -238,7 +238,8 @@
       function checkOutcome() {
         if (!firedOutcome && rt.state && rt.state.done) {
           firedOutcome = true;
-          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome });
+          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome,
+                 tags: (rt.state.doneTags || []).slice() });
         }
       }
       const origChoose = rt.choose.bind(rt);
@@ -399,7 +400,7 @@
           gen: currentGen(ctx),
           recorded: true,   // TOTAL RECALL: everything is on the feed, always
           effect: (evt.kind === 'outcome')
-            ? { quest: evt.questId, outcome: evt.outcome }
+            ? { quest: evt.questId, outcome: evt.outcome, tags: evt.tags || [] }
             : { quest: evt.questId, node: evt.node, to: evt.to },
         });
       },
@@ -691,16 +692,52 @@
     return rt.begin(nodeId);
   }
 
+  /* CLOUT (Paolo 7/21 LOCK): "reckless/dangerous shit gets more followers than
+     quiet good deeds, yes." Real virality doesn't reward the biggest deed, it
+     rewards the best STORY — and it matches the Amalgamation's own canon logic
+     (GDD v2: "the Amalgamation watches viral moments most carefully," proximity-
+     to-secret kills). Chasing clout is choosing exposure, on purpose.
+
+     A quest's completing @STAGE line can carry ONE hashtag from this scale to
+     classify its own outcome: #quiet #notable #risky #reckless (content's call,
+     per quest — the parser already captures arbitrary #tags on any line via
+     tagsOf(), so no format change was needed). Untagged stages score NEUTRAL.
+     The ORDERING (reckless > risky > notable > quiet) is now locked canon and
+     enforced by the LOOP CLOUT gate; the exact numbers stay tunable. */
+  const CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
+  const CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
+  const CLOUT_NEUTRAL = 15;   // untagged stage: a mild default (below 'notable')
+
+  function cloutWeight(tag) {
+    return CLOUT_WEIGHTS.hasOwnProperty(tag) ? CLOUT_WEIGHTS[tag] : CLOUT_NEUTRAL;
+  }
+  /* pick the one clout tag off a stage's raw #hashtag list (first vocabulary hit;
+     a stage should only carry one — that's a content-authoring discipline, not
+     enforced here). */
+  function cloutTagFrom(tags) {
+    tags = tags || [];
+    for (let i = 0; i < CLOUT_TAGS.length; i++) if (tags.indexOf(CLOUT_TAGS[i]) >= 0) return CLOUT_TAGS[i];
+    return null;
+  }
+  /* THE real default follower score (replaces the old ad hoc demo placeholders):
+     a post earns followers only when it's a quest outcome (posts == quests done),
+     weighted by how reckless its completing stage declared itself to be. */
+  function defaultFollowerScore(post) {
+    if (!post || post.kind !== 'outcome') return 0;
+    return cloutWeight(post.clout);
+  }
+
   /* --------------------------------------------------------------------------
      THE FEED — the phone's front page. Paolo 7/20: ONE POST PER COMPLETED QUEST
      ("you complete a quest, you make a post"), so posts == quests done. The feed is
      NOT a log of every choice — that granular record still lives in the choice-log
      for the fold (the game remembers everything), but what you SEE is a clean post
-     per finished quest. A projection over save.choices; authors nothing; decides no
-     follower math (Paolo's, PENDING). Newest-first.
+     per finished quest. A projection over save.choices; authors nothing. Followers
+     are scored by CLOUT (above) via defaultFollowerScore, or a custom scoreFn.
+     Newest-first.
 
-     Each post: { beat, gen, kind:'outcome', questId, title, outcome, id }. Pass
-     {all:true} to include the granular per-choice entries too (debugging); the
+     Each post: { beat, gen, kind:'outcome', questId, title, outcome, clout, id }.
+     Pass {all:true} to include the granular per-choice entries too (debugging); the
      default feed is completions only. {limit:N} trims to the latest N.
      ------------------------------------------------------------------------ */
   function buildFeed(ctx, opts) {
@@ -713,14 +750,14 @@
     let posts = ctx.save.choices.map(function (c, idx) {
       const eff = c.effect || {};
       const qid = eff.quest || null;
-      let kind = 'event', outcome = null, node = null, to = null;
+      let kind = 'event', outcome = null, node = null, to = null, clout = null;
       if (qid) {
-        if (eff.outcome != null) { kind = 'outcome'; outcome = eff.outcome; }
+        if (eff.outcome != null) { kind = 'outcome'; outcome = eff.outcome; clout = cloutTagFrom(eff.tags); }
         else { kind = 'choice'; node = eff.node != null ? eff.node : null; to = eff.to != null ? eff.to : null; }
       }
       return { seq: idx, beat: c.beat || 0, gen: c.gen || 1, kind: kind,
                questId: qid, title: qid ? titleOf(qid) : null,
-               outcome: outcome, node: node, to: to, id: c.id };
+               outcome: outcome, node: node, to: to, clout: clout, id: c.id };
     });
     // ONE POST PER COMPLETED QUEST: the feed is completions only unless {all}.
     if (!opts.all) posts = posts.filter(function (p) { return p.kind === 'outcome'; });
@@ -731,18 +768,18 @@
   }
 
   /* THE SOCIAL PROFILE — the readout at the top of the phone: how much you've done
-     and how far it reached. A pure projection over the feed, PLUS one deliberately
-     EMPTY content hook. Paolo 7/20: "you gain FOLLOWERS when you do cool shit." The
-     MECHANISM (tally the feed) is mine; WHAT COUNTS as cool shit and HOW MANY
-     followers a deed is worth is HIS — passed in as `scoreFn(post) -> number`.
-     With no scoreFn, reach is 0 (the weight table is EMPTY by law until he rules
-     on it). Whether followers and clout are one number or two is not decided here:
-     call this once per metric with its own scoreFn.
+     and how far it reached. A pure projection over the feed. Paolo 7/20: "you gain
+     FOLLOWERS when you do cool shit"; Paolo 7/21 LOCK: "reckless/dangerous shit gets
+     more followers than quiet good deeds" (see CLOUT above). `scoreFn(post) -> number`
+     defaults to `defaultFollowerScore` (the real CLOUT-weighted math) when omitted —
+     pass a different scoreFn only to override it. Whether followers and clout end up
+     as one number or two is still open: call this once per metric with its own scoreFn.
        returns { posts, questsTouched, questsCompleted, reach }
      posts == quests done (one post per completion). questsTouched counts every quest
      you have engaged (from the full choice-log). reach = followers, summed by scoreFn
      over the POSTS (completions) only — you gain followers when you complete and post. */
   function socialProfile(ctx, scoreFn) {
+    const score = typeof scoreFn === 'function' ? scoreFn : defaultFollowerScore;
     const all = buildFeed(ctx, { all: true });
     const touched = {}, completed = {};
     let reach = 0, posts = 0;
@@ -751,7 +788,7 @@
       if (p.kind === 'outcome') {                       // a completion == a post
         posts++;
         if (p.outcome === 'COMPLETE' && p.questId) completed[p.questId] = true;
-        if (typeof scoreFn === 'function') reach += (scoreFn(p) || 0);
+        reach += (score(p) || 0);
       }
     });
     return { posts: posts,
@@ -792,6 +829,7 @@
     makeContext, boot, tick, commit, captureSave,
     spawnActorsForDistrict, enemyRuleForDistrict, updateDistrictLOD,
     talkablesNear, talkTo, buildFeed, socialProfile,
+    CLOUT_TAGS, CLOUT_WEIGHTS, cloutWeight, cloutTagFrom, defaultFollowerScore,
     // individual boot steps exported so each can be tested in isolation
     _steps: {
       bootFoundation, bootSave, bootHeartbeat, bootScheduler, bootWorldGen, bootFactions,

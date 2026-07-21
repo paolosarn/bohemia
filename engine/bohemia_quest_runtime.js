@@ -44,7 +44,8 @@ function hydrateNodeDos(Q){
 
 function freshState(Q){
   var s={ stage:null, flags:{}, knows:{}, has:{}, roles:{}, faction:{}, bonds:{},
-          posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null };
+          posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null,
+          doneTags:[] };
   (Q.roles||[]).forEach(function(r){ s.roles[r.name]=!!r.req; }); /* REQ present, OPT absent */
   return s;
 }
@@ -99,7 +100,15 @@ Runtime.prototype._exec=function(text){
     case 'set_flag': if(p[1]) s.flags[p[1]]=true; break;
     case 'learn':    if(p[1]) s.knows[p[1]]=true; break;
     case 'have': case 'give': if(p[1]) s.has[p[1]]=true; break;
-    case 'set_stage': if(p[1]!=null) this.setStage(parseInt(p[1],10)); break;
+    /* call the PROTOTYPE method directly, not this.setStage: a host (the loop's
+       ledger pipe) may have installed an own-property wrapper on this instance's
+       setStage to observe EXTERNAL calls. If an internal @DO set_stage went through
+       that wrapper too, a choice that completes a quest in one step would fire the
+       OUTCOME event recursively mid-choice, before the CHOICE event itself was even
+       recorded — a chronological bug in the ledger, not a stylistic one. Bypassing
+       the wrapper here keeps internal transitions on the canonical logic only, so
+       the host always sees choice-then-outcome in the order they actually happened. */
+    case 'set_stage': if(p[1]!=null) Runtime.prototype.setStage.call(this, parseInt(p[1],10)); break;
     case 'show_objective':     this._obj(p[1],'active'); break;
     case 'complete_objective': this._obj(p[1],'done');   break;
     case 'cast': p.slice(1).forEach(function(r){ s.roles[r]=true; }); break;
@@ -131,8 +140,11 @@ Runtime.prototype.setStage=function(n){
   if(st){
     if(st.log) this.state.log.push('[stage '+n+'] '+st.log);
     (st.dos||[]).forEach(function(d){ self._exec(d.text); });
-    if(st.flags.indexOf('COMPLETE')>=0){ this.state.done=true; this.state.outcome='COMPLETE'; }
-    if(st.flags.indexOf('FAIL')>=0){ this.state.done=true; this.state.outcome='FAIL'; }
+    /* doneTags: the completing stage's raw #hashtags (e.g. #reckless), carried
+       verbatim so the LOOP layer can classify the outcome (CLOUT weighting) without
+       this UI-agnostic runtime knowing anything about followers or feeds. */
+    if(st.flags.indexOf('COMPLETE')>=0){ this.state.done=true; this.state.outcome='COMPLETE'; this.state.doneTags=(st.tags||[]).slice(); }
+    if(st.flags.indexOf('FAIL')>=0){ this.state.done=true; this.state.outcome='FAIL'; this.state.doneTags=(st.tags||[]).slice(); }
   }
   return this;
 };

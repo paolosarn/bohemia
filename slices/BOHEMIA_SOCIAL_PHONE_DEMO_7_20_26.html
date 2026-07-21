@@ -99,6 +99,12 @@
     border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:.5px; }
   .tag.done{ background:var(--good-soft); color:var(--good); border:1px solid #2c3a18; }
   .tag.act{ background:#241d12; color:var(--dim); }
+  .clout{ display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; padding:2px 7px;
+    border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:1px; text-transform:uppercase; }
+  .clout.q{ background:#1c2a1c; color:#7fa87a; }
+  .clout.n{ background:#20262e; color:var(--dim); }
+  .clout.r{ background:var(--amber-soft); color:var(--amber); }
+  .clout.x{ background:#3a140c; color:#ff8a5c; text-shadow:0 0 6px rgba(255,110,60,.6); animation:flick 4s infinite steps(1); }
   .post .photo{ margin:11px 0 2px; height:158px; border-radius:4px; border:1px solid var(--line);
     position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
     filter:saturate(.72) contrast(1.03); }
@@ -339,13 +345,24 @@ var ctx = Loop.boot({ seed:'bohemia' });
 var player = Sched.makeActor({ id:'player', tile:{x:128,y:128}, isPlayer:true, layer:'player' });
 Sched.addActor(ctx.scheduler, player);
 
-/* PLACEHOLDER follower scoring (Paolo owns the real rule): complete = 50, else 5. */
-function FOLLOWER_SCORE(post){ return (post.kind==='outcome' && post.outcome==='COMPLETE') ? 50 : 5; }
+/* THE REAL follower math (Paolo 7/21 LOCK: reckless/dangerous deeds earn far more
+   followers than quiet good deeds) — this is Loop.defaultFollowerScore, the CLOUT-
+   weighted default, not a placeholder anymore. Kept as a named wrapper only so the
+   rest of this file didn't need touching at every call site. */
+function FOLLOWER_SCORE(post){ return Loop.defaultFollowerScore(post); }
+/* visible readout of the CLOUT tier so the mechanic is SEEN, not just felt in a
+   number: quiet <= notable <= risky <= reckless, colored by how hot it runs. */
+function cloutBadge(tag){
+  var t = tag || 'neutral';
+  var cls = { quiet:'q', notable:'n', risky:'r', reckless:'x', neutral:'n' }[t] || 'n';
+  return '<span class="clout '+cls+'">'+esc(t)+'</span>';
+}
 
-/* ---- throwaway DEMO quests (NOT canon) --------------------------------------- */
-function demoQuest(id,title,who,l1,o1,l2,l3){
+/* ---- throwaway DEMO quests (NOT canon) — now tagged with a #clout level so the
+   real follower math actually varies: pass 'quiet'|'notable'|'risky'|'reckless'. */
+function demoQuest(id,title,who,l1,o1,l2,l3,clout){
   return ['@QUEST '+id+'  '+title, '@ACT 1', '@ONCE true',
-    '@STAGE 10','  @DO show_objective 10','@STAGE 20 COMPLETE',
+    '@STAGE 10','  @DO show_objective 10','@STAGE 20 COMPLETE'+(clout?(' #'+clout):''),
     '@OBJ 10 "'+o1+'"',
     '@TALK hi speaker='+who+' entry=stage>=10',
     '  @SAY '+l1,
@@ -359,15 +376,15 @@ function demoQuest(id,title,who,l1,o1,l2,l3){
 }
 ctx.quests.place(demoQuest('waterrun','Water Run','trader',
   '"my hauler cracked a valve near the wash. cap it and the block drinks tonight."',
-  'Cap the valve at the wash','how bad is it?','i will cap it'),
+  'Cap the valve at the wash','how bad is it?','i will cap it','quiet'),
   { x:40,y:40, speaker:'trader', channel:'feed' });
 ctx.quests.place(demoQuest('rooftop','Rooftop Antenna','signalman',
   '"the feed goes dead on the east blocks. help me raise the antenna."',
-  'Raise the east antenna','what is out there?','lets raise it'),
+  'Raise the east antenna','what is out there?','lets raise it','risky'),
   { x:44,y:41, speaker:'signalman', channel:'feed' });
 ctx.quests.place(demoQuest('tunnelfavor','Tunnel Favor','king_hobo',
   '"no phones down here, kid. thats why you had to walk. carry a word up for me."',
-  'Carry the tunnel word up','who are you?','ill carry it'),
+  'Carry the tunnel word up','who are you?','ill carry it','reckless'),
   { x:90,y:90, speaker:'king_hobo', channel:'inperson' });
 
 /* ---- helpers ----------------------------------------------------------------- */
@@ -440,7 +457,7 @@ function render(){
       h += '<div class="card post"><div class="head">'+avatar('@founder_gen1')+
            '<div><div class="h2n">Founder <span class="at">@founder_gen1</span></div></div>'+
            '<div class="time">'+(idx===0?'now':('beat '+p.beat))+'</div></div>'+
-           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span></div>'+
+           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span>'+cloutBadge(p.clout)+'</div>'+
            photoFor(p.questId)+
            '<div class="eng"><span>♥ '+likes+'</span><span>💬 '+ci.count+'</span><span class="g">+'+gain+' followers</span></div>'+
            commentsBlock(ci)+'</div>';
@@ -491,9 +508,10 @@ function render(){
          '<div class="stats" style="margin-top:14px"><div class="stat foll"><b>'+prof.reach+'</b><span>followers</span></div>'+
          '<div class="stat"><b>'+prof.posts+'</b><span>posts</span></div>'+
          '</div></div>';
-    h += '<div class="disclaimer">Follower count uses a PLACEHOLDER score (complete = 50, else 5). '+
-         'What counts as cool shit, and what it is worth, is Paolo\'s call. The feed, pickups, log '+
-         'and this profile are all live off the real engine.</div>';
+    h += '<div class="disclaimer">FOLLOWERS run on CLOUT: reckless/dangerous deeds earn far more than '+
+         'quiet ones. Each quest tags its own completion (#quiet/#notable/#risky/#reckless); untagged '+
+         'defaults neutral. The exact numbers are tunable, the ordering is locked. The feed, pickups, '+
+         'log, and this profile are all live off the real engine.</div>';
   }
   s.innerHTML = h;
 }
@@ -556,7 +574,7 @@ var THREADS = [
       { t:'on my way', act:'startquest', qtitle:'The Wall', after:'good. bring your hands, not just your face.',
         quest: demoQuest('thewall','The Wall','neighbor',
           'two yards, one fence between them. we take that wall down, we got a real base.',
-          'Break the shared wall','why now?','lets do it'),
+          'Break the shared wall','why now?','lets do it','risky'),
         at:{ x:2, y:2, speaker:'neighbor', channel:'inperson' } },
       { t:'not tonight', act:'dismiss', after:'dont wait too long, kid.' } ] },
   { id:'sister', who:'Your Sister', av:'sister', unread:0, tm:'2h', msgs:[
