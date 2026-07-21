@@ -30,44 +30,58 @@
     G.rect(0,0,W-1,H-1,0);
     G.rect(5,7,W-6,H-6,4);
 
-    // ---- SCHOOL BUILDING — an E-shape (spine + three classroom wings) at the back, + the GYM ----
-    G.rect(20,12,96,20,2);                                                // main spine (front classrooms/admin)
-    G.rect(20,20,28,44,2); G.rect(54,20,62,44,2); G.rect(88,20,96,44,2);  // three classroom wings
-    G.rect(100,12,120,34,2);                                              // the GYM (big box, east)
-    G.rect(16,22,20,40,11);                                               // entry sidewalk on the spine
-    for(x=22;x<=94;x+=6) set(x,11,10);                                    // window/roof detail line
+    // WALKABLE-LAND rebuild (Paolo 7/20 "the school is kind of dog shit... incomplete"): a full,
+    // FINISHED campus — a building complex wrapped around a QUAD, gym + cafeteria, an entry plaza,
+    // portables, courts, gardens — with the field/track he liked kept. Content fills the land.
 
-    // ---- SPORTS FIELD + running TRACK (the hero), on the WEST lawn (clear of the drives) ----
-    var fx=40, fy=84;
-    ellRing(fx,fy,30,22,25,17,7);                                        // the running TRACK (rust ring)
-    G.rect(fx-26,fy-13,fx+26,fy+13,6);                                    // the FIELD inside the track (dead turf)
-    for(x=fx-24;x<=fx+24;x++){ set(x,fy,10); }                            // midline
+    // ---- BUILDING COMPLEX at the back, wrapped around a QUAD courtyard (2-storey read) ----
+    G.rect(10,8,118,22,2);                                                // long north classroom/admin bar
+    G.rect(10,22,26,56,2);                                                // west wing
+    G.rect(102,22,118,56,2);                                              // east wing
+    G.rect(28,24,100,42,11);                                              // the QUAD (courtyard plaza) between the wings
+    G.rect(34,28,46,38,13); G.rect(60,28,72,38,13); G.rect(86,28,98,38,13); // garden beds in the quad
+    for(x=32;x<=96;x+=8) set(x,33,3);                                     // quad trees
+    G.rect(30,44,58,60,2);                                                // the GYM
+    G.rect(66,44,98,60,2);                                                // the CAFETERIA / LIBRARY
+    for(x=14;x<=114;x+=6) set(x,8,10);                                    // roof/window detail line
+    for(y=26;y<=52;y+=6){ set(10,y,10); set(118,y,10); }
+
+    // ---- ENTRY PLAZA + covered walk + FLAGPOLE, front-center ----
+    G.rect(44,62,84,72,11);                                               // entry plaza
+    G.rect(62,60,66,62,11);                                               // covered walk up to the cafeteria
+    set(64,66,12); set(65,66,12);                                        // flagpole
+    G.rect(10,60,24,74,2); set(11,61,10); set(23,61,10);                 // PORTABLES annex (temp classrooms), NW
+
+    // ---- SPORTS FIELD + running TRACK (the hero Paolo liked), center-left-lower, with bleachers ----
+    var fx=40, fy=94;
+    ellRing(fx,fy,30,20,25,15,7);                                        // the running TRACK (rust ring)
+    G.rect(fx-25,fy-12,fx+25,fy+12,6);                                    // the FIELD (dead turf)
+    for(x=fx-23;x<=fx+23;x++){ set(x,fy,10); }                            // midline
     for(var cc=0;cc<360;cc+=4){ var cr=cc*Math.PI/180; var mx=Math.round(fx+Math.cos(cr)*6), my=Math.round(fy+Math.sin(cr)*4); if(get(mx,my)===6)set(mx,my,10); } // center circle
-    G.rect(fx-26,fy-13,fx-25,fy+13,10); G.rect(fx+25,fy-13,fx+26,fy+13,10); // sidelines
-    // PLAYGROUND on the NW lawn (above the field)
-    G.rect(10,48,28,62,9);
-    // BASKETBALL COURTS (2) on the east lawn (clear of the drives)
-    G.rect(104,50,122,63,8); G.rect(104,68,122,81,8);
-    for(y=51;y<=62;y++)set(113,y,10); for(y=69;y<=80;y++)set(113,y,10);
-    G.rect(104,50,122,50,10); G.rect(104,63,122,63,10); G.rect(104,68,122,68,10); G.rect(104,81,122,81,10);
+    G.rect(fx-25,fy-12,fx-24,fy+12,10); G.rect(fx+24,fy-12,fx+25,fy+12,10); // sidelines
+    G.rect(fx-11,fy-12,fx-10,fy+12,10); G.rect(fx+10,fy-12,fx+11,fy+12,10); // the yard/goal lines (reads finished)
+    G.rect(10,116,70,118,2); G.rect(10,70,12,118,2);                     // BLEACHERS along the field
 
-    // ---- SEPARATE drives, all EAST of the field + knit to the gate: BUS LOOP, DROP-OFF, PARKING ----
-    G.rect(40,113,92,119,1);                                              // bottom drive band (ties everything to the gate)
-    G.rect(76,44,80,116,1);                                               // BUS lane (up the east)
-    G.rect(84,44,88,116,1); for(y=50;y<=110;y+=6) set(86,y,10);           // DROP-OFF lane + queue stripes (kept separate)
-    G.rect(76,44,88,47,1);                                                // top cross — the loop return in front of the building
-    G.rect(92,96,122,116,1);                                             // staff PARKING lot (SE)
-    for(x=96;x<=120;x+=5){ set(x,100,10); set(x,101,10); set(x,108,10); set(x,109,10); } // parking stalls
+    // ---- BASKETBALL COURTS (2) + PLAYGROUND, in the band between the field and the drives ----
+    G.rect(74,76,92,90,8); G.rect(74,94,92,108,8);
+    for(y=77;y<=89;y++)set(83,y,10); for(y=95;y<=107;y++)set(83,y,10);
+    G.rect(74,76,92,76,10); G.rect(74,90,92,90,10); G.rect(74,94,92,94,10); G.rect(74,108,92,108,10);
+    G.rect(74,62,92,74,9);                                                // playground beside the courts
 
-    // ---- dead trees line the drives + dot the lawn; FLAGPOLE at the entry plaza ----
-    for(y=46;y<=112;y+=8){ set(74,y,3); }                                // trees along the bus lane
-    for(i=0;i<24;i++){ var tx=8+Math.floor(r()*(W-16)), ty=46+Math.floor(r()*(H-54)); if(get(tx,ty)===4)set(tx,ty,3); }
-    set(58,24,12); set(59,24,12);                                        // flagpole at the plaza
+    // ---- DRIVES: a bus/drop-off LOOP + staff parking on the right, separate from the walk campus ----
+    G.rect(98,58,118,62,1); G.rect(98,58,102,118,1); G.rect(114,58,118,118,1); G.rect(98,114,118,118,1); // the loop
+    for(y=64;y<=110;y+=6) set(100,y,10);                                  // drop-off queue stripes (west leg)
+    G.rect(104,96,112,116,1);                                            // staff parking pocket inside the loop
+    for(x=104;x<=110;x+=3){ set(x,100,10); set(x,108,10); }
+    G.rect(94,66,97,68,10);                                               // a wreck/abandoned car marker in the lot
 
-    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    for(i=-4;i<=4;i++)set(gx+i,H-1,5);
-    for(y=H-1;y>=H-10;y--)for(x=-3;x<=3;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); } // punch to the bottom band
+    // ---- dead trees dot the lawn ----
+    for(i=0;i<20;i++){ var tx=8+Math.floor(r()*(W-16)), ty=44+Math.floor(r()*(H-56)); if(get(tx,ty)===4)set(tx,ty,3); }
+
+    // ---- ENTRANCE off the SOUTH street (gate under the drive loop, rotated by the kit) ----
+    var gx=108;
+    for(i=-3;i<=3;i++)set(gx+i,H-1,5);
+    for(y=H-1;y>=114;y--)for(x=-2;x<=2;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); } // punch to the loop
     return g;
   }
 
@@ -82,7 +96,7 @@
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7a6f5c',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#5b6a44',
-    7:'#8a5040',8:'#4e5a5f',9:'#8a6a3a',10:'#c9c1aa',11:'#6a675e',12:'#b0863a'};
+    7:'#8a5040',8:'#4e5a5f',9:'#8a6a3a',10:'#c9c1aa',11:'#6a675e',12:'#b0863a',13:'#41501f'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the campus edge (setback)'},
     1:{name:'pavement / drive',   kind:'drive',      act1:'cracked pavement — the bus loop, drop-off lane + staff parking (car-drivable)'},
@@ -96,7 +110,8 @@
     9:{name:'playground',        kind:'play',        act1:'the sun-bleached playground — structures rusted, safety surface split'},
     10:{name:'white markings',    kind:'ground',     act1:'faded white paint — field/court lines, drop-off queue + parking stalls'},
     11:{name:'sidewalk / plaza',  kind:'ground',     act1:'the entry plaza + walkways, concrete cracked, weeds in the joints'},
-    12:{name:'flagpole / light',  kind:'prop',       act1:'the empty flagpole / a campus pole light, halyard slapping, head dark'}
+    12:{name:'flagpole / light',  kind:'prop',       act1:'the empty flagpole / a campus pole light, halyard slapping, head dark'},
+    13:{name:'garden bed',        kind:'prop',       act1:'a dead courtyard garden bed / planter in the quad, gone to weed', solid:false}
   };
   var NOTES={
     summary:'A dead K-12 school — an E-shaped classroom building + gym on a campus of dead lawn, a sports field ringed by a running track, basketball courts, a playground, and separate bus-loop / drop-off / staff-parking drives with a flagpole at the entry plaza.',

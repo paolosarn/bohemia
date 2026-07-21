@@ -37,6 +37,15 @@ Gate for the machine itself: `gates/district_kit_gate.js`.
 2. **BUILD CANONICAL-SOUTH on the kit.** Author the layout with the car entrance at the SOUTH
    edge, using kit primitives. EXPLAIN-EVERY-TILE: no blank slabs; every tile is a named legend
    item; research what fills the space and put it there. Dead-world act 1 (no living vegetation).
+   **WALKABLE-LAND LAW (Paolo 7/20, LOCKED):** the plot is precious walkable land — it CANNOT be
+   mostly parking/driveway/apron with a tiny building. BUILDINGS + PURPOSEFUL CONTENT must DOMINATE;
+   pavement is connective tissue, not the main event. Check yourself with `K.landStats(g, legend)`
+   (drivePct must not dominate contentPct) and the render (does it read FINISHED + USED, or is it a
+   sparse lot?). A vehicle-venue by nature (drive-in, gas/truck stop, parking structure) is the ONLY
+   exception: declare `vehicular:true` in the spec — and even then, dress the pavement, never a void.
+   Failures that made this law: fire-station v1 (8% building, 52% empty apron); school v1 (thin
+   features stranded in empty lawn). The self-storage (unit rows wall-to-wall) is the density model.
+   Gate: walkable_gate.js.
 3. **STREET-AWARE + DRIVABLE.** Call `K.rotateToStreet(...)` to spin the entrance onto the real
    street + add pedestrian gates on corner side streets. Make the drivable surface EXPLICIT (a
    drive code) and reachable from the curb in EVERY placement (each single edge + corners).

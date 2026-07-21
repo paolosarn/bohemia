@@ -30,20 +30,21 @@
     // ---- MARKET HALL / food court at the back-left; a couple of solid vendor sheds ----
     G.rect(10,10,44,22,2);
 
-    // ---- the MARKET: rows of CANOPY-covered stalls with vendor tables, aisles between. The tents
-    // are color-coded per row (bleached white / faded red / faded teal) — real markets navigate by
-    // canopy color, and it breaks the monotony ----
+    // ---- the MARKET: rows of INDIVIDUAL PEAKED TENTS with open sky/dirt between them (so it reads
+    // unmistakably OUTDOOR / al-fresco, not an indoor hall), color-coded per row (bleached white /
+    // faded red / faded teal — markets navigate by tent color), corner poles + a peaked ridge, some
+    // collapsed ----
     var TENT=[4,13,14], rowi=0;
-    for(var ry=14; ry<=74; ry+=13){
+    for(var ry=16; ry<=74; ry+=14){
       var tc=TENT[rowi%3]; rowi++;
-      G.rect(12,ry,112,ry+6,tc);                                         // a stall-canopy row (overhead tents)
-      for(var tx=16; tx<=108; tx+=7){                                    // vendor tables under the canopy
-        if(r()<0.85){ set(tx,ry+2,6); set(tx+1,ry+2,6); set(tx,ry+4,6); set(tx+1,ry+4,6); }
-        else { set(tx,ry+3,3); }                                         // a collapsed/looted stall = junk
+      for(var tx=12; tx<=106; tx+=13){
+        if(r()<0.16){ set(tx+5,ry+3,3); set(tx+3,ry+5,3); continue; }    // a collapsed / looted tent -> open gap
+        G.rect(tx,ry,tx+10,ry+7,tc);                                     // the tent canopy
+        set(tx,ry,6); set(tx+10,ry,6); set(tx,ry+7,6); set(tx+10,ry+7,6);// the corner tent POLES
+        for(var py=ry;py<=ry+7;py++) set(tx+5,py,10);                    // the peaked RIDGE line (reads as a tent roof from above)
+        set(tx+3,ry+3,6); set(tx+7,ry+3,6); set(tx+3,ry+5,6); set(tx+7,ry+5,6); // vendor tables under the tent
       }
     }
-    // torn gaps in the canopies (dead-world): punch some holes back to aisle
-    for(i=0;i<40;i++){ var hx=12+Math.floor(r()*100), hy=14+Math.floor(r()*67); var hc=get(hx,hy); if(hc===4||hc===13||hc===14)set(hx,hy,7); }
 
     // ---- PARKING lot across the front (south), gravel, with stalls + a drive aisle ----
     G.rect(8,90,120,120,1);

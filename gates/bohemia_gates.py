@@ -80,6 +80,8 @@ GATES = [
      'dead swap meet: canopy stall rows, aisles, market hall, gravel parking — the barter stage', False),
     ('SELF-STORAGE',   ['node', 'gates/storage_gate.js'],
      'dead looted storage: unit rows, roll-up doors, pried-open units, drive aisles, fortress fence', False),
+    ('WALKABLE LAND',  ['node', 'gates/walkable_gate.js'],
+     'no district is mostly parking/driveway: content dominates pavement (vehicular venues exempt)', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
      'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
     ('CRYPT',          ['node', 'gates/crypt_gate.js'],

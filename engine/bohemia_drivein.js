@@ -98,7 +98,7 @@
       'Leisure category (drivein). Zero purple. The screen/marquee show no readable film titles (Paolo\'s to author if ever).',
       'Research-first (per the reminder): built from real drive-in site plans, not memory.']
   };
-  K.register('drivein', { generate:generate, body:function(c){return c===2;}, category:'leisure', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  K.register('drivein', { generate:generate, body:function(c){return c===2;}, category:'leisure', vehicular:true, palette:PALETTE, legend:LEGEND, notes:NOTES });
 
   var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;

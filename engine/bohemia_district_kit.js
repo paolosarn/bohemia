@@ -200,7 +200,20 @@
       if(n>best)best=n; }
     return best/(W*H); }
 
-  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,
+  // WALKABLE-LAND LAW (Paolo 7/20/26): a full plot of walkable land can't be mostly parking/driveway
+  // with a tiny building. landStats splits the plot into DRIVE (pavement), CONTENT (buildings + used
+  // features), and FILLER (drive + desert + bare undifferentiated ground). The gate asserts drive
+  // does not dominate content. FILLER_NAME = the bare-ground legend names that DON'T count as content.
+  var FILLER_NAME=/lawn|desert|dead-ground|\bapron\b|\bpad\b|sidewalk|plaza|aisle|forecourt|gravel|packed-dirt|drive|parking|\brough\b|\bbare\b|margin|setback/i;
+  function landStats(g,legend){ legend=legend||{}; var W=g[0].length,H=g.length,A=W*H,drive=0,content=0,filler=0;
+    var driveCodes={}; for(var c in legend){ if(legend[c]&&legend[c].kind==='drive')driveCodes[c]=1; }
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){ var v=g[y][x], e=legend[v]||{};
+      if(driveCodes[v]){ drive++; filler++; }
+      else if(v===0 || FILLER_NAME.test(e.name||'')){ filler++; }
+      else content++; }
+    return { drivePct:100*drive/A, contentPct:100*content/A, fillerPct:100*filler/A }; }
+
+  var API={SZ:SZ,TILE:TILE,M:M,rng:rng,blank:blank,grid:grid,ROADSET:ROADSET,landStats:landStats,
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,

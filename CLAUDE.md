@@ -83,6 +83,19 @@ research partner. He DECIDES, you PRODUCE.
 - STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
   Progress = new garment SHAPES (new geometry/silhouette/category), machine-
   locked by structure_gate.js. A recolor is filler, never the headline.
+- WALKABLE-LAND LAW (Paolo 7/20, LOCKED, "this has to be a new rule"): a district
+  is a FULL PLOT of walkable land; it CANNOT be mostly parking lot / driveway /
+  apron with a tiny building stranded in it. BUILDINGS + PURPOSEFUL CONTENT must
+  dominate the plot; pavement is connective tissue, never the main event. The
+  self-storage (unit rows wall-to-wall) is the density reference; the fire-station
+  v1 (8% building, 52% empty apron) was the failure that triggered the law. The
+  DELIBERATE exception: VEHICULAR VENUES whose vehicle surface IS the venue
+  (drive-in, gas/truck stop, parking structure) declare `vehicular:true` and are
+  exempt from the pavement cap (but still must be dressed, never a void). Gate:
+  walkable_gate.js sweeps every registered district (drivePct <= contentPct+margin,
+  via K.landStats). SPIRIT the number can't fully catch — hold the render-and-look
+  bar: a walkable district must read FINISHED and USED (dense buildings + purpose),
+  not thin features stranded in empty lawn/pavement. Full law in /laws.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)

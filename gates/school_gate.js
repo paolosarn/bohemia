@@ -10,11 +10,15 @@ const counts = r => { const t = {}; for (const row of r.g) for (const c of row) 
 const CONFIGS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 const purpleFree = pal => { for (const c of Object.keys(pal)) { const h = pal[c], R = parseInt(h.slice(1,3),16)/255, G = parseInt(h.slice(3,5),16)/255, B = parseInt(h.slice(5,7),16)/255, mx = Math.max(R,G,B), mn = Math.min(R,G,B), d = mx-mn; if (d>0.06&&mx>0.12){ let hu = mx===R?60*(((G-B)/d)%6):mx===G?60*((B-R)/d+2):60*((R-G)/d+4); if(hu<0)hu+=360; if(hu>=255&&hu<320) return false; } } return true; };
 
-let anatomy = true, filled = true, streetOk = true, cornerPed = true, driveConnected = true;
+let anatomy = true, filled = true, streetOk = true, cornerPed = true, driveConnected = true, contentDom = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = D.generate(s * 13 + 4, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
-  if (!(t[4] > 4000 && t[2] > 1000 && t[1] > 800 && t[6] > 600 && t[7] > 200 && t[8] > 200 &&
-        (t[9] || 0) > 100 && (t[10] || 0) > 100 && (t[3] || 0) > 10 && (t[11] || 0) > 30 && (t[12] || 0) >= 1)) anatomy = false;
+  // WALKABLE-LAND rebuild: a dense BUILDING complex(2) + quad plaza(11) + gardens(13) + field(6) +
+  // track(7) + courts(8) + playground(9) dominate; the drive(1) is a small loop.
+  if (!(t[2] > 3000 && t[11] > 600 && (t[13] || 0) > 200 && t[6] > 600 && t[7] > 200 && t[8] > 200 &&
+        (t[9] || 0) > 100 && (t[10] || 0) > 100 && t[4] > 2500 && t[1] > 400 && (t[12] || 0) >= 1)) anatomy = false;
+  const ls = K.landStats(g, D.legend);
+  if (!(ls.contentPct >= ls.drivePct)) contentDom = false;
   if (!K.legendOk(r.g, D.palette) || K.voidFraction(r.g) > 0.20) filled = false;
   if (!D.driveConnected(r)) driveConnected = false;
   const edgeOf = (x, y) => (y === 0 ? 'N' : y === H - 1 ? 'S' : x === 0 ? 'W' : x === W - 1 ? 'E' : null);
@@ -22,7 +26,8 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (g[y][x] !== 5) continue; const e = edgeOf(x, y); if (!e || !cfg.includes(e)) streetOk = false; else gE.add(e); }
   if (cfg.length > 1) { for (const e of cfg) if (!gE.has(e)) cornerPed = false; }
 }
-ok('school + gym + dead lawn + field + track + courts + playground + markings + trees + sidewalk + flagpole', anatomy);
+ok('building complex + quad plaza + gardens + field + track + courts + playground + markings + flagpole', anatomy);
+ok('WALKABLE-LAND: content dominates pavement (a finished campus, not a sparse lot)', contentDom);
 ok('every tile named + low void (EXPLAIN-EVERY-TILE)', filled);
 ok('DRIVABLE: bus loop + drop-off + parking reach the curb in every placement', driveConnected);
 ok('gates sit only on street edges', streetOk);

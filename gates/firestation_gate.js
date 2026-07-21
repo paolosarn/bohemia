@@ -10,11 +10,15 @@ const counts = r => { const t = {}; for (const row of r.g) for (const c of row) 
 const CONFIGS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 const purpleFree = pal => { for (const c of Object.keys(pal)) { const h = pal[c], R = parseInt(h.slice(1,3),16)/255, G = parseInt(h.slice(3,5),16)/255, B = parseInt(h.slice(5,7),16)/255, mx = Math.max(R,G,B), mn = Math.min(R,G,B), d = mx-mn; if (d>0.06&&mx>0.12){ let hu = mx===R?60*(((G-B)/d)%6):mx===G?60*((B-R)/d+2):60*((R-G)/d+4); if(hu<0)hu+=360; if(hu>=255&&hu<320) return false; } } return true; };
 
-let anatomy = true, filled = true, streetOk = true, cornerPed = true, driveConnected = true;
+let anatomy = true, filled = true, streetOk = true, cornerPed = true, driveConnected = true, contentDom = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = D.generate(s * 17 + 6, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
-  if (!(t[1] > 5000 && t[2] > 800 && t[4] > 1500 && (t[6] || 0) > 40 && (t[7] || 0) > 100 &&
-        (t[8] || 0) > 200 && (t[9] || 0) >= 4 && (t[10] || 0) > 10 && (t[11] || 0) > 60 && (t[3] || 0) > 10 && (t[12] || 0) >= 1)) anatomy = false;
+  // WALKABLE-LAND rebuild: a BIG station(2) + training yard(13) + drill tower(7) + burn doors +
+  // RED engines(8) + wreck cars(10) dominate; the apron(1) is small.
+  if (!(t[2] > 2000 && (t[13] || 0) > 800 && (t[7] || 0) > 300 && (t[8] || 0) > 200 && (t[6] || 0) > 40 &&
+        t[4] > 2000 && t[1] > 800 && (t[10] || 0) > 100 && (t[11] || 0) > 200 && (t[9] || 0) >= 4 && (t[3] || 0) > 5 && (t[12] || 0) >= 1)) anatomy = false;
+  const ls = K.landStats(g, D.legend);
+  if (!(ls.contentPct >= ls.drivePct)) contentDom = false;  // content dominates pavement (the new law, locally)
   if (!K.legendOk(r.g, D.palette) || K.voidFraction(r.g) > 0.20) filled = false;
   if (!D.driveConnected(r)) driveConnected = false;
   const edgeOf = (x, y) => (y === 0 ? 'N' : y === H - 1 ? 'S' : x === 0 ? 'W' : x === W - 1 ? 'E' : null);
@@ -22,7 +26,8 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (g[y][x] !== 5) continue; const e = edgeOf(x, y); if (!e || !cfg.includes(e)) streetOk = false; else gE.add(e); }
   if (cfg.length > 1) { for (const e of cfg) if (!gE.has(e)) cornerPed = false; }
 }
-ok('apron + quarters + lawn + bay doors + hose tower + RED engines + pole lights + staff car + stripes + flagpole', anatomy);
+ok('BIG station + training yard + drill tower + burn doors + RED engines + wreck cars + small apron + stripes', anatomy);
+ok('WALKABLE-LAND: content dominates pavement (not a tiny building in a sea of apron)', contentDom);
 ok('every tile named + low void (EXPLAIN-EVERY-TILE)', filled);
 ok('DRIVABLE: the apron + parking reach the curb (rigs pull straight out) in every placement', driveConnected);
 ok('gates sit only on street edges', streetOk);

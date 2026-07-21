@@ -32,19 +32,20 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 2659 |
-| 1 | `#33333c` | pavement / drive | drive | cracked pavement — the bus loop, drop-off lane + staff parking (car-drivable) | ground | no | — | 1738 |
-| 2 | `#7a6f5c` | building (school / gym) | building | the school wings + gym, windows broken, doors chained, faded lettering | structure | yes | school interior: a double-loaded classroom corridor (classrooms both sides), the gym + library + offices off it | 1802 |
-| 3 | `#3a4526` | dead tree / landscaping | tree-dead | a dead campus tree / shrub gone to stick | prop | no | — | 20 |
-| 4 | `#49512e` | dead lawn (campus ground) | ground | the dead campus lawn — brown grass + weeds, the ground between everything | ground | no | — | 7257 |
-| 5 | `#c79a3f` | gate / entrance | gate | the campus drive entrance off the street, amber curb | portal | no | — | 9 |
-| 6 | `#5b6a44` | sports field (dead turf) | ground | the dead football/soccer field inside the track — brown, cracked, the crown faint | ground | no | — | 1240 |
-| 7 | `#8a5040` | running track | ground | the rubberized running track ring, faded rust-red, cracked + weed-split | ground | no | — | 510 |
-| 8 | `#4e5a5f` | basketball court | ground | a dead outdoor court — cracked slab, hoops bent, lines ghosted | ground | no | — | 432 |
-| 9 | `#8a6a3a` | playground | play | the sun-bleached playground — structures rusted, safety surface split | ground | no | — | 285 |
-| 10 | `#c9c1aa` | white markings | ground | faded white paint — field/court lines, drop-off queue + parking stalls | ground | no | — | 335 |
-| 11 | `#6a675e` | sidewalk / plaza | ground | the entry plaza + walkways, concrete cracked, weeds in the joints | ground | no | — | 95 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 2669 |
+| 1 | `#33333c` | pavement / drive | drive | cracked pavement — the bus loop, drop-off lane + staff parking (car-drivable) | ground | no | — | 908 |
+| 2 | `#7a6f5c` | building (school / gym) | building | the school wings + gym, windows broken, doors chained, faded lettering | structure | yes | school interior: a double-loaded classroom corridor (classrooms both sides), the gym + library + offices off it | 4343 |
+| 3 | `#3a4526` | dead tree / landscaping | tree-dead | a dead campus tree / shrub gone to stick | prop | no | — | 14 |
+| 4 | `#49512e` | dead lawn (campus ground) | ground | the dead campus lawn — brown grass + weeds, the ground between everything | ground | no | — | 4081 |
+| 5 | `#c79a3f` | gate / entrance | gate | the campus drive entrance off the street, amber curb | portal | no | — | 7 |
+| 6 | `#5b6a44` | sports field (dead turf) | ground | the dead football/soccer field inside the track — brown, cracked, the crown faint | ground | no | — | 998 |
+| 7 | `#8a5040` | running track | ground | the rubberized running track ring, faded rust-red, cracked + weed-split | ground | no | — | 497 |
+| 8 | `#4e5a5f` | basketball court | ground | a dead outdoor court — cracked slab, hoops bent, lines ghosted | ground | no | — | 468 |
+| 9 | `#8a6a3a` | playground | play | the sun-bleached playground — structures rusted, safety surface split | ground | no | — | 247 |
+| 10 | `#c9c1aa` | white markings | ground | faded white paint — field/court lines, drop-off queue + parking stalls | ground | no | — | 434 |
+| 11 | `#6a675e` | sidewalk / plaza | ground | the entry plaza + walkways, concrete cracked, weeds in the joints | ground | no | — | 1292 |
 | 12 | `#b0863a` | flagpole / light | prop | the empty flagpole / a campus pole light, halyard slapping, head dark | prop | yes | — | 2 |
+| 13 | `#41501f` | garden bed | prop | a dead courtyard garden bed / planter in the quad, gone to weed | prop | no | — | 424 |
 
 **Gate:** `gates/school_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

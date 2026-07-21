@@ -117,7 +117,7 @@
       'REBUILT after Paolo "it kinda looks like shit": the first pass was a sparse dark lot with a thin canopy outline + dirt-noise scatter. Now a bold filled canopy roof, a light concrete pad focal plaza, zoned parking + truck rows, and landscaping planters — a proper tonal ladder (asphalt < pad < store < canopy) instead of muddy dark.',
       'Research-first (per the playbook): built from real gas-station + truck-stop site plans, not memory.']
   };
-  K.register('truckstop', { generate:generate, body:function(c){return c===2||c===7;}, category:'commercial', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  K.register('truckstop', { generate:generate, body:function(c){return c===2||c===7;}, category:'commercial', vehicular:true, palette:PALETTE, legend:LEGEND, notes:NOTES });
 
   var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;

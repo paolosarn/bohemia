@@ -34,18 +34,19 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the lot edge (setback) | ground | no | — | 2649 |
-| 1 | `#565248` | concrete apron / drive | drive | the cracked concrete apparatus apron + drive — the rigs stage here and pull straight to the street (car-drivable) | ground | no | — | 8487 |
-| 2 | `#7a6f5c` | building (station quarters) | building | the station — living quarters + admin, windows boarded, the bell dead | structure | yes | station interior: the apparatus floor up front, the day room + dorm + kitchen + offices behind | 1312 |
-| 3 | `#3a4526` | dead landscaping | tree-dead | a dead shrub / tree at the lot edge | prop | no | — | 19 |
-| 4 | `#49512e` | dead lawn | ground | the dead lawn edging the apron | ground | no | — | 2900 |
-| 5 | `#c79a3f` | gate / entrance | gate | the apron pull-out onto the street, amber curb, the rigs launched from here | portal | no | — | 11 |
-| 6 | `#8a2f22` | apparatus bay door | structure | a roll-up apparatus bay door on the station front, paint peeling, glass gone | structure | yes | — | 112 |
-| 7 | `#6a6358` | hose / drying tower | structure | the hose-drying + training tower, tall, concrete bleached, ladder rusted | structure | yes | — | 291 |
-| 8 | `#c0392b` | fire engine (rig) | vehicle | a fire engine dead on the apron, red faded to rust, tyres flat, pump seized | prop | yes | — | 444 |
+| 1 | `#565248` | concrete apron / drive | drive | the cracked concrete apparatus apron + drive — the rigs stage here and pull straight to the street (car-drivable) | ground | no | — | 2075 |
+| 2 | `#7a6f5c` | building (station quarters) | building | the station — living quarters + admin, windows boarded, the bell dead | structure | yes | station interior: the apparatus floor up front, the day room + dorm + kitchen + offices behind | 3205 |
+| 3 | `#3a4526` | dead landscaping | tree-dead | a dead shrub / tree at the lot edge | prop | no | — | 12 |
+| 4 | `#49512e` | dead lawn | ground | the dead lawn edging the apron | ground | no | — | 4598 |
+| 5 | `#c79a3f` | gate / entrance | gate | the apron pull-out onto the street, amber curb, the rigs launched from here | portal | no | — | 2 |
+| 6 | `#8a2f22` | apparatus bay door | structure | a roll-up apparatus bay door on the station front, paint peeling, glass gone | structure | yes | — | 92 |
+| 7 | `#6a6358` | hose / drying tower | structure | the hose-drying + training tower, tall, concrete bleached, ladder rusted | structure | yes | — | 767 |
+| 8 | `#c0392b` | fire engine (rig) | vehicle | a fire engine dead on the apron, red faded to rust, tyres flat, pump seized | prop | yes | — | 399 |
 | 9 | `#8f8676` | pole light | prop | an apron pole light, head dark | prop | yes | — | 5 |
-| 10 | `#55555f` | abandoned staff car | vehicle | a crew car left in the staff stalls, dust-caked | prop | yes | — | 24 |
-| 11 | `#c9c1aa` | white marking | ground | faded white paint — the apron guideline stripes + the staff parking stalls | ground | no | — | 129 |
+| 10 | `#55555f` | abandoned staff car | vehicle | a crew car left in the staff stalls, dust-caked | prop | yes | — | 272 |
+| 11 | `#c9c1aa` | white marking | ground | faded white paint — the apron guideline stripes + the staff parking stalls | ground | no | — | 536 |
 | 12 | `#b0863a` | flagpole / plaza | prop | the empty flagpole at the station entry, halyard slapping | prop | yes | — | 1 |
+| 13 | `#625d51` | training yard | ground | the concrete drill / training yard — hose racks, wreck cars for extrication, drill marks, all weathered | ground | no | — | 1771 |
 
 **Gate:** `gates/firestation_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

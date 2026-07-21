@@ -18,8 +18,8 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [golf](tilespec/BOHEMIA_TILESPEC_golf.md) | leisure | 14 | yes |
 | [stadium](tilespec/BOHEMIA_TILESPEC_stadium.md) | leisure | 12 | yes |
 | [truckstop](tilespec/BOHEMIA_TILESPEC_truckstop.md) | commercial | 14 | yes |
-| [school](tilespec/BOHEMIA_TILESPEC_school.md) | civic | 13 | yes |
-| [firestation](tilespec/BOHEMIA_TILESPEC_firestation.md) | civic | 13 | yes |
+| [school](tilespec/BOHEMIA_TILESPEC_school.md) | civic | 14 | yes |
+| [firestation](tilespec/BOHEMIA_TILESPEC_firestation.md) | civic | 14 | yes |
 | [swapmeet](tilespec/BOHEMIA_TILESPEC_swapmeet.md) | commercial | 15 | yes |
 | [storage](tilespec/BOHEMIA_TILESPEC_storage.md) | industrial | 13 | yes |
 

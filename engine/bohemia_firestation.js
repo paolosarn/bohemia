@@ -20,44 +20,56 @@
   var M=K.M;
 
   function buildCanonical(seed){
+    // WALKABLE-LAND LAW rebuild (Paolo 7/20 "the firehouse is so tiny... can't mostly be a parking
+    // lot"): a BIG station building + a real TRAINING GROUND (drill tower, burn building, training
+    // yard) dominate the plot; the apron is just the bay frontage. Content > pavement.
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
 
-    // ---- BASE: dead lawn, then a big light CONCRETE APRON / DRIVE over the operational area ----
+    // ---- BASE: dead lawn; desert only at the margins ----
     G.rect(0,0,W-1,H-1,0);
-    G.rect(5,7,W-6,H-6,4);                                                // dead lawn (edges show through)
-    G.rect(14,30,114,120,1);                                             // the concrete apron + drive (the hero surface)
+    G.rect(5,7,W-6,H-6,4);
 
-    // ---- STATION QUARTERS (living + admin) at the back, HOSE TOWER beside it ----
-    G.rect(24,12,98,30,2);                                                // quarters / admin block
-    for(x=28;x<=94;x+=6) set(x,11,11);                                    // roof/parapet detail
-    G.rect(102,12,112,40,7);                                              // hose / drying tower (tall, east)
-    G.rect(103,13,111,15,11);                                            // tower cap detail
+    // ---- THE STATION: a BIG 2-storey block (dayroom / dorm / kitchen / offices) + the bay wing ----
+    G.rect(8,10,64,44,2);                                                 // main station block (the mass)
+    for(x=12;x<=60;x+=5) set(x,10,11);                                    // parapet / window line (2-storey read)
+    for(y=14;y<=40;y+=6) set(8,y,11);
+    G.rect(8,44,64,56,2);                                                 // the apparatus BAY wing across the front
+    for(var b=0;b<4;b++){ var bx=12+b*13; G.rect(bx,56,bx+10,57,6); }     // 4 roll-up bay doors on the wing face
 
-    // ---- APPARATUS BAYS: doors on the building front, RED ENGINES on the apron (drive-through) ----
-    for(var b=0;b<4;b++){ var bx=26+b*18;
-      G.rect(bx,29,bx+13,30,6);                                          // the bay roll-up door header
-      if(b!==2){ G.rect(bx+2,32,bx+11,46,8);                            // a fire ENGINE nosed out of the bay (bay 2 empty)
-        set(bx+2,33,11); set(bx+11,33,11); }                             // cab detail
-    }
-    // guideline STRIPES on the apron (align the rig before the bay) + a center drive lane to the street
-    for(var s=0;s<4;s++){ var sx=32+s*18; for(y=48;y<=110;y+=4) set(sx,y,11); }
+    // ---- APRON in front of the bays (SMALL — just the rig frontage) + RED ENGINES staged ----
+    G.rect(8,58,64,82,1);
+    for(b=0;b<4;b++){ var ex=13+b*13; if(b!==2){ G.rect(ex,60,ex+8,74,8); set(ex,61,11); set(ex+8,61,11); } } // 3 rigs, bay 2 empty
+    for(var s2=0;s2<4;s2++){ var sx=17+s2*13; for(y=76;y<=80;y++) set(sx,y,11); } // short guideline stripes
 
-    // ---- STAFF PARKING marked on the SW apron; a couple of abandoned staff cars ----
-    for(x=18;x<=40;x+=5){ set(x,100,11); set(x,101,11); set(x,108,11); set(x,109,11); }
-    G.rect(20,98,21,103,10); G.rect(30,106,31,111,10);                   // abandoned staff cars
+    // ---- THE TRAINING GROUND (east) — this is what fills the land with PURPOSE, not empty apron ----
+    G.rect(74,52,120,104,13);                                             // the concrete TRAINING YARD (content, not drive)
+    G.rect(80,10,98,50,7);                                                // the DRILL / HOSE TOWER (tall — the hero)
+    for(y=14;y<=46;y+=6){ set(81,y,11); set(97,y,11); }                   // tower floor lines
+    G.rect(102,10,120,40,2);                                              // the BURN BUILDING (concrete training house)
+    for(x=104;x<=118;x+=4) set(x,40,6);                                   // its scorched training doors
+    G.rect(78,58,82,102,11); G.rect(112,58,116,102,11);                  // HOSE RACKS lining the yard
+    G.rect(90,66,99,78,10); G.rect(96,86,105,98,10);                      // wreck cars for extrication drills
+    for(i=0;i<10;i++){ var cx=84+Math.floor(r()*30), cy=58+Math.floor(r()*44); if(get(cx,cy)===13)set(cx,cy,11); } // drill cones/marks
 
-    // ---- POLE LIGHTS around the apron; FLAGPOLE + a landscaping strip at the front ----
-    [[16,32],[112,32],[16,114],[112,114],[64,60]].forEach(function(p){ set(p[0],p[1],9); });
-    set(64,20,12);                                                       // flagpole (in the lawn median at the entry)
-    for(i=0;i<18;i++){ var tx=6+Math.floor(r()*4), ty=8+Math.floor(r()*(H-16)); if(get(tx,ty)===4)set(tx,ty,3); }
-    for(i=0;i<18;i++){ var tx2=W-6+Math.floor(r()*4), ty2=8+Math.floor(r()*(H-16)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
+    // ---- STAFF PARKING (SMALL, SW) + an abandoned crew car, tied to the entrance lane ----
+    G.rect(8,100,44,116,1);
+    for(x=12;x<=40;x+=5){ set(x,104,11); set(x,105,11); set(x,112,11); set(x,113,11); }
+    G.rect(14,102,15,107,10);
+    G.rect(44,110,68,114,1);                                             // connector lane: parking -> the entrance pull-out
+
+    // ---- POLE LIGHTS, FLAGPOLE, a little dead landscaping ----
+    [[10,58],[66,58],[10,116],[72,104],[118,104]].forEach(function(p){ set(p[0],p[1],9); });
+    set(69,20,12);
+    for(i=0;i<14;i++){ var tx=6+Math.floor(r()*4), ty=8+Math.floor(r()*(H-16)); if(get(tx,ty)===4)set(tx,ty,3); }
+    for(i=0;i<14;i++){ var tx2=W-6+Math.floor(r()*4), ty2=8+Math.floor(r()*(H-16)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
 
     // ---- ENTRANCE / PULL-OUT off the SOUTH street (rotated to the real street by the kit) ----
     var gx=W>>1;
     for(i=-5;i<=5;i++)set(gx+i,H-1,5);
-    for(y=H-1;y>=H-8;y--)for(x=-4;x<=4;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); }
+    G.rect(gx-4,82,gx+4,H-1,1);                                           // the apron pull-out lane to the street
+    for(y=H-1;y>=82;y--)for(x=-4;x<=4;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4||c===13)set(gx+x,y,1); }
     return g;
   }
 
@@ -72,7 +84,7 @@
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
   var PALETTE={0:'#1c1a15',1:'#565248',2:'#7a6f5c',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#8a2f22',
-    7:'#6a6358',8:'#c0392b',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#b0863a'};
+    7:'#6a6358',8:'#c0392b',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#b0863a',13:'#625d51'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the lot edge (setback)'},
     1:{name:'concrete apron / drive',kind:'drive',   act1:'the cracked concrete apparatus apron + drive — the rigs stage here and pull straight to the street (car-drivable)'},
@@ -86,7 +98,8 @@
     9:{name:'pole light',         kind:'prop',       act1:'an apron pole light, head dark'},
     10:{name:'abandoned staff car',kind:'vehicle',   act1:'a crew car left in the staff stalls, dust-caked'},
     11:{name:'white marking',     kind:'ground',     act1:'faded white paint — the apron guideline stripes + the staff parking stalls'},
-    12:{name:'flagpole / plaza',  kind:'prop',       act1:'the empty flagpole at the station entry, halyard slapping'}
+    12:{name:'flagpole / plaza',  kind:'prop',       act1:'the empty flagpole at the station entry, halyard slapping'},
+    13:{name:'training yard',     kind:'ground',     act1:'the concrete drill / training yard — hose racks, wreck cars for extrication, drill marks, all weathered'}
   };
   var NOTES={
     summary:'A dead fire station — a row of apparatus bays opening onto a big concrete apron with red engines dead on it, a hose/drying tower, the boarded quarters, staff parking, guideline stripes leading the rigs to the street pull-out.',
