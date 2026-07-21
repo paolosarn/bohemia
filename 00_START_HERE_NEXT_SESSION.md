@@ -74,9 +74,15 @@ orientations, median/dashes stop at the crossing) via tools/bohemia_city_
 intersections_patch.py. __CITY.human(x,y) teleport probe added - it caught
 that TILE_FINE=32 (not 128): always compute fine coords as tile*32.
 Verified at a live 4-way (color probe + screenshot). Gate #CITY TAB 33.
-NEXT for street-level art: turn-pocket arrows (cell.mk vocabulary),
-building/lot art (the district factory tilespecs), lamps as the V11 body
-not a dot.
+POCKETS LANDED (7/20 latest): solid pocket-boundary lines at approaches
+(approved pocket_line art both orientations) via tools/bohemia_city_
+pockets_patch.py; the live probe caught a fractional-rel bug BEFORE ship
+(band offsets make rel always x.5 - equality checks never fire; use
+divider-band ranges). ARROW SCOPE CALL: bold arrows at 16px would be
+illegible mush (the killed crime) - arrows wait for a zoom-true multi-cell
+treatment. Gate #CITY TAB 38.
+NEXT for street-level art: building/lot art (the district factory
+tilespecs), lamps as the V11 body not a dot, arrows at zoom-true scale.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid

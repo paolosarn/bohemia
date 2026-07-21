@@ -170,6 +170,14 @@ if (b64m) {
   const worldPath = decoded.slice(decoded.indexOf('function tileMeta'), decoded.indexOf('function chunkCanvas'));
   ok('REGEN: the world path holds zero Math.random (pure f(seed))',
     worldPath.indexOf('Math.random') < 0 && worldPath.length > 1000);
+
+  // 12. THE POCKETS LOCK (7/20): approaches carry solid pocket-boundary
+  // lines in the approved art; arrows deferred to a zoom-true treatment
+  // (never illegible mush - the bold-marking ruling).
+  ok('POCKETS: approach pocket lines in (divider-band condition, fractional-rel safe)',
+    decoded.indexOf('POCKETS') >= 0 && decoded.indexOf('rel%(LANE_W+1)>=LANE_W&&rel<LANE_W+1') >= 0);
+  ok('pocket art embedded both orientations',
+    decoded.indexOf("'pocket_v'") >= 0 && decoded.indexOf("'pocket_h'") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
