@@ -8,6 +8,61 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## APARTMENT COMPLEX + THE MAP TAB (7/21, district-factory session, "do a lot")
+Paolo asked "where do I go see your work?" and the honest answer was "nowhere, I hand
+you screenshots" — this closes that gap for good, plus closes the [PENDING] gap the
+LANDLOCKED DISTRICT LAW flagged the same day.
+APARTMENT COMPLEX (engine/bohemia_apartment.js, RESIDENTIAL): research-first Sun Belt
+garden-apartment layout — 3 building rows with EXTERIOR breezeway stairs (the correct
+low-rise Vegas/Phoenix typology, not an interior-corridor mid-rise), carports, a fenced
+drained-pool deck, bigger clubhouse, guest parking (striped), mailbox kiosk, 3 dumpster
+enclosures. content 36% / drive 17.6% (WALKABLE-LAND honored). Joins SUBURB_FAMILY in
+bohemia_world.js — landlocked interior apartment cells now relay exactly like suburb.
+Wired into the overmap's placement rolls (proceduralDistrict), clustered near the
+strip/downtown core (20% chance within dStrip<8, tapering to 4% at the periphery) —
+matches real multifamily geography, not spread uniformly like suburb sprawl. Gate:
+apartment_gate.js (11 checks x 6 street configs). Registered in TAXONOMY (was returning
+null category — new district types need a TAXONOMY entry, not just K.register).
+Bug caught + fixed before ship: the entrance lane never actually connected to the
+internal drive network (a 20-tile gap) — driveReachFromStreet was 4.5%, not the required
+85%. Root cause pattern to remember: when a district's entrance cluster is built
+separately from its main grid, always extend the entrance lane ALL THE WAY to an
+existing connected street, never assume a `for(x...) if(get(x,y)===...)` patch-in will
+actually bridge two disconnected networks — it only overwrites what's already adjacent.
+THE MAP TAB (tools/bohemia_map_tab.py -> slices/BOHEMIA_MAP_CURRENT.html, wired as a
+real "MAP" tab in the alpha next to CITY): embeds the REAL world model — bohemia_world.js
++ all 31 auto-factory district generators + kit/overmap/bridge/blockgen/floorplan/
+garage/crypt, 38 modules byte-locked (map_tab_gate.js, ENGINE SYNC LAW) — and renders it
+LIVE, client-side, exactly like tools/bohemia_aerial.js: native tile resolution, real
+intersection topology (read from actual neighbor connectivity), honest reserved-
+placeholder tags for bespoke/unbuilt landmark types (casino/ballpark/etc, hatch + name
+tag), canon street color. Each cell renders ONCE into a cached offscreen canvas (128x128
+native) so pan/zoom/tap-to-inspect stays smooth regardless of per-tile detail cost.
+Read-only exploration — deliberately NOT the CITY tab's build/demolish city-builder, a
+separate simpler tier (per the "how do you see this fitting the zoom levels" discussion
+7/21 earlier the same day: walk view / district-block view / this new valley-aerial
+view, three tiers, CITY tab's isometric builder is its own fourth, bespoke thing).
+Verified end-to-end in a real headless browser INSIDE the actual alpha: splash dismiss
+-> MAP tab click -> iframe loads -> renders -> pan/zoom/tap-to-inspect all confirmed
+working, zero console errors.
+MERGE HAZARD CAUGHT AND FIXED (record this pattern): re-ran tools/bohemia_city_tab.py
+for the apartment/overmap freshness need, which is safe for BOHEMIA_CITY_CURRENT.html
+(confirmed NOT wired anywhere live in the alpha — `alpha.indexOf('BOHEMIA_CITY_CURRENT
+.html') < 0` is itself gated). The REAL live CITY tab is the alpha's inline CITY_B64
+blob, touched only by tools/bohemia_city_overmap_resync.py (a SURGICAL patch of just the
+embedded overmap.js module region — it does NOT copy from BOHEMIA_CITY_CURRENT.html, it
+edits CITY_B64 in place, preserving every prior patch: streetart/streetwidth/
+intersections/pockets/lampposts/suburbs/lights/buildingart/perimeterwall). The actual
+mistake: merging with a concurrent session (their "REUSE-FIRST: PERIMETER WALL WIRED"
+work landed a NEW perimeter-wall-art patch into CITY_B64 after my last sync) and
+resolving the CITY_B64 conflict by keeping MY (older) side — silently reverting their
+new patch, caught only because city_tab_gate dropped from 50 to 47 checks passing.
+FIX: on a CITY_B64 conflict, always take the OTHER side (or whichever is more recent)
+and re-run ONLY the resync tool on top for your own overmap changes — never keep your
+own stale copy just because it's the side you're already holding.
+DISTRICT FACTORY NOW 32 auto-types (residential now: suburb/gated/estate/trailer/
+apartment). REMAINING non-casino candidates: waterpark, speedway, mall.
+
 ## LANDLOCKED DISTRICT LAW: SEED GENERATION NOW ENFORCES IT (7/21, district-factory
 ## session, Paolo reviewing the valley aerial: "new rule, if there is an interior
 ## district not touching a street it has to be a suburb or apt complex...")
