@@ -268,6 +268,40 @@ if (G) {
       ok('the shells ride the strap (lit studs)', shells >= 3); }
   }
   ok('wave-6 candidates ship', /genCoverall\(/.test(gbAll()) && /split:true/.test(gbAll()) && /genCape\(/.test(gbAll()) && /kind:'bandolier'/.test(gbAll()));
+
+  // WAVE 7: bib overalls / gas mask / tool belt / ankle skirt
+  if (W && WN) {
+    let bo = null, boN = null, gm = null, gmN = null, tbl = null, lsk = null, wsk = null;
+    try { bo = W.genCoverall(g, { ramp: R, bib: true }); boN = WN.genCoverall(g, { ramp: R, bib: true });
+          const A7 = (typeof makeA === 'function') ? null : null;
+          gm = G2A('S').genAcc(g, { ramp: R, kind: 'gasmask' }); gmN = G2A('N').genAcc(g, { ramp: R, kind: 'gasmask' });
+          tbl = G2A('S').genGear(g, { ramp: R, kind: 'toolbelt' });
+          lsk = G.genPants(g, { ramp: R, cut: 'longskirt' }); wsk = G.genPants(g, { ramp: R, cut: 'skirt' }); }
+    catch (e) { console.log('  wave7 err: ' + e.message); }
+    ok('wave-7 shapes render', [bo, boN, gm, gmN, tbl, lsk, wsk].every(o => o && Object.keys(o).length >= 8));
+    if (bo && boN) { const ps7 = parts(bo);
+      ok('bib overalls: full legs, BARE ARMS', ps7.has(9) && ps7.has(10) && ps7.has(11) && ps7.has(12) && !ps7.has(5) && !ps7.has(6));
+      const tCov = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 4) { t++; if (o[i] !== undefined) c++; } return c / t; };
+      ok('the bib is a PANEL, not a shirt (partial torso, coveralls stay full)', tCov(bo) < 0.55 && tCov(W.genCoverall(g, { ramp: R })) > 0.9);
+      ok('from behind: straps, no bib (backs differ from fronts)', tCov(boN) < tCov(bo)); }
+    if (gm && gmN) {
+      const fCov7 = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 2) { t++; if (o[i] !== undefined) c++; } return c / t; };
+      ok('gas mask covers the WHOLE face, eyes included (its own class, not the dust mask)', fCov7(gm) === 1);
+      let lens = 0; for (const k in gm) { const c = gm[k]; if (c[0] === R.lt[0] && c[1] === R.lt[1]) lens++; }
+      ok('the lenses read', lens >= 2);
+      ok('from behind: the head strap shows, no skin slits', fCov7(gmN) === 1 && (() => { for (const k in gmN) if (g[+k] === 1) return true; return false; })());
+      const dm = G2A('S').genAcc(g, { ramp: R, kind: 'mask' });
+      ok('the dust mask keeps its below-the-eyes law (both masks coexist)', dm && fCov7(dm) < 1); }
+    if (tbl) {
+      ok('tool belt: waist band + pouches HANGING onto the hips', [...parts(tbl)].some(pt => pt === 4) && [...parts(tbl)].some(pt => pt === 9 || pt === 10 || pt === 0));
+      ok('tool belt never climbs the chest', rows(tbl).every(y => y >= 28)); }
+    if (lsk && wsk) {
+      const hem = (o) => Math.max.apply(null, Object.keys(o).map(k => ((+k) / 56) | 0));
+      ok('ankle skirt is a REAL third length: wrap < ankle', hem(wsk) < hem(lsk) && hem(lsk) >= 46); }
+  }
+  ok('wave-7 candidates ship', /bib:true/.test(gbAll()) && /kind:'gasmask'/.test(gbAll()) && /kind:'toolbelt'/.test(gbAll()) && /cut:'longskirt'/.test(gbAll()));
+  function G2A(dir) { const NAMES7 = ['mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
+    return new Function('CW', 'CH', 'curDir', NAMES7.map(grab).join('\n') + '\nreturn {genAcc,genGear};')(56, 56, dir); }
   function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);

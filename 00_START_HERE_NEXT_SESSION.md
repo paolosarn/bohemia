@@ -429,7 +429,19 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--21. FACE CANON FLOOR + CLOTHING WAVE 6 (7/20, latest): Paolo raged -- his
+-22. WARDROBE ALL CANON + WAVE 7 (7/21, latest): Paolo's verdict export --
+   ALL 176 lines CANON, zero kills, no comments. Waves 5+6 baked to canon
+   (NEW IN CANON carries the eight; wave-4 fresh flags retired); wardrobe
+   bank re-extracted: 175 canon. COOK BATCH 21 (wave 7) answers "make new
+   clothes": BIB OVERALLS (genCoverall bib:true -- full legs, bib panel on
+   straps, arms bare, straps-only from behind), RUBBER GAS MASK (genAcc
+   gasmask -- full-face class incl. eyes, lenses, filter snout, head strap;
+   dust mask keeps its below-the-eyes law), SCAV TOOL BELT (genGear
+   toolbelt -- belt + buckle + pouches hanging onto the hips), ANKLE WRAP
+   SKIRT (genPants cut:'longskirt' -- third length: knee/mid-shin/ankle).
+   All in COOKING with thumbs [PENDING Paolo]. structure_gate 104.
+   Stamp: BUILD 7/21a.
+-21. FACE CANON FLOOR + CLOTHING WAVE 6 (7/20): Paolo raged -- his
    7/19 face calibration "un-fixed" itself on his phone. Root cause: the
    calibration WAS baked, but PERSIST.restore() wholesale-overwrote
    FACE_OFFSETS with his pre-calibration device save (all zeros) on every

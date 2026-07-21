@@ -491,3 +491,25 @@ all facings through the animations (structure gate 92):
                        end. Not the chest rig (X-harness): a sash.
 New machinery: genCoverall + genCape generators, genCoat split-vent
 support, genGear bandolier branch. All gate-locked same turn.
+
+=== VERDICT (7/21/26): EVERYTHING CANON ===
+Paolo's export: all 176 lines CANON, zero kills, no comments. Waves 5 AND 6
+approved whole (shemagh/bracers/holster/trailing scarf + coveralls/split-
+tail duster/road cape/bandolier) -> baked st:'canon', NEW IN CANON now
+carries those eight, wave-4 fresh flags retired. Wardrobe bank re-extracted:
+175 canon items. The graveyard stands untouched (nothing new died).
+
+=== COOK BATCH 21 (7/21/26, wave 7 -- "make new clothes") ===
+Four REAL NEW SHAPES in COOKING with live thumbs (structure gate 104):
+  BIB OVERALLS     -- workwear sibling of the coveralls: full denim legs,
+                      center bib panel on shoulder straps, ARMS BARE;
+                      from behind it is straps only. (genCoverall bib:true)
+  RUBBER GAS MASK  -- a full-face class of its own: covers the eyes too,
+                      round lenses at the eye line, filter snout off the
+                      jaw, head strap from behind. The dust mask keeps its
+                      below-the-eyes law; both coexist. (genAcc gasmask)
+  SCAV TOOL BELT   -- the working waist: heavy belt + buckle with pouches
+                      HANGING onto both hips. The plain belt stays an
+                      accessory; this is hanging geometry. (genGear toolbelt)
+  ANKLE WRAP SKIRT -- a real third length on the leg rail: knee shorts /
+                      mid-shin wrap / ANKLE. (genPants cut:'longskirt')

@@ -1,7 +1,7 @@
 === BOHEMIA WARDROBE CANON (machine bank, generated 7/19/26) ===
 # source: slices/BOHEMIA_ALPHA_0_9.html GARMENTS[st=canon]. regenerate: python3 tools/bohemia_wardrobe_extract.py
 # NAME|layer|midhex  (hex = ramp mid tone, for tiny-agent rendering)
-# count: 167
+# count: 175
 RED SHIRT|base|#963c36
 WHITE TEE|base|#d4d0c8
 BLACK TANK|base|#2a2a32
@@ -165,6 +165,14 @@ TATTERED FLANNEL|base|#586676
 BEDROLL|back|#807660
 WRAP SKIRT|legs|#806e50
 SHIN GUARDS|gear|#724830
+DESERT SHEMAGH|head|#806e50
+WORN BRACERS|gear|#5c422c
+THIGH HOLSTER|gear|#363436
+TRAILING SCARF|neck|#5c302a
+WORK COVERALLS|base|#3c4230
+SPLIT-TAIL DUSTER|outer|#5c422c
+ROAD CAPE|back|#5c302a
+SHELL BANDOLIER|gear|#5c422c
 HOOD-UP ASH HOODIE|base|#46484e
 HOOD-UP COAL HOODIE|base|#303034
 HOODED DUST PONCHO|outer|#806e50
