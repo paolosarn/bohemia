@@ -81,8 +81,15 @@ pockets_patch.py; the live probe caught a fractional-rel bug BEFORE ship
 divider-band ranges). ARROW SCOPE CALL: bold arrows at 16px would be
 illegible mush (the killed crime) - arrows wait for a zoom-true multi-cell
 treatment. Gate #CITY TAB 38.
+LAMP POSTS STAND (7/20 latest): the blessed V11 dark bodies
+(banks/BOHEMIA_LAMP_DARK_VARIANTS) on the sidewalks per the STAGGERED LAW
+(every 8 along, alternating sides, curb row, pure f(global coords) =
+regen-safe), DEAD IS DEFAULT, live circuits get the rgb-only head glow at
+night (the blessed V11 wired pattern, no verdict owed). tools/bohemia_
+city_lampposts_patch.py. Gate #CITY TAB 40.
 NEXT for street-level art: building/lot art (the district factory
-tilespecs), lamps as the V11 body not a dot, arrows at zoom-true scale.
+tilespecs - THE BIG VISUAL JUMP, colored blocks become the city), arrows
+at zoom-true scale.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid
