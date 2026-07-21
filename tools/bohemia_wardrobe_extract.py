@@ -43,20 +43,27 @@ for m in pat.finditer(src):
     if not mid:
         mid = [110, 104, 92]   # neutral dust cloth fallback (no ramp readable)
     hexc = '#%02x%02x%02x' % tuple(mid)
-    items.append((name, layer, hexc))
+    # pattern (7/21, dress-code-by-rank): stripe/plaid/etc off genTop's own
+    # opt.pattern -- solid is the silent default, never written as a word.
+    pm = re.search(r"pattern:'(\w+)'", gen)
+    pattern = pm.group(1) if pm else ''
+    items.append((name, layer, hexc, pattern))
 
 if not items:
     print('EXTRACT FAILED: no canon garments found in the alpha'); sys.exit(1)
 
 lines = ['=== BOHEMIA WARDROBE CANON (machine bank, generated %s) ===' % '7/19/26',
          '# source: %s GARMENTS[st=canon]. regenerate: python3 tools/bohemia_wardrobe_extract.py' % ALPHA,
-         '# NAME|layer|midhex  (hex = ramp mid tone, for tiny-agent rendering)',
+         '# NAME|layer|midhex|pattern  (hex = ramp mid tone; pattern empty = solid.',
+         '#   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()',
+         '#   widened to p.length>=3 the same turn; regenerate any embedded slice',
+         '#   copy (tools/bohemia_life_slice.py) so its stamped parser matches)',
          '# count: %d' % len(items)]
-for n, l, h in items:
-    lines.append('%s|%s|%s' % (n, l, h))
+for n, l, h, pt in items:
+    lines.append('%s|%s|%s|%s' % (n, l, h, pt))
 open(OUT, 'w', encoding='utf8').write('\n'.join(lines) + '\n')
 
 by_layer = {}
-for n, l, h in items:
+for n, l, h, pt in items:
     by_layer[l] = by_layer.get(l, 0) + 1
 print('wardrobe bank -> %s: %d canon items %s' % (OUT, len(items), by_layer))

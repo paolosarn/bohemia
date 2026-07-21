@@ -40,3 +40,44 @@ Law: laws/BOHEMIA_ADDENDUM_DRESS_CODE_BY_RANK_7_21_26.md.
 [PENDING Paolo, whenever]: FACTION_COLOR per faction, FACTION_VETERAN_KIT
 per faction (which of the 186 canon pieces a faction's veterans wear).
 The moment those tables land, LIFE's population wears them the same turn.
+
+=== SECOND PASS (7/21, same day): SIX FACTIONS RULED FOR REAL ===
+Paolo went faction by faction live: REDS brightest red, CARTEL darkest
+red/maroon, CARAVANS stays tan (blends with the desert on purpose), CHURCH
+gold distinct from MOB's gold, MOB gold STRIPES not solid gold, COLORFUL a
+literal rainbow with no boring neutrals, and a general realism note: real
+people don't wear a single solid color head to toe.
+
+MECHANISM grew three real modes (family/stripe/rainbow) plus a realism fix
+(nudge order: torso, then a small tell -- feet or head -- LEGS ONLY as a
+last resort, never a matching-separates costume) plus a generalized
+no-stray-cover-up rule (an unforced outer or hat can no longer hide a
+color/pattern correctly forced onto base or face underneath).
+
+CONTENT: the muted 187-item wardrobe had NOTHING bright enough for REDS or
+CHURCH's asks, and carried ZERO real blue/green/purple/yellow anywhere --
+every "vivid" item was red-brown family, so COLORFUL was literally
+impossible before this turn. Nine colorway garments cooked (existing
+shapes, new ramps only): SIGNAL RED SHIRT+BOOTS, VESTMENT GOLD SHIRT+BOOTS,
+MOB PINSTRIPE SHIRT, MOSS GREEN SHIRT, TEAL WORK SHIRT, COBALT WORK PANTS,
+ROSE BANDANA. Two colors got cut mid-build by an EXISTING law catching a
+NEW mistake: a violet sash and a first magenta pick both tripped PURPLE
+RESERVATION (r+b-over-g reads as purple-family even off pure hue) -- the
+rose swap clears it. Wardrobe: 195 canon items.
+
+SIX RULED: REDS #dc2820 / CARTEL #5c302a (existing OXBLOOD ramp) / CHURCH
+#ffd75c / MOB #b08a2a stripe (existing MUSTARD ramp) / CARAVANS #caa05a
+(unchanged) / COLORFUL rainbow. His two named collisions (REDS/CARTEL,
+CHURCH/MOB) gate-asserted >=95 RGB units apart, can't silently regress.
+
+7 factions (BLUES/ANARCHISTS/NETWORK/TRADES/VOLUNTEERS/REMNANTS/HOMELESS)
+LEFT UNRULED: reviewing the full roster surfaced real color collisions
+among them, flagged back to Paolo rather than guessed.
+
+Gate: dress_gate.js grew from 23 to 43 checks. Law addendum extended
+(laws/BOHEMIA_ADDENDUM_DRESS_CODE_BY_RANK_7_21_26.md, "SECOND PASS"
+section). LIFE slice regenerated (tools/bohemia_life_slice.py) so its
+embedded dress engine + bank aren't stale. Stamp: BUILD 7/21d.
+
+[PENDING Paolo]: the other 7 factions' colors (collisions to resolve
+first); FACTION_VETERAN_KIT per faction.

@@ -47,7 +47,76 @@ kit proven forced every seed, unspecified layers proven still free, and
 the no-stray-cover-up law proven both ways (silent when ungoverned,
 honored when he explicitly locks the outer too).
 
+## SECOND PASS (7/21, same day): THREE MODES, SIX FACTIONS RULED
+Paolo went further, live, faction by faction: "the reds can be the
+brightest red possible and cartel can be the darkest red possible, maroon
+vibes... the colorful will be fun, they can have a rainbow colorway...
+not even a single color, like rainbow literally... just have the church's
+gold different than the mob's gold... for the mob I'd like to see gold
+STRIPES rather than all gold... for all the factions, just make it
+realistic, not everyone is gonna have a long shirt of the single color."
+
+Four things followed from that one paragraph:
+
+1. **Three LOOK modes**, not one. `FACTION_LOOK[faction]` is now
+   `{mode:'family',color}` (a color family, his exact hex), `{mode:'stripe',
+   color}` (same coverage math, but the torso garment must ALSO carry a
+   striped pattern -- MOB's ask), or `{mode:'rainbow'}` (no color at all --
+   COLORFUL's ask). `FACTION_COLOR` still works as family-mode shorthand;
+   nothing built on the first pass broke.
+2. **Realism order, not weight order.** "Not everyone is gonna have a long
+   shirt of the single color" reads as: a real outfit states its identity
+   with ONE piece plus a small tell (a colored boot, a colored cap), not
+   matching separates. The nudge order changed from heaviest-first to
+   `torso, feet, head, legs` -- legs (a second full garment) is the LAST
+   resort, tried only if nothing small carries the color.
+3. **No stray cover-up, generalized.** The same bug the veteran kit caught
+   turned up here too: forcing `base` to the right color did nothing if a
+   random `outer` was already covering the torso, and forcing `face`
+   (a bandana) did nothing if a random `head` hat was already covering that
+   region. Both branches now clear the layer they're overriding.
+4. **The wardrobe had gaps his asks exposed.** "Brightest red possible" and
+   a gold distinct from the mob's didn't exist in the muted 187-item
+   corpus. Worse: the ENTIRE wardrobe carried zero real blue, green,
+   purple, or yellow -- every "vivid" item was the same red-brown family,
+   making a literal rainbow impossible without inventing colors first. Nine
+   colorway garments cooked this same turn (zero new geometry, existing
+   generators only): SIGNAL RED SHIRT + BOOTS, VESTMENT GOLD SHIRT + BOOTS,
+   MOB PINSTRIPE SHIRT, MOSS GREEN SHIRT, TEAL WORK SHIRT, COBALT WORK
+   PANTS, ROSE BANDANA. (A violet sash and a first magenta pick were both
+   cut mid-build: PURPLE RESERVATION's r+b-over-g test caught them --
+   purple-family reads as purple even off pure-hue, and the law holds even
+   for a "rainbow." The rose replacing magenta clears it.)
+
+**Six factions ruled, real content, gate-locked:**
+REDS family `#dc2820` (the brightest red the corpus can now carry) / CARTEL
+family `#5c302a` (the existing OXBLOOD ramp -- already worn by 6+ items,
+no new cook needed) / CHURCH family `#ffd75c` / MOB stripe `#b08a2a`
+(existing MUSTARD ramp) / CARAVANS family `#caa05a` (unchanged, his call --
+blends with the desert on purpose) / COLORFUL rainbow (no color).
+REDS-vs-CARTEL and CHURCH-vs-MOB are both gate-asserted >=95 RGB units
+apart -- his two named collisions can never silently regress. All five
+family/stripe factions gate-proven to clear >=50% coverage across 60 seeds
+each; MOB lands an actual striped torso ~90% of the time; COLORFUL never
+drops below 3 distinct vivid hues across 60 seeds.
+
+**The other 7 factions (BLUES, ANARCHISTS, NETWORK, TRADES, VOLUNTEERS,
+REMNANTS, HOMELESS) stay UNRULED.** Reviewing the full 13-faction color set
+turned up real collisions among them (several cluster in the same
+tan/rust/olive family within the same 95-unit tolerance that separates
+REDS from CARTEL) -- flagged back to Paolo rather than silently baked, per
+"we'll go over it together."
+
+**A known limitation, flagged not hidden:** CARTEL's dark-maroon matching
+is honest about coverage math but not perfectly hue-pure -- at very low
+lightness, plain RGB distance can't fully distinguish "dark red" from
+"dark anything," so a CARTEL rookie's matched pieces read as consistently
+DARK more reliably than consistently RED-hued. A hue-aware distance
+metric (weight hue error more at low lightness) would tighten this; parked
+as a possible upgrade, not blocking today's ship.
+
 ## NEXT (his call, whenever)
-Paolo rules `FACTION_COLOR[faction]` and `FACTION_VETERAN_KIT[faction]`
-per faction; LIFE's population wears it the same session the tables land,
-no engine changes required.
+Rule the remaining 7 factions (color collisions above need resolving
+first); rule `FACTION_VETERAN_KIT` per faction so veterans wear real
+named garments; LIFE's population wears every ruling the same turn it
+lands, no engine changes required.
