@@ -2391,13 +2391,259 @@ def patch31(demo):
     return demo
 
 
+def patch32(demo):
+    """v32 (Paolo 7/21, the big diagnosis message — five real bugs + four
+    new rulings, all in one pass):
+
+    BUGS FOUND AND FIXED:
+    - THE HOLD SOFTLOCK: posExposed() counted ANY uncovered gunman as a
+      reason to block POP OUT, even a single covered-but-not-peeking
+      enemy in a 1v1, even downed/broken men. That made the button read
+      HOLD forever in exactly the scenarios he described ("my action
+      button never goes green," "1v1ing this enemy... never a good
+      time to shoot him"). Fix: NO DOUBLE EXPOSURE only applies when
+      there's an actual COVERED side to protect (coveredFromMe()) AND
+      an exposed side that isn't dead/downed/broken. A lone covered
+      enemy with nothing else on the board just runs the normal
+      POP OUT flow.
+    - THE SILENT READOUT: setRead() has written every combat message to
+      G.lastRead and then IMMEDIATELY HIDDEN the on-screen element since
+      an earlier session retired it — GRIT, NERVE BROKE, KILL ARC,
+      ACQUIRING, all of it has been invisible this whole time. That is
+      why grit shots and the KILL ARC state read as unexplained bugs.
+      Fix: a real action log, top-left, light white text, last 5 lines,
+      fading with age — his exact ask (4) and the fix for "idk what
+      grit shots is."
+    - DELAYED BLOOD: a killshot survivor didn't leave a floor pool until
+      the NEXT tickTurnEnd (one turn later). Fix: the pool drops the
+      instant he goes down.
+    - NERVE TOO LIBERAL: the morale roll fired on EVERY idle turn once
+      half the crew was down, so waiting around eventually broke
+      everyone regardless of new violence. Fix: the roll only fires
+      the turn a NEW casualty happens (tracked via G._nerveLastDown) —
+      morale cracks when a friend just died in front of them, not from
+      ambient dread while you do nothing.
+    - KILL ARC CONFUSION (not a bug, documented): SEC-BOT has 160 base
+      hp; a flat 100 killshot leaves it at 60/160 = 37.5%, which is
+      what read as "killshot doesn't kill, shoots again at 40%." The
+      readout now being visible (see above) makes this legible in play
+      instead of feeling broken.
+
+    NEW RULINGS BUILT:
+    - WEAPON-GATED LETHALITY: a shotgun killshot is always dead-dead
+      (skips DOWNED entirely — his exact ruling). Pistol never
+      auto-kills on a killshot (always downs — the pacifist's tool).
+      SMG/rifle roll a lethality chance in between. Floor numbers from
+      research (records/BOHEMIA_COMBAT_LETHALITY_RESEARCH_7_21_26.txt):
+      pistol 0%, smg 15%, rifle 35%, shotgun 100%.
+    - KNEEL AND BEG: once you're within finish range of a downed man
+      (not just crawling toward a friend), he kneels with his hands up
+      instead of lying there, and a wiggling pleading line hovers over
+      his head. Broken (surrendered) men already stood hands-up; they
+      get the same begging text.
+    - MANUAL TARGET RING: every valid target gets a visible ring in
+      manual mode, and a SELECT A TARGET prompt shows when nothing is
+      chosen yet."""
+    if 'V32 HOLD FIX' in demo:
+        print('v32 already applied, skipping')
+        return demo
+
+    # --- the HOLD softlock ---
+    demo = sub1(demo, "function posExposed(){ return G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&!myCoverAgainst(e.ea,e.edist)); }   /* V24: POSITIONAL exposure — who could line you up, out or cycling */",
+        "function posExposed(){ return G.e.filter(e=>!e.dead&&!e.downed&&!e.broken&&!e.melee&&e.stun<=0&&!myCoverAgainst(e.ea,e.edist)); }   /* V24+V32: POSITIONAL exposure — who could line you up, out or cycling (the dying and the surrendered never count) */\nfunction coveredFromMe(){ return G.e.filter(e=>!e.dead&&!e.downed&&!e.broken&&!e.melee&&e.stun<=0&&myCoverAgainst(e.ea,e.edist)); }   /* V32 HOLD FIX: the side you WOULD be neglecting by popping toward it — nothing to neglect, nothing to hold for */",
+        'posexposed-covered')
+    demo = sub1(demo, "  } else if(pexp.length>0){   /* V24 NO DOUBLE EXPOSURE (Paolo): a side has you lined up — POP OUT does not exist */",
+        "  } else if(pexp.length>0 && coveredFromMe().length>0){   /* V32 HOLD FIX: only gate when there is BOTH a covered side to protect AND an exposed side threatening it — a lone exposed enemy just runs the normal flow */",
+        'updgap-hold-gate')
+    demo = sub1(demo, "  const exp=exposedToMe();\n  if(exp.length===0 && posExposed().length>0){   /* V24 NO DOUBLE EXPOSURE: never pop around your stone while a side has you lined up */",
+        "  const exp=exposedToMe();\n  if(exp.length===0 && posExposed().length>0 && coveredFromMe().length>0){   /* V32 HOLD FIX: same gate as updGap — no covered side, no double-exposure risk */",
+        'dopop-hold-gate')
+
+    # --- the silent readout: a real, visible action log ---
+    demo = sub1(demo, "function setRead(t,s,col){ G.lastRead={t:t,s:s||'',at:Date.now()}; const r=D('cread'); if(r&&r.style.display!=='none')r.style.display='none'; }",
+        "function setRead(t,s,col){ G.lastRead={t:t,s:s||'',at:Date.now()}; const r=D('cread'); if(r&&r.style.display!=='none')r.style.display='none';\n  (G._actionLog=G._actionLog||[]).push({t:t,s:s||'',at:performance.now()}); if(G._actionLog.length>6)G._actionLog.shift(); }   /* V32 THE SILENT READOUT: #cread was retired and never replaced — every message since has written to memory and shown NOBODY anything */",
+        'setread-log')
+    demo = sub1(demo, "  if(G.ks) driveKillshotCamera(ctx,W,H,cx,cy,RAD,S);\n  screenOverlays(ctx,W,H);\n}",
+        """\
+  if(G.ks) driveKillshotCamera(ctx,W,H,cx,cy,RAD,S);
+  screenOverlays(ctx,W,H);
+  drawActionLog(ctx,W,H);   /* V32: the light white corner log — every shot, miss, GRIT, NERVE, KILL ARC, ACQUIRING, visible for the first time */
+}
+function drawActionLog(ctx,W,H){
+  const log=G._actionLog; if(!log||!log.length)return; const now=performance.now();
+  ctx.save(); ctx.textAlign='left'; ctx.font='600 10px Space Grotesk, ui-monospace, monospace';
+  let y=14;
+  for(let i=Math.max(0,log.length-5);i<log.length;i++){ const L=log[i], age=(now-L.at)/1000, a=Math.max(0,0.62-age*0.07);
+    if(a<=0.02)continue;
+    ctx.fillStyle='rgba(255,255,255,'+a.toFixed(3)+')';
+    ctx.fillText(L.t+(L.s?(' — '+L.s):''),10,y); y+=13; }
+  ctx.restore();
+}""",
+        'draw-actionlog')
+
+    # --- delayed blood on downing ---
+    demo = sub1(demo, "    if(_killed){ tgt.downed=true; tgt.hp=1; tgt.stun=0; tgt.prone=0; tgt.windup=false; }   /* V30 DOWNED: a killshot drops him DYING, not clean-dead */",
+        """\
+    if(_killed){
+      const _lethalRoll=(WEAPON==='shotgun')||(Math.random()<(WEAPON_LETHAL[WEAPON]||0));   /* V32 WEAPON-GATED LETHALITY */
+      if(_lethalRoll){ tgt.dead=true; }   /* his ruling: this weapon finishes the job, no downed state */
+      else { tgt.downed=true; tgt.hp=1; tgt.stun=0; tgt.prone=0; tgt.windup=false;
+        (G.bloodSpots=G.bloodSpots||[]).push({ea:tgt.ea,edist:tgt.edist,r:2.6,jx:0,jy:0});   /* V32: the pool starts the instant he drops, not next turn */
+      }
+    }""",
+        'weapon-lethality')
+    demo = sub1(demo, "let WEAPON='shotgun';",
+        "let WEAPON='shotgun';\nconst WEAPON_LETHAL={pistol:0,smg:0.15,rifle:0.35,shotgun:1.0};   /* V32 (Paolo, research floor): a killshot's odds of being FINAL rather than DOWNED, by weapon */",
+        'weapon-lethal-table')
+
+    # --- nerve: event-triggered, not ambient ---
+    demo = sub1(demo, """\
+  { /* V30 NERVE: past half the crew down, every survivor rolls his nerve */
+    const _tot=G.e.length, _down=G.e.filter(e=>e.dead||e.downed||e.broken).length, _half=Math.ceil(_tot*0.5);
+    if(_down>=_half)for(const e of G.e){ if(e.dead||e.downed||e.broken)continue;
+      if(Math.random()<0.10+0.06*(_down-_half)){ e.broken=true; e.windup=false; e.acq=0; e._brokeAt=performance.now();
+        setRead('NERVE BROKE', e.n+' drops the gun — hands up','#c8a23a'); } } }""", """\
+  { /* V32 NERVE (Paolo: too liberal — waiting 5 turns shouldn't crack a whole crew).
+       The roll fires ONLY the turn a NEW casualty happens, not every idle turn. */
+    const _tot=G.e.length, _down=G.e.filter(e=>e.dead||e.downed||e.broken).length, _half=Math.ceil(_tot*0.5);
+    if(_down>=_half && _down>(G._nerveLastDown||0))for(const e of G.e){ if(e.dead||e.downed||e.broken)continue;
+      if(Math.random()<0.18+0.08*(_down-_half)){ e.broken=true; e.windup=false; e.acq=0; e._brokeAt=performance.now();
+        setRead('NERVE BROKE', e.n+' drops the gun — hands up','#c8a23a'); } }
+    G._nerveLastDown=_down; }""",
+        'nerve-event-gated')
+
+    # --- kneel and beg when adjacent ---
+    demo = sub1(demo, """\
+  if(e.downed){   /* V30 DOWNED: the drop plays once, then he is DYING on the floor (crawl clip pending Paolo) */
+    if(!e._fellAt)e._fellAt=now;
+    if(now<e._fellAt) return firing(e)&&L.fire112?L.fire112[0]:L.idle112;
+    const fseq=L.death[Math.min(e._deathVar||0,L.death.length-1)];
+    const fi=Math.floor((now-e._fellAt)/150);
+    if(fi<fseq.length) return fseq[Math.min(fseq.length-1,fi)];
+    return L.prone112||fseq[fseq.length-1]; }
+  if(e.broken){ return L.handsup112||L.idle112; }   /* V30 NERVE: the gun is down, the hands are up */""", """\
+  if(e.downed){   /* V30 DOWNED: the drop plays once, then he is DYING on the floor (crawl clip pending Paolo) */
+    if(!e._fellAt)e._fellAt=now;
+    if(now<e._fellAt) return firing(e)&&L.fire112?L.fire112[0]:L.idle112;
+    if(e.edist<=BohemiaMelee.SHOVE_RANGE&&L.handsup112)return L.handsup112;   /* V32 KNEEL AND BEG: close the distance and he begs YOU specifically */
+    const fseq=L.death[Math.min(e._deathVar||0,L.death.length-1)];
+    const fi=Math.floor((now-e._fellAt)/150);
+    if(fi<fseq.length) return fseq[Math.min(fseq.length-1,fi)];
+    return L.prone112||fseq[fseq.length-1]; }
+  if(e.broken){ return L.handsup112||L.idle112; }   /* V30 NERVE: the gun is down, the hands are up */""",
+        'kneel-and-beg')
+
+    # begging text render (world/camera space, over the head, wiggling)
+    demo = sub1(demo, "    if(G.selTarget===e.i&&!e.dead){ x.strokeStyle='rgba(232,176,74,0.9)'; x.lineWidth=2.5;   /* your chosen man */\n      x.beginPath(); x.arc(ex,ey,er*1.75,0,7); x.stroke(); }",
+        """\
+    if(G.selTarget===e.i&&!e.dead){ x.strokeStyle='rgba(232,176,74,0.9)'; x.lineWidth=2.5;   /* your chosen man */
+      x.beginPath(); x.arc(ex,ey,er*1.75,0,7); x.stroke(); }
+    if(G.targetMode==='manual'&&!e.dead&&(peeking(e)||firing(e)||e.melee)&&G.selTarget!==e.i){   /* V32 MANUAL TARGET RING: every valid pick is visible */
+      x.strokeStyle='rgba(150,170,205,0.5)'; x.lineWidth=1.6; x.setLineDash([3,3]);
+      x.beginPath(); x.arc(ex,ey,er*1.6,0,7); x.stroke(); x.setLineDash([]); }
+    if((e.broken||(e.downed&&e._fellAt&&nowMs>=e._fellAt&&e.edist<=BohemiaMelee.SHOVE_RANGE))&&BEG_LINES.length){   /* V32 KNEEL AND BEG: he pleads with YOU */
+      const _bi=(e.i*7+(e._brokeAt||e._fellAt||0)|0)%BEG_LINES.length, _wig=Math.sin(nowMs*0.006+e.i*2)*2;
+      x.font='600 9px Space Grotesk, sans-serif'; x.textAlign='center';
+      x.fillStyle='rgba(255,255,255,0.72)'; x.fillText(BEG_LINES[_bi],ex+_wig,ey-er*2.6);
+      x.textAlign='left'; }""",
+        'beg-text-render')
+    demo = sub1(demo, "let WEAPON='shotgun';",
+        "let WEAPON='shotgun';\nconst BEG_LINES=['please... don\\'t','i surrender!','i have a family','don\\'t shoot!','mercy... please','i\\'m done, i\\'m done'];   /* V32 KNEEL AND BEG */",
+        'beg-lines-const')
+
+    # SELECT A TARGET prompt in manual mode with nothing chosen
+    demo = sub1(demo, "  ctx.restore();   // <-- end camera transform",
+        """\
+  if(G.targetMode==='manual'&&G.phase==='cover'&&!G.over&&G.selTarget==null&&(G._chainWait||exposedToMe().length>0)){   /* V32 MANUAL TARGET RING: the prompt */
+    ctx.save(); ctx.textAlign='center'; ctx.font='700 12px Space Grotesk, sans-serif';
+    ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.fillText('SELECT A TARGET',cx,cy-RAD*0.72); ctx.textAlign='left'; ctx.restore(); }
+  ctx.restore();   // <-- end camera transform""",
+        'select-target-prompt')
+    return demo
+
+
+def patch32b(demo):
+    """v32b: the action log verified via raw pixel scan (real brightness
+    delta over the floor tiles) but too faint to actually READ against a
+    busy tiled background. Adds a soft dark halo (shadowBlur) behind the
+    light text — legible over any floor color, still reads as 'light'."""
+    if 'V32B LEGIBLE LOG' in demo or 'V32C LOG PANEL' in demo:   # v32c supersedes v32b's marker text
+        print('v32b already applied, skipping')
+        return demo
+    demo = sub1(demo, "  for(let i=Math.max(0,log.length-5);i<log.length;i++){ const L=log[i], age=(now-L.at)/1000, a=Math.max(0,0.62-age*0.07);\n    if(a<=0.02)continue;\n    ctx.fillStyle='rgba(255,255,255,'+a.toFixed(3)+')';\n    ctx.fillText(L.t+(L.s?(' — '+L.s):''),10,y); y+=13; }",
+        "  for(let i=Math.max(0,log.length-5);i<log.length;i++){ const L=log[i], age=(now-L.at)/1000, a=Math.max(0,0.62-age*0.07);   /* V32B LEGIBLE LOG */\n    if(a<=0.02)continue;\n    ctx.shadowColor='rgba(0,0,0,'+(a*0.9).toFixed(3)+')'; ctx.shadowBlur=3;\n    ctx.fillStyle='rgba(255,255,255,'+a.toFixed(3)+')';\n    ctx.fillText(L.t+(L.s?(' — '+L.s):''),10,y); y+=13; }\n  ctx.shadowBlur=0;",
+        'log-halo')
+    return demo
+
+
+def patch32c(demo):
+    """v32c: the shadow-halo (v32b) was verified via pixel scan but STILL
+    imperceptible to a human eye against the busy tiled floor at 10px/0.62
+    alpha — confirmed by 4x-zoomed screenshot inspection, not just pixel
+    math. A per-glyph shadow was never going to fix a legibility problem
+    at this text size. Real fix: a genuine translucent dark backing panel
+    behind the whole log block — the panel carries the 'reads clearly'
+    job, the text stays light/white as Paolo asked, at higher contrast
+    against a KNOWN dark background instead of an unpredictable floor."""
+    if 'V32C LOG PANEL' in demo:
+        print('v32c already applied, skipping')
+        return demo
+    demo = sub1(demo, """\
+function drawActionLog(ctx,W,H){
+  const log=G._actionLog; if(!log||!log.length)return; const now=performance.now();
+  ctx.save(); ctx.textAlign='left'; ctx.font='600 10px Space Grotesk, ui-monospace, monospace';
+  let y=14;
+  for(let i=Math.max(0,log.length-5);i<log.length;i++){ const L=log[i], age=(now-L.at)/1000, a=Math.max(0,0.62-age*0.07);   /* V32B LEGIBLE LOG */
+    if(a<=0.02)continue;
+    ctx.shadowColor='rgba(0,0,0,'+(a*0.9).toFixed(3)+')'; ctx.shadowBlur=3;
+    ctx.fillStyle='rgba(255,255,255,'+a.toFixed(3)+')';
+    ctx.fillText(L.t+(L.s?(' — '+L.s):''),10,y); y+=13; }
+  ctx.shadowBlur=0;
+  ctx.restore();
+}""", """\
+function drawActionLog(ctx,W,H){   /* V32C LOG PANEL: a real backing, not a shadow trick — legible over ANY floor */
+  const log=G._actionLog; if(!log||!log.length)return; const now=performance.now();
+  const rows=[]; for(let i=Math.max(0,log.length-5);i<log.length;i++){ const L=log[i], age=(now-L.at)/1000, a=Math.max(0,1-age*0.11);
+    if(a<=0.02)continue; rows.push({txt:L.t+(L.s?(' — '+L.s):''),a}); }
+  if(!rows.length)return;
+  ctx.save(); ctx.textAlign='left'; ctx.font='600 10px Space Grotesk, ui-monospace, monospace';
+  let maxW=0; for(const r of rows)maxW=Math.max(maxW,ctx.measureText(r.txt).width);
+  const panelA=Math.min(0.5,rows[rows.length-1].a*0.55);
+  ctx.fillStyle='rgba(10,8,6,'+panelA.toFixed(3)+')';
+  ctx.fillRect(6,6,Math.min(W-16,maxW+14),rows.length*14+6);
+  let y=17; for(const r of rows){ ctx.fillStyle='rgba(255,255,255,'+(0.55+r.a*0.35).toFixed(3)+')'; ctx.fillText(r.txt,12,y); y+=14; }
+  ctx.restore();
+}""",
+        'log-panel')
+    return demo
+
+
+def patch32d(demo):
+    """v32d: THE REAL ROOT CAUSE of the invisible log — draw() has TWO
+    exit paths. The cover-phase branch (G.phase!=='aim' && !G.ks — i.e.
+    ~95% of actual play, exactly where GRIT/NERVE/ACQUIRING/HOLD fire)
+    calls screenOverlays and returns EARLY, never reaching the tail
+    where drawActionLog lived. Proven with a pixel-exact before/after
+    diff: calling drawActionLog directly darkens 3429/4500 sampled
+    pixels correctly; calling the real draw() in cover phase changes
+    ZERO pixels, because it never gets there. Fix: call it from BOTH
+    exits, not just the aim/killshot one."""
+    if 'V32D BOTH EXITS' in demo:
+        print('v32d already applied, skipping')
+        return demo
+    demo = sub1(demo, "    if(G.inc){incDrawFX(ctx,W,H,cx,cy);ctx.restore();}\n    ctx.restore(); screenOverlays(ctx,W,H); return; }",
+        "    if(G.inc){incDrawFX(ctx,W,H,cx,cy);ctx.restore();}\n    ctx.restore(); screenOverlays(ctx,W,H); drawActionLog(ctx,W,H); return; }   /* V32D BOTH EXITS: this is the COVER PHASE path — where the log actually needs to live */",
+        'log-both-exits')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))
+    patched = patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
