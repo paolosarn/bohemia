@@ -508,7 +508,26 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--24. ALL CANON + QUIVER v2 + THE WOMAN LAW (7/21, latest): third verdict --
+-25. DRESS CODE BY RANK, THE MECHANISM (7/21, latest): Paolo picked the next
+   lane -- dress codes, starting with color. His rule: rookies wear
+   whatever as long as >=50% of BODY SURFACE reads the faction color;
+   veterans wear every layer Paolo's kit names, forced, everything else
+   free. Shipped in engine/bohemia_dress.js (NOT the alpha -- LIFE's own
+   dress module, only loaded by slices/BOHEMIA_LIFE_CURRENT.html /
+   BOHEMIA_LIFE_SLICE_7_19_26.html, so no alpha diff, no buildstamp bump,
+   no Pages wait this turn): rookieOutfit (nudges the heaviest-uncovered
+   body region first: torso 0.437/legs 0.322/head 0.161/feet 0.080,
+   canon-only, skips a region rather than fabricate), veteranOutfit (kit-
+   forced layers; caught + fixed a stray free-drawn outer hiding a
+   governed base before shipping), outfitForRanked (dressAll's new entry
+   point, agent.rank optional -- zero regression, LIFE gate still 24/24).
+   FACTION_COLOR + FACTION_VETERAN_KIT both ship EMPTY (contents-Paolo's).
+   Gate: dress_gate.js grew 9->23. Law: laws/BOHEMIA_ADDENDUM_DRESS_CODE_
+   BY_RANK_7_21_26.md. Record: records/BOHEMIA_DRESS_CODE_MECHANISM_
+   7_21_26.txt. [PENDING Paolo, whenever]: rule real per-faction colors +
+   veteran kits off the 186-piece wardrobe; LIFE's population wears them
+   the same turn the tables land.
+-24. ALL CANON + QUIVER v2 + THE WOMAN LAW (7/21): third verdict --
    gas mask v2 CANON, wave 8 seven-of-eight CANON (bank 186). SCRAP QUIVER
    held ("DO IT AGAIN") -> v2 same turn: capped 3px tube, banded leather,
    THREE fletched arrows fanning clear of the head, front strap + peeking

@@ -1,0 +1,42 @@
+=== BOHEMIA DRESS CODE BY RANK — MECHANISM SHIPPED (7/21/26) ===
+Paolo picked the next factory lane: dress codes, starting with color.
+His rule, verbatim: "rookies of the faction can wear whatever as long as
+half their body is a certain color... veteran faction members actually
+have to wear most of the clothes we give them."
+
+=== WHAT SHIPPED (mechanism mine, contents his) ===
+engine/bohemia_dress.js gained two dressing modes, wired through a new
+outfitForRanked() that dressAll() calls with an optional agent.rank:
+- ROOKIE: the same free draw as every agent today, nudged region-by-region
+  (heaviest body-surface weight first: torso, legs, head, feet) toward
+  >=50% faction-color coverage, using only canon items that are already
+  legal for that layer. If the wardrobe carries no matching-color item in
+  a region, that region is skipped -- never fabricated.
+- VETERAN: the free draw, then every layer Paolo's kit names is FORCED to
+  his exact canon garment (hashed pick among his listed options). Layers
+  he didn't name stay a free draw. A free-drawn outer can never cover a
+  kit-governed base (fixed same session: caught a stray coat hiding a
+  forced base color in the visual proof, patched before shipping).
+- "Half the body" is ONE number everywhere: body-surface weights derived
+  from the same part-pixel geometry the clothing gate already uses to
+  prove garment shapes (torso 0.437 / legs 0.322 / head 0.161 / feet
+  0.080).
+FACTION_COLOR and FACTION_VETERAN_KIT both ship EMPTY -- no faction's
+color or veteran garments are ruled here. An agent with no rank or no
+ruling for their faction dresses exactly as the population always has;
+zero regression (LIFE gate still 24/24 unchanged).
+
+VERIFIED: gates/dress_gate.js grew from 9 to 23 checks (tables empty, rank
+functions inert with no ruling, rookie coverage >=50% across 40 seeds with
+a throwaway test color, an unmatchable color degrades to legal-but-
+uncovered rather than inventing a garment, veteran kit forced every seed,
+unspecified layers still free, the cover-up fix proven both directions).
+Visual proof rendered: 10 rookies (all clearing 76-92% coverage, no two
+identical) against 6 veterans (locked, identical base/legs/feet/head every
+single seed).
+
+Law: laws/BOHEMIA_ADDENDUM_DRESS_CODE_BY_RANK_7_21_26.md.
+
+[PENDING Paolo, whenever]: FACTION_COLOR per faction, FACTION_VETERAN_KIT
+per faction (which of the 186 canon pieces a faction's veterans wear).
+The moment those tables land, LIFE's population wears them the same turn.
