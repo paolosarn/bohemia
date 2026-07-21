@@ -1791,6 +1791,20 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
     edge (street-aware reserves 5) + entrance blocked by the south unit bar -> carved the lane through,
     office beside it.
   16 built districts now, across all 7 non-casino categories.
+  WALKABLE-LAND LAW + REBUILDS (7/20, Paolo "it can't mostly be a parking lot or a car driveway...
+  the firehouse is so tiny", "record and train on your failures"): NEW LOCKED LAW — buildings +
+  purposeful content must DOMINATE a walkable plot; pavement is connective tissue, never the main
+  event. Vehicular venues (drive-in, gas/truck stop) whose vehicle surface IS the venue declare
+  vehicular:true + are exempt. laws/BOHEMIA_ADDENDUM_WALKABLE_LAND_LAW_7_20_26.md + CLAUDE.md +
+  playbook step 2. K.landStats(g,legend) splits drive/content/filler; gates/walkable_gate.js sweeps
+  every district (drivePct <= contentPct+22, vehicular exempt) — Stamp 7/20y. REBUILT the 3 he
+  flagged: FIRE STATION (was 8% building + 52% empty apron -> big station + training ground w/ drill
+  tower, burn building, hose racks, wreck cars; content 43% drive 12%); SCHOOL (was "incomplete" ->
+  full campus: building complex around a planted quad, gym+cafeteria, entry plaza, portables, courts,
+  field/track kept w/ yard lines+bleachers; content 45% drive 6%); SWAP MEET (was ambiguous ->
+  unmistakably OUTDOOR: individual peaked tents + corner poles + open sky between). Storage (the one
+  he liked) kept as the density reference. fire/school/swap gates now assert content dominates.
+  THE DENSITY BAR IS NOW LAW: a walkable district must read FINISHED + USED, never a sparse lot.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
