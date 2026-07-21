@@ -5295,12 +5295,6 @@ root.BQRuntime=API;
     border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:.5px; }
   .tag.done{ background:var(--good-soft); color:var(--good); border:1px solid #2c3a18; }
   .tag.act{ background:#241d12; color:var(--dim); }
-  .clout{ display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; padding:2px 7px;
-    border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:1px; text-transform:uppercase; }
-  .clout.q{ background:#1c2a1c; color:#7fa87a; }
-  .clout.n{ background:#20262e; color:var(--dim); }
-  .clout.r{ background:var(--amber-soft); color:var(--amber); }
-  .clout.x{ background:#3a140c; color:#ff8a5c; text-shadow:0 0 6px rgba(255,110,60,.6); animation:flick 4s infinite steps(1); }
   .post .photo{ margin:11px 0 2px; height:158px; border-radius:4px; border:1px solid var(--line);
     position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
     filter:saturate(.72) contrast(1.03); }
@@ -5386,10 +5380,35 @@ root.BQRuntime=API;
   /* ---- device shell: home screen, messages app, boot, nav ---- */
   #nav .homebtn{ background:none; color:var(--gold); font-family:var(--mono); font-size:11px;
     padding:0; letter-spacing:1px; box-shadow:none; text-transform:none; }
-  #home,#messages,#map{ display:none; }
+  #home,#messages,#map,#wallet{ display:none; }
   #phone.view-home #home{ display:block; }
   #phone.view-messages #messages{ display:flex; flex-direction:column; flex:1; min-height:0; }
   #phone.view-map #map{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  #phone.view-wallet #wallet{ display:flex; flex-direction:column; flex:1; min-height:0; }
+
+  /* WALLET easter egg: a dead pre-collapse bank/pay app frozen in amber, jammed
+     inside the salvaged phone's shell. Deliberately a DIFFERENT visual register
+     (a cheerful "old world" fintech look) so it reads as a fossil, not a real app. */
+  .wal-hd{ display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:1px solid var(--line); }
+  .wal-hd .lg{ width:30px; height:30px; border-radius:8px; background:linear-gradient(160deg,#3a5a8a,#1c2c46);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:800; font-size:13px; color:#bcd6ff; }
+  .wal-hd .t{ font-weight:800; font-size:15px; letter-spacing:.2px; } .wal-hd .t small{ display:block; color:var(--faint); font-size:9.5px; font-family:var(--mono); letter-spacing:.6px; text-transform:uppercase; }
+  .wal-body{ flex:1; overflow-y:auto; padding:14px; filter:saturate(.55) brightness(.92); }
+  .wal-frozen{ background:#2a1a0c; border:1px solid #4a3218; color:#e0a860; font-family:var(--mono); font-size:11.5px;
+    padding:9px 12px; border-radius:8px; margin-bottom:14px; text-align:center; letter-spacing:.4px; }
+  .wal-card{ background:linear-gradient(155deg,#22364e,#152131); border:1px solid #2c4460; border-radius:14px;
+    padding:18px; margin-bottom:14px; position:relative; overflow:hidden; }
+  .wal-card:after{ content:"NO SIGNAL SINCE COLLAPSE"; position:absolute; top:10px; right:-34px; background:#7a1f1f;
+    color:#ffd9d9; font-family:var(--mono); font-size:8.5px; padding:3px 40px; transform:rotate(35deg); letter-spacing:.5px; }
+  .wal-card .bal{ font-family:var(--mono); font-size:26px; font-weight:800; color:#bcd6ff; opacity:.55; }
+  .wal-card .cur{ font-family:var(--mono); font-size:11px; color:#7f9ec4; margin-top:3px; letter-spacing:.5px; }
+  .wal-svc{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 13px;
+    margin-bottom:8px; display:flex; align-items:center; gap:11px; opacity:.68; }
+  .wal-svc .ic{ width:30px; height:30px; border-radius:7px; background:#1c2230; display:flex; align-items:center;
+    justify-content:center; font-size:14px; flex:none; }
+  .wal-svc .tx{ flex:1; } .wal-svc .nm{ font-weight:700; font-size:13.5px; }
+  .wal-svc .st{ font-family:var(--mono); font-size:10px; color:var(--danger); letter-spacing:.5px; margin-top:1px; }
+  .wal-foot{ font-family:var(--mono); font-size:11px; color:var(--faint); text-align:center; padding:16px 10px 6px; line-height:1.6; }
   #phone:not(.view-feed) .hero,#phone:not(.view-feed) #objbar,#phone:not(.view-feed) #screen,#phone:not(.view-feed) .tabs{ display:none !important; }
 
   /* MAP app — salvaged GPS of the real generated valley */
@@ -5498,6 +5517,7 @@ root.BQRuntime=API;
   <div id="home"></div>
   <div id="messages"></div>
   <div id="map"></div>
+  <div id="wallet"></div>
 
   <div class="hero">
     <div class="hrow">
@@ -5546,14 +5566,6 @@ Sched.addActor(ctx.scheduler, player);
    weighted default, not a placeholder anymore. Kept as a named wrapper only so the
    rest of this file didn't need touching at every call site. */
 function FOLLOWER_SCORE(post){ return Loop.defaultFollowerScore(post); }
-/* visible readout of the CLOUT tier so the mechanic is SEEN, not just felt in a
-   number: quiet <= notable <= risky <= reckless, colored by how hot it runs. */
-function cloutBadge(tag){
-  var t = tag || 'neutral';
-  var cls = { quiet:'q', notable:'n', risky:'r', reckless:'x', neutral:'n' }[t] || 'n';
-  return '<span class="clout '+cls+'">'+esc(t)+'</span>';
-}
-
 /* ---- throwaway DEMO quests (NOT canon) — now tagged with a #clout level so the
    real follower math actually varies: pass 'quiet'|'notable'|'risky'|'reckless'. */
 function demoQuest(id,title,who,l1,o1,l2,l3,clout){
@@ -5609,14 +5621,25 @@ function photoFor(qid){
   return '<div class="photo" style="background:linear-gradient(135deg,'+c1+'33,'+c2+'22)">'+
          '<span class="ph-t">'+esc(t)+'</span><span class="ph-tag">SIGNAL CAM · 240p · placeholder art</span></div>';
 }
-/* PLACEHOLDER comments. COUNT scales with followers (Paolo: "people commenting
-   depending on how many followers you have"). Bodies are stand-in, not canon. */
+/* PLACEHOLDER comments. Paolo 7/21: no visible risky/reckless LABEL on the feed —
+   the game is hardcore but has to read fine for normies too. But the CLOUT weight
+   still drives the data underneath: recklessness shows up as MORE comments, edgier
+   comment TONE, and more likes — never as a stamped tag. Bodies are stand-in text,
+   not canon; tiers are inferred from the weight, never printed. */
 var COMMENTERS=['@wash_rat','@nell_87','@dust_ryder','@saltflat','@neon_mona','@tunnel_ed','@vato_prime','@grid_sister'];
-var CBODIES=['carried us fr','respect 🤝','this the one','you built diff','saw the smoke, glad ur ok','bohemia stand up','goat behavior','need more like u'];
-function commentsFor(qid, followers){
-  var count = Math.max(0, Math.floor(followers/12));   // more followers -> more comments
-  var sample=[]; var n=Math.min(3, count), base=hash(qid);
-  for(var i=0;i<n;i++){ sample.push({ who:COMMENTERS[(base+i*3)%COMMENTERS.length], text:CBODIES[(base+i*5)%CBODIES.length] }); }
+var COMMENTS_BY_TIER = {
+  calm:  ['nice work','needed this','respect','quietly goated','this the one'],
+  warm:  ['proud of you','keep it up','bohemia stand up','you built diff','solid work'],
+  hype:  ['bro you good??','that was wild','insane work honestly','no way you pulled that off'],
+  chaos: ['NO WAY you survived that','certified lunatic behavior','the network is gonna notice this one...','please never do that again','living legend fr'],
+};
+function tierForWeight(w){ if(w<=8) return 'calm'; if(w<=25) return 'warm'; if(w<=55) return 'hype'; return 'chaos'; }
+function commentsFor(qid, weight, followers){
+  var bank = COMMENTS_BY_TIER[tierForWeight(weight)];
+  var base = Math.max(0, Math.round(weight/6));                      // quiet~1, notable~4, risky~9, reckless~18
+  var count = Math.max(base, Math.round(base * Math.max(1, followers/50)));
+  var sample=[]; var n=Math.min(3, count), b=hash(qid+weight);
+  for(var i=0;i<n;i++){ sample.push({ who:COMMENTERS[(b+i*3)%COMMENTERS.length], text:bank[(b+i*5)%bank.length] }); }
   return { count:count, sample:sample };
 }
 function commentsBlock(ci){
@@ -5648,12 +5671,13 @@ function render(){
     if(!feed.length) h += '<div class="empty-state">Your feed is quiet.<br>Complete a quest and it posts here.</div>';
     feed.forEach(function(p, idx){
       var gain = FOLLOWER_SCORE(p);
-      var likes = Math.max(1, Math.round(followers*0.4));
-      var ci = commentsFor(p.questId, followers);
+      var weight = Loop.cloutWeight(p.clout);        // drives comments/likes tone+volume, NEVER shown as a label
+      var likes = Math.max(1, Math.round(followers*0.4*(weight/Loop.CLOUT_WEIGHTS.notable)));
+      var ci = commentsFor(p.questId, weight, followers);
       h += '<div class="card post"><div class="head">'+avatar('@founder_gen1')+
            '<div><div class="h2n">Founder <span class="at">@founder_gen1</span></div></div>'+
            '<div class="time">'+(idx===0?'now':('beat '+p.beat))+'</div></div>'+
-           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span>'+cloutBadge(p.clout)+'</div>'+
+           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span></div>'+
            photoFor(p.questId)+
            '<div class="eng"><span>♥ '+likes+'</span><span>💬 '+ci.count+'</span><span class="g">+'+gain+' followers</span></div>'+
            commentsBlock(ci)+'</div>';
@@ -5704,10 +5728,11 @@ function render(){
          '<div class="stats" style="margin-top:14px"><div class="stat foll"><b>'+prof.reach+'</b><span>followers</span></div>'+
          '<div class="stat"><b>'+prof.posts+'</b><span>posts</span></div>'+
          '</div></div>';
-    h += '<div class="disclaimer">FOLLOWERS run on CLOUT: reckless/dangerous deeds earn far more than '+
-         'quiet ones. Each quest tags its own completion (#quiet/#notable/#risky/#reckless); untagged '+
-         'defaults neutral. The exact numbers are tunable, the ordering is locked. The feed, pickups, '+
-         'log, and this profile are all live off the real engine.</div>';
+    h += '<div class="disclaimer">DEV NOTE (not shown in-game): followers run on CLOUT, reckless/dangerous '+
+         'deeds earn far more than quiet ones. Each quest tags its own completion internally '+
+         '(#quiet/#notable/#risky/#reckless); untagged defaults neutral. No badge or label for it shows '+
+         'on the feed itself, only the number and how the comments/likes react. The feed, pickups, log, '+
+         'and this profile are all live off the real engine.</div>';
   }
   s.innerHTML = h;
 }
@@ -5784,7 +5809,9 @@ function unreadCount(){ return THREADS.reduce(function(a,t){ return a+(t.unread|
 
 function setView(v){
   VIEW = v;
-  phone.classList.remove('view-home','view-feed','view-messages');
+  // strip EVERY view-* class (not a hardcoded list) so two screens can never be
+  // display:flex at once — a real bug caught adding the 4th view (wallet).
+  Array.prototype.slice.call(phone.classList).forEach(function(c){ if(c.indexOf('view-')===0) phone.classList.remove(c); });
   phone.classList.add('view-'+v);
   el('nav').innerHTML = (v==='home')
     ? '<span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span>'
@@ -5792,9 +5819,13 @@ function setView(v){
   if(v==='home') renderHome();
   else if(v==='messages'){ openThreadId=null; renderMessages(); }
   else if(v==='map') renderMap();
+  else if(v==='wallet') renderWallet();
   else { setTab('feed'); }
 }
-function rerender(){ if(VIEW==='home') renderHome(); else if(VIEW==='messages') renderMessages(); else if(VIEW==='map') renderMap(); else render(); }
+function rerender(){
+  if(VIEW==='home') renderHome(); else if(VIEW==='messages') renderMessages();
+  else if(VIEW==='map') renderMap(); else if(VIEW==='wallet') renderWallet(); else render();
+}
 
 function tile(app,label,icon,sub,badge){
   var soon = (badge==='soon');
@@ -5813,7 +5844,7 @@ function renderHome(){
       tile('feed','Feed', ICON.feed, pr.posts+' posts', offersN)+
       tile('messages','Messages', ICON.msg, 'direct', unreadCount())+
       tile('map','Map', ICON.map, 'the valley', 0)+
-      tile('wallet','Wallet', ICON.wallet, 'soon', 'soon')+
+      tile('wallet','Wallet', ICON.wallet, 'frozen', 0)+
       tile('camera','Camera', ICON.cam, 'soon', 'soon')+
       tile('me','Profile', ICON.me, pr.reach+' foll', 0)+
     '</div>';
@@ -5945,6 +5976,34 @@ function renderMap(){
 function mapPin(qid){ var p=ctx.quests.placements().filter(function(x){return x.questId===qid;})[0]; if(!p) return;
   if(p.channel==='inperson'){ setView('feed'); setTab('offers'); } else { setView('feed'); openTalk(qid); }
 }
+
+/* ===== WALLET — the easter egg (Paolo 7/21): "everything used to be in USD, tap
+   Wallet and it opens an old bank/cashapp thing, service unavailable." A dead
+   pre-collapse fintech app frozen at the moment the dollar died, jammer inside the
+   salvaged phone's shell. NOT interactive beyond a toast — this is flavor, not the
+   real currency system (resources/electricity/clout are the live economy, still
+   being designed). */
+var WALLET_SERVICES = [
+  { nm:'Send Money', ic:'&#8594;' }, { nm:'Direct Deposit', ic:'&#8595;' },
+  { nm:'Bill Pay', ic:'&#128196;' }, { nm:'Rewards', ic:'&#9733;' },
+  { nm:'CoinDash Crypto', ic:'&#9670;' },
+];
+function renderWallet(){
+  var svc='';
+  WALLET_SERVICES.forEach(function(s){
+    svc += '<div class="wal-svc" onclick="walletDead()"><div class="ic">'+s.ic+'</div>'+
+           '<div class="tx"><div class="nm">'+esc(s.nm)+'</div><div class="st">SERVICE UNAVAILABLE</div></div></div>';
+  });
+  el('wallet').innerHTML =
+    '<div class="wal-hd"><div class="lg">Q</div><div class="t">QuikPay<small>by Meridian National</small></div></div>'+
+    '<div class="wal-body">'+
+      '<div class="wal-frozen">&#9888; connection lost. last synced pre-collapse. account FROZEN.</div>'+
+      '<div class="wal-card" onclick="walletDead()"><div class="bal">$14,382.06</div><div class="cur">USD CHECKING &middot; ****4471</div></div>'+
+      svc+
+      '<div class="wal-foot">The dollar\'s last transaction cleared a long time ago.<br>Nobody is coming to fix this.</div>'+
+    '</div>';
+}
+function walletDead(){ notify('NO CONNECTION · this service ended a long time ago'); }
 
 /* toast notifications — the phone reacts to what you do */
 function notify(text){ var t=el('toast'); if(!t) return; t.textContent=text; t.classList.add('on');
