@@ -21,11 +21,18 @@ let SUN=false; const verdict={}, comments={};
 function img(id){ if(IMG[id])return IMG[id];
   const im=new Image(); im.src='data:image/png;base64,'+byId[id].b64; IMG[id]=im; return im; }
 
-// the composed house: roof top (3 tile rows) over the front face (1 tile row),
-// on dead dirt - the exact read a suburb house has in the city
+// THE COMPOSED HOUSE (7/21, rebuilt per Paolo's call - "the graphic assets
+// are fire but the architecture of the house is dogshit"): the tiles were
+// never wrong, the mock was - a flat elevation box (roof slab stacked dead
+// flat over a wall strip) is not how ANY Bohemia house reads. This is the
+// real architecture instead, matching THE BLOCK (canon suburb, approved
+// 7/18) and the 45-degree research: a HIP ROOF (a big lit front plane + a
+// smaller shaded side hip facet, split by a diagonal ridge line with a
+// sky-lit cap), a front-corner GARAGE, and a short DRIVEWAY apron off the
+// curb - the actual shape a suburb house has, not a dollhouse front.
 function compose(cv,m){
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
-  const FACE_Y=H-T-14, ROOF_Y=10, cols=(W/T)|0;
+  const FACE_Y=H-T-28, ROOF_Y=10, cols=(W/T)|0;
   if(m.cls==='yard'){ // the candidate IS the ground: DG gravel around the house
     const gp=ctx.createPattern(img(m.id),'repeat'); ctx.fillStyle=gp; ctx.fillRect(0,0,W,H);
   } else { // dead dirt ground (act 1: nothing grows)
@@ -35,22 +42,58 @@ function compose(cv,m){
     for(let i=0;i<160;i++)ctx.fillRect((rnd()*W)|0,(rnd()*H)|0,2,1);
   }
   const roofId = m.cls==='roof' ? m.id : 'roof_shingle_2';
-  const DEFAULT_FACE=['wall_plain_9','wall_window_13','wall_plain_9','wall_door_19','wall_plain_9','wall_window_13','wall_plain_9','wall_plain_9'];
+  const GARW=T*1.6;
+  const DEFAULT_FACE=['wall_plain_9','wall_window_13','wall_plain_9','wall_door_19','wall_plain_9','wall_window_13','wall_plain_9'];
   let faceIds;
   if(m.cls==='roof'||m.cls==='yard'){ faceIds=DEFAULT_FACE; }
   else if(m.cls==='wall'){ faceIds=Array(cols).fill(m.id); }
   else { const p=m.mate; faceIds=Array(cols).fill(p);
-    if(m.cls==='door'){ faceIds[3]=m.id; }
-    else { faceIds[1]=m.id; faceIds[5]=m.id; } }
-  // roof top
+    if(m.cls==='door'){ faceIds[2]=m.id; }
+    else { faceIds[1]=m.id; faceIds[4]=m.id; } }
+
+  // ROOF: a hip, not a slab. Big front plane (lit) + a small side hip facet
+  // (shaded), split by ONE diagonal ridge line with a sky-lit cap along the
+  // long edge - exactly the two-plane read the research called for.
+  const roofBot=FACE_Y, roofH=roofBot-ROOF_Y;
+  const hipCut=W*0.22, hipDrop=roofH*0.42;
   const pat=ctx.createPattern(img(roofId),'repeat');
-  ctx.fillStyle=pat; ctx.save(); ctx.translate(0,ROOF_Y); ctx.fillRect(0,0,W,FACE_Y-ROOF_Y); ctx.restore();
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(0,ROOF_Y); ctx.lineTo(W-hipCut,ROOF_Y);
+  ctx.lineTo(W,ROOF_Y+hipDrop); ctx.lineTo(W,roofBot); ctx.lineTo(0,roofBot);
+  ctx.closePath(); ctx.clip();
+  ctx.fillStyle=pat; ctx.fillRect(0,ROOF_Y,W,roofH);
+  ctx.restore();
+  ctx.save();                                   // the shaded side hip facet
+  ctx.beginPath();
+  ctx.moveTo(W-hipCut,ROOF_Y); ctx.lineTo(W,ROOF_Y); ctx.lineTo(W,ROOF_Y+hipDrop);
+  ctx.closePath(); ctx.clip();
+  ctx.fillStyle=pat; ctx.fillRect(0,ROOF_Y,W,roofH);
+  ctx.fillStyle='rgba(0,0,0,0.34)'; ctx.fillRect(0,ROOF_Y,W,roofH);
+  ctx.restore();
+  ctx.strokeStyle='rgba(0,0,0,0.55)'; ctx.lineWidth=2;   // the hip ridge line
+  ctx.beginPath(); ctx.moveTo(W-hipCut,ROOF_Y); ctx.lineTo(W,ROOF_Y+hipDrop); ctx.stroke();
+  ctx.strokeStyle='rgba(255,244,214,0.4)'; ctx.lineWidth=1.5;  // sky-lit ridge cap
+  ctx.beginPath(); ctx.moveTo(0,ROOF_Y+1); ctx.lineTo(W-hipCut,ROOF_Y+1); ctx.stroke();
   // eave shadow between roof and face
   ctx.fillStyle='rgba(0,0,0,0.45)'; ctx.fillRect(0,FACE_Y-3,W,3);
-  // front face
-  for(let i=0;i<cols;i++) ctx.drawImage(img(faceIds[i]||faceIds[0]),i*T,FACE_Y);
+
+  // FRONT FACE: the door/window band, starting after the garage corner
+  for(let i=0;i<cols;i++){
+    const x=GARW+i*T; if(x+T>W)break;
+    ctx.drawImage(img(faceIds[i]||faceIds[0]),x,FACE_Y);
+  }
+  // GARAGE: the front-corner box THE BLOCK actually builds (sectional door
+  // seams, darker than the wall - it is not a wall, it is the garage face)
+  ctx.fillStyle=SUN?'rgba(0,0,0,0.16)':'rgba(0,0,0,0.30)';
+  ctx.fillRect(0,FACE_Y,GARW,T);
+  ctx.strokeStyle='rgba(0,0,0,0.4)'; ctx.lineWidth=1;
+  for(let gx=4;gx<GARW-2;gx+=6){ ctx.beginPath(); ctx.moveTo(gx,FACE_Y+4); ctx.lineTo(gx,FACE_Y+T-4); ctx.stroke(); }
   // ground contact shadow
   ctx.fillStyle='rgba(0,0,0,0.30)'; ctx.fillRect(0,FACE_Y+T,W,3);
+  // DRIVEWAY: the short apron off the curb, leading up to the garage
+  ctx.fillStyle=SUN?'#cfc6b0':'#c8c4b8';
+  ctx.fillRect(GARW*0.1,FACE_Y+T+4,GARW*0.8,H-(FACE_Y+T+4)-2);
   if(SUN){ ctx.fillStyle='rgba(255,246,214,0.14)'; ctx.fillRect(0,0,W,H); }
   else { ctx.fillStyle='rgba(10,12,20,0.10)'; ctx.fillRect(0,0,W,H); }
 }
@@ -75,7 +118,7 @@ function build(){
       t.style.cssText='font:600 13px monospace;color:'+(SUN?'#3a3320':'#cdbd8a');
       t.textContent=m.id + (m.id.includes('boarded')?'  (boarded)':''); card.appendChild(t);
       const row=document.createElement('div'); row.style.cssText='display:flex;gap:8px;align-items:flex-start;margin-top:6px';
-      const cv=document.createElement('canvas'); cv.width=T*8; cv.height=T*3+T+24;
+      const cv=document.createElement('canvas'); cv.width=T*8; cv.height=T*3+T+40;
       cv.style.cssText='flex:1;min-width:0;max-width:420px;image-rendering:pixelated;border-radius:6px';
       row.appendChild(cv);
       const sw=document.createElement('canvas'); sw.width=T; sw.height=T;
