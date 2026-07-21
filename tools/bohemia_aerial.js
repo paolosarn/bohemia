@@ -32,8 +32,11 @@ const FILL={
   reclaim:'#5a5040', datafort:'#454048', warehouse:'#524c44', railyard:'#463f36', watertreat:'#4c5a58',
   springs:'#2f5a6e', default:'#4a463c'
 };
-// road asphalt must read clearly against the void — near-black here made streets vanish (v1 bug)
-const ROADCOL={freeway:'#4e4a3e', arterial:'#4a4638', beltway:'#4e4a3e', strip:'#5a5350', interchange:'#464234'};
+// road asphalt = the SAME canon street color the districts themselves paint their street/drive
+// tiles (Paolo 7/21: "the streets should be the same color as the streets in the districts") —
+// #33333c is what suburb/commercial/industrial/downtown/school all use for code-1 street/drive.
+// A darker shade for interchange reads as the elevated/complex knot without breaking the family.
+const ROADCOL={freeway:'#33333c', arterial:'#33333c', beltway:'#33333c', strip:'#33333c', interchange:'#2b2b31'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1,interchange:1};
 const TERRAIN={mountain:1,desert:1,wash:1,water:1,dam:1};
 
@@ -80,10 +83,10 @@ for(let cy=0; cy<SIZE; cy++){
       rects.push(`<rect x="${px0}" y="${py0}" width="${CP}" height="${CP}" fill="${ROADCOL[dist]||ROADCOL.freeway}"/>`);
       const r=rng(seedOf(ox,oy)); const horiz = r()<0.5;
       if(horiz){
-        rects.push(`<rect x="${px0}" y="${py0+CP/2-1}" width="${CP}" height="2" fill="#2e2a22"/>`);
+        rects.push(`<rect x="${px0}" y="${py0+CP/2-1}" width="${CP}" height="2" fill="#26262c"/>`);
         for(let dx=6; dx<CP; dx+=16) rects.push(`<rect x="${px0+dx}" y="${py0+CP/2-1}" width="8" height="2" fill="#d9c589"/>`);
       } else {
-        rects.push(`<rect x="${px0+CP/2-1}" y="${py0}" width="2" height="${CP}" fill="#2e2a22"/>`);
+        rects.push(`<rect x="${px0+CP/2-1}" y="${py0}" width="2" height="${CP}" fill="#26262c"/>`);
         for(let dy=6; dy<CP; dy+=16) rects.push(`<rect x="${px0+CP/2-1}" y="${py0+dy}" width="2" height="8" fill="#d9c589"/>`);
       }
       filled++;
