@@ -2111,11 +2111,21 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
     guest-parking pod. Where the valley's poor washed up. content 71%. Bug caught: guest pod isolated
     from the drive net -> added a connector rect.
   THE VALLEY AERIAL (tools/bohemia_aerial.js -> records/BOHEMIA_VALLEY_AERIAL.svg): THE PAYOFF SHOT.
-  Composes a real 16x16 region of the CANON overmap (at 46,16), each DISTGEN cell built by its OWN
-  generator (street-aware, real grid + real palette), road/terrain cells filled from the overmap tone,
-  streets meshing between them, the I-15 spine running through. 111 districts rendered as one city.
-  Proof the factory ADDS UP TO A CITY — not a mockup, the actual world model composed cell-by-cell.
-  Re-run: node tools/bohemia_aerial.js [x0 y0 size cellpx]. (Zero purple — resort fill de-mauved.)
+  Composes a real region of the CANON overmap, each DISTGEN cell built by its OWN generator
+  (street-aware, real grid + real palette), streets meshing between them. v1 shipped downsampled to
+  34px/cell and Paolo called it dead-on: "looks like absolute dog shit." ROOT CAUSE: nearest-neighbor
+  point-sampling a 128x128 grid down to 34px turned every fine pattern (crop rows, tents, individual
+  trailers) to noise, and road/interchange fill was near-black (#2a2824) against a near-black void
+  (#161410) so streets were functionally invisible — districts read as floating islands, not a city.
+  REBUILT same turn: NATIVE tile resolution (1 tile = 1 svg px, zero downsample loss, rows
+  run-length-encoded to keep the SVG light — ~127k rects for a 10x10/50-built-cell region, renders in
+  well under a second), road cells get a readable asphalt tone + dashed centerline (deterministic per
+  seed), terrain/unbuilt cells get speckle texture instead of a dead flat block. Also swapped the
+  region to a genuinely MIXED 10x10 (35,8): suburb/commercial/farm/trailer/storage/swapmeet/school/
+  cemetery/park all visible together, not one district type repeated. Re-run:
+  node tools/bohemia_aerial.js [x0 y0 size] (cellpx now fixed at native 128). LESSON: "render and look
+  on the real surface" applies to showcase tools too — a downsample that looks fine in the code is not
+  the same as looking fine on screen; screenshot before shipping, every time, no exceptions.
   DISTRICT FACTORY IS ESSENTIALLY COMPLETE (27 auto-types). REMAINING non-casino candidates: waterpark,
   speedway, mall, granary-variants. THE BIG PIVOT after the districts: make them WALKABLE/ENTERABLE
   (the zoom) or drop LIFE agents into them (inhabit) — or build the aerial into a live CITY overview.
