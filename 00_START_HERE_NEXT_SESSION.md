@@ -393,6 +393,36 @@ as Paolo's canon.
   engagement volume + comment tone invisibly, just never shown as a label. Fixed a
   real bug caught building Wallet: setView() only ever removed 3 hardcoded view-*
   classes, so two screens could render stacked; now strips every view-* class.
+- CLOUT/AMALGAMATION CLAIM CORRECTED (7/21): Paolo caught a real design hole —
+  quest completion is mandatory to finish the game, and completion is how clout
+  grows (any tier), so "chasing clout is a risk you can choose to avoid" isn't
+  actually true; there's no zero-clout playstyle available. The mechanism
+  (reckless-tagged completions earn dramatically more) is UNCHANGED and still
+  good; only the "strategic choice to stay invisible" framing was walked back to
+  lore texture. See CLOUT addendum's correction section before citing this claim.
+- FEED + MESSAGES MERGED INTO ONE APP (7/21, Paolo: "whatsapp and instagram
+  combined, no phone number needed"). DMs are now a 5th bottom tab (Feed/Quests/
+  DMs/Log/Me) inside the single "Network" app, not a separate home-screen app;
+  unread shows as a dot on the DMs tab and folds into the Network tile's combined
+  badge (offers + unread). The old standalone Messages view/renderMessages() is
+  gone — dmsHtml() is a normal TAB branch like the others now.
+- CROSS-APP PUSH NOTIFICATION BANNER (7/21, Paolo: "even in the overworld there
+  can be a notification with text"). Researched Cyberpunk 2077's exact pattern
+  (non-intrusive top banner, respond now or later) and built pushBanner()/
+  pushBannerTap(): fires regardless of which app/view is open (proven while on
+  Map/Wallet), tap it to jump straight into the relevant DM thread. This is the
+  actual mechanism for "notification pops during gameplay" — once a walkable
+  overworld exists, the same call fires the same banner over it; nothing else
+  changes. A demo trigger (scheduleDemoNotification) fires one ~5s after unlock.
+- DIALOGUE SFX RESEARCH + PREVIEW (7/21, Paolo's ask): researched Animal
+  Crossing's Animalese and Undertale's per-character blip-voice systems (own file:
+  BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md) — a handful of base sound
+  clips + deterministic per-character pitch, no spoken words, near-zero
+  production cost per NPC. Built voiceFor(name) (same hash-derived pattern as
+  avatar colors, zero manual per-character work) and a visual-only "voice
+  signature" squiggle in the dialogue overlay as a preview. NO AUDIO EXISTS —
+  that's a real production step for later; today is the assignment mechanism +
+  a visual stand-in only.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
