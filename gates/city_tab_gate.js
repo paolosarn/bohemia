@@ -178,6 +178,15 @@ if (b64m) {
     decoded.indexOf('POCKETS') >= 0 && decoded.indexOf('rel%(LANE_W+1)>=LANE_W&&rel<LANE_W+1') >= 0);
   ok('pocket art embedded both orientations',
     decoded.indexOf("'pocket_v'") >= 0 && decoded.indexOf("'pocket_h'") >= 0);
+
+  // 13. THE LAMP POSTS LOCK (7/20): the blessed V11 dark bodies stand on
+  // the sidewalks (staggered law, pure f(global coords)); DEAD IS DEFAULT;
+  // live circuits get an rgb-only head glow at night (the blessed pattern).
+  ok('LAMP POSTS: blessed bodies embedded + staggered-law placement',
+    decoded.indexOf('LAMP POSTS') >= 0 && decoded.indexOf('const LAMP_B64=') >= 0
+    && decoded.indexOf('_gal%8===2') >= 0);
+  ok('dead is default; glow is runtime rgb-only per live circuit',
+    decoded.indexOf('POWER.at(tX,tY).live') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
