@@ -1045,6 +1045,28 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    commitPlayer and worldStep, so beat-parity at worldStep time never
    alternates — use S.turn (ticks once per world beat) for any
    every-N-beats enemy logic. Gate 151 checks ALL GREEN.
+   THE LAB IS DEAD, LONG LIVE THE DEMO (7/20, verdict 2 + pass 27):
+   Paolo's final lab verdict ("i didnt like any of your beat tactics
+   they were ass tbh only i liked shove so far"): ALL lab grammars DOWN
+   (A/B/C/E/H — graveyard registry LABFAIL-*, verdict verbatim in
+   records/BOHEMIA_COMBAT_LAB_VERDICT_2_7_20_26.txt). Mechanics that
+   graduated BEFORE the verdict stay canon (separately ruled): weapon-
+   typed melee, foresight perk, shove + perks, KICK-LOCK. THE SURFACE
+   RETIRED: alpha combat tab hosts the Dead Eye Dial demo full-time
+   (switcher deleted); lab slice + template + gen tool moved to
+   /archive with registry lines; combat_lab_gate.js REWRITTEN as the
+   COMBAT GATE (demo-only: engine block presence, MELEE CORE sims, all
+   v2..v27 markers, walk bakes, lab-retired assertion) — 105 checks.
+   POST-MORTEM BANKED: research ranks candidates, only PLAY decides;
+   combat ideas go INTO the dial demo behind settings, never into side
+   surfaces. AUTO TARGETING FIXED (pass 27, his "still isnt right"):
+   root cause — a tapped pick (G.selTarget) persisted FOREVER, so
+   after one tap every later auto engagement aimed at the stale pick
+   instead of closest-first; plus G.popTarget could carry a stale index
+   through enterAim's short-circuit. v27: a pick is SPENT by the dial
+   it opens; popTarget resets at every turn end. Verified live:
+   adjacent knife auto-targeted first, tap-pick hits the far gun once,
+   next engagement back to the knife. ALL GREEN.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

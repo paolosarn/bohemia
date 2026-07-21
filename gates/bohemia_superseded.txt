@@ -92,3 +92,6 @@ BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html | seamless sets banked as .txt
 #     ARCHIVE_ prefix instead. They are HISTORY, never current. Never cite them.
 #     First Code session may move them into /archive/ once git is the transport.
 BOHEMIA_STATE_OF_PLAY_7_16_26.md | superseded 7/17/26 by laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the repo-born day rolled the state; 7/16 preserved in archive/)
+BOHEMIA_COMBAT_LAB_7_19_26.html | RETIRED 7/20/26 by Paolo's verdict ("i didnt like any of your beat tactics they were ass tbh only i liked shove") — the lab's judging purpose is served; the shove is canon in the dial demo; the combat tab hosts the demo alone
+bohemia_combat_lab_template.html | retired with the lab surface (7/20/26 verdict)
+bohemia_combat_lab_gen.py | retired with the lab surface (7/20/26 verdict); the demo's engine block stays canonical inside COMBAT_B64

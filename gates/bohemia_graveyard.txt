@@ -53,3 +53,8 @@ n:'THE WINDOW BENDS THE HYMN'         | 7/20/26 | DOWN as a SONG (batch 15). GRA
 # voice was "retired with" its song are SUPERSEDED; every such voice is legal to
 # re-try in a different fashion. Full law in the alpha lawbook + records.
 n:'EVERY FLOOR BELOW THIS ONE'        | 7/20/26 | DOWN as a SONG (batch 16, verdict four). GRAVEYARD FINAL for the song; subharmglide + aeolianharp voices LIVE (song-dead-not-voices). Do not re-add the song.
+LABFAIL-CONDUCTOR    | 7/20/26 | DEAD as a lab grammar (Paolo: "i didnt like any of your beat tactics they were ass"). The RULED mechanic it carried — weapon-typed melee movement — is CANON in the dial demo and stays. The standalone grammar never returns.
+LABFAIL-PROMISE      | 7/20/26 | DEAD as a lab grammar. The ruled FORESIGHT PERK it spawned is canon in the demo settings and stays. No remake.
+LABFAIL-DANCE        | 7/20/26 | DEAD twice (first "kind of confused", then the 7/20 verdict). Footwork-openings as a standalone grammar never returns.
+LABFAIL-QUEUE        | 7/20/26 | DEAD same day it shipped. Queued-actions grammar down. POST-MORTEM: three research rounds said queue; Paolo's hands said no — research ranks candidates, only PLAY decides. Never re-pitch the queue.
+LABFAIL-DUEL         | 7/20/26 | DEAD same day it shipped. The kick-beat duel grammar down. KICK-LOCK itself (the dial pulsing on the song's kick) is canon in the demo and stays. No remake.
