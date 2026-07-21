@@ -365,11 +365,17 @@ as Paolo's canon.
   (base a temp branch off origin/main, checkout just that file, push to main;
   surgical, never merge this whole branch). The phone is the current slice as of 7/20.
 - WARNING / STALE ALPHA: this feature branch's copy of slices/BOHEMIA_ALPHA_0_9.html is
-  OLDER than main's (main has CLOTHES/SLICE/LIFE tabs this branch lacks). NEVER merge
-  this branch's alpha to main — it would clobber the good newer alpha. main's alpha is
-  authoritative. The PHONE-tab-in-alpha edit + tools/bohemia_inject_phone.js done
-  earlier this session were based on the STALE alpha and are DEPRECATED; use the
-  current-slice iframe mechanism above, not an injected tab.
+  OLDER than main's (main has CLOTHES/SLICE/LIFE tabs this branch lacks). Do NOT try to
+  "sync" this branch's alpha to main's — main's alpha carries a MUSIC-gate failure
+  (batch 11 song 'THE CHOIR UNDER THE RESERVOIR' births no BATCH11 voice; the music
+  gate reads the alpha), so pulling main's alpha onto this branch turns the gate RED.
+  The branch keeps its own clean (green) stale alpha, which is FINE because the alpha
+  on this branch is IRRELEVANT to delivery — the phone ships via the current-slice
+  file, not the alpha. NEVER merge this branch's alpha to main either. main's alpha is
+  authoritative for what Paolo sees; leave both alphas alone. (Someone's music session
+  left main's music gate red — that's main's debt, not this branch's, and not the
+  phone's.) The old PHONE-tab-in-alpha injector was DEPRECATED and removed; use the
+  current-slice iframe mechanism above.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
