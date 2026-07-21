@@ -429,7 +429,26 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--20. NE/NW ARM-UNIT DEPTH LAW (7/20, latest): Paolo LIKED all nine combat
+-21. FACE CANON FLOOR + CLOTHING WAVE 6 (7/20, latest): Paolo raged -- his
+   7/19 face calibration "un-fixed" itself on his phone. Root cause: the
+   calibration WAS baked, but PERSIST.restore() wholesale-overwrote
+   FACE_OFFSETS with his pre-calibration device save (all zeros) on every
+   boot; AND lookKey() did not carry the calibration, so combat/city kept
+   serving old-face bakes after an editor recalibration. Fixes: restore now
+   merges per-feature (zeros defer to the baked canon; his newer non-zero
+   tweaks still win) and lookKey carries FACE_OFFSETS + skin tone +
+   eyeColor. New gate FACE CANON (face_canon_gate.js, 9): the records file
+   IS the enforced truth (record vs baked CANON compared value by value),
+   bulldozer regex-locked, rebake keys locked. Verified headless: stale
+   zero-save seeded -> calibration survives boot. HIS PHONE NEEDS NOTHING:
+   next deploy load self-heals (the stale save merges under canon).
+   WAVE 6 ("New clothes please"): WORK COVERALLS (one-piece, zip, pockets,
+   cuffs -- genCoverall), SPLIT-TAIL DUSTER (ankle coat + back riding vent
+   -- genCoat split:true), ROAD CAPE (drape lives BEHIND the body --
+   genCape), SHELL BANDOLIER (diagonal shell sash -- genGear bandolier).
+   All in COOKING with thumbs [PENDING Paolo]. structure_gate 92.
+   Stamp: BUILD 7/20q.
+-20. NE/NW ARM-UNIT DEPTH LAW (7/20): Paolo LIKED all nine combat
    moves (notes are rulings, they stand) but called the NE hand/arm
    layering broken. Root cause was pipeline: layer laws re-placed only
    HANDS and read only X; away diagonals carry depth in -Y and the

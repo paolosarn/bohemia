@@ -226,6 +226,48 @@ if (G) {
     ok('chest plate is torso-only, front block vs back straps', [...parts(cpS)].every(pt => pt === 4) && Object.keys(cpS).length > Object.keys(cpN).length);
   }
   ok('wave-4 candidates ship (hoods toggleable everywhere)', /hoodUp:CLO_HOODUP/.test(gbAll()) && /hood:CLO_HOODUP/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()) && /hoodDefaultUp:true/.test(gbAll()));
+
+  // WAVE 6: coveralls / split-tail duster / cape / bandolier -- four new shapes
+  const NAMES3 = ['mix', 'bshade', 'ext', 'pExt', 'genCoat', 'genCoverall', 'genCape', 'genGear'];
+  const bodies3 = NAMES3.map(grab);
+  ok('wave-6 generators found (genCoverall + genCape are real machinery)', bodies3.every(Boolean));
+  const makeW6 = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies3.join('\n') + '\nreturn {genCoat,genCoverall,genCape,genGear};')(56, 56, dir); } catch (e) { console.log('  eval3: ' + e.message); return null; } };
+  const W = makeW6('S'), WN = makeW6('N'), WE = makeW6('E');
+  ok('wave-6 generators evaluate (S/N/E)', W && WN && WE);
+  if (W && WN && WE) {
+    let cvS = null, duS = null, duN = null, caS = null, caN = null, caE = null, bdS = null;
+    try { cvS = W.genCoverall(g, { ramp: R }); duS = W.genCoat(g, { ramp: R, len: 1.0, split: true, dir: 'S' }); duN = WN.genCoat(g, { ramp: R, len: 1.0, split: true, dir: 'N' });
+          caS = W.genCape(g, { ramp: R }); caN = WN.genCape(g, { ramp: R }); caE = WE.genCape(g, { ramp: R }); bdS = W.genGear(g, { ramp: R, kind: 'bandolier' }); }
+    catch (e) { console.log('  wave6 err: ' + e.message); }
+    ok('wave-6 shapes render', [cvS, duS, duN, caS, caN, caE, bdS].every(o => o && Object.keys(o).length >= 8));
+    if (cvS) { const ps6 = parts(cvS);
+      ok('coveralls are ONE PIECE: torso + both arms + both legs in one garment', ps6.has(4) && ps6.has(5) && ps6.has(6) && ps6.has(9) && ps6.has(10) && ps6.has(11) && ps6.has(12));
+      ok('coveralls stay a garment, never the head/face/hands', !ps6.has(1) && !ps6.has(2) && !ps6.has(7) && !ps6.has(8));
+      let zip = 0; for (let y = 20; y <= 30; y++) for (const zx of [27, 28]) { const c = cvS[y * 56 + zx]; if (c && c[0] === R.dk[0] && c[1] === R.dk[1]) { zip++; break; } }
+      ok('coveralls carry the front zip line', zip >= 5); }
+    if (duS && duN) {
+      const ventGap = (o) => { let gap = 0; for (let y = 42; y <= 47; y++) { let open = true; for (let x = 27; x <= 29; x++) if (o[y * 56 + x] !== undefined) open = false; if (open) gap++; } return gap; };
+      ok('duster hem reaches the ankle (longer than the 0.86 coat)', Math.max.apply(null, Object.keys(duS).map(k => ((+k) / 56) | 0)) >= 46);
+      ok('SPLIT TAIL: the back view opens a center vent at the hem', ventGap(duN) >= 2);
+      ok('the front has no vent (the split is a BACK vent)', ventGap(duS) === 0 || (() => { let c = 0; for (let y = 21; y <= 31; y++) if (duS[y * 56 + 27] === undefined && duS[y * 56 + 28] === undefined) c++; return c > 5; })()); }
+    if (caS && caN && caE) {
+      const torsoCov = (o) => { let c = 0, t = 0; for (let i = 0; i < g.length; i++) if (g[i] === 4 && ((i / 56) | 0) > 18) { t++; if (o[i] !== undefined) c++; } return c / t; };
+      const bgPix = (o) => { let c = 0; for (const k in o) if (g[+k] === 0) c++; return c; };
+      ok('cape front: the body shows (drape lives BEHIND, only cap + clasp on it)', torsoCov(caS) < 0.25);
+      ok('cape front: the drape peeks past the silhouette (real background pixels)', bgPix(caS) >= 10);
+      ok('cape back: one full hanging panel over the body', torsoCov(caN) > 0.6);
+      ok('cape profile: the drape trails off the back edge', bgPix(caE) >= 8);
+      ok('cape never touches head, face or hands', ['1','2','7','8'].every(p2 => ![...parts(caS), ...parts(caN), ...parts(caE)].includes(+p2))); }
+    if (bdS) {
+      ok('bandolier is torso-only (a sash, not a harness)', [...parts(bdS)].every(pt => pt === 4));
+      const pts = Object.keys(bdS).map(k => [(+k) % 56, ((+k) / 56) | 0]);
+      const lo = pts.filter(pt => pt[1] <= 22), hi = pts.filter(pt => pt[1] >= 28);
+      const avg = a => a.reduce((s2, pt) => s2 + pt[0], 0) / (a.length || 1);
+      ok('bandolier runs DIAGONAL: shoulder side to opposite hip', lo.length > 0 && hi.length > 0 && avg(hi) - avg(lo) >= 4);
+      let shells = 0; for (const k in bdS) { const c = bdS[k]; if (c[0] === R.lt[0] && c[1] === R.lt[1]) shells++; }
+      ok('the shells ride the strap (lit studs)', shells >= 3); }
+  }
+  ok('wave-6 candidates ship', /genCoverall\(/.test(gbAll()) && /split:true/.test(gbAll()) && /genCape\(/.test(gbAll()) && /kind:'bandolier'/.test(gbAll()));
   function gbAll() { const gi2 = src.indexOf('var GARMENTS='); return src.slice(gi2, src.indexOf('];', gi2)); }
 }
 console.log(`\n=== STRUCTURE GATE: ${p} passed, ${f} failed ===`);

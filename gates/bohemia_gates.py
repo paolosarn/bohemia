@@ -106,6 +106,8 @@ GATES = [
      'faction-tagged songs enter the combat pool with their voices', False),
     ('COMBAT LAB',     ['node', 'gates/combat_lab_gate.js'],
      'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
+    ('FACE CANON',     ['node', 'gates/face_canon_gate.js'],
+     'the 7/19 calibration is the floor: no stale save bulldozes it, every menu rebakes', False),
     ('COMBAT ANIM',    ['node', 'gates/combat_anim_gate.js'],
      'combat moves b13: crouch lived, rise/drop, gun-walk, swings, shove/topple read', False),
     ('OPEN COAT',      ['node', 'gates/open_coat_gate.js'],

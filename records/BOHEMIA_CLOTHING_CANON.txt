@@ -471,3 +471,23 @@ new shapes, zero recolors, in COOKING [PENDING thumbs]:
 Gate: structure_gate 74 checks (slit-open + full back cover + zone locks +
 trailing longer than standard machine-checked). Verified on the real preview
 in 5 facings. Stamp: BUILD 7/20h.
+
+=== COOK BATCH 20 (7/20/26, wave 6 -- "New clothes please") ===
+Four REAL NEW SHAPES in COOKING with live thumbs, verified on the rig in
+all facings through the animations (structure gate 92):
+  WORK COVERALLS    -- a genuinely new garment class: ONE PIECE collar to
+                       ankle cuff (torso+sleeves+legs one suit), front zip,
+                       chest patch pockets, cinched waist band.
+  SPLIT-TAIL DUSTER -- ankle-length coat with a RIDING VENT up the back:
+                       the tail splits at center on back views, pants read
+                       through the split. (DUST DUSTER stays dead; this is
+                       a different structure AND a fresh name.)
+  ROAD CAPE         -- the inverse of the open coat: the garment lives
+                       BEHIND the body. Front: shoulder cap, throat clasp,
+                       drape peeking past the silhouette. Back: one full
+                       hanging panel to the knee. Profile: trailing edge.
+  SHELL BANDOLIER   -- ONE diagonal shell belt shoulder-to-opposite-hip,
+                       brass studs riding the strap, ammo pouch at the low
+                       end. Not the chest rig (X-harness): a sash.
+New machinery: genCoverall + genCape generators, genCoat split-vent
+support, genGear bandolier branch. All gate-locked same turn.
