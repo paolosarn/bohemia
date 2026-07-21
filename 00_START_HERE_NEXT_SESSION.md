@@ -87,9 +87,17 @@ LAMP POSTS STAND (7/20 latest): the blessed V11 dark bodies
 regen-safe), DEAD IS DEFAULT, live circuits get the rgb-only head glow at
 night (the blessed V11 wired pattern, no verdict owed). tools/bohemia_
 city_lampposts_patch.py. Gate #CITY TAB 40.
-NEXT for street-level art: building/lot art (the district factory
-tilespecs - THE BIG VISUAL JUMP, colored blocks become the city), arrows
-at zoom-true scale.
+BUILDING ART v1 (7/20 latest): residential structures wear ROOF +
+FACADE tiles cropped from the HOUSE FACTORY BANK's 24 approved stamps
+(walls/roofs/windows all judged pieces): roofs on structure tops, facade
+rows plain-or-window by deterministic variant. Doors deferred honestly (a
+face needs exactly ONE door = per-building identity, not a cell hash).
+tools/bohemia_city_buildingart_patch.py. Gate #CITY TAB 42.
+FOUND WHILE VERIFYING: the old build's suburb GROUND is GREEN LAWN -
+act-1 DEAD WORLD violation (no living grass). The ground recolor is the
+next ground rung. NEXT: dead-world district grounds, commercial/civic
+building art (their banks when judged), doors per building, arrows at
+zoom-true scale.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid
