@@ -428,6 +428,12 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.split('e.fleeing').length >= 10 &&
     demo.includes("e.fleeing?'FLEEING'") &&
     demo.includes('if(e.fleeing){ if(L.walk112'));
+  // v36: follow-up on v35 (accuracy definition + killed the living-portrait effect)
+  ok('V36 ACCURACY IS KILL RATE: the ledger reports killshots/shots, not any-hit/shots',
+    demo.includes('V36 KILL-RATE ACCURACY') &&
+    demo.includes('rate3=L.shots?Math.round(L.kills/L.shots*100):0'));
+  ok('V36 FIRE-BUTTON FACE KILLED: JUICE.AU (dying-face swap / red wash / red border on HP loss) is off',
+    demo.includes('AS:true,AT:true,AU:false,AV:true'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

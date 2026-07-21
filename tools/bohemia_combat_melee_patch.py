@@ -2735,7 +2735,7 @@ def patch35(demo):
       same as broken/downed for every pool. Elites (hardened) break
       less often — a first pass at his 'rank slider,' full faction
       tuning [PENDING Paolo]."""
-    if 'V35 FLEEING' in demo:
+    if 'V35: FROZEN during the killcam' in demo:
         print('v35 already applied, skipping')
         return demo
 
@@ -2837,13 +2837,36 @@ function realCoverPillar(e){ const exy=pXY(e);
     return demo
 
 
+def patch36(demo):
+    """v36 (Paolo 7/21, follow-up on v35): accuracy means killshot rate, not
+    any-hit rate; kill the "face gets worse as you do" fire-button effect
+    (his verdict: "i dont like it")."""
+    if 'V36 KILL-RATE ACCURACY' in demo:
+        print('v36 already applied, skipping')
+        return demo
+
+    # accuracy = killshots / shots, not (any hit) / shots
+    demo = sub1(demo,
+        "D('ledgerbtn').addEventListener('click',()=>{ if(!JUICE.AT)return; const L=G.ledger||{};\n  const rate3=L.shots?Math.round(L.hits/L.shots*100):0;",
+        "D('ledgerbtn').addEventListener('click',()=>{ if(!JUICE.AT)return; const L=G.ledger||{};\n  const rate3=L.shots?Math.round(L.kills/L.shots*100):0;   /* V36 KILL-RATE ACCURACY: 100% means every shot was a killshot, not just a hit (Paolo, ruled) */",
+        'ledger-accuracy-kill-rate')
+
+    # kill the living-portrait effect (dying face swap / red wash / red border on HP loss)
+    demo = sub1(demo,
+        "  AS:true,AT:true,AU:true,AV:true};",
+        "  AS:true,AT:true,AU:false,AV:true};   /* V36: Paolo -- \"i dont like it\", killed. wound state stays on the body/screen vignette, not the fire-button face */",
+        'kill-au-face')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))
+    patched = patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
