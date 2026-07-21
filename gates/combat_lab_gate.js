@@ -326,8 +326,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V27 PICK SPENT') && demo.includes('if(G.selTarget===G.fireTarget)G.selTarget=null;') &&
     demo.split('G.popTarget=-1;').length >= 3);
   // v28: the threat ladder
-  ok('V28 THREAT ORDER: adjacent blade > exposed guns (closest first) > closing blades > the rest',
-    demo.includes('V28 THREAT ORDER') && demo.includes('e.melee&&e.edist<=1.6') &&
+  ok('V28 THREAT ORDER: imminent blade (V33 reach/windup-aware) > exposed guns (closest first) > closing blades > the rest',
+    demo.includes('V28 THREAT ORDER') && demo.includes('V33 THREAT REACH') &&
     demo.includes('_rank(e)*1000+e.edist'));
   // v29: reckless pop + crouch-fire plumbing
   ok('V29 RECKLESS POP: the button always fires; bad timing stands you into held beads',
@@ -375,8 +375,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('THE SILENT READOUT IS FIXED: every setRead call now reaches a visible action log',
     demo.includes('V32 THE SILENT READOUT') && demo.includes('function drawActionLog') &&
     demo.includes('drawActionLog(ctx,W,H)'));
-  ok('V32 WEAPON-GATED LETHALITY: pistol never auto-kills, shotgun always does, table matches the research floor',
-    demo.includes('const WEAPON_LETHAL={pistol:0,smg:0.15,rifle:0.35,shotgun:1.0}') &&
+  ok('V32/V33 WEAPON-GATED LETHALITY: pistol has a real research-honest chance, shotgun always lethal, table applied through the roll',
+    demo.includes('const WEAPON_LETHAL={pistol:0.20,smg:0.35,rifle:0.55,shotgun:1.0}') &&
     demo.includes("(WEAPON==='shotgun')||(Math.random()<(WEAPON_LETHAL[WEAPON]||0))"));
   ok('blood drops the INSTANT a killshot downs someone, not next turn',
     demo.includes('the pool starts the instant he drops, not next turn'));
@@ -393,6 +393,14 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V32D BOTH EXITS: the log paints from the COVER-PHASE draw() exit too, not only the aim/killshot one (root cause of the invisible log)',
     demo.includes('V32D BOTH EXITS') &&
     demo.split('drawActionLog(ctx,W,H)').length >= 4);
+  // v33: real reach-aware threat order + lethality/nerve retune
+  ok('V33 THREAT REACH: a windup is a locked strike regardless of distance; else judged by the blade\'s REAL reach, not a flat guess',
+    demo.includes('V33 THREAT REACH') &&
+    demo.includes('e.windup||e.edist<=(e.reach||1.8)+0.3'));
+  ok('V33 lethality retune: pistol non-zero (research-honest), the rest scaled with it, shotgun still always lethal',
+    demo.includes('const WEAPON_LETHAL={pistol:0.20,smg:0.35,rifle:0.55,shotgun:1.0}'));
+  ok('V33 nerve retuned down further on top of the v32 event-gating',
+    demo.includes('0.10+0.05*(_down-_half)') && !demo.includes('0.18+0.08*(_down-_half)'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

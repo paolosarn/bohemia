@@ -46,3 +46,34 @@ SOURCES
   weapon type): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9485125/
 - Gunshot head wound survival factors: https://codmansurgical.integralife.com/gunshot-head-wounds-what-impacts-survival/
 - Firearm injury ED outcomes evaluation: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8695658/
+
+=========================================================================
+RETUNE (7/21/26, same day, Paolo's follow-up): "i dont think a pistol
+doesnt kill someone 100 percent of the time" — he's right, 0% was never
+honest. Second research pass found the number that should have anchored
+this from the start: general CIVILIAN handgun GSW fatality (ANY location,
+not even aimed) runs 10-22% across trauma-center studies (PMC9485125,
+StatPearls abdominal GSW review). A deliberately aimed KILL-zone hit
+should read as MORE lethal than a random unaimed wound, not less — 0%
+had it backwards.
+
+NEW FLOOR (v33):
+  PISTOL  : 20%   — grounded in the real 10-22% general fatality range;
+                    still clearly the mercy option relative to the rest.
+  SMG     : 35%   — scaled up proportionally with the pistol correction.
+  RIFLE   : 55%   — rifles remain the most lethal round in the data.
+  SHOTGUN : 100%  — unchanged, his ruling stands.
+
+Also retuned down: the NERVE morale-break roll (0.18 base +0.08/body ->
+0.10 base +0.05/body), on top of the v32 event-gating (fires only the
+turn a NEW casualty happens, never from ambient waiting) — his "kill
+half the crew, walk away, they all surrendered" complaint, addressed
+twice over now.
+
+DESIGN INTENT FOR LATER (his framing, not built yet): these are FLAT
+baseline numbers for now. His stated end-game intent: mercy/mercy-rate
+should NOT stay this generous once the game is feature-complete —
+higher surrender odds should come from PERKS (an unlock investment),
+the same doctrine as GRIT SHOTS. [PENDING Paolo: when the perk pass
+comes, gate surrender/lethality modifiers behind it; until then the
+flat table above is the honest baseline.]

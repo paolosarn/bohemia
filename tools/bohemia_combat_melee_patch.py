@@ -2637,13 +2637,46 @@ def patch32d(demo):
     return demo
 
 
+def patch33(demo):
+    """v33 (Paolo 7/21): (1) THREAT ORDER, THE REAL FIX — v28's rank-0
+    check used a flat 1.6-tile distance, ignoring each blade's ACTUAL
+    reach and windup state. A spear (reach 4.2) closing in, or a shiv
+    already winding up its strike, could sit outside 1.6 tiles and lose
+    priority to a distant gun that isn't even close to touching you —
+    his exact 'jumping over my cover to shank me and I'm still not
+    targeting them' report. Rank-0 is now: winding up (a locked-in
+    strike, no matter the distance) OR within HIS OWN reach + a half-
+    tile margin. Uses the enemy's real weapon stat, not a guess.
+    (2) LETHALITY RETUNE (research, his ask 'a pistol shouldn't never
+    kill', 'tone the surrendering down'): general civilian handgun GSW
+    fatality runs 10-22% (NCBI/trauma-center data) even before aiming
+    is factored in — 0% was never honest. New floor: pistol 20%, smg
+    35%, rifle 55%, shotgun 100% (unchanged, his ruling). (3) NERVE
+    retuned down (0.18/0.08 -> 0.10/0.05) — still event-gated (v32),
+    now genuinely rarer on top of that."""
+    if 'V33 THREAT REACH' in demo:
+        print('v33 already applied, skipping')
+        return demo
+
+    demo = sub1(demo, "    if(e.melee&&e.edist<=1.6) return 0;                     /* knife AT you */",
+        "    if(e.melee&&(e.windup||e.edist<=(e.reach||1.8)+0.3)) return 0;   /* V33 THREAT REACH: a windup is a LOCKED strike regardless of distance; otherwise judge by HIS reach, not a flat guess — the spear/bat that jumped your cover now ranks first */",
+        'threat-reach')
+    demo = sub1(demo, "const WEAPON_LETHAL={pistol:0,smg:0.15,rifle:0.35,shotgun:1.0};   /* V32 (Paolo, research floor): a killshot's odds of being FINAL rather than DOWNED, by weapon */",
+        "const WEAPON_LETHAL={pistol:0.20,smg:0.35,rifle:0.55,shotgun:1.0};   /* V33 (Paolo, research retune): general handgun GSW fatality runs 10-22%% even unaimed — 0%% was never honest; the rest scaled up with it */",
+        'lethal-retune')
+    demo = sub1(demo, "    if(_down>=_half && _down>(G._nerveLastDown||0))for(const e of G.e){ if(e.dead||e.downed||e.broken)continue;\n      if(Math.random()<0.18+0.08*(_down-_half)){",
+        "    if(_down>=_half && _down>(G._nerveLastDown||0))for(const e of G.e){ if(e.dead||e.downed||e.broken)continue;\n      if(Math.random()<0.10+0.05*(_down-_half)){   /* V33: toned down further on top of v32's event-gating */",
+        'nerve-retune')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))
+    patched = patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
