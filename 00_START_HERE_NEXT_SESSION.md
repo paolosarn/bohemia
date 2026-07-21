@@ -376,16 +376,21 @@ as Paolo's canon.
   left main's music gate red — that's main's debt, not this branch's, and not the
   phone's.) The old PHONE-tab-in-alpha injector was DEPRECATED and removed; use the
   current-slice iframe mechanism above.
-- THE PHONE IS NOW A DEVICE (7/20): the current slice is no longer a single feed — it
-  BOOTS (salvaged NETWORK OS) into a HOME SCREEN with app tiles: FEED (the social app,
-  full), MESSAGES (character DM threads; the neighbor delivers a quest by TEXT), and
-  MAP / WALLET / CAMERA as dimmed "soon" placeholders, plus PROFILE. Every app runs on
-  the same real engine. Visual language: salvaged-smartphone apocalyptic (see PHONE
-  VISUAL DIRECTION in the SOCIAL_FEED addendum). NEXT PHONE APPS queued (Paolo picked
-  "device + Messages" first; Map is the on-deck one): MAP (salvaged GPS: quest pins,
-  over-phone vs in-person, signal dead-zones — plumb from ctx.worldMap districts, MAP
-  LAW = no layout design), then WALLET (the three currencies + clout — gated on Paolo's
-  bootEconomy rulings), CAMERA (quest-thumbnail capture, art pipeline).
+- THE PHONE IS NOW A DEVICE (7/20): the current slice is a whole salvaged smartphone.
+  BOOT (NETWORK OS power-on) -> LOCK SCREEN (clock, in-world date, live notification
+  cards from real unread DMs + available quests, tap to unlock) -> HOME SCREEN with app
+  tiles. Apps built: FEED (the social app, full), MESSAGES (character DM threads; the
+  neighbor delivers a quest by TEXT), MAP (salvaged GPS canvas of the REAL generated
+  valley: the Strip/dam/solar/districts-by-texture/routes/hubs/mountain-walls +
+  derived Network signal coverage & dead-zones + quest pins gold=over-phone /
+  orange-triangle=in-person + player dot + radar sweep; MAP LAW respected — renders
+  generated data, designs no layout). TOAST notifications on quest-complete / DM-quest.
+  Still dimmed "soon": WALLET, CAMERA. Every app runs on the same real engine; visual
+  language = salvaged-smartphone apocalyptic (PHONE VISUAL DIRECTION in the SOCIAL_FEED
+  addendum). NEXT PHONE APPS (gated): WALLET (the three currencies + clout — needs
+  Paolo's bootEconomy rulings), CAMERA (quest-thumbnail capture — art pipeline).
+  Reproducible: edit slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html (dev source) ->
+  node tools/build_current_slice.js -> deploy slices/BOHEMIA_CURRENT_SLICE.html to main.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
