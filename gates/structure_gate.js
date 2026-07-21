@@ -354,8 +354,10 @@ if (G) {
       ok('scrap helm keeps the EYE SLIT open in front', slitOpen(hm) >= 3);
       ok('scrap helm from behind: full metal, no skin', faceCov8(hmN) === 1); }
     if (qvN && qvS) {
-      ok('quiver: the tube rides the BACK, the front carries only the strap', Object.keys(qvN).length > Object.keys(qvS).length);
-      ok('the arrow tips poke past the shoulder line', (() => { for (const k in qvN) { const i = +k; if (g[i] === 0 && ((i / 56) | 0) < 16) return true; } return false; })()); }
+      ok('quiver v2: the tube rides the BACK, the front carries only the strap', Object.keys(qvN).length > Object.keys(qvS).length);
+      ok('quiver v2: the arrows FAN past the shoulder', (() => { let c = 0; for (const k in qvN) { const i = +k; if ((g[i] === 0 || g[i] === 1) && ((i / 56) | 0) < 16) c++; } return c >= 4; })());
+      ok('quiver v2: the fletching reads (feather pixels)', (() => { let c = 0; for (const k in qvN) { const v = qvN[k]; if (v[0] === 168 && v[1] === 84) c++; } return c >= 2; })());
+      ok('quiver v2: the front fans arrows too', (() => { let c = 0; for (const k in qvS) { const v = qvS[k]; if (v[0] === 168 && v[1] === 84) c++; } return c >= 2; })()); }
   }
   ok('wave-8 candidates ship', /mantle:true/.test(gbAll()) && /kind:'elbowpads'/.test(gbAll()) && /kind:'legwraps'/.test(gbAll()) && /kind:'shoulderroll'/.test(gbAll()) && /kind:'sash'/.test(gbAll()) && /kind:'bandana'/.test(gbAll()) && /kind:'helm'/.test(gbAll()) && /kind:'quiver'/.test(gbAll()));
   function G2A(dir) { const NAMES7 = ['mix', 'bshade', 'ext', 'pExt', 'genAcc', 'genGear'];
