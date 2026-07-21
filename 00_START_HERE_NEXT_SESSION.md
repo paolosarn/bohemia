@@ -565,7 +565,40 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    stale string-anchors from the v35 rewrite -- same "gate matches shipped
    reality, never the reverse" precedent as every prior pass). Full suite
    ALL GREEN. Stamp: BUILD 7/21p.
--25. DRESS CODE BY RANK, THE MECHANISM (7/21, latest): Paolo picked the next
+-27. SIX FACTIONS RULED + THE RAINBOW GAP FOUND (7/21, latest): Paolo went
+   faction-by-faction live off the roster. Locked: REDS brightest red
+   #dc2820, CARTEL darkest maroon #5c302a (existing OXBLOOD ramp), CHURCH
+   gold #ffd75c distinct from MOB's gold-STRIPE #b08a2a (existing MUSTARD
+   ramp, "gold stripes not all gold"), CARAVANS unchanged tan #caa05a
+   (blends with the desert, his call), COLORFUL literal rainbow mode (no
+   fixed color). Mechanism grew THREE modes (family/stripe/rainbow) in
+   engine/bohemia_dress.js: FACTION_LOOK[faction]={mode,color}. Realism
+   fix per his note ("not everyone's gonna have a shirt of one solid
+   color"): nudge order is torso then a SMALL tell (feet/head), legs only
+   as last resort -- no more matching-separates costumes. Generalized the
+   no-stray-cover-up rule (an unforced outer/hat can't hide a forced base/
+   face color -- this was silently breaking REDS/CHURCH's coverage before
+   the fix). BIG FIND: the whole 187-item wardrobe had ZERO real blue/
+   green/purple/yellow -- literally impossible to make COLORFUL a rainbow
+   without new content. Cooked 9 colorway garments (existing shapes, new
+   ramps): SIGNAL RED SHIRT+BOOTS, VESTMENT GOLD SHIRT+BOOTS, MOB
+   PINSTRIPE SHIRT, MOSS GREEN SHIRT, TEAL WORK SHIRT, COBALT WORK PANTS,
+   ROSE BANDANA (a violet sash + first magenta pick both got cut mid-build
+   by PURPLE RESERVATION catching them as purple-family even off pure
+   hue -- rose clears it). Wardrobe bank 195. dress_gate.js 23->43 checks,
+   his two named collisions (REDS/CARTEL, CHURCH/MOB) gate-asserted >=95
+   apart forever. LIFE slice regenerated (was carrying a stale embedded
+   copy of bohemia_dress.js -- confirmed the ENGINE SYNC gate does NOT
+   cover this module family, BOH_* prefix only; regenerate manually after
+   touching engine/bohemia_dress.js). [PENDING Paolo]: the other 7
+   factions (BLUES/ANARCHISTS/NETWORK/TRADES/VOLUNTEERS/REMNANTS/
+   HOMELESS) -- real color collisions found among them, flagged not
+   guessed; FACTION_VETERAN_KIT per faction, whenever. Known limitation
+   flagged: CARTEL's dark-maroon match reads reliably DARK more than
+   reliably RED-hued (plain RGB distance loses hue precision at low
+   lightness) -- a hue-aware metric would tighten this, not blocking.
+   Stamp: BUILD 7/21d.
+-25. DRESS CODE BY RANK, THE MECHANISM (7/21): Paolo picked the next
    lane -- dress codes, starting with color. His rule: rookies wear
    whatever as long as >=50% of BODY SURFACE reads the faction color;
    veterans wear every layer Paolo's kit names, forced, everything else
