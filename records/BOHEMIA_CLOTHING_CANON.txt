@@ -513,3 +513,44 @@ Four REAL NEW SHAPES in COOKING with live thumbs (structure gate 104):
                       accessory; this is hanging geometry. (genGear toolbelt)
   ANKLE WRAP SKIRT -- a real third length on the leg rail: knee shorts /
                       mid-shin wrap / ANKLE. (genPants cut:'longskirt')
+
+=== VERDICT (7/21/26, second export): BATCH 21 JUDGED ===
+BIB OVERALLS / SCAV TOOL BELT / ANKLE WRAP SKIRT: CANON (baked, NEW IN
+CANON carries the three). RUBBER GAS MASK: still cooking, Paolo's ruling:
+"GAS MASKS HAVE TO LOOK BETTER EAST AND WEST." Everything else re-confirmed
+canon. Wardrobe bank: 178 canon items.
+
+=== GAS MASK v2 (same turn): THE PROFILE FIX ===
+Root cause: the profile face is a 3px strip and v1 just flooded it dark --
+no lens, no snout, a smudge. v2 gives E/W a real profile branch: shaped rim
+(brow line + leading edge + jaw seal), ONE lens with a glass GLINT just off
+the leading edge, the filter canister driving FORWARD past the silhouette
+at the jaw (real background pixels, poncho precedent), the strap running
+back across the skull. Front lenses upgraded to the same glint so they
+read at 1px. Still in COOKING for his thumbs.
+
+=== COOK BATCH 22 (7/21/26, wave 8 -- "MAKE MORE CLOTHES A LOT") ===
+EIGHT real new shapes in COOKING (structure gate 123):
+  SHOULDER MANTLE       -- second cape length: stops mid-back (boot-shaft law)
+  ELBOW PADS            -- the kneepads' upstairs sibling, arm zone only
+  FIELD LEG WRAPS       -- cloth puttees shin-to-knee, wound diagonals
+  BLANKET SHOULDER ROLL -- THICK woven roll on the opposite diagonal from
+                           the bandolier, tied ends
+  HIP SASH              -- waist wrap, hip knot, fringed tail HANGING
+  OUTLAW BANDANA        -- below-the-eyes law + a triangle point past the
+                           chin; knot + tails from behind
+  SCRAP HELM            -- rigid dome + nape guard + EYE SLIT (shemagh's
+                           slit law in metal), rivets on the brow
+  SCRAP QUIVER          -- back tube + arrow tips past the shoulder; front
+                           carries only the strap
+
+=== THE FEMALE-RIG GUARANTEE (Paolo 7/21: "make sure this is workable when
+we make it to woman too") ===
+Standing fact, machine-enforced TODAY: every generator reads ONLY the
+deformed part-id grid (torso/arm/leg extents via pExt, centers computed per
+frame) -- zero male-body coordinates anywhere. The structure gate proves it:
+its fixture is a synthetic body that is NOT the male rig, and all 178+ items
+render correctly on it. The day Paolo paints the female rig with the same
+12 part ids, the ENTIRE wardrobe -- every structure, every colorway, every
+gate -- carries over with zero new clothing code. Any future generator that
+hardcodes male geometry will fail the gate fixture and cannot ship.
