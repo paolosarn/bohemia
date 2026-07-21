@@ -351,10 +351,14 @@ as Paolo's canon.
 
 ## DO NOT LOSE (carries)
 - ALWAYS give Paolo the ALPHA LINK whenever you present anything (7/20 rule: "give me
-  the alpha link at all times you present me something"). The link (latest on the work
-  branch): https://github.com/paolosarn/bohemia/blob/<branch>/slices/BOHEMIA_ALPHA_0_9.html
-  (current branch: claude/quest-log-access-ufcu1u). He opens the alpha to judge, so
-  every deliverable must come WITH the link and which tab to open (e.g. the PHONE tab).
+  the alpha link at all times you present me something"). It MUST be the PLAYABLE
+  (rendered) link, NOT the GitHub source/blob page (that just shows code — he called
+  that out hard). Use raw.githack, which serves the file as a live web page:
+  https://raw.githack.com/paolosarn/bohemia/<branch>/slices/BOHEMIA_ALPHA_0_9.html
+  (current branch: claude/quest-log-access-ufcu1u). Every deliverable comes WITH this
+  link and which tab to open (e.g. the PHONE tab). NOTE: the agent sandbox proxy
+  blocks raw.githack (403), so you can't HEAD-test it from here; it renders fine in
+  Paolo's browser. The 31MB size means a slow first load.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
