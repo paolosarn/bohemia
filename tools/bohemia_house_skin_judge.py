@@ -40,7 +40,7 @@ for t in tiles:
                  'mate': feat_mate.get(t['id'])})
 
 SECTIONS = [
-    ('ROOFS', 'roof', 'the visible top of every house. The 7/21 research says real Vegas is concrete S-TILE in mottled desert blends (the roof_stile ones), not shingle - the shingle batch stays here so you can kill it yourself. Gravel flats for the odd flat roof.'),
+    ('ROOFS', 'roof', 'the visible top of every house. RULED (Paolo 7/21): SHINGLE is the Bohemia roof - "most houses look like shingles... idgaf about the material." The S-tile candidates from the material research stay here for the record, not as the winner. Gravel flats for the odd flat roof.'),
     ('WALLS', 'wall', 'the tan stucco face family (85/15) - research confirms Vegas HOA earth tones ARE this palette. Cracks from the top plate, 30 years of wear.'),
     ('WINDOWS', 'window', 'dead world: glass is DARK, or the window is BOARDED. No lit rooms ever in act 1.'),
     ('DOORS', 'door', 'weathered plank doors, frame catches the sun, one knob highlight.'),
@@ -83,7 +83,7 @@ function compose(cv,m){
     ctx.fillStyle=SUN?'#8e7c5c':'#7d6e54';
     for(let i=0;i<160;i++)ctx.fillRect((rnd()*W)|0,(rnd()*H)|0,2,1);
   }
-  const roofId = m.cls==='roof' ? m.id : 'roof_stile_terracotta_21';
+  const roofId = m.cls==='roof' ? m.id : 'roof_shingle_2';
   const DEFAULT_FACE=['wall_plain_9','wall_window_13','wall_plain_9','wall_door_19','wall_plain_9','wall_window_13','wall_plain_9','wall_plain_9'];
   let faceIds;
   if(m.cls==='roof'||m.cls==='yard'){ faceIds=DEFAULT_FACE; }

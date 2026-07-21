@@ -5,7 +5,20 @@ What a real Las Vegas tract house shows the world from our three-quarter view,
 distilled into art rules for the house-skin factory. Web-researched 7/21;
 sources at the bottom.
 
-## THE HEADLINE FINDING: THE ROOF IS WRONG MATERIAL IN v1
+## RULING (Paolo, same day, LOCKED): SHINGLES, NOT TILE
+"most houses look like shingles though im telling you bro idgaf about the
+material but they look like shingles" - overrides the material finding below.
+NOTES ARE RULINGS: this is the verdict, no re-thumb owed. SHINGLE is the
+canon Bohemia suburb roof, effective immediately. The S-TILE research stays
+recorded (it may be true of specific real-world master-planned communities)
+but it does NOT ship as Bohemia's default - Paolo's read of what a Vegas
+suburb roof looks like wins over the trade material research. The judge's
+default composed roof reverted to shingle same turn; S-tile candidates stay
+in the bank for the record/comparison, not as the presumed winner. Everything
+below the roof-material call (hip shape, tan walls, gravel yards, block
+walls) stands - undisputed.
+
+## THE HEADLINE FINDING (SUPERSEDED BY THE RULING ABOVE): ROOF MATERIAL
 Las Vegas suburbs are NOT asphalt-shingle country. Concrete TILE is the
 dominant roof across the master-planned communities (Summerlin, Rhodes
 Ranch, Southern Highlands) - Mediterranean/Southwestern S-tile and barrel
