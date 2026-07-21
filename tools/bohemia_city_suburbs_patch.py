@@ -17,7 +17,7 @@ This patch marries it in (the streets pattern, again):
   - every residential tile (suburb/gated/estate) generates Paolo's block
     from its own seed, street-gated toward its REAL road neighbors -
     exactly how the world model routes it
-  - the 128-fine canon block downsamples 4:1 to the city's 32-cell tile
+  - a 96m canon block spans a 4x4 tile group 1:1 (same 0.75m fine scale) to the city's 32-cell tile
     with PRESENCE-PRIORITY (thin walls and gates survive; houses keep
     their true footprint ratios: ~5x3 city cells = the real 14x9 m)
   - codes realize: houses/garages = structures in the APPROVED suburb-judge
@@ -60,30 +60,32 @@ decoded = decoded.replace(MARK, '/* ==== %s (canon, married 7/20) ==== */\n%s\n%
 
 # 2) the downsampler + tile hook (CANON SUBURB)
 HOOK = """
-/* ==== CANON SUBURB (7/20): residential tiles generate Paolo's approved
-   block (real house sizes, walls, gate, driveways) and downsample 4:1 with
-   presence-priority so thin walls survive. Freestyle prefabs are DEAD for
-   residential. Ground is DEAD DIRT (act-1: no living lawn). ==== */
+/* ==== CANON SUBURB (7/20 v2): a 96m approved block spans a 4x4 TILE GROUP
+   at FULL 1:1 resolution (city fine cells are the same 0.75m as canon - no
+   downsample, no mush). Each residential tile shows its 32x32 window of the
+   group's block. Freestyle prefabs are DEAD for residential. Ground is
+   DEAD DIRT (act-1). ==== */
 const SUB_RES={suburb:1,gated:1,estate:1};
-function __subGrid(tx,ty,seed){
-  const nb={N:om.at(tx,ty-1),S:om.at(tx,ty+1),W:om.at(tx-1,ty),E:om.at(tx+1,ty)};
-  const st=[]; for(const k of ['S','E','W','N']){ const n=nb[k]; if(n&&RD[n.district])st.push(k); }
-  const res=BohemiaSuburb.generate(seed>>>0,{cw:1,ch:1,streets:st.length?st:['S']});
-  const G2=res.g, S=res.W/FN;             // 128 canon fine -> 32 city cells (S=4)
+const __subCache=new Map();
+function __subBlock(gx,gy){
+  const k=gx+','+gy; let b=__subCache.get(k); if(b)return b;
+  const st=[];
+  const side=(name,cells)=>{ for(const [x,y] of cells){ const n=om.at(x,y); if(n&&RD[n.district]){ st.push(name); return; } } };
+  side('S',[0,1,2,3].map(i=>[gx*4+i,gy*4+4]));
+  side('E',[0,1,2,3].map(i=>[gx*4+4,gy*4+i]));
+  side('W',[0,1,2,3].map(i=>[gx*4-1,gy*4+i]));
+  side('N',[0,1,2,3].map(i=>[gx*4+i,gy*4-1]));
+  const gseed=(om.seed ^ Math.imul(gx,73856093) ^ Math.imul(gy,19349663))>>>0;
+  b=BohemiaSuburb.generate(gseed,{cw:1,ch:1,streets:st.length?st:['S']});
+  __subCache.set(k,b);
+  if(__subCache.size>40){ const it=__subCache.keys(); __subCache.delete(it.next().value); }
+  return b;
+}
+function __subGrid(tx,ty){
+  const res=__subBlock(tx>>2,ty>>2);
+  const ox=(tx&3)*FN, oy=(ty&3)*FN;
   const out=new Uint8Array(FN*FN);
-  for(let y=0;y<FN;y++)for(let x=0;x<FN;x++){
-    const cnt={};
-    for(let dy=0;dy<S;dy++)for(let dx=0;dx<S;dx++){
-      const v=G2[y*S+dy][x*S+dx]; cnt[v]=(cnt[v]||0)+1; }
-    const houseN=(cnt[2]||0)+(cnt[6]||0)+(cnt[9]||0);
-    let v=0;
-    if(houseN>=6){ v=(cnt[9]||0)>=(cnt[2]||0)&&(cnt[9]||0)>=(cnt[6]||0)?9:((cnt[6]||0)>(cnt[2]||0)?6:2); }
-    else if((cnt[4]||0)>=2) v=4;
-    else if((cnt[5]||0)>=2) v=5;
-    else if((cnt[3]||0)>=4) v=3;
-    else if((cnt[1]||0)>=4) v=1;
-    out[y*FN+x]=v;
-  }
+  for(let y=0;y<FN;y++)for(let x=0;x<FN;x++) out[y*FN+x]=res.g[oy+y][ox+x];
   return out;
 }
 """
@@ -98,7 +100,7 @@ OPEN_BLOCK = """  if(m.open){ // scattered unwalkable clutter (rocks, brush) on 
   }"""
 assert OPEN_BLOCK in decoded
 decoded = decoded.replace(OPEN_BLOCK, OPEN_BLOCK + """
-  if(SUB_RES[d]){ m.sub=__subGrid(tx,ty,t.seed); metaCache.set(key,m); return m; }""", 1)
+  if(SUB_RES[d]){ m.sub=__subGrid(tx,ty); metaCache.set(key,m); return m; }""", 1)
 
 # 4) realizeCell: canon codes realize with the approved art hooks
 NONROAD = "  const c={g:slotGround(d),s:null,walk:d!=='water'&&d!=='mountain',q:m.q};"
