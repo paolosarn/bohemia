@@ -38,6 +38,12 @@
   var BNY= HASREQ ? require('./bohemia_boneyard.js')       : (typeof BohemiaBoneyard!=='undefined'?BohemiaBoneyard:root.BohemiaBoneyard);
   var POL= HASREQ ? require('./bohemia_policestation.js')  : (typeof BohemiaPolicestation!=='undefined'?BohemiaPolicestation:root.BohemiaPolicestation);
   var LIB= HASREQ ? require('./bohemia_library.js')        : (typeof BohemiaLibrary!=='undefined'?BohemiaLibrary:root.BohemiaLibrary);
+  var LFL= HASREQ ? require('./bohemia_landfill.js')       : (typeof BohemiaLandfill!=='undefined'?BohemiaLandfill:root.BohemiaLandfill);
+  var RLY= HASREQ ? require('./bohemia_railyard.js')       : (typeof BohemiaRailyard!=='undefined'?BohemiaRailyard:root.BohemiaRailyard);
+  var SBS= HASREQ ? require('./bohemia_substation.js')     : (typeof BohemiaSubstation!=='undefined'?BohemiaSubstation:root.BohemiaSubstation);
+  var CHP= HASREQ ? require('./bohemia_chapel.js')         : (typeof BohemiaChapel!=='undefined'?BohemiaChapel:root.BohemiaChapel);
+  var CTH= HASREQ ? require('./bohemia_courthouse.js')     : (typeof BohemiaCourthouse!=='undefined'?BohemiaCourthouse:root.BohemiaCourthouse);
+  var JAL= HASREQ ? require('./bohemia_jail.js')           : (typeof BohemiaJail!=='undefined'?BohemiaJail:root.BohemiaJail);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -68,7 +74,13 @@
     watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse' },
     boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
     policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
-    library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' }
+    library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
+    landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    substation: { mod:SBS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
+    courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
+    jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }

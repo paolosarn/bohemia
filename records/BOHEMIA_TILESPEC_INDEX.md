@@ -26,5 +26,11 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [boneyard](tilespec/BOHEMIA_TILESPEC_boneyard.md) | industrial | 15 | yes |
 | [policestation](tilespec/BOHEMIA_TILESPEC_policestation.md) | civic | 14 | yes |
 | [library](tilespec/BOHEMIA_TILESPEC_library.md) | civic | 14 | yes |
+| [landfill](tilespec/BOHEMIA_TILESPEC_landfill.md) | infrastructure | 14 | yes |
+| [railyard](tilespec/BOHEMIA_TILESPEC_railyard.md) | industrial | 14 | yes |
+| [substation](tilespec/BOHEMIA_TILESPEC_substation.md) | infrastructure | 14 | yes |
+| [chapel](tilespec/BOHEMIA_TILESPEC_chapel.md) | civic | 13 | yes |
+| [courthouse](tilespec/BOHEMIA_TILESPEC_courthouse.md) | civic | 14 | yes |
+| [jail](tilespec/BOHEMIA_TILESPEC_jail.md) | civic | 14 | yes |
 
 WHEN A DISTRICT IS APPROVED: it exposes a LEGEND (code -> {name, kind, act1}); this generator writes its sheet; `gates/tilespec_gate.js` fails if any tile code ships undocumented. That is the standing "record everything you built" flow.

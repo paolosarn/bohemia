@@ -28,6 +28,12 @@ const DISTRICTS = [
   { name: 'boneyard',   mod: require('../engine/bohemia_boneyard.js') },
   { name: 'policestation', mod: require('../engine/bohemia_policestation.js') },
   { name: 'library',    mod: require('../engine/bohemia_library.js') },
+  { name: 'landfill',   mod: require('../engine/bohemia_landfill.js') },
+  { name: 'railyard',   mod: require('../engine/bohemia_railyard.js') },
+  { name: 'substation', mod: require('../engine/bohemia_substation.js') },
+  { name: 'chapel',     mod: require('../engine/bohemia_chapel.js') },
+  { name: 'courthouse', mod: require('../engine/bohemia_courthouse.js') },
+  { name: 'jail',       mod: require('../engine/bohemia_jail.js') },
 ];
 
 for (const d of DISTRICTS) {
