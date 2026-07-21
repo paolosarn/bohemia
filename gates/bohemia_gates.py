@@ -108,6 +108,8 @@ GATES = [
      'dead trailer park: staggered mobile-home rows, carports, sheds, some burned out', False),
     ('WALKABLE LAND',  ['node', 'gates/walkable_gate.js'],
      'no district is mostly parking/driveway: content dominates pavement (vehicular venues exempt)', False),
+    ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
+     'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
      'parking garage interior: multi-deck, ramps, 3D reachable from the entrance', False),
     ('CRYPT',          ['node', 'gates/crypt_gate.js'],
