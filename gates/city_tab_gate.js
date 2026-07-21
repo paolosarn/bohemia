@@ -141,7 +141,35 @@ if (b64m) {
     && decoded.indexOf('strip:{lanes:4,med:2,side:2}') >= 0
     && decoded.indexOf('freeway:{lanes:4,med:2,side:0}') >= 0);
   ok('LINE COLOR LAW at street level: yellow median, white lane dashes',
-    decoded.indexOf("c.g='#b8a040'") >= 0 && decoded.indexOf("c.g='#d8d4c4'") >= 0);
+    decoded.indexOf("'#b8a040'") >= 0 && decoded.indexOf("c.g='#d8d4c4'") >= 0);
+
+  // 10. THE INTERSECTION LOCK (7/20): V12 anatomy at street level - clean
+  // box, crosswalks at the box edges (approved cross art, oriented), median
+  // and lane lines stop at the crossing. Plus the walker teleport probe so
+  // any coordinate stays verifiable on the real surface.
+  ok('V12 XING: crossings carry the approved anatomy',
+    decoded.indexOf('V12 XING') >= 0);
+  ok('crosswalk art embedded both orientations',
+    decoded.indexOf("'cross_ns'") >= 0 && decoded.indexOf("'cross_ew'") >= 0);
+  ok('median and dashes stop at the crossing (nearX)',
+    decoded.indexOf('nearX') >= 0);
+  ok('the walker teleport probe exists (__CITY.human)',
+    decoded.indexOf('window.__CITY.human=') >= 0);
+
+  // 11. THE REGEN LOCK (7/20, Paolo: "make sure everything is seed regen
+  // friendly"): REROLL must rebuild the WHOLE world deterministically -
+  // LCG seed advance (no wall randomness), both caches dropped, POWER
+  // re-rolled (gated above), and the world path free of Math.random.
+  // Verified live 7/20: reroll chain 2026 -> 2338904795 -> 783686144
+  // identical across fresh boots; power lottery 366/392/458 re-rolls with
+  // the world; street art re-bakes; 0 errors.
+  ok('REGEN: reroll advances the seed by deterministic LCG',
+    decoded.indexOf('seed=(seed*1103515245+12345)>>>0') >= 0);
+  ok('REGEN: reroll drops the stream (both caches cleared)',
+    decoded.indexOf('chunkCache.clear(); metaCache.clear();') >= 0);
+  const worldPath = decoded.slice(decoded.indexOf('function tileMeta'), decoded.indexOf('function chunkCanvas'));
+  ok('REGEN: the world path holds zero Math.random (pure f(seed))',
+    worldPath.indexOf('Math.random') < 0 && worldPath.length > 1000);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

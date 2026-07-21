@@ -1,30 +1,20 @@
 #!/usr/bin/env node
 /* ============================================================================
-   BOHEMIA — COMBAT LAB GATE (7/19/26, COMBAT session)
-   Machine-locks the BEAT TACTICS LAB (slices/BOHEMIA_COMBAT_LAB_7_19_26.html):
-     1. ENGINE STAMP SYNC — the lab's Dead Eye Dial engine block is
-        byte-identical to the canonical body inside the alpha's COMBAT_B64.
-        (One canonical dial engine; the generator re-stamps, the gate proves.)
-     2. THE IRON LAWS, headless:
-        - NO DAMAGE BEFORE THE DIAL: enemy hp moves ONLY through
-          applyDialResult (static + simulated).
-        - OCCUPANCY: one body per cell, player included, across seeded
-          random-play sims in all four modes.
-        - 120 BPM / I-MOVE-YOU-MOVE: BPM=120, whole-beat advancement,
-          world frozen while the dial is open, watching costs nothing.
-        - Locked tiers: vital = 60 + 2-beat stun, NO stun-lock, two vitals
-          kill a human; killshot chains; vital chains to a DIFFERENT target.
-        - Package currency: distance pulls the package (PB easier), helpless
-          targets ease it, clamped 0..4.
-     3. VERDICT WORKFLOW: SUN MODE, thumbs, per-mode comments, bottom
-        comment section, export as .txt (never .json).
-     4. ALPHA WIRING: the COMBAT tab hosts the lab via combatLabFrame.
+   BOHEMIA — COMBAT GATE (7/19/26 COMBAT session; LAB RETIRED 7/20/26)
+   Paolo's 7/20 verdict: the beat-tactics lab grammars are DOWN (only the
+   shove survived, and it lives in the canon demo). The lab surface is
+   archived; this gate now machine-locks the ONE combat surface — the
+   Dead Eye Dial demo inside the alpha's COMBAT_B64:
+     1. The canonical dial ENGINE block exists in the demo.
+     2. MELEE CORE headless sims (telegraph law, spear reach, shove rulings).
+     3. Every shipped ruling marker v2..v26 (movement, pillars, red line,
+        honest miss, real-cover-only, targeting, grit, kick-lock, ...).
+     4. Alpha wiring (sprite bakes; the combat tab hosts the demo alone).
    ============================================================================ */
 'use strict';
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const LAB = path.join(ROOT, 'slices', 'BOHEMIA_COMBAT_LAB_7_19_26.html');
 const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
 
 let pass = 0, fail = 0;
@@ -33,232 +23,16 @@ function ok(name, cond, extra) {
   else { fail++; console.log('  FAIL ' + name + (extra ? ' -- ' + extra : '')); }
 }
 
-const lab = fs.readFileSync(LAB, 'utf8');
 const alpha = fs.readFileSync(ALPHA, 'utf8');
 
-/* ---- 1. engine stamp sync ---- */
-function engineBlock(src, label) {
-  const a = src.indexOf('<!-- ENGINE START');
-  const b = src.indexOf('<!-- ENGINE END');
-  if (a < 0 || b < 0) throw new Error(label + ': engine markers missing');
-  return src.slice(a, src.indexOf('-->', b) + 3);
-}
+/* ---- 1. the canon demo ---- */
 const m = alpha.match(/const COMBAT_B64='([^']+)'/);
 ok('alpha carries COMBAT_B64', !!m);
 const demo = Buffer.from(m[1], 'base64').toString('utf8');
-const canonBlock = engineBlock(demo, 'alpha demo');
-let labBlock = null;
-try { labBlock = engineBlock(lab, 'lab'); } catch (e) { labBlock = null; }
-ok('lab carries an engine stamp', !!labBlock);
-ok('ENGINE STAMP SYNC: lab dial engine byte-identical to alpha canon',
-  labBlock === canonBlock, labBlock ? ('lab ' + labBlock.length + ' vs canon ' + canonBlock.length) : 'no stamp');
-
-/* ---- 2. extract + run the core ---- */
-const ca = lab.indexOf('LAB CORE START'), cb = lab.indexOf('LAB CORE END');
-ok('LAB CORE markers present', ca > 0 && cb > ca);
-const coreSrc = lab.slice(lab.indexOf('var LabCore', ca), lab.lastIndexOf('if(typeof module', cb));
-const mod = { exports: {} };
-new Function('module', 'exports', coreSrc + ';module.exports=LabCore;')(mod, mod.exports);
-const LC = mod.exports;
-
-ok('120 BPM LAW: BPM=120, BEAT=500ms', LC.K.BPM === 120 && LC.K.BEAT_MS === 500);
-ok('four modes', ['conductor', 'promise', 'dance', 'shove'].every(k => LC.MODES[k]));
-ok('readability ceiling: every mode <= 8 enemies',
-  Object.keys(LC.MODES).every(k => LC.MODES[k].count <= 8));
-
-/* static: hp mutations only inside applyDialResult */
-const adrStart = coreSrc.indexOf('function applyDialResult');
-const adrEnd = coreSrc.indexOf('function chainShot');
-const hpMuts = [];
-const re = /\.hp\s*=/g; let mm;
-while ((mm = re.exec(coreSrc))) hpMuts.push(mm.index);
-ok('NO DAMAGE BEFORE THE DIAL (static): every .hp mutation lives in applyDialResult',
-  hpMuts.length > 0 && hpMuts.every(i => i > adrStart && i < adrEnd),
-  hpMuts.length + ' mutation sites');
-
-/* determinism */
-const g1 = JSON.stringify(LC.newGame('conductor', 'SEED')),
-      g2 = JSON.stringify(LC.newGame('conductor', 'SEED'));
-ok('deterministic spawn (same seed, same field)', g1 === g2);
-ok('different seed, different field', g1 !== JSON.stringify(LC.newGame('conductor', 'SEED2')));
-
-/* seeded random-play sim per mode: occupancy + beats + no-dial damage */
-function prng(n) { let s = n >>> 0; return () => (s = (s * 1103515245 + 12345) >>> 0) / 4294967296; }
-let occBad = 0, beatBad = 0, hpBad = 0, boundsBad = 0;
-for (const mode of Object.keys(LC.MODES)) {
-  const R = prng(42);
-  const S = LC.newGame(mode, 'GATE');
-  for (let i = 0; i < 300 && !S.down; i++) {
-    const hpBefore = S.enemies.reduce((a, e) => a + e.hp, 0);
-    const roll = R();
-    let action;
-    if (mode === 'shove' && roll < 0.25) {
-      const d = [[1, 0], [-1, 0], [0, 1], [0, -1]][Math.floor(R() * 4)];
-      action = { type: 'shove', dx: d[0], dy: d[1] };
-    } else if (roll < 0.75) {
-      const d = [[1, 0], [-1, 0], [0, 1], [0, -1]][Math.floor(R() * 4)];
-      action = { type: 'move', dx: d[0], dy: d[1] };
-    } else action = { type: 'wait' };
-    const b0 = S.beat;
-    const r = LC.commitPlayer(S, action, 0);
-    if (r.ok) {
-      if (!Number.isInteger(S.beat) || S.beat !== b0 + 1) beatBad++;
-      const b1 = S.beat;
-      const w = LC.worldStep(S);
-      if (w.ok && S.beat !== b1 + 1) beatBad++;
-    }
-    if (S.enemies.reduce((a, e) => a + e.hp, 0) !== hpBefore) hpBad++;  // no dial ran
-    const seen = {}; seen[S.px + ',' + S.py] = 1;
-    if (S.px < 0 || S.px >= LC.K.W || S.py < 0 || S.py >= LC.K.H) boundsBad++;
-    for (const e of LC.alive(S)) {
-      const k = e.x + ',' + e.y;
-      if (seen[k]) occBad++; seen[k] = 1;
-      if (e.x < 0 || e.x >= LC.K.W || e.y < 0 || e.y >= LC.K.H) boundsBad++;
-      if (S.solids[k]) occBad++;
-    }
-  }
-}
-ok('OCCUPANCY LAW: one body per cell across 4x300-step sims', occBad === 0, occBad + ' violations');
-ok('bodies never leave the grid / stand in walls', boundsBad === 0);
-ok('whole-beat advancement (player +1, world +1)', beatBad === 0);
-ok('NO DAMAGE BEFORE THE DIAL (simulated): dial never ran, hp never moved', hpBad === 0);
-
-/* fire stages; world frozen while dial open; watching costs nothing */
-{
-  const S = LC.newGame('conductor', 'GATE2');
-  const t = LC.alive(S).find(e => LC.los(S, S.px, S.py, e.x, e.y));
-  const turn0 = S.turn;
-  const r = LC.commitPlayer(S, { type: 'fire', target: t.id, basePkg: 4 }, 0);
-  ok('fire STAGES a shot (pendingShot, zero damage)', r.ok && !!S.pendingShot && t.hp === 100);
-  ok('world frozen while the dial is open', LC.worldStep(S).ok === false);
-  const rr = LC.applyDialResult(S, 'killshot');
-  ok('killshot kills + keeps the chain alive', t.dead && rr.chain === true);
-  ok('the chain is ONE action: turn unchanged until the world answers', S.turn === turn0);
-  LC.worldStep(S);
-  ok('world answers after the chain ends', S.turn === turn0 + 1);
-}
-
-/* locked vital rules */
-{
-  const S = LC.newGame('conductor', 'GATE3');
-  const t = LC.alive(S)[0];
-  S.pendingShot = { target: t.id, pkg: 0 };
-  const r1 = LC.applyDialResult(S, 'vital');
-  ok('vital = 60 damage + 2-beat stun', t.hp === 40 && t.stun === 2 && r1.stunned === true);
-  ok('vital chains to a DIFFERENT target (locked 7/1)', r1.chain === true && r1.mustSwitch === true);
-  S.pendingShot = { target: t.id, pkg: 0 };
-  LC.applyDialResult(S, 'vital');
-  ok('two vitals kill a human (locked 6/27)', t.dead === true);
-  const S2 = LC.newGame('conductor', 'GATE4');
-  const u = LC.alive(S2)[0];
-  u.hp = 200;                                  // armored-goon stand-in: survives two vitals
-  S2.pendingShot = { target: u.id, pkg: 0 };
-  LC.applyDialResult(S2, 'vital');
-  const stunAfterFirst = u.stun;
-  S2.pendingShot = { target: u.id, pkg: 0 };
-  LC.applyDialResult(S2, 'vital');
-  ok('NO STUN-LOCK: re-vital chips hp but cannot refresh the freeze',
-    stunAfterFirst === 2 && u.stun === 2 && u.hp === 80);
-}
-
-/* package currency */
-{
-  const S = LC.newGame('conductor', 'GATE5');
-  const e = LC.alive(S)[0];
-  LC.alive(S).filter(o => o !== e).forEach(o => { o.dead = true; });  // isolate: no surrounded modifier
-  e.x = S.px + 1; e.y = S.py;                  // point blank
-  const pb = LC.effPackage(S, e, 4);
-  e.x = S.px; e.y = 0;                         // far
-  const far = LC.effPackage(S, e, 4);
-  ok('distance pulls the package: point blank easier than far (canon)', pb < far, pb + ' vs ' + far);
-  e.stun = 2;
-  const helpless = LC.effPackage(S, e, 4);
-  ok('helpless target eases the dial', helpless <= far - 1 || far === 0);
-  for (let base = 0; base <= 4; base++) {
-    const v = LC.effPackage(S, e, base);
-    if (v < 0 || v > 4) { ok('package clamp 0..4', false, String(v)); break; }
-    if (base === 4) ok('package clamp 0..4', true);
-  }
-}
-
-/* shove grammar (Paolo rulings 7/19, occupancy-honest) */
-{
-  const S = LC.newGame('shove', 'GATE6');
-  const e = LC.alive(S)[0];
-  S.px = 4; S.py = 5; e.x = 4; e.y = 4;
-  delete S.solids['4,3']; delete S.solids['4,4'];
-  LC.alive(S).filter(o => o !== e).forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1; });
-  const r = LC.commitPlayer(S, { type: 'shove', dx: 0, dy: -1 }, 0);
-  ok('PAOLO RULING: a shove ALWAYS stuns (1 turn base)', r.ok && e.stun >= 1);
-  const S2 = LC.newGame('shove', 'GATE6');
-  const e2 = LC.alive(S2)[0];
-  S2.perks.shoulder = true;
-  S2.px = 4; S2.py = 5; e2.x = 4; e2.y = 4;
-  delete S2.solids['4,3']; delete S2.solids['4,4'];
-  LC.alive(S2).filter(o => o !== e2).forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1; });
-  LC.commitPlayer(S2, { type: 'shove', dx: 0, dy: -1 }, 0);
-  ok('PAOLO RULING: IRON SHOULDER perk = guaranteed 2-turn stun', e2.stun === 2);
-  // no stun-lock applies to shoves too: immediate re-shove cannot refresh
-  e2.x = 4; e2.y = 4;
-  const rr = LC.commitPlayer(S2, { type: 'shove', dx: 0, dy: -1 }, 0);
-  ok('NO STUN-LOCK holds for shoves (re-shove = braced, no refresh)',
-    rr.ok && rr.events.some(x => x.t === 'shoveresist'));
-  // fall roll is deterministic (determinism law) and prone counts helpless
-  const A = [0, 0].map(() => {
-    const X = LC.newGame('shove', 'GATE7');
-    const t = LC.alive(X)[0];
-    X.px = 4; X.py = 5; t.x = 4; t.y = 4;
-    delete X.solids['4,3']; delete X.solids['4,4'];
-    LC.alive(X).filter(o => o !== t).forEach((o, i) => { o.x = (i * 2) % LC.K.W; o.y = LC.K.H - 1; });
-    LC.commitPlayer(X, { type: 'shove', dx: 0, dy: -1 }, 0);
-    return t.prone;
-  });
-  ok('fall-over roll is seeded-deterministic', A[0] === A[1]);
-  const S3 = LC.newGame('shove', 'GATE8');
-  const e3 = LC.alive(S3)[0];
-  LC.alive(S3).filter(o => o !== e3).forEach(o => { o.dead = true; });
-  e3.x = S3.px; e3.y = S3.py - 3;
-  const up = LC.effPackage(S3, e3, 4);
-  e3.prone = 2;
-  ok('prone counts helpless: easier dial on a floored man', LC.effPackage(S3, e3, 4) < up || up === 0);
-}
-
-/* weapon-typed melee (Paolo ruling: movement identity per weapon) */
-{
-  ok('conductor enemies carry weapons (shiv/bat/spear)', (() => {
-    const S = LC.newGame('conductor', 'GATE9');
-    const w = LC.alive(S).map(e => e.wpn);
-    return w.includes('shiv') && w.includes('bat') && w.includes('spear');
-  })());
-  ok('weapon sigs differ (shiv every beat, bat/spear heavy)',
-    LC.WPN.shiv.sig === 1 && LC.WPN.bat.sig === 2 && LC.WPN.spear.sig === 2);
-  // spear never damages without a prior telegraph
-  const S = LC.newGame('conductor', 'GATE10');
-  const sp = LC.alive(S).find(e => e.wpn === 'spear');
-  LC.alive(S).filter(o => o !== sp).forEach(o => { o.dead = true; });
-  S.px = 4; S.py = 6; sp.x = 4; sp.y = 4;
-  ['4,4', '4,5', '4,6'].forEach(k => delete S.solids[k]);
-  let telegraphedBeforeHit = true, sawWindup = false;
-  for (let i = 0; i < 8 && S.wound === 0; i++) {
-    const hadWindup = sp.windup;
-    LC.commitPlayer(S, { type: 'wait' }, 0); LC.worldStep(S);
-    if (S.wound > 0 && !hadWindup) telegraphedBeforeHit = false;
-    if (sp.windup) sawWindup = true;
-  }
-  ok('spear telegraphs (windup + lance tiles) before any damage', sawWindup && telegraphedBeforeHit);
-}
-
-/* perks exist as Paolo ruled them */
-ok('FORESIGHT + IRON SHOULDER perks in the UI',
-  lab.includes('PERK: FORESIGHT') && lab.includes('PERK: IRON SHOULDER'));
-ok('foresight gates movement-intent display (step arrows behind the perk)',
-  lab.includes("it.t==='step'&&it.d&&S.perks.foresight"));
-ok('contextual shove choice (adjacent enemy offers SHOVE or DIAL)',
-  lab.includes('openChoice') && lab.includes('chShove') && lab.includes('chDial'));
-ok('verdict record cited in the lab', lab.includes('BOHEMIA_COMBAT_LAB_VERDICT_7_19_26.txt'));
-ok('shove preview shows odds before commit (BG3 lesson)',
-  lab.includes('shovePreview') && lab.includes('% topple'));
-ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26'));
+ok('demo carries the canonical dial ENGINE block',
+  demo.indexOf('<!-- ENGINE START') > 0 && demo.indexOf('<!-- ENGINE END') > 0);
+ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
+  alpha.indexOf('BOHEMIA_COMBAT_LAB_7_19_26.html') < 0 && alpha.indexOf('combatLabFrame') < 0);
 
 /* ---- 2b. THE CANON DEMO CARRIES THE RULED MECHANICS (Paolo 7/19:
    "you can start actually incorporating it into the actual combat demo") ---- */
@@ -547,46 +321,16 @@ ok('research pass 2 cited in the lab', lab.includes('BOHEMIA_ADDENDUM_ENEMY_ARCH
   ok('GRIT SHOTS: the floor perk buys a missed shot back, ceiling still caps',
     demo.includes('V26 GRIT') && demo.includes('id="gritskill"') &&
     demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)"));
+  // v27: auto targeting honest
+  ok('V27 PICK SPENT: a tapped pick buys ONE dial, auto resumes closest-first; popTarget never carries',
+    demo.includes('V27 PICK SPENT') && demo.includes('if(G.selTarget===G.fireTarget)G.selTarget=null;') &&
+    demo.split('G.popTarget=-1;').length >= 3);
 }
-/* ---- lab round 3: the queue + the metronome duel are PLAYABLE ---- */
-ok('LAB E THE QUEUE: mode exists, bar loads and runs, enemies act between',
-  lab.includes('data-m="queue"') && lab.includes('RUN BAR') &&
-  lab.includes('barQ.push(action)') && lab.includes('barRunning') &&
-  lab.includes("queue:up"));
-ok('LAB H THE METRONOME DUEL: kick-beat gunman, telegraphed, blockable',
-  lab.includes('data-m="duel"') && lab.includes("t:'kickshot'") &&
-  lab.includes('kickblocked') && lab.includes("duel:up") &&
-  lab.includes('(S.turn%2)===0'));
-{ // headless: the duel alternates and the kick lands on an open line
-  const D1 = LC.newGame('duel','VEGAS1');
-  D1.solids = {}; D1.enemies[0].x = D1.px; D1.enemies[0].y = D1.py - 5;
-  const evs = [];
-  for (let t = 0; t < 4; t++) { LC.commitPlayer(D1,{type:'wait'},0); const w = LC.worldStep(D1); evs.push((w.events||[]).map(e=>e.t).join(',')); }
-  ok('DUEL SIM: kick/off alternation, wound only on kicks',
-    evs[0].includes('kickshot') && evs[1].includes('offbeat') && evs[2].includes('kickshot') && D1.wound === 36);
-  const Q1 = LC.newGame('queue','VEGAS2');
-  let qok = true;
-  for (let t = 0; t < 4; t++) { const r = LC.commitPlayer(Q1,{type:'wait'},0); if (!r.ok) qok = false; LC.worldStep(Q1); }
-  ok('QUEUE SIM: 4-enemy weapon mix runs clean under the queue mode', qok && Q1.enemies.length === 4);
-}
-
-/* ---- 3. verdict workflow ---- */
-ok('SUN MODE present', /SUN MODE/.test(lab));
-ok('thumbs for all four modes + the currency thesis',
-  ['conductor:up', 'promise:up', 'dance:up', 'shove:up', 'currency:up'].every(v => lab.includes(v)));
-ok('per-mode comment boxes + bottom comment section',
-  ['data-c="conductor"', 'data-c="promise"', 'data-c="dance"', 'data-c="shove"', 'id="globalc"'].every(v => lab.includes(v)));
-ok('export is .txt, never .json',
-  lab.includes("download='BOHEMIA_COMBAT_LAB_VERDICT_7_19_26.txt'") && !/download='[^']*\.json'/.test(lab));
-ok('research tab cites the addendum', lab.includes('BOHEMIA_ADDENDUM_BEAT_TACTICS_RESEARCH_7_19_26'));
-
 /* ---- 4. alpha wiring ---- */
-ok('alpha hosts the lab (combatLabFrame -> lab file)',
-  alpha.includes('BOHEMIA_COMBAT_LAB_7_19_26.html') && alpha.includes('combatLabFrame'));
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
   alpha.includes("out.dirs[d].walk=[0,0.25,0.5,0.75].map(p=>bake112(d,'walk',p))") &&
   alpha.includes("L.look.walk112=[0.25,0.75].map(p=>bake112(L.d,'walk',p))"));
 
-console.log('=== COMBAT LAB GATE: ' + pass + ' pass / ' + fail + ' fail ===');
-if (fail) console.log('HINT: if demo markers are missing, a parallel-session merge clobbered COMBAT_B64 -- run: python3 tools/bohemia_combat_melee_patch.py && python3 tools/bohemia_combat_lab_gen.py');
+console.log('=== COMBAT GATE: ' + pass + ' pass / ' + fail + ' fail ===');
+if (fail) console.log('HINT: if demo markers are missing, a parallel-session merge clobbered COMBAT_B64 -- run: python3 tools/bohemia_combat_melee_patch.py');
 process.exit(fail ? 1 : 0);

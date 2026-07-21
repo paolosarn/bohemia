@@ -2065,13 +2065,36 @@ function afterKill(){ if(aliveEnemies().length===0)return winGame();
     return demo
 
 
+def patch27(demo):
+    """v27 (Paolo 7/20: "the auto targeting still isnt right"): the root —
+    a tapped pick (G.selTarget) persisted FOREVER, so after you ever tapped
+    a man, every later AUTO engagement kept aiming at your stale pick
+    instead of closest-first. And G.popTarget could carry stale indexes
+    across turns through enterAim's short-circuit. Now: a pick is SPENT by
+    the dial it opens (auto resumes closest-first right after), and
+    popTarget resets at every turn end."""
+    if 'V27 PICK SPENT' in demo:
+        print('v27 already applied, skipping')
+        return demo
+    demo = sub1(demo, "  G.popTarget>=0||(G.popTarget=pickTarget()); G.fireTarget=(isChain?nextChainTarget():G.popTarget); if(G.fireTarget<0){ return endTurnReturn(); }",
+        "  G.popTarget>=0||(G.popTarget=pickTarget()); G.fireTarget=(isChain?nextChainTarget():G.popTarget); if(G.fireTarget<0){ return endTurnReturn(); }\n  if(G.selTarget===G.fireTarget)G.selTarget=null;   /* V27 PICK SPENT: a tap buys ONE dial — auto goes back to closest-first after */",
+        'pick-spent')
+    demo = sub1(demo, "  tickTurnEnd();\n  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('ACQUIRING',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' drawing a bead — one turn to break it','#e8a04a');   /* V22: the warning speaks */",
+        "  tickTurnEnd(); G.popTarget=-1;   /* V27: no stale target carries into the next turn */\n  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('ACQUIRING',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' drawing a bead — one turn to break it','#e8a04a');   /* V22: the warning speaks */",
+        'poptarget-reset-return')
+    demo = sub1(demo, "function endTurnClean(){ setRead('HIT','clean — turn ends','#8fd0e8'); tickTurnEnd(); G.phase='cover';",
+        "function endTurnClean(){ setRead('HIT','clean — turn ends','#8fd0e8'); tickTurnEnd(); G.popTarget=-1; G.phase='cover';",
+        'poptarget-reset-clean')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))
+    patched = patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
