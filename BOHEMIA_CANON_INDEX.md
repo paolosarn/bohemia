@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-141 canon files indexed across 2 locations.
+142 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -122,7 +122,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md`
 - `BOHEMIA_ADDENDUM_FACE_SYSTEM_6_28_26.md`
 
-### COMBAT (8)
+### COMBAT (9)
+- `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_SCENE_PRODUCTION_SPEC_7_10_26.md`
 - `BOHEMIA_ADDENDUM_COMBAT_CHARACTER_MENU_ROADMAP_7_4_26.md`
 - `BOHEMIA_ADDENDUM_DIAL_ODDS_SEEDS_PERF_7_3_26.md`
@@ -169,7 +170,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md`
 - `BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md`
 
-### QUESTS & LORE (13)
+### QUESTS & LORE (14)
+- `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md`
 - `BOHEMIA_ADDENDUM_AMALGAMATION_SCOPE_GOOD_ENDING_7_18_26.md`
 - `BOHEMIA_ADDENDUM_QUESTBOOK_FULL_MACHINE_TARGET_7_17_26.md`
@@ -184,7 +186,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_SUCCESSION_AND_BUNKERGUY_7_1_26.md`
 - `BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md`
 
-### MUSIC & SFX (2)
+### MUSIC & SFX (3)
+- `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_MUSIC_VARIETY_HORROR_LAW_7_8_26.md`
 - `BOHEMIA_ADDENDUM_NEW_VOICES_LAW_7_7_26.md`
 

@@ -167,6 +167,11 @@
   .spk .nm{ font-weight:800; font-size:14px; letter-spacing:.5px; }
   .spk .nm small{ display:block; color:var(--faint); font-weight:500; font-size:10px; letter-spacing:.6px;
     text-transform:uppercase; font-family:var(--mono); }
+  /* voice signature — a squiggle standing in for a per-character blip sound
+     (research: Animalese/Undertale). Purely visual today, no audio yet. */
+  .vsig{ display:flex; align-items:flex-end; gap:2px; height:16px; margin-left:auto; opacity:.8; }
+  .vsig i{ display:block; width:3px; background:var(--gold); border-radius:2px; animation:vsig ease-in-out infinite; }
+  @keyframes vsig{ 0%,100%{ height:3px; } 50%{ height:15px; } }
   .say{ font-size:16.5px; line-height:1.5; margin:6px 2px 2px; }
   .opt{ display:block; width:100%; text-align:left; background:var(--raised); color:var(--ink);
     border:1px solid var(--line); border-radius:5px; padding:14px 15px; margin-top:10px; font-weight:600; font-size:15px; }
@@ -184,9 +189,8 @@
   /* ---- device shell: home screen, messages app, boot, nav ---- */
   #nav .homebtn{ background:none; color:var(--gold); font-family:var(--mono); font-size:11px;
     padding:0; letter-spacing:1px; box-shadow:none; text-transform:none; }
-  #home,#messages,#map,#wallet{ display:none; }
+  #home,#map,#wallet{ display:none; }
   #phone.view-home #home{ display:block; }
-  #phone.view-messages #messages{ display:flex; flex-direction:column; flex:1; min-height:0; }
   #phone.view-map #map{ display:flex; flex-direction:column; flex:1; min-height:0; }
   #phone.view-wallet #wallet{ display:flex; flex-direction:column; flex:1; min-height:0; }
 
@@ -310,6 +314,31 @@
     opacity:0; transition:opacity .35s ease, transform .35s ease; pointer-events:none;
     box-shadow:0 6px 20px rgba(0,0,0,.5); white-space:nowrap; max-width:90%; overflow:hidden; text-overflow:ellipsis; }
   .toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* DMs live INSIDE the feed app now (Paolo 7/21: "the social feed and messaging
+     should just be one thing, like whatsapp and instagram combined" — no separate
+     phone-number contact system, just handle-based DMs on the same platform). A
+     small dot on the tab icon stands in for the unread badge that used to live on
+     a separate home-screen app. */
+  .tab{ position:relative; }
+  .tab .dot{ position:absolute; top:2px; right:calc(50% - 17px); width:7px; height:7px; border-radius:50%;
+    background:var(--danger); box-shadow:0 0 6px rgba(217,86,58,.7); }
+
+  /* PUSH NOTIFICATION BANNER — arrives regardless of which app is open (Home, Map,
+     Wallet, Feed/DMs...), mimicking a real phone notification popping up while
+     you're doing something else. Cyberpunk 2077's pattern: appears top-of-screen,
+     non-intrusive, tap to jump in or ignore and it clears itself. This is the
+     MECHANISM for "you get a notification even mid-overworld" — the render target
+     is this same banner regardless of what screen is behind it; once a real
+     walkable world exists it drives the identical banner over gameplay instead. */
+  .pushbanner{ position:absolute; left:8px; right:8px; top:8px; z-index:26;
+    background:linear-gradient(160deg,#1a2027,#12161b); border:1px solid var(--line); border-radius:12px;
+    padding:11px 13px; display:flex; gap:10px; align-items:center; cursor:pointer;
+    transform:translateY(-140%); transition:transform .35s cubic-bezier(.2,.8,.2,1); box-shadow:0 8px 24px rgba(0,0,0,.5); }
+  .pushbanner.on{ transform:translateY(0); }
+  .pushbanner .tx{ flex:1; min-width:0; } .pushbanner .nm{ font-weight:700; font-size:13px; }
+  .pushbanner .bd{ font-size:12.5px; color:var(--dim); margin-top:1px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pushbanner .app{ font-family:var(--mono); font-size:9px; color:var(--gold); letter-spacing:.6px; text-transform:uppercase; }
 </style>
 
 <div id="phone" class="view-home">
@@ -317,9 +346,9 @@
   <div id="boot"><div class="logo neon">BOHEMIA</div><div class="ln">NETWORK OS · v0.9</div><div class="bar"><i></i></div><div class="ln" id="bootln">connecting to the network…</div></div>
   <div id="lock"></div>
   <div class="toast" id="toast"></div>
+  <div class="pushbanner" id="pushbanner" onclick="pushBannerTap()"></div>
   <div class="statusbar"><span id="nav"><span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span></span><span id="sig" onclick="toggleSignal()"><span class="bars ok">▁▃▅▇</span> LIVE · the valley</span></div>
   <div id="home"></div>
-  <div id="messages"></div>
   <div id="map"></div>
   <div id="wallet"></div>
 
@@ -346,6 +375,8 @@
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="13" y2="17"/></svg>Feed</div>
     <div class="tab" data-tab="offers" onclick="setTab('offers')">
       <svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>Quests</div>
+    <div class="tab" data-tab="dms" onclick="setTab('dms')" id="dmsTab">
+      <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>DMs</div>
     <div class="tab" data-tab="log" onclick="setTab('log')">
       <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Log</div>
     <div class="tab" data-tab="profile" onclick="setTab('profile')">
@@ -418,6 +449,27 @@ function avatar(name, cls){ var c=AV_COLORS[hash(name)%AV_COLORS.length];
   return '<div class="av '+(cls||'sm')+'" style="background:'+c+'">'+esc(initials(name))+'</div>'; }
 el('me-av').style.background = AV_COLORS[0];
 
+/* VOICE SIGNATURE (Paolo 7/21, dialogue SFX research): a stand-in for the real
+   "Animalese"/Undertale-style blip-voice system (research: BOHEMIA_ADDENDUM_
+   DIALOGUE_SFX_RESEARCH_7_21_26.md) — one short sound per character archetype,
+   played per letter/syllable as text reveals, no spoken words needed, cheap to
+   mass-produce. NO AUDIO EXISTS YET (needs real sound production); this is a
+   deterministic, purely VISUAL preview of the same idea: every speaker gets an
+   archetype + pitch derived from their name (same hash pattern as avatar colors,
+   zero manual per-character design), shown as a small animated squiggle while
+   they talk — foreshadowing the real per-letter blip once audio is produced. */
+var VOICE_ARCHETYPES = ['gruff','chipper','gravelly','airy','clipped','warm','flat','singsong'];
+function voiceFor(name){
+  var h = hash(name||'x');
+  return { archetype: VOICE_ARCHETYPES[h % VOICE_ARCHETYPES.length], pitch: 0.75 + (h % 50)/100 };
+}
+function voiceSquiggle(name){
+  var v = voiceFor(name), dur = (1.1 / v.pitch).toFixed(2)+'s';
+  var bars = '';
+  for(var i=0;i<5;i++){ var d=((hash(name+i)%4)/10+0.05).toFixed(2)+'s'; bars += '<i style="animation-duration:'+dur+';animation-delay:-'+d+'"></i>'; }
+  return '<div class="vsig">'+bars+'</div>';
+}
+
 /* PLACEHOLDER photo slot for a completed-quest post (no real art yet). */
 function photoFor(qid){
   var c1=AV_COLORS[hash(qid)%AV_COLORS.length], c2=AV_COLORS[hash(qid+'x')%AV_COLORS.length];
@@ -461,6 +513,12 @@ function refreshTop(){
   var objs = ctx.quests.activeObjectives(), bar = el('objbar');
   if(objs.length){ bar.classList.remove('empty'); el('obj-text').textContent = objs[0].text + (objs.length>1?('   +'+(objs.length-1)+' more'):''); }
   else bar.classList.add('empty');
+  var dmsTab = el('dmsTab');
+  if(dmsTab){
+    var had = dmsTab.querySelector('.dot');
+    if(unreadCount()>0 && !had) dmsTab.insertAdjacentHTML('beforeend','<span class="dot"></span>');
+    else if(unreadCount()===0 && had) had.remove();
+  }
 }
 
 function setTab(t){ TAB=t; [].forEach.call(document.querySelectorAll('.tab'),function(x){ x.classList.toggle('active', x.dataset.tab===t); }); el('screen').scrollTop=0; render(); }
@@ -514,6 +572,7 @@ function render(){
     });
     if(!any) h += '<div class="empty-state" style="padding:16px">(none nearby)</div>';
   }
+  else if(TAB==='dms'){ h += dmsHtml(); }
   else if(TAB==='log'){
     var j = ctx.quests.journal();
     if(!j.length) h += '<div class="empty-state">No quests yet.</div>';
@@ -539,6 +598,7 @@ function render(){
          'and this profile are all live off the real engine.</div>';
   }
   s.innerHTML = h;
+  if(TAB==='dms' && openThreadId){ var bl=s.querySelector('.bubbles'); if(bl) bl.scrollTop=bl.scrollHeight; }
 }
 
 function pullUp(qid){
@@ -558,7 +618,7 @@ function drawSheet(view){
          '<button style="width:100%;margin-top:12px" onclick="closeTalk()">Back to the phone</button>';
     el('sheet').innerHTML=h; return;
   }
-  h += '<div class="spk">'+avatar('@'+(view.speaker||'x'))+'<div class="nm">'+esc(view.speaker||'')+'<small>talking · in person</small></div></div>';
+  h += '<div class="spk">'+avatar('@'+(view.speaker||'x'))+'<div class="nm">'+esc(view.speaker||'')+'<small>talking · in person</small></div>'+voiceSquiggle(view.speaker)+'</div>';
   (view.says||[]).forEach(function(s){ h += '<div class="say">'+esc(s)+'</div>'; });
   (view.options||[]).forEach(function(o){
     h += '<button class="opt" onclick="choose('+o.i+')">'+esc(o.text)+(o.to&&o.to!=='END'?'<span class="ar">›</span>':'')+'</button>';
@@ -621,13 +681,12 @@ function setView(v){
     ? '<span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span>'
     : '<button class="homebtn" onclick="setView(\'home\')">&#9664; HOME</button>';
   if(v==='home') renderHome();
-  else if(v==='messages'){ openThreadId=null; renderMessages(); }
   else if(v==='map') renderMap();
   else if(v==='wallet') renderWallet();
-  else { setTab('feed'); }
+  else { setTab(TAB==='dms'?'dms':'feed'); }   // re-entering the Network app keeps the DMs tab if that's where you were
 }
 function rerender(){
-  if(VIEW==='home') renderHome(); else if(VIEW==='messages') renderMessages();
+  if(VIEW==='home') renderHome();
   else if(VIEW==='map') renderMap(); else if(VIEW==='wallet') renderWallet(); else render();
 }
 
@@ -642,11 +701,12 @@ function tile(app,label,icon,sub,badge){
 function renderHome(){
   var pr = Loop.socialProfile(ctx, FOLLOWER_SCORE);
   var offersN = ctx.quests.feedOffers().length;
+  /* Feed + Messages are ONE app now (Paolo 7/21: whatsapp+instagram combined —
+     the feed IS the DMs too). One tile, one combined badge. */
   el('home').innerHTML =
     '<div class="home-hd"><b>the phone</b>@founder_gen1 · '+pr.reach+' followers on the Network</div>'+
     '<div class="apps">'+
-      tile('feed','Feed', ICON.feed, pr.posts+' posts', offersN)+
-      tile('messages','Messages', ICON.msg, 'direct', unreadCount())+
+      tile('feed','Network', ICON.feed, pr.posts+' posts', offersN+unreadCount())+
       tile('map','Map', ICON.map, 'the valley', 0)+
       tile('wallet','Wallet', ICON.wallet, 'frozen', 0)+
       tile('camera','Camera', ICON.cam, 'soon', 'soon')+
@@ -654,9 +714,12 @@ function renderHome(){
     '</div>';
 }
 
-function renderMessages(){
+/* dmsHtml — DMs living as a TAB inside the Network app (not a separate app
+   anymore). Returns a string like every other TAB branch in render(); scroll-to-
+   bottom on an open conversation happens as a small post-render hook in render(). */
+function dmsHtml(){
   if(!openThreadId){
-    var h = '<div class="msg-hd"><div class="t">Messages<small>Network · direct</small></div></div><div class="threads">';
+    var h = '<div class="msg-hd"><div class="t">Direct<small>Network · handle-based, no phone number needed</small></div></div><div class="threads">';
     THREADS.forEach(function(t){
       var last = t.msgs[t.msgs.length-1];
       h += '<div class="thread" onclick="openThread(\''+t.id+'\')">'+avatar('@'+t.av)+
@@ -664,27 +727,25 @@ function renderMessages(){
            '<div class="pv">'+(last.from==='you'?'you: ':'')+esc(last.t)+'</div></div>'+
            '<div class="tm">'+esc(t.tm||'now')+'</div></div>';
     });
-    el('messages').innerHTML = h+'</div>';
-  } else {
-    var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0];
-    var h = '<div class="msg-hd"><button class="msg-back" onclick="backThreads()">&#9664;</button>'+avatar('@'+t.av)+
-            '<div class="t">'+esc(t.who)+'<small>on the network</small></div></div><div class="convo"><div class="bubbles">';
-    t.msgs.forEach(function(m){
-      if(m.from==='sys') h += '<div class="sysmsg">'+esc(m.t)+'</div>';
-      else h += '<div class="bub '+(m.from==='you'?'you':'them')+'">'+esc(m.t)+'</div>';
-    });
-    h += '</div>';
-    if(t.reply && t.reply.length){
-      h += '<div class="replies">';
-      t.reply.forEach(function(r,i){ h += '<button class="reply" onclick="replyThread('+i+')">'+esc(r.t)+'</button>'; });
-      h += '</div>';
-    }
-    el('messages').innerHTML = h+'</div>';
-    var bl = el('messages').querySelector('.bubbles'); if(bl) bl.scrollTop = bl.scrollHeight;
+    return h+'</div>';
   }
+  var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0];
+  var h = '<div class="msg-hd"><button class="msg-back" onclick="backThreads()">&#9664;</button>'+avatar('@'+t.av)+
+          '<div class="t">'+esc(t.who)+'<small>on the network</small></div></div><div class="convo"><div class="bubbles">';
+  t.msgs.forEach(function(m){
+    if(m.from==='sys') h += '<div class="sysmsg">'+esc(m.t)+'</div>';
+    else h += '<div class="bub '+(m.from==='you'?'you':'them')+'">'+esc(m.t)+'</div>';
+  });
+  h += '</div>';
+  if(t.reply && t.reply.length){
+    h += '<div class="replies">';
+    t.reply.forEach(function(r,i){ h += '<button class="reply" onclick="replyThread('+i+')">'+esc(r.t)+'</button>'; });
+    h += '</div>';
+  }
+  return h+'</div>';
 }
-function openThread(id){ openThreadId=id; var t=THREADS.filter(function(x){return x.id===id;})[0]; if(t) t.unread=0; renderMessages(); }
-function backThreads(){ openThreadId=null; renderMessages(); }
+function openThread(id){ openThreadId=id; var t=THREADS.filter(function(x){return x.id===id;})[0]; if(t) t.unread=0; render(); }
+function backThreads(){ openThreadId=null; render(); }
 function replyThread(i){
   var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0]; if(!t || !t.reply) return;
   var r = t.reply[i];
@@ -698,7 +759,7 @@ function replyThread(i){
     if(r.after) t.msgs.push({ from:'them', t:r.after });
   }
   t.reply = null;
-  renderMessages();
+  render();
 }
 
 /* ===== MAP app — a salvaged GPS of the REAL generated valley (MAP LAW: render the
@@ -809,9 +870,42 @@ function renderWallet(){
 }
 function walletDead(){ notify('NO CONNECTION · this service ended a long time ago'); }
 
-/* toast notifications — the phone reacts to what you do */
+/* toast notifications — the phone reacts to what YOU just did (in-context) */
 function notify(text){ var t=el('toast'); if(!t) return; t.textContent=text; t.classList.add('on');
   clearTimeout(notify._t); notify._t=setTimeout(function(){ t.classList.remove('on'); }, 2600); }
+
+/* PUSH NOTIFICATION BANNER (Paolo 7/21): "even when they're playing in the
+   overworld there can be a notification phone animation on screen with text
+   about new updates." Cyberpunk 2077's pattern — top-of-screen, non-intrusive,
+   tap it to jump in or ignore it and it clears. This fires regardless of which
+   app/view is currently open (proven here across Home/Map/Wallet/Network); once
+   a real walkable world exists, the SAME call fires the SAME banner over
+   gameplay instead of over another phone screen — the mechanism doesn't change,
+   only what's rendered behind it. */
+var _pushGo = null;
+function pushBanner(appName, name, text, onTap){
+  var b = el('pushbanner'); if(!b) return;
+  b.innerHTML = avatar('@'+name)+'<div class="tx"><div class="app">'+esc(appName)+'</div>'+
+                '<div class="nm">'+esc(name)+'</div><div class="bd">'+esc(text)+'</div></div>';
+  _pushGo = onTap || null;
+  b.classList.add('on');
+  clearTimeout(pushBanner._t); pushBanner._t = setTimeout(function(){ b.classList.remove('on'); }, 5200);
+}
+function pushBannerTap(){ var b=el('pushbanner'); b.classList.remove('on'); if(_pushGo) _pushGo(); }
+
+/* DEMO TRIGGER: a follow-up DM arrives a few seconds after unlock, no matter what
+   app you're in — proves the cross-app delivery. Not canon content, just a wire test. */
+function scheduleDemoNotification(){
+  setTimeout(function(){
+    var t = THREADS.filter(function(x){ return x.id==='sister'; })[0]; if(!t) return;
+    t.msgs.push({ from:'them', t:'for real though, you good? text me back' });
+    t.unread = (t.unread||0)+1; t.tm='now';
+    pushBanner('Network · Direct', t.who, 'for real though, you good? text me back', function(){
+      setView('feed'); setTab('dms'); openThread('sister');
+    });
+    refreshTop();
+  }, 5000);
+}
 
 /* LOCK SCREEN — the salvaged phone boots into this: time + notifications, tap to unlock */
 function notifCard(av,nm,bd){ return '<div class="lk-nf">'+av+'<div class="tx"><div class="nm">'+esc(nm)+'</div><div class="bd">'+esc(bd)+'</div></div></div>'; }
@@ -825,7 +919,7 @@ function renderLock(){
     '<div class="lk-time">07:14</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
     '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
 }
-function unlockPhone(){ phone.classList.remove('locked'); setView('home'); window.__phoneReady=true; window.__ready=true; }
+function unlockPhone(){ phone.classList.remove('locked'); setView('home'); window.__phoneReady=true; window.__ready=true; scheduleDemoNotification(); }
 
 /* boot the salvaged phone -> lock screen -> (tap) -> home */
 function finishBoot(){ var b=el('boot'); if(!b || b.classList.contains('off')) return; b.classList.add('off');
