@@ -4190,7 +4190,8 @@ function hydrateNodeDos(Q){
 
 function freshState(Q){
   var s={ stage:null, flags:{}, knows:{}, has:{}, roles:{}, faction:{}, bonds:{},
-          posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null };
+          posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null,
+          doneTags:[] };
   (Q.roles||[]).forEach(function(r){ s.roles[r.name]=!!r.req; }); /* REQ present, OPT absent */
   return s;
 }
@@ -4245,7 +4246,15 @@ Runtime.prototype._exec=function(text){
     case 'set_flag': if(p[1]) s.flags[p[1]]=true; break;
     case 'learn':    if(p[1]) s.knows[p[1]]=true; break;
     case 'have': case 'give': if(p[1]) s.has[p[1]]=true; break;
-    case 'set_stage': if(p[1]!=null) this.setStage(parseInt(p[1],10)); break;
+    /* call the PROTOTYPE method directly, not this.setStage: a host (the loop's
+       ledger pipe) may have installed an own-property wrapper on this instance's
+       setStage to observe EXTERNAL calls. If an internal @DO set_stage went through
+       that wrapper too, a choice that completes a quest in one step would fire the
+       OUTCOME event recursively mid-choice, before the CHOICE event itself was even
+       recorded — a chronological bug in the ledger, not a stylistic one. Bypassing
+       the wrapper here keeps internal transitions on the canonical logic only, so
+       the host always sees choice-then-outcome in the order they actually happened. */
+    case 'set_stage': if(p[1]!=null) Runtime.prototype.setStage.call(this, parseInt(p[1],10)); break;
     case 'show_objective':     this._obj(p[1],'active'); break;
     case 'complete_objective': this._obj(p[1],'done');   break;
     case 'cast': p.slice(1).forEach(function(r){ s.roles[r]=true; }); break;
@@ -4277,8 +4286,11 @@ Runtime.prototype.setStage=function(n){
   if(st){
     if(st.log) this.state.log.push('[stage '+n+'] '+st.log);
     (st.dos||[]).forEach(function(d){ self._exec(d.text); });
-    if(st.flags.indexOf('COMPLETE')>=0){ this.state.done=true; this.state.outcome='COMPLETE'; }
-    if(st.flags.indexOf('FAIL')>=0){ this.state.done=true; this.state.outcome='FAIL'; }
+    /* doneTags: the completing stage's raw #hashtags (e.g. #reckless), carried
+       verbatim so the LOOP layer can classify the outcome (CLOUT weighting) without
+       this UI-agnostic runtime knowing anything about followers or feeds. */
+    if(st.flags.indexOf('COMPLETE')>=0){ this.state.done=true; this.state.outcome='COMPLETE'; this.state.doneTags=(st.tags||[]).slice(); }
+    if(st.flags.indexOf('FAIL')>=0){ this.state.done=true; this.state.outcome='FAIL'; this.state.doneTags=(st.tags||[]).slice(); }
   }
   return this;
 };
@@ -4592,7 +4604,8 @@ root.BQRuntime=API;
       function checkOutcome() {
         if (!firedOutcome && rt.state && rt.state.done) {
           firedOutcome = true;
-          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome });
+          sink({ questId: id, kind: 'outcome', outcome: rt.state.outcome,
+                 tags: (rt.state.doneTags || []).slice() });
         }
       }
       const origChoose = rt.choose.bind(rt);
@@ -4753,7 +4766,7 @@ root.BQRuntime=API;
           gen: currentGen(ctx),
           recorded: true,   // TOTAL RECALL: everything is on the feed, always
           effect: (evt.kind === 'outcome')
-            ? { quest: evt.questId, outcome: evt.outcome }
+            ? { quest: evt.questId, outcome: evt.outcome, tags: evt.tags || [] }
             : { quest: evt.questId, node: evt.node, to: evt.to },
         });
       },
@@ -5045,16 +5058,52 @@ root.BQRuntime=API;
     return rt.begin(nodeId);
   }
 
+  /* CLOUT (Paolo 7/21 LOCK): "reckless/dangerous shit gets more followers than
+     quiet good deeds, yes." Real virality doesn't reward the biggest deed, it
+     rewards the best STORY — and it matches the Amalgamation's own canon logic
+     (GDD v2: "the Amalgamation watches viral moments most carefully," proximity-
+     to-secret kills). Chasing clout is choosing exposure, on purpose.
+
+     A quest's completing @STAGE line can carry ONE hashtag from this scale to
+     classify its own outcome: #quiet #notable #risky #reckless (content's call,
+     per quest — the parser already captures arbitrary #tags on any line via
+     tagsOf(), so no format change was needed). Untagged stages score NEUTRAL.
+     The ORDERING (reckless > risky > notable > quiet) is now locked canon and
+     enforced by the LOOP CLOUT gate; the exact numbers stay tunable. */
+  const CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
+  const CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
+  const CLOUT_NEUTRAL = 15;   // untagged stage: a mild default (below 'notable')
+
+  function cloutWeight(tag) {
+    return CLOUT_WEIGHTS.hasOwnProperty(tag) ? CLOUT_WEIGHTS[tag] : CLOUT_NEUTRAL;
+  }
+  /* pick the one clout tag off a stage's raw #hashtag list (first vocabulary hit;
+     a stage should only carry one — that's a content-authoring discipline, not
+     enforced here). */
+  function cloutTagFrom(tags) {
+    tags = tags || [];
+    for (let i = 0; i < CLOUT_TAGS.length; i++) if (tags.indexOf(CLOUT_TAGS[i]) >= 0) return CLOUT_TAGS[i];
+    return null;
+  }
+  /* THE real default follower score (replaces the old ad hoc demo placeholders):
+     a post earns followers only when it's a quest outcome (posts == quests done),
+     weighted by how reckless its completing stage declared itself to be. */
+  function defaultFollowerScore(post) {
+    if (!post || post.kind !== 'outcome') return 0;
+    return cloutWeight(post.clout);
+  }
+
   /* --------------------------------------------------------------------------
      THE FEED — the phone's front page. Paolo 7/20: ONE POST PER COMPLETED QUEST
      ("you complete a quest, you make a post"), so posts == quests done. The feed is
      NOT a log of every choice — that granular record still lives in the choice-log
      for the fold (the game remembers everything), but what you SEE is a clean post
-     per finished quest. A projection over save.choices; authors nothing; decides no
-     follower math (Paolo's, PENDING). Newest-first.
+     per finished quest. A projection over save.choices; authors nothing. Followers
+     are scored by CLOUT (above) via defaultFollowerScore, or a custom scoreFn.
+     Newest-first.
 
-     Each post: { beat, gen, kind:'outcome', questId, title, outcome, id }. Pass
-     {all:true} to include the granular per-choice entries too (debugging); the
+     Each post: { beat, gen, kind:'outcome', questId, title, outcome, clout, id }.
+     Pass {all:true} to include the granular per-choice entries too (debugging); the
      default feed is completions only. {limit:N} trims to the latest N.
      ------------------------------------------------------------------------ */
   function buildFeed(ctx, opts) {
@@ -5067,14 +5116,14 @@ root.BQRuntime=API;
     let posts = ctx.save.choices.map(function (c, idx) {
       const eff = c.effect || {};
       const qid = eff.quest || null;
-      let kind = 'event', outcome = null, node = null, to = null;
+      let kind = 'event', outcome = null, node = null, to = null, clout = null;
       if (qid) {
-        if (eff.outcome != null) { kind = 'outcome'; outcome = eff.outcome; }
+        if (eff.outcome != null) { kind = 'outcome'; outcome = eff.outcome; clout = cloutTagFrom(eff.tags); }
         else { kind = 'choice'; node = eff.node != null ? eff.node : null; to = eff.to != null ? eff.to : null; }
       }
       return { seq: idx, beat: c.beat || 0, gen: c.gen || 1, kind: kind,
                questId: qid, title: qid ? titleOf(qid) : null,
-               outcome: outcome, node: node, to: to, id: c.id };
+               outcome: outcome, node: node, to: to, clout: clout, id: c.id };
     });
     // ONE POST PER COMPLETED QUEST: the feed is completions only unless {all}.
     if (!opts.all) posts = posts.filter(function (p) { return p.kind === 'outcome'; });
@@ -5085,18 +5134,18 @@ root.BQRuntime=API;
   }
 
   /* THE SOCIAL PROFILE — the readout at the top of the phone: how much you've done
-     and how far it reached. A pure projection over the feed, PLUS one deliberately
-     EMPTY content hook. Paolo 7/20: "you gain FOLLOWERS when you do cool shit." The
-     MECHANISM (tally the feed) is mine; WHAT COUNTS as cool shit and HOW MANY
-     followers a deed is worth is HIS — passed in as `scoreFn(post) -> number`.
-     With no scoreFn, reach is 0 (the weight table is EMPTY by law until he rules
-     on it). Whether followers and clout are one number or two is not decided here:
-     call this once per metric with its own scoreFn.
+     and how far it reached. A pure projection over the feed. Paolo 7/20: "you gain
+     FOLLOWERS when you do cool shit"; Paolo 7/21 LOCK: "reckless/dangerous shit gets
+     more followers than quiet good deeds" (see CLOUT above). `scoreFn(post) -> number`
+     defaults to `defaultFollowerScore` (the real CLOUT-weighted math) when omitted —
+     pass a different scoreFn only to override it. Whether followers and clout end up
+     as one number or two is still open: call this once per metric with its own scoreFn.
        returns { posts, questsTouched, questsCompleted, reach }
      posts == quests done (one post per completion). questsTouched counts every quest
      you have engaged (from the full choice-log). reach = followers, summed by scoreFn
      over the POSTS (completions) only — you gain followers when you complete and post. */
   function socialProfile(ctx, scoreFn) {
+    const score = typeof scoreFn === 'function' ? scoreFn : defaultFollowerScore;
     const all = buildFeed(ctx, { all: true });
     const touched = {}, completed = {};
     let reach = 0, posts = 0;
@@ -5105,7 +5154,7 @@ root.BQRuntime=API;
       if (p.kind === 'outcome') {                       // a completion == a post
         posts++;
         if (p.outcome === 'COMPLETE' && p.questId) completed[p.questId] = true;
-        if (typeof scoreFn === 'function') reach += (scoreFn(p) || 0);
+        reach += (score(p) || 0);
       }
     });
     return { posts: posts,
@@ -5146,6 +5195,7 @@ root.BQRuntime=API;
     makeContext, boot, tick, commit, captureSave,
     spawnActorsForDistrict, enemyRuleForDistrict, updateDistrictLOD,
     talkablesNear, talkTo, buildFeed, socialProfile,
+    CLOUT_TAGS, CLOUT_WEIGHTS, cloutWeight, cloutTagFrom, defaultFollowerScore,
     // individual boot steps exported so each can be tested in isolation
     _steps: {
       bootFoundation, bootSave, bootHeartbeat, bootScheduler, bootWorldGen, bootFactions,
@@ -5245,6 +5295,12 @@ root.BQRuntime=API;
     border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:.5px; }
   .tag.done{ background:var(--good-soft); color:var(--good); border:1px solid #2c3a18; }
   .tag.act{ background:#241d12; color:var(--dim); }
+  .clout{ display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; padding:2px 7px;
+    border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:1px; text-transform:uppercase; }
+  .clout.q{ background:#1c2a1c; color:#7fa87a; }
+  .clout.n{ background:#20262e; color:var(--dim); }
+  .clout.r{ background:var(--amber-soft); color:var(--amber); }
+  .clout.x{ background:#3a140c; color:#ff8a5c; text-shadow:0 0 6px rgba(255,110,60,.6); animation:flick 4s infinite steps(1); }
   .post .photo{ margin:11px 0 2px; height:158px; border-radius:4px; border:1px solid var(--line);
     position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
     filter:saturate(.72) contrast(1.03); }
@@ -5485,13 +5541,24 @@ var ctx = Loop.boot({ seed:'bohemia' });
 var player = Sched.makeActor({ id:'player', tile:{x:128,y:128}, isPlayer:true, layer:'player' });
 Sched.addActor(ctx.scheduler, player);
 
-/* PLACEHOLDER follower scoring (Paolo owns the real rule): complete = 50, else 5. */
-function FOLLOWER_SCORE(post){ return (post.kind==='outcome' && post.outcome==='COMPLETE') ? 50 : 5; }
+/* THE REAL follower math (Paolo 7/21 LOCK: reckless/dangerous deeds earn far more
+   followers than quiet good deeds) — this is Loop.defaultFollowerScore, the CLOUT-
+   weighted default, not a placeholder anymore. Kept as a named wrapper only so the
+   rest of this file didn't need touching at every call site. */
+function FOLLOWER_SCORE(post){ return Loop.defaultFollowerScore(post); }
+/* visible readout of the CLOUT tier so the mechanic is SEEN, not just felt in a
+   number: quiet <= notable <= risky <= reckless, colored by how hot it runs. */
+function cloutBadge(tag){
+  var t = tag || 'neutral';
+  var cls = { quiet:'q', notable:'n', risky:'r', reckless:'x', neutral:'n' }[t] || 'n';
+  return '<span class="clout '+cls+'">'+esc(t)+'</span>';
+}
 
-/* ---- throwaway DEMO quests (NOT canon) --------------------------------------- */
-function demoQuest(id,title,who,l1,o1,l2,l3){
+/* ---- throwaway DEMO quests (NOT canon) — now tagged with a #clout level so the
+   real follower math actually varies: pass 'quiet'|'notable'|'risky'|'reckless'. */
+function demoQuest(id,title,who,l1,o1,l2,l3,clout){
   return ['@QUEST '+id+'  '+title, '@ACT 1', '@ONCE true',
-    '@STAGE 10','  @DO show_objective 10','@STAGE 20 COMPLETE',
+    '@STAGE 10','  @DO show_objective 10','@STAGE 20 COMPLETE'+(clout?(' #'+clout):''),
     '@OBJ 10 "'+o1+'"',
     '@TALK hi speaker='+who+' entry=stage>=10',
     '  @SAY '+l1,
@@ -5505,15 +5572,15 @@ function demoQuest(id,title,who,l1,o1,l2,l3){
 }
 ctx.quests.place(demoQuest('waterrun','Water Run','trader',
   '"my hauler cracked a valve near the wash. cap it and the block drinks tonight."',
-  'Cap the valve at the wash','how bad is it?','i will cap it'),
+  'Cap the valve at the wash','how bad is it?','i will cap it','quiet'),
   { x:40,y:40, speaker:'trader', channel:'feed' });
 ctx.quests.place(demoQuest('rooftop','Rooftop Antenna','signalman',
   '"the feed goes dead on the east blocks. help me raise the antenna."',
-  'Raise the east antenna','what is out there?','lets raise it'),
+  'Raise the east antenna','what is out there?','lets raise it','risky'),
   { x:44,y:41, speaker:'signalman', channel:'feed' });
 ctx.quests.place(demoQuest('tunnelfavor','Tunnel Favor','king_hobo',
   '"no phones down here, kid. thats why you had to walk. carry a word up for me."',
-  'Carry the tunnel word up','who are you?','ill carry it'),
+  'Carry the tunnel word up','who are you?','ill carry it','reckless'),
   { x:90,y:90, speaker:'king_hobo', channel:'inperson' });
 
 /* ---- helpers ----------------------------------------------------------------- */
@@ -5586,7 +5653,7 @@ function render(){
       h += '<div class="card post"><div class="head">'+avatar('@founder_gen1')+
            '<div><div class="h2n">Founder <span class="at">@founder_gen1</span></div></div>'+
            '<div class="time">'+(idx===0?'now':('beat '+p.beat))+'</div></div>'+
-           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span></div>'+
+           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span>'+cloutBadge(p.clout)+'</div>'+
            photoFor(p.questId)+
            '<div class="eng"><span>♥ '+likes+'</span><span>💬 '+ci.count+'</span><span class="g">+'+gain+' followers</span></div>'+
            commentsBlock(ci)+'</div>';
@@ -5637,9 +5704,10 @@ function render(){
          '<div class="stats" style="margin-top:14px"><div class="stat foll"><b>'+prof.reach+'</b><span>followers</span></div>'+
          '<div class="stat"><b>'+prof.posts+'</b><span>posts</span></div>'+
          '</div></div>';
-    h += '<div class="disclaimer">Follower count uses a PLACEHOLDER score (complete = 50, else 5). '+
-         'What counts as cool shit, and what it is worth, is Paolo\'s call. The feed, pickups, log '+
-         'and this profile are all live off the real engine.</div>';
+    h += '<div class="disclaimer">FOLLOWERS run on CLOUT: reckless/dangerous deeds earn far more than '+
+         'quiet ones. Each quest tags its own completion (#quiet/#notable/#risky/#reckless); untagged '+
+         'defaults neutral. The exact numbers are tunable, the ordering is locked. The feed, pickups, '+
+         'log, and this profile are all live off the real engine.</div>';
   }
   s.innerHTML = h;
 }
@@ -5702,7 +5770,7 @@ var THREADS = [
       { t:'on my way', act:'startquest', qtitle:'The Wall', after:'good. bring your hands, not just your face.',
         quest: demoQuest('thewall','The Wall','neighbor',
           'two yards, one fence between them. we take that wall down, we got a real base.',
-          'Break the shared wall','why now?','lets do it'),
+          'Break the shared wall','why now?','lets do it','risky'),
         at:{ x:2, y:2, speaker:'neighbor', channel:'inperson' } },
       { t:'not tonight', act:'dismiss', after:'dont wait too long, kid.' } ] },
   { id:'sister', who:'Your Sister', av:'sister', unread:0, tm:'2h', msgs:[
