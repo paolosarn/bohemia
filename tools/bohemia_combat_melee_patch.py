@@ -2188,13 +2188,168 @@ function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;""",
     return demo
 
 
+def patch30(demo):
+    """v30 (Paolo 7/20, the ideas verdict — 'killing people isn't as clean
+    as it is in this fps. Give this shit some life'):
+    - DOWNED, NOT DEAD: a killshot on a human drops him DYING at 1 HP —
+      the fall plays, then he lies on the floor bleeding out, and every 5
+      turns he zombie-crawls one tile toward the nearest downed/dead
+      friend, smearing blood. He is out of the fight (never shoots, never
+      counts for the win) but he is THERE. Walk up to him: the contextual
+      button becomes FINISH (the death blow). Or walk away — sparing is a
+      choice you make with your feet. Crawl CLIP pending from the
+      Animation chat; the prone pose carries it until then. Incidental
+      deaths (vital/hit reaching zero) stay clean deaths.
+    - NERVE (loved, ruled): when half a crew is down, each survivor rolls
+      his nerve every turn (10% + 6% per body past half). A broken man
+      drops the gun and puts his hands up — out of the fight, standing
+      there. FINISH works on him too, or spare him. Perk hooks [PENDING].
+    - WOUNDED GUNS SHAKE (ruled): under 40% HP their return fire drops to
+      0.8x and their tracers visibly wobble.
+    - SCARS (ruled): wounds on YOUR body already persist across
+      encounters (never cleared); a flawless fight adds nothing."""
+    if 'V30 DOWNED' in demo:
+        print('v30 already applied, skipping')
+        return demo
+
+    # the killshot DOWNS a human
+    demo = sub1(demo, "    const _killed = tgt.hp<=0;\n    if(_killed){ tgt.dead=true; }",
+        "    const _killed = tgt.hp<=0;\n    if(_killed){ tgt.downed=true; tgt.hp=1; tgt.stun=0; tgt.prone=0; tgt.windup=false; }   /* V30 DOWNED: a killshot drops him DYING, not clean-dead */",
+        'downed-kill')
+    demo = sub1(demo, "    if(G.ks){const tv=G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:G.ks.style==='duel'?0.55:0.55;\n      tgt._deadAt=performance.now()+G.ks.dur*tv*1000;}\n    else tgt._deadAt=performance.now()+120;",
+        "    if(G.ks){const tv=G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:G.ks.style==='duel'?0.55:0.55;\n      tgt._fellAt=performance.now()+G.ks.dur*tv*1000;}\n    else tgt._fellAt=performance.now()+120;   /* V30: the FALL plays, then he is dying, not gone */",
+        'downed-fall-timing')
+
+    # out of the fight: every combat read excludes the dying and the broken
+    demo = sub1(demo, "function peeking(e){ if(e.dead)return false; if(e.stun>0)return true; if(!e.gcov)return true;   /* V26: fake cover dead */",
+        "function peeking(e){ if(e.dead||e.downed||e.broken)return false; if(e.stun>0)return true; if(!e.gcov)return true;   /* V26: fake cover dead; V30: the dying and the broken are out */",
+        'peek-downed')
+    demo = sub1(demo, "function firing(e){ if(e.dead||e.stun>0||e.melee)return false;",
+        "function firing(e){ if(e.dead||e.downed||e.broken||e.stun>0||e.melee)return false;",
+        'fire-downed')
+    demo = sub1(demo, "function hasLine(e){ if(e.dead||e.stun>0)return false;",
+        "function hasLine(e){ if(e.dead||e.downed||e.broken||e.stun>0)return false;",
+        'line-downed')
+    demo = sub1(demo, "function aliveEnemies(){ return G.e.filter(e=>!e.dead); }",
+        "function aliveEnemies(){ return G.e.filter(e=>!e.dead&&!e.downed&&!e.broken); }   /* V30: the FIGHT ends when nobody can fight — the dying crawl, the broken stand */",
+        'alive-downed')
+    demo = sub1(demo, "function meleeTurnRun(){ if(G.over)return; G.mTurn=(G.mTurn||0)+1; let dmg=0,who=[];\n  for(const e of G.e){ if(e.dead||!e.melee)continue;",
+        "function meleeTurnRun(){ if(G.over)return; G.mTurn=(G.mTurn||0)+1; let dmg=0,who=[];\n  for(const e of G.e){ if(e.dead||e.downed||e.broken||!e.melee)continue;",
+        'melee-downed')
+    demo = sub1(demo, "  for(const e of G.e){\n    if(e.dead||e.melee||e.stun>0||e.prone>0||e.stagger>0)continue;",
+        "  for(const e of G.e){\n    if(e.dead||e.downed||e.broken||e.melee||e.stun>0||e.prone>0||e.stagger>0)continue;",
+        'ai-downed')
+    demo = sub1(demo, "  for(const e of G.e){ if(e.dead||e.melee){ e.acq=0; continue; }",
+        "  for(const e of G.e){ if(e.dead||e.downed||e.broken||e.melee){ e.acq=0; continue; }",
+        'acq-downed')
+    demo = sub1(demo, "    const snap=G.e.filter(e2=>!e2.dead&&!e2.melee&&e2.stun<=0&&!(e2.prone>0)&&e2.gcov&&pool.indexOf(e2)<0);",
+        "    const snap=G.e.filter(e2=>!e2.dead&&!e2.downed&&!e2.broken&&!e2.melee&&e2.stun<=0&&!(e2.prone>0)&&e2.gcov&&pool.indexOf(e2)<0);",
+        'snap-downed')
+    demo = sub1(demo, "  const holders=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(e.acq||0)>=1);",
+        "  const holders=G.e.filter(e=>!e.dead&&!e.downed&&!e.broken&&!e.melee&&e.stun<=0&&(e.acq||0)>=1);",
+        'reckless-downed')
+    demo = sub1(demo, "  if(!aimo)for(const e of G.e){ if(e.dead)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e);",
+        "  if(!aimo)for(const e of G.e){ if(e.dead||e.downed||e.broken)continue; const [ex,ey]=epos(e); const out=peeking(e)||firing(e);",
+        'lines-downed')
+
+    # the dying render low (fall once, then the floor); the broken stand hands-up
+    demo = sub1(demo, """\
+  /* COMBAT MOVES b13 (Paolo 7/20): the shove reads as a body, the topple is
+     a body on the deck, the get-up is a body paying for it, and a tucked gun
+     answering your blown engagement snaps from the crouch. Shoved/prone
+     outrank the hit stagger: a man on the deck never staggers standing. */""", """\
+  if(e.downed){   /* V30 DOWNED: the drop plays once, then he is DYING on the floor (crawl clip pending Paolo) */
+    if(!e._fellAt)e._fellAt=now;
+    if(now<e._fellAt) return firing(e)&&L.fire112?L.fire112[0]:L.idle112;
+    const fseq=L.death[Math.min(e._deathVar||0,L.death.length-1)];
+    const fi=Math.floor((now-e._fellAt)/150);
+    if(fi<fseq.length) return fseq[Math.min(fseq.length-1,fi)];
+    return L.prone112||fseq[fseq.length-1]; }
+  if(e.broken){ return L.handsup112||L.idle112; }   /* V30 NERVE: the gun is down, the hands are up */
+  /* COMBAT MOVES b13 (Paolo 7/20): the shove reads as a body, the topple is
+     a body on the deck, the get-up is a body paying for it, and a tucked gun
+     answering your blown engagement snaps from the crouch. Shoved/prone
+     outrank the hit stagger: a man on the deck never staggers standing. */""",
+        'downed-frames')
+    demo = sub1(demo, "    for(const e of G.e){ if(!e.dead)continue; const _ep=fieldPos(e,W,H,cx,cy);",
+        "    for(const e of G.e){ if(!(e.dead||(e.downed&&e._fellAt&&_nowD>e._fellAt)))continue; const _ep=fieldPos(e,W,H,cx,cy);",
+        'underpass-downed')
+    demo = sub1(demo, "    if(e.dead){pos.push(null);   /* V24: the body painted in the under-pass */",
+        "    if(e.dead||(e.downed&&e._fellAt&&nowMs>e._fellAt)){pos.push(null);   /* V24+V30: floor bodies painted in the under-pass */",
+        'living-skip-downed')
+    demo = sub1(demo, "        :e.prone>0?('▼ FLOOR '+e.prone)",
+        "        :e.downed?'▼ DYING':e.broken?'HANDS UP'\n        :e.prone>0?('▼ FLOOR '+e.prone)",
+        'chip-downed')
+
+    # the crawl: every 5 turns, one tile toward a downed/dead friend
+    demo = sub1(demo, "  updShoveBtn(); }",
+        """\
+  for(const e of G.e){ if(!e.downed)continue;   /* V30: the dying crawl toward their own every 5th turn */
+    e._downTurns=(e._downTurns||0)+1;
+    if(e._downTurns%5!==0)continue;
+    const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;
+    let bx=null,bd=1e9;
+    for(const o of G.e){ if(o===e||!(o.dead||o.downed))continue;
+      const ox=Math.cos(o.ea)*o.edist, oy=Math.sin(o.ea)*o.edist;
+      const d2=Math.hypot(ox-ex,oy-ey); if(d2<bd){bd=d2;bx=[ox,oy];} }
+    for(const c of (G.corpses||[])){ const ox=Math.cos(c.ea)*c.edist, oy=Math.sin(c.ea)*c.edist;
+      const d2=Math.hypot(ox-ex,oy-ey); if(d2<bd){bd=d2;bx=[ox,oy];} }
+    if(bx&&bd>0.8){ const nx=ex+(bx[0]-ex)/bd, ny=ey+(bx[1]-ey)/bd;
+      e.edist=Math.max(0.4,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); e._crawlAt=performance.now();
+      (G.bloodSpots=G.bloodSpots||[]).push({ea:e.ea,edist:e.edist,r:1.8,jx:0,jy:0}); } }
+  { /* V30 NERVE: past half the crew down, every survivor rolls his nerve */
+    const _tot=G.e.length, _down=G.e.filter(e=>e.dead||e.downed||e.broken).length, _half=Math.ceil(_tot*0.5);
+    if(_down>=_half)for(const e of G.e){ if(e.dead||e.downed||e.broken)continue;
+      if(Math.random()<0.10+0.06*(_down-_half)){ e.broken=true; e.windup=false; e.acq=0; e._brokeAt=performance.now();
+        setRead('NERVE BROKE', e.n+' drops the gun — hands up','#c8a23a'); } } }
+  updShoveBtn(); }""",
+        'crawl-nerve')
+    demo = sub1(demo, "  for(const e of prev){ if(e&&e.dead){",
+        "  for(const e of prev){ if(e&&(e.dead||e.downed)){   /* V30: a re-roll bleeds the dying out — they harvest as corpses */",
+        'harvest-downed')
+
+    # FINISH: the contextual button on a dying or broken man
+    demo = sub1(demo, "function shoveTarget(){ let best=null;\n  for(const e of G.e){ if(e.dead)continue;\n    if(e.edist<=BohemiaMelee.SHOVE_RANGE&&(!best||e.edist<best.edist))best=e; }\n  return best; }",
+        "function shoveTarget(){ let best=null;\n  for(const e of G.e){ if(e.dead)continue;\n    if(e.edist<=BohemiaMelee.SHOVE_RANGE&&(!best||e.edist<best.edist))best=e; }\n  return best; }\nfunction finishHim(t){ /* V30: the death blow — yours to give or withhold */\n  t.dead=true; t.downed=false; t.broken=false; t.hp=0;\n  t._deathVar=Math.floor(Math.random()*3); t._deadAt=performance.now()-1200;   /* already on the floor: no second fall */\n  addWound(t); (G.bloodSpots=G.bloodSpots||[]).push({ea:t.ea,edist:t.edist,r:3.2,jx:0,jy:0});\n  try{sndKill();}catch(_e){} G.enemiesLeft=aliveEnemies().length;\n  setRead('FINISHED', t.n+' — it is done','#e8593a'); renderBoard(); updGap();\n  if(!G.over)endTurnReturn(false); }",
+        'finish-fn')
+    demo = sub1(demo, "function updShoveBtn(){ const b=D('shovebtn'); if(!b)return;\n  const t=(G.phase==='cover'&&!G.over&&!G.inc)?shoveTarget():null;\n  b.style.display=t?'':'none';\n  if(t){ const braced=(t.stun>0||t.stunCooldown>0);\n    b.textContent='SHOVE '+t.n+(braced?' (braced)':' ('+(G.perkShoulder?'stun 2':'stun 1')+' \\u00b7 '+(G.perkShoulder?50:30)+'%)'); } }",
+        "function updShoveBtn(){ const b=D('shovebtn'); if(!b)return;\n  const t=((G.phase==='cover'&&!G.inc)||(G.over&&G.win))?shoveTarget():null;   /* V30: the choice exists on the victory walk too */\n  b.style.display=t?'':'none';\n  if(t){ if(t.downed||t.broken){ b.textContent='FINISH '+t.n+(t.broken?' (surrendered)':' (dying)'); return; }   /* V30: the death blow is a CHOICE */\n    if(G.over){ b.style.display='none'; return; }\n    const braced=(t.stun>0||t.stunCooldown>0);\n    b.textContent='SHOVE '+t.n+(braced?' (braced)':' ('+(G.perkShoulder?'stun 2':'stun 1')+' \\u00b7 '+(G.perkShoulder?50:30)+'%)'); } }",
+        'finish-btn')
+    demo = sub1(demo, "function doShove(){ if(G.phase!=='cover'||G.over||G.inc)return; const t=shoveTarget(); if(!t)return; audio();",
+        "function doShove(){ if(G.inc)return; const t=shoveTarget(); if(!t)return;\n  if(t.downed||t.broken){ if(G.phase==='cover'||(G.over&&G.win)){ audio(); return finishHim(t); } return; }   /* V30 */\n  if(G.phase!=='cover'||G.over)return; audio();",
+        'finish-route')
+
+    # wounded guns shake
+    demo = sub1(demo, "  for(const e of pool){ const acc=distAccuracy(e)*(firing(e)?1:0.6); if(Math.random()<acc){hits++; hitIdx.push(e.i); const a=e.E.dmg; dmg+=a[0]+Math.floor(Math.random()*(a[1]-a[0]+1));} }",
+        "  for(const e of pool){ const acc=distAccuracy(e)*(firing(e)?1:0.6)*(e.hp<=e.max*0.4?0.8:1);   /* V30: wounded guns shake */\n    if(Math.random()<acc){hits++; hitIdx.push(e.i); const a=e.E.dmg; dmg+=a[0]+Math.floor(Math.random()*(a[1]-a[0]+1));} }",
+        'shake-wait')
+    demo = sub1(demo, "  for(const e of pool){ const cov=myCoverAgainst(e.ea,e.edist); const acc=distAccuracy(e)*(firing(e)?1:0.6)*(cov?0.4:1)*((e.E.acc||0.55)/0.55);",
+        "  for(const e of pool){ const cov=myCoverAgainst(e.ea,e.edist); const acc=distAccuracy(e)*(firing(e)?1:0.6)*(cov?0.4:1)*((e.E.acc||0.55)/0.55)*(e.hp<=e.max*0.4?0.8:1);   /* V30: wounded guns shake */",
+        'shake-return')
+    demo = sub1(demo, "      const _mx=inc.miss?((i%2?1:-1)*(30+i*9)):0;   /* V26: misses fly PAST you */\n      const bx=ex+((cx+_mx)-ex)*tp, by=(ey-27)+((cy-20)-(ey-27))*tp;",
+        "      const _mx=inc.miss?((i%2?1:-1)*(30+i*9)):0;   /* V26: misses fly PAST you */\n      const _wob=(e.hp<=(e.max||100)*0.4)?Math.sin(inc.t*40+i*3)*3:0;   /* V30: a hurt gun's tracer wobbles */\n      const bx=ex+((cx+_mx)-ex)*tp, by=(ey-27)+((cy-20+_wob)-(ey-27))*tp;",
+        'shake-tracer')
+    return demo
+
+
+def patch30b(demo):
+    """v30b: the look loader carries the surrender bake (handsup112)."""
+    if 'V30B SURRENDER LOADER' in demo:
+        print('v30b already applied, skipping')
+        return demo
+    demo = sub1(demo, "      walk112:L.walk112?L.walk112.map(b=>mkAt(b,112,112)):null,",
+        "      walk112:L.walk112?L.walk112.map(b=>mkAt(b,112,112)):null,\n      handsup112:L.handsup112?mkAt(L.handsup112,112,112):null,   /* V30B SURRENDER LOADER */",
+        'surrender-loader')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))
+    patched = patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

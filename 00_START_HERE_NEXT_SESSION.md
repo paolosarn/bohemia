@@ -1166,6 +1166,33 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    character/clothes/combat all healthy on tip, character UI byte-
    identical to pre-storm; combat session never touched skin code; if
    he reports again get the exact tab + screenshot and trace commits.
+   THE IDEAS VERDICT + v30 "KILLING ISN'T CLEAN" (7/20, pass 30):
+   Paolo ruled the menu: 1 EVOLVED into DOWNED-NOT-DEAD (built),
+   2 NERVE loved (built v1), 3+4 need convincing (pitch again),
+   5 HUMAN SHIELD liked (design pending), 6 built, 7 shelved, 8 ruled
+   (scars persist unless flawless — already true: G.wounds never
+   clears across encounters, addWound only fires on damage). BUILT:
+   a KILLSHOT on a human drops him DYING at 1hp (fall plays via
+   _fellAt, then prone on the floor, bleeding heavy via bleedTick);
+   he is out of every combat read (peeking/firing/hasLine/alive/
+   melee/AI/acq/snap/reckless/threat-lines all exclude downed+broken;
+   aliveEnemies redefined so the FIGHT ends when nobody can fight);
+   every 5th turn he crawls one tile toward the nearest downed/dead
+   friend smearing blood (crawl-dying CLIP requested — records/
+   BOHEMIA_COMBAT_ANIM_REQUESTS_2 round 2b; prone slides until it
+   lands); the contextual button on an adjacent dying/surrendered man
+   becomes FINISH (finishHim: instant corpse, no second fall, blood
+   burst; costs the turn mid-fight, free on the victory walk) — SPARE
+   is walking away. Incidental deaths (vital/hit to zero) stay clean
+   deaths. NERVE v1: past half the crew down each survivor rolls
+   10% +6% per body past half at turn end; broken = hands-up (bake
+   handsup112 both sides, V30B loader), out of the fight, finishable
+   or sparable. Perk hooks [PENDING]. WOUNDED GUNS SHAKE: <=40% fires
+   0.8x, tracers wobble. Gate 115 ALL GREEN; verified live: pools
+   exclude, crawl moved a tile, FINISH GOON (dying) button, nerve
+   broke a survivor. NEXT: re-pitch 3 (suppressing burst) + 4
+   (overwatch) convincingly; design 5 (human shield) concrete;
+   NERVE tuning + perks pending Paolo.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

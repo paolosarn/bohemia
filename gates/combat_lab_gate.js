@@ -288,7 +288,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('never pop around your stone while a side has you lined up'));
   ok('THE DEAD LIE UNDER THE LIVING: corpse under-pass before the player, old draws stripped',
     demo.includes('V24 UNDER THE LIVING') &&
-    demo.includes('V24: the body painted in the under-pass') &&
+    demo.includes('V24+V30: floor bodies painted in the under-pass') &&
     demo.includes('only the flies live up here'));
   ok('UI cluster up-left: fire + ring at 44px, never clipped',
     demo.includes('#fire{position:fixed;right:44px;bottom:44px;') &&
@@ -337,6 +337,27 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('crouched gun sweep (empty until the clips land)') &&
     demo.includes('firing FROM the crouch') &&
     alpha.includes("CLIPS.indexOf('crouch-aim-1h')>=0?'crouch-aim-1h'"));
+  // v30: killing people isn't clean
+  ok('V30 DOWNED: a killshot drops him DYING at 1hp; the fall plays into the floor, never a clean delete',
+    demo.includes('V30 DOWNED: a killshot drops him DYING') &&
+    demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000') &&
+    demo.includes('return L.prone112||fseq[fseq.length-1]; }'));
+  ok('the dying and the broken are OUT of every combat read (peek/fire/line/alive/melee/AI/acq/snap/reckless/lines)',
+    demo.split('e.downed').length >= 12 && demo.includes('!e.dead&&!e.downed&&!e.broken'));
+  ok('THE CRAWL: every 5th turn a dying man crawls one tile toward a downed/dead friend, smearing blood',
+    demo.includes('the dying crawl toward their own every 5th turn') &&
+    demo.includes("e._downTurns%5!==0"));
+  ok('FINISH OR SPARE: the contextual button becomes the death blow on a dying/surrendered man, victory walk included',
+    demo.includes('function finishHim(t)') && demo.includes("b.textContent='FINISH '+t.n") &&
+    demo.includes('the death blow is a CHOICE'));
+  ok('V30 NERVE: past half the crew down, survivors roll (10% +6%/body); the broken stand hands-up',
+    demo.includes('V30 NERVE: past half the crew down') &&
+    demo.includes('0.10+0.06*(_down-_half)') && demo.includes('L.handsup112||L.idle112'));
+  ok('surrender bake wired both sides',
+    alpha.includes("L.look.handsup112=bake112(L.d,'hands-up',0.4)") &&
+    demo.includes('V30B SURRENDER LOADER'));
+  ok('WOUNDED GUNS SHAKE: <=40% hp fires at 0.8x and the tracer wobbles',
+    demo.split('e.hp<=e.max*0.4?0.8:1').length >= 3 && demo.includes("a hurt gun's tracer wobbles"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
