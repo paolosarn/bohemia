@@ -102,29 +102,19 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   authors nothing; computes NO follower math (Paolo's call, PENDING). ctx.quests also
   exposes journal() (every live quest's title/act/stage/done/objectives/available/
   channel) and activeObjectives() (the flat objective-HUD line).
-  THE SOCIAL PROFILE (7/20, LOOP PROFILE gate 8/8): Loop.socialProfile(ctx, scoreFn)
+  THE SOCIAL PROFILE (7/20, LOOP PROFILE gate 10/10): Loop.socialProfile(ctx, scoreFn)
   = the phone's top-of-page readout (posts / questsTouched / questsCompleted /
-  follower reach) over the feed. MECHANISM-MINE: the tally. CONTENTS-PAOLO'S: the
-  follower SCORING ("what counts as cool shit," how many followers a deed is worth)
-  is an EMPTY hook — no scoreFn => reach 0. Whether followers/clout are one number or
-  two is NOT decided (call once per metric). [PENDING Paolo: the scoring + one-vs-two.]
-  THE PHONE IS IN THE ALPHA (7/20): Paolo's rule — NO standalone HTMLs, he won't open
-  them; judge-able things go IN THE ALPHA SLICE. slices/BOHEMIA_ALPHA_0_9.html now has
-  a PHONE tab (alongside CHARACTER/ANIM/RIG/COMBAT/MUSIC/CITY) running the real
-  feed/quests/profile: feed (one post per completed quest, photo + follower-scaled
-  comments), offers (over-the-phone vs pull-up-in-person), quest log, profile with
-  followers, dialogue overlay, and a signal toggle (valley/live vs tunnels/NO SIGNAL).
-  REPRODUCIBLE: canonical phone body is slices/phone/{phone_app.js,phone.css}; run
-  `node tools/bohemia_inject_phone.js` to (re)generate the PHONE tab in the alpha from
-  the engine modules + that source (idempotent, additive, collision-safe — new globals
-  only, never touches the alpha's own engine/tabs). The phone runs on a MINIMAL
-  self-contained ctx (choices + quest manager), so it does NOT depend on the alpha's
-  older engine (which lacks Save.recordChoice/newSave). Re-run the injector after any
-  loop.js/bq/runtime/phone-source change. Browser-verified (alpha boots, CHAR tab
-  works, PHONE plays a quest to a feed post, zero console errors). Demo quests are
-  throwaway; follower score is a placeholder. The old standalone
-  slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html remains only as a fast dev harness
-  (easier to iterate than the 31MB alpha); it is NOT for Paolo.
+  follower reach) over the feed. With no scoreFn it now defaults to the REAL CLOUT
+  math (below) — no longer an empty hook. Whether followers/clout end up as one
+  number or two is still open (call once per metric with its own scoreFn).
+  CLOUT LAW (7/21, LOOP CLOUT gate 18/18, LOCKED — see the note below and
+  BOHEMIA_ADDENDUM_CLOUT_RECKLESS_BEATS_QUIET_7_21_26.md): Paolo ruled reckless/
+  dangerous deeds earn dramatically more followers than quiet ones. A quest's own
+  completing @STAGE line can carry a #quiet/#notable/#risky/#reckless hashtag (the
+  .bq format's existing #tag mechanism, no format change); Loop.defaultFollowerScore
+  reads it (CLOUT_WEIGHTS: quiet 8, notable 25, risky 55, reckless 110; untagged =
+  neutral 15). FAILed quests still post (total recall) and still score by their tag.
+  The follower-scoring PENDING item from 7/20 is CLOSED.
   STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
   (faction placement/standings into worldgen slots) and bootEconomy (what the three
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
