@@ -34,6 +34,10 @@
   var FIR= HASREQ ? require('./bohemia_firestation.js')    : (typeof BohemiaFirestation!=='undefined'?BohemiaFirestation:root.BohemiaFirestation);
   var SWP= HASREQ ? require('./bohemia_swapmeet.js')       : (typeof BohemiaSwapmeet!=='undefined'?BohemiaSwapmeet:root.BohemiaSwapmeet);
   var STO= HASREQ ? require('./bohemia_storage.js')        : (typeof BohemiaStorage!=='undefined'?BohemiaStorage:root.BohemiaStorage);
+  var WTR= HASREQ ? require('./bohemia_watertreat.js')     : (typeof BohemiaWatertreat!=='undefined'?BohemiaWatertreat:root.BohemiaWatertreat);
+  var BNY= HASREQ ? require('./bohemia_boneyard.js')       : (typeof BohemiaBoneyard!=='undefined'?BohemiaBoneyard:root.BohemiaBoneyard);
+  var POL= HASREQ ? require('./bohemia_policestation.js')  : (typeof BohemiaPolicestation!=='undefined'?BohemiaPolicestation:root.BohemiaPolicestation);
+  var LIB= HASREQ ? require('./bohemia_library.js')        : (typeof BohemiaLibrary!=='undefined'?BohemiaLibrary:root.BohemiaLibrary);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -60,7 +64,11 @@
     school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
     firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
     swapmeet:   { mod:SWP, foot:function(r){return r.footprints;},           zone:'retail' },
-    storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' }
+    storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
+    library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
