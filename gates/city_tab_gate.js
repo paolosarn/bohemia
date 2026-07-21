@@ -128,8 +128,20 @@ if (b64m) {
     decoded.indexOf('const SA_TILES=') >= 0 && decoded.indexOf('BOHEMIA_STREET_POOLS_HARMONIZED') >= 0);
   ok('texFor serves the real art for street ground colors',
     decoded.indexOf("const sp=SA_MAP[col]") >= 0);
-  ok('center lines draw the median art with orientation',
-    decoded.indexOf("saTex(_vert?'median_v':'median_h',v)") >= 0);
+  ok('center lines + lane dividers draw the approved art with orientation',
+    decoded.indexOf("_pool") >= 0 && decoded.indexOf("'lane_v'") >= 0);
+
+  // 9. THE WIDTH MODELS LOCK (7/20, Paolo: "we made whole models based on
+  // how wide the streets should be"): the road cross-section is the canon
+  // anatomy - LANE_W=2, lanes/dir per class, white dividers, yellow median.
+  ok('CANON XSEC: road cross-sections come from the blockgen width models',
+    decoded.indexOf('CANON XSEC') >= 0);
+  ok('classes differ: arterial 3 lanes / strip 4+med2 / freeway no sidewalks',
+    decoded.indexOf('arterial:{lanes:3,med:1,side:2}') >= 0
+    && decoded.indexOf('strip:{lanes:4,med:2,side:2}') >= 0
+    && decoded.indexOf('freeway:{lanes:4,med:2,side:0}') >= 0);
+  ok('LINE COLOR LAW at street level: yellow median, white lane dashes',
+    decoded.indexOf("c.g='#b8a040'") >= 0 && decoded.indexOf("c.g='#d8d4c4'") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
