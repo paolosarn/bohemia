@@ -314,8 +314,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('Math.min(1.30,fit)'));
   ok('playtest defaults to 8 enemies',
     demo.includes('numEnemies:8,') && demo.includes('<button class="nb on" data-n="8">8</button>'));
-  ok('TARGETING AUTO/MANUAL: closest-first order, manual CHOOSE NEXT pause, taps only pick victims',
-    demo.includes("closest first, always") && demo.includes("G.targetMode==='manual'") &&
+  ok('TARGETING AUTO/MANUAL: threat-ordered auto (v28), manual CHOOSE NEXT pause, taps only pick victims',
+    demo.includes('V28 THREAT ORDER') && demo.includes("G.targetMode==='manual'") &&
     demo.includes("setRead('CHOOSE NEXT'") && demo.includes('V26 MANUAL CHAIN') &&
     demo.includes('id="targmode"'));
   ok('GRIT SHOTS: the floor perk buys a missed shot back, ceiling still caps',
@@ -325,6 +325,10 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V27 PICK SPENT: a tapped pick buys ONE dial, auto resumes closest-first; popTarget never carries',
     demo.includes('V27 PICK SPENT') && demo.includes('if(G.selTarget===G.fireTarget)G.selTarget=null;') &&
     demo.split('G.popTarget=-1;').length >= 3);
+  // v28: the threat ladder
+  ok('V28 THREAT ORDER: adjacent blade > exposed guns (closest first) > closing blades > the rest',
+    demo.includes('V28 THREAT ORDER') && demo.includes('e.melee&&e.edist<=1.6') &&
+    demo.includes('_rank(e)*1000+e.edist'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

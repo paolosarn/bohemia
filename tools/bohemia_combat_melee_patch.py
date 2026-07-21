@@ -2088,13 +2088,45 @@ def patch27(demo):
     return demo
 
 
+def patch28(demo):
+    """v28 THREAT ORDER (Paolo 7/20, shouted and final): 'MELEE WEAPON PEOPLE
+    ARE NOT A PRIORITY UNTIL THEY ARE ONE TILE AWAY. UNTIL THEN YOU HIT THE
+    PEOPLE WITH GUNS YOU ARE EXPOSED TO FIRST.' The auto order is now a
+    strict threat ladder, not raw distance:
+      0. a blade AT you (<=1.6 tiles, adjacent incl. diagonal)
+      1. gunmen you are EXPOSED to, closest first
+      2. blades still closing
+      3. everyone else (covered-side, manufactured targets)
+    Distance breaks ties inside each rung."""
+    if 'V28 THREAT ORDER' in demo:
+        print('v28 already applied, skipping')
+        return demo
+    demo = sub1(demo, """\
+function pickTarget(){ const pool=modePool(); if(!pool.length)return -1;
+  if(G.selTarget!=null){ const s=pool.find(e=>e.i===G.selTarget); if(s)return s.i; }   /* your pick rules; auto is the fallback */
+  let b=-1,bd=1e9; for(const e of pool){ const sc=e.edist; if(sc<bd){bd=sc;b=e.i;} } return b; }   /* V26 AUTO ORDER: closest first, always — the knife in your face outranks the far gun */""", """\
+function pickTarget(){ const pool=modePool(); if(!pool.length)return -1;
+  if(G.selTarget!=null){ const s=pool.find(e=>e.i===G.selTarget); if(s)return s.i; }   /* your pick rules; auto is the fallback */
+  /* V28 THREAT ORDER (Paolo, final): a blade only jumps the queue when it is
+     ON you (one tile). Until then the guns you are EXPOSED to die first,
+     closest to farthest. Then closing blades. Then everyone else. */
+  const _rank=e=>{
+    if(e.melee&&e.edist<=1.6) return 0;                     /* knife AT you */
+    if(!e.melee&&!myCoverAgainst(e.ea,e.edist)) return 1;   /* gun with a line on your blood */
+    if(e.melee) return 2;                                   /* blade still closing */
+    return 3; };                                            /* covered-side / the rest */
+  let b=-1,bs=1e9; for(const e of pool){ const sc=_rank(e)*1000+e.edist; if(sc<bs){bs=sc;b=e.i;} } return b; }""",
+        'threat-order')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))
+    patched = patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
