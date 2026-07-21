@@ -565,7 +565,97 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--25. DRESS CODE BY RANK, THE MECHANISM (7/21, latest): Paolo picked the next
+-26. COMBAT v35: CAMERA TIGHTENS, REAL COVER, DIAL-BY-EXPOSURE, LAST-MAN-
+   ONLY SURRENDER (7/21, combat session, branch claude/bohemia-combat-
+   session-ni978x): Paolo sent one dense diagnostic message covering six
+   things. FOUR WERE REAL BUGS, root-caused fresh (not re-guessed off the
+   prior "fix"): (1) camera wouldn't tighten as the fight thinned -- the
+   auto-frame fit distance was still measuring dead/downed/broken bodies,
+   fixed to only measure ACTIVE fighters; verified mdOld=25 (buggy, reading
+   a far corpse) vs mdNew=5 (correct, the one live fighter) on the same
+   state. (2) camera fought the killshot cinematic's own zoom -- the auto-
+   frame easing now freezes entirely while G.ks (killcam) is active. (3)
+   auto-targeting still felt sticky toward whatever was tapped -- root
+   cause #3 under this one symptom this session (threat-ladder formula v28,
+   reach/windup blindness v33, and now this: chip/field taps were locking
+   G.selTarget even in AUTO mode); taps now only lock a manual pick when
+   G.targetMode==='manual'. (4) enemies read as covered while crouched
+   behind nothing -- pillarBetweenMe and nearPillar could each be satisfied
+   by a DIFFERENT pillar; now realCoverPillar requires ONE pillar to
+   satisfy both checks together.
+   TWO NEW MECHANICS, both his asks: dial difficulty now scales with
+   target exposure (G.pkgDiff +1 if covered, -1 if exposed, clamped 0-4);
+   and NERVE rewritten so only the last enemy standing can surrender --
+   everyone else who breaks while their side still fights FLEES instead
+   (runs away, doesn't drop the gun), elites break at half rate. Faction/
+   rank slider on break odds explicitly [PENDING Paolo, his framing: "on a
+   slider, no one surrenders or more people do"].
+   TWO NON-BUGS, explained not coded: the casino ledger's "100% hits" was
+   already counting body hits as hits per his own stated definition of
+   accuracy (any hit, not just killshots) -- confirmed correct, not
+   touched. Grit shots re-confirmed in plain text: a miss spends a banked
+   grit shot instead of ending your turn, dial reopens same target.
+   "Falling before the bullets hit" should read as fixed by the killcam-
+   freeze (fix #2) but wasn't independently re-tested visually -- tell him
+   to flag it again if it's still off.
+   HIS FACE QUESTION ("wtf is on my face, is this the battle scar") --
+   answered plain: it's the pre-existing addWound() wound-marking system
+   (predates this session, unrelated to this patch), not a new scar
+   system. He does NOT want it expanded/changed right now -- a real scar
+   system is a separate future project elsewhere, not combat-session scope.
+   Verified via Playwright evaluate() probes against the live decoded
+   alpha (not screenshots): dial-by-cover {"pkgCovered":2,"pkgExposed":0,
+   "harderWhenCovered":true}; last-man-only {"b_broken":false,
+   "b_fleeing":true,"d_broken":true,"d_fleeing":false} (self-correcting
+   cascade -- whoever the loop reaches when only 1 is left alive gets
+   surrender, everyone evaluated earlier flees); camera convergence
+   mdOld=25/mdNew=5; real-cover mismatch test {"mismatchGrantsCover":
+   false,"realCoverWorks":true}; auto-tap-never-locks {"selTargetAfterTap":
+   null}; manual-tap-still-works {"selTargetAfterTap":0}. Zero page errors
+   on every probe.
+   tools/bohemia_combat_melee_patch.py patch35() (idempotent, guarded on
+   'V35 FLEEING' marker... NOTE this guard string never actually lands in
+   the output verbatim, only its pieces do (FLEEING/V35 both present
+   separately) -- harmless since the function is otherwise idempotent via
+   sub1's exactly-once assertions, but worth tightening if patch36 reuses
+   this pattern.) gates/combat_lab_gate.js: 138 checks (7 new + 3 fixed
+   stale string-anchors from the v35 rewrite -- same "gate matches shipped
+   reality, never the reverse" precedent as every prior pass). Full suite
+   ALL GREEN. Stamp: BUILD 7/21p.
+-27. SIX FACTIONS RULED + THE RAINBOW GAP FOUND (7/21, latest): Paolo went
+   faction-by-faction live off the roster. Locked: REDS brightest red
+   #dc2820, CARTEL darkest maroon #5c302a (existing OXBLOOD ramp), CHURCH
+   gold #ffd75c distinct from MOB's gold-STRIPE #b08a2a (existing MUSTARD
+   ramp, "gold stripes not all gold"), CARAVANS unchanged tan #caa05a
+   (blends with the desert, his call), COLORFUL literal rainbow mode (no
+   fixed color). Mechanism grew THREE modes (family/stripe/rainbow) in
+   engine/bohemia_dress.js: FACTION_LOOK[faction]={mode,color}. Realism
+   fix per his note ("not everyone's gonna have a shirt of one solid
+   color"): nudge order is torso then a SMALL tell (feet/head), legs only
+   as last resort -- no more matching-separates costumes. Generalized the
+   no-stray-cover-up rule (an unforced outer/hat can't hide a forced base/
+   face color -- this was silently breaking REDS/CHURCH's coverage before
+   the fix). BIG FIND: the whole 187-item wardrobe had ZERO real blue/
+   green/purple/yellow -- literally impossible to make COLORFUL a rainbow
+   without new content. Cooked 9 colorway garments (existing shapes, new
+   ramps): SIGNAL RED SHIRT+BOOTS, VESTMENT GOLD SHIRT+BOOTS, MOB
+   PINSTRIPE SHIRT, MOSS GREEN SHIRT, TEAL WORK SHIRT, COBALT WORK PANTS,
+   ROSE BANDANA (a violet sash + first magenta pick both got cut mid-build
+   by PURPLE RESERVATION catching them as purple-family even off pure
+   hue -- rose clears it). Wardrobe bank 195. dress_gate.js 23->43 checks,
+   his two named collisions (REDS/CARTEL, CHURCH/MOB) gate-asserted >=95
+   apart forever. LIFE slice regenerated (was carrying a stale embedded
+   copy of bohemia_dress.js -- confirmed the ENGINE SYNC gate does NOT
+   cover this module family, BOH_* prefix only; regenerate manually after
+   touching engine/bohemia_dress.js). [PENDING Paolo]: the other 7
+   factions (BLUES/ANARCHISTS/NETWORK/TRADES/VOLUNTEERS/REMNANTS/
+   HOMELESS) -- real color collisions found among them, flagged not
+   guessed; FACTION_VETERAN_KIT per faction, whenever. Known limitation
+   flagged: CARTEL's dark-maroon match reads reliably DARK more than
+   reliably RED-hued (plain RGB distance loses hue precision at low
+   lightness) -- a hue-aware metric would tighten this, not blocking.
+   Stamp: BUILD 7/21d.
+-25. DRESS CODE BY RANK, THE MECHANISM (7/21): Paolo picked the next
    lane -- dress codes, starting with color. His rule: rookies wear
    whatever as long as >=50% of BODY SURFACE reads the faction color;
    veterans wear every layer Paolo's kit names, forced, everything else

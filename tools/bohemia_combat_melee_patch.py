@@ -2702,13 +2702,199 @@ def patch34(demo):
     return demo
 
 
+def patch35(demo):
+    """v35 (Paolo 7/21, the diagnosis-heavy message): six real bugs, two
+    new mechanics.
+    BUGS:
+    - CAMERA WON'T TIGHTEN: the AUTO FRAME max-distance loop only
+      excluded e.dead — a downed/dying/broken/fleeing body sitting far
+      away kept the zoom wide forever even though he's out of the fight.
+    - DOUBLE-ZOOM FIGHTING THE KILLCAM: AUTO FRAME kept re-targeting and
+      easing G._uzE even while the dedicated killshot camera (G.ks) was
+      driving its OWN zoom on top — two competing zoom transforms
+      compounding is the likely cause of his 'falling before the bullet
+      hits' desync. AUTO FRAME now freezes the instant G.ks starts.
+    - STICKY AUTO-BREAKING TAPS: tapping any enemy body (chip or field)
+      set G.selTarget unconditionally, even in AUTO mode — one curious
+      tap silently overrode closest-priority targeting until the pick
+      got 'spent'. Now a tap only locks a pick in MANUAL mode (or when
+      resolving a forced CHOOSE NEXT).
+    - FAKE COVER, TAKE THREE: pillarBetweenMe() and nearPillar() each
+      independently scanned ALL pillars — an enemy near pillar A (far
+      from blocking) while pillar B (blocking, but not near him) sat on
+      the sightline would satisfy gcov=true with no actual stone next
+      to his body. Real fix: ONE pillar must satisfy BOTH conditions.
+    NEW MECHANICS:
+    - DIAL DIFFICULTY BY EXPOSURE (his ask): a covered target pulls the
+      package harder (+1), an exposed one pulls it easier (-1), stacked
+      with the existing distance/elite modifiers, floored at 0.
+    - LAST-MAN-ONLY SURRENDER + FLEE (his ruling): a NERVE break only
+      produces a surrender (hands up) when the breaking man is the
+      LAST fighter left. Anyone who cracks while allies are still
+      shooting FLEES instead — runs away every turn, out of the fight,
+      same as broken/downed for every pool. Elites (hardened) break
+      less often — a first pass at his 'rank slider,' full faction
+      tuning [PENDING Paolo]."""
+    if 'V35: FROZEN during the killcam' in demo:
+        print('v35 already applied, skipping')
+        return demo
+
+    # --- bulk: fleeing joins the same exclusion set as dead/downed/broken everywhere ---
+    _or, _or_c = "e.dead||e.downed||e.broken", 9
+    if demo.count(_or) != _or_c:
+        sys.exit('FAIL anchor [fleeing-or]: found %d times (want %d)' % (demo.count(_or), _or_c))
+    demo = demo.replace(_or, "e.dead||e.downed||e.broken||e.fleeing")
+    _neg, _neg_c = "!e.dead&&!e.downed&&!e.broken", 4
+    if demo.count(_neg) != _neg_c:
+        sys.exit('FAIL anchor [fleeing-neg]: found %d times (want %d)' % (demo.count(_neg), _neg_c))
+    demo = demo.replace(_neg, "!e.dead&&!e.downed&&!e.broken&&!e.fleeing")
+    _neg2, _neg2_c = "!e2.dead&&!e2.downed&&!e2.broken", 1
+    if demo.count(_neg2) != _neg2_c:
+        sys.exit('FAIL anchor [fleeing-neg2]: found %d times (want %d)' % (demo.count(_neg2), _neg2_c))
+    demo = demo.replace(_neg2, "!e2.dead&&!e2.downed&&!e2.broken&&!e2.fleeing")
+
+    # --- camera: exclude the out-of-fight from the fit, freeze during the killcam ---
+    demo = sub1(demo, "      const ringF=Math.min(W,H)*0.085; let md=0;\n      for(const e of G.e)if(!e.dead&&e.edist>md)md=e.edist;",
+        "      const ringF=Math.min(W,H)*0.085; let md=0;   /* V35: only ACTIVE fighters hold the frame open — a downed/broken/fled body stops widening the shot */\n      for(const e of G.e)if(!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&e.edist>md)md=e.edist;",
+        'camera-exclude-out')
+    demo = sub1(demo, "    G._uzE=(G._uzE==null)?uzT:G._uzE+(uzT-G._uzE)*0.10; }",
+        "    if(!G.ks)G._uzE=(G._uzE==null)?uzT:G._uzE+(uzT-G._uzE)*0.10;   /* V35: FROZEN during the killcam — AUTO FRAME never fights driveKillshotCamera's own zoom again */ }",
+        'camera-freeze-killcam')
+
+    # --- real cover: one pillar satisfies BOTH conditions ---
+    demo = sub1(demo, "function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=(pillarBetweenMe(e)&&nearPillar(e))?1:0; } }   /* V26: real cover NEEDS stone near HIM — no more ducking behind a pillar that sits by YOU */",
+        """\
+function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=realCoverPillar(e)?1:0; } }   /* V35: ONE pillar must both BLOCK and sit NEAR him — no more mismatched pillars faking cover */
+function realCoverPillar(e){ const exy=pXY(e);
+  return (G.pillars||[]).some(P=>{ const pxy=pXY(P);
+    return segNear(0,0,exy[0],exy[1],pxy[0],pxy[1],P.r*0.85) && Math.hypot(pxy[0]-exy[0],pxy[1]-exy[1])<1.8; }); }""",
+        'real-cover-same-pillar')
+
+    # --- taps only lock a pick in manual mode ---
+    demo = sub1(demo, """\
+    const selFn=ev=>{ ev.stopPropagation(); if(e.dead)return;   /* V26: a tap only ever PICKS the victim — the fake cover toggle is dead */
+      if(G._chainWait){ G.selTarget=e.i; G._chainWait=false; G.inFU=true; enterAim(true); return; }
+      if(G.phase!=='cover')return; G.selTarget=e.i; setRead('TARGET: '+e.n,'he eats the next dial','#e8b04a'); renderBoard(); updGap(); };""", """\
+    const selFn=ev=>{ ev.stopPropagation(); if(e.dead)return;   /* V26: a tap only ever PICKS the victim — the fake cover toggle is dead */
+      if(G._chainWait){ G.selTarget=e.i; G._chainWait=false; G.inFU=true; enterAim(true); return; }
+      if(G.phase!=='cover'||G.targetMode!=='manual')return;   /* V35: AUTO means the game decides — a curious tap can never silently override closest-priority */
+      G.selTarget=e.i; setRead('TARGET: '+e.n,'he eats the next dial','#e8b04a'); renderBoard(); updGap(); };""",
+        'chip-tap-manual-only')
+    demo = sub1(demo, """\
+      if(G._chainWait){ G.selTarget=e.i; G._chainWait=false; G.inFU=true; enterAim(true); return; }   /* V26 MANUAL CHAIN: the chosen next victim */
+      G.selTarget=e.i;
+      setRead('TARGET: '+e.n, e.melee?'the blade goes down first':'he eats the next dial','#e8b04a');
+      renderBoard(); updGap(); return; } }""", """\
+      if(G._chainWait){ G.selTarget=e.i; G._chainWait=false; G.inFU=true; enterAim(true); return; }   /* V26 MANUAL CHAIN: the chosen next victim */
+      if(G.targetMode!=='manual')return;   /* V35: same law on the field tap — AUTO stays the game's call */
+      G.selTarget=e.i;
+      setRead('TARGET: '+e.n, e.melee?'the blade goes down first':'he eats the next dial','#e8b04a');
+      renderBoard(); updGap(); return; } }""",
+        'field-tap-manual-only')
+
+    # --- dial difficulty scales with the target's cover ---
+    demo = sub1(demo, "      G.pkgDiff=Math.min(4,distPkg(tgt)+(tgt.elite?1:0)); } }   // dial faces the target; point-blank pulls easier patterns",
+        "      G.pkgDiff=Math.max(0,Math.min(4,distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1))); } }   // V35 (Paolo): covered pulls the package HARDER, exposed pulls it EASIER — stacks with distance/elite",
+        'difficulty-by-cover')
+
+    # --- fleeing pose + chip label ---
+    demo = sub1(demo, "  if(e.broken){ return L.handsup112||L.idle112; }   /* V30 NERVE: the gun is down, the hands are up */",
+        "  if(e.fleeing){ if(L.walk112&&L.walk112.length)return L.walk112[Math.floor(now/170)%L.walk112.length]; return L.idle112; }   /* V35: running for it — the same walk cycle, never stopping */\n  if(e.broken){ return L.handsup112||L.idle112; }   /* V30 NERVE: the gun is down, the hands are up */",
+        'fleeing-pose')
+    demo = sub1(demo, "        :e.downed?'▼ DYING':e.broken?'HANDS UP'",
+        "        :e.downed?'▼ DYING':e.broken?'HANDS UP':e.fleeing?'FLEEING'",
+        'fleeing-chip-label')
+
+    # --- the nerve rewrite: last man surrenders, everyone else runs ---
+    demo = sub1(demo, """\
+  { /* V32 NERVE (Paolo: too liberal — waiting 5 turns shouldn't crack a whole crew).
+       The roll fires ONLY the turn a NEW casualty happens, not every idle turn. */
+    const _tot=G.e.length, _down=G.e.filter(e=>e.dead||e.downed||e.broken||e.fleeing).length, _half=Math.ceil(_tot*0.5);
+    if(_down>=_half && _down>(G._nerveLastDown||0))for(const e of G.e){ if(e.dead||e.downed||e.broken||e.fleeing)continue;
+      if(Math.random()<0.10+0.05*(_down-_half)){   /* V33: toned down further on top of v32's event-gating */ e.broken=true; e.windup=false; e.acq=0; e._brokeAt=performance.now();
+        setRead('NERVE BROKE', e.n+' drops the gun — hands up','#c8a23a'); } }
+    G._nerveLastDown=_down; }""", """\
+  { /* V35 NERVE, LAST-MAN-ONLY SURRENDER (Paolo, ruled): nobody surrenders while his
+       people are still shooting — he either holds or FLEES. Only the last man standing
+       can actually put his hands up. Elites are hardened: half the break chance — the
+       first pass at his rank/faction slider [PENDING Paolo: full faction tuning]. */
+    const _tot=G.e.length, _down=G.e.filter(e=>e.dead||e.downed||e.broken||e.fleeing).length, _half=Math.ceil(_tot*0.5);
+    if(_down>=_half && _down>(G._nerveLastDown||0))for(const e of G.e){ if(e.dead||e.downed||e.broken||e.fleeing)continue;
+      const _chance=(0.10+0.05*(_down-_half))*(e.elite?0.5:1);
+      if(Math.random()<_chance){
+        e.windup=false; e.acq=0;
+        const _isLastMan=aliveEnemies().length<=1;
+        if(_isLastMan){ e.broken=true; e._brokeAt=performance.now();
+          setRead('NERVE BROKE', e.n+' drops the gun — hands up','#c8a23a'); }
+        else{ e.fleeing=true; e._fleeAt=performance.now();
+          setRead('PANICKED', e.n+' breaks and runs — his people are still fighting','#c8a23a'); } } }
+    G._nerveLastDown=_down; }
+  for(const e of G.e){ if(!e.fleeing)continue;   /* V35: the fleeing run AWAY every turn, same plumbing as the crawl */
+    const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist, ed=Math.hypot(ex,ey)||1;
+    const nx=ex+(ex/ed)*2.4, ny=ey+(ey/ed)*2.4;
+    e.edist=Math.min(30,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); }""",
+        'nerve-last-man-flee')
+    return demo
+
+
+def patch36(demo):
+    """v36 (Paolo 7/21, follow-up on v35): accuracy means killshot rate, not
+    any-hit rate; kill the "face gets worse as you do" fire-button effect
+    (his verdict: "i dont like it")."""
+    if 'AU:false' in demo:
+        print('v36 already applied, skipping')
+        return demo
+
+    # accuracy = killshots / shots, not (any hit) / shots
+    demo = sub1(demo,
+        "D('ledgerbtn').addEventListener('click',()=>{ if(!JUICE.AT)return; const L=G.ledger||{};\n  const rate3=L.shots?Math.round(L.hits/L.shots*100):0;",
+        "D('ledgerbtn').addEventListener('click',()=>{ if(!JUICE.AT)return; const L=G.ledger||{};\n  const rate3=L.shots?Math.round(L.kills/L.shots*100):0;   /* V36 KILL-RATE ACCURACY: 100% means every shot was a killshot, not just a hit (Paolo, ruled) */",
+        'ledger-accuracy-kill-rate')
+
+    # kill the living-portrait effect (dying face swap / red wash / red border on HP loss)
+    demo = sub1(demo,
+        "  AS:true,AT:true,AU:true,AV:true};",
+        "  AS:true,AT:true,AU:false,AV:true};   /* V36: Paolo -- \"i dont like it\", killed. wound state stays on the body/screen vignette, not the fire-button face */",
+        'kill-au-face')
+
+    return demo
+
+
+def patch37(demo):
+    """v37 (Paolo 7/21, correcting v36): accuracy is not literally
+    killshots-only -- "1 killshot + 3 vitals should say 100%, not 25%,
+    judge based on how close they were to the middle of the dial." Kill
+    and vital are both the two zones close to dial-center; the outer 'hit'
+    ring and misses are the imprecise ones. Accuracy = (kills+vitals)/shots."""
+    if 'V37 PRECISION ACCURACY' in demo:
+        print('v37 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "  G.rc=G.rc||{shots:0,hits:0,kills:0,greedCashed:0,greedWasted:0,best:999,peak:0};\n  G.rc.shots++; if(kind!=='miss')G.rc.hits++;\n  if(kind==='kill'){G.rc.kills++;if(G._relGreed)G.rc.greedCashed++;}\n  if(G.ledger){ G.ledger.shots++; if(kind!=='miss')G.ledger.hits++; if(kind==='kill')G.ledger.kills++;",
+        "  G.rc=G.rc||{shots:0,hits:0,kills:0,precise:0,greedCashed:0,greedWasted:0,best:999,peak:0};\n  G.rc.shots++; if(kind!=='miss')G.rc.hits++;\n  if(kind==='kill'||kind==='vital')G.rc.precise=(G.rc.precise||0)+1;   /* V37 PRECISION ACCURACY: kill+vital are both 'close enough to center', the outer hit ring and misses are not */\n  if(kind==='kill'){G.rc.kills++;if(G._relGreed)G.rc.greedCashed++;}\n  if(G.ledger){ G.ledger.shots++; if(kind!=='miss')G.ledger.hits++; if(kind==='kill')G.ledger.kills++; if(kind==='kill'||kind==='vital')G.ledger.precise=(G.ledger.precise||0)+1;",
+        'rc-ledger-precise-count')
+
+    demo = sub1(demo,
+        "  G.ledger=G.ledger||{kills:0,shots:0,hits:0,wagersPaid:0,wagersBust:0,best:999,peak:0,fights:0,deaths:0};   /* AT: the night's book, survives encounters */",
+        "  G.ledger=G.ledger||{kills:0,shots:0,hits:0,precise:0,wagersPaid:0,wagersBust:0,best:999,peak:0,fights:0,deaths:0};   /* AT: the night's book, survives encounters */",
+        'ledger-default-precise')
+
+    demo = sub1(demo,
+        "  const rate3=L.shots?Math.round(L.kills/L.shots*100):0;   /* V36 KILL-RATE ACCURACY: 100% means every shot was a killshot, not just a hit (Paolo, ruled) */",
+        "  const rate3=L.shots?Math.round((L.precise||0)/L.shots*100):0;   /* V37 PRECISION ACCURACY: kill+vital zones both count as accurate, not killshots-only (Paolo, corrected v36) */",
+        'ledger-accuracy-precise')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))
+    patched = patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

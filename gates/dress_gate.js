@@ -68,10 +68,12 @@ const tops = new Set(agents.map(a => a.outfit.base && a.outfit.base.n));
 ok('the wardrobe spreads (' + tops.size + ' distinct tops on the block)', tops.size >= 5);
 
 // ===== DRESS CODE BY RANK (Paolo 7/21/26): rookie color threshold, veteran
-// tailored kit. Both tables ship EMPTY (contents-Paolo's); this proves the
-// MECHANISM without guessing his faction colors or kits. =====
-ok('FACTION_COLOR table EMPTY (contents-Paolo\'s)', Object.keys(D.FACTION_COLOR).length === 0);
-ok('FACTION_VETERAN_KIT table EMPTY (contents-Paolo\'s)', Object.keys(D.FACTION_VETERAN_KIT).length === 0);
+// tailored kit. FACTION_VETERAN_KIT still ships EMPTY (no veteran kit ruled
+// yet); FACTION_LOOK now carries his SIX real faction rulings from the
+// second pass -- everything else here proves the MECHANISM without
+// guessing the 7 he hasn't ruled. =====
+ok('FACTION_COLOR (legacy shorthand table) EMPTY (contents-Paolo\'s)', Object.keys(D.FACTION_COLOR).length === 0);
+ok('FACTION_VETERAN_KIT table EMPTY (contents-Paolo\'s, no kit ruled yet)', Object.keys(D.FACTION_VETERAN_KIT).length === 0);
 ok('body-surface weights sum to 1.0 (one honest meaning for "half the body")',
   Math.abs((D.BODY_W.torso + D.BODY_W.legs + D.BODY_W.feet + D.BODY_W.head) - 1) < 1e-9);
 ok('torso is the heaviest region (a coat/shirt covers the most skin)',
@@ -157,6 +159,79 @@ ok('torso is the heaviest region (a coat/shirt covers the most skin)',
   const outs3 = [0, 1, 2, 3, 4].map(s => D.veteranOutfit(s, wardrobe, '__GATE_TEST3__'));
   delete D.FACTION_VETERAN_KIT['__GATE_TEST3__'];
   ok('an explicit outer in the kit IS worn (his call to lock it)', outs3.every(o => o.outer && o.outer.n === outerName));
+}
+
+// ===== STRIPE MODE + RAINBOW MODE (Paolo 7/21, second pass): "gold stripes
+// rather than all gold" for MOB, "rainbow literally, not even a single
+// color" for COLORFUL. Proven with throwaway keys first (the mechanism),
+// then the real six-faction ruling below (the content he actually gave). =====
+{
+  const stripeName = wardrobe.find(g => g.pattern === 'stripe' && g.layer === 'base').n;
+  const stripeHex = wardrobe.find(g => g.n === stripeName).hex;
+  D.FACTION_LOOK['__GATE_STRIPE__'] = { mode: 'stripe', color: stripeHex };
+  let stripedHits = 0, covered = 0;
+  for (let s = 0; s < 40; s++) {
+    const o = D.rookieOutfit(s, wardrobe, '__GATE_STRIPE__');
+    const torsoItem = o.outer || o.base;
+    if (torsoItem && torsoItem.pattern === 'stripe') stripedHits++;
+    if (D.coverageFor(o, stripeHex) >= 0.5) covered++;
+  }
+  delete D.FACTION_LOOK['__GATE_STRIPE__'];
+  ok('stripe mode actually lands a striped torso most of the time (' + stripedHits + '/40)', stripedHits >= 20);
+  ok('stripe mode still clears >=50% coverage every seed (40/40)', covered === 40);
+}
+{
+  D.FACTION_LOOK['__GATE_RAINBOW__'] = { mode: 'rainbow' };
+  let below3 = 0;
+  for (let s = 0; s < 40; s++) {
+    const o = D.rookieOutfit(s, wardrobe, '__GATE_RAINBOW__');
+    const rc = D.regionColor(o);
+    const vivid = ['torso', 'legs', 'head', 'feet'].filter(r => rc[r] && D.isVivid(rc[r]));
+    const buckets = new Set(vivid.map(r => D.hueBucket(rc[r])));
+    if (buckets.size < 3) below3++;
+  }
+  delete D.FACTION_LOOK['__GATE_RAINBOW__'];
+  ok('rainbow mode reaches 3+ distinct vivid hues, every seed (0/40 short)', below3 === 0);
+}
+// bucket 4 (blue-purple) is deliberately absent: PURPLE RESERVATION caught
+// the first two picks that would have landed there (violet, then magenta --
+// both trip the same r+b-over-g "purple family" test even off pure-hue), so
+// the rainbow draws from 5 buckets instead of 6. Still comfortably enough
+// for the 3-distinct-hue requirement below.
+ok('the wardrobe carries real spectrum color in 4 buckets Amalgamation doesn\'t own',
+  [1, 2, 3, 5].every(b => wardrobe.some(g => D.isVivid(g.hex) && D.hueBucket(g.hex) === b)));
+ok('bucket 4 (blue-purple) stays EMPTY -- PURPLE RESERVATION holds even for a "rainbow"',
+  ![1, 2, 3, 5].includes(4) && !wardrobe.some(g => D.isVivid(g.hex) && D.hueBucket(g.hex) === 4));
+
+// ===== THE SIX REAL RULINGS (Paolo 7/21, exact asks) =====
+{
+  const L = D.FACTION_LOOK;
+  ok('FACTION_LOOK carries exactly his six ruled factions (nothing guessed beyond them)',
+    Object.keys(L).sort().join(',') === ['CARAVANS', 'CARTEL', 'CHURCH', 'COLORFUL', 'MOB', 'REDS'].sort().join(','));
+  ok('REDS is family mode', L.REDS.mode === 'family');
+  ok('CARTEL is family mode', L.CARTEL.mode === 'family');
+  ok('CHURCH is family mode', L.CHURCH.mode === 'family');
+  ok('MOB is STRIPE mode -- "gold stripes rather than all gold"', L.MOB.mode === 'stripe');
+  ok('CARAVANS is family mode, unchanged (his call: blend with the desert)', L.CARAVANS.mode === 'family');
+  ok('COLORFUL is RAINBOW mode -- no fixed color at all', L.COLORFUL.mode === 'rainbow' && L.COLORFUL.color === undefined);
+
+  ok('REDS vs CARTEL: brightest vs darkest actually read apart (>=95 apart)',
+    D.colorDist(L.REDS.color, L.CARTEL.color) >= 95);
+  ok('CHURCH vs MOB: his exact ask, the two golds read apart (>=95 apart)',
+    D.colorDist(L.CHURCH.color, L.MOB.color) >= 95);
+
+  ['REDS', 'CARTEL', 'CHURCH', 'MOB', 'CARAVANS'].forEach(f => {
+    let short = 0;
+    for (let s = 0; s < 60; s++) if (D.coverageFor(D.rookieOutfit(s, wardrobe, f), L[f].color) < 0.5) short++;
+    ok(f + ': rookies clear >=50% coverage, 60/60 seeds', short === 0);
+  });
+  let colorfulShort = 0;
+  for (let s = 0; s < 60; s++) {
+    const rc = D.regionColor(D.rookieOutfit(s, wardrobe, 'COLORFUL'));
+    const vivid = ['torso', 'legs', 'head', 'feet'].filter(r => rc[r] && D.isVivid(rc[r]));
+    if (new Set(vivid.map(r => D.hueBucket(rc[r]))).size < 3) colorfulShort++;
+  }
+  ok('COLORFUL: 3+ distinct rainbow hues, 60/60 seeds', colorfulShort === 0);
 }
 
 console.log('DRESS GATE: ' + pass + ' passed, ' + fail + ' failed  (' + wardrobe.length + ' canon items)');
