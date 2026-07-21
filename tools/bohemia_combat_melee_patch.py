@@ -2841,7 +2841,7 @@ def patch36(demo):
     """v36 (Paolo 7/21, follow-up on v35): accuracy means killshot rate, not
     any-hit rate; kill the "face gets worse as you do" fire-button effect
     (his verdict: "i dont like it")."""
-    if 'V36 KILL-RATE ACCURACY' in demo:
+    if 'AU:false' in demo:
         print('v36 already applied, skipping')
         return demo
 
@@ -2860,13 +2860,41 @@ def patch36(demo):
     return demo
 
 
+def patch37(demo):
+    """v37 (Paolo 7/21, correcting v36): accuracy is not literally
+    killshots-only -- "1 killshot + 3 vitals should say 100%, not 25%,
+    judge based on how close they were to the middle of the dial." Kill
+    and vital are both the two zones close to dial-center; the outer 'hit'
+    ring and misses are the imprecise ones. Accuracy = (kills+vitals)/shots."""
+    if 'V37 PRECISION ACCURACY' in demo:
+        print('v37 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "  G.rc=G.rc||{shots:0,hits:0,kills:0,greedCashed:0,greedWasted:0,best:999,peak:0};\n  G.rc.shots++; if(kind!=='miss')G.rc.hits++;\n  if(kind==='kill'){G.rc.kills++;if(G._relGreed)G.rc.greedCashed++;}\n  if(G.ledger){ G.ledger.shots++; if(kind!=='miss')G.ledger.hits++; if(kind==='kill')G.ledger.kills++;",
+        "  G.rc=G.rc||{shots:0,hits:0,kills:0,precise:0,greedCashed:0,greedWasted:0,best:999,peak:0};\n  G.rc.shots++; if(kind!=='miss')G.rc.hits++;\n  if(kind==='kill'||kind==='vital')G.rc.precise=(G.rc.precise||0)+1;   /* V37 PRECISION ACCURACY: kill+vital are both 'close enough to center', the outer hit ring and misses are not */\n  if(kind==='kill'){G.rc.kills++;if(G._relGreed)G.rc.greedCashed++;}\n  if(G.ledger){ G.ledger.shots++; if(kind!=='miss')G.ledger.hits++; if(kind==='kill')G.ledger.kills++; if(kind==='kill'||kind==='vital')G.ledger.precise=(G.ledger.precise||0)+1;",
+        'rc-ledger-precise-count')
+
+    demo = sub1(demo,
+        "  G.ledger=G.ledger||{kills:0,shots:0,hits:0,wagersPaid:0,wagersBust:0,best:999,peak:0,fights:0,deaths:0};   /* AT: the night's book, survives encounters */",
+        "  G.ledger=G.ledger||{kills:0,shots:0,hits:0,precise:0,wagersPaid:0,wagersBust:0,best:999,peak:0,fights:0,deaths:0};   /* AT: the night's book, survives encounters */",
+        'ledger-default-precise')
+
+    demo = sub1(demo,
+        "  const rate3=L.shots?Math.round(L.kills/L.shots*100):0;   /* V36 KILL-RATE ACCURACY: 100% means every shot was a killshot, not just a hit (Paolo, ruled) */",
+        "  const rate3=L.shots?Math.round((L.precise||0)/L.shots*100):0;   /* V37 PRECISION ACCURACY: kill+vital zones both count as accurate, not killshots-only (Paolo, corrected v36) */",
+        'ledger-accuracy-precise')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))
+    patched = patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
