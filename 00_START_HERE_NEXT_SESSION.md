@@ -1907,8 +1907,25 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
   - library -> CIVIC: big columned building around an inner reading COURTYARD, a colonnade + steps
     down to a piazza w/ a dead fountain, admin/community wings, reading garden. content 58%.
   FACTORY NOW 18 auto-districts (20 built total incl gaming placeholders) across all 7 non-casino
-  categories. NEXT batch candidates (research-first, dense): chapel/church, courthouse, jail/prison,
-  landfill, railyard, substation, waterpark, speedway, mall/downtown, trailer park, granary.
+  categories.
+  BATCH OF SIX (7/21, "LOOKING GOOD MAKE SOME MORE!"): landfill, railyard, substation, church,
+  courthouse, jail — research-first, dense + content-dominant from the start, all pass the walkable
+  sweep. Stamp 7/20ag. 24 auto-districts (26 built total). World model 341 plots-with-buildings.
+  - landfill -> INFRA: waste cells (berms+trash) + leachate ponds + scale + haul roads + dozer.
+  - railyard -> INDUSTRIAL: fan of classification tracks + rusted boxcars + loco + container gantry.
+  - substation -> INFRA: transformers + switchgear bays + overhead busbars + control house (feeds
+    the clustered-power network / LIGHT=TERRITORY).
+  - chapel (CHURCH) -> CIVIC: a CRUCIFORM building (nave+transepts+apse+narthex) + bell tower +
+    forecourt plaza + arcade + churchyard cross + memorial garden.
+  - courthouse -> CIVIC: columned building + dome + portico + grand steps + plaza + Justice statue
+    + sally port.
+  - jail -> CIVIC: cell blocks off a control hub inside a double razor-wire wall + corner guard
+    towers + walled rec yards + admin/intake sally port.
+  Also (double-check pass, same day): COMMERCIAL enhanced (glass shopfronts + pad building +
+  planters; content 44 vs pavement 46, was 40/51) under the walkable law.
+  DISTRICT FACTORY IS NEARLY COMPLETE (24 auto-types). REMAINING non-casino candidates: waterpark,
+  speedway, mall/downtown, trailer park, granary, boneyard-variants. THE BIG PIVOT after the
+  districts: make them WALKABLE/ENTERABLE (the zoom) or drop LIFE agents into them (inhabit).
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
