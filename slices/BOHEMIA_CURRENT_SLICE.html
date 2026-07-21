@@ -5411,11 +5411,33 @@ root.BQRuntime=API;
   #boot .bar{ width:190px; height:4px; background:#1a140c; border-radius:2px; overflow:hidden; margin-top:6px; }
   #boot .bar i{ display:block; height:100%; width:0; background:var(--good); animation:boot 1.3s ease forwards; }
   @keyframes boot{ to{ width:100%; } }
+
+  /* LOCK SCREEN */
+  #lock{ position:absolute; inset:0; z-index:28; background:linear-gradient(180deg,#0a0806,#0c0a07);
+    display:none; flex-direction:column; align-items:center; padding:58px 22px 26px; cursor:pointer; }
+  #phone.locked #lock{ display:flex; }
+  .lk-time{ font-family:var(--mono); font-size:62px; font-weight:800; letter-spacing:2px; color:var(--ink); line-height:1; }
+  .lk-date{ font-family:var(--mono); font-size:12px; color:var(--dim); letter-spacing:1px; margin-top:9px; text-align:center; }
+  .lk-notifs{ width:100%; margin-top:38px; display:flex; flex-direction:column; gap:10px; }
+  .lk-nf{ display:flex; gap:11px; align-items:center; background:rgba(30,24,16,.6); border:1px solid var(--line);
+    border-radius:13px; padding:12px 13px; }
+  .lk-nf .tx{ flex:1; min-width:0; } .lk-nf .nm{ font-weight:700; font-size:13px; }
+  .lk-nf .bd{ font-size:12.5px; color:var(--dim); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lk-unlock{ margin-top:auto; font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:2px;
+    text-transform:uppercase; animation:flick 5s infinite steps(1); }
+  .toast{ position:absolute; left:50%; bottom:78px; transform:translateX(-50%) translateY(18px); z-index:25;
+    background:linear-gradient(160deg,#1e2610,#141a0b); border:1px solid #2c3a18; color:var(--good);
+    font-family:var(--mono); font-size:12px; padding:10px 16px; border-radius:8px; letter-spacing:.5px;
+    opacity:0; transition:opacity .35s ease, transform .35s ease; pointer-events:none;
+    box-shadow:0 6px 20px rgba(0,0,0,.5); white-space:nowrap; max-width:90%; overflow:hidden; text-overflow:ellipsis; }
+  .toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 
 <div id="phone" class="view-home">
   <div class="fx-vig"></div><div class="fx-scan"></div>
   <div id="boot"><div class="logo neon">BOHEMIA</div><div class="ln">NETWORK OS · v0.9</div><div class="bar"><i></i></div><div class="ln" id="bootln">connecting to the network…</div></div>
+  <div id="lock"></div>
+  <div class="toast" id="toast"></div>
   <div class="statusbar"><span id="nav"><span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span></span><span id="sig" onclick="toggleSignal()"><span class="bars ok">▁▃▅▇</span> LIVE · the valley</span></div>
   <div id="home"></div>
   <div id="messages"></div>
@@ -5653,6 +5675,7 @@ function choose(i){
   if(view && view.ended) drawSheet({ended:true, outcome:view.outcome});
   else drawSheet(view);
   refreshTop();
+  if(view && view.ended && view.outcome==='COMPLETE') notify('POSTED TO THE FEED · +50 followers');
 }
 function closeTalk(){ el('overlay').classList.remove('on'); openQuestId=null; render(); }
 
@@ -5767,6 +5790,7 @@ function replyThread(i){
     ctx.quests.place(r.quest, r.at);                       // deliver the quest via DM
     t.msgs.push({ from:'sys', t:'QUEST ADDED · '+r.qtitle+' — find them in person' });
     if(r.after) t.msgs.push({ from:'them', t:r.after });
+    notify('QUEST ADDED · '+r.qtitle);
   } else if(r.act==='dismiss'){
     if(r.after) t.msgs.push({ from:'them', t:r.after });
   }
@@ -5854,8 +5878,28 @@ function mapPin(qid){ var p=ctx.quests.placements().filter(function(x){return x.
   if(p.channel==='inperson'){ setView('feed'); setTab('offers'); } else { setView('feed'); openTalk(qid); }
 }
 
-/* boot the salvaged phone, then land on the home screen */
-function finishBoot(){ var b=el('boot'); if(!b || b.classList.contains('off')) return; b.classList.add('off'); setView('home'); window.__phoneReady = true; window.__ready = true; }
+/* toast notifications — the phone reacts to what you do */
+function notify(text){ var t=el('toast'); if(!t) return; t.textContent=text; t.classList.add('on');
+  clearTimeout(notify._t); notify._t=setTimeout(function(){ t.classList.remove('on'); }, 2600); }
+
+/* LOCK SCREEN — the salvaged phone boots into this: time + notifications, tap to unlock */
+function notifCard(av,nm,bd){ return '<div class="lk-nf">'+av+'<div class="tx"><div class="nm">'+esc(nm)+'</div><div class="bd">'+esc(bd)+'</div></div></div>'; }
+function renderLock(){
+  var offers=ctx.quests.feedOffers().length, nf='';
+  var neigh=THREADS.filter(function(t){ return t.unread; })[0];
+  if(neigh){ var last=neigh.msgs[neigh.msgs.length-1]; nf+=notifCard(avatar('@'+neigh.av), neigh.who, last.t); }
+  if(offers) nf+=notifCard('<div class="av sm" style="background:'+AV_COLORS[0]+'">&#9670;</div>','Network', offers+' quest'+(offers>1?'s':'')+' available near you');
+  if(!nf) nf=notifCard('<div class="av sm" style="background:'+AV_COLORS[1]+'">&#9679;</div>','Network','all quiet on the feed');
+  el('lock').innerHTML =
+    '<div class="lk-time">07:14</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
+    '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
+}
+function unlockPhone(){ phone.classList.remove('locked'); setView('home'); window.__phoneReady=true; window.__ready=true; }
+
+/* boot the salvaged phone -> lock screen -> (tap) -> home */
+function finishBoot(){ var b=el('boot'); if(!b || b.classList.contains('off')) return; b.classList.add('off');
+  phone.classList.add('locked'); renderLock(); window.__bootDone=true; }
 el('boot').addEventListener('click', finishBoot);
+el('lock').addEventListener('click', unlockPhone);
 setTimeout(finishBoot, 1600);
 </script>
