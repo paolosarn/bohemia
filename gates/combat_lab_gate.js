@@ -329,6 +329,14 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V28 THREAT ORDER: adjacent blade > exposed guns (closest first) > closing blades > the rest',
     demo.includes('V28 THREAT ORDER') && demo.includes('e.melee&&e.edist<=1.6') &&
     demo.includes('_rank(e)*1000+e.edist'));
+  // v29: reckless pop + crouch-fire plumbing
+  ok('V29 RECKLESS POP: the button always fires; bad timing stands you into held beads',
+    demo.includes('V29 RECKLESS POP') && demo.includes('function recklessPop()') &&
+    demo.includes('return recklessPop();') && !demo.includes("setRead('NO TARGET','nobody is out"));
+  ok('V29 crouch-fire plumbing: caim loader + from-cover pose preference wired for the future clips',
+    demo.includes('crouched gun sweep (empty until the clips land)') &&
+    demo.includes('firing FROM the crouch') &&
+    alpha.includes("CLIPS.indexOf('crouch-aim-1h')>=0?'crouch-aim-1h'"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

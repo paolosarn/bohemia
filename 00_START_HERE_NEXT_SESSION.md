@@ -87,9 +87,17 @@ LAMP POSTS STAND (7/20 latest): the blessed V11 dark bodies
 regen-safe), DEAD IS DEFAULT, live circuits get the rgb-only head glow at
 night (the blessed V11 wired pattern, no verdict owed). tools/bohemia_
 city_lampposts_patch.py. Gate #CITY TAB 40.
-NEXT for street-level art: building/lot art (the district factory
-tilespecs - THE BIG VISUAL JUMP, colored blocks become the city), arrows
-at zoom-true scale.
+BUILDING ART v1 (7/20 latest): residential structures wear ROOF +
+FACADE tiles cropped from the HOUSE FACTORY BANK's 24 approved stamps
+(walls/roofs/windows all judged pieces): roofs on structure tops, facade
+rows plain-or-window by deterministic variant. Doors deferred honestly (a
+face needs exactly ONE door = per-building identity, not a cell hash).
+tools/bohemia_city_buildingart_patch.py. Gate #CITY TAB 42.
+FOUND WHILE VERIFYING: the old build's suburb GROUND is GREEN LAWN -
+act-1 DEAD WORLD violation (no living grass). The ground recolor is the
+next ground rung. NEXT: dead-world district grounds, commercial/civic
+building art (their banks when judged), doors per building, arrows at
+zoom-true scale.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid
@@ -1124,6 +1132,40 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    it opens; popTarget resets at every turn end. Verified live:
    adjacent knife auto-targeted first, tap-pick hits the far gun once,
    next engagement back to the knife. ALL GREEN.
+   THREAT ORDER FINAL (pass 28, Paolo shouted it): auto order is a
+   strict ladder — 0 blade AT you (<=1.6 tiles) > 1 exposed guns
+   closest-first > 2 closing blades > 3 the rest; distance only breaks
+   ties inside a rung. Verified: knife at 5 + exposed gun at 8 targets
+   the GUN; knife at 1 tile takes over. Gate 106.
+   RECKLESS POP + CROUCH-FIRE PLUMBING (pass 29, his next message):
+   (1) the pop button ALWAYS fires — popping when nobody is out (or
+   while the exposed side cycles, no blade to engage) stands you into
+   every held bead: acq-holders take opportunity fire at 0.8x with NO
+   cover softening, turn spent either way ("POPPED INTO NOTHING" /
+   "RECKLESS POP" reads). LAW NOTE: same damage class as waiting
+   exposed (enemy-turn fire); NO DAMAGE BEFORE THE DIAL governs the
+   engage flow and holds. Verified: pop into a held bead cost 14.
+   (2) CROUCH-FIRE: Paolo owes 'crouch-aim-1h'/'crouch-aim-2h' from
+   the Animation chat (records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_7_20_26
+   .txt — 9-phase deadeye-style sweep, body low). The alpha bake
+   (guarded on CLIPS membership) and the demo pose path (from-cover
+   engagements prefer caim frames) are PRE-WIRED: zero surgery the day
+   the clips land. His mixing rule (crouch-fire targets vs pop-out
+   targets never share a turn) already holds structurally: shoot-mode
+   pools exclude the covered side; pop mode only exists fully covered.
+   RESEARCH ROUND 4 (his "present me ideas"): laws/BOHEMIA_ADDENDUM_
+   JUICY_COMBAT_IDEAS_7_20_26.md — 8 pitched: 1 EXECUTION (adjacent
+   stunned/prone killshot refunds the chain slot), 2 NERVE (morale,
+   erratic survivors, the last man breaks/surrenders), 3 SUPPRESSING
+   BURST (spend the engagement to cancel a peek + reset a bead),
+   4 OVERWATCH STANCE (dial-gated interrupt), 5 HUMAN SHIELD,
+   6 WOUNDED GUNS SHAKE, 7 FACTION TELLS (rhythm signatures),
+   8 THE PRICE OF FALLING (Sifu-adapted scar, no run-reset). My pick
+   if told: 1+3 then 2. [PENDING Paolo: pick numbers.] Gate 108 ALL
+   GREEN. NOTE ALSO: Paolo reported "skins gone" — investigated hard:
+   character/clothes/combat all healthy on tip, character UI byte-
+   identical to pre-storm; combat session never touched skin code; if
+   he reports again get the exact tab + screenshot and trace commits.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

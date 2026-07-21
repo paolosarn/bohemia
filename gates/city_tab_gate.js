@@ -187,6 +187,14 @@ if (b64m) {
     && decoded.indexOf('_gal%8===2') >= 0);
   ok('dead is default; glow is runtime rgb-only per live circuit',
     decoded.indexOf('POWER.at(tX,tY).live') >= 0);
+
+  // 14. THE BUILDING ART LOCK (7/20): residential structures wear roof and
+  // facade tiles cropped from the HOUSE FACTORY BANK's approved stamps.
+  ok('BUILDING ART: approved house-stamp roofs + facades embedded',
+    decoded.indexOf('BUILDING ART') >= 0 && decoded.indexOf("'roof'") >= 0
+    && decoded.indexOf("'wallface'") >= 0 && decoded.indexOf("'wallwin'") >= 0);
+  ok('faces serve facade art (plain/window by deterministic variant)',
+    decoded.indexOf("saTex(variant===3?'wallwin':'wallface',variant)") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

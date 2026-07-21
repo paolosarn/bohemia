@@ -1,0 +1,33 @@
+BOHEMIA COMBAT — ANIMATION REQUESTS ROUND 2 (7/20/26, for the Animation chat)
+==============================================================================
+Round 1 (cover-rise, cover-drop, gun-walk, cover-fire, get-shoved,
+floor-rise, shiv-jab, bat-arc, spear-drive) is COOKED AND WIRED. This is
+the fresh ask from Paolo's 7/20 message.
+
+THE REQUESTS
+------------
+1. crouch-aim-1h   ~4 beats  Shooting the PISTOL while CROUCHED behind
+                             cover. Same convention as 'deadeye': the
+                             phase sweeps the gun arm through the aim arc
+                             (we bake 9 phases at the needle offsets), but
+                             the BODY STAYS LOW — knees bent, off-hand on
+                             the stone. This is what you look like when
+                             you shoot the enemies you are exposed to
+                             WITHOUT popping out.
+2. crouch-aim-2h   ~4 beats  The TWO-HAND version (rifle/shotgun shoulder
+                             mount from the crouch). Same 9-phase sweep.
+
+WIRING STATUS (already shipped, waiting on the art)
+---------------------------------------------------
+The alpha bake and the combat demo are ALREADY plumbed (v29): the moment
+either clip lands in the CLIPS pipeline, the crouched sweep bakes at the
+9 needle offsets and the fight uses it automatically whenever you engage
+FROM cover (not popped out, stone within 1.8 tiles). Zero combat-side
+surgery needed. Until then the standing deadeye plays (reads as shooting
+over the stone).
+
+CONVENTIONS (same as always)
+----------------------------
+120 BPM grid, leaf-pixel law, 45-degree view, baked from YOUR pose.
+Graveyard names stay dead (crouch/kneel/lean-* are gone as NAMES; these
+new names are clean).
