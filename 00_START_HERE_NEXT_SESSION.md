@@ -375,12 +375,24 @@ as Paolo's canon.
   derived Network signal coverage & dead-zones + quest pins gold=over-phone /
   orange-triangle=in-person + player dot + radar sweep; MAP LAW respected — renders
   generated data, designs no layout). TOAST notifications on quest-complete / DM-quest.
-  Still dimmed "soon": WALLET, CAMERA. Every app runs on the same real engine; visual
-  language = salvaged-smartphone apocalyptic (PHONE VISUAL DIRECTION in the SOCIAL_FEED
-  addendum). NEXT PHONE APPS (gated): WALLET (the three currencies + clout — needs
-  Paolo's bootEconomy rulings), CAMERA (quest-thumbnail capture — art pipeline).
-  Reproducible: edit slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html (dev source) ->
+  Still dimmed "soon": CAMERA (quest-thumbnail capture — art pipeline). Every app
+  runs on the same real engine; visual language = salvaged-smartphone apocalyptic
+  (PHONE VISUAL DIRECTION in the SOCIAL_FEED addendum). Reproducible: edit
+  slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html (dev source) ->
   node tools/build_current_slice.js -> deploy slices/BOHEMIA_CURRENT_SLICE.html to main.
+- WALLET IS NOW A BUILT EASTER EGG, NOT THE REAL ECONOMY (7/21): Paolo's idea — tap
+  Wallet, it opens QuikPay by Meridian National, a dead pre-collapse fintech app
+  frozen since collapse, every service SERVICE UNAVAILABLE, tapping anything toasts
+  "no connection." Pure flavor, un-dimmed and tappable now. The REAL currency system
+  (resources/electricity/clout) is still NOT built — see CLOUT addendum's ECONOMY
+  DISCUSSION for Claude's pending recommendation (clout = non-spendable reputation
+  gate; resources/electricity = the real spendable fungible currencies) and the new
+  SURVIVING_THE_AFTERMATH_RESEARCH addendum for game-precedent swipe material. Also
+  7/21: killed the visible QUIET/NOTABLE/RISKY/RECKLESS badge on feed posts (Paolo:
+  hardcore game, normie-friendly presentation) — the clout data still drives
+  engagement volume + comment tone invisibly, just never shown as a label. Fixed a
+  real bug caught building Wallet: setView() only ever removed 3 hardcoded view-*
+  classes, so two screens could render stacked; now strips every view-* class.
 - NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
   give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
   IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
