@@ -20,7 +20,7 @@
 const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
-SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory'};
+SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
 // BIG ARCHITECTURE (Paolo 7/18/26): "even monuments... would just be in their big ass plots not
 // breaking any city streets" — the ONLY district types allowed to sit without touching the
@@ -670,9 +670,11 @@ function proceduralDistrict(x,y,r,L){
   if(!streetAdjacent) return DISTRICT.SUBURB; // LANDLOCKED: suburb/apt only, no exceptions (see law above)
   const v=r();
   const busier=(side<0&&(y<N*0.18||y>N*0.80))?0.10:0;  // west fringe busier
-  if(dStrip<8){ return v<0.35+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
-  if(dStrip<18){ return v<0.15+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
-  return v<0.06+busier?DISTRICT.COMMERCIAL: v<0.95?DISTRICT.SUBURB: DISTRICT.DESERT; // spread shrunk (Paolo)
+  // APARTMENT (7/21/26): real Vegas garden-apartment geography clusters near the strip/downtown
+  // core, tapering fast toward the periphery where single-family sprawl dominates.
+  if(dStrip<8){ return v<0.35+busier?DISTRICT.COMMERCIAL: v<0.55+busier?DISTRICT.APARTMENT: DISTRICT.SUBURB; }
+  if(dStrip<18){ return v<0.15+busier?DISTRICT.COMMERCIAL: v<0.30+busier?DISTRICT.APARTMENT: DISTRICT.SUBURB; }
+  return v<0.06+busier?DISTRICT.COMMERCIAL: v<0.10+busier?DISTRICT.APARTMENT: v<0.95?DISTRICT.SUBURB: DISTRICT.DESERT; // spread shrunk (Paolo)
 }
 
 function OM_rr(seed){ return (hash2(seed,911,373)%1000)/1000; }

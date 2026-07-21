@@ -103,6 +103,7 @@ DESC = {
  'drivein':    'A drive-in theater lot.',
  'highroller':'The High Roller observation wheel.',
  'trailer':    'A trailer / RV park (rough-fabric housing).',
+ 'apartment':  'A garden apartment complex (Sun Belt low-rise multifamily, exterior breezeway stairs).',
  'storage':    'Self-storage sprawl (near arterials).',
  'watertreat': 'A water treatment plant.',
  'reservoir':  'A covered water reservoir tank field.',

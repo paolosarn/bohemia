@@ -3,9 +3,9 @@
 The complete catalog of every procedural district/landmark type. GENERATED from the engine (tools/bohemia_district_registry.py) — the render status is read live from bohemia_overmap_bridge.js, so this file can never drift from the code. Regenerate the same turn any district is added; gates/district_registry_gate.js fails if a type in the enum is missing here.
 
 ## THE COUNT
-- **77** district types defined + placed on the 96x96 overmap.
+- **78** district types defined + placed on the 96x96 overmap.
 - **10 BAKES**: has a render recipe that bakes to pixels today (street / freeway / desert / mountain families).
-- **67 RECIPE**: generates a plot grid procedurally, art pool / bake not built yet. Includes the built-lot archetypes (civic / bigbox / institutional / industrial / utility / landmark / green / water / rail / extraction) that render every landmark type.
+- **68 RECIPE**: generates a plot grid procedurally, art pool / bake not built yet. Includes the built-lot archetypes (civic / bigbox / institutional / industrial / utility / landmark / green / water / rail / extraction) that render every landmark type.
 - **0 PENDING**: no recipe at all. (Paolo 7/18/26 ruled the landmarks are PROCEDURALLY GENERATED, not hand-authored, so this should be zero.)
 
 PAOLO 7/18/26: "those can be randomly generated throughout the map... this is a procedural generated world game." Every district now generates from a build archetype — see the `recipe` column (`builtlot/<archetype>`). None wait on a per-type ruling.
@@ -27,7 +27,7 @@ RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = 
 | `interchange` | BAKES | freeway | The Spaghetti Bowl — the I-15/US-95 stack interchange. |
 | `casino` | BAKES | street | An off-Strip casino block (locals casinos). |
 
-## RECIPE — generates a plot grid procedurally, art pending (67)
+## RECIPE — generates a plot grid procedurally, art pending (68)
 
 | type | status | recipe | what it is |
 |---|---|---|---|
@@ -98,6 +98,7 @@ RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = 
 | `library` | RECIPE | builtlot/civic | A public library branch. |
 | `radio` | RECIPE | builtlot/utility | A radio / broadcast station + antenna. |
 | `robofactory` | RECIPE | builtlot/landmark | A robotics factory. [Bohemia lore: PENDING Paolo] |
+| `apartment` | RECIPE | builtlot/civic | A garden apartment complex (Sun Belt low-rise multifamily, exterior breezeway stairs). |
 
 ## PLOT INTERIORS (engine/bohemia_plotgen.js)
 

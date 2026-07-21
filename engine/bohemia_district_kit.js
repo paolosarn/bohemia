@@ -78,7 +78,7 @@
   var CATEGORIES=['residential','commercial','industrial','gaming_resort','civic','leisure','infrastructure','terrain'];
   var TAXONOMY={
     // RESIDENTIAL — where people live
-    suburb:'residential', gated:'residential', estate:'residential', town:'residential', trailer:'residential',
+    suburb:'residential', gated:'residential', estate:'residential', town:'residential', trailer:'residential', apartment:'residential',
     // COMMERCIAL — retail, trade, business
     commercial:'commercial', mall:'commercial', downtown:'commercial', swapmeet:'commercial', truckstop:'commercial',
     // INDUSTRIAL — production, logistics, salvage, storage of goods

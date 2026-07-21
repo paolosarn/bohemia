@@ -37,6 +37,7 @@ const DISTRICTS = [
   { name: 'farm',       mod: require('../engine/bohemia_farm.js') },
   { name: 'downtown',   mod: require('../engine/bohemia_downtown.js') },
   { name: 'trailer',    mod: require('../engine/bohemia_trailer.js') },
+  { name: 'apartment',  mod: require('../engine/bohemia_apartment.js') },
 ];
 
 for (const d of DISTRICTS) {

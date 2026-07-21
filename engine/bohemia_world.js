@@ -47,6 +47,7 @@
   var FRM= HASREQ ? require('./bohemia_farm.js')           : (typeof BohemiaFarm!=='undefined'?BohemiaFarm:root.BohemiaFarm);
   var DTN= HASREQ ? require('./bohemia_downtown.js')       : (typeof BohemiaDowntown!=='undefined'?BohemiaDowntown:root.BohemiaDowntown);
   var TRL= HASREQ ? require('./bohemia_trailer.js')        : (typeof BohemiaTrailer!=='undefined'?BohemiaTrailer:root.BohemiaTrailer);
+  var APT= HASREQ ? require('./bohemia_apartment.js')      : (typeof BohemiaApartment!=='undefined'?BohemiaApartment:root.BohemiaApartment);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -86,7 +87,8 @@
     jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' },
     farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
     downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
-    trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' }
+    trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' },
+    apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
@@ -106,7 +108,7 @@
   // truly touches a mile arterial — then marks the connecting edge on BOTH sides of every hop so
   // the two districts' gates land on the same tile offset (K.pedGate/suburb's denseFill always
   // center a gate at n/2, so two neighbors that both open toward each other line up automatically).
-  var SUBURB_FAMILY={suburb:1,gated:1,estate:1};  // apt complex: [PENDING Paolo, not yet built]
+  var SUBURB_FAMILY={suburb:1,gated:1,estate:1,apartment:1};  // apt complex: built 7/21/26
   function familyOf(d){ return SUBURB_FAMILY[d] ? 'suburb' : d; }
   var ROADSET={freeway:1,arterial:1,strip:1,beltway:1};
   function rawStreetEdges(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
