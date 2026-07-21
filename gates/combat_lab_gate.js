@@ -358,6 +358,14 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V30B SURRENDER LOADER'));
   ok('WOUNDED GUNS SHAKE: <=40% hp fires at 0.8x and the tracer wobbles',
     demo.split('e.hp<=e.max*0.4?0.8:1').length >= 3 && demo.includes("a hurt gun's tracer wobbles"));
+  // v31: the hardening pass — no softlock, the fight always ends
+  ok('V31 AREA CLEAR: checkClear() ends the fight the instant nobody can fight (nerve/downing safe), on EVERY settle path',
+    demo.includes('V31 AREA CLEAR') && demo.includes('function checkClear()') &&
+    demo.split('if(checkClear())return').length >= 5);
+  ok('the FINISH has weight (hitstop + heavier pool + haptic)',
+    demo.includes('the death blow lands with weight') && demo.includes('G._hitstop=Math.max(G._hitstop||0,10)'));
+  ok('the crawl DRAGS a smear at both ends',
+    demo.includes('smear where he WAS') && demo.includes('where he drags TO'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

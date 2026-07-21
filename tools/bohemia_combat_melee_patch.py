@@ -2343,13 +2343,61 @@ def patch30b(demo):
     return demo
 
 
+def patch31(demo):
+    """v31 (autonomous hardening pass, 7/21 — the DOWNED/NERVE system made
+    robust for real play):
+    - AREA-CLEAR SOFTLOCK KILLED: tickTurnEnd runs the nerve roll, but no
+      path re-checked the win after it. A nerve break (or downing) that
+      cleared the last standing fighter during a WAIT / covered turn left
+      aliveEnemies()===0 with NO win screen — you'd be stranded among
+      crawling bodies with nothing to do. Every turn-settle path now
+      checks checkClear() the instant tickTurnEnd resolves.
+    - THE FINISH HAS WEIGHT: the death blow now lands with a hitstop, a
+      heavier blood burst, and a haptic thud — killing point-blank should
+      FEEL different from a clean dial kill.
+    - THE CRAWL DRAGS: a dying man smears blood at BOTH ends of his crawl
+      (old spot + new spot), so it reads as a body being dragged, not a
+      drip."""
+    if 'V31 AREA CLEAR' in demo:
+        print('v31 already applied, skipping')
+        return demo
+
+    # the win guard, one helper, called after every tickTurnEnd
+    demo = sub1(demo, "function winGame(){ camHome(); G.over=true; G.win=true; G.phase='over';",
+        "function checkClear(){ if(!G.over && aliveEnemies().length===0){ winGame(); return true; } return false; }   /* V31 AREA CLEAR: the fight ends the instant nobody can fight — nerve breaks and downings included */\nfunction winGame(){ camHome(); G.over=true; G.win=true; G.phase='over';",
+        'checkclear-fn')
+    demo = sub1(demo, "  tickTurnEnd();   /* MELEE V2 DOWAIT: waiting is a turn — blades advance through the one choke */",
+        "  tickTurnEnd(); if(checkClear())return;   /* MELEE V2 DOWAIT: waiting is a turn — blades advance through the one choke; V31: a broken/downed field wins here too */",
+        'clear-dowait')
+    demo = sub1(demo, "  tickTurnEnd(); G.popTarget=-1;   /* V27: no stale target carries into the next turn */",
+        "  tickTurnEnd(); if(checkClear())return; G.popTarget=-1;   /* V27: no stale target carries into the next turn */",
+        'clear-return')
+    demo = sub1(demo, "  tickTurnEnd(); G.popTarget=-1; G.phase='cover'; G._dropAt=performance.now(); G._riseAt=0; setPhaseUI(); renderBoard(); updGap(); }",
+        "  tickTurnEnd(); if(checkClear())return; G.popTarget=-1; G.phase='cover'; G._dropAt=performance.now(); G._riseAt=0; setPhaseUI(); renderBoard(); updGap(); }",
+        'clear-reckless')
+    demo = sub1(demo, "function endTurnClean(){ setRead('HIT','clean — turn ends','#8fd0e8'); tickTurnEnd(); G.popTarget=-1; G.phase='cover';",
+        "function endTurnClean(){ setRead('HIT','clean — turn ends','#8fd0e8'); tickTurnEnd(); if(checkClear())return; G.popTarget=-1; G.phase='cover';",
+        'clear-clean')
+
+    # the finish has weight
+    demo = sub1(demo, "  addWound(t); (G.bloodSpots=G.bloodSpots||[]).push({ea:t.ea,edist:t.edist,r:3.2,jx:0,jy:0});\n  try{sndKill();}catch(_e){} G.enemiesLeft=aliveEnemies().length;",
+        "  addWound(t); const _bl=(G.bloodSpots=G.bloodSpots||[]);\n  _bl.push({ea:t.ea,edist:t.edist,r:3.8,jx:0,jy:0}); _bl.push({ea:t.ea,edist:t.edist,r:2.2,jx:(Math.random()-0.5)*0.9,jy:(Math.random()-0.5)*0.9});   /* V31: a heavier pool */\n  G._hitstop=Math.max(G._hitstop||0,10);   /* V31: the death blow lands with weight — the world catches for a beat */\n  if(navigator.vibrate)navigator.vibrate([18,26,60]);\n  try{sndKill();}catch(_e){} G.enemiesLeft=aliveEnemies().length;",
+        'finish-weight')
+
+    # the crawl drags a smear at both ends
+    demo = sub1(demo, "    if(bx&&bd>0.8){ const nx=ex+(bx[0]-ex)/bd, ny=ey+(bx[1]-ey)/bd;\n      e.edist=Math.max(0.4,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); e._crawlAt=performance.now();\n      (G.bloodSpots=G.bloodSpots||[]).push({ea:e.ea,edist:e.edist,r:1.8,jx:0,jy:0}); } }",
+        "    if(bx&&bd>0.8){ (G.bloodSpots=G.bloodSpots||[]).push({ea:e.ea,edist:e.edist,r:1.5,jx:0,jy:0});   /* V31: smear where he WAS */\n      const nx=ex+(bx[0]-ex)/bd, ny=ey+(bx[1]-ey)/bd;\n      e.edist=Math.max(0.4,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); e._crawlAt=performance.now();\n      G.bloodSpots.push({ea:e.ea,edist:e.edist,r:1.8,jx:0,jy:0}); } }   /* and where he drags TO */",
+        'crawl-drag')
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))
+    patched = patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
