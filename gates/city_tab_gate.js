@@ -212,6 +212,13 @@ if (b64m) {
     decoded.indexOf('SUB_RES[d]') >= 0 && decoded.indexOf('__subGrid') >= 0);
   ok('structures wear the approved judge palette, ground is dead dirt',
     decoded.indexOf("'#9c8e76'") >= 0 && decoded.indexOf("'#8a7a5e'") >= 0);
+  // v2 (Paolo: "pull me a picture of a suburb I approved" - the 4:1 downsample
+  // mushed THE BLOCK; now a 96m block spans a 4x4 TILE GROUP at 1:1, the same
+  // 0.75m fine scale as the approved walk slice, and rerolls drop the cache)
+  ok('CANON SUBURB v2: full-resolution 4x4-group windows, no downsample',
+    decoded.indexOf('4x4 TILE GROUP') >= 0 && decoded.indexOf('__subBlock') >= 0);
+  ok('REGEN: the group-block cache drops on reroll',
+    decoded.indexOf('__subCache.clear();') >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

@@ -102,6 +102,16 @@ assembly-mechanism proof, never judged house art. Structures wear the
 APPROVED suburb-judge palette instead. [PENDING Paolo: a real suburban
 house-art cook (roof/wall/door/window skins for top-down homes) + verdict
 cycle - the factory pattern; crops stay embedded but dormant.]
+SUBURB v2 - TRUE SCALE (7/20 latest, Paolo: "pull me a picture of a
+suburb district I approved" - the receipts run): the 4:1 downsample had
+MUSHED his block; pulled the verdict record (THE BLOCK, 7/18, 23 homes)
+and rendered the canonical generator as the proof picture. Fix: a 96m
+canon block now spans a 4x4 TILE GROUP at FULL 1:1 resolution (city fine
+cells ARE canon 0.75m cells - zero downsample); each residential tile
+windows its 32x32 quadrant; group street edges from real road neighbors;
+group cache drops on reroll (regen lock). Verified standing inside the
+block: 14m houses at true scale, facades, driveways, interior streets.
+Both pictures sent to Paolo (approved render vs live city).
 NEXT: commercial/civic canon layouts into the city (bohemia_commercial etc.,
 same marriage), house-art cook for Paolo's thumbs, doors per building,
 arrows at zoom-true scale.
