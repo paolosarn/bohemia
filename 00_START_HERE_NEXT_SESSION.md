@@ -508,7 +508,20 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
--23. GAS MASK v2 + WAVE 8 + FEMALE-RIG GUARANTEE (7/21, latest): second
+-24. ALL CANON + QUIVER v2 + THE WOMAN LAW (7/21, latest): third verdict --
+   gas mask v2 CANON, wave 8 seven-of-eight CANON (bank 186). SCRAP QUIVER
+   held ("DO IT AGAIN") -> v2 same turn: capped 3px tube, banded leather,
+   THREE fletched arrows fanning clear of the head, front strap + peeking
+   fletch, profile trail; gate-locked (fletch pixels machine-checked);
+   [PENDING thumbs]. THE WOMAN RULING LOCKED (laws/BOHEMIA_ADDENDUM_
+   WOMAN_RIG_7_21_26.md): Paolo does NOT paint her -- Claude DERIVES her
+   from his sacrosanct male paint as candidates through the thumbs
+   pipeline; wardrobe carries via the female-rig guarantee; timing HIS
+   call ("we don't even have to do it now"). Lane roadmap laid out for
+   Paolo (woman rig, faction dress codes, day/dusk music pools + missing
+   faction thirds, combat sound pass, face mini-expressions) [PENDING his
+   pick]. Stamp: BUILD 7/21c.
+-23. GAS MASK v2 + WAVE 8 + FEMALE-RIG GUARANTEE (7/21): second
    verdict export -- BIB OVERALLS / SCAV TOOL BELT / ANKLE WRAP SKIRT canon
    (bank 178); RUBBER GAS MASK held: "better east and west" -> v2 profile
    branch (shaped rim, glint lens off the leading edge, canister driving

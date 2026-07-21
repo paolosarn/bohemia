@@ -554,3 +554,21 @@ render correctly on it. The day Paolo paints the female rig with the same
 12 part ids, the ENTIRE wardrobe -- every structure, every colorway, every
 gate -- carries over with zero new clothing code. Any future generator that
 hardcodes male geometry will fail the gate fixture and cannot ship.
+
+=== VERDICT (7/21/26, third export): "thumbs up for all of them" ===
+Gas mask v2 CANON (the profile fix landed). Wave 8: SEVEN of eight CANON.
+SCRAP QUIVER held, his comment: "THE QUIVER COULD BE BETTER DO IT AGAIN!"
+Wardrobe bank: 186 canon items.
+
+=== QUIVER v2 (same turn, notes are rulings) ===
+The redo: a REAL capped tube high on the back -- 3px wide, banded leather,
+dark mouth, base cap -- with THREE fletched arrows fanning past the
+shoulder (rust feather pixels + light shafts, anchored clear of the head).
+Front carries the chest strap with the fletching peeking over the
+shoulder; profiles trail the tube off the back edge. Gate: fletch pixels +
+fan count + back-vs-front machine-locked. Still in COOKING for thumbs.
+
+Also this turn: laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md -- Paolo's
+ruling locked: he does NOT paint the woman; Claude derives her from his
+sacrosanct male paint as CANDIDATES through the verdict pipeline; timing
+his call.
