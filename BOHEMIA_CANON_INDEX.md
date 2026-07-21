@@ -1,4 +1,4 @@
-# BOHEMIA CANON INDEX — regenerated 07/20/26
+# BOHEMIA CANON INDEX — regenerated 07/21/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
@@ -59,6 +59,9 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `BOHEMIA_TRANSITIONS_PROOF_7_10_26.html` -> BOHEMIA_TRANSITION_SET_7_10_26.txt + bohemia_transitions.js
   - `BOHEMIA_SEAMLESS_PROOF_GALLERY_7_10_26.html` -> seamless sets banked as .txt
   - `BOHEMIA_STATE_OF_PLAY_7_16_26.md` -> superseded 7/17/26 by laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the repo-born day rolled the state; 7/16 preserved in archive/)
+  - `BOHEMIA_COMBAT_LAB_7_19_26.html` -> RETIRED 7/20/26 by Paolo's verdict ("i didnt like any of your beat tactics they were ass tbh only i liked shove") — the lab's judging purpose is served; the shove is canon in the dial demo; the combat tab hosts the demo alone
+  - `bohemia_combat_lab_template.html` -> retired with the lab surface (7/20/26 verdict)
+  - `bohemia_combat_lab_gen.py` -> retired with the lab surface (7/20/26 verdict); the demo's engine block stays canonical inside COMBAT_B64
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT
