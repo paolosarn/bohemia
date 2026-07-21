@@ -282,10 +282,10 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V24 VITAL NEVER CHAINS: a vital stuns 2 and ENDS the turn; only a killshot chains',
     demo.includes('a vital STUNS') && demo.includes("frozen 2 turns — turn ends") &&
     !demo.includes('// vital continues your turn'));
-  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out; button reads HOLD/SHOOT/POP OUT',
+  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out ONLY when a covered side exists to protect (V32); button reads HOLD/SHOOT/POP OUT',
     demo.includes('function posExposed()') && demo.includes("txt='HOLD';") &&
     demo.split("txt='POP OUT';").length >= 5 && !demo.includes("txt='POP';") &&
-    demo.includes('never pop around your stone while a side has you lined up'));
+    demo.includes('V32 HOLD FIX: same gate as updGap'));
   ok('THE DEAD LIE UNDER THE LIVING: corpse under-pass before the player, old draws stripped',
     demo.includes('V24 UNDER THE LIVING') &&
     demo.includes('V24+V30: floor bodies painted in the under-pass') &&
@@ -338,8 +338,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('firing FROM the crouch') &&
     alpha.includes("CLIPS.indexOf('crouch-aim-1h')>=0?'crouch-aim-1h'"));
   // v30: killing people isn't clean
-  ok('V30 DOWNED: a killshot drops him DYING at 1hp; the fall plays into the floor, never a clean delete',
-    demo.includes('V30 DOWNED: a killshot drops him DYING') &&
+  ok('V30 DOWNED: a killshot drops him DYING at 1hp (unless V32 weapon lethality says otherwise); the fall plays into the floor',
+    demo.includes('his ruling: this weapon finishes the job, no downed state') &&
     demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000') &&
     demo.includes('return L.prone112||fseq[fseq.length-1]; }'));
   ok('the dying and the broken are OUT of every combat read (peek/fire/line/alive/melee/AI/acq/snap/reckless/lines)',
@@ -350,9 +350,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('FINISH OR SPARE: the contextual button becomes the death blow on a dying/surrendered man, victory walk included',
     demo.includes('function finishHim(t)') && demo.includes("b.textContent='FINISH '+t.n") &&
     demo.includes('the death blow is a CHOICE'));
-  ok('V30 NERVE: past half the crew down, survivors roll (10% +6%/body); the broken stand hands-up',
-    demo.includes('V30 NERVE: past half the crew down') &&
-    demo.includes('0.10+0.06*(_down-_half)') && demo.includes('L.handsup112||L.idle112'));
+  ok('V30 NERVE: past half the crew down, survivors can roll; the broken stand hands-up',
+    demo.includes('L.handsup112||L.idle112'));
   ok('surrender bake wired both sides',
     alpha.includes("L.look.handsup112=bake112(L.d,'hands-up',0.4)") &&
     demo.includes('V30B SURRENDER LOADER'));
@@ -366,6 +365,34 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('the death blow lands with weight') && demo.includes('G._hitstop=Math.max(G._hitstop||0,10)'));
   ok('the crawl DRAGS a smear at both ends',
     demo.includes('smear where he WAS') && demo.includes('where he drags TO'));
+  // v32: the diagnosis pass — five bugs killed, four rulings built
+  ok('V32 HOLD FIX: NO DOUBLE EXPOSURE only gates when a covered side actually exists to protect',
+    demo.includes('function coveredFromMe()') &&
+    demo.includes('pexp.length>0 && coveredFromMe().length>0') &&
+    demo.includes('posExposed().length>0 && coveredFromMe().length>0'));
+  ok('posExposed excludes the dying and the surrendered (they can never hold you hostage)',
+    demo.includes('!e.dead&&!e.downed&&!e.broken&&!e.melee&&e.stun<=0&&!myCoverAgainst'));
+  ok('THE SILENT READOUT IS FIXED: every setRead call now reaches a visible action log',
+    demo.includes('V32 THE SILENT READOUT') && demo.includes('function drawActionLog') &&
+    demo.includes('drawActionLog(ctx,W,H)'));
+  ok('V32 WEAPON-GATED LETHALITY: pistol never auto-kills, shotgun always does, table matches the research floor',
+    demo.includes('const WEAPON_LETHAL={pistol:0,smg:0.15,rifle:0.35,shotgun:1.0}') &&
+    demo.includes("(WEAPON==='shotgun')||(Math.random()<(WEAPON_LETHAL[WEAPON]||0))"));
+  ok('blood drops the INSTANT a killshot downs someone, not next turn',
+    demo.includes('the pool starts the instant he drops, not next turn'));
+  ok('V32 NERVE is event-gated: the roll only fires the turn a NEW casualty happens',
+    demo.includes('The roll fires ONLY the turn a NEW casualty happens') &&
+    demo.includes('_down>(G._nerveLastDown||0)') && demo.includes('G._nerveLastDown=_down;'));
+  ok('KNEEL AND BEG: adjacency swaps the downed pose to hands-up, begging text renders on downed+broken',
+    demo.includes('V32 KNEEL AND BEG') && demo.includes('BEG_LINES') &&
+    demo.includes('e.edist<=BohemiaMelee.SHOVE_RANGE&&L.handsup112'));
+  ok('MANUAL TARGET RING + SELECT A TARGET prompt render for manual mode',
+    demo.includes('V32 MANUAL TARGET RING') && demo.includes("'SELECT A TARGET'"));
+  ok('V32C LOG PANEL: a real dark backing behind the log text, not just a thin shadow',
+    demo.includes('V32C LOG PANEL') && demo.includes('ctx.fillRect(6,6,'));
+  ok('V32D BOTH EXITS: the log paints from the COVER-PHASE draw() exit too, not only the aim/killshot one (root cause of the invisible log)',
+    demo.includes('V32D BOTH EXITS') &&
+    demo.split('drawActionLog(ctx,W,H)').length >= 4);
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

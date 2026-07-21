@@ -1297,6 +1297,50 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    + laws/BOHEMIA_ADDENDUM_JUICY_COMBAT_IDEAS_7_20_26.md) build fast
    the moment he says go; crawl-dying + crouch-aim-1h/2h clips owed
    from his Animation chat (pre-wired, live on landing).
+   THE DIAGNOSIS PASS v32 (7/21, Paolo's giant message — five real bugs
+   found by reading code, not guessing, plus four new rulings):
+   (1) THE HOLD SOFTLOCK, his most-repeated complaint ("action button
+   never goes green," "1v1ing this enemy... never a good time to shoot
+   him"): posExposed() counted ANY uncovered gunman as blocking POP OUT
+   forever, even a single covered-but-not-peeking enemy in a 1v1, even
+   downed/broken men. NO DOUBLE EXPOSURE now only gates when there's
+   BOTH a covered side to protect (new coveredFromMe()) AND a genuine
+   exposed threat — a lone covered enemy just runs the normal flow.
+   Verified exact: 1v1, I lack cover, he's off-cycle -> button correctly
+   reads POP OUT, not stuck HOLD. (2) THE SILENT READOUT: #cread was
+   retired by an earlier session and setRead() has been hiding it ever
+   since — EVERY message (GRIT, NERVE BROKE, KILL ARC, ACQUIRING) has
+   been writing to memory and showing NOBODY anything, which is why
+   "grit shots" and "kill arc" read as unexplained bugs. Rebuilt as a
+   real top-left action log — root-caused TWICE: v32b/c fixed the
+   text/legibility (dark backing panel, not a thin shadow), but the
+   REAL bug (v32d) was that draw() has two exit paths and the COVER-
+   PHASE one (95% of play) returns early via screenOverlays before ever
+   reaching the tail where the log lived — proven with a pixel-exact
+   before/after diff (calling drawActionLog directly changes 3429/4500
+   sampled pixels; calling real draw() in cover phase changed ZERO).
+   Now called from both exits. Chromium-screenshot-confirmed readable.
+   (3) DELAYED BLOOD: a killshot survivor's floor pool didn't appear
+   until the NEXT tickTurnEnd; now it drops the instant he falls.
+   (4) NERVE TOO LIBERAL (his "kill half, walk away 5 turns, rest
+   surrendered"): the roll fired every idle turn once half the crew
+   was down; now gated to fire only the turn a NEW casualty happens
+   (G._nerveLastDown tracking), rate bumped since it's now a rare,
+   meaningful check instead of a grind. (5) KILL ARC EXPLAINED, not a
+   bug: SEC-BOT has 160 base hp; a flat 100 killshot leaves it at
+   60/160=37.5%, exactly his "drops to 40%, shoots again" report — now
+   legible via the fixed readout instead of feeling broken.
+   NEW RULINGS: WEAPON-GATED LETHALITY (records/BOHEMIA_COMBAT_
+   LETHALITY_RESEARCH_7_21_26.txt, NTDB-sourced floor): pistol 0% never
+   auto-kills on a killshot (always downs — his pacifist tool), smg
+   15%, rifle 35%, shotgun 100% always dead-dead (his exact ruling,
+   skips DOWNED entirely). KNEEL AND BEG: within finish range a downed
+   man switches from crawling to hands-up kneeling, wiggling pleading
+   text cycles above his head (same for broken/surrendered men).
+   MANUAL TARGET RING + SELECT A TARGET prompt for manual targeting
+   mode. Gate 128 (combat) + 74 (anim) ALL GREEN. Full scene chromium-
+   verified together: log legible, "I'm done, I'm done" begging text,
+   FINISH GOON (dying) button, all reading correctly at once.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

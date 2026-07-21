@@ -1,0 +1,48 @@
+BOHEMIA COMBAT — WEAPON LETHALITY RESEARCH (7/21/26)
+======================================================
+Paolo's ask: "do big brain research on how many people survive shootouts,
+especially if hit lethally... my approval will be the floor."
+
+THE REAL-WORLD NUMBERS (NTDB — National Trauma Data Bank studies, via
+web research; sources at bottom)
+-----------------------------------------------------------------------
+- Overall gunshot-wound fatality rate across all severities: ~22%
+  (~78% of people who get shot survive SOME wound).
+- Handgun-inflicted wounds: in-hospital mortality 44-50% when the
+  round is deliberately placed (suicide-attempt data, closest analog
+  to an aimed shot).
+- Rifles: found to be the MOST lethal of common firearms; rifle
+  victims are more likely to die before ever reaching an ER.
+- Shotguns: counter-intuitively had the LOWEST mortality of the
+  firearms studied (31.9%) in that dataset — but that number covers
+  buckshot-spread wounds at real-world engagement distances, not a
+  deliberately aimed point-blank vital hit, which is what our dial's
+  KILL zone represents.
+- Headshots specifically: 10-15% survival (85-90% lethal) — the
+  closest real analog to our dial's KILL zone, which is explicitly the
+  vital/headshot-tier hit.
+
+THE FLOOR I'M PROPOSING (a game-design lever, not a literal sim —
+real data doesn't cleanly support "pistol always spares, shotgun
+always kills," but Paolo's ask is a GAMEPLAY IDENTITY lever: pistol
+for a pacifist route, shotgun for finality)
+-----------------------------------------------------------------------
+On a KILL-zone dial result, chance the hit is INSTANTLY LETHAL
+(skips the DOWNED state entirely) rather than dropping the target
+DYING at 1 HP:
+  PISTOL  : 0%    — never auto-kills on its own; always downs. The
+                    pacifist's tool, exactly as he asked.
+  SMG     : 15%   — mostly downs, occasional double-tap finishes it.
+  RIFLE   : 35%   — rifles are the most lethal round in the real data;
+                    a killshot with one is a real risk of no mercy.
+  SHOTGUN : 100%  — his exact ruling: shotgun killshots are dead-dead,
+                    period, no downed state.
+This is the FLOOR — SMG/rifle numbers are the ones with the most
+room to move on his say-so.
+
+SOURCES
+-------
+- NTDB suicide vs homicide firearm injury patterns study (mortality by
+  weapon type): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9485125/
+- Gunshot head wound survival factors: https://codmansurgical.integralife.com/gunshot-head-wounds-what-impacts-survival/
+- Firearm injury ED outcomes evaluation: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8695658/
