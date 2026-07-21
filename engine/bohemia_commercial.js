@@ -109,6 +109,25 @@
     if(back.N&&isS('E')) cut('E',(MARGIN+2)/H);
     if(back.W&&isS('S')) cut('S',(MARGIN+2)/W);
 
+    // --- STOREFRONT DETAIL + LOT CONTENT (WALKABLE-LAND pass, 7/21): the flat store slab reads as
+    // real shops (glass shopfronts between the door entries), and the parking sea gets a PAD
+    // outparcel + dead landscaping islands so content isn't drowned by asphalt. ---
+    var rs=(seed>>>0)||1; function rnd(){ rs=(rs*1103515245+12345)>>>0; return rs/4294967296; }
+    for(y=0;y<H;y++)for(x=0;x<W;x++){ if(g[y][x]!==2)continue;
+      var fr=false, nb=[[1,0],[-1,0],[0,1],[0,-1]];
+      for(var d=0;d<4;d++){ var c2=g[y+nb[d][1]]&&g[y+nb[d][1]][x+nb[d][0]]; if(c2===6||c2===1||c2===3)fr=true; }
+      if(fr) g[y][x]=12;                                        // glass shopfront on the frontage (the door 7 entries stay)
+    }
+    // PAD outparcel building mid-lot (an island of content) with a glass front + a ring sidewalk
+    if(pR-pL>44&&pB-pT>44){ var padx=Math.round((pL+pR)/2)-9, pady=Math.round((pT+pB)/2)-6;
+      rect(g,padx,pady,padx+18,pady+12,2);
+      for(x=padx+1;x<padx+18;x++) if(inb(x,pady+12))g[pady+12][x]=12;
+      if(inb(padx+9,pady+12))g[pady+12][padx+9]=7;
+      hLine(g,padx-1,padx+19,pady-1,6,1); hLine(g,padx-1,padx+19,pady+13,6,1); }
+    // dead LANDSCAPING planter islands scattered in the lot (breaks the asphalt sea)
+    for(var li=0;li<9;li++){ var lx=pL+6+Math.floor(rnd()*Math.max(1,(pR-pL-12))), ly=pT+6+Math.floor(rnd()*Math.max(1,(pB-pT-12)));
+      if(g[ly]&&(g[ly][lx]===1||g[ly][lx]===3)) rect(g,lx,ly,Math.min(lx+3,W-1),Math.min(ly+2,H-1),13); }
+
     var res={g:g,W:W,H:H,streets:streets,gates:gates,gas:gas};
     res.stores=storeFootprints(res);
     return res;
@@ -134,7 +153,7 @@
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;if(DR[g[ny][nx]]){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.85;}
 
-  var PALETTE={1:'#33333c',2:'#7a7266',3:'#3f3f47',4:'#c9c1aa',5:'#c79a3f',6:'#8a8a92',7:'#c7a24a',8:'#2b2b31',9:'#b0863a',10:'#6b6b74',11:'#9a5a4a'};
+  var PALETTE={1:'#33333c',2:'#7a7266',3:'#3f3f47',4:'#c9c1aa',5:'#c79a3f',6:'#8a8a92',7:'#c7a24a',8:'#2b2b31',9:'#b0863a',10:'#6b6b74',11:'#9a5a4a',12:'#3f4e52',13:'#41501f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / landscape gaps)'},
@@ -148,7 +167,9 @@
     8:{name:'service alley',      kind:'drive',      act1:'rear service lane (trash/delivery, drivable)'},
     9:{name:'service door',       kind:'building',   act1:'back roll-up / steel service door', layer:'portal', solid:false, enter:'into the store back-of-house / stock room'},
     10:{name:'gas canopy',        kind:'structure',  act1:'fuel-island canopy, faded brand, sagging', layer:'overhead', solid:false},
-    11:{name:'gas pump',          kind:'prop',       act1:'dead fuel pump, dust-caked, hoses down'}
+    11:{name:'gas pump',          kind:'prop',       act1:'dead fuel pump, dust-caked, hoses down'},
+    12:{name:'storefront glass',  kind:'building',   act1:'the shopfront glass line between the door entries, dark + cracked, dead signage above', layer:'structure'},
+    13:{name:'landscaping planter',kind:'prop',      act1:'a dead landscaping planter island in the lot, gone to weed', solid:false}
   };
   var NOTES={
     summary:'Corner shopping plaza — an L of stores on the back property lines, parking fronting the streets, a rear service alley, a gas station in the corner.',

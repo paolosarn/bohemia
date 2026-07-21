@@ -30,17 +30,19 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt (setback / landscape gaps) | ground | no | — | 972 |
-| 1 | `#33333c` | parking asphalt | drive | cracked asphalt parking field (car-drivable) | ground | no | — | 2160 |
-| 2 | `#7a7266` | store | building | strip-mall storefront box, dead signage, dark glass | structure | yes | retail interior: open sales floor up front, stock room + office in back | 5329 |
-| 3 | `#3f3f47` | drive aisle | drive | cracked asphalt lot drive aisle (drivable) | ground | no | — | 4675 |
-| 4 | `#c9c1aa` | stall stripe | marking | faded parking-stall stripe | ground | no | — | 1120 |
+| 1 | `#33333c` | parking asphalt | drive | cracked asphalt parking field (car-drivable) | ground | no | — | 2036 |
+| 2 | `#7a7266` | store | building | strip-mall storefront box, dead signage, dark glass | structure | yes | retail interior: open sales floor up front, stock room + office in back | 5409 |
+| 3 | `#3f3f47` | drive aisle | drive | cracked asphalt lot drive aisle (drivable) | ground | no | — | 4481 |
+| 4 | `#c9c1aa` | stall stripe | marking | faded parking-stall stripe | ground | no | — | 1065 |
 | 5 | `#c79a3f` | curb cut / gate | gate | driveway curb cut off the street, amber paint | portal | no | — | 21 |
-| 6 | `#8a8a92` | sidewalk | walk | cracked concrete storefront sidewalk | ground | no | — | 500 |
-| 7 | `#c7a24a` | store door | building | shop entry, boarded / broken glass door | portal | no | into the store sales floor | 22 |
+| 6 | `#8a8a92` | sidewalk | walk | cracked concrete storefront sidewalk | ground | no | — | 542 |
+| 7 | `#c7a24a` | store door | building | shop entry, boarded / broken glass door | portal | no | into the store sales floor | 23 |
 | 8 | `#2b2b31` | service alley | drive | rear service lane (trash/delivery, drivable) | ground | no | — | 1563 |
 | 9 | `#b0863a` | service door | building | back roll-up / steel service door | portal | no | into the store back-of-house / stock room | 22 |
 | 10 | `#6b6b74` | gas canopy | structure | fuel-island canopy, faded brand, sagging | overhead | no | — | — |
 | 11 | `#9a5a4a` | gas pump | prop | dead fuel pump, dust-caked, hoses down | prop | yes | — | — |
+| 12 | `#3f4e52` | storefront glass | building | the shopfront glass line between the door entries, dark + cracked, dead signage above | structure | yes | — | 166 |
+| 13 | `#41501f` | landscaping planter | prop | a dead landscaping planter island in the lot, gone to weed | prop | no | — | 84 |
 
 **Gate:** `gates/commercial_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
