@@ -148,7 +148,6 @@
     <div class="stats">
       <div class="stat foll"><b id="st-foll">0</b><span>followers</span></div>
       <div class="stat"><b id="st-posts">0</b><span>posts</span></div>
-      <div class="stat"><b id="st-done">0</b><span>quests done</span></div>
     </div>
   </div>
 
@@ -258,7 +257,6 @@ function refreshTop(){
   var prof = Loop.socialProfile(ctx, FOLLOWER_SCORE);
   el('st-foll').textContent = prof.reach;
   el('st-posts').textContent = prof.posts;
-  el('st-done').textContent = prof.questsCompleted;
   var objs = ctx.quests.activeObjectives(), bar = el('objbar');
   if(objs.length){ bar.classList.remove('empty'); el('obj-text').textContent = objs[0].text + (objs.length>1?('   +'+(objs.length-1)+' more'):''); }
   else bar.classList.add('empty');
@@ -331,8 +329,7 @@ function render(){
          '<div class="oby">generation 1 · the founding</div></div></div>'+
          '<div class="stats" style="margin-top:14px"><div class="stat foll"><b>'+prof.reach+'</b><span>followers</span></div>'+
          '<div class="stat"><b>'+prof.posts+'</b><span>posts</span></div>'+
-         '<div class="stat"><b>'+prof.questsCompleted+'</b><span>done</span></div>'+
-         '<div class="stat"><b>'+prof.questsTouched+'</b><span>touched</span></div></div></div>';
+         '</div></div>';
     h += '<div class="disclaimer">Follower count uses a PLACEHOLDER score (complete = 50, else 5). '+
          'What counts as cool shit, and what it is worth, is Paolo\'s call. The feed, pickups, log '+
          'and this profile are all live off the real engine.</div>';
