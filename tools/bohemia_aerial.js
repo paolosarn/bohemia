@@ -79,27 +79,46 @@ for(let cy=0; cy<SIZE; cy++){
       }
       built++;
     } else if(ROAD[dist]){
-      // ROAD cell: readable asphalt base + a dashed centerline + shoulder edge, seeded deterministic
+      // ROAD cell: readable asphalt base + a centerline that follows REAL neighbor connectivity —
+      // not a coin flip (Paolo 7/21: "if it's an intersection, it should really look like an
+      // intersection"). A straight run of road cells now draws one continuous line; a true
+      // crossing (road neighbors on BOTH axes) draws a real "+" — the actual overmap topology,
+      // not a guess.
       rects.push(`<rect x="${px0}" y="${py0}" width="${CP}" height="${CP}" fill="${ROADCOL[dist]||ROADCOL.freeway}"/>`);
-      const r=rng(seedOf(ox,oy)); const horiz = r()<0.5;
+      const isRoad=(nx,ny)=>{ const c=world.at(nx,ny); return !!(c && ROAD[c.district]); };
+      const vert = isRoad(ox,oy-1) || isRoad(ox,oy+1);
+      const horiz = isRoad(ox-1,oy) || isRoad(ox+1,oy);
       if(horiz){
         rects.push(`<rect x="${px0}" y="${py0+CP/2-1}" width="${CP}" height="2" fill="#26262c"/>`);
         for(let dx=6; dx<CP; dx+=16) rects.push(`<rect x="${px0+dx}" y="${py0+CP/2-1}" width="8" height="2" fill="#d9c589"/>`);
-      } else {
+      }
+      if(vert){
         rects.push(`<rect x="${px0+CP/2-1}" y="${py0}" width="2" height="${CP}" fill="#26262c"/>`);
         for(let dy=6; dy<CP; dy+=16) rects.push(`<rect x="${px0+CP/2-1}" y="${py0+dy}" width="2" height="8" fill="#d9c589"/>`);
       }
+      if(!horiz && !vert){
+        // an isolated road cell (no road-type neighbor): just the asphalt, no dangling line stub
+      }
       filled++;
-    } else {
-      // TERRAIN / not-yet-built district: base tone + deterministic speckle so it isn't dead-flat
+    } else if(TERRAIN[dist]){
+      // real terrain (desert/mountain/wash/water/dam): natural speckle, honestly undeveloped land
       const col=FILL[dist]||FILL.default;
       rects.push(`<rect x="${px0}" y="${py0}" width="${CP}" height="${CP}" fill="${col}"/>`);
-      const r=rng(seedOf(ox,oy)); const n = TERRAIN[dist] ? 90 : 40;
-      const lite = TERRAIN[dist] ? '#00000022' : '#ffffff14', dark='#00000030';
-      for(let i=0;i<n;i++){
+      const r=rng(seedOf(ox,oy));
+      for(let i=0;i<90;i++){
         const sx=Math.floor(r()*CP), sy=Math.floor(r()*CP), sw=2+Math.floor(r()*4), sh=2+Math.floor(r()*4);
-        rects.push(`<rect x="${px0+sx}" y="${py0+sy}" width="${sw}" height="${sh}" fill="${r()<0.5?dark:lite}"/>`);
+        rects.push(`<rect x="${px0+sx}" y="${py0+sy}" width="${sw}" height="${sh}" fill="${r()<0.5?'#00000030':'#ffffff14'}"/>`);
       }
+      filled++;
+    } else {
+      // a canon district type NOT YET in the auto-factory (bespoke landmarks: casino, ballpark,
+      // stadium-class, etc.) — marked as RESERVED, not rendered as if it were empty/broken land.
+      // A diagonal hatch + corner tag reads as "placeholder," never a hole in the render.
+      const col=FILL[dist]||FILL.default;
+      rects.push(`<rect x="${px0}" y="${py0}" width="${CP}" height="${CP}" fill="${col}"/>`);
+      for(let d=-CP; d<CP; d+=14) rects.push(`<line x1="${px0+d}" y1="${py0}" x2="${px0+d+CP}" y2="${py0+CP}" stroke="#00000022" stroke-width="3"/>`);
+      rects.push(`<rect x="${px0+6}" y="${py0+6}" width="${Math.min(CP-12, dist.length*7+8)}" height="14" fill="#00000055"/>`);
+      rects.push(`<text x="${px0+10}" y="${py0+16}" font-family="ui-monospace,monospace" font-size="10" letter-spacing="1" fill="#c79a3f">${dist.toUpperCase()}</text>`);
       filled++;
     }
   }
