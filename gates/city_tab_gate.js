@@ -121,6 +121,27 @@ if (b64m) {
   // may NEVER ship as the default ground again.
   ok('the tile buffet never ships on by default (scatter:false)',
     decoded.indexOf('let TP = { on:false, scatter:false,') >= 0);
+
+  // 8. THE STREET ART LOCK (7/20, Paolo: "WE ACTUALLY MADE STREETS"): the
+  // approved V11/V12 street pools ARE the city's street-level ground.
+  ok('the approved street pools ride in the city (SA_TILES embedded)',
+    decoded.indexOf('const SA_TILES=') >= 0 && decoded.indexOf('BOHEMIA_STREET_POOLS_HARMONIZED') >= 0);
+  ok('texFor serves the real art for street ground colors',
+    decoded.indexOf("const sp=SA_MAP[col]") >= 0);
+  ok('center lines + lane dividers draw the approved art with orientation',
+    decoded.indexOf("_pool") >= 0 && decoded.indexOf("'lane_v'") >= 0);
+
+  // 9. THE WIDTH MODELS LOCK (7/20, Paolo: "we made whole models based on
+  // how wide the streets should be"): the road cross-section is the canon
+  // anatomy - LANE_W=2, lanes/dir per class, white dividers, yellow median.
+  ok('CANON XSEC: road cross-sections come from the blockgen width models',
+    decoded.indexOf('CANON XSEC') >= 0);
+  ok('classes differ: arterial 3 lanes / strip 4+med2 / freeway no sidewalks',
+    decoded.indexOf('arterial:{lanes:3,med:1,side:2}') >= 0
+    && decoded.indexOf('strip:{lanes:4,med:2,side:2}') >= 0
+    && decoded.indexOf('freeway:{lanes:4,med:2,side:0}') >= 0);
+  ok('LINE COLOR LAW at street level: yellow median, white lane dashes',
+    decoded.indexOf("c.g='#b8a040'") >= 0 && decoded.indexOf("c.g='#d8d4c4'") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

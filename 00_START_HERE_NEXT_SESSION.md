@@ -50,6 +50,25 @@ its live BohemiaOvermap now IS canon (street counts match canon exactly;
 official street gate green). SAVE NOTE: suspend saves carry a seed; a save
 made on fork streets resumes with the world re-laid canon around the
 player - the world REPAIRED, not reset (flagged, not hidden).
+STREET LEVEL WEARS THE REAL ART (7/20, Paolo furious and right: "WE
+ACTUALLY MADE STREETS BEFORE THE SESSIONS WENT TO CODE"): two root causes
+found and killed the same day. (1) THE TILE BUFFET (an old tile-judging
+experiment) shipped with scatter:true DEFAULT, blanketing the whole street
+level in banned confetti - his screenshot was the verdict; scatter now
+defaults false, gate-locked, buffet button remains for deliberate judging.
+(2) Under it the ground was PROCEDURAL GRAY while the APPROVED street art
+(banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26: 18 weathered asphalt, 36
+sidewalk, washed-yellow medians, 30-yr law) sat unused. tools/bohemia_city_
+streetart_patch.py embeds the pools (44px -> 16px TPX) and patches texFor:
+road colors -> real asphalt, sidewalk color -> real sidewalk, shoulders ->
+certified desert, center-line cells -> median art WITH orientation
+(bank tiles authored horizontal, rot90 vertical, neighbors decide);
+caches flush when art decodes. Verified DROP IN: real weathered asphalt +
+washed yellow line under the player, 0 errors. Gate #CITY TAB now 26
+checks (buffet lock + SA_TILES + texFor + median orientation). NEXT for
+street-level art: crosswalks/lane_div/turn pockets at intersections (needs
+band geometry, the bake factory's anatomy), building/lot art (the district
+factory tilespecs), lamps as the V11 body not a dot.
 THE LIGHTS AT NIGHT - IN THE CITY (7/20, Paolo: "we spent so much time on
 the streets, even the lights at night - when do I see that in the city"):
 tools/bohemia_city_lights_patch.py marries the canon powergrid
@@ -977,6 +996,47 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    Gate 140 checks ALL GREEN. [PENDING Paolo]: tap-to-calibrate setting;
    whether kick-timed shots should ever earn anything mechanically;
    lab round 3 thumbs.
+   THE THREE-MESSAGE STACK (7/20, pass 26 + lab round 3 BUILT): Paolo
+   sent three feedback messages ("don't do anything yet" x2, then go).
+   ALL BUILT: (1) HONEST MISS — incTick was calling feltHit() (stagger,
+   hit-stop, red punch, sndHit, contact spray) for every incoming-cam
+   contact even on all-miss volleys; G.inc.miss now routes misses to
+   cracks + frame rattle, tracers fly PAST (offset per shooter), no
+   spray, body stays cool. Verified: forced miss cam, _pHitAt stayed 0.
+   (2) ONLY A KILLSHOT CHAINS — vital/hit deaths set G._noChain; the
+   double-shot without a killshot is dead at the root (his repeat
+   report; the leak was incidental deaths chaining via afterKill).
+   (3) THE WOUNDED LEAK — <=30 HP: trail spot on every step (pushed at
+   origin pre-worldShift) + fat double pool standing (his 10% report).
+   (4) FAKE COVER IS DEAD — chip/body tap-to-toggle-cover deleted
+   (debug-era), e.inCover drives NOTHING; gcov=(pillarBetweenMe &&
+   nearPillar) — stone must be near HIM; open men now actually run
+   (his "breaking your AI" diagnosis was right: the fake flag made
+   coverSeekAI skip men standing in the open). Taps only SELECT
+   victims. combat_anim_gate check updated to the newer ruling.
+   (5) SMART CAM — auto-frame frames the LIVING (tightens up to 1.30x
+   as they drop); pinch/pan takes the wheel for 5s then auto resumes;
+   manual zoom-in restored (his "dog shit" cap removed). (6) DEFAULT 8
+   ENEMIES. (7) TARGETING AUTO/MANUAL (settings; default AUTO):
+   closest-first order always (knife runner outranks far gun); tap
+   picks the first victim in auto; MANUAL pauses the chain on CHOOSE
+   NEXT until he taps the next man (WAIT/MOVE = decline = engaged
+   volley fires). (8) GRIT SHOTS perk 0..3 (the floor): a miss spends
+   grit instead of the turn, dial reopens on the same man; KILLSHOTS/
+   TURN stays the ceiling. (9) NO-DOUBLE-EXPOSURE doctrine re-affirmed
+   (v24 build stands: HOLD/SHOOT/POP OUT). LAB ROUND 3 BUILT (his ask
+   "make sure your next update will have those new play test
+   additions"): E THE QUEUE (load 3 moves/shoves/waits, RUN BAR
+   executes one per beat, enemies act between; fire stays live) and
+   H THE METRONOME DUEL (one gunman fires ON the kick every 2nd world
+   turn if he has your line — stone blocks it, off-beat is the window)
+   are PLAYABLE in the BEAT TACTICS LAB with verdict thumbs rows
+   (queue:up/duel:up in the export). Headless sims in the gate: duel
+   alternates kick/off and wounds 18 per open-line kick; queue runs a
+   4-enemy weapon mix clean. LAB BUG BANKED: S.beat increments in BOTH
+   commitPlayer and worldStep, so beat-parity at worldStep time never
+   alternates — use S.turn (ticks once per world beat) for any
+   every-N-beats enemy logic. Gate 151 checks ALL GREEN.
 -5. LOOP DROPPED + TWO NEW SESSIONS BRIEFED (7/19): Paolo RULED the loop away
    (laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md): Bohemia is NOT one-life
    permadeath; death/failure meaning stays [PENDING Paolo]. Stop planning

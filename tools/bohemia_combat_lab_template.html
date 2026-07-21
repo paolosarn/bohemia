@@ -121,6 +121,8 @@
   <button data-m="promise"><b>B</b>PROMISE</button>
   <button data-m="dance"><b>C</b>DANCE</button>
   <button data-m="shove"><b>D</b>SHOVE</button>
+  <button data-m="queue"><b>E</b>QUEUE</button>
+  <button data-m="duel"><b>H</b>DUEL</button>
   <button data-m="research"><b>?</b>RESEARCH</button>
 </div>
 <div id="pitch"></div>
@@ -149,6 +151,7 @@
     <div id="rbtns">
       <button id="fireB">FIRE</button>
       <button id="shoveB">SHOVE</button>
+      <button id="queueB" style="display:none;width:92px;height:40px;font-size:10px">RUN BAR (0)</button>
       <button id="resetB">RESET</button>
     </div>
   </div>
@@ -213,6 +216,10 @@
   <textarea data-c="dance" placeholder="C notes..."></textarea>
   <div class="vrow"><span class="nm">D — THE SHOVE</span><button class="pick" data-v="shove:up">&#128077;</button><button class="pick" data-v="shove:dn">&#128078;</button></div>
   <textarea data-c="shove" placeholder="D notes..."></textarea>
+  <div class="vrow"><span class="nm">E — THE QUEUE</span><button class="pick" data-v="queue:up">&#128077;</button><button class="pick" data-v="queue:dn">&#128078;</button></div>
+  <textarea data-c="queue" placeholder="E notes..."></textarea>
+  <div class="vrow"><span class="nm">H — THE METRONOME DUEL</span><button class="pick" data-v="duel:up">&#128077;</button><button class="pick" data-v="duel:dn">&#128078;</button></div>
+  <textarea data-c="duel" placeholder="H notes..."></textarea>
   <div class="vrow"><span class="nm">PACKAGE-AS-CURRENCY (position bends the dial)</span><button class="pick" data-v="currency:up">&#128077;</button><button class="pick" data-v="currency:dn">&#128078;</button></div>
   <textarea data-c="currency" placeholder="currency thesis notes..."></textarea>
 </section>
@@ -275,7 +282,9 @@ var MODES={
   conductor:{count:4,wpns:['shiv','bat','spear','shiv'],pitch:'NecroDancer lesson + Paolo 7/19: melee enemies close on you, each WEAPON moves differently. S shiv = every beat. B bat = heavy, every 2nd, knocks you back. P spear = keeps 2 distance, pokes a telegraphed line.'},
   promise:  {count:3,sigs:[2,2,2], pitch:'Into the Breach lesson: enemies PROMISE their attack — red tiles land next beat, no dice. PAOLO 7/19: this becomes a PERK (foresight). Kept playable for comparison.'},
   dance:    {count:4,sigs:[1,1,1,1],pitch:'Hoplite lesson, re-taught: while a guard is NEXT to you, step to another cell STILL next to him = you slip past his guard = he is OPENED (green ring, easier dial). Stepping straight OUT of his reach = he swipes you. Stay close, circle him, then shoot.'},
-  shove:    {count:4,sigs:[1,1,1,1],pitch:'Paolo-ruled 7/19: enemy next to you = the SHOVE option lights up. A shove ALWAYS stuns 1 turn, with a chance they FALL OVER (prone, easy dial). Walls and burn barrels raise the odds. IRON SHOULDER perk = guaranteed 2-turn stun.'}
+  shove:    {count:4,sigs:[1,1,1,1],pitch:'Paolo-ruled 7/19: enemy next to you = the SHOVE option lights up. A shove ALWAYS stuns 1 turn, with a chance they FALL OVER (prone, easy dial). Walls and burn barrels raise the odds. IRON SHOULDER perk = guaranteed 2-turn stun.'},
+  queue:    {count:4,wpns:['shiv','shiv','bat','spear'],pitch:'E THE QUEUE (Shogun Showdown lesson, 3rd research round it has won): LOAD up to 3 moves/shoves/waits into the bar, then RUN BAR executes them one per beat while enemies act between each. Greed made spatial: a long bar is a long time you cannot react. Shooting stays live (tap FIRE any time the bar is not running).'},
+  duel:     {count:1,sigs:[1],pitch:'H THE METRONOME DUEL: one gunman. He fires ON THE KICK — every 2nd world beat — if he has a line on you. The off-beat is your window: break his line or take your shot. KICK-LOCK as a teacher: you learn the kick with your feet.'}
 };
 function key(x,y){return x+','+y;}
 function inB(x,y){return x>=0&&x<W&&y>=0&&y<H;}
@@ -353,6 +362,7 @@ function computeIntents(S){ // telegraphs for the NEXT world beat (the promise, 
     if(e.aim){e.intent={t:'land',tiles:e.aim.tiles};continue;}                        // committed tiles stay visible until they land
     if(!isActive(S,e)){e.intent={t:'rest'};continue;}
     if(S.mode==='promise'){e.intent={t:'aim'};continue;}
+    if(S.mode==='duel'){e.intent={t:(S.turn%2)===0?'kick':'off'};continue;}   /* the duelist telegraphs the kick */
     if(adj(e.x,e.y,S.px,S.py)){e.intent={t:'windup'};continue;}
     var st=planStep(S,e);
     e.intent=st?{t:'step',d:st}:{t:'rest'};
@@ -479,6 +489,12 @@ function worldStep(S){
         if(tiles.length){e.aim={tiles:tiles};ev.push({t:'promised',id:e.id});}
       }
       continue;}
+    if(S.mode==='duel'){   /* H THE METRONOME DUEL: he fires ON THE KICK (every 2nd world beat) */
+      var kick=(S.turn%2)===0;   /* S.turn ticks once per world beat — true alternation */
+      if(kick){ if(los(S,e.x,e.y,S.px,S.py)){S.wound=Math.min(100,S.wound+HIT.strike);ev.push({t:'kickshot',id:e.id});}
+        else ev.push({t:'kickblocked',id:e.id}); }
+      else { var std=planStep(S,e); if(std&&edist(S,e)>4&&freeCell(S,e.x+std[0],e.y+std[1])){e.x+=std[0];e.y+=std[1];e.face=std;} ev.push({t:'offbeat',id:e.id}); }
+      continue;}
     var w=e.wpn?WPN[e.wpn]:null;
     var strikeDmg=w?w.dmg:(S.mode==='shove'?HIT.shovemode:HIT.strike);
     if(w&&w.reach){ // SPEAR: keeps 2 distance, pokes a telegraphed 2-tile line
@@ -543,6 +559,8 @@ function msToBeatEdge(){var f=beatFrac();return f<0.5?-f*BEAT_MS:(1-f)*BEAT_MS;}
 
 var S=null, mode='conductor', basePkg=0, seedN=1, muted=false;
 var pendingAction=null, dialG=null, dialOpen=false, shoveArmed=false;
+var barQ=[], barRunning=false;   /* E THE QUEUE: the loaded bar */
+function updateBarUI(){var b=document.getElementById('queueB');if(b)b.textContent=barRunning?'RUNNING…':('RUN BAR ('+barQ.length+')');}
 var perkForesight=false, perkShoulder=false;   // persist across games (Paolo 7/19: perks)
 var verd={}, PKG_NAMES=['EASY','NORMAL','HARD','V.HARD','BOHEMIAN'];
 
@@ -573,12 +591,17 @@ function eventMsg(evs){if(!evs)return;
     if(e.t==='shoveresist'){msg('HE BRACED — just back up, no re-stun until he gets a turn.');return;}
     if(e.t==='cooked'){msg('INTO THE BARREL — cooked and wide open.');return;}
     if(e.t==='knockback'){msg('BAT HIT — it threw you back a cell.');return;}
+    if(e.t==='kickshot'){msg('THE KICK — he fired ON the beat and had your line. Break it or drop him.');tone(140,0.12,0.10,'sawtooth');return;}
+    if(e.t==='kickblocked'){msg('KICK FIRED — your stone ate it. The off-beat is your window.');return;}
   }}
 
 /* --- input: NEVER beat-gated (SILENT-PLAY LAW). Press any time; the
    action resolves on the next whole beat; on-beat presses feed GROOVE. --- */
 function queue(action){if(!S||S.down||S.cleared||dialOpen)return;
   audio();
+  if(mode==='queue'&&action.type!=='fire'){ if(barRunning)return;   /* E: while the bar runs you cannot react — that IS the mode */
+    barQ.push(action); if(barQ.length>3)barQ.shift();
+    updateBarUI(); msg('BAR '+barQ.length+'/3 LOADED — RUN BAR plays it out, enemies act between'); return; }
   var off=beatFrac();var offMs=off<0.5?off*BEAT_MS:(off-1)*BEAT_MS;
   pendingAction={action:action,offMs:offMs};}
 
@@ -749,6 +772,9 @@ function loop(){
   var b=Math.floor(beatNow());
   if(b!==lastBeat){lastBeat=b;
     if(S&&!S.down&&!dialOpen)resolvePending();
+    if(mode==='queue'&&barRunning&&S&&!S.down&&!dialOpen&&!pendingAction){   /* E: the bar plays itself */
+      if(barQ.length){pendingAction={action:barQ.shift(),offMs:0};resolvePending();updateBarUI();}
+      else {barRunning=false;updateBarUI();msg('BAR DONE — load the next one');}}
     maybeWorld();
     document.getElementById('beatlamp').classList.add('hot');
     tone(415,0.03,dialOpen?0.02:0.012);
@@ -832,8 +858,13 @@ document.querySelectorAll('#modes button').forEach(function(b){
     document.getElementById('research').classList.add('hidden');
     document.getElementById('game').classList.remove('hidden');
     mode=m;document.getElementById('shoveB').style.display=m==='shove'?'block':'none';
+    document.getElementById('queueB').style.display=m==='queue'?'block':'none';
+    barQ=[];barRunning=false;updateBarUI();
     document.getElementById('pitch').textContent=LC.MODES[m].pitch;
     newGame();});});
+document.getElementById('queueB').addEventListener('click',function(){
+  if(!barQ.length&&!barRunning){msg('BAR EMPTY — tap moves/shoves/waits to load it');return;}
+  barRunning=!barRunning;updateBarUI();});
 document.getElementById('sunB').addEventListener('click',function(){document.body.classList.toggle('sun');});
 
 /* --- verdicts + export (.txt, never .json; clipboard modern-first) --- */
@@ -848,7 +879,8 @@ document.getElementById('exportB').addEventListener('click',function(){
   var L=[];L.push('=== BOHEMIA COMBAT LAB VERDICT (BEAT TACTICS, 7/19/26) ===');
   L.push('');
   [['conductor','A THE CONDUCTOR'],['promise','B THE PROMISE'],['dance','C THE DANCE'],
-   ['shove','D THE SHOVE'],['currency','PACKAGE-AS-CURRENCY THESIS']].forEach(function(p){
+   ['shove','D THE SHOVE'],['queue','E THE QUEUE'],['duel','H THE METRONOME DUEL'],
+   ['currency','PACKAGE-AS-CURRENCY THESIS']].forEach(function(p){
     L.push(p[1]+': '+(verd[p[0]]==='up'?'UP':verd[p[0]]==='dn'?'DOWN':'(no verdict)'));
     var c=document.querySelector('textarea[data-c="'+p[0]+'"]').value.trim();
     if(c)L.push('  notes: '+c);});
