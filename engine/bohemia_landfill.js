@@ -20,9 +20,14 @@
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    // a WASTE CELL: an earthen berm rectangle filled with compacted trash, debris-flecked
+    // a WASTE CELL: an earthen berm rectangle filled with a CHAOTIC multicolor sea of compacted
+    // trash (grimy earth + cover-soil patches + faded debris — bags, appliances, junk), not a tidy
+    // field. Dense speckle so it reads as GARBAGE from above.
     function cell(x0,y0,x1,y1){ G.rect(x0,y0,x1,y1,7); G.rect(x0+2,y0+2,x1-2,y1-2,6);
-      for(i=0;i<(x1-x0)*(y1-y0)*0.05;i++){ var tx=x0+2+Math.floor(r()*(x1-x0-4)), ty=y0+2+Math.floor(r()*(y1-y0-4)); if(get(tx,ty)===6)set(tx,ty, r()<0.5?4:3); } // trash flecks + cover-soil patches
+      var n=(x1-x0)*(y1-y0);
+      for(i=0;i<n*0.42;i++){ var tx=x0+2+Math.floor(r()*(x1-x0-4)), ty=y0+2+Math.floor(r()*(y1-y0-4));
+        if(get(tx,ty)!==6)continue; var d=r();
+        set(tx,ty, d<0.34?4 : d<0.52?3 : d<0.68?14 : d<0.82?15 : d<0.92?8 : 11); }  // cover soil / dark rot / blue junk / rust junk / scum / pale debris
     }
     // ---- BASE: cover-soil dirt, fenced; desert at the margins ----
     G.rect(0,0,W-1,H-1,0); G.rect(6,8,W-7,H-7,4); G.frame(12);
@@ -51,8 +56,8 @@
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2;})}; }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#4a4438',2:'#6a5f50',3:'#3f382c',4:'#5a5040',5:'#c79a3f',6:'#565238',
-    7:'#6e6353',8:'#3a4436',9:'#8f8676',10:'#c8a03a',11:'#c9c1aa',12:'#6a6a72',13:'#8a8478'};
+  var PALETTE={0:'#1c1a15',1:'#4a4438',2:'#6a5f50',3:'#332e24',4:'#6a5f48',5:'#c79a3f',6:'#4e4a3a',
+    7:'#6e6353',8:'#3a4436',9:'#8f8676',10:'#c8a03a',11:'#b0a894',12:'#6a6a72',13:'#8a8478',14:'#4a5560',15:'#8a5540'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
     1:{name:'haul road',          kind:'drive',      act1:'the packed haul road — trucks reach every cell from the gate (drivable)'},
@@ -67,7 +72,9 @@
     10:{name:'equipment (dozer/compactor)',kind:'vehicle',act1:'a dead landfill dozer / spiked compactor, yellow faded, tracks seized', solid:true},
     11:{name:'marking (scale)',   kind:'marking',    act1:'the truck-scale pad + faded site markings'},
     12:{name:'perimeter fence',   kind:'structure',  act1:'the landfill perimeter fence, litter-choked', solid:true},
-    13:{name:'gas well / pipe',   kind:'prop',       act1:'a landfill-gas collection wellhead / pipe riser on a capped cell', solid:true}
+    13:{name:'gas well / pipe',   kind:'prop',       act1:'a landfill-gas collection wellhead / pipe riser on a capped cell', solid:true},
+    14:{name:'debris (plastic/appliance)',kind:'ground',act1:'faded blue-grey junk in the fill — bags, an appliance carcass, sheeting', solid:false},
+    15:{name:'debris (rust/wood)',kind:'ground',      act1:'rusted + rotted junk in the fill — metal, pallet wood, drums', solid:false}
   };
   var NOTES={
     summary:'A dead landfill — big waste cells ringed by earthen berms and filled with picked-over trash, leachate evaporation ponds gone to scum, a scale house + office at the gate, haul roads, gas wells, a dead dozer + compactor. Where everything ends up.',

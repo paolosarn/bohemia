@@ -26,7 +26,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [boneyard](tilespec/BOHEMIA_TILESPEC_boneyard.md) | industrial | 15 | yes |
 | [policestation](tilespec/BOHEMIA_TILESPEC_policestation.md) | civic | 14 | yes |
 | [library](tilespec/BOHEMIA_TILESPEC_library.md) | civic | 14 | yes |
-| [landfill](tilespec/BOHEMIA_TILESPEC_landfill.md) | infrastructure | 14 | yes |
+| [landfill](tilespec/BOHEMIA_TILESPEC_landfill.md) | infrastructure | 16 | yes |
 | [railyard](tilespec/BOHEMIA_TILESPEC_railyard.md) | industrial | 14 | yes |
 | [substation](tilespec/BOHEMIA_TILESPEC_substation.md) | infrastructure | 14 | yes |
 | [chapel](tilespec/BOHEMIA_TILESPEC_chapel.md) | civic | 13 | yes |

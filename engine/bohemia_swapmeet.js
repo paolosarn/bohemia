@@ -35,14 +35,14 @@
     // faded red / faded teal — markets navigate by tent color), corner poles + a peaked ridge, some
     // collapsed ----
     var TENT=[4,13,14], rowi=0;
-    for(var ry=16; ry<=74; ry+=14){
+    for(var ry=16; ry<=78; ry+=13){
       var tc=TENT[rowi%3]; rowi++;
-      for(var tx=12; tx<=106; tx+=13){
-        if(r()<0.16){ set(tx+5,ry+3,3); set(tx+3,ry+5,3); continue; }    // a collapsed / looted tent -> open gap
-        G.rect(tx,ry,tx+10,ry+7,tc);                                     // the tent canopy
-        set(tx,ry,6); set(tx+10,ry,6); set(tx,ry+7,6); set(tx+10,ry+7,6);// the corner tent POLES
-        for(var py=ry;py<=ry+7;py++) set(tx+5,py,10);                    // the peaked RIDGE line (reads as a tent roof from above)
-        set(tx+3,ry+3,6); set(tx+7,ry+3,6); set(tx+3,ry+5,6); set(tx+7,ry+5,6); // vendor tables under the tent
+      for(var tx=11; tx<=105; tx+=11){                                   // DENSE adjacent stalls (a packed market row)
+        if(r()<0.14){ set(tx+4,ry+3,3); set(tx+2,ry+5,3); continue; }    // a collapsed / looted stall -> open gap
+        G.rect(tx,ry,tx+9,ry+7,tc);                                      // the tent canopy
+        set(tx,ry,6); set(tx+9,ry,6); set(tx,ry+7,6); set(tx+9,ry+7,6);  // the corner tent POLES
+        for(var py=ry;py<=ry+7;py++) set(tx+4,py,10);                    // the peaked RIDGE line (reads as a tent roof from above)
+        set(tx+2,ry+3,6); set(tx+7,ry+3,6); set(tx+2,ry+5,6); set(tx+7,ry+5,6); // vendor tables under the tent
       }
     }
 

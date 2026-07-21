@@ -35,17 +35,19 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt outside the fence (setback) | ground | no | — | 2617 |
 | 1 | `#4a4438` | haul road | drive | the packed haul road — trucks reach every cell from the gate (drivable) | ground | no | — | 1513 |
 | 2 | `#6a5f50` | building (scale/office/gas) | building | the scale house + office + gas-plant shed, dark | structure | yes | scale-house interior: the weigh office + a control room, the gas-plant equipment room behind | 405 |
-| 3 | `#3f382c` | dead brush | tree-dead | dead brush + windblown litter caught in the fence | prop | no | — | 139 |
-| 4 | `#5a5040` | cover soil / dirt | ground | the daily-cover soil capping the cells / the site dirt | ground | no | — | 4310 |
+| 3 | `#332e24` | dead brush | tree-dead | dead brush + windblown litter caught in the fence | prop | no | — | 360 |
+| 4 | `#6a5f48` | cover soil / dirt | ground | the daily-cover soil capping the cells / the site dirt | ground | no | — | 4820 |
 | 5 | `#c79a3f` | gate | gate | the landfill gate off the street, past the scale, amber curb | portal | no | — | 7 |
-| 6 | `#565238` | waste fill | ground | compacted trash — the fill itself, the picked-over landscape of the dump | ground | no | — | 4887 |
+| 6 | `#4e4a3a` | waste fill | ground | compacted trash — the fill itself, the picked-over landscape of the dump | ground | no | — | 3208 |
 | 7 | `#6e6353` | cell berm | structure | the earthen berm ringing a waste cell (contains the leachate) | structure | yes | — | 1071 |
-| 8 | `#3a4436` | leachate pond | ground | a leachate evaporation pond, gone to black scum | ground | no | — | 660 |
+| 8 | `#3a4436` | leachate pond | ground | a leachate evaporation pond, gone to black scum | ground | no | — | 844 |
 | 9 | `#8f8676` | pole light | prop | a site pole light, head dark | prop | yes | — | 3 |
 | 10 | `#c8a03a` | equipment (dozer/compactor) | vehicle | a dead landfill dozer / spiked compactor, yellow faded, tracks seized | prop | yes | — | 112 |
-| 11 | `#c9c1aa` | marking (scale) | marking | the truck-scale pad + faded site markings | ground | no | — | 153 |
+| 11 | `#b0a894` | marking (scale) | marking | the truck-scale pad + faded site markings | ground | no | — | 314 |
 | 12 | `#6a6a72` | perimeter fence | structure | the landfill perimeter fence, litter-choked | structure | yes | — | 501 |
-| 13 | `#8a8478` | gas well / pipe | prop | a landfill-gas collection wellhead / pipe riser on a capped cell | prop | yes | — | 6 |
+| 13 | `#8a8478` | gas well / pipe | prop | a landfill-gas collection wellhead / pipe riser on a capped cell | prop | yes | — | 2 |
+| 14 | `#4a5560` | debris (plastic/appliance) | ground | faded blue-grey junk in the fill — bags, an appliance carcass, sheeting | ground | no | — | 310 |
+| 15 | `#8a5540` | debris (rust/wood) | ground | rusted + rotted junk in the fill — metal, pallet wood, drums | ground | no | — | 297 |
 
 **Gate:** `gates/landfill_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
