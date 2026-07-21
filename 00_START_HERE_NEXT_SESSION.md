@@ -2096,9 +2096,29 @@ FAILURE TRAINING (7/19, Paolo "record + train on all failures I thumbs down"): e
     towers + walled rec yards + admin/intake sally port.
   Also (double-check pass, same day): COMMERCIAL enhanced (glass shopfronts + pad building +
   planters; content 44 vs pavement 46, was 40/51) under the walkable law.
-  DISTRICT FACTORY IS NEARLY COMPLETE (24 auto-types). REMAINING non-casino candidates: waterpark,
-  speedway, mall/downtown, trailer park, granary, boneyard-variants. THE BIG PIVOT after the
-  districts: make them WALKABLE/ENTERABLE (the zoom) or drop LIFE agents into them (inhabit).
+  BATCH OF THREE — THE BIGGEST COVERAGE GAPS (7/21, "do some big brain awesome shit"): farm,
+  downtown, trailer park — chosen by counting the overmap histogram (farm 144 cells, downtown 25,
+  trailer 17 were the largest UN-generated district types). Research-first, dense + content-dominant,
+  all pass the walkable sweep. Stamp 7/21f. 27 auto-types (29 built total).
+  - farm -> INFRASTRUCTURE(default zone): crop FIELDS (furrow rows) DOMINATE the plot, dry irrigation
+    ditches, farmhouse + yard, faded-red BARN, round grain SILOS, equipment shed, tractor, hay bales.
+    content 82% / drive 2% (a farm is nearly all worked land — the walkable spirit, maxed).
+  - downtown -> COMMERCIAL(retail): 4 PODIUM blocks each with a TOWER, a street grid, a ROUNDABOUT
+    plaza (street ring at r=11-12 keeps the arms connected — bug caught: a solid plaza disc severed
+    the crossing), an overhead SKYBRIDGE, rooftop mech. The dense urban core. content 57%.
+  - trailer (MOBILE-HOME PARK) -> RESIDENTIAL: staggered rows of mobile homes on two internal streets,
+    each lot a carport (overhead) + shed + propane, ~16% burned-out shells, abandoned cars, a
+    guest-parking pod. Where the valley's poor washed up. content 71%. Bug caught: guest pod isolated
+    from the drive net -> added a connector rect.
+  THE VALLEY AERIAL (tools/bohemia_aerial.js -> records/BOHEMIA_VALLEY_AERIAL.svg): THE PAYOFF SHOT.
+  Composes a real 16x16 region of the CANON overmap (at 46,16), each DISTGEN cell built by its OWN
+  generator (street-aware, real grid + real palette), road/terrain cells filled from the overmap tone,
+  streets meshing between them, the I-15 spine running through. 111 districts rendered as one city.
+  Proof the factory ADDS UP TO A CITY — not a mockup, the actual world model composed cell-by-cell.
+  Re-run: node tools/bohemia_aerial.js [x0 y0 size cellpx]. (Zero purple — resort fill de-mauved.)
+  DISTRICT FACTORY IS ESSENTIALLY COMPLETE (27 auto-types). REMAINING non-casino candidates: waterpark,
+  speedway, mall, granary-variants. THE BIG PIVOT after the districts: make them WALKABLE/ENTERABLE
+  (the zoom) or drop LIFE agents into them (inhabit) — or build the aerial into a live CITY overview.
 FACTORY now spans 7 categories: residential, commercial, industrial, civic, infrastructure, leisure, terrain.
 GAMING & RESORT = BESPOKE (Paolo 7/18): casinos/resorts get hand-crafted individual love,
 NOT the auto-factory. A first casino generator was built then PULLED per that ruling (git
