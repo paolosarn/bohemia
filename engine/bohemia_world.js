@@ -44,6 +44,9 @@
   var CHP= HASREQ ? require('./bohemia_chapel.js')         : (typeof BohemiaChapel!=='undefined'?BohemiaChapel:root.BohemiaChapel);
   var CTH= HASREQ ? require('./bohemia_courthouse.js')     : (typeof BohemiaCourthouse!=='undefined'?BohemiaCourthouse:root.BohemiaCourthouse);
   var JAL= HASREQ ? require('./bohemia_jail.js')           : (typeof BohemiaJail!=='undefined'?BohemiaJail:root.BohemiaJail);
+  var FRM= HASREQ ? require('./bohemia_farm.js')           : (typeof BohemiaFarm!=='undefined'?BohemiaFarm:root.BohemiaFarm);
+  var DTN= HASREQ ? require('./bohemia_downtown.js')       : (typeof BohemiaDowntown!=='undefined'?BohemiaDowntown:root.BohemiaDowntown);
+  var TRL= HASREQ ? require('./bohemia_trailer.js')        : (typeof BohemiaTrailer!=='undefined'?BohemiaTrailer:root.BohemiaTrailer);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -80,7 +83,10 @@
     substation: { mod:SBS, foot:function(r){return r.footprints;},           zone:'warehouse' },
     chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
     courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
-    jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' }
+    jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' },
+    farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
+    downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
+    trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
