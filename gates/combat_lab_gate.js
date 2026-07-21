@@ -431,12 +431,14 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   // v36: follow-up on v35 (accuracy definition + killed the living-portrait effect)
   ok('V36 FIRE-BUTTON FACE KILLED: JUICE.AU (dying-face swap / red wash / red border on HP loss) is off',
     demo.includes('AS:true,AT:true,AU:false,AV:true'));
-  // v37: accuracy corrected again -- kill+vital both count, not killshots-only
-  ok('V37 PRECISION ACCURACY: the ledger reports (kills+vitals)/shots -- both dial-center zones count, the outer hit ring and misses do not',
-    demo.includes('V37 PRECISION ACCURACY') &&
-    demo.includes("rate3=L.shots?Math.round((L.precise||0)/L.shots*100):0") &&
-    demo.includes("if(kind==='kill'||kind==='vital')G.rc.precise=") &&
-    demo.includes("if(kind==='kill'||kind==='vital')G.ledger.precise="));
+  // v38: accuracy corrected a third time -- a continuous per-shot proximity score,
+  // not a binary zone bucket (v37's kill+vital=100/hit+miss=0 wasn't it either)
+  ok('V38 CONTINUOUS PRECISION: accuracy is a continuous per-shot proximity-to-center score, not a binary zone bucket',
+    demo.includes('V38 CONTINUOUS PRECISION') &&
+    demo.includes('_precisionPct=Math.max(0,1-d/hitz)*100') &&
+    demo.includes('G.rc.precisionSum=(G.rc.precisionSum||0)+_precisionPct') &&
+    demo.includes('G.ledger.precisionSum=(G.ledger.precisionSum||0)+_precisionPct') &&
+    demo.includes("rate3=L.shots?Math.round((L.precisionSum||0)/L.shots):0"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

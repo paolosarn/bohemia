@@ -2866,7 +2866,7 @@ def patch37(demo):
     judge based on how close they were to the middle of the dial." Kill
     and vital are both the two zones close to dial-center; the outer 'hit'
     ring and misses are the imprecise ones. Accuracy = (kills+vitals)/shots."""
-    if 'V37 PRECISION ACCURACY' in demo:
+    if 'V37 PRECISION ACCURACY' in demo or 'V38 CONTINUOUS PRECISION' in demo:
         print('v37 already applied, skipping')
         return demo
 
@@ -2888,13 +2888,51 @@ def patch37(demo):
     return demo
 
 
+def patch38(demo):
+    """v38 (Paolo 7/21, correcting v37): a binary zone bucket is still not
+    it -- "compared to the deadshot dial, how close was that hit to the
+    middle" means a CONTINUOUS score per shot, not kill/vital=100,
+    hit/miss=0. fire() already computes d (the release's actual angular
+    deviation) and hitz (the outer edge of the hit ring, beyond which is a
+    clean miss) to decide the zone -- reuse those same numbers as a real
+    distance-to-center percentage instead of re-bucketing them. A dead-
+    center kill scores ~100%, a shot right on the miss line scores ~0%,
+    and everything between reads smoothly, so landing several outer-ring
+    hits (no misses at all) now correctly averages above 50%."""
+    if 'V38 CONTINUOUS PRECISION' in demo:
+        print('v38 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "  let kind; if(d<=hz)kind='kill'; else if(d<=vz)kind='vital'; else if(d<=hitz)kind='hit'; else kind='miss';",
+        "  let kind; if(d<=hz)kind='kill'; else if(d<=vz)kind='vital'; else if(d<=hitz)kind='hit'; else kind='miss';\n  const _precisionPct=Math.max(0,1-d/hitz)*100;   /* V38 CONTINUOUS PRECISION: dead-center release=100%, right on the miss line=0%, every shot in between reads true to how close it actually was */",
+        'compute-continuous-precision')
+
+    demo = sub1(demo,
+        "  G.rc=G.rc||{shots:0,hits:0,kills:0,precise:0,greedCashed:0,greedWasted:0,best:999,peak:0};\n  G.rc.shots++; if(kind!=='miss')G.rc.hits++;\n  if(kind==='kill'||kind==='vital')G.rc.precise=(G.rc.precise||0)+1;   /* V37 PRECISION ACCURACY: kill+vital are both 'close enough to center', the outer hit ring and misses are not */\n  if(kind==='kill'){G.rc.kills++;if(G._relGreed)G.rc.greedCashed++;}\n  if(G.ledger){ G.ledger.shots++; if(kind!=='miss')G.ledger.hits++; if(kind==='kill')G.ledger.kills++; if(kind==='kill'||kind==='vital')G.ledger.precise=(G.ledger.precise||0)+1;",
+        "  G.rc=G.rc||{shots:0,hits:0,kills:0,precise:0,precisionSum:0,greedCashed:0,greedWasted:0,best:999,peak:0};\n  G.rc.shots++; if(kind!=='miss')G.rc.hits++;\n  G.rc.precisionSum=(G.rc.precisionSum||0)+_precisionPct;   /* V38: sum of per-shot proximity-to-center, averaged for display */\n  if(kind==='kill'||kind==='vital')G.rc.precise=(G.rc.precise||0)+1;\n  if(kind==='kill'){G.rc.kills++;if(G._relGreed)G.rc.greedCashed++;}\n  if(G.ledger){ G.ledger.shots++; if(kind!=='miss')G.ledger.hits++; if(kind==='kill')G.ledger.kills++; if(kind==='kill'||kind==='vital')G.ledger.precise=(G.ledger.precise||0)+1; G.ledger.precisionSum=(G.ledger.precisionSum||0)+_precisionPct;",
+        'sum-continuous-precision')
+
+    demo = sub1(demo,
+        "  G.ledger=G.ledger||{kills:0,shots:0,hits:0,precise:0,wagersPaid:0,wagersBust:0,best:999,peak:0,fights:0,deaths:0};   /* AT: the night's book, survives encounters */",
+        "  G.ledger=G.ledger||{kills:0,shots:0,hits:0,precise:0,precisionSum:0,wagersPaid:0,wagersBust:0,best:999,peak:0,fights:0,deaths:0};   /* AT: the night's book, survives encounters */",
+        'ledger-default-precisionsum')
+
+    demo = sub1(demo,
+        "  const rate3=L.shots?Math.round((L.precise||0)/L.shots*100):0;   /* V37 PRECISION ACCURACY: kill+vital zones both count as accurate, not killshots-only (Paolo, corrected v36) */",
+        "  const rate3=L.shots?Math.round((L.precisionSum||0)/L.shots):0;   /* V38 CONTINUOUS PRECISION: average per-shot proximity to dial-center, not a binary zone bucket (Paolo, corrected v37) */",
+        'ledger-accuracy-continuous')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))
+    patched = patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
