@@ -108,14 +108,23 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   follower SCORING ("what counts as cool shit," how many followers a deed is worth)
   is an EMPTY hook — no scoreFn => reach 0. Whether followers/clout are one number or
   two is NOT decided (call once per metric). [PENDING Paolo: the scoring + one-vs-two.]
-  THE PHONE DEMO (7/20, slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html): a tappable
-  iPhone-portrait SYSTEMS PREVIEW driving the REAL modules (no copies, ENGINE SYNC
-  safe) — feed / offers (over-the-phone vs pull-up-in-person) / quest log / profile
-  with followers + a multi-screen dialogue overlay. Browser-verified (quest completes,
-  posts to feed, followers 0->60, in-person gates, zero console errors). Sent to Paolo
-  as a self-contained portable copy (engine inlined). Demo quests are throwaway, NOT
-  canon; UI is placeholder, the DATA is live. This is the judge-able artifact for the
-  phone data layer.
+  THE PHONE IS IN THE ALPHA (7/20): Paolo's rule — NO standalone HTMLs, he won't open
+  them; judge-able things go IN THE ALPHA SLICE. slices/BOHEMIA_ALPHA_0_9.html now has
+  a PHONE tab (alongside CHARACTER/ANIM/RIG/COMBAT/MUSIC/CITY) running the real
+  feed/quests/profile: feed (one post per completed quest, photo + follower-scaled
+  comments), offers (over-the-phone vs pull-up-in-person), quest log, profile with
+  followers, dialogue overlay, and a signal toggle (valley/live vs tunnels/NO SIGNAL).
+  REPRODUCIBLE: canonical phone body is slices/phone/{phone_app.js,phone.css}; run
+  `node tools/bohemia_inject_phone.js` to (re)generate the PHONE tab in the alpha from
+  the engine modules + that source (idempotent, additive, collision-safe — new globals
+  only, never touches the alpha's own engine/tabs). The phone runs on a MINIMAL
+  self-contained ctx (choices + quest manager), so it does NOT depend on the alpha's
+  older engine (which lacks Save.recordChoice/newSave). Re-run the injector after any
+  loop.js/bq/runtime/phone-source change. Browser-verified (alpha boots, CHAR tab
+  works, PHONE plays a quest to a feed post, zero console errors). Demo quests are
+  throwaway; follower score is a placeholder. The old standalone
+  slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html remains only as a fast dev harness
+  (easier to iterate than the 31MB alpha); it is NOT for Paolo.
   STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
   (faction placement/standings into worldgen slots) and bootEconomy (what the three
   currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
@@ -341,6 +350,12 @@ as Paolo's canon.
 - Branch this session works on: claude/quest-log-access-ufcu1u (everything pushed).
 
 ## DO NOT LOSE (carries)
+- NEVER send Paolo standalone HTML files to open (7/20 rule) — "I need you to never
+  give me HTMLs ever again, I'm not opening them." Anything he should SEE/JUDGE goes
+  IN THE ALPHA SLICE (slices/BOHEMIA_ALPHA_0_9.html) as a tab/screen. The PHONE tab is
+  the pattern: build the system, inject it into the alpha additively, verify it in a
+  browser, tell him which tab to open. The slice menu / the alpha IS the delivery
+  surface, not a file transfer.
 - Paolo works from iPhone + two laptops; decides, Claude produces. He hates being
   bogged down, hates Claude presenting Claude's own scaffolding back as his canon
   (e.g. "Megaton law"/"conscience system" were Claude coinages, NOT his), and wants
