@@ -62,6 +62,58 @@ and re-run ONLY the resync tool on top for your own overmap changes — never ke
 own stale copy just because it's the side you're already holding.
 DISTRICT FACTORY NOW 32 auto-types (residential now: suburb/gated/estate/trailer/
 apartment). REMAINING non-casino candidates: waterpark, speedway, mall.
+## REAL DOORS + THE "DO YOU CHECK APPROVED ASSETS" ANSWER (7/22, same session)
+Paolo asked point-blank: "anytime u do any graphics assets are u referring
+to the approved set?" HONEST answer, given same turn: NOT ALWAYS. Audited
+tools/*factory*.py - bohemia_bake_factory.py (the assembly tool) DOES read
+from approved banks (STREET_POOLS_HARMONIZED, MARKING_BANK, etc.) as
+sources; bohemia_house_art_factory.py (built overnight 7/21, before the
+reuse-first law existed) does NOT - it's pure procedural generation from
+tone ramps, never checked the corpus first. The reuse-first law (laws/
+BOHEMIA_ADDENDUM_ACT_ASSET_TIERS_7_21_26) is real and now standing practice
+but is NOT YET a machine gate across every art tool - "a law without a
+machine gate is not enforced" applies to itself here. [NEXT: a gate that
+sweeps tools/*factory*.py / *cook*.py for at least one banks/ read before
+their FIRST procedural pixel, or an explicit exemption note, would close
+this for good - not built this turn, flagged honestly instead of claimed.]
+ACTED ON IT SAME TURN (reuse-first in practice, not just words): built REAL
+DOORS from the two already-approved sources instead of cooking new pixels.
+Found the target by tracing Paolo's roundup comment ("looking mostly good
+when they are part of a door I approve") to where DOOR_EW_BANK actually
+plugs in - not the suburb exterior doors (already canon, wall_door_18/19/
+20), but the LIVE SLICE TAB surface (slices/BOHEMIA_SUBURB_WALK_7_18_26,
+manifest current="subwalk" - what Paolo actually taps): every street-level
+front door AND every interior room-to-room door rendered as a flat yellow
+fill, the exact gap bohemia_floorplan.js's own docstring flags ("art
+resolves at bake"). tools/bohemia_suburb_walk.py now composites the CANON
+door base (wall_door_18/19/20) with a warm-tone-filtered DOOR_EW_BANK west-
+edge trim strip (real RGBA alpha-composite) per door, picked deterministically
+per cell for variety. TAN 85/15 extended to trim: 3 of 12 candidate strips
+got cut for leaning cool (green/teal/blue).
+REAL BUG CAUGHT MID-BUILD (verify-on-the-real-surface earning its keep
+again): first pass looked identical to the old flat fill - canvas
+imageSmoothingEnabled defaults TRUE and blurred the 44px door art to near-
+uniform mush at the walk's ~12px cells; worse, the fit() resize handler
+silently RESETS smoothing back to true on every window resize, so it has
+to be set inside draw() every frame, not once at init. Direct pixel
+sampling (not just eyeballing) caught it, confirmed the fix with real color
+variation inside a door cell plus visual crops (door leaf + frame + trim,
+both street and interior). gates/doorart_gate.py (11 checks) registered.
+GIT STATE LESSON (mid-session, cost real time): this session's LOCAL branch
+pointer went stale relative to origin partway through - a full body of
+work (house-skin-CANON, 3 commits) that had genuinely pushed and merged
+successfully was invisible to `git log` locally afterward. Root cause not
+fully pinned (possibly a stray `git reset --hard origin/main` while
+on the wrong branch, or a container-level state hiccup - the remote was
+never at risk, only the local checkout). CAUGHT by noticing a gate's
+description string had reverted to stale text mid-run - a green gate suite
+is not proof the CODE is current, only that whatever's on disk passes.
+FIX PATTERN if it recurs: `git stash -u` the in-flight work, `git reset
+--hard origin/<branch>` to the KNOWN-GOOD remote tip, `git stash pop` to
+replay the in-flight work on the correct base. Never trust local branch
+state without a fresh `git fetch` + comparing to origin when something
+that should exist doesn't.
+
 ## THE HOUSES ARE REAL: PAOLO'S VERDICT ALL 30 UP, MARRIED INTO THE CITY (7/21,
 ## same session)
 Paolo's exports landed: records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt (all
