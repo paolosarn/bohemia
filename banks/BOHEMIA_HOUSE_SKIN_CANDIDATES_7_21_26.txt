@@ -1,7 +1,8 @@
 {
 "version": "BOHEMIA_HOUSE_SKIN_CANDIDATES_v1",
 "built": "7/21/26",
-"law": "candidates for Paolo thumbs - NOT canon until judged; painted ramps, sky-lit tops, tan 85/15, dead-world windows, zero purple, deterministic",
+"status": "CANON (Paolo verdict 7/21/26, all 30 UP - records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt)",
+"law": "CANON house skins - painted ramps, sky-lit tops, tan 85/15, dead-world windows, zero purple, deterministic",
 "tiles": [
 {
 "id": "roof_shingle_0",

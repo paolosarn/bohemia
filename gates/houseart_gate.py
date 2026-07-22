@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 """
-BOHEMIA HOUSE ART GATE (7/21/26) - the overnight house-skin cook stays lawful.
+BOHEMIA HOUSE ART GATE (7/21/26, flipped 7/21 on Paolo's verdict) - the
+house-skin cook stays lawful, now as CANON.
+
+Paolo's verdict: all 30 UP (records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt).
+tools/bohemia_city_houseart_patch.py married them into the canon suburb.
+This gate flipped with the verdict: it used to require nothing shipped
+before a verdict existed; now it requires the CANON status line and the
+real art actually wired into the city.
 
 What it locks:
-  - the candidate bank exists, is versioned, and carries the NOT-canon law line
-  - class coverage: roofs, walls, windows (with BOARDED present), doors
+  - the bank exists, is versioned, carries the CANON status line
+  - class coverage: roofs (incl S-tile), walls, windows (with BOARDED),
+    doors, yards
   - ZERO purple in any tile (the Amalgamation's color, purity law)
   - TAN WALL 85/15: every wall-class body lives in the warm tan family
   - DEAD WORLD: window glass is dark (no lit rooms in act 1)
@@ -12,8 +20,9 @@ What it locks:
     (seed-regen law; the gate cooks to scratch, never touches the real bank)
   - the judge page exists, shows this bank version, exports .txt (never .json)
   - the LIFE hub (the tab the alpha iframes) routes to the judge
-  - CANDIDATES ARE NOT CANON: no skin id is wired into the CITY build
-    before a Paolo verdict
+  - MARRIED IN: the city embeds the approved tiles (byte-locked pools),
+    routes roof/facade/yard cells through them, and every skin id from the
+    bank resolves into one of the six embedded art pools
 
   python3 gates/houseart_gate.py
 """
@@ -53,7 +62,7 @@ print('=== HOUSE ART GATE ===')
 check('bank exists', os.path.exists(BANK))
 bank = json.load(open(BANK))
 check('bank versioned', bank.get('version', '').startswith('BOHEMIA_HOUSE_SKIN_CANDIDATES'))
-check('not-canon law line', 'NOT canon' in bank.get('law', ''))
+check('CANON status line', 'CANON' in bank.get('status', ''))
 tiles = bank.get('tiles', [])
 check('enough candidates', len(tiles) >= 20, '%d' % len(tiles))
 cls = {}
@@ -116,13 +125,20 @@ hub = open(HUB, encoding='utf8').read()
 check('LIFE hub links judge', os.path.basename(JUDGE) in hub)
 check('LIFE hub keeps living block', 'BOHEMIA_LIFE_SLICE_7_19_26.html' in hub)
 
-# 6) candidates are NOT canon: nothing wired into the CITY before the verdict
+# 6) MARRIED IN: the verdict is in, the real art must actually be in the city
 alpha = open(ALPHA, encoding='utf8').read()
 key = "const CITY_B64='"
 a0 = alpha.index(key) + len(key)
 decoded = base64.b64decode(alpha[a0:alpha.index("'", a0)]).decode('utf8')
-check('skins not in city (await verdict)',
-      'roof_shingle_' not in decoded and 'HOUSE_SKIN_CANDIDATES' not in decoded)
+check('the bank rides the city (byte-locked source reference)', 'HOUSE_SKIN_CANDIDATES' in decoded)
+check('all six art pools embedded', all(
+    ("SA_TILES.%s=" % p) in decoded for p in
+    ('hroof', 'hwall', 'hwindow', 'hboarded', 'hdoor', 'hyard')))
+check('roof cells route through the real art (c.artPool)', 'c.artPool=' in decoded)
+check('face cells pick plain/window/boarded/door (c.artPool_face)', 'c.artPool_face=' in decoded)
+check('dead dirt routes through a per-block yard blend (c.gArtPool)', 'c.gArtPool=' in decoded)
+check('draw calls check the art pools before the judge-palette fallback',
+      "if(c.face&&c.artPool_face)" in decoded and "if(!_gt&&c.gArtPool)" in decoded)
 
 print('=== %d passed / %d failed ===' % (passed, len(failed)))
 if failed:

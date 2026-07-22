@@ -4,10 +4,13 @@ BOHEMIA LIFE HUB (7/21/26) - slices/BOHEMIA_LIFE_CURRENT.html is the page the
 alpha's LIFE tab iframes. It is now a HUB, not a single demo: LIFE the
 simulation is PARKED DORMANT by Paolo's 7/19 ruling (world first, numbers
 never surfaced at him), so the tab's job is to route to whatever LIFE-lane
-surface is actually live for judgment. Today that is:
+surface is actually live. Today that is:
 
-  1. HOUSE SKIN JUDGE (7/21 overnight cook) - the morning verdict
-  2. THE LIVING BLOCK (7/19 demo) - dormant, kept reachable for reference
+  1. HOUSE SKIN JUDGE - the cook Paolo verdicted all-30-UP 7/21; kept
+     reachable as the record (the real art already ships in the city)
+  2. UNJUDGED ASSET ROUNDUP - dispositioned 7/21 (wall reserved for Act 3,
+     roof-kit style to emulate, doors greenlit); kept as the record
+  3. THE LIVING BLOCK (7/19 demo) - dormant, kept reachable for reference
 
 This tool OWNS the CUR file. bohemia_life_slice.py writes only its dated
 build. One-alpha law: everything stays reached from inside the alpha.
@@ -37,23 +40,21 @@ html = r"""<meta charset="utf-8">
     The people-and-economy engine is built and parked (your 7/19 ruling: world first).
     This tab routes to what needs your eyes.
   </div>
-  <a href="BOHEMIA_HOUSE_SKIN_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #3f8c3f;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:700 15px -apple-system,sans-serif;color:#8fd08f">HOUSE SKIN JUDGE <span style="font:600 10px sans-serif;background:#3f8c3f;color:#fff;border-radius:4px;padding:2px 6px;vertical-align:2px">NEW 7/21</span></div>
+  <a href="BOHEMIA_HOUSE_SKIN_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">HOUSE SKIN JUDGE <span style="font:600 10px sans-serif;background:#3f8c3f;color:#fff;border-radius:4px;padding:2px 6px;vertical-align:2px">ALL 30 CANON</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
-      __COUNT__ painted house skins: SHINGLE roofs (Paolo's ruling - "idgaf about the
-      material, they look like shingles") plus the researched S-tile batch for the record,
-      tan stucco walls, dead dark windows, BOARDED windows, weathered doors, DG gravel
-      yards. Each shown on a composed house. Thumb them and export - the canon suburbs
-      get real art the moment you rule.
+      __COUNT__ painted house skins, your verdict all UP: shingle + S-tile roofs, tan
+      stucco walls, dead dark and BOARDED windows, weathered doors, DG gravel yards.
+      LIVE in the city now - every suburb house wears this. This page is the record.
     </div>
     <div style="display:flex;gap:6px">__TEASERS__</div>
   </a>
-  <a href="BOHEMIA_ASSET_ROUNDUP_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #3f8c3f;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:700 15px -apple-system,sans-serif;color:#8fd08f">UNJUDGED ASSET ROUNDUP <span style="font:600 10px sans-serif;background:#3f8c3f;color:#fff;border-radius:4px;padding:2px 6px;vertical-align:2px">NEW 7/21</span></div>
+  <a href="BOHEMIA_ASSET_ROUNDUP_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">UNJUDGED ASSET ROUNDUP <span style="font:600 10px sans-serif;background:#444;color:#ccc;border-radius:4px;padding:2px 6px;vertical-align:2px">DISPOSITIONED</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin-top:4px">
-      Reuse-first: 258 wall/roof/door candidates already sitting in the corpus, never
-      thumbed. Purple pre-filtered. Anything you tag UP here becomes real material
-      before anything gets freshly cooked.
+      Your call: wall candidates reserved for Act 3, roof-kit is the technique to
+      emulate going forward, doors approved once composed into real doors. This page
+      is the record.
     </div>
   </a>
   <a href="BOHEMIA_LIFE_SLICE_7_19_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px">
