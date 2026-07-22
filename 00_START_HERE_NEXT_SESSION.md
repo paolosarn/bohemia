@@ -62,6 +62,62 @@ and re-run ONLY the resync tool on top for your own overmap changes — never ke
 own stale copy just because it's the side you're already holding.
 DISTRICT FACTORY NOW 32 auto-types (residential now: suburb/gated/estate/trailer/
 apartment). REMAINING non-casino candidates: waterpark, speedway, mall.
+## THE HOUSES ARE REAL: PAOLO'S VERDICT ALL 30 UP, MARRIED INTO THE CITY (7/21,
+## same session)
+Paolo's exports landed: records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt (all
+30 UP, GLOBAL none) and records/BOHEMIA_ASSET_ROUNDUP_VERDICT_7_21_26.txt
+(directional, section comments not per-tile - see below). Acted same turn:
+HOUSE SKINS PROMOTED TO CANON: bohemia_house_art_factory.py's bank now
+carries a 'status':'CANON' field (records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26
+cited); houseart_gate.py FLIPPED with the verdict - it used to require
+nothing shipped before a verdict, now requires the real art actually married
+into the city (24 checks).
+MARRIED IN: tools/bohemia_city_houseart_patch.py (new marriage pattern, one
+step past the perimeter wall patch) - instead of color-keyed lookups, cells
+get their OWN art-pool fields (c.artPool for the roof top, c.artPool_face
+for the composed facade, c.gArtPool/c.gArtVariant for yard ground) and the
+two structure/ground draw call sites check them first, falling back to the
+existing procedural/judge-palette path if unset (nothing else regresses).
+  - ROOF: every house/garage/upper top-render draws from the 14-tile hroof
+    pool (6 shingle + 2 gravel + 6 S-tile - Paolo approved ALL of them, so
+    all ship for variety, not just the shingle-only ruling from earlier in
+    the day), picked by the cell's existing per-cell variant (no new
+    randomness, regen-safe).
+  - FACE: the front row of every house buckets off a PURE f(global fine
+    coords) hash (the STAGGERED LAW pattern): 60% plain wall, 20% window,
+    10% boarded, 10% door. KNOWN SIMPLIFICATION, flagged: this is a
+    composition RULE, not architecturally-precise door placement (needs
+    house-footprint segmentation this render layer doesn't have) - a
+    future pass could align doors with driveways exactly.
+  - YARD: dead-dirt ground picks ONE of 3 DG blends per SUBURB BLOCK
+    (hashed from the 4x4 tile-group coords, same group bohemia_suburb.js
+    keys off) - one blend per neighborhood, never checkerboarded.
+VERIFIED ON THE REAL SURFACE: window.__CITY.district(x,y) found a live
+suburb tile, teleported in via DROP IN + human(x,y), screenshotted -
+real mottled S-tile roof, real brick perimeter wall, real DG yard blend
+all confirmed rendering (not the old flat judge-palette colors), 0 console
+errors. city_tab_gate grew to 54 checks (+4: all six pools embedded, roof/
+face/yard routing present).
+THE ROUNDUP VERDICT WAS DIRECTIONAL, NOT PER-TILE - acted on all three:
+  - WALL CANDIDATES ("its giving act 3, save these for when we judge act
+    3"): banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26 status field updated to
+    ACT 3 RESERVED - not dead (graveyard is for killed content), not Act 1
+    canon either. Check this pool FIRST when Act 3 wall art gets judged.
+  - ROOF KIT ("i want you to emulate these for the other tiles"): STANDING
+    CRAFT GUIDANCE for future cooks - study banks/BOHEMIA_ROOF_KIT_
+    EXPANSION_7_14_26's technique and apply that quality/approach when
+    generating new tiles. [NEXT: no cook has explicitly applied this yet -
+    the next art factory session should look at what makes these read
+    well and fold the lesson into its own craft, the way LEAF-PIXEL and
+    TAN-WALL became standing technique.]
+  - DOOR EDGES ("looking mostly good when they are part of a door i
+    approve we can go from there"): GREENLIT to build real composed doors
+    from banks/BOHEMIA_DOOR_EW_BANK_7_10_26's west/east edge crops.
+    [NEXT, queued, not yet built this turn: compose W+E edges into actual
+    door structures - a real next cook.]
+LIFE hub + judge pages updated to reflect shipped status (badges ALL 30
+CANON / DISPOSITIONED instead of NEW, copy states what's live vs record-
+only) - the mojibake-fix charset rule carried through unchanged.
 
 ## LANDLOCKED DISTRICT LAW: SEED GENERATION NOW ENFORCES IT (7/21, district-factory
 ## session, Paolo reviewing the valley aerial: "new rule, if there is an interior

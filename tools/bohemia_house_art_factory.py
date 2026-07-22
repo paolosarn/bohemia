@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-BOHEMIA HOUSE SKIN FACTORY (7/21/26, overnight cook) - suburban house skins
-as CANDIDATES for Paolo's thumbs.
+BOHEMIA HOUSE SKIN FACTORY (7/21/26, overnight cook) - suburban house skins.
 
-The city's canon suburbs stand in judge-palette placeholder because no
-judged house art exists (the house-factory stamps proved dungeon-styled).
-This factory cooks the missing skins, per the craft laws learned the hard
+CANON as of 7/21/26: Paolo verdict all 30 UP (records/BOHEMIA_HOUSE_SKIN_
+VERDICT_7_21_26.txt). Married into the canon suburb by tools/bohemia_city_
+houseart_patch.py. Kept here for the record and re-run reproducibility
+(seed-regen law): the original cook, per the craft laws learned the hard
 way on the traffic signals:
   - PAINTED, NOT FILLED: every tile is built from a tone RAMP (5 steps) with
     a dithered highlight band, never flat fills with noise
@@ -18,7 +18,6 @@ way on the traffic signals:
   - ZERO PURPLE (the Amalgamation's alone), deterministic seeds throughout
 
 Output: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (b64 tiles + meta).
-NOTHING wires into the city until Paolo thumbs: candidates are not canon.
 
   python3 tools/bohemia_house_art_factory.py
 """
@@ -257,8 +256,9 @@ WALL_BASES = [(196, 172, 132), (182, 160, 126), (172, 148, 112),
               (160, 140, 110)]                                  # the tan family (85/15)
 
 bank = {'version': 'BOHEMIA_HOUSE_SKIN_CANDIDATES_v1', 'built': '7/21/26',
-        'law': 'candidates for Paolo thumbs - NOT canon until judged; painted ramps, '
-               'sky-lit tops, tan 85/15, dead-world windows, zero purple, deterministic',
+        'status': 'CANON (Paolo verdict 7/21/26, all 30 UP - records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt)',
+        'law': 'CANON house skins - painted ramps, sky-lit tops, tan 85/15, '
+               'dead-world windows, zero purple, deterministic',
         'tiles': []}
 i = 0
 for b in ROOF_BASES:
