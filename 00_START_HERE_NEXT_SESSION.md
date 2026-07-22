@@ -375,11 +375,12 @@ as Paolo's canon.
   derived Network signal coverage & dead-zones + quest pins gold=over-phone /
   orange-triangle=in-person + player dot + radar sweep; MAP LAW respected — renders
   generated data, designs no layout). TOAST notifications on quest-complete / DM-quest.
-  CAMERA is built too now (7/21) — EVERY home tile does something real, nothing
-  left dimmed: shutter -> develop -> a TEXT-CAM shot from the shared ART_BANK,
-  collects into a small gallery. Every app runs on the same real engine; visual
-  language = salvaged-smartphone apocalyptic (PHONE VISUAL DIRECTION in the
-  SOCIAL_FEED addendum). Reproducible: edit
+  CAMERA was built (7/21), then KILLED same session — Paolo: "too much shit
+  going on, i dont want the camera." Fully removed (tile/view/CSS/JS); GRAVEYARD
+  entry added (`renderCamera`, gates/bohemia_graveyard.txt) — do NOT re-add a
+  Camera app. Home screen is 4 tiles: Network, Map, Wallet, Profile. Every app
+  runs on the same real engine; visual language = salvaged-smartphone apocalyptic
+  (PHONE VISUAL DIRECTION in the SOCIAL_FEED addendum). Reproducible: edit
   slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html (dev source) ->
   node tools/build_current_slice.js -> deploy slices/BOHEMIA_CURRENT_SLICE.html to main.
 - THE PHOTO SYSTEM IS NOW GENERATIVE, NOT JUST 4 HARDCODED STRINGS (7/21): the 4
