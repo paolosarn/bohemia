@@ -178,6 +178,8 @@ GATES = [
      'house skins CANON (Paolo verdict 7/21): purity, tan 85/15, dead glass, married into the city', False),
     ('ASSET ROUNDUP',  ['python3', 'gates/assetroundup_gate.py'],
      'unjudged corpus surfaced for Paolo: purity pre-filter held, reproducible, hub-linked', False),
+    ('DOOR ART',       ['python3', 'gates/doorart_gate.py'],
+     'real doors in the live SLICE tab: canon door + warm-filtered trim, crisp scaling, purity', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
