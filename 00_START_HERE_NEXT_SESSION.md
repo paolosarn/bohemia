@@ -115,11 +115,42 @@ CODE-VERIFIED MAP (agent gap analysis 7/19). WE ARE ~HALF-WAY:
   reads it (CLOUT_WEIGHTS: quiet 8, notable 25, risky 55, reckless 110; untagged =
   neutral 15). FAILed quests still post (total recall) and still score by their tag.
   The follower-scoring PENDING item from 7/20 is CLOSED.
-  STILL EMPTY (design-sensitive, need Paolo's rulings, NOT pure plumbing): bootFactions
-  (faction placement/standings into worldgen slots) and bootEconomy (what the three
-  currencies key off of, sources from geography). The old gates/bohemia_loop_gate.js
-  is ORPHANED (crashes, not in the suite, expects factions/economy poured) — a real
-  future task, left untouched.
+  FACTIONS + ECONOMY NOW WIRED (7/22, LOOP FACTIONS+ECONOMY gate 31/31, registered in
+  the main suite — see BOHEMIA_ADDENDUM_FACTIONS_ECONOMY_WIRING_7_22_26.md). Neither
+  system was invented: BohemiaEngine.Factions/FactionCanon/Economy already existed
+  fully built in bohemia_engine.js, plus a real canon faction graph (engine/
+  BOHEMIA_faction_graph.json, "derived from GDD v2 §9, invents nothing," 14 map
+  factions + 4 social-force groups) — only the loop's bootFactions/bootEconomy sockets
+  were empty [SEAM]/[GAP] stubs. bootFactions now builds a real FactionWorld from that
+  graph, wraps shiftStanding so every standing change is canon-constrained
+  (enforceConstraints: war floors, protection floors, pair min/max), and seats every
+  faction on a REAL worldgen factionSlot (MAP LAW respected: Claude only decided WHICH
+  faction sits on WHICH already-placed slot, via a seeded shuffle — never invented a
+  position), then claims each faction's nearest unclaimed district as founding
+  territory. bootEconomy builds a real per-district Economy: every district gets a
+  small electricity sink; the dam and solar worldgen sites become electricity
+  faucets — modeled as TWO faucets each ('grid' shared + a smaller 'Network' skim),
+  echoing the already-locked house-of-cards canon (power has no single owner, but
+  "the Network skims covertly") and keeping any one producer safely under the
+  engine's own MAX_PRODUCER_SHARE=0.6 invariant by construction. ctx.factions,
+  ctx.factionConstraints, ctx.factionBases, ctx.economy are all live on the boot
+  context now. The old gates/bohemia_loop_gate.js (previously orphaned, crashing) is
+  FIXED and registered as gate LOOP FACTIONS+ECONOMY.
+  REAL BUG FOUND + FIXED IN bohemia_loop.js WHILE WIRING THIS (7/22): the UMD wrapper's
+  factory function is a SIBLING argument to the outer IIFE call, not lexically nested
+  inside it — it only ever sees req/E/Sched/BQ/BQRT because those are passed in as
+  real parameters, never via closure. DEFAULT_FACTION_GRAPH had been declared in the
+  outer scope but never threaded through, so any code path that didn't pass
+  opts.factionGraph explicitly hit a ReferenceError. Fixed by adding it as an explicit
+  parameter through factory(...). Worth remembering: this file's UMD shape does NOT
+  give the factory closure access to anything declared in the outer wrapper — new
+  outer-scope consts must always be added to the factory(...) call AND its parameter
+  list, never assumed reachable by closure.
+  STILL PENDING PAOLO (not decided, do not invent): tuning the actual electricity
+  sink/faucet rates and which non-dam/solar sites (if any) should also produce; medicine
+  faucet placement entirely (still zero medicine sources — a deliberate empty table,
+  not a bug); whether any starting territory/standing besides "founding claim on
+  nearest district" should be canon.
 - THE WHOLE GOAL-SLICE LOOP IS PROVEN HEADLESS (7/20, LOOP SLICE gate 20/20). One
   driver (engine/bohemia_loop_slice_tests.js) runs the ENTIRE loop with NO render:
   spawn the player as a real scheduler actor, WALK him across actual passable map

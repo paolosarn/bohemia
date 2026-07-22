@@ -32,10 +32,21 @@
   const Sched = req ? require('./bohemia_scheduler.js')     : root.BohemiaScheduler;
   const BQ    = req ? require('./bohemia_bq.js')            : root.BQ;
   const BQRT  = req ? require('./bohemia_quest_runtime.js') : root.BQRuntime;
-  const mod = factory(E, Sched, BQ, BQRT);
+  // the canon faction relationship graph (BOHEMIA_faction_graph.json, derived
+  // purely from GDD v2 §9 — invents nothing). Node-only by default; a browser
+  // caller can still pass boot({factionGraph}) explicitly if it loads the JSON
+  // itself some other way.
+  const DEFAULT_FACTION_GRAPH = req ? require('./BOHEMIA_faction_graph.json') : null;
+  // NOTE: this factory function literal is a sibling argument to the outer IIFE
+  // call, not lexically nested inside it — it only sees req/E/Sched/BQ/BQRT/
+  // DEFAULT_FACTION_GRAPH because they are passed in explicitly below, never via
+  // closure. Anything declared above but not threaded through here is invisible
+  // inside the factory body (this is exactly how DEFAULT_FACTION_GRAPH went
+  // "undefined" the first time — it was declared but never passed through).
+  const mod = factory(E, Sched, BQ, BQRT, DEFAULT_FACTION_GRAPH);
   if (typeof module !== 'undefined' && module.exports) module.exports = mod;
   if (typeof root !== 'undefined') root.BohemiaLoop = mod;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, BQ, BQRT) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, BQ, BQRT, DEFAULT_FACTION_GRAPH) {
   'use strict';
 
   const Core = E.Core;
@@ -170,17 +181,123 @@
     return ctx;
   }
 
-  // 5. Factions + canon. [SEAM] enforceConstraints-into-shiftStanding is a [STUB]
-  //    on the map; base placement into worldgen slots is a [GAP]. Socket ready.
-  function bootFactions(ctx) {
-    // [SEAM] ctx.factions = new E.Factions.FactionWorld(...);
-    // [SEAM] E.FactionCanon.loadFactionCanon(ctx.factions);
+  // 5. Factions + canon. Loads the REAL faction graph (BOHEMIA_faction_graph.json,
+  //    GDD v2 §9 — invents nothing), canon-wires shiftStanding so lore invariants
+  //    (permanent-war floors, protected-neutral floors) hold on EVERY future
+  //    write forever (not just at load time), and seats every selectable faction
+  //    on a real worldgen factionSlot. MAP LAW respected: the slot COORDINATES
+  //    are Paolo's placed canon (worldgen already generated exactly one slot per
+  //    selectable faction); WHICH faction sits on WHICH slot is a deterministic
+  //    seeded assignment, not an invented layout.
+  function bootFactions(ctx, opts) {
+    opts = opts || {};
+    const graph = opts.factionGraph || DEFAULT_FACTION_GRAPH;
+    if (!graph || !E.Factions || !E.FactionCanon) return ctx;   // headless-safe: no data, no wiring
+    const act = (ctx.save && typeof ctx.save.act === 'number') ? ctx.save.act : 1;
+    const world = new E.Factions.FactionWorld(ctx.rng.branch('factions'));
+    const constraints = E.FactionCanon.loadFactionCanon(world, graph, act);
+
+    // CANON-WIRE shiftStanding: wrap once so every future standing write (not
+    // just the initial seed) is clamped through the lore invariants. Marks
+    // _canonWired so callers/tests can prove the wrap actually happened.
+    const rawShift = world.shiftStanding.bind(world);
+    world.shiftStanding = function (aId, bId, delta, symmetric) {
+      const a = world.factions.get(aId);
+      if (!a) return;
+      const raw = a.standingWith(bId) + delta;
+      const clamped = E.FactionCanon.enforceConstraints(constraints, aId, bId, raw);
+      rawShift(aId, bId, clamped - a.standingWith(bId), symmetric);
+    };
+    world._canonWired = true;
+
+    // Seat every faction on a real factionSlot; claim its nearest UNCLAIMED
+    // district as a founding home. A seeded shuffle (not sorted-order seating)
+    // so different seeds give different layouts while staying exactly
+    // reproducible for a given seed (Law 3: deterministic, fixed only WITHIN
+    // one seed's compute, never a live/global stream).
+    const bases = {};
+    const districts = ctx.worldMap ? (ctx.worldMap.districts || []) : [];
+    const slots = ctx.worldMap && Array.isArray(ctx.worldMap.factionSlots) ? ctx.worldMap.factionSlots.slice() : [];
+    if (slots.length) {
+      const ids = [...world.factions.keys()].sort();   // fixed order (Law 3)
+      const seatRng = ctx.rng.branch('faction-seating');
+      for (let i = slots.length - 1; i > 0; i--) {       // seeded Fisher-Yates
+        const j = Math.floor(seatRng.next() * (i + 1));
+        const tmp = slots[i]; slots[i] = slots[j]; slots[j] = tmp;
+      }
+      ids.forEach(function (fid, i) {
+        const slot = slots[i % slots.length];
+        if (!slot) return;
+        bases[fid] = { x: slot[0], y: slot[1] };
+        // nearest UNCLAIMED district (not just nearest overall) so every
+        // faction gets a home as long as districts outnumber factions.
+        const byDist = districts.map(function (d) {
+          const dx = d.pos[0] - slot[0], dy = d.pos[1] - slot[1];
+          return { d: d, dist: dx * dx + dy * dy };
+        }).sort(function (a, b) { return a.dist - b.dist; });
+        for (let k = 0; k < byDist.length; k++) {
+          if (!world.owner.get(byDist[k].d.id)) {
+            const f = world.factions.get(fid);
+            f.territory.add(byDist[k].d.id);
+            world.owner.set(byDist[k].d.id, fid);
+            break;
+          }
+        }
+      });
+    }
+    ctx.factions = world;
+    ctx.factionConstraints = constraints;
+    ctx.factionBases = bases;
     return ctx;
   }
 
-  // 6. Economy. [GAP per map] currency sources come from worldMap geography.
+  // 6. Economy. One DistrictEconomy per real worldMap district (LOD-ready, same
+  //    per-district pattern as everything else). Electricity faucets are seeded
+  //    ONLY from real worldgen infrastructure (the dam + solar field) — never an
+  //    invented layout. Matches HOUSE_OF_CARDS_POWER_SHARE (locked 7/18): power
+  //    has NO single owner (a 'grid' faucet, shared) while the Network covertly
+  //    skims (a smaller 'Network' faucet on the SAME tank) — two producers by
+  //    construction, so MAX_PRODUCER_SHARE (0.6) can never be violated by this
+  //    seeding. MEDICINE/CLOUT faucet PLACEMENT is content (which faction runs a
+  //    clinic where) and is left EMPTY here — a future, Paolo-gated step.
   function bootEconomy(ctx) {
-    // [GAP] ctx.economy = new E.Economy.Economy(...); sources hooked to ctx.worldMap.
+    if (!E.Economy || !ctx.worldMap) return ctx;
+    const CUR = E.Economy.CURRENCY;
+    const economy = new E.Economy.Economy();
+    const districts = ctx.worldMap.districts || [];
+    districts.forEach(function (d) { economy.addDistrict(d.id); });
+
+    // baseline population upkeep so a district's tank doesn't just grow forever
+    districts.forEach(function (d) {
+      economy.get(d.id).addSink(new E.Economy.Sink(CUR.ELECTRICITY, 0.4));
+    });
+
+    function nearestDistrict(pt) {
+      let best = null, bestD = Infinity;
+      districts.forEach(function (d) {
+        const dx = d.pos[0] - pt[0], dy = d.pos[1] - pt[1];
+        const dist = dx * dx + dy * dy;
+        if (dist < bestD) { bestD = dist; best = d; }
+      });
+      return best;
+    }
+    if (ctx.worldMap.dam && ctx.worldMap.dam.at) {
+      const d = nearestDistrict(ctx.worldMap.dam.at);
+      if (d) {
+        const de = economy.get(d.id);
+        de.addFaucet(new E.Economy.Faucet('grid', CUR.ELECTRICITY, 6));      // shared, no single owner
+        de.addFaucet(new E.Economy.Faucet('Network', CUR.ELECTRICITY, 1));   // the covert skim
+      }
+    }
+    if (ctx.worldMap.solar && ctx.worldMap.solar.at) {
+      const d = nearestDistrict(ctx.worldMap.solar.at);
+      if (d) {
+        const de = economy.get(d.id);
+        de.addFaucet(new E.Economy.Faucet('grid', CUR.ELECTRICITY, 4));
+        de.addFaucet(new E.Economy.Faucet('Network', CUR.ELECTRICITY, 0.7));
+      }
+    }
+    ctx.economy = economy;
     return ctx;
   }
 
@@ -423,7 +540,7 @@
     bootHeartbeat(ctx);
     bootWorldGen(ctx);
     bootScheduler(ctx);
-    bootFactions(ctx);
+    bootFactions(ctx, opts);
     bootEconomy(ctx);
     bootEntities(ctx);
     bootDynasty(ctx);

@@ -74,6 +74,8 @@ GATES = [
      'reckless deeds earn dramatically more followers than quiet ones (Paolo lock)', False),
     ('LOOP PROFILE',   ['node', 'engine/bohemia_loop_profile_tests.js'],
      'the social profile: posts/quests/reach over the feed, CLOUT-weighted by default', False),
+    ('LOOP FACTIONS+ECONOMY', ['node', 'gates/bohemia_loop_gate.js'],
+     'factions/economy wired into the boot context from real worldgen slots + district geography', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
