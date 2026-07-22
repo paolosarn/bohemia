@@ -375,11 +375,22 @@ as Paolo's canon.
   derived Network signal coverage & dead-zones + quest pins gold=over-phone /
   orange-triangle=in-person + player dot + radar sweep; MAP LAW respected — renders
   generated data, designs no layout). TOAST notifications on quest-complete / DM-quest.
-  Still dimmed "soon": CAMERA (quest-thumbnail capture — art pipeline). Every app
-  runs on the same real engine; visual language = salvaged-smartphone apocalyptic
-  (PHONE VISUAL DIRECTION in the SOCIAL_FEED addendum). Reproducible: edit
+  CAMERA is built too now (7/21) — EVERY home tile does something real, nothing
+  left dimmed: shutter -> develop -> a TEXT-CAM shot from the shared ART_BANK,
+  collects into a small gallery. Every app runs on the same real engine; visual
+  language = salvaged-smartphone apocalyptic (PHONE VISUAL DIRECTION in the
+  SOCIAL_FEED addendum). Reproducible: edit
   slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html (dev source) ->
   node tools/build_current_slice.js -> deploy slices/BOHEMIA_CURRENT_SLICE.html to main.
+- THE PHOTO SYSTEM IS NOW GENERATIVE, NOT JUST 4 HARDCODED STRINGS (7/21): the 4
+  original TEXT-CAM pieces (water tower/antenna/tunnel/fence) are an explicit
+  override table (TEXT_ART_OVERRIDE) for this demo's specific quests; any OTHER
+  quest id falls back to a shared 8-piece ART_BANK, picked deterministically by a
+  hash of the id (same zero-authorship pattern as avatar colors/voice
+  archetypes — see textArtFor() in the phone demo). This means a real quest
+  written later automatically gets plausible text-art with no per-quest art work
+  required — directly answers the "we don't have quests yet" gap without
+  blocking on it.
 - WALLET IS NOW A BUILT EASTER EGG, NOT THE REAL ECONOMY (7/21): Paolo's idea — tap
   Wallet, it opens QuikPay by Meridian National, a dead pre-collapse fintech app
   frozen since collapse, every service SERVICE UNAVAILABLE, tapping anything toasts
