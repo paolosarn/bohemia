@@ -439,6 +439,16 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('G.rc.precisionSum=(G.rc.precisionSum||0)+_precisionPct') &&
     demo.includes('G.ledger.precisionSum=(G.ledger.precisionSum||0)+_precisionPct') &&
     demo.includes("rate3=L.shots?Math.round((L.precisionSum||0)/L.shots):0"));
+  // v39: "MAKE COMBAT FUNNER" -- streak momentum + a real ranged specialist
+  ok('V39 STREAK MOMENTUM: consecutive kills widen the dial window for real (capped +15%), the SAME slot the visible band formula reads so it never lies about the true window',
+    demo.includes('V39 STREAK MOMENTUM') &&
+    (demo.match(/\(1\+Math\.min\(0\.15,\(G\.killStreak\|\|0\)\*0\.03\)\)/g) || []).length === 2);
+  ok('V39 SNIPER ARCHETYPE: one real ranged specialist can spawn in bigger fights, always far, never the close guy, hits far harder than a GOON',
+    demo.includes("sniper:{n:'SNIPER',hp:45, acc:0.72, dmg:[32,48]") &&
+    demo.includes('let sniperIdx=-1; if(N>=4)') &&
+    demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
+    demo.includes("if(i===sniperIdx)arch='sniper';") &&
+    demo.includes('(i===sniperIdx) ? (PT_BLANK+9.5)+Math.random()*3'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

@@ -2926,13 +2926,91 @@ def patch38(demo):
     return demo
 
 
+def patch39(demo):
+    """v39 (Paolo 7/21, "WE NEED TO MAKE COMBAT FUNNER"): two additions,
+    not a tuning pass.
+    - STREAK MOMENTUM: G.killStreak existed but only drove cosmetics (floor
+      pulse, killcam escalation). It now actually widens the dial's
+      forgiveness window a little per consecutive kill (capped +15% at a
+      5-streak, same multiplicative slot every other forgiveness bonus
+      already stacks into), so a hot streak is mechanically hot, not just
+      loud. A miss still zeroes it -- same risk/reward shape as greed.
+    - SNIPER ARCHETYPE: every ranged enemy today is the same GOON stats.
+      One sniper can now spawn in bigger fights (N>=4), always placed at
+      the far edge of the supported board range (never the close guy),
+      hits far harder than a GOON. He uses the SAME exposure/cover math
+      every other enemy already respects (v35's dial-difficulty-by-cover,
+      the acq red line) -- no new AI, just numbers that make "get to
+      cover NOW" a real stake instead of a mild inconvenience."""
+    if 'V39 STREAK MOMENTUM' in demo:
+        print('v39 already applied, skipping')
+        return demo
+
+    # streak momentum: same fg slot both formulas already share (resolution + the band that SHOWS it)
+    _fg_old = "(1+((G._steadyAtPop||0)*0.05))"
+    _fg_new = "(1+((G._steadyAtPop||0)*0.05))*(1+Math.min(0.15,(G.killStreak||0)*0.03))"
+    _fg_count = demo.count(_fg_old)
+    if _fg_count != 2:
+        sys.exit('FAIL anchor [streak-fg]: found %d times (want 2)' % _fg_count)
+    demo = demo.replace(_fg_old, _fg_new)
+    demo = sub1(demo,
+        "  const fg=(G.pkgDiff>=1?1.10:1)*(G.pkgDiff===4?1.10:G.pkgDiff===3?1.05:1)*(1+((G._steadyAtPop||0)*0.05))*(1+Math.min(0.15,(G.killStreak||0)*0.03));   /* JUICE.L steadied aim */",
+        "  const fg=(G.pkgDiff>=1?1.10:1)*(G.pkgDiff===4?1.10:G.pkgDiff===3?1.05:1)*(1+((G._steadyAtPop||0)*0.05))*(1+Math.min(0.15,(G.killStreak||0)*0.03));   /* V39 STREAK MOMENTUM: a hot streak widens the window for real, capped +15% at 5, a miss zeroes it (killStreak resets on miss elsewhere) */",
+        'streak-momentum-tag')
+
+    # sniper archetype
+    demo = sub1(demo,
+        "  spear:{n:'SPEAR',hp:70, acc:0, dmg:[18,26], bot:false, melee:true, adv:2, reach:4.2, cad:2},\n};",
+        "  spear:{n:'SPEAR',hp:70, acc:0, dmg:[18,26], bot:false, melee:true, adv:2, reach:4.2, cad:2},\n  sniper:{n:'SNIPER',hp:45, acc:0.72, dmg:[32,48], bot:false, melee:false},   /* V39: every ranged enemy was reading identical -- one real specialist, punishes standing exposed HARD */\n};",
+        'sniper-archetype')
+
+    demo = sub1(demo,
+        "  const closeIdx = (N>=3) ? Math.floor(Math.random()*N) : (Math.random()<0.5?Math.floor(Math.random()*N):-1);\n  const eliteIdx=(N>=3)?Math.floor(Math.random()*N):-1;   /* one elite per 3+ fight [spawn odds PENDING Paolo] */",
+        """  const closeIdx = (N>=3) ? Math.floor(Math.random()*N) : (Math.random()<0.5?Math.floor(Math.random()*N):-1);
+  const eliteIdx=(N>=3)?Math.floor(Math.random()*N):-1;   /* one elite per 3+ fight [spawn odds PENDING Paolo] */
+  /* V39 SNIPER: one per fight, N>=4 only, never the close guy [spawn odds PENDING Paolo] */
+  let sniperIdx=-1; if(N>=4){ let sp=0; do{ sniperIdx=Math.floor(Math.random()*N); }while(sniperIdx===closeIdx&&sp++<20); }""",
+        'sniper-idx-roll')
+
+    demo = sub1(demo,
+        """  for(let i=0;i<N;i++){ let arch=(N>=5 && i%4===3)?'bot':'human';
+    /* MELEE MIX (Paolo 7/19): blades join the gunfight. SOME = every 3rd body,
+       PACK = every other. Settings toggle; default SOME. */
+    const MM=(G.meleeMix==null)?1:G.meleeMix;
+    if(MM===1&&N>=3&&i%3===2)arch=['shiv','bat','spear'][((i/3)|0)%3];
+    else if(MM===2&&i%2===1)arch=['shiv','bat','spear'][((i/2)|0)%3];
+    const e=makeEnemy(i,arch);
+    e.elite=(i===eliteIdx);
+    if(e.elite){e.hp=Math.round(e.hp*1.25);e.hpMax=Math.round((e.hpMax||e.hp)*1.25);}   /* Paolo: elites a bit tougher [tunable] */
+    e.ea=angs[i];                                    // bearing from the rolled demo layout
+    e.edist = (i===closeIdx) ? PT_BLANK+Math.random()*2.5                     // the one up close (point blank -> easy big-window dial)
+                             : (PT_BLANK+2.5)+Math.random()*8; // GRID TRUE V7: the fight lives on the visible board (~6.5-14.5 tiles); long-range returns with the world model""",
+        """  for(let i=0;i<N;i++){ let arch=(N>=5 && i%4===3)?'bot':'human';
+    /* MELEE MIX (Paolo 7/19): blades join the gunfight. SOME = every 3rd body,
+       PACK = every other. Settings toggle; default SOME. */
+    const MM=(G.meleeMix==null)?1:G.meleeMix;
+    if(MM===1&&N>=3&&i%3===2)arch=['shiv','bat','spear'][((i/3)|0)%3];
+    else if(MM===2&&i%2===1)arch=['shiv','bat','spear'][((i/2)|0)%3];
+    if(i===sniperIdx)arch='sniper';   /* V39: overrides the melee-mix roll on his slot */
+    const e=makeEnemy(i,arch);
+    e.elite=(i===eliteIdx);
+    if(e.elite){e.hp=Math.round(e.hp*1.25);e.hpMax=Math.round((e.hpMax||e.hp)*1.25);}   /* Paolo: elites a bit tougher [tunable] */
+    e.ea=angs[i];                                    // bearing from the rolled demo layout
+    e.edist = (i===sniperIdx) ? (PT_BLANK+9.5)+Math.random()*3         // V39: always the farthest gun on the board, still inside the supported range
+             : (i===closeIdx) ? PT_BLANK+Math.random()*2.5                     // the one up close (point blank -> easy big-window dial)
+                             : (PT_BLANK+2.5)+Math.random()*8; // GRID TRUE V7: the fight lives on the visible board (~6.5-14.5 tiles); long-range returns with the world model""",
+        'sniper-spawn-wire')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))
+    patched = patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
