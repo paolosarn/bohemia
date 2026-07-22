@@ -199,10 +199,11 @@
   /* ---- device shell: home screen, messages app, boot, nav ---- */
   #nav .homebtn{ background:none; color:var(--gold); font-family:var(--mono); font-size:11px;
     padding:0; letter-spacing:1px; box-shadow:none; text-transform:none; }
-  #home,#map,#wallet{ display:none; }
+  #home,#map,#wallet,#camera{ display:none; }
   #phone.view-home #home{ display:block; }
   #phone.view-map #map{ display:flex; flex-direction:column; flex:1; min-height:0; }
   #phone.view-wallet #wallet{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  #phone.view-camera #camera{ display:flex; flex-direction:column; flex:1; min-height:0; }
 
   /* WALLET easter egg: a dead pre-collapse bank/pay app frozen in amber, jammed
      inside the salvaged phone's shell. Deliberately a DIFFERENT visual register
@@ -227,6 +228,35 @@
   .wal-svc .tx{ flex:1; } .wal-svc .nm{ font-weight:700; font-size:13.5px; }
   .wal-svc .st{ font-family:var(--mono); font-size:10px; color:var(--danger); letter-spacing:.5px; margin-top:1px; }
   .wal-foot{ font-family:var(--mono); font-size:11px; color:var(--faint); text-align:center; padding:16px 10px 6px; line-height:1.6; }
+
+  /* CAMERA — completes the phone: the last dimmed home tile. Takes a "picture"
+     that develops into TEXT-CAM art (locked 7/21: the network can't carry real
+     images, so every photo is community text art). No real optics, just the
+     same textArtFor() bank the feed already uses, made explicit and playable. */
+  .cam-hd{ display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:1px solid var(--line); }
+  .cam-hd .t{ font-weight:800; font-size:15px; } .cam-hd .t small{ display:block; color:var(--faint); font-size:9.5px; font-family:var(--mono); letter-spacing:.5px; text-transform:uppercase; }
+  .cam-body{ flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; align-items:center; }
+  .viewfinder{ width:100%; max-width:340px; height:190px; border:1px solid var(--line); border-radius:6px;
+    position:relative; background:linear-gradient(160deg,#141008,#0c0a07); display:flex; align-items:center;
+    justify-content:center; overflow:hidden; margin-bottom:16px; }
+  .viewfinder .vf-brk{ position:absolute; width:16px; height:16px; border:2px solid var(--gold); opacity:.6; }
+  .viewfinder .vf-brk.tl{ top:8px; left:8px; border-right:0; border-bottom:0; }
+  .viewfinder .vf-brk.tr{ top:8px; right:8px; border-left:0; border-bottom:0; }
+  .viewfinder .vf-brk.bl{ bottom:8px; left:8px; border-right:0; border-top:0; }
+  .viewfinder .vf-brk.br{ bottom:8px; right:8px; border-left:0; border-top:0; }
+  .viewfinder .vf-hint{ font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:.5px; }
+  .viewfinder.developing .vf-hint{ color:var(--gold); animation:flick 1.2s infinite steps(1); }
+  .viewfinder .artpre{ font-family:var(--mono); font-size:10.5px; line-height:1.08; color:#9bc27a;
+    text-shadow:0 0 4px rgba(155,194,122,.35); white-space:pre; opacity:0; transition:opacity .5s ease; }
+  .viewfinder.shown .artpre{ opacity:1; }
+  .shutter{ width:64px; height:64px; border-radius:50%; background:var(--gold); border:4px solid #3a2d12;
+    box-shadow:0 0 0 3px var(--line); font-size:22px; }
+  .shutter:disabled{ opacity:.5; }
+  .cam-cap{ font-family:var(--mono); font-size:11px; color:var(--faint); text-align:center; margin-top:12px; line-height:1.6; }
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; width:100%; margin-top:18px; }
+  .gallery .gcell{ border:1px solid var(--line); border-radius:5px; background:#0c0a07; padding:6px;
+    display:flex; align-items:center; justify-content:center; height:78px; overflow:hidden; }
+  .gallery .gcell pre{ font-family:var(--mono); font-size:6.5px; line-height:1.02; color:#9bc27a; white-space:pre; margin:0; }
   #phone:not(.view-feed) .hero,#phone:not(.view-feed) #objbar,#phone:not(.view-feed) #screen,#phone:not(.view-feed) .tabs{ display:none !important; }
 
   /* MAP app — salvaged GPS of the real generated valley */
@@ -361,6 +391,7 @@
   <div id="home"></div>
   <div id="map"></div>
   <div id="wallet"></div>
+  <div id="camera"></div>
 
   <div class="hero">
     <div class="hrow">
@@ -480,20 +511,34 @@ function voiceSquiggle(name){
   return '<div class="vsig">'+bars+'</div>';
 }
 
-/* PLACEHOLDER photo slot for a completed-quest post (no real art yet). */
-/* TEXT-CAM: a "photo" is community-made ASCII/text art, not a real image (see the
-   .photo CSS comment). Sample pieces for the demo quests — hand-drafted, small,
-   placeholder-quality (a real text-art pipeline/community is a later system, not
-   built here). Falls back to a generic glyph for anything not in the table. */
-var TEXT_ART = {
+/* TEXT-CAM: a "photo" is community-made ASCII/text art, not a real image (locked
+   7/21, TEXT_ART_NETWORK addendum). TEXT_ART_OVERRIDE holds a few HAND-MATCHED
+   pieces for this demo's specific quests (a water tower for Water Run, etc); any
+   OTHER quest id (including any real quest written later, never hand-authored
+   for) falls back to ART_BANK, picked deterministically by a hash of the id —
+   the same zero-manual-authoring pattern as avatar colors and voice archetypes.
+   This is the generalization that matters: the system scales to quests that
+   don't exist yet, it doesn't just cover the 4 demo ones. */
+var TEXT_ART_OVERRIDE = {
   waterrun: ['  ______  ','  |  []  | ','  |______| ','     ||    ','     ||    ','      o    ','       o   ','        o  '].join('\n'),
   rooftop: ['      |     ','   ---+---  ','      |     ','     /|\\    ',' ____|_|_|____',"|             |",'|_____________|'].join('\n'),
   tunnelfavor: ['   .-""""-.   ','  /        \\  ',' |  TUNNEL  | ',' |__________| ',' ||||||||||||'].join('\n'),
   thewall: [' _|_|_|_|_|_ ','|_|_|_    _|_|',"    BREACH   ",'      ||     ','      \\/     '].join('\n'),
 };
+var ART_BANK = [
+  ['    _|_    ','   |   |   ','   |   |   ','   |   |   ',' __|___|__ '].join('\n'),                    // cactus/pillar
+  ["    _.-''-._ ",'  .`         `.','  ( SUNRISE  ) ','  /\\  /\\  /\\  /\\','  /__\\/__\\/__\\/__\\'].join('\n'), // sunrise ridge
+  ['  .--------.  ',' /          \\ ','|      o     |',' \\          / ','  \'--------\'  ','      ||      ','     [____]   '].join('\n'), // radio dish
+  ['  _______  ','  | o  o | ','  |_______|','     |  |  ','     |__|  ',' T O O L S '].join('\n'),         // wrench/toolkit
+  ['     (  )    ','    (    )   ','   ( (  ) )  ','    \\    /   ','   __\\  /__  ','  |        | ','  |________| '].join('\n'), // campfire
+  ['----o-----------',"      /\\        ",'     /  \\       '].join('\n'),                                    // bird on a wire
+  ['   ___________ ','  |  S I G N  |','  |___________|','       /       ','      /        ','     X         '].join('\n'), // broken sign
+  ['    ____     ','   |    |    ','   |    |___ ','   |________|',"    door | |  ",'         |_| '].join('\n'), // boots by a door
+];
+function textArtFor(qid){ return TEXT_ART_OVERRIDE[qid] || ART_BANK[hash(qid)%ART_BANK.length]; }
 function photoFor(qid){
   var rt=ctx.quests.get(qid), t=rt&&rt.Q?rt.Q.title:qid;
-  var art = TEXT_ART[qid] || [' .-""-.  ',"/  o  o \\", '|   ^   |', ' \\ --- / ', "  '---'  "].join('\n');
+  var art = textArtFor(qid);
   return '<div class="photo"><div class="art-cap">'+esc(t)+'</div><pre class="artpre">'+esc(art)+'</pre>'+
          '<span class="ph-tag">TEXT-CAM · '+art.split('\n').length+' lines · community art</span></div>';
 }
@@ -703,11 +748,13 @@ function setView(v){
   if(v==='home') renderHome();
   else if(v==='map') renderMap();
   else if(v==='wallet') renderWallet();
+  else if(v==='camera') renderCamera();
   else { setTab(TAB==='dms'?'dms':'feed'); }   // re-entering the Network app keeps the DMs tab if that's where you were
 }
 function rerender(){
   if(VIEW==='home') renderHome();
-  else if(VIEW==='map') renderMap(); else if(VIEW==='wallet') renderWallet(); else render();
+  else if(VIEW==='map') renderMap(); else if(VIEW==='wallet') renderWallet();
+  else if(VIEW==='camera') renderCamera(); else render();
 }
 
 function tile(app,label,icon,sub,badge){
@@ -729,7 +776,7 @@ function renderHome(){
       tile('feed','Network', ICON.feed, pr.posts+' posts', offersN+unreadCount())+
       tile('map','Map', ICON.map, 'the valley', 0)+
       tile('wallet','Wallet', ICON.wallet, 'frozen', 0)+
-      tile('camera','Camera', ICON.cam, 'soon', 'soon')+
+      tile('camera','Camera', ICON.cam, 'text-cam', 0)+
       tile('me','Profile', ICON.me, pr.reach+' foll', 0)+
     '</div>';
 }
@@ -889,6 +936,47 @@ function renderWallet(){
     '</div>';
 }
 function walletDead(){ notify('NO CONNECTION · this service ended a long time ago'); }
+
+/* ===== CAMERA — completes the phone (the last dimmed home tile). Take a
+   "picture," it develops into TEXT-CAM art from the SAME art bank the feed
+   already draws from, made playable instead of only happening automatically on
+   quest completion. A live shutter press is a genuinely NEW capture each time
+   (random, unlike the deterministic per-quest photoFor), so Math.random is fine
+   here — this is the player taking a picture right now, not a fixed quest asset. */
+var CAM_GALLERY = [];
+function renderCamera(){
+  el('camera').innerHTML =
+    '<div class="cam-hd"><div class="t">Camera<small>text-cam · no optics, just words</small></div></div>'+
+    '<div class="cam-body">'+
+      '<div class="viewfinder" id="viewfinder">'+
+        '<div class="vf-brk tl"></div><div class="vf-brk tr"></div><div class="vf-brk bl"></div><div class="vf-brk br"></div>'+
+        '<div class="vf-hint" id="vfhint">tap the shutter</div><pre class="artpre" id="vfart"></pre>'+
+      '</div>'+
+      '<button class="shutter" id="shutterBtn" onclick="takePhoto()">&#128247;</button>'+
+      '<div class="cam-cap">the network can\'t carry a real picture. this is what it sends instead.</div>'+
+      '<div class="gallery" id="gallery"></div>'+
+    '</div>';
+  paintGallery();
+}
+function paintGallery(){
+  var g = el('gallery'); if(!g) return;
+  g.innerHTML = CAM_GALLERY.map(function(a){ return '<div class="gcell"><pre>'+esc(a)+'</pre></div>'; }).reverse().join('');
+}
+function takePhoto(){
+  var vf = el('viewfinder'), hint = el('vfhint'), art = el('vfart'), btn = el('shutterBtn');
+  if(!vf || vf.classList.contains('developing')) return;
+  vf.classList.add('developing'); vf.classList.remove('shown');
+  hint.textContent = 'developing…'; btn.disabled = true;
+  setTimeout(function(){
+    var pick = ART_BANK[Math.floor(Math.random()*ART_BANK.length)];
+    art.textContent = pick;
+    vf.classList.remove('developing'); vf.classList.add('shown');
+    hint.textContent = '';
+    CAM_GALLERY.push(pick);
+    paintGallery();
+    btn.disabled = false;
+  }, 1100);
+}
 
 /* toast notifications — the phone reacts to what YOU just did (in-context) */
 function notify(text){ var t=el('toast'); if(!t) return; t.textContent=text; t.classList.add('on');
