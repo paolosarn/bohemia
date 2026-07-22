@@ -119,6 +119,78 @@ LIFE hub + judge pages updated to reflect shipped status (badges ALL 30
 CANON / DISPOSITIONED instead of NEW, copy states what's live vs record-
 only) - the mojibake-fix charset rule carried through unchanged.
 
+## WAREHOUSE + WATERPARK + MALL: THE DISTRICT FACTORY IS ESSENTIALLY COMPLETE
+## (7/22, district-factory session, Paolo: "do a lot please")
+33 district types now (up from 30). Closed the last three "normal city fabric"
+gaps from the overmap histogram (waterpark/mall/warehouse were already being
+PLACED by skeleton()'s fixed rects — they just had no generator wired in, so
+the world model fell back to a generic bridge for them). Research-first,
+WALKABLE-LAND compliant, gated, dossier'd:
+- warehouse -> INDUSTRIAL: multi-tenant flex/light-industrial park (party-wall
+  tenant bays, dock doors, office-bay fronts, shared truck court) — a DISTINCT
+  typology from bohemia_industrial.js's single big-box distribution center.
+- waterpark -> LEISURE: dead water park — drained wave pool w/ beach-entry
+  zigzag, a lazy-river loop channel, 4 slide towers each with a splash pool,
+  locker building + snack bar, modest entrance parking. content 80%/drive
+  0.5% — satisfies WALKABLE-LAND by real-world precedent, no vehicular
+  exemption needed (a real water park's pools/deck genuinely dominate).
+- mall -> COMMERCIAL: dead enclosed shopping mall — DUMBBELL shape (concourse
+  spine + two big-box anchors + food-court bump-out), entrance vestibules,
+  loading docks, parking fields tied by a connected drive ring. No perimeter
+  fence (real mall lots are open to the street, a deliberate contrast with
+  the fenced residential/industrial districts this session).
+Wired into world.js DISTGEN, tilespec generator + gate (33 districts), the
+MAP tab's embedded module bundle (41 modules now — bumped its MODULES list
+in both tools/bohemia_map_tab.py AND gates/map_tab_gate.js, they must match
+or the freshness gate goes red) + its client-side MODMAP, and
+tools/bohemia_aerial.js's MODMAP (also silently missing 'apartment' from
+last session — fixed as a drive-by).
+TWO REAL BUGS CAUGHT this batch (both would have shipped silently broken
+without the render-and-look + drive-connectivity checks every district gate
+runs):
+- warehouse.js: a SHARED-CLOSURE-VARIABLE bug. unit()'s inner loop reused
+  the outer buildCanonical()'s bare `var i` (no local declaration), so
+  calling unit() from inside the `for(i=0;i<count;i++)` placement loop
+  corrupted the outer counter mid-iteration -> genuine infinite loop (CPU
+  pegged, node hung). Root-caused via staged console.error checkpoints since
+  every individual line looked bounded in isolation. Fixed with a locally
+  `var`-scoped loop variable inside unit(). LESSON: never reuse a bare loop
+  variable name across a caller/callee pair in the same closure without
+  giving the inner one its own `var` — this class of bug is invisible on
+  read-through, only shows up as a hang.
+- warehouse.js (separate bug, same file): `ux+Math.max(ux+1,ux+Math.floor(uw
+  *0.4))` double-counts `ux` inside the max() arguments, so later units'
+  office-bay rects ballooned across most of the rest of the row (silently
+  painting over 20+ tiles of unrelated space, including where the spine
+  needed to pass) -> broke drive connectivity (reach dropped to 0.52).
+  Diagnosed by dumping the grid's raw values along the spine column, not by
+  reasoning about the code. Fixed the formula + additionally rerouted the
+  spine through open margin space for defense in depth.
+- mall.js: the drive ring's side lanes (west/east, full height) were never
+  actually connected to the entrance gate lane — three disconnected
+  components (verified via connected-component flood fill, same debug
+  technique). Added the missing horizontal connector segments.
+DEBUGGING PATTERN WORTH KEEPING: when a district's `driveConnected` check
+fails or a generator hangs, don't just re-read the code — (1) for a hang,
+add staged `console.error` checkpoints with a hard `timeout N` on the node
+command to force a fast, safe failure instead of a runaway process; (2) for
+a connectivity failure, flood-fill the actual grid to print connected
+components + their bounding boxes, then dump raw grid values along the
+suspect seam. Both bugs here were invisible from reading the source; both
+were obvious in under a minute once actually measured.
+FACTORY STATUS: 33 auto-district types across all 7 non-casino categories.
+Remaining non-auto district types are either terrain/skeleton (arterial,
+freeway, mountain, desert, rail, water — not real "districts") or Paolo's
+bespoke gaming/casino/landmark territory (resort, strip, airbase, airport,
+speedway, campus, convention, casino, etc. — NOT auto-factory per his 7/18
+ruling). The non-casino district factory is essentially DONE. Next big
+moves from here are probably: (a) tighten the landlocked-law residual
+further (isolated single-cell landmarks with no desert path — see the 7/21
+addendum), (b) build the suburb-to-suburb cosmetic connect-chance knob
+(recommended, not built, from the 7/21 Vegas-urbanism research thread), or
+(c) something entirely different Paolo wants — the district-factory phase
+itself is winding down, ask what's next before defaulting to more districts.
+
 ## LANDLOCKED DISTRICT LAW: SEED GENERATION NOW ENFORCES IT (7/21, district-factory
 ## session, Paolo reviewing the valley aerial: "new rule, if there is an interior
 ## district not touching a street it has to be a suburb or apt complex...")
