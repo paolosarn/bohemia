@@ -232,6 +232,19 @@ if (b64m) {
     decoded.indexOf('const wp=WALL_MAP[col]') >= 0 && decoded.indexOf("kind==='wall'&&WALL_MAP[col]") >= 0);
   ok('the wall art decodes and serves a real tile (wallArtReady probe)',
     decoded.indexOf('wallArtReady:function') >= 0 || decoded.indexOf('.wallArtReady=function') >= 0);
+
+  // 17. THE HOUSE ART LOCK (7/21, Paolo verdict: all 30 house-skin
+  // candidates UP - records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26). Real roof/
+  // facade/yard art rides the canon suburb, replacing the judge-palette
+  // placeholder tones.
+  ok('HOUSE ART: all six approved pools embedded (roof/wall/window/boarded/door/yard)',
+    ['hroof', 'hwall', 'hwindow', 'hboarded', 'hdoor', 'hyard'].every(
+      p => decoded.indexOf('SA_TILES.' + p + '=') >= 0));
+  ok('roof-top cells route through the real art', decoded.indexOf('c.artPool=') >= 0);
+  ok('facade cells compose plain/window/boarded/door deterministically',
+    decoded.indexOf('c.artPool_face=') >= 0 && decoded.indexOf("pick<6?'hwall'") >= 0);
+  ok('dead-dirt ground picks one DG blend per suburb block',
+    decoded.indexOf('c.gArtPool=') >= 0 && decoded.indexOf("'hyard'") >= 0);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');

@@ -69,7 +69,7 @@ print('purity filter: wall %d/%d kept, roof %d/%d kept, door %d/%d kept' % (
 
 SECTIONS = [
     ('WALL CANDIDATES', 'wall', WALL,
-     'banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26 - the 47 you rejected as suburb PERIMETER only ("rejection is per class"). HOUSE is another wall class - anything you tag UP here becomes a house-wall candidate.'),
+     'banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26 - RULED 7/21 ("its giving act 3, save these for when we judge act 3"): reserved for Act 3, not Act 1 house walls. Kept here for the record, not soliciting further thumbs.'),
     ('ROOF KIT', 'roof', ROOF,
      'banks/BOHEMIA_ROOF_KIT_EXPANSION_7_14_26 - act-1 roof-family tiles baked for the house factory, S/A/B seam-tier. Never judged.'),
     ('DOOR EDGES', 'door', DOOR,
