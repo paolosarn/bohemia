@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-BOHEMIA SUBURB WALK (7/18/26) — the APPROVED block, IMPLEMENTED and walkable.
+BOHEMIA SUBURB WALK (7/18/26, doors 7/21) — the APPROVED block, IMPLEMENTED
+and walkable, now with REAL doors.
 
 Paolo APPROVED "THE BLOCK — packed grid" (7/18 verdict). This graduates that exact
 generator (engine/bohemia_suburb.js) into the playable alpha: you spawn at the gate,
@@ -8,17 +9,76 @@ walk the streets of the dead neighborhood, and step into ANY house to stand insi
 its generated rooms (engine/bohemia_floorplan.js). No mockup — the same module the
 judge showed, now the world you walk.
 
+DOORS (7/21, reuse-first): every door - the street-level front door AND every
+interior room-to-room door - used to render as a flat yellow fill (the exact
+gap bohemia_floorplan.js's own docstring flags: "art resolves at bake"). Two
+already-approved sources compose the fix, per Paolo's roundup verdict
+("looking mostly good when they are part of a door I approve"): the CANON
+house-skin doors (records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26, wall_door_18/
+19/20 - complete painted doors, plank seams + frame + knob) as the base,
+layered with a DOOR_EW_BANK west-edge frame strip as extra trim (alpha-
+composited, real RGBA transparency) for variety across the block. A warm-
+tone filter excludes any strip whose painted pixels lean cool (green/teal/
+blue > 15% of paint) - the TAN WALL 85/15 law, since a door trim is not
+exempt from the palette any more than a wall is.
+
   python3 tools/bohemia_suburb_walk.py -> slices/BOHEMIA_SUBURB_WALK_7_18_26.html
 
 Self-contained (suburb + floorplan modules + walk loop, one script scope). Dead
 world: no vegetation, dead-dirt ground. ONE-ALPHA safe (a slice file).
 """
+import base64
+import io
+import json
 import os
+
+from PIL import Image
+
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 OUT = 'slices/BOHEMIA_SUBURB_WALK_7_18_26.html'
 MODULES = ['engine/bohemia_suburb.js', 'engine/bohemia_floorplan.js']
 engine = '\n'.join('/* ==== %s ==== */\n%s' % (m, open(m, encoding='utf8').read()) for m in MODULES)
+
+# ---- real doors: canon door base + a warm-filtered DOOR_EW_BANK edge strip ----
+_house = json.load(open('banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt'))
+_by_id = {t['id']: t for t in _house['tiles']}
+_BASES = ['wall_door_18', 'wall_door_19', 'wall_door_20']
+_door_pool = json.load(open('banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt'))['doors']
+
+
+def _warm_enough(im):
+    px = im.load()
+    cool = total = 0
+    for x in range(im.width):
+        for y in range(im.height):
+            r, g, b, a = px[x, y]
+            if a < 40:
+                continue
+            total += 1
+            if g > r + 20 or b > r + 20:
+                cool += 1
+    return total == 0 or cool / total <= 0.15
+
+
+def _door_tile(idx, base_id):
+    base = Image.open(io.BytesIO(base64.b64decode(_by_id[base_id]['b64']))).convert('RGBA')
+    w = next(v for v in _door_pool[idx]['variants'] if v['side'] == 'W')
+    strip = Image.open(io.BytesIO(base64.b64decode(w['b64']))).convert('RGBA')
+    comp = base.copy()
+    comp.alpha_composite(strip)
+    out = io.BytesIO()
+    comp.convert('RGB').save(out, 'PNG', optimize=True)
+    return base64.b64encode(out.getvalue()).decode('ascii')
+
+
+DOOR_TILES = []
+for i, idx in enumerate([0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165]):
+    w = next(v for v in _door_pool[idx]['variants'] if v['side'] == 'W')
+    strip_im = Image.open(io.BytesIO(base64.b64decode(w['b64']))).convert('RGBA')
+    if _warm_enough(strip_im):
+        DOOR_TILES.append(_door_tile(idx, _BASES[i % 3]))
+assert len(DOOR_TILES) >= 6, 'warm-tone filter left too few doors: %d' % len(DOOR_TILES)
 
 GAME = r"""
 // ===== SUBURB WALK — the approved block, walkable + enterable =====
@@ -52,6 +112,11 @@ var EXTCOL={1:'#3a3a44',2:'#9c8e76',3:'#5a5a62',4:'#6a5c44',5:'#c79a3f',6:'#6d5f
 var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',dining:'#aaa078',
   hall:'#b9af91',closet:'#8c877d',garage:'#6d5f4b',entry:'#b4a582','null':'#96917d'};
 
+// ---- real doors (7/21): canon door base + a warm-filtered DOOR_EW_BANK trim ----
+var DOOR_B64=__DOOR_TILES__;
+var DOOR_IMG=DOOR_B64.map(function(b){var im=new Image();im.onload=function(){draw();};im.src='data:image/png;base64,'+b;return im;});
+function doorPick(gx,gy){var h=((gx*73856093)^(gy*19349663))>>>0;return DOOR_IMG[h%DOOR_IMG.length];}
+
 var mode='ext', px=spawn?spawn[0]:(W>>1), py=spawn?spawn[1]:(H-4);
 var fp=null, fpDoor=null, backAt=null, curHouse=-1;
 var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
@@ -69,18 +134,21 @@ function enter(i){ curHouse=i; var f=feet[i];
   refreshHUD(); }
 
 function draw(){
+  ctx.imageSmoothingEnabled=false;      // canvas resize resets this - set every frame
   var gw=mode==='ext'?W:fp.W, gh=mode==='ext'?H:fp.H;
   var CELL=Math.max(6,Math.floor(Math.min(cv.width/28, cv.height/28)));
   var halfW=Math.floor(cv.width/CELL/2), halfH=Math.floor(cv.height/CELL/2);
   ctx.fillStyle='#12140f'; ctx.fillRect(0,0,cv.width,cv.height);
   for(var sy=-halfH;sy<=halfH;sy++)for(var sx=-halfW;sx<=halfW;sx++){
     var gx=px+sx, gy=py+sy; if(gx<0||gy<0||gx>=gw||gy>=gh)continue;
-    var col;
+    var col, isDoor=false;
     if(mode==='ext'){ var c=G[gy][gx]; col=(c===0)?gcol(gx,gy):(EXTCOL[c]||'#463f30');
-      if(doorOf[gx+','+gy]!=null)col='#f0cd78'; }
-    else { var ic=fp.grid[gy][gx]; col= ic.g==='wall'?'#2c2824' : ic.g==='door'?'#f0cd78' : (INT_ROLE[ic.role]||'#96917d'); }
+      if(doorOf[gx+','+gy]!=null){col='#f0cd78'; isDoor=true;} }
+    else { var ic=fp.grid[gy][gx]; col= ic.g==='wall'?'#2c2824' : ic.g==='door'?'#f0cd78' : (INT_ROLE[ic.role]||'#96917d');
+      if(ic.g==='door') isDoor=true; }
     var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL;
     ctx.fillStyle=col; ctx.fillRect(X,Y,CELL-1,CELL-1);
+    if(isDoor){ var _di=doorPick(gx,gy); if(_di.complete&&_di.naturalWidth)ctx.drawImage(_di,X,Y,CELL-1,CELL-1); }
   }
   var pxs=halfW*CELL, pys=halfH*CELL;
   ctx.fillStyle='#ff5a3c'; ctx.beginPath(); ctx.arc(pxs+CELL/2,pys+CELL/2,CELL*0.38,0,7); ctx.fill();
@@ -111,7 +179,8 @@ window.addEventListener('resize',fit); refreshHUD(); fit();
 window.__SUBWALK_READY=true;
 """
 
-HTML = """<h1 style="font:600 15px/1.3 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA — WALK CAMPANA: the block you approved, now the world. You spawn at the gate. Walk the dead streets between the houses. Every yellow tile is a front door — step on it and you are standing inside that house's rooms. Walk out the door and you are back on the street. Same generator the judge showed, now walkable.</h1>
+HTML = """<meta charset="utf-8">
+<h1 style="font:600 15px/1.3 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA — WALK CAMPANA: the block you approved, now the world. You spawn at the gate. Walk the dead streets between the houses. Every yellow tile is a front door — step on it and you are standing inside that house's rooms. Walk out the door and you are back on the street. Same generator the judge showed, now walkable.</h1>
 <div id="hud" style="font:13px -apple-system,sans-serif;color:#a99;padding:2px 10px 6px"></div>
 <div style="padding:0 10px"><canvas id="cv" style="width:100%;height:60vh;background:#12140f;border-radius:8px;display:block"></canvas></div>
 <div style="display:flex;justify-content:center;gap:8px;margin-top:10px;user-select:none">
@@ -127,6 +196,7 @@ __ENGINE__
 __GAME__
 </script>
 """
+GAME = GAME.replace('__DOOR_TILES__', json.dumps(DOOR_TILES))
 HTML = HTML.replace('__ENGINE__', engine).replace('__GAME__', GAME)
 open(OUT, 'w', encoding='utf8').write(HTML)
 print('suburb walk -> %s (%d KB)' % (OUT, len(HTML) // 1024))
