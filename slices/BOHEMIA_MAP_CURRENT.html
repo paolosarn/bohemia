@@ -32,7 +32,7 @@
 <!-- engine-md5:engine/bohemia_downtown.js:16fd3044b62fc4b721a3eb1142d96a07 -->
 <!-- engine-md5:engine/bohemia_trailer.js:8b0e3b010afe313cddcfcf3c437c4eb1 -->
 <!-- engine-md5:engine/bohemia_apartment.js:84574bed8ee4b0106df0dcf58bfc487b -->
-<!-- engine-md5:engine/bohemia_overmap.js:d1a544c7d9278f06ce4f0daaeed8a08a -->
+<!-- engine-md5:engine/bohemia_overmap.js:6e7b04229fe868294a466d5279b7f183 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:530d913e483b7ae4ce57e3b69065f730 -->
@@ -4893,6 +4893,66 @@ function buildOvermap(seed){
     lPath(under.aqueduct, L.watertreat.x+1, L.watertreat.y+1, L.pumpstation.x, L.pumpstation.y);
     for(const rv of L.reservoirs){ lPath(under.aqueduct, L.pumpstation.x, L.pumpstation.y, rv.x, rv.y); }
   }
+  // LANDMARK ACCESS SPUR (Paolo 7/21/26, LANDLOCKED DISTRICT LAW residual close-out): the
+  // same-family relay (bohemia_world.js buildLandlockConnect) can't help an ISOLATED cell with
+  // no same-type neighbor to chain through — a single-cell landmark (school/medical/jail/...),
+  // or a suburb/apt pocket fully encircled by desert with no residential neighbor at all. Rather
+  // than move a landmark's canon position (MAP LAW: Claude never designs map layouts), carve a
+  // minimal 1-wide access spur to the nearest real street — but ONLY through bare DESERT cells,
+  // never through another built district, so no existing content is ever overwritten. A
+  // driveway to a monument, not a redesign of the block. Runs for every landlocked type
+  // (including suburb-family): it only ever consumes desert, so it can't conflict with or
+  // duplicate the same-family relay — strictly additive.
+  // NO-STREET-BREAK LAW (Paolo 7/18/26) compliance: a 1-wide spur's tip cell would touch only
+  // the target (non-road, non-BIG) + the previous spur cell, i.e. exactly ONE road neighbor —
+  // street_connectivity_gate.js correctly reads that as "dead-ends into fabric." Cap the target
+  // end with a self-contained 2x2 block instead: every cell in a solid 2x2 square has TWO
+  // orthogonal neighbors inside the square itself, satisfying the rule independent of whatever
+  // (school, suburb, ...) sits outside it — a real cul-de-sac bulb, not a bare dead end.
+  {
+    const touchesRoad=(x,y)=>{ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const n=at(x+dx,y+dy); if(n&&ROAD[n.district])return true; } return false; };
+    const okForBulb=(x,y)=>{ const c=at(x,y); return !!c&&(ROAD[c.district]||c.district===DISTRICT.DESERT); };
+    function capWithBulb(px,py){
+      const offsets=[[0,0,1,0,0,1,1,1],[-1,0,0,0,-1,1,0,1],[0,-1,1,-1,0,0,1,0],[-1,-1,0,-1,-1,0,0,0]];
+      for(const o of offsets){
+        const cells=[[px+o[0],py+o[1]],[px+o[2],py+o[3]],[px+o[4],py+o[5]],[px+o[6],py+o[7]]];
+        if(cells.every(c=>okForBulb(c[0],c[1]))){
+          for(const c of cells){ const cc=at(c[0],c[1]); if(cc&&cc.district===DISTRICT.DESERT){ cc.district=DISTRICT.ARTERIAL; cc.fixed=true; } }
+          return true;
+        }
+      }
+      return false;
+    }
+    for(const t of tiles){
+      if(t.district===DISTRICT.DESERT||BIG.has(t.district))continue;
+      if(touchesRoad(t.x,t.y))continue;                    // already street-adjacent, nothing to do
+      // BFS outward through DESERT-only cells to the nearest street (or a cell that touches one)
+      const key=(x,y)=>x+','+y, seen=new Set([key(t.x,t.y)]);
+      let q=[{x:t.x,y:t.y,path:[]}], head=0, found=null;
+      while(head<q.length&&!found&&head<200){
+        const cur=q[head++];
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nx=cur.x+dx, ny=cur.y+dy, k=key(nx,ny); if(seen.has(k))continue;
+          const nc=at(nx,ny); if(!nc)continue;
+          const isDesert=nc.district===DISTRICT.DESERT;
+          if(!isDesert&&!ROAD[nc.district])continue;        // only desert or a real street may extend the path
+          seen.add(k);
+          const np={x:nx,y:ny,path:cur.path.concat([{x:nx,y:ny}])};
+          if(ROAD[nc.district]||touchesRoad(nx,ny)){ found=np; break; }
+          if(isDesert) q.push(np);
+        }
+      }
+      if(!found||!found.path.length)continue;
+      const tip=found.path[0];                              // path[0] is the cell touching the TARGET (not the
+                                                              // street end at path[length-1], which already has
+                                                              // the chain + the pre-existing street as neighbors)
+      if(!capWithBulb(tip.x,tip.y))continue;                // no room for a compliant bulb: skip, stays residual
+      for(const p of found.path){
+        const pc=at(p.x,p.y);
+        if(pc&&pc.district===DISTRICT.DESERT){ pc.district=DISTRICT.ARTERIAL; pc.fixed=true; }
+      }
+    }
+  }
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
 }
@@ -6036,18 +6096,33 @@ function renderCell(ox, oy){
 // ---- pan / zoom / tap-to-inspect (same pointer/wheel pattern as the CITY tab) ----
 var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
 var HUD = document.getElementById('hud');
-var px = N / 2, py = N / 2, Z = 48, ZMIN = 10, ZMAX = 128;
-ctx.imageSmoothingEnabled = false;
+// ZMIN low enough to see the WHOLE valley at once (N=96) — Paolo 7/21: "if I zoom out a lot it
+// make me feel good about the different views." Below FAR_ZOOM there's no legible per-tile
+// detail anyway, so we skip the per-cell canvas entirely and paint a flat, honest tone
+// (road / terrain / reserved-landmark / built city fabric) straight onto the main canvas — cheap
+// enough to pan the entire valley smoothly, and it reads as a clean minimap, not a muddy blur.
+var px = N / 2, py = N / 2, Z = 48, ZMIN = 3, ZMAX = 128, FAR_ZOOM = 16;
+var FABRIC = '#6a6258'; // built DISTGEN content at far zoom: one honest "city fabric" tone
 
 function draw(){
   var w = cv.width, h = cv.height;
   ctx.fillStyle = '#0d0b08'; ctx.fillRect(0, 0, w, h);
+  var far = Z < FAR_ZOOM;
+  ctx.imageSmoothingEnabled = far;
   var x0 = Math.max(0, Math.floor(px - w / Z / 2)), x1 = Math.min(N - 1, Math.ceil(px + w / Z / 2));
   var y0 = Math.max(0, Math.floor(py - h / Z / 2)), y1 = Math.min(N - 1, Math.ceil(py + h / Z / 2));
   for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
-    var bmp = renderCell(x, y);
-    var sx = Math.round((x - px) * Z + w / 2), sy = Math.round((y - py) * Z + h / 2);
-    ctx.drawImage(bmp, sx, sy, Math.ceil(Z), Math.ceil(Z));
+    var sx = Math.round((x - px) * Z + w / 2), sy = Math.round((y - py) * Z + h / 2), zc = Math.ceil(Z);
+    if (far) {
+      var cell = W.at(x, y);
+      var col = !cell ? '#161410' : ROAD[cell.district] ? (ROADCOL[cell.district] || ROADCOL.freeway) :
+        TERRAIN[cell.district] ? (FILL[cell.district] || FILL.default) :
+        MODMAP[cell.district] ? FABRIC : (FILL[cell.district] || FILL.default);
+      ctx.fillStyle = col; ctx.fillRect(sx, sy, zc, zc);
+    } else {
+      var bmp = renderCell(x, y);
+      ctx.drawImage(bmp, sx, sy, zc, zc);
+    }
   }
   if (sel) {
     ctx.strokeStyle = '#f0cd78'; ctx.lineWidth = 2;

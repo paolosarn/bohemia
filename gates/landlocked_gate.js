@@ -1,19 +1,19 @@
 // LANDLOCKED DISTRICT GATE (Paolo 7/21/26, LOCKED LAW) — "if there is an interior district not
 // touching a street it has to be a suburb or apt complex that has roads from another suburb/apt
-// complex touching the street, so the two districts' street touch." Two halves, both machine-
-// checked across several seeds: (1) TYPE — a genuinely landlocked cell (no real road-type
-// neighbor) resolves to suburb/gated/estate, or is exempt (a BIG mass or bare desert, which need
-// no access). (2) CONNECTIVITY — world.js's landlockConnect BFS actually finds a same-family
-// relay chain out to a real street for the cells it's responsible for.
+// complex touching the street, so the two districts' street touch." Three mechanisms, all
+// machine-checked across several seeds: (1) TYPE — a genuinely landlocked cell (no real
+// road-type neighbor) resolves to suburb/gated/estate/apartment, or is exempt (a BIG mass or
+// bare desert, which need no access). (2) CONNECTIVITY — world.js's landlockConnect BFS finds a
+// same-family relay chain out to a real street. (3) ACCESS SPUR — bohemia_overmap.js carves a
+// minimal desert-only spur to the nearest street for cells same-family relay can't reach
+// (isolated single-cell landmarks with no same-type neighbor, or a suburb pocket fully encircled
+// by desert) — never overwrites built content, only ever consumes bare desert.
 //
-// KNOWN RESIDUAL (asserted as a bounded ceiling, not hidden): a handful of ISOLATED single-cell
-// landmark types (school/medical/jail/courthouse/policestation/substation/chapel/cemetery/
-// industrial/commercial/golf/park), each placed via its own hand-tuned fixed rect in
-// skeleton()/layoutFromSeed(), not a same-type blob, can still land 2+ tiles off a street with no
-// same-type neighbor to relay through. Fixing each landmark's placement individually is a
-// separate pass through overmap.js's ~20 bespoke rects, out of this session's scope. This gate
-// keeps that residual small and visible (prints the exact breakdown every run) instead of
-// pretending the map is 100% clean.
+// KNOWN RESIDUAL (asserted as a bounded ceiling, not hidden): a small number of cells still have
+// no desert path to a street within the spur's search radius (genuinely boxed in by other built
+// districts on every side) or are an isolated landmark type with neither a same-type neighbor
+// nor a desert route out. This gate keeps that residual small and visible (prints the exact
+// breakdown every run) instead of pretending the map is 100% clean.
 const { world } = require('../engine/bohemia_world.js');
 const OM = require('../engine/bohemia_overmap.js');
 let pass = 0, fail = 0;
@@ -59,10 +59,10 @@ for (const seed of SEEDS) {
     ' suburb-unconnected=' + suburbUnconnected + '/' + suburbLandlocked +
     ' other-type-gap=' + otherGap + '/' + otherLandlocked + ' ' + JSON.stringify(gapByType) +
     ' gapFraction=' + gapFraction.toFixed(3));
-  ok('seed ' + seed + ': suburb-family landlocked cells overwhelmingly relay-connect (unconnected <= 8%)',
-    suburbLandlocked === 0 || (suburbUnconnected / suburbLandlocked) <= 0.08);
-  ok('seed ' + seed + ': total landlocked gap stays a small, bounded residual (<= 12% of landlocked cells)',
-    gapFraction <= 0.12);
+  ok('seed ' + seed + ': suburb-family landlocked cells overwhelmingly relay-connect (unconnected <= 6%)',
+    suburbLandlocked === 0 || (suburbUnconnected / suburbLandlocked) <= 0.06);
+  ok('seed ' + seed + ': total landlocked gap stays a small, bounded residual (<= 8% of landlocked cells)',
+    gapFraction <= 0.08);
 }
 
 // a relayed cell's generator must actually accept the computed streets array without throwing,

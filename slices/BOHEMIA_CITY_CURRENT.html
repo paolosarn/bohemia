@@ -6,7 +6,7 @@
   <button id="reset" style="padding:8px 12px;border-radius:8px">⟲ RESET EDITS</button>
 </div>
 <div style="padding:0 10px 12px"><canvas id="cv" style="width:100%;height:66vh;background:#171512;border-radius:8px;display:block;touch-action:none"></canvas></div>
-<!-- engine-md5:engine/bohemia_overmap.js:d1a544c7d9278f06ce4f0daaeed8a08a -->
+<!-- engine-md5:engine/bohemia_overmap.js:6e7b04229fe868294a466d5279b7f183 -->
 <!-- engine-md5:engine/bohemia_cityedit.js:f8991553b06b63259ade0c7daed48929 -->
 <script>
 /* ==== engine/bohemia_overmap.js ==== */
@@ -1030,6 +1030,66 @@ function buildOvermap(seed){
     lPath(under.aqueduct, L.intake.x, L.intake.y, L.watertreat.x+1, L.watertreat.y+1);
     lPath(under.aqueduct, L.watertreat.x+1, L.watertreat.y+1, L.pumpstation.x, L.pumpstation.y);
     for(const rv of L.reservoirs){ lPath(under.aqueduct, L.pumpstation.x, L.pumpstation.y, rv.x, rv.y); }
+  }
+  // LANDMARK ACCESS SPUR (Paolo 7/21/26, LANDLOCKED DISTRICT LAW residual close-out): the
+  // same-family relay (bohemia_world.js buildLandlockConnect) can't help an ISOLATED cell with
+  // no same-type neighbor to chain through — a single-cell landmark (school/medical/jail/...),
+  // or a suburb/apt pocket fully encircled by desert with no residential neighbor at all. Rather
+  // than move a landmark's canon position (MAP LAW: Claude never designs map layouts), carve a
+  // minimal 1-wide access spur to the nearest real street — but ONLY through bare DESERT cells,
+  // never through another built district, so no existing content is ever overwritten. A
+  // driveway to a monument, not a redesign of the block. Runs for every landlocked type
+  // (including suburb-family): it only ever consumes desert, so it can't conflict with or
+  // duplicate the same-family relay — strictly additive.
+  // NO-STREET-BREAK LAW (Paolo 7/18/26) compliance: a 1-wide spur's tip cell would touch only
+  // the target (non-road, non-BIG) + the previous spur cell, i.e. exactly ONE road neighbor —
+  // street_connectivity_gate.js correctly reads that as "dead-ends into fabric." Cap the target
+  // end with a self-contained 2x2 block instead: every cell in a solid 2x2 square has TWO
+  // orthogonal neighbors inside the square itself, satisfying the rule independent of whatever
+  // (school, suburb, ...) sits outside it — a real cul-de-sac bulb, not a bare dead end.
+  {
+    const touchesRoad=(x,y)=>{ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const n=at(x+dx,y+dy); if(n&&ROAD[n.district])return true; } return false; };
+    const okForBulb=(x,y)=>{ const c=at(x,y); return !!c&&(ROAD[c.district]||c.district===DISTRICT.DESERT); };
+    function capWithBulb(px,py){
+      const offsets=[[0,0,1,0,0,1,1,1],[-1,0,0,0,-1,1,0,1],[0,-1,1,-1,0,0,1,0],[-1,-1,0,-1,-1,0,0,0]];
+      for(const o of offsets){
+        const cells=[[px+o[0],py+o[1]],[px+o[2],py+o[3]],[px+o[4],py+o[5]],[px+o[6],py+o[7]]];
+        if(cells.every(c=>okForBulb(c[0],c[1]))){
+          for(const c of cells){ const cc=at(c[0],c[1]); if(cc&&cc.district===DISTRICT.DESERT){ cc.district=DISTRICT.ARTERIAL; cc.fixed=true; } }
+          return true;
+        }
+      }
+      return false;
+    }
+    for(const t of tiles){
+      if(t.district===DISTRICT.DESERT||BIG.has(t.district))continue;
+      if(touchesRoad(t.x,t.y))continue;                    // already street-adjacent, nothing to do
+      // BFS outward through DESERT-only cells to the nearest street (or a cell that touches one)
+      const key=(x,y)=>x+','+y, seen=new Set([key(t.x,t.y)]);
+      let q=[{x:t.x,y:t.y,path:[]}], head=0, found=null;
+      while(head<q.length&&!found&&head<200){
+        const cur=q[head++];
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nx=cur.x+dx, ny=cur.y+dy, k=key(nx,ny); if(seen.has(k))continue;
+          const nc=at(nx,ny); if(!nc)continue;
+          const isDesert=nc.district===DISTRICT.DESERT;
+          if(!isDesert&&!ROAD[nc.district])continue;        // only desert or a real street may extend the path
+          seen.add(k);
+          const np={x:nx,y:ny,path:cur.path.concat([{x:nx,y:ny}])};
+          if(ROAD[nc.district]||touchesRoad(nx,ny)){ found=np; break; }
+          if(isDesert) q.push(np);
+        }
+      }
+      if(!found||!found.path.length)continue;
+      const tip=found.path[0];                              // path[0] is the cell touching the TARGET (not the
+                                                              // street end at path[length-1], which already has
+                                                              // the chain + the pre-existing street as neighbors)
+      if(!capWithBulb(tip.x,tip.y))continue;                // no room for a compliant bulb: skip, stays residual
+      for(const p of found.path){
+        const pc=at(p.x,p.y);
+        if(pc&&pc.district===DISTRICT.DESERT){ pc.district=DISTRICT.ARTERIAL; pc.fixed=true; }
+      }
+    }
   }
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};

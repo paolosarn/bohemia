@@ -42,18 +42,31 @@ driveway onto a highway two blocks away.
 - Gate placement stays centered (`n/2`) on whichever edge regardless of rotation (kit's
   `pedGate` / suburb's `denseFill`), so two neighbors that both open toward each other land on the
   same tile offset — the roads actually meet, not just both technically "have a gate."
+- **Access spur (residual close-out, same day)** — `engine/bohemia_overmap.js`, a post-pass at
+  the end of `buildOvermap()`: for any landlocked cell the same-family relay can't reach (an
+  isolated single-cell landmark with no same-type neighbor, or a suburb/apt pocket fully
+  encircled by desert), BFS outward through **bare DESERT cells only** to the nearest real
+  street and convert that path to `DISTRICT.ARTERIAL`. Never overwrites another built district —
+  a driveway to a monument, not a redesign of the block, and it respects MAP LAW (landmark
+  canon positions are never moved). Cut the total landlocked gap from ~5-6% to ~2.6-4.4% across
+  seeds; the gate ceiling tightened from 12%/8% to 8%/6% to match.
+  BUG CAUGHT AND FIXED SAME TURN: the first version left a 1-wide spur tip touching only the
+  target (non-road) + the previous spur cell — exactly ONE road neighbor, which
+  `street_connectivity_gate.js` (NO-STREET-BREAK LAW, Paolo 7/18) correctly read as "dead-ends
+  into fabric." Fixed by capping the target end with a self-contained 2x2 cul-de-sac bulb —
+  every cell in a solid 2x2 block has two road neighbors from the block alone, satisfying the
+  rule independent of whatever sits outside it. If no room exists for a compliant bulb, that
+  cell is skipped and stays in the documented residual rather than shipping a rule violation.
 
 ## Known residual (reported, not hidden)
-A handful of **isolated single-cell landmark types** (school/medical/jail/courthouse/
-policestation/substation/chapel/cemetery/industrial/commercial/golf/park), each placed via its
-own hand-tuned fixed rect in `skeleton()`/`layoutFromSeed()` rather than a same-type blob, can
-still land 2+ tiles off a street with no same-type neighbor to relay through. Fixing each
-landmark's placement individually is a separate pass through overmap.js's ~20 bespoke rects,
-out of this session's scope. `gates/landlocked_gate.js` keeps this bounded (≤12% of landlocked
-cells, measured ~5-6% across seeds) and prints the exact breakdown every run rather than
-pretending the map is 100% clean.
+A small number of cells still have **no desert path** to a street within the spur's search
+radius (genuinely boxed in by other built districts on every side) or are an isolated landmark
+type with neither a same-type neighbor nor a desert route out. `gates/landlocked_gate.js` keeps
+this bounded and prints the exact breakdown every run rather than pretending the map is 100%
+clean.
 
 ## Enforcement
 `gates/landlocked_gate.js` (registered in `bohemia_gates.py`): across 3 seeds, asserts
-suburb-family landlocked cells relay-connect ≥92% of the time, the total landlocked gap (type +
-connectivity) stays ≤12%, and every relay-connected cell's plot generates without throwing.
+suburb-family landlocked cells relay-connect ≥94% of the time, the total landlocked gap (type +
+connectivity + access spur) stays ≤8%, and every relay-connected cell's plot generates without
+throwing.

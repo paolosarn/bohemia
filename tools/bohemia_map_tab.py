@@ -149,18 +149,33 @@ function renderCell(ox, oy){
 // ---- pan / zoom / tap-to-inspect (same pointer/wheel pattern as the CITY tab) ----
 var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
 var HUD = document.getElementById('hud');
-var px = N / 2, py = N / 2, Z = 48, ZMIN = 10, ZMAX = 128;
-ctx.imageSmoothingEnabled = false;
+// ZMIN low enough to see the WHOLE valley at once (N=96) — Paolo 7/21: "if I zoom out a lot it
+// make me feel good about the different views." Below FAR_ZOOM there's no legible per-tile
+// detail anyway, so we skip the per-cell canvas entirely and paint a flat, honest tone
+// (road / terrain / reserved-landmark / built city fabric) straight onto the main canvas — cheap
+// enough to pan the entire valley smoothly, and it reads as a clean minimap, not a muddy blur.
+var px = N / 2, py = N / 2, Z = 48, ZMIN = 3, ZMAX = 128, FAR_ZOOM = 16;
+var FABRIC = '#6a6258'; // built DISTGEN content at far zoom: one honest "city fabric" tone
 
 function draw(){
   var w = cv.width, h = cv.height;
   ctx.fillStyle = '#0d0b08'; ctx.fillRect(0, 0, w, h);
+  var far = Z < FAR_ZOOM;
+  ctx.imageSmoothingEnabled = far;
   var x0 = Math.max(0, Math.floor(px - w / Z / 2)), x1 = Math.min(N - 1, Math.ceil(px + w / Z / 2));
   var y0 = Math.max(0, Math.floor(py - h / Z / 2)), y1 = Math.min(N - 1, Math.ceil(py + h / Z / 2));
   for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
-    var bmp = renderCell(x, y);
-    var sx = Math.round((x - px) * Z + w / 2), sy = Math.round((y - py) * Z + h / 2);
-    ctx.drawImage(bmp, sx, sy, Math.ceil(Z), Math.ceil(Z));
+    var sx = Math.round((x - px) * Z + w / 2), sy = Math.round((y - py) * Z + h / 2), zc = Math.ceil(Z);
+    if (far) {
+      var cell = W.at(x, y);
+      var col = !cell ? '#161410' : ROAD[cell.district] ? (ROADCOL[cell.district] || ROADCOL.freeway) :
+        TERRAIN[cell.district] ? (FILL[cell.district] || FILL.default) :
+        MODMAP[cell.district] ? FABRIC : (FILL[cell.district] || FILL.default);
+      ctx.fillStyle = col; ctx.fillRect(sx, sy, zc, zc);
+    } else {
+      var bmp = renderCell(x, y);
+      ctx.drawImage(bmp, sx, sy, zc, zc);
+    }
   }
   if (sel) {
     ctx.strokeStyle = '#f0cd78'; ctx.lineWidth = 2;

@@ -97,13 +97,16 @@ research partner. He DECIDES, you PRODUCE.
   bar: a walkable district must read FINISHED and USED (dense buildings + purpose),
   not thin features stranded in empty lawn/pavement. Full law in /laws.
 - LANDLOCKED DISTRICT LAW (Paolo 7/21, LOCKED): a cell with no real street touching it
-  can ONLY be suburb/gated/estate (apt complex once built) or bare desert — never
+  can ONLY be suburb/gated/estate/apartment or bare desert — never
   commercial/industrial/park/trailer/storage. A landlocked suburb/apt cell must gain
   street access by relaying through a same-family neighbor's road, all the way out to
   a real street ("the two districts' street touch"). Enforced for seed generation:
   bohemia_overmap.js's proceduralDistrict (type half) + bohemia_world.js's
   rawStreetEdges/buildLandlockConnect BFS (connectivity half, generalizes to any
-  same-type blob — downtown, farm, not just suburb). Gate: landlocked_gate.js. Full
+  same-type blob — downtown, farm, not just suburb) + bohemia_overmap.js's LANDMARK
+  ACCESS SPUR post-pass (carves a desert-only driveway to the nearest street for
+  isolated cells the relay can't reach, never touches built content). Gate:
+  landlocked_gate.js. Full
   law + the known small residual (isolated single-cell landmarks) in /laws.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
