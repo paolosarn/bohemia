@@ -48,6 +48,9 @@
   var DTN= HASREQ ? require('./bohemia_downtown.js')       : (typeof BohemiaDowntown!=='undefined'?BohemiaDowntown:root.BohemiaDowntown);
   var TRL= HASREQ ? require('./bohemia_trailer.js')        : (typeof BohemiaTrailer!=='undefined'?BohemiaTrailer:root.BohemiaTrailer);
   var APT= HASREQ ? require('./bohemia_apartment.js')      : (typeof BohemiaApartment!=='undefined'?BohemiaApartment:root.BohemiaApartment);
+  var WHS= HASREQ ? require('./bohemia_warehouse.js')      : (typeof BohemiaWarehouse!=='undefined'?BohemiaWarehouse:root.BohemiaWarehouse);
+  var WTP= HASREQ ? require('./bohemia_waterpark.js')      : (typeof BohemiaWaterpark!=='undefined'?BohemiaWaterpark:root.BohemiaWaterpark);
+  var MLL= HASREQ ? require('./bohemia_mall.js')           : (typeof BohemiaMall!=='undefined'?BohemiaMall:root.BohemiaMall);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -88,7 +91,10 @@
     farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
     downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
     trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' },
-    apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' }
+    apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },
+    warehouse:  { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    waterpark:  { mod:WTP, foot:function(r){return r.footprints;},           zone:'leisure' },
+    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }

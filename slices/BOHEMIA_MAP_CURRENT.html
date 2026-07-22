@@ -32,13 +32,16 @@
 <!-- engine-md5:engine/bohemia_downtown.js:16fd3044b62fc4b721a3eb1142d96a07 -->
 <!-- engine-md5:engine/bohemia_trailer.js:8b0e3b010afe313cddcfcf3c437c4eb1 -->
 <!-- engine-md5:engine/bohemia_apartment.js:84574bed8ee4b0106df0dcf58bfc487b -->
+<!-- engine-md5:engine/bohemia_warehouse.js:ae95253c543a430b89a16ed56fdb436a -->
+<!-- engine-md5:engine/bohemia_waterpark.js:d84f86bc50bb4dca56df5e20afa67e9b -->
+<!-- engine-md5:engine/bohemia_mall.js:d975252d09539da3d11c2862af7e37c5 -->
 <!-- engine-md5:engine/bohemia_overmap.js:6e7b04229fe868294a466d5279b7f183 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:530d913e483b7ae4ce57e3b69065f730 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:d29d2c224f7be064ca46d878f09986da -->
+<!-- engine-md5:engine/bohemia_world.js:c3be9118cb8d5320ed24e5c4b97476fc -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
   #cv{display:block;width:100%;height:calc(100% - 34px);background:#0d0b08}
@@ -3871,6 +3874,313 @@
   if(typeof module!=='undefined')module.exports=API; root.BohemiaApartment=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
+/* ==== engine/bohemia_warehouse.js ==== */
+// BOHEMIA WAREHOUSE — MULTI-TENANT FLEX/LIGHT-INDUSTRIAL PARK (7/22/26). INDUSTRIAL, on the
+// DISTRICT KIT. Research-first: real Vegas flex/business parks (Sunrise Manor, the airport
+// industrial corridor) — NOT one single big-box DC (that's already bohemia_industrial.js's
+// typology). Instead: a ROW of mid-size tenant units (5,000-15,000 sqft each) sharing a party
+// wall, each with its OWN roll-up dock door + small office bay + a couple reserved parking
+// stalls out front, along an internal drive aisle, plus a shared truck court along the back for
+// the units that need dock access. Cheap, gritty, many-small-businesses texture — distinct from
+// the single-tenant DC. Act-1 DEAD: half the units' roll-up doors are open/looted, a few units
+// burned, weeds through the truck court, abandoned cars/pallets. Street-aware + drivable;
+// buildings + docks dominate (WALKABLE-LAND). Full dossier + layering.
+// LEGEND:
+//  0 desert  1 street/drive (DRIVABLE)  2 tenant unit  3 weed/brush  4 lot asphalt  5 gate
+//  6 dock door (portal)  7 office bay  8 burned unit  9 pole light  10 abandoned car
+//  11 stall marking  12 fence  13 loose pallets  14 dumpster
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+    // one TENANT UNIT: a party-wall bay, front office window strip, a roll-up dock at the back,
+    // a couple reserved stalls out front.
+    function unit(ux,uy,uw,depth,idx){
+      if(r()<0.12){ G.rect(ux,uy,ux+uw,uy+depth,8); return; }             // a burned-out bay
+      G.rect(ux,uy,ux+uw,uy+depth,2);                                     // the unit box
+      G.rect(ux+1,uy,ux+Math.max(1,Math.floor(uw*0.4)),uy+2,7);          // office bay, front corner
+      set(ux+Math.floor(uw/2),uy+depth,6);                                // roll-up dock, back face
+      for(var ci=0;ci<2;ci++) set(ux+2+ci*2,uy-2,11);                     // reserved stalls out front
+      if(r()<0.4) set(ux+3,uy+depth+1,13);                                // loose pallets behind the dock
+    }
+    // ---- BASE: lot asphalt, fenced; desert at the margins ----
+    G.rect(0,0,W-1,H-1,0); G.rect(6,8,W-7,H-7,4); G.frame(12);
+    // ---- two ROWS of tenant units facing an internal drive aisle, dock-backed to a shared
+    // truck court behind each row ----
+    var UW=13, DEPTH=16, count=7;
+    for(i=0;i<count;i++) unit(10+i*UW, 20, UW-2, DEPTH, i);
+    G.rect(6,38,W-7,44,1);                                                // drive aisle, row 1 front
+    for(i=0;i<count;i++) unit(10+i*UW, 68, UW-2, DEPTH, i+count);
+    G.rect(6,86,W-7,92,1);                                                // drive aisle, row 2 front
+    G.rect(6,52,W-7,58,4);                                                // shared truck court between the rows' docks
+    // ---- spine street linking both aisles to the gate — routed through the CLEAR east margin
+    // (x=100-121, past the last unit at x=99) so it never has to cross a building, not through
+    // the row's own footprint ----
+    var gx=108;
+    G.rect(gx-3,92,gx+3,H-1,1);
+    for(y=H-1;y>=38;y--)for(x=-3;x<=3;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4||c===11||c===12)set(gx+x,y,1); }
+    for(i=-3;i<=3;i++)set(gx+i,H-1,5);
+    for(i=0;i<40;i++){ var wx=8+Math.floor(r()*112), wy=10+Math.floor(r()*112); if(get(wx,wy)===4&&r()<0.4)set(wx,wy,3); }
+    [[10,38],[100,38],[10,86],[100,86]].forEach(function(p){ set(p[0],p[1],9); });
+    set(101,90,14);                                                       // a dumpster near the entrance
+    return g;
+  }
+  function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===4; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
+    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2||v===7;})}; }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#8a7a4a',
+    7:'#5c6068',8:'#332a26',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#6a6a72',13:'#8a7050',14:'#463f36'};
+  var LEGEND={
+    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
+    1:{name:'street / drive',     kind:'drive',      act1:'the cracked internal park drive / driveway aisle (car-drivable)'},
+    2:{name:'tenant unit',        kind:'building',   act1:'a flex/light-industrial bay, tilt-up concrete, sun-bleached, half the units looted', enter:'flex unit interior: a small front office, a bare warehouse bay behind it'},
+    3:{name:'weed / brush',       kind:'tree-dead',  act1:'weeds + tumbleweed through the cracked lot', solid:false},
+    4:{name:'lot asphalt',        kind:'ground',     act1:'the park lot / truck court asphalt, faded striping'},
+    5:{name:'gate',               kind:'gate',       act1:'the park entrance off the street, amber curb'},
+    6:{name:'dock door',          kind:'portal',     act1:'a roll-up dock door, half open or torn off', enter:'the bay behind the dock'},
+    7:{name:'office bay',         kind:'building',   act1:'the tenant\'s front office window strip, glass smashed', solid:true},
+    8:{name:'burned unit',        kind:'building',   act1:'a burned-out tenant bay — charred shell, roof collapsed', solid:true},
+    9:{name:'pole light',         kind:'prop',       act1:'a park pole light, head dark'},
+    10:{name:'abandoned car',     kind:'vehicle',    act1:'a car dead in a reserved stall, tyres flat', solid:true},
+    11:{name:'stall marking',     kind:'marking',    act1:'faded reserved-parking stall paint'},
+    12:{name:'fence',             kind:'structure',  act1:'the park perimeter fence, chain-link sagging', solid:true},
+    13:{name:'loose pallets',     kind:'prop',       act1:'a stack of broken pallets behind a dock', solid:true},
+    14:{name:'dumpster',          kind:'prop',       act1:'a rusted dumpster near the entrance', solid:true}
+  };
+  var NOTES={
+    summary:'A dead multi-tenant flex/light-industrial park — two rows of party-wall tenant bays (roll-up dock at back, small office at front) on an internal drive aisle, a shared truck court, some units burned. Distinct from the single-big-box DC (bohemia_industrial.js): many small businesses, not one tenant.',
+    reference:['Real Vegas flex/business parks (Sunrise Manor, the airport industrial corridor): rows of mid-size tenant units (5,000-15,000 sqft) sharing party walls, each with its own roll-up dock + small front office + a couple reserved stalls, on an internal drive aisle; a shared truck court serves the dock side.'],
+    layout:['Two rows of 7 tenant units each face an internal drive aisle, dock doors backed to a shared truck court between the rows.',
+      'Each unit has a front office bay window strip, a rear roll-up dock, and 2 reserved stalls; ~12% are burned-out shells.',
+      'A spine street ties both aisles to the south gate; weeds and dead pole lights through the lot.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the entrance gate is on the primary street; a spine street reaches both drive aisles from the gate (code 1, K.driveReachFromStreet). WALKABLE-LAND: the two building rows + docks + office bays dominate; the drive aisles/truck court are the connective ladder.',
+    layering:'GROUND plane (walk/drive, flat): lot asphalt (4), the aisles/street (1, drive), desert (0). STRUCTURES (¾ front face, solid): the tenant units (2, ENTERABLE -> office + bay), the office bays (7), burned units (8), the fence (12). PORTALS: dock doors (6, enterable into the bay), the gate (5). PROPS/VEHICLES (solid): loose pallets (13), dumpster (14), abandoned cars (10). PROPS: pole lights (9), weeds (3). The two unit rows are the mass; you drive the aisle-and-spine ladder between them.',
+    decisions:['Act-1 DEAD: roll-up doors torn/open, ~12% units burned, weeds through the truck court, dead cars in reserved stalls. Who squats/salvages here is faction/LIFE canon (Paolo\'s).',
+      'INDUSTRIAL category, distinct typology from bohemia_industrial.js (one big DC) — many small tenant bays, not one tenant.',
+      'WALKABLE-LAND honored: two building rows + docks + offices dominate; aisles/truck court are the ladder.',
+      'Research-first (per the playbook): built from real flex/business-park site plans, not memory.']
+  };
+  K.register('warehouse', { generate:generate, body:function(c){return c===2;}, category:'industrial', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API; root.BohemiaWarehouse=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ==== engine/bohemia_waterpark.js ==== */
+// BOHEMIA WATERPARK (7/22/26). LEISURE, on the DISTRICT KIT. Research-first (real water park
+// site plans — Wet'n'Wild Las Vegas before its 2004 closure, typical American water-park
+// layout): entrance plaza with lockers/snack bar, a big WAVE POOL as the centerpiece, a LAZY
+// RIVER loop channel, a row of SLIDE TOWERS along the back edge each dropping into its own
+// splash pool, sun decks with lounge chairs between the water features, a modest entrance
+// parking lot. Act-1 DEAD: every pool drained + cracked, slide flumes rust-streaked, lounge
+// chairs toppled, weeds through the deck. Street-aware + drivable; the pools/slides/buildings
+// dominate the plot (WALKABLE-LAND) — real water parks are mostly water/deck, not parking.
+// LEGEND:
+//  0 desert  1 street/drive (DRIVABLE)  2 locker building  3 weed/brush  4 parking asphalt
+//  5 gate  6 drained wave pool  7 lazy river channel (drained)  8 slide tower  9 splash pool
+//  10 pole light  11 lounge chair  12 fence  13 snack bar  14 sun deck  15 ticket booth
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+    // a hollow rectangular ring (the lazy river loop), thickness ~4 tiles
+    function ring(x0,y0,x1,y1,th,c){
+      G.rect(x0,y0,x1,y0+th,c); G.rect(x0,y1-th,x1,y1,c);
+      G.rect(x0,y0,x0+th,y1,c); G.rect(x1-th,y0,x1,y1,c);
+    }
+    // a slide tower + its flume streak + a splash pool at the base
+    function slide(tx,ty){
+      G.rect(tx,ty,tx+4,ty+4,8);                                          // the tower
+      for(i=0;i<14;i++) set(tx+2+Math.floor(Math.sin(i*0.5)*2),ty+5+i,8); // the flume streak, wiggling down
+      G.disc(tx+2,ty+21,4,9);                                             // the splash pool at the base
+    }
+    // ---- BASE: sun deck (dead ground the deck sits on), fenced; desert at the margins ----
+    G.rect(0,0,W-1,H-1,0); G.rect(6,8,W-7,H-7,14); G.frame(12);
+    // ---- entrance: parking lot, ticket booths, lockers + snack bar ----
+    G.rect(46,102,82,116,4);                                              // entrance parking (modest, per WALKABLE-LAND)
+    G.rect(50,90,64,100,2);                                               // locker / changing building
+    G.rect(68,90,80,98,13);                                               // snack bar
+    set(64,101,15); set(66,101,15);                                       // ticket booths flanking the walk-in
+    // ---- THE WAVE POOL: the centerpiece, big and irregular (beach-entry zigzag south edge) ----
+    G.rect(30,40,98,70,6);
+    for(x=30;x<=98;x+=6){ if(r()<0.5) G.rect(x,70,x+3,72,6); }            // beach-entry zigzag
+    // ---- THE LAZY RIVER: a loop channel around the wave pool's east/south side ----
+    ring(14,34,112,86,4,7);
+    // punch the wave pool + buildings back through where the ring crosses them (the ring is
+    // BEHIND the pool/buildings, not on top)
+    G.rect(30,40,98,70,6); G.rect(50,90,64,100,2); G.rect(68,90,80,98,13);
+    // ---- SLIDE TOWERS along the back (north) edge, dropping into their splash pools ----
+    slide(20,10); slide(40,10); slide(60,10); slide(80,10);
+    // ---- sun deck lounge chairs scattered around the water features ----
+    for(i=0;i<50;i++){ var lx=10+Math.floor(r()*108), ly=10+Math.floor(r()*108);
+      if(get(lx,ly)===14 && r()<0.4) set(lx,ly,11); }
+    for(i=0;i<30;i++){ var wx=10+Math.floor(r()*108), wy=10+Math.floor(r()*108);
+      if(get(wx,wy)===14 && r()<0.25) set(wx,wy,3); }
+    [[12,12],[116,12],[12,116],[116,90]].forEach(function(p){ set(p[0],p[1],10); });
+    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
+    var gx=64;
+    G.rect(gx-3,116,gx+3,H-1,1);
+    for(i=-3;i<=3;i++)set(gx+i,H-1,5);
+    return g;
+  }
+  function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===14; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
+    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2||v===13;})}; }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#726a5c',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#2e3a3c',
+    7:'#27363c',8:'#6a6258',9:'#324248',10:'#8f8676',11:'#8a7a4a',12:'#6a6a72',13:'#5c5648',14:'#4a463c',15:'#726a5c'};
+  var LEGEND={
+    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
+    1:{name:'street / drive',     kind:'drive',      act1:'the cracked entrance drive (car-drivable)'},
+    2:{name:'locker building',    kind:'building',   act1:'the changing rooms / locker building, doors hanging', solid:true, enter:'locker interior: rows of rusted lockers, a dead shower block'},
+    3:{name:'weed / brush',       kind:'tree-dead',  act1:'weeds pushing through the cracked deck', solid:false},
+    4:{name:'parking asphalt',    kind:'ground',     act1:'the entrance parking lot, faded striping'},
+    5:{name:'gate',               kind:'gate',       act1:'the park entrance turnstile, amber curb'},
+    6:{name:'drained wave pool',  kind:'water-dead', act1:'the wave pool, drained, cracked plaster, a beach-entry zigzag edge', solid:false},
+    7:{name:'lazy river channel', kind:'water-dead', act1:'the lazy river loop, drained, dry leaves in the bottom', solid:false},
+    8:{name:'slide tower',        kind:'structure',  act1:'a water-slide tower + its flume, rust-streaked fiberglass', solid:true},
+    9:{name:'splash pool',        kind:'water-dead', act1:'the drained splash pool at a slide\'s base, cracked', solid:false},
+    10:{name:'pole light',        kind:'prop',       act1:'a park pole light, head dark'},
+    11:{name:'lounge chair',      kind:'prop',       act1:'a toppled sun-deck lounge chair, faded plastic', solid:false},
+    12:{name:'fence',             kind:'structure',  act1:'the park perimeter fence, chain-link sagging', solid:true},
+    13:{name:'snack bar',         kind:'building',   act1:'the snack bar kiosk, shutter down, sign faded', solid:true, enter:'snack bar interior: a cramped service counter + a dead walk-in cooler'},
+    14:{name:'sun deck',          kind:'ground',      act1:'the concrete sun deck between the pools, cracked, weeds through the joints'},
+    15:{name:'ticket booth',      kind:'structure',  act1:'a ticket booth / turnstile post, glass broken', solid:true}
+  };
+  var NOTES={
+    summary:'A dead water park — a big drained wave pool at the centerpiece, a lazy-river loop channel around it, four slide towers along the back edge each dropping into its own splash pool, a locker building + snack bar near the entrance, sun deck between the features, modest entrance parking.',
+    reference:['Real American water-park site plans (the Wet\'n\'Wild Las Vegas layout before its 2004 closure is the direct regional precedent): a big WAVE POOL as the centerpiece; a LAZY RIVER loop channel; a row of SLIDE TOWERS along one edge each with its own splash-down pool; lockers/changing rooms + a snack bar near the entrance; sun deck paving between the water features; parking kept modest since the water/deck IS the venue.'],
+    layout:['Entrance: modest parking lot, ticket booths, a locker/changing building, a snack bar.',
+      'Centerpiece: a big irregular wave pool with a beach-entry zigzag edge; a lazy-river loop channel runs around its east/south side.',
+      'Four slide towers line the back (north) edge, each with a wiggling flume streak down into its own splash pool.',
+      'Cracked sun-deck paving fills the gaps between features, scattered with toppled lounge chairs and weeds.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the entrance turnstile is on the primary street; the entrance drive is the only real drivable surface (K.driveReachFromStreet). WALKABLE-LAND: the pools + slide towers + buildings + sun deck dominate the plot — real water parks are mostly water/deck, not parking, matching the real-world venue.',
+    layering:'GROUND plane (walk/drive, flat): sun deck (14), parking asphalt (4), the entrance drive (1), desert (0), the drained pools/river/splash pools (6/7/9, not solid — you can walk into the empty basins). STRUCTURES (¾ front face, solid): the locker building (2, ENTERABLE), the snack bar (13, ENTERABLE), the slide towers (8), ticket booths (15), the fence (12). PROPS: lounge chairs (11), pole lights (10), weeds (3). PORTALS: the gate (5). The wave pool + lazy river + slide towers are the mass; the sun deck is the connective tissue between them, not pavement for cars.',
+    decisions:['Act-1 DEAD: every pool drained + cracked, flumes rust-streaked, lounge chairs toppled, weeds through the deck joints. Who squats/holds the site is faction/LIFE canon (Paolo\'s).',
+      'LEISURE category. Zero purple.',
+      'WALKABLE-LAND honored via real-world precedent: a water park\'s pools/slides/deck genuinely dominate a real site plan, not an exemption — parking stays modest and the gate proves content dominates without needing vehicular:true.',
+      'Research-first (per the playbook): built from the real regional water-park precedent (Wet\'n\'Wild Las Vegas layout), not memory.']
+  };
+  K.register('waterpark', { generate:generate, body:function(c){return c===2||c===13;}, category:'leisure', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API; root.BohemiaWaterpark=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ==== engine/bohemia_mall.js ==== */
+// BOHEMIA MALL (7/22/26). COMMERCIAL, on the DISTRICT KIT. Research-first (real dead-mall
+// anatomy — Rolling Acres/Randall Park/Euclid Square post-mortems, and Vegas's own Boulevard
+// Mall/Meadows Mall layout): a DUMBBELL-shaped enclosed building — a long concourse spine with
+// TWO big-box ANCHOR STORES at either end, a food-court bump-out on one side, multiple entrance
+// doors along the front, loading docks on the back (service) side. A large but NOT dominant
+// parking field fronts the street on both long sides — the building itself is the mass, per
+// WALKABLE-LAND, matching how real enclosed malls actually read from the air (a huge single
+// building, not a a small store lost in a sea of asphalt). Act-1 DEAD: entrance doors boarded
+// or smashed, the food-court glass gone, weeds through the lot, a few abandoned cars. No
+// perimeter fence — real mall lots are open to the street grid, not walled.
+// LEGEND:
+//  0 desert  1 street/drive (DRIVABLE)  2 concourse  3 weed/brush  4 parking asphalt
+//  5 gate/curb-cut  6 anchor store  7 food court  8 loading dock  9 pole light
+//  10 abandoned car  11 stall marking  12 entrance door  13 dumpster
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+    // ---- BASE: parking asphalt lot; desert at the margins (no perimeter fence on a mall lot) ----
+    G.rect(0,0,W-1,H-1,0); G.rect(4,4,W-5,H-5,4);
+    // ---- THE DUMBBELL: concourse spine + two big anchor stores at the ends — sized so the
+    // enclosed building genuinely dominates the plot, matching real dead-mall aerials, not a
+    // small store lost in a sea of asphalt ----
+    G.rect(20,42,108,80,2);                                               // the concourse spine (wider + deeper)
+    G.rect(2,32,22,90,6);                                                 // west anchor
+    G.rect(106,32,126,90,6);                                              // east anchor
+    // ---- food court bump-out, north side of the spine ----
+    G.rect(52,30,76,42,7);
+    // ---- entrance doors along the SOUTH face of the concourse ----
+    for(x=28;x<=100;x+=16) set(x,80,12);
+    set(12,86,12); set(116,86,12);                                        // anchor entrances too
+    // ---- loading docks on the NORTH (back/service) face ----
+    for(x=26;x<=102;x+=20) set(x,42,8);
+    // ---- parking fields north and south of the building, curb cuts to the street ----
+    G.rect(6,10,122,28,4);                                                // north lot (past the food court/docks)
+    G.rect(6,92,122,118,4);                                               // south lot (the main entrance side)
+    for(x=36;x<=94;x+=10){ set(x,96,11); set(x,114,11); }                 // stall striping, south lot
+    for(x=36;x<=94;x+=10){ set(x,14,11); set(x,24,11); }                  // stall striping, north lot
+    for(i=0;i<12;i++){ var cx=36+Math.floor(r()*60), cy=(r()<0.5)?(96+Math.floor(r()*4)):(14+Math.floor(r()*4));
+      if(r()<0.5) set(cx,cy,10); }                                        // scattered dead cars
+    // ---- weeds + lights through the lot ----
+    for(i=0;i<40;i++){ var wx=6+Math.floor(r()*116), wy=6+Math.floor(r()*116); if(get(wx,wy)===4&&r()<0.3)set(wx,wy,3); }
+    [[10,18],[118,18],[10,106],[118,106]].forEach(function(p){ set(p[0],p[1],9); });
+    set(9,92,13);                                                         // a dumpster at the service corner
+    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit): a driveway
+    // ring linking both parking fields to the gate — side lanes AND the horizontal connectors
+    // that actually tie them to the gate (a ring only works if every leg touches the next) ----
+    var gx=64;
+    G.rect(gx-4,118,gx+4,H-1,1);
+    for(i=-4;i<=4;i++)set(gx+i,H-1,5);
+    G.rect(6,10,6,118,1); G.rect(122,10,122,118,1);                       // full-height side drive lanes
+    G.rect(6,116,gx-4,120,1); G.rect(gx+4,116,122,120,1);                 // south connectors: side lanes -> the gate lane
+    G.rect(6,26,122,30,1);                                                // north connector: ties both side lanes across the top lot
+    return g;
+  }
+  function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===4; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
+    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2||v===6||v===7;})}; }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#5c5648',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#726a5c',
+    7:'#6a6258',8:'#8a7a4a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#8a7a4a',13:'#463f36'};
+  var LEGEND={
+    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the lot edge'},
+    1:{name:'street / drive',     kind:'drive',      act1:'the cracked mall ring-road / driveway (car-drivable)'},
+    2:{name:'concourse',          kind:'building',   act1:'the enclosed mall concourse, tilt-up + glazing, most glass gone', solid:true, enter:'concourse interior: a long dead promenade, storefronts dark on both sides'},
+    3:{name:'weed / brush',       kind:'tree-dead',  act1:'weeds through the cracked lot', solid:false},
+    4:{name:'parking asphalt',    kind:'ground',     act1:'the mall parking field, faded striping, sun-bleached'},
+    5:{name:'gate',               kind:'gate',       act1:'the main driveway curb cut off the street, amber curb'},
+    6:{name:'anchor store',       kind:'building',   act1:'a big-box anchor department store, sign faded, doors boarded', solid:true, enter:'anchor store interior: a cavernous dead sales floor'},
+    7:{name:'food court',         kind:'building',   act1:'the food court bump-out, skylight glazing shattered', solid:true, enter:'food court interior: dead counter stalls around a seating pit'},
+    8:{name:'loading dock',       kind:'portal',     act1:'a service loading dock on the back face, roll-up torn', enter:'the back-of-house service corridor'},
+    9:{name:'pole light',         kind:'prop',       act1:'a tall parking-lot light standard, head dark'},
+    10:{name:'abandoned car',     kind:'vehicle',    act1:'a car dead in the lot, tyres flat', solid:true},
+    11:{name:'stall marking',     kind:'marking',    act1:'faded parking-stall paint'},
+    12:{name:'entrance door',     kind:'portal',     act1:'a mall entrance vestibule, glass smashed or boarded', enter:'into the concourse'},
+    13:{name:'dumpster',          kind:'prop',       act1:'a rusted dumpster at the service corner', solid:true}
+  };
+  var NOTES={
+    summary:'A dead enclosed shopping mall — a dumbbell-shaped building (a long concourse spine with a big-box anchor store at each end + a food-court bump-out), multiple boarded entrances, loading docks on the service side, parking fields north and south. The building itself is the mass, not a small store in a sea of asphalt.',
+    reference:['Real dead-mall anatomy (Rolling Acres Mall / Randall Park Mall / Euclid Square Mall post-mortems, and Vegas\'s own Boulevard Mall / Meadows Mall layout): a DUMBBELL shape — a long enclosed concourse with a big-box ANCHOR department store at each end, a food-court bump-out, multiple mall-entrance vestibules along the front, service loading docks on the back, and a large parking field — but the ENCLOSED BUILDING is genuinely huge (100k-1M+ sqft), reading as the dominant mass from the air, not a footnote to the parking.'],
+    layout:['A long concourse spine runs east-west with a big anchor store box at each end and a food-court bump-out on the north side.',
+      'Entrance vestibules line the south (main) face; loading docks sit on the north (service) face.',
+      'Parking fields sit north and south of the building, tied together by a perimeter drive ring reaching the south entrance gate.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the main driveway gate is on the primary street; a perimeter drive ring (code 1) links both parking fields all the way around the building to the gate (K.driveReachFromStreet). WALKABLE-LAND: the concourse + two anchors + food court are a genuinely massive single building — real enclosed-mall precedent, not an exemption.',
+    layering:'GROUND plane (walk/drive, flat): parking asphalt (4), the drive ring/gate lane (1, drive), desert (0), stall markings (11). STRUCTURES (¾ front face, solid): the concourse (2, ENTERABLE), the anchor stores (6, ENTERABLE), the food court (7, ENTERABLE). PORTALS: entrance doors (12, into the concourse), loading docks (8, into service). PROPS/VEHICLES (solid): dumpster (13), abandoned cars (10). PROPS: pole lights (9), weeds (3). The dumbbell building is the mass; the drive ring is the connective ladder around it, never the main event.',
+    decisions:['Act-1 DEAD: entrances boarded/smashed, food-court glazing shattered, weeds through the lot, scattered dead cars. Who squats/scavenges the anchors is faction/LIFE canon (Paolo\'s).',
+      'COMMERCIAL category, distinct from downtown/strip-mall commercial — one ENCLOSED building, not an outdoor street grid or open storefronts.',
+      'No perimeter fence (real mall lots are open to the street grid, unlike a residential complex) — a deliberate contrast with the fenced districts this session.',
+      'WALKABLE-LAND satisfied by real-world precedent: the enclosed building mass genuinely dominates a real mall site plan, no vehicular exemption needed.',
+      'Research-first (per the playbook): built from real dead-mall site-plan anatomy, not memory.']
+  };
+  K.register('mall', { generate:generate, body:function(c){return c===2||c===6||c===7;}, category:'commercial', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API; root.BohemiaMall=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
    BOHEMIA OVERMAP  (bohemia_overmap.js)  7/5/26 pass 4
@@ -5785,6 +6095,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var DTN= HASREQ ? require('./bohemia_downtown.js')       : (typeof BohemiaDowntown!=='undefined'?BohemiaDowntown:root.BohemiaDowntown);
   var TRL= HASREQ ? require('./bohemia_trailer.js')        : (typeof BohemiaTrailer!=='undefined'?BohemiaTrailer:root.BohemiaTrailer);
   var APT= HASREQ ? require('./bohemia_apartment.js')      : (typeof BohemiaApartment!=='undefined'?BohemiaApartment:root.BohemiaApartment);
+  var WHS= HASREQ ? require('./bohemia_warehouse.js')      : (typeof BohemiaWarehouse!=='undefined'?BohemiaWarehouse:root.BohemiaWarehouse);
+  var WTP= HASREQ ? require('./bohemia_waterpark.js')      : (typeof BohemiaWaterpark!=='undefined'?BohemiaWaterpark:root.BohemiaWaterpark);
+  var MLL= HASREQ ? require('./bohemia_mall.js')           : (typeof BohemiaMall!=='undefined'?BohemiaMall:root.BohemiaMall);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -5825,7 +6138,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
     downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
     trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' },
-    apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' }
+    apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },
+    warehouse:  { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    waterpark:  { mod:WTP, foot:function(r){return r.footprints;},           zone:'leisure' },
+    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
@@ -6015,7 +6331,7 @@ var MODMAP = {
   policestation:'BohemiaPolicestation', library:'BohemiaLibrary', landfill:'BohemiaLandfill',
   railyard:'BohemiaRailyard', substation:'BohemiaSubstation', chapel:'BohemiaChapel',
   courthouse:'BohemiaCourthouse', jail:'BohemiaJail', farm:'BohemiaFarm', downtown:'BohemiaDowntown',
-  trailer:'BohemiaTrailer'
+  trailer:'BohemiaTrailer', warehouse:'BohemiaWarehouse', waterpark:'BohemiaWaterpark', mall:'BohemiaMall'
 };
 function modOf(dist){ var n = MODMAP[dist]; return n ? window[n] : null; }
 

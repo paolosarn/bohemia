@@ -47,7 +47,8 @@ const MODMAP={ suburb:'suburb',gated:'suburb',estate:'suburb',commercial:'commer
   stadium:'stadium',truckstop:'truckstop',school:'school',firestation:'firestation',swapmeet:'swapmeet',
   storage:'storage',watertreat:'watertreat',boneyard:'boneyard',policestation:'policestation',library:'library',
   landfill:'landfill',railyard:'railyard',substation:'substation',chapel:'chapel',courthouse:'courthouse',
-  jail:'jail',farm:'farm',downtown:'downtown',trailer:'trailer' };
+  jail:'jail',farm:'farm',downtown:'downtown',trailer:'trailer',apartment:'apartment',
+  warehouse:'warehouse',waterpark:'waterpark',mall:'mall' };
 function modOf(dist){ if(dist in MODCACHE) return MODCACHE[dist];
   let m=null; if(MODMAP[dist]){ try{ m=require(path.join(ROOT,'engine','bohemia_'+MODMAP[dist]+'.js')); }catch(e){ m=null; } }
   return (MODCACHE[dist]=m); }

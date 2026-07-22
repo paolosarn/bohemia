@@ -31,6 +31,7 @@ const MODULES = [
   'engine/bohemia_railyard.js', 'engine/bohemia_substation.js', 'engine/bohemia_chapel.js',
   'engine/bohemia_courthouse.js', 'engine/bohemia_jail.js', 'engine/bohemia_farm.js',
   'engine/bohemia_downtown.js', 'engine/bohemia_trailer.js', 'engine/bohemia_apartment.js',
+  'engine/bohemia_warehouse.js', 'engine/bohemia_waterpark.js', 'engine/bohemia_mall.js',
   'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
   'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
   'engine/bohemia_world.js',
