@@ -174,6 +174,8 @@ GATES = [
      'witnesses: clarity decays, familiarity holds, missing-persons answerable', False),
     ('DEVIATION',      ['node', 'gates/deviation_gate.js'],
      'events bend a life, never break it: expiry required, cap held, re-convergence', False),
+    ('LOOP',           ['node', 'gates/bohemia_loop_gate.js'],
+     'the nine islands boot into one driven engine: factions canon-wired, economy+spawner poured', False),
     ('CITY TAB',       ['node', 'gates/city_tab_gate.js'],
      'the CITY tab: embedded modules byte-locked to canon, skeleton-as-itself', False),
     ('CITY EDIT',      ['node', 'gates/cityedit_gate.js'],

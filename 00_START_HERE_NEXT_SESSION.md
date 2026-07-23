@@ -42,6 +42,63 @@ drawImage at p.sx/p.sy lifted by height, per the render map in this file below).
 GRAVEYARD REMINDER: never re-ship the v1 box approach; heroes are iconic
 architecture only.
 
+## THE MASTER LOOP GATE WAS RED AND UNREGISTERED — FOUND AND FIXED (7/23,
+## world-model session, Paolo: "this is the world model chat do something important")
+Went looking for real, in-lane work beyond the district factory (which is
+essentially done) and found genuine architecture rot: engine/bohemia_loop.js
+(the "nine islands" master-loop scaffold from 7/1 — world/factions/economy/
+entities/dynasty unified into one GameContext) has its OWN gate
+(gates/bohemia_loop_gate.js, 31 checks) that was NEVER registered in
+bohemia_gates.py and was actually CRASHING (`ctx.factions` was null,
+TypeError on the first real check) — silently red for who knows how long.
+"A law without a machine gate is not enforced" applies to the gate itself
+here: an unregistered gate is the same as no gate.
+FIXED FOR REAL, not just silenced: bootFactions/bootEconomy/bootEntities in
+bohemia_loop.js were three-line SEAM/GAP stubs (`ctx.factions = null` etc.)
+even though the real engines they plug into (Factions territory AI,
+FactionCanon loader, Economy tank/faucet/sink, Entities/Spawner) were
+already fully built elsewhere in bohemia_engine.js, just never wired:
+  - FACTIONS: FactionCanon.loadFactionCanon() reads engine/
+    BOHEMIA_faction_graph.json (Paolo's own GDD v2 §9 data — relations,
+    act1/act3 power, permanent-war/protected-neutral flags) and seeds a
+    FactionWorld with initial standings + permanent constraints. shiftStanding
+    now wraps every write through enforceConstraints so lore locks
+    (permanent war can't thaw, protected-neutral can't be driven below its
+    floor) hold no matter what touches it. Base placement: the 14 selectable
+    factions zip 1:1 (sorted ids) onto worldMap.factionSlots (14 proc-gen
+    points, already deterministic from seed) — mechanical pairing, not a
+    layout decision (MAP LAW is about the live overmap Paolo places canon
+    on; this is the scaffold's own dormant abstract-point subsystem). Each
+    faction's nearest real worldMap district becomes its founding claim.
+  - ECONOMY: one empty DistrictEconomy per real worldMap district — the
+    tank/faucet/sink MACHINERY only, zero currency numbers invented. Real
+    faucet/sink rates stay unpoured (Paolo's 7/19 ruling: economy can't be
+    tuned against a world that doesn't exist yet).
+  - ENTITIES: a shared Spawner keyed on save.seed + ctx.deltas, matching
+    what spawnActorsForDistrict already built ad hoc per-call.
+MECHANISM-MINE / CONTENTS-PAOLO'S held throughout: nothing here invents
+lore. The faction graph is Paolo's own file; the constraint math mechanically
+encodes relationships he already wrote. No faucet/sink rate, no district
+texture rule, no faction-to-territory NARRATIVE choice was authored.
+Gate now GREEN (31/31) and registered as #LOOP in bohemia_gates.py, between
+DEVIATION and CITY TAB.
+KNOWN GAP, flagged not fixed: this scaffold's `worldMap` is still the OLD
+abstract point-based WorldGen from bohemia_engine.js's 7/1 era (18-28
+scattered points with fake ids like 'd3'), NOT the real 33-district-type,
+real-street, real-connectivity world model (bohemia_world.js/
+bohemia_overmap.js) that's been live in the CITY/MAP tabs all week. TWO
+world generators exist in the repo; this session only fixed the wiring of
+the dormant one, it did not merge them. bohemia_loop.js is inlined
+(stale, unsynced, no gate watches it) inside slices/BOHEMIA_CURRENT_SLICE
+.html at ~line 4366 as inert reference code, not booted live anywhere — so
+this fix changed zero live behavior, it just made a real, previously-broken
+piece of infrastructure actually work and stay enforced. NEXT for whoever
+picks this up: either (a) point bootWorldGen at the real bohemia_world.js
+and reshape factionSlots/districts to match its real district-id scheme (a
+real lift — the abstract shape threads through Economy/Entities call sites
+too), or (b) formally graveyard the abstract WorldGen once the real one can
+fully replace it. Not done this turn — flagged honestly, not claimed.
+
 ## DISTRICT HERO BUILDINGS - 3/4-ISO EMBODIMENT FOR THE BUILDER (7/23, same
 ## session, Paolo: "for each district you made you have to make a sideways 45
 ## degree view of the building or embodiment of the district for the city
