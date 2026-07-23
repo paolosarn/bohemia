@@ -105,8 +105,11 @@ research partner. He DECIDES, you PRODUCE.
   rawStreetEdges/buildLandlockConnect BFS (connectivity half, generalizes to any
   same-type blob — downtown, farm, not just suburb) + bohemia_overmap.js's LANDMARK
   ACCESS SPUR post-pass (carves a desert-only driveway to the nearest street for
-  isolated cells the relay can't reach, never touches built content). Gate:
-  landlocked_gate.js. Full
+  isolated cells the relay can't reach, never touches built content). Separately
+  (cosmetic, not mandatory): a 25%-per-edge COSMETIC CONNECT knob links some
+  adjacent street-touching suburb pairs with a real through-connector, most stay
+  walled — real Sun Belt subdivision privacy, from the 7/21 Vegas-urbanism
+  research. Gate: landlocked_gate.js. Full
   law + the known small residual (isolated single-cell landmarks) in /laws.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 

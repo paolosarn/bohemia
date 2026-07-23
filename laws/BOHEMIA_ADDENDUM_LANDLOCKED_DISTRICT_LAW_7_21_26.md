@@ -58,6 +58,19 @@ driveway onto a highway two blocks away.
   rule independent of whatever sits outside it. If no room exists for a compliant bulb, that
   cell is skipped and stays in the documented residual rather than shipping a rule violation.
 
+- **Cosmetic connect (7/22/26, a separate optional layer, not part of the mandatory law)** —
+  `engine/bohemia_world.js`, `buildCosmeticConnect(m)`: from the 7/21 Vegas-urbanism research
+  thread (Summerlin's real model — loop/cul-de-sac streets, only the OCCASIONAL deliberate
+  through-connector between adjacent tracts, for privacy and lot yield, not full-mesh streets).
+  For every pair of ADJACENT suburb-family cells that BOTH already independently touch a real
+  street (i.e., neither needs the mandatory relay), roll a deterministic 25% chance per edge-pair
+  to open a matching through-connector between them — same gate-centering mechanism, so the two
+  neighbors' openings land on the same tile offset. Merged into the same `landlockConnect` map
+  `plot()` already consults, so no new call site was needed. Verified per-edge-pair rate lands at
+  ~24-25% across seeds (a per-CELL "has any connector" reading is much higher, ~48-51%, since a
+  cell has up to 4 directions to gain one — that compounding is expected, not a bug; the gate
+  measures the underlying per-edge rate directly to avoid the confusion).
+
 ## Known residual (reported, not hidden)
 A small number of cells still have **no desert path** to a street within the spur's search
 radius (genuinely boxed in by other built districts on every side) or are an isolated landmark

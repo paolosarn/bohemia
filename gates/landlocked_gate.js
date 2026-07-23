@@ -78,5 +78,50 @@ for (const seed of SEEDS) {
   ok('relay-connected cells generate without throwing (' + spotChecked + ' spot-checked)', spotChecked > 0 && threw === 0);
 }
 
+// COSMETIC CONNECT (7/22/26, from the 7/21 Vegas-urbanism research): a low-probability optional
+// through-connector between two ADJACENT suburb-family cells that already independently touch a
+// real street — most subdivision boundaries stay a wall (privacy, real Sun Belt precedent), some
+// get a genuine cut-through. Sanity-check the density lands in the designed range (neither 0%
+// nor near-100%) so a future edit can't silently zero out or max out the knob without a gate
+// noticing, and confirm the tile-level mechanics: a rolled connection puts a matching gate (5)
+// at the SAME centered offset on both sides of the shared edge (K.pedGate/denseFill convention).
+// Measured per EDGE-PAIR (matching world.js's own S/E-only iteration, so each unordered pair
+// counts once) — the metric that directly reflects COSMETIC_CONNECT_CHANCE (0.25). A per-CELL
+// "has any cosmetic edge" metric would read much higher than 25% since a cell can gain one from
+// up to 4 directions (as initiator via S/E or as a neighbor's target via N/W) — that compounding
+// is expected, not a bug, so this checks the underlying rate directly instead.
+for (const seed of SEEDS) {
+  const w = world(seed), N = w.n;
+  let eligiblePairs = 0, connectedPairs = 0, tileVerified = 0, tileChecked = 0;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const c = w.at(x, y); if (!c || !w.SUBURB_FAMILY[c.district]) continue;
+    if (w.rawStreetEdges(x, y).length === 0) continue;
+    for (const [e, dx, dy] of [['S', 0, 1], ['E', 1, 0]]) {
+      const nx = x + dx, ny = y + dy, nc = w.at(nx, ny);
+      if (!nc || !w.SUBURB_FAMILY[nc.district] || w.rawStreetEdges(nx, ny).length === 0) continue;
+      eligiblePairs++;
+      const extra = w.landlockConnect[x + ',' + y] || [];
+      if (!extra.includes(e)) continue;
+      connectedPairs++;
+      if (e === 'E' && tileChecked < 15) {
+        tileChecked++;
+        try {
+          const g1 = w.plot(x, y).block.grid, g2 = w.plot(nx, ny).block.grid;
+          const e1 = g1.some((row, ry) => Math.abs(ry - 64) <= 4 && row[127] === 5);
+          const e2 = g2.some((row, ry) => Math.abs(ry - 64) <= 4 && row[0] === 5);
+          if (e1 && e2) tileVerified++;
+        } catch (e2) { /* counted as unverified below */ }
+      }
+    }
+  }
+  const rate = eligiblePairs ? connectedPairs / eligiblePairs : 0;
+  console.log('  seed ' + seed + ': cosmetic-connect per-edge rate=' + rate.toFixed(3) +
+    ' (' + connectedPairs + '/' + eligiblePairs + '), tile-verified=' + tileVerified + '/' + tileChecked);
+  ok('seed ' + seed + ': cosmetic-connect per-edge rate matches the designed chance (15%-35%, target 25%)',
+    rate >= 0.15 && rate <= 0.35);
+  ok('seed ' + seed + ': a rolled cosmetic connection puts a matching gate on both sides at the same offset',
+    tileChecked === 0 || tileVerified === tileChecked);
+}
+
 console.log('LANDLOCKED DISTRICT GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
