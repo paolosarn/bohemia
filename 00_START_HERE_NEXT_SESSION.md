@@ -16,22 +16,33 @@ with this phone app for now") — this was all engine/quest layer.
    UMD closure-scope bug in bohemia_loop.js — the factory function is a sibling
    arg to the outer IIFE, NOT nested, so new outer-scope consts must be threaded
    through factory(...) as params, never assumed reachable by closure.)
-2. FIRST PLAYABLE CANON SIDE QUESTS (gate: CANON QUESTS, 75/75). Paolo: "CREATE THE
-   BEST BOHEMIA SIDE QUESTS YOU POSSIBLY CAN." The corpus had 53 design-doc quests
-   (.md) + one non-canon reference .bq, but NOTHING canon actually PLAYED. Now five
-   playable .bq side quests live in quests/bq/ (S01 The Meter Reader, S02 The Same
-   Crate Twice, S03 One More Set, S04 What Cries in the Deep, S05 The Standing
-   Bounty) — each parses clean, validates with ZERO errors AND warnings, plays
-   exhaustively to COMPLETE, loads through the live loop, and is CLOUT-tagged by the
-   LOUDNESS of the resolution (same quest, quiet finish = 8 follower-weight,
-   reckless = 110, ~14x — emergent, never a visible label; this is the mechanical
-   proof of Paolo's "reckless beats quiet" lock AND his correction that the player
-   does not CHOOSE clout). Details: laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md
-   + quests/bq/README.md + the new PLAYABLE section atop quests/BOHEMIA_QUEST_BIBLE_INDEX.md.
+2. PLAYABLE CANON SIDE QUESTS — EIGHT of them now (gate: CANON QUESTS, 120/120).
+   Paolo: "CREATE THE BEST BOHEMIA SIDE QUESTS YOU POSSIBLY CAN" then "CONTINUE."
+   The corpus had 53 design-doc quests (.md) + one non-canon reference .bq, but
+   NOTHING canon actually PLAYED. Now eight playable .bq side quests live in
+   quests/bq/: S01 The Meter Reader (electricity/TRADES/NETWORK), S02 The Same Crate
+   Twice (double-agent/REDS/BLUES), S03 One More Set (performer/COLORFUL), S04 What
+   Cries in the Deep (contract/HOMELESS/NETWORK), S05 The Standing Bounty (repeatable
+   dark grind/REMNANTS), S06 Behind the Fence (MARCO + daughter, founding), S07 Say
+   It Back (faith no-combat/CHURCH), S08 The Toll Road (racket-break/CARTEL/CARAVANS).
+   Each parses clean, validates with ZERO errors AND warnings, plays exhaustively to
+   COMPLETE, loads through the live loop, and is CLOUT-tagged by the LOUDNESS of the
+   resolution (same quest, quiet finish = 8 follower-weight, reckless = 110, ~14x —
+   emergent, never a visible label; mechanical proof of "reckless beats quiet" AND of
+   Paolo's correction that the player does not CHOOSE clout). S06 is the clout
+   mechanic's SOUL: the most important bond in the game (Marco's grieving daughter)
+   earns the FEWEST followers, and the "go viral with it" fork costs Marco's trust.
+   Details: laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md + quests/bq/README.md
+   + the PLAYABLE section atop quests/BOHEMIA_QUEST_BIBLE_INDEX.md.
    PENDING PAOLO: world PLACEMENT (which NPC/block — MAP LAW, his call; they cast
    against ROLES so they are placement-ready), delta tuning, whether the
    looked_under_the_rock unrecorded flag (set by S01/S04 when you go loud "down
    toward the water") triggers a real Amalgamation escalation beat later.
+3. MARCO LOCKED (7/23, Paolo, "VERY IMPORTANT"): the founding Neighbor is named MARCO
+   and HE HAS A DAUGHTER. The founding is now two real families behind the shared
+   fence. Daughter's name/age NOT set (Paolo's call, do not invent). See
+   laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md + the updated Neighbor section
+   in laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md. Canon index regenerated.
 
 --- older state below ---
 

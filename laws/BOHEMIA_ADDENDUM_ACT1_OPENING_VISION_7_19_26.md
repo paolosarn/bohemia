@@ -128,10 +128,14 @@ asset-heavy and depends on those "before" assets; it will likely be built alongs
 the Act 2 asset set, not first. Flagged so the opening is not blocked early.
 
 ## THE FOUNDING — THE NEIGHBOR (7/19, Paolo) — how the custom faction is born
-THE NEIGHBOR is the household DIRECTLY BEHIND yours. He comes over (on foot, from
+### NAME LOCKED 7/23/26 (Paolo, "VERY IMPORTANT"): the Neighbor is MARCO, and he has a DAUGHTER.
+THE NEIGHBOR is MARCO, the household DIRECTLY BEHIND yours. He comes over (on foot, from
 right behind the back fence, nobody drives): "damn, I'm really sorry, we heard the
 commotion last night, is everyone okay?" You have to tell him, out loud, that they
-are not.
+are not. MARCO HAS A DAUGHTER (locked 7/23) — the two-grieving-households founding is now
+literally two families: yours, and Marco and his girl behind the fence. The daughter is
+part of the founding pillar; her exact age/name is Paolo's call, not yet set. See
+laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md.
 - FIRST BASE MECHANIC (locked, Paolo 7/19): he is the house directly behind you. After
   you do a COUPLE OF QUESTS for him (earning the bond), you BREAK DOWN THE SHARED
   BACKYARD WALLS to merge the two homes into your first CUSTOMIZABLE BASE / OUTPOST.

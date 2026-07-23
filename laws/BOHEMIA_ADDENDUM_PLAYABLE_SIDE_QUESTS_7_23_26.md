@@ -31,6 +31,25 @@ machine gate.
    pitch gets more reasonable-sounding each run. The clean path pays less — which is what
    makes taking the ugly one a real choice.
 
+## SECOND BATCH (7/23, same day — "continue the best side quests ever")
+6. **S06 — BEHIND THE FENCE** — tender family / attention-over-force. Stars **MARCO the
+   neighbor and his daughter** (named canon the same day — see
+   laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md). The daughter has gone quiet
+   since her own loss; you cannot fix her, only pay attention. THE CLOUT MECHANIC'S SOUL,
+   PLAYABLE: the quiet, patient resolution earns the FEWEST followers in the batch while
+   forging the deepest bond; the "make it a viral feel-good moment" fork earns MORE
+   followers but costs Marco's trust because you performed a grieving child's pain. The
+   feed rewards loud; what matters is quiet. Marco is cast against `@ROLE neighbor` and
+   never named in a spoken line.
+7. **S07 — SAY IT BACK** — slow-burn faith, NO combat. CHURCH/VOLUNTEERS. A dying woman
+   asks you to carry forgiveness to the man who wronged her; the game refuses to score
+   whether that forgiveness is right, earned, or wise. You can carry it true, make it a
+   public spectacle, twist it into a curse, or fail to carry it at all.
+8. **S08 — THE TOLL ROAD** — exploit-the-lever / racket-break. CARTEL/CARAVANS. A cartel
+   checkpoint is taxing a medicine caravan to death; the boss is a lever, not a wall, and
+   so is the lieutenant beside him. Pay the toll, broker a public rate, turn the
+   lieutenant, or break it loud.
+
 ## THE LOCKED CRAFT RULES (baked in, gate-enforced)
 - **CLOUT is emergent, never a label** (reaffirms the 7/21 lock). The SAME quest completes
   with a different CLOUT tag depending on how loud/dangerous the RESOLUTION was — not a

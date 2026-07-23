@@ -13,7 +13,7 @@ was fully wired (factions + economy + CLOUT). See `quests/bq/README.md` and
 `laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md`. The design-doc layer is the WHAT;
 the `.bq` layer is the PLAYS-RIGHT-NOW. They are tracked separately; the 53 below are untouched.
 
-### PLAYABLE `.bq` SIDE QUESTS (quests/bq/*.bq — gate: CANON QUESTS, 75/75)
+### PLAYABLE `.bq` SIDE QUESTS (quests/bq/*.bq — gate: CANON QUESTS, 120/120)
 | id | name | shape | factions | CLOUT endings (emergent by deed loudness, never a label) |
 |----|------|-------|----------|-----------|
 | S01 | The Meter Reader | economy-as-morality (electricity) | TRADES/NETWORK | quiet / notable / reckless (+ quiet FAIL) |
@@ -21,6 +21,9 @@ the `.bq` layer is the PLAYS-RIGHT-NOW. They are tracked separately; the 53 belo
 | S03 | One More Set | tender release-valve (performer) | COLORFUL | quiet / notable / risky (+ quiet FAIL) |
 | S04 | What Cries in the Deep | contract, monster-is-a-person | HOMELESS/NETWORK | quiet / reckless / risky (+ quiet FAIL) |
 | S05 | The Standing Bounty | repeatable dark grind (creeping-normality) | REMNANTS | risky / reckless (+ quiet FAIL), @ONCE false |
+| S06 | Behind the Fence | tender family / attention-over-force — **MARCO the neighbor + his daughter** (canon 7/23) | founding/NONE | quiet / notable (+ quiet FAIL) — the most important bond earns the FEWEST followers |
+| S07 | Say It Back | slow-burn faith, NO combat (game refuses to score it) | CHURCH/VOLUNTEERS | quiet / notable / risky (+ quiet FAIL) |
+| S08 | The Toll Road | exploit-the-lever / racket-break | CARTEL/CARAVANS | quiet / notable / risky / reckless (+ quiet FAIL) |
 
 ## HOW THIS WORKS (pace note, locked 7/10/26)
 - Claude cooks ONE fully-produced quest per turn (script -> presentation -> engine),

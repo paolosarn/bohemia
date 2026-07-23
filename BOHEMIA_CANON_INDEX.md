@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 07/22/26
+# BOHEMIA CANON INDEX — regenerated 07/23/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-143 canon files indexed across 2 locations.
+146 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -171,7 +171,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md`
 - `BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md`
 
-### QUESTS & LORE (14)
+### QUESTS & LORE (15)
+- `BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md`
 - `BOHEMIA_ADDENDUM_AMALGAMATION_SCOPE_GOOD_ENDING_7_18_26.md`
@@ -216,7 +217,9 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (44) — add keywords to DOMAINS
+### UNCLASSIFIED (46) — add keywords to DOMAINS
+- `BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md`
+- `BOHEMIA_ADDENDUM_FACTIONS_ECONOMY_WIRING_7_22_26.md`
 - `BOHEMIA_ADDENDUM_CLOUT_RECKLESS_BEATS_QUIET_7_21_26.md`
 - `BOHEMIA_ADDENDUM_SURVIVING_THE_AFTERMATH_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md`

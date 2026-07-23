@@ -45,8 +45,20 @@ Every file here must:
 | S03 ONE MORE SET | tender release-valve (performer) | COLORFUL | quiet / notable / risky (+ quiet FAIL) |
 | S04 WHAT CRIES IN THE DEEP | contract, the-monster-is-a-person | HOMELESS / NETWORK | quiet / reckless / risky (+ quiet FAIL) |
 | S05 THE STANDING BOUNTY | repeatable dark grind (creeping-normality) | REMNANTS | risky / reckless (+ quiet FAIL) — `@ONCE false` |
+| S06 BEHIND THE FENCE | tender family / attention-over-force (**Marco + daughter**, canon 7/23) | founding / NONE | quiet / notable (+ quiet FAIL) |
+| S07 SAY IT BACK | slow-burn faith, NO combat | CHURCH / VOLUNTEERS | quiet / notable / risky (+ quiet FAIL) |
+| S08 THE TOLL ROAD | exploit-the-lever / racket-break | CARTEL / CARAVANS | quiet / notable / risky / reckless (+ quiet FAIL) |
 
 S01 and S04 deliberately BRUSH the Amalgamation secret (the skim / the crying both run
 DOWN toward the water) so the danger is PROXIMITY, not strength — going loud down there
-sets an unrecorded `looked_under_the_rock` flag. The other three are human-scale on
-purpose: contrast is what makes the dread quests land.
+sets an unrecorded `looked_under_the_rock` flag. The others are human-scale on purpose:
+contrast is what makes the dread quests land.
+
+**S06 is the CLOUT mechanic's soul, playable.** It stars MARCO — the founding neighbor,
+named canon 7/23 — and his daughter, who has gone quiet since her own loss. The quiet,
+patient resolution earns the FEWEST followers in the whole batch (#quiet) while forging
+the deepest bond; the "make it a viral feel-good moment" fork earns MORE followers
+(#notable) but costs Marco's trust, because you performed a grieving kid's pain. That is
+the whole thesis: the feed rewards loud; the things that actually matter are quiet.
+Marco is cast against `@ROLE neighbor` and never named in a spoken line (no-hardcoded-
+names law) — the name lives in canon and the role binding.
