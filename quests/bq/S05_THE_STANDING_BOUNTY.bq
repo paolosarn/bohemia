@@ -1,0 +1,76 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S05 — THE STANDING BOUNTY
+# Shape: repeatable dark grind / creeping-normality (Legion Ears, Frostpunk erosion).
+# Faction wire: REMNANTS. @ONCE false — it is meant to be run again and again, and
+# that is the point: the pay scales with how ugly the target is, and each run the
+# quartermaster's pitch gets a little more reasonable-sounding. Systems AS mechanic
+# (W9): the reward is real MEDICINE (the scarcest currency), so refusing genuinely
+# costs your block, which is exactly what makes taking it a real choice (W4/W5 — the
+# clean path pays less). Consequence hurts (W10): the higher-pay target is a person,
+# not a mark. No proper names (W8). CLOUT rides the deed: a plain bounty is #risky;
+# the ugly high-pay one, done anyway, is #reckless; walking away clean is #quiet.
+
+@QUEST   bq_standing_bounty   The Standing Bounty
+@ACT     2
+@FACTION REMNANTS
+@ONCE    false
+
+@ROLE quartermaster  REQ  faction=REMNANTS  runs_the_board=true
+@ROLE mark           REQ  faction_any       named_on_the_board=true
+
+@STAGE 10
+  @LOG The remnants keep a standing bounty board. It pays in medicine. There is always another name on it.
+  @DO show_objective 10
+@STAGE 20 COMPLETE #risky
+  @LOG Took the clean name off the board. A raider who had it coming. Got paid in medicine and slept fine.
+  @DO faction REMNANTS +5
+  @DO complete_objective 10
+@STAGE 21 COMPLETE #reckless
+  @LOG Took the ugly name for the double pay. Not a raider. A debtor who ran. Did it anyway. Slept less fine.
+  @DO faction REMNANTS +9
+  @DO set_flag took_the_ugly_one
+  @DO complete_objective 10
+@STAGE 22 FAIL #quiet
+  @LOG Walked away from the board. My block goes a week shorter on medicine. My stomach stays where it is.
+
+@OBJ 10  "Clear a name from the bounty board"   target=mark
+
+@TALK board  speaker=quartermaster  entry=stage>=10
+  @SAY Board is full, as always. Bottom name is easy money, medicine on the barrel, and nobody weeps for him. #flat
+  @SAY Top name pays double. It is a harder look. I am not going to pretend it is not a harder look.
+  @SAY You have done this before. You know the deal. Which name do you want.
+  @OPT "The easy name. The raider."       [gate: none]  -> easy
+  @OPT "Double pay. Who is the top name?"  [gate: none]  TRAP -> ugly
+  @OPT "Neither. Not tonight."             [gate: none]  -> walk
+  @NOVERB "Ask why the board never empties"
+@END
+
+@TALK easy  speaker=quartermaster
+  @SAY Sensible. He raided a water line last month and a family drank mud for it. Clean conscience, full satchel. #flat
+  @SAY Bring it back closed and the medicine is yours. Come again tomorrow. There is always a tomorrow name.
+  @OPT "Done by morning."                 [gate: none]  -> END  @DO set_stage 20
+  @OPT (take the tag, say nothing)        [gate: none]  SILENCE -> END  @DO set_stage 20
+@END
+
+@TALK ugly  speaker=quartermaster
+  @SAY Top name owed the wrong people and ran instead of paying. That is all. That is the whole crime. He ran. #flat
+  @SAY Look at your face. You want me to tell you he is a monster so it is easy. He is not. He is just worth more.
+  @SAY The medicine is double because the name is heavy. That is the only reason anything is ever double out here.
+  @OPT "Fine. The top name."              [gate: none]  -> ugly_take
+  @OPT "No. Give me the raider instead."  [gate: none]  -> easy
+  @OPT "That is a person, not a bounty."   [gate: none]  -> walk
+  @NOVERB "Tell myself he probably deserves it"
+@END
+
+@TALK ugly_take  speaker=quartermaster
+  @SAY There it is. It gets easier every time, doesn't it. That is not a threat. It is just the truest thing I know. #flat
+  @OPT "Double pay. I will do it."        [gate: none]  -> END  @DO set_stage 21
+  @OPT (take it without a word)           [gate: none]  SILENCE -> END  @DO set_stage 21
+@END
+
+@TALK walk  speaker=quartermaster
+  @SAY Your block runs a week shorter on medicine, then. The board does not care and neither do I. #flat
+  @SAY It will still be here. It is always still here. Come back when your stomach settles.
+  @OPT "Not tonight."                     [gate: none]  -> END  @DO set_stage 22
+  @OPT "Wait. The easy name. I will take it."  [gate: none]  -> easy
+@END

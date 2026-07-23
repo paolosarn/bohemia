@@ -1,8 +1,41 @@
-=== BOHEMIA HANDOFF 7/20/26 (STORY-SPINE MARATHON + THE QUEST SPINE PLUMBING) ===
+=== BOHEMIA HANDOFF 7/23/26 (BACKEND WIRING + FIRST PLAYABLE SIDE QUESTS) ===
 FILENAME LAW: this file is always named 00_START_HERE_NEXT_SESSION.md, lives at
 repo root, sorts to the top of every file list, and is REWRITTEN at the end of
 every working session. There is only ever ONE. It is the first thing any session
 reads after CLAUDE.md.
+
+## LATEST (7/23/26) — READ THIS FIRST
+Two backend systems landed, both machine-gated, ALL GATES GREEN (python3
+gates/bohemia_gates.py --fast, ~59s). NO phone-app work (Paolo 7/22: "let's stop
+with this phone app for now") — this was all engine/quest layer.
+1. FACTIONS + ECONOMY WIRED into the loop boot context (gate: LOOP
+   FACTIONS+ECONOMY, 31/31). bootFactions/bootEconomy were empty stubs; the real
+   engine modules + canon faction graph already existed unwired. ctx.factions,
+   ctx.factionConstraints, ctx.factionBases, ctx.economy are live now. Details:
+   laws/BOHEMIA_ADDENDUM_FACTIONS_ECONOMY_WIRING_7_22_26.md. (Also fixed a real
+   UMD closure-scope bug in bohemia_loop.js — the factory function is a sibling
+   arg to the outer IIFE, NOT nested, so new outer-scope consts must be threaded
+   through factory(...) as params, never assumed reachable by closure.)
+2. FIRST PLAYABLE CANON SIDE QUESTS (gate: CANON QUESTS, 75/75). Paolo: "CREATE THE
+   BEST BOHEMIA SIDE QUESTS YOU POSSIBLY CAN." The corpus had 53 design-doc quests
+   (.md) + one non-canon reference .bq, but NOTHING canon actually PLAYED. Now five
+   playable .bq side quests live in quests/bq/ (S01 The Meter Reader, S02 The Same
+   Crate Twice, S03 One More Set, S04 What Cries in the Deep, S05 The Standing
+   Bounty) — each parses clean, validates with ZERO errors AND warnings, plays
+   exhaustively to COMPLETE, loads through the live loop, and is CLOUT-tagged by the
+   LOUDNESS of the resolution (same quest, quiet finish = 8 follower-weight,
+   reckless = 110, ~14x — emergent, never a visible label; this is the mechanical
+   proof of Paolo's "reckless beats quiet" lock AND his correction that the player
+   does not CHOOSE clout). Details: laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md
+   + quests/bq/README.md + the new PLAYABLE section atop quests/BOHEMIA_QUEST_BIBLE_INDEX.md.
+   PENDING PAOLO: world PLACEMENT (which NPC/block — MAP LAW, his call; they cast
+   against ROLES so they are placement-ready), delta tuning, whether the
+   looked_under_the_rock unrecorded flag (set by S01/S04 when you go loud "down
+   toward the water") triggers a real Amalgamation escalation beat later.
+
+--- older state below ---
+
+=== BOHEMIA HANDOFF 7/20/26 (STORY-SPINE MARATHON + THE QUEST SPINE PLUMBING) ===
 
 READ ORDER: CLAUDE.md -> this file -> laws/BOHEMIA_STORY_MASTER_7_18_26.md (the
 connected story spine) -> BOHEMIA_CANON_INDEX.md -> the 7/18-19 addenda listed

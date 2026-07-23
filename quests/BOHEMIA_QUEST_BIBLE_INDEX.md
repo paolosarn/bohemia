@@ -3,6 +3,25 @@ The booklet. Each quest is its own file (safe to edit, won't scramble the others
 this index is the single-glance table of the whole bible. Grows as quests are cooked.
 Built per BOHEMIA_QUEST_PRODUCTION_LAW_7_10_26.md + the dialogue/scene spec.
 
+## TWO LAYERS (7/23/26)
+This numbered table (below) is the DESIGN-DOC layer: 53 fully-produced script-to-scene
+teardowns (`BOHEMIA_QUEST_###_*.md`). There is now also a PLAYABLE layer in `quests/bq/`
+— actual `.bq` machine files that RUN in the engine (BQ parser -> BQRuntime -> the live
+loop's `ctx.quests`), gated by `gates/bohemia_canon_quests_gate.js` (gate: CANON QUESTS).
+The first batch of five playable canon SIDE quests (S01-S05) landed 7/23 once the engine
+was fully wired (factions + economy + CLOUT). See `quests/bq/README.md` and
+`laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md`. The design-doc layer is the WHAT;
+the `.bq` layer is the PLAYS-RIGHT-NOW. They are tracked separately; the 53 below are untouched.
+
+### PLAYABLE `.bq` SIDE QUESTS (quests/bq/*.bq — gate: CANON QUESTS, 75/75)
+| id | name | shape | factions | CLOUT endings (emergent by deed loudness, never a label) |
+|----|------|-------|----------|-----------|
+| S01 | The Meter Reader | economy-as-morality (electricity) | TRADES/NETWORK | quiet / notable / reckless (+ quiet FAIL) |
+| S02 | The Same Crate Twice | double-agent, reputation-travels | REDS/BLUES | notable / risky / reckless (+ quiet FAIL) |
+| S03 | One More Set | tender release-valve (performer) | COLORFUL | quiet / notable / risky (+ quiet FAIL) |
+| S04 | What Cries in the Deep | contract, monster-is-a-person | HOMELESS/NETWORK | quiet / reckless / risky (+ quiet FAIL) |
+| S05 | The Standing Bounty | repeatable dark grind (creeping-normality) | REMNANTS | risky / reckless (+ quiet FAIL), @ONCE false |
+
 ## HOW THIS WORKS (pace note, locked 7/10/26)
 - Claude cooks ONE fully-produced quest per turn (script -> presentation -> engine),
   sometimes two if small. Not ten — quality per quest is the point.

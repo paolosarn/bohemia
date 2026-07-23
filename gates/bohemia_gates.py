@@ -76,6 +76,8 @@ GATES = [
      'the social profile: posts/quests/reach over the feed, CLOUT-weighted by default', False),
     ('LOOP FACTIONS+ECONOMY', ['node', 'gates/bohemia_loop_gate.js'],
      'factions/economy wired into the boot context from real worldgen slots + district geography', False),
+    ('CANON QUESTS',   ['node', 'gates/bohemia_canon_quests_gate.js'],
+     'every playable canon .bq side quest validates clean + plays to COMPLETE, CLOUT-tagged by deed loudness', False),
     ('MUSIC',          ['python3', 'gates/music_gate.py'],
      'screech-clean, voices defined, new voices + variety per batch', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

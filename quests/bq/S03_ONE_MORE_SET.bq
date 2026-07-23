@@ -1,0 +1,79 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S03 — ONE MORE SET
+# Shape: tender release-valve / performer (Yakuza warmth). Faction wire: COLORFUL.
+# The contrast quest (Hades/Yakuza whiplash): almost no stakes, all humanity, so the
+# dread quests land harder around it. Systems AS mechanic (W9): a busker's amp runs on
+# a dying salvaged cell (the ELECTRICITY economy at street scale) and the reward is a
+# person, not loot. Surfaces the music catalog diegetically (@DO play). No proper
+# names (W8). CLOUT rides loudness: help them finish small and intimate -> #quiet;
+# draw a real crowd -> #notable; splice the amp into a live street line for a roaring
+# set -> #risky (loud AND dangerous, and the deed itself is what the feed rewards).
+
+@QUEST   bq_one_more_set   One More Set
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE busker   REQ  faction=COLORFUL  performing=true
+
+@STAGE 10
+  @LOG A busker on the strip is losing the amp mid-song. The cell is almost dead.
+  @DO show_objective 10
+@STAGE 20 COMPLETE #quiet
+  @LOG Killed the amp and sat close while they played it acoustic. A dozen people, very quiet.
+  @DO bond busker +20
+  @DO play MUS street_lament
+  @DO complete_objective 10
+@STAGE 21 COMPLETE #notable
+  @LOG Found a charged cell and got a crowd to stay. They played the whole set. People filmed it in text.
+  @DO bond busker +15
+  @DO faction COLORFUL +6
+  @DO play MUS street_anthem
+  @DO complete_objective 10
+@STAGE 22 COMPLETE #risky
+  @LOG Spliced the amp straight into a live street line. Full volume, sparks, the whole block came. Loud and dumb and glorious.
+  @DO bond busker +10
+  @DO faction COLORFUL +6
+  @DO play MUS street_anthem
+  @DO complete_objective 10
+@STAGE 23 FAIL #quiet
+  @LOG Told them to pack it in. The amp died on the downbeat and the crowd drifted off.
+
+@OBJ 10  "Help the set finish"   target=busker
+
+@TALK stage  speaker=busker  entry=stage>=10
+  @SAY Do not walk off, the good part is coming, I promise the good part is coming. #hope
+  @SAY The cell is dying. Listen, you can hear it sag. One more set and it is gone and so is the crowd.
+  @SAY I do not need a hero. I need three more songs. Can you buy me three more songs?
+  @OPT "Kill the amp. Play it close."     [gate: none]  -> acoustic
+  @OPT "I will find you a charged cell."    [gate: none]  -> cell
+  @OPT "Splice it into the street line."    [gate: none]  TRAP -> splice
+  @OPT "Pack it in for tonight."            [gate: none]  -> quit
+  @NOVERB "Tell them to get a real job"
+@END
+
+@TALK acoustic  speaker=busker
+  @SAY No amp. Just this. Sit up front so it does not feel empty. #hope
+  @SAY Funny. Every time the power dies is the only time anybody actually listens.
+  @OPT "Then play."                       [gate: none]  -> END  @DO set_stage 20
+  @OPT (sit down in front)                [gate: none]  SILENCE -> END  @DO set_stage 20
+@END
+
+@TALK cell  speaker=busker
+  @SAY You did it. Where does a person even find a charged cell on a night like this. Do not tell me. #hope
+  @SAY Stay. Get them to stay. A crowd that stays is the only rich I ever wanted to be.
+  @OPT "Play the whole thing."            [gate: none]  -> END  @DO set_stage 21
+@END
+
+@TALK splice  speaker=busker
+  @SAY You are actually doing it. That line is live, you know that is live. #dread
+  @SAY If it holds, this is the loudest I have ever been in my life. If it does not, I never was.
+  @OPT "It will hold. Play loud."         [gate: none]  -> END  @DO set_stage 22
+  @OPT "Actually, no. Play it close instead."  [gate: none]  -> acoustic
+@END
+
+@TALK quit  speaker=busker
+  @SAY Yeah. Yeah, okay. It was a long shot, a dead cell and a tired crowd. #tired
+  @OPT "Sorry. Another night."            [gate: none]  -> END  @DO set_stage 23
+  @OPT "No. Wait. Let me help."           [gate: none]  -> stage
+@END
