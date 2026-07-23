@@ -62,6 +62,31 @@ and re-run ONLY the resync tool on top for your own overmap changes — never ke
 own stale copy just because it's the side you're already holding.
 DISTRICT FACTORY NOW 32 auto-types (residential now: suburb/gated/estate/trailer/
 apartment). REMAINING non-casino candidates: waterpark, speedway, mall.
+## REUSE-FIRST LOCKED WITH A MACHINE GATE (7/22, same session, Paolo: "make
+## it a new rule check out the approved assets first before cooking please
+## write it in the project please")
+Closed the gap the previous turn's honest answer flagged. Standing law now:
+laws/BOHEMIA_ADDENDUM_REUSE_FIRST_LOCKED_7_22_26.md + a pointer bullet in
+CLAUDE.md's law list. Every tools/*_factory.py / *_cook*.py file must carry
+a `REUSE CHECK:` block in its module docstring naming what banks/ it looked
+at; a claimed "used X" must actually open that bank in code, not just say
+so - gates/reusefirst_gate.py (19 checks) enforces both halves, registered.
+Retroactively added the block to all 6 existing art-cooking tools: 5 of 6
+were already doing the right thing (bake_factory reads 7 banks as pure
+assembly; marking_bold/marking_volume/turn_arrow all build on TURN_MARKING/
+ARROW_CANDIDATES; traffic_signal samples the blessed lamp's palette for a
+genuinely new object class). The 6th - bohemia_house_art_factory.py - gets
+the honest one: documents it checked NOTHING originally (the law didn't
+exist that night), names what should have been checked (discovered after
+the fact - PERIMETER_WALL_POOL, DOOR_EW_BANK), and points any future
+variant of that batch at ROOF_KIT_EXPANSION per Paolo's own "emulate these"
+note from the roundup verdict. Canon index regenerated.
+NEXT for this law: the gate only covers tools matching the *_factory.py /
+*_cook*.py naming convention - a future art tool that skips that naming
+would slip through undetected. Worth a periodic manual sweep, or tightening
+the gate to also scan for PIL.Image + banks/ output patterns regardless of
+filename, if a gap shows up.
+
 ## REAL DOORS + THE "DO YOU CHECK APPROVED ASSETS" ANSWER (7/22, same session)
 Paolo asked point-blank: "anytime u do any graphics assets are u referring
 to the approved set?" HONEST answer, given same turn: NOT ALWAYS. Audited

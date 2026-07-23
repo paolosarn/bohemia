@@ -33,6 +33,13 @@ Standing contract (unchanged): palette SAMPLED from the blessed lamp bank;
 THE 45 DEGREE LAW (ellipse tops, sky-lit faces, bowed bands, gate art_45);
 DEAD is the act-1 default; sign plates ILLEGIBLE; no purple; deterministic.
 
+REUSE CHECK:
+used BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt (the blessed lamp's tone/
+luminance ramp is sampled into this cook's paint kit - no new palette
+invented). No bank exists for a mast-arm traffic signal (a genuinely new
+object class per Paolo's direct commission) - the geometry itself is
+correctly a fresh cook.
+
 OUTPUT: banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt (UNJUDGED):
 2 colors x 3 arms x 4 states x 2 dirs intact (48) + 2 colors x 3 wreck
 kinds x 2 dirs dead (12) = 60 sprites.

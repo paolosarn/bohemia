@@ -83,6 +83,12 @@ research partner. He DECIDES, you PRODUCE.
 - STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
   Progress = new garment SHAPES (new geometry/silhouette/category), machine-
   locked by structure_gate.js. A recolor is filler, never the headline.
+- REUSE-FIRST (Paolo 7/22, LOCKED, "check out the approved assets first
+  before cooking"): before any tool cooks NEW graphic pixels, it documents
+  a `REUSE CHECK:` in its module docstring - what banks/ it looked at, and
+  what it used or why nothing fit. A claimed reuse must actually open that
+  bank in code, not just say so. Gate: reusefirst_gate.py sweeps every
+  tools/*_factory.py and *_cook*.py file. Full law in /laws.
 - WALKABLE-LAND LAW (Paolo 7/20, LOCKED, "this has to be a new rule"): a district
   is a FULL PLOT of walkable land; it CANNOT be mostly parking lot / driveway /
   apron with a tiny building stranded in it. BUILDINGS + PURPOSEFUL CONTENT must

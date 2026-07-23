@@ -23,6 +23,14 @@ status APPROVED-VOLUME. The candidates stay banked as the judged record.
 
 Run from repo root: python3 tools/bohemia_marking_volume_factory.py [width]
 Default width: 16 variants per class (6 approved + 10 cooked).
+
+REUSE CHECK:
+used BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt (approved line geometry,
+paint masks lifted verbatim).
+used BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt (approved arrow geometry,
+re-run with fresh seeds). No new geometry invented per the volume rule
+above - this file is expansion of already-judged material, never a fresh
+cook.
 """
 import base64
 import io

@@ -23,6 +23,11 @@ Output: banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt  (status UNJUDGED —
 Paolo judges via tools/BOHEMIA_MARKING_PICKER_7_17_26.html, thumbs + export)
 
 Run from repo root: python3 tools/bohemia_turn_arrow_factory.py
+
+REUSE CHECK:
+used BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt (the certified asphalt
+base is inpainted from this bank's own candidates, byte-faithful outside
+the arrow footprint - not a fresh ground texture).
 """
 import base64
 import io

@@ -16,6 +16,17 @@ WHAT v1 BAKES: street blocks — ground, lines, crosswalks, native markings,
 dark lamps. Wrecks, fire barrels, and plot/building strips are the named
 NEXT (their art pipelines exist; scope is scope).
 
+REUSE CHECK:
+used BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (ground/line/crosswalk tiles).
+used BOHEMIA_MARKING_BANK_7_17_26.txt (native cell markings).
+used BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt (dead lamp bodies).
+used BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (cars/fire barrels).
+used BOHEMIA_DESERT_POOLS_7_18_26.txt (desert ground).
+used BOHEMIA_MARKING_BOLD_CANDIDATES_7_17_26.txt (bold markings).
+used BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt (signals).
+Zero fresh pixel-cooking in this file - it is pure assembly of
+already-approved/candidate material.
+
 SELF-GATE (refuses to write on failure): every cell tiled; role coverage
 complete; deterministic (same seed -> same bytes); zero purple in the output.
 
