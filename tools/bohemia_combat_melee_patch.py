@@ -3259,13 +3259,90 @@ def patch43(demo):
     return demo
 
 
+def patch44(demo):
+    """v44 (Paolo 7/23, "more combat and movement and strategy fun"):
+    SPRINT -- a real risk/reward movement option. Every move today is the
+    same safe 1-tile shuffle that always resolves tucked (endTurnReturn
+    (false), only currently-exposed shooters can reach you). SPRINT arms
+    the NEXT ring tap to cover 2 tiles instead of 1 -- reach cover that
+    was one step out of normal range, close distance on a melee target
+    fast, or break a whole cluster's sightline in one move -- but it
+    costs real exposure: the move resolves engaged (endTurnReturn(true)),
+    same as breaking cover to fire, so everyone with a line answers.
+    Blocked if EITHER tile in the path has a pillar (checked before the
+    turn is spent, same as a normal blocked move -- no cost for trying).
+    A toggle button in the always-visible action row (not settings, which
+    is a modal you wouldn't have open mid-fight) arms/disarms it; it
+    consumes itself after one use, same shape as the existing greed-shot
+    bank-and-spend pattern."""
+    if 'V44 SPRINT' in demo:
+        print('v44 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <button id="waitbtn" class="cbtn">WAIT</button>',
+        '    <button id="waitbtn" class="cbtn">WAIT</button>\n    <button id="sprintbtn" class="cbtn">SPRINT: OFF</button>   <!-- V44 -->',
+        'sprint-button')
+
+    demo = sub1(demo,
+        "function doMove(d){ if(G.inc)return;",
+        """function doMove(d){ if(G.inc)return;
+  const _sprinting=!!G.sprintArm;   /* V44 SPRINT: consumed by this move regardless of outcome below */""",
+        'sprint-capture-arm')
+
+    demo = sub1(demo,
+        """  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  const v=DIRS[d];
+  const sx=v[0], sy=v[1];   /* full tile steps, diagonals included (Chebyshev) — the board reads in tiles */
+  if((G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.45; })){
+    setRead('BLOCKED','a pillar is there','#8a7d66'); return; }   // OCCUPANCY: solid is solid""",
+        """  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  const v=DIRS[d];
+  const _mult=_sprinting?2:1;   /* V44 SPRINT: two tiles, not one */
+  const sx=v[0]*_mult, sy=v[1]*_mult;   /* full tile steps, diagonals included (Chebyshev) — the board reads in tiles */
+  if((G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.45 || (_sprinting&&Math.hypot(q[0]-v[0],q[1]-v[1])<P.r*0.6+0.45); })){
+    setRead('BLOCKED',_sprinting?'the sprint path is blocked':'a pillar is there','#8a7d66'); return; }   // OCCUPANCY: solid is solid (V44: sprint checks BOTH tiles in the path)""",
+        'sprint-two-tile-step'
+    )
+
+    demo = sub1(demo,
+        """  G.moveArm=false; updMoveUI();
+  G.steady=0;   /* repositioning spends the held stance */""",
+        """  G.moveArm=false; updMoveUI();
+  if(_sprinting){ G.sprintArm=false; const _sb=D('sprintbtn'); if(_sb){_sb.textContent='SPRINT: OFF';_sb.classList.remove('on');} }   /* V44: one use per arm */
+  G.steady=0;   /* repositioning spends the held stance */""",
+        'sprint-consume-arm'
+    )
+
+    demo = sub1(demo,
+        """  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],_broke?('one tile — '+_broke+' red line'+(_broke>1?'s':'')+' broken'):'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }""",
+        """  if(_sprinting){ setRead('SPRINTED '+['N','NE','E','SE','S','SW','W','NW'][d],'two tiles, fully exposed — return fire incoming','#e8593a');
+    endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */
+  else{ setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],_broke?('one tile — '+_broke+' red line'+(_broke>1?'s':'')+' broken'):'one tile — the world answers','#8fd0e8');
+    endTurnReturn(false); } }""",
+        'sprint-resolve-engaged'
+    )
+
+    demo = sub1(demo,
+        "document.querySelectorAll('[data-j]').forEach(b=>b.addEventListener('click',()=>{",
+        """D('sprintbtn').addEventListener('click',()=>{ G.sprintArm=!G.sprintArm;   /* V44 SPRINT */
+  D('sprintbtn').textContent='SPRINT: '+(G.sprintArm?'ARMED':'OFF'); D('sprintbtn').classList.toggle('on',G.sprintArm);
+  setRead(G.sprintArm?'SPRINT ARMED':'SPRINT OFF',G.sprintArm?'next move covers two tiles — breaks cover for real':'back to a normal tucked move',G.sprintArm?'#e8593a':'#8a7d66'); });
+document.querySelectorAll('[data-j]').forEach(b=>b.addEventListener('click',()=>{""",
+        'sprint-toggle-wire'
+    )
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
