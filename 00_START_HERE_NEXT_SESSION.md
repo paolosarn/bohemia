@@ -8,6 +8,36 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## CRAWL-DYING SHIPPED — ROUND 2B CLOSED OUT (7/23, character/animation
+## chat, Paolo: "crawl dying animation please")
+The last open ask from records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_7_20_26.txt
+(round 2B, the DOWNED ruling): a dying man drags himself along the floor
+toward a downed ally. V30 already ran the positional logic on main
+(e._crawlAt stamps every 5th turn a downed enemy's edist/ea slides toward
+the nearest dead/downed body) but had zero visual — enemyFrame's downed
+branch fell back to a static prone hold the whole time he was crawling.
+Built the clip (CANDIDATE_SRC 'crawl-dying', ~4 beats): flat on the deck
+the entire cycle (legs stay compressed/limp, body never rises — same
+geometry as floor-rise's fully-down frame), one arm sweeps reach -> plant
+-> pull -> reset via a gunT-anchored IK target, the torso inches forward
+across the pull to sell the drag. Baked as L.look.crawl112 (4 phases:
+0.05/0.35/0.6/0.9), same convention as shoved112/rise112/cfire112.
+WIRING: enemyFrame's downed branch now checks e._crawlAt (now-crawlAt<640,
+4 frames/160ms step) right after the death-drop sequence finishes and
+before the L.prone112 fallback — exact same shape as get-shoved/rise/
+stagger's consumption. A downed man who isn't mid-crawl-tick still just
+holds prone; the drag only plays on the beat V30 actually moves him.
+Gate: gates/combat_anim_gate.js grew 88->102 (new section 6: stays flat
+every sampled phase incl. S head-on, legs never leave limp/compressed,
+the reaching arm's IK distance actually sweeps >4 units peak-to-peak, the
+off arm holds still, hipOff.x creeps forward across the drag, bake+
+receiver+enemyFrame wiring present, and ordering: crawl checked before
+the prone fallback). Full gate suite green. Stamp: BUILD 7/23h.
+Also answered Paolo's female-rig question in-chat (no code): the ~90+
+pose functions and the wardrobe are direction/skeleton-relative, not
+tied to male pixel geometry — laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md
+already rules the carryover; nothing new to build until he says go.
+
 ## DISTRICT HEROES v1 GRAVEYARDED -> v2 ICONIC (7/23, same session). Paolo on
 ## v1: "they were all dogshit... look at pocket city 2 buildings online... they
 ## were all ICONIC you could tell what the building was and the purpose of it.

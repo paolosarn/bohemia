@@ -197,5 +197,34 @@ ok('receiver: SPR.cv carries caim (V29, already shipped)', /caim:\(d\.dirs\[dir\
 ok('combat: crouched dial fire actually swaps in the nearest-offset caim frame when tucked near stone', /fset\.caim&&fset\.caim\.length/.test(demo) && /_dd=Math\.abs\(\(_a\.off\|\|0\)-\(G\.angle\|\|0\)\)/.test(demo));
 ok('no duplicate caim1h/caim2h machinery left behind (the V29 hook is the one truth)', !/caim1h/.test(alpha) && !/caim2h/.test(alpha) && !/sprCrouchAimFrame/.test(demo));
 
+/* ---- 6. CRAWL-DYING (ROUND 2B, Paolo 7/20 "the DOWNED ruling"): the V30
+   crawl-toward-an-ally logic (e._crawlAt) already ran on main with no visual
+   -- enemyFrame's downed branch fell back to a static prone hold. This clip
+   is the visual: a downed man drags himself, one arm reaching-planting-
+   pulling, body stays flat, legs stay limp the whole cycle. ---- */
+ok('CANDIDATE_SRC carries crawl-dying', !!alpha.match(/'crawl-dying':"((?:[^"\\]|\\.)*)"/));
+ok('CAND_BEATS carries crawl-dying', /'crawl-dying':4/.test(alpha));
+{
+  const cm = alpha.match(/'crawl-dying':"((?:[^"\\]|\\.)*)"/);
+  let pc = null;
+  if (cm) try { pc = eval('(' + cm[1].replace(/\\"/g, '"') + ')'); } catch (e) { ok('crawl-dying evals', false, e.message); }
+  if (pc) {
+    const dist = o => o.ikR ? Math.hypot(o.ikR[0] - 28, o.ikR[1] - 20) : 0;
+    const samples = [0, 0.1, 0.18, 0.35, 0.5, 0.6, 0.75, 0.9, 1].map(ph => pc('E', ph));
+    ok('crawl-dying stays flat on the deck all through the cycle (E)', samples.every(o => hy(o) >= 9));
+    ok('crawl-dying stays flat on the deck all through the cycle (S, head-on)', [0, 0.35, 0.6, 0.9].every(ph => hy(pc('S', ph)) >= 9));
+    ok('crawl-dying legs stay limp/compressed the whole cycle, never rising to stand', samples.every(o => (o.legCompressL || 0) > 0.3 && (o.legCompressR || 0) > 0.3));
+    const dists = samples.map(dist);
+    ok('crawl-dying: the reaching arm actually sweeps (real reach-then-pull range)', Math.max(...dists) - Math.min(...dists) > 4);
+    ok('crawl-dying: the off arm stays put (no independent second sweep)', new Set(samples.map(o => (o.upL || 0).toFixed(2))).size === 1);
+    ok('crawl-dying: the body inches forward across the drag (hipOff.x creeps)', hx(pc('E', 0.9)) > hx(pc('E', 0.05)));
+  }
+}
+ok('bake: enemy crawl112 rides crawl-dying (ROUND 2B)', /crawl112=\[0\.05,0\.35,0\.6,0\.9\]\.map\(p=>bake112\(L\.d,'crawl-dying',p\)\)/.test(alpha));
+ok('receiver maps the enemy crawl112 set', /crawl112:L\.crawl112/.test(demo));
+ok('enemyFrame: the crawl plays on the V30 crawl tick, inside the downed branch', /_crawlAt&&now-e\._crawlAt<640&&L\.crawl112/.test(ef));
+ok('enemyFrame: crawl checked after the death-drop sequence, before the static prone fallback',
+  ef.indexOf('fseq[Math.min(fseq.length-1,fi)]') < ef.indexOf('_crawlAt') && ef.indexOf('_crawlAt') < ef.indexOf('return L.prone112'));
+
 console.log('\n=== COMBAT ANIM GATE: ' + pass + ' passed, ' + fail + ' FAILED ===');
 process.exit(fail ? 1 : 0);

@@ -70,3 +70,25 @@ prone112/the death pose's last frame while crawling.
 
 Gate: gates/combat_anim_gate.js grew to 88 checks (clip mechanics: stays
 crouched, one-hand vs two-hand grip, actual angle sweep across phase).
+
+==============================================================================
+WHAT SHIPPED (animation chat, 7/23): #3, crawl-dying
+==============================================================================
+Landed in CANDIDATE_SRC (~4 beats, matches the ask): a downed man flat on
+the deck the whole cycle (legs stay compressed/limp, body never rises),
+one arm sweeps reach -> plant -> pull -> reset (the drag), the torso inches
+forward across the pull. Baked as L.look.crawl112 (4 phases: 0.05/0.35/0.6/
+0.9) right alongside shoved112/rise112/prone112/cfire112.
+
+WIRING: enemyFrame's downed branch now checks e._crawlAt (the V30 tick
+that was already firing every 5th turn with zero visual) right after the
+death-drop sequence finishes and before the static prone112 fallback —
+same 4-frame/160ms-step/640ms-window convention as get-shoved/rise/stagger.
+A downed man who isn't actively crawling still holds the plain prone pose;
+the drag only plays on the beat the game logic actually moves him.
+
+Gate: gates/combat_anim_gate.js grew to 102 checks (new section 6: clip
+mechanics — stays flat, legs stay limp, the reach-pull arm actually
+sweeps, the off arm doesn't, forward creep is real — plus bake + receiver
++ enemyFrame wiring, plus ordering: crawl checked before the prone
+fallback, after the death drop).
