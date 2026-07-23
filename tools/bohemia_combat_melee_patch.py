@@ -3004,13 +3004,61 @@ def patch39(demo):
     return demo
 
 
+def patch40(demo):
+    """v40 (Paolo 7/21, "keep cooking juicy stuff... add it to the UI menu
+    of juice"): wire v39's streak momentum through a real toggle in the
+    same SETTINGS > JUICE + FEEL verdict menu every prior feel addition
+    graduated through (AS/AT/AU/AV pattern) -- new letter AW, same
+    on/demo/thumbs plumbing. Also retires AU's row from that menu: he
+    already ruled it dead in chat ("i dont like it", v36), and the row's
+    toggle button would otherwise silently flip JUICE.AU back to true on
+    a tap since nothing re-reads its live state at boot -- a live trap
+    for undoing his own ruling. NOTES ARE RULINGS; a killed effect does
+    not keep a toggle that can resurrect it."""
+    if 'V40 JUICE MENU' in demo:
+        print('v40 already applied, skipping')
+        return demo
+
+    # gate the streak bonus behind a real flag, same pattern as JUICE.L's steady-aim gate
+    _old_term, _want = "(1+Math.min(0.15,(G.killStreak||0)*0.03))", 2
+    _count = demo.count(_old_term)
+    if _count != _want:
+        sys.exit('FAIL anchor [streak-juice-gate]: found %d times (want %d)' % (_count, _want))
+    demo = demo.replace(_old_term, "(1+Math.min(0.15,(JUICE.AW?(G.killStreak||0):0)*0.03))")
+
+    # register the toggle + its one-line description (same object every other letter lives in)
+    demo = sub1(demo,
+        "  AS:true,AT:true,AU:false,AV:true};   /* V36: Paolo -- \"i dont like it\", killed. wound state stays on the body/screen vignette, not the fire-button face */",
+        "  AS:true,AT:true,AU:false,AV:true,AW:true};   /* V40 JUICE MENU: streak momentum joins the verdict menu, same plumbing as everything else here */",
+        'register-aw-flag')
+    demo = sub1(demo,
+        "  AU:'the face in your fire button gets worse as YOU do',\n  AV:'the receipt GRADES the fight, D to BOHEMIAN'};",
+        "  AU:'the face in your fire button gets worse as YOU do',\n  AV:'the receipt GRADES the fight, D to BOHEMIAN',\n  AW:'a hot streak visibly widens your kill window, a miss snaps it back'};",
+        'register-aw-watch')
+
+    # a demo preview, same shape as every other letter's case in juiceDemo()
+    demo = sub1(demo,
+        "  if(k==='L'){ setRead('STEADY +10%','held position, aim settles \\u00B7 next dial kill zone widens','#8fe89a'); }",
+        "  if(k==='L'){ setRead('STEADY +10%','held position, aim settles \\u00B7 next dial kill zone widens','#8fe89a'); }\n  if(k==='AW'){ setRead('STREAK MOMENTUM','3+ kills running \\u00B7 dial window +9% wider, a miss zeroes it','#8fe89a'); }",
+        'aw-demo-preview')
+
+    # the menu row: drop the dead AU toggle (his ruling already stands, this button could only undo it),
+    # promote AV, add AW in its place -- same 2-per-row shape as the AS/AT row above it
+    demo = sub1(demo,
+        '    <div class="controls"><button data-j="AU" class="on">AU LIVING PORTRAIT</button><button data-jv="AU:1">&#128077;</button><button data-jv="AU:-1">&#128078;</button><button data-j="AV" class="on">AV FIGHT GRADE</button><button data-jv="AV:1">&#128077;</button><button data-jv="AV:-1">&#128078;</button></div>',
+        '    <div class="controls"><button data-j="AV" class="on">AV FIGHT GRADE</button><button data-jv="AV:1">&#128077;</button><button data-jv="AV:-1">&#128078;</button><button data-j="AW" class="on">AW STREAK MOMENTUM</button><button data-jv="AW:1">&#128077;</button><button data-jv="AW:-1">&#128078;</button></div>   <!-- V40 JUICE MENU: AU retired (killed, verdict already given -- no toggle left to undo it), AW joins -->',
+        'menu-row-aw')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))
+    patched = patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
