@@ -27,9 +27,9 @@ bank = json.load(open(BANK))
 heroes = bank['heroes']
 
 DISTRICTS = [
-    ('CITY HALL', 'cityhall', 'the civic seat - an administrative block with a stopped CLOCK TOWER (the tallest hero). Its judicial cousin the courthouse gets columns + a dome; this gets the tower + a public plaza.'),
-    ('BATTERY YARD', 'battery', 'grid-scale storage - stacked shipping-container battery enclosures + the inverter rack (the LOWEST hero). Feeds the same power network the substation distributes.'),
-    ('TRANSIT TERMINAL', 'terminal', 'passenger transport - a waiting hall + a boarding CANOPY on posts + a dead bus at the bay (a mid-height hero). The passenger cousin of the freight railyard.'),
+    ('CITY HALL', 'cityhall', 'the civic monument: a columned PORTICO + grand STEPS + a domed CLOCK CUPOLA + a dead flag. Government, at a glance.'),
+    ('BATTERY / POWER YARD', 'battery', 'the power read: tall lattice TRANSMISSION PYLONS carrying dead lines + big TRANSFORMER cylinders + a hazard-striped inverter house with a lightning mark.'),
+    ('TRANSIT TERMINAL', 'terminal', 'the bus depot: a big sweeping BUTTERFLY CANOPY over dead BUSES nosed in at the bays + a tall MARQUEE sign. Transit, at a glance.'),
 ]
 
 meta = []
@@ -41,7 +41,7 @@ for h in heroes:
 html = r"""<meta charset="utf-8">
 <title>BOHEMIA DISTRICT HEROES 7/23</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<h1 id="hdr" style="font:600 15px/1.4 -apple-system,sans-serif;color:#cdbd8a;margin:10px 10px 4px">BOHEMIA - DISTRICT HEROES. The 3/4-iso building that embodies each new district for CITY BUILDER mode (your ask 7/23). Two heights per district - pick the silhouette. Each is shown planted on the city's iso ground the way the builder plants it. Thumbs the winners; they get married into the CITY tab.</h1>
+<h1 id="hdr" style="font:600 15px/1.4 -apple-system,sans-serif;color:#cdbd8a;margin:10px 10px 4px">BOHEMIA - DISTRICT HEROES v2 (the box version got graveyarded - you were right, they were dogshit). Each is now ICONIC: you read the building AND its purpose at a glance, Pocket-City style, in our dead 3/4-iso world. City Hall = columns + dome + clock. Battery = transmission pylons + transformers + lightning. Terminal = a big sweeping bus canopy + buses. Shown planted on the city's iso ground. Thumbs the keepers; they get married into the CITY tab.</h1>
 <div style="display:flex;gap:8px;padding:8px 10px;flex-wrap:wrap;position:sticky;top:0;z-index:5" id="bar">
   <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
   <button id="exp" style="padding:9px 13px;border-radius:8px;background:#3f8c3f;color:#fff;border:0">&#10515; EXPORT .txt</button>
