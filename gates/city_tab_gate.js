@@ -245,6 +245,35 @@ if (b64m) {
     decoded.indexOf('c.artPool_face=') >= 0 && decoded.indexOf("pick<6?'hwall'") >= 0);
   ok('dead-dirt ground picks one DG blend per suburb block',
     decoded.indexOf('c.gArtPool=') >= 0 && decoded.indexOf("'hyard'") >= 0);
+
+  // 18. THE DISTRICT ART LOCK (7/22, "hella districts need textures" -
+  // Paolo). The 32 canon district_kit modules (park/commercial/industrial/
+  // downtown/medical/school/...) ride the city verbatim through the SAME
+  // generic legend-driven mechanism, reusing the already-CANON house-skin
+  // art for every structure cell (reuse-first law) with a light per-
+  // district tint so districts stay visually distinct. SUB_RES (suburb/
+  // gated/estate) is untouched - old path, unchanged.
+  ok('DISTRICT ART: the shared factory (district_kit) is embedded',
+    decoded.indexOf('DISTRICT ART') >= 0 && decoded.indexOf('BohemiaDistrictKit') !== -1
+    && decoded.indexOf('K.register') >= 0);
+  ok('every canon district module (park/commercial/industrial/downtown/medical/school/...) is married in',
+    ['bohemia_park.js', 'bohemia_commercial.js', 'bohemia_industrial.js', 'bohemia_downtown.js',
+     'bohemia_medical.js', 'bohemia_school.js', 'bohemia_mall.js', 'bohemia_apartment.js',
+     'bohemia_stadium.js', 'bohemia_warehouse.js'].every(f => decoded.indexOf(f) >= 0));
+  ok('4x4 tile-group cache + windowing exists for the kit path (__kitBlock/__kitGrid)',
+    decoded.indexOf('function __kitBlock(') >= 0 && decoded.indexOf('function __kitGrid(') >= 0);
+  ok('tileMeta routes non-suburb K-registered districts through the kit grid, suburb untouched',
+    decoded.indexOf('BohemiaDistrictKit.get(d)') >= 0 && decoded.indexOf('m.kit=kg.codes') >= 0);
+  ok('realizeCell classifies kit tiles generically via tileLayer (structure/prop/portal/overhead/ground)',
+    decoded.indexOf('BohemiaDistrictKit.tileLayer(entry)') >= 0
+    && decoded.indexOf("tl.layer==='structure'") >= 0);
+  ok('district structure cells reuse the canon house-skin art (reuse-first), not a fresh cook',
+    decoded.indexOf("c.artPool='hroof'") >= 0 && decoded.indexOf('c.artPool_face=') >= 0);
+  ok('each district keeps its own approved palette as a tint over the shared real material',
+    decoded.indexOf('c.tint=pal') >= 0 && decoded.indexOf('x.globalAlpha=0.16') >= 0);
+  ok('dead-world holds: the generic prefab fallback no longer paints live grass/tree green',
+    decoded.indexOf('DEAD WORLD PREFAB FIX') >= 0 && decoded.indexOf("c.g='#7aa05a'") === -1
+    && decoded.indexOf("c.s='#3a6a2a'") === -1);
 }
 
 console.log('CITY TAB GATE: ' + pass + ' passed, ' + fail + ' failed');
