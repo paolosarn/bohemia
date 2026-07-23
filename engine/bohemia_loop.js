@@ -65,9 +65,11 @@
 
       // --- LAYER 4: CONTENT SYSTEMS [ISLAND — sockets ready, internal gaps marked] ---
       worldMap: null,     // WorldGen.generateWorld(seed). [SEAM: reseed from rng.branch('worldgen')]
-      factions: null,     // Factions.FactionWorld + FactionCanon. [SEAM: enforceConstraints into shiftStanding]
-      economy: null,      // Economy.Economy. [GAP per map: currency sources from worldMap geography]
-      spawner: null,      // Entities.Spawner. [GAP per map: spawn regions from worldMap districts]
+      factions: null,     // Factions.FactionWorld, canon-loaded from BOHEMIA_faction_graph.json. [WIRED at boot]
+      factionBases: null, // factionId -> {x,y} real worldMap.factionSlots coord. [WIRED at boot]
+      factionConstraints: null, // FactionCanon.loadFactionCanon() result; enforced on every shiftStanding. [WIRED at boot]
+      economy: null,      // Economy.Economy, one empty DistrictEconomy per worldMap district. [WIRED at boot; faucets/sinks are content, not poured here]
+      spawner: null,      // Entities.Spawner, shared instance keyed on save.seed + ctx.deltas. [WIRED at boot]
 
       // --- LAYER 4b: DYNASTY (the fold, already save-bridged) [ISLAND] ---
       folds: null,        // Generations.foldFromSave(save) result. Recomputed on load & at each handoff.
@@ -167,23 +169,92 @@
     return ctx;
   }
 
-  // 5. Factions + canon. [SEAM] enforceConstraints-into-shiftStanding is a [STUB]
-  //    on the map; base placement into worldgen slots is a [GAP]. Socket ready.
-  function bootFactions(ctx) {
-    // [SEAM] ctx.factions = new E.Factions.FactionWorld(...);
-    // [SEAM] E.FactionCanon.loadFactionCanon(ctx.factions);
+  // 5. Factions + canon. POURED: the graph is Paolo's own GDD v2 §9 data
+  //    (BOHEMIA_faction_graph.json), FactionCanon.loadFactionCanon() invents
+  //    nothing — it mechanically encodes relationships he already wrote into
+  //    initial standings + permanent constraints. shiftStanding is wrapped so
+  //    every write is clamped through those constraints (never a raw call).
+  //    Base placement: worldMap.factionSlots (14 proc-gen points, already
+  //    deterministic from seed) zipped 1:1 with the 14 selectable faction ids
+  //    in sorted order — mechanical pairing, not a lore/layout decision (MAP
+  //    LAW governs district placement; this is the abstract scaffold's own
+  //    dormant faction-slot subsystem, not the live overmap). Each faction's
+  //    founding territory is the nearest real worldMap district to its base.
+  function bootFactions(ctx, opts) {
+    ctx.factions = new E.Factions.FactionWorld(ctx.rng.branch('factions'));
+    const graph = opts && opts.factionGraph;
+    if (!graph) return ctx;   // no canon graph supplied (bare/legacy boot) — stays empty, same as FACTION_ASSIGN={} elsewhere
+
+    ctx.factionConstraints = E.FactionCanon.loadFactionCanon(ctx.factions, graph, (ctx.save && ctx.save.act) || 1);
+
+    // wrap shiftStanding so every write is canon-clamped — the invariant the
+    // SEAM comment named ("enforceConstraints into shiftStanding").
+    const world = ctx.factions;
+    const rawShift = world.shiftStanding.bind(world);
+    const constraints = ctx.factionConstraints;
+    world.shiftStanding = function (aId, bId, delta, symmetric) {
+      const before = world.standingWithSafe(aId, bId);
+      rawShift(aId, bId, delta, symmetric);
+      const a = world.factions.get(aId);
+      if (a) a.standing[bId] = E.FactionCanon.enforceConstraints(constraints, aId, bId, a.standingWith(bId));
+      if (symmetric) {
+        const b = world.factions.get(bId);
+        if (b) b.standing[aId] = E.FactionCanon.enforceConstraints(constraints, bId, aId, b.standingWith(aId));
+      }
+    };
+    world.standingWithSafe = function (aId, bId) {
+      const a = world.factions.get(aId);
+      return a ? a.standingWith(bId) : 0;
+    };
+    world._canonWired = true;
+
+    // base placement: zip sorted faction ids to the worldMap's proc-gen slots.
+    ctx.factionBases = {};
+    if (ctx.worldMap && ctx.worldMap.factionSlots && ctx.worldMap.districts) {
+      const ids = [...ctx.factions.factions.keys()].sort();
+      const slots = ctx.worldMap.factionSlots;
+      const districts = ctx.worldMap.districts;
+      ids.forEach(function (fid, i) {
+        if (i >= slots.length) return;
+        const p = slots[i];
+        ctx.factionBases[fid] = { x: p[0], y: p[1] };
+        // nearest real district becomes this faction's founding claim
+        let best = null, bestD = Infinity;
+        for (const d of districts) {
+          const dx = d.pos[0] - p[0], dy = d.pos[1] - p[1];
+          const dist = dx * dx + dy * dy;
+          if (dist < bestD) { bestD = dist; best = d; }
+        }
+        if (best) {
+          const f = ctx.factions.factions.get(fid);
+          f.territory.add(best.id);
+          ctx.factions.owner.set(best.id, fid);
+        }
+      });
+    }
     return ctx;
   }
 
-  // 6. Economy. [GAP per map] currency sources come from worldMap geography.
+  // 6. Economy. POURED: one empty DistrictEconomy per real worldMap district —
+  //    the tank/faucet/sink MACHINERY, zero currency numbers invented. Real
+  //    faucet/sink rates are content (what produces how much where) and stay
+  //    unpoured until the world is built out enough to tune against (Paolo's
+  //    7/19 ruling — economy cannot be tuned against a world that doesn't exist).
   function bootEconomy(ctx) {
-    // [GAP] ctx.economy = new E.Economy.Economy(...); sources hooked to ctx.worldMap.
+    ctx.economy = new E.Economy.Economy();
+    if (ctx.worldMap && ctx.worldMap.districts) {
+      for (const d of ctx.worldMap.districts) ctx.economy.addDistrict(d.id);
+    }
     return ctx;
   }
 
-  // 7. Entities. [GAP per map] spawn regions come from worldMap districts.
+  // 7. Entities. POURED: a shared Spawner keyed on the save's seed + the boot's
+  //    DeltaStore, matching the exact pairing spawnActorsForDistrict already
+  //    builds ad hoc — now available at ctx.spawner for any caller instead of
+  //    each call site constructing its own (deterministic either way, since
+  //    both key off the same seed + deltas).
   function bootEntities(ctx) {
-    // [GAP] ctx.spawner = new E.Entities.Spawner(...); regions from ctx.worldMap.
+    ctx.spawner = new E.Entities.Spawner(ctx.save.seed, ctx.deltas);
     return ctx;
   }
 
@@ -214,7 +285,7 @@
     bootHeartbeat(ctx);
     bootWorldGen(ctx);
     bootScheduler(ctx);
-    bootFactions(ctx);
+    bootFactions(ctx, opts);
     bootEconomy(ctx);
     bootEntities(ctx);
     bootDynasty(ctx);
