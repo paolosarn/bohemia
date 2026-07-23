@@ -57,6 +57,8 @@ const SWF = () => 1;
 const RF = 12, RR = 6;
 const gunT = (d, rf, rr) => { const c=[28,20], a=FACEANG[d];
   return [[c[0]+Math.cos(a)*rf, c[1]+Math.sin(a)*rf], [c[0]+Math.cos(a)*rr, c[1]+Math.sin(a)*rr], a]; };
+const gunTA = (d, rf, rr, aim) => { const c=[28,20];
+  return [[c[0]+Math.cos(aim)*rf, c[1]+Math.sin(aim)*rf], [c[0]+Math.cos(aim)*rr, c[1]+Math.sin(aim)*rr], aim]; };
 const nsGait = (d, ph, k) => { const s=Math.sin(ph*2*Math.PI);
   return {spine:0, legCompressL:0.28*Math.max(0,s)*k, legCompressR:0.28*Math.max(0,-s)*k,
     upL:0.1, upR:0.1, foreL:0.2, foreR:0.2, armCompressL:0.1, armCompressR:0.1, hipOff:[0,-0.3*Math.abs(s)*k]}; };
@@ -157,6 +159,43 @@ ok('ARM-UNIT: behind means behind head, face AND torso', /ord\.indexOf\(1\),ord\
 ok('ARM-UNIT: subsumes the gun-unit rule on these facings (runs first)',
   ho.indexOf("d==='NE'||d==='NW'") < ho.indexOf('present._gun'));
 ok('ARM-UNIT: baked layerOverride untouched (RIG LAW)', !/layerOverride\s*\[/.test(ho.slice(ho.indexOf("d==='NE'"), ho.indexOf('present._gun'))));
+
+/* ---- 5. CROUCH-AIM (Paolo 7/20, animation-chat ask): same 9-angle sweep
+   convention as deadeye, crouched. 1h braces the off-hand, 2h shoulders the
+   rifle two-handed. Baked into the combat sprite payload the same shape as
+   .aim; the actual trigger (when to show it over deadeye/cover-fire) is
+   left for combat's live cover/dial state machine. ---- */
+for (const c of ['crouch-aim-1h', 'crouch-aim-2h']) {
+  ok('CANDIDATE_SRC carries ' + c, !!alpha.match(new RegExp("'" + c + "':\"((?:[^\"\\\\]|\\\\.)*)\"")));
+  ok('CAND_BEATS carries ' + c, new RegExp("'" + c + "':4").test(alpha));
+}
+{
+  const g1 = alpha.match(/'crouch-aim-1h':"((?:[^"\\]|\\.)*)"/)[1].replace(/\\"/g, '"');
+  const g2 = alpha.match(/'crouch-aim-2h':"((?:[^"\\]|\\.)*)"/)[1].replace(/\\"/g, '"');
+  let p1 = null, p2 = null;
+  try { p1 = eval('(' + g1 + ')'); p2 = eval('(' + g2 + ')'); } catch (e) { ok('crouch-aim clips eval', false, e.message); }
+  if (p1 && p2) {
+    ok('crouch-aim-1h stays crouched (E)', p1('E', 0.3).legCompressL > 0.3 && p1('E', 0.3).legCompressR > 0.3);
+    ok('crouch-aim-2h stays crouched (E)', p2('E', 0.3).legCompressL > 0.3 && p2('E', 0.3).legCompressR > 0.3);
+    ok('crouch-aim-1h sweeps a ONE-HAND pistol (no ikL, off-hand braced)', !!p1('E', 0.3).ikR && !p1('E', 0.3).ikL && p1('E', 0.3)._gun[0] === 'pistol');
+    ok('crouch-aim-2h sweeps a TWO-HAND rifle (both hands)', !!p2('E', 0.3).ikR && !!p2('E', 0.3).ikL && p2('E', 0.3)._gun[0] === 'rifle');
+    ok('crouch-aim-1h off-hand actually braces (upL/foreL present)', p1('E', 0.3).upL !== undefined && p1('E', 0.3).foreL !== undefined);
+    const swept1 = new Set([0.1, 0.3, 0.5, 0.7, 0.9].map(ph => p1('E', ph)._dial[1].toFixed(2)));
+    const swept2 = new Set([0.1, 0.3, 0.5, 0.7, 0.9].map(ph => p2('E', ph)._dial[1].toFixed(2)));
+    ok('crouch-aim-1h actually sweeps the aim angle across phase', swept1.size >= 4);
+    ok('crouch-aim-2h actually sweeps the aim angle across phase', swept2.size >= 4);
+  }
+}
+/* WIRING (owned by the combat session, V29): its own guarded _cclip picker
+   ("1h preferred, 2h when the long gun ships") + live crouched-dial-fire
+   consumer already existed on main before these clips landed, keyed off a
+   single out.dirs[d].caim field -- proven here so nobody re-duplicates it
+   as separate caim1h/caim2h fields the way the first pass briefly did. */
+ok('bake: the V29 guarded picker prefers 1h, falls back to 2h', /_cclip=CLIPS\.indexOf\('crouch-aim-1h'\)>=0\?'crouch-aim-1h':\(CLIPS\.indexOf\('crouch-aim-2h'\)>=0\?'crouch-aim-2h':null\)/.test(alpha));
+ok('bake: caim populates from the picked clip, same 9-angle shape as .aim', /if\(_cclip\)out\.dirs\[d\]\.caim=CSPRITE_OFFS\.map/.test(alpha));
+ok('receiver: SPR.cv carries caim (V29, already shipped)', /caim:\(d\.dirs\[dir\]\.caim\|\|\[\]\)\.map/.test(demo));
+ok('combat: crouched dial fire actually swaps in the nearest-offset caim frame when tucked near stone', /fset\.caim&&fset\.caim\.length/.test(demo) && /_dd=Math\.abs\(\(_a\.off\|\|0\)-\(G\.angle\|\|0\)\)/.test(demo));
+ok('no duplicate caim1h/caim2h machinery left behind (the V29 hook is the one truth)', !/caim1h/.test(alpha) && !/caim2h/.test(alpha) && !/sprCrouchAimFrame/.test(demo));
 
 console.log('\n=== COMBAT ANIM GATE: ' + pass + ' passed, ' + fail + ' FAILED ===');
 process.exit(fail ? 1 : 0);

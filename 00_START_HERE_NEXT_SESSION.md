@@ -882,6 +882,39 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-28. CROUCH-AIM: PISTOL + RIFLE FROM COVER (7/20, latest, animation chat):
+   Paolo's ask (request sheet 2, records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_
+   7_20_26.txt): the crouch reads its aim now. Two clips, batch #14, same
+   convention as deadeye -- a phase-swept +-63deg arc, 9 static angles baked
+   via the same CSPRITE_OFFS the needle uses. crouch-aim-1h: pistol, body
+   low, off-hand braced on the stone (take-cover's own brace reused).
+   crouch-aim-2h: rifle shouldered two-handed from the crouch, same sweep.
+   TURNED OUT ALREADY FULLY WIRED: the combat session's own V29 (visible
+   only once this merge pulled their real code, not just their handoff
+   text) had already baked a guarded `_cclip` picker ("1h preferred, 2h
+   when the long gun ships") and a live consumer (crouched dial fire swaps
+   the standing deadeye needle for the nearest-offset crouch sweep the
+   moment you're tucked near stone, not popped out) -- all keyed off a
+   single out.dirs[d].caim field. My first pass duplicated this as
+   separate caim1h/caim2h fields before discovering their hook; reverted
+   that duplication once found, so the merged result is exactly their
+   already-shipped V29 machinery plus the two new clips it was waiting on
+   -- zero new wiring code needed, and it took effect the moment the clips
+   existed. NOTE for whoever picks up combat next: their OWN request sheet
+   (records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_7_20_26.txt, their half of a
+   collided filename resolved this same merge -- kept both halves) also
+   flags a ROUND 2B ask, crawl-dying (a downed man dragging himself toward
+   a downed friend, V30's crawl-positioning already runs, only the visual
+   is missing) -- not built this turn, explicitly out of scope for what
+   Paolo asked me directly, but ready to pick up next. Also caught + fixed
+   a real gap from the prior faction-colors ship: CAND_BEATS never actually
+   got the crouch-aim entries that turn (a python script double-attempt
+   silently dropped half the edit); fixed here, plus a missing gunTA stub
+   in the gate's synthetic rig. Verified: 9x8 contact sheet (0 render
+   errors, crouch stays compressed every facing, 1h brace and 2h two-hand
+   grip both read distinctly). Gate: combat_anim_gate.js 74->88 (tests the
+   clips' own mechanics; the V29 wiring is combat's own gate's territory).
+   Stamp: BUILD 7/22g.
 -26. COMBAT v35: CAMERA TIGHTENS, REAL COVER, DIAL-BY-EXPOSURE, LAST-MAN-
    ONLY SURRENDER (7/21, combat session, branch claude/bohemia-combat-
    session-ni978x): Paolo sent one dense diagnostic message covering six
@@ -939,7 +972,7 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    stale string-anchors from the v35 rewrite -- same "gate matches shipped
    reality, never the reverse" precedent as every prior pass). Full suite
    ALL GREEN. Stamp: BUILD 7/21p.
--27. SIX FACTIONS RULED + THE RAINBOW GAP FOUND (7/21, latest): Paolo went
+-27. SIX FACTIONS RULED + THE RAINBOW GAP FOUND (7/21): Paolo went
    faction-by-faction live off the roster. Locked: REDS brightest red
    #dc2820, CARTEL darkest maroon #5c302a (existing OXBLOOD ramp), CHURCH
    gold #ffd75c distinct from MOB's gold-STRIPE #b08a2a (existing MUSTARD
