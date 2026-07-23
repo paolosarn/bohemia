@@ -20,6 +20,22 @@ way on the traffic signals:
 Output: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (b64 tiles + meta).
 
   python3 tools/bohemia_house_art_factory.py
+
+REUSE CHECK: added retroactively 7/22 (laws/BOHEMIA_ADDENDUM_REUSE_FIRST_
+LOCKED_7_22_26). This cook checked NOTHING against the corpus before
+generating - the reuse-first law didn't exist yet the night this ran.
+Honest gap, not a used-anyway justification. What SHOULD have been
+checked, discovered afterward: banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt
+was already Paolo-approved wall art sitting unused (found 7/21, married
+into the city separately by tools/bohemia_city_perimeterwall_patch.py -
+not by this file); banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt existed as
+unjudged door-edge candidates (surfaced 7/21, composed into real doors by
+tools/bohemia_suburb_walk.py - also not by this file). This factory's own
+roof/wall/window/door pixels still ship as-is (Paolo verdicted the output,
+not the process) - nothing here is being unwound. Standing order for any
+FUTURE variant of this batch: read banks/BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt
+first (Paolo, roundup verdict 7/21: "i want you to emulate these for the
+other tiles" - the technique to study before cooking more roof material).
 """
 import base64
 import io
