@@ -223,7 +223,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('corpses ride the grid-true ruler',
     demo.includes('const rr=c.edist*ring;'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette',
-    demo.includes("x.fillStyle='#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
+    demo.includes("'#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
   // v20: the animation pass (walk, static corpses, counter-snap, real glide)
   ok('V20 WALK: loaders carry walk frames for player and enemies',
     demo.includes('V20 WALK') && demo.includes('walk:(d.dirs[dir].walk||[]).map(mk)') &&
@@ -451,11 +451,24 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V40 JUICE MENU') &&
     (demo.match(/\(1\+Math\.min\(0\.15,\(JUICE\.AW\?\(G\.killStreak\|\|0\):0\)\*0\.03\)\)/g) || []).length === 2);
   ok('V40 JUICE MENU: AW registered (flag + description + demo preview + settings row), AU\'s dead toggle removed so it can never resurrect his kill',
-    demo.includes('AS:true,AT:true,AU:false,AV:true,AW:true}') &&
     demo.includes("AW:'a hot streak visibly widens your kill window, a miss snaps it back'") &&
     demo.includes("if(k==='AW'){ setRead('STREAK MOMENTUM'") &&
     demo.includes('data-j="AW"') &&
     !demo.includes('data-j="AU"'));
+  // v41: destructible cover -- a real toggle, a real mechanical consequence
+  ok('V41 BREAKABLE COVER: pillars carry real durability, a shot cover eats for you chips the ACTUAL pillar (not a fake), it can be destroyed, and cover honestly stops working once it is',
+    demo.includes('V41 BREAKABLE COVER') &&
+    demo.includes('function myCoveringPillar(ang,dist)') &&
+    demo.includes('function chipCover(ea,dist){ if(!JUICE.AX)return;') &&
+    demo.includes('P.hp=(P.hp==null?3:P.hp)-1;') &&
+    demo.includes('if(P.hp<=0){ const at=G.pillars.indexOf(P); if(at>=0)G.pillars.splice(at,1);') &&
+    demo.includes('chipCover(e.ea,e.edist); }   /* R: your cover ate that one; V41: and it cost the stone something */'));
+  ok('V41 JUICE MENU: AX registered (flag + description + demo preview + settings row), AND fixes v40\'s missed AW/AX entries in JUICE_NAMES (would have rendered literal "undefined" on the demo caption)',
+    demo.includes('AS:true,AT:true,AU:false,AV:true,AW:true,AX:true}') &&
+    demo.includes("AX:'your cover crumbles as it eats shots for you, and eventually breaks'") &&
+    demo.includes("if(k==='AX'){ setRead('COVER BROKE'") &&
+    demo.includes('data-j="AX"') &&
+    demo.includes("AW:'STREAK MOMENTUM',AX:'BREAKABLE COVER'"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
