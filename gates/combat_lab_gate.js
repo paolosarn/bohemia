@@ -456,19 +456,25 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('data-j="AW"') &&
     !demo.includes('data-j="AU"'));
   // v41: destructible cover -- a real toggle, a real mechanical consequence
-  ok('V41 BREAKABLE COVER: pillars carry real durability, a shot cover eats for you chips the ACTUAL pillar (not a fake), it can be destroyed, and cover honestly stops working once it is',
-    demo.includes('V41 BREAKABLE COVER') &&
-    demo.includes('function myCoveringPillar(ang,dist)') &&
-    demo.includes('function chipCover(ea,dist){ if(!JUICE.AX)return;') &&
-    demo.includes('P.hp=(P.hp==null?3:P.hp)-1;') &&
-    demo.includes('if(P.hp<=0){ const at=G.pillars.indexOf(P); if(at>=0)G.pillars.splice(at,1);') &&
-    demo.includes('chipCover(e.ea,e.edist); }   /* R: your cover ate that one; V41: and it cost the stone something */'));
-  ok('V41 JUICE MENU: AX registered (flag + description + demo preview + settings row), AND fixes v40\'s missed AW/AX entries in JUICE_NAMES (would have rendered literal "undefined" on the demo caption)',
-    demo.includes('AS:true,AT:true,AU:false,AV:true,AW:true,AX:true}') &&
-    demo.includes("AX:'your cover crumbles as it eats shots for you, and eventually breaks'") &&
-    demo.includes("if(k==='AX'){ setRead('COVER BROKE'") &&
-    demo.includes('data-j="AX"') &&
-    demo.includes("AW:'STREAK MOMENTUM',AX:'BREAKABLE COVER'"));
+  // v42: Paolo killed v41 outright ("dogshit") -- verify the FULL revert, not a default-off toggle
+  ok('V42 COVER REVERT: v41 (breakable cover) is completely gone -- no hp/hpMax on pillars, no chipCover, no myCoveringPillar, no AX anywhere',
+    demo.includes('V42 COVER REVERT') &&
+    !demo.includes('hp:3,hpMax:3') &&
+    !demo.includes('function myCoveringPillar') &&
+    !demo.includes('function chipCover') &&
+    !demo.includes('chipCover(') &&
+    !demo.includes('AX:true') &&
+    !demo.includes('data-j="AX"') &&
+    demo.includes("else if(cov)onOffbeat(()=>fxCoverSave(e.ea));   /* R: your cover ate that one */"));
+  ok('V42 keeps the v40 JUICE_NAMES fix (AW) while dropping AX -- the bugfix and the killed idea are independent',
+    demo.includes("AW:'STREAK MOMENTUM'") && !demo.includes("AX:'BREAKABLE COVER'") &&
+    demo.includes('data-j="AW"'));
+  // v43: weapon-flavored kill impact -- the killcam contact frame reacts to WEAPON, not just style
+  ok('V43 WEAPON KILL IMPACT: the killshot hitstop and blood burst both scale by weapon (shotgun heaviest, pistol cleanest)',
+    demo.includes('V43 WEAPON KILL IMPACT') &&
+    demo.includes("const _wpnStop={pistol:3,smg:2,rifle:4,shotgun:6}[WEAPON]||3;") &&
+    demo.includes('if(JUICE.F)G._hitstop=_wpnStop;') &&
+    demo.includes("{pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

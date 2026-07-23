@@ -42,3 +42,31 @@ ROUND 2B (added same day, the DOWNED ruling)
                             wire is automatic on landing).
 NOTE: the FINISH death blow reuses 'stomp' (already canon) later if you
 want the stomp read; hands-up (canon) already carries the surrender.
+
+==============================================================================
+WHAT SHIPPED (animation chat, same day): #1 and #2 ABOVE
+==============================================================================
+Both landed in the CANDIDATE_SRC pool (batch #14), thumbs live in the ANIM
+tab, verified across all 8 facings x 9 offsets (headless contact sheet, 0
+render errors) — crouch stays compressed every direction, 1h's off-hand
+brace and 2h's two-handed grip both read distinctly.
+
+WIRING: turned out to need ZERO new code. The V29 hook described above
+("already plumbed... zero combat-side surgery needed") really is exactly
+that — its guarded `_cclip` picker (1h preferred, 2h fallback) and its
+crouched-dial-fire consumer both already existed on main, keyed off a
+single out.dirs[d].caim field. The moment these two clip names existed in
+CLIPS, the bake populated caim and the fight started using it live, no
+touching required. (First pass duplicated this as separate caim1h/caim2h
+fields before finding the existing hook mid-merge; reverted once found —
+the shipped diff is clip-only.)
+
+#3 (crawl-dying) NOT built this pass — outside what Paolo asked the
+animation chat to do this turn. Next up whenever the animation chat picks
+it back up: V30's crawl positioning already runs (a downed man's edist/ea
+slide toward a downed ally every 5th turn, e._crawlAt marks it), only the
+visual is missing — enemyFrame's downed branch currently falls back to
+prone112/the death pose's last frame while crawling.
+
+Gate: gates/combat_anim_gate.js grew to 88 checks (clip mechanics: stays
+crouched, one-hand vs two-hand grip, actual angle sweep across phase).

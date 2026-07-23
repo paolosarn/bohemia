@@ -3,9 +3,9 @@
 The complete catalog of every procedural district/landmark type. GENERATED from the engine (tools/bohemia_district_registry.py) — the render status is read live from bohemia_overmap_bridge.js, so this file can never drift from the code. Regenerate the same turn any district is added; gates/district_registry_gate.js fails if a type in the enum is missing here.
 
 ## THE COUNT
-- **78** district types defined + placed on the 96x96 overmap.
+- **79** district types defined + placed on the 96x96 overmap.
 - **10 BAKES**: has a render recipe that bakes to pixels today (street / freeway / desert / mountain families).
-- **68 RECIPE**: generates a plot grid procedurally, art pool / bake not built yet. Includes the built-lot archetypes (civic / bigbox / institutional / industrial / utility / landmark / green / water / rail / extraction) that render every landmark type.
+- **69 RECIPE**: generates a plot grid procedurally, art pool / bake not built yet. Includes the built-lot archetypes (civic / bigbox / institutional / industrial / utility / landmark / green / water / rail / extraction) that render every landmark type.
 - **0 PENDING**: no recipe at all. (Paolo 7/18/26 ruled the landmarks are PROCEDURALLY GENERATED, not hand-authored, so this should be zero.)
 
 PAOLO 7/18/26: "those can be randomly generated throughout the map... this is a procedural generated world game." Every district now generates from a build archetype — see the `recipe` column (`builtlot/<archetype>`). None wait on a per-type ruling.
@@ -27,7 +27,7 @@ RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = 
 | `interchange` | BAKES | freeway | The Spaghetti Bowl — the I-15/US-95 stack interchange. |
 | `casino` | BAKES | street | An off-Strip casino block (locals casinos). |
 
-## RECIPE — generates a plot grid procedurally, art pending (68)
+## RECIPE — generates a plot grid procedurally, art pending (69)
 
 | type | status | recipe | what it is |
 |---|---|---|---|
@@ -62,7 +62,7 @@ RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = 
 | `substation` | RECIPE | builtlot/utility | An electrical substation (grid node). |
 | `cemetery` | RECIPE | builtlot/green | A cemetery / memorial ground. |
 | `prison` | RECIPE | builtlot/institutional | A walled correctional facility. |
-| `terminal` | RECIPE | builtlot/civic | A bus / freight terminal. |
+| `terminal` | RECIPE | builtlot/civic | A passenger transit terminal — bus bays, boarding canopy, layover yard (distinct from the freight railyard). |
 | `sphere` | RECIPE | builtlot/landmark | The Sphere — the spherical venue, a fixed landmark. |
 | `boneyard` | RECIPE | builtlot/landmark | The Neon Boneyard — dead sign graveyard. |
 | `chapel` | RECIPE | builtlot/civic | A wedding chapel (the small-lot Vegas fixture). |
@@ -86,6 +86,7 @@ RENDER STATUS LEGEND: **BAKES** = you can see it in a slice now · **RECIPE** = 
 | `policestation` | RECIPE | builtlot/civic | A police station. |
 | `jail` | RECIPE | builtlot/institutional | The city/county jail (holding, distinct from prison). |
 | `courthouse` | RECIPE | builtlot/civic | A courthouse / civic justice building. |
+| `cityhall` | RECIPE | builtlot/civic | City Hall — the municipal executive/administrative seat (distinct from the judicial courthouse). |
 | `warehouse` | RECIPE | builtlot/industrial | A distribution warehouse (big shed + docks). |
 | `truckstop` | RECIPE | builtlot/civic | A highway truck stop (fuel + lot) on an approach. |
 | `battery` | RECIPE | builtlot/utility | A grid-scale battery storage yard. |

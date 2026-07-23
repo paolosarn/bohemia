@@ -65,6 +65,175 @@ real lift — the abstract shape threads through Economy/Entities call sites
 too), or (b) formally graveyard the abstract WorldGen once the real one can
 fully replace it. Not done this turn — flagged honestly, not claimed.
 
+## DISTRICT HERO BUILDINGS - 3/4-ISO EMBODIMENT FOR THE BUILDER (7/23, same
+## session, Paolo: "for each district you made you have to make a sideways 45
+## degree view of the building or embodiment of the district for the city
+## builder mode... different buildings can be at different heights and shit")
+The 3 new districts read as generic blocks from the city-builder's altitude.
+Cooked a 3/4-iso HERO BUILDING per district (THE 45 DEGREE LAW: sky-lit top
+diamonds, lit front-right + shadowed front-left wall faces on a ground diamond,
+NEVER flat side-on), heights differing by design:
+- CITY HALL: administrative block + a stopped CLOCK TOWER (the TALLEST hero)
+- BATTERY: stacked shipping-container battery enclosures + inverter bar (LOWEST)
+- TERMINAL: waiting hall + a boarding canopy on posts + a dead bus (MID)
+Two massing variants each (standard/tall) so Paolo picks the silhouette. Dead
+act-1 (boarded windows, stopped clock, dead buses), tan-wall 85/15, zero purple,
+deterministic. REUSE-FIRST: wall + roof tone ramps sampled straight from the
+CANON house-skin bank (opened + read in code) so the heroes are the same material
+the married city wears; accents from each engine palette. No new base palette.
+BUILT: tools/bohemia_district_hero_factory.py (the cook, 6 sprites ->
+banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt) + a judge
+(bohemia_district_hero_judge.py -> BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html: each
+hero PLANTED on the city's iso ground the way the builder plants it, thumbs/
+comments/SUN/export .txt), wired into the LIFE hub (one-alpha law, NEEDS-YOUR-
+THUMBS card at the top). gates/art_45_gate.py EXTENDED with a principled 'building'
+form-check: the 45 law read at the ROOF where a building shows it (an iso diamond
+top that widens below its point + two differently-lit wall faces = lit vs shadow),
+vs the existing 'prop' base-ellipse check for lamps/signals. Same law, measured
+where each FORM displays it (registry entries now carry a form tag). Terracotta-
+roof-darker-than-tan-wall was the trap that killed the naive "roof brighter than
+wall" cross-material check - the real 3/4 signature is the two-toned WALLS.
+STATUS: VERDICT-FIRST (workflow law: fresh unseen candidates need thumbs, and
+there are 2 heights each - can't guess). Paolo thumbs in LIFE tab -> DISTRICT
+HEROES. [PENDING PAOLO -> then task: wire the winners into the CITY tab's iso
+renderer.] The render map is known (Explore-surveyed this session): CITY tab
+renderCity() at ~line 6340, iso() gives p.sx/p.sy per cell (TW=18,TH=9 diamond),
+prism(p,h,wall,roof) already extrudes above the tile and strat/casino draw
+bespoke above-tile shapes - so a hero sprite is a drawImage anchored at p.sx,p.sy
+lifted by height, added as a per-district case in the switch(d), keyed to the one
+hero cell per district. The heroes carry bx/by (base anchor) + w/h for exactly
+this planting. NOTE the __CITY probe is READ-ONLY (no teleport), so verifying a
+specific cell in the live builder needs DROP IN or the arrow pad, not the probe.
+NEXT beyond wiring: on approval, volume (more massing/variants per the "approval
+unlocks volume" law); the same hero treatment could extend to the 32 already-
+married districts if Paolo wants each to have its own iconic building.
+
+## THREE POCKET-CITY DISTRICTS: CITY HALL + BATTERY + TRANSIT TERMINAL (7/23,
+## LIFE+CITY session, Paolo: "look at all the pocket city 2 buildings, we have
+## to make them as districts please!")
+Researched Pocket City 2's building categories (Service / Power / Transport /
+Recreation / Landmark / Unique) and built the three real building types Bohemia
+had NO equivalent for, each on the DISTRICT KIT (research-first, gated, dossier'd,
+WALKABLE-LAND compliant) and married into the live city on the EXISTING generic
+district-art path (reuse-first — structure cells wear the already-CANON house-
+skin roofs/walls/doors, ZERO new pixels cooked):
+- CITYHALL (civic): the executive/administrative municipal seat — a modern low-
+  rise block + a stopped CLOCK TOWER, a public plaza with a bone-dry reflecting
+  FOUNTAIN, flagpoles, a toppled civic seal, notice kiosks, a small visitor lot.
+  Deliberately distinct from the JUDICIAL courthouse (no columns/dome/sally port
+  — the gate asserts this). Placed at the real downtown civic core BESIDE the
+  courthouse (LV City Hall geography). Gate: cityhall_gate.js (14 checks x 6).
+- BATTERY (infrastructure): a grid-scale BESS storage yard — three NFPA-855
+  fire-lane-spaced rows of containerized battery enclosures each with its own
+  HVAC unit, an inverter/transformer rack, a control building, double-fenced on
+  gravel. Feeds the same CLUSTERED POWER network solar/substation do. Gate:
+  battery_gate.js (14 x 6).
+- TERMINAL (infrastructure): a passenger transit terminal — waiting hall +
+  schedule-board clock, bus bays under a boarding CANOPY (overhead, pass-under)
+  with a raised platform, a layover yard, kiss-and-ride loop, park-and-ride lot.
+  Distinct from the FREIGHT-only railyard. Its drive network is ONE connected
+  surface (bays+layover+loop+lot all reach the curb, driveReachFromStreet=1.0).
+  Gate: terminal_gate.js (15 x 6).
+KEY DISCOVERY: BATTERY and TERMINAL were ALREADY placed on the overmap (real map
+canon) but had NO generator — they were rendering as generic bridges. Adding the
+generators (world.js DISTGEN) + embedding the module bodies is a pure plumbing win
+that lights up EXISTING map cells. CITYHALL is genuinely new to the map (added
+enum + rect + resolver; NOT nudged — pinned to a confirmed-free downtown cell, as
+the nudge relocated it onto an arterial; places on ~3 of 4 seeds incl. canon 2026,
+same single-cell-landmark fragility noted for the other bespoke rects).
+WIRING (the full district touchpoint list, now documented for the next new type):
+overmap.js (enum + placement rect + skeleton resolver — battery/terminal were
+already there, only cityhall needed all three), world.js (require + DISTGEN entry),
+tilespec.js + tilespec_gate.js (mirror lists), map_tab.py MODULES+MODMAP +
+map_tab_gate.js MODULES (must byte-match), aerial.js MODMAP, bohemia_gates.py
+(register the 3 gates), district_registry.py, and the district-art MODULES list.
+CITY_B64: the main district-art marriage patch is idempotent (won't re-embed), so
+tools/bohemia_city_newdistricts_patch.py (NEW, idempotent per-module) embeds just
+the 3 new module bodies into the already-married city — they light up on the same
+generic BohemiaDistrictKit.get(d) routing, no new render code. ENGINE SYNC: editing
+overmap.js/world.js tripped city_tab_gate (byte-locks the embedded overmap) — fixed
+by re-running bohemia_city_overmap_resync.py (patches CITY_B64's overmap) AND
+bohemia_city_tab.py (rebuilds BOHEMIA_CITY_CURRENT.html + its md5 stamps); both are
+needed, the resync alone doesn't refresh the standalone page's md5 stamps.
+VERIFIED: live-CITY __CITY.district(x,y) probe confirms all three cells resolve to
+their district at seed 2026; a standalone palette render confirms the layouts read
+right (cityhall plaza+round fountain, battery 3x5 container rows, terminal 7 bus
+bays + layover grid). Full gate suite green. NOTE the __CITY probe is READ-ONLY
+(power/night/rerender/state/isoAt/district/wallArtReady) — it has NO teleport/human
+setter, so a Playwright camera-move to each district isn't possible from the probe;
+DROP IN or the arrow pad is the only way to walk the camera there.
+NEXT for this lane: more Pocket-City types have no Bohemia equivalent yet if Paolo
+wants them (e.g. a real ZOO/aquarium as leisure, a MARINA — though dead-world +
+Vegas geography constrain which make sense). The bespoke gaming/resort/casino/strip
+cells still ride the old megablock placeholder path (Paolo's hand-crafted territory
+per 7/18). Facade composition is still the same 60/20/10/10 hash rule (doors not
+architecturally aligned) flagged in the house-art section — carries to these too.
+
+## DISTRICT ART MARRIED - 32 KINDS RIDE THE CITY FOR REAL (7/22, LIFE+CITY
+## session, Paolo: "theres hella districsts that need textures try to see if
+## the approved assets that you didnt make can work for them first!")
+THE GAP: ~32 district engine modules (bohemia_park.js, _commercial.js,
+_industrial.js, _downtown.js, _medical.js, _mall.js, _school.js, _stadium.js,
+_warehouse.js, _apartment.js, ...) were fully built, gated, and canon - but
+NEVER MARRIED into the CITY tab. The city still rendered every one of them
+through the old PREFABS-ascii-stamp + flat-SCOL-color fallback, literally
+commented `[PLACEHOLDER ART, pending Paolo]` - the suburb-before-7/20
+situation, at 32x scale.
+THE LEVERAGE (reuse-first in practice): traced ONE shared factory interface
+every module already uses - engine/bohemia_district_kit.js's K.register/
+K.get/K.tileLayer, verified by a dedicated Explore-agent survey BEFORE
+writing code, not assumed - same SZ=128/TILE=0.75 grid as bohemia_suburb.js,
+a CLOSED kind vocabulary tileLayer() already resolves generically
+(building/structure/fence/panel -> structure; ground/drive/walk/marking/
+turf-dead/water-dead/court/play -> ground; tree-dead/prop/vehicle -> prop;
+gate/portal -> portal; overhead -> overhead). ONE marriage mechanism covers
+all 32 - no per-district code, unlike the earlier one-off suburb/wall/house
+patches.
+BUILT: tools/bohemia_city_districtart_patch.py (the marriage) +
+tools/bohemia_city_deadworld_prefab_patch.py (a standing-law fix surfaced
+while tracing this). Both idempotent, both already run successfully against
+the live alpha, both gated:
+- Every structure cell (any K-registered district) now reuses the already-
+  CANON house-skin art (roof/wall/window/boarded/door - Paolo's all-30-UP
+  7/21 verdict) exactly like suburb houses do - REUSE-FIRST, zero new pixels
+  cooked. Each district keeps its own approved palette color riding along as
+  a 16%-alpha tint over the shared real material, so park/commercial/
+  industrial/etc still read as visually distinct from each other.
+- __kitBlock/__kitGrid: the same 4x4-tile-group windowing pattern as the
+  suburb's __subBlock/__subGrid (one canon 128x128 grid = one 4x4 group of
+  city fine-tiles, FN=32), generalized to any registered district type.
+- tileMeta routes any non-SUB_RES, K-registered district through the kit
+  grid; SUB_RES (suburb/gated/estate) is completely untouched - old path,
+  zero regression risk. Any type with no registered module, or whose
+  generate() throws, falls through to the EXISTING prefab/SCOL path
+  unchanged (resort/casino correctly keep their old megablock rendering -
+  no dedicated kit module yet).
+- SAME-TURN LAW FIX: the generic PREFABS fallback's 'g'/'t' ascii codes
+  (park's 'grove' prefab, downtown's 'tower_plaza') were painting LIVE GRASS
+  GREEN and TREE GREEN - a direct DEAD WORLD LAW violation, found while
+  tracing this path (not something anyone was looking for). Fixed to dead
+  dirt + a dry dead-prop silhouette (the "dead pools and dry planters, not
+  dead grass" decay-tell pattern from the 7/21 desert-house research).
+VERIFIED before shipping: a dedicated survey confirmed interface uniformity
+first; Playwright screenshots across 6 district types (commercial, park,
+industrial, downtown, medical, school) all showed real texture, zero
+console errors, zero purple, dead-world holding.
+GATE: city_tab_gate.js grew to 62 checks (+8, section "18. THE DISTRICT ART
+LOCK" - factory embedded, 10 sample modules present, __kitBlock/__kitGrid
+exist, tileMeta routing present, tileLayer classification present, house-
+skin reuse confirmed, tint-overlay present, dead-world prefab fix confirmed).
+Full gate suite green (89s). Shipped clean - no CITY_B64 conflict this time
+(only the buildstamp line conflicted against a concurrent crouch-aim combat
+session; combined into one stamp).
+NEXT for this lane: resort/casino/strip/airbase/airport/speedway/campus/
+convention still have no dedicated kit module (Paolo's bespoke-gaming
+territory per his 7/18 ruling, correctly NOT auto-factory) - they'll keep
+riding the old megablock path until/unless he wants those built. The facade
+composition rule (60/20/10/10 plain/window/boarded/door, pure hash of
+global coords) is still the same known simplification flagged in the house-
+art section below - doors aren't architecturally aligned to entrances on
+non-suburb buildings either, same caveat carries over.
+
 ## APARTMENT COMPLEX + THE MAP TAB (7/21, district-factory session, "do a lot")
 Paolo asked "where do I go see your work?" and the honest answer was "nowhere, I hand
 you screenshots" — this closes that gap for good, plus closes the [PENDING] gap the
@@ -939,6 +1108,39 @@ walkable streets + desert lots (compose from the street/intersection/
 desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
 
 ## IN FLIGHT (resume here)
+-28. CROUCH-AIM: PISTOL + RIFLE FROM COVER (7/20, latest, animation chat):
+   Paolo's ask (request sheet 2, records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_
+   7_20_26.txt): the crouch reads its aim now. Two clips, batch #14, same
+   convention as deadeye -- a phase-swept +-63deg arc, 9 static angles baked
+   via the same CSPRITE_OFFS the needle uses. crouch-aim-1h: pistol, body
+   low, off-hand braced on the stone (take-cover's own brace reused).
+   crouch-aim-2h: rifle shouldered two-handed from the crouch, same sweep.
+   TURNED OUT ALREADY FULLY WIRED: the combat session's own V29 (visible
+   only once this merge pulled their real code, not just their handoff
+   text) had already baked a guarded `_cclip` picker ("1h preferred, 2h
+   when the long gun ships") and a live consumer (crouched dial fire swaps
+   the standing deadeye needle for the nearest-offset crouch sweep the
+   moment you're tucked near stone, not popped out) -- all keyed off a
+   single out.dirs[d].caim field. My first pass duplicated this as
+   separate caim1h/caim2h fields before discovering their hook; reverted
+   that duplication once found, so the merged result is exactly their
+   already-shipped V29 machinery plus the two new clips it was waiting on
+   -- zero new wiring code needed, and it took effect the moment the clips
+   existed. NOTE for whoever picks up combat next: their OWN request sheet
+   (records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_7_20_26.txt, their half of a
+   collided filename resolved this same merge -- kept both halves) also
+   flags a ROUND 2B ask, crawl-dying (a downed man dragging himself toward
+   a downed friend, V30's crawl-positioning already runs, only the visual
+   is missing) -- not built this turn, explicitly out of scope for what
+   Paolo asked me directly, but ready to pick up next. Also caught + fixed
+   a real gap from the prior faction-colors ship: CAND_BEATS never actually
+   got the crouch-aim entries that turn (a python script double-attempt
+   silently dropped half the edit); fixed here, plus a missing gunTA stub
+   in the gate's synthetic rig. Verified: 9x8 contact sheet (0 render
+   errors, crouch stays compressed every facing, 1h brace and 2h two-hand
+   grip both read distinctly). Gate: combat_anim_gate.js 74->88 (tests the
+   clips' own mechanics; the V29 wiring is combat's own gate's territory).
+   Stamp: BUILD 7/22g.
 -26. COMBAT v35: CAMERA TIGHTENS, REAL COVER, DIAL-BY-EXPOSURE, LAST-MAN-
    ONLY SURRENDER (7/21, combat session, branch claude/bohemia-combat-
    session-ni978x): Paolo sent one dense diagnostic message covering six
@@ -996,7 +1198,7 @@ desert bakes), (c) wire the CITY tab to this map (alpha edit, ONE-ALPHA).
    stale string-anchors from the v35 rewrite -- same "gate matches shipped
    reality, never the reverse" precedent as every prior pass). Full suite
    ALL GREEN. Stamp: BUILD 7/21p.
--27. SIX FACTIONS RULED + THE RAINBOW GAP FOUND (7/21, latest): Paolo went
+-27. SIX FACTIONS RULED + THE RAINBOW GAP FOUND (7/21): Paolo went
    faction-by-faction live off the roster. Locked: REDS brightest red
    #dc2820, CARTEL darkest maroon #5c302a (existing OXBLOOD ramp), CHURCH
    gold #ffd75c distinct from MOB's gold-STRIPE #b08a2a (existing MUSTARD

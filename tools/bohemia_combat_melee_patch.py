@@ -3061,8 +3061,8 @@ def patch41(demo):
     free. Wired as a real JUICE toggle (AX) through the same verdict-menu
     plumbing as AW, same guarantee: off means the old permanent-cover
     behavior, not a lie."""
-    if 'V41 BREAKABLE COVER' in demo:
-        print('v41 already applied, skipping')
+    if 'V41 BREAKABLE COVER' in demo or 'V42 COVER REVERT' in demo:
+        print('v41 already applied (or already reverted by v42), skipping')
         return demo
 
     # pillars carry durability now
@@ -3142,13 +3142,130 @@ function fxCoverSave(ea){ if(!JUICE.R)return;""",
     return demo
 
 
+def patch42(demo):
+    """v42 (Paolo 7/22, "i dont like the pillar health idea its dogshit"):
+    REVERTS v41's destructible cover entirely. Not a default-off toggle --
+    a full removal. The idea was killed outright; a killed idea keeps no
+    code lying around defaulting to off, same principle as v40 retiring
+    AU's row rather than leaving a dead flag with a live button. Every
+    mutation below is the exact inverse of patch41's, string for string.
+    The v40 JUICE_NAMES fix (AW was missing, would have rendered literal
+    "undefined") is UNRELATED to the killed idea and stays."""
+    if 'V42 COVER REVERT' in demo:
+        print('v42 already applied, skipping')
+        return demo
+    if 'V41 BREAKABLE COVER' not in demo:
+        print('v41 not present, nothing to revert')
+        return demo
+
+    demo = sub1(demo,
+        "      G.pillars.push({ea:Math.atan2(ny2,nx2),edist:Math.hypot(nx2,ny2),r:0.55,hp:3,hpMax:3}); } }   /* V41 BREAKABLE COVER: 3 hits and it's gone, JUICE.AX-gated */",
+        "      G.pillars.push({ea:Math.atan2(ny2,nx2),edist:Math.hypot(nx2,ny2),r:0.55}); } }   /* V42 COVER REVERT: cover is permanent again, Paolo killed breakable cover outright */",
+        'revert-pillar-hp')
+
+    demo = sub1(demo,
+        """function myCoveringPillar(ang,dist){   /* V41: same predicate as myCoverAgainst, but hands back WHICH pillar so a hit can chip it */
+  const md=(dist==null?MAX_RANGE:dist);
+  return (G.pillars||[]).find(P=>{ if(P.edist>md||P.edist<0.8)return false;
+    let dA=Math.abs(((ang-P.ea+Math.PI*3)%(Math.PI*2))-Math.PI);
+    return dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9; })||null; }
+function myCoverAgainst(ang,dist){   /* V7: the magic arcs are dead — cover is GEOMETRY on tiles only */""",
+        "function myCoverAgainst(ang,dist){   /* V7: the magic arcs are dead — cover is GEOMETRY on tiles only */",
+        'revert-covering-pillar-lookup')
+
+    demo = sub1(demo,
+        """function chipCover(ea,dist){ if(!JUICE.AX)return;
+  const P=myCoveringPillar(ea,dist); if(!P)return;
+  P.hp=(P.hp==null?3:P.hp)-1;
+  G._fx.push({type:'coverdust',dir:dirIndex(ea),t:0,life:0.5,vx:0,vy:0});   /* V41: a visible chip, distinct from the R spark */
+  if(P.hp<=0){ const at=G.pillars.indexOf(P); if(at>=0)G.pillars.splice(at,1);
+    setRead('COVER BROKE','that stone is rubble now','#e8593a');
+    updateGeomCover(); } }
+function fxCoverSave(ea){ if(!JUICE.R)return;""",
+        "function fxCoverSave(ea){ if(!JUICE.R)return;",
+        'revert-chip-cover-fn')
+
+    demo = sub1(demo,
+        "    else if(cov){ onOffbeat(()=>fxCoverSave(e.ea)); chipCover(e.ea,e.edist); }   /* R: your cover ate that one; V41: and it cost the stone something */ }",
+        "    else if(cov)onOffbeat(()=>fxCoverSave(e.ea));   /* R: your cover ate that one */ }",
+        'revert-chip-on-cover-save')
+
+    demo = sub1(demo,
+        """  for(const P of (G.pillars||[])){ const pp=fieldPos(P,W,H,cx,cy), pxs=pp[0], pys=pp[1];
+    const _hf=(JUICE.AX&&P.hpMax)?Math.max(0,(P.hp==null?P.hpMax:P.hp))/P.hpMax:1;   /* V41: crumbles as it eats hits */
+    const s=ring*0.62*(0.7+0.3*_hf);
+    x.fillStyle='rgba(0,0,0,0.25)'; x.beginPath(); x.ellipse(pxs,pys+s*0.5,s*0.8,s*0.26,0,0,7); x.fill();
+    x.fillStyle=_hf<1?('rgba(110,96,74,'+(0.55+0.45*_hf)+')'):'#6e604a'; x.fillRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6);
+    x.fillStyle='#94836a'; x.beginPath(); x.ellipse(pxs,pys-s*1.15,s*0.55,s*0.2,0,0,7); x.fill();
+    x.strokeStyle='#241f18'; x.lineWidth=1; x.strokeRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6); }""",
+        "  for(const P of (G.pillars||[])){ const pp=fieldPos(P,W,H,cx,cy), pxs=pp[0], pys=pp[1];\n    const s=ring*0.62;   /* a block fills its tile */\n    x.fillStyle='rgba(0,0,0,0.25)'; x.beginPath(); x.ellipse(pxs,pys+s*0.5,s*0.8,s*0.26,0,0,7); x.fill();\n    x.fillStyle='#6e604a'; x.fillRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6);\n    x.fillStyle='#94836a'; x.beginPath(); x.ellipse(pxs,pys-s*1.15,s*0.55,s*0.2,0,0,7); x.fill();\n    x.strokeStyle='#241f18'; x.lineWidth=1; x.strokeRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6); }",
+        'revert-pillar-crumble-draw')
+
+    demo = sub1(demo,
+        "  AS:true,AT:true,AU:false,AV:true,AW:true,AX:true};   /* V41 BREAKABLE COVER joins the verdict menu */",
+        "  AS:true,AT:true,AU:false,AV:true,AW:true};   /* V42: AX (breakable cover) removed -- killed, not just defaulted off */",
+        'revert-ax-flag')
+    demo = sub1(demo,
+        "  AW:'a hot streak visibly widens your kill window, a miss snaps it back',\n  AX:'your cover crumbles as it eats shots for you, and eventually breaks'};",
+        "  AW:'a hot streak visibly widens your kill window, a miss snaps it back'};",
+        'revert-ax-watch')
+    demo = sub1(demo,
+        "  if(k==='AW'){ setRead('STREAK MOMENTUM','3+ kills running \\u00B7 dial window +9% wider, a miss zeroes it','#8fe89a'); }\n  if(k==='AX'){ setRead('COVER BROKE','that stone is rubble now','#e8593a'); }",
+        "  if(k==='AW'){ setRead('STREAK MOMENTUM','3+ kills running \\u00B7 dial window +9% wider, a miss zeroes it','#8fe89a'); }",
+        'revert-ax-demo-preview')
+    demo = sub1(demo,
+        '    <div class="controls"><button data-j="AV" class="on">AV FIGHT GRADE</button><button data-jv="AV:1">&#128077;</button><button data-jv="AV:-1">&#128078;</button><button data-j="AW" class="on">AW STREAK MOMENTUM</button><button data-jv="AW:1">&#128077;</button><button data-jv="AW:-1">&#128078;</button></div>   <!-- V40 JUICE MENU: AU retired (killed, verdict already given -- no toggle left to undo it), AW joins -->\n    <div class="controls"><button data-j="AX" class="on">AX BREAKABLE COVER</button><button data-jv="AX:1">&#128077;</button><button data-jv="AX:-1">&#128078;</button></div>   <!-- V41 -->',
+        '    <div class="controls"><button data-j="AV" class="on">AV FIGHT GRADE</button><button data-jv="AV:1">&#128077;</button><button data-jv="AV:-1">&#128078;</button><button data-j="AW" class="on">AW STREAK MOMENTUM</button><button data-jv="AW:1">&#128077;</button><button data-jv="AW:-1">&#128078;</button></div>   <!-- V40 JUICE MENU: AU retired (killed, verdict already given -- no toggle left to undo it), AW joins -->',
+        'revert-menu-row-ax')
+
+    # keep the v40 JUICE_NAMES fix (AW), drop only AX
+    demo = sub1(demo,
+        "AS:'BLOOD TRAIL',AT:'LIFETIME LEDGER',AU:'LIVING PORTRAIT',AV:'FIGHT GRADE',AW:'STREAK MOMENTUM',AX:'BREAKABLE COVER'};",
+        "AS:'BLOOD TRAIL',AT:'LIFETIME LEDGER',AU:'LIVING PORTRAIT',AV:'FIGHT GRADE',AW:'STREAK MOMENTUM'};",
+        'revert-names')
+
+    return demo
+
+
+def patch43(demo):
+    """v43 (Paolo 7/22, "keep cooking up juicy stuff... mechanics, vfx,
+    sfx, or fun swag"): weapon-flavored kill impact. The killcam's contact
+    frame (hitstop + blood burst) was flat -- identical whether you killed
+    with a pistol or a shotgun, even though the fire loop itself already
+    scales recoil/muzzle by weapon. Same numeric knobs, now weapon-aware:
+    shotgun kills hit hardest (biggest freeze, biggest burst -- it's
+    already the always-lethal weapon by his own ruling, the impact should
+    say so), rifle is the pierce (long freeze, moderate burst), SMG is
+    quick and messy (short freeze, wide scrappy burst), pistol stays the
+    cleanest, smallest kill in the game (the mercy weapon reads as one,
+    even in the kill camera)."""
+    if 'V43 WEAPON KILL IMPACT' in demo:
+        print('v43 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "    if(!ks._contact){ ks._contact=true;   /* THE BULLET ARRIVES: one frame, two effects hang on it */\n      if(JUICE.F)G._hitstop=3;            /* F. HIT-STOP: 3 frames of total freeze at contact */",
+        """    if(!ks._contact){ ks._contact=true;   /* THE BULLET ARRIVES: one frame, two effects hang on it */
+      /* V43 WEAPON KILL IMPACT: the freeze itself now says what killed him */
+      const _wpnStop={pistol:3,smg:2,rifle:4,shotgun:6}[WEAPON]||3;
+      if(JUICE.F)G._hitstop=_wpnStop;""",
+        'weapon-hitstop')
+
+    demo = sub1(demo,
+        "    const bloodScale = ks.style==='hammer'?1.3:1.0;",
+        "    const bloodScale = (ks.style==='hammer'?1.3:1.0) * ({pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]||1.0);   /* V43 WEAPON KILL IMPACT */",
+        'weapon-blood-scale')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
