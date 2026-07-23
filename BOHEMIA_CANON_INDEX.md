@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 07/21/26
+# BOHEMIA CANON INDEX — regenerated 07/23/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-149 canon files indexed across 2 locations.
+151 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -99,7 +99,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md`
 - `BOHEMIA_ADDENDUM_TURNBASED_COMBAT_RESEARCH_7_3_26.md`
 
-### PLOTS & DISTRICTS (3)
+### PLOTS & DISTRICTS (4)
+- `BOHEMIA_ADDENDUM_LANDLOCKED_DISTRICT_LAW_7_21_26.md`
 - `BOHEMIA_ADDENDUM_PROCEDURAL_DISTRICTS_7_18_26.md`
 - `BOHEMIA_ADDENDUM_CELL_IS_PLOT_WALLED_SUBURBS_7_14_26.md`
 - `BOHEMIA_ADDENDUM_DISTRICT_MERGE_LAW_7_14_26.md`
@@ -218,7 +219,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (47) — add keywords to DOMAINS
+### UNCLASSIFIED (48) — add keywords to DOMAINS
+- `BOHEMIA_ADDENDUM_REUSE_FIRST_LOCKED_7_22_26.md`
 - `BOHEMIA_ADDENDUM_ACT_ASSET_TIERS_7_21_26.md`
 - `BOHEMIA_ADDENDUM_DRESS_CODE_BY_RANK_7_21_26.md`
 - `BOHEMIA_ADDENDUM_NE_ARM_UNIT_7_20_26.md`

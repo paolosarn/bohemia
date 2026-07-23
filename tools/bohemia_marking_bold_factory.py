@@ -16,6 +16,11 @@ STATUS: UNJUDGED candidates. The intersection proof is the judging surface;
 Paolo's eye on the proof rules them up or down. Never mixed into the approved
 bank until then.
 
+REUSE CHECK:
+used BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt (the erased-base source
+crops this cook re-strokes bolder; not a fresh ground-up cook - fixing the
+approved base's legibility problem, not replacing the base).
+
 Run from repo root: python3 tools/bohemia_marking_bold_factory.py
 """
 import base64

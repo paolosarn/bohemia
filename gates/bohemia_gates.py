@@ -180,6 +180,8 @@ GATES = [
      'unjudged corpus surfaced for Paolo: purity pre-filter held, reproducible, hub-linked', False),
     ('DOOR ART',       ['python3', 'gates/doorart_gate.py'],
      'real doors in the live SLICE tab: canon door + warm-filtered trim, crisp scaling, purity', False),
+    ('REUSE FIRST',    ['python3', 'gates/reusefirst_gate.py'],
+     'every art-cooking tool documents a REUSE CHECK, claimed bank reuse must actually open the bank', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
