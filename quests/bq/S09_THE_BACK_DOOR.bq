@@ -1,0 +1,77 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S09 — THE BACK DOOR  (the PRE-WALL trust quest — sets up S06's reveal)
+# One of the "couple of quests for Marco" that happen BEFORE the wall comes down and
+# BEFORE you know he has a daughter (reveal timing locked 7/23, Paolo). Marco asks you
+# to help him make his place solid, and is strangely, absolutely immovable that the
+# back is his alone — do not go around back, the back he does himself. You do not know
+# why yet. Honoring a boundary you do not understand is how you earn the trust that
+# eventually brings the wall down; prying fails. When S06 later reveals the daughter,
+# THIS is what recontextualizes — he was guarding her the whole time. Cast Marco against
+# @ROLE neighbor; never named in a spoken line (W8). CLOUT: a quiet neighborly deed is
+# #quiet; drawing a crowd to his door is #notable (and rattles him — eyes on his place
+# is the opposite of what he asked).
+
+@QUEST   bq_back_door   The Back Door
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE neighbor  REQ  is=the_neighbor  household=behind_fence
+
+@STAGE 10
+  @LOG The man behind the fence wants help making his place solid before dark. He is odd about the back.
+  @DO show_objective 10
+@STAGE 20 COMPLETE #quiet
+  @LOG Boarded the front and side and let him keep the back to himself, no questions. He will not forget it. The wall feels closer.
+  @DO bond neighbor +20
+  @DO complete_objective 10
+@STAGE 21 COMPLETE #notable
+  @LOG Got the job done but drew a crowd to his door doing it. Solid house, rattled man. Eyes on his place is the one thing he did not want.
+  @DO bond neighbor +4
+  @DO complete_objective 10
+@STAGE 22 FAIL #quiet
+  @LOG Pushed to see the back room. He shut down hard. Whatever trust was building took a step back tonight.
+  @DO bond neighbor -10
+
+@OBJ 10  "Help the neighbor make his place solid"   target=neighbor
+
+@TALK ask  speaker=neighbor  entry=stage>=10
+  @SAY Before dark I need the front and the side made solid. Boards, nails, whatever you have got. #tired
+  @SAY The back I do myself. Always the back myself. Do not go around back. I am not being rude. I am being careful. Just take the front for me.
+  @OPT "Front and side. You have got it."   [gate: none]  -> work  @DO learn respects_the_boundary
+  @OPT "What is in the back?"               [gate: none]  -> back
+  @OPT (head around back to look)           [gate: none]  -> pry
+  @NOVERB "Ask what he is protecting"
+@END
+
+@TALK back  speaker=neighbor
+  @SAY The back is mine. That is the whole answer and it is going to stay the whole answer. #dread
+  @SAY You want to earn something real out here, earn this: a man tells you a door is his, and you let it be his.
+  @OPT "Fair. Front and side."             [gate: none]  -> work  @DO learn respects_the_boundary
+  @OPT (go look anyway)                     [gate: none]  -> pry
+@END
+
+@TALK work  speaker=neighbor
+  @SAY (you board the front and the side while he works the back alone, and neither of you talks much, and it is a good kind of quiet.)
+  @SAY Solid. First time in a long time this place feels solid. I will not forget that you did this and did not ask twice about the back.
+  @OPT "That is what neighbors are for."    [gate: none]  -> END  @DO set_stage 20
+  @OPT "Someday you will tell me."          [gate: none]  -> END  @DO set_stage 20
+  @OPT "Let us make it a whole thing, get some others out here."  [gate: none]  -> loud
+@END
+
+@TALK pry  speaker=neighbor
+  @SAY STOP. I told you the back was mine. I told you plain. Get away from that door. #dread
+  @OPT "Okay. Okay. I am backing off."      [gate: none]  -> work
+  @OPT "What are you so scared of?"         [gate: none]  -> fold
+@END
+
+@TALK fold  speaker=neighbor
+  @SAY Scared. Yeah. You do not get to see a man scared and keep it for free. Go home. #dread
+  @OPT "I am sorry. I crossed a line."      [gate: none]  -> END  @DO set_stage 22
+@END
+
+@TALK loud  speaker=neighbor
+  @SAY No crowd. I said front and side, not a block party at my door. #tired
+  @SAY You did good work. But eyes on my place is the exact opposite of what I asked for. Let it go now.
+  @OPT "Right. Sorry. Just us."             [gate: none]  -> END  @DO set_stage 21
+@END

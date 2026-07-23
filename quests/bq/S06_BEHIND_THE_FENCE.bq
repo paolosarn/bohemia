@@ -1,123 +1,88 @@
 # BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
-# S06 — BEHIND THE FENCE
-# The neighbor (MARCO — canon 7/23, cast against @ROLE neighbor) and his DAUGHTER.
-# He asks for help not with the wall or a raid but with his girl, who has gone quiet
-# since her own bad night. Attention-over-force (Q047 craft): you cannot fix her, only
-# pay attention. This is the SOUL of the CLOUT mechanic made playable — the most
-# important bond in the game earns the FEWEST followers, because the feed rewards loud
-# spectacle and this is the exact opposite of loud. Sit with her quietly -> #quiet
-# (enormous bond, almost no followers). Turn it into a public feel-good moment ->
-# #notable (more followers, but you performed a grieving child's pain and her father
-# feels it). No proper names in dialogue (W8): Marco and the daughter are relationships
-# in the spoken lines; the name lives in canon and in the role binding.
+# S06 — BEHIND THE FENCE  (the POST-WALL reveal / payoff)
+# Reveal timing LOCKED 7/23 (Paolo): the daughter is NOT revealed during the pre-wall
+# quests. Marco hides her, protects her; only AFTER the wall comes down does he trust
+# you with the fact that she exists. "A sweet payoff and deep understanding type" beat.
+# The title is now a double meaning — what was really behind the fence the whole time
+# was her. This quest OPENS at that milestone (the wall coming down) and delivers the
+# reveal, so it recontextualizes every guarded thing Marco did (see S09 THE BACK DOOR,
+# the pre-wall boundary quest). Cast Marco against @ROLE neighbor; never named in a
+# spoken line (W8). CLOUT is the mechanic's soul: receiving the trust quietly earns the
+# DEEPEST bond and, deliberately, almost no followers (#quiet); turning his hidden child
+# into public news earns MORE followers but breaks the trust he just gave you (#notable).
 
 @QUEST   bq_behind_fence   Behind the Fence
 @ACT     1
 @FACTION NONE
 @ONCE    true
 
-@ROLE neighbor  REQ  is=the_neighbor      household=behind_fence
-@ROLE daughter  REQ  is=neighbors_child   grieving=true
+@ROLE neighbor  REQ  is=the_neighbor      household=behind_fence  wall_down=true
+@ROLE daughter  REQ  is=neighbors_child   kept_hidden=true
 
 @STAGE 10
-  @LOG The man behind the fence is asking for help. Not with the wall. With his daughter.
+  @LOG The wall between the two backyards is coming down today. Two grieving houses becoming one.
   @DO show_objective 10
 @STAGE 20
-  @LOG She has not spoken since her own bad night. She sits where the yard runs down to the wash.
+  @LOG The wall is down. He says there is something he could not tell me until it was.
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
-  @LOG Sat with her until she came to me on her own. No words. Her father watched from the fence and did not breathe.
-  @DO bond neighbor +30
-  @DO bond daughter +25
+  @LOG He has a daughter. Kept hidden the whole time, until the wall and the trust were real. I held it quiet. The deepest bond, and nobody will ever know it happened.
+  @DO bond neighbor +35
+  @DO bond daughter +20
+  @DO learn marco_has_a_daughter
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
-  @LOG Made it a moment. Got people to cheer her out of it. She smiled for them. Her father did not.
-  @DO bond neighbor -10
-  @DO bond daughter +5
+  @LOG Told the compound there is a child here now. More eyes, more followers, and the one thing he protected is no longer his secret. He thanked me and did not mean it.
+  @DO bond neighbor -15
+  @DO learn marco_has_a_daughter
   @DO complete_objective 20
 @STAGE 32 FAIL #quiet
-  @LOG Pushed too hard, too fast. She folded back into herself and the fence went quiet for a week.
-  @DO bond neighbor -5
+  @LOG Took the reveal badly, and he saw my face do it. He took it back. There is no daughter, he said. The wall might as well have stayed up.
+  @DO bond neighbor -10
 
-@OBJ 10  "Hear out the neighbor"       target=neighbor
-@OBJ 20  "Reach the girl by the wash"   target=daughter
+@OBJ 10  "Bring down the wall with the neighbor"   target=neighbor
+@OBJ 20  "Hear what he could not say before"        target=daughter
 
-@TALK open  speaker=neighbor  entry=stage>=10
-  @SAY I am not here about the wall. I know we said the wall. This is not that. #tired
-  @SAY My girl. Since her bad night she does not talk. She sits where the yard runs down to the wash and she just sits.
-  @SAY I am not asking you to fix her. I would not know how to ask that. I am asking because maybe a new face.
-  @OPT "I will sit with her."          [gate: none]  -> go       @DO learn she_wont_speak
-  @OPT "What happened to her?"         [gate: none]  -> what
-  @OPT "I am not good with kids."      [gate: none]  -> refuse
-  @NOVERB "Tell him she will be fine"
+@TALK wall  speaker=neighbor  entry=stage>=10
+  @SAY Last brick. Look at that. Two yards, one yard. I did not think I would live long enough to knock this down. #hope
+  @SAY There is a thing I have to tell you, and I could not tell you until this wall was on the ground. You will understand why in about ten seconds.
+  @OPT "Take your time."           [gate: none]  SILENCE -> reveal
+  @OPT "Tell me."                  [gate: none]  -> reveal
+  @NOVERB "Ask what he has been hiding"
 @END
 
-@TALK what  speaker=neighbor
-  @SAY The same thing that happened to all of us that season. She lost someone. She was there for it. #dread
-  @SAY She used to sing to herself. Little nothing songs, all day. I have not heard one in months. That is how I know.
-  @OPT "I will go to her."             [gate: none]  -> go  @DO learn she_wont_speak
-@END
-
-@TALK refuse  speaker=neighbor
-  @SAY Nobody is good with this. I am her father and I am not good with this. #tired
-  @OPT "Alright. I will try."          [gate: none]  -> go  @DO learn she_wont_speak
-  @OPT "Not today. I am sorry."        [gate: none]  -> END  @DO set_stage 32
-@END
-
-@TALK go  speaker=neighbor
-  @SAY She is at the bottom of the yard, by the wash. Do not crowd her. Please do not crowd her. #tired
+@TALK reveal  speaker=neighbor
+  @SAY I have a daughter. #dread
+  @SAY She has been inside the whole time. Behind that wall, in the back room, quiet as I could keep her. You do not tell people you have a child out here. Not until the wall is down and you are sure.
+  @SAY Every time I came to your fence, every time I checked on you, I was measuring whether you were someone I could let her exist in front of. Today I decided you are. Do not make me wrong about that.
   @DO set_stage 20
+  @OPT (say nothing, and let it be as big as it is)      [gate: none]  SILENCE -> grace
+  @OPT "You have been protecting her this whole time."    [gate: none]  -> grace
+  @OPT "There is a kid here now. People should know."      [gate: none]  -> loud
+  @OPT (step back, thrown by it)                          [gate: none]  -> recoil
+  @NOVERB "Promise nothing will ever happen to her"
 @END
 
-# THE GIRL. She barely speaks. The player's options are approaches, not lines. What
-# she does NOT say (the @NOVERBs) carries her. Rushing fails; attention works (Q047).
-@TALK girl  speaker=daughter  entry=stage>=20
-  @SAY ...
-  @SAY (she does not look up. she is drawing the same line in the dust with one finger, over and over.)
-  @OPT (sit down a few feet away and say nothing)   [gate: none]  SILENCE -> sit
-  @OPT "Hey. Your dad is worried about you."         [gate: none]  -> push
-  @OPT (start humming a little nothing song)         [gate: none]  SILENCE -> hum
-  @NOVERB "Ask her what happened"
+@TALK grace  speaker=daughter
+  @SAY (a door opens behind him. she is small, and she does not come all the way out. she looks at you the way you look at weather you are not sure of yet.)
+  @SAY (her father does not say a word. he just watches the two of you deciding not to be afraid of each other, and something in his shoulders finally comes down, like a second wall.)
+  @OPT (nod to her, and let her decide the rest)   [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "Hey. I am just a neighbor. That is all."    [gate: none]  -> END  @DO set_stage 30
+  @NOVERB "Promise nothing will ever happen to her"
 @END
 
-@TALK sit  speaker=daughter
-  @SAY (a long time passes. the light moves across the dirt. she does not leave and neither do you.)
-  @SAY (eventually the finger stops. she looks at the space beside you, not at you, and moves a little closer.)
-  @OPT (stay still. let her decide the rest)         [gate: none]  SILENCE -> come
-  @OPT (hum the little song, very soft)               [gate: none]  SILENCE -> hum
-  @OPT "There you go. Come on, then."                 [gate: none]  -> push
+@TALK loud  speaker=neighbor
+  @SAY No. No, you do not get to do that. #dread
+  @SAY I told you. One person. I did not tell the block, I did not put it on the feed, I told the one person who earned the wall coming down. And you want to hand her to a crowd.
+  @SAY It is done, they are looking now. Thank you for the wall. Go home. I need to go talk to my daughter.
+  @OPT "I did not think."          [gate: none]  -> END  @DO set_stage 31
+  @OPT (leave, ashamed)            [gate: none]  SILENCE -> END  @DO set_stage 31
 @END
 
-@TALK hum  speaker=daughter
-  @SAY (you get the tune wrong. on purpose, a little. it is an old trick and you are hoping she still has it in her.)
-  @SAY (she frowns. the frown is the most alive her face has been. then, under her breath, almost nothing, she corrects you. she sings the right note.)
-  @OPT (do not make it a thing. keep humming, right this time)   [gate: none]  SILENCE -> come
-  @OPT "You sang! Hey, everyone, she sang!"                       [gate: none]  -> perform
-@END
-
-@TALK come  speaker=daughter
-  @SAY (she does not say a word. she comes and sits against your arm, the way a kid does when an arm is safe.)
-  @SAY (at the fence her father has both hands over his mouth. he is not making a sound. he does not want to be the thing that breaks it.)
-  @OPT (sit with her as long as she needs)   [gate: none]  SILENCE -> END  @DO set_stage 30
-  @NOVERB "Tell her it will be okay"
-@END
-
-@TALK perform  speaker=neighbor
-  @SAY Why would you call them over. Why would you do that. #dread
-  @SAY She smiled for the crowd because a child smiles when a crowd wants one. That was not for her. That was for them, and for you.
-  @SAY Thank you. I mean it. But do not ever do that to her again.
-  @OPT "It got her out of it."          [gate: none]  -> END  @DO set_stage 31
-  @OPT (say nothing. you know.)          [gate: none]  SILENCE -> END  @DO set_stage 31
-@END
-
-@TALK push  speaker=daughter
-  @SAY (she goes stiff. the finger stops. the little door that was starting to open closes, and you actually hear it close.)
-  @OPT (back off. give her the room)     [gate: none]  SILENCE -> girl
-  @OPT (keep pushing)                    [gate: none]  -> fold
-@END
-
-@TALK fold  speaker=neighbor
-  @SAY She is done. Look at her, she is done for today. Go on home. #tired
-  @OPT "I am sorry."                     [gate: none]  -> END  @DO set_stage 32
+@TALK recoil  speaker=neighbor
+  @SAY There it is. That is the face I was afraid of. #dread
+  @SAY Forget I said it. There is no daughter. Help me stack these bricks back up, actually. On second thought, just go home.
+  @OPT "Wait. I did not mean it like that."   [gate: none]  -> reveal
+  @OPT "Okay. I am sorry."                     [gate: none]  -> END  @DO set_stage 32
 @END

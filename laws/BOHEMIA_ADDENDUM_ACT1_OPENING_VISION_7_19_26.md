@@ -136,6 +136,12 @@ are not. MARCO HAS A DAUGHTER (locked 7/23) — the two-grieving-households foun
 literally two families: yours, and Marco and his girl behind the fence. The daughter is
 part of the founding pillar; her exact age/name is Paolo's call, not yet set. See
 laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md.
+- REVEAL TIMING (locked 7/23, Paolo): the daughter is NOT revealed during the pre-wall
+  quests. Marco HIDES her — he is protecting her. Only AFTER the wall comes down does he
+  reveal she exists. It is a sweet payoff / deep-understanding beat: the reveal
+  recontextualizes every careful, guarded thing he did as a father protecting his child
+  before he could be sure of you. Pre-wall quests earn the bond and honor boundaries you
+  do not yet understand; the wall coming down unlocks the reveal.
 - FIRST BASE MECHANIC (locked, Paolo 7/19): he is the house directly behind you. After
   you do a COUPLE OF QUESTS for him (earning the bond), you BREAK DOWN THE SHARED
   BACKYARD WALLS to merge the two homes into your first CUSTOMIZABLE BASE / OUTPOST.

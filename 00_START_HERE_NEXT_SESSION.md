@@ -16,22 +16,25 @@ with this phone app for now") — this was all engine/quest layer.
    UMD closure-scope bug in bohemia_loop.js — the factory function is a sibling
    arg to the outer IIFE, NOT nested, so new outer-scope consts must be threaded
    through factory(...) as params, never assumed reachable by closure.)
-2. PLAYABLE CANON SIDE QUESTS — EIGHT of them now (gate: CANON QUESTS, 120/120).
+2. PLAYABLE CANON SIDE QUESTS — NINE of them now (gate: CANON QUESTS, 134/134).
    Paolo: "CREATE THE BEST BOHEMIA SIDE QUESTS YOU POSSIBLY CAN" then "CONTINUE."
    The corpus had 53 design-doc quests (.md) + one non-canon reference .bq, but
-   NOTHING canon actually PLAYED. Now eight playable .bq side quests live in
+   NOTHING canon actually PLAYED. Now nine playable .bq side quests live in
    quests/bq/: S01 The Meter Reader (electricity/TRADES/NETWORK), S02 The Same Crate
    Twice (double-agent/REDS/BLUES), S03 One More Set (performer/COLORFUL), S04 What
    Cries in the Deep (contract/HOMELESS/NETWORK), S05 The Standing Bounty (repeatable
    dark grind/REMNANTS), S06 Behind the Fence (MARCO + daughter, founding), S07 Say
-   It Back (faith no-combat/CHURCH), S08 The Toll Road (racket-break/CARTEL/CARAVANS).
+   It Back (faith no-combat/CHURCH), S08 The Toll Road (racket-break/CARTEL/CARAVANS), S09 The Back Door (Marco pre-wall trust).
    Each parses clean, validates with ZERO errors AND warnings, plays exhaustively to
    COMPLETE, loads through the live loop, and is CLOUT-tagged by the LOUDNESS of the
    resolution (same quest, quiet finish = 8 follower-weight, reckless = 110, ~14x —
    emergent, never a visible label; mechanical proof of "reckless beats quiet" AND of
    Paolo's correction that the player does not CHOOSE clout). S06 is the clout
-   mechanic's SOUL: the most important bond in the game (Marco's grieving daughter)
-   earns the FEWEST followers, and the "go viral with it" fork costs Marco's trust.
+   mechanic's SOUL: Marco's daughter is a POST-WALL reveal (locked 7/23 -- she is
+   HIDDEN/protected, revealed only after the wall comes down, recontextualizing
+   everything; S09 is the pre-wall trust quest that sets it up). Receiving that
+   trust quietly earns the FEWEST followers (8) + deepest bond (+35); going public
+   costs Marco (-15). Sequence: S09 pre-wall -> wall -> S06 reveal.
    Details: laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md + quests/bq/README.md
    + the PLAYABLE section atop quests/BOHEMIA_QUEST_BIBLE_INDEX.md.
    PENDING PAOLO: world PLACEMENT (which NPC/block — MAP LAW, his call; they cast

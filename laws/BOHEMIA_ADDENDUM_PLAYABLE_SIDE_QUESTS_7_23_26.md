@@ -32,15 +32,22 @@ machine gate.
    makes taking the ugly one a real choice.
 
 ## SECOND BATCH (7/23, same day — "continue the best side quests ever")
-6. **S06 — BEHIND THE FENCE** — tender family / attention-over-force. Stars **MARCO the
-   neighbor and his daughter** (named canon the same day — see
-   laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md). The daughter has gone quiet
-   since her own loss; you cannot fix her, only pay attention. THE CLOUT MECHANIC'S SOUL,
-   PLAYABLE: the quiet, patient resolution earns the FEWEST followers in the batch while
-   forging the deepest bond; the "make it a viral feel-good moment" fork earns MORE
-   followers but costs Marco's trust because you performed a grieving child's pain. The
-   feed rewards loud; what matters is quiet. Marco is cast against `@ROLE neighbor` and
-   never named in a spoken line.
+6. **S06 — BEHIND THE FENCE** — the MARCO **post-wall REVEAL/payoff** (reveal timing
+   locked the same day — see laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md). The
+   daughter is NOT a pre-wall hook; Marco HIDES her, protects her, and only after the
+   wall comes down and trust is real does he reveal she exists — recontextualizing every
+   guarded thing he did (the title is a double meaning). THE CLOUT MECHANIC'S SOUL,
+   PLAYABLE: receiving that trust quietly earns the FEWEST followers in the batch (#quiet,
+   8) while forging the deepest bond (+35); the "tell the compound there is a kid here
+   now" fork earns MORE followers (#notable, 25) but costs Marco (−15 bond) because you
+   cashed his one secret for engagement. Marco cast against `@ROLE neighbor`, never named
+   in a spoken line.
+6b. **S09 — THE BACK DOOR** — the MARCO **pre-wall trust** quest that sets S06 up. One of
+   the "couple of quests for him" before the wall: he asks help making his place solid and
+   is absolutely immovable that the back is his alone. Honoring a boundary you do not yet
+   understand is how you earn the wall coming down; prying fails. When S06 reveals the
+   daughter, THIS is what recontextualizes — he was guarding her all along.
+   MARCO SEQUENCE: S09 (pre-wall, no daughter) -> wall comes down -> S06 (post-wall reveal).
 7. **S07 — SAY IT BACK** — slow-burn faith, NO combat. CHURCH/VOLUNTEERS. A dying woman
    asks you to carry forgiveness to the man who wronged her; the game refuses to score
    whether that forgiveness is right, earned, or wise. You can carry it true, make it a

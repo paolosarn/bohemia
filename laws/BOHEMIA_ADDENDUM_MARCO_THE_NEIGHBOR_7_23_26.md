@@ -26,6 +26,32 @@ canon and it is, in Paolo's word, VERY IMPORTANT.
   child. That makes the thematic weapon (love that was never digitized) more concrete,
   not less.
 
+## THE DAUGHTER IS A POST-WALL REVEAL (LOCKED 7/23, Paolo)
+The daughter is **NOT revealed during the pre-wall quests.** Marco hides her — he is
+PROTECTING her. In this world you do not tell people you have a child until you are
+sure of them. Only **AFTER THE WALL COMES DOWN** (the earned first-outpost milestone,
+two backyards merged, trust proven) does Marco reveal he has a daughter he has been
+keeping out of sight the whole time.
+
+Paolo's words: it is "a sweet payoff and deep understanding type" beat. The reveal
+RECONTEXTUALIZES everything that came before — every time Marco came to the fence,
+every careful thing he did, every boundary he held (the back room, "the back is mine,"
+not letting you around his place), was a father protecting his child before he could
+be sure of you. The player only understands WHY he was the way he was once the wall is
+down and he trusts them with her existence.
+
+MECHANICALLY (the quest sequence):
+- **PRE-WALL** quests (the "couple of quests for him"): about earning the bond, mutual
+  aid, honoring a boundary you do NOT yet understand. NO daughter, no mention of one.
+  (First built: quests/bq/S09 THE BACK DOOR — you help him secure his place and he is
+  strangely absolute that the back is his alone; respecting that boundary is how you
+  earn trust; prying fails.)
+- **THE WALL COMES DOWN** — the milestone.
+- **POST-WALL** reveal/payoff: Marco tells you about his daughter. (Rebuilt: quests/bq/
+  S06 BEHIND THE FENCE — the title is now a double meaning: what was really behind the
+  fence was her. How you RECEIVE the trust is the fork; receiving it quietly earns the
+  deepest bond and, deliberately, almost no followers.)
+
 ## WHAT IS **NOT** SET (Paolo's call, do not invent)
 - The DAUGHTER'S NAME and AGE are not set. Do not name or age her.
 - Marco's backstory beyond what canon already gives (the house behind yours, on foot,
