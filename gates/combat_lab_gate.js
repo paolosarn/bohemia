@@ -469,6 +469,12 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V42 keeps the v40 JUICE_NAMES fix (AW) while dropping AX -- the bugfix and the killed idea are independent',
     demo.includes("AW:'STREAK MOMENTUM'") && !demo.includes("AX:'BREAKABLE COVER'") &&
     demo.includes('data-j="AW"'));
+  // v43: weapon-flavored kill impact -- the killcam contact frame reacts to WEAPON, not just style
+  ok('V43 WEAPON KILL IMPACT: the killshot hitstop and blood burst both scale by weapon (shotgun heaviest, pistol cleanest)',
+    demo.includes('V43 WEAPON KILL IMPACT') &&
+    demo.includes("const _wpnStop={pistol:3,smg:2,rifle:4,shotgun:6}[WEAPON]||3;") &&
+    demo.includes('if(JUICE.F)G._hitstop=_wpnStop;') &&
+    demo.includes("{pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

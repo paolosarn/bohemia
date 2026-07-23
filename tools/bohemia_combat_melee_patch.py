@@ -3227,13 +3227,45 @@ function fxCoverSave(ea){ if(!JUICE.R)return;""",
     return demo
 
 
+def patch43(demo):
+    """v43 (Paolo 7/22, "keep cooking up juicy stuff... mechanics, vfx,
+    sfx, or fun swag"): weapon-flavored kill impact. The killcam's contact
+    frame (hitstop + blood burst) was flat -- identical whether you killed
+    with a pistol or a shotgun, even though the fire loop itself already
+    scales recoil/muzzle by weapon. Same numeric knobs, now weapon-aware:
+    shotgun kills hit hardest (biggest freeze, biggest burst -- it's
+    already the always-lethal weapon by his own ruling, the impact should
+    say so), rifle is the pierce (long freeze, moderate burst), SMG is
+    quick and messy (short freeze, wide scrappy burst), pistol stays the
+    cleanest, smallest kill in the game (the mercy weapon reads as one,
+    even in the kill camera)."""
+    if 'V43 WEAPON KILL IMPACT' in demo:
+        print('v43 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "    if(!ks._contact){ ks._contact=true;   /* THE BULLET ARRIVES: one frame, two effects hang on it */\n      if(JUICE.F)G._hitstop=3;            /* F. HIT-STOP: 3 frames of total freeze at contact */",
+        """    if(!ks._contact){ ks._contact=true;   /* THE BULLET ARRIVES: one frame, two effects hang on it */
+      /* V43 WEAPON KILL IMPACT: the freeze itself now says what killed him */
+      const _wpnStop={pistol:3,smg:2,rifle:4,shotgun:6}[WEAPON]||3;
+      if(JUICE.F)G._hitstop=_wpnStop;""",
+        'weapon-hitstop')
+
+    demo = sub1(demo,
+        "    const bloodScale = ks.style==='hammer'?1.3:1.0;",
+        "    const bloodScale = (ks.style==='hammer'?1.3:1.0) * ({pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]||1.0);   /* V43 WEAPON KILL IMPACT */",
+        'weapon-blood-scale')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
