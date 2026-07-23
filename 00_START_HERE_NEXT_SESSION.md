@@ -8,6 +8,71 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## DISTRICT ART MARRIED - 32 KINDS RIDE THE CITY FOR REAL (7/22, LIFE+CITY
+## session, Paolo: "theres hella districsts that need textures try to see if
+## the approved assets that you didnt make can work for them first!")
+THE GAP: ~32 district engine modules (bohemia_park.js, _commercial.js,
+_industrial.js, _downtown.js, _medical.js, _mall.js, _school.js, _stadium.js,
+_warehouse.js, _apartment.js, ...) were fully built, gated, and canon - but
+NEVER MARRIED into the CITY tab. The city still rendered every one of them
+through the old PREFABS-ascii-stamp + flat-SCOL-color fallback, literally
+commented `[PLACEHOLDER ART, pending Paolo]` - the suburb-before-7/20
+situation, at 32x scale.
+THE LEVERAGE (reuse-first in practice): traced ONE shared factory interface
+every module already uses - engine/bohemia_district_kit.js's K.register/
+K.get/K.tileLayer, verified by a dedicated Explore-agent survey BEFORE
+writing code, not assumed - same SZ=128/TILE=0.75 grid as bohemia_suburb.js,
+a CLOSED kind vocabulary tileLayer() already resolves generically
+(building/structure/fence/panel -> structure; ground/drive/walk/marking/
+turf-dead/water-dead/court/play -> ground; tree-dead/prop/vehicle -> prop;
+gate/portal -> portal; overhead -> overhead). ONE marriage mechanism covers
+all 32 - no per-district code, unlike the earlier one-off suburb/wall/house
+patches.
+BUILT: tools/bohemia_city_districtart_patch.py (the marriage) +
+tools/bohemia_city_deadworld_prefab_patch.py (a standing-law fix surfaced
+while tracing this). Both idempotent, both already run successfully against
+the live alpha, both gated:
+- Every structure cell (any K-registered district) now reuses the already-
+  CANON house-skin art (roof/wall/window/boarded/door - Paolo's all-30-UP
+  7/21 verdict) exactly like suburb houses do - REUSE-FIRST, zero new pixels
+  cooked. Each district keeps its own approved palette color riding along as
+  a 16%-alpha tint over the shared real material, so park/commercial/
+  industrial/etc still read as visually distinct from each other.
+- __kitBlock/__kitGrid: the same 4x4-tile-group windowing pattern as the
+  suburb's __subBlock/__subGrid (one canon 128x128 grid = one 4x4 group of
+  city fine-tiles, FN=32), generalized to any registered district type.
+- tileMeta routes any non-SUB_RES, K-registered district through the kit
+  grid; SUB_RES (suburb/gated/estate) is completely untouched - old path,
+  zero regression risk. Any type with no registered module, or whose
+  generate() throws, falls through to the EXISTING prefab/SCOL path
+  unchanged (resort/casino correctly keep their old megablock rendering -
+  no dedicated kit module yet).
+- SAME-TURN LAW FIX: the generic PREFABS fallback's 'g'/'t' ascii codes
+  (park's 'grove' prefab, downtown's 'tower_plaza') were painting LIVE GRASS
+  GREEN and TREE GREEN - a direct DEAD WORLD LAW violation, found while
+  tracing this path (not something anyone was looking for). Fixed to dead
+  dirt + a dry dead-prop silhouette (the "dead pools and dry planters, not
+  dead grass" decay-tell pattern from the 7/21 desert-house research).
+VERIFIED before shipping: a dedicated survey confirmed interface uniformity
+first; Playwright screenshots across 6 district types (commercial, park,
+industrial, downtown, medical, school) all showed real texture, zero
+console errors, zero purple, dead-world holding.
+GATE: city_tab_gate.js grew to 62 checks (+8, section "18. THE DISTRICT ART
+LOCK" - factory embedded, 10 sample modules present, __kitBlock/__kitGrid
+exist, tileMeta routing present, tileLayer classification present, house-
+skin reuse confirmed, tint-overlay present, dead-world prefab fix confirmed).
+Full gate suite green (89s). Shipped clean - no CITY_B64 conflict this time
+(only the buildstamp line conflicted against a concurrent crouch-aim combat
+session; combined into one stamp).
+NEXT for this lane: resort/casino/strip/airbase/airport/speedway/campus/
+convention still have no dedicated kit module (Paolo's bespoke-gaming
+territory per his 7/18 ruling, correctly NOT auto-factory) - they'll keep
+riding the old megablock path until/unless he wants those built. The facade
+composition rule (60/20/10/10 plain/window/boarded/door, pure hash of
+global coords) is still the same known simplification flagged in the house-
+art section below - doors aren't architecturally aligned to entrances on
+non-suburb buildings either, same caveat carries over.
+
 ## APARTMENT COMPLEX + THE MAP TAB (7/21, district-factory session, "do a lot")
 Paolo asked "where do I go see your work?" and the honest answer was "nowhere, I hand
 you screenshots" — this closes that gap for good, plus closes the [PENDING] gap the
