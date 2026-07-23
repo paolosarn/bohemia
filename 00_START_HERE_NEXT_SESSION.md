@@ -8,6 +8,67 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## THREE POCKET-CITY DISTRICTS: CITY HALL + BATTERY + TRANSIT TERMINAL (7/23,
+## LIFE+CITY session, Paolo: "look at all the pocket city 2 buildings, we have
+## to make them as districts please!")
+Researched Pocket City 2's building categories (Service / Power / Transport /
+Recreation / Landmark / Unique) and built the three real building types Bohemia
+had NO equivalent for, each on the DISTRICT KIT (research-first, gated, dossier'd,
+WALKABLE-LAND compliant) and married into the live city on the EXISTING generic
+district-art path (reuse-first — structure cells wear the already-CANON house-
+skin roofs/walls/doors, ZERO new pixels cooked):
+- CITYHALL (civic): the executive/administrative municipal seat — a modern low-
+  rise block + a stopped CLOCK TOWER, a public plaza with a bone-dry reflecting
+  FOUNTAIN, flagpoles, a toppled civic seal, notice kiosks, a small visitor lot.
+  Deliberately distinct from the JUDICIAL courthouse (no columns/dome/sally port
+  — the gate asserts this). Placed at the real downtown civic core BESIDE the
+  courthouse (LV City Hall geography). Gate: cityhall_gate.js (14 checks x 6).
+- BATTERY (infrastructure): a grid-scale BESS storage yard — three NFPA-855
+  fire-lane-spaced rows of containerized battery enclosures each with its own
+  HVAC unit, an inverter/transformer rack, a control building, double-fenced on
+  gravel. Feeds the same CLUSTERED POWER network solar/substation do. Gate:
+  battery_gate.js (14 x 6).
+- TERMINAL (infrastructure): a passenger transit terminal — waiting hall +
+  schedule-board clock, bus bays under a boarding CANOPY (overhead, pass-under)
+  with a raised platform, a layover yard, kiss-and-ride loop, park-and-ride lot.
+  Distinct from the FREIGHT-only railyard. Its drive network is ONE connected
+  surface (bays+layover+loop+lot all reach the curb, driveReachFromStreet=1.0).
+  Gate: terminal_gate.js (15 x 6).
+KEY DISCOVERY: BATTERY and TERMINAL were ALREADY placed on the overmap (real map
+canon) but had NO generator — they were rendering as generic bridges. Adding the
+generators (world.js DISTGEN) + embedding the module bodies is a pure plumbing win
+that lights up EXISTING map cells. CITYHALL is genuinely new to the map (added
+enum + rect + resolver; NOT nudged — pinned to a confirmed-free downtown cell, as
+the nudge relocated it onto an arterial; places on ~3 of 4 seeds incl. canon 2026,
+same single-cell-landmark fragility noted for the other bespoke rects).
+WIRING (the full district touchpoint list, now documented for the next new type):
+overmap.js (enum + placement rect + skeleton resolver — battery/terminal were
+already there, only cityhall needed all three), world.js (require + DISTGEN entry),
+tilespec.js + tilespec_gate.js (mirror lists), map_tab.py MODULES+MODMAP +
+map_tab_gate.js MODULES (must byte-match), aerial.js MODMAP, bohemia_gates.py
+(register the 3 gates), district_registry.py, and the district-art MODULES list.
+CITY_B64: the main district-art marriage patch is idempotent (won't re-embed), so
+tools/bohemia_city_newdistricts_patch.py (NEW, idempotent per-module) embeds just
+the 3 new module bodies into the already-married city — they light up on the same
+generic BohemiaDistrictKit.get(d) routing, no new render code. ENGINE SYNC: editing
+overmap.js/world.js tripped city_tab_gate (byte-locks the embedded overmap) — fixed
+by re-running bohemia_city_overmap_resync.py (patches CITY_B64's overmap) AND
+bohemia_city_tab.py (rebuilds BOHEMIA_CITY_CURRENT.html + its md5 stamps); both are
+needed, the resync alone doesn't refresh the standalone page's md5 stamps.
+VERIFIED: live-CITY __CITY.district(x,y) probe confirms all three cells resolve to
+their district at seed 2026; a standalone palette render confirms the layouts read
+right (cityhall plaza+round fountain, battery 3x5 container rows, terminal 7 bus
+bays + layover grid). Full gate suite green. NOTE the __CITY probe is READ-ONLY
+(power/night/rerender/state/isoAt/district/wallArtReady) — it has NO teleport/human
+setter, so a Playwright camera-move to each district isn't possible from the probe;
+DROP IN or the arrow pad is the only way to walk the camera there.
+NEXT for this lane: more Pocket-City types have no Bohemia equivalent yet if Paolo
+wants them (e.g. a real ZOO/aquarium as leisure, a MARINA — though dead-world +
+Vegas geography constrain which make sense). The bespoke gaming/resort/casino/strip
+cells still ride the old megablock placeholder path (Paolo's hand-crafted territory
+per 7/18). Facade composition is still the same 60/20/10/10 hash rule (doors not
+architecturally aligned) flagged in the house-art section — carries to these too.
+
 ## DISTRICT ART MARRIED - 32 KINDS RIDE THE CITY FOR REAL (7/22, LIFE+CITY
 ## session, Paolo: "theres hella districsts that need textures try to see if
 ## the approved assets that you didnt make can work for them first!")
