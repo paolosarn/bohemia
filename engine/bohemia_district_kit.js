@@ -88,7 +88,7 @@
     strip:'gaming_resort', resort:'gaming_resort', casino:'gaming_resort', highroller:'gaming_resort',
     sphere:'gaming_resort', luxor:'gaming_resort', strat:'gaming_resort', sign:'gaming_resort', springs:'gaming_resort',
     // CIVIC — government, safety, health, education, worship, death, assembly
-    medical:'civic', school:'civic', campus:'civic', library:'civic', courthouse:'civic', firestation:'civic',
+    medical:'civic', school:'civic', campus:'civic', library:'civic', courthouse:'civic', firestation:'civic', cityhall:'civic',
     policestation:'civic', jail:'civic', prison:'civic', chapel:'civic', cemetery:'civic', convention:'civic', fort:'civic',
     // LEISURE — parks, sports venues, recreation
     park:'leisure', golf:'leisure', stadium:'leisure', ballpark:'leisure', speedway:'leisure',

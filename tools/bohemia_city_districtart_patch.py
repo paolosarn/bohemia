@@ -67,6 +67,7 @@ MODULES = [
     'engine/bohemia_substation.js', 'engine/bohemia_swapmeet.js', 'engine/bohemia_trailer.js',
     'engine/bohemia_truckstop.js', 'engine/bohemia_warehouse.js', 'engine/bohemia_wash.js',
     'engine/bohemia_waterpark.js', 'engine/bohemia_watertreat.js',
+    'engine/bohemia_cityhall.js', 'engine/bohemia_battery.js', 'engine/bohemia_terminal.js',
 ]
 
 alpha = open(ALPHA, encoding='utf8').read()
