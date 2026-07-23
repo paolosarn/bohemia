@@ -8,6 +8,49 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## DISTRICT HERO BUILDINGS - 3/4-ISO EMBODIMENT FOR THE BUILDER (7/23, same
+## session, Paolo: "for each district you made you have to make a sideways 45
+## degree view of the building or embodiment of the district for the city
+## builder mode... different buildings can be at different heights and shit")
+The 3 new districts read as generic blocks from the city-builder's altitude.
+Cooked a 3/4-iso HERO BUILDING per district (THE 45 DEGREE LAW: sky-lit top
+diamonds, lit front-right + shadowed front-left wall faces on a ground diamond,
+NEVER flat side-on), heights differing by design:
+- CITY HALL: administrative block + a stopped CLOCK TOWER (the TALLEST hero)
+- BATTERY: stacked shipping-container battery enclosures + inverter bar (LOWEST)
+- TERMINAL: waiting hall + a boarding canopy on posts + a dead bus (MID)
+Two massing variants each (standard/tall) so Paolo picks the silhouette. Dead
+act-1 (boarded windows, stopped clock, dead buses), tan-wall 85/15, zero purple,
+deterministic. REUSE-FIRST: wall + roof tone ramps sampled straight from the
+CANON house-skin bank (opened + read in code) so the heroes are the same material
+the married city wears; accents from each engine palette. No new base palette.
+BUILT: tools/bohemia_district_hero_factory.py (the cook, 6 sprites ->
+banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt) + a judge
+(bohemia_district_hero_judge.py -> BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html: each
+hero PLANTED on the city's iso ground the way the builder plants it, thumbs/
+comments/SUN/export .txt), wired into the LIFE hub (one-alpha law, NEEDS-YOUR-
+THUMBS card at the top). gates/art_45_gate.py EXTENDED with a principled 'building'
+form-check: the 45 law read at the ROOF where a building shows it (an iso diamond
+top that widens below its point + two differently-lit wall faces = lit vs shadow),
+vs the existing 'prop' base-ellipse check for lamps/signals. Same law, measured
+where each FORM displays it (registry entries now carry a form tag). Terracotta-
+roof-darker-than-tan-wall was the trap that killed the naive "roof brighter than
+wall" cross-material check - the real 3/4 signature is the two-toned WALLS.
+STATUS: VERDICT-FIRST (workflow law: fresh unseen candidates need thumbs, and
+there are 2 heights each - can't guess). Paolo thumbs in LIFE tab -> DISTRICT
+HEROES. [PENDING PAOLO -> then task: wire the winners into the CITY tab's iso
+renderer.] The render map is known (Explore-surveyed this session): CITY tab
+renderCity() at ~line 6340, iso() gives p.sx/p.sy per cell (TW=18,TH=9 diamond),
+prism(p,h,wall,roof) already extrudes above the tile and strat/casino draw
+bespoke above-tile shapes - so a hero sprite is a drawImage anchored at p.sx,p.sy
+lifted by height, added as a per-district case in the switch(d), keyed to the one
+hero cell per district. The heroes carry bx/by (base anchor) + w/h for exactly
+this planting. NOTE the __CITY probe is READ-ONLY (no teleport), so verifying a
+specific cell in the live builder needs DROP IN or the arrow pad, not the probe.
+NEXT beyond wiring: on approval, volume (more massing/variants per the "approval
+unlocks volume" law); the same hero treatment could extend to the 32 already-
+married districts if Paolo wants each to have its own iconic building.
+
 ## THREE POCKET-CITY DISTRICTS: CITY HALL + BATTERY + TRANSIT TERMINAL (7/23,
 ## LIFE+CITY session, Paolo: "look at all the pocket city 2 buildings, we have
 ## to make them as districts please!")
