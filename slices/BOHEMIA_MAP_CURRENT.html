@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
-<!-- engine-md5:engine/bohemia_district_kit.js:1044d6e6571e3a101fd038112afee48c -->
+<!-- engine-md5:engine/bohemia_district_kit.js:f3b6d4a83f5839abd0ea92a1654c1894 -->
 <!-- engine-md5:engine/bohemia_suburb.js:48a94360f20c7900ab2138c7b85ccd4c -->
 <!-- engine-md5:engine/bohemia_commercial.js:98d05f594fe67e69e181f621bfc1940f -->
 <!-- engine-md5:engine/bohemia_industrial.js:8baebb1d5c34ae13b1fda3bb0526d321 -->
@@ -35,13 +35,16 @@
 <!-- engine-md5:engine/bohemia_warehouse.js:ae95253c543a430b89a16ed56fdb436a -->
 <!-- engine-md5:engine/bohemia_waterpark.js:d84f86bc50bb4dca56df5e20afa67e9b -->
 <!-- engine-md5:engine/bohemia_mall.js:d975252d09539da3d11c2862af7e37c5 -->
-<!-- engine-md5:engine/bohemia_overmap.js:6e7b04229fe868294a466d5279b7f183 -->
+<!-- engine-md5:engine/bohemia_cityhall.js:b8ce9e9fd1f453f3d3896bf9c8d5f16e -->
+<!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
+<!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
+<!-- engine-md5:engine/bohemia_overmap.js:47af6812f00882f12e3cc1a63a303edf -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:530d913e483b7ae4ce57e3b69065f730 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:b56bd6933597d2897e2d55c9bbfa564f -->
+<!-- engine-md5:engine/bohemia_world.js:09a661cdc694e38f1eb16f028717da66 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
   #cv{display:block;width:100%;height:calc(100% - 34px);background:#0d0b08}
@@ -143,7 +146,7 @@
     strip:'gaming_resort', resort:'gaming_resort', casino:'gaming_resort', highroller:'gaming_resort',
     sphere:'gaming_resort', luxor:'gaming_resort', strat:'gaming_resort', sign:'gaming_resort', springs:'gaming_resort',
     // CIVIC — government, safety, health, education, worship, death, assembly
-    medical:'civic', school:'civic', campus:'civic', library:'civic', courthouse:'civic', firestation:'civic',
+    medical:'civic', school:'civic', campus:'civic', library:'civic', courthouse:'civic', firestation:'civic', cityhall:'civic',
     policestation:'civic', jail:'civic', prison:'civic', chapel:'civic', cemetery:'civic', convention:'civic', fort:'civic',
     // LEISURE — parks, sports venues, recreation
     park:'leisure', golf:'leisure', stadium:'leisure', ballpark:'leisure', speedway:'leisure',
@@ -4181,6 +4184,359 @@
   if(typeof module!=='undefined')module.exports=API; root.BohemiaMall=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
+/* ==== engine/bohemia_cityhall.js ==== */
+// BOHEMIA CITY HALL (7/23/26). CIVIC, on the DISTRICT KIT. Paolo: "look at all the pocket city 2
+// buildings, we have to make them as districts" — the municipal seat (Town Hall / City Hall) is a
+// Pocket City 2 Service-building staple Bohemia never had: the EXECUTIVE/ADMINISTRATIVE government
+// building (mayor's office, council chamber, city clerk, permits counter), distinct from
+// bohemia_courthouse.js (JUDICIAL — courtrooms, chambers, a prisoner sally port). Research-first
+// (US municipal civic-center precedent — a modern low-rise administrative block, NOT the classical
+// colonnaded language courthouse already owns): a wide low block with a CLOCK TOWER landmark, a
+// public forecourt PLAZA with a DRY reflecting fountain and flagpoles (the "come to a public
+// meeting" civic read), a notice/bulletin kiosk, modest visitor parking (city hall draws walk-ins +
+// bus riders, not commuter volume). Act-1 DEAD: fountain dry and cracked, clock stopped, doors
+// chained, the civic seal toppled, notices long since rotted off the kiosk. Street-aware + drivable.
+// LEGEND:
+//  0 desert dead-ground   1 drive / lot        2 building (city hall)   3 dead landscaping
+//  4 lawn                 5 gate                6 clock tower            7 plaza
+//  8 dry fountain          9 pole light          10 civic seal / monument 11 sidewalk
+//  12 flagpole             13 bulletin / notice kiosk
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+
+    // ---- BASE: dead lawn; desert only at the margins ----
+    G.rect(0,0,W-1,H-1,0);
+    G.rect(6,4,W-7,H-6,4);
+
+    // ---- THE CIVIC BLOCK: a wide low modern municipal building + a CLOCK TOWER landmark ----
+    G.rect(16,14,112,50,2);                                              // the administrative block (the mass)
+    G.rect(56,0,72,14,6);                                                 // the clock tower rising off its north face
+    for(x=20;x<=108;x+=6) set(x,14,11);                                  // window-line / parapet read along the front face
+    for(y=2;y<=12;y+=4) set(56,y,11); for(y=2;y<=12;y+=4) set(72,y,11);  // tower window bands
+
+    // ---- THE PUBLIC PLAZA: dry reflecting fountain, flagpoles, civic seal, notice kiosk ----
+    G.rect(16,54,112,88,7);
+    G.disc(64,71,9,8);                                                   // the dry reflecting fountain (the plaza hero)
+    set(64,71,8);
+    set(40,72,12); set(88,72,12);                                        // flagpoles flanking the fountain
+    set(64,86,10);                                                       // civic seal / monument at the plaza's entry edge
+    set(28,86,13); set(100,86,13);                                       // bulletin / notice kiosks
+    for(i=0;i<8;i++){ var px=20+Math.floor(r()*88), py=58+Math.floor(r()*10); if(get(px,py)===7 && (i%3===0)) set(px,py,7); }
+
+    // ---- SIDEWALK band linking plaza to the visitor lot ----
+    G.rect(16,88,112,92,11);
+
+    // ---- VISITOR LOT (SMALL — city hall draws walk-ins + bus riders, not commuter volume) ----
+    G.rect(30,98,98,120,1);
+
+    // ---- POLE LIGHTS + dead landscaping at the margins ----
+    [[12,20],[116,20],[12,110],[116,110]].forEach(function(p){ set(p[0],p[1],9); });
+    for(i=0;i<12;i++){ var tx=8+Math.floor(r()*4), ty=6+Math.floor(r()*(H-14)); if(get(tx,ty)===4)set(tx,ty,3); }
+    for(i=0;i<12;i++){ var tx2=W-8+Math.floor(r()*4), ty2=6+Math.floor(r()*(H-14)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
+
+    // ---- ENTRANCE / LOT CONNECTOR off the SOUTH street (rotated to the real street by the kit) ----
+    var gx=W>>1;
+    for(i=-4;i<=4;i++)set(gx+i,H-1,5);
+    G.rect(gx-3,92,gx+3,H-1,1);
+    for(y=H-1;y>=92;y--)for(x=-3;x<=3;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); }
+    return g;
+  }
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===4; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:11, pedOver:soft, pedInset:14});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2;})};
+  }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+
+  var PALETTE={0:'#1c1a15',1:'#4a463c',2:'#726a58',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#847a64',
+    7:'#8f887a',8:'#5a6660',9:'#8f8676',10:'#9c8e76',11:'#b7ae98',12:'#8a7f5e',13:'#635c4a'};
+  var LEGEND={
+    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the civic-block edge (setback)'},
+    1:{name:'drive / lot',        kind:'drive',      act1:'the small visitor lot + entrance drive (car-drivable)'},
+    2:{name:'building (city hall)',kind:'building',  act1:'the administrative block — mayor\'s office, council chamber, clerk + permits counter — windows boarded, doors chained', enter:'city hall interior: the public counter + records hall up front, the council chamber behind it, the mayor\'s + department offices in the wings'},
+    3:{name:'dead landscaping',   kind:'tree-dead',  act1:'a dead civic tree / hedge at the lawn edge', solid:false},
+    4:{name:'lawn',               kind:'ground',     act1:'the dead civic lawn ringing the block'},
+    5:{name:'gate',               kind:'gate',       act1:'the lot entrance off the street, amber curb'},
+    6:{name:'clock tower',        kind:'structure',  act1:'the clock tower over the entrance, hands stopped, face cracked', solid:true},
+    7:{name:'plaza',              kind:'ground',     act1:'the public forecourt plaza before city hall, pavers cracked, weeds through the joints'},
+    8:{name:'dry fountain',       kind:'water-dead', act1:'the reflecting fountain at the plaza\'s center, bone dry, basin stained with old waterlines'},
+    9:{name:'pole light',         kind:'prop',       act1:'a plaza pole light, head dark'},
+    10:{name:'civic seal / monument',kind:'prop',    act1:'the city seal monument at the plaza entry, toppled, bronze gone green', solid:true},
+    11:{name:'sidewalk',          kind:'ground',     act1:'the sidewalk band linking the plaza to the visitor lot, cracked'},
+    12:{name:'flagpole',          kind:'prop',       act1:'a flagpole flanking the fountain, halyard slapping, no flag left'},
+    13:{name:'bulletin / notice kiosk',kind:'prop',  act1:'a public-notice kiosk at the plaza edge, the meeting agendas long since rotted off', solid:true}
+  };
+  var NOTES={
+    summary:'A dead city hall — a wide low modern administrative block with a stopped clock tower, a public forecourt plaza with a bone-dry reflecting fountain and flagpoles, a civic-seal monument, notice kiosks, a sidewalk to a small visitor lot. The executive/administrative seat, distinct from the judicial courthouse.',
+    reference:['US municipal civic-center precedent: a modern low-rise administrative block (mayor\'s office, council chamber, city clerk, permits counter) rather than the classical colonnaded language a courthouse uses; a CLOCK TOWER is the conventional City Hall landmark feature; a public forecourt PLAZA with a reflecting fountain and flagpoles reads as "come to a public meeting" civic space; visitor parking stays modest — city hall draws walk-ins and bus/transit riders, not commuter volume, unlike a big-box civic campus.'],
+    layout:['The ADMINISTRATIVE BLOCK sits at the back (north) of the lot with the CLOCK TOWER rising off its front face — the vertical landmark, distinct from courthouse\'s dome.',
+      'A public PLAZA fills the forecourt: a dry reflecting FOUNTAIN at its center, flagpoles flanking it, the civic SEAL monument near the entry edge, notice KIOSKS at the plaza corners.',
+      'A SIDEWALK band links the plaza to a small VISITOR lot (SW) — modest, not commuter-scaled.',
+      'Dead landscaping edges the lawn; pole lights mark the lot corners.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the visitor lot + entrance drive (code 1) reach the curb from any placement (K.driveReachFromStreet). Corner side streets get a pedestrian gate onto the sidewalk/plaza rather than a second car entrance. Foot circulation is plaza -> sidewalk -> tower entrance.',
+    layering:'GROUND plane (walk/drive, flat): the plaza (7), lawn (4), sidewalk (11), the dry fountain basin (8, water-dead), the drive/lot (1, drive), desert (0). STRUCTURES (¾ front face, solid, ENTERABLE): the CITY HALL block (2 -> public counter/records, council chamber, mayor\'s + department offices) with the CLOCK TOWER (6). PROPS: the civic seal monument (10), flagpoles (12), notice kiosks (13), pole lights (9). PORTALS: the gate (5). The block + tower are the vertical mass; the plaza and its dry fountain are the public forecourt you cross to reach the doors.',
+    decisions:['Act-1 DEAD: the clock stopped, doors chained, fountain bone dry with old waterline stains, the civic seal toppled and oxidized, notices rotted off the kiosk. Whose administration (if any) runs it now is faction canon (Paolo\'s).',
+      'Civic category (cityhall), filed alongside courthouse/library/firestation. Zero purple.',
+      'Deliberately differentiated from courthouse: a modern administrative block + clock tower (not classical columns + dome), a fountain-centered public plaza (not just cracked pavers), no sally port (city hall has no jail function).',
+      'WALKABLE-LAND honored: the block + tower + plaza dominate; the visitor lot is minimal by design (walk-in/transit civic use, not commuter parking).',
+      'Research-first (per the playbook): built from real municipal civic-center precedent, not memory.']
+  };
+  K.register('cityhall', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
+
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaCityhall=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ==== engine/bohemia_battery.js ==== */
+// BOHEMIA BATTERY STORAGE YARD (7/23/26). INFRASTRUCTURE, on the DISTRICT KIT. Paolo: "look at all
+// the pocket city 2 buildings, we have to make them as districts" — Pocket City 2's Power category
+// covers generation AND storage; Bohemia has solar (generation) and substation (distribution) but
+// nothing for grid-scale STORAGE. Research-first (utility BESS site design — NFPA 855 spacing, real
+// containerized BESS installations): rows of shipping-container-sized BATTERY ENCLOSURES on gravel,
+// each with its own HVAC/thermal-management unit beside it, an inverter/transformer rack tying the
+// array into the grid, a control/monitoring building, double security fencing (same safety class as
+// a substation), fire-lane spacing between rows (NFPA 855's real container-spacing requirement).
+// Act-1 DEAD: containers cold, HVAC units silent, inverters dark, the control room abandoned. This
+// feeds the same CLUSTERED POWER network substation distributes (LIGHT=TERRITORY). Street-aware +
+// drivable (a gravel access road); containers + inverters + control building dominate (WALKABLE-LAND).
+// LEGEND:
+//  0 desert  1 access road (DRIVABLE)  2 control building  3 dead brush  4 gravel yard  5 gate
+//  6 battery container  7 HVAC / thermal unit  8 inverter / transformer rack  9 pole light
+//  10 perimeter fence  11 hazard marking  12 warning placard  13 cable trench
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+
+    // ---- BASE: gravel yard, DOUBLE-fenced; desert at the margins ----
+    G.rect(0,0,W-1,H-1,0); G.rect(6,6,W-7,H-7,4);
+    G.frame(10);
+    for(x=8;x<W-8;x++){ set(x,9,10); set(x,H-10,10); }
+    for(y=9;y<H-9;y++){ set(8,y,10); set(W-9,y,10); }
+
+    // ---- BATTERY CONTAINER ROWS (the hero) — NFPA-855-style fire-lane spacing between rows ----
+    for(var row=0; row<3; row++){
+      var ry=18+row*26;
+      for(var col=0; col<5; col++){
+        var cx=14+col*20;
+        G.rect(cx,ry,cx+13,ry+15,6);                                    // the container enclosure
+        set(cx+15,ry+3,7); set(cx+15,ry+11,7);                          // HVAC / thermal-management units flanking it
+      }
+      G.rect(10,ry+16,116,ry+18,13);                                    // cable trench running behind the row
+    }
+
+    // ---- INVERTER / TRANSFORMER RACK — ties the array into the grid ----
+    G.rect(14,92,110,96,8);
+    for(x=18;x<=106;x+=12) set(x,90,12);                                // warning placards along the inverter rack
+
+    // ---- CONTROL / MONITORING BUILDING near the south gate ----
+    G.rect(46,100,82,116,2);
+    for(x=50;x<=78;x+=6) set(x,100,11);                                 // hazard striping at the apron edge
+
+    // ---- POLE LIGHTS + dead brush caught in the fence ----
+    [[10,20],[116,20],[10,100],[116,100]].forEach(function(p){ set(p[0],p[1],9); });
+    for(i=0;i<10;i++){ var bx=1+Math.floor(r()*4), by=10+Math.floor(r()*(H-20)); if(get(bx,by)===0)set(bx,by,3); }
+    for(i=0;i<10;i++){ var bx2=W-5+Math.floor(r()*4), by2=10+Math.floor(r()*(H-20)); if(get(bx2,by2)===0)set(bx2,by2,3); }
+
+    // ---- ACCESS ROAD from the SOUTH gate to the control building + a perimeter lane ----
+    var gx=W>>1;
+    G.rect(gx-2,96,gx+2,H-1,1);
+    for(y=H-1;y>=96;y--)for(x=-2;x<=2;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4||c===10)set(gx+x,y,1); }
+    G.rect(12,98,116,99,1);
+    for(i=-2;i<=2;i++)set(gx+i,H-1,5);
+    return g;
+  }
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===4; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2;})};
+  }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+
+  var PALETTE={0:'#1c1a15',1:'#45433c',2:'#6a6358',3:'#3f382c',4:'#514d44',5:'#c79a3f',6:'#4a5560',
+    7:'#7a7268',8:'#8a8478',9:'#8f8676',10:'#6a6a72',11:'#c9c1aa',12:'#b0863a',13:'#33302a'};
+  var LEGEND={
+    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
+    1:{name:'access road',        kind:'drive',      act1:'the gravel access road — a service truck reaches the yard from the gate (drivable)'},
+    2:{name:'control building',   kind:'building',   act1:'the control + monitoring building, screens dark, doors chained', enter:'control-building interior: the monitoring room up front, the switchgear + comms rooms behind'},
+    3:{name:'dead brush',         kind:'tree-dead',  act1:'dead brush caught in the double perimeter fence', solid:false},
+    4:{name:'gravel yard',        kind:'ground',     act1:'the crushed-stone storage-yard gravel'},
+    5:{name:'gate',               kind:'gate',       act1:'the yard gate off the street, amber curb'},
+    6:{name:'battery container',  kind:'structure',  act1:'a containerized battery enclosure — the hero, cold, indicator lights dead, rows spaced to the fire-lane standard', solid:true},
+    7:{name:'HVAC / thermal unit',kind:'structure',  act1:'the thermal-management / HVAC unit beside its container, fans stopped', solid:true},
+    8:{name:'inverter / transformer rack',kind:'structure', act1:'the inverter + transformer rack tying the array into the grid, dark, oil-stained', solid:true},
+    9:{name:'pole light',         kind:'prop',       act1:'a yard pole light, head dark'},
+    10:{name:'perimeter fence',   kind:'structure',  act1:'the double security fence around the yard, wire sagging', solid:true},
+    11:{name:'hazard marking',    kind:'marking',    act1:'faded hazard striping at the control-building apron'},
+    12:{name:'warning placard',   kind:'prop',       act1:'a high-voltage / thermal-hazard placard along the inverter rack, paint flaked'},
+    13:{name:'cable trench',      kind:'ground',     act1:'a covered cable trench running behind each container row', solid:false}
+  };
+  var NOTES={
+    summary:'A dead grid-scale battery storage yard — three fire-lane-spaced rows of containerized battery enclosures each with its own HVAC unit, an inverter/transformer rack tying the array to the grid, a control building, double-fenced on gravel. Storage, distinct from solar (generation) and substation (distribution) — the same CLUSTERED POWER network they all feed.',
+    reference:['Utility-scale BESS (battery energy storage system) site design: NFPA 855 mandates real fire-lane SPACING between container rows (the deliberate gaps here, not decorative); each containerized enclosure pairs with its own HVAC/thermal-management unit; an inverter/transformer rack converts and ties the DC storage array into the AC grid; a control/monitoring building oversees state-of-charge; double security fencing matches substation-class infrastructure.'],
+    layout:['The yard is gravel inside a DOUBLE perimeter fence (desert at the margins); the CONTROL building sits at the south gate.',
+      'Three ROWS of containerized BATTERY enclosures (the hero) run north-south, each container paired with an HVAC unit, rows separated by real fire-lane spacing.',
+      'An INVERTER / TRANSFORMER rack runs along the south edge of the array, tying it into the grid, with warning placards along its length.',
+      'Cable TRENCHES run behind each row; pole lights ring the yard.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the yard gate is on the primary street; a gravel access road + perimeter lane (code 1) reach the control building and array from the curb (K.driveReachFromStreet). WALKABLE-LAND: the containers + inverter rack + fence + control building dominate; the road is minimal. Corner side streets get a pedestrian gate.',
+    layering:'GROUND plane (walk/drive, flat): the gravel (4), cable trenches (13), the access road (1, drive), hazard marking (11), desert (0). STRUCTURES (¾ front face, solid): the BATTERY containers (6, the hero rows), their HVAC units (7), the inverter/transformer rack (8), the control building (2, ENTERABLE), the double perimeter FENCE (10). PROPS: pole lights (9), warning placards (12). PORTALS: the gate (5). The container rows are the mass; you cross the gravel fire lanes between them.',
+    decisions:['Act-1 DEAD: containers cold with dead indicator lights, HVAC fans stopped, inverters dark and oil-stained, the control room abandoned. This feeds the same CLUSTERED POWER network substation distributes — who re-energizes it is faction canon (Paolo\'s).',
+      'Infrastructure category (battery) — already reserved in K.TAXONOMY (Paolo 7/18\'s taxonomy pass anticipated this slot alongside solar/substation/watertreat), filled in this turn rather than inventing a new bucket.',
+      'WALKABLE-LAND honored: container rows + inverter rack + fence + control building dominate; access road minimal.',
+      'Research-first (per the playbook): built from real utility BESS site design (NFPA 855 spacing), not memory.']
+  };
+  K.register('battery', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND, notes:NOTES });
+
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaBattery=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ==== engine/bohemia_terminal.js ==== */
+// BOHEMIA TRANSIT TERMINAL (7/23/26). INFRASTRUCTURE, on the DISTRICT KIT. Paolo: "look at all the
+// pocket city 2 buildings, we have to make them as districts" — Pocket City 2's Transport category
+// (bus/train stations that raise the traffic/transit rating) has no PASSENGER equivalent in Bohemia;
+// bohemia_railyard.js is FREIGHT rail (industrial, no passengers). Research-first (real intercity/
+// regional bus-terminal design): a TERMINAL BUILDING (waiting hall, ticket counters, restrooms), a
+// row of BUS BAYS under a long boarding CANOPY with a raised platform, a bus LAYOVER/staging yard,
+// a kiss-and-ride drop-off loop, a small park-and-ride lot, a schedule-board clock landmark. Act-1
+// DEAD: buses dead at the bays and in the layover yard, the schedule board blank, the waiting hall
+// dark, benches empty. Street-aware + drivable (bays, loop, and lot are all one connected car
+// surface, buses AND cars alike reach the curb). Terminal + canopy + platform + bus fleet dominate
+// (WALKABLE-LAND) — a real terminal's paved bus surface is itself the venue, but is anchored by a
+// real building mass, not a bare apron.
+// LEGEND:
+//  0 desert  1 drive (bays/loop/lot, DRIVABLE)  2 terminal building  3 dead landscaping
+//  4 lawn  5 gate  6 boarding canopy (OVERHEAD)  7 platform  8 bench / shelter
+//  9 pole light  10 dead bus  11 bay marking  12 schedule board / clock  13 bike rack
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+
+    // ---- BASE: dead lawn; desert only at the margins ----
+    G.rect(0,0,W-1,H-1,0);
+    G.rect(5,5,W-6,H-6,4);
+
+    // ---- THE TERMINAL BUILDING (back of the lot, the mass) + a schedule-board clock landmark ----
+    G.rect(16,10,96,38,2);
+    for(x=20;x<=92;x+=6) set(x,10,11);                                   // window-line read along the front face
+    set(56,6,12);                                                        // the schedule board / clock tower over the doors
+
+    // ---- BOARDING CANOPY + PLATFORM — the bus bays' overhead + the raised platform under it ----
+    G.rect(14,40,98,46,6);
+    G.rect(14,46,98,50,7);
+    for(x=18;x<=94;x+=10){ set(x,48,8); }                                // benches along the platform
+    for(x=20;x<=90;x+=10) set(x,40,9);                                   // canopy-mounted lights
+
+    // ---- BUS BAYS — a row of dead buses staged nose-in at the platform ----
+    G.rect(10,50,102,68,1);
+    for(x=18;x<=90;x+=12){ G.rect(x,52,x+8,64,10); set(x+4,51,11); }     // a bus at each bay + a bay-line stripe
+
+    // ---- LAYOVER / STAGING YARD (SE) — more of the fleet parked dead, off the passenger bays ----
+    G.rect(70,72,116,110,1);
+    for(var ly=76; ly<=104; ly+=14) for(var lx=74; lx<=108; lx+=18){ G.rect(lx,ly,lx+10,ly+8,10); }
+
+    // ---- KISS-AND-RIDE DROP-OFF LOOP + a small PARK-AND-RIDE LOT (SW) ----
+    G.rect(10,72,58,88,1);
+    G.rect(10,92,58,116,1);
+    for(x=14;x<=54;x+=6){ set(x,96,11); set(x,112,11); }
+
+    // ---- DRIVE COLLECTOR: one connected car surface (bays -> loop -> layover -> lot ->
+    //      the entrance). Everything a bus or car touches reaches the curb (DRIVABLE LAW). ----
+    G.rect(10,68,116,72,1);                                              // full-width collector behind the bays
+    G.rect(56,68,60,116,1);                                             // central spine down to the entrance lane
+    G.rect(10,88,58,92,1);                                              // tie SW loop to the park-and-ride lot
+
+    // ---- BIKE RACK near the entrance + dead landscaping at the margins ----
+    set(20,70,13); set(92,70,13);
+    for(i=0;i<12;i++){ var tx=6+Math.floor(r()*4), ty=8+Math.floor(r()*(H-16)); if(get(tx,ty)===4)set(tx,ty,3); }
+    for(i=0;i<12;i++){ var tx2=W-6+Math.floor(r()*4), ty2=8+Math.floor(r()*(H-16)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
+
+    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
+    var gx=W>>1;
+    for(i=-5;i<=5;i++)set(gx+i,H-1,5);
+    G.rect(gx-4,110,gx+4,H-1,1);
+    for(y=H-1;y>=110;y--)for(x=-4;x<=4;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); }
+    return g;
+  }
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===4; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      footprints:K.footprints(g,function(v){return v===2;})};
+  }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+
+  var PALETTE={0:'#1c1a15',1:'#4a463c',2:'#726a58',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#5a564a',
+    7:'#8f887a',8:'#7a7268',9:'#8f8676',10:'#556065',11:'#c9c1aa',12:'#8a7f5e',13:'#635c4a'};
+  var LEGEND={
+    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the terminal-lot edge (setback)'},
+    1:{name:'drive',              kind:'drive',      act1:'the bus bays, layover yard, kiss-and-ride loop, and park-and-ride lot — one connected car surface (drivable)'},
+    2:{name:'building (terminal)',kind:'building',   act1:'the terminal — waiting hall, ticket counters, restrooms, boarded, the departures board dark', enter:'terminal interior: the waiting hall + ticket counters up front, restrooms + a small office behind'},
+    3:{name:'dead landscaping',   kind:'tree-dead',  act1:'a dead tree / hedge at the lot edge', solid:false},
+    4:{name:'lawn',               kind:'ground',     act1:'the dead lawn edging the terminal lot'},
+    5:{name:'gate',               kind:'gate',       act1:'the terminal entrance off the street, amber curb'},
+    6:{name:'boarding canopy',    kind:'overhead',   act1:'the boarding canopy over the bus bays (pass under it to reach the platform)'},
+    7:{name:'platform',           kind:'ground',     act1:'the raised boarding platform under the canopy, paint worn to bare concrete'},
+    8:{name:'bench / shelter',    kind:'prop',       act1:'a platform bench, seat cracked, no one waiting'},
+    9:{name:'pole light',         kind:'prop',       act1:'a canopy-mounted light, dead'},
+    10:{name:'dead bus',          kind:'vehicle',    act1:'a bus dead at its bay or in the layover yard, tyres flat, destination sign blank', solid:true},
+    11:{name:'bay marking',       kind:'marking',    act1:'faded bay-line striping on the bus lane'},
+    12:{name:'schedule board / clock',kind:'structure',act1:'the schedule-board clock tower over the terminal doors, hands stopped, board blank', solid:true},
+    13:{name:'bike rack',         kind:'prop',       act1:'a bike rack near the entrance, empty, rusted'}
+  };
+  var NOTES={
+    summary:'A dead transit terminal — a waiting-hall building with a stopped schedule-board clock, a row of bus bays under a long boarding canopy with a raised platform, a bus layover yard, a kiss-and-ride loop, a small park-and-ride lot. Passenger transport, distinct from the freight-only railyard.',
+    reference:['Intercity/regional bus-terminal design precedent: a TERMINAL BUILDING (waiting hall, ticket counters, restrooms) fronts a row of BUS BAYS under a long boarding CANOPY with a raised PLATFORM; a separate LAYOVER/staging yard holds off-duty buses; a KISS-AND-RIDE drop-off loop and a small PARK-AND-RIDE lot serve car access; a schedule-board clock is the conventional terminal landmark.'],
+    layout:['The TERMINAL building sits at the back of the lot with a schedule-board CLOCK tower over its doors.',
+      'A boarding CANOPY (overhead — pass under it) shelters the raised PLATFORM in front of the building; benches line the platform.',
+      'A row of BUS BAYS runs along the platform, a dead bus staged at each; bay-line striping marks the lane.',
+      'A LAYOVER/staging yard (SE) holds more of the fleet parked dead, off the passenger bays; a kiss-and-ride loop + small park-and-ride lot sit SW.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the entrance opens onto the primary street; the bays, layover yard, kiss-and-ride loop, and park-and-ride lot are ALL one connected drivable surface (code 1) reachable from the curb (K.driveReachFromStreet) — buses and cars alike. Corner side streets get a pedestrian gate onto the platform side. Foot circulation is the platform along the canopy.',
+    layering:'GROUND plane (walk/drive, flat): the platform (7), lawn (4), the drive/bays/lot (1, drive), bay marking (11), desert (0). OVERHEAD (drawn above, pass under): the boarding CANOPY (6). STRUCTURES (¾ front face, solid, ENTERABLE): the TERMINAL building (2 -> waiting hall/ticket counters/restrooms/office) with the schedule-board CLOCK (12). PROPS / VEHICLES: dead buses (10, solid, at bays and in the layover yard), benches (8), pole lights (9), bike rack (13). PORTALS: the gate (5). The terminal + clock are the vertical mass; the canopy and its dead bus fleet are the wide low read you approach across the platform.',
+    decisions:['Act-1 DEAD: buses dead at the bays and in the layover yard (flat tyres, blank destination signs), the schedule board dark and stopped, the waiting hall boarded, benches empty. Who if anyone still runs a route is faction canon (Paolo\'s).',
+      'Infrastructure category (terminal) — already reserved in K.TAXONOMY (Paolo 7/18\'s taxonomy pass anticipated this slot alongside airport/rail/freeway), filled in this turn rather than inventing a new bucket.',
+      'Deliberately distinct from railyard: PASSENGER transport (terminal building, platform, bus bays, kiss-and-ride) vs railyard\'s FREIGHT classification tracks and rolling stock — no overlap in vocabulary.',
+      'WALKABLE-LAND honored: the building + canopy + platform + parked bus fleet are the content that anchors the paved bus surface — never a bare apron with a tiny building stranded in it.',
+      'Research-first (per the playbook): built from real intercity/regional bus-terminal design, not memory.']
+  };
+  K.register('terminal', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND, notes:NOTES });
+
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaTerminal=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
    BOHEMIA OVERMAP  (bohemia_overmap.js)  7/5/26 pass 4
@@ -4204,7 +4560,7 @@
 const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
-SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
+SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
 // BIG ARCHITECTURE (Paolo 7/18/26): "even monuments... would just be in their big ass plots not
 // breaking any city streets" — the ONLY district types allowed to sit without touching the
@@ -4479,6 +4835,9 @@ function layoutFromSeed(seed){
   const jail={x:stripX+dirE*5, y:Math.round(N*0.24), w:1, h:1};
   // Courthouse / civic block (D): the mayor arc's seat
   const courthouse={x:stripX+dirE*3, y:Math.round(N*0.25), w:2, h:1};
+  // City Hall (7/23/26): the executive/administrative seat beside the courthouse's
+  // judicial block (real LV City Hall is the downtown civic core) — the mayor arc's office
+  const cityhall={x:stripX+dirE*3, y:Math.round(N*0.25)+1, w:1, h:1};
   // Warehouse district (F): the salvage economy's shelves, by the rail
   const warehouse={x:railX+(fwySide>0?2:-4), y:railyard.y+4, w:2, h:2};
   // Truck stop (G): spine south approach
@@ -4638,7 +4997,7 @@ function layoutFromSeed(seed){
           reclaim, landfill, intake, substations, cemetery, cemetery2, prison, terminal, sphere,
           cashman, boneyard, fort, ballparkS, chapels, basins, swapmeet, drivein, highroller,
           watertreat, reservoirs, pumpstation, vegassign, strat, datafort, arsenal,
-          firestations, policestations, jail, courthouse, warehouse, truckstop,
+          firestations, policestations, jail, courthouse, cityhall, warehouse, truckstop,
           battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, seed};
 }
 
@@ -4746,6 +5105,7 @@ function skeleton(x,y,L){
   for(const R of L.policestations){ if(inRect(x,y,R))return DISTRICT.POLICESTATION; }
   if(inRect(x,y,L.jail))return DISTRICT.JAIL;
   if(inRect(x,y,L.courthouse))return DISTRICT.COURTHOUSE;
+  if(inRect(x,y,L.cityhall))return DISTRICT.CITYHALL;
   if(inRect(x,y,L.warehouse))return DISTRICT.WAREHOUSE;
   if(inRect(x,y,L.battery))return DISTRICT.BATTERY;
   for(const R of L.fueldepots){ if(inRect(x,y,R))return DISTRICT.FUELDEPOT; }
@@ -6100,6 +6460,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var MLL= HASREQ ? require('./bohemia_mall.js')           : (typeof BohemiaMall!=='undefined'?BohemiaMall:root.BohemiaMall);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
+  var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
+  var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
+  var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -6141,7 +6504,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },
     warehouse:  { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
     waterpark:  { mod:WTP, foot:function(r){return r.footprints;},           zone:'leisure' },
-    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' }
+    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' },
+    cityhall:   { mod:CTY, foot:function(r){return r.footprints;},           zone:'civic' },
+    battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
@@ -6373,7 +6739,8 @@ var MODMAP = {
   policestation:'BohemiaPolicestation', library:'BohemiaLibrary', landfill:'BohemiaLandfill',
   railyard:'BohemiaRailyard', substation:'BohemiaSubstation', chapel:'BohemiaChapel',
   courthouse:'BohemiaCourthouse', jail:'BohemiaJail', farm:'BohemiaFarm', downtown:'BohemiaDowntown',
-  trailer:'BohemiaTrailer', warehouse:'BohemiaWarehouse', waterpark:'BohemiaWaterpark', mall:'BohemiaMall'
+  trailer:'BohemiaTrailer', warehouse:'BohemiaWarehouse', waterpark:'BohemiaWaterpark', mall:'BohemiaMall',
+  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal'
 };
 function modOf(dist){ var n = MODMAP[dist]; return n ? window[n] : null; }
 

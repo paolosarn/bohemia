@@ -53,6 +53,9 @@
   var MLL= HASREQ ? require('./bohemia_mall.js')           : (typeof BohemiaMall!=='undefined'?BohemiaMall:root.BohemiaMall);
   var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
   var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
+  var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
+  var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
+  var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -94,7 +97,10 @@
     apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },
     warehouse:  { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
     waterpark:  { mod:WTP, foot:function(r){return r.footprints;},           zone:'leisure' },
-    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' }
+    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' },
+    cityhall:   { mod:CTY, foot:function(r){return r.footprints;},           zone:'civic' },
+    battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' }
   };
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }

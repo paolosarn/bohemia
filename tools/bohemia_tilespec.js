@@ -49,6 +49,9 @@ const DISTRICTS = [
   { name: 'warehouse',  mod: require('../engine/bohemia_warehouse.js') },
   { name: 'waterpark',  mod: require('../engine/bohemia_waterpark.js') },
   { name: 'mall',       mod: require('../engine/bohemia_mall.js') },
+  { name: 'cityhall',   mod: require('../engine/bohemia_cityhall.js') },
+  { name: 'battery',    mod: require('../engine/bohemia_battery.js') },
+  { name: 'terminal',   mod: require('../engine/bohemia_terminal.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;
