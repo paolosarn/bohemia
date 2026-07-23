@@ -30,6 +30,13 @@ by_id = {t['id']: t for t in bank['tiles']}
 teasers = [by_id[i]['b64'] for i in ('roof_shingle_2', 'wall_boarded_15', 'yard_mojavegold_28')]
 count = len(bank['tiles'])
 
+HEROBANK = 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt'
+hero_teasers = []
+if os.path.exists(HEROBANK):
+    hb = json.load(open(HEROBANK))
+    want = {('cityhall', 'standard'), ('battery', 'tall'), ('terminal', 'standard')}
+    hero_teasers = [h['b64'] for h in hb['heroes'] if (h['district'], h['variant']) in want]
+
 html = r"""<meta charset="utf-8">
 <title>BOHEMIA LIFE</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -40,6 +47,15 @@ html = r"""<meta charset="utf-8">
     The people-and-economy engine is built and parked (your 7/19 ruling: world first).
     This tab routes to what needs your eyes.
   </div>
+  <a href="BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">DISTRICT HEROES <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">NEEDS YOUR THUMBS</span></div>
+    <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
+      The 3/4-iso building that embodies each new district (City Hall, Battery yard, Transit
+      Terminal) for CITY BUILDER mode - two heights each, pick the silhouette. Thumb the
+      winners and they get married into the city's iso view.
+    </div>
+    <div style="display:flex;gap:6px;align-items:flex-end">__HEROTEASERS__</div>
+  </a>
   <a href="BOHEMIA_HOUSE_SKIN_JUDGE_7_21_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px">
     <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">HOUSE SKIN JUDGE <span style="font:600 10px sans-serif;background:#3f8c3f;color:#fff;border-radius:4px;padding:2px 6px;vertical-align:2px">ALL 30 CANON</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
@@ -68,6 +84,7 @@ html = r"""<meta charset="utf-8">
 </body>
 """
 imgs = ''.join('<img src="data:image/png;base64,%s" style="width:56px;height:56px;image-rendering:pixelated;border-radius:6px">' % b for b in teasers)
-html = html.replace('__TEASERS__', imgs).replace('__COUNT__', str(count))
+himgs = ''.join('<img src="data:image/png;base64,%s" style="height:68px;image-rendering:pixelated;border-radius:6px">' % b for b in hero_teasers)
+html = html.replace('__TEASERS__', imgs).replace('__HEROTEASERS__', himgs).replace('__COUNT__', str(count))
 open(CUR, 'w', encoding='utf8').write(html)
 print('LIFE hub -> %s (judge + dormant living block)' % CUR)
