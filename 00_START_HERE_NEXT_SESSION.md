@@ -8,6 +8,40 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## DISTRICT HEROES v1 GRAVEYARDED -> v2 ICONIC (7/23, same session). Paolo on
+## v1: "they were all dogshit... look at pocket city 2 buildings online... they
+## were all ICONIC you could tell what the building was and the purpose of it.
+## thumbs down on all of them."
+v1's six sprites (generic tan iso BOXES with tiny signature bits) are GRAVEYARDED
+(gates/bohemia_graveyard.txt token DISTRICT_HERO_v1_7_23_26; verdict record
+records/BOHEMIA_DISTRICT_HERO_VERDICT_7_23_26.txt). POST-MORTEM: a box with a
+small clock dot / indistinct gray cubes / a small canopy reads as NOTHING - the
+opposite of the iconic-readability ask. LESSON: a district hero must be read as
+its PURPOSE at a glance via DISTINCTIVE ARCHITECTURE, not a shared box.
+v2 (fresh cook, same factory file rewritten - the box approach must never
+re-ship): each hero is a real iconic building in our dead 3/4-iso world:
+- CITY HALL: a civic monument - columned PORTICO + grand STEPS + a domed CLOCK
+  CUPOLA + a dead flag + symmetric wings. Government at a glance.
+- BATTERY/POWER: tall lattice TRANSMISSION PYLONS w/ dead lines + TRANSFORMER
+  cylinders + a hazard-striped inverter house w/ a yellow LIGHTNING mark. Power
+  at a glance.
+- TERMINAL: a big sweeping BUTTERFLY CANOPY over dead BUSES at the bays + a tall
+  MARQUEE sign + a glass waiting hall. Transit at a glance.
+Built richer iso primitives in tools/bohemia_district_hero_factory.py (dome,
+colonnade, steps, lattice pylon, cylinder, sweeping canopy, bus) vs v1's lone
+box. REUSE-FIRST unchanged (stone/roof ramps from the CANON house-skin bank;
+iconic per-type colors are shifts + engine accents). DEAD act-1 treatment rides
+ON TOP (cracks, dead glass, tattered flag, dead buses) but the icon reads first.
+art_45_gate 'building' check tightened the sun contrast (lit 1.2 / shadow 0.62)
+so the 3/4 lit/shadow split is unmistakable (was diluted by city hall's symmetry).
+Judge (BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html) + LIFE hub updated to v2 (one
+strong iconic version per district, planted on iso ground). Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v2 in LIFE tab -> DISTRICT HEROES]. On his
+pick, wire the winners into the CITY tab iso renderer (renderCity switch(d),
+drawImage at p.sx/p.sy lifted by height, per the render map in this file below).
+GRAVEYARD REMINDER: never re-ship the v1 box approach; heroes are iconic
+architecture only.
+
 ## DISTRICT HERO BUILDINGS - 3/4-ISO EMBODIMENT FOR THE BUILDER (7/23, same
 ## session, Paolo: "for each district you made you have to make a sideways 45
 ## degree view of the building or embodiment of the district for the city

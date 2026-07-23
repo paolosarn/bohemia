@@ -1,0 +1,21 @@
+=== BOHEMIA DISTRICT HERO VERDICT 7/23/26 ===
+bank: DISTRICT_HERO_v1_7_23_26 (DEAD, graveyarded - this file is the record of the kill)
+
+cityhall standard: DOWN
+cityhall tall: DOWN
+battery standard: DOWN
+battery tall: DOWN
+terminal standard: DOWN
+terminal tall: DOWN
+
+GLOBAL: they were all dogshit. look at pocket city 2 buildings online and what they
+look like. they were all iconic - you could tell what the building was and the
+purpose of it. thumbs down on all of them.
+
+CLAUDE POST-MORTEM: v1 were generic tan iso boxes with tiny signature bits (a small
+clock dot, indistinct gray container cubes, a small canopy). Nothing read as its
+purpose at a glance. The ask was ICONIC + PURPOSE-LEGIBLE like Pocket City 2, where
+each building has distinctive architecture. v2 answers with real iconic forms:
+- CITY HALL: a domed/porticoed civic monument (columns, grand steps, cupola, flag)
+- POWER/BATTERY: transmission gantry towers + transformer cylinders + electrical read
+- TERMINAL: a big sweeping bus-depot canopy over readable bus bays + a marquee sign

@@ -34,7 +34,7 @@ HEROBANK = 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt'
 hero_teasers = []
 if os.path.exists(HEROBANK):
     hb = json.load(open(HEROBANK))
-    want = {('cityhall', 'standard'), ('battery', 'tall'), ('terminal', 'standard')}
+    want = {('cityhall', 'iconic'), ('battery', 'iconic'), ('terminal', 'iconic')}
     hero_teasers = [h['b64'] for h in hb['heroes'] if (h['district'], h['variant']) in want]
 
 html = r"""<meta charset="utf-8">
