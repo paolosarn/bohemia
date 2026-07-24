@@ -27,9 +27,9 @@ bank = json.load(open(BANK))
 heroes = bank['heroes']
 
 DISTRICTS = [
-    ('CITY HALL', 'cityhall', 'the REAL Las Vegas City Hall, baked from 3D: an angular GLASS TOWER that FILLS the block + a CURVED council chamber + a GROUND-LEVEL grand entrance + a SOLAR-CARPORT parking lot fed by a driveway. Modern Vegas.'),
-    ('BATTERY / POWER YARD', 'battery', 'baked from 3D: a block-filling POWER HALL + tall red-capped SMOKESTACKS + TRANSFORMERS (bushings on top) in a service yard + a hazard band. Ground-level loading + personnel doors.'),
-    ('TRANSIT TERMINAL', 'terminal', 'baked from 3D: a glass WAITING HALL + a big flat bay CANOPY over dead BUSES (the apron IS the vehicle surface) + a lit MARQUEE sign. Transit, at a glance.'),
+    ('CITY HALL', 'cityhall', 'MATCHED to the walkable district: an admin BLOCK + a CLOCK TOWER over the entrance + a forecourt PLAZA with a DRY FOUNTAIN + flagpoles. Same palette as the tile you walk (engine/bohemia_cityhall.js).'),
+    ('BATTERY (BESS YARD)', 'battery', 'MATCHED to the walkable district: a grid BATTERY-STORAGE yard — a control building + rows of BATTERY CONTAINERS with HVAC units + an INVERTER/TRANSFORMER rack + gravel + fence. Not a smokestack plant.'),
+    ('TRANSIT TERMINAL (1x1)', 'terminal', 'MATCHED to the walkable district: a waiting HALL + a SCHEDULE-BOARD CLOCK over the doors + a gray boarding CANOPY over a ROW of dead BUSES + a kiss-and-ride. Compact 1x1.'),
 ]
 
 meta = []
@@ -41,7 +41,7 @@ for h in heroes:
 html = r"""<meta charset="utf-8">
 <title>BOHEMIA DISTRICT HEROES 7/23</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<h1 id="hdr" style="font:600 15px/1.4 -apple-system,sans-serif;color:#cdbd8a;margin:10px 10px 4px">BOHEMIA - DISTRICT HEROES v5, BAKED FROM 3D (the "rethink the approach" you called). Each building is now modeled as real 3D volumes and rendered with real lighting + on-plane windows, then baked to a sprite - the way Pocket City actually makes them. City Hall = the real LV City Hall (glass tower + curved council chamber + solar-tree plaza). Battery = power hall + smokestacks + transformers. Terminal = glass hall + bay canopy + buses. Still dead-world (broken/boarded panes, dead solar panels). Thumbs the keepers; they get married into the CITY tab.</h1>
+<h1 id="hdr" style="font:600 15px/1.4 -apple-system,sans-serif;color:#cdbd8a;margin:10px 10px 4px">BOHEMIA - DISTRICT HEROES v7, MATCHED TO THE WALKABLE DISTRICT (Paolo 7/24, "damn near the same"). Each 1x1 hero is hand-built from its OWN district's landmarks + palette, so the city-builder sprite and the tile you walk on foot read as the same place. City Hall = admin block + clock tower + plaza + dry fountain. Battery = a grid battery-storage yard (containers + inverters + control building), NOT a smokestack plant. Terminal = waiting hall + schedule clock + canopy over a bus row. Dead-world, zero purple. Thumbs the keepers; they get married into the CITY tab.</h1>
 <div style="display:flex;gap:8px;padding:8px 10px;flex-wrap:wrap;position:sticky;top:0;z-index:5" id="bar">
   <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
   <button id="exp" style="padding:9px 13px;border-radius:8px;background:#3f8c3f;color:#fff;border:0">&#10515; EXPORT .txt</button>
