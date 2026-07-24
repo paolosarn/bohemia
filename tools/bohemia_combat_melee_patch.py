@@ -3472,13 +3472,45 @@ def patch48(demo):
     return demo
 
 
+def patch49(demo):
+    """v49 (Paolo 7/23, "I wrote like a whole big ass paragraph and then
+    I pressed and then it went all the way"): the v46 comment field was a
+    single-line <input>, which scrolls text SIDEWAYS as you type past its
+    width instead of wrapping -- confirmed live: typing a 271-char
+    paragraph left the box showing only its last ~40 characters, with
+    everything before it scrolled out of view to the left. The data was
+    never lost (captured + saved correctly underneath), but it LOOKED
+    broken, exactly what he described. Swapped to a real multi-line
+    <textarea> (2 rows tall by default, grows a bit, caps at a modest
+    max-height with internal scroll so it can't push the HP bar/board
+    too far down the screen) that wraps like text is supposed to. Also
+    dropped the Enter-submits-the-comment handler -- Enter in a textarea
+    should insert a line break like anywhere else; ADD is still there to
+    actually submit."""
+    if 'V49 COMMENT WRAPS' in demo:
+        print('v49 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <input id="lcinput" type="text" placeholder="comment while you play..." style="flex:1;min-width:0;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;">',
+        '    <textarea id="lcinput" rows="2" placeholder="comment while you play..." style="flex:1;min-width:0;max-height:90px;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;resize:vertical;overflow-y:auto;line-height:1.35;"></textarea>   <!-- V49 COMMENT WRAPS: a real multi-line box, not a single-line input that scrolls sideways -->',
+        'comment-box-wraps')
+
+    demo = sub1(demo,
+        "D('lcadd').addEventListener('click',addLiveComment);\nD('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });",
+        "D('lcadd').addEventListener('click',addLiveComment);   /* V49: Enter now just makes a line break, like any other multi-line box -- ADD submits */",
+        'comment-drop-enter-submit')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

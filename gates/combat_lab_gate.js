@@ -505,6 +505,11 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('G._popKnownThreats=new Set(G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).map(e=>e.i));') &&
     demo.includes('if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));') &&
     demo.includes('G._poppedGreen=false;   /* V48: single-use'));
+  // v49: the comment box wraps instead of scrolling sideways off-screen
+  ok('V49 COMMENT WRAPS: lcinput is a real multi-line textarea, not a single-line input that scrolls text out of view',
+    demo.includes('V49 COMMENT WRAPS') &&
+    demo.includes('<textarea id="lcinput"') &&
+    !demo.includes('<input id="lcinput" type="text"'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
