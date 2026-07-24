@@ -506,10 +506,15 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));') &&
     demo.includes('G._poppedGreen=false;   /* V48: single-use'));
   // v49: the comment box wraps instead of scrolling sideways off-screen
-  ok('V49 COMMENT WRAPS: lcinput is a real multi-line textarea, not a single-line input that scrolls text out of view',
-    demo.includes('V49 COMMENT WRAPS') &&
-    demo.includes('<textarea id="lcinput"') &&
-    !demo.includes('<input id="lcinput" type="text"'));
+  // v50 supersedes v49's box-growth attempt entirely -- Paolo: "I did not tell you to
+  // make a bigger multi box... there was no export copy button... all of my shit went away"
+  ok('V50 COMMENT COPY BUTTON: the comment box is back to compact (a single-line input, not v49\'s grown textarea), and a COPY button sits right in the same row through the same proven export rail as jexport',
+    demo.includes('V50 COMMENT COPY BUTTON') &&
+    demo.includes('<input id="lcinput" type="text"') &&
+    !demo.includes('<textarea id="lcinput"') &&
+    demo.includes('id="lccopy"') &&
+    demo.includes("const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');") &&
+    demo.includes("parent.postMessage({bohemiaExport:{name:'combat_comments.txt',text:t}},'*');"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

@@ -3487,7 +3487,7 @@ def patch49(demo):
     dropped the Enter-submits-the-comment handler -- Enter in a textarea
     should insert a line break like anywhere else; ADD is still there to
     actually submit."""
-    if 'V49 COMMENT WRAPS' in demo:
+    if 'V49 COMMENT WRAPS' in demo or 'V50 COMMENT COPY BUTTON' in demo:
         print('v49 already applied, skipping')
         return demo
 
@@ -3504,13 +3504,61 @@ def patch49(demo):
     return demo
 
 
+def patch50(demo):
+    """v50 (Paolo 7/23, correcting v49: "I did not tell you to make a
+    bigger multi box... all I was saying is that there was no export
+    copy button I pressed add and all of my shit went away"): v49
+    misread the complaint as a text-scrolling bug and grew the box
+    (rows=2, max-height 90px) -- eating screen space he explicitly didn't
+    want to give up, and not even the real problem. The real problem: ADD
+    clears the input (by design, it moves the text into jnotes) but
+    there was no visible way to get that text back out short of digging
+    into SETTINGS for the COPY EXPORT button -- so from where he's
+    sitting, typing a comment and tapping ADD just makes it vanish.
+    FIX: revert the box back to the original compact single-line input
+    (undo v49's size growth entirely), and add a small COPY button right
+    in that same row, wired through the exact same proven export rail
+    jexport already uses (sync clipboard write, async clipboard
+    fallback, THEN post up to the parent app's export panel -- the
+    reliable rail on mobile/iOS) so his comments are one tap away without
+    ever opening settings."""
+    if 'V50 COMMENT COPY BUTTON' in demo:
+        print('v50 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <textarea id="lcinput" rows="2" placeholder="comment while you play..." style="flex:1;min-width:0;max-height:90px;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;resize:vertical;overflow-y:auto;line-height:1.35;"></textarea>   <!-- V49 COMMENT WRAPS: a real multi-line box, not a single-line input that scrolls sideways -->\n    <button id="lcadd" class="cbtn">ADD</button>',
+        '    <input id="lcinput" type="text" placeholder="comment while you play..." style="flex:1;min-width:0;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;">   <!-- V50: back to compact, size was never the real problem -->\n    <button id="lcadd" class="cbtn">ADD</button>\n    <button id="lccopy" class="cbtn">COPY</button>   <!-- V50 COMMENT COPY BUTTON: right here, no trip to settings needed -->',
+        'comment-box-compact-plus-copy')
+
+    demo = sub1(demo,
+        "D('lcadd').addEventListener('click',addLiveComment);   /* V49: Enter now just makes a line break, like any other multi-line box -- ADD submits */",
+        """D('lcadd').addEventListener('click',addLiveComment);
+D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });   /* V50: single-line input again, Enter submits like before */
+D('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no settings trip -- same proven rail as jexport */
+  const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');
+  if(!t.trim()){ b.innerHTML='<b>NOTHING YET</b>'; setTimeout(()=>{b.innerHTML='COPY';},1400); return; }
+  let ok=false;
+  try{const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;left:-999px;font-size:16px';
+    document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,t.length);ok=document.execCommand('copy');document.body.removeChild(ta);}catch(_e){}
+  if(!ok&&navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{},()=>{});}
+  if(window.parent&&window.parent!==window){
+    try{parent.postMessage({bohemiaExport:{name:'combat_comments.txt',text:t}},'*');
+      b.innerHTML='<b>'+(ok?'COPIED + ':'')+'SENT &#8599;</b>';}catch(_e){b.innerHTML='<b>'+(ok?'COPIED</b>':'COPY BLOCKED</b>');}}
+  else b.innerHTML='<b>'+(ok?'COPIED':'select + copy manually')+'</b>';
+  setTimeout(()=>{b.innerHTML='COPY';},2200); });""",
+        'comment-copy-wire')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
