@@ -40,6 +40,7 @@ Run from repo root: python3 tools/bohemia_district_hero_factory.py
 import base64
 import io
 import json
+import math
 import os
 import sys
 
@@ -59,6 +60,23 @@ def _sample_mean(bank, cls, idx=0):
     t = ts[idx % len(ts)]
     a = np.asarray(Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGB')).reshape(-1, 3)
     return tuple(a.mean(0).astype(int))
+
+
+def _fit(scene, scale, margin=14):
+    """Auto-size the canvas + origin so the ENTIRE scene — the whole square plot
+    AND the building on it — is in frame with a margin. (Paolo: 'you made it so I
+    can't see the whole square tile' — the 18-unit plot's iso diamond ran off the
+    hardcoded canvas. Now the frame always contains the full tile.)"""
+    xs, ys = [], []
+    for verts, _uv, _n, _m in scene.faces:
+        for (x, y, z) in verts:
+            xs.append((x - y) * scale)
+            ys.append((x + y) * scale * 0.5 - z * scale)
+    minx, maxx = min(xs), max(xs)
+    miny, maxy = min(ys), max(ys)
+    w = int(math.ceil(maxx - minx)) + 2 * margin
+    h = int(math.ceil(maxy - miny)) + 2 * margin
+    return w, h, (margin - minx, margin - miny)
 
 
 def _anchor(scene, origin, scale):
@@ -134,7 +152,7 @@ def build_cityhall(masonry):
         z = 5.2
         s.quad((px - 1.1, py - 0.78, z + 0.5), (px + 1.1, py - 0.78, z - 0.25),
                (px + 1.1, py + 0.78, z - 0.25), (px - 1.1, py + 0.78, z + 0.5), PV, (0.35, 0, 0.94))
-    return s, 190, 240, (112, 150), 8.2
+    return s, 7.0
 
 
 # ---------------------------------------------------------------- battery / power
@@ -169,7 +187,7 @@ def build_battery(masonry):
         s.box((cx3 - 0.15, 3.25, 4.6), (0.3, 0.3, 0.9), STEEL)
     # hazard band low across the hall front
     s.box((0, -0.4, 0.6), (8.6, 0.35, 0.8), HAZ)
-    return s, 190, 216, (80, 116), 7.6
+    return s, 7.2
 
 
 # ---------------------------------------------------------------- terminal
@@ -199,7 +217,7 @@ def build_terminal(masonry):
     # a tall marquee sign at the front corner (clear of the hall)
     s.box((11.4, 7.0, 0), (0.4, 0.4, 7.2), MARQ)
     s.box((10.7, 6.4, 5.8), (1.8, 0.35, 1.9), SIGN)
-    return s, 186, 158, (88, 106), 7.6
+    return s, 7.2
 
 
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal}
@@ -225,7 +243,8 @@ def main():
         'heroes': [],
     }
     for d, fn in HEROES.items():
-        scene, w, h, origin, scale = fn(masonry)
+        scene, scale = fn(masonry)
+        w, h, origin = _fit(scene, scale)
         img = bake(scene, w, h, origin=origin, scale=scale, ss=4)
         bx, by = _anchor(scene, origin, scale)
         buf = io.BytesIO(); Image.fromarray(img, 'RGBA').save(buf, 'PNG')
