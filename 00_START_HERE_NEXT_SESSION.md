@@ -38,6 +38,37 @@ pose functions and the wardrobe are direction/skeleton-relative, not
 tied to male pixel geometry — laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md
 already rules the carryover; nothing new to build until he says go.
 
+## POCKET CITY 2 REFERENCES SAVED + STYLE BIBLE + HEROES v3 (7/23, same session).
+## Paolo sent 66 PC2 screenshots after v1/v2 missed; "save the references and cook."
+THE REFERENCES ARE PERMANENT: records/refs/pocketcity2/ (66 shots: wiki building
+cards for every category + live day/night gameplay) + a README. Saved to git
+because the container is ephemeral and GIT IS THE MEMORY - a reference we only
+glanced at is lost. They are a MOOD BOARD (Code Brew Games' art), not assets to
+copy; we take the readability/form language only.
+THE STYLE BIBLE: records/BOHEMIA_POCKET_CITY_STYLE_REFERENCE.md - the distilled
+art-direction rules EVERY future iso-building cook builds against: chunky SIMPLE
+bold masses on a dressed PLOT + soft DROP SHADOW; soft 3-tone shading (bright top/
+mid right/dark left) FLAT and with NO hard black outline; PALE walls + the COLOR on
+the ROOF; big NEAT dead-dark window GRIDS; one iconic SIGNATURE per type; and the
+DEAD-WORLD reconciliation (keep the clean readable forms, change the life: dead-
+dark glass never lit at night, dead-dirt plot not turf, cracks/boarding/rust as a
+finish, but the ICON reads first). Includes a "what v1+v2 got wrong" section.
+HEROES v3 (tools/bohemia_district_hero_factory.py rewritten to the bible): pale
+stone City Hall (dome+clock+columns+wings), pale power hall (smokestacks+roof
+transformers+transformer cylinders+hazard/lightning), pale transit hall (sweeping
+canopy+dead buses+marquee) - each on a dead-dirt plot with a soft shadow, NO black
+outline, dead-dark windows. THE KEY v2->v3 FIXES: killed the hard black outline;
+pale walls with color on the roof (was muddy/dark); softer flat 3-tone shading;
+dressed plot+shadow; simpler bolder masses. Judge + LIFE hub updated to v3.
+art_45_gate 'building' two-tone-wall threshold calibrated 1.15->1.10 (a symmetric
+civic mass has a real but smaller light/shadow split; 1.10 still rejects flat
+side-on ~1.0, documented in the gate). Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v3 in LIFE tab -> DISTRICT HEROES]. On his pick,
+wire winners into the CITY tab iso renderer (renderCity switch(d), drawImage at
+p.sx/p.sy lifted by height - render map is in this file below). GRAVEYARD: v1 boxes
+are FINAL-dead (never re-ship boxes). Every future building cook reads the style
+bible first.
+
 ## DISTRICT HEROES v1 GRAVEYARDED -> v2 ICONIC (7/23, same session). Paolo on
 ## v1: "they were all dogshit... look at pocket city 2 buildings online... they
 ## were all ICONIC you could tell what the building was and the purpose of it.

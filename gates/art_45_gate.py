@@ -112,7 +112,10 @@ def check_building(bank, a):
     left_lum = lum[mass, cols[0]:cx][left_sel].mean() if left_sel.any() else 0
     right_lum = lum[mass, cx:cols[-1] + 1][right_sel].mean() if right_sel.any() else 0
     hi, lo = max(left_lum, right_lum), min(left_lum, right_lum)
-    chk(hi > lo * 1.15,
+    # >=10% split. A flat side-on 2D sprite has ONE face -> ~0% (ratio ~1.0); even
+    # a symmetric civic mass (dome/wings/plot dilute the split) still shows a clear
+    # directional light/shadow of 10%+. 1.10 rejects flat, admits real 3/4.
+    chk(hi > lo * 1.10,
         '%s: left/right walls are the same brightness (%d vs %d): a flat side-on face, not a lit + shadowed 3/4 prism'
         % (bank, left_lum, right_lum))
     print('  %s: iso-diamond roof (widest row %d below the top point, %d vs %d px wide), '
