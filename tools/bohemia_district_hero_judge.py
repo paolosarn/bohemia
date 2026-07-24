@@ -65,22 +65,21 @@ function compose(cv,m){
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   ctx.clearRect(0,0,W,H);
   ctx.imageSmoothingEnabled=false;
-  const im=img(m); const scale=Math.min((H-30)/m.h,(W-30)/m.w,3.2);
+  const im=img(m);
+  // FIT THE WHOLE HERO IN FRAME (Paolo 7/24: "i cant see the bottom of the shit").
+  // The sprite carries its own baked plot which extends both above and below its
+  // anchor; scale to fit BOTH axes and CENTER it so nothing — top, bottom, or the
+  // plot's front edge — is ever cropped.
+  const scale=Math.min((H-16)/m.h,(W-16)/m.w,3.2);
   const dw=m.w*scale, dh=m.h*scale;
-  // the ground diamond, centered horizontally, near the bottom
-  const gx=W/2, gy=H-28;
-  const TWd=Math.max(dw*0.9,90), THd=TWd/2;
-  ctx.fillStyle=SUN?'#a8927088':'#5a503e';         // a soft ground shadow pool
+  const ox=(W-dw)/2, oy=(H-dh)/2;
+  // a soft ground shadow under the plot (at the sprite's ground-center anchor)
+  const gx=ox+m.bx*scale, gy=oy+m.by*scale;
+  const TWd=Math.max(dw*0.6,80), THd=TWd/2;
+  ctx.fillStyle=SUN?'#a8927055':'#00000040';
   ctx.beginPath();
   ctx.moveTo(gx,gy-THd/2); ctx.lineTo(gx+TWd/2,gy); ctx.lineTo(gx,gy+THd/2); ctx.lineTo(gx-TWd/2,gy);
   ctx.closePath(); ctx.fill();
-  // the dead-dirt ground tiles behind (a small patch so it reads as terrain)
-  ctx.fillStyle=SUN?'#9c8a68':'#463f30';
-  ctx.beginPath();
-  ctx.moveTo(gx,gy-THd/2-1); ctx.lineTo(gx+TWd/2+1,gy); ctx.lineTo(gx,gy+THd/2+1); ctx.lineTo(gx-TWd/2-1,gy);
-  ctx.closePath(); ctx.stroke ? (ctx.strokeStyle=SUN?'#7d6e54':'#38321f', ctx.lineWidth=2, ctx.stroke()) : 0;
-  // the hero: base anchor (bx,by) lands on the diamond center (gx,gy)
-  const ox=gx-m.bx*scale, oy=gy-m.by*scale;
   ctx.drawImage(im,0,0,m.w,m.h,ox,oy,dw,dh);
   if(SUN){ ctx.fillStyle='rgba(255,246,214,0.10)'; ctx.fillRect(0,0,W,H); }
 }
@@ -106,7 +105,7 @@ function build(){
       const t=document.createElement('div');
       t.style.cssText='font:600 13px monospace;color:'+(SUN?'#3a3320':'#cdbd8a');
       t.textContent=m.variant.toUpperCase()+' massing'; card.appendChild(t);
-      const cv=document.createElement('canvas'); cv.width=320; cv.height=300;
+      const cv=document.createElement('canvas'); cv.width=330; cv.height=300;
       cv.style.cssText='width:100%;image-rendering:pixelated;border-radius:6px;margin-top:6px;display:block';
       card.appendChild(cv);
       const draw=()=>compose(cv,m);
