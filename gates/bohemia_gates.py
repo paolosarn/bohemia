@@ -152,6 +152,8 @@ GATES = [
      'the 7/19 calibration is the floor: no stale save bulldozes it, every menu rebakes', False),
     ('COMBAT ANIM',    ['node', 'gates/combat_anim_gate.js'],
      'combat moves b13: crouch lived, rise/drop, gun-walk, swings, shove/topple read', False),
+    ('HERO BEAT',      ['node', 'gates/herobeat_gate.js'],
+     'per-song hero beat picker: MUSIC tab UI, the bus, combat resolves + shifts the dial clock', False),
     ('OPEN COAT',      ['node', 'gates/open_coat_gate.js'],
      'jackets/coats open in front, clothes show underneath', False),
     ('HOODIE',         ['node', 'gates/hood_gate.js'],

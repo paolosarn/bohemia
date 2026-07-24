@@ -8,6 +8,55 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## HERO BEAT PICKER SHIPPED (7/23, character/sound session, Paolo: "lets
+## pick the hero part of the beat")
+Full mechanism for records/BOHEMIA_HERO_BEAT_7_23_26.txt's ask: per-song,
+which of the bar's 4 quarter-beats is the catchy one Paolo wants kills to
+snap onto, instead of always assuming beat 1. Locked at quarter-note
+resolution (confirmed with him directly: the dial has no code path finer
+than a whole 120-grid beat, so 8th/16th would just get rounded away).
+NO SEPARATE AUDITION TOOL -- the real song IS the audition. MUSIC tab: hit
+PLAY like always, a new HERO BEAT control on that row (4 tap buttons + a
+live 4-dot indicator synced to MUS.uiStep) lets him tap the beat he hears
+as the money one while it plays. Saves instantly (MUS.hero, localStorage),
+pushes live to combat if it's listening.
+MECHANISM: combat's per-pattern phase-lock (PHASE[pat]) already lands the
+kill-moment on A whole beat -- that was already correct and shipped. What
+was missing was WHICH beat it targeted (always effectively beat 1). Fixed
+by shifting the ONE place combat samples the shared clock into its dial
+clock (`G.beatClock=beatNow()`, 3 call sites) by `-heroOffset()` beats
+(hero pick - 1). Zero changes to the dial's own pattern math, zero changes
+to the audible groove (kick/bass/hat play the real authored pattern
+untouched) -- only which beat of it the visual kill-lock targets.
+Data flows song1/song2/every category-pool vibe independently: MUS.hero
+map -> musicPushToCombat (factions/song2/pools all carry their own pick)
+-> combat's message handler (f._hero1) -> applySlot resolves f.hero fresh
+per active slot (hero deliberately NOT in POOL_FIELDS -- no canon baseline
+to restore, resolved fresh instead) -> heroOffset() -> the 3 beatClock
+sites.
+VERIFIED LIVE (not just gate-green): headless Playwright against the real
+alpha, clicked a HERO BEAT button, confirmed it saved; opened the REAL
+combat tab (genuine boot, ~15-45s in this container, not shortcut),
+confirmed the picked value actually reaches FACTIONS[i]._hero1 through the
+real postMessage bus and the offset math shifts by exactly the picked
+amount. Zero console/window.onerror across both documents.
+CAUGHT MID-BUILD (own QA): first pass re-encoded COMBAT_B64 from a stale
+scratch decode taken before this same session's earlier crawl-dying-fix
+ship had merged in a parallel combat session's V50 (compact comment box +
+copy button) -- would have silently reverted V50. Caught by the full gate
+suite (combat_lab_gate, 5 failures) before shipping, fixed by re-decoding
+fresh from HEAD and re-applying the hero-beat edits on top of THAT.
+STANDING LESSON (twice in one session now): never re-embed COMBAT_B64 from
+an earlier scratch decode -- always decode fresh from the current working
+tree/HEAD right before editing, since parallel combat sessions land real
+changes in that same blob. Run the FULL gate suite before every ship, not
+a spot check, or a silent revert like this ships clean.
+Gate: gates/herobeat_gate.js (new, 19 checks), registered in
+gates/bohemia_gates.py. Full suite green. Stamp: BUILD 7/23q.
+STILL OPEN: mechanism only, empty of content (MECHANISM-MINE/CONTENTS-
+PAOLO'S) -- he hasn't picked hero beats for any song yet. Default (unset =
+beat 1) is exactly today's behavior, zero urgency.
+
 ## CRAWL-DYING FIX — PAOLO CAUGHT A REAL VERIFY-ON-THE-REAL-SURFACE MISS
 ## (7/23, same session, "soft crawl dying does not look like crawl dying,
 ## it's really bad")

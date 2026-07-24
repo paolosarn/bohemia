@@ -1,0 +1,99 @@
+BOHEMIA — HERO BEAT PICKER (7/23/26, character/sound session)
+==============================================================================
+Paolo's ask: "for each song in the combat pool, sit and listen to it and pick
+out BY EAR which specific beat in the bar -- not just always beat 1 -- is the
+catchiest, easiest-to-anticipate moment, the one I'd want combat kills
+snapping onto. Bake that pick into the song's data as an accent offset, so
+combat's existing beat-lock follows MY pick instead of assuming beat 1."
+
+RESOLUTION: locked at quarter-note (1-of-4-beats-per-bar). Confirmed with
+Paolo directly: the dial has no code path finer than a whole 120-grid beat
+(every dial pattern's cycle is a whole number of beats, phase-shifted so its
+kill-moment lands exactly on a beat boundary) -- an 8th/16th pick would just
+get rounded away before it reached the dial. 4 slots is the real ceiling.
+
+HOW IT WORKS
+------------
+No separate audition tool -- the real song IS the audition. In the MUSIC
+tab, hit PLAY on any song slot like always; a new HERO BEAT control sits on
+that row: 4 tap buttons (1/2/3/4) plus a live 4-dot indicator that lights up
+in sync with MUS.uiStep (quarter-beat = Math.floor(uiStep/4)) while that
+slot plays. Listen, tap the beat you like. Saves instantly (MUS.hero[key],
+key = "SONGNAME#slot", rides MUS.save()/localStorage) and pushes live into
+combat immediately via musicPushToCombat() if it's listening. Unset = beat 1
+= today's behavior, unchanged -- nothing needs picking before this ships.
+
+THE MECHANISM (why this was safe to build without touching the dial itself)
+-----------------------------------------------------------------------
+Combat's own per-pattern phase-lock (PHASE[pat], tickPat) already lands the
+kill-moment on A whole 120-grid beat -- that part was already correct and
+already shipped ("release on the beat = killshot" already felt right).
+What was missing was WHICH beat of the bar that lock targeted -- it was
+always effectively beat 1. The fix touches exactly one thing: every place
+combat samples the shared clock into its dial clock (`G.beatClock=
+beatNow()`, 3 call sites) now subtracts `heroOffset()` beats (0..3, = hero
+pick - 1) before sampling. That's it -- shift WHEN the dial starts counting
+by (hero-1) beats, and its existing whole-beat-cycle lock recurs on the
+picked beat instead of always beat 1. No change to PHASE[], no change to
+the audible kick/bass/hat pattern (the song plays its real authored groove
+untouched) -- only which beat of that groove the VISUAL kill-lock targets.
+
+DATA FLOW (song 1, song 2, and every category-pool vibe all carry their own
+independent pick)
+------------------------------------------------------------------------
+MUSIC tab (MUS.hero map, keyed "NAME#slot")
+  -> musicPushToCombat(): out.factions[nm].hero (song 1), out.song2[nm].hero
+     (song 2's own pick), pool song c.hero (every vibe Paolo tagged to a
+     faction carries its own pick onto the bus)
+  -> combat's bohemiaMusic message handler: f._hero1=e2.hero (song 1's pick
+     lives on the faction object, resolved per-slot below)
+  -> applySlot(f,slot): resolves f.hero fresh every slot switch -- slot 2
+     reads its own override, a pool object reads its own .hero, slot 1
+     falls back to f._hero1. (hero is deliberately NOT in POOL_FIELDS: that
+     array's restore/backup only makes sense for fields with a canon
+     baseline on the hardcoded FACTIONS array; hero has none, so it's
+     resolved fresh instead of restored.)
+  -> heroOffset(): const f=FAC(); (f.hero||1)-1
+  -> the 3 G.beatClock=beatNow() call sites all now read
+     G.beatClock=beatNow()-heroOffset()
+
+VERIFIED LIVE, not just gate-green: headless Playwright against the real
+alpha (pre-installed Chromium, /opt/pw-browsers). Opened the MUSIC tab,
+clicked a HERO BEAT button, confirmed MUS.hero saved and the live dot
+indicator lit correctly. Opened the real COMBAT tab (its own genuine boot,
+no shortcuts -- takes 15-45s in this constrained container to fully init,
+which is why the first pass of this verification looked broken until the
+wait was long enough), confirmed the picked value actually lands on
+FACTIONS[i]._hero1 via the real postMessage bus, applySlot resolves it into
+f.hero, and heroOffset()/G.beatClock math shifts by exactly the picked
+amount. Zero console errors, zero window.onerror, across both documents.
+
+MISTAKE CAUGHT MID-BUILD (own QA, not Paolo): first pass re-encoded
+COMBAT_B64 from a stale scratch decode taken BEFORE a parallel combat
+session's V50 (compact comment box + copy button) had landed in this same
+session's earlier crawl-dying-fix ship -- re-embedding it would have
+silently reverted V50. Caught by the full gate suite (COMBAT LAB gate,
+5 failures, all V45-V50 checks) before shipping. Fixed by re-decoding
+COMBAT_B64 fresh from the last commit (which has V50) and re-applying the
+hero-beat edits on top of THAT, instead of the stale scratch file. Full
+suite green after.
+
+Gate: gates/herobeat_gate.js (new, 19 checks) -- MUS.hero persists, the
+MUSIC tab UI exists and is wired into every song row, the bus forwards hero
+for factions/pools/song2, combat receives + resolves it per-slot,
+heroOffset() computes right, all 3 beatClock sites apply it. Registered in
+gates/bohemia_gates.py. Full suite green (including combat_lab_gate and
+combat_anim_gate, both re-verified untouched).
+
+STANDING LESSON, same as the crawl-dying fix same day: when re-embedding
+COMBAT_B64, always decode FRESH from the current HEAD/working tree, never
+reuse an earlier scratch decode -- parallel combat sessions land real
+changes in the same blob and a stale re-embed silently reverts them. The
+full gate suite is what catches this if it happens again; run it before
+every ship, not just spot-checks.
+
+STILL OPEN: Paolo hasn't actually picked hero beats for any song yet --
+this ships the MECHANISM, empty (MECHANISM-MINE/CONTENTS-PAOLO'S). Next
+time he's in the MUSIC tab: play a faction's song, watch the 4 dots, tap
+the one that feels like the money beat. [PENDING Paolo's ear, whenever he
+gets to it -- no urgency, the default (beat 1) is exactly today's behavior.]
