@@ -8,6 +8,49 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## A REAL, UNDRIVEABLE STREET BUG — FOUND, ROOT-CAUSED, FIXED (7/24, same
+## session, "keep doin what ur spose to do and know what comes next")
+Went back to re-audit the landlocked_gate.js residual I'd left alone since
+7/21, looking for anything fresh rather than re-polishing the MAP tab
+again. Its gap breakdown showed something new and wrong: an 'arterial'
+entry — a STREET type appearing in a check that's supposed to only ever
+flag DISTRICT types with no road access. Streets don't need "access to a
+street," they ARE the street; something was miscategorized.
+ROOT-CAUSED, not just patched: a mile-arterial line running 70+ cells
+continuous gets CHOPPED when a landmark (a desert TOWN, in this case)
+lands directly across its path — the fragments on either side of the
+landmark survive as placed, but if the far side never reconnects (blocked
+by water, in the case I traced: seed 42, row y=90, a TOWN block flanked
+by two now-isolated 1-cell arterial stubs, one of them ALSO boxed in by
+water on its far side), you get a genuinely undriveable 1-tile road
+island. Neither reconnection mechanism this engine has could ever touch
+it: landlockConnect and the access spur both reconnect a DISTRICT to a
+street — a broken STREET FRAGMENT isn't a district, so it was invisible
+to both. Confirmed via direct traversal (dumped the full row, walked the
+4-neighbor check) before writing any fix.
+FIX: engine/bohemia_overmap.js gets a new cleanup pass (right before the
+access spur, so the spur sees the clean grid) that demotes any road cell
+(arterial/freeway/strip/beltway — the 4 real street types) with ZERO road
+neighbor in any direction back to DESERT. Safe by construction: all 4 of
+those types are continuous lines/spines/rings by design, so a genuine
+lone cell is always a generator artifact, never intentional geometry —
+this can't misfire on real street layout. Verified: 0 orphaned road cells
+across seeds 1337/42/99 (was 1 each in 42 and 99), landlocked_gate's
+'arterial' gap entries gone, every other (real, already-known) residual
+type unchanged.
+SECOND FINDING, closing the actual coverage hole: gates/street_
+connectivity_gate.js — the gate whose whole JOB is exactly this kind of
+break — had tested ONE hardcoded seed (12345) its entire life. Seed 12345
+never had this bug; seeds 42/99 did. Its own "GLOBAL CONNECTIVITY" flood-
+fill check would have caught this instantly had it ever looked at those
+seeds. Extended it to the same multi-seed pattern already used everywhere
+else (gates/landlocked_gate.js's [1337,42,99] list, now [12345,1337,42,99]
+here) — this class of seed-specific bug can no longer hide behind a single
+lucky seed. Gate now 12/12 across 4 seeds (was 3/3 on 1).
+Re-synced everything embedding bohemia_overmap.js byte-locked (MAP tab,
+CITY tab's standalone page, AND the live alpha's CITY_B64 via the surgical
+resync tool — all three, ENGINE SYNC LAW). Full suite green after.
+
 ## FIND SHOWS EVERY MATCH ON THE MAP, NOT JUST THE NEAREST (7/24, same
 ## session, Paolo "fire" reaction to FIND -> "know whats next do what ur
 ## spose too"). Also: audited gates/ for other silently-unregistered gates

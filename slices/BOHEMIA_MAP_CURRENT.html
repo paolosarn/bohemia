@@ -38,7 +38,7 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:b8ce9e9fd1f453f3d3896bf9c8d5f16e -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
-<!-- engine-md5:engine/bohemia_overmap.js:87d88014ce62d9ae1a2ec31e49f744a8 -->
+<!-- engine-md5:engine/bohemia_overmap.js:9e5e6612cfa5f55bc352918e66491342 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:530d913e483b7ae4ce57e3b69065f730 -->
@@ -5573,6 +5573,30 @@ function buildOvermap(seed){
     lPath(under.aqueduct, L.intake.x, L.intake.y, L.watertreat.x+1, L.watertreat.y+1);
     lPath(under.aqueduct, L.watertreat.x+1, L.watertreat.y+1, L.pumpstation.x, L.pumpstation.y);
     for(const rv of L.reservoirs){ lPath(under.aqueduct, L.pumpstation.x, L.pumpstation.y, rv.x, rv.y); }
+  }
+  // ORPHANED ROAD CLEANUP (7/24/26, world-model research pass): a mile-arterial line can
+  // get CHOPPED when a landmark (a desert TOWN, most often) gets placed directly across
+  // its path — the line's cells on either side of the landmark survive as placed, but if
+  // the far side never reconnects (blocked by water/mountain/another landmark), a bare
+  // 1-cell road stub is left with NO road neighbor in any direction: undriveable, useless,
+  // invisible to every reconnection mechanism this engine has (landlockConnect and the
+  // access spur below both reconnect a DISTRICT to a street — neither touches a broken
+  // STREET fragment, because a road isn't a "district" needing access to itself). Found via
+  // landlocked_gate.js incidentally flagging an 'arterial' entry in its gap breakdown (it
+  // was never designed to catch this — a street fragment isn't a landlocked district — but
+  // the audit surfaced it anyway). A 1-cell island of road can never legitimately be
+  // reached or driven; demoting it to DESERT (an always-valid tile) is strictly safer than
+  // leaving a phantom street that goes nowhere. ROAD = {freeway,arterial,strip,beltway}
+  // only — every one of those types is a continuous line/spine/ring by design, never a
+  // legitimate lone cell, so this can't misfire on real, intentional road geometry.
+  {
+    const isRoadCell=(x,y)=>{ const c=at(x,y); return !!c&&!!ROAD[c.district]; };
+    for(const t of tiles){
+      if(!ROAD[t.district])continue;
+      let hasRoadNeighbor=false;
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ if(isRoadCell(t.x+dx,t.y+dy)){hasRoadNeighbor=true;break;} }
+      if(!hasRoadNeighbor) t.district=DISTRICT.DESERT;
+    }
   }
   // LANDMARK ACCESS SPUR (Paolo 7/21/26, LANDLOCKED DISTRICT LAW residual close-out): the
   // same-family relay (bohemia_world.js buildLandlockConnect) can't help an ISOLATED cell with
