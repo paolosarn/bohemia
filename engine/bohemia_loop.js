@@ -33,10 +33,13 @@
   const Sched = (typeof require !== 'undefined')
     ? require('./bohemia_scheduler.js')
     : (root.BohemiaScheduler);
-  const mod = factory(E, Sched);
+  const World = (typeof require !== 'undefined')
+    ? require('./bohemia_world.js')
+    : (root.BohemiaWorld);
+  const mod = factory(E, Sched, World);
   if (typeof module !== 'undefined' && module.exports) module.exports = mod;
   if (typeof root !== 'undefined') root.BohemiaLoop = mod;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World) {
   'use strict';
 
   const Core = E.Core;
@@ -64,9 +67,9 @@
       scheduler: null,    // Scheduler — the "I move, you move" grid clock. [WIRED at boot]
 
       // --- LAYER 4: CONTENT SYSTEMS [ISLAND — sockets ready, internal gaps marked] ---
-      worldMap: null,     // WorldGen.generateWorld(seed). [SEAM: reseed from rng.branch('worldgen')]
+      worldMap: null,     // buildRealWorldMap(seed) — the REAL canon valley (bohemia_world.js), same one live in CITY/MAP tabs. [WIRED at boot]
       factions: null,     // Factions.FactionWorld, canon-loaded from BOHEMIA_faction_graph.json. [WIRED at boot]
-      factionBases: null, // factionId -> {x,y} real worldMap.factionSlots coord. [WIRED at boot]
+      factionBases: null, // factionId -> {x,y} real worldMap district coord. [WIRED at boot]
       factionConstraints: null, // FactionCanon.loadFactionCanon() result; enforced on every shiftStanding. [WIRED at boot]
       economy: null,      // Economy.Economy, one empty DistrictEconomy per worldMap district. [WIRED at boot; faucets/sinks are content, not poured here]
       spawner: null,      // Entities.Spawner, shared instance keyed on save.seed + ctx.deltas. [WIRED at boot]
@@ -123,15 +126,31 @@
     return ctx;
   }
 
+  // Real-world terrain block: only genuinely solid overmap cells (mountain,
+  // water) stop a body; every buildable/street/desert cell is walkable at this
+  // coarse overworld scale (building/interior collision is a [SEAM] for later,
+  // same as the old stub — this only replaces the terrain floor with real
+  // geography instead of a synthetic border band).
+  const TERRAIN_BLOCK = { mountain: 1, water: 1 };
+  function passableFromRealWorld(worldMap) {
+    const w = worldMap.real, size = worldMap.size;
+    return function passable(x, y) {
+      if (x < 0 || y < 0 || x >= size || y >= size) return false;   // off-map
+      const c = w.at(x, y);
+      if (!c) return false;
+      return !TERRAIN_BLOCK[c.district];
+    };
+  }
+
   // 3b. The world-turn / grid clock: the "I move, you move" scheduler. Real,
   //     poured now — it's tested [SOLID]. Player is actor #0; the world advances
   //     grid position only on commitPlayerAction. Animation stays on the heartbeat.
   function bootScheduler(ctx) {
-    // passable now reads the REAL map geography (mountain walls, map bounds) if a
-    // world was generated. Actors can no longer phase through the world. Falls
+    // passable now reads the REAL map geography (mountain/water, map bounds) if
+    // a world was generated. Actors can no longer phase through the world. Falls
     // back to always-passable only if worldgen hasn't run (headless bare tests).
     const passable = ctx.worldMap
-      ? E.WorldGen.passableFromMap(ctx.worldMap)
+      ? passableFromRealWorld(ctx.worldMap)
       : function () { return true; };
 
     // Deltas are the only thing that persists (they live in the save). Rehydrate
@@ -157,15 +176,35 @@
     return ctx;
   }
 
-  // 4. World generation. [SEAM] — call exists, but reseeding from the shared RNG
-  //    branch is the one-line change the map calls for; not done until we choose
-  //    to (keeps this a scaffold, not a behavior change).
+  // Build ctx.worldMap from the REAL, live canon world model (bohemia_world.js
+  // — the same 33-district-type, real-street, real-connectivity valley that's
+  // already live in the CITY/MAP tabs), not the old abstract point-scatter
+  // WorldGen this scaffold used to boot from. `districts` is every overmap
+  // cell whose type is a real auto-factory district (World.isAutoDistrict),
+  // catalogued from the CHEAP per-cell type read (w.at) — never calling
+  // w.plot() here, so this stays lazy: no district's actual block/building
+  // content generates until something (a HOT-tier spawn, a render) asks for
+  // it by coordinate. `real` carries the live World handle for anything that
+  // needs the full addressable API (w.plot(x,y), landlockConnect, etc).
+  function buildRealWorldMap(seedText) {
+    const seedNum = E.WorldGen.hashSeed(seedText);
+    const w = World.world(seedNum);
+    const districts = [];
+    for (let y = 0; y < w.n; y++) {
+      for (let x = 0; x < w.n; x++) {
+        const c = w.at(x, y);
+        if (!c || !World.isAutoDistrict(c.district)) continue;
+        districts.push({ id: x + ',' + y, pos: [x, y], kind: c.district, zone: World.districtZone(c.district) });
+      }
+    }
+    return { seed: seedText, size: w.n, real: w, districts: districts };
+  }
+
+  // 4. World generation. POURED: builds from the real canon world (above),
+  //    keyed on the save's seed text (hashed the same way WorldGen.generateWorld
+  //    always did, so a given seed string still yields one deterministic valley).
   function bootWorldGen(ctx) {
-    // Generate the deterministic valley from the save's seed. [SEAM remains:
-    // reseeding from rng.branch('worldgen') for a fully unified stream — for now
-    // generateWorld self-seeds from the same seed string, which is deterministic
-    // and correct; the branch-unification is a later refinement.]
-    ctx.worldMap = E.WorldGen.generateWorld(ctx.save.seed).map;
+    ctx.worldMap = buildRealWorldMap(ctx.save.seed);
     return ctx;
   }
 
@@ -174,12 +213,15 @@
   //    nothing — it mechanically encodes relationships he already wrote into
   //    initial standings + permanent constraints. shiftStanding is wrapped so
   //    every write is clamped through those constraints (never a raw call).
-  //    Base placement: worldMap.factionSlots (14 proc-gen points, already
-  //    deterministic from seed) zipped 1:1 with the 14 selectable faction ids
-  //    in sorted order — mechanical pairing, not a lore/layout decision (MAP
-  //    LAW governs district placement; this is the abstract scaffold's own
-  //    dormant faction-slot subsystem, not the live overmap). Each faction's
-  //    founding territory is the nearest real worldMap district to its base.
+  //    Base placement: the 14 selectable faction ids (sorted) are zipped 1:1
+  //    onto an EVENLY-STRIDED sample of the real district list (index i ->
+  //    districts[floor(i * len/14)]) — pure mechanical spread across whatever
+  //    the real overmap generated, not a lore/layout decision (MAP LAW is
+  //    about Paolo placing canon on the live overmap; this only picks WHICH
+  //    already-generated real districts a faction starts holding, same as
+  //    the old abstract scaffold's dormant slot system did with fake points).
+  //    A faction's founding territory IS its base district — no separate
+  //    nearest-neighbor search needed now that bases are real districts.
   function bootFactions(ctx, opts) {
     ctx.factions = new E.Factions.FactionWorld(ctx.rng.branch('factions'));
     const graph = opts && opts.factionGraph;
@@ -208,28 +250,18 @@
     };
     world._canonWired = true;
 
-    // base placement: zip sorted faction ids to the worldMap's proc-gen slots.
+    // base placement: zip sorted faction ids to an evenly-strided sample of
+    // the real district list.
     ctx.factionBases = {};
-    if (ctx.worldMap && ctx.worldMap.factionSlots && ctx.worldMap.districts) {
+    if (ctx.worldMap && ctx.worldMap.districts && ctx.worldMap.districts.length) {
       const ids = [...ctx.factions.factions.keys()].sort();
-      const slots = ctx.worldMap.factionSlots;
       const districts = ctx.worldMap.districts;
       ids.forEach(function (fid, i) {
-        if (i >= slots.length) return;
-        const p = slots[i];
-        ctx.factionBases[fid] = { x: p[0], y: p[1] };
-        // nearest real district becomes this faction's founding claim
-        let best = null, bestD = Infinity;
-        for (const d of districts) {
-          const dx = d.pos[0] - p[0], dy = d.pos[1] - p[1];
-          const dist = dx * dx + dy * dy;
-          if (dist < bestD) { bestD = dist; best = d; }
-        }
-        if (best) {
-          const f = ctx.factions.factions.get(fid);
-          f.territory.add(best.id);
-          ctx.factions.owner.set(best.id, fid);
-        }
+        const d = districts[Math.floor(i * districts.length / ids.length)];
+        ctx.factionBases[fid] = { x: d.pos[0], y: d.pos[1] };
+        const f = ctx.factions.factions.get(fid);
+        f.territory.add(d.id);
+        ctx.factions.owner.set(d.id, fid);
       });
     }
     return ctx;
@@ -421,7 +453,7 @@
   }
 
   /* --------------------------------------------------------------------------
-     LOD DISTRICT MANAGER — the thing that makes the whole 256x256 valley runnable
+     LOD DISTRICT MANAGER — the thing that makes the whole real valley runnable
      on a phone. Every district gets a simulation TIER by distance from the player:
 
        HOT  (near)  : actors are INSTANTIATED into the scheduler (full sim).
@@ -437,9 +469,17 @@
      the phone only ever holds the HOT actors in memory.
      ------------------------------------------------------------------------ */
 
-  // distance bands, in tiles, from the player to a district position.
-  const LOD_HOT_R = 40;    // within 40 tiles: full sim
-  const LOD_WARM_R = 90;   // within 90: counted only
+  // distance bands, in overmap CELLS from the player. The real valley
+  // (bohemia_world.js) is a 96x96 grid, not the old abstract map's 256x256 —
+  // these keep the SAME fractional radius (~15.6% / ~35% of the map span)
+  // the old constants (40/90 of 256) encoded, just converted to the real
+  // grid's scale, so a district still goes HOT/WARM at roughly the same
+  // FRACTION of the valley it always did rather than swallowing the whole
+  // map (real district cells sit right next to each other, dense — unlike
+  // the old model's sparse scattered points — so an unconverted radius would
+  // have put nearly every real district in HOT/WARM at all times).
+  const LOD_HOT_R = 15;    // within 15 cells: full sim
+  const LOD_WARM_R = 34;   // within 34: counted only
   // beyond LOD_WARM_R: COLD (asleep)
 
   function tierForDistance(dist) {

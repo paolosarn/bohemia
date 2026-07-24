@@ -44,7 +44,7 @@
 <!-- engine-md5:engine/bohemia_floorplan.js:530d913e483b7ae4ce57e3b69065f730 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:09a661cdc694e38f1eb16f028717da66 -->
+<!-- engine-md5:engine/bohemia_world.js:ab7c89100c81212abe3f7ed528f73d96 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
   #cv{display:block;width:100%;height:calc(100% - 34px);background:#0d0b08}
@@ -6715,7 +6715,14 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     };
   }
 
-  var API = {world:world};
+  // isAutoDistrict/districtZone: read-only membership + zone lookup against the
+  // real DISTGEN table, for callers (the master-loop scaffold) that need to
+  // catalog real district cells cheaply — from cell.district alone, no plot()
+  // generation — without duplicating DISTGEN's key list a second time anywhere.
+  function isAutoDistrict(type){ return !!DISTGEN[type]; }
+  function districtZone(type){ return DISTGEN[type] ? DISTGEN[type].zone : null; }
+
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

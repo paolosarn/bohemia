@@ -308,7 +308,14 @@
     };
   }
 
-  var API = {world:world};
+  // isAutoDistrict/districtZone: read-only membership + zone lookup against the
+  // real DISTGEN table, for callers (the master-loop scaffold) that need to
+  // catalog real district cells cheaply — from cell.district alone, no plot()
+  // generation — without duplicating DISTGEN's key list a second time anywhere.
+  function isAutoDistrict(type){ return !!DISTGEN[type]; }
+  function districtZone(type){ return DISTGEN[type] ? DISTGEN[type].zone : null; }
+
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

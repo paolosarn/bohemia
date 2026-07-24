@@ -8,62 +8,84 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
-## THE MASTER LOOP GATE WAS RED AND UNREGISTERED — FOUND AND FIXED (7/23,
-## world-model session, Paolo: "this is the world model chat do something important")
-Went looking for real, in-lane work beyond the district factory (which is
-essentially done) and found genuine architecture rot: engine/bohemia_loop.js
-(the "nine islands" master-loop scaffold from 7/1 — world/factions/economy/
-entities/dynasty unified into one GameContext) has its OWN gate
-(gates/bohemia_loop_gate.js, 31 checks) that was NEVER registered in
-bohemia_gates.py and was actually CRASHING (`ctx.factions` was null,
-TypeError on the first real check) — silently red for who knows how long.
-"A law without a machine gate is not enforced" applies to the gate itself
-here: an unregistered gate is the same as no gate.
-FIXED FOR REAL, not just silenced: bootFactions/bootEconomy/bootEntities in
-bohemia_loop.js were three-line SEAM/GAP stubs (`ctx.factions = null` etc.)
-even though the real engines they plug into (Factions territory AI,
-FactionCanon loader, Economy tank/faucet/sink, Entities/Spawner) were
-already fully built elsewhere in bohemia_engine.js, just never wired:
-  - FACTIONS: FactionCanon.loadFactionCanon() reads engine/
-    BOHEMIA_faction_graph.json (Paolo's own GDD v2 §9 data — relations,
-    act1/act3 power, permanent-war/protected-neutral flags) and seeds a
-    FactionWorld with initial standings + permanent constraints. shiftStanding
-    now wraps every write through enforceConstraints so lore locks
-    (permanent war can't thaw, protected-neutral can't be driven below its
-    floor) hold no matter what touches it. Base placement: the 14 selectable
-    factions zip 1:1 (sorted ids) onto worldMap.factionSlots (14 proc-gen
-    points, already deterministic from seed) — mechanical pairing, not a
-    layout decision (MAP LAW is about the live overmap Paolo places canon
-    on; this is the scaffold's own dormant abstract-point subsystem). Each
-    faction's nearest real worldMap district becomes its founding claim.
-  - ECONOMY: one empty DistrictEconomy per real worldMap district — the
-    tank/faucet/sink MACHINERY only, zero currency numbers invented. Real
-    faucet/sink rates stay unpoured (Paolo's 7/19 ruling: economy can't be
-    tuned against a world that doesn't exist yet).
-  - ENTITIES: a shared Spawner keyed on save.seed + ctx.deltas, matching
-    what spawnActorsForDistrict already built ad hoc per-call.
-MECHANISM-MINE / CONTENTS-PAOLO'S held throughout: nothing here invents
-lore. The faction graph is Paolo's own file; the constraint math mechanically
-encodes relationships he already wrote. No faucet/sink rate, no district
-texture rule, no faction-to-territory NARRATIVE choice was authored.
-Gate now GREEN (31/31) and registered as #LOOP in bohemia_gates.py, between
-DEVIATION and CITY TAB.
-KNOWN GAP, flagged not fixed: this scaffold's `worldMap` is still the OLD
-abstract point-based WorldGen from bohemia_engine.js's 7/1 era (18-28
-scattered points with fake ids like 'd3'), NOT the real 33-district-type,
-real-street, real-connectivity world model (bohemia_world.js/
-bohemia_overmap.js) that's been live in the CITY/MAP tabs all week. TWO
-world generators exist in the repo; this session only fixed the wiring of
-the dormant one, it did not merge them. bohemia_loop.js is inlined
-(stale, unsynced, no gate watches it) inside slices/BOHEMIA_CURRENT_SLICE
-.html at ~line 4366 as inert reference code, not booted live anywhere — so
-this fix changed zero live behavior, it just made a real, previously-broken
-piece of infrastructure actually work and stay enforced. NEXT for whoever
-picks this up: either (a) point bootWorldGen at the real bohemia_world.js
-and reshape factionSlots/districts to match its real district-id scheme (a
-real lift — the abstract shape threads through Economy/Entities call sites
-too), or (b) formally graveyard the abstract WorldGen once the real one can
-fully replace it. Not done this turn — flagged honestly, not claimed.
+## THE MASTER LOOP: GATE FIXED, THEN POINTED AT THE REAL WORLD (7/23,
+## world-model session, Paolo: "this is the world model chat do something
+## important" -> "do that" on the follow-up)
+TWO PASSES, same day. PASS 1: engine/bohemia_loop.js (the "nine islands"
+master-loop scaffold from 7/1 — world/factions/economy/entities/dynasty
+unified into one GameContext) had its OWN gate (gates/bohemia_loop_gate.js,
+31 checks) that was NEVER registered in bohemia_gates.py and was actually
+CRASHING (`ctx.factions` was null, TypeError on the first real check) —
+silently red. "A law without a machine gate is not enforced" applies to the
+gate itself: an unregistered gate is the same as no gate. Fixed the three
+SEAM/GAP stubs for real (bootFactions/bootEconomy/bootEntities) using
+engines that already existed in bohemia_engine.js and just needed wiring:
+FactionCanon.loadFactionCanon() reads Paolo's own BOHEMIA_faction_graph.json
+(GDD v2 §9 — relations, act power, permanent-war/protected-neutral) and
+seeds real standings + constraints, shiftStanding now clamps every write
+through them; Economy got one empty DistrictEconomy per district (mechanism
+only, zero currency numbers invented — matches the 7/19 ruling that economy
+can't be tuned against a world that doesn't exist); Entities got a shared
+Spawner. Registered as #LOOP in bohemia_gates.py, 31/31 green.
+PASS 2 (Paolo, same day, asked what I wanted to do next, I flagged this and
+he said "do that"): that fix pointed the scaffold's `worldMap` at the OLD
+abstract point-scatter WorldGen from bohemia_engine.js's 7/1 era (18-28 fake
+points, ids like 'd3') instead of the REAL canon valley (bohemia_world.js/
+bohemia_overmap.js, 33 district types, real streets) that's been live in the
+CITY/MAP tabs all week. Two world generators existed in the repo. MERGED
+THEM — the loop now boots from the real one:
+  - Added two small additive exports to bohemia_world.js itself
+    (isAutoDistrict(type), districtZone(type) — read-only DISTGEN lookups)
+    so the loop can catalog real districts from the CHEAP per-cell type read
+    (w.at(x,y)) without duplicating DISTGEN's key list a second time
+    anywhere, and without ever calling w.plot() (which triggers real content
+    generation) just to build the catalog — stays LAZY, the world model's
+    own stated design principle.
+  - ctx.worldMap.districts is now every real overmap cell whose type is an
+    auto-factory district: id = "x,y", pos = [x,y], kind = the real district
+    type, zone from DISTGEN. Real seed count: ~3,700 districts on a 96x96
+    valley (one per grid cell — the SAME granularity every district
+    generator has always worked at all week; this isn't a new abstraction,
+    it's just finally the real one instead of ~20 fake scattered points).
+  - Passability (bootScheduler) now reads real terrain: only mountain/water
+    cells block, everything else (buildable + street + desert) is walkable
+    at this coarse overworld scale — building/interior collision stays a
+    [SEAM] for later, same as before, just driven by real geography now
+    instead of a synthetic border band.
+  - Faction base placement: no more "nearest point in empty space" hack —
+    the 14 selectable factions (sorted ids) zip onto an EVENLY-STRIDED
+    sample of the real district list (mechanical spread, not a layout
+    decision — MAP LAW is about Paolo placing canon on the live overmap;
+    this only picks WHICH already-generated real districts a faction starts
+    holding). A faction's base literally IS its founding-claim district now.
+  - LOD RADII RESCALED (real catch, not cosmetic): the old HOT/WARM radii
+    (40/90 tiles) were tuned for the abstract map's 256-tile span with
+    districts scattered sparsely apart. The real valley is 96 cells with
+    districts packed DENSELY (adjacent grid cells) — an unconverted radius
+    would have put nearly the whole valley in HOT/WARM permanently,
+    defeating the entire point of LOD. Rescaled to the same FRACTION of
+    map span (15/34 cells = ~15.6%/35%, matching 40/90 of 256) — verified
+    live: player at a district now reads 80 hot / 346 warm / 3272 cold
+    instead of nearly-everything-active.
+  - MAP TAB re-synced (bohemia_world.js is byte-locked embedded there,
+    ENGINE SYNC LAW) via tools/bohemia_map_tab.py — caught by map_tab_gate
+    going red immediately after the world.js edit, exactly as designed.
+VERIFIED live (not just gate-green): boot a real context, confirmed 3,698
+unique district ids, 14/14 factions got distinct real bases + territory,
+8,203/9,216 cells passable (mountain/water correctly block), LOD tiering
+sane. Gate still 31/31, full suite still ALL GREEN after.
+LEFT ALONE, deliberately: BohemiaEngine.WorldGen (the old abstract class)
+itself is untouched in bohemia_engine.js — nothing else was verified to
+depend on it being removed, and GRAVEYARD IS FINAL means a real death needs
+its own deliberate pass + registry entry, not a casual delete as a side
+effect of this fix. It's simply unused by the loop now. bohemia_loop.js is
+still inert (inlined stale inside slices/BOHEMIA_CURRENT_SLICE.html as
+reference only, not booted live anywhere) — this pass changed zero live
+player-facing behavior, it made real, previously-fake infrastructure point
+at the real world and stay enforced. NEXT, if anyone wants to actually BOOT
+this scaffold live: it would need to replace whatever currently drives the
+SLICE tab's walk loop, which is a much bigger, separate decision — not
+something to default into.
 
 ## DISTRICT HERO BUILDINGS - 3/4-ISO EMBODIMENT FOR THE BUILDER (7/23, same
 ## session, Paolo: "for each district you made you have to make a sideways 45
