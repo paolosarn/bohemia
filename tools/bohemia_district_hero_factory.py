@@ -236,11 +236,136 @@ def build_terminal(P):
     return s, 7.0
 
 
-HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal}
+# ---------------------------------------------------------------- DOWNTOWN
+def build_downtown(P):
+    POD, TOWER, MECH, BRIDGE, DECK = P[2], P[6], P[10], P[12], P[13]
+    PLAZA, DRIVE = P[7], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-2, -2, 14, 14, PLAZA)], groundc=PLAZA, lotc=DRIVE)
+    # a podium base filling the block to the street wall + slender towers rising from it
+    s.box((-1, -1, 0), (14, 13, 3.4), {'top': _dark(POD, 0.9), 'px': _win(POD, 9, 2, 3),
+          'py': _win(POD, 8, 2, 7), 'nx': _dark(POD), 'ny': _dark(POD)})
+    for (tx, ty, th, sd) in [(0.8, 0.4, 21, 3), (8.4, 4.6, 16, 8)]:
+        s.box((tx, ty, 3.4), (4.2, 4.2, th), {'top': _dark(TOWER, 0.85), 'px': _win(TOWER, 3, int(th / 2.2), sd),
+              'py': _win(TOWER, 3, int(th / 2.2), sd + 4), 'nx': _dark(TOWER), 'ny': _dark(TOWER)})
+        s.box((tx + 1.1, ty + 1.1, 3.4 + th), (2.0, 2.0, 1.3), {'c': MECH})
+    s.box((3.2, 2.6, 13.6), (6.2, 1.2, 0.9), {'c': BRIDGE})                 # skybridge between the towers
+    _door(s, 13, 5.0, 7.6, 3.0, doorc=_dark(POD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in POD), awn=1.2)
+    return s, 6.4
+
+
+# ---------------------------------------------------------------- INDUSTRIAL
+def build_industrial(P):
+    WARE, DOCK, OFFICE, GUARD, TRAILER, DRIVE = P[2], P[4], P[6], P[11], P[9], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), drive=(9.5, -3, 15, 15), groundc=(88, 86, 80), lotc=DRIVE)
+    # one big distribution warehouse
+    s.box((-2, -1, 0), (11, 8, 6.4), {'top': _dark(WARE, 0.9), 'px': _win(WARE, 6, 3, 4, 0.2),
+          'py': _dark(WARE, 0.96), 'nx': _dark(WARE), 'ny': _dark(WARE)})
+    for dy in (0.2, 1.6, 3.0, 4.4, 5.8):                                    # a row of dock doors on the front
+        s.box((9.0, dy, 0), (0.16, 1.0, 2.2), {'c': DOCK})
+    for ty in (0.4, 3.0, 5.6):                                             # parked trailers in the truck court
+        s.box((10.6, ty, 0), (3.8, 1.8, 1.9), {'top': _dark(TRAILER, 1.05), 'px': _dark(TRAILER),
+              'py': _dark(TRAILER, 0.85), 'nx': _dark(TRAILER), 'ny': _dark(TRAILER)})
+    s.box((-2, 7.6, 0), (4.2, 2.6, 3.2), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 6),
+          'py': _win(OFFICE, 2, 2, 9), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})   # front office
+    s.box((7.6, -2.6, 0), (1.5, 1.5, 2.3), {'c': GUARD})                    # guard shack at the gate
+    return s, 6.6
+
+
+# ---------------------------------------------------------------- MEDICAL
+def build_medical(P):
+    BLD, DOOR, CANOPY, GARAGE, VEH, WALK, REDX, DRIVE = P[2], P[4], P[7], P[8], P[11], P[6], P[9], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), drive=(9.5, -3, 15, 15), groundc=(120, 120, 124), lotc=DRIVE)
+    # the hospital block + ER wing
+    s.box((-2, -1, 0), (9, 7, 9.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 6, 7, 4),
+          'py': _win(BLD, 5, 7, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    # a RED CROSS on the front face so it reads as a hospital
+    s.quad((7.04, 2.6, 5.6), (7.04, 4.4, 5.6), (7.04, 4.4, 6.4), (7.04, 2.6, 6.4), {'c': REDX}, (1, 0, 0))
+    s.quad((7.04, 3.2, 5.0), (7.04, 3.8, 5.0), (7.04, 3.8, 7.0), (7.04, 3.2, 7.0), {'c': REDX}, (1, 0, 0))
+    # entrance drop-off canopy + doors
+    s.box((7, 2.2, 0), (2.2, 3.2, 3.0), {'c': CANOPY})
+    _door(s, 7, 2.6, 4.4, 2.7, doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+    # the decked PARKING GARAGE (front-right) — horizontal deck bands read as levels
+    s.box((9.5, 7, 0), (5, 6.5, 6.2), {'top': _dark(GARAGE, 0.9), 'px': _win(GARAGE, 1, 5, 2, 0.0),
+          'py': _win(GARAGE, 1, 5, 5, 0.0), 'nx': _dark(GARAGE), 'ny': _dark(GARAGE)})
+    return s, 6.6
+
+
+# ---------------------------------------------------------------- MALL
+def build_mall(P):
+    CONC, ANCHOR, FOOD, CAR, DRIVE, LOT = P[2], P[6], P[7], P[10], P[1], P[4]
+    s = Scene()
+    _ground(s, (-4, -3, 14, 15), lot=(-4, 10, 14, 15), drive=(4, 9.5, 8, 15), groundc=(96, 94, 86), lotc=LOT)
+    # DUMBBELL: a long concourse spine with a big-box anchor at each end + a food-court bump
+    s.box((-1, 1.5, 0), (13, 4.5, 5.0), {'top': _dark(CONC, 0.92), 'px': _win(CONC, 10, 2, 4, 0.18),
+          'py': _dark(CONC, 0.95), 'nx': _dark(CONC), 'ny': _dark(CONC)})               # concourse
+    for ax in (-2.0, 9.5):                                                              # anchor store at each end
+        s.box((ax, 0.5, 0), (4.5, 6.5, 6.4), {'top': _dark(ANCHOR, 0.9), 'px': _win(ANCHOR, 3, 3, 5, 0.16),
+              'py': _win(ANCHOR, 4, 3, 9, 0.16), 'nx': _dark(ANCHOR), 'ny': _dark(ANCHOR)})
+    s.box((4.5, 6.0, 0), (4.0, 2.6, 4.2), {'top': _dark(FOOD, 0.9), 'px': _win(FOOD, 4, 2, 7),
+          'py': _dark(FOOD, 0.9), 'nx': _dark(FOOD), 'ny': _dark(FOOD)})                # food-court bump-out
+    _door(s, 12.5, 3.0, 4.5, 2.6, doorc=_dark(CONC, 0.4)['c'], framec=tuple(min(255, int(c * 1.25)) for c in CONC))
+    for cx in (2.0, 6.5, 10.0):                                                         # abandoned cars in the lot
+        s.box((cx, 12.5, 0), (1.7, 0.9, 0.7), {'c': CAR})
+    return s, 6.4
+
+
+# ---------------------------------------------------------------- PARK
+def build_park(P):
+    SHELTER, TURF, PATH, CAR = P[2], P[6], P[4], P[11]
+    BENCH, WATER, LOT = P[8], P[9], P[1]
+    s = Scene()
+    # a park is OPEN: mostly dead turf + a winding path, a small shelter, a lot at the edge
+    _ground(s, (-3, -3, 15, 15), patches=[(-2, -2, 14, 14, TURF)], lot=(9.5, 10.5, 15, 15), groundc=TURF, lotc=LOT)
+    # winding path (a couple light bands)
+    s.box((-2, 3.0, 0.01), (13, 1.1, 0.05), {'c': PATH})
+    s.box((5.0, 3.0, 0.01), (1.1, 9.0, 0.05), {'c': PATH})
+    # the small SHELTER / restroom building (the only structure)
+    s.box((0.5, 0.5, 0), (3.6, 3.0, 2.8), {'top': _dark(SHELTER, 0.9), 'px': _win(SHELTER, 2, 2, 4),
+          'py': _dark(SHELTER, 0.9), 'nx': _dark(SHELTER), 'ny': _dark(SHELTER)})
+    _door(s, 4.1, 1.4, 2.4, 1.9, doorc=_dark(SHELTER, 0.4)['c'], framec=tuple(min(255, int(c * 1.15)) for c in SHELTER))
+    # a dead shade tree + a couple benches (dead world: bare trunk)
+    s.box((9.0, 5.5, 0), (0.5, 0.5, 3.0), {'c': (70, 60, 48)})
+    for (bx, by) in [(2.0, 6.5), (7.5, 8.0)]:
+        s.box((bx, by, 0), (1.6, 0.4, 0.4), {'c': BENCH})
+    return s, 6.6
+
+
+# ---------------------------------------------------------------- WAREHOUSE (flex/tenant units)
+def build_warehouse(P):
+    UNIT, OFFICE, BURN, FENCE, CAR, DRIVE = P[2], P[7], P[8], P[12], P[10], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), drive=(-3, 9.5, 15, 15), groundc=(84, 80, 72), lotc=DRIVE)
+    # rows of flex/tenant UNITS (long low bays wall-to-wall, storage-density reference)
+    for r, ry in enumerate((0.0, 3.4, 6.8)):
+        col = BURN if r == 1 else UNIT                                    # one burned-out row reads act-1
+        s.box((-2, ry, 0), (11, 2.6, 3.2), {'top': _dark(col, 0.95), 'px': _dark(col, 1.0),
+              'py': _dark(col, 0.84), 'nx': _dark(col), 'ny': _dark(col)})
+        for ux in range(0, 6):                                            # roll-up door seams
+            s.box((-2 + ux * 1.9 + 0.5, ry - 0.02, 0.2), (0.9, 0.04, 2.4), _dark(col, 0.7))
+    # the leasing OFFICE bay at the corner
+    s.box((9.5, -1.0, 0), (3.4, 3.0, 3.4), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 6),
+          'py': _win(OFFICE, 2, 2, 9), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})
+    for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 9.5), (-2.5, 9.5)]:   # fortress fence posts
+        s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})
+    return s, 6.6
+
+
+HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal,
+          'downtown': build_downtown, 'industrial': build_industrial, 'medical': build_medical,
+          'mall': build_mall, 'park': build_park, 'warehouse': build_warehouse}
 LABEL = {
     'cityhall': 'City Hall — matched to the walkable district: an admin BLOCK + a CLOCK TOWER over the entrance + a forecourt PLAZA with a DRY FOUNTAIN + flagpoles. Same palette as the tile you walk.',
     'battery': 'Battery — matched to the walkable district: a grid BATTERY-STORAGE yard (control building + rows of BATTERY CONTAINERS with HVAC + an INVERTER/TRANSFORMER rack + gravel + fence). Not a smokestack plant.',
     'terminal': 'Transit terminal (1x1) — matched to the walkable district: a waiting HALL + a SCHEDULE-BOARD CLOCK over the doors + a gray boarding CANOPY over a ROW of dead BUSES + a kiss-and-ride.',
+    'downtown': 'Downtown — matched: a podium base filling the block + two slender TOWERS with rooftop mech + a SKYBRIDGE. The dense core.',
+    'industrial': 'Industrial — matched: one big distribution WAREHOUSE + a row of DOCK DOORS + parked TRAILERS in the truck court + a front office + guard shack.',
+    'medical': 'Medical — matched: a hospital BLOCK with a RED CROSS + an entrance drop-off canopy + a decked PARKING GARAGE.',
+    'mall': 'Mall — matched: the DUMBBELL — a long concourse with a big-box ANCHOR at each end + a food-court bump + a parking field.',
+    'park': 'Park — matched: open dead TURF + a winding PATH + a small SHELTER/restroom + a dead shade tree + benches.',
+    'warehouse': 'Warehouse — matched: rows of flex/tenant UNITS (one burned) with roll-up doors + a leasing office + a fortress fence.',
 }
 
 
