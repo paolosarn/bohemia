@@ -6904,6 +6904,16 @@ function draw(){
       ctx.drawImage(bmp, sx, sy, zc, zc);
     }
   }
+  if (highlightMatches) {
+    ctx.fillStyle = '#f0cd78'; ctx.strokeStyle = '#1a1610'; ctx.lineWidth = 1;
+    var r = Math.max(3, Math.min(7, Z * 0.18));
+    for (var hi = 0; hi < highlightMatches.length; hi++) {
+      var hm = highlightMatches[hi];
+      var hsx = (hm.x - px) * Z + w / 2 + Z / 2, hsy = (hm.y - py) * Z + h / 2 + Z / 2;
+      if (hsx < -r || hsx > w + r || hsy < -r || hsy > h + r) continue;
+      ctx.beginPath(); ctx.arc(hsx, hsy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
+  }
   if (sel) {
     ctx.strokeStyle = '#f0cd78'; ctx.lineWidth = 2;
     ctx.strokeRect(Math.round((sel[0] - px) * Z + w / 2), Math.round((sel[1] - py) * Z + h / 2), Math.ceil(Z), Math.ceil(Z));
@@ -6913,8 +6923,14 @@ function resize(){ cv.width = cv.clientWidth; cv.height = cv.clientHeight; draw(
 window.addEventListener('resize', resize);
 
 var sel = null;
+var highlightMatches = null, highlightLabel = '';
 function refreshHUD(){
-  if (!sel) { HUD.textContent = 'The valley, live — every district rendered by its own real generator. Drag to pan, wheel/pinch to zoom, tap a cell to inspect it.'; return; }
+  if (!sel) {
+    HUD.textContent = highlightMatches
+      ? highlightMatches.length + ' ' + highlightLabel + ' shown on the map — drag/zoom to look, tap the map to clear.'
+      : 'The valley, live — every district rendered by its own real generator. Drag to pan, wheel/pinch to zoom, tap a cell to inspect it.';
+    return;
+  }
   var c = W.at(sel[0], sel[1]);
   if (!c) { HUD.textContent = '(' + sel[0] + ',' + sel[1] + ') off the map'; return; }
   var mod = modOf(c.district);
@@ -6922,7 +6938,8 @@ function refreshHUD(){
     (ROAD[c.district] ? 'a mile arterial / freeway — the street grid' :
      TERRAIN[c.district] ? 'undeveloped terrain, no street access needed' :
      'a bespoke landmark type — reserved, not yet in the auto-factory');
-  HUD.textContent = '(' + sel[0] + ',' + sel[1] + ') ' + c.district.toUpperCase() + ' — ' + desc;
+  var tail = highlightMatches ? '  ·  ' + highlightMatches.length + ' ' + highlightLabel + ' shown' : '';
+  HUD.textContent = '(' + sel[0] + ',' + sel[1] + ') ' + c.district.toUpperCase() + ' — ' + desc + tail;
 }
 
 var down = false, sx0 = 0, sy0 = 0, spx = 0, spy = 0, moved = 0;
@@ -6933,7 +6950,7 @@ cv.addEventListener('pointerup', function(e){
   if (moved < 6) {
     var w = cv.width, h = cv.height;
     var wx = Math.floor(px + (e.offsetX - w / 2) / Z), wy = Math.floor(py + (e.offsetY - h / 2) / Z);
-    sel = [wx, wy]; refreshHUD(); draw();
+    sel = [wx, wy]; highlightMatches = null; refreshHUD(); draw();
   }
 });
 cv.addEventListener('wheel', function(e){ e.preventDefault(); var f = e.deltaY < 0 ? 1.15 : 1 / 1.15; Z = Math.max(ZMIN, Math.min(ZMAX, Z * f)); draw(); }, {passive: false});
@@ -6983,8 +7000,8 @@ function buildFindList(){
     row.textContent = item.label + '  ·  ' + item.n;
     row.addEventListener('pointerup', function(){
       var nearest = W.nearestDistrictOfType(px, py, item.type);
-      if (!nearest) return;
-      px = nearest.x; py = nearest.y; sel = [nearest.x, nearest.y];
+      highlightMatches = W.districtsOfType(item.type); highlightLabel = item.label;
+      if (nearest) { px = nearest.x; py = nearest.y; sel = [nearest.x, nearest.y]; }
       findPanel.style.display = 'none';
       refreshHUD(); draw();
     });

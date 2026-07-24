@@ -8,6 +8,30 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## FIND SHOWS EVERY MATCH ON THE MAP, NOT JUST THE NEAREST (7/24, same
+## session, Paolo "fire" reaction to FIND -> "know whats next do what ur
+## spose too"). Also: audited gates/ for other silently-unregistered gates
+## like LOOP was — found none (bohemia_canon_index.py is a generator
+## utility, correctly not a gate; every real gate file IS registered).
+FIND jumped to the nearest match and stopped there — useful, but it only
+showed you ONE instance, hiding the actual DISTRIBUTION of a type across
+the valley (which is often the more interesting question: "where are all
+the police stations," not just "where's the closest one"). Extended it:
+selecting a type now also draws a small gold marker on EVERY real match
+(districtsOfType, not just nearestDistrictOfType), at any zoom level —
+useful especially zoomed out, where you can see a type's spread across
+the whole valley at a glance. Camera still jumps to the nearest one and
+selects it (didn't lose the original behavior). Tapping the map clears
+the markers (HUD hints "tap the map to clear").
+VERIFIED ON THE REAL SURFACE with playwright (fresh install again — not
+persisted between turns, same as last time): selected Gated Suburb (30
+matches), screenshot confirms real gold dots rendering on the actual
+matching cells with the selected one ringed, HUD read "30 Gated Suburb
+shown," tapping the map cleared it and reverted to normal per-cell HUD.
+Zero console errors. Gate coverage unchanged (map_tab_gate.js's byte-lock
+already watches tools/bohemia_map_tab.py's output — no new gate needed,
+this is a rendering feature on already-gated infrastructure).
+
 ## THE MAP TAB CAN FIND THINGS NOW — FIRST LIVE CONSUMER OF THE LOCATION
 ## QUERY API (7/24, world-model session, same "know what comes next" push)
 The location-query API (below) shipped with zero callers — pure dormant
