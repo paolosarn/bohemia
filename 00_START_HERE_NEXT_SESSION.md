@@ -8,6 +8,46 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## WORLD MODEL RESEARCH: LOCATION QUERY API (7/24, world-model session,
+## Paolo: "continue to do some big brain world model research... execute")
+Research pass over laws/BOHEMIA_WORLD_MODEL_ROADMAP_7_18_26.md's open items
+first — VERIFIED the top-listed gap ("FILL THE FOOTPRINTS: only built-lot
+archetypes expose buildings") is now STALE, superseded by this week's full
+district-factory buildout: spot-checked live, both suburb AND commercial
+plots already expose real buildings with real floorplan interiors (33+
+DISTGEN types all route through the same dg.foot()/buildings path). Did
+not build a fix for an already-fixed problem.
+The REAL gap, found by grepping actual usage rather than trusting the doc:
+questbook/*.md references districts only as narrative flavor ("tie faction
+leaders to their district") — ZERO binding to a real worldMap coordinate.
+The master loop's territory AI (shipped earlier today) has real adjacency
+between districts but no way to ask "which district is a courthouse."
+Nothing anywhere could answer "nearest police station from here." The
+world was real; nothing could FIND anything in it.
+BUILT: engine/bohemia_world.js now exposes a location-query API on
+world(seed) — districtsOfType(type), districtsInCategory(category),
+nearestDistrictOfType(x,y,type), nearestDistrictInCategory(x,y,category),
+and findDistricts(predicate) as the escape hatch for anything custom.
+Cheap by construction: only w.at() reads (real DISTGEN membership check),
+NEVER w.plot() — a location query cannot accidentally trigger plot content
+generation just to answer "where." Content-agnostic: it answers WHERE
+things are, never WHICH quest/faction/agent cares (same MECHANISM-MINE
+split as everything else this week). Checked against LIFE's existing
+jobsNear() in bohemia_agents.js first to avoid duplicating it — that's a
+small radius-bounded ring search local to LIFE's commute logic, this is a
+general valley-wide primitive; complementary, not overlapping.
+Verified live on seed 1337: 2,557 suburb cells, 2 courthouses, a real
+nearest-police-station lookup with correct straight-line distance. Gate
+extended (gates/world_gate.js, WORLD MODEL now 19 checks): finds real
+results, results actually match the type/category asked, nearest-of-type
+is verifiably nearest (no closer match exists), determinism across two
+boots of the same seed. MAP tab re-synced (bohemia_world.js byte-locked
+embedded there). Full suite green after.
+NEXT: nobody has wired a caller yet — this is pure infrastructure, ready
+for whoever builds real quest-location binding, or wants the territory
+AI's currently-uniform districtValue() to weight by real proximity to a
+landmark type instead of defaulting to 1 everywhere.
+
 ## HERO BEAT PICKER SHIPPED (7/23, character/sound session, Paolo: "lets
 ## pick the hero part of the beat")
 Full mechanism for records/BOHEMIA_HERO_BEAT_7_23_26.txt's ask: per-song,

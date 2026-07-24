@@ -220,6 +220,35 @@
     return out;
   }
 
+  // LOCATION QUERY (7/24/26): the missing link between "the world is real" and
+  // anything actually FINDING something in it. Quests reference districts only
+  // as narrative flavor today ("tie faction leaders to their district") with
+  // zero binding to a real coordinate; the master loop's territory AI has real
+  // adjacency now but no way to ask "which district is a courthouse"; nothing
+  // anywhere can answer "nearest police station from here." Cheap (w.at() only,
+  // never w.plot() — no content generates just to answer a location query) and
+  // predicate-based so it's content-agnostic: it names WHERE things are, never
+  // WHICH quest/faction/agent cares, same separation MECHANISM-MINE draws
+  // everywhere else in this engine.
+  function findDistricts(m,predicate){
+    var N=m.n, out=[];
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var c=m.at(x,y);
+      if(c && DISTGEN[c.district] && predicate(c,x,y)) out.push({x:x,y:y,district:c.district});
+    }
+    return out;
+  }
+  function nearestDistrict(m,x0,y0,predicate){
+    var N=m.n, best=null, bestD=Infinity;
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var c=m.at(x,y);
+      if(!c || !DISTGEN[c.district] || !predicate(c,x,y)) continue;
+      var dx=x-x0, dy=y-y0, d=dx*dx+dy*dy;
+      if(d<bestD){ bestD=d; best={x:x,y:y,district:c.district,dist:Math.sqrt(d)}; }
+    }
+    return best;
+  }
+
   function world(seed){
     seed=(seed>>>0)||1;
     var m = OM.buildOvermap(seed);
@@ -304,7 +333,15 @@
       DISTRICT: OM.DISTRICT,
       landlockConnect: landlockConnect,          // LANDLOCKED DISTRICT LAW audit surface
       rawStreetEdges: function(x,y){ return rawStreetEdges(m,x,y); },
-      SUBURB_FAMILY: SUBURB_FAMILY
+      SUBURB_FAMILY: SUBURB_FAMILY,
+      // LOCATION QUERY: every real auto-factory district, findable by type/category/
+      // custom predicate, cheap (never generates plot content to answer). The three
+      // named helpers cover the common asks; findDistricts is the escape hatch.
+      districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
+      districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },
+      nearestDistrictOfType: function(x,y,type){ return nearestDistrict(m, x, y, function(c){ return c.district===type; }); },
+      nearestDistrictInCategory: function(x,y,category){ return nearestDistrict(m, x, y, function(c){ return KIT.category(c.district)===category; }); },
+      findDistricts: function(predicate){ return findDistricts(m, predicate); }
     };
   }
 

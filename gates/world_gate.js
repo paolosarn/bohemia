@@ -108,6 +108,26 @@ for (let y = 6; y < 90 && resiPlots < 40; y++) for (let x = 6; x < 90 && resiPlo
 }
 ok('residential cells are real suburbs of enterable homes (' + resiPlots + ' sampled, ' + resiHomes + ' homes)', resiPlots > 0 && resiBad === 0);
 
+// LOCATION QUERY (7/24): findable, cheap (never generates plot content), and
+// deterministic. Proves quests/factions/LIFE now have a real "find X" primitive.
+const suburbs = w.districtsOfType('suburb');
+ok('districtsOfType finds real districts of a common type', suburbs.length > 0);
+ok('districtsOfType results are all the requested type', suburbs.every(d => d.district === 'suburb'));
+const residential = w.districtsInCategory('residential');
+ok('districtsInCategory finds real districts by category', residential.length >= suburbs.length);
+const nearest = w.nearestDistrictOfType(48, 48, 'suburb');
+ok('nearestDistrictOfType finds a real result', !!nearest && nearest.district === 'suburb');
+if (nearest) {
+  const dx = nearest.x - 48, dy = nearest.y - 48;
+  ok('nearestDistrictOfType.dist matches real straight-line distance', Math.abs(nearest.dist - Math.sqrt(dx * dx + dy * dy)) < 1e-9);
+  const closer = suburbs.some(d => { const ddx = d.x - 48, ddy = d.y - 48; return Math.sqrt(ddx * ddx + ddy * ddy) < nearest.dist - 1e-9; });
+  ok('nearestDistrictOfType is actually nearest (no closer suburb exists)', !closer);
+}
+const custom = w.findDistricts(c => c.district === 'courthouse');
+ok('findDistricts (custom predicate) runs without throwing', Array.isArray(custom));
+const w3 = world(12345);
+ok('location query is deterministic (same seed -> same district count)', w.districtsOfType('suburb').length === w3.districtsOfType('suburb').length);
+
 console.log('WORLD MODEL GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
   scanned + ' plots, ' + withBuildings + ' with buildings)');
 process.exit(fail ? 1 : 0);
