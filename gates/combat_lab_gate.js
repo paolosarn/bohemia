@@ -488,9 +488,10 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V45 CAMERA FLOOR') &&
     demo.includes('uzT=Math.max(0.20,Math.min(1.30,fit));'));
   // v46: a live comment field at the top of the screen, feeding the existing export pipeline
+  // (v51 removed the ADD button -- addLiveComment() still exists, now called by lccopy)
   ok('V46 LIVE COMMENT: a top-of-screen input that appends turn-tagged comments to the existing jnotes/export pipeline, not a new storage surface',
     demo.includes('V46 LIVE COMMENT') &&
-    demo.includes('id="lcinput"') && demo.includes('id="lcadd"') &&
+    demo.includes('id="lcinput"') &&
     demo.includes("function addLiveComment(){") &&
     demo.includes("if(jn)jn.value=(jn.value?jn.value+'\\n':'')+'[T'+(G.mTurn||0)+'] '+txt;"));
   // v47: the green "safe to pop" threshold scales with how many enemies are actually alive
@@ -515,6 +516,15 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('id="lccopy"') &&
     demo.includes("const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');") &&
     demo.includes("parent.postMessage({bohemiaExport:{name:'combat_comments.txt',text:t}},'*');"));
+  // v51: Paolo -- "REMOVE THE ADD BUTTON IT DOES NOTHING" -- ADD worked but its only
+  // feedback was an easy-to-miss toast elsewhere on screen; cut to one button that
+  // both saves and copies, so nothing typed is ever silently lost
+  ok('V51 NO ADD BUTTON: the ADD button is fully gone (from both markup and listeners) -- COPY now folds any pending input into jnotes via addLiveComment() before copying/exporting, and Enter triggers the same single button',
+    demo.includes('V51 NO ADD BUTTON') &&
+    !demo.includes('id="lcadd"') &&
+    !demo.includes("D('lcadd')") &&
+    demo.includes("D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); D('lccopy').click(); } });") &&
+    demo.includes('addLiveComment();   /* V51 NO ADD BUTTON'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
