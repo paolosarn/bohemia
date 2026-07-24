@@ -222,8 +222,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('never during the dial') && demo.includes('if(!aimo)for(const e of G.e)'));
   ok('corpses ride the grid-true ruler',
     demo.includes('const rr=c.edist*ring;'));
-  ok('pillars render tan with a sky-lit top, zero purple in the palette',
-    demo.includes("'#6e604a'") && demo.includes("x.fillStyle='#94836a'"));
+  ok('pillars render tan with a sky-lit top, zero purple in the palette (V54: low pillars get a blue-lit top)',
+    demo.includes("'#6e604a'") && demo.includes("?'#7a94a8':'#94836a'"));
   // v20: the animation pass (walk, static corpses, counter-snap, real glide)
   ok('V20 WALK: loaders carry walk frames for player and enemies',
     demo.includes('V20 WALK') && demo.includes('walk:(d.dirs[dir].walk||[]).map(mk)') &&
@@ -569,6 +569,34 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V53 DEVICE CAM: G.isTouch detects phone vs laptop; a non-touch device frames much tighter (reclaims the thumb margin, higher zoom ceiling)',
     demo.includes('G.isTouch=((typeof matchMedia===') &&
     demo.includes('const _pad=G.isTouch?96:44, _slack=G.isTouch?70:40, _ceil=G.isTouch?1.30:1.85;'));
+  // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
+  ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
+    demo.includes('const STAM_MAX=3;') &&
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; updStam();') &&
+    demo.includes('G.stam=Math.min(STAM_MAX,(G.stam||0)+1); updStam();') &&
+    demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;"));
+  ok('V54 SUPPRESS: baked into peeking()/firing() (a suppressed head reads not-out), doSuppress spends 1 and pins out/coverable enemies ~1 beat, no turn end',
+    demo.includes('if(e._suppr&&performance.now()<e._suppr)return false;   /* V54 SUPPRESS: pinned head, not out */') &&
+    demo.includes('if(e._suppr&&performance.now()<e._suppr)return false;   /* V54 SUPPRESS: pinned, gun down */') &&
+    demo.includes('function doSuppress(){') &&
+    demo.includes('e._suppr=now+1100;'));
+  ok('V54 HAND-PEEK: a free stance toggle -- return fire cut to firing-only, your dial one tier harder',
+    demo.includes('function toggleHandPeek(){') &&
+    demo.includes('+(G.handPeek?1:0)') &&
+    demo.includes('if(G.handPeek)pool=pool.filter(e=>firing(e));'));
+  ok('V54 DASH: doDash spends 2, repositions toward the nearest pillar via worldShift, breaks crossed locks, takes one reduced opportunity-fire crack, no turn end',
+    demo.includes('function doDash(){') &&
+    demo.includes('const P=nearestPillar(false);') &&
+    demo.includes('if(mobExposeFire(0.5))return;'));
+  ok('V54 VAULT: doVault needs a LOW pillar within 1.9 tiles (tall pillars refuse), spends 1, hops 2 tiles across it, no turn end -- pillars roll tall/low at spawn',
+    demo.includes('function doVault(){') &&
+    demo.includes('const P=nearestPillar(true);') &&
+    demo.includes('tall:Math.random()<0.5') &&
+    demo.includes('function nearestPillar(lowOnly){'));
+  ok('V54 TOOLKIT UI: four buttons wired in the action row, disabled in the aim phase like WAIT, stamina pips shown',
+    demo.includes('id="suppressbtn"') && demo.includes('id="dashbtn"') && demo.includes('id="vaultbtn"') &&
+    demo.includes('id="peekbtn"') && demo.includes('id="stampips"') &&
+    demo.includes("for(const _id of ['suppressbtn','peekbtn','dashbtn','vaultbtn']){"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
