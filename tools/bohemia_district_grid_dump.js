@@ -13,28 +13,30 @@ const fs = require('fs');
 const path = require('path');
 const REPO = path.dirname(__dirname);
 const K = require(path.join(REPO, 'engine/bohemia_district_kit.js'));
-require(path.join(REPO, 'engine/bohemia_cityhall.js'));
-require(path.join(REPO, 'engine/bohemia_battery.js'));
-require(path.join(REPO, 'engine/bohemia_terminal.js'));
+
+// every kit-registered walkable district module (require = self-register into K)
+const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'cityhall',
+  'commercial', 'courthouse', 'downtown', 'drivein', 'farm', 'firestation', 'golf',
+  'industrial', 'jail', 'landfill', 'library', 'mall', 'medical', 'park', 'policestation',
+  'railyard', 'school', 'solar', 'stadium', 'storage', 'swapmeet', 'terminal', 'trailer',
+  'truckstop', 'warehouse', 'wash', 'waterpark', 'watertreat'];
+for (const m of MODULES) { try { require(path.join(REPO, 'engine/bohemia_' + m + '.js')); } catch (e) {} }
 
 const OUT = process.argv[2] || '/tmp/claude-0/-home-user-bohemia/96a4de31-15c3-52d6-95f6-8087b9cb9964/scratchpad/district_grids.json';
-const DISTRICTS = ['cityhall', 'battery', 'terminal'];
 const SEED = 0x5eed;                       // fixed seed (deterministic; no Date/random)
 
 const out = {};
-for (const d of DISTRICTS) {
+for (const d of MODULES) {
   const reg = K.get(d);
-  const res = reg.generate(SEED, { streets: ['S'] });   // canonical-south orientation
+  if (!reg || !reg.generate) continue;
+  let res;
+  try { res = reg.generate(SEED, { streets: ['S'] }); } catch (e) { continue; }
   const legend = reg.legend || {};
-  const kinds = {};
-  for (const code in legend) kinds[code] = legend[code].kind || 'ground';
-  out[d] = {
-    W: res.W, H: res.H,
-    grid: res.g,                                          // 2D array of int codes
-    palette: reg.palette || {},
-    kinds: kinds,
-  };
+  const kinds = {}, names = {};
+  for (const code in legend) { kinds[code] = legend[code].kind || 'ground'; names[code] = legend[code].name || ''; }
+  out[d] = { W: res.W, H: res.H, grid: res.g, palette: reg.palette || {}, kinds: kinds, names: names };
 }
 fs.writeFileSync(OUT, JSON.stringify(out));
-console.log('dumped', DISTRICTS.length, 'district grids ->', OUT);
-for (const d of DISTRICTS) console.log('  ', d, out[d].W + 'x' + out[d].H);
+const got = Object.keys(out);
+console.log('dumped', got.length, 'district grids ->', OUT);
+console.log('  ', got.join(' '));

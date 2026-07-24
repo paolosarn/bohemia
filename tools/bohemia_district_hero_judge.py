@@ -26,11 +26,9 @@ OUT = 'slices/BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html'
 bank = json.load(open(BANK))
 heroes = bank['heroes']
 
-DISTRICTS = [
-    ('CITY HALL', 'cityhall', 'MATCHED to the walkable district: an admin BLOCK + a CLOCK TOWER over the entrance + a forecourt PLAZA with a DRY FOUNTAIN + flagpoles. Same palette as the tile you walk (engine/bohemia_cityhall.js).'),
-    ('BATTERY (BESS YARD)', 'battery', 'MATCHED to the walkable district: a grid BATTERY-STORAGE yard — a control building + rows of BATTERY CONTAINERS with HVAC units + an INVERTER/TRANSFORMER rack + gravel + fence. Not a smokestack plant.'),
-    ('TRANSIT TERMINAL (1x1)', 'terminal', 'MATCHED to the walkable district: a waiting HALL + a SCHEDULE-BOARD CLOCK over the doors + a gray boarding CANOPY over a ROW of dead BUSES + a kiss-and-ride. Compact 1x1.'),
-]
+# the roster is driven by the bank itself (every hero the factory baked), so new
+# districts appear here automatically as they're added.
+DISTRICTS = [(h['district'].upper(), h['district'], h['label']) for h in heroes]
 
 meta = []
 for h in heroes:
