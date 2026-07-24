@@ -105,8 +105,9 @@ def build_cityhall(masonry):
     DRUMTOP = {'c': (150, 150, 146)}
     PV = {'t': 'win', 'wall': (74, 90, 112), 'glass': (60, 74, 98), 'frame': (158, 164, 172), 'cols': 3, 'rows': 2}
     POLE = {'c': (150, 154, 160)}
-    # LOT: dead-dirt plaza + sidewalk under the building + a parking lot front-right
-    _ground(s, (-5, -2.5, 12.5, 11.5), (-4.2, -0.6, 7.2, 7.4), (7.2, 7.2, 12.5, 11.5))
+    # LOT: a SQUARE plot (city cells are square tiles) — dead-dirt plaza + a
+    # concrete sidewalk under the building + an asphalt parking lot front-right
+    _ground(s, (-5, -4, 13, 14), (-4.2, -0.6, 7.2, 7.4), (7.2, 7.0, 13, 13.5))
     s.box((1.6, 1.6, 0), (5.4, 5.4, 2.2), MASON)
     s.box((2, 2, 2), (4.6, 4.6, 17), {'top': ROOF, 'px': GLASS, 'py': GLASS_L, 'nx': ROOF, 'ny': ROOF})
     s.prism(-1.2, 4.2, 0, 2.6, 4.2, 12, DRUMG, DRUMTOP)
@@ -130,8 +131,8 @@ def build_battery(masonry):
     STACK = {'c': (118, 116, 110)}
     XFMR = {'c': (122, 120, 116)}
     HAZ = {'c': (196, 164, 48)}
-    # LOT: dead-dirt plaza + sidewalk under the hall + a parking lot front-right
-    _ground(s, (-5.5, -3, 13, 11.5), (-0.6, -0.6, 7.6, 7.1), (7.6, 6.8, 13, 11.5))
+    # LOT: a SQUARE plot — dead-dirt plaza + sidewalk under the hall + a parking lot
+    _ground(s, (-5.5, -4.5, 13, 14), (-0.6, -0.6, 7.6, 7.1), (7.6, 6.8, 13, 13.5))
     s.box((0, 0, 0), (7, 6.5, 6.5), {'top': ROOF, 'px': HALL, 'py': dict(HALL, deadseed=9), 'nx': ROOF, 'ny': ROOF})
     # roof vents
     for ox in (1.5, 4.2):
@@ -161,8 +162,8 @@ def build_terminal(masonry):
     CANOPY2 = {'c': (78, 116, 114)}
     MARQ = {'c': (150, 154, 160)}
     SIGN = {'c': (44, 48, 54)}
-    # LOT: dead-dirt plaza + sidewalk under the hall/bays + a parking lot front-left
-    _ground(s, (-6.5, -2.5, 12, 10.5), (-5.2, -0.4, 10.2, 7.0), (-6.5, 6.8, 1.0, 10.5))
+    # LOT: a SQUARE plot — dead-dirt plaza + sidewalk under the hall/bays + parking lot
+    _ground(s, (-6.5, -4, 12, 14.5), (-5.2, -0.4, 10.2, 7.0), (-6.5, 7.0, 1.5, 12))
     # the waiting hall (glass), back-left
     s.box((-4.5, 0.5, 0), (5, 5, 6.5), {'top': ROOF, 'px': WALL, 'py': dict(WALL, deadseed=8), 'nx': ROOF, 'ny': ROOF})
     # a big flat bay CANOPY on four posts, raised so the BUSES are visible under it
