@@ -251,7 +251,7 @@ function layoutFromSeed(seed){
     for(const py of passesA.concat(passesB)){ if(Math.abs(prison.y-py)<3)hit=true; }
     if(!hit)break; prison.y+=4; }
   // BRIGHTLINE TERMINAL: beside the rail at the strip's south end (the LA train)
-  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:2, h:1};
+  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:1, h:1};
   // THE SPHERE: east of the strip mid-run (real position)
   const sphere={x:stripX+dirE*4, y:Math.round(N*0.44), w:2, h:2};
   // LAS VEGAS BLVD NORTH CLUSTER (real): Cashman Field + Neon Boneyard + Mormon Fort
