@@ -74,20 +74,35 @@ def _anchor(scene, origin, scale):
     return int(round(bx)), int(round(by))
 
 
-def _ground(s, plaza, walk, lot, dirt=(94, 88, 76)):
-    """The building's LOT: a dead-dirt plaza, a concrete SIDEWALK pad under the
-    building, and an asphalt PARKING LOT with stall stripes in front."""
-    px0, py0, px1, py1 = plaza
-    D = {'c': dirt}; D2 = {'c': tuple(min(255, int(c * 1.14)) for c in dirt)}
-    s.box((px0, py0, -0.5), (px1 - px0, py1 - py0, 0.5), {'top': D2, 'px': D, 'py': D, 'nx': D, 'ny': D})
-    SW = {'c': (150, 146, 136)}; SWs = {'c': (120, 117, 109)}
-    wx0, wy0, wx1, wy1 = walk
-    s.box((wx0, wy0, -0.02), (wx1 - wx0, wy1 - wy0, 0.18), {'top': SW, 'px': SWs, 'py': SWs, 'nx': SWs, 'ny': SWs})
+def _ground(s, plot, lot):
+    """A PAVED city LOT (a square plot — city cells are square tiles): the whole
+    plot is weathered CONCRETE sidewalk, with an asphalt PARKING LOT (stall
+    stripes) section. No bare dead-dirt — the lot reads as developed city, not a
+    building floating in dirt (Paolo: the gray-brown dirt 'does nothing')."""
+    x0, y0, x1, y1 = plot
+    SW = {'c': (120, 121, 120)}; SWt = {'c': (140, 141, 139)}   # neutral concrete pavement (not dirt-brown)
+    s.box((x0, y0, -0.5), (x1 - x0, y1 - y0, 0.55), {'top': SWt, 'px': SW, 'py': SW, 'nx': SW, 'ny': SW})
     lx0, ly0, lx1, ly1 = lot
     LOT = {'t': 'lot', 'asphalt': (56, 57, 61), 'stripe': (150, 150, 140),
            'cols': max(3, int((lx1 - lx0) / 1.5)), 'rows': 2}
     ASP = {'c': (50, 51, 55)}
-    s.box((lx0, ly0, -0.02), (lx1 - lx0, ly1 - ly0, 0.12), {'top': LOT, 'px': ASP, 'py': ASP, 'nx': ASP, 'ny': ASP})
+    s.box((lx0, ly0, 0.0), (lx1 - lx0, ly1 - ly0, 0.08), {'top': LOT, 'px': ASP, 'py': ASP, 'nx': ASP, 'ny': ASP})
+
+
+def _door(s, side, at, lo, hi, ztop, doorc=(30, 33, 40), framec=(158, 162, 168), awn=None):
+    """A visible ENTRANCE DOOR at a building base: a dark door + a lighter frame on
+    a front face, optionally a small flat awning. side 'px' (+x face at x=at) or
+    'py' (+y face at y=at); the door spans [lo,hi] along the other axis, z [0,ztop]."""
+    if side == 'px':
+        s.quad((at + 0.02, lo - 0.3, 0), (at + 0.02, hi + 0.3, 0), (at + 0.02, hi + 0.3, ztop + 0.4), (at + 0.02, lo - 0.3, ztop + 0.4), {'c': framec}, (1, 0, 0))
+        s.quad((at + 0.05, lo, 0), (at + 0.05, hi, 0), (at + 0.05, hi, ztop), (at + 0.05, lo, ztop), {'c': doorc}, (1, 0, 0))
+        if awn:
+            s.box((at, lo - 0.4, ztop + 0.1), (awn, hi - lo + 0.8, 0.25), {'c': framec})
+    else:
+        s.quad((lo - 0.3, at + 0.02, 0), (hi + 0.3, at + 0.02, 0), (hi + 0.3, at + 0.02, ztop + 0.4), (lo - 0.3, at + 0.02, ztop + 0.4), {'c': framec}, (0, 1, 0))
+        s.quad((lo, at + 0.05, 0), (hi, at + 0.05, 0), (hi, at + 0.05, ztop), (lo, at + 0.05, ztop), {'c': doorc}, (0, 1, 0))
+        if awn:
+            s.box((lo - 0.4, at, ztop + 0.1), (hi - lo + 0.8, awn, 0.25), {'c': framec})
 
 
 # ---------------------------------------------------------------- city hall
@@ -105,19 +120,21 @@ def build_cityhall(masonry):
     DRUMTOP = {'c': (150, 150, 146)}
     PV = {'t': 'win', 'wall': (74, 90, 112), 'glass': (60, 74, 98), 'frame': (158, 164, 172), 'cols': 3, 'rows': 2}
     POLE = {'c': (150, 154, 160)}
-    # LOT: a SQUARE plot (city cells are square tiles) — dead-dirt plaza + a
-    # concrete sidewalk under the building + an asphalt parking lot front-right
-    _ground(s, (-5, -4, 13, 14), (-4.2, -0.6, 7.2, 7.4), (7.2, 7.0, 13, 13.5))
-    s.box((1.6, 1.6, 0), (5.4, 5.4, 2.2), MASON)
-    s.box((2, 2, 2), (4.6, 4.6, 17), {'top': ROOF, 'px': GLASS, 'py': GLASS_L, 'nx': ROOF, 'ny': ROOF})
-    s.prism(-1.2, 4.2, 0, 2.6, 4.2, 12, DRUMG, DRUMTOP)
-    # the SOLAR-TREE grove, a tidy row on the front-left plaza (clear of the tower)
-    for (px, py) in [(-3.0, 6.8), (-1.2, 8.2), (-3.4, 9.4), (0.4, 9.6)]:
+    # PAVED SQUARE plot + a parking lot front-right (no bare dirt)
+    _ground(s, (-5, -4, 13, 14), (7.2, 6.4, 13, 13.8))
+    # a BIGGER civic block: masonry base + a taller, wider glass tower
+    s.box((0.8, 0.8, 0), (7.4, 7.4, 2.6), MASON)
+    s.box((1.4, 1.4, 2.6), (6.2, 6.2, 19), {'top': ROOF, 'px': GLASS, 'py': GLASS_L, 'nx': ROOF, 'ny': ROOF})
+    s.prism(-1.6, 4.6, 0, 3.2, 4.6, 13, DRUMG, DRUMTOP)
+    # the grand ENTRANCE: glass doors + a flat canopy on the tower's front (+x) face
+    _door(s, 'px', 7.6, 2.8, 5.2, 4.2, doorc=(26, 34, 46), framec=(170, 176, 182), awn=1.4)
+    # the SOLAR-TREE grove, a tidy row on the front-left of the plot (clear of the building)
+    for (px, py) in [(-3.2, 7.0), (-1.4, 8.6), (-3.6, 9.8), (0.2, 10.0)]:
         s.box((px - 0.13, py - 0.13, 0), (0.34, 0.34, 5.2), POLE)
         z = 5.2
         s.quad((px - 1.1, py - 0.78, z + 0.5), (px + 1.1, py - 0.78, z - 0.25),
                (px + 1.1, py + 0.78, z - 0.25), (px - 1.1, py + 0.78, z + 0.5), PV, (0.35, 0, 0.94))
-    return s, 190, 236, (112, 150), 8.2
+    return s, 190, 240, (112, 150), 8.2
 
 
 # ---------------------------------------------------------------- battery / power
@@ -131,24 +148,28 @@ def build_battery(masonry):
     STACK = {'c': (118, 116, 110)}
     XFMR = {'c': (122, 120, 116)}
     HAZ = {'c': (196, 164, 48)}
-    # LOT: a SQUARE plot — dead-dirt plaza + sidewalk under the hall + a parking lot
-    _ground(s, (-5.5, -4.5, 13, 14), (-0.6, -0.6, 7.6, 7.1), (7.6, 6.8, 13, 13.5))
-    s.box((0, 0, 0), (7, 6.5, 6.5), {'top': ROOF, 'px': HALL, 'py': dict(HALL, deadseed=9), 'nx': ROOF, 'ny': ROOF})
+    DOORC = {'c': (58, 52, 44)}
+    # PAVED SQUARE plot + parking lot front-right (no bare dirt)
+    _ground(s, (-5.5, -4.5, 13, 14), (7.6, 6.6, 13, 13.8))
+    # a BIGGER power hall
+    s.box((0, 0, 0), (8.6, 7.6, 7.2), {'top': ROOF, 'px': HALL, 'py': dict(HALL, deadseed=9), 'nx': ROOF, 'ny': ROOF})
     # roof vents
-    for ox in (1.5, 4.2):
-        s.box((ox, 2.4, 6.5), (1.1, 1.7, 0.7), STEEL)
-    # TWO SMOKESTACKS standing BEHIND the hall (back-left, negative y) so they rise
-    # clear above the roofline — the power tell — with a dark rim band near the top
-    for (sx3, sy3, sh3, sw3) in [(0.6, -1.8, 12.5, 1.2), (2.4, -1.4, 10, 1.0)]:
+    for ox in (1.8, 5.2):
+        s.box((ox, 2.8, 7.2), (1.2, 1.9, 0.8), STEEL)
+    # a big roll-up LOADING DOOR + a personnel door on the hall front (+x face)
+    _door(s, 'px', 8.6, 1.0, 3.6, 4.2, doorc=(48, 46, 42), framec=(150, 150, 146))
+    _door(s, 'px', 8.6, 5.2, 6.4, 3.2, doorc=(40, 38, 34), framec=(150, 150, 146))
+    # TWO SMOKESTACKS behind the hall (back-left) rising clear above the roofline
+    for (sx3, sy3, sh3, sw3) in [(0.7, -2.0, 13.5, 1.35), (2.8, -1.5, 10.5, 1.1)]:
         s.box((sx3, sy3, 0), (sw3, sw3, sh3), STACK)
-        s.box((sx3 - 0.07, sy3 - 0.07, sh3 - 1.4), (sw3 + 0.14, sw3 + 0.14, 1.0), {'c': (66, 58, 52)})
+        s.box((sx3 - 0.08, sy3 - 0.08, sh3 - 1.5), (sw3 + 0.16, sw3 + 0.16, 1.1), {'c': (66, 58, 52)})
     # transformer cylinders in the yard (front-right)
-    for cx3 in (8.6, 10.4):
-        s.prism(cx3, 3.2, 0, 0.9, 4.4, 12, XFMR)
-        s.box((cx3 - 0.15, 3.05, 4.4), (0.3, 0.3, 0.9), STEEL)
+    for cx3 in (10.2, 12.0):
+        s.prism(cx3, 3.4, 0, 0.95, 4.6, 12, XFMR)
+        s.box((cx3 - 0.15, 3.25, 4.6), (0.3, 0.3, 0.9), STEEL)
     # hazard band low across the hall front
-    s.box((0, -0.4, 0.6), (7, 0.35, 0.8), HAZ)
-    return s, 184, 212, (82, 118), 7.8
+    s.box((0, -0.4, 0.6), (8.6, 0.35, 0.8), HAZ)
+    return s, 190, 216, (80, 116), 7.6
 
 
 # ---------------------------------------------------------------- terminal
@@ -162,21 +183,23 @@ def build_terminal(masonry):
     CANOPY2 = {'c': (78, 116, 114)}
     MARQ = {'c': (150, 154, 160)}
     SIGN = {'c': (44, 48, 54)}
-    # LOT: a SQUARE plot — dead-dirt plaza + sidewalk under the hall/bays + parking lot
-    _ground(s, (-6.5, -4, 12, 14.5), (-5.2, -0.4, 10.2, 7.0), (-6.5, 7.0, 1.5, 12))
-    # the waiting hall (glass), back-left
-    s.box((-4.5, 0.5, 0), (5, 5, 6.5), {'top': ROOF, 'px': WALL, 'py': dict(WALL, deadseed=8), 'nx': ROOF, 'ny': ROOF})
+    # PAVED SQUARE plot + parking lot front-left (no bare dirt)
+    _ground(s, (-6.5, -4.5, 12, 13.5), (-6.5, 7.2, 1.2, 13.5))
+    # a BIGGER waiting hall (glass), back-left
+    s.box((-5, 0.2, 0), (6, 6, 7.2), {'top': ROOF, 'px': WALL, 'py': dict(WALL, deadseed=8), 'nx': ROOF, 'ny': ROOF})
+    # the glass ENTRANCE doors on the hall front (+x face), facing the bays
+    _door(s, 'px', 1.0, 2.4, 5.0, 3.6, doorc=(30, 42, 52), framec=(168, 172, 176), awn=1.2)
     # a big flat bay CANOPY on four posts, raised so the BUSES are visible under it
-    for (px, py) in [(1.5, 1.0), (9.0, 1.0), (1.5, 6.0), (9.0, 6.0)]:
-        s.box((px - 0.2, py - 0.2, 0), (0.4, 0.4, 4.0), POST)
-    s.box((1.0, 0.6, 4.0), (8.6, 6.0, 0.5), {'top': CANOPY, 'px': CANOPY2, 'py': CANOPY2, 'nx': CANOPY2, 'ny': CANOPY2})
+    for (px, py) in [(2.0, 1.0), (10.0, 1.0), (2.0, 6.4), (10.0, 6.4)]:
+        s.box((px - 0.2, py - 0.2, 0), (0.4, 0.4, 4.2), POST)
+    s.box((1.4, 0.6, 4.2), (9.4, 6.4, 0.5), {'top': CANOPY, 'px': CANOPY2, 'py': CANOPY2, 'nx': CANOPY2, 'ny': CANOPY2})
     # dead buses nosed in under the canopy, staggered so both read
-    s.box((2.2, 4.4, 0), (5.6, 1.6, 1.9), {'c': (150, 132, 74)})
-    s.box((3.2, 2.0, 0), (5.4, 1.6, 1.9), {'c': (120, 132, 150)})
+    s.box((2.6, 4.6, 0), (6.2, 1.7, 2.0), {'c': (150, 132, 74)})
+    s.box((3.6, 2.0, 0), (6.0, 1.7, 2.0), {'c': (120, 132, 150)})
     # a tall marquee sign at the front corner (clear of the hall)
-    s.box((10.4, 6.6, 0), (0.4, 0.4, 7.0), MARQ)
-    s.box((9.7, 6.0, 5.6), (1.8, 0.35, 1.9), SIGN)
-    return s, 178, 152, (86, 104), 7.8
+    s.box((11.4, 7.0, 0), (0.4, 0.4, 7.2), MARQ)
+    s.box((10.7, 6.4, 5.8), (1.8, 0.35, 1.9), SIGN)
+    return s, 186, 158, (88, 106), 7.6
 
 
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal}
