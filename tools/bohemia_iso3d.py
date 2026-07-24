@@ -56,7 +56,9 @@ class Scene(object):
         top/px/py/nx/ny (px = +x face...) or a single material for all."""
         x, y, z = pos
         dx, dy, dz = size
-        if not isinstance(mats, dict):
+        # a single material (a dict with 'c'/'t', or a non-dict) applies to every
+        # face; a per-face dict names top/px/py/nx/ny.
+        if not isinstance(mats, dict) or not any(k in mats for k in ('top', 'px', 'py', 'nx', 'ny')):
             mats = {k: mats for k in ('top', 'px', 'py', 'nx', 'ny')}
         c = [(x, y, z), (x + dx, y, z), (x + dx, y + dy, z), (x, y + dy, z),
              (x, y, z + dz), (x + dx, y, z + dz), (x + dx, y + dy, z + dz), (x, y + dy, z + dz)]
@@ -180,13 +182,35 @@ def bake(scene, out_w, out_h, origin, scale, key_dir=(0.8, -0.35, 0.75),
                 cu = (u - u0) / (u1 - u0) * cols
                 cv = (vv - v0) / (v1 - v0) * rows
                 fu = cu - np.floor(cu); fv = cv - np.floor(cv)
-                border = (fu < 0.13) | (fu > 0.87) | (fv < 0.1) | (fv > 0.9)
                 col[:] = material['wall']
-                gl = inwin & ~border
-                fr = inwin & border
+                if material.get('punch'):
+                    # small punched windows in a wall (masonry / industrial)
+                    gl = inwin & (fu > 0.3) & (fu < 0.7) & (fv > 0.28) & (fv < 0.72)
+                    fr = inwin & ~gl & (fu > 0.24) & (fu < 0.76) & (fv > 0.22) & (fv < 0.78)
+                    border = ~gl
+                else:
+                    # full curtain-wall grid (glass panes + mullions)
+                    border = (fu < 0.13) | (fu > 0.87) | (fv < 0.1) | (fv > 0.9)
+                    gl = inwin & ~border
+                    fr = inwin & border
                 for ch in range(3):
                     col[gl, ch] = material['glass'][ch]
                     col[fr, ch] = material['frame'][ch]
+                # DEAD WORLD: some panes are broken (very dark) or boarded (masonry)
+                if 'dead' in material:
+                    ci = np.floor(cu).astype(np.int64)
+                    cj = np.floor(cv).astype(np.int64)
+                    ds = int(material.get('deadseed', 1))
+                    hsh = ((ci * 73856093) ^ (cj * 19349663) ^ (ds * 83492791)) & 0xffff
+                    hf = hsh / 65535.0
+                    dead = gl & (hf < material['dead'])
+                    broke = dead & (hf < material['dead'] * 0.5)
+                    board = dead & ~broke
+                    bc = material.get('breakc', (10, 12, 14))
+                    bd = material.get('boardc', material['wall'])
+                    for ch in range(3):
+                        col[broke, ch] = bc[ch]
+                        col[board, ch] = bd[ch]
             else:
                 col = np.empty((win.shape[0], win.shape[1], 3))
                 col[:] = material['c']

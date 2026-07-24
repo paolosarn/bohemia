@@ -152,6 +152,38 @@ pose functions and the wardrobe are direction/skeleton-relative, not
 tied to male pixel geometry — laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md
 already rules the carryover; nothing new to build until he says go.
 
+## HEROES v5: BAKED FROM 3D — a real iso renderer (7/23, same session). Paolo
+## after v4: "it's looking better it still kind of looks like dog shit" -> chose
+## RETHINK THE APPROACH (of: point-me-at-the-fix / park-as-placeholders / rethink).
+The procedural hand-drawn-pixel approach had a ceiling (programmer-art). Pocket
+City's buildings are "sprites baked from 3D." So I BUILT A TINY 3D RENDERER:
+tools/bohemia_iso3d.py — a numpy software iso baker. Scene of boxes / n-gon prisms
+/ quads with per-face materials -> isometric camera -> z-buffer barycentric
+rasterization -> normal-based key+ambient lighting -> ON-PLANE window-grid
+materials (patterned by interpolated face UV, so windows are ALWAYS exactly on the
+surface — the whole overlap bug class is structurally gone) -> supersample +
+box-downscale for clean antialiased "baked" edges -> soft ground shadow. Dead-world
+panes (broken + boarded) are a material option. Paolo saw the City Hall bake: "it's
+looking better tho" (DIRECTION APPROVED) + circled the solar panels ("what's up
+with this") -> fixed (tall posts + compact angled panels = a real solar-tree grove).
+tools/bohemia_district_hero_factory.py REWRITTEN to build each hero as a 3D scene
+and bake it: City Hall (glass tower + curved council drum + solar-tree grove),
+battery (power hall + smokestacks + roof vents + transformer cylinders + hazard),
+terminal (glass hall + bay canopy on posts + dead buses + marquee). It's a clear
+quality tier above all the procedural versions.
+REAL BUG FOUND + FIXED in iso3d: Scene.box() mistook a SINGLE material dict
+({'c':..}) for a per-face dict, so single-material boxes rendered INVISIBLE (all
+faces got None) — that's why the smokestacks/buses/vents kept vanishing. Fixed:
+a dict without any of top/px/py/nx/ny keys is treated as one material for all faces.
+art_45_gate 'building' two-tone check is robust to composed scenes (per-row upper-
+portion light direction). Judge + hub updated to v5. Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v5 in LIFE tab -> DISTRICT HEROES]. On his
+pick, wire winners into the CITY tab iso renderer (drawImage the baked sprite at
+the district cell, lifted; the sprites carry bx/by = projected ground-center for
+planting). The 3D renderer is now REUSABLE for ANY future building/prop art — this
+is the production pipeline going forward, not one-off procedural cooks. GRAVEYARD:
+v1 boxes FINAL-dead; hand-drawn procedural heroes superseded by the 3D bake.
+
 ## HEROES v4: REAL LV CITY HALL + FIXED ON-PLANE WINDOWS (7/23, same session).
 ## Paolo on v3: "kind of ass... the windows aren't correctly on the walls, things
 ## overlapping... look in Google like real Las Vegas City Hall... they literally
