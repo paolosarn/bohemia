@@ -8,6 +8,21 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## HERO BEAT UI FIX — "UNSET != PICKED" (7/24, same session, Paolo: "Good
+## news it seems like all the beats have their hero moment on beat 1")
+He wasn't reporting a musical fact -- he was reading a UI bug. The HERO
+BEAT button 1 lit up gold for EVERY song regardless of whether anyone
+picked it: the highlight condition reused the gameplay default's `||1`
+fallback (`(MUS.hero[key]||1)===n`), so "unset" and "explicitly chosen
+beat 1" rendered identically. Fixed to a strict `MUS.hero[key]===n` with
+no fallback -- unset now shows no lit button at all; gold only ever means
+he actually tapped it. The GAMEPLAY math (heroOffset(), applySlot) was
+never wrong -- still defaults to beat 1 until picked -- only the display
+lied. Verified visually (headless Playwright, not just gate text): 0 lit
+buttons across the whole MUSIC tab with nothing picked, exactly 1 lights
+up after tapping one. Gate: herobeat_gate.js 19->20. Stamp: BUILD 7/24e.
+Full record in records/BOHEMIA_HERO_BEAT_7_23_26.txt.
+
 ## HERO BEAT PICKER SHIPPED (7/23, character/sound session, Paolo: "lets
 ## pick the hero part of the beat")
 Full mechanism for records/BOHEMIA_HERO_BEAT_7_23_26.txt's ask: per-song,

@@ -39,6 +39,11 @@ ok('heroRow() exists: 4 tap buttons + a live per-beat indicator', /heroRow\(key\
   /hero-btn/.test(alpha) && /hero-live/.test(alpha));
 ok('heroRow is wired into every song slot row', /const hero=MUS\.heroRow\(key\);/.test(alpha) &&
   /r\.append\(play,nbadge,up,dn,canon,gy,cb,tags,body,hero\);/.test(alpha));
+ok('UNSET != PICKED (Paolo 7/24 caught it: every song looked already-set to beat 1) -- '+
+  'the highlight condition is a strict match against the real saved value, no ||1 fallback '+
+  'that would light up "1" for a song nobody ever picked',
+  /MUS\.hero\[key\]===n\?';border-color:#e8b04a;color:#e8b04a':''/.test(alpha) &&
+  !/\(MUS\.hero\[key\]\|\|1\)===n/.test(alpha));
 ok('picking a beat saves instantly and pushes live to combat', /MUS\.hero\[key\]=n; MUS\.save\(\);/.test(alpha) &&
   /x\.style\.color='#e8b04a';\} \}\); musicPushToCombat\(\); \}\);/.test(alpha));
 ok('the live indicator reads MUS.uiStep (quarter-beat = Math.floor(uiStep/4)), not finer', /Math\.floor\(\(MUS\.uiStep\|\|0\)\/4\)/.test(alpha));
