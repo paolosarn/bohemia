@@ -67,11 +67,21 @@ the player's quest is to ask. That tension is the demo's engine and it is fully 
   SALVAGE register. Big-brain research launched 7/24; its own addendum follows. In Act 1 this
   tech must surface as UNCANNY/supernatural first (the ghost rule above), understood as tech
   only later.
-- THE ECONOMIC ACCELERANT (Paolo, strong direction, being grounded by the research): the
-  crash was accelerated by a TECH BUBBLE — tech companies inflating each other in an almost
-  pyramid-scheme / circular-financing speculative ladder that popped. Refines the existing
-  "the crash was DEBT, not bombs" thesis: the debt was TECH-SPECULATION debt. [PENDING the
-  research's real-economics stress-test before locking the exact mechanism.]
+- THE ECONOMIC ACCELERANT (Paolo, now GROUNDED + LOCKED as direction — see
+  BOHEMIA_ADDENDUM_EMERGING_TECH_RESEARCH_7_24_26.md): the crash was accelerated by a TECH
+  BUBBLE built on CIRCULAR VENDOR FINANCING (companies lending each other the money to buy
+  each other's product) that reversed when demand never justified the capex. It is nearly
+  the literal 2025-2026 discourse (Nvidia→OpenAI→Oracle) and it already happened once exactly
+  (Lucent/Nortel lent telecoms the money to buy their gear → telecom crash → dark fiber). It
+  is ALSO why a dead world has sci-fi hardware everywhere: the bubble mass-produced top-tier
+  tech faster than the economy could use it, then abandoned it (dark-fiber aftermath at
+  civilizational scale). Vegas, temple of speculative money, dies of speculation.
+- THE REVEAL ENGINE (LOCKED, serves this ghost rule): every Act-1 haunting has a documented
+  real tech/brain-science mechanism under it (sensed-presence = TPJ stimulation; whispers =
+  temporal-lobe stimulation; possession = DBS agency-loss; moving dead objects = edge-alive
+  robots; the dead who came back = generative data-portraits; the unkillable demon = a
+  distributed process with no center). The player earns the supernatural→technological
+  transition by accumulating the salvage that explains each scare. Table in the tech addendum.
 
 ## PENDING PAOLO (not decided, do not invent)
 - The in-fiction Act 1 NAMES for the haunting (ghost/demon/etc. — the actual words NPCs use).

@@ -54,11 +54,17 @@ with this phone app for now") — this was all engine/quest layer.
    the demon's). Design spine (canon-consistent): the homeless live over the deep servers
    safely because they never LOOK; the player's quest is to LOOK, which is the one thing
    that makes the deep lethal (proximity-to-the-secret = threat, not player strength).
-   IN FLIGHT (7/24): big-brain emerging-tech research launched (BCI/NeuroLink, head-mounted
-   drones, XR, robots -> 2045-2060) + the economic accelerant idea (crash accelerated by a
-   TECH BUBBLE / circular-financing speculative ladder; refines "crash was debt"). Both get
-   their own addendum when the research lands. The demo's REASON-TO-DESCEND is the open
-   question going to Paolo.
+   TECH RESEARCH LANDED (7/24): laws/BOHEMIA_ADDENDUM_EMERGING_TECH_RESEARCH_7_24_26.md. Two
+   things LOCKED from it: (1) THE REVEAL ENGINE -- every Act-1 haunting has a documented real
+   mechanism under it (TPJ stim = sensed presence, temporal-lobe stim = voices, DBS = agency
+   loss/possession, edge-alive robots = restless dead, generative data-portraits = the dead
+   who came back, distributed no-center process = the unkillable demon); the tech literally IS
+   the ghost story. (2) THE ECONOMIC ACCELERANT -- the crash was a circular-vendor-financing
+   tech bubble (Nvidia->OpenAI->Oracle in real life; Lucent/Nortel telecom crash as the exact
+   historical rhyme; the bubble is WHY a dead world has sci-fi salvage everywhere). Rest of the
+   file is a PALETTE (BCI/whisper, head-drone scout rig, puppeted humanoids, the mesh you
+   can't kill, dark datacenters) -- Paolo's picks, not locked. The demo's REASON-TO-DESCEND
+   is still the open question going to Paolo.
 5. MARCO LOCKED (7/23, Paolo, "VERY IMPORTANT"): the founding Neighbor is named MARCO
    and HE HAS A DAUGHTER. The founding is now two real families behind the shared
    fence. Daughter's name/age NOT set (Paolo's call, do not invent). See
