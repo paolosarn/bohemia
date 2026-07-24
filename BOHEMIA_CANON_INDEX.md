@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 07/23/26
+# BOHEMIA CANON INDEX — regenerated 07/24/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-146 canon files indexed across 2 locations.
+147 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -171,7 +171,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md`
 - `BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md`
 
-### QUESTS & LORE (15)
+### QUESTS & LORE (16)
+- `BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md`
 - `BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md`

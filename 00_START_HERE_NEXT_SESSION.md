@@ -41,7 +41,25 @@ with this phone app for now") — this was all engine/quest layer.
    against ROLES so they are placement-ready), delta tuning, whether the
    looked_under_the_rock unrecorded flag (set by S01/S04 when you go loud "down
    toward the water") triggers a real Amalgamation escalation beat later.
-3. MARCO LOCKED (7/23, Paolo, "VERY IMPORTANT"): the founding Neighbor is named MARCO
+4. ACT 1 = THE AMALGAMATION IS A GHOST (7/24, Paolo lore lock). The word
+   "Amalgamation" is NOT used until the END of Act 1, and Act 1 NEVER reveals it is a
+   machine/AI/server. It is presented as a haunting: ghost, demon, otherworldly,
+   paranoid-psychosis, whispers, demonic/scary. The reveal that it was technology all
+   along is the end-of-Act-1 rug-pull. Purple stays the wordless "near the secret" tell,
+   read in Act 1 as the color of the haunting. See
+   laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md.
+   THE DEMO DIRECTION (Paolo's original idea, now the spine): start in the OVERWORLD,
+   descend into the WASH/TUNNELS. Surface = real crazy tech-scavenger homeless; deeper =
+   "made-tech" NeuroLinked possessed-seeming homeless (the machine's, but Act-1-framed as
+   the demon's). Design spine (canon-consistent): the homeless live over the deep servers
+   safely because they never LOOK; the player's quest is to LOOK, which is the one thing
+   that makes the deep lethal (proximity-to-the-secret = threat, not player strength).
+   IN FLIGHT (7/24): big-brain emerging-tech research launched (BCI/NeuroLink, head-mounted
+   drones, XR, robots -> 2045-2060) + the economic accelerant idea (crash accelerated by a
+   TECH BUBBLE / circular-financing speculative ladder; refines "crash was debt"). Both get
+   their own addendum when the research lands. The demo's REASON-TO-DESCEND is the open
+   question going to Paolo.
+5. MARCO LOCKED (7/23, Paolo, "VERY IMPORTANT"): the founding Neighbor is named MARCO
    and HE HAS A DAUGHTER. The founding is now two real families behind the shared
    fence. Daughter's name/age NOT set (Paolo's call, do not invent). See
    laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md + the updated Neighbor section
