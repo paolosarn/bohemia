@@ -117,6 +117,38 @@ pose functions and the wardrobe are direction/skeleton-relative, not
 tied to male pixel geometry — laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md
 already rules the carryover; nothing new to build until he says go.
 
+## HEROES v4: REAL LV CITY HALL + FIXED ON-PLANE WINDOWS (7/23, same session).
+## Paolo on v3: "kind of ass... the windows aren't correctly on the walls, things
+## overlapping... look in Google like real Las Vegas City Hall... they literally
+## look the same as before."
+TWO real fixes (v4, factory rewritten again):
+1. WINDOW-ON-WALL GEOMETRY BUG (was in v1-v3): windows used a flat screen-Y so they
+   spilled past the sloped iso face edges and overlapped foreground geometry. FIXED:
+   face_windows() INVERSE-MAPS each face pixel to that face's own (u,v) axes (u along
+   the sloped ground edge, v straight up), so every window/mullion lands exactly on
+   the plane, gridded, and can never cross an edge. Glass = curtain grid; masonry =
+   punched windows. This is the correct iso-window method for all future buildings.
+2. CITY HALL = THE REAL LAS VEGAS CITY HALL (2012, Elkus Manfredi), not a classical
+   dome (that's why it kept looking the same + wrong for Vegas). Researched via text
+   (I CANNOT load Google Images here - proxy blocks image hosts; same reason Paolo
+   had to SEND the PC2 shots. Worked from gbdmag/Architect Mag/Wikipedia descriptions):
+   a MODERN angular GLASS office TOWER + a CURVED council chamber + a plaza of "SOLAR
+   TREES" (33 tubular columns w/ tilted PV panels). Built as glass curtain-wall tower
+   + curved glass council drum + a grove of dead solar trees on a dead-dirt plaza.
+   Genuinely distinctive now, and accurate to the real building.
+Battery + terminal kept their v3 designs but got the correct on-plane windows.
+art_45_gate 'building' two-tone check made ROBUST to COMPOSED scenes: measures the
+lit-right/shadow-left direction PER ROW in the UPPER portion (where the tallest mass
+- the hero - rises clear of plaza/wing clutter), not a whole-sprite left/right split
+(which compared two different buildings on the composed City Hall and read flat).
+Now +37 light-direction on the tower. Judge + hub updated to v4. Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v4]. HONEST NOTE for next session: I've now
+missed 3x on these heroes; if v4 still isn't right, the fastest path is Paolo SENDING
+a reference shot of the target (the PC2 send worked; I can't Google-image here). The
+render-map for wiring winners into the CITY tab is in the section below.
+GRAVEYARD: v1 boxes FINAL-dead. Every building cook reads the style bible + uses
+face_windows() for on-plane windows.
+
 ## POCKET CITY 2 REFERENCES SAVED + STYLE BIBLE + HEROES v3 (7/23, same session).
 ## Paolo sent 66 PC2 screenshots after v1/v2 missed; "save the references and cook."
 THE REFERENCES ARE PERMANENT: records/refs/pocketcity2/ (66 shots: wiki building
