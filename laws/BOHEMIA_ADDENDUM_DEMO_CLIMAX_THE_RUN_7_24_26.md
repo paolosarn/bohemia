@@ -14,10 +14,16 @@ locked and we rediscovered by reading first:
   Eye Dial. The flee climax is what those verbs were built for.
 
 ## THE LOCK (what Paolo added 7/24)
-The demo's CLIMAX is a forced ESCAPE, not a boss fight. It is the anti-power-fantasy:
-you have no gun, you are one hit from dead, the dark belongs to THEM, and the only verb
-that saves you is smart movement. Survival-horror FLIGHT (Outlast / Alien: Isolation /
-Amnesia DNA), not a shootout. You do not win by killing. You win by getting OUT.
+CORRECTION 7/24 (Paolo): this is NOT a thesis about the player being helpless, and the
+cart does NOT exist to disarm them. You go into the wash ARMED AND CAPABLE, and the demo's
+lead-up is awesome, lethal action that feels good. The flee is a SPIKE, not the game's
+identity: after some fun-as-fuck combat, something crazy happens (the L), and for one
+white-knuckle stretch the smart play is to GET OUT, not stand and fight — because a
+flooding tunnel packed with things that see in the dark is a place even a killer runs from.
+So: the CLIMAX is a forced ESCAPE, earned by the SITUATION (flood + their dark + their
+numbers), not by nerfing you. Survival-horror FLIGHT (Outlast / Alien: Isolation DNA) as a
+PEAK BEAT that follows the power, showing the game's range — from badass to oh-shit and back
+into the light. You win it by getting OUT.
 
 ### THE SHAPE (grounded end to end, canon-consistent)
 1. DESCEND (the haunting hook, TBD reason) — wash, then the creepy sewer. Act-1 rule
@@ -26,8 +32,9 @@ Amnesia DNA), not a shootout. You do not win by killing. You win by getting OUT.
    reveal). You LOOK. Per the locked design spine, LOOKING is the one thing the deep will
    not allow (proximity-to-the-secret = threat, not player strength — it is why the homeless
    who never look live over it safely and you, who came to look, do not).
-3. THE L — "something crazy happens" (the trigger is Paolo's call — options below). You are
-   suddenly near-dead, weaponless or dry, and the deep wakes.
+3. THE L — "something crazy happens": the flood. You're not stripped, you're just suddenly
+   in a spot no amount of firepower fixes (rising water, their dark, their numbers) and the
+   smart play flips from fight to flight.
 4. THE RUN — flee UP and OUT through the dark sewer to the light of the surface, hunted the
    whole way by the cybernetic homeless.
 
@@ -50,17 +57,18 @@ Amnesia DNA), not a shootout. You do not win by killing. You win by getting OUT.
   (temporal-lobe stimulation, per the tech research / reveal engine) swell as one closes in —
   your only proximity tell in the dark. Creepy as fuck by construction: the thing that means
   "you are about to die" is a voice in your head that should not be there.
-- CONTACT = DEATH, not chip damage. Honors "10 HP left": you are already one hit from gone,
-  so a single grab from a cybernetic homeless downs you. This keeps the climax as a DETECTION/
-  EVASION beat (movement + line of sight + sound), which is buildable WITHOUT shipping the full
-  damage system — so NO DAMAGE BEFORE THE DIAL still holds (you deal none; getting caught is a
-  fail-state, not an HP-attrition fight).
+- HIGH LETHALITY, both ways. You can still swing/shoot if cornered, but down here in the flood
+  a grab from a cybernetic homeless is deadly and there are too many to trade blows with — so
+  fighting your way out LOSES, and OUT-MOVING them wins. The pressure is real without pretending
+  you're toothless: you're dangerous, they're just more dangerous in their own dark, wet dark.
+  (Keeps the beat as movement + line-of-sight + sound, so it's buildable without the full damage
+  system and NO DAMAGE BEFORE THE DIAL still holds.)
 
 ## THE TONE ARC (why it lands)
-Awesome-action-fun-as-fuck -> something crazy -> you take the L -> naked terror in the dark.
-The demo flips from empowerment to helplessness in one beat. That whiplash (Yakuza/Hades DNA
-already in the questbook) is the point: the game can take the gun out of your hand and make
-you feel it.
+Fun-as-fuck lethal action -> something crazy -> you take the L -> a white-knuckle sprint for
+the light. The demo shows the game's RANGE in one arc: badass, then oh-shit, then back into
+the sun changed. That whiplash (Yakuza/Hades DNA already in the questbook) is the point — not
+that you're weak, but that even at full power this world has places that can make you run.
 
 ## THE L / THE TRIGGER — FLASH FLOOD (LOCKED 7/24, Paolo: "flash flood sounds fun")
 It starts to rain above and the storm channel begins to fill. You reach the hatch, you LOOK,

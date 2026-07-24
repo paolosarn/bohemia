@@ -1,6 +1,19 @@
 # BOHEMIA — ADDENDUM: THE SHOPPING CART + THE DEPLOYABLE CAMP (LOCKED)
 ### 7.24.26 — Paolo (long-held idea): like FFXV's crew driving the Regalia and camping anywhere — but if you have no car (cars are a rare luxury, already canon), your COMPANION follows you pushing a SHOPPING CART. The pseudo-economic-apocalypse mobile-storage-and-camp system. Plus the realism gripe: games let you roam a whole world but never honestly answer HOW you carry your stuff — if it can't fit in your backpack or pockets, what are we doing.
 
+## CORRECTION / EVOLUTION (7/24, same day, Paolo — supersedes the framing below where it conflicts)
+1. IT IS A SMART CART. By 2060 it is a salvaged AUTONOMOUS cargo cart that FOLLOWS YOU on
+   its own — no one has to push it (a companion walking with it is optional flavor, not the
+   mechanism). Grounded in real, shipping-today following-cargo robots (Piaggio Gita, Amazon
+   Scout-class autonomous followers) — 35 years on, a jury-rigged self-driving cart is easy
+   canon and it is COOL, not pitiful. It rolls itself behind you, deploys into your camp,
+   and can be upgraded/kitted (light rig, bigger bed, a mounted whatever — Paolo's call).
+2. THE CART DOES NOT EXIST TO DISARM YOU. Scrap the earlier "the cart can't come into the
+   wash so you'll be weaponless/helpless" framing — it was a weak contrivance to strip the
+   player, and that is not the game. You go into the wash ARMED AND DANGEROUS. The demo's
+   flee is scary because of the SITUATION (a flood, their dark, their numbers), not because
+   anything nerfed you. The cart is a cool base-building flex, full stop; it is not a leash.
+
 Read-before-build: this EXTENDS three things already locked, it does not reinvent them:
 - BohemiaEngine.Inventory (BUILT, 25 tests) — micro/ephemeral player stuff with a real
   `maxWeight` / `canCarry` / `currentWeight` carry-limit already in code.
@@ -26,9 +39,10 @@ to the thing that has always been done wrong.
 ## THE THREE-TIER BASE (this is the base-building system, mobile included)
 1. THE COMPOUND (fixed home base): Marco's merged backyards -> your buildable home (the
    founding, already canon). Where the dynasty lives and grows.
-2. THE CART (mobile base + storage): the pseudo-apocalypse Regalia. Your COMPANION pushes
-   it and it follows you through the city. It holds your bulk AND deploys your CAMP. This is
-   how you take base-building ON THE ROAD — the show-off mechanic.
+2. THE SMART CART (mobile base + storage): the pseudo-apocalypse Regalia — a salvaged 2060
+   autonomous cart that FOLLOWS YOU on its own (see the correction up top). It holds your
+   bulk AND deploys your CAMP, kits out with upgrades, and is how you take base-building ON
+   THE ROAD — the show-off mechanic. Cool tech, not a sad prop.
 3. THE CAR (luxury mobile base, late + rare): the dream upgrade to the cart — faster (top of
    the Vehicle Ladder), more storage, but fuel/battery-gated and hard to earn. Same role as
    the cart, leveled up. The cart is the have-not version of the car; earning the car is a
@@ -59,15 +73,14 @@ daylight). Straight FFXV-camp DNA.
   you on the beat grid and physically can't fit everywhere — tight alleys, stairs, rubble,
   and especially the sewer.
 
-## THE DEMO TIE-IN (this is the gold — the system EARNS the climax)
-The cart and the companion pushing it CANNOT follow you down into the wash/sewer — too
-tight, stairs, and then it floods. So when you descend for the climax, you LEAVE the cart,
-the companion, and all your bulk gear topside and go down with ONLY what's on your body.
-That is the mechanical, honest reason you are under-equipped, near-weaponless, and one hit
-from dead in the flee. The cozy base-building system the demo shows off in Movement 1 is the
-exact reason you are stripped and terrified in Movement 4 — the bait-and-switch made
-mechanical, not scripted. (And you might climb back out to find your unguarded cart raided —
-a second gut-punch waiting in the light.)
+## THE DEMO TIE-IN (base-building flex, NOT a leash)
+The smart cart is how the demo shows off base-building on the road: roll into a spot, deploy
+your kitted-out camp, advance time. When you head down into the wash it waits at the mouth
+(it is a cart, not a diver) — but you go down ARMED AND DANGEROUS. The flee's danger comes
+from the SITUATION (the flood, their dark, their numbers), never from being stripped of gear.
+One real, non-weak stake does survive: a smart cart left topside can still be JACKED while
+you're under — you might climb back into the light to find your rolling base gone. That's a
+gut-punch about loss, not about being made helpless.
 
 ## MACRO/MICRO placement (keeps the save architecture clean)
 The cart's CONTENTS are MICRO (ephemeral bulk storage — a second container beyond body
@@ -76,7 +89,8 @@ CAPACITY/OWNERSHIP as a rebuild achievement ("the dynasty has a cart / earned a 
 can ride the fold like other permanent capacity. Same one-seam discipline as ammo.
 
 ## PENDING — PAOLO'S CALLS (do not invent)
-- WHO pushes the cart in the demo (a dedicated companion? Marco? a family member?).
+- Smart-cart specifics: how autonomous, how it navigates, what upgrades/kit it takes, and
+  whether a companion ALSO walks with it in the demo (optional flavor now, not the mechanism).
 - Cart capacity + the car-acquisition chain + whether the cart itself upgrades (bigger cart,
   a jogger, a wagon, a trailer bike) before the car.
 - The pre-designed camp layouts / what you can build into a camp, and the craft/cook/heal menu.
