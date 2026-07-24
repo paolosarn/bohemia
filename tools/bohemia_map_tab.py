@@ -202,7 +202,7 @@ function refreshHUD(){
 }
 
 var down = false, sx0 = 0, sy0 = 0, spx = 0, spy = 0, moved = 0;
-cv.addEventListener('pointerdown', function(e){ down = true; sx0 = e.clientX; sy0 = e.clientY; spx = px; spy = py; moved = 0; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointerdown', function(e){ down = true; sx0 = e.clientX; sy0 = e.clientY; spx = px; spy = py; moved = 0; cv.setPointerCapture(e.pointerId); if (findPanel.style.display === 'block') findPanel.style.display = 'none'; });
 cv.addEventListener('pointermove', function(e){ if (!down) return; var dx = e.clientX - sx0, dy = e.clientY - sy0; moved += Math.abs(dx) + Math.abs(dy); px = spx - dx / Z; py = spy - dy / Z; draw(); });
 cv.addEventListener('pointerup', function(e){
   down = false;
@@ -226,6 +226,54 @@ cv.addEventListener('touchmove', function(e){
 cv.addEventListener('touchend', function(){ pinchD = null; });
 
 resize(); refreshHUD(); draw();
+
+// ---- FIND (7/24/26): the first live consumer of world().districtsOfType/
+// nearestDistrictOfType — read-only, matches the MAP tab's own tier (never
+// build/demolish, just find and look). Lists every district TYPE that
+// actually exists in this valley (queried once, not guessed), tap one to
+// jump the camera to the nearest instance from wherever you're currently
+// looking. Proves the location-query API on the real surface, not just a gate.
+var findBtn = document.getElementById('findbtn'), findPanel = document.getElementById('findpanel');
+var TYPE_LABEL = {
+  suburb:'Suburb', gated:'Gated Suburb', estate:'Estate', apartment:'Apartment Complex',
+  commercial:'Commercial', industrial:'Industrial', medical:'Hospital', solar:'Solar Farm',
+  park:'Park', wash:'Flood Wash', cemetery:'Cemetery', drivein:'Drive-In', golf:'Golf Course',
+  stadium:'Stadium', truckstop:'Truck Stop', school:'School', firestation:'Fire Station',
+  swapmeet:'Swap Meet', storage:'Self-Storage', watertreat:'Water Treatment', boneyard:'Salvage Yard',
+  policestation:'Police Station', library:'Library', landfill:'Landfill', railyard:'Railyard',
+  substation:'Substation', chapel:'Church', courthouse:'Courthouse', jail:'Jail', farm:'Farm',
+  downtown:'Downtown', trailer:'Trailer Park', warehouse:'Warehouse', waterpark:'Water Park',
+  mall:'Mall', cityhall:'City Hall', battery:'Battery Storage', terminal:'Transit Terminal'
+};
+function buildFindList(){
+  var present = [];
+  for (var type in MODMAP) {
+    var n = W.districtsOfType(type).length;
+    if (n > 0) present.push({type:type, label:TYPE_LABEL[type] || type, n:n});
+  }
+  present.sort(function(a,b){ return a.label < b.label ? -1 : a.label > b.label ? 1 : 0; });
+  findPanel.innerHTML = '';
+  present.forEach(function(item){
+    var row = document.createElement('div');
+    row.className = 'finditem';
+    row.textContent = item.label + '  ·  ' + item.n;
+    row.addEventListener('pointerup', function(){
+      var nearest = W.nearestDistrictOfType(px, py, item.type);
+      if (!nearest) return;
+      px = nearest.x; py = nearest.y; sel = [nearest.x, nearest.y];
+      findPanel.style.display = 'none';
+      refreshHUD(); draw();
+    });
+    findPanel.appendChild(row);
+  });
+}
+findBtn.addEventListener('pointerup', function(e){
+  e.stopPropagation();
+  var open = findPanel.style.display === 'block';
+  if (open) { findPanel.style.display = 'none'; return; }
+  if (!findPanel.childElementCount) buildFindList();
+  findPanel.style.display = 'block';
+});
 """
 
 stamps = '\n'.join('<!-- engine-md5:%s:%s -->' % (m, md5s[m]) for m in MODULES)
@@ -240,9 +288,20 @@ html = """<!doctype html><html><head><meta charset="utf-8"/>
   #hud{position:absolute;bottom:0;left:0;right:0;height:34px;display:flex;align-items:center;
     padding:0 10px;font:11px ui-monospace,monospace;color:#c9c1aa;background:#161310;
     border-top:1px solid #332e26;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #findbtn{position:absolute;top:10px;right:10px;font:11px ui-monospace,monospace;color:#f0cd78;
+    background:#161310cc;border:1px solid #4a4030;border-radius:6px;padding:6px 12px;
+    letter-spacing:1px;user-select:none}
+  #findpanel{display:none;position:absolute;top:44px;right:10px;max-height:min(60vh,420px);
+    overflow-y:auto;background:#161310ee;border:1px solid #4a4030;border-radius:6px;
+    min-width:180px;font:11px ui-monospace,monospace}
+  .finditem{padding:8px 12px;color:#c9c1aa;border-bottom:1px solid #241f18;white-space:nowrap}
+  .finditem:last-child{border-bottom:none}
+  .finditem:active{background:#2a2318;color:#f0cd78}
 </style></head><body>
 <canvas id="cv"></canvas>
 <div id="hud"></div>
+<div id="findbtn">FIND</div>
+<div id="findpanel"></div>
 <script>
 %s
 </script>
