@@ -116,3 +116,27 @@ whole tab with nothing picked, exactly 1 lights up after tapping one.
 Gate: herobeat_gate.js 19->20 (asserts the strict-equality condition,
 asserts the old ||1-in-the-highlight pattern is gone for good).
 
+==============================================================================
+CORRECTION, SAME DAY: THE ABOVE FIX WAS WRONG -- Paolo was RULING, not
+reporting a bug ("bro im telling you beat1/4 is the hero beat man for all
+of them i didnt need to do all of them"). BEAT 1 IS HIS GENUINE, UNIVERSAL
+PICK FOR EVERY SONG. The "UI bug" fix above misread his standing verdict
+as confusion and stripped the default highlight -- REVERTED. The ||1
+fallback in the button-highlight condition is restored and is now
+documented as INTENTIONAL: showing beat 1 lit for every song by default is
+CORRECT, because per this ruling it names his actual choice, not a
+placeholder.
+RULING (LOCKED, Paolo 7/24): beat 1/4 is THE hero beat for every song in
+the pool. He does not need to tap through 100+ songs individually --
+that's exactly what he was saying "i didnt need to do all of them" meant.
+The mechanism ships exactly as-is: default (unset in MUS.hero) already
+means beat 1, already means heroOffset()=0, already means combat's
+kill-lock targets beat 1 -- zero further code or data changes needed to
+honor this ruling; it was already the behavior. This closes the picker
+out entirely. If Paolo ever wants a DIFFERENT song to snap to a different
+beat, the 4 buttons are still there and still work per-song -- but there
+is no standing task to "go pick a hero beat for every song," and no
+session should treat that as open work.
+Gate: herobeat_gate.js's assertion swapped back to require the ||1
+fallback (asserting the CORRECT, ruled-on behavior), still 20 checks.
+

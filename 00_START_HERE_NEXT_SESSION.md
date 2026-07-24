@@ -8,20 +8,30 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
-## HERO BEAT UI FIX — "UNSET != PICKED" (7/24, same session, Paolo: "Good
-## news it seems like all the beats have their hero moment on beat 1")
-He wasn't reporting a musical fact -- he was reading a UI bug. The HERO
-BEAT button 1 lit up gold for EVERY song regardless of whether anyone
-picked it: the highlight condition reused the gameplay default's `||1`
-fallback (`(MUS.hero[key]||1)===n`), so "unset" and "explicitly chosen
-beat 1" rendered identically. Fixed to a strict `MUS.hero[key]===n` with
-no fallback -- unset now shows no lit button at all; gold only ever means
-he actually tapped it. The GAMEPLAY math (heroOffset(), applySlot) was
-never wrong -- still defaults to beat 1 until picked -- only the display
-lied. Verified visually (headless Playwright, not just gate text): 0 lit
-buttons across the whole MUSIC tab with nothing picked, exactly 1 lights
-up after tapping one. Gate: herobeat_gate.js 19->20. Stamp: BUILD 7/24e.
-Full record in records/BOHEMIA_HERO_BEAT_7_23_26.txt.
+## HERO BEAT: BEAT 1 IS RULED CANON FOR EVERY SONG (7/24, same session,
+## corrected twice same day -- read this one, not the "UI fix" it replaces)
+Paolo's actual words: "bro im telling you beat1/4 is the hero beat man for
+all of them i didnt need to do all of them." That is a RULING, not a bug
+report -- beat 1 IS his genuine, universal pick for the whole song pool,
+he does not want to tap through 100+ songs individually, and there is
+NO STANDING TASK to go pick hero beats per song. The mechanism was already
+exactly right for this: unset in MUS.hero already means beat 1, already
+means heroOffset()=0, already means combat's kill-lock targets beat 1 --
+his ruling requires ZERO further code or data changes.
+(A prior pass this same session misread "Good news it seems like all the
+beats have their hero moment on beat 1" as a UI-confusion report and
+"fixed" the button highlight to stop showing beat 1 lit by default. That
+fix has been REVERTED -- showing beat 1 lit for every song by default is
+CORRECT, it names his real standing choice, not a placeholder. Don't
+re-apply that fix if you see the old commit; the ||1 fallback in the
+highlight condition is intentional.)
+The 4 tap buttons + live beat indicator still work exactly as built, per
+song, if Paolo ever wants a SPECIFIC song to snap somewhere else -- that
+capability isn't going anywhere. There's just no open work item asking
+him to go decide one per song; beat 1 across the board is decided.
+Gate: herobeat_gate.js (still 20 checks, assertion swapped to require the
+ruled-on ||1 default). Full record + both corrections in
+records/BOHEMIA_HERO_BEAT_7_23_26.txt. Stamp: BUILD 7/24n.
 
 ## HERO BEAT PICKER SHIPPED (7/23, character/sound session, Paolo: "lets
 ## pick the hero part of the beat")
