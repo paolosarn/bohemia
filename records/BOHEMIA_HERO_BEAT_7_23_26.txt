@@ -97,3 +97,22 @@ this ships the MECHANISM, empty (MECHANISM-MINE/CONTENTS-PAOLO'S). Next
 time he's in the MUSIC tab: play a faction's song, watch the 4 dots, tap
 the one that feels like the money beat. [PENDING Paolo's ear, whenever he
 gets to it -- no urgency, the default (beat 1) is exactly today's behavior.]
+
+==============================================================================
+UI BUG CAUGHT SAME DAY (Paolo 7/24): "seems like all the beats have their
+hero moment on beat 1" -- they didn't. The "1" button's highlight condition
+was `(MUS.hero[key]||1)===n`, which lights up gold for EVERY song's button
+1 whether or not anyone ever picked it (the ||1 fallback exists so the
+GAMEPLAY math defaults correctly, but reusing it for the UI's highlight
+made "unset" and "explicitly picked beat 1" look identical). Paolo was
+reading the display, not a real musical judgment across 100+ songs -- an
+entirely reasonable read of a UI that was lying to him.
+FIX: the highlight condition is now a strict `MUS.hero[key]===n` -- no
+fallback. Unset genuinely shows no lit button; gold only ever means he
+tapped it. The gameplay default (heroOffset(), applySlot) is untouched --
+still `(f.hero||1)-1`, still beat 1 until picked, only the DISPLAY was
+wrong. Verified visually (headless Playwright): 0 buttons lit across the
+whole tab with nothing picked, exactly 1 lights up after tapping one.
+Gate: herobeat_gate.js 19->20 (asserts the strict-equality condition,
+asserts the old ||1-in-the-highlight pattern is gone for good).
+
