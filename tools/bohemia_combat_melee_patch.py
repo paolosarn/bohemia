@@ -3860,13 +3860,165 @@ def patch53(demo):
     return demo
 
 
+def patch54(demo):
+    """v54 (Paolo 7/24, "time to upgrade this shit"): the MOBILITY TOOLKIT --
+    the player's half of the RF4-style movement puzzle, on the real dial.
+    Cover is now ONE tool of safety (Paolo ruled); these are the others.
+
+    STAMINA spine (Paolo's Fable/AP ruling): a stamina action does NOT end
+    your turn. G.stam 0..3, +1 regenerated at each turn end. So you can
+    suppress, then still pop the window you just made, same beat.
+
+    1. SUPPRESS (1 stam) -- fire to force out/coverable enemies' heads down
+       for ~1 beat (e._suppr). They stop counting as peeking/firing, so the
+       green can crack open even under many guns (Paolo's micro-green). No
+       turn end.
+    2. HAND-PEEK (free stance toggle) -- present only hands+gun over the
+       edge: return fire is cut to only guns already firing, but your dial
+       is one difficulty harder. Smaller profile, harder shot.
+    3. COVER-TO-COVER DASH (2 stam) -- reposition ~2 tiles toward the
+       nearest pillar, break the locks whose line you cross, take one
+       reduced crack of opportunity fire from guns with a bead. No turn end.
+    4. VAULT (1 stam) -- only over a DUCKING (low) pillar next to you: hop 2
+       tiles across it to the far side, break locks, reduced opportunity
+       fire. Pillars now roll tall/low at spawn; only low ones vault.
+
+    All four reuse existing plumbing (worldShift, updGap, peeking/firing,
+    distAccuracy) so nothing new fights the turn economy. Buttons live in
+    the action row, disabled in the aim phase like WAIT."""
+    if 'V54 MOBILITY TOOLKIT' in demo:
+        print('v54 already applied, skipping')
+        return demo
+
+    # --- suppress guard baked into peeking/firing (so out-count drops everywhere at once) ---
+    demo = sub1(demo,
+        "function peeking(e){ if(e.dead||e.downed||e.broken||e.fleeing)return false; if(e.stun>0)return true;",
+        "function peeking(e){ if(e.dead||e.downed||e.broken||e.fleeing)return false; if(e._suppr&&performance.now()<e._suppr)return false;   /* V54 SUPPRESS: pinned head, not out */ if(e.stun>0)return true;",
+        'v54-peeking-suppr')
+    demo = sub1(demo,
+        "function firing(e){ if(e.dead||e.downed||e.broken||e.fleeing||e.stun>0||e.melee)return false;",
+        "function firing(e){ if(e.dead||e.downed||e.broken||e.fleeing||e.stun>0||e.melee)return false; if(e._suppr&&performance.now()<e._suppr)return false;   /* V54 SUPPRESS: pinned, gun down */",
+        'v54-firing-suppr')
+
+    # --- pillars roll tall/low at spawn (only low ones can be vaulted) ---
+    demo = sub1(demo,
+        "G.pillars.push({ea:Math.atan2(ny2,nx2),edist:Math.hypot(nx2,ny2),r:0.55}); } }   /* V42 COVER REVERT: cover is permanent again, Paolo killed breakable cover outright */",
+        "G.pillars.push({ea:Math.atan2(ny2,nx2),edist:Math.hypot(nx2,ny2),r:0.55,tall:Math.random()<0.5}); } }   /* V42 COVER REVERT: cover is permanent again. V54: tall=standing (can't vault), low=ducking (vaultable) */",
+        'v54-pillar-height')
+
+    # --- stamina init at fight start ---
+    demo = sub1(demo,
+        "  G.coverHoles=[];   /* Y: a new fight, clean cover */",
+        "  G.coverHoles=[];   /* Y: a new fight, clean cover */\n  G.stam=STAM_MAX; G.handPeek=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight */",
+        'v54-stam-init')
+
+    # --- stamina regen at the one turn-end choke ---
+    demo = sub1(demo,
+        "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); updateGeomCover(); bleedTick();",
+        "function tickTurnEnd(){ meleeTurnRun(); updateGeomCover(); coverSeekAI(); updateGeomCover(); bleedTick();\n  G.stam=Math.min(STAM_MAX,(G.stam||0)+1); updStam();   /* V54: a pip back each turn */",
+        'v54-stam-regen')
+
+    # --- hand-peek: harder dial when engaging (the exposure trade) ---
+    demo = sub1(demo,
+        "      G.pkgDiff=Math.max(0,Math.min(4,distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1))); } }   // V35 (Paolo): covered pulls the package HARDER, exposed pulls it EASIER — stacks with distance/elite",
+        "      G.pkgDiff=Math.max(0,Math.min(4,distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0))); } }   // V35 (Paolo): covered pulls the package HARDER, exposed pulls it EASIER. V54 HAND-PEEK: only hands over the edge = one tier harder",
+        'v54-handpeek-dial')
+
+    # --- hand-peek: cut return fire to only guns already firing ---
+    demo = sub1(demo,
+        "    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */ }",
+        "    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */\n    if(G.handPeek)pool=pool.filter(e=>firing(e));   /* V54 HAND-PEEK: a hands-only peek shows almost nothing -- only guns already up can tag you */ }",
+        'v54-handpeek-returnfire')
+
+    # --- the toolkit functions (inject before shoveTarget) ---
+    demo = sub1(demo,
+        "function shoveTarget(){ let best=null;",
+        """const STAM_MAX=3;   /* V54 STAMINA (Paolo, Fable model): stamina actions DON'T end your turn */
+function updStam(){ const s=D('stampips'); if(!s)return; const n=Math.max(0,Math.min(STAM_MAX,G.stam||0));
+  s.innerHTML='STA '+'\\u25c6'.repeat(n)+'\\u25c7'.repeat(STAM_MAX-n); }
+function spendStam(n){ if((G.stam||0)<n)return false; G.stam-=n; updStam(); return true; }
+function nearestPillar(lowOnly){ let best=null,bd=1e9;
+  for(const P of (G.pillars||[])){ if(lowOnly&&P.tall)continue; if(P.edist<bd){bd=P.edist;best=P;} } return best; }
+function mobExposeFire(mult){   /* V54: mobility isn't free -- guns with a bead and a clean line get ONE reduced crack while you move */
+  const holders=G.e.filter(e=>!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&!e.melee&&e.stun<=0&&(e.acq||0)>=1&&!myCoverAgainst(e.ea,e.edist));
+  let dmg=0,idx=[];
+  for(const e of holders){ const acc=distAccuracy(e)*mult*((e.E.acc||0.55)/0.55);
+    if(Math.random()<acc){ const a=e.E.dmg; dmg+=Math.round((a[0]+Math.floor(Math.random()*(a[1]-a[0]+1)))*0.7); idx.push(e.i); } }
+  if(dmg>0){ G.pHP=Math.max(0,G.pHP-dmg); updPlayer(); addWound(G); G.steady=0;
+    onOffbeat(()=>{ hurtFlash(); sndReturn(); if(G.incomingCam&&idx.length)startIncoming(idx,G.pHP<=0,idx.length>=2?null:'quick'); });
+    try{parent.postMessage({type:'BOHEMIA_PLAYER_HIT',dmg:dmg,hp:G.pHP},'*');}catch(_e){}
+    if(G.pHP<=0){ loseGame(); return true; } }
+  return false; }
+function doSuppress(){ if(G.phase!=='cover'||G.over||G.inc)return;
+  if(!spendStam(1)){ setRead('NO STAMINA','suppress needs 1 pip','#8a7d66'); return; }
+  audio(); let n=0; const now=performance.now();
+  for(const e of G.e){ if(e.dead||e.downed||e.broken||e.fleeing||e.melee)continue;
+    if(peeking(e)||firing(e)||e.gcov){ e._suppr=now+1100; n++; } }   /* pin whoever is up or could pop, ~1 beat */
+  sndShot(); fxShot(); G.recoil=0.5;
+  setRead('SUPPRESSING',n+' head'+(n===1?'':'s')+' down — a window cracks','#e8c88a');
+  updateGeomCover(); renderBoard(); updGap(); }   /* the green recomputes off the pinned count -- NO turn end */
+function doDash(){ if(G.phase!=='cover'||G.over||G.inc)return;
+  if(!spendStam(2)){ setRead('NO STAMINA','dash needs 2 pips','#8a7d66'); return; }
+  audio(); const P=nearestPillar(false);
+  let sx=2,sy=0; if(P){ const q=pXY(P); sx=Math.max(-2,Math.min(2,Math.round(q[0]))); sy=Math.max(-2,Math.min(2,Math.round(q[1]))); if(!sx&&!sy)sx=2; }
+  if((G.pillars||[]).some(Q=>{ const q2=pXY(Q); return Math.hypot(q2[0]-sx,q2[1]-sy)<Q.r*0.6+0.35; })){ sx=Math.round(sx*0.5)||1; sy=Math.round(sy*0.5); }   /* don't dash INTO a stone */
+  worldShift(sx,sy); updateGeomCover(); G._stepAt=performance.now(); G.steady=0;
+  let _broke=0; for(const e2 of G.e){ if(e2.dead||e2.melee)continue; if(myCoverAgainst(e2.ea,e2.edist)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; } }
+  setRead('DASH','cover to cover — '+(_broke?_broke+' lock'+(_broke>1?'s':'')+' broken':'repositioned')+', exposed mid-run','#c0d0e8');
+  if(mobExposeFire(0.5))return;
+  renderBoard(); updGap(); }   /* NO turn end */
+function doVault(){ if(G.phase!=='cover'||G.over||G.inc)return;
+  const P=nearestPillar(true);   /* only a LOW/ducking pillar can be vaulted */
+  if(!P||P.edist>1.9){ setRead('NO LOW COVER','vault needs a duck-height pillar right next to you','#8a7d66'); return; }
+  if(!spendStam(1)){ setRead('NO STAMINA','vault needs 1 pip','#8a7d66'); return; }
+  audio(); const q=pXY(P); const L=P.edist||1; const ux=q[0]/L, uy=q[1]/L;
+  let sx=Math.round(ux*2), sy=Math.round(uy*2);
+  if(!sx&&!sy){ if(Math.abs(ux)>=Math.abs(uy))sx=ux>=0?2:-2; else sy=uy>=0?2:-2; }
+  worldShift(sx,sy); updateGeomCover(); G._stepAt=performance.now(); G.steady=0;
+  for(const e2 of G.e){ if(e2.dead||e2.melee)continue; if(myCoverAgainst(e2.ea,e2.edist))e2.acq=0; }
+  setRead('VAULT','over the low cover — new angle, exposed in the air','#c0d0e8');
+  if(mobExposeFire(0.55))return;
+  renderBoard(); updGap(); }   /* NO turn end */
+function toggleHandPeek(){ G.handPeek=!G.handPeek; const b=D('peekbtn');
+  if(b){ b.textContent='HAND-PEEK: '+(G.handPeek?'ON':'OFF'); b.classList.toggle('on',G.handPeek); }
+  setRead(G.handPeek?'HAND-PEEK ON':'HAND-PEEK OFF',G.handPeek?'only hands + gun over the edge — they barely see you, but the shot is harder':'full pop — clean aim, full exposure',G.handPeek?'#8fe89a':'#8a7d66'); updGap(); }
+function shoveTarget(){ let best=null;""",
+        'v54-toolkit-functions')
+
+    # --- HTML: the toolkit buttons + stamina pips, in the action row ---
+    demo = sub1(demo,
+        '    <button id="sprintbtn" class="cbtn">SPRINT: OFF</button>   <!-- V44 -->',
+        '    <button id="sprintbtn" class="cbtn">SPRINT: OFF</button>   <!-- V44 -->\n    <button id="suppressbtn" class="cbtn" style="border-color:#d69a3a;color:#e8c88a">SUPPRESS</button>   <!-- V54 -->\n    <button id="peekbtn" class="cbtn">HAND-PEEK: OFF</button>\n    <button id="dashbtn" class="cbtn" style="border-color:#8fb0e8;color:#c0d0e8">DASH</button>\n    <button id="vaultbtn" class="cbtn" style="border-color:#8fb0e8;color:#c0d0e8">VAULT</button>\n    <span id="stampips" class="cbtn" style="pointer-events:none;border-color:#3a5a3a;color:#8fe89a">STA \\u25c6\\u25c6\\u25c6</span>',
+        'v54-toolkit-html')
+
+    # --- disable the toolkit buttons in the aim phase (like WAIT) ---
+    demo = sub1(demo,
+        "  const wait=D('waitbtn'); if(wait)wait.disabled=aim||G.over;",
+        "  const wait=D('waitbtn'); if(wait)wait.disabled=aim||G.over;\n  for(const _id of ['suppressbtn','peekbtn','dashbtn','vaultbtn']){ const _b=D(_id); if(_b)_b.disabled=aim||G.over; }   /* V54: toolkit is cover-phase only */",
+        'v54-toolkit-phaseui')
+
+    # --- wire the buttons ---
+    demo = sub1(demo,
+        "  setRead(G.sprintArm?'SPRINT ARMED':'SPRINT OFF',G.sprintArm?'next move covers two tiles — breaks cover for real':'back to a normal tucked move',G.sprintArm?'#e8593a':'#8a7d66'); });",
+        "  setRead(G.sprintArm?'SPRINT ARMED':'SPRINT OFF',G.sprintArm?'next move covers two tiles — breaks cover for real':'back to a normal tucked move',G.sprintArm?'#e8593a':'#8a7d66'); });\n{ const _s=D('suppressbtn'); if(_s)_s.addEventListener('click',doSuppress);   /* V54 MOBILITY TOOLKIT wiring */\n  const _p=D('peekbtn'); if(_p)_p.addEventListener('click',toggleHandPeek);\n  const _d=D('dashbtn'); if(_d)_d.addEventListener('click',doDash);\n  const _v=D('vaultbtn'); if(_v)_v.addEventListener('click',doVault); }",
+        'v54-toolkit-wire')
+
+    # --- render: low (vaultable) pillars are duck-height with a blue-lit top ---
+    demo = sub1(demo,
+        "    x.fillStyle='#6e604a'; x.fillRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6);\n    x.fillStyle='#94836a'; x.beginPath(); x.ellipse(pxs,pys-s*1.15,s*0.55,s*0.2,0,0,7); x.fill();\n    x.strokeStyle='#241f18'; x.lineWidth=1; x.strokeRect(pxs-s*0.55,pys-s*1.15,s*1.1,s*1.6); }",
+        "    const _h=(P.tall===false)?s*0.9:s*1.6, _ty=pys-((P.tall===false)?s*0.55:s*1.15);   /* V54: low = duck height, vaultable */\n    x.fillStyle='#6e604a'; x.fillRect(pxs-s*0.55,_ty,s*1.1,_h);\n    x.fillStyle=(P.tall===false)?'#7a94a8':'#94836a'; x.beginPath(); x.ellipse(pxs,_ty,s*0.55,s*0.2,0,0,7); x.fill();   /* V54: a blue-lit top flags a pillar you can vault */\n    x.strokeStyle='#241f18'; x.lineWidth=1; x.strokeRect(pxs-s*0.55,_ty,s*1.1,_h); }",
+        'v54-pillar-render')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch53(patch52(patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch54(patch53(patch52(patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
