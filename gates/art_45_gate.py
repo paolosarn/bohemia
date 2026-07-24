@@ -103,24 +103,39 @@ def check_building(bank, a):
         '%s: roofline top row is as wide as its widest row (flat-90 rectangle, not an iso diamond)' % bank)
     chk(wi > 0,
         '%s: roof widest row IS the very top row (no diamond top face)' % bank)
-    # 2. two-toned walls: the mass BELOW the roof splits lit-right / shadow-left
+    # 2. two-toned walls: a 3/4 iso mass is lit on its RIGHT face, shadowed on its
+    # LEFT. Measured PER ROW (local light-direction), so it holds for a COMPOSED
+    # scene (e.g. a tower + a curved wing) where a single whole-sprite left/right
+    # split would compare two different buildings. For each wall row, the right
+    # third of that row's own span should out-lum its left third.
     lum = a[..., :3].mean(axis=2)
-    cx = int((cols[0] + cols[-1]) / 2)
-    mass = slice(top + wi + 2, bot - 2)      # the wall zone, under the roof, above the base tip
-    left_sel = op[mass, cols[0]:cx]
-    right_sel = op[mass, cx:cols[-1] + 1]
-    left_lum = lum[mass, cols[0]:cx][left_sel].mean() if left_sel.any() else 0
-    right_lum = lum[mass, cx:cols[-1] + 1][right_sel].mean() if right_sel.any() else 0
-    hi, lo = max(left_lum, right_lum), min(left_lum, right_lum)
-    # >=10% split. A flat side-on 2D sprite has ONE face -> ~0% (ratio ~1.0); even
-    # a symmetric civic mass (dome/wings/plot dilute the split) still shows a clear
-    # directional light/shadow of 10%+. 1.10 rejects flat, admits real 3/4.
-    chk(hi > lo * 1.10,
-        '%s: left/right walls are the same brightness (%d vs %d): a flat side-on face, not a lit + shadowed 3/4 prism'
-        % (bank, left_lum, right_lum))
+    # measure the UPPER portion, where the tallest mass (the hero building) rises
+    # clear of ground clutter (plaza, wings, other volumes) that would otherwise
+    # confuse the light direction in a composed scene.
+    mass = range(top + wi + 2, top + max(wi + 6, int(0.48 * (bot - top))))
+    diffs = []
+    for y in mass:
+        xs = np.where(op[y])[0]
+        if xs.size < 6:
+            continue
+        x0, x1 = int(xs[0]), int(xs[-1])
+        w3 = max(2, (x1 - x0) // 3)
+        lsel = op[y, x0:x0 + w3]
+        rsel = op[y, x1 - w3:x1 + 1]
+        if lsel.any() and rsel.any():
+            ll = lum[y, x0:x0 + w3][lsel].mean()
+            rl = lum[y, x1 - w3:x1 + 1][rsel].mean()
+            diffs.append(rl - ll)
+    avg = float(np.mean(diffs)) if diffs else 0.0
+    base = float(np.mean([lum[y][op[y]].mean() for y in mass if op[y].any()])) or 1.0
+    # right-third brighter than left-third by >=8% of the mass's mean luminance.
+    # A flat side-on sprite has one uniform face -> ~0. Real 3/4 shading -> clear +.
+    chk(avg > base * 0.08,
+        '%s: walls show no right-lit / left-shadow direction (avg right-left = %.1f on base %.0f): flat side-on, not 3/4'
+        % (bank, avg, base))
     print('  %s: iso-diamond roof (widest row %d below the top point, %d vs %d px wide), '
-          'lit/shadow walls %.0f vs %.0f' % (bank.split('/')[-1], wi,
-          widths[wi], widths[0], hi, lo))
+          'per-row light-direction +%.1f on base %.0f' % (bank.split('/')[-1], wi,
+          widths[wi], widths[0], avg, base))
 
 
 def main():
