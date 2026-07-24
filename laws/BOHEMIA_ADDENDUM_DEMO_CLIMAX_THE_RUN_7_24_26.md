@@ -62,17 +62,38 @@ The demo flips from empowerment to helplessness in one beat. That whiplash (Yaku
 already in the questbook) is the point: the game can take the gun out of your hand and make
 you feel it.
 
+## THE L / THE TRIGGER — FLASH FLOOD (LOCKED 7/24, Paolo: "flash flood sounds fun")
+It starts to rain above and the storm channel begins to fill. You reach the hatch, you LOOK,
+and the water comes.
+
+### WHY IT IS AIRTIGHT (all real, nothing invented)
+- Las Vegas washes ARE flash-flood channels: bone-dry most of the year, then lethal in minutes
+  when it rains. "Turn around, don't drown" is a real local slogan; people die in these channels.
+- Real people genuinely live in the Las Vegas storm tunnels, and flash flooding is the real,
+  documented thing that kills them (Matthew O'Brien, "Beneath the Neon"). The demo's horror is,
+  again, a real horror the tech only dresses.
+- The Network build SIPHONS stormwater runoff to feed the Amalgamation — so the flood is the
+  machine's own food source turning on you, and disturbing the build can even help start the flow.
+  The thing that feeds the demon drowns the intruder.
+
+### THE FLOOD MECHANIC (the strategic squeeze — this is the whole climax)
+- The water RISES/CHASES up the channel on the beat grid: it advances a set number of cells per
+  beat from below/behind. You are already fleeing UP toward the light; the flood now ENFORCES it
+  with a hard clock. Stop moving up = drown.
+- THE SQUEEZE (why it is great, not just a timer): the flood FORCES you to RUN (2 cells/beat) to
+  stay ahead of the water — but running is LOUD and draws the cybernetic homeless who see in the
+  dark. So you are pinned between two deaths every beat: too slow, the water takes you; too loud,
+  they take you. The demo's peak is that dilemma, made of two systems you already have (beat-grid
+  run/quiet + LoS pursuit).
+- THE ROAR EATS YOUR SENSOR: as the water rises, its noise drowns out the WHISPERS — your only
+  proximity tell in the dark. You lose your one warning system exactly when the pressure peaks.
+  Grounded (rushing water is deafening) and cruel by design.
+- Water also reshapes the run: a rising section can block a low route or force a scramble to
+  higher ground, turning the hand-bounded procedural sewer into a live, changing escape.
+
 ## PENDING — PAOLO'S CALLS (do not invent)
-- THE L / THE TRIGGER ("something crazy happens"). Strong grounded options:
-  (a) YOUR LIGHT DIES — your salvaged lamp/headset battery cuts out at the reveal (battery
-      scarcity is canon from the tech research), dropping you into their dark. Simple, terrifying,
-      and it IS the mechanic (you go blind, they see).
-  (b) FLASH FLOOD — it starts to rain above and the storm channel begins to fill (real Vegas
-      washes are flash-flood channels, dry most of the year; the Network build siphons that very
-      runoff, so disturbing it could even start the flow). Adds a rising-water TIMER on top of the
-      hunt: get out before the water or the homeless take you.
-  (c) YOU TRIP THE NEST — touching/seeing the hatch wakes the whole dark at once.
-  (or a combination — e.g. light dies AND the water starts.)
+- THE REASON TO DESCEND (the demo's OPENING hook — haunting / missing person / errand-that-turns;
+  Claude's rec is the haunting, to open on a fake-out and pay it off with the reveal engine).
 - Enemy behavior in the flee: silent gropers-in-the-dark vs shamblers that rush vs a mix.
 - Exact geography of the run (hand-bounded procedural per the 7/10 demo-scope note).
 
