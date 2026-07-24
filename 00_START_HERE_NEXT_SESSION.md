@@ -194,6 +194,17 @@ geography, once he rules it, now actually exists and is proven to work.
 NEXT, if anyone wants to actually BOOT this scaffold live: it would need to
 replace whatever currently drives the SLICE tab's walk loop, which is a
 much bigger, separate decision — not something to default into.
+PACING RULING (Paolo 7/24, right after the ship, LOCKED — read this before
+ever calling advanceRound() from anything live): "factions arent going to
+be at war or something with all other factions 24/7... its going to be
+very slow like factions arent going to be migrating and kill other
+factions in the game unless the quests point to you doing something like
+that." The AI being CHEAP (Konkr.io/AI War 2 pattern) was about being
+affordable IF it runs, never a green light to run it constantly. This is
+now written directly into engine/bohemia_loop.js above buildRealAdjacency
+so it can't be missed: advanceRound must stay RARE and QUEST-GATED, fired
+from a story beat resolving, never from a tick/heartbeat/background clock.
+Default OFF for any future wiring.
 
 ## CRAWL-DYING SHIPPED — ROUND 2B CLOSED OUT (7/23, character/animation
 ## chat, Paolo: "crawl dying animation please")

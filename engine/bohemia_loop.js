@@ -210,6 +210,17 @@
   // to ones that are ALSO real districts (a street/desert/terrain cell
   // between two districts is not a claimable link — same spirit as
   // rawStreetEdges only counting REAL edges, no default ever assumed).
+  //
+  // PACING (Paolo 7/24, IMPORTANT, read before ever calling advanceRound()
+  // from a live loop): factions are NOT at war with everyone 24/7, and they
+  // do not sit there migrating/conquering in real time. This mechanism must
+  // stay RARE and QUEST-GATED — a faction's turn fires when the narrative
+  // calls for it (a quest resolves, a story beat lands), never on a tick,
+  // a heartbeat, or any kind of background clock. Building the AI cheap
+  // (the Konkr.io/AI War 2 pattern in bohemia_factions.js's own docstring)
+  // was about being AFFORDABLE if/when it runs, not a green light to run it
+  // constantly. Whoever wires this to anything live: default OFF, fire it
+  // only from a quest/story trigger.
   function buildRealAdjacency(worldMap) {
     const byId = new Map();
     const districts = worldMap.districts;
