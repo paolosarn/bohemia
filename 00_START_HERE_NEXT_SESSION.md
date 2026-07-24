@@ -8,6 +8,90 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## HERO BEAT PICKER SHIPPED (7/23, character/sound session, Paolo: "lets
+## pick the hero part of the beat")
+Full mechanism for records/BOHEMIA_HERO_BEAT_7_23_26.txt's ask: per-song,
+which of the bar's 4 quarter-beats is the catchy one Paolo wants kills to
+snap onto, instead of always assuming beat 1. Locked at quarter-note
+resolution (confirmed with him directly: the dial has no code path finer
+than a whole 120-grid beat, so 8th/16th would just get rounded away).
+NO SEPARATE AUDITION TOOL -- the real song IS the audition. MUSIC tab: hit
+PLAY like always, a new HERO BEAT control on that row (4 tap buttons + a
+live 4-dot indicator synced to MUS.uiStep) lets him tap the beat he hears
+as the money one while it plays. Saves instantly (MUS.hero, localStorage),
+pushes live to combat if it's listening.
+MECHANISM: combat's per-pattern phase-lock (PHASE[pat]) already lands the
+kill-moment on A whole beat -- that was already correct and shipped. What
+was missing was WHICH beat it targeted (always effectively beat 1). Fixed
+by shifting the ONE place combat samples the shared clock into its dial
+clock (`G.beatClock=beatNow()`, 3 call sites) by `-heroOffset()` beats
+(hero pick - 1). Zero changes to the dial's own pattern math, zero changes
+to the audible groove (kick/bass/hat play the real authored pattern
+untouched) -- only which beat of it the visual kill-lock targets.
+Data flows song1/song2/every category-pool vibe independently: MUS.hero
+map -> musicPushToCombat (factions/song2/pools all carry their own pick)
+-> combat's message handler (f._hero1) -> applySlot resolves f.hero fresh
+per active slot (hero deliberately NOT in POOL_FIELDS -- no canon baseline
+to restore, resolved fresh instead) -> heroOffset() -> the 3 beatClock
+sites.
+VERIFIED LIVE (not just gate-green): headless Playwright against the real
+alpha, clicked a HERO BEAT button, confirmed it saved; opened the REAL
+combat tab (genuine boot, ~15-45s in this container, not shortcut),
+confirmed the picked value actually reaches FACTIONS[i]._hero1 through the
+real postMessage bus and the offset math shifts by exactly the picked
+amount. Zero console/window.onerror across both documents.
+CAUGHT MID-BUILD (own QA): first pass re-encoded COMBAT_B64 from a stale
+scratch decode taken before this same session's earlier crawl-dying-fix
+ship had merged in a parallel combat session's V50 (compact comment box +
+copy button) -- would have silently reverted V50. Caught by the full gate
+suite (combat_lab_gate, 5 failures) before shipping, fixed by re-decoding
+fresh from HEAD and re-applying the hero-beat edits on top of THAT.
+STANDING LESSON (twice in one session now): never re-embed COMBAT_B64 from
+an earlier scratch decode -- always decode fresh from the current working
+tree/HEAD right before editing, since parallel combat sessions land real
+changes in that same blob. Run the FULL gate suite before every ship, not
+a spot check, or a silent revert like this ships clean.
+Gate: gates/herobeat_gate.js (new, 19 checks), registered in
+gates/bohemia_gates.py. Full suite green. Stamp: BUILD 7/23q.
+STILL OPEN: mechanism only, empty of content (MECHANISM-MINE/CONTENTS-
+PAOLO'S) -- he hasn't picked hero beats for any song yet. Default (unset =
+beat 1) is exactly today's behavior, zero urgency.
+
+## CRAWL-DYING FIX — PAOLO CAUGHT A REAL VERIFY-ON-THE-REAL-SURFACE MISS
+## (7/23, same session, "soft crawl dying does not look like crawl dying,
+## it's really bad")
+Shipped crawl-dying (below) only checked via numeric gate assertions on the
+pose function's OUTPUT NUMBERS — never actually looked at the rendered
+pixels. Paolo caught it immediately: it looked like a hunched, floating,
+kneeling body, nothing like lying on the ground dragging. This IS the
+hoodie-post-mortem failure mode the VERIFY ON THE REAL SURFACE law exists
+to kill, and it happened again.
+ROOT CAUSE (found by actually opening the ANIM tab via headless Playwright
+against the live alpha, /opt/pw-browsers/chromium-1194, and looking at the
+PNGs): the clip held legCompressL/R at a constant 0.34 the whole cycle.
+floor-rise's OWN fully-down frame (what prone112 already bakes from and
+ships fine) has legCompressL/R === 0 at rest — 0.34 only ramps in during
+floor-rise's knee-bend TRANSITION, never held flat on the floor. Constant
+0.34 bunched the legs up under the body instead of trailing them out,
+which reads as a crouch/float, not a prone drag.
+FIX: legs now byte-match floor-rise's real prone geometry (thigh 1.3/1.18,
+shin -0.5/-0.42, legCompress near-zero, a tiny 0.05*pullIn hint of effort
+during the pull only). Re-verified visually this time: headless screenshot
+across the full phase cycle AND all 8 grid8 directions before calling it
+done — legs trail straight like the shipped floor-rise/prone112 reference,
+the reaching arm still visibly cycles reach -> plant -> pull -> tuck.
+Gate: combat_anim_gate.js's crawl section swapped the wrong ">0.3
+compressed = limp" assertion (which was actually asserting the BUG) for a
+"<0.15, byte-matches floor-rise's real numbers" one -- 102->103 checks.
+STANDING LESSON for whoever builds a new down/floor pose next: COPY THE
+REFERENCE CLIP'S ACTUAL RUNTIME NUMBERS (eval it, print them), don't
+eyeball-guess a "similar" constant, and always screenshot the real ANIM
+tab (headless Playwright is pre-installed, `/opt/pw-browsers/chromium-1194
+/chrome-linux/chrome`, `NODE_PATH=/opt/node22/lib/node_modules node
+script.js` — G is a page-global const, not window.G) before calling any
+new pose shipped, full phase sweep + all 8 grid8 directions minimum.
+Stamp: BUILD 7/23i.
+
 ## THE MASTER LOOP: GATE FIXED, THEN POINTED AT THE REAL WORLD (7/23,
 ## world-model session, Paolo: "this is the world model chat do something
 ## important" -> "do that" on the follow-up)
@@ -140,6 +224,70 @@ Also answered Paolo's female-rig question in-chat (no code): the ~90+
 pose functions and the wardrobe are direction/skeleton-relative, not
 tied to male pixel geometry — laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md
 already rules the carryover; nothing new to build until he says go.
+
+## HEROES v5: BAKED FROM 3D — a real iso renderer (7/23, same session). Paolo
+## after v4: "it's looking better it still kind of looks like dog shit" -> chose
+## RETHINK THE APPROACH (of: point-me-at-the-fix / park-as-placeholders / rethink).
+The procedural hand-drawn-pixel approach had a ceiling (programmer-art). Pocket
+City's buildings are "sprites baked from 3D." So I BUILT A TINY 3D RENDERER:
+tools/bohemia_iso3d.py — a numpy software iso baker. Scene of boxes / n-gon prisms
+/ quads with per-face materials -> isometric camera -> z-buffer barycentric
+rasterization -> normal-based key+ambient lighting -> ON-PLANE window-grid
+materials (patterned by interpolated face UV, so windows are ALWAYS exactly on the
+surface — the whole overlap bug class is structurally gone) -> supersample +
+box-downscale for clean antialiased "baked" edges -> soft ground shadow. Dead-world
+panes (broken + boarded) are a material option. Paolo saw the City Hall bake: "it's
+looking better tho" (DIRECTION APPROVED) + circled the solar panels ("what's up
+with this") -> fixed (tall posts + compact angled panels = a real solar-tree grove).
+tools/bohemia_district_hero_factory.py REWRITTEN to build each hero as a 3D scene
+and bake it: City Hall (glass tower + curved council drum + solar-tree grove),
+battery (power hall + smokestacks + roof vents + transformer cylinders + hazard),
+terminal (glass hall + bay canopy on posts + dead buses + marquee). It's a clear
+quality tier above all the procedural versions.
+REAL BUG FOUND + FIXED in iso3d: Scene.box() mistook a SINGLE material dict
+({'c':..}) for a per-face dict, so single-material boxes rendered INVISIBLE (all
+faces got None) — that's why the smokestacks/buses/vents kept vanishing. Fixed:
+a dict without any of top/px/py/nx/ny keys is treated as one material for all faces.
+art_45_gate 'building' two-tone check is robust to composed scenes (per-row upper-
+portion light direction). Judge + hub updated to v5. Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v5 in LIFE tab -> DISTRICT HEROES]. On his
+pick, wire winners into the CITY tab iso renderer (drawImage the baked sprite at
+the district cell, lifted; the sprites carry bx/by = projected ground-center for
+planting). The 3D renderer is now REUSABLE for ANY future building/prop art — this
+is the production pipeline going forward, not one-off procedural cooks. GRAVEYARD:
+v1 boxes FINAL-dead; hand-drawn procedural heroes superseded by the 3D bake.
+
+## HEROES v4: REAL LV CITY HALL + FIXED ON-PLANE WINDOWS (7/23, same session).
+## Paolo on v3: "kind of ass... the windows aren't correctly on the walls, things
+## overlapping... look in Google like real Las Vegas City Hall... they literally
+## look the same as before."
+TWO real fixes (v4, factory rewritten again):
+1. WINDOW-ON-WALL GEOMETRY BUG (was in v1-v3): windows used a flat screen-Y so they
+   spilled past the sloped iso face edges and overlapped foreground geometry. FIXED:
+   face_windows() INVERSE-MAPS each face pixel to that face's own (u,v) axes (u along
+   the sloped ground edge, v straight up), so every window/mullion lands exactly on
+   the plane, gridded, and can never cross an edge. Glass = curtain grid; masonry =
+   punched windows. This is the correct iso-window method for all future buildings.
+2. CITY HALL = THE REAL LAS VEGAS CITY HALL (2012, Elkus Manfredi), not a classical
+   dome (that's why it kept looking the same + wrong for Vegas). Researched via text
+   (I CANNOT load Google Images here - proxy blocks image hosts; same reason Paolo
+   had to SEND the PC2 shots. Worked from gbdmag/Architect Mag/Wikipedia descriptions):
+   a MODERN angular GLASS office TOWER + a CURVED council chamber + a plaza of "SOLAR
+   TREES" (33 tubular columns w/ tilted PV panels). Built as glass curtain-wall tower
+   + curved glass council drum + a grove of dead solar trees on a dead-dirt plaza.
+   Genuinely distinctive now, and accurate to the real building.
+Battery + terminal kept their v3 designs but got the correct on-plane windows.
+art_45_gate 'building' two-tone check made ROBUST to COMPOSED scenes: measures the
+lit-right/shadow-left direction PER ROW in the UPPER portion (where the tallest mass
+- the hero - rises clear of plaza/wing clutter), not a whole-sprite left/right split
+(which compared two different buildings on the composed City Hall and read flat).
+Now +37 light-direction on the tower. Judge + hub updated to v4. Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v4]. HONEST NOTE for next session: I've now
+missed 3x on these heroes; if v4 still isn't right, the fastest path is Paolo SENDING
+a reference shot of the target (the PC2 send worked; I can't Google-image here). The
+render-map for wiring winners into the CITY tab is in the section below.
+GRAVEYARD: v1 boxes FINAL-dead. Every building cook reads the style bible + uses
+face_windows() for on-plane windows.
 
 ## POCKET CITY 2 REFERENCES SAVED + STYLE BIBLE + HEROES v3 (7/23, same session).
 ## Paolo sent 66 PC2 screenshots after v1/v2 missed; "save the references and cook."

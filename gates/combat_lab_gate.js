@@ -193,7 +193,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('the chain skill speaks Paolo (KILLSHOTS/TURN)',
     demo.includes('KILLSHOTS/TURN: '));
   ok('the aim readout shows SHOT n/skill',
-    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)"));
+    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||1)"));
   ok('obsolete DIAL FACING menu removed', !demo.includes('data-f="0"'));
   // v13: cover AI + loop armor + compact UI
   ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
@@ -207,8 +207,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   // v14: the feel pass
   ok('no logo in the fight; the view starts wide',
     demo.includes('#logo{display:none!important}') && demo.includes('G.userZoom=0.82;'));
-  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 3)',
-    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||3)%8)+1"));
+  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 1 since V52)',
+    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||1)%8)+1"));
   ok('WEAPON READ: every body shows blade or gun', demo.includes('WEAPON READ V14'));
   ok('MISS CINEMATIC: a volley plays the camera even on a total miss; 2+ shooters get the FULL cam + shake (V24)',
     demo.split('MISS CINEMATIC V24').length >= 3 &&
@@ -282,9 +282,9 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V24 VITAL NEVER CHAINS: a vital stuns 2 and ENDS the turn; only a killshot chains',
     demo.includes('a vital STUNS') && demo.includes("frozen 2 turns — turn ends") &&
     !demo.includes('// vital continues your turn'));
-  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out ONLY when a covered side exists to protect (V32); button reads HOLD/SHOOT/POP OUT',
+  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out ONLY when a covered side exists to protect (V32); button reads HOLD/SHOOT/POP OUT (or ENGAGE with no cover, V52)',
     demo.includes('function posExposed()') && demo.includes("txt='HOLD';") &&
-    demo.split("txt='POP OUT';").length >= 5 && !demo.includes("txt='POP';") &&
+    demo.split("txt=nearCov?'POP OUT':'ENGAGE';").length >= 5 && !demo.includes("txt='POP';") &&
     demo.includes('V32 HOLD FIX: same gate as updGap'));
   ok('THE DEAD LIE UNDER THE LIVING: corpse under-pass before the player, old draws stripped',
     demo.includes('V24 UNDER THE LIVING') &&
@@ -320,7 +320,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('id="targmode"'));
   ok('GRIT SHOTS: the floor perk buys a missed shot back, ceiling still caps',
     demo.includes('V26 GRIT') && demo.includes('id="gritskill"') &&
-    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)"));
+    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||1)"));
   // v27: auto targeting honest
   ok('V27 PICK SPENT: a tapped pick buys ONE dial, auto resumes closest-first; popTarget never carries',
     demo.includes('V27 PICK SPENT') && demo.includes('if(G.selTarget===G.fireTarget)G.selTarget=null;') &&
@@ -488,15 +488,58 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V45 CAMERA FLOOR') &&
     demo.includes('uzT=Math.max(0.20,Math.min(1.30,fit));'));
   // v46: a live comment field at the top of the screen, feeding the existing export pipeline
+  // (v51 removed the ADD button -- addLiveComment() still exists, now called by lccopy)
   ok('V46 LIVE COMMENT: a top-of-screen input that appends turn-tagged comments to the existing jnotes/export pipeline, not a new storage surface',
     demo.includes('V46 LIVE COMMENT') &&
-    demo.includes('id="lcinput"') && demo.includes('id="lcadd"') &&
+    demo.includes('id="lcinput"') &&
     demo.includes("function addLiveComment(){") &&
     demo.includes("if(jn)jn.value=(jn.value?jn.value+'\\n':'')+'[T'+(G.mTurn||0)+'] '+txt;"));
   // v47: the green "safe to pop" threshold scales with how many enemies are actually alive
   ok('V47 GREEN SCALES WITH HEADCOUNT: the crowd-peeking threshold that gates green tightens as more enemies are alive (1-3=4, 4-6=3, 7-8=2), eases as the fight thins',
     demo.includes('_crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3))') &&
     demo.includes('outN>=_crowdThresh'));
+  // v48: green is a lock for the whole popped action, not a snapshot that can be undone mid-aim
+  ok('V48 GREEN IS A LOCK: doPop() snapshots the green verdict and the known-threats set at commit time; a green pop\'s return-fire pool only answers to threats visible at that moment, and the lock is single-use',
+    demo.includes('V48 GREEN IS A LOCK') &&
+    demo.includes('G._greenNow=green;') &&
+    demo.includes('G._poppedGreen=!!G._greenNow;') &&
+    demo.includes('G._popKnownThreats=new Set(G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).map(e=>e.i));') &&
+    demo.includes('if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));') &&
+    demo.includes('G._poppedGreen=false;   /* V48: single-use'));
+  // v49: the comment box wraps instead of scrolling sideways off-screen
+  // v50 supersedes v49's box-growth attempt entirely -- Paolo: "I did not tell you to
+  // make a bigger multi box... there was no export copy button... all of my shit went away"
+  ok('V50 COMMENT COPY BUTTON: the comment box is back to compact (a single-line input, not v49\'s grown textarea), and a COPY button sits right in the same row through the same proven export rail as jexport',
+    demo.includes('V50 COMMENT COPY BUTTON') &&
+    demo.includes('<input id="lcinput" type="text"') &&
+    !demo.includes('<textarea id="lcinput"') &&
+    demo.includes('id="lccopy"') &&
+    demo.includes("const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');") &&
+    demo.includes("parent.postMessage({bohemiaExport:{name:'combat_comments.txt',text:t}},'*');"));
+  // v51: Paolo -- "REMOVE THE ADD BUTTON IT DOES NOTHING" -- ADD worked but its only
+  // feedback was an easy-to-miss toast elsewhere on screen; cut to one button that
+  // both saves and copies, so nothing typed is ever silently lost
+  ok('V51 NO ADD BUTTON: the ADD button is fully gone (from both markup and listeners) -- COPY now folds any pending input into jnotes via addLiveComment() before copying/exporting, and Enter triggers the same single button',
+    demo.includes('V51 NO ADD BUTTON') &&
+    !demo.includes('id="lcadd"') &&
+    !demo.includes("D('lcadd')") &&
+    demo.includes("D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); D('lccopy').click(); } });") &&
+    demo.includes('addLiveComment();   /* V51 NO ADD BUTTON'));
+  // v52: dense feedback batch -- POP OUT vs ENGAGE wording, the fall-timing bug,
+  // and two defaults (pistol, killshots/turn=1) so a fresh fight reads honest
+  ok('V52 POP OUT VS ENGAGE: with no pillar near the player at all, the action button says ENGAGE, not POP OUT (nothing to pop out of if you were never in cover)',
+    demo.includes('const nearCov=playerNearCover();') &&
+    demo.includes("col='#8a7d66'; txt=nearCov?'POP OUT':'ENGAGE';") &&
+    demo.includes("col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;"));
+  ok('V52 FALL TIMING FIX: a lethal kill sets _deadAt (not just _fellAt) to the real bullet-travel timestamp, so enemyFrame() actually holds the death pose until the bullet lands instead of self-initializing _deadAt to "now"',
+    demo.includes('V52 FALL TIMING FIX') &&
+    demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;') &&
+    demo.includes('tgt._fellAt=performance.now()+120; tgt._deadAt=tgt._fellAt; }'));
+  ok('V52 DEFAULTS: fresh combat starts on pistol (lets survive/get-down actually show, vs shotgun\'s forced-lethal) and KILLSHOTS/TURN defaults to 1 (a fresh start, not a pre-upgraded skill)',
+    demo.includes("let WEAPON='pistol';") &&
+    !demo.includes("let WEAPON='shotgun';") &&
+    demo.includes('KILLSHOTS/TURN: 1</button>') &&
+    demo.includes("G.chainSkill=((G.chainSkill||1)%8)+1;"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

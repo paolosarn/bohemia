@@ -201,7 +201,12 @@ ok('no duplicate caim1h/caim2h machinery left behind (the V29 hook is the one tr
    crawl-toward-an-ally logic (e._crawlAt) already ran on main with no visual
    -- enemyFrame's downed branch fell back to a static prone hold. This clip
    is the visual: a downed man drags himself, one arm reaching-planting-
-   pulling, body stays flat, legs stay limp the whole cycle. ---- */
+   pulling, legs trail straight out (floor-rise's own true prone numbers --
+   legCompress near ZERO, NOT crouch-compressed; a first pass copied 0.34
+   by mistake and Paolo caught it live, "does not look like crawl dying" --
+   compressed legs bunch under the body and read as a kneel/float instead
+   of flat-on-the-ground; verified visually via headless Playwright render,
+   not just these numeric checks, per VERIFY ON THE REAL SURFACE). ---- */
 ok('CANDIDATE_SRC carries crawl-dying', !!alpha.match(/'crawl-dying':"((?:[^"\\]|\\.)*)"/));
 ok('CAND_BEATS carries crawl-dying', /'crawl-dying':4/.test(alpha));
 {
@@ -213,7 +218,11 @@ ok('CAND_BEATS carries crawl-dying', /'crawl-dying':4/.test(alpha));
     const samples = [0, 0.1, 0.18, 0.35, 0.5, 0.6, 0.75, 0.9, 1].map(ph => pc('E', ph));
     ok('crawl-dying stays flat on the deck all through the cycle (E)', samples.every(o => hy(o) >= 9));
     ok('crawl-dying stays flat on the deck all through the cycle (S, head-on)', [0, 0.35, 0.6, 0.9].every(ph => hy(pc('S', ph)) >= 9));
-    ok('crawl-dying legs stay limp/compressed the whole cycle, never rising to stand', samples.every(o => (o.legCompressL || 0) > 0.3 && (o.legCompressR || 0) > 0.3));
+    ok('crawl-dying legs trail straight out (near-zero compress), never crouch-bunched under the body',
+      samples.every(o => (o.legCompressL || 0) < 0.15 && (o.legCompressR || 0) < 0.15));
+    ok('crawl-dying legs match floor-rise\'s real prone thigh/shin geometry (the reference that actually reads as flat)',
+      Math.abs(Math.abs(samples[0].thighL) - 1.3) < 0.01 && Math.abs(Math.abs(samples[0].thighR) - 1.18) < 0.01 &&
+      Math.abs(Math.abs(samples[0].shinL) - 0.5) < 0.01 && Math.abs(Math.abs(samples[0].shinR) - 0.42) < 0.01);
     const dists = samples.map(dist);
     ok('crawl-dying: the reaching arm actually sweeps (real reach-then-pull range)', Math.max(...dists) - Math.min(...dists) > 4);
     ok('crawl-dying: the off arm stays put (no independent second sweep)', new Set(samples.map(o => (o.upL || 0).toFixed(2))).size === 1);

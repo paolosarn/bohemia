@@ -3428,13 +3428,286 @@ def patch47(demo):
     return demo
 
 
+def patch48(demo):
+    """v48 (Paolo 7/23, "Green needs to be the whole action wym????"):
+    green was a snapshot at the instant you popped, not a lock for the
+    action. The dial takes real time to aim; enemies' fire cycles keep
+    ticking during that window, so someone who wasn't even peeking when
+    you popped could be firing by the time your shot resolved, and
+    endTurnReturn evaluated return fire FRESH at that moment -- punishing
+    a correctly-read green pop for something that happened after you'd
+    already committed. This actually contradicts the code's own
+    documented law from 7/4 ("NO DAMAGE BEFORE THE DIAL... Pop clean on
+    green, get punished for a whiff, never before the dial") -- so this
+    isn't a new feature, it's closing a gap against Paolo's own original
+    intent.
+    FIX: updGap() now publishes its live green verdict (G._greenNow).
+    doPop() snapshots it AND the exact set of enemies who were already a
+    known threat (peeking or firing) at the moment of the pop. If the pop
+    was green, endTurnReturn's return-fire pool is filtered down to ONLY
+    those already-known threats -- anyone who shows up fresh during your
+    aim cannot punish a green pop. A pop that wasn't green is unaffected
+    (unchanged risk, exactly as before)."""
+    if 'V48 GREEN IS A LOCK' in demo:
+        print('v48 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "  if(green&&!_lastGreen)sndGreen(); _lastGreen=green; }",
+        "  G._greenNow=green;   /* V48 GREEN IS A LOCK: doPop() reads this to snapshot the safety promise at commit time */\n  if(green&&!_lastGreen)sndGreen(); _lastGreen=green; }",
+        'green-publish-state')
+
+    demo = sub1(demo,
+        "function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;   /* CUTSCENE LAW (Paolo 7/3/26): they play out, short, no skipping */ audio();",
+        """function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;   /* CUTSCENE LAW (Paolo 7/3/26): they play out, short, no skipping */ audio();
+  G._poppedGreen=!!G._greenNow;   /* V48 GREEN IS A LOCK: the safety promise is made HERE, not re-litigated at resolve time */
+  G._popKnownThreats=new Set(G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).map(e=>e.i));   /* who you could actually see when you committed */""",
+        'pop-snapshot-green')
+
+    demo = sub1(demo,
+        "  if(engaged){ // you broke cover to shoot -> EVERYONE who's out with a line shoots back; your cover only softens it\n    pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1);\n    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */ }\n  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe().filter(e=>(e.acq||0)>=1); }",
+        "  if(engaged){ // you broke cover to shoot -> EVERYONE who's out with a line shoots back; your cover only softens it\n    pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1);\n    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */ }\n  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe().filter(e=>(e.acq||0)>=1); }\n  if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));   /* V48: a green pop only answers to threats that were ALREADY visible when you committed */\n  G._poppedGreen=false;   /* V48: single-use -- consumed the moment this resolution reads it, so a later WAIT never inherits a stale green */",
+        'engaged-pool-green-lock')
+
+    return demo
+
+
+def patch49(demo):
+    """v49 (Paolo 7/23, "I wrote like a whole big ass paragraph and then
+    I pressed and then it went all the way"): the v46 comment field was a
+    single-line <input>, which scrolls text SIDEWAYS as you type past its
+    width instead of wrapping -- confirmed live: typing a 271-char
+    paragraph left the box showing only its last ~40 characters, with
+    everything before it scrolled out of view to the left. The data was
+    never lost (captured + saved correctly underneath), but it LOOKED
+    broken, exactly what he described. Swapped to a real multi-line
+    <textarea> (2 rows tall by default, grows a bit, caps at a modest
+    max-height with internal scroll so it can't push the HP bar/board
+    too far down the screen) that wraps like text is supposed to. Also
+    dropped the Enter-submits-the-comment handler -- Enter in a textarea
+    should insert a line break like anywhere else; ADD is still there to
+    actually submit."""
+    if 'V49 COMMENT WRAPS' in demo or 'V50 COMMENT COPY BUTTON' in demo:
+        print('v49 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <input id="lcinput" type="text" placeholder="comment while you play..." style="flex:1;min-width:0;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;">',
+        '    <textarea id="lcinput" rows="2" placeholder="comment while you play..." style="flex:1;min-width:0;max-height:90px;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;resize:vertical;overflow-y:auto;line-height:1.35;"></textarea>   <!-- V49 COMMENT WRAPS: a real multi-line box, not a single-line input that scrolls sideways -->',
+        'comment-box-wraps')
+
+    demo = sub1(demo,
+        "D('lcadd').addEventListener('click',addLiveComment);\nD('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });",
+        "D('lcadd').addEventListener('click',addLiveComment);   /* V49: Enter now just makes a line break, like any other multi-line box -- ADD submits */",
+        'comment-drop-enter-submit')
+
+    return demo
+
+
+def patch50(demo):
+    """v50 (Paolo 7/23, correcting v49: "I did not tell you to make a
+    bigger multi box... all I was saying is that there was no export
+    copy button I pressed add and all of my shit went away"): v49
+    misread the complaint as a text-scrolling bug and grew the box
+    (rows=2, max-height 90px) -- eating screen space he explicitly didn't
+    want to give up, and not even the real problem. The real problem: ADD
+    clears the input (by design, it moves the text into jnotes) but
+    there was no visible way to get that text back out short of digging
+    into SETTINGS for the COPY EXPORT button -- so from where he's
+    sitting, typing a comment and tapping ADD just makes it vanish.
+    FIX: revert the box back to the original compact single-line input
+    (undo v49's size growth entirely), and add a small COPY button right
+    in that same row, wired through the exact same proven export rail
+    jexport already uses (sync clipboard write, async clipboard
+    fallback, THEN post up to the parent app's export panel -- the
+    reliable rail on mobile/iOS) so his comments are one tap away without
+    ever opening settings."""
+    if 'V50 COMMENT COPY BUTTON' in demo or 'V51 NO ADD BUTTON' in demo:
+        print('v50 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <textarea id="lcinput" rows="2" placeholder="comment while you play..." style="flex:1;min-width:0;max-height:90px;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;resize:vertical;overflow-y:auto;line-height:1.35;"></textarea>   <!-- V49 COMMENT WRAPS: a real multi-line box, not a single-line input that scrolls sideways -->\n    <button id="lcadd" class="cbtn">ADD</button>',
+        '    <input id="lcinput" type="text" placeholder="comment while you play..." style="flex:1;min-width:0;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:\'Space Grotesk\',sans-serif;">   <!-- V50: back to compact, size was never the real problem -->\n    <button id="lcadd" class="cbtn">ADD</button>\n    <button id="lccopy" class="cbtn">COPY</button>   <!-- V50 COMMENT COPY BUTTON: right here, no trip to settings needed -->',
+        'comment-box-compact-plus-copy')
+
+    demo = sub1(demo,
+        "D('lcadd').addEventListener('click',addLiveComment);   /* V49: Enter now just makes a line break, like any other multi-line box -- ADD submits */",
+        """D('lcadd').addEventListener('click',addLiveComment);
+D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });   /* V50: single-line input again, Enter submits like before */
+D('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no settings trip -- same proven rail as jexport */
+  const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');
+  if(!t.trim()){ b.innerHTML='<b>NOTHING YET</b>'; setTimeout(()=>{b.innerHTML='COPY';},1400); return; }
+  let ok=false;
+  try{const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;left:-999px;font-size:16px';
+    document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,t.length);ok=document.execCommand('copy');document.body.removeChild(ta);}catch(_e){}
+  if(!ok&&navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{},()=>{});}
+  if(window.parent&&window.parent!==window){
+    try{parent.postMessage({bohemiaExport:{name:'combat_comments.txt',text:t}},'*');
+      b.innerHTML='<b>'+(ok?'COPIED + ':'')+'SENT &#8599;</b>';}catch(_e){b.innerHTML='<b>'+(ok?'COPIED</b>':'COPY BLOCKED</b>');}}
+  else b.innerHTML='<b>'+(ok?'COPIED':'select + copy manually')+'</b>';
+  setTimeout(()=>{b.innerHTML='COPY';},2200); });""",
+        'comment-copy-wire')
+
+    return demo
+
+
+def patch51(demo):
+    """v51 (Paolo 7/24: "Bro REMOVE THE ADD BUTTON IT DOES NOTHING"): ADD
+    technically worked (it saved into jnotes) but the only feedback was a
+    setRead() toast elsewhere on screen -- easy to miss, so from where he's
+    sitting it looked like a dead button. Rather than try to make ADD's
+    feedback louder, cut it: COPY is now the ONE button. It folds whatever's
+    sitting in the input into jnotes first (same addLiveComment() call ADD
+    used to make), THEN copies/exports everything, so nothing typed is ever
+    lost and there's one less button to wonder about. Enter in the input
+    does the same thing ADD used to."""
+    if 'V51 NO ADD BUTTON' in demo:
+        print('v51 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <button id="lcadd" class="cbtn">ADD</button>\n    <button id="lccopy" class="cbtn">COPY</button>   <!-- V50 COMMENT COPY BUTTON: right here, no trip to settings needed -->',
+        '    <button id="lccopy" class="cbtn">COPY</button>   <!-- V50 COMMENT COPY BUTTON: right here, no trip to settings needed -- V51 NO ADD BUTTON: now the only button, saves + copies in one tap -->',
+        'comment-remove-add-button')
+
+    demo = sub1(demo,
+        "D('lcadd').addEventListener('click',addLiveComment);\nD('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });   /* V50: single-line input again, Enter submits like before */\nD('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no settings trip -- same proven rail as jexport */\n  const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');",
+        "D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); D('lccopy').click(); } });   /* V51 NO ADD BUTTON: Enter just triggers the one button now */\nD('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no settings trip -- same proven rail as jexport */\n  addLiveComment();   /* V51 NO ADD BUTTON: fold whatever's typed into jnotes first -- ADD is gone, this button does both jobs now */\n  const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');",
+        'comment-copy-does-both')
+
+    return demo
+
+
+def patch52(demo):
+    """v52 (Paolo 7/24, dense feedback batch):
+    1. "When I don't have any Cover, the action button is still saying pop
+       out very confused" -- POP OUT literally means leaving cover; if
+       there's no pillar near the player at all (playerNearCover()==false),
+       there's nothing to pop out OF. Swap the label to ENGAGE in that case
+       -- same button, same risk math, just honest wording.
+    2. "Enemies are falling over before the bullets hit them" -- real bug,
+       root-caused: the kill branch of resolveShot() computes the correct
+       bullet-travel delay into tgt._fellAt, but a LETHAL kill sets
+       tgt.dead=true, and enemyFrame()'s dead-branch pose logic reads
+       tgt._deadAt, not _fellAt -- and self-initializes _deadAt to "now" the
+       instant it's missing, so the death frame played on the very next
+       render tick regardless of the travel-time math. Setting _deadAt too
+       (same timestamp) makes the existing "still standing until the bullet
+       lands" gate actually hold.
+    3. "I want the default to be the pistol so I can see Enemies possibly
+       survive and get down" -- WEAPON_LETHAL is pistol 0.20 vs shotgun's
+       forced 1.0, so shotgun-default meant almost nobody ever survived a
+       kill shot to show the downed/dying state. Default to pistol.
+    4. "I want the default to be to kill shots turn that seems like the
+       game will typically start with" -- KILLSHOTS/TURN defaulted to 3,
+       which reads like an already-upgraded skill on a fresh encounter.
+       Default to 1.
+    Camera / "180 degree" targeting claim: went looking for an actual arc
+    restriction on who you can target -- modePool()/pickTarget()/the manual
+    chain-tap handler all pool by peeking/exposure only, no angle filter
+    anywhere. A synthetic 4-direction test (enemies at N/E/S/W, same
+    distance) also framed symmetrically on a real phone canvas. Didn't
+    touch anything here since I can't find or reproduce a restriction --
+    asked Paolo to pin down the exact moment instead of guessing at a fix
+    for code that reads correct."""
+    if 'V52 FALL TIMING FIX' in demo:
+        print('v52 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        """  } else {                    // you're covered from everyone out -> POP is optional, but popping breaks cover.
+    const firingN=G.e.filter(e=>!e.dead&&firing(e)).length;       // guns actually up right now
+    const outN=G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).length;
+    const _crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3));   /* V47: a fuller fight needs a cleaner lull -- 1-3 alive=4 (unchanged), 4-6=3, 7-8=2 */
+    if(outN===0){             // nobody out, nothing to pop at
+      bg='radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%)'; glow='0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)'; col='#8a7d66'; txt='POP OUT';
+    } else if(firingN>=2){    // multiple muzzles up -> popping now = eating several shots
+      bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #e0603a,0 0 30px 7px rgba(232,89,58,.7)'; col='#ffeae6'; txt='POP OUT';
+    } else if(firingN===1 || outN>=_crowdThresh){ // one gun up, or a crowd peeking that could snap-fire -> risky (V47: threshold scales with headcount)
+      bg='radial-gradient(circle at 50% 40%,#9a6a1e,#2e1f0a 72%)'; glow='0 0 0 1px #d69a3a,0 0 24px 5px rgba(220,150,60,.55)'; col='#fff0d8'; txt='POP OUT';
+    } else {                  // a clean lull, no guns up -> best moment to pop
+      bg='radial-gradient(circle at 50% 40%,#1f8a40,#0c2e18 72%)'; glow='0 0 0 1px #46c466,0 0 26px 5px rgba(95,200,110,.65)'; col='#eafff0'; txt='POP OUT'; green=true;
+    }
+  }""",
+        """  } else {                    // you're covered from everyone out -> POP is optional, but popping breaks cover.
+    const nearCov=playerNearCover();   /* V52: no pillar near you at all -> nothing to "pop out" of, say so honestly */
+    const firingN=G.e.filter(e=>!e.dead&&firing(e)).length;       // guns actually up right now
+    const outN=G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).length;
+    const _crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3));   /* V47: a fuller fight needs a cleaner lull -- 1-3 alive=4 (unchanged), 4-6=3, 7-8=2 */
+    if(outN===0){             // nobody out, nothing to pop at
+      bg='radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%)'; glow='0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)'; col='#8a7d66'; txt=nearCov?'POP OUT':'ENGAGE';
+    } else if(firingN>=2){    // multiple muzzles up -> popping now = eating several shots
+      bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #e0603a,0 0 30px 7px rgba(232,89,58,.7)'; col='#ffeae6'; txt=nearCov?'POP OUT':'ENGAGE';
+    } else if(firingN===1 || outN>=_crowdThresh){ // one gun up, or a crowd peeking that could snap-fire -> risky (V47: threshold scales with headcount)
+      bg='radial-gradient(circle at 50% 40%,#9a6a1e,#2e1f0a 72%)'; glow='0 0 0 1px #d69a3a,0 0 24px 5px rgba(220,150,60,.55)'; col='#fff0d8'; txt=nearCov?'POP OUT':'ENGAGE';
+    } else {                  // a clean lull, no guns up -> best moment to pop
+      bg='radial-gradient(circle at 50% 40%,#1f8a40,#0c2e18 72%)'; glow='0 0 0 1px #46c466,0 0 26px 5px rgba(95,200,110,.65)'; col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;
+    }
+  }""",
+        'pop-out-vs-engage')
+
+    demo = sub1(demo,
+        """    /* CONTACT TIMING (Paolo 7/3/26): the body drops when the BULLET ARRIVES,
+       not when the trigger clicks. Death frames gate on the killshot
+       camera's own travel fraction. */
+    if(G.ks){const tv=G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:G.ks.style==='duel'?0.55:0.55;
+      tgt._fellAt=performance.now()+G.ks.dur*tv*1000;}
+    else tgt._fellAt=performance.now()+120;   /* V30: the FALL plays, then he is dying, not gone */""",
+        """    /* CONTACT TIMING (Paolo 7/3/26): the body drops when the BULLET ARRIVES,
+       not when the trigger clicks. Death frames gate on the killshot
+       camera's own travel fraction. */
+    /* V52 FALL TIMING FIX (Paolo: "Enemies are falling over before the bullets
+       hit them"): this delay only ever landed in _fellAt, but a lethal kill
+       sets tgt.dead=true and enemyFrame()'s dead-branch reads _deadAt (self-
+       initializing it to "now" the instant it's missing) -- so the travel-time
+       math never actually gated the death pose. Set both; whichever the final
+       state (dead or downed) reads gets the real delay. */
+    if(G.ks){const tv=G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:G.ks.style==='duel'?0.55:0.55;
+      tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;}
+    else { tgt._fellAt=performance.now()+120; tgt._deadAt=tgt._fellAt; }   /* V30: the FALL plays, then he is dying, not gone */""",
+        'fall-timing-fix')
+
+    demo = sub1(demo,
+        "let WEAPON='shotgun';",
+        "let WEAPON='pistol';   /* V52: default to pistol (0.20 lethal vs shotgun's forced 1.0) so survive/get-down actually shows up */",
+        'default-weapon-pistol')
+
+    demo = sub1(demo,
+        '      <button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 3</button>',
+        '      <button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 1</button>   <!-- V52: default reads like a fresh start, not an upgraded skill -->',
+        'default-killshots-html')
+
+    demo = sub1(demo,
+        "    if(G._chainN>(G.chainSkill||3)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||3)+' this turn','#8a7d66'); return endTurnReturn(); } }",
+        "    if(G._chainN>(G.chainSkill||1)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||1)+' this turn','#8a7d66'); return endTurnReturn(); } }   /* V52 */",
+        'default-killshots-cap')
+
+    demo = sub1(demo,
+        """        pl.innerHTML='<b style="color:'+rangeCol(tg)+'">'+rangeTier(tg)+'</b> ~'+m+'m · <b style="color:#e89a4a">'+pkgName(G.pkgDiff)+'</b> dial · '+G.pat.toUpperCase()+' · <b style="color:#8fe89a">SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)+'</b>'; }   /* V17: you always know what the chain allows */""",
+        """        pl.innerHTML='<b style="color:'+rangeCol(tg)+'">'+rangeTier(tg)+'</b> ~'+m+'m · <b style="color:#e89a4a">'+pkgName(G.pkgDiff)+'</b> dial · '+G.pat.toUpperCase()+' · <b style="color:#8fe89a">SHOT '+(G._chainN||1)+'/'+(G.chainSkill||1)+'</b>'; }   /* V17: you always know what the chain allows -- V52 default 1 */""",
+        'default-killshots-hud')
+
+    demo = sub1(demo,
+        "  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)){",
+        "  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||1)){   /* V52 */",
+        'default-killshots-grit')
+
+    demo = sub1(demo,
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||3)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });",
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||1)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });   /* V52 */",
+        'default-killshots-click')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch52(patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
