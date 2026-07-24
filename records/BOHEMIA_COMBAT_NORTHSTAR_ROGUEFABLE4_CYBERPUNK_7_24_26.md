@@ -168,10 +168,85 @@ player's mobility (1), then the pressure that demands it (2-4), then the build d
 
 ---
 
+## 8. PAOLO'S DESIGN DIRECTIONS UNDER EXPLORATION (7/24, not yet locked)
+
+### 8a. "Enemy bullets take turns to reach you, by distance" + RF4's STRAFE-DODGE
+
+**What RF4 actually does (grounded, the key find):** ranged attacks are slow and target
+a TILE. The **strafe-dodge rule**: if you move perpendicular (strafe), the projectile is
+aimed at the square you *moved from* — so movement inherently dodges. Exception: if you
+start OUTSIDE the enemy's range and end INSIDE it, they hit where you ended up. If you
+don't move and it reaches you, normal evasion applies; if you evade it passes through to
+max range. So: **movement is the dodge, closing INTO range is the risk.**
+
+**The hole in "all bullets are slow":** bullets are instant in reality, and if every
+shot crawls, point-blank becomes un-dodgeable anyway while long-range becomes a trivial
+walk-off. Full slow-bullets flattens both ends.
+
+**The synthesis that keeps Paolo's instinct AND the realism:** grade travel time by
+distance and only make the COMMITTED return-fire beat dodgeable.
+- **Close shooters hit instantly** (no travel — realistic, closing distance is deadly).
+- **Distant shooters' return fire resolves one beat LATER, aimed at the TILE you popped
+  from** (RF4 strafe-dodge in our clothes). So if you **dash / vault / retreat before it
+  lands, the far shots miss** — you left the tile they aimed at.
+- Result: **range = reaction window. Distance is safety; closing is commitment.** And it
+  makes the v54 mobility verbs the literal counter to being shot at.
+- **Plus heavy telegraphed threats travel visibly and land on a counted beat** regardless
+  of range: grenades (leave the tile), a charging sniper lane (break the line), a
+  molotov/gas cloud (vacate). These are the pure RF4 movement-forcers.
+
+This is the biggest single decision on the board and it reshapes the return-fire model.
+
+### 8b. WEAPON = killshots-per-turn CEILING x dial width (Paolo's idea)
+
+Weapon identity becomes a matrix, not a damage number:
+
+| Weapon | Killshots/turn | Dial | The fantasy |
+|---|---|---|---|
+| Sniper | 1 (hard cap) | fattest/easiest, longest range | one perfect, unhurried shot |
+| Bow | 1 (locked, ignores perks) | medium | the purist — guaranteed, ignores your build |
+| Pistol | up to your skill | medium | the all-rounder |
+| SMG | 2+ (up to skill) | narrowest/hardest | spray — rewards rhythm mastery |
+| Shotgun | 1-2, close only | wide but short | brutal up close |
+
+**The balance hole Paolo already half-answered:** if the bow ignores your perks/skill,
+nobody picks it UNLESS its one shot is correspondingly huge. So lock the PRINCIPLE:
+**killshot-ceiling is inversely tied to per-shot payoff.** Bow = 1 shot but guaranteed
+lethal / armor-ignoring. Sniper = 1 shot but easiest dial + pierce + range. SMG = many
+shots, each smaller, hardest dial. Low ceiling ↔ big single hit; high ceiling ↔ small
+hits that demand execution. That keeps every weapon a real choice, not a strict upgrade.
+
+Interacts with the existing chainSkill (killshots/turn, default 2): the WEAPON sets the
+cap, your skill fills toward it, and some weapons (bow, sniper) cap BELOW your skill on
+purpose — that IS their identity.
+
+### 8c. RF4 ability-design lesson (grounded, validates our direction)
+
+RF4's dev deliberately makes abilities **weaker but cheaper / lower cooldown** so they're
+used constantly: "almost never a turn where the player isn't either using an ability or
+moving to set up one." This validates the **stamina model** (cheap, frequent, non-
+turn-ending verbs) and the beat's I-MOVE-YOU-MOVE. Rule of thumb: **many small decisions
+beat a few big ones.** Keep suppress/dash/vault cheap and frequent, not rare ultimates.
+Also RF4 talents: 4x tier-1, 3x tier-2, 1x tier-3, upgrades change how a talent plays —
+the template for the RIG's draft depth.
+
+### 8d. Other RF4 steals worth queuing
+
+- **Strafe-dodge** (8a) as the core "movement is the dodge" rule.
+- **Support-first target priority:** shield-caster (Force Shield = ally invuln 2-3 beats),
+  healer, netrunner (shrinks your green). Kill order is the puzzle.
+- **Movement-forcing telegraphs:** slow projectile-to-a-tile, multi-beat channels, growing
+  hazard clouds (RF4's Inferno-Staff = a 4-range flaming cloud lasting 2 turns).
+- **"Evade passes through to max range"** — a missed shot keeps going and can hit what's
+  behind you (or an enemy behind you). Friendly-fire and line geometry become tactical.
+
+---
+
 ## SOURCES
 - Rogue Fable IV: Steam store page (app 2720010), Justin Wang itch.io devlogs incl.
-  "Game Design: Combat," Steambase/Armor Games listings, PC Gamer on the Rogue Fable
-  series ("a traditional roguelike you might actually finish").
+  "Game Design: Combat" and Updates 0.9-0.21, the Steam "Major Talent Rework" note,
+  Steam discussion "Evasion vs Projectiles" (the strafe-dodge rule), the RF4 Fandom wiki
+  (Ranged Weapons), PC Gamer on the Rogue Fable series. Developer: Justin Wang.
 - Cyberpunk 2077: ExitLag builds guide, Cyberpunk Wiki (Cyberware), EarlyGuides combat
   guide, GOG/Steam community AI discussions.
 - Correction note: the prior doc researched the Playground Games *Fable* reboot (the
