@@ -166,10 +166,34 @@ effect of this fix. It's simply unused by the loop now. bohemia_loop.js is
 still inert (inlined stale inside slices/BOHEMIA_CURRENT_SLICE.html as
 reference only, not booted live anywhere) — this pass changed zero live
 player-facing behavior, it made real, previously-fake infrastructure point
-at the real world and stay enforced. NEXT, if anyone wants to actually BOOT
-this scaffold live: it would need to replace whatever currently drives the
-SLICE tab's walk loop, which is a much bigger, separate decision — not
-something to default into.
+at the real world and stay enforced.
+PASS 3 (same day, Paolo: "do something important" again once GitHub
+reconnected): PASS 2 gave factions real bases on the real map but the
+territory AI itself (Factions.FactionWorld.claimableTargets/factionTurn/
+advanceRound — a full cheap deterministic claim/defend/expand engine that
+already existed) had NO adjacency to expand ALONG — it takes an injected
+`adjacency(districtId)` function and nothing had ever supplied a real one
+(the old abstract world had no grid to be adjacent on). Built
+buildRealAdjacency(worldMap): real 4-way grid adjacency between district
+cells, O(districts), a street/desert/terrain gap between two districts is
+NOT a claimable link (same no-default-edges spirit as rawStreetEdges).
+Wired as ctx.factionAdjacency, set at the end of bootFactions. PROVED the
+mechanism actually runs, not just constructs: gates/bohemia_loop_gate.js
+now temporarily bumps ONE faction's quota (test-scoped only, never touching
+real canon — a faction's real starting appetite is Paolo's call) and calls
+advanceRound against the real adjacency, asserting it runs without
+throwing and is deterministic across two identical boots. Manually verified
+beyond the gate: a faction with real appetite grew from 1 to 21 districts
+over 20 rounds of advanceRound, one claim per round, using genuine
+neighbor geography (e.g. base at '7,0' -> real neighbors ['7,1','8,0'],
+correctly missing N/W since those are off-map/non-district). Gate now
+36/36. Nothing about REAL faction quotas, starting appetite, or which
+faction owns what territory was invented — that's still fully Paolo's,
+FACTION_ASSIGN-empty style; only the MECHANISM to run the AI against real
+geography, once he rules it, now actually exists and is proven to work.
+NEXT, if anyone wants to actually BOOT this scaffold live: it would need to
+replace whatever currently drives the SLICE tab's walk loop, which is a
+much bigger, separate decision — not something to default into.
 
 ## CRAWL-DYING SHIPPED — ROUND 2B CLOSED OUT (7/23, character/animation
 ## chat, Paolo: "crawl dying animation please")

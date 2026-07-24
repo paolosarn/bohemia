@@ -71,6 +71,7 @@
       factions: null,     // Factions.FactionWorld, canon-loaded from BOHEMIA_faction_graph.json. [WIRED at boot]
       factionBases: null, // factionId -> {x,y} real worldMap district coord. [WIRED at boot]
       factionConstraints: null, // FactionCanon.loadFactionCanon() result; enforced on every shiftStanding. [WIRED at boot]
+      factionAdjacency: null, // districtId -> [neighbor districtIds], real 4-way grid adjacency. Feed to factions.advanceRound()/claimableTargets() for the territory AI to actually run against real geography. [WIRED at boot]
       economy: null,      // Economy.Economy, one empty DistrictEconomy per worldMap district. [WIRED at boot; faucets/sinks are content, not poured here]
       spawner: null,      // Entities.Spawner, shared instance keyed on save.seed + ctx.deltas. [WIRED at boot]
 
@@ -200,6 +201,32 @@
     return { seed: seedText, size: w.n, real: w, districts: districts };
   }
 
+  // Real 4-way grid adjacency between district cells — the injected
+  // `adjacency(districtId)` the Factions territory AI (claimableTargets/
+  // factionTurn/advanceRound) has always required but nothing ever supplied,
+  // since the old abstract WorldGen had no grid to be adjacent ON (districts
+  // were free-floating points). Built once per worldMap, O(districts): a
+  // Set for O(1) membership, then each district's 4 grid neighbors filtered
+  // to ones that are ALSO real districts (a street/desert/terrain cell
+  // between two districts is not a claimable link — same spirit as
+  // rawStreetEdges only counting REAL edges, no default ever assumed).
+  function buildRealAdjacency(worldMap) {
+    const byId = new Map();
+    const districts = worldMap.districts;
+    for (const d of districts) byId.set(d.id, d);
+    const adjacency = new Map();
+    const DIRS = [[0, -1], [0, 1], [1, 0], [-1, 0]];
+    for (const d of districts) {
+      const neighbors = [];
+      for (const dir of DIRS) {
+        const nid = (d.pos[0] + dir[0]) + ',' + (d.pos[1] + dir[1]);
+        if (byId.has(nid)) neighbors.push(nid);
+      }
+      adjacency.set(d.id, neighbors);
+    }
+    return adjacency;
+  }
+
   // 4. World generation. POURED: builds from the real canon world (above),
   //    keyed on the save's seed text (hashed the same way WorldGen.generateWorld
   //    always did, so a given seed string still yields one deterministic valley).
@@ -264,6 +291,11 @@
         ctx.factions.owner.set(d.id, fid);
       });
     }
+
+    // real adjacency for the territory AI (claimableTargets/factionTurn/
+    // advanceRound) to actually expand against — the mechanism existed, real
+    // geography to run it on did not, until the real worldMap did.
+    ctx.factionAdjacency = ctx.worldMap ? buildRealAdjacency(ctx.worldMap) : new Map();
     return ctx;
   }
 

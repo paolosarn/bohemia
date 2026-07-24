@@ -81,5 +81,40 @@ ok('captureSave produces text', typeof saved==='string' && saved.length>0);
 const ctx3 = Loop.boot({ saveText: saved, factionGraph: graph });
 ok('reboot from saved loop', ctx3.ready===true);
 
+// 9. TERRITORY AI runs against REAL geography. The Factions engine's
+// claimableTargets/factionTurn/advanceRound have always needed an injected
+// adjacency(districtId) function; nothing ever supplied one because the old
+// abstract world had no real grid to be adjacent on. Proves the MECHANISM
+// end to end — quota is bumped LOCALLY, in this test only, since a
+// faction's real starting appetite is Paolo's canon call, not something to
+// invent here (with the real canon quota of 1 and a base already held,
+// deficit<=0 so a fresh faction correctly wants nothing, which is not a bug).
+ok('factionAdjacency built from the real world', ctx.factionAdjacency instanceof Map && ctx.factionAdjacency.size>0);
+// every real district appears as an adjacency key, and its neighbors are real ids too
+let adjSane=true, sampled=0;
+for(const d of ctx.worldMap.districts){
+  if(sampled>=200) break; sampled++;
+  const n = ctx.factionAdjacency.get(d.id);
+  if(!Array.isArray(n)){ adjSane=false; break; }
+  for(const nid of n) if(!ctx.factionAdjacency.has(nid)){ adjSane=false; break; }
+}
+ok('adjacency entries are arrays of real district ids', adjSane);
+
+function runFactionAIProof(seedCtx){
+  const fid = [...seedCtx.factions.factions.keys()].sort()[0];
+  seedCtx.factions.factions.get(fid).quota = 9999;   // test-only appetite bump, not canon
+  const adj = function(id){ return seedCtx.factionAdjacency.get(id) || []; };
+  return seedCtx.factions.advanceRound(adj);
+}
+let aiThrew=false, moves1=null;
+try{ moves1 = runFactionAIProof(ctx); } catch(e){ aiThrew=true; console.log('  AI THREW:', e.message); }
+ok('territory AI advanceRound runs against real adjacency without throwing', !aiThrew);
+ok('advanceRound returns an array', Array.isArray(moves1));
+
+const ctx4 = Loop.boot({ seed:'bohemia-test', factionGraph: graph });
+const moves2 = runFactionAIProof(ctx4);
+ok('territory AI expansion is deterministic (same seed -> same moves)',
+  JSON.stringify(moves1)===JSON.stringify(moves2));
+
 console.log(pass+' passed, '+fail+' failed');
 process.exit(fail?1:0);
