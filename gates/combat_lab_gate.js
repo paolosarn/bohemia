@@ -497,6 +497,14 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V47 GREEN SCALES WITH HEADCOUNT: the crowd-peeking threshold that gates green tightens as more enemies are alive (1-3=4, 4-6=3, 7-8=2), eases as the fight thins',
     demo.includes('_crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3))') &&
     demo.includes('outN>=_crowdThresh'));
+  // v48: green is a lock for the whole popped action, not a snapshot that can be undone mid-aim
+  ok('V48 GREEN IS A LOCK: doPop() snapshots the green verdict and the known-threats set at commit time; a green pop\'s return-fire pool only answers to threats visible at that moment, and the lock is single-use',
+    demo.includes('V48 GREEN IS A LOCK') &&
+    demo.includes('G._greenNow=green;') &&
+    demo.includes('G._poppedGreen=!!G._greenNow;') &&
+    demo.includes('G._popKnownThreats=new Set(G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).map(e=>e.i));') &&
+    demo.includes('if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));') &&
+    demo.includes('G._poppedGreen=false;   /* V48: single-use'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
