@@ -39,6 +39,11 @@ ok('heroRow() exists: 4 tap buttons + a live per-beat indicator', /heroRow\(key\
   /hero-btn/.test(alpha) && /hero-live/.test(alpha));
 ok('heroRow is wired into every song slot row', /const hero=MUS\.heroRow\(key\);/.test(alpha) &&
   /r\.append\(play,nbadge,up,dn,canon,gy,cb,tags,body,hero\);/.test(alpha));
+ok('beat 1 reads as the ruling for every song by default (Paolo 7/24, LOCKED: '+
+  '"beat1/4 is the hero beat man, for all of them, i didnt need to do all of them" -- '+
+  'a prior pass misread this ruling as a UI bug and stripped the default highlight; '+
+  'reverted, the ||1 fallback in the highlight is intentional, not a leftover)',
+  /\(MUS\.hero\[key\]\|\|1\)===n\?';border-color:#e8b04a;color:#e8b04a':''/.test(alpha));
 ok('picking a beat saves instantly and pushes live to combat', /MUS\.hero\[key\]=n; MUS\.save\(\);/.test(alpha) &&
   /x\.style\.color='#e8b04a';\} \}\); musicPushToCombat\(\); \}\);/.test(alpha));
 ok('the live indicator reads MUS.uiStep (quarter-beat = Math.floor(uiStep/4)), not finer', /Math\.floor\(\(MUS\.uiStep\|\|0\)\/4\)/.test(alpha));

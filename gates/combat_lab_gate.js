@@ -111,7 +111,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('myCoverAgainst(e.ea,e.edist)'));
   ok('enemies take pillar cover too — REAL cover only (V35: ONE pillar must both block and sit near him)',
     demo.includes('function updateGeomCover()') &&
-    demo.includes('e.gcov=realCoverPillar(e)?1:0;') &&
+    demo.includes('e.gcov=(!e.melee&&realCoverPillar(e))?1:0;') &&
     !demo.includes('(e.inCover||e.gcov)') && !demo.includes('e.inCover=!e.inCover'));
   ok('pillars block the step (occupancy: solid is solid)',
     demo.includes("'a pillar is there'") && demo.includes("setRead('BLOCKED',_sprinting?"));
@@ -193,7 +193,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('the chain skill speaks Paolo (KILLSHOTS/TURN)',
     demo.includes('KILLSHOTS/TURN: '));
   ok('the aim readout shows SHOT n/skill',
-    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||1)"));
+    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||2)"));
   ok('obsolete DIAL FACING menu removed', !demo.includes('data-f="0"'));
   // v13: cover AI + loop armor + compact UI
   ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
@@ -207,8 +207,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   // v14: the feel pass
   ok('no logo in the fight; the view starts wide',
     demo.includes('#logo{display:none!important}') && demo.includes('G.userZoom=0.82;'));
-  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 1 since V52)',
-    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||1)%8)+1"));
+  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 2 since V53)',
+    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||2)%8)+1"));
   ok('WEAPON READ: every body shows blade or gun', demo.includes('WEAPON READ V14'));
   ok('MISS CINEMATIC: a volley plays the camera even on a total miss; 2+ shooters get the FULL cam + shake (V24)',
     demo.split('MISS CINEMATIC V24').length >= 3 &&
@@ -261,9 +261,9 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('danger outranks its warning: red line 0.30, acquiring amber 0.18',
     demo.includes("'rgba(232,60,40,0.30)'") && demo.includes("'rgba(232,140,40,0.18)'") &&
     !demo.includes("'rgba(232,140,40,0.32)'"));
-  ok('the warning speaks: fresh beads announce on damage-free turns (both turn ends)',
+  ok('the warning speaks: fresh locks announce on damage-free turns (both turn ends)',
     demo.includes('V22: fresh beads announce themselves') &&
-    demo.split("setRead('ACQUIRING',G._newBeads+' gun'").length >= 3);
+    demo.split("setRead('LOCKING ON',G._newBeads+' gun'").length >= 3);
   // v23: honest player crouch, roam facing, exposure honesty, auto frame
   ok('V23 HONEST PLAYER CROUCH: your crouch needs stone within 1.8 tiles too',
     demo.includes('function playerNearCover()') &&
@@ -277,7 +277,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V23 AUTO FRAME') && demo.includes('function uzEff()') &&
     demo.includes('uzApply(c,W,H){c.translate(W/2+G.userPan.x,H/2+G.userPan.y);c.scale(uzEff(),uzEff())') &&
     !demo.includes('c.scale(G.userZoom,G.userZoom)') &&
-    demo.includes(')/uzEff()+W/2') && demo.includes('-96)'));
+    demo.includes(')/uzEff()+W/2') && demo.includes('const _pad=G.isTouch?96:44'));
   // v24: the feel ruling
   ok('V24 VITAL NEVER CHAINS: a vital stuns 2 and ENDS the turn; only a killshot chains',
     demo.includes('a vital STUNS') && demo.includes("frozen 2 turns — turn ends") &&
@@ -311,7 +311,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('the wounded leave a TRAIL') && demo.includes('at 30 you are LEAKING'));
   ok('SMART CAM: frames the living, tightens on kills, pinch drives for 5s',
     demo.includes('V26 SMART CAM') && demo.includes('G._camTouchAt') &&
-    demo.includes('Math.min(1.30,fit)'));
+    demo.includes('uzT=Math.max(0.20,Math.min(_ceil,fit));'));
   ok('playtest defaults to 8 enemies',
     demo.includes('numEnemies:8,') && demo.includes('<button class="nb on" data-n="8">8</button>'));
   ok('TARGETING AUTO/MANUAL: threat-ordered auto (v28), manual CHOOSE NEXT pause, taps only pick victims',
@@ -320,7 +320,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('id="targmode"'));
   ok('GRIT SHOTS: the floor perk buys a missed shot back, ceiling still caps',
     demo.includes('V26 GRIT') && demo.includes('id="gritskill"') &&
-    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||1)"));
+    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||2)"));
   // v27: auto targeting honest
   ok('V27 PICK SPENT: a tapped pick buys ONE dial, auto resumes closest-first; popTarget never carries',
     demo.includes('V27 PICK SPENT') && demo.includes('if(G.selTarget===G.fireTarget)G.selTarget=null;') &&
@@ -344,9 +344,9 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('return L.prone112||fseq[fseq.length-1]; }'));
   ok('the dying and the broken are OUT of every combat read (peek/fire/line/alive/melee/AI/acq/snap/reckless/lines)',
     demo.split('e.downed').length >= 12 && demo.includes('!e.dead&&!e.downed&&!e.broken'));
-  ok('THE CRAWL: every 5th turn a dying man crawls one tile toward a downed/dead friend, smearing blood',
-    demo.includes('the dying crawl toward their own every 5th turn') &&
-    demo.includes("e._downTurns%5!==0"));
+  ok('THE CRAWL (V53): a dying man crawls AWAY from the player (not toward a friend), smearing blood',
+    demo.includes('AWAY FROM YOU -- they drag as far from the player') &&
+    demo.includes("e._downTurns%3!==0"));
   ok('FINISH OR SPARE: the contextual button becomes the death blow on a dying/surrendered man, victory walk included',
     demo.includes('function finishHim(t)') && demo.includes("b.textContent='FINISH '+t.n") &&
     demo.includes('the death blow is a CHOICE'));
@@ -413,7 +413,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('if(!G.ks)G._uzE='));
   ok('V35 REAL COVER: one pillar must both block AND sit near him — no mismatched-pillar fake cover',
     demo.includes('function realCoverPillar(e)') &&
-    demo.includes('e.gcov=realCoverPillar(e)?1:0'));
+    demo.includes('e.gcov=(!e.melee&&realCoverPillar(e))?1:0'));
   ok('V35 AUTO MEANS AUTO: chip and field taps only lock a pick in manual mode',
     demo.split("G.targetMode!=='manual'").length >= 3);
   ok('V35 DIAL DIFFICULTY BY EXPOSURE: covered pulls it harder, exposed pulls it easier',
@@ -433,9 +433,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('AS:true,AT:true,AU:false,AV:true'));
   // v38: accuracy corrected a third time -- a continuous per-shot proximity score,
   // not a binary zone bucket (v37's kill+vital=100/hit+miss=0 wasn't it either)
-  ok('V38 CONTINUOUS PRECISION: accuracy is a continuous per-shot proximity-to-center score, not a binary zone bucket',
-    demo.includes('V38 CONTINUOUS PRECISION') &&
-    demo.includes('_precisionPct=Math.max(0,1-d/hitz)*100') &&
+  ok('V38 CONTINUOUS PRECISION (formula superseded by V53 banding): the per-shot precisionSum plumbing still feeds the averaged ledger accuracy',
     demo.includes('G.rc.precisionSum=(G.rc.precisionSum||0)+_precisionPct') &&
     demo.includes('G.ledger.precisionSum=(G.ledger.precisionSum||0)+_precisionPct') &&
     demo.includes("rate3=L.shots?Math.round((L.precisionSum||0)/L.shots):0"));
@@ -484,9 +482,9 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */') &&
     demo.includes("if(_sprinting){ G.sprintArm=false;"));
   // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
-  ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas',
+  ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas (V53 lifted the ceiling into _ceil per device)',
     demo.includes('V45 CAMERA FLOOR') &&
-    demo.includes('uzT=Math.max(0.20,Math.min(1.30,fit));'));
+    demo.includes('uzT=Math.max(0.20,Math.min(_ceil,fit));'));
   // v46: a live comment field at the top of the screen, feeding the existing export pipeline
   // (v51 removed the ADD button -- addLiveComment() still exists, now called by lccopy)
   ok('V46 LIVE COMMENT: a top-of-screen input that appends turn-tagged comments to the existing jnotes/export pipeline, not a new storage surface',
@@ -535,11 +533,42 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V52 FALL TIMING FIX') &&
     demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;') &&
     demo.includes('tgt._fellAt=performance.now()+120; tgt._deadAt=tgt._fellAt; }'));
-  ok('V52 DEFAULTS: fresh combat starts on pistol (lets survive/get-down actually show, vs shotgun\'s forced-lethal) and KILLSHOTS/TURN defaults to 1 (a fresh start, not a pre-upgraded skill)',
+  ok('V52 DEFAULT WEAPON: fresh combat starts on pistol (lets survive/get-down actually show, vs shotgun\'s forced-lethal)',
     demo.includes("let WEAPON='pistol';") &&
-    !demo.includes("let WEAPON='shotgun';") &&
-    demo.includes('KILLSHOTS/TURN: 1</button>') &&
-    demo.includes("G.chainSkill=((G.chainSkill||1)%8)+1;"));
+    !demo.includes("let WEAPON='shotgun';"));
+  // v53: big feedback batch -- killshots default 2, melee never covers, flee 1-tile/face-away,
+  // crawl away, bead->lock, honest accuracy, music keys off real kills, green peek, device cam
+  ok('V53 KILLSHOTS DEFAULT 2 (Paolo corrected v52\'s 1): the HTML label + every fallback read 2',
+    demo.includes('KILLSHOTS/TURN: 2</button>') &&
+    !demo.includes('KILLSHOTS/TURN: 1</button>') &&
+    demo.includes("G.chainSkill=((G.chainSkill||2)%8)+1;"));
+  ok('V53 MELEE NEVER COVERS: a blade gets gcov=0 (never real pillar cover), so peeking(melee) is always true -- no pop-in/out',
+    demo.includes('e.gcov=(!e.melee&&realCoverPillar(e))?1:0;'));
+  ok('V53 FLEE: a fleeing man moves exactly 1 tile/turn straight out and shows his BACK (enemyLook faces e.ea, not e.ea+PI, while fleeing)',
+    demo.includes('const nx=ex+(ex/ed)*1.0, ny=ey+(ey/ed)*1.0;') &&
+    demo.includes('const _faceB=e.fleeing?e.ea:(e.ea+Math.PI);'));
+  ok('V53 CRAWL AWAY: the downed crawl drags straight out along the bearing (edist up) = away from the player, not toward a teammate',
+    demo.includes('e.edist=Math.min(30,e.edist+0.8);') &&
+    demo.includes('AWAY FROM YOU -- they drag as far from the player'));
+  ok('V53 BEAD -> LOCK: no player-facing "drawing a bead"/"beads were waiting"; it reads "locking on"/"had you locked"',
+    !demo.includes('drawing a bead') &&
+    !demo.includes('beads were waiting') &&
+    demo.includes('locking onto you') &&
+    demo.includes('had you locked'));
+  ok('V53 HONEST ACCURACY: precision is banded by the zone actually hit (kill 85-100, vital 60-85, hit 25-55, miss 0), not 1-d/hitz against the forgiveness-inflated zone',
+    demo.includes('V53 HONEST ACCURACY') &&
+    demo.includes('if(kind===\'kill\')       _precisionPct=85+15*Math.max(0,Math.min(1,1-d/Math.max(1e-6,hz)));') &&
+    demo.includes("else if(kind==='vital') _precisionPct=60+25*Math.max(0,Math.min(1,1-(d-hz)/Math.max(1e-6,vz-hz)));") &&
+    !demo.includes('const _precisionPct=Math.max(0,1-d/hitz)*100;'));
+  ok('V53 MUSIC KEYS OFF REAL KILLS: the layer counter counts dead bodies, not kill-ARC releases (a pistol shot that only DOWNS a live man must not bump the music)',
+    demo.includes("(G.e?G.e.filter(e=>e.dead).length:0)") &&
+    !demo.includes("((G.rc&&G.rc.kills)||0):0);"));
+  ok('V53 GREEN PEEK: only when the button is green, the player pops up out of the crouch (top rise frames) so the safe moment reads on the body',
+    demo.includes('if(G._greenNow&&fset.rise&&fset.rise.length){') &&
+    demo.includes('pst=_rz[Math.max(0,_rz.length-1-_bob)];'));
+  ok('V53 DEVICE CAM: G.isTouch detects phone vs laptop; a non-touch device frames much tighter (reclaims the thumb margin, higher zoom ceiling)',
+    demo.includes('G.isTouch=((typeof matchMedia===') &&
+    demo.includes('const _pad=G.isTouch?96:44, _slack=G.isTouch?70:40, _ceil=G.isTouch?1.30:1.85;'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',

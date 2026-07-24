@@ -3701,13 +3701,172 @@ def patch52(demo):
     return demo
 
 
+def patch53(demo):
+    """v53 (Paolo 7/24, big feedback batch):
+    A. "the default should be 2 killshots per turn not 1" -- v52 went to 1,
+       he wants 2. Flip the fallbacks + the HTML label.
+    B. "if a enemy has only a melee weapon why are they actively popping in
+       and out of cover" -- a melee enemy still got gcov (real pillar cover)
+       and thus cover-cycled peek/tuck via efrac. Blades don't shoot; they
+       close. Force melee gcov=0 so peeking(melee) is always true (always
+       out, advancing), never a pop-in/out.
+    C. "when enemies are running away they should be facing away from you
+       and running far away 1 tile per turn" -- flee moved 2.4 tiles/turn
+       (too fast) AND enemyLook faced them e.ea+PI (toward you). Move 1
+       tile/turn, and face fleeing men along e.ea (their back to you).
+    D. death crawl "enemies should be crawling AWAY FROM YOU not to other
+       team mates" -- the downed crawl targeted the nearest ally/corpse.
+       Retarget: crawl straight away from the player (outward along e.ea).
+    E. "change the name from bead to something else wtf is a bead" -- the
+       player-facing 'drawing a bead' / 'beads were waiting' become
+       'locking on' / 'guns had you locked'.
+    F. "if i didnt get 100 of kill shots the accuracy should not be 100%" --
+       the ledger precision read 1-d/hitz where hitz was the FORGIVENESS-
+       inflated hit zone, so almost every landed shot pegged near 100%.
+       Reband by the zone actually hit (proximity within it): killshot
+       85-100, vital 60-85, hit 25-55, miss 0. Only near-dead-center
+       killshots approach 100; anything less pulls the average down.
+    G. "the music intensifies after hitting people twice not killing two
+       people" -- since v52's pistol default, a center-dial 'kill' arc that
+       fails the lethal roll leaves the man DOWNED (alive), but the music
+       layer counter used G.rc.kills (kill-ARC releases), so a survivor
+       still bumped it. Base intensity on ACTUAL dead bodies instead.
+    H. "anytime the action is green i want to see the player character pop
+       out from cover animation like the enemies do, only when its green" --
+       in the cover phase, when the button is green, show the player peeking
+       up out of the crouch (top rise frames, a slow bob) so you SEE the
+       safe-to-pop moment on the body, not just the button.
+    I. "the camera is still way too zoomed out... im playing on my laptop...
+       can you detect when im on my computer vs phone" -- add G.isTouch
+       (coarse-pointer / touch detection) and, on a non-touch device
+       (laptop), frame much tighter: the bottom-right thumb margin only
+       exists to keep the action ring off a body on a phone, so desktop
+       reclaims it (smaller pad, higher zoom ceiling)."""
+    if 'V53 HONEST ACCURACY' in demo:
+        print('v53 already applied, skipping')
+        return demo
+
+    # --- A: killshots default 2 ---
+    demo = sub1(demo,
+        '      <button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 1</button>   <!-- V52: default reads like a fresh start, not an upgraded skill -->',
+        '      <button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 2</button>   <!-- V53: Paolo wants 2 as the fresh-start default -->',
+        'v53-killshots-html')
+    demo = sub1(demo,
+        "    if(G._chainN>(G.chainSkill||1)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||1)+' this turn','#8a7d66'); return endTurnReturn(); } }   /* V52 */",
+        "    if(G._chainN>(G.chainSkill||2)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||2)+' this turn','#8a7d66'); return endTurnReturn(); } }   /* V53: default 2 */",
+        'v53-killshots-cap')
+    demo = sub1(demo,
+        "SHOT '+(G._chainN||1)+'/'+(G.chainSkill||1)+'</b>'; }   /* V17: you always know what the chain allows -- V52 default 1 */",
+        "SHOT '+(G._chainN||1)+'/'+(G.chainSkill||2)+'</b>'; }   /* V17: you always know what the chain allows -- V53 default 2 */",
+        'v53-killshots-hud')
+    demo = sub1(demo,
+        "  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||1)){   /* V52 */",
+        "  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||2)){   /* V53: default 2 */",
+        'v53-killshots-grit')
+    demo = sub1(demo,
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||1)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });   /* V52 */",
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||2)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });   /* V53: default 2 */",
+        'v53-killshots-click')
+
+    # --- B: melee never cover-cycles ---
+    demo = sub1(demo,
+        'function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=realCoverPillar(e)?1:0; } }   /* V35: ONE pillar must both BLOCK and sit NEAR him — no more mismatched pillars faking cover */',
+        'function updateGeomCover(){ for(const e of (G.e||[])){ if(e.dead)continue; e.gcov=(!e.melee&&realCoverPillar(e))?1:0; } }   /* V35: ONE pillar must both BLOCK and sit NEAR him. V53: a blade NEVER takes cover -- melee gcov=0 so it is always out and closing, never popping in/out */',
+        'v53-melee-no-cover')
+
+    # --- C: flee 1 tile/turn away (was 2.4) ---
+    demo = sub1(demo,
+        '  for(const e of G.e){ if(!e.fleeing)continue;   /* V35: the fleeing run AWAY every turn, same plumbing as the crawl */\n    const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist, ed=Math.hypot(ex,ey)||1;\n    const nx=ex+(ex/ed)*2.4, ny=ey+(ey/ed)*2.4;\n    e.edist=Math.min(30,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); }',
+        '  for(const e of G.e){ if(!e.fleeing)continue;   /* V35: the fleeing run AWAY every turn. V53: exactly 1 tile per turn, straight out (their back is drawn to you in enemyLook) */\n    const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist, ed=Math.hypot(ex,ey)||1;\n    const nx=ex+(ex/ed)*1.0, ny=ey+(ey/ed)*1.0;\n    e.edist=Math.min(30,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); e._fleeStepAt=performance.now(); }',
+        'v53-flee-one-tile')
+
+    # --- D: downed crawl AWAY from player, not toward allies ---
+    demo = sub1(demo,
+        """  for(const e of G.e){ if(!e.downed)continue;   /* V30: the dying crawl toward their own every 5th turn */
+    e._downTurns=(e._downTurns||0)+1;
+    if(e._downTurns%5!==0)continue;
+    const ex=Math.cos(e.ea)*e.edist, ey=Math.sin(e.ea)*e.edist;
+    let bx=null,bd=1e9;
+    for(const o of G.e){ if(o===e||!(o.dead||o.downed))continue;
+      const ox=Math.cos(o.ea)*o.edist, oy=Math.sin(o.ea)*o.edist;
+      const d2=Math.hypot(ox-ex,oy-ey); if(d2<bd){bd=d2;bx=[ox,oy];} }
+    for(const c of (G.corpses||[])){ const ox=Math.cos(c.ea)*c.edist, oy=Math.sin(c.ea)*c.edist;
+      const d2=Math.hypot(ox-ex,oy-ey); if(d2<bd){bd=d2;bx=[ox,oy];} }
+    if(bx&&bd>0.8){ (G.bloodSpots=G.bloodSpots||[]).push({ea:e.ea,edist:e.edist,r:1.5,jx:0,jy:0});   /* V31: smear where he WAS */
+      const nx=ex+(bx[0]-ex)/bd, ny=ey+(bx[1]-ey)/bd;
+      e.edist=Math.max(0.4,Math.hypot(nx,ny)); e.ea=Math.atan2(ny,nx); e._crawlAt=performance.now();
+      G.bloodSpots.push({ea:e.ea,edist:e.edist,r:1.8,jx:0,jy:0}); } }   /* and where he drags TO */""",
+        """  for(const e of G.e){ if(!e.downed)continue;   /* V30: the dying crawl. V53 (Paolo): AWAY FROM YOU -- they drag as far from the player as they can, not toward teammates */
+    e._downTurns=(e._downTurns||0)+1;
+    if(e._downTurns%3!==0)continue;   /* V53: a touch more often than every 5th so the retreat reads */
+    (G.bloodSpots=G.bloodSpots||[]).push({ea:e.ea,edist:e.edist,r:1.5,jx:0,jy:0});   /* V31: smear where he WAS */
+    e.edist=Math.min(30,e.edist+0.8);   /* V53: straight out along his own bearing = directly away from the player at origin */
+    e._crawlAt=performance.now();
+    G.bloodSpots.push({ea:e.ea,edist:e.edist,r:1.8,jx:0,jy:0}); }   /* and where he drags TO */""",
+        'v53-crawl-away')
+
+    # --- E: rename "bead" -> "lock" (player-facing) ---
+    demo = sub1(demo,
+        "  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('ACQUIRING',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' drawing a bead — one turn to break it','#e8a04a');   /* V22 */",
+        "  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('LOCKING ON',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' locking onto you — one turn to break the line','#e8a04a');   /* V22; V53: 'bead' -> 'lock' */",
+        'v53-bead-rename-1')
+    demo = sub1(demo,
+        "  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('ACQUIRING',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' drawing a bead — one turn to break it','#e8a04a');   /* V22: the warning speaks */",
+        "  if(G._newBeads&&dmg===0&&G.pHP>0)setRead('LOCKING ON',G._newBeads+' gun'+(G._newBeads>1?'s':'')+' locking onto you — one turn to break the line','#e8a04a');   /* V22: the warning speaks; V53: 'bead' -> 'lock' */",
+        'v53-bead-rename-2')
+    demo = sub1(demo,
+        "    onOffbeat(()=>{hurtFlash(); sndReturn(); setRead('RECKLESS POP',holders.length+' beads were waiting — '+dmg,'#e8593a');",
+        "    onOffbeat(()=>{hurtFlash(); sndReturn(); setRead('RECKLESS POP',holders.length+' gun'+(holders.length>1?'s':'')+' had you locked — '+dmg,'#e8593a');",
+        'v53-bead-rename-3')
+
+    # --- F: honest ledger accuracy (banded by zone actually hit) ---
+    demo = sub1(demo,
+        "  const _precisionPct=Math.max(0,1-d/hitz)*100;   /* V38 CONTINUOUS PRECISION: dead-center release=100%, right on the miss line=0%, every shot in between reads true to how close it actually was */",
+        """  let _precisionPct;   /* V53 HONEST ACCURACY (Paolo, repeated: "if i didnt get 100 of kill shots the accuracy should not be 100%"): the old 1-d/hitz used the FORGIVENESS-inflated hit zone, so nearly every landed shot pegged ~100. Reband by the zone you actually hit -- only a near-dead-center KILLSHOT approaches 100; vitals/hits/misses pull the average down. */
+  if(kind==='kill')       _precisionPct=85+15*Math.max(0,Math.min(1,1-d/Math.max(1e-6,hz)));
+  else if(kind==='vital') _precisionPct=60+25*Math.max(0,Math.min(1,1-(d-hz)/Math.max(1e-6,vz-hz)));
+  else if(kind==='hit')   _precisionPct=25+30*Math.max(0,Math.min(1,1-(d-vz)/Math.max(1e-6,hitz-vz)));
+  else                    _precisionPct=0;""",
+        'v53-honest-accuracy')
+
+    # --- G: music intensity from ACTUAL dead, not kill-arc releases ---
+    demo = sub1(demo,
+        "  const _sk=(G._demo&&G._demo.k==='J')?4:((JUICE.J&&!G.over)?((G.rc&&G.rc.kills)||0):0);",
+        "  const _sk=(G._demo&&G._demo.k==='J')?4:((JUICE.J&&!G.over)?(G.e?G.e.filter(e=>e.dead).length:0):0);   /* V53 (Paolo): the song layers with KILLS, not kill-ARC releases -- a pistol shot that only DOWNS a man (alive) must not bump the music */",
+        'v53-music-real-kills')
+
+    # --- H: green -> player peeks out of cover (mirrors the enemy peek) ---
+    demo = sub1(demo,
+        "    if(G.phase==='cover'&&!G.over&&playerNearCover()&&fset.crouch&&fset.crouch.length){   /* V23: no stone, no crouch */\n      pst=(G._dropAt&&_pn-G._dropAt<520&&fset.drop&&fset.drop.length)?fset.drop[Math.min(3,Math.floor((_pn-G._dropAt)/130))]:fset.crouch[Math.floor((JUICE.A?_bpmClock:_pn)/500)%fset.crouch.length]; }",
+        "    if(G.phase==='cover'&&!G.over&&playerNearCover()&&fset.crouch&&fset.crouch.length){   /* V23: no stone, no crouch */\n      pst=(G._dropAt&&_pn-G._dropAt<520&&fset.drop&&fset.drop.length)?fset.drop[Math.min(3,Math.floor((_pn-G._dropAt)/130))]:fset.crouch[Math.floor((JUICE.A?_bpmClock:_pn)/500)%fset.crouch.length];\n      if(G._greenNow&&fset.rise&&fset.rise.length){ const _rz=fset.rise; const _bob=Math.floor((JUICE.A?_bpmClock:_pn)/300)%2; pst=_rz[Math.max(0,_rz.length-1-_bob)]; } }   /* V53 (Paolo): ONLY when green, you peek up out of the crouch -- you SEE the safe moment on the body, not just the button */",
+        'v53-green-peek')
+
+    # --- I: device detection + tighter camera on a laptop ---
+    demo = sub1(demo,
+        "G.userZoom=0.82;G.userPan={x:0,y:0};   /* V14: start wide — see the board */",
+        "G.userZoom=0.82;G.userPan={x:0,y:0};   /* V14: start wide — see the board */\nG.isTouch=((typeof matchMedia==='function'&&matchMedia('(pointer:coarse)').matches)||('ontouchstart' in window)||((navigator.maxTouchPoints||0)>0));   /* V53 (Paolo: \"detect when im on my computer vs phone\"): a phone reserves the bottom-right thumb margin; a laptop doesn't, so desktop frames tighter */",
+        'v53-device-detect')
+    demo = sub1(demo,
+        "      if(md>0){ const fit=(Math.min(W/2,H/2)-96)/Math.max(80,md*ringF+70);\n        uzT=Math.max(0.20,Math.min(1.30,fit)); } }",
+        "      if(md>0){ const _pad=G.isTouch?96:44, _slack=G.isTouch?70:40, _ceil=G.isTouch?1.30:1.85;   /* V53: laptop reclaims the thumb margin -> much tighter frame */\n        const fit=(Math.min(W/2,H/2)-_pad)/Math.max(80,md*ringF+_slack);\n        uzT=Math.max(0.20,Math.min(_ceil,fit)); } }",
+        'v53-camera-device')
+
+    # --- C (facing): a fleeing man shows his BACK, not his face ---
+    demo = sub1(demo,
+        "function enemyLook(e){if(!SPR.enemy)return null;\n  if(e._lookLock)return e._lookLock;   /* V20: the dead keep the pose they died in */\n  const L=SPR.enemyByFace[SPR_DIRNAME[dirIndex(e.ea+Math.PI)]]||null;\n  if(e.dead&&L)e._lookLock=L;\n  return L;}",
+        "function enemyLook(e){if(!SPR.enemy)return null;\n  if(e._lookLock)return e._lookLock;   /* V20: the dead keep the pose they died in */\n  const _faceB=e.fleeing?e.ea:(e.ea+Math.PI);   /* V53 (Paolo): a fighter faces YOU (e.ea+PI); a man running away faces AWAY (e.ea) -- you see his back */\n  const L=SPR.enemyByFace[SPR_DIRNAME[dirIndex(_faceB)]]||null;\n  if(e.dead&&L)e._lookLock=L;\n  return L;}",
+        'v53-flee-face-away')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch52(patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch53(patch52(patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

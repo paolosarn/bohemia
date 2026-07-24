@@ -27,9 +27,9 @@ bank = json.load(open(BANK))
 heroes = bank['heroes']
 
 DISTRICTS = [
-    ('CITY HALL', 'cityhall', 'the REAL Las Vegas City Hall (2012), baked from 3D: an angular GLASS TOWER + a CURVED council chamber + a plaza of dead SOLAR TREES on tall posts. Modern Vegas, not a classical dome.'),
-    ('BATTERY / POWER YARD', 'battery', 'baked from 3D: a pale industrial POWER HALL with tall SMOKESTACKS rising behind + roof vents + big TRANSFORMER cylinders in the yard + a hazard band.'),
-    ('TRANSIT TERMINAL', 'terminal', 'baked from 3D: a pale glass WAITING HALL + a big flat bay CANOPY on posts over dead BUSES + a MARQUEE sign. Transit, at a glance.'),
+    ('CITY HALL', 'cityhall', 'the REAL Las Vegas City Hall, baked from 3D: an angular GLASS TOWER that FILLS the block + a CURVED council chamber + a GROUND-LEVEL grand entrance + a SOLAR-CARPORT parking lot fed by a driveway. Modern Vegas.'),
+    ('BATTERY / POWER YARD', 'battery', 'baked from 3D: a block-filling POWER HALL + tall red-capped SMOKESTACKS + TRANSFORMERS (bushings on top) in a service yard + a hazard band. Ground-level loading + personnel doors.'),
+    ('TRANSIT TERMINAL', 'terminal', 'baked from 3D: a glass WAITING HALL + a big flat bay CANOPY over dead BUSES (the apron IS the vehicle surface) + a lit MARQUEE sign. Transit, at a glance.'),
 ]
 
 meta = []
