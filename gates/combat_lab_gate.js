@@ -483,6 +483,20 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('const _mult=_sprinting?2:1;') &&
     demo.includes('endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */') &&
     demo.includes("if(_sprinting){ G.sprintArm=false;"));
+  // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
+  ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas',
+    demo.includes('V45 CAMERA FLOOR') &&
+    demo.includes('uzT=Math.max(0.20,Math.min(1.30,fit));'));
+  // v46: a live comment field at the top of the screen, feeding the existing export pipeline
+  ok('V46 LIVE COMMENT: a top-of-screen input that appends turn-tagged comments to the existing jnotes/export pipeline, not a new storage surface',
+    demo.includes('V46 LIVE COMMENT') &&
+    demo.includes('id="lcinput"') && demo.includes('id="lcadd"') &&
+    demo.includes("function addLiveComment(){") &&
+    demo.includes("if(jn)jn.value=(jn.value?jn.value+'\\n':'')+'[T'+(G.mTurn||0)+'] '+txt;"));
+  // v47: the green "safe to pop" threshold scales with how many enemies are actually alive
+  ok('V47 GREEN SCALES WITH HEADCOUNT: the crowd-peeking threshold that gates green tightens as more enemies are alive (1-3=4, 4-6=3, 7-8=2), eases as the fight thins',
+    demo.includes('_crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3))') &&
+    demo.includes('outN>=_crowdThresh'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
