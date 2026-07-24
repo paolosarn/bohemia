@@ -193,7 +193,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('the chain skill speaks Paolo (KILLSHOTS/TURN)',
     demo.includes('KILLSHOTS/TURN: '));
   ok('the aim readout shows SHOT n/skill',
-    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)"));
+    demo.includes("SHOT '+(G._chainN||1)+'/'+(G.chainSkill||1)"));
   ok('obsolete DIAL FACING menu removed', !demo.includes('data-f="0"'));
   // v13: cover AI + loop armor + compact UI
   ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
@@ -207,8 +207,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   // v14: the feel pass
   ok('no logo in the fight; the view starts wide',
     demo.includes('#logo{display:none!important}') && demo.includes('G.userZoom=0.82;'));
-  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 3)',
-    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||3)%8)+1"));
+  ok('CHAIN SKILL: shots-per-turn is a 1..8 skill (default 1 since V52)',
+    demo.includes('CHAIN SKILL V14') && demo.includes("G.chainSkill=((G.chainSkill||1)%8)+1"));
   ok('WEAPON READ: every body shows blade or gun', demo.includes('WEAPON READ V14'));
   ok('MISS CINEMATIC: a volley plays the camera even on a total miss; 2+ shooters get the FULL cam + shake (V24)',
     demo.split('MISS CINEMATIC V24').length >= 3 &&
@@ -282,9 +282,9 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V24 VITAL NEVER CHAINS: a vital stuns 2 and ENDS the turn; only a killshot chains',
     demo.includes('a vital STUNS') && demo.includes("frozen 2 turns — turn ends") &&
     !demo.includes('// vital continues your turn'));
-  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out ONLY when a covered side exists to protect (V32); button reads HOLD/SHOOT/POP OUT',
+  ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out ONLY when a covered side exists to protect (V32); button reads HOLD/SHOOT/POP OUT (or ENGAGE with no cover, V52)',
     demo.includes('function posExposed()') && demo.includes("txt='HOLD';") &&
-    demo.split("txt='POP OUT';").length >= 5 && !demo.includes("txt='POP';") &&
+    demo.split("txt=nearCov?'POP OUT':'ENGAGE';").length >= 5 && !demo.includes("txt='POP';") &&
     demo.includes('V32 HOLD FIX: same gate as updGap'));
   ok('THE DEAD LIE UNDER THE LIVING: corpse under-pass before the player, old draws stripped',
     demo.includes('V24 UNDER THE LIVING') &&
@@ -320,7 +320,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('id="targmode"'));
   ok('GRIT SHOTS: the floor perk buys a missed shot back, ceiling still caps',
     demo.includes('V26 GRIT') && demo.includes('id="gritskill"') &&
-    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)"));
+    demo.includes("(G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||1)"));
   // v27: auto targeting honest
   ok('V27 PICK SPENT: a tapped pick buys ONE dial, auto resumes closest-first; popTarget never carries',
     demo.includes('V27 PICK SPENT') && demo.includes('if(G.selTarget===G.fireTarget)G.selTarget=null;') &&
@@ -525,6 +525,21 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     !demo.includes("D('lcadd')") &&
     demo.includes("D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); D('lccopy').click(); } });") &&
     demo.includes('addLiveComment();   /* V51 NO ADD BUTTON'));
+  // v52: dense feedback batch -- POP OUT vs ENGAGE wording, the fall-timing bug,
+  // and two defaults (pistol, killshots/turn=1) so a fresh fight reads honest
+  ok('V52 POP OUT VS ENGAGE: with no pillar near the player at all, the action button says ENGAGE, not POP OUT (nothing to pop out of if you were never in cover)',
+    demo.includes('const nearCov=playerNearCover();') &&
+    demo.includes("col='#8a7d66'; txt=nearCov?'POP OUT':'ENGAGE';") &&
+    demo.includes("col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;"));
+  ok('V52 FALL TIMING FIX: a lethal kill sets _deadAt (not just _fellAt) to the real bullet-travel timestamp, so enemyFrame() actually holds the death pose until the bullet lands instead of self-initializing _deadAt to "now"',
+    demo.includes('V52 FALL TIMING FIX') &&
+    demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;') &&
+    demo.includes('tgt._fellAt=performance.now()+120; tgt._deadAt=tgt._fellAt; }'));
+  ok('V52 DEFAULTS: fresh combat starts on pistol (lets survive/get-down actually show, vs shotgun\'s forced-lethal) and KILLSHOTS/TURN defaults to 1 (a fresh start, not a pre-upgraded skill)',
+    demo.includes("let WEAPON='pistol';") &&
+    !demo.includes("let WEAPON='shotgun';") &&
+    demo.includes('KILLSHOTS/TURN: 1</button>') &&
+    demo.includes("G.chainSkill=((G.chainSkill||1)%8)+1;"));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
