@@ -87,6 +87,101 @@ this scaffold live: it would need to replace whatever currently drives the
 SLICE tab's walk loop, which is a much bigger, separate decision — not
 something to default into.
 
+## CRAWL-DYING SHIPPED — ROUND 2B CLOSED OUT (7/23, character/animation
+## chat, Paolo: "crawl dying animation please")
+The last open ask from records/BOHEMIA_COMBAT_ANIM_REQUESTS_2_7_20_26.txt
+(round 2B, the DOWNED ruling): a dying man drags himself along the floor
+toward a downed ally. V30 already ran the positional logic on main
+(e._crawlAt stamps every 5th turn a downed enemy's edist/ea slides toward
+the nearest dead/downed body) but had zero visual — enemyFrame's downed
+branch fell back to a static prone hold the whole time he was crawling.
+Built the clip (CANDIDATE_SRC 'crawl-dying', ~4 beats): flat on the deck
+the entire cycle (legs stay compressed/limp, body never rises — same
+geometry as floor-rise's fully-down frame), one arm sweeps reach -> plant
+-> pull -> reset via a gunT-anchored IK target, the torso inches forward
+across the pull to sell the drag. Baked as L.look.crawl112 (4 phases:
+0.05/0.35/0.6/0.9), same convention as shoved112/rise112/cfire112.
+WIRING: enemyFrame's downed branch now checks e._crawlAt (now-crawlAt<640,
+4 frames/160ms step) right after the death-drop sequence finishes and
+before the L.prone112 fallback — exact same shape as get-shoved/rise/
+stagger's consumption. A downed man who isn't mid-crawl-tick still just
+holds prone; the drag only plays on the beat V30 actually moves him.
+Gate: gates/combat_anim_gate.js grew 88->102 (new section 6: stays flat
+every sampled phase incl. S head-on, legs never leave limp/compressed,
+the reaching arm's IK distance actually sweeps >4 units peak-to-peak, the
+off arm holds still, hipOff.x creeps forward across the drag, bake+
+receiver+enemyFrame wiring present, and ordering: crawl checked before
+the prone fallback). Full gate suite green. Stamp: BUILD 7/23h.
+Also answered Paolo's female-rig question in-chat (no code): the ~90+
+pose functions and the wardrobe are direction/skeleton-relative, not
+tied to male pixel geometry — laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md
+already rules the carryover; nothing new to build until he says go.
+
+## POCKET CITY 2 REFERENCES SAVED + STYLE BIBLE + HEROES v3 (7/23, same session).
+## Paolo sent 66 PC2 screenshots after v1/v2 missed; "save the references and cook."
+THE REFERENCES ARE PERMANENT: records/refs/pocketcity2/ (66 shots: wiki building
+cards for every category + live day/night gameplay) + a README. Saved to git
+because the container is ephemeral and GIT IS THE MEMORY - a reference we only
+glanced at is lost. They are a MOOD BOARD (Code Brew Games' art), not assets to
+copy; we take the readability/form language only.
+THE STYLE BIBLE: records/BOHEMIA_POCKET_CITY_STYLE_REFERENCE.md - the distilled
+art-direction rules EVERY future iso-building cook builds against: chunky SIMPLE
+bold masses on a dressed PLOT + soft DROP SHADOW; soft 3-tone shading (bright top/
+mid right/dark left) FLAT and with NO hard black outline; PALE walls + the COLOR on
+the ROOF; big NEAT dead-dark window GRIDS; one iconic SIGNATURE per type; and the
+DEAD-WORLD reconciliation (keep the clean readable forms, change the life: dead-
+dark glass never lit at night, dead-dirt plot not turf, cracks/boarding/rust as a
+finish, but the ICON reads first). Includes a "what v1+v2 got wrong" section.
+HEROES v3 (tools/bohemia_district_hero_factory.py rewritten to the bible): pale
+stone City Hall (dome+clock+columns+wings), pale power hall (smokestacks+roof
+transformers+transformer cylinders+hazard/lightning), pale transit hall (sweeping
+canopy+dead buses+marquee) - each on a dead-dirt plot with a soft shadow, NO black
+outline, dead-dark windows. THE KEY v2->v3 FIXES: killed the hard black outline;
+pale walls with color on the roof (was muddy/dark); softer flat 3-tone shading;
+dressed plot+shadow; simpler bolder masses. Judge + LIFE hub updated to v3.
+art_45_gate 'building' two-tone-wall threshold calibrated 1.15->1.10 (a symmetric
+civic mass has a real but smaller light/shadow split; 1.10 still rejects flat
+side-on ~1.0, documented in the gate). Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v3 in LIFE tab -> DISTRICT HEROES]. On his pick,
+wire winners into the CITY tab iso renderer (renderCity switch(d), drawImage at
+p.sx/p.sy lifted by height - render map is in this file below). GRAVEYARD: v1 boxes
+are FINAL-dead (never re-ship boxes). Every future building cook reads the style
+bible first.
+
+## DISTRICT HEROES v1 GRAVEYARDED -> v2 ICONIC (7/23, same session). Paolo on
+## v1: "they were all dogshit... look at pocket city 2 buildings online... they
+## were all ICONIC you could tell what the building was and the purpose of it.
+## thumbs down on all of them."
+v1's six sprites (generic tan iso BOXES with tiny signature bits) are GRAVEYARDED
+(gates/bohemia_graveyard.txt token DISTRICT_HERO_v1_7_23_26; verdict record
+records/BOHEMIA_DISTRICT_HERO_VERDICT_7_23_26.txt). POST-MORTEM: a box with a
+small clock dot / indistinct gray cubes / a small canopy reads as NOTHING - the
+opposite of the iconic-readability ask. LESSON: a district hero must be read as
+its PURPOSE at a glance via DISTINCTIVE ARCHITECTURE, not a shared box.
+v2 (fresh cook, same factory file rewritten - the box approach must never
+re-ship): each hero is a real iconic building in our dead 3/4-iso world:
+- CITY HALL: a civic monument - columned PORTICO + grand STEPS + a domed CLOCK
+  CUPOLA + a dead flag + symmetric wings. Government at a glance.
+- BATTERY/POWER: tall lattice TRANSMISSION PYLONS w/ dead lines + TRANSFORMER
+  cylinders + a hazard-striped inverter house w/ a yellow LIGHTNING mark. Power
+  at a glance.
+- TERMINAL: a big sweeping BUTTERFLY CANOPY over dead BUSES at the bays + a tall
+  MARQUEE sign + a glass waiting hall. Transit at a glance.
+Built richer iso primitives in tools/bohemia_district_hero_factory.py (dome,
+colonnade, steps, lattice pylon, cylinder, sweeping canopy, bus) vs v1's lone
+box. REUSE-FIRST unchanged (stone/roof ramps from the CANON house-skin bank;
+iconic per-type colors are shifts + engine accents). DEAD act-1 treatment rides
+ON TOP (cracks, dead glass, tattered flag, dead buses) but the icon reads first.
+art_45_gate 'building' check tightened the sun contrast (lit 1.2 / shadow 0.62)
+so the 3/4 lit/shadow split is unmistakable (was diluted by city hall's symmetry).
+Judge (BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html) + LIFE hub updated to v2 (one
+strong iconic version per district, planted on iso ground). Full suite green.
+STATUS: [PENDING PAOLO -> thumbs on v2 in LIFE tab -> DISTRICT HEROES]. On his
+pick, wire the winners into the CITY tab iso renderer (renderCity switch(d),
+drawImage at p.sx/p.sy lifted by height, per the render map in this file below).
+GRAVEYARD REMINDER: never re-ship the v1 box approach; heroes are iconic
+architecture only.
+
 ## DISTRICT HERO BUILDINGS - 3/4-ISO EMBODIMENT FOR THE BUILDER (7/23, same
 ## session, Paolo: "for each district you made you have to make a sideways 45
 ## degree view of the building or embodiment of the district for the city

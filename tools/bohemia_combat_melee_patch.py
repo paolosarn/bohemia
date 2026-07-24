@@ -3259,13 +3259,182 @@ def patch43(demo):
     return demo
 
 
+def patch44(demo):
+    """v44 (Paolo 7/23, "more combat and movement and strategy fun"):
+    SPRINT -- a real risk/reward movement option. Every move today is the
+    same safe 1-tile shuffle that always resolves tucked (endTurnReturn
+    (false), only currently-exposed shooters can reach you). SPRINT arms
+    the NEXT ring tap to cover 2 tiles instead of 1 -- reach cover that
+    was one step out of normal range, close distance on a melee target
+    fast, or break a whole cluster's sightline in one move -- but it
+    costs real exposure: the move resolves engaged (endTurnReturn(true)),
+    same as breaking cover to fire, so everyone with a line answers.
+    Blocked if EITHER tile in the path has a pillar (checked before the
+    turn is spent, same as a normal blocked move -- no cost for trying).
+    A toggle button in the always-visible action row (not settings, which
+    is a modal you wouldn't have open mid-fight) arms/disarms it; it
+    consumes itself after one use, same shape as the existing greed-shot
+    bank-and-spend pattern."""
+    if 'V44 SPRINT' in demo:
+        print('v44 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <button id="waitbtn" class="cbtn">WAIT</button>',
+        '    <button id="waitbtn" class="cbtn">WAIT</button>\n    <button id="sprintbtn" class="cbtn">SPRINT: OFF</button>   <!-- V44 -->',
+        'sprint-button')
+
+    demo = sub1(demo,
+        "function doMove(d){ if(G.inc)return;",
+        """function doMove(d){ if(G.inc)return;
+  const _sprinting=!!G.sprintArm;   /* V44 SPRINT: consumed by this move regardless of outcome below */""",
+        'sprint-capture-arm')
+
+    demo = sub1(demo,
+        """  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  const v=DIRS[d];
+  const sx=v[0], sy=v[1];   /* full tile steps, diagonals included (Chebyshev) — the board reads in tiles */
+  if((G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.45; })){
+    setRead('BLOCKED','a pillar is there','#8a7d66'); return; }   // OCCUPANCY: solid is solid""",
+        """  const DIRS=[[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  const v=DIRS[d];
+  const _mult=_sprinting?2:1;   /* V44 SPRINT: two tiles, not one */
+  const sx=v[0]*_mult, sy=v[1]*_mult;   /* full tile steps, diagonals included (Chebyshev) — the board reads in tiles */
+  if((G.pillars||[]).some(P=>{ const q=pXY(P); return Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.45 || (_sprinting&&Math.hypot(q[0]-v[0],q[1]-v[1])<P.r*0.6+0.45); })){
+    setRead('BLOCKED',_sprinting?'the sprint path is blocked':'a pillar is there','#8a7d66'); return; }   // OCCUPANCY: solid is solid (V44: sprint checks BOTH tiles in the path)""",
+        'sprint-two-tile-step'
+    )
+
+    demo = sub1(demo,
+        """  G.moveArm=false; updMoveUI();
+  G.steady=0;   /* repositioning spends the held stance */""",
+        """  G.moveArm=false; updMoveUI();
+  if(_sprinting){ G.sprintArm=false; const _sb=D('sprintbtn'); if(_sb){_sb.textContent='SPRINT: OFF';_sb.classList.remove('on');} }   /* V44: one use per arm */
+  G.steady=0;   /* repositioning spends the held stance */""",
+        'sprint-consume-arm'
+    )
+
+    demo = sub1(demo,
+        """  setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],_broke?('one tile — '+_broke+' red line'+(_broke>1?'s':'')+' broken'):'one tile — the world answers','#8fd0e8');
+  endTurnReturn(false); }""",
+        """  if(_sprinting){ setRead('SPRINTED '+['N','NE','E','SE','S','SW','W','NW'][d],'two tiles, fully exposed — return fire incoming','#e8593a');
+    endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */
+  else{ setRead('MOVED '+['N','NE','E','SE','S','SW','W','NW'][d],_broke?('one tile — '+_broke+' red line'+(_broke>1?'s':'')+' broken'):'one tile — the world answers','#8fd0e8');
+    endTurnReturn(false); } }""",
+        'sprint-resolve-engaged'
+    )
+
+    demo = sub1(demo,
+        "document.querySelectorAll('[data-j]').forEach(b=>b.addEventListener('click',()=>{",
+        """D('sprintbtn').addEventListener('click',()=>{ G.sprintArm=!G.sprintArm;   /* V44 SPRINT */
+  D('sprintbtn').textContent='SPRINT: '+(G.sprintArm?'ARMED':'OFF'); D('sprintbtn').classList.toggle('on',G.sprintArm);
+  setRead(G.sprintArm?'SPRINT ARMED':'SPRINT OFF',G.sprintArm?'next move covers two tiles — breaks cover for real':'back to a normal tucked move',G.sprintArm?'#e8593a':'#8a7d66'); });
+document.querySelectorAll('[data-j]').forEach(b=>b.addEventListener('click',()=>{""",
+        'sprint-toggle-wire'
+    )
+
+    return demo
+
+
+def patch45(demo):
+    """v45 (Paolo 7/23, "camera still fucking up and not showing all the
+    Enemies"): the REAL root cause, found by computing the actual numbers
+    against the live canvas, not guessing. The auto-frame fit formula
+    (V23/V35) was always correct -- it computes exactly the zoom needed to
+    hold the farthest active enemy. But the result was clamped to a floor
+    of 0.45, and on a real phone canvas (780x1336 backing res, confirmed
+    live) any active enemy past about 4.5 tiles needs LESS zoom than that
+    floor to fit on screen. Every prior pass (v23, v26, v35) fixed WHICH
+    enemies count toward the farthest-distance measurement; none of them
+    touched the floor itself, so the fix never reached the actual ceiling.
+    Verified against the live app: an 8-enemy fight with a sniper at 14.4
+    tiles needed zoom 0.29 to fit him; clamped to 0.45, he rendered 41px
+    off the edge of a 780px-wide canvas. Lowering the floor to 0.20 covers
+    every realistic spawn distance (worst case, max sniper range 16.5
+    tiles, needs ~0.24) with margin to spare."""
+    if 'V45 CAMERA FLOOR' in demo:
+        print('v45 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "      if(md>0){ const fit=(Math.min(W/2,H/2)-96)/Math.max(80,md*ringF+70);\n        uzT=Math.max(0.45,Math.min(1.30,fit)); } }   /* frames the LIVING: drop the far men and it tightens IN */",
+        "      if(md>0){ const fit=(Math.min(W/2,H/2)-96)/Math.max(80,md*ringF+70);\n        uzT=Math.max(0.20,Math.min(1.30,fit)); } }   /* V45 CAMERA FLOOR: 0.45 was cutting off any enemy past ~4.5 tiles on a real phone canvas -- 0.20 actually covers realistic spawn/sniper range. frames the LIVING: drop the far men and it tightens IN */",
+        'camera-floor-fix')
+
+    return demo
+
+
+def patch46(demo):
+    """v46 (Paolo 7/23, "I need to be able to make comments live as I'm
+    playing"): a comment field at the TOP of the combat screen (not
+    buried in the settings modal, not anywhere near the bottom-right
+    action zone he's protecting) that's live the whole time he's playing.
+    Feeds the EXISTING jnotes/export pipeline instead of building a new
+    one -- each submitted comment appends a turn-tagged line to the same
+    textarea juiceExportText() already reads, so it rides the same COPY
+    EXPORT button, no new storage/export surface to maintain."""
+    if 'V46 LIVE COMMENT' in demo:
+        print('v46 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '<div id="chud">\n  <div class="crow"><span class="clbl">YOU</span>',
+        """<div id="chud">
+  <div class="crow" id="livecomment">   <!-- V46 LIVE COMMENT: top of screen, feeds the same jnotes export -->
+    <input id="lcinput" type="text" placeholder="comment while you play..." style="flex:1;min-width:0;background:#0a0806;border:1px solid #241f18;border-radius:6px;color:#d8c9a8;font-size:14px;padding:6px 8px;font-family:'Space Grotesk',sans-serif;">
+    <button id="lcadd" class="cbtn">ADD</button>
+  </div>
+  <div class="crow"><span class="clbl">YOU</span>""",
+        'live-comment-row')
+
+    demo = sub1(demo,
+        "document.querySelectorAll('[data-j]').forEach(b=>b.addEventListener('click',()=>{",
+        """function addLiveComment(){ const inp=D('lcinput'); if(!inp)return; const txt=(inp.value||'').trim(); if(!txt)return;
+  const jn=D('jnotes'); if(jn)jn.value=(jn.value?jn.value+'\\n':'')+'[T'+(G.mTurn||0)+'] '+txt;
+  inp.value=''; setRead('COMMENT ADDED','saved — rides the export','#8fd0e8'); }   /* V46 LIVE COMMENT */
+D('lcadd').addEventListener('click',addLiveComment);
+D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });
+document.querySelectorAll('[data-j]').forEach(b=>b.addEventListener('click',()=>{""",
+        'live-comment-wire')
+
+    return demo
+
+
+def patch47(demo):
+    """v47 (Paolo 7/23, "it should be more difficult to get the green
+    action button when it's safe to pop out... depending on the amount
+    of dead shots available to me I'm still getting shot at"): the green
+    threshold was a flat outN<4 regardless of how many enemies were alive
+    -- an 8-man fight and a 3-man fight needed the exact same "fewer than
+    4 guns peeking" lull to read as safe. Now it scales with aliveEnemies
+    (recomputed live, so it naturally eases as you thin the fight out,
+    exactly his ask): 1-3 alive keeps today's threshold (4, unchanged --
+    he had no complaint about small fights), 4-6 alive tightens to 3,
+    7-8 alive tightens to 2. A crowded fight now genuinely needs a
+    cleaner lull to earn green than a thin one does.
+    NOTE for the reply, not code: killshots/turn (chainskill) caps how
+    many kills you can CHAIN in one pop -- it was never wired to your
+    OWN exposure risk, so turning it down doesn't make popping safer.
+    That's not a bug, just two different systems; not touched here."""
+    if '_crowdThresh=Math.max(2,4-Math.floor' in demo:
+        print('v47 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "    const firingN=G.e.filter(e=>!e.dead&&firing(e)).length;       // guns actually up right now\n    const outN=G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).length;\n    if(outN===0){             // nobody out, nothing to pop at\n      bg='radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%)'; glow='0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)'; col='#8a7d66'; txt='POP OUT';\n    } else if(firingN>=2){    // multiple muzzles up -> popping now = eating several shots\n      bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #e0603a,0 0 30px 7px rgba(232,89,58,.7)'; col='#ffeae6'; txt='POP OUT';\n    } else if(firingN===1 || outN>=4){ // one gun up, or a crowd peeking that could snap-fire -> risky",
+        "    const firingN=G.e.filter(e=>!e.dead&&firing(e)).length;       // guns actually up right now\n    const outN=G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).length;\n    const _crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3));   /* V47: a fuller fight needs a cleaner lull -- 1-3 alive=4 (unchanged), 4-6=3, 7-8=2 */\n    if(outN===0){             // nobody out, nothing to pop at\n      bg='radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%)'; glow='0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)'; col='#8a7d66'; txt='POP OUT';\n    } else if(firingN>=2){    // multiple muzzles up -> popping now = eating several shots\n      bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #e0603a,0 0 30px 7px rgba(232,89,58,.7)'; col='#ffeae6'; txt='POP OUT';\n    } else if(firingN===1 || outN>=_crowdThresh){ // one gun up, or a crowd peeking that could snap-fire -> risky (V47: threshold scales with headcount)",
+        'green-scales-headcount')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')

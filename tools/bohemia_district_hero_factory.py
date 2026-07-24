@@ -1,42 +1,37 @@
 #!/usr/bin/env python3
-"""BOHEMIA DISTRICT HERO FACTORY (7/23/26) — the 3/4-iso embodiment of a district.
+"""BOHEMIA DISTRICT HERO FACTORY v3 (7/23/26) — built to the STYLE BIBLE.
 
-Paolo, verbatim: "for each district you made you have to make a sideways 45
-degree view of the building or embodiment of the district for the city builder
-mode... different buildings can be at different heights and shit." The city
-builder (CITY tab, MODE='city') renders every cell as an iso diamond + at most
-a flat prism; the three new districts (cityhall / battery / terminal) read as
-generic blocks from the builder's altitude. This cooks a HERO BUILDING per
-district — an authored three-quarter-view sprite that says, at a glance, "this
-is City Hall / a battery yard / the bus terminal" — drawn ABOVE its tile like
-the strat/casino bespoke draws already do.
+v1 (generic boxes) and v2 (sight-unseen, hard black outlines + muddy walls) both
+missed. Paolo sent a 66-shot Pocket City 2 reference set (saved forever in
+records/refs/pocketcity2/) and I distilled it into
+records/BOHEMIA_POCKET_CITY_STYLE_REFERENCE.md. v3 is cooked to that bible.
 
-THE 45 DEGREE LAW (Paolo 7/17, gate art_45_gate.py): seen from the world's
-three-quarter 45, NEVER flat side-on. Every mass is an iso PRISM — a sky-lit
-TOP face (brightest), a lit front-right wall, a shadowed front-left wall — sat
-on a ground DIAMOND (the ellipse-in-iso the gate looks for). Heights differ per
-district by design: City Hall carries a tall CLOCK TOWER (the tallest hero),
-the battery yard is LOW stacked containers (the lowest), the terminal is a
-mid-height hall under a boarding canopy.
+THE PC2 LOOK, applied in our DEAD world:
+  - chunky, SIMPLE, bold masses on a dressed PLOT with a soft DROP SHADOW
+  - soft 3-tone shading (bright top / mid right face / darker left face), FLAT,
+    and NO hard black outline (v2's biggest sin — killed here)
+  - PALE weathered walls (cream / stone / light gray) with the COLOR on the ROOF
+  - big NEAT window GRIDS in DEAD-DARK glass (abandoned: never the warm night glow)
+  - each building's ONE iconic signature, bold: City Hall's DOME + columns, the
+    power plant's SMOKESTACKS + transformers, the depot's sweeping CANOPY + bus
+  - DEAD act-1 finish on top: dead-dirt plot (no living turf), faded roof, a
+    boarded window, cracks, a dead vehicle — but the ICON reads first
 
-DEAD WORLD (act 1): boarded/dead windows, cracked faces, a stopped clock, dead
-buses. No people. TAN WALL 85/15 on the stucco masses. Zero purple. Deterministic.
+THE 45 DEGREE LAW (Paolo 7/17, gate art_45): iso prisms/domes, sky-lit tops, a
+lit right face + a shadowed left face, on a ground diamond. Zero purple.
+Deterministic. Heights differ by design.
 
 REUSE CHECK:
 used BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (the CANON house skins, Paolo's
-all-30-UP 7/21 verdict): the wall + roof TONE RAMPS for every hero face are
-sampled straight out of the approved wall_plain / roof_shingle tiles in that
-bank (opened and read here, not re-invented) — the same tan stucco + terracotta
-the married city already wears, so the heroes read as the same material family
-seen from the builder's angle. Each district's own accent color (its palette in
-engine/bohemia_<d>.js) rides the signature parts (the clock face, the container
-skins, the bus). No new base palette invented. The iso PRISM geometry itself is
-a fresh cook (no existing iso-building sprite bank — verified: banks/ has only
-top-down house skins + the lamp/signal props, none is a 3/4 building).
+all-30-UP 7/21 verdict): the PALE wall + faded roof TONE RAMPS are sampled from
+the approved wall_plain / roof_shingle tiles in that bank (opened + read here),
+so the heroes wear the same weathered stucco/terracotta family as the married
+city. Iconic per-type accents (stone, hazard yellow, transit teal, transformer
+gray) are shifts off those ramps. No unrelated new palette. The iso primitives
+(soft box, dome, colonnade, cylinder, canopy, bus, window grid) are a fresh cook.
 
-OUTPUT: banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt (UNJUDGED): 3
-districts x 2 massing variants = 6 hero sprites, each with its base-anchor +
-tile-footprint so the city can plant it. Paolo thumbs; approval wires it in.
+OUTPUT: banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt (UNJUDGED, v3): one
+iconic hero per district (3). Paolo thumbs; approval wires it into the CITY tab.
 
 Run from repo root: python3 tools/bohemia_district_hero_factory.py
 """
@@ -64,322 +59,372 @@ def rng(seed):
     return r
 
 
-def _sample_tile(bank, cls, idx=0):
+def _sample(bank, cls, idx=0):
     d = json.load(open(bank))
     ts = [x for x in d['tiles'] if x.get('cls') == cls]
     t = ts[idx % len(ts)]
-    a = np.asarray(Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGB')).reshape(-1, 3)
-    return a
+    return np.asarray(Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGB')).reshape(-1, 3)
 
 
 def ramp_from(bank, cls, idx=0):
-    """A 5-step dark->light tone ramp sampled from an APPROVED tile (reuse-first)."""
-    px = _sample_tile(bank, cls, idx).astype(float)
-    lum = px.mean(1)
-    order = np.argsort(lum)
-    px = px[order]
+    px = _sample(bank, cls, idx).astype(float)
+    px = px[np.argsort(px.mean(1))]
     n = len(px)
-    ramp = []
-    for k in range(5):
-        lo = int(k * n / 6.0)
-        hi = int((k + 2) * n / 6.0)
-        ramp.append(tuple(px[lo:hi].mean(0).astype(int)))
-    return ramp
+    return [tuple(px[int(k * n / 6.0):int((k + 2) * n / 6.0)].mean(0).astype(int)) for k in range(5)]
 
 
-def shade(c, f):
-    return (max(0, min(255, int(c[0] * f))),
-            max(0, min(255, int(c[1] * f))),
-            max(0, min(255, int(c[2] * f))))
+def sh(c, f):
+    return (max(0, min(255, int(c[0] * f))), max(0, min(255, int(c[1] * f))), max(0, min(255, int(c[2] * f))))
 
 
 def mix(c1, c2, t):
-    return (int(c1[0] * (1 - t) + c2[0] * t),
-            int(c1[1] * (1 - t) + c2[1] * t),
-            int(c1[2] * (1 - t) + c2[2] * t))
+    return (int(c1[0] * (1 - t) + c2[0] * t), int(c1[1] * (1 - t) + c2[1] * t), int(c1[2] * (1 - t) + c2[2] * t))
+
+
+def ramp_of(base):
+    return [sh(base, f) for f in (0.62, 0.78, 0.9, 1.0, 1.1)]
 
 
 def put(a, x, y, c, al=255):
+    x = int(round(x)); y = int(round(y))
     if 0 <= y < a.shape[0] and 0 <= x < a.shape[1]:
         a[y, x, 0], a[y, x, 1], a[y, x, 2], a[y, x, 3] = c[0], c[1], c[2], al
 
 
-# ---- ISO PRISM: a box seen from the world's three-quarter 45 --------------
-# base diamond centered (cx, by) with half-width HW (x) and half-depth HD (y),
-# HD = HW/2 (the 2:1 iso the city uses, TW:TH = 18:9). rises `h` px.
-def iso_prism(a, r, cx, by, hw, hd, h, wall, roofc, spec=None, sun='right',
-              window_rows=0, boarded=True):
-    lit = 1.12 if sun == 'right' else 0.72
-    shd = 0.72 if sun == 'right' else 1.12
+def blend(a, x, y, c, al):
+    x = int(round(x)); y = int(round(y))
+    if 0 <= y < a.shape[0] and 0 <= x < a.shape[1]:
+        o = a[y, x]
+        if o[3] == 0:
+            a[y, x] = (c[0], c[1], c[2], int(al * 255))
+        else:
+            t = al
+            a[y, x, :3] = np.clip(o[:3].astype(float) * (1 - t) + np.array(c) * t, 0, 255).astype(int)
 
-    # ---- the two visible WALL faces (front-right + front-left) ----
-    # front-right: x in [cx, cx+hw]; ground edge y = by + hd*(1-(x-cx)/hw)
-    for x in range(cx, cx + hw + 1):
+
+def dark(a, x, y, f=0.72):
+    x = int(round(x)); y = int(round(y))
+    if 0 <= y < a.shape[0] and 0 <= x < a.shape[1] and a[y, x, 3] > 0:
+        a[y, x, :3] = np.clip(a[y, x, :3].astype(int) * f, 0, 255).astype(int)
+
+
+# ----- soft drop shadow + a dressed dead-dirt PLOT under the building ---------
+def shadow(a, cx, cy, rw, rh):
+    for dx in range(-rw, rw + 1):
+        e = int(rh * math.sqrt(max(0.0, 1 - (dx / (rw + 0.001)) ** 2)))
+        for dy in range(-e, e + 1):
+            blend(a, cx + dx, cy + dy, (18, 16, 14), 0.34)
+
+
+def plot(a, r, cx, by, hw, hd, dirt):
+    """A flat dead-dirt iso lot the building sits on (no living turf: dead-world).
+    Lit directionally (right brighter, left in shadow) like the 3/4 world's ground,
+    so the plot reinforces the light direction rather than flattening it."""
+    for dx in range(-hw, hw + 1):
+        span = int(hd * (1 - abs(dx) / float(hw)))
+        ld = 1.12 if dx > 0 else (0.8 if dx < 0 else 0.96)   # right lit / left shadow
+        for dy in range(-span, span + 1):
+            v = 3 if (r() < 0.5) else 2
+            put(a, cx + dx, by + dy, sh(dirt[v], ld * (0.98 + 0.04 * r())))
+
+
+# ----- the soft iso box: 3 flat tones, NO black outline ----------------------
+def box(a, cx, by, hw, hd, h, wall, roof, sun='right', edge=True):
+    """cx,by = bottom vertex of the base diamond. Bright top / mid right / dark
+    left, flat and clean. A subtle (non-black) corner edge for definition."""
+    RI, LI = (3, 0) if sun == 'right' else (0, 3)      # clean light side / clearly darker shadow side (PC2)
+    # right face
+    for x in range(int(cx), int(cx + hw) + 1):
         t = (x - cx) / float(hw) if hw else 0
         ey = by + hd * (1.0 - t)
         for yy in range(int(round(ey - h)), int(round(ey)) + 1):
-            v = (yy - (ey - h)) / float(h) if h else 0        # 0 top .. 1 bottom
-            ti = 2 if v < 0.5 else 1
-            c = shade(wall[ti], lit * (0.98 + 0.06 * r()))
-            put(a, x, yy, c)
-    # front-left: x in [cx-hw, cx]; ground edge y = by + hd*(1-(cx-x)/hw)
-    for x in range(cx - hw, cx + 1):
+            put(a, x, yy, wall[RI])
+    # left face
+    for x in range(int(cx - hw), int(cx) + 1):
         t = (cx - x) / float(hw) if hw else 0
         ey = by + hd * (1.0 - t)
         for yy in range(int(round(ey - h)), int(round(ey)) + 1):
-            v = (yy - (ey - h)) / float(h) if h else 0
-            ti = 2 if v < 0.5 else 1
-            c = shade(wall[ti], shd * (0.98 + 0.06 * r()))
-            put(a, x, yy, c)
-
-    # ---- the sky-lit TOP face (roof diamond at height) — the brightest ----
+            put(a, x, yy, wall[LI])
+    # top face (roof)
     ty = by - h
-    for dx in range(-hw, hw + 1):
+    for dx in range(int(-hw), int(hw) + 1):
         span = int(round(hd * (1.0 - abs(dx) / float(hw)))) if hw else 0
         for dy in range(-span, span + 1):
-            edge = (abs(dx) > hw - 3) or (span - abs(dy) < 2)
-            ti = 4 if not edge else 3
-            c = shade(roofc[ti], 1.0 + 0.05 * r())
-            put(a, cx + dx, ty + dy, c)
-    # roof ridge highlight along the near (bottom) edge of the top face
-    for dx in range(-hw, hw + 1):
-        span = int(round(hd * (1.0 - abs(dx) / float(hw)))) if hw else 0
-        put(a, cx + dx, ty + span, shade(roofc[4], 1.14))
+            put(a, cx + dx, ty + dy, roof[3] if (span - abs(dy) >= 1 and abs(dx) < hw - 1) else roof[2])
+    # subtle definition: the near vertical corner + roof near-edge, one tone down
+    if edge:
+        for yy in range(int(ty), int(by) + 1):
+            dark(a, cx, yy, 0.9)
+        for dx in range(int(-hw), int(hw) + 1):
+            span = int(round(hd * (1.0 - abs(dx) / float(hw)))) if hw else 0
+            put(a, cx + dx, ty + span, roof[4])       # lit near ridge
+    return (cx, ty)
 
-    # ---- WINDOWS: dead / boarded bands on the lit right face ----
-    if window_rows:
-        for wr in range(window_rows):
-            wy = int(by - h * 0.28 - wr * (h * 0.5 / max(1, window_rows)))
-            for x in range(cx + 4, cx + hw - 2, 6):
-                t = (x - cx) / float(hw)
-                ey = by + hd * (1.0 - t)
-                if wy < ey - 3:
-                    wc = (26, 24, 20) if boarded else (18, 20, 24)
-                    for ax in range(3):
-                        for ayy in range(3):
-                            put(a, x + ax, wy + ayy, wc)
-                    if boarded:                                # a diagonal board plank
-                        put(a, x, wy, shade(wall[1], 1.1))
-                        put(a, x + 2, wy + 2, shade(wall[1], 1.1))
 
-    # ---- accent band from the district palette (a stripe near the roofline) ----
-    if spec:
-        for x in range(cx - hw + 2, cx + hw - 1):
+def window_grid(a, cx, by, hw, hd, h, sun='right', rows=3, top=0.72, bot=0.22, boarded_at=None, wall=None):
+    """Neat rows/cols of DEAD-dark glass on the lit right face."""
+    glass = (28, 32, 38)
+    for rr in range(rows):
+        wy = by - h * (bot + (top - bot) * rr / max(1, rows - 1))
+        i = 0
+        for x in range(int(cx + hw * 0.18), int(cx + hw * 0.9), 5):
             t = (x - cx) / float(hw)
-            ey = by + hd * (1.0 - abs(t))
-            put(a, x, int(ey - h) - 0, mix(spec, roofc[3], 0.4))
+            ey = by + hd * (1.0 - t)
+            if wy < ey - 2:
+                bd = (boarded_at is not None and (rr, i) == boarded_at and wall is not None)
+                for ax in range(3):
+                    for ayy in range(3):
+                        put(a, x + ax, wy - ayy, sh(wall[2], 1.05) if bd else glass)
+                if bd:
+                    put(a, x, wy, sh(wall[3], 1.1)); put(a, x + 2, wy - 2, sh(wall[3], 1.1))
+            i += 1
 
 
-def base_pad(a, r, cx, by, hw, hd, tone):
-    """A thin sky-lit ground plinth under the hero: its top diamond reads as the
-    lit ellipse-in-iso base (grounds the building; satisfies THE 45 LAW's base
-    signature — a lit top over a wall skirt, not a flat-90 rectangle)."""
-    pramp = [shade(tone, f) for f in (0.55, 0.7, 0.85, 1.0, 1.16)]
-    iso_prism(a, r, cx, by, hw, hd, 4, pramp, pramp)
+def dome(a, r, cx, cy, rad, ramp):
+    for dx in range(-rad, rad + 1):
+        for dy in range(-rad, 1):
+            d = math.sqrt(dx * dx + dy * dy)
+            if d <= rad:
+                l = 0.7 + 0.42 * (-(dx * 0.4 + dy) / rad)
+                put(a, cx + dx, cy + dy, sh(ramp[3], max(0.6, min(1.15, l))))
+    for dx in range(-rad, rad + 1):
+        put(a, cx + dx, cy, sh(ramp[1], 0.9))
 
 
-def crack(a, r, x0, x1, y0, y1, n=6):
-    for _ in range(n):
-        x = int(x0 + r() * (x1 - x0))
-        y = int(y0 + r() * (y1 - y0))
-        for _k in range(int(3 + r() * 5)):
-            if 0 <= y < a.shape[0] and 0 <= x < a.shape[1] and a[y, x, 3] > 0:
-                b = a[y, x, :3].astype(int)
-                a[y, x, :3] = np.clip(b * 0.7, 0, 255).astype(int)
-            x += -1 if r() < 0.5 else 1
-            y += 1 if r() < 0.7 else 0
+def cyl(a, r, cx, by, rad, h, ramp):
+    for dx in range(-rad, rad + 1):
+        u = (dx + rad) / (2.0 * rad)
+        ti = max(0, min(4, int(1 + 3 * (1 - abs(u - 0.6) * 1.7))))
+        for yy in range(int(by - h), int(by) + 1):
+            put(a, cx + dx, yy, ramp[ti])
+    ry = max(2, rad // 2)
+    for dx in range(-rad, rad + 1):
+        e = int(ry * math.sqrt(max(0.0, 1 - (dx / (rad + 0.001)) ** 2)))
+        for dy in range(-e, e + 1):
+            put(a, cx + dx, by - h + dy, ramp[4 if dy <= 0 else 3])
 
 
-def outline(a, col=(12, 11, 9)):
-    op = a[..., 3] > 0
-    H, W = op.shape
-    edge = np.zeros_like(op)
-    edge[1:] |= op[1:] & ~op[:-1]
-    edge[:-1] |= op[:-1] & ~op[1:]
-    edge[:, 1:] |= op[:, 1:] & ~op[:, :-1]
-    edge[:, :-1] |= op[:, :-1] & ~op[:, 1:]
-    # a 1px black border OUTSIDE the silhouette (the corpus border, signal-factory rule)
-    outside = ~op
-    b = np.zeros_like(op)
-    b[1:] |= outside[1:] & op[:-1]
-    b[:-1] |= outside[:-1] & op[1:]
-    b[:, 1:] |= outside[:, 1:] & op[:, :-1]
-    b[:, :-1] |= outside[:, :-1] & op[:, 1:]
-    ys, xs = np.where(b)
-    for y, x in zip(ys, xs):
-        a[y, x] = (col[0], col[1], col[2], 255)
+def stack(a, cx, by, h, ramp, cap=(70, 66, 60)):
+    """A smokestack: a slim tapering cylinder with a dark rim."""
+    for yy in range(int(by - h), int(by)):
+        w = 3
+        for dx in range(-w, w + 1):
+            u = (dx + w) / (2.0 * w)
+            put(a, cx + dx, yy, ramp[max(0, min(4, int(1 + 3 * (1 - abs(u - 0.62) * 1.7))))])
+    for dx in range(-3, 4):
+        put(a, cx + dx, by - h, cap)
+        put(a, cx + dx, by - h - 1, sh(cap, 1.2))
 
 
-# ---- the three district heroes -------------------------------------------
-def hero_cityhall(seed, tall, wall, roof, accent):
-    """A civic administrative block + a CLOCK TOWER (the tallest hero)."""
-    r = rng(seed)
-    HW, HD = 40, 20
-    body_h = 30 if not tall else 34
-    tower_h = 40 if not tall else 52
-    W = HW * 2 + 8
-    H = HD * 2 + body_h + tower_h + 12
-    a = np.zeros((H, W, 4), dtype=np.uint8)
-    cx = W // 2
-    by = H - HD - 4
-    # the wide administrative block
-    iso_prism(a, r, cx, by, HW, HD, body_h, wall, roof, spec=accent,
-              window_rows=2, boarded=True)
-    crack(a, r, cx - HW, cx + HW, by - body_h, by, n=8)
-    # the CLOCK TOWER rising off the block's back-center (offset up-left so it
-    # reads behind the roofline)
-    tby = by - body_h + 6
-    thw, thd = 12, 6
-    iso_prism(a, r, cx - 4, tby, thw, thd, tower_h, wall, roof, spec=accent,
-              window_rows=0, boarded=True)
-    # the dead clock face on the tower's lit front-right face
-    fcx, fcy = cx - 4 + thw - 4, int(tby - tower_h * 0.6)
-    for dx in range(-4, 5):
-        for dy in range(-4, 5):
-            if dx * dx + dy * dy <= 16:
-                shf = 0.9 if (dx * dx + dy * dy) > 9 else 1.0
-                put(a, fcx + dx, fcy + dy, shade(mix((210, 205, 190), accent, 0.15), shf))
-    put(a, fcx, fcy, (30, 28, 24))                 # dead hands, stopped
-    put(a, fcx + 2, fcy - 2, (30, 28, 24))
-    outline(a)
-    return a, cx, by
+def colonnade(a, x0, x1, ytop, ybot, stone):
+    for x in range(int(x0), int(x1)):
+        for y in range(int(ytop), int(ybot)):
+            put(a, x, y, sh(stone[0], 0.7))                 # portico recess
+    n = max(3, int((x1 - x0) / 7))
+    for i in range(n + 1):
+        cxp = x0 + (x1 - x0) * i / float(n)
+        for y in range(int(ytop), int(ybot)):
+            put(a, cxp, y, stone[3]); put(a, cxp + 1, y, stone[4])
+        put(a, cxp, ytop - 1, stone[4]); put(a, cxp, ybot - 1, stone[2])
 
 
-def hero_battery(seed, tall, wall, roof, accent):
-    """A LOW yard of stacked shipping-container battery enclosures (lowest hero)."""
-    r = rng(seed)
-    HW, HD = 42, 21
-    cont_h = 15
-    rows = 2 if not tall else 3
-    W = HW * 2 + 8
-    H = HD * 2 + cont_h * (rows + 1) + 16
-    a = np.zeros((H, W, 4), dtype=np.uint8)
-    cx = W // 2
-    by = H - HD - 4
-    # a thin gravel pad base (a very low prism so it reads as sitting on ground)
-    iso_prism(a, r, cx, by, HW, HD, 4, wall, [shade(w, 0.8) for w in wall])
-    # container enclosures — small boxes in a 3-wide grid, some double-stacked
-    csk = mix(accent, (74, 84, 92), 0.5)             # the battery-container blue-gray
-    cramp = [shade(csk, f) for f in (0.5, 0.7, 0.88, 1.0, 1.14)]
-    cw, cd, ch = 11, 6, cont_h
-    slots = [(-24, 6), (-2, 6), (20, 6), (-13, -6), (9, -6)]
-    for i, (ox, oy) in enumerate(slots):
-        bx = cx + ox
-        bY = by - 4 - oy
-        stack = 2 if (tall and i % 2 == 0) else 1
-        for s in range(stack):
-            iso_prism(a, r, bx, bY - s * ch, cw, cd, ch, cramp,
-                      [shade(csk, 1.05)] * 5, spec=accent)
-        # dead vent slats on the lit face
-        for vy in range(bY - ch + 3, bY - 2, 3):
-            for vx in range(bx + 2, bx + cw - 1, 2):
-                put(a, vx, vy, shade(csk, 0.45))
-    # the inverter rack: a low wide bar across the front with warning-placard dots
-    for x in range(cx - HW + 8, cx + HW - 8):
-        put(a, x, by - 6, shade(wall[1], 0.9))
-        put(a, x, by - 5, shade(wall[0], 0.9))
-    for x in range(cx - HW + 12, cx + HW - 10, 9):
-        put(a, x, by - 8, mix(accent, (176, 134, 58), 0.5))
-    outline(a)
-    return a, cx, by
+def steps(a, cx, by, w, n, stone):
+    for i in range(n):
+        yy = by - i * 2
+        ww = w - i * 3
+        for dx in range(int(-ww), int(ww) + 1):
+            put(a, cx + dx, yy, stone[4])
+            put(a, cx + dx, yy + 1, stone[2])
 
 
-def hero_terminal(seed, tall, wall, roof, accent):
-    """A mid-height waiting hall under a boarding CANOPY, a dead bus at the bay."""
-    r = rng(seed)
-    HW, HD = 40, 20
-    hall_h = 24 if not tall else 30
-    W = HW * 2 + 8
-    H = HD * 2 + hall_h + 30 + 12
-    a = np.zeros((H, W, 4), dtype=np.uint8)
-    cx = W // 2
-    by = H - HD - 4
-    # the waiting hall (mid box), offset back-left
-    hhw, hhd = 22, 11
-    hby = by - 2
-    iso_prism(a, r, cx - 12, hby - 6, hhw, hhd, hall_h, wall, roof, spec=accent,
-              window_rows=2, boarded=True)
-    # a schedule-board clock strip on the hall face
-    for x in range(cx - 12 + 4, cx - 12 + hhw - 3):
-        put(a, x, int(hby - 6 - hall_h * 0.55), (30, 30, 34))
-        put(a, x, int(hby - 6 - hall_h * 0.55) + 1, (44, 44, 40))
-    # the boarding CANOPY: a flat roof plate on thin posts, to the right
-    cany = by - 14
-    cxx = cx + 14
-    cw, cd = 22, 11
-    # posts
-    for px in (cxx - cw + 2, cxx, cxx + cw - 2):
-        for yy in range(cany, by):
-            put(a, px, yy, shade(wall[1], 0.8))
-    # the flat canopy diamond
-    csk = [shade(mix(roof[2], (90, 88, 80), 0.5), f) for f in (0.6, 0.8, 0.95, 1.05, 1.15)]
-    for dx in range(-cw, cw + 1):
-        span = int(round(cd * (1.0 - abs(dx) / float(cw)))) if cw else 0
+def canopy(a, r, cx, cy, w, d, ramp, droop=10):
+    for dx in range(-w, w + 1):
+        t = abs(dx) / float(w)
+        span = int(round(d * (1.0 - t)))
+        dip = int(droop * (t ** 1.5))
         for dy in range(-span, span + 1):
-            ti = 4 if (span - abs(dy) >= 2 and abs(dx) < cw - 2) else 3
-            put(a, cxx + dx, cany + dy, csk[ti])
-        put(a, cxx + dx, cany + span, shade(csk[4], 1.1))
-    # a dead BUS parked at the bay (a long low box in the district accent)
-    bsk = mix(accent, (86, 94, 100), 0.5)
-    bramp = [shade(bsk, f) for f in (0.5, 0.72, 0.9, 1.05, 1.16)]
-    iso_prism(a, r, cxx, by + 6, 16, 8, 10, bramp, [shade(bsk, 1.05)] * 5)
-    for wx in range(cxx - 10, cxx + 14, 5):          # dead windows on the bus
-        put(a, wx, by - 1, (20, 22, 26))
-        put(a, wx + 1, by - 1, (20, 22, 26))
-    outline(a)
-    return a, cx, by
+            put(a, cx + dx, cy + dy + dip, ramp[3] if (span - abs(dy) >= 1 and t < 0.92) else ramp[2])
+        put(a, cx + dx, cy + span + dip, ramp[4])
+        dark(a, cx + dx, cy - span + dip, 0.85)
 
 
-HEROES = {
-    'cityhall': hero_cityhall,
-    'battery': hero_battery,
-    'terminal': hero_terminal,
-}
+def bus(a, cx, by, length, skin):
+    ramp = ramp_of(skin); h = 11; hd = 4
+    for x in range(int(cx - length), int(cx + length) + 1):
+        side = 3 if x >= cx else 2
+        t = 1 - abs(x - cx) / float(length)
+        ey = by + hd * t
+        for yy in range(int(ey - h), int(ey) + 1):
+            put(a, x, yy, ramp[side])
+    for x in range(int(cx - length + 2), int(cx + length - 1), 4):
+        put(a, x, by - h + 3, (26, 30, 36)); put(a, x + 1, by - h + 3, (32, 36, 42))
+    for wx in (cx - length + 5, cx + length - 6):
+        for dx in range(-2, 3):
+            for dy in range(-1, 2):
+                if dx * dx + dy * dy <= 4:
+                    put(a, wx + dx, by + dy, (26, 24, 24))
+
+
+def cracks(a, r, x0, x1, y0, y1, n=6):
+    for _ in range(n):
+        x = int(x0 + r() * (x1 - x0)); y = int(y0 + r() * (y1 - y0))
+        for _k in range(int(2 + r() * 4)):
+            dark(a, x, y, 0.82)
+            x += -1 if r() < 0.5 else 1; y += 1 if r() < 0.7 else 0
+
+
+# ----------------------------------------------------------------- the heroes
+def hero_cityhall(seed, wall_ramp, roof_ramp):
+    r = rng(seed)
+    W, H = 150, 150
+    a = np.zeros((H, W, 4), dtype=np.uint8)
+    cx, by = W // 2, H - 22
+    STONE = ramp_of((214, 210, 196))                      # PALE civic stone
+    DIRT = ramp_of((92, 84, 70))
+    ROOF = ramp_of((150, 96, 70))                          # faded terracotta
+    shadow(a, cx, by + 8, 60, 20)
+    plot(a, r, cx, by + 4, 58, 29, DIRT)
+    steps(a, cx, by + 2, 30, 5, STONE)
+    body = box(a, cx, by, 44, 22, 34, STONE, ROOF)         # the wide civic block
+    window_grid(a, cx, by, 44, 22, 34, rows=2, top=0.62, bot=0.24, boarded_at=(0, 2), wall=STONE)
+    cracks(a, r, cx - 40, cx + 40, by - 32, by, n=6)
+    # columned PORTICO across the front-center
+    colonnade(a, cx - 20, cx + 20, int(by - 26), int(by - 4), STONE)
+    for i in range(22):                                    # a pale pediment cap
+        f = i / 22.0
+        py = int(by - 26) - int(7 * (1 - abs(f - 0.5) * 2))
+        put(a, cx - 20 + i * 2, py, STONE[4]); put(a, cx - 20 + i * 2, py + 1, STONE[3])
+    # low symmetric wings
+    box(a, cx - 40, by + 2, 12, 7, 20, STONE, ROOF)
+    box(a, cx + 28, by + 2, 12, 7, 20, STONE, ROOF)
+    # the DOME + cupola (the tell), pale stone
+    dcx, dy = cx, body[1] + 2
+    cyl(a, r, dcx, dy, 11, 12, ramp_of((198, 194, 182)))   # drum
+    dome(a, r, dcx, dy - 12, 12, ramp_of((206, 202, 190)))
+    # a dead clock on the drum
+    fx, fy = dcx + 5, dy - 6
+    for dx in range(-3, 4):
+        for dyy in range(-3, 4):
+            if dx * dx + dyy * dyy <= 9:
+                put(a, fx + dx, fy + dyy, sh((222, 218, 202), 0.95 if dx * dx + dyy * dyy > 5 else 1.0))
+    put(a, fx, fy, (40, 38, 34)); put(a, fx + 1, fy - 1, (40, 38, 34))
+    # a dead flag on a thin pole atop the dome
+    for yy in range(dy - 12 - 10, dy - 12):
+        put(a, dcx, yy, (70, 66, 58))
+    for i in range(7):
+        put(a, dcx + 1 + i, dy - 12 - 10 + int(i * 0.4), sh((150, 78, 66), 0.85))
+        put(a, dcx + 1 + i, dy - 12 - 9 + int(i * 0.4), sh((150, 78, 66), 0.72))
+    return a, cx, by + 4
+
+
+def hero_battery(seed, wall_ramp, roof_ramp):
+    r = rng(seed)
+    W, H = 150, 152
+    a = np.zeros((H, W, 4), dtype=np.uint8)
+    cx, by = W // 2, H - 22
+    HALL = ramp_of((196, 198, 202))                        # pale industrial hall
+    DIRT = ramp_of((86, 82, 74))
+    STEEL = ramp_of((120, 126, 134))
+    FLAT = ramp_of((120, 118, 112))
+    shadow(a, cx, by + 8, 60, 20)
+    plot(a, r, cx, by + 4, 58, 29, DIRT)
+    # the main POWER HALL (flat roof, big + bold), left of center
+    box(a, cx - 14, by, 34, 17, 30, HALL, FLAT)
+    window_grid(a, cx - 14, by, 34, 17, 30, rows=2, top=0.6, bot=0.26, wall=HALL)
+    # roof-mounted transformers + vents on the flat roof (the industrial tell)
+    for ox in (-24, -12, 0):
+        cyl(a, r, cx - 14 + ox + 8, by - 30 - 1, 4, 6, STEEL)
+    # two SMOKESTACKS rising behind the hall
+    stack(a, cx - 2, by - 30, 34, FLAT)
+    stack(a, cx + 8, by - 30, 26, FLAT)
+    # TRANSFORMER cylinders in the yard (right), with HV bushings
+    for ox in (16, 30):
+        cyl(a, r, cx + ox, by - 2, 8, 20, ramp_of((122, 120, 116)))
+        for bx in (-3, 0, 3):
+            put(a, cx + ox + bx, by - 2 - 20 - 2, (206, 202, 192)); put(a, cx + ox + bx, by - 2 - 20 - 3, (150, 148, 140))
+    # a HAZARD-yellow band + LIGHTNING mark on the hall (the power read)
+    for sx in range(int(cx - 14 - 30), int(cx - 14 + 30), 4):
+        put(a, sx, by - 6, (196, 164, 48)); put(a, sx + 1, by - 6, (34, 32, 24))
+    lx, ly = cx - 30, by - 16
+    for dx, dy in [(0, -5), (-1, -2), (1, -2), (0, 0), (-1, 2), (1, 2), (0, 4)]:
+        put(a, lx + dx, ly + dy, (232, 208, 74)); put(a, lx + dx, ly + dy + 1, (200, 176, 52))
+    cracks(a, r, cx - 44, cx + 10, by - 28, by, n=5)
+    return a, cx, by + 4
+
+
+def hero_terminal(seed, wall_ramp, roof_ramp):
+    r = rng(seed)
+    W, H = 158, 146
+    a = np.zeros((H, W, 4), dtype=np.uint8)
+    cx, by = W // 2, H - 20
+    WALL = ramp_of((202, 204, 208))                        # pale station wall
+    DIRT = ramp_of((88, 86, 82))
+    FLAT = ramp_of((118, 116, 110))
+    TEAL = ramp_of((92, 132, 132))                         # weathered transit teal
+    shadow(a, cx, by + 8, 64, 21)
+    plot(a, r, cx, by + 4, 62, 31, DIRT)
+    # the waiting HALL (pale, flat roof, big window band), back-left
+    box(a, cx - 30, by - 4, 22, 11, 26, WALL, FLAT)
+    window_grid(a, cx - 30, by - 4, 22, 11, 26, rows=3, top=0.72, bot=0.2, wall=WALL)
+    # a schedule-board strip on the hall face
+    for x in range(int(cx - 30 + 4), int(cx - 30 + 20)):
+        put(a, x, int(by - 4 - 26 * 0.85), (34, 34, 38)); put(a, x, int(by - 4 - 26 * 0.85) + 1, (48, 48, 44))
+    # a tall MARQUEE sign pylon
+    sx = cx - 52
+    for yy in range(int(by - 48), int(by)):
+        put(a, sx, yy, FLAT[1]); put(a, sx + 1, yy, FLAT[2])
+    for dy in range(-12, 0):
+        for dx in range(-2, 9):
+            put(a, sx + dx, by - 48 + dy, (36, 38, 42) if (dx + dy) % 2 else (48, 50, 56))
+    for dx in range(-1, 8):
+        put(a, sx + dx, by - 55, (150, 190, 150))          # a bus glyph
+    # dead BUSES nosed in at the bays
+    bus(a, cx + 6, by - 2, 16, (150, 132, 72))
+    bus(a, cx + 34, by + 4, 15, (120, 132, 150))
+    # the big sweeping CANOPY over the bays (the signature), on posts
+    ccx, ccy = cx + 20, by - 38
+    for px in (cx - 4, cx + 20, cx + 44):
+        for yy in range(int(ccy + 4), int(by)):
+            put(a, px, yy, FLAT[1])
+    canopy(a, r, ccx, ccy, 40, 17, TEAL, droop=12)
+    return a, cx, by + 4
+
+
+HEROES = {'cityhall': hero_cityhall, 'battery': hero_battery, 'terminal': hero_terminal}
 LABEL = {
-    'cityhall': 'City Hall — administrative block + clock tower',
-    'battery': 'Battery yard — stacked container enclosures + inverter rack',
-    'terminal': 'Transit terminal — waiting hall + boarding canopy + dead bus',
+    'cityhall': 'City Hall — pale stone block, columned portico, grand steps, a dome + clock, a dead flag',
+    'battery': 'Battery/power yard — pale power hall, smokestacks + roof transformers, transformer cylinders, hazard/lightning',
+    'terminal': 'Transit terminal — pale waiting hall, sweeping bus canopy, dead buses, marquee sign',
 }
 
 
 def main():
     if not os.path.exists(HOUSE):
-        print('missing CANON house-skin bank for reuse:', HOUSE)
-        sys.exit(1)
+        print('missing CANON house-skin bank for reuse:', HOUSE); sys.exit(1)
     wall = ramp_from(HOUSE, 'wall', 0)
     roof = ramp_from(HOUSE, 'roof', 0)
-    accents = {
-        'cityhall': (114, 106, 90),
-        'battery': (74, 85, 96),
-        'terminal': (74, 86, 96),
-    }
     out = {
-        'version': 'DISTRICT_HERO_v1_7_23_26',
-        'status': 'UNJUDGED (awaiting Paolo thumbs) — the 3/4-iso embodiment of each new district for the city builder',
-        'perspective': '45deg three-quarter (THE 45 LAW, Paolo 7/17): every hero is an iso prism — sky-lit top diamond, lit front-right + shadowed front-left walls, sat on a ground diamond. NEVER flat side-on.',
-        'reuse': 'wall + roof tone ramps sampled from CANON house skins (BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26); district accents from engine palettes.',
-        'law': 'DEAD act-1 (boarded windows, stopped clock, dead buses), TAN WALL 85/15, zero purple, deterministic. Heights differ per district by design.',
-        'anchor': 'base is the bottom vertex of the ground diamond; bx/by per entry is that anchor in sprite pixels; foot = the tile footprint (w x d in tiles) the diamond spans.',
+        'version': 'DISTRICT_HERO_v3_7_23_26',
+        'status': 'UNJUDGED (awaiting Paolo thumbs) — v3, cooked to the PC2 style bible (v1 boxes GRAVEYARDED by Paolo; v2 superseded pre-judge once the real references landed)',
+        'perspective': '45deg three-quarter (THE 45 LAW, Paolo 7/17): iso prisms/domes, sky-lit tops, lit right + shadowed left, on a ground diamond.',
+        'style': 'records/BOHEMIA_POCKET_CITY_STYLE_REFERENCE.md — chunky simple masses on a dressed dead-dirt plot + soft shadow, PALE walls + colored roof, soft 3-tone shading NO black outline, dead-dark window grids, iconic signature, dead-world finish.',
+        'reuse': 'pale wall + faded roof ramps sampled from CANON house skins (BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26); iconic accents are shifts.',
+        'law': 'ICONIC first + PC2 clean look, DEAD act-1 (dead-dark glass never lit, dead-dirt plot, cracks, a boarded window, dead buses), zero purple, deterministic.',
+        'anchor': 'base is the bottom vertex of the ground diamond; bx/by per entry is that anchor in sprite pixels.',
         'heroes': [],
     }
     for d, fn in HEROES.items():
-        for vi, tall in enumerate((False, True)):
-            seed = 730 + hash(d) % 997 + vi * 13
-            a, bx, by = fn(seed & 0x7fffffff, tall, wall, roof, accents[d])
-            buf = io.BytesIO()
-            Image.fromarray(a, 'RGBA').save(buf, 'PNG')
-            out['heroes'].append({
-                'district': d,
-                'variant': 'tall' if tall else 'standard',
-                'label': LABEL[d] + (' (taller massing)' if tall else ''),
-                'w': int(a.shape[1]), 'h': int(a.shape[0]),
-                'bx': int(bx), 'by': int(by),
-                'b64': base64.b64encode(buf.getvalue()).decode(),
-            })
+        seed = 7300 + (hash(d) % 5000)
+        a, bx, by = fn(seed & 0x7fffffff, wall, roof)
+        buf = io.BytesIO(); Image.fromarray(a, 'RGBA').save(buf, 'PNG')
+        out['heroes'].append({'district': d, 'variant': 'iconic', 'label': LABEL[d],
+                              'w': int(a.shape[1]), 'h': int(a.shape[0]),
+                              'bx': int(bx), 'by': int(by),
+                              'b64': base64.b64encode(buf.getvalue()).decode()})
     json.dump(out, open(OUT, 'w'))
-    print('cooked %d district heroes -> %s' % (len(out['heroes']), OUT))
+    print('cooked %d PC2-style district heroes (v3) -> %s' % (len(out['heroes']), OUT))
     for h in out['heroes']:
-        print('  %-9s %-9s %dx%d' % (h['district'], h['variant'], h['w'], h['h']))
+        print('  %-9s %dx%d  %s' % (h['district'], h['w'], h['h'], h['label']))
 
 
 if __name__ == '__main__':

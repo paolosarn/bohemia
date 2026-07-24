@@ -92,7 +92,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
     !demo.includes('id="movebtn"'));
   ok('a move costs the turn (routes through endTurnReturn)',
-    /function doMove\([\s\S]{0,2400}?endTurnReturn\(false\); \}/.test(demo));
+    /function doMove\([\s\S]{0,2800}?endTurnReturn\(false\); \}/.test(demo));
   // v19: victory walk + blood by health
   ok('VICTORY WALK: the ring keeps working after the win (no turn cost)',
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
@@ -114,7 +114,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('e.gcov=realCoverPillar(e)?1:0;') &&
     !demo.includes('(e.inCover||e.gcov)') && !demo.includes('e.inCover=!e.inCover'));
   ok('pillars block the step (occupancy: solid is solid)',
-    demo.includes("setRead('BLOCKED','a pillar is there'"));
+    demo.includes("'a pillar is there'") && demo.includes("setRead('BLOCKED',_sprinting?"));
   ok('shove into a pillar slams (65% topple)', demo.includes('PILLAR SLAM'));
   // v6 (Paolo): push = ONE tile, LONG ARM perk = two; street tile board floor
   ok('PAOLO RULING: shove pushes back ONE tile', BM.shove({ stun: 0, stunCooldown: 0 }, false, 99).pushed === 1);
@@ -124,7 +124,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('STREET FLOOR V6') && demo.includes('G.worldOff') &&
     demo.includes('rgba(184,160,40') && demo.includes('rgba(215,205,185'));
   ok('full-tile Chebyshev steps (no normalized diagonals)',
-    demo.includes('const sx=v[0], sy=v[1];'));
+    demo.includes('const sx=v[0]*_mult, sy=v[1]*_mult;'));
   // v7 (Paolo): grid-true field, real blocks on tiles, two-turn red line
   ok('GRID TRUE: one tile of distance = one board cell (fieldPos linear)',
     demo.includes('const rr=e.edist*ring;'));
@@ -475,6 +475,28 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes("const _wpnStop={pistol:3,smg:2,rifle:4,shotgun:6}[WEAPON]||3;") &&
     demo.includes('if(JUICE.F)G._hitstop=_wpnStop;') &&
     demo.includes("{pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]"));
+  // v44: SPRINT -- real movement/strategy stakes, not just repositioning
+  ok('V44 SPRINT: arms a 2-tile move that resolves fully engaged (real return fire), blocked if either tile in the path has a pillar, consumes itself after one use',
+    demo.includes('V44 SPRINT') &&
+    demo.includes('id="sprintbtn"') &&
+    demo.includes('const _sprinting=!!G.sprintArm;') &&
+    demo.includes('const _mult=_sprinting?2:1;') &&
+    demo.includes('endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */') &&
+    demo.includes("if(_sprinting){ G.sprintArm=false;"));
+  // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
+  ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas',
+    demo.includes('V45 CAMERA FLOOR') &&
+    demo.includes('uzT=Math.max(0.20,Math.min(1.30,fit));'));
+  // v46: a live comment field at the top of the screen, feeding the existing export pipeline
+  ok('V46 LIVE COMMENT: a top-of-screen input that appends turn-tagged comments to the existing jnotes/export pipeline, not a new storage surface',
+    demo.includes('V46 LIVE COMMENT') &&
+    demo.includes('id="lcinput"') && demo.includes('id="lcadd"') &&
+    demo.includes("function addLiveComment(){") &&
+    demo.includes("if(jn)jn.value=(jn.value?jn.value+'\\n':'')+'[T'+(G.mTurn||0)+'] '+txt;"));
+  // v47: the green "safe to pop" threshold scales with how many enemies are actually alive
+  ok('V47 GREEN SCALES WITH HEADCOUNT: the crowd-peeking threshold that gates green tightens as more enemies are alive (1-3=4, 4-6=3, 7-8=2), eases as the fight thins',
+    demo.includes('_crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3))') &&
+    demo.includes('outN>=_crowdThresh'));
 }
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
