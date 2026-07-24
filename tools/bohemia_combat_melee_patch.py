@@ -3579,13 +3579,135 @@ def patch51(demo):
     return demo
 
 
+def patch52(demo):
+    """v52 (Paolo 7/24, dense feedback batch):
+    1. "When I don't have any Cover, the action button is still saying pop
+       out very confused" -- POP OUT literally means leaving cover; if
+       there's no pillar near the player at all (playerNearCover()==false),
+       there's nothing to pop out OF. Swap the label to ENGAGE in that case
+       -- same button, same risk math, just honest wording.
+    2. "Enemies are falling over before the bullets hit them" -- real bug,
+       root-caused: the kill branch of resolveShot() computes the correct
+       bullet-travel delay into tgt._fellAt, but a LETHAL kill sets
+       tgt.dead=true, and enemyFrame()'s dead-branch pose logic reads
+       tgt._deadAt, not _fellAt -- and self-initializes _deadAt to "now" the
+       instant it's missing, so the death frame played on the very next
+       render tick regardless of the travel-time math. Setting _deadAt too
+       (same timestamp) makes the existing "still standing until the bullet
+       lands" gate actually hold.
+    3. "I want the default to be the pistol so I can see Enemies possibly
+       survive and get down" -- WEAPON_LETHAL is pistol 0.20 vs shotgun's
+       forced 1.0, so shotgun-default meant almost nobody ever survived a
+       kill shot to show the downed/dying state. Default to pistol.
+    4. "I want the default to be to kill shots turn that seems like the
+       game will typically start with" -- KILLSHOTS/TURN defaulted to 3,
+       which reads like an already-upgraded skill on a fresh encounter.
+       Default to 1.
+    Camera / "180 degree" targeting claim: went looking for an actual arc
+    restriction on who you can target -- modePool()/pickTarget()/the manual
+    chain-tap handler all pool by peeking/exposure only, no angle filter
+    anywhere. A synthetic 4-direction test (enemies at N/E/S/W, same
+    distance) also framed symmetrically on a real phone canvas. Didn't
+    touch anything here since I can't find or reproduce a restriction --
+    asked Paolo to pin down the exact moment instead of guessing at a fix
+    for code that reads correct."""
+    if 'V52 FALL TIMING FIX' in demo:
+        print('v52 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        """  } else {                    // you're covered from everyone out -> POP is optional, but popping breaks cover.
+    const firingN=G.e.filter(e=>!e.dead&&firing(e)).length;       // guns actually up right now
+    const outN=G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).length;
+    const _crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3));   /* V47: a fuller fight needs a cleaner lull -- 1-3 alive=4 (unchanged), 4-6=3, 7-8=2 */
+    if(outN===0){             // nobody out, nothing to pop at
+      bg='radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%)'; glow='0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)'; col='#8a7d66'; txt='POP OUT';
+    } else if(firingN>=2){    // multiple muzzles up -> popping now = eating several shots
+      bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #e0603a,0 0 30px 7px rgba(232,89,58,.7)'; col='#ffeae6'; txt='POP OUT';
+    } else if(firingN===1 || outN>=_crowdThresh){ // one gun up, or a crowd peeking that could snap-fire -> risky (V47: threshold scales with headcount)
+      bg='radial-gradient(circle at 50% 40%,#9a6a1e,#2e1f0a 72%)'; glow='0 0 0 1px #d69a3a,0 0 24px 5px rgba(220,150,60,.55)'; col='#fff0d8'; txt='POP OUT';
+    } else {                  // a clean lull, no guns up -> best moment to pop
+      bg='radial-gradient(circle at 50% 40%,#1f8a40,#0c2e18 72%)'; glow='0 0 0 1px #46c466,0 0 26px 5px rgba(95,200,110,.65)'; col='#eafff0'; txt='POP OUT'; green=true;
+    }
+  }""",
+        """  } else {                    // you're covered from everyone out -> POP is optional, but popping breaks cover.
+    const nearCov=playerNearCover();   /* V52: no pillar near you at all -> nothing to "pop out" of, say so honestly */
+    const firingN=G.e.filter(e=>!e.dead&&firing(e)).length;       // guns actually up right now
+    const outN=G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).length;
+    const _crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3));   /* V47: a fuller fight needs a cleaner lull -- 1-3 alive=4 (unchanged), 4-6=3, 7-8=2 */
+    if(outN===0){             // nobody out, nothing to pop at
+      bg='radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%)'; glow='0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)'; col='#8a7d66'; txt=nearCov?'POP OUT':'ENGAGE';
+    } else if(firingN>=2){    // multiple muzzles up -> popping now = eating several shots
+      bg='radial-gradient(circle at 50% 40%,#8a2618,#2e0e0a 72%)'; glow='0 0 0 1px #e0603a,0 0 30px 7px rgba(232,89,58,.7)'; col='#ffeae6'; txt=nearCov?'POP OUT':'ENGAGE';
+    } else if(firingN===1 || outN>=_crowdThresh){ // one gun up, or a crowd peeking that could snap-fire -> risky (V47: threshold scales with headcount)
+      bg='radial-gradient(circle at 50% 40%,#9a6a1e,#2e1f0a 72%)'; glow='0 0 0 1px #d69a3a,0 0 24px 5px rgba(220,150,60,.55)'; col='#fff0d8'; txt=nearCov?'POP OUT':'ENGAGE';
+    } else {                  // a clean lull, no guns up -> best moment to pop
+      bg='radial-gradient(circle at 50% 40%,#1f8a40,#0c2e18 72%)'; glow='0 0 0 1px #46c466,0 0 26px 5px rgba(95,200,110,.65)'; col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;
+    }
+  }""",
+        'pop-out-vs-engage')
+
+    demo = sub1(demo,
+        """    /* CONTACT TIMING (Paolo 7/3/26): the body drops when the BULLET ARRIVES,
+       not when the trigger clicks. Death frames gate on the killshot
+       camera's own travel fraction. */
+    if(G.ks){const tv=G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:G.ks.style==='duel'?0.55:0.55;
+      tgt._fellAt=performance.now()+G.ks.dur*tv*1000;}
+    else tgt._fellAt=performance.now()+120;   /* V30: the FALL plays, then he is dying, not gone */""",
+        """    /* CONTACT TIMING (Paolo 7/3/26): the body drops when the BULLET ARRIVES,
+       not when the trigger clicks. Death frames gate on the killshot
+       camera's own travel fraction. */
+    /* V52 FALL TIMING FIX (Paolo: "Enemies are falling over before the bullets
+       hit them"): this delay only ever landed in _fellAt, but a lethal kill
+       sets tgt.dead=true and enemyFrame()'s dead-branch reads _deadAt (self-
+       initializing it to "now" the instant it's missing) -- so the travel-time
+       math never actually gated the death pose. Set both; whichever the final
+       state (dead or downed) reads gets the real delay. */
+    if(G.ks){const tv=G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:G.ks.style==='duel'?0.55:0.55;
+      tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;}
+    else { tgt._fellAt=performance.now()+120; tgt._deadAt=tgt._fellAt; }   /* V30: the FALL plays, then he is dying, not gone */""",
+        'fall-timing-fix')
+
+    demo = sub1(demo,
+        "let WEAPON='shotgun';",
+        "let WEAPON='pistol';   /* V52: default to pistol (0.20 lethal vs shotgun's forced 1.0) so survive/get-down actually shows up */",
+        'default-weapon-pistol')
+
+    demo = sub1(demo,
+        '      <button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 3</button>',
+        '      <button id="chainskill" style="border-color:#8fe89a;color:#cfe8c0">KILLSHOTS/TURN: 1</button>   <!-- V52: default reads like a fresh start, not an upgraded skill -->',
+        'default-killshots-html')
+
+    demo = sub1(demo,
+        "    if(G._chainN>(G.chainSkill||3)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||3)+' this turn','#8a7d66'); return endTurnReturn(); } }",
+        "    if(G._chainN>(G.chainSkill||1)){ setRead('CHAIN SPENT','skill caps you at '+(G.chainSkill||1)+' this turn','#8a7d66'); return endTurnReturn(); } }   /* V52 */",
+        'default-killshots-cap')
+
+    demo = sub1(demo,
+        """        pl.innerHTML='<b style="color:'+rangeCol(tg)+'">'+rangeTier(tg)+'</b> ~'+m+'m · <b style="color:#e89a4a">'+pkgName(G.pkgDiff)+'</b> dial · '+G.pat.toUpperCase()+' · <b style="color:#8fe89a">SHOT '+(G._chainN||1)+'/'+(G.chainSkill||3)+'</b>'; }   /* V17: you always know what the chain allows */""",
+        """        pl.innerHTML='<b style="color:'+rangeCol(tg)+'">'+rangeTier(tg)+'</b> ~'+m+'m · <b style="color:#e89a4a">'+pkgName(G.pkgDiff)+'</b> dial · '+G.pat.toUpperCase()+' · <b style="color:#8fe89a">SHOT '+(G._chainN||1)+'/'+(G.chainSkill||1)+'</b>'; }   /* V17: you always know what the chain allows -- V52 default 1 */""",
+        'default-killshots-hud')
+
+    demo = sub1(demo,
+        "  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||3)){",
+        "  if((G.gritShots||0)>(G._gritUsed||0)&&(G._chainN||1)<(G.chainSkill||1)){   /* V52 */",
+        'default-killshots-grit')
+
+    demo = sub1(demo,
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||3)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });",
+        "  const cs=D('chainskill'); if(cs)cs.addEventListener('click',()=>{ G.chainSkill=((G.chainSkill||1)%8)+1; cs.textContent='KILLSHOTS/TURN: '+G.chainSkill; });   /* V52 */",
+        'default-killshots-click')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch52(patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
