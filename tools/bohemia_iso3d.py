@@ -211,6 +211,21 @@ def bake(scene, out_w, out_h, origin, scale, key_dir=(0.8, -0.35, 0.75),
                     for ch in range(3):
                         col[broke, ch] = bc[ch]
                         col[board, ch] = bd[ch]
+            elif material.get('t') == 'lot':
+                # a PARKING LOT top: asphalt with thin white stall stripes (one axis)
+                col = np.empty((win.shape[0], win.shape[1], 3))
+                colsN = material.get('cols', 9)
+                cu = (u * colsN)
+                fu = cu - np.floor(cu)
+                cv2 = vv * material.get('rows', 2)
+                fv2 = cv2 - np.floor(cv2)
+                col[:] = material['asphalt']
+                stall = (fu < 0.06) | (fu > 0.94)
+                # leave a drive aisle (no stall line) down the middle band of v
+                aisle = (vv > 0.42) & (vv < 0.58)
+                stripe = stall & ~aisle
+                for ch in range(3):
+                    col[stripe, ch] = material['stripe'][ch]
             else:
                 col = np.empty((win.shape[0], win.shape[1], 3))
                 col[:] = material['c']
