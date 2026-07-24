@@ -8,6 +8,41 @@ READ ORDER: CLAUDE.md -> this file -> BOHEMIA_ARCHITECTURE_MAP.md ->
 BOHEMIA_CANON_INDEX.md -> laws/BOHEMIA_STATE_OF_PLAY_7_17_26.md (the full
 account of repo day one lives THERE; this file stays the pointer, not a pile).
 
+## CRAWL-DYING FIX — PAOLO CAUGHT A REAL VERIFY-ON-THE-REAL-SURFACE MISS
+## (7/23, same session, "soft crawl dying does not look like crawl dying,
+## it's really bad")
+Shipped crawl-dying (below) only checked via numeric gate assertions on the
+pose function's OUTPUT NUMBERS — never actually looked at the rendered
+pixels. Paolo caught it immediately: it looked like a hunched, floating,
+kneeling body, nothing like lying on the ground dragging. This IS the
+hoodie-post-mortem failure mode the VERIFY ON THE REAL SURFACE law exists
+to kill, and it happened again.
+ROOT CAUSE (found by actually opening the ANIM tab via headless Playwright
+against the live alpha, /opt/pw-browsers/chromium-1194, and looking at the
+PNGs): the clip held legCompressL/R at a constant 0.34 the whole cycle.
+floor-rise's OWN fully-down frame (what prone112 already bakes from and
+ships fine) has legCompressL/R === 0 at rest — 0.34 only ramps in during
+floor-rise's knee-bend TRANSITION, never held flat on the floor. Constant
+0.34 bunched the legs up under the body instead of trailing them out,
+which reads as a crouch/float, not a prone drag.
+FIX: legs now byte-match floor-rise's real prone geometry (thigh 1.3/1.18,
+shin -0.5/-0.42, legCompress near-zero, a tiny 0.05*pullIn hint of effort
+during the pull only). Re-verified visually this time: headless screenshot
+across the full phase cycle AND all 8 grid8 directions before calling it
+done — legs trail straight like the shipped floor-rise/prone112 reference,
+the reaching arm still visibly cycles reach -> plant -> pull -> tuck.
+Gate: combat_anim_gate.js's crawl section swapped the wrong ">0.3
+compressed = limp" assertion (which was actually asserting the BUG) for a
+"<0.15, byte-matches floor-rise's real numbers" one -- 102->103 checks.
+STANDING LESSON for whoever builds a new down/floor pose next: COPY THE
+REFERENCE CLIP'S ACTUAL RUNTIME NUMBERS (eval it, print them), don't
+eyeball-guess a "similar" constant, and always screenshot the real ANIM
+tab (headless Playwright is pre-installed, `/opt/pw-browsers/chromium-1194
+/chrome-linux/chrome`, `NODE_PATH=/opt/node22/lib/node_modules node
+script.js` — G is a page-global const, not window.G) before calling any
+new pose shipped, full phase sweep + all 8 grid8 directions minimum.
+Stamp: BUILD 7/23i.
+
 ## THE MASTER LOOP: GATE FIXED, THEN POINTED AT THE REAL WORLD (7/23,
 ## world-model session, Paolo: "this is the world model chat do something
 ## important" -> "do that" on the follow-up)

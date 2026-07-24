@@ -92,3 +92,28 @@ mechanics — stays flat, legs stay limp, the reach-pull arm actually
 sweeps, the off arm doesn't, forward creep is real — plus bake + receiver
 + enemyFrame wiring, plus ordering: crawl checked before the prone
 fallback, after the death drop).
+
+==============================================================================
+CORRECTION (7/23, same day): Paolo caught it live — "soft crawl dying does
+not look like crawl dying, it's really bad." He was right: the first pass
+held legCompressL/R at a constant 0.34 the whole cycle. Only ONLY numeric
+gate checks were run before shipping — never the real render — which is
+exactly the VERIFY ON THE REAL SURFACE law's warning. Actually opening the
+ANIM tab (headless Playwright against the live alpha, not a side probe)
+showed the truth: a hunched, floating, kneeling-looking body, nothing like
+lying on the ground.
+ROOT CAUSE: floor-rise's OWN fully-down frame (the one prone112 already
+bakes from and ships fine) has legCompressL/R === 0 at ph=0.02 — the 0.34
+only ramps in during floor-rise's knee-bend TRANSITION, never at rest on
+the floor. Copying 0.34 as a constant bunched the legs up under the body
+instead of trailing them out flat, which read as a crouch/float, not a
+prone drag.
+FIX: legCompressL/R now near-zero (a tiny 0.05*pullIn hint of effort
+during the pull only), thighL/R and shinL/R now byte-match floor-rise's
+real prone numbers (1.3/1.18/-0.5/-0.42) — same silhouette as the
+already-shipped prone112/rise112 family. Re-verified visually (headless
+render, all 8 facings + full phase sweep): legs now trail straight like
+the floor-rise reference, the reaching arm still visibly cycles reach ->
+plant -> pull -> tuck. Gate grew 102->103 (swapped the wrong ">0.3
+compressed" assertion for a "<0.15, matches floor-rise's real numbers"
+one, so this exact regression can't ship silently again).
