@@ -3428,13 +3428,57 @@ def patch47(demo):
     return demo
 
 
+def patch48(demo):
+    """v48 (Paolo 7/23, "Green needs to be the whole action wym????"):
+    green was a snapshot at the instant you popped, not a lock for the
+    action. The dial takes real time to aim; enemies' fire cycles keep
+    ticking during that window, so someone who wasn't even peeking when
+    you popped could be firing by the time your shot resolved, and
+    endTurnReturn evaluated return fire FRESH at that moment -- punishing
+    a correctly-read green pop for something that happened after you'd
+    already committed. This actually contradicts the code's own
+    documented law from 7/4 ("NO DAMAGE BEFORE THE DIAL... Pop clean on
+    green, get punished for a whiff, never before the dial") -- so this
+    isn't a new feature, it's closing a gap against Paolo's own original
+    intent.
+    FIX: updGap() now publishes its live green verdict (G._greenNow).
+    doPop() snapshots it AND the exact set of enemies who were already a
+    known threat (peeking or firing) at the moment of the pop. If the pop
+    was green, endTurnReturn's return-fire pool is filtered down to ONLY
+    those already-known threats -- anyone who shows up fresh during your
+    aim cannot punish a green pop. A pop that wasn't green is unaffected
+    (unchanged risk, exactly as before)."""
+    if 'V48 GREEN IS A LOCK' in demo:
+        print('v48 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        "  if(green&&!_lastGreen)sndGreen(); _lastGreen=green; }",
+        "  G._greenNow=green;   /* V48 GREEN IS A LOCK: doPop() reads this to snapshot the safety promise at commit time */\n  if(green&&!_lastGreen)sndGreen(); _lastGreen=green; }",
+        'green-publish-state')
+
+    demo = sub1(demo,
+        "function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;   /* CUTSCENE LAW (Paolo 7/3/26): they play out, short, no skipping */ audio();",
+        """function doPop(){ if(G.phase!=='cover'||G.over)return; if(G.inc)return;   /* CUTSCENE LAW (Paolo 7/3/26): they play out, short, no skipping */ audio();
+  G._poppedGreen=!!G._greenNow;   /* V48 GREEN IS A LOCK: the safety promise is made HERE, not re-litigated at resolve time */
+  G._popKnownThreats=new Set(G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).map(e=>e.i));   /* who you could actually see when you committed */""",
+        'pop-snapshot-green')
+
+    demo = sub1(demo,
+        "  if(engaged){ // you broke cover to shoot -> EVERYONE who's out with a line shoots back; your cover only softens it\n    pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1);\n    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */ }\n  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe().filter(e=>(e.acq||0)>=1); }",
+        "  if(engaged){ // you broke cover to shoot -> EVERYONE who's out with a line shoots back; your cover only softens it\n    pool=G.e.filter(e=>!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine(e)&&(e.acq||0)>=1);\n    if(!G._poppedOut)pool=pool.filter(e=>!myCoverAgainst(e.ea,e.edist));   /* V23 EXPOSURE HONESTY: fired from BEHIND the stone — the covered side gets no free volley */ }\n  else {       // you stayed tucked -> only enemies you have NO cover toward can reach you\n    pool=exposedToMe().filter(e=>(e.acq||0)>=1); }\n  if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));   /* V48: a green pop only answers to threats that were ALREADY visible when you committed */\n  G._poppedGreen=false;   /* V48: single-use -- consumed the moment this resolution reads it, so a later WAIT never inherits a stale green */",
+        'engaged-pool-green-lock')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
