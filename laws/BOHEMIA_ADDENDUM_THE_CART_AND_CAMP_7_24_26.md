@@ -117,11 +117,10 @@ can ride the fold like other permanent capacity. Same one-seam discipline as amm
 ## PENDING — PAOLO'S CALLS (do not invent)
 - Smart-cart specifics: how autonomous, how it navigates, what upgrades/kit it takes, and
   whether a companion ALSO walks with it in the demo (optional flavor now, not the mechanism).
-- THE BIG FORK (Paolo's call): is the cart heirloom-ADJACENT (a beloved three-act companion,
-  separate from the Family Box), or IS it the family heirloom — i.e. the fragment-of-legit-
-  access that can stop the Amalgamation was hidden inside the loyal old cart the whole time
-  (a killer late reveal: the family treasure that kills the demon was the beat-up cart nobody
-  looked twice at). Strong option, not locked.
+- THE BIG FORK — RESOLVED 7/24 (Paolo): the cart is NOT the key to the Amalgamation. "It is
+  what the game makes it. It'll be fun and cute, it doesn't have to be the key to humanity."
+  So: heirloom-LIKE in SENTIMENT only (a beloved three-act companion the family treasures),
+  fully SEPARATE from the Family Box / the anti-Amalgamation key. It's a good boy, not a savior.
 - Its name, what it looks like (rolling cart vs floating drone vs both), personality, the
   acquisition quest (and whether it's in the demo), and whether it can be damaged/destroyed/
   lost (ED-E-style permadeath stakes across the fold).
