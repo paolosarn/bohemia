@@ -242,6 +242,78 @@ the template for the RIG's draft depth.
 
 ---
 
+## 9. THE IDENTITY QUESTION (Paolo 7/24): does RF4 movement fight our cover + dial?
+
+Paolo's sharp pull-hole: RF4 combat is amazing, but does it **go against the cover
+idea**, what does it **mean to shoot an enemy**, and **what is the Dead Eye Dial for** if
+we bolt RF4-style movement on? This is the crux of the game's identity. Honest answer:
+
+### There are THREE layers, and they are orthogonal (this is the resolution)
+
+1. **BOARD position** — where you stand, tile to tile. *RF4's whole game.* Kiting,
+   flanking, dodging telegraphs, breaking sightlines.
+2. **ENGAGEMENT timing** — WHEN you break cover to shoot. *Bohemia's cover cycle + green
+   window.* Reading the enemy peek/fire rhythm, picking your moment.
+3. **SHOT execution** — HOW WELL the shot lands. *The Dead Eye Dial.* The rhythm/timing
+   commit that grades kill/vital/hit/miss.
+
+RF4 has layer 1 and *nothing* for layer 3 — you click, it hits. **The dial is the layer
+RF4 completely lacks.** So RF4 movement does not threaten the dial; they are different
+skills on different axes. RF4 decides IF/WHEN/WHERE you shoot; the dial decides HOW WELL.
+Remove the dial and Bohemia is just a roguelike. Remove the board and it's just a rhythm
+game. **The fusion IS the identity: RF4 gives us the board, the dial gives us the beat.**
+
+### Cover vs movement must defend DIFFERENT threats, or one kills the other
+
+The real danger (naming it honestly): if movement becomes your universal defense,
+players kite forever and the cover cycle we built over 50 versions goes vestigial. Bolt
+RF4 onto a cover shooter carelessly and you get incoherence — is my defense hiding or
+moving? The fix is to split the threats:
+
+- **COVER defends against aimed gunfire** — the ready gun-line with a bead on you.
+  Standing in the open against 8 guns is death. Cover is home base.
+- **MOVEMENT defends against what cover CAN'T stop** — telegraphed/committed threats:
+  grenades landing on your tile, a charging sniper lane, the delayed distant return-fire
+  aimed at your last tile, a blade closing. You can't hide from these; you reposition.
+
+So the enemy roster makes you **flow between hiding and darting**: hunker against the
+gun-line, then BURST out and reposition when they lob a grenade or a blade closes. Cover
+and movement stop being rivals and become a rhythm of their own.
+
+### The ratio is the identity decision
+
+**Cover is the baseline, movement is the punctuation** that pries you out of it — OR the
+open board is home and cover is one tool. This single ratio decides everything downstream.
+Recommendation: **cover-baseline, movement-punctuation.** The gun-line stays lethal
+enough that cover is home most of the time; movement-forcers are the occasional disruptor
+that keeps you from turtling. Get the ratio wrong and one system eats the other. This is
+the call to lock before building the enemy's half.
+
+### What it MEANS to shoot an enemy (under all three layers)
+
+You (1) survive to a window by reading cover + dodging what cover can't stop [board +
+engagement], (2) commit while exposed — the risk [engagement], (3) NAIL the dial —
+execution [dial]. The shot is *earned* by position and *paid off* by rhythm. RF4 movement
+is how you manufacture the window and dodge the un-hideable; the dial is why the shot is
+skill and not a free click. They need each other.
+
+### 9b. AMMO as a resource axis (Paolo's bow insight)
+
+Paolo, correcting my "bow needs a huge single hit": people pick the bow because **it's
+cool and it still kills — and it could have UNLIMITED ammo.** That's the real draw, and
+it opens an axis we hadn't discussed:
+
+- **Guns run on limited ammo** (a scavenged, scarce resource — fits the post-economic
+  Vegas world, RF4/Cyberpunk resource management). Reloads, pickups, scarcity decisions.
+- **Bow / melee = unlimited** (no ammo economy). The bow's identity is *sustainable* — 1
+  killshot/turn, still lethal, never runs dry. You bring it for the long grind, not the
+  burst.
+- This makes weapon choice a resource decision, not just a damage/dial one: burst-now
+  (SMG, ammo-hungry) vs sustain-forever (bow, free). A whole new tactical + roguelite
+  economy layer. [Ammo table: MECHANISM-MINE / CONTENTS-PAOLO'S — build empty, he tunes.]
+
+---
+
 ## SOURCES
 - Rogue Fable IV: Steam store page (app 2720010), Justin Wang itch.io devlogs incl.
   "Game Design: Combat" and Updates 0.9-0.21, the Steam "Major Talent Rework" note,
