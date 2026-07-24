@@ -196,6 +196,8 @@ GATES = [
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
      'original art is three-quarter view, never flat', False),
+    ('HERO WIRE',      ['node', 'gates/hero_wire_gate.js'],
+     'approved district heroes drawn on their city tiles (cityhall/battery/terminal), no flat-block regression', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],
      'structure frozen in every clip', True),
     ('PURITY',         ['python3', 'gates/bohemia_purity_gate.py'],
