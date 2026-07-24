@@ -36,6 +36,32 @@ to the thing that has always been done wrong.
   tetris fatigue. You micromanage only what's ON YOU for the moment; the bulk just lives in
   the cart. You get the FEEL of realism without the chore (the Death Stranding model).
 
+## THE CART IS A THREE-ACT COMPANION — HEIRLOOM-LIKE (LOCKED 7/24, Paolo)
+The smart cart is a LIGHT COMBO of three real/known things: today's LA autonomous SIDEWALK
+DELIVERY CARTS (Serve Robotics / Coco / Starship — real, on the streets now), WAYMO's
+self-driving autonomy, and Fallout: New Vegas's ED-E — the loyal little eyebot that follows
+you, beeps instead of talks, and that people genuinely LOVE. You FIND it as salvaged tech
+through a QUEST; before that you (or a companion) haul a dumb cart by hand, and the salvage
+UPGRADES it into the autonomous companion. Progression: hand-hauled cart -> smart companion
+cart -> (rare, late) the car.
+
+### WHY THIS IS BIG: IT SURVIVES ALL THREE ACTS (the fold anchor)
+Almost NOTHING lasts the whole game — the generational fold kills dynasts, the family
+changes, people you love die and pass on. The cart is one of the very FEW constants that
+rides with the dynasty across 100 years. That makes it heirloom-LIKE: a treasured, loyal
+machine passed down like the Family Box, patched and scarred across generations, quietly
+becoming a physical record of the whole family's history (it literally hauled their lives).
+Mechanically it is a MACRO/fold-persistent object (survives the fold like faction standing /
+deltas / the Box), while its CONTENTS stay micro — same clean line as everything else.
+- ED-E VOICE: it speaks in beeps and lights, no words — fits the squiggle-voice / no-real-
+  dialogue direction and is cheap to produce.
+- THE BRIGHT MIRROR (theme gold): a machine that becomes FAMILY by loyal service is the
+  good twin of the Amalgamation — the machine that COUNTERFEITS family by absorbing people.
+  Same question ("can a machine be family?"), opposite answers: the cart earns love over a
+  century; the demon demands it by force. Your beloved little robot also makes the thing in
+  the deep scarier by contrast — you have a framework for friendly tech, and the Amalgamation
+  is nothing like it.
+
 ## THE THREE-TIER BASE (this is the base-building system, mobile included)
 1. THE COMPOUND (fixed home base): Marco's merged backyards -> your buildable home (the
    founding, already canon). Where the dynasty lives and grows.
@@ -91,6 +117,14 @@ can ride the fold like other permanent capacity. Same one-seam discipline as amm
 ## PENDING — PAOLO'S CALLS (do not invent)
 - Smart-cart specifics: how autonomous, how it navigates, what upgrades/kit it takes, and
   whether a companion ALSO walks with it in the demo (optional flavor now, not the mechanism).
+- THE BIG FORK (Paolo's call): is the cart heirloom-ADJACENT (a beloved three-act companion,
+  separate from the Family Box), or IS it the family heirloom — i.e. the fragment-of-legit-
+  access that can stop the Amalgamation was hidden inside the loyal old cart the whole time
+  (a killer late reveal: the family treasure that kills the demon was the beat-up cart nobody
+  looked twice at). Strong option, not locked.
+- Its name, what it looks like (rolling cart vs floating drone vs both), personality, the
+  acquisition quest (and whether it's in the demo), and whether it can be damaged/destroyed/
+  lost (ED-E-style permadeath stakes across the fold).
 - Cart capacity + the car-acquisition chain + whether the cart itself upgrades (bigger cart,
   a jogger, a wagon, a trailer bike) before the car.
 - The pre-designed camp layouts / what you can build into a camp, and the craft/cook/heal menu.
