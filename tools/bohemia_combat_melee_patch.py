@@ -3522,7 +3522,7 @@ def patch50(demo):
     fallback, THEN post up to the parent app's export panel -- the
     reliable rail on mobile/iOS) so his comments are one tap away without
     ever opening settings."""
-    if 'V50 COMMENT COPY BUTTON' in demo:
+    if 'V50 COMMENT COPY BUTTON' in demo or 'V51 NO ADD BUTTON' in demo:
         print('v50 already applied, skipping')
         return demo
 
@@ -3552,13 +3552,40 @@ D('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no 
     return demo
 
 
+def patch51(demo):
+    """v51 (Paolo 7/24: "Bro REMOVE THE ADD BUTTON IT DOES NOTHING"): ADD
+    technically worked (it saved into jnotes) but the only feedback was a
+    setRead() toast elsewhere on screen -- easy to miss, so from where he's
+    sitting it looked like a dead button. Rather than try to make ADD's
+    feedback louder, cut it: COPY is now the ONE button. It folds whatever's
+    sitting in the input into jnotes first (same addLiveComment() call ADD
+    used to make), THEN copies/exports everything, so nothing typed is ever
+    lost and there's one less button to wonder about. Enter in the input
+    does the same thing ADD used to."""
+    if 'V51 NO ADD BUTTON' in demo:
+        print('v51 already applied, skipping')
+        return demo
+
+    demo = sub1(demo,
+        '    <button id="lcadd" class="cbtn">ADD</button>\n    <button id="lccopy" class="cbtn">COPY</button>   <!-- V50 COMMENT COPY BUTTON: right here, no trip to settings needed -->',
+        '    <button id="lccopy" class="cbtn">COPY</button>   <!-- V50 COMMENT COPY BUTTON: right here, no trip to settings needed -- V51 NO ADD BUTTON: now the only button, saves + copies in one tap -->',
+        'comment-remove-add-button')
+
+    demo = sub1(demo,
+        "D('lcadd').addEventListener('click',addLiveComment);\nD('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); addLiveComment(); } });   /* V50: single-line input again, Enter submits like before */\nD('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no settings trip -- same proven rail as jexport */\n  const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');",
+        "D('lcinput').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); D('lccopy').click(); } });   /* V51 NO ADD BUTTON: Enter just triggers the one button now */\nD('lccopy').addEventListener('click',()=>{   /* V50: your comments, one tap, no settings trip -- same proven rail as jexport */\n  addLiveComment();   /* V51 NO ADD BUTTON: fold whatever's typed into jnotes first -- ADD is gone, this button does both jobs now */\n  const t=(D('jnotes')&&D('jnotes').value)||''; const b=D('lccopy');",
+        'comment-copy-does-both')
+
+    return demo
+
+
 def main():
     src = open(ALPHA, encoding='utf-8').read()
     m = re.search(r"const COMBAT_B64='([^']+)'", src)
     if not m:
         sys.exit('FAIL: COMBAT_B64 not found')
     demo = base64.b64decode(m.group(1)).decode('utf-8')
-    patched = patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    patched = patch51(patch50(patch49(patch48(patch47(patch46(patch45(patch44(patch43(patch42(patch41(patch40(patch39(patch38(patch37(patch36(patch35(patch34(patch33(patch32d(patch32c(patch32b(patch32(patch31(patch30b(patch30(patch29(patch28(patch27(patch26(patch25(patch24(patch23(patch22(patch21(patch20(patch19(patch18(patch17(patch16(patch15(patch14(patch13(patch12(patch11(patch10(patch9(patch8(patch7(patch6(patch5(patch4(patch3(patch2(patch(demo)))))))))))))))))))))))))))))))))))))))))))))))))))))))
     if patched == demo:
         return
     b64 = base64.b64encode(patched.encode('utf-8')).decode('ascii')
