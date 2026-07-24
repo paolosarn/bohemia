@@ -280,14 +280,24 @@ So the enemy roster makes you **flow between hiding and darting**: hunker agains
 gun-line, then BURST out and reposition when they lob a grenade or a blade closes. Cover
 and movement stop being rivals and become a rhythm of their own.
 
-### The ratio is the identity decision
+### The ratio is the identity decision — PAOLO RULED (7/24)
 
-**Cover is the baseline, movement is the punctuation** that pries you out of it — OR the
-open board is home and cover is one tool. This single ratio decides everything downstream.
-Recommendation: **cover-baseline, movement-punctuation.** The gun-line stays lethal
-enough that cover is home most of the time; movement-forcers are the occasional disruptor
-that keeps you from turtling. Get the ratio wrong and one system eats the other. This is
-the call to lock before building the enemy's half.
+**Cover is ONE of the tools of safety, not the whole game.** (Paolo 7/24: "i def want
+cover to be one of the tools of safety fs.") So Bohemia leans **movement-forward with a
+SAFETY TOOLKIT**, and cover is one instrument in it, not the sole home base. The toolkit:
+
+1. **Cover** — a pillar stops aimed gunfire from a direction. One tool, always available.
+2. **Movement / reposition** — dash, vault, retreat, step. Dodge telegraphs, break locks,
+   change your angle, dive the back line.
+3. **Suppress** — force heads down, manufacture a window even under many guns.
+4. **Hand-peek** — a smaller profile the moment you do expose.
+5. **Distance / range** — far = reaction time (the graded travel-time model, 8a).
+6. **Green-window timing** — pop when the read says safe.
+7. *(future)* **Dead Eye burst** — slow the beat to act safely.
+
+Design job: make each tool answer a different pressure so they all stay alive, and keep
+the whole thing **fun, tactical, rewarding, and SNAPPY** (Paolo's four words, 7/24). No
+single tool is a turtle button; the fun is FLOWING between them on the beat.
 
 ### What it MEANS to shoot an enemy (under all three layers)
 
