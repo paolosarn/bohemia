@@ -38,7 +38,7 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:b8ce9e9fd1f453f3d3896bf9c8d5f16e -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
-<!-- engine-md5:engine/bohemia_overmap.js:47af6812f00882f12e3cc1a63a303edf -->
+<!-- engine-md5:engine/bohemia_overmap.js:87d88014ce62d9ae1a2ec31e49f744a8 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:530d913e483b7ae4ce57e3b69065f730 -->
@@ -4802,7 +4802,7 @@ function layoutFromSeed(seed){
     for(const py of passesA.concat(passesB)){ if(Math.abs(prison.y-py)<3)hit=true; }
     if(!hit)break; prison.y+=4; }
   // BRIGHTLINE TERMINAL: beside the rail at the strip's south end (the LA train)
-  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:2, h:1};
+  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:1, h:1};
   // THE SPHERE: east of the strip mid-run (real position)
   const sphere={x:stripX+dirE*4, y:Math.round(N*0.44), w:2, h:2};
   // LAS VEGAS BLVD NORTH CLUSTER (real): Cashman Field + Neon Boneyard + Mormon Fort
