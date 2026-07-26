@@ -36,6 +36,14 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
+/* PROOF SCREENSHOTS: a canvas capture is never byte-identical twice, so writing
+   them into slices/ on every gate run left the working tree permanently dirty
+   and would collide across parallel sessions. They go to a scratch dir by
+   default; a session REFRESHES the committed ship artifacts on purpose with
+   RUN_GATE_PROOF_DIR=slices node gates/run_gate.js. */
+const PROOF_DIR = process.env.RUN_GATE_PROOF_DIR
+  ? path.resolve(ROOT, process.env.RUN_GATE_PROOF_DIR)
+  : require('os').tmpdir();
 const RUN_FILE = path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html');
 const SRC_FILE = path.join(ROOT, 'slices/BOHEMIA_RUN_SLICE_7_26_26.html');
 const ALPHA_FILE = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -185,7 +193,7 @@ async function playRun(browser, fork) {
   rep.feed = await page.evaluate(() => window.__RUN.feed());
   rep.profile = await page.evaluate(() => window.__RUN.profile());
   rep.feedHTML = await page.textContent('#feed');
-  rep.shot = path.join(ROOT, 'slices', 'BOHEMIA_RUN_PROOF_' + fork + '_7_26_26.png');
+  rep.shot = path.join(PROOF_DIR, 'BOHEMIA_RUN_PROOF_' + fork + '_7_26_26.png');
   await page.screenshot({ path: rep.shot });
   await page.close();
   return rep;
@@ -260,7 +268,7 @@ async function alphaRun() {
     await run.waitForFunction(() => { const s = window.__RUN.state(); return !!s.combat; },
       null, { timeout: 30000 });
     out.combatBack = (await run.evaluate(() => window.__RUN.state())).combat;
-    await page.screenshot({ path: path.join(ROOT, 'slices', 'BOHEMIA_RUN_IN_ALPHA_7_26_26.png') });
+    await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_RUN_IN_ALPHA_7_26_26.png') });
   } finally { await browser.close(); }
   return out;
 }
