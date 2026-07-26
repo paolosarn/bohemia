@@ -209,7 +209,9 @@ PARKED BY THE 7/26 RULING (do not pick these up):
 3. Music pool volume in approved styles, taste-filtered. | music gates | — |
    fresh songs = thumbs.
 
-## QUESTS
+## QUESTS — HIBERNATED (Paolo 7/26, laws/BOHEMIA_ADDENDUM_QUESTS_LANE_
+## HIBERNATED_7_26_26.md). Do NOT pick up items below; no "quests" sessions
+## until Paolo reopens the lane. All shipped quest work stays live and gated.
 1. DONE 7/26 (S10-S21 shipped, corpus 9 -> 21, gate hardened with 5 new checks,
    laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md). Sitting is live in
    the alpha: LIFE tab -> THE 12 NEW CANON QUESTS. Awaiting thumbs.

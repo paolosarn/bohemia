@@ -16,7 +16,7 @@ research record lives in this file's commit and the coordinator's findings.
 =============================================================================
 Paolo never writes task prompts. His words to any session:
 - **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
-  "combat" / "character" / "quests" / "art" / "coordinator". That word both assigns
+  "combat" / "character" / "art" / "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session opened with it replies one line and stops). That word both assigns
   the lane and means GO. A fresh session that can't match its first word to a
   lane asks ONE word back ("which lane?") and nothing else.
 - **After that, "go"** (or any single word, or garbled transcription, or "continue"):
