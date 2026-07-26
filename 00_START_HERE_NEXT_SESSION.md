@@ -17,6 +17,12 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- ONE VALLEY (7/26, WORLD lane, machine-locked): the MAP tab renders the SAME
+  valley the phone runs. It sat on seed 1337 for months while the game boots the
+  text seed 'bohemia'; the map Paolo explored was never the map his quests were
+  cast into. Pinned to the engine's own hashSeed('bohemia') in
+  tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
+  seed number into a surface again.
 - NO PULL REQUESTS, EVER + ONE GATE PASS PER SHIP (Paolo 7/25, LOCKED, in
   CLAUDE.md ship flow). Push main directly, run the full suite once per ship.
   (Also: the stale PR badges #10-#20 on the reused character/sound branch name
@@ -36,11 +42,20 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
-WORLD MODEL (02): the big one landed — THE QUEST SYSTEM IS RESCUED ONTO MAIN.
-9 playable canon quests (S01-S09) + quest runtime + casting bridge live in the
-phone; quests actually move the factions (world bridge); the live phone runs
-the REAL world (was a fake); MAP app render fixed. CANON QUESTS gate registered
-and green. NEXT flagged: the run itself (see connected-run below).
+WORLD MODEL (02): 7/26 — WHERE THE QUESTS HAPPEN. Backlog WORLD-1 shipped: a
+placement CANDIDATE factory (engine/bohemia_quest_placement.js) proposes 3
+addresses per canon quest by crossing the quest's OWN prose with each district's
+OWN dossier (records/tilespec) over the already-generated valley. MAP LAW held:
+candidates only, Paolo picks. Judge surface in the alpha (LIFE tab -> WHERE THE
+QUESTS HAPPEN): real valley from above, a pin per option, three REAL cell renders
+per quest, tap one, export .txt. Gate QUEST PLACEMENT registered + green (20
+checks: real cells only, anchor === the live cast, byte-identical across runs, no
+stacking, page fresh + reachable). Record:
+records/BOHEMIA_QUEST_PLACEMENT_CANDIDATES_7_26_26.md. Also fixed the same turn:
+ONE VALLEY (above). WAITING ON: his picks, then apply them as a casting-bridge
+override. Earlier: 9 playable canon quests (S01-S09) + quest runtime + casting
+bridge live in the phone; quests move the factions (world bridge); CANON QUESTS
+gate green.
 
 LIFE + CITY (03): WALK-THIS-GAME redirect fully shipped — (1) SLICE walk
 surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
@@ -88,8 +103,13 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
   the marathon waves Paolo has never seen — music batch 20, wardrobe volume,
   plus whatever lanes stack next. STALE unjudged banks are presumed dismissed,
   never re-surfaced (laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md).
+- QUEST PLACEMENT PICKS (fresh, 7/26): 9 quests x 3 addresses in the alpha's LIFE
+  tab. One tap per quest. Unpicked = stays where it is.
+- FACTION TERRITORY SHAPE (discovered 7/26): every faction sits on a suburb tract
+  and holds exactly 1 cell, because bases are an even stride across the district
+  list. Whether a faction's ground should match its trade is HIS call; the
+  mechanism is a small change to bootFactions the moment he rules.
 - One-rig VARIATION SLIDERS: scope/next step after the 7/25 ruling.
-- Quest NPC world PLACEMENT for the 9 live quests (MAP LAW: his call).
 - Combat grammar graduation batch (stacked per Prompt 4) when surfaced.
 - Older shelf items live in the archived pile under their original sections.
 

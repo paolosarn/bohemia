@@ -182,6 +182,8 @@ GATES = [
      'the nine islands boot into one driven engine: factions canon-wired, economy+spawner poured', False),
     ('CANON QUESTS',   ['node', 'gates/bohemia_canon_quests_gate.js'],
      'every canon .bq quest parses/round-trips/validates clean and plays to COMPLETE through the live loop', False),
+    ('QUEST PLACEMENT', ['node', 'gates/quest_placement_gate.js'],
+     'quest placement candidates are real cells, anchored to the live cast, deterministic', False),
     ('CURRENT SLICE',  ['node', 'gates/current_slice_gate.js'],
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('LOOP CHANNEL',   ['node', 'engine/bohemia_loop_channel_tests.js'],

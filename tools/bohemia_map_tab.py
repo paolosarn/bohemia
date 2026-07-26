@@ -23,6 +23,7 @@ this tool any time bohemia_world.js or any district engine module changes.
 """
 import hashlib
 import os
+import subprocess
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
@@ -49,13 +50,27 @@ MODULES = [
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
     'engine/bohemia_world.js',
 ]
+# SEED_NOTE: ask the ENGINE what 'bohemia' hashes to rather than restating the
+# number here, so the map can never drift from the seed the loop actually boots.
+SEED = int(subprocess.run(
+    ['node', '-e', "process.stdout.write(String(require('./engine/bohemia_engine.js').WorldGen.hashSeed('bohemia')))"],
+    capture_output=True, text=True, check=True).stdout.strip())
+
 bodies = {m: open(m, encoding='utf8').read() for m in MODULES}
 md5s = {m: hashlib.md5(bodies[m].encode('utf8')).hexdigest() for m in MODULES}
 engine = '\n'.join('/* ==== %s ==== */\n%s' % (m, bodies[m]) for m in MODULES)
 
 GAME = r"""
 // ===== MAP TAB — the valley aerial, live, read-only =====
-var SEED = 1337;
+// ONE VALLEY (7/26/26, WORLD lane). This was 1337 while the game itself boots
+// bohemia_loop.js on the text seed 'bohemia' — two different valleys, so the map
+// Paolo explored was never the map the phone plays, and a quest cast to X29 Y77
+// pointed at a tile that only existed in the other world. The seed below IS the
+// engine's own hashSeed('bohemia'), computed by the engine at build time (see
+// SEED_NOTE in tools/bohemia_map_tab.py) and baked as a fixed literal so the map
+// stays reproducible. Change the game's seed text and rerun the tool; never
+// hand-type a number here.
+var SEED = __SEED__;
 var W = BohemiaWorld.world(SEED);
 var N = W.n;
 
@@ -325,7 +340,7 @@ html = """<!doctype html><html><head><meta charset="utf-8"/>
 <script>
 %s
 </script>
-</body></html>""" % (stamps, engine, GAME)
+</body></html>""" % (stamps, engine, GAME.replace('__SEED__', str(SEED)))
 
 with open(OUT, 'w', encoding='utf8') as f:
     f.write(html)

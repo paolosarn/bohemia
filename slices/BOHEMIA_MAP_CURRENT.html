@@ -6803,7 +6803,15 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 <script>
 
 // ===== MAP TAB — the valley aerial, live, read-only =====
-var SEED = 1337;
+// ONE VALLEY (7/26/26, WORLD lane). This was 1337 while the game itself boots
+// bohemia_loop.js on the text seed 'bohemia' — two different valleys, so the map
+// Paolo explored was never the map the phone plays, and a quest cast to X29 Y77
+// pointed at a tile that only existed in the other world. The seed below IS the
+// engine's own hashSeed('bohemia'), computed by the engine at build time (see
+// SEED_NOTE in tools/bohemia_map_tab.py) and baked as a fixed literal so the map
+// stays reproducible. Change the game's seed text and rerun the tool; never
+// hand-type a number here.
+var SEED = 2691674296;
 var W = BohemiaWorld.world(SEED);
 var N = W.n;
 

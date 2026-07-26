@@ -54,6 +54,16 @@ ok('no Math.random in the page', !/Math\.random/.test(page));
 ok('no argless Date.now() / new Date() in the page', !/Date\.now\(\)/.test(page) && !/new Date\(\)/.test(page));
 ok('SEED is a fixed literal (reproducible map)', /var SEED\s*=\s*\d+;/.test(page));
 
+// 2b. ONE VALLEY (7/26/26, WORLD lane): the MAP tab must render the valley the GAME
+// runs. It sat on the literal 1337 for months while bohemia_loop.js booted the text
+// seed 'bohemia' — so the map Paolo explored and the world his quests were cast into
+// were two different valleys. This pins the tab to the engine's own hash of the loop's
+// seed; regenerating with tools/bohemia_map_tab.py is the only legal way to change it.
+const canonSeed = require('../engine/bohemia_engine.js').WorldGen.hashSeed('bohemia');
+const seedInPage = /var SEED\s*=\s*(\d+);/.exec(page);
+ok('the MAP tab renders the same valley the phone runs (seed ' + canonSeed + ')',
+  !!seedInPage && Number(seedInPage[1]) === canonSeed);
+
 // 3. the alpha actually wires the MAP tab
 const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
 ok('alpha has a MAP tab chip', /data-p="map">MAP</.test(alpha));

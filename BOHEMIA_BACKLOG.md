@@ -16,13 +16,22 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    device-shaped Playwright viewport proof | same | no.
 
 ## WORLD
-1. Quest NPC placement CANDIDATES for the 9 live quests: propose per-quest
-   placements with reasons. | rendered on the map for one-look judging |
-   never place canon yourself | [PENDING Paolo verdict to apply].
+1. DONE 7/26 (awaiting verdict): quest placement CANDIDATES shipped, 3 per quest,
+   rendered on the real valley in the alpha's LIFE tab. Factory:
+   engine/bohemia_quest_placement.js, judge:
+   tools/bohemia_quest_placement_judge.py, gate: QUEST PLACEMENT. NEXT (blocked on
+   his picks): APPLY the picked placements as a casting-bridge override + extend
+   the gate to prove the override sticks across save/reload. | [PENDING Paolo].
 2. World bridge deepening: quest outcomes visibly move factions on the map.
    | proven headless, deterministic | pacing ruling: no background ticking | no.
 3. Engine support requests flagged by RUN (as they arrive, priority). | per
    request | — | no.
+4. (discovered 7/26) Faction bases are an even stride across the district list, so
+   all 14 factions sit on suburb tracts and hold exactly 1 cell each. Territory
+   that reads like territory (a faction whose ground matches its trade) is a
+   direction-class call, so it stays [PENDING Paolo] — but the MECHANISM (base
+   placement preferring a kind a faction's own canon names) is buildable the moment
+   he rules. | — | bootFactions is the seam | [PENDING Paolo].
 
 ## CITY
 1. Interiors everywhere: every married district's buildings enterable per
