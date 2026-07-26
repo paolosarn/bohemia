@@ -42,6 +42,26 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+RUN (01, reborn as the RUN lane): **THE FIRST CONNECTED RUN IS PLAYABLE.** New
+RUN tab in the alpha (first tab, preloads itself). One loop, one thumb: wake up
+inside your own house -> out the real front door -> the lineman on the street
+gives you S01 THE METER READER (real canon .bq) -> follow the skimmed line 57
+tiles down his street to the fixer -> resolve it quiet / in daylight / LOUD ->
+a LOUD resolution hands off into the REAL combat frame and comes back with
+dead/spared/fled -> walk home -> your phone posts it with the real CLOUT weight
+and followers. Stitching only, no new systems. New gate: run_gate.js (69
+assertions) plays the whole run in a real browser, both forks, AND again inside
+the real alpha through the real combat bridge. Full record + the two [PENDING
+Paolo] calls: records/BOHEMIA_THE_FIRST_CONNECTED_RUN_7_26_26.txt.
+Files: slices/BOHEMIA_RUN_SLICE_7_26_26.html (dev source, edit this) ->
+tools/build_run_slice.js -> slices/BOHEMIA_RUN_CURRENT.html (generated, never
+edit). Hold-to-walk on the d-pad; the block is 128 tiles and tapping per step
+was data entry, not a game.
+NOTE FOR EVERY LANE: the alpha now relays BOHEMIA_RUN_ENCOUNTER ->
+startEncounter -> BOHEMIA_RUN_COMBAT_END (runEncounterIn / RUNFIGHT /
+showTabPanel in the alpha shell). Do not repurpose those names.
+
+
 WORLD MODEL (02): 7/26 — WHERE THE QUESTS HAPPEN. Backlog WORLD-1 shipped: a
 placement CANDIDATE factory (engine/bohemia_quest_placement.js) proposes 3
 addresses per canon quest by crossing the quest's OWN prose with each district's
@@ -129,14 +149,18 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
   list. Whether a faction's ground should match its trade is HIS call; the
   mechanism is a small change to bootFactions the moment he rules.
 - One-rig VARIATION SLIDERS: scope/next step after the 7/25 ruling.
+- THE RUN's two calls, after he plays it (record has the full reasoning):
+  (a) the lineman/fixer placements on the block, (b) whether a LOUD resolution
+  should always draw a fight, and who shows up.
 - Combat grammar graduation batch (stacked per Prompt 4) when surfaced.
 - Older shelf items live in the archived pile under their original sections.
 
 =============================================================================
 ## NEXT UP (the standing plan)
 =============================================================================
-1. THE RUN: connected-run continues per Prompt 2 in the prompt library —
-   house -> street -> S01 -> combat handoff -> home -> feed post, one thumb,
-   on the phone. That's the milestone that turns judging into playtesting.
-2. After the run: mega verdict sitting, then volume on whatever he approves.
+1. THE RUN: DONE and shipped 7/26 (above). Next in the lane: the phone-feel
+   pass on real-device viewports, then widening the run past one block.
+2. PLAYTEST: the run is the first thing Paolo can actually PLAY rather than
+   thumb. His notes on it are first-class verdicts (SPIRIT loop).
+3. Then: mega verdict sitting, then volume on whatever he approves.
 === END — keep this file under ~500 lines; the pile is the archive, not here ===

@@ -1,0 +1,103 @@
+BOHEMIA — THE FIRST CONNECTED RUN (RUN lane, 7/26/26)
+=====================================================
+THE RECORD OF WHAT SHIPPED. Not a proposal: this is live in the alpha's RUN tab.
+
+WHAT IT IS
+----------
+One loop, start to finish, one thumb, iPhone portrait, inside the one alpha:
+
+  1. You wake up INSIDE your own house — a real generated floorplan of a real
+     home on the approved Campana block (seed 7), not a spawn point on a curb.
+  2. You walk out the real front door onto the real dead street.
+  3. Your neighbour the LINEMAN is standing on the road. Step next to him and the
+     action button offers the talk (the loop's own talkablesNear).
+  4. He gives you S01 THE METER READER — the real canon .bq bytes, the real
+     dialogue, the real forks, the real silence options.
+  5. "Follow the skimmed line" is an actual walk: the quest re-binds to the FIXER
+     at the far end of the lineman's own street, ~57 tiles down the block.
+  6. You resolve it. Three real endings, three real clout weights:
+       put it back quietly   -> #quiet    (+8 followers)
+       hand it to the trades -> #notable  (+25)
+       cut it in front of everyone -> #reckless (+110)
+  7. IF IT GOES LOUD (a #risky or #reckless resolution), the run hands off into
+     the REAL combat frame over the existing BOHEMIA_ENCOUNTER bridge, you fight
+     the Dead Eye Dial, and BOHEMIA_COMBAT_END puts you back on the block exactly
+     where you stood, with the outcome (dead / spared / fled) reported.
+     A QUIET fix starts no fight at all — the pacifist path is a whole run too.
+  8. You walk home, step through your own gold-ringed door, and your phone comes
+     up with the post the ENGINE built: one post per completed quest, the real
+     clout tag, the real follower math.
+
+STITCHING ONLY — NOTHING NEW WAS INVENTED
+-----------------------------------------
+  block / houses / doors      engine/bohemia_suburb.js + bohemia_floorplan.js
+  neighbours living on it     engine/bohemia_agents.js (I-MOVE-YOU-MOVE per step)
+  the quest and its endings   quests/bq/S01 + bohemia_bq.js + bohemia_quest_runtime.js
+  talk / clout / feed / reach engine/bohemia_loop.js (talkablesNear, talkTo,
+                              buildFeed, socialProfile, cloutWeight)
+  the fight                   the alpha's existing COMBAT frame + postMessage bus
+  the look                    lifted verbatim from the APPROVED walk surface
+                              (slices/BOHEMIA_SUBURB_WALK_7_18_26.html) — canon
+                              doors 7/21 + the approved roof/yard/wall skins.
+                              REUSE-FIRST: no new pixel was cooked for the run.
+
+FILES
+-----
+  slices/BOHEMIA_RUN_SLICE_7_26_26.html   the dev source (edit THIS)
+  slices/BOHEMIA_RUN_CURRENT.html         generated, self-contained, what ships
+  tools/build_run_slice.js                the generator (regen must be a no-op)
+  gates/run_gate.js                       THE RUN gate, registered in bohemia_gates.py
+  slices/BOHEMIA_ALPHA_0_9.html           RUN tab + the parent half of the bridge
+
+THE GATE (69 assertions, green)
+-------------------------------
+It does not read strings. It opens the real page in a real browser at iPhone size
+and PLAYS THE WHOLE RUN BY TAPPING THE REAL BUTTONS, twice — once down the loud
+fork, once down the quiet fork — asserting every link: start inside your house,
+out the door, NPC placed and talkable, dialogue real, mid-quest re-bind, quest
+COMPLETE, feed post with the right clout, followers from the engine's math, and
+zero console errors. Then it does the whole thing again INSIDE THE REAL ALPHA,
+where the loud fork opens the real combat frame, a real encounter is pushed into
+the dial, and the combat frame's OWN window sends the real BOHEMIA_COMBAT_END —
+proving the return leg on the surface Paolo actually taps.
+
+Proof screenshots (real surface, written by the gate):
+  slices/BOHEMIA_RUN_PROOF_loud_7_26_26.png
+  slices/BOHEMIA_RUN_PROOF_quiet_7_26_26.png
+  slices/BOHEMIA_RUN_IN_ALPHA_7_26_26.png
+
+[PENDING PAOLO] — NPC PLACEMENT IS A MAP-LAW CALL
+--------------------------------------------------
+MAP LAW: Claude never designs map layouts. Two placements were picked
+MECHANICALLY off the block the generator already made, straight out of the
+quest's own text, and they are HIS to rule after he feels the run:
+
+  LINEMAN — the road tile nearest your own front door that fronts a NEIGHBOUR's
+    driveway. Reason: his own line is "I have a name and a face and a family on
+    this block." He is the neighbour one door down. Nothing closer is possible.
+    (seed 7: your door [77,112], the lineman [77,102] — ten steps.)
+
+  FIXER — the far end of the lineman's own street (its last contiguous road
+    tile). Reason: "It splits somewhere past the dead storefronts. Follow the
+    cable that runs warm." You follow it down his street.
+    (seed 7: [20,102] — 57 steps down the block.)
+
+Both are deterministic: same seed, same tiles, forever.
+
+[PENDING PAOLO] — DOES EVERY LOUD DEED DRAW A FIGHT?
+-----------------------------------------------------
+The run fires the combat handoff when the completing stage's own CLOUT tag is
+#risky or #reckless (canon: loudness IS exposure; the Amalgamation watches viral
+moments most carefully). Roster size rides the same signal: reckless draws three,
+risky draws two. That is a MECHANISM keyed to a signal Paolo already locked — but
+whether loud always means someone shows up, and who shows up, is his call.
+
+WHAT THE RUN DOES NOT DO YET (honest list)
+-------------------------------------------
+- The player is not registered in ctx.scheduler, so the run's grid clock is the
+  block sim's (one world-minute per step), not the loop's turn scheduler. Wiring
+  the player into the real scheduler is an engine request for the WORLD lane.
+- Only S01 is wired. The other eight canon quests are placed by the casting
+  bridge into the real valley, not onto this block.
+- The block is one seed-7 suburb block, not the whole valley: you cannot yet walk
+  off it into the next district.

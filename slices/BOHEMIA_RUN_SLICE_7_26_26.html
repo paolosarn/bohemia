@@ -1,0 +1,749 @@
+<meta charset="utf-8">
+<title>BOHEMIA — THE RUN (dev source)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<!-- ============================================================================
+     BOHEMIA — THE FIRST CONNECTED RUN  (RUN lane, 7/26/26)
+     One loop, start to finish, one thumb, iPhone portrait:
+       wake up INSIDE your house -> walk out the real front door -> walk the dead
+       block -> pull up on the lineman -> he gives you S01 THE METER READER ->
+       follow the skimmed line down the block to the fixer -> resolve it (quiet,
+       in daylight, or LOUD) -> a loud resolution hands off to the REAL combat
+       frame through the existing BOHEMIA_ENCOUNTER bridge -> walk home -> your
+       phone posts the finished quest to the feed with its real CLOUT weight.
+
+     STITCHING ONLY. Nothing here invents a system:
+       - the block, the houses, the doors, the interiors  = engine/bohemia_suburb.js
+                                                            + engine/bohemia_floorplan.js
+       - the neighbours living on it                      = engine/bohemia_agents.js
+       - the quest, its dialogue, its forks, its endings  = quests/bq/S01 + engine/bohemia_bq.js
+                                                            + engine/bohemia_quest_runtime.js
+       - who you can talk to, clout, the feed, followers  = engine/bohemia_loop.js
+                                                            (talkablesNear / talkTo /
+                                                             buildFeed / socialProfile / cloutWeight)
+       - the fight                                        = the alpha's COMBAT frame,
+                                                            over the existing postMessage bus
+       - the dressed look (doors/roofs/yards/walls)       = lifted verbatim, in the
+                                                            builder, from the APPROVED
+                                                            slices/BOHEMIA_SUBURB_WALK_7_18_26.html
+
+     SELF-CONTAINED OUTPUT: tools/build_run_slice.js inlines every engine/ module
+     (canonical order, byte-identical to engine/) into slices/BOHEMIA_RUN_CURRENT.html,
+     which is what the alpha's RUN tab loads. Never edit the generated file.
+     ========================================================================= -->
+<style>
+  :root{
+    --bg:#0c0a07; --surface:#16110a; --line:#2c2317; --ink:#ece2cf; --dim:#9c8f76;
+    --faint:#6c614f; --gold:#d8a742; --gold-soft:#372a10; --good:#86ac52;
+    --teal:#61a89f; --amber:#d47a30; --danger:#d9563a;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; height:100%; background:#050403; color:var(--ink);
+    font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow:hidden; }
+  #run{ position:relative; display:flex; flex-direction:column; height:100%;
+    max-width:480px; margin:0 auto; background:#0b0d09; overflow:hidden; }
+
+  /* ---- OBJECTIVE BAR: the one line telling you what you are doing ---- */
+  #obj{ flex:none; display:flex; align-items:center; gap:8px; padding:9px 12px;
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.3px; color:#e6c887;
+    background:linear-gradient(90deg,var(--gold-soft),transparent);
+    border-bottom:1px solid var(--line); min-height:38px; }
+  #obj .ring{ color:var(--gold); }
+  #obj b{ color:var(--ink); font-weight:700; }
+
+  /* ---- THE WORLD ---- */
+  #stage{ flex:1; position:relative; min-height:0; }
+  #cv{ display:block; width:100%; height:100%; background:#12140f; }
+  #where{ position:absolute; left:10px; top:8px; font-family:var(--mono); font-size:10.5px;
+    letter-spacing:.6px; color:rgba(236,226,207,.62); background:rgba(6,7,5,.55);
+    padding:3px 7px; border-radius:3px; pointer-events:none; }
+  #toast{ position:absolute; left:10px; right:10px; bottom:10px; font-family:var(--mono);
+    font-size:12px; line-height:1.45; color:#e6c887; background:rgba(8,7,5,.86);
+    border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:4px;
+    padding:9px 11px; display:none; pointer-events:none; }
+
+  /* ---- ONE-THUMB CONTROLS ---- */
+  #ctl{ flex:none; padding:8px 10px calc(10px + env(safe-area-inset-bottom));
+    border-top:1px solid var(--line); background:#0a0906; }
+  #act{ width:100%; height:52px; font-family:var(--mono); font-size:14px; font-weight:700;
+    letter-spacing:1.4px; text-transform:uppercase; border:0; border-radius:5px;
+    background:var(--gold); color:#0c0a07; margin-bottom:9px; }
+  #act:disabled{ background:#241d12; color:var(--faint); }
+  #act:active:enabled{ transform:translateY(1px); }
+  .pad{ display:flex; justify-content:center; align-items:center; gap:9px; user-select:none; }
+  .pad button{ width:74px; height:52px; font-size:20px; border:0; border-radius:5px;
+    background:#241d12; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); }
+  .pad button:active{ background:#31280f; }
+  .pcol{ display:flex; flex-direction:column; gap:9px; }
+
+  /* ---- DIALOGUE SHEET ---- */
+  #talk{ position:absolute; inset:0; z-index:20; display:none; flex-direction:column;
+    justify-content:flex-end; background:rgba(4,4,3,.72); }
+  #talkin{ background:var(--surface); border-top:1px solid var(--line);
+    border-radius:10px 10px 0 0; padding:14px 14px calc(16px + env(safe-area-inset-bottom));
+    max-height:88%; overflow-y:auto; }
+  #spk{ font-family:var(--mono); font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:9px; }
+  #says p{ margin:0 0 9px; font-size:15.5px; line-height:1.46; }
+  #says p.nv{ color:var(--faint); font-size:12.5px; font-style:italic; }
+  #opts button{ display:block; width:100%; text-align:left; margin-top:8px; min-height:50px;
+    padding:12px 13px; font-family:var(--sans); font-size:14.5px; font-weight:600;
+    text-transform:none; letter-spacing:0; line-height:1.35; border:0; border-radius:5px;
+    background:#241d12; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); }
+  #opts button.sil{ color:var(--dim); font-style:italic; font-weight:500; }
+  #opts button:active{ background:#31280f; }
+
+  /* ---- THE PHONE (end of the run: the post) ---- */
+  #phone{ position:absolute; inset:0; z-index:30; display:none; flex-direction:column;
+    background:linear-gradient(180deg,#0e0b07,#0a0806 60%,#0c0a07); overflow-y:auto;
+    padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
+  #phone .wm{ font-family:var(--mono); font-weight:800; letter-spacing:2px; font-size:12px;
+    color:var(--gold); }
+  #phone h3{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:1.4px; color:var(--faint); margin:18px 2px 9px; }
+  .card{ background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:13px 14px; margin-bottom:10px; }
+  .card .who{ font-weight:700; font-size:14px; }
+  .card .who .at{ color:var(--dim); font-weight:500; font-family:var(--mono); font-size:12px; }
+  .card .body{ font-size:15px; line-height:1.45; margin:9px 0 0; }
+  .card .eng{ display:flex; gap:14px; align-items:center; margin-top:11px; padding-top:11px;
+    border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--dim); }
+  .card .eng .g{ color:var(--gold); font-weight:700; margin-left:auto; }
+  .tag{ display:inline-block; font-family:var(--mono); font-size:10px; font-weight:700;
+    padding:2px 7px; border-radius:3px; margin-left:6px; letter-spacing:.5px;
+    background:var(--gold-soft); color:var(--gold); border:1px solid #43310f; }
+  .stats{ display:flex; gap:26px; margin-top:12px; }
+  .stat b{ font-size:21px; font-weight:800; display:block; line-height:1; font-family:var(--mono); }
+  .stat span{ font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:1px; }
+  .stat.foll b{ color:var(--gold); }
+  #phone button{ width:100%; height:48px; margin-top:14px; font-family:var(--mono);
+    font-size:13px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase;
+    border:0; border-radius:5px; background:#241d12; color:var(--ink);
+    box-shadow:inset 0 0 0 1px var(--line); }
+
+  /* ---- COMBAT HANDOFF CURTAIN ---- */
+  #hand{ position:absolute; inset:0; z-index:25; display:none; flex-direction:column;
+    align-items:center; justify-content:center; gap:14px; padding:24px;
+    background:rgba(6,5,4,.93); text-align:center; }
+  #hand .big{ font-family:var(--mono); font-size:17px; letter-spacing:2px; color:var(--danger);
+    font-weight:800; }
+  #hand .sub{ font-size:13.5px; line-height:1.5; color:var(--dim); max-width:320px; }
+  #hand button{ min-width:220px; height:48px; font-family:var(--mono); font-size:13px;
+    font-weight:700; letter-spacing:1.2px; text-transform:uppercase; border:0;
+    border-radius:5px; background:#241d12; color:var(--ink);
+    box-shadow:inset 0 0 0 1px var(--line); display:none; }
+</style>
+
+<div id="run">
+  <div id="obj"><span class="ring">◈</span><span id="objtxt">waking up</span></div>
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <div id="where">INSIDE</div>
+    <div id="toast"></div>
+  </div>
+  <div id="ctl">
+    <button id="act" disabled>—</button>
+    <div class="pad">
+      <button id="bl" aria-label="left">◀</button>
+      <div class="pcol">
+        <button id="bu" aria-label="up">▲</button>
+        <button id="bd" aria-label="down">▼</button>
+      </div>
+      <button id="br" aria-label="right">▶</button>
+    </div>
+  </div>
+
+  <div id="talk"><div id="talkin">
+    <div id="spk"></div><div id="says"></div><div id="opts"></div>
+  </div></div>
+
+  <div id="hand">
+    <div class="big" id="handbig">IT GOES LOUD</div>
+    <div class="sub" id="handsub"></div>
+    <button id="handbtn">CONTINUE THE RUN</button>
+  </div>
+
+  <div id="phone">
+    <div class="wm">BOHEMIA<span style="color:var(--good);font-size:9px;margin-left:6px;letter-spacing:1px">NETWORK</span></div>
+    <div class="stats">
+      <div class="stat"><b id="pPosts">0</b><span>posts</span></div>
+      <div class="stat"><b id="pDone">0</b><span>quests</span></div>
+      <div class="stat foll"><b id="pReach">0</b><span>followers</span></div>
+    </div>
+    <h3>your feed</h3>
+    <div id="feed"></div>
+    <button id="pClose">PUT THE PHONE AWAY</button>
+  </div>
+</div>
+
+<script src="../engine/bohemia_engine.js"></script>
+<script src="../engine/bohemia_scheduler.js"></script>
+<script src="../engine/bohemia_bq.js"></script>
+<script src="../engine/bohemia_quest_runtime.js"></script>
+<script src="../engine/bohemia_district_kit.js"></script>
+<script src="../engine/bohemia_suburb.js"></script>
+<script src="../engine/bohemia_commercial.js"></script>
+<script src="../engine/bohemia_industrial.js"></script>
+<script src="../engine/bohemia_medical.js"></script>
+<script src="../engine/bohemia_solar.js"></script>
+<script src="../engine/bohemia_park.js"></script>
+<script src="../engine/bohemia_wash.js"></script>
+<script src="../engine/bohemia_cemetery.js"></script>
+<script src="../engine/bohemia_drivein.js"></script>
+<script src="../engine/bohemia_golf.js"></script>
+<script src="../engine/bohemia_stadium.js"></script>
+<script src="../engine/bohemia_truckstop.js"></script>
+<script src="../engine/bohemia_school.js"></script>
+<script src="../engine/bohemia_firestation.js"></script>
+<script src="../engine/bohemia_swapmeet.js"></script>
+<script src="../engine/bohemia_storage.js"></script>
+<script src="../engine/bohemia_watertreat.js"></script>
+<script src="../engine/bohemia_boneyard.js"></script>
+<script src="../engine/bohemia_policestation.js"></script>
+<script src="../engine/bohemia_library.js"></script>
+<script src="../engine/bohemia_landfill.js"></script>
+<script src="../engine/bohemia_railyard.js"></script>
+<script src="../engine/bohemia_substation.js"></script>
+<script src="../engine/bohemia_chapel.js"></script>
+<script src="../engine/bohemia_courthouse.js"></script>
+<script src="../engine/bohemia_jail.js"></script>
+<script src="../engine/bohemia_farm.js"></script>
+<script src="../engine/bohemia_downtown.js"></script>
+<script src="../engine/bohemia_trailer.js"></script>
+<script src="../engine/bohemia_apartment.js"></script>
+<script src="../engine/bohemia_warehouse.js"></script>
+<script src="../engine/bohemia_waterpark.js"></script>
+<script src="../engine/bohemia_mall.js"></script>
+<script src="../engine/bohemia_cityhall.js"></script>
+<script src="../engine/bohemia_battery.js"></script>
+<script src="../engine/bohemia_terminal.js"></script>
+<script src="../engine/bohemia_overmap.js"></script>
+<script src="../engine/bohemia_overmap_bridge.js"></script>
+<script src="../engine/bohemia_blockgen.js"></script>
+<script src="../engine/bohemia_floorplan.js"></script>
+<script src="../engine/bohemia_garage.js"></script>
+<script src="../engine/bohemia_crypt.js"></script>
+<script src="../engine/bohemia_agents.js"></script>
+<script src="../engine/bohemia_world.js"></script>
+<script>
+/* the real canon faction graph (GDD v2 §9). Must be a real JS value before
+   bohemia_loop.js runs — loop.js's DEFAULT_GRAPH reads root.BOHEMIA_FACTION_GRAPH. */
+window.BOHEMIA_FACTION_GRAPH = __FACTION_GRAPH_JSON__;
+</script>
+<script>
+/* every quests/bq/*.bq, verbatim source text — the SAME bytes
+   gates/bohemia_canon_quests_gate.js proves playable. No second copy. */
+var CANON_QUESTS = __CANON_QUESTS_JSON__;
+</script>
+<script src="../engine/bohemia_loop.js"></script>
+<script>
+/* the approved art banks repaint via draw() on image load, and a data: URI can
+   finish loading before the run's own script has parsed. A no-op placeholder
+   keeps that early load quiet; the real draw() (a top-level function declaration
+   in the next script) replaces it, and the run's first fit() paints everything
+   that has landed by then. */
+window.draw = function(){};
+</script>
+<script>
+/* ---- THE APPROVED DRESSED LOOK, lifted verbatim by the builder from
+   slices/BOHEMIA_SUBURB_WALK_7_18_26.html (canon doors + roof/yard/wall skins,
+   Paolo-approved 7/21). REUSE, not a re-cook: same bytes, same block. ---- */
+__ART_BANKS__
+</script>
+
+<script>
+'use strict';
+/* ===========================================================================
+   THE RUN — one connected loop over systems that already exist.
+   =========================================================================== */
+
+/* ---- 1. THE ENGINE. One real booted context: real valley, real factions,
+   real quest manager (world bridge + casting bridge), real save/ledger. ---- */
+var CTX = BohemiaLoop.boot({ seed: 'bohemia' });
+
+/* ---- 2. THE BLOCK. Seed 7, the cul-de-sac block Paolo approved 7/18. ---- */
+var SEED = 7;
+var res = BohemiaSuburb.generate(SEED, 'ring', 1, 1);
+var W = res.W, H = res.H, G = res.g;
+var feet = BohemiaSuburb.homeFootprints(res);
+
+/* every house gets a front DOOR: a house-body cell touching its driveway
+   (fallback road, then dead ground). Same rule the approved walk surface uses. */
+var doorOf = {}, homeDoor = [];
+function pref(x, y, want){ var nb=[[0,1],[0,-1],[1,0],[-1,0]];
+  for(var k=0;k<4;k++){ var ax=x+nb[k][0], ay=y+nb[k][1];
+    if(ax>=0&&ay>=0&&ax<W&&ay<H&&G[ay][ax]===want) return true; } return false; }
+feet.forEach(function(f,i){
+  var pick=null;
+  for(var pass=0;pass<3&&!pick;pass++){ var want=[3,1,0][pass];
+    for(var y=f.y;y<f.y+f.h&&!pick;y++) for(var x=f.x;x<f.x+f.w;x++){
+      if(G[y][x]===2&&pref(x,y,want)){ pick=[x,y]; break; } } }
+  if(pick){ doorOf[pick[0]+','+pick[1]]=i; homeDoor[i]=pick; }
+});
+
+/* ---- 3. WHICH HOUSE IS YOURS. Deterministic, never hand-placed: the home
+   whose front door sits nearest the block's gate is the one you wake up in. --- */
+var gateAt = null;
+for(var gy=0; gy<H && !gateAt; gy++) for(var gx=0; gx<W; gx++) if(G[gy][gx]===5){ gateAt=[gx,gy]; break; }
+var HOME = -1;
+(function(){ var best=1e9;
+  for(var i=0;i<feet.length;i++){ var d=homeDoor[i]; if(!d) continue;
+    var dist = gateAt ? (Math.abs(d[0]-gateAt[0])+Math.abs(d[1]-gateAt[1])) : (d[0]+d[1]);
+    if(dist<best || (dist===best && i<HOME)){ best=dist; HOME=i; } } })();
+var HOME_DOOR = homeDoor[HOME] || [W>>1, H>>1];
+
+/* ---- 4. WALKABILITY + the road graph (BFS, used for placement + the gate). ---- */
+function passExt(x,y){ if(x<0||y<0||x>=W||y>=H) return false;
+  if(doorOf[x+','+y]!=null) return true;
+  var c=G[y][x]; return c===0||c===1||c===3||c===5; }
+function bfs(from){
+  var dist={}, q=[from], k=from[0]+','+from[1]; dist[k]=0;
+  while(q.length){ var cur=q.shift(), d=dist[cur[0]+','+cur[1]];
+    var nb=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(var i=0;i<4;i++){ var nx=cur[0]+nb[i][0], ny=cur[1]+nb[i][1], nk=nx+','+ny;
+      if(dist[nk]!=null || !passExt(nx,ny)) continue;
+      /* never route THROUGH a front door (a door is an endpoint, not a corridor) */
+      if(doorOf[nk]!=null && nk!==(from[0]+','+from[1])) { dist[nk]=d+1; continue; }
+      dist[nk]=d+1; q.push([nx,ny]); } }
+  return dist;
+}
+var DIST_HOME = bfs(HOME_DOOR);
+
+/* ---- 5. WHERE THE QUEST STANDS. [PENDING Paolo — MAP LAW is his call.]
+   Claude designs no layout here; these are two MECHANICAL picks off the block
+   the generator already made, chosen from the quest's own text:
+     - the LINEMAN ("I have a name and a face and a family on this block") is put
+       on the road tile nearest your own front door that fronts a NEIGHBOUR's
+       driveway. He is your neighbour, one door down. Nothing closer is possible.
+     - the FIXER ("it splits somewhere past the dead storefronts") is put at the
+       FAR END OF THE LINEMAN'S OWN STREET — the last contiguous road tile of the
+       run he is standing on. You literally follow the cable down his street, so
+       "follow the skimmed line" is an actual walk with a shape, and its length is
+       bounded by the street rather than wandering the whole block.
+   Both are deterministic for seed 7: same block, same tiles, forever. ---- */
+function roadTiles(){ var out=[];
+  for(var y=0;y<H;y++) for(var x=0;x<W;x++) if(G[y][x]===1 && DIST_HOME[x+','+y]!=null) out.push([x,y]);
+  return out; }
+function frontsAnotherHome(x,y){
+  var nb=[[1,0],[-1,0],[0,1],[0,-1]];
+  for(var i=0;i<4;i++){ var ax=x+nb[i][0], ay=y+nb[i][1];
+    if(ax<0||ay<0||ax>=W||ay>=H) continue;
+    if(G[ay][ax]!==3) continue;                     /* a driveway */
+    /* whose driveway: the nearest home footprint that isn't yours */
+    for(var h=0;h<feet.length;h++){ if(h===HOME) continue; var f=feet[h];
+      if(ax>=f.x-1 && ax<=f.x+f.w && ay>=f.y-1 && ay<=f.y+f.h+2) return true; } }
+  return false;
+}
+var ROADS = roadTiles();
+var LINEMAN_AT = null, FIXER_AT = null;
+(function(){
+  var best=1e9;
+  ROADS.forEach(function(t){ var d=DIST_HOME[t[0]+','+t[1]];
+    if(d==null || !frontsAnotherHome(t[0],t[1])) return;
+    if(d<best || (d===best && LINEMAN_AT && (t[1]<LINEMAN_AT[1] || (t[1]===LINEMAN_AT[1]&&t[0]<LINEMAN_AT[0])))){ best=d; LINEMAN_AT=t; } });
+  if(!LINEMAN_AT){ /* no driveway-fronting road reachable: nearest road tile at all */
+    ROADS.forEach(function(t){ var d=DIST_HOME[t[0]+','+t[1]];
+      if(d!=null && d<best){ best=d; LINEMAN_AT=t; } }); }
+  if(!LINEMAN_AT) LINEMAN_AT = HOME_DOOR;
+  /* the lineman's own street: the contiguous road tiles running out of his tile
+     on both axes. The fixer is the far end of it. */
+  var street=[], far=-1;
+  [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
+    var x=LINEMAN_AT[0]+d[0], y=LINEMAN_AT[1]+d[1];
+    while(x>=0&&y>=0&&x<W&&y<H&&G[y][x]===1){ street.push([x,y]); x+=d[0]; y+=d[1]; } });
+  street.forEach(function(t){
+    var d = Math.abs(t[0]-LINEMAN_AT[0])+Math.abs(t[1]-LINEMAN_AT[1]);
+    if(d>far || (d===far && FIXER_AT && (t[1]<FIXER_AT[1] || (t[1]===FIXER_AT[1]&&t[0]<FIXER_AT[0])))){ far=d; FIXER_AT=t; } });
+  if(!FIXER_AT) FIXER_AT = LINEMAN_AT;
+})();
+
+/* ---- 6. THE QUEST. S01 THE METER READER, the real canon bytes. ---- */
+var S01_TEXT = null, QID = null;
+(function(){
+  for(var i=0;i<CANON_QUESTS.length;i++){
+    try{ var Q = BQ.parse(CANON_QUESTS[i]);
+      if(Q && Q.id === 'bq_meter_reader'){ S01_TEXT = CANON_QUESTS[i]; QID = Q.id; break; } }catch(_e){}
+  }
+})();
+/* channel 'inperson': you pull up on him, you do not get this over the phone. */
+if(S01_TEXT) CTX.quests.place(S01_TEXT, { x:LINEMAN_AT[0], y:LINEMAN_AT[1], channel:'inperson', speaker:'lineman' });
+var RT = QID ? CTX.quests.get(QID) : null;
+
+/* ---- 7. THE NEIGHBOURS. Homed + scheduled on the block (bohemia_agents.js),
+   stepped one world-minute per player move: I-MOVE-YOU-MOVE. ---- */
+var _fpc = {};
+function fpOf(i){ if(_fpc[i]!==undefined) return _fpc[i]; var f=feet[i];
+  _fpc[i] = f ? BOH_FLOORPLAN.generate((SEED^((i+1)*0x9E3779B1))>>>0, f.w, f.h, {zone:'residential',entrance:'S'}) : null;
+  return _fpc[i]; }
+var SIM = null;
+try{
+  var _agents = BohemiaAgents.agentsForBlock(SEED, feet, [], fpOf);
+  SIM = BohemiaAgents.makeSim(res, feet, _agents, { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
+  SIM.playerAt = HOME_DOOR;
+  for(var _w=0; _w<450; _w++) SIM.step();   /* warm to ~07:30 so the street lives */
+}catch(e){ SIM = null; }
+
+/* ---- 8. RUN STATE ---- */
+var RUN = { phase:'home_inside', combatOutcome:null, clout:null, outcome:null, sentEncounter:null };
+var mode='int', px=0, py=0, fp=null, fpDoor=null, backAt=null, curHouse=-1;
+var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+var OBJ=document.getElementById('objtxt'), WHERE=document.getElementById('where'),
+    ACT=document.getElementById('act'), TOAST=document.getElementById('toast');
+
+function passInt(x,y){ if(!fp||x<0||y<0||x>=fp.W||y>=fp.H) return false;
+  var c=fp.grid[y][x]; return c.g==='floor'||c.g==='door'; }
+
+function enter(i){
+  curHouse=i; var f=feet[i];
+  fp = BOH_FLOORPLAN.generate((SEED^((i+1)*0x9E3779B1))>>>0, f.w, f.h, {zone:'residential',entrance:'S'});
+  fpDoor = fp.doors.filter(function(d){ return d[0]===0||d[1]===0||d[0]===fp.W-1||d[1]===fp.H-1; })[0] || [fp.W>>1, fp.H-1];
+  mode='int'; px=fpDoor[0]; py=Math.max(0,Math.min(fp.H-1,fpDoor[1]-1));
+  if(!passInt(px,py)){ px=fpDoor[0]; py=fpDoor[1]; }
+}
+function leave(){ mode='ext'; if(backAt){ px=backAt[0]; py=backAt[1]; } else { px=HOME_DOOR[0]; py=HOME_DOOR[1]; } curHouse=-1; }
+
+/* you start ASLEEP IN YOUR OWN BED, not on the curb. */
+enter(HOME);
+backAt = HOME_DOOR.slice();
+
+/* ---- 9. RENDER. The approved dead-block look, person-scale. ---- */
+function gcol(x,y){ var h=((x*73856093)^(y*19349663))>>>0, v=h%3; return ['#463f30','#3d382a','#4e4838'][v]; }
+var EXTCOL={1:'#3a3a44',2:'#9c8e76',3:'#5a5a62',4:'#6a5c44',5:'#c79a3f',6:'#6d5f4b',9:'#b3a488'};
+var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',dining:'#aaa078',
+  hall:'#b9af91',closet:'#8c877d',garage:'#6d5f4b',entry:'#b4a582','null':'#96917d'};
+
+function questNpcTile(){
+  if(!RT || RT.state.done) return null;
+  var p = CTX.quests._placed[QID];
+  return p && p.x!=null ? { x:p.x, y:p.y, speaker:p.speaker } : null;
+}
+function drawBody(NX,NY,CELL,body,ring){
+  var cxp=NX+CELL/2;
+  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.beginPath(); ctx.ellipse(cxp,NY+CELL*0.86,CELL*0.24,CELL*0.09,0,0,7); ctx.fill();
+  ctx.fillStyle=body; ctx.fillRect(cxp-CELL*0.16,NY+CELL*0.42,CELL*0.32,CELL*0.4);
+  ctx.fillStyle='#c7a884'; ctx.beginPath(); ctx.arc(cxp,NY+CELL*0.34,CELL*0.15,0,7); ctx.fill();
+  ctx.strokeStyle='#1a1712'; ctx.lineWidth=Math.max(1,CELL*0.04);
+  ctx.strokeRect(cxp-CELL*0.16,NY+CELL*0.42,CELL*0.32,CELL*0.4);
+  if(ring){ ctx.strokeStyle=ring; ctx.lineWidth=Math.max(1.5,CELL*0.07);
+    ctx.beginPath(); ctx.arc(cxp,NY+CELL*0.55,CELL*0.44,0,7); ctx.stroke(); }
+}
+function draw(){
+  ctx.imageSmoothingEnabled=false;
+  var gw = mode==='ext'?W:fp.W, gh = mode==='ext'?H:fp.H;
+  var CELL = Math.max(16, Math.floor(Math.min(cv.width/11, cv.height/11)));
+  var halfW = Math.floor(cv.width/CELL/2), halfH = Math.floor(cv.height/CELL/2);
+  ctx.fillStyle='#12140f'; ctx.fillRect(0,0,cv.width,cv.height);
+  for(var sy=-halfH; sy<=halfH; sy++) for(var sx=-halfW; sx<=halfW; sx++){
+    var gx=px+sx, gy2=py+sy; if(gx<0||gy2<0||gx>=gw||gy2>=gh) continue;
+    var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL, S=CELL-1;
+    if(mode==='ext'){
+      var c=G[gy2][gx], isDoor=doorOf[gx+','+gy2]!=null;
+      if(isDoor){ ctx.fillStyle= (doorOf[gx+','+gy2]===HOME) ? '#f5d98c' : '#f0cd78';
+        ctx.fillRect(X,Y,S,S);
+        var _di=doorPick(gx,gy2); if(_di.complete&&_di.naturalWidth) ctx.drawImage(_di,X,Y,S,S);
+        if(doorOf[gx+','+gy2]===HOME){ ctx.strokeStyle='#e8b84a'; ctx.lineWidth=2; ctx.strokeRect(X+1,Y+1,S-2,S-2); } }
+      else if(c===2||c===9||c===6){
+        if(!tile(ROOF_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle=EXTCOL[c]; ctx.fillRect(X,Y,S,S); }
+        if(c===9){ ctx.fillStyle='rgba(0,0,0,0.18)'; ctx.fillRect(X,Y,S,S); }
+        var _h=function(a,b){ var cc=(a>=0&&b>=0&&a<W&&b<H)?G[b][a]:-1; return cc===2||cc===9||cc===6; };
+        ctx.fillStyle='#1a1712';
+        if(!_h(gx,gy2-1)) ctx.fillRect(X,Y,S,2); if(!_h(gx,gy2+1)) ctx.fillRect(X,Y+S-2,S,2);
+        if(!_h(gx-1,gy2)) ctx.fillRect(X,Y,2,S); if(!_h(gx+1,gy2)) ctx.fillRect(X+S-2,Y,2,S);
+      }
+      else if(c===0){ if(!tile(YARD_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle=gcol(gx,gy2); ctx.fillRect(X,Y,S,S); }
+        ctx.fillStyle='rgba(28,24,16,0.34)'; ctx.fillRect(X,Y,S,S);
+        var yh=((gx*2246822519)^(gy2*3266489917))>>>0;
+        if(yh%7===0){ ctx.fillStyle='#3a3a2a'; ctx.beginPath(); ctx.arc(X+S*0.5,Y+S*0.5,S*0.22,0,7); ctx.fill();
+          ctx.fillStyle='#2c2c20'; ctx.beginPath(); ctx.arc(X+S*0.4,Y+S*0.45,S*0.13,0,7); ctx.fill(); }
+        else if(yh%13===0){ ctx.fillStyle='#4a463c'; ctx.fillRect(X+S*0.4,Y+S*0.35,S*0.2,S*0.3); } }
+      else if(c===4){ if(!tile(WALL_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle='#4a4030'; ctx.fillRect(X,Y,S,S);
+          ctx.fillStyle='#5a4c38'; ctx.fillRect(X,Y+S*0.35,S,S*0.3); } }
+      else if(c===1){ var hh=((gx*2654435761)^(gy2*40503))>>>0;
+        ctx.fillStyle=['#33333c','#37373f','#303038'][hh%3]; ctx.fillRect(X,Y,S,S);
+        if(gx%2===0){ ctx.fillStyle='#5a5340'; ctx.fillRect(X+S*0.46,Y,S*0.08,S*0.5); } }
+      else if(c===3){ ctx.fillStyle='#5a5a62'; ctx.fillRect(X,Y,S,S);
+        var dh=((gx*668265263)^(gy2*374761393))>>>0;
+        if(dh%3===0){ ctx.fillStyle=['#6a5040','#4a5560','#55555f'][dh%3];
+          ctx.fillRect(X+S*0.12,Y+S*0.16,S*0.76,S*0.68);
+          ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fillRect(X+S*0.22,Y+S*0.26,S*0.56,S*0.2); } }
+      else { ctx.fillStyle=EXTCOL[c]||'#463f30'; ctx.fillRect(X,Y,S,S); }
+      if(c===1&&lampAt(gx,gy2)){ ctx.fillStyle='#2a2a30'; ctx.fillRect(X+S*0.42,Y+S*0.1,S*0.16,S*0.8);
+        ctx.fillStyle='#3a3a42'; ctx.fillRect(X+S*0.3,Y,S*0.4,S*0.18); }
+    } else {
+      var ic=fp.grid[gy2][gx];
+      var col = ic.g==='wall' ? '#2c2824' : ic.g==='door' ? '#f0cd78' : (INT_ROLE[ic.role]||'#96917d');
+      ctx.fillStyle=col; ctx.fillRect(X,Y,S,S);
+      if(ic.g==='door'){ var _dii=doorPick(gx,gy2); if(_dii.complete&&_dii.naturalWidth) ctx.drawImage(_dii,X,Y,S,S); }
+    }
+  }
+  if(mode==='ext'){
+    if(SIM){ var outs=SIM.outAgents();
+      for(var ai=0; ai<outs.length; ai++){ var a=outs[ai];
+        var nsx=a.loc.x-px, nsy=a.loc.y-py; if(Math.abs(nsx)>halfW||Math.abs(nsy)>halfH) continue;
+        drawBody((nsx+halfW)*CELL,(nsy+halfH)*CELL,CELL,
+          ['#8f7a56','#5f7486','#9a8452','#7a5a4a','#6a7a6a'][(a.seed>>>0)%5], null); } }
+    var npc=questNpcTile();
+    if(npc){ var qsx=npc.x-px, qsy=npc.y-py;
+      if(Math.abs(qsx)<=halfW && Math.abs(qsy)<=halfH)
+        drawBody((qsx+halfW)*CELL,(qsy+halfH)*CELL,CELL,'#7d6a44','#d8a742'); }
+  }
+  var pxs=halfW*CELL, pys=halfH*CELL;
+  ctx.fillStyle='#ff5a3c'; ctx.beginPath(); ctx.arc(pxs+CELL/2,pys+CELL/2,CELL*0.38,0,7); ctx.fill();
+  ctx.strokeStyle='#12140f'; ctx.lineWidth=2; ctx.stroke();
+}
+
+/* ---- 10. HUD + the one contextual action button ---- */
+/* a line of prompting that clears itself after a few steps — it should never sit
+   on the world telling you something you did eight moves ago. */
+var _toastLife=0;
+function toast(msg){ if(!msg){ TOAST.style.display='none'; _toastLife=0; return; }
+  TOAST.textContent=msg; TOAST.style.display='block'; _toastLife=8; }
+function talkables(){ return (mode==='ext') ? BohemiaLoop.talkablesNear(CTX, px, py, 1) : []; }
+function objectiveLine(){
+  if(RUN.phase==='done') return 'RUN COMPLETE — you posted it.';
+  if(RUN.phase==='home_inside') return 'Get up. Walk out your front door.';
+  if(RT && RT.state.done) return 'Quest done — GET HOME (your door is the gold-ringed one).';
+  var objs = CTX.quests.activeObjectives();
+  if(objs.length) return objs[0].text.replace(/^"|"$/g,'');
+  return 'Walk the block. Find your neighbour.';
+}
+function refresh(){
+  OBJ.textContent = objectiveLine();
+  WHERE.textContent = (mode==='int')
+    ? (curHouse===HOME ? 'YOUR HOUSE' : 'INSIDE #'+(curHouse+1))
+    : 'CAMPANA DR · the dead block';
+  var t = talkables();
+  if(t.length){ ACT.disabled=false; ACT.textContent='TALK TO THE '+String(t[0].speaker||'stranger').toUpperCase(); }
+  else if(mode==='ext' && RT && RT.state.done && Math.max(Math.abs(px-HOME_DOOR[0]),Math.abs(py-HOME_DOOR[1]))<=1){
+    ACT.disabled=false; ACT.textContent='GO HOME'; }
+  else if(mode==='int' && curHouse===HOME && RUN.phase==='home_after'){
+    ACT.disabled=false; ACT.textContent='CHECK YOUR PHONE'; }
+  else { ACT.disabled=true; ACT.textContent = mode==='int' ? 'WALK OUT THE DOOR' : '—'; }
+}
+
+/* ---- 11. MOVEMENT. I-MOVE-YOU-MOVE: one player step = one world minute. ---- */
+function move(dx,dy){
+  if(RUN.phase==='talking'||RUN.phase==='combat'||RUN.phase==='done') return;
+  var nx=px+dx, ny=py+dy;
+  if(mode==='ext'){
+    var d = doorOf[nx+','+ny];
+    if(d!=null){
+      if(d===HOME && RT && RT.state.done && RUN.phase!=='home_after'){ backAt=[px,py]; enter(d); RUN.phase='home_after'; openPhone(); refresh(); draw(); return; }
+      backAt=[px,py]; enter(d); refresh(); draw(); return; }
+    if(!passExt(nx,ny)) return; px=nx; py=ny;
+  } else {
+    if(nx===fpDoor[0] && ny===fpDoor[1]){
+      leave(); if(RUN.phase==='home_inside') RUN.phase='street';
+      refresh(); draw(); return; }
+    if(!passInt(nx,ny)) return; px=nx; py=ny;
+  }
+  if(SIM){ SIM.playerAt = (mode==='ext') ? [px,py] : null; SIM.step(); }
+  if(_toastLife>0 && --_toastLife===0) toast(null);
+  refresh(); draw();
+}
+
+/* ---- 12. TALK. The real runtime view, rendered as thumb-sized options. ---- */
+var TALKEL=document.getElementById('talk'), SPK=document.getElementById('spk'),
+    SAYS=document.getElementById('says'), OPTS=document.getElementById('opts');
+/* WHICH NODE THE PERSON IN FRONT OF YOU OWNS. A .bq entry condition stays true
+   once it is true (S01's `open` is entry=stage>=10 forever), so the runtime can
+   legitimately report several begin-able nodes at once. The person you are
+   standing next to decides: take the available node whose TALK speaker matches
+   whoever the quest is currently bound to, else the latest-authored one. */
+function nodeSpeaker(id){
+  var t = ((RT&&RT.Q.talks)||[]).filter(function(x){ return x.id===id; })[0];
+  return t ? t.speaker : null;
+}
+function pickTalk(list){
+  var p = CTX.quests._placed[QID], want = p && p.speaker;
+  if(want) for(var i=0;i<list.length;i++) if(nodeSpeaker(list[i].node)===want) return list[i];
+  return list[list.length-1];
+}
+function openTalk(){
+  var t = talkables(); if(!t.length) return;
+  var pickd = pickTalk(t);
+  var v = BohemiaLoop.talkTo(CTX, pickd.questId, pickd.node);
+  if(!v) return;
+  RUN.phase='talking'; TALKEL.style.display='flex'; renderTalk(v);
+}
+function renderTalk(v){
+  if(!v || v.ended){ closeTalk(); return; }
+  SPK.textContent = (v.speaker||'').replace(/_/g,' ');
+  SAYS.innerHTML='';
+  (v.says||[]).forEach(function(s){ var p=document.createElement('p'); p.textContent=s; SAYS.appendChild(p); });
+  (v.noverbs||[]).forEach(function(n){ var p=document.createElement('p'); p.className='nv';
+    p.textContent='(you cannot say: '+n+')'; SAYS.appendChild(p); });
+  OPTS.innerHTML='';
+  (v.options||[]).forEach(function(o){
+    var b=document.createElement('button'); b.textContent=o.text; if(o.silence) b.className='sil';
+    b.addEventListener('click', function(){ renderTalk(RT.choose(o.i)); });
+    OPTS.appendChild(b); });
+  if(!(v.options||[]).length){
+    var b=document.createElement('button'); b.id='talkcont'; b.textContent='CONTINUE';
+    b.addEventListener('click', closeTalk); OPTS.appendChild(b); }
+}
+function closeTalk(){
+  TALKEL.style.display='none';
+  RUN.phase = (RT && RT.state.done) ? 'resolved' : 'street';
+  afterTalk();
+}
+/* THE MIDDLE OF THE RUN: once the lineman sends you after the split (stage 20),
+   the quest RE-BINDS to the fixer's tile at the far end of the block, so
+   objective 20 "Follow the skimmed line" is a walk, not a menu. */
+var rebound=false;
+function afterTalk(){
+  if(RT && !RT.state.done && RT.state.stage>=20 && !rebound){
+    rebound=true;
+    CTX.quests.place(QID, { x:FIXER_AT[0], y:FIXER_AT[1], channel:'inperson', speaker:'fixer' });
+    toast('The line splits somewhere past the dead storefronts. Follow the cable that runs warm.');
+  }
+  if(RT && RT.state.done && !RUN.outcome){
+    RUN.outcome = RT.state.outcome;
+    RUN.clout = BohemiaLoop.cloutTagFrom(RT.state.doneTags) || null;
+    /* LOUD DEEDS DRAW PEOPLE. The run reads the completing stage's own CLOUT tag
+       (canon: #quiet #notable #risky #reckless, loudness = exposure) — a risky or
+       reckless resolution hands off into the REAL combat frame. A quiet fix does
+       not. Nothing about the quest's text is changed to make this happen. */
+    if(RUN.clout==='reckless' || RUN.clout==='risky') goLoud(RUN.clout);
+    else toast('Done, and nobody heard it. Get home.');
+  }
+  refresh(); draw();
+}
+
+/* ---- 13. THE COMBAT HANDOFF. The existing bridge, nothing new:
+   this frame -> parent alpha -> BOHEMIA_ENCOUNTER -> the combat frame,
+   and BOHEMIA_COMBAT_END all the way back. ---- */
+window.__RUN_SENT = [];
+var HAND=document.getElementById('hand'), HANDSUB=document.getElementById('handsub'),
+    HANDBTN=document.getElementById('handbtn'), HANDBIG=document.getElementById('handbig');
+function bridgePost(msg){
+  window.__RUN_SENT.push(msg);
+  try{ if(window.parent) window.parent.postMessage(msg,'*'); }catch(_e){}
+}
+function goLoud(tag){
+  RUN.phase='combat';
+  /* roster size off the loudness the quest declared: reckless draws three,
+     risky draws two. The combat frame owns everything else about the fight. */
+  var n = (tag==='reckless') ? 3 : 2, roster=[];
+  for(var i=0;i<n;i++) roster.push({ hp:60, arch:'human' });
+  RUN.sentEncounter = { type:'BOHEMIA_RUN_ENCOUNTER', packageId:1, roster:roster,
+                        questId:QID, clout:tag, playerHP:100 };
+  HANDBIG.textContent='IT GOES LOUD';
+  HANDSUB.textContent='Sparks, a crowd, and a message sent up. Somebody came to see who did it.';
+  HANDBTN.style.display='none';
+  HAND.style.display='flex';
+  bridgePost(RUN.sentEncounter);
+  /* if nothing answers (this page opened on its own, outside the alpha) say so
+     out loud rather than pretending a fight happened. */
+  setTimeout(function(){
+    if(RUN.phase!=='combat') return;
+    HANDBIG.textContent='COMBAT DID NOT ANSWER';
+    HANDSUB.textContent='This page is open on its own. The fight lives in the alpha’s COMBAT frame — open THE RUN from the alpha to play it. The quest is already resolved.';
+    HANDBTN.style.display='block';
+  }, 9000);
+}
+HANDBTN.addEventListener('click', function(){ HAND.style.display='none'; RUN.phase='resolved'; refresh(); draw(); });
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || !d.type) return;
+  if(d.type==='BOHEMIA_RUN_ENCOUNTER_ACK'){
+    HANDSUB.textContent='Handing you to the dial…'; return; }
+  if(d.type==='BOHEMIA_RUN_COMBAT_END'){
+    RUN.combatOutcome = { victory:!!d.victory, kills:d.kills|0, dead:d.dead|0,
+                          spared:d.spared|0, fled:d.fled|0, playerHP:d.playerHP };
+    RUN.phase='resolved'; HAND.style.display='none';
+    toast(d.victory
+      ? ('You walked out of it. '+(d.dead|0)+' down, '+(d.spared|0)+' left breathing. Get home.')
+      : 'You did not walk out of that clean. Get home.');
+    refresh(); draw(); }
+});
+
+/* ---- 14. THE PHONE. The post is BUILT BY THE ENGINE (buildFeed over the real
+   ledger the quest wrote), never hand-written here. ---- */
+var PHONE=document.getElementById('phone');
+function openPhone(){
+  var feed = BohemiaLoop.buildFeed(CTX, { limit:8 });
+  var prof = BohemiaLoop.socialProfile(CTX);
+  document.getElementById('pPosts').textContent = prof.posts;
+  document.getElementById('pDone').textContent  = prof.questsCompleted;
+  document.getElementById('pReach').textContent = prof.reach;
+  var wrap=document.getElementById('feed'); wrap.innerHTML='';
+  if(!feed.length){ wrap.innerHTML='<div class="card"><div class="body" style="color:#6c614f">nothing posted yet.</div></div>'; }
+  feed.forEach(function(p){
+    var rt = CTX.quests.get(p.questId), log = null;
+    if(rt && rt.state && rt.state.log && rt.state.log.length) log = rt.state.log[rt.state.log.length-1];
+    var card=document.createElement('div'); card.className='card';
+    var w=document.createElement('div'); w.className='who';
+    w.innerHTML='YOU <span class="at">@you</span>';
+    if(p.clout){ var tg=document.createElement('span'); tg.className='tag'; tg.textContent='#'+p.clout; w.appendChild(tg); }
+    var b=document.createElement('div'); b.className='body';
+    b.textContent = (log ? String(log).replace(/^\[stage \d+\]\s*/,'') : (p.title+' — '+p.outcome));
+    var e=document.createElement('div'); e.className='eng';
+    var lab=document.createElement('span'); lab.textContent = p.title + ' · ' + p.outcome;
+    var g=document.createElement('span'); g.className='g';
+    g.textContent = '+' + BohemiaLoop.cloutWeight(p.clout) + ' followers';
+    e.appendChild(lab); e.appendChild(g);
+    card.appendChild(w); card.appendChild(b); card.appendChild(e); wrap.appendChild(card);
+  });
+  PHONE.style.display='flex';
+  RUN.phase='done'; refresh();
+}
+document.getElementById('pClose').addEventListener('click', function(){ PHONE.style.display='none'; refresh(); draw(); });
+
+/* ---- 15. INPUT: d-pad, keys, and tap-the-world (one thumb, arm's length). ---- */
+ACT.addEventListener('click', function(){
+  if(ACT.disabled) return;
+  var t = talkables();
+  if(t.length){ openTalk(); return; }
+  if(mode==='ext' && RT && RT.state.done){
+    var d = Math.max(Math.abs(px-HOME_DOOR[0]),Math.abs(py-HOME_DOOR[1]));
+    if(d<=1){ backAt=[px,py]; enter(HOME); RUN.phase='home_after'; openPhone(); draw(); return; } }
+  if(mode==='int' && curHouse===HOME && RUN.phase==='home_after'){ openPhone(); return; }
+});
+/* HOLD TO WALK. A block is 128 tiles across; tapping once per step at arm's
+   length is not a game, it is data entry. Press and hold and you keep walking:
+   one step on press, a short grace, then a step every 110ms. */
+var HOLD=null;
+function holdStop(){ if(HOLD){ clearTimeout(HOLD.t); clearInterval(HOLD.i); HOLD=null; } }
+['u','d','l','r'].forEach(function(id){ var b=document.getElementById('b'+id); if(!b) return;
+  var dx = id==='l'?-1:id==='r'?1:0, dy = id==='u'?-1:id==='d'?1:0;
+  b.addEventListener('pointerdown', function(e){ e.preventDefault(); holdStop(); move(dx,dy);
+    HOLD={ t:setTimeout(function(){ HOLD.i=setInterval(function(){ move(dx,dy); },110); },220), i:0 }; });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){ b.addEventListener(ev, holdStop); });
+});
+window.addEventListener('blur', holdStop);
+document.addEventListener('keydown', function(e){ var k=e.key;
+  if(k==='ArrowUp'||k==='w') move(0,-1); else if(k==='ArrowDown'||k==='s') move(0,1);
+  else if(k==='ArrowLeft'||k==='a') move(-1,0); else if(k==='ArrowRight'||k==='d') move(1,0);
+  else return; e.preventDefault(); });
+cv.addEventListener('click', function(e){
+  var r=cv.getBoundingClientRect(), dx=(e.clientX-r.left)-r.width/2, dy=(e.clientY-r.top)-r.height/2;
+  if(Math.abs(dx)>Math.abs(dy)) move(dx>0?1:-1,0); else move(0,dy>0?1:-1);
+});
+
+function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight; draw(); }
+window.addEventListener('resize', fit);
+refresh(); fit();
+toast('You woke up in your own house. Walk out the front door.');
+
+/* ---- read-only introspection for gates/run_gate.js. Actions go through the
+   real buttons; this only REPORTS where things are. ---- */
+window.__RUN = {
+  state: function(){ return { mode:mode, px:px, py:py, phase:RUN.phase, home:HOME,
+    homeDoor:HOME_DOOR, lineman:LINEMAN_AT, fixer:FIXER_AT, curHouse:curHouse,
+    questDone: !!(RT&&RT.state.done), outcome:RUN.outcome, clout:RUN.clout,
+    stage: RT?RT.state.stage:null, sent: window.__RUN_SENT.slice(),
+    combat: RUN.combatOutcome,
+    npc: (function(){ var n=questNpcTile(); return n?[n.x,n.y]:null; })() }; },
+  grid: function(){ var a=[];
+    for(var y=0;y<H;y++){ var r=[]; for(var x=0;x<W;x++) r.push(passExt(x,y)); a.push(r); }
+    return { W:W, H:H, pass:a, doorOf:doorOf }; },
+  interior: function(){ if(!fp) return null; var a=[];
+    for(var y=0;y<fp.H;y++){ var r=[]; for(var x=0;x<fp.W;x++) r.push(passInt(x,y)); a.push(r); }
+    return { W:fp.W, H:fp.H, door:fpDoor, pass:a }; },
+  talkables: function(){ return talkables(); },
+  feed: function(){ return BohemiaLoop.buildFeed(CTX,{}); },
+  profile: function(){ return BohemiaLoop.socialProfile(CTX); }
+};
+window.__RUN_READY = true;
+</script>

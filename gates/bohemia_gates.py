@@ -186,6 +186,8 @@ GATES = [
      'quest placement candidates are real cells, anchored to the live cast, deterministic', False),
     ('CURRENT SLICE',  ['node', 'gates/current_slice_gate.js'],
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
+    ('THE RUN',        ['node', 'gates/run_gate.js'],
+     'the first connected run plays end to end in a real browser: house -> block -> S01 -> combat handoff -> home -> feed post, loud fork and quiet fork, inside the real alpha', False),
     ('LOOP CHANNEL',   ['node', 'engine/bohemia_loop_channel_tests.js'],
      'feed vs in-person quest acquisition channels', False),
     ('LOOP CLOUT',     ['node', 'engine/bohemia_loop_clout_tests.js'],

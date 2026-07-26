@@ -7,19 +7,31 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+   [DONE 7/26] THE FIRST CONNECTED RUN — shipped, gated (run_gate.js, 69
+   assertions, both forks + inside the real alpha). Record:
+   records/BOHEMIA_THE_FIRST_CONNECTED_RUN_7_26_26.txt.
 0. SAVE/LOAD for the run (RULED 7/26, both addenda): sleep saves + free
    manual saves + autosave; death loads closest save; the save is ONE
    portable versioned blob (device prefs excluded) with export/import,
    per laws/BOHEMIA_ADDENDUM_SAVES_AND_CLOUD_7_26_26.md. | save->reload->
    identical state proven headless + export/import round-trip | engine/
    bohemia_loop.js (flag needs to WORLD) | no — fully ruled.
-1. THE FIRST CONNECTED RUN (Prompt 2, laws/BOHEMIA_COORDINATOR_PROMPT_LIBRARY_
-   7_25_26.md): house -> street -> S01 -> combat handoff -> home -> feed post,
-   one thumb, in the alpha's run surface. | run_gate.js executes the loop
-   headless to COMPLETE | engine/bohemia_loop.js (flag needs to WORLD) | the
-   run itself is the verdict: Paolo playtests.
-2. Phone-feel pass on the run (touch responsiveness at arm's length). | real-
-   device-shaped Playwright viewport proof | same | no.
+1. Phone-feel pass on the run (touch responsiveness at arm's length): real
+   device-shaped viewports, hold-to-walk tuning, tap-to-step target sizes,
+   the objective bar at arm's length. | run_gate extended with a real-device
+   viewport pass | engine/bohemia_loop.js (flag needs to WORLD) | no.
+2. (discovered) WIDEN THE RUN: the run is one seed-7 block. Walking off the
+   block into the neighbouring district is the next real milestone — needs the
+   world model's plot-to-plot transition, not new content. | run_gate proves a
+   second district reached on foot | district engines (CITY lane owns them) | no.
+3. (discovered) The player is not registered in ctx.scheduler, so the run's
+   grid clock is the block sim's, not the loop's turn scheduler. Engine request
+   for WORLD: a player actor the run can commit() through. | loop gate section
+   | engine/bohemia_loop.js | no.
+4. (discovered) Only S01 is wired into the run. Once placement is ruled, the
+   other twenty canon quests should be reachable from a run surface too. |
+   run_gate covers a second quest end to end | quest text | [PENDING Paolo
+   placement].
 
 ## WORLD
 1. DONE 7/26 (awaiting verdict): quest placement CANDIDATES shipped, 3 per quest,
