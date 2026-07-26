@@ -89,6 +89,15 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- THE GAME IS NOT DRAWING THE RIG-TOOL BODY (Paolo asked 7/26, found same turn:
+  records/BOHEMIA_RIG_NOT_REFERENCED_7_26_26.txt). The alpha holds TWO painted
+  bodies -- BAKED, and the BAKED inside RIG_B64 that the RIG tab draws -- and
+  they differ in 20 painted parts, 65 pixels, plus the pose. The neck is smaller
+  in the game in ALL EIGHT directions. He has been judging animation against a
+  body he did not paint. NOTHING WAS OVERWRITTEN: which copy is canon is his
+  call (RIG LAW). The moment he says, sync both and add the gate -- BAKED was
+  never covered by ENGINE SYNC because it is not a BOH_* module, and that hole
+  is how two bodies lived in one file. Check: tools/bohemia_rig_sync_audit.js
 - HIS AUTHORED LAYERING IS THE LAW AGAIN (Paolo 7/26, fixed:
   records/BOHEMIA_AUTHORED_LAYERING_7_26_26.txt). handOrder() was recomputing
   the draw order EVERY FRAME on the six non-N/S facings and flipping it 100-164

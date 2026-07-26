@@ -1,0 +1,58 @@
+=== BOHEMIA — THE GAME IS NOT DRAWING THE BODY IN THE RIG TOOL (7/26/26) ===
+Lane: CHARACTER. Found by asking his question honestly instead of defending.
+
+HIS QUESTION
+  "Are you tweaking? Are you not referring to the Rig at all?"
+
+THE ANSWER: effectively, no. The alpha carries TWO copies of his painted body
+and they have drifted apart.
+  - BAKED                  -> what the CHARACTER and ANIMATION tabs draw
+  - BAKED inside RIG_B64   -> what the RIG tab (his authoring tool) draws
+Same file, two different bodies. Nobody had ever checked.
+
+THE DIFF (tools/bohemia_rig_sync_audit.js, reproducible in one command)
+  skeleton  : identical
+  layers    : 20 PAINTED PARTS DIFFER, 65 pixels apart in total
+  pose      : DIFFERENT
+
+  the NECK is smaller in the game in EVERY direction:
+      S  rig  8px -> game  4px        SE rig 10px -> game  6px
+      E  rig  9px -> game  6px        NE rig  6px -> game  7px
+      N  rig 12px -> game  8px        NW rig  6px -> game  8px
+      W  rig  9px -> game  6px        SW rig 10px -> game  6px
+  the HEAD is smaller in the game:  S rig 24 -> 20,  N rig 92 -> 80
+  the TORSO differs in all eight directions
+  the FACE differs on E and W
+
+Side by side: records/anim/BOHEMIA_RIG_VS_GAME_BODY_7_26_26.png (idle, 7x, all
+eight facings, bare). The rig-tool body has a real neck; the game body's head
+sits down on the shoulders.
+
+WHY THIS MATTERS MORE THAN ANYTHING ELSE IN THIS LANE
+He has been opening the RIG tab, seeing the body he painted, then opening the
+ANIMATION tab and seeing a different body move -- and being told the renderer
+was the problem. Some of what he has been calling tweaking is not the animation
+at all; it is a body he did not paint. Every judgement he has been asked for on
+character motion was taken against the wrong art.
+
+It also explains "it didn't used to be like this" better than anything else
+found so far: a drift, not a design limit.
+
+WHICH ONE IS CANON IS HIS CALL, AND NOTHING WAS CHANGED
+The rig tool is the authoring surface, so its copy is almost certainly the real
+one -- but "almost certainly" is not good enough to overwrite his painted
+character with, and RIG LAW is explicit that his painted regions are mine to
+read and never to rewrite. Git cannot settle it either: the repo history was
+rewritten in the 7/26 slim genesis, so both copies date to the same commit.
+NO BODY DATA WAS TOUCHED. He picks, then it gets synced and locked.
+
+THE GATE THIS OWES (the same turn he picks)
+One canonical painted body, exactly like the ENGINE SYNC LAW does for modules:
+the alpha's BAKED must equal the rig tool's BAKED, byte for byte, or the build
+fails. BAKED was never covered by the sync gate because it is not a BOH_*
+module -- that hole is how two bodies lived in one file without anyone noticing.
+
+PENDING PAOLO, ONE QUESTION
+  Which body is yours: the one in the RIG tab, or the one the game draws?
+  (Look at records/anim/BOHEMIA_RIG_VS_GAME_BODY_7_26_26.png -- the neck is the
+  fastest tell.) Say which and it gets synced everywhere and gated shut.
