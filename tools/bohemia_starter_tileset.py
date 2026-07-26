@@ -184,38 +184,85 @@ def build_tiles(M, C):
     T.add('wall_boarded', 'the approved boarded-window tile, used whole and at its own size',
           pane('wall_boarded', 1))
 
-    # --- THE DOOR, two tiles tall (the law) --------------------------------
-    dw, dh = M.CELL, M.CELL * 2
-    leaf = Image.new('RGBA', (dw, dh), (0, 0, 0, 0))
-    leaf.alpha_composite(M.interior_plate(C, dw, dh, seed=2))
-    leaf.alpha_composite(M.door_panel(C, dw, dh, 0.56))
-    for half, nm, wht in ((0, 'door_top', 'the top half of an open two-tile doorway, with its '
-                                          'lit lintel'),
-                          (1, 'door_bottom', 'the bottom half of an open two-tile doorway, with '
-                                             'the room and the threshold showing')):
+    # --- THE DOOR: AN OPENING, TWO TILES TALL ------------------------------
+    # Paolo 7/26: "half of the door is like a picture of a door which is crazy to
+    # me." He was looking at a flat brown rectangle standing in the hole - I was
+    # drawing the FACE of a door leaf, which is a picture, not an opening. A door
+    # you can walk through is a HOLE: a reveal with thickness, dark inside, a
+    # floor you can see, a lit lintel across the top and a step at the bottom.
+    # The leaf is there, but you see its EDGE, swung inward, not its face.
+    def opening(half):
         t = mat(C.house['wall_plain'], 3, tone=W_TONE, warm=(1.02, 1.0, 0.97))
-        t.alpha_composite(leaf.crop((0, half * M.CELL, dw, (half + 1) * M.CELL)))
-        M.band(t, 0, 0, 2, M.CELL, (40, 31, 19, 210))
-        M.band(t, M.CELL - 2, 0, 2, M.CELL, (40, 31, 19, 210))
+        inset = max(3, M.CELL // 10)
+        ow = M.CELL - inset * 2
+        hole = Image.new('RGBA', (ow, M.CELL), (0, 0, 0, 0))
+        M.fill_rect(hole, C.house['wall_plain'], 0, 0, ow, M.CELL, size=M.CELL,
+                    seed=21, uniform=True)
+        hole = M.shade(hole, 0.17, warm=(1.06, 0.99, 0.88))       # an unlit room
+        if half == 1:
+            fy = int(M.CELL * 0.34)
+            fl = Image.new('RGBA', (ow, M.CELL - fy), (0, 0, 0, 0))
+            M.fill_rect(fl, C.street['side'], 0, 0, ow, M.CELL - fy, size=M.CELL,
+                        seed=22, uniform=True)
+            hole.alpha_composite(M.shade(fl, 0.26), (0, fy))       # the floor inside
+            M.band(hole, 0, fy, ow, 2, (14, 11, 7, 210))
+        # the leaf, swung in: you see its EDGE, a few pixels of it, never its face
+        leaf = C.house['wall_door'][0].crop((30, 6, 38, 42))
+        leaf = M.shade(leaf.resize((max(3, ow // 7), M.CELL), Image.NEAREST), 0.42)
+        hole.alpha_composite(leaf, (ow - leaf.width, 0))
+        t.alpha_composite(hole, (inset, 0))
+        M.band(t, inset - 2, 0, 2, M.CELL, (34, 27, 17, 235))      # jamb, both sides
+        M.band(t, M.CELL - inset, 0, 2, M.CELL, (34, 27, 17, 235))
         if half == 0:
-            M.band(t, 0, 0, M.CELL, 3, (192, 178, 148, 230))
-        T.add(nm, wht, t)
+            M.band(t, inset, 0, ow, 3, (18, 14, 9, 235))           # head of the opening
+            M.band(t, inset - 3, 0, ow + 6, 3, (196, 182, 150, 235))   # lit lintel
+        else:
+            M.band(t, inset - 4, M.CELL - 4, ow + 8, 4, (176, 166, 142, 255))  # the step
+            M.band(t, inset - 4, M.CELL - 4, ow + 8, 2, (214, 204, 178, 255))
+        return t
+    T.add('door_top', 'the top half of a two-tile doorway - the opening carries on up, '
+          'with a lit lintel across the head of it', opening(0))
+    T.add('door_bottom', 'the bottom half of the doorway - the floor inside is visible '
+          'and there is a concrete step at the threshold', opening(1))
 
-    gt = mat(C.house['wall_plain'], 3, tone=W_TONE, warm=(1.02, 1.0, 0.97))
-    M.band(gt, 0, 0, M.CELL, M.CELL, (24, 20, 13, 245))
-    for i in range(5):
-        v = 150 - i * 16
-        M.band(gt, 0, 3 + i * 3, M.CELL, 2, (v, v - 12, v - 30, 255))
-    M.band(gt, 0, 0, M.CELL, 3, (192, 178, 148, 225))
-    T.add('garage_top', 'the top half of an open garage bay, roll-up door stacked in its header',
-          gt)
-    gb = Image.new('RGBA', (M.CELL, M.CELL), (0, 0, 0, 0))
-    gb.alpha_composite(M.shade(mat(C.house['wall_plain'], 21), 0.20, warm=(1.05, 0.99, 0.9)))
-    fl = mat(C.street['side'], 22)
-    gb.alpha_composite(M.shade(fl, 0.30).crop((0, 0, M.CELL, int(M.CELL * 0.45))),
-                       (0, int(M.CELL * 0.55)))
-    M.band(gb, 0, int(M.CELL * 0.55), M.CELL, 2, (16, 13, 9, 200))
-    T.add('garage_bottom', 'the bottom half of an open garage bay - the empty floor inside', gb)
+    # --- THE GARAGE BAY: it has to be wide enough for a car ---------------
+    # Paolo 7/26: "the garage that you have instead of it being two or three tiles
+    # wide it's one tile wide like how the fuck is a car supposed to fit in there."
+    # A car is 2 tiles wide by his own law, so a one-tile bay is impossible. These
+    # tiles repeat across a THREE tile opening lined up with the driveway.
+    def bay(half, edge=None):
+        t = Image.new('RGBA', (M.CELL, M.CELL), (0, 0, 0, 0))
+        if half == 0:
+            t.alpha_composite(M.shade(mat(C.house['wall_plain'], 21), 0.16,
+                                      warm=(1.05, 0.99, 0.9)))
+            for i in range(6):                       # the roll-up, stacked in its header
+                v = 152 - i * 15
+                M.band(t, 0, 2 + i * 3, M.CELL, 2, (v, v - 12, v - 30, 255))
+            M.band(t, 0, 0, M.CELL, 3, (196, 182, 150, 230))
+        else:
+            t.alpha_composite(M.shade(mat(C.house['wall_plain'], 21), 0.16,
+                                      warm=(1.05, 0.99, 0.9)))
+            fy = int(M.CELL * 0.42)
+            fl = Image.new('RGBA', (M.CELL, M.CELL - fy), (0, 0, 0, 0))
+            M.fill_rect(fl, C.street['side'], 0, 0, M.CELL, M.CELL - fy, size=M.CELL,
+                        seed=22, uniform=True)
+            t.alpha_composite(M.shade(fl, 0.24), (0, fy))
+            M.band(t, 0, fy, M.CELL, 2, (14, 11, 7, 200))
+            M.band(t, 0, M.CELL - 4, M.CELL, 4, (170, 160, 136, 255))   # the apron
+            M.band(t, 0, M.CELL - 4, M.CELL, 2, (206, 196, 170, 255))
+        if edge == 'l':
+            M.band(t, 0, 0, 3, M.CELL, (34, 27, 17, 240))
+        elif edge == 'r':
+            M.band(t, M.CELL - 3, 0, 3, M.CELL, (34, 27, 17, 240))
+        return t
+    T.add('garage_top', 'the top of an open garage bay, roll-up door stacked in its header',
+          bay(0))
+    T.add('garage_bottom', 'the bottom of an open garage bay - the empty concrete floor '
+          'inside, and the apron where it meets the driveway', bay(1))
+    T.add('garage_top_l', 'the left jamb of the garage bay, top half', bay(0, 'l'))
+    T.add('garage_bottom_l', 'the left jamb of the garage bay, bottom half', bay(1, 'l'))
+    T.add('garage_top_r', 'the right jamb of the garage bay, top half', bay(0, 'r'))
+    T.add('garage_bottom_r', 'the right jamb of the garage bay, bottom half', bay(1, 'r'))
 
     # --- ROOF -------------------------------------------------------------
     def roofmat(fam, tone, seed):
@@ -339,8 +386,12 @@ def build_map(T, GW, GH):
             struct[wall_bot - 1][door] = 'door_top'
             struct[wall_bot][door] = 'door_bottom'
         if garage:
-            struct[wall_bot - 1][garage] = 'garage_top'
-            struct[wall_bot][garage] = 'garage_bottom'
+            g0, g1 = garage
+            for gxx in range(g0, g1 + 1):
+                e = 'l' if gxx == g0 else ('r' if gxx == g1 else None)
+                sfx = '_' + e if e else ''
+                struct[wall_bot - 1][gxx] = 'garage_top' + sfx
+                struct[wall_bot][gxx] = 'garage_bottom' + sfx
         shadows.append({'x': x0, 'y': wall_bot + 1, 'w': x1 - x0 + 1,
                         'h': max(0.7, (wall_bot - roof_top) * 0.34)})
         # THE WALL FALLOFF. In the painting the whole face darkens smoothly from
@@ -354,8 +405,9 @@ def build_map(T, GW, GH):
     # A gap of dirt between them is what makes them read as separate houses.
     house(0, 4, -1, 1, 3, hipped=True, windows=(1, 3))
     house(6, 10, -1, 1, 3, hipped=False, windows=(7, 9))
-    house(1, 7, 4, 6, 9, hipped=True, windows=(2, 4, 6), door=3)   # YOUR HOUSE
-    house(8, 10, 4, 6, 8, hipped=False, garage=9)               # THE GARAGE
+    house(1, 6, 4, 6, 9, hipped=True, windows=(2, 5), door=3)      # YOUR HOUSE
+    # the bay is THREE tiles wide and lines up with the three-tile driveway
+    house(7, 10, 4, 6, 8, hipped=False, garage=(8, 10))           # THE GARAGE
     return ground, struct, shadows, lights
 
 

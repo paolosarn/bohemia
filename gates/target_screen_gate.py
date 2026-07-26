@@ -246,6 +246,36 @@ def main():
         'the window is being cropped out of its own tile and rescaled again - that is the '
         'zoomed-in-zoomed-out windows he called out')
 
+    # ---- A DOOR IS AN OPENING; A GARAGE FITS A CAR (Paolo 7/26) ---------
+    # "half of the door is like a picture of a door which is crazy to me" and
+    # "the garage ... instead of it being two or three tiles wide it's one tile
+    #  wide like how the fuck is a car supposed to fit in there"
+    chk('def opening(' in tsrc and 'never its face' in tsrc,
+        'the door is drawing the FACE of a leaf again - that is a picture of a door, not '
+        'a hole you can walk through')
+    chk('def bay(' in tsrc, 'the garage bay is not built as a repeating opening')
+    if os.path.exists(TILESET):
+        ts3 = json.load(open(TILESET))
+        gt = [i for i, t in enumerate(ts3['tiles']) if t['id'].startswith('garage_top')]
+        widest = 0
+        for row in ts3['struct']:
+            run = 0
+            for c in row:
+                run = run + 1 if c in gt else 0
+                widest = max(widest, run)
+        chk(widest >= M.CAR_W,
+            'the garage bay is %d tile(s) wide and a car is %d - it does not fit'
+            % (widest, M.CAR_W))
+        dt = [i for i, t in enumerate(ts3['tiles']) if t['id'].startswith('door_')]
+        tall = 0
+        for x in range(len(ts3['struct'][0])):
+            run = 0
+            for row in ts3['struct']:
+                run = run + 1 if row[x] in dt else 0
+                tall = max(tall, run)
+        chk(tall == M.DOOR_CELLS,
+            'the front doorway is %d tiles tall, not %d' % (tall, M.DOOR_CELLS))
+
     # ---- NO VOLCANIC ROCK (LORE, Paolo 7/26) ----------------------------
     chk('boulder' in M.BANNED_FACES and len(M.BANNED_FACES['boulder']) >= 24,
         'the volcanic boulder family is not banned - all 24 of them glow, and there is no '

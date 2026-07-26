@@ -135,6 +135,32 @@ concrete.
 **THE LIGHT POST IN THE DRIVEWAY.** Moved onto the walk, clear of the drive, and
 now gated against the driveway rect — nothing may stand where a car drives in.
 
+## THIRD MARKED-UP SHOT — THE DOOR AND THE GARAGE
+
+> "half of the door is like a picture of a door which is crazy to me and then the
+> garage that you have instead of it being two or three tiles wide it's one tile
+> wide like how the fuck is a car supposed to fit in there"
+
+**THE DOOR WAS A PICTURE, AGAIN.** He caught this once already on the garage and
+I fixed that one and left the front door doing the same thing. I was drawing the
+FACE of a door leaf standing in the hole — a flat brown rectangle filling half
+the opening. A door you can walk through is a **hole**: a reveal with thickness,
+dark inside, a floor you can actually see, a lit lintel across the head, and a
+concrete step at the threshold. The leaf is still there and it is still the
+approved leaf, but you see **its edge**, swung inward, never its face. Gated by
+name, including the phrase, so it cannot come back.
+
+**THE GARAGE COULD NOT FIT A CAR.** The bay was one tile wide. A car is two tiles
+wide **by his own locked law**, so the bay was geometrically impossible — the
+kind of thing that should never survive to a screenshot. The bay is now **three
+tiles**, with its own jambs, lined up exactly with the three-tile driveway that
+runs into it, and the house narrowed by a tile to make room. Gated: the widest
+run of garage tiles must be at least the car's width, measured off the map
+itself, so a bay a car cannot enter fails the build.
+
+The same check now measures the front doorway's height off the map and fails if
+it is not exactly two tiles.
+
 ## WHAT THIS CHANGES
 
 - **The tile-reassembled frame is now THE TARGET**, per amendment C, and the
