@@ -305,6 +305,8 @@ def shade(im, factor, warm=(1.0, 1.0, 1.0)):
 
 
 def soft_shadow(dst, poly, blur=7, alpha=110):
+    if not PASSES['shadow']:
+        return
     """The pooled drop shadow every mass sits in (Pocket City rule 1)."""
     lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
     ImageDraw.Draw(lay).polygon(poly, fill=(24, 18, 10, alpha))
@@ -653,7 +655,19 @@ def car(dst, sprite, gx, gy, along, name, what, source, dark=1.0):
     return (x, y, w, h)
 
 
+# THE POSTER PASSES, and the switch that turns them off.
+# Amendment C (the ANTI-BIOSHOCK rule) says the mockup must be CUT into a real
+# tileset and REASSEMBLED on the real render path, and if the reassembly looks
+# worse the mockup lied. A pass that varies every pixel across the whole plate -
+# dirt noise, a vignette, a per-object cast shadow - cannot survive being cut
+# into repeating tiles. So the factory can render WITHOUT them, and
+# tools/bohemia_reassembly_test.py measures exactly how much each one costs.
+PASSES = {'grunge': True, 'vignette': True, 'shadow': True}
+
+
 def grunge(im, seed=7, strength=34, cellsize=57):
+    if not PASSES['grunge']:
+        return im
     """One low-frequency dirt pass over the whole plate. Tiled material always
     betrays its period; 30 years of Mojave dust does not fall on a grid."""
     rnd = random.Random(seed)
@@ -670,6 +684,8 @@ def grunge(im, seed=7, strength=34, cellsize=57):
 
 
 def sun_pass(im, warm=(1.045, 1.005, 0.93), vignette=0.30):
+    if not PASSES['vignette']:
+        vignette = 0.0
     """VEGAS NOON: the whole plate takes one warm key, then a soft vignette so
     the poster has a centre. Never a colour cast on the art itself."""
     out = shade(im, 1.0, warm=warm)
@@ -1120,7 +1136,18 @@ CARD_T = '''
     <div class="one">{one}</div>
     <div class="pair">
       <figure><img src="data:image/png;base64,{before}"><figcaption>NOW &mdash; the build you play</figcaption></figure>
-      <figure><img src="data:image/png;base64,{shot}"><figcaption>THE TARGET</figcaption></figure>
+      <figure><img src="data:image/png;base64,{real}"><figcaption>THE TARGET &mdash; built from 38 tiles</figcaption></figure>
+    </div>
+    <div class="fix" style="margin-top:12px">
+      <b>THIS ONE IS BUILT OUT OF REAL TILES, NOT PAINTED.</b>
+      <p>The rule we agreed on says a target only counts if I can cut it into an actual
+      tile set and rebuild the exact same picture out of those tiles, in the real game
+      renderer. So I did that, and the first attempt came out WORSE &mdash; which means the
+      painting was cheating. It was using a different one-off tile for nearly every single
+      square: 262 different tiles for 264 squares. That is not a world, that is a poster.
+      The picture above is the honest version: <b>38 tiles</b>, reused, drawn on a real
+      canvas the way the phone would draw it. The painting is underneath for comparison.</p>
+      <img src="data:image/png;base64,{shot}">
     </div>
     <div class="blurb">{blurb}</div>
     <div class="cost"><b>What it costs:</b> {costs}</div>
@@ -1225,7 +1252,8 @@ PAGE_TAIL = '''
  </div>
  <div class="card">
    <div class="hd">SO: IS IT THERE YET</div>
-   <div class="one">One tap. If it is good enough to build the whole game toward, that is APPROVE.</div>
+   <div class="one">Judge the TILE-BUILT one at the top, not the painting. That is the one
+   the game can actually draw, so that is the one that counts. One tap.</div>
    <div class="row">
      <button class="ok" data-v="APPROVE">GOOD ENOUGH</button>
      <button class="cbb" data-v="CBB">COULD BE BETTER</button>
@@ -1247,8 +1275,8 @@ document.getElementById('sun').onclick=function(){document.body.classList.toggle
 document.getElementById('exp').onclick=function(){
   var L=['=== BOHEMIA TARGET SCREEN VERDICT (rev 2) 7/26/26 ===',
          'direction already ruled: A THE FRONT FACE. B and C graveyarded.',
-         'fixed this revision: cars 2x3 tiles, roofs square on their own walls.','',
-         'A_FRONTFACE: '+(V||'(no answer)'),
+         'rev 4: the frame is now REASSEMBLED from a real 38-tile starter set on the','real render path (amendment C). The painting cut into 262 tiles for 264 cells;','the tile set is 38.','',
+         'A_FRONTFACE (tile-reassembled frame): '+(V||'(no answer)'),
          '','NOTES: '+(document.getElementById('global').value||'(none)')];
   var txt=L.join('\\n');
   document.getElementById('out').textContent=txt;
@@ -1269,9 +1297,11 @@ def write_judge():
     defects shown fixed under a tile grid. SUN MODE, notes, export .txt."""
     before = _b64(os.path.join(OUTDIR, 'BEFORE_RUN.png'))
     proofs = proof_crops()
+    real = os.path.join(OUTDIR, 'REASSEMBLED.png')
     cards = ''.join(
         CARD_T.format(name=c['name'], one=c['one_line'], before=before,
                       shot=_b64(os.path.join(OUTDIR, 'BOHEMIA_TARGET_%s.png' % c['key'])),
+                      real=_b64(real) if os.path.exists(real) else before,
                       blurb=c['blurb'], costs=c['costs'])
         for c in CANDIDATES)
     man = open(os.path.join(OUTDIR, 'BOHEMIA_TARGET_MANIFEST.txt')).read()

@@ -23,7 +23,23 @@
 0b. (discovered 7/26, needs instrumentation) MEASURE LIVE CANVAS MEMORY on a
    real device against the ~224MB iOS floor. Until then section 8 of the
    contract is a constraint, not a check. | a probe + a gated ceiling | — | no.
-1. [REV 3, 7/26 - DIRECTION SET, LOOK STILL UNJUDGED] THE TARGET SCREEN.
+1. [REV 4, 7/26 - THE TARGET IS NOW TILE-BUILT, LOOK STILL UNJUDGED] THE TARGET
+   SCREEN. Amendment C (ANTI-BIOSHOCK) was run for the first time and the mockup
+   FAILED it: the painted plate cut into 262 unique tiles for 264 cells - it was
+   never a tiled world. Fixed: banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt is
+   a real, bounded, NAMED 38-tile set (+11 sprites + cast-shadow DATA), the frame
+   is re-laid from nothing but those tiles, and it renders on a real browser
+   canvas with integer blit and smoothing off. The first reassembly looked worse
+   and the four reasons were specific: no wall corners, a hip roof laid as flat
+   stripes, no runtime cast shadows, no gaps between buildings. All four fixed.
+   Delta from the painting is now 34/255, essentially all of it the two poster
+   passes that belong to the renderer. THE TILE-REASSEMBLED FRAME IS NOW THE
+   TARGET and the judge page leads with it. Record:
+   records/BOHEMIA_REASSEMBLY_TEST_7_26_26.md. Gate: 1,074 checks, including a
+   hard 96-tile ceiling. Backlog item 2 (MASTER ACT-1 TILESET) is now partly
+   delivered: this IS the starter set; what remains is the act triptych and
+   palette indexing.
+   [PRIOR ROUND] THE TARGET SCREEN.
    REV 3 answers the marked-up shot: the nameless bottom band, the fake
    chain-link and the fake power line are DELETED (invented decoration is
    deleted on sight); the radioactive barrel is a plain rusted drum and

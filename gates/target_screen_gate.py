@@ -40,6 +40,9 @@ OUTDIR = 'records/target'
 JUDGE = 'slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html'
 LIFEHUB = 'slices/BOHEMIA_LIFE_CURRENT.html'
 LAW_NAMEIT = 'laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md'
+TILESET = 'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt'
+REASSEMBLED = 'records/target/REASSEMBLED.png'
+REASM_HTML = 'slices/BOHEMIA_REASSEMBLY_7_26_26.html'
 KEYS = ('A_FRONTFACE',)   # the other two are DEAD (graveyard registry, 7/26)
 
 P = F = 0
@@ -250,6 +253,57 @@ def main():
                       ('def wire(', 'the invented overhead wire'),
                       ('def blockwall', 'the nameless band across the bottom')):
         chk(gone not in src, '%s is back. Invented decoration is deleted on sight.' % why)
+
+    # ---- AMENDMENT C: THE ANTI-BIOSHOCK / REASSEMBLY TEST ---------------
+    # "the painted mockup is not the constitution - the acceptance test is CUT
+    #  the picked mockup into the real starter tileset and REASSEMBLE the
+    #  identical frame from those tiles on the real render path."
+    chk(os.path.exists(TILESET), 'the starter tileset was never cut')
+    if os.path.exists(TILESET):
+        ts = json.load(open(TILESET))
+        n = len(ts['tiles'])
+        chk(n <= 96, 'the "tileset" is %d tiles. Over 96 it is a painting, not a set.' % n)
+        chk(n >= 12, 'the tileset is only %d tiles; that cannot dress a street' % n)
+        cells = ts['grid'][0] * ts['grid'][1]
+        chk(n < cells * 0.5,
+            'the tileset (%d) is not meaningfully smaller than the frame (%d cells) - that '
+            'is the exact failure amendment C exists to catch' % (n, cells))
+        for t in ts['tiles']:                       # NAME IT OR DON'T DRAW IT
+            chk(len(t.get('what', '')) >= 18,
+                'tile "%s" has no description' % t.get('id'))
+        ids = set(range(n))
+        for row in ts['ground']:
+            for c in row:
+                chk(c in ids, 'the ground map references a tile that is not in the set')
+        for row in ts['struct']:
+            for c in row:
+                chk(c is None or c in ids, 'the structure map references a missing tile')
+        chk(ts['cell_px'] == M.CELL,
+            'the tileset cell (%d) is not the contract cell (%d)' % (ts['cell_px'], M.CELL))
+        chk('shadows' in ts and len(ts['shadows']) >= 2,
+            'no cast-shadow data - a shadow baked into a ground tile would need a unique '
+            'tile per building per hour, which is how the first reassembly lost its depth')
+        chk(len(ts.get('sprites', [])) >= 5, 'nothing stands on the map')
+        for sp in ts.get('sprites', []):
+            chk(len(sp.get('what', '')) >= 18, 'sprite "%s" has no description' % sp.get('id'))
+    chk(os.path.exists(REASSEMBLED),
+        'the reassembled frame was never rendered - the acceptance test did not run')
+    if os.path.exists(REASSEMBLED) and os.path.exists(os.path.join(
+            OUTDIR, 'BOHEMIA_TARGET_A_FRONTFACE.png')):
+        r = Image.open(REASSEMBLED)
+        chk(r.size == (M.W * M.SCALE, M.H * M.SCALE),
+            'the reassembled frame is %s, not the declared frame' % (r.size,))
+        rs = ImageStat.Stat(r.convert('RGB'))
+        chk(sum(rs.stddev) / 3.0 > 22,
+            'the reassembled frame is flat - the tiles did not carry the look')
+    chk(os.path.exists(REASM_HTML), 'the real render path page is missing')
+    if os.path.exists(REASM_HTML):
+        h = open(REASM_HTML).read()
+        chk('imageSmoothingEnabled = false' in h or 'imageSmoothingEnabled=false' in h,
+            'the reassembly draws with smoothing ON - that is not the real render path')
+        chk('createLinearGradient' in h and 'D.shadows' in h,
+            'the reassembly does not draw the cast shadows at runtime')
+        chk('Math.round' in h, 'the reassembly blits sprites at fractional positions')
 
     # ---- Pocket City rule 3: three tones, top brightest, side darkest ---
     chk(M.TOP > M.FRONT > M.SIDE,

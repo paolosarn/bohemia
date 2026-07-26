@@ -215,6 +215,30 @@ STANDING ORDER from the door law: before a surface draws a THING the game alread
 has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
 asked whether a RENDERING surface went looking. That hole is what cost two weeks
 of wrong-size frozen doors.
+ART (08) 7/26 REV 4 — THE TARGET IS NO LONGER A PAINTING. Amendment C (the
+ANTI-BIOSHOCK rule) was run for the first time and the mockup FAILED it: cut on
+the contract's own 38px grid, the painted plate is 262 UNIQUE tiles for 264
+cells. Every cell had its own random pool pick, its own flip and its own
+row-by-row gradient, so nothing repeated - a world built that way needs a unique
+tile per cell of the whole valley. THE MOCKUP LIED, exactly as the rule predicts.
+FIX: banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt, a real bounded NAMED 38-tile
+set plus 11 sprites plus cast-shadow DATA; the frame is re-laid from nothing but
+those tiles and rendered on a REAL browser canvas (offscreen 1x, integer blit,
+smoothing off - the render contract's pipeline rule, now proven rather than
+asserted). The first reassembly looked worse and the four causes were specific,
+not vague: (1) no wall corner tiles, so every building ran off the edge of the
+world as one band; (2) a hip roof laid as flat stripes - a trapezoid is not a
+grid of squares, so it needed four hip-corner tiles with the outside of the
+diagonal TRANSPARENT; (3) no cast shadows, because a shadow cannot live in a
+ground tile (unique tile per building per hour) - they now ship as DATA drawn at
+RUNTIME, and this was the biggest single loss; (4) no gaps between buildings.
+All four fixed; delta from the painting is 34/255 and essentially all of it is
+the dirt+vignette post passes that belong to the renderer. THE TILE-REASSEMBLED
+FRAME IS NOW THE TARGET (amendment C says so in as many words) and the judge page
+leads with it - his one tap applies to the tiled frame, not the painting.
+Gate: 1,074 checks, including a hard 96-tile ceiling so no future "target" can be
+a painting again. Record: records/BOHEMIA_REASSEMBLY_TEST_7_26_26.md.
+
 ART (08) 7/26 REV 3 — HE MARKED UP THE SHOT AND EVERY CIRCLE IS ANSWERED.
 The band at the bottom he could not name was an invented "perimeter wall seen
 from behind"; it is deleted, along with the invented chain-link fence and the
