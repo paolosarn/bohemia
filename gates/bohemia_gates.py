@@ -170,6 +170,8 @@ GATES = [
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
      'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
+    ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
+     'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
     ('BACK LIMB',      ['node', 'gates/back_limb_gate.js'],
      'the back arm wears its own sleeve: same colours no shade, never invents fill, never undresses the near limb, arms only', False),
     ('FROZEN POSES',   ['node', 'gates/frozen_poses_gate.js'],
