@@ -50,7 +50,7 @@
 <!-- engine-md5:engine/bohemia_floorplan.js:ca045f639821a074c255ebef6d728088 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:5c65808c7cb0e2831dbbb5d33d443a9e -->
+<!-- engine-md5:engine/bohemia_world.js:050414b8cd6e9e5b7628c85c5214214d -->
 <style>
   html,body{margin:0;background:#0d0f0a;color:#ddd;font-family:-apple-system,sans-serif}
   #bar{position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;
@@ -8285,9 +8285,36 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         cosmetic[k2].forEach(function(e){set[e]=1;}); out[k2]=Object.keys(set); }
       return out;
     })();
-    var plotCache = {};
+    /* THE PLOT CACHE IS BOUNDED (7/26/26, WORLD lane). It was a plain object that
+       only ever grew: every cell you touched stayed generated forever. Measured, one
+       plot costs ~190 KB, so walking the valley climbed toward ~1.8 GB and the phone
+       died long before the far side. The mobile render contract has a memory clause
+       and this was the thing that would break it.
+
+       So: a bounded LRU. The cells around you stay hot, the ones behind you are let
+       go, and a released cell costs nothing to get back because the world is
+       DETERMINISTIC — regenerating it yields the identical grid, which the gate
+       proves by evicting and comparing. Cap is in CELLS (a plot is ~190 KB, so 64
+       cells is ~12 MB, comfortably inside a phone's budget with the render on top). */
+    var PLOT_CAP = 64;
+    var plotCache = {}, plotOrder = [], plotHits = 0, plotMisses = 0, plotEvictions = 0;
+    function cacheTouch(key){
+      var i = plotOrder.indexOf(key);
+      if (i >= 0) plotOrder.splice(i, 1);
+      plotOrder.push(key);
+    }
+    function cachePut(key, val){
+      plotCache[key] = val; cacheTouch(key);
+      while (plotOrder.length > PLOT_CAP) {
+        var old = plotOrder.shift();
+        if (old !== key) { delete plotCache[old]; plotEvictions++; }
+      }
+      return val;
+    }
     function plot(x,y){
-      var key=x+','+y; if(plotCache[key])return plotCache[key];
+      var key=x+','+y;
+      if(plotCache[key]){ plotHits++; cacheTouch(key); return plotCache[key]; }
+      plotMisses++;
       var cell=m.at(x,y);
       if(!cell) return null;
       // FACTORY-GENERATED DISTRICT: a real generated block (suburb / commercial /
@@ -8335,7 +8362,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
               return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
-        plotCache[key]=dapi; return dapi;
+        return cachePut(key, dapi);
       }
       // SURFACE CELL (road): a real generated corridor, built from the network links
       // (which neighbours are also road), never street-fronted. Same read API as a
@@ -8362,7 +8389,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
           solidAt:function(xx,yy){ return stinfo(xx,yy).solid; },
           portals:function(){ return []; },        // a street cell has no interior
           buildings:[], building:function(){ return null; } };
-        plotCache[key]=sapi; return sapi;
+        return cachePut(key, sapi);
       }
       var recipe=BR.recipeFor(cell);
       var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
@@ -8396,7 +8423,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         }),
         building: function(i){ return this.buildings[i]; }
       };
-      plotCache[key]=api; return api;
+      return cachePut(key, api);
     }
     /* ------------------------------------------------------------------------
        THE VALLEY TILE (7/26/26, WORLD lane — engine support the RUN lane asked
@@ -8498,10 +8525,51 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       return { path:path, length:path.length, cells:order, explored:head };
     }
 
+    /* ------------------------------------------------------------------------
+       STREAMING. A body walking the valley must never wait for the ground it is
+       about to stand on. stream() warms the ring of cells around a position and
+       releases everything outside it, so the cell you are walking INTO was built
+       while you were still in the last one, and the cells behind you stop costing
+       memory. Cheap to call every step: it returns immediately when the hot set
+       has not changed.
+
+       The whole thing only works because the world is deterministic — a released
+       cell regenerates identical, which the gate proves by evicting and comparing
+       byte for byte. Nothing is ever "saved" here; the seed is the save.
+       ---------------------------------------------------------------------- */
+    var streamAt = null;
+    function stream(gx, gy, o){
+      o = o || {};
+      var radius = o.radius == null ? 1 : o.radius;
+      var cxi = Math.floor(gx / T), cyi = Math.floor(gy / T);
+      var key = cxi + ',' + cyi + ':' + radius;
+      if (streamAt === key && !o.force) return { warmed:0, held:plotOrder.length, moved:false };
+      streamAt = key;
+      var warmed = 0;
+      // nearest first, so if anything ever budgets this it warms what matters most
+      var ring = [];
+      for (var dy = -radius; dy <= radius; dy++) for (var dx = -radius; dx <= radius; dx++) {
+        ring.push([dx, dy, Math.abs(dx) + Math.abs(dy)]);
+      }
+      ring.sort(function (a, b) { return a[2] - b[2]; });
+      ring.forEach(function (d) {
+        var x = cxi + d[0], y = cyi + d[1];
+        if (x < 0 || y < 0 || x >= m.n || y >= m.n) return;
+        if (plotCache[x + ',' + y]) { cacheTouch(x + ',' + y); return; }
+        try { plot(x, y); warmed++; } catch (e) { /* a cell that refuses to build is not a crash */ }
+      });
+      return { warmed: warmed, held: plotOrder.length, moved: true, at: [cxi, cyi] };
+    }
+    function cacheStats(){
+      return { held: plotOrder.length, cap: PLOT_CAP, hits: plotHits,
+               misses: plotMisses, evictions: plotEvictions };
+    }
+    function setCacheCap(n){ PLOT_CAP = Math.max(9, n | 0); return PLOT_CAP; }
+
     return {
       seed:seed, n:m.n, overmap:m,
       tiles:m.n*T, TILE_PER_CELL:T,
-      route:route,
+      route:route, stream:stream, cacheStats:cacheStats, setCacheCap:setCacheCap,
       at:function(x,y){return m.at(x,y);},
       plot:plot,
       tile:tile, solidAt:solidAt, step:step, walk:walk,

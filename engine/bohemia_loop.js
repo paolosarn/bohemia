@@ -812,6 +812,11 @@
        name the place, whatever it wants). Authors nothing. */
     function commit(dx, dy) {
       const before = { x: player.tile.x, y: player.tile.y };
+      /* STREAM FIRST, MOVE SECOND. The ground you are about to step onto is warmed
+         before the step is taken, never after, which is the whole difference between
+         a walk and a hitch at every cell boundary. Cheap: it no-ops unless the hot
+         set actually changed. */
+      if (typeof w.stream === 'function') w.stream(before.x + (dx | 0) * 8, before.y + (dy | 0) * 8, { radius: 1 });
       // the scheduler's intent shape is {kind:'move', dx, dy}; anything else banks
       // energy and stands still, which is how "wait" is expressed.
       const intent = (dx || dy) ? { kind: 'move', dx: dx | 0, dy: dy | 0 } : { kind: 'wait' };

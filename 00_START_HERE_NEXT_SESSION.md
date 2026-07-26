@@ -231,6 +231,21 @@ NOTE, READ THE 7/26 (b) ENTRY ABOVE FIRST: this walk study was REJECTED by Paolo
 the lane's assignment changed. Kept as the record of what was measured, never as a
 template.
 
+WORLD MODEL (02): 7/26 (g) — THE VALLEY IS WALKABLE ON A PHONE. Found while wiring
+streaming: the plot cache was a plain object that only ever grew. A plot is ~190 KB, so
+walking the valley climbed toward ~1.8 GB and the phone would have died long before the
+far side — the exact clause the mobile render contract flags and nothing was checking.
+FIXED: the cache is a bounded LRU (64 cells, ~12 MB) and eviction is free because the
+world is deterministic (an evicted cell regenerates byte-identical, asserted). NEW:
+w.stream(gx,gy,{radius}) warms the ring around a position and no-ops when the hot set
+has not moved, and the walk surface streams BEFORE it steps, so the cell you walk into
+was built while you were still in the last one. MEASURED on the real walk: 162 steps,
+median 0.004 ms, and the two steps that actually cross a boundary cost 0.03 and 0.01 ms.
+HONEST RESIDUAL, written into the gate header not hidden: the first touch of a fresh
+cell still costs ~30-40 ms, once per cell entered, off the crossing. Getting that off
+the critical path is a SURFACE job (idle callback or worker in the run/city frame loop),
+not a world-model one. Gate: STREAMING (15 checks).
+
 WORLD MODEL (02): 7/26 (f) — THE GROUND NOW OBEYS THE CONSTITUTION. The freeze lifted
 when Paolo ruled the target CBB, which made the promise this lane wrote during it come
 due: the five surfaces (arterial, freeway, desert, mountain, water) shipped flagged

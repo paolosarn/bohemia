@@ -312,6 +312,12 @@ stories the world cannot host yet.
    terrain_gate, which read the constitution at run time. Any NEW cook in this lane
    passes the same section plus the fleet's proxy gates, and any new art BANK
    registers itself in target_match_gate.py.
+0c. [DONE 7/26] STREAMING: bounded LRU plot cache (64 cells) + w.stream() warming the
+   ring ahead of the body + the walk surface streaming before it steps. Walking the
+   valley used to grow without limit toward ~1.8 GB; it is now flat, and a boundary
+   crossing costs 0.03 ms. Gate: STREAMING. RESIDUAL for a SURFACE lane (not WORLD):
+   the ~30-40 ms first-touch of a fresh cell wants an idle callback or a worker inside
+   the run/city frame loop.
 0b. [PENDING Paolo] ACT TRIPTYCH for the five surfaces: act-2 recovering and act-3
    rebuilt materials. Content, his call, recorded in every dossier.
 1. DONE 7/26: THE GROUND IS BUILT. Roads (arterial 2,434 + freeway 952) and terrain
