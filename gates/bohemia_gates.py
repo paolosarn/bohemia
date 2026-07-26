@@ -168,6 +168,8 @@ GATES = [
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
      'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
+    ('PARTS PAINTED',  ['node', 'gates/parts_are_painted_gate.js'],
+     'every part is a complete painted thing on its own: torso whole under the arms, and no NEW renderer rule may derive a part from its neighbours', False),
     ('RENDER LIKE RIG', ['node', 'gates/render_like_the_rig_gate.js'],
      'the alpha carries no render pass his rig lacks: weld, forward-splat and far-arm darkening stay retired and the measured count only goes down', False),
     ('ANIM FABRICATION',['node', 'gates/anim_fabrication_gate.js'],
