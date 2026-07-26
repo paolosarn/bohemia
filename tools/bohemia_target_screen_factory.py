@@ -148,6 +148,103 @@ class Corpus:
 
 
 # ---------------------------------------------------------------------------
+# NAME IT OR DON'T DRAW IT (Paolo 7/26/26, LOCKED)
+#   "every time you make something you have to be able to describe what it is.
+#    It's so upsetting to me just hallucinate bullshit. You don't know what's
+#    going on."
+# He was looking at a band of pixels across the bottom of the frame that nobody
+# could name. So: nothing gets drawn through this factory without a NAME, a
+# plain-English WHAT, and a SOURCE. The parameters are required positionally -
+# there is no way to place a thing anonymously - and every placement lands in a
+# manifest that ships next to the render and is checked by the gate.
+# ---------------------------------------------------------------------------
+MANIFEST = []
+DRAWN = []          # every object primitive that actually composited pixels
+
+# Approved sprites that carry iconography Bohemia's world does not contain.
+# Paolo 7/26: "is a radioactive barrel on fire, but there's no radiation
+# problems in Bohemia so what the fuck is going on". The bank is still approved
+# ART; these specific faces are BANNED BY LORE, and the gate enforces it.
+BANNED_FACES = {
+    'fire_barrel': {0: 'radiation trefoil', 2: 'hazard chevrons + trefoil',
+                    3: 'radiation trefoil', 6: 'radiation trefoil',
+                    8: 'hazard chevrons', 1: 'skull and crossbones',
+                    5: 'skull and crossbones', 11: 'skull and crossbones'},
+}
+
+
+def place(name, what, source, cells, kind='object'):
+    """Record one placed thing. cells = (gx, gy, w, h) in ground cells.
+
+    kind='surface' is something you walk ON (road, yard, walk) and may overlap.
+    kind='object' is something that STANDS on the ground, and two of those may
+    never occupy the same ground - Paolo 7/26: "you have weird ass assets like
+    sitting wrongly on top of each other." That is now a build failure, not a
+    thing to notice later in a screenshot.
+    kind='detail' belongs to a parent object (a door in its own wall)."""
+    if not name or not what or len(what) < 18:
+        raise SystemExit('NAME IT OR DON\'T DRAW IT: "%s" has no usable description' % name)
+    if kind == 'object':
+        gx, gy, w, h = cells
+        for m in MANIFEST:
+            if m['kind'] != 'object':
+                continue
+            ox, oy, ow, oh = m['cells']
+            ix = min(gx + w, ox + ow) - max(gx, ox)
+            iy = min(gy + h, oy + oh) - max(gy, oy)
+            if ix > 0.30 and iy > 0.30:                # 0.3 tile of slack
+                raise SystemExit(
+                    'STACKED WRONG: "%s" sits on top of "%s" by %.1f x %.1f tiles. '
+                    'Two things cannot stand on the same ground.'
+                    % (name, m['name'], ix, iy))
+    MANIFEST.append({'name': name, 'what': what, 'source': source, 'kind': kind,
+                     'cells': [round(v, 2) for v in cells]})
+    return cells
+
+
+def check_face(family, idx):
+    bad = BANNED_FACES.get(family, {}).get(idx)
+    if bad:
+        raise SystemExit('LORE: %s[%d] carries %s. There is no radiation in Bohemia.'
+                         % (family, idx, bad))
+    return idx
+
+
+def drew(tag):
+    """Called by every primitive that stamps an OBJECT onto the plate. If the
+    count of things drawn ever exceeds the count of things named, the build dies:
+    that is the only way "name it or don't draw it" is a law and not a promise.
+    (The first cut of this manifest silently missed four props - a barrel, two
+    piles of rubble and a boulder - because the naming call was bolted on beside
+    the drawing call instead of inside it.)"""
+    DRAWN.append(tag)
+
+
+def write_manifest():
+    named = [m for m in MANIFEST if m['kind'] == 'object']
+    if len(DRAWN) != len(named):
+        raise SystemExit('NAME IT OR DON\'T DRAW IT: %d objects were drawn but %d were '
+                         'named. Unnamed: %s' % (len(DRAWN), len(named),
+                                                 DRAWN[len(named):] or '(count mismatch)'))
+    lines = ['=== BOHEMIA TARGET SCREEN - EVERY SINGLE THING ON IT ===',
+             'law: NAME IT OR DON\'T DRAW IT (Paolo 7/26/26).',
+             'If a thing is on the screen it is on this list, in plain English,',
+             'with where its pixels came from. Nothing is drawn anonymously.',
+             '']
+    for i, m in enumerate(MANIFEST, 1):
+        gx, gy, w, h = m['cells']
+        lines.append('%2d. %s   [%s]' % (i, m['name'], m['kind']))
+        lines.append('    WHAT: %s' % m['what'])
+        lines.append('    FROM: %s' % m['source'])
+        lines.append('    AT:   %g,%g  size %gx%g tiles' % (gx, gy, w, h))
+        lines.append('')
+    lines.append('%d things, all named.' % len(MANIFEST))
+    txt = '\n'.join(lines)
+    open(os.path.join(OUTDIR, 'BOHEMIA_TARGET_MANIFEST.txt'), 'w').write(txt)
+    return txt
+
+
+# ---------------------------------------------------------------------------
 # surface fill — approved tiles laid down as MATERIAL, never a flat colour.
 # ---------------------------------------------------------------------------
 _TCACHE = {}
@@ -382,8 +479,9 @@ def flat_roof_deck(dst, C, x0, fw, wall_top, rd, roof, seed, eave, parapet=True)
         band(dst, x0, wall_top + 1 + i, fw, 1, (24, 19, 11, int(105 * (1 - i / 9.0) ** 1.4)))
 
 
-def mass(dst, C, gx, gy, w, d, tall, wall='house:wall_plain', roof='house:roof_shingle',
-         seed=0, flat_roof=False, eave=6, parapet=False, wall_tone=1.0):
+def mass(dst, C, gx, gy, w, d, tall, name, what, wall='house:wall_plain',
+         roof='house:roof_shingle', seed=0, flat_roof=False, eave=6, parapet=False,
+         wall_tone=1.0):
     """One building volume, in the world's 45 view, sitting square on its own
     footprint. Returns the front-face rect (x, y, w, h) for dressing."""
     x0, y0 = gx * CELL, gy * CELL
@@ -421,6 +519,9 @@ def mass(dst, C, gx, gy, w, d, tall, wall='house:wall_plain', roof='house:roof_s
         flat_roof_deck(dst, C, x0, fw, front_y, rd, roof, seed, eave, parapet)
     else:
         hip_roof(dst, C, x0, fw, front_y, rd, roof, seed, eave)
+    drew(name)
+    place(name, what, BANK_HOUSE + ' (walls/roof/windows) + massing geometry',
+          (gx, gy, w, d))
     return (x0, front_y, fw, fh)
 
 
@@ -510,7 +611,7 @@ def load_extra(C):
     return C
 
 
-def drop(dst, sprite, gx, gy, scale=None, shadow=True, dark=1.0):
+def drop(dst, sprite, gx, gy, name, what, source, scale=None, shadow=True, dark=1.0):
     """Stand an approved sprite on the ground at cell (gx,gy): its FEET land on
     the cell's front edge, so it occupies one footprint and rises out of it."""
     k = (CELL / float(TILE_SRC)) * (scale or 1.0)
@@ -525,9 +626,12 @@ def drop(dst, sprite, gx, gy, scale=None, shadow=True, dark=1.0):
                           (fx + w + 6, (gy + 1) * CELL + 4), (fx + 10, (gy + 1) * CELL + 4)],
                     blur=4, alpha=105)
     dst.alpha_composite(im, (fx, fy))
+    drew(name)
+    place(name, what, source, (gx, gy + 1 - h / float(CELL), w / float(CELL),
+                               h / float(CELL)))
 
 
-def car(dst, sprite, gx, gy, along='y', dark=1.0):
+def car(dst, sprite, gx, gy, along, name, what, source, dark=1.0):
     """CARS ARE 2x3 TILES (Paolo, LOCKED, restated 7/26). The sprite is sized to
     fill its legal footprint exactly - 3 cells along its length, 2 across - and
     is turned to lie along the surface it is parked on. v1 dropped cars at their
@@ -540,46 +644,13 @@ def car(dst, sprite, gx, gy, along='y', dark=1.0):
     im = sprite.resize((w, h), Image.LANCZOS)
     if dark != 1.0:
         im = shade(im, dark)
-    x, y = gx * CELL, gy * CELL
+    x, y = int(gx * CELL), int(gy * CELL)
     soft_shadow(dst, [(x + 5, y + h - 7), (x + w - 3, y + h - 7),
                       (x + w + 9, y + h + 5), (x + 13, y + h + 5)], blur=6, alpha=115)
     dst.alpha_composite(im, (x, y))
+    drew(name)
+    place(name, what, source, (gx, gy, w / float(CELL), h / float(CELL)))
     return (x, y, w, h)
-
-
-def chainlink(dst, gx0, gx1, gy, tall=1.2):
-    """A chain-link run. NEW geometry (no fence bank exists) but drawn to the
-    45 law: posts show a lit top cap, the mesh bows toward the viewer."""
-    y1 = (gy + 1) * CELL
-    y0 = int(y1 - tall * CELL)
-    lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    d = ImageDraw.Draw(lay)
-    for x in range(gx0 * CELL, gx1 * CELL, 5):
-        d.line([(x, y1), (x + 5, y0)], fill=(150, 148, 138, 92))
-        d.line([(x, y0), (x + 5, y1)], fill=(150, 148, 138, 92))
-    d.rectangle([gx0 * CELL, y0, gx1 * CELL, y0 + 2], fill=(168, 164, 152, 210))
-    for gx in range(gx0, gx1 + 1, 3):
-        px = gx * CELL
-        d.rectangle([px, y0 - 2, px + 3, y1], fill=(126, 122, 112, 235))
-        d.ellipse([px - 1, y0 - 5, px + 4, y0 - 1], fill=(196, 190, 172, 255))   # lit cap
-    dst.alpha_composite(lay)
-
-
-def wire(dst, pts, sag=10, col=(28, 24, 18, 200)):
-    """Overhead service drop. The dead grid still has its wires up."""
-    lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    d = ImageDraw.Draw(lay)
-    for i in range(len(pts) - 1):
-        (x0, y0), (x1, y1) = pts[i], pts[i + 1]
-        prev = None
-        for s in range(41):
-            t = s / 40.0
-            x = x0 + (x1 - x0) * t
-            y = y0 + (y1 - y0) * t + math.sin(math.pi * t) * sag
-            if prev:
-                d.line([prev, (x, y)], fill=col, width=2)
-            prev = (x, y)
-    dst.alpha_composite(lay)
 
 
 def grunge(im, seed=7, strength=34, cellsize=57):
@@ -614,10 +685,10 @@ def sun_pass(im, warm=(1.045, 1.005, 0.93), vignette=0.30):
     return out
 
 
-def body(dst, name, gx, gy, k=1.0, ring=None):
+def body(dst, clip, gx, gy, name, what, k=1.0, ring=None):
     """THE REAL CHARACTER — the alpha's own bake, never a stand-in. Feet land
     on the cell's front edge, painter order is the caller's job."""
-    src = Image.open(os.path.join(CHARDIR, name + '.png')).convert('RGBA')
+    src = Image.open(os.path.join(CHARDIR, clip + '.png')).convert('RGBA')
     bb = src.getbbox()
     src = src.crop(bb)
     w = max(1, int(src.width * k))
@@ -633,6 +704,9 @@ def body(dst, name, gx, gy, k=1.0, ring=None):
                                     outline=ring, width=2)
         dst.alpha_composite(lay)
     dst.alpha_composite(im, (fx, fy))
+    drew(name)
+    place(name, what, "the alpha's own rig bake (buildFrame/frameToRGBA)",
+          (gx, gy + 1 - h / float(CELL), w / float(CELL), h / float(CELL)))
     return (fx, fy, w, h)
 
 
@@ -644,6 +718,93 @@ def body(dst, name, gx, gy, k=1.0, ring=None):
 # roof, a mid front face, a dark away-side. Cheapest to reach from what ships
 # today — it keeps the run's square grid, its collision and its 8-way walk.
 # ===========================================================================
+def crosswalk_across(im, C, gx, wcells, road_y0, road_y1):
+    """A crossing that actually CROSSES (Paolo 7/26: "the crosswalk isn't
+    correct... go on the correct crossing the street"). It spans kerb to kerb,
+    and its bars run ACROSS the direction cars drive - for an east-west road
+    that means bars standing up the screen, laid side by side along the road."""
+    x0 = int(gx * CELL)
+    w = int(wcells * CELL)
+    y0, y1 = road_y0 * CELL, (road_y1 + 1) * CELL
+    strip = Image.new('RGBA', (w, y1 - y0), (0, 0, 0, 0))
+    fill_rect(strip, C.street['cross'], 0, 0, w, y1 - y0, seed=2)
+    strip = shade(strip, 1.55, warm=(1.0, 1.0, 0.99))
+    m = Image.new('L', strip.size, 0)
+    d = ImageDraw.Draw(m)
+    bar = max(8, int(CELL * 0.40))
+    gap = max(5, int(CELL * 0.26))
+    x = 2
+    while x < w - 2:
+        d.rectangle([x, 0, x + bar, strip.height], fill=255)
+        x += bar + gap
+    strip.putalpha(Image.composite(strip.getchannel('A'), Image.new('L', strip.size, 0), m))
+    im.alpha_composite(strip, (x0, y0))
+    # thirty years of tyres: the paint is worn thin in the wheel tracks
+    for wy in (road_y0 + 1.4, road_y1 - 0.9):
+        band(im, x0, int(wy * CELL), w, int(CELL * 0.5), (46, 42, 34, 92))
+
+
+def lamp_post(im, C, gx, gy, name):
+    """THE STREET LAMP. Paolo 7/26: "the light posts are way too thick and should
+    be one tile taller. They're thick as fuck like tree trunks." So: the SLIM
+    post out of the blessed lamp bank (lamp 3, not the fat column), stretched a
+    full tile taller WITHOUT gaining any width."""
+    src = C.lamp[3]
+    h = int(CELL * 3.2)                       # a tile taller than it was
+    w = src.width                             # and not one pixel thicker
+    sprite = src.resize((w, h), Image.LANCZOS)
+    fx = int(gx * CELL + CELL / 2 - w / 2)
+    fy = int((gy + 1) * CELL - h)
+    soft_shadow(im, [(fx + w // 2 - 5, (gy + 1) * CELL - 4),
+                     (fx + w // 2 + 5, (gy + 1) * CELL - 4),
+                     (fx + w // 2 + 22, (gy + 1) * CELL + 6),
+                     (fx + w // 2 + 12, (gy + 1) * CELL + 6)], blur=5, alpha=110)
+    im.alpha_composite(shade(sprite, 0.9), (fx, fy))
+    drew(name)
+    place(name, 'a cast-iron street lamp on a slim post, three tiles of post and a '
+          'lantern head on an arm - the bulb is dead like every other one on this '
+          'block', BANK_LAMPS + ' (lamp[3], the slim post)', (gx, gy - 2.2, 1, 3.2))
+
+
+def garage_opening(im, C, rect, at_cell, wide=2.0):
+    """A REAL OPENING, not a picture of a door (Paolo 7/26: "you have a door
+    that's a picture of a door"). The roll-up is pushed up into its own header,
+    the bay behind it is dark and has a floor, and the driveway runs into it."""
+    x0, y0, fw, fh = rect
+    dw, dh = int(wide * CELL), int(CELL * DOOR_CELLS)
+    dx = int(x0 + at_cell * CELL)
+    dy = y0 + fh - dh
+    band(im, dx - 4, dy - 6, dw + 8, dh + 6, (52, 42, 27, 255))        # the reveal
+    band(im, dx - 4, dy - 6, dw + 8, 3, (192, 178, 148, 225))          # lit header
+    bay = Image.new('RGBA', (dw, dh), (0, 0, 0, 0))
+    fill_rect(bay, C.house['wall_plain'], 0, 0, dw, dh, seed=21, uniform=True)
+    bay = shade(bay, 0.20, warm=(1.05, 0.99, 0.9))
+    fy = int(dh * 0.66)
+    floor = Image.new('RGBA', (dw, dh - fy), (0, 0, 0, 0))
+    fill_rect(floor, C.street['side'], 0, 0, dw, dh - fy, seed=22)
+    bay.alpha_composite(shade(floor, 0.30), (0, fy))
+    band(bay, 0, fy, dw, 2, (16, 13, 9, 200))
+    im.alpha_composite(bay, (dx, dy))
+    # the rolled-up door slats, stacked under the header where a real one goes
+    for i in range(5):
+        v = 150 - i * 16
+        band(im, dx, dy + i * 3, dw, 2, (v, v - 12, v - 30, 255))
+    band(im, dx, dy + 15, dw, 3, (34, 27, 17, 235))
+    band(im, dx - 2, dy, 3, dh, (30, 24, 15, 220))
+    band(im, dx + dw - 1, dy, 3, dh, (30, 24, 15, 220))
+    # the apron: where the concrete meets the bay floor, one continuous surface
+    band(im, dx - 2, y0 + fh, dw + 4, 5, (176, 166, 142, 255))
+    band(im, dx - 2, y0 + fh, dw + 4, 2, (212, 202, 176, 255))
+
+
+# DELETED 7/26 with the NAME IT OR DON'T DRAW IT law: chainlink(), wire() and
+# blockwall() drew a chain-link fence, an overhead service drop and a band of
+# "perimeter wall seen from behind" across the bottom of the frame. All three
+# were INVENTED decoration, none of them came out of an approved bank, and the
+# last one was the thing Paolo pointed at: "what the fuck is at the bottom of
+# the screen". Invented decoration is deleted on sight, not toned down.
+
+
 def street_surface(im, C, road_y0, road_h, walk_y0, walk_h, centre_row=None):
     """The road the whole valley already owns: asphalt, a faded centre line,
     detached sidewalk behind a curb, gutter shadow. Approved street pools."""
@@ -669,24 +830,6 @@ def scorch(im, C, gx, gy, w, h, seed=0, a=150):
     im.alpha_composite(patch, (gx * CELL, gy * CELL))
 
 
-def blockwall(im, C, gy, tall=2.0, seed=0):
-    """The 85/15 tan perimeter wall that walls every Vegas lot. Approved
-    perimeter-wall pool, min 2 tiles tall (its own law), seen from BEHIND at the
-    bottom of frame so the poster has a dark foreground edge."""
-    y1 = int((gy + 1) * CELL)
-    fh = int(tall * CELL)
-    cap = Image.new('RGBA', (W, int(CELL * 0.5)), (0, 0, 0, 0))
-    pool = C.wall_pool
-    fill_rect(cap, pool, 0, 0, W, int(CELL * 0.5), size=CELL, seed=seed, uniform=True)
-    face = Image.new('RGBA', (W, fh), (0, 0, 0, 0))
-    fill_rect(face, pool, 0, 0, W, fh, size=CELL, seed=seed, uniform=True)
-    im.alpha_composite(shade(face, 0.52, warm=(0.95, 0.96, 1.02)), (0, y1 - fh))
-    im.alpha_composite(shade(cap, 0.86, warm=(1.03, 1.0, 0.95)), (0, y1 - fh - int(CELL * 0.5)))
-    band(im, 0, y1 - fh - int(CELL * 0.5), W, 2, (226, 214, 184, 190))
-    for i in range(10):
-        band(im, 0, y1 - fh + i, W, 1, (24, 19, 12, 130 - i * 12))
-
-
 def crosswalk(im, C, gx0, ncell, gy0, nrow, seed=0):
     """A ladder crosswalk + stop bar out of the approved cross/marking pool —
     the same markings the arterial engine already lays valley-wide."""
@@ -696,70 +839,167 @@ def crosswalk(im, C, gx0, ncell, gy0, nrow, seed=0):
 
 
 def screen_A(C):
-    """THE SHOT: standing on the near curb looking north across the street at
-    your own frontage. In an axis-aligned 3/4 you only ever see SOUTH faces, so
-    the street's north side is the side that HAS a face - which is exactly the
-    shot a walkable street level wants: facade, open door, yard, curb, asphalt,
-    and a dark foreground wall to frame it."""
+    """THE SHOT: you are standing in the road on your own block, looking north
+    at your house. Every single thing in this frame is in the manifest by name -
+    there is nothing here that cannot be described.
+
+    Fixed this revision, all of it called out by Paolo on the annotated shot:
+      - the unnameable band across the bottom is GONE (it was an invented
+        'perimeter wall seen from behind' and nobody could say what it was).
+        The frame now ends on the sidewalk you are standing on.
+      - the crosswalk actually CROSSES the street: it spans kerb to kerb, its
+        bars run across the direction cars drive, and it lines up with the walk
+        that leads to it. Nothing parks on top of it.
+      - the street lamps are the SLIM post from the blessed lamp bank, a full
+        tile taller and no thicker ("thick as fuck like tree trunks").
+      - no radioactive barrel. It is a plain rusted oil drum with a fire in it.
+      - the front door lines up with its own front walk.
+      - the garage door is a real opening with a real driveway running into it,
+        not a picture of a door stuck on a wall.
+      - the invented chain-link, the invented overhead wire and the invented
+        backdrop slab are all deleted. Less invented pixel, more approved tile.
+    """
+    del MANIFEST[:]
     im = Image.new('RGBA', (W, H), (0, 0, 0, 255))
-    # --- 1. THE GROUND PLANE ---------------------------------------------
-    # the base plane is the DARK harmonized concrete, never raw orange dirt: any
-    # gap the masses leave then reads as an alley, not as a hole in the art.
-    fill_rect(im, C.street['side'], 0, 0, W, H, seed=1)
-    band(im, 0, 0, W, H, (26, 21, 13, 130))
-    street_surface(im, C, road_y0=14, road_h=5, walk_y0=12, walk_h=2, centre_row=16)
-    fill_rect(im, C.street['side'], 0, 19 * CELL, W, 2 * CELL, seed=14)   # the near walk
-    band(im, 0, 19 * CELL - 3, W, 4, (198, 188, 162, 200))                # near curb lip
-    fill_rect(im, C.street['side'], 8 * CELL, 3 * CELL, 3 * CELL, 9 * CELL, seed=9)  # driveway
-    fill_rect(im, C.house['yard_deserttan'], 0, 6 * CELL, 8 * CELL, 6 * CELL,
+    ROAD0, ROAD1 = 16, 21          # the carriageway, inclusive rows
+    NWALK0, NWALK1 = 14, 15        # the sidewalk on the house side
+    SWALK0, SWALK1 = 22, 23        # the sidewalk you are standing on
+    DOOR_GX = 3.0                  # the door and its walk share this column
+
+    # --- 1. THE GROUND, surface by surface --------------------------------
+    # ONE base surface under everything: graded dirt. Anywhere the buildings and
+    # the pavement do not cover reads as the lot they sit in, never as a hole.
+    fill_rect(im, C.house['yard_deserttan'], 0, 0, W, H, seed=1, uniform=True)
+    band(im, 0, 0, W, H, (52, 41, 24, 74))
+    place('the dirt', 'the graded dirt every lot on this block sits on - it is what is '
+          'under the whole valley when nothing is built on it',
+          BANK_HOUSE + ' (yard_deserttan)', (0, 0, GRID_W, GRID_H), kind='surface')
+
+    fill_rect(im, C.house['yard_deserttan'], 0, 9 * CELL, 8 * CELL, 5 * CELL,
               seed=6, uniform=True)
-    band(im, 0, 6 * CELL, 8 * CELL, 6 * CELL, (48, 38, 22, 46))
-    fill_rect(im, C.street['side'], int(3.6 * CELL), 6 * CELL, CELL + 12, 6 * CELL, seed=7)
-    crosswalk(im, C, 2, 4, 14, 2, seed=2)
-    band(im, 2 * CELL, 17 * CELL, 4 * CELL, 4, (170, 162, 136, 110))       # faded stop bar
-    scorch(im, C, 7, 16, 3, 2, seed=4, a=80)
-    # --- 2. THE FRONTAGE - a CONTINUOUS street wall, never a gap of dirt --
-    # the backdrop block: the streetwall never breaks to raw dirt at the top edge
-    mass(im, C, -4, -5, 20, 4, 4.0, roof='house:roof_gravel', seed=61,
-         flat_roof=True, parapet=True, wall_tone=0.82)
-    st = mass(im, C, -3, 1, 6, 5, 5.2, roof='house:roof_gravel', seed=12,
-              flat_roof=True, parapet=True, wall_tone=0.93)
-    windows(im, C, st, cols=3, top=0.36, boarded=0.85, seed=8)
-    far = mass(im, C, 7, 0, 8, 4, 5.4, roof='house:roof_stile_graybrown', seed=17,
-               wall_tone=0.88)
-    windows(im, C, far, cols=3, top=0.42, boarded=0.7, seed=19)
-    mass(im, C, 1, -3, 8, 4, 4.0, roof='house:roof_stile_desertbrown', seed=52,
-         wall_tone=0.86, eave=7)
-    # THE HERO HOUSE - terracotta over pale, its 2-CELL DOOR standing open
-    rect = mass(im, C, 2, 2, 6, 5, 4.0, roof='house:roof_stile_terracotta', seed=31,
-                eave=8)
-    windows(im, C, rect, cols=3, top=0.26, boarded=0.34, seed=5)
-    hang_door(im, C, rect, at_cell=2.6, open_amount=0.56, seed=2)
-    # THE GARAGE - a lower mass, so the roofline is a silhouette and not a slab
-    g = mass(im, C, 8, 3, 5, 4, 2.7, roof='house:roof_gravel', seed=44,
-             flat_roof=True, parapet=True, wall_tone=0.9)
-    hang_door(im, C, g, at_cell=1.4, open_amount=0.0, interior=False, seed=6, stoop=False)
-    # --- 3. THE DRESSING --------------------------------------------------
-    chainlink(im, 0, 3, 11)
-    chainlink(im, 5, 8, 11)
-    drop(im, C.desert['rubble'][2], 6, 10, scale=0.5)
-    drop(im, C.desert['boulder'][11], 1, 9, scale=0.42)
-    drop(im, C.desert['rock'][4], 7, 11, scale=0.38)
-    # CARS: 2x3 tiles, turned to lie along whatever they are parked on.
-    car(im, C.prop['car_wreck'][6], 8, 8, along='y')          # nosed into the drive
-    car(im, C.prop['car_wreck'][2], 1, 15, along='x')         # dead in the road
-    car(im, C.prop['car_wreck'][14], 7, 17, along='x')        # dead at the far curb
-    drop(im, C.prop['fire_barrel'][3], 0, 13, scale=0.95)
-    drop(im, C.lamp[2], 9, 13, scale=1.6, dark=0.9)
-    drop(im, C.sign[7], 6, 13, scale=0.85)
-    wire(im, [(int(9.4 * CELL), int(10.3 * CELL)), (int(0.4 * CELL), int(10.1 * CELL))], sag=9)
-    drop(im, C.desert['rubble'][5], 4, 18, scale=0.6)
-    drop(im, C.lamp[4], 2, 20, scale=1.5, dark=0.82)
-    blockwall(im, C, 23, tall=2.4, seed=3)
+    band(im, 0, 9 * CELL, 8 * CELL, 5 * CELL, (48, 38, 22, 46))
+    place('the front yard', 'the dead gravel yard in front of your house - it was '
+          'landscaping once and nobody has watered it in thirty years',
+          BANK_HOUSE + ' (yard_deserttan)', (0, 9, 8, 5), kind='surface')
+
+    fill_rect(im, C.street['street'], 0, ROAD0 * CELL, W, (ROAD1 - ROAD0 + 1) * CELL, seed=2)
+    fill_rect(im, C.street['lane_div'], 0, 18 * CELL, W, CELL, seed=3)
+    place('the road', 'the two-lane residential street your block sits on, with its '
+          'faded centre line still showing through the cracks', BANK_STREET,
+          (0, ROAD0, GRID_W, ROAD1 - ROAD0 + 1), kind='surface')
+
+    for y0, y1, who in ((NWALK0, NWALK1, 'house side'), (SWALK0, SWALK1, 'your side')):
+        fill_rect(im, C.street['side'], 0, y0 * CELL, W, (y1 - y0 + 1) * CELL, seed=4)
+        band(im, 0, (y1 + 1) * CELL - 4, W, 4, (200, 190, 164, 205))
+        band(im, 0, (y1 + 1) * CELL, W, 3, (30, 26, 17, 140))
+        place('the sidewalk, %s' % who, 'a poured concrete sidewalk with a kerb at the '
+              'road edge, cracked and growing weeds', BANK_STREET + ' (side)',
+              (0, y0, GRID_W, y1 - y0 + 1), kind='surface')
+    for i in range(9):                                    # gutter shadow, road side
+        band(im, 0, ROAD0 * CELL + i, W, 1, (26, 22, 14, 120 - i * 12))
+
+    # THE FRONT WALK - it starts AT the door and ends AT the kerb. This is the
+    # thing he drew an arrow at: a door with no path to it is not a door.
+    wx = int(DOOR_GX * CELL) - 4
+    ww = int(CELL * 1.10) + 8
+    fill_rect(im, C.street['side'], wx, 9 * CELL, ww, 5 * CELL, seed=7)
+    place('the front walk', 'the concrete path from your own front door straight down '
+          'to the sidewalk - it starts under the door and ends at the kerb',
+          BANK_STREET + ' (side)', (DOOR_GX, 9, 1.1, 5), kind='surface')
+
+    # THE DRIVEWAY - runs from the road, across the sidewalk, into the garage.
+    fill_rect(im, C.street['side'], 8 * CELL, 6 * CELL, 3 * CELL, 10 * CELL, seed=9)
+    band(im, 8 * CELL, 6 * CELL, 3 * CELL, 10 * CELL, (34, 28, 18, 40))
+    place('the driveway', 'the concrete drive from the street up to the garage door, '
+          'dropped kerb and all', BANK_STREET + ' (side)', (8, 6, 3, 10), kind='surface')
+
+    # THE CROSSWALK - it CROSSES. Kerb to kerb, bars across the way cars drive,
+    # lined up with the walk that leads to it.
+    crosswalk_across(im, C, DOOR_GX - 0.4, 1.9, ROAD0, ROAD1)
+    place('the crosswalk', 'a painted crossing that goes all the way from the kerb on '
+          'the house side to the kerb on your side, bars laid across the direction '
+          'the cars drive, lined up with the front walk it serves',
+          BANK_STREET + ' (cross)', (DOOR_GX - 0.4, ROAD0, 1.9, ROAD1 - ROAD0 + 1),
+          kind='surface')
+
+    # --- 2. THE BUILDINGS -------------------------------------------------
+    # the row of houses on the next street back, cut off by the top of the frame.
+    # This is what closes the top of the shot: houses, not a slab of nothing.
+    nb1 = mass(im, C, -4, -3, 7, 5, 4.2,
+               'the houses on the next street back (left)',
+               'the backs of the houses one street over, cut off by the top of the '
+               'screen - same tract build as yours, boarded up',
+               roof='house:roof_stile_graybrown', seed=17, wall_tone=0.86)
+    windows(im, C, nb1, cols=3, top=0.52, boarded=0.75, seed=19)
+    nb2 = mass(im, C, 4, -3, 8, 5, 4.6,
+               'the houses on the next street back (right)',
+               'more of the same row, the flat-roofed ones, also cut off by the top '
+               'of the screen', roof='house:roof_gravel', seed=23,
+               flat_roof=True, parapet=True, wall_tone=0.84)
+    windows(im, C, nb2, cols=3, top=0.58, boarded=0.85, seed=27)
+
+    rect = mass(im, C, 1, 2, 7, 8, 4.5, 'YOUR HOUSE',
+                'the single-storey stucco house you woke up in: terracotta hip roof, '
+                'pale cracked walls, dead dark glass in every window',
+                roof='house:roof_stile_terracotta', seed=31, eave=8)
+    windows(im, C, rect, cols=3, top=0.30, boarded=0.34, seed=5)
+    hang_door(im, C, rect, at_cell=DOOR_GX - 1, open_amount=0.56, seed=2)
+    place('your front door', 'a two-tile-tall doorway standing open, with the dressed '
+          'room behind it visible from the street', BANK_HOUSE + ' (wall_door leaf)',
+          (DOOR_GX, 9.4, 1.1, 2), kind='detail')
+
+    g = mass(im, C, 8, 3, 3, 3, 2.8, 'the garage',
+             'a flat-roofed single garage with its roll-up door pushed all the way up '
+             '- you can see straight into the empty bay, and the driveway runs into it',
+             roof='house:roof_gravel', seed=44, flat_roof=True, parapet=True,
+             wall_tone=0.92)
+    garage_opening(im, C, g, at_cell=0.45, wide=2.0)
+
+    # --- 3. THE THINGS ON THE GROUND -------------------------------------
+    lamp_post(im, C, 9.7, NWALK1, 'the street lamp on the house side')
+    lamp_post(im, C, 6.6, SWALK1, 'the street lamp on your side')
+
+    b = check_face('fire_barrel', 7)
+    drop(im, C.prop['fire_barrel'][b], 0, NWALK1,
+         'the burning oil drum',
+         'a plain rusted 55-gallon drum with a fire going in it - somebody on this '
+         'block is still awake and still cold at night',
+         BANK_PROPS + ' (fire_barrel[7], no hazard markings on it)', scale=0.85)
+
+    car(im, C.prop['car_wreck'][6], 8.4, 8.2, 'y',
+        'the wreck in the driveway',
+        'a stripped patrol car left nose-in on the driveway, wheels gone',
+        BANK_PROPS + ' (car_wreck)')
+    car(im, C.prop['car_wreck'][2], 6.5, 16.5, 'x',
+        'the wreck in the road',
+        'a burnt-out sedan dead in the near lane, parked clear of the crossing',
+        BANK_PROPS + ' (car_wreck)')
+    car(im, C.prop['car_wreck'][14], 0.2, 19.4, 'x',
+        'the wreck at the far kerb',
+        'another dead car shoved against the far kerb where it finally stopped',
+        BANK_PROPS + ' (car_wreck)')
+
+    drop(im, C.desert['rubble'][2], 6, 12,
+         'the pile of rubble',
+         'broken masonry dumped in the yard, the kind that comes off a wall that '
+         'fell down somewhere else', BANK_DESERT + ' (rubble)', scale=0.5)
+    drop(im, C.desert['boulder'][11], 1, 11,
+         'the landscaping boulder',
+         'a decorative boulder from back when this yard was landscaped, still sitting '
+         'exactly where somebody placed it', BANK_DESERT + ' (boulder)', scale=0.42)
+    drop(im, C.desert['rubble'][5], 4, 20,
+         'the debris in the road',
+         'a heap of broken concrete somebody swept over to the side of the '
+         'carriageway', BANK_DESERT + ' (rubble)', scale=0.55)
+
     grunge(im)
-    # --- 4. THE BODIES ----------------------------------------------------
-    body(im, 'idle_S', 4, 11, k=BODY_K)                    # YOU, on your own front walk
-    body(im, 'walk_E_1', 7, 13, k=BODY_K)                  # the lineman, working the block
+    # --- 4. THE PEOPLE ----------------------------------------------------
+    body(im, 'idle_S', DOOR_GX, 13, 'YOU',
+         'the character you built in the CHARACTER tab, standing on your own front '
+         'walk at the kerb, facing the street', k=BODY_K)
+    body(im, 'walk_E_1', 6.4, 14.6, 'the neighbour',
+         'somebody else off this block walking east along the sidewalk - same rig, '
+         'different clothes', k=BODY_K)
     return sun_pass(im)
 
 
@@ -917,6 +1157,7 @@ PAGE_HEAD = '''<meta charset="utf-8">
  button.kill.on{background:#8c3f3f;color:#fff;border-color:#8c3f3f}
  textarea{width:100%;box-sizing:border-box;margin-top:8px;min-height:52px;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px;font:12px -apple-system,sans-serif}
  .bar{position:sticky;top:0;background:var(--bg);padding:8px 0;display:flex;gap:8px;z-index:9}
+ pre.man{max-height:340px;overflow:auto;font:10.5px/1.5 ui-monospace,monospace}
  pre{white-space:pre-wrap;font:11px ui-monospace,monospace;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--dim)}
 </style>
 <body>
@@ -937,6 +1178,16 @@ PAGE_TAIL = '''
  <div class="card">
    <div class="hd">WHAT YOU CALLED OUT, AND WHAT CHANGED</div>
    <div class="fix">
+     <b>0. EVERY THING ON THE SCREEN NOW HAS A NAME.</b>
+     <p>The band across the bottom you pointed at was an invented "wall seen from behind."
+     It was nothing. It is gone, along with the fake chain-link fence and the fake power
+     line. From now on I physically cannot place something without writing down what it is
+     and where its pixels came from &mdash; the build stops if I try. The full list is
+     further down this page. Also gone: the radioactive barrel. There is no radiation in
+     Bohemia, so that whole family of markings is banned from every screen now, not just
+     this one. That barrel is a plain rusted drum with a fire in it.</p>
+   </div>
+   <div class="fix">
      <b>1. CARS ARE 2 x 3 TILES.</b>
      <p>They were not. They were dropped at whatever size they were painted at, roughly
      1 x 2, so every car in the street was a toy. Now the size is read straight out of the
@@ -954,6 +1205,23 @@ PAGE_TAIL = '''
      board along the bottom edge and the shadow it throws down the wall underneath.</p>
      <img src="data:image/png;base64,{PROOFROOF}">
    </div>
+   <div class="fix">
+     <b>3. THE CROSSING, THE DOORS, THE LAMPS, THE STACKING.</b>
+     <p>The crossing now actually crosses: kerb to kerb, bars laid across the way cars
+     drive, lined up with the walk that leads to it, nothing parked on it. The front door
+     sits in the same column as its own front walk. The garage door is a real opening you
+     can see into with the driveway running right up to it, not a picture of a door glued
+     to a wall. The lamps are the slim post from your blessed lamp set, a full tile taller
+     and not one pixel wider. And two things can no longer stand on the same ground &mdash;
+     the build fails if they overlap, so you should never see that again.</p>
+   </div>
+ </div>
+ <div class="card">
+   <div class="hd">EVERY SINGLE THING ON THAT SCREEN, AND WHAT IT IS</div>
+   <div class="one">You said if I make something I have to be able to say what it is.
+   So here is the whole list. Nothing on that screen is missing from it, because the
+   build now refuses to run if I draw something I did not name.</div>
+   <pre class="man">{MANIFEST}</pre>
  </div>
  <div class="card">
    <div class="hd">SO: IS IT THERE YET</div>
@@ -1006,8 +1274,11 @@ def write_judge():
                       shot=_b64(os.path.join(OUTDIR, 'BOHEMIA_TARGET_%s.png' % c['key'])),
                       blurb=c['blurb'], costs=c['costs'])
         for c in CANDIDATES)
+    man = open(os.path.join(OUTDIR, 'BOHEMIA_TARGET_MANIFEST.txt')).read()
+    man = man.replace('&', '&amp;').replace('<', '&lt;')
     tail = (PAGE_TAIL.replace('{PROOFCAR}', _b64(proofs['car']))
-                     .replace('{PROOFROOF}', _b64(proofs['roof'])))
+                     .replace('{PROOFROOF}', _b64(proofs['roof']))
+                     .replace('{MANIFEST}', man))
     open(JUDGE, 'w').write(PAGE_HEAD + cards + tail)
     return JUDGE
 
@@ -1021,6 +1292,7 @@ def main():
             os.path.join(OUTDIR, 'BOHEMIA_TARGET_%s.png' % name))
         print('  ->', name)
     write_spec()
+    write_manifest()
     print('  ->', write_judge())
 
 

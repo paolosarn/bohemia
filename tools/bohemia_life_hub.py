@@ -54,12 +54,15 @@ html = r"""<meta charset="utf-8">
     about a quest until you have picked the target screen.
   </div>
   <a href="BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#1d1a10;border:2px solid #c79a3f;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">THE TARGET SCREEN &#183; REV 2 <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">IS IT THERE YET</span></div>
+    <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">THE TARGET SCREEN &#183; REV 3 <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">IS IT THERE YET</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#bdb392;margin:4px 0 8px">
-      You picked the front face and the other two are dead and buried. You also said this one
-      still looked like slop and named two things: cars were not 2 by 3 tiles, and the roofs
-      were not put on right. Both fixed, both shown with the tile grid drawn on so you can
-      count it yourself. One tap: good enough, could be better, or still slop.
+      You picked the front face. Everything you called out on the marked-up shot is fixed:
+      the nameless band at the bottom is gone, the radioactive barrel is a plain drum
+      (there is no radiation in Bohemia), the crossing actually crosses, the lamps are slim
+      and a tile taller, the front door lines up with its own walk, the garage door is a
+      real opening, and nothing sits on top of anything. Plus: every single thing on that
+      screen is now listed by name on the page, because the build refuses to run if I draw
+      something I cannot describe. One tap.
     </div>
   </a>
   <a href="BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px;opacity:.66">

@@ -17,6 +17,23 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- NAME IT OR DON'T DRAW IT (Paolo 7/26, LOCKED, new law):
+  laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md. "every time you make
+  something you have to be able to describe what it is. It's so upsetting to me
+  just hallucinate bullshit." Nothing goes on screen without a NAME, a plain
+  sentence, and a SOURCE, and the naming is a REQUIRED PARAMETER of the drawing
+  call - the build dies if the drawn count ever exceeds the named count. Two
+  objects may not stand on the same ground (build failure, not a review note).
+  Every door has a path to it and is a real opening, never a picture of a door.
+  A crossing spans kerb to kerb with its bars across traffic. INVENTED
+  DECORATION IS DELETED ON SIGHT (a fake chain-link, a fake power line and a
+  nameless band all died the day this landed). And the standing answer to "your
+  stuff looks worse than my approved stuff" is DRAW LESS.
+- NO RADIATION IN BOHEMIA (Paolo 7/26, LOCKED, LORE not art): "there's no
+  radiation problems in Bohemia". Post-ECONOMIC apocalypse - no meltdown, no
+  fallout. Radiation trefoils, hazmat chevrons and biohazard marks are BANNED
+  from every surface, including on assets that are otherwise approved art. The
+  banned faces are registered by bank+index and using one kills the build.
 - THE TARGET SCREEN IS RULED (Paolo 7/26): "Front base is the only one I'm
   concerned with and even then it looks like hallucinated AI slop. We made a
   rule that all cars are 2 x 3 tiles. Yeah the roofs are all fucked up not put
@@ -180,6 +197,23 @@ STANDING ORDER from the door law: before a surface draws a THING the game alread
 has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
 asked whether a RENDERING surface went looking. That hole is what cost two weeks
 of wrong-size frozen doors.
+ART (08) 7/26 REV 3 — HE MARKED UP THE SHOT AND EVERY CIRCLE IS ANSWERED.
+The band at the bottom he could not name was an invented "perimeter wall seen
+from behind"; it is deleted, along with the invented chain-link fence and the
+invented overhead wire. The frame now ends on the sidewalk you stand on. The
+radioactive barrel is a plain rusted drum, and radiation/hazard iconography is
+banned by LORE everywhere (registered by bank+index; using one kills the build).
+The crossing spans kerb to kerb with its bars across traffic and lines up with
+the walk that feeds it. The front door shares a column with its own front walk.
+The garage door is a real opening with a lit header, a dark bay, a floor and the
+driveway running into it. The lamps are lamp[3], the SLIM post, a full tile
+taller and not one pixel wider. Objects can no longer overlap - the build fails.
+THE LAW BEHIND IT ALL: NAME IT OR DON'T DRAW IT. The manifest
+(records/target/BOHEMIA_TARGET_MANIFEST.txt) ships with the render, is printed
+on the judge page, and the drawn-vs-named counter makes an anonymous placement
+impossible. That counter immediately caught four props the first hand-written
+manifest had silently missed. Gate: 483 checks. STILL UNJUDGED: the look.
+
 ART (08) 7/26 REV 2 — THE PICK IS IN AND THE TWO NAMED DEFECTS ARE FIXED AT THE
 ROOT. Paolo picked THE FRONT FACE, killed the other two, and called the winner
 slop with two specifics. (a) CARS: v1 dropped them at their painted pixel size,

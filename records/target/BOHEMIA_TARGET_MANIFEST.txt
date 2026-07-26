@@ -1,0 +1,126 @@
+=== BOHEMIA TARGET SCREEN - EVERY SINGLE THING ON IT ===
+law: NAME IT OR DON'T DRAW IT (Paolo 7/26/26).
+If a thing is on the screen it is on this list, in plain English,
+with where its pixels came from. Nothing is drawn anonymously.
+
+ 1. the dirt   [surface]
+    WHAT: the graded dirt every lot on this block sits on - it is what is under the whole valley when nothing is built on it
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (yard_deserttan)
+    AT:   0,0  size 11x24 tiles
+
+ 2. the front yard   [surface]
+    WHAT: the dead gravel yard in front of your house - it was landscaping once and nobody has watered it in thirty years
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (yard_deserttan)
+    AT:   0,9  size 8x5 tiles
+
+ 3. the road   [surface]
+    WHAT: the two-lane residential street your block sits on, with its faded centre line still showing through the cracks
+    FROM: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt
+    AT:   0,16  size 11x6 tiles
+
+ 4. the sidewalk, house side   [surface]
+    WHAT: a poured concrete sidewalk with a kerb at the road edge, cracked and growing weeds
+    FROM: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (side)
+    AT:   0,14  size 11x2 tiles
+
+ 5. the sidewalk, your side   [surface]
+    WHAT: a poured concrete sidewalk with a kerb at the road edge, cracked and growing weeds
+    FROM: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (side)
+    AT:   0,22  size 11x2 tiles
+
+ 6. the front walk   [surface]
+    WHAT: the concrete path from your own front door straight down to the sidewalk - it starts under the door and ends at the kerb
+    FROM: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (side)
+    AT:   3,9  size 1.1x5 tiles
+
+ 7. the driveway   [surface]
+    WHAT: the concrete drive from the street up to the garage door, dropped kerb and all
+    FROM: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (side)
+    AT:   8,6  size 3x10 tiles
+
+ 8. the crosswalk   [surface]
+    WHAT: a painted crossing that goes all the way from the kerb on the house side to the kerb on your side, bars laid across the direction the cars drive, lined up with the front walk it serves
+    FROM: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (cross)
+    AT:   2.6,16  size 1.9x6 tiles
+
+ 9. the houses on the next street back (left)   [object]
+    WHAT: the backs of the houses one street over, cut off by the top of the screen - same tract build as yours, boarded up
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (walls/roof/windows) + massing geometry
+    AT:   -4,-3  size 7x5 tiles
+
+10. the houses on the next street back (right)   [object]
+    WHAT: more of the same row, the flat-roofed ones, also cut off by the top of the screen
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (walls/roof/windows) + massing geometry
+    AT:   4,-3  size 8x5 tiles
+
+11. YOUR HOUSE   [object]
+    WHAT: the single-storey stucco house you woke up in: terracotta hip roof, pale cracked walls, dead dark glass in every window
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (walls/roof/windows) + massing geometry
+    AT:   1,2  size 7x8 tiles
+
+12. your front door   [detail]
+    WHAT: a two-tile-tall doorway standing open, with the dressed room behind it visible from the street
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (wall_door leaf)
+    AT:   3,9.4  size 1.1x2 tiles
+
+13. the garage   [object]
+    WHAT: a flat-roofed single garage with its roll-up door pushed all the way up - you can see straight into the empty bay, and the driveway runs into it
+    FROM: banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (walls/roof/windows) + massing geometry
+    AT:   8,3  size 3x3 tiles
+
+14. the street lamp on the house side   [object]
+    WHAT: a cast-iron street lamp on a slim post, three tiles of post and a lantern head on an arm - the bulb is dead like every other one on this block
+    FROM: banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt (lamp[3], the slim post)
+    AT:   9.7,12.8  size 1x3.2 tiles
+
+15. the street lamp on your side   [object]
+    WHAT: a cast-iron street lamp on a slim post, three tiles of post and a lantern head on an arm - the bulb is dead like every other one on this block
+    FROM: banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt (lamp[3], the slim post)
+    AT:   6.6,20.8  size 1x3.2 tiles
+
+16. the burning oil drum   [object]
+    WHAT: a plain rusted 55-gallon drum with a fire going in it - somebody on this block is still awake and still cold at night
+    FROM: banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (fire_barrel[7], no hazard markings on it)
+    AT:   0,14.32  size 0.84x1.68 tiles
+
+17. the wreck in the driveway   [object]
+    WHAT: a stripped patrol car left nose-in on the driveway, wheels gone
+    FROM: banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (car_wreck)
+    AT:   8.4,8.2  size 2x3 tiles
+
+18. the wreck in the road   [object]
+    WHAT: a burnt-out sedan dead in the near lane, parked clear of the crossing
+    FROM: banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (car_wreck)
+    AT:   6.5,16.5  size 3x2 tiles
+
+19. the wreck at the far kerb   [object]
+    WHAT: another dead car shoved against the far kerb where it finally stopped
+    FROM: banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (car_wreck)
+    AT:   0.2,19.4  size 3x2 tiles
+
+20. the pile of rubble   [object]
+    WHAT: broken masonry dumped in the yard, the kind that comes off a wall that fell down somewhere else
+    FROM: banks/BOHEMIA_DESERT_POOLS_7_18_26.txt (rubble)
+    AT:   6,12.18  size 1.08x0.82 tiles
+
+21. the landscaping boulder   [object]
+    WHAT: a decorative boulder from back when this yard was landscaped, still sitting exactly where somebody placed it
+    FROM: banks/BOHEMIA_DESERT_POOLS_7_18_26.txt (boulder)
+    AT:   1,11.11  size 0.68x0.89 tiles
+
+22. the debris in the road   [object]
+    WHAT: a heap of broken concrete somebody swept over to the side of the carriageway
+    FROM: banks/BOHEMIA_DESERT_POOLS_7_18_26.txt (rubble)
+    AT:   4,20.16  size 1.18x0.84 tiles
+
+23. YOU   [object]
+    WHAT: the character you built in the CHARACTER tab, standing on your own front walk at the kerb, facing the street
+    FROM: the alpha's own rig bake (buildFrame/frameToRGBA)
+    AT:   3,12.26  size 0.66x1.74 tiles
+
+24. the neighbour   [object]
+    WHAT: somebody else off this block walking east along the sidewalk - same rig, different clothes
+    FROM: the alpha's own rig bake (buildFrame/frameToRGBA)
+    AT:   6.4,13.94  size 0.84x1.66 tiles
+
+24 things, all named.

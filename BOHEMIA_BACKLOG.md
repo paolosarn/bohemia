@@ -23,7 +23,21 @@
 0b. (discovered 7/26, needs instrumentation) MEASURE LIVE CANVAS MEMORY on a
    real device against the ~224MB iOS floor. Until then section 8 of the
    contract is a constraint, not a check. | a probe + a gated ceiling | — | no.
-1. [RULED 7/26 - DIRECTION SET, LOOK STILL UNJUDGED] THE TARGET SCREEN. Paolo:
+1. [REV 3, 7/26 - DIRECTION SET, LOOK STILL UNJUDGED] THE TARGET SCREEN.
+   REV 3 answers the marked-up shot: the nameless bottom band, the fake
+   chain-link and the fake power line are DELETED (invented decoration is
+   deleted on sight); the radioactive barrel is a plain rusted drum and
+   radiation/hazard iconography is now BANNED BY LORE everywhere; the crossing
+   spans kerb to kerb with its bars across traffic, lined up with its walk; the
+   front door shares a column with its own walk; the garage door is a real
+   opening with the driveway running into it; the lamps are the slim blessed
+   post, a tile taller and not one pixel wider; and two objects can no longer
+   stand on the same ground - the BUILD FAILS. NEW LAW + gate:
+   laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md - every thing on
+   screen is named, described, sourced, and the build dies if the drawn count
+   ever exceeds the named count. Manifest ships with the render and is printed
+   on the judge page. Gate: 483 checks.
+   [PRIOR ROUND] THE TARGET SCREEN. Paolo:
    "Front base is the only one I'm concerned with and even then it looks like
    hallucinated AI slop. We made a rule that all cars are 2 x 3 tiles. Yeah the
    roofs are all fucked up not put on correctly yeah." A THE FRONT FACE is the

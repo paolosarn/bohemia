@@ -27,6 +27,7 @@ Run from repo root:  python3 gates/target_screen_gate.py
 import importlib.util
 import json
 import os
+import re
 import sys
 
 from PIL import Image, ImageStat
@@ -38,6 +39,7 @@ FACTORY = 'tools/bohemia_target_screen_factory.py'
 OUTDIR = 'records/target'
 JUDGE = 'slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html'
 LIFEHUB = 'slices/BOHEMIA_LIFE_CURRENT.html'
+LAW_NAMEIT = 'laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md'
 KEYS = ('A_FRONTFACE',)   # the other two are DEAD (graveyard registry, 7/26)
 
 P = F = 0
@@ -58,6 +60,30 @@ def load_factory():
     spec.loader.exec_module(mod)
     os.chdir(REPO)                      # the factory chdirs; put us back
     return mod
+
+
+def parse_manifest(path):
+    """Read the shipped manifest FILE, not the factory's in-memory list. The
+    artifact that ships is the thing that has to be right."""
+    if not os.path.exists(path):
+        return []
+    out, cur = [], None
+    for line in open(path):
+        t = line.rstrip('\n')
+        m = re.match(r'\s*\d+\.\s+(.*?)\s+\[(\w+)\]\s*$', t)
+        if m:
+            cur = {'name': m.group(1), 'kind': m.group(2), 'what': '', 'source': '',
+                   'cells': [0, 0, 0, 0]}
+            out.append(cur)
+        elif cur and t.strip().startswith('WHAT:'):
+            cur['what'] = t.split('WHAT:', 1)[1].strip()
+        elif cur and t.strip().startswith('FROM:'):
+            cur['source'] = t.split('FROM:', 1)[1].strip()
+        elif cur and t.strip().startswith('AT:'):
+            g = re.findall(r'-?[\d.]+', t.split('AT:', 1)[1])
+            if len(g) >= 4:
+                cur['cells'] = [float(v) for v in g[:4]]
+    return out
 
 
 def main():
@@ -144,6 +170,86 @@ def main():
             % part)
     chk('flat colour wedge' in src,
         'the hip ends must be the roof MATERIAL at another value, never a flat fill')
+
+    # ---- NAME IT OR DON'T DRAW IT (Paolo 7/26, LOCKED) ------------------
+    # laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md
+    man = os.path.join(OUTDIR, 'BOHEMIA_TARGET_MANIFEST.txt')
+    chk(os.path.exists(LAW_NAMEIT), 'the NAME IT OR DON\'T DRAW IT law is not written down')
+    chk(os.path.exists(man), 'the screen ships without a manifest - nobody can say what '
+                             'is on it')
+    ents = parse_manifest(man)
+    chk(len(ents) >= 12, 'the manifest only names %d things; the screen has more on it '
+                         'than that' % len(ents))
+    for e in ents:
+        chk(len(e['what']) >= 18, '"%s" has no real description' % e['name'])
+        chk(e['source'], '"%s" does not say where its pixels came from' % e['name'])
+        chk(e['kind'] in ('surface', 'object', 'detail'),
+            '"%s" has no kind' % e['name'])
+    objs = [e for e in ents if e['kind'] == 'object']
+    tail = open(man).read().strip().splitlines()[-1] if os.path.exists(man) else ''
+    chk(tail.startswith('%d things' % len(ents)),
+        'the manifest trailer disagrees with its own entries (%r vs %d)' % (tail, len(ents)))
+    for i, a in enumerate(objs):                        # nothing stands on anything
+        ax, ay, aw, ah = a['cells']
+        for b in objs[i + 1:]:
+            bx, by, bw, bh = b['cells']
+            ix = min(ax + aw, bx + bw) - max(ax, bx)
+            iy = min(ay + ah, by + bh) - max(ay, by)
+            chk(not (ix > 0.30 and iy > 0.30),
+                'STACKED WRONG: "%s" sits on "%s"' % (a['name'], b['name']))
+    chk('def drew(' in src and 'DRAWN.append' in src,
+        'naming is bolted on beside the drawing call again instead of inside it')
+    chk("raise SystemExit('NAME IT" in src or 'NAME IT OR DON' in src,
+        'the factory does not fail the build on an unnamed thing')
+
+    # ---- NO RADIATION IN BOHEMIA (LORE, Paolo 7/26) ---------------------
+    chk('BANNED_FACES' in src, 'the banned-iconography registry is gone')
+    banned = {int(k): v for k, v in re.findall(
+        r"(\d+):\s*'([^']+)'", src[src.index('BANNED_FACES'):src.index('def place(')])}
+    chk(len(banned) >= 6, 'the radiation/hazard faces are not all registered')
+    for e in ents:
+        low = e['source'].lower()
+        for idx in banned:
+            chk('fire_barrel[%d]' % idx not in low.replace(' ', ''),
+                '"%s" uses fire_barrel[%d], which carries %s. There is no radiation in '
+                'Bohemia.' % (e['name'], idx, banned[idx]))
+    chk('no hazard markings' in ' '.join(e['source'] for e in ents),
+        'the barrel on screen does not declare that it is clean of hazard marks')
+
+    # ---- EVERY DOOR HAS A PATH, THE CROSSING CROSSES --------------------
+    by_name = {e['name']: e for e in ents}
+    door, walk = by_name.get('your front door'), by_name.get('the front walk')
+    chk(door and walk, 'the door and its walk are not both named')
+    if door and walk:
+        chk(abs(door['cells'][0] - walk['cells'][0]) < 0.35,
+            'the front door is at column %.1f and its walk is at %.1f - a door with no '
+            'path to it is not a door' % (door['cells'][0], walk['cells'][0]))
+    cross, road = by_name.get('the crosswalk'), by_name.get('the road')
+    chk(cross and road, 'the crossing and the road are not both named')
+    if cross and road:
+        chk(cross['cells'][1] <= road['cells'][1] and
+            cross['cells'][1] + cross['cells'][3] >= road['cells'][1] + road['cells'][3],
+            'the crossing does not span the carriageway kerb to kerb')
+        chk(walk is None or abs(cross['cells'][0] - walk['cells'][0]) < 1.0,
+            'the crossing does not line up with the walk that feeds it')
+    chk('def crosswalk_across' in src, 'the crossing is not built as a kerb-to-kerb span')
+
+    # ---- THE STREET LAMPS (Paolo: too thick, one tile taller) -----------
+    lamps = [e for e in ents if 'street lamp' in e['name']]
+    chk(len(lamps) >= 1, 'no street lamp is named')
+    for l in lamps:
+        chk(l['cells'][3] >= 3.0,
+            '%s is only %.1f tiles tall - he asked for a full tile taller'
+            % (l['name'], l['cells'][3]))
+    chk("C.lamp[3]" in src, 'the lamp is not the slim post from the blessed bank')
+    chk('def lamp_post' in src and 'not one pixel thicker' in src,
+        'the lamp is being scaled up in width again ("thick as fuck like tree trunks")')
+
+    # ---- INVENTED DECORATION IS DELETED ---------------------------------
+    for gone, why in (('def chainlink', 'the invented chain-link fence'),
+                      ('def wire(', 'the invented overhead wire'),
+                      ('def blockwall', 'the nameless band across the bottom')):
+        chk(gone not in src, '%s is back. Invented decoration is deleted on sight.' % why)
 
     # ---- Pocket City rule 3: three tones, top brightest, side darkest ---
     chk(M.TOP > M.FRONT > M.SIDE,
