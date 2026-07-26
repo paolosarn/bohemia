@@ -320,6 +320,17 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1m. DONE 7/26 (v77): HIS SONGS ARE CANON + SONG LOCK GATE. Law:
+   laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md. Paolo asked whether the
+   music work had touched his actual songs. It had not (every body hashes
+   identical from 70e2061), but a promise is not enforcement, so the worry became
+   a gate the same turn. gates/song_lock_gate.js byte-locks OVERWORLD_SONGS,
+   MLOOPS, MFACTIONS, SONG_ARR/ROOT, synthV, drumV, the 7/3 rungs and the klay
+   styles against records/BOHEMIA_SONG_LOCK.json. Proven by tampering SLOW
+   CREEP's kick and watching the build fail. NOT a ban on new music: the music
+   lane runs --write and says why, which puts the change in the diff.
+   FLEET NOTE: any lane that legitimately changes a song must now run
+   `node gates/song_lock_gate.js --write` in the same commit.
 1o. DONE 7/26 (v76): THE SONGS PLAY OUT + THE PULSE YIELDS. Law:
    laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md. v75 APPROVED BY EAR.
    (a) Corrected my own 4x error: the creepers run 2.17 kicks / 2.33 hats a bar,

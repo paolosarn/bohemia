@@ -144,6 +144,8 @@ GATES = [
      'occupancy, beat, world clock', False),
     ('MUSIC',          ['node', 'gates/music_gate.js'],
      'screech law, voices exist, fresh-batch variety', False),
+    ('SONG LOCK',      ['node', 'gates/song_lock_gate.js'],
+     "Paolo's songs are byte-locked: no session edits a song quietly, ever", False),
     ('COMBAT POOL',    ['node', 'gates/combat_pool_gate.js'],
      'faction-tagged songs enter the combat pool with their voices', False),
     ('COMBAT LAB',     ['node', 'gates/combat_lab_gate.js'],

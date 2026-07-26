@@ -1,0 +1,51 @@
+{
+  "law": "laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md",
+  "note": "Paolo 7/26: \"I don't want you touching the actual songs themselves.\" If a hash below moves, the build fails until someone updates this file ON PURPOSE and says why. Updating it is allowed (the music lane cooks new songs); doing it silently is not.",
+  "bodies": {
+    "OVERWORLD_SONGS": {
+      "md5": "e68552af654b3beb5272c220167a2bec",
+      "bytes": 1355,
+      "what": "the 6 encounter creepers: every note, pattern, key, kit and lead voice"
+    },
+    "SONG_ARR": {
+      "md5": "9ffd00fa15f8fbea3606c887bb24c086",
+      "bytes": 81,
+      "what": "the 7/3 TWO MINUTE LAW arrangement: 16 sections, A/B/C/D, 2:08"
+    },
+    "SONG_ROOT": {
+      "md5": "118863614333762da2359003f2793bbf",
+      "bytes": 50,
+      "what": "the root movement per 8-bar section"
+    },
+    "KILL_LADDER_RUNGS": {
+      "md5": "d49c7fe75fcce94a1c7080d36fd19782",
+      "bytes": 527,
+      "what": "his 7/3 LOCKED rungs: hats at 2 kills, bass at 4"
+    },
+    "KLAY_STYLES": {
+      "md5": "eeda1bd59cf583364db7b3641b7469f3",
+      "bytes": 1679,
+      "what": "how each song intensifies in its own way (drive/stabs/melody/drums/bassrise)"
+    },
+    "MLOOPS": {
+      "md5": "6c5ccf3608a340a277ef16fd269261d4",
+      "bytes": 41081,
+      "what": "his 46 approved vibe songs"
+    },
+    "MFACTIONS": {
+      "md5": "81c64ebcce5636ee6265e9f72becbb4b",
+      "bytes": 3927,
+      "what": "the 28 faction song slots, all CANON"
+    },
+    "synthV": {
+      "md5": "fd31a867b0d0332af8a81c712fbdc5de",
+      "bytes": 226989,
+      "what": "the melodic voice bank every song is played with"
+    },
+    "drumV": {
+      "md5": "1c8bd46fcfda9dbf00a7d325c47ece6f",
+      "bytes": 5255,
+      "what": "the drum voice bank every song is played with"
+    }
+  }
+}

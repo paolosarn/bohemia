@@ -834,6 +834,28 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v77: HIS SONGS ARE CANON, AND THE MACHINE CHECKS IT. Law:
+laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md. NEW LAW + NEW GATE.
+Paolo, after v76: "you're not editing any of the actual songs right... I don't
+want you touching the actual songs themselves, bro."
+He is right to ask, and "I promise I didn't" is not an answer a machine can
+check. gates/song_lock_gate.js (20 checks, registered in the fleet suite as SONG
+LOCK) byte-hashes every canon music body against records/BOHEMIA_SONG_LOCK.json:
+OVERWORLD_SONGS, MLOOPS, MFACTIONS, SONG_ARR/SONG_ROOT, synthV, drumV, the 7/3
+2-and-4 rungs, the klay styles. IF A HASH MOVES AND THE MANIFEST DOES NOT, THE
+BUILD FAILS. It is NOT a ban on new music (the music lane's whole job): changing
+a song means running --write and saying WHY, which puts it in the diff instead of
+inside a 32MB base64 blob. Deliberately NOT locked: the fight pulse, the shuffle
+timing, the metronome, the UI - mechanism, mine, supposed to move.
+PROVEN BY TAMPERING, not asserted: SLOW CREEP's kick was edited from its canon
+[0,10] to a four-on-the-floor [0,4,8,12] and the gate failed the build with the
+expected/found md5 and both options in plain English. Tamper reverted, alpha
+verified clean against git.
+AND THE RECORD FOR v75+v76: ZERO bytes of any song changed. Every music body
+hashes identical from 70e2061 (before the music work) to the shipped build.
+This is MECHANISM-MINE / CONTENTS-PAOLO'S applied to audio, the same shape as RIG
+LAW's sacrosanct painted regions and the byte-locked visual constitution.
+
 COMBAT (04) 7/26 - v76: THE SONGS PLAY OUT + THE PULSE YIELDS. Law:
 laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md.
 v75 THE FIGHT PULSE is APPROVED BY EAR (Paolo: "Wow, I felt that. I really like
