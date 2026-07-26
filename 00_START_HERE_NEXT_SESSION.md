@@ -273,6 +273,21 @@ startEncounter -> BOHEMIA_RUN_COMBAT_END (runEncounterIn / RUNFIGHT /
 showTabPanel in the alpha shell). Do not repurpose those names.
 
 
+WORLD MODEL (02): 7/26 (d) — YOU CAN WALK OUT OF YOUR BLOCK NOW. Engine support the
+RUN lane filed (ledger priority 2, "the run's block becomes a real cell of the
+generated valley so walking off it lands in a real neighbouring district"). The world
+model could address a CELL and a PLOT and had no way to say "the tile at valley
+position X,Y", so every surface moved a body inside one plot and stopped at the edge.
+NEW RUNG on bohemia_world.js: tile(gx,gy) / solidAt / step (reports the CROSSING: which
+cell and which district you just entered) / walk / route (bounded breadth-first over
+real non-solid ground, lazy per cell). Valley is 12,288 x 12,288 tiles addressable.
+IT CAUGHT A REAL DEFECT ON ITS FIRST RUN: the arterial's tract wall ran unbroken along
+both sides, so the city was sealed out of its own streets and no route existed from any
+district to any other. Streets now cut an access break and pave an apron to the walk
+wherever a district fronts them, centred to meet the district's own gate. Gate: CROSSING
+(12 checks) walks district -> street -> district on four real sandwiches out of the live
+valley. NON-COOK, so freeze-clean.
+
 WORLD MODEL (02) — FREEZE COMPLIANCE NOTE (read with the entry below): the five new
 surfaces (arterial, freeway, desert, mountain, water) were built in the same hours the
 ART-FIRST RESET landed. They are STRUCTURE, not approved art: what ground exists, what

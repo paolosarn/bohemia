@@ -186,6 +186,8 @@ GATES = [
      'every canon .bq quest parses/round-trips/validates clean and plays to COMPLETE through the live loop', False),
     ('ROAD CELLS',     ['node', 'gates/roadcell_gate.js'],
      'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
+    ('CROSSING',       ['node', 'gates/crossing_gate.js'],
+     'the valley tile rung: a body walks district -> street -> district on real ground', False),
     ('TERRAIN',        ['node', 'gates/terrain_gate.js'],
      'desert, mountain and lake are real ground: one continuous field, no seams, rock walls with passes', False),
     ('QUEST PLACEMENT', ['node', 'gates/quest_placement_gate.js'],

@@ -266,7 +266,33 @@
       }
     }
 
-    return { g: g, W: 128, H: 128, streets: links, links: links, gates: [], footprints: [] };
+    /* ---- ACCESS. The wall was sealing the city out of its own street. A tract wall
+       is not continuous in real life and it cannot be here: every edge that faces a
+       district gets a break in the wall and an apron paved from that break across the
+       setback to the sidewalk, so a body can leave its block, reach the walk, and
+       cross. The districts centre their own gate on the shared edge (the kit's
+       pedGate/denseFill always centre at n/2), so this centres too and the two meet.
+       The route gate proves the whole chain: district -> apron -> walk -> crossing. */
+    var access = opts.access || [];
+    access.forEach(function (d) {
+      d = String(d).toUpperCase()[0];
+      var half = 7;                                  // a curb-cut wide enough to be a way in
+      for (var o = -half; o <= half; o++) {
+        for (var b = ROW; b >= WALK; b--) {          // from the wall inward to the walk
+          var px, py;
+          if (d === 'N') { px = C + o; py = C - b; }
+          else if (d === 'S') { px = C + o; py = C + b; }
+          else if (d === 'W') { px = C - b; py = C + o; }
+          else { px = C + b; py = C + o; }
+          if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+          var cur = g[py][px];
+          if (cur === 8 || cur === 7 || cur === 11 || cur === 10 || cur === 9) g[py][px] = 6;
+        }
+      }
+    });
+
+    return { g: g, W: 128, H: 128, streets: links, links: links, access: access,
+             gates: [], footprints: [] };
   }
 
   /* a vehicle can cross the cell on every direction the network says connects */

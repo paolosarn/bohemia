@@ -12020,7 +12020,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         var links=rl.all;
         var sres=sg.mod.generate(cell.seed>>>0,
           { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross,
-            cellX:x, cellY:y, open:openEdges(m,x,y,cell.district) });
+            cellX:x, cellY:y, open:openEdges(m,x,y,cell.district),
+            // the edges that face something that is NOT road: that is where the
+            // districts are, and therefore where the street has to let them in
+            access:['N','S','E','W'].filter(function(d){ return rl.all.indexOf(d)<0; }) });
         var slegend=sg.mod.legend||{};
         var stinfo=function(xx,yy){ var row=sres.g[yy]; var c=(row&&xx>=0&&xx<sres.W)?row[xx]:-1;
           var L=slegend[c], ly=KIT.tileLayer(L||{kind:'ground'});
@@ -12069,10 +12072,113 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       };
       plotCache[key]=api; return api;
     }
+    /* ------------------------------------------------------------------------
+       THE VALLEY TILE (7/26/26, WORLD lane — engine support the RUN lane asked
+       for: "the run's block becomes a real cell of the generated valley so
+       walking off it lands in a real neighbouring district").
+
+       This is the rung this file's own header promised and never had. You could
+       address a CELL and you could address a PLOT, but there was no way to say
+       "the tile at valley position X,Y" — so nothing could walk from one cell to
+       the next. Every surface that wanted to move a body did it inside one plot
+       and stopped at the edge.
+
+       Coordinates are GLOBAL TILE coordinates over the whole valley: 0..n*128.
+       LAZY: touching a tile generates that one cell's plot and nothing else, so
+       crossing a boundary costs one cell, never the valley.
+       ---------------------------------------------------------------------- */
+    var T = 128;
+    function tile(gx,gy){
+      gx=Math.floor(gx); gy=Math.floor(gy);
+      if(gx<0||gy<0||gx>=m.n*T||gy>=m.n*T) return null;          // off the valley
+      var cxi=Math.floor(gx/T), cyi=Math.floor(gy/T), tx=gx-cxi*T, ty=gy-cyi*T;
+      var cell=m.at(cxi,cyi); if(!cell) return null;
+      var p=null; try{ p=plot(cxi,cyi); }catch(e){ p=null; }
+      var info=(p&&p.tileInfo)?p.tileInfo(tx,ty):null;
+      return { gx:gx, gy:gy, cellX:cxi, cellY:cyi, tx:tx, ty:ty,
+               district:cell.district, surface:!!(p&&p.surface),
+               code:info?info.code:null,
+               // a bespoke landmark cell has no generator yet: say so honestly
+               // rather than inventing a material for it
+               name:info?info.name:'(reserved landmark ground)',
+               layer:info?info.layer:'ground',
+               solid:info?!!info.solid:false,
+               enter:info?info.enter:null };
+    }
+    function solidAt(gx,gy){ var t=tile(gx,gy); return t?t.solid:true; }   // off-map blocks
+
+    /* ONE STEP, and the whole point of it: it reports when the step CROSSED into a
+       different cell, and into what. That is the plot-to-plot transition. */
+    function step(gx,gy,dx,dy){
+      var nx=Math.floor(gx)+(dx|0), ny=Math.floor(gy)+(dy|0);
+      var from=tile(gx,gy), to=tile(nx,ny);
+      if(!to) return { ok:false, reason:'offmap', gx:gx, gy:gy, crossed:null };
+      if(to.solid) return { ok:false, reason:'blocked', gx:gx, gy:gy, to:to, crossed:null };
+      var crossed=(from && (from.cellX!==to.cellX||from.cellY!==to.cellY))
+        ? { fromCell:[from.cellX,from.cellY], toCell:[to.cellX,to.cellY],
+            fromDistrict:from.district, toDistrict:to.district } : null;
+      return { ok:true, gx:nx, gy:ny, to:to, crossed:crossed };
+    }
+
+    /* Walk a straight line as far as it goes, reporting every crossing on the way.
+       Bounded; content-agnostic; authors nothing. */
+    function walk(gx,gy,dx,dy,maxSteps){
+      var out={ steps:0, crossings:[], gx:Math.floor(gx), gy:Math.floor(gy), stopped:null };
+      var lim=maxSteps||512;
+      for(var i=0;i<lim;i++){
+        var r=step(out.gx,out.gy,dx,dy);
+        if(!r.ok){ out.stopped=r.reason; break; }
+        out.gx=r.gx; out.gy=r.gy; out.steps++;
+        if(r.crossed) out.crossings.push({ at:[r.gx,r.gy], crossed:r.crossed });
+      }
+      return out;
+    }
+
+    /* ROUTE. A straight line is not a crossing test: a suburb has houses in it, and
+       the first wall stops you. This is the real question the RUN lane is asking —
+       can a BODY get from here to there on foot, across cell boundaries, using only
+       ground the world model actually generated. Bounded breadth-first over non-solid
+       tiles; it authors nothing and decides nothing, it reports whether the ground
+       connects. Lazy per cell like everything else, and hard-capped so a bad ask can
+       never walk the whole valley. */
+    function route(gx0,gy0,gx1,gy1,opts){
+      opts=opts||{};
+      var cap=opts.maxNodes||60000;
+      var s0=tile(gx0,gy0), s1=tile(gx1,gy1);
+      if(!s0||!s1||s0.solid||s1.solid) return null;
+      var key=function(x,y){ return x+','+y; };
+      var start=key(gx0,gy0), goal=key(gx1,gy1);
+      var prev={}, seen={}; seen[start]=1;
+      var q=[[gx0,gy0]], head=0, D=[[1,0],[-1,0],[0,1],[0,-1]];
+      while(head<q.length && head<cap){
+        var cur=q[head++], cxp=cur[0], cyp=cur[1];
+        if(cxp===gx1&&cyp===gy1) break;
+        for(var i=0;i<4;i++){
+          var nx=cxp+D[i][0], ny=cyp+D[i][1], nk=key(nx,ny);
+          if(seen[nk]) continue;
+          var t=tile(nx,ny); if(!t||t.solid) continue;
+          seen[nk]=1; prev[nk]=key(cxp,cyp); q.push([nx,ny]);
+        }
+      }
+      if(!seen[goal]) return null;
+      var path=[], k=goal;
+      while(k && k!==start){ var p2=k.split(','); path.push([+p2[0],+p2[1]]); k=prev[k]; }
+      path.push([gx0,gy0]); path.reverse();
+      var cells={}, order=[];
+      path.forEach(function(pt){
+        var ck=Math.floor(pt[0]/T)+','+Math.floor(pt[1]/T);
+        if(!cells[ck]){ cells[ck]=1; order.push(ck); }
+      });
+      return { path:path, length:path.length, cells:order, explored:head };
+    }
+
     return {
       seed:seed, n:m.n, overmap:m,
+      tiles:m.n*T, TILE_PER_CELL:T,
+      route:route,
       at:function(x,y){return m.at(x,y);},
       plot:plot,
+      tile:tile, solidAt:solidAt, step:step, walk:walk,
       DISTRICT: OM.DISTRICT,
       landlockConnect: landlockConnect,          // LANDLOCKED DISTRICT LAW audit surface
       rawStreetEdges: function(x,y){ return rawStreetEdges(m,x,y); },
