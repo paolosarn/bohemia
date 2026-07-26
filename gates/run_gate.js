@@ -92,13 +92,33 @@ async function tapStep(page, d) {
   const id = d[0] === 1 ? '#br' : d[0] === -1 ? '#bl' : d[1] === 1 ? '#bd' : '#bu';
   await page.click(id);
 }
+/* A DOOR IS NOT A FLOOR TILE (Paolo's door law, 7/26): bumping a shut door swings
+   it — 9 frames over 2 beats — and you only pass once the leaf really is open.
+   So the walkers push against a door until it lets them through, exactly the way
+   a thumb does, instead of assuming one tap equals one step. */
+async function tapThroughDoor(page, d, wasInside) {
+  for (let i = 0; i < 14; i++) {
+    await tapStep(page, d);
+    const st = await page.evaluate(() => window.__RUN.state());
+    if ((st.mode === 'int') !== wasInside) return true;      // we went through
+    await page.waitForTimeout(120);
+  }
+  return false;
+}
 async function walkTo(page, target, opts) {
   opts = opts || {};
   const g = await page.evaluate(() => window.__RUN.grid());
   const st = await page.evaluate(() => window.__RUN.state());
   const steps = route(g.pass, [st.px, st.py], target, opts.throughDoors ? null : g.doorOf);
   if (!steps) throw new Error('no route from ' + st.px + ',' + st.py + ' to ' + target);
-  for (const d of steps) await tapStep(page, d);
+  // the last step lands ON the target; if that target is a front door, it is a
+  // door bump, not a step, and has to be pushed open first.
+  const isDoor = g.doorOf[target[0] + ',' + target[1]] != null;
+  for (let i = 0; i < steps.length; i++) {
+    const last = i === steps.length - 1;
+    if (last && isDoor) { if (!await tapThroughDoor(page, steps[i], false)) throw new Error('the door never opened'); }
+    else await tapStep(page, steps[i]);
+  }
   return steps.length;
 }
 async function walkOutOfHouse(page) {
@@ -106,7 +126,11 @@ async function walkOutOfHouse(page) {
   const st = await page.evaluate(() => window.__RUN.state());
   const steps = route(inr.pass, [st.px, st.py], inr.door, null);
   if (!steps) throw new Error('no route to the interior door');
-  for (const d of steps) await tapStep(page, d);
+  for (let i = 0; i < steps.length; i++) {
+    const last = i === steps.length - 1;
+    if (last) { if (!await tapThroughDoor(page, steps[i], true)) throw new Error('the front door never opened'); }
+    else await tapStep(page, steps[i]);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -227,6 +251,37 @@ async function alphaRun() {
     await run.waitForFunction(() => { const c = window.__RUN.cast(); return !!c && c.dirs >= 8; },
       null, { timeout: 180000 });
     out.cast = await run.evaluate(() => window.__RUN.cast());
+    out.doors = await run.evaluate(() => window.__RUN.doors());
+
+    /* THE DOOR LAW, behaviourally (Paolo 7/26): a shut door is not a floor tile.
+       Walk into it and you do NOT move; it swings (9 frames, 2 beats) and only
+       then does it let you through. Prove both halves on the real surface. */
+    {
+      const inr = await run.evaluate(() => window.__RUN.interior());
+      const st0 = await run.evaluate(() => window.__RUN.state());
+      const steps = route(inr.pass, [st0.px, st0.py], [inr.door[0], inr.door[1] - 1], null);
+      if (steps) for (const d of steps) await tapStep(run, d);
+      const before = await run.evaluate(() => window.__RUN.state());
+      await tapStep(run, [0, 1]);                                  // bump the shut door
+      const after = await run.evaluate(() => window.__RUN.state());
+      out.doorBlocked = (after.mode === 'int' && before.mode === 'int' &&
+                         after.px === before.px && after.py === before.py);
+      await run.waitForTimeout(300);
+      const mid = await run.evaluate(() => window.__RUN.doors());
+      out.doorMidFrame = Math.max(0, ...Object.keys(mid.state).map(k => mid.state[k].f));
+      await run.waitForTimeout(900);
+      const done = await run.evaluate(() => window.__RUN.doors());
+      out.doorEndFrame = Math.max(0, ...Object.keys(done.state).map(k => done.state[k].f));
+    }
+
+    /* MUSIC: the run asks, the parent's real synth answers. The first committed
+       step already kicked it on (that tap is the gesture a browser needs), so
+       prove the whole round trip: on after walking, off on tap, on again. */
+    out.musicAfterWalk = await run.evaluate(() => window.__RUN.music());
+    await run.click('#mus'); await run.waitForTimeout(400);
+    out.musicOff = await run.evaluate(() => window.__RUN.music());
+    await run.click('#mus'); await run.waitForTimeout(400);
+    out.musicOn = await run.evaluate(() => window.__RUN.music());
 
     await walkOutOfHouse(run);
     const st0 = await run.evaluate(() => window.__RUN.state());
@@ -370,6 +425,21 @@ async function alphaRun() {
     !!C.cast && C.cast.looks >= 4 && C.cast.lookDirs === 8);
   ok('ALPHA: the real FACE SYSTEM renders the dialogue portraits',
     !!C.cast && C.cast.portrait === true && C.cast.npcPortraits >= 4);
+  // DOOR LAW (Paolo 7/26): 1 wide, 2 tall, and they are the APPROVED animated bank
+  ok('DOORS: the approved animated door bank really shipped in the run',
+    !!C.doors && C.doors.clips >= 6 && /DOOR_ANIM_BANK/.test(C.doors.version || ''));
+  ok('DOOR LAW: a door is ONE tile wide and TWO tiles tall',
+    !!C.doors && C.doors.tileW === 1 && C.doors.tileH === 2);
+  ok('DOORS: the full 9-frame open/close clip, not a still',
+    !!C.doors && C.doors.frames === 9);
+  ok('DOORS: a shut door BLOCKS you — walking into it does not move you',
+    C.doorBlocked === true);
+  ok('DOORS: bumping it really swings the leaf (the frame advances over 2 beats)',
+    C.doorMidFrame > 0 && C.doorEndFrame > C.doorMidFrame && C.doorEndFrame >= 8);
+  ok('MUSIC: walking starts the parent\'s real synth (the step is the gesture)',
+    C.musicAfterWalk === true);
+  ok('MUSIC: the toggle really round-trips through the alpha, both ways',
+    C.musicOff === false && C.musicOn === true);
   ok('ALPHA: no page errors while the run plays inside the alpha', C.errors.length === 0);
   if (C.errors.length) console.log('    ' + C.errors.slice(0, 4).join('\n    '));
   ok('ALPHA: a loud resolution really opens the COMBAT tab', C.combatPanelOn === true);

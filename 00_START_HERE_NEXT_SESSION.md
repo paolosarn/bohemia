@@ -82,6 +82,22 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
+two by one... we already made a lot of doors with even animations where it opens,
+you can't find that anywhere in the fucking files." He was right again: the bank
+(banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt, 30 clips, 9 frames, 2 beats, queue
+CLOSED 30/30) had existed since 7/13 and NOTHING consumed it, while every surface
+drew a flat 1x1 still. Now law: laws/BOHEMIA_ADDENDUM_DOOR_LAW_TWO_TILES_TALL_
+7_26_26.md — a door is 1 wide x 2 tall, it opens, a shut one BLOCKS you, and you
+are through only at frame >= 5 (the 7/13 integration contract's own rule). The
+builder refuses any frame that is not 88x176. Music too: the run asks the alpha's
+own MUS/CITYMUS synth to score the walk (one AudioContext, in the parent, no
+second music engine). Ledger now 14/23.
+STANDING ORDER from the door law: before a surface draws a THING the game already
+has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
+asked whether a RENDERING surface went looking. That hole is what cost two weeks
+of wrong-size frozen doors.
+
 RUN (01) — RULED 7/26, READ THIS BEFORE ANY RUN WORK:
 laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md. Paolo played
 the first run and the verdict was that it did not use the game we spent six weeks
@@ -97,13 +113,27 @@ Bohemia body with the real face in the dialogue portrait. Painter-sorted by dept
 THE SCOREBOARD (this is the answer to "what do I do with this"): every run ship
 quotes records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md, enforced by
 gates/integration_gate.js — a row may NOT be marked INTEGRATED without a machine
-probe proving the wiring is in the shipped run. Currently 12/22.
-NEXT FIVE, IN ORDER (from the ledger): 3/4 ISO VIEW (the loudest gap — the city
-tab's human mode already renders the real iso world with the real character, so
-the run should adopt THAT renderer, not grow a second one), then the real valley,
-then district art, then music, then day cycle + light.
+probe proving the wiring is in the shipped run.
+NEXT, IN ORDER (from the ledger): THE OVERWORLD LOOK / 3/4 ISO VIEW (Paolo 7/26:
+"it's kind of looking like shit the whole overworld" — the city tab's human mode
+already renders the real iso world with the real character, so the run should
+adopt THAT renderer, not grow a second one), then the real valley, then district
+art, then day cycle + light.
 
-RUN (01) — the loop itself, shipped earlier the same day: **THE FIRST CONNECTED RUN IS PLAYABLE.** New
+RUN (01) — the loop itself, shipped earlier the same day: THE FIRST CONNECTED RUN.
+New RUN tab in the alpha (first tab, preloads itself), one thumb: wake up inside
+your own house -> out the front door -> the lineman on the street gives you a
+throwaway errand -> follow it down his street -> resolve it quiet or LOUD -> a
+LOUD resolution hands off to the REAL combat frame and comes back with
+dead/spared/fled -> walk home -> the phone posts it with real CLOUT and
+followers. Files: slices/BOHEMIA_RUN_SLICE_7_26_26.html (dev source, edit this)
+-> tools/build_run_slice.js -> slices/BOHEMIA_RUN_CURRENT.html (generated, never
+edit). Gate: gates/run_gate.js (80 assertions, both forks + inside the real
+alpha). Record: records/BOHEMIA_THE_FIRST_CONNECTED_RUN_7_26_26.txt.
+NOTE FOR EVERY LANE: the alpha now relays BOHEMIA_RUN_ENCOUNTER / _NEED_CAST /
+_MUSIC and answers BOHEMIA_RUN_COMBAT_END / _CAST / _MUSIC_STATE
+(runEncounterIn / runSendCast / RUNFIGHT / showTabPanel in the alpha shell).
+Do not repurpose those names.
 
 CITY (03) 7/26 — INTERIORS EVERYWHERE. You can now WALK INTO BUILDINGS in the
 alpha's CITY tab (DROP IN, then walk into a wall whose dossier declares an

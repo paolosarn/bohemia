@@ -59,6 +59,33 @@ if (banks.indexOf('ROOF_IMG') < 0 || banks.indexOf('YARD_IMG') < 0 ||
 if (html.indexOf('__ART_BANKS__') < 0) throw new Error('missing __ART_BANKS__ placeholder');
 html = html.replace('__ART_BANKS__', banks);
 
+/* ---- THE REAL ANIMATED DOORS (Paolo 7/26: "we actually already made a lot of
+   doors with even animations where it opens, you can't find that anywhere in the
+   fucking files"). They were in banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt the
+   whole time: 30 approved clips, 9 frames each, open/close over 2 beats at
+   120 BPM, queue CLOSED 30/30. The residential pack ("4. Doors and entrances")
+   is the one a house wears, and every frame is 88x176 — ONE TILE WIDE, TWO TILES
+   TALL, which is the door law he just stated out loud. Lifted verbatim; nothing
+   is re-cooked, resized or squished. ---- */
+var DOOR_BANK = 'banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt';
+var bank = JSON.parse(fs.readFileSync(DOOR_BANK, 'utf8'));
+var doorClips = Object.keys(bank.clips).filter(function (k) { return /^4\._Doors_a_\d+_swing$/.test(k); }).sort();
+if (doorClips.length < 6) throw new Error('the approved residential animated doors are missing from ' + DOOR_BANK);
+var doorOut = doorClips.map(function (k) {
+  var c = bank.clips[k];
+  if (c.frames.length !== bank.frames_per_clip) throw new Error(k + ' is not a full ' + bank.frames_per_clip + '-frame clip');
+  // DOOR LAW: every frame must be exactly 1 tile wide x 2 tiles tall (88x176)
+  c.frames.forEach(function (f, i) {
+    var buf = Buffer.from(f, 'base64');
+    var w = buf.readUInt32BE(16), h = buf.readUInt32BE(20);
+    if (w !== 88 || h !== 176) throw new Error(k + ' frame ' + i + ' is ' + w + 'x' + h + ', not the 1-wide-2-tall door law (88x176)');
+  });
+  return { id: k, style: c.style, frames: c.frames };
+});
+if (html.indexOf('__DOOR_ANIM_JSON__') < 0) throw new Error('missing __DOOR_ANIM_JSON__ placeholder');
+html = html.replace('__DOOR_ANIM_JSON__', JSON.stringify({
+  version: bank.version, framesPerClip: bank.frames_per_clip, tileW: 1, tileH: 2, clips: doorOut }));
+
 /* ---- the engine modules, inlined in the page's own (canonical) order. Every
    `<script src="../engine/X.js">` becomes the byte-identical body of engine/X.js,
    so gates/run_gate.js can prove freshness by substring. ---- */

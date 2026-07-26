@@ -55,6 +55,22 @@ const PROBES = {
     const a = walk.indexOf('var DOOR_B64=['), b = walk.indexOf('function lampAt(', a);
     return a >= 0 && b >= 0 && RUN.indexOf(walk.slice(a, walk.indexOf('\n', b))) >= 0;
   },
+  /* DOOR LAW (Paolo 7/26): the approved animated bank, 1 wide x 2 tall, really
+     in the shipped run — the clips themselves, not a reference to them. */
+  door_anim: () => {
+    if (RUN.indexOf('"tileW":1,"tileH":2') < 0) return false;
+    if (RUN.indexOf('function drawDoorFace(') < 0 || RUN.indexOf('function doorPassable(') < 0) return false;
+    const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt'), 'utf8'));
+    const res = Object.keys(bank.clips).filter(k => /^4\._Doors_a_\d+_swing$/.test(k)).sort();
+    if (res.length < 6) return false;
+    // every approved residential clip's every frame must be present verbatim
+    return res.every(k => bank.clips[k].frames.every(f => RUN.indexOf(f) >= 0));
+  },
+  music_bridge: () => RUN.indexOf("type:'BOHEMIA_RUN_MUSIC'") >= 0 &&
+    ALPHA.indexOf("d.type==='BOHEMIA_RUN_MUSIC'") >= 0 &&
+    ALPHA.indexOf('CITYMUS.startShuffle()') >= 0 &&
+    // no second synth: the run must never CONSTRUCT an audio context of its own
+    !/new\s*\(?\s*(window\.)?(webkit)?AudioContext/.test(RUN),
   floorplan_module: () => RUN.indexOf(engine('bohemia_floorplan.js')) >= 0 &&
     RUN.indexOf('BOH_FLOORPLAN.generate(') >= 0,
   agents_module: () => RUN.indexOf(engine('bohemia_agents.js')) >= 0 &&

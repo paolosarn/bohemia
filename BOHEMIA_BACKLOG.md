@@ -38,10 +38,14 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    [DONE 7/26] THE FIRST CONNECTED RUN — shipped, gated. Record:
    records/BOHEMIA_THE_FIRST_CONNECTED_RUN_7_26_26.txt.
    [DONE 7/26] THE REAL CAST — the run wears the real rig + wardrobe + face.
-   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (12/22),
+   [DONE 7/26] REAL ANIMATED DOORS (2 tiles tall, approved 7/13 bank) + MUSIC
+   (the alpha's own synth scores the walk). Law:
+   laws/BOHEMIA_ADDENDUM_DOOR_LAW_TWO_TILES_TALL_7_26_26.md.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (14/23),
    enforced by gates/integration_gate.js.
--1. THE 3/4 ISO VIEW (the loudest remaining "this isn't our game" gap, ledger
-   priority 1). The CITY tab's human mode ALREADY renders the real iso world
+-1. THE OVERWORLD LOOK / 3/4 ISO VIEW. Paolo 7/26: "it's kind of looking like
+   shit the whole overworld." This is now the lane's ONLY next job, ledger
+   priority 1. The CITY tab's human mode ALREADY renders the real iso world
    walking the real character — the run should adopt that renderer instead of
    growing a second one. Coordinate with CITY: this crosses into CITY_B64, so
    it needs the lane boundary agreed before it starts. | ledger row flips to

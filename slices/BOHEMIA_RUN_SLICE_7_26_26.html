@@ -50,6 +50,10 @@
     background:linear-gradient(90deg,var(--gold-soft),transparent);
     border-bottom:1px solid var(--line); min-height:38px; }
   #obj .ring{ color:var(--gold); }
+  #obj #mus{ margin-left:auto; flex:none; font-family:var(--mono); font-size:10px; font-weight:700;
+    letter-spacing:1px; padding:5px 9px; border:0; border-radius:3px; background:#241d12;
+    color:var(--faint); box-shadow:inset 0 0 0 1px var(--line); text-transform:none; }
+  #obj #mus.on{ background:var(--gold-soft); color:var(--gold); }
   #obj b{ color:var(--ink); font-weight:700; }
 
   /* ---- THE WORLD ---- */
@@ -139,7 +143,7 @@
 </style>
 
 <div id="run">
-  <div id="obj"><span class="ring">◈</span><span id="objtxt">waking up</span></div>
+  <div id="obj"><span class="ring">◈</span><span id="objtxt">waking up</span><button id="mus">♪ OFF</button></div>
   <div id="stage">
     <canvas id="cv"></canvas>
     <div id="where">INSIDE</div>
@@ -239,6 +243,13 @@ window.BOHEMIA_FACTION_GRAPH = __FACTION_GRAPH_JSON__;
 /* every quests/bq/*.bq, verbatim source text — the SAME bytes
    gates/bohemia_canon_quests_gate.js proves playable. No second copy. */
 var CANON_QUESTS = __CANON_QUESTS_JSON__;
+/* THE APPROVED ANIMATED DOORS, lifted verbatim by the builder from
+   banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt (queue CLOSED 30/30, 7/13).
+   DOOR LAW (Paolo 7/26): a door is ONE TILE WIDE AND TWO TILES TALL. Every
+   frame in this bank already is (88x176) and the builder refuses to ship one
+   that is not. 9 frames spanning 2 beats at 120 BPM, per the integration
+   contract in laws/BOHEMIA_DOOR_ANIM_INTEGRATION_7_13_26.md. */
+var DOOR_ANIM = __DOOR_ANIM_JSON__;
 </script>
 <script src="../engine/bohemia_loop.js"></script>
 <script>
@@ -432,6 +443,54 @@ var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',di
   hall:'#b9af91',closet:'#8c877d',garage:'#6d5f4b',entry:'#b4a582','null':'#96917d'};
 
 /* ===========================================================================
+   THE REAL DOORS. Paolo 7/26: "doors are always two tiles tall, 2 by 1... we
+   actually already made a lot of doors with even animations where it opens."
+   They were in banks/ the whole time and nothing was using them. Now the block
+   wears them: the approved residential swing clips, 9 frames over 2 beats at
+   120 BPM (BEAT=500ms), drawn ONE TILE WIDE AND TWO TILES TALL off the door
+   tile, and the run honours the integration contract's own rule — you are not
+   through until the leaf is actually open (frame >= 5).
+   =========================================================================== */
+var BEAT=500, DOOR_MS=BEAT*2;                        /* 120 BPM LAW: 2 beats */
+var DOOR_IMGS=(DOOR_ANIM.clips||[]).map(function(c){
+  return c.frames.map(function(b64){ var im=new Image();
+    im.onload=function(){ draw(); }; im.src='data:image/png;base64,'+b64; return im; }); });
+var DOORST={};                                        /* "x,y" -> {f, state, t0} */
+function doorClipFor(gx,gy){ if(!DOOR_IMGS.length)return null;
+  return DOOR_IMGS[(((gx*73856093)^(gy*19349663))>>>0)%DOOR_IMGS.length]; }
+function doorKey(gx,gy){ return (mode==='int'?('i'+curHouse+':'):'')+gx+','+gy; }
+function doorState(k){ if(!DOORST[k])DOORST[k]={f:0,state:'closed',t0:0}; return DOORST[k]; }
+function doorTick(){
+  var live=false, now=Date.now(), n=DOOR_ANIM.framesPerClip||9;
+  for(var k in DOORST){ var d=DOORST[k];
+    if(d.state!=='opening'&&d.state!=='closing') continue;
+    var p=Math.min(1,(now-d.t0)/DOOR_MS);
+    d.f = d.state==='opening' ? Math.round(p*(n-1)) : Math.round((1-p)*(n-1));
+    if(p>=1){ d.state = d.state==='opening' ? 'open' : 'closed'; }
+    else live=true;
+  }
+  draw();
+  if(live) requestAnimationFrame(doorTick); else DOORTICKING=false;
+}
+var DOORTICKING=false;
+function openDoor(k){ var d=doorState(k);
+  if(d.state==='open'||d.state==='opening') return d;
+  d.state='opening'; d.t0=Date.now();
+  if(!DOORTICKING){ DOORTICKING=true; requestAnimationFrame(doorTick); }
+  return d; }
+/* the contract's own collision rule: passable once the leaf is really open */
+function doorPassable(k){ var d=doorState(k); return d.f>=5; }
+/* the door face: 1 wide, 2 tall, standing ON the door tile and rising into the
+   tile above it. Never squished, never a 1x1 stamp. */
+function drawDoorFace(gx,gy,X,Y,CELL){
+  var set=doorClipFor(gx,gy); if(!set)return false;
+  var d=doorState(doorKey(gx,gy)), im=set[Math.max(0,Math.min(set.length-1,d.f))];
+  if(!im||!im.complete||!im.naturalWidth)return false;
+  ctx.drawImage(im, Math.round(X), Math.round(Y-CELL), Math.round(CELL), Math.round(CELL*2));
+  return true;
+}
+
+/* ===========================================================================
    THE REAL CAST (Paolo's ruling 7/26: the run has to BE the game we built).
    Nobody on this block is a coloured rectangle. The parent alpha bakes the
    actual character - the rig, the painted regions, the wardrobe, the face, the
@@ -546,15 +605,17 @@ function draw(){
   var CELL = Math.max(16, Math.floor(Math.min(cv.width/11, cv.height/11)));
   var halfW = Math.floor(cv.width/CELL/2), halfH = Math.floor(cv.height/CELL/2);
   ctx.fillStyle='#12140f'; ctx.fillRect(0,0,cv.width,cv.height);
+  var doorDraws=[];   /* 2-tall door faces, drawn after the ground so they stand up */
   for(var sy=-halfH; sy<=halfH; sy++) for(var sx=-halfW; sx<=halfW; sx++){
     var gx=px+sx, gy2=py+sy; if(gx<0||gy2<0||gx>=gw||gy2>=gh) continue;
     var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL, S=CELL-1;
     if(mode==='ext'){
       var c=G[gy2][gx], isDoor=doorOf[gx+','+gy2]!=null;
-      if(isDoor){ ctx.fillStyle= (doorOf[gx+','+gy2]===HOME) ? '#f5d98c' : '#f0cd78';
-        ctx.fillRect(X,Y,S,S);
-        var _di=doorPick(gx,gy2); if(_di.complete&&_di.naturalWidth) ctx.drawImage(_di,X,Y,S,S);
-        if(doorOf[gx+','+gy2]===HOME){ ctx.strokeStyle='#e8b84a'; ctx.lineWidth=2; ctx.strokeRect(X+1,Y+1,S-2,S-2); } }
+      if(isDoor){
+        /* the doorway's own dark opening under the leaf, then the real 2-tall
+           animated door face on top of it in the overlay pass below */
+        ctx.fillStyle='#17130d'; ctx.fillRect(X,Y,S,S);
+        doorDraws.push([gx,gy2,X,Y,CELL,doorOf[gx+','+gy2]===HOME]); }
       else if(c===2||c===9||c===6){
         if(!tile(ROOF_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle=EXTCOL[c]; ctx.fillRect(X,Y,S,S); }
         if(c===9){ ctx.fillStyle='rgba(0,0,0,0.18)'; ctx.fillRect(X,Y,S,S); }
@@ -584,11 +645,20 @@ function draw(){
         ctx.fillStyle='#3a3a42'; ctx.fillRect(X+S*0.3,Y,S*0.4,S*0.18); }
     } else {
       var ic=fp.grid[gy2][gx];
-      var col = ic.g==='wall' ? '#2c2824' : ic.g==='door' ? '#f0cd78' : (INT_ROLE[ic.role]||'#96917d');
+      var isX = fpDoor && gx===fpDoor[0] && gy2===fpDoor[1];   /* the way OUT */
+      var col = ic.g==='wall' ? '#2c2824' : (isX||ic.g==='door') ? '#17130d' : (INT_ROLE[ic.role]||'#96917d');
       ctx.fillStyle=col; ctx.fillRect(X,Y,S,S);
-      if(ic.g==='door'){ var _dii=doorPick(gx,gy2); if(_dii.complete&&_dii.naturalWidth) ctx.drawImage(_dii,X,Y,S,S); }
+      /* inside wears the same real door: 1 wide, 2 tall, same clip bank */
+      if(isX||ic.g==='door') doorDraws.push([gx,gy2,X,Y,CELL,isX]);
     }
   }
+  /* THE DOORS, standing two tiles tall over everything the ground pass drew */
+  doorDraws.forEach(function(d){
+    if(!drawDoorFace(d[0],d[1],d[2],d[3],d[4])){
+      ctx.fillStyle='#6a5636'; ctx.fillRect(d[2],d[3]-d[4],d[4],d[4]*2); }
+    if(d[5]){ ctx.strokeStyle='#e8b84a'; ctx.lineWidth=2;
+      ctx.strokeRect(d[2]+1,d[3]-d[4]+1,d[4]-2,d[4]*2-2); }   /* your own door */
+  });
   /* EVERY BODY, PAINTER-SORTED. Whoever stands lower on the screen is nearer,
      so they draw last and overlap the people behind them - the player included,
      which is why he is in this list instead of stamped on top of it. */
@@ -653,6 +723,7 @@ function refresh(){
 function move(dx,dy){
   if(RUN.phase==='talking'||RUN.phase==='combat'||RUN.phase==='done') return;
   /* you turn to face where you asked to go even when a wall stops you */
+  musicKick();
   PFACE=dirOf(dx,dy); PFRAME=(PFRAME+1)&3; PMOVING=true;
   if(_PIDLE)clearTimeout(_PIDLE);
   _PIDLE=setTimeout(function(){ PMOVING=false; draw(); }, 320);
@@ -660,11 +731,18 @@ function move(dx,dy){
   if(mode==='ext'){
     var d = doorOf[nx+','+ny];
     if(d!=null){
+      /* YOU DO NOT WALK THROUGH A SHUT DOOR. First bump swings it open (the real
+         9-frame clip, 2 beats); you are through once the leaf really is (frame>=5,
+         the integration contract's own collision rule). */
+      var k=doorKey(nx,ny);
+      if(!doorPassable(k)){ openDoor(k); refresh(); return; }
       if(d===HOME && RT && RT.state.done && RUN.phase!=='home_after'){ backAt=[px,py]; enter(d); RUN.phase='home_after'; openPhone(); refresh(); draw(); return; }
       backAt=[px,py]; enter(d); refresh(); draw(); return; }
     if(!passExt(nx,ny)) return; px=nx; py=ny;
   } else {
     if(nx===fpDoor[0] && ny===fpDoor[1]){
+      var ik=doorKey(nx,ny);
+      if(!doorPassable(ik)){ openDoor(ik); refresh(); return; }
       leave(); if(RUN.phase==='home_inside') RUN.phase='street';
       refresh(); draw(); return; }
     if(!passInt(nx,ny)) return; px=nx; py=ny;
@@ -786,6 +864,7 @@ HANDBTN.addEventListener('click', function(){ HAND.style.display='none'; RUN.pha
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if(!d || !d.type) return;
   if(d.type==='BOHEMIA_RUN_CAST'){ castIn(d); return; }
+  if(d.type==='BOHEMIA_RUN_MUSIC_STATE'){ MUSIC_ON=!!d.on; refreshMusicBtn(); return; }
   if(d.type==='BOHEMIA_RUN_ENCOUNTER_ACK'){
     HANDSUB.textContent='Handing you to the dial…'; return; }
   if(d.type==='BOHEMIA_RUN_COMBAT_END'){
@@ -829,6 +908,20 @@ function openPhone(){
   RUN.phase='done'; refresh();
 }
 document.getElementById('pClose').addEventListener('click', function(){ PHONE.style.display='none'; refresh(); draw(); });
+
+/* ---- 14b. MUSIC. Paolo 7/26: "no music either." The songs are real and they
+   already have a player — the alpha's own MUS/CITYMUS shuffle, the same one the
+   CITY tab asks the parent to run when you walk the city. One AudioContext, in
+   the parent, playing the real approved faction pools. The run just asks. ---- */
+var MUSIC_ON=false;
+function refreshMusicBtn(){ var b=document.getElementById('mus');
+  if(b){ b.textContent = MUSIC_ON ? '♪ ON' : '♪ OFF'; b.classList.toggle('on',MUSIC_ON); } }
+function musicAsk(on){ bridgePost({type:'BOHEMIA_RUN_MUSIC',on:!!on}); }
+(function(){ var b=document.getElementById('mus');
+  if(b) b.addEventListener('click', function(){ musicAsk(!MUSIC_ON); }); })();
+/* first real tap is the gesture a browser needs before audio may start */
+var _musKick=false;
+function musicKick(){ if(_musKick)return; _musKick=true; musicAsk(true); }
 
 /* ---- 15. INPUT: d-pad, keys, and tap-the-world (one thumb, arm's length). ---- */
 ACT.addEventListener('click', function(){
@@ -883,6 +976,10 @@ window.__RUN = {
     for(var y=0;y<fp.H;y++){ var r=[]; for(var x=0;x<fp.W;x++) r.push(passInt(x,y)); a.push(r); }
     return { W:fp.W, H:fp.H, door:fpDoor, pass:a }; },
   talkables: function(){ return talkables(); },
+  doors: function(){ return { clips:DOOR_IMGS.length, frames:DOOR_ANIM.framesPerClip,
+    tileW:DOOR_ANIM.tileW, tileH:DOOR_ANIM.tileH, version:DOOR_ANIM.version,
+    state:JSON.parse(JSON.stringify(DOORST)) }; },
+  music: function(){ return MUSIC_ON; },
   cast: function(){ if(!CAST) return null;
     var d=Object.keys(CAST.player), any=CAST.player[d[0]];
     return { dirs:d.length, walkFrames:any?any.walk.length:0, looks:CAST.looks.length,
