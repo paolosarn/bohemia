@@ -343,7 +343,10 @@ PARKED BY THE 7/26 RULING (do not pick these up):
 
 ## CHARACTER  (LANE LAW 7/26: laws/BOHEMIA_ADDENDUM_THE_RIG_IS_LAW_7_26_26.md
 ## — the rig is the starting point of ALL body/anim work; RIG CHECK mandatory;
-## first item of the lane's next session: the rig-check gate assertion.)
+## AND laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md — shading never
+## baked into asset pixels, render-time layer only. First items of the lane's
+## next session: the rig-check gate assertion + the shading-separation gate
+## assertion, same turn.)
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not

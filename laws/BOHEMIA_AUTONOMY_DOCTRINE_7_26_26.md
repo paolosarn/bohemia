@@ -114,7 +114,9 @@ toward its intent instead of pinging him. Canon-level gaps stay [PENDING].
   walkable, iconic-readable (Pocket City bar), never a void, never a placeholder.
 - COMBAT: the dial + movement-forward toolkit; kills land on the beat; juice
   over realism, readability over simulation.
-- CHARACTER/SOUND: THE RIG IS LAW — all body/animation work derives from
+- CHARACTER/SOUND: SHADOWS ARE A SEPARATE LAYER — shading never lives in a
+  garment/body/prop's own pixels, it is a render-time pass (7/26 addendum);
+  THE RIG IS LAW — all body/animation work derives from
   BAKED.pose and its layering, never a new body (7/26 addendum, rig check
   mandatory); silhouettes readable at arm's length; structure over
   color; one rig, variation by sliders; 120 BPM everything.
