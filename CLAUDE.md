@@ -254,7 +254,9 @@ an unset direction as [PENDING, Paolo's call].
 
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
-short form: Paolo's entire vocabulary is "go" / "verdicts in" / "status" —
+short form: the FIRST word of a new session names its lane (run/world/city/
+combat/character/quests/coordinator) and means GO; after that his entire
+vocabulary is "go" / "verdicts in" / "status" —
 any other word from him is a RULING to record, never a discussion to have.
 On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's
 top unblocked item from BOHEMIA_BACKLOG.md; [PENDING] blocks nothing; over

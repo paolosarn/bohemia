@@ -15,7 +15,11 @@ research record lives in this file's commit and the coordinator's findings.
 ## 1. THE ONE-WORD LAW (Paolo's entire input vocabulary)
 =============================================================================
 Paolo never writes task prompts. His words to any session:
-- **"go"** (or any single word, or garbled transcription, or "continue"):
+- **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
+  "combat" / "character" / "quests" / "coordinator". That word both assigns
+  the lane and means GO. A fresh session that can't match its first word to a
+  lane asks ONE word back ("which lane?") and nothing else.
+- **After that, "go"** (or any single word, or garbled transcription, or "continue"):
   execute THE GO PROCEDURE (§2). The word carries zero information except
   "execute now" — never parse it, never ask what he meant.
 - **"verdicts in"**: verdict .txt files have landed in records/ — process them
