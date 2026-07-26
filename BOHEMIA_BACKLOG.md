@@ -39,9 +39,18 @@
      CEILING  points cannot pass the current state's cap and ONLY a state change
               moves the cap. 500 favours cannot grind past a wall.
      REACH    one declared range, one facing rule, one predicate.
-   Gate: gates/resolve_gate.js, 59 checks, registered as LAB PORT, and
-   mutation-tested (breaking the clamp, leaking reports between steps, or letting
-   a thrown step kill the moment each turn it red).
+   AMENDED THE SAME TURN BY HIS RULING: "I like it all tbh all 3 and sleep
+   understand sleep can be hangout or eat too u know" — APPROVE on all four, and
+   the resolve moment is ANY BLOCK OF TIME THE PLAYER SPENDS, not just sleep.
+   Law: laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md. The
+   resolver now takes a CALLER-DECLARED list of moments each carrying a SIZE, a
+   system declares WHICH moments it answers, and an undeclared moment is a build
+   error. A meal moves less than a night because each system says so, not because
+   the module hardcoded a night. Verdict: records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt
+   Gate: gates/resolve_gate.js, 77 checks, registered as LAB PORT, and
+   mutation-tested (breaking the clamp, leaking reports between steps, letting a
+   thrown step kill the moment, ignoring a moment subscription, leaking the moment
+   through the shared context, or accepting an undeclared moment each turn it red).
    EVERY TABLE IS EMPTY. No ration limits, no faction thresholds, no reach number
    and no action costs for any real Bohemia system: callers pass them in, and the
    first default is a RULING, not code. NOT WIRED INTO ANY SURFACE — adopting it
@@ -222,6 +231,16 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 ##       laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md first.
 ##       This lane INTEGRATES what the fleet built; it does not add features, and
 ##       the run's quest is disposable scaffolding, never judged.)
+A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOPT THE
+   ONE CONTEXTUAL VERB AND THE DECLARED REACH. Paolo APPROVED both, so this needs
+   no further ask. engine/bohemia_resolve.js ships makeReach(tiles) + facingTile:
+   one range, one facing rule, one predicate. The run currently has a talk trigger
+   AND a door bump AND separate buttons; fold them into ONE button whose label
+   comes from what you face, exactly as the lab world does (CAST / USE TOOL / TALK
+   / SLEEP), with the target tile outlined so the button is never a mystery. It
+   REMOVES UI rather than adding it, which is what a phone wants.
+   [PENDING Paolo] HOW MANY TILES OF REACH. Do not pick it. The lab used 1 in a
+   reference page; that is not a ruling.
    [DONE 7/26] THE FIRST CONNECTED RUN — shipped, gated. Record:
    records/BOHEMIA_THE_FIRST_CONNECTED_RUN_7_26_26.txt.
    [DONE 7/26] THE REAL CAST — the run wears the real rig + wardrobe + face.
@@ -267,6 +286,19 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    placement].
 
 ## WORLD
+A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOPT THE
+   RESOLVE POINT. Paolo APPROVED it and RULED its shape in the same breath: "sleep
+   can be hangout or eat too u know" — the world resolves at ANY BLOCK OF TIME THE
+   PLAYER SPENDS, and sleep is only the biggest one. Law:
+   laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md
+   engine/bohemia_resolve.js ships the machinery: a resolver takes a declared list
+   of moments each carrying a size, a system declares which moments it answers, an
+   undeclared moment is a build error, systems cannot read each other, and one
+   broken system cannot eat the time the player spent. Register the world's systems
+   as steps (territory, who noticed you, the overnight feed, decay) and run them at
+   a spent block instead of scattering them across the tick.
+   [PENDING Paolo] THE MOMENT TABLE: which moments exist beyond his three examples
+   and HOW LONG EACH SPENDS. And the action cost table. Do not invent either.
 LANE RULING (Paolo 7/26, LOCKED — laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_QUESTS_7_26_26.md):
 "we need to actually build a fucking world." This lane does NOT work on quests. Every
 quest item is PARKED until Paolo himself reopens it. Build ground, not plumbing for
@@ -330,6 +362,19 @@ PARKED BY THE 7/26 RULING (do not pick these up):
   (all 21 quests after the QUESTS lane folded theirs in) and the judge page is live in
   the LIFE tab; it stays there, unjudged, unsurfaced.
 - P2. World bridge deepening (quest outcomes moving factions on the map).
+
+## LIFE / SOCIAL
+A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOPT THE
+   RATION AND THE STANDING CEILING. Paolo APPROVED both.
+   RATION (engine/bohemia_resolve.js makeRation): limit favours, posts and gifts by
+   COUNT per day and per week, NEVER by money. A priced limit stops mattering the
+   moment the player is rich; a rationed one never does. The bypass slot is the
+   birthday shape: an occasion that ignores both windows and can pay a multiplier.
+   CEILING (makeCeiling): faction standing gets a WALL you cannot grind through.
+   You reach it by doing jobs and you only pass it by COMMITTING (taking a side,
+   burning a bridge), and neglect gets more expensive the deeper in you are.
+   [PENDING Paolo] THE NUMBERS: how many favours per week, where each faction wall
+   sits, what commitment moves it, what neglect costs per rung. Do not invent them.
 
 ## CITY
 1. [BLOCKED ON THE TARGET PICK] DRESS THE INTERIORS. Paolo killed the first

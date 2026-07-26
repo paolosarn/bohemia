@@ -1,0 +1,62 @@
+==============================================================================
+VERDICT — THE FIRST LAB PORT              7/26/26
+==============================================================================
+PAOLO, VERBATIM: "I like it all tbh all 3 and sleep understand sleep can be
+hangout or eat too u know"
+
+VERDICT: APPROVE, all four mechanisms, plus one RULING that changed one of them.
+
+------------------------------------------------------------------------------
+APPROVED
+------------------------------------------------------------------------------
+1. RATION — limit by COUNT, never by price. (per day / per week, with a bypass
+   that overrides both and can carry a multiplier.)
+2. CEILING — a cap that only moves on a COMMITMENT, never on more points, with
+   neglect allowed to grow as you get closer.
+3. REACH + ONE CONTEXTUAL VERB — one declared range, one facing rule, one
+   predicate, one button whose meaning comes from what you are facing.
+4. RESOLVE — one moment where the world moves, systems that cannot see each
+   other, and a broken system that cannot eat the time you spent.
+
+APPROVE unlocks volume: the owning lanes may now adopt these without asking
+again. What they may NOT do is invent the numbers (see PENDING below).
+
+------------------------------------------------------------------------------
+THE RULING THAT CAME WITH IT
+------------------------------------------------------------------------------
+"sleep can be hangout or eat too u know" — the resolve moment is ANY BLOCK OF
+TIME THE PLAYER SPENDS, and sleep is only the biggest one. Law:
+laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md
+Mechanism shipped the same turn: a resolver is built with a caller-declared list
+of moments, each carrying a size; a system declares which moments it answers; an
+undeclared moment is a build error. 18 new gate checks, mutation-tested.
+
+WHY IT MATTERS, in his own logic: a hangout that moves the world is a REASON to
+hang out. Eating becomes a decision instead of a menu. In a game about being
+watched, every social act becomes a way to spend the only currency there is.
+Sleep stops being the only button that does anything.
+
+------------------------------------------------------------------------------
+STILL [PENDING Paolo] — CONTENT, NOT MECHANISM
+------------------------------------------------------------------------------
+Every table stays empty until he says the numbers. No lane fills these in:
+  a) THE MOMENT TABLE. Which moments exist beyond his three examples (SLEEP,
+     HANGOUT, EAT) and HOW LONG EACH ONE SPENDS.
+  b) THE ACTION COST TABLE. What a step costs versus a swing versus a search.
+     (Open since laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md.)
+  c) RATION LIMITS. How many favours, posts or gifts per day and per week, and
+     what bypasses them.
+  d) THE STANDING LADDER. The faction states, where each wall sits, what
+     commitment moves it, and what neglect costs at each rung.
+  e) REACH. How many tiles.
+
+------------------------------------------------------------------------------
+ADOPTION (filed into the owning lanes' backlog sections by this verdict)
+------------------------------------------------------------------------------
+WORLD  — the resolve point: register the world's systems as steps and run them
+         at a spent block. Do not name the moments; take them from (a).
+LIFE   — the ration for favours/posts/gifts, and the standing ceiling for
+         faction reputation. Do not invent (c) or (d).
+RUN    — the one contextual verb and the declared reach. Do not invent (e).
+The LAB does not wire any of them in. That is each lane's build item.
+==============================================================================

@@ -1,3 +1,41 @@
+LAB (09): 7/26 (e) — HE APPROVED ALL FOUR PORTED MECHANISMS AND RULED THE BIG ONE
+WIDER IN THE SAME BREATH. "I like it all tbh all 3 and sleep understand sleep can be
+hangout or eat too u know".
+THE RULING (laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md, LOCKED):
+the world resolves at ANY BLOCK OF TIME THE PLAYER SPENDS. Sleep is only the biggest
+one. A hangout is one. A meal is one. Same mechanism, three sizes.
+WHY IT IS A GOOD RULING, in his own logic: a hangout that moves the world is a REASON
+to hang out, and eating becomes a decision instead of a menu. In a game about being
+watched, every social act becomes a way to spend the only currency there is, and sleep
+stops being the only button that does anything.
+MECHANISM CHANGED THE SAME TURN, engine/bohemia_resolve.js: a resolver is now built
+with a CALLER-DECLARED list of moments, each carrying a SIZE. A system declares WHICH
+moments it answers; a system that declares nothing answers all of them (documented as a
+real choice, not an oversight). Resolving an undeclared moment is a BUILD ERROR, so a
+typo cannot invent a fourth kind of night. The moment reaches each step as its OWN
+FROZEN ARGUMENT, never through the shared context, so zero coupling survived the
+change. A meal moves less than a night because each system says so, not because the
+module hardcoded a night.
+THE MODULE STILL SHIPS NO MOMENT NAMES AND NO SIZES. The gate asserts that the
+executable code contains no SLEEP/HANGOUT/EAT and no size literals: those are canon and
+they are his. STILL [PENDING Paolo], all content: the moment table (which moments, how
+long each spends), the action cost table, the ration limits, the faction standing ladder,
+and reach in tiles. No lane fills any of them in.
+VERDICT RECORDED: records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt — APPROVE on ration,
+ceiling, reach + one contextual verb, and resolve. APPROVE unlocks volume, so the owning
+lanes may now adopt without asking again, and the adoption items are FILED INTO THEIR
+BACKLOG SECTIONS by that verdict:
+  RUN item A  — one contextual verb + the declared reach (it REMOVES UI: the run has a
+                talk trigger AND a door bump AND separate buttons today)
+  WORLD item A — the resolve point, registering territory / who-noticed-you / the
+                overnight feed / decay as steps at a spent block
+  LIFE/SOCIAL item A — the ration for favours, posts and gifts (by COUNT, never money)
+                and the standing ceiling for factions (a wall you pass by committing)
+Each one carries its own [PENDING Paolo] for the numbers. THE LAB STILL DOES NOT WIRE
+THEM IN — that is each lane's build item, because those lanes are editing those files.
+Gate: gates/resolve_gate.js, 77 checks (was 59), all six mutations tested and each one
+turns it red. Nothing here touches the alpha, so its build stamp is unchanged.
+
 LAB (09): 7/26 (d) — THE FIRST PORT LANDED, ON HIS ORDER. He played LAB-03, said "all
 these things worked", and asked "anything we can throw in the bohemia code right now?"
 That is a port order, so laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md now

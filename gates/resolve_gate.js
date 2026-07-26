@@ -97,6 +97,80 @@ console.log('='.repeat(74));
 })();
 
 /* ==========================================================================
+   1b. THE MOMENT IS ANY SPENT BLOCK, NOT JUST SLEEP
+   Paolo 7/26, the same turn the port shipped: "sleep can be hangout or eat too
+   u know". Law: laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md
+   A night, a hangout and a meal are ONE mechanism at three sizes. The names and
+   the sizes are canon and therefore his, so the module ships none of them and
+   these are a TEST FIXTURE.
+   ========================================================================== */
+(function () {
+  const MOMENTS = [{ name: 'SLEEP', spends: 600 }, { name: 'HANGOUT', spends: 120 }, { name: 'EAT', spends: 30 }];
+  const r = R.makeResolver({ moments: MOMENTS });
+  const ran = [];
+  /* a system declares WHICH moments it answers */
+  r.register('crops',  'PLACES', (ctx, m) => { ran.push('crops@' + m.name); return { spent: m.spends }; }, { moments: ['SLEEP'] });
+  r.register('bonds',  'PEOPLE', (ctx, m) => { ran.push('bonds@' + m.name); return null; }, { moments: ['SLEEP', 'HANGOUT'] });
+  /* and a system that declares nothing answers every one of them */
+  r.register('watchers', 'WORLD', (ctx, m) => { ran.push('watchers@' + m.name); return null; });
+
+  ok('R60 the resolver knows its declared moments', r.moments.join(',') === 'SLEEP,HANGOUT,EAT');
+
+  ran.length = 0;
+  const eat = r.resolve({}, { moment: 'EAT' });
+  ok('R61 a MEAL runs only what answers a meal (' + eat.order.join(',') + ')',
+     eat.order.join(',') === 'watchers');
+  ok('R62 and it carries the meal\'s size', eat.spends === 30);
+
+  ran.length = 0;
+  const hang = r.resolve({}, { moment: 'HANGOUT' });
+  ok('R63 a HANGOUT moves more than a meal (' + hang.order.join(',') + ')',
+     hang.order.join(',') === 'watchers,bonds');
+  ok('R64 THE POINT — hanging out really moves the world, so it is a reason to hang out',
+     hang.order.indexOf('bonds') >= 0 && hang.ok === true);
+
+  ran.length = 0;
+  const night = r.resolve({}, { moment: 'SLEEP' });
+  ok('R65 a NIGHT moves everything (' + night.order.join(',') + ')',
+     night.order.join(',') === 'watchers,crops,bonds');
+  ok('R66 the size reaches the step that asked for it', night.reports.crops.spent === 600);
+  ok('R67 the report names which moment it was', night.moment === 'SLEEP');
+
+  /* the moment is its OWN argument, never smuggled through the shared context,
+     so zero coupling survives the change */
+  const probe = R.makeResolver({ moments: ['SLEEP'] });
+  let leaked = 'unset';
+  probe.register('probe', 'WORLD', (ctx, m) => { leaked = (ctx.moment !== undefined) ? 'LEAKED' : 'no'; return null; });
+  probe.resolve({}, { moment: 'SLEEP' });
+  ok('R68 the moment does not travel through the shared context', leaked === 'no');
+  ok('R69 the moment handed to a step is frozen', (function () {
+    const q = R.makeResolver({ moments: [{ name: 'SLEEP', spends: 600 }] });
+    let mutated = false;
+    q.register('m', 'WORLD', (ctx, m) => { try { m.spends = 1; } catch (e) {} mutated = (m.spends !== 600); return null; });
+    q.resolve({}, { moment: 'SLEEP' });
+    return mutated === false;
+  })());
+
+  /* a typo must not silently invent a fourth kind of night */
+  ok('R70 resolving an undeclared moment is a build error', throws(() => r.resolve({}, { moment: 'NAP' })));
+  ok('R71 subscribing to an undeclared moment is a build error',
+     throws(() => R.makeResolver({ moments: ['SLEEP'] }).register('x', 'WORLD', () => null, { moments: ['BRUNCH'] })));
+  ok('R72 with moments declared, resolving without naming one is a build error', throws(() => r.resolve({})));
+  ok('R73 declaring an empty moment list is a build error', throws(() => R.makeResolver({ moments: [] })));
+  ok('R74 a moment without a name is a build error', throws(() => R.makeResolver({ moments: [{ spends: 5 }] })));
+  ok('R75 subscribing when nothing was declared is a build error',
+     throws(() => R.makeResolver().register('x', 'WORLD', () => null, { moments: ['SLEEP'] })));
+
+  /* MECHANISM-MINE: the module names no moment of its own */
+  const src = fs.readFileSync(path.join(ROOT, 'engine/bohemia_resolve.js'), 'utf8');
+  const codeOnly = src.slice(src.indexOf('const BOH_RESOLVE'))
+    .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+  ok('R76 the module ships NO moment names — they are canon and they are his',
+     !/\b(SLEEP|HANGOUT|EAT|NIGHT|MEAL|DINNER)\b/.test(codeOnly));
+  ok('R77 and no moment sizes', !/spends\s*[:=]\s*[0-9]/.test(codeOnly));
+})();
+
+/* ==========================================================================
    2. RATION — count, never price
    ========================================================================== */
 (function () {

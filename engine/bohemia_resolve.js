@@ -22,6 +22,11 @@
 
    ----------------------------------------------------------------------------
    1. RESOLVE — ONE MOMENT, MANY SYSTEMS, ZERO COUPLING
+   AMENDED 7/26 by Paolo, same turn it shipped: "sleep can be hangout or eat too
+   u know". So a MOMENT is ANY BLOCK OF TIME THE PLAYER SPENDS, and sleep is only
+   the biggest one. Law: laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md
+   A moment carries a SIZE, a system declares WHICH moments it answers, and the
+   names and sizes are canon and therefore his: this file ships none.
    ----------------------------------------------------------------------------
    The finding: in the emulation, fishing, farming and courtship never touch
    each other. They share exactly ONE thing, the day rollover. Sleep, and the
@@ -86,51 +91,88 @@ const BOH_RESOLVE = (function () {
      build error, not a step that quietly runs last. */
   const PHASES = ['WORLD', 'PLACES', 'PEOPLE', 'BOOKS', 'FEED'];
 
-  function makeResolver() {
-    const steps = [];          /* { name, phase, fn } */
+  function makeResolver(config) {
+    const steps = [];          /* { name, phase, fn, moments } */
     let running = false;
 
-    function register(name, phase, fn) {
+    /* THE MOMENTS ARE THE CALLER'S. A night, a hangout, a meal: all the same
+       mechanism at different sizes. This file ships no names and no sizes,
+       because both are canon (Paolo 7/26). Declare none and the resolver accepts
+       any moment name and no step may subscribe to one — that is a legal, and
+       deliberately weaker, way to use it. */
+    const declared = (config && Array.isArray(config.moments)) ? config.moments.map(m => {
+      if (typeof m === 'string') return { name: m, spends: null };
+      if (!m || typeof m.name !== 'string') throw new Error('resolve: a moment needs a name');
+      return { name: m.name, spends: (m.spends !== undefined ? m.spends : null) };
+    }) : null;
+    if (declared && !declared.length) throw new Error('resolve: declare at least one moment, or none at all');
+    const momentNames = declared ? declared.map(m => m.name) : null;
+    function momentDef(name) {
+      if (!declared) return { name: name, spends: null };
+      for (let i = 0; i < declared.length; i++) if (declared[i].name === name) return declared[i];
+      throw new Error('resolve: undeclared moment "' + name + '"');
+    }
+
+    function register(name, phase, fn, opts) {
       if (typeof name !== 'string' || !name) throw new Error('resolve: a step needs a name');
       if (PHASES.indexOf(phase) < 0) throw new Error('resolve: unknown phase "' + phase + '" for ' + name);
       if (typeof fn !== 'function') throw new Error('resolve: ' + name + ' needs a function');
       if (running) throw new Error('resolve: ' + name + ' tried to register DURING a resolve');
       if (steps.some(s => s.name === name)) throw new Error('resolve: duplicate step ' + name);
-      steps.push({ name: name, phase: phase, fn: fn });
+      let moments = null;
+      if (opts && opts.moments) {
+        if (!declared) throw new Error('resolve: ' + name + ' subscribes to moments but none were declared');
+        moments = [].concat(opts.moments);
+        moments.forEach(m => {
+          if (momentNames.indexOf(m) < 0) throw new Error('resolve: ' + name + ' subscribes to undeclared moment "' + m + '"');
+        });
+      }
+      /* a step that declares nothing answers EVERY moment. That is a real choice
+         and it is the documented default, not an oversight. */
+      steps.push({ name: name, phase: phase, fn: fn, moments: moments });
       return true;
     }
 
-    function ordered() {
+    function ordered(moment) {
       /* stable inside a phase: registration order breaks ties, and that is the
          only thing registration order is allowed to decide */
       const out = [];
-      PHASES.forEach(p => steps.forEach(s => { if (s.phase === p) out.push(s); }));
+      PHASES.forEach(p => steps.forEach(s => {
+        if (s.phase !== p) return;
+        if (moment && s.moments && s.moments.indexOf(moment) < 0) return;
+        out.push(s);
+      }));
       return out;
     }
 
-    /* Run the moment. Every step gets the SAME ctx and a frozen, name-keyed
-       view of nothing else: no step can read another step's report, so no step
-       can start depending on one. */
+    /* Run the moment. Every step gets the SAME ctx and the moment as its own
+       frozen argument — never through ctx, and never another step's report, so
+       no step can start depending on one. */
     function resolve(ctx, opts) {
       if (running) throw new Error('resolve: already resolving');
+      const name = (opts && opts.moment) || null;
+      if (declared && !name) throw new Error('resolve: this resolver has declared moments, so name the one you are spending');
+      const def = momentDef(name || 'MOMENT');
+      const moment = Object.freeze({ name: def.name, spends: def.spends });
       running = true;
       const reports = {}, failures = [];
-      const list = ordered();
+      const list = ordered(declared ? moment.name : null);
       try {
         for (let i = 0; i < list.length; i++) {
           const s = list[i];
           try {
-            const r = s.fn(ctx);
+            const r = s.fn(ctx, moment);
             reports[s.name] = (r === undefined) ? null : r;
           } catch (e) {
-            /* one bad system must never eat the player's night */
+            /* one bad system must never eat the block of time the player spent */
             failures.push({ step: s.name, error: String(e && e.message || e) });
             reports[s.name] = null;
           }
         }
       } finally { running = false; }
       return {
-        moment: (opts && opts.moment) || 'DAY',
+        moment: moment.name,
+        spends: moment.spends,
         order: list.map(s => s.name),
         reports: reports,
         failures: failures,
@@ -139,6 +181,7 @@ const BOH_RESOLVE = (function () {
     }
 
     return { register, resolve, ordered, PHASES: PHASES.slice(),
+             moments: momentNames ? momentNames.slice() : null,
              get count() { return steps.length; } };
   }
 
@@ -293,7 +336,7 @@ const BOH_RESOLVE = (function () {
     PHASES, makeResolver, makeRation, makeCeiling, makeReach, facingTile, DIRS,
     /* provenance, so nobody has to guess where these shapes came from */
     LEARNED_FROM: {
-      resolve: 'LAB-03: three mechanics, one rollover, zero coupling',
+      resolve: 'LAB-03: three mechanics, one rollover, zero coupling; a moment is ANY spent block (Paolo 7/26: sleep can be hangout or eat too)',
       ration:  'LAB-02: gifts limited by count (1/day, 2/week), not by price',
       ceiling: 'LAB-02: Utility.cs:2901 — undated caps at 8 hearts, only a commitment moves it',
       reach:   'LAB-03: forgiveness is one declared number, and it is small'
