@@ -99,8 +99,26 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
-COMBAT (04): v65 — music ramps at 2 and 4 kills (Paolo's ruling), on top of
-the v54-55 mobility toolkit + time-of-day shuffle. Combat gates green.
+COMBAT (04): v66 — THE RUN HANDOFF IS HARDENED AND THE RUN LANE CAN CALL IT
+NOW. A quest step hands off with `startEncounter({questId, stepId, objective,
+mercy, playerHP, roster, onEnd})` and gets back one settled outcome
+(win/loss/aborted + dead/spared/fled/alive + fates + the quest context echoed).
+Full contract: laws/BOHEMIA_ADDENDUM_RUN_HANDOFF_CONTRACT_7_26_26.md.
+What landed: a HANDOFF CORE block inside COMBAT_B64 that owns the whole bus
+(so the gate EXECUTES it instead of string-matching it), a declared LEAK LIST
+that provably clean-slates every fight, cold handoff with the combat tab never
+opened (frame built on demand + warmed at app open), a READY queue so an early
+encounter is never dropped, abort, loud BOHEMIA_COMBAT_ERROR, and no demo
+splash on a quest handoff. Verified on the real surface (headless Chromium on
+the shipped alpha): 5 back-to-back cold handoffs, zero console errors,
+slices/BOHEMIA_RUN_HANDOFF_PROOF_7_26_26.png.
+THE BIG CATCH: the cold handoff took 12.9 SECONDS. A render-blocking
+cross-origin Google Fonts link in the demo head was holding combat's entire
+boot. Now non-blocking: 12,910ms -> 14ms. THE ALPHA SHELL STILL HAS THE SAME
+LINK (backlog COMBAT 3, left alone for lane discipline; one line, whole-game
+boot payoff, RUN lane's call).
+Maintainer tool: python3 tools/bohemia_combat_handoff_patch.py (idempotent,
+anchor-asserted). combat_lab_gate 208 checks green; v65 ramps intact.
 
 CHARACTER/SOUND (05): marathon cook waves 1-3 shipped (music batch 20 = 9
 faction-pool songs; wardrobe volume 29 items + 3 new shapes; woman-rig

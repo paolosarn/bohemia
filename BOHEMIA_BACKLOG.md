@@ -70,12 +70,22 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    and companion personalities are Paolo's/quest canon. | proven headless: an
    ally fights alongside through the real bus, downed ally never deleted |
    CITY_B64 | no.
-1. Encounter handoff hardening for the RUN: quest context in, outcome out
-   (dead/spared/fled), clean state, 5 back-to-back proven through the real
-   bus. | combat_lab_gate section | CITY_B64 | no.
+1. DONE 7/26 (v66): encounter handoff hardening for the RUN. Contract:
+   laws/BOHEMIA_ADDENDUM_RUN_HANDOFF_CONTRACT_7_26_26.md. Quest context in,
+   dead/spared/fled out, declared LEAK LIST, cold handoff with the tab never
+   opened, READY queue, abort, loud errors, no splash. 5 back-to-back
+   EXECUTED headless in combat_lab_gate sections 5-6, plus a real-surface
+   Playwright proof. The cold handoff went 12.9s -> 14ms (blocking font).
 2. Combat grammar graduation: stack candidates in ONE judge surface. | judge
    reachable from alpha, side-by-side anchors | — | yes (thumbs then build
    the winner).
+3. (discovered 7/26, RUN lane's call) The alpha SHELL carries the same
+   render-blocking cross-origin font link the combat demo did. Combat fixed
+   its own blob only (lane discipline). Same one-line fix, whole-game boot
+   payoff: `media="print" onload="this.media='all'"`. NON-COOK.
+4. (discovered 7/26) The demo's melee/nerve loop re-rolls `pickRandomFaction`
+   twice on a quest handoff (startGame + the shuffle hook). Harmless, same
+   distribution, but it is duplicate work on the enter path. NON-COOK tidy.
 
 ## CHARACTER
 1. ONE-RIG VARIATION SLIDERS per the locked 7/25 ruling (read the addendum

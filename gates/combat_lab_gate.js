@@ -632,20 +632,31 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes("else { G._onePop=false; G._oneStreak=0; }") &&
     demo.includes("*(1+(G._onePop?Math.min(0.30,0.12+(Math.max(1,G._oneStreak||1)-1)*0.06):0));") &&
     demo.includes("G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();"));
-  // v59: the RUN HANDOFF -- BOHEMIA_ENCOUNTER clean-slates, BOHEMIA_COMBAT_END reports the outcome, one send per fight
-  ok('V59 RUN HANDOFF enter: BOHEMIA_ENCOUNTER clean-slates every fight (no state/corpse leak), applies optional playerHP + roster, reports errors on the bus',
-    demo.includes('V59 RUN HANDOFF: a fresh encounter is a CLEAN SLATE') &&
-    demo.includes("G.e=[]; G.corpses=[]; G.bloodSpots=[]; G.litter=[]; G.coverHoles=[]; G._walkout=null; G.inc=null;") &&
-    demo.includes("G.pHP=(typeof d.playerHP==='number')?Math.max(1,Math.min(G.pMax,d.playerHP)):G.pMax;") &&
-    demo.includes("G.over=false; G.win=false; G.phase='cover'; G.inFU=false; G.execWindow=false; G.ks=null; G.frozen=false;") &&
-    demo.includes("type:'BOHEMIA_COMBAT_ERROR'"));
-  ok('V59 RUN HANDOFF exit: encounterOutcome tallies dead/spared/fled per the mercy mechanics, sendCombatEnd fires ONCE (G._endSent) with result+fates, win+loss both route through it',
-    demo.includes('function encounterOutcome(){') &&
-    demo.includes("fate: e.dead?'dead':(e.fleeing?'fled':((e.broken||e.downed)?'spared':'alive'))") &&
-    demo.includes('function sendCombatEnd(win){ if(G._endSent)return; G._endSent=true;') &&
-    demo.includes("type:'BOHEMIA_COMBAT_END',victory:!!win,result:win?'win':'loss',kills:o.dead,dead:o.dead,spared:o.spared,fled:o.fled,fates:o.fates") &&
+  // v59 -> v66: the RUN HANDOFF. The string checks that used to stand in for the
+  // enter/exit path are superseded by section 5, which EXECUTES the real listener
+  // five fights back to back. What stays here is the wiring: the demo must route
+  // through HANDOFF CORE, and both endings must go out the one door.
+  ok('V66 RUN HANDOFF wiring: the demo delegates the whole bus to HANDOFF CORE (install/outcome/end), win AND loss both route through the one send',
+    demo.includes('BohemiaHandoff.install(window,G,{') &&
+    demo.includes('function encounterOutcome(){ return BohemiaHandoff.outcome(G); }') &&
+    demo.includes('function sendCombatEnd(win,reason){ BohemiaHandoff.end(G,win,reason||(win?\'cleared\':\'down\'),') &&
     demo.includes('sendCombatEnd(true);   /* V59 RUN HANDOFF: one clean outcome */') &&
-    demo.includes('sendCombatEnd(false);   /* V59 RUN HANDOFF: one clean outcome */'));
+    demo.includes('sendCombatEnd(false);   /* V59 RUN HANDOFF: one clean outcome */') &&
+    // the old hand-rolled listener is GONE: one bus, not two
+    !demo.includes("const d=ev&&ev.data;if(!d||d.type!=='BOHEMIA_ENCOUNTER')return;"));
+  ok('V66 QUEST CONTEXT on the screen: an encounter handed over by a quest shows its objective over the BOARD (inside #stage, clear of the controls) and says it out loud when nobody has to die',
+    demo.includes('id="objchip"') &&
+    demo.includes('function showObjective(C){') &&
+    demo.includes('NOBODY HAS TO DIE') &&
+    demo.includes('try{showObjective(G._ctx);}catch(_e){}') &&
+    /<div id="stage">[\s\S]{0,900}id="objchip"[\s\S]{0,600}<\/div><\/div>/.test(demo));
+  ok('V66 NO SPLASH ON A HANDOFF: a quest-driven encounter takes over the demo start screen, so a run walks straight into the fight instead of onto TAP TO START',
+    demo.includes('takeover:function(){ if(G._ctx&&(G._ctx.questId||G._ctx.encounterId)){ try{startGame();}catch(_e){} } },') &&
+    demo.includes('call(env.takeover);'));
+  ok('V66 THE 13-SECOND STALL IS DEAD: the cross-origin font no longer blocks combat\'s boot (measured 12.9s cold on the real surface before this, 14ms after)',
+    demo.includes('media="print" onload="this.media=\'all\'"') &&
+    // the render-blocking form is gone from the head
+    !/<link href="https:\/\/fonts\.googleapis\.com[^>]*" rel="stylesheet">\s*\n<style>/.test(demo));
   // v60: two big swings -- the facing fix and grenades (the movement-forcer)
   ok('V60 FACING FIX: the stance faces the SINGLE most dangerous enemy (max threatWeight), not the cancelling vector sum that pointed sideways under a flank',
     demo.includes('V60 FACING FIX') &&
@@ -706,6 +717,212 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     // the LOCKED 7/3 law survives: layers key off KILLS THIS ENCOUNTER, and area-clear goes calm
     demo.includes("const _sk=(G._demo&&G._demo.k==='J')?4:((JUICE.J&&!G.over)?(G.e?G.e.filter(e=>e.dead).length:0):0);"));
 }
+/* ============================================================================
+   5. V66 RUN HANDOFF -- THE REAL BUS, HEADLESS, FIVE FIGHTS BACK TO BACK
+   The run hands off from a quest step and expects the fight to come back clean.
+   This section pulls HANDOFF CORE out of the SHIPPED blob, installs it on a
+   window that IS the bus, and drives five encounters in a row with a filthy
+   state between each one. Nothing here is a string match: it runs.
+   ========================================================================== */
+{
+  const ha = demo.indexOf('HANDOFF CORE START'), hb = demo.indexOf('HANDOFF CORE END');
+  ok('demo carries HANDOFF CORE (the encounter bus is one testable block)', ha > 0 && hb > ha);
+  const hSrc = demo.slice(demo.indexOf('var BohemiaHandoff', ha), demo.lastIndexOf('if(typeof module', hb));
+  const hm = { exports: {} };
+  new Function('module', 'exports', hSrc + ';module.exports=BohemiaHandoff;')(hm, hm.exports);
+  const BH = hm.exports;
+
+  /* a window that IS the bus: real listener registration, real message events */
+  function busWindow() {
+    const ls = [];
+    return { addEventListener: (t, f) => { if (t === 'message') ls.push(f); },
+             send: (data) => { for (const f of ls.slice()) f({ data }); },
+             count: () => ls.length };
+  }
+  /* the demo's env minus the screen: setup builds bodies the way setupEnemies does */
+  function envFor(G, log, boom) {
+    return { stamMax: 3,
+      post: (m) => log.push(m),
+      camHome: () => { G._cam = 'home'; },
+      resetBeat: () => { G._beat = 0; },
+      syncPkg: () => { G._pkgUI = G.userPkg; },
+      shuffle: () => { G._faction = 'rolled'; },
+      setup: () => { if (boom && boom()) throw new Error('setupEnemies blew up');
+        G.e = []; for (let i = 0; i < G.numEnemies; i++)
+          G.e.push({ i, eid: i, n: 'hostile_' + i, hp: 60, max: 60, ea: 0, edist: 6 });
+        G.mTurn = 0; G.pillars = [{ ea: 0, edist: 3 }]; },
+      afterSetup: () => { G._boards = (G._boards | 0) + 1; },
+      onAbort: () => { G._abortUI = true; } };
+  }
+  /* THE DIRTY LIST: what a finished fight leaves lying around ... */
+  const DIRTY = { over: true, win: true, phase: 'over', inFU: true, execWindow: true,
+    ks: { phase: 'cine' }, frozen: true, freezeTimer: 9, killStreak: 4, popTarget: 2,
+    fireTarget: 2, selTarget: 1, mTurn: 17, _oneStreak: 3, _onePop: true, _chainN: 5,
+    _relGreed: true, dashArm: true, handPeek: true, sprintArm: true, _endSent: true,
+    _walkout: { t0: 1 }, inc: { x: 1 }, grenade: { fuse: 1 }, _grenadeBlast: { r: 2 },
+    _grenadeThrown: true, wager: 'double', wagerLocked: true, wagerFail: true, recoil: 3,
+    wound: 0.9, woundShake: 2, breathT: 5, _hitstop: 12, _redPunch: 2, _vShakeAt: 99,
+    greedHeld: true, greedWant: true, greedMult: 2.5, _nerveLastDown: 4, _newBeads: 3,
+    _poppedOut: true, _demo: { k: 'J' }, _spawnLayout: 'ring' };
+  /* ... and what the next fight MUST read. Stated here independently of the
+     core's own table, so a hole in that table shows up as a failure. */
+  const CLEAN = { over: false, win: false, phase: 'cover', inFU: false, execWindow: false,
+    ks: null, frozen: false, freezeTimer: 0, killStreak: 0, popTarget: -1, fireTarget: -1,
+    selTarget: null, mTurn: 0, _oneStreak: 0, _onePop: false, _chainN: 1, _relGreed: false,
+    dashArm: false, handPeek: false, sprintArm: false, _endSent: false, _walkout: null,
+    inc: null, grenade: null, _grenadeBlast: null, _grenadeThrown: false, wager: 'none',
+    wagerLocked: false, wagerFail: false, recoil: 0, wound: 0, woundShake: 0, breathT: 0,
+    _hitstop: 0, _redPunch: 0, _vShakeAt: 0, greedHeld: false, greedWant: false,
+    greedMult: 1.0, _nerveLastDown: 0, _newBeads: 3 - 3, _poppedOut: false, _demo: null };
+
+  const G = { numEnemies: 3, pHP: 100, pMax: 100, e: [], stam: 0, factionShuffle: true };
+  const log = [];
+  const win = busWindow();
+  BH.install(win, G, envFor(G, log));
+  ok('the bus installs one listener and answers READY at once (the run never has to guess when the frame is live)',
+    win.count() === 1 && log.length === 1 && log[0].type === 'BOHEMIA_COMBAT_READY' && log[0].version === 66);
+
+  const leaks = [], ctxMiss = [], endMiss = [];
+  let ends = 0, starts = 0, errs = 0;
+  for (let n = 1; n <= 5; n++) {
+    /* leave the wreckage of the last fight everywhere */
+    Object.assign(G, DIRTY);
+    G.corpses = [{}, {}]; G.bloodSpots = [{}]; G.litter = [{}, {}]; G.coverHoles = [{}]; G._fx = [{}];
+    G.rc = { shots: 9, hits: 4, kills: 3 };
+    const before = log.length;
+    win.send({ type: 'BOHEMIA_ENCOUNTER', encounterId: 'enc' + n, questId: 'S0' + n,
+      stepId: 'step' + n, objective: 'stop the meter man ' + n, faction: 'REDS',
+      reason: 'quest', mercy: (n % 2 === 0), packageId: n % 5, playerHP: 60 + n,
+      roster: [{ eid: 0, name: 'A' + n, hp: 44 }, { eid: 1, name: 'B' + n, hp: 44 },
+               { eid: 2, name: 'C' + n, hp: 44 }] });
+    /* 1. CLEAN STATE: nothing from the last fight survived */
+    for (const k in CLEAN) if (G[k] !== CLEAN[k]) leaks.push('fight ' + n + ': ' + k + '=' + JSON.stringify(G[k]));
+    if (G.corpses.length || G.bloodSpots.length || G.litter.length || G.coverHoles.length || G._fx.length)
+      leaks.push('fight ' + n + ': the dead/blood/litter/fx carried in');
+    if (G.rc.shots !== 0 || G.rc.kills !== 0) leaks.push('fight ' + n + ': the receipt carried in');
+    if (G.stam !== 3) leaks.push('fight ' + n + ': stamina did not refill');
+    /* 2. QUEST CONTEXT IN */
+    const C = G._ctx || {};
+    if (C.questId !== 'S0' + n || C.stepId !== 'step' + n || C.encounterId !== 'enc' + n) ctxMiss.push('fight ' + n + ': ids');
+    if (C.objective !== 'stop the meter man ' + n || C.faction !== 'REDS') ctxMiss.push('fight ' + n + ': words');
+    if (C.mercy !== (n % 2 === 0)) ctxMiss.push('fight ' + n + ': mercy flag');
+    if (G.pHP !== 60 + n) ctxMiss.push('fight ' + n + ': playerHP');
+    if (G.userPkg !== n % 5 || G.pkgDiff !== n % 5) ctxMiss.push('fight ' + n + ': difficulty package');
+    if (!G.e[0] || G.e[0].n !== 'A' + n || G.e[0].hp !== 44) ctxMiss.push('fight ' + n + ': roster');
+    if (G.enemiesLeft !== 3) ctxMiss.push('fight ' + n + ': enemiesLeft');
+    const fresh = log.slice(before);
+    starts += fresh.filter(m => m.type === 'BOHEMIA_COMBAT_STARTED').length;
+    errs += fresh.filter(m => m.type === 'BOHEMIA_COMBAT_ERROR').length;
+    /* 3. fight it: one dies, one runs, one puts his hands up */
+    G.e[0].dead = true; G.e[1].fleeing = true; G.e[2].broken = true;
+    G.mTurn = 6 + n; G.pHP = 40 + n;
+    const b2 = log.length;
+    /* 4. OUTCOME OUT -- and the second call must be silent (one send per fight) */
+    BH.end(G, true, 'cleared', (m) => log.push(m));
+    BH.end(G, true, 'cleared', (m) => log.push(m));
+    BH.end(G, false, 'down', (m) => log.push(m));
+    const outs = log.slice(b2).filter(m => m.type === 'BOHEMIA_COMBAT_END');
+    ends += outs.length;
+    const o = outs[0];
+    if (!o) endMiss.push('fight ' + n + ': no outcome at all');
+    else {
+      if (o.dead !== 1 || o.fled !== 1 || o.spared !== 1 || o.alive !== 0) endMiss.push('fight ' + n + ': fates ' + JSON.stringify([o.dead, o.fled, o.spared, o.alive]));
+      if (o.kills !== 1) endMiss.push('fight ' + n + ': kills');
+      if (o.result !== 'win' || o.victory !== true || o.reason !== 'cleared') endMiss.push('fight ' + n + ': result');
+      if (o.questId !== 'S0' + n || o.stepId !== 'step' + n || o.encounterId !== 'enc' + n) endMiss.push('fight ' + n + ': context did not echo');
+      if (o.turns !== 6 + n || o.playerHP !== 40 + n) endMiss.push('fight ' + n + ': turns/hp');
+      if (!Array.isArray(o.fates) || o.fates.length !== 3 || o.fates[1].fate !== 'fled') endMiss.push('fight ' + n + ': fate list');
+    }
+  }
+  ok('FIVE BACK TO BACK: every encounter starts from a CLEAN SLATE (no state, corpse, streak, grenade, stamina or nerve leak from the fight before)',
+    leaks.length === 0, leaks.slice(0, 6).join(' | '));
+  ok('QUEST CONTEXT IN: quest/step/encounter ids, objective, faction, mercy flag, playerHP, difficulty package and the engine-owned roster all land in the fight',
+    ctxMiss.length === 0, ctxMiss.slice(0, 6).join(' | '));
+  ok('OUTCOME OUT: dead/spared/fled/alive tally per the mercy mechanics, kills, turns, hp, and the quest context echoes back so the step can match the fight to itself',
+    endMiss.length === 0, endMiss.slice(0, 6).join(' | '));
+  ok('ONE SEND PER FIGHT: five fights, five outcomes, even though win/loss both fired repeatedly (5 got ' + ends + ')', ends === 5);
+  ok('five STARTED acks, zero errors on the bus across the whole run', starts === 5 && errs === 0);
+
+  /* 6th fight: the quest calls it OFF mid-encounter */
+  {
+    const before = log.length;
+    win.send({ type: 'BOHEMIA_ENCOUNTER', encounterId: 'enc6', questId: 'S06', stepId: 'step6', roster: [{ eid: 0, name: 'A6', hp: 44 }] });
+    win.send({ type: 'BOHEMIA_ENCOUNTER_ABORT' });
+    win.send({ type: 'BOHEMIA_ENCOUNTER_ABORT' });
+    const outs = log.slice(before).filter(m => m.type === 'BOHEMIA_COMBAT_END');
+    ok('ABORT: the quest can call the fight off and still gets exactly ONE settled outcome (result aborted, the man left alive), never a dangling encounter',
+      outs.length === 1 && outs[0].result === 'aborted' && outs[0].reason === 'abort' &&
+      outs[0].victory === false && outs[0].alive === 1 && outs[0].encounterId === 'enc6' &&
+      G.over === true && G.phase === 'over' && G._abortUI === true);
+  }
+  /* the ping/ready handshake the parent leans on when it hands off cold */
+  {
+    const before = log.length;
+    win.send({ type: 'BOHEMIA_COMBAT_PING' });
+    const r = log.slice(before);
+    ok('PING answers READY (a run that hands off before the frame booted gets its encounter through)',
+      r.length === 1 && r[0].type === 'BOHEMIA_COMBAT_READY');
+  }
+  /* a broken fight reports itself instead of hanging the run */
+  {
+    const G2 = { numEnemies: 2, pHP: 100, pMax: 100, e: [] };
+    const log2 = [], w2 = busWindow();
+    let blow = true;
+    BH.install(w2, G2, envFor(G2, log2, () => blow));
+    w2.send({ type: 'BOHEMIA_ENCOUNTER', encounterId: 'boom', roster: [{ eid: 0, name: 'x', hp: 10 }] });
+    const err = log2.filter(m => m.type === 'BOHEMIA_COMBAT_ERROR');
+    ok('a fight that fails to build reports BOHEMIA_COMBAT_ERROR with its encounter id (the run hears the failure, it does not just hang)',
+      err.length === 1 && err[0].encounterId === 'boom' && err[0].phase === 'encounter' && /blew up/.test(err[0].msg));
+    blow = false;
+    const b3 = log2.length;
+    w2.send({ type: 'BOHEMIA_ENCOUNTER', encounterId: 'recover', roster: [{ eid: 0, name: 'y', hp: 10 }] });
+    ok('and the very next encounter still starts clean after that failure (one bad fight never poisons the bus)',
+      log2.slice(b3).some(m => m.type === 'BOHEMIA_COMBAT_STARTED' && m.encounterId === 'recover') &&
+      G2.e.length === 1 && G2._endSent === false && G2.over === false);
+  }
+  /* the outcome grammar itself, on a mixed field */
+  {
+    const g = { e: [{ dead: true }, { fleeing: true }, { broken: true }, { downed: true }, {}, {}] };
+    const o = BH.outcome(g);
+    ok('the mercy grammar counts right: dead 1, fled 1, spared 2 (surrendered + dying), still standing 2',
+      o.dead === 1 && o.fled === 1 && o.spared === 2 && o.alive === 2 && o.fates.length === 6);
+  }
+  /* context sanitation: the run cannot inject a novel into the fight */
+  {
+    const C = BH.context({ objective: 'x'.repeat(400), questId: 'q'.repeat(400), packageId: 99, mercy: 'yes' });
+    ok('quest context is sanitized on the way in (clamped strings, package 0..4, mercy a real boolean)',
+      C.objective.length === 140 && C.questId.length === 64 && C.packageId === 4 && C.mercy === true);
+  }
+}
+
+/* ---- 6. the parent shell: the other half of the handoff ---- */
+ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
+  alpha.includes('function ensureCombatFrame(){') &&
+  alpha.includes("if(t.dataset.p==='combat')ensureCombatFrame();") &&
+  !alpha.includes("if(t.dataset.p==='combat'&&!document.getElementById('combatFrame')){"));
+ok('V66 PARENT: an encounter posted before the demo is listening is QUEUED and flushed on BOHEMIA_COMBAT_READY (with a ping retry), never dropped on the floor',
+  alpha.includes('function combatPost(msg){') &&
+  alpha.includes('function combatFlush(){') &&
+  alpha.includes('function combatPingSoon(){') &&
+  alpha.includes("if(d.type==='BOHEMIA_COMBAT_READY'){") &&
+  alpha.includes('G._combatReady=true; combatFlush();') &&
+  alpha.includes("G._combatQ=G._combatQ.filter(m=>m.type!==msg.type);"));
+ok('V66 PARENT: startEncounter carries the quest context onto the bus and takes an onEnd callback; the run reads the settled outcome off G.encounter.outcome / G.lastEncounter',
+  alpha.includes('const ctx={encounterId:spec.encounterId||') &&
+  alpha.includes('objective:ctx.objective,faction:ctx.faction,reason:ctx.reason,mercy:ctx.mercy});') &&
+  alpha.includes('onEnd:(typeof spec.onEnd===\'function\')?spec.onEnd:null};') &&
+  alpha.includes('G.lastEncounter=enc.outcome;') &&
+  alpha.includes('if(enc.onEnd)try{enc.onEnd(enc.outcome);}catch(_e){}'));
+ok('V66 PARENT: the combat frame WARMS itself once the app is open and idle, so a mid-run handoff gets a fight immediately instead of a cold boot',
+  alpha.includes('/* V66 RUN HANDOFF: warm the combat frame in the background so a quest that') &&
+  alpha.includes('if(window.requestIdleCallback)requestIdleCallback(warm,{timeout:6000}); else setTimeout(warm,2500);});'));
+ok('V66 PARENT: the outcome settles exactly once per encounter, and a broken handoff lands in the combat log instead of falling on the floor',
+  alpha.includes('if(enc&&!enc.settled){') &&
+  alpha.includes('enc.over=true; enc.settled=true; enc.live=false;') &&
+  alpha.includes("if(d.type==='BOHEMIA_COMBAT_ERROR'){") &&
+  alpha.includes("outcome:'combat-error'") &&
+  alpha.includes('function abortEncounter(){'));
+
 /* ---- 4. alpha wiring ---- */
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
   alpha.includes("out.dirs[d].walk=[0,0.25,0.5,0.75].map(p=>bake112(d,'walk',p))") &&
