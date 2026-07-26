@@ -345,6 +345,37 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1i. DONE 7/26 (v80): SOFT THE WHOLE FIGHT + THE HEADROOM TRIM. Paolo retired his
+   own v79 top rung ("forget about it going hard at five kills... a lot of volume
+   fighting each other"). HARD_AT=Infinity; AUTO is SOFT forever; his 2/4 rungs
+   carry the climb. The volume complaint was measured (16.2 -> 24.2 -> 41.8
+   voices/bar, ~+4.1dB into one master with no trim in front of a -14dB limiter)
+   and fixed the way a mix engineer would: the master trims 1.00/0.82/0.68 as the
+   rungs land, ramped, reset per fight. Net +0.8dB instead of +4.1dB. Master gain
+   ONLY - no note, voice or pattern touched. Gate section 16, 316 checks.
+1h. *** RESEARCH ON THE SHELF, NOTHING BUILT, ALL [PENDING Paolo]: ***
+   records/BOHEMIA_COMBAT_RESEARCH_TURN_BASED_GRID_7_26_26.md - six games (Into
+   the Breach, Slay the Spire, XCOM 2, NecroDancer, Divinity OS2, game-feel
+   literature), seven ranked ideas, sourced. Top three:
+   (a) QUANTIZED HITSTOP: freeze for a NOTE VALUE (1/16 graze, 1/8 hit, 1/4 on a
+       killshot) so the impact freeze IS the 120 BPM clock instead of breaking
+       it. Cheap, no rules change, biggest feel-per-hour. | gate: every freeze
+       length is a note value | combat demo | no.
+   (b) ENEMY INTENT ON BY DEFAULT: ITB/StS are built on perfect information;
+       Bohemia has it as a perk (FORESIGHT), off. Cheap, UI job. | gate: intent
+       shown for every enemy every turn | combat demo | no.
+   (c) THE TURN CLOCK = THE SONG'S FORM: ITB fights are 5 turns then the enemies
+       retreat. A fixed turn count is a fixed number of BARS, so turn 1 = section
+       A ... turn 5 = section D. Reaches the 0:48 payoff EVERY fight without
+       persisting anything and without costing the NEW ENCOUNTER song change -
+       the v76 problem solved from the other end. Real rules change, HIS call.
+   ALSO: widen the timing windows (NecroDancer shipped ~100% leeway because the
+   challenge belongs in the TACTICS, not the timing - a warning aimed at my
+   55/110ms grades); make SHOVE a real one-tile PUSH with collision damage
+   (ITB's best verb is displacement); ENVIRONMENT (elevation, destructible
+   cover, Vegas surfaces) is still the thinnest part of the fight; and NEVER add
+   a hidden hit roll on top of a good dial press (XCOM's unsolved problem that
+   Bohemia already solved) - that one should become a law.
 1k. DONE 7/26 (v79): THE PULSE JOINS THE LADDER. Paolo's design, locked and
    shipped same turn. Law: laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md.
    0 kills PULSE SOFT / 2 his rung 1 / 4 his rung 2 / 5 PULSE HARD. The pulse

@@ -1435,10 +1435,13 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   /* V79 SUPERSEDES THE CYCLE, NOT THE PRINCIPLE. AUTO joined the front of it
      when Paolo made the pulse a rung of his own ladder; OFF is still an honest
      revert to the bare creeper and the verdict is still his ear. */
-  ok('OFF IS STILL THE BARE CREEPER, so the A/B stays honest and the verdict is his: the button cycles AUTO -> SOFT -> HARD -> OFF and back',
+  /* V80 SUPERSEDES THE CYCLE AGAIN (Paolo retired his own V79 top rung). SOFT
+     left the cycle because AUTO *is* soft now -- three distinct states, no
+     redundant one. HARD stays reachable on purpose so he can hear what he
+     retired. OFF is still an honest revert and the verdict is still his ear. */
+  ok('OFF IS STILL THE BARE CREEPER, so the A/B stays honest and the verdict is his: the button cycles AUTO -> HARD -> OFF and back, with no redundant state',
     P.on('hard') && P.on('soft') && !P.on('off') &&
-    P.cycle('auto') === 'soft' && P.cycle('soft') === 'hard' &&
-    P.cycle('hard') === 'off' && P.cycle('off') === 'auto' &&
+    P.cycle('auto') === 'hard' && P.cycle('hard') === 'off' && P.cycle('off') === 'auto' &&
     demo.includes('id="pulsebtn"') &&
     demo.includes("G.pulse=BohemiaPulse.cycle(G.pulse||'auto');"));
   ok('the floor plays THE SONG\'S OWN KIT, dies with the fight, and never bleeds into the studio',
@@ -1568,11 +1571,15 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
 
   /* HIS FOUR STEPS, EXECUTED. Not described -- run, at every count that matters. */
   const step = n => P.resolve('auto', n);
-  ok('PAOLO\'S LADDER, RUN AT EVERY RUNG: 0 kills SOFT, 2 kills SOFT (his rung 1 carries it), 4 kills SOFT (his rung 2 carries it), 5 kills HARD -- one progression, his numbers',
-    step(0) === 'soft' && step(1) === 'soft' && step(2) === 'soft' &&
-    step(3) === 'soft' && step(4) === 'soft' && step(5) === 'hard' && step(9) === 'hard');
-  ok('and the ceiling is named, not a magic number buried in a branch: HARD_AT = ' + P.HARD_AT,
-    P.HARD_AT === 5 && P.tier(P.HARD_AT - 1) === 'soft' && P.tier(P.HARD_AT) === 'hard');
+  /* V80 (Paolo, retiring his own V79 top rung): "just forget about it going hard
+     at five kills... by the end of my combat encounters it was like a lot of
+     volume fighting each other. So maybe just the pulse mode is soft the whole
+     time starting at zero kills." The floor is a FLOOR. His 7/3 rungs carry the
+     climb on top of it. */
+  ok('SOFT THE WHOLE FIGHT: the floor never escalates on its own, at any count -- 0, 2, 4, 5, 9 or 30 down all resolve SOFT, and his 7/3 rungs at 2 and 4 carry the climb',
+    [0,1,2,3,4,5,9,30].every(n => step(n) === 'soft'));
+  ok('and there is NO top rung left to drift back in: HARD_AT is Infinity, so nothing in the ladder can ever reach it by accident',
+    P.HARD_AT === Infinity && P.tier(9999) === 'soft');
   ok('THE FLOOR IS NEVER ABSENT IN A FIGHT: even at zero kills the pulse is SOFT, never off, so there is always something to lock to from the first shot',
     P.on(step(0)) === true && P.MODES[step(0)] > 0 && P.MODES[step(0)] < P.MODES.hard);
 
@@ -1589,19 +1596,58 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     const gm = { exports: {} };
     new Function('module', 'exports', demo.slice(ga, gb) + ';module.exports=BohemiaGroove;')(gm, gm.exports);
     const GR = gm.exports;
-    ok('RHYTHM ALONE REACHES THE TOP RUNG: a full GROOVE chain floors the ladder at ' + GR.musicFloor(9) + ', which resolves to ' + P.resolve('auto', GR.musicFloor(9)) + ' with nobody down',
-      GR.musicFloor(9) >= P.HARD_AT && P.resolve('auto', GR.musicFloor(9)) === 'hard');
-    ok('and a cold chain does NOT: a broken chain floors at ' + GR.musicFloor(0) + ' and stays SOFT, so the top rung is earned either by bodies or by playing in the pocket, never by nothing',
-      P.resolve('auto', GR.musicFloor(0)) === 'soft');
+    /* V80: the chain no longer escalates the FLOOR (nothing does), but it still
+       drives his 7/3 rungs, which is where the climb lives now. */
+    ok('RHYTHM STILL CLIMBS THE LADDER HE KEPT: a full GROOVE chain floors the ladder at ' + GR.musicFloor(9) + ', which is past both of his rungs, so playing in the pocket still opens the hats and the bass with nobody down',
+      GR.musicFloor(9) >= 4 && P.rung(GR.musicFloor(9)) === 2);
+    ok('and a cold chain does NOT: a broken chain floors at ' + GR.musicFloor(0) + ', below both rungs, so the climb is earned by bodies or by playing well, never by nothing',
+      GR.musicFloor(0) === 0 && P.rung(GR.musicFloor(0)) === 0);
   }
 
   /* THE MANUAL MODES SURVIVE, or he cannot A/B his own ruling */
-  ok('AUTO IS THE DEFAULT AND THE MANUAL OVERRIDES SURVIVE: forcing SOFT/HARD/OFF still wins over the ladder, so he can always check it against the bare creeper',
-    P.resolve('soft', 9) === 'soft' && P.resolve('hard', 0) === 'hard' && P.resolve('off', 9) === 'off' &&
-    P.resolve('auto', 0) === 'soft' && P.resolve(null, 5) === 'hard' &&
+  ok('AUTO IS THE DEFAULT AND THE MANUAL OVERRIDES SURVIVE: forcing HARD or OFF still wins over the ladder, so he can hear the rung he retired and the bare creeper on demand',
+    P.resolve('hard', 0) === 'hard' && P.resolve('off', 9) === 'off' &&
+    P.resolve('auto', 9) === 'soft' && P.resolve(null, 9) === 'soft' &&
     demo.includes('>PULSE: AUTO</button>'));
-  ok('and the panel says what the ladder actually does, in his numbers -- NAME IT OR DON\'T DRAW IT',
-    demo.includes('SOFT from the first shot, your hats at 2 down, your bass at 4, and the floor opens to HARD at 5'));
+  ok('and the panel says what it actually does now -- no leftover promise of a rung that no longer exists (NAME IT OR DON\'T DRAW IT)',
+    demo.includes('ON AUTO it stays SOFT the whole fight, from the first shot') &&
+    !demo.includes('the floor opens to HARD at 5'));
+
+  /* ---- V80 THE HEADROOM TRIM: "a lot of volume fighting each other" ---- */
+  {
+    /* HIS COMPLAINT, MEASURED off his own song table rather than taken on faith */
+    const sa = demo.indexOf('const OVERWORLD_SONGS=[');
+    const sb2 = demo.indexOf('\n];', sa);
+    const songs = new Function(demo.slice(sa, sb2 + 3).replace('const OVERWORLD_SONGS=', 'return '))();
+    const voices = sk => songs.reduce((n, f) => {
+      let v = (f.kick||[]).length + (f.bass||[]).length + (f.hat||[]).length;      /* his song */
+      for (let s = 0; s < 16; s++) {                                               /* the floor, after the v76 yield */
+        if (s % 4 === 0 && (f.kick||[]).indexOf(s) < 0) v++;
+        if (s % 2 === 0 && (f.hat||[]).indexOf(s) < 0) v++;
+      }
+      if (sk >= 2) v += 4 + 2 + 2;                                                 /* rung 1: tight + clap + shaker */
+      if (sk >= 4) v += 8 + 2 + (f.bass||[]).length * 2;                           /* rung 2: clickh + ride + growl/acid */
+      return n + v;
+    }, 0) / songs.length;
+    const v0 = voices(0), v2 = voices(2), v4 = voices(4);
+    const dB = (a, b) => 10 * Math.log10(b / a);
+    ok('HIS EAR WAS RIGHT AND IT IS MEASURABLE: the ladder schedules ' + v0.toFixed(1) + ' voices a bar at 0 down, ' + v2.toFixed(1) + ' at 2 and ' + v4.toFixed(1) + ' at 4 -- ' + (v4/v0).toFixed(1) + 'x by the end of a fight, about +' + dB(v0,v4).toFixed(1) + 'dB of pile-up into one master in front of a -14dB limiter',
+      v4 / v0 > 2.5 && dB(v0, v4) > 4);
+    ok('SO THE MASTER MAKES ROOM: the trim steps down as his rungs arrive (' + P.TRIM.join(' / ') + '), which absorbs about ' + (-10*Math.log10(P.TRIM[2]*P.TRIM[2])).toFixed(1) + 'dB of the pile-up so the fight grows in INSTRUMENTS, not in level',
+      P.TRIM.length === 3 && P.TRIM[0] === 1 && P.TRIM[1] < P.TRIM[0] && P.TRIM[2] < P.TRIM[1] &&
+      P.headroom(0) === P.TRIM[0] && P.headroom(2) === P.TRIM[1] && P.headroom(4) === P.TRIM[2]);
+    /* the trim must not over-correct: the ladder still has to GROW or it is pointless */
+    const net = dB(v0, v4) + 20 * Math.log10(P.TRIM[2]);
+    ok('AND IT DOES NOT OVER-CORRECT: after the trim the fight still gains about +' + net.toFixed(1) + 'dB from first shot to fourth kill, so the climb is still audible -- the trim kills the pile-up, not the progression',
+      net > 0.5 && net < 2.5);
+    ok('the rung boundaries are the SAME 2 and 4 his 7/3 law uses, so the trim can never drift out of step with the rungs it is compensating for',
+      P.rung(0) === 0 && P.rung(1) === 0 && P.rung(2) === 1 && P.rung(3) === 1 && P.rung(4) === 2 && P.rung(9) === 2);
+    ok('it RAMPS instead of stepping, so a rung landing never clicks, and it is applied to the master gain ONLY -- not one note, voice or pattern (song_lock_gate proves that from the other side)',
+      demo.includes('MAST.gain.setTargetAtTime(0.8*BohemiaPulse.headroom(_sk),AC.currentTime,0.12);') &&
+      demo.includes('if(G._mixRung!==_rg){ G._mixRung=_rg;'));
+    ok('and a FRESH FIGHT starts from full headroom again, so the trim can never accumulate across encounters',
+      demo.includes("G._mixRung=null; try{ MAST.gain.setTargetAtTime(0.8,AC.currentTime,0.12); }catch(_e){}"));
+  }
 
   /* HIS 7/3 RUNGS ARE NOT MOVED. The pulse joined the ladder; it did not edit it. */
   ok('HIS 7/3 LOCKED RUNGS ARE UNTOUCHED: the hats still enter at 2 and the bass at 4, on their own voices. The pulse joined his ladder, it did not rewrite it (song_lock_gate byte-checks this too)',

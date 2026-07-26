@@ -1,5 +1,59 @@
 # BOHEMIA ADDENDUM — THE PULSE JOINS THE LADDER (Paolo 7/26/26)
 
+## *** AMENDED SAME DAY (v80): HE RETIRED HIS OWN TOP RUNG ***
+
+> "the music is the best it's ever been. I just think we should just work a
+> little bit on volumizing and maybe for the pulse mode just forget about it
+> going hard at five kills, you know, cause I feel like by the end of my combat
+> encounters it was like a lot of volume fighting each other. So maybe just the
+> pulse mode is soft the whole time starting at zero kills when combat is
+> beginning to be engaged."
+> — Paolo, 7/26/26
+
+**THERE IS NO HARD RUNG.** `HARD_AT` is `Infinity`; AUTO resolves SOFT at every
+count, forever. Section 1's four-step table is now a three-step one: the floor
+arrives SOFT the moment combat is engaged and stays put, and **his 7/3 rungs at 2
+and 4 carry the entire climb.** HARD survives only as a manual override so he can
+hear what he retired. The button is AUTO → HARD → OFF (SOFT left the cycle
+because AUTO *is* soft — three distinct states, no redundant one).
+
+Everything else in this addendum stands, including the reason the redesign was
+right: the pulse is his ladder's floor, not a parallel system.
+
+### AND "A LOT OF VOLUME FIGHTING EACH OTHER" WAS A REAL, MEASURED DEFECT
+
+Counted off his own song table, voices SCHEDULED PER BAR:
+
+```
+0 down   16.2 voices/bar
+2 down   24.2 voices/bar     (his rung 1 + its klay layer)
+4 down   41.8 voices/bar     (his rung 2 + its klay layer)
+---------------------------------------------------------
+2.6x by the end of a fight, about +4.1dB of pile-up, into ONE master gain
+that never moved, in front of a limiter at -14dB / 6:1.
+```
+
+Nothing was making room for anything. **A clamped limiter ducks every voice at
+once, and that is exactly what "fighting each other" sounds like.** It is the
+same failure v70 hit on a single voice, in its whole-mix form.
+
+**THE FIX IS WHAT A MIX ENGINEER DOES:** as his rungs arrive, the master TRIMS —
+`1.00 / 0.82 / 0.68`, ramped over 120ms so a rung landing never clicks, and reset
+to full on a fresh fight so it can never accumulate across encounters. Net gain
+across a whole fight is about **+0.8dB instead of +4.1dB**, so the ladder reads as
+MORE INSTRUMENTS rather than MORE LOUD, and the limiter stops being slammed.
+
+It is applied to the **master gain only**. Not one note, voice, pattern or rung —
+`song_lock_gate` byte-proves that from the other side on every run.
+
+Gate: section 16 executes the no-escalation rule at eight different counts,
+re-measures the pile-up off his real songs, and asserts the trim absorbs it
+**without over-correcting** — the climb must still be audible, or the trim would
+have killed the progression instead of the pile-up.
+
+---
+
+
 > "Nice, I'm fucking with pulse starting off on soft so essentially zero kills
 > and then the old system we had kicks off at two kills then it upgrades the beat
 > at four kills and then maybe it goes to hard on five kills. Does that make

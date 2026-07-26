@@ -896,6 +896,65 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v80: SOFT THE WHOLE FIGHT + THE MASTER MAKES ROOM, plus
+THE BIG-BRAIN RESEARCH he asked for. Law:
+laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md (amended in place).
+Paolo: "the music is the best it's ever been. Just work a little bit on
+volumizing, and for the pulse mode just forget about it going hard at five kills,
+cause by the end of my combat encounters it was like a lot of volume fighting
+each other. So maybe just the pulse mode is soft the whole time starting at zero
+kills." BOTH RULINGS APPLIED.
+(1) NO TOP RUNG. HARD_AT is Infinity; AUTO resolves SOFT at every count forever.
+His 7/3 rungs at 2 and 4 carry the climb. HARD stays reachable by forcing it so
+he can hear what he retired. Button: AUTO -> HARD -> OFF (SOFT left the cycle
+because AUTO *is* soft - three distinct states, no redundant one).
+(2) "VOLUME FIGHTING EACH OTHER" WAS REAL AND MEASURABLE. Counted off his own
+song table: the ladder schedules 16.2 voices/bar at 0 down, 24.2 at 2, 41.8 at 4.
+2.6x by the end of a fight, ~+4.1dB of pile-up into ONE master gain that never
+moved, in front of a limiter at -14dB/6:1 - and a clamped limiter ducks every
+voice at once, which is exactly what he heard. Same failure class as v70, but
+whole-mix instead of one voice.
+THE FIX IS WHAT A MIX ENGINEER DOES: the master TRIMS as his rungs arrive
+(1.00 / 0.82 / 0.68), ramped 120ms so nothing clicks, reset to full on a fresh
+fight. Net +0.8dB across a whole fight instead of +4.1dB, so it grows in
+INSTRUMENTS not in level. MASTER GAIN ONLY - not one note, voice or pattern
+(song_lock_gate proves it from the other side, 20/20 every run).
+Gate: section 16 rewritten - executes the no-escalation rule at 8 counts,
+re-measures the pile-up off his songs, asserts the trim absorbs it WITHOUT
+over-correcting (the climb must still be audible), and asserts the reset.
+316 checks green. Proof: real surface, live AudioParam read as men go down:
+0.800 -> 0.657 (rung 1) -> 0.545 (rung 2), never escalated to hard, fresh fight
+back to 0.799, 0 console errors.
+
+*** RESEARCH DELIVERED (he asked for "big brain research" on turn-based grid
+combat): records/BOHEMIA_COMBAT_RESEARCH_TURN_BASED_GRID_7_26_26.md. Six games:
+Into the Breach, Slay the Spire, XCOM 2, Crypt of the NecroDancer, Divinity OS2,
+plus the game-feel literature. NOTHING BUILT. Seven ideas, ranked, sourced.
+THE THREE HEADLINES:
+ 1. QUANTIZED HITSTOP - freeze the world for a NOTE VALUE (1/16 graze, 1/8 hit,
+    1/4 beat on a killshot). The literature says 0.05-0.2s scaled to hit strength;
+    Bohemia is the one game where that freeze can BE the clock instead of
+    breaking it. Cheap, no rules change, biggest feel-per-hour.
+ 2. ENEMY INTENT ON BY DEFAULT - ITB and StS are both built on perfect
+    information ("a puzzle game wrapped in a strategy game"). Bohemia HAS it, as
+    a perk (FORESIGHT), OFF by default. Cheap; the info already exists in the AI.
+ 3. THE TURN CLOCK AND THE SONG'S FORM - ITB fights are FIVE TURNS then the
+    enemies retreat; killing is one of four verbs. In a 120 BPM game a fixed turn
+    count is a fixed number of bars, so THE TURNS COULD BE THE SONG'S SECTIONS
+    (turn 1 = A ... turn 5 = D). That reaches his 0:48 payoff EVERY fight without
+    persisting anything and without costing him the NEW ENCOUNTER song change -
+    the thing he rejected at v76, solved from the other end. Expensive, real
+    rules change, HIS call.
+ALSO: NecroDancer's designer landed on ~100% timing leeway because "the challenge
+comes from the fast tactical combat itself" - a direct warning that my 55ms/110ms
+windows may have made TIMING the difficulty instead of the pleasure. And XCOM's
+lesson is that Bohemia already SOLVED the 95%-miss problem with the dial (skill,
+not dice) - so never add a hidden roll on top of a good press; that should become
+a law. Depth work after that: SHOVE as a real one-tile PUSH with collision
+damage (ITB's best verb is displacement, not damage) and ENVIRONMENT (elevation,
+destructible cover, Vegas surfaces) which is still the thinnest part of the
+fight. ALL [PENDING Paolo]. ***
+
 COMBAT (04) 7/26 - v79: THE PULSE JOINS THE LADDER (Paolo's design). Law:
 laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md.
 Paolo: "pulse starting off on soft so essentially zero kills, then the old system
