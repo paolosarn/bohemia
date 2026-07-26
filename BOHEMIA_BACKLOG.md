@@ -56,7 +56,17 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    tools/bohemia_quest_placement_judge.py, gate: QUEST PLACEMENT. NEXT (blocked on
    his picks): APPLY the picked placements as a casting-bridge override + extend
    the gate to prove the override sticks across save/reload. | [PENDING Paolo].
-2. World bridge deepening: quest outcomes visibly move factions on the map.
+2. AMBIENT ENCOUNTER DIRECTOR (APPROVED 7/26, records/BOHEMIA_VERDICT_ACT1_
+   ROSTER_7_26_26.txt): the walk-surface encounter system — storyteller
+   tension budget (never dice), 70/20/10 ambient/interactive/forced ratio,
+   district+day/night spawn tables, rare-is-sacred caps, ~90s min gap. The 12
+   approved act-1 encounter types as spawnable tokens routing into the
+   standard encounter handoff; patrols-collide as world-on-world. Enemy ART
+   is NOT this item (approved-assets-first, separate judge). | director
+   proven headless: ratios hold over a simulated long walk, no repeat-spam,
+   deterministic per seed | pacing ruling (no background ticking when player
+   idle) | design approved; art needs thumbs.
+3. World bridge deepening: quest outcomes visibly move factions on the map.
    | proven headless, deterministic | pacing ruling: no background ticking | no.
 3. Engine support requests flagged by RUN (as they arrive, priority). | per
    request | — | no.
