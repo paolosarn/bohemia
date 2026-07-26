@@ -577,8 +577,9 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('if(kind===\'kill\')       _precisionPct=85+15*Math.max(0,Math.min(1,1-d/Math.max(1e-6,hz)));') &&
     demo.includes("else if(kind==='vital') _precisionPct=60+25*Math.max(0,Math.min(1,1-(d-hz)/Math.max(1e-6,vz-hz)));") &&
     !demo.includes('const _precisionPct=Math.max(0,1-d/hitz)*100;'));
-  ok('V53 MUSIC KEYS OFF REAL KILLS: the layer counter counts dead bodies, not kill-ARC releases (a pistol shot that only DOWNS a live man must not bump the music)',
-    demo.includes("(G.e?G.e.filter(e=>e.dead).length:0)") &&
+  ok('V71 THE DOWNED ARE KILLS, FOR THE MUSIC (Paolo 7/26, SUPERSEDES the V53 note that a shot which only downs a live man must not bump the music): "if I have a pistol and I down an enemy, even if they survive because they\'re crawling away... that\'s part of a kill, intensify the song... I hate to see that you\'re not recognizing them." The ladder counts everyone TAKEN OUT OF THE FIGHT -- the same set aliveEnemies() uses to decide the fight is over',
+    demo.includes("(G.e?G.e.filter(e=>e.dead||e.downed||e.broken||e.fleeing).length:0)") &&
+    !demo.includes("(G.e?G.e.filter(e=>e.dead).length:0)") &&
     !demo.includes("((G.rc&&G.rc.kills)||0):0);"));
   ok('V53 GREEN PEEK: only when the button is green, the player pops up out of the crouch (top rise frames) so the safe moment reads on the body',
     demo.includes('if(G._greenNow&&fset.rise&&fset.rise.length){') &&
@@ -737,9 +738,9 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes("if(kind==='deadsat'){") && demo.includes("if(kind==='solarhymn'){") &&
     demo.includes("if(kind==='powergrid'){") && demo.includes("if(kind==='signalfade'){") &&
     demo.includes("if(kind==='rouletteghost'){") && demo.includes("if(kind==='dreadbed'){"));
-  ok('V63 HERO BEAT, as amended by V70: beat one still hits DOUBLE (the kick re-strikes plus a sub boom -- the 7/24 ruling that beat one is canon for every song) and the bass note is now the HERO VOICE at 3x, with the drums ducked so the limiter stops eating it',
-    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t);") &&
-    demo.includes('/* V63 HERO BEAT: beat one re-strikes + a sub boom') &&
+  ok('V71 THE HERO IS JUST THE VOICE (Paolo 7/26: "I\'m not feeling the hero beat drum doubling"). The doubled kick and sub boom on step 0 are GONE -- a doubling he cannot feel was dead weight sitting on the limiter in front of the note that IS the hero. Beat one is still canon for every song (7/24); it is announced by the 808 at 3x, alone, with nothing competing',
+    !demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t);") &&
+    !demo.includes("if(s===0){ drumV((f.kit&&f.kit.k)||'punchk',AC,MAST,t); drumV('boom',AC,MAST,t); }") &&
     demo.includes("const _bi=(f.inst&&f.inst.b)||'osc'; const _db=(s===0)?3:1;") &&
     demo.includes('synthV(_bi,AC,MAST,noteHz,_fsd,semi,t,0.13*_db);') &&
     demo.includes('g.gain.linearRampToValueAtTime(0.12*_db,t+0.01);'));
@@ -754,7 +755,7 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes("synthV('growl',AC,MAST,noteHz,stepDur(),f.root-55+f.scale[s%f.scale.length],t,0.12);") &&
     demo.includes("synthV('acid',AC,MAST,noteHz,stepDur(),f.root-43+f.scale[s%f.scale.length],t,0.10); } }") &&
     // the LOCKED 7/3 law survives: layers key off KILLS THIS ENCOUNTER, and area-clear goes calm
-    demo.includes("const _sk=(G._demo&&G._demo.k==='J')?4:((JUICE.J&&!G.over)?(G.e?G.e.filter(e=>e.dead).length:0):0);"));
+    demo.includes("const _sk=(G._demo&&G._demo.k==='J')?4:((JUICE.J&&!G.over)?(G.e?G.e.filter(e=>e.dead||e.downed||e.broken||e.fleeing).length:0):0);"));
 }
 /* ============================================================================
    5. V66 RUN HANDOFF -- THE REAL BUS, HEADLESS, FIVE FIGHTS BACK TO BACK
@@ -1190,10 +1191,10 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
    10. V70 -- HIS TWO RULINGS: the rings at a quarter, the 808 as the hero
    ========================================================================== */
 {
-  ok('THE RINGS KEEP EXACTLY 25% OF THEIR ALPHA (Paolo: "turn the opacity down by 75% so they\'re barely visible but still there") -- the ring and its snap flash both, nothing else about them touched',
-    demo.includes('const _a=(_hero?0.42:0.24)*(0.35+0.65*_f)*0.25;') &&
-    demo.includes("+(_snap*0.2125)+')';") &&
-    !demo.includes("+(_snap*0.85)+')';"));
+  ok('THE RINGS ARE AT AN EIGHTH: 75% down (7/26) then another 50% (7/26, "opacity of that shit you added last chat should go down by 50%"). Ring and snap flash both, nothing else about them touched -- he approved the shape and the motion',
+    demo.includes('const _a=(_hero?0.42:0.24)*(0.35+0.65*_f)*0.125;') &&
+    demo.includes("+(_snap*0.10625)+')';") &&
+    !demo.includes("+(_snap*0.85)+')';") && !demo.includes("+(_snap*0.2125)+')';"));
 
   ok('THE HERO VOICE IS AT 3x, NOT 2x (Paolo: "should it be like three times as loud. Just the voice"). 2x amplitude is +6dB and a doubling of PERCEIVED loudness takes about +10dB, so the old double read as roughly 1.5x. 3x is +9.5dB -- the number that actually sounds twice as loud',
     demo.includes("const _bi=(f.inst&&f.inst.b)||'osc'; const _db=(s===0)?3:1;") &&
@@ -1201,15 +1202,81 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
     demo.includes('synthV(_bi,AC,MAST,noteHz,_fsd,semi,t,0.13*_db)') &&
     demo.includes('g.gain.linearRampToValueAtTime(0.12*_db,t+0.01)'));
 
-  ok('AND THE BOOST ACTUALLY REACHES HIS EAR: the doubled kick and sub boom on beat one were slamming the master limiter (-14dB, 6:1) at the exact instant the hero note began, so the limiter ducked the note it was announcing. They keep the double at 0.55 gain and stop stealing the voice\'s headroom -- JUST THE VOICE gets louder',
-    demo.includes("if(s===0){ let _hd=MAST; try{ _hd=AC.createGain(); _hd.gain.value=0.55; _hd.connect(MAST); }catch(_e){ _hd=MAST; }") &&
-    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t); } }") &&
-    // the limiter itself stays: nothing is allowed to hard-clip again
+  ok('NOTHING IS LEFT FIGHTING THE HERO NOTE: with the doubling gone, beat one carries the 808 alone and the master limiter (-14dB, 6:1) still stands so nothing can hard-clip again',
+    !demo.includes('_hd.gain.value=0.55;') &&
     demo.includes('_cmp.threshold.value=-14;') && demo.includes('_cmp.ratio.value=6;'));
 
-  ok('the hero beat still DOUBLES the kick and adds the sub boom (7/24 ruling: beat one is canon for every song) -- v70 changed how loud they are, never whether they happen',
-    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t);"));
+  ok('and beat one is still ANNOUNCED (7/24 ruling: beat one is canon for every song) -- what changed is HOW: the 808 at 3x instead of a drum doubling he could not feel',
+    demo.includes("const _db=(s===0)?3:1;"));
 }
+
+/* ============================================================================
+   11. V71 -- EVERYTHING ON BEAT, AND ALL OF HIS OVERWORLD MUSIC
+   ========================================================================== */
+{
+  /* EVERYTHING ON BEAT (Paolo: "Everything on beat even the Enemies whatever
+     they're doing"). The scheduler is pulled out and RUN across a whole beat. */
+  const src = demo.slice(demo.indexOf('function onBeat(fn)'), demo.indexOf('function doWait()'));
+  const wait = (phase) => {
+    let ms = null;
+    new Function('JUICE', '_bpmPhase', 'BPM_MS', 'setTimeout',
+      src + ';onBeat(function(){});')(
+      { M: true }, phase, 500, (fn, d) => { ms = d; });
+    return ms;
+  };
+  ok('EVERYTHING ON BEAT: the scheduler that every fight event already funnels through now lands on the BEAT, not the half beat -- so the return volley, the cracks, the hurt flash and the enemy verbs are all on the grid in one change',
+    demo.includes('function onOffbeat(fn){ return onBeat(fn); }') &&
+    demo.includes('V71 EVERYTHING ON BEAT'));
+  ok('an event fired just after a beat waits almost a full beat for the next one; one fired just before it waits almost nothing -- and nothing ever waits longer than a beat (' +
+    wait(0.02) + 'ms / ' + wait(0.9) + 'ms)',
+    Math.abs(wait(0.02) - 490) < 1e-6 && Math.abs(wait(0.9) - 50) < 1e-6 &&
+    wait(0.02) <= 500 && wait(0.5) === 250);
+  ok('the ENEMY verbs ride the same rail (the nerve break and the break-and-run land on the beat), which is what "even the Enemies whatever they\'re doing" means',
+    demo.includes("e.broken=true; e._brokeAt=performance.now(); onBeat(") &&
+    demo.includes("e._fleeVar=Math.floor(Math.random()*2); onBeat("));
+
+  /* ALL OF THE OVERWORLD MUSIC (Paolo: "it's just been like two songs") */
+  {
+    const psrc = demo.slice(demo.indexOf('function owAll()'), demo.indexOf('function owSong()'));
+    const mk = (G) => new Function('G', 'OVERWORLD_SONGS', 'setRead',
+      psrc + ';return {all:owAll(),pick:function(){return pickOverworldSong();}};')(
+      G, [{ n: 'FALLBACK' }], () => {});
+    const pools = {
+      'OVERWORLD NIGHT': Array.from({ length: 10 }, (_, i) => ({ n: 'N' + i })),
+      'OVERWORLD DAY': [{ n: 'DAY' }],
+      'OVERWORLD DUSK/DAWN': [{ n: 'DD1' }, { n: 'DD2' }],
+    };
+    const api = mk({ _owPools: pools });
+    ok('THE ENCOUNTER POOL IS EVERY SONG HE TAGGED OVERWORLD -- all three time slots, not a hand-copied six (' + api.all.length + ' songs)',
+      api.all.length === 13);
+    const G2 = { _owPools: pools };
+    const a2 = mk(G2);
+    const seen = {}; let dupeBeforeExhausted = false;
+    for (let i = 0; i < 13; i++) { const s = a2.pick(); if (seen[s.n]) dupeBeforeExhausted = true; seen[s.n] = 1; }
+    ok('SHUFFLE BAG: every overworld song plays before ANY song repeats, so two can never hog the rotation again (13 draws, ' + Object.keys(seen).length + ' distinct)',
+      !dupeBeforeExhausted && Object.keys(seen).length === 13);
+    ok('and with no pool pushed yet it still falls back to the built-in list rather than going silent',
+      mk({}).all.length === 1);
+    ok('NEW ENCOUNTER pulls the next song out of the bag every single time, instead of only when the day phase happened to re-roll',
+      demo.includes('if(G.factionShuffle) try{ G._owSong=pickOverworldSong(); }catch(_e){}'));
+  }
+}
+
+/* ---- 6b. the parent finally ships his overworld pool down the bus ---- */
+ok('V71 PARENT: the music bus carries HIS overworld pools (all three time slots) the same way it has carried the faction pools since 7/19. That it never did is the whole reason combat was stuck on two songs',
+  alpha.includes('out.owpools={};') &&
+  alpha.includes("for(const cat of ['OVERWORLD NIGHT','OVERWORLD DAY','OVERWORLD DUSK/DAWN']){ const arr=[];") &&
+  alpha.includes('if(arr.length)out.owpools[cat]=arr; }') &&
+  alpha.includes('const _songObj=(m)=>{'));
+ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 assignments (10 night, 1 day, 2 dusk/dawn) -- combat was seeing six of them',
+  (() => {
+    const i = alpha.indexOf('const CAT_DEFAULTS={'), j = alpha.indexOf('};', i);
+    const blk = alpha.slice(i, j);
+    const n = (blk.match(/'OVERWORLD NIGHT'/g) || []).length;
+    const d = (blk.match(/'OVERWORLD DAY'/g) || []).length;
+    const dd = (blk.match(/'OVERWORLD DUSK\/DAWN'/g) || []).length;
+    return n === 10 && d === 1 && dd === 2;
+  })());
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',

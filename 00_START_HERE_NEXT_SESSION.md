@@ -408,6 +408,36 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v71: EVERYTHING ON BEAT + THE TWO BUGS HE CAUGHT. Law:
+laws/BOHEMIA_ADDENDUM_EVERYTHING_ON_BEAT_AND_THE_DOWNED_7_26_26.md.
+(1) HIS ANSWER TO MY QUESTION: "Everything on beat even the Enemies whatever
+they're doing." The demo's one event scheduler moved from the HALF beat to the
+BEAT, which put all 13 existing call sites (return volley, cracks, hurt flash,
+blast) on the grid at once, plus the enemy verbs. Nothing waits over one beat.
+(2) THE DOWNED ARE KILLS, FOR THE MUSIC -- SUPERSEDES the V53 code note that
+"a pistol shot that only DOWNS a man must not bump the music". His words: "if I
+didn't shoot them they typically would be dead... that's part of a kill,
+intensify the song... I hate to see that you're not recognizing them." The
+ladder now counts dead + downed + broken + fleeing, the same set aliveEnemies()
+uses to end the fight.
+(3) THE HERO DRUM DOUBLING IS DEAD ("I'm not feeling it"). Beat one is still
+canon for every song (7/24) but it is announced by the 808 at 3x ALONE.
+(4) RINGS at 12.5% (75% down, then another 50%). He approved the shape/motion.
+(5) ALL THE OVERWORLD MUSIC. He was right and it was embarrassing: combat
+carried a HAND-COPIED array of SIX night songs while the app holds THIRTEEN he
+tagged OVERWORLD (10 night + 1 day + 2 dusk/dawn, baked in CAT_DEFAULTS). The
+music bus had shipped his FACTION pools to combat since 7/19 and never shipped
+the overworld ones. Now it does; the encounter walks a SHUFFLE BAG (every song
+before any repeat) and the readout names the song + counts the bag down. Proof:
+slices/BOHEMIA_OVERWORLD_BAG_PROOF_7_26_26.png shows THE ORGAN IN THE DROWNED
+CHAPEL -> THE WIND LEARNS WORDS -> SATELLITE PRAYER, 12/11/10 left in the bag --
+songs combat could never reach before.
+STANDING LESSON, same as the doors: when a surface needs content the game
+already has, it CONSUMES THE APPROVED CORPUS. A hand-copied subset inside one
+surface is how a 13-song pool becomes 2 songs and nothing notices for a week.
+Gate: combat_lab_gate section 11 executes the beat scheduler across a whole beat
+and the shuffle bag over 13 draws. 260 green.
+
 COMBAT (04) 7/26 - v70: TWO PAOLO RULINGS, both applied exactly.
 (1) "turn the opacity down by 75% so they're barely visible but like still
 there" -- the v69 approach ring and its snap flash keep exactly 25% of their
