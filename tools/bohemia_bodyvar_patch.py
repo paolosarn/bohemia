@@ -33,7 +33,7 @@ import os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALPHA = os.path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_bodyvar.js')
-STAMP = 'BUILD 7/26f · ONE RIG, BODY SLIDERS - HEIGHT / BELLY / ARMS'
+STAMP = 'BUILD 7/26m · BODY SLIDERS + SHUFFLE ANIM ON THE CHARACTER BOX'
 
 def die(msg):
     print('  ! ' + msg)
@@ -200,6 +200,35 @@ if i0 > 0 and i1 > i0 and 'BODY_VAR_ROW' not in src:
     }"""
     src = src[:i0] + NEW_UI + src[i1 + len(OLD_UI_END):]
     did.append('BODY row -> HEIGHT/BELLY/ARMS sliders')
+
+# --------------------------------------------------------------------------
+# B6b. SHOULDER BLEND FOLLOWS THE HEIGHT DIAL (found on the real surface, 7/26)
+# --------------------------------------------------------------------------
+# The SHOULDER BLEND suppresses the arm/torso contour for the couple of rows at
+# the top of the shoulder, and it finds those rows from the REST skeleton --
+# which the height dial deliberately never moves. On a taller body the drawn
+# shoulder sits ~2 rows higher than rest, so the blend zone reached two rows too
+# far DOWN the arm and ate two rows of the contour that tells you where the arm
+# ends and the torso begins. Shift the blend row by exactly the height dial's
+# own neck displacement. Zero when the dial is zero, so canon is untouched.
+OLD_SHOULDER = "if((g===1||g===2)&&ng===5){const RS=rigSkel(d);\n          const shy=Math.min(RS.shL[1],RS.shR[1]);if(by<=shy+1)continue;}"
+NEW_SHOULDER = ("if((g===1||g===2)&&ng===5){const RS=rigSkel(d);\n"
+                "          const shy=Math.min(RS.shL[1],RS.shR[1])+rigHeightDY(d);if(by<=shy+1)continue;}")
+if 'rigHeightDY' not in src:
+    if OLD_SHOULDER not in src:
+        die('shoulder blend anchor not found -- alpha layout changed')
+    src = src.replace(OLD_SHOULDER, NEW_SHOULDER, 1)
+    HELPER = ("""/* HEIGHT DISPLACEMENT OF THE DRAWN SHOULDER (Paolo 7/26, found by reading the
+   shade map, not the code). Skeleton-anchored render rules read the REST
+   skeleton -- correct, because that is where the art is bound -- but the HEIGHT
+   dial moves the DRAWN body without moving rest. This is the offset between the
+   two, and it is exactly 0 on the canon body. */
+function rigHeightDY(d){const P=BODY_PKG&&BODY_PKG.pose&&BODY_PKG.pose[d];
+  if(!P||BODY_PKG===BAKED)return 0;
+  return Math.round(P.neck[1]-BAKED.pose[d].neck[1]);}
+function rigSkel(d)""")
+    src = src.replace('function rigSkel(d)', HELPER, 1)
+    did.append('SHOULDER BLEND follows the height dial (rigHeightDY)')
 
 # --------------------------------------------------------------------------
 # B7. FINAL FLOATER CULL (found on the real surface, 7/26)

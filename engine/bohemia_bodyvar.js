@@ -99,12 +99,25 @@ const BOH_BODYVAR = (function () {
     /* ARMS. 0 at the shoulder cap and 0 at the wrist, so the arm joins the torso
        and the hand exactly as painted at every dial value; only the meat of the
        limb thickens. */
-    5: { dial: 'arms', biasAmp: 0, minW: 2, profile: armProfile },
-    6: { dial: 'arms', biasAmp: 0, minW: 2, profile: armProfile }
+    /* minW 4 IS A LOOK RULE, not a safety net (Paolo 7/26: "it seems like it's
+       already breaking how the animation looks, where shit looks chopped").
+       The renderer outlines a limb's outer AND inner column, so a 5px arm shows
+       exactly 3 pixels of skin. Shrink it to 3 and only ONE pixel of skin is
+       left between two dark lines -- the arm stops reading as an arm and reads
+       as a stripe glued to the body. Four columns keeps two pixels of skin at
+       the thinnest setting, which still reads as a limb. */
+    5: { dial: 'arms', biasAmp: 0, minW: 4, profile: armProfile },
+    6: { dial: 'arms', biasAmp: 0, minW: 4, profile: armProfile }
   };
+  /* The shoulder end ramps SLOWLY (Paolo 7/26, on the render). A short ramp put
+     the arm at full thickness on the row directly under the 3px shoulder cap:
+     the silhouette jumped 3 -> 7 in one row and the whole top of the body read
+     as a sloped CAPE instead of a shoulder. Widening over the top third turns
+     that step into a deltoid running down into the bicep. The wrist end still
+     ramps short, because a forearm genuinely does neck down fast into the hand. */
   function armProfile(t) {
-    if (t < 0.14) return ss(t / 0.14);
-    if (t > 0.86) return ss((1 - t) / 0.14);
+    if (t < 0.34) return ss(t / 0.34);
+    if (t > 0.84) return ss((1 - t) / 0.16);
     return 1;
   }
 
@@ -192,14 +205,23 @@ const BOH_BODYVAR = (function () {
          stay PUT on this row; the whole change then lands on the other side.
          See ARM_ANCHOR below for why this exists -- it is the difference
          between a thinner arm and no arm at all in profile. */
-      if (anchor) { const a = anchor(y, mn, mx); if (a === 1) shareR = 0; else if (a === -1) shareR = 1; }
+      let held = 0;
+      if (anchor) { held = anchor(y, mn, mx); if (held === 1) shareR = 0; else if (held === -1) shareR = 1; }
       let nMin = Math.round(mn - grow * (1 - shareR));
       let nMax = Math.round(mx + grow * shareR);
       /* NEVER let a row collapse (lesson 6: thin art must never be culled) and
          never let it leave the canvas. */
+      /* THE FLOOR MUST RESPECT THE ANCHOR. Re-centring the row when it hits the
+         minimum width silently SLID the whole limb sideways -- facing N the arm
+         walked 2px across the body and the "thinner" arm ended up wider than
+         canon (found by dumping per-row extents, 7/26). When a side is held,
+         grow back out from THAT side only; only an unanchored row may recentre. */
       const minW = Math.min(w, spec.minW);
-      if (nMax - nMin + 1 < minW) { const c = Math.round((nMin + nMax) / 2);
-        nMin = c - ((minW - 1) >> 1); nMax = nMin + minW - 1; }
+      if (nMax - nMin + 1 < minW) {
+        if (held === 1) nMin = nMax - minW + 1;
+        else if (held === -1) nMax = nMin + minW - 1;
+        else { const c = Math.round((nMin + nMax) / 2); nMin = c - ((minW - 1) >> 1); nMax = nMin + minW - 1; }
+      }
       if (nMin < 0) { nMax += -nMin; nMin = 0; }
       if (nMax > CW - 1) { nMin -= (nMax - (CW - 1)); nMax = CW - 1; }
       if (nMin < 0) nMin = 0;
@@ -295,10 +317,19 @@ const BOH_BODYVAR = (function () {
         let x = x0 + dx;
         if (x < 0) x = 0; else if (x > CW - 1) x = CW - 1;
         const a = y * CW + x; if (!seen[a]) { seen[a] = 1; out.push(a); }
-        if (outward) {   /* bridge the vacated band back to the armpit */
-          const gone = (side < 0) ? (x0 > inner + dx) : (x0 < inner + dx);
-          if (gone) { const b = y * CW + x0; if (!seen[b]) { seen[b] = 1; out.push(b); } }
-        }
+        /* NO BRIDGE. Two earlier versions of this line both broke the arm:
+           keeping the whole vacated band FATTENED it (a gut also gave the man
+           bigger arms), and keeping only the innermost column left a GAP behind
+           whenever the flank moved 2px. The arm is TRANSLATED, whole, full stop
+           -- exactly what "the arm hangs on the flank" means. The armpit seam
+           that motivated the bridge is handled where it belongs, by the ARMPIT
+           OVERLAP below, which lets the TORSO reach under the arm instead of
+           OVERLAP the source already has. Proven, not assumed: with the whole
+           bridge mechanism removed, a full-clip-set sweep on the real surface
+           (61 clips x 8 facings x 7 phases, every dial extreme) finds ZERO
+           enclosed holes anywhere -- the seam the bridge was written for does
+           not exist once the arm follows the flank properly. Dead machinery is
+           worse than no machinery, so it is gone. */
       }
     }
     return out;

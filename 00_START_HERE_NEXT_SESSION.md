@@ -52,6 +52,13 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- CHARACTER BOX = SHUFFLE ANIM (Paolo 7/26, his ask): the preview plays any
+  clip, skeleton off, with the body sliders right underneath. Bodies get judged
+  THROUGH THE ANIMATIONS now, never off an idle pose.
+- SHADE MAP BEFORE SHIPPING A BODY CHANGE (7/26, learned the hard way twice):
+  strays/holes/part-loss/frame-edge sweeps were all green while Paolo watched
+  the arms turn into stripes. Dump WHICH PIXEL IS OUTLINE vs SKIN -- that is
+  what a person actually sees. THE CHOPPED CHECKS in bodyvar_gate.js lock it.
 - THE ONE RIG NOW HAS SLIDERS (shipped 7/26, CHARACTER lane). The female rig is
   GRAVEYARDED and gone from the code; a body is Paolo's painted rig + HEIGHT /
   BELLY / ARMS. Neutral is byte-identical canon. Nobody re-pitches a second
@@ -283,7 +290,12 @@ CHARACTER/SOUND (05): 7/26 -- ONE RIG + VARIATION SLIDERS BUILT AND SHIPPED
 (backlog CHARACTER-1). The whole female rig is deleted and graveyarded (gate,
 tool, data, picker); rigSkel KEPT per the addendum. G.bodyVar {height, belly,
 arms} is live on the CHARACTER tab, persists with the look, and rebuilds all 8
-facings + every animation on drag. engine/bohemia_bodyvar.js + inline (sync-
+facings + every animation on drag. SECOND PASS same day, on his eyes: SHUFFLE
+ANIM button on the preview box (+ skeleton off there), and four real "chopped"
+defects he spotted and I had not -- thin arms collapsing to a stripe, the
+minimum-width floor sliding the whole limb, the belly dial fattening the arms,
+and the arms jumping to full thickness under the shoulder cap (the cape). All
+four machine-locked; charpreview_gate.js added. engine/bohemia_bodyvar.js + inline (sync-
 canon registered), gates/bodyvar_gate.js 37/37, and a real-browser capture
 harness that sweeps the FULL clip set at every dial extreme (5,712 frames per
 config; zero strays, zero shaves). Found and fixed ON THE REAL SURFACE: the

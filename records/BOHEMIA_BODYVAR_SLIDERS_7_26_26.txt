@@ -111,9 +111,52 @@ KNOWN AND NAMED, NOT HIDDEN
   lists every graze by name on every run so it can never grow quietly, and fails
   outright on a SHAVE (6+ pixels -- the size of the 8% regression above).
 
+PAOLO'S FIRST PASS, SAME DAY (7/26) -- what he said and what it cost
+  "in the character menu I would like to see a shuffle Animation button in the
+   bottom right or something of the actual box that shows the character"
+  -> SHUFFLE ANIM shipped, pinned bottom-right INSIDE the preview box, with the
+     clip name bottom-left (tap it to return to idle). Pool is the real CLIPS
+     table minus the terminal clips. The box also stopped drawing the rig
+     skeleton over the body -- pink bones and green joints are a RIG tool, and
+     this box is now where he judges body shape. Gate: charpreview_gate.js 18/18.
+     This is not a convenience: it puts the animations under his thumb on the
+     SAME screen as the dials, which is the whole lesson-7 discipline.
+
+  "it seems like it's already breaking how the animation looks, where shit
+   looks chopped"
+  -> He was right, and my sweeps had all been green, because I was measuring
+     strays, holes, part loss and frame edges -- none of which is what "chopped"
+     means. Dumping the SHADE MAP (which pixel is base tone, which is the dark
+     anatomy outline) found three real defects in ten minutes:
+     1. THIN ARMS COLLAPSED TO A STRIPE. The renderer outlines a limb's inner
+        AND outer column, so a 5px arm shows 3px of skin. Shrunk to 3px it shows
+        ONE, between two dark lines: not a thin arm, a stripe glued to the body.
+        Minimum arm width is now 4 columns.
+     2. THE MINIMUM-WIDTH FLOOR SLID THE WHOLE LIMB. When a row hit the floor it
+        re-centred, ignoring the held edge -- facing N the arm walked 2px across
+        the body and the "thinner" arm came out WIDER than canon. The floor now
+        grows back out from the anchored side only.
+     3. THE BELLY DIAL FATTENED THE ARMS. The armpit bridge was keeping the
+        whole vacated band, so a gut also gave the man bigger arms. Bridging one
+        column instead left a gap. The bridge is DELETED: the arm is translated
+        whole, and a full-clip-set hole sweep proves the seam it was written for
+        does not exist. Dead machinery is worse than no machinery.
+     Plus a look fix: at +1 the arms jumped 3px -> 7px in the row under the
+     shoulder cap and the body read as a sloped CAPE. The thickening now ramps
+     in over the top third of the arm -- a deltoid running into a bicep.
+     All four are machine-locked in bodyvar_gate.js as THE CHOPPED CHECKS.
+
+  LESSON FOR THE NEXT SESSION, stated plainly: green gates did not predict what
+  he saw, AGAIN. Strays/holes/parts/edges are absence-of-crash metrics. The
+  thing a person actually looks at is the SHADE MAP -- where the outline falls
+  and how much skin is left between outlines. Dump that first next time.
+
 PROOF
-  gates/bodyvar_gate.js .................. 37/37
+  gates/bodyvar_gate.js .................. 39/39
+  gates/charpreview_gate.js .............. 18/18
   full suite ............................. see the commit message
   real-surface sweep ..................... records/bodyvar/BODYVAR_CAPTURE_REPORT.txt
   contact sheets ......................... records/bodyvar/BODYVAR_<dial>_<bare|dressed>_walk.png
-  build stamp ............................ BUILD 7/26a - ONE RIG, BODY SLIDERS
+  UI screenshots ......................... real alpha, iPhone viewport, shuffle
+                                           clicked and the clip verified to change
+  build stamp ............................ see the commit

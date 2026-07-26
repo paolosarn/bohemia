@@ -164,6 +164,8 @@ GATES = [
      'zone-locked: masks below the eyes, shades on them, gloves/belt/scarf', False),
     ('CLOTH STRUCT',   ['node', 'gates/structure_gate.js'],
      'structure-not-color: jacket/poncho/tall-boot/rolled/gear are real shapes', False),
+    ('CHAR PREVIEW',   ['node', 'gates/charpreview_gate.js'],
+     'the character box shuffles the real clip set (judge bodies through the animations, never an idle pose)', False),
     ('BODY VARIATION', ['node', 'gates/bodyvar_gate.js'],
      'ONE RIG + variation sliders: neutral is byte-identical canon, every dial clean and continuous, the two-rig fork stays dead', False),
     ('LIFE',           ['node', 'gates/life_gate.js'],

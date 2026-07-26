@@ -195,6 +195,55 @@ function bodyHeight(pk, d) { const P = pk.pose[d]; return Math.max(P.footA[1], P
 }
 
 /* ---------------------------------------------------------------------------
+   6b. THE "CHOPPED" CHECKS (Paolo, 7/26, on the real surface: "it seems like
+   it's already breaking how the animation looks, where shit looks chopped").
+   Every one of these locks a defect he actually saw, not a defect I imagined:
+     - a thinning arm that ended up WIDER than canon on some rows, and slid
+       sideways across the body, because the minimum-width floor re-centred the
+       row instead of respecting the held edge
+     - a BELLY dial that FATTENED the arms (the armpit bridge was keeping the
+       whole vacated band instead of one column), so a gut also gave the man
+       bigger arms
+     - an arm thinned to a single pixel of skin between two outline pixels,
+       which stops reading as a limb and reads as a stripe glued to the torso
+   --------------------------------------------------------------------------- */
+{
+  const rowsOf = (pk, d, q) => {
+    const r = {};
+    for (const i of pk.layers[d][q]) { const y = (i / CW) | 0, x = i % CW;
+      const e = r[y]; if (!e) r[y] = [x, x]; else { if (x < e[0]) e[0] = x; if (x > e[1]) e[1] = x; } }
+    return r;
+  };
+  const bad = [];
+  const thick = BV.apply(BAKED, { arms: 1 }), slim = BV.apply(BAKED, { arms: -1 });
+  const wide = BV.apply(BAKED, { belly: 1 }), thin = BV.apply(BAKED, { belly: -1 });
+  for (const d of DIRS) for (const q of [5, 6]) {
+    const c = rowsOf(BAKED, d, q), tk = rowsOf(thick, d, q), sl = rowsOf(slim, d, q);
+    const bw = rowsOf(wide, d, q), bt = rowsOf(thin, d, q);
+    for (const ys in c) {
+      const y = +ys, cw = c[y][1] - c[y][0] + 1;
+      if (tk[y] && (tk[y][1] - tk[y][0] + 1) < cw) bad.push('ARMS+ narrowed row ' + y + ' on ' + d + '/p' + q);
+      if (sl[y] && (sl[y][1] - sl[y][0] + 1) > cw) bad.push('ARMS- WIDENED row ' + y + ' on ' + d + '/p' + q + ' (the re-centre slide)');
+      // an arm row keeps enough columns to still read as a limb once the
+      // renderer outlines its inner AND outer edge
+      if (sl[y] && (sl[y][1] - sl[y][0] + 1) < Math.min(cw, 4)) bad.push('ARMS- collapsed row ' + y + ' on ' + d + '/p' + q + ' to a stripe');
+      // the belly may MOVE an arm; it may never change its thickness
+      for (const [nm, rr] of [['BELLY+', bw], ['BELLY-', bt]]) {
+        if (rr[y] && (rr[y][1] - rr[y][0] + 1) !== cw) bad.push(nm + ' changed ARM thickness on ' + d + '/p' + q + ' row ' + y + ' (' + cw + ' -> ' + (rr[y][1] - rr[y][0] + 1) + ')');
+      }
+    }
+  }
+  ok('no CHOPPED limbs: thin arms never widen or slide, never collapse to a stripe, and the belly moves arms without fattening them'
+    + (bad.length ? ' [' + bad.slice(0, 4).join(' | ') + ']' : ''), !bad.length);
+
+  // the SHOULDER BLEND has to follow the height dial, or a taller body loses
+  // two rows of the arm/torso contour and reads as a slab
+  ok('the shoulder blend follows the height dial (rigHeightDY), and is exactly 0 on canon',
+    /function rigHeightDY\(d\)/.test(src) && /BODY_PKG===BAKED\)return 0/.test(src)
+    && /Math\.min\(RS\.shL\[1\],RS\.shR\[1\]\)\+rigHeightDY\(d\)/.test(src));
+}
+
+/* ---------------------------------------------------------------------------
    7. RENDER THROUGH THE REAL SKINNER, ANIMATED, ALL 8 DIRECTIONS
    Lesson 7 of the addendum, headless half: "a slider is not verified until it
    has been watched through the real clip set". Idle poses are not verification.
