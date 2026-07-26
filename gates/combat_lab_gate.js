@@ -367,8 +367,13 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   ok('V31 AREA CLEAR: checkClear() ends the fight the instant nobody can fight (nerve/downing safe), on EVERY settle path',
     demo.includes('V31 AREA CLEAR') && demo.includes('function checkClear()') &&
     demo.split('if(checkClear())return').length >= 5);
-  ok('the FINISH has weight (hitstop + heavier pool + haptic)',
-    demo.includes('the death blow lands with weight') && demo.includes('G._hitstop=Math.max(G._hitstop||0,10)'));
+  /* V81 SUPERSEDES THE UNIT, NOT THE CLAIM. The death blow still has weight;
+     the weight is now a NOTE VALUE (one whole beat, two on the final body)
+     instead of 10 frames, which was 167ms at 60Hz and 83ms at 120Hz. */
+  ok('the FINISH has weight, and the weight is now MUSICAL: a whole beat of frozen world on a kill, two on the body that ends the fight, plus the heavier pool and the haptic',
+    demo.includes("freeze(checkClearSoon()?'last':'kill', 0, -1);") &&
+    demo.includes('_bl.push({ea:t.ea,edist:t.edist,r:3.8') &&
+    demo.includes('navigator.vibrate([18,26,60])'));
   ok('the crawl DRAGS a smear at both ends',
     demo.includes('smear where he WAS') && demo.includes('where he drags TO'));
   // v32: the diagnosis pass — five bugs killed, four rulings built
@@ -474,10 +479,14 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes("AW:'STREAK MOMENTUM'") && !demo.includes("AX:'BREAKABLE COVER'") &&
     demo.includes('data-j="AW"'));
   // v43: weapon-flavored kill impact -- the killcam contact frame reacts to WEAPON, not just style
-  ok('V43 WEAPON KILL IMPACT: the killshot hitstop and blood burst both scale by weapon (shotgun heaviest, pistol cleanest)',
+  /* V81 SUPERSEDES THE NUMBERS, NOT THE PRINCIPLE. V43's rule was that the
+     freeze itself says what killed him, and that stands. What changed is that
+     the per-weapon stop is no longer 2/3/4/6 frames (arbitrary AND framerate-
+     dependent) but a NOTE VALUE: light guns a sixteenth, heavy guns an eighth. */
+  ok('V43 WEAPON KILL IMPACT SURVIVES ON THE GRID: the freeze still says what killed him and the blood burst still scales by weapon, but the stop is now a note value per weapon instead of a frame count',
     demo.includes('V43 WEAPON KILL IMPACT') &&
-    demo.includes("const _wpnStop={pistol:3,smg:2,rifle:4,shotgun:6}[WEAPON]||3;") &&
-    demo.includes('if(JUICE.F)G._hitstop=_wpnStop;') &&
+    demo.includes("freeze(BohemiaFreeze.WPN[WEAPON]||'graze',_ax,_ay); }") &&
+    demo.includes("var WPN={pistol:'graze', smg:'graze', rifle:'hit', shotgun:'hit'};") &&
     demo.includes("{pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]"));
   // v44: SPRINT -- real movement/strategy stakes, not just repositioning
   ok('V44 SPRINT: arms a 2-tile move that resolves fully engaged (real return fire), blocked if either tile in the path has a pillar, consumes itself after one use',
@@ -1653,6 +1662,88 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('HIS 7/3 LOCKED RUNGS ARE UNTOUCHED: the hats still enter at 2 and the bass at 4, on their own voices. The pulse joined his ladder, it did not rewrite it (song_lock_gate byte-checks this too)',
     demo.includes('if(_sk>=2){ if(s%4===2)drumV(\'tight\',AC,MAST,t); if(s===4||s===12)drumV(\'clap\',AC,MAST,t);') &&
     demo.includes('if(_sk>=4){ if(s%2===1)drumV(\'clickh\',AC,MAST,t); if(s===0||s===8)drumV(\'ride\',AC,MAST,t);'));
+}
+
+/* ============================================================================
+   17. V81 THE QUANTIZED FREEZE (Paolo: "Lets freeze the game for that snappy
+       satisfying feelings then.")
+   The old hit-stop counted FRAMES across seven call sites, which made every
+   freeze arbitrary in length AND framerate-dependent (10 frames is 167ms at
+   60Hz and 83ms at 120Hz -- half as long on a newer phone, and nothing said so).
+   Now every freeze is a NOTE VALUE in seconds, so the world stops and drops back
+   in on the grid: a killshot is a REST IN THE MUSIC.
+   ========================================================================== */
+{
+  const a = demo.indexOf('var BohemiaFreeze');
+  const b = demo.indexOf('/* ===== V81 FREEZE CORE END');
+  ok('demo carries the FREEZE core as its own testable block', a > 0 && b > a);
+  const fm = { exports: {} };
+  new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaFreeze;')(fm, fm.exports);
+  const F = fm.exports;
+
+  /* THE BEAT IS DERIVED FROM THE LAW, NOT TYPED */
+  ok('THE BEAT COMES FROM THE 120 BPM LAW, derived not typed: BEAT = ' + F.BEAT + 's, and the demo clock agrees',
+    Math.abs(F.BEAT - 0.5) < 1e-9 && Math.abs(F.BEAT - 60 / 120) < 1e-9 &&
+    demo.includes('var BPM=120, BEAT=60/BPM;'));
+
+  /* EVERY TIER, EXECUTED, AND EVERY ONE MUST BE A REAL NOTE VALUE */
+  const tiers = ['graze', 'hit', 'kill', 'last'];
+  const named = tiers.map(t => t + '=' + F.secs(t).toFixed(3) + 's(' + F.noteName(F.secs(t)) + ')').join(' ');
+  ok('EVERY FREEZE IS A NOTE VALUE: ' + named,
+    tiers.every(t => F.isNote(F.secs(t))));
+  ok('and they ESCALATE with the weight of the moment: a graze is a sixteenth, a hit an eighth, a KILLSHOT one WHOLE BEAT, the last man down two',
+    F.secs('graze') === F.BEAT / 4 && F.secs('hit') === F.BEAT / 2 &&
+    F.secs('kill') === F.BEAT && F.secs('last') === F.BEAT * 2 &&
+    F.secs('graze') < F.secs('hit') && F.secs('hit') < F.secs('kill') && F.secs('kill') < F.secs('last'));
+  ok('A KILLSHOT IS EXACTLY ONE BEAT, which is the whole idea -- the world stops for a rest and the music keeps playing through it',
+    Math.abs(F.secs('kill') - F.BEAT) < 1e-9 && F.noteName(F.secs('kill')) === '1/4');
+
+  /* THE INVARIANT IS REAL, NOT DECORATIVE: it must REJECT the old values */
+  ok('THE INVARIANT REJECTS WHAT WAS THERE BEFORE: not one of the old frame counts (2/3/4/6/7/10/14) is a legal note value at 60Hz OR at 120Hz, which is exactly why they never felt deliberate',
+    [2, 3, 4, 6, 7, 10, 14].every(fr => !F.isNote(fr / 60) && !F.isNote(fr / 120)));
+  ok("and it rejects Vlambeer's own 0.2s, which is the right answer for any game that is NOT on a clock and the wrong one for this one",
+    !F.isNote(0.2) && !F.isNote(0.08) && !F.isNote(0.05));
+  ok('a note value means a REAL musical subdivision (1/1 through 1/32), not merely some integer fraction -- 1/60 of a bar must not sneak through',
+    F.LEGAL.join(',') === '1,2,4,8,16,32' && !F.isNote(F.BEAT * 4 / 60) && F.isNote(F.BEAT * 4 / 32));
+
+  /* THE WEAPON SCALING, EXECUTED -- and it must stay inside the note grid */
+  ok('THE STOP SCALES TO THE WEAPON (the literature\'s rule) and every value stays on the grid: ' +
+      Object.keys(F.WPN).map(w => w + '=' + F.noteName(F.forWeapon(w))).join(' '),
+    Object.keys(F.WPN).every(w => F.isNote(F.forWeapon(w))) &&
+    F.forWeapon('shotgun') > F.forWeapon('pistol'));
+  ok('an unknown weapon cannot fall off the grid either -- it lands on the lightest legal stop instead of zero or NaN',
+    F.isNote(F.forWeapon('nonesuch')) && F.forWeapon('nonesuch') === F.secs('graze'));
+
+  /* THE FRAME COUNTER IS GONE, NOT SHADOWED */
+  ok('THE FRAME COUNTER IS DEAD: no call site sets _hitstop to a frame count any more, and the loop consumes REAL SECONDS so the freeze is the same length on every phone',
+    !/_hitstop\s*=\s*(?!0)[^;]/.test(demo) &&
+    demo.includes('if(G._freezeT>0){ G._freezeT=Math.max(0,G._freezeT-dt); if(G._shk)G._shk.t+=dt; dt=0; }'));
+  ok('and there is ONE place a freeze is armed, by NAMED TIER, so a bare duration can never reappear at a call site',
+    demo.includes('function freeze(tier,dirX,dirY){') &&
+    ["freeze('hit',-1,0.35)", "freeze('kill',-1,0.5)", "freeze('last',0,-1)",
+     "freeze(checkClearSoon()?'last':'kill', 0, -1)"].every(c => demo.includes(c)));
+  ok('THE MUSIC KEEPS RUNNING THROUGH IT: the audio clock advances BEFORE the freeze is applied, so the dial cannot drift while the world is stopped',
+    demo.indexOf('{ const _am=audioMs(); if(_am!=null)_bpmClock=_am;') < demo.indexOf('if(G._freezeT>0){ G._freezeT=Math.max(0,G._freezeT-dt);'));
+
+  /* THE SHAKE MUST FINISH INSIDE THE FREEZE, or it smears into the next beat */
+  ok('THE SHAKE RUNS ALONG THE AXIS OF THE HIT and its duration IS the freeze duration, so it always finishes before the next beat instead of smearing into the next action',
+    demo.includes('G._shk={x:(dirX||0),y:(dirY||0),mag:m,t:0,dur:s};') &&
+    demo.includes('const k=1-Math.min(1,G._shk.t/G._shk.dur);'));
+  ok('it decays on a curve rather than cutting, and it is applied on the CAMERA transform so nothing in the world moves relative to anything else',
+    demo.includes('const a=G._shk.mag*k*k*S;') &&
+    demo.includes('ctx.translate(W/2+_shx,H/2+_shy);'));
+  ok('and a bigger moment shakes harder: a kill and the last man shake more than a hit, which shakes more than a graze',
+    demo.includes("const m=(tier==='kill'||tier==='last')?5.5:(tier==='hit'?3.2:1.8);"));
+  ok('JUICE.F still switches the whole thing off, so the freeze stays A/B-able like every other feel change',
+    demo.includes('if(JUICE.F===false){ G._freezeT=0; return 0; }'));
+  ok('and a FRESH FIGHT clears both the freeze and the shake, so neither can leak across encounters',
+    demo.includes('_hitstop:0, _freezeT:0, _shk:null,') &&
+    demo.includes('G._fx=[];G._hitstop=0;G._freezeT=0;G._shk=null;'));
+
+  /* THE LAST MAN GETS THE LONG ONE -- decided BEFORE the body resolves */
+  ok('THE LAST MAN DOWN HOLDS THE ROOM: finishHim asks whether this is the final body BEFORE it resolves, so the long freeze lands on the kill that ends the fight and not the one after it',
+    demo.includes('function checkClearSoon(){ try{ return aliveEnemies().length<=1; }catch(_e){ return false; } }') &&
+    demo.indexOf('function checkClearSoon()') < demo.indexOf('function finishHim(t){'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

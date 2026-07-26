@@ -440,6 +440,23 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1e. DONE 7/26 (v81): THE QUANTIZED FREEZE - pick-list item 2, on his word
+   ("Lets freeze the game for that snappy satisfying feelings then"). Law:
+   laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md. Every freeze is a NOTE
+   VALUE derived from BEAT (1/16 graze, 1/8 hit, 1/4 KILL = one whole beat, 1/2
+   last man). A killshot is a REST IN THE MUSIC. Directional shake decays INSIDE
+   the freeze. ONE arming function, named tiers only.
+   *** AND IT UNCOVERED A REAL BUG: the old hit-stop counted FRAMES, so every
+   impact in the game was running at HALF WEIGHT on a 120Hz phone, which is what
+   Paolo has been judging feel on. ***
+   Gate section 17, 335 checks, and the invariant REJECTS the old frame counts.
+   STILL OPEN FROM THE JUICE PASS (item 2 of the pick-list is only PARTLY done -
+   the freeze and the shake landed, these did not): PERMANENCE (casings, impact
+   scars and blood persisting for the encounter - Vlambeer rates it top-tier and
+   it is nearly free), 1-2px RECOIL/KICKBACK snapping back on the next 16th,
+   MUZZLE FLASH + a directional impact burst, a CAMERA THAT LEADS the shot, and a
+   ONE-FRAME FLASH reserved for killshots only. All cheap, all quantized, no
+   rules change. | gate: every juice duration is a note value | combat demo | no.
 1g. *** THE MERGED COMBAT PICK-LIST (both research docs, ONE order). ALL
    [PENDING Paolo] - he picks, then I build. Docs:
    records/BOHEMIA_COMBAT_RESEARCH_TURN_BASED_GRID_7_26_26.md (part one) and

@@ -1021,6 +1021,49 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v81: THE QUANTIZED FREEZE. Law:
+laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md.
+Paolo: "Lets freeze the game for that snappy satisfying feelings then." GO on
+item 1 of the juice research. Shipped same turn.
+THE LAW: EVERY FREEZE IN BOHEMIA IS A NOTE VALUE, derived from BEAT=60/BPM and
+never typed - 1/16 graze (0.125s), 1/8 hit (0.250s), 1/4 KILL (0.500s, ONE WHOLE
+BEAT), 1/2 LAST MAN (1.000s, the room holds). A KILLSHOT IS A REST IN THE MUSIC:
+the world stops for a beat, the song runs through it, everything drops back in on
+the grid.
+AND I FOUND A REAL BUG DOING IT. The old hit-stop counted FRAMES (2/3/4/6/7/10/14
+across seven call sites), so it was BOTH arbitrary AND FRAMERATE-DEPENDENT: 10
+frames is 167ms at 60Hz and 83ms at 120Hz. EVERY IMPACT IN THE GAME HAS BEEN
+RUNNING AT HALF WEIGHT ON A 120Hz PHONE and nothing in the code said so. Paolo
+has been judging feel on that.
+Vlambeer's canonical 0.2s is right for any game NOT on a clock and wrong for this
+one; the gate now explicitly REJECTS it along with all seven old frame counts.
+THE SHAKE decays INSIDE the freeze: direction from the shot vector, duration ==
+the freeze duration (so it can never smear into the next beat), squared decay,
+scaled by weight (5.5 kill / 3.2 hit / 1.8 graze), applied on the CAMERA
+transform so nothing in the world moves relative to anything else.
+ONE function arms a freeze and it takes a NAMED TIER, never a duration, so a bare
+number cannot reappear at a call site. JUICE.F still kills the whole thing for
+A/B. A fresh fight clears freeze + shake. THE LAST MAN's long hold is decided
+BEFORE the body resolves (checkClearSoon) so it lands on the kill that ENDS the
+fight, not the one after.
+PULLED BACK FROM MY OWN RESEARCH ON PURPOSE: the doc proposed a FULL BAR (2.0s)
+on the last man. Shipped a 1/2 note. Two seconds of frozen world is too long on a
+phone; one constant (TIERS.last) if he wants the bar.
+Gate: section 17 EXECUTES every tier and - importantly - asserts the invariant
+REJECTS the OLD values (an invariant that would also have passed the thing it
+replaced is decoration). Also asserts a note value means a REAL subdivision
+(1/1..1/32), not "any integer fraction", because the loose version let 1/60 of a
+bar through - which is exactly how a frame counter passes for music. 335 checks
+green. Proof: slices/BOHEMIA_QUANTIZED_FREEZE_PROOF_7_26_26.png plus the live
+read: KILL freeze 0.500s -> 0.221s left at 250ms -> 0 at 650ms, shake cleared,
+and THE AUDIO CLOCK ADVANCED 679ms OVER 650ms OF WALL TIME WHILE THE WORLD WAS
+FROZEN. The world stopped and the song did not. 0 console errors.
+THE LESSON, now written into the law: TWO of the last three additions were correct
+systems ruined by an unexamined UNIT (v75 measured song density per pattern and
+called it per bar, wrong by 4x; this measured impact in frames, wrong by 2x on
+half the phones). A NUMBER WITHOUT A UNIT IS NOT A NUMBER. Both gates now DERIVE
+their unit from the clock instead of typing it.
+
 COMBAT (04) 7/26 - RESEARCH PART TWO (no code shipped; he asked for research).
 records/BOHEMIA_COMBAT_RESEARCH_JUICE_VERTICALITY_COMPANIONS_7_26_26.md.
 Paolo: "the music is the best it has sounded with the rhythm base of the game so
