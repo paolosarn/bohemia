@@ -1,5 +1,23 @@
 # BOHEMIA BACKLOG (the fleet's queue — read via THE GO PROCEDURE)
 
+## *** FLEET-WIDE FREEZE (7/26, ART-FIRST RESET — read laws/BOHEMIA_ADDENDUM_
+## ART_FIRST_RESET_7_26_26.md before ANY visual work): until Paolo approves a
+## TARGET SCREEN, all NEW visual cooking outside the ART lane is frozen
+## (integrating already-approved assets is fine; new pixels are not), and NO
+## session surfaces quest questions or quest verdicts to Paolo. ***
+
+## ART (new lane — first word "art")
+1. THE TARGET SCREENS: 2-3 hand-assembled candidate fake screenshots of the
+   walkable street level at its best (real character on a decorated street,
+   2-tile doors, a dressed interior visible, approved assets as the base,
+   coherent new tiles where needed, composed like a poster; SUN-mode judge,
+   side-by-side). | Paolo picks one; the pick becomes the visual constitution
+   + a target-match gate ships the same turn | nothing outside slices/judge
+   surfaces | yes — THE verdict.
+2. (after the pick) MASTER ACT-1 TILESET to the target, produced + judged as
+   one assembled scene; act triptych variants in spec. | tileset gate +
+   proportion gate (2-tile doors, human scale) | — | yes, as a set.
+
 Rules (full doctrine: laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md): topmost
 unblocked item in YOUR lane; [PENDING Paolo] items are SKIPPED, never resolved;
 only Paolo/verdicts add direction-class items; agents may append (discovered)

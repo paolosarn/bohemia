@@ -16,7 +16,7 @@ research record lives in this file's commit and the coordinator's findings.
 =============================================================================
 Paolo never writes task prompts. His words to any session:
 - **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
-  "combat" / "character" / "quests" / "coordinator". That word both assigns
+  "combat" / "character" / "quests" / "art" / "coordinator". That word both assigns
   the lane and means GO. A fresh session that can't match its first word to a
   lane asks ONE word back ("which lane?") and nothing else.
 - **After that, "go"** (or any single word, or garbled transcription, or "continue"):
@@ -116,6 +116,9 @@ toward its intent instead of pinging him. Canon-level gaps stay [PENDING].
   over realism, readability over simulation.
 - CHARACTER/SOUND: silhouettes readable at arm's length; structure over
   color; one rig, variation by sliders; 120 BPM everything.
+- ART: the target screen is the constitution; art ships as coherent SETS
+  judged in context, never loose tiles; referenced always (approved corpus +
+  named outside references), invented never; 2-tile doors, human scale.
 - QUESTS: grounded in the real (science/economics/behavior), a life lesson
   underneath without preaching, loudness-tagged clout, never stat-gated.
 
