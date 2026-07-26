@@ -133,6 +133,23 @@ ok('the head and face still invent nothing (the HEAD RIGID STAMP LAW holds)', ((
   return true;
 })());
 
+/* --- HIS AUTHORED LAYERING IS THE BASELINE, AND ACTUALLY IS ONE -------------
+   Paolo 7/26: "we made the rig and we put the layers in the positions and how
+   they layer, why can't you just refer to that?" Measured before the fix: the
+   draw order was recomputed EVERY FRAME and flipped 150 times on E, 106 on W,
+   141-164 on the diagonals, across ~48 clips -- and 0 times on N/S, the only
+   two facings where nothing re-sorted. A mid-clip flip jumps an arm from behind
+   the torso to in front of it between frames; on E/W, where both arms sit
+   inside the 8px torso footprint, that repaints a band of torso. The tweak-out.
+   Both DEADBAND GUESSES are now off. The two rules a clip DECLARES survive,
+   because a declaration cannot oscillate. */
+ok('the NE/NW arm-unit depth GUESS is retired', /if\(false&&\(d==='NE'\|\|d==='NW'\)&&P\)/.test(src));
+ok('the rest-relative hand depth GUESS is retired on every facing', /if\(false&&P\)\{\n  const fx=Math\.sign/.test(src));
+ok('the GUN-UNIT rule survives (a clip declares a weapon, it cannot oscillate)', /present&&present\._gun/.test(src));
+ok('the _handsBack rule survives (a clip declares it)', /present&&present\._handsBack/.test(src));
+ok('paoloOrder -- his authored layerOverride -- is still what handOrder starts from', /let ord=paoloOrder\(d\);/.test(src));
+ok('the finding is recorded', fs.existsSync(path.join(ROOT, 'records', 'BOHEMIA_AUTHORED_LAYERING_7_26_26.txt')));
+
 /* --- the two dead ends stay dead ------------------------------------------- */
 ok('no clip carries a stale approval (every animation is unapproved until the redo)',
   /NO CLIP IS APPROVED ANY MORE/.test(fs.readFileSync(path.join(ROOT, 'laws', 'BOHEMIA_ADDENDUM_ANIMATION_REJECTED_7_26_26.md'), 'utf8')));

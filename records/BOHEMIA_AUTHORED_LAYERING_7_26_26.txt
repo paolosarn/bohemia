@@ -1,0 +1,59 @@
+=== BOHEMIA — HIS AUTHORED LAYERING WAS BEING THROWN AWAY (7/26/26) ===
+Lane: CHARACTER. Paolo's report, and the bug it found.
+
+HIS WORDS
+  "It didn't used to be like this... we made the rig and we put the layers in
+   the positions and how they layer, why can't you just refer to that? How do
+   you not see this shit tweak out when it's facing different directions,
+   facing east and west, not just in particular east, like the pixels on the
+   torso tweak out."
+
+HE WAS DESCRIBING A REAL BUG AND HE NAMED THE CAUSE HIMSELF.
+Measured on the shipped alpha, every clip x 24 phases x 8 facings, counting how
+many times the DRAW ORDER changes mid-animation:
+
+    facing   order changes    clips affected
+    S               0               0
+    N               0               0
+    E             150              48
+    W             106              38
+    SE            141              46
+    NE            144              47
+    NW            164              47
+    SW            151              48
+
+His authored layerOverride was honoured on exactly the two facings where
+nothing re-sorted -- N and S -- and discarded on the other six, where
+handOrder() rebuilt the draw order from scratch on EVERY FRAME. Two rules did
+it, and both INFER depth from how far a joint has drifted past a +-2.5px
+deadband:
+    - the rest-relative hand rule (E, W, and all four diagonals)
+    - the NE/NW ARM-UNIT DEPTH rule
+Mid-swing a joint crosses the deadband and the order FLIPS: an arm or a hand
+jumps from behind the torso to in front of it between one frame and the next.
+On E and W both arms sit INSIDE the 8px torso footprint, so that flip repaints
+a band of torso. That is the tweak-out, in the exact place he pointed at.
+
+"IT DIDN'T USED TO BE LIKE THIS" -- also true. These are accretions. The
+rest-relative rule dates from 7/2/26 and the arm-unit rule from 7/20/26, each
+added to fix a specific complaint, each adding another per-frame guess on top
+of the layering he had already authored by hand.
+
+THE FIX: both guesses retired. Draw order is his paoloOrder(d) -- the
+layerOverride he painted -- and it stays put for the whole clip.
+    order changes after:  S 0 | N 0 | E 2 | W 4 | SE 4 | NE 4 | NW 4 | SW 4
+The residual 2-4 are deadeye and crouch-aim-2h only: the GUN-UNIT rule, which
+survives because a clip DECLARES it holds a weapon. A declaration cannot
+oscillate; a guess can. (Its aim threshold can still cross mid-sweep on those
+two clips -- named here, not hidden, and small enough to leave alone until he
+says otherwise.)
+
+TRUTH HIERARCHY: this supersedes the dynamic-hand-layer ruling (7/2/26) and the
+NE/NW arm-unit ruling (7/20/26) on the six affected facings. Both were his;
+this is his too, and NEWEST DATE WINS.
+
+WHAT THIS DOES NOT FIX: the profile body is still 8px of painted torso (see
+records/BOHEMIA_EAST_PROFILE_FINDING_7_26_26.txt). Stopping the layer flip
+stops the popping. It does not give the side view depth it never had.
+
+Tool: tools/bohemia_authored_layers_patch.py. Gate: gates/anim_fabrication_gate.js.

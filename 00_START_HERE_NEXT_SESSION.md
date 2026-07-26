@@ -89,6 +89,14 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- HIS AUTHORED LAYERING IS THE LAW AGAIN (Paolo 7/26, fixed:
+  records/BOHEMIA_AUTHORED_LAYERING_7_26_26.txt). handOrder() was recomputing
+  the draw order EVERY FRAME on the six non-N/S facings and flipping it 100-164
+  times per facing across ~48 clips -- an arm jumping behind/in front of the
+  torso between frames, which on E/W repaints a band of torso. That was the
+  "tweak out". Both deadband GUESSES retired; the two rules a clip DECLARES
+  (gun-unit, _handsBack) survive. E went 150 flips -> 2. Never add another
+  per-frame depth guess on top of his layerOverride.
 - EAST IS A PLANK, AND IT IS ART NOT CODE (Paolo 7/26, measured:
   records/BOHEMIA_EAST_PROFILE_FINDING_7_26_26.txt). Painted torso is 8px wide
   on East vs 13px on South; both arms live inside that footprint. No renderer
