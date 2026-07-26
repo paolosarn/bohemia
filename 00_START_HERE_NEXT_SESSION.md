@@ -84,8 +84,10 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
 =============================================================================
 ## PENDING PAOLO (the shelf — never decide these for him)
 =============================================================================
-- THE MEGA VERDICT: marathon waves stacked for one sitting — music batches
-  18/19/20, wardrobe volume (29 items + 3 shapes), plus whatever wave 4+ adds.
+- THE MEGA VERDICT (FRESH items only, per the UNJUDGED-IS-DEAD ruling 7/26):
+  the marathon waves Paolo has never seen — music batch 20, wardrobe volume,
+  plus whatever lanes stack next. STALE unjudged banks are presumed dismissed,
+  never re-surfaced (laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md).
 - One-rig VARIATION SLIDERS: scope/next step after the 7/25 ruling.
 - Quest NPC world PLACEMENT for the 9 live quests (MAP LAW: his call).
 - Combat grammar graduation batch (stacked per Prompt 4) when surfaced.
