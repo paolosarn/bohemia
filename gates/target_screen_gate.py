@@ -296,6 +296,14 @@ def main():
         rs = ImageStat.Stat(r.convert('RGB'))
         chk(sum(rs.stddev) / 3.0 > 22,
             'the reassembled frame is flat - the tiles did not carry the look')
+    # ART IS MATERIAL, LIGHT IS RUNTIME (Paolo 7/26: the painted rev 3 "was my fav
+    # one"). The first tile pass dropped the key, the falloff, the dust and the
+    # vignette and called it a win. A tileset that loses the look has not passed.
+    if os.path.exists(TILESET):
+        ts2 = json.load(open(TILESET))
+        chk(len(ts2.get('lights', [])) >= 2,
+            'no wall-falloff data - a face that does not darken from the eave down is the '
+            'flat wall the painting did not have')
     chk(os.path.exists(REASM_HTML), 'the real render path page is missing')
     if os.path.exists(REASM_HTML):
         h = open(REASM_HTML).read()
@@ -304,6 +312,12 @@ def main():
         chk('createLinearGradient' in h and 'D.shadows' in h,
             'the reassembly does not draw the cast shadows at runtime')
         chk('Math.round' in h, 'the reassembly blits sprites at fractional positions')
+        for need, why in (('D.lights', 'the wall falloff'),
+                          ('createRadialGradient', 'the vignette'),
+                          ('createImageData', 'the dust pass'),
+                          ('D.back', 'the haze that sets the block behind further back')):
+            chk(need in h, 'the renderer lost %s - that is a look the painting had and a '
+                           'tile structurally cannot carry' % why)
 
     # ---- Pocket City rule 3: three tones, top brightest, side darkest ---
     chk(M.TOP > M.FRONT > M.SIDE,

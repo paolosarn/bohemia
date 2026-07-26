@@ -107,11 +107,17 @@ class TileSet:
 def build_tiles(M, C):
     T = TileSet(M.CELL)
 
+    # THE VEGAS KEY. The painting Paolo picked runs one warm multiply over the
+    # whole plate; a tile world cannot do that per-frame for free, so it is baked
+    # into every tile ONCE, here, and the tiles ship already lit.
+    SUN = (1.045, 1.005, 0.93)
+
     def mat(pool, seed, tone=1.0, warm=(1.0, 1.0, 1.0), texel=None):
         im = Image.new('RGBA', (M.CELL, M.CELL), (0, 0, 0, 0))
         M.fill_rect(im, pool, 0, 0, M.CELL, M.CELL, size=texel or M.CELL,
                     seed=seed, uniform=True)
-        return M.shade(im, tone, warm=warm) if (tone != 1.0 or warm != (1, 1, 1)) else im
+        w = (warm[0] * SUN[0], warm[1] * SUN[1], warm[2] * SUN[2])
+        return M.shade(im, tone, warm=w)
 
     # --- GROUND -----------------------------------------------------------
     for i in range(3):
@@ -158,8 +164,8 @@ def build_tiles(M, C):
         M.band(wb, 0, M.CELL - 1 - i, M.CELL, 1, (34, 26, 16, a))
     T.add('wall_base', 'the bottom course of a wall, with thirty years of dust on it', wb)
     wt = mat(C.house['wall_plain'], 3, tone=W_TONE, warm=(1.02, 1.0, 0.97))
-    for i in range(11):
-        M.band(wt, 0, i, M.CELL, 1, (24, 19, 11, int(120 * (1 - i / 11.0) ** 1.4)))
+    for i in range(13):
+        M.band(wt, 0, i, M.CELL, 1, (24, 19, 11, int(165 * (1 - i / 13.0) ** 1.3)))
     T.add('wall_under_eave', 'the top course of a wall, in the shadow the eave throws', wt)
 
     def pane(kind, seed):
@@ -217,16 +223,16 @@ def build_tiles(M, C):
     def roofmat(fam, tone, seed):
         im = Image.new('RGBA', (M.CELL, M.CELL), (0, 0, 0, 0))
         M.fill_rect(im, C.pool(fam), 0, 0, M.CELL, M.CELL, size=18, seed=seed, uniform=True)
-        return M.shade(im, tone, warm=(1.03, 1.0, 0.93))
+        return M.shade(im, tone, warm=(1.03 * SUN[0], 1.0 * SUN[1], 0.93 * SUN[2]))
     R = 'house:roof_stile_terracotta'
     T.add('roof_slope', 'terracotta roof, the near slope you look at', roofmat(R, M.TOP * 0.86, 31))
     rr = roofmat(R, M.TOP, 31)
-    M.band(rr, 0, 0, M.CELL, 3, (255, 246, 216, 235))
+    M.band(rr, 0, 0, M.CELL, 3, (236, 224, 190, 215))
     M.band(rr, 0, 3, M.CELL, 2, (58, 44, 26, 170))
     T.add('roof_ridge', 'the sun-caught ridge course along the top of a roof', rr)
     re_ = roofmat(R, M.TOP * 0.86, 31)
     M.band(re_, 0, M.CELL - 6, M.CELL, 5, (96, 80, 56, 255))
-    M.band(re_, 0, M.CELL - 6, M.CELL, 2, (214, 198, 162, 255))
+    M.band(re_, 0, M.CELL - 6, M.CELL, 2, (176, 160, 128, 255))
     M.band(re_, 0, M.CELL - 1, M.CELL, 2, (40, 31, 19, 255))
     T.add('roof_eave', 'the bottom course of a roof, carrying the fascia board', re_)
     # THE HIP CORNERS. A hip roof is a TRAPEZOID, and a trapezoid is not a grid
@@ -296,7 +302,7 @@ def build_map(T, GW, GH):
     fill(ground, 0, 22, 10, 22, lambda x, y: 'walk_kerb')
     fill(ground, 0, 23, 10, 23, v('walk', 3))
 
-    shadows = []
+    shadows, lights = [], []
 
     def house(x0, x1, roof_top, wall_top, wall_bot, hipped=True, windows=(), door=None,
               garage=None):
@@ -322,8 +328,7 @@ def build_map(T, GW, GH):
                 if not (0 <= y < GH and 0 <= x < GW):
                     continue
                 t = ('wall_under_eave' if y == wall_top else
-                     'wall_base' if y == wall_bot else
-                     'wall_%d' % ((x * 7 + y * 13) % 3))
+                     'wall_base' if y == wall_bot else 'wall_0')
                 if x == x0:
                     t = 'wall_end_l'
                 elif x == x1:
@@ -339,15 +344,21 @@ def build_map(T, GW, GH):
             struct[wall_bot - 1][garage] = 'garage_top'
             struct[wall_bot][garage] = 'garage_bottom'
         shadows.append({'x': x0, 'y': wall_bot + 1, 'w': x1 - x0 + 1,
-                        'h': max(0.6, (wall_bot - roof_top) * 0.30)})
+                        'h': max(0.7, (wall_bot - roof_top) * 0.34)})
+        # THE WALL FALLOFF. In the painting the whole face darkens smoothly from
+        # the eave down. That is LIGHT, not material, so it cannot be baked into
+        # a wall tile without needing a different tile per row of every building.
+        # It ships as a rect and the renderer gradients it at runtime.
+        lights.append({'x': x0, 'y': wall_top, 'w': x1 - x0 + 1,
+                       'h': wall_bot - wall_top + 1})
 
     # the row of houses on the next street back, cut off by the top of frame.
     # A gap of dirt between them is what makes them read as separate houses.
     house(0, 4, -1, 1, 3, hipped=True, windows=(1, 3))
     house(6, 10, -1, 1, 3, hipped=False, windows=(7, 9))
-    house(1, 7, 4, 6, 9, hipped=True, windows=(2, 6), door=3)   # YOUR HOUSE
+    house(1, 7, 4, 6, 9, hipped=True, windows=(2, 4, 6), door=3)   # YOUR HOUSE
     house(8, 10, 4, 6, 8, hipped=False, garage=9)               # THE GARAGE
-    return ground, struct, shadows
+    return ground, struct, shadows, lights
 
 
 def sprites(M, C):
@@ -360,9 +371,10 @@ def sprites(M, C):
         if rot:
             img = img.transpose(Image.ROTATE_90)
         px = (int(w_cells * M.CELL), int(h_cells * M.CELL))
+        lit = M.shade(img.resize(px, Image.LANCZOS).convert('RGBA'), 1.0,
+                      warm=(1.045, 1.005, 0.93))
         out.append({'id': name, 'what': what, 'x': gx, 'y': gy,
-                    'w': w_cells, 'h': h_cells,
-                    'img': img.resize(px, Image.LANCZOS).convert('RGBA')})
+                    'w': w_cells, 'h': h_cells, 'img': lit})
 
     add('wreck_driveway', 'a stripped patrol car nose-in on the driveway',
         C.prop['car_wreck'][6], 8.4, 9.2, M.CAR_W, M.CAR_L)
@@ -423,20 +435,43 @@ function done(){
   /* THE CAST SHADOWS, drawn at RUNTIME from data. A building's shadow cannot
      live in a ground tile - it would need a unique tile per building per hour.
      This is the single biggest thing the first reassembly was missing. */
+  /* the same big soft diagonal the painting throws: hard Vegas key from the
+     upper left, so a mass drops a real SHAPE down-right across its own yard.
+     Blurred on the canvas, because a blurred edge cannot live in a tile. */
+  o.save(); o.filter = 'blur(9px)';
   D.shadows.forEach(function(sh){
     var g = o.createLinearGradient(0, sh.y*CELL, 0, (sh.y+sh.h)*CELL);
-    g.addColorStop(0, 'rgba(22,17,9,0.46)'); g.addColorStop(1, 'rgba(22,17,9,0)');
+    g.addColorStop(0, 'rgba(20,15,8,0.62)'); g.addColorStop(1, 'rgba(20,15,8,0.03)');
     o.fillStyle = g;
     o.beginPath();
-    o.moveTo(sh.x*CELL, sh.y*CELL);
-    o.lineTo((sh.x+sh.w)*CELL, sh.y*CELL);
-    o.lineTo((sh.x+sh.w)*CELL + sh.h*CELL*0.8, (sh.y+sh.h)*CELL);
-    o.lineTo(sh.x*CELL + sh.h*CELL*0.8, (sh.y+sh.h)*CELL);
+    o.moveTo(sh.x*CELL - 4, sh.y*CELL - 6);
+    o.lineTo((sh.x+sh.w)*CELL + 6, sh.y*CELL - 6);
+    o.lineTo((sh.x+sh.w)*CELL + sh.h*CELL*0.95, (sh.y+sh.h)*CELL);
+    o.lineTo(sh.x*CELL + sh.h*CELL*0.95, (sh.y+sh.h)*CELL);
     o.closePath(); o.fill();
   });
+  o.restore();
   for (var y2 = 0; y2 < D.gh; y2++) for (var x2 = 0; x2 < D.gw; x2++) {
     var s = D.struct[y2][x2]; if (s !== null) o.drawImage(imgs['t'+s], x2*CELL, y2*CELL);
   }
+  /* DEPTH: the row of houses on the next street back sits further into the haze,
+     so the house you are standing in front of is the one your eye lands on. */
+  if (D.back) {
+    var bg = o.createLinearGradient(0, 0, 0, D.back*CELL);
+    bg.addColorStop(0, 'rgba(34,27,16,0.42)'); bg.addColorStop(1, 'rgba(34,27,16,0.16)');
+    o.fillStyle = bg; o.fillRect(0, 0, off.width, D.back*CELL);
+  }
+  /* THE WALL FALLOFF, at runtime. Walls are lit from above, so a face darkens
+     smoothly from the eave down. Baking that into tiles would need a different
+     tile per row of every building in the valley. */
+  D.lights.forEach(function(L){
+    var g = o.createLinearGradient(0, L.y*CELL, 0, (L.y+L.h)*CELL);
+    g.addColorStop(0,    'rgba(28,22,13,0.34)');
+    g.addColorStop(0.42, 'rgba(28,22,13,0.05)');
+    g.addColorStop(1,    'rgba(28,22,13,0.30)');
+    o.fillStyle = g;
+    o.fillRect(L.x*CELL, L.y*CELL, L.w*CELL, L.h*CELL);
+  });
   D.sprites.forEach(function(sp, i){
     /* a sprite's contact shadow, drawn at RUNTIME - it cannot live in a tile */
     o.save(); o.globalAlpha = 0.32; o.fillStyle = '#18120a';
@@ -447,6 +482,25 @@ function done(){
     o.drawImage(imgs['s'+i], Math.round(sp.x*CELL), Math.round(sp.y*CELL),
                 Math.round(sp.w*CELL), Math.round(sp.h*CELL));
   });
+  /* THE TWO POST PASSES the painting had and a tileset structurally cannot:
+     thirty years of dust that does not fall on a grid, and a vignette so the
+     frame has a centre. Both are cheap full-screen ops at RUNTIME, which is
+     where they always belonged. */
+  var nw = Math.ceil(off.width/57)+2, nh = Math.ceil(off.height/57)+2;
+  var nz = document.createElement('canvas'); nz.width = nw; nz.height = nh;
+  var nc = nz.getContext('2d'), nd = nc.createImageData(nw, nh), sd = 1337;
+  function rnd(){ sd = (sd*1103515245+12345) & 0x7fffffff; return sd/0x7fffffff; }
+  for (var i = 0; i < nw*nh; i++){
+    var a = Math.max(0, 128 - (128 + Math.floor((rnd()*2-1)*34)));
+    nd.data[i*4] = 44; nd.data[i*4+1] = 35; nd.data[i*4+2] = 22; nd.data[i*4+3] = a;
+  }
+  nc.putImageData(nd, 0, 0);
+  o.save(); o.imageSmoothingEnabled = true;
+  o.drawImage(nz, 0, 0, off.width, off.height); o.restore();
+  var vg = o.createRadialGradient(off.width*0.5, off.height*0.44, off.height*0.20,
+                                  off.width*0.5, off.height*0.44, off.height*0.78);
+  vg.addColorStop(0, 'rgba(10,8,5,0)'); vg.addColorStop(1, 'rgba(10,8,5,0.30)');
+  o.fillStyle = vg; o.fillRect(0, 0, off.width, off.height);
   /* INTEGER BLIT. Never a fractional scale for world art. */
   c.drawImage(off, 0, 0, off.width, off.height, 0, 0, off.width*S, off.height*S);
   document.title = 'REASSEMBLED';
@@ -469,7 +523,7 @@ def main():
     if len(T.tiles) > MAX_TILES:
         raise SystemExit('the "tileset" is %d tiles. Over %d it is a painting, not a set.'
                          % (len(T.tiles), MAX_TILES))
-    ground, struct, shadows = build_map(T, M.GRID_W, M.GRID_H)
+    ground, struct, shadows, lights = build_map(T, M.GRID_W, M.GRID_H)
     sprs = sprites(M, C)
 
     bank = {
@@ -488,6 +542,7 @@ def main():
         'sprites': [{'id': s['id'], 'what': s['what'], 'x': s['x'], 'y': s['y'],
                      'w': s['w'], 'h': s['h'], 'b64': b64(s['img'])} for s in sprs],
         'shadows': shadows,
+        'lights': lights,
         'shadow_note': ('a building\'s cast shadow CANNOT live in a ground tile - it would '
                         'need a unique tile per building per time of day. The engine draws '
                         'it at runtime from these rects, which is why they ship as data.'),
@@ -500,7 +555,7 @@ def main():
             'tiles': [{'b64': t['b64']} for t in bank['tiles']],
             'sprites': [{'x': s['x'], 'y': s['y'], 'w': s['w'], 'h': s['h'], 'b64': s['b64']}
                         for s in bank['sprites']],
-            'shadows': shadows}
+            'shadows': shadows, 'lights': lights, 'back': 4}
     html = (HTML.replace('__W__', str(M.GRID_W * M.CELL * M.SCALE))
                 .replace('__H__', str(M.GRID_H * M.CELL * M.SCALE))
                 .replace('__N__', str(len(T.tiles)))

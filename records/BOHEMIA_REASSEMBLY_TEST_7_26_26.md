@@ -65,6 +65,41 @@ painting is **34/255**, and essentially all of it is the two poster passes (the
 dirt noise and the vignette) which are a full-screen post effect at runtime, not
 art.
 
+## PAOLO'S RULING, SAME DAY: THE PAINTED REV 3 IS THE LOOK
+
+> "This was my fav one u were getting closer"  — sent with the rev 3 painting.
+
+So the painting is not just a source to cut up; **its look is the bar.** The
+first tile reassembly threw that look away without saying so, because I moved
+the light, the dust and the shadow OUT of the art and never put them back
+anywhere. That is a regression dressed up as an engineering win, and it is worth
+naming plainly: a tileset that loses the look has not passed the test, it has
+just passed the tile count.
+
+The fix is the correct one and it is now the standing rule for this world:
+
+**WHAT IS ART, AND WHAT IS LIGHT.**
+- **ART (a tile):** the material. Stucco, asphalt, roof tile, concrete, glass.
+  Flat, uniform, repeatable, no baked lighting beyond its own texture.
+- **LIGHT (runtime, from data):** the Vegas key, the wall falloff from eave to
+  base, the cast shadow a mass throws down-right across its own ground, the
+  dust, the vignette, the haze that sets the block behind further back.
+
+Every one of those was in the painting and none of them can live in a tile —
+baking them would need a different tile per building, per row, per hour. They
+now ship as rects and gradients the renderer draws, which is both cheaper and
+the only way the look survives being tiled.
+
+Delta from the painting: **34 → 29.6 / 255**, and the wall seams, the missing
+falloff and the missing key are gone. What is left is mostly the grain of the
+noise field, which is a seed, not a look.
+
+Also fixed in the same pass, because they were reading as "not his painting":
+three wall variants put a hard vertical seam on every tile edge (now ONE wall
+material, as the painting had), the fascia highlight was a highlighter line (now
+a board), and the back row sat in the same light as the hero house (now hazed
+back).
+
 ## WHAT THIS CHANGES
 
 - **The tile-reassembled frame is now THE TARGET**, per amendment C, and the
