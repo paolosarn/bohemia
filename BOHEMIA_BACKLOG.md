@@ -320,6 +320,23 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1k. DONE 7/26 (v79): THE PULSE JOINS THE LADDER. Paolo's design, locked and
+   shipped same turn. Law: laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md.
+   0 kills PULSE SOFT / 2 his rung 1 / 4 his rung 2 / 5 PULSE HARD. The pulse
+   stops being a parallel system and becomes his ladder's floor and ceiling.
+   Keys off _sk so downed men (V71) and the GROOVE chain (v74) both count: a full
+   chain reaches HARD with nobody down. Button AUTO->SOFT->HARD->OFF, manual
+   still wins. Gate section 16 executes the ladder at every rung (310 checks).
+1j. *** [PENDING Paolo] THE OVERWORLD INTENSITY DRIVER. *** He asked how the 2/4
+   progression could apply CALMLY outside combat. ANSWERED IN THE LAW ABOVE,
+   NOT BUILT. Recommended driver: LIGHT = TERRITORY + CLUSTERED POWER (rung 1
+   in lit owned blocks, rung 2 deep in a grid, calm in the dark) because it
+   needs no new lore, is visible on screen, and carries the same cargo as two
+   men down without violence. The CALMLY half is mechanism and mine: rungs enter
+   on a SECTION BOUNDARY with a one-bar fade so it reads composed, not triggered.
+   Supersedes/absorbs item 1n (the MUS.layers dead path). Blocked on his ruling.
+   | gate: the driver is posted from the world, layers enter on a boundary |
+   parent MUS + CITYMUS, a DIFFERENT sequencer from combat | no.
 1l. DONE 7/26 (v78): NEW ENCOUNTER = NEW SONG. Paolo RULED OUT the v76 play-out
    swap ("that's so fucking retarded bro"). Deleted outright, no dead flag left.
    The v76 diagnosis was right and the lever was wrong: persisting the song fixed

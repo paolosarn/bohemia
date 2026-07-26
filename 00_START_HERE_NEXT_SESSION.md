@@ -834,6 +834,43 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v79: THE PULSE JOINS THE LADDER (Paolo's design). Law:
+laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md.
+Paolo: "pulse starting off on soft so essentially zero kills, then the old system
+we had kicks off at two kills, then it upgrades the beat at four kills, then
+maybe it goes to hard on five kills." LOCKED, shipped same turn.
+THIS IS HIS ANSWER TO HIS OWN EARLIER QUESTION about the balance between his 2/4
+rungs and the pulse. The pulse was a PARALLEL system competing with his ladder;
+now it is the same ladder's FLOOR and CEILING:
+  0 kills PULSE SOFT | 2 his RUNG 1 hats | 4 his RUNG 2 bass | 5 PULSE HARD
+His two 7/3 rungs sit INSIDE it, unedited, on their own voices.
+KEYS OFF _sk, not a raw kill count, so there is exactly ONE definition of
+intensity: V71's downed/crawling/broken/fleeing count, and v74's GROOVE chain
+counts (a full chain floors at 6 -> HARD with NOBODY down; a broken chain stays
+SOFT). The top rung is earned by bodies OR by playing in the pocket, never by
+nothing.
+Button: AUTO (default) -> SOFT -> HARD -> OFF. Manual still wins so he can A/B;
+OFF is still an honest bare creeper.
+Gate: section 16 EXECUTES the ladder at 0/1/2/3/4/5/9 down, asserts HARD_AT is a
+named constant, pulls the GROOVE core out to prove rhythm alone reaches the top,
+and asserts his 7/3 rungs are byte-present and unmoved - 310 checks green. Proof:
+slices/BOHEMIA_PULSE_LADDER_PROOF_7_26_26.png (men downed one at a time in a live
+fight, the ladder stepping exactly on his numbers, 0 console errors).
+
+*** [PENDING Paolo] THE OVERWORLD DRIVER. He asked "what do you think" about the
+2/4 progression applying CALMLY outside combat. ANSWERED IN THE LAW, NOT BUILT.
+My recommendation: LIGHT = TERRITORY (already LOCKED canon) + CLUSTERED POWER -
+rung 1 crossing into lit owned blocks, rung 2 deep inside a grid, calm again in
+the dark. Three reasons: needs no new lore, is already visible on screen, and
+carries the same cargo as two men down without violence. THE "CALMLY" HALF IS
+MECHANISM AND MINE: outside combat a rung enters ON A SECTION BOUNDARY and fades
+in over one bar (his form turns every 4 bars / 8s), so it sounds COMPOSED rather
+than triggered, and it leaves the same way.
+SMALL PRINT: the overworld runs a DIFFERENT player (parent MUS + CITYMUS) from
+the combat demo - same songs and voices, different sequencer - so the driver has
+to be posted from the world into the parent. Real work, ordinary work. Nothing
+ships until he rules. ***
+
 COMBAT (04) 7/26 - v78: NEW ENCOUNTER = NEW SONG. I REVERTED MY OWN v76.
 Law AMENDED IN PLACE: laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md.
 Paolo: "the only thing I don't like that you try to implement was that when I

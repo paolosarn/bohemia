@@ -1432,14 +1432,18 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('and it THICKENS WITH THE GROOVE CHAIN (+15% a level), so rhythm is paid in groove and not only in a wider window',
     Math.abs(P.gain('hard', 1) - 1.00) < 1e-9 && Math.abs(P.gain('hard', 4) - 1.45) < 1e-9 &&
     P.gain('off', 4) === 0);
-  ok('OFF IS THE BARE CREEPER, so the A/B is honest and the verdict is his: one button cycles HARD -> SOFT -> OFF',
+  /* V79 SUPERSEDES THE CYCLE, NOT THE PRINCIPLE. AUTO joined the front of it
+     when Paolo made the pulse a rung of his own ladder; OFF is still an honest
+     revert to the bare creeper and the verdict is still his ear. */
+  ok('OFF IS STILL THE BARE CREEPER, so the A/B stays honest and the verdict is his: the button cycles AUTO -> SOFT -> HARD -> OFF and back',
     P.on('hard') && P.on('soft') && !P.on('off') &&
-    P.cycle('hard') === 'soft' && P.cycle('soft') === 'off' && P.cycle('off') === 'hard' &&
+    P.cycle('auto') === 'soft' && P.cycle('soft') === 'hard' &&
+    P.cycle('hard') === 'off' && P.cycle('off') === 'auto' &&
     demo.includes('id="pulsebtn"') &&
-    demo.includes("G.pulse=BohemiaPulse.cycle(G.pulse||'hard');"));
+    demo.includes("G.pulse=BohemiaPulse.cycle(G.pulse||'auto');"));
   ok('the floor plays THE SONG\'S OWN KIT, dies with the fight, and never bleeds into the studio',
     demo.includes("const _pk=(f.kit&&f.kit.k)||'punchk', _ph=(f.kit&&f.kit.h)||'tight';") &&
-    demo.includes("if(BohemiaPulse.on(G.pulse||'hard') && !G.over && !G._musMuted){"));
+    demo.includes("if(BohemiaPulse.on(_pmode) && !G.over && !G._musMuted){"));   /* V79: the mode is resolved from the ladder, not read raw */
   ok('HE CAN FIND IT AND IT SAYS WHAT IT IS: the toggle sits beside MUSIC in the music group (not buried in the perks row) and carries its own plain-English line -- NAME IT OR DON\'T DRAW IT',
     demo.includes('<button id="musictog" class="on">MUSIC: ON</button><button id="pulsebtn"') &&
     demo.includes('FIGHT PULSE: the overworld creepers run 2.2 kicks and 2.3 hats a bar') &&
@@ -1544,6 +1548,65 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     ok('RECORDED, NOT FIXED: in the overworld the kill ladder is unreachable -- MUS.layers starts at 0 and the ONLY thing in the build that ever assigns it is the studio preview buttons, so the four melody-klay creepers can never bloom out there. The driver is lore and Paolo has not ruled it',
       mus > 0 && alpha.includes('layers:0') && assigns === 1);
   }
+}
+
+/* ============================================================================
+   16. V79 THE PULSE JOINS THE LADDER (Paolo's design, 7/26)
+   "pulse starting off on soft so essentially zero kills and then the old system
+   we had kicks off at two kills then it upgrades the beat at four kills and then
+   maybe it goes to hard on five kills. Does that make sense?"
+   It does, and it answers his own earlier question about the balance between his
+   2/4 rungs and my pulse: the pulse was a PARALLEL system competing with his
+   ladder, and now it is the same ladder's floor and ceiling.
+   ========================================================================== */
+{
+  const pa = demo.indexOf('var BohemiaPulse');
+  const pb = demo.lastIndexOf('if(typeof module', demo.indexOf('V75 PULSE CORE END'));
+  const pm = { exports: {} };
+  new Function('module', 'exports', demo.slice(pa, pb) + ';module.exports=BohemiaPulse;')(pm, pm.exports);
+  const P = pm.exports;
+
+  /* HIS FOUR STEPS, EXECUTED. Not described -- run, at every count that matters. */
+  const step = n => P.resolve('auto', n);
+  ok('PAOLO\'S LADDER, RUN AT EVERY RUNG: 0 kills SOFT, 2 kills SOFT (his rung 1 carries it), 4 kills SOFT (his rung 2 carries it), 5 kills HARD -- one progression, his numbers',
+    step(0) === 'soft' && step(1) === 'soft' && step(2) === 'soft' &&
+    step(3) === 'soft' && step(4) === 'soft' && step(5) === 'hard' && step(9) === 'hard');
+  ok('and the ceiling is named, not a magic number buried in a branch: HARD_AT = ' + P.HARD_AT,
+    P.HARD_AT === 5 && P.tier(P.HARD_AT - 1) === 'soft' && P.tier(P.HARD_AT) === 'hard');
+  ok('THE FLOOR IS NEVER ABSENT IN A FIGHT: even at zero kills the pulse is SOFT, never off, so there is always something to lock to from the first shot',
+    P.on(step(0)) === true && P.MODES[step(0)] > 0 && P.MODES[step(0)] < P.MODES.hard);
+
+  /* IT RESOLVES AGAINST THE SAME NUMBER HIS RUNGS DO -- one definition of
+     intensity in the whole fight, which is the entire point of the redesign. */
+  ok('IT KEYS OFF _sk, THE LADDER\'S OWN COUNT, so there is exactly ONE definition of intensity: V71\'s downed/crawling/broken/fleeing men count, and (v74) the GROOVE chain counts, so rhythm alone can open the floor',
+    demo.includes("const _pmode=BohemiaPulse.resolve(G.pulse||'auto',_sk);") &&
+    demo.indexOf("const _pmode=BohemiaPulse.resolve") > demo.indexOf('BohemiaGroove.musicFloor(G.groove)):0);'));
+  {
+    /* the groove chain's own floor, run against his ladder: x4 must reach HARD
+       on rhythm alone, or "the chain counts toward it" is a claim and not a fact */
+    const ga = demo.indexOf('var BohemiaGroove');
+    const gb = demo.lastIndexOf('if(typeof module', demo.indexOf('V74 GROOVE CORE END'));
+    const gm = { exports: {} };
+    new Function('module', 'exports', demo.slice(ga, gb) + ';module.exports=BohemiaGroove;')(gm, gm.exports);
+    const GR = gm.exports;
+    ok('RHYTHM ALONE REACHES THE TOP RUNG: a full GROOVE chain floors the ladder at ' + GR.musicFloor(9) + ', which resolves to ' + P.resolve('auto', GR.musicFloor(9)) + ' with nobody down',
+      GR.musicFloor(9) >= P.HARD_AT && P.resolve('auto', GR.musicFloor(9)) === 'hard');
+    ok('and a cold chain does NOT: a broken chain floors at ' + GR.musicFloor(0) + ' and stays SOFT, so the top rung is earned either by bodies or by playing in the pocket, never by nothing',
+      P.resolve('auto', GR.musicFloor(0)) === 'soft');
+  }
+
+  /* THE MANUAL MODES SURVIVE, or he cannot A/B his own ruling */
+  ok('AUTO IS THE DEFAULT AND THE MANUAL OVERRIDES SURVIVE: forcing SOFT/HARD/OFF still wins over the ladder, so he can always check it against the bare creeper',
+    P.resolve('soft', 9) === 'soft' && P.resolve('hard', 0) === 'hard' && P.resolve('off', 9) === 'off' &&
+    P.resolve('auto', 0) === 'soft' && P.resolve(null, 5) === 'hard' &&
+    demo.includes('>PULSE: AUTO</button>'));
+  ok('and the panel says what the ladder actually does, in his numbers -- NAME IT OR DON\'T DRAW IT',
+    demo.includes('SOFT from the first shot, your hats at 2 down, your bass at 4, and the floor opens to HARD at 5'));
+
+  /* HIS 7/3 RUNGS ARE NOT MOVED. The pulse joined the ladder; it did not edit it. */
+  ok('HIS 7/3 LOCKED RUNGS ARE UNTOUCHED: the hats still enter at 2 and the bass at 4, on their own voices. The pulse joined his ladder, it did not rewrite it (song_lock_gate byte-checks this too)',
+    demo.includes('if(_sk>=2){ if(s%4===2)drumV(\'tight\',AC,MAST,t); if(s===4||s===12)drumV(\'clap\',AC,MAST,t);') &&
+    demo.includes('if(_sk>=4){ if(s%2===1)drumV(\'clickh\',AC,MAST,t); if(s===0||s===8)drumV(\'ride\',AC,MAST,t);'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
