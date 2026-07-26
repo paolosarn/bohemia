@@ -367,6 +367,53 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1g. *** THE MERGED COMBAT PICK-LIST (both research docs, ONE order). ALL
+   [PENDING Paolo] - he picks, then I build. Docs:
+   records/BOHEMIA_COMBAT_RESEARCH_TURN_BASED_GRID_7_26_26.md (part one) and
+   records/BOHEMIA_COMBAT_RESEARCH_JUICE_VERTICALITY_COMPANIONS_7_26_26.md. ***
+   1 THE PROVING GROUND - one GREYBOX arena as an INSTRUMENT not a level:
+     two-storey block + stairs + open ledge, hard and soft cover, a long lane, a
+     tight room, an open middle, dials for enemy archetype/count, and a toggle
+     per juice effect so any one can be A/B'd alone. He asked for this by name
+     ("an actual arena map where we test out different AI and the feel of it").
+     HIGHEST LEVERAGE: it makes every other item judgeable instead of arguable.
+     | gate: the arena exists, every element present, every toggle independent |
+     combat demo | Paolo plays = the verdict.
+   2 THE JUICE PASS, QUANTIZED - hitstop as a NOTE VALUE (1/16 graze, 1/8 hit,
+     1/4 killshot, 1 bar last-man-down) so the freeze IS the 120 BPM clock and a
+     killshot is a rest in the music; PERMANENCE (casings, scars, blood stay);
+     1-2px recoil snapping back on the next 16th; directional shake decaying
+     INSIDE the hitstop; muzzle flash + directional impact burst; camera lead;
+     a one-frame flash on killshots ONLY. | gate: every juice duration is a note
+     value, no exceptions | combat demo | no.
+   3 ENEMY INTENT ON BY DEFAULT (part one item 1). FORESIGHT stops being the
+     source of intent and buys something else. | gate: intent shown every turn |
+   4 SHOVE AS A REAL ONE-TILE PUSH with collision damage (part one item 4).
+     Becomes DEFENESTRATION the moment floors exist. | gate: push resolves
+     against occupancy, collision damages both |
+   5 AI ARCHETYPES WITH RHYTHMIC SIGNATURES - archetype-specific utility
+     FUNCTIONS (not weight tweaks) + a musical tell per archetype (downbeat /
+     offbeat / every other bar / reactive). | gate: each archetype's action
+     lands on its declared note value |
+   6 COMPANIONS ON STANCES - HOLD / PUSH / COVER ME / GET OUT, set once, one
+     tap, NEVER per-turn (micromanagement is the named killer), ally acts ON THE
+     BEAT. Foundation already RULED (item 0, ally spawn/target/down-never-dead).
+     WHO they are and what they say is [PENDING Paolo], contents his.
+   7 TWO AND THREE STOREY COMBAT - stairs as chokepoints (one-body-per-cell is
+     already law, so a man on a stair is a cork), height beats cover and exposes
+     you, ledges drawn honestly (XCOM 1's trap-slopes are the warning). The
+     LAYERING law + INTERIOR-MATCHES-EXTERIOR already speak multi-storey; only
+     combat does not. HIGH cost, biggest change.
+   8 TURN CLOCK = THE SONG'S FORM (part one item 0) - 5 turns, turn N = section
+     N, reaches the 0:48 payoff every fight without costing the NEW ENCOUNTER
+     song change. Real rules change, HIS call.
+1f. [LOGGED 7/26, HE SAID DO NOT CONTINUE] PULSE VOICES sound "elementary school
+   hi-hat metronome shit". They borrow each song's kit by design (v75) - which
+   worked for sounding like the record and failed for sounding like a fight. The
+   answer is a DEDICATED COMBAT PERCUSSION BANK (casings on concrete, boot on
+   gravel, door slam backbeat, distant generator). That is a COOK: needs a REUSE
+   CHECK against banks/ and HIS ear before a voice is drawn. Do not start it
+   until he says. | reusefirst_gate + song_lock | combat demo | yes (thumbs).
 1i. DONE 7/26 (v80): SOFT THE WHOLE FIGHT + THE HEADROOM TRIM. Paolo retired his
    own v79 top rung ("forget about it going hard at five kills... a lot of volume
    fighting each other"). HARD_AT=Infinity; AUTO is SOFT forever; his 2/4 rungs

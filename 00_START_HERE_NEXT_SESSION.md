@@ -933,6 +933,58 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - RESEARCH PART TWO (no code shipped; he asked for research).
+records/BOHEMIA_COMBAT_RESEARCH_JUICE_VERTICALITY_COMPANIONS_7_26_26.md.
+Paolo: "the music is the best it has sounded with the rhythm base of the game so
+far... I want more juice. I want this to be juicy and fun and just like wow." He
+named four things: JUICE, COMPANIONS, TWO/THREE STOREY COMBAT WITH STAIRS, and AN
+ARENA MAP TO TEST AI AND FEEL. All four researched. NOTHING BUILT.
+THE MERGED PICK-LIST (both research docs, ONE order, so the next session does not
+face two competing lists):
+  1 THE PROVING GROUND (greybox arena)      low-med   he asked for it by name
+  2 THE JUICE PASS, QUANTIZED               low       the "just like wow"
+  3 ENEMY INTENT ON BY DEFAULT              low       ITB + StS are built on it
+  4 SHOVE AS A REAL PUSH                    med       becomes defenestration
+  5 AI ARCHETYPES W/ RHYTHMIC SIGNATURES    med       reading an enemy = reading a rhythm
+  6 COMPANIONS ON STANCES                   med       foundation already RULED
+  7 TWO/THREE STOREY COMBAT                 high      tile spec speaks it, combat does not
+  8 TURN CLOCK = THE SONG'S FORM            high      would make the game unlike anything
+THE KEY FINDINGS:
+- VLAMBEER'S ~30 JUICE TECHNIQUES, but the 0.2s "sleep" is an ARBITRARY duration
+  and would desync the 120 BPM clock. THE RULE FOR BOHEMIA: every juice duration
+  is a NOTE VALUE (1/16 graze, 1/8 hit, 1/4 killshot, 1 bar last-man-down). Then
+  the freeze IS the clock and a killshot is a REST IN THE MUSIC. No other game
+  can do this. Also PERMANENCE (Vlambeer rates it top-tier and it is nearly free):
+  casings, scars, blood stay, so the arena reads as a record of the fight.
+- VERTICALITY: XCOM 2's lesson is ACCESS (roofs always within one dash; its
+  predecessor's trap-slopes are the warning). TACTICAL BREACH WIZARDS' lesson is
+  the better one - height is not a stat bonus, it is A KILL YOU SET UP
+  (defenestration). That marries SHOVE-as-push to floors. AND THE LAYERING LAW +
+  INTERIOR-MATCHES-EXTERIOR ALREADY SPEAK MULTI-STOREY; only combat does not.
+- COMPANIONS: the research is unanimous and slightly surprising - CONFIGURABLE
+  BEATS CLEVER (Dragon Age Origins is the named best because you pre-program
+  them), MICROMANAGEMENT is the killer, and the BOND beats the stats. So:
+  STANCES, not orders (HOLD / PUSH / COVER ME / GET OUT), set once, one tap,
+  never per-turn, and the ally acts ON THE BEAT like everything else. WHO they
+  are is [PENDING Paolo] - contents his.
+- AI: archetype-specific utility FUNCTIONS beat weight tweaks (a berserker whose
+  aggression rises as health drops). Bohemia version: every archetype gets a
+  RHYTHMIC SIGNATURE (downbeat / offbeat / every other bar / reactive) so reading
+  an enemy is reading a rhythm.
+- THE ARENA is a standard named practice (GREYBOX) and it is the highest-leverage
+  item because it makes every other item JUDGEABLE instead of arguable. One
+  block-built arena: two-storey block + stairs + ledge, hard and soft cover, a
+  long lane, a tight room, an open middle, plus dials for archetype/count and a
+  per-effect juice toggle so any one can be A/B'd alone (the PULSE-button
+  discipline, applied to feel).
+LOGGED, EXPLICITLY NOT TOUCHED (his instruction: "mark it down... I don't even
+want you to continue that"): the PULSE VOICES sound "elementary school hi-hat
+metronome shit". They borrow each song's own kit by design (v75) - which
+succeeded at sounding like the record and FAILED at sounding like a fight. The
+fix when he wants it is a DEDICATED COMBAT PERCUSSION BANK (casings on concrete,
+boot on gravel, a door slam as the backbeat, a distant generator) - that is a
+COOK, so it needs his ear and a REUSE CHECK against banks/ first. CONTENTS HIS.
+
 COMBAT (04) 7/26 - v80: SOFT THE WHOLE FIGHT + THE MASTER MAKES ROOM, plus
 THE BIG-BRAIN RESEARCH he asked for. Law:
 laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md (amended in place).
