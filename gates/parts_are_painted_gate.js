@@ -139,6 +139,16 @@ ok('all eight facings are painted', DIRS.length === 8);
   ok('the law still carries the measurement, not just the claim', /4\.37 tone flips per frame/.test(law));
   ok('the law still names the shoulder-blend collision instead of hiding it',
     /SHOULDER BLEND/.test(law));
+  /* THE NEGATIVE RESULTS ARE THE VALUABLE PART. Three lawful fixes were built
+     and all three measured WORSE than the renderer they replaced. If that record
+     is deleted, the next session rebuilds them. */
+  ok('the law still records that all three renderer fixes were tried and were worse',
+    /all three were worse/i.test(law) && /7,524/.test(law) && /6,735/.test(law) && /7,238/.test(law));
+  ok('the law still records the deeper cause (part ownership oscillating, 58%)',
+    /58%/.test(law) && /PART OWNERSHIP/.test(law));
+  ok('the law still states nothing was shipped', /NOTHING WAS SHIPPED/.test(law));
+  ok('the attempted patch is checked in so the failures can be re-run, not re-guessed',
+    fs.existsSync(path.join(ROOT, 'tools', 'bohemia_parts_are_painted_patch.py')));
 }
 
 done();

@@ -81,6 +81,67 @@ reached 2.02 by producing fewer line pixels overall, not by being more stable).
 Once the tone stops being re-derived, what is left is the resampler, and that is
 a different problem with a different fix.
 
+## "FIX THE RENDERER AT ALL COSTS" — I TRIED IT THREE WAYS AND ALL THREE WERE WORSE
+
+Paolo, asked whether he wanted to paint the tones himself: "fix the renderer at
+all costs." So the renderer got three real attempts. Every one obeyed the law
+above. Every one made the picture WORSE. Measured the same way each time (naked
+E+W, 30 clips x 24 phases, tone flips = a tone that changes and changes straight
+back across three frames):
+
+    shipped renderer, neighbour-derived            6,266
+  1 classified once at REST off a combined grid    7,524   (+20%)
+  2 classified per part at REST, carried by source 6,735   (+7%)
+  3 classified per part on its OWN DEFORMED shape  7,238   (+16%)
+
+WHY EACH FAILED, because the reasons are the useful part:
+
+1. A single combined REST grid hides the torso pixels that sit UNDER the arm --
+   they are overwritten by the arm and never appear in it. So when the arm swung
+   away those pixels came back wearing the ARM's tone. His exact complaint,
+   faithfully rebuilt by the fix meant to end it.
+
+2. Per-part at rest, correct ownership, tone carried through the inverse sample
+   by source pixel. But A 1-PIXEL OUTLINE CANNOT SURVIVE A RESAMPLE. The line
+   broke into dashes that shimmered. The line has to be derived from the
+   DEFORMED shape to stay a continuous 1px line.
+
+3. Per part, on each group's own full deformed shape (skin() keeping the cells
+   occlusion discards). Correct by the law, and still worse -- because the sky
+   top-light now reads each part's own top edge, and a part's own top edge moves
+   as it deforms.
+
+## WHAT THE FAILURES EXPOSED, AND IT IS ONE LAYER DEEPER
+
+Splitting every tone flip on the SHIPPED renderer by whether the cell's PART
+also changed:
+
+    a different limb moved over the cell and back : 3,820   58%
+    the same limb owned it all three frames       : 2,717   42%
+    silhouette on/off/on (the raw part grid)      : 1,650
+
+**58% of the morphing is not shading at all.** It is the PART OWNERSHIP itself
+oscillating: the arm covers a torso pixel, uncovers it, and covers it again
+inside three frames. No shading rule can fix that, which is why three correct
+shading fixes all failed. The anatomy line is not the cause; it is a
+high-contrast 1px feature riding a boundary that jitters, so it is what makes the
+jitter visible.
+
+The remaining 42% IS shading instability and the law above still governs it. But
+fixing it alone cannot fix what he is looking at, and doing it in isolation
+measurably makes things worse.
+
+NOTHING WAS SHIPPED. All three attempts are reverted. A change that is lawful and
+looks worse does not go in.
+
+THE NEXT MOVE IS THE RESAMPLER, not the shading: the deformed limb boundary must
+stop oscillating between frames. Ruled out already, measured: pose quantization
+(joints snapped to 1/2px and 1px, null) and rigid limb stamping (exact rest bone
+length + angle snapped to 48/32/24/16/12/8 steps, 4.76 -> 3.32 only at
+45-degree steps, which would wreck the poses). What has NOT been tried is
+temporal coherence on the claim buffer -- a cell staying with the limb that owned
+it unless the new frame's evidence is unambiguous.
+
 ## CONSEQUENCE FOR THE SHOULDER
 
 Per-part outlining gives the arm a full line where it meets the torso, which
