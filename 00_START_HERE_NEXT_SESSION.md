@@ -266,6 +266,37 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v68: 120 BPM GAMEPLAY COMES FIRST (Paolo's law, recorded:
+laws/BOHEMIA_ADDENDUM_120BPM_FIRST_AND_THE_PERMISSION_PRESS_7_26_26.md).
+He played v67 and it still did not feel like the hero beat. He was right and I
+had fixed the wrong cycle. v67 fixed the game CLOCK and the ENEMY COVER cycle;
+the DIAL's own cycle is a different function (beatsForCycle) and it snapped to
+EVEN beats. Even is not a BAR: a 6- or 10-beat cycle puts the perfect shot on
+beat one, then beat three, forever. MEASURED: 59 of 135 pattern x difficulty
+combinations (44%) could never land the kill moment on a downbeat, and holding
+greed could knock an aligned pattern off the bar mid-fight. Now every dial cycle
+is a whole number of BARS (135/135), and the per-pattern PHASE table was
+RE-SOLVED against the new cycles by running the shipped engine (worst distance
+from dead centre at beat one: 16.3% -> 5.2%; average 4.3% -> 1.7%; 49 of 52
+patterns improved, none worsened).
+THE PERMISSION PRESS, his second sentence made mechanical: a press is a REQUEST
+to act on the correct beat, not an action. Press within 0.24 beats after a beat
+and you were ON it (fires at once); press earlier and the shot is HELD and
+granted ON the beat (worst case ~380ms), with the needle read at that instant.
+The button says ON THE BEAT while it holds. Proof:
+slices/BOHEMIA_BEAT_PERMISSION_PROOF_7_26_26.png.
+[PENDING Paolo] the POP is deliberately NOT gated: the shipped ON THE ONE streak
+(V57/V58, his ruling) rewards popping on beat one and quantizing the pop would
+hand that reward out for free. If he wants the pop gated, the streak needs a
+redesign the same turn.
+FOUND: the dial engine block is stamped "do not edit; edit
+engine/bohemia_engine.master.js then re-stamp" and THAT FILE DOES NOT EXIST in
+the repo, nor does a stamper. The stamped copy is the only copy. Edits go
+through tools/bohemia_combat_beatlaw_patch.py until a master is restored.
+Gate: combat_lab_gate section 8 EXECUTES the shipped engine over every pattern x
+difficulty (whole-bar assertion + needle-on-centre-at-beat-one assertion) and
+runs the permission quantizer. 234 checks green.
+
 COMBAT (04) 7/26 - v67: THE FOUR THINGS PAOLO CALLED OUT PLAYING IT.
 (1) THE DIAL WAS NOT ON BEAT ONE AND COULD NOT BE. The sweep read `_bpmClock`, a
 per-animation-frame counter started at page load; the music reads the

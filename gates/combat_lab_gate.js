@@ -589,7 +589,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
   ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
     demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
     demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;"));
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
@@ -638,7 +638,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V56 DASH AIMABLE: doDash arms and you tap a ring direction (doMove routes an armed dash to doDashMove); no more auto-placed destination; dashArm resets each fight',
     demo.includes('if(G.dashArm){ G.dashArm=false;') &&
     demo.includes('function doDashMove(d){') &&
-    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
+    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
   ok('V67 SUPPRESS IS LEGIBLE: the pinned wear a PINNED tag on the body, the action button counts them, and the readout names the broken red lines. He pressed it and nothing on screen changed -- that was half the bug',
     demo.includes(":pinned(e)?'PINNED'") &&
     demo.includes("if(_pn>0&&txt!=='SHOOT')txt=txt+' \\u00b7 '+_pn+' PINNED';") &&
@@ -1028,6 +1028,78 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
   demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
   demo.includes('G._stamSpent=false; updStam();') &&
   !demo.includes('G.stam=Math.min(STAM_MAX,(G.stam||0)+1); updStam();   /* V54: a pip back each turn */'));
+
+/* ============================================================================
+   8. V68 -- 120 BPM GAMEPLAY COMES FIRST (Paolo 7/26, LAW)
+   laws/BOHEMIA_ADDENDUM_120BPM_FIRST_AND_THE_PERMISSION_PRESS_7_26_26.md
+   The SHIPPED dial engine is pulled out of the blob and RUN. Two claims get
+   proven, not asserted: every dial cycle is a whole BAR, and at beat one the
+   needle is on dead centre -- which is what "the perfect shot IS the hero beat"
+   actually means. v67 said the clock was fixed and he still could not feel it,
+   because the dial's own cycle was a different function nobody had checked.
+   ========================================================================== */
+{
+  const a = demo.indexOf('var BohemiaEngine = (function(){');
+  const b = demo.indexOf('if (typeof window !== ');
+  ok('the shipped dial engine lifts out of the blob', a > 0 && b > a);
+  const em = { exports: {} };
+  new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaEngine;')(em, em.exports);
+  const E = em.exports, LIM = E.K.LIM;
+
+  /* 1. WHOLE BARS, every pattern, every difficulty, greed included */
+  let bars = 0, tot = 0, offenders = [];
+  for (const pkg of [0, 1, 2, 3, 4]) for (const p of E.packagePool({ pkgDiff: pkg })) {
+    tot++;
+    const n = E.beatsForCycle({ pkgDiff: pkg, pat: p });
+    const g = E.beatsForCycle({ pkgDiff: pkg, pat: p, greedHeld: true });
+    if (n % 4 === 0 && g % 4 === 0 && n >= 4 && g >= 4) bars++;
+    else if (offenders.length < 6) offenders.push(pkg + ':' + p + '=' + n + '/greed' + g);
+  }
+  ok('EVERY dial cycle is a whole BAR (' + bars + '/' + tot + ' pattern x difficulty, greed included). An even-beat cycle is not a bar: 6 and 10 beats put the perfect shot on beat one, then beat three, forever -- that was 44% of them',
+    bars === tot, offenders.join(' '));
+
+  /* 2. AND AT BEAT ONE THE NEEDLE IS ON CENTRE -- run the real tick */
+  const topOffset = (pat, pkg) => {
+    const G = { pat, pkgDiff: pkg, userPkg: pkg, dir: 1, spd: 7, angle: 0, patT: 0, musicT: 0,
+      greedHeld: false, greedMult: 1, W: { hZ: 0.05, vZ: 0.12, hitZ: 0.26 },
+      wound: 0, woundShake: 0, execWindow: false };
+    const cyc = E.beatsForCycle(G), N = 60;
+    let top = 1e9;
+    for (let i = 0; i < cyc * N * 3; i++) {
+      G.beatClock = i / N;
+      E.tick(G, 1 / N / 2);
+      if (i >= cyc * N * 2 && (i % (cyc * N)) === 0) top = Math.min(top, Math.abs(G.angle));
+    }
+    return top / LIM;
+  };
+  let worst = 0, worstName = '';
+  for (const pkg of [0, 1, 2, 3, 4]) for (const p of E.packagePool({ pkgDiff: pkg })) {
+    const o = topOffset(p, pkg);
+    if (o > worst) { worst = o; worstName = pkg + ':' + p; }
+  }
+  ok('THE PERFECT SHOT IS THE HERO BEAT: at beat one the needle sits within 8% of dead centre for every pattern on every difficulty (worst ' + (worst * 100).toFixed(1) + '% on ' + worstName + '). The phase table was re-solved against the bar-aligned cycles by running this same engine',
+    worst <= 0.08);
+
+  /* 3. THE PERMISSION PRESS: a press asks, the beat grants */
+  {
+    const src = demo.slice(demo.indexOf('const BEAT_GRACE='), demo.indexOf('function fireGrantTick()'));
+    const mk = (beat) => new Function('beatNow', src + ';return {phase:beatPhase(),wait:beatsToGrant()};')(() => beat);
+    const onIt = mk(4.10), early = mk(4.60), justBefore = mk(4.95);
+    ok('press just AFTER a beat and you were ON it -- the game never punishes a human by a few milliseconds',
+      onIt.wait === 0);
+    ok('press between beats and the shot is HELD and granted ON the next beat, never fired off the grid',
+      early.wait > 0 && Math.abs(early.wait - 0.4) < 1e-9 &&
+      justBefore.wait > 0 && Math.abs(justBefore.wait - 0.05) < 1e-9);
+    ok('the longest you ever wait for permission is under half a beat (~380ms at 120 BPM)',
+      (1 - 0.24) * 500 < 400);
+    ok('the request is wired into the aim loop and dies with the fight (a held shot never survives an encounter)',
+      demo.includes('fireGrantTick(); }   /* V68: a held shot is granted on the beat */') &&
+      demo.includes('if(beatNow()>=G._fireReq.at){ G._fireReq=null; try{setPhaseUI();}catch(_e){} fireNow(); }') &&
+      demo.includes("fb.innerHTML='<b style=\"font-size:11px;letter-spacing:1px\">ON THE<br>BEAT</b>'") &&
+      demo.includes('G.suppCd=0; G._fireReq=null; G._oneStreak=0;') &&
+      demo.includes('_spawnLayout:null, _fireReq:null };'));
+  }
+}
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',

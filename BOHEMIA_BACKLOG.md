@@ -183,6 +183,16 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1z. DONE 7/26 (v68, Paolo's 120-BPM-FIRST law): every dial cycle is a whole BAR
+   (44% of pattern x difficulty combos could never land the perfect shot on a
+   downbeat), the PHASE table re-solved against it, and the press is now a
+   REQUEST granted on the beat. [PENDING Paolo] whether the POP should be
+   beat-gated too (it would neutralise the ON THE ONE streak reward).
+1y. (discovered 7/26) THE DIAL ENGINE HAS NO MASTER. The stamped block says
+   "edit engine/bohemia_engine.master.js then re-stamp"; that file and the
+   stamper do not exist anywhere in the repo. Either restore a master + stamper
+   or delete the misleading header. NON-COOK. | a sync/byte-lock gate for the
+   engine block | — | no.
 1a. DONE 7/26 (v67, straight from Paolo playing it): dial locked to the AUDIO
    clock + whole-bar cover cycles; suppression turn-based and legible; sprint
    costs stamina and the refill no longer refunds it; sprint/dash mutually
