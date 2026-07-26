@@ -719,6 +719,55 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v76: THE SONGS PLAY OUT + THE PULSE YIELDS. Law:
+laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md.
+v75 THE FIGHT PULSE is APPROVED BY EAR (Paolo: "Wow, I felt that. I really like
+that... it works. It really did.").
+FIRST, A CORRECTION I OWED HIM: v75 told him his creepers average 0.54 kicks and
+0.58 hats a bar. The real numbers are 2.17 and 2.33. The gate divided each
+pattern by 4, treating a 16-step pattern as four bars; it is ONE bar (stepDur
+0.125s x16 = 2.0s = four beats at 120). Wrong by 4x, and it was printed in his
+settings panel. Corrected in the panel, the law and the gate, and the gate now
+DERIVES bars-per-pattern from stepDur so the unit can never drift from the clock
+again. The corrected count exposed the sharper half: PLACEMENT. Not one of the
+six songs kicks on beat 2, only THE PIT BOSS ever kicks on beat 4, and 2 of the
+13 kicks land off the beat entirely. There was nothing EVEN in there to lock to.
+HIS SONGS ARE NOT 30-SECOND LOOPS. His own 7/3 TWO MINUTE LAW made them 64-bar,
+2:08 arrangements whose FULL section D lands at 0:48 and doubles at 1:36. But
+every NEW ENCOUNTER threw the form back to bar 0 (pickRandomFaction re-anchored,
+and the song was pulled from the bag TWICE an encounter). A fight shorter than 48
+seconds never heard a single D, so what played on repeat was A B B A C: the first
+forty seconds. His "30 or 40 second loop" was an accurate measurement of what the
+game actually played him.
+THE FIX IS WHAT THE OVERWORLD ALREADY DID: CITYMUS waits for a full 1024-step
+pass then shuffles. Combat was the only place doing it wrong. Now songPlayedOut()
++ rollSongIfDone() hand over the next track when the form is FINISHED; an
+encounter joins the song in progress. V71 IS NOT REVERSED (its fix was the BAG,
+which stands); the swap FREQUENCY was the incidental part eating his
+arrangements. V67 ONE CLOCK intact: a REAL song change still re-anchors beat one.
+An explicit SHUFFLE tap still forces a song.
+THE PULSE YIELDS. Measured, the floor was doubling REAL hits: across his six
+creepers it landed on a kick the song already played 11 times and on its own hat
+14 times, plus its clap sat exactly on the 2-kill rung's clap. The doubled kick
+on step 0 is the same limiter bug v70 and v71 each had to kill. A floor FILLS
+WHAT IS NOT PLAYED, so it now fires only where his song is silent and drops its
+backbeat while the rung is clapping. Still lays 2.2 kicks and 5.7 hats a bar into
+the gaps. His arrangement and his 7/3 ladder are canon; the floor is what moves.
+RECORDED, NOT FIXED (deliberate): the OVERWORLD kill ladder is a DEAD PATH.
+MUS.layers starts at 0 and the only thing in the build that ever assigns it is
+the studio's preview buttons, so the four melody-klay creepers can NEVER bloom
+out there. The driver is lore and [PENDING Paolo].
+[PENDING Paolo] THE TASTE CALL: he wants nothing good hidden behind kills AND the
+4-kill payoff where "the whole song would actually play". Four ways to reconcile
+were put to him (rungs carry energy not melody / kills fast-forward the form /
+un-gate entirely / drive it from the world). NO RUNG WAS MOVED and NO klay layer
+was un-gated. The 2 and 4 rungs are his 7/3 LOCKED law.
+Gate: section 15 EXECUTES the form table, the play-out predicate and the duplicate
+count against his real songs - 303 checks green. Proof:
+slices/BOHEMIA_SONGS_PLAY_OUT_PROOF_7_26_26.png plus the real surface: five
+NEW ENCOUNTERs back to back, RESTARTED=false on every one, and wound to bar 23
+the FULL section D at 0:48 is reachable through an encounter change.
+
 COMBAT (04) 7/26 - v75: THE FIGHT PULSE. NO NEW MECHANICS. Law:
 laws/BOHEMIA_ADDENDUM_THE_FIGHT_PULSE_7_26_26.md.
 Paolo stopped the lane: "the music, I'm not really feeling the rhythm in this

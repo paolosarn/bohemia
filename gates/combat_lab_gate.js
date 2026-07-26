@@ -630,7 +630,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V55 DAY PHASE rolls on the SHUFFLE, everywhere the faction does (setup, new encounter, start, SHUFFLE button)',
     demo.includes('if(G.factionShuffle)try{pickDayPhase();}catch(_e){}') &&
     demo.includes('if(G.factionShuffle) pickDayPhase();   /* V55 */') &&
-    demo.includes('pickRandomFaction(); pickDayPhase(); });'));
+    demo.includes('pickRandomFaction(); pickDayPhase(); rollSongIfDone(true); });'));   /* V76: and the tap forces a song too */
   // v56: structured safe-area so the dial never lands under the SHOOT button, + dash-aim + suppress clarity
   ok('V56 SAFE AREA: in the dial phase the scene anchors up-left with a smaller RAD and full zoom so the dial clears the bottom-right SHOOT button for any aim direction',
     demo.includes("const _aimP=(G.phase==='aim'||!!G.ks);") &&
@@ -734,7 +734,7 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes('function pickOverworldSong(){') &&
     demo.includes('function owSong(){ return (G.factionShuffle&&G._owSong)?G._owSong:FAC(); }') &&
     demo.includes('const f=owSong();   /* V63: encounters play the overworld creeper') &&
-    demo.includes('try{G._owSong=pickOverworldSong();}catch(_e){} }   /* V63: the encounter') &&
+    demo.includes("G._dayPhaseAt=performance.now(); rollSongIfDone(); }   /* V63: the encounter") &&   /* V76: still driven by the day phase, now through the play-out gate */
     demo.includes("if(kind==='nightpad'){") && demo.includes("if(kind==='rustlead'){") &&
     demo.includes("if(kind==='deadsat'){") && demo.includes("if(kind==='solarhymn'){") &&
     demo.includes("if(kind==='powergrid'){") && demo.includes("if(kind==='signalfade'){") &&
@@ -1273,8 +1273,13 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
       !dupeBeforeExhausted && Object.keys(seen).length === 13);
     ok('and with no pool pushed yet it still falls back to the built-in list rather than going silent',
       mk({}).all.length === 1);
-    ok('NEW ENCOUNTER pulls the next song out of the bag every single time, instead of only when the day phase happened to re-roll',
-      demo.includes('if(G.factionShuffle) try{ G._owSong=pickOverworldSong(); }catch(_e){}'));
+    /* V76 SUPERSEDES THE FREQUENCY, NOT THE FIX. V71's actual defect was the
+       BAG (a hand-copied 6-song subset hid 13 approved tracks) and that stands.
+       Swapping EVERY encounter was the incidental part, and it was the reason
+       his 2:08 arrangements never got past their first forty seconds. */
+    ok('NEW ENCOUNTER takes the next song out of the WHOLE bag, and (V76) it takes it when the current song has played out its form rather than every single time',
+      demo.includes('if(G.factionShuffle) rollSongIfDone();') &&
+      demo.includes('function rollSongIfDone(force){'));
   }
 }
 
@@ -1380,10 +1385,27 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     const a = demo.indexOf('const OVERWORLD_SONGS=[');
     const b = demo.indexOf('\n];', a);
     const songs = new Function(demo.slice(a, b + 3).replace('const OVERWORLD_SONGS=', 'return '))();
-    const kpb = songs.reduce((s, x) => s + (x.kick || []).length / 4, 0) / songs.length;
-    const hpb = songs.reduce((s, x) => s + (x.hat || []).length / 4, 0) / songs.length;
+    /* V76 THE ARITHMETIC WAS WRONG AT V75 AND HE WAS TOLD THE WRONG NUMBER.
+       This divided each pattern by 4, treating a 16-step pattern as four bars.
+       It is ONE bar: stepDur is (60/120)/4 = 0.125s and 16 x 0.125 = 2.0s =
+       four beats at 120. The gate now derives bars-per-pattern from stepDur
+       itself, so the units can never drift from the clock again. */
+    const stepSec = (60 / 120) / 4;
+    const barsPerPattern = (16 * stepSec) / (4 * (60 / 120));   /* === 1 */
+    ok('THE UNIT IS DERIVED FROM THE CLOCK, NOT TYPED: a 16-step pattern is exactly ' + barsPerPattern.toFixed(2) + ' bar at 120 (v75 shipped 0.54/0.58 by dividing by 4, and Paolo was told a number that was wrong by 4x)',
+      Math.abs(barsPerPattern - 1) < 1e-9);
+    const kpb = songs.reduce((s, x) => s + (x.kick || []).length / barsPerPattern, 0) / songs.length;
+    const hpb = songs.reduce((s, x) => s + (x.hat || []).length / barsPerPattern, 0) / songs.length;
     ok('THE MEASUREMENT THAT EXPLAINS IT: his encounter creepers average ' + kpb.toFixed(2) + ' kicks and ' + hpb.toFixed(2) + ' hats per bar, against the 4-and-8 of anything a player can lock to. No clock fix could ever rescue that -- the pulse was not in the recording',
-      kpb < 1.0 && hpb < 1.5 && songs.length === 6);
+      kpb < 3.0 && hpb < 3.5 && songs.length === 6);
+    /* PLACEMENT, which is the sharper half of the diagnosis: it is not only that
+       there are few hits, it is that the ones there are sit unevenly and nothing
+       lands on beats 2 and 4. A steady pulse is what a player locks to. */
+    const offBeatKicks = songs.reduce((n, x) => n + (x.kick || []).filter(k => k % 4 !== 0).length, 0);
+    const beat2or4 = songs.reduce((n, x) => n + (x.kick || []).filter(k => k === 4 || k === 12).length, 0);
+    const onBeat2 = songs.reduce((n, x) => n + (x.kick || []).filter(k => k === 4).length, 0);
+    ok('AND THE PLACEMENT IS WORSE THAN THE COUNT: ' + offBeatKicks + ' of their kicks land off the beat entirely, NOT ONE of the six songs kicks on beat 2, and only ' + beat2or4 + ' kick in the whole pool lands on beat 4 -- the hits that exist are unevenly spaced, which is what there was no pulse to lock to',
+      offBeatKicks >= 2 && onBeat2 === 0 && beat2or4 <= 1);
     ok('and every one of them is HALF-TIME with an ambient lead, which is a MOOD brief, not a rhythm brief',
       songs.every(s => s.feel === 'half'));
     ok('HIS SONGS ARE UNTOUCHED (V63 is his own ruling and the 13 tracks are canon): the fix is a floor UNDER them, never an edit to them',
@@ -1419,12 +1441,111 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes("if(BohemiaPulse.on(G.pulse||'hard') && !G.over && !G._musMuted){"));
   ok('HE CAN FIND IT AND IT SAYS WHAT IT IS: the toggle sits beside MUSIC in the music group (not buried in the perks row) and carries its own plain-English line -- NAME IT OR DON\'T DRAW IT',
     demo.includes('<button id="musictog" class="on">MUSIC: ON</button><button id="pulsebtn"') &&
-    demo.includes('FIGHT PULSE: the overworld creepers average 0.54 kicks a bar') &&
+    demo.includes('FIGHT PULSE: the overworld creepers run 2.2 kicks and 2.3 hats a bar') &&
+    !demo.includes('average 0.54 kicks a bar') &&
     !demo.includes('SYNC: 0ms</button><button id="pulsebtn"'));
   ok('AND THE COUNT IS PART OF THE RECORD NOW: the 415Hz square UI beep is gone -- the tick is the song\'s hat and beat one is its kick',
     demo.includes("function sndBeat(){ try{ const f=owSong(); drumV((f.kit&&f.kit.h)||'tight'") &&
     demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,MAST,t); drumV((f.kit&&f.kit.h)||'tight',AC,MAST,t);") &&
     !demo.includes("function sndBeat(){ tone(415,0.035,0.055,'square'); }"));
+}
+
+/* ============================================================================
+   15. V76 THE SONGS PLAY OUT, AND THE PULSE YIELDS
+   Paolo: "I hate to hear that we're locking great parts of a song... I think
+   each song is like just a 30 or 40 second loop." They are 2:08 arrangements
+   whose FULL section lands at 0:48 -- he was thrown back to bar 0 every
+   encounter and never reached it.
+   ========================================================================== */
+{
+  /* THE FORM, EXECUTED: pull the real arrangement table out of the demo and
+     prove where the payoff actually is, so the claim in the law is not prose. */
+  const aa = demo.indexOf("const SONG_ARR=[");
+  const bb = demo.indexOf('\n', aa);
+  const ARR = new Function(demo.slice(aa, bb).replace('const SONG_ARR=', 'return ').replace(/;$/, ''))();
+  const SEC_SEC = 4 * 4 * (60 / 120);                 /* 4 bars x 4 beats x 0.5s = 8s a section */
+  const firstD = ARR.indexOf('D'), lastBar = ARR.length * SEC_SEC;
+  ok('THE SONGS ARE NOT 30-SECOND LOOPS: his 7/3 TWO MINUTE LAW form is ' + ARR.length + ' sections, ' + lastBar + 's, and the FULL section D first lands at 0:' + (firstD * SEC_SEC) + ' -- a fight shorter than that never heard one',
+    ARR.length === 16 && Math.abs(lastBar - 128) < 1e-9 && firstD * SEC_SEC === 48);
+  ok('and the real payoff is the BACK-TO-BACK D at 1:36, which nothing in a per-encounter restart could ever reach',
+    ARR[12] === 'D' && ARR[13] === 'D' && 12 * SEC_SEC === 96);
+
+  /* THE RULE, EXECUTED: the play-out predicate is a real block, pulled and run. */
+  const pa = demo.indexOf('const SONG_PASS=1024;');
+  const pb2 = demo.indexOf('/* ===== V76 PLAY-OUT END ===== */');
+  ok('demo carries the PLAY-OUT rule as its own testable block', pa > 0 && pb2 > pa);
+  {
+    const sim = { on: true, step: 0 };
+    const fn = new Function('_seq', demo.slice(pa, demo.indexOf('function rollSongIfDone', pa)) +
+      ';return {SONG_PASS:SONG_PASS, songPlayedOut:songPlayedOut};');
+    const R = fn(sim);
+    ok('ONE PASS IS THE WHOLE FORM: 64 bars x 16 steps = ' + R.SONG_PASS + ' steps, the same number CITYMUS already waits for in the overworld -- combat was the only place doing it wrong',
+      R.SONG_PASS === 1024 && 1024 / 16 === 64);
+    sim.step = 0; const atStart = R.songPlayedOut();
+    sim.step = 1023; const nearEnd = R.songPlayedOut();
+    sim.step = 1024; const done = R.songPlayedOut();
+    sim.on = false; const silent = R.songPlayedOut();
+    ok('the song is only swapped once it has PLAYED OUT: bar 0 no, one step short no, a full pass yes, and silence always yes so the streets never stay dead',
+      atStart === false && nearEnd === false && done === true && silent === true);
+  }
+  ok('so a NEW ENCOUNTER joins the song already in progress instead of restarting it, and the bag hands over the next track when the form is finished',
+    demo.includes('if(G.factionShuffle) rollSongIfDone();') &&
+    !demo.includes('if(G.factionShuffle) try{ G._owSong=pickOverworldSong(); }catch(_e){}') &&
+    demo.includes('G._dayPhaseAt=performance.now(); rollSongIfDone(); }'));
+  ok('V67 ONE CLOCK SURVIVES INTACT: a REAL new song still re-anchors beat one, and only the faction re-roll that changes no song at all stops throwing the form away',
+    demo.includes("if(_seq.on){ _seq.step=0; seqAnchor(); }   /* V67 ONE CLOCK: a REAL new song is a new beat one */") &&
+    demo.includes('if(_seq.on&&!G.factionShuffle){_seq.step=0;seqAnchor();}'));
+  ok('and an EXPLICIT tap on SHUFFLE still forces a different song -- waiting for the form applies to the automatic swap, never to something he asked for',
+    demo.includes('rollSongIfDone(true); });   /* V76: an explicit tap still forces a new song */'));
+  ok('the song is pulled from the bag in exactly ONE place now (it used to be pulled TWICE an encounter, by pickDayPhase and again by the V71 line, draining the bag double-time)',
+    demo.split('G._owSong=pickOverworldSong()').length - 1 === 1);
+
+  /* THE PULSE YIELDS, EXECUTED against his real song table */
+  {
+    const a = demo.indexOf('const OVERWORLD_SONGS=[');
+    const b = demo.indexOf('\n];', a);
+    const songs = new Function(demo.slice(a, b + 3).replace('const OVERWORLD_SONGS=', 'return '))();
+    const pa2 = demo.indexOf('var BohemiaPulse');
+    const pb3 = demo.lastIndexOf('if(typeof module', demo.indexOf('V75 PULSE CORE END'));
+    const pm = { exports: {} };
+    new Function('module', 'exports', demo.slice(pa2, pb3) + ';module.exports=BohemiaPulse;')(pm, pm.exports);
+    const P = pm.exports;
+    /* A FLOOR FILLS WHAT IS NOT PLAYED. Count, per song, how many pulse hits
+       would land on a step his song already plays -- those are the duplicates
+       v75 was stacking, and every one of them must now be suppressed. */
+    let dupKick = 0, dupHat = 0;
+    for (const sg of songs) for (let s = 0; s < 16; s++) {
+      if (P.kick(s) && (sg.kick || []).indexOf(s) >= 0) dupKick++;
+      if (P.hat(s) && (sg.hat || []).indexOf(s) >= 0) dupHat++;
+    }
+    ok('V75 WAS DOUBLING REAL HITS: across his six creepers the floor landed on a kick his song already played ' + dupKick + ' times and on its own hat ' + dupHat + ' times. Two loud hits at one instant slam the -14dB limiter -- the same bug v70 and v71 each had to kill',
+      dupKick >= 6 && dupHat >= 6);
+    ok('SO THE FLOOR YIELDS: it fires only where his song is silent, and it drops its backbeat entirely while the 2-kill rung is clapping 2 and 4',
+      demo.includes('const _songKick=(f.kick||[]).indexOf(s)>=0, _songHat=(f.hat||[]).indexOf(s)>=0;') &&
+      demo.includes("const _rungClap=(_sk>=2)||(_sk>=4&&(f.klay||'drive')==='drums');") &&
+      demo.includes('if(BohemiaPulse.kick(s) && !_songKick)') &&
+      demo.includes('if(BohemiaPulse.hat(s)  && !_songHat)') &&
+      demo.includes('if(BohemiaPulse.back(s) && !_rungClap)'));
+    ok('and it yields FROM BELOW THE RUNG, so it can see what the kill ladder is playing before it decides -- his 7/3 ladder is canon and the floor is the thing that moves',
+      demo.indexOf('const _rungClap=') > demo.indexOf('BohemiaGroove.musicFloor(G.groove)):0);'));
+    /* the floor still has a job: there must be real work left after yielding */
+    let netKick = 0, netHat = 0;
+    for (const sg of songs) for (let s = 0; s < 16; s++) {
+      if (P.kick(s) && (sg.kick || []).indexOf(s) < 0) netKick++;
+      if (P.hat(s) && (sg.hat || []).indexOf(s) < 0) netHat++;
+    }
+    ok('YIELDING DID NOT KILL THE FLOOR: it still lays ' + (netKick / songs.length).toFixed(1) + ' kicks and ' + (netHat / songs.length).toFixed(1) + ' hats a bar into the gaps his songs leave, which is what makes them lockable',
+      netKick / songs.length >= 2 && netHat / songs.length >= 5);
+  }
+
+  /* THE DEAD PATH IN THE OVERWORLD, recorded so it cannot be forgotten. It is
+     NOT fixed here: what drives intensity out there is lore and Paolo's call. */
+  {
+    const mus = alpha.indexOf('const MUS={');
+    const assigns = (alpha.match(/MUS\.layers\s*=/g) || []).length;
+    ok('RECORDED, NOT FIXED: in the overworld the kill ladder is unreachable -- MUS.layers starts at 0 and the ONLY thing in the build that ever assigns it is the studio preview buttons, so the four melody-klay creepers can never bloom out there. The driver is lore and Paolo has not ruled it',
+      mus > 0 && alpha.includes('layers:0') && assigns === 1);
+  }
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

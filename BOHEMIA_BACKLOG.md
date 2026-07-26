@@ -312,6 +312,26 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1o. DONE 7/26 (v76): THE SONGS PLAY OUT + THE PULSE YIELDS. Law:
+   laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md. v75 APPROVED BY EAR.
+   (a) Corrected my own 4x error: the creepers run 2.17 kicks / 2.33 hats a bar,
+   not 0.54/0.58; the gate now DERIVES the unit from stepDur. Placement is the
+   sharper finding: nothing kicks on beat 2, one kick in the pool on beat 4.
+   (b) His songs are 2:08 arrangements with the FULL section at 0:48, but every
+   NEW ENCOUNTER reset them to bar 0, so he only ever heard the first 40s. Combat
+   now waits for a full 1024-step pass before swapping, exactly as CITYMUS
+   already did in the overworld. V71's bag fix stands; only the frequency changed.
+   (c) The floor now YIELDS instead of doubling 11 kicks and 14 hats his songs
+   already played.
+   *** STILL FROZEN: every timing mechanic in 1v / 1t / v74's chain. ***
+   *** [PENDING Paolo] should the 2/4 rungs unlock the MELODY at all, or only
+   energy, or should kills FAST-FORWARD the form instead of unlocking it. His
+   7/3 LOCKED law owns those rungs; nothing was moved. ***
+1n. (discovered 7/26, NOT fixed, needs HIS ruling) THE OVERWORLD KILL LADDER IS
+   A DEAD PATH. MUS.layers starts at 0 and the only assignment in the whole build
+   is the studio's CALM/2 KILLS/4 KILLS preview buttons, so the four melody-klay
+   creepers can never bloom in the city or the run. What drives intensity out
+   there is lore. | gate records the single assignment | — | no.
 1p. DONE 7/26 (v75): THE FIGHT PULSE. Law:
    laws/BOHEMIA_ADDENDUM_THE_FIGHT_PULSE_7_26_26.md. Paolo froze new timing
    mechanics until the music and the button work together, so the encounter
