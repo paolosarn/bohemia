@@ -110,6 +110,22 @@ ok('the interior renders on the real canvas (not a panel or an overlay)',
 // slice from the material table through the renderer: the pools live in both
 const inside = city.slice(city.indexOf('const IN_FLOORPOOL='), city.indexOf('const _inRender=render'));
 ok('the interior render exists to inspect', inside.length > 200);
+// THE DOOR LAW (Paolo 7/26, LOCKED): "doors are always two tiles tall, two by
+// one", and doors OPEN. The approved animated bank has existed since 7/13; the
+// first interior drew a flat 1x1 gold stamp, which is the exact failure that law
+// was written about. The interior consumes the same bank, the same residential
+// clips and the same 88x176 assertion the RUN lane's build makes.
+ok('the interior draws the APPROVED animated door bank, not a flat stamp', /const IN_DOOR_B64=/.test(city));
+ok('a door is ONE WIDE and TWO TALL, rising into the cell above it',
+  /g\.drawImage\(im,sx,sy-C,C,C\*2\)/.test(inside));
+ok('doors are drawn AFTER the walls so nothing overdraws their top half',
+  inside.indexOf('DOOR PASS') > inside.indexOf('WALL PASS'));
+// THE MOBILE RENDER CONTRACT (7/26): non-integer scale is BANNED - a fractional
+// cell size on a 3x phone destroys pixel art. The cell is a whole number always.
+ok('the interior cell size is an INTEGER (non-integer scale is banned)',
+  /let C=Math\.floor\(Math\.min\(/.test(inside) && /ox=Math\.round\(/.test(inside));
+ok('nothing reintroduces a fractional cell', !/C=Math\.min\(cv\.width\*0\.88/.test(inside));
+
 for (const pool of ['hwall', 'hwindow', 'hboarded', 'hdoor', 'side'])
   ok('interiors are built from the approved ' + pool + ' pool', inside.includes("'" + pool + "'"));
 ok('the floor comes from a judged pool, never a colour', /inFloorPool|inBlit\('side'|'side'/.test(inside) && /saTex/.test(city));

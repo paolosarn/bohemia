@@ -54,7 +54,15 @@
 1b. (blocked on the pick) WRITE THE PICK IN: status PICKED in the spec, losers
    to the graveyard with a post-mortem, target-match diffing on, proxy gates +
    the cut-and-reassemble acceptance test per amendments B+C, freeze lifted.
-2. (after the pick) MASTER ACT-1 TILESET to the target, produced + judged as
+2. (after the pick) MASTER ACT-1 TILESET to the target. INGREDIENT DELIVERED
+   7/26 by CITY: banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt - Paolo's Great Sweep
+   crossed to real images for the first time (all 87 swept packs resolve against
+   the HD masters, 0 unresolved), filtered UP-ONLY, 465 tiles bucketed by room
+   function with per-tile draw scale from the sweep's BIG/SMALL flags. Built by
+   tools/bohemia_interior_pool_factory.py; re-run it with different caps for a
+   bigger set. Bodies/gore excluded on purpose (UP, but a story Paolo places).
+   Deliberately NOT wired into the game - the freeze and TILESETS-ARE-SETS say a
+   look is judged as one assembled scene, after the pick. produced + judged as
    one assembled scene; act triptych variants in spec. | tileset gate +
    proportion gate (2-tile doors, human scale — the proportion half already
    ships inside target_screen_gate.py) | — | yes, as a set.
@@ -180,6 +188,17 @@ PARKED BY THE 7/26 RULING (do not pick these up):
 - P2. World bridge deepening (quest outcomes moving factions on the map).
 
 ## CITY
+1. [BLOCKED ON THE TARGET PICK] DRESS THE INTERIORS. Paolo killed the first
+   interiors ("Dogshit.") and the diagnosis is empty rooms: the shell is lawful
+   approved art but it is five textures and no furniture. The furniture is ready
+   (banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt, UP-only, bucketed by room function)
+   and the role->bucket mapping is written in
+   records/BOHEMIA_INTERIOR_KILL_AND_THE_SWEEP_CROSSING_7_26_26.md. Do NOT wire
+   it before the target screen is approved - that is the freeze, and dressing
+   rooms from loose tiles against no reference is what the reset exists to stop.
+   | interiors_gate extended: the pool is UP-only and every drawn tile traces to
+   a UP verdict | the shell/mechanism is done, do not re-litigate it | yes - the
+   dressed room is judged as an assembled scene, per TILESETS-ARE-SETS.
 -1. (discovered 7/26 by the ART lane's render-contract gate, ONE LINE) THE CITY
    TAB DRAWS WORLD ART SMOOTHED. slices/BOHEMIA_CITY_CURRENT.html never sets
    imageSmoothingEnabled at all, so it takes the browser default (true) and the
@@ -189,17 +208,6 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    KNOWN GAP on every run and the exemption must be DELETED the moment this is
    fixed. | smoothing off wherever the city context draws world art; the ART
    gate's PIPELINE_DEBT entry removed in the same commit | — | no.
-1. INTERIOR PROPS FROM THE GREAT SWEEP (discovered, CITY 7/26). Interiors ship as
-   a blessed but EMPTY shell: approved walls/doors/windows/floors, no furniture.
-   The prop authority is banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt (2,604
-   judged, 1,927 UP), keyed by (pack, idx) into banks/BOHEMIA_HD_TILE_REPO_part
-   1-4. The app's TP_TILES is a DIFFERENT cut, keyed by category/index, and it is
-   the raw un-swept corpus (sampling it put purple + neon in a house). Build the
-   pack/idx -> app mapping, emit an UP-only interior prop pool, then dress rooms
-   BY ROLE off the district dossiers ("registers + coolers + aisles up front",
-   "rows of rusted lockers, a dead shower block"). | reusefirst + purity + the
-   dead-world laws green with props on; interiors_gate extended to assert the
-   prop pool is UP-only | never sample TP_TILES for shipped art | yes, fresh look.
 2. MARRY COMMERCIAL (discovered, CITY 7/26). The corner plaza has NEVER been
    registered with the district kit (it never binds K, and the registration sits
    behind a `typeof K` guard that silently swallowed it), so the walked city

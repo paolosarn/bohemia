@@ -129,14 +129,34 @@ _ids = {t['id'] for t in _house['tiles']}
 # pooled into SA_TILES.hwall / hwindow / hboarded / hdoor / hyard)
 for need in ('wall_plain_8', 'wall_window_12', 'wall_boarded_15', 'wall_door_18', 'yard_deserttan_27'):
     assert need in _ids, '%s is missing %s - interiors cannot be built from approved art' % (HOUSE_BANK, need)
+# THE DOOR LAW (Paolo 7/26, LOCKED): a door is ONE TILE WIDE AND TWO TILES TALL,
+# always, and doors OPEN. The approved bank has existed since 7/13 (30 clips, 9
+# frames, queue CLOSED 30/30) and the interior was drawing a flat 1x1 stamp -
+# the exact failure the law was written about. Same bank, same residential pack,
+# same 88x176 assertion the RUN lane's build already makes: one consumption
+# contract, not a second one.
+DOOR_BANK = 'banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt'
+_doors = json.load(open(DOOR_BANK, encoding='utf8'))
+DOOR_CLIPS = sorted(k for k in _doors['clips'] if re.match(r'^4\._Doors_a_\d+_swing$', k))
+assert len(DOOR_CLIPS) >= 6, '%s is missing the approved residential doors' % DOOR_BANK
+_door_out = []
+for k in DOOR_CLIPS:
+    c = _doors['clips'][k]
+    assert len(c['frames']) == _doors['frames_per_clip'], k + ' is not a full clip'
+    for i, f in enumerate(c['frames']):
+        raw = base64.b64decode(f)
+        w = int.from_bytes(raw[16:20], 'big'); h = int.from_bytes(raw[20:24], 'big')
+        assert (w, h) == (88, 176), '%s frame %d is %dx%d, not the 1-wide-2-tall door law' % (k, i, w, h)
+    _door_out.append(c['frames'][0])          # the interior draws the CLOSED frame
+DOOR_JS = json.dumps(_door_out, separators=(',', ':'))
 _street = json.load(open(STREET_BANK, encoding='utf8'))
 assert _street['pools'].get('side'), '%s has no side (concrete) pool' % STREET_BANK
 # and the app must actually be carrying them, or the blits would silently no-op
 for _pool in ('hwall', 'hwindow', 'hboarded', 'hdoor', 'hyard'):
     assert ('SA_TILES.' + _pool) in decoded, 'CITY_B64 is missing the approved %s pool (run the house-art patch first)' % _pool
 assert "'side'" in decoded and 'SA_MAP' in decoded, 'CITY_B64 is missing the harmonized street pools'
-print('REUSE verified: %d approved house-skin tiles (%s), %d side tiles (%s)'
-      % (len(_house['tiles']), _house.get('status', 'judged'), len(_street['pools']['side']), _street['version']))
+print('REUSE verified: %d house-skin tiles (%s), %d side tiles, %d approved animated door clips'
+      % (len(_house['tiles']), _house.get('status', 'judged'), len(_street['pools']['side']), len(DOOR_CLIPS)))
 
 # ---- the district -> interior zone table, read from the REAL DISTGEN --------
 # ENGINE SYNC LAW: the app never carries its own opinion of what zone a district
@@ -288,17 +308,23 @@ stepOnce=function(di){
 // 9,127-tile cut corpus (TP_TILES) is deliberately NOT sampled: it is the
 // pre-verdict judging surface and it puts purple and neon in a dead house. ----
 
-// ROOM ROLE -> which APPROVED pool the floor comes from. The roles come from
-// the district dossiers (floorplan zones). Public/finished rooms stand on the
-// judged concrete ('side', the harmonized street pools). Back-of-house stands
-// on the judged decomposed-granite ground (hyard). Two pools, both blessed.
+// THE DOOR LAW (Paolo 7/26, LOCKED): "doors are always two tiles tall, two by
+// one". The approved animated door bank has existed since 7/13 and nothing was
+// consuming it; the interior drew a flat 1x1 stamp. These are the residential
+// swing clips verbatim, 88x176 = ONE WIDE, TWO TALL, closed frame.
+const IN_DOOR_B64=@@DOORJS@@;
+const IN_DOOR_IMG=IN_DOOR_B64.map(function(b){ const im=new Image(); im.src='data:image/png;base64,'+b; return im; });
+
+// ROOM ROLE -> which APPROVED pool the floor comes from. Public/finished rooms
+// stand on the judged concrete ('side', the harmonized street pools);
+// back-of-house stands on the judged decomposed-granite ground (hyard).
 const IN_FLOORPOOL={
   stockroom:'hyard', records:'hyard', service:'hyard', floor_open:'hyard',
   dock:'hyard', locker:'hyard'
 };
 function inFloorPool(role){ return IN_FLOORPOOL[role]||'side'; }
-// PATCH COHERENCE, the app's own rule: quantise into ~4-cell patches so a floor
-// or a wall run shares one tile and reads as a surface, never pixel static.
+// PATCH COHERENCE, the app's own anti-confetti rule: quantise into ~4-cell
+// patches so a floor area or a wall run shares one tile and reads as a surface.
 function inPatch(x,y,salt){
   const px=Math.floor(x/4), py=Math.floor(y/4);
   return ((Math.imul(px,73856093)^Math.imul(py,19349663)^Math.imul(salt,2654435761))>>>0);
@@ -307,6 +333,12 @@ function inBlit(pool,variant,sx,sy,C){
   const t=saTex(pool,variant); if(!t)return false;
   g.drawImage(t,sx,sy,C,C); return true;
 }
+// a door stands ON its cell and rises INTO the cell above it. Never squished.
+function inDoor(seed,sx,sy,C){
+  const im=IN_DOOR_IMG[(seed>>>0)%IN_DOOR_IMG.length];
+  if(!im||!im.complete||!im.naturalWidth)return false;
+  g.drawImage(im,sx,sy-C,C,C*2); return true;
+}
 function renderInside(){
   const fp=INSIDE.fp;
   // A ROOM IS NOT A STREET: the walk zoom frames a whole neighborhood, which
@@ -314,10 +346,16 @@ function renderInside(){
   // FITS THE PLATE to the phone, so a building reads as a place you are standing
   // in. A plate too big to fit (a mall concourse, a storage row) falls back to
   // following the body at the walk zoom, same as outside.
-  let C=Math.min(cv.width*0.88/fp.W, cv.height*0.64/fp.H);
+  // THE MOBILE RENDER CONTRACT (7/26, ART lane, laws/BOHEMIA_MOBILE_RENDER_
+  // CONTRACT_7_26_26.md): NON-INTEGER SCALE IS BANNED - "a 3x phone blitting a
+  // 1.07x buffer destroys pixel art". The first cut of this camera fitted the
+  // plate with a fractional cell size, which is exactly that. The cell is now
+  // always a WHOLE number of pixels: fit the plate, then floor to an integer,
+  // and never below the walk zoom's own step.
+  let C=Math.floor(Math.min(cv.width*0.88/fp.W, cv.height*0.64/fp.H));
   let ox,oy;
-  if(C<HC*0.75){ C=HC; ox=cv.width/2-INSIDE.ix*C; oy=cv.height/2-INSIDE.iy*C; }
-  else { C=Math.min(C,140); ox=(cv.width-fp.W*C)/2; oy=(cv.height-fp.H*C)/2; }
+  if(C<Math.floor(HC*0.75)){ C=Math.max(1,Math.floor(HC)); ox=Math.round(cv.width/2-INSIDE.ix*C); oy=Math.round(cv.height/2-INSIDE.iy*C); }
+  else { C=Math.max(1,Math.min(C,140)); ox=Math.round((cv.width-fp.W*C)/2); oy=Math.round((cv.height-fp.H*C)/2); }
   g.fillStyle='#0d0b09'; g.fillRect(0,0,cv.width,cv.height);
   g.imageSmoothingEnabled=false;
   const isWall=(x,y)=>(x<0||y<0||x>=fp.W||y>=fp.H)||fp.grid[y][x].g==='wall';
@@ -325,32 +363,36 @@ function renderInside(){
   // GROUND PASS: the judged concrete slab / decomposed-granite ground
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x], sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
+    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height)continue;
     if(c.g==='wall')continue;
     const pool=inFloorPool(c.role);
     if(!inBlit(pool,inPatch(x,y,pool.length),sx,sy,C)){ g.fillStyle='#8f8878'; g.fillRect(sx,sy,C,C); }
   }
   // WALL PASS: hwall, the SAME tan stucco the building wears on the outside, so
   // the interior is literally made of the exterior. A wall that faces daylight
-  // carries a dead window or a boarded one; every doorway is the weathered door.
+  // carries a dead window or a boarded one.
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x], sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
+    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height)continue;
     if(c.g==='wall'){
       if(!inBlit('hwall',inPatch(x,y,5),sx,sy,C)){ g.fillStyle='#463d33'; g.fillRect(sx,sy,C,C); }
       const wh=((Math.imul(x,2654435761)^Math.imul(y,40503))>>>0);
       if(onEdge(x,y)&&(wh%5)<2) inBlit((wh%5)===0?'hwindow':'hboarded',wh>>>4,sx,sy,C);
-      // the ¾ read indoors, the same convention the surface uses: the lit face
-      // of a wall that has floor below it, so you read which side you stand on
       if(!isWall(x,y+1)){ g.fillStyle='rgba(255,240,210,0.10)'; g.fillRect(sx,sy+C-Math.max(1,C*0.26),C,Math.max(1,C*0.26)); }
-    } else if(c.g==='door'){
-      inBlit('hdoor',(x*7+y*13),sx,sy,C);
     }
   }
-  // AMBIENT OCCLUSION against every wall, over the art: the one cheap trick that
-  // makes a plan read as a room with height instead of a flat sheet.
+  // DOOR PASS, drawn AFTER the walls because a door is TWO TILES TALL and rises
+  // into the cell above its own (DOOR LAW, Paolo 7/26). Painting it inside the
+  // wall loop would let the next wall row overdraw its top half.
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
-    const c=fp.grid[y][x]; if(c.g==='wall')continue;
+    const c=fp.grid[y][x]; if(c.g!=='door')continue;
+    const sx=ox+x*C, sy=oy+y*C;
+    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height+C)continue;
+    if(!inDoor((x*7+y*13)>>>0,sx,sy,C)) inBlit('hdoor',(x*7+y*13),sx,sy,C);
+  }
+  // AMBIENT OCCLUSION against every wall, over the art
+  for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
+    const c=fp.grid[y][x]; if(c.g==='wall'||c.g==='door')continue;
     const sx=ox+x*C, sy=oy+y*C;
     if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
     g.fillStyle='rgba(0,0,0,0.20)';
@@ -400,7 +442,8 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 """
 INJECT = (INJECT.replace('@@FPPATH@@', FLOORPLAN)
                 .replace('@@FPBODY@@', fp_body)
-                .replace('@@ZONEJS@@', ZONE_JS))
+                .replace('@@ZONEJS@@', ZONE_JS)
+                .replace('@@DOORJS@@', DOOR_JS))
 
 # ---- 3) the step that walks you in ------------------------------------------
 # the human branch of stepOnce blocks on any non-walkable cell. A cell whose

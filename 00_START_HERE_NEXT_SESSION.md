@@ -117,6 +117,36 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CITY (03) 7/26 LATEST — THE INTERIOR WAS KILLED, AND THE SWEEP IS FINALLY
+USABLE. Paolo on the first interiors: "Dogshit." KILL recorded
+(INTERIOR_SHELL_v1_7_26_26 in the graveyard, post-mortem in
+records/BOHEMIA_INTERIOR_KILL_AND_THE_SWEEP_CROSSING_7_26_26.md). The diagnosis
+is EMPTY ROOMS: the shell is lawful approved art but it is five textures and no
+furniture, so a room is a box with a wall texture. The mechanism (walk into a
+wall, plate === footprint, walk out the door) was never the problem and stays.
+FIXED THIS TURN, both compliance not art (which is what the freeze allows):
+(1) THE DOOR LAW - interior doors were a flat 1x1 gold stamp, the exact failure
+that law names. They now draw the APPROVED 7/13 animated door bank verbatim,
+88x176, ONE WIDE TWO TALL, standing on their cell and rising into the one above,
+in their own pass after the walls. Same bank + same 88x176 assertion the RUN
+lane already makes.
+(2) THE MOBILE RENDER CONTRACT - the interior camera used a fractional cell
+size; non-integer scale is BANNED. Integer cell, rounded origin.
+interiors_gate 22 -> 40 checks.
+THE BIG ONE, AND IT IS PARKED ON PURPOSE: tools/bohemia_interior_pool_factory.py
+crosses Paolo's Great Sweep (2,604 judged, 1,927 UP) to the actual HD masters by
+(pack, idx) - ALL 87 SWEPT PACKS RESOLVE, ZERO UNRESOLVED. First time his
+verdicts are machine-usable. Emits banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt:
+UP-ONLY, 465 tiles bucketed by room function (floors/walls/doors/windows/
+furniture/tools/container/clutter/debris/light/plant/dirtfloor), each with its
+draw scale from the sweep's own BIG/SMALL flags. Bodies + gore excluded (UP, but
+a story he places). NOT WIRED INTO THE GAME: the ART-FIRST RESET freezes new
+looks outside the ART lane and TILESETS-ARE-SETS says a look is judged as one
+assembled scene. It is filed as the day-one ingredient for ART item 2, the
+master act-1 tileset. The moment the target screen is picked, the furniture is
+sitting there.
+RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
+
 RUN (01) 7/26 LATEST — SAVE/LOAD + DEATH IS A RELOAD. Built to Paolo's two save
 rulings the same day, to their own words: ONE portable versioned blob (the
 engine's own save via BohemiaLoop.captureSave PLUS the run's surface state, in a
