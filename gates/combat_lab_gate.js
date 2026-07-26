@@ -95,8 +95,8 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes('G.moveIntent=names[i];doMove(i);'));
   ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
     !demo.includes('id="movebtn"'));
-  ok('a move costs the turn (routes through endTurnReturn)',
-    /function doMove\([\s\S]{0,3200}?endTurnReturn\(false\); \}/.test(demo));
+  ok('a plain one-tile step still costs the turn (routes through endTurnReturn) -- walking is the free thing stamina buys you OUT of',
+    /function doMove\([\s\S]{0,4200}?endTurnReturn\(false\); \}/.test(demo));
   // v19: victory walk + blood by health
   ok('VICTORY WALK: the ring keeps working after the win (no turn cost)',
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
@@ -485,7 +485,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes('id="sprintbtn"') &&
     demo.includes('const _sprinting=!!G.sprintArm;') &&
     demo.includes('const _mult=_sprinting?2:1;') &&
-    demo.includes('endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */') &&
+    demo.includes('if(mobExposeFire(1.0))return;') &&
     demo.includes("if(_sprinting){ spendStam(1); G.sprintArm=false; updMoveMode(); }"));
 ok('V67 SPRINT COSTS STAMINA (Paolo: "sprint should be using up stamina points"): 1 pip, refused when the pips are gone, spent on the move itself',
     demo.includes("if(_sprinting&&(G.stam||0)<1){ setRead('NO STAMINA','sprint needs 1 pip','#8a7d66'); return; }") &&
@@ -495,8 +495,8 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('if(G.dashArm)G.sprintArm=false;') &&
     demo.includes('if(G.sprintArm)G.dashArm=false;') &&
     demo.includes('if(G.sprintArm||G.dashArm){ G.sprintArm=false; G.dashArm=false; updMoveMode(); }') &&
-    demo.includes("SPRINT \\u00b7 2 TILES \\u00b7 ENDS TURN") &&
-    demo.includes("DASH \\u00b7 2 TILES \\u00b7 FREE MOVE") &&
+    demo.includes("SPRINT \\u00b7 2 TILES \\u00b7 1 PIP \\u00b7 FULLY EXPOSED") &&
+    demo.includes("DASH \\u00b7 2 TILES \\u00b7 2 PIPS \\u00b7 BREAKS LOCKS") &&
     demo.includes("id='movemode'"));
   // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
   ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas (V53 lifted the ceiling into _ceil per device)',
@@ -1011,12 +1011,14 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
 
   /* --- TWO DIFFERENT MOVES: cost, turn cost, and exclusivity --- */
   {
-    ok('SPRINT and DASH are finally different on purpose: sprint is 2 tiles for 1 pip that ENDS your turn in the open, dash is 2 tiles for 2 pips that does NOT end your turn and breaks their locks',
+    ok('V72 STAMINA NEVER COSTS A TURN (Paolo: "when you sprint and use stamina points it doesn\'t consume a turn, bro"). His own V54 law, which every stamina verb honoured EXCEPT sprint -- v67 charged it a pip AND ended the turn, the worst of both. Sprint ends nothing now; what separates it from dash is PRICE and RISK: 1 pip and the FULL exposure crack, versus 2 pips and half',
       demo.includes("sprint needs 1 pip") &&
       demo.includes("dash needs 2 pips") &&
-      demo.includes("endTurnReturn(true); }   /* V44: a sprint breaks cover for real") &&
+      demo.includes("if(mobExposeFire(1.0))return;") &&
+      demo.includes("renderBoard(); updGap(); return; }   /* V72: NO turn end -- stamina is the cost */") &&
+      !demo.includes("endTurnReturn(true); }   /* V44: a sprint breaks cover for real") &&
       demo.includes("renderBoard(); updGap(); }   /* NO turn end */") &&
-      demo.includes("your turn KEEPS going"));
+      demo.includes('const STAM_MAX=3;   /* V54 STAMINA (Paolo, Fable model): stamina actions DON\'T end your turn */'));
     const arm = new Function(`
       const G={sprintArm:false,dashArm:false};
       G.dashArm=!G.dashArm; if(G.dashArm)G.sprintArm=false;
@@ -1191,10 +1193,11 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
    10. V70 -- HIS TWO RULINGS: the rings at a quarter, the 808 as the hero
    ========================================================================== */
 {
-  ok('THE RINGS ARE AT AN EIGHTH: 75% down (7/26) then another 50% (7/26, "opacity of that shit you added last chat should go down by 50%"). Ring and snap flash both, nothing else about them touched -- he approved the shape and the motion',
-    demo.includes('const _a=(_hero?0.42:0.24)*(0.35+0.65*_f)*0.125;') &&
-    demo.includes("+(_snap*0.10625)+')';") &&
-    !demo.includes("+(_snap*0.85)+')';") && !demo.includes("+(_snap*0.2125)+')';"));
+  ok('THE RINGS ARE AT A SIXTEENTH: three passes of his (75% down, then 50%, then 50% again). Ring and snap flash both, nothing else about them touched -- he approved the shape and the motion',
+    demo.includes('const _a=(_hero?0.42:0.24)*(0.35+0.65*_f)*0.0625;') &&
+    demo.includes("+(_snap*0.053125)+')';") &&
+    !demo.includes("+(_snap*0.85)+')';") && !demo.includes("+(_snap*0.2125)+')';") &&
+    !demo.includes("+(_snap*0.10625)+')';"));
 
   ok('THE HERO VOICE IS AT 3x, NOT 2x (Paolo: "should it be like three times as loud. Just the voice"). 2x amplitude is +6dB and a doubling of PERCEIVED loudness takes about +10dB, so the old double read as roughly 1.5x. 3x is +9.5dB -- the number that actually sounds twice as loud',
     demo.includes("const _bi=(f.inst&&f.inst.b)||'osc'; const _db=(s===0)?3:1;") &&

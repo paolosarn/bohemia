@@ -497,6 +497,23 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v72: STAMINA NEVER COSTS A TURN. Law:
+laws/BOHEMIA_ADDENDUM_STAMINA_NEVER_COSTS_A_TURN_7_26_26.md. Paolo: "the way the
+strategy is gonna work in this game, it's gonna be fun -- like when you sprint
+and use stamina points, it doesn't consume a turn, bro." THIS WAS ALREADY HIS
+LAW AND THE CODE SAID SO: the STAM_MAX line has read "stamina actions DON'T end
+your turn" since V54, and suppress/dash/vault all honoured it. SPRINT never did,
+and MY v67 made it worse -- charged a pip AND still ended the turn, the worst of
+both, a verb nobody would press. Sprint now ends nothing; what separates it from
+dash is PRICE and RISK (1 pip + the FULL exposure crack, vs 2 pips + half +
+breaks their locks). Proof on the real build: two sprints inside ONE turn, pips
+3->2->1, no turn boundary between them
+(slices/BOHEMIA_SPRINT_FREE_PROOF_7_26_26.png).
+Also: rings down another 50% (a sixteenth of where they started; he has approved
+the shape and motion three times now, only the alpha moves).
+STANDING CHECK now in the gate: if a combat verb spends stamina, it may not end
+the turn. 260 green.
+
 COMBAT (04) 7/26 - v71: EVERYTHING ON BEAT + THE TWO BUGS HE CAUGHT. Law:
 laws/BOHEMIA_ADDENDUM_EVERYTHING_ON_BEAT_AND_THE_DOWNED_7_26_26.md.
 (1) HIS ANSWER TO MY QUESTION: "Everything on beat even the Enemies whatever
