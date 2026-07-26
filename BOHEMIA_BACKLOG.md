@@ -217,6 +217,20 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1w. DONE 7/26 (v69): the four rhythm-game pillars - approach ring, graded press
+   with a persistent ms strip, the shot plays a note in the song's key, and a
+   SYNC tap-calibration. Law + what is still missing:
+   laws/BOHEMIA_ADDENDUM_WHAT_MAKES_IT_A_RHYTHM_GAME_7_26_26.md.
+1v. RHYTHM AS DIFFICULTY (next, from that addendum): the 52 dial patterns are
+   curve shapes, not rhythms. A rhythm game gets harder by getting more
+   syncopated, not faster. Author patterns as note values against the bar.
+   | gate asserts each pattern's kill moments land on declared note values |
+   the PHASE re-bake machinery exists, reuse it | new dial feel = he plays it.
+1u. THE WHOLE FIGHT ON THE GRID: the return volley, deaths, steps and camera
+   hits are not quantized, so only the dial is musical. | gate proves every
+   fight event resolves on a beat | 120 BPM law | no.
+1t. A COUNT-IN BAR when an engagement opens, so you enter already inside the
+   pulse. | — | do not delay the pop itself | no.
 1z. DONE 7/26 (v68, Paolo's 120-BPM-FIRST law): every dial cycle is a whole BAR
    (44% of pattern x difficulty combos could never land the perfect shot on a
    downbeat), the PHASE table re-solved against it, and the press is now a

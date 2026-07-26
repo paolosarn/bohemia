@@ -589,7 +589,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
   ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
     demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
     demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;"));
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
@@ -638,7 +638,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V56 DASH AIMABLE: doDash arms and you tap a ring direction (doMove routes an armed dash to doDashMove); no more auto-placed destination; dashArm resets each fight',
     demo.includes('if(G.dashArm){ G.dashArm=false;') &&
     demo.includes('function doDashMove(d){') &&
-    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
+    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
   ok('V67 SUPPRESS IS LEGIBLE: the pinned wear a PINNED tag on the body, the action button counts them, and the readout names the broken red lines. He pressed it and nothing on screen changed -- that was half the bug',
     demo.includes(":pinned(e)?'PINNED'") &&
     demo.includes("if(_pn>0&&txt!=='SHOOT')txt=txt+' \\u00b7 '+_pn+' PINNED';") &&
@@ -957,18 +957,21 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
   {
     const src = grab('audioMs', 'function audioMs()');
     ok('audioMs lifts out of the shipped demo', !!src);
-    const mk = (ctx) => new Function('AC', '_seq', src + ';return audioMs();');
+    const mk = () => new Function('AC', '_seq', 'G', src + ';return audioMs();');
     const AC = { currentTime: 10.0, outputLatency: 0.08, baseLatency: 0.01 };
     const seqOn = { on: true, t0: 4.0, next: 4.0 };
-    const beats = mk()(AC, seqOn) / 500;
+    const G0 = {};
+    const beats = mk()(AC, seqOn, G0) / 500;
     /* heard-position = (10.0 - 0.08 - 4.0)s = 5.92s = 11.84 beats at 120bpm */
     ok('THE CLOCK IS THE AUDIO CLOCK: position is measured from the song\'s own step 0 and pushed back by the measured output latency, so the beat the game runs on is the beat the ear hears',
       Math.abs(beats - 11.84) < 1e-6, 'got ' + beats);
     ok('silence falls back cleanly (nothing playing = no beat to miss, never a NaN clock)',
-      mk()(AC, { on: false, t0: 0, next: 0 }) === null &&
-      mk()(null, seqOn) === null);
+      mk()(AC, { on: false, t0: 0, next: 0 }, G0) === null &&
+      mk()(null, seqOn, G0) === null);
     ok('a clock that has not started yet never runs negative',
-      mk()({ currentTime: 3.0, outputLatency: 0, baseLatency: 0 }, seqOn) === 0);
+      mk()({ currentTime: 3.0, outputLatency: 0, baseLatency: 0 }, seqOn, G0) === 0);
+    ok('V69 SYNC: the per-device calibration offset rides the whole clock (uncalibrated, phone output latency of 40-300ms can put a perfectly correct build a third of a beat off, which reads to a player as no change at all)',
+      Math.abs(mk()(AC, seqOn, { audioOffset: -120 }) - (mk()(AC, seqOn, G0) - 120)) < 1e-9);
   }
 
   /* --- BEAT ONE: every cover cycle must be a whole number of bars --- */
@@ -1096,8 +1099,90 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
       demo.includes('fireGrantTick(); }   /* V68: a held shot is granted on the beat */') &&
       demo.includes('if(beatNow()>=G._fireReq.at){ G._fireReq=null; try{setPhaseUI();}catch(_e){} fireNow(); }') &&
       demo.includes("fb.innerHTML='<b style=\"font-size:11px;letter-spacing:1px\">ON THE<br>BEAT</b>'") &&
-      demo.includes('G.suppCd=0; G._fireReq=null; G._oneStreak=0;') &&
+      demo.includes('G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G._oneStreak=0;') &&
       demo.includes('_spawnLayout:null, _fireReq:null };'));
+  }
+}
+
+/* ============================================================================
+   9. V69 -- MAKE THE BEAT PERCEIVABLE
+   Paolo after v68: "I couldn't really tell a difference." The math was right
+   and gated; nothing told him so. A rhythm game is anticipation you can SEE, a
+   grade you can READ, a sound you MAKE, and a clock calibrated to YOUR phone.
+   The grader and the calibrator are pulled out of the blob and RUN.
+   ========================================================================== */
+{
+  const gsrc = demo.slice(demo.indexOf('const PERFECT_MS='), demo.indexOf('function sndOnBeatStab'));
+  const beatErrMs = new Function('b', gsrc + ';return beatErrMs(b);');
+  const gradeOf = new Function('ms', gsrc + ';return gradeOf(ms);');
+
+  ok('the grade is measured in real MILLISECONDS off the nearest beat, signed: before the beat is EARLY, after it is LATE',
+    Math.abs(beatErrMs(4.00)) < 1e-9 &&
+    Math.abs(beatErrMs(4.10) - 50) < 1e-9 &&      /* 0.1 beat after = 50ms late at 120bpm */
+    Math.abs(beatErrMs(3.90) + 50) < 1e-9);       /* 0.1 beat before = 50ms early */
+  ok('a press wraps to the NEAREST beat, so being a hair early for the next one never reads as hugely late for the last',
+    Math.abs(beatErrMs(3.98) + 10) < 1e-9);
+  ok('the bands are named the way a player can learn from: PERFECT inside 55ms, GOOD inside 110ms, then EARLY or LATE with the number',
+    gradeOf(0) === 'PERFECT' && gradeOf(-54) === 'PERFECT' && gradeOf(54) === 'PERFECT' &&
+    gradeOf(-100) === 'GOOD' && gradeOf(100) === 'GOOD' &&
+    gradeOf(-200) === 'EARLY' && gradeOf(200) === 'LATE');
+  ok('THE PRESS IS GRADED, NOT THE GRANTED SHOT. The permission gate fires on the beat by design, so grading the shot would print PERFECT forever and teach nothing',
+    demo.includes('G._pressBeat=beatNow();   /* V69: the GRADE is measured here, on the press */') &&
+    demo.includes('G._pressBeat=beatNow();   /* V69: graded on the press, always */') &&
+    demo.includes('const _pb=(G._pressBeat!=null)?G._pressBeat:beatNow(); G._pressBeat=null;'));
+
+  ok('THE GRADE SURVIVES: it lives on its own persistent strip with the signed error and a running PERFECT count, because the verdict flash is overwritten by the hit result within the beat -- a grade he never reads is the same failure as a fix he cannot feel',
+    demo.includes('id="timing"') &&
+    demo.includes('function updTiming(){') &&
+    demo.includes("t.textContent=g.grade+'  '+sign+g.ms+'ms'") &&
+    demo.includes("if(_gr==='PERFECT')G._perfects=(G._perfects||0)+1; updTiming();"));
+  ok('YOU SEE IT COMING: a ring collapses onto the dial across each beat and snaps at the hit, and the hero beat arrives fatter, brighter and from further out',
+    demo.includes('V69 THE APPROACH RING') &&
+    demo.includes('const _far=_hero?1.85:1.45, _near=0.99;') &&
+    demo.includes('const _r=RAD*(_far-(_far-_near)*_f);') &&
+    demo.includes('const _snap=Math.max(0,1-_f*7);'));
+  ok('YOU HEAR WHICH BEAT IT IS: beat one gets its own higher click, and the metronome is audible over the track instead of buried under it',
+    demo.includes('function sndHeroTick()') &&
+    demo.includes("if(Math.floor(beatNow())%4===0)sndHeroTick(); else sndBeat();") &&
+    demo.includes("function sndBeat(){ tone(415,0.035,0.055,'square'); }") &&
+    !demo.includes("function sndBeat(){ tone(415,0.035,0.022,'square'); }"));
+  ok('YOU HEAR YOURSELF PLAYING: an on-beat press stabs a note in the SONG\'S own key (root+fifth+octave on a PERFECT, the root alone on a GOOD, nothing when you are off the grid)',
+    demo.includes('function sndOnBeatStab(grade)') &&
+    demo.includes("const semi=(f.root-55)+((f.scale&&f.scale[0])||0)+12") &&
+    demo.includes("if(grade==='PERFECT'){ [0,7,12].forEach") &&
+    demo.includes("else if(grade==='GOOD'){ tone(noteHz(semi),0.10,0.040,'triangle',t); }") &&
+    demo.includes('try{ sndOnBeatStab(_gr); }catch(_e){}'));
+
+  /* the calibrator, executed */
+  {
+    const csrc = demo.slice(demo.indexOf('function calTap()'), demo.indexOf('function updStam()'));
+    const run = (taps) => {
+      const G = { _cal: { taps: taps.slice(0, -1) }, audioOffset: 0 };
+      const stub = `
+        function beatNow(){ return __next; }
+        function beatErrMs(b){ const f=b-Math.floor(b); return (f<0.5?f:f-1)*(60000/120); }
+        function syncLabel(){}
+        function setRead(){}
+        function calCancel(){ G._cal=null; }
+        ${csrc}
+        return calTap();`;
+      const last = taps[taps.length - 1];
+      new Function('G', '__next', stub)(G, 4 + (last / 500));
+      return G;
+    };
+    /* eight taps, consistently ~90ms late: the clock should shift back by ~90 */
+    const late = run([200, -200, 88, 92, 90, 86, 94, 90]);
+    ok('CALIBRATION: eight taps that land consistently late shift the whole clock by the MEDIAN, not the mean, so one fumbled tap cannot poison it (got ' + late.audioOffset + 'ms)',
+      late.audioOffset <= -86 && late.audioOffset >= -94 && late._cal === null);
+    /* garbage taps must be refused rather than stored */
+    const noise = run([0, 0, -300, 250, -180, 400, -420, 380]);
+    ok('CALIBRATION REFUSES NOISE: taps spread wider than a third of a beat store nothing rather than saving garbage as your sync',
+      noise.audioOffset === 0 && noise._cal === null);
+    ok('the first two taps are always thrown away (nobody lands the first click of a calibration)',
+      demo.includes('const t=G._cal.taps.slice(2).sort((a,b)=>a-b);'));
+    ok('the SYNC button lives in settings and doubles as the tap target',
+      demo.includes('id="synccal"') &&
+      demo.includes("if(!calTap())calStart();"));
   }
 }
 

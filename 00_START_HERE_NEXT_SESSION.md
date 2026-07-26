@@ -336,6 +336,32 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v69: MAKE THE BEAT PERCEIVABLE. Paolo after v68: "I couldn't
+really tell a difference... how can we do better to make this feel like a rhythm
+game?" The v68 math was right and gated; NOTHING let him perceive it. THE LESSON,
+now a standing rule (laws/BOHEMIA_ADDENDUM_WHAT_MAKES_IT_A_RHYTHM_GAME_7_26_26.md):
+a player cannot feel a fix he cannot perceive, so any timing/feel work ships with
+its PERCEPTION in the same turn. A gate proves non-violation, never feel.
+FOUR PILLARS, all shipped: (1) ANTICIPATION - an approach ring collapses onto the
+dial across each beat and snaps at the hit, hero beat fatter/brighter/from further
+out. (2) JUDGMENT - every PRESS graded PERFECT/GOOD/EARLY/LATE with the real ms on
+a PERSISTENT strip (the verdict flash is overwritten by the hit result within the
+beat, so the first version of this would never have been read) + a running PERFECT
+count. We grade the press, not the granted shot, or the permission gate would
+print PERFECT forever. (3) AUTHORSHIP - an on-beat press stabs a note in the
+song's own key (root+fifth+octave on PERFECT). (4) CALIBRATION - a SYNC button
+runs the standard tap-along (8 clicks, MEDIAN, refuses noisy taps) and stores a
+per-device clock offset; phone latency is 40-300ms and uncalibrated that alone
+can make a correct build feel like nothing.
+STILL MISSING, in order (in the addendum + backlog): rhythm AS difficulty (the 52
+patterns are curve shapes, not note values), the whole fight on the grid (volley,
+deaths, steps, camera), a count-in bar, and [PENDING Paolo] whether the POP should
+be beat-gated too (it would neutralise his ON THE ONE streak reward).
+Gate: combat_lab_gate section 9 EXECUTES the grader (ms + bands + nearest-beat
+wrap) and the calibrator (median, noise refusal, first-two-taps discarded). 247
+green. Proof: slices/BOHEMIA_RHYTHM_PROOF_7_26_26.png ("LATE +158ms" on the
+strip). Tool: tools/bohemia_combat_rhythm_patch.py.
+
 COMBAT (04) 7/26 - v68: 120 BPM GAMEPLAY COMES FIRST (Paolo's law, recorded:
 laws/BOHEMIA_ADDENDUM_120BPM_FIRST_AND_THE_PERMISSION_PRESS_7_26_26.md).
 He played v67 and it still did not feel like the hero beat. He was right and I
