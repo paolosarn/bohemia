@@ -223,6 +223,57 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CHARACTER (04) 7/26 LATEST — I FOUND THE E/W MORPHING AND IT IS NOT WHERE
+ANYONE HAS BEEN LOOKING. Paolo, third rejection: "The east and west animations
+are still dog shit when it comes to morph pixels underneath the arms and the
+back leg in the back arm. All the pieces are made how they should be made
+bullshit look at the rig." So I decoded RIG_B64 and diffed his rig's draw loop
+against the alpha's skinner. THREE render passes the alpha invented and his rig
+never had: JOINT WELD (retired earlier today), EVERY PIXEL LANDS (a forward
+splat into "the nearest free cell" — in profile, wherever the arm/torso overlap
+left a gap that frame), and FAR-ARM DARKENING (repaint the far arm at 62%, set
+on E and W ONLY, mask read off the deformed grid per frame). Both survivors are
+now retired behind SKINNER_API.RIGFAITH.on, so the A/B is re-runnable.
+Measured, 102 clips x 8 facings x 24 phases: invented pixels 33,400 -> 18,284
+(45%), E+W 7,879 -> 3,356 (57%), arm-L on E+W 2,984 -> 1,118.
+
+AND IT DID NOT FIX WHAT HE IS WATCHING. On the COMPOSITED frame the strobe (a
+cell that changes and changes straight back across three frames) went 4.65 ->
+4.74 per frame. Nothing. Recorded that way on purpose. Then I found it: NAKED
+is worse than dressed (5.39 vs 4.74), so it is the BODY not the clothing; it
+concentrates on rows 22-25 and 31, the arm-over-torso band; and every strobing
+tone pair is a pair of SKIN RAMP tones, 88% of them one pair — base skin <->
+the dark anatomy line. THE BODY IS NOT DRAWN FROM PAINTED PIXELS AT ALL.
+buildFrame recomputes its tone every frame off the DEFORMED grid: a dark
+ANATOMY LINE where an orthogonal neighbour is empty or a different limb GROUP,
+plus a SKY TOP-LIGHT where the two cells above are empty. In profile the arm
+sits inside an 8px torso, so a one-pixel swing reclassifies whole runs between
+skin and line, and back the next frame. That is his own SHADOWS ARE SEPARATE
+ruling being broken by the BODY, not just the garments it was written about.
+
+RULED OUT, both measured, both null: pose quantization (joints snapped to 1/2px
+and 1px — no effect) and the rigid limb stamp (exact rest bone length + angle
+snapped to 48/32/24/16/12/8 steps — only 4.76 -> 3.32 even at 45deg steps,
+which would wreck the poses).
+
+CANDIDATE FIX, MEASURED, DELIBERATELY NOT SHIPPED: bind the anatomy line to the
+REST pixel and carry it through the same inverse sample the art rides, so the
+line travels WITH the limb. 4.36 -> 2.02 line flips per frame (54%). Halves the
+dominant defect, does NOT cure it. NOT shipped because STOP PRODUCING applies —
+this is the fourth renderer attempt against the same complaint and he has
+rejected three. It needs his go, not a green number.
+  law    : laws/BOHEMIA_ADDENDUM_RENDER_LIKE_THE_RIG_7_26_26.md
+  gate   : gates/render_like_the_rig_gate.js (23 checks; ratchets the audit AND
+           locks the honest text so nobody keeps the 57% and deletes the "it did
+           not move")
+  tools  : tools/bohemia_render_like_the_rig_patch.py (idempotent),
+           tools/bohemia_profile_morph_audit.js (the whole evidence chain)
+  record : records/BOHEMIA_PROFILE_MORPH_AUDIT_7_26_26.txt
+NEXT SESSION IN THIS LANE: do not ship another animation look-change unasked.
+The two things that need Paolo: (1) go/no-go on the rest-bound anatomy line,
+(2) the profile repaint — E/W body is 8px of torso with both arms inside it,
+still [PENDING Paolo] for his hand or his go-ahead on candidates.
+
 CITY (03) 7/26 LATEST — THE INTERIOR WAS KILLED, AND THE SWEEP IS FINALLY
 USABLE. Paolo on the first interiors: "Dogshit." KILL recorded
 (INTERIOR_SHELL_v1_7_26_26 in the graveyard, post-mortem in

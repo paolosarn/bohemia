@@ -1,0 +1,99 @@
+BOHEMIA — PROFILE MORPH AUDIT (7/26/26)
+measured in a real browser on slices/BOHEMIA_ALPHA_0_9.html
+
+Paolo 7/26: "The east and west animations are still dog shit when it comes to
+morph pixels underneath the arms and the back leg in the back arm. All the
+pieces are made how they should be made... look at the rig."
+
+scope: 102 clips x 8 facings x 24 phases for the pixel counts;
+       the composited sections run the first 30 clips on E and W only
+       (a composited frame is ~50x the cost of a grid sweep). Nothing else is trimmed.
+
+=== 1. INVENTED PIXELS ====================================================
+invented = on-screen minus painted. A rigid limb can only ever LOSE pixels to
+occlusion, so anything above zero is the renderer drawing art nobody painted.
+A/B = the two render passes HIS RIG DOES NOT HAVE, off vs on:
+  EVERY PIXEL LANDS -- forward-splat a missed painted pixel into the nearest free cell
+  FAR-ARM DARKENING -- repaint the far arm at 62%, E and W only
+
+facing |   before ->    after   removed
+---------------------------------------
+S      |     1725 ->      667     61%
+SE     |     3715 ->     2316     38%
+E      |     3444 ->     1362     60%   <-- he named this one
+NE     |     6578 ->     4541     31%
+N      |     1278 ->     1070     16%
+NW     |     6010 ->     3733     38%
+W      |     4435 ->     1994     55%   <-- he named this one
+SW     |     6215 ->     2601     58%
+---------------------------------------
+TOTAL  |    33400 ->    18284     45%
+
+E+W specifically: 7879 -> 3356  (57% removed)
+per part on E+W:
+  torso          6 ->      0
+  arm-L       2984 ->   1118
+  arm-R       2167 ->    578
+  hand-L       866 ->    321
+  hand-R       989 ->    487
+  thigh-L       19 ->      7
+  thigh-R       16 ->      4
+  foot-L       261 ->    268
+  foot-R       241 ->    135
+
+=== 2. WHAT HE ACTUALLY SEES ==============================================
+STROBE = a cell that changes and changes straight back across three consecutive
+frames (there/gone/there, or tone A/B/A). A rigid limb swinging past you never
+does that; the renderer changing its mind does. Measured on the COMPOSITED
+frame -- the surface he watches -- on E and W.
+
+  both passes on (what he judged) : 4.65 strobing pixels per frame  (1674 on/off, 5015 tone)
+  both passes retired             : 4.74 strobing pixels per frame  (1630 on/off, 5200 tone)
+
+READ THIS HONESTLY: section 1 is a big win and section 2 barely moves. Removing
+the two invented passes stops the renderer FABRICATING, but it is not what he is
+looking at. The strobe is somewhere else, and section 3 finds it.
+
+=== 3. WHERE THE STROBE LIVES =============================================
+  dressed : 4.74 per frame
+  naked   : 5.39 per frame
+
+Naked is WORSE than dressed, so this is the BODY, not the clothing.
+
+busiest sprite rows (y, strobe count) -- the arm-over-torso band:
+  y25:391   y24:378   y23:351   y22:316   y31:313
+
+the tone pairs doing the strobing, naked, most frequent first:
+   3143  191,175,166 <-> 153,137,129
+   2363  153,137,129 <-> 191,175,166
+    196  153,137,129 <-> 224,211,203
+    149  191,175,166 <-> 172,158,149
+    144  224,211,203 <-> 191,175,166
+    110  191,175,166 <-> 224,211,203
+
+Every one of those is a pair of BODY SKIN RAMP tones. Nothing else is in the
+list. The body is not drawn from painted pixels at all -- buildFrame recomputes
+its tone every frame off the DEFORMED grid: a dark ANATOMY LINE wherever an
+orthogonal neighbour is empty (outer silhouette) or belongs to a different limb
+group (arm against torso), plus a light SKY TOP-LIGHT where the two cells above
+are empty. In profile the arm sits inside an 8px torso, so a one-pixel swing
+reclassifies whole runs of pixels between skin tone and line tone -- and back
+the next frame. That is the morphing underneath the arms, and it is his own
+7/26 ruling being broken: the lighting layer is being re-derived under the
+animation instead of behaving like light.
+
+=== 4. THE CANDIDATE FIX, MEASURED BEFORE ANYONE BELIEVES IT ==============
+Bind the anatomy line to the REST pixel (where he painted it) and carry it
+through the SAME inverse sample the art rides, so the line travels WITH the
+limb instead of being re-derived under it.
+
+  today (re-derived per frame) : 4.36 line flips per frame
+  rest-bound line             : 2.02 line flips per frame   (54% removed)
+
+NOT A CURE, and it is not shipped. It halves the dominant defect; the residual
+is the inverse sample landing a cell on a different source pixel between frames.
+Shipping it is Paolo's call, not a green number's.
+
+page errors: none
+
+regenerate: node tools/bohemia_profile_morph_audit.js

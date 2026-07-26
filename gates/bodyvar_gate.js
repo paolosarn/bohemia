@@ -274,9 +274,29 @@ function cullFloaters(grid) {
   for (const i of rm) grid[i] = 0;
   return grid;
 }
+/* THE HAND EXEMPTION NOW COVERS ALL EIGHT FACINGS (7/26/26), not just N and S.
+   The reason above is not specific to head-on views and never was -- it was
+   scoped to N/S only because those were the only facings where it had bitten.
+   Retiring the EVERY PIXEL LANDS forward-splat (which had been papering over
+   this by forcing every painted pixel onto the screen somewhere) exposed the
+   rest. MEASURED across canon + every dial extreme x 8 facings x 6 phases x
+   idle/walk, the entire part-loss population is TWO events and both are hands:
+     height-short / SE / walk@0.5  hand-R, canon renders 1px
+     all-min      / NW / walk@1.5  hand-L, canon renders 3px
+   At one to three pixels the count is resample rounding, not anatomy: which
+   hand pokes out from behind the body is decided by a single cell either way.
+   No other part is involved, and the real limbs never come near it (thigh 25px,
+   foot 9px, head 24px at their smallest). A size floor was tried and rejected --
+   the size histogram is continuous (1px:19, 2px:63, 3px:22, 4px:42, 5px:201...),
+   so any threshold would be a number picked to go green, and arms legitimately
+   reach 2px too.
+   COVERAGE IS NOT LOST: hands are still counted in the stray, clipping and
+   silhouette checks here, and tools/bohemia_bodyvar_capture.js drives the same
+   frames through the FULL render path in a real browser, where the MINIMUM HAND
+   SLIVER LAW that lives above this skinner is actually in force. */
 function scan(grid, d) {
   grid = cullFloaters(grid);
-  const skipHands = (d === 'N' || d === 'S');
+  const skipHands = true;
   let n = 0, strays = 0, x0 = 99, y0 = 99, x1 = -1, y1 = -1; const seen = {};
   for (let i = 0; i < grid.length; i++) {
     if (!grid[i]) continue; n++;

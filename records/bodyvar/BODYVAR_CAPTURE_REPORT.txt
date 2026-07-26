@@ -9,19 +9,29 @@ are listed by name every run so they can never grow quietly. The frame-full
 clips -- the ones Paolo's own body already paints on the edge in -- are
 derived from the canon sweep, never hand-picked, and counted separately.
 
-OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=0 [+20 edge frames on the frame-full clips canon already fills; border-touch total 273] empty=0 threw=0
-OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 374] empty=0 threw=0
-OK   height-tall    frames=5712 strays=0 SHAVES=0 grazes=2 [+153 edge frames on the frame-full clips canon already fills; border-touch total 513] empty=0 threw=0
+OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=0 [+20 edge frames on the frame-full clips canon already fills; border-touch total 270] empty=0 threw=0
+OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 370] empty=0 threw=0
+OK   height-tall    frames=5712 strays=0 SHAVES=0 grazes=6 [+150 edge frames on the frame-full clips canon already fills; border-touch total 510] empty=0 threw=0
        - graze (nothing cut), listed so it cannot grow quietly: greet/E@0.65 (+5px)
        - graze (nothing cut), listed so it cannot grow quietly: greet/W@0.65 (+4px)
-OK   belly-thin     frames=5712 strays=0 SHAVES=0 grazes=0 [+8 edge frames on the frame-full clips canon already fills; border-touch total 369] empty=0 threw=0
-OK   belly-wide     frames=5712 strays=0 SHAVES=0 grazes=0 [+9 edge frames on the frame-full clips canon already fills; border-touch total 383] empty=0 threw=0
-OK   arms-thin      frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 374] empty=0 threw=0
-OK   arms-thick     frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 374] empty=0 threw=0
-OK   ALL-MIN        frames=5712 strays=0 SHAVES=0 grazes=0 [+20 edge frames on the frame-full clips canon already fills; border-touch total 270] empty=0 threw=0
-OK   ALL-MAX        frames=5712 strays=0 SHAVES=0 grazes=2 [+152 edge frames on the frame-full clips canon already fills; border-touch total 512] empty=0 threw=0
+       - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.65 (+3px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.8 (+3px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.8 (+4px)
+OK   belly-thin     frames=5712 strays=0 SHAVES=0 grazes=0 [+8 edge frames on the frame-full clips canon already fills; border-touch total 368] empty=0 threw=0
+OK   belly-wide     frames=5712 strays=0 SHAVES=0 grazes=2 [+10 edge frames on the frame-full clips canon already fills; border-touch total 382] empty=0 threw=0
+       - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.8 (+4px)
+OK   arms-thin      frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 370] empty=0 threw=0
+OK   arms-thick     frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 370] empty=0 threw=0
+OK   ALL-MIN        frames=5712 strays=0 SHAVES=0 grazes=0 [+20 edge frames on the frame-full clips canon already fills; border-touch total 269] empty=0 threw=0
+OK   ALL-MAX        frames=5712 strays=0 SHAVES=0 grazes=6 [+149 edge frames on the frame-full clips canon already fills; border-touch total 509] empty=0 threw=0
        - graze (nothing cut), listed so it cannot grow quietly: greet/E@0.65 (+5px)
        - graze (nothing cut), listed so it cannot grow quietly: greet/W@0.65 (+4px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.65 (+4px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.8 (+4px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)
+       - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.8 (+4px)
 
 SHEETS:
   records/bodyvar/BODYVAR_height_bare_walk.png
