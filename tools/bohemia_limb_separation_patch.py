@@ -131,13 +131,44 @@ NEW_CULL = '''  /* =============================================================
    /* the darker colour this pixel is ALLOWED to become: its own ramp, one step
       darker. Ramps are not guaranteed ordered, so pick the darkest entry that is
       still darker than this one. */
+   /* THE LINE GOES WHICHEVER WAY THE GARMENT HAS ROOM (Paolo 7/26/26, on being
+      asked to choose between a dark line and a light rim: neither works alone).
+      MEASURED: 79.9% of boundary pixels are already the darkest tone their garment
+      owns, because the hoodie's whole ramp is luminance 21/24/31 -- ten points of
+      near-black. It has no room DOWN. But it has enormous room UP, and a light
+      garment is the mirror case. So:
+        1. prefer a DARKER entry of the pixel's OWN ramp (his art first)
+        2. else a LIGHTER entry of its own ramp (a rim reads as separation too)
+        3. else derive one, at a fixed contrast step, in whichever direction the
+           pixel has room -- and NEVER toward black, because the visual
+           constitution forbids a black keyline. Hue is preserved: the tone is the
+           same colour at a different value, which is what 'color-coded on the
+           clothing' means.
+      A derived tone is still a separate LAYER at render time; it is never written
+      back into the garment's pixel data. */
+   const CONTRAST=30, FLOOR=10, CEIL=246;
+   const shift=(c,dir)=>{
+     const L0=lumf(c)||1, target=Math.max(FLOOR,Math.min(CEIL,L0+dir*CONTRAST));
+     const k=target/L0;
+     return [Math.max(0,Math.min(255,Math.round(c[0]*k))),
+             Math.max(0,Math.min(255,Math.round(c[1]*k))),
+             Math.max(0,Math.min(255,Math.round(c[2]*k)))];};
    const darkerOf=(c)=>{
+     const L0=lumf(c);
      const e=MAP[c[0]+','+c[1]+','+c[2]];
-     if(e&&e.ramp){let best=null,bl=-1;const L0=lumf(c);
+     if(e&&e.ramp){
+       /* 1. his own darker tone */
+       let best=null,bl=-1;
        for(const q of e.ramp){if(!q)continue;const L1=lumf(q);
-         if(L1<L0-6&&L1>bl){bl=L1;best=q;}}
-       if(best)return best;}
-     return null;};
+         if(L1<L0-CONTRAST*0.5&&L1>bl){bl=L1;best=q;}}
+       if(best)return best;
+       /* 2. his own lighter tone -- a rim separates just as well */
+       let up=null,ul=1e9;
+       for(const q of e.ramp){if(!q)continue;const L1=lumf(q);
+         if(L1>L0+CONTRAST*0.5&&L1<ul){ul=L1;up=q;}}
+       if(up)return up;}
+     /* 3. derive, away from whichever end it is jammed against */
+     return shift(c, L0<=FLOOR+CONTRAST ? +1 : -1);};
    const skinLine=(()=>{try{const r=skinRampFor();return r&&r[1]?r[1]:null;}catch(e){return null;}})();
    const out=[];
    for(let i=0;i<px.length;i++){
@@ -153,7 +184,7 @@ NEW_CULL = '''  /* =============================================================
        if((g===1||g===2)&&ng===5&&y<=SHY2+1)continue;        /* SHOULDER BLEND, his */
        hit=true;break;}
      if(!hit)continue;
-     const dk=darkerOf(px[i]) || (SEPG[pid]!==0&&skinLine&&px[i]===skinLine?null:null);
+     const dk=darkerOf(px[i]);
      if(dk)out.push([i,dk]);
    }
    for(const [i,c] of out)px[i]=[c[0],c[1],c[2]];}

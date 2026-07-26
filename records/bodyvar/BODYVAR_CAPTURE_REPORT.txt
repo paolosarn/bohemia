@@ -9,8 +9,9 @@ are listed by name every run so they can never grow quietly. The frame-full
 clips -- the ones Paolo's own body already paints on the edge in -- are
 derived from the canon sweep, never hand-picked, and counted separately.
 
-OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=0 [+17 edge frames on the frame-full clips canon already fills; border-touch total 259] empty=0 threw=0
-OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 364] empty=0 threw=0
+OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=1 [+17 edge frames on the frame-full clips canon already fills; border-touch total 260] empty=0 threw=0
+       - graze (nothing cut), listed so it cannot grow quietly: headshot/N@0.95 (+1px)
+OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 363] empty=0 threw=0
 OK   height-tall    frames=5712 strays=0 SHAVES=0 grazes=2 [+165 edge frames on the frame-full clips canon already fills; border-touch total 511] empty=0 threw=0
        - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.65 (+3px)
        - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)

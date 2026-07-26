@@ -47,8 +47,12 @@ ok('a boundary pixel may only take an entry from its OWN garment ramp',
   /const darkerOf=\(c\)=>\{/.test(src) && /const e=MAP\[c\[0\]\+','\+c\[1\]\+','\+c\[2\]\]/.test(src));
 ok('a colour belonging to no known ramp is LEFT ALONE, never guessed',
   /if\(dk\)out\.push\(\[i,dk\]\)/.test(src));
-ok('no multiply or arithmetic shade is applied anywhere in the pass',
-  !/\*\s*0\.\d+\|0/.test(src.slice(src.indexOf('LIMB SEPARATION IS A LAYER ON TOP'), src.indexOf('FINAL FLOATER CULL'))));
+ok('the line goes whichever way the garment has ROOM (his ramp darker, else lighter, else derived)',
+  /prefer a DARKER entry of the pixel's OWN ramp/.test(src) && /else a LIGHTER entry of its own ramp/.test(src));
+ok('a derived tone never heads toward black (the constitution forbids a black keyline)',
+  /const CONTRAST=\d+, FLOOR=\d+, CEIL=\d+;/.test(src) && /NEVER toward black/.test(src));
+ok('deriving is the LAST resort, only when the ramp has no headroom either way',
+  /else derive one/.test(src) && /fixed contrast step/.test(src));
 ok('the colour -> ramp map is rebuilt per frame so tints resolve exactly',
   /window\._SEPMAP=\{\};\s*\/\* LIMB SEPARATION IS A LAYER/.test(src));
 
@@ -72,7 +76,17 @@ ok('the law records that the LEGS were wrongly excluded on the wrong measurement
 ok('the law records the WALL: 79.9% of boundary pixels have no darker tone to use',
   /79\.9%/.test(law));
 ok('the law records the actual ramp luminances that prove it', /21, 24, 31/.test(law));
-ok('the law puts the decision to Paolo as art/data, not code',
+ok('the law puts the remaining decision to Paolo as art/data, not code',
   /A LINE TONE PER GARMENT/.test(law) && /RIM LIGHT/.test(law));
+ok('the law records that neither direction works alone, which is why he was right not to choose',
+  /NEITHER WORKS ALONE/.test(law));
+ok('the law records where the pass actually lands (71 of 79 eligible cells)',
+  /71 of 79/.test(law));
+ok('the law records the measured result (clothed limbs now separate like bare skin)',
+  /72\.6% \/ 66\.7%/.test(law) && /about as well as bare skin/.test(law));
+ok('the law records the idempotent-patch trap that wasted three measurement rounds',
+  /A PROCESS FAILURE WORTH RECORDING/.test(law) && /is not the same as a tool that did the thing/.test(law));
+ok('the law flags the one derived colour so it can be vetoed',
+  /ONE place a colour is derived/.test(law));
 
 done();

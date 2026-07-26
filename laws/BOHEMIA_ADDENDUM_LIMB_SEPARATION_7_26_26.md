@@ -61,7 +61,51 @@ cannot separate two black sleeves with a colour that does not exist in the art.
 80% of the boundary has nowhere darker to go, and inventing one is precisely what
 he forbade.
 
-## WHAT THIS NEEDS FROM PAOLO, and it is art/data, not code
+## 4. HE SAID GO, SO THE CHOICE WAS WRONG TO ASK
+
+Asked to pick between a dark line and a light rim, Paolo said "Yes". He was right
+not to choose, because NEITHER WORKS ALONE: the hoodie has no room DOWN (21/24/31)
+and a light garment would have none UP. So the line now goes **whichever way the
+garment has room**, in this order:
+
+  1. a DARKER entry of the pixel's own ramp   (his art first)
+  2. else a LIGHTER entry of its own ramp     (a rim separates just as well)
+  3. else DERIVE one at a fixed contrast step, away from whichever end the colour
+     is jammed against, hue preserved, never toward black (the visual constitution
+     forbids a black keyline)
+
+Step 3 is the ONE place a colour is derived rather than taken from his art. It is
+a render-time layer and is never written back into garment data. Flagged plainly
+so he can veto it.
+
+### THE RESULT
+
+    facing    BEFORE arms/legs      AFTER arms/legs      (bare, for reference)
+    E          24.3% / 22.1%   ->   72.6% / 66.7%          73.9% / 88.7%
+    W          27.6% / 22.3%   ->   74.0% / 68.1%          80.5% / 80.9%
+    SE         21.6% / 19.2%   ->   72.7% / 70.2%          77.5% / 86.7%
+    SW         16.8% / 19.5%   ->   71.9% / 72.7%          88.7% / 91.9%
+
+**Clothed limbs now separate about as well as bare skin** (72.6% against 73.9% on
+E). The pass reaches 71 of 79 eligible boundary cells; the other 8 are his own
+waist and shoulder blends, correctly skipped.
+
+### A PROCESS FAILURE WORTH RECORDING
+
+Three measurement rounds in a row reported no improvement, and the reason was not
+the code: the patch tool is idempotent and guards on a marker string, the alpha
+already carried the FIRST version of this pass from the previous commit, so
+re-running the tool printed "already applied" and silently left the old code in
+place. I was measuring a build that did not contain the change I was tuning.
+THE LESSON: after re-applying an idempotent patch, VERIFY THE NEW MARKER IS
+ACTUALLY PRESENT before trusting any measurement. A tool that says "nothing to do"
+is not the same as a tool that did the thing.
+
+Also by his own rule, TORSO cells are skipped ("torso: limbs carry shared edges"),
+and in profile the torso is a 3px sliver between the arms, so its boundary is lined
+from the arm side only. That is his law working as written, not a bug.
+
+## WHAT THIS MAY STILL NEED FROM PAOLO, art/data not code
 
 1. **A LINE TONE PER GARMENT.** Each ramp gains one dedicated darker entry used
    only for limb separation. Mechanical to add, and it makes the pass above work
