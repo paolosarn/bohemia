@@ -15,6 +15,22 @@
 # until the story changes is #risky, walking a crowd out the road on his word is
 # #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q001.W2  RUMOR -> HUMAN -> TRAGIC RETURN
+#   applied: the rumor arrives first, the man turns out to be a person, and whether the flat version returns is left unanswered on purpose.
+# @STUDY Q004.W6  THE AMBIGUOUS PETITIONER
+#   applied: he cannot be resolved into truthful or lying, and the quest refuses to do it for you.
+# @STUDY Q021.W2  "YOU CAN'T SAVE EVERYONE" AS THE THESIS
+#   applied: nineteen left last time and four came back, and nobody knows anything more than that.
+# @STUDY Q001.P2  W2 (rumor->human->return
+#   applied: the port instruction is rumor, then contact, then sometimes the flat truth returning. Here the third beat is deliberately withheld, because what is outside is not a side quest to decide.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_one_who_came_back   The One Who Came Back
 @ACT     2
 @FACTION REMNANTS

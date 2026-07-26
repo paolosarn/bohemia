@@ -11,6 +11,22 @@
 # the deed: lead them out gently -> #quiet; put them down loud for the bounty ->
 # #reckless; seal the tunnel and lie that it is gone -> #risky.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q004.W6  THE AMBIGUOUS PETITIONER
+#   applied: the haunt is a grieving neurolinked person and a genuine danger at the same time; you cannot resolve it into one thing.
+# @STUDY Q001.W11  NO CLEAN WIN
+#   applied: mercy, rescue and bounty all cost something real; none of them is the clean read.
+# @STUDY Q021.W2  "YOU CAN'T SAVE EVERYONE" AS THE THESIS
+#   applied: the deep is where you learn you were never going to save everyone down there.
+# @STUDY Q022.P7  W9 (sympathy for the enemy
+#   applied: the thing in the deep is humanized until putting it down costs the player something, which is the whole reason the bounty framing hurts.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_deep_cry   What Cries in the Deep
 @ACT     2
 @FACTION NONE

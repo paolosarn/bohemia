@@ -10,6 +10,22 @@
 # not a mark. No proper names (W8). CLOUT rides the deed: a plain bounty is #risky;
 # the ugly high-pay one, done anyway, is #reckless; walking away clean is #quiet.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q073.W5  THE HARM COMES BACK WEARING YOUR OWN FACE
+#   applied: the ugly name pays double because he ran from a debt, which is the same thing the block does every week.
+# @STUDY Q021.W2  "YOU CAN'T SAVE EVERYONE" AS THE THESIS
+#   applied: refusing genuinely shortens your own block on medicine; the arithmetic does not care that you were principled.
+# @STUDY Q007.W2  EASY TO COMPLETE, HARD TO MASTER
+#   applied: the clean name is trivially completable; taking only clean names forever is the self-imposed difficulty nobody rewards.
+# @STUDY Q144.X2  GRIND CAN OUTWEIGH GRIEF
+#   applied: the flaws master warns that grind flattens grief, so the pitch gets a little more reasonable every run instead of the pay just getting bigger.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_standing_bounty   The Standing Bounty
 @ACT     2
 @FACTION REMNANTS

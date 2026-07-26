@@ -12,6 +12,22 @@
 # is #notable, enforcing the old paper is #risky, burning it in his hands is
 # #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q065.W3  YOU ARE PROPERTY, FIGHTING TO EXIST
+#   applied: the argument is whether people can be moved because a document says the ground under them is somebody else.
+# @STUDY Q001.W11  NO CLEAN WIN
+#   applied: the deed holder is correct, the family is correct, and every ending costs one of them something permanent.
+# @STUDY Q003.W8  THE WITNESS WHO KNOWS
+#   applied: the welder tarred that roof twice and is the only witness to what the eleven years actually contain.
+# @STUDY Q007.P9  W10 (cross-system consequence
+#   applied: the resolution feeds the wider system: honoring the deed really moves reds standing, burning it really moves their posture.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_paper_says_so   The Paper That Says So
 @ACT     1
 @FACTION REDS

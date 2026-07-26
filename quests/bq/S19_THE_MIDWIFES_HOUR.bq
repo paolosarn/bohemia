@@ -12,6 +12,20 @@
 # their fuel. No proper names. CLOUT rides the deed: dark and clean is #quiet,
 # the open room singing is #notable, taking the fuel without asking is #risky.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q136.W7  THE DOOR CAN BE TALKED PAST WITH HER OWN DOUBT
+#   applied: PORTED AS MECHANIC: the pastor is not out-argued. The option to let her decide only exists once his own doubt has been surfaced.
+# @STUDY Q136.P6  PERSUASION AS MIDWIFERY [W7]
+#   applied: the corpus writes the .bq form of it as a knowledge gate, and that is exactly how it is built here.
+# @STUDY Q021.W5  TRIAGE AS THE CORE LOOP
+#   applied: one hour of fuel, two kinds of care, and no version where both get what they need.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_midwifes_hour   The Midwife's Hour
 @ACT     1
 @FACTION CHURCH
@@ -94,9 +108,28 @@
   @SAY It is one hour and it is the last fuel in this building. Tell me which one it buys.
   @OPT "Water. Dark room, clean hands."      [gate: none]  -> water
   @OPT "Light. Fill the room. Let them sing." [gate: none]  -> light
-  @OPT "Ask her. It is her hour."             [gate: none]  -> asker
+  @OPT "Has the singing ever not been enough?"  [gate: none]  -> doubt
+  @OPT "Then she should be the one who says."   [gate: knows:his_doubt]  -> asker
   @OPT "What is the fuel actually for?"        [gate: none]  TRAP -> forwhat
   @NOVERB "Tell him the church can find more fuel tomorrow"
+@END
+
+# =====================================================================
+# PERSUASION AS MIDWIFERY (questbook port Q136.W7 / Q136.P6: "the door can be
+# talked past with HER OWN doubt" — Cauthrien turns aside not for your charm
+# but for her conscience, surfaced, and the corpus writes the .bq form of it
+# as [gate: knows:their_misgiving]). He does not hand the hour to the girl
+# because you argued well. He hands it over because you asked him one question
+# he had already been asking himself at four in the morning. Until that
+# question is asked, the option does not exist.
+# =====================================================================
+@TALK doubt  speaker=pastor
+  @SAY Once. #dread
+  @SAY Room full, every voice in it, and I have never in my life been more certain that we were doing the right thing, and she died anyway with all of us watching and singing.
+  @SAY I have never said that out loud in this building. I do not know what you want me to do with it, and I suspect you do not either.
+  @OPT "Then she should be the one who says."  [gate: none]  -> asker  @DO learn his_doubt
+  @OPT "Then it is water."                      [gate: none]  -> water  @DO learn his_doubt
+  @OPT (say nothing and wait)                    [gate: none]  SILENCE -> chapel  @DO learn his_doubt
 @END
 
 # THE TRAP: the honest answer is that the fuel is the block's whole winter

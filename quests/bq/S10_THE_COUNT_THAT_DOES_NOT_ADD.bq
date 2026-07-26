@@ -13,6 +13,20 @@
 # as canon allows: the network is manufactured protection, and the stairwell the
 # count climbs has no landings anyone has ever seen.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q031.W10  THEME THROUGH THE INTERFACE
+#   applied: the count IS the argument: you do not read about being administered, you answer a number and watch it become crates and a page.
+# @STUDY Q031.W6  RECURRING HUMAN FACES
+#   applied: the ones who cannot be listed are neighbors with faces, and the organizer will not name them for you.
+# @STUDY Q113.P2  W1/W2/W4 (the inheritance is a list of children + nobody can tell you why + the children litigate your father's morality — our FOLD + generational persistence + [READ] +
+#   applied: the page is a list of names that outlives everyone on it, which is exactly why the short count costs food.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_the_count   The Count That Does Not Add
 @ACT     1
 @FACTION NETWORK

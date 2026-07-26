@@ -9,6 +9,20 @@
 # draw a real crowd -> #notable; splice the amp into a live street line for a roaring
 # set -> #risky (loud AND dangerous, and the deed itself is what the feed rewards).
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q022.W5  HUMANIZING THE FUNCTIONAL
+#   applied: the busker is the warm contrast the dark quests are measured against; the reward is a person, not loot.
+# @STUDY Q001.W1  TRANSACTION-CARRIES-EMOTION
+#   applied: it opens as an errand (fix an amp) and the person arrives underneath it.
+# @STUDY Q036.P3  W3 (comedy/warmth as a delivery system for dread
+#   applied: warmth used deliberately as a delivery system: the block that can still play music is the same block that goes dark later.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_one_more_set   One More Set
 @ACT     1
 @FACTION NONE

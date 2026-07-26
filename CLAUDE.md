@@ -94,6 +94,18 @@ research partner. He DECIDES, you PRODUCE.
   what it used or why nothing fit. A claimed reuse must actually open that
   bank in code, not just say so. Gate: reusefirst_gate.py sweeps every
   tools/*_factory.py and *_cook*.py file. Full law in /laws.
+- QUEST STUDY LAW (Paolo 7/26, LOCKED, "we dug data and we collected a total of
+  150 quest and shit like did you give a fuck about any of that?"): the questbook
+  is 240 files and 152 quests studied to the bone (3,672 citable findings across
+  the CRAFT/FLAWS/PORTS/CONVERSATIONS masters). It was being ignored in favor of
+  the summary bullets in this file, and nothing in the machine cared. NOW: every
+  canon .bq quest must CITE the corpus laws it is built on -- `# @STUDY Q021.W5
+  TRIAGE AS THE CORE LOOP` plus an `applied:` line saying what was actually used.
+  The id must resolve in records/BOHEMIA_QUESTBOOK_LAW_INDEX.json, the title must
+  match the corpus VERBATIM, and a quest must span >=2 studies and >=2 masters.
+  This is REUSE-FIRST for quests: a citation is a claim the machine can check,
+  never a name-drop. Index: `python3 tools/bohemia_questbook_index.py`. Gate:
+  quest_study_gate.js. Full law in /laws.
 - WALKABLE-LAND LAW (Paolo 7/20, LOCKED, "this has to be a new rule"): a district
   is a FULL PLOT of walkable land; it CANNOT be mostly parking lot / driveway /
   apron with a tiny building stranded in it. BUILDINGS + PURPOSEFUL CONTENT must

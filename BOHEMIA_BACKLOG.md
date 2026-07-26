@@ -176,8 +176,13 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md). Sitting is live in
    the alpha: LIFE tab -> THE 12 NEW CANON QUESTS. Awaiting thumbs.
 2. Act-1 main-quest beats from the locked lore (cold open -> flash-flood climax)
-   drafted as .bq chains. | same bar as S10-S21, plus chain continuity proven
-   headless | engine code, the alpha | yes.
+   drafted as .bq chains. START by querying records/BOHEMIA_QUESTBOOK_LAW_INDEX.json
+   (QUEST STUDY LAW) and cite what you build from. | same bar as S10-S21, plus
+   chain continuity proven headless | engine code, the alpha | yes.
+2b. (discovered 7/26) The PORTS master is a 1,276-item BUILD QUEUE written for
+   Bohemia by name and almost none of it is built. Mine it for the next quest
+   batches instead of inventing shapes. NON-COOK triage first: list the ports
+   that are already satisfied vs open. | the index makes this queryable | — | no.
 3. (discovered 7/26) MULTI-QUEST CHAIN SUPPORT: nothing in the format or the
    runtime lets quest B read that quest A resolved (S09 -> S06 is a chain only in
    prose). Act-1 beats need it. NON-COOK item: a cross-quest flag surface on

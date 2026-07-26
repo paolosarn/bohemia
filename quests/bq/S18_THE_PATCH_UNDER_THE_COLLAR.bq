@@ -13,6 +13,22 @@
 # open is #notable, keeping him and keeping it quiet is #risky, pulling his collar
 # down in front of the yard is #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q129.W8  BIGOTRY IS ITEMIZED
+#   applied: the quest never argues the creed; it decomposes into individual people who have to stand on a scaffold together at six in the morning.
+# @STUDY Q123.W2  THEY'RE LEAVING FOR A GOOD REASON
+#   applied: the two who will not work beside him have a reason they are not required to explain or defend.
+# @STUDY Q001.W11  NO CLEAN WIN
+#   applied: every option costs the crew something: a month of work, a rule they have to enforce, or a day the yard splits.
+# @STUDY Q129.P6  THE QUIET ONES GET ONE SCENE [F4 fixed]
+#   applied: the wronged get their own scene: the hand who will not stand on the scaffold speaks for himself, and the foreman never speaks for him.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_patch_under_collar   The Patch Under The Collar
 @ACT     2
 @FACTION TRADES

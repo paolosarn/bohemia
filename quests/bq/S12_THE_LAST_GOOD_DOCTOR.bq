@@ -12,6 +12,24 @@
 # deed: choosing quietly is #quiet, putting the choice to the block out loud is
 # #notable, taking the crate is #risky.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q021.W5  TRIAGE AS THE CORE LOOP
+#   applied: the quest IS the allocation: one course, two people, and every save is a death elsewhere.
+# @STUDY Q021.W2  "YOU CAN'T SAVE EVERYONE" AS THE THESIS
+#   applied: the game mechanizes the choosing and refuses to score it; managing failure is the content.
+# @STUDY Q003.W1  THE DIRTY ERRAND
+#   applied: the resupply is offered by someone polite and punctual who tells you honestly that the price is later.
+# @STUDY Q073.W5  THE HARM COMES BACK WEARING YOUR OWN FACE
+#   applied: the split-it-evenly mercy is the option that comes back stronger and takes both of them.
+# @STUDY Q021.P5  W5 (triage as the core loop
+#   applied: the ports master literally queues a Bohemia triage quest over scarce medicine where every save is a death elsewhere. This is that build item, delivered.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_last_good_doctor   The Last Good Doctor
 @ACT     2
 @FACTION VOLUNTEERS

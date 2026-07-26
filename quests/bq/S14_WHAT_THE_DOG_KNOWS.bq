@@ -14,6 +14,20 @@
 # daylight is #reckless because it shows everyone that a soldier died alone and
 # nobody came.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q078.W4  YOUR FATHER IS THE DOG
+#   applied: the animal watched all of it and cannot tell you, and that is the entire weight of the landing.
+# @STUDY Q112.P5  W9 (his biography arrives as extraneous info — our fold + [READ] + despair-with-a-thread-of-hope
+#   applied: the handler stops being a body when the sergeant lets slip he was two streets from a post with eleven people in it.
+# @STUDY Q022.W5  HUMANIZING THE FUNCTIONAL
+#   applied: the sergeant is procedure with a person inside it: he has a method because the method is what lets him keep doing this.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_what_the_dog_knows   What The Dog Knows
 @ACT     1
 @FACTION REMNANTS

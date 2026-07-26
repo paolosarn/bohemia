@@ -9,6 +9,22 @@
 # hand-off is #notable, a quiet double-cross is #risky, keeping it for your own
 # block in the open is #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q002.W2  THE BRANCH-ROUTER NPC
+#   applied: one crate, one conversation, and every resolution routes through which side you tell it to.
+# @STUDY Q001.W11  NO CLEAN WIN
+#   applied: both gangs hear whatever you do; there is no route where nobody learns your name.
+# @STUDY Q007.W2  EASY TO COMPLETE, HARD TO MASTER
+#   applied: finishing is easy, finishing without either side hearing it is the real game, and it is self-imposed.
+# @STUDY Q002.P4  W5 (fully-built villain route
+#   applied: both betrayals are authored end to end; the double-cross is a designed route with its own scenes, not a punishment branch.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_same_crate   The Same Crate Twice
 @ACT     1
 @FACTION NONE

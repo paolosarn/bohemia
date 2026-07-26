@@ -10,6 +10,20 @@
 # instead -> #risky (you turned a dying woman's mercy into a loud, ugly thing, and loud
 # is what the feed feeds on).
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q001.N4  NODE TAMARA_MEET
+#   applied: the dying woman cannot be argued with and the wronged man cannot be won; neither node has a winning line.
+# @STUDY Q001.W11  NO CLEAN WIN
+#   applied: carrying it true pays nothing and is seen by nobody, which is the whole point.
+# @STUDY Q021.W2  "YOU CAN'T SAVE EVERYONE" AS THE THESIS
+#   applied: she dies either way; the quest is only about what you set down before she does.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_say_it_back   Say It Back
 @ACT     1
 @FACTION NONE

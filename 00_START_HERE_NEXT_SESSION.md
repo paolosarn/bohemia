@@ -14,8 +14,7 @@ READ ORDER: CLAUDE.md -> this file -> laws/BOHEMIA_COORDINATOR_ARCHITECTURE_MAP.
 (the whole machine: engine spine, the B64 embed/resync chains, gates, lanes) ->
 BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 
-=============================================================================
-## HOT LOCKED RULINGS (newest first — read before building anything)
+======================================================================## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
 - WORLD BEFORE QUESTS (Paolo 7/26, LOCKED): laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_
   QUESTS_7_26_26.md. "We are not ready to worry about quest right now we need to
@@ -39,6 +38,14 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   That is the PRE-VERDICT judging surface (the TILES button) and sampling it put
   purple + neon + live grass in a dead house. Build from what he JUDGED: the
   all-30-UP house skins, the harmonized street pools, the Great Sweep's 1,927 UPs.
+=======
+- QUEST STUDY LAW (Paolo 7/26, LOCKED, in CLAUDE.md): the 240-file questbook
+  (3,672 citable findings from 152 dissected quests) was being ignored in favor
+  of summary bullets. Now every canon .bq CITES the corpus laws it is built on,
+  machine-verified verbatim by QUEST STUDY gate against
+  records/BOHEMIA_QUESTBOOK_LAW_INDEX.json. Query the index before writing a
+  quest; never write from memory of the vibe.
+  laws/BOHEMIA_ADDENDUM_QUEST_STUDY_LAW_7_26_26.md.
 - ONE VALLEY (7/26, WORLD lane, machine-locked): the MAP tab renders the SAME
   valley the phone runs. It sat on seed 1337 for months while the game boots the
   text seed 'bohemia'; the map Paolo explored was never the map his quests were
@@ -193,9 +200,15 @@ surface: a headless browser played all twelve to real endings, zero page
 errors. The judge tool is now BATCHED per unjudged-is-dead (the 7/25 page for
 S01-S09 stays byte-identical as the record; the fresh page carries only what he
 has never seen). Record: laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md.
-NEXT in this lane: Act-1 main-quest beats as .bq chains, which first needs the
-cross-quest chain support the backlog now names (items 2-3). NOTE for WORLD: the
-placement factory now has 12 more quests to propose addresses for.
+THEN, same day, Paolo caught the real hole: the 150-quest study corpus was never
+opened. Fixed at the root -- the questbook is now MACHINE-READABLE (3,672 citable
+findings), every one of the 21 quests cites what it was actually built from, and
+the QUEST STUDY gate checks the citations verbatim. Two ports the corpus had
+queued by name are now real mechanics: the lie you must ARRANGE (S16) and
+persuasion via the target's own surfaced doubt (S19).
+NEXT in this lane: Act-1 main-quest beats as .bq chains (start by querying the
+index), which first needs the cross-quest chain support the backlog names.
+NOTE for WORLD: the placement factory now has 12 more quests to address.
 
 LIFE + CITY (03): WALK-THIS-GAME redirect fully shipped — (1) SLICE walk
 surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,

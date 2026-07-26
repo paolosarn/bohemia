@@ -14,6 +14,20 @@
 # plan is #notable, the full load on credit is #risky, telling his buyers in
 # front of him that the sacks do not breed true is #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q071.P4  W3 (invisibly seeded, 100 hours early — our long-arc + fold seeding
+#   applied: the cost is seeded now and only legible in ten years, when the line that fed her mother is gone.
+# @STUDY Q030.W9  ATTRITION CASCADES
+#   applied: a thin year is survivable; a thin year plus a bought line plus a debt is how a farm stops being a farm.
+# @STUDY Q003.W1  THE DIRTY ERRAND
+#   applied: the trader is honest about everything, which is what makes the credit the dangerous option.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_seed_no_return   The Seed That Does Not Come Back
 @ACT     2
 @FACTION BLUES

@@ -13,6 +13,20 @@
 # #reckless. Waiting for proof is the failure, and the failure is #quiet too,
 # because nobody sees you not act.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q016.W9  THE SOFT-TIMER ENVIRONMENT
+#   applied: no on-screen timer: the pressure is the sky and a woman with bad knees, and asking her to be certain is how you spend the clock.
+# @STUDY Q004.P2  W2 (obvious-good trap
+#   applied: the reflexive good deed (ring the bell, wake everyone) genuinely saves them and genuinely brings the people who check what got left behind.
+# @STUDY Q030.W9  ATTRITION CASCADES
+#   applied: the failure is not dramatic; it is the small delay that snowballs into the wash filling while you were being reasonable.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_sixty_seconds   Sixty Seconds Of Rain
 @ACT     1
 @FACTION BLUES

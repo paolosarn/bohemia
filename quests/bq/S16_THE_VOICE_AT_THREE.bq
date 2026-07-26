@@ -14,6 +14,20 @@
 # to the finder crew is #risky, putting their own method on the air live is
 # #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q002.N4  NODE HECK_PAYOUT
+#   applied: PORTED AS MECHANIC: the false bearing is only sayable after she is already moving, because they walk what they write. A lie you have to arrange.
+# @STUDY Q022.W5  HUMANIZING THE FUNCTIONAL
+#   applied: the finder crew is a technician with a compass who has decided not to be curious, and says so.
+# @STUDY Q092.W2  THE INSTITUTION IS THE MONSTER
+#   applied: nobody in the quest is the villain and the band still goes quiet after every polite daylight conversation.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_voice_at_three   The Voice At Three
 @ACT     2
 @FACTION ANARCHISTS
@@ -91,15 +105,40 @@
   @SAY It is a receiver and a compass. That is all it is. People imagine something wicked and get disappointed.
   @SAY I take a bearing here, a bearing four streets over, and they cross. Then I write down a roof. What happens after the roof is not my department, and yes, I know how that sounds.
   @OPT "What happens after the roof?"       [gate: none]  TRAP -> after
-  @OPT "The bearing runs north, past the yards."  [gate: none]  -> lie
+  @OPT "The bearing runs north, past the yards."  [gate: flag:she_is_moving]  -> lie
   @OPT "Nothing up there but wind."          [gate: none]  -> move
   @NOVERB "Offer him something to walk away"
+@END
+
+# =====================================================================
+# THE ARRANGEMENT (questbook port Q002.N4, Beyond The Beef: THE LIE HAS A
+# WITNESS REQUIREMENT — "you cannot just say it; you have to have ARRANGED
+# it," expressed in .bq as a flag gate on the lying option). You cannot sell
+# the finder crew a false bearing out of thin air: they walk the roof they
+# write down. The lie only becomes SAYABLE after she is already off it. So
+# the deceit costs a visit and a night of her work first, which is what makes
+# choosing it a commitment instead of a shrug.
+# =====================================================================
+@TALK prep  speaker=voice  entry=stage>=20
+  @SAY You came back up. That means either you have a plan or you have bad news, and both of those start the same way. #wary
+  @SAY If I am going to be somewhere else tomorrow night I have to start carrying the set down tonight, and it takes two of us and about four hours.
+  @OPT "Start moving tonight. Off this roof."  [gate: none]  -> moving  @DO set_flag she_is_moving
+  @OPT (pick up the other end of the set)       [gate: none]  SILENCE -> moving  @DO set_flag she_is_moving
+  @OPT "Stay put. I will handle it another way."  [gate: none]  -> END
+  @NOVERB "Promise her they are not coming"
+@END
+
+@TALK moving  speaker=voice
+  @SAY Then it is off this roof by dawn and I am somebody else's problem to find. #wary
+  @SAY Whatever you tell them now, tell it well. A bearing they walk and find empty is a bearing they stop trusting, and that is worth more to me than a week of hiding.
+  @OPT "Understood."                        [gate: none]  -> END
+  @OPT (carry the last of it down)           [gate: none]  SILENCE -> END
 @END
 
 @TALK after  speaker=tech
   @SAY A conversation. A polite one, usually in daylight, usually with somebody who does not raise their voice. #wary
   @SAY I have never seen the end of one. I have noticed that the band goes quiet afterward and stays quiet, and I have decided not to be curious about that, and you can think whatever you like about the deciding.
-  @OPT "The bearing runs north."            [gate: none]  -> lie   @DO learn the_band_goes_quiet
+  @OPT "The bearing runs north."            [gate: flag:she_is_moving]  -> lie   @DO learn the_band_goes_quiet
   @OPT "Then I will move her instead."       [gate: none]  -> move  @DO learn the_band_goes_quiet
   @OPT "Everybody is going to hear about the case."  [gate: none]  -> air  @DO learn the_band_goes_quiet
 @END
@@ -107,6 +146,7 @@
 @TALK lie  speaker=tech
   @SAY North. Past the yards. #flat
   @SAY You said that very smoothly, and I am going to write it down exactly as smoothly as you said it, and one of us is going to be wrong on paper.
+  @SAY We walk what we write. If there is nothing on that roof I have burned a week, and a man who burns a week starts wondering who handed him the week.
   @OPT "North. That is what I heard."       [gate: none]  -> END  @DO set_stage 32
   @OPT (hold his eye and say nothing)        [gate: none]  SILENCE -> END  @DO set_stage 32
   @OPT "Forget it. I never talked to you."   [gate: none]  -> move

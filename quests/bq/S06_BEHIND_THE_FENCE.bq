@@ -11,6 +11,20 @@
 # DEEPEST bond and, deliberately, almost no followers (#quiet); turning his hidden child
 # into public news earns MORE followers but breaks the trust he just gave you (#notable).
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q112.P5  W9 (his biography arrives as extraneous info — our fold + [READ] + despair-with-a-thread-of-hope
+#   applied: the daughter arrives as information you were not owed, and it recontextualizes every guarded thing he did.
+# @STUDY Q001.W1  TRANSACTION-CARRIES-EMOTION
+#   applied: the wall job is the errand; the trust is what actually changes hands.
+# @STUDY Q001.W11  NO CLEAN WIN
+#   applied: receiving the secret quietly earns the fewest followers and the deepest bond; cashing it earns the reverse.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_behind_fence   Behind the Fence
 @ACT     1
 @FACTION NONE

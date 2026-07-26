@@ -186,6 +186,8 @@ GATES = [
      'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
     ('QUEST PLACEMENT', ['node', 'gates/quest_placement_gate.js'],
      'quest placement candidates are real cells, anchored to the live cast, deterministic', False),
+    ('QUEST STUDY',    ['node', 'gates/quest_study_gate.js'],
+     'every canon quest CITES the questbook corpus it was built from, verbatim and machine-checked', False),
     ('CURRENT SLICE',  ['node', 'gates/current_slice_gate.js'],
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],

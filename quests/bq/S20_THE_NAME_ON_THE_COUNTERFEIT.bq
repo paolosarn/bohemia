@@ -14,6 +14,22 @@
 # #notable, handing him to the clearing house is #risky, telling the market the
 # token was always a story is #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q072.W7  TWO EXTREMES, BOTH WRONG (Dog/God)
+#   applied: the hollow token and the cure that kills the token are the same failure from opposite ends; the answer is neither extreme.
+# @STUDY Q003.W8  THE WITNESS WHO KNOWS
+#   applied: the clearing-house man has cleared the hollow ones himself and knows who was holding them.
+# @STUDY Q073.W5  THE HARM COMES BACK WEARING YOUR OWN FACE
+#   applied: the forger is a real technician who stopped testing when he got behind, which is what everybody in the valley is doing.
+# @STUDY Q013.P9  W8 (minigame-as-story
+#   applied: the character arc is wrapped around one of OUR systems: the whole quest is the electricity economy expressed as a stamped promise.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_name_on_counterfeit   The Name On The Counterfeit
 @ACT     2
 @FACTION REDS

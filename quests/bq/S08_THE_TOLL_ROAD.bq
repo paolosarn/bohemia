@@ -10,6 +10,22 @@
 # #notable; turn the lieutenant against the boss -> #risky; break the checkpoint loud,
 # guns and all -> #reckless.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q104.W6  THE DEATH MACHINE BECAME AN EXTORTION RACKET
+#   applied: a checkpoint that exists to keep people safe has quietly become a device for taking from them, one reasonable increment at a time.
+# @STUDY Q002.W2  THE BRANCH-ROUTER NPC
+#   applied: the lieutenant beside the boss is the second router: the same wall, opened by a different person.
+# @STUDY Q003.W8  THE WITNESS WHO KNOWS
+#   applied: the caravan medic has seen what the toll costs and the boss has the money; you pick which one you believe.
+# @STUDY Q024.P6  W7 (intel as social power / dossiers
+#   applied: what you learn about the lieutenant IS the leverage: intel opens the route, never a rolled number.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_toll_road   The Toll Road
 @ACT     2
 @FACTION NONE

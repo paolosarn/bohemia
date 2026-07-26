@@ -11,6 +11,22 @@
 # loud spectacle -> #reckless. The player does not pick a clout number; the
 # loudness of the DEED sets it.
 
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q003.W1  THE DIRTY ERRAND
+#   applied: the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so.
+# @STUDY Q092.W2  THE INSTITUTION IS THE MONSTER
+#   applied: the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs.
+# @STUDY Q002.W2  THE BRANCH-ROUTER NPC
+#   applied: the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle.
+# @STUDY Q003.P1  W1 (dirty errand
+#   applied: the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose.
+# ----------------------------------------------------------------------------
+
 @QUEST   bq_meter_reader   The Meter Reader
 @ACT     1
 @FACTION NONE
