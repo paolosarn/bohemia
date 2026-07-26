@@ -416,6 +416,25 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    sits, what commitment moves it, what neglect costs per rung. Do not invent them.
 
 ## CITY
+0. [DONE 7/26] THE WALKED WORLD WAS RESAMPLED AT EVERY ZOOM. Found by
+   MEASUREMENT (tools/bohemia_render_audit.js patches the canvas before the app
+   boots and records every real draw), not by reading code. 41% of all draws
+   upscaled by x1.375 - the chunk bake was 16px/cell while the default zoom is
+   22, so the ENTIRE ground plane was resampled, and the zoom ladder
+   [11,22,44,88] is a clean power-of-two family that was being divided by the
+   wrong base. 44% more landed on a half pixel because the canvas takes its CSS
+   client height and an odd height puts .5 in the camera origin. Fixed:
+   tools/bohemia_city_pixelfix_patch.py (TPX 16->22, whole-pixel camera, and
+   canvases given their own 64-entry LRU so the bigger bake cannot blow the
+   ~224MB iOS floor). Result 41% -> 0.1% and 44% -> 3.4%. Locked by
+   gates/render_pixel_gate.js, a RATCHET measured on the real surface.
+0a. (discovered 7/26) PRE-SCALE THE DISTRICT HEROES. 732 draws per walk push a
+   ~266x172 hero image into a ~20x13 slot - a 13:1 minification done every
+   frame. Smoothing is the RIGHT call at that ratio so the look is fine; the
+   waste is doing it every frame instead of once. Cache one pre-scaled copy per
+   hero per zoom: identical output, a fraction of the work. | render_pixel_gate
+   ratchet on the smoothed count once it drops | the city-builder overview is a
+   surface Paolo LIKES - identical output or do not touch it | no.
 1. [BLOCKED ON THE TARGET PICK] DRESS THE INTERIORS. Paolo killed the first
    interiors ("Dogshit.") and the diagnosis is empty rooms: the shell is lawful
    approved art but it is five textures and no furniture. The furniture is ready
