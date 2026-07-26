@@ -1,3 +1,38 @@
+LAB (09): 7/26 (d) — THE FIRST PORT LANDED, ON HIS ORDER. He played LAB-03, said "all
+these things worked", and asked "anything we can throw in the bohemia code right now?"
+That is a port order, so laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md now
+governs it: the lab ports ONLY when he says so, ships MECHANISM ONLY in its own new
+file, never wires itself into another lane's surface, and carries its provenance.
+engine/bohemia_resolve.js — headless, zero dependencies, brand new file, so it cannot
+collide with the lanes editing the alpha right now. Four mechanisms, all learned by
+rebuilding Stardew from its own source:
+  RESOLVE — ONE moment, a DECLARED phase order (WORLD/PLACES/PEOPLE/BOOKS/FEED), and no
+  step able to read another step's report. Registration order decides nothing except
+  ties inside a phase. A step that throws is reported BY NAME and the rest of the night
+  still runs, because one broken system must never eat the player's night. This is the
+  LAB-03 finding: three mechanics that share nothing but the rollover.
+  RATION — a limit by COUNT per day and per week, with a bypass that overrides both and
+  can carry a multiplier (the birthday shape). The gate proves there is no cost, price,
+  gold or money term anywhere in the mechanism. This is the one I think matters most for
+  us: a favour or a post limited by money stops mattering the moment the player is rich.
+  CEILING — points cannot pass the CURRENT state's cap, and the ONLY thing that moves
+  the cap is a state change. 500 favours cannot grind past a wall; you have to commit.
+  Neglect is allowed to get more expensive as you get closer. This is the faction
+  standing shape.
+  REACH — one declared range, one facing rule, one predicate. Forgiveness is a number
+  and it is small.
+EVERY TABLE IS EMPTY, ON PURPOSE. No ration limits, no faction thresholds, no reach
+number, no action costs for any real Bohemia system. Callers pass them in and the FIRST
+DEFAULT IS A RULING, not code. The gate enforces it: the executable mechanism may not
+name a single piece of Bohemia or Stardew content.
+Gate: gates/resolve_gate.js, 59 checks, registered as LAB PORT. MUTATION-TESTED, which
+is the only reason to believe it: breaking the ceiling clamp, leaking reports between
+steps, or letting a thrown step kill the moment each turn exactly one check red.
+NOT WIRED INTO ANYTHING. Adoption is the owning lane's build item: RUN wants the
+contextual verb and the reach constant, WORLD wants the resolve point at SLEEP AND SAVE,
+LIFE/SOCIAL wants the ration for favours and posts and the ceiling for faction standing.
+Nothing about this port touches the alpha, so its build stamp is unchanged again.
+
 LAB (09): 7/26 (c) — THE THREE MECHANICS NOW STAND IN A WORLD YOU WALK AROUND, WHICH
 IS WHAT HE ASKED FOR. "pull up to the mini lake you can start fishing pull up on your
 potential spouse. Do all of this pull up on your farm."

@@ -84,8 +84,13 @@ TWO PORTING BUGS THIS FOUND, BOTH ONLY VISIBLE BY MEASURING, both now gated:
       drawn bar and the tested bar 32 units apart, so the picture lied about
       whether you were winning. Fixed by dropping the offset, not by nudging the
       art.
-MEASURED CATCH RATES with one fixed controller and a SEEDED rng (a rate measured
-against Math.random is a coin flip, and a flaky gate is not a gate), at level 0:
+MEASURED CATCH RATES with one fixed controller and a SEEDED rng, at level 0.
+THE SEED IS NOT A CONVENIENCE, IT IS THE GATE'S CORRECTNESS: the lab gate went
+red once inside the full suite and green standalone immediately after, which is
+the signature of a coin flip, not a bug. The catch checks drive the REAL
+minigame, and against Math.random even a carp escapes occasionally. Both live
+rows are now seeded end to end and unseeded when they finish, so a red means a
+regression and never bad luck:
   carp 15 -> 12/12 · sardine 30 -> 12/12 · pike 60 -> 12/12 · catfish 75 -> 10/12
   octopus 95 -> 0/12 · at level 10 the same octopus -> 4/12
 That last pair is the whole fishing skill tree, measured: nothing changed except

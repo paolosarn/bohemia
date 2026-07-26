@@ -279,6 +279,8 @@ GATES = [
      'one canon car/bus/trailer size across every hero, via the shared _vehicle helper', False),
     ('HERO DOSSIER',   ['python3', 'gates/hero_dossier_gate.py'],
      'DOSSIER-OR-DON\'T: every hero building has all its parts written up, keyed to the walkable landmarks', False),
+    ('LAB PORT',       ['node', 'gates/resolve_gate.js'],
+     'resolve/ration/ceiling/reach: mechanism only, no content, no coupling', False),
     ('REFERENCE LAB',  ['node', 'gates/lab_gate.js'],
      'emulations are 3+ MECHANICS whose loops close, sourced and measured', False),
     ('LEAF PIXEL',     ['python3', 'gates/bohemia_leaf_gate.py', '--strict'],

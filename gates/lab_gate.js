@@ -151,8 +151,14 @@ function partA(em) {
     }
   };
   walk('slices'); walk('engine');
-  const linkers = shipped.filter(f => /slices\/lab\/|lab\/BOHEMIA_LAB/.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
-  ok('A10 no shipped surface links to a lab page' + (linkers.length ? ' (' + linkers.join(', ') + ')' : ''),
+  /* A shipped surface may not LOAD OR LINK a lab PAGE. Note what this is not:
+     citing a lab RECORD in a comment is required by
+     laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md (a ported mechanism
+     carries its provenance), so the test is the page path and the page
+     filename, never the word "lab". */
+  const LAB_PAGE = /slices\/lab\/|BOHEMIA_LAB_[A-Z0-9_]+\.html/;
+  const linkers = shipped.filter(f => LAB_PAGE.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
+  ok('A10 no shipped surface loads or links a lab PAGE' + (linkers.length ? ' (' + linkers.join(', ') + ')' : ''),
      linkers.length === 0);
 
   /* --- clause 4: three deliverables --- */
@@ -224,6 +230,11 @@ function partA(em) {
    ========================================================================== */
 async function liveMechanics(page) {
   const S = await page.evaluate(() => window.LAB.SDV);
+  /* SEED THE WHOLE ROW. This gate went red once inside the full suite and green
+     standalone straight after, which is the signature of a coin flip: the catch
+     checks below drive the real minigame and against Math.random even a carp
+     escapes occasionally. A gate that is right most of the time is not a gate. */
+  await page.evaluate(() => window.LAB.seedRNG(20260726));
   const declared = await page.evaluate(() => window.LAB.mechanics);
   ok('B0 the page declares the same mechanics the gate does',
      JSON.stringify(declared) === JSON.stringify(['fishing', 'farming', 'marriage']));
@@ -308,7 +319,6 @@ async function liveMechanics(page) {
 
   /* difficulty and level are both REAL, measured with one fixed controller */
   const rates = await page.evaluate(() => {
-    window.LAB.seedRNG(20260726);          /* measured, not a coin flip */
     function play(i, level) {
       window.LAB.W.fishingLevel = level;
       window.LAB.cast(i);
@@ -320,9 +330,7 @@ async function liveMechanics(page) {
       return window.LAB.F.progress >= 1;
     }
     const rate = (i, level, n) => { let w = 0; for (let k = 0; k < n; k++) if (play(i, level)) w++; return w / n; };
-    const out = { easy: rate(0, 0, 10), hard: rate(4, 0, 10), hardLevelled: rate(4, 10, 10) };
-    window.LAB.unseedRNG();
-    return out;
+    return { easy: rate(0, 0, 10), hard: rate(4, 0, 10), hardLevelled: rate(4, 10, 10) };
   });
   ok('B11 fishing: an easy fish is really easier than a hard one (' +
      (rates.easy * 100) + '% vs ' + (rates.hard * 100) + '%)', rates.easy > rates.hard);
@@ -517,6 +525,7 @@ async function liveMechanics(page) {
     const d0 = window.LAB.day(); window.LAB.sleep(); return window.LAB.day() - d0;
   });
   ok('B38 one SLEEP advances the day for every mechanic at once', shared === 1);
+  await page.evaluate(() => window.LAB.unseedRNG());
 }
 
 /* ==========================================================================
@@ -527,6 +536,7 @@ async function liveMechanics(page) {
    ========================================================================== */
 async function liveWorld(page) {
   const S = await page.evaluate(() => window.LAB.SDV);
+  await page.evaluate(() => window.LAB.seedRNG(20260726));   /* same reason as above */
 
   const map = await page.evaluate(() => ({
     soil: window.LAB.soilCount(),
@@ -560,7 +570,6 @@ async function liveWorld(page) {
   /* THE WALKTHROUGH, one evaluate so the world state is continuous */
   const run = await page.evaluate(() => {
     const L = window.LAB, o = {};
-    L.seedRNG(4242);
     L.place('town', 8, 11, 2);
     L.setPoints(0); L.L.status = 'STRANGER'; L.L.married = false; L.L.weddingIn = -1;
     L.S.gold = 0; L.F.caught = 0; L.S.fishingLevel = 0;
@@ -615,7 +624,6 @@ async function liveWorld(page) {
     o.cropAdvanced = L.farmAt(8, 14).crop.phase - phase0;
     o.soilDried = L.farmAt(8, 14).state === 0;
     o.timeReset = L.S.timeOfDay;
-    L.unseedRNG();
     return o;
   });
 
@@ -667,6 +675,7 @@ async function liveWorld(page) {
   const walkExp = Math.max(S.MIN_STEP, S.WALK_SPEED * S.MOVE_MULT * (1000 / 60)) * 60;
   ok('W27 the walk underneath is still the measured 2.20 px/tick (' + (walk / 60).toFixed(2) + ')',
      Math.abs(walk - walkExp) < 0.5);
+  await page.evaluate(() => window.LAB.unseedRNG());
 }
 
 async function shotWorld(page) {

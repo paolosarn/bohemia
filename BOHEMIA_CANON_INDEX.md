@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-219 canon files indexed across 2 locations.
+220 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -253,7 +253,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (89) — add keywords to DOMAINS
+### UNCLASSIFIED (90) — add keywords to DOMAINS
 - `BOHEMIA_ADDENDUM_AMBIENT_DANGER_7_26_26.md`
 - `BOHEMIA_ADDENDUM_APPROVED_ASSETS_FIRST_7_26_26.md`
 - `BOHEMIA_ADDENDUM_ARMS_HOLD_THEIR_POSE_7_26_26.md`
@@ -263,6 +263,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_FROZEN_POSES_7_26_26.md`
 - `BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md`
 - `BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md`
+- `BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md`
 - `BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md`
 - `BOHEMIA_ADDENDUM_OWN_CANVAS_7_26_26.md`
 - `BOHEMIA_ADDENDUM_RUN_HANDOFF_CONTRACT_7_26_26.md`

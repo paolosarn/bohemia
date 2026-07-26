@@ -13,3 +13,4 @@ BOH_SCALE        bohemia_prop_scale.js
 BOH_SLICE        bohemia_slice_engine.js
 BOH_TILEPOOL     bohemia_tilepool.js
 BOH_BODYVAR      bohemia_bodyvar.js
+BOH_RESOLVE      bohemia_resolve.js

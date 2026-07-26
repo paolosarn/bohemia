@@ -25,6 +25,28 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1d. [SHIPPED 7/26, ON HIS ORDER] THE FIRST PORT OUT OF THE LAB.
+   Paolo after playing LAB-03: "Awesome! All these things worked. Very good! Did
+   you learn anything. Anything we can throw in the bohemia code right now?"
+   Law: laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md — the lab ports
+   only when he says so, ships MECHANISM ONLY in its own new file, never wires
+   itself into another lane's surface, and carries its provenance.
+   engine/bohemia_resolve.js (headless, no deps, collides with nothing):
+     RESOLVE  one moment, a DECLARED phase order, and no system able to read
+              another's report. A step that throws cannot eat the player's night.
+     RATION   a limit by COUNT per day and per week with a bypass that overrides
+              both (the birthday shape). No price term exists anywhere in it.
+     CEILING  points cannot pass the current state's cap and ONLY a state change
+              moves the cap. 500 favours cannot grind past a wall.
+     REACH    one declared range, one facing rule, one predicate.
+   Gate: gates/resolve_gate.js, 59 checks, registered as LAB PORT, and
+   mutation-tested (breaking the clamp, leaking reports between steps, or letting
+   a thrown step kill the moment each turn it red).
+   EVERY TABLE IS EMPTY. No ration limits, no faction thresholds, no reach number
+   and no action costs for any real Bohemia system: callers pass them in, and the
+   first default is a RULING, not code. NOT WIRED INTO ANY SURFACE — adopting it
+   is the owning lane's build item (RUN for the contextual verb + reach, WORLD for
+   the resolve point, LIFE/SOCIAL for the ration and the standing ceiling).
 1c. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] ONE WORLD, ALL THREE MECHANICS ON IT.
    Paolo: "are you able to code these into the walkable version of Stardew Valley
    made earlier pull up to the mini lake you can start fishing pull up on your
