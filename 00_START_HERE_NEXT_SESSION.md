@@ -600,6 +600,28 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v73: STAMINA MOVEMENT IS FREE *AND* SAFE. Law (amended):
+laws/BOHEMIA_ADDENDUM_STAMINA_NEVER_COSTS_A_TURN_7_26_26.md.
+Paolo: "when I press shift it's almost like a run... I get free movement and I
+CAN'T GET SHOT AT that turn. That's what Rogue Fable IV does. I can use up all my
+action stamina points in my turn and it doesn't end my turn, meaning I DON'T GET
+SHOT after I run to a location."
+v72 stopped sprint ending the turn and LEFT THE RETURN FIRE IN (mobExposeFire).
+From the player's chair, eating a volley the moment you arrive IS being shot for
+moving, so it landed as no fix at all. ALL THREE mobExposeFire CALLS ARE GONE:
+sprint (1 pip), dash (2 pips, breaks locks), vault (1 pip) cost stamina AND
+NOTHING ELSE. Spend all three pips crossing the board; nobody shoots. The cost is
+ARRIVING WITH NOTHING LEFT while their two-turn red line keeps ticking.
+The one real ACTION (pop and shoot) still ends the turn and still eats the volley
+-- that is the only thing that should ever cost a turn.
+mobExposeFire() stays in the code for a future NON-stamina verb with ZERO callers,
+and the gate asserts the caller count stays at zero so nobody re-adds a crack.
+Proof on the real build: three sprints in ONE turn, pips 3->2->1->0, HP 100/100
+the whole way, fourth refused for no stamina
+(slices/BOHEMIA_FREE_MOVEMENT_PROOF_7_26_26.png). 263 gate checks green.
+STANDING CHECK for any future combat verb: does it spend stamina? Then it may not
+end the turn AND may not draw return fire. Either one means it is broken.
+
 COMBAT (04) 7/26 - v72: STAMINA NEVER COSTS A TURN. Law:
 laws/BOHEMIA_ADDENDUM_STAMINA_NEVER_COSTS_A_TURN_7_26_26.md. Paolo: "the way the
 strategy is gonna work in this game, it's gonna be fun -- like when you sprint

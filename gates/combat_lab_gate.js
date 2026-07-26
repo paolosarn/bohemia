@@ -485,8 +485,8 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes('id="sprintbtn"') &&
     demo.includes('const _sprinting=!!G.sprintArm;') &&
     demo.includes('const _mult=_sprinting?2:1;') &&
-    demo.includes('if(mobExposeFire(1.0))return;') &&
-    demo.includes("if(_sprinting){ spendStam(1); G.sprintArm=false; updMoveMode(); }"));
+    demo.includes("if(_sprinting){ spendStam(1); G.sprintArm=false; updMoveMode(); }") &&
+    demo.includes("renderBoard(); updGap(); return; }   /* V73 FREE AND SAFE: no turn end, NO return fire */"));
 ok('V67 SPRINT COSTS STAMINA (Paolo: "sprint should be using up stamina points"): 1 pip, refused when the pips are gone, spent on the move itself',
     demo.includes("if(_sprinting&&(G.stam||0)<1){ setRead('NO STAMINA','sprint needs 1 pip','#8a7d66'); return; }") &&
     demo.includes('spendStam(1); G.sprintArm=false;'));
@@ -495,7 +495,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('if(G.dashArm)G.sprintArm=false;') &&
     demo.includes('if(G.sprintArm)G.dashArm=false;') &&
     demo.includes('if(G.sprintArm||G.dashArm){ G.sprintArm=false; G.dashArm=false; updMoveMode(); }') &&
-    demo.includes("SPRINT \\u00b7 2 TILES \\u00b7 1 PIP \\u00b7 FULLY EXPOSED") &&
+    demo.includes("SPRINT \\u00b7 2 TILES \\u00b7 1 PIP \\u00b7 FREE MOVE") &&
     demo.includes("DASH \\u00b7 2 TILES \\u00b7 2 PIPS \\u00b7 BREAKS LOCKS") &&
     demo.includes("id='movemode'"));
   // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
@@ -606,11 +606,12 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('function toggleHandPeek(){') &&
     demo.includes('+(G.handPeek?1:0)') &&
     demo.includes('if(G.handPeek)pool=pool.filter(e=>firing(e));'));
-  ok('V54/56 DASH: doDash ARMS (V56 -- you steer with the ring), doDashMove fires in the tapped direction, spends 2, breaks crossed locks, one reduced opportunity-fire crack, no turn end',
+  ok('V54/56 DASH, as amended by V73: doDash ARMS (you steer with the ring), doDashMove fires in the tapped direction, spends 2 pips, breaks crossed locks, ends no turn and takes NO return fire',
     demo.includes('function doDash(){') &&
     demo.includes('G.dashArm=!G.dashArm;') &&
     demo.includes('function doDashMove(d){') &&
-    demo.includes('if(mobExposeFire(0.5))return;'));
+    !demo.includes('if(mobExposeFire(0.5))return;') &&
+    demo.includes("2 tiles, 2 pips, no turn spent, nobody shoots"));
   ok('V54 VAULT: doVault needs a LOW pillar within 1.9 tiles (tall pillars refuse), spends 1, hops 2 tiles across it, no turn end -- pillars roll tall/low at spawn',
     demo.includes('function doVault(){') &&
     demo.includes('const P=nearestPillar(true);') &&
@@ -1014,11 +1015,22 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     ok('V72 STAMINA NEVER COSTS A TURN (Paolo: "when you sprint and use stamina points it doesn\'t consume a turn, bro"). His own V54 law, which every stamina verb honoured EXCEPT sprint -- v67 charged it a pip AND ended the turn, the worst of both. Sprint ends nothing now; what separates it from dash is PRICE and RISK: 1 pip and the FULL exposure crack, versus 2 pips and half',
       demo.includes("sprint needs 1 pip") &&
       demo.includes("dash needs 2 pips") &&
-      demo.includes("if(mobExposeFire(1.0))return;") &&
-      demo.includes("renderBoard(); updGap(); return; }   /* V72: NO turn end -- stamina is the cost */") &&
+      demo.includes("renderBoard(); updGap(); return; }   /* V73 FREE AND SAFE: no turn end, NO return fire */") &&
       !demo.includes("endTurnReturn(true); }   /* V44: a sprint breaks cover for real") &&
-      demo.includes("renderBoard(); updGap(); }   /* NO turn end */") &&
       demo.includes('const STAM_MAX=3;   /* V54 STAMINA (Paolo, Fable model): stamina actions DON\'T end your turn */'));
+ok('V73 FREE *AND* SAFE (Paolo 7/26: "I get free movement and I CAN\'T GET SHOT AT that turn... that\'s what Rogue Fable IV does"). v72 stopped sprint ending the turn and LEFT THE VOLLEY IN, which from the player\'s chair is the same as being shot for moving. Every mobExposeFire call is gone: sprint, dash and vault cost stamina AND NOTHING ELSE',
+  (demo.split('mobExposeFire(').length - 1) === 1 &&        /* the definition, zero callers */
+  !demo.includes('mobExposeFire(1.0)') && !demo.includes('mobExposeFire(0.5)') && !demo.includes('mobExposeFire(0.55)') &&
+  demo.includes('V73 FREE AND SAFE') &&
+  // and the old note that would tempt someone to put a crack back is deleted
+  !demo.includes("V54: mobility isn't free"));
+ok('all three mobility verbs end with the same free-and-safe tail, and NONE of them ends the turn',
+  (demo.split('/* V73 FREE AND SAFE: no turn end, NO return fire */').length - 1) === 3 &&
+  !demo.includes('renderBoard(); updGap(); }   /* NO turn end */'));
+ok('and your one real ACTION still costs you: popping to shoot ends the turn and eats the volley -- that is the trade the fight is built on',
+  demo.includes('function endTurnReturn(engaged){') &&
+  demo.includes('endTurnReturn(false); } }') &&
+  demo.includes("if(G.phase==='cover'){ audio(); _fromPop=true; doPop(); return; }"));
     const arm = new Function(`
       const G={sprintArm:false,dashArm:false};
       G.dashArm=!G.dashArm; if(G.dashArm)G.sprintArm=false;
