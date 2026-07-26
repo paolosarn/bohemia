@@ -67,7 +67,8 @@ MODULES = [
     'engine/bohemia_courthouse.js', 'engine/bohemia_jail.js', 'engine/bohemia_farm.js',
     'engine/bohemia_downtown.js', 'engine/bohemia_trailer.js', 'engine/bohemia_apartment.js',
     'engine/bohemia_warehouse.js', 'engine/bohemia_waterpark.js', 'engine/bohemia_mall.js',
-    'engine/bohemia_cityhall.js', 'engine/bohemia_battery.js', 'engine/bohemia_terminal.js', 'engine/bohemia_arterial.js', 'engine/bohemia_freeway.js',
+    'engine/bohemia_cityhall.js', 'engine/bohemia_battery.js', 'engine/bohemia_terminal.js', 'engine/bohemia_arterial.js', 'engine/bohemia_freeway.js', 'engine/bohemia_terrain_noise.js',
+    'engine/bohemia_desert.js', 'engine/bohemia_mountain.js', 'engine/bohemia_water.js',
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
     'engine/bohemia_world.js',
@@ -206,7 +207,7 @@ MODFILE = {k: 'engine/bohemia_%s.js' % ('suburb' if k in ('gated', 'estate') els
                      'watertreat', 'boneyard', 'policestation', 'library', 'landfill',
                      'railyard', 'substation', 'chapel', 'courthouse', 'jail', 'farm',
                      'downtown', 'trailer', 'warehouse', 'waterpark', 'mall', 'cityhall',
-                     'battery', 'terminal', 'arterial', 'freeway')}
+                     'battery', 'terminal', 'arterial', 'freeway', 'desert', 'mountain', 'water')}
 
 data = json.loads(subprocess.run(['node', '-e', NODE.replace('__MODFILE__', json.dumps(MODFILE))],
                                  capture_output=True, text=True, check=True).stdout)
@@ -227,7 +228,7 @@ MODMAP = {
     'jail': 'BohemiaJail', 'farm': 'BohemiaFarm', 'downtown': 'BohemiaDowntown',
     'trailer': 'BohemiaTrailer', 'warehouse': 'BohemiaWarehouse', 'waterpark': 'BohemiaWaterpark',
     'mall': 'BohemiaMall', 'cityhall': 'BohemiaCityhall', 'battery': 'BohemiaBattery',
-    'terminal': 'BohemiaTerminal', 'arterial': 'BohemiaArterial', 'freeway': 'BohemiaFreeway',
+    'terminal': 'BohemiaTerminal', 'arterial': 'BohemiaArterial', 'freeway': 'BohemiaFreeway', 'desert': 'BohemiaDesert', 'mountain': 'BohemiaMountain', 'water': 'BohemiaWater',
 }
 
 bodies = {m: open(m, encoding='utf8').read() for m in MODULES}

@@ -203,29 +203,31 @@ startEncounter -> BOHEMIA_RUN_COMBAT_END (runEncounterIn / RUNFIGHT /
 showTabPanel in the alpha shell). Do not repurpose those names.
 
 
-WORLD MODEL (02): 7/26 (b) — THE STREETS ARE REAL. Paolo ruled mid-session that
-this lane stops touching quests and builds world (hot ruling above). The census
-found the hole in one query: of 9,216 valley cells, 3,386 (37%) were ROAD cells
-with NO generator at all, rendering as a flat grey slab. More of the valley was
-untextured road than was built district, and every district fronts onto it.
-SHIPPED: engine/bohemia_arterial.js (2,434 cells — the real Clark County
-cross-section: six lanes, raised median opening to a yellow left-turn bay at each
-crossing, detached sidewalks behind an amenity strip, curb ramps, ladder
-crosswalks, stop bars, signal masts, block walls wall-to-wall edge-to-edge so a
-street JOINS the districts either side instead of floating in a dirt moat) +
-engine/bohemia_freeway.js (952 cells — eight lanes between concrete barrier and
-sound wall, embankment, the traffic still stopped in the lanes, and a real
-OVERHEAD overpass deck on solid piers where an arterial crosses). Both are
-NETWORK TILES: all 16 link masks build. Both are SURFACE cells, never districts
-(law above). VALLEY: 40% -> 77% generated. Dossiers generated for both; ROAD
-CELLS gate registered (38 checks) and green — it caught a real defect on its
-first run (crosswalks dying at the gutter, so nobody could legally reach the
-sidewalk; curb ramps exist because the gate refused to pass).
+WORLD MODEL (02): 7/26 (c) — THE GROUND IS BUILT. Two ships, same day, same ruling
+("build a fucking world"). FIRST the roads: engine/bohemia_arterial.js (2,434 cells,
+real Clark County cross-section, median opening to a yellow turn bay, detached walks,
+curb ramps the gate forced into existence, crosswalks, signal masts, block walls
+wall-to-wall so a street JOINS the districts either side) + engine/bohemia_freeway.js
+(952 cells, eight lanes between barrier and sound wall, the traffic still stopped in
+them, a real OVERHEAD overpass deck on piers where a street crosses). THEN the terrain:
+engine/bohemia_terrain_noise.js (one valley-wide field, sampled in GLOBAL coordinates)
++ desert (620: self-spaced creosote on desert pavement, dry rills, OHV tracks, illegal
+dumping, and the GHOST PLAT — a graded subdivision nobody ever built, on ~18% of lots)
++ mountain (927: ridge-and-ravine limestone, solid rock with walkable ravines as the
+only passes, alluvial fans grading into the valley) + water (74: the reservoir in
+DRAWDOWN — bathtub ring, exposed lakebed, a launch ramp stopping in mid-air).
+THE VALLEY WENT 40% -> 95% GENERATED. All of it SURFACE cells, never districts (law).
+Gates: ROAD CELLS (39) + TERRAIN (60), both green, both caught real defects first
+(crosswalks dying at the gutter; mountain cells with no mountain in them). The MAP tab
+can now FIND the mountains, the desert and the lake. Dossiers written for all five.
 EARLIER 7/26 (a): quest placement candidates + the ONE VALLEY seed fix. Per the
 ruling that judge page stays live in the LIFE tab, unjudged, and is NOT
 re-surfaced at him.
-NEXT IN THIS LANE: the rest of the ground (620 desert cells + the terrain that
-still renders flat, then the non-bespoke landmark placeholders), then the
+NEXT IN THIS LANE (backlog WORLD-1 a-d): the airfield kit (airbase 54 + airport 40)
+is the biggest thing still flat; then rail 90 + interchange 16 (network tiles, same
+machinery as the roads); then the small landmark set (campus/town/speedway/ballpark/
+convention/datafort/prison/dam/basin/reservoir). The Strip, the resorts and the
+casinos stay RESERVED for Paolo's hand and are never auto-generated. After that, the
 APPROVED ambient encounter director. Quests stay parked.
 
 QUESTS (01) 7/26 — TWELVE MORE PLAYABLE QUESTS SHIPPED (S10-S21). The playable

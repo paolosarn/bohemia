@@ -88,12 +88,19 @@ LANE RULING (Paolo 7/26, LOCKED — laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_QUESTS_7_
 quest item is PARKED until Paolo himself reopens it. Build ground, not plumbing for
 stories the world cannot host yet.
 
-1. THE REST OF THE GROUND. Roads are done (arterial + freeway, 3,386 cells, valley now
-   77% generated). Next: the 620 desert cells and the terrain that still renders flat
-   (mountain/water/wash edges), then the NON-bespoke landmark placeholders (airport,
-   rail, campus, town). | its own gate section or a terrain gate; render-and-look on
-   the real MAP tab | the Strip / casinos / resorts stay Paolo's hand, never
-   auto-generated | new ground LOOK = judge before volume.
+1. DONE 7/26: THE GROUND IS BUILT. Roads (arterial 2,434 + freeway 952) and terrain
+   (mountain 927 + desert 620 + water 74) all generate real ground on one continuous
+   valley-wide noise field. Valley: 40% -> 95% generated. Gates ROAD CELLS + TERRAIN.
+   WHAT IS LEFT UNBUILT, in order of size, and it is all LANDMARK work now:
+     a. airbase 54, airport 40 (one generator, an airfield kit: runways, aprons,
+        hangars, taxiways) | its own gate | — | new ground LOOK = judge before volume.
+     b. rail 90 + interchange 16 (rail corridor cells + freeway-to-freeway ramps;
+        both are network tiles like the roads, same machinery) | roadcell_gate
+        extended | — | no.
+     c. campus 16, town 9, speedway 12, ballpark 8, convention 6, datafort 6,
+        prison 4, dam 4, basin 8, reservoir 3 (small landmark set, one at a time).
+     d. NEVER AUTO-GENERATED, by law: strip 81, resort 118, casino 5, luxor, sphere,
+        strat, highroller, sign. Paolo's hand. Leave them reserved.
 2. AMBIENT ENCOUNTER DIRECTOR (APPROVED 7/26, records/BOHEMIA_VERDICT_ACT1_
    ROSTER_7_26_26.txt): the walk-surface encounter system — storyteller tension budget
    (never dice), 70/20/10 ambient/interactive/forced ratio, district+day/night spawn

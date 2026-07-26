@@ -40,13 +40,17 @@
 <!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
 <!-- engine-md5:engine/bohemia_arterial.js:688606075bbefa1e5884068e59f42612 -->
 <!-- engine-md5:engine/bohemia_freeway.js:db2920f1f120e01574be217800b97817 -->
+<!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
+<!-- engine-md5:engine/bohemia_desert.js:b7f433f0e128fa8869b3c2d91b0a336e -->
+<!-- engine-md5:engine/bohemia_mountain.js:7d871960ed5fecc81947892a0e5b89e9 -->
+<!-- engine-md5:engine/bohemia_water.js:3c61b0d5b734b010d5ca0b7b887e40fd -->
 <!-- engine-md5:engine/bohemia_overmap.js:9e5e6612cfa5f55bc352918e66491342 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:ca045f639821a074c255ebef6d728088 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:3a9a97d0eeeb4a34a1157af1163db183 -->
+<!-- engine-md5:engine/bohemia_world.js:8327c40a185f207d6e22cb9928165346 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
   #cv{display:block;width:100%;height:calc(100% - 34px);background:#0d0b08}
@@ -5205,6 +5209,727 @@
   root.BohemiaFreeway = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
+/* ==== engine/bohemia_terrain_noise.js ==== */
+// BOHEMIA TERRAIN NOISE (7/26/26, WORLD lane) — the shared, deterministic field the
+// terrain generators read.
+//
+// WHY IT EXISTS. A district cell is a self-contained lot: it can be generated from its
+// own seed and nothing outside it needs to line up. TERRAIN is the opposite. A ridge
+// that stops dead at a cell boundary, a wash that does not continue into the next cell,
+// a shoreline with a seam in it — that is what tells you the world is fake. So terrain
+// is not generated from the cell seed at all: it is SAMPLED out of one continuous field
+// defined over the whole valley in GLOBAL tile coordinates. Two neighbouring cells
+// sample the same field either side of their shared edge, so features cross the seam
+// for free and always agree.
+//
+// Integer-hash value noise: no RNG call anywhere, no state, no allocation. Same (seed, x, y)
+// gives the same number forever, in node and in the browser, which is what every gate
+// in this repo demands of anything that touches the world.
+(function (root) {
+  'use strict';
+
+  function hash2(seed, x, y) {
+    var h = (seed ^ Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263)) >>> 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  }
+  function smooth(t) { return t * t * (3 - 2 * t); }
+
+  // value noise at a chosen feature size (in tiles)
+  function value(seed, x, y, scale) {
+    var fx = x / scale, fy = y / scale;
+    var x0 = Math.floor(fx), y0 = Math.floor(fy);
+    var tx = smooth(fx - x0), ty = smooth(fy - y0);
+    var a = hash2(seed, x0, y0), b = hash2(seed, x0 + 1, y0);
+    var c = hash2(seed, x0, y0 + 1), d = hash2(seed, x0 + 1, y0 + 1);
+    return (a + (b - a) * tx) * (1 - ty) + (c + (d - c) * tx) * ty;
+  }
+
+  // fractal sum: broad shape plus finer detail, the standard terrain stack
+  function fbm(seed, x, y, scale, octaves) {
+    octaves = octaves || 4;
+    var sum = 0, amp = 1, norm = 0, s = scale;
+    for (var i = 0; i < octaves; i++) {
+      sum += value(seed + i * 7919, x, y, s) * amp;
+      norm += amp;
+      amp *= 0.5; s *= 0.5;
+    }
+    return sum / norm;
+  }
+
+  // RIDGED noise: what makes a mountain read as a mountain instead of a lumpy blanket.
+  // Folding the field around its midpoint turns smooth humps into sharp crests.
+  function ridged(seed, x, y, scale, octaves) {
+    octaves = octaves || 4;
+    var sum = 0, amp = 1, norm = 0, s = scale;
+    for (var i = 0; i < octaves; i++) {
+      var v = 1 - Math.abs(value(seed + i * 6151, x, y, s) * 2 - 1);
+      sum += v * v * amp;
+      norm += amp;
+      amp *= 0.5; s *= 0.5;
+    }
+    return sum / norm;
+  }
+
+  /* A WINDING LINE through the field: distance from a channel whose centreline drifts
+     with the noise. This is how a wash braid or a ravine crosses a cell boundary and
+     still lines up: both cells evaluate the same drift from the same global coordinate. */
+  function channelDist(seed, x, y, axis, at, wander, scale) {
+    var along = axis === 'v' ? y : x, across = axis === 'v' ? x : y;
+    var drift = (fbm(seed, along, along * 0.37, scale || 220, 3) - 0.5) * 2 * (wander || 40);
+    return Math.abs(across - (at + drift));
+  }
+
+  var API = { hash2: hash2, value: value, fbm: fbm, ridged: ridged, channelDist: channelDist };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaTerrainNoise = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_desert.js ==== */
+// BOHEMIA DESERT (7/26/26, WORLD lane) — THE VACANT MOJAVE LOT, BUILT FOR REAL.
+//
+// 620 valley cells are desert: the undeveloped land between subdivisions, the edge of
+// town, the pockets the grid never swallowed. They rendered as a flat tan square.
+//
+// REAL REFERENCE (the actual Las Vegas valley floor, not generic movie desert):
+//   the plant community is CREOSOTE-BURSAGE, and creosote SELF-SPACES — its roots poison
+//     competitors, so the bushes stand in an eerily regular scatter with bare ground
+//     between them. That spacing is the signature of this desert from above.
+//   DESERT PAVEMENT: a lag of small rock left behind after the fines blow out, with
+//     CALICHE (white cemented hardpan) breaking through in patches
+//   braided dry rills feeding the wash system, running downhill toward the valley floor
+//   OHV tracks: vacant land in the valley is crossed by informal dirt-bike and truck
+//     tracks that never get erased
+//   ILLEGAL DUMPING is the other constant: mattresses, tyres, a burned car, contractor
+//     debris tipped off the shoulder
+//   and the one that belongs to THIS game: THE SUBDIVISION THAT NEVER GOT BUILT. Vegas
+//     is ringed with graded pads, curb-and-gutter stubs and street lights standing over
+//     lots where nothing was ever framed, because the money stopped. In Bohemia the
+//     money stopped for good. Some desert cells carry that ghost plat.
+//
+// CONTINUOUS: every feature is sampled from the global terrain field
+// (bohemia_terrain_noise.js) in valley coordinates, so rills, scrub density and pavement
+// patches cross cell boundaries without a seam.
+//
+// LEGEND:
+//  0 desert pavement  1 rock lag       2 creosote bush   3 bursage / low scrub
+//  4 caliche hardpan  5 dry rill       6 OHV track       7 dumped debris
+//  8 burned car       9 graded pad    10 curb stub      11 rock outcrop
+// 12 dead tree/yucca 13 survey stake
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  var N = (typeof module !== 'undefined') ? require('./bohemia_terrain_noise.js')
+        : (typeof BohemiaTerrainNoise !== 'undefined' ? BohemiaTerrainNoise : root.BohemiaTerrainNoise);
+
+  var FIELD = 0x5EED;   // the valley's one terrain field seed
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var cx = (opts.cellX || 0) * 128, cy = (opts.cellY || 0) * 128;
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    for (y = 0; y < 128; y++) {
+      var gy = cy + y;
+      for (x = 0; x < 128; x++) {
+        var gx = cx + x;
+
+        // ---- the ground itself: pavement, rock lag, caliche ----
+        var lag = N.fbm(FIELD, gx, gy, 26, 3);
+        var cal = N.fbm(FIELD + 101, gx, gy, 70, 3);
+        var code = 0;
+        if (cal > 0.66) code = 4;               // caliche breaks through in broad patches
+        else if (lag > 0.60) code = 1;          // rock lag where the fines blew out
+
+        // ---- dry rills: braided channels crossing the whole valley ----
+        var d1 = N.channelDist(FIELD + 7, gx, gy, 'v', cx + 40, 46, 260);
+        var d2 = N.channelDist(FIELD + 23, gx, gy, 'v', cx + 96, 38, 190);
+        if (d1 < 3 || d2 < 2) code = 5;
+        else if (d1 < 6 || d2 < 4) { if (code === 0) code = 1; }   // gravel banks either side
+
+        g[y][x] = code;
+      }
+    }
+
+    // ---- CREOSOTE, self-spaced. Not scatter: a jittered lattice, which is what root
+    //      competition actually produces and what makes this desert readable from above.
+    var STEP = 9;
+    for (y = -STEP; y < 128 + STEP; y += STEP) {
+      for (x = -STEP; x < 128 + STEP; x += STEP) {
+        var jx = x + Math.floor(N.hash2(FIELD + 3, cx + x, cy + y) * (STEP - 2));
+        var jy = y + Math.floor(N.hash2(FIELD + 4, cx + x, cy + y) * (STEP - 2));
+        if (jx < 0 || jy < 0 || jx > 127 || jy > 127) continue;
+        // density follows the field: thicker in the swales, thin on the pavement
+        var dens = N.fbm(FIELD + 55, cx + jx, cy + jy, 90, 3);
+        var roll = N.hash2(FIELD + 5, cx + jx, cy + jy);
+        if (roll > 0.25 + dens * 0.55) continue;
+        var here = g[jy][jx];
+        if (here === 5) continue;                       // nothing grows in the rill bed
+        var big = roll < 0.45;
+        g[jy][jx] = big ? 2 : 3;
+        if (big) {                                      // a creosote is a bush, not a pixel
+          if (jx + 1 < 128 && g[jy][jx + 1] !== 5) g[jy][jx + 1] = 2;
+          if (jy + 1 < 128 && g[jy + 1][jx] !== 5) g[jy + 1][jx] = 2;
+        }
+      }
+    }
+
+    // ---- OHV tracks: two crossing lines of packed dirt, drawn from the global field so
+    //      they run on into the next lot instead of stopping at the property line.
+    (function tracks() {
+      for (var yy = 0; yy < 128; yy++) {
+        for (var xx = 0; xx < 128; xx++) {
+          var gx2 = cx + xx, gy2 = cy + yy;
+          var a = N.channelDist(FIELD + 71, gx2, gy2, 'h', cy + 30, 34, 300);
+          var b = N.channelDist(FIELD + 89, gx2, gy2, 'v', cx + 74, 30, 240);
+          if ((a < 1.2 || b < 1.2) && g[yy][xx] !== 5) g[yy][xx] = 6;
+        }
+      }
+    })();
+
+    // ---- rock outcrops where the field runs high ----
+    for (i = 0; i < 5; i++) {
+      var ox = Math.floor(r() * 118) + 5, oy = Math.floor(r() * 118) + 5;
+      if (N.fbm(FIELD + 11, cx + ox, cy + oy, 60, 2) < 0.58) continue;
+      var rad = 3 + Math.floor(r() * 4);
+      for (y = -rad; y <= rad; y++) for (x = -rad; x <= rad; x++) {
+        if (x * x + y * y > rad * rad) continue;
+        var px = ox + x, py = oy + y;
+        if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+        g[py][px] = 11;
+      }
+    }
+
+    // ---- a dead yucca or two, and survey stakes nobody came back for ----
+    for (i = 0; i < 3 + Math.floor(r() * 4); i++) {
+      var yx = Math.floor(r() * 126) + 1, yy2 = Math.floor(r() * 126) + 1;
+      if (g[yy2][yx] === 5) continue;
+      g[yy2][yx] = 12;
+    }
+
+    // ---- ILLEGAL DUMPING: the shoulder of every vacant lot in the valley ----
+    var dumpN = 2 + Math.floor(r() * 4);
+    for (i = 0; i < dumpN; i++) {
+      var dx = Math.floor(r() * 110) + 8, dy = Math.floor(r() * 110) + 8;
+      var w = 2 + Math.floor(r() * 4), h = 2 + Math.floor(r() * 3);
+      for (y = 0; y < h; y++) for (x = 0; x < w; x++) {
+        var qx = dx + x, qy = dy + y;
+        if (qx > 127 || qy > 127) continue;
+        g[qy][qx] = 7;
+      }
+    }
+    if (r() < 0.35) {                                   // and something bigger, burned
+      var bx = Math.floor(r() * 112) + 6, by = Math.floor(r() * 112) + 6;
+      for (y = 0; y < 4; y++) for (x = 0; x < 7; x++) {
+        var ex = bx + x, ey = by + y;
+        if (ex > 127 || ey > 127) continue;
+        g[ey][ex] = 8;
+      }
+    }
+
+    /* ---- THE SUBDIVISION THAT NEVER GOT BUILT. Some vacant lots out here are not
+       virgin desert at all: they are a plat that got graded, curbed, and abandoned when
+       the money stopped. Pads, a curb stub, a stake at every corner, and nothing else,
+       ever. In this world that is not a recession story, it is the whole story. */
+    var ghost = N.fbm(FIELD + 313, cx + 64, cy + 64, 3.2, 2);
+    if (ghost > 0.72) {
+      var rows = 2, cols = 3, padW = 26, padH = 34, gapX = 10, gapY = 14;
+      // the plat sits where the developer's grid put it, not always the same corner
+      var x0 = 8 + Math.floor(N.hash2(FIELD + 411, cx, cy) * 14);
+      var y0 = 10 + Math.floor(N.hash2(FIELD + 412, cx, cy) * 18);
+      // the curb stub: a road ring that goes nowhere
+      for (x = x0 - 6; x < x0 + cols * (padW + gapX); x++) {
+        if (x < 0 || x > 127) continue;
+        if (y0 - 6 >= 0) g[y0 - 6][x] = 10;
+        var yb = y0 + rows * (padH + gapY) - gapY + 4;
+        if (yb < 128) g[yb][x] = 10;
+      }
+      for (y = y0 - 6; y < y0 + rows * (padH + gapY); y++) {
+        if (y < 0 || y > 127) continue;
+        if (x0 - 6 >= 0) g[y][x0 - 6] = 10;
+      }
+      for (var rr = 0; rr < rows; rr++) for (var cc = 0; cc < cols; cc++) {
+        var px0 = x0 + cc * (padW + gapX), py0 = y0 + rr * (padH + gapY);
+        for (y = 0; y < padH; y++) for (x = 0; x < padW; x++) {
+          var ax = px0 + x, ay = py0 + y;
+          if (ax < 0 || ay < 0 || ax > 127 || ay > 127) continue;
+          g[ay][ax] = 9;                                  // the graded pad, still bare
+        }
+        [[px0 - 1, py0 - 1], [px0 + padW, py0 - 1], [px0 - 1, py0 + padH], [px0 + padW, py0 + padH]]
+          .forEach(function (p) {
+            if (p[0] >= 0 && p[1] >= 0 && p[0] < 128 && p[1] < 128) g[p[1]][p[0]] = 13;
+          });
+      }
+    }
+
+    return { g: g, W: 128, H: 128, streets: [], gates: [], footprints: [], ghostPlat: ghost > 0.72 };
+  }
+
+  var PALETTE = {
+    1: '#8f8062', 2: '#4a5230', 3: '#5c5a3a', 4: '#a89c7e', 5: '#7e7256', 6: '#7a6c4e',
+    7: '#6a6258', 8: '#4a4038', 9: '#9a8d70', 10: '#a09684', 11: '#6f6551', 12: '#5a5334',
+    13: '#b0a070'
+  };
+
+  var LEGEND = {
+    0:  { name: 'desert pavement',  kind: 'ground',    act1: 'compacted Mojave dirt, the fines long blown out of it' },
+    1:  { name: 'rock lag',         kind: 'ground',    act1: 'a lag of small dark rock left standing on the pavement' },
+    2:  { name: 'creosote bush',    kind: 'tree-dead', act1: 'creosote, grey-green and half dead, standing in its own poisoned circle', solid: false },
+    3:  { name: 'bursage / scrub',  kind: 'tree-dead', act1: 'low bursage and dry grass clumps between the creosote', solid: false },
+    4:  { name: 'caliche hardpan',  kind: 'ground',    act1: 'white cemented caliche breaking through the surface' },
+    5:  { name: 'dry rill',         kind: 'ground',    act1: 'a braided dry rill cut into the lot, sand and gravel in the bed' },
+    6:  { name: 'OHV track',        kind: 'drive',     act1: 'packed dirt track worn by bikes and trucks, still legible' },
+    7:  { name: 'dumped debris',    kind: 'prop',      act1: 'a tipped load of mattresses, tyres and contractor trash' },
+    8:  { name: 'burned car',       kind: 'vehicle',   act1: 'a car dragged out here and burned, shell rusting into the dirt' },
+    9:  { name: 'graded pad',       kind: 'ground',    act1: 'a house pad graded flat and never built on, edges softening' },
+    10: { name: 'curb stub',        kind: 'ground',    act1: 'poured curb and gutter for a street that has no houses on it' },
+    11: { name: 'rock outcrop',     kind: 'prop',      act1: 'a limestone outcrop pushing up through the pavement' },
+    12: { name: 'dead yucca',       kind: 'tree-dead', act1: 'a dead yucca, trunk grey and split' },
+    13: { name: 'survey stake',     kind: 'prop',      act1: 'a survey stake with faded ribbon, marking a lot corner nobody claimed', solid: false }
+  };
+
+  var NOTES = {
+    summary: 'The vacant Mojave lot: self-spaced creosote on desert pavement, braided dry rills, OHV tracks, illegal dumping, and sometimes the ghost of a subdivision that was graded and never built.',
+    reference: [
+      'The valley floor plant community is CREOSOTE-BURSAGE, and creosote self-spaces (its roots poison competitors), so from above the bushes stand in an eerily regular scatter with bare ground between them. That spacing is the signature of this desert.',
+      'Desert pavement: a lag of rock left after the fines blow out, with white CALICHE hardpan breaking through in patches.',
+      'Vacant land in the valley is crossed by informal OHV tracks and used for illegal dumping (mattresses, tyres, burned cars, contractor debris). Both are constants, not decoration.',
+      'THE GHOST PLAT: Las Vegas is ringed with graded pads, curb-and-gutter stubs and survey stakes on subdivisions that stopped when the money did. In Bohemia the money stopped for good.'
+    ],
+    layout: [
+      'Ground is desert pavement with rock lag and caliche patches, all sampled from the valley-wide terrain field so it never seams at a cell edge.',
+      'Braided dry rills cross the lot and continue into the neighbouring cells; nothing grows in the beds.',
+      'Creosote stands on a jittered lattice (self-spacing), bursage fills between, density follows the field.',
+      'Two OHV tracks cross the lot and run on out of it. Dumped debris and sometimes a burned car sit off them.',
+      'Roughly a third of desert cells carry the GHOST PLAT: six graded pads, a curb stub ring, and a survey stake at every corner.'
+    ],
+    circulation: 'Open ground: crossable in every direction on foot, and the OHV tracks are a real drivable line through it. The rills are walkable beds, a little lower than the pavement. Nothing here gates access to anything, which is the point of vacant land.',
+    layering: 'GROUND (flat, walk or drive): pavement (0), rock lag (1), caliche (4), rill bed (5), OHV track (6), graded pad (9), curb stub (10). PROPS: creosote and bursage and dead yucca (2, 3, 12, low and passable), survey stake (13, passable), rock outcrop (11, solid), dumped debris (7, solid), burned car (8, solid). No structures, no portals: this is land nobody built on.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world." 620 cells of flat tan square is not world.',
+      'Terrain is sampled from ONE valley-wide noise field in global coordinates, never from the cell seed, so ridges, rills and scrub density cross cell boundaries with no seam. That is the difference between terrain and wallpaper.',
+      'A desert cell is a SURFACE, not a district: no faction, economy or address ever resolves to it.',
+      'The ghost plat is the one deliberate piece of storytelling in the tile set, and it is the one that is most literally true of the real city.'
+    ]
+  };
+
+  K.register('desert', {
+    generate: generate, body: function (c) { return c === 11; },
+    category: K.category('desert') || 'terrain',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaDesert = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_mountain.js ==== */
+// BOHEMIA MOUNTAIN (7/26/26, WORLD lane) — THE VALLEY WALL, BUILT FOR REAL.
+//
+// 927 cells, the most numerous single thing in the valley after suburb, and every one of
+// them rendered as a flat brown square. The mountains are not scenery: they are the
+// reason Las Vegas is a bowl. They are the edge of the playable world, and the only way
+// through them is where water cut a way through first.
+//
+// REAL REFERENCE (the ranges that actually ring the valley — Spring Mountains west,
+// Frenchman and Sunrise east, McCullough south, Las Vegas Range north):
+//   grey Paleozoic LIMESTONE with sandstone at the west end: bare rock, no soil, no trees
+//     at valley elevation (the pinyon-juniper belt is far higher up)
+//   the profile is RIDGE and RAVINE: sharp crests with steep chutes cutting down between
+//     them, not rolling hills
+//   TALUS / SCREE aprons pile at the base where the cliffs shed rock
+//   ALLUVIAL FANS spread out at the mouth of every ravine onto the valley floor
+//   vegetation exists only in the drainages, where the runoff goes: dry desert shrub in
+//     the ravine bottoms, nothing on the faces
+//
+// WHAT IT MEANS FOR PLAY. The rock is SOLID and the cliff bands are solid: a body cannot
+// walk up the face. The RAVINE floors are passable. So the mountains wall the valley in
+// and the ravines are the passes, which is exactly how the real geography works and it
+// falls out of the terrain instead of being a rule bolted on top.
+//
+// CONTINUOUS: ridges and ravines are sampled from the valley-wide field
+// (bohemia_terrain_noise.js) in global coordinates, so a crest that leaves one cell
+// arrives in the next one in the right place.
+//
+// LEGEND:
+//  0 bedrock face  1 ridge crest   2 cliff band    3 talus / scree  4 ravine floor
+//  5 dry drainage  6 desert shrub  7 boulder       8 alluvial fan   9 rockfall scar
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  var N = (typeof module !== 'undefined') ? require('./bohemia_terrain_noise.js')
+        : (typeof BohemiaTerrainNoise !== 'undefined' ? BohemiaTerrainNoise : root.BohemiaTerrainNoise);
+
+  var FIELD = 0x5EED;
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var cx = (opts.cellX || 0) * 128, cy = (opts.cellY || 0) * 128;
+    // how much of this cell is still mountain vs spilling onto the valley floor: a cell
+    // with valley neighbours carries the alluvial fan on that side.
+    var open = opts.open || [];              // directions whose neighbour is NOT mountain
+    var openSet = {};
+    open.forEach(function (d) { openSet[String(d).toUpperCase()[0]] = 1; });
+
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    /* THE MASSIF TERM, and why it is shaped like this. The pure noise field sometimes
+       runs low across a whole cell, which produced a "mountain" cell with no mountain
+       in it (the gate caught exactly that). A range is not noise: it is a mass that
+       rises away from the valley. So elevation gets a bias that is FULL in the interior
+       of the range and FEATHERS TO ZERO at any edge facing the valley floor. Two
+       neighbouring mountain cells share a CLOSED edge, so both compute full bias there
+       and the seam still agrees to the tile; a cell facing the flat drops to the fan
+       exactly where the flat begins. */
+    var MASSIF = 0.17, DIP = 0.13, FEATHER = 46;
+    function bias(px, py) {
+      var f = 1;
+      if (openSet.N) f = Math.min(f, py / FEATHER);
+      if (openSet.S) f = Math.min(f, (127 - py) / FEATHER);
+      if (openSet.W) f = Math.min(f, px / FEATHER);
+      if (openSet.E) f = Math.min(f, (127 - px) / FEATHER);
+      f = Math.max(0, Math.min(1, f));
+      // full massif in the interior, and a real DIP toward any edge that faces the
+      // valley, so the range grades down into its fan instead of ending in a cliff
+      // against somebody's back wall.
+      return MASSIF * f - DIP * (1 - f);
+    }
+
+    for (y = 0; y < 128; y++) {
+      var gy = cy + y;
+      for (x = 0; x < 128; x++) {
+        var gx = cx + x;
+
+        // RIDGED noise is the shape of a mountain: sharp crests, steep chutes between.
+        var h = N.ridged(FIELD + 900, gx, gy, 150, 4);
+        var detail = N.fbm(FIELD + 901, gx, gy, 18, 3);
+        var elev = h * 0.82 + detail * 0.18 + bias(x, y);
+
+        var code;
+        if (elev > 0.78) code = 1;              // the crest itself, bare and bright
+        else if (elev > 0.60) code = 0;         // bedrock face
+        else if (elev > 0.50) code = 2;         // the cliff band where the slope breaks
+        else if (elev > 0.36) code = 3;         // talus apron shed off the face
+        else code = 4;                          // ravine floor between the ridges
+
+        g[y][x] = code;
+      }
+    }
+
+    // ---- the drainage line down each ravine, and the only green in the whole cell ----
+    for (y = 0; y < 128; y++) {
+      for (x = 0; x < 128; x++) {
+        if (g[y][x] !== 4) continue;
+        var gx2 = cx + x, gy2 = cy + y;
+        var wet = N.fbm(FIELD + 902, gx2, gy2, 30, 3);
+        var low = N.ridged(FIELD + 900, gx2, gy2, 150, 4);
+        if (low < 0.24 && wet > 0.45) g[y][x] = 5;                 // the dry watercourse
+        else if (wet > 0.72 && N.hash2(FIELD + 903, gx2, gy2) < 0.35) g[y][x] = 6;  // shrub
+      }
+    }
+
+    // ---- boulders shed onto the talus, and the scars they came from ----
+    for (i = 0; i < 26; i++) {
+      var bx = Math.floor(r() * 124) + 2, by = Math.floor(r() * 124) + 2;
+      if (g[by][bx] !== 3 && g[by][bx] !== 4) continue;
+      var rad = 1 + Math.floor(r() * 2);
+      for (y = -rad; y <= rad; y++) for (x = -rad; x <= rad; x++) {
+        if (x * x + y * y > rad * rad) continue;
+        var px = bx + x, py = by + y;
+        if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+        g[py][px] = 7;
+      }
+    }
+    for (i = 0; i < 3; i++) {
+      var sx = Math.floor(r() * 110) + 9, sy = Math.floor(r() * 110) + 9;
+      if (g[sy][sx] !== 0 && g[sy][sx] !== 2) continue;
+      for (y = 0; y < 14; y++) {
+        var w = 1 + Math.floor(y / 4);
+        for (x = -w; x <= w; x++) {
+          var qx = sx + x, qy = sy + y;
+          if (qx < 0 || qy < 0 || qx > 127 || qy > 127) continue;
+          if (g[qy][qx] === 0 || g[qy][qx] === 2 || g[qy][qx] === 3) g[qy][qx] = 9;
+        }
+      }
+    }
+
+    /* ---- THE ALLUVIAL FAN. Where this cell meets the valley floor, the mountain does
+       not stop at a line: it spills. Every ravine mouth lays a fan of washed gravel out
+       onto the flat, which is why the edge of town in a desert city always sits on a
+       gentle apron rather than against a wall. */
+    var FAN = 30;
+    ['N', 'S', 'E', 'W'].forEach(function (d) {
+      if (!openSet[d]) return;
+      for (var t = 0; t < 128; t++) {
+        var depth = FAN * (0.45 + N.fbm(FIELD + 904, cx + t, cy + t, 40, 2) * 0.9);
+        for (var k = 0; k < depth; k++) {
+          var px, py;
+          if (d === 'N') { px = t; py = k; }
+          else if (d === 'S') { px = t; py = 127 - k; }
+          else if (d === 'W') { px = k; py = t; }
+          else { px = 127 - k; py = t; }
+          if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+          var cur = g[py][px];
+          if (cur === 1 || cur === 2 || cur === 0) continue;     // the crest still wins
+          g[py][px] = 8;
+        }
+      }
+    });
+
+    return { g: g, W: 128, H: 128, streets: [], gates: [], footprints: [] };
+  }
+
+  /* THE PASS TEST: a mountain cell must not be a solid wall of rock. Ravine floors,
+     drainages and fans are the ways through, and the gate proves they exist. */
+  function passableFraction(res) {
+    var g = res.g, open = 0;
+    for (var y = 0; y < 128; y++) for (var x = 0; x < 128; x++) {
+      var c = g[y][x];
+      if (c === 4 || c === 5 || c === 6 || c === 8 || c === 3) open++;
+    }
+    return open / (128 * 128);
+  }
+
+  var PALETTE = {
+    1: '#a09781', 2: '#463f36', 3: '#6e6656', 4: '#7f7666', 5: '#8b8270', 6: '#49512f',
+    7: '#57503f', 8: '#8f8570', 9: '#b5ab93'
+  };
+
+  var LEGEND = {
+    0: { name: 'bedrock face',  kind: 'structure', act1: 'bare grey limestone face, no soil on it at all', solid: true },
+    1: { name: 'ridge crest',   kind: 'structure', act1: 'the sunlit crest of the ridge, rock scoured clean', solid: true },
+    2: { name: 'cliff band',    kind: 'structure', act1: 'a cliff band where the slope breaks, unclimbable', solid: true },
+    3: { name: 'talus / scree', kind: 'ground',    act1: 'apron of loose broken rock shed off the face, slow going' },
+    4: { name: 'ravine floor',  kind: 'ground',    act1: 'the floor of a ravine between two ridges, gravel and rock' },
+    5: { name: 'dry drainage',  kind: 'ground',    act1: 'the dry watercourse down the ravine, sand and cobble' },
+    6: { name: 'desert shrub',  kind: 'tree-dead', act1: 'dry shrub in the drainage, the only living thing on the mountain', solid: false },
+    7: { name: 'boulder',       kind: 'prop',      act1: 'a boulder come down off the face, house-sized' },
+    8: { name: 'alluvial fan',  kind: 'ground',    act1: 'washed gravel fanning out where the ravine meets the flat' },
+    9: { name: 'rockfall scar', kind: 'ground',    act1: 'a fresh pale scar where the face let go' }
+  };
+
+  var NOTES = {
+    summary: 'The valley wall: ridge and ravine limestone, cliff bands, talus aprons, and alluvial fans spilling onto the flat. Solid rock walls the world in; the ravines are the only way through.',
+    reference: [
+      'The ranges that ring Las Vegas (Spring Mountains west, Frenchman and Sunrise east, McCullough south) are grey Paleozoic limestone: bare rock, no soil, and no trees at valley elevation.',
+      'The profile is RIDGE and RAVINE, sharp crests with steep chutes between them, not rolling hills. Talus aprons pile at the base where the cliffs shed rock.',
+      'Vegetation exists only in the drainages where the runoff goes.',
+      'Every ravine mouth lays an ALLUVIAL FAN onto the valley floor, which is why the edge of a desert city sits on a gentle apron and not against a wall.'
+    ],
+    layout: [
+      'Ridged noise sampled in valley coordinates gives crest, face, cliff band, talus and ravine floor by elevation, so a crest leaving one cell arrives in the next one in the right place.',
+      'Drainages run down the ravine floors, carrying the only shrub on the mountain.',
+      'Boulders sit on the talus, with pale rockfall scars on the faces above them.',
+      'Any edge whose neighbour is NOT mountain gets an alluvial fan spilling out of this cell onto the flat.'
+    ],
+    circulation: 'THIS IS THE EDGE OF THE WORLD AND IT IS MEANT TO STOP YOU. Bedrock, crest and cliff band are SOLID: no body walks up the face. Talus, ravine floors, drainages and fans are passable, so the mountains wall the valley in and the ravines are the passes. That is how the real geography works, and here it falls out of the terrain rather than being a rule bolted on top. No vehicle surface, no street, no gate.',
+    layering: 'STRUCTURE (solid, blocks): bedrock face (0), ridge crest (1), cliff band (2). GROUND (walkable, rough): talus (3), ravine floor (4), dry drainage (5), alluvial fan (8), rockfall scar (9). PROPS: boulder (7, solid), desert shrub (6, passable). No overhead, no portals. One level, and most of it is in your way.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world." 927 flat brown squares was the single biggest unbuilt thing in the valley.',
+      'Solid rock plus passable ravines is a deliberate play property: the valley is a bowl with named ways through it, and nothing had to be hard-coded to make that true.',
+      'A mountain cell is a SURFACE, not a district: never territory, never an address.',
+      'No trees. At valley elevation these ranges carry none, and putting pines on them would be the exact kind of generic-desert wrongness this project keeps refusing.'
+    ]
+  };
+
+  K.register('mountain', {
+    generate: generate, body: function (c) { return c === 0 || c === 1 || c === 2; },
+    category: K.category('mountain') || 'terrain',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, passableFraction: passableFraction,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaMountain = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_water.js ==== */
+// BOHEMIA WATER (7/26/26, WORLD lane) — THE RESERVOIR, BUILT FOR REAL.
+//
+// 74 cells of the valley are water: Lake Mead and the reservoirs behind the dam. They
+// rendered as a flat blue square, which is the least true thing the map could have said,
+// because the ONE fact everybody knows about this lake is that it is going away.
+//
+// REAL REFERENCE (Lake Mead, and what a drawdown actually looks like from above):
+//   THE BATHTUB RING. Two decades of decline left a bright white mineral band on the
+//     rock, 100+ feet tall, marking where the water used to be. It is the most
+//     photographed thing in the American southwest that nobody wants to photograph.
+//   EXPOSED LAKEBED below it: cracked silt, stranded quagga-mussel shell beds, and the
+//     things the water gave back (sunken boats, a WWII-era plane, bodies in barrels)
+//   MARINAS AND RAMPS LEFT HIGH AND DRY: concrete launch ramps ending in mid-air a
+//     quarter mile from the shore, extended again and again and finally abandoned
+//   the surviving water is a narrow dead-flat sheet in the deepest channel
+//
+// In Bohemia the collapse came for the money first, so nobody extended the ramp again.
+// This tile set is the drawdown, frozen.
+//
+// CONTINUOUS: the shoreline is sampled from the valley-wide field
+// (bohemia_terrain_noise.js) in global coordinates, so the lake edge crosses cell
+// boundaries as one curve instead of a staircase of separate ideas.
+//
+// LEGEND:
+//  0 open water    1 shallow water  2 bathtub ring  3 exposed lakebed  4 cracked silt
+//  5 shell bed     6 shore rock     7 launch ramp   8 sunken boat      9 dead brush
+// 10 mooring debris
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  var N = (typeof module !== 'undefined') ? require('./bohemia_terrain_noise.js')
+        : (typeof BohemiaTerrainNoise !== 'undefined' ? BohemiaTerrainNoise : root.BohemiaTerrainNoise);
+
+  var FIELD = 0x5EED;
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var cx = (opts.cellX || 0) * 128, cy = (opts.cellY || 0) * 128;
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    for (y = 0; y < 128; y++) {
+      var gy = cy + y;
+      for (x = 0; x < 128; x++) {
+        var gx = cx + x;
+        // ONE continuous depth field over the whole reservoir. Everything else is a
+        // band cut out of it, which is exactly how a drawdown reads on the ground.
+        var depth = N.fbm(FIELD + 600, gx, gy, 190, 4);
+        var edge = N.fbm(FIELD + 601, gx, gy, 34, 3) * 0.10;
+        var d = depth + edge;
+
+        var code;
+        if (d > 0.62) code = 0;             // what is left of the lake
+        else if (d > 0.565) code = 1;       // the shallows, silty and warm
+        else if (d > 0.545) code = 5;       // the shell beds the water left behind
+        else if (d > 0.50) code = 4;        // cracked silt just above the waterline
+        else if (d > 0.44) code = 3;        // exposed lakebed
+        else if (d > 0.40) code = 2;        // THE BATHTUB RING
+        else code = 6;                      // shore rock above the old high-water mark
+        g[y][x] = code;
+      }
+    }
+
+    // ---- dead brush colonising the exposed bed, and rock scatter on the shore ----
+    for (i = 0; i < 90; i++) {
+      var bx = Math.floor(r() * 126) + 1, by = Math.floor(r() * 126) + 1;
+      var c = g[by][bx];
+      if (c === 3 || c === 4) { if (r() < 0.5) g[by][bx] = 9; }
+      else if (c === 6 && r() < 0.35) g[by][bx] = 6;
+    }
+
+    /* ---- A LAUNCH RAMP LEFT IN MID-AIR. Where this cell holds a stretch of the old
+       shoreline, there is a concrete ramp running down from the rock, across the
+       bathtub ring, over the exposed bed, and stopping. The water it was built for is
+       somewhere off in the middle distance. Nobody extended it again. */
+    // only a cell that actually holds a stretch of the old shoreline can have a ramp,
+    // and the ramp has to be built on a column that really crosses the ring
+    var ringCols = [];
+    for (x = 6; x < 122; x++) {
+      var hasRing = false, hasBed = false;
+      for (y = 0; y < 128; y++) {
+        if (g[y][x] === 2) hasRing = true;
+        if (g[y][x] === 3 || g[y][x] === 4) hasBed = true;
+      }
+      if (hasRing && hasBed) ringCols.push(x);
+    }
+    var wantRamp = ringCols.length > 8 && N.hash2(FIELD + 602, cx, cy) < 0.75;
+    if (wantRamp) {
+      var rx = ringCols[Math.floor(N.hash2(FIELD + 603, cx, cy) * ringCols.length)];
+      var started = false, len = 0;
+      // run down the column from whichever end is dry land
+      var topDry = (g[0][rx] === 2 || g[0][rx] === 6 || g[0][rx] === 3 || g[0][rx] === 4);
+      for (var k = 0; k < 128; k++) {
+        y = topDry ? k : (127 - k);
+        var here = g[y][rx];
+        if (!started && (here === 2 || here === 6)) started = true;   // starts up on the ring
+        if (!started) continue;
+        if (here === 0 || here === 1) break;                          // never reaches water
+        for (x = -4; x <= 4; x++) {
+          var px = rx + x;
+          if (px < 0 || px > 127) continue;
+          g[y][px] = 7;
+        }
+        if (++len > 70) break;
+      }
+      // the mooring hardware and dock debris left at the top of it
+      for (i = 0; i < 10; i++) {
+        var mx = rx - 8 + Math.floor(r() * 17), my = 6 + Math.floor(r() * 26);
+        if (mx < 0 || mx > 127 || my > 127) continue;
+        if (g[my][mx] === 7) continue;
+        g[my][mx] = 10;
+      }
+    }
+
+    // ---- what the water gave back ----
+    if (N.hash2(FIELD + 604, cx + 5, cy + 5) < 0.4) {
+      var sx = 20 + Math.floor(r() * 80), sy = 20 + Math.floor(r() * 80);
+      for (y = 0; y < 5; y++) for (x = 0; x < 13; x++) {
+        var qx = sx + x, qy = sy + y;
+        if (qx > 127 || qy > 127) continue;
+        var cc = g[qy][qx];
+        if (cc === 3 || cc === 4 || cc === 5 || cc === 1) g[qy][qx] = 8;
+      }
+    }
+
+    return { g: g, W: 128, H: 128, streets: [], gates: [], footprints: [] };
+  }
+
+  var PALETTE = {
+    1: '#3c6a76', 2: '#c2bca8', 3: '#8a8069', 4: '#948a72', 5: '#a49a80', 6: '#6b6153',
+    7: '#a8a396', 8: '#5c564a', 9: '#4a5230', 10: '#6a6458'
+  };
+
+  var LEGEND = {
+    0:  { name: 'open water',     kind: 'water-dead', act1: 'what is left of the reservoir, flat and dead still' },
+    1:  { name: 'shallow water',  kind: 'water-dead', act1: 'silty shallows over the drowned bed' },
+    2:  { name: 'bathtub ring',   kind: 'ground',     act1: 'the white mineral band on the rock marking where the water used to be' },
+    3:  { name: 'exposed lakebed',kind: 'ground',     act1: 'lakebed the water gave up, grey silt gone hard' },
+    4:  { name: 'cracked silt',   kind: 'ground',     act1: 'silt dried into plates and curled at the edges' },
+    5:  { name: 'shell bed',      kind: 'ground',     act1: 'a crust of stranded mussel shell, crunching underfoot' },
+    6:  { name: 'shore rock',     kind: 'ground',     act1: 'broken rock above the old high-water mark' },
+    7:  { name: 'launch ramp',    kind: 'ground',     act1: 'a concrete launch ramp running down and stopping in mid-air, a quarter mile short of the water' },
+    8:  { name: 'sunken boat',    kind: 'vehicle',    act1: 'a boat the lake gave back, hull open to the sky' },
+    9:  { name: 'dead brush',     kind: 'tree-dead',  act1: 'brush that colonised the new ground and then died too', solid: false },
+    10: { name: 'mooring debris', kind: 'prop',       act1: 'cleats, cable and dock section left where the marina was' }
+  };
+
+  var NOTES = {
+    summary: 'The reservoir in drawdown: a shrunken sheet of dead water, the white bathtub ring above it, miles of exposed lakebed, and a launch ramp that stops in mid-air.',
+    reference: [
+      'Lake Mead: two decades of decline left a bright mineral BATHTUB RING over 100 feet tall on the rock, marking where the water used to be.',
+      'Below it, exposed lakebed: cracked silt, stranded quagga-mussel shell beds, and the things the water gave back (sunken boats, a WWII plane, bodies in barrels).',
+      'Marinas and concrete launch ramps were extended again and again and finally abandoned, ending in mid-air a long way from the shore.',
+      'The surviving water sits in the deepest channel, flat and still.'
+    ],
+    layout: [
+      'One continuous depth field over the whole reservoir, sampled in valley coordinates, gives every band: open water, shallows, shell bed, cracked silt, exposed bed, bathtub ring, shore rock. The shoreline crosses cell boundaries as one curve.',
+      'Dead brush colonises the newly exposed ground; rock scatters on the shore.',
+      'Most cells that hold a stretch of old shoreline carry a launch ramp running down from the ring, across the exposed bed, and stopping short of the water, with mooring debris at the top of it.',
+      'Some cells carry what the water gave back.'
+    ],
+    circulation: 'Everything below the ring is walkable ground now, which is the whole horror of it: you can stroll a quarter mile out onto what used to be a lake. Open water and shallows are the only tiles that are not simply crossed on foot. No street, no gate, no vehicle network.',
+    layering: 'GROUND (flat, walkable): bathtub ring (2), exposed lakebed (3), cracked silt (4), shell bed (5), shore rock (6), launch ramp (7). WATER (dead, not walked): open water (0), shallows (1). PROPS: sunken boat (8, solid), mooring debris (10, solid), dead brush (9, passable). No structures, no portals, one level.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world."',
+      'The drawdown IS the content. A full blue lake would be the one thing about this landscape that is not true, and the ring says more about the world than any prop could.',
+      'A water cell is a SURFACE, not a district.',
+      'Whether anyone lives down on the exposed bed is LIFE/faction canon and stays Paolo\'s call; the terrain gives them the ground and nothing more.'
+    ]
+  };
+
+  K.register('water', {
+    generate: generate, body: function (c) { return c === 8; },
+    category: K.category('water') || 'terrain',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaWater = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
    BOHEMIA OVERMAP  (bohemia_overmap.js)  7/5/26 pass 4
@@ -7206,6 +7931,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
   var ART= HASREQ ? require('./bohemia_arterial.js')       : (typeof BohemiaArterial!=='undefined'?BohemiaArterial:root.BohemiaArterial);
   var FWY= HASREQ ? require('./bohemia_freeway.js')        : (typeof BohemiaFreeway!=='undefined'?BohemiaFreeway:root.BohemiaFreeway);
+  var DSR= HASREQ ? require('./bohemia_desert.js')         : (typeof BohemiaDesert!=='undefined'?BohemiaDesert:root.BohemiaDesert);
+  var MTN= HASREQ ? require('./bohemia_mountain.js')       : (typeof BohemiaMountain!=='undefined'?BohemiaMountain:root.BohemiaMountain);
+  var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -7264,8 +7992,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
      directions whose neighbours are also road (`links`), never rotateToStreet. */
   var SURFACEGEN = {
     arterial: { mod:ART, zone:'default' },
-    freeway:  { mod:FWY, zone:'default' }
+    freeway:  { mod:FWY, zone:'default' },
+    // TERRAIN (7/26): the raw land. Sampled from ONE valley-wide noise field in global
+    // coordinates (bohemia_terrain_noise.js), never from the cell seed, so ridges,
+    // rills and shorelines cross cell boundaries without a seam. Still surfaces, never
+    // districts: nobody bases a faction on a mountain.
+    desert:   { mod:DSR, zone:'default' },
+    mountain: { mod:MTN, zone:'default' },
+    water:    { mod:WAT, zone:'default' }
   };
+  // which edges face something OTHER than this same terrain (a mountain lays its
+  // alluvial fan onto the flat exactly there)
+  function openEdges(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var out=[];
+    if(at(x,y-1)!==kind)out.push('N'); if(at(x,y+1)!==kind)out.push('S');
+    if(at(x+1,y)!==kind)out.push('E'); if(at(x-1,y)!==kind)out.push('W');
+    return out;
+  }
   /* Which neighbours are road, split by CLASS. A freeway continues only into another
      freeway (it has no at-grade crossings at all); a mile-grid arterial that runs up
      against it is not a connection, it is what crosses OVER it on a deck. Getting that
@@ -7530,7 +8274,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         var rl=roadLinks(m,x,y,cell.district);
         var links=rl.all;
         var sres=sg.mod.generate(cell.seed>>>0,
-          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross });
+          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross,
+            cellX:x, cellY:y, open:openEdges(m,x,y,cell.district) });
         var slegend=sg.mod.legend||{};
         var stinfo=function(xx,yy){ var row=sres.g[yy]; var c=(row&&xx>=0&&xx<sres.W)?row[xx]:-1;
           var L=slegend[c], ly=KIT.tileLayer(L||{kind:'ground'});
@@ -7593,6 +8338,22 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       // SURFACE CELLS: real ground that is not a district (roads). Reported separately
       // so nothing that counts districts ever accidentally counts a street.
       isSurface: function(x,y){ var c=m.at(x,y); return !!(c && SURFACEGEN[c.district]); },
+      /* SURFACE LOCATION QUERY. districtsOfType only ever sees DISTGEN districts, so
+         once terrain became real ground the map had no way to answer "where are the
+         mountains" or "where is the lake" — the biggest things in the valley were the
+         only things you could not look up. Cheap (w.at only, never w.plot). */
+      surfaceCellsOfType: function(type){
+        var out=[]; for(var yy=0;yy<m.n;yy++)for(var xx=0;xx<m.n;xx++){
+          var c=m.at(xx,yy); if(c && c.district===type && SURFACEGEN[type]) out.push({x:xx,y:yy,district:type}); }
+        return out; },
+      nearestSurfaceOfType: function(x0,y0,type){
+        if(!SURFACEGEN[type]) return null;
+        var best=null,bd=Infinity;
+        for(var yy=0;yy<m.n;yy++)for(var xx=0;xx<m.n;xx++){
+          var c=m.at(xx,yy); if(!c||c.district!==type)continue;
+          var dx=xx-x0,dy=yy-y0,d=dx*dx+dy*dy;
+          if(d<bd){bd=d;best={x:xx,y:yy,district:type,dist:Math.sqrt(d)};} }
+        return best; },
       roadLinks: function(x,y){ var c=m.at(x,y); return roadLinks(m,x,y,c?c.district:null); },
       districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
       districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },
@@ -7647,7 +8408,7 @@ var MODMAP = {
   railyard:'BohemiaRailyard', substation:'BohemiaSubstation', chapel:'BohemiaChapel',
   courthouse:'BohemiaCourthouse', jail:'BohemiaJail', farm:'BohemiaFarm', downtown:'BohemiaDowntown',
   trailer:'BohemiaTrailer', warehouse:'BohemiaWarehouse', waterpark:'BohemiaWaterpark', mall:'BohemiaMall',
-  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal', arterial:'BohemiaArterial', freeway:'BohemiaFreeway'
+  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal', arterial:'BohemiaArterial', freeway:'BohemiaFreeway', desert:'BohemiaDesert', mountain:'BohemiaMountain', water:'BohemiaWater'
 };
 function modOf(dist){ var n = MODMAP[dist]; return n ? window[n] : null; }
 
@@ -7838,8 +8599,17 @@ var TYPE_LABEL = {
   downtown:'Downtown', trailer:'Trailer Park', warehouse:'Warehouse', waterpark:'Water Park',
   mall:'Mall', cityhall:'City Hall', battery:'Battery Storage', terminal:'Transit Terminal'
 };
+/* THE GROUND ITSELF IS FINDABLE (7/26). Terrain and roads are real generated ground
+   now, and they are the biggest things in the valley, so FIND lists them alongside the
+   districts. They are SURFACES, so they come from surfaceCellsOfType, not districtsOfType. */
+var SURFACE_LABEL = { mountain:'Mountains', desert:'Open Desert', water:'The Lake',
+                      arterial:'Mile Road', freeway:'Freeway' };
 function buildFindList(){
   var present = [];
+  for (var stype in SURFACE_LABEL) {
+    var sn = W.surfaceCellsOfType(stype).length;
+    if (sn > 0) present.push({type:stype, label:SURFACE_LABEL[stype], n:sn, surface:true});
+  }
   for (var type in MODMAP) {
     var n = W.districtsOfType(type).length;
     if (n > 0) present.push({type:type, label:TYPE_LABEL[type] || type, n:n});
@@ -7851,8 +8621,11 @@ function buildFindList(){
     row.className = 'finditem';
     row.textContent = item.label + '  ·  ' + item.n;
     row.addEventListener('pointerup', function(){
-      var nearest = W.nearestDistrictOfType(px, py, item.type);
-      highlightMatches = W.districtsOfType(item.type); highlightLabel = item.label;
+      var nearest = item.surface ? W.nearestSurfaceOfType(px, py, item.type)
+                                 : W.nearestDistrictOfType(px, py, item.type);
+      highlightMatches = item.surface ? W.surfaceCellsOfType(item.type)
+                                      : W.districtsOfType(item.type);
+      highlightLabel = item.label;
       if (nearest) { px = nearest.x; py = nearest.y; sel = [nearest.x, nearest.y]; }
       findPanel.style.display = 'none';
       refreshHUD(); draw();

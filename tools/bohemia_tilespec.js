@@ -57,6 +57,9 @@ const DISTRICTS = [
   // valley is made of them, so the tiling phase needs their sheets exactly the same way.
   { name: 'arterial',   mod: require('../engine/bohemia_arterial.js') },
   { name: 'freeway',    mod: require('../engine/bohemia_freeway.js') },
+  { name: 'desert',     mod: require('../engine/bohemia_desert.js') },
+  { name: 'mountain',   mod: require('../engine/bohemia_mountain.js') },
+  { name: 'water',      mod: require('../engine/bohemia_water.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;

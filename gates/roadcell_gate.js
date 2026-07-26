@@ -200,8 +200,11 @@ ok('no faction is based on a street', [...ctx.factions.factions.values()].every(
 
 // ---- 9. THE VALLEY IS COVERED ----------------------------------------------
 let rendered = 0, blank = 0, deckCells = 0;
+// ROADS ONLY. Terrain became a surface too (7/26, terrain_gate.js owns it), so this
+// sweep asks specifically about the road network rather than about surfaces in general.
 for (let y = 0; y < w.n; y++) for (let x = 0; x < w.n; x++) {
-  const c = w.at(x, y); if (!c || !World.isSurfaceCell(c.district)) continue;
+  const c = w.at(x, y);
+  if (!c || (c.district !== 'arterial' && c.district !== 'freeway')) continue;
   const p = w.plot(x, y);
   if (p && p.surface && p.block && p.block.grid && p.legend && Object.keys(p.legend).length) rendered++;
   else blank++;
@@ -211,7 +214,9 @@ for (let y = 0; y < w.n; y++) for (let x = 0; x < w.n; x++) {
   }
 }
 ok('every road cell in the real valley renders a real plot (' + rendered + '/' + roadCells + ')',
-   blank === 0 && rendered === roadCells && rendered === surfaceCells);
+   blank === 0 && rendered === roadCells && roadCells > 3000);
+ok('surfaces now cover the roads AND the terrain (' + surfaceCells + ' cells)',
+   surfaceCells > roadCells);
 console.log('  the valley: ' + districtCells + ' district cells + ' + roadCells +
             ' road cells now generated (' + (100 * (districtCells + roadCells) / (w.n * w.n)).toFixed(1) +
             '% of ' + (w.n * w.n) + ' cells)');

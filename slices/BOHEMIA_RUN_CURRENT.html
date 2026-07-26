@@ -11676,6 +11676,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
   var ART= HASREQ ? require('./bohemia_arterial.js')       : (typeof BohemiaArterial!=='undefined'?BohemiaArterial:root.BohemiaArterial);
   var FWY= HASREQ ? require('./bohemia_freeway.js')        : (typeof BohemiaFreeway!=='undefined'?BohemiaFreeway:root.BohemiaFreeway);
+  var DSR= HASREQ ? require('./bohemia_desert.js')         : (typeof BohemiaDesert!=='undefined'?BohemiaDesert:root.BohemiaDesert);
+  var MTN= HASREQ ? require('./bohemia_mountain.js')       : (typeof BohemiaMountain!=='undefined'?BohemiaMountain:root.BohemiaMountain);
+  var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -11734,8 +11737,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
      directions whose neighbours are also road (`links`), never rotateToStreet. */
   var SURFACEGEN = {
     arterial: { mod:ART, zone:'default' },
-    freeway:  { mod:FWY, zone:'default' }
+    freeway:  { mod:FWY, zone:'default' },
+    // TERRAIN (7/26): the raw land. Sampled from ONE valley-wide noise field in global
+    // coordinates (bohemia_terrain_noise.js), never from the cell seed, so ridges,
+    // rills and shorelines cross cell boundaries without a seam. Still surfaces, never
+    // districts: nobody bases a faction on a mountain.
+    desert:   { mod:DSR, zone:'default' },
+    mountain: { mod:MTN, zone:'default' },
+    water:    { mod:WAT, zone:'default' }
   };
+  // which edges face something OTHER than this same terrain (a mountain lays its
+  // alluvial fan onto the flat exactly there)
+  function openEdges(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var out=[];
+    if(at(x,y-1)!==kind)out.push('N'); if(at(x,y+1)!==kind)out.push('S');
+    if(at(x+1,y)!==kind)out.push('E'); if(at(x-1,y)!==kind)out.push('W');
+    return out;
+  }
   /* Which neighbours are road, split by CLASS. A freeway continues only into another
      freeway (it has no at-grade crossings at all); a mile-grid arterial that runs up
      against it is not a connection, it is what crosses OVER it on a deck. Getting that
@@ -12000,7 +12019,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         var rl=roadLinks(m,x,y,cell.district);
         var links=rl.all;
         var sres=sg.mod.generate(cell.seed>>>0,
-          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross });
+          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross,
+            cellX:x, cellY:y, open:openEdges(m,x,y,cell.district) });
         var slegend=sg.mod.legend||{};
         var stinfo=function(xx,yy){ var row=sres.g[yy]; var c=(row&&xx>=0&&xx<sres.W)?row[xx]:-1;
           var L=slegend[c], ly=KIT.tileLayer(L||{kind:'ground'});
@@ -12063,6 +12083,22 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       // SURFACE CELLS: real ground that is not a district (roads). Reported separately
       // so nothing that counts districts ever accidentally counts a street.
       isSurface: function(x,y){ var c=m.at(x,y); return !!(c && SURFACEGEN[c.district]); },
+      /* SURFACE LOCATION QUERY. districtsOfType only ever sees DISTGEN districts, so
+         once terrain became real ground the map had no way to answer "where are the
+         mountains" or "where is the lake" — the biggest things in the valley were the
+         only things you could not look up. Cheap (w.at only, never w.plot). */
+      surfaceCellsOfType: function(type){
+        var out=[]; for(var yy=0;yy<m.n;yy++)for(var xx=0;xx<m.n;xx++){
+          var c=m.at(xx,yy); if(c && c.district===type && SURFACEGEN[type]) out.push({x:xx,y:yy,district:type}); }
+        return out; },
+      nearestSurfaceOfType: function(x0,y0,type){
+        if(!SURFACEGEN[type]) return null;
+        var best=null,bd=Infinity;
+        for(var yy=0;yy<m.n;yy++)for(var xx=0;xx<m.n;xx++){
+          var c=m.at(xx,yy); if(!c||c.district!==type)continue;
+          var dx=xx-x0,dy=yy-y0,d=dx*dx+dy*dy;
+          if(d<bd){bd=d;best={x:xx,y:yy,district:type,dist:Math.sqrt(d)};} }
+        return best; },
       roadLinks: function(x,y){ var c=m.at(x,y); return roadLinks(m,x,y,c?c.district:null); },
       districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
       districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },

@@ -45,7 +45,8 @@ MODULES = [
     'engine/bohemia_courthouse.js', 'engine/bohemia_jail.js', 'engine/bohemia_farm.js',
     'engine/bohemia_downtown.js', 'engine/bohemia_trailer.js', 'engine/bohemia_apartment.js',
     'engine/bohemia_warehouse.js', 'engine/bohemia_waterpark.js', 'engine/bohemia_mall.js',
-    'engine/bohemia_cityhall.js', 'engine/bohemia_battery.js', 'engine/bohemia_terminal.js', 'engine/bohemia_arterial.js', 'engine/bohemia_freeway.js',
+    'engine/bohemia_cityhall.js', 'engine/bohemia_battery.js', 'engine/bohemia_terminal.js', 'engine/bohemia_arterial.js', 'engine/bohemia_freeway.js', 'engine/bohemia_terrain_noise.js',
+    'engine/bohemia_desert.js', 'engine/bohemia_mountain.js', 'engine/bohemia_water.js',
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
     'engine/bohemia_world.js',
@@ -86,7 +87,7 @@ var MODMAP = {
   railyard:'BohemiaRailyard', substation:'BohemiaSubstation', chapel:'BohemiaChapel',
   courthouse:'BohemiaCourthouse', jail:'BohemiaJail', farm:'BohemiaFarm', downtown:'BohemiaDowntown',
   trailer:'BohemiaTrailer', warehouse:'BohemiaWarehouse', waterpark:'BohemiaWaterpark', mall:'BohemiaMall',
-  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal', arterial:'BohemiaArterial', freeway:'BohemiaFreeway'
+  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal', arterial:'BohemiaArterial', freeway:'BohemiaFreeway', desert:'BohemiaDesert', mountain:'BohemiaMountain', water:'BohemiaWater'
 };
 function modOf(dist){ var n = MODMAP[dist]; return n ? window[n] : null; }
 
@@ -277,8 +278,17 @@ var TYPE_LABEL = {
   downtown:'Downtown', trailer:'Trailer Park', warehouse:'Warehouse', waterpark:'Water Park',
   mall:'Mall', cityhall:'City Hall', battery:'Battery Storage', terminal:'Transit Terminal'
 };
+/* THE GROUND ITSELF IS FINDABLE (7/26). Terrain and roads are real generated ground
+   now, and they are the biggest things in the valley, so FIND lists them alongside the
+   districts. They are SURFACES, so they come from surfaceCellsOfType, not districtsOfType. */
+var SURFACE_LABEL = { mountain:'Mountains', desert:'Open Desert', water:'The Lake',
+                      arterial:'Mile Road', freeway:'Freeway' };
 function buildFindList(){
   var present = [];
+  for (var stype in SURFACE_LABEL) {
+    var sn = W.surfaceCellsOfType(stype).length;
+    if (sn > 0) present.push({type:stype, label:SURFACE_LABEL[stype], n:sn, surface:true});
+  }
   for (var type in MODMAP) {
     var n = W.districtsOfType(type).length;
     if (n > 0) present.push({type:type, label:TYPE_LABEL[type] || type, n:n});
@@ -290,8 +300,11 @@ function buildFindList(){
     row.className = 'finditem';
     row.textContent = item.label + '  ·  ' + item.n;
     row.addEventListener('pointerup', function(){
-      var nearest = W.nearestDistrictOfType(px, py, item.type);
-      highlightMatches = W.districtsOfType(item.type); highlightLabel = item.label;
+      var nearest = item.surface ? W.nearestSurfaceOfType(px, py, item.type)
+                                 : W.nearestDistrictOfType(px, py, item.type);
+      highlightMatches = item.surface ? W.surfaceCellsOfType(item.type)
+                                      : W.districtsOfType(item.type);
+      highlightLabel = item.label;
       if (nearest) { px = nearest.x; py = nearest.y; sel = [nearest.x, nearest.y]; }
       findPanel.style.display = 'none';
       refreshHUD(); draw();
