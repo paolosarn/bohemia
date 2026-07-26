@@ -79,8 +79,12 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('demo carries SHIV/BAT/SPEAR archetypes',
     demo.includes("shiv: {n:'SHIV'") && demo.includes("bat:  {n:'BAT'") && demo.includes("spear:{n:'SPEAR'"));
   ok('demo gun pools exclude blades',
-    demo.includes('!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst') &&
-    demo.includes('!e.dead&&!e.melee&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine'));
+    demo.includes('!e.dead&&!e.melee&&!pinned(e)&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst') &&
+    demo.includes('!e.dead&&!e.melee&&!pinned(e)&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine'));
+ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure, cover, return volley, the enemy fire loop, grenade throwers) excludes the suppressed',
+    (demo.split('&&!e.melee&&!pinned(e)&&e.stun<=0').length - 1) === 7 &&
+    !demo.includes('&&!e.melee&&e.stun<=0') &&
+    demo.includes('||e.melee||pinned(e)||e.stun>0||e.prone>0||e.stagger>0)continue;'));
   ok('demo has the contextual SHOVE button + perks UI',
     demo.includes('id="shovebtn"') && demo.includes('IRON SHOULDER') && demo.includes('FORESIGHT'));
   ok('demo melee turn runs at the one turn-end choke (tickTurnEnd)',
@@ -92,7 +96,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
     !demo.includes('id="movebtn"'));
   ok('a move costs the turn (routes through endTurnReturn)',
-    /function doMove\([\s\S]{0,2800}?endTurnReturn\(false\); \}/.test(demo));
+    /function doMove\([\s\S]{0,3200}?endTurnReturn\(false\); \}/.test(demo));
   // v19: victory walk + blood by health
   ok('VICTORY WALK: the ring keeps working after the win (no turn cost)',
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
@@ -153,8 +157,10 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('TARGET SELECT V9'));
   ok('blades are always targetable when visible (melee joins the shoot pool)',
     demo.includes('exposedToMe().concat(mel)'));
-  ok('stunned/prone men are targets (the easy dial you manufactured)',
-    demo.includes('return G.e.filter(e=>!e.dead&&peeking(e)); }'));
+  ok('stunned/prone men are targets (the easy dial you manufactured), and V67 keeps the PINNED in the pool too -- suppressing must never delete your own shots',
+    demo.includes('return G.e.filter(e=>!e.dead&&(peeking(e)||pinned(e))); }') &&
+    demo.includes('const pin=G.e.filter(e=>!e.dead&&pinned(e));') &&
+    demo.includes('return exposedToMe().concat(mel).concat(pin);'));
   ok('the chosen man wears the selection ring', demo.includes('your chosen man'));
   // v10 ONE SCENE: the zoomed board IS the aim stage, no duplicates
   ok('ONE SCENE: exact zoom, full opacity, aim opts into drawField',
@@ -298,7 +304,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('V24 KICK-LOCK rim') && demo.includes('the ember pump rides the audible kick'));
   ok('V25 EAR-LOCK: the pulse clock compensates for measured audio output latency',
     demo.includes('V25 EAR-LOCK') && demo.includes('AC.outputLatency') &&
-    demo.includes('_bpmEar=_bpmClock-_lms'));
+    demo.includes('_bpmEar=(_seq.on&&_seq.t0)?_bpmClock:(_bpmClock-_lms)'));
   // v26: the three-message ruling
   ok('V26 HONEST MISS: miss volleys never play your hit reaction — cracks past, no spray',
     demo.includes('V26 HONEST MISS') && demo.includes('miss:!!arguments[3]') &&
@@ -370,8 +376,8 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('function coveredFromMe()') &&
     demo.includes('pexp.length>0 && coveredFromMe().length>0') &&
     demo.includes('posExposed().length>0 && coveredFromMe().length>0'));
-  ok('posExposed excludes the dying, the surrendered, and the fled (they can never hold you hostage)',
-    demo.includes('!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&!e.melee&&e.stun<=0&&!myCoverAgainst'));
+  ok('posExposed excludes the dying, the surrendered, the fled and (V67) the pinned -- none of them can hold you hostage',
+    demo.includes('!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&!e.melee&&!pinned(e)&&e.stun<=0&&!myCoverAgainst'));
   ok('THE SILENT READOUT IS FIXED: every setRead call now reaches a visible action log',
     demo.includes('V32 THE SILENT READOUT') && demo.includes('function drawActionLog') &&
     demo.includes('drawActionLog(ctx,W,H)'));
@@ -480,7 +486,18 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('const _sprinting=!!G.sprintArm;') &&
     demo.includes('const _mult=_sprinting?2:1;') &&
     demo.includes('endTurnReturn(true); }   /* V44: a sprint breaks cover for real, same cost as popping to fire */') &&
-    demo.includes("if(_sprinting){ G.sprintArm=false;"));
+    demo.includes("if(_sprinting){ spendStam(1); G.sprintArm=false; updMoveMode(); }"));
+ok('V67 SPRINT COSTS STAMINA (Paolo: "sprint should be using up stamina points"): 1 pip, refused when the pips are gone, spent on the move itself',
+    demo.includes("if(_sprinting&&(G.stam||0)<1){ setRead('NO STAMINA','sprint needs 1 pip','#8a7d66'); return; }") &&
+    demo.includes('spendStam(1); G.sprintArm=false;'));
+ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automatically moves for me"): arming either move disarms the other, an arm never survives the turn, and the RING says which move the next tap performs',
+    demo.includes('function updMoveMode(){') &&
+    demo.includes('if(G.dashArm)G.sprintArm=false;') &&
+    demo.includes('if(G.sprintArm)G.dashArm=false;') &&
+    demo.includes('if(G.sprintArm||G.dashArm){ G.sprintArm=false; G.dashArm=false; updMoveMode(); }') &&
+    demo.includes("SPRINT \\u00b7 2 TILES \\u00b7 ENDS TURN") &&
+    demo.includes("DASH \\u00b7 2 TILES \\u00b7 FREE MOVE") &&
+    demo.includes("id='movemode'"));
   // v45: the real camera bug -- the fit floor, not the fit formula, was cutting enemies off-screen
   ok('V45 CAMERA FLOOR: the auto-frame zoom floor is 0.20, not 0.45 -- covers realistic spawn/sniper max range on a real phone canvas (V53 lifted the ceiling into _ceil per device)',
     demo.includes('V45 CAMERA FLOOR') &&
@@ -572,14 +589,18 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
   ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
-    demo.includes('G.stam=Math.min(STAM_MAX,(G.stam||0)+1); updStam();') &&
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
+    demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
     demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;"));
-  ok('V54 SUPPRESS: baked into peeking()/firing() (a suppressed head reads not-out), doSuppress spends 1 and pins out/coverable enemies, no turn end (V56: ~2 beats)',
-    demo.includes('if(e._suppr&&performance.now()<e._suppr)return false;   /* V54 SUPPRESS: pinned head, not out */') &&
-    demo.includes('if(e._suppr&&performance.now()<e._suppr)return false;   /* V54 SUPPRESS: pinned, gun down */') &&
-    demo.includes('function doSuppress(){') &&
-    demo.includes('e._suppr=now+2200;'));
+  ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
+    demo.includes('function pinned(e){ return (e.supp||0)>0; }') &&
+    demo.includes('const SUPP_TURNS=1;') && demo.includes('const SUPP_CD=1;') &&
+    demo.includes('e.supp=SUPP_TURNS; if((e.acq||0)>=1)beads++; e.acq=0;') &&
+    demo.includes('for(const e of G.e){ if((e.supp||0)>0)e.supp--; }') &&
+    demo.includes('if((G.suppCd||0)>0)G.suppCd--;') &&
+    // the wall clock is GONE from the pin
+    !demo.includes('e._suppr=now+2200;') &&
+    !demo.includes('performance.now()<e._suppr'));
   ok('V54 HAND-PEEK: a free stance toggle -- return fire cut to firing-only, your dial one tier harder',
     demo.includes('function toggleHandPeek(){') &&
     demo.includes('+(G.handPeek?1:0)') &&
@@ -617,10 +638,15 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
   ok('V56 DASH AIMABLE: doDash arms and you tap a ring direction (doMove routes an armed dash to doDashMove); no more auto-placed destination; dashArm resets each fight',
     demo.includes('if(G.dashArm){ G.dashArm=false;') &&
     demo.includes('function doDashMove(d){') &&
-    demo.includes('G.dashArm=false; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
-  ok('V56 SUPPRESS CLARITY: the pin lasts ~2 beats and the readout says POP NOW so the window is usable',
-    demo.includes('e._suppr=now+2200;') &&
-    demo.includes('down — POP NOW while they are pinned'));
+    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
+  ok('V67 SUPPRESS IS LEGIBLE: the pinned wear a PINNED tag on the body, the action button counts them, and the readout names the broken red lines. He pressed it and nothing on screen changed -- that was half the bug',
+    demo.includes(":pinned(e)?'PINNED'") &&
+    demo.includes("if(_pn>0&&txt!=='SHOOT')txt=txt+' \\u00b7 '+_pn+' PINNED';") &&
+    demo.includes('function pinnedCount(){') &&
+    demo.includes("POP NOW, they are easy meat"));
+ok('V67 A PINNED MAN IS EASY MEAT: the dial window opens 35% on a suppressed target (the XCOM contract inverted -- suppression makes him easier to kill, it never makes him vanish)',
+    demo.includes('const _pinW=(G.e[G.fireTarget]&&pinned(G.e[G.fireTarget]))?1.35:1;') &&
+    demo.includes('KILL_GRACE*_ww*_pinW*(G.inFU?1.18:1)'));
   // v57: coordinate the pop-out button to the downbeat (the beat the bass doubles on), + on-the-one reward
   ok('V57 ON THE ONE: the pop-out button breathes HARD on beat one of the bar (soft on 2-4)',
     demo.includes("const _bn=beatNow(), _bp=_bn%1, _one=(Math.floor(_bn)%4===0)") &&
@@ -632,6 +658,19 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes("else { G._onePop=false; G._oneStreak=0; }") &&
     demo.includes("*(1+(G._onePop?Math.min(0.30,0.12+(Math.max(1,G._oneStreak||1)-1)*0.06):0));") &&
     demo.includes("G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();"));
+ok('V67 ONE CLOCK (Paolo: "the dead eye dial is not synced up with beat one"). The dial rode a per-frame counter with no relationship to the audio sequencer\'s step 0, so the sweep and the loud hero downbeat drifted forever. The AUDIO is the clock now, latency-compensated to what the ear hears',
+    demo.includes('function audioMs(){') &&
+    demo.includes('const lat=((AC.outputLatency||AC.baseLatency||0)||0);') &&
+    demo.includes('const t=AC.currentTime-lat-_seq.t0;') &&
+    demo.includes('{ const _am=audioMs(); if(_am!=null)_bpmClock=_am; else _bpmClock+=dt*1000; }') &&
+    demo.includes('_seq.t0=_seq.next;') &&
+    demo.includes('function seqAnchor(){') &&
+    // every forced step-0 re-anchors, or the clock keeps counting from the OLD downbeat
+    (demo.split('seqAnchor();').length - 1) >= 3);
+ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of the dial cycle IS beat one. A 6-beat cycle can never start on a downbeat in 4/4 and two packages were running one',
+    demo.includes('const B={0:8,1:8,2:8,3:4,4:4};') &&
+    !demo.includes('const B={0:8,1:8,2:6,3:6,4:4};') &&
+    demo.includes('V67 WHOLE BARS'));
   // v59 -> v66: the RUN HANDOFF. The string checks that used to stand in for the
   // enter/exit path are superseded by section 5, which EXECUTES the real listener
   // five fights back to back. What stays here is the wiring: the demo must route
@@ -683,7 +722,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('function wpnCap(){ return Math.max(1,Math.min(G.chainSkill||2, WEAPON_CAP[WEAPON]||8)); }') &&
     demo.includes('if(G._chainN>wpnCap()){') &&
     demo.includes('const _ww=WEAPON_WIDTH[WEAPON]||1;') &&
-    demo.includes('z.hZ*ARC_MULT*fg*KILL_GRACE*_ww*(G.inFU?1.18:1)*(G.execWindow?1.35:1)') &&
+    demo.includes('z.hZ*ARC_MULT*fg*KILL_GRACE*_ww*_pinW*(G.inFU?1.18:1)*(G.execWindow?1.35:1)') &&
     demo.includes("SHOT '+(G._chainN||1)+'/'+wpnCap()+'</b>'"));
   // v63: two big swings -- overworld encounter music + the double hero beat
   ok('V63 OVERWORLD MUSIC: encounters play the real overworld creepers (6 night songs), the 8 missing overworld voices are ported into synthV, and owSong() sources them only in a SHUFFLE encounter (a lab faction pick still auditions the faction)',
@@ -894,6 +933,101 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
       C.objective.length === 140 && C.questId.length === 64 && C.packageId === 4 && C.mercy === true);
   }
 }
+
+/* ============================================================================
+   7. V67 -- THE FOUR THINGS PAOLO CALLED OUT, EXECUTED (not string-matched)
+   The shipped bodies of audioMs, cycBeats, pinned and the turn-end tick are
+   pulled OUT of the blob and RUN here over stub state. String checks are what
+   let a 2.2-second wall-clock pin sit in a turn-based game for a week.
+   ========================================================================== */
+{
+  const grab = (name, sig) => {
+    const i = demo.indexOf(sig);
+    if (i < 0) return null;
+    // take to the end of that function: match braces from the first {
+    let s = demo.indexOf('{', i), depth = 0, j = s;
+    for (; j < demo.length; j++) {
+      if (demo[j] === '{') depth++;
+      else if (demo[j] === '}') { depth--; if (!depth) { j++; break; } }
+    }
+    return demo.slice(i, j);
+  };
+
+  /* --- THE CLOCK: audioMs must read the AudioContext, ear-compensated --- */
+  {
+    const src = grab('audioMs', 'function audioMs()');
+    ok('audioMs lifts out of the shipped demo', !!src);
+    const mk = (ctx) => new Function('AC', '_seq', src + ';return audioMs();');
+    const AC = { currentTime: 10.0, outputLatency: 0.08, baseLatency: 0.01 };
+    const seqOn = { on: true, t0: 4.0, next: 4.0 };
+    const beats = mk()(AC, seqOn) / 500;
+    /* heard-position = (10.0 - 0.08 - 4.0)s = 5.92s = 11.84 beats at 120bpm */
+    ok('THE CLOCK IS THE AUDIO CLOCK: position is measured from the song\'s own step 0 and pushed back by the measured output latency, so the beat the game runs on is the beat the ear hears',
+      Math.abs(beats - 11.84) < 1e-6, 'got ' + beats);
+    ok('silence falls back cleanly (nothing playing = no beat to miss, never a NaN clock)',
+      mk()(AC, { on: false, t0: 0, next: 0 }) === null &&
+      mk()(null, seqOn) === null);
+    ok('a clock that has not started yet never runs negative',
+      mk()({ currentTime: 3.0, outputLatency: 0, baseLatency: 0 }, seqOn) === 0);
+  }
+
+  /* --- BEAT ONE: every cover cycle must be a whole number of bars --- */
+  {
+    const src = grab('cycBeats', 'function cycBeats()');
+    const fn = new Function('G', src + ';return cycBeats();');
+    const got = [0, 1, 2, 3, 4].map(p => fn({ pkgDiff: p }));
+    ok('WHOLE BARS: every difficulty package runs a cover cycle that is a whole number of 4/4 bars, so the top of the dial cycle IS beat one -- a 6-beat cycle lands on beat 1, then beat 3, forever (' + got.join(',') + ')',
+      got.every(b => b % 4 === 0) && got.length === 5);
+    ok('and the packages still get harder, never easier, as the number climbs',
+      got.every((b, i) => i === 0 || b <= got[i - 1]));
+  }
+
+  /* --- THE PIN: measured in TURNS, and it survives real thinking time --- */
+  {
+    const pinSrc = grab('pinned', 'function pinned(e)');
+    const pinned = new Function('e', pinSrc + ';return pinned(e);');
+    ok('a pin is counted in TURNS, not milliseconds (the whole bug: a 2.2s wall-clock pin expires while you are still deciding your move)',
+      pinned({ supp: 1 }) === true && pinned({ supp: 0 }) === false && pinned({}) === false &&
+      !/_suppr/.test(demo));
+    /* the shipped turn-end lines, run for real */
+    const tick = new Function('G', `
+      for(const e of G.e){ if((e.supp||0)>0)e.supp--; }
+      if((G.suppCd||0)>0)G.suppCd--;
+      if(G.sprintArm||G.dashArm){ G.sprintArm=false; G.dashArm=false; }
+      return G;`);
+    const G = { e: [{ supp: 1 }, { supp: 1 }, { supp: 0 }], suppCd: 2, sprintArm: true, dashArm: true };
+    tick(G);
+    ok('the pin holds through the WHOLE turn you spend it in (the return volley included) and lifts at the turn end, exactly one turn later',
+      G.e[0].supp === 0 && G.e[1].supp === 0 && G.e[2].supp === 0);
+    ok('the cooldown ticks with it, so suppression opens a window every other turn instead of locking the fight down forever',
+      G.suppCd === 1);
+    ok('AN ARMED MOVE NEVER SURVIVES ITS TURN -- an arm leaking into the next turn is exactly what made the ring feel like it moved him on its own',
+      G.sprintArm === false && G.dashArm === false);
+  }
+
+  /* --- TWO DIFFERENT MOVES: cost, turn cost, and exclusivity --- */
+  {
+    ok('SPRINT and DASH are finally different on purpose: sprint is 2 tiles for 1 pip that ENDS your turn in the open, dash is 2 tiles for 2 pips that does NOT end your turn and breaks their locks',
+      demo.includes("sprint needs 1 pip") &&
+      demo.includes("dash needs 2 pips") &&
+      demo.includes("endTurnReturn(true); }   /* V44: a sprint breaks cover for real") &&
+      demo.includes("renderBoard(); updGap(); }   /* NO turn end */") &&
+      demo.includes("your turn KEEPS going"));
+    const arm = new Function(`
+      const G={sprintArm:false,dashArm:false};
+      G.dashArm=!G.dashArm; if(G.dashArm)G.sprintArm=false;
+      G.sprintArm=!G.sprintArm; if(G.sprintArm)G.dashArm=false;
+      return G;`)();
+    ok('arming one move always disarms the other -- two armed moves over one ring is what he could not read',
+      arm.sprintArm === true && arm.dashArm === false);
+  }
+}
+
+ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight back by the same turn\'s refill. The refill is the reward for a turn you spent nothing on -- otherwise sprint costs a pip and the pips never move, which is a cost you cannot feel',
+  demo.includes('G.stam-=n; G._stamSpent=true; updStam();') &&
+  demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
+  demo.includes('G._stamSpent=false; updStam();') &&
+  !demo.includes('G.stam=Math.min(STAM_MAX,(G.stam||0)+1); updStam();   /* V54: a pip back each turn */'));
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',

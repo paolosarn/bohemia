@@ -215,6 +215,38 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v67: THE FOUR THINGS PAOLO CALLED OUT PLAYING IT.
+(1) THE DIAL WAS NOT ON BEAT ONE AND COULD NOT BE. The sweep read `_bpmClock`, a
+per-animation-frame counter started at page load; the music reads the
+AudioContext and restarts its 16-step bar at step 0 on every song/faction
+change. Two clocks, no shared origin, drifting. The AUDIO IS THE CLOCK now
+(`_seq.t0` + `audioMs()`, output-latency compensated so it matches the EAR), and
+cover cycles are WHOLE BARS (a 6-beat cycle can never start on a downbeat in
+4/4; packages 2 and 3 were running one). Package 2 slowed 6->8 and package 3
+quickened 6->4 as a side effect: [PENDING Paolo] if that rebalance is wrong.
+(2) SUPPRESS DID NOTHING because the pin was `performance.now()+2200` -- a 2.2
+SECOND wall-clock timer in a TURN-BASED game, so it expired while he was still
+deciding. And a pinned man was dropped from the target pool, so suppressing
+DELETED his own shots. Now: turn-based (XCOM contract), breaks the red lines
+they were holding, pinned men STAY targetable with a 35% wider dial window,
+they wear a PINNED tag, the action button counts them ("ENGAGE · 6 PINNED"),
+1-turn cooldown.
+(3) SPRINT WAS FREE. Costs 1 pip now -- and the turn-end refill no longer hands
+the pip straight back (it is the reward for a turn you spent nothing on),
+because a cost you cannot see in the pips is not a cost.
+(4) SPRINT AND DASH BOTH ARMED THE SAME RING AND NEITHER DISARMED THE OTHER, so
+an armed sprint could sit through a dash and fire on the next tap ("it
+automatically moves for me"). Mutually exclusive now, auto-disarmed at turn end,
+and the RING SAYS which move the next tap performs. SPRINT = 2 tiles, 1 pip,
+ENDS YOUR TURN. DASH = 2 tiles, 2 pips, turn KEEPS going.
+Tool: python3 tools/bohemia_combat_feel_patch.py (idempotent, anchor-asserted).
+Gate: combat_lab_gate section 7 EXECUTES the clock math, the bar alignment, the
+turn-based pin and the arm exclusivity (227 checks green). Verified on the real
+surface by driving the actual buttons in the shipped alpha: suppress 3->2 pips
+and the button reads PINNED, still pinned 7 real seconds later, sprint spends a
+pip, arming dash disarms sprint. Headless has no audio device, so the CLOCK fix
+is proven by executed math and code, NOT by ear -- Paolo's ear is the verdict.
+
 COMBAT (04): v66 — THE RUN HANDOFF IS HARDENED AND THE RUN LANE CAN CALL IT
 NOW. A quest step hands off with `startEncounter({questId, stepId, objective,
 mercy, playerHP, roster, onEnd})` and gets back one settled outcome

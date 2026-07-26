@@ -156,6 +156,11 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1a. DONE 7/26 (v67, straight from Paolo playing it): dial locked to the AUDIO
+   clock + whole-bar cover cycles; suppression turn-based and legible; sprint
+   costs stamina and the refill no longer refunds it; sprint/dash mutually
+   exclusive with the armed move named on the ring. [PENDING Paolo] the cycle
+   rebalance it forced: package 2 slowed 6->8 beats, package 3 quickened 6->4.
 0. ALLY-IN-COMBAT foundation (RULED 7/26, companions addendum): the encounter
    system supports friendly combatants on the player's side — spawn, target
    correctly, go down but never permanently die. Mechanism only; WHO joins
