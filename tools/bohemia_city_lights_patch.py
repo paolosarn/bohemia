@@ -25,6 +25,12 @@ Idempotent; city_tab_gate locks the powergrid body + glow marker so the
 lights can never silently fall out of the city again.
 
   python3 tools/bohemia_city_lights_patch.py
+REUSE CHECK: (added 7/26, when the reuse gate was widened to cover drawing
+patch tools). Nothing fit, and nothing was cooked: this patch draws no art
+assets at all. It marries engine/bohemia_powergrid.js (the CLUSTERED POWER
+LAW: 12% of circuits live, every live circuit owned, LIGHT = TERRITORY) into
+the city as a night TINT and rgb-only lamp-head glow over the existing
+surface. Light is a colour operation on art that is already there, not a tile.
 """
 import base64
 import os

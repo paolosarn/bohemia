@@ -78,7 +78,18 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    he rules. | — | bootFactions is the seam | [PENDING Paolo].
 
 ## CITY
-1. MARRY COMMERCIAL (discovered, CITY 7/26). The corner plaza has NEVER been
+1. INTERIOR PROPS FROM THE GREAT SWEEP (discovered, CITY 7/26). Interiors ship as
+   a blessed but EMPTY shell: approved walls/doors/windows/floors, no furniture.
+   The prop authority is banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt (2,604
+   judged, 1,927 UP), keyed by (pack, idx) into banks/BOHEMIA_HD_TILE_REPO_part
+   1-4. The app's TP_TILES is a DIFFERENT cut, keyed by category/index, and it is
+   the raw un-swept corpus (sampling it put purple + neon in a house). Build the
+   pack/idx -> app mapping, emit an UP-only interior prop pool, then dress rooms
+   BY ROLE off the district dossiers ("registers + coolers + aisles up front",
+   "rows of rusted lockers, a dead shower block"). | reusefirst + purity + the
+   dead-world laws green with props on; interiors_gate extended to assert the
+   prop pool is UP-only | never sample TP_TILES for shipped art | yes, fresh look.
+2. MARRY COMMERCIAL (discovered, CITY 7/26). The corner plaza has NEVER been
    registered with the district kit (it never binds K, and the registration sits
    behind a `typeof K` guard that silently swallowed it), so the walked city
    still renders commercial from the LEGACY PREFAB STAMPS — not the canon plaza,
@@ -90,7 +101,7 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    swept + interiors_gate proves a plaza store is enterable | the S/corner form is
    approved, do not reshape it | the mid-block plaza form is [PENDING Paolo] per
    the module's own NOTES — surface it as rendered candidates, do not pick one.
-2. GARAGE + CRYPT INTERIORS IN THE ALPHA (discovered, CITY 7/26). The engine
+3. GARAGE + CRYPT INTERIORS IN THE ALPHA (discovered, CITY 7/26). The engine
    DISPATCHES a building's interior by kind (garage -> multi-deck parking, crypt
    -> vault hall, everything else -> rooms) and world_gate proves it. The alpha's
    STEP-INSIDE renders the ROOMS kind only, so walking into a parking structure
@@ -99,12 +110,6 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    branch the render the way the engine branches. | interiors_gate extended to
    assert all three kinds render | engine dispatch is correct, do not touch it |
    the deck/vault LOOK = judge before volume.
-3. INTERIOR DRESSING (discovered, CITY 7/26). Rooms are flat role-tinted plates
-   with wear + wall AO. Every district dossier already describes what is inside
-   ("registers + coolers + aisles up front", "rows of rusted lockers, a dead
-   shower block") — furniture/props per ROLE, off the dossiers, reuse-first from
-   banks/. | per-role prop pass gated | never invent contents a dossier
-   does not state | yes, fresh look.
 4. Interiors everywhere: DONE 7/26 (records/BOHEMIA_INTERIORS_EVERYWHERE_7_26_26
    .md). Left standing: THE UNDERGROUND behind wash's sewer tunnel mouth is a
    LIFE-lane below-grade level, not a room in a footprint. [PENDING — LIFE lane]

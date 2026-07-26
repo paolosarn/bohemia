@@ -45,6 +45,14 @@ fix for whatever still falls through.
 Idempotent (marker 'DISTRICT ART'). city_tab_gate locks it in.
 
   python3 tools/bohemia_city_districtart_patch.py
+REUSE CHECK: (added 7/26, when the reuse gate was widened to cover drawing
+patch tools). This patch cooks NO new tiles. It routes ~32 already-built,
+already-gated district engine modules onto the city, and every structure cell
+it draws goes through the CANON HOUSE-SKIN art the suburbs already wear
+(hroof / hwall / hwindow / hboarded / hdoor), which the house-art patch pooled
+from the all-30-UP cook - stated in this file's own REUSE-FIRST paragraph
+above. It opens no bank itself because it draws nothing of its own: it is a
+router, and the art it routes to was judged before it existed.
 """
 import base64
 import sys

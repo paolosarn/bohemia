@@ -37,6 +37,13 @@ patches already applied (SUB_RES/tileMeta/realizeCell + saTex/SA_IMG must
 exist). city_tab_gate locks the art in.
 
   python3 tools/bohemia_city_houseart_patch.py
+REUSE CHECK: (added 7/26, when the reuse gate was widened to cover drawing
+patch tools). Nothing is cooked here. This patch IS the reuse: it takes the
+overnight house-skin cook Paolo passed all 30 of
+(records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt) and puts it on the houses.
+  used BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt - opened below as BANK, the
+  30 judged tiles read straight out of it into the hroof / hwall / hwindow /
+  hboarded / hdoor / hyard pools.
 """
 import base64
 import io

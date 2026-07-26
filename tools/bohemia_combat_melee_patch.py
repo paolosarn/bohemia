@@ -18,6 +18,11 @@ makes this script fail loudly instead of corrupting the demo.
 Idempotent: skips if the patch marker is already present.
 
 Usage: python3 tools/bohemia_combat_melee_patch.py
+REUSE CHECK: (added 7/26, when the reuse gate was widened to cover drawing
+patch tools). Nothing fit, and nothing was cooked: this patch adds no art. It
+grafts already-ruled MECHANICS (melee weapon types, the shove, perks) onto the
+Dead Eye Dial demo, and its drawing is HUD chrome - enemy intent chips and
+button states - over the combat art that was already in COMBAT_B64.
 """
 import base64, re, os, sys
 

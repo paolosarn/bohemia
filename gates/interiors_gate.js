@@ -100,6 +100,40 @@ ok('zooming out to the city leaves the building first', /swapMode=function\(\)\{
 ok('the interior renders on the real canvas (not a panel or an overlay)',
   /function renderInside\(\)/.test(city) && /render=function\(\)\{ if\(INSIDE\)renderInside\(\); else _inRender\(\); \}/.test(city));
 
+// ---- REUSE-FIRST, ON THE INSIDE (Paolo 7/26: "half of the file size of bohemia is
+// the graphic assets and you're not using a single one of them"). The first cut of
+// this renderer painted every floor, wall and door as a flat hex fill. The second
+// reached into TP_TILES, the raw un-swept cut corpus, and put purple and neon in a
+// dead house. An interior is built ONLY from pools Paolo has judged: the all-30-UP
+// house-skin cook and the harmonized street pools. Locked here so it cannot slide
+// back to painted rectangles or to un-judged art.
+// slice from the material table through the renderer: the pools live in both
+const inside = city.slice(city.indexOf('const IN_FLOORPOOL='), city.indexOf('const _inRender=render'));
+ok('the interior render exists to inspect', inside.length > 200);
+for (const pool of ['hwall', 'hwindow', 'hboarded', 'hdoor', 'side'])
+  ok('interiors are built from the approved ' + pool + ' pool', inside.includes("'" + pool + "'"));
+ok('the floor comes from a judged pool, never a colour', /inFloorPool|inBlit\('side'|'side'/.test(inside) && /saTex/.test(city));
+ok('the interior NEVER samples the raw un-swept cut corpus (TP_TILES/TP_IMG)',
+  !/TP_IMG|TP_TILES/.test(inside));
+// flat fills are allowed ONLY as a fallback when a pool image has not loaded yet,
+// plus the shading passes. A renderer that fills more than that is painting again.
+const fills = (inside.match(/g\.fillStyle=['"]#/g) || []).length;
+// the four legal solid fills: the black behind the plate, the floor and wall
+// fallbacks for a pool image that has not decoded yet, and the no-sprite body.
+ok('no painted surfaces: solid colours only as load fallbacks (' + fills + ')', fills <= 4);
+ok('zero purple anywhere in the interior render (PURPLE RESERVATION)',
+  !/#[89a-f][0-9a-f]{1}[0-9a-f]{2}[89a-f][0-9a-f]/i.test('') && !/purple|#[0-9a-f]*(80|9|a)[0-9a-f]?0?ff/i.test(inside));
+
+// the patch tool's reuse claim is CHECKED, not just written: it opens both banks
+// and asserts the tiles it depends on are really in them.
+const patchSrc = fs.readFileSync(path.join(REPO, 'tools/bohemia_city_interiors_patch.py'), 'utf8');
+ok('the patch tool opens the house-skin bank it claims to reuse',
+  /HOUSE_BANK = 'banks\/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26\.txt'/.test(patchSrc) && /json\.load\(open\(HOUSE_BANK/.test(patchSrc));
+ok('the patch tool opens the street-pool bank it claims to reuse',
+  /STREET_BANK = 'banks\/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26\.txt'/.test(patchSrc) && /json\.load\(open\(STREET_BANK/.test(patchSrc));
+ok('it refuses to build interiors out of anything but the all-UP canon set',
+  /'all 30 UP' in _house/.test(patchSrc));
+
 // ---- 9) run the inlined generator for real, on the valley's real footprints --
 // THE law, executed rather than asserted: the plate comes back exactly as asked,
 // and it is a real interior (rooms with area, roled, entered, fully reachable).

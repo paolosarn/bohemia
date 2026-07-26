@@ -17,6 +17,17 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- APPROVED-ASSETS-FIRST (Paolo 7/26, LOCKED, hardens REUSE-FIRST):
+  laws/BOHEMIA_ADDENDUM_APPROVED_ASSETS_FIRST_7_26_26.md. "If they're gonna
+  create any sort of thing they have to be heavily inspired by the assets that
+  I approved of or try to actually use them." THE APPROVED CORPUS IS THE SOURCE.
+  Two traps this already caught in the CITY lane the same day: (a) painting flat
+  hex fills counts as cooking pixels, and the reuse gate could not see it because
+  it only swept *_factory/*_cook - it now sweeps anything that DRAWS; (b) "use
+  the assets" does NOT mean the raw TP_TILES cut corpus embedded in the CITY app.
+  That is the PRE-VERDICT judging surface (the TILES button) and sampling it put
+  purple + neon + live grass in a dead house. Build from what he JUDGED: the
+  all-30-UP house skins, the harmonized street pools, the Great Sweep's 1,927 UPs.
 - ONE VALLEY (7/26, WORLD lane, machine-locked): the MAP tab renders the SAME
   valley the phone runs. It sat on seed 1337 for months while the game boots the
   text seed 'bohemia'; the map Paolo explored was never the map his quests were
@@ -93,8 +104,19 @@ backlog CITY-1: fix the mid-block form, THEN bind.
 New tools/bohemia_city_module_resync.py re-syncs every engine module inlined in
 CITY_B64 (the embedding tools were all one-shot, so engine fixes never reached the
 app); it also caught district_kit a revision behind.
-NEW GATE: interiors_gate.js (22 checks, registered). NEXT in this lane: CITY-1
-commercial, then CITY-2 — garage/crypt interiors still render as ROOMS in the
+PAOLO CORRECTED THIS MID-TURN and he was right: the first interiors were painted
+flat colours while the approved art sat unused ("half of the file size of bohemia
+is the graphic assets and you're not using a single one of them"). Interiors are
+now built from the pools he JUDGED: hwall / hwindow / hboarded / hdoor (the
+all-30-UP house-skin cook) and the harmonized 'side' concrete. The interior is
+made of the same material as the exterior. A second wrong turn is recorded too:
+reaching into TP_TILES (the raw 9,127-tile PRE-VERDICT cut corpus) put purple and
+neon in a dead house - never sample that for shipped art, it is the judging
+surface. ROOT CAUSE FIXED: reusefirst_gate only swept *_factory/*_cook, so a
+*_patch that paints pixels was invisible to it; it now sweeps any tool that
+draws, and the six older drawing patches carry accurate REUSE CHECK blocks.
+NEW GATE: interiors_gate.js (35 checks, registered). NEXT in this lane: CITY-1
+interior props from the Great Sweep, then commercial, then garage/crypt interiors still render as ROOMS in the
 alpha (the engine dispatches decks and vault halls correctly, the app does not
 yet), then interior dressing off the dossiers.
 

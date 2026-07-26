@@ -38,8 +38,17 @@ def check(name, ok, detail=''):
 
 print('=== REUSE-FIRST GATE ===')
 
-files = sorted(set(glob.glob('tools/*_factory.py')) | set(glob.glob('tools/*_cook*.py')))
+# 7/26 HOLE CLOSED (Paolo: "you're not using a single one of them"). The sweep
+# was *_factory.py / *_cook*.py only, on the assumption that those are the files
+# that make pixels. They are not the only ones: a *_patch.py that injects canvas
+# drawing code into the alpha paints just as many pixels, and one of them shipped
+# floors and walls as flat hex fills while 9,127 judged tiles sat unused in the
+# same file. Any tool that DRAWS answers to the law, whatever it is named.
+DRAWS = re.compile(r'fillRect|drawImage|fillStyle|createImageData|putImageData')
+patchers = [f for f in glob.glob('tools/*_patch.py') if DRAWS.search(open(f, encoding='utf8').read())]
+files = sorted(set(glob.glob('tools/*_factory.py')) | set(glob.glob('tools/*_cook*.py')) | set(patchers))
 check('art-cooking tools found', len(files) > 0, '%d' % len(files))
+check('drawing patch tools are swept too (the 7/26 hole)', len(patchers) > 0, '%d' % len(patchers))
 
 for f in files:
     src = open(f, encoding='utf8').read()

@@ -138,6 +138,58 @@ That shot is not kept, because commercial is not married today.)
   only way in is the sewer tunnel mouth down to THE UNDERGROUND, so it declares
   zero footprints on purpose and the gate names it rather than hiding it.
 
+## 5. REUSE-FIRST: I BROKE IT, AND THE GATE COULD NOT SEE ME (Paolo 7/26)
+
+Paolo, on the first screenshots: "why are you opposed to using any assets that I
+approved of... half of the file size of bohemia is the graphic assets and you're
+not using a single one of them."
+
+He was right. v1 of the interior renderer painted every floor, wall and door as a
+flat hex fill, and this tool's own REUSE CHECK claimed "cooks NO graphic pixels...
+no banks/ lookup applies." A flat fill IS a cooked pixel. That is the exact thing
+REUSE-FIRST (Paolo 7/22, LOCKED) exists to stop.
+
+ROOT CAUSE, so it cannot happen again: reusefirst_gate.py only swept
+`tools/*_factory.py` and `tools/*_cook*.py`. This is a `*_patch.py`. A patch tool
+that injects canvas drawing into the alpha paints just as many pixels as a
+factory does, and six of them predate the law with no REUSE CHECK at all. The
+gate now sweeps any tool whose source contains drawing calls, whatever it is
+named, and all six carry accurate blocks (each written from what that file
+already documented about its own source, not invented).
+
+THE SECOND WRONG TURN, recorded because it is the more interesting one: the fix
+reached for TP_TILES, the 9,127-tile cut corpus embedded in the CITY app, and the
+house came back with purple floors, cyan neon and live grass. That corpus is the
+PRE-VERDICT judging surface (what the TILES button is for) and it is full of
+fantasy/sci-fi packs. Reuse does not mean "grab from the biggest pile." It means
+use what he JUDGED.
+
+WHAT SHIPPED: interiors are built from the two pools Paolo has actually blessed,
+which are also what the city already stands on outside:
+  - WALLS = hwall, the same tan stucco the building wears on its exterior. The
+    interior is literally made of the exterior, which is the spirit of the law
+    the plate dimensions already obey.
+  - PERIMETER = hwindow / hboarded where a wall faces daylight.
+  - DOORS = hdoor, the weathered door.
+  - FLOOR = the 'side' concrete pool (harmonized street pools) for finished
+    rooms, hyard decomposed-granite for dirt-floor back-of-house.
+  All from banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (verdict: ALL 30 UP,
+  7/21) and banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt.
+
+THE CLAIM IS CHECKED, NOT WRITTEN: the patch opens both banks, asserts the
+house-skin bank is the all-30-UP canon set, asserts the five tile ids the shell
+depends on are really in it, and refuses to patch if the app is not carrying
+those pools. interiors_gate.js then locks the render itself: the approved pools
+must appear, the raw cut corpus must NOT, and solid colours are allowed only as
+image-not-yet-decoded fallbacks (4 of them, named).
+
+STILL OWED: interior PROPS. The Great Sweep
+(banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt) holds 1,927 UP verdicts, but they
+are keyed by (pack, idx) into the HD masters and do not map onto the app's
+category/index cut. Building that mapping is its own job and is the top CITY
+backlog item. Until it exists interiors ship as a blessed empty shell rather than
+a room full of un-judged furniture.
+
 ## THE KNOWN HOLE (not mine to fill)
 
 `wash`'s SEWER TUNNEL MOUTH declares `enter: 'THE UNDERGROUND: the LIFE

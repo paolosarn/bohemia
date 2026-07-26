@@ -26,6 +26,10 @@ Idempotent (marker SA_TILES); rerun after pool verdicts change the banks.
 city_tab_gate locks the art in.
 
   python3 tools/bohemia_city_streetart_patch.py
+REUSE CHECK: (added 7/26, when the reuse gate was widened to cover drawing
+patch tools). No new art. The street surface is the judged, 30-year-weathered
+harmonized pools.
+  used BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt - opened below as POOLS.
 """
 import base64
 import io

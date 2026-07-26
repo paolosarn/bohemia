@@ -17,6 +17,9 @@ The city's night showed lamp glow as abstract dots. The BLESSED lamp art
 Idempotent (marker LAMP POSTS). city_tab_gate locks it.
 
   python3 tools/bohemia_city_lampposts_patch.py
+REUSE CHECK: (added 7/26, when the reuse gate was widened to cover drawing
+patch tools). No new art. The lamp bodies are the blessed V11 dark lamps.
+  used BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt - opened below as BANK.
 """
 import base64
 import json
