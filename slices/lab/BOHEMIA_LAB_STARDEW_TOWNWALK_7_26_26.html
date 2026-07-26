@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 01 — STARDEW TOWN-WALK (REFERENCE)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 01 — STARDEW VALLEY TOWN-WALK FEEL
+  (law: laws/BOHEMIA_ADDENDUM_THE_REFERENCE_LAB_7_26_26.md, Paolo 7/26/26)
+
+  THIS IS NOT BOHEMIA. It is a REFERENCE EMULATION of one system from one
+  named game, built so the feel can be FELT instead of guessed at. It touches
+  no engine module, no alpha, no Bohemia art. Every pixel here is deliberate
+  placeholder art in a deliberately non-Bohemian palette.
+
+  WHAT IS EMULATED: the walk. Speed, the exact collision cascade, the
+  diagonal rule, doors + fade transitions, the 10-minute clock and its dusk
+  ramp, and one scheduled NPC.
+
+  EVERY NUMBER IN `SDV` BELOW IS READ OFF THE DECOMPILED 1.5.6 SOURCE, with
+  the file:line it came from recorded in
+  records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt.
+  gates/lab_gate.js fails the build if a constant here is missing from that
+  ledger or missing a source citation, and it MEASURES the movement in a real
+  browser instead of trusting this comment.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0; background: #14161c; color: #e8e6df;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    overflow: hidden; height: 100%; touch-action: none; user-select: none;
+  }
+  #wrap { display: flex; flex-direction: column; height: 100%; }
+  #ref {
+    flex: 0 0 auto; background: #b8342a; color: #fff; font-size: 10px;
+    line-height: 1.25; letter-spacing: .04em; padding: 4px 6px; text-align: center;
+  }
+  #ref b { color: #ffe08a; }
+  #stage { position: relative; flex: 1 1 auto; min-height: 0; background: #000; }
+  #c { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  #hud {
+    position: absolute; left: 4px; top: 4px; right: 4px; pointer-events: none;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 6px;
+  }
+  .card {
+    background: rgba(12,14,18,.78); border: 1px solid #39404f; border-radius: 4px;
+    padding: 3px 5px; font-size: 9px; line-height: 1.35; white-space: pre;
+    max-width: 62%; overflow: hidden;
+  }
+  #clock { font-size: 13px; letter-spacing: .06em; }
+  #watermark {
+    position: absolute; right: 5px; bottom: 5px; font-size: 9px; color: #ffffff;
+    opacity: .34; pointer-events: none; letter-spacing: .08em;
+  }
+  #ctl { flex: 0 0 auto; padding: 5px 6px 8px; background: #191c24; border-top: 1px solid #2c3140; }
+  #row1 { display: flex; align-items: center; gap: 8px; }
+  #stick {
+    position: relative; width: 116px; height: 116px; flex: 0 0 auto;
+    border-radius: 50%; background: #23283a; border: 2px solid #39415a;
+  }
+  #knob {
+    position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px;
+    border-radius: 50%; background: #59648c; border: 2px solid #7f8cb8;
+  }
+  #knoblabel { position:absolute; left:0; right:0; bottom:-1px; text-align:center; font-size:8px; color:#7d87a5; }
+  #right { flex: 1 1 auto; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  #gait {
+    width: 100%; padding: 11px 6px; font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    border-radius: 5px; border: 2px solid #7f8cb8; background: #2f3a5c; color: #dfe6ff;
+  }
+  #gait.walking { background: #3a3f2f; border-color: #8c9a6a; color: #e3ecc9; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip {
+    font-size: 9.5px; padding: 5px 6px; border-radius: 4px; border: 1px solid #454d63;
+    background: #22262f; color: #9aa3b8; letter-spacing: .02em;
+  }
+  .chip.on { background: #2d4a30; border-color: #5f8c63; color: #d6f0d8; }
+  .chip.warn.on { background: #56331f; border-color: #a5703f; color: #ffdfc0; }
+  #ledger {
+    position: absolute; inset: 0; background: rgba(8,9,12,.96); overflow: auto;
+    padding: 10px 12px; font-size: 10.5px; line-height: 1.5; display: none;
+  }
+  #ledger.open { display: block; }
+  #ledger h3 { margin: 0 0 6px; font-size: 12px; color: #ffd76a; letter-spacing: .06em; }
+  #ledger table { border-collapse: collapse; width: 100%; }
+  #ledger td { padding: 1px 4px 1px 0; vertical-align: top; }
+  #ledger td.k { color: #8fd0ff; white-space: nowrap; }
+  #ledger td.v { color: #fff; text-align: right; white-space: nowrap; }
+  #ledger td.s { color: #7d8699; }
+  #ledger p { margin: 8px 0 0; color: #c9c6bd; }
+  #closelg { position: sticky; top: 0; float: right; }
+</style>
+</head>
+<body>
+<div id="wrap">
+
+  <div id="ref">
+    <b>REFERENCE EMULATION — NOT BOHEMIA.</b> Stardew Valley town-walk, rebuilt from the
+    real numbers. Placeholder art on purpose.
+  </div>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div class="card" id="clock">6:00 AM</div>
+      <div class="card" id="tele"></div>
+    </div>
+    <div id="watermark">PLACEHOLDER ART</div>
+    <div id="ledger">
+      <button class="chip" id="closelg">CLOSE</button>
+      <h3>FEEL LEDGER — every number, and where it came from</h3>
+      <table id="lgtable"></table>
+      <p id="lgnote"></p>
+    </div>
+  </div>
+
+  <div id="ctl">
+    <div id="row1">
+      <div id="stick"><div id="knob"></div><div id="knoblabel">DRAG · 8-WAY</div></div>
+      <div id="right">
+        <button id="gait">RUNNING (speed 5)</button>
+        <div class="chips" id="chips1"></div>
+        <div class="chips" id="chips2"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   1. THE NUMBERS. Every one is read off the decompiled Stardew Valley 1.5.6
+   source. The gate cross-checks each key against the feel ledger, which
+   carries the file:line for each. Nothing here is invented or eyeballed.
+   ========================================================================= */
+var SDV = {
+  TILE:            64,      /* Game1.tileSize — world px per tile           */
+  PIXEL_ZOOM:      4,       /* Game1.pixelZoom — 16px art drawn at 4x       */
+  SPRITE_W:        16,      /* FarmerSprite.SpriteWidth                     */
+  SPRITE_H:        32,      /* FarmerSprite.SpriteHeight                    */
+  WALK_SPEED:      2,       /* Farmer.speed when walking                    */
+  RUN_SPEED:       5,       /* Farmer.speed when running                    */
+  MOVE_MULT:       0.066,   /* Farmer.movementMultiplier                    */
+  MIN_STEP:        1,       /* Math.Max(1f, ...) floor in getMovementSpeed  */
+  DIAG_FACTOR:     0.7,     /* two directions held -> 0.7 * movementSpeed   */
+  BOX_X:           8,       /* GetBoundingBox x inset                       */
+  BOX_W:           48,      /* GetBoundingBox width                         */
+  BOX_H:           32,      /* GetBoundingBox height                        */
+  SLIP_DIV:        64,      /* corner slip = speed * elapsedMs / 64         */
+  CAM_SNAP:        64,      /* UpdateViewPort snap-to-target threshold      */
+  MS_PER_10MIN:    7000,    /* Game1.UpdateGameClock                        */
+  DAY_START:       600,     /* 6:00am                                      */
+  DAY_END:         2600,    /* 2:00am, clamp                               */
+  DARK_START:      1800,    /* getStartingToGetDarkTime, spring/summer      */
+  DARK_TRULY:      2000,    /* getTrulyDarkTime = DARK_START + 200          */
+  DUSK_BASE:       0.30,    /* dusk light ramp base                         */
+  DUSK_RATE:       0.00225, /* dusk light ramp per pseudo-minute            */
+  NIGHT_BASE:      0.75,    /* night light ramp base                        */
+  NIGHT_RATE:      0.000625,/* night light ramp per pseudo-minute           */
+  LIGHT_CAP:       0.93,    /* Math.Min(0.93f, ...)                         */
+  MINUTE_UNIT:     16.66,   /* their HHMM->pseudo-minute conversion factor  */
+  FADE_STEP:       0.02,    /* Game1.fadeToBlackAlpha step per tick         */
+  NPC_SPEED:       2,       /* NPC.speed                                    */
+  NPC_PAUSE_MIN:   6000,    /* NPC.minimum_square_pause                     */
+  NPC_PAUSE_MAX:   12000,   /* NPC.maximum_square_pause                     */
+  BREATH_MS:       600,     /* NPC breather sine period divisor             */
+  ANIM_BASE_MS:    87.5,    /* AnimatedSprite.interval 175, halved in ctor  */
+  ANIM_FRAMES:     4,       /* AnimatedSprite.framesPerAnimation            */
+  ANIM_WALK_MOD:   0.025,   /* intervalModifier term, walking               */
+  ANIM_RUN_MOD:    0.03,    /* intervalModifier term, running               */
+  ANIM_MOD_MULT:   1.25     /* intervalModifier trailing multiplier         */
+};
+var TICK_MS = 1000 / 60;    /* XNA fixed step; Stardew is a 60fps game      */
+
+/* Derived, printed on the HUD so the feel is legible as numbers too. */
+function pxPerTick(spd, dtms) { return Math.max(SDV.MIN_STEP, spd * SDV.MOVE_MULT * dtms); }
+var DERIVED = {
+  walkPxTick: pxPerTick(SDV.WALK_SPEED, TICK_MS),
+  runPxTick:  pxPerTick(SDV.RUN_SPEED,  TICK_MS),
+  walkTilesSec: pxPerTick(SDV.WALK_SPEED, TICK_MS) * 60 / SDV.TILE,
+  runTilesSec:  pxPerTick(SDV.RUN_SPEED,  TICK_MS) * 60 / SDV.TILE,
+  fadeMs: (1 / SDV.FADE_STEP) * TICK_MS
+};
+
+/* =========================================================================
+   2. THE MODEL SWITCHES. The point of the lab is not just "does it feel
+   good" but "WHICH RULE makes it feel good". Every one of these is ON in
+   Stardew (except ACCEL, which Stardew does NOT have). Turning one off is
+   how you feel what it was doing for you.
+   ========================================================================= */
+var MODEL = { halfStep: true, cornerSlip: true, diagNorm: true, accel: false };
+var ACCEL_MS = 250;         /* our own contrast case, not Stardew's         */
+
+/* =========================================================================
+   3. MAPS. Placeholder town + two furnished interiors.
+
+   INTERIOR PLATE SIZE IS A DELIBERATE DIVERGENCE FROM THE MASTER: each
+   interior here is EXACTLY its exterior footprint (house 9x7, shop 11x8),
+   because Bohemia's INTERIOR-MATCHES-EXTERIOR law is LOCKED. Stardew does
+   the opposite — its interiors are far bigger than the buildings they sit
+   in. That divergence is named in the pattern note, not hidden.
+   ========================================================================= */
+var TOWN = [
+  'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+  'T......................................T',
+  'T.................,,..###########......T',
+  'T...#########.....,,..###########......T',
+  'T...#########.....,,..###########......T',
+  'T...#########.....,,..###########......T',
+  'T...#########.....,,..###########......T',
+  'T...#########.....,,..###########......T',
+  'T...#########.....,,..###########......T',
+  'T...#w##D##w#.....,,..#ww##D##ww#......T',
+  'T......===........,,......===..........T',
+  'T.......,.........,,.......,...........T',
+  'T.......,........L,,L......,...........T',
+  'T.......,S........,,......S,...........T',
+  'T.......,....B....,,.......,......T....T',
+  'T.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.T',
+  'T.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.T',
+  'T.................,,...................T',
+  'T.....T...........,,.....BB............T',
+  'T...fffff.fffff...,,...................T',
+  'T...f.........f..L,,L..................T',
+  'T...f.........f...,,.......~~~~~~~~~...T',
+  'T...f.b.b.b.b.f...,,.......~~~~~~~~~...T',
+  'T...f.........f...,,.......~~~~~~~~~...T',
+  'T...f.........f...,,.####..~~~~~~~~~...T',
+  'T...f.b.b.b.b.f...,,.####..~~~~~~~~~...T',
+  'T...f.........f...,,.####..~~~~~~~~~...T',
+  'T...f.........f...,,.####..~~~~~~~~~...T',
+  'T...fffffffffff...,,...................T',
+  'T................L,,L..................T',
+  'T.................,,...................T',
+  'T.................,,...................T',
+  'T......................................T',
+  'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+];
+var HOUSE = [
+  '#########',
+  '#EEtt..p#',
+  '#EE.....#',
+  '#...rr..#',
+  '#v..rr.k#',
+  '#.......#',
+  '####D####'
+];
+var SHOP = [
+  '###########',
+  '#CCCCCC..s#',
+  '#........s#',
+  '#k..rrrr.s#',
+  '#k..rrrr..#',
+  '#p......tt#',
+  '#.........#',
+  '#####D#####'
+];
+
+var SOLID = 'T~fBLSxb#wEthCsvkp';          /* everything you cannot stand in */
+var FURNITURE = 'EthCsvkpr';               /* what makes an interior FURNISHED */
+
+var MAPS = {
+  town:  { rows: TOWN,  outdoors: true,
+           lights: [[17,12],[20,12],[17,20],[20,20],[17,29],[20,29]],
+           warps: { '8,9': { map: 'house', tx: 4, ty: 5 },
+                    '27,9': { map: 'shop',  tx: 5, ty: 6 } } },
+  house: { rows: HOUSE, outdoors: false, lights: [[1,4]],
+           warps: { '4,6': { map: 'town', tx: 8, ty: 10 } } },
+  shop:  { rows: SHOP,  outdoors: false, lights: [[5,1]],
+           warps: { '5,7': { map: 'town', tx: 27, ty: 10 } } }
+};
+
+/* Ragged map data is a silent killer, so it is a loud one here instead: the
+   gate requires a clean console. */
+(function validateMaps() {
+  for (var k in MAPS) {
+    var rows = MAPS[k].rows, w = rows[0].length;
+    for (var y = 0; y < rows.length; y++) {
+      if (rows[y].length !== w) {
+        throw new Error('MAP ' + k + ' row ' + y + ' is ' + rows[y].length + ', expected ' + w);
+      }
+    }
+    for (var key in MAPS[k].warps) {
+      var p = key.split(',');
+      var ch = rows[+p[1]][+p[0]];
+      if (ch !== 'D') throw new Error('MAP ' + k + ' warp ' + key + ' is not a door tile (' + ch + ')');
+    }
+  }
+})();
+
+/* =========================================================================
+   4. STATE
+   ========================================================================= */
+var S = {
+  map: 'town',
+  /* pos is Stardew's Farmer.Position: the bounding box is
+     (pos.x + BOX_X, pos.y, BOX_W, BOX_H). */
+  pos: { x: 8 * SDV.TILE, y: 11 * SDV.TILE },
+  facing: 2,                 /* 0 up 1 right 2 down 3 left */
+  running: true,             /* options.autoRun defaults ON: you run by default */
+  dirs: { 0: false, 1: false, 2: false, 3: false },
+  animTimer: 0, animFrame: 0,
+  vel: { x: 0, y: 0 },       /* only used by the ACCEL contrast model */
+  timeOfDay: SDV.DAY_START,
+  clockAcc: 0,
+  fade: 0, fadeDir: 0, pendingWarp: null,
+  cam: { x: 0, y: 0 },
+  zoom: 32,                  /* screen px per tile; 64 is Stardew's true 4x  */
+  grid: false, timePaused: false,
+  driven: true,              /* the gate takes the wheel by setting false    */
+  now: 0,
+  lastStep: { px: 0, mode: '' }
+};
+
+var NPC = {
+  name: 'THE GROCER',
+  pos: { x: 27 * SDV.TILE, y: 11 * SDV.TILE },
+  facing: 2, path: [], target: null, pauseLeft: 0, animTimer: 0, animFrame: 0,
+  seed: 1337,
+  /* One real schedule: HHMM -> tile. Stardew keys schedules to the same
+     10-minute clock, pathfinds there, then idles with a random square pause. */
+  schedule: [
+    { t: 600,  x: 27, y: 11, note: 'opens up outside the shop' },
+    { t: 700,  x: 19, y: 16, note: 'walks to the crossroads' },
+    { t: 900,  x: 8,  y: 11, note: 'calls on the house' },
+    { t: 1200, x: 24, y: 18, note: 'lunch by the water' },
+    { t: 1500, x: 9,  y: 22, note: 'checks the crop rows' },
+    { t: 1800, x: 27, y: 11, note: 'back to the shop' },
+    { t: 2100, x: 27, y: 10, note: 'stands on the porch' }
+  ],
+  lastKey: -1
+};
+
+function rows() { return MAPS[S.map].rows; }
+function mapW() { return rows()[0].length; }
+function mapH() { return rows().length; }
+function tileOn(map, tx, ty) {
+  var r = MAPS[map].rows;
+  if (tx < 0 || ty < 0 || ty >= r.length || tx >= r[0].length) return 'T';
+  return r[ty][tx];
+}
+function tileAt(tx, ty) { return tileOn(S.map, tx, ty); }
+function solidOn(map, tx, ty) { return SOLID.indexOf(tileOn(map, tx, ty)) >= 0; }
+function solidTile(tx, ty) { return solidOn(S.map, tx, ty); }
+
+/* =========================================================================
+   5. THE WALK — Stardew's Farmer.MovePosition, rule for rule.
+
+   getMovementSpeed():
+     max(1, (speed + added) * movementMultiplier * elapsedMs), and if more
+     than one direction is held, * 0.7. No acceleration anywhere: the very
+     first frame you hold a button you are already at full speed.
+   ========================================================================= */
+function movementSpeed(dtms, dirCount) {
+  var spd = S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED;
+  var v = Math.max(SDV.MIN_STEP, spd * SDV.MOVE_MULT * dtms);
+  if (dirCount > 1 && MODEL.diagNorm) v = SDV.DIAG_FACTOR * v;
+  return v;
+}
+
+function box(px, py) {
+  return { x: px + SDV.BOX_X, y: py, w: SDV.BOX_W, h: SDV.BOX_H };
+}
+/* Farmer.nextPosition: the box, shifted by Ceiling(speed) along one axis. */
+function nextBox(dir, dist) {
+  var b = box(S.pos.x, S.pos.y), d = Math.ceil(dist);
+  if (dir === 0) b.y -= d; else if (dir === 2) b.y += d;
+  else if (dir === 1) b.x += d; else b.x -= d;
+  return b;
+}
+function colliding(b) {
+  var x0 = Math.floor(b.x / SDV.TILE), x1 = Math.floor((b.x + b.w - 1) / SDV.TILE);
+  var y0 = Math.floor(b.y / SDV.TILE), y1 = Math.floor((b.y + b.h - 1) / SDV.TILE);
+  for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) if (solidTile(x, y)) return true;
+  return false;
+}
+function warpUnder(b) {
+  var W = MAPS[S.map].warps;
+  var x0 = Math.floor(b.x / SDV.TILE), x1 = Math.floor((b.x + b.w - 1) / SDV.TILE);
+  var y0 = Math.floor(b.y / SDV.TILE), y1 = Math.floor((b.y + b.h - 1) / SDV.TILE);
+  for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
+    var w = W[x + ',' + y]; if (w) return w;
+  }
+  return null;
+}
+function shift(dir, d) {
+  if (dir === 0) S.pos.y -= d; else if (dir === 2) S.pos.y += d;
+  else if (dir === 1) S.pos.x += d; else S.pos.x -= d;
+}
+
+/* The three-step cascade, in Stardew's own order. Step 3 is the one nobody
+   ever notices and everybody feels: the auto corner slip. */
+function tryDir(dir, spd, dirCount, dtms) {
+  var w = warpUnder(nextBox(dir, spd));
+  if (w) { startWarp(w); return 'warp'; }
+
+  if (!colliding(nextBox(dir, spd))) { shift(dir, spd); return 'full'; }
+
+  if (MODEL.halfStep && !colliding(nextBox(dir, spd / 2))) { shift(dir, spd / 2); return 'half'; }
+
+  if (dirCount === 1 && MODEL.cornerSlip) {
+    var b = nextBox(dir, spd), vertical = (dir === 0 || dir === 2);
+    var q = { x: b.x, y: b.y, w: b.w, h: b.h }, a, c;
+    if (vertical) {
+      q.w = Math.floor(b.w / 4); a = colliding(q);
+      q.x += q.w * 3;            c = colliding(q);
+    } else {
+      q.h = Math.floor(b.h / 4); a = colliding(q);
+      q.y += q.h * 3;            c = colliding(q);
+    }
+    var slip = (S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED) * (dtms / SDV.SLIP_DIV);
+    var pos = vertical ? 1 : 2, neg = vertical ? 3 : 0;   /* slide toward the free quarter */
+    if (a && !c && !colliding(nextBox(pos, spd))) { shift(pos, slip); return 'slip'; }
+    if (c && !a && !colliding(nextBox(neg, spd))) { shift(neg, slip); return 'slip'; }
+  }
+  return 'blocked';
+}
+
+function stepPlayer(dtms) {
+  var held = [];
+  for (var d = 0; d < 4; d++) if (S.dirs[d]) held.push(d);
+  if (held.length) S.facing = (S.dirs[2] ? 2 : S.dirs[0] ? 0 : S.dirs[1] ? 1 : 3);
+
+  var spd = movementSpeed(dtms, held.length);
+
+  /* The contrast model: a 250ms ramp. Stardew has NONE of this. */
+  if (MODEL.accel) {
+    var k = Math.min(1, dtms / ACCEL_MS);
+    var tx = held.length ? spd : 0;
+    S.vel.x += (tx - S.vel.x) * k;
+    spd = S.vel.x;
+    if (spd < 0.02) spd = 0;
+  }
+
+  S.lastStep.px = held.length ? spd : 0;
+  S.lastStep.mode = '';
+  /* Stardew walks the direction list in the order up, down, right, left,
+     each with its OWN collision test. That is why diagonals slide along
+     walls instead of stopping dead. */
+  var order = [0, 2, 1, 3], modes = [];
+  for (var i = 0; i < order.length; i++) {
+    if (!S.dirs[order[i]] || spd <= 0) continue;
+    var r = tryDir(order[i], spd, held.length, dtms);
+    if (r === 'warp') return;
+    modes.push(r);
+  }
+  S.lastStep.mode = modes.join('+');
+
+  /* FarmerSprite.intervalModifier: the walk cycle speeds up with the body. */
+  if (held.length) {
+    var mod = 1 - (S.running ? SDV.ANIM_RUN_MOD : SDV.ANIM_WALK_MOD) *
+              Math.max(1, (S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED) * SDV.MOVE_MULT * dtms) *
+              SDV.ANIM_MOD_MULT;
+    S.animTimer += dtms;
+    var per = SDV.ANIM_BASE_MS * mod;
+    while (S.animTimer >= per) { S.animTimer -= per; S.animFrame = (S.animFrame + 1) % SDV.ANIM_FRAMES; }
+  } else { S.animFrame = 0; S.animTimer = 0; }
+}
+
+/* =========================================================================
+   6. DOORS. Stardew fires a warp when the NEXT-position box touches the warp
+   tile — you must MOVE into a door, standing on it does nothing. Then the
+   screen fades at 0.02 alpha per tick each way, and you have no control (and
+   the clock does not run) until it finishes.
+   ========================================================================= */
+function startWarp(w) {
+  if (S.fadeDir) return;
+  S.pendingWarp = w; S.fadeDir = 1;
+  for (var d = 0; d < 4; d++) S.dirs[d] = false;
+  S.vel.x = 0;
+}
+function stepFade(dtms) {
+  if (!S.fadeDir) return;
+  var step = SDV.FADE_STEP * (dtms / TICK_MS);
+  if (S.fadeDir === 1) {
+    S.fade += step;
+    if (S.fade >= 1) {
+      S.fade = 1;
+      var w = S.pendingWarp; S.pendingWarp = null;
+      S.map = w.map;
+      S.pos.x = w.tx * SDV.TILE; S.pos.y = w.ty * SDV.TILE;
+      S.fadeDir = -1;
+    }
+  } else {
+    S.fade -= step;
+    if (S.fade <= 0) { S.fade = 0; S.fadeDir = 0; }
+  }
+}
+function canMove() { return S.fadeDir === 0; }
+
+/* =========================================================================
+   7. THE CLOCK + THE LIGHT. 7000ms real per 10 game minutes. Time only
+   passes while you can move (Game1.shouldTimePass), so a door transition
+   costs you nothing. The dusk ramp is their exact formula, including the
+   quirk that their "minutes" are HHMM with each 10-minute step worth 16.66.
+   ========================================================================= */
+function pseudoMinutes(t) { return (t - t % 100) + (t % 100 / 10) * SDV.MINUTE_UNIT; }
+function tintAlpha() {
+  if (!MAPS[S.map].outdoors) return 0;              /* interiors are not outdoors */
+  var extra = S.clockAcc / SDV.MS_PER_10MIN * SDV.MINUTE_UNIT;
+  if (S.timeOfDay >= SDV.DARK_TRULY) {
+    return Math.min(SDV.LIGHT_CAP, SDV.NIGHT_BASE +
+      (pseudoMinutes(S.timeOfDay) - SDV.DARK_TRULY + extra) * SDV.NIGHT_RATE);
+  }
+  if (S.timeOfDay >= SDV.DARK_START) {
+    return Math.min(SDV.LIGHT_CAP, SDV.DUSK_BASE +
+      (pseudoMinutes(S.timeOfDay) - SDV.DARK_START + extra) * SDV.DUSK_RATE);
+  }
+  return 0;
+}
+function stepClock(dtms) {
+  if (S.timePaused || !canMove()) return;           /* shouldTimePass */
+  S.clockAcc += dtms;
+  while (S.clockAcc > SDV.MS_PER_10MIN) {
+    S.clockAcc = 0;
+    S.timeOfDay += 10;
+    if (S.timeOfDay % 100 >= 60) S.timeOfDay = S.timeOfDay - S.timeOfDay % 100 + 100;
+    S.timeOfDay = Math.min(S.timeOfDay, SDV.DAY_END);
+  }
+}
+function clockText() {
+  var t = S.timeOfDay, h = Math.floor(t / 100), m = t % 100, suf = 'AM';
+  if (h >= 24) { h -= 24; }
+  if (h >= 12) { suf = 'PM'; if (h > 12) h -= 12; }
+  if (h === 0) h = 12;
+  return h + ':' + (m < 10 ? '0' + m : m) + ' ' + suf;
+}
+
+/* =========================================================================
+   8. THE SCHEDULED NPC. Breadth-first over passable tiles, walked axis by
+   axis at NPC.speed — which is a RAW per-tick pixel speed, not the player's
+   ms-scaled one. Then a random 6-12s square pause with a breathing bob.
+   ========================================================================= */
+function rnd() { NPC.seed = (NPC.seed * 1103515245 + 12345) & 0x7fffffff; return NPC.seed / 0x7fffffff; }
+function bfs(map, from, to) {
+  if (from[0] === to[0] && from[1] === to[1]) return [];
+  var W = MAPS[map].rows[0].length, H = MAPS[map].rows.length, seen = {}, q = [[from[0], from[1]]], prev = {};
+  seen[from[0] + ',' + from[1]] = 1;
+  var dirs = [[0,-1],[1,0],[0,1],[-1,0]];
+  while (q.length) {
+    var cur = q.shift();
+    for (var i = 0; i < 4; i++) {
+      var nx = cur[0] + dirs[i][0], ny = cur[1] + dirs[i][1], key = nx + ',' + ny;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H || seen[key] || solidOn(map, nx, ny)) continue;
+      seen[key] = 1; prev[key] = cur;
+      if (nx === to[0] && ny === to[1]) {
+        var path = [[nx, ny]], p = key;
+        while (prev[p]) { var c = prev[p]; path.unshift(c); p = c[0] + ',' + c[1]; }
+        path.shift();
+        return path;
+      }
+      q.push([nx, ny]);
+    }
+  }
+  return [];
+}
+function npcTile() {
+  return [Math.floor((NPC.pos.x + SDV.TILE / 2) / SDV.TILE), Math.floor((NPC.pos.y + SDV.TILE / 2) / SDV.TILE)];
+}
+/* The NPC keeps its schedule whether or not you are watching — that is the
+   whole point of a schedule, and it is what Stardew does. It walks the TOWN
+   map explicitly, so being inside a building never confuses its pathing. */
+function stepNPC(dtms) {
+  var due = null;
+  for (var i = 0; i < NPC.schedule.length; i++) if (S.timeOfDay >= NPC.schedule[i].t) due = i;
+  if (due !== null && due !== NPC.lastKey) {
+    NPC.lastKey = due;
+    var e = NPC.schedule[due];
+    NPC.target = [e.x, e.y];
+    NPC.path = bfs('town', npcTile(), NPC.target);
+    NPC.pauseLeft = 0;
+  }
+  if (!NPC.path.length) {
+    NPC.pauseLeft -= dtms;
+    if (NPC.pauseLeft <= 0) {
+      NPC.pauseLeft = SDV.NPC_PAUSE_MIN + rnd() * (SDV.NPC_PAUSE_MAX - SDV.NPC_PAUSE_MIN);
+      NPC.facing = Math.floor(rnd() * 4);
+    }
+    NPC.animFrame = 0;
+    return;
+  }
+  /* raw per-tick speed, scaled here only so a 120Hz phone matches a 60Hz one */
+  var step = SDV.NPC_SPEED * (dtms / TICK_MS);
+  var n = NPC.path[0], tx = n[0] * SDV.TILE, ty = n[1] * SDV.TILE;
+  var dx = tx - NPC.pos.x, dy = ty - NPC.pos.y;
+  if (Math.abs(dx) > 0.001) {
+    NPC.facing = dx > 0 ? 1 : 3;
+    NPC.pos.x += Math.sign(dx) * Math.min(step, Math.abs(dx));
+  } else if (Math.abs(dy) > 0.001) {
+    NPC.facing = dy > 0 ? 2 : 0;
+    NPC.pos.y += Math.sign(dy) * Math.min(step, Math.abs(dy));
+  }
+  if (Math.abs(tx - NPC.pos.x) < 0.001 && Math.abs(ty - NPC.pos.y) < 0.001) NPC.path.shift();
+  NPC.animTimer += dtms;
+  var per = SDV.ANIM_BASE_MS;
+  while (NPC.animTimer >= per) { NPC.animTimer -= per; NPC.animFrame = (NPC.animFrame + 1) % SDV.ANIM_FRAMES; }
+}
+
+/* =========================================================================
+   9. CAMERA. Hard-centre on the standing point, clamped so the map edge is
+   never crossed; small maps are centred instead. Stardew snaps whenever the
+   camera is more than one tile (64px) off target, which is every frame you
+   are walking — so in practice the camera is glued to you.
+   ========================================================================= */
+function updateCam(vw, vh) {
+  var scale = S.zoom / SDV.TILE;
+  var worldW = mapW() * S.zoom, worldH = mapH() * S.zoom;
+  var sx = (S.pos.x + SDV.TILE / 2) * scale, sy = (S.pos.y + SDV.BOX_H / 2) * scale;
+  var tx = sx - vw / 2, ty = sy - vh / 2;
+  if (worldW <= vw) tx = -(vw - worldW) / 2; else tx = Math.max(0, Math.min(worldW - vw, tx));
+  if (worldH <= vh) ty = -(vh - worldH) / 2; else ty = Math.max(0, Math.min(worldH - vh, ty));
+  /* Their rule: more than one tile off target -> hard snap; otherwise chase it
+     at the player's own movement speed. Since the target moves at exactly that
+     speed, the camera is glued to you and only ever snaps on a warp. */
+  var rate = movementSpeed(TICK_MS, 1) * scale;
+  var dx = tx - S.cam.x, dy = ty - S.cam.y;
+  S.cam.x = Math.abs(dx) > SDV.CAM_SNAP * scale ? tx : S.cam.x + Math.sign(dx) * Math.min(Math.abs(dx), rate);
+  S.cam.y = Math.abs(dy) > SDV.CAM_SNAP * scale ? ty : S.cam.y + Math.sign(dy) * Math.min(Math.abs(dy), rate);
+}
+
+/* =========================================================================
+   10. RENDER. Placeholder art: flat shapes, deterministic speckle, a palette
+   chosen to look NOTHING like Bohemia. Nothing here is a Bohemia asset and
+   nothing here is meant to be one.
+   ========================================================================= */
+var cv = document.getElementById('c'), ctx = cv.getContext('2d', { alpha: false });
+var VW = 0, VH = 0, DPR = 1;
+function resize() {
+  DPR = Math.min(3, window.devicePixelRatio || 1);
+  var r = cv.getBoundingClientRect();
+  VW = Math.max(120, Math.round(r.width)); VH = Math.max(120, Math.round(r.height));
+  cv.width = Math.round(VW * DPR); cv.height = Math.round(VH * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+}
+window.addEventListener('resize', resize);
+
+function hash(x, y) { var h = (x * 374761393 + y * 668265263) ^ 0x5bf03635; h = (h ^ (h >> 13)) * 1274126177; return ((h ^ (h >> 16)) & 0xffff) / 0xffff; }
+
+var PAL = {
+  grass: '#4a7f2f', grassA: '#508634', grassB: '#45782c',
+  dirt: '#9b7a4f', dirtA: '#a18055', dirtB: '#94734a',
+  plank: '#a9743f', plankLine: '#8d5f33',
+  water: '#2f6fa8', waterA: '#3a80bd',
+  wall: '#c9b48f', wallLine: '#b09a76', roof: '#8c4a3a', roofLine: '#79402f',
+  win: '#6fb4d8', winNight: '#ffd98a', door: '#6b4326', doorFrame: '#43291a',
+  trunk: '#5a3a22', leaf: '#2f6b2a', leafA: '#3a7d33',
+  fence: '#b08a5a', rock: '#8d8d94', bench: '#a06a3a',
+  post: '#4a4a52', globe: '#ffe9a0', sign: '#c9a25e',
+  ifloor: '#b98a52', ifloorLine: '#a1743f', iwall: '#41301e', iwallTop: '#5c452c',
+  rug: '#8f3f52', rugA: '#a04a5e', counter: '#6d4423', shelf: '#503418',
+  bed: '#dde4f0', bedFrame: '#7c5230', table: '#9a6a3a', chair: '#845a30',
+  stove: '#55555c', crate: '#9a7a4a', plant: '#2f7a3a', pot: '#a4603c',
+  bodyA: '#3f6fd8', bodyB: '#d94f4f', skin: '#e8b98a', hair: '#3a2a1c', boot: '#31241a'
+};
+
+function tileRect(x, y, s) { return { x: Math.round(x), y: Math.round(y), s: Math.round(s) }; }
+
+function drawGround(ch, x, y, s, tx, ty) {
+  var h = hash(tx, ty);
+  if (ch === '~') {
+    ctx.fillStyle = (h + S.now / 900) % 1 > 0.7 ? PAL.waterA : PAL.water;
+    ctx.fillRect(x, y, s, s);
+    if (h > 0.8) { ctx.fillStyle = 'rgba(255,255,255,.20)'; ctx.fillRect(x + s * 0.2, y + s * 0.45, s * 0.5, Math.max(1, s * 0.08)); }
+    return;
+  }
+  if (ch === ',' ) {
+    ctx.fillStyle = h > 0.7 ? PAL.dirtA : (h < 0.2 ? PAL.dirtB : PAL.dirt);
+    ctx.fillRect(x, y, s, s); return;
+  }
+  if (ch === '=') {
+    ctx.fillStyle = PAL.plank; ctx.fillRect(x, y, s, s);
+    ctx.fillStyle = PAL.plankLine; ctx.fillRect(x, y + Math.round(s / 2), s, 1); return;
+  }
+  if (ch === 'F' || ch === 'r' || ch === 'D' || ch === '.') {
+    if (MAPS[S.map].outdoors) {
+      ctx.fillStyle = h > 0.72 ? PAL.grassA : (h < 0.16 ? PAL.grassB : PAL.grass);
+      ctx.fillRect(x, y, s, s);
+      if (h > 0.93) { ctx.fillStyle = PAL.grassB; ctx.fillRect(x + s * 0.3, y + s * 0.3, Math.max(1, s * 0.12), Math.max(1, s * 0.3)); }
+    } else {
+      ctx.fillStyle = PAL.ifloor; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = PAL.ifloorLine; ctx.fillRect(x, y + s - 1, s, 1);
+      if ((tx + ty) % 2 === 0) ctx.fillRect(x + Math.round(s / 2), y, 1, s);
+    }
+    return;
+  }
+  /* anything solid still needs ground under it */
+  if (MAPS[S.map].outdoors) { ctx.fillStyle = PAL.grass; } else { ctx.fillStyle = PAL.ifloor; }
+  ctx.fillRect(x, y, s, s);
+}
+
+function drawStructure(ch, x, y, s, tx, ty) {
+  var night = tintAlpha() > 0.45;
+  switch (ch) {
+    case '#':
+      if (MAPS[S.map].outdoors) {
+        var below = tileAt(tx, ty + 1);
+        var isFace = (below === '.' || below === ',' || below === '=' );
+        ctx.fillStyle = isFace ? PAL.wall : PAL.roof;
+        ctx.fillRect(x, y, s, s);
+        ctx.fillStyle = isFace ? PAL.wallLine : PAL.roofLine;
+        ctx.fillRect(x, y + Math.round(s * 0.66), s, 1);
+      } else {
+        ctx.fillStyle = PAL.iwall; ctx.fillRect(x, y, s, s);
+        ctx.fillStyle = PAL.iwallTop; ctx.fillRect(x, y, s, Math.max(1, Math.round(s * 0.3)));
+      }
+      break;
+    case 'w':
+      ctx.fillStyle = PAL.wall; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = night ? PAL.winNight : PAL.win;
+      ctx.fillRect(x + Math.round(s * 0.2), y + Math.round(s * 0.2), Math.round(s * 0.6), Math.round(s * 0.5));
+      ctx.fillStyle = PAL.wallLine;
+      ctx.fillRect(x + Math.round(s * 0.2), y + Math.round(s * 0.44), Math.round(s * 0.6), 1);
+      break;
+    case 'T':
+      if (MAPS[S.map].outdoors) {
+        ctx.fillStyle = PAL.trunk;
+        ctx.fillRect(x + Math.round(s * 0.4), y + Math.round(s * 0.5), Math.round(s * 0.2), Math.round(s * 0.5));
+        ctx.fillStyle = hash(tx, ty) > 0.5 ? PAL.leafA : PAL.leaf;
+        ctx.beginPath(); ctx.arc(x + s / 2, y + s * 0.32, s * 0.52, 0, 6.2832); ctx.fill();
+      }
+      break;
+    case 'b':
+      ctx.fillStyle = PAL.leafA;
+      ctx.beginPath(); ctx.arc(x + s / 2, y + s * 0.62, s * 0.34, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = '#c9d84a';
+      ctx.fillRect(x + Math.round(s * 0.42), y + Math.round(s * 0.34), Math.max(1, Math.round(s * 0.16)), Math.max(1, Math.round(s * 0.16)));
+      break;
+    case 'f':
+      ctx.fillStyle = PAL.fence;
+      ctx.fillRect(x, y + Math.round(s * 0.42), s, Math.max(1, Math.round(s * 0.1)));
+      ctx.fillRect(x + Math.round(s * 0.42), y + Math.round(s * 0.28), Math.max(1, Math.round(s * 0.16)), Math.round(s * 0.55));
+      break;
+    case 'x': ctx.fillStyle = PAL.rock;
+      ctx.beginPath(); ctx.arc(x + s / 2, y + s * 0.6, s * 0.36, 0, 6.2832); ctx.fill(); break;
+    case 'B': ctx.fillStyle = PAL.bench;
+      ctx.fillRect(x + Math.round(s * 0.06), y + Math.round(s * 0.4), Math.round(s * 0.88), Math.round(s * 0.22));
+      ctx.fillRect(x + Math.round(s * 0.12), y + Math.round(s * 0.6), Math.max(1, Math.round(s * 0.1)), Math.round(s * 0.3));
+      ctx.fillRect(x + Math.round(s * 0.76), y + Math.round(s * 0.6), Math.max(1, Math.round(s * 0.1)), Math.round(s * 0.3));
+      break;
+    case 'L':
+      ctx.fillStyle = PAL.post;
+      ctx.fillRect(x + Math.round(s * 0.44), y + Math.round(s * 0.2), Math.max(1, Math.round(s * 0.14)), Math.round(s * 0.8));
+      ctx.fillStyle = night ? PAL.globe : '#cfd2c4';
+      ctx.beginPath(); ctx.arc(x + s * 0.5, y + s * 0.18, s * 0.2, 0, 6.2832); ctx.fill();
+      break;
+    case 'S':
+      ctx.fillStyle = PAL.post;
+      ctx.fillRect(x + Math.round(s * 0.46), y + Math.round(s * 0.5), Math.max(1, Math.round(s * 0.1)), Math.round(s * 0.45));
+      ctx.fillStyle = PAL.sign;
+      ctx.fillRect(x + Math.round(s * 0.18), y + Math.round(s * 0.22), Math.round(s * 0.64), Math.round(s * 0.34));
+      break;
+    /* ---- interior furniture: this is what makes a room a room ---- */
+    case 'E': ctx.fillStyle = PAL.bedFrame; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = PAL.bed; ctx.fillRect(x + Math.round(s * 0.1), y + Math.round(s * 0.1), Math.round(s * 0.8), Math.round(s * 0.8)); break;
+    case 't': ctx.fillStyle = PAL.table; ctx.fillRect(x + Math.round(s * 0.05), y + Math.round(s * 0.15), Math.round(s * 0.9), Math.round(s * 0.7)); break;
+    case 'h': ctx.fillStyle = PAL.chair; ctx.fillRect(x + Math.round(s * 0.2), y + Math.round(s * 0.25), Math.round(s * 0.6), Math.round(s * 0.6)); break;
+    case 'C': ctx.fillStyle = PAL.counter; ctx.fillRect(x, y + Math.round(s * 0.2), s, Math.round(s * 0.7));
+      ctx.fillStyle = '#a97347'; ctx.fillRect(x, y + Math.round(s * 0.2), s, Math.max(1, Math.round(s * 0.14))); break;
+    case 's': ctx.fillStyle = PAL.shelf; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = '#c8a05c'; ctx.fillRect(x + 1, y + Math.round(s * 0.22), s - 2, Math.max(1, Math.round(s * 0.12)));
+      ctx.fillRect(x + 1, y + Math.round(s * 0.62), s - 2, Math.max(1, Math.round(s * 0.12))); break;
+    case 'v': ctx.fillStyle = PAL.stove; ctx.fillRect(x + Math.round(s * 0.08), y, Math.round(s * 0.84), s);
+      ctx.fillStyle = '#e07a2a'; ctx.fillRect(x + Math.round(s * 0.28), y + Math.round(s * 0.5), Math.round(s * 0.44), Math.round(s * 0.3)); break;
+    case 'k': ctx.fillStyle = PAL.crate; ctx.fillRect(x + Math.round(s * 0.08), y + Math.round(s * 0.08), Math.round(s * 0.84), Math.round(s * 0.84));
+      ctx.fillStyle = '#7d5f36'; ctx.fillRect(x + Math.round(s * 0.08), y + Math.round(s * 0.46), Math.round(s * 0.84), 1); break;
+    case 'p': ctx.fillStyle = PAL.pot; ctx.fillRect(x + Math.round(s * 0.28), y + Math.round(s * 0.58), Math.round(s * 0.44), Math.round(s * 0.36));
+      ctx.fillStyle = PAL.plant; ctx.beginPath(); ctx.arc(x + s * 0.5, y + s * 0.44, s * 0.3, 0, 6.2832); ctx.fill(); break;
+  }
+}
+
+function drawRug(x, y, s, tx, ty) {
+  ctx.fillStyle = (tx + ty) % 2 ? PAL.rug : PAL.rugA;
+  ctx.fillRect(x + 1, y + 1, s - 2, s - 2);
+}
+
+function drawDoor(x, y, s) {
+  /* drawn one wide and TWO TALL: it rises into the tile above, which is the
+     shape a human-scale door actually is. Only the bottom cell is the warp. */
+  ctx.fillStyle = PAL.doorFrame;
+  ctx.fillRect(x + Math.round(s * 0.08), y - s, Math.round(s * 0.84), s * 2);
+  ctx.fillStyle = PAL.door;
+  ctx.fillRect(x + Math.round(s * 0.16), y - s + Math.round(s * 0.12), Math.round(s * 0.68), s * 2 - Math.round(s * 0.16));
+  ctx.fillStyle = '#e2c37a';
+  ctx.fillRect(x + Math.round(s * 0.68), y - Math.round(s * 0.42), Math.max(1, Math.round(s * 0.1)), Math.max(1, Math.round(s * 0.1)));
+}
+
+function drawBody(cx, footY, s, facing, frame, moving, shirt) {
+  var u = s / SDV.TILE;              /* one world px in screen px */
+  var bw = Math.max(3, Math.round(26 * u)), bh = Math.max(4, Math.round(30 * u));
+  var hs = Math.max(3, Math.round(22 * u));
+  var swing = moving ? [0, 1, 0, -1][frame] * Math.max(1, Math.round(3 * u)) : 0;
+  var x = Math.round(cx - bw / 2), y = Math.round(footY - bh);
+  /* shadow */
+  ctx.fillStyle = 'rgba(0,0,0,.28)';
+  ctx.beginPath(); ctx.ellipse(cx, footY, bw * 0.55, bw * 0.22, 0, 0, 6.2832); ctx.fill();
+  /* legs */
+  ctx.fillStyle = PAL.boot;
+  ctx.fillRect(x + Math.round(bw * 0.14), footY - Math.round(bh * 0.32) + swing, Math.round(bw * 0.26), Math.round(bh * 0.32));
+  ctx.fillRect(x + Math.round(bw * 0.58), footY - Math.round(bh * 0.32) - swing, Math.round(bw * 0.26), Math.round(bh * 0.32));
+  /* torso */
+  ctx.fillStyle = shirt;
+  ctx.fillRect(x, y + hs - Math.round(2 * u), bw, Math.round(bh * 0.42));
+  /* head */
+  ctx.fillStyle = PAL.skin;
+  ctx.fillRect(Math.round(cx - hs / 2), y, hs, hs);
+  ctx.fillStyle = PAL.hair;
+  ctx.fillRect(Math.round(cx - hs / 2), y, hs, Math.max(1, Math.round(hs * 0.34)));
+  if (facing === 3) ctx.fillRect(Math.round(cx - hs / 2), y, Math.max(1, Math.round(hs * 0.3)), hs);
+  if (facing === 1) ctx.fillRect(Math.round(cx + hs / 2 - Math.round(hs * 0.3)), y, Math.max(1, Math.round(hs * 0.3)), hs);
+  if (facing === 0) ctx.fillRect(Math.round(cx - hs / 2), y, hs, Math.round(hs * 0.7));
+  /* eyes, only when you can see the face */
+  if (facing === 2) {
+    ctx.fillStyle = '#2b2118';
+    ctx.fillRect(Math.round(cx - hs * 0.26), y + Math.round(hs * 0.52), Math.max(1, Math.round(2 * u)), Math.max(1, Math.round(3 * u)));
+    ctx.fillRect(Math.round(cx + hs * 0.14), y + Math.round(hs * 0.52), Math.max(1, Math.round(2 * u)), Math.max(1, Math.round(3 * u)));
+  }
+}
+
+var dark = document.createElement('canvas'), dctx = dark.getContext('2d');
+
+function render() {
+  var s = S.zoom, scale = s / SDV.TILE;
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, VW, VH);
+  var x0 = Math.floor(S.cam.x / s) - 1, x1 = Math.ceil((S.cam.x + VW) / s) + 1;
+  var y0 = Math.floor(S.cam.y / s) - 1, y1 = Math.ceil((S.cam.y + VH) / s) + 2;
+  var tx, ty, ch, sx, sy;
+
+  for (ty = y0; ty <= y1; ty++) for (tx = x0; tx <= x1; tx++) {
+    if (tx < 0 || ty < 0 || tx >= mapW() || ty >= mapH()) continue;
+    ch = rows()[ty][tx]; sx = Math.round(tx * s - S.cam.x); sy = Math.round(ty * s - S.cam.y);
+    drawGround(ch, sx, sy, s, tx, ty);
+    if (ch === 'r') drawRug(sx, sy, s, tx, ty);
+  }
+  /* structures after all ground so a canopy/roof can overhang the tile above */
+  for (ty = y0; ty <= y1; ty++) for (tx = x0; tx <= x1; tx++) {
+    if (tx < 0 || ty < 0 || tx >= mapW() || ty >= mapH()) continue;
+    ch = rows()[ty][tx]; sx = Math.round(tx * s - S.cam.x); sy = Math.round(ty * s - S.cam.y);
+    if (ch === 'D') { drawDoor(sx, sy, s); continue; }
+    drawStructure(ch, sx, sy, s, tx, ty);
+  }
+  if (S.grid) {
+    ctx.strokeStyle = 'rgba(255,255,255,.13)'; ctx.lineWidth = 1;
+    for (tx = x0; tx <= x1; tx++) { sx = Math.round(tx * s - S.cam.x) + .5; ctx.beginPath(); ctx.moveTo(sx, 0); ctx.lineTo(sx, VH); ctx.stroke(); }
+    for (ty = y0; ty <= y1; ty++) { sy = Math.round(ty * s - S.cam.y) + .5; ctx.beginPath(); ctx.moveTo(0, sy); ctx.lineTo(VW, sy); ctx.stroke(); }
+    /* the real collision box, so the softness is visible and not folklore */
+    var b = box(S.pos.x, S.pos.y);
+    ctx.strokeStyle = 'rgba(255,90,90,.9)';
+    ctx.strokeRect(Math.round(b.x * scale - S.cam.x) + .5, Math.round(b.y * scale - S.cam.y) + .5,
+                   Math.round(b.w * scale), Math.round(b.h * scale));
+  }
+
+  /* bodies, painter-sorted by feet */
+  var actors = [];
+  if (S.map === 'town') actors.push({ p: NPC.pos, f: NPC.facing, fr: NPC.animFrame,
+    mv: NPC.path.length > 0, c: PAL.bodyB, tag: NPC.name,
+    bob: NPC.path.length ? 0 : Math.max(0, Math.ceil(Math.sin(S.now / SDV.BREATH_MS)) / 4) });
+  actors.push({ p: S.pos, f: S.facing, fr: S.animFrame, mv: S.lastStep.px > 0, c: PAL.bodyA, tag: '', bob: 0 });
+  actors.sort(function (a, b2) { return a.p.y - b2.p.y; });
+  for (var i = 0; i < actors.length; i++) {
+    var a = actors[i];
+    var cx = Math.round((a.p.x + SDV.TILE / 2) * scale - S.cam.x);
+    var fy = Math.round((a.p.y + SDV.BOX_H) * scale - S.cam.y) - Math.round(a.bob * scale);
+    drawBody(cx, fy, s, a.f, a.fr, a.mv, a.c);
+    if (a.tag) {
+      ctx.font = '9px ui-monospace, monospace'; ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(0,0,0,.55)';
+      var tw = ctx.measureText(a.tag).width + 6;
+      ctx.fillRect(cx - tw / 2, fy - Math.round(38 * scale) - 11, tw, 11);
+      ctx.fillStyle = '#ffe9a0'; ctx.fillText(a.tag, cx, fy - Math.round(38 * scale) - 2.5);
+      ctx.textAlign = 'left';
+    }
+  }
+
+  /* night: their alpha curve, punched through by the lamps. Stardew subtracts
+     eveningColor (pure yellow) on the GPU, which is why night reads blue; a
+     2d canvas has no subtract, so this is a blue overlay on the same curve. */
+  var a2 = tintAlpha();
+  if (a2 > 0.001) {
+    /* the darkness layer is deliberately LOW RES (1 css px, no DPR): it is a
+       soft mask, nobody can see its resolution, and at 3x on a phone the
+       full-res version was the single most expensive thing on screen. */
+    if (dark.width !== VW || dark.height !== VH) { dark.width = VW; dark.height = VH; }
+    dctx.setTransform(1, 0, 0, 1, 0, 0);
+    dctx.clearRect(0, 0, VW, VH);
+    dctx.globalCompositeOperation = 'source-over';
+    dctx.fillStyle = 'rgba(10,16,52,' + a2.toFixed(3) + ')';
+    dctx.fillRect(0, 0, VW, VH);
+    /* lamps: punch the darkness back, then a warm pool on top, so a lamp
+       reads as light on the ground instead of a hole in the night. */
+    dctx.globalCompositeOperation = 'destination-out';
+    var L = MAPS[S.map].lights, rad = s * 2.6, li, lx, ly, g;
+    for (li = 0; li < L.length; li++) {
+      lx = (L[li][0] + 0.5) * s - S.cam.x; ly = (L[li][1] + 0.35) * s - S.cam.y;
+      if (lx < -rad || ly < -rad || lx > VW + rad || ly > VH + rad) continue;
+      g = dctx.createRadialGradient(lx, ly, 0, lx, ly, rad);
+      g.addColorStop(0, 'rgba(0,0,0,.74)'); g.addColorStop(0.5, 'rgba(0,0,0,.34)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      dctx.fillStyle = g; dctx.fillRect(lx - rad, ly - rad, rad * 2, rad * 2);
+    }
+    dctx.globalCompositeOperation = 'source-over';
+    ctx.drawImage(dark, 0, 0, VW, VH);
+    ctx.globalCompositeOperation = 'lighter';
+    for (li = 0; li < L.length; li++) {
+      lx = (L[li][0] + 0.5) * s - S.cam.x; ly = (L[li][1] + 0.35) * s - S.cam.y;
+      if (lx < -rad || ly < -rad || lx > VW + rad || ly > VH + rad) continue;
+      g = ctx.createRadialGradient(lx, ly, 0, lx, ly, rad);
+      var wa = (0.46 * a2).toFixed(3);
+      g.addColorStop(0, 'rgba(255,214,130,' + wa + ')');
+      g.addColorStop(1, 'rgba(255,214,130,0)');
+      ctx.fillStyle = g; ctx.fillRect(lx - rad, ly - rad, rad * 2, rad * 2);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  if (S.fade > 0.001) {
+    ctx.fillStyle = 'rgba(0,0,0,' + Math.min(1, S.fade).toFixed(3) + ')';
+    ctx.fillRect(0, 0, VW, VH);
+  }
+}
+
+/* =========================================================================
+   11. HUD + CONTROLS
+   ========================================================================= */
+var elClock = document.getElementById('clock'), elTele = document.getElementById('tele');
+var elGait = document.getElementById('gait');
+var fpsAcc = 0, fpsN = 0, fps = 60;
+
+function hud() {
+  elClock.textContent = clockText();
+  var spd = S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED;
+  elTele.textContent =
+    'speed     ' + spd + '\n' +
+    'px/tick   ' + pxPerTick(spd, TICK_MS).toFixed(2) + '\n' +
+    'tiles/s   ' + (pxPerTick(spd, TICK_MS) * 60 / SDV.TILE).toFixed(3) + '\n' +
+    'frame     ' + S.lastStep.px.toFixed(2) + (S.lastStep.mode ? ' ' + S.lastStep.mode : '') + '\n' +
+    'at        ' + Math.floor((S.pos.x + SDV.TILE / 2) / SDV.TILE) + ',' + Math.floor((S.pos.y + SDV.BOX_H / 2) / SDV.TILE) + ' ' + S.map + '\n' +
+    'dark      ' + tintAlpha().toFixed(2) + '\n' +
+    'on screen ' + (VW / S.zoom).toFixed(1) + 'x' + (VH / S.zoom).toFixed(1) + '\n' +
+    'fps       ' + fps.toFixed(0);
+}
+
+function setGait(run) {
+  S.running = run;
+  elGait.textContent = run ? 'RUNNING (speed 5)' : 'WALKING (speed 2)';
+  elGait.className = run ? '' : 'walking';
+}
+elGait.addEventListener('click', function () { setGait(!S.running); });
+
+var CHIPS1 = [
+  { id: 'halfStep',   label: 'HALF-STEP', get: function () { return MODEL.halfStep; },  set: function (v) { MODEL.halfStep = v; } },
+  { id: 'cornerSlip', label: 'CORNER SLIP', get: function () { return MODEL.cornerSlip; }, set: function (v) { MODEL.cornerSlip = v; } },
+  { id: 'diagNorm',   label: 'DIAG 0.7',  get: function () { return MODEL.diagNorm; },  set: function (v) { MODEL.diagNorm = v; } },
+  { id: 'accel',      label: 'ACCEL 250ms', warn: true, get: function () { return MODEL.accel; }, set: function (v) { MODEL.accel = v; } }
+];
+var CHIPS2 = [
+  { id: 'zoom', label: 'TRUE 4x ZOOM', get: function () { return S.zoom === 64; }, set: function (v) { S.zoom = v ? 64 : 32; } },
+  { id: 'grid', label: 'GRID + BOX', get: function () { return S.grid; }, set: function (v) { S.grid = v; } },
+  { id: 'timePaused', label: 'PAUSE CLOCK', get: function () { return S.timePaused; }, set: function (v) { S.timePaused = v; } },
+  { id: 'hour', label: '+1 HOUR', act: function () { S.timeOfDay = Math.min(SDV.DAY_END, S.timeOfDay + 100); } },
+  { id: 'ledger', label: 'FEEL LEDGER', act: function () { document.getElementById('ledger').classList.add('open'); } }
+];
+function buildChips(host, list) {
+  var el = document.getElementById(host);
+  list.forEach(function (c) {
+    var b = document.createElement('button');
+    b.className = 'chip' + (c.warn ? ' warn' : '');
+    b.id = 'chip_' + c.id; b.textContent = c.label;
+    b.addEventListener('click', function () {
+      if (c.act) { c.act(); return; }
+      c.set(!c.get()); syncChips();
+    });
+    el.appendChild(b);
+  });
+}
+function syncChips() {
+  CHIPS1.concat(CHIPS2).forEach(function (c) {
+    if (!c.get) return;
+    var b = document.getElementById('chip_' + c.id);
+    if (b) b.className = 'chip' + (c.warn ? ' warn' : '') + (c.get() ? ' on' : '');
+  });
+}
+buildChips('chips1', CHIPS1); buildChips('chips2', CHIPS2);
+document.getElementById('closelg').addEventListener('click', function () {
+  document.getElementById('ledger').classList.remove('open');
+});
+
+/* the ledger, printed on the surface itself so the numbers travel with it */
+(function fillLedger() {
+  var SRC = {
+    TILE: 'Game1.cs:59', PIXEL_ZOOM: 'Game1.cs:58', SPRITE_W: 'FarmerSprite.cs:287',
+    SPRITE_H: 'FarmerSprite.cs:288', WALK_SPEED: 'Farmer.cs:1435', RUN_SPEED: 'Farmer.cs:1435',
+    MOVE_MULT: 'Farmer.cs:5611', MIN_STEP: 'Farmer.cs:5612', DIAG_FACTOR: 'Farmer.cs:5614',
+    BOX_X: 'Farmer.cs:4041', BOX_W: 'Farmer.cs:4041', BOX_H: 'Farmer.cs:4041',
+    SLIP_DIV: 'Farmer.cs:5985', CAM_SNAP: 'Game1.cs:7744', MS_PER_10MIN: 'Game1.cs:5086',
+    DAY_START: 'Game1.cs (dayStart)', DAY_END: 'Game1.cs:4958', DARK_START: 'Game1.cs:3769',
+    DARK_TRULY: 'Game1.cs:3804', DUSK_BASE: 'Game1.cs:5081', DUSK_RATE: 'Game1.cs:5081',
+    NIGHT_BASE: 'Game1.cs:5076', NIGHT_RATE: 'Game1.cs:5076', LIGHT_CAP: 'Game1.cs:5076',
+    MINUTE_UNIT: 'Game1.cs:5076', FADE_STEP: 'Game1.cs:4826', NPC_SPEED: 'NPC.cs:2601',
+    NPC_PAUSE_MIN: 'NPC.cs:34', NPC_PAUSE_MAX: 'NPC.cs:35', BREATH_MS: 'NPC.cs:3875',
+    ANIM_BASE_MS: 'AnimatedSprite.cs:22', ANIM_FRAMES: 'AnimatedSprite.cs:23',
+    ANIM_WALK_MOD: 'Farmer.cs:6082', ANIM_RUN_MOD: 'Farmer.cs:6082', ANIM_MOD_MULT: 'Farmer.cs:6082'
+  };
+  var t = document.getElementById('lgtable'), html = '';
+  for (var k in SDV) {
+    html += '<tr><td class="k">' + k + '</td><td class="v">' + SDV[k] + '</td><td class="s">' + (SRC[k] || '') + '</td></tr>';
+  }
+  html += '<tr><td class="k">walk px/tick</td><td class="v">' + DERIVED.walkPxTick.toFixed(2) + '</td><td class="s">derived</td></tr>';
+  html += '<tr><td class="k">run px/tick</td><td class="v">' + DERIVED.runPxTick.toFixed(2) + '</td><td class="s">derived</td></tr>';
+  html += '<tr><td class="k">walk tiles/s</td><td class="v">' + DERIVED.walkTilesSec.toFixed(3) + '</td><td class="s">derived</td></tr>';
+  html += '<tr><td class="k">run tiles/s</td><td class="v">' + DERIVED.runTilesSec.toFixed(3) + '</td><td class="s">derived</td></tr>';
+  html += '<tr><td class="k">fade each way</td><td class="v">' + DERIVED.fadeMs.toFixed(0) + 'ms</td><td class="s">derived</td></tr>';
+  t.innerHTML = html;
+  document.getElementById('lgnote').textContent =
+    'Source: decompiled Stardew Valley 1.5.6. Nothing above is eyeballed. ' +
+    'The three collision steps (full, then half, then the corner slip) are what ' +
+    'the softness actually is — turn CORNER SLIP off and try a doorway.';
+})();
+
+/* --- input: an 8-way drag stick (a direction SET, like a thumbstick) --- */
+var stick = document.getElementById('stick'), knob = document.getElementById('knob');
+var stickActive = false;
+function setDirsFromVec(dx, dy, r) {
+  var dead = r * 0.34, m = Math.sqrt(dx * dx + dy * dy);
+  S.dirs[0] = S.dirs[1] = S.dirs[2] = S.dirs[3] = false;
+  if (m < dead) { knob.style.transform = 'translate(0,0)'; return; }
+  var ang = Math.atan2(dy, dx), oct = Math.round(ang / (Math.PI / 4));
+  if (oct === -4 || oct === 4) { S.dirs[3] = true; }
+  if (oct === -3) { S.dirs[3] = S.dirs[0] = true; }
+  if (oct === -2) { S.dirs[0] = true; }
+  if (oct === -1) { S.dirs[0] = S.dirs[1] = true; }
+  if (oct === 0) { S.dirs[1] = true; }
+  if (oct === 1) { S.dirs[1] = S.dirs[2] = true; }
+  if (oct === 2) { S.dirs[2] = true; }
+  if (oct === 3) { S.dirs[2] = S.dirs[3] = true; }
+  var cl = Math.min(1, m / r) * (r * 0.42);
+  knob.style.transform = 'translate(' + (Math.cos(ang) * cl).toFixed(1) + 'px,' + (Math.sin(ang) * cl).toFixed(1) + 'px)';
+}
+function stickAt(e) {
+  var r = stick.getBoundingClientRect(), t = e.touches ? e.touches[0] : e;
+  setDirsFromVec(t.clientX - (r.left + r.width / 2), t.clientY - (r.top + r.height / 2), r.width / 2);
+}
+function stickEnd() {
+  stickActive = false; S.dirs[0] = S.dirs[1] = S.dirs[2] = S.dirs[3] = false;
+  knob.style.transform = 'translate(0,0)';
+}
+stick.addEventListener('touchstart', function (e) { e.preventDefault(); stickActive = true; stickAt(e); }, { passive: false });
+stick.addEventListener('touchmove', function (e) { e.preventDefault(); if (stickActive) stickAt(e); }, { passive: false });
+stick.addEventListener('touchend', function (e) { e.preventDefault(); stickEnd(); }, { passive: false });
+stick.addEventListener('touchcancel', function () { stickEnd(); });
+stick.addEventListener('mousedown', function (e) { e.preventDefault(); stickActive = true; stickAt(e); });
+window.addEventListener('mousemove', function (e) { if (stickActive) stickAt(e); });
+window.addEventListener('mouseup', function () { if (stickActive) stickEnd(); });
+
+var KEYMAP = { ArrowUp: 0, KeyW: 0, ArrowRight: 1, KeyD: 1, ArrowDown: 2, KeyS: 2, ArrowLeft: 3, KeyA: 3 };
+window.addEventListener('keydown', function (e) {
+  if (e.code in KEYMAP) { S.dirs[KEYMAP[e.code]] = true; e.preventDefault(); }
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') setGait(false);   /* autoRun: the run key WALKS */
+});
+window.addEventListener('keyup', function (e) {
+  if (e.code in KEYMAP) { S.dirs[KEYMAP[e.code]] = false; e.preventDefault(); }
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') setGait(true);
+});
+
+/* =========================================================================
+   12. THE LOOP
+   ========================================================================= */
+function frame(dtms) {
+  S.now += dtms;
+  stepFade(dtms);
+  if (canMove()) stepPlayer(dtms);
+  stepClock(dtms);
+  stepNPC(dtms);
+  updateCam(VW, VH);
+}
+var last = 0;
+function loop(ts) {
+  if (!last) last = ts;
+  var dt = ts - last; last = ts;
+  if (dt > 0) { fpsAcc += dt; fpsN++; if (fpsAcc > 400) { fps = 1000 / (fpsAcc / fpsN); fpsAcc = 0; fpsN = 0; } }
+  dt = Math.max(4, Math.min(50, dt));               /* a stall must not teleport you */
+  if (S.driven) frame(dt);
+  render(); hud();
+  requestAnimationFrame(loop);
+}
+resize(); syncChips(); setGait(true); updateCam(VW, VH);
+requestAnimationFrame(loop);
+
+/* =========================================================================
+   13. THE TEST SURFACE. gates/lab_gate.js drives THIS — the same frame() the
+   thumb drives — so the gate measures the shipped code path and never a
+   parallel copy of the maths.
+   ========================================================================= */
+window.LAB = {
+  SDV: SDV, DERIVED: DERIVED, MODEL: MODEL, S: S, NPC: NPC, MAPS: MAPS,
+  freeze: function () { S.driven = false; },
+  thaw: function () { S.driven = true; },
+  setDirs: function (list) {
+    S.dirs[0] = S.dirs[1] = S.dirs[2] = S.dirs[3] = false;
+    (list || []).forEach(function (d) { S.dirs[d] = true; });
+  },
+  step: function (n, dirs, run) {
+    if (dirs !== undefined) window.LAB.setDirs(dirs);
+    if (run !== undefined) S.running = !!run;
+    for (var i = 0; i < n; i++) frame(TICK_MS);
+    return { x: S.pos.x, y: S.pos.y, map: S.map, time: S.timeOfDay, fade: S.fade };
+  },
+  place: function (map, px, py) {
+    S.map = map; S.pos.x = px; S.pos.y = py; S.fade = 0; S.fadeDir = 0; S.pendingWarp = null;
+  },
+  setTime: function (t) { S.timeOfDay = t; S.clockAcc = 0; },
+  tintAlpha: tintAlpha,
+  boxOf: function () { return box(S.pos.x, S.pos.y); },
+  furnitureCount: function (map) {
+    var r = MAPS[map].rows, n = 0;
+    for (var y = 0; y < r.length; y++) for (var x = 0; x < r[y].length; x++) if (FURNITURE.indexOf(r[y][x]) >= 0) n++;
+    return n;
+  },
+  plateOf: function (map) { return { w: MAPS[map].rows[0].length, h: MAPS[map].rows.length }; },
+  solidAt: solidTile, solidOn: solidOn, tileOn: tileOn,
+  npcTile: npcTile
+};
+</script>
+</body>
+</html>

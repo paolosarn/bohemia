@@ -1,3 +1,64 @@
+LAB (09): 7/26 — THE LANE'S FIRST EMULATION IS PLAYABLE: STARDEW'S TOWN WALK, REBUILT
+FROM THE MASTER'S OWN SOURCE. Backlog LAB-1, all three deliverables, nothing ported.
+Page: slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html (standalone, labeled
+REFERENCE, placeholder art, touches no engine module / no bank / no alpha, and the
+gate sweeps BOTH directions so nothing shipped links back to it either).
+HOW THE NUMBERS WERE GOT, because this is the part that makes the lane worth having:
+the decompiled 1.5.6 source was read directly, not remembered. 37 constants, every one
+carrying the file:line it came off, in
+records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt. The five that matter:
+  - walk 2 / run 5, times movementMultiplier 0.066, times elapsed ms. At 60fps that is
+    2.20 and 5.50 px per tick = 2.06 and 5.16 TILES PER SECOND. And options.autoRun
+    defaults ON, so the RUN BUTTON WALKS YOU: fast is the default gait.
+  - ZERO ACCELERATION anywhere. Frame one is full speed. Measured, not assumed.
+  - the collision box is 48x32 AT THE FEET (3/4 tile wide, half a tile tall), not the
+    sprite. That is why a tiny town feels roomy.
+  - THE CASCADE, which is what "soft collision" actually is: full step, else HALF step,
+    else — if only one direction is held — split the leading box into quarters, and if
+    exactly one quarter is blocked, SLIDE SIDEWAYS at speed*ms/64. That third rule is
+    why nobody has ever snagged a door frame in Stardew.
+  - diagonals are 0.7 per axis (flat 0.7, not 1/sqrt2), so the diagonal is not a shortcut.
+Also emulated and measured: doors fire off the NEXT-position box (you walk into them,
+you never press anything), the 0.02/tick fade is 50 ticks each way and the CLOCK IS
+PAUSED for it (a doorway is free), 7000ms = 10 game minutes so a day is 14 real minutes,
+the dusk curve steps to 0.30 at 6pm and 0.75 at 8pm and caps at 0.93 (never black), and
+night is PURE YELLOW SUBTRACTED — which is the entire reason Stardew nights read blue,
+nobody painted a night palette. One scheduled NPC: time key, A*, axis-by-axis at a RAW
+2px/tick (villagers never got the player's ms-scaling, so you always out-pace the town),
+then a 6-12s idle with a 600ms breath.
+THE PAGE HAS A/B CHIPS ON PURPOSE: HALF-STEP, CORNER SLIP, DIAG 0.7 and a deliberately
+non-Stardew ACCEL 250ms, plus TRUE 4x ZOOM. Turning one off is how you feel what it was
+doing for you. That is the lane's whole thesis and it is now a thing you can hold.
+WHAT IT SAYS ABOUT US, measured against the shipped run: our overworld walk teleports a
+WHOLE TILE every 110ms (9.1 tiles/s, faster than Stardew's run) with a 220ms hitch
+before hold-repeat, no diagonals, and it collides with the whole cell. Big discrete
+jumps at a high rate with a hitch is most of why the overworld reads stiff — that is not
+an art problem. 9 port candidates are ranked in
+records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_PATTERN_NOTE_7_26_26.md, cheapest first
+(interpolate the cell across the beat; kill the hitch; a feet box; the half-step + slip;
+diagonals; doors as collision; a free clock; night as a subtracted channel; schedule not
+AI) and 4 do-not-ports are named (interiors bigger than their buildings, 20 tiles of
+screen, the frame-rate-dependent NPC speed, any of the art).
+[PENDING Paolo], the one real fork and it is canon: 120 BPM / I-MOVE-YOU-MOVE and
+OCCUPANCY (one body per cell) cannot coexist with a continuous sub-pixel walk in one
+surface. Three options are written out in the note — (1) keep the beat and interpolate
+the picture across it, (2) two modes with a snap into turn-based for fights, (3) free
+walking everywhere, which retires I-MOVE-YOU-MOVE for the overworld. Option 1 breaks no
+law and is by far the cheapest; the lane did NOT pick.
+Gate: gates/lab_gate.js, 83 checks, registered in the suite as REFERENCE LAB. It holds
+all four clauses of the lab law, and the movement half MEASURES through window.LAB — the
+same frame loop the thumb drives, never a second copy of the maths (mutation-checked:
+forcing DIAG_FACTOR to 1.0 moves the measurement from 92.4 to 132.0).
+NOTE FOR THE FLEET: this lane deliberately did NOT touch the alpha, and that includes
+the build stamp — the alpha did not change this turn, so stamping it would have been a
+lie. A lab ship is reached by its own reference link, never as "the build".
+NEXT IN THIS LANE: backlog LAB-2, the Zomboid loot loop. Do not port anything from
+LAB-1 from inside this lane; a port is the owning lane's build item, after Paolo plays.
+FLEET CONDITION, FLAGGED NOT FIXED (coordinator's file, not mine): this handoff is over
+1,100 lines against a ~500-line DIET LAW cap. Trimming it means rewriting eight other
+lanes' entries in a file they are all appending to right now, which is the boundary the
+parallel-sessions rule says to stop at. Raising it here instead of crossing it.
+
 WORLD MODEL (02): 7/26 (f) — THE GROUND NOW OBEYS THE CONSTITUTION. The freeze lifted
 when Paolo ruled the target CBB, which made the promise this lane wrote during it come
 due: the five surfaces (arterial, freeway, desert, mountain, water) shipped flagged

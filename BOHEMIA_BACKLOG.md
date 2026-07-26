@@ -14,13 +14,21 @@
 
 ## LAB (THE REFERENCE LAB — first word "lab"; law: laws/BOHEMIA_ADDENDUM_
 ## THE_REFERENCE_LAB_7_26_26.md. One session = one system = one named game.)
-1. STARDEW TOWN-WALK FEEL: one town screen, Stardew's exact walk feel (speed,
-   acceleration, collision softness), enter/exit two furnished interiors with
-   Stardew transitions, day-night tick, one scheduled NPC. Research the real
-   numbers online first. | playable page + feel ledger + pattern note | the
-   alpha, all engine modules | Paolo plays = the verdict.
+1. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] STARDEW TOWN-WALK FEEL. All three
+   deliverables landed: slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html
+   (one town, two furnished interiors, fade transitions, the 7s/10min clock with
+   the real dusk curve, one scheduled NPC),
+   records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt (37
+   constants, each with the decompiled file:line it was read from) and
+   records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_PATTERN_NOTE_7_26_26.md (9 port
+   candidates, 4 explicit do-not-ports). Gate: gates/lab_gate.js, 83 checks,
+   registered as REFERENCE LAB. The verdict is Paolo playing it; the lane ports
+   nothing on its own. ONE [PENDING Paolo] came out of it and is written into
+   the note: Bohemia's 120 BPM / one-body-per-cell walk and Stardew's continuous
+   sub-pixel walk cannot both live in one surface — three options are laid out,
+   all three are his call.
 2. ZOMBOID LOOT LOOP: containers, search, weight, the tension of rummaging a
-   house. Same deliverables. | same | same | same.
+   house. Same deliverables. | same | same | same. NEXT UP in this lane.
 3. (Paolo adds more targets by naming a game + system to any lab session or
    to the coordinator.)
 

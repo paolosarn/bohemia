@@ -1,0 +1,225 @@
+==============================================================================
+BOHEMIA REFERENCE LAB 01 — FEEL LEDGER
+STARDEW VALLEY, THE TOWN WALK          recorded 7/26/26 (lab lane)
+==============================================================================
+Law: laws/BOHEMIA_ADDENDUM_THE_REFERENCE_LAB_7_26_26.md (Paolo 7/26/26).
+Emulation: slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html
+Pattern note: records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_PATTERN_NOTE_7_26_26.md
+Gate: gates/lab_gate.js (measures the numbers below in a real browser)
+
+SOURCE OF TRUTH: the decompiled Stardew Valley 1.5.6 C# source, read directly
+(WeDias/StardewValley mirror on GitHub, raw files). Every row below carries the
+file:line it was read from. NOTHING IN THIS LEDGER WAS EYEBALLED, GUESSED, OR
+REMEMBERED. Community wiki numbers were used only to cross-check the clock.
+
+Line numbers are that mirror's 1.5.6 layout. If a row ever cannot be confirmed
+again, it gets deleted, not softened.
+
+------------------------------------------------------------------------------
+1. THE GRID
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+TILE             64        Game1.cs:59       world px per tile; ALL positions
+                                             and speeds below are in these px
+PIXEL_ZOOM       4         Game1.cs:58       16px art is drawn at 4x, so one
+                                             art pixel = 4 screen px
+SPRITE_W         16        FarmerSprite.cs:287  body art is 16 x 32 px...
+SPRITE_H         32        FarmerSprite.cs:288  ...i.e. 1 tile wide, 2 tall
+BOX_X            8         Farmer.cs:4041    collision box x inset
+BOX_W            48        Farmer.cs:4041    collision box width  (3/4 tile)
+BOX_H            32        Farmer.cs:4041    collision box height (1/2 tile)
+
+  Farmer.GetBoundingBox() verbatim:
+    new Rectangle((int)position.X + 8, (int)position.Y + Sprite.getHeight() - 32,
+                  48, 32)
+  and AnimatedSprite.getHeight() returns SpriteHeight (32), so the box is
+  48 x 32 anchored at Position: THE BODY THE WORLD COLLIDES WITH IS A SMALL
+  BOX AT THE FEET, not the sprite. 8px of slack on each side of a 64px tile.
+
+------------------------------------------------------------------------------
+2. THE SPEED  (there is no acceleration anywhere in this game)
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+WALK_SPEED       2         Farmer.cs:1435    Farmer.speed while walking
+RUN_SPEED        5         Farmer.cs:1435    Farmer.speed while running
+MOVE_MULT        0.066     Farmer.cs:5611    Farmer.movementMultiplier
+MIN_STEP         1         Farmer.cs:5612    Math.Max(1f, ...) floor
+DIAG_FACTOR      0.7       Farmer.cs:5614    >1 direction held -> 0.7 * speed
+
+  Farmer.cs:1435 verbatim:
+    this.speed = !isOneOfTheseKeysDown(state, options.runButton) ||
+                 options.autoRun ? 2 : 5;
+    this.running = this.speed == 5;
+  With options.autoRun ON (the shipped default) the RUN BUTTON WALKS YOU. The
+  fast gait is the default gait; slow is the modifier. That is a design choice,
+  not a control mapping.
+
+  Farmer.getMovementSpeed() verbatim (Farmer.cs:5606-5624):
+    movementSpeed = Math.Max(1f, (speed + addedSpeed) * movementMultiplier
+                                 * currentGameTime.ElapsedGameTime.Milliseconds);
+    if (movementDirections.Count > 1) movementSpeed = 0.7f * movementSpeed;
+  Note 0.7 FLAT, not 1/sqrt(2) = 0.7071. Close enough that nobody feels the
+  0.1% and simple enough that nobody has to explain it.
+
+DERIVED, at the 60fps fixed step (16.667ms/tick):
+  walk   2 * 0.066 * 16.667 = 2.20 px/tick = 132 px/s = 2.063 tiles/s
+  run    5 * 0.066 * 16.667 = 5.50 px/tick = 330 px/s = 5.156 tiles/s
+  diagonal, per axis: 1.54 px/tick walking, 3.85 running
+  ratio run:walk = 2.5x
+
+  THE HEADLINE NUMBER: a Stardew tile crosses in 0.48 SECONDS walking and
+  0.19 SECONDS running. The map is small on purpose because you are fast.
+
+------------------------------------------------------------------------------
+3. THE COLLISION CASCADE — this is what "soft" actually is
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+SLIP_DIV         64        Farmer.cs:5985    corner slip = speed * ms / 64
+
+  Farmer.MovePosition, per held direction (Farmer.cs:5955-6018), IN ORDER:
+    STEP 1  nextPosition(dir) = the box shifted by Ceiling(movementSpeed).
+            Free? move the full amount.
+    STEP 2  nextPositionHalf(dir) = shifted by Ceiling(movementSpeed / 2).
+            Free? MOVE HALF. You keep creeping into a tight gap instead of
+            stopping dead at it.
+    STEP 3  Only if exactly ONE direction is held: split the shifted box into
+            QUARTERS across the movement axis (Width/4 for up/down,
+            Height/4 for left/right), test the first quarter and the last
+            quarter. If exactly one of them is blocked AND the perpendicular
+            direction is free, SLIDE SIDEWAYS by speed * elapsedMs / 64
+            (0.52 px/tick walking, 1.30 running).
+  Step 3 is the automatic corner slip. It is why you never catch a door frame
+  in Stardew and why nobody has ever written a post about the doors in Stardew.
+
+  Directions are processed in the order UP, DOWN, RIGHT, LEFT, each with its
+  OWN collision test. That is the whole diagonal-slides-along-a-wall behaviour:
+  there is no vector, there are two independent axis attempts.
+
+------------------------------------------------------------------------------
+4. THE CAMERA
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+CAM_SNAP         64        Game1.cs:7744     off-target by >1 tile -> hard snap
+
+  Game1.UpdateViewPort (Game1.cs:7735+): centre on the player's standing point,
+  CLAMPED so the map edge is never crossed (and centred when the map is smaller
+  than the window). If the camera is more than 64px off target it snaps; else
+  it chases at getMovementSpeed(). Since the target moves at exactly that speed
+  the camera is glued to the player and only ever snaps on a warp. No lerp, no
+  lookahead, no deadzone. The world scrolls, the player does not drift.
+
+  ON-SCREEN COUNT, which is the number that does not survive the port: Stardew
+  is 1280x720 at 64px/tile = 20 x 11.25 TILES ON SCREEN. Bohemia is an iPhone
+  in PORTRAIT: 390 css px wide = 6 tiles at Stardew's true zoom. The emulation
+  ships a TRUE 4x ZOOM chip so both can be felt back to back.
+
+------------------------------------------------------------------------------
+5. DOORS AND TRANSITIONS
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+FADE_STEP        0.02      Game1.cs:4826     fade alpha per tick, each way
+
+  A warp fires from isCollidingWithWarp(nextPosition(dir)) — the NEXT position,
+  not the current one. YOU MUST WALK INTO A DOOR; standing on it does nothing,
+  and you are placed one tile in front of the door on arrival so the return
+  warp does not instantly re-fire.
+  0.02/tick = 50 ticks = 833ms to black, 833ms back = ~1.67s per doorway.
+  Default globalFadeToBlack fadeSpeed is also 0.02f (Game1.cs:3015).
+  Time does NOT pass during the fade (shouldTimePass returns player.CanMove,
+  Game1.cs:7715) — a doorway is FREE. You are never taxed for going inside.
+
+------------------------------------------------------------------------------
+6. THE CLOCK AND THE LIGHT
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+MS_PER_10MIN     7000      Game1.cs:5086     7 real seconds = 10 game minutes
+DAY_START        600       Game1 (6:00am)    the day begins
+DAY_END          2600      Game1.cs:4958     2:00am, clamped
+DARK_START       1800      Game1.cs:3769     6:00pm, spring/summer (fall 1700,
+                                             winter 1600)
+DARK_TRULY       2000      Game1.cs:3804     DARK_START + 200
+DUSK_BASE        0.30      Game1.cs:5081     darkness at 6:00pm — a STEP, not
+                                             a fade-in from zero
+DUSK_RATE        0.00225   Game1.cs:5081     per pseudo-minute
+NIGHT_BASE       0.75      Game1.cs:5076     darkness at 8:00pm
+NIGHT_RATE       0.000625  Game1.cs:5076     per pseudo-minute (3.6x slower)
+LIGHT_CAP        0.93      Game1.cs:5076     it NEVER goes fully black
+MINUTE_UNIT      16.66     Game1.cs:5076     their HHMM->minute conversion
+
+  A DAY IS 14 MINUTES OF REAL LIFE. 6:00am to 2:00am is 20 game hours = 120
+  ten-minute steps x 7s = 840s. (The wiki's "14m20s" comes from rounding an
+  hour to 43s; the code says 7000ms flat.)
+
+  UpdateGameClock (Game1.cs:5071-5090) computes outdoorLight in two straight
+  lines with different slopes, capped at 0.93, and the colour it scales is
+  eveningColor = (255,255,0), PURE YELLOW (Game1.cs:360), SUBTRACTED from the
+  scene. Subtracting yellow leaves blue. That is the entire reason Stardew
+  nights are blue: no night palette was ever painted.
+  Interiors are unaffected — IsOutdoors gates the whole thing.
+
+  Their "minutes" are a quirk worth knowing: (t - t%100) + (t%100/10)*16.66,
+  so 1830 becomes 1800 + 3*16.66 = 1849.98. It is not minutes and it does not
+  need to be; it only has to be monotonic.
+
+------------------------------------------------------------------------------
+7. THE SCHEDULED NPC
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE            WHAT IT MEANS
+NPC_SPEED        2         NPC.cs:2601       villagers walk at 2 px per TICK
+NPC_PAUSE_MIN    6000      NPC.cs:34         minimum_square_pause
+NPC_PAUSE_MAX    12000     NPC.cs:35         maximum_square_pause
+BREATH_MS        600       NPC.cs:3875       the standing-still chest bob
+
+  THE ASYMMETRY THAT MATTERS: Character.MovePosition moves an NPC by
+  (speed + addedSpeed) RAW PER TICK — no elapsed-ms term, no 0.066. Only the
+  Farmer got the frame-rate-independent version. So a villager walks at 2px/
+  tick = 120 px/s = 1.875 tiles/s, which is 9% SLOWER than the player's walk
+  and 63% slower than the run. YOU ALWAYS OUTPACE THE TOWN. That is a feel
+  decision hiding inside a refactor nobody finished.
+  When an NPC reaches a schedule point it idles for a random 6-12s, re-facing
+  each time, with a 600ms breathing bob. Motion at rest, cheaply.
+
+------------------------------------------------------------------------------
+8. THE WALK CYCLE
+------------------------------------------------------------------------------
+KEY              VALUE     SOURCE                  WHAT IT MEANS
+ANIM_BASE_MS     87.5      AnimatedSprite.cs:22    interval 175, halved in the
+                                                   FarmerSprite ctor (:286)
+ANIM_FRAMES      4         AnimatedSprite.cs:23    4-frame cycle
+ANIM_WALK_MOD    0.025     Farmer.cs:6082          interval modifier, walking
+ANIM_RUN_MOD     0.03      Farmer.cs:6082          interval modifier, running
+ANIM_MOD_MULT    1.25      Farmer.cs:6082          trailing multiplier
+
+  intervalModifier = 1 - (running ? 0.03 : 0.025) * movementSpeedPx * 1.25
+  walking: 1 - 0.025 * 2.20 * 1.25 = 0.931  ->  81.5ms/frame, 326ms/cycle
+  running: 1 - 0.030 * 5.50 * 1.25 = 0.794  ->  69.5ms/frame, 278ms/cycle
+  THE CYCLE SPEEDS UP WITH THE BODY, and it is tied to the actual pixel speed
+  rather than to a state flag, so a speed buff automatically re-times the feet.
+
+------------------------------------------------------------------------------
+9. WHAT THE EMULATION DOES NOT COPY, AND WHY (named, not hidden)
+------------------------------------------------------------------------------
+- INTERIOR PLATE SIZE. Stardew's interiors are FAR bigger than the buildings
+  they sit in, and it never reads as wrong to a player. Bohemia's
+  INTERIOR-MATCHES-EXTERIOR law is LOCKED, so this emulation makes every
+  interior EXACTLY its exterior footprint (house 9x7, shop 11x8) and the
+  buildings were drawn big enough for that to be a real room. The gate asserts
+  the plates match the footprints so nobody quietly ports the cheat.
+- SUBTRACTIVE LIGHT. The exact GPU op is a reverse-subtract of yellow into a
+  lightmap. A 2d canvas has no subtract, so night is a blue overlay following
+  their exact alpha curve, with the lamps punched out of it.
+- NPC FRAME-RATE DEPENDENCE. Recorded above as the real behaviour; the
+  emulation scales by elapsed ms so a 120Hz phone matches a 60Hz desktop.
+- The 4-frame walk art is a placeholder leg swing, not a copy of their sprite.
+
+------------------------------------------------------------------------------
+10. HOW TO RE-VERIFY (this ledger is a claim a machine can check)
+------------------------------------------------------------------------------
+  node gates/lab_gate.js
+It opens the emulation in a real browser at iPhone portrait size, takes the
+wheel of the same frame loop the thumb drives, and MEASURES: 2.20 and 5.50 px
+per tick, 0.7 on both diagonal axes, zero acceleration on frame one, the half
+step at 1.10, the corner slip at 0.5208, the 48x32 box, 50 fade ticks each
+way, +10 minutes per 7000ms, 0.30 / 0.75 / 0.93 darkness, and the NPC actually
+walking its schedule. It also fails if any key above loses its source citation.
+==============================================================================
