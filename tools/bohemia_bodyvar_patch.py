@@ -33,7 +33,7 @@ import os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALPHA = os.path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_bodyvar.js')
-STAMP = 'BUILD 7/26u · YOUR LAYERING, NOT THE RENDERER GUESSING IT'
+STAMP = 'BUILD 7/26v · THE RIG IS LAW - THE GAME DRAWS YOUR BODY NOW'
 
 def die(msg):
     print('  ! ' + msg)

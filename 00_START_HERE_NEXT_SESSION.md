@@ -89,7 +89,18 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
-- THE GAME IS NOT DRAWING THE RIG-TOOL BODY (Paolo asked 7/26, found same turn:
+- THE RIG IS LAW (Paolo 7/26, LOCKED --
+  laws/BOHEMIA_ADDENDUM_RIG_IS_LAW_7_26_26.md). The rig tool's painted body IS
+  the character, everywhere, for animation and customization both. The alpha had
+  DRIFTED to a second body (20 painted parts, 65 pixels, different pose -- the
+  neck smaller in all 8 directions), so every character verdict he ever gave was
+  taken against art he never painted, and the dead woman-rig arc was derived
+  from the wrong body too. FIXED: the rig's body copied in verbatim. GATED:
+  gates/rig_is_law_gate.js -- byte-identical forever, exactly one body in the
+  alpha, no body inside any other embedded surface. The hole that allowed it:
+  ENGINE SYNC only covers BOH_* modules and BAKED is not one. Anything derived
+  from the body must now name which body it read.
+- (superseded, kept for the trail) THE GAME WAS NOT DRAWING THE RIG-TOOL BODY:
   records/BOHEMIA_RIG_NOT_REFERENCED_7_26_26.txt). The alpha holds TWO painted
   bodies -- BAKED, and the BAKED inside RIG_B64 that the RIG tab draws -- and
   they differ in 20 painted parts, 65 pixels, plus the pose. The neck is smaller

@@ -164,6 +164,8 @@ GATES = [
      'zone-locked: masks below the eyes, shades on them, gloves/belt/scarf', False),
     ('CLOTH STRUCT',   ['node', 'gates/structure_gate.js'],
      'structure-not-color: jacket/poncho/tall-boot/rolled/gear are real shapes', False),
+    ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
+     'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
     ('ANIM FABRICATION',['node', 'gates/anim_fabrication_gate.js'],
      'the animation renderer never draws pixels Paolo did not paint: the joint weld and hand sliver stay dead, the count only goes down', False),
     ('CHAR PREVIEW',   ['node', 'gates/charpreview_gate.js'],
