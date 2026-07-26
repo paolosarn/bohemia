@@ -1,0 +1,3624 @@
+/* ===== bohemia_engine.js ===== */
+/* ============================================================================
+   BOHEMIA — COMBINED ENGINE BUNDLE (bohemia_engine.js)
+   All 19 engine modules stitched into one file for handoff. Each wrapped in its
+   own IIFE; each exposed on the single BohemiaEngine object. Packaging only,
+   behaviour identical to the separate files.
+   Modules: Core, Save, Inventory, Combat, Economy, Factions, Entities,
+            Heartbeat, Skinner, WorldGen, FactionCanon, Generations, RigData,
+            Wardrobe, Retarget, Scale2x, FrameCache, Persist, CombatBridge.
+   Self-check: node bohemia_engine.js
+   ============================================================================ */
+const BohemiaEngine = {};
+
+/* ===== bohemia_core.js ===== */
+BohemiaEngine.Core=(function(){
+/* ============================================================================
+   BOHEMIA — ENGINE CORE  (bohemia_core.js)
+   6.30.26  — the deterministic foundation every system sits on.
+
+   This file is the thing a porting engineer opens first. It exists to pass the
+   ten-minute checklist in BOHEMIA_ADDENDUM_ENGINE_ARCHITECTURE_6_30_26.md:
+
+     - one game loop, one clock
+     - no setTimeout/setInterval driving the sim
+     - no eval
+     - ONE seeded RNG, threaded through
+     - deterministic update order
+     - data / logic / render separated (this file is data+logic only, zero draw)
+     - one source of truth per fact
+
+   Nothing here draws. Nothing here touches the DOM. Pure simulation core.
+   Runs in node (for tests) and in the browser (for the game) unchanged.
+   ============================================================================ */
+
+'use strict';
+
+/* ----------------------------------------------------------------------------
+   1. SEEDED RNG  — sfc32, seeded via xmur3 string hash.
+
+   Chosen over mulberry32: mulberry32 provably skips ~1/3 of all 32-bit values.
+   sfc32 is top-rated for speed AND statistical quality (passes PractRand /
+   gjrand linear-complexity + binary-rank tests that xorshift variants fail).
+   Seeded from a string so players can share human-readable seeds ("SIN CITY").
+
+   THE LAW (Engine Architecture, Law 3): all gameplay randomness flows from a
+   seeded RNG. Never Math.random() in gameplay. Each subsystem gets its own
+   named stream branched from the master so they can't correlate or desync.
+---------------------------------------------------------------------------- */
+
+// xmur3: string -> 4x 32-bit seed values. Deterministic hash of the seed text.
+function xmur3(str) {
+  let h = 1779033703 ^ str.length;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+    h = (h << 13) | (h >>> 19);
+  }
+  return function () {
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    h ^= h >>> 16;
+    return h >>> 0;
+  };
+}
+
+// sfc32: 128-bit-state PRNG. Fast, high quality. Returns float in [0,1).
+function sfc32(a, b, c, d) {
+  return function () {
+    a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0;
+    let t = (a + b) | 0;
+    a = b ^ (b >>> 9);
+    b = (c + (c << 3)) | 0;
+    c = (c << 21) | (c >>> 11);
+    d = (d + 1) | 0;
+    t = (t + d) | 0;
+    c = (c + t) | 0;
+    return (t >>> 0) / 4294967296;
+  };
+}
+
+/* An RNG object that is: seedable from a string, branchable into named
+   sub-streams, and serializable (its state can be saved & restored exactly).
+   Serializable state is what lets a save reproduce the world (Law 4). */
+class RNG {
+  constructor(seedStringOrState) {
+    if (typeof seedStringOrState === 'string') {
+      const seedFn = xmur3(seedStringOrState);
+      this.state = [seedFn(), seedFn(), seedFn(), seedFn()];
+      this.seedText = seedStringOrState;
+    } else if (Array.isArray(seedStringOrState)) {
+      this.state = seedStringOrState.slice(0, 4);
+      this.seedText = null;
+    } else {
+      throw new Error('RNG needs a seed string or a [a,b,c,d] state array');
+    }
+    this._fn = sfc32(this.state[0], this.state[1], this.state[2], this.state[3]);
+    // sfc32 authors recommend discarding the first several outputs so the
+    // sequence decouples from the raw seed. Burn 15.
+    for (let i = 0; i < 15; i++) this._fn();
+  }
+
+  // float [0,1)
+  next() { return this._fn(); }
+
+  // integer [min, max] inclusive
+  int(min, max) { return min + Math.floor(this._fn() * (max - min + 1)); }
+
+  // true with probability p
+  chance(p) { return this._fn() < p; }
+
+  // pick one element from an array
+  pick(arr) { return arr[Math.floor(this._fn() * arr.length)]; }
+
+  // deterministic Fisher-Yates shuffle (returns a new array, leaves input alone)
+  shuffle(arr) {
+    const out = arr.slice();
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(this._fn() * (i + 1));
+      [out[i], out[j]] = [out[j], out[i]];
+    }
+    return out;
+  }
+
+  /* Branch a NAMED independent stream from this one. The combat RNG and the
+     world-gen RNG must never share a stream, or consuming a combat roll would
+     shift the map. Each branch is deterministic from (this seed + name). */
+  branch(name) {
+    const h = xmur3((this.seedText || this.state.join(',')) + '::' + name);
+    return new RNG([h(), h(), h(), h()]);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   2. THE CLOCK  — fixed-timestep loop locked to 120 BPM.
+
+   Law 2: the sim advances in fixed beats; render runs as fast as the device
+   allows; they are decoupled; the accumulated delta is CLAMPED so a stall or a
+   backgrounded tab can't trigger the spiral of death.
+
+   120 BPM = 2 beats/second = one beat every 500ms. The sim ticks the beat.
+   The game's animation/combat law ("120 BPM drives everything") becomes a
+   literal property of the engine here, not a hope.
+---------------------------------------------------------------------------- */
+
+const BPM = 120;
+const MS_PER_BEAT = 60000 / BPM;          // 500ms
+const MAX_FRAME_MS = MS_PER_BEAT * 5;     // clamp: never advance more than
+                                          // 5 beats of sim time in one frame.
+                                          // Must be >= one beat or a beat could
+                                          // never land in a single frame. This
+                                          // is the anti-spiral-of-death cap: a
+                                          // backgrounded tab resumes with at
+                                          // most 5 beats of catch-up, not 200.
+
+class Clock {
+  constructor(onBeat) {
+    this.onBeat = onBeat;   // called once per fixed beat: onBeat(beatIndex)
+    this.acc = 0;           // accumulated real ms not yet turned into beats
+    this.beat = 0;          // total beats elapsed since start (the sim time)
+    this.lastMs = null;     // last frame timestamp
+    this.running = false;
+  }
+
+  /* advance(nowMs) is called once per rendered frame with the current time.
+     It converts elapsed real time into a whole number of fixed sim beats and
+     fires onBeat for each. Returns the fractional progress toward the NEXT
+     beat (0..1), which the RENDER layer uses to interpolate for smoothness.
+     The render reads this; it never drives the sim. */
+  advance(nowMs) {
+    if (this.lastMs === null) { this.lastMs = nowMs; }
+    let frame = nowMs - this.lastMs;
+    this.lastMs = nowMs;
+    if (frame < 0) frame = 0;                    // clock went backwards, ignore
+    if (frame > MAX_FRAME_MS) frame = MAX_FRAME_MS; // CLAMP — the anti-spiral
+    this.acc += frame;
+    while (this.acc >= MS_PER_BEAT) {
+      this.acc -= MS_PER_BEAT;
+      this.beat++;
+      this.onBeat(this.beat);
+    }
+    return this.acc / MS_PER_BEAT;               // interpolation alpha for render
+  }
+
+  // serializable — a save restores the exact beat the world was on
+  snapshot() { return { beat: this.beat, acc: this.acc }; }
+  restore(s) { this.beat = s.beat; this.acc = s.acc; this.lastMs = null; }
+}
+
+/* ----------------------------------------------------------------------------
+   3. THE WORLD MODEL  — the three-state tile + LOD tiers.
+
+   From BOHEMIA_ADDENDUM_WORLD_MODEL_LOD_6_30_26.md:
+     - every tile carries three texture-state variants + a current-state float
+       (0 = apocalypse, 1 = recovering, 2 = modern; blends allowed)
+     - the world runs at three simulation tiers: HOT / WARM / COLD
+     - COLD regions are advanced by deterministic forward-compute, not by
+       having simulated every step ("don't pay for what nobody watched")
+     - the save stores CHOICES, and recomputes tile/district state on load
+
+   This is a minimal but honest implementation of that model: enough to prove
+   the forward-compute and the tier promotion work deterministically.
+---------------------------------------------------------------------------- */
+
+const STATE = { APOCALYPSE: 0, RECOVERING: 1, MODERN: 2 };
+const TIER  = { COLD: 0, WARM: 1, HOT: 2 };
+
+/* A district is the unit the sim tracks. It holds an aggregate current-state
+   and a set of standing PRESSURES (the dynasty's choices: +infra, -cartel,
+   combat scars). Its state drifts toward the pressures over beats. Because the
+   drift is a pure function of (pressures, elapsed beats), a COLD district that
+   nobody watched for 10,000 beats can be computed forward in ONE step to the
+   exact same value it would have reached tick-by-tick. That equivalence is the
+   whole point, and the tests below prove it. */
+class District {
+  constructor(id) {
+    this.id = id;
+    this.stateVal = STATE.APOCALYPSE;  // current aggregate texture-state (0..2)
+    this.pressure = 0;                 // net drift/beat toward modern(+)/ruin(-)
+    this.tier = TIER.COLD;
+    this.lastSimBeat = 0;              // beat this district was last brought current
+  }
+
+  /* Apply a standing pressure from a dynasty choice. Positive = investment
+     (drifts toward modern), negative = degradation (drifts toward apocalypse).
+     Small numbers: this is per-beat drift, and a game is many beats. */
+  addPressure(delta) { this.pressure += delta; }
+
+  /* Bring this district current to `beat`. This is the forward-compute: it
+     applies pressure * elapsed in ONE math step, identical to stepping one beat
+     at a time. Clamped to the valid state range [0,2]. Deterministic. */
+  advanceTo(beat) {
+    const elapsed = beat - this.lastSimBeat;
+    if (elapsed <= 0) return;
+    this.stateVal = clamp(this.stateVal + this.pressure * elapsed, 0, 2);
+    this.lastSimBeat = beat;
+  }
+}
+
+function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+/* The World: holds districts, promotes them across LOD tiers, and keeps COLD
+   districts lazily correct via forward-compute. The camera zoom (elsewhere) is
+   what asks the world to promote/demote a district; here we model the mechanic. */
+class World {
+  constructor(rng) {
+    this.rng = rng;                    // world's own RNG branch
+    this.districts = new Map();
+  }
+
+  addDistrict(id) {
+    const d = new District(id);
+    this.districts.set(id, d);
+    return d;
+  }
+
+  /* Promote a district to a tier. Promoting to HOT/WARM first brings it current
+     (forward-compute across however long it sat COLD) so it enters the detailed
+     sim already correct — no visible "catch-up" pop. */
+  setTier(id, tier, beat) {
+    const d = this.districts.get(id);
+    if (!d) return;
+    if (tier > TIER.COLD) d.advanceTo(beat);   // catch up before detailed sim
+    d.tier = tier;
+  }
+
+  /* One sim beat. HOT and WARM districts tick in fixed id order (deterministic
+     update order, Law 3). COLD districts are NOT ticked — they're computed
+     forward only when someone looks (setTier) or at a generational handoff. */
+  tick(beat) {
+    const ids = [...this.districts.keys()].sort(); // fixed order every beat
+    for (const id of ids) {
+      const d = this.districts.get(id);
+      if (d.tier === TIER.HOT || d.tier === TIER.WARM) d.advanceTo(beat);
+    }
+  }
+
+  /* Generational handoff: fast-forward the ENTIRE world (every district,
+     including COLD) to `beat` in one deterministic jump. "Each generation
+     inherits everything the previous built" == recompute the world forward. */
+  advanceAll(beat) {
+    for (const d of this.districts.values()) d.advanceTo(beat);
+  }
+
+  // a compact readout of aggregate state, e.g. for the City/Planetary zoom
+  readout() {
+    const out = {};
+    for (const [id, d] of this.districts) out[id] = round3(d.stateVal);
+    return out;
+  }
+}
+
+function round3(v) { return Math.round(v * 1000) / 1000; }
+
+/* ----------------------------------------------------------------------------
+   4. EXPORTS  — data + logic only. No render, no DOM, no timers.
+---------------------------------------------------------------------------- */
+const BohemiaCore = {
+  RNG, Clock, World, District,
+  STATE, TIER, BPM, MS_PER_BEAT, MAX_FRAME_MS,
+  _internal: { xmur3, sfc32, clamp },
+};
+
+// UMD-ish: work in node (tests) and browser (game) without a build step.
+
+  return BohemiaCore;
+})();
+
+/* ===== bohemia_save.js ===== */
+BohemiaEngine.Save=(function(){
+/* ============================================================================
+   BOHEMIA — SAVE SYSTEM  (bohemia_save.js)
+   6.30.26 — Engine Law 4 made real. A player must NEVER lose a 100-year
+   dynasty because an update changed a data shape.
+
+   THE BOHEMIA-SPECIFIC INSIGHT (from the world-model doc, proven by the core's
+   forward-compute test): because the whole world is deterministic, the save does
+   NOT store the world. It stores:
+        seed  +  the ordered log of dynasty CHOICES/EVENTS
+   and the world is RECOMPUTED forward on load. This makes saves tiny and makes
+   migration tractable: you're never migrating 65 miles of per-tile state across
+   100 years, only a compact choice log and a bit of meta.
+
+   THE PATTERN (confirmed standard practice):
+     - every save carries an integer schema VERSION
+     - ordered MIGRATION functions each do exactly ONE step (v1->v2, v2->v3, ...)
+     - on load, an old save is walked forward through the chain to CURRENT
+     - additive changes use DEFAULTS so old saves gain new fields safely
+     - load VALIDATES and refuses to run a save it can't bring current
+   No render, no DOM. Runs in node (tests) and browser (game). No build step.
+   ============================================================================ */
+
+'use strict';
+
+/* The version this build of the game writes and expects after migration.
+   Bump this by 1 whenever the save shape changes, and add a matching migration. */
+const CURRENT_SAVE_VERSION = 7;
+
+/* ----------------------------------------------------------------------------
+   THE MIGRATION CHAIN
+
+   Each entry migrates a save FROM its key version TO the next. They are applied
+   in order until the save reaches CURRENT_SAVE_VERSION. A migration:
+     - receives the save object at version N
+     - returns the save object shaped for version N+1
+     - sets s.version = N+1
+   Migrations are pure and ordered. Adding a field = give it a default here.
+   Renaming = copy old->new here (never rename in place, keep old readable).
+
+   These example migrations model realistic Bohemia evolution so the mechanism
+   is exercised by the tests, not hypothetical.
+---------------------------------------------------------------------------- */
+const MIGRATIONS = {
+  // v1 -> v2 : early saves had no difficulty package chosen; default to NORMAL.
+  1: function (s) {
+    if (s.settings == null) s.settings = {};
+    if (s.settings.package == null) s.settings.package = 'NORMAL';
+    s.version = 2;
+    return s;
+  },
+
+  // v2 -> v3 : the choice log entries used a bare string "id"; v3 wraps each as
+  // {id, beat} so the deterministic forward-compute knows WHEN each choice
+  // landed. Old entries get beat:0 (they happened "at the start"), which is a
+  // safe, deterministic default.
+  2: function (s) {
+    s.choices = (s.choices || []).map(function (c) {
+      return typeof c === 'string' ? { id: c, beat: 0 } : c;
+    });
+    s.version = 3;
+    return s;
+  },
+
+  // 3 -> 4 : the generational FOLD needs each choice tagged with the generation
+  // it was made in, which ledger it lands on (recorded/unrecorded — the two-ledger
+  // principle), and an optional `effect` the fold sums. Old {id,beat} entries
+  // predate the fold: they were all early, public, world-shaping acts with no
+  // fold effect, so default gen:1, recorded:true, effect:null. Deterministic and
+  // safe — old saves gain the fields without changing their meaning.
+  3: function (s) {
+    s.choices = (s.choices || []).map(function (c) {
+      return {
+        id: c.id,
+        beat: typeof c.beat === 'number' ? c.beat : 0,
+        gen: typeof c.gen === 'number' ? c.gen : 1,
+        recorded: typeof c.recorded === 'boolean' ? c.recorded : true,
+        effect: c.effect != null ? c.effect : null,
+      };
+    });
+    s.version = 4;
+    return s;
+  },
+
+  // 4 -> 5 : the "I move, you move" scheduler tracks a world-TURN counter (the
+  // macro/day clock — the sun is a function of turns, never a wall clock). Old
+  // saves start at turn 0 (dawn of the dynasty). Deterministic default.
+  4: function (s) {
+    if (typeof s.turn !== 'number') s.turn = 0;
+    s.version = 5;
+    return s;
+  },
+
+  // 5 -> 6 : the entities delta store (permanent world changes: cleared camps,
+  // corpses, built structures) persists in the save as `deltas`, a plain object
+  // keyed "layer:x,y". Old saves had no recorded permanent changes -> empty {}.
+  // Deterministic, safe: an empty delta set means the world is all default spawns.
+  5: function (s) {
+    if (s.deltas == null || typeof s.deltas !== 'object') s.deltas = {};
+    s.version = 6;
+    return s;
+  },
+
+  // 6 -> 7 : ephemeral player inventory (ammo, item stacks, equipped slots). This
+  // is SESSION state, not folded canon — it changes every few seconds and must NOT
+  // pollute the choice log. Stored as a plain blob on the save. Old saves start
+  // empty. The macro/micro line: bullets-in-your-gun live here; "the dynasty runs
+  // an ammo operation" is a folded economic capacity elsewhere. They meet only at
+  // the ammo-economy hook (see Inventory.resupplyFromEconomy), never in the fold.
+  6: function (s) {
+    if (s.inventory == null || typeof s.inventory !== 'object') {
+      s.inventory = { ammo: {}, items: [], equipped: {}, maxWeight: 40 };
+    }
+    s.version = 7;
+    return s;
+  },
+
+  // 7 -> 8 would go here when the shape next changes. Add the fn, bump CURRENT.
+};
+
+/* ----------------------------------------------------------------------------
+   MAKE A FRESH SAVE
+
+   A new dynasty save at the current version. Stores only what's needed to
+   deterministically reconstruct everything: the seed, the choice log, the meta
+   (dynasty tree, karma, act), the clock beat, and settings. NOT the world.
+---------------------------------------------------------------------------- */
+function newSave(seedText) {
+  return {
+    version: CURRENT_SAVE_VERSION,
+    seed: seedText,           // the world + all randomness derive from this
+    createdAt: 0,             // wall-clock is metadata only, never gameplay
+    beat: 0,                  // sim beat the clock is on (from clock.snapshot)
+    turn: 0,                  // world-turns elapsed (the "I move you move" macro/day clock)
+    act: 1,                   // 1..3 (the three dynasty generations)
+    choices: [],              // ordered [{id, beat}] — THE deterministic input
+    meta: {                   // top-level abstract state (planetary-zoom data)
+      karma: 0,
+      virtues: {},            // loyalty/courage/pragmatism/sacrifice/ambition
+      dynasty: { gen: 1, tree: [] },
+    },
+    settings: { package: 'NORMAL' },
+    deltas: {},               // permanent world changes (cleared/corpse/built), keyed "layer:x,y"
+    inventory: { ammo: {}, items: [], equipped: {}, maxWeight: 40 },  // EPHEMERAL player state (never folded)
+  };
+}
+
+/* Record a dynasty choice into the log at the current beat. This is the ONE
+   input that (with the seed) determines the whole world. Append-only.
+
+   opts: { gen, recorded, effect }
+     gen      — which dynasty generation made it (1..3). Defaults to save.act.
+     recorded — two-ledger flag. true = public/feed-touching (the Amalgamation
+                can model it). false = off-ledger (tunnels, family, private) —
+                the blind spot. Defaults to true (the world is recorded BY
+                DEFAULT; going dark is the rare deliberate exception).
+     effect   — optional {kind, target, amount/tier/...} the fold knows how to
+                sum (standing/territory/build/economy/invest/karma/virtue/family/
+                wound). null for choices that shape the live world but don't fold. */
+function recordChoice(save, id, beat, opts) {
+  opts = opts || {};
+  save.choices.push({
+    id: id,
+    beat: beat,
+    gen: typeof opts.gen === 'number' ? opts.gen : (save.act || 1),
+    recorded: opts.recorded === false ? false : true,
+    effect: opts.effect != null ? opts.effect : null,
+  });
+  return save;
+}
+
+/* ----------------------------------------------------------------------------
+   MIGRATE
+
+   Walk a save forward through the chain to CURRENT_SAVE_VERSION. Refuses saves
+   from the future (newer than this build) or with no version. Returns a NEW
+   object; never mutates the input (so a failed migration can't corrupt state).
+---------------------------------------------------------------------------- */
+function migrate(rawSave) {
+  if (rawSave == null || typeof rawSave !== 'object') {
+    throw new Error('save: not an object');
+  }
+  if (typeof rawSave.version !== 'number') {
+    throw new Error('save: missing version — refusing to guess');
+  }
+  if (rawSave.version > CURRENT_SAVE_VERSION) {
+    // Save is from a NEWER build. We can't safely down-migrate. Refuse loudly
+    // rather than silently dropping fields we don't understand.
+    throw new Error(
+      'save: from a newer version (' + rawSave.version +
+      ' > ' + CURRENT_SAVE_VERSION + '). Update the game to load it.'
+    );
+  }
+  // deep copy so we never mutate the caller's object mid-migration
+  let s = JSON.parse(JSON.stringify(rawSave));
+  while (s.version < CURRENT_SAVE_VERSION) {
+    const step = MIGRATIONS[s.version];
+    if (!step) {
+      throw new Error('save: no migration from version ' + s.version);
+    }
+    const before = s.version;
+    s = step(s);
+    if (s.version !== before + 1) {
+      throw new Error('save: migration from ' + before + ' did not advance version');
+    }
+  }
+  return s;
+}
+
+/* ----------------------------------------------------------------------------
+   VALIDATE
+
+   After migration, confirm the save has the shape the current game needs.
+   Cheap structural gate before the game trusts it. Returns {ok, errors}.
+---------------------------------------------------------------------------- */
+function validate(save) {
+  const errors = [];
+  if (save.version !== CURRENT_SAVE_VERSION) errors.push('wrong version after migrate');
+  if (typeof save.seed !== 'string' || !save.seed) errors.push('missing seed');
+  if (!Array.isArray(save.choices)) errors.push('choices not an array');
+  else {
+    for (const c of save.choices) {
+      if (typeof c !== 'object' || typeof c.id !== 'string' || typeof c.beat !== 'number') {
+        errors.push('malformed choice entry'); break;
+      }
+      // fold fields (present from v4 on): if set, they must be well-typed
+      if (c.gen != null && typeof c.gen !== 'number') { errors.push('choice.gen not a number'); break; }
+      if (c.recorded != null && typeof c.recorded !== 'boolean') { errors.push('choice.recorded not a boolean'); break; }
+    }
+  }
+  if (typeof save.beat !== 'number') errors.push('missing beat');
+  if (save.act < 1 || save.act > 3) errors.push('act out of range');
+  if (!save.meta || typeof save.meta.karma !== 'number') errors.push('missing meta.karma');
+  return { ok: errors.length === 0, errors: errors };
+}
+
+/* ----------------------------------------------------------------------------
+   SERIALIZE / DESERIALIZE
+
+   The only place JSON.stringify/parse for the save lives. deserialize()
+   migrates + validates in one shot, so the rest of the game only ever sees a
+   current, valid save (or a thrown error it can show the player).
+---------------------------------------------------------------------------- */
+function serialize(save) {
+  return JSON.stringify(save);
+}
+
+function deserialize(text) {
+  let raw;
+  try { raw = JSON.parse(text); }
+  catch (e) { throw new Error('save: corrupt JSON'); }
+  const migrated = migrate(raw);
+  const v = validate(migrated);
+  if (!v.ok) throw new Error('save: invalid after migrate — ' + v.errors.join('; '));
+  return migrated;
+}
+
+/* ----------------------------------------------------------------------------
+   RECONSTRUCT (the payoff)
+
+   Given a valid save and the engine core, rebuild the live world deterministic-
+   ally from seed + choice log. This is why the save can be tiny: the world is a
+   pure function of these inputs. This ties the save system to the forward-
+   compute proven in the core tests.
+
+   `core` is the BohemiaCore module; `applyChoice(world, rng, choice)` is the
+   game's rule for how one choice affects the world (injected so this file stays
+   pure engine and knows nothing about specific game content).
+---------------------------------------------------------------------------- */
+function reconstruct(save, core, districtIds, applyChoice) {
+  const rng = new core.RNG(save.seed);
+  const world = new core.World(rng.branch('world'));
+  for (const id of districtIds) world.addDistrict(id);
+
+  // Replay the choice log IN BEAT ORDER. Before applying a choice, bring the
+  // world current to that choice's beat, so a pressure change only affects the
+  // beats AFTER it landed — exactly what happened during live play. Applying all
+  // choices up front would wrongly backdate later pressure changes to beat 0.
+  const ordered = save.choices.slice().sort(function (a, b) { return a.beat - b.beat; });
+  for (const c of ordered) {
+    world.advanceAll(c.beat);       // catch every district up to this moment
+    applyChoice(world, rng, c);     // then apply the choice's effect
+  }
+
+  // Finally, forward-compute the rest of the way to the saved beat.
+  world.advanceAll(save.beat);
+  return world;
+}
+
+/* ----------------------------------------------------------------------------
+   EXPORTS
+---------------------------------------------------------------------------- */
+const BohemiaSave = {
+  CURRENT_SAVE_VERSION,
+  newSave, recordChoice,
+  migrate, validate, serialize, deserialize, reconstruct,
+  _migrations: MIGRATIONS,
+};
+
+
+  return BohemiaSave;
+})();
+
+/* ===== bohemia_inventory.js =====
+   EPHEMERAL player inventory. The "bullets in your gun" tier — session state that
+   changes every few seconds. Deliberately NOT part of the fold or the delta store:
+   folding every trigger-pull would bloat the choice log into garbage and add zero
+   value (nobody needs 100-year determinism on how many stimpaks you're holding).
+   Pure functions over a plain blob { ammo:{type:count}, items:[{id,qty,wt}],
+   equipped:{slot:itemId}, maxWeight }. All ops return the (mutated) inventory so
+   callers can chain and the loop can persist it straight onto the save.
+
+   THE MACRO/MICRO LINE (the one design rule that keeps this clean):
+     - MICRO (here): bullets, this gun, 3 painkillers. Ephemeral, save-blob.
+     - MACRO (the fold): "the dynasty runs an ammo-production operation" is a
+       recorded economic CAPACITY. It folds; it is not this.
+   The two tiers touch at exactly ONE seam: resupplyFromEconomy(), where macro
+   production capacity tops up micro ammo. Nowhere else. */
+BohemiaEngine.Inventory=(function(){
+
+  const DEFAULT_MAX_WEIGHT = 40;
+
+  function fresh() { return { ammo: {}, items: [], equipped: {}, maxWeight: DEFAULT_MAX_WEIGHT }; }
+
+  /* ---- AMMO (typed counts; the hottest, simplest path) ---- */
+  function ammoCount(inv, type) { return inv.ammo[type] || 0; }
+  function addAmmo(inv, type, n) {
+    inv.ammo[type] = Math.max(0, (inv.ammo[type] || 0) + (n | 0));
+    return inv;
+  }
+  /* Spend ammo for a shot. Returns true if it fired (had the round), false if dry.
+     This is the function combat calls on every trigger pull. */
+  function spendAmmo(inv, type, n) {
+    n = n == null ? 1 : (n | 0);
+    if ((inv.ammo[type] || 0) < n) return false;   // click — empty
+    inv.ammo[type] -= n;
+    return true;
+  }
+
+  /* ---- ITEMS (stackable, each carries a per-unit weight) ---- */
+  function _find(inv, id) { return inv.items.find(function (it) { return it.id === id; }); }
+  function currentWeight(inv) {
+    let w = 0;
+    for (const it of inv.items) w += (it.wt || 0) * (it.qty || 1);
+    // ammo has negligible per-round weight by default; a rule can override later
+    return w;
+  }
+  function canCarry(inv, addWeight) {
+    return currentWeight(inv) + addWeight <= (inv.maxWeight || DEFAULT_MAX_WEIGHT);
+  }
+  /* Add qty of an item. Respects carry weight; returns how many actually fit
+     (0 if none). Partial adds are allowed so looting never silently voids items. */
+  function addItem(inv, id, qty, wtPerUnit) {
+    qty = qty == null ? 1 : (qty | 0);
+    const wt = wtPerUnit || 0;
+    const room = (inv.maxWeight || DEFAULT_MAX_WEIGHT) - currentWeight(inv);
+    const fits = wt > 0 ? Math.min(qty, Math.floor(room / wt)) : qty;
+    if (fits <= 0) return 0;
+    const ex = _find(inv, id);
+    if (ex) ex.qty = (ex.qty || 1) + fits;
+    else inv.items.push({ id: id, qty: fits, wt: wt });
+    return fits;
+  }
+  /* Remove qty of an item. Returns how many were actually removed. */
+  function removeItem(inv, id, qty) {
+    qty = qty == null ? 1 : (qty | 0);
+    const ex = _find(inv, id);
+    if (!ex) return 0;
+    const taken = Math.min(qty, ex.qty || 0);
+    ex.qty -= taken;
+    if (ex.qty <= 0) {
+      inv.items = inv.items.filter(function (it) { return it.id !== id; });
+      // an equipped item that's fully gone gets unequipped
+      for (const slot in inv.equipped) if (inv.equipped[slot] === id) delete inv.equipped[slot];
+    }
+    return taken;
+  }
+  function hasItem(inv, id, qty) { const ex = _find(inv, id); return !!ex && (ex.qty || 0) >= (qty == null ? 1 : qty); }
+
+  /* ---- EQUIP (slot -> itemId; item must be owned) ---- */
+  function equip(inv, slot, id) {
+    if (!hasItem(inv, id)) return false;
+    inv.equipped[slot] = id;
+    return true;
+  }
+  function unequip(inv, slot) { delete inv.equipped[slot]; return inv; }
+  function equipped(inv, slot) { return inv.equipped[slot] || null; }
+
+  /* ---- THE ONE MACRO SEAM ----
+     Top up ammo from the dynasty's economic production capacity. `capacity` is a
+     macro number the caller reads from the economy/fold (e.g. rounds/period the
+     dynasty's ammo operation yields). This is the ONLY place micro inventory and
+     macro economy touch. Returns how many rounds were added. Pure: same inputs,
+     same result — no hidden economy calls inside. */
+  function resupplyFromEconomy(inv, type, capacity, opts) {
+    opts = opts || {};
+    const cap = Math.max(0, capacity | 0);
+    if (cap <= 0) return 0;
+    const ceilingForType = opts.ceiling != null ? opts.ceiling : Infinity;
+    const have = inv.ammo[type] || 0;
+    const room = ceilingForType - have;
+    const added = Math.max(0, Math.min(cap, room));
+    if (added > 0) addAmmo(inv, type, added);
+    return added;
+  }
+
+  return {
+    DEFAULT_MAX_WEIGHT, fresh,
+    ammoCount, addAmmo, spendAmmo,
+    addItem, removeItem, hasItem, currentWeight, canCarry,
+    equip, unequip, equipped,
+    resupplyFromEconomy,
+  };
+})();
+
+/* ===== bohemia_combat.js =====
+   Shot RESOLUTION — the referee between the Dead Eye Dial (presentation: how well
+   you hit) and the world (who dies, what it costs). It does NOT run the dial and
+   does NOT animate anything; it takes a dial RESULT + the shooter's ammo state and
+   returns a pure outcome. Honors the locked combat canon:
+     - a shot spends one round of the equipped weapon's ammo; a DRY mag blocks the
+       shot entirely (ammo is scarce by design — rifle rounds are rare),
+     - hit tiers: 'killshot' (clean kill, advances the chain), 'vital' (big damage +
+       stun, but NO stun-lock), 'graze' (chip), 'miss',
+     - a clean-kill CHAIN is ONE action: consecutive killshots keep the chain alive,
+     - you always resolve your shot before anyone returns fire (no mid-turn interrupt).
+   Damage numbers / mag sizes / weapon roster are [PENDING Paolo] — this models the
+   STRUCTURE so combat wiring has a spine; tune values live later. */
+BohemiaEngine.Combat=(function(){
+
+  const Inv = BohemiaEngine.Inventory;
+
+  // hit tiers a dial result maps to. Center = killshot, near-center = vital, etc.
+  const TIER = { KILLSHOT: 'killshot', VITAL: 'vital', GRAZE: 'graze', MISS: 'miss' };
+
+  /* Map a normalized dial accuracy (0..1, 1 = dead center) to a hit tier. Bands are
+     [PENDING Paolo tuning]; structure is what matters. */
+  function tierForAccuracy(acc) {
+    if (acc >= 0.92) return TIER.KILLSHOT;
+    if (acc >= 0.70) return TIER.VITAL;
+    if (acc >= 0.40) return TIER.GRAZE;
+    return TIER.MISS;
+  }
+
+  /* Resolve a single shot.
+     args: { inv, ammoType, target, accuracy, damage } where target is a mutable
+     {hp, stunnedTurnsAgo?} and damage is the weapon's per-tier damage table
+     (defaults are placeholder). Returns:
+       { fired, reason?, tier, damage, killed, stunned, chain }
+     - fired=false, reason='dry' when the mag is empty (shot blocked, no ammo spent,
+       no turn should be charged by the caller).
+     A killshot sets killed=true and chain=true (chain continues). A vital sets
+     stunned=true UNLESS the target was stunned less than a full turn ago (no
+     stun-lock: needs one turn back first) — in that case it still deals damage but
+     does not refresh the freeze. */
+  function resolveShot(args) {
+    const inv = args.inv;
+    const type = args.ammoType || 'generic';
+    const dmg = args.damage || { killshot: 999, vital: 40, graze: 8, miss: 0 };
+
+    // ammo gate: scarce by design. Dry mag = no shot.
+    if (inv && !Inv.spendAmmo(inv, type, 1)) {
+      return { fired: false, reason: 'dry', tier: null, damage: 0, killed: false, stunned: false, chain: false };
+    }
+
+    const tier = args.tier || tierForAccuracy(args.accuracy != null ? args.accuracy : 0);
+    const target = args.target || {};
+    const out = { fired: true, tier: tier, damage: 0, killed: false, stunned: false, chain: false };
+
+    if (tier === TIER.KILLSHOT) {
+      out.damage = dmg.killshot;
+      out.killed = true;
+      out.chain = true;                 // clean kill keeps the one-action chain alive
+      if (typeof target.hp === 'number') target.hp = 0;
+    } else if (tier === TIER.VITAL) {
+      out.damage = dmg.vital;
+      if (typeof target.hp === 'number') target.hp = Math.max(0, target.hp - dmg.vital);
+      out.killed = target.hp === 0;     // a vital can still finish a low enemy
+      // stun-lock rule: only (re)stun if the target has had a full turn since last stun
+      const ago = target.stunnedTurnsAgo;
+      const canStun = ago == null || ago >= 1;
+      if (!out.killed && canStun) { out.stunned = true; target.stunnedTurnsAgo = 0; }
+      // a vital that kills also continues the chain; a vital that only stuns does NOT
+      out.chain = out.killed;
+    } else if (tier === TIER.GRAZE) {
+      out.damage = dmg.graze;
+      if (typeof target.hp === 'number') target.hp = Math.max(0, target.hp - dmg.graze);
+      out.killed = target.hp === 0;
+      out.chain = out.killed;
+    } else {
+      out.damage = 0;                   // miss: chain breaks
+      out.chain = false;
+    }
+    return out;
+  }
+
+  /* Resolve a CHAIN of shots as ONE action (the locked "8 perfect kills = 1 turn").
+     targets: array of mutable {hp,...}; shots: array of {ammoType, accuracy|tier}.
+     Stops early the moment the chain breaks (a non-killing shot) or ammo runs dry.
+     Returns { kills, shotsFired, brokeOn, dry }. The caller charges exactly ONE
+     turn if kills>0 regardless of how many fell (that's the chain reward). */
+  function resolveChain(inv, targets, shots, damage) {
+    let kills = 0, fired = 0, brokeOn = null, dry = false;
+    for (let i = 0; i < shots.length && i < targets.length; i++) {
+      const r = resolveShot({ inv: inv, ammoType: shots[i].ammoType, accuracy: shots[i].accuracy, tier: shots[i].tier, target: targets[i], damage: damage });
+      if (!r.fired) { dry = true; break; }
+      fired++;
+      if (r.killed && r.chain) { kills++; continue; }
+      brokeOn = i;                       // chain broke here (vital-stun, graze, miss)
+      break;
+    }
+    return { kills: kills, shotsFired: fired, brokeOn: brokeOn, dry: dry };
+  }
+
+  /* Advance stun clocks by one turn for a set of targets (call once per world turn).
+     Lets the "one full turn back before re-stun" rule actually tick. */
+  function tickStuns(targets) {
+    for (const t of targets) if (typeof t.stunnedTurnsAgo === 'number') t.stunnedTurnsAgo += 1;
+  }
+
+  return { TIER, tierForAccuracy, resolveShot, resolveChain, tickStuns };
+})();
+
+/* ===== bohemia_economy.js ===== */
+BohemiaEngine.Economy=(function(){
+/* ============================================================================
+   BOHEMIA — ECONOMY ENGINE  (bohemia_economy.js)
+   6.30.26 — the three-currency economy as a faucet/sink flow, monopoly-proof by
+   construction, deterministic and forward-computable so it rides the LOD tiers
+   like the world model.
+
+   Honors GDD v2 §12:
+     - THREE currencies: ELECTRICITY, MEDICINE, CLOUT
+     - anyone can produce; factions differ in SCALE/QUALITY, not exclusive access
+     - MONOPOLY-PROOF: no single producer can control a currency (hard invariant)
+     - infrastructure (solar / dam) = large protected faucets that can change hands
+
+   Model (standard game-economy practice): every currency in a district is a TANK
+   with FAUCETS (production sources) filling it and SINKS (consumption) draining
+   it. Balance the flow or you get inflation (overflow) / starvation (empty).
+   The net flow per beat is deterministic, so a COLD district's economy can be
+   forward-computed in one jump exactly like district texture-state.
+
+   No render, no DOM. Runs in node (tests) + browser (game). Builds on the core.
+   ============================================================================ */
+
+'use strict';
+
+const CURRENCY = { ELECTRICITY: 'electricity', MEDICINE: 'medicine', CLOUT: 'clout' };
+const CURRENCIES = [CURRENCY.ELECTRICITY, CURRENCY.MEDICINE, CURRENCY.CLOUT];
+
+/* The monopoly-proof invariant, as a number: no single producer may account for
+   more than this share of a currency's total production in a district. This is
+   the mechanical expression of GDD v2 §12 "no faction can monopolize any
+   currency." Set below 1 so total control is structurally impossible. */
+const MAX_PRODUCER_SHARE = 0.6;   // 60% ceiling; the rest MUST come from others
+
+/* ----------------------------------------------------------------------------
+   A FAUCET = a production source for one currency, owned by a producer.
+   - producer: who owns it (a faction id, "player", "independent", etc.)
+   - rate: units produced per beat (SCALE — factions differ here, not in access)
+   - quality: 0..1 (MEDICINE especially: bad medicine can't be currency)
+   Anyone can create faucets; that's the "anyone can produce" rule.
+---------------------------------------------------------------------------- */
+class Faucet {
+  constructor(producer, currency, rate, quality) {
+    this.producer = producer;
+    this.currency = currency;
+    this.rate = rate;
+    this.quality = quality == null ? 1 : quality;
+  }
+  // effective output: medicine below a quality bar produces nothing usable
+  effective() {
+    if (this.currency === CURRENCY.MEDICINE && this.quality < 0.5) return 0; // "waste"
+    return this.rate * this.quality;
+  }
+}
+
+/* A SINK = consumption/drain of a currency in a district (population use,
+   upkeep, infrastructure tax paid out, decay of clout, etc.). */
+class Sink {
+  constructor(currency, rate) { this.currency = currency; this.rate = rate; }
+}
+
+/* ----------------------------------------------------------------------------
+   DISTRICT ECONOMY — one tank per currency, with faucets and sinks.
+   Forward-computable: net flow per beat is constant given the current faucet/
+   sink set, so advancing 10,000 beats is one multiply, not 10,000 steps.
+---------------------------------------------------------------------------- */
+class DistrictEconomy {
+  constructor(id) {
+    this.id = id;
+    this.tanks = {};                 // currency -> current stored amount
+    this.faucets = [];
+    this.sinks = [];
+    this.lastBeat = 0;
+    for (const c of CURRENCIES) this.tanks[c] = 0;
+  }
+
+  addFaucet(f) { this.faucets.push(f); return f; }
+  addSink(s) { this.sinks.push(s); return s; }
+
+  // total effective production of a currency across all faucets
+  production(currency) {
+    let t = 0;
+    for (const f of this.faucets) if (f.currency === currency) t += f.effective();
+    return t;
+  }
+
+  // total consumption of a currency
+  consumption(currency) {
+    let t = 0;
+    for (const s of this.sinks) if (s.currency === currency) t += s.rate;
+    return t;
+  }
+
+  // net flow per beat for a currency (faucets minus sinks)
+  netFlow(currency) { return this.production(currency) - this.consumption(currency); }
+
+  /* THE MONOPOLY-PROOF CHECK. Returns the largest single producer's share of a
+     currency's production (0..1). If any producer exceeds MAX_PRODUCER_SHARE the
+     economy is in an illegal monopoly state. The engine can then refuse the
+     build / trigger a rival, but the INVARIANT is defined here as truth. */
+  producerShare(currency) {
+    const byProducer = {};
+    let total = 0;
+    for (const f of this.faucets) {
+      if (f.currency !== currency) continue;
+      const e = f.effective();
+      byProducer[f.producer] = (byProducer[f.producer] || 0) + e;
+      total += e;
+    }
+    if (total <= 0) return 0;
+    let max = 0;
+    for (const p in byProducer) if (byProducer[p] > max) max = byProducer[p];
+    return max / total;
+  }
+
+  isMonopolized(currency) { return this.producerShare(currency) > MAX_PRODUCER_SHARE + 1e-9; }
+
+  /* Forward-compute the tanks to `beat`. Net flow is constant over the interval
+     (faucets/sinks only change on player action, which re-stamps lastBeat), so
+     this is exact in one step. Tanks clamp at 0 (can't go negative — a currency
+     you ran out of is just gone, not debt). No upper clamp by default: overflow
+     IS inflation, which the game surfaces rather than hides. */
+  advanceTo(beat) {
+    const elapsed = beat - this.lastBeat;
+    if (elapsed <= 0) return;
+    for (const c of CURRENCIES) {
+      const next = this.tanks[c] + this.netFlow(c) * elapsed;
+      this.tanks[c] = next < 0 ? 0 : next;
+    }
+    this.lastBeat = beat;
+  }
+
+  readout() {
+    const o = {};
+    for (const c of CURRENCIES) o[c] = Math.round(this.tanks[c] * 1000) / 1000;
+    return o;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   ECONOMY — the collection of district economies. Ticks HOT/WARM districts,
+   forward-computes COLD ones on demand, same LOD pattern as the World.
+---------------------------------------------------------------------------- */
+class Economy {
+  constructor() { this.districts = new Map(); }
+
+  addDistrict(id) {
+    const d = new DistrictEconomy(id);
+    this.districts.set(id, d);
+    return d;
+  }
+
+  get(id) { return this.districts.get(id); }
+
+  // advance every district to `beat` (generational handoff / full recompute)
+  advanceAll(beat) { for (const d of this.districts.values()) d.advanceTo(beat); }
+
+  // deterministic per-beat tick in fixed id order (Law 3), for HOT/WARM only
+  tick(beat, isActive) {
+    const ids = [...this.districts.keys()].sort();
+    for (const id of ids) {
+      if (!isActive || isActive(id)) this.districts.get(id).advanceTo(beat);
+    }
+  }
+
+  // any currency monopolized anywhere?
+  anyMonopoly() {
+    for (const d of this.districts.values())
+      for (const c of CURRENCIES) if (d.isMonopolized(c)) return { district: d.id, currency: c };
+    return null;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   EXPORTS
+---------------------------------------------------------------------------- */
+const BohemiaEconomy = {
+  CURRENCY, CURRENCIES, MAX_PRODUCER_SHARE,
+  Faucet, Sink, DistrictEconomy, Economy,
+};
+
+
+  return BohemiaEconomy;
+})();
+
+/* ===== bohemia_factions.js ===== */
+BohemiaEngine.Factions=(function(){
+/* ============================================================================
+   BOHEMIA — FACTION SYSTEM  (bohemia_factions.js)
+   6.30.26 — factions that hold territory, stand somewhere with the player and
+   each other, and expand/defend via CHEAP deterministic AI that rides the LOD
+   tiers. The system the Mayor Arc and base-defense both read from.
+
+   Grounds GDD v2 §13 (factions) and the Mayor Arc addendum (FWU standing →
+   popular mandate → governance). Builds on bohemia_core.js.
+
+   RESEARCH DISTILLED:
+   - Standing is a NUMBER on a scale with named thresholds (STALKER/WoW/RimWorld
+     all do this). Bohemia's rungs: HOSTILE < COLD < NEUTRAL < WARM < FWU
+     ("fuck with you", ally). One number per relationship; the label is derived.
+   - Two standing layers (Games-by-Hyper / Fallout): FACTION standing (broad) and
+     PERSONAL NPC standing (a named individual can differ from their faction).
+     Spillover: shifting one standing nudges LINKED factions.
+   - Territory AI stays cheap the Konkr.io way: don't search the huge move space;
+     generate a FEW candidate moves by cheap heuristics, score each with one
+     utility function, take the best. AI War 2: factions expand on a QUOTA and
+     defend claimed ground; you can hold territory by defending until their quota
+     fills elsewhere. No per-tile pathfinding brain, just claim/defend/expand
+     scored by utility. This is what makes it affordable on a phone.
+   - Deterministic: AI decisions are driven by the seeded RNG + world state, so a
+     COLD region's faction turns forward-compute exactly like everything else.
+
+   No render, no DOM. Runs in node (tests) + browser (game).
+   ============================================================================ */
+
+'use strict';
+
+/* Standing scale. One number, clamped, with derived labels. FWU is the ally rung
+   the Mayor Arc keys on ("~49% of factions FWU" -> popular mandate). */
+const STANDING = { MIN: -100, MAX: 100 };
+const RUNG = [
+  { name: 'HOSTILE', min: -100 },
+  { name: 'COLD',    min: -50  },
+  { name: 'NEUTRAL', min: -15  },
+  { name: 'WARM',    min:  15  },
+  { name: 'FWU',     min:  50  },   // "fucks with you" — ally; the mandate rung
+];
+function rungOf(value) {
+  let r = RUNG[0].name;
+  for (const step of RUNG) if (value >= step.min) r = step.name;
+  return r;
+}
+function clampStanding(v) {
+  return v < STANDING.MIN ? STANDING.MIN : v > STANDING.MAX ? STANDING.MAX : v;
+}
+
+/* ----------------------------------------------------------------------------
+   FACTION — an id, a scale/quality profile, a home district, a list of claimed
+   districts, an expansion quota (AI War 2 style), and standing toward others.
+   `links` = factions whose standing moves WITH this one (spillover), signed.
+---------------------------------------------------------------------------- */
+class Faction {
+  constructor(id, opts) {
+    opts = opts || {};
+    this.id = id;
+    this.power = opts.power == null ? 1 : opts.power;   // military weight for AI
+    this.quota = opts.quota == null ? 1 : opts.quota;   // districts it WANTS to hold
+    this.territory = new Set(opts.territory || []);     // district ids claimed
+    this.standing = {};                                  // otherId -> number
+    this.links = opts.links || {};                       // otherId -> spill weight
+  }
+  standingWith(otherId) {
+    return this.standing[otherId] == null ? 0 : this.standing[otherId];
+  }
+  rungWith(otherId) { return rungOf(this.standingWith(otherId)); }
+}
+
+/* ----------------------------------------------------------------------------
+   FACTION WORLD — all factions, the district->owner map, and the AI.
+---------------------------------------------------------------------------- */
+class FactionWorld {
+  constructor(rng) {
+    this.rng = rng;                 // seeded stream (core.RNG.branch('factions'))
+    this.factions = new Map();
+    this.owner = new Map();         // districtId -> factionId (or undefined)
+  }
+
+  addFaction(id, opts) {
+    const f = new Faction(id, opts);
+    this.factions.set(id, f);
+    for (const d of f.territory) this.owner.set(d, id);
+    return f;
+  }
+
+  /* ---- STANDING ---------------------------------------------------------- */
+
+  // shift A's standing toward B by delta, clamped, with spillover to A's links.
+  // Symmetric option mirrors it onto B->A (most relationship changes are mutual).
+  shiftStanding(aId, bId, delta, symmetric) {
+    const a = this.factions.get(aId);
+    if (!a) return;
+    a.standing[bId] = clampStanding(a.standingWith(bId) + delta);
+    // spillover: allies of A partly share the shift toward B (weighted)
+    for (const linkId in a.links) {
+      const w = a.links[linkId];
+      const lf = this.factions.get(linkId);
+      if (lf) lf.standing[bId] = clampStanding(lf.standingWith(bId) + delta * w);
+    }
+    if (symmetric) {
+      const b = this.factions.get(bId);
+      if (b) b.standing[aId] = clampStanding(b.standingWith(aId) + delta);
+    }
+  }
+
+  // fraction of factions currently at FWU-or-better toward the player.
+  // THE MAYOR ARC INPUT: >= ~0.49 unlocks popular mandate.
+  playerMandate(playerId) {
+    let fwu = 0, total = 0;
+    for (const f of this.factions.values()) {
+      if (f.id === playerId) continue;
+      total++;
+      if (rungOf(f.standingWith(playerId)) === 'FWU') fwu++;
+    }
+    return total === 0 ? 0 : fwu / total;
+  }
+
+  /* ---- TERRITORY AI (cheap, deterministic, utility-scored) --------------- */
+
+  // Neighboring districts a faction could try to claim. Injected adjacency keeps
+  // this engine content-agnostic: adjacency(districtId) -> [neighborIds].
+  claimableTargets(faction, adjacency) {
+    const targets = new Set();
+    for (const d of faction.territory) {
+      for (const n of adjacency(d)) {
+        const own = this.owner.get(n);
+        if (own !== faction.id) targets.add(n);   // unowned or rival = a target
+      }
+    }
+    return [...targets];
+  }
+
+  /* Score a candidate claim with ONE utility function (Konkr.io pattern). Higher
+     = more worth taking. Cheap: a few terms, no lookahead.
+       + wanting territory below quota
+       + weakness of current owner (easy grabs score higher)
+       - overreach if already at/above quota
+     `districtValue(id)` injects how juicy a district is (economy, position). */
+  scoreClaim(faction, targetId, districtValue) {
+    const currentOwnerId = this.owner.get(targetId);
+    const owner = currentOwnerId ? this.factions.get(currentOwnerId) : null;
+    const deficit = faction.quota - faction.territory.size;     // want more?
+    const value = districtValue ? districtValue(targetId) : 1;
+    const resistance = owner ? owner.power : 0.25;              // empty is soft
+
+    // QUOTA GATE: a faction that already holds its quota has no appetite for
+    // MORE empty land — it stops expanding. It may still opportunistically bite
+    // a rival's district (contested), but it won't sprawl into nothing.
+    if (deficit <= 0 && !owner) return -1;                     // sated: ignore empty land
+
+    let score = value * (deficit > 0 ? 1 : 0.2);              // quota scales appetite
+    // power advantage only helps decide WHICH target, and only matters when the
+    // faction actually wants to move (under quota) or the target is a rival.
+    if (deficit > 0 || owner) score += (faction.power - resistance);
+    return score;
+  }
+
+  /* One faction's turn: generate a few candidate claims, score them, take the
+     single best IF it's positive and the faction is under quota (or the grab is
+     clearly worth it). Deterministic tie-break via seeded rng. Returns the claim
+     made (or null). This is the whole AI: claim/defend/expand by utility. */
+  factionTurn(factionId, adjacency, districtValue) {
+    const f = this.factions.get(factionId);
+    if (!f) return null;
+    const targets = this.claimableTargets(f, adjacency);
+    if (targets.length === 0) return null;
+
+    // score all candidates (cheap: it's a handful of neighbors)
+    let best = null, bestScore = -Infinity;
+    for (const t of targets) {
+      const s = this.scoreClaim(f, t, districtValue);
+      // seeded jitter breaks ties deterministically without a metronome feel
+      const jitter = this.rng.next() * 1e-6;
+      if (s + jitter > bestScore) { bestScore = s + jitter; best = t; }
+    }
+    // only claim if the utility cleared zero (don't overreach for nothing)
+    if (best == null || bestScore <= 0) return null;
+
+    // contest: taking a rival district needs power to beat its owner's power
+    const ownerId = this.owner.get(best);
+    if (ownerId) {
+      const owner = this.factions.get(ownerId);
+      if (owner && owner.power >= f.power) return null;         // repelled
+      if (owner) owner.territory.delete(best);
+    }
+    f.territory.add(best);
+    this.owner.set(best, f.id);
+    return best;
+  }
+
+  /* Advance ALL faction AI by one deterministic round, in fixed id order (Law 3).
+     For HOT/WARM regions. COLD regions can skip and be forward-computed by
+     running N rounds on demand when they promote. */
+  advanceRound(adjacency, districtValue) {
+    const ids = [...this.factions.keys()].sort();
+    const moves = [];
+    for (const id of ids) {
+      const m = this.factionTurn(id, adjacency, districtValue);
+      if (m) moves.push({ faction: id, claimed: m });
+    }
+    return moves;
+  }
+
+  ownerOf(districtId) { return this.owner.get(districtId); }
+  territoryCount(factionId) {
+    const f = this.factions.get(factionId);
+    return f ? f.territory.size : 0;
+  }
+}
+
+const BohemiaFactions = {
+  STANDING, RUNG, rungOf, clampStanding,
+  Faction, FactionWorld,
+};
+
+
+  return BohemiaFactions;
+})();
+
+/* ===== bohemia_entities.js ===== */
+BohemiaEngine.Entities=(function(){
+/* ============================================================================
+   BOHEMIA — ENTITY / SPAWN ENGINE  (bohemia_entities.js)
+   6.30.26 — the delta model made real. The system that makes "what you kill
+   stays dead" (Persistent Consequence addendum) and "the world regenerates from
+   seed, the save stores only what you changed" (Entities/Spawning addendum)
+   actually run. The last big system-island before a render layer.
+
+   TWO IDEAS, JOINED:
+
+   1) SPATIAL-HASH SPAWNING (the precise mechanism, from PCG practice):
+      Do NOT pull spawns off a single global RNG sequence — then approaching a
+      place from a different direction, or reloading, could yield different
+      entities. Instead HASH the location (+ world seed + a layer tag) into a
+      local seed. Same location + same seed => the same spawn, forever, no matter
+      the path or the reload. This is why the corner is the same corner every
+      time without storing a single entity.
+
+   2) DELTA OVERLAY (seed-regenerates, deltas-persist):
+      The spawn is the DEFAULT. A player action that changes a location writes a
+      small DELTA (cleared / emptied / depleted / built). On query, the delta
+      OVERRIDES the spawn. Clear a camp -> a "cleared" delta -> the spawn is
+      suppressed for the rest of the act. Permanent within an act, free to store
+      (one record per thing you touched, not per thing that exists).
+
+   Result: a 65-mile world full of entities, none of them stored, and your
+   violence permanently marked with a handful of deltas. Ties to the save
+   (deltas live in the save), the world (spawn tables key off district state),
+   and the LOD tiers (only HOT locations instantiate; the rest is math on demand).
+
+   No render, no DOM. Runs in node (tests) + browser (game). Builds on the core.
+   ============================================================================ */
+
+'use strict';
+
+/* ----------------------------------------------------------------------------
+   SPATIAL HASH — grind (x, y, worldSeed, layer) into a well-mixed 32-bit value,
+   FNV-1a style. Deterministic, path-independent, cheap. This is the local seed
+   for a location's spawn roll.
+---------------------------------------------------------------------------- */
+function fnv1a(str) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    // 32-bit FNV prime multiply via shifts (stay in 32-bit range)
+    h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
+  }
+  return h >>> 0;
+}
+
+/* A tiny deterministic PRNG seeded by a 32-bit int (mulberry32), used ONLY for a
+   location's local spawn roll. Cheap and good enough for placement decisions. */
+function localRng(seed32) {
+  let a = seed32 >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* The local seed for a location + layer, mixing the world seed so different
+   dynasties get different worlds from the same coordinates. */
+function locationSeed(worldSeedText, layer, x, y) {
+  return fnv1a(worldSeedText + '|' + layer + '|' + x + ',' + y);
+}
+
+/* ----------------------------------------------------------------------------
+   DELTA STORE — the only thing that persists. Keyed by "layer:x,y". A delta is
+   { kind, beat, ...data }. kinds: 'cleared', 'emptied', 'depleted', 'built'.
+   Lives in the save (save.deltas). Bounded by player activity, not world size.
+---------------------------------------------------------------------------- */
+class DeltaStore {
+  constructor(initial) {
+    this.map = new Map();
+    if (initial) for (const k in initial) this.map.set(k, initial[k]);
+  }
+  static key(layer, x, y) { return layer + ':' + x + ',' + y; }
+  get(layer, x, y) { return this.map.get(DeltaStore.key(layer, x, y)) || null; }
+  set(layer, x, y, delta) { this.map.set(DeltaStore.key(layer, x, y), delta); return delta; }
+  has(layer, x, y) { return this.map.has(DeltaStore.key(layer, x, y)); }
+  // serialize to a plain object for the save
+  toJSON() {
+    const o = {};
+    for (const [k, v] of this.map) o[k] = v;
+    return o;
+  }
+  size() { return this.map.size; }
+  // drop deltas that belong to a finished act (generational threat reset):
+  // clears/depletions from a prior act do not carry into the new threat map.
+  clearActDeltas(kinds, actOfDelta) {
+    for (const [k, v] of [...this.map]) {
+      if (kinds.indexOf(v.kind) !== -1 && actOfDelta(v)) this.map.delete(k);
+    }
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   SPAWNER — given a spawn RULE and world context, deterministically decides what
+   (if anything) exists at a location, then applies any delta overlay.
+
+   A rule is content injected by the game, e.g.:
+     { layer:'enemy', density:0.15, roll:(rng, ctx)=> ({type:'raider', n:1+rng()*3|0}) }
+   density = probability a location has anything on this layer (before deltas).
+   roll   = given the local rng + context, produce the entity descriptor.
+   The engine stays content-agnostic; it owns determinism + delta logic only.
+---------------------------------------------------------------------------- */
+class Spawner {
+  constructor(worldSeedText, deltaStore) {
+    this.worldSeed = worldSeedText;
+    this.deltas = deltaStore || new DeltaStore();
+  }
+
+  /* What is at (x,y) on this layer, right now, accounting for deltas?
+     ctx carries world state (district tier, act, player rep) the roll may use. */
+  entityAt(rule, x, y, ctx) {
+    const layer = rule.layer;
+
+    // 1) DELTA OVERLAY FIRST — a player-caused change overrides the spawn.
+    const delta = this.deltas.get(layer, x, y);
+    if (delta) {
+      if (delta.kind === 'cleared' || delta.kind === 'emptied' || delta.kind === 'depleted') {
+        return null;                 // you ended it; it stays ended
+      }
+      if (delta.kind === 'built') {
+        return delta.entity;         // player-authored thing stands here
+      }
+    }
+
+    // 2) DEFAULT SPAWN — deterministic from the location hash. Path-independent,
+    //    reload-stable. No storage.
+    const seed = locationSeed(this.worldSeed, layer, x, y);
+    const rng = localRng(seed);
+    if (rng() >= (rule.density == null ? 1 : rule.density)) return null; // empty here
+    return rule.roll ? rule.roll(rng, ctx || {}) : { type: layer };
+  }
+
+  /* Player ends whatever is on this layer here (kill camp, loot container,
+     deplete node). Writes the permanent-within-act delta. Idempotent. */
+  markCleared(layer, x, y, beat, kind) {
+    return this.deltas.set(layer, x, y, { kind: kind || 'cleared', beat: beat || 0 });
+  }
+
+  /* Player builds something here (base structure). Fully authored => stored. */
+  markBuilt(layer, x, y, entity, beat) {
+    return this.deltas.set(layer, x, y, { kind: 'built', beat: beat || 0, entity: entity });
+  }
+
+  /* Scan a rectangular region and return live entities (spawns minus deltas plus
+     builds). This is what a HOT district instantiates; WARM would just COUNT
+     them; COLD does nothing until promoted. Bounded by the HOT window, never the
+     world. */
+  scanRegion(rule, x0, y0, x1, y1, ctx) {
+    const out = [];
+    for (let y = y0; y <= y1; y++) {
+      for (let x = x0; x <= x1; x++) {
+        const e = this.entityAt(rule, x, y, ctx);
+        if (e) out.push({ x: x, y: y, entity: e });
+      }
+    }
+    return out;
+  }
+
+  // count only — the WARM-tier aggregate, cheaper than instantiating.
+  countRegion(rule, x0, y0, x1, y1, ctx) {
+    let n = 0;
+    for (let y = y0; y <= y1; y++)
+      for (let x = x0; x <= x1; x++)
+        if (this.entityAt(rule, x, y, ctx)) n++;
+    return n;
+  }
+}
+
+const BohemiaEntities = {
+  fnv1a, localRng, locationSeed,
+  DeltaStore, Spawner,
+};
+
+
+  return BohemiaEntities;
+})();
+
+/* ===== bohemia_heartbeat.js ===== */
+BohemiaEngine.Heartbeat=(function(){
+/* ============================================================================
+   BOHEMIA — HEARTBEAT ADAPTER
+   ----------------------------------------------------------------------------
+   The problem this solves:
+   The rig tool (BOHEMIAN_RIG.html), the combat game (bohemia_combat_v9.html),
+   and the engine core (bohemia_core.js) each keep their OWN 120 BPM clock.
+   Three clocks that agree by coincidence, not by construction. The moment one
+   frame hitches, they drift, and "120 BPM drives everything" quietly becomes a
+   lie.
+
+   This module is the ONE heartbeat. It owns a single core Clock and lets any
+   number of presentation layers (rig animation, combat dial, killshot camera,
+   city sim) subscribe. Every subscriber ticks off the same beat and reads the
+   same interpolation alpha. No subscriber runs its own clock anymore.
+
+   This is a WIRING layer, not a rewrite. The rig and combat keep their own
+   requestAnimationFrame draw loops. They just stop computing their own beat and
+   ask the heartbeat instead. Two-line change on their side (below).
+
+   Pure logic. No DOM, no render. Deterministic: the Clock is the core Clock,
+   so a save/replay reproduces the exact beat every subscriber was on.
+   ========================================================================== */
+
+const BPM = 120;
+const MS_PER_BEAT = 60000 / BPM;         // 500ms — the law
+const MAX_FRAME_MS = MS_PER_BEAT * 5;    // same anti-spiral clamp as core Clock
+
+/* The heartbeat wraps the core Clock's contract (advance(nowMs) -> alpha,
+   firing onBeat per whole beat) and fans it out to subscribers. It does not
+   import the core to stay drop-in usable in the browser; it re-implements the
+   SAME clock math the core Clock uses, verified identical in the tests. When
+   wired into the full engine, pass the core Clock in via `fromCoreClock` so
+   there is literally one clock object. */
+
+class Heartbeat {
+  constructor() {
+    this.acc = 0;
+    this.beat = 0;
+    this.lastMs = null;
+    this.beatSubs = [];   // fns called once per whole beat: (beatIndex) => {}
+    this.frameSubs = [];  // fns called every frame: (alpha, beatIndex) => {}
+    this.running = false;
+  }
+
+  /* Subscribe to whole-beat events (game logic: advance a turn, step the sim,
+     fire the metronome). Returns an unsubscribe fn. */
+  onBeat(fn) {
+    this.beatSubs.push(fn);
+    return () => { this.beatSubs = this.beatSubs.filter(f => f !== fn); };
+  }
+
+  /* Subscribe to per-frame events (render/interp: draw the dial at its current
+     swing, interpolate the walk cycle between beats). alpha is 0..1 progress
+     toward the next beat. Returns an unsubscribe fn. */
+  onFrame(fn) {
+    this.frameSubs.push(fn);
+    return () => { this.frameSubs = this.frameSubs.filter(f => f !== fn); };
+  }
+
+  /* Call once per rendered frame with the current timestamp (performance.now()).
+     Fires beat subs for each whole beat crossed, then frame subs once with the
+     interpolation alpha. This is the ONLY place time advances. */
+  tick(nowMs) {
+    if (this.lastMs === null) this.lastMs = nowMs;
+    let frame = nowMs - this.lastMs;
+    this.lastMs = nowMs;
+    if (frame < 0) frame = 0;
+    if (frame > MAX_FRAME_MS) frame = MAX_FRAME_MS;   // clamp
+    this.acc += frame;
+    while (this.acc >= MS_PER_BEAT) {
+      this.acc -= MS_PER_BEAT;
+      this.beat++;
+      for (const fn of this.beatSubs) fn(this.beat);
+    }
+    const alpha = this.acc / MS_PER_BEAT;
+    for (const fn of this.frameSubs) fn(alpha, this.beat);
+    return alpha;
+  }
+
+  /* Musical phase helpers so presentation layers stop hand-rolling BPM math.
+     phase(divisions) returns 0..1 progress through the current bar of N beats.
+     e.g. phase(4) is where we are in a 4-beat bar; phase(2) a 2-beat half. */
+  phase(beatsPerBar = 4) {
+    const beatsFloat = this.beat + this.acc / MS_PER_BEAT;
+    return (beatsFloat % beatsPerBar) / beatsPerBar;
+  }
+
+  /* beatsFloat = continuous beat position (beat + fractional). The single
+     source of truth a dial pattern or walk cycle should sample. */
+  beatsFloat() {
+    return this.beat + this.acc / MS_PER_BEAT;
+  }
+
+  /* Wire the heartbeat to an existing core Clock so there is ONE clock object
+     in the full engine. The core Clock drives; the heartbeat mirrors its beat
+     and fans out. Call this when integrating with bohemia_core.js. */
+  fromCoreClock(coreClock) {
+    // adopt the core clock's current position
+    this.beat = coreClock.beat;
+    this.acc = coreClock.acc;
+    this.lastMs = null;
+    return this;
+  }
+
+  snapshot() { return { beat: this.beat, acc: this.acc }; }
+  restore(s) { this.beat = s.beat; this.acc = s.acc; this.lastMs = null; }
+}
+
+/* Singleton — the game has exactly one heartbeat. Presentation layers import
+   this, not a new instance. */
+const heartbeat = new Heartbeat();
+
+/* ---- Node / browser dual export ---------------------------------------- */
+
+  return { Heartbeat, heartbeat, BPM, MS_PER_BEAT, MAX_FRAME_MS };
+})();
+
+/* ===== bohemia_skinner.js ===== */
+BohemiaEngine.Skinner=(function(){
+/* ============================================================================
+   BOHEMIA — SKINNER (headless render core)
+   ----------------------------------------------------------------------------
+   The engine-side twin of BOHEMIAN_RIG.html's draw loop. Given the player's
+   baked painting (the export) and a POSED skeleton, it produces a flat pixel
+   grid of part IDs — exactly what the rig draws, but with no canvas, no DOM,
+   deterministic and testable. The render layer (browser) turns this grid into
+   pixels; the sim/tests use it directly.
+
+   Faithful to the shipped rig (md5 cb88b3d2):
+   - Inverse sampling (seg): for each SCREEN cell, sample back to REST space,
+     keep it only if that rest pixel belongs to this part AND binds to this
+     bone. Eliminates gaps at any angle.
+   - Side-locked bones (CANDD): each limb part binds ONLY to its own side's
+     bones per direction, so posing never bleeds left limb into right.
+   - Screen-claim buffer: first part in ORDER to own a screen cell keeps it;
+     no double-draw. Front-most wins.
+   - NEVER reshapes painted regions. Reads them, never rewrites them.
+
+   Pure logic. Deterministic. Same skeleton in -> same grid out, every time.
+   ========================================================================== */
+
+const CW = 56, CH = 56, NP = 12;
+
+const BONES = {
+  head:['neck','headTop'], torso:['waC','neck'],
+  uArmA:['shL','elL'], fArmA:['elL','handL'], uArmB:['shR','elR'], fArmB:['elR','handR'],
+  thighA:['waA','knA'], shinA:['knA','footA'], thighB:['waB','knB'], shinB:['knB','footB']
+};
+const BKEYS = Object.keys(BONES);
+// paint order: torso/neck, legs, feet, arms, hands, head, face (front-most last)
+const ORDER = [4,3,9,10,11,12,5,6,7,8,1,2];
+
+// Fallback candidate map (direction-blind). The export's own CANDD overrides
+// this per direction when present (side-locked). Kept so a bare skeleton still
+// skins.
+const CAND = {
+  1:['head'],2:['head'],3:['torso'],4:['torso'],
+  5:['uArmA','fArmA','uArmB','fArmB'],6:['uArmA','fArmA','uArmB','fArmB'],
+  7:['fArmA','fArmB'],8:['fArmA','fArmB'],
+  9:['thighA','shinA','thighB','shinB'],10:['thighA','shinA','thighB','shinB'],
+  11:['shinA','shinB'],12:['shinA','shinB']
+};
+
+/* derive the 5 tip joints from the 10 base joints — verbatim from the rig */
+function derive(base) {
+  const j = {};
+  for (const k in base) j[k] = base[k].slice();
+  j.headTop = [j.neck[0], j.neck[1] - 9];
+  j.handL = [2*j.elL[0]-j.shL[0], 2*j.elL[1]-j.shL[1]];
+  j.handR = [2*j.elR[0]-j.shR[0], 2*j.elR[1]-j.shR[1]];
+  j.footA = [2*j.knA[0]-j.waA[0], 2*j.knA[1]-j.waA[1]];
+  j.footB = [2*j.knB[0]-j.waB[0], 2*j.knB[1]-j.waB[1]];
+  return j;
+}
+
+/* squared distance from point to segment — verbatim */
+function segd(px, py, a, b) {
+  const ax=a[0]+.5, ay=a[1]+.5, bx=b[0]+.5, by=b[1]+.5;
+  const dx=bx-ax, dy=by-ay, L2=dx*dx+dy*dy;
+  let t = L2 ? ((px-ax)*dx+(py-ay)*dy)/L2 : 0;
+  t = t<0?0:t>1?1:t;
+  const cx=ax+t*dx, cy=ay+t*dy;
+  return (px-cx)**2 + (py-cy)**2;
+}
+
+/* rigid transform of a point from rest-bone frame (a0,b0) to posed frame
+   (a1,b1) — the one-bone-per-pixel skinning transform. Verbatim. */
+function seg(cx, cy, a0, b0, a1, b1) {
+  /* WIDTH LAW (Paolo 7/2/26): anisotropic bone transform. The along-bone axis
+     scales with the bone length (compression crunches pixels together); the
+     perpendicular axis NEVER scales (width never changes). Pure rotations are
+     identical to the old similarity transform. */
+  const dux=b0[0]-a0[0], duy=b0[1]-a0[1];
+  const dvx=b1[0]-a1[0], dvy=b1[1]-a1[1];
+  const Lu=Math.sqrt(dux*dux+duy*duy), Lv=Math.sqrt(dvx*dvx+dvy*dvy);
+  if (Lu < 1e-3 || Lv < 1e-3) return [cx+(a1[0]-a0[0]), cy+(a1[1]-a0[1])];
+  const ux=dux/Lu, uy=duy/Lu, vx=dvx/Lv, vy=dvy/Lv;
+  const lx=cx-a0[0], ly=cy-a0[1];
+  const along=(lx*ux+ly*uy)*(Lv/Lu);   // crunches with the bone
+  const perp = lx*(-uy)+ly*ux;         // width: untouched, always
+  return [a1[0]+along*vx+perp*(-vy), a1[1]+along*vy+perp*vx];
+}
+
+/* Build a Skinner for one direction from a baked export.
+   `exp` is the rig export: { layers:{DIR:{part:[idx,...]}}, skeleton:{DIR:{...}} }.
+   Precomputes per-part layer arrays, rest skeleton, bone binding, and bboxes —
+   the same state the rig's rebind() produces. */
+/* BIND COHERENCE + SEAM CLEANUP 7/2/26 (ported from BOHEMIAN_RIG):
+   cohereBind smooths per-pixel bone binding so posing cannot tear stray
+   pixels off the body. refineSkin drops flyaway/spur pixels and closes
+   pinholes at bone seams while posed. Per-pixel guard: a spur only drops
+   if its REST SOURCE pixel sits inside a solid blob (>=3 painted rest
+   neighbors), so thin intentional art is NEVER eaten. Regions untouched. */
+function cohereBind(L, bo) {
+  for (let pass = 0; pass < 2; pass++) {
+    const nb = Int8Array.from(bo);
+    for (let i = 0; i < CW*CH; i++) {
+      if (!L[i]) continue;
+      const x = i % CW, y = (i / CW) | 0;
+      const cnt = {}; let cur = bo[i], curN = 0;
+      for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++) {
+        if (!dx && !dy) continue;
+        const nx=x+dx, ny=y+dy;
+        if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
+        const jj = ny*CW+nx; if (!L[jj]) continue;
+        const b = bo[jj]; cnt[b]=(cnt[b]||0)+1; if (b===cur) curN++;
+      }
+      let bb=cur, bn=curN;
+      for (const k in cnt) { if (cnt[k] > bn+1) { bn=cnt[k]; bb=+k; } }
+      if (bb!==cur && bn>=3) nb[i]=bb;
+    }
+    bo.set(nb);
+  }
+  const seen = new Uint8Array(CW*CH);
+  for (let i = 0; i < CW*CH; i++) {
+    if (!L[i] || seen[i]) continue;
+    const b0 = bo[i]; const comp=[]; const st=[i]; seen[i]=1; const adj={};
+    while (st.length) {
+      const c = st.pop(); comp.push(c);
+      const cx=c%CW, cy=(c/CW)|0;
+      for (const [nx,ny] of [[cx-1,cy],[cx+1,cy],[cx,cy-1],[cx,cy+1]]) {
+        if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
+        const jj=ny*CW+nx; if (!L[jj]) continue;
+        if (bo[jj]===b0) { if (!seen[jj]) { seen[jj]=1; st.push(jj); } }
+        else adj[bo[jj]]=(adj[bo[jj]]||0)+1;
+      }
+    }
+    if (comp.length < 4) {
+      let bb=-2, bn=0;
+      for (const k in adj) { if (adj[k]>bn) { bn=adj[k]; bb=+k; } }
+      if (bb>-2) for (const c of comp) bo[c]=bb;
+    }
+  }
+}
+function refineSkin(mask, src, L, x0, y0, x1, y1, claim) {
+  x0=Math.max(0,x0-1); y0=Math.max(0,y0-1); x1=Math.min(CW-1,x1+1); y1=Math.min(CH-1,y1+1);
+  const srcNb = (ri) => {
+    if (ri < 0) return 0;
+    const rx=ri%CW, ry=(ri/CW)|0; let n=0;
+    for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++) {
+      if (!dx && !dy) continue;
+      const nx=rx+dx, ny=ry+dy;
+      if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
+      if (L[ny*CW+nx]) n++;
+    }
+    return n;
+  };
+  for (let pass=0; pass<2; pass++) {
+    const drop=[];
+    for (let y=y0; y<=y1; y++) for (let x=x0; x<=x1; x++) {
+      const i=y*CW+x; if (!mask[i]) continue;
+      let n=0;
+      for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++) {
+        if (!dx && !dy) continue;
+        const nx=x+dx, ny=y+dy;
+        if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
+        if (mask[ny*CW+nx]) n++;
+      }
+      if (n<=1 && srcNb(src[i])>=3) drop.push(i);
+    }
+    if (!drop.length) break;
+    for (const i of drop) mask[i]=0;
+  }
+  for (let pass=0; pass<2; pass++) {
+    const add=[];
+    for (let y=y0; y<=y1; y++) for (let x=x0; x<=x1; x++) {
+      const i=y*CW+x; if (mask[i]) continue;
+      if (claim && claim[i]) continue;
+      let n=0;
+      if (x>0&&mask[i-1])n++; if (x<CW-1&&mask[i+1])n++;
+      if (y>0&&mask[i-CW])n++; if (y<CH-1&&mask[i+CW])n++;
+      if (n>=3) add.push(i);
+    }
+    if (!add.length) break;
+    for (const i of add) { mask[i]=1; if (src) src[i]=-1; }
+  }
+}
+class Skinner {
+  constructor(exp, dir) {
+    this.dir = dir;
+    // per-part occupancy (Uint8Array like the rig's layers[dir][p])
+    this.layers = [];
+    for (let p = 0; p <= NP; p++) this.layers[p] = new Uint8Array(CW*CH);
+    const srcLay = (exp.layers && exp.layers[dir]) || {};
+    for (const p in srcLay) for (const idx of srcLay[p]) this.layers[+p][idx] = 1;
+
+    // rest skeleton (full 15 joints)
+    const sk = (exp.skeleton && exp.skeleton[dir]) || null;
+    this.rest = sk ? this._full(sk) : null;
+
+    // per-direction candidate map (side-locked) if the export carries one
+    this.candd = (exp.CANDD && exp.CANDD[dir]) || null;
+
+    this.bone = [];       // per-part Int8Array of bone index per pixel
+    this.bbox = {};       // "part:boneIdx" -> [minX,minY,maxX,maxY]
+    for (let p = 0; p <= NP; p++) this.bone[p] = new Int8Array(CW*CH).fill(-1);
+    if (this.rest) this._rebind();
+  }
+
+  candFor(p) {
+    if (this.candd && this.candd[p]) return this.candd[p];
+    return CAND[p];
+  }
+
+  _full(sk) {
+    // export skeleton already has all joints; fill any missing derived ones
+    const j = {};
+    for (const k in sk) j[k] = sk[k].slice();
+    if (!j.headTop && j.neck) j.headTop=[j.neck[0],j.neck[1]-9];
+    if (!j.handL && j.elL && j.shL) j.handL=[2*j.elL[0]-j.shL[0],2*j.elL[1]-j.shL[1]];
+    if (!j.handR && j.elR && j.shR) j.handR=[2*j.elR[0]-j.shR[0],2*j.elR[1]-j.shR[1]];
+    if (!j.footA && j.knA && j.waA) j.footA=[2*j.knA[0]-j.waA[0],2*j.knA[1]-j.waA[1]];
+    if (!j.footB && j.knB && j.waB) j.footB=[2*j.knB[0]-j.waB[0],2*j.knB[1]-j.waB[1]];
+    return j;
+  }
+
+  /* bind each painted pixel to its nearest candidate bone (in REST space) and
+     record per-(part,bone) bounding boxes — verbatim from rig rebind() */
+  _rebind() {
+    const R = this.rest;
+    const bb = {};
+    for (let p = 1; p <= NP; p++) {
+      const L = this.layers[p], bo = this.bone[p], cs = this.candFor(p);
+      for (let i = 0; i < CW*CH; i++) {
+        if (!L[i]) { bo[i] = -1; continue; }
+        const x = i % CW, y = (i / CW) | 0;
+        let best = -1, bd = 1e9;
+        for (let k = 0; k < cs.length; k++) {
+          const bn = cs[k], a = R[BONES[bn][0]], b = R[BONES[bn][1]];
+          const d = segd(x+.5, y+.5, a, b);
+          if (d < bd) { bd = d; best = BKEYS.indexOf(bn); }
+        }
+        bo[i] = best;
+      }
+      cohereBind(L, bo);
+      for (let i = 0; i < CW*CH; i++) {
+        if (!L[i]) continue;
+        const x = i % CW, y = (i / CW) | 0, best = bo[i];
+        if (best >= 0) {
+          const key = p+':'+best, e = bb[key];
+          if (!e) bb[key] = [x,y,x,y];
+          else { if(x<e[0])e[0]=x; if(y<e[1])e[1]=y; if(x>e[2])e[2]=x; if(y>e[3])e[3]=y; }
+        }
+      }
+    }
+    this.bbox = bb;
+  }
+
+  /* Skin the character into a flat Uint8Array grid of part IDs (0 = empty).
+     `pose` is a posed skeleton (same joint names as rest). Returns the grid.
+     This is the exact inverse-sampling + screen-claim the rig draws. */
+  skin(pose) {
+    const R = this.rest, P = this._full(pose);
+    const out = new Uint8Array(CW*CH);     // 0 = empty; else part id
+    const claim = new Uint8Array(CW*CH);   // screen ownership
+    // PAOLO'S LAW: draw order = his hand-tuned layerOverride (nearest first).
+    const ord = (this.orderOverride && this.orderOverride.length) ? this.orderOverride : ORDER;
+    const moving = JSON.stringify(P) !== JSON.stringify(this._full(R));
+    const mask = new Uint8Array(CW*CH), msrc = new Int16Array(CW*CH);
+    for (const p of ord) {
+      const L = this.layers[p], bo = this.bone[p];
+      mask.fill(0); msrc.fill(-1);
+      let mX0=1e9, mY0=1e9, mX1=-1, mY1=-1;
+      for (const bn of this.candFor(p)) {
+        const bi = BKEYS.indexOf(bn), box = this.bbox[p+':'+bi];
+        if (!box) continue;
+        const a0=R[BONES[bn][0]], b0=R[BONES[bn][1]], a1=P[BONES[bn][0]], b1=P[BONES[bn][1]];
+        // project the rest bbox into posed space to bound the scan
+        let ox0=1e9,oy0=1e9,ox1=-1e9,oy1=-1e9;
+        const cor=[[box[0],box[1]],[box[2]+1,box[1]],[box[0],box[3]+1],[box[2]+1,box[3]+1]];
+        for (const c of cor){const q=seg(c[0],c[1],a0,b0,a1,b1);if(q[0]<ox0)ox0=q[0];if(q[0]>ox1)ox1=q[0];if(q[1]<oy0)oy0=q[1];if(q[1]>oy1)oy1=q[1];}
+        ox0=Math.max(0,Math.floor(ox0)-1); oy0=Math.max(0,Math.floor(oy0)-1);
+        ox1=Math.min(CW-1,Math.ceil(ox1)+1); oy1=Math.min(CH-1,Math.ceil(oy1)+1);
+        for (let oy=oy0; oy<=oy1; oy++) for (let ox=ox0; ox<=ox1; ox++) {
+          const q=seg(ox+.5,oy+.5,a1,b1,a0,b0);           // inverse: screen -> rest
+          const rx=Math.floor(q[0]), ry=Math.floor(q[1]);
+          if (rx<0||rx>=CW||ry<0||ry>=CH) continue;
+          const ri=ry*CW+rx;
+          if (bo[ri]!==bi || !L[ri]) continue;            // not this part's pixel on this bone
+          const sc=oy*CW+ox;
+          if (claim[sc] || mask[sc]) continue;            // screen cell already owned
+          mask[sc]=1; msrc[sc]=ri;
+          if (ox<mX0)mX0=ox; if (oy<mY0)mY0=oy; if (ox>mX1)mX1=ox; if (oy>mY1)mY1=oy;
+        }
+      }
+      if (mX1 >= 0) {
+        if (moving) refineSkin(mask, msrc, L, mX0, mY0, mX1, mY1, claim);
+        for (let sc = 0; sc < CW*CH; sc++) if (mask[sc]) { claim[sc]=p; out[sc]=p; }
+      }
+    }
+    return out;
+  }
+
+  restPose() { return this.rest ? this._full(this.rest) : null; }
+
+  /* Deform an arbitrary REST-space color layer (garment) using the SAME
+     inverse-sampling as the body, so clothing follows the bones with zero
+     shredding. `restColors` is a length CW*CH array of [r,g,b] or null, in
+     56-space (already lifted from 24-space). We bind each garment pixel to
+     the body's nearest candidate bone (reusing this.bone where the body
+     covers it; else nearest bone overall), then inverse-sample per screen
+     cell exactly like skin(). Returns a length CW*CH array of [r,g,b]|null. */
+  skinColorLayer(pose, restColors, forceBone, restBodyGrid) {
+    const R = this.rest, P = this._full(pose);
+    const out = new Array(CW*CH).fill(null);
+    const outBone = new Int8Array(CW*CH).fill(-1);
+    const outSrc = new Int16Array(CW*CH).fill(-1);
+    const claim = new Uint8Array(CW*CH);
+    // Bind each garment pixel to a bone. PAOLO'S LAW: if the rest body grid is
+    // provided, the garment pixel binds ONLY within the CANDD candidates of the
+    // body part underneath it (side-locked, per-direction). Never free-bind.
+    const gbone = new Int8Array(CW*CH).fill(-1);
+    const gbb = {};
+    for (let i = 0; i < CW*CH; i++) {
+      if (!restColors[i]) continue;
+      const x = i % CW, y = (i / CW) | 0;
+      let best = -1, bd = 1e9;
+      if (forceBone) { best = BKEYS.indexOf(forceBone); }
+      else {
+        // candidate bones: CANDD of the body part under this pixel (or nearby)
+        let cand = null;
+        if (restBodyGrid) {
+          let pid = restBodyGrid[i];
+          if (!pid) { // garment spills past silhouette: sample small neighborhood
+            for (let r = 1; r <= 3 && !pid; r++)
+              for (let dy = -r; dy <= r && !pid; dy++) for (let dx = -r; dx <= r && !pid; dx++) {
+                const nx = x+dx, ny = y+dy;
+                if (nx<0||ny<0||nx>=CW||ny>=CH) continue;
+                pid = restBodyGrid[ny*CW+nx];
+              }
+          }
+          if (pid) cand = this.candFor(pid);
+        }
+        const pool = cand || BKEYS;
+        for (let k = 0; k < pool.length; k++) {
+          const bn = pool[k], a = R[BONES[bn][0]], b = R[BONES[bn][1]];
+          if (!a || !b) continue;
+          const d = segd(x+.5, y+.5, a, b);
+          if (d < bd) { bd = d; best = BKEYS.indexOf(bn); }
+        }
+      }
+      gbone[i] = best;
+      const e = gbb[best];
+      if (!e) gbb[best] = [x,y,x,y];
+      else { if(x<e[0])e[0]=x; if(y<e[1])e[1]=y; if(x>e[2])e[2]=x; if(y>e[3])e[3]=y; }
+    }
+    // inverse-sample per bone, screen -> rest, carry color (front bones last)
+    for (let bi = 0; bi < BKEYS.length; bi++) {
+      const box = gbb[bi]; if (!box) continue;
+      const bn = BKEYS[bi];
+      const a0=R[BONES[bn][0]], b0=R[BONES[bn][1]], a1=P[BONES[bn][0]], b1=P[BONES[bn][1]];
+      if (!a0||!b0||!a1||!b1) continue;
+      let ox0=1e9,oy0=1e9,ox1=-1e9,oy1=-1e9;
+      const cor=[[box[0],box[1]],[box[2]+1,box[1]],[box[0],box[3]+1],[box[2]+1,box[3]+1]];
+      for (const c of cor){const q=seg(c[0],c[1],a0,b0,a1,b1);if(q[0]<ox0)ox0=q[0];if(q[0]>ox1)ox1=q[0];if(q[1]<oy0)oy0=q[1];if(q[1]>oy1)oy1=q[1];}
+      ox0=Math.max(0,Math.floor(ox0)-1); oy0=Math.max(0,Math.floor(oy0)-1);
+      ox1=Math.min(CW-1,Math.ceil(ox1)+1); oy1=Math.min(CH-1,Math.ceil(oy1)+1);
+      for (let oy=oy0; oy<=oy1; oy++) for (let ox=ox0; ox<=ox1; ox++) {
+        const q=seg(ox+.5,oy+.5,a1,b1,a0,b0);
+        const rx=Math.floor(q[0]), ry=Math.floor(q[1]);
+        if (rx<0||rx>=CW||ry<0||ry>=CH) continue;
+        const ri=ry*CW+rx;
+        if (gbone[ri]!==bi || !restColors[ri]) continue;
+        const sc=oy*CW+ox;
+        if (claim[sc]) continue;
+        claim[sc]=1; out[sc]=restColors[ri]; outBone[sc]=bi; outSrc[sc]=ri;
+      }
+    }
+    /* SEAM CLEANUP 7/2/26: same law as the body. Drop flyaway garment pixels
+       (only if sourced from a solid fabric blob), close seam pinholes by
+       copying an adjacent fabric color so cloth never shows holes mid-swing. */
+    if (JSON.stringify(P) !== JSON.stringify(this._full(R))) {
+      const gm = new Uint8Array(CW*CH);
+      for (let i=0;i<CW*CH;i++) gm[i] = out[i] ? 1 : 0;
+      const srcNb = (ri) => {
+        if (ri<0) return 0;
+        const rx=ri%CW, ry=(ri/CW)|0; let n=0;
+        for (let dy=-1;dy<=1;dy++) for (let dx=-1;dx<=1;dx++) {
+          if (!dx&&!dy) continue;
+          const nx=rx+dx, ny=ry+dy;
+          if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
+          if (restColors[ny*CW+nx]) n++;
+        }
+        return n;
+      };
+      for (let pass=0; pass<2; pass++) {
+        const drop=[];
+        for (let y=0;y<CH;y++) for (let x=0;x<CW;x++) {
+          const i=y*CW+x; if (!gm[i]) continue;
+          let n=0;
+          for (let dy=-1;dy<=1;dy++) for (let dx=-1;dx<=1;dx++) {
+            if (!dx&&!dy) continue;
+            const nx=x+dx, ny=y+dy;
+            if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
+            if (gm[ny*CW+nx]) n++;
+          }
+          if (n<=1 && srcNb(outSrc[i])>=3) drop.push(i);
+        }
+        if (!drop.length) break;
+        for (const i of drop) { gm[i]=0; out[i]=null; outBone[i]=-1; }
+      }
+      for (let pass=0; pass<2; pass++) {
+        const add=[];
+        for (let y=0;y<CH;y++) for (let x=0;x<CW;x++) {
+          const i=y*CW+x; if (gm[i]) continue;
+          let n=0, pick=-1;
+          if (x>0&&gm[i-1]) { n++; pick=i-1; }
+          if (x<CW-1&&gm[i+1]) { n++; if(pick<0)pick=i+1; }
+          if (y>0&&gm[i-CW]) { n++; if(pick<0)pick=i-CW; }
+          if (y<CH-1&&gm[i+CW]) { n++; if(pick<0)pick=i+CW; }
+          if (n>=3) add.push([i,pick]);
+        }
+        if (!add.length) break;
+        for (const [i,pick] of add) { gm[i]=1; out[i]=out[pick]; outBone[i]=outBone[pick]; outSrc[i]=-1; }
+      }
+    }
+    return { col: out, bone: outBone };
+  }
+}
+
+/* ---- procedural poses (walk/idle) off the heartbeat -------------------- */
+/* Given a rest skeleton and a continuous beat position (heartbeat.beatsFloat),
+   return a posed skeleton. Verbatim swing math from the rig's procedural():
+   one full limb swing per 2 beats, phase-locked to 120 BPM. */
+function rotAbout(p, piv, ang) {
+  const dx=p[0]-piv[0], dy=p[1]-piv[1], c=Math.cos(ang), s=Math.sin(ang);
+  return [dx*c-dy*s+piv[0], dx*s+dy*c+piv[1]];
+}
+function poseWalk(R, beatsFloat, swingAmt) {
+  const j = {}; for (const k in R) j[k] = R[k].slice();
+  const sw = Math.sin(beatsFloat * Math.PI);   // one swing / 2 beats
+  const A = (typeof swingAmt === 'number') ? swingAmt : 0.5;   // rig-tunable amplitude
+  j.elL=rotAbout(R.elL,R.shL,sw*A);   j.handL=rotAbout(R.handL,R.shL,sw*A);
+  j.elR=rotAbout(R.elR,R.shR,-sw*A);  j.handR=rotAbout(R.handR,R.shR,-sw*A);
+  j.knA=rotAbout(R.knA,R.waA,-sw*A);  j.footA=rotAbout(R.footA,R.waA,-sw*A);
+  j.knB=rotAbout(R.knB,R.waB,sw*A);   j.footB=rotAbout(R.footB,R.waB,sw*A);
+  j.headTop=rotAbout(R.headTop,R.neck,sw*0.04);
+  return j;
+}
+function poseIdle(R, beatsFloat) {
+  const j = {}; for (const k in R) j[k] = R[k].slice();
+  const b = Math.sin(beatsFloat * Math.PI), a = 0.06;
+  j.elL=rotAbout(R.elL,R.shL,-a);  j.handL=rotAbout(R.handL,R.shL,-a);
+  j.elR=rotAbout(R.elR,R.shR,a);   j.handR=rotAbout(R.handR,R.shR,a);
+  j.headTop=rotAbout(R.headTop,R.neck,b*0.03);
+  return j;
+}
+
+
+/* ================= PAOLO'S LAWS (locked 7/2/26) ================= */
+/* HAND LAW: hands (parts 7/8) always render ONE LAYER NEARER than arms.
+   A garment pixel bound to an ARM bone may NEVER claim a screen cell owned
+   by a hand part. Future gloves opt out with opts.coversHands=true. */
+const HAND_PARTS = {7:1, 8:1};
+const ARM_BONE_IDX = ['uArmA','fArmA','uArmB','fArmB'].map(b => BKEYS.indexOf(b));
+function handLaw(bodyGrid, garmentCol, garmentBone, opts) {
+  if (opts && opts.coversHands) return garmentCol;
+  for (let i = 0; i < bodyGrid.length; i++) {
+    if (!garmentCol[i]) continue;
+    if (HAND_PARTS[bodyGrid[i]] && ARM_BONE_IDX.indexOf(garmentBone[i]) >= 0) garmentCol[i] = null;
+  }
+  return garmentCol;
+}
+/* HEAD BOB LAW: facing N or S (head-on), the head gets a slight 1px
+   pixel-snapped bob. Walk: one dip per step (two per cycle). Idle: one
+   gentle dip per cycle. Supersedes the old "no bob" for the HEAD ONLY;
+   body still has no sway. Moves neck+headTop together so hair/hat follow. */
+function headBob(sk, dir, clip, ph) {
+  /* IDLE LAW (Paolo 7/2/26): idle is BREATHING. Feet never move, no float.
+     A gentle 1px chest/head rise once per cycle, ALL facings. Walk/run keep
+     the N/S-only 1px step dip. */
+  let bob = 0;
+  if (clip === 'idle') bob = Math.abs(Math.sin(ph*Math.PI)) > 0.7 ? -1 : 0;
+  else if ((dir === 'N' || dir === 'S') && (clip === 'walk' || clip === 'run')) bob = Math.abs(Math.sin(ph*Math.PI*2)) > 0.55 ? 1 : 0;
+  if (!bob) return sk;
+  const j = {}; for (const k in sk) j[k] = sk[k].slice();
+  j.neck[1] += bob; j.headTop[1] += bob;
+  return j;
+}
+
+
+/* GARMENT CONTACT LAW (Paolo, locked 7/2/26): each garment slot may ONLY
+   touch its allowed body parts. This is the mass-production rule: any
+   garment obeying this law drops into the game clean.
+   pants: legs+feet only (9,10,11,12), never the torso/waist.
+   shoes: feet only (11,12); may reach at most 2px below the knee pivot.
+   shirt/jacket: torso+arms (4,5,6); NECK (3) only if the garment is
+   neck-rated (turtleneck vibe), else never.
+   hat: upper head (1,2) only, and NEVER below the hat line: the durag's
+   southernmost row per direction is the maximum a hat may travel south. */
+const SLOT_CONTACT = {
+  pants:  { parts:{9:1,10:1,11:1,12:1} },
+  shoes:  { parts:{11:1,12:1}, kneeClamp:2 },
+  shirt:  { parts:{4:1,5:1,6:1}, neck:true },
+  jacket: { parts:{4:1,5:1,6:1}, neck:true },
+  hat:    { parts:{1:1,2:1}, hatLine:true }
+};
+function garmentContactLaw(slot, restCol, restBodyGrid, restSk, opts) {
+  const law = SLOT_CONTACT[slot]; if (!law) return restCol;
+  opts = opts || {};
+  for (let i = 0; i < restCol.length; i++) {
+    if (!restCol[i]) continue;
+    const x = i % CW, y = (i / CW) | 0;
+    let pid = restBodyGrid ? restBodyGrid[i] : 0;
+    if (!pid && restBodyGrid) {
+      for (let r = 1; r <= 3 && !pid; r++)
+        for (let dy = -r; dy <= r && !pid; dy++) for (let dx = -r; dx <= r && !pid; dx++) {
+          const nx = x+dx, ny = y+dy;
+          if (nx<0||ny<0||nx>=CW||ny>=CH) continue;
+          pid = restBodyGrid[ny*CW+nx];
+        }
+    }
+    if (pid) {
+      if (law.parts[pid]) { /* allowed */ }
+      else if (law.neck && pid === 3 && opts.neckOK) { /* neck-rated */ }
+      else { restCol[i] = null; continue; }
+    }
+    if (law.kneeClamp != null && restSk && restSk.knA && restSk.knB) {
+      const kY = Math.abs(x - restSk.knA[0]) <= Math.abs(x - restSk.knB[0]) ? restSk.knA[1] : restSk.knB[1];
+      if (y < kY + law.kneeClamp) { restCol[i] = null; continue; }
+    }
+    if (law.hatLine && opts.hatMaxY != null && y > opts.hatMaxY) { restCol[i] = null; continue; }
+  }
+  return restCol;
+}
+
+  return { Skinner, derive, seg, segd, poseWalk, poseIdle, rotAbout, handLaw, headBob, garmentContactLaw, SLOT_CONTACT, HAND_PARTS, ARM_BONE_IDX, CW, CH, NP, ORDER, BONES, BKEYS };
+})();
+
+
+/* ===== bohemia_worldgen.js ===== */
+BohemiaEngine.WorldGen=(function(){
+/* ============================================================================
+   BOHEMIA — WORLD MAP GENERATOR (procedural, deterministic, seed-shareable)
+   ----------------------------------------------------------------------------
+   Generates the valley layout from a seed. Everything the lore says is proc-gen
+   is placed here; everything it says is FIXED (the Strip, the freeway beltway
+   circle) is a constant skeleton. Same seed -> identical map for every player
+   (GDD v2 §seed system). Pure logic, no render.
+
+   THE HARD GEOGRAPHIC INVARIANTS (GDD v2 §map, enforced, not optional):
+   1. Mountain ranges run PARALLEL on two opposing borders (either N/S or E/W).
+   2. Solar grid + Hoover Dam occupy the OTHER two opposing borders, also
+      parallel to each other. So the four borders are: {mountain, mountain}
+      on one axis, {solar, dam} on the other axis.
+   3. Solar grid and Hoover Dam are on OPPOSING borders (never adjacent).
+   4. Hoover Dam is only reachable via the Boulder City approach (a gate node),
+      never by walking to the border.
+   5. Mt. Charleston sits somewhere within one assigned mountain range.
+   6. 2-3 trade hubs, 3 trade routes in/out, biome corners, districts, faction
+      bases, offramps: all proc-gen, all deterministic from seed.
+   7. The Strip runs through the center; the freeway beltway circles the metro.
+
+   Uses its own tiny seeded RNG (mulberry32) so it's standalone; in the full
+   engine, feed it a branch of the core RNG so map-gen shares the world seed.
+   ========================================================================== */
+
+/* deterministic RNG — mulberry32, same family the entity spawner uses */
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+/* string seed -> 32-bit int (xmur3-ish), so "seed 1" and named seeds both work */
+function hashSeed(str) {
+  str = String(str);
+  let h = 1779033703 ^ str.length;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+    h = (h << 13) | (h >>> 19);
+  }
+  h = Math.imul(h ^ (h >>> 16), 2246822507);
+  h = Math.imul(h ^ (h >>> 13), 3266489909);
+  return (h ^= h >>> 16) >>> 0;
+}
+
+const BORDERS = ['N', 'E', 'S', 'W'];
+const OPPOSITE = { N: 'S', S: 'N', E: 'W', W: 'E' };
+
+class WorldMap {
+  /* seed: number|string. size: tiles per side (square valley inside the beltway).
+     act: 1|2|3 affects hub count / recovery, but layout is stable across acts. */
+  constructor(seed, opts = {}) {
+    this.seed = seed;
+    this.size = opts.size || 256;              // 256x256 tiles (1 tile = 1 meter is the combat anchor; map tiles are coarser cells)
+    this.act = opts.act || 1;
+    this.rng = mulberry32(hashSeed(seed));
+    this.data = this._generate();
+  }
+
+  _int(maxExclusive) { return Math.floor(this.rng() * maxExclusive); }
+  _range(a, b) { return a + Math.floor(this.rng() * (b - a + 1)); }
+  _pick(arr) { return arr[this._int(arr.length)]; }
+
+  _generate() {
+    const S = this.size;
+
+    /* 1. AXIS CHOICE — mountains on one axis, power infra on the other.
+       Either mountains on {N,S} & power on {E,W}, or vice versa. */
+    const mountainsOnNS = this.rng() < 0.5;
+    const mountainBorders = mountainsOnNS ? ['N', 'S'] : ['E', 'W'];
+    const powerBorders = mountainsOnNS ? ['E', 'W'] : ['N', 'S'];
+
+    /* 2. SOLAR vs DAM on the two power borders (opposing by construction). */
+    const solarBorder = this._pick(powerBorders);
+    const damBorder = OPPOSITE[solarBorder];
+
+    /* 3. Mt. Charleston within one assigned mountain range. */
+    const charlestonBorder = this._pick(mountainBorders);
+    const charleston = this._pointOnBorder(charlestonBorder, S, 0.25, 0.75);
+
+    /* 4. Boulder City gate + Hoover Dam behind it.
+       The dam sits on damBorder; Boulder City is an interior approach node that
+       gates it. Dam is NOT reachable except through Boulder City. */
+    const dam = { border: damBorder, at: this._pointOnBorder(damBorder, S, 0.35, 0.65) };
+    const boulderCity = this._interiorNear(dam.at, S, 0.18);   // gate node inset from the border
+    const solar = { border: solarBorder, span: 'full', at: this._pointOnBorder(solarBorder, S, 0.5, 0.5) };    // solar spans the whole border
+
+    /* 5. The Strip — fixed through the center, running the long way of the valley. */
+    const strip = mountainsOnNS
+      ? { from: [Math.floor(S * 0.5), Math.floor(S * 0.2)], to: [Math.floor(S * 0.5), Math.floor(S * 0.8)] }
+      : { from: [Math.floor(S * 0.2), Math.floor(S * 0.5)], to: [Math.floor(S * 0.8), Math.floor(S * 0.5)] };
+
+    /* 6. Freeway beltway circle — fixed skeleton ringing the metro core. */
+    const beltway = { cx: S / 2, cy: S / 2, r: Math.floor(S * 0.38) };
+
+    /* 7. Trade hubs (2-3, act-dependent-ish) placed inside the beltway, spread out. */
+    const hubCount = this.act >= 3 ? 3 : this._range(2, 3);
+    const hubs = this._spreadPoints(hubCount, beltway, S, 0.12);
+
+    /* 8. Three trade routes in/out: from interior toward three distinct borders,
+       never both power borders' protected infra directly. */
+    const routeBorders = this._pickN(BORDERS, 3);
+    const routes = routeBorders.map(b => ({
+      exit: b,
+      gate: this._pointOnBorder(b, S, 0.2, 0.8),
+      from: [Math.floor(S / 2), Math.floor(S / 2)]
+    }));
+
+    /* 9. Biome corners — alpine zones can spawn in any compass direction; assign
+       each of the 4 corners a biome deterministically. */
+    const cornerBiomes = ['NE', 'SE', 'SW', 'NW'].map(c => ({
+      corner: c,
+      biome: this._pick(['alpine', 'desert-flats', 'salt-pan', 'scrub', 'badlands'])
+    }));
+
+    /* 10. Districts — residential + commercial cells packed inside the beltway,
+        excluding the Strip spine and hub footprints. Count scales with map. */
+    const districtCount = this._range(18, 28);
+    const districts = this._spreadPoints(districtCount, beltway, S, 0.05).map((p, i) => ({
+      id: 'd' + i,
+      pos: p,
+      kind: this.rng() < 0.4 ? 'commercial' : 'residential',
+      // texture state seeded but act-aware (act1 mostly apocalypse, act3 mixed)
+      texture: this._seedTexture()
+    }));
+
+    /* 11. Faction base placements — each selectable faction gets a spot; WHERE is
+        proc-gen but WHICH faction is stable (appearance never shuffles, §seed). */
+    const factionSlots = this._spreadPoints(14, beltway, S, 0.06);
+
+    return {
+      seed: this.seed, size: S, act: this.act,
+      axis: mountainsOnNS ? 'NS-mountains' : 'EW-mountains',
+      mountainBorders, powerBorders,
+      solar, dam, boulderCity, charleston,
+      strip, beltway, hubs, routes, cornerBiomes, districts, factionSlots
+    };
+  }
+
+  /* a point along a given border, param t in [t0,t1] of the border's length */
+  _pointOnBorder(border, S, t0, t1) {
+    const t = t0 + this.rng() * (t1 - t0);
+    const p = Math.floor(t * (S - 1));
+    switch (border) {
+      case 'N': return [p, 0];
+      case 'S': return [p, S - 1];
+      case 'W': return [0, p];
+      case 'E': return [S - 1, p];
+    }
+  }
+
+  /* an interior point offset from a border point, inset by frac of the map */
+  _interiorNear(pt, S, frac) {
+    const inset = Math.floor(S * frac);
+    let [x, y] = pt;
+    if (x === 0) x += inset; else if (x === S - 1) x -= inset;
+    if (y === 0) y += inset; else if (y === S - 1) y -= inset;
+    return [x, y];
+  }
+
+  _seedTexture() {
+    if (this.act === 1) return this.rng() < 0.75 ? 'apocalypse' : 'recovering';
+    if (this.act === 2) return this.rng() < 0.5 ? 'recovering' : (this.rng() < 0.5 ? 'apocalypse' : 'modern');
+    return this.rng() < 0.5 ? 'modern' : (this.rng() < 0.6 ? 'recovering' : 'apocalypse');
+  }
+
+  /* N well-spread points inside a circle (beltway), min separation ~sep*S */
+  _spreadPoints(n, circle, S, sep) {
+    const pts = [];
+    const minD = sep * S;
+    let guard = 0;
+    while (pts.length < n && guard++ < n * 200) {
+      const ang = this.rng() * Math.PI * 2;
+      const rad = Math.sqrt(this.rng()) * circle.r;       // uniform in disc
+      const x = Math.floor(circle.cx + Math.cos(ang) * rad);
+      const y = Math.floor(circle.cy + Math.sin(ang) * rad);
+      if (pts.every(p => Math.hypot(p[0] - x, p[1] - y) >= minD)) pts.push([x, y]);
+    }
+    return pts;
+  }
+
+  _pickN(arr, n) {
+    const copy = arr.slice(); const out = [];
+    while (out.length < n && copy.length) out.push(copy.splice(this._int(copy.length), 1)[0]);
+    return out;
+  }
+
+  /* ---- INVARIANT CHECK — verifies a generated map obeys every geographic law */
+  validate() {
+    const d = this.data, errs = [];
+    // mountains parallel (opposing)
+    const [m1, m2] = d.mountainBorders;
+    if (OPPOSITE[m1] !== m2) errs.push('mountain borders not opposing/parallel');
+    // power borders opposing
+    if (OPPOSITE[d.solar.border] !== d.dam.border) errs.push('solar/dam not on opposing borders');
+    // mountains and power on different axes
+    if (d.mountainBorders.includes(d.solar.border)) errs.push('solar on a mountain border');
+    if (d.mountainBorders.includes(d.dam.border)) errs.push('dam on a mountain border');
+    // boulder city is interior (not on a border)
+    const [bx, by] = d.boulderCity, S = d.size;
+    if (bx === 0 || by === 0 || bx === S - 1 || by === S - 1) errs.push('Boulder City sits on a border (must gate from interior)');
+    // hubs count 2-3
+    if (d.hubs.length < 2 || d.hubs.length > 3) errs.push('hub count out of range');
+    // three trade routes
+    if (d.routes.length !== 3) errs.push('trade routes != 3');
+    return errs;
+  }
+}
+
+/* generate + validate in one call */
+function generateWorld(seed, opts) {
+  const m = new WorldMap(seed, opts);
+  return { map: m.data, errors: m.validate() };
+}
+
+/* Build a passability test for the scheduler from a generated map. Returns a
+   pure (x,y)->bool predicate: true = an actor may stand/step there. This is the
+   real floor the "I move, you move" grid rests on — actors can no longer phase
+   through the world because passable() now reads actual geography.
+
+   What blocks (deterministic, from the map):
+     - anything outside the map bounds (0..size-1),
+     - the mountain-border bands (impassable ranges on the two mountain edges);
+       a band `MTN_DEPTH` tiles deep from each mountain border is wall.
+   What is passable: everything else, including the solar/dam power borders (they
+   are protected but walkable), the beltway, and all interior tiles. Districts,
+   entities, and dynamic blockers layer ON TOP later via the composable form
+   below — this is the static terrain floor only. [SEAM] add building/prop
+   collision by composing another predicate when the prop layer exists. */
+const MTN_DEPTH = 12;   // tiles of impassable mountain from each mountain border
+
+function passableFromMap(map) {
+  const size = map.size;
+  const mtn = map.mountainBorders || [];
+  const blocksN = mtn.includes('N'), blocksS = mtn.includes('S');
+  const blocksE = mtn.includes('E'), blocksW = mtn.includes('W');
+  return function passable(x, y) {
+    if (x < 0 || y < 0 || x >= size || y >= size) return false;   // off-map
+    if (blocksN && y < MTN_DEPTH) return false;
+    if (blocksS && y >= size - MTN_DEPTH) return false;
+    if (blocksW && x < MTN_DEPTH) return false;
+    if (blocksE && x >= size - MTN_DEPTH) return false;
+    return true;
+  };
+}
+
+/* Compose two passability predicates: passable only if BOTH agree. Lets the
+   scheduler stack terrain + props + dynamic blockers without rewriting either. */
+function composePassable(a, b) {
+  return function (x, y) { return a(x, y) && b(x, y); };
+}
+
+
+  return { WorldMap, generateWorld, hashSeed, mulberry32, passableFromMap, composePassable, MTN_DEPTH };
+})();
+
+/* ===== bohemia_faction_canon.js ===== */
+BohemiaEngine.FactionCanon=(function(){
+/* ============================================================================
+   BOHEMIA — FACTION CANON LOADER
+   ----------------------------------------------------------------------------
+   Plumbing only. Takes the canon faction graph (BOHEMIA_faction_graph.json,
+   itself derived purely from GDD v2 §9) and seeds a FactionWorld with:
+     1. initial standings implied by canonical relationships,
+     2. relationship CONSTRAINTS that the engine must always respect
+        (permanent-war can't thaw to friendly; protected-neutral can't be
+        driven below a floor), and
+     3. power values from the act power rankings.
+
+   This invents NOTHING. Every number here is a mechanical encoding of a
+   relationship Paolo already wrote. It structures existing canon so the AI
+   respects the lore instead of treating all factions as blank neutrals.
+
+   The constraint layer is the key research result: "permanent war" and
+   "protected neutrality" are LORE INVARIANTS. They must hold no matter what
+   the player does or how the forward-compute runs. So they're enforced as a
+   clamp applied on every standing change, not as a starting value that can
+   drift away. A starting value decays; an invariant holds.
+   ========================================================================== */
+
+/* Map canon relationship labels -> (initialStanding, constraint).
+   Standing scale is -100..100 (HOSTILE < COLD < NEUTRAL < WARM < FWU), matching
+   bohemia_factions.js. Constraints are enforced every shift, forever. */
+const REL_SPEC = {
+  // permanent, structural war — can never reach friendly; floored hostile.
+  'permanent-war':      { init: -80, max: -40, min: -100, locked: 'war' },
+  // one side preys on / taxes the other — antagonistic but not total war.
+  'prey-tax':           { init: -45, max: 0,   min: -100 },
+  'preyed-taxed':       { init: -45, max: 0,   min: -100 },
+  // natural ideological adjacency — starts warm, free to move.
+  'adjacent':           { init: 35,  max: 100, min: -100 },
+  // mutual professional respect — a stable mid-warm floor, not allies.
+  'professional-respect': { init: 20, max: 100, min: -10 },
+  // universally protected — nobody can drive them below a neutral-ish floor.
+  'hands-off':          { init: 0,   max: 100, min: -20, protects: 'target' }
+};
+
+/* Faction-level protection flags from the graph become standing FLOORS that
+   apply to EVERYONE's standing toward that faction. */
+function protectionFloor(factionDef) {
+  if (factionDef.universally_respected) return -20; // Volunteers: nobody wants to be seen attacking
+  if (factionDef.protected_neutral)     return -30; // Caravans: everyone-but-Cartel keeps them alive
+  return -100;                                       // no floor
+}
+
+/* Load the graph into a FactionWorld. `world` is a bohemia_factions FactionWorld,
+   `graph` is the parsed BOHEMIA_faction_graph.json, `act` is 1|2|3 (picks the
+   power ranking column). Returns a constraints object the caller should attach
+   so shiftStanding enforces it (see enforceConstraints). */
+function loadFactionCanon(world, graph, act) {
+  const defs = graph.factions;
+  const constraints = { pairMax: {}, pairMin: {}, floor: {}, war: new Set() };
+
+  // 1. create every SELECTABLE faction (social forces aren't map factions).
+  for (const id in defs) {
+    const d = defs[id];
+    if (d.type !== 'selectable') continue;
+    const power = (act >= 3 ? d.act3_power : d.act1_power) || 1;
+    world.addFaction(id, { power, quota: 1 });
+    constraints.floor[id] = protectionFloor(d);
+  }
+
+  // 2. apply relationships as initial standings + constraints.
+  for (const id in defs) {
+    const d = defs[id];
+    if (d.type !== 'selectable') continue;
+    for (const other in (d.relations || {})) {
+      if (!world.factions.get(other)) continue;   // skip social-force targets
+      const label = d.relations[other];
+      const spec = REL_SPEC[label];
+      if (!spec) continue;
+      // seed the initial standing both ways (relationships are mutual unless
+      // the labels differ; the graph uses paired labels like prey/preyed).
+      const a = world.factions.get(id);
+      a.standing[other] = spec.init;
+      const b = world.factions.get(other);
+      if (b && b.standing[id] == null) b.standing[id] = spec.init;
+      // record pair constraints (keyed both directions)
+      const k1 = id+'|'+other, k2 = other+'|'+id;
+      if (spec.max != null) { constraints.pairMax[k1] = spec.max; constraints.pairMax[k2] = spec.max; }
+      if (spec.min != null) { constraints.pairMin[k1] = spec.min; constraints.pairMin[k2] = spec.min; }
+      if (spec.locked === 'war') { constraints.war.add(k1); constraints.war.add(k2); }
+    }
+  }
+  return constraints;
+}
+
+/* Given a raw standing value and (aId,bId), clamp it to respect all canon
+   constraints. This is the invariant enforcer — call it on every standing
+   write so lore locks can never drift. */
+function enforceConstraints(constraints, aId, bId, value) {
+  const k = aId+'|'+bId;
+  let v = value;
+  // GUARD (7/2/26 audit): a partial/empty constraints object must clamp
+  // against what exists, never throw. Missing tables mean no constraint.
+  if (!constraints || !constraints.floor || !constraints.pairMax || !constraints.pairMin) {
+    const fl = constraints && constraints.floor ? constraints.floor[bId] : null;
+    if (fl != null && v < fl) v = fl;
+    return v;
+  }
+  // protected floor: nobody can drive B below B's floor
+  const bFloor = constraints.floor[bId];
+  if (bFloor != null && v < bFloor) v = bFloor;
+  // pair-specific max/min (permanent war ceiling, prey ceiling, respect floor)
+  if (constraints.pairMax[k] != null && v > constraints.pairMax[k]) v = constraints.pairMax[k];
+  if (constraints.pairMin[k] != null && v < constraints.pairMin[k]) v = constraints.pairMin[k];
+  return v;
+}
+
+/* Convenience: is this pair locked in permanent war? (for AI: never offer peace) */
+function isAtWar(constraints, aId, bId) {
+  return constraints.war.has(aId+'|'+bId);
+}
+
+
+  return { loadFactionCanon, enforceConstraints, isAtWar, REL_SPEC, protectionFloor };
+})();
+
+/* ===== bohemia_generations.js ===== */
+BohemiaEngine.Generations=(function(){
+/* Pull the engine's canonical string hash so heir derivation matches Core's
+   named-RNG pattern exactly. Falls back to a tiny inline xmur3 if Core isn't
+   loaded first (keeps this module standalone for headless tests). */
+const xmur3 = (BohemiaEngine.Core && BohemiaEngine.Core._internal && BohemiaEngine.Core._internal.xmur3)
+  || function(str){ let h=1779033703^str.length; for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19;} return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return (h^=h>>>16)>>>0;}; };
+/* ============================================================================
+   BOHEMIA — GENERATIONAL FOLD ENGINE
+   ----------------------------------------------------------------------------
+   Implements the "a generation is a fold, not a snapshot" architecture (see the
+   Generational Persistence addendum). Extends the existing save model:
+   world = f(seed, choiceLog). At each generational transition we FOLD the
+   generation's choices into a compact `inheritance` block, and the next
+   generation starts from the accumulated folds + a fresh (connected) choice log.
+
+   Nothing here stores the world. It stores, per generation, a bounded summary:
+   faction standings, territory, compound builds, economy capacity, family tree,
+   karma/virtues, per-district investment scores, and the two-ledger split.
+   Everything visual (city textures, the ending monument) is a deterministic
+   READOUT of these small numbers.
+
+   Pure, deterministic, headless. Same seed + same choices => same three
+   generations => same ending, every time.
+   ========================================================================== */
+
+/* choices are tagged by generation. A choice: {id, beat, gen, recorded, effect}
+   where effect is an optional {kind, target, amount} the fold knows how to sum.
+   Content rules live in the game; this engine only folds known effect kinds so
+   it stays pure. Unknown kinds are ignored by the fold (still logged for replay). */
+
+const GEN_COUNT = 3;                 // Animal / Human / Angel
+const STANDING_DECAY_TO_NEUTRAL = 0.25;  // a generation of no maintenance softens ties 25% toward 0 (tunable; see addendum fork)
+
+/* An empty inheritance block — the compact state that survives one generation. */
+function emptyInheritance() {
+  return {
+    gen: 0,
+    beat: 0,
+    standings: {},        // factionId -> final standing toward the dynasty
+    territory: {},         // districtId -> ownerId at handoff
+    builds: {},            // buildingId -> tier (compound + mega projects)
+    economyCapacity: {},   // currency -> productive capacity carried (NOT liquid cash)
+    invest: {},            // districtId -> accumulated investment score (drives texture)
+    karma: 0,
+    virtues: {},           // virtue -> value
+    family: { heir: null, tree: [], wounds: [] },
+    recordedKnown: 0,      // how much the Amalgamation has modeled (recorded ledger size)
+    blindSpot: 0           // off-ledger advantage accumulated (unrecorded ledger)
+  };
+}
+
+/* Fold ONE generation's choices into an inheritance block, starting from the
+   prior inheritance (so folds accumulate across the 100 years). */
+function foldGeneration(prior, gen, choices) {
+  const inh = prior ? deepish(prior) : emptyInheritance();
+  inh.gen = gen;
+
+  // a generation passes: unmaintained standings soften toward neutral (lore: relationships need tending)
+  for (const f in inh.standings) {
+    inh.standings[f] = inh.standings[f] * (1 - STANDING_DECAY_TO_NEUTRAL);
+  }
+
+  let lastBeat = inh.beat;
+  // CANONICAL ORDER: beat first, then stable tiebreak on choice id. Never rely
+  // on array insertion order — a re-serialized choiceLog must fold identically.
+  const genChoices = choices.filter(c => c.gen === gen).sort((a, b) => {
+    if ((a.beat || 0) !== (b.beat || 0)) return (a.beat || 0) - (b.beat || 0);
+    const ai = String(a.id), bi = String(b.id);
+    return ai < bi ? -1 : ai > bi ? 1 : 0;
+  });
+  for (const c of genChoices) {
+    lastBeat = Math.max(lastBeat, c.beat || 0);
+    // two-ledger accounting
+    if (c.recorded === false) inh.blindSpot += 1; else inh.recordedKnown += 1;
+    const e = c.effect;
+    if (!e) continue;
+    switch (e.kind) {
+      case 'standing':                       // shift standing toward a faction
+        inh.standings[e.target] = clamp((inh.standings[e.target] || 0) + e.amount, -100, 100);
+        break;
+      case 'territory':                      // claim a district for an owner
+        inh.territory[e.target] = e.owner;
+        break;
+      case 'build':                          // build/upgrade a structure to a tier
+        inh.builds[e.target] = Math.max(inh.builds[e.target] || 0, e.tier || 1);
+        break;
+      case 'economy':                        // add productive capacity for a currency
+        inh.economyCapacity[e.target] = (inh.economyCapacity[e.target] || 0) + e.amount;
+        break;
+      case 'invest':                         // invest in a district (drives texture)
+        inh.invest[e.target] = (inh.invest[e.target] || 0) + e.amount;
+        break;
+      case 'karma':
+        inh.karma += e.amount;
+        break;
+      case 'virtue':
+        inh.virtues[e.target] = (inh.virtues[e.target] || 0) + e.amount;
+        break;
+      case 'family':                         // marriage/child/death/heir events
+        applyFamily(inh.family, e);
+        break;
+      case 'wound':                          // an unhealed family wound carries forward
+        inh.family.wounds.push(e.target);
+        break;
+    }
+  }
+  inh.beat = lastBeat;
+  return inh;
+}
+
+/* Run all three generations in order, returning the array of inheritance blocks
+   (one per generation completed). This is the whole 100-year fold chain. */
+function runDynasty(choices) {
+  const folds = [];
+  let prior = null;
+  for (let gen = 1; gen <= GEN_COUNT; gen++) {
+    const inh = foldGeneration(prior, gen, choices);
+    folds.push(inh);
+    prior = inh;
+  }
+  return folds;
+}
+
+/* Heir selection at a transition: child by default, else sibling's child (lore).
+   DETERMINISTIC from (seedText, gen, candidate set) — never from a live RNG
+   stream, so a mid-generation reload always picks the SAME heir. `seedText` is
+   the dynasty save seed; pass the run's seed string. Falls back to index 0 if
+   no seed is given (still deterministic, just not seed-varied). */
+function selectHeir(family, seedText, gen) {
+  const kids = family.tree.filter(n => n.rel === 'child' && n.alive);
+  if (kids.length) return kids[derivedIndex(seedText, gen, 'child', kids)].id;
+  const nieces = family.tree.filter(n => n.rel === 'sibling_child' && n.alive);
+  if (nieces.length) return nieces[derivedIndex(seedText, gen, 'niece', nieces)].id;
+  return null;   // dynasty in crisis — a real fail/branch state
+}
+
+/* Derive a stable index into `list` from the seed, generation, and the list's
+   own identity (its member ids). Uses Core's xmur3 so it matches the engine's
+   existing named-derivation pattern. Pure: same inputs => same index, always. */
+function derivedIndex(seedText, gen, tag, list) {
+  const ids = list.map(n => n.id).join(',');
+  const key = String(seedText || '') + '::heir::' + gen + '::' + tag + '::' + ids;
+  const h = xmur3(key)();          // one 32-bit draw from the string hash
+  return (h >>> 0) % list.length;
+}
+
+/* THE ENDING READOUTS — deterministic functions of the folds, zero stored world. */
+
+// A district's texture is a pure function of its accumulated investment across all gens.
+function districtTexture(finalFold, districtId) {
+  const s = finalFold.invest[districtId] || 0;
+  if (s <= 0) return 'apocalypse';         // never touched: still ruined
+  if (s < 5) return 'recovering';
+  return 'modern';                          // sustained investment
+}
+
+// The monument form is a readout of the whole dynasty's karma+virtue arc.
+function monumentForm(folds) {
+  const karma = folds[folds.length - 1].karma;
+  const sacrifice = folds.reduce((a, f) => a + (f.virtues.sacrifice || 0), 0);
+  if (karma > 10 && sacrifice > 5) return 'light';     // Angel
+  if (karma < -8) return 'stone';                       // hard, defensive legacy
+  return 'organic';                                     // Human, in-between
+}
+
+// The Amalgamation's model vs the dynasty's blind-spot advantage at the end.
+function finaleLedger(folds) {
+  const f = folds[folds.length - 1];
+  return { amalgamationKnows: f.recordedKnown, dynastyBlindSpot: f.blindSpot,
+           advantage: f.blindSpot - f.recordedKnown * 0.0 };   // blind spot is pure advantage
+}
+
+/* ---- SAVE BRIDGE — marries the fold to the save model ---- */
+
+/* Run the full 100-year fold straight off a (migrated, valid) save. The save's
+   choice log already carries {id, beat, gen, recorded, effect}, which is exactly
+   what the fold consumes. Returns the array of per-generation inheritance blocks.
+   Pure: same save => same folds, every load. This is the payoff of the whole
+   "world = f(seed, choiceLog)" architecture at the dynasty scale. */
+function foldFromSave(save) {
+  return runDynasty(save.choices || []);
+}
+
+/* THE AMALGAMATION'S KNOWLEDGE MODEL. In-fiction the antagonist can see and model
+   exactly the RECORDED ledger and nothing else (see Recorded-vs-Unrecorded canon:
+   the save file and the antagonist read the same data by design). The dynasty's
+   blind-spot advantage is enforced here by ONE flag, not by careful authoring:
+   recorded:false choices are simply absent from what the machine gets.
+
+   Returns what the Amalgamation knows about the dynasty, plus the blind-spot size
+   it can never see — which is, mechanically, the finale win condition. */
+function amalgamationModel(save) {
+  const all = save.choices || [];
+  const recorded = all.filter(c => c.recorded !== false);   // default-true = seen
+  const unrecorded = all.filter(c => c.recorded === false);  // the blind spot
+  // The machine folds ONLY what it can see. It builds its own dynasty model from
+  // the recorded ledger — an incomplete copy, missing every off-ledger move.
+  const seenFolds = runDynasty(recorded);
+  return {
+    knows: recorded.length,           // count of choices the machine has modeled
+    blindSpot: unrecorded.length,     // count it can never see — pure advantage
+    modelledFolds: seenFolds,         // the antagonist's (incomplete) picture
+    // its picture of the dynasty's final standings/territory — what it will act on
+    predictedFinal: seenFolds[seenFolds.length - 1] || null,
+  };
+}
+function deepish(o) { return JSON.parse(JSON.stringify(o)); }
+function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+function applyFamily(fam, e) {
+  if (e.event === 'marry') fam.tree.push({ id: e.who, rel: 'spouse', alive: true });
+  else if (e.event === 'child') fam.tree.push({ id: e.who, rel: 'child', alive: true });
+  else if (e.event === 'sibling_child') fam.tree.push({ id: e.who, rel: 'sibling_child', alive: true });
+  else if (e.event === 'death') { const n = fam.tree.find(x => x.id === e.who); if (n) n.alive = false; }
+  else if (e.event === 'heir') fam.heir = e.who;
+}
+
+
+  return { GEN_COUNT, emptyInheritance, foldGeneration, runDynasty, selectHeir, districtTexture, monumentForm, finaleLedger, foldFromSave, amalgamationModel, STANDING_DECAY_TO_NEUTRAL };
+})();
+
+
+
+/* ================= MODULE 14: RIGDATA (added 7/2/26) =================
+   Paolo's rig, baked VERBATIM from BOHEMIAN_RIG.html + Limb Lab exports.
+   HARD RULE: region geometry is sacrosanct. Never normalize, reshape, or
+   auto-fix anything in here. Read-only canon.
+   BAKED  = 56x56 skeleton + pose export (all 8 dirs)
+   BONES  = bone graph (joint pairs)
+   CANDD  = side-locked per-direction candidate map for Skinner binding
+   REF    = painted reference regions (24x50, all dirs) */
+BohemiaEngine.RigData = {
+  BAKED: {"W":56,"H":56,"dirs":["S","SE","E","NE","N","NW","W","SW"],"palette":[[1,"HEAD",[205,155,75]],[2,"FACE",[235,80,200]],[3,"NECK",[95,210,165]],[4,"TORSO",[235,120,50]],[5,"ARM-L",[230,55,55]],[6,"ARM-R",[55,130,255]],[7,"HAND-L",[255,225,70]],[8,"HAND-R",[150,235,60]],[9,"LEG-L",[45,185,185]],[10,"LEG-R",[235,150,45]],[11,"FOOT-L",[165,95,255]],[12,"FOOT-R",[255,120,170]]],"bones":{"head":["neck","headTop"],"torso":["waC","neck"],"uArmA":["shL","elL"],"fArmA":["elL","handL"],"uArmB":["shR","elR"],"fArmB":["elR","handR"],"thighA":["waA","knA"],"shinA":["knA","footA"],"thighB":["waB","knB"],"shinB":["knB","footB"]},"layers":{"S":{"1":[305,306,307,308,309,310,360,367,415,424,471,480,527,536,583,592,639,648,695,704,751,760,808,815],"2":[361,362,363,364,365,366,416,417,418,419,420,421,422,423,472,473,474,475,476,477,478,479,528,529,530,531,532,533,534,535,583,584,585,586,587,588,589,590,591,592,639,640,641,642,643,644,645,646,647,648,696,697,698,699,700,701,702,703,752,753,754,755,756,757,758,759,809,810,811,812,813,814,866,867,868,869],"3":[865,870,921,922,923,924,925,926],"4":[918,919,920,927,928,929,930,974,975,976,977,978,979,980,981,982,983,984,985,986,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1086,1087,1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1098,1142,1143,1144,1145,1146,1147,1148,1149,1150,1151,1152,1153,1154,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1209,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1265,1311,1312,1313,1314,1315,1316,1317,1318,1319,1320,1321,1367,1368,1369,1370,1371,1372,1373,1374,1375,1376,1377,1423,1424,1425,1426,1427,1428,1429,1430,1431,1432,1433,1479,1480,1481,1482,1483,1484,1485,1486,1487,1488,1489,1535,1536,1537,1538,1539,1540,1541,1542,1543,1544,1545,1591,1592,1593,1594,1595,1596,1597,1598,1599,1600,1601,1647,1648,1649,1650,1651,1652,1653,1654,1655,1656,1657,1703,1704,1705,1706,1707,1708,1709,1710,1711,1712,1713,1759,1760,1761,1762,1763,1764,1765,1766,1767,1768,1769,1815,1816,1817,1818,1819,1820,1821,1822,1823,1824,1825],"5":[985,986,987,1040,1041,1042,1043,1044,1096,1097,1098,1099,1100,1152,1153,1154,1155,1156,1208,1209,1210,1211,1212,1264,1265,1266,1267,1268,1320,1321,1322,1323,1324,1376,1377,1378,1379,1380,1432,1433,1434,1435,1436,1488,1489,1490,1491,1492,1544,1545,1546,1547,1548,1600,1601,1602,1603,1604,1656,1657,1658,1659,1660,1712,1713,1714,1715,1716,1768,1769,1770,1771,1772,1824,1825,1826,1827,1828,1880,1881,1882,1883,1884,1936,1937],"6":[972,973,974,1027,1028,1029,1030,1031,1083,1084,1085,1086,1087,1139,1140,1141,1142,1143,1195,1196,1197,1198,1199,1251,1252,1253,1254,1255,1307,1308,1309,1310,1311,1363,1364,1365,1366,1367,1419,1420,1421,1422,1423,1475,1476,1477,1478,1479,1531,1532,1533,1534,1535,1587,1588,1589,1590,1591,1643,1644,1645,1646,1647,1699,1700,1701,1702,1703,1755,1756,1757,1758,1759,1811,1812,1813,1814,1815,1867,1868,1869,1870,1871,1927],"7":[1936,1937,1938,1939,1940,1992,1993,1994,1995,1996,2049,2050,2051],"8":[1923,1924,1925,1926,1927,1979,1980,1981,1982,1983,2036,2037,2038],"9":[1820,1821,1822,1823,1824,1825,1876,1877,1878,1879,1880,1881,1932,1933,1934,1935,1936,1937,1988,1989,1990,1991,1992,1993,2044,2045,2046,2047,2048,2049,2101,2102,2103,2104,2105,2157,2158,2159,2160,2161,2213,2214,2215,2216,2217,2269,2270,2271,2272,2273,2325,2326,2327,2328,2329,2381,2382,2383,2384,2385,2437,2438,2439,2440,2441,2493,2494,2495,2496,2497,2549,2550,2551,2552,2553,2605,2606,2607,2608,2609,2661,2662,2663,2664,2665,2717,2718,2719,2720,2721],"10":[1815,1816,1817,1818,1819,1820,1871,1872,1873,1874,1875,1876,1927,1928,1929,1930,1931,1932,1983,1984,1985,1986,1987,1988,2039,2040,2041,2042,2043,2044,2095,2096,2097,2098,2099,2151,2152,2153,2154,2155,2207,2208,2209,2210,2211,2263,2264,2265,2266,2267,2319,2320,2321,2322,2323,2375,2376,2377,2378,2379,2431,2432,2433,2434,2435,2487,2488,2489,2490,2491,2543,2544,2545,2546,2547,2599,2600,2601,2602,2603,2655,2656,2657,2658,2659,2711,2712,2713,2714,2715],"11":[2773,2774,2775,2776,2777,2778,2829,2830,2831,2832,2833,2834,2885,2886,2887,2888,2889,2890,2941,2942,2943,2944,2945],"12":[2766,2767,2768,2769,2770,2771,2822,2823,2824,2825,2826,2827,2878,2879,2880,2881,2882,2883,2935,2936,2937,2938,2939]},"SE":{"1":[306,307,308,309,310,311,361,362,363,368,416,417,418,425,472,473,481,528,537,584,593,640,649,696,705,752,753,761,809,810,816],"2":[364,365,366,367,419,420,421,422,423,424,474,475,476,477,478,479,480,529,530,531,532,533,534,535,536,585,586,587,588,589,590,591,592,641,642,643,644,645,646,647,648,697,698,699,700,701,702,703,704,754,755,756,757,758,759,760,811,812,813,814,815],"3":[866,867,868,869,870,871,922,923,924,925,926,927],"4":[918,919,920,921,928,929,973,974,975,976,977,978,979,980,981,982,983,984,985,986,1029,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1086,1087,1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1143,1144,1145,1146,1147,1148,1149,1150,1151,1152,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1311,1312,1313,1314,1315,1316,1317,1318,1319,1320,1367,1368,1369,1370,1371,1372,1373,1374,1375,1376,1423,1424,1425,1426,1427,1428,1429,1430,1431,1432,1479,1480,1481,1482,1483,1484,1485,1486,1487,1488,1535,1536,1537,1538,1539,1540,1541,1542,1543,1544,1591,1592,1593,1594,1595,1596,1597,1598,1599,1600,1647,1648,1649,1650,1651,1652,1653,1654,1655,1656,1703,1704,1705,1706,1707,1708,1709,1710,1711,1712,1759,1760,1761,1762,1763,1764,1765,1766,1767,1768,1815,1816,1817,1818,1819,1820,1821,1822,1823],"5":[985,986,987,1040,1041,1042,1043,1044,1096,1097,1098,1099,1100,1152,1153,1154,1155,1156,1208,1209,1210,1211,1212,1264,1265,1266,1267,1268,1320,1321,1322,1323,1324,1376,1377,1378,1379,1380,1432,1433,1434,1435,1436,1488,1489,1490,1491,1492,1544,1545,1546,1547,1548,1600,1601,1602,1603,1604,1656,1657,1658,1659,1660,1712,1713,1714,1715,1716,1768,1769,1770,1771,1772],"6":[973,974,975,1028,1029,1030,1031,1032,1084,1085,1086,1087,1088,1140,1141,1142,1143,1144,1196,1197,1198,1199,1200,1252,1253,1254,1255,1256,1308,1309,1310,1311,1312,1364,1365,1366,1367,1368,1420,1421,1422,1423,1424,1476,1477,1478,1479,1480,1532,1533,1534,1535,1536,1588,1589,1590,1591,1592,1644,1645,1646,1647,1648,1700,1701,1702,1703,1704,1756,1757,1758,1759,1760],"7":[1824,1825,1826,1827,1828,1880,1881,1882,1883,1884,1937,1938,1939],"8":[1812,1813,1814,1815,1816,1868,1869,1870,1871,1872,1925,1926,1927],"9":[1932,1933,1934,1935,1936,1988,1989,1990,1991,1992,2044,2045,2046,2047,2048,2100,2101,2102,2103,2104,2156,2157,2158,2159,2160,2212,2213,2214,2215,2216,2268,2269,2270,2271,2272,2324,2325,2326,2327,2328,2380,2381,2382,2383,2384,2436,2437,2438,2439,2440,2492,2493,2494,2495,2496,2548,2549,2550,2551,2552,2604,2605,2606,2607,2608,2660,2661,2662,2663,2664,2716,2717,2718,2719,2720],"10":[1815,1816,1817,1818,1819,1871,1872,1873,1874,1875,1927,1928,1929,1930,1931,1983,1984,1985,1986,1987,2039,2040,2041,2042,2043,2095,2096,2097,2098,2099,2151,2152,2153,2154,2155,2207,2208,2209,2210,2211,2263,2264,2265,2266,2267,2319,2320,2321,2322,2323,2375,2376,2377,2378,2379,2431,2432,2433,2434,2435,2487,2488,2489,2490,2491,2543,2544,2545,2546,2547,2599,2600,2601,2602,2603,2655,2656,2657,2658,2659,2711,2712,2713,2714,2715],"11":[2772,2773,2774,2775,2776,2828,2829,2830,2831,2832,2833,2884,2885,2886,2887,2888,2889,2940,2941,2942,2943,2944,2945],"12":[2767,2768,2769,2770,2771,2823,2824,2825,2826,2827,2828,2879,2880,2881,2882,2883,2884,2935,2936,2937,2938,2939,2940]},"E":{"1":[306,307,308,309,361,362,363,416,417,418,472,473,528,529,584,585,640,641,696,697,752,753,754,809,810,811],"2":[364,365,366,419,420,421,422,423,474,475,476,477,478,479,530,531,532,533,534,535,586,587,588,589,590,591,592,642,643,644,645,646,647,648,698,699,700,701,702,703,755,756,757,758,759,812,813,814],"3":[866,867,868,869,870,922,923,924,925,926],"4":[921,976,977,978,979,980,981,982,983,1032,1033,1034,1035,1036,1037,1038,1039,1088,1089,1090,1091,1092,1093,1094,1095,1145,1146,1147,1148,1149,1150,1151,1201,1202,1203,1204,1205,1206,1207,1257,1258,1259,1260,1261,1262,1263,1313,1314,1315,1316,1317,1318,1319,1369,1370,1371,1372,1373,1374,1375,1425,1426,1427,1428,1429,1430,1431,1481,1482,1483,1484,1485,1486,1487,1537,1538,1539,1540,1541,1542,1543,1593,1594,1595,1596,1597,1598,1599,1649,1650,1651,1652,1653,1654,1655,1705,1706,1707,1708,1709,1710,1711,1761,1762,1763,1764,1765,1766,1767,1817,1818,1819,1820,1821,1822,1823],"5":[1034,1035,1036,1089,1090,1091,1092,1093,1145,1146,1147,1148,1149,1201,1202,1203,1204,1205,1257,1258,1259,1260,1261,1313,1314,1315,1316,1317,1369,1370,1371,1372,1373,1425,1426,1427,1428,1429,1481,1482,1483,1484,1485,1537,1538,1539,1540,1541,1593,1594,1595,1596,1597,1649,1650,1651,1652,1653,1705,1706,1707,1708,1709,1761,1762,1763,1764,1765,1817,1818,1819,1820,1821,1873,1874,1875,1876,1877,1929,1930,1931,1932,1933],"6":[1036,1037,1038,1091,1092,1093,1094,1095,1147,1148,1149,1150,1151,1203,1204,1205,1206,1207,1259,1260,1261,1262,1263,1315,1316,1317,1318,1319,1371,1372,1373,1374,1375,1427,1428,1429,1430,1431,1483,1484,1485,1486,1487,1539,1540,1541,1542,1543,1595,1596,1597,1598,1599,1651,1652,1653,1654,1655,1707,1708,1709,1710,1711,1763,1764,1765,1766,1767,1819,1820,1821,1822,1823,1875,1876,1877,1878,1879,1931,1932,1933,1934,1935],"7":[1985,1986,1987,1988,1989,2041,2042,2043,2044,2045,2098,2099,2100],"8":[1987,1988,1989,1990,1991,2043,2044,2045,2046,2047,2100,2101,2102],"9":[1817,1818,1819,1820,1873,1874,1875,1876,1928,1929,1930,1931,1932,1984,1985,1986,1987,1988,2040,2041,2042,2043,2044,2096,2097,2098,2099,2100,2152,2153,2154,2155,2156,2208,2209,2210,2211,2212,2264,2265,2266,2267,2268,2320,2321,2322,2323,2324,2376,2377,2378,2379,2380,2432,2433,2434,2435,2436,2488,2489,2490,2491,2492,2544,2545,2546,2547,2548,2600,2601,2602,2603,2656,2657,2658,2659],"10":[1819,1820,1821,1822,1823,1875,1876,1877,1878,1879,1931,1932,1933,1934,1935,1987,1988,1989,1990,1991,2043,2044,2045,2046,2047,2099,2100,2101,2102,2103,2155,2156,2157,2158,2159,2211,2212,2213,2214,2215,2267,2268,2269,2270,2271,2323,2324,2325,2326,2327,2379,2380,2381,2382,2383,2435,2436,2437,2438,2439,2491,2492,2493,2494,2495,2547,2548,2549,2550,2551,2603,2604,2605,2606,2607,2659,2660,2661,2662,2663],"11":[2656,2657,2658,2659,2660,2712,2713,2714,2715,2716,2717,2768,2769,2770,2771,2772,2773,2774,2824,2825,2826,2827,2828,2829,2830],"12":[2715,2716,2717,2718,2719,2720,2771,2772,2773,2774,2775,2776,2777,2827,2828,2829,2830,2831,2832,2833,2883,2884,2885,2886,2887,2888,2889]},"NE":{"1":[306,307,308,309,310,311,361,362,363,364,365,366,367,368,416,417,418,419,420,421,422,423,424,425,472,473,474,475,476,477,478,479,481,528,529,530,531,532,533,534,535,537,584,585,586,587,588,589,590,591,593,640,641,642,643,644,645,646,647,649,696,697,698,699,700,701,702,703,705,752,753,754,755,756,757,758,759,761,809,810,811,812,813,814,815,816],"2":[481,536,537,592,593,648,649,705],"3":[866,867,868,869,870,871,922,923,924,925,926,927],"4":[920,921,922,923,924,925,926,927,928,929,930,931,975,976,977,978,979,980,981,982,983,984,985,986,987,988,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1043,1044,1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1098,1099,1145,1146,1147,1148,1149,1150,1151,1152,1153,1154,1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1257,1258,1259,1260,1261,1262,1263,1264,1265,1266,1313,1314,1315,1316,1317,1318,1319,1320,1321,1322,1369,1370,1371,1372,1373,1374,1375,1376,1377,1378,1425,1426,1427,1428,1429,1430,1431,1432,1433,1434,1481,1482,1483,1484,1485,1486,1487,1488,1489,1490,1537,1538,1539,1540,1541,1542,1543,1544,1545,1546,1593,1594,1595,1596,1597,1598,1599,1600,1601,1602,1649,1650,1651,1652,1653,1654,1655,1656,1657,1658,1705,1706,1707,1708,1709,1710,1711,1712,1713,1714,1761,1762,1763,1764,1765,1766,1767,1768,1769,1770,1818,1819,1820,1821,1822,1823,1824,1825,1826],"5":[974,975,976,1030,1031,1032,1085,1086,1087,1088,1141,1142,1143,1144,1197,1198,1199,1200,1253,1254,1255,1256,1309,1310,1311,1312,1365,1366,1367,1368,1421,1422,1423,1424,1477,1478,1479,1480,1533,1534,1535,1536,1589,1590,1591,1592,1645,1646,1647,1648,1701,1702,1703,1704,1757,1758,1759,1760],"6":[986,987,988,1041,1042,1043,1044,1045,1097,1098,1099,1100,1101,1153,1154,1155,1156,1157,1209,1210,1211,1212,1213,1265,1266,1267,1268,1269,1321,1322,1323,1324,1325,1377,1378,1379,1380,1381,1433,1434,1435,1436,1437,1489,1490,1491,1492,1493,1545,1546,1547,1548,1549,1601,1602,1603,1604,1605,1657,1658,1659,1660,1661,1713,1714,1715,1716,1717,1769,1770,1771,1772,1773],"7":[1813,1814,1815,1816,1869,1870,1871,1872,1926,1927,1928],"8":[1825,1826,1827,1828,1829,1881,1882,1883,1884,1885,1938,1939,1940],"9":[1929,1930,1931,1932,1933,1985,1986,1987,1988,1989,2041,2042,2043,2044,2045,2097,2098,2099,2100,2101,2153,2154,2155,2156,2157,2209,2210,2211,2212,2213,2265,2266,2267,2268,2269,2321,2322,2323,2324,2325,2377,2378,2379,2380,2381,2433,2434,2435,2436,2437,2489,2490,2491,2492,2493,2545,2546,2547,2548,2549,2601,2602,2603,2604,2605,2657,2658,2659,2660,2661,2713,2714,2715,2716,2717],"10":[1821,1822,1823,1824,1825,1877,1878,1879,1880,1881,1933,1934,1935,1936,1937,1990,1991,1992,1993,1994,2046,2047,2048,2049,2050,2102,2103,2104,2105,2106,2158,2159,2160,2161,2162,2214,2215,2216,2217,2218,2270,2271,2272,2273,2274,2326,2327,2328,2329,2330,2382,2383,2384,2385,2386,2438,2439,2440,2441,2442,2495,2496,2497,2498,2499,2551,2552,2553,2554,2555,2607,2608,2609,2610,2611,2663,2664,2665,2666,2667,2719,2720,2721,2722,2723],"11":[2769,2770,2771,2772,2773,2774,2825,2826,2827,2828,2829,2830,2881,2882,2883,2884,2885,2886,2937,2938,2939,2940,2941],"12":[2775,2776,2777,2778,2779,2780,2831,2832,2833,2834,2835,2836,2887,2888,2889,2890,2891,2892,2943,2944,2945,2946,2947]},"N":{"1":[305,306,307,308,309,310,360,361,362,363,364,365,366,367,415,416,417,418,419,420,421,422,423,424,471,472,473,474,475,476,477,478,479,480,527,528,529,530,531,532,533,534,535,536,583,584,585,586,587,588,589,590,591,592,639,640,641,642,643,644,645,646,647,648,695,696,697,698,699,700,701,702,703,704,751,752,753,754,755,756,757,758,759,760,808,809,810,811,812,813,814,815],"2":[471,480,527,536,583,592,639,648,695,704],"3":[865,866,867,868,869,870,921,922,923,924,925,926],"4":[919,920,927,928,929,974,975,976,977,978,979,980,981,982,983,984,985,986,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1086,1087,1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1098,1142,1143,1144,1145,1146,1147,1148,1149,1150,1151,1152,1153,1154,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1209,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1265,1311,1312,1313,1314,1315,1316,1317,1318,1319,1320,1321,1367,1368,1369,1370,1371,1372,1373,1374,1375,1376,1377,1423,1424,1425,1426,1427,1428,1429,1430,1431,1432,1433,1479,1480,1481,1482,1483,1484,1485,1486,1487,1488,1489,1535,1536,1537,1538,1539,1540,1541,1542,1543,1544,1545,1591,1592,1593,1594,1595,1596,1597,1598,1599,1600,1601,1647,1648,1649,1650,1651,1652,1653,1654,1655,1656,1657,1703,1704,1705,1706,1707,1708,1709,1710,1711,1712,1713,1759,1760,1761,1762,1763,1764,1765,1766,1767,1768,1769,1815,1816,1817,1818,1819,1820,1821,1822,1823,1824,1825],"5":[972,973,974,1027,1028,1029,1030,1031,1083,1084,1085,1086,1087,1139,1140,1141,1142,1143,1195,1196,1197,1198,1199,1251,1252,1253,1254,1255,1307,1308,1309,1310,1311,1363,1364,1365,1366,1367,1419,1420,1421,1422,1423,1475,1476,1477,1478,1479,1531,1532,1533,1534,1535,1587,1588,1589,1590,1591,1643,1644,1645,1646,1647,1699,1700,1701,1702,1703,1755,1756,1757,1758,1759,1811,1812,1813,1814,1815,1867,1868,1869,1870,1871],"6":[985,986,987,1040,1041,1042,1043,1044,1096,1097,1098,1099,1100,1152,1153,1154,1155,1156,1208,1209,1210,1211,1212,1264,1265,1266,1267,1268,1320,1321,1322,1323,1324,1376,1377,1378,1379,1380,1432,1433,1434,1435,1436,1488,1489,1490,1491,1492,1544,1545,1546,1547,1548,1600,1601,1602,1603,1604,1656,1657,1658,1659,1660,1712,1713,1714,1715,1716,1768,1769,1770,1771,1772,1824,1825,1826,1827,1828,1880,1881,1882,1883,1884],"7":[1923,1924,1925,1926,1927,1979,1980,1981,1982,1983,2036,2037,2038],"8":[1936,1937,1938,1939,1940,1992,1993,1994,1995,1996,2049,2050,2051],"9":[1815,1816,1817,1818,1819,1820,1871,1872,1873,1874,1875,1876,1927,1928,1929,1930,1931,1932,1983,1984,1985,1986,1987,1988,2039,2040,2041,2042,2043,2095,2096,2097,2098,2099,2151,2152,2153,2154,2155,2207,2208,2209,2210,2211,2263,2264,2265,2266,2267,2319,2320,2321,2322,2323,2375,2376,2377,2378,2379,2431,2432,2433,2434,2435,2487,2488,2489,2490,2491,2543,2544,2545,2546,2547,2599,2600,2601,2602,2603,2655,2656,2657,2658,2659,2711,2712,2713,2714,2715],"10":[1820,1821,1822,1823,1824,1825,1876,1877,1878,1879,1880,1881,1932,1933,1934,1935,1936,1937,1988,1989,1990,1991,1992,1993,2045,2046,2047,2048,2049,2101,2102,2103,2104,2105,2157,2158,2159,2160,2161,2213,2214,2215,2216,2217,2269,2270,2271,2272,2273,2325,2326,2327,2328,2329,2381,2382,2383,2384,2385,2437,2438,2439,2440,2441,2493,2494,2495,2496,2497,2549,2550,2551,2552,2553,2605,2606,2607,2608,2609,2661,2662,2663,2664,2665,2717,2718,2719,2720,2721],"11":[2766,2767,2768,2769,2770,2771,2822,2823,2824,2825,2826,2827,2878,2879,2880,2881,2882,2883,2935,2936,2937,2938,2939],"12":[2773,2774,2775,2776,2777,2778,2829,2830,2831,2832,2833,2834,2885,2886,2887,2888,2889,2890,2941,2942,2943,2944,2945]},"NW":{"1":[304,305,306,307,308,309,359,360,361,362,363,364,365,366,414,415,416,417,418,419,420,421,422,423,470,472,473,474,475,476,477,478,479,526,528,529,530,531,532,533,534,535,582,584,585,586,587,588,589,590,591,638,640,641,642,643,644,645,646,647,694,696,697,698,699,700,701,702,703,750,752,753,754,755,756,757,758,759,807,808,809,810,811,812,813,814],"2":[470,526,527,582,583,638,639,694],"3":[864,865,866,867,868,869,920,921,922,923,924,925],"4":[916,917,918,919,920,921,922,923,924,925,926,927,971,972,973,974,975,976,977,978,979,980,981,982,983,984,1027,1028,1029,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1084,1085,1086,1087,1088,1089,1090,1091,1092,1093,1094,1095,1141,1142,1143,1144,1145,1146,1147,1148,1149,1150,1197,1198,1199,1200,1201,1202,1203,1204,1205,1206,1253,1254,1255,1256,1257,1258,1259,1260,1261,1262,1309,1310,1311,1312,1313,1314,1315,1316,1317,1318,1365,1366,1367,1368,1369,1370,1371,1372,1373,1374,1421,1422,1423,1424,1425,1426,1427,1428,1429,1430,1477,1478,1479,1480,1481,1482,1483,1484,1485,1486,1533,1534,1535,1536,1537,1538,1539,1540,1541,1542,1589,1590,1591,1592,1593,1594,1595,1596,1597,1598,1645,1646,1647,1648,1649,1650,1651,1652,1653,1654,1701,1702,1703,1704,1705,1706,1707,1708,1709,1710,1757,1758,1759,1760,1761,1762,1763,1764,1765,1766,1813,1814,1815,1816,1817,1818,1819,1820,1821],"5":[971,972,973,1026,1027,1028,1029,1030,1082,1083,1084,1085,1086,1138,1139,1140,1141,1142,1194,1195,1196,1197,1198,1250,1251,1252,1253,1254,1306,1307,1308,1309,1310,1362,1363,1364,1365,1366,1418,1419,1420,1421,1422,1474,1475,1476,1477,1478,1530,1531,1532,1533,1534,1586,1587,1588,1589,1590,1642,1643,1644,1645,1646,1698,1699,1700,1701,1702,1754,1755,1756,1757,1758],"6":[983,984,985,1038,1039,1040,1041,1042,1094,1095,1096,1097,1098,1150,1151,1152,1153,1154,1206,1207,1208,1209,1210,1262,1263,1264,1265,1266,1318,1319,1320,1321,1322,1374,1375,1376,1377,1378,1430,1431,1432,1433,1434,1486,1487,1488,1489,1490,1542,1543,1544,1545,1546,1598,1599,1600,1601,1602,1654,1655,1656,1657,1658,1710,1711,1712,1713,1714,1766,1767,1768,1769,1770],"7":[1810,1811,1812,1813,1814,1866,1867,1868,1869,1870,1923,1924,1925],"8":[1822,1823,1824,1825,1826,1878,1879,1880,1881,1882,1935,1936,1937],"9":[1813,1814,1815,1816,1817,1869,1870,1871,1872,1873,1925,1926,1927,1928,1929,1981,1982,1983,1984,1985,2037,2038,2039,2040,2041,2093,2094,2095,2096,2097,2149,2150,2151,2152,2153,2205,2206,2207,2208,2209,2261,2262,2263,2264,2265,2317,2318,2319,2320,2321,2373,2374,2375,2376,2377,2429,2430,2431,2432,2433,2485,2486,2487,2488,2489,2541,2542,2543,2544,2545,2597,2598,2599,2600,2601,2653,2654,2655,2656,2657,2709,2710,2711,2712,2713],"10":[1930,1931,1932,1933,1934,1986,1987,1988,1989,1990,2042,2043,2044,2045,2046,2098,2099,2100,2101,2102,2154,2155,2156,2157,2158,2210,2211,2212,2213,2214,2266,2267,2268,2269,2270,2322,2323,2324,2325,2326,2378,2379,2380,2381,2382,2434,2435,2436,2437,2438,2490,2491,2492,2493,2494,2546,2547,2548,2549,2550,2602,2603,2604,2605,2606,2658,2659,2660,2661,2662,2714,2715,2716,2717,2718],"11":[2764,2765,2766,2767,2768,2769,2820,2821,2822,2823,2824,2825,2876,2877,2878,2879,2880,2881,2933,2934,2935,2936,2937],"12":[2769,2770,2771,2772,2773,2774,2825,2826,2827,2828,2829,2830,2881,2882,2883,2884,2885,2886,2938,2939,2940,2941,2942]},"W":{"1":[306,307,308,309,364,365,366,421,422,423,478,479,534,535,590,591,646,647,702,703,757,758,759,812,813,814],"2":[361,362,363,416,417,418,419,420,472,473,474,475,476,477,528,529,530,531,532,533,583,584,585,586,587,588,589,639,640,641,642,643,644,645,696,697,698,699,700,701,752,753,754,755,756,809,810,811],"3":[865,866,867,868,869,921,922,923,924,925],"4":[926,976,977,978,979,980,981,982,983,1032,1033,1034,1035,1036,1037,1038,1039,1088,1089,1090,1091,1092,1093,1094,1095,1144,1145,1146,1147,1148,1149,1150,1200,1201,1202,1203,1204,1205,1206,1256,1257,1258,1259,1260,1261,1262,1312,1313,1314,1315,1316,1317,1318,1368,1369,1370,1371,1372,1373,1374,1424,1425,1426,1427,1428,1429,1430,1480,1481,1482,1483,1484,1485,1486,1536,1537,1538,1539,1540,1541,1542,1592,1593,1594,1595,1596,1597,1598,1648,1649,1650,1651,1652,1653,1654,1704,1705,1706,1707,1708,1709,1710,1760,1761,1762,1763,1764,1765,1766,1816,1817,1818,1819,1820,1821,1822],"5":[1033,1034,1035,1088,1089,1090,1091,1092,1144,1145,1146,1147,1148,1200,1201,1202,1203,1204,1256,1257,1258,1259,1260,1312,1313,1314,1315,1316,1368,1369,1370,1371,1372,1424,1425,1426,1427,1428,1480,1481,1482,1483,1484,1536,1537,1538,1539,1540,1592,1593,1594,1595,1596,1648,1649,1650,1651,1652,1704,1705,1706,1707,1708,1760,1761,1762,1763,1764,1816,1817,1818,1819,1820,1872,1873,1874,1875,1876,1928,1929,1930,1931,1932],"6":[1035,1036,1037,1090,1091,1092,1093,1094,1146,1147,1148,1149,1150,1202,1203,1204,1205,1206,1258,1259,1260,1261,1262,1314,1315,1316,1317,1318,1370,1371,1372,1373,1374,1426,1427,1428,1429,1430,1482,1483,1484,1485,1486,1538,1539,1540,1541,1542,1594,1595,1596,1597,1598,1650,1651,1652,1653,1654,1706,1707,1708,1709,1710,1762,1763,1764,1765,1766,1818,1819,1820,1821,1822,1874,1875,1876,1877,1878,1930,1931,1932,1933,1934],"7":[1984,1985,1986,1987,1988,2040,2041,2042,2043,2044,2097,2098,2099],"8":[1986,1987,1988,1989,1990,2042,2043,2044,2045,2046,2099,2100,2101],"9":[1816,1817,1818,1819,1820,1872,1873,1874,1875,1876,1928,1929,1930,1931,1932,1984,1985,1986,1987,1988,2040,2041,2042,2043,2044,2096,2097,2098,2099,2100,2152,2153,2154,2155,2156,2208,2209,2210,2211,2212,2264,2265,2266,2267,2268,2320,2321,2322,2323,2324,2376,2377,2378,2379,2380,2432,2433,2434,2435,2436,2488,2489,2490,2491,2492,2544,2545,2546,2547,2548,2600,2601,2602,2603,2604,2656,2657,2658,2659,2660],"10":[1819,1820,1821,1822,1875,1876,1877,1878,1931,1932,1933,1934,1935,1987,1988,1989,1990,1991,2043,2044,2045,2046,2047,2099,2100,2101,2102,2103,2155,2156,2157,2158,2159,2211,2212,2213,2214,2215,2267,2268,2269,2270,2271,2323,2324,2325,2326,2327,2379,2380,2381,2382,2383,2435,2436,2437,2438,2439,2491,2492,2493,2494,2495,2547,2548,2549,2550,2551,2604,2605,2606,2607,2660,2661,2662,2663],"11":[2711,2712,2713,2714,2715,2716,2766,2767,2768,2769,2770,2771,2772,2822,2823,2824,2825,2826,2827,2828,2878,2879,2880,2881,2882,2883,2884],"12":[2659,2660,2661,2662,2663,2714,2715,2716,2717,2718,2719,2769,2770,2771,2772,2773,2774,2775,2825,2826,2827,2828,2829,2830,2831]},"SW":{"1":[304,305,306,307,308,309,359,364,365,366,414,421,422,423,470,478,479,526,535,582,591,638,647,694,703,750,758,759,807,813,814],"2":[360,361,362,363,415,416,417,418,419,420,471,472,473,474,475,476,477,527,528,529,530,531,532,533,534,583,584,585,586,587,588,589,590,639,640,641,642,643,644,645,646,695,696,697,698,699,700,701,702,751,752,753,754,755,756,757,808,809,810,811,812],"3":[864,865,866,867,868,869,920,921,922,923,924,925],"4":[918,919,926,927,928,929,973,974,975,976,977,978,979,980,981,982,983,984,985,986,1029,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1086,1087,1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1143,1144,1145,1146,1147,1148,1149,1150,1151,1152,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1311,1312,1313,1314,1315,1316,1317,1318,1319,1320,1367,1368,1369,1370,1371,1372,1373,1374,1375,1376,1423,1424,1425,1426,1427,1428,1429,1430,1431,1432,1479,1480,1481,1482,1483,1484,1485,1486,1487,1488,1535,1536,1537,1538,1539,1540,1541,1542,1543,1544,1591,1592,1593,1594,1595,1596,1597,1598,1599,1600,1647,1648,1649,1650,1651,1652,1653,1654,1655,1656,1703,1704,1705,1706,1707,1708,1709,1710,1711,1712,1759,1760,1761,1762,1763,1764,1765,1766,1767,1768,1815,1816,1817,1818,1819,1820,1821,1822,1823],"5":[984,985,986,1039,1040,1041,1042,1043,1095,1096,1097,1098,1099,1151,1152,1153,1154,1155,1207,1208,1209,1210,1211,1263,1264,1265,1266,1267,1319,1320,1321,1322,1323,1375,1376,1377,1378,1379,1431,1432,1433,1434,1435,1487,1488,1489,1490,1491,1543,1544,1545,1546,1547,1599,1600,1601,1602,1603,1655,1656,1657,1658,1659,1711,1712,1713,1714,1715,1767,1768,1769,1770,1771,1823,1824,1825,1826,1827],"6":[972,973,974,1027,1028,1029,1030,1031,1083,1084,1085,1086,1087,1139,1140,1141,1142,1143,1195,1196,1197,1198,1199,1251,1252,1253,1254,1255,1307,1308,1309,1310,1311,1363,1364,1365,1366,1367,1419,1420,1421,1422,1423,1475,1476,1477,1478,1479,1531,1532,1533,1534,1535,1587,1588,1589,1590,1591,1643,1644,1645,1646,1647,1699,1700,1701,1702,1703,1755,1756,1757,1758,1759,1811,1812,1813,1814,1815],"7":[1879,1880,1881,1882,1883,1935,1936,1937,1938,1939,1992,1993,1994],"8":[1867,1868,1869,1870,1871,1923,1924,1925,1926,1927,1980,1981,1982],"9":[1820,1821,1822,1823,1824,1876,1877,1878,1879,1880,1932,1933,1934,1935,1936,1988,1989,1990,1991,1992,2044,2045,2046,2047,2048,2100,2101,2102,2103,2104,2156,2157,2158,2159,2160,2212,2213,2214,2215,2216,2268,2269,2270,2271,2272,2324,2325,2326,2327,2328,2380,2381,2382,2383,2384,2436,2437,2438,2439,2440,2492,2493,2494,2495,2496,2548,2549,2550,2551,2552,2604,2605,2606,2607,2608,2660,2661,2662,2663,2664,2716,2717,2718,2719,2720],"10":[1927,1928,1929,1930,1931,1983,1984,1985,1986,1987,2039,2040,2041,2042,2043,2095,2096,2097,2098,2099,2151,2152,2153,2154,2155,2207,2208,2209,2210,2211,2263,2264,2265,2266,2267,2319,2320,2321,2322,2323,2375,2376,2377,2378,2379,2431,2432,2433,2434,2435,2487,2488,2489,2490,2491,2543,2544,2545,2546,2547,2599,2600,2601,2602,2603,2655,2656,2657,2658,2659,2711,2712,2713,2714,2715],"11":[2772,2773,2774,2775,2776,2827,2828,2829,2830,2831,2832,2883,2884,2885,2886,2887,2888,2939,2940,2941,2942,2943,2944],"12":[2767,2768,2769,2770,2771,2822,2823,2824,2825,2826,2827,2878,2879,2880,2881,2882,2883,2934,2935,2936,2937,2938,2939]}},"skeleton":{"S":{"neck":[28,16],"shL":[34,18],"shR":[21,18],"elL":[34,26],"elR":[21,26],"waA":[25,31],"waC":[28,31],"waB":[31,31],"knA":[25,41],"knB":[31,41],"headTop":[28,7],"handL":[34,34],"handR":[21,34],"footA":[25,51],"footB":[31,51]},"SE":{"neck":[28,16],"shL":[34,18],"shR":[22,18],"elL":[34,26],"elR":[22,26],"waA":[25,31],"waC":[28,31],"waB":[30,31],"knA":[25,41],"knB":[30,41],"headTop":[28,7],"handL":[34,34],"handR":[22,34],"footA":[25,51],"footB":[30,51]},"E":{"neck":[28,16],"shL":[27,18],"shR":[29,18],"elL":[27,26],"elR":[29,26],"waA":[26,31],"waC":[28,31],"waB":[29,31],"knA":[26,41],"knB":[29,41],"headTop":[28,7],"handL":[27,34],"handR":[29,34],"footA":[26,51],"footB":[29,51]},"NE":{"neck":[29,15],"shL":[23,18],"shR":[35,18],"elL":[23,27],"elR":[35,27],"waA":[27,31],"waC":[29,31],"waB":[31,31],"knA":[27,40],"knB":[32,40],"headTop":[29,6],"handL":[23,36],"handR":[35,36],"footA":[27,49],"footB":[33,49]},"N":{"neck":[28,16],"shL":[21,18],"shR":[34,18],"elL":[21,28],"elR":[34,28],"waA":[25,31],"waC":[28,31],"waB":[30,31],"knA":[25,41],"knB":[30,41],"headTop":[28,7],"handL":[21,38],"handR":[34,38],"footA":[25,51],"footB":[30,51]},"NW":{"neck":[27,15],"shL":[20,18],"shR":[32,18],"elL":[20,27],"elR":[32,27],"waA":[24,31],"waC":[26,31],"waB":[29,31],"knA":[24,40],"knB":[29,40],"headTop":[27,6],"handL":[20,36],"handR":[32,36],"footA":[24,49],"footB":[29,49]},"W":{"neck":[27,16],"shL":[26,18],"shR":[28,18],"elL":[26,26],"elR":[28,26],"waA":[26,31],"waC":[27,31],"waB":[29,31],"knA":[26,41],"knB":[29,41],"headTop":[27,7],"handL":[26,34],"handR":[28,34],"footA":[26,51],"footB":[29,51]},"SW":{"neck":[27,16],"shL":[33,18],"shR":[21,18],"elL":[33,26],"elR":[21,26],"waA":[25,31],"waC":[27,31],"waB":[30,31],"knA":[25,41],"knB":[30,41],"headTop":[27,7],"handL":[33,34],"handR":[21,34],"footA":[25,51],"footB":[30,51]}},"pose":{"S":{"neck":[28,16],"shL":[34,18],"shR":[21,18],"elL":[34,26],"elR":[21,26],"waA":[25,31],"waC":[28,31],"waB":[31,31],"knA":[25,41],"knB":[31,41],"headTop":[28,7],"handL":[34,34],"handR":[21,34],"footA":[25,51],"footB":[31,51]},"SE":{"neck":[28,16],"shL":[34,17],"shR":[22,19],"elL":[34,25],"elR":[22,27],"waA":[25,31],"waC":[28,31],"waB":[30,28],"knA":[25,41],"knB":[30,38],"headTop":[28,7],"handL":[34,33],"handR":[22,35],"footA":[25,51],"footB":[30,48]},"E":{"neck":[28,16],"shL":[26,17],"shR":[28,18],"elL":[26,25],"elR":[28,26],"waA":[26,31],"waC":[28,31],"waB":[29,31],"knA":[26,41],"knB":[29,41],"headTop":[28,7],"handL":[26,33],"handR":[28,34],"footA":[26,51],"footB":[29,51]},"NE":{"neck":[29,15],"shL":[23,17],"shR":[35,19],"elL":[23,26],"elR":[35,28],"waA":[27,28],"waC":[29,31],"waB":[32,31],"knA":[27,37],"knB":[32,40],"headTop":[29,6],"handL":[23,35],"handR":[35,37],"footA":[27,46],"footB":[32,49]},"N":{"neck":[28,16],"shL":[21,18],"shR":[34,18],"elL":[21,28],"elR":[34,28],"waA":[25,31],"waC":[28,31],"waB":[30,31],"knA":[25,41],"knB":[30,41],"headTop":[28,7],"handL":[21,38],"handR":[34,38],"footA":[25,51],"footB":[30,51]},"NW":{"neck":[27,15],"shL":[20,19],"shR":[32,17],"elL":[20,28],"elR":[32,26],"waA":[24,31],"waC":[26,31],"waB":[29,28],"knA":[24,40],"knB":[29,37],"headTop":[27,6],"handL":[20,37],"handR":[32,35],"footA":[24,49],"footB":[29,46]},"W":{"neck":[27,16],"shL":[27,18],"shR":[29,17],"elL":[27,26],"elR":[29,25],"waA":[26,31],"waC":[27,31],"waB":[29,31],"knA":[26,41],"knB":[29,41],"headTop":[27,7],"handL":[27,34],"handR":[29,33],"footA":[26,51],"footB":[29,51]},"SW":{"neck":[27,16],"shL":[33,19],"shR":[21,17],"elL":[33,27],"elR":[21,25],"waA":[25,28],"waC":[27,31],"waB":[30,31],"knA":[25,38],"knB":[30,41],"headTop":[27,7],"handL":[33,35],"handR":[21,33],"footA":[25,48],"footB":[30,51]}},"swingAmt":0.5,"layerOverride":{"SE":{"1":7,"2":8,"3":4,"4":3,"5":10,"6":1,"7":11,"8":2,"9":9,"10":5,"11":6,"12":0},"NE":{"1":9,"2":10,"3":4,"4":3,"5":7,"6":0,"7":8,"8":1,"9":5,"10":2,"11":11,"12":6},"NW":{"1":10,"2":11,"3":3,"4":2,"5":1,"6":8,"7":0,"8":9,"9":4,"10":5,"11":6,"12":7},"SW":{"1":10,"2":11,"3":4,"4":3,"5":1,"6":8,"7":2,"8":9,"9":5,"10":6,"11":0,"12":7},"E":{"1":10,"2":11,"3":5,"4":3,"5":8,"6":0,"7":9,"8":1,"9":6,"10":4,"11":7,"12":2},"W":{"1":10,"2":11,"3":3,"4":2,"5":1,"6":8,"7":0,"8":9,"9":4,"10":5,"11":6,"12":7},"S":{"1":10,"2":11,"3":5,"4":4,"5":1,"6":3,"7":0,"8":2,"9":6,"10":7,"11":8,"12":9},"N":{"1":8,"2":9,"3":1,"4":0,"5":6,"6":10,"7":7,"8":11,"9":2,"10":3,"11":4,"12":5}}},
+  BONES: {head:['neck','headTop'],torso:['waC','neck'],uArmA:['shL','elL'],fArmA:['elL','handL'],uArmB:['shR','elR'],fArmB:['elR','handR'],thighA:['waA','knA'],shinA:['knA','footA'],thighB:['waB','knB'],shinB:['knB','footB']},
+  CANDD: {"S":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighB","shinB"],"10":["thighA","shinA"],"11":["shinB"],"12":["shinA"]},"SE":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighB","shinB"],"10":["thighA","shinA"],"11":["shinB"],"12":["shinA"]},"E":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighA","shinA"],"10":["thighB","shinB"],"11":["shinA"],"12":["shinB"]},"NE":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighA","shinA"],"10":["thighB","shinB"],"11":["shinA"],"12":["shinB"]},"N":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighA","shinA"],"10":["thighB","shinB"],"11":["shinA"],"12":["shinB"]},"NW":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighA","shinA"],"10":["thighB","shinB"],"11":["shinA"],"12":["shinB"]},"W":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighA","shinA"],"10":["thighB","shinB"],"11":["shinA"],"12":["shinB"]},"SW":{"1":["head"],"2":["head"],"3":["torso"],"4":["torso"],"5":["uArmA","fArmA"],"6":["uArmB","fArmB"],"7":["fArmA"],"8":["fArmB"],"9":["thighB","shinB"],"10":["thighA","shinA"],"11":["shinB"],"12":["shinA"]}},
+  REF: {"W":24,"H":50,"dirs":["S","SE","E","NE","N","NW","W","SW"],"base":{"S":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,2,2,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,3,3,3,3,3,3,4,4,4,0,0,0,0,0,0,0,0,0,0,6,6,6,4,4,4,4,4,4,4,4,4,4,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,9,9,9,9,9,9,9,9,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,9,9,9,9,9,9,9,9,5,5,5,5,5,0,0,0,0,0,0,6,6,6,6,6,9,9,9,9,9,9,9,9,5,5,5,5,5,0,0,0,0,0,0,8,8,8,8,6,9,9,9,9,9,9,9,9,5,5,7,7,7,0,0,0,0,0,0,0,8,8,8,9,9,9,9,9,9,9,9,9,9,7,7,7,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,0,10,10,10,10,10,0,0,0,0,0,0],"SE":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,2,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,3,3,3,3,3,3,4,4,4,0,0,0,0,0,0,0,0,0,0,6,6,6,4,4,4,4,4,4,4,4,4,5,5,5,0,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,0,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,9,9,9,9,9,9,9,9,5,5,5,5,0,0,0,0,0,0,0,8,8,8,8,8,9,9,9,9,9,9,9,9,7,7,7,7,0,0,0,0,0,0,0,8,8,8,8,8,9,9,9,9,9,9,9,9,7,7,7,7,0,0,0,0,0,0,0,8,8,8,8,8,9,9,9,9,9,9,9,9,7,7,7,0,0,0,0,0,0,0,0,0,8,8,8,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0],"E":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,0,0,0,0,0,0,0],"NE":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,9,9,9,9,9,9,9,9,6,6,6,6,6,0,0,0,0,0,0,0,7,7,7,7,9,9,9,9,9,9,9,9,8,8,8,8,8,0,0,0,0,0,0,0,7,7,7,7,9,9,9,9,9,9,9,9,8,8,8,8,8,0,0,0,0,0,0,0,0,7,7,7,9,9,9,9,9,9,9,9,8,8,8,8,8,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0],"N":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,3,3,3,3,3,3,4,4,4,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,9,9,9,9,9,9,9,9,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,9,9,9,9,9,9,9,9,6,6,6,6,6,0,0,0,0,0,0,5,5,5,5,5,9,9,9,9,9,9,9,9,6,6,6,6,6,0,0,0,0,0,0,7,7,7,7,7,9,9,9,9,9,9,9,9,8,8,8,8,8,0,0,0,0,0,0,0,7,7,7,9,9,9,9,9,9,9,9,9,9,8,8,8,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,0,10,10,10,10,10,0,0,0,0,0,0],"W":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0],"SW":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,2,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,3,3,3,3,3,3,4,4,4,0,0,0,0,0,0,0,0,0,0,0,6,6,6,4,4,4,4,4,4,4,4,4,5,5,5,0,0,0,0,0,0,0,0,0,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,6,4,4,4,4,4,4,4,5,5,5,5,5,0,0,0,0,0,0,0,6,6,6,6,9,9,9,9,9,9,9,9,5,5,5,5,5,0,0,0,0,0,0,0,8,8,8,8,9,9,9,9,9,9,9,9,7,7,7,7,7,0,0,0,0,0,0,0,8,8,8,8,9,9,9,9,9,9,9,9,7,7,7,7,7,0,0,0,0,0,0,0,0,8,8,8,9,9,9,9,9,9,9,9,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0],"NW":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,5,5,5,4,4,4,4,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,0,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,4,4,4,4,4,4,4,4,6,6,6,6,0,0,0,0,0,0,0,5,5,5,5,5,9,9,9,9,9,9,9,9,6,6,6,6,0,0,0,0,0,0,0,7,7,7,7,7,9,9,9,9,9,9,9,9,8,8,8,8,0,0,0,0,0,0,0,7,7,7,7,7,9,9,9,9,9,9,9,9,8,8,8,8,0,0,0,0,0,0,0,7,7,7,7,7,9,9,9,9,9,9,9,9,8,8,8,0,0,0,0,0,0,0,0,0,7,7,7,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0]},"anchors":{"S":[[18,15],[5,15]],"SE":[[18,15],[6,15]],"E":[[8,14],[14,15]],"NE":[[8,14],[18,14]],"N":[[5,15],[18,15]],"W":[[9,15],[15,14]],"SW":[[17,15],[5,15]],"NW":[[5,14],[15,14]]},"elbows":{"S":[[18,23],[5,23]],"SE":[[18,23],[6,23]],"E":[[8,22],[14,23]],"NE":[[6,20],[20,20]],"N":[[5,23],[18,23]],"W":[[9,23],[15,22]],"SW":[[17,23],[5,23]],"NW":[[3,20],[17,20]]},"knees":{"S":[[15,38],[9,38]],"SE":[[14,38],[9,38]],"E":[[10,38],[13,38]],"NE":[[10,37],[15,37]],"N":[[9,38],[14,38]],"W":[[10,38],[13,38]],"SW":[[14,38],[9,38]],"NW":[[8,37],[13,37]]},"hips":{"S":[12,28],"SE":[12,28],"E":[10,28],"NE":[13,28],"N":[12,28],"W":[13,28],"SW":[11,28],"NW":[10,28]},"front":{"S":{"L":true,"R":true},"SE":{"L":true,"R":true},"E":{"L":false,"R":true},"NE":{"L":true,"R":true},"N":{"L":true,"R":true},"W":{"L":true,"R":false},"SW":{"L":true,"R":true},"NW":{"L":true,"R":true}}}
+};
+
+if (typeof module !== 'undefined' && module.exports) module.exports = BohemiaEngine;
+if (typeof window !== 'undefined') window.BohemiaEngine = BohemiaEngine;
+if (typeof require !== 'undefined' && require.main === module) {
+  const ks=['Core','Save','Inventory','Combat','Economy','Factions','Entities','Heartbeat','Skinner','WorldGen','FactionCanon','Generations','RigData'];
+  let ok=true;
+  for(const k of ks){const n=BohemiaEngine[k]?Object.keys(BohemiaEngine[k]).length:0;if(!n){ok=false;console.log('MISSING',k);}else console.log('OK',k,'('+n+')');}
+  console.log(ok?'BUNDLE OK — all '+ks.length+' modules':'BUNDLE BROKEN');process.exit(ok?0:1);
+}
+
+/* ================= MODULE 13: WARDROBE / PAPERDOLL (added 7/2/26) =================
+   Ramp-indexed color system. Pixels store ramp slots; swap a ramp, everything retints.
+   Data converted verbatim from Paolo's Alpha 0.1 clothing PNGs. */
+// BOHEMIA PAPERDOLL DATA — ramp-indexed wardrobe (auto-converted from Paolo's PNGs, colors preserved as ramps)
+const PD_DATA = {"ramps":{"body/male-mid":[[28,22,24],[66,54,60],[74,60,66],[150,118,98],[194,164,142],[233,210,192]],"facial/punk-face":[[54,44,40],[82,88,82],[136,88,84],[150,118,98],[194,164,142]],"glasses/shades":[[16,16,20],[30,30,36],[86,90,104]],"hair/curtain-bob":[[27,26,32],[237,232,220]],"hat/durag":[[12,12,16],[22,22,27]],"jacket/japanese-fuzz_hoodDown":[[10,10,13],[18,18,22],[28,22,24],[46,46,52],[66,66,74],[194,164,142],[233,210,192]],"pants/leather-legwarmer":[[20,20,26],[28,22,24],[31,31,36],[54,54,62],[78,78,92]],"shirt/cowl-hoodie":[[20,20,25],[28,22,24],[30,30,36]],"shoes/balenciaga":[[12,12,14],[28,22,24],[40,40,48],[42,42,48],[74,74,84]],"skin":[[28,22,24],[150,118,98],[194,164,142],[233,210,192],[242,224,208],[186,142,120]]},"layers":{"body/male-mid":{"E":{"w":24,"h":50,"px":{"58":0,"59":0,"60":0,"61":0,"81":0,"82":5,"83":5,"84":5,"85":5,"86":0,"104":0,"105":5,"106":5,"107":5,"108":5,"109":5,"110":5,"111":0,"128":0,"129":5,"130":5,"131":5,"132":5,"133":5,"134":5,"135":0,"152":0,"153":5,"154":5,"155":5,"156":5,"157":5,"158":5,"159":0,"176":0,"177":5,"178":5,"179":5,"180":5,"181":5,"182":5,"183":5,"184":0,"200":0,"201":5,"202":5,"203":5,"204":5,"205":5,"206":5,"207":4,"208":0,"224":0,"225":5,"226":5,"227":5,"228":5,"229":5,"230":5,"231":0,"248":0,"249":5,"250":5,"251":5,"252":5,"253":5,"254":5,"255":0,"273":0,"274":5,"275":5,"276":5,"277":5,"278":0,"298":0,"299":4,"300":4,"301":4,"302":0,"321":0,"322":0,"323":4,"324":4,"325":4,"326":0,"344":0,"345":5,"346":5,"347":5,"348":5,"349":5,"350":5,"351":0,"368":0,"369":5,"370":5,"371":5,"372":5,"373":5,"374":5,"375":0,"392":0,"393":5,"394":4,"395":5,"396":5,"397":5,"398":5,"399":0,"417":0,"418":4,"419":5,"420":5,"421":5,"422":5,"423":0,"441":0,"442":4,"443":5,"444":5,"445":5,"446":5,"447":0,"465":0,"466":4,"467":5,"468":5,"469":5,"470":5,"471":0,"489":0,"490":4,"491":5,"492":5,"493":5,"494":5,"495":0,"513":0,"514":4,"515":5,"516":5,"517":5,"518":5,"519":0,"537":0,"538":4,"539":5,"540":5,"541":5,"542":5,"543":0,"561":0,"562":4,"563":5,"564":5,"565":5,"566":5,"567":0,"585":0,"586":4,"587":5,"588":5,"589":5,"590":5,"591":0,"609":0,"610":4,"611":5,"612":5,"613":5,"614":5,"615":0,"633":0,"634":4,"635":5,"636":5,"637":5,"638":5,"639":0,"657":0,"658":5,"659":5,"660":5,"661":5,"662":5,"663":0,"681":0,"682":5,"683":5,"684":5,"685":5,"686":5,"687":0,"705":0,"706":5,"707":5,"708":5,"709":5,"710":5,"711":0,"729":0,"730":5,"731":5,"732":5,"733":5,"734":5,"735":0,"752":0,"753":5,"754":5,"755":5,"756":5,"757":5,"758":5,"759":0,"776":0,"777":5,"778":5,"779":5,"780":5,"781":5,"782":5,"783":0,"800":0,"801":5,"802":5,"803":5,"804":5,"805":5,"806":5,"807":0,"824":0,"825":5,"826":5,"827":5,"828":5,"829":5,"830":5,"831":0,"848":0,"849":5,"850":5,"851":5,"852":5,"853":5,"854":5,"855":0,"872":0,"873":5,"874":5,"875":5,"876":5,"877":5,"878":5,"879":0,"896":0,"897":5,"898":5,"899":5,"900":5,"901":5,"902":5,"903":0,"920":0,"921":5,"922":5,"923":5,"924":5,"925":5,"926":5,"927":0,"944":0,"945":5,"946":5,"947":5,"948":5,"949":5,"950":5,"951":0,"968":0,"969":5,"970":5,"971":5,"972":5,"973":5,"974":5,"975":0,"992":0,"993":5,"994":5,"995":5,"996":5,"997":5,"998":5,"999":0,"1016":0,"1017":5,"1018":5,"1019":5,"1020":5,"1021":5,"1022":5,"1023":0,"1040":0,"1041":5,"1042":5,"1043":5,"1044":5,"1045":5,"1046":5,"1047":0,"1063":0,"1064":5,"1065":5,"1066":5,"1067":5,"1068":5,"1069":5,"1070":5,"1071":0,"1087":0,"1088":5,"1089":5,"1090":5,"1091":5,"1092":5,"1093":5,"1094":5,"1095":0,"1096":0,"1111":0,"1112":5,"1113":5,"1114":5,"1115":5,"1116":5,"1117":5,"1118":5,"1119":5,"1120":5,"1121":0,"1136":0,"1137":0,"1138":0,"1139":0,"1140":5,"1141":5,"1142":5,"1143":5,"1144":5,"1145":0,"1163":0,"1164":5,"1165":5,"1166":5,"1167":5,"1168":5,"1169":0,"1188":0,"1189":0,"1190":0,"1191":0,"1192":0}},"N":{"w":24,"h":50,"px":{"57":0,"58":0,"59":0,"60":0,"61":0,"62":0,"80":0,"81":5,"82":5,"83":5,"84":5,"85":5,"86":5,"87":0,"103":0,"104":5,"105":5,"106":5,"107":5,"108":5,"109":5,"110":5,"111":5,"112":0,"127":0,"128":5,"129":5,"130":5,"131":5,"132":5,"133":5,"134":5,"135":5,"136":0,"151":0,"152":5,"153":5,"154":5,"155":5,"156":5,"157":5,"158":5,"159":5,"160":0,"175":0,"176":5,"177":5,"178":5,"179":5,"180":5,"181":5,"182":5,"183":5,"184":0,"199":0,"200":4,"201":5,"202":5,"203":5,"204":5,"205":5,"206":5,"207":4,"208":0,"223":0,"224":5,"225":5,"226":5,"227":5,"228":5,"229":5,"230":5,"231":5,"232":0,"247":0,"248":5,"249":5,"250":5,"251":5,"252":5,"253":5,"254":5,"255":5,"256":0,"272":0,"273":5,"274":5,"275":5,"276":5,"277":5,"278":5,"279":0,"297":0,"298":4,"299":4,"300":4,"301":4,"302":0,"318":0,"319":0,"320":0,"321":0,"322":4,"323":4,"324":4,"325":4,"326":0,"327":0,"328":0,"329":0,"340":0,"341":0,"342":5,"343":5,"344":5,"345":5,"346":5,"347":5,"348":5,"349":5,"350":5,"351":5,"352":5,"353":5,"354":0,"355":0,"363":0,"364":5,"365":5,"366":5,"367":5,"368":5,"369":5,"370":5,"371":4,"372":5,"373":5,"374":5,"375":5,"376":5,"377":5,"378":5,"379":5,"380":0,"387":0,"388":5,"389":5,"390":5,"391":5,"392":5,"393":5,"394":5,"395":4,"396":5,"397":5,"398":5,"399":5,"400":4,"401":5,"402":5,"403":5,"404":0,"411":0,"412":5,"413":5,"414":5,"415":5,"416":5,"417":5,"418":5,"419":4,"420":5,"421":5,"422":5,"423":5,"424":4,"425":5,"426":5,"427":5,"428":0,"435":0,"436":5,"437":5,"438":5,"439":5,"440":5,"441":5,"442":5,"443":4,"444":5,"445":5,"446":5,"447":5,"448":4,"449":5,"450":5,"451":5,"452":0,"459":0,"460":5,"461":5,"462":5,"463":5,"464":5,"465":5,"466":5,"467":4,"468":5,"469":5,"470":5,"471":5,"472":4,"473":5,"474":5,"475":5,"476":0,"483":0,"484":5,"485":5,"486":5,"487":5,"488":5,"489":5,"490":5,"491":4,"492":5,"493":5,"494":5,"495":5,"496":4,"497":5,"498":5,"499":5,"500":0,"507":0,"508":5,"509":5,"510":5,"511":5,"512":5,"513":5,"514":5,"515":4,"516":5,"517":5,"518":5,"519":5,"520":4,"521":5,"522":5,"523":5,"524":0,"531":0,"532":5,"533":5,"534":5,"535":5,"536":5,"537":5,"538":5,"539":4,"540":5,"541":5,"542":5,"543":5,"544":4,"545":5,"546":5,"547":5,"548":0,"555":0,"556":5,"557":5,"558":5,"559":5,"560":5,"561":5,"562":5,"563":4,"564":5,"565":5,"566":5,"567":5,"568":4,"569":5,"570":5,"571":5,"572":0,"579":0,"580":5,"581":5,"582":5,"583":5,"584":5,"585":5,"586":5,"587":4,"588":5,"589":5,"590":5,"591":5,"592":4,"593":5,"594":5,"595":5,"596":0,"603":0,"604":5,"605":5,"606":5,"607":5,"608":5,"609":5,"610":5,"611":4,"612":5,"613":5,"614":5,"615":5,"616":4,"617":5,"618":5,"619":5,"620":0,"627":0,"628":5,"629":5,"630":5,"631":5,"632":5,"633":5,"634":5,"635":5,"636":5,"637":5,"638":5,"639":5,"640":4,"641":5,"642":5,"643":5,"644":0,"651":0,"652":5,"653":5,"654":5,"655":5,"656":5,"657":5,"658":5,"659":5,"660":5,"661":5,"662":5,"663":5,"664":5,"665":5,"666":5,"667":5,"668":0,"675":0,"676":5,"677":5,"678":5,"679":0,"680":5,"681":5,"682":5,"683":3,"684":5,"685":5,"686":5,"687":5,"688":0,"689":5,"690":5,"691":5,"692":0,"699":0,"700":5,"701":5,"702":5,"703":0,"704":5,"705":5,"706":5,"707":3,"708":5,"709":5,"710":5,"711":5,"712":0,"713":5,"714":5,"715":5,"716":0,"723":0,"724":5,"725":5,"726":5,"727":0,"728":5,"729":5,"730":5,"731":3,"732":5,"733":5,"734":5,"735":5,"736":0,"737":5,"738":5,"739":5,"740":0,"747":0,"748":5,"749":5,"750":5,"751":0,"752":5,"753":3,"754":5,"755":3,"756":5,"757":5,"758":3,"759":5,"760":5,"761":5,"762":5,"763":5,"764":0,"772":0,"773":0,"774":0,"775":0,"776":5,"777":5,"778":5,"779":5,"780":0,"781":5,"782":5,"783":5,"784":5,"785":0,"786":0,"787":0,"799":0,"800":5,"801":5,"802":5,"803":5,"804":0,"805":5,"806":5,"807":5,"808":5,"809":0,"823":0,"824":5,"825":5,"826":5,"827":5,"828":0,"829":5,"830":5,"831":5,"832":5,"833":0,"847":0,"848":5,"849":5,"850":5,"851":5,"852":0,"853":5,"854":5,"855":5,"856":5,"857":0,"871":0,"872":5,"873":5,"874":5,"875":5,"876":0,"877":5,"878":5,"879":5,"880":5,"881":0,"895":0,"896":5,"897":5,"898":5,"899":5,"900":0,"901":5,"902":5,"903":5,"904":5,"905":0,"919":0,"920":5,"921":5,"922":5,"923":5,"924":0,"925":5,"926":5,"927":5,"928":5,"929":0,"943":0,"944":5,"945":5,"946":5,"947":5,"948":0,"949":5,"950":5,"951":5,"952":5,"953":0,"967":0,"968":5,"969":5,"970":5,"971":5,"972":0,"973":5,"974":5,"975":5,"976":5,"977":0,"991":0,"992":5,"993":5,"994":5,"995":5,"996":0,"997":5,"998":5,"999":5,"1000":5,"1001":0,"1015":0,"1016":5,"1017":5,"1018":5,"1019":5,"1020":0,"1021":5,"1022":5,"1023":5,"1024":5,"1025":0,"1039":0,"1040":5,"1041":5,"1042":5,"1043":5,"1044":0,"1045":5,"1046":5,"1047":5,"1048":5,"1049":0,"1063":0,"1064":5,"1065":5,"1066":5,"1067":5,"1068":0,"1069":5,"1070":5,"1071":5,"1072":5,"1073":0,"1087":0,"1088":5,"1089":5,"1090":5,"1091":5,"1092":0,"1093":5,"1094":5,"1095":5,"1096":5,"1097":0,"1110":0,"1111":5,"1112":5,"1113":5,"1114":5,"1115":5,"1116":0,"1117":5,"1118":5,"1119":5,"1120":5,"1121":5,"1122":0,"1134":0,"1135":5,"1136":5,"1137":5,"1138":5,"1139":5,"1140":0,"1141":5,"1142":5,"1143":5,"1144":5,"1145":5,"1146":0,"1158":0,"1159":5,"1160":5,"1161":5,"1162":5,"1163":5,"1164":0,"1165":5,"1166":5,"1167":5,"1168":5,"1169":5,"1170":0,"1183":0,"1184":0,"1185":0,"1186":0,"1187":0,"1189":0,"1190":0,"1191":0,"1192":0,"1193":0}},"NE":{"w":24,"h":50,"px":{"58":0,"59":0,"60":0,"61":0,"62":0,"63":0,"81":0,"82":5,"83":5,"84":5,"85":5,"86":5,"87":5,"88":0,"104":0,"105":5,"106":5,"107":5,"108":5,"109":5,"110":5,"111":5,"112":5,"113":0,"128":0,"129":5,"130":5,"131":5,"132":5,"133":5,"134":5,"135":5,"136":5,"137":0,"152":0,"153":5,"154":5,"155":5,"156":5,"157":5,"158":5,"159":5,"160":5,"161":0,"176":0,"177":5,"178":5,"179":5,"180":5,"181":5,"182":5,"183":5,"184":5,"185":0,"200":0,"201":5,"202":5,"203":5,"204":5,"205":5,"206":5,"207":5,"208":4,"209":0,"224":0,"225":5,"226":5,"227":5,"228":5,"229":5,"230":5,"231":5,"232":5,"233":0,"248":0,"249":5,"250":5,"251":5,"252":5,"253":5,"254":5,"255":5,"256":5,"257":0,"273":0,"274":5,"275":5,"276":5,"277":5,"278":5,"279":5,"280":0,"298":0,"299":4,"300":4,"301":4,"302":4,"303":0,"319":0,"320":0,"321":0,"322":0,"323":4,"324":4,"325":4,"326":4,"327":0,"328":0,"329":0,"330":0,"342":0,"343":5,"344":5,"345":5,"346":5,"347":5,"348":5,"349":5,"350":5,"351":5,"352":5,"353":5,"354":5,"355":0,"356":0,"366":0,"367":5,"368":5,"369":5,"370":5,"371":5,"372":4,"373":5,"374":5,"375":5,"376":5,"377":5,"378":5,"379":5,"380":5,"381":0,"389":0,"390":5,"391":5,"392":5,"393":5,"394":5,"395":5,"396":4,"397":5,"398":5,"399":5,"400":5,"401":4,"402":5,"403":5,"404":5,"405":0,"413":0,"414":5,"415":5,"416":5,"417":5,"418":5,"419":5,"420":4,"421":5,"422":5,"423":5,"424":5,"425":4,"426":5,"427":5,"428":5,"429":0,"437":0,"438":5,"439":5,"440":5,"441":5,"442":5,"443":5,"444":4,"445":5,"446":5,"447":5,"448":5,"449":4,"450":5,"451":5,"452":5,"453":0,"461":0,"462":5,"463":5,"464":5,"465":5,"466":5,"467":5,"468":4,"469":5,"470":5,"471":5,"472":5,"473":4,"474":5,"475":5,"476":5,"477":0,"485":0,"486":5,"487":5,"488":5,"489":5,"490":5,"491":5,"492":4,"493":5,"494":5,"495":5,"496":5,"497":4,"498":5,"499":5,"500":5,"501":0,"509":0,"510":5,"511":5,"512":5,"513":5,"514":5,"515":5,"516":4,"517":5,"518":5,"519":5,"520":5,"521":4,"522":5,"523":5,"524":5,"525":0,"533":0,"534":5,"535":5,"536":5,"537":5,"538":5,"539":5,"540":4,"541":5,"542":5,"543":5,"544":5,"545":4,"546":5,"547":5,"548":5,"549":0,"557":0,"558":5,"559":5,"560":5,"561":5,"562":5,"563":5,"564":4,"565":5,"566":5,"567":5,"568":5,"569":4,"570":5,"571":5,"572":5,"573":0,"581":0,"582":5,"583":5,"584":5,"585":5,"586":5,"587":5,"588":4,"589":5,"590":5,"591":5,"592":5,"593":4,"594":5,"595":5,"596":5,"597":0,"605":0,"606":5,"607":5,"608":5,"609":5,"610":5,"611":5,"612":4,"613":5,"614":5,"615":5,"616":5,"617":4,"618":5,"619":5,"620":5,"621":0,"629":0,"630":5,"631":5,"632":5,"633":5,"634":5,"635":5,"636":5,"637":5,"638":5,"639":5,"640":5,"641":4,"642":5,"643":5,"644":5,"645":0,"653":0,"654":5,"655":5,"656":5,"657":5,"658":5,"659":5,"660":5,"661":5,"662":5,"663":5,"664":5,"665":5,"666":5,"667":5,"668":5,"669":0,"677":0,"678":5,"679":5,"680":5,"681":5,"682":5,"683":5,"684":3,"685":5,"686":5,"687":5,"688":5,"689":0,"690":5,"691":5,"692":5,"693":0,"701":0,"702":5,"703":5,"704":5,"705":5,"706":5,"707":5,"708":3,"709":5,"710":5,"711":5,"712":5,"713":0,"714":5,"715":5,"716":5,"717":0,"725":0,"726":5,"727":5,"728":5,"729":5,"730":5,"731":5,"732":3,"733":5,"734":5,"735":5,"736":5,"737":0,"738":5,"739":5,"740":5,"741":0,"750":0,"751":0,"752":0,"753":5,"754":3,"755":5,"756":3,"757":5,"758":5,"759":3,"760":5,"761":5,"762":5,"763":5,"764":5,"765":0,"777":0,"778":5,"779":5,"780":5,"781":5,"782":5,"783":5,"784":5,"785":5,"786":0,"787":0,"788":0,"801":0,"802":5,"803":5,"804":5,"805":5,"806":5,"807":5,"808":5,"809":5,"810":0,"825":0,"826":5,"827":5,"828":5,"829":5,"830":5,"831":5,"832":5,"833":5,"834":0,"849":0,"850":5,"851":5,"852":5,"853":5,"854":5,"855":5,"856":5,"857":5,"858":0,"873":0,"874":5,"875":5,"876":5,"877":5,"878":5,"879":5,"880":5,"881":5,"882":0,"897":0,"898":5,"899":5,"900":5,"901":5,"902":5,"903":5,"904":5,"905":5,"906":0,"921":0,"922":5,"923":5,"924":5,"925":5,"926":5,"927":5,"928":5,"929":5,"930":0,"945":0,"946":5,"947":5,"948":5,"949":5,"950":5,"951":5,"952":5,"953":5,"954":0,"969":0,"970":5,"971":5,"972":5,"973":5,"974":5,"975":5,"976":5,"977":5,"978":0,"993":0,"994":5,"995":5,"996":5,"997":5,"998":5,"999":5,"1000":5,"1001":5,"1002":0,"1017":0,"1018":5,"1019":5,"1020":5,"1021":5,"1022":5,"1023":5,"1024":5,"1025":5,"1026":0,"1041":0,"1042":5,"1043":5,"1044":5,"1045":5,"1046":5,"1047":5,"1048":5,"1049":5,"1050":0,"1065":0,"1066":5,"1067":5,"1068":5,"1069":5,"1070":5,"1071":5,"1072":5,"1073":5,"1074":0,"1089":0,"1090":5,"1091":5,"1092":5,"1093":5,"1094":5,"1095":5,"1096":5,"1097":5,"1098":0,"1112":0,"1113":5,"1114":5,"1115":5,"1116":5,"1117":5,"1118":5,"1119":5,"1120":5,"1121":5,"1122":5,"1123":0,"1136":0,"1137":5,"1138":5,"1139":5,"1140":5,"1141":5,"1142":5,"1143":5,"1144":5,"1145":5,"1146":5,"1147":0,"1160":0,"1161":5,"1162":5,"1163":5,"1164":5,"1165":5,"1166":5,"1167":5,"1168":5,"1169":5,"1170":5,"1171":0,"1185":0,"1186":0,"1187":0,"1188":0,"1189":0,"1190":0,"1191":0,"1192":0,"1193":0,"1194":0}},"S":{"w":24,"h":50,"px":{"57":0,"58":0,"59":0,"60":0,"61":0,"62":0,"80":0,"81":5,"82":5,"83":5,"84":5,"85":5,"86":5,"87":0,"103":0,"104":5,"105":5,"106":5,"107":5,"108":5,"109":5,"110":5,"111":5,"112":0,"127":0,"128":5,"129":5,"130":5,"131":5,"132":5,"133":5,"134":5,"135":5,"136":0,"151":0,"152":5,"153":5,"154":5,"155":5,"156":5,"157":5,"158":5,"159":5,"160":0,"175":0,"176":5,"177":5,"178":5,"179":5,"180":5,"181":5,"182":5,"183":5,"184":0,"199":0,"200":5,"201":5,"202":5,"203":5,"204":5,"205":5,"206":5,"207":5,"208":0,"223":0,"224":5,"225":5,"226":5,"227":5,"228":5,"229":5,"230":5,"231":5,"232":0,"247":0,"248":5,"249":5,"250":5,"251":5,"252":5,"253":5,"254":5,"255":5,"256":0,"272":0,"273":5,"274":5,"275":5,"276":5,"277":5,"278":5,"279":0,"297":0,"298":4,"299":4,"300":4,"301":4,"302":0,"318":0,"319":0,"320":0,"321":0,"322":4,"323":4,"324":4,"325":4,"326":0,"327":0,"328":0,"329":0,"340":0,"341":0,"342":5,"343":5,"344":5,"345":5,"346":5,"347":5,"348":5,"349":5,"350":5,"351":5,"352":5,"353":5,"354":0,"355":0,"363":0,"364":5,"365":5,"366":5,"367":5,"368":5,"369":5,"370":5,"371":5,"372":5,"373":5,"374":5,"375":5,"376":5,"377":5,"378":5,"379":5,"380":0,"387":0,"388":5,"389":5,"390":5,"391":5,"392":5,"393":5,"394":5,"395":5,"396":5,"397":5,"398":5,"399":5,"400":4,"401":5,"402":5,"403":5,"404":0,"411":0,"412":5,"413":5,"414":5,"415":5,"416":5,"417":5,"418":5,"419":5,"420":5,"421":5,"422":5,"423":5,"424":4,"425":5,"426":5,"427":5,"428":0,"435":0,"436":5,"437":5,"438":5,"439":5,"440":5,"441":5,"442":5,"443":5,"444":5,"445":5,"446":5,"447":5,"448":4,"449":5,"450":5,"451":5,"452":0,"459":0,"460":5,"461":5,"462":5,"463":5,"464":5,"465":5,"466":3,"467":5,"468":5,"469":3,"470":5,"471":5,"472":4,"473":5,"474":5,"475":5,"476":0,"483":0,"484":5,"485":5,"486":5,"487":5,"488":5,"489":5,"490":5,"491":5,"492":5,"493":5,"494":5,"495":5,"496":4,"497":5,"498":5,"499":5,"500":0,"507":0,"508":5,"509":5,"510":5,"511":5,"512":5,"513":5,"514":5,"515":5,"516":5,"517":5,"518":5,"519":5,"520":4,"521":5,"522":5,"523":5,"524":0,"531":0,"532":5,"533":5,"534":5,"535":5,"536":5,"537":5,"538":5,"539":5,"540":5,"541":5,"542":5,"543":5,"544":4,"545":5,"546":5,"547":5,"548":0,"555":0,"556":5,"557":5,"558":5,"559":5,"560":5,"561":5,"562":5,"563":5,"564":5,"565":5,"566":5,"567":5,"568":4,"569":5,"570":5,"571":5,"572":0,"579":0,"580":5,"581":5,"582":5,"583":5,"584":5,"585":5,"586":5,"587":5,"588":5,"589":5,"590":5,"591":5,"592":4,"593":5,"594":5,"595":5,"596":0,"603":0,"604":5,"605":5,"606":5,"607":5,"608":5,"609":5,"610":5,"611":5,"612":5,"613":5,"614":5,"615":5,"616":4,"617":5,"618":5,"619":5,"620":0,"627":0,"628":5,"629":5,"630":5,"631":5,"632":5,"633":5,"634":5,"635":5,"636":5,"637":5,"638":5,"639":5,"640":4,"641":5,"642":5,"643":5,"644":0,"651":0,"652":5,"653":5,"654":5,"655":5,"656":5,"657":5,"658":5,"659":5,"660":5,"661":5,"662":5,"663":5,"664":5,"665":5,"666":5,"667":5,"668":0,"675":0,"676":5,"677":5,"678":5,"679":0,"680":5,"681":5,"682":5,"683":5,"684":5,"685":5,"686":5,"687":5,"688":0,"689":5,"690":5,"691":5,"692":0,"699":0,"700":5,"701":5,"702":5,"703":0,"704":5,"705":5,"706":5,"707":5,"708":5,"709":5,"710":5,"711":5,"712":0,"713":5,"714":5,"715":5,"716":0,"723":0,"724":5,"725":5,"726":5,"727":0,"728":5,"729":5,"730":5,"731":5,"732":5,"733":5,"734":5,"735":5,"736":0,"737":5,"738":5,"739":5,"740":0,"747":0,"748":5,"749":5,"750":5,"751":0,"752":5,"753":5,"754":5,"755":3,"756":4,"757":1,"758":5,"759":5,"760":5,"761":5,"762":5,"763":5,"764":0,"772":0,"773":0,"774":0,"775":0,"776":5,"777":5,"778":5,"779":2,"780":3,"781":4,"782":5,"783":5,"784":5,"785":0,"786":0,"787":0,"799":0,"800":5,"801":5,"802":5,"803":5,"804":0,"805":5,"806":5,"807":5,"808":5,"809":0,"823":0,"824":5,"825":5,"826":5,"827":5,"828":0,"829":5,"830":5,"831":5,"832":5,"833":0,"847":0,"848":5,"849":5,"850":5,"851":5,"852":0,"853":5,"854":5,"855":5,"856":5,"857":0,"871":0,"872":5,"873":5,"874":5,"875":5,"876":0,"877":5,"878":5,"879":5,"880":5,"881":0,"895":0,"896":5,"897":5,"898":5,"899":5,"900":0,"901":5,"902":5,"903":5,"904":5,"905":0,"919":0,"920":5,"921":5,"922":5,"923":5,"924":0,"925":5,"926":5,"927":5,"928":5,"929":0,"943":0,"944":5,"945":5,"946":5,"947":5,"948":0,"949":5,"950":5,"951":5,"952":5,"953":0,"967":0,"968":5,"969":5,"970":5,"971":5,"972":0,"973":5,"974":5,"975":5,"976":5,"977":0,"991":0,"992":5,"993":5,"994":5,"995":5,"996":0,"997":5,"998":5,"999":5,"1000":5,"1001":0,"1015":0,"1016":5,"1017":5,"1018":5,"1019":5,"1020":0,"1021":5,"1022":5,"1023":5,"1024":5,"1025":0,"1039":0,"1040":5,"1041":5,"1042":5,"1043":5,"1044":0,"1045":5,"1046":5,"1047":5,"1048":5,"1049":0,"1063":0,"1064":5,"1065":5,"1066":5,"1067":5,"1068":0,"1069":5,"1070":5,"1071":5,"1072":5,"1073":0,"1087":0,"1088":5,"1089":5,"1090":5,"1091":5,"1092":0,"1093":5,"1094":5,"1095":5,"1096":5,"1097":0,"1110":0,"1111":5,"1112":5,"1113":5,"1114":5,"1115":5,"1116":0,"1117":5,"1118":5,"1119":5,"1120":5,"1121":5,"1122":0,"1134":0,"1135":5,"1136":5,"1137":5,"1138":5,"1139":5,"1140":0,"1141":5,"1142":5,"1143":5,"1144":5,"1145":5,"1146":0,"1158":0,"1159":5,"1160":3,"1161":5,"1162":3,"1163":5,"1164":0,"1165":5,"1166":3,"1167":5,"1168":3,"1169":5,"1170":0,"1183":0,"1184":0,"1185":0,"1186":0,"1187":0,"1189":0,"1190":0,"1191":0,"1192":0,"1193":0}},"SE":{"w":24,"h":50,"px":{"58":0,"59":0,"60":0,"61":0,"62":0,"63":0,"81":0,"82":5,"83":5,"84":5,"85":5,"86":5,"87":5,"88":0,"104":0,"105":5,"106":5,"107":5,"108":5,"109":5,"110":5,"111":5,"112":5,"113":0,"128":0,"129":5,"130":5,"131":5,"132":5,"133":5,"134":5,"135":5,"136":5,"137":0,"152":0,"153":5,"154":5,"155":5,"156":5,"157":5,"158":5,"159":5,"160":5,"161":0,"176":0,"177":5,"178":5,"179":5,"180":5,"181":5,"182":5,"183":5,"184":5,"185":0,"200":0,"201":5,"202":5,"203":5,"204":5,"205":5,"206":5,"207":5,"208":5,"209":0,"224":0,"225":5,"226":5,"227":5,"228":5,"229":5,"230":5,"231":5,"232":5,"233":0,"248":0,"249":5,"250":5,"251":5,"252":5,"253":5,"254":5,"255":5,"256":5,"257":0,"273":0,"274":5,"275":5,"276":5,"277":5,"278":5,"279":5,"280":0,"298":0,"299":4,"300":4,"301":4,"302":4,"303":0,"319":0,"320":0,"321":0,"322":0,"323":4,"324":4,"325":4,"326":4,"327":0,"328":0,"329":0,"330":0,"341":0,"342":0,"343":5,"344":5,"345":5,"346":5,"347":5,"348":5,"349":5,"350":5,"351":5,"352":5,"353":5,"354":5,"355":0,"364":0,"365":5,"366":5,"367":5,"368":5,"369":5,"370":5,"371":5,"372":5,"373":5,"374":5,"375":5,"376":5,"377":5,"378":5,"379":0,"388":0,"389":5,"390":5,"391":5,"392":4,"393":5,"394":5,"395":5,"396":5,"397":5,"398":5,"399":5,"400":5,"401":5,"402":5,"403":5,"404":0,"412":0,"413":5,"414":5,"415":5,"416":4,"417":5,"418":5,"419":5,"420":5,"421":5,"422":5,"423":5,"424":5,"425":5,"426":5,"427":5,"428":0,"436":0,"437":5,"438":5,"439":5,"440":4,"441":5,"442":5,"443":5,"444":5,"445":5,"446":5,"447":5,"448":5,"449":5,"450":5,"451":5,"452":0,"460":0,"461":5,"462":5,"463":5,"464":4,"465":5,"466":5,"467":3,"468":5,"469":5,"470":3,"471":5,"472":5,"473":5,"474":5,"475":5,"476":0,"484":0,"485":5,"486":5,"487":5,"488":4,"489":5,"490":5,"491":5,"492":5,"493":5,"494":5,"495":5,"496":5,"497":5,"498":5,"499":5,"500":0,"508":0,"509":5,"510":5,"511":5,"512":4,"513":5,"514":5,"515":5,"516":5,"517":5,"518":5,"519":5,"520":5,"521":5,"522":5,"523":5,"524":0,"532":0,"533":5,"534":5,"535":5,"536":4,"537":5,"538":5,"539":5,"540":5,"541":5,"542":5,"543":5,"544":5,"545":5,"546":5,"547":5,"548":0,"556":0,"557":5,"558":5,"559":5,"560":4,"561":5,"562":5,"563":5,"564":5,"565":5,"566":5,"567":5,"568":5,"569":5,"570":5,"571":5,"572":0,"580":0,"581":5,"582":5,"583":5,"584":4,"585":5,"586":5,"587":5,"588":5,"589":5,"590":5,"591":5,"592":5,"593":5,"594":5,"595":5,"596":0,"604":0,"605":5,"606":5,"607":5,"608":4,"609":5,"610":5,"611":5,"612":5,"613":5,"614":5,"615":5,"616":5,"617":5,"618":5,"619":5,"620":0,"628":0,"629":5,"630":5,"631":5,"632":4,"633":5,"634":5,"635":5,"636":5,"637":5,"638":5,"639":5,"640":5,"641":5,"642":5,"643":5,"644":0,"652":0,"653":5,"654":5,"655":5,"656":5,"657":5,"658":5,"659":5,"660":5,"661":5,"662":5,"663":5,"664":5,"665":5,"666":5,"667":5,"668":0,"676":0,"677":5,"678":5,"679":5,"680":0,"681":5,"682":5,"683":5,"684":5,"685":5,"686":5,"687":5,"688":5,"689":5,"690":5,"691":5,"692":0,"700":0,"701":5,"702":5,"703":5,"704":0,"705":5,"706":5,"707":5,"708":5,"709":5,"710":5,"711":5,"712":5,"713":5,"714":5,"715":5,"716":0,"724":0,"725":5,"726":5,"727":5,"728":0,"729":5,"730":5,"731":5,"732":5,"733":5,"734":5,"735":5,"736":5,"737":5,"738":5,"739":5,"740":0,"748":0,"749":5,"750":5,"751":5,"752":5,"753":5,"754":5,"755":1,"756":4,"757":3,"758":5,"759":5,"760":5,"761":0,"762":0,"763":0,"773":0,"774":0,"775":0,"776":5,"777":5,"778":5,"779":4,"780":3,"781":2,"782":5,"783":5,"784":0,"799":0,"800":5,"801":5,"802":5,"803":5,"804":5,"805":5,"806":5,"807":5,"808":0,"823":0,"824":5,"825":5,"826":5,"827":5,"828":5,"829":5,"830":5,"831":5,"832":0,"847":0,"848":5,"849":5,"850":5,"851":5,"852":5,"853":5,"854":5,"855":5,"856":0,"871":0,"872":5,"873":5,"874":5,"875":5,"876":5,"877":5,"878":5,"879":5,"880":0,"895":0,"896":5,"897":5,"898":5,"899":5,"900":5,"901":5,"902":5,"903":5,"904":0,"919":0,"920":5,"921":5,"922":5,"923":5,"924":5,"925":5,"926":5,"927":5,"928":0,"943":0,"944":5,"945":5,"946":5,"947":5,"948":5,"949":5,"950":5,"951":5,"952":0,"967":0,"968":5,"969":5,"970":5,"971":5,"972":5,"973":5,"974":5,"975":5,"976":0,"991":0,"992":5,"993":5,"994":5,"995":5,"996":5,"997":5,"998":5,"999":5,"1000":0,"1015":0,"1016":5,"1017":5,"1018":5,"1019":5,"1020":5,"1021":5,"1022":5,"1023":5,"1024":0,"1039":0,"1040":5,"1041":5,"1042":5,"1043":5,"1044":5,"1045":5,"1046":5,"1047":5,"1048":0,"1063":0,"1064":5,"1065":5,"1066":5,"1067":5,"1068":5,"1069":5,"1070":5,"1071":5,"1072":0,"1087":0,"1088":5,"1089":5,"1090":5,"1091":5,"1092":5,"1093":5,"1094":5,"1095":5,"1096":0,"1110":0,"1111":5,"1112":5,"1113":5,"1114":5,"1115":5,"1116":5,"1117":5,"1118":5,"1119":5,"1120":5,"1121":0,"1134":0,"1135":5,"1136":5,"1137":5,"1138":5,"1139":5,"1140":5,"1141":5,"1142":5,"1143":5,"1144":5,"1145":0,"1158":0,"1159":5,"1160":3,"1161":5,"1162":3,"1163":5,"1164":5,"1165":3,"1166":5,"1167":3,"1168":5,"1169":0,"1183":0,"1184":0,"1185":0,"1186":0,"1187":0,"1188":0,"1189":0,"1190":0,"1191":0,"1192":0}}},"facial/punk-face":{"E":{"w":24,"h":50,"px":{"156":0,"157":0,"178":3,"181":1,"252":2,"253":2}},"N":{"w":24,"h":50,"px":{}},"NE":{"w":24,"h":50,"px":{}},"S":{"w":24,"h":50,"px":{"154":0,"155":0,"157":0,"158":0,"178":1,"181":1,"200":4,"204":3,"207":4,"251":2,"252":2}},"SE":{"w":24,"h":50,"px":{"155":0,"156":0,"158":0,"159":0,"179":1,"182":1,"201":4,"206":3,"252":2,"253":2}}},"glasses/shades":{"E":{"w":24,"h":50,"px":{"178":1,"179":1,"180":1,"181":2,"182":0,"205":0,"206":0}},"N":{"w":24,"h":50,"px":{"176":1,"177":1,"182":1,"183":1}},"NE":{"w":24,"h":50,"px":{"183":1,"184":1}},"S":{"w":24,"h":50,"px":{"176":1,"177":2,"178":0,"179":0,"180":2,"181":0,"182":0,"183":1,"201":0,"202":0,"203":0,"204":0,"205":0,"206":0}},"SE":{"w":24,"h":50,"px":{"177":1,"178":0,"179":0,"180":0,"181":0,"182":0,"183":2,"202":0,"203":0,"204":0,"205":0,"206":0,"207":0}}},"hair/curtain-bob":{"E":{"w":24,"h":50,"px":{"57":1,"58":1,"59":1,"60":1,"80":1,"81":1,"82":0,"83":1,"84":1,"85":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"128":1,"129":1,"152":1,"153":1,"176":1,"177":1,"200":1,"201":1,"224":1,"225":1,"248":1,"249":1,"273":1,"274":1}},"N":{"w":24,"h":50,"px":{"57":1,"58":1,"59":1,"60":1,"61":1,"62":1,"80":1,"81":1,"82":1,"83":0,"84":1,"85":1,"86":1,"87":1,"104":1,"105":1,"106":1,"107":0,"108":1,"109":1,"110":1,"111":1,"128":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"152":1,"153":1,"154":1,"155":1,"156":1,"157":1,"158":1,"159":1,"176":1,"177":1,"178":1,"179":1,"180":1,"181":1,"182":1,"183":1,"200":1,"201":1,"202":1,"203":1,"204":1,"205":1,"206":1,"207":1,"224":1,"225":1,"226":1,"227":1,"228":1,"229":1,"230":1,"231":1,"247":1,"248":1,"249":1,"250":1,"251":1,"252":1,"253":1,"254":1,"255":1,"256":1}},"NE":{"w":24,"h":50,"px":{"58":1,"59":1,"60":1,"61":1,"62":1,"63":1,"81":1,"82":1,"83":1,"84":0,"85":1,"86":1,"87":1,"88":1,"105":1,"106":1,"107":1,"108":0,"109":1,"110":1,"111":1,"112":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"136":1,"153":1,"154":1,"155":1,"156":1,"157":1,"158":1,"159":1,"160":1,"177":1,"178":1,"179":1,"180":1,"181":1,"182":1,"183":1,"184":1,"201":1,"202":1,"203":1,"204":1,"205":1,"206":1,"207":1,"208":1,"225":1,"226":1,"227":1,"228":1,"229":1,"230":1,"231":1,"232":1,"248":1,"249":1,"250":1,"251":1,"252":1,"253":1,"254":1,"255":1,"256":1,"257":1}},"S":{"w":24,"h":50,"px":{"57":1,"58":1,"59":0,"60":1,"61":1,"62":1,"80":1,"81":1,"82":1,"83":0,"84":1,"85":1,"86":1,"87":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"127":1,"128":1,"135":1,"136":1,"151":1,"152":1,"159":1,"160":1,"175":1,"176":1,"183":1,"184":1,"199":1,"200":1,"207":1,"208":1,"223":1,"224":1,"231":1,"232":1,"247":1,"248":1,"255":1,"256":1,"272":1,"273":1,"278":1,"279":1}},"SE":{"w":24,"h":50,"px":{"58":1,"59":1,"60":1,"61":0,"62":1,"63":1,"81":1,"82":1,"83":1,"84":1,"85":0,"86":1,"87":1,"88":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"112":1,"128":1,"129":1,"136":1,"137":1,"152":1,"153":1,"160":1,"161":1,"176":1,"177":1,"184":1,"185":1,"200":1,"201":1,"208":1,"209":1,"224":1,"225":1,"232":1,"233":1,"248":1,"249":1,"256":1,"257":1,"273":1,"274":1,"279":1,"280":1}}},"hat/durag":{"E":{"w":24,"h":50,"px":{"56":1,"57":1,"58":1,"59":1,"60":1,"61":1,"62":1,"63":1,"80":1,"81":1,"82":1,"83":1,"84":1,"85":1,"86":1,"87":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"128":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"152":0,"153":0,"154":0,"155":0,"156":0,"157":0,"158":0,"159":0}},"N":{"w":24,"h":50,"px":{"55":1,"56":1,"57":1,"58":1,"59":1,"60":1,"61":1,"62":1,"63":1,"64":1,"79":1,"80":1,"81":1,"82":1,"83":1,"84":1,"85":1,"86":1,"87":1,"88":1,"103":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"112":1,"127":1,"128":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"136":1,"151":0,"152":0,"153":0,"154":0,"155":0,"156":0,"157":0,"158":0,"159":0,"160":0,"179":1,"180":0,"203":1,"204":0,"227":1,"228":0}},"NE":{"w":24,"h":50,"px":{"56":1,"57":1,"58":1,"59":1,"60":1,"61":1,"62":1,"63":1,"64":1,"65":1,"80":1,"81":1,"82":1,"83":1,"84":1,"85":1,"86":1,"87":1,"88":1,"89":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"112":1,"113":1,"128":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"136":1,"137":1,"152":0,"153":0,"154":0,"155":0,"156":0,"157":0,"158":0,"159":0,"160":0,"161":0,"180":1,"181":0,"204":1,"205":0,"228":1,"229":0}},"S":{"w":24,"h":50,"px":{"55":1,"56":1,"57":1,"58":1,"59":1,"60":1,"61":1,"62":1,"63":1,"64":1,"79":1,"80":1,"81":1,"82":1,"83":1,"84":1,"85":1,"86":1,"87":1,"88":1,"103":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"112":1,"127":1,"128":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"136":1,"151":0,"152":0,"153":0,"154":0,"155":0,"156":0,"157":0,"158":0,"159":0,"160":0}},"SE":{"w":24,"h":50,"px":{"56":1,"57":1,"58":1,"59":1,"60":1,"61":1,"62":1,"63":1,"64":1,"65":1,"80":1,"81":1,"82":1,"83":1,"84":1,"85":1,"86":1,"87":1,"88":1,"89":1,"104":1,"105":1,"106":1,"107":1,"108":1,"109":1,"110":1,"111":1,"112":1,"113":1,"128":1,"129":1,"130":1,"131":1,"132":1,"133":1,"134":1,"135":1,"136":1,"137":1,"152":0,"153":0,"154":0,"155":0,"156":0,"157":0,"158":0,"159":0,"160":0,"161":0}}},"jacket/japanese-fuzz_hoodDown":{"E":{"w":24,"h":50,"px":{"321":2,"322":2,"323":2,"324":2,"325":2,"326":2,"344":2,"345":1,"346":1,"347":1,"348":1,"349":1,"350":1,"351":2,"368":2,"369":3,"370":3,"371":3,"372":3,"373":1,"374":1,"375":2,"392":2,"393":3,"394":3,"395":3,"396":3,"397":1,"398":1,"399":2,"416":2,"417":3,"418":3,"419":3,"420":3,"421":1,"422":1,"423":2,"440":2,"441":3,"442":3,"443":3,"444":3,"445":1,"446":1,"447":2,"464":2,"465":3,"466":3,"467":3,"468":3,"469":1,"470":1,"471":2,"488":2,"489":3,"490":3,"491":3,"492":3,"493":1,"494":1,"495":2,"512":2,"513":3,"514":3,"515":3,"516":3,"517":1,"518":1,"519":2,"536":2,"537":1,"538":0,"539":0,"540":1,"541":1,"542":1,"543":2,"560":2,"561":1,"562":0,"563":0,"564":1,"565":1,"566":1,"567":2,"584":2,"585":1,"586":0,"587":0,"588":1,"589":1,"590":1,"591":2,"608":2,"609":1,"610":0,"611":0,"612":1,"613":1,"614":1,"615":2,"632":2,"633":1,"634":0,"635":0,"636":1,"637":1,"638":1,"639":2,"656":2,"657":1,"658":0,"659":0,"660":1,"661":1,"662":1,"663":2,"680":2,"681":1,"682":1,"683":0,"684":1,"685":1,"686":1,"687":2,"705":2,"706":2,"707":0,"708":6,"709":6,"710":6,"711":2,"731":2,"732":6,"733":6,"734":6,"735":2,"755":2,"756":5,"757":5,"758":5,"759":2,"780":2,"781":2,"782":2}},"N":{"w":24,"h":50,"px":{"340":2,"341":2,"342":2,"344":2,"345":2,"346":2,"347":2,"348":2,"349":2,"350":2,"353":2,"354":2,"355":2,"363":2,"364":0,"365":1,"366":1,"367":2,"368":3,"369":3,"370":3,"371":3,"372":3,"373":3,"374":3,"375":2,"376":2,"377":0,"378":1,"379":1,"380":2,"387":2,"388":0,"389":1,"390":1,"391":3,"392":3,"393":3,"394":3,"395":3,"396":3,"397":3,"398":3,"399":3,"400":1,"401":0,"402":1,"403":1,"404":2,"411":2,"412":0,"413":1,"414":1,"415":3,"416":4,"417":4,"418":4,"419":3,"420":3,"421":3,"422":3,"423":4,"424":1,"425":0,"426":1,"427":1,"428":2,"435":2,"436":0,"437":1,"438":1,"439":3,"440":3,"441":3,"442":3,"443":3,"444":3,"445":3,"446":3,"447":3,"448":1,"449":0,"450":1,"451":1,"452":2,"459":2,"460":0,"461":1,"462":1,"463":4,"464":3,"465":3,"466":3,"467":3,"468":3,"469":3,"470":3,"471":4,"472":1,"473":0,"474":1,"475":1,"476":2,"483":2,"484":0,"485":1,"486":1,"487":3,"488":4,"489":4,"490":4,"491":4,"492":4,"493":3,"494":4,"495":3,"496":1,"497":0,"498":1,"499":1,"500":2,"507":2,"508":0,"509":1,"510":1,"511":4,"512":0,"513":0,"514":0,"515":0,"516":0,"517":4,"518":4,"519":3,"520":1,"521":0,"522":1,"523":1,"524":2,"531":2,"532":0,"533":1,"534":1,"535":2,"536":0,"537":0,"538":0,"539":0,"540":0,"541":0,"542":0,"543":2,"544":1,"545":0,"546":1,"547":1,"548":2,"555":2,"556":0,"557":1,"558":1,"559":0,"560":1,"561":1,"562":1,"563":0,"564":1,"565":1,"566":1,"567":1,"568":1,"569":0,"570":1,"571":1,"572":2,"579":2,"580":0,"581":1,"582":1,"583":0,"584":1,"585":1,"586":1,"587":1,"588":1,"589":1,"590":1,"591":1,"592":1,"593":0,"594":1,"595":1,"596":2,"603":2,"604":0,"605":1,"606":1,"607":0,"608":1,"609":1,"610":1,"611":0,"612":1,"613":1,"614":1,"615":1,"616":1,"617":0,"618":1,"619":1,"620":2,"627":2,"628":0,"629":1,"630":1,"631":0,"632":1,"633":1,"634":1,"635":1,"636":1,"637":1,"638":1,"639":1,"640":1,"641":0,"642":1,"643":1,"644":2,"651":2,"652":0,"653":1,"654":1,"655":0,"656":1,"657":1,"658":1,"659":1,"660":1,"661":1,"662":1,"663":1,"664":1,"665":0,"666":1,"667":1,"668":2,"675":2,"676":0,"677":1,"678":1,"679":1,"680":1,"681":1,"682":1,"683":1,"684":1,"685":1,"686":1,"687":1,"688":1,"689":0,"690":1,"691":1,"692":2,"699":2,"700":0,"701":1,"702":1,"703":2,"704":2,"705":2,"706":2,"707":2,"708":2,"709":2,"710":2,"711":2,"712":2,"713":0,"714":1,"715":1,"716":2,"724":2,"725":2,"726":2,"737":2,"738":2,"739":2}},"NE":{"w":24,"h":50,"px":{"345":2,"346":2,"347":2,"348":2,"349":2,"350":2,"351":2,"354":2,"355":2,"356":2,"366":2,"367":2,"368":2,"369":3,"370":3,"371":3,"372":3,"373":3,"374":3,"375":3,"376":2,"377":2,"378":0,"379":1,"380":1,"381":2,"389":2,"390":0,"391":1,"392":3,"393":3,"394":3,"395":3,"396":3,"397":3,"398":3,"399":3,"400":3,"401":1,"402":0,"403":1,"404":1,"405":2,"413":2,"414":0,"415":1,"416":3,"417":4,"418":4,"419":4,"420":3,"421":3,"422":3,"423":3,"424":4,"425":1,"426":0,"427":1,"428":1,"429":2,"437":2,"438":0,"439":1,"440":3,"441":3,"442":3,"443":3,"444":3,"445":3,"446":3,"447":3,"448":3,"449":1,"450":0,"451":1,"452":1,"453":2,"461":2,"462":0,"463":1,"464":4,"465":3,"466":3,"467":3,"468":3,"469":3,"470":3,"471":3,"472":4,"473":1,"474":0,"475":1,"476":1,"477":2,"485":2,"486":0,"487":1,"488":3,"489":4,"490":4,"491":4,"492":4,"493":4,"494":3,"495":4,"496":3,"497":1,"498":0,"499":1,"500":1,"501":2,"509":2,"510":0,"511":1,"512":4,"513":0,"514":0,"515":0,"516":0,"517":0,"518":4,"519":4,"520":3,"521":1,"522":0,"523":1,"524":1,"525":2,"533":2,"534":0,"535":1,"536":2,"537":0,"538":0,"539":0,"540":0,"541":0,"542":0,"543":0,"544":2,"545":1,"546":0,"547":1,"548":1,"549":2,"557":2,"558":0,"559":1,"560":1,"561":1,"562":1,"563":1,"564":0,"565":1,"566":1,"567":1,"568":1,"569":1,"570":0,"571":1,"572":1,"573":2,"581":2,"582":0,"583":1,"584":1,"585":1,"586":1,"587":1,"588":1,"589":1,"590":1,"591":1,"592":1,"593":1,"594":0,"595":1,"596":1,"597":2,"605":2,"606":0,"607":1,"608":1,"609":1,"610":1,"611":1,"612":0,"613":1,"614":1,"615":1,"616":1,"617":1,"618":0,"619":1,"620":1,"621":2,"629":2,"630":0,"631":1,"632":1,"633":1,"634":1,"635":1,"636":1,"637":1,"638":1,"639":1,"640":1,"641":1,"642":0,"643":1,"644":1,"645":2,"653":2,"654":0,"655":1,"656":1,"657":1,"658":1,"659":1,"660":1,"661":1,"662":1,"663":1,"664":1,"665":1,"666":0,"667":1,"668":1,"669":2,"677":2,"678":0,"679":1,"680":1,"681":1,"682":1,"683":1,"684":1,"685":1,"686":1,"687":1,"688":1,"689":1,"690":0,"691":1,"692":1,"693":2,"702":2,"703":2,"704":2,"705":2,"706":2,"707":2,"708":2,"709":2,"710":2,"711":2,"712":2,"713":2,"714":0,"715":1,"716":1,"717":2,"738":2,"739":2,"740":2}},"S":{"w":24,"h":50,"px":{"340":2,"341":2,"342":2,"353":2,"354":2,"355":2,"363":2,"364":0,"365":1,"366":1,"367":2,"368":2,"369":2,"374":2,"375":2,"376":2,"377":0,"378":1,"379":1,"380":2,"387":2,"388":0,"389":1,"390":1,"391":3,"392":3,"393":3,"394":2,"397":2,"398":3,"399":3,"400":3,"401":0,"402":1,"403":1,"404":2,"411":2,"412":0,"413":1,"414":1,"415":3,"416":3,"417":3,"418":2,"419":2,"421":2,"422":3,"423":3,"424":3,"425":0,"426":1,"427":1,"428":2,"435":2,"436":0,"437":1,"438":1,"439":3,"440":3,"441":3,"442":2,"443":0,"444":2,"445":2,"446":3,"447":3,"448":3,"449":0,"450":1,"451":1,"452":2,"459":2,"460":0,"461":1,"462":1,"463":0,"464":1,"465":1,"466":2,"467":0,"468":2,"469":2,"470":1,"471":1,"472":1,"473":0,"474":1,"475":1,"476":2,"483":2,"484":0,"485":1,"486":1,"487":0,"488":1,"489":1,"490":2,"491":0,"492":2,"493":2,"494":1,"495":1,"496":1,"497":0,"498":1,"499":1,"500":2,"507":2,"508":0,"509":1,"510":1,"511":0,"512":1,"513":1,"514":2,"515":0,"516":2,"517":2,"518":1,"519":1,"520":1,"521":0,"522":1,"523":1,"524":2,"531":2,"532":0,"533":1,"534":1,"535":0,"536":1,"537":1,"538":2,"539":0,"540":2,"541":2,"542":1,"543":1,"544":1,"545":0,"546":1,"547":1,"548":2,"555":2,"556":0,"557":1,"558":1,"559":0,"560":1,"561":1,"562":2,"563":0,"564":2,"565":2,"566":1,"567":1,"568":1,"569":0,"570":1,"571":1,"572":2,"579":2,"580":0,"581":1,"582":1,"583":0,"584":1,"585":1,"586":2,"587":0,"588":2,"589":2,"590":1,"591":1,"592":1,"593":0,"594":1,"595":1,"596":2,"603":2,"604":0,"605":1,"606":1,"607":0,"608":1,"609":1,"610":2,"611":0,"612":2,"613":2,"614":1,"615":1,"616":1,"617":0,"618":1,"619":1,"620":2,"627":2,"628":0,"629":1,"630":1,"631":0,"632":1,"633":1,"634":2,"635":2,"637":2,"638":1,"639":1,"640":1,"641":0,"642":1,"643":1,"644":2,"651":2,"652":0,"653":1,"654":1,"655":0,"656":1,"657":1,"658":2,"661":2,"662":1,"663":1,"664":1,"665":0,"666":1,"667":1,"668":2,"675":2,"676":0,"677":1,"678":1,"679":1,"680":1,"681":1,"682":2,"685":2,"686":1,"687":1,"688":1,"689":0,"690":1,"691":1,"692":2,"699":2,"700":0,"701":1,"702":1,"703":2,"704":2,"705":2,"710":2,"711":2,"712":2,"713":0,"714":1,"715":1,"716":2,"724":2,"725":2,"726":2,"737":2,"738":2,"739":2}},"SE":{"w":24,"h":50,"px":{"341":2,"342":2,"343":2,"364":2,"365":1,"366":1,"367":0,"368":2,"369":2,"370":2,"375":2,"376":2,"377":2,"378":2,"379":2,"388":2,"389":1,"390":1,"391":0,"392":3,"393":3,"394":3,"395":2,"398":2,"399":3,"400":3,"401":3,"402":1,"403":0,"404":2,"412":2,"413":1,"414":1,"415":0,"416":3,"417":3,"418":3,"419":2,"421":2,"422":2,"423":3,"424":3,"425":3,"426":1,"427":0,"428":2,"436":2,"437":1,"438":1,"439":0,"440":3,"441":3,"442":3,"443":2,"444":2,"445":0,"446":2,"447":3,"448":3,"449":3,"450":1,"451":0,"452":2,"460":2,"461":1,"462":1,"463":0,"464":1,"465":1,"466":1,"467":2,"468":2,"469":0,"470":2,"471":1,"472":1,"473":1,"474":1,"475":0,"476":2,"484":2,"485":1,"486":1,"487":0,"488":1,"489":1,"490":1,"491":2,"492":2,"493":0,"494":2,"495":1,"496":1,"497":1,"498":1,"499":0,"500":2,"508":2,"509":1,"510":1,"511":0,"512":1,"513":1,"514":1,"515":2,"516":2,"517":0,"518":2,"519":1,"520":1,"521":1,"522":1,"523":0,"524":2,"532":2,"533":1,"534":1,"535":0,"536":1,"537":1,"538":1,"539":2,"540":2,"541":0,"542":2,"543":1,"544":1,"545":1,"546":1,"547":0,"548":2,"556":2,"557":1,"558":1,"559":0,"560":1,"561":1,"562":1,"563":2,"564":2,"565":0,"566":2,"567":1,"568":1,"569":1,"570":1,"571":0,"572":2,"580":2,"581":1,"582":1,"583":0,"584":1,"585":1,"586":1,"587":2,"588":2,"589":0,"590":2,"591":1,"592":1,"593":1,"594":1,"595":0,"596":2,"604":2,"605":1,"606":1,"607":0,"608":1,"609":1,"610":1,"611":2,"612":2,"613":0,"614":2,"615":1,"616":1,"617":1,"618":1,"619":0,"620":2,"628":2,"629":1,"630":1,"631":0,"632":1,"633":1,"634":1,"635":2,"637":2,"638":2,"639":1,"640":1,"641":1,"642":1,"643":0,"644":2,"652":2,"653":1,"654":1,"655":0,"656":1,"657":1,"658":1,"659":2,"662":2,"663":1,"664":1,"665":1,"666":1,"667":0,"668":2,"676":2,"677":1,"678":1,"679":0,"680":1,"681":1,"682":1,"683":2,"686":2,"687":1,"688":1,"689":1,"690":1,"691":0,"692":2,"700":2,"701":1,"702":1,"703":0,"704":2,"705":2,"706":2,"711":2,"712":2,"713":2,"714":2,"715":2,"725":2,"726":2,"727":2}}},"pants/leather-legwarmer":{"E":{"w":24,"h":50,"px":{"634":1,"635":1,"636":1,"637":1,"638":1,"657":1,"658":0,"659":0,"660":0,"661":0,"662":0,"663":1,"681":1,"682":0,"683":0,"684":0,"685":0,"686":0,"687":1,"705":1,"706":0,"707":0,"708":0,"709":0,"710":0,"711":1,"729":1,"730":0,"731":0,"732":0,"733":0,"734":0,"735":1,"752":1,"753":0,"754":0,"755":0,"756":0,"757":0,"758":0,"759":1,"776":1,"777":0,"778":0,"779":0,"780":0,"781":0,"782":0,"783":1,"800":1,"801":0,"802":4,"803":0,"804":4,"805":0,"806":0,"807":1,"824":1,"825":0,"826":0,"827":0,"828":0,"829":0,"830":0,"831":1,"848":1,"849":0,"850":0,"851":0,"852":0,"853":0,"854":0,"855":1,"872":1,"873":0,"874":4,"875":0,"876":4,"877":0,"878":0,"879":1,"895":1,"896":2,"897":2,"898":2,"899":2,"900":2,"901":0,"902":0,"903":1,"919":1,"920":2,"921":3,"922":2,"923":2,"924":2,"925":0,"926":0,"927":1,"943":1,"944":2,"945":2,"946":3,"947":2,"948":2,"949":2,"950":2,"951":2,"952":1,"967":1,"968":2,"969":3,"970":2,"971":2,"972":2,"973":2,"974":2,"975":2,"976":1,"991":1,"992":2,"993":2,"994":3,"995":2,"996":2,"997":2,"998":2,"999":2,"1000":1,"1015":1,"1016":2,"1017":3,"1018":2,"1019":2,"1020":2,"1021":2,"1022":2,"1023":2,"1024":1,"1039":1,"1040":2,"1041":2,"1042":3,"1043":2,"1044":2,"1045":2,"1046":2,"1047":2,"1048":1,"1063":1,"1064":2,"1065":2,"1066":2,"1067":2,"1068":2,"1069":2,"1070":2,"1071":2,"1072":1,"1088":1,"1089":1,"1090":2,"1091":2,"1092":3,"1093":2,"1094":2,"1095":2,"1096":1,"1113":1,"1114":2,"1115":2,"1116":2,"1117":2,"1118":2,"1119":2,"1120":1,"1138":1,"1139":1,"1140":1,"1141":1,"1142":1,"1143":1}},"N":{"w":24,"h":50,"px":{"632":1,"633":1,"634":1,"635":1,"636":1,"637":1,"638":1,"639":1,"655":1,"656":0,"657":0,"658":0,"659":0,"660":0,"661":0,"662":0,"663":0,"664":1,"679":1,"680":0,"681":0,"682":0,"683":0,"684":0,"685":0,"686":0,"687":0,"688":1,"703":1,"704":0,"705":0,"706":0,"707":0,"708":0,"709":0,"710":0,"711":0,"712":1,"727":1,"728":0,"729":0,"730":0,"731":0,"732":0,"733":0,"734":0,"735":0,"736":1,"751":1,"752":0,"753":0,"754":0,"755":0,"756":0,"757":0,"758":0,"759":0,"760":0,"761":1,"775":1,"776":0,"777":0,"778":0,"779":0,"780":1,"781":0,"782":0,"783":0,"784":0,"785":1,"799":1,"800":0,"801":4,"802":0,"803":0,"804":1,"805":0,"806":4,"807":0,"808":0,"809":1,"823":1,"824":0,"825":0,"826":0,"827":0,"828":1,"829":0,"830":0,"831":0,"832":0,"833":1,"847":1,"848":0,"849":0,"850":0,"851":0,"852":1,"853":0,"854":0,"855":0,"856":0,"857":1,"871":1,"872":0,"873":4,"874":0,"875":0,"876":1,"877":0,"878":4,"879":0,"880":0,"881":1,"895":1,"896":0,"897":0,"898":0,"899":0,"900":1,"901":0,"902":0,"903":0,"904":0,"905":1,"919":1,"920":0,"921":0,"922":0,"923":0,"924":1,"925":0,"926":0,"927":0,"928":0,"929":1,"942":1,"943":2,"944":2,"945":2,"946":2,"947":2,"948":2,"949":2,"950":2,"951":2,"952":2,"953":2,"954":1,"966":1,"967":2,"968":3,"969":2,"970":2,"971":2,"972":2,"973":3,"974":2,"975":2,"976":2,"977":2,"978":1,"990":1,"991":2,"992":2,"993":3,"994":2,"995":2,"996":2,"997":2,"998":3,"999":2,"1000":2,"1001":2,"1002":1,"1014":1,"1015":2,"1016":3,"1017":2,"1018":2,"1019":2,"1020":2,"1021":3,"1022":2,"1023":2,"1024":2,"1025":2,"1026":1,"1038":1,"1039":2,"1040":2,"1041":3,"1042":2,"1043":2,"1044":2,"1045":2,"1046":3,"1047":2,"1048":2,"1049":2,"1050":1,"1062":1,"1063":2,"1064":3,"1065":2,"1066":2,"1067":2,"1068":2,"1069":3,"1070":2,"1071":2,"1072":2,"1073":2,"1074":1,"1086":1,"1087":2,"1088":2,"1089":3,"1090":2,"1091":2,"1092":2,"1093":2,"1094":3,"1095":2,"1096":2,"1097":2,"1098":1,"1110":1,"1111":2,"1112":2,"1113":2,"1114":2,"1115":2,"1116":2,"1117":2,"1118":2,"1119":2,"1120":2,"1121":2,"1122":1,"1135":1,"1136":1,"1137":1,"1138":1,"1139":1,"1140":1,"1141":1,"1142":1,"1143":1,"1144":1,"1145":1}},"NE":{"w":24,"h":50,"px":{"633":1,"634":1,"635":1,"636":1,"637":1,"638":1,"639":1,"640":1,"656":1,"657":0,"658":0,"659":0,"660":0,"661":0,"662":0,"663":0,"664":0,"665":1,"680":1,"681":0,"682":0,"683":0,"684":0,"685":0,"686":0,"687":0,"688":0,"689":1,"704":1,"705":0,"706":0,"707":0,"708":0,"709":0,"710":0,"711":0,"712":0,"713":1,"728":1,"729":0,"730":0,"731":0,"732":0,"733":0,"734":0,"735":0,"736":0,"737":1,"752":1,"753":0,"754":0,"755":0,"756":0,"757":0,"758":0,"759":0,"760":0,"761":0,"762":1,"777":1,"778":0,"779":0,"780":0,"781":0,"782":0,"783":0,"784":0,"785":0,"786":1,"801":1,"802":0,"803":4,"804":0,"805":0,"806":0,"807":4,"808":0,"809":0,"810":1,"825":1,"826":0,"827":0,"828":0,"829":0,"830":0,"831":0,"832":0,"833":0,"834":1,"849":1,"850":0,"851":0,"852":0,"853":0,"854":0,"855":0,"856":0,"857":0,"858":1,"873":1,"874":0,"875":4,"876":0,"877":0,"878":0,"879":4,"880":0,"881":0,"882":1,"897":1,"898":0,"899":0,"900":0,"901":0,"902":0,"903":0,"904":0,"905":0,"906":1,"921":1,"922":0,"923":0,"924":0,"925":0,"926":0,"927":0,"928":0,"929":0,"930":1,"944":1,"945":2,"946":2,"947":2,"948":2,"949":2,"950":2,"951":2,"952":2,"953":2,"954":2,"955":1,"968":1,"969":2,"970":3,"971":2,"972":2,"973":2,"974":3,"975":2,"976":2,"977":2,"978":2,"979":1,"992":1,"993":2,"994":2,"995":3,"996":2,"997":2,"998":2,"999":3,"1000":2,"1001":2,"1002":2,"1003":1,"1016":1,"1017":2,"1018":3,"1019":2,"1020":2,"1021":2,"1022":3,"1023":2,"1024":2,"1025":2,"1026":2,"1027":1,"1040":1,"1041":2,"1042":2,"1043":3,"1044":2,"1045":2,"1046":2,"1047":3,"1048":2,"1049":2,"1050":2,"1051":1,"1064":1,"1065":2,"1066":3,"1067":2,"1068":2,"1069":2,"1070":3,"1071":2,"1072":2,"1073":2,"1074":2,"1075":1,"1088":1,"1089":2,"1090":2,"1091":3,"1092":2,"1093":2,"1094":2,"1095":3,"1096":2,"1097":2,"1098":2,"1099":1,"1112":1,"1113":2,"1114":2,"1115":2,"1116":2,"1117":2,"1118":2,"1119":2,"1120":2,"1121":2,"1122":2,"1123":1,"1137":1,"1138":1,"1139":1,"1140":1,"1141":1,"1142":1,"1143":1,"1144":1,"1145":1,"1146":1}},"S":{"w":24,"h":50,"px":{"632":1,"633":1,"634":1,"635":1,"636":1,"637":1,"638":1,"639":1,"655":1,"656":0,"657":0,"658":0,"659":0,"660":0,"661":0,"662":0,"663":0,"664":1,"679":1,"680":0,"681":0,"682":0,"683":0,"684":0,"685":0,"686":0,"687":0,"688":1,"703":1,"704":0,"705":0,"706":0,"707":0,"708":0,"709":0,"710":0,"711":0,"712":1,"727":1,"728":0,"729":0,"730":0,"731":0,"732":0,"733":0,"734":0,"735":0,"736":1,"751":1,"752":0,"753":0,"754":0,"755":0,"756":0,"757":0,"758":0,"759":0,"760":0,"761":1,"775":1,"776":0,"777":0,"778":0,"779":0,"780":1,"781":0,"782":0,"783":0,"784":0,"785":1,"799":1,"800":0,"801":4,"802":0,"803":0,"804":1,"805":0,"806":4,"807":0,"808":0,"809":1,"823":1,"824":0,"825":0,"826":0,"827":0,"828":1,"829":0,"830":0,"831":0,"832":0,"833":1,"847":1,"848":0,"849":0,"850":0,"851":0,"852":1,"853":0,"854":0,"855":0,"856":0,"857":1,"871":1,"872":0,"873":4,"874":0,"875":0,"876":1,"877":0,"878":4,"879":0,"880":0,"881":1,"895":1,"896":0,"897":0,"898":0,"899":0,"900":1,"901":0,"902":0,"903":0,"904":0,"905":1,"919":1,"920":0,"921":0,"922":0,"923":0,"924":1,"925":0,"926":0,"927":0,"928":0,"929":1,"942":1,"943":2,"944":2,"945":2,"946":2,"947":2,"948":2,"949":2,"950":2,"951":2,"952":2,"953":2,"954":1,"966":1,"967":2,"968":3,"969":2,"970":2,"971":2,"972":2,"973":3,"974":2,"975":2,"976":2,"977":2,"978":1,"990":1,"991":2,"992":2,"993":3,"994":2,"995":2,"996":2,"997":2,"998":3,"999":2,"1000":2,"1001":2,"1002":1,"1014":1,"1015":2,"1016":3,"1017":2,"1018":2,"1019":2,"1020":2,"1021":3,"1022":2,"1023":2,"1024":2,"1025":2,"1026":1,"1038":1,"1039":2,"1040":2,"1041":3,"1042":2,"1043":2,"1044":2,"1045":2,"1046":3,"1047":2,"1048":2,"1049":2,"1050":1,"1062":1,"1063":2,"1064":3,"1065":2,"1066":2,"1067":2,"1068":2,"1069":3,"1070":2,"1071":2,"1072":2,"1073":2,"1074":1,"1086":1,"1087":2,"1088":2,"1089":3,"1090":2,"1091":2,"1092":2,"1093":2,"1094":3,"1095":2,"1096":2,"1097":2,"1098":1,"1110":1,"1111":2,"1112":2,"1113":2,"1114":2,"1115":2,"1116":2,"1117":2,"1118":2,"1119":2,"1120":2,"1121":2,"1122":1,"1135":1,"1136":1,"1137":1,"1138":1,"1139":1,"1140":1,"1141":1,"1142":1,"1143":1,"1144":1,"1145":1}},"SE":{"w":24,"h":50,"px":{"633":1,"634":1,"635":1,"636":1,"637":1,"638":1,"639":1,"640":1,"656":1,"657":0,"658":0,"659":0,"660":0,"661":0,"662":0,"663":0,"664":0,"665":1,"680":1,"681":0,"682":0,"683":0,"684":0,"685":0,"686":0,"687":0,"688":0,"689":1,"704":1,"705":0,"706":0,"707":0,"708":0,"709":0,"710":0,"711":0,"712":0,"713":1,"728":1,"729":0,"730":0,"731":0,"732":0,"733":0,"734":0,"735":0,"736":0,"737":1,"751":1,"752":0,"753":0,"754":0,"755":0,"756":0,"757":0,"758":0,"759":0,"760":0,"761":1,"775":1,"776":0,"777":0,"778":0,"779":0,"780":0,"781":0,"782":0,"783":0,"784":1,"799":1,"800":0,"801":0,"802":4,"803":0,"804":0,"805":0,"806":4,"807":0,"808":1,"823":1,"824":0,"825":0,"826":0,"827":0,"828":0,"829":0,"830":0,"831":0,"832":1,"847":1,"848":0,"849":0,"850":0,"851":0,"852":0,"853":0,"854":0,"855":0,"856":1,"871":1,"872":0,"873":0,"874":4,"875":0,"876":0,"877":0,"878":4,"879":0,"880":1,"895":1,"896":0,"897":0,"898":0,"899":0,"900":0,"901":0,"902":0,"903":0,"904":1,"919":1,"920":0,"921":0,"922":0,"923":0,"924":0,"925":0,"926":0,"927":0,"928":1,"942":1,"943":2,"944":2,"945":2,"946":2,"947":2,"948":2,"949":2,"950":2,"951":2,"952":2,"953":1,"966":1,"967":2,"968":2,"969":2,"970":2,"971":3,"972":2,"973":2,"974":2,"975":3,"976":2,"977":1,"990":1,"991":2,"992":2,"993":2,"994":3,"995":2,"996":2,"997":2,"998":3,"999":2,"1000":2,"1001":1,"1014":1,"1015":2,"1016":2,"1017":2,"1018":2,"1019":3,"1020":2,"1021":2,"1022":2,"1023":3,"1024":2,"1025":1,"1038":1,"1039":2,"1040":2,"1041":2,"1042":3,"1043":2,"1044":2,"1045":2,"1046":3,"1047":2,"1048":2,"1049":1,"1062":1,"1063":2,"1064":2,"1065":2,"1066":2,"1067":3,"1068":2,"1069":2,"1070":2,"1071":3,"1072":2,"1073":1,"1086":1,"1087":2,"1088":2,"1089":2,"1090":3,"1091":2,"1092":2,"1093":2,"1094":3,"1095":2,"1096":2,"1097":1,"1110":1,"1111":2,"1112":2,"1113":2,"1114":2,"1115":2,"1116":2,"1117":2,"1118":2,"1119":2,"1120":2,"1121":1,"1135":1,"1136":1,"1137":1,"1138":1,"1139":1,"1140":1,"1141":1,"1142":1,"1143":1,"1144":1}}},"shirt/cowl-hoodie":{"E":{"w":24,"h":50,"px":{"274":1,"275":1,"276":1,"277":1,"278":1,"297":1,"298":2,"299":2,"300":2,"301":2,"302":2,"303":1,"321":1,"322":0,"323":0,"324":0,"325":0,"326":0,"327":1,"344":1,"345":0,"346":2,"347":2,"348":2,"349":2,"350":2,"351":1,"368":1,"369":0,"370":2,"371":2,"372":2,"373":2,"374":2,"375":1,"392":1,"393":0,"394":2,"395":0,"396":2,"397":2,"398":2,"399":1,"416":1,"417":0,"418":2,"419":0,"420":2,"421":2,"422":2,"423":1,"440":1,"441":0,"442":2,"443":0,"444":2,"445":2,"446":2,"447":1,"464":1,"465":0,"466":2,"467":0,"468":2,"469":2,"470":2,"471":1,"488":1,"489":0,"490":2,"491":0,"492":2,"493":2,"494":2,"495":1,"512":1,"513":0,"514":2,"515":0,"516":2,"517":2,"518":2,"519":1,"536":1,"537":0,"538":2,"539":0,"540":2,"541":2,"542":2,"543":1,"560":1,"561":0,"562":2,"563":0,"564":2,"565":2,"566":2,"567":1,"584":1,"585":0,"586":2,"587":0,"588":2,"589":2,"590":2,"591":1,"608":1,"609":0,"610":2,"611":0,"612":2,"613":2,"614":2,"615":1,"632":1,"633":0,"634":2,"635":0,"636":2,"637":2,"638":2,"639":1,"656":1,"657":0,"658":2,"659":0,"660":2,"661":2,"662":2,"663":1,"680":1,"681":2,"682":2,"683":0,"684":2,"685":2,"686":2,"687":1,"705":1,"706":1,"707":0,"708":2,"709":2,"710":1,"731":1,"732":1,"733":1}},"N":{"w":24,"h":50,"px":{"297":1,"298":1,"299":1,"300":1,"301":1,"302":1,"318":1,"319":1,"320":1,"321":0,"322":0,"323":0,"324":0,"325":0,"326":0,"327":1,"328":1,"329":1,"340":1,"341":1,"342":0,"343":2,"344":2,"345":2,"346":2,"347":2,"348":2,"349":2,"350":2,"351":2,"352":2,"353":2,"354":1,"355":1,"363":1,"364":0,"365":2,"366":2,"367":2,"368":2,"369":2,"370":2,"371":2,"372":2,"373":2,"374":2,"375":2,"376":2,"377":0,"378":2,"379":2,"380":1,"387":1,"388":0,"389":2,"390":2,"391":2,"392":2,"393":2,"394":2,"395":2,"396":2,"397":2,"398":2,"399":2,"400":2,"401":0,"402":2,"403":2,"404":1,"411":1,"412":0,"413":2,"414":2,"415":2,"416":2,"417":2,"418":2,"419":2,"420":2,"421":2,"422":2,"423":2,"424":2,"425":0,"426":2,"427":2,"428":1,"435":1,"436":0,"437":2,"438":2,"439":2,"440":2,"441":2,"442":2,"443":2,"444":2,"445":2,"446":2,"447":2,"448":2,"449":0,"450":2,"451":2,"452":1,"459":1,"460":0,"461":2,"462":2,"463":2,"464":2,"465":2,"466":2,"467":2,"468":2,"469":2,"470":2,"471":2,"472":2,"473":0,"474":2,"475":2,"476":1,"483":1,"484":0,"485":2,"486":2,"487":2,"488":2,"489":2,"490":2,"491":2,"492":2,"493":2,"494":2,"495":2,"496":2,"497":0,"498":2,"499":2,"500":1,"507":1,"508":0,"509":2,"510":2,"511":2,"512":2,"513":2,"514":2,"515":2,"516":2,"517":2,"518":2,"519":2,"520":2,"521":0,"522":2,"523":2,"524":1,"531":1,"532":0,"533":2,"534":2,"535":2,"536":2,"537":2,"538":2,"539":2,"540":2,"541":2,"542":2,"543":2,"544":2,"545":0,"546":2,"547":2,"548":1,"555":1,"556":0,"557":2,"558":2,"559":2,"560":2,"561":2,"562":2,"563":2,"564":2,"565":2,"566":2,"567":2,"568":2,"569":0,"570":2,"571":2,"572":1,"579":1,"580":0,"581":2,"582":2,"583":2,"584":2,"585":2,"586":2,"587":2,"588":2,"589":2,"590":2,"591":2,"592":2,"593":0,"594":2,"595":2,"596":1,"603":1,"604":0,"605":2,"606":2,"607":2,"608":2,"609":2,"610":2,"611":2,"612":2,"613":2,"614":2,"615":2,"616":2,"617":0,"618":2,"619":2,"620":1,"627":1,"628":0,"629":2,"630":2,"631":2,"632":2,"633":2,"634":2,"635":2,"636":2,"637":2,"638":2,"639":2,"640":2,"641":0,"642":2,"643":2,"644":1,"651":1,"652":0,"653":2,"654":2,"655":2,"656":2,"657":2,"658":2,"659":2,"660":2,"661":2,"662":2,"663":2,"664":2,"665":0,"666":2,"667":2,"668":1,"675":1,"676":0,"677":2,"678":2,"679":2,"680":2,"681":2,"682":2,"683":2,"684":2,"685":2,"686":2,"687":2,"688":2,"689":0,"690":2,"691":2,"692":1,"699":1,"700":0,"701":2,"702":2,"703":1,"704":1,"705":1,"706":1,"707":1,"708":1,"709":1,"710":1,"711":1,"712":1,"713":0,"714":2,"715":2,"716":1,"724":1,"725":1,"726":1,"737":1,"738":1,"739":1}},"NE":{"w":24,"h":50,"px":{"298":1,"299":1,"300":1,"301":1,"302":1,"303":1,"319":1,"320":1,"321":1,"322":0,"323":0,"324":0,"325":0,"326":0,"327":0,"328":1,"329":1,"330":1,"342":1,"343":0,"344":2,"345":2,"346":2,"347":2,"348":2,"349":2,"350":2,"351":2,"352":2,"353":2,"354":2,"355":1,"356":1,"366":1,"367":0,"368":2,"369":2,"370":2,"371":2,"372":2,"373":2,"374":2,"375":2,"376":2,"377":2,"378":0,"379":2,"380":2,"381":1,"389":1,"390":0,"391":2,"392":2,"393":2,"394":2,"395":2,"396":2,"397":2,"398":2,"399":2,"400":2,"401":2,"402":0,"403":2,"404":2,"405":1,"413":1,"414":0,"415":2,"416":2,"417":2,"418":2,"419":2,"420":2,"421":2,"422":2,"423":2,"424":2,"425":2,"426":0,"427":2,"428":2,"429":1,"437":1,"438":0,"439":2,"440":2,"441":2,"442":2,"443":2,"444":2,"445":2,"446":2,"447":2,"448":2,"449":2,"450":0,"451":2,"452":2,"453":1,"461":1,"462":0,"463":2,"464":2,"465":2,"466":2,"467":2,"468":2,"469":2,"470":2,"471":2,"472":2,"473":2,"474":0,"475":2,"476":2,"477":1,"485":1,"486":0,"487":2,"488":2,"489":2,"490":2,"491":2,"492":2,"493":2,"494":2,"495":2,"496":2,"497":2,"498":0,"499":2,"500":2,"501":1,"509":1,"510":0,"511":2,"512":2,"513":2,"514":2,"515":2,"516":2,"517":2,"518":2,"519":2,"520":2,"521":2,"522":0,"523":2,"524":2,"525":1,"533":1,"534":0,"535":2,"536":2,"537":2,"538":2,"539":2,"540":2,"541":2,"542":2,"543":2,"544":2,"545":2,"546":0,"547":2,"548":2,"549":1,"557":1,"558":0,"559":2,"560":2,"561":2,"562":2,"563":2,"564":2,"565":2,"566":2,"567":2,"568":2,"569":2,"570":0,"571":2,"572":2,"573":1,"581":1,"582":0,"583":2,"584":2,"585":2,"586":2,"587":2,"588":2,"589":2,"590":2,"591":2,"592":2,"593":2,"594":0,"595":2,"596":2,"597":1,"605":1,"606":0,"607":2,"608":2,"609":2,"610":2,"611":2,"612":2,"613":2,"614":2,"615":2,"616":2,"617":2,"618":0,"619":2,"620":2,"621":1,"629":1,"630":0,"631":2,"632":2,"633":2,"634":2,"635":2,"636":2,"637":2,"638":2,"639":2,"640":2,"641":2,"642":0,"643":2,"644":2,"645":1,"653":1,"654":0,"655":2,"656":2,"657":2,"658":2,"659":2,"660":2,"661":2,"662":2,"663":2,"664":2,"665":2,"666":0,"667":2,"668":2,"669":1,"677":1,"678":0,"679":2,"680":2,"681":2,"682":2,"683":2,"684":2,"685":2,"686":2,"687":2,"688":2,"689":2,"690":0,"691":2,"692":2,"693":1,"702":1,"703":1,"704":1,"705":1,"706":1,"707":1,"708":1,"709":1,"710":1,"711":1,"712":1,"713":1,"714":0,"715":2,"716":2,"717":1,"738":1,"739":1,"740":1}},"S":{"w":24,"h":50,"px":{"273":1,"274":1,"275":1,"276":1,"277":1,"278":1,"296":1,"297":2,"298":2,"299":2,"300":2,"301":2,"302":2,"303":1,"318":1,"319":1,"320":1,"321":0,"322":0,"323":0,"324":0,"325":0,"326":0,"327":1,"328":1,"329":1,"340":1,"341":1,"342":0,"343":2,"344":2,"345":2,"346":2,"347":2,"348":2,"349":2,"350":2,"351":2,"352":2,"353":2,"354":1,"355":1,"363":1,"364":0,"365":2,"366":2,"367":2,"368":2,"369":2,"370":2,"371":2,"372":2,"373":2,"374":2,"375":2,"376":2,"377":0,"378":2,"379":2,"380":1,"387":1,"388":0,"389":2,"390":2,"391":2,"392":2,"393":2,"394":2,"395":2,"396":2,"397":2,"398":2,"399":2,"400":2,"401":0,"402":2,"403":2,"404":1,"411":1,"412":0,"413":2,"414":2,"415":2,"416":2,"417":2,"418":2,"419":2,"420":2,"421":2,"422":2,"423":2,"424":2,"425":0,"426":2,"427":2,"428":1,"435":1,"436":0,"437":2,"438":2,"439":2,"440":2,"441":2,"442":2,"443":2,"444":2,"445":2,"446":2,"447":2,"448":2,"449":0,"450":2,"451":2,"452":1,"459":1,"460":0,"461":2,"462":2,"463":2,"464":2,"465":2,"466":2,"467":2,"468":2,"469":2,"470":2,"471":2,"472":2,"473":0,"474":2,"475":2,"476":1,"483":1,"484":0,"485":2,"486":2,"487":2,"488":2,"489":2,"490":2,"491":2,"492":2,"493":2,"494":2,"495":2,"496":2,"497":0,"498":2,"499":2,"500":1,"507":1,"508":0,"509":2,"510":2,"511":2,"512":2,"513":2,"514":2,"515":2,"516":2,"517":2,"518":2,"519":2,"520":2,"521":0,"522":2,"523":2,"524":1,"531":1,"532":0,"533":2,"534":2,"535":2,"536":2,"537":2,"538":2,"539":2,"540":2,"541":2,"542":2,"543":2,"544":2,"545":0,"546":2,"547":2,"548":1,"555":1,"556":0,"557":2,"558":2,"559":2,"560":2,"561":2,"562":2,"563":2,"564":2,"565":2,"566":2,"567":2,"568":2,"569":0,"570":2,"571":2,"572":1,"579":1,"580":0,"581":2,"582":2,"583":2,"584":2,"585":2,"586":2,"587":2,"588":2,"589":2,"590":2,"591":2,"592":2,"593":0,"594":2,"595":2,"596":1,"603":1,"604":0,"605":2,"606":2,"607":2,"608":2,"609":2,"610":2,"611":2,"612":2,"613":2,"614":2,"615":2,"616":2,"617":0,"618":2,"619":2,"620":1,"627":1,"628":0,"629":2,"630":2,"631":2,"632":2,"633":2,"634":2,"635":2,"636":2,"637":2,"638":2,"639":2,"640":2,"641":0,"642":2,"643":2,"644":1,"651":1,"652":0,"653":2,"654":2,"655":2,"656":2,"657":2,"658":2,"659":2,"660":2,"661":2,"662":2,"663":2,"664":2,"665":0,"666":2,"667":2,"668":1,"675":1,"676":0,"677":2,"678":2,"679":2,"680":2,"681":2,"682":2,"683":2,"684":2,"685":2,"686":2,"687":2,"688":2,"689":0,"690":2,"691":2,"692":1,"699":1,"700":0,"701":2,"702":2,"703":1,"704":1,"705":1,"706":1,"707":1,"708":1,"709":1,"710":1,"711":1,"712":1,"713":0,"714":2,"715":2,"716":1,"724":1,"725":1,"726":1,"737":1,"738":1,"739":1}},"SE":{"w":24,"h":50,"px":{"274":1,"275":1,"276":1,"277":1,"278":1,"279":1,"297":1,"298":2,"299":2,"300":2,"301":2,"302":2,"303":2,"304":1,"319":1,"320":1,"321":1,"322":0,"323":0,"324":0,"325":0,"326":0,"327":0,"328":1,"329":1,"330":1,"341":1,"342":1,"343":2,"344":2,"345":2,"346":2,"347":2,"348":2,"349":2,"350":2,"351":2,"352":2,"353":2,"354":0,"355":1,"364":1,"365":2,"366":2,"367":0,"368":2,"369":2,"370":2,"371":2,"372":2,"373":2,"374":2,"375":2,"376":2,"377":2,"378":0,"379":1,"388":1,"389":2,"390":2,"391":0,"392":2,"393":2,"394":2,"395":2,"396":2,"397":2,"398":2,"399":2,"400":2,"401":2,"402":2,"403":0,"404":1,"412":1,"413":2,"414":2,"415":0,"416":2,"417":2,"418":2,"419":2,"420":2,"421":2,"422":2,"423":2,"424":2,"425":2,"426":2,"427":0,"428":1,"436":1,"437":2,"438":2,"439":0,"440":2,"441":2,"442":2,"443":2,"444":2,"445":2,"446":2,"447":2,"448":2,"449":2,"450":2,"451":0,"452":1,"460":1,"461":2,"462":2,"463":0,"464":2,"465":2,"466":2,"467":2,"468":2,"469":2,"470":2,"471":2,"472":2,"473":2,"474":2,"475":0,"476":1,"484":1,"485":2,"486":2,"487":0,"488":2,"489":2,"490":2,"491":2,"492":2,"493":2,"494":2,"495":2,"496":2,"497":2,"498":2,"499":0,"500":1,"508":1,"509":2,"510":2,"511":0,"512":2,"513":2,"514":2,"515":2,"516":2,"517":2,"518":2,"519":2,"520":2,"521":2,"522":2,"523":0,"524":1,"532":1,"533":2,"534":2,"535":0,"536":2,"537":2,"538":2,"539":2,"540":2,"541":2,"542":2,"543":2,"544":2,"545":2,"546":2,"547":0,"548":1,"556":1,"557":2,"558":2,"559":0,"560":2,"561":2,"562":2,"563":2,"564":2,"565":2,"566":2,"567":2,"568":2,"569":2,"570":2,"571":0,"572":1,"580":1,"581":2,"582":2,"583":0,"584":2,"585":2,"586":2,"587":2,"588":2,"589":2,"590":2,"591":2,"592":2,"593":2,"594":2,"595":0,"596":1,"604":1,"605":2,"606":2,"607":0,"608":2,"609":2,"610":2,"611":2,"612":2,"613":2,"614":2,"615":2,"616":2,"617":2,"618":2,"619":0,"620":1,"628":1,"629":2,"630":2,"631":0,"632":2,"633":2,"634":2,"635":2,"636":2,"637":2,"638":2,"639":2,"640":2,"641":2,"642":2,"643":0,"644":1,"652":1,"653":2,"654":2,"655":0,"656":2,"657":2,"658":2,"659":2,"660":2,"661":2,"662":2,"663":2,"664":2,"665":2,"666":2,"667":0,"668":1,"676":1,"677":2,"678":2,"679":0,"680":2,"681":2,"682":2,"683":2,"684":2,"685":2,"686":2,"687":2,"688":2,"689":2,"690":2,"691":0,"692":1,"700":1,"701":2,"702":2,"703":0,"704":1,"705":1,"706":1,"707":1,"708":1,"709":1,"710":1,"711":1,"712":1,"713":1,"714":1,"715":1,"725":1,"726":1,"727":1}}},"shoes/balenciaga":{"E":{"w":24,"h":50,"px":{"1016":1,"1017":1,"1018":1,"1019":1,"1039":1,"1040":2,"1041":0,"1042":0,"1043":2,"1044":1,"1063":1,"1064":0,"1065":0,"1066":0,"1067":0,"1068":1,"1069":1,"1070":1,"1071":1,"1072":1,"1086":1,"1087":4,"1088":4,"1089":4,"1090":4,"1091":4,"1092":4,"1093":0,"1094":0,"1095":0,"1096":2,"1097":1,"1110":1,"1111":3,"1112":3,"1113":3,"1114":3,"1115":3,"1116":3,"1117":0,"1118":0,"1119":0,"1120":0,"1121":1,"1135":1,"1136":1,"1137":1,"1138":1,"1139":4,"1140":4,"1141":4,"1142":4,"1143":4,"1144":4,"1145":4,"1146":1,"1162":1,"1163":3,"1164":3,"1165":3,"1166":3,"1167":3,"1168":3,"1169":3,"1170":1,"1187":1,"1188":1,"1189":1,"1190":1,"1191":1,"1192":1,"1193":1}},"N":{"w":24,"h":50,"px":{"1063":1,"1064":1,"1065":1,"1066":1,"1067":1,"1069":1,"1070":1,"1071":1,"1072":1,"1073":1,"1086":1,"1087":2,"1088":0,"1089":0,"1090":0,"1091":2,"1092":1,"1093":2,"1094":0,"1095":0,"1096":0,"1097":2,"1098":1,"1110":1,"1111":0,"1112":0,"1113":0,"1114":0,"1115":0,"1116":1,"1117":0,"1118":0,"1119":0,"1120":0,"1121":0,"1122":1,"1133":1,"1134":4,"1135":4,"1136":4,"1137":4,"1138":4,"1139":4,"1140":4,"1141":4,"1142":4,"1143":4,"1144":4,"1145":4,"1146":4,"1147":1,"1157":1,"1158":3,"1159":3,"1160":3,"1161":3,"1162":3,"1163":3,"1164":3,"1165":3,"1166":3,"1167":3,"1168":3,"1169":3,"1170":3,"1171":1,"1182":1,"1183":1,"1184":1,"1185":1,"1186":1,"1187":1,"1188":1,"1189":1,"1190":1,"1191":1,"1192":1,"1193":1,"1194":1}},"NE":{"w":24,"h":50,"px":{"1065":1,"1066":1,"1067":1,"1068":1,"1069":1,"1070":1,"1071":1,"1072":1,"1073":1,"1074":1,"1088":1,"1089":2,"1090":0,"1091":0,"1092":0,"1093":2,"1094":2,"1095":0,"1096":0,"1097":0,"1098":2,"1099":1,"1112":1,"1113":0,"1114":0,"1115":0,"1116":0,"1117":0,"1118":0,"1119":0,"1120":0,"1121":0,"1122":0,"1123":1,"1135":1,"1136":4,"1137":4,"1138":4,"1139":4,"1140":4,"1141":4,"1142":4,"1143":4,"1144":4,"1145":4,"1146":4,"1147":4,"1148":1,"1159":1,"1160":3,"1161":3,"1162":3,"1163":3,"1164":3,"1165":3,"1166":3,"1167":3,"1168":3,"1169":3,"1170":3,"1171":3,"1172":1,"1184":1,"1185":1,"1186":1,"1187":1,"1188":1,"1189":1,"1190":1,"1191":1,"1192":1,"1193":1,"1194":1,"1195":1}},"S":{"w":24,"h":50,"px":{"1063":1,"1064":1,"1065":1,"1066":1,"1067":1,"1069":1,"1070":1,"1071":1,"1072":1,"1073":1,"1086":1,"1087":2,"1088":0,"1089":0,"1090":0,"1091":2,"1092":1,"1093":2,"1094":0,"1095":0,"1096":0,"1097":2,"1098":1,"1110":1,"1111":0,"1112":0,"1113":0,"1114":0,"1115":0,"1116":1,"1117":0,"1118":0,"1119":0,"1120":0,"1121":0,"1122":1,"1133":1,"1134":4,"1135":4,"1136":4,"1137":4,"1138":4,"1139":4,"1140":4,"1141":4,"1142":4,"1143":4,"1144":4,"1145":4,"1146":4,"1147":1,"1157":1,"1158":3,"1159":3,"1160":3,"1161":3,"1162":3,"1163":3,"1164":3,"1165":3,"1166":3,"1167":3,"1168":3,"1169":3,"1170":3,"1171":1,"1182":1,"1183":1,"1184":1,"1185":1,"1186":1,"1187":1,"1188":1,"1189":1,"1190":1,"1191":1,"1192":1,"1193":1,"1194":1}},"SE":{"w":24,"h":50,"px":{"1063":1,"1064":1,"1065":1,"1066":1,"1067":1,"1068":1,"1069":1,"1070":1,"1071":1,"1072":1,"1086":1,"1087":2,"1088":0,"1089":0,"1090":0,"1091":2,"1092":2,"1093":0,"1094":0,"1095":0,"1096":2,"1097":1,"1110":1,"1111":0,"1112":0,"1113":0,"1114":0,"1115":0,"1116":0,"1117":0,"1118":0,"1119":0,"1120":0,"1121":1,"1133":1,"1134":4,"1135":4,"1136":4,"1137":4,"1138":4,"1139":4,"1140":4,"1141":4,"1142":4,"1143":4,"1144":4,"1145":4,"1146":1,"1157":1,"1158":3,"1159":3,"1160":3,"1161":3,"1162":3,"1163":3,"1164":3,"1165":3,"1166":3,"1167":3,"1168":3,"1169":3,"1170":1,"1182":1,"1183":1,"1184":1,"1185":1,"1186":1,"1187":1,"1188":1,"1189":1,"1190":1,"1191":1,"1192":1,"1193":1}}}},"meta":{"order":["body","facial","glasses","pants","shoes","shirt","jacket","hair","hat"],"dirs":["S","SE","E","NE","N"]}};
+
+const PD=PD_DATA;
+function retintRamp(baseRamp, targetRGB){
+  // keep the darkest step (outline) untouched, retint the rest preserving relative luminance
+  const out=[baseRamp[0].slice()];
+  const [tr,tg,tb]=targetRGB;
+  const lums=baseRamp.map(c=>0.299*c[0]+0.587*c[1]+0.114*c[2]);
+  const lmin=Math.min(...lums.slice(1)), lmax=Math.max(...lums.slice(1));
+  for(let i=1;i<baseRamp.length;i++){
+    const t=lmax===lmin?1:(lums[i]-lmin)/(lmax-lmin);   // 0 dark .. 1 light
+    const k=0.35+0.65*t;                                 // darkest colored step = 35% of target
+    out.push([Math.round(tr*k),Math.round(tg*k),Math.round(tb*k)]);
+  }
+  return out;
+}
+
+// compose a full character frame: stack layers in META order, each with its own (possibly retinted) ramp
+// layersOn: {slotKey:'jacket/japanese-fuzz_hoodDown', ...} by slot name; tints: {slotName:[r,g,b]} optional
+function compose(dir, equipped, tints){
+  const order=PD.meta.order;   // body,facial,glasses,pants,shoes,shirt,jacket,hair,hat
+  const cells={};              // px index -> [r,g,b]
+  let w=0,h=0;
+  for(const slot of order){
+    const key=equipped[slot]; if(!key) continue;
+    const L=PD.layers[key] && PD.layers[key][dir]; if(!L) continue;
+    w=L.w;h=L.h;
+    let ramp=PD.ramps[key];
+    if(tints && tints[slot]) ramp=retintRamp(ramp,tints[slot]);
+    for(const i in L.px){
+      const c=ramp[L.px[i]]||ramp[ramp.length-1];
+      cells[i]=c;
+    }
+  }
+  return {w,h,cells};
+}
+
+const Wardrobe={PD_DATA,retintRamp,compose};
+if(typeof module!=='undefined'&&module.exports){module.exports.Wardrobe=Wardrobe;}
+
+
+/* ===== bohemia_retarget.js (RIG LAW: deltas on Paolo pose, legCompress, W/SW/NW mirror) ===== */
+/* ===== bohemia_retarget.js =====
+   Retargets the 18 alpha animation clips onto the NEW rig skeleton.
+   Old alpha spoke in angle-deltas (upL/upR/foreL/foreR/thigh/shin/spine/head)
+   plus IK targets (ikR/ikL + bendR/bendL) and passthrough (_gun/_fire/_dial).
+
+   LOCKED BINDINGS (Paolo, 7/2/26):
+   - Arms are BODY-SIDE:  upL->shL chain, upR->shR chain.
+   - Legs are SCREEN-SIDE: A = screen-left leg ALWAYS, B = screen-right.
+     Front facings: thighR->A, thighL->B.  Back facings: thighR->B, thighL->A.
+     Sides resolved via depthFlip / RUNMIR (carried from alpha).
+   - spine: rotate torso (waC->neck) + everything above the hips.
+   - head:  neck->headTop tilt.
+   - hipOff:[dx,dy] translate waA/waC/waB + all children (bob / crouch drop).
+   - IK: 2-bone solve in NATIVE rig-space off the rig chest point (waC/neck).
+   - _gun/_fire/_dial: passthrough to presentation/dial layer, no joint change.
+
+   New-rig joints (15): neck,headTop, shL,elL,handL, shR,elR,handR,
+                        waA,waC,waB, knA,footA, knB,footB
+   ============================================================================ */
+(function (root) {
+  'use strict';
+
+  // ---- which facings are "back" (character facing away) for leg-hand swap ----
+  // Front group reads thighR as screen-left; back group mirrors it.
+  var BACK_DIRS = { N: 1, NE: 1, NW: 1 };
+  var FRONT_DIRS = { S: 1, SE: 1, SW: 1, E: 1, W: 1 };
+
+  // depthFlip / RUNMIR come from the alpha DEPTH table; the merge app injects the
+  // real ones. Defaults keep the math sane if a dir is missing.
+  function depthFlip(d, DEPTH) { return (DEPTH && DEPTH[d] && DEPTH[d].flip) ? -1 : 1; }
+
+  // rotate point p around pivot o by angle a (radians). Same math as rig rotAbout.
+  function rotAbout(p, o, a) {
+    var s = Math.sin(a), c = Math.cos(a);
+    var dx = p[0] - o[0], dy = p[1] - o[1];
+    return [o[0] + dx * c - dy * s, o[1] + dx * s + dy * c];
+  }
+  function add(p, dx, dy) { return [p[0] + dx, p[1] + dy]; }
+  function clone(sk) { var o = {}; for (var k in sk) o[k] = sk[k].slice(); return o; }
+
+  // 2-bone IK: solve shoulder->elbow->hand so hand reaches target T.
+  // bend sign picks elbow-out direction (+1 / -1). Preserves bone lengths from rest.
+  function solveIK(sh, restEl, restHand, T, bend) {
+    var l1 = Math.hypot(restEl[0] - sh[0], restEl[1] - sh[1]);
+    var l2 = Math.hypot(restHand[0] - restEl[0], restHand[1] - restEl[1]);
+    var dx = T[0] - sh[0], dy = T[1] - sh[1];
+    var dist = Math.hypot(dx, dy);
+    var reach = l1 + l2;
+    if (dist > reach) { // out of reach: straighten toward target, scale to reach
+      var f = reach / (dist || 1e-6);
+      var hand = [sh[0] + dx * f, sh[1] + dy * f];
+      var el = [sh[0] + dx * (l1 / reach), sh[1] + dy * (l1 / reach)];
+      return { el: el, hand: hand };
+    }
+    var a = Math.atan2(dy, dx);
+    // law of cosines for elbow angle offset
+    var cosA = (l1 * l1 + dist * dist - l2 * l2) / (2 * l1 * dist);
+    cosA = Math.max(-1, Math.min(1, cosA));
+    var off = Math.acos(cosA) * (bend >= 0 ? 1 : -1);
+    var ea = a + off;
+    var el = [sh[0] + Math.cos(ea) * l1, sh[1] + Math.sin(ea) * l1];
+    // hand from elbow toward target, using l2
+    var hx = T[0] - el[0], hy = T[1] - el[1];
+    var hl = Math.hypot(hx, hy) || 1e-6;
+    var hand = [el[0] + hx / hl * l2, el[1] + hy / hl * l2];
+    return { el: el, hand: hand };
+  }
+
+  // chest point in NATIVE rig-space: midpoint of waC and neck, biased to neck.
+  function chestPt(rest) {
+    return [(rest.waC[0] + rest.neck[0]) / 2, (rest.waC[1] + rest.neck[1]) / 2];
+  }
+
+  // native gun target: reach forward from chest along facing by rf (front) / rr (rear grip).
+  // rf/rr re-tuned for 56-space (alpha used 24/12 in 64-space). Rendered-frame verified per rule.
+  function gunTNative(rest, faceAng, rf, rr) {
+    var c = chestPt(rest);
+    return [
+      [c[0] + Math.cos(faceAng) * rf, c[1] + Math.sin(faceAng) * rf], // front grip
+      [c[0] + Math.cos(faceAng) * rr, c[1] + Math.sin(faceAng) * rr], // rear grip
+      faceAng
+    ];
+  }
+
+  /* ---- apply one clip's pose object to a rest skeleton, for direction d ----
+     `pose` is the alpha clip output: {upL, thighR, spine, hipOff, ikR, bendR, _gun,...}
+     `rest` is the new-rig rest skeleton for that dir (15 joints).
+     Returns { sk: posedSkeleton, present: {_gun,_fire,_dial} } */
+  function applyPose(d, pose, rest, ctx) {
+    ctx = ctx || {};
+    var DEPTH = ctx.DEPTH, FACEANG = ctx.FACEANG || {};
+    var j = clone(rest);
+    var isBack = !!BACK_DIRS[d];
+    var mFlip = depthFlip(d, DEPTH);
+
+    // ---- hipOff: translate hips + all children (whole lower + torso ride) ----
+    if (pose.hipOff) {
+      var dx = pose.hipOff[0] || 0, dy = pose.hipOff[1] || 0;
+      // hips and everything below/above the pelvis move together (root translate)
+      var moveAll = ['waA', 'waC', 'waB', 'knA', 'footA', 'knB', 'footB',
+                     'neck', 'headTop', 'shL', 'elL', 'handL', 'shR', 'elR', 'handR'];
+      for (var mi = 0; mi < moveAll.length; mi++) j[moveAll[mi]] = add(j[moveAll[mi]], dx, dy);
+    }
+
+    // ---- spine: rotate torso chain (pivot waC) carrying neck/head/arms ----
+    if (pose.spine) {
+      var sp = pose.spine;
+      var piv = j.waC;
+      var up = ['neck', 'headTop', 'shL', 'elL', 'handL', 'shR', 'elR', 'handR'];
+      for (var si = 0; si < up.length; si++) j[up[si]] = rotAbout(j[up[si]], piv, sp);
+    }
+
+    // ---- head tilt: neck->headTop ----
+    if (pose.head) j.headTop = rotAbout(j.headTop, j.neck, pose.head);
+
+    // ---- arms (BODY-SIDE). angle-delta path: upL/foreL, upR/foreR ----
+    if (pose.upL != null) {
+      j.elL = rotAbout(j.elL, j.shL, pose.upL);
+      j.handL = rotAbout(j.handL, j.shL, pose.upL);
+    }
+    if (pose.foreL != null) j.handL = rotAbout(j.handL, j.elL, pose.foreL);
+    if (pose.upR != null) {
+      j.elR = rotAbout(j.elR, j.shR, pose.upR);
+      j.handR = rotAbout(j.handR, j.shR, pose.upR);
+    }
+    if (pose.foreR != null) j.handR = rotAbout(j.handR, j.elR, pose.foreR);
+
+    // ---- arm COMPRESSION (N/S crunch law, Paolo 7/2/26): squeeze toward shoulder ----
+    function compressArm(sh, el, hd, amt) {
+      var f = 1 - amt;
+      return [
+        [sh[0] + (el[0]-sh[0])*f, sh[1] + (el[1]-sh[1])*f],
+        [sh[0] + (hd[0]-sh[0])*f, sh[1] + (hd[1]-sh[1])*f]
+      ];
+    }
+    var acL = pose.armCompressL || 0, acR = pose.armCompressR || 0;
+    if (acL > 0) { var raL = compressArm(j.shL, j.elL, j.handL, acL); j.elL = raL[0]; j.handL = raL[1]; }
+    if (acR > 0) { var raR = compressArm(j.shR, j.elR, j.handR, acR); j.elR = raR[0]; j.handR = raR[1]; }
+
+    // ---- leg COMPRESSION (alpha crouch mechanic): squeeze length toward hip ----
+    function compressLeg(hip, kn, ft, amt) {
+      var f = 1 - amt;
+      return [
+        [hip[0] + (kn[0]-hip[0])*f, hip[1] + (kn[1]-hip[1])*f],
+        [hip[0] + (ft[0]-hip[0])*f, hip[1] + (ft[1]-hip[1])*f]
+      ];
+    }
+    var cL = pose.legCompressL || 0, cR = pose.legCompressR || 0;
+    var cA = isBack ? cL : cR, cB = isBack ? cR : cL;
+    if (cA > 0) { var ra = compressLeg(j.waA, j.knA, j.footA, cA); j.knA = ra[0]; j.footA = ra[1]; }
+    if (cB > 0) { var rb = compressLeg(j.waB, j.knB, j.footB, cB); j.knB = rb[0]; j.footB = rb[1]; }
+
+    // ---- legs (SCREEN-SIDE). thighR/thighL map to A/B by front/back ----
+    // A = screen-left, B = screen-right. Front: thighR->A, thighL->B. Back: swap.
+    var Aleg = { th: null, sh: null }, Bleg = { th: null, sh: null };
+    if (isBack) {
+      Aleg.th = pose.thighL; Aleg.sh = pose.shinL;
+      Bleg.th = pose.thighR; Bleg.sh = pose.shinR;
+    } else {
+      Aleg.th = pose.thighR; Aleg.sh = pose.shinR;
+      Bleg.th = pose.thighL; Bleg.sh = pose.shinL;
+    }
+    if (Aleg.th != null) {
+      j.knA = rotAbout(j.knA, j.waA, Aleg.th);
+      j.footA = rotAbout(j.footA, j.waA, Aleg.th);
+    }
+    if (Aleg.sh != null) j.footA = rotAbout(j.footA, j.knA, Aleg.sh);
+    if (Bleg.th != null) {
+      j.knB = rotAbout(j.knB, j.waB, Bleg.th);
+      j.footB = rotAbout(j.footB, j.waB, Bleg.th);
+    }
+    if (Bleg.sh != null) j.footB = rotAbout(j.footB, j.knB, Bleg.sh);
+
+    // ---- IK arms (aim clips). ikR/ikL are targets in NATIVE rig-space now ----
+    // The clip provides targets via gunTNative (merge injects rest+faceAng).
+    if (pose.ikR) {
+      var sR = solveIK(j.shR, rest.elR, rest.handR, pose.ikR, pose.bendR || 1);
+      j.elR = sR.el; j.handR = sR.hand;
+    }
+    if (pose.ikL) {
+      var sL = solveIK(j.shL, rest.elL, rest.handL, pose.ikL, pose.bendL || -1);
+      j.elL = sL.el; j.handL = sL.hand;
+    }
+
+    return {
+      sk: j,
+      present: { _gun: pose._gun || null, _fire: !!pose._fire, _dial: pose._dial || null }
+    };
+  }
+
+  /* ---- reload + lean-x resolved NATIVE off the rig's own anchors ----
+     Alpha routed these through ragCache (ragdoll anchor points shoulderR/L/hip)
+     via sP(). We don't port the ragdoll sim: the new rig already exposes those
+     anchors as real joints. Same visual result, no alpha coord baggage.
+       reload: right hand comes to a reload position near right shoulder, left
+               hand drops to the hip (feeding a mag). bends preserved.
+       lean-x: cross-arm brace, hands cross to opposite shoulders, torso leaned. */
+  function reloadPose(d, rest) {
+    var shR = rest.shR, hip = rest.waC;
+    return {
+      ikR: [shR[0] + 4, shR[1] + 2], bendR: 1,
+      ikL: [hip[0], hip[1] - 2], bendL: -1
+    };
+  }
+  function leanXPose(d, rest) {
+    return {
+      spine: 0.22,
+      ikL: [rest.shR[0], rest.shR[1]], bendL: -1,  // left hand -> right shoulder
+      ikR: [rest.shL[0], rest.shL[1]], bendR: 1    // right hand -> left shoulder
+    };
+  }
+
+  var API = {
+    reloadPose: reloadPose,
+    leanXPose: leanXPose,
+    applyPose: applyPose,
+    solveIK: solveIK,
+    rotAbout: rotAbout,
+    chestPt: chestPt,
+    gunTNative: gunTNative,
+    BACK_DIRS: BACK_DIRS,
+    FRONT_DIRS: FRONT_DIRS
+  };
+  root.BohemiaRetarget = API; if (typeof BohemiaEngine!=='undefined') BohemiaEngine.Retarget = API;
+})(typeof self !== 'undefined' ? self : this);
+
+
+/* ===== scale2x.js (HD law: Scale2x on everything, final) ===== */
+/* ===== scale2x.js — AdvMAME2x / Scale2x, the real algorithm =====
+   Doubles a pixel grid 1->4 (each pixel becomes a 2x2), smoothing edges by
+   comparing 4-neighbours. This is Paolo's locked HD pipeline: Scale2x on
+   everything, final. Deterministic, no blur, preserves hard pixel-art edges.
+
+   Input:  src = flat array length W*H of values (color indices or packed rgb),
+           W, H, eq(a,b) equality test (default ===).
+   Output: {data, W:2W, H:2H} where each source pixel p maps to a 2x2 block
+           whose 4 sub-pixels (E0,E1,E2,E3) follow the Scale2x rules. */
+(function (root) {
+  'use strict';
+  function scale2x(src, W, H, eq) {
+    eq = eq || function (a, b) { return a === b; };
+    var OW = W * 2, OH = H * 2;
+    var out = new Array(OW * OH);
+    function S(x, y) { // clamped sample
+      if (x < 0) x = 0; else if (x >= W) x = W - 1;
+      if (y < 0) y = 0; else if (y >= H) y = H - 1;
+      return src[y * W + x];
+    }
+    for (var y = 0; y < H; y++) {
+      for (var x = 0; x < W; x++) {
+        var P = S(x, y);
+        var A = S(x, y - 1), Bp = S(x + 1, y), Cp = S(x - 1, y), D = S(x, y + 1);
+        // Scale2x rules
+        var E0 = P, E1 = P, E2 = P, E3 = P;
+        if (!eq(Cp, Bp) && !eq(A, D)) {
+          E0 = eq(A, Cp) ? A : P;
+          E1 = eq(A, Bp) ? A : P;
+          E2 = eq(D, Cp) ? D : P;
+          E3 = eq(D, Bp) ? D : P;
+        }
+        var ox = x * 2, oy = y * 2;
+        out[oy * OW + ox] = E0;
+        out[oy * OW + ox + 1] = E1;
+        out[(oy + 1) * OW + ox] = E2;
+        out[(oy + 1) * OW + ox + 1] = E3;
+      }
+    }
+    return { data: out, W: OW, H: OH };
+  }
+  // apply twice for 4x if ever needed
+  function scale4x(src, W, H, eq) {
+    var a = scale2x(src, W, H, eq);
+    return scale2x(a.data, a.W, a.H, eq);
+  }
+  var API = { scale2x: scale2x, scale4x: scale4x };
+  root.Scale2x = API; if (typeof BohemiaEngine!=='undefined') BohemiaEngine.Scale2x = API;
+})(typeof self !== 'undefined' ? self : this);
+
+/* ===== bohemia_framecache.js ===== */
+BohemiaEngine.FrameCache=(function(){
+'use strict';
+/* ============================================================================
+   BOHEMIA — FRAME CACHE (7.2.26)
+   Animation frames are deterministic: same (dir, clip, phase-bucket, look)
+   ALWAYS composes the same pixels. So build each frame ONCE, replay forever.
+
+   FORESIGHT baked in:
+   - PHASE QUANTIZATION obeys the 120 BPM LAW: clips are beat-locked, so a
+     cycle quantizes cleanly into fixed buckets (default 12 per cycle = 24
+     visual fps at 2-beat clips). More buckets = smoother, linear memory.
+   - LOOK HASH: outfit + tints + skin tone + skin detail + face params fold
+     into one string key. ANY future look-affecting system (gloves, female /
+     child rigs, mirrored-logo garments) just feeds the hash, zero cache
+     rewrites.
+   - LRU BUDGET: hard cap on cached frames (default 512 ≈ a few MB of 56x56
+     px arrays). City view with dozens of walkers stays flat.
+   - INVALIDATION is one call: bumpLook() when the player edits skin/outfit.
+   - Backend-agnostic: stores whatever buildFn returns (px arrays now, ImageData
+     or WebGL textures later — the cache never inspects the payload).
+   ============================================================================ */
+function FrameCache(opts){
+  opts=opts||{};
+  this.buckets=opts.buckets||12;          // phase steps per clip cycle
+  this.max=opts.max||512;                 // LRU frame budget
+  this.map=new Map();                     // key -> payload (Map preserves insert order = LRU)
+  this.hits=0;this.misses=0;
+}
+FrameCache.prototype.quantize=function(ph){
+  var b=this.buckets;
+  return ((Math.floor(((ph%1)+1)%1*b))%b);
+};
+FrameCache.prototype.key=function(dir,clip,ph,lookHash){
+  return dir+'|'+clip+'|'+this.quantize(ph)+'|'+(lookHash||'');
+};
+FrameCache.prototype.get=function(dir,clip,ph,lookHash,buildFn){
+  var k=this.key(dir,clip,ph,lookHash);
+  if(this.map.has(k)){
+    var v=this.map.get(k);
+    this.map.delete(k);this.map.set(k,v);   // LRU touch
+    this.hits++;return v;
+  }
+  this.misses++;
+  var qph=(this.quantize(ph)+0.5)/this.buckets;  // build at bucket CENTER: stable representative
+  var payload=buildFn(dir,clip,qph);
+  this.map.set(k,payload);
+  while(this.map.size>this.max){var oldest=this.map.keys().next().value;this.map.delete(oldest);}
+  return payload;
+};
+FrameCache.prototype.clear=function(){this.map.clear();this.hits=0;this.misses=0;};
+FrameCache.prototype.stats=function(){return {size:this.map.size,hits:this.hits,misses:this.misses,hitRate:this.hits/Math.max(1,this.hits+this.misses)};};
+/* look hash helper: stable stringify of anything look-affecting */
+function lookHash(parts){
+  var s=JSON.stringify(parts);
+  var h=2166136261>>>0;                       // FNV-1a, cheap + stable
+  for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}
+  return h.toString(36);
+}
+var API={FrameCache:FrameCache,lookHash:lookHash};
+return API;
+})();
+
+/* ===== bohemia_persist.js ===== */
+BohemiaEngine.Persist=(function(){
+'use strict';
+/* ============================================================================
+   BOHEMIA — APP-OWNED PERSISTENCE (7.2.26)
+   The app owns its saves. Not scattered localStorage keys owned by whichever
+   tool wrote them: ONE namespaced store, versioned, migratable, exportable.
+
+   FORESIGHT baked in:
+   - SLOTS: named save slots from day one (dynasty runs, tool states, skin
+     exports). A slot is {v, t, data}. Adding cloud sync later = new backend,
+     zero call-site changes.
+   - SCHEMA VERSION + MIGRATION CHAIN: every slot carries v. register(fromV,
+     fn) chains upgrades so a save from any old build loads in any new build.
+     This is the same fold-forward philosophy as the generational fold: old
+     state is never invalid, only older.
+   - BACKENDS pluggable: memory (tests/node), localStorage (browser/iPhone),
+     anything with getItem/setItem/removeItem. Quota errors surface as
+     {ok:false, reason} instead of throwing mid-game.
+   - DIRTY + THROTTLE: mark dirty, flush() writes only what changed, at most
+     once per interval. Heartbeat-friendly: call flush from the master loop.
+   - EXPORT/IMPORT: one JSON blob of every slot for Paolo's download-and-carry
+     workflow between chats and devices.
+   ============================================================================ */
+var NS='bohemia:';
+function MemoryBackend(){this._={};}
+MemoryBackend.prototype.getItem=function(k){return (k in this._)?this._[k]:null;};
+MemoryBackend.prototype.setItem=function(k,v){this._[k]=String(v);};
+MemoryBackend.prototype.removeItem=function(k){delete this._[k];};
+MemoryBackend.prototype.keys=function(){return Object.keys(this._);};
+
+function Persist(opts){
+  opts=opts||{};
+  this.backend=opts.backend||(typeof localStorage!=='undefined'?localStorage:new MemoryBackend());
+  this.version=opts.version||1;            // current schema version
+  this.migrations={};                      // fromV -> fn(data)->data (to fromV+1)
+  this.dirty={};                           // slot -> data awaiting flush
+  this.lastFlush=0;
+  this.flushMs=opts.flushMs||1000;
+}
+Persist.prototype.register=function(fromV,fn){this.migrations[fromV]=fn;return this;};
+Persist.prototype._migrate=function(slotObj){
+  var v=slotObj.v||1,data=slotObj.data;
+  while(v<this.version){
+    var fn=this.migrations[v];
+    if(!fn)return {ok:false,reason:'no migration from v'+v,data:data,v:v};
+    data=fn(data);v++;
+  }
+  return {ok:true,data:data,v:v};
+};
+Persist.prototype.save=function(slot,data){this.dirty[slot]=data;return {ok:true};};
+Persist.prototype.saveNow=function(slot,data){
+  var blob;try{blob=JSON.stringify({v:this.version,t:Date.now(),data:data});}
+  catch(e){return {ok:false,reason:'unserializable: '+e.message};}
+  try{this.backend.setItem(NS+slot,blob);}
+  catch(e){return {ok:false,reason:'quota/backend: '+e.message};}
+  delete this.dirty[slot];
+  return {ok:true,bytes:blob.length};
+};
+Persist.prototype.flush=function(now){
+  now=(now==null)?Date.now():now;
+  if(now-this.lastFlush<this.flushMs)return {ok:true,flushed:0,throttled:true};
+  var n=0,errs=[];
+  for(var slot in this.dirty){var r=this.saveNow(slot,this.dirty[slot]);if(r.ok)n++;else errs.push(slot+': '+r.reason);}
+  this.lastFlush=now;
+  return errs.length?{ok:false,flushed:n,errors:errs}:{ok:true,flushed:n};
+};
+Persist.prototype.load=function(slot){
+  var raw=this.backend.getItem(NS+slot);
+  if(raw==null)return {ok:false,reason:'empty'};
+  var obj;try{obj=JSON.parse(raw);}catch(e){return {ok:false,reason:'corrupt: '+e.message};}
+  var m=this._migrate(obj);
+  if(!m.ok)return m;
+  return {ok:true,data:m.data,v:m.v,t:obj.t};
+};
+Persist.prototype.remove=function(slot){this.backend.removeItem(NS+slot);delete this.dirty[slot];return {ok:true};};
+Persist.prototype.slots=function(){
+  var out=[];
+  if(this.backend.keys){var ks=this.backend.keys();for(var i=0;i<ks.length;i++)if(ks[i].indexOf(NS)===0)out.push(ks[i].slice(NS.length));}
+  else if(typeof this.backend.length==='number'){for(var j=0;j<this.backend.length;j++){var k=this.backend.key(j);if(k&&k.indexOf(NS)===0)out.push(k.slice(NS.length));}}
+  return out;
+};
+Persist.prototype.exportAll=function(){
+  var out={_persistVersion:this.version,slots:{}};
+  var ss=this.slots();
+  for(var i=0;i<ss.length;i++){var raw=this.backend.getItem(NS+ss[i]);try{out.slots[ss[i]]=JSON.parse(raw);}catch(e){}}
+  return JSON.stringify(out);
+};
+Persist.prototype.importAll=function(json,opts){
+  opts=opts||{};
+  var obj;try{obj=JSON.parse(json);}catch(e){return {ok:false,reason:'bad json: '+e.message};}
+  if(!obj.slots)return {ok:false,reason:'not a bohemia export'};
+  var n=0;
+  for(var slot in obj.slots){
+    if(!opts.overwrite&&this.backend.getItem(NS+slot)!=null)continue;
+    try{this.backend.setItem(NS+slot,JSON.stringify(obj.slots[slot]));n++;}catch(e){return {ok:false,reason:'quota at '+slot,imported:n};}
+  }
+  return {ok:true,imported:n};
+};
+var API={Persist:Persist,MemoryBackend:MemoryBackend,NS:NS};
+return API;
+})();
+
+/* ===== bohemia_combatbridge.js ===== */
+BohemiaEngine.CombatBridge=(function(){
+'use strict';
+/* ============================================================================
+   BOHEMIA — COMBAT BRIDGE (7.2.26)
+   The contract that makes combat NATIVE: the engine owns the encounter, the
+   Dead Eye Dial owns the shot. One boundary, both sides testable alone.
+
+   The dial (bohemia_combat_v9 / dial directions file) is a PRESENTATION layer
+   over the shared motion engine. The bridge is how the sim hands it a shot
+   request and takes back a resolution, without either side importing the
+   other's internals.
+
+   FORESIGHT baked in:
+   - SHOT CONTRACT is data-only: {shooter, target, weapon, packageId, patternPool,
+     difficultyMods, greedHeld}. The dial never touches sim state; the sim never
+     touches dial canvas state. Ports to any renderer.
+   - RESOLUTION CONTRACT: {outcome:'killshot'|'hit'|'miss', zone, greedMult,
+     patMeta}. Feeds Combat.resolveShot + corpse-delta permadeath + the two
+     Amalgamation ledgers (recorded kills vs unrecorded) without the dial
+     knowing those systems exist.
+   - PACKAGE HOOK: difficulty package selection (EASY..BOHEMIAN) lives sim-side
+     per Paolo's package laws; the dial receives the resolved pool + speed
+     factor, so enemy/perk/ability modifiers can bend difficulty WITHOUT
+     touching pattern code.
+   - ASYNC-SAFE: request/resolve are correlated by shotId. The 'I move you
+     move' scheduler can freeze grid time during the dial and resume on
+     resolution: beginShot() returns a token, resolve(token, result) closes it.
+     Dangling shots (app closed mid-dial) auto-void on next boot via pending().
+   - HEADLESS RESOLVER included for tests + LOD: crowds fight offscreen with
+     statistical resolution (no dial), same contract, so city-view battles cost
+     nothing. Odds follow package tier + zone arc share (ARC_MULT 1.11 law).
+   ============================================================================ */
+function CombatBridge(opts){
+  opts=opts||{};
+  this.rng=opts.rng||Math.random;            // inject Core seeded RNG in-game
+  this.pending_={};                          // shotId -> request
+  this.nextId=1;
+  this.onResolve=opts.onResolve||null;       // sim callback(request, result)
+}
+/* difficulty package tiers, mirrors the locked dial package laws (data only,
+   the authoritative pattern pools live with the dial's PAT_DIFF table) */
+var PKG={EASY:0,NORMAL:1,HARD:2,VERYHARD:3,BOHEMIAN:4};
+var PKG_KILLSHOT_ODDS={0:0.45,1:0.30,2:0.20,3:0.12,4:0.07};  // headless-only stats
+var PKG_HIT_ODDS={0:0.92,1:0.85,2:0.75,3:0.62,4:0.50};
+function clampPkg(p){p=p|0;return p<0?0:p>4?4:p;}
+CombatBridge.prototype.beginShot=function(req){
+  var id='shot'+(this.nextId++);
+  var shot={
+    shotId:id,
+    shooter:req.shooter||null,
+    target:req.target||null,
+    weapon:req.weapon||null,
+    packageId:clampPkg(req.packageId!=null?req.packageId:PKG.NORMAL),
+    difficultyMods:req.difficultyMods||{},       // perk/ability hooks land here
+    greedAllowed:req.greedAllowed!==false,
+    t:req.t||0
+  };
+  this.pending_[id]=shot;
+  return shot;
+};
+CombatBridge.prototype.resolve=function(shotId,result){
+  var shot=this.pending_[shotId];
+  if(!shot)return {ok:false,reason:'unknown shot '+shotId};
+  delete this.pending_[shotId];
+  var res={
+    shotId:shotId,
+    outcome:result.outcome==='killshot'||result.outcome==='hit'?result.outcome:'miss',
+    zone:result.zone||null,
+    greedMult:result.greedMult||1,
+    patMeta:result.patMeta||null
+  };
+  if(this.onResolve)this.onResolve(shot,res);
+  return {ok:true,shot:shot,result:res};
+};
+CombatBridge.prototype.pending=function(){return Object.keys(this.pending_);};
+CombatBridge.prototype.voidPending=function(){
+  var ids=this.pending();
+  for(var i=0;i<ids.length;i++)delete this.pending_[ids[i]];
+  return ids;
+};
+/* headless statistical resolution: LOD battles, tests, autoresolve */
+CombatBridge.prototype.resolveHeadless=function(shotId){
+  var shot=this.pending_[shotId];
+  if(!shot)return {ok:false,reason:'unknown shot '+shotId};
+  var pkg=shot.packageId;
+  var mod=(shot.difficultyMods&&shot.difficultyMods.oddsMult)||1;
+  var r=this.rng();
+  var out;
+  if(r<PKG_KILLSHOT_ODDS[pkg]*mod)out='killshot';
+  else if(r<PKG_HIT_ODDS[pkg]*mod)out='hit';
+  else out='miss';
+  return this.resolve(shotId,{outcome:out,zone:out==='killshot'?'center':(out==='hit'?'vital':null),greedMult:1,patMeta:{headless:true}});
+};
+var API={CombatBridge:CombatBridge,PKG:PKG};
+return API;
+})();
+if (typeof module !== 'undefined' && module.exports){module.exports.FrameCache=BohemiaEngine.FrameCache;module.exports.Persist=BohemiaEngine.Persist;module.exports.CombatBridge=BohemiaEngine.CombatBridge;}
+
+/* ===== bohemia_npcfactory.js ===== */
+BohemiaEngine.NPCFactory=(function(){
+'use strict';
+/* ============================================================================
+   BOHEMIA — NPC FACTORY (7.2.26)
+   The mass-production button. Every garment Paolo paints multiplies the crowd:
+   npcFrom(seed) deterministically combines his EXISTING painted libraries into
+   a complete look. Zero new art per citizen; the creative direction is the
+   libraries themselves. Deterministic via Core's seeded RNG, so the same
+   citizen seed produces the same person forever (fold-safe, LOD-safe).
+
+   Data-driven by construction: catalogs come from Wardrobe.PD_DATA (or are
+   injected), so the factory grows automatically as paintings land. No look
+   is invented here; the factory only picks from what Paolo painted.
+   ============================================================================ */
+var CORE_SLOTS=['body','facial','pants','shoes','shirt','hair'];   // always dressed
+var OPT_SLOTS={jacket:0.55,hat:0.35,glasses:0.3};                  // chance to wear
+var SKIN_TONE_NAMES=['pale','fair','olive','tan','bronze','brown','deep','ebony','onyx']; // Paolo's locked ramps
+var HAIR_COLORS=[null,[20,18,22],[150,120,80],[110,70,50],[196,150,150],[80,80,90],[200,60,40]]; // null = art default
+
+function catalogsFromWardrobe(PD){
+  var slots={};
+  var keys=Object.keys((PD&&PD.layers)||{});
+  for(var i=0;i<keys.length;i++){var s=keys[i].split('/')[0];(slots[s]||(slots[s]=[])).push(keys[i]);}
+  return slots;
+}
+function NPCFactory(opts){
+  opts=opts||{};
+  var PD=opts.PD||(typeof BohemiaEngine!=='undefined'&&BohemiaEngine.Wardrobe?BohemiaEngine.Wardrobe.PD_DATA:null);
+  this.slots=opts.slots||catalogsFromWardrobe(PD);
+  this.skinTones=opts.skinTones||SKIN_TONE_NAMES.slice();
+  this.hairColors=opts.hairColors||HAIR_COLORS.slice();
+  this.optOdds=opts.optOdds||OPT_SLOTS;
+  this.RNG=opts.RNG||(typeof BohemiaEngine!=='undefined'&&BohemiaEngine.Core?BohemiaEngine.Core.RNG:null);
+  if(!this.RNG)throw new Error('NPCFactory needs Core.RNG');
+}
+NPCFactory.prototype.pick=function(rng,arr){if(!arr||!arr.length)return null;return arr[Math.floor(rng.next()*arr.length)%arr.length];};
+NPCFactory.prototype.npcFrom=function(seed){
+  var rng=new this.RNG('npc:'+seed);
+  var equipped={};
+  for(var i=0;i<CORE_SLOTS.length;i++){var s=CORE_SLOTS[i];var k=this.pick(rng,this.slots[s]);if(k)equipped[s]=k;}
+  for(var os in this.optOdds){var roll=rng.next();var kk=this.pick(rng,this.slots[os]);   // roll+pick ALWAYS both consumed: stable stream regardless of odds
+    equipped[os]=(roll<this.optOdds[os]&&kk)?kk:'';}
+  var look={
+    seed:String(seed),
+    equipped:equipped,
+    skinToneName:this.pick(rng,this.skinTones),
+    hairColor:this.pick(rng,this.hairColors)
+  };
+  return look;
+};
+/* stable string for FrameCache lookHash + dedupe */
+NPCFactory.prototype.lookKey=function(look){return JSON.stringify([look.equipped,look.skinToneName,look.hairColor]);};
+var API={NPCFactory:NPCFactory,CORE_SLOTS:CORE_SLOTS,OPT_SLOTS:OPT_SLOTS,SKIN_TONE_NAMES:SKIN_TONE_NAMES};
+return API;
+})();
+if (typeof module !== 'undefined' && module.exports){module.exports.NPCFactory=BohemiaEngine.NPCFactory;}
+
+
+/* ===== bohemia_retarget.js ===== */
+(function (root) {
+  'use strict';
+
+  // ---- which facings are "back" (character facing away) for leg-hand swap ----
+  // Front group reads thighR as screen-left; back group mirrors it.
+  var BACK_DIRS = { N: 1, NE: 1, NW: 1 };
+  var FRONT_DIRS = { S: 1, SE: 1, SW: 1, E: 1, W: 1 };
+
+  // depthFlip / RUNMIR come from the alpha DEPTH table; the merge app injects the
+  // real ones. Defaults keep the math sane if a dir is missing.
+  function depthFlip(d, DEPTH) { return (DEPTH && DEPTH[d] && DEPTH[d].flip) ? -1 : 1; }
+
+  // rotate point p around pivot o by angle a (radians). Same math as rig rotAbout.
+  function rotAbout(p, o, a) {
+    var s = Math.sin(a), c = Math.cos(a);
+    var dx = p[0] - o[0], dy = p[1] - o[1];
+    return [o[0] + dx * c - dy * s, o[1] + dx * s + dy * c];
+  }
+  function add(p, dx, dy) { return [p[0] + dx, p[1] + dy]; }
+  function clone(sk) { var o = {}; for (var k in sk) o[k] = sk[k].slice(); return o; }
+
+  // 2-bone IK: solve shoulder->elbow->hand so hand reaches target T.
+  // bend sign picks elbow-out direction (+1 / -1). Preserves bone lengths from rest.
+  function solveIK(sh, restEl, restHand, T, bend) {
+    /* GUN ELBOW GRAVITY LAW (7/2/26): bend='auto' picks whichever elbow
+       solution hangs LOWER on screen. Fixed bend signs were correct on the
+       E family and chicken-winged the mirrored family; gravity is the same
+       in every direction, so let it decide. */
+    if (bend === 'auto') {
+      var A = solveIK(sh, restEl, restHand, T, 1);
+      var B = solveIK(sh, restEl, restHand, T, -1);
+      return (A.el[1] >= B.el[1]) ? A : B;
+    }
+    var l1 = Math.hypot(restEl[0] - sh[0], restEl[1] - sh[1]);
+    var l2 = Math.hypot(restHand[0] - restEl[0], restHand[1] - restEl[1]);
+    var dx = T[0] - sh[0], dy = T[1] - sh[1];
+    var dist = Math.hypot(dx, dy);
+    var reach = l1 + l2;
+    if (dist > reach) { // out of reach: straight arm toward target, EXACT segment lengths
+      /* STRETCH BUG FIX (7/2/26): old code scaled the elbow by l1/reach of the
+         UNCLAMPED vector, stretching the upper arm by dist/reach on every
+         out-of-reach aim (all gun clips with far grip points). Elbow sits at
+         exactly l1 along the direction; hand at exactly l1+l2. */
+      var ux = dx / (dist || 1e-6), uy = dy / (dist || 1e-6);
+      var el = [sh[0] + ux * l1, sh[1] + uy * l1];
+      var hand = [sh[0] + ux * reach, sh[1] + uy * reach];
+      return { el: el, hand: hand };
+    }
+    var a = Math.atan2(dy, dx);
+    // law of cosines for elbow angle offset
+    var cosA = (l1 * l1 + dist * dist - l2 * l2) / (2 * l1 * dist);
+    cosA = Math.max(-1, Math.min(1, cosA));
+    var off = Math.acos(cosA) * (bend >= 0 ? 1 : -1);
+    var ea = a + off;
+    var el = [sh[0] + Math.cos(ea) * l1, sh[1] + Math.sin(ea) * l1];
+    // hand from elbow toward target, using l2
+    var hx = T[0] - el[0], hy = T[1] - el[1];
+    var hl = Math.hypot(hx, hy) || 1e-6;
+    var hand = [el[0] + hx / hl * l2, el[1] + hy / hl * l2];
+    return { el: el, hand: hand };
+  }
+
+  // chest point in NATIVE rig-space: midpoint of waC and neck, biased to neck.
+  function chestPt(rest) {
+    return [(rest.waC[0] + rest.neck[0]) / 2, (rest.waC[1] + rest.neck[1]) / 2];
+  }
+
+  // native gun target: reach forward from chest along facing by rf (front) / rr (rear grip).
+  // rf/rr re-tuned for 56-space (alpha used 24/12 in 64-space). Rendered-frame verified per rule.
+  function gunTNative(rest, faceAng, rf, rr) {
+    var c = chestPt(rest);
+    return [
+      [c[0] + Math.cos(faceAng) * rf, c[1] + Math.sin(faceAng) * rf], // front grip
+      [c[0] + Math.cos(faceAng) * rr, c[1] + Math.sin(faceAng) * rr], // rear grip
+      faceAng
+    ];
+  }
+
+  /* ---- apply one clip's pose object to a rest skeleton, for direction d ----
+     `pose` is the alpha clip output: {upL, thighR, spine, hipOff, ikR, bendR, _gun,...}
+     `rest` is the new-rig rest skeleton for that dir (15 joints).
+     Returns { sk: posedSkeleton, present: {_gun,_fire,_dial} } */
+  function applyPose(d, pose, rest, ctx) {
+    ctx = ctx || {};
+    var DEPTH = ctx.DEPTH, FACEANG = ctx.FACEANG || {};
+    var j = clone(rest);
+    var isBack = !!BACK_DIRS[d];
+    var mFlip = depthFlip(d, DEPTH);
+
+    // ---- hipOff: translate hips + all children (whole lower + torso ride) ----
+    if (pose.hipOff) {
+      var dx = pose.hipOff[0] || 0, dy = pose.hipOff[1] || 0;
+      // hips and everything below/above the pelvis move together (root translate)
+      var moveAll = ['waA', 'waC', 'waB', 'knA', 'footA', 'knB', 'footB',
+                     'neck', 'headTop', 'shL', 'elL', 'handL', 'shR', 'elR', 'handR'];
+      for (var mi = 0; mi < moveAll.length; mi++) j[moveAll[mi]] = add(j[moveAll[mi]], dx, dy);
+    }
+
+    // ---- spine: rotate torso chain (pivot waC) carrying neck/head/arms ----
+    if (pose.spine) {
+      var sp = pose.spine;
+      var piv = j.waC;
+      var up = ['neck', 'headTop', 'shL', 'elL', 'handL', 'shR', 'elR', 'handR'];
+      for (var si = 0; si < up.length; si++) j[up[si]] = rotAbout(j[up[si]], piv, sp);
+    }
+
+    // ---- head tilt: neck->headTop ----
+    if (pose.head) j.headTop = rotAbout(j.headTop, j.neck, pose.head);
+
+    // ---- arms (BODY-SIDE). angle-delta path: upL/foreL, upR/foreR ----
+    if (pose.upL != null) {
+      j.elL = rotAbout(j.elL, j.shL, pose.upL);
+      j.handL = rotAbout(j.handL, j.shL, pose.upL);
+    }
+    if (pose.foreL != null) j.handL = rotAbout(j.handL, j.elL, pose.foreL);
+    if (pose.upR != null) {
+      j.elR = rotAbout(j.elR, j.shR, pose.upR);
+      j.handR = rotAbout(j.handR, j.shR, pose.upR);
+    }
+    if (pose.foreR != null) j.handR = rotAbout(j.handR, j.elR, pose.foreR);
+
+    // ---- arm COMPRESSION (N/S crunch law, Paolo 7/2/26): squeeze toward shoulder ----
+    function compressArm(sh, el, hd, amt) {
+      var f = 1 - amt;
+      return [
+        [sh[0] + (el[0]-sh[0])*f, sh[1] + (el[1]-sh[1])*f],
+        [sh[0] + (hd[0]-sh[0])*f, sh[1] + (hd[1]-sh[1])*f]
+      ];
+    }
+    var acL = pose.armCompressL || 0, acR = pose.armCompressR || 0;
+    if (acL > 0) { var raL = compressArm(j.shL, j.elL, j.handL, acL); j.elL = raL[0]; j.handL = raL[1]; }
+    if (acR > 0) { var raR = compressArm(j.shR, j.elR, j.handR, acR); j.elR = raR[0]; j.handR = raR[1]; }
+
+    // ---- leg COMPRESSION (alpha crouch mechanic): squeeze length toward hip ----
+    function compressLeg(hip, kn, ft, amt) {
+      var f = 1 - amt;
+      return [
+        [hip[0] + (kn[0]-hip[0])*f, hip[1] + (kn[1]-hip[1])*f],
+        [hip[0] + (ft[0]-hip[0])*f, hip[1] + (ft[1]-hip[1])*f]
+      ];
+    }
+    var cL = pose.legCompressL || 0, cR = pose.legCompressR || 0;
+    var cA = isBack ? cL : cR, cB = isBack ? cR : cL;
+    if (cA > 0) { var ra = compressLeg(j.waA, j.knA, j.footA, cA); j.knA = ra[0]; j.footA = ra[1]; }
+    if (cB > 0) { var rb = compressLeg(j.waB, j.knB, j.footB, cB); j.knB = rb[0]; j.footB = rb[1]; }
+
+    // ---- legs (SCREEN-SIDE). thighR/thighL map to A/B by front/back ----
+    // A = screen-left, B = screen-right. Front: thighR->A, thighL->B. Back: swap.
+    var Aleg = { th: null, sh: null }, Bleg = { th: null, sh: null };
+    if (isBack) {
+      Aleg.th = pose.thighL; Aleg.sh = pose.shinL;
+      Bleg.th = pose.thighR; Bleg.sh = pose.shinR;
+    } else {
+      Aleg.th = pose.thighR; Aleg.sh = pose.shinR;
+      Bleg.th = pose.thighL; Bleg.sh = pose.shinL;
+    }
+    if (Aleg.th != null) {
+      j.knA = rotAbout(j.knA, j.waA, Aleg.th);
+      j.footA = rotAbout(j.footA, j.waA, Aleg.th);
+    }
+    if (Aleg.sh != null) j.footA = rotAbout(j.footA, j.knA, Aleg.sh);
+    if (Bleg.th != null) {
+      j.knB = rotAbout(j.knB, j.waB, Bleg.th);
+      j.footB = rotAbout(j.footB, j.waB, Bleg.th);
+    }
+    if (Bleg.sh != null) j.footB = rotAbout(j.footB, j.knB, Bleg.sh);
+
+    // ---- IK arms (aim clips). ikR/ikL are targets in NATIVE rig-space now ----
+    // The clip provides targets via gunTNative (merge injects rest+faceAng).
+    if (pose.ikR) {
+      /* SEGMENT TRUTH (7/2/26): measure limb lengths from the CURRENT posed chain,
+         not raw rest. On hand-posed dirs (S, SE) the shoulder has moved; mixing
+         frames redistributed the arm (+1.7px upper, -1.6px fore). */
+      var sR = solveIK(j.shR, j.elR, j.handR, pose.ikR, pose.bendR || 1);
+      j.elR = sR.el; j.handR = sR.hand;
+    }
+    if (pose.ikL) {
+      var sL = solveIK(j.shL, j.elL, j.handL, pose.ikL, pose.bendL || -1);
+      j.elL = sL.el; j.handL = sL.hand;
+    }
+
+    return {
+      sk: j,
+      present: { _gun: (function(){
+        /* HAND OWNS THE GUN (7/2/26): the weapon renders anchored to the
+           RESOLVED hand joints, never the requested grip target. When a grip
+           point sits past arm reach (hand-posed dirs S/SE were 4px short),
+           the hand clamps and the gun must clamp WITH it. */
+        var g = pose._gun; if (!g) return null;
+        g = g.slice();
+        if (g[0] === 'pistol' && pose.ikR) g[1] = [j.handR[0], j.handR[1]];
+        else if (g[0] === 'rifle') {
+          if (pose.ikL) g[1] = [j.handL[0], j.handL[1]];
+          if (pose.ikR) g[2] = [j.handR[0], j.handR[1]];
+        }
+        return g;
+      })(), _fire: !!pose._fire, _dial: pose._dial || null }
+    };
+  }
+
+  /* ---- reload + lean-x resolved NATIVE off the rig's own anchors ----
+     Alpha routed these through ragCache (ragdoll anchor points shoulderR/L/hip)
+     via sP(). We don't port the ragdoll sim: the new rig already exposes those
+     anchors as real joints. Same visual result, no alpha coord baggage.
+       reload: right hand comes to a reload position near right shoulder, left
+               hand drops to the hip (feeding a mag). bends preserved.
+       lean-x: cross-arm brace, hands cross to opposite shoulders, torso leaned. */
+  function reloadPose(d, rest) {
+    var shR = rest.shR, hip = rest.waC;
+    return {
+      ikR: [shR[0] + 4, shR[1] + 2], bendR: 1,
+      ikL: [hip[0], hip[1] - 2], bendL: -1
+    };
+  }
+  function leanXPose(d, rest) {
+    return {
+      spine: 0.22,
+      ikL: [rest.shR[0], rest.shR[1]], bendL: -1,  // left hand -> right shoulder
+      ikR: [rest.shL[0], rest.shL[1]], bendR: 1    // right hand -> left shoulder
+    };
+  }
+
+  /* N/S ARM WIDTH LAW (Paolo 7/2/26): on head-on views arms NEVER swing wide
+     off the body. Lateral spread from the shoulder is clamped: OUTWARD budget
+     tight (default 3.5px, just above locked crouch's swing so locked clips
+     pass untouched), INWARD generous (8px, the crunch law and clap live
+     there). Excess lateral is scaled out and traded for a depth TUCK: the arm
+     compresses toward the shoulder, selling the motion as toward/away from
+     camera instead of sideways. Applied by the pipeline for every clip on
+     head-on dirs; sleep/ragdoll/death/headshot exempt. */
+  function nsArmClamp(sk, rest, opts) {
+    opts = opts || {};
+    var BO = opts.out != null ? opts.out : 3.5;
+    var BI = opts.inn != null ? opts.inn : 8;
+    var CK = opts.comp != null ? opts.comp : 0.15;   /* tuck softened per Paolo 7/2/26: was 0.3, less dramatic */
+    var out = clone(sk);
+    var spineX = rest.waC[0];
+    var arms = [['shL', 'elL', 'handL'], ['shR', 'elR', 'handR']];
+    for (var ai = 0; ai < 2; ai++) {
+      var sh = out[arms[ai][0]], el = out[arms[ai][1]], hd = out[arms[ai][2]];
+      var oDir = (rest[arms[ai][0]][0] >= spineX) ? 1 : -1;
+      var f = 1, joints = [el, hd];
+      for (var ji = 0; ji < 2; ji++) {
+        var dx = (joints[ji][0] - sh[0]) * oDir;
+        var lim = dx > 0 ? BO : BI, a = Math.abs(dx);
+        if (a > lim) f = Math.min(f, lim / a);
+      }
+      if (f < 1) {
+        el[0] = sh[0] + (el[0] - sh[0]) * f; hd[0] = sh[0] + (hd[0] - sh[0]) * f;
+        var c = (1 - f) * CK;
+        el[0] = sh[0] + (el[0] - sh[0]) * (1 - c); el[1] = sh[1] + (el[1] - sh[1]) * (1 - c);
+        hd[0] = sh[0] + (hd[0] - sh[0]) * (1 - c); hd[1] = sh[1] + (hd[1] - sh[1]) * (1 - c);
+      }
+    }
+    return out;
+  }
+
+  var API = {
+    reloadPose: reloadPose,
+    leanXPose: leanXPose,
+    applyPose: applyPose,
+    solveIK: solveIK,
+    rotAbout: rotAbout,
+    chestPt: chestPt,
+    gunTNative: gunTNative,
+    nsArmClamp: nsArmClamp,
+    BACK_DIRS: BACK_DIRS,
+    FRONT_DIRS: FRONT_DIRS
+  };
+  if (typeof module !== 'undefined' && module.exports) { module.exports.Retarget = API; root.BohemiaRetarget = API; }
+  else root.BohemiaRetarget = API;
+})(typeof self !== 'undefined' ? self : this);

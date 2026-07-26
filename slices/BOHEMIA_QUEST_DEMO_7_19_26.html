@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Bohemia — Quest Demo</title>
+<!-- References the CANONICAL engine modules (no copies: engine sync law). -->
+<script src="../engine/bohemia_bq.js"></script>
+<script src="../engine/bohemia_quest_runtime.js"></script>
+<style>
+  :root{ --bg:#0d0e12; --panel:#16181f; --ink:#e8e6df; --dim:#8a8778; --line:#2a2d38;
+         --gold:#c9a24b; --win:#5b8c5a; --fail:#a3524a; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; height:100%; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,Segoe UI,Roboto,sans-serif; }
+  #wrap{ max-width:480px; margin:0 auto; min-height:100%; display:flex; flex-direction:column; padding:14px; }
+  .hdr{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); text-align:center; }
+  .hdr b{ color:var(--gold); }
+  .obj{ margin:12px 0; padding:10px 12px; background:var(--panel); border:1px solid var(--line);
+    border-radius:10px; font-size:14px; }
+  .obj .lab{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:4px; }
+  .obj .row{ display:flex; gap:8px; align-items:baseline; }
+  .obj .tick{ color:var(--win); }
+  .obj .todo{ color:var(--gold); }
+  .obj .done{ color:var(--dim); text-decoration:line-through; }
+  .stage{ font-size:11px; color:var(--dim); text-align:right; margin-top:6px; }
+  .scene{ flex:1; display:flex; flex-direction:column; justify-content:center; padding:8px 2px; }
+  .who{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .say{ font-size:18px; line-height:1.5; margin:0 0 12px; }
+  .noverb{ font-size:12px; color:var(--dim); font-style:italic; margin-top:8px; }
+  .opts{ display:flex; flex-direction:column; gap:10px; padding-top:8px; }
+  button.opt{ text-align:left; font:inherit; font-size:16px; color:var(--ink); background:var(--panel);
+    border:1px solid var(--line); border-radius:12px; padding:14px 16px; cursor:pointer; }
+  button.opt:active{ background:#20232c; border-color:var(--gold); }
+  button.opt.silence{ color:var(--dim); font-style:italic; }
+  .avail button{ border-color:#3a3d48; }
+  .banner{ text-align:center; padding:18px; border-radius:12px; font-size:20px; letter-spacing:.06em; }
+  .banner.win{ background:rgba(91,140,90,.15); border:1px solid var(--win); color:var(--win); }
+  .banner.fail{ background:rgba(163,82,74,.15); border:1px solid var(--fail); color:var(--fail); }
+  .reset{ margin-top:14px; text-align:center; }
+  .reset button{ font:inherit; font-size:13px; color:var(--dim); background:none; border:1px solid var(--line);
+    border-radius:20px; padding:8px 18px; cursor:pointer; }
+  .foot{ font-size:10px; color:var(--dim); text-align:center; margin-top:12px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="hdr">BOHEMIA · <b>QUEST DEMO</b> · the runtime, playing</div>
+  <div class="obj" id="obj"></div>
+  <div class="scene" id="scene"></div>
+  <div class="reset"><button onclick="boot()">restart demo</button></div>
+  <div class="foot">This is a tech demo of the .bq quest runtime, not story canon.<br>
+    Tap a line to choose. Some lines only appear once you have earned them.</div>
+</div>
+
+<script>
+/* A tiny, NON-CANON demo quest. Its only job is to show the runtime playing:
+   an objective, options, a gate that unlocks a line, and a win/lose branch. */
+var DEMO = [
+ "@QUEST demo_gate  The Runtime Demo",
+ "@ACT 1",
+ "@ONCE false",
+ "@ROLE keeper REQ is=demo",
+ "",
+ "@STAGE 10",
+ "  @LOG Talk your way past the keeper.",
+ "  @DO show_objective 10",
+ "@STAGE 20 COMPLETE",
+ "  @LOG The door opens. You are through.",
+ "@STAGE 21 FAIL",
+ "  @LOG The door stays shut. That was the wrong move.",
+ "",
+ '@OBJ 10  "Get past the keeper"',
+ "",
+ "@TALK start speaker=keeper entry=stage>=10",
+ "  @SAY This is the runtime, playing a real quest.",
+ "  @SAY Pick a line. Notice one of them is missing until you have earned it.",
+ '  @OPT "Ask how to get through."   [gate: none]           -> learn',
+ '  @OPT "Say the password."         [gate: knows:password] -> win',
+ '  @OPT "Force the door."           [gate: none]            -> fail',
+ '  @NOVERB "Beg"',
+ "@END",
+ "",
+ "@TALK learn speaker=keeper",
+ "  @SAY The password is bohemia. Come back and the second line will be there.",
+ "  @DO learn password",
+ "@END",
+ "",
+ "@TALK win speaker=keeper",
+ "  @SAY Correct. Through you go.",
+ "  @DO complete_objective 10",
+ "  @DO set_stage 20",
+ "@END",
+ "",
+ "@TALK fail speaker=keeper",
+ "  @SAY You put your shoulder to it. It does not move, and now neither do I.",
+ "  @DO set_stage 21",
+ "@END"
+].join("\n");
+
+var Q, rt;
+var scene=document.getElementById('scene'), objEl=document.getElementById('obj');
+
+function boot(){
+  Q = BQ.parse(DEMO);
+  rt = new BQRuntime.Runtime(Q);
+  rt.start();
+  render();
+}
+
+function renderObjectives(){
+  var objs = rt.objectives();
+  var stage = rt.state.stage;
+  var rows = objs.map(function(o){
+    var cls = o.status==='done' ? 'done' : 'todo';
+    var mark = o.status==='done' ? '<span class="tick">✓</span>' : '<span class="todo">›</span>';
+    return '<div class="row">'+mark+'<span class="'+cls+'">'+o.text+'</span></div>';
+  }).join('') || '<div class="row"><span class="todo">(no objective yet)</span></div>';
+  objEl.innerHTML = '<span class="lab">Objective</span>'+rows+'<div class="stage">stage '+stage+'</div>';
+}
+
+function render(){
+  renderObjectives();
+  scene.innerHTML='';
+
+  if(rt.state.done){
+    var b=document.createElement('div');
+    b.className='banner '+(rt.state.outcome==='COMPLETE'?'win':'fail');
+    b.textContent = rt.state.outcome==='COMPLETE' ? 'QUEST COMPLETE' : 'QUEST FAILED';
+    scene.appendChild(b);
+    return;
+  }
+
+  var v = rt.view();
+
+  if(v.ended || !v.node){
+    // between conversations: show what you can start
+    var lab=document.createElement('div'); lab.className='who'; lab.textContent='Who to talk to';
+    scene.appendChild(lab);
+    var box=document.createElement('div'); box.className='opts avail';
+    rt.available().forEach(function(id){
+      var t=(Q.talks||[]).filter(function(x){return x.id===id;})[0];
+      var btn=document.createElement('button'); btn.className='opt';
+      btn.textContent = 'Talk ('+(t&&t.speaker?t.speaker:id)+')';
+      btn.onclick=function(){ rt.begin(id); render(); };
+      box.appendChild(btn);
+    });
+    scene.appendChild(box);
+    return;
+  }
+
+  if(v.speaker){ var who=document.createElement('div'); who.className='who'; who.textContent=v.speaker; scene.appendChild(who); }
+  v.says.forEach(function(s){ var p=document.createElement('p'); p.className='say'; p.textContent=s; scene.appendChild(p); });
+  (v.noverbs||[]).forEach(function(n){ var d=document.createElement('div'); d.className='noverb'; d.textContent='(you cannot say: "'+n+'")'; scene.appendChild(d); });
+
+  var opts=document.createElement('div'); opts.className='opts';
+  if(v.options.length){
+    v.options.forEach(function(o){
+      var btn=document.createElement('button'); btn.className='opt'+(o.silence?' silence':'');
+      btn.textContent=o.text;
+      btn.onclick=function(){ rt.choose(o.i); render(); };
+      opts.appendChild(btn);
+    });
+  } else {
+    var btn=document.createElement('button'); btn.className='opt';
+    btn.textContent='(continue)';
+    btn.onclick=function(){ rt.node=null; render(); };
+    opts.appendChild(btn);
+  }
+  scene.appendChild(opts);
+}
+
+boot();
+</script>
+</body>
+</html>

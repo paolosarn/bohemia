@@ -1,0 +1,170 @@
+{
+ "_meta": "BOHEMIA faction relationship graph. Derived from GDD v2 \u00a79. Power = ordinal rank (1=weakest) per act. relations are directional labels the engine reads for spillover, war state, and AI. All canon; nothing invented.",
+ "factions": {
+  "Reds": {
+   "type": "selectable",
+   "align": "capitalist",
+   "note": "Economic engine, compound-interest faction. Not military.",
+   "relations": {
+    "Network": "adjacent"
+   },
+   "act1_power": 8,
+   "act3_power": 11
+  },
+  "Blues": {
+   "type": "selectable",
+   "align": "socialist",
+   "note": "Environmentalist. Large headcount. Collective decision-making = strength and tactical liability.",
+   "relations": {},
+   "act1_power": 7,
+   "act3_power": 6
+  },
+  "Anarchists": {
+   "type": "selectable",
+   "align": "anti-establishment",
+   "note": "Absorbed Rockstar faction. Culturally huge, territorially inconsistent. Overwhelming when provoked.",
+   "relations": {},
+   "act1_power": 6,
+   "act3_power": 4
+  },
+  "Colorful": {
+   "type": "selectable",
+   "align": "community",
+   "note": "LGBTQ faction. Smallest selectable. Community-based not territorial. Members across friendly factions.",
+   "relations": {},
+   "act1_power": 1,
+   "act3_power": 1
+  },
+  "Church": {
+   "type": "selectable",
+   "align": "evangelical",
+   "note": "Best crisis organization. More powerful act1 than act3, ceiling drops as world heals.",
+   "relations": {},
+   "act1_power": 9,
+   "act3_power": 5
+  },
+  "Network": {
+   "type": "selectable",
+   "align": "psyop",
+   "secret_hostile_to_truth": true,
+   "note": "The Amalgamation's manufactured protection. Only faction with a manufactured origin. Most dangerous by act3. Strongest national/international ties.",
+   "relations": {
+    "Reds": "adjacent"
+   },
+   "act1_power": 11,
+   "act3_power": 13
+  },
+  "Trades": {
+   "type": "selectable",
+   "align": "neutral",
+   "politically_neutral": true,
+   "note": "Skilled-worker guild. Never takes a public position. Best for vehicle/solar/construction. Most capable civilian drones.",
+   "relations": {},
+   "act1_power": 5,
+   "act3_power": 7
+  },
+  "Caravans": {
+   "type": "selectable",
+   "align": "neutral",
+   "protected_neutral": true,
+   "note": "Neutral outside-world trade. Everyone but Cartel wants them alive. Neutrality is survival, not philosophy.",
+   "relations": {
+    "Cartel": "preyed-taxed"
+   },
+   "act1_power": 10,
+   "act3_power": 8
+  },
+  "Volunteers": {
+   "type": "selectable",
+   "align": "nonprofit",
+   "universally_respected": true,
+   "note": "Healthcare/education/food/knowledge. Resource-poor by design. Nobody wants to be seen attacking them, even Cartel stays hands-off.",
+   "relations": {},
+   "act1_power": 3,
+   "act3_power": 3
+  },
+  "Remnants": {
+   "type": "selectable",
+   "align": "military",
+   "note": "Military/law-enforcement survivors incl Nellis. The floor of civilization. Refuses to be a government. Biggest act1 head start. Military drones.",
+   "relations": {
+    "Cartel": "permanent-war",
+    "Mob": "professional-respect"
+   },
+   "act1_power": 14,
+   "act3_power": 10
+  },
+  "Cartel": {
+   "type": "selectable",
+   "align": "predatory",
+   "straightforwardly_evil": true,
+   "note": "Organized human predation. Supply chains mirror Caravan routes. Only faction the game frames as evil.",
+   "relations": {
+    "Remnants": "permanent-war",
+    "Caravans": "prey-tax",
+    "Volunteers": "hands-off"
+   },
+   "act1_power": 12,
+   "act3_power": 9
+  },
+  "Mob": {
+   "type": "selectable",
+   "align": "territorial",
+   "note": "Controls the Strip. Ownership/protection/tribute. Historic early-police DNA, honor code = stability.",
+   "relations": {
+    "Remnants": "professional-respect"
+   },
+   "act1_power": 13,
+   "act3_power": 12
+  },
+  "Homeless": {
+   "type": "selectable",
+   "align": "underground",
+   "amalgamation_resistant": true,
+   "note": "Sewer/tunnel HQ under the King Hobo. Most Amalgamation-resistant (barely use feed, talk face-to-face in tunnels). Live directly above the Network's secret servers without knowing. KEY act3 liberation ally.",
+   "relations": {},
+   "act1_power": 2,
+   "act3_power": 2
+  },
+  "Custom": {
+   "type": "selectable",
+   "align": "emergent",
+   "note": "Player faction. No preset philosophy. Identity emerges from three generations of action.",
+   "relations": {},
+   "act1_power": 4,
+   "act3_power": null
+  },
+  "Pures": {
+   "type": "social_force",
+   "align": "identity-supremacist",
+   "note": "white supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.",
+   "relations": {},
+   "act1_power": null,
+   "act3_power": null
+  },
+  "Panthers": {
+   "type": "social_force",
+   "align": "identity-supremacist",
+   "note": "black supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.",
+   "relations": {},
+   "act1_power": null,
+   "act3_power": null
+  },
+  "La Familia": {
+   "type": "social_force",
+   "align": "identity-supremacist",
+   "note": "Latino supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.",
+   "relations": {},
+   "act1_power": null,
+   "act3_power": null
+  },
+  "Triads": {
+   "type": "social_force",
+   "align": "identity-supremacist",
+   "note": "Asian supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.",
+   "relations": {},
+   "act1_power": null,
+   "act3_power": null
+  }
+ }
+}

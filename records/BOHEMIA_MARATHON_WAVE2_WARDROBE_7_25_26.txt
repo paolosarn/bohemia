@@ -1,0 +1,91 @@
+BOHEMIA MARATHON COOK — WAVE 2: WARDROBE VOLUME
+==============================================================================
+Part of the marathon cook (Paolo 7/25, "APPROVAL UNLOCKS VOLUME... every
+approved silhouette gets its full colorway spread plus 2-3 new SHAPE
+variants per family in the approved style").
+
+REUSE CHECK: read every existing generator in the alpha (genGear, genBag,
+genApron, genCoverall, genCape, genPoncho, genTop) before cooking anything.
+Confirmed via direct code read: genGear's 13 kinds (kneepads/shinguards/
+chestplate/bracers/holster/pauldron/suspenders/elbowpads/legwraps/
+shoulderroll/toolbelt/bandolier/chestrig) each had EXACTLY ONE canon
+colorway; genBag's 4 kinds (backpack/satchel/bedroll/quiver) same; genCape's
+2 (road cape/mantle) same; genPoncho had 2 colorways + 1 hooded variant;
+genTop's fully-implemented neck:'v' option was used by ZERO of the (then)
+58 canon tops. This is the highest-value, lowest-risk volume target --
+reusing generators exactly as built, no new geometry, no new gate risk.
+
+WHAT SHIPPED — 29 new GARMENTS entries, all against approved bases only:
+
+COLORWAY SPREAD (20 items, filed as cw filler per STRUCTURE-NOT-COLOR LAW --
+each existing kind gets its SECOND colorway, one new approved-palette ramp
+apiece, never a headline):
+ GEAR (13): SAND KNEEPADS, STEEL PAULDRON, OLIVE CHEST RIG, BRICK
+   SUSPENDERS, STEEL SHIN GUARDS, OXBLOOD BRACERS, RUST THIGH HOLSTER,
+   SOOT TOOL BELT, DUST BROWN BANDOLIER, SOOT CHEST PLATE, KHAKI ELBOW
+   PADS, OLIVE LEG WRAPS, BRICK SHOULDER ROLL
+ BAGS (4): OLIVE RUCK PACK, OXBLOOD SATCHEL, DUST BEDROLL, RUST QUIVER
+ CAPE (2): STEEL ROAD CAPE, OLIVE SHOULDER MANTLE
+ PONCHO (1): STORM PONCHO
+
+NEW SHAPES (9 items, filed fresh:true -- real geometry, not recolors, each
+locked by its own structure_gate.js assertion so it can never silently
+degrade into a recolor):
+ GORGET (genGear, new kind) -- a narrow throat-guard ring at the base of the
+   neck, zone-locked to neck+collar (rows <=17, parts {3,4} only) -- a
+   genuinely different zone from every other gear kind, none of which touch
+   the neck. RUST GORGET, SOOT GORGET.
+ HALF APRON (genApron, new opt.bibless) -- drops the chest bib and neck
+   loop entirely: a waist-tied skirt only (bartender/vendor cut), starts
+   measurably lower than the full bib apron in every facing tested (S: row
+   33 vs 15, N: 32 vs 15, E: 32 vs 19). LEATHER HALF APRON, DUST HALF APRON.
+ SHORTALLS (genCoverall, new opt.short) -- bib overalls cut off at the knee:
+   drops the feet parts (11/12) entirely, legs stop ~row 41 vs the
+   full-length's row 52. DENIM SHORTALLS, FIELD SHORTALLS.
+ V-NECK TOPS (genTop, existing but never-used neck:'v') -- a real design
+   gap, zero new engineering. STEEL V-NECK TEE, SAGE V-NECK HENLEY, BRICK
+   V-NECK TEE.
+
+TASTE FILTER: checked every new item against laws/BOHEMIA_PAOLO_TASTE_CANON.md
+-- no purple/magenta, no flat-fill (all reuse bshade/wear scuffing), no
+matching head-to-toe sets, dusty/worn palette only (DUSTSAND/STEELB/
+OLIVEDRAB/BRICK/OXBLOOD/RUSTIRON/CHARCLOTH/KHAKI/DUSTBRN/DENIM/TACV/SAGE/
+LEATHERV -- all already-approved ramps, no new colors invented).
+
+GATE WORK (FACTORY LAW: new machinery ships its own gate, same turn):
+added a MARATHON WAVE 2 section to gates/structure_gate.js asserting all
+three new shapes render, zone-lock correctly, and are measurably distinct
+from their nearest sibling (gorget vs chestplate's zone, half apron vs bib
+apron's top row, shortalls vs full-length's bottom row + missing foot
+parts). Verified each new generator body numerically in isolation (node,
+synthetic body-part fixture matching the gate's own style) before wiring
+into GARMENTS.
+
+FRESHNESS GATE CAUGHT A REAL DEPENDENCY: gates/dress_gate.js failed after
+this batch (bank count 195 !== live canon count 224) -- the wardrobe bank
+(banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt) is a separate snapshot consumed
+by the LIFE session's agent-dressing system and goes stale whenever the
+clothing factory grows. Fixed the correct way: reran tools/
+bohemia_wardrobe_extract.py (not a manual edit) to regenerate the bank from
+the alpha's live GARMENTS truth -- 224 canon items now, gate green.
+
+VERIFIED LIVE: headless Playwright against the real alpha, CLOTHES tab,
+all 3 new-shape items visible under "NEW IN CANON" by default (fresh:true
+surfaces them per Paolo's own 7/19 ruling: "a verdict must never make the
+new clothes disappear"); all colorway-filler items confirmed present by
+expanding their category drawers in the CANON CLOSET. Zero console/window
+errors.
+
+Gates: structure_gate.js 134/134, dress_gate.js 43/43 (224 canon items,
+bank refreshed), hood/hat/acc gates unaffected (11/13/13), taste_gate.py
+20/20. Full suite green except the pre-existing CITY TAB failure (unrelated
+system, already broken on main before this session touched anything).
+Stamp: BUILD 7/25o.
+
+NEXT: Wave 3 (the woman rig) is next in the marathon's priority order --
+the biggest, riskiest item. Confirmed via direct code read of seg() (the
+bone-transform function) that torso/shoulder/hip WIDTH change is
+architecturally blocked by the engine's anisotropic transform rule ("the
+perpendicular axis NEVER scales" -- Paolo 7/2/26 WIDTH LAW); a genuinely
+new bespoke pixel-region reshape (not just a new skeleton fed through the
+existing skinner) is required for that specific dimension. Not started yet.

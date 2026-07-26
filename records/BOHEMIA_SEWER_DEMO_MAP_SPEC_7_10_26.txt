@@ -1,0 +1,47 @@
+BOHEMIA SEWER DEMO MAP — LAYOUT SPEC (7/10/26)
+exported 2026-07-11T00:27:51.985026+00:00
+grid: 14 wide x 30 tall, top-down, vertical descent
+preview: BOHEMIA_SEWER_DEMO_MAP.png
+============================================================
+ZONES (top -> bottom = the descent):
+  rows 0-6   WASH — wide light concrete flood channel, player START (green) top-center,
+             a water trickle down the center. Open, bright, safe-feeling.
+  rows 7-9   TRANSITION — funnels from full-width wash to a ~4-wide sewer mouth.
+  rows 10-24 SEWER — winding 4-6 wide dark tunnel, water channel threads the center,
+             TWO side chambers (left ~14-17, right ~19-22) for enemy ambush pockets.
+  rows 25-29 HATCH ROOM — wide dark dead-end chamber. NETWORK HATCH (orange ring) center.
+
+TILE POOLS (all point to HD masters, see sewer_pools):
+  WASH  = light opaque concrete (dry channel)
+  SEWER = dark stone/brick/cobble (wet tunnel)
+  WATER = water/toxic/sewage channel tiles
+
+CELL COUNTS: sewer=141, void=172, wash=87, water=20
+
+DESIGN INTENT:
+  - Brightness DROPS as you descend (wash mean ~87 -> sewer mean ~19). Dread builds by light.
+  - Water channel is the through-line guiding player downward toward the hatch.
+  - Side chambers = where cybernetic homeless ambush from (barely-visible in the dark).
+  - Hatch = the reveal: Network stormwater-siphon build below.
+
+PROC NOTE: this is a hand-bounded slice for the DEMO. Full game proc-gens these zones;
+the demo ships THIS shape so it's tuned and repeatable. Tunnel winding + chamber
+placement can be re-seeded but the wash->sewer->hatch spine stays fixed.
+
+PENDING PAOLO: enemy behavior (rush vs throw), homeless art tell, hatch/siphon-build look.
+
+=== UPDATE 7/10/26 — PURPLE RESERVATION LAW (Paolo, LOCKED) ===
+- Purple is RESERVED for the hatch/door into the Network build. ONLY purple in the demo.
+- All purple/violet tiles purged from wash/sewer/water pools (per-pixel check, zero tolerance).
+- Hatch redrawn in amalgam purple (glint 196,84,160 / subdermal 122,42,96 family).
+- Verified: purple pixels exist ONLY in the hatch cells (y693-737, x173-217). Law enforced pixel-perfect.
+- SKIN: world-graded SKIN_TONES_WORLD APPROVED by Paolo ("fantastic"). Homeless grime ramps approved direction.
+- Cyber subdermal magenta tell: PENDING Paolo ruling under the purple law (Amalgamation-agent exception or kill).
+
+=== UPDATE 7/10/26 — NO VOLCANO TILES (Paolo, LOCKED) ===
+- No lava/volcano-reading tiles in the demo. Per-pixel hot-glow check (r>140, r>>b, emissive)
+  run on every pool tile; 5 killed (1 sewer, 3 cracked-concrete wash, 1 toxic water).
+- Final map verified: ZERO lava-hot pixels. Purple still hatch-only.
+- Pools after purity passes: wash 4, sewer 7, water 5. All tiles pass purple AND lava checks.
+  (final purity pass: 2 more ember-pixel water tiles killed. FINAL VERIFY: 0 lava-hot px,
+   purple hatch-only. pools: wash 4, sewer 7, water 3.)

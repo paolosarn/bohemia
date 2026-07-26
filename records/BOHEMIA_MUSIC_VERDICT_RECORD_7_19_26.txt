@@ -1,0 +1,143 @@
+BOHEMIA MUSIC — VERDICT PASS + CATEGORY REORGANIZATION (7/19/26)
+Paolo spent 30 minutes listening and judged the ENTIRE catalog, then established
+the category system. Processed same turn.
+
+=== VERDICTS ===
+- ALL 28 faction slots (14 factions x SONG 1/2): CANON.
+- The vibe catalog: CANON nearly throughout (see his export paste in the chat
+  log; every name he marked CANON is baked at 2 in CANON_DEFAULTS).
+- '--' items are the already-graveyarded 0s from earlier eras: unchanged.
+- FIVE DOWN, GRAVEYARD FINAL (registry tokens added, entries removed from
+  MLOOPS/NEW_VIBES/CANON_DEFAULTS, lead voices retired as unused bodies):
+    A PRAYER WOUND BACKWARDS      (batch 11; wailmorph retired)
+    THROAT OF THE DROWNED NAVE    (batch 11; throatsong retired)
+    THE TIDE THAT KEEPS THE NAMES (batch 12; chebychoir retired)
+    A CHORD OF DROWNED BELLS      (batch 12; clusternave retired)
+    LAST BREATH OF THE ORGAN      (batch 12; ironlung retired)
+- Batch 12 survivors CANON: WHERE THE PROCESSION DROWNED, THE HYMN THE STATIC
+  ATE, THE BELL THAT COOLS TO SALT. Batch 12's NEW badges drop.
+- Batch 13 was not in his export (he judged before it landed): still unjudged,
+  keeps the NEW badge, alongside fresh batch 14 (answers the 5 slots).
+
+=== PAOLO'S CATEGORY RULINGS (his comments, verbatim intent) ===
+Faction assignments ("the songs I requested to be with the factions"):
+  SERVER FARM        -> NETWORK  ("network third song")
+  DELTA BLUES        -> NETWORK
+  FLUORESCENT DAWN   -> CHURCH   ("the churches third song")
+  DEAD MANS SLIDE    -> HOMELESS ("a song for the elder and King Hobo")
+  HIGHWAY 15 SOUTH   -> CARAVANS
+  THRONE OF STATIC   -> REMNANTS
+Overworld split BY TIME OF DAY (his ruling: "all the music right now that's for
+the overworld is really the overworld at night"):
+  OVERWORLD NIGHT: the old six (SLOW CREEP, SATELLITE PRAYER, REPO MAN, GHOST IN
+    THE GRID, SLOW BLEED, THE PIT BOSS IS GONE) + CAMPFIRE CONFESSION + THE
+    VAULT + THE CHOIR THAT STAYED + THE ORGAN IN THE DROWNED CHAPEL.
+    (CAMPFIRE CONFESSION and THE VAULT were plain "add to the overworld" --
+    filed under NIGHT per his same-message ruling; re-file if he moves them.)
+  OVERWORLD DAY: PYREFLIES RISE.
+  OVERWORLD DUSK/DAWN: TWO COINS FOR THE FERRYMAN ("awesome dusk dawn type
+    song"), THE WIND LEARNS WORDS.
+
+=== WHAT SHIPPED (mechanism mine, contents his) ===
+1. EDIT BUTTON DEAD ("I'm never editing shit, bro"): the per-song pattern editor
+   is removed from the music UI. In its place: the CAT button -- a checklist of
+   HIS categories (one per faction, MENU, the three overworld time slots). Tags
+   show as chips on the row, persist in the save, and ride every export in a
+   new CATEGORIES section.
+2. GROUPED LIBRARY: faction-tagged vibes render indented under that faction's
+   hymns; three OVERWORLD sections (NIGHT / DAY / DUSK+DAWN); untagged songs
+   stay in VIBE LOOPS; graveyard stays collapsed at the bottom.
+3. CAT_DEFAULTS: every ruling above baked in code, survives any stale save.
+   Legacy 'OVERWORLD' tags migrate to 'OVERWORLD NIGHT'.
+4. CITY SHUFFLE: picks from the current time-of-day pool (CITYMUS.phase --
+   NIGHT until a world clock lands; the clock builder sets phase) with
+   any-overworld as failsafe so the streets never go silent.
+5. Batch 14 cooked (5 songs answering the 5 graves):
+   records/BOHEMIA_MUSIC_BATCH14_7_19_26.txt.
+
+[PENDING Paolo]: category for CAMPFIRE CONFESSION / THE VAULT if not night;
+future categories as he establishes them (the list grows; the dropdown reads
+from MUS.mcats()).
+
+=== FOLLOW-UP RULING (Paolo, same day): THE POOL CLAUSE ===
+Q: do faction thirds play in rotation or are they reserved specials?
+A: "it's in the same pool for whatever the two songs were in the pool for so
+it just enters the pool."
+SHIPPED: combat encounter rotation now round-robins the WHOLE pool (SONG 1 +
+SONG 2 + every faction-tagged vibe), superseding the 7/4 two-slot 1,2,1,2.
+Tagged vibes ride the music bus as full song objects; the alpha pushes pools
+at combat boot and on every music-tab play. Six voice bodies ported verbatim
+into the combat slice (drifter, wanderlead, coldpiano, ruinbrass,
+staticfanfare, kingsdust) so SERVER FARM, DELTA BLUES, FLUORESCENT DAWN, DEAD
+MANS SLIDE, HIGHWAY 15 SOUTH, THRONE OF STATIC play true in combat. New gate:
+gates/combat_pool_gate.js (45 checks) locks tag->voice coverage: tagging a
+song whose voices combat lacks turns the suite red.
+
+=== POOL CLAUSE POST-MORTEM (same turn, caught on the real surface) ===
+Two live bugs found by probing the REAL combat frame, both fixed + gate-locked:
+1. THE AUDIT FREEZE: combat announces its boot faction pick to the studio
+   (ONE TRUTH), the studio marked that as "user picked", and the next bus push
+   told combat "the studio is auditioning slot 1" -- freezing every encounter
+   on SONG 1 forever. Fix: a dedicated audit flag that ONLY the music tab's
+   play button sets; combat's own picks and boot pushes clear it. Gate checks
+   the exact wiring.
+2. Environment note: headless probes stall combat's scripts because the
+   slice's Google Fonts stylesheet hangs behind the sandbox proxy (a pending
+   stylesheet blocks script execution). Real phones load or fail the font
+   fast, so production is unaffected -- but probes must abort font requests
+   to see the real behavior. Recorded so no future session mistakes this for
+   a broken combat build.
+PROVEN LIVE: NETWORK encounters rotate SLOT 1 -> SLOT 2 -> SERVER FARM (glitch
+lead) -> DELTA BLUES (bottleneck lead) -> repeat. Pools land at combat boot.
+
+=== VERDICT TWO (7/19/26, same day): BATCHES 13+14 JUDGED ===
+4 CANON, baked at 2: SOMETHING SINGS THROUGH THE PIPES (filterfmgrowl),
+THE SHAPE THE WATER TAKES (wavemorph), TWO LIGHTS OVER THE FLOOD
+(harmonictrem), THE STAIRS UNDER THE LAKEBED (shepardfall).
+7 DOWN, GRAVEYARD FINAL (removed from MLOOPS/NEW_VIBES, registry tokens added,
+lead voices retired as unused bodies):
+  THE REED THAT HOLDS ITS BREATH   (batch 13; pwmreed retired)
+  WIND THROUGH THE COUNTING HOUSE  (batch 13; aeolianharp retired)
+  WHAT THE DRAWBARS REMEMBER       (batch 13; drawbarmorph retired)
+  WHAT SOURS IN THE SINGING        (batch 14; sourdyad retired)
+  ONE VOICE BECOMES A CROWD        (batch 14; unisonsplit retired)
+  THE NOISE THAT TOOK THE VEIL     (batch 14; spectretide retired)
+  THE STRIKE THAT BLOOMS           (batch 14; strikeswell retired)
+NOTE: his export tagged WIND THROUGH THE COUNTING HOUSE -> CUSTOM and thumbed
+it DOWN in the same paste. The kill wins; the tag died with the song. The rest
+of his CATEGORIES export matched the baked CAT_DEFAULTS exactly (the category
+system round-tripped clean on its first live use).
+COMMENT-BOX FIX (his complaint: "comments from my last exports still stuck
+around"): the comment box now CLEARS the moment comments ride an export.
+Delivered means delivered; the repo is the memory. Old comments no longer
+re-ride every future export.
+Batch 15 cooked same turn answering the 7 slots:
+records/BOHEMIA_MUSIC_BATCH15_7_19_26.txt.
+
+=== VERDICT THREE (7/20/26): BATCH 15 JUDGED + SONG-DEAD-NOT-VOICES LAW ===
+3 CANON baked: THE LIGHT THAT WONT DECIDE (octgate), EVERYTHING FALLS TO
+PITCH (settlebend), THREE NOTES IN THE DUST (ghosttriad).
+4 DOWN as SONGS: WHAT SPEAKS THROUGH THE GRILLE, A PROCESSION THAT FOLLOWS
+ITSELF, IT HAPPENS BACKWARDS HERE, THE WINDOW BENDS THE HYMN.
+THE LAW (his ruling, LOCKED): "I didn't like the elements together as that
+song -- don't throw the voices in the graveyard because they were part of a
+bad song. Try them again in a different fashion." Graveyard = final for
+SONGS only. Voices/topologies from dead songs stay legal for new fashions.
+All earlier "voice retired with it" registry lines SUPERSEDED (correcting
+note added to the registry).
+BATCH 16 (first cook under the law): each song births a new lead (combfake
+comb-spectrum, glissharp pitch-gliss, subharmglide undertone staircase,
+retrig burst train) AND retired voices return in new fashions -- ironlung as
+a BASS, strikeswell / aeolianharp / sourdyad as A-motifs.
+ALSO: the export round-tripped CLEAN this time on the fresh build (comments
+empty, all 7 judged, categories intact) -- the stale-tab saga is closed.
+
+=== VERDICT FOUR (7/20/26): BATCH 16 JUDGED — THE LAW WORKS ===
+3 CANON: THE TEETH THE SONG LOST, A HARP OF SALVAGED WIRE, A HAND THAT WONT
+STOP COUNTING -- the first approved songs carrying RETURNED voices (ironlung
+as bass, strikeswell/sourdyad as motifs). 1 DOWN as a SONG: EVERY FLOOR BELOW
+THIS ONE (subharmglide + aeolianharp stay live).
+BATCH 17 answers: THE GAPS IN THE HYMNAL -- holdbreath (composed SILENCE: two
+dead-silent holds cut mid-note, the rests are load-bearing), with phasedist
+returning as the BASS and reversebloom as the A-motif. Offline-render 0.21.
+NEW badge, [PENDING verdict].

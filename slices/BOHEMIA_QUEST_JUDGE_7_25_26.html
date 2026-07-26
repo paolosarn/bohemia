@@ -1,0 +1,652 @@
+<meta charset="utf-8">
+<title>BOHEMIA - JUDGE THE 9 CANON QUESTS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
+<div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2a1f">
+  <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a;flex:1">THE 9 CANON QUESTS <span id="tally" style="font:600 11px monospace;color:#8f8770"></span></div>
+  <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
+  <button id="exp" style="padding:9px 13px;border-radius:8px;background:#3f8c3f;color:#fff;border:0">&#10515; EXPORT .txt</button>
+</div>
+<div id="intro" style="font:12px/1.6 -apple-system,sans-serif;color:#8f8770;padding:12px 14px 0;max-width:760px">
+  These are the first playable Bohemia quests, live in the phone right now. Every one
+  is real: real dialogue, real forks, real endings. Tap PLAY IT and walk one to an
+  ending, then thumb it. The ending you land on decides your CLOUT, which is what the
+  feed rewards. WHERE says the real tile the engine cast the quest to in the valley.
+</div>
+<div id="list"></div>
+<div style="padding:16px 14px 60px;max-width:760px">
+  <div id="gcap" style="font:12px sans-serif;color:#8f8770;margin-bottom:4px">PAOLO COMMENTS (rides the export):</div>
+  <textarea id="gc" rows="5" style="width:100%;padding:10px;border-radius:10px;border:1px solid #888;box-sizing:border-box;background:#111;color:#ddd;font:13px sans-serif"></textarea>
+</div>
+<script>/* bohemia_bq.js — Bohemia Quest (.bq) parser, serializer, validator.
+   LAWS ENFORCED IN CODE:
+   - Never crash on a garbled line. Preserve it, flag it. (voice-to-text law)
+   - Round-trip lossless: parse -> serialize -> byte-identical.
+   - No stat/karma gates. The format cannot express them. (CONSCIENCE SYSTEM)
+   - REQ roles must be castable. (Bethesda alias-fill gate)
+   No dependencies. Runs in node and in the browser. */
+(function(root){
+'use strict';
+
+var BANNED_GATES = ['charm','paragon','renegade','karma','speech','morality','intimidate','persuasion'];
+var GATE_KEYS    = ['none','knows','flag','has','role','faction','gen'];
+
+/* ---------- PARSE ---------- */
+function parse(text){
+  var Q = { id:'', title:'', act:null, faction:null, once:true,
+            roles:[], stages:[], objs:[], talks:[], raw:[], warnings:[] };
+  var lines = String(text).replace(/\r\n/g,'\n').split('\n');
+  var curStage=null, curTalk=null;
+
+  for (var i=0;i<lines.length;i++){
+    var raw = lines[i];
+    Q.raw.push(raw);
+    var L = raw.trim();
+    var ln = i+1;
+    if (L==='' || L[0]==='#'){ continue; }
+
+    var m;
+    if ((m=/^@QUEST\s+(\S+)\s*(.*)$/.exec(L))){ Q.id=m[1]; Q.title=m[2].trim(); curStage=null; curTalk=null; continue; }
+    if ((m=/^@ACT\s+(\S+)/.exec(L))){ Q.act=m[1]; continue; }
+    if ((m=/^@FACTION\s+(\S+)/.exec(L))){ Q.faction=m[1]; continue; }
+    if ((m=/^@ONCE\s+(\S+)/.exec(L))){ Q.once = /^true$/i.test(m[1]); continue; }
+
+    if ((m=/^@ROLE\s+(\S+)\s+(REQ|OPT)\s*(.*)$/i.exec(L))){
+      Q.roles.push({ name:m[1], req:/^REQ$/i.test(m[2]), cond:m[3].trim(), line:ln });
+      continue;
+    }
+
+    if ((m=/^@STAGE\s+(\d+)\s*(.*)$/.exec(L))){
+      var flags = m[2].trim().toUpperCase().split(/\s+/).filter(Boolean);
+      curStage = { n:parseInt(m[1],10), log:'', dos:[], flags:flags, tags:tagsOf(raw), line:ln };
+      Q.stages.push(curStage); curTalk=null; continue;
+    }
+    if ((m=/^@LOG\s+(.*)$/.exec(L))){ if(curStage) curStage.log = m[1].trim(); else warn(Q,ln,'@LOG outside a @STAGE'); continue; }
+    if ((m=/^@DO\s+(.*)$/.exec(L))){
+      var d = { text:m[1].trim(), line:ln };
+      if (curStage) curStage.dos.push(d);
+      else if (curTalk) curTalk.trailingDo = d;
+      else warn(Q,ln,'@DO outside a @STAGE or @TALK');
+      continue;
+    }
+    if ((m=/^@OBJ\s+(\d+)\s+"([^"]*)"\s*(?:target=(\S+))?/.exec(L))){
+      Q.objs.push({ n:parseInt(m[1],10), text:m[2], target:m[3]||null, line:ln }); continue;
+    }
+
+    if ((m=/^@TALK\s+(\S+)\s*(.*)$/.exec(L))){
+      var attrs = attrsOf(m[2]);
+      curTalk = { id:m[1], speaker:attrs.speaker||null, entry:attrs.entry||null,
+                  says:[], opts:[], locks:[], noverbs:[], tags:tagsOf(raw), line:ln };
+      Q.talks.push(curTalk); curStage=null; continue;
+    }
+    if ((m=/^@SAY\s+(.*)$/.exec(L))){ if(curTalk) curTalk.says.push({text:stripTags(m[1]).trim(), tags:tagsOf(raw), line:ln}); else warn(Q,ln,'@SAY outside a @TALK'); continue; }
+    if ((m=/^@OPT\s+(.*)$/.exec(L))){
+      if(!curTalk){ warn(Q,ln,'@OPT outside a @TALK'); continue; }
+      var body = m[1];
+      /* CONTINUATION: an @OPT may wrap. Following lines that start with [gate: or -> or @DO
+         belong to it. Voice-to-text wraps long lines; the format must not punish that. */
+      while (i+1 < lines.length && /^\s*(\[gate:|->|@DO\b|TRAP\b|SILENCE\b)/.test(lines[i+1])){
+        i++; Q.raw.push(lines[i]); body += ' ' + lines[i].trim();
+      }
+      var o = parseOpt(body, ln, Q);
+      curTalk.opts.push(o); continue;
+    }
+    if ((m=/^@LOCK\s+(\S+)/.exec(L))){ if(curTalk) curTalk.locks.push({target:m[1], line:ln}); else warn(Q,ln,'@LOCK outside a @TALK'); continue; }
+    if ((m=/^@NOVERB\s+(.*)$/.exec(L))){ if(curTalk) curTalk.noverbs.push({text:m[1].trim(), line:ln}); else warn(Q,ln,'@NOVERB outside a @TALK'); continue; }
+    if (/^@END\b/.test(L)){ curTalk=null; continue; }
+
+    /* UNKNOWN LINE. Never dropped. Never fatal. Voice-to-text law. */
+    warn(Q, ln, 'unrecognized line kept verbatim: ' + L.slice(0,60));
+  }
+  return Q;
+}
+
+function parseOpt(s, ln, Q){
+  var o = { text:'', gate:'none', gateKey:'none', gateVal:null, trap:false, silence:false,
+            to:null, dos:[], line:ln, raw:s };
+  var m;
+  if ((m=/^"([^"]*)"/.exec(s))) o.text = m[1];
+  else if ((m=/^\(([^)]*)\)/.exec(s))) { o.text = '('+m[1]+')'; o.silence = true; }
+  else { warn(Q, ln, '@OPT has no quoted text'); o.text = s.split('[')[0].trim(); }
+
+  if ((m=/\[gate:\s*([^\]]*)\]/i.exec(s))){
+    o.gate = m[1].trim();
+    var parts = o.gate.split(':');
+    o.gateKey = parts[0].trim().split(/[<>=]/)[0].trim().toLowerCase();
+    o.gateVal = parts.slice(1).join(':').trim() || null;
+  }
+  if (/\bTRAP\b/.test(s)) o.trap = true;
+  if (/\bSILENCE\b/.test(s)) o.silence = true;
+  if ((m=/->\s*(\S+)/.exec(s))) o.to = m[1];
+  var dre = /@DO\s+([^@]+)/g, d;
+  while ((d = dre.exec(s))) o.dos.push({ text:d[1].trim(), line:ln });
+  return o;
+}
+
+function tagsOf(s){ var t=[], m, re=/(?:^|\s)#([A-Za-z0-9_]+)/g; while((m=re.exec(s))) t.push(m[1]); return t; }
+function stripTags(s){ return s.replace(/(?:^|\s)#[A-Za-z0-9_]+/g,''); }
+function attrsOf(s){ var a={}, m, re=/(\w+)=([^\s]+)/g; while((m=re.exec(s))) a[m[1]]=m[2]; return a; }
+function warn(Q,line,msg){ Q.warnings.push({line:line, msg:msg}); }
+
+/* ---------- SERIALIZE (lossless round-trip) ---------- */
+function serialize(Q){ return Q.raw.join('\n'); }
+
+/* ---------- VALIDATE ---------- */
+function validate(Q, world){
+  world = world || null;
+  var errs=[], warns=[];
+  function E(c,m){ errs.push({code:c, msg:m}); }
+  function W(c,m){ warns.push({code:c, msg:m}); }
+
+  if(!Q.id) E('NO_ID','quest has no @QUEST id');
+  if(!Q.stages.length) E('NO_STAGES','quest has no @STAGE');
+
+  var roleNames = {}; Q.roles.forEach(function(r){ roleNames[r.name]=r; });
+
+  /* G6 banned gates — CONSCIENCE SYSTEM enforced by the parser */
+  Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    BANNED_GATES.forEach(function(b){
+      if (new RegExp('\\b'+b+'\\b','i').test(o.gate))
+        E('BANNED_GATE','line '+o.line+': gate "'+o.gate+'" uses '+b.toUpperCase()+'. NO STAT GATES. NO KARMA. Ever.');
+    });
+    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0)
+      W('UNKNOWN_GATE','line '+o.line+': gate key "'+o.gateKey+'" not in the vocabulary');
+    if (o.gateKey==='role' && o.gateVal && !roleNames[o.gateVal])
+      E('GATE_NO_ROLE','line '+o.line+': gate role:'+o.gateVal+' is not a declared @ROLE');
+  });});
+
+  /* G3 dead links */
+  var nodeIds={}; Q.talks.forEach(function(t){
+    if(nodeIds[t.id]) E('DUP_NODE','duplicate @TALK id "'+t.id+'" (line '+t.line+')');
+    nodeIds[t.id]=t;
+  });
+  Q.talks.forEach(function(t){
+    t.opts.forEach(function(o){ if(o.to && o.to!=='END' && !nodeIds[o.to])
+      E('DEAD_LINK','line '+o.line+': -> '+o.to+' does not exist'); });
+    t.locks.forEach(function(l){ if(!nodeIds[l.target])
+      E('DEAD_LOCK','line '+l.line+': @LOCK '+l.target+' does not exist'); });
+    if(t.speaker && !roleNames[t.speaker])
+      E('NODE_NO_ROLE','line '+t.line+': @TALK speaker='+t.speaker+' is not a declared @ROLE');
+  });
+
+  /* G2 orphan nodes — theme-in-optional, the ~18x flaw */
+  var reached={}; Q.talks.forEach(function(t){ if(t.entry) reached[t.id]=true; });
+  if(Q.talks.length && !Object.keys(reached).length && Q.talks[0]) reached[Q.talks[0].id]=true;
+  var moved=true;
+  while(moved){ moved=false;
+    Q.talks.forEach(function(t){ if(reached[t.id]) t.opts.forEach(function(o){
+      if(o.to && nodeIds[o.to] && !reached[o.to]){ reached[o.to]=true; moved=true; } }); });
+  }
+  Q.talks.forEach(function(t){ if(!reached[t.id])
+    W('ORPHAN_NODE','@TALK '+t.id+' (line '+t.line+') is unreachable. Theme-in-optional is the ~18x flaw.'); });
+
+  /* G1 alias-fill — the Bethesda lesson, taken for free */
+  if(world){
+    Q.roles.forEach(function(r){
+      if(!r.req) return;
+      if(typeof world.canCast!=='function') return;
+      if(!world.canCast(r)) E('ALIAS_FILL','REQ @ROLE '+r.name+' (line '+r.line+') cannot be cast: '+r.cond+
+        '. An unfilled REQ role fails the WHOLE quest silently. Bethesda shipped a debug flag for this; we fail the build.');
+    });
+  }
+
+  /* G4 hardcoded names. Root-cause heuristic: a proper noun is a capitalized word that is NOT
+     sentence-initial and NOT a declared role. Sentence-initial caps are grammar, not names. */
+  Q.talks.forEach(function(t){ t.says.forEach(function(s){
+    var txt = s.text, m, re=/([.!?]\s+|,\s+|\s+)([A-Z][a-z]{2,})/g;
+    var STOP={The:1,This:1,That:1,They:1,Then:1,There:1,These:1,Those:1,You:1,Your:1,What:1,When:1,Where:1,Which:1,Who:1,Why:1,How:1,And:1,But:1,For:1,Not:1,Now:1,She:1,Her:1,His:1,Him:1,Its:1,Was:1,Were:1,Are:1,Did:1,Does:1,Get:1,Got:1,Had:1,Has:1,Have:1,Just:1,Like:1,Look:1,Make:1,Never:1,Nothing:1,Only:1,Same:1,Say:1,Said:1,Tell:1,Told:1,Take:1,Went:1,Yes:1,Sit:1,Good:1,Play:1,Cleared:1,Six:1,Everyone:1,Welcome:1,Unhoused:1,Bring:1,Write:1,Their:1,One:1,Instead:1,Nobody:1,All:1,Because:1,Before:1,Beyond:1,Every:1,Find:1,Give:1,Sorry:1,Stop:1,Still:1,Ask:1,Come:1,Keep:1,Wait:1,Watch:1,Speak:1,Read:1};
+    while((m=re.exec(txt))){
+      var w=m[2];
+      if(m[1].match(/[.!?]/)) continue;            /* sentence-initial: grammar, not a name */
+      if(STOP[w]) continue;
+      if(roleNames[w.toLowerCase()]) continue;
+      W('HARDCODED_NAME','line '+s.line+': possible hardcoded name "'+w+'". Quests written against names die with the person. Use a @ROLE.');
+    }
+  });});
+
+  /* G7 removed verb */
+  var nv=0; Q.talks.forEach(function(t){ nv+=t.noverbs.length; });
+  if(Q.talks.length && nv===0)
+    W('NO_NOVERB','quest declares zero @NOVERB. A quest where every obvious thing is sayable has not decided what it is about. (Q118/Q122/Q123/Q125)');
+
+  /* G8 NAMED-BODY LAW (Q125) */
+  Q.stages.forEach(function(st){
+    if(st.tags.indexOf('namedbody')>=0){
+      st.dos.forEach(function(d){
+        if(/\b(give|loot|reward|credits|medicine|electricity|resources|item)\b/i.test(d.text))
+          E('NAMED_BODY','line '+d.line+': stage #'+st.n+' is #namedbody and grants loot. NAMED-BODY LAW: no loot in a room with a corpse the player knows by name.');
+      });
+    }
+  });
+
+  /* G9 cross-generation flags need a test */
+  var genReads=[]; Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    if(o.gateKey==='gen' || /gen\s*>=\s*[23]/.test(o.gate)) genReads.push(o); });});
+  if(genReads.length) W('GEN_FLAG_TEST','quest reads across a generation boundary ('+genReads.length+' gate(s)). FLAW LAW 3: needs a named regression test in bohemia_tests.js. Q116 shipped a flag bugged 25 years.');
+
+  /* G5 branch count (Q117: count branches before scoping volume) */
+  var endings = Q.stages.filter(function(s){ return s.flags.indexOf('COMPLETE')>=0 || s.flags.indexOf('FAIL')>=0; }).length;
+
+  return {
+    ok: errs.length===0,
+    errors: errs, warnings: warns.concat(Q.warnings.map(function(w){ return {code:'PARSE', msg:'line '+w.line+': '+w.msg}; })),
+    stats: { roles:Q.roles.length, reqRoles:Q.roles.filter(function(r){return r.req;}).length,
+             stages:Q.stages.length, objectives:Q.objs.length, nodes:Q.talks.length,
+             options:Q.talks.reduce(function(a,t){return a+t.opts.length;},0),
+             traps:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.trap;}).length;},0),
+             silences:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.silence;}).length;},0),
+             noverbs:nv, locks:Q.talks.reduce(function(a,t){return a+t.locks.length;},0),
+             endings: endings }
+  };
+}
+
+function roundTrip(text){ return serialize(parse(text)) === String(text).replace(/\r\n/g,'\n'); }
+
+var API = { parse:parse, serialize:serialize, validate:validate, roundTrip:roundTrip,
+            BANNED_GATES:BANNED_GATES, GATE_KEYS:GATE_KEYS, VERSION:'bq-1.0.0' };
+if (typeof module!=='undefined' && module.exports) module.exports = API;
+root.BQ = API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script>
+<script>/* bohemia_quest_runtime.js — plays a parsed .bq quest. UI-AGNOSTIC.
+   Consumes the AST from bohemia_bq.js (BQ.parse) and actually RUNS it: stages,
+   talk nodes, option gates, and @DO verbs; tracks state, objectives, flags,
+   knowledge, bonds, faction rep, locks, and the COMPLETE/FAIL outcome.
+
+   This is the missing brick: the .bq format was parse-only until now. The runtime
+   returns plain data (current speaker/says/options/objectives) that ANY ui renders,
+   so it can be tested headless and later wired to the walkable slice + save.
+
+   LAWS HONORED:
+   - Never crash on an unknown @DO verb; log it, keep going. (voice-to-text spirit)
+   - No stat/karma gates exist to evaluate (the parser already bans them).
+   - State is plain JSON: serialize -> localStorage -> load, for the quest-aware save.
+
+   No dependencies. Node + browser. Pairs with bohemia_bq.js. */
+(function(root){
+'use strict';
+
+function num(x){ if(x==null) return 0; var n=parseInt(x,10); return isNaN(n)?0:n; }
+function cmp(a,op,b){ a=+a; b=+b;
+  switch(op){ case '>=':return a>=b; case '>':return a>b; case '<=':return a<=b;
+              case '<':return a<b; case '==': case '=':return a===b; } return false; }
+
+/* Recover ALL node-level @DO verbs. The parser keeps only the last one on a talk
+   (trailingDo is a single field), so we re-walk the raw lines with the parser's own
+   state rules and collect every @DO that belongs to a talk node (not a stage, not an
+   @OPT continuation). Non-invasive: the parser is left untouched. */
+function hydrateNodeDos(Q){
+  var map={}, lines=Q.raw||[], curTalk=null, inStage=false, m;
+  for(var i=0;i<lines.length;i++){
+    var L=String(lines[i]).trim();
+    if(/^@STAGE\b/.test(L)){ inStage=true; curTalk=null; continue; }
+    if(/^@(QUEST|ACT|FACTION|ONCE|ROLE|OBJ|LOG)\b/.test(L)){ if(!/^@LOG/.test(L)){ curTalk=null; inStage=false; } continue; }
+    if((m=/^@TALK\s+(\S+)/.exec(L))){ curTalk=m[1]; inStage=false; map[curTalk]=map[curTalk]||[]; continue; }
+    if(/^@END\b/.test(L)){ curTalk=null; continue; }
+    if(/^@OPT\b/.test(L)){ /* an @OPT swallows its continuation lines, incl. its @DOs */
+      while(i+1<lines.length && /^\s*(\[gate:|->|@DO\b|TRAP\b|SILENCE\b)/.test(lines[i+1])) i++;
+      continue;
+    }
+    if((m=/^@DO\s+(.*)$/.exec(L))){ if(curTalk && !inStage){ map[curTalk].push(m[1].trim()); } continue; }
+  }
+  return map;
+}
+
+function freshState(Q){
+  var s={ stage:null, flags:{}, knows:{}, has:{}, roles:{}, faction:{}, bonds:{},
+          posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null,
+          doneTags:[], advanceTerritory:false };
+  (Q.roles||[]).forEach(function(r){ s.roles[r.name]=!!r.req; }); /* REQ present, OPT absent */
+  return s;
+}
+
+function Runtime(Q, state){
+  if(!(this instanceof Runtime)) return new Runtime(Q, state);
+  this.Q=Q;
+  this.state=state||freshState(Q);
+  this.node=null;
+  this._stageById={}; (Q.stages||[]).forEach(function(st){ this._stageById[st.n]=st; },this);
+  this._talkById={};  (Q.talks ||[]).forEach(function(t){ this._talkById[t.id]=t; },this);
+  this._nodeDos=hydrateNodeDos(Q);
+}
+
+/* ---- conditions. entry= and [gate:] use the same vocabulary. ----
+   isGate: an unrecognized/unparseable GATE is safe-FALSE (never offer a broken option);
+   an unrecognized ENTRY token is treated as an available named trigger (TRUE). */
+Runtime.prototype._cond=function(expr, isGate){
+  if(expr==null) return true;
+  expr=String(expr).trim();
+  if(expr===''||expr.toLowerCase()==='none') return true;
+  var self=this, s=this.state, m;
+  var parts=expr.split(/\s*(?:,|&&|\band\b)\s*/i).filter(Boolean);
+  if(parts.length>1) return parts.every(function(p){ return self._cond(p,isGate); });
+
+  if((m=/^(\w+)\s*(>=|<=|==|=|>|<)\s*(-?\d+)$/.exec(expr))){
+    var key=m[1].toLowerCase(), op=m[2], val=m[3], cur;
+    if(key==='stage')       cur=(s.stage==null?-Infinity:s.stage);
+    else if(key==='gen')    cur=s.gen;
+    else if(key in s.bonds) cur=s.bonds[key];
+    else if(key in s.faction) cur=s.faction[key];
+    else cur=0;
+    return cmp(cur,op,val);
+  }
+  if((m=/^(\w+)\s*:\s*(\S+)$/.exec(expr))){
+    var k=m[1].toLowerCase(), v=m[2];
+    if(k==='flag')    return !!s.flags[v];
+    if(k==='knows')   return !!s.knows[v];
+    if(k==='has')     return !!s.has[v];
+    if(k==='role')    return !!s.roles[v];
+    if(k==='faction') return !!s.faction[v];
+    if(k==='gen')     return cmp(s.gen,'>=',v);
+    return false; /* a real but unknown key:val condition never silently passes */
+  }
+  return !isGate; /* bare token: an ENTRY named-trigger is available; a GATE is not */
+};
+
+Runtime.prototype._exec=function(text){
+  if(!text) return;
+  var s=this.state, p=String(text).trim().split(/\s+/), verb=p[0];
+  switch(verb){
+    case 'set_flag': if(p[1]) s.flags[p[1]]=true; break;
+    case 'learn':    if(p[1]) s.knows[p[1]]=true; break;
+    case 'have': case 'give': if(p[1]) s.has[p[1]]=true; break;
+    /* call the PROTOTYPE method directly, not this.setStage: a host (the loop's
+       ledger pipe) may have installed an own-property wrapper on this instance's
+       setStage to observe EXTERNAL calls. If an internal @DO set_stage went through
+       that wrapper too, a choice that completes a quest in one step would fire the
+       OUTCOME event recursively mid-choice, before the CHOICE event itself was even
+       recorded — a chronological bug in the ledger, not a stylistic one. Bypassing
+       the wrapper here keeps internal transitions on the canonical logic only, so
+       the host always sees choice-then-outcome in the order they actually happened. */
+    case 'set_stage': if(p[1]!=null) Runtime.prototype.setStage.call(this, parseInt(p[1],10)); break;
+    case 'show_objective':     this._obj(p[1],'active'); break;
+    case 'complete_objective': this._obj(p[1],'done');   break;
+    case 'cast': p.slice(1).forEach(function(r){ s.roles[r]=true; }); break;
+    case 'bond':    if(p[1]) s.bonds[p[1]]=(s.bonds[p[1]]||0)+num(p[2]); break;
+    case 'faction': if(p[1]) s.faction[p[1]]=(s.faction[p[1]]||0)+num(p[2]); break;
+    case 'faction_posture': if(p[1]) s.posture[p[1]]=(s.posture[p[1]]||0)+num(p[2]); break;
+    /* PACING LAW (Paolo 7/24): the territory AI's advanceRound is never a tick —
+       it fires when "the narrative calls for it — a quest resolves, a story beat
+       lands." This is that lever, opt-in per quest: an author marks the ONE
+       resolution stage that's a real story beat, everyday errands never touch it. */
+    case 'advance_territory': s.advanceTerritory=true; break;
+    case 'play': s.log.push('play '+p.slice(1).join(' ')); break;
+    default: s.log.push('UNHANDLED_DO: '+text);
+  }
+};
+
+Runtime.prototype._obj=function(n,status){
+  n=parseInt(n,10); if(isNaN(n)) return;
+  var def=(this.Q.objs||[]).filter(function(o){ return o.n===n; })[0];
+  this.state.objectives[n]={ n:n, text:def?def.text:('objective '+n),
+                             target:def?def.target:null, status:status };
+};
+
+Runtime.prototype.start=function(stageN){
+  var ns=(this.Q.stages||[]).map(function(s){return s.n;}).sort(function(a,b){return a-b;});
+  var first=(stageN!=null)?stageN:(ns.length?ns[0]:null);
+  if(first!=null) this.setStage(first);
+  return this;
+};
+
+Runtime.prototype.setStage=function(n){
+  var st=this._stageById[n], self=this;
+  this.state.stage=n;
+  if(st){
+    if(st.log) this.state.log.push('[stage '+n+'] '+st.log);
+    (st.dos||[]).forEach(function(d){ self._exec(d.text); });
+    /* doneTags: the completing stage's raw #hashtags (e.g. #reckless), carried
+       verbatim so the LOOP layer can classify the outcome (CLOUT weighting) without
+       this UI-agnostic runtime knowing anything about followers or feeds. */
+    if(st.flags.indexOf('COMPLETE')>=0){ this.state.done=true; this.state.outcome='COMPLETE'; this.state.doneTags=(st.tags||[]).slice(); }
+    if(st.flags.indexOf('FAIL')>=0){ this.state.done=true; this.state.outcome='FAIL'; this.state.doneTags=(st.tags||[]).slice(); }
+  }
+  return this;
+};
+
+/* which talk nodes can be STARTED right now: those with an entry condition that
+   passes and are not locked. (Nodes without entry are sub-nodes reached via ->.) */
+Runtime.prototype.available=function(){
+  var self=this, out=[];
+  (this.Q.talks||[]).forEach(function(t){
+    if(!t.entry) return;
+    if(self.state.locked[t.id]) return;
+    if(self._cond(t.entry,false)) out.push(t.id);
+  });
+  return out;
+};
+
+Runtime.prototype._enter=function(t){
+  this.node=t;
+  var self=this;
+  (this._nodeDos[t.id]||[]).forEach(function(d){ self._exec(d); });
+  (t.locks||[]).forEach(function(l){ self.state.locked[l.target]=true; });
+  return this.view();
+};
+
+Runtime.prototype.begin=function(id){
+  var t=this._talkById[id];
+  if(!t) return null;
+  return this._enter(t);
+};
+
+Runtime.prototype.view=function(){
+  var t=this.node, self=this;
+  if(!t) return { ended:true, node:null, done:this.state.done, outcome:this.state.outcome };
+  var opts=[];
+  (t.opts||[]).forEach(function(o,i){
+    if(self._cond(o.gate,true)) opts.push({ i:i, text:o.text, silence:!!o.silence, trap:!!o.trap, to:o.to });
+  });
+  return { node:t.id, speaker:t.speaker,
+           says:t.says.map(function(s){return s.text;}),
+           noverbs:t.noverbs.map(function(n){return n.text;}),
+           options:opts, ended:false, done:this.state.done, outcome:this.state.outcome };
+};
+
+Runtime.prototype.choose=function(i){
+  var t=this.node; if(!t) return this.view();
+  var o=t.opts[i]; if(!o) return this.view();
+  if(!this._cond(o.gate,true)) return this.view();   /* gate must still hold */
+  var self=this;
+  (o.dos||[]).forEach(function(d){ self._exec(d.text); });
+  if(!o.to || o.to==='END'){ this.node=null; return this.view(); }
+  var nt=this._talkById[o.to];
+  if(!nt){ this.node=null; return this.view(); }
+  return this._enter(nt);
+};
+
+Runtime.prototype.objectives=function(){
+  var s=this.state, out=[];
+  Object.keys(s.objectives).forEach(function(k){ out.push(s.objectives[k]); });
+  out.sort(function(a,b){ return a.n-b.n; });
+  return out;
+};
+
+Runtime.prototype.serialize=function(){ return JSON.stringify(this.state); };
+Runtime.load=function(Q, json){ return new Runtime(Q, typeof json==='string'?JSON.parse(json):json); };
+
+var API={ Runtime:Runtime, freshState:freshState, hydrateNodeDos:hydrateNodeDos, VERSION:'bqrt-1.0.0' };
+if(typeof module!=='undefined' && module.exports) module.exports=API;
+root.BQRuntime=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script>
+<script>
+const QUESTS = [{"id": "bq_meter_reader", "title": "The Meter Reader", "act": "1", "once": true, "premise": ["Every night, same hour, this block loses half its light.", "The line tests clean. A clean line that browns out is not a broken line. It is a shared one.", "Somebody upstream is drinking before we do. Walk it back for me. Quiet, if you can manage quiet."], "endings": [{"n": 30, "kind": "COMPLETE", "clout": "quiet", "log": "Put the current back myself. The block has light tonight. Nobody was told."}, {"n": 31, "kind": "COMPLETE", "clout": "notable", "log": "Handed the tap to the trades. They patched it in daylight, names on the work order."}, {"n": 32, "kind": "COMPLETE", "clout": "reckless", "log": "Cut the skim line in front of the whole block. Sparks, a crowd, and a message sent up."}, {"n": 33, "kind": "FAIL", "clout": "quiet", "log": "Left it alone. The block goes dark again tonight, same hour."}], "roles": [{"name": "lineman", "req": true, "cond": "faction=TRADES  block=browned"}, {"name": "fixer", "req": false, "cond": "faction=NETWORK met_before=false"}], "noverbs": ["Tell me who runs the network", "Turn them in for a bounty", "It was the network"], "file": "S01_THE_METER_READER.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S01 \u2014 THE METER READER\n# Shape: economy-as-morality (electricity). Faction wires: TRADES, NETWORK.\n# Systems used AS the mechanic (W9): the ELECTRICITY economy is the whole puzzle;\n# the resolution actually shifts NETWORK posture. Grounded in the house-of-cards\n# power canon (the grid has no owner; the network skims covertly) and the\n# Amalgamation blind-spot canon (the skim runs DOWN toward the water \u2014 the deep\n# tunnel / reclaim plant where the secret sleeps; looking under it is the danger,\n# not player strength). No proper names anywhere (W8). CLOUT rides HOW you resolve\n# it, never a label (Paolo 7/21): quiet fix -> #quiet, public patch -> #notable,\n# loud spectacle -> #reckless. The player does not pick a clout number; the\n# loudness of the DEED sets it.\n\n@QUEST   bq_meter_reader   The Meter Reader\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n# ---- ROLES. Cast at runtime against whoever exists. Never a hardcoded name.\n@ROLE lineman  REQ  faction=TRADES  block=browned\n@ROLE fixer    OPT  faction=NETWORK met_before=false\n\n@STAGE 10\n  @LOG The block loses half its light at the same hour every night.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The line tests clean. A clean line that browns out is a shared one. Found the split.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG Put the current back myself. The block has light tonight. Nobody was told.\n  @DO bond lineman +15\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #notable\n  @LOG Handed the tap to the trades. They patched it in daylight, names on the work order.\n  @DO faction TRADES +8\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #reckless\n  @LOG Cut the skim line in front of the whole block. Sparks, a crowd, and a message sent up.\n  @DO faction_posture NETWORK +1\n  @DO complete_objective 20\n@STAGE 33 FAIL #quiet\n  @LOG Left it alone. The block goes dark again tonight, same hour.\n\n@OBJ 10  \"Find why the block browns out\"   target=lineman\n@OBJ 20  \"Follow the skimmed line\"         target=fixer\n\n# =====================================================================\n# THE ASK. The theme is in the FIRST line, not a missable node (W3).\n# =====================================================================\n@TALK open  speaker=lineman  entry=stage>=10\n  @SAY Every night, same hour, this block loses half its light. #tired\n  @SAY The line tests clean. A clean line that browns out is not a broken line. It is a shared one.\n  @SAY Somebody upstream is drinking before we do. Walk it back for me. Quiet, if you can manage quiet.\n  @OPT \"I will walk it back.\"          [gate: none]  -> walk  @DO learn line_is_clean\n  @OPT \"Why not walk it yourself?\"     [gate: none]  -> why\n  @OPT \"Not my block.\"                 [gate: none]  -> refuse\n  @OPT (say nothing, just go)          [gate: none]  SILENCE -> walk  @DO learn line_is_clean\n  @NOVERB \"Tell me who runs the network\"\n@END\n\n@TALK why  speaker=lineman\n  @SAY Because I have a name and a face and a family on this block. #dread\n  @SAY Whoever is drinking that current does not like to be looked at. You are new here. You are cheaper to lose.\n  @OPT \"Comforting.\"                   [gate: none]  -> walk  @DO learn line_is_clean\n  @OPT \"Who does not like to be looked at?\"  [gate: none]  -> why2\n@END\n\n@TALK why2  speaker=lineman\n  @SAY If I knew that, I would not need you. Nobody who drinks that quiet keeps a name that stays put.\n  @SAY Follow the split. Do not make a show of it.\n  @DO set_stage 20\n@END\n\n@TALK refuse  speaker=lineman\n  @SAY Fair. It is nobody's job out here, which is why it is always nobody's job. #tired\n  @OPT \"Maybe another night.\"          [gate: none]  -> END  @DO set_stage 33\n  @OPT \"Fine. I will look.\"            [gate: none]  -> walk  @DO learn line_is_clean\n@END\n\n@TALK walk  speaker=lineman\n  @SAY Good. It splits somewhere past the dead storefronts. Follow the cable that runs warm. #tired\n  @DO set_stage 20\n@END\n\n# =====================================================================\n# THE SPLIT. You catch the skimmer. They are not a monster (W7) \u2014 they are\n# faster than the meter. The fork is loudness, and loudness is the cost.\n# =====================================================================\n@TALK split  speaker=fixer  entry=stage>=20\n  @SAY Easy. You found the tap. Most people never look at a warm cable twice. #wary\n  @SAY I move a little current where it is needed. The grid has no owner. I am just faster than the meter.\n  @SAY Put it back and go home a quiet hero. Or make this loud. Loud is where it gets expensive for both of us.\n  @OPT \"Put it back. Nobody hears it.\"  [gate: none]  SILENCE -> put     @DO set_flag saw_the_skim\n  @OPT \"The trades should see this.\"     [gate: none]  -> report          @DO set_flag saw_the_skim\n  @OPT \"Whose current is it, really?\"    [gate: none]  TRAP -> whose      @DO set_flag saw_the_skim\n  @OPT (cut the tap, right now)          [gate: none]  -> cut             @DO set_flag saw_the_skim\n  @NOVERB \"Turn them in for a bounty\"\n@END\n\n# THE TRAP OPTION (W-craft): asking the wrong question near the secret costs.\n# It goes DOWN, toward the water \u2014 the reclaim plant, per canon. Looking is the\n# danger, not fighting. This sets the unrecorded flag the fold reads later.\n@TALK whose  speaker=fixer\n  @SAY See, that is the question that costs. I do not know whose. #dread\n  @SAY I know it goes down, not up. Toward the water. I do not follow it down and neither should you.\n  @SAY I gave you nothing. Put it back, or do not. Your block, your name.\n  @OPT \"Put it back. Quietly.\"          [gate: none]  SILENCE -> put  @DO learn it_goes_down\n  @OPT \"Cut it. Let them all see.\"       [gate: none]  -> cut          @DO learn it_goes_down  @DO set_flag looked_under_the_rock\n@END\n\n@TALK put  speaker=lineman\n  @SAY Light is back. I did not ask how. #tired\n  @SAY You did not make a show of it. That is worth more out here than you will understand for a few years.\n  @OPT \"Just fixed a line.\"             [gate: none]  -> END  @DO set_stage 30\n  @NOVERB \"It was the network\"\n@END\n\n@TALK report  speaker=lineman\n  @SAY You brought it to us instead of eating it yourself. Good. We patch it in the open. #tired\n  @SAY They will know a crew looked, and looked together. That is its own kind of loud, but it is ours.\n  @OPT \"Do it in daylight.\"             [gate: none]  -> END  @DO set_stage 31\n@END\n\n@TALK cut  speaker=lineman\n  @SAY You cut it in front of everyone. Half the block cheered and the other half went very quiet. #dread\n  @SAY They felt that upstream. Whoever drinks that current now knows your face. I hope the light was worth it.\n  @OPT \"Let them know my face.\"          [gate: none]  -> END  @DO set_stage 32\n  @OPT (say nothing)                     [gate: none]  SILENCE -> END  @DO set_stage 32\n@END\n", "cast": {"x": 29, "y": 77, "channel": "feed", "speaker": "lineman", "faction": "Trades"}}, {"id": "bq_same_crate", "title": "The Same Crate Twice", "act": "1", "once": true, "premise": ["Batteries. Real ones, charged, not the swollen junk. My block has been dark four nights.", "Carry that crate to my door by dark and you eat well for a month. Do not open it. Do not weigh it."], "endings": [{"n": 30, "kind": "COMPLETE", "clout": "notable", "log": "Delivered to the reds, clean, as promised. The blues heard I kept my word to someone else."}, {"n": 31, "kind": "COMPLETE", "clout": "risky", "log": "Doubled it to the blues. Quiet money. The reds will spend a year finding out it was me."}, {"n": 32, "kind": "COMPLETE", "clout": "reckless", "log": "Kept the crate for my own block and told both gangs to their faces. Two enemies, one night."}, {"n": 33, "kind": "FAIL", "clout": "quiet", "log": "Put the crate down and walked. Both sides remember the ones who flinch."}], "roles": [{"name": "red_boss", "req": true, "cond": "faction=REDS   holds_block=true"}, {"name": "blue_boss", "req": true, "cond": "faction=BLUES  holds_block=true"}, {"name": "runner", "req": false, "cond": "faction_any    knows_the_load=true"}], "noverbs": ["Swear I will not double you", "Ask what nobody knowing is worth to me"], "file": "S02_THE_SAME_CRATE_TWICE.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S02 \u2014 THE SAME CRATE TWICE\n# Shape: double-agent / reputation-travels (Killian + Alpha Protocol). Faction\n# wires: REDS, BLUES. Systems AS mechanic (W9): the resolution genuinely shifts\n# both gangs' posture toward the player, and reputation TRAVELS \u2014 whatever you do,\n# the other side hears it. The crate is salvaged batteries (the ELECTRICITY\n# economy), so both blocks want it for the same real reason: to keep the lights on.\n# No proper names (W8). CLOUT rides loudness of the deed, never a label: a clean\n# hand-off is #notable, a quiet double-cross is #risky, keeping it for your own\n# block in the open is #reckless.\n\n@QUEST   bq_same_crate   The Same Crate Twice\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE red_boss   REQ  faction=REDS   holds_block=true\n@ROLE blue_boss  REQ  faction=BLUES  holds_block=true\n@ROLE runner     OPT  faction_any    knows_the_load=true\n\n@STAGE 10\n  @LOG The reds are paying to move a crate of salvaged batteries to their block by dark.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The blues stopped me on the way. They know what is in the crate. They are offering more.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #notable\n  @LOG Delivered to the reds, clean, as promised. The blues heard I kept my word to someone else.\n  @DO faction REDS +10\n  @DO faction_posture BLUES +1\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #risky\n  @LOG Doubled it to the blues. Quiet money. The reds will spend a year finding out it was me.\n  @DO faction BLUES +12\n  @DO faction_posture REDS +1\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #reckless\n  @LOG Kept the crate for my own block and told both gangs to their faces. Two enemies, one night.\n  @DO faction_posture REDS +1\n  @DO faction_posture BLUES +1\n  @DO complete_objective 20\n@STAGE 33 FAIL #quiet\n  @LOG Put the crate down and walked. Both sides remember the ones who flinch.\n\n@OBJ 10  \"Move the crate to the red block\"   target=red_boss\n@OBJ 20  \"Decide who gets the batteries\"      target=blue_boss\n\n@TALK hire  speaker=red_boss  entry=stage>=10\n  @SAY Batteries. Real ones, charged, not the swollen junk. My block has been dark four nights. #tired\n  @SAY Carry that crate to my door by dark and you eat well for a month. Do not open it. Do not weigh it.\n  @OPT \"It is already moving.\"          [gate: none]  -> road  @DO learn carrying_batteries\n  @OPT \"What is really in it?\"          [gate: none]  -> what\n  @OPT (pick it up and go)              [gate: none]  SILENCE -> road  @DO learn carrying_batteries\n  @NOVERB \"Swear I will not double you\"\n@END\n\n@TALK what  speaker=red_boss\n  @SAY Light. That is what is in it. The only thing anybody fights over anymore is who gets to see at night.\n  @SAY Now stop asking and start walking.\n  @OPT \"Walking.\"                       [gate: none]  -> road  @DO learn carrying_batteries\n@END\n\n# THE INTERCEPT. The other buyer. Reputation is about to start traveling.\n@TALK road  speaker=blue_boss  entry=stage>=10 and knows:carrying_batteries\n  @SAY Heavy crate. Charged cells hum a little. I can hear it from here. #wary\n  @SAY Those were promised to a block that lets its own elders freeze to look tough. Bring them to mine instead.\n  @SAY I pay better, and I pay now. Nobody has to know it was you. That is the beautiful part. Nobody ever knows.\n  @OPT \"A deal is a deal. This goes to the reds.\"   [gate: none]  -> deliver_red   @DO set_flag chose\n  @OPT \"Fine. Your block gets the light.\"           [gate: none]  TRAP -> deliver_blue  @DO set_flag chose\n  @OPT \"Neither. My block has elders too.\"          [gate: none]  -> keep_it       @DO set_flag chose\n  @OPT (set the crate down between you)              [gate: none]  SILENCE -> walk_off\n  @NOVERB \"Ask what nobody knowing is worth to me\"\n@END\n\n@TALK deliver_red  speaker=red_boss\n  @SAY On time and closed. I watched you pass a better offer and I know you passed it. #tired\n  @SAY That is worth more than the cells. Word travels. The blues will know you are a person who finishes.\n  @OPT \"Just a delivery.\"               [gate: none]  -> END  @DO set_stage 30\n@END\n\n@TALK deliver_blue  speaker=blue_boss\n  @SAY Smart. Quiet money spends the same as loud money and lives longer. #wary\n  @SAY But hear me: the ones you crossed tonight will spend a year learning your face. Quiet has a bill too.\n  @OPT \"I will pay it when it comes.\"   [gate: none]  -> END  @DO set_stage 31\n  @OPT (take the money, say nothing)    [gate: none]  SILENCE -> END  @DO set_stage 31\n@END\n\n@TALK keep_it  speaker=blue_boss\n  @SAY You will keep it. For your own block. And you are telling us both, to our faces, in the open. #dread\n  @SAY That is either the bravest thing I have seen this year or the last dumb thing you do. Two enemies in one night.\n  @OPT \"My block. My light.\"            [gate: none]  -> END  @DO set_stage 32\n@END\n\n@TALK walk_off  speaker=blue_boss\n  @SAY You are going to set it down and walk. I can see it. #wary\n  @OPT \"Not my fight.\"                  [gate: none]  -> END  @DO set_stage 33\n  @OPT \"No. I am choosing.\"             [gate: none]  -> road\n@END\n", "cast": {"x": 4, "y": 65, "channel": "feed", "speaker": "red_boss", "faction": "Reds"}}, {"id": "bq_one_more_set", "title": "One More Set", "act": "1", "once": true, "premise": ["Do not walk off, the good part is coming, I promise the good part is coming.", "The cell is dying. Listen, you can hear it sag. One more set and it is gone and so is the crowd.", "I do not need a hero. I need three more songs. Can you buy me three more songs?"], "endings": [{"n": 20, "kind": "COMPLETE", "clout": "quiet", "log": "Killed the amp and sat close while they played it acoustic. A dozen people, very quiet."}, {"n": 21, "kind": "COMPLETE", "clout": "notable", "log": "Found a charged cell and got a crowd to stay. They played the whole set. People filmed it in text."}, {"n": 22, "kind": "COMPLETE", "clout": "risky", "log": "Spliced the amp straight into a live street line. Full volume, sparks, the whole block came. Loud and dumb and glorious."}, {"n": 23, "kind": "FAIL", "clout": "quiet", "log": "Told them to pack it in. The amp died on the downbeat and the crowd drifted off."}], "roles": [{"name": "busker", "req": true, "cond": "faction=COLORFUL  performing=true"}], "noverbs": ["Tell them to get a real job"], "file": "S03_ONE_MORE_SET.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S03 \u2014 ONE MORE SET\n# Shape: tender release-valve / performer (Yakuza warmth). Faction wire: COLORFUL.\n# The contrast quest (Hades/Yakuza whiplash): almost no stakes, all humanity, so the\n# dread quests land harder around it. Systems AS mechanic (W9): a busker's amp runs on\n# a dying salvaged cell (the ELECTRICITY economy at street scale) and the reward is a\n# person, not loot. Surfaces the music catalog diegetically (@DO play). No proper\n# names (W8). CLOUT rides loudness: help them finish small and intimate -> #quiet;\n# draw a real crowd -> #notable; splice the amp into a live street line for a roaring\n# set -> #risky (loud AND dangerous, and the deed itself is what the feed rewards).\n\n@QUEST   bq_one_more_set   One More Set\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE busker   REQ  faction=COLORFUL  performing=true\n\n@STAGE 10\n  @LOG A busker on the strip is losing the amp mid-song. The cell is almost dead.\n  @DO show_objective 10\n@STAGE 20 COMPLETE #quiet\n  @LOG Killed the amp and sat close while they played it acoustic. A dozen people, very quiet.\n  @DO bond busker +20\n  @DO play MUS street_lament\n  @DO complete_objective 10\n@STAGE 21 COMPLETE #notable\n  @LOG Found a charged cell and got a crowd to stay. They played the whole set. People filmed it in text.\n  @DO bond busker +15\n  @DO faction COLORFUL +6\n  @DO play MUS street_anthem\n  @DO complete_objective 10\n@STAGE 22 COMPLETE #risky\n  @LOG Spliced the amp straight into a live street line. Full volume, sparks, the whole block came. Loud and dumb and glorious.\n  @DO bond busker +10\n  @DO faction COLORFUL +6\n  @DO play MUS street_anthem\n  @DO complete_objective 10\n@STAGE 23 FAIL #quiet\n  @LOG Told them to pack it in. The amp died on the downbeat and the crowd drifted off.\n\n@OBJ 10  \"Help the set finish\"   target=busker\n\n@TALK stage  speaker=busker  entry=stage>=10\n  @SAY Do not walk off, the good part is coming, I promise the good part is coming. #hope\n  @SAY The cell is dying. Listen, you can hear it sag. One more set and it is gone and so is the crowd.\n  @SAY I do not need a hero. I need three more songs. Can you buy me three more songs?\n  @OPT \"Kill the amp. Play it close.\"     [gate: none]  -> acoustic\n  @OPT \"I will find you a charged cell.\"    [gate: none]  -> cell\n  @OPT \"Splice it into the street line.\"    [gate: none]  TRAP -> splice\n  @OPT \"Pack it in for tonight.\"            [gate: none]  -> quit\n  @NOVERB \"Tell them to get a real job\"\n@END\n\n@TALK acoustic  speaker=busker\n  @SAY No amp. Just this. Sit up front so it does not feel empty. #hope\n  @SAY Funny. Every time the power dies is the only time anybody actually listens.\n  @OPT \"Then play.\"                       [gate: none]  -> END  @DO set_stage 20\n  @OPT (sit down in front)                [gate: none]  SILENCE -> END  @DO set_stage 20\n@END\n\n@TALK cell  speaker=busker\n  @SAY You did it. Where does a person even find a charged cell on a night like this. Do not tell me. #hope\n  @SAY Stay. Get them to stay. A crowd that stays is the only rich I ever wanted to be.\n  @OPT \"Play the whole thing.\"            [gate: none]  -> END  @DO set_stage 21\n@END\n\n@TALK splice  speaker=busker\n  @SAY You are actually doing it. That line is live, you know that is live. #dread\n  @SAY If it holds, this is the loudest I have ever been in my life. If it does not, I never was.\n  @OPT \"It will hold. Play loud.\"         [gate: none]  -> END  @DO set_stage 22\n  @OPT \"Actually, no. Play it close instead.\"  [gate: none]  -> acoustic\n@END\n\n@TALK quit  speaker=busker\n  @SAY Yeah. Yeah, okay. It was a long shot, a dead cell and a tired crowd. #tired\n  @OPT \"Sorry. Another night.\"            [gate: none]  -> END  @DO set_stage 23\n  @OPT \"No. Wait. Let me help.\"           [gate: none]  -> stage\n@END\n", "cast": {"x": 26, "y": 33, "channel": "feed", "speaker": "busker", "faction": "Colorful"}}, {"id": "bq_deep_cry", "title": "What Cries in the Deep", "act": "2", "once": true, "premise": ["Every night it comes up the deep. Crying. Sometimes words, and the words are worse than the crying.", "The little ones cannot sleep. We do not go down that far. You are not one of us, so you can.", "End it. I do not care how. I care that it stops. Do not tell me how."], "endings": [{"n": 30, "kind": "COMPLETE", "clout": "quiet", "log": "Talked them up out of the deep, slow, in the dark, one word at a time. They walked out on their own feet."}, {"n": 31, "kind": "COMPLETE", "clout": "reckless", "log": "Ended it loud in the deep, for the bounty. The crying stopped. Something far below noticed the noise."}, {"n": 32, "kind": "COMPLETE", "clout": "risky", "log": "Sealed the deep tunnel and told the elders it is gone. It is not gone. It is just quieter now, and walled in."}, {"n": 33, "kind": "FAIL", "clout": "quiet", "log": "Could not do any of it. Left the crying where it was. The elders will find someone with a harder stomach."}], "roles": [{"name": "elder", "req": true, "cond": "faction=HOMELESS  keeps_the_tunnel=true"}, {"name": "haunt", "req": true, "cond": "neurolinked=true  grieving=true"}], "noverbs": ["Promise it is gone for good", "Ask what the network took"], "file": "S04_WHAT_CRIES_IN_THE_DEEP.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S04 \u2014 WHAT CRIES IN THE DEEP\n# Shape: contract / the-monster-is-a-person (Witcher). Faction wires: HOMELESS,\n# NETWORK. This is the one in the batch that BRUSHES the secret (contrast makes it\n# land): the \"haunt\" screaming in the deep tunnel at night is a neurolinked person\n# half-taken by the network, grieving, stranded near the water where the deep runs\n# down. Root the monster in a wronged human (W7): investigate and the sanctioned\n# kill reframes as mercy or rescue, never scored. Amalgamation canon respected \u2014\n# the danger is PROXIMITY to the secret, not the creature's strength; going loud\n# down there is what draws the wrong attention. No proper names (W8). CLOUT rides\n# the deed: lead them out gently -> #quiet; put them down loud for the bounty ->\n# #reckless; seal the tunnel and lie that it is gone -> #risky.\n\n@QUEST   bq_deep_cry   What Cries in the Deep\n@ACT     2\n@FACTION NONE\n@ONCE    true\n\n@ROLE elder     REQ  faction=HOMELESS  keeps_the_tunnel=true\n@ROLE haunt     REQ  neurolinked=true  grieving=true\n\n@STAGE 10\n  @LOG The tunnel elders will pay to end the crying that comes up the deep every night.\n  @DO show_objective 10\n@STAGE 20 #namedbody\n  @LOG It is not a haunt. It is a person, half-taken, sitting where the deep runs down toward the water.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG Talked them up out of the deep, slow, in the dark, one word at a time. They walked out on their own feet.\n  @DO bond haunt +25\n  @DO faction HOMELESS +6\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #reckless\n  @LOG Ended it loud in the deep, for the bounty. The crying stopped. Something far below noticed the noise.\n  @DO faction HOMELESS +8\n  @DO set_flag looked_under_the_rock\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #risky\n  @LOG Sealed the deep tunnel and told the elders it is gone. It is not gone. It is just quieter now, and walled in.\n  @DO faction HOMELESS +6\n  @DO set_flag walled_them_in\n  @DO complete_objective 20\n@STAGE 33 FAIL #quiet\n  @LOG Could not do any of it. Left the crying where it was. The elders will find someone with a harder stomach.\n\n@OBJ 10  \"Find the source of the crying\"   target=elder\n@OBJ 20  \"Decide what the crying is\"        target=haunt\n\n@TALK hire  speaker=elder  entry=stage>=10\n  @SAY Every night it comes up the deep. Crying. Sometimes words, and the words are worse than the crying. #dread\n  @SAY The little ones cannot sleep. We do not go down that far. You are not one of us, so you can.\n  @SAY End it. I do not care how. I care that it stops. Do not tell me how.\n  @OPT \"I will go down and look.\"         [gate: none]  -> descend  @DO learn going_deep\n  @OPT \"What is down the deep?\"           [gate: none]  -> what\n  @OPT \"Find someone else.\"               [gate: none]  -> refuse\n  @NOVERB \"Promise it is gone for good\"\n@END\n\n@TALK what  speaker=elder\n  @SAY Water. Old pipe. And below that, further than anyone sane goes, more water and a hum you feel in your teeth. #dread\n  @SAY We do not ask about the hum. We ask about the crying. Go find the crying.\n  @OPT \"Going down.\"                      [gate: none]  -> descend  @DO learn going_deep\n@END\n\n@TALK refuse  speaker=elder\n  @SAY Then you are no use to me and my back hurts from this conversation. #tired\n  @OPT \"Sorry.\"                           [gate: none]  -> END  @DO set_stage 33\n  @OPT \"No, wait. I will go.\"             [gate: none]  -> descend  @DO learn going_deep\n@END\n\n# THE DESCENT. The reveal must be found by walking into it, not in an optional\n# node (W3): stepping onto stage 20 IS the reveal, and stage 20 is unavoidable.\n@TALK descend  speaker=haunt  entry=stage>=10 and knows:going_deep\n  @SAY do not shine that at me. i know what i look like now. i know. #dread\n  @SAY they took the half of me that could go home. the other half stayed down here where it is cool and it remembers her.\n  @SAY you have a stick or a wire or a bounty. i can hear it in how you breathe. so do it, or do not, but stop breathing at me.\n  @DO set_stage 20\n  @OPT \"Nobody is doing anything. Talk to me.\"   [gate: none]  -> talk_up\n  @OPT \"The elders paid me to end this.\"          [gate: none]  -> honest\n  @OPT (lower the light, sit down)                [gate: none]  SILENCE -> talk_up\n  @NOVERB \"Ask what the network took\"\n@END\n\n@TALK honest  speaker=haunt\n  @SAY of course they did. i would pay too, if it cried under my children. #dread\n  @SAY so here is the whole menu. lead me out, which is slow and i might not make it. end me, which is fast and loud and you should not be loud down here. or wall me off and lie, which is the coward's mercy and it works.\n  @OPT \"Come up. Slow. I have got you.\"     [gate: none]  -> lead_out\n  @OPT \"I am sorry. I will make it quick.\"  [gate: none]  -> end_it\n  @OPT \"I will seal it and say it is gone.\"  [gate: none]  TRAP -> wall_it\n@END\n\n@TALK talk_up  speaker=haunt\n  @SAY you are still here. people are not usually still here. #hope\n  @SAY there is a way up if a person walks it with me and does not let go and does not get loud. loud is bad down here. loud is very bad. can you be quiet and stubborn at the same time.\n  @OPT \"Come up. Slow. I have got you.\"     [gate: none]  -> lead_out\n  @OPT \"I cannot. I am sorry.\"              [gate: none]  -> end_it\n  @OPT (take their hand)                    [gate: none]  SILENCE -> lead_out\n@END\n\n@TALK lead_out  speaker=haunt\n  @SAY one word at a time. do not look down at the water. look at me. keep looking at me. #hope\n  @SAY there. there is the air. i forgot the air moved. thank you for being quiet. thank you for being stubborn.\n  @OPT \"You walked it yourself.\"           [gate: none]  -> END  @DO set_stage 30\n@END\n\n@TALK end_it  speaker=haunt\n  @SAY okay. okay. do it up here where it is not so dark, if you can, and be quick, and please do not be loud about it after. #dread\n  @OPT \"Look away. It is over.\"            [gate: none]  -> END  @DO set_stage 31\n  @OPT (do it without a word)              [gate: none]  SILENCE -> END  @DO set_stage 31\n@END\n\n@TALK wall_it  speaker=haunt\n  @SAY the wall. the coward's mercy. it works, you know. it actually works. #dread\n  @SAY they will sleep. i will be quieter. everybody gets a little of what they wanted and nobody has to look at me. go on. build it.\n  @OPT \"Sleep now. Nobody will look.\"      [gate: none]  -> END  @DO set_stage 32\n@END\n", "cast": {"x": 6, "y": 46, "channel": "inperson", "speaker": "elder", "faction": "Homeless"}}, {"id": "bq_standing_bounty", "title": "The Standing Bounty", "act": "2", "once": false, "premise": ["Board is full, as always. Bottom name is easy money, medicine on the barrel, and nobody weeps for him.", "Top name pays double. It is a harder look. I am not going to pretend it is not a harder look.", "You have done this before. You know the deal. Which name do you want."], "endings": [{"n": 20, "kind": "COMPLETE", "clout": "risky", "log": "Took the clean name off the board. A raider who had it coming. Got paid in medicine and slept fine."}, {"n": 21, "kind": "COMPLETE", "clout": "reckless", "log": "Took the ugly name for the double pay. Not a raider. A debtor who ran. Did it anyway. Slept less fine."}, {"n": 22, "kind": "FAIL", "clout": "quiet", "log": "Walked away from the board. My block goes a week shorter on medicine. My stomach stays where it is."}], "roles": [{"name": "quartermaster", "req": true, "cond": "faction=REMNANTS  runs_the_board=true"}, {"name": "mark", "req": true, "cond": "faction_any       named_on_the_board=true"}], "noverbs": ["Ask why the board never empties", "Tell myself he probably deserves it"], "file": "S05_THE_STANDING_BOUNTY.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S05 \u2014 THE STANDING BOUNTY\n# Shape: repeatable dark grind / creeping-normality (Legion Ears, Frostpunk erosion).\n# Faction wire: REMNANTS. @ONCE false \u2014 it is meant to be run again and again, and\n# that is the point: the pay scales with how ugly the target is, and each run the\n# quartermaster's pitch gets a little more reasonable-sounding. Systems AS mechanic\n# (W9): the reward is real MEDICINE (the scarcest currency), so refusing genuinely\n# costs your block, which is exactly what makes taking it a real choice (W4/W5 \u2014 the\n# clean path pays less). Consequence hurts (W10): the higher-pay target is a person,\n# not a mark. No proper names (W8). CLOUT rides the deed: a plain bounty is #risky;\n# the ugly high-pay one, done anyway, is #reckless; walking away clean is #quiet.\n\n@QUEST   bq_standing_bounty   The Standing Bounty\n@ACT     2\n@FACTION REMNANTS\n@ONCE    false\n\n@ROLE quartermaster  REQ  faction=REMNANTS  runs_the_board=true\n@ROLE mark           REQ  faction_any       named_on_the_board=true\n\n@STAGE 10\n  @LOG The remnants keep a standing bounty board. It pays in medicine. There is always another name on it.\n  @DO show_objective 10\n@STAGE 20 COMPLETE #risky\n  @LOG Took the clean name off the board. A raider who had it coming. Got paid in medicine and slept fine.\n  @DO faction REMNANTS +5\n  @DO complete_objective 10\n@STAGE 21 COMPLETE #reckless\n  @LOG Took the ugly name for the double pay. Not a raider. A debtor who ran. Did it anyway. Slept less fine.\n  @DO faction REMNANTS +9\n  @DO set_flag took_the_ugly_one\n  @DO complete_objective 10\n@STAGE 22 FAIL #quiet\n  @LOG Walked away from the board. My block goes a week shorter on medicine. My stomach stays where it is.\n\n@OBJ 10  \"Clear a name from the bounty board\"   target=mark\n\n@TALK board  speaker=quartermaster  entry=stage>=10\n  @SAY Board is full, as always. Bottom name is easy money, medicine on the barrel, and nobody weeps for him. #flat\n  @SAY Top name pays double. It is a harder look. I am not going to pretend it is not a harder look.\n  @SAY You have done this before. You know the deal. Which name do you want.\n  @OPT \"The easy name. The raider.\"       [gate: none]  -> easy\n  @OPT \"Double pay. Who is the top name?\"  [gate: none]  TRAP -> ugly\n  @OPT \"Neither. Not tonight.\"             [gate: none]  -> walk\n  @NOVERB \"Ask why the board never empties\"\n@END\n\n@TALK easy  speaker=quartermaster\n  @SAY Sensible. He raided a water line last month and a family drank mud for it. Clean conscience, full satchel. #flat\n  @SAY Bring it back closed and the medicine is yours. Come again tomorrow. There is always a tomorrow name.\n  @OPT \"Done by morning.\"                 [gate: none]  -> END  @DO set_stage 20\n  @OPT (take the tag, say nothing)        [gate: none]  SILENCE -> END  @DO set_stage 20\n@END\n\n@TALK ugly  speaker=quartermaster\n  @SAY Top name owed the wrong people and ran instead of paying. That is all. That is the whole crime. He ran. #flat\n  @SAY Look at your face. You want me to tell you he is a monster so it is easy. He is not. He is just worth more.\n  @SAY The medicine is double because the name is heavy. That is the only reason anything is ever double out here.\n  @OPT \"Fine. The top name.\"              [gate: none]  -> ugly_take\n  @OPT \"No. Give me the raider instead.\"  [gate: none]  -> easy\n  @OPT \"That is a person, not a bounty.\"   [gate: none]  -> walk\n  @NOVERB \"Tell myself he probably deserves it\"\n@END\n\n@TALK ugly_take  speaker=quartermaster\n  @SAY There it is. It gets easier every time, doesn't it. That is not a threat. It is just the truest thing I know. #flat\n  @OPT \"Double pay. I will do it.\"        [gate: none]  -> END  @DO set_stage 21\n  @OPT (take it without a word)           [gate: none]  SILENCE -> END  @DO set_stage 21\n@END\n\n@TALK walk  speaker=quartermaster\n  @SAY Your block runs a week shorter on medicine, then. The board does not care and neither do I. #flat\n  @SAY It will still be here. It is always still here. Come back when your stomach settles.\n  @OPT \"Not tonight.\"                     [gate: none]  -> END  @DO set_stage 22\n  @OPT \"Wait. The easy name. I will take it.\"  [gate: none]  -> easy\n@END\n", "cast": {"x": 78, "y": 70, "channel": "feed", "speaker": "quartermaster", "faction": "Remnants"}}, {"id": "bq_behind_fence", "title": "Behind the Fence", "act": "1", "once": true, "premise": ["Last brick. Look at that. Two yards, one yard. I did not think I would live long enough to knock this down.", "There is a thing I have to tell you, and I could not tell you until this wall was on the ground. You will understand why in about ten seconds."], "endings": [{"n": 30, "kind": "COMPLETE", "clout": "quiet", "log": "He has a daughter. Kept hidden the whole time, until the wall and the trust were real. I held it quiet. The deepest bond, and nobody will ever know it happened."}, {"n": 31, "kind": "COMPLETE", "clout": "notable", "log": "Told the compound there is a child here now. More eyes, more followers, and the one thing he protected is no longer his secret. He thanked me and did not mean it."}, {"n": 32, "kind": "FAIL", "clout": "quiet", "log": "Took the reveal badly, and he saw my face do it. He took it back. There is no daughter, he said. The wall might as well have stayed up."}], "roles": [{"name": "neighbor", "req": true, "cond": "is=the_neighbor      household=behind_fence  wall_down=true"}, {"name": "daughter", "req": true, "cond": "is=neighbors_child   kept_hidden=true"}], "noverbs": ["Ask what he has been hiding", "Promise nothing will ever happen to her", "Promise nothing will ever happen to her"], "file": "S06_BEHIND_THE_FENCE.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S06 \u2014 BEHIND THE FENCE  (the POST-WALL reveal / payoff)\n# Reveal timing LOCKED 7/23 (Paolo): the daughter is NOT revealed during the pre-wall\n# quests. Marco hides her, protects her; only AFTER the wall comes down does he trust\n# you with the fact that she exists. \"A sweet payoff and deep understanding type\" beat.\n# The title is now a double meaning \u2014 what was really behind the fence the whole time\n# was her. This quest OPENS at that milestone (the wall coming down) and delivers the\n# reveal, so it recontextualizes every guarded thing Marco did (see S09 THE BACK DOOR,\n# the pre-wall boundary quest). Cast Marco against @ROLE neighbor; never named in a\n# spoken line (W8). CLOUT is the mechanic's soul: receiving the trust quietly earns the\n# DEEPEST bond and, deliberately, almost no followers (#quiet); turning his hidden child\n# into public news earns MORE followers but breaks the trust he just gave you (#notable).\n\n@QUEST   bq_behind_fence   Behind the Fence\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE neighbor  REQ  is=the_neighbor      household=behind_fence  wall_down=true\n@ROLE daughter  REQ  is=neighbors_child   kept_hidden=true\n\n@STAGE 10\n  @LOG The wall between the two backyards is coming down today. Two grieving houses becoming one.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The wall is down. He says there is something he could not tell me until it was.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG He has a daughter. Kept hidden the whole time, until the wall and the trust were real. I held it quiet. The deepest bond, and nobody will ever know it happened.\n  @DO bond neighbor +35\n  @DO bond daughter +20\n  @DO learn marco_has_a_daughter\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #notable\n  @LOG Told the compound there is a child here now. More eyes, more followers, and the one thing he protected is no longer his secret. He thanked me and did not mean it.\n  @DO bond neighbor -15\n  @DO learn marco_has_a_daughter\n  @DO complete_objective 20\n@STAGE 32 FAIL #quiet\n  @LOG Took the reveal badly, and he saw my face do it. He took it back. There is no daughter, he said. The wall might as well have stayed up.\n  @DO bond neighbor -10\n\n@OBJ 10  \"Bring down the wall with the neighbor\"   target=neighbor\n@OBJ 20  \"Hear what he could not say before\"        target=daughter\n\n@TALK wall  speaker=neighbor  entry=stage>=10\n  @SAY Last brick. Look at that. Two yards, one yard. I did not think I would live long enough to knock this down. #hope\n  @SAY There is a thing I have to tell you, and I could not tell you until this wall was on the ground. You will understand why in about ten seconds.\n  @OPT \"Take your time.\"           [gate: none]  SILENCE -> reveal\n  @OPT \"Tell me.\"                  [gate: none]  -> reveal\n  @NOVERB \"Ask what he has been hiding\"\n@END\n\n@TALK reveal  speaker=neighbor\n  @SAY I have a daughter. #dread\n  @SAY She has been inside the whole time. Behind that wall, in the back room, quiet as I could keep her. You do not tell people you have a child out here. Not until the wall is down and you are sure.\n  @SAY Every time I came to your fence, every time I checked on you, I was measuring whether you were someone I could let her exist in front of. Today I decided you are. Do not make me wrong about that.\n  @DO set_stage 20\n  @OPT (say nothing, and let it be as big as it is)      [gate: none]  SILENCE -> grace\n  @OPT \"You have been protecting her this whole time.\"    [gate: none]  -> grace\n  @OPT \"There is a kid here now. People should know.\"      [gate: none]  -> loud\n  @OPT (step back, thrown by it)                          [gate: none]  -> recoil\n  @NOVERB \"Promise nothing will ever happen to her\"\n@END\n\n@TALK grace  speaker=daughter\n  @SAY (a door opens behind him. she is small, and she does not come all the way out. she looks at you the way you look at weather you are not sure of yet.)\n  @SAY (her father does not say a word. he just watches the two of you deciding not to be afraid of each other, and something in his shoulders finally comes down, like a second wall.)\n  @OPT (nod to her, and let her decide the rest)   [gate: none]  SILENCE -> END  @DO set_stage 30\n  @OPT \"Hey. I am just a neighbor. That is all.\"    [gate: none]  -> END  @DO set_stage 30\n  @NOVERB \"Promise nothing will ever happen to her\"\n@END\n\n@TALK loud  speaker=neighbor\n  @SAY No. No, you do not get to do that. #dread\n  @SAY I told you. One person. I did not tell the block, I did not put it on the feed, I told the one person who earned the wall coming down. And you want to hand her to a crowd.\n  @SAY It is done, they are looking now. Thank you for the wall. Go home. I need to go talk to my daughter.\n  @OPT \"I did not think.\"          [gate: none]  -> END  @DO set_stage 31\n  @OPT (leave, ashamed)            [gate: none]  SILENCE -> END  @DO set_stage 31\n@END\n\n@TALK recoil  speaker=neighbor\n  @SAY There it is. That is the face I was afraid of. #dread\n  @SAY Forget I said it. There is no daughter. Help me stack these bricks back up, actually. On second thought, just go home.\n  @OPT \"Wait. I did not mean it like that.\"   [gate: none]  -> reveal\n  @OPT \"Okay. I am sorry.\"                     [gate: none]  -> END  @DO set_stage 32\n@END\n", "cast": {"x": 61, "y": 41, "channel": "feed", "speaker": "neighbor", "faction": null}}, {"id": "bq_say_it_back", "title": "Say It Back", "act": "1", "once": true, "premise": ["Come close, I do not have the breath to say it twice. There is one thing left and I cannot walk it there myself.", "There is a man. He took my son from me, years back, in the ugly way. I have carried it so long my hands ache from it.", "I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it."], "endings": [{"n": 30, "kind": "COMPLETE", "clout": "quiet", "log": "Carried her words, plain and true, to the man who earned none of them. He wept. Nobody else ever knew."}, {"n": 31, "kind": "COMPLETE", "clout": "notable", "log": "Brought them together in front of the whole block. A reconciliation with an audience. She got to see it land."}, {"n": 32, "kind": "COMPLETE", "clout": "risky", "log": "Delivered it as a curse instead of a blessing. Loud, in the open. He will not sleep, and neither, later, will I."}, {"n": 33, "kind": "FAIL", "clout": "quiet", "log": "Could not carry it. She died with the words still in her mouth. I will wonder about that for a long time."}], "roles": [{"name": "dying", "req": true, "cond": "faction=CHURCH   near_the_end=true"}, {"name": "wrongdoer", "req": true, "cond": "faction_any      wronged_the_dying=true"}], "noverbs": ["Tell her he is already dead", "Tell him what she really thinks of him"], "file": "S07_SAY_IT_BACK.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S07 \u2014 SAY IT BACK\n# Shape: slow-burn faith, NO combat (Sinnerman/Two Coins register). Faction wires:\n# CHURCH, VOLUNTEERS. A dying congregant asks you to carry forgiveness to the person\n# who wronged her, before she goes. The craft (W6): the game REFUSES to score whether\n# forgiveness is right, earned, or wise \u2014 it just lets you carry the words, twist them,\n# or not. No stat gate decides if you are \"good enough\" to be forgiven; there is no\n# meter here at all. No proper names (W8). CLOUT rides the deed: carry it quietly ->\n# #quiet; make the reconciliation a public spectacle -> #notable; deliver it as a curse\n# instead -> #risky (you turned a dying woman's mercy into a loud, ugly thing, and loud\n# is what the feed feeds on).\n\n@QUEST   bq_say_it_back   Say It Back\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE dying      REQ  faction=CHURCH   near_the_end=true\n@ROLE wrongdoer  REQ  faction_any      wronged_the_dying=true\n\n@STAGE 10\n  @LOG An old woman of the church is dying and wants a message carried before she goes.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The message is forgiveness. The one she wants to forgive is the one who took her son.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG Carried her words, plain and true, to the man who earned none of them. He wept. Nobody else ever knew.\n  @DO bond dying +20\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #notable\n  @LOG Brought them together in front of the whole block. A reconciliation with an audience. She got to see it land.\n  @DO bond dying +12\n  @DO faction CHURCH +6\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #risky\n  @LOG Delivered it as a curse instead of a blessing. Loud, in the open. He will not sleep, and neither, later, will I.\n  @DO bond dying -20\n  @DO complete_objective 20\n@STAGE 33 FAIL #quiet\n  @LOG Could not carry it. She died with the words still in her mouth. I will wonder about that for a long time.\n  @DO bond dying -5\n\n@OBJ 10  \"Sit with the dying woman\"     target=dying\n@OBJ 20  \"Carry her message\"            target=wrongdoer\n\n@TALK bedside  speaker=dying  entry=stage>=10\n  @SAY Come close, I do not have the breath to say it twice. There is one thing left and I cannot walk it there myself. #tired\n  @SAY There is a man. He took my son from me, years back, in the ugly way. I have carried it so long my hands ache from it.\n  @SAY I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.\n  @OPT \"I forgive you. I will carry it.\"   [gate: none]  -> why     @DO learn holds_the_words\n  @OPT \"He does not deserve that.\"          [gate: none]  -> deserve\n  @OPT \"I cannot promise I will.\"           [gate: none]  -> refuse\n  @NOVERB \"Tell her he is already dead\"\n@END\n\n@TALK why  speaker=dying\n  @SAY Deserve. You sound like the part of me that stayed angry for nine years. #dread\n  @SAY It is not for him. It never was. It is so the last thing I set down is lighter than the thing I carried. Go on. Please.\n  @OPT \"I will find him.\"                   [gate: none]  -> deliver_true   @DO set_stage 20\n  @OPT \"And if I change the words on the way?\"  [gate: none]  -> warn\n@END\n\n@TALK deserve  speaker=dying\n  @SAY No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time. #tired\n  @SAY Mine is not cheap. It cost me nine years. Carry it anyway, or do not, but do not pretend it is small.\n  @OPT \"I will carry it.\"                   [gate: none]  -> deliver_true   @DO learn holds_the_words @DO set_stage 20\n  @OPT \"I cannot.\"                          [gate: none]  -> refuse\n@END\n\n@TALK warn  speaker=dying\n  @SAY Then it is not my message anymore, it is yours, and you will answer for yours the way I answered for mine. #dread\n  @SAY I am trusting a stranger with the last true thing I own. That is what dying makes you do.\n  @OPT \"I will keep it true.\"               [gate: none]  -> deliver_true  @DO learn holds_the_words @DO set_stage 20\n  @OPT \"We will see.\"                       [gate: none]  -> deliver_curse @DO learn holds_the_words @DO set_stage 20\n@END\n\n@TALK refuse  speaker=dying\n  @SAY Then sit with me a while instead, and do not let me talk you into anything. #tired\n  @OPT \"I changed my mind. I will go.\"      [gate: none]  -> deliver_true  @DO learn holds_the_words @DO set_stage 20\n  @OPT (stay until it is over)              [gate: none]  SILENCE -> END  @DO set_stage 33\n@END\n\n# THE DELIVERY. The wronged man. The game will not tell you if this was right.\n@TALK deliver_true  speaker=wrongdoer  entry=stage>=20 and knows:holds_the_words\n  @SAY I know that name. I have waited years for someone to come about that name, and I always thought it would be a knife. #dread\n  @SAY You are telling me she forgives me. Say it again. Say it the way she said it.\n  @OPT \"In her words: she forgives you.\"   [gate: none]  -> true_end\n  @OPT \"Bring people. Let them see this.\"   [gate: none]  -> public\n  @OPT \"She curses you with her last breath.\"  [gate: none]  -> curse_end\n  @NOVERB \"Tell him what she really thinks of him\"\n@END\n\n@TALK true_end  speaker=wrongdoer\n  @SAY (he does not speak for a long time. when he does it is not words, it is the sound a man makes when a weight he has carried alone is suddenly shared.)\n  @SAY Nobody will ever know you did this. It does not pay. Thank you for doing it anyway.\n  @OPT \"She wanted it lighter. Now it is.\"  [gate: none]  -> END  @DO set_stage 30\n  @OPT (leave him to it)                    [gate: none]  SILENCE -> END  @DO set_stage 30\n@END\n\n@TALK public  speaker=wrongdoer\n  @SAY You brought a crowd. For this. #dread\n  @SAY I will say the right things because they are watching, and she will see it land while she can still see. But you and I both know what you traded to make it a show.\n  @OPT \"Let her see it land.\"               [gate: none]  -> END  @DO set_stage 31\n@END\n\n@TALK deliver_curse  speaker=wrongdoer  entry=stage>=20 and knows:holds_the_words\n  @SAY I know that name. I have waited years. Tell me what she wants me to hear. #dread\n  @OPT \"She curses you with her last breath.\"  [gate: none]  -> curse_end\n  @OPT \"No. The truth. She forgives you.\"      [gate: none]  -> true_end\n@END\n\n@TALK curse_end  speaker=wrongdoer\n  @SAY (something in him that was trying to open slams shut, and hardens, and will stay hard now.)\n  @SAY Then I will carry it the rest of my life exactly as heavy as it was. You did that. Not her. You.\n  @OPT \"So be it.\"                          [gate: none]  -> END  @DO set_stage 32\n  @OPT (walk away from what you made)        [gate: none]  SILENCE -> END  @DO set_stage 32\n@END\n", "cast": {"x": 33, "y": 26, "channel": "feed", "speaker": "dying", "faction": "Church"}}, {"id": "bq_toll_road", "title": "The Toll Road", "act": "2", "once": true, "premise": ["Third day sitting here. The cold room in the wagon is dying and so is what is in it.", "They call it a toll. It is not a toll. A toll you can pay and still eat. This just takes until there is nothing.", "I cannot fight them and I cannot leave the load. If you have any pull, any at all, I am begging."], "endings": [{"n": 30, "kind": "COMPLETE", "clout": "quiet", "log": "Paid the toll out of my own pocket and got the medicine moving. Quiet, forgettable, and a family lives."}, {"n": 31, "kind": "COMPLETE", "clout": "notable", "log": "Brokered a standing rate in the open, both sides shaking on it. The road stays paid but it stays open."}, {"n": 32, "kind": "COMPLETE", "clout": "risky", "log": "Turned the lieutenant against the boss. Quiet knife-work in the dark. The checkpoint has a new owner and owes me."}, {"n": 33, "kind": "COMPLETE", "clout": "reckless", "log": "Broke the checkpoint loud, guns and fire and a crowd. The medicine rolls tonight. The cartel now knows my face."}, {"n": 34, "kind": "FAIL", "clout": "quiet", "log": "Left the caravan sitting. The medicine spoils in the sun and a block does without."}], "roles": [{"name": "hauler", "req": true, "cond": "faction=CARAVANS   carrying=medicine"}, {"name": "boss", "req": true, "cond": "faction=CARTEL     runs_the_checkpoint=true"}, {"name": "lieutenant", "req": false, "cond": "faction=CARTEL     tired_of_the_boss=true"}], "noverbs": ["Promise nobody gets hurt", "Ask him what he is so afraid of"], "file": "S08_THE_TOLL_ROAD.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S08 \u2014 THE TOLL ROAD\n# Shape: exploit-the-lever / racket-break (Three-Card Bounty + Killian leverage).\n# Faction wires: CARTEL, CARAVANS. A cartel checkpoint is taxing a medicine caravan\n# to death. Every enemy is a LEVER not a wall (W7/W9): the checkpoint boss is holding\n# it together with fear and a lieutenant who is one bad night from walking. Systems AS\n# mechanic: the caravan carries MEDICINE (the scarce currency) and the resolution\n# actually shifts CARTEL and CARAVANS posture. No proper names (W8). CLOUT rides the\n# deed: pay the toll and move on -> #quiet; broker a standing deal in the open ->\n# #notable; turn the lieutenant against the boss -> #risky; break the checkpoint loud,\n# guns and all -> #reckless.\n\n@QUEST   bq_toll_road   The Toll Road\n@ACT     2\n@FACTION NONE\n@ONCE    true\n\n@ROLE hauler      REQ  faction=CARAVANS   carrying=medicine\n@ROLE boss        REQ  faction=CARTEL     runs_the_checkpoint=true\n@ROLE lieutenant  OPT  faction=CARTEL     tired_of_the_boss=true\n\n@STAGE 10\n  @LOG A caravan hauling medicine is stalled at a cartel checkpoint. The toll is bleeding it dry.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The checkpoint boss holds it with fear and one lieutenant who looks one bad night from leaving.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG Paid the toll out of my own pocket and got the medicine moving. Quiet, forgettable, and a family lives.\n  @DO faction CARAVANS +6\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #notable\n  @LOG Brokered a standing rate in the open, both sides shaking on it. The road stays paid but it stays open.\n  @DO faction CARAVANS +8\n  @DO faction CARTEL +4\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #risky\n  @LOG Turned the lieutenant against the boss. Quiet knife-work in the dark. The checkpoint has a new owner and owes me.\n  @DO faction_posture CARTEL +1\n  @DO complete_objective 20\n@STAGE 33 COMPLETE #reckless\n  @LOG Broke the checkpoint loud, guns and fire and a crowd. The medicine rolls tonight. The cartel now knows my face.\n  @DO faction CARAVANS +10\n  @DO faction_posture CARTEL +1\n  @DO complete_objective 20\n@STAGE 34 FAIL #quiet\n  @LOG Left the caravan sitting. The medicine spoils in the sun and a block does without.\n\n@OBJ 10  \"Reach the stalled caravan\"      target=hauler\n@OBJ 20  \"Get the medicine past the toll\"  target=boss\n\n@TALK caravan  speaker=hauler  entry=stage>=10\n  @SAY Third day sitting here. The cold room in the wagon is dying and so is what is in it. #dread\n  @SAY They call it a toll. It is not a toll. A toll you can pay and still eat. This just takes until there is nothing.\n  @SAY I cannot fight them and I cannot leave the load. If you have any pull, any at all, I am begging.\n  @OPT \"Let me talk to whoever runs it.\"    [gate: none]  -> gate      @DO learn saw_the_caravan\n  @OPT \"What is in the wagon?\"              [gate: none]  -> load\n  @OPT \"Not my problem.\"                    [gate: none]  -> leave\n  @NOVERB \"Promise nobody gets hurt\"\n@END\n\n@TALK load  speaker=hauler\n  @SAY Medicine. The real kind, from the granary, rationed for three blocks that have sick in them right now. #dread\n  @SAY Every hour it sits here somebody downstream gets worse. That is the arithmetic. That is why I have not slept.\n  @OPT \"I will handle the checkpoint.\"      [gate: none]  -> gate  @DO learn saw_the_caravan\n@END\n\n@TALK leave  speaker=hauler\n  @SAY Fine. It is nobody's problem until it is everybody's, that is how it always goes out here. #tired\n  @OPT \"Wait. I will look at it.\"           [gate: none]  -> gate  @DO learn saw_the_caravan\n  @OPT \"Good luck.\"                         [gate: none]  -> END   @DO set_stage 34\n@END\n\n# THE CHECKPOINT. The boss is a lever, not a wall. So is the lieutenant beside him.\n@TALK gate  speaker=boss  entry=stage>=10 and knows:saw_the_caravan\n  @SAY New face. The rate is the rate. It goes up the longer you make me look at you. #flat\n  @SAY That wagon pays until it is empty and then it can go. Those are the words. You want to add some of your own.\n  @DO set_stage 20\n  @OPT \"I will pay the toll myself. Now.\"   [gate: none]  -> pay\n  @OPT \"Set a fair standing rate. In the open.\"  [gate: none]  -> deal\n  @OPT \"Your man there looks tired.\"         [gate: none]  TRAP -> turn\n  @OPT (put a hand on your weapon)            [gate: none]  SILENCE -> break\n  @NOVERB \"Ask him what he is so afraid of\"\n@END\n\n@TALK pay  speaker=boss\n  @SAY Out of your own pocket. For strangers. You know that is the rate again next week and you will not be here. #flat\n  @SAY But it clears today. Wagon rolls. Nobody remembers your name, which for you might be the whole point.\n  @OPT \"Just let it through.\"               [gate: none]  -> END  @DO set_stage 30\n@END\n\n@TALK deal  speaker=boss\n  @SAY A rate I can say out loud without it sounding like robbery. In front of the hauler, in front of my own crew. #flat\n  @SAY That costs me something, looking reasonable. But a road that stays open pays every week, and dead haulers pay once. Fine. Shake.\n  @OPT \"Shake on it.\"                       [gate: none]  -> END  @DO set_stage 31\n@END\n\n@TALK turn  speaker=lieutenant\n  @SAY ...you noticed. Nobody notices. He has not paid the crew in a month and he sleeps like a king. #dread\n  @SAY Say the word and this checkpoint has a new owner tonight. Quiet. And it would owe you. That kind of owing is worth more than medicine.\n  @OPT \"Do it. Quietly.\"                    [gate: none]  -> END  @DO set_stage 32  @DO cast lieutenant\n  @OPT \"No. Not like that.\"                 [gate: none]  -> gate\n@END\n\n@TALK break  speaker=boss\n  @SAY You are actually going to make this loud. Over someone else's medicine. #flat\n  @SAY Then it is loud. And loud gets remembered, upstream, by people who remember faces for a living. Last chance to be smart.\n  @OPT \"Move, or be moved.\"                 [gate: none]  -> END  @DO set_stage 33\n  @OPT \"Fine. Name a fair rate instead.\"    [gate: none]  -> deal\n@END\n", "cast": {"x": 26, "y": 12, "channel": "feed", "speaker": "hauler", "faction": "Caravans"}}, {"id": "bq_back_door", "title": "The Back Door", "act": "1", "once": true, "premise": ["Before dark I need the front and the side made solid. Boards, nails, whatever you have got.", "The back I do myself. Always the back myself. Do not go around back. I am not being rude. I am being careful. Just take the front for me."], "endings": [{"n": 20, "kind": "COMPLETE", "clout": "quiet", "log": "Boarded the front and side and let him keep the back to himself, no questions. He will not forget it. The wall feels closer."}, {"n": 21, "kind": "COMPLETE", "clout": "notable", "log": "Got the job done but drew a crowd to his door doing it. Solid house, rattled man. Eyes on his place is the one thing he did not want."}, {"n": 22, "kind": "FAIL", "clout": "quiet", "log": "Pushed to see the back room. He shut down hard. Whatever trust was building took a step back tonight."}], "roles": [{"name": "neighbor", "req": true, "cond": "is=the_neighbor  household=behind_fence"}], "noverbs": ["Ask what he is protecting"], "file": "S09_THE_BACK_DOOR.bq", "src": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S09 \u2014 THE BACK DOOR  (the PRE-WALL trust quest \u2014 sets up S06's reveal)\n# One of the \"couple of quests for Marco\" that happen BEFORE the wall comes down and\n# BEFORE you know he has a daughter (reveal timing locked 7/23, Paolo). Marco asks you\n# to help him make his place solid, and is strangely, absolutely immovable that the\n# back is his alone \u2014 do not go around back, the back he does himself. You do not know\n# why yet. Honoring a boundary you do not understand is how you earn the trust that\n# eventually brings the wall down; prying fails. When S06 later reveals the daughter,\n# THIS is what recontextualizes \u2014 he was guarding her the whole time. Cast Marco against\n# @ROLE neighbor; never named in a spoken line (W8). CLOUT: a quiet neighborly deed is\n# #quiet; drawing a crowd to his door is #notable (and rattles him \u2014 eyes on his place\n# is the opposite of what he asked).\n\n@QUEST   bq_back_door   The Back Door\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE neighbor  REQ  is=the_neighbor  household=behind_fence\n\n@STAGE 10\n  @LOG The man behind the fence wants help making his place solid before dark. He is odd about the back.\n  @DO show_objective 10\n@STAGE 20 COMPLETE #quiet\n  @LOG Boarded the front and side and let him keep the back to himself, no questions. He will not forget it. The wall feels closer.\n  @DO bond neighbor +20\n  @DO complete_objective 10\n@STAGE 21 COMPLETE #notable\n  @LOG Got the job done but drew a crowd to his door doing it. Solid house, rattled man. Eyes on his place is the one thing he did not want.\n  @DO bond neighbor +4\n  @DO complete_objective 10\n@STAGE 22 FAIL #quiet\n  @LOG Pushed to see the back room. He shut down hard. Whatever trust was building took a step back tonight.\n  @DO bond neighbor -10\n\n@OBJ 10  \"Help the neighbor make his place solid\"   target=neighbor\n\n@TALK ask  speaker=neighbor  entry=stage>=10\n  @SAY Before dark I need the front and the side made solid. Boards, nails, whatever you have got. #tired\n  @SAY The back I do myself. Always the back myself. Do not go around back. I am not being rude. I am being careful. Just take the front for me.\n  @OPT \"Front and side. You have got it.\"   [gate: none]  -> work  @DO learn respects_the_boundary\n  @OPT \"What is in the back?\"               [gate: none]  -> back\n  @OPT (head around back to look)           [gate: none]  -> pry\n  @NOVERB \"Ask what he is protecting\"\n@END\n\n@TALK back  speaker=neighbor\n  @SAY The back is mine. That is the whole answer and it is going to stay the whole answer. #dread\n  @SAY You want to earn something real out here, earn this: a man tells you a door is his, and you let it be his.\n  @OPT \"Fair. Front and side.\"             [gate: none]  -> work  @DO learn respects_the_boundary\n  @OPT (go look anyway)                     [gate: none]  -> pry\n@END\n\n@TALK work  speaker=neighbor\n  @SAY (you board the front and the side while he works the back alone, and neither of you talks much, and it is a good kind of quiet.)\n  @SAY Solid. First time in a long time this place feels solid. I will not forget that you did this and did not ask twice about the back.\n  @OPT \"That is what neighbors are for.\"    [gate: none]  -> END  @DO set_stage 20\n  @OPT \"Someday you will tell me.\"          [gate: none]  -> END  @DO set_stage 20\n  @OPT \"Let us make it a whole thing, get some others out here.\"  [gate: none]  -> loud\n@END\n\n@TALK pry  speaker=neighbor\n  @SAY STOP. I told you the back was mine. I told you plain. Get away from that door. #dread\n  @OPT \"Okay. Okay. I am backing off.\"      [gate: none]  -> work\n  @OPT \"What are you so scared of?\"         [gate: none]  -> fold\n@END\n\n@TALK fold  speaker=neighbor\n  @SAY Scared. Yeah. You do not get to see a man scared and keep it for free. Go home. #dread\n  @OPT \"I am sorry. I crossed a line.\"      [gate: none]  -> END  @DO set_stage 22\n@END\n\n@TALK loud  speaker=neighbor\n  @SAY No crowd. I said front and side, not a block party at my door. #tired\n  @SAY You did good work. But eyes on my place is the exact opposite of what I asked for. Let it go now.\n  @OPT \"Right. Sorry. Just us.\"             [gate: none]  -> END  @DO set_stage 21\n@END\n", "cast": {"x": 69, "y": 62, "channel": "feed", "speaker": "neighbor", "faction": null}}];
+let SUN=false; const verdict={}, comments={}, played={};
+const CLOUT_COL={quiet:'#7f9a6a',notable:'#c79a3f',risky:'#d47a30',reckless:'#c8503a'};
+
+function tally(){
+  const up=Object.values(verdict).filter(v=>v==='up').length;
+  const dn=Object.values(verdict).filter(v=>v==='down').length;
+  document.getElementById('tally').textContent='('+up+' up / '+dn+' down / '+(QUESTS.length-up-dn)+' unjudged)';
+}
+
+function runner(q, host){
+  const rt = new BQRuntime.Runtime(BQ.parse(q.src)).start();
+  const seenNodes = {};
+  const log = document.createElement('div');
+  log.style.cssText='font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;margin-top:8px;padding:10px;border-radius:8px;max-height:320px;overflow:auto;background:'+(SUN?'#fff8e6':'#0a0c08')+';color:'+(SUN?'#3a3320':'#b9b09a');
+  const opts = document.createElement('div');
+  opts.style.cssText='display:flex;flex-direction:column;gap:6px;margin-top:8px';
+  function say(t,col){ const p=document.createElement('div'); if(col)p.style.color=col; p.textContent=t; log.appendChild(p); log.scrollTop=log.scrollHeight; }
+  function draw(){
+    opts.innerHTML='';
+    if(rt.state.done){
+      const tag=(rt.state.doneTags||[]).filter(t=>CLOUT_COL[t])[0]||'';
+      say('');
+      say('>> '+rt.state.outcome+(tag?('  #'+tag):''), CLOUT_COL[tag]||'#cdbd8a');
+      played[q.id]=(rt.state.outcome||'')+(tag?(' #'+tag):'');
+      const again=document.createElement('button');
+      again.textContent='play it again';
+      again.style.cssText='padding:8px;border-radius:8px;border:1px solid #776;background:transparent;color:'+(SUN?'#3a3320':'#9a9480');
+      again.onclick=()=>{ host.innerHTML=''; runner(q,host); };
+      opts.appendChild(again);
+      return;
+    }
+    if(!rt.node){
+      const avail=rt.available();
+      if(!avail.length){ say('(nothing more to say right now)'); return; }
+      /* A quest's entry nodes stay open as long as their stage gate holds, so an
+         intro you already heard is still legally re-enterable. Mark what you have
+         already sat through so the NEW thread is the obvious one to tap - without
+         touching the quest's own content, which decides what is reachable. */
+      avail.forEach(id=>{
+        const b=document.createElement('button');
+        const seen=!!seenNodes[id];
+        b.textContent=(seen?'\u21BA again: ':'\u25B8 talk: ')+id;
+        b.style.cssText='text-align:left;padding:9px;border-radius:8px;border:1px solid '+(seen?'#4a4a3a':'#6a5')+';background:transparent;opacity:'+(seen?'0.55':'1')+';color:'+(SUN?'#3a3320':'#cdbd8a')+';font:13px sans-serif';
+        b.onclick=()=>{ seenNodes[id]=true; rt.begin(id); const v=rt.view(); (v.says||[]).forEach(s=>say(s)); draw(); };
+        opts.appendChild(b);
+      });
+      return;
+    }
+    const v=rt.view();
+    if(!v.options.length){ rt.node=null; draw(); return; }
+    v.options.forEach(o=>{
+      const b=document.createElement('button');
+      b.textContent=(o.silence?'(say nothing) ':'')+o.text+(o.trap?'   \u26A0':'');
+      b.style.cssText='text-align:left;padding:9px;border-radius:8px;border:1px solid #6a5;background:transparent;color:'+(SUN?'#3a3320':'#cdbd8a')+';font:13px sans-serif';
+      b.onclick=()=>{ say('   > '+o.text, SUN?'#6a6045':'#8f8770'); rt.choose(o.i); const nv=rt.view(); (nv.says||[]).forEach(s=>say(s)); draw(); };
+      opts.appendChild(b);
+    });
+    if(v.noverbs && v.noverbs.length){
+      v.noverbs.forEach(n=>{
+        const d=document.createElement('div');
+        d.textContent='\u2716 '+n+'  (the thing you cannot say)';
+        d.style.cssText='font:12px sans-serif;color:'+(SUN?'#9a8f70':'#6a6455')+';padding:4px 2px';
+        opts.appendChild(d);
+      });
+    }
+  }
+  host.appendChild(log); host.appendChild(opts);
+  say('(tap a talk to begin)');
+  draw();
+}
+
+function build(){
+  document.body.style.background=SUN?'#efe7cf':'#0d0f0a';
+  document.getElementById('bar').style.background=SUN?'#efe7cf':'#0d0f0a';
+  document.getElementById('hdr').style.color=SUN?'#3a3320':'#cdbd8a';
+  document.getElementById('intro').style.color=SUN?'#6a6045':'#8f8770';
+  document.getElementById('gcap').style.color=SUN?'#6a6045':'#8f8770';
+  const gc=document.getElementById('gc');
+  gc.style.background=SUN?'#fff':'#111'; gc.style.color=SUN?'#222':'#ddd';
+  const list=document.getElementById('list'); list.innerHTML='';
+  QUESTS.forEach(q=>{
+    const card=document.createElement('div');
+    card.style.cssText='margin:14px 12px;border-radius:12px;padding:14px;background:'+(SUN?'#e4dbc0':'#181a12')+';border:1px solid '+(SUN?'#c9bd9a':'#2a2a1f');
+    const t=document.createElement('div');
+    t.style.cssText='font:700 16px -apple-system,sans-serif;color:'+(SUN?'#3a3320':'#cdbd8a');
+    t.textContent=q.title;
+    card.appendChild(t);
+
+    const meta=document.createElement('div');
+    meta.style.cssText='font:11px ui-monospace,monospace;color:'+(SUN?'#7a6f50':'#8f8770')+';margin-top:3px';
+    const c=q.cast||{};
+    meta.textContent='ACT '+q.act+'  \u00B7  '+q.file+(q.once?'':'  \u00B7  REPEATABLE');
+    card.appendChild(meta);
+
+    const where=document.createElement('div');
+    where.style.cssText='font:11px ui-monospace,monospace;margin-top:6px;padding:7px 9px;border-radius:7px;background:'+(SUN?'#d8ceae':'#12140d')+';color:'+(SUN?'#5a5138':'#9a9480');
+    where.textContent='WHERE: '+(c.faction?('on ground the '+c.faction+' hold'):'anywhere real in the valley')
+      +'  \u00B7  X'+c.x+' Y'+c.y+'  \u00B7  '+(c.channel==='inperson'?'IN PERSON ONLY (no phone)':'over the phone')
+      +(c.speaker?('  \u00B7  '+c.speaker):'');
+    card.appendChild(where);
+
+    if(q.premise.length){
+      const p=document.createElement('div');
+      p.style.cssText='font:13px/1.6 -apple-system,sans-serif;margin-top:9px;color:'+(SUN?'#3a3320':'#c8c0a8');
+      p.textContent='\u201C'+q.premise.join(' ')+'\u201D';
+      card.appendChild(p);
+    }
+
+    const eh=document.createElement('div');
+    eh.style.cssText='font:11px sans-serif;color:'+(SUN?'#7a6f50':'#8f8770')+';margin:11px 0 5px';
+    eh.textContent='HOW IT CAN END';
+    card.appendChild(eh);
+    q.endings.forEach(e=>{
+      const row=document.createElement('div');
+      row.style.cssText='font:12px/1.5 -apple-system,sans-serif;margin:0 0 5px;padding-left:9px;border-left:3px solid '+(CLOUT_COL[e.clout]||'#555')+';color:'+(SUN?'#4a4230':'#b0a890');
+      row.textContent=(e.clout?('#'+e.clout+'  '):'')+(e.kind==='FAIL'?'(walk away)  ':'')+e.log;
+      card.appendChild(row);
+    });
+
+    const playWrap=document.createElement('div');
+    const play=document.createElement('button');
+    play.textContent='\u25B6 PLAY IT';
+    play.style.cssText='margin-top:11px;padding:10px 14px;border-radius:9px;border:0;background:#3f6c8c;color:#fff;font:600 13px sans-serif';
+    play.onclick=()=>{ play.remove(); runner(q, playWrap); };
+    card.appendChild(play); card.appendChild(playWrap);
+
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;gap:8px;margin-top:12px';
+    [['up','\uD83D\uDC4D','#3f8c3f'],['down','\uD83D\uDC4E','#8c3f3f']].forEach(([k,glyph,col])=>{
+      const b=document.createElement('button');
+      b.textContent=glyph;
+      b.style.cssText='flex:1;padding:11px;border-radius:9px;font-size:19px;border:2px solid '+(verdict[q.id]===k?col:'transparent')+';background:'+(verdict[q.id]===k?col:(SUN?'#d8ceae':'#12140d'));
+      b.onclick=()=>{ verdict[q.id]=(verdict[q.id]===k?null:k); build(); };
+      row.appendChild(b);
+    });
+    card.appendChild(row);
+
+    const cm=document.createElement('textarea');
+    cm.rows=2; cm.placeholder='comment on '+q.title;
+    cm.value=comments[q.id]||'';
+    cm.style.cssText='width:100%;margin-top:7px;padding:8px;border-radius:8px;border:1px solid #888;box-sizing:border-box;background:'+(SUN?'#fff':'#111')+';color:'+(SUN?'#222':'#ddd')+';font:13px sans-serif';
+    cm.oninput=()=>{ comments[q.id]=cm.value; };
+    card.appendChild(cm);
+
+    list.appendChild(card);
+  });
+  tally();
+}
+
+function exportTxt(){
+  const L=[];
+  L.push('BOHEMIA QUEST VERDICT - THE 9 CANON QUESTS');
+  L.push('the first playable Bohemia quests, live in the phone');
+  L.push('');
+  QUESTS.forEach(q=>{
+    const v=verdict[q.id]||'UNJUDGED';
+    L.push('['+(v==='up'?'UP':v==='down'?'DOWN':'UNJUDGED')+']  '+q.title+'   ('+q.file+')');
+    const c=q.cast||{};
+    L.push('    cast to: '+(c.faction||'any real district')+' X'+c.x+' Y'+c.y+' '+(c.channel||''));
+    if(played[q.id]) L.push('    Paolo played it to: '+played[q.id]);
+    if(comments[q.id]) L.push('    comment: '+comments[q.id]);
+    L.push('');
+  });
+  const up=Object.values(verdict).filter(v=>v==='up').length;
+  const dn=Object.values(verdict).filter(v=>v==='down').length;
+  L.push('TALLY: '+up+' up, '+dn+' down, '+(QUESTS.length-up-dn)+' unjudged');
+  L.push('');
+  L.push('PAOLO COMMENTS:');
+  L.push(document.getElementById('gc').value||'(none)');
+  const blob=new Blob([L.join('\n')],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='BOHEMIA_QUEST_VERDICT_7_25_26.txt'; a.click();
+}
+document.getElementById('sun').onclick=()=>{ SUN=!SUN; build(); };
+document.getElementById('exp').onclick=exportTxt;
+build();
+</script>

@@ -1,0 +1,74 @@
+BOHEMIA TASTE FILTER — LIVE RUN ACROSS THE REAL BANKS (7/25/26)
+The filter KILLS, it never APPROVES. Passing means "not obviously wrong", never
+"approved" — only Paolo's real thumbs approve.
+
+THE VALIDATION THAT MATTERS: the filter was pointed at banks whose verdicts Paolo
+ALREADY gave, without being told them. It agreed in both directions.
+  - APPROVED work survives: 21/21 district heroes, 30/30 house skins, 0 killed.
+  - Work Paolo already KILLED gets killed: all 348 traffic-signal candidates die
+    on a solid black keyline, and traffic signals v2/v3 are exactly what Paolo
+    graveyarded ("looks like dog shit in comparison... the corpus is PAINTED not
+    filled") — the verdict that birthed the 45-DEGREE ART LAW. The filter
+    rediscovered his ruling from the pixels alone.
+  - The wall pool is the 47 REJECTS (WB4, the sole perimeter approval, was pulled
+    out into canon and is not in the pool). 26 of those 47 die on real defects,
+    including 4 with genuine PURPLE RESERVATION violations (up to 5,616 purple px).
+
+VERIFIED, NOT ASSUMED: every mass-kill above was confirmed against raw pixels
+before being believed. The traffic signals carry ZERO anti-aliasing and 956 solid
+edge pixels at exactly RGB(5,5,5) alpha 255 — a deliberate hard keyline, not an
+artifact. (An earlier version of this check DID over-fire on anti-aliased art and
+killed 12 approved heroes; that false positive was found, fixed, and locked in the
+self-test in both directions.)
+
+SUMMARY
+  BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt   21 cands | KILLED   0 | passed  21   APPROVED canon -> must survive
+  BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt      30 cands | KILLED   0 | passed  30   APPROVED canon (all 30) -> must survive
+  BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt       47 cands | KILLED  26 | passed  21   the 47 REJECTS (WB4 approved+extracted)
+  BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.tx  348 cands | KILLED 348 | passed   0   GRAVEYARDED art (v2/v3 "dog shit")
+  BOHEMIA_DEMO_PROP_POOL_7_10_26.txt            314 cands | KILLED 245 | passed  69   raw third-party asset-pack props
+
+DETAIL
+### BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt  (APPROVED canon -> must survive)
+    21 candidates | KILLED 0 | passed pre-filter 21
+    kill reasons: none
+
+### BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt  (APPROVED canon (all 30) -> must survive)
+    30 candidates | KILLED 0 | passed pre-filter 30
+    kill reasons: none
+
+### BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt  (the 47 REJECTS (WB4 approved+extracted))
+    47 candidates | KILLED 26 | passed pre-filter 21
+    kill reasons: check_black_outline x22, purple x4, check_flat_side_on x1
+      [KILL] WB2                                      purple outside the Amalgamation allowlist: 5616 purple px (PURPLE RESERVATION)
+      [KILL] WB5                                      purple outside the Amalgamation allowlist: 432 purple px (PURPLE RESERVATION)
+      [KILL] WB10                                     hard black outline ring: 65% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] WB12                                     hard black outline ring: 62% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] WB13                                     hard black outline ring: 63% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] WB14                                     hard black outline ring: 85% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] WB15                                     hard black outline ring: 80% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] WB16                                     hard black outline ring: 76% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+
+### BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt  (GRAVEYARDED art (v2/v3 "dog shit"))
+    348 candidates | KILLED 348 | passed pre-filter 0
+    kill reasons: check_black_outline x348
+      [KILL] intact/galv/dead/e                       hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/dead/w                       hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/red/e                        hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/red/w                        hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/amber/e                      hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/amber/w                      hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/green/e                      hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+      [KILL] intact/galv/green/w                      hard black outline ring: 100% of the solid silhouette edge is near-black (POCKET-CITY: edges read fr
+
+### BOHEMIA_DEMO_PROP_POOL_7_10_26.txt  (raw third-party asset-pack props)
+    314 candidates | KILLED 245 | passed pre-filter 69
+    kill reasons: check_black_outline x245, check_flat_side_on x29, purple x1
+      [KILL] remains/10. Zombie bodies and bones/12   hard black outline ring: 75% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] remains/10. Zombie bodies and bones/13   hard black outline ring: 60% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] remains/10. Zombie bodies and bones/30   hard black outline ring: 64% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] remains/10. Zombie bodies and bones/33   hard black outline ring: 65% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] container/12. Market props and crates/0  hard black outline ring: 75% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] container/12. Market props and crates/1  hard black outline ring: 70% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] container/12. Market props and crates/2  hard black outline ring: 71% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro
+      [KILL] container/12. Market props and crates/4  hard black outline ring: 61% of the solid silhouette edge is near-black (POCKET-CITY: edges read fro

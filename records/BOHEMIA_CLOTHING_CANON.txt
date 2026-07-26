@@ -1,0 +1,574 @@
+=== BOHEMIA CLOTHING CANON (born 7/18/26) ===
+Approved garments graduate OUT of the factory to here. These are canon: they can
+be equipped, worn by NPCs, and used as TEMPLATE bases for the variant factory.
+Paolo thumbs, this file remembers the wins (the graveyard remembers the deaths).
+
+--- FULL BATCH APPROVED (7/18/26) — all 9 UP, canon ---
+Paolo: "Damn bro, I'm really impressed. I wanna give everything a thumbs up now
+very good... all of these can be canon."
+
+TOPS (crew neck fixed this turn -- collar is a ring at the neck base, not a band
+on the collarbone; correct in all 8 facings):
+  RED SHIRT
+  WHITE TEE
+  BLACK TANK   (sleeveless)
+  GREEN FLANNEL
+PANTS (waistband + belt + fly + rolled ankle hems; full length waist->ankle):
+  BLUE JEANS
+  BLACK CARGOS
+  GREY SWEATS
+SHOES (dark sole + light midsole + laces on the tongue + padded ankle collar):
+  WHITE SNEAKERS
+  BROWN BOOTS
+
+All render on the LIVE rig at the idle beat, in any of 8 facings.
+
+--- COLOR CONTEXT (Paolo's question this turn: "are you caring about the color
+    context of the current assets we already have?") ---
+Honest state of these 9:
+- PURPLE RESERVATION LAW: CLEAN. Purity test flags purple as (r>g+25 AND b>g+25).
+  Every garment is single-hue-safe: reds are red-only (blue stays low), denim is
+  blue-only (red stays low). No garment trips it. Purple stays the Amalgamation's.
+- 45 ART LAW + sky-top-light: honored. Shading is graded to the world's render
+  conventions (lit tops, dark undersides, form volume), so they read like corpus.
+- WORLD AMBIENT GRADE: the base hues were chosen as clean, legible catalog colors
+  and were NOT pulled to the world ambient RGB(67,61,56) the way the skin ramps
+  were (the 7/18 skin regrade that made the character "sit IN the scene, not on
+  top of it"). So strictly, the current colors are a touch cleaner/brighter than
+  the world's dusty register.
+- LEVER SHIPPED: a "WORLD GRADE" toggle in the CLOTHES tab (default OFF, so the
+  approved colors stand). ON = the same skin-grade math applied to cloth
+  (desaturate 25% keeping hue, blend 16% toward ambient). Paolo's call which
+  register is canon. grade() lives in window.CLO.
+PENDING PAOLO: keep the clean catalog colors, or bake the world-ambient grade in?
+
+--- BATCH 3 APPROVED (7/18/26) — 9 world-grounded salvage garments UP, canon ---
+Paolo thumbed the salvage tops/pants/boots CANON (the 4 coats went DOWN -> see
+graveyard). Now canon, tagged by LAYER:
+  base:  SCAVENGER FLANNEL, BONE HENLEY, COPPER WORK SHIRT, SOOT TANK
+  legs:  DUST TROUSERS, PATCHED WORK PANTS, SOOT CARGOS
+  feet:  WRAPPED BOOTS, SANDWALKERS
+All dusty world-ambient tones, single-hue-safe (no purple), worn/scavenged.
+LAYER SYSTEM (Paolo's note): every garment now declares a layer -- base (tops),
+legs (pants), feet (shoes), outer (coats/jackets, drawn over a base shirt).
+Canon wardrobe now 18.
+
+--- STRUCTURAL DIVERSITY (7/18/26) — Paolo: "you called a flannel a shirt; I
+    want DIVERSE LOOKS, not recolors. Recoloring is the easy part." ---
+genTop v2: variety is now STRUCTURAL, not palette. Options:
+  pattern: solid / plaid (tartan) / stripe
+  neck:    crew / v / henley (short placket+buttons) / button (full placket +
+           fold collar) / hood (cowl)
+  sleeves: long / short / none
+  pocket:  kangaroo (hoodie)
+A flannel = plaid + button-up; a hoodie = hood + pocket; a v-neck has a V; a
+short-sleeve shows bare forearms. Batch 6 (12, cooking) shows the spread.
+Backward-compatible: the 40 canon tops still render (crew/solid/long) unchanged.
+TARGET REMINDER (BOHEMIA_WARDROBE_TARGET): 500-800 items; the real work is
+~120-180 hand-authored BASE LOOKS, then palette/wear/layer multiply. Structural
+diversity (this) is how we get distinct base looks; recolor is the multiplier.
+Still missing categories: headwear (~20%), accessories (~16%).
+
+--- OUTSIDE-THE-SKELETON GEOMETRY (7/18/26) — Paolo: "a hoodie is additional
+    pixels OUTSIDE the skeleton, the hood comes out the back. Same with hair --
+    it's the SHAPE and pixels that go outside the body." ---
+Answer: YES, the pipeline can add pixels off the body. The additive buildFrame
+preview hook (built for coat skirts filling the leg gap) now also drives a REAL
+HOOD: genTop neck:'hood' adds a rounded fabric mass off the nape -- facing-aware
+(peeks around the head from the front, fills as the visible hood over the upper
+back from behind), never covering the face. Not paint on a shirt; geometry.
+This is the groundwork for HAIR (same principle: shape + pixels outside the body).
+Fresh hoodies cooking: ASH / COAL / OLIVE HOODIE. The 2 fake-cowl hoodies +
+2 v-necks are graveyard-final.
+
+--- HOOD, RESTRAINED (7/18/26) — Paolo: "it looked like dogshit, same in all
+    directions -- it's a LITTLE addition, not a centerpiece. A couple extra pixels
+    on the back and side you'll see it." (looked at how pixel games do it) ---
+Redone: the hood is now a FEW pixels, clearly DIFFERENT per facing --
+  front (S/SE/SW): a bare sliver flanking the neck, barely there
+  profile (E/W):   a couple px behind the neck (away from the face)
+  back (N/NE/NW):  a small hood bunch at the nape (most visible)
+Not the big uniform blob. Same additive-geometry tech, dialed way down. This
+restraint is the model for HAIR too: small directional shape, not a masterpiece.
+
+--- HOOD, take 3 (7/18/26) — Paolo: "whatever you did was dogshit, try again."
+    (I looked at the actual rendered pixels this time, zoomed.) ---
+DIAGNOSIS: at 56px the head sits right on the shoulders -- there is NO neck gap,
+so any hood pixels I forced near the front neck just merged into the shirt collar
+as noise. That's WHY it looked like garbage. Reality: a down-hood is not visible
+from the front. So:
+  front (S/SE/SW): NOTHING (clean -- no noise).
+  side (E/W):      a couple px of the hood roll peeking behind the neck.
+  back (N/NE/NW):  a small DARK rolled hood collar at the nape (contrast vs the
+                   lit shirt is what makes it read) + a hint cresting the shoulders.
+Lesson banked: I must LOOK at the rendered pixels (zoomed) before shipping, not
+ship blind and let Paolo be the QA. Down-hood is inherently a small back/side
+detail at this scale; a hood-UP variant (covers the head) is the option if he
+wants it prominent -- offered, not built.
+
+--- THE ACTUAL HOODIE-SKIN BUG (7/18/26) — Paolo: "you KEEP adding skin textures
+    to the hoodie, what's wrong with you." ---
+It was a RENDER-ORDER BUG, not a drawing problem -- which is why no hood I drew
+could fix it. In buildFrame the SKIN_DETAIL pass (which repaints skin, incl. the
+neck grid===3) ran AFTER the CLO_PREVIEW garment hook, so it painted skin back
+over every hoodie collar, every time. FIX: moved the garment hook to run LAST
+(after SKIN_DETAIL). Probe now confirms: neck + torso are skin-free in all 8
+facings; the only remaining skin is the FACE/chin (correct -- hood is down).
+Lesson: when a symptom survives every content change, suspect the PIPELINE order.
+
+--- HOODIE-SKIN, ROUND 2: THE BACK-VIEW HOLE (7/18/26) — Paolo screenshot: skin
+    notch at the collar in the back view, "why can't you have clothing there" ---
+The render-order fix killed the NECK repaint leak, but a second bug hid under it:
+the hood painter had a blanket "never paint over head pixels" rule. Right for the
+FACE; wrong from BEHIND -- a hood drapes OVER the lower skull. So the hood mass
+skipped the skull-bottom pixels and left a skin hole in its center. (My probe
+missed it because it whitelisted all head skin as legit.)
+FIX: in back views (N/NE/NW) the hood covers the lower skull + nape as one solid
+bunch (face stays untouchable). Probe now scans the collar band with NO head
+whitelist: N/NE/NW CLEAN. E/W show only the visible jaw/cheek -- correct, a
+down-hood does not cover the head from the side.
+
+--- HOODIE-SKIN, THE REAL ONE: THE CREW-NECK CARVE (7/18/26) ---
+After the render-order fix and the back-hole fix, skin STILL showed. Two lessons:
+1. MY PROBES WERE LYING: they called buildFrame directly with a capture-only
+   preview hook -- which renders a DIFFERENT image than the preview canvas (no
+   garment, PD outfit still equipped). Every "CLEAN" verdict was measured on the
+   wrong pixels. New law for me: verify ONLY on the real preview canvas.
+2. THE ACTUAL LEAK: genTop carves a small crew-NECK HOLE in the torso top (skin
+   at the throat -- intentional for shirts) and the hoodie inherited that carve
+   in every facing. Those torso pixels showing skin were the patch in all of
+   Paolo's screenshots. FIX: for neck:'hood' the collar FILLS the hole (no carve)
+   + the collar covers the whole neck part. Canvas probe (per-row skin counts,
+   sandwich detector): ALL 8 facings clean -- head+chin only, then solid fabric.
+
+--- FULL WARDROBE CANON + THE LAW (7/18/26) — Paolo: "You finally fucking did it
+    ... record that down so you never have these issues ever again." ---
+ALL 51 GARMENTS CANON, hoodies included (ASH/COAL/OLIVE promoted). COOKING empty.
+The record he asked for is now LAW + GATE:
+  laws/BOHEMIA_ADDENDUM_VERIFY_ON_THE_REAL_SURFACE_7_18_26.md (the full
+  post-mortem of the six-round saga distilled into 5 rules: verify on the real
+  surface only; look before shipping; symptom-survives-content = pipeline bug;
+  audit blanket rules per facing; audit what shared generators inherit)
+  gates/hood_gate.js (gate #Hoodie, always-run): hood covers every neck pixel +
+  fills the crew carve in front AND back; crew shirts keep their intentional
+  neck hole; back hood covers the lower skull + adds outside-the-skeleton
+  geometry. 11 checks. CLAUDE.md carries the law pointer.
+
+--- HEADWEAR FACTORY BORN (7/18/26) — Paolo: "do what you have to do next and
+    know what comes after." Next = the missing ~20% of the wardrobe target. ---
+genHat: the headwear factory. 4 structures, all facing-aware geometry ON TOP of
+the skull (outside the skeleton), never the body, and never the face below the
+FOREHEAD BAND (top 30% of the head -- a beanie sits on the brow, never the eyes):
+  beanie (knit dome + cuff, deeper on the back of the skull)
+  cap    (crown + brim: across the brow in front, jutting forward in profile,
+          absent from behind)
+  brim   (wide flat ring that reads from every angle)
+  wrap   (low band hugging the skull + knot and tails at the back)
+New layer: 'head'. Gate #HEADWEAR (gates/hat_gate.js, 12 checks) per FACTORY LAW.
+Verified on the REAL canvas (per the new law): beanie + cap eyeballed across all
+8 facings; wide-brim + wraps on the tab; BONE wrap swapped to OXBLOOD (bone-on-
+pale-skin had no contrast -- caught before Paolo had to).
+COOKING (7, pending thumbs): DUST BEANIE, COAL BEANIE, SALVAGE CAP, RUST CAP,
+DESERT WIDE-BRIM, OXBLOOD HEADWRAP, OLIVE HEADWRAP.
+
+WHAT COMES AFTER (the standing wardrobe roadmap, per BOHEMIA_WARDROBE_TARGET):
+  1. accessories factory (~16%: scarf/mask/glasses/belt/gloves) -> categories done
+  2. colorway multiplication off approved bases -> push 58 toward 500-800
+  3. Paolo's passes (his, flagged, never mine): the RENAMING process, act
+     assignment, rarity assignment, faction dress canon, world-grade ruling.
+
+--- SKY-LIGHT AT HAT SCALE (7/18/26) — Paolo: "the light pixels at the top make
+    it look like a spinning fan from a cartoon hat." ---
+Right: a full-width r.lt band across a 2-3 row dark cap reads as a propeller/
+pom, not lighting. At this scale the 45/sky-light law is expressed by FORM
+(dark edges, mid body), not a bright top stripe. Beanie + cap crowns are now
+solid mid with dark edges + cuff; no light band. The rice hat (canon, approved
+as rendered) is untouched. RULE FOR ALL FUTURE SMALL-AREA GARMENTS: highlights
+must never form a contiguous band across the top of a small silhouette.
+
+--- THE HEADWEAR FRAMEWORK: DOME, NOT PYRAMID (7/19/26) — Paolo: "why are the
+    beanies pyramid shaped... glued to the top looking like a triangle. Don't
+    delete those beanies, but understand the headwear framework." ---
+ROOT CAUSE: hats followed the skull's per-row outline, and skulls NARROW toward
+the crown -- so every hat inherited the taper and read as a pyramid. Pixel-art
+convention (researched): a hat is a rounded BLOCK at full head width, flat top,
+1px corner rounding.
+THE FRAMEWORK: genHat fit:'dome' (DEFAULT) = block at the head's max width from
+top to hat line. fit:'skull' = the taper-following variant, KEPT because Paolo
+kept the pointy beanies (CHARCOAL/RUST WATCH CAP + OLIVE FIELD CAP stay exactly
+as cooked, tagged fit:'skull'). Gate: rounded synthetic skull + DOME LAW check
+(13 checks) -- a future pyramid goes red.
+COOKING now 6: the 3 kept pointy + 3 dome-framework (STORM KNIT CAP, SAND KNIT
+CAP, SLATE WORK CAP).
+
+--- LEVEL CUFF (7/19/26) — Paolo: "why are the beanies in the back longer than
+    the other parts of the head?" ---
+Because I filled every facing to the durag line, and the durag is DEEPER from
+behind (it wraps toward the nape: 7 rows vs 4 in front). Right for a durag,
+wrong for a beanie -- a beanie's cuff is a LEVEL band. FIX: wear depth is now
+UNIFORM (the shallowest durag depth across facings), so the cuff sits at the
+same height in all 8 views; the per-facing durag line remains only the legal
+never-cross bound. Applies to beanie + cap, both fits; the rice hat untouched.
+
+--- HEADWEAR ALL CANON + ACCESSORIES FACTORY BORN (7/19/26) — Paolo: "you got
+    the idea, keep cooking." ---
+All 6 hats + rice hat CANON (wardrobe 58). Next per the standing roadmap: the
+ACCESSORIES factory -- the last missing category (~16% of the 500-800 target).
+genAcc: five zone-locked, facing-aware types:
+  scarf  (wrapped neck bundle + chest drape front / long tail back)
+  mask   (dust bandana: nose/mouth/chin ONLY -- the EYE LINE, found as the
+          widest rows of the face part, is sacred; first cut was a balaclava
+          over the eyes, caught by zoomed real-canvas eyeball before Paolo)
+  shades (dark lenses exactly on the eye rows, arm to the ear in profile,
+          invisible from behind)
+  gloves (hands only)   belt (waist rows + buckle catching light, front)
+New layers: neck / face / hands / waist. Gate #ACCESSORY (acc_gate.js, 13
+checks) per FACTORY LAW: zone lock + eyes-sacred + directional.
+COOKING (8): DUST SCARF, OXBLOOD SCARF, BONE DUST MASK, OXBLOOD DUST MASK,
+BLACK SHADES, LEATHER GLOVES, SOOT GLOVES, LEATHER BELT.
+AFTER THIS (roadmap): colorway multiplication off approved bases toward
+500-800, then Paolo's passes (renaming, act, rarity, faction dress).
+
+--- ACCESSORIES CANON + FACE CALIBRATION SHIPPED (7/19/26) ---
+7 of 8 accessories CANON (wardrobe 65): DUST/OXBLOOD SCARF, BONE/OXBLOOD DUST
+MASK, LEATHER/SOOT GLOVES, LEATHER BELT. BLACK SHADES shelved (NOT final --
+Paolo: "don't get rid of those shades forever") pending EYE RECALIBRATION.
+THE CALIBRATION MACHINE (mechanism mine, placement HIS): the dormant
+FACE_OFFSETS system is now WIRED into the render -- facial pixels classified by
+ramp index (brows+iris='eyes', mouth='lips', skin marks='nose') and shifted by
+per-direction offsets; painted pixels are MOVED never reshaped (RIG LAW); the
+frame cache re-keys on offsets so nudges show live. UI: FACE CALIBRATION in the
+face editor (tap the portrait, CHARACTER tab) -- pick facing, pick feature,
+arrow-nudge on the live character, RESET DIR, EXPORT .txt (verdict workflow).
+Offsets ship ALL ZERO (render pixel-identical until Paolo rules; verified on
+the real canvas: nudge moves, reset restores byte-identical).
+NEXT: Paolo calibrates + exports -> I bake the offsets as canon defaults ->
+shades v2 re-cooked anchored to the TRUE calibrated eye pixels. His eyebrow/
+lip mini-expressions idea rides the same per-feature offset rails later.
+
+--- ACCESSORIES COMPLETE + BATCH 13 (7/19/26) — Paolo: "Good job. Make some
+    more clothes." ---
+WRAPAROUND SHADES canon (wardrobe 66) -- every category now exists: tops, pants,
+shoes, coats, vests, hats, accessories. Batch 13 cooking (12): three NEW
+STRUCTURES + the first COLORWAY WAVE off approved bases:
+  structures: CHARCOAL/BONE TURTLENECK (neck:'turtle' -- high rolled collar
+    wraps the whole neck, fills the crew carve), CUTOFF DENIM SHORTS + OLIVE
+    SHORTS (cut:'short' -- legs end at the knee with a hem, bare shins; Paolo's
+    own day-one spec), OXBLOOD SLOUCH BEANIE (slouch:true -- deliberately rides
+    the durag-deep back line; the accidental version of this was the 7/19
+    "longer in the back" complaint, now it's a chosen look)
+  colorways: SLATE PLAID FLANNEL, SAND HOODIE, RUST STRIPED TEE, DENIM VEST,
+    SLATE SNEAKERS, COPPER SCARF, CHARCOAL DUST MASK
+All verified on the real canvas across facings. Suite green.
+
+--- BATCH 13 ALL CANON (7/19/26) — wardrobe 78 ---
+All 12 approved: turtlenecks, knee shorts, slouch beanie (deliberate, Paolo
+confirmed it knowingly), the fixed fully-open DENIM VEST, and the first
+colorway wave. Every category populated; the multiplication engine is proven.
+
+=== COOK BATCH 14 (7/19/26) — THE COLORWAY MULTIPLICATION, WAVE ONE ===
+Paolo: "work on something important, it doesn't even have to be about the
+music." The standing next step from the wardrobe research (500-800 target,
+~120-180 hand-authored base looks): multiply the 78 APPROVED structures across
+the canon palette pool. 63 candidates, every combo never shipped before, all
+in COOKING awaiting thumbs:
+- 24 tops: 3 plaids (oxblood/steel/copper), 4 hoodies (rust/brick/steel/sage),
+  3 henleys, 4 tees, 3 tanks, 2 striped tees, 3 button-ups, 2 turtlenecks
+- 9 legs: field green / storm sweats / bone / rust cargos / sage / steel jeans
+  / dust brown + khaki and charcoal knee-cut shorts
+- 6 feet: bone + steel sneakers, olive / dust brown / field / rust boots
+- 8 outer: sage field coat, slate trench, bone + khaki dusters, brick
+  longcoat, storm / olive / rust vests
+- 7 head: bone + olive knit caps, brick watch cap (skull fit kept), copper +
+  dust caps, storm + khaki slouch beanies. NO wide-brim recolors: CHINESE RICE
+  FARMER HAT is Paolo's named piece, not multiplied without his ruling.
+- 9 accessories: charcoal/sage/bone scarves, olive/rust dust masks, dust/
+  oxblood gloves, charcoal belt, GREY WRAPAROUNDS (ash shades on the v3
+  wraparound mechanism).
+All names collision-checked against canon + the clothing graveyard (no dead
+names reused). Verified on the real surface: 141 sections render (78 canon +
+63 cooking), sampled rigs paint real pixels in the live preview, zero page
+errors. Wardrobe potential if all approved: 141.
+
+=== COOK BATCH 15 (7/19/26) — STRUCTURE-NOT-COLOR (Paolo's correction) ===
+Paolo, on the colorway wave: "that's not really what I want to see... I need
+to see actual different clothes, not just different colorways." LAW LOCKED
+(laws/BOHEMIA_ADDENDUM_STRUCTURE_NOT_COLOR_7_19_26.md + CLAUDE.md): colorways
+legal, never progress; progress = new garment SHAPES. Same turn, FIVE new
+structures born, 12 candidates in COOKING:
+- JACKET (waist-length open outer, ribbed hem, no skirt): DENIM JACKET,
+  FIELD JACKET, LEATHER JACKET
+- PONCHO (new garment class: shoulder-wide diamond drape, fringed hem,
+  wrapped neck): DUST PONCHO, OXBLOOD PONCHO
+- TALL BOOTS (shaft climbs the shin, fold-over cuff): TALL MOTO BOOTS,
+  RANCH BOOTS
+- ROLLED SLEEVES (real third sleeve length): ROLLED WORK SHIRT, ROLLED FLANNEL
+- GEAR (new category, zone-locked over clothes): SCAV KNEEPADS, SCRAP
+  PAULDRON, CHEST RIG
+Gate: gates/structure_gate.js (28 checks) locks every shape's geometry.
+Post-mortems (real-surface): cloth-ramp shoes crashed probabilistically per
+facing on missing .sole/.mid2 (genShoes fallbacks fixed it, colorway shoes
+included); the poncho's first cut left the under-shirt's shoulders out
+(drape now starts shoulder-wide). All 12 verified in all facings.
+COOKING now: 63 colorways (filler, judged whenever) + 12 structures (the
+actual progress). [PENDING Paolo thumbs]
+
+=== COOK BATCH 16 (7/19/26) — STRUCTURE WAVE 2 + THE UI CATCHES UP TO THE LAW ===
+Paolo: "Do what you have to do next and know what comes after. I don't think
+you updated the UI for my last selection." Correct: the CLOTHES tab still led
+with the 63 colorways. FIXED: the cook now renders NEW STRUCTURES first as the
+headline section; COLORWAY FILLER collapses into its own drawer ("recolors of
+approved shapes, judge whenever"), machine-checked by structure_gate.
+FOUR MORE SHAPES that never existed (7 candidates, zero recolors):
+- BAGS (genBag, new 'back' layer -- a carried-equipment class): RUCK PACK
+  (pack body seen from behind, protrudes into clear air in profile, straps +
+  edge peeks from the front), SALVAGE SATCHEL (hip box + cross-body strap).
+- APRON (genApron, front-panel garment): chest bib + skirt over the upper
+  legs, neck loop, waist tie; from behind it is just the strings. SMITH'S
+  APRON (leather), TRADES APRON (charcoal). Open-coat gate exemption recorded
+  (an apron shows the clothes around it by nature).
+- SUSPENDERS (genGear): parallel straps + waist buttons from the front,
+  converging Y crossback from behind, shoulder strap in profile.
+- TATTERED HEMS (genTop tatter): pixels torn OUT of the silhouette at hem +
+  cuffs -- missing geometry, not a color. TATTERED TEE, TATTERED FLANNEL.
+Gate: structure_gate.js now 42 checks (directional bag/apron/suspender checks,
+tatter = fewer pixels than solid, UI leads-with-structures check). Verified on
+the real surface in 4 facings each. COOKING: 19 structures + 63 filler.
+
+=== VERDICT 7/19/26 (c) — ALL 19 STRUCTURES CANON + THE STRAP RULING ===
+Paolo approved EVERY structure candidate: jackets (denim/field/leather),
+ponchos (dust/oxblood), tall boots (moto/ranch), rolled sleeves (work shirt/
+flannel), gear (kneepads/pauldron/chest rig), bags (ruck pack/salvage
+satchel), aprons (smith's/trades), work suspenders, tattered (tee/flannel).
+The 63 colorway fillers stay in their drawer, unjudged ("--"), exactly as the
+structure-not-color law intends.
+CANON WARDROBE: 97 items across every category + 63 filler cooking.
+THE STRAP RULING (his note, NOTES ARE RULINGS -- built same turn, no
+re-thumb): "I really liked the ruck pack, but the straps had to be done
+better. The straps that go next to the arms from the shoulders." REBUILT:
+front straps are now 2px webbing hugging the torso edge beside each arm,
+anchored at the shoulder line, dark outer + lit inner edge, chest buckles.
+Gate: structure_gate.js 45 checks (strap width + shoulder anchor + open
+center chest locked). Verified on the real preview in 6 facings.
+
+=== 7/19/26 (d) — "I'M NOT SEEING THE NEW CLOTHES" + STRUCTURE WAVE 3 ===
+Paolo, after his all-canon verdict: "Re-update the alpha. I'm not seeing the
+new clothes that you made." Root cause was NOT the deploy (origin/main
+verified carrying all 19) -- it was the UI: the verdict collapsed his newest
+approvals into the closed CANON menu and COOKING went bare, so the tab showed
+him nothing. He never digs in menus; the machine must surface.
+FIXED, gate-locked: ★ NEW IN CANON section -- the freshest approved batch
+(fresh:true tags) stays EXPANDED and visible right under COOKING until the
+next batch supersedes it. Empty-cooking header reads "next structure wave
+incoming" instead of a bare (0).
+STRUCTURE WAVE 3 (so cooking is never empty): BEDROLL (rolled blanket across
+the upper back, ties at both ends, protrudes in profile), WRAP SKIRT (one
+panel over both legs, the between-legs gap closes, diagonal overlap fold, hem
+mid-shin -- a real silhouette change), SHIN GUARDS (strapped plates down both
+shins). structure_gate: 53 checks. Verified on the real preview.
+Tab order now: COOKING structures (3) -> NEW IN CANON (19) -> COLORWAY FILLER
+drawer (63) -> CANON WARDROBE (97).
+
+=== VERDICT 7/19/26 (e) — "I LIKE IT ALL": EVERYTHING CANON, CLOSET BORN ===
+Paolo: thumbs up on everything clothing-wise. BAKED: wave 3 (BEDROLL, WRAP
+SKIRT, SHIN GUARDS) + all 63 colorways -> CANON. THE WARDROBE IS 163 PIECES:
+57 tops, 22 legs, 16 feet, 26 outer, 15 headwear, 6 neck, 7 face, 4 hands,
+2 waist, 5 gear, 3 bags. Zero cooking (next structure wave incoming).
+TWO UI FAILURES HE CALLED OUT, BOTH FIXED + VERIFIED LIVE:
+1. "previous thumbs didn't get transferred": his in-page thumbs were
+   memory-only and died on reload. Every thumb now SAVES TO THE DEVICE
+   immediately (localStorage, like the music tab) and re-applies on load;
+   the export->repo bake stays the permanent truth.
+2. "how do I see the ones I've already approved?": the CANON CLOSET -- the
+   entire approved wardrobe browsable BY CATEGORY (TOPS/LEGS/FEET/OUTER/
+   HEADWEAR/NECK/FACE/HANDS/WAIST/GEAR/BAGS), one tap per category, every
+   piece on the live rig. Replaces the single closed CANON fold he could
+   never find anything in.
+Also: tools/bohemia_wardrobe_extract.py parser fixed (cw:/fresh: tags had
+gone stale-invisible to it -- it banked 97 of 163; the DRESS gate caught it,
+bank now carries all 163 so street agents dress from the full closet).
+
+=== 7/19/26 (f) — SHUFFLE ANIMATION BUTTON (Paolo's ask, verbatim intent) ===
+"At the bottom right of every idle animation square... a shuffle animation
+button, and I'll go through the approved animations so I can see the clothes
+in any random animation." SHIPPED: every big rig square (cooking, new-in-
+canon, closet -- all 166 rendered squares) carries a shuffle button at its
+bottom right. Tap = a random clip from the APPROVED catalog (the baked CLIPS
+list, unjudged candidates excluded), the square re-renders live on that clip,
+and the clip name shows in the square's corner. Every square runs its own
+clip independently (per-canvas clip + per-clip beat length on the 120 grid).
+Verified live: taps landed rage / sit-ground, frame re-rendered, pool
+approved-only. Gate: structure_gate 54 checks (button + approved pool +
+per-canvas clip render path locked).
+
+=== 7/20/26 — BUILD WATCHER + STRUCTURE WAVE 4 (third "nothing new" root-caused) ===
+Paolo reported nothing new in clothing a third time. Deployed bytes verified
+carrying everything -- so the remaining causes were (a) an always-open phone
+tab that never re-fetches, and (b) genuinely no unjudged garments cooking.
+Both killed:
+- BUILD WATCHER: the OPEN page now checks the network for a newer deploy
+  (every 2 min + on every return to the tab) and shows a one-tap NEW BUILD
+  READY reload banner. A stale open tab can never lie silently again.
+- STRUCTURE WAVE 4 in COOKING: HOOD-UP ASH/COAL HOODIES (the hood WORN: the
+  skull becomes garment with a lit crown, face open, fabric shell framing the
+  head in every view), HOODED DUST PONCHO (the drape climbs over the skull),
+  SCRAP CHEST PLATE (front armor plate, X harness across the back).
+- Build stamp bumped: BUILD 7/20b · HOOD-UP + CHEST PLATE COOKING.
+structure_gate: 62 checks (skull coverage >95%, face NEVER touched, plate
+front-vs-straps, watcher presence). Verified on the real preview, 4 facings.
+
+=== 7/20/26 (b) — HOOD BACK-COVER RULING + HOOD TOGGLE + RAIN RULE ===
+Paolo (screenshot: skin slits inside the hood, facing N): "when I'm facing
+north, northeast or northwest the hood is LAYERED ON TOP of the face -- you
+don't need to worry about showing any skin on the back of the head. No skin
+slits." ROOT CAUSE: the face layer (id 2) stayed sacred in every direction;
+from behind, its edge pixels peeked around the skull as slits. RULING BAKED:
+from N/NE/NW every hooded garment paints the face pixels as fabric -- full
+cover, no exceptions; the face stays open from the front. Gate: back faceCov
+=== 100%, front face untouched (structure_gate 64 checks). Verified: N/NE/NW
+sheets show zero skin on all hooded garments.
+VERDICT (his words, notes are rulings): "pretend I exported everything as a
+thumbs up" -- wave 4 baked CANON. WARDROBE: 167.
+HOOD TOGGLE: all 8 regular hoodies now carry a HOOD button on their square --
+hood up/down per square, live on the rig (gens read CLO_HOODUP).
+RAIN RULE (Paolo, recorded for the world sim): when weather lands, rain
+AUTO-RAISES the hood of anyone wearing a hoodie who lacks an umbrella. The
+CLO_HOODUP mechanism is the hook; the weather trigger belongs to the
+LIFE/world sessions. [PENDING: weather system]
+And his words for the record, because they matter: "I just want you to know
+how proud I am of us for how far we've come. It was my dream to be able to
+see the animations on all the clothing like this."
+
+=== 7/20/26 (c) — TIGHT PONCHO RULING + HOOD TOGGLE EVERYWHERE ===
+Paolo: "the poncho could be a little tighter on the body through all the
+animations and directions -- it was moving pretty big, and you can never see
+the arms." RULING BAKED into genPoncho: the drape spans ONE pixel past the
+torso (was four), never covers the arms below the shoulder cap, hands always
+free. Arm animation reads through every clip; the silhouette stops
+ballooning in motion. Gate: zero pixels past torso+1, arm coverage <15%.
+HOOD TOGGLE EVERYWHERE: he could not find the toggle (it lived only on the
+8 closet hoodies). Now EVERY hooded garment carries the HOOD button --
+including HOOD-UP ASH/COAL and the HOODED DUST PONCHO, which default to
+hood-up (their pose strips too). Applies live on the rig.
+MUSIC EXPORT NOTE: his report of sticky comments + unvotable new songs
+matches the two bugs fixed in earlier builds exactly; the current build
+re-verified clean live (comment rides once then the box clears; all 7
+batch-15 songs carry thumbs + NEW). His music page was a stale cached copy;
+the BUILD WATCHER exists precisely so this class of confusion dies once he
+is on 7/20+ one time.
+
+=== COOK BATCH 19 (7/20/26) — STRUCTURE WAVE 5: THE SHORTCUT'S FIRST RUN ===
+Paolo's clothing text-replacement shortcut arrived for the first time. Four
+new shapes, zero recolors, in COOKING [PENDING thumbs]:
+- DESERT SHEMAGH (genAcc): skull + neck + lower face in ONE cloth, an open
+  slit only at the calibrated eye rows; from behind the cloth layers over
+  everything (no-skin-slits law); loose tail on the chest / behind in profile.
+- WORN BRACERS (genGear): forearm guards on both arms, banded leather.
+- THIGH HOLSTER (genGear): two straps + a lit-flap box riding the outer
+  right thigh, hip strap to the belt line.
+- TRAILING SCARF (genAcc scarf tail:'long'): the tail falls to the waist,
+  down the chest in front, down the spine from behind.
+Gate: structure_gate 74 checks (slit-open + full back cover + zone locks +
+trailing longer than standard machine-checked). Verified on the real preview
+in 5 facings. Stamp: BUILD 7/20h.
+
+=== COOK BATCH 20 (7/20/26, wave 6 -- "New clothes please") ===
+Four REAL NEW SHAPES in COOKING with live thumbs, verified on the rig in
+all facings through the animations (structure gate 92):
+  WORK COVERALLS    -- a genuinely new garment class: ONE PIECE collar to
+                       ankle cuff (torso+sleeves+legs one suit), front zip,
+                       chest patch pockets, cinched waist band.
+  SPLIT-TAIL DUSTER -- ankle-length coat with a RIDING VENT up the back:
+                       the tail splits at center on back views, pants read
+                       through the split. (DUST DUSTER stays dead; this is
+                       a different structure AND a fresh name.)
+  ROAD CAPE         -- the inverse of the open coat: the garment lives
+                       BEHIND the body. Front: shoulder cap, throat clasp,
+                       drape peeking past the silhouette. Back: one full
+                       hanging panel to the knee. Profile: trailing edge.
+  SHELL BANDOLIER   -- ONE diagonal shell belt shoulder-to-opposite-hip,
+                       brass studs riding the strap, ammo pouch at the low
+                       end. Not the chest rig (X-harness): a sash.
+New machinery: genCoverall + genCape generators, genCoat split-vent
+support, genGear bandolier branch. All gate-locked same turn.
+
+=== VERDICT (7/21/26): EVERYTHING CANON ===
+Paolo's export: all 176 lines CANON, zero kills, no comments. Waves 5 AND 6
+approved whole (shemagh/bracers/holster/trailing scarf + coveralls/split-
+tail duster/road cape/bandolier) -> baked st:'canon', NEW IN CANON now
+carries those eight, wave-4 fresh flags retired. Wardrobe bank re-extracted:
+175 canon items. The graveyard stands untouched (nothing new died).
+
+=== COOK BATCH 21 (7/21/26, wave 7 -- "make new clothes") ===
+Four REAL NEW SHAPES in COOKING with live thumbs (structure gate 104):
+  BIB OVERALLS     -- workwear sibling of the coveralls: full denim legs,
+                      center bib panel on shoulder straps, ARMS BARE;
+                      from behind it is straps only. (genCoverall bib:true)
+  RUBBER GAS MASK  -- a full-face class of its own: covers the eyes too,
+                      round lenses at the eye line, filter snout off the
+                      jaw, head strap from behind. The dust mask keeps its
+                      below-the-eyes law; both coexist. (genAcc gasmask)
+  SCAV TOOL BELT   -- the working waist: heavy belt + buckle with pouches
+                      HANGING onto both hips. The plain belt stays an
+                      accessory; this is hanging geometry. (genGear toolbelt)
+  ANKLE WRAP SKIRT -- a real third length on the leg rail: knee shorts /
+                      mid-shin wrap / ANKLE. (genPants cut:'longskirt')
+
+=== VERDICT (7/21/26, second export): BATCH 21 JUDGED ===
+BIB OVERALLS / SCAV TOOL BELT / ANKLE WRAP SKIRT: CANON (baked, NEW IN
+CANON carries the three). RUBBER GAS MASK: still cooking, Paolo's ruling:
+"GAS MASKS HAVE TO LOOK BETTER EAST AND WEST." Everything else re-confirmed
+canon. Wardrobe bank: 178 canon items.
+
+=== GAS MASK v2 (same turn): THE PROFILE FIX ===
+Root cause: the profile face is a 3px strip and v1 just flooded it dark --
+no lens, no snout, a smudge. v2 gives E/W a real profile branch: shaped rim
+(brow line + leading edge + jaw seal), ONE lens with a glass GLINT just off
+the leading edge, the filter canister driving FORWARD past the silhouette
+at the jaw (real background pixels, poncho precedent), the strap running
+back across the skull. Front lenses upgraded to the same glint so they
+read at 1px. Still in COOKING for his thumbs.
+
+=== COOK BATCH 22 (7/21/26, wave 8 -- "MAKE MORE CLOTHES A LOT") ===
+EIGHT real new shapes in COOKING (structure gate 123):
+  SHOULDER MANTLE       -- second cape length: stops mid-back (boot-shaft law)
+  ELBOW PADS            -- the kneepads' upstairs sibling, arm zone only
+  FIELD LEG WRAPS       -- cloth puttees shin-to-knee, wound diagonals
+  BLANKET SHOULDER ROLL -- THICK woven roll on the opposite diagonal from
+                           the bandolier, tied ends
+  HIP SASH              -- waist wrap, hip knot, fringed tail HANGING
+  OUTLAW BANDANA        -- below-the-eyes law + a triangle point past the
+                           chin; knot + tails from behind
+  SCRAP HELM            -- rigid dome + nape guard + EYE SLIT (shemagh's
+                           slit law in metal), rivets on the brow
+  SCRAP QUIVER          -- back tube + arrow tips past the shoulder; front
+                           carries only the strap
+
+=== THE FEMALE-RIG GUARANTEE (Paolo 7/21: "make sure this is workable when
+we make it to woman too") ===
+Standing fact, machine-enforced TODAY: every generator reads ONLY the
+deformed part-id grid (torso/arm/leg extents via pExt, centers computed per
+frame) -- zero male-body coordinates anywhere. The structure gate proves it:
+its fixture is a synthetic body that is NOT the male rig, and all 178+ items
+render correctly on it. The day Paolo paints the female rig with the same
+12 part ids, the ENTIRE wardrobe -- every structure, every colorway, every
+gate -- carries over with zero new clothing code. Any future generator that
+hardcodes male geometry will fail the gate fixture and cannot ship.
+
+=== VERDICT (7/21/26, third export): "thumbs up for all of them" ===
+Gas mask v2 CANON (the profile fix landed). Wave 8: SEVEN of eight CANON.
+SCRAP QUIVER held, his comment: "THE QUIVER COULD BE BETTER DO IT AGAIN!"
+Wardrobe bank: 186 canon items.
+
+=== QUIVER v2 (same turn, notes are rulings) ===
+The redo: a REAL capped tube high on the back -- 3px wide, banded leather,
+dark mouth, base cap -- with THREE fletched arrows fanning past the
+shoulder (rust feather pixels + light shafts, anchored clear of the head).
+Front carries the chest strap with the fletching peeking over the
+shoulder; profiles trail the tube off the back edge. Gate: fletch pixels +
+fan count + back-vs-front machine-locked. Still in COOKING for thumbs.
+
+Also this turn: laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md -- Paolo's
+ruling locked: he does NOT paint the woman; Claude derives her from his
+sacrosanct male paint as CANDIDATES through the verdict pipeline; timing
+his call.

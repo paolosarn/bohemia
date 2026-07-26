@@ -1,0 +1,292 @@
+BOHEMIA MARATHON COOK — WAVE 3: THE WOMAN RIG (v1 CANDIDATE)
+==============================================================================
+Part of the marathon cook (Paolo 7/25, "The WOMAN RIG: ruled and locked
+(laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md), the pose functions are
+skeleton-relative, build the full carryover... Painted regions SACROSANCT,
+never reshape").
+
+THE RULING, re-read in full before touching anything: Paolo does not paint
+the female rig -- Claude produces her as a CANDIDATE through the standard
+verdict pipeline (thumbs, not auto-canon). The male paint stays sacrosanct:
+the female body is DERIVED via a documented, regeneratable TRANSFORM, never
+hand-repainted. Timing was his call ("we don't even have to do it now") --
+the marathon's own menu is what activates it this turn.
+
+THE HARD TECHNICAL QUESTION, answered by direct code read before writing
+anything: seg() (the bone transform every pose/animation runs through) is
+explicitly ANISOTROPIC -- "WIDTH LAW (Paolo 7/2/26): the perpendicular axis
+NEVER scales (width never changes)." This means feeding a different
+skeleton through the EXISTING skinner can restretch bone LENGTHS but can
+NEVER change torso WIDTH -- the addendum's own build plan (narrower
+shoulders, waist taper, wider hips) is architecturally impossible through
+skeleton changes alone. It requires reshaping the PAINTED REST-SPACE PIXELS
+themselves before they ever reach the skinner. Also confirmed by direct
+code read: the body's actual RGB color is never stored per-pixel at all --
+BAKED.layers[dir][partId] is just an array of PIXEL INDICES (which part
+each rest-space pixel belongs to); color comes procedurally from
+skinRampFor()+bshade at render time, keyed off part id + skinTone. This
+made the transform tractable: no texture to preserve, only the WHICH-PART-
+OWNS-THIS-PIXEL index sets need reshaping.
+
+THE TRANSFORM (documented, regeneratable, per the addendum's own spec):
+for each of the 8 directions, every torso (part 4) pixel at (x,y) is
+remapped to x' = round(cx + (x-cx)*scale(t)), where cx = that direction's
+own waC (waist-center) skeleton joint x, and t = the pixel's normalized
+position from the torso's top row (shoulder, t=0) to its bottom row (hip,
+t=1). scale(t) is a 4-point piecewise-linear profile taken straight from
+the addendum's build plan: shoulder 0.82 (narrower), chest 0.92 (adjusted),
+waist 0.72 (a real taper -- the tightest point), hip 1.18 (wider). The
+shoulder/arm chain (parts 5+7 for the left arm, 6+8 for the right, plus
+the shL/elL/handL and shR/elR/handR skeleton joints in both BAKED-shape
+skeleton AND pose) is rigidly translated by the same shoulder-row delta so
+the arms reattach at the new torso edge with no seam -- deltas came out
+tiny (0 to +-1px per direction, since the profile at t=0 is a modest 0.82).
+Nothing else moves: same 56px frame, same skeleton joint SET, same part
+ids, same pose-delta clip functions (they're skeleton-relative, confirmed
+by an earlier direct read of applyPose() -- rotations/translations/
+compression fractions, nothing hardcoded to an absolute pixel).
+
+WIRING: BODY_RIGS gained FEMALE:1. rebuildFromRig() (the ONE PACKAGE LAW
+function -- single source of truth for RIG/exp/SKINNERS/REST_GRID) now
+reads bakedFor(G.bodyRig) instead of a hardcoded BAKED, so it can source
+from either the male paint (BAKED, still the only thing the rig tool ever
+edits) or the derived FEMALE_BAKED. The CHARACTER tab's BODY row picker
+calls rebuildFromRig() on click so switching bodies actually re-skins
+everything live, not just a label change.
+
+VERIFIED LIVE, not just gate numbers: headless Playwright screenshots of
+the real CHARACTER tab canvas, bare-chested (no shirt, so the raw
+silhouette is honest), MALE vs FEMALE side by side -- a real, visible
+hourglass difference: narrower shoulders, a genuine waist curve inward,
+flared hips, no gap or seam at the shoulder/arm join. All 8 directions
+screenshotted with a canon jacket equipped -- every facing renders clean,
+no missing limbs, no holes, arms attach correctly everywhere.
+
+GATE (FACTORY LAW, new machinery ships its own gate): gates/
+woman_rig_gate.js, 14 checks, wired into gates/bohemia_gates.py --
+FEMALE_BAKED present, BODY_RIGS.FEMALE wired end to end (picker ->
+rebuildFromRig -> bakedFor), all 8 directions carry the complete 12-part
+set with nothing emptied, same skeleton joint set as the male, every
+direction's shoulders no wider / hips no narrower than the male (the
+addendum silhouette, machine-locked so a future edit can't flatten her
+back into a recolor), at least one direction shows a real waist taper, the
+shoulder joints sit at the reshaped torso edge (no floating seam), and a
+representative sweep of canon garment generators (top/pants/coat/shoes/
+poncho/gear/bag/apron/coverall/cape/hat/acc, including this session's own
+new shapes) render on the FEMALE part-id grid without error -- the
+FEMALE-RIG GUARANTEE the addendum promised (wardrobe carries for free)
+holds.
+
+SCOPE, HONEST: this is v1 exactly as the addendum's own build plan phases
+it -- "derived silhouette... same skeleton joints... generated per
+direction... then hand-tuned only via Paolo's notes." Shipped as a
+CANDIDATE (BODY_RIGS.FEMALE, picker labeled "candidate v1, awaiting
+thumbs"), NOT claimed canon -- only Paolo can canonize her, per the
+addendum's own verdict-pipeline language. Not yet done, left for whenever
+he points at it next: hair defaults for the female silhouette, a dedicated
+judge surface (the addendum calls for "a BODY section in the wardrobe/anim
+flow... full 8 facings, through the approved animations, wearing canon
+clothes"), and any hand-tuning from his notes once he actually looks at
+her. Interior/exterior contract law does not apply here (that is a
+DISTRICT law, buildings only) -- noted so it is not mistaken for a missed
+gate.
+
+Gates: gates/woman_rig_gate.js 14/14 (new, wired into bohemia_gates.py).
+Full suite green except the pre-existing CITY TAB failure (unrelated
+system, already broken on main before this session touched anything).
+Stamp: BUILD 7/25p.
+
+
+==============================================================================
+v2 REBUILD (7/25/26, same day) — PAOLO KILLED v1 ON SIGHT
+==============================================================================
+Paolo, looking at the live build: "What if i told u its dogshit and doesnt
+look like a female body at all." He was right. Rebuilt from scratch, and
+THREE REAL DEFECTS came out of it -- this was not just a taste miss:
+
+1. THE SHELF. v1 reshaped ONLY the torso (part 4). But in this rig the HIPS
+   ARE THE LEG TOPS (parts 9/10 rows 32-38), which v1 left 100% male. So the
+   "wider hips" only widened the torso's bottom two rows and then snapped back
+   to an unchanged male lower body -- a shelf, not a hip.
+2. THE OCCLUSION. v1 put its hip flare at rows 31-34. The arms hang at rows
+   17-34 and the hands sit at 34. Head-on, the outer silhouette in that whole
+   band IS THE ARMS -- so the single female cue v1 had was completely hidden
+   behind them in every arms-down pose. Nothing you do to torso width between
+   rows 17 and 34 is visible from S or N. The flare has to live BELOW the
+   hands (row 35+) to be seen at all.
+3. THE COVERAGE BUG (caught by the gate, not by eye). The parts genuinely
+   OVERLAP in the source data -- on the hip row the torso and both legs claim
+   the same pixels and draw order resolves it at render time. The first rebuild
+   collapsed each row into one {x: part} map, so the legs clobbered the torso
+   and THE TORSO SILENTLY LOST ITS ENTIRE BOTTOM ROW on S/E/N/W. Garments key
+   off part 4, so that was a real garment-coverage bug, not a cosmetic one.
+   Fixed by tracking membership per part and sharing only the row EXTENTS.
+
+WHAT v2 DOES DIFFERENTLY:
+ - reshapes torso AND both legs as one continuous silhouette, rows 16->48
+ - puts the hip/thigh flare at rows 35-42, BELOW the hands, where it is seen
+ - hard waist pinch (0.66) -- the cue that reads best head-on, because it
+   opens a visible gap between the torso and the hanging arms
+ - DIRECTION-AWARE: on profiles and diagonals the depth axis is on screen, so
+   it adds a real front-edge BUST bulge and a back-edge GLUTE bulge. v1 had
+   neither, and these are the strongest cues available on those 6 facings.
+   Front side is detected from the face centroid vs the torso centroid, so it
+   is correct per direction without hardcoding.
+ - does NOT thin the arms and barely narrows the shoulders. An earlier pass
+   did both and the result read as a SMALLER PERSON (a child), not a woman --
+   shrinking everything uniformly is not feminising, it is just scaling.
+
+NOW A REAL TOOL: the derivation lives at tools/bohemia_female_rig_transform.py
+(`--inject` writes FEMALE_BAKED straight into the alpha), with every control
+point named and tunable at the top of the file. That satisfies the addendum's
+own requirement -- "a TRANSFORM with a spec, so it can be regenerated, tuned
+by his notes, and gated" -- which the v1 scratch script did not. The gate now
+asserts the tool is checked in, so the shipped data can never drift from a
+spec nobody can re-run.
+
+HONEST CEILING (flagged for Paolo, not worked around): after four visual
+passes on the REAL render surface, v2 is clearly better than v1 and the bugs
+are genuinely fixed, but width-tuning a 56px male body whose torso is a
+featureless box and whose sides are occluded by hanging arms has a low
+ceiling. It reads as a slim figure with a waist and hips; it does not read as
+UNMISTAKABLY a woman. The constraint doing the capping is the addendum's own
+"derive her from the male paint by transform" clause. Lifting that -- letting
+her be authored as her own painted 8-direction body, which is still Claude
+producing her, not Paolo painting her -- is a CANON-LEVEL change and is
+[PENDING, Paolo's call]. Do not lift it unilaterally.
+
+Gate: gates/woman_rig_gate.js 15/15. Full suite green except the pre-existing
+CITY TAB failure. Stamp: BUILD 7/25r.
+
+
+==============================================================================
+v3 (7/25/26, same day) — "TONE IT DOWN"
+==============================================================================
+Paolo on v2: "It's definitely looking like a woman, but like a super thick
+fucking woman... just tone it down, it looks like the thickest fucking woman
+of all time. It looks like this bitch has a BBL."
+
+THE RULING, precisely: the curve LANGUAGE is right (she reads female now --
+that part landed), the AMPLITUDE is wrong, and the excess is specifically in
+the LOWER body. So v3 keeps every cue v2 introduced and only pulls the mass
+down, rather than re-deriving anything:
+  hip scale        1.20 -> 1.06
+  thigh splay peak 2.0  -> 1.0   (per side, px)
+  glute peak       1.9  -> 0.9
+  glute (leg rows) 1.9  -> 0.9
+  bust peak        2.3  -> 1.7   (trimmed with it so the figure stays in
+                                  proportion rather than becoming top-heavy)
+  waist pinch      0.66 -> 0.66  (UNCHANGED -- this is the cue actually doing
+                                  the female read head-on; touching it would
+                                  have undone the thing that works)
+Everything else -- the direction-aware front/back asymmetry, the flare living
+below the hands, per-part membership, un-thinned arms -- is untouched from v2.
+
+This is exactly what the tool exists for: the whole change is six named
+control points at the top of tools/bohemia_female_rig_transform.py, re-run
+with --inject. No re-derivation, no hand-editing pixels, and the next note
+from Paolo tunes it the same way. That is the addendum's "regenerated, tuned
+by his notes, and gated" clause working as intended.
+
+Gate: gates/woman_rig_gate.js 15/15. Full suite green except the pre-existing
+CITY TAB failure. Stamp: BUILD 7/25s.
+
+
+==============================================================================
+v4 (7/25/26) — PAOLO'S BUG LIST + THE RESEARCH HE ASKED FOR
+==============================================================================
+Paolo: "In some parts of the animations the leg looks like it's chopping off
+from the rest of the body... rework the shadow textures, clean it up... from
+some angles where it's naked there's like stray pixels flying off next to the
+butt on some of the cardinal directions... definitely want to fix where the
+nipples are... do some big brain online research to find out how the studios
+translate male bodies into female bodies... we're getting closer though."
+
+--- THE THREE BUGS, ROOT-CAUSED (all real, none cosmetic) ---
+
+1. "THE LEG LOOKS LIKE IT'S CHOPPING OFF." Not a pose bug -- a SHADING bug with
+   a geometry cause. The ANATOMY border rule outlines any body pixel with empty
+   space above it. v3's thighs splayed WIDER than the torso above them, so the
+   exposed leg tops took the dark border tone and a hard line got drawn straight
+   across the hip, reading as the leg detaching. Verified failing on exactly the
+   cardinal facings he named (S/E/N/W). FIX: PELVIS COVER -- the torso base must
+   span at least as wide as the thigh row beneath it, always. The pelvis flares
+   before the legs do, like real anatomy. Applied to the last TWO torso rows so
+   the pixels it adds can never themselves become strays, and applied AFTER the
+   cull so the cull can't eat it. Machine-locked in the gate, all 8 directions.
+
+2. "STRAY PIXELS FLYING OFF NEXT TO THE BUTT." Real: the resample stranded a
+   pixel whenever a stretched row's edge landed away from its neighbours. Found
+   them exactly where he said -- row 31 (hip) on NE/NW/SW, plus row 20 shoulder
+   strays. FIX: a cull of any pixel with <=1 same-part orthogonal neighbour, in
+   the SOLID parts only. Three sub-bugs surfaced while building it, each caught
+   by measurement rather than eye:
+     - the cull ate the 1px torso apex on the pure profiles -> ROW PRESERVATION
+       (a cull may never empty a row outright)
+     - the shoulder scale squeezed a male 2px row to 1px, which IS the stray
+       shape -> MINIMUM-WIDTH CLAMP (if the male row had >=2, keep >=2)
+     - the cull ate the NECK's outer column (a 4x2 strip whose corners
+       legitimately have one neighbour) -> cull scoped to solid parts only,
+       the same "never eat thin intentional art" rule the engine's own
+       refineSkin already observes
+   Result: ZERO strays in torso and both legs on all 8 facings -- cleaner than
+   the male baseline, which carries 1-3 on NE/NW.
+
+3. "FIX WHERE THE NIPPLES ARE." ROOT CAUSE: the render path read
+   BAKED.skeleton directly, so on the FEMALE body every skeleton-anchored
+   detail was still measuring against MALE landmarks. Placement was a hardcoded
+   shoulder+5 row and a fixed +-3 column. FIX: a rigSkel(d) accessor returning
+   the ACTIVE rig's skeleton, wired into all three sites that had hardcoded
+   BAKED (nipples, the shoulder blend, and the GARMENT CONTACT LAW -- that last
+   one was silently wrong for every garment on the female). Placement is now
+   MEASURED: the row is the widest chest row in the upper torso (bust line on
+   her, pec line on him -- correct for both), the columns are a fraction of that
+   row's actual half-width. Male output is unchanged in practice.
+
+--- THE RESEARCH (he asked for it; it changed the design) ---
+Full report in the session log. The two findings that mattered:
+
+ (a) NOBODY DERIVES A FEMALE BY TRANSFORMING A MALE. Studios either author a
+     separate female body on a shared skeleton (Skyrim, FFXIV, MetaHuman, Sims,
+     Stardew, LPC) or cross-fade two hand-sculpted morphs (Daz, MakeHuman --
+     verified in MakeHuman's own source: the targets are hand-authored vertex
+     deltas, not a procedural transform). Pure squash/stretch is explicitly
+     rejected: affine scale PRESERVES ratios, and dimorphism IS ratios. This is
+     direct evidence for the ceiling flagged in v2 and it is still [PENDING
+     Paolo] whether to lift the addendum's derive-by-transform clause.
+ (b) THE GENDER SIGNAL IS THE SHOULDER-TO-HIP RATIO, NOT HIP MASS.
+     Three independent source families converge: male 1.43-1.48, female
+     1.27-1.33. Shoulder 0.86x (0.857/0.884/0.893). Ribcage 0.86x.
+     Hips 1.00-1.05x -- real female hips are barely wider in absolute cm.
+     And verbatim: "prefer NARROWING THE SHOULDERS over widening the hips;
+     widening hips is what produces the thick failure mode." That is precisely
+     the BBL Paolo saw. v2/v3 bought the hourglass with hip mass; the sourced
+     answer buys it with ribcage taper.
+
+v4 RETUNE to the sourced numbers: shoulders 0.80 -> 0.86, ribcage 1.00 -> 0.88
+(v3 sat at full male width -- this was the real miss), waist 0.66 -> 0.72
+(between the 0.75 stylized and 0.90 realistic values), hip 1.06 -> 1.02, thigh
+splay halved again to 0.55 peak, bust trimmed (it is a LATE detail, never the
+signal -- "if the ratio still reads male, adding a bust reads as a man with
+breasts"). NEW: the NECK is now reshaped too, 0.86x, a high-confidence sourced
+cue v1-v3 never touched.
+
+HONEST LIMITS, not worked around:
+ - the neck's 0.86 lands on the same integer at 3-4px, so it does not visibly
+   change yet. The code is right; the resolution is the limit.
+ - HEIGHT is the strongest cue still unused: sourced at 0.92x body with a 0.96x
+   head, i.e. she should be 3-4px shorter while the head barely changes. Not
+   done because it moves foot placement and the ground/occupancy contract, and
+   that is not a change to make blind late in a session. This is the single
+   highest-value next move on her.
+ - shading conventions for a bust at small scale: the research could NOT find
+   rigorous sources. Only "highlight the cloth, not the skin". So the shading
+   work here was limited to the defects with identifiable causes (the hip
+   border line, the strays) rather than inventing a convention.
+ - research also warns bone PIVOTS must move when hips widen or the rig gets
+   candy-wrapper twist. Our hip change is now small (1.02x) so this is not yet
+   biting, but it is the thing to watch if the hips ever grow again.
+
+Gate: gates/woman_rig_gate.js 19/19 (4 new checks locking the pelvis cover,
+zero-strays, rig-aware landmarks, and measured nipple placement). Full suite
+green except the pre-existing CITY TAB failure. Stamp: BUILD 7/25t.

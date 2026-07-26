@@ -1,0 +1,1860 @@
+<h1 style="font:600 15px/1.3 -apple-system,sans-serif;color:#c9b98a;margin:8px 10px">BOHEMIA — ENTER SLICE: the world model, walkable. Walk to a building, step through the door, you are inside the exact rooms world().plot().building().floorplan() generated. Walk out and you are back on the plot.</h1>
+<div id="hud" style="font:13px -apple-system,sans-serif;color:#a99;padding:2px 10px 6px"></div>
+<div style="padding:0 10px"><canvas id="cv" style="width:100%;height:62vh;background:#14140f;border-radius:8px;display:block"></canvas></div>
+<div style="display:flex;justify-content:center;gap:8px;margin-top:10px;user-select:none">
+  <button id="bl" style="width:64px;height:56px;font-size:22px">◀</button>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <button id="bu" style="width:64px;height:56px;font-size:22px">▲</button>
+    <button id="bd" style="width:64px;height:56px;font-size:22px">▼</button>
+  </div>
+  <button id="br" style="width:64px;height:56px;font-size:22px">▶</button>
+</div>
+<script>
+/* ==== engine/bohemia_overmap.js ==== */
+/* =====================================================================
+   BOHEMIA OVERMAP  (bohemia_overmap.js)  7/5/26 pass 4
+   Locked adds this pass (Paolo 7/5/26):
+   - STRIP BUFFER: 2 cells each side of the strip street = resort zone
+   - FASHION SHOW MALL: big footprint on the strip, north of center
+   - I-15: true border-to-border, carves through the rim
+   - MOUNTAIN PASSES: 2-4 TOTAL across BOTH ranges combined
+   - LAKE LAS VEGAS water system: lake carved in the rim, Boulder City
+     beside it, Hoover Dam + Lake Mead adjacent (clustered)
+   - DENSE SUB-BLOCK STREETS: max building blob ~4x2
+   - COMMERCIAL MUST TOUCH A STREET (post-pass, else flips to suburb)
+   - MONORAIL: elevated polyline weaving beside the strip
+   ===================================================================== */
+(function(global){
+'use strict';
+// SLOT SCALE LAW (LOCKED 7/5/26, supersedes the 240 two-grid model):
+// 1 slot = 32x32 fine cells = 2x2 chunks (CHUNK=16) = 24m x 24m at 0.75m/cell
+// = ~6,200 sq ft explorable per slot. CDDA precedent: 24x24 per overmap tile,
+// big buildings assembled from multiple slots.
+const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
+const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
+RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
+SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory'};
+const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function hash2(seed,x,y){let h=(seed^Math.imul(x,73856093)^Math.imul(y,19349663))>>>0;h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return(h^h>>>16)>>>0;}
+function segDist(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay;const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy)));return Math.hypot(px-(ax+t*dx),py-(ay+t*dy));}
+function inRect(x,y,R){return x>=R.x&&x<R.x+R.w&&y>=R.y&&y<R.y+R.h;}
+
+function layoutFromSeed(seed){
+  const r=rng((seed^0xA5C3D7)>>>0);
+  const N=OVER_N, cx=N/2, cy=N/2;
+  const axisFlip=r()<0.5;
+  const stripMirror=r()<0.5;              // [PENDING Paolo confirm]
+  const stripX=Math.round(cx+(stripMirror?-4:4));
+  const fwySide=stripMirror?1:-1;
+  const fwyX=stripX+fwySide*7;            // pushed out past the 2-cell resort buffer
+  // I-15 = the CENTRAL SPINE (Paolo 7/5/26): originates at the SOUTH border,
+  // runs PARALLEL with Las Vegas Blvd the whole map, takes its direction at the
+  // NORTH end (past the strip), exits the opposite border. Town sides flip
+  // around this spine per seed (the mirror, LOCKED).
+  // all freeway geometry snaps MID-BLOCK so mile arterials are never adjacent-parallel
+  const bendNorthY=20;   // 9*2+2: mid-block, north, clears the ring top band by 5 rows
+  const exitDir=fwySide;
+  const i15Exit=[exitDir>0?N-1:0, bendNorthY]; // 90-degree L: side border exit at the bend latitude
+  // THE SPAGHETTI BOWL: the interchange knot AT the L's corner, just north of
+  // downtown (its real position). The centerpiece where the freeways exchange.
+  const bowl={x:fwyX-1, y:bendNorthY-1, w:4, h:4};
+  const beltInset=13+Math.round(r()*3);
+  const beltVarW=Math.round(r()*3)-1, beltVarH=Math.round(r()*3)-1;
+  const hw=(N/2)-beltInset+beltVarW, hh=(N/2)-beltInset+beltVarH;
+  const i1side=r()<0.5?-1:1;
+  const ind1={x:Math.round(cx+i1side*(N*0.28+r()*6)), y:Math.round(N*(0.28+r()*0.18))};
+  const ind2={x:Math.round(cx-i1side*(N*0.26+r()*6)), y:Math.round(N*(0.58+r()*0.16))};
+  // EXIT HIGHWAYS: straight VERTICAL 2-wide stubs (90-degree law, no diagonals)
+  const snapMid=(v)=>Math.round((v-4)/9)*9+4;       // mid-block lane (%9 === 4)
+  const beltRect={lft:snapMid(cx-hw), rgt:snapMid(cx+hw), top:snapMid(cy-hh), bot:snapMid(cy+hh)};
+  const ringTop=beltRect.top, ringBot=beltRect.bot;
+  const exits=[
+    {x:snapMid(N*(0.80+r()*0.08)), y0:0,         y1:ringTop+2},  // NE out the top
+    {x:snapMid(N*(0.10+r()*0.08)), y0:ringBot-2, y1:N-1},        // SW out the bottom
+    {x:snapMid(cx+4+r()*4),        y0:ringBot-2, y1:N-1},        // S toward the dam side
+  ];
+  // FREEWAY WIDTH LAW: nothing wider than 2. If an exit lands within 2 columns
+  // of the spine or a ring vertical, it COINCIDES exactly (no 3-wide seams).
+  for(const e of exits){
+    if(Math.abs(e.x-fwyX)<=2)e.x=fwyX;
+    else if(Math.abs(e.x-(beltRect.lft))<=2)e.x=beltRect.lft;
+    else if(Math.abs(e.x-(beltRect.rgt-1))<=2)e.x=beltRect.rgt-1;
+  }
+  const stripEndY=Math.floor(N*0.66);
+  // HRI: a little EAST of the strip line (still touching alignment), 3-4 cell buffer below strip end
+  // HRI east of Las Vegas Blvd, its west edge TOUCHING the 2-wide street
+  const hri={x:stripX+1, y:stripEndY+4, w:8, h:4};
+  const apSE={x:Math.round(N*(0.68+r()*0.06)), y:Math.round(N*(0.74+r()*0.04)), w:4, h:2};
+  const wside=r()<0.5?1:-1;
+  // NELLIS CORNER LAW (Paolo 7/5/26): the air base + speedway sit on the SAME
+  // side of town as the dam cluster, at the OPPOSITE border end (real: dam SE,
+  // Nellis NE). Corner is fixed by wside; the small north airport mirrors away.
+  const nellisCnr = !axisFlip ? (wside>0?0:1) : (wside>0?3:1);
+  const nellisWest = (nellisCnr===1||nellisCnr===3);
+  const apNW={x:Math.round(N*((nellisWest?0.72:0.16)+r()*0.06)), y:15+((r()*3)|0), w:4, h:2}; // clamped between ring band and the leg
+  // AIRBASE: seeded corner, NEVER the same quadrant as any airport, and NEVER
+  // breaking a freeway (Paolo 7/5/26): rect must clear the spine, the horizontal
+  // leg, every exit stub, and sit fully inside the beltway rectangle.
+  const q=(px,py)=>(px>=N/2?1:0)+(py>=N/2?2:0);
+  const airQ=[q(hri.x+4,hri.y+2), q(apSE.x+2,apSE.y+1), q(apNW.x+2,apNW.y+1)];
+  const _lft=Math.round(cx-hw), _rgt=Math.round(cx+hw), _top=Math.round(cy-hh), _bot=Math.round(cy+hh);
+  // NELLIS HUGS THE MOUNTAINS (Paolo 7/5/26): the base + speedway sit OUTSIDE
+  // the beltway, pressed against the rim (real: Nellis backs Sunrise Mountain,
+  // LVMS out by the range). The base claims first, so the rim wraps around it.
+  const c=nellisCnr;
+  const abx=(c===0||c===2)? Math.min(N-9, beltRect.rgt+2) : 3;
+  const aby=(c===0||c===1)? (axisFlip?3:5+((r()*2)|0)) : Math.max(beltRect.bot+2, N-9);
+  const airbase={x:abx, y:aby, w:9, h:6, corner:c};
+  // exits dodge the base (shift a full block toward center, snap preserved)
+  for(const e of exits){
+    let guard=0;
+    while(e.x+1>=airbase.x-1&&e.x<=airbase.x+airbase.w&&guard++<3){ e.x+= (e.x>N/2? -9 : 9); }
+  }
+  // UNLV central, on the OPPOSITE side of the strip from the I-15 spine
+  // (real Vegas: I-15 west, UNLV east; flips with the town mirror)
+  const uoff=5+Math.round(r()*3);
+  const unlv={x: fwySide<0? stripX+uoff : stripX-uoff-4, y:Math.round(N*(0.46+r()*0.08)), w:4, h:3}; // big campus: housing, halls, Thomas & Mack
+  // CSN anywhere, but retry so it lands clear of the airbase, water cluster, and rim
+  let csn={x:0,y:0,w:2,h:2};
+  for(let tries=0;tries<10;tries++){
+    const cxr=12+Math.round(r()*(N-30)), cyr=12+Math.round(r()*(N-30));
+    const clearAB=!(cxr+2>airbase.x&&cxr<airbase.x+airbase.w&&cyr+2>airbase.y&&cyr<airbase.y+airbase.h);
+    const clearEdge=cxr>10&&cxr<N-14&&cyr>10&&cyr<N-14;
+    if(clearAB&&clearEdge){ csn={x:cxr,y:cyr,w:2,h:2}; break; }
+  }
+  // MOUNTAIN PASSES: 2-4 TOTAL across both ranges (Paolo)
+  const totalPasses=2+((r()*3)|0);
+  const passesA=[], passesB=[];
+  for(let i=0;i<totalPasses;i++){ const p=Math.round(N*(0.15+r()*0.7)); (r()<0.5?passesA:passesB).push(p); }
+  const footA=[Math.round(N*(0.2+r()*0.55))], footB=[Math.round(N*(0.2+r()*0.55))];
+  if(r()<0.6)footA.push(Math.round(N*(0.2+r()*0.55)));
+  if(r()<0.6)footB.push(Math.round(N*(0.2+r()*0.55)));
+  // PASS PARALLEL LAW: a pass never runs alongside another freeway (that
+  // union reads 3 wide). Shift any offender clear.
+  for(const arr of [passesA,passesB]){
+    for(let i2=0;i2<arr.length;i2++){
+      let p=arr[i2], guard=0;
+      const bad=()=> axisFlip
+        ? ((p>=fwyX-2&&p<=fwyX+3)||exits.some(e=>p>=e.x-2&&p<=e.x+3))
+        : (p>=bendNorthY-2&&p<=bendNorthY+3);
+      while(bad()&&guard++<6)p+=4;
+      arr[i2]=p;
+    }
+  }
+
+  const railX=fwyX+fwySide*3;
+  const railyard={x:railX+(fwySide>0?1:-3), y:Math.max(8,Math.min(N-12,ind1.y-1)), w:3, h:2};
+  // LAKE LAS VEGAS WATER SYSTEM: on the SOLAR-OPPOSITE border, AT a seeded corner
+  // where that border meets the mountain rim (lake -> boulder city -> dam -> mead
+  // filling the corner against the mountains). Paolo 7/5/26.
+  // (wside hoisted above the airports for the Nellis corner law)
+  let lakeLV, boulder, damR, mead;
+  if(!axisFlip){ // solar N -> cluster on SOUTH border, corner E or W
+    if(wside>0){ lakeLV={x:N-20,y:N-9,w:4,h:4}; boulder={x:N-15,y:N-8,w:3,h:3}; damR={x:N-11,y:N-7,w:2,h:2}; mead={x:N-8,y:N-9,w:7,h:8}; }
+    else       { lakeLV={x:16,  y:N-9,w:4,h:4}; boulder={x:12,  y:N-8,w:3,h:3}; damR={x:9,   y:N-7,w:2,h:2}; mead={x:1,  y:N-9,w:7,h:8}; }
+  } else {      // solar W -> cluster on EAST border, corner N or S
+    if(wside>0){ lakeLV={x:N-9,y:N-20,w:4,h:4}; boulder={x:N-8,y:N-15,w:3,h:3}; damR={x:N-7,y:N-11,w:2,h:2}; mead={x:N-9,y:N-8,w:8,h:7}; }
+    else       { lakeLV={x:N-9,y:16,  w:4,h:4}; boulder={x:N-8,y:12,  w:3,h:3}; damR={x:N-7,y:9,   w:2,h:2}; mead={x:N-9,y:1,  w:8,h:7}; }
+  }
+  // FASHION SHOW MALL: on the strip, north of center of its run, west buffer side, big
+  // FASHION SHOW MALL: directly ON the strip (touching the street), flips with town
+  const mall={x: fwySide<0? stripX-4 : stripX+1, y:Math.round(N*0.37), w:3, h:2};
+  // LAS VEGAS WASH: dry channel from mid-city to Lake Las Vegas (same side of town)
+  const lakeC=[lakeLV.x+2, lakeLV.y+2];
+  const washStart=[stripX+9+Math.round(r()*4), Math.round(N*(0.42+r()*0.08))];
+  // 90-degree channel legs (real Vegas washes are engineered straight runs)
+  const wx=(lakeC[0]%9===0)?lakeC[0]+1:lakeC[0];  // keep the channel off the arterial line
+  const washMid=[wx, washStart[1]];
+  const wash=[washStart, washMid, [wx, lakeC[1]]];
+  // TINY MEDICAL CLUSTER near downtown / north strip (historic position)
+  // medical flips sides with the town, opposite the spine like UNLV
+  const moff=4+Math.round(r()*1); // tight to downtown, clear of the speedway corner
+  const medical={x: fwySide<0? stripX+moff : stripX-moff-2, y:Math.round(N*0.235)+Math.round(r()*2), w:2, h:2};
+  // TWO BIG REAL PARKS, 2x2 (Paolo): Sunset Park east of the airport, Craig Ranch north
+  const sunsetPark={x:Math.round((hri.x+10)/9)*9+1, y:hri.y+Math.round(r()*2), w:2, h:2}; // snapped beside an arterial
+  const craigRanch={x:Math.round(N*(0.30+r()*0.12)/9)*9+1, y:16+Math.round(r()*3), w:2, h:2}; // north, clear of the ring band
+  // MONORAIL: elevated polyline weaving on the strip's east side
+  const mx=stripX+3;
+  const monorail=[[mx, Math.round(N*0.31)],[mx, Math.round(N*0.48)],[mx, Math.round(N*0.64)]];
+  const damPt=[damR.x, damR.y];
+  // storm/sewer tunnels ENTER FROM THE WASH (surface entrance, Homeless below)
+  const tunnels=[
+    {pts:[washStart, washMid, damPt]},
+    {pts:[washMid, [Math.round((washMid[0]+mead.x)/2), Math.round((washMid[1]+mead.y)/2)], [mead.x, mead.y]]},
+    {pts:[washStart, [stripX+10, Math.round(N*0.58)], damPt]},
+  ];
+  // MOUNT CHARLESTON: massif ALWAYS in the corner OPPOSITE the dam cluster.
+  // (real geography: Charleston NW, dam SE). Bulges into the valley (bowl feel).
+  let mtChar;
+  if(!axisFlip){ // dam on south border at side wside -> Charleston north border, opposite side
+    mtChar = wside>0? {x:2, y:2, w:12, h:9} : {x:N-14, y:2, w:12, h:9};
+  } else {       // dam on east border -> Charleston west border, opposite side
+    mtChar = wside>0? {x:2, y:2, w:9, h:12} : {x:2, y:N-14, w:9, h:12};
+  }
+  const dirE=(fwyX<stripX)?1:-1; // "town east" unit (mirror-aware)
+  // GOLF COURSES: ~9, Summerlin-west + Henderson-south weighted, 1 near the strip
+  const golf=[];
+  for(let i=0;i<4;i++) golf.push({x:Math.round(cx-dirE*(N*0.26+r()*10)), y:Math.round(N*(0.25+r()*0.4)), w:3+((r()*2)|0), h:2+((r()*2)|0)});
+  for(let i=0;i<3;i++) golf.push({x:Math.round(cx+(r()*2-1)*N*0.2), y:Math.round(N*(0.72+r()*0.1)), w:3+((r()*2)|0), h:2});
+  golf.push({x:stripX+4, y:Math.round(N*0.58), w:3, h:2});           // Bali Hai, on the Blvd
+  golf.push({x:Math.round(12+r()*(N-30)), y:Math.round(12+r()*(N-40)), w:3, h:2});
+  // GOLF DECAY LAW (Paolo 7/5/26): 15 years post-crash, only ONE course is
+  // still operational; every other course has become a BMX / dirt-rider park.
+  const golfOp=(r()*golf.length)|0;
+  // GATED COMMUNITIES: ~6, foothill-weighted (Ridges/Red Rock CC west; Seven
+  // Hills/MacDonald/Anthem SE foothills; Southern Highlands south by the spine)
+  const gated=[];
+  for(let i=0;i<3;i++) gated.push({x:Math.round(cx-dirE*(N*0.36+r()*4)), y:Math.round(N*(0.25+r()*0.35)), w:3, h:3});
+  for(let i=0;i<2;i++) gated.push({x:Math.round(cx+dirE*(N*0.30+r()*5)), y:Math.round(N*(0.68+r()*0.10)), w:3, h:3});
+  gated.push({x:fwyX+fwySide*3, y:Math.round(N*0.80), w:3, h:3});     // Southern Highlands by the 15
+  // SCHOOLS: 1x1 scattered on a jittered lattice (high schools + magnets)
+  const schools=[];
+  for(let gy=14;gy<N-14;gy+=17)for(let gx=12;gx<N-12;gx+=19){
+    let jx=gx+2+((hash2(seed,gx,gy)>>>4)%5), jy=gy+2+((hash2(seed,gy,gx)>>>6)%5);
+    if(jx%9===0)jx++; if(jy%9===0)jy++;   // never on a street line, nudge into the block
+    schools.push({x:jx,y:jy,w:1,h:1});
+  }
+  // CONVENTION CENTER: extends off the strip's east side, just below downtown
+  const convention={x:stripX+3, y:Math.round(N*0.315), w:3, h:2};
+  // ALLEGIANT: 2x2 across the spine from the strip's south end, by the freeway
+  const stadiumA={x:fwyX+(fwySide>0?-3:2), y:stripEndY-3, w:2, h:2}; // spine side opposite the rail
+  // SPEEDWAY (EDC / LVMS): beside the air base
+  const speedway={x: airbase.x + (airbase.x<N/2? airbase.w+1 : -5), y: airbase.y+1, w:4, h:3};
+  // WATER PARKS: one by a freeway, one not; MINI GRAND PRIX by the freeway
+  const wp1={x:fwyX+fwySide*3, y:Math.round(N*0.74), w:2, h:1};
+  const wp2={x:Math.round(stripX+dirE*16), y:Math.round(N*0.44), w:2, h:1};
+  const minigp={x:fwyX+fwySide*2, y:Math.round(N*0.29), w:1, h:1};
+  // OFF-STRIP LOCALS CASINOS: Red Rock W, GVR SE, Aliante N, the M far S, Durango SW
+  // ===== INFRASTRUCTURE + STRUCTURES BATCH (Paolo approved ALL, 7/5/26) =====
+  // WATER RECLAMATION on the wash (the 99%% survival loop, real plants sit on the wash)
+  const reclaim={x:washMid[0]+2, y:Math.max(6,washMid[1]-3), w:2, h:2};
+  // APEX LANDFILL: north along the spine corridor, outside the ring
+  const landfill={x:fwyX+(fwySide>0?5:-7), y:(axisFlip?15:6)+Math.round(r()*2), w:2, h:2}; // flip: below the north rim
+  // LAKE MEAD INTAKE: the straw, on the mead shore facing the city
+  const intake={x: axisFlip? mead.x-1 : (wside>0? mead.x-1 : mead.x+mead.w), y: mead.y+2, w:1, h:1};
+  // SUBSTATIONS: solar -> city distribution nodes
+  const substations=[
+    {x:Math.round(cx-8+r()*16), y:5, w:1, h:1},
+    {x:Math.round(cx+dirE*14), y:Math.round(N*0.40), w:1, h:1},
+    {x:Math.round(cx-dirE*10), y:Math.round(N*0.66), w:1, h:1},
+  ];
+  for(const s of substations){ if(s.x%9===0)s.x++; if(s.y%9===0)s.y++; }
+  // CEMETERY
+  // CEMETERY LAW (Paolo 7/5/26): the big cemetery CONNECTS to Sunset Park
+  // (real: Palm Eastern sits by Sunset Park); one more small one at the
+  // north cluster (real: Woodlawn 1914, near Cashman)
+  const cemetery={x:sunsetPark.x+sunsetPark.w, y:sunsetPark.y, w:2, h:2};
+  const cemetery2={x:Math.round(stripX+dirE*6), y:17, w:1, h:1};
+  // PRISON: deep desert near the rim, opposite side from Nellis
+  let prison={x: nellisWest? N-10 : 7, y:Math.round(N*0.50), w:2, h:2};
+  for(let k=0;k<6;k++){ let hit=false;
+    for(const py of passesA.concat(passesB)){ if(Math.abs(prison.y-py)<3)hit=true; }
+    if(!hit)break; prison.y+=4; }
+  // BRIGHTLINE TERMINAL: beside the rail at the strip's south end (the LA train)
+  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:2, h:1};
+  // THE SPHERE: east of the strip mid-run (real position)
+  const sphere={x:stripX+dirE*4, y:Math.round(N*0.44), w:2, h:2};
+  // LAS VEGAS BLVD NORTH CLUSTER (real): Cashman Field + Neon Boneyard + Mormon Fort
+  const cashman={x:stripX+dirE*2, y:16, w:2, h:2};
+  const boneyard={x:stripX+dirE*2, y:19, w:1, h:1};
+  const fort={x:stripX+dirE*4, y:19, w:1, h:1};
+  // BALLPARK: Las Vegas Ballpark, Summerlin (the Aviators)
+  const ballparkS={x:Math.round(cx-dirE*(N*0.30)), y:Math.round(N*0.38), w:2, h:2};
+  // WEDDING CHAPELS: wedding capital of the world
+  const chapels=[
+    {x:stripX+dirE*3, y:Math.round(N*0.33), w:1, h:1},
+    {x:stripX-dirE*3, y:Math.round(N*0.52), w:1, h:1},
+    {x:stripX+dirE*2, y:Math.round(N*0.27), w:1, h:1},
+  ];
+  // FLOOD DETENTION BASINS: dry 360 days a year, feed the wash
+  const basins=[
+    {x:washStart[0]+3, y:washStart[1]+2, w:2, h:2},
+    {x:washMid[0]-3, y:Math.round((washStart[1]+lakeC[1])/2), w:2, h:2},
+  ];
+  for(const b of basins){ // never on the spine or an exit column
+    const bad=(bx)=>((bx+1>=fwyX-1&&bx<=fwyX+2)||exits.some(e=>bx+1>=e.x-1&&bx<=e.x+2));
+    let g2=0; while(bad(b.x)&&g2++<5){ b.x+=3; }
+  }
+  // SWAP MEET (Broadacres, north) + DRIVE-IN + HIGH ROLLER (the Linq wheel)
+  const swapmeet={x:Math.round(cx-6+r()*4), y:9, w:1, h:1};
+  // DRIVE-IN LAW (Paolo 7/5/26): always touches an airport that ISN'T Harry
+  // Reid (real: West Wind Drive-In sits by North Las Vegas Airport)
+  const drivein={x:apNW.x+apNW.w, y:apNW.y+1, w:1, h:1}; // beside the runway
+  const highroller={x:stripX+dirE*2, y:Math.round(N*0.47), w:1, h:1};
+  // WELCOME TO FABULOUS LAS VEGAS: 1959, south end of the Blvd, survived everything
+  const vegassign={x:stripX+dirE*1+1, y:stripEndY+2, w:1, h:1};
+  // THE STRAT (Paolo 7/5/26): on the strip's border, first thing in the arts
+  // district past the grid street, closest downtown block to the strip
+  const strat={x:stripX+dirE*1, y:Math.floor(N*0.30/9)*9+1, w:1, h:1};
+  // ===== VERDICT BATCH (Paolo 7/5/26): civic ruins, logistics, materials =====
+  // Fire station ruins (A): the trucks left mid-call and never came back
+  const firestations=[{x:cx-8,y:cy-8,w:1,h:1},{x:cx+8,y:cy+1,w:1,h:1},{x:cx-4,y:cy+10,w:1,h:1}];
+  // Police substation ruins (B): the thing that stopped existing
+  const policestations=[{x:cx+5,y:cy-5,w:1,h:1},{x:cx-9,y:cy+4,w:1,h:1}];
+  // Jail (C): CCDC downtown
+  const jail={x:stripX+dirE*5, y:Math.round(N*0.24), w:1, h:1};
+  // Courthouse / civic block (D): the mayor arc's seat
+  const courthouse={x:stripX+dirE*3, y:Math.round(N*0.25), w:2, h:1};
+  // Warehouse district (F): the salvage economy's shelves, by the rail
+  const warehouse={x:railX+(fwySide>0?2:-4), y:railyard.y+4, w:2, h:2};
+  // Truck stop (G): spine south approach
+  const truckstop={x:fwyX+2, y:N-8, w:1, h:1};
+  // Battery farm (H): solar without storage dies every night
+  const battery={x:axisFlip?6:cx+7, y:axisFlip?cy+7:8, w:1, h:1}; // beside the solar field, off the rim
+  // Quarry (I): aggregate south along the 15 (real: Sloan)
+  const quarry={x:fwyX-4, y:N-7, w:1, h:1}; // carves the south approach hills (real: Sloan)
+  // Gypsum mine (I): Blue Diamond Hill by Red Rock, 3000 real acres,
+  // wallboard + cement + AGRICULTURAL soil amendment (feeds the farms too)
+  const gypsum={x:(axisFlip?Math.round(N*0.45):5), y:(axisFlip?5:Math.round(N*0.55)), w:1, h:1}; // carved into the rim itself
+  // E. THE FUEL DEPOTS (Paolo 7/5/26, name pending his pick): the city's two
+  // straws for gasoline. CalNev terminal (real: 550mi from LA, 2 pipes,
+  // 128k bbl/day, 90% of the fuel, ends at Nellis) by the rail north; UNEV
+  // terminal (real: 400mi from Salt Lake, 60k bbl/day, ends AT APEX) beside
+  // the landfill corridor. Both pipes dead at crash, both terminals were the
+  // most fought-over stockpiles of the hell years.
+  const fueldepots=[
+    {x:railX+(fwySide>0?-3:3), y:Math.round(N*0.10), w:1, h:1},
+    {x:landfill.x+(fwySide>0?3:-2), y:landfill.y+1, w:1, h:1}];
+  // THE GRANARY (Paolo 7/6/26): the oldest building in the world, a dead
+  // grocery distribution center recommissioned. Harvest storage, seed
+  // stock, and the cold rooms double as the MEDICINE VAULT.
+  const granary={x:railX+(fwySide>0?3:-3), y:Math.round(N*0.155), w:1, h:1};
+  // THE LIBRARY (Paolo 7/6/26): the analog memory. Paper needs no power,
+  // no network, no permission. The counter-fortress.
+  const library={x:stripX+dirE*4, y:Math.round(N*0.27), w:1, h:1};
+  // THE RADIO STATION (Paolo 7/6/26): the voice of the valley. No radio,
+  // no market. Whoever holds the microphone shapes the truth.
+  const radiostation={x:stripX+dirE*6, y:Math.round(N*0.26), w:1, h:1};
+  // THE ROBOTICS FACTORY (Paolo 7/6/26, his find): real Vegas has a
+  // robotics/machine-tool factory next to the Henderson airport. Machines
+  // that make machines, beside our apSE strip. Absorbs the machine-shop
+  // role: the last place in the valley that can cut steel at scale.
+  const robofactory={x:apSE.x+apSE.w+1, y:apSE.y, w:1, h:1};
+  // Springs Preserve (J): the meadows the city is named for
+  const springs={x:stripX-dirE*6, y:Math.round(N*0.24), w:1, h:1};
+  // Luxor (N): the pyramid on the strip south, part of the strip already
+  const luxor={x:stripX+dirE*1, y:stripEndY-2, w:1, h:1};
+  // THE ARSENAL (Paolo 7/5/26): the range that houses tanks + helicopters,
+  // one block off the strip on the rail side (real: behind Circus Circus).
+  // The Remnants saw it as super important; contested with the cartel.
+  const arsenal={x:stripX-dirE*3, y:Math.round(N*0.36), w:1, h:1};
+  // 1x1 pieces never sit on street lines (nudge into the block)
+  for(const p of [sphere,cashman,boneyard,fort,swapmeet,drivein,highroller,cemetery2,reclaim,landfill,terminal].concat(chapels)){
+    if(p.x%9===0)p.x++; if(p.y%9===0)p.y++;
+  }
+  // WATER SYSTEM STAPLES (grounded 7/5/26): treatment at the lake (Alfred
+  // Merritt Smith analog), reservoir tanks on the foothills (pumped uphill,
+  // gravity down), a pumping station on the aqueduct path
+  const cityDirX = axisFlip? 0 : (wside>0? -1 : 1);
+  const cityDirY = axisFlip? (wside>0? -1 : 1) : 0;
+  const watertreat={x:intake.x+cityDirX*4-1, y:intake.y+cityDirY*4-1, w:2, h:2};
+  {
+    const clusterRects=[mead,lakeLV,boulder,damR];
+    const B2=beltRect;
+    const ringHit=()=>{ const x0=watertreat.x,x1=x0+1,y0=watertreat.y,y1=y0+1;
+      const colHit=(c2)=>c2>=x0-1&&c2<=x1+1, rowHit=(r2)=>r2>=y0-1&&r2<=y1+1;
+      return colHit(B2.lft)||colHit(B2.lft+1)||colHit(B2.rgt-1)||colHit(B2.rgt)||rowHit(B2.top)||rowHit(B2.top+1)||rowHit(B2.bot-1)||rowHit(B2.bot); };
+    const hits=(R)=>ringHit()||clusterRects.some(C=>watertreat.x<C.x+C.w+1&&watertreat.x+2>C.x-1&&watertreat.y<C.y+C.h+1&&watertreat.y+2>C.y-1);
+    const dxs=Math.sign(cx-watertreat.x)||1, dys=Math.sign(cy-watertreat.y)||-1;
+    let g3=0; while(hits()&&g3++<8){ watertreat.x+=dxs*2; watertreat.y+=dys*2; }
+  }
+  const reservoirs=[
+    {x:9, y:Math.round(N*0.30), w:1, h:1},
+    {x:N-10, y:Math.round(N*0.62), w:1, h:1},
+    {x:Math.round(cx+10), y:8, w:1, h:1},
+  ];
+  const pumpstation={x:watertreat.x+(Math.sign(cx-watertreat.x)||1)*5, y:watertreat.y+(Math.sign(cy-watertreat.y)||-1)*5, w:1, h:1};
+  for(const p of reservoirs.concat([pumpstation])){ if(p.x%9===0)p.x++; if(p.y%9===0)p.y++; }
+  if(watertreat.x%9===0)watertreat.x++; if(watertreat.y%9===0)watertreat.y++;
+  const casinos=[
+    {x:Math.round(cx-dirE*(N*0.34)), y:Math.round(N*0.42), w:1, h:1},
+    {x:Math.round(cx+dirE*(N*0.28)), y:Math.round(N*0.72), w:1, h:1},
+    {x:Math.round(cx-6+r()*8),       y:11,                 w:1, h:1},
+    {x:fwyX+fwySide*4,               y:Math.round(N*0.86), w:1, h:1},
+    {x:Math.round(cx-dirE*(N*0.24)), y:Math.round(N*0.70), w:1, h:1},
+  ];
+  // dodge freeway columns (spine + exits): casinos sit BESIDE the 15, never on it
+  for(const c of casinos){
+    const bad=(cxx)=>((cxx>=fwyX-1&&cxx<=fwyX+2)||exits.some(e=>cxx>=e.x-1&&cxx<=e.x+2));
+    let guard=0; while(bad(c.x)&&guard++<6){ c.x+=dirE*2; }
+  }
+  // THE DATA FORTRESS (Paolo 7/5/26): the Switch-equivalent, real scale
+  // (eleven windowless buildings, ~2M sq ft, self-powered, 100% recycled
+  // water, Black Iron Forest thermal steel). 3x2 slots, speedway-class
+  // footprint, southwest valley inside the ring at the diagonal corner from
+  // Nellis (real geography: Switch SW, Nellis NE). The Network's ground.
+  const dfC=3-nellisCnr;
+  const datafort={x:(dfC===0||dfC===2)? beltRect.rgt-10 : beltRect.lft+6,
+                  y:(dfC===0||dfC===1)? beltRect.top+5 : beltRect.bot-8, w:3, h:2};
+  {
+    const dxs=Math.sign(cx-datafort.x)||1, dys=Math.sign(cy-datafort.y)||1;
+    const bad=()=>{ const x0=datafort.x,x1=x0+2,y0=datafort.y,y1=y0+1;
+      if(fwyX+1>=x0-1&&fwyX<=x1+1)return true;
+      if(bendNorthY+1>=y0-1&&bendNorthY<=y1+1)return true;
+      if(Math.abs(x0-railX)<=1||Math.abs(x1-railX)<=1)return true;
+      if(exits.some(e=>e.x+1>=x0-1&&e.x<=x1+1))return true;
+      for(const R of [hri,apSE,apNW,airbase,unlv,csn,medical,convention,stadiumA,speedway,wp1,wp2,minigp,craigRanch,sunsetPark,cemetery,reclaim,landfill,watertreat,prison,terminal,sphere,cashman,ballparkS,bowl]){
+        if(x0<R.x+(R.w||1)+1&&x1>R.x-2&&y0<R.y+(R.h||1)+1&&y1>R.y-2)return true; }
+      return false; };
+    let g6=0; while(bad()&&g6++<12){ datafort.x+=dxs*2; datafort.y+=dys*2; }
+  }
+  // ===== GENERIC CLEAR-SPOT NUDGER (FACTORY LAW, 7/5/26) =====
+  // One mechanism for every small piece: forbidden = all freeway geometry +
+  // every placed rect. Spiral-search offsets until clear. No more ad-hoc dodges.
+  {
+    const hardRects=[mead,lakeLV,boulder,damR,mtChar,hri,apSE,apNW,airbase,unlv,csn,
+      craigRanch,sunsetPark,medical,convention,stadiumA,speedway,wp1,wp2,minigp,bowl,railyard,
+      reclaim,landfill,watertreat,cemetery,prison,terminal,sphere,cashman,ballparkS,datafort,mall]
+      .concat(basins,casinos,gated,golf,schools);
+    const B5=beltRect;
+    function clearOf(px,py){
+      if(px<2||px>93||py<2||py>93)return false;
+      if(px%9===0||py%9===0)return false;
+      if(py<5)return false;
+      if(px>=fwyX-1&&px<=fwyX+2)return false;
+      if(py>=bendNorthY-1&&py<=bendNorthY+2)return false;
+      if((px>=B5.lft-1&&px<=B5.lft+2)||(px>=B5.rgt-2&&px<=B5.rgt+1))return false;
+      if((py>=B5.top-1&&py<=B5.top+2)||(py>=B5.bot-2&&py<=B5.bot+1))return false;
+      if(Math.abs(px-railX)<=1)return false;
+      if(exits.some(e=>px>=e.x-1&&px<=e.x+2))return false;
+      if(!axisFlip){ if(passesA.concat(passesB).some(p=>Math.abs(py-p)<=1&&(px<=B5.lft+2||px>=B5.rgt-2)))return false; }
+      else { if(passesA.concat(passesB).some(p=>Math.abs(px-p)<=1&&(py<=B5.top+2||py>=B5.bot-2)))return false; }
+      for(const R of hardRects){ if(px>=R.x-1&&px<R.x+(R.w||1)+1&&py>=R.y-1&&py<R.y+(R.h||1)+1)return false; }
+      return true;
+    }
+    const OFFS=[[0,0]]; for(let rr=1;rr<=8;rr++){ OFFS.push([rr,0],[-rr,0],[0,rr],[0,-rr],[rr,rr],[-rr,rr],[rr,-rr],[-rr,-rr]); }
+    function nudge(p){
+      const pw=p.w||1, ph=p.h||1;
+      for(const [ox,oy] of OFFS){
+        let ok=true;
+        for(let dy=0;dy<ph&&ok;dy++)for(let dx=0;dx<pw&&ok;dx++){ if(!clearOf(p.x+ox+dx,p.y+oy+dy))ok=false; }
+        if(ok){ p.x+=ox; p.y+=oy; hardRects.push(p); return; }
+      }
+      hardRects.push(p);
+    }
+    for(const p of substations)nudge(p);
+    nudge(cemetery2); nudge(boneyard); nudge(fort);
+    for(const p of chapels)nudge(p);
+    nudge(swapmeet); nudge(drivein); nudge(highroller); nudge(pumpstation);
+    nudge(vegassign); nudge(strat); nudge(arsenal);
+    for(const p of firestations)nudge(p);
+    for(const p of policestations)nudge(p);
+    nudge(jail); nudge(courthouse); nudge(warehouse); nudge(truckstop);
+    nudge(battery); nudge(springs); nudge(luxor);
+    for(const p of fueldepots)nudge(p);
+    nudge(granary); nudge(library); nudge(radiostation); nudge(robofactory);
+    for(const p of reservoirs)nudge(p);
+  }
+  return {axisFlip, stripX, fwyX, beltInset, beltVarW, beltVarH, beltRect,
+          ind1, ind2, exits, hri, apSE, apNW, airbase, unlv, csn,
+          passesA, passesB, footA, footB, railX, railyard,
+          lakeLV, boulder, damR, mead, mall, monorail, tunnels,
+          stripEndY, bendNorthY, i15Exit, bowl, sunsetPark, craigRanch, wash, medical,
+          mtChar, golf, golfOp, gated, schools, convention, stadiumA, speedway, wp1, wp2, minigp, casinos, wside,
+          reclaim, landfill, intake, substations, cemetery, cemetery2, prison, terminal, sphere,
+          cashman, boneyard, fort, ballparkS, chapels, basins, swapmeet, drivein, highroller,
+          watertreat, reservoirs, pumpstation, vegassign, strat, datafort, arsenal,
+          firestations, policestations, jail, courthouse, warehouse, truckstop,
+          battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, seed};
+}
+
+function skeleton(x,y,L){
+  const N=OVER_N, cx=N/2, cy=N/2;
+  if(inRect(x,y,L.intake))return DISTRICT.INTAKE; // the straw claims the shore first
+  if(inRect(x,y,L.gypsum))return DISTRICT.GYPSUM;  // the mine carves the rim itself
+  if(inRect(x,y,L.quarry))return DISTRICT.QUARRY;  // the quarry carves the approach hills
+  if(inRect(x,y,L.truckstop))return DISTRICT.TRUCKSTOP;
+  // WATER CLUSTER + AIRBASE claim ground FIRST: highways dead-end INTO them
+  // (US-93 really ends at the dam; highways feed Nellis)
+  if(inRect(x,y,L.lakeLV))return DISTRICT.WATER;
+  if(inRect(x,y,L.boulder))return DISTRICT.TOWN;
+  if(inRect(x,y,L.damR))return DISTRICT.DAM;
+  if(inRect(x,y,L.mead))return DISTRICT.WATER;
+  if(inRect(x,y,L.airbase))return DISTRICT.AIRBASE;
+  for(const e of L.exits){ if((x===e.x||x===e.x+1)&&y>=e.y0&&y<=e.y1)return DISTRICT.FREEWAY; }
+  // THE SPAGHETTI BOWL claims the corner; the legs feed into it
+  if(inRect(x,y,L.bowl))return DISTRICT.INTERCHANGE;
+  // I-15 SPINE: dead-straight vertical, south border to the north bend (90-degree law)
+  if(y>=L.bendNorthY&&(x===L.fwyX||x===L.fwyX+1))return DISTRICT.FREEWAY;
+  // NORTH SPUR: the corridor continues north of the bowl to the ring (US-93/515
+  // reality); the bowl touches freeways on ALL FOUR sides (Paolo 7/5/26)
+  if(y<L.bendNorthY&&y>=L.beltRect.top&&(x===L.fwyX||x===L.fwyX+1))return DISTRICT.FREEWAY;
+  // the cross-town freeway (US-95) runs BOTH directions through the bowl,
+  // border to border: the bowl touches THREE freeways minimum (Paolo 7/5/26)
+  if(y===L.bendNorthY||y===L.bendNorthY+1)return DISTRICT.FREEWAY;
+  // MOUNTAIN PASSES (2-4 total across both rims)
+  if(!L.axisFlip){
+    // PASSES: 1-wide mountain highways, running from the border INWARD until
+    // they CONNECT to the beltway ring (no floating freeway segments, Paolo)
+    for(const py of L.passesA){ if(y===py&&x<=L.beltRect.lft+1)return DISTRICT.FREEWAY; }
+    for(const py of L.passesB){ if(y===py&&x>=L.beltRect.rgt-1)return DISTRICT.FREEWAY; }
+  } else {
+    for(const px of L.passesA){ if(x===px&&y<=L.beltRect.top+1)return DISTRICT.FREEWAY; }
+    for(const px of L.passesB){ if(x===px&&y>=L.beltRect.bot-1)return DISTRICT.FREEWAY; }
+  }
+  // BELTWAY: a RECTANGLE ring with square corners, 2 wide, snapped mid-block
+  {
+    const {lft,rgt,top,bot}=L.beltRect;
+    const onV=(x===lft||x===lft+1||x===rgt-1||x===rgt)&&y>=top&&y<=bot;
+    const onH=(y===top||y===top+1||y===bot-1||y===bot)&&x>=lft&&x<=rgt;
+    if(onV||onH)return DISTRICT.FREEWAY;
+  }
+  if(x===L.railX)return DISTRICT.RAIL; // border to border (otherwise what's the point)
+  // MOUNT CHARLESTON: the massif in the corner opposite the dam (bowl bulge)
+  if(inRect(x,y,L.mtChar)){
+    // estates ring on the massif's inner face (millionaires on the mountain)
+    const inner=(x>=L.mtChar.x+2&&x<L.mtChar.x+L.mtChar.w-2&&y>=L.mtChar.y+2&&y<L.mtChar.y+L.mtChar.h-2);
+    return inner? DISTRICT.MOUNTAIN : (hash2(L.seed,x,y)%4===0? DISTRICT.ESTATE: DISTRICT.MOUNTAIN);
+  }
+  // MOUNTAINS: wider, bulgier rims (bowl-shaped valley), foothill notches
+  // become ESTATE ground (housing on the mountain borders, real Vegas pattern)
+  if(!L.axisFlip){
+    let mtnW=5+Math.round(Math.sin(y*0.25)*2.5), mtnE=5+Math.round(Math.cos(y*0.22)*2.5);
+    let foot=false;
+    for(const fy of L.footA){ if(Math.abs(y-fy)<4){ mtnW=Math.max(2,mtnW-3); foot=true; } }
+    for(const fy of L.footB){ if(Math.abs(y-fy)<4){ mtnE=Math.max(2,mtnE-3); foot=true; } }
+    if(x<mtnW||((N-1-x)<mtnE))return DISTRICT.MOUNTAIN;
+    if(foot&&(x<mtnW+2||((N-1-x)<mtnE+2)))return DISTRICT.ESTATE;
+    if(y<4&&x>6&&x<N-6)return DISTRICT.SOLAR;
+  } else {
+    let mtnN=5+Math.round(Math.sin(x*0.25)*2.5), mtnS=5+Math.round(Math.cos(x*0.22)*2.5);
+    let foot=false;
+    for(const fx of L.footA){ if(Math.abs(x-fx)<4){ mtnN=Math.max(2,mtnN-3); foot=true; } }
+    for(const fx of L.footB){ if(Math.abs(x-fx)<4){ mtnS=Math.max(2,mtnS-3); foot=true; } }
+    if(y<mtnN||((N-1-y)<mtnS))return DISTRICT.MOUNTAIN;
+    if(foot&&(y<mtnN+2||((N-1-y)<mtnS+2)))return DISTRICT.ESTATE;
+    if(x<4&&y>6&&y<N-6)return DISTRICT.SOLAR;
+  }
+  if(inRect(x,y,L.hri)||inRect(x,y,L.apSE)||inRect(x,y,L.apNW))return DISTRICT.AIRPORT;
+  if(inRect(x,y,L.unlv)||inRect(x,y,L.csn))return DISTRICT.CAMPUS;
+  if(inRect(x,y,L.railyard))return DISTRICT.RAILYARD;
+  if(inRect(x,y,L.mall))return DISTRICT.MALL;
+  if(inRect(x,y,L.sunsetPark)||inRect(x,y,L.craigRanch))return DISTRICT.PARK;
+  if(inRect(x,y,L.medical))return DISTRICT.MEDICAL;
+  if(inRect(x,y,L.convention))return DISTRICT.CONVENTION;
+  if(inRect(x,y,L.stadiumA))return DISTRICT.STADIUM;
+  if(inRect(x,y,L.speedway))return DISTRICT.SPEEDWAY;
+  if(inRect(x,y,L.wp1)||inRect(x,y,L.wp2))return DISTRICT.WATERPARK;
+  if(inRect(x,y,L.minigp))return DISTRICT.MINIGP;
+  if(inRect(x,y,L.datafort))return DISTRICT.DATAFORT;
+  if(inRect(x,y,L.watertreat))return DISTRICT.WATERTREAT;
+  for(const s of L.reservoirs){ if(inRect(x,y,s))return DISTRICT.RESERVOIR; }
+  if(inRect(x,y,L.pumpstation))return DISTRICT.PUMPSTATION;
+  if(inRect(x,y,L.reclaim))return DISTRICT.RECLAIM;
+  if(inRect(x,y,L.landfill))return DISTRICT.LANDFILL;
+  for(const s of L.substations){ if(inRect(x,y,s))return DISTRICT.SUBSTATION; }
+  if(inRect(x,y,L.cemetery)||inRect(x,y,L.cemetery2))return DISTRICT.CEMETERY;
+  if(inRect(x,y,L.prison))return DISTRICT.PRISON;
+  if(inRect(x,y,L.terminal))return DISTRICT.TERMINAL;
+  if(inRect(x,y,L.sphere))return DISTRICT.SPHERE;
+  if(inRect(x,y,L.cashman)||inRect(x,y,L.ballparkS))return DISTRICT.BALLPARK;
+  if(inRect(x,y,L.boneyard))return DISTRICT.BONEYARD;
+  if(inRect(x,y,L.fort))return DISTRICT.FORT;
+  for(const c2 of L.chapels){ if(inRect(x,y,c2))return DISTRICT.CHAPEL; }
+  for(const b of L.basins){ if(inRect(x,y,b))return DISTRICT.BASIN; }
+  if(inRect(x,y,L.swapmeet))return DISTRICT.SWAPMEET;
+  if(inRect(x,y,L.drivein))return DISTRICT.DRIVEIN;
+  if(inRect(x,y,L.highroller))return DISTRICT.HIGHROLLER;
+  if(inRect(x,y,L.vegassign))return DISTRICT.SIGN;
+  if(inRect(x,y,L.strat))return DISTRICT.STRAT;
+  if(inRect(x,y,L.arsenal))return DISTRICT.ARSENAL;
+  for(const R of L.firestations){ if(inRect(x,y,R))return DISTRICT.FIRESTATION; }
+  for(const R of L.policestations){ if(inRect(x,y,R))return DISTRICT.POLICESTATION; }
+  if(inRect(x,y,L.jail))return DISTRICT.JAIL;
+  if(inRect(x,y,L.courthouse))return DISTRICT.COURTHOUSE;
+  if(inRect(x,y,L.warehouse))return DISTRICT.WAREHOUSE;
+  if(inRect(x,y,L.battery))return DISTRICT.BATTERY;
+  for(const R of L.fueldepots){ if(inRect(x,y,R))return DISTRICT.FUELDEPOT; }
+  if(inRect(x,y,L.granary))return DISTRICT.GRANARY;
+  if(inRect(x,y,L.library))return DISTRICT.LIBRARY;
+  if(inRect(x,y,L.radiostation))return DISTRICT.RADIO;
+  if(inRect(x,y,L.robofactory))return DISTRICT.ROBOFACTORY;
+  if(inRect(x,y,L.springs))return DISTRICT.SPRINGS;
+  if(inRect(x,y,L.luxor))return DISTRICT.LUXOR;
+  for(const c of L.casinos){ if(inRect(x,y,c))return DISTRICT.CASINO; }
+  for(const gc of L.gated){ if(inRect(x,y,gc))return DISTRICT.GATED; }
+  for(const gf of L.golf){ if(inRect(x,y,gf))return DISTRICT.GOLF; }
+  for(const s of L.schools){ if(inRect(x,y,s))return DISTRICT.SCHOOL; }
+  // THE STRIP street + 2-cell RESORT buffer each side
+  const inStripRun = y>N*0.30&&y<N*0.66;
+  // the Blvd STREET continues past the resort run and touches the airport
+  if((x===L.stripX||x===L.stripX-1)&&y>N*0.30&&y<L.hri.y+L.hri.h)return DISTRICT.STRIP;
+  // resort wall OPENS at every mile crossing: E-W arterials run THROUGH the strip
+  if(inStripRun&&(x===L.stripX-3||x===L.stripX-2||x===L.stripX+1||x===L.stripX+2)&&(y%9!==0))return DISTRICT.RESORT;
+  // downtown/arts district sits a little EAST of the strip line, still touching it
+  if(x>=L.stripX-2&&x<L.stripX+6&&y>N*0.22&&y<=N*0.30)return DISTRICT.DOWNTOWN;
+  // ARTERIALS + DENSE SUB-BLOCK STREETS (max blob ~4x2)
+  if(x%9===0||y%9===0)return DISTRICT.ARTERIAL;
+  // LAS VEGAS WASH: dry channel toward Lake Las Vegas, BROKEN UP by the surface
+  // streets crossing it (checked after roads). You can hop down into it; it is the
+  // ENTRANCE to the storm/sewer system underneath the city where the Homeless live.
+  for(let i=0;i<L.wash.length-1;i++){
+    if(segDist(x,y,L.wash[i][0],L.wash[i][1],L.wash[i+1][0],L.wash[i+1][1])<0.8)return DISTRICT.WASH;
+  }
+  // SURFACE STREETS THROUGH THE BLOCKS (Paolo 7/5/26 + NO-STREET-BREAK LAW
+  // 7/18/26): real Vegas is half-mile collectors between the mile arterials,
+  // and they RUN CONTINUOUS for miles. The previous gen picked each block's
+  // collector offset from hash2(seed,bx,by) — per BLOCK — so adjacent blocks'
+  // collectors were offset by a cell and the grid read as a thousand
+  // disconnected fragments (Paolo: "all these streets that are not connected
+  // to each other").
+  // FIX: the collector offset is per STRIP, not per block. A vertical
+  // collector's column depends only on the mile-COLUMN (bx), so it lines up
+  // straight down through every block in that column; a horizontal collector's
+  // row depends only on the mile-ROW (by). Continuous avenues, fully connected.
+  // The per-block "extra local street" is GONE — that fragmentation belongs in
+  // the suburb plot interior (a finer layer), not the overmap grid.
+  const bx=(x/9)|0, by=(y/9)|0;
+  const colPick=4+((hash2(L.seed,bx,0)>>>3)&1);       // per mile-column
+  const rowPick=4+((hash2(L.seed,0,by)>>>5)&1);       // per mile-row
+  if((x%9)===colPick)return DISTRICT.ARTERIAL;        // continuous vertical collector
+  if((y%9)===rowPick)return DISTRICT.ARTERIAL;        // continuous horizontal collector
+  return null;
+}
+
+// NEIGHBORHOOD QUALITY (Paolo 7/5/26, grounded in real Vegas): east side = rough,
+// extending north; Summerlin (far west, has LAKES) + Henderson (south) = good;
+// SE transition where east meets Henderson; west fringe near residential borders =
+// busier. Flips with the town mirror (side is spine-relative).
+function qualityAt(x,y,L){
+  const N=OVER_N;
+  const dir=(L.fwyX<L.stripX)?1:-1;            // which way "town east" points
+  const side=(x-L.stripX)*dir;
+  let q=0.65;
+  if(side>5&&y<N*0.58) q=0.25+Math.max(0,(N*0.58-y))/N*-0.1;   // east side rough
+  if(y<N*0.30&&side>-6) q=Math.min(q,0.35);                      // rough reaches north
+  if(y>N*0.62) q=0.85;                                           // Henderson south
+  if(side>5&&y>N*0.55&&y<=N*0.62) q=0.3+((y-N*0.55)/(N*0.07))*0.55; // SE transition
+  if(side<-12&&y>N*0.20&&y<N*0.70) q=0.9;                        // Summerlin
+  if(side<0&&(y<N*0.18||y>N*0.80)) q=0.55;                       // west fringe busier
+  return Math.max(0.1,Math.min(0.95,q));
+}
+
+function proceduralDistrict(x,y,r,L){
+  const N=OVER_N;
+  const dStrip=Math.abs(x-L.stripX);
+  const edge=Math.min(x,y,N-1-x,N-1-y);
+  if(edge<8&&r()<0.5)return DISTRICT.DESERT;
+  const q=qualityAt(x,y,L);
+  // SUMMERLIN LAKES: the west master-planned zone rolls small neighborhood lakes
+  const dir=(L.fwyX<L.stripX)?1:-1, side=(x-L.stripX)*dir;
+  if(side<-12&&y>N*0.20&&y<N*0.70&&r()<0.009)return DISTRICT.WATER; // rare, a touch of Summerlin lake vibe, not a lake district
+  if(r()<0.02+q*0.06)return DISTRICT.PARK;          // parks follow quality
+  if(q<0.35&&r()<0.12)return DISTRICT.DESERT;       // rough side: vacant lots
+  if(q<0.42&&r()<0.03)return DISTRICT.TRAILER;      // trailer/RV parks in the rough fabric
+  // HOMESTEADS (Paolo 7/5/26): people who took farming on their own, yard
+  // crops + private well/cistern (real: the valley sits on groundwater,
+  // thousands of private wells). Flag rides on the suburb cell.
+  // (flag applied in post-pass so the suburb render + quality stay intact)
+  const nearAx0=(x%9===1||x%9===8), nearAy0=(y%9===1||y%9===8);
+  if(q<0.6&&(nearAx0||nearAy0)&&r()<0.012)return DISTRICT.STORAGE; // self-storage sprawl
+  const d1=Math.hypot(x-L.ind1.x,y-L.ind1.y), d2=Math.hypot(x-L.ind2.x,y-L.ind2.y);
+  if((d1<3.2||d2<3.2)&&r()<0.9)return DISTRICT.INDUSTRIAL;
+  const nearAx=(x%9===1||x%9===8), nearAy=(y%9===1||y%9===8);
+  if(nearAx&&nearAy&&r()<0.7)return DISTRICT.COMMERCIAL;
+  // CA HIGHWAY APPROACH: the 15 enters through DIRT before the city swallows it
+  if(y>N*0.80&&Math.abs(x-L.fwyX)<6&&r()<0.93)return DISTRICT.DESERT;
+  // DESERT POCKETS (Paolo 7/5/26): two DISTINCT desert zones, not a band:
+  // (1) around the whole water cluster (Mead, Lake LV, Boulder City, the dam),
+  // (2) around Nellis + the speedway. Normal city fabric between them.
+  {
+    const nearR=(R,m)=>x>=R.x-m&&x<R.x+R.w+m&&y>=R.y-m&&y<R.y+R.h+m;
+    if((nearR(L.mead,6)||nearR(L.lakeLV,6)||nearR(L.boulder,6)||nearR(L.damR,6))&&r()<0.6)return DISTRICT.DESERT;
+    if((nearR(L.airbase,5)||nearR(L.speedway,5))&&r()<0.55)return DISTRICT.DESERT;
+  }
+  const v=r();
+  const busier=(side<0&&(y<N*0.18||y>N*0.80))?0.10:0;  // west fringe busier
+  if(dStrip<8){ return v<0.35+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
+  if(dStrip<18){ return v<0.15+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
+  return v<0.06+busier?DISTRICT.COMMERCIAL: v<0.95?DISTRICT.SUBURB: DISTRICT.DESERT; // spread shrunk (Paolo)
+}
+
+function OM_rr(seed){ return (hash2(seed,911,373)%1000)/1000; }
+function buildOvermap(seed){
+  seed=seed>>>0||1;
+  const L=layoutFromSeed(seed);
+  const tiles=new Array(OVER_N*OVER_N);
+  for(let y=0;y<OVER_N;y++)for(let x=0;x<OVER_N;x++){
+    const fixed=skeleton(x,y,L);
+    let d=fixed;
+    if(!d){const r=rng((seed^(x*73856093)^(y*19349663))>>>0);d=proceduralDistrict(x,y,r,L);}
+    tiles[y*OVER_N+x]={x,y,district:d,fixed:!!fixed,quality:qualityAt(x,y,L),seed:(seed^(x*2654435761)^(y*40503))>>>0};
+  }
+  const at=(x,y)=>(x<0||y<0||x>=OVER_N||y>=OVER_N)?null:tiles[y*OVER_N+x];
+  // BIG ARCHITECTURE (Paolo 7/18/26): the ONLY things allowed to interrupt the
+  // surface-street grid. Real physical masses (mountain/water/freeway/rail/wash/
+  // the mines) and genuinely huge installations (airport/airbase/speedway/prison/
+  // datafort/arsenal/landfill/stadium/ballpark/convention/waterpark) and Paolo's
+  // blessed megablocks (the Strip and its casinos/luxor/sphere/highroller/strat).
+  // EVERYTHING ELSE — a fire station, a school, a mall, a gated community, a
+  // medical campus, downtown — is normal city fabric that sits IN its plot and
+  // must NEVER break a street. "even monuments... would just be in their big ass
+  // plots not breaking any city streets."
+  const BIG=new Set([DISTRICT.MOUNTAIN,DISTRICT.WATER,DISTRICT.FREEWAY,DISTRICT.INTERCHANGE,DISTRICT.BELTWAY,
+    DISTRICT.DAM,DISTRICT.RAIL,DISTRICT.RAILYARD,DISTRICT.WASH,DISTRICT.BASIN,DISTRICT.GYPSUM,DISTRICT.QUARRY,
+    DISTRICT.INTAKE,DISTRICT.SOLAR,DISTRICT.AIRPORT,DISTRICT.AIRBASE,DISTRICT.SPEEDWAY,DISTRICT.PRISON,
+    DISTRICT.DATAFORT,DISTRICT.ARSENAL,DISTRICT.LANDFILL,DISTRICT.BONEYARD,DISTRICT.WATERPARK,DISTRICT.MINIGP,
+    DISTRICT.STADIUM,DISTRICT.BALLPARK,DISTRICT.CONVENTION,DISTRICT.SPRINGS,DISTRICT.STRIP,DISTRICT.RESORT,
+    DISTRICT.CASINO,DISTRICT.LUXOR,DISTRICT.SPHERE,DISTRICT.HIGHROLLER,DISTRICT.STRAT,DISTRICT.SIGN,
+    DISTRICT.TOWN,DISTRICT.TRUCKSTOP]);
+  // GRID RE-ASSERT (Paolo 7/18/26, the aerial-map circles): landmark rects are
+  // stamped in skeleton() BEFORE the arterial/collector lines, so any soft
+  // landmark that overlapped a street cell ERASED it — that is every stub Paolo
+  // circled. Punch the whole street grid (mile arterials + per-strip collectors,
+  // the exact skeleton predicate) back through every soft landmark. BIG masses
+  // keep their cell (they are the only legit street-break). The monument now
+  // sits in its plot and the streets run around/through it, unbroken.
+  for(const t of tiles){
+    const x=t.x, y=t.y;
+    let grid=(x%9===0||y%9===0);
+    if(!grid){
+      const bx=(x/9)|0, by=(y/9)|0;
+      const colPick=4+((hash2(seed,bx,0)>>>3)&1);
+      const rowPick=4+((hash2(seed,0,by)>>>5)&1);
+      grid=((x%9)===colPick)||((y%9)===rowPick);
+    }
+    if(grid && !BIG.has(t.district) && t.district!==DISTRICT.ARTERIAL){
+      t.district=DISTRICT.ARTERIAL; t.fixed=true;
+    }
+  }
+  // FREEWAY CONNECTIVITY SWEEP (Paolo 7/5/26): any freeway cell not reachable
+  // from the spine is a severed stub (cluster/rect cuts); it returns to desert.
+  {
+    const isF=(t)=>t&&(t.district===DISTRICT.FREEWAY||t.district===DISTRICT.INTERCHANGE);
+    const seen=new Set(), stack=[[L.fwyX,90]];
+    if(isF(at(L.fwyX,90))){ seen.add(L.fwyX+','+90);
+      while(stack.length){ const [x,y]=stack.pop();
+        for(const [nx,ny] of [[x+1,y],[x-1,y],[x,y+1],[x,y-1]]){
+          const k=nx+','+ny; if(seen.has(k))continue;
+          if(isF(at(nx,ny))){seen.add(k);stack.push([nx,ny]);} } }
+      for(const t of tiles){ if(t.district===DISTRICT.FREEWAY&&!seen.has(t.x+','+t.y))t.district=DISTRICT.DESERT; }
+    }
+  }
+  // PARALLEL SIDE-STREET LAW (Paolo 7/5/26): no street parallel right next to
+  // a freeway. That cell is frontage real estate; it fills with buildings.
+  // Perpendicular crossings (over/underpasses) stay. Decided on a snapshot so
+  // removals do not cascade.
+  {
+    const F=(t)=>t&&(t.district===DISTRICT.FREEWAY||t.district===DISTRICT.INTERCHANGE);
+    const A=(t)=>t&&t.district===DISTRICT.ARTERIAL;
+    const snap=tiles.map(t=>t.district);
+    const sAt=(x,y)=>(x<0||y<0||x>=OVER_N||y>=OVER_N)?null:{district:snap[y*OVER_N+x]};
+    const kill=[];
+    for(const t of tiles){ if(t.district!==DISTRICT.ARTERIAL)continue;
+      const fE=F(sAt(t.x+1,t.y))||F(sAt(t.x-1,t.y));
+      const fN=F(sAt(t.x,t.y+1))||F(sAt(t.x,t.y-1));
+      const aV=A(sAt(t.x,t.y-1))||A(sAt(t.x,t.y+1));
+      const aH=A(sAt(t.x-1,t.y))||A(sAt(t.x+1,t.y));
+      if(t.x%9===0||t.y%9===0)continue;     // mile arterials always punch through (grade-separated)
+      if((fE&&aV)||(fN&&aH))kill.push(t);   // running parallel beside the freeway
+    }
+    for(const t of kill){ t.district=DISTRICT.SUBURB; t.hybrid=true; } // frontage lots
+  }
+  // OVERPASS / UNDERPASS (Paolo 7/5/26): where an arterial line crosses a
+  // freeway, the crossing is grade-separated. Streets continue over or under.
+  for(const t of tiles){ if(t.district!==DISTRICT.FREEWAY)continue;
+    const onAx=(t.x%9===0), onAy=(t.y%9===0);
+    if(onAx||onAy){ t.xing=(hash2(seed,t.x,t.y)&1)?'over':'under'; t.xdir=onAx?'v':'h'; }
+  }
+  // HYBRID NEIGHBORHOODS: building cells pressed against a freeway are hybrid
+  // (a surface street's block with the freeway through the middle)
+  for(const t of tiles){ if(t.district!==DISTRICT.SUBURB&&t.district!==DISTRICT.COMMERCIAL&&t.district!==DISTRICT.INDUSTRIAL)continue;
+    const n=[at(t.x+1,t.y),at(t.x-1,t.y),at(t.x,t.y+1),at(t.x,t.y-1)];
+    if(n.some(nn=>nn&&(nn.district===DISTRICT.FREEWAY||nn.district===DISTRICT.INTERCHANGE)))t.hybrid=true;
+  }
+  // HOMESTEAD TIERS (Paolo 7/5/26): LONE homesteads are single families
+  // surviving by themselves, nobody's target. A WHOLE NEIGHBORHOOD doing the
+  // self-sufficient thing together is a COMPOUND, and factions are interested.
+  for(const t of tiles){ if(t.district!==DISTRICT.SUBURB)continue;
+    const hq=hash2(seed,t.x*13,t.y*29)%1000;
+    const band=(t.quality>0.35&&t.quality<0.75)?45:25;
+    if(hq<band)t.homestead=true;
+  }
+  // COMPOUND NEIGHBORHOODS: 3 deliberate cul-de-sac collectives, 2x2-3x2
+  // suburb blobs where the whole block organized (well shares, crop rotation,
+  // a fence line). Every cell flagged homestead + compound.
+  {
+    const spots=[[Math.round(96*0.28),Math.round(96*0.56)],[Math.round(96*0.66),Math.round(96*0.40)],[Math.round(96*0.36),Math.round(96*0.76)]];
+    for(let si=0;si<spots.length;si++){
+      const jx=hash2(seed,si*7,101)%5-2, jy=hash2(seed,si*11,203)%5-2;
+      let bx=spots[si][0]+jx, by=spots[si][1]+jy;
+      const bw=2+(hash2(seed,si,17)%2), bh=2;
+      // spiral outward until the whole blob is suburb ground (guaranteed)
+      let ok=false;
+      const fits=(x0,y0)=>{ if(x0<2||y0<2||x0+bw>94||y0+bh>94)return false;
+        for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){
+          const c2=tiles[(y0+dy)*96+(x0+dx)];
+          if(!c2||c2.district!==DISTRICT.SUBURB)return false; } return true; };
+      outer2: for(let rad=0;rad<40;rad+=2){
+        for(let oy=-rad;oy<=rad;oy+=2)for(let ox=-rad;ox<=rad;ox+=2){
+          if(Math.max(Math.abs(ox),Math.abs(oy))!==rad)continue;
+          if(fits(bx+ox,by+oy)){ bx+=ox; by+=oy; ok=true; break outer2; } } }
+      if(ok){ for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){
+        const c2=tiles[(by+dy)*96+(bx+dx)]; c2.homestead=true; c2.compound=true; } }
+    }
+  }
+  // FLAGS BATCH (Paolo 7/5/26): fremont canopy, chinatown, antenna farm,
+  // industrial-road corridor, and SPORT PARK TYPES (soccer/baseball/football)
+  {
+    const dtC=Math.round(96*0.26);
+    for(const t of tiles){
+      // (canopy handled below: exactly 2 straight cells, Paolo 7/5/26)
+      if(t.district===DISTRICT.COMMERCIAL){
+        const dir=(L.fwyX<L.stripX)?1:-1, side=(t.x-L.stripX)*dir;
+        const ychn=Math.round(96*0.42/9)*9;
+        if(side<-6&&side>-22&&Math.abs(t.y-ychn)<=1)t.chinatown=true;          // Spring Mountain corridor
+        if(Math.abs(t.x-L.railX)<=2&&t.y>96*0.35&&t.y<96*0.5)t.adult=true;     // Industrial Rd corridor
+      }
+      if(t.district===DISTRICT.MOUNTAIN&&((t.x<4&&Math.abs(t.y-48)<2)||(t.x>92&&Math.abs(t.y-58)<2)))t.antenna=true; // rim antenna farm
+      if(t.district===DISTRICT.PARK){
+        const hsp=hash2(seed,t.x*3,t.y*7)%8;
+        t.sport=hsp<4?null:hsp===4?'soccer':hsp===5?'baseball':hsp===6?'football':null; // sport-typed parks
+      }
+    }
+  }
+  // FREMONT CANOPY: exactly TWO adjacent downtown cells, straight, no L
+  {
+    const dtC=Math.round(96*0.26);
+    let row=null;
+    for(const dy of [0,1,-1,2]){ const cand=tiles.filter(t=>t.district===DISTRICT.DOWNTOWN&&t.y===dtC+dy).sort((a,b)=>a.x-b.x);
+      for(let i2=0;i2+1<cand.length;i2++){ if(cand[i2+1].x===cand[i2].x+1){ row=[cand[i2],cand[i2+1]]; break; } }
+      if(row)break; }
+    if(row){ row[0].canopy=true; row[1].canopy=true; }
+  }
+  // PARK SPLIT (Paolo verdict R, 7/5/26): only FAKE-GRASS parks stay
+  // recreational. Real grass is food now. Sport fields (artificial turf)
+  // keep the park; every plain-grass park cell gets plowed into FARM.
+  for(const t of tiles){ if(t.district===DISTRICT.PARK&&!t.sport)t.district=DISTRICT.FARM; }
+  // APEX SHELLS (Paolo verdict M, 7/5/26): the half-built frontier around
+  // the landfill corridor, staged materials and skeleton framing
+  {
+    const lf=L.landfill;
+    for(const t of tiles){
+      const okA=t.district===DISTRICT.DESERT||t.district===DISTRICT.INDUSTRIAL||t.district===DISTRICT.SUBURB||t.district===DISTRICT.COMMERCIAL;
+      if(!okA)continue;
+      if(Math.abs(t.x-(lf.x+1))<=5&&Math.abs(t.y-(lf.y+1))<=5)t.apex=true;
+    }
+  }
+  // RED ROCK (Paolo 7/5/26): PART of the west wall, not the whole range.
+  // A sandstone band roughly a third of the rim, west-southwest like the real one.
+  {
+    const rr=OM_rr(seed);
+    const b0=Math.round(96*(0.34+rr*0.08)), b1=b0+Math.round(96*0.22);
+    for(const t of tiles){ if(t.district!==DISTRICT.MOUNTAIN)continue;
+      if(!L.axisFlip){ if(t.x<10&&t.y>=b0&&t.y<=b1)t.redrock=true; }
+      else { if(t.y<10&&t.x>=b0&&t.x<=b1)t.redrock=true; }
+    }
+  }
+  // FOOD OVER BMX (Paolo locked 7/5/26, supersedes the BMX conversion):
+  // every dead course is PLOWED. The irrigation is already in the ground, so
+  // the fairways become farms. One course stays operational golf
+  // [PENDING Paolo: does the last course get plowed too, or does someone
+  // powerful keep it]. Crop strips still follow the old dogleg ghosts.
+  for(const t of tiles){ if(t.district!==DISTRICT.GOLF)continue;
+    let idx=-1; L.golf.forEach((R,i)=>{ if(t.x>=R.x&&t.x<R.x+R.w&&t.y>=R.y&&t.y<R.y+R.h)idx=i; });
+    if(idx!==L.golfOp)t.district=DISTRICT.FARM;
+  }
+  // PARKS MUST TOUCH A STREET (Paolo 7/5/26): a road-less 1x1 park flips to
+  // suburb. Big named parks are placed snapped beside arterials and exempt.
+  for(const t of tiles){ if(t.district!==DISTRICT.PARK)continue;
+    if(inRect(t.x,t.y,L.sunsetPark)||inRect(t.x,t.y,L.craigRanch))continue;
+    const n=[at(t.x+1,t.y),at(t.x-1,t.y),at(t.x,t.y+1),at(t.x,t.y-1)];
+    if(!n.some(nn=>nn&&ROAD[nn.district])) t.district=DISTRICT.SUBURB;
+  }
+  // COMPLEX LAW (Paolo 7/5/26): interior suburb cells with no street contact
+  // read as APARTMENT/CONDO COMPLEXES (cul-de-sac fabric is drill-in scale).
+  for(const t of tiles){ if(t.district!==DISTRICT.SUBURB)continue;
+    const n=[at(t.x+1,t.y),at(t.x-1,t.y),at(t.x,t.y+1),at(t.x,t.y-1)];
+    if(!n.some(nn=>nn&&ROAD[nn.district])) t.complex=true;
+  }
+  // COMMERCIAL MUST TOUCH A STREET (Paolo): else it flips to suburb
+  for(const t of tiles){ if(t.district!==DISTRICT.COMMERCIAL)continue;
+    const n=[at(t.x+1,t.y),at(t.x-1,t.y),at(t.x,t.y+1),at(t.x,t.y-1)];
+    if(!n.some(nn=>nn&&ROAD[nn.district])) t.district=DISTRICT.SUBURB;
+  }
+  // STREET DEAD-END PRUNE (Paolo 7/18/26, NO-STREET-BREAK LAW): runs LAST, so
+  // the stubs left dangling by the freeway sweep + parallel-side-street pass
+  // get healed. Iteratively return any surface-street cell that dead-ends into
+  // buildable lots (<=1 road neighbor, no real terminator, not the map edge)
+  // back to desert, until the grid has no mid-block breaks. Mile arterials
+  // (x%9==0 || y%9==0) are the grade-separated spine and are never pruned;
+  // streets ending at a freeway/water/mountain/wash/strip/edge are real ends.
+  // A street may END legitimately ONLY at: another road, a BIG mass (the only
+  // thing allowed to break the grid), or the map edge. After the grid re-assert
+  // punched collectors through every SOFT landmark, the only stubs left are
+  // freeway-sweep leftovers and collectors that couldn't span a block. <=1 road
+  // neighbor with NO big mass beside it = a nub poking into fabric (desert /
+  // suburb / a soft landmark) -> prune it back. It unravels the dangling tail to
+  // the last real junction and leaves the spanning grid whole.
+  {
+    let changed=true, guard=0;
+    while(changed && guard++<60){ changed=false;
+      for(const t of tiles){ if(t.district!==DISTRICT.ARTERIAL)continue;
+        if(t.x%9===0||t.y%9===0)continue;
+        let roadN=0, bigN=0, edge=false;
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nn=at(t.x+dx,t.y+dy);
+          if(!nn){edge=true;continue;}
+          if(ROAD[nn.district])roadN++; else if(BIG.has(nn.district))bigN++;
+        }
+        if(roadN<=1 && bigN===0 && !edge){ t.district=DISTRICT.DESERT; changed=true; }
+      }
+    }
+  }
+  // STREET ISLAND PRUNE (Paolo 7/18/26, "look at all these streets that are not
+  // connected to each other"): the dead-end prune heals stubs into OPEN lots,
+  // but leaves orphan arterial fragments that are BOXED IN by real terminators
+  // (an estate, the dam, a jail, rail, water, the map edge) — those have no OPEN
+  // neighbor so the stub prune never touches them, yet they are cut off from the
+  // mile grid: a street with no way in. Flood the road network from every mile
+  // arterial (the grade-separated spine, always the main component); any ARTERIAL
+  // not reached is an island -> return it to desert. Only arterials are pruned;
+  // freeway/strip/downtown/beltway are masses of their own and stay put.
+  {
+    // road set matches the connectivity gate exactly (interchange/downtown/town
+    // are traversable road too), so the flood measures the same grid the gate does.
+    const ROADSET={freeway:1,arterial:1,strip:1,beltway:1,interchange:1,downtown:1,town:1};
+    // Label every road cell with its connected component; keep the LARGEST (the
+    // main grid) and demote orphan ARTERIALS in every other component. Even mile
+    // arterials get pruned here: the spine itself is chopped by the mountain ring
+    // and the dam, leaving 1-2 cell fragments against the map edge with no road
+    // way in — a street connected to nothing, exactly what Paolo flagged.
+    const comp=new Map();       // "x,y" -> component id
+    const size=[];              // component id -> cell count
+    let cid=0;
+    for(const s of tiles){
+      if(!ROADSET[s.district] || comp.has(s.x+','+s.y)) continue;
+      const stack=[s]; comp.set(s.x+','+s.y,cid); let n=0;
+      while(stack.length){
+        const t=stack.pop(); n++;
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nn=at(t.x+dx,t.y+dy);
+          if(nn && ROADSET[nn.district] && !comp.has(nn.x+','+nn.y)){ comp.set(nn.x+','+nn.y,cid); stack.push(nn); }
+        }
+      }
+      size[cid++]=n;
+    }
+    let main=0; for(let i=1;i<size.length;i++) if(size[i]>size[main]) main=i;
+    for(const t of tiles){
+      if(t.district===DISTRICT.ARTERIAL && comp.get(t.x+','+t.y)!==main) t.district=DISTRICT.DESERT;
+    }
+  }
+  // ===== UNDERGROUND THIRD LAYER (Paolo 7/5/26) =====
+  // Storm tunnels (the wash system the Homeless live in, 600+ real miles),
+  // sewers (every flow ends at the reclamation plant, the 99% loop),
+  // and the Boring loop (bored car tunnels under the resort corridor).
+  // All 90-degree (street law holds underground).
+  const under={storm:new Set(),sewer:new Set(),loop:new Set()};
+  const K=(x,y)=>x+','+y;
+  function lPath(set,x0,y0,x1,y1){ // vertical first, then horizontal
+    const sy=y0<y1?1:-1; for(let y=y0;y!==y1;y+=sy)set.add(K(x0,y)); set.add(K(x0,y1));
+    const sx=x0<x1?1:-1; for(let x=x0;x!==x1;x+=sx)set.add(K(x,y1)); set.add(K(x1,y1));
+  }
+  {
+    // STORM: the wash channel itself runs underground beneath the city side,
+    // trunks from downtown and the strip feed it, basins tie in
+    const wx=L.wash[0][0], wy=L.wash[0][1];
+    lPath(under.storm, L.stripX, Math.round(96*0.50), wx, wy);           // under-strip trunk (canon)
+    lPath(under.storm, Math.round(L.stripX+((L.fwyX<L.stripX)?1:-1)*3), Math.round(96*0.27), wx, wy); // downtown trunk
+    for(const b of L.basins){ lPath(under.storm, b.x+1, b.y+1, wx, wy); }
+    // SEWER: subset grid under every other mile arterial, all L-pathed to the plant
+    const rc={x:L.reclaim.x+1,y:L.reclaim.y+1};
+    for(let gx=18;gx<96;gx+=18){ lPath(under.sewer, gx, 18, gx, 78); lPath(under.sewer, gx, 78, rc.x, rc.y); }
+    for(let gy=18;gy<96;gy+=18){ lPath(under.sewer, 18, gy, 78, gy); }
+    lPath(under.sewer, 78, 78, rc.x, rc.y);
+    // BORING LOOP: convention center down the resort corridor to the airport,
+    // one spur to downtown (real: LVCC loop growing across the corridor)
+    const lc=L.stripX+((L.fwyX<L.stripX)?1:-1)*2;
+    lPath(under.loop, L.convention.x+1, L.convention.y+1, lc, L.convention.y+1);
+    lPath(under.loop, lc, L.convention.y+1, lc, L.hri.y+1);
+    lPath(under.loop, lc, L.hri.y+1, L.hri.x+2, L.hri.y+1);
+    lPath(under.loop, lc, Math.round(96*0.27), L.stripX+((L.fwyX<L.stripX)?1:-1)*4, Math.round(96*0.27));
+    // real 2026 buildout: Spring Mountain / Chinatown spur, medical district,
+    // Allegiant stadium stop
+    const dirE2=(L.fwyX<L.stripX)?1:-1, ychn=Math.round(96*0.42/9)*9+1;
+    lPath(under.loop, lc, ychn, L.stripX-dirE2*14, ychn);
+    lPath(under.loop, lc, L.medical.y+1, L.medical.x+1, L.medical.y+1);
+    lPath(under.loop, lc, L.stadiumA.y+1, L.stadiumA.x, L.stadiumA.y+1);
+    // WEST STORM COLLECTOR: runoff comes off the west mountains too (real:
+    // storms on the west/north rims race down washes into the valley)
+    lPath(under.storm, Math.round(96*0.16), Math.round(96*0.55), wx, wy);
+    // AQUEDUCT (4th system): intake -> treatment at the lake -> THROUGH the
+    // rim (the real River Mountains Tunnel) -> pumping station -> reservoirs
+    // FIBER BACKBONE (Paolo verdict L, 7/5/26): the long-haul trunk along
+    // the 15 from the CA border to the data fortress. The Enron fiber the
+    // fortress was born from. The wire the portraits traveled in on.
+    under.fiber=new Set();
+    { const df=L.datafort;
+      lPath(under.fiber, L.fwyX-2, 94, L.fwyX-2, df.y+1);
+      lPath(under.fiber, L.fwyX-2, df.y+1, df.x+1, df.y+1); }
+    // DEEP TUNNEL (Paolo verdict W, 7/5/26, LOCKED): a tunnel system from
+    // the data fortress goes DEEPER underground, connecting to the water
+    // reclamation plant. Grounded: the fortress runs on 100% recycled
+    // water. What else moves down there is the game's business.
+    under.deep=new Set();
+    { const df=L.datafort, rc2=L.reclaim;
+      lPath(under.deep, df.x+1, df.y+1, df.x+1, rc2.y+1);
+      lPath(under.deep, df.x+1, rc2.y+1, rc2.x+1, rc2.y+1); }
+    // THE DEAD PIPES (Paolo 7/5/26, the educational mission): the two fuel
+    // pipelines that fed the city. CalNev from the southwest along the 15,
+    // UNEV from the northeast. Both dead, both visible in the UNDER view so
+    // the player learns the city drank through straws.
+    under.pipes=new Set();
+    { const d1=L.fueldepots[0], d2=L.fueldepots[1];
+      lPath(under.pipes, L.fwyX+2, 94, L.fwyX+2, d1.y);
+      lPath(under.pipes, L.fwyX+2, d1.y, d1.x, d1.y);
+      const neX=Math.min(94,L.beltRect.rgt+8);
+      lPath(under.pipes, neX, 2, neX, d2.y);
+      lPath(under.pipes, neX, d2.y, d2.x, d2.y); }
+    under.aqueduct=new Set();
+    lPath(under.aqueduct, L.intake.x, L.intake.y, L.watertreat.x+1, L.watertreat.y+1);
+    lPath(under.aqueduct, L.watertreat.x+1, L.watertreat.y+1, L.pumpstation.x, L.pumpstation.y);
+    for(const rv of L.reservoirs){ lPath(under.aqueduct, L.pumpstation.x, L.pumpstation.y, rv.x, rv.y); }
+  }
+  return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
+    tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
+}
+function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
+
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2};
+if(typeof module!=='undefined'&&module.exports){module.exports=API;}
+global.BohemiaOvermap=API;
+})(typeof window!=='undefined'?window:globalThis);
+
+/* ==== engine/bohemia_overmap_bridge.js ==== */
+// BOHEMIA OVERMAP->BLOCK BRIDGE (7/14/26)
+// LANES SOURCED (7/14 research): Strip 3/dir, arterials 3/dir, I-15 5/dir (= Paolo's law exactly).
+// The canonical valley meets the block pipeline: an overmap cell's district
+// class picks a blockgen recipe; the CELL'S OWN seed drives generation
+// (deterministic per (seed, cell) — Continuous Walk Law). Quality maps to
+// wreckage/litter density (low quality = more collapse) [tunable, flagged].
+// DISTRICT -> BUILD ARCHETYPE (Paolo 7/18/26). ~9 procedural archetypes cover
+// every landmark type: civic (mid building + parking), bigbox (one big box +
+// apron), institutional (campus of buildings + green), industrial (sheds +
+// fence), utility (fenced yard + tanks), landmark (one big centered structure),
+// green (turf + trees + path), water, rail, extraction (mine pit). Real-Vegas
+// grounding drives the pick; the generator lives in bohemia_blockgen genBuiltLot.
+const ARCHETYPE={
+  resort:'bigbox', mall:'bigbox', convention:'bigbox', swapmeet:'bigbox',
+  industrial:'industrial', railyard:'industrial', storage:'industrial', warehouse:'industrial',
+  medical:'institutional', campus:'institutional', school:'institutional', jail:'institutional', prison:'institutional',
+  reclaim:'utility', landfill:'utility', intake:'utility', substation:'utility', watertreat:'utility',
+  reservoir:'utility', pumpstation:'utility', battery:'utility', fueldepot:'utility', basin:'utility',
+  datafort:'utility', arsenal:'utility', granary:'utility', radio:'utility',
+  firestation:'civic', policestation:'civic', courthouse:'civic', library:'civic', chapel:'civic',
+  terminal:'civic', town:'civic', truckstop:'civic',
+  dam:'landmark', sphere:'landmark', luxor:'landmark', strat:'landmark', highroller:'landmark',
+  sign:'landmark', boneyard:'landmark', fort:'landmark', springs:'landmark', ballpark:'landmark',
+  stadium:'landmark', speedway:'landmark', robofactory:'landmark',
+  park:'green', golf:'green', cemetery:'green', waterpark:'green', minigp:'green', drivein:'green',
+  water:'water', rail:'rail', quarry:'extraction', gypsum:'extraction',
+};
+const BOH_OMBRIDGE=(function(){
+  function recipeFor(cell){
+    const d=cell.district, q=cell.quality!=null?cell.quality:0.5;
+    const decay=Math.round((1-q)*6); // 0..6 wrecks from quality
+    switch(d){
+      case 'arterial': return {type:'street',opts:{lanes:q<0.35?2:3,wrecks:decay,intersection:(cell.seed%3)===0}}; // RESEARCHED: mile-grid arterials run 3/dir (FHWA); only decayed minors drop to 2
+      case 'freeway': case 'beltway': return {type:'freeway',opts:{wrecks:decay}};
+      case 'suburb': case 'gated': case 'trailer': return {type:'residential',opts:{wrecks:Math.min(decay,2)}};
+      case 'strip': return {type:'street',opts:{lanes:3,sidewalk:3,median:2,wrecks:decay,intersection:false}}; // SIDEWALK LAW: Strip max 3
+      case 'downtown': case 'commercial': case 'casino':
+        return {type:'street',opts:{lanes:q>0.5?3:2,sidewalk:2,wrecks:decay,intersection:(cell.seed%2)===0}}; // researched: urban corridors 2-3/dir
+      case 'desert': return {type:'desert',opts:{}};
+      case 'wash': return {type:'wash',opts:{}};
+      case 'solar': return {type:'solar',opts:{}};
+      case 'farm': return {type:'farm',opts:{}};
+      case 'airport': case 'airbase': return {type:'airfield',opts:{}};
+      case 'mountain': return {type:'mountain',opts:{}};
+      case 'estate': return {type:'residential',opts:{wrecks:1}};       // big-lot housing
+      case 'interchange': return {type:'freeway',opts:{}};              // freeway stack
+      // PROCEDURAL BUILT LOT (Paolo 7/18/26): every remaining district generates
+      // from its build archetype instead of returning null. This is a procgen
+      // world — landmarks populate the map procedurally, not by hand-ruling each.
+      default: return {type:'builtlot',opts:{archetype:ARCHETYPE[d]||'civic'}};
+    }
+  }
+  function blockFor(cell,G,W){
+    const r=recipeFor(cell);
+    if(!r) return {pending:true,district:cell.district,cell:{x:cell.x,y:cell.y}};
+    const b=G.generate(r.type,cell.seed>>>0,W||24,r.opts);
+    b.meta.district=cell.district; b.meta.quality=cell.quality;
+    b.meta.cell=[cell.x,cell.y];
+    return b;
+  }
+  return {recipeFor,blockFor};
+})();
+
+// DISTRICT MERGE LAW (7/14): detect same-district rect clusters (cap 2x2),
+// seeded merge coin per cluster (default p=0.6, PENDING Paolo).
+BOH_OMBRIDGE.clusterFor=function(m,x,y,mergeP){
+  mergeP=mergeP==null?0.6:mergeP;
+  const d=m.at(x,y).district;
+  const same=(xx,yy)=>{try{return m.at(xx,yy).district===d;}catch(e){return false;}};
+  // anchor cluster at even coordinates so every member agrees on the cluster
+  const ax=x-(x%2), ay=y-(y%2);
+  const can2x2=same(ax,ay)&&same(ax+1,ay)&&same(ax,ay+1)&&same(ax+1,ay+1);
+  const canH=same(ax,y)&&same(ax+1,y);
+  const canV=same(x,ay)&&same(x,ay+1);
+  const coin=(sx,sy,salt)=>{let s=(m.at(sx,sy).seed^salt)>>>0;s=(s*1103515245+12345)>>>0;return (s/4294967296)<mergeP;};
+  if(can2x2&&coin(ax,ay,0xAA)){return {cx:ax,cy:ay,cw:2,ch:2,seed:m.at(ax,ay).seed,member:[x-ax,y-ay]};}
+  if(canH&&coin(ax,y,0xBB)){return {cx:ax,cy:y,cw:2,ch:1,seed:m.at(ax,y).seed,member:[x-ax,0]};}
+  if(canV&&coin(x,ay,0xCC)){return {cx:x,cy:ay,cw:1,ch:2,seed:m.at(x,ay).seed,member:[0,y-ay]};}
+  return {cx:x,cy:y,cw:1,ch:1,seed:m.at(x,y).seed,member:[0,0]};
+};
+
+
+// GATES TOUCH STREETS (7/14): plotFor detects which plot edges face street
+// districts on the real overmap and hands them to plotgen as streetEdges.
+BOH_OMBRIDGE.STREET_DISTRICTS=['arterial','street','strip','downtown','freeway','residential_street'];
+BOH_OMBRIDGE.plotFor=function(m,x,y,P,opts){
+  opts=opts||{};
+  const cl=BOH_OMBRIDGE.clusterFor(m,x,y,opts.mergeP);
+  const cell=m.at(x,y);
+  const isStreet=(xx,yy)=>{try{return BOH_OMBRIDGE.STREET_DISTRICTS.indexOf(m.at(xx,yy).district)>=0;}catch(e){return false;}};
+  const edges=[];
+  // check the CLUSTER's outer edges
+  for(let i=0;i<cl.cw;i++){if(isStreet(cl.cx+i,cl.cy-1))
+    {edges.push('N');break;}}
+  for(let i=0;i<cl.cw;i++){if(isStreet(cl.cx+i,cl.cy+cl.ch)){edges.push('S');break;}}
+  for(let i=0;i<cl.ch;i++){if(isStreet(cl.cx-1,cl.cy+i)){edges.push('W');break;}}
+  for(let i=0;i<cl.ch;i++){if(isStreet(cl.cx+cl.cw,cl.cy+i)){edges.push('E');break;}}
+  const d=cell.district;
+  const kind=d==='commercial'?'commercial':(d==='industrial'||d==='warehouse'||d==='railyard'||d==='storage')?'industrial':'suburb';
+  const character=
+    d==='gated'  ?{forceWalled:true, forceGated:true }:
+    d==='estate' ?{forceWalled:true, forceGated:true, setback:'estate_12cell'}:
+    d==='trailer'?{forceWalled:false,forceGated:false,setback:'trailer_4cell'}:
+    {};
+  return {cluster:cl,plot:P.generate(kind,cl.seed,cell.quality,
+    Object.assign({shape:{cw:cl.cw,ch:cl.ch},streetEdges:edges},character,opts.gen||{}))};
+};
+
+if(typeof module!=='undefined')module.exports=BOH_OMBRIDGE;
+
+/* ==== engine/bohemia_blockgen.js ==== */
+// BOHEMIA BLOCK GENERATOR — worldgen Phase B harness (7/14/26)
+// Block = one city-view grid cell (BLOCK CANON). This module turns a block
+// spec into a CELL GRID (semantic layers), never images: renderers consume it.
+// Laws encoded: LANE WIDTH=2 (LOCKED), lanes 1-4/dir (5 freeway), median 1-2
+// (fat=u-turns), sidewalk 1-3, crosswalks ONLY at intersections, STAGGERED
+// LAMP LAW, NO SINGLE STREET LAW (variance is asserted by test), CAR OVERLAP
+// LAW (occupancy), LINE COLOR LAW (semantic rows carry color class).
+const BOH_BLOCKGEN=(function(){
+  function rng(seed){let s=seed>>>0;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;}}
+  const LANE_W=2; // LAW
+
+  // SIDEWALK SANCTITY LAW (Paolo 7/14, RF0 DOWN — RUIN FLANKS died for this):
+  // "nothing on sidewalks except lamp posts and street furniture; buildings/
+  //  ruins live PAST the sidewalk; buildings do not go on streets."
+  // The law lived in a comment, which is not enforcement. It is a whitelist now.
+  //
+  // CORRECTION 7/16: "Sidewalk furniture whitelist — beyond lamps" sits on
+  // Paolo's shelf as HIS call. I built the mechanism and then quietly filled it
+  // with 13 furniture names, which is authoring canon he had reserved. Split.
+  //
+  // LAW-BACKED — these two have rulings behind them. Nothing else does.
+  //   street_lamp   STAGGERED LAMP LAW + LAMP HEIGHT LAW (7/14)
+  //   fire_barrel   "FIRE BARRELS ARE RARE... standalone props" (7/14)
+  const SIDEWALK_LEGAL=new Set(['street_lamp','fire_barrel']);
+  // PROPOSED — plausible Vegas street furniture, NOT ruled on, OFF by default.
+  // Paolo promotes a name or deletes it. Claude never promotes these.
+  const SIDEWALK_PROPOSED=['traffic_light','ped_signal','bench','trash_can',
+    'hydrant','mailbox','street_sign','bus_stop','newspaper_box','planter','bollard'];
+  // opts.sidewalkFurniture admits proposed names for ONE run, so the question
+  // can be answered with a picture instead of argued in the abstract.
+  function sidewalkLegal(opts){
+    if(!opts||!opts.sidewalkFurniture)return SIDEWALK_LEGAL;
+    return new Set([...SIDEWALK_LEGAL,
+      ...opts.sidewalkFurniture.filter(p=>SIDEWALK_PROPOSED.indexOf(p)>=0)]);
+  }
+  // Every prop placement goes through here. A prop that is not street furniture
+  // cannot reach a sidewalk cell by accident, ever, in any recipe.
+  function placeProp(cell,prop,legal){
+    if(cell.g==='side'&&!(legal||SIDEWALK_LEGAL).has(prop.p))return false;
+    cell.props.push(prop);return true;
+  }
+  // LINE COLOR LAW audit. Walks the real grid and checks every marking against
+  // the lanes actually beside it. Catches a generator that writes the right
+  // colour for the wrong reason.
+  function auditLines(b){
+    const bad=[];
+    if(b.type!=='street'&&b.meta&&b.meta.type!=='street')return bad;
+    const H=b.H,W=b.W;
+    const dirOf=(y)=>{const c=b.grid[y]&&b.grid[y][0];return c?c.dir:null;};
+    for(let y=0;y<H;y++){
+      const c=b.grid[y][0];
+      if(!c)continue;
+      if(c.g!=='lane_div'&&c.g!=='median')continue;
+      // find the nearest lane above and below this marking
+      let up=null,dn=null;
+      for(let i=y-1;i>=0;i--){if(b.grid[i][0].g==='lane'){up=dirOf(i);break;}}
+      for(let i=y+1;i<H;i++){if(b.grid[i][0].g==='lane'){dn=dirOf(i);break;}}
+      if(!c.axis)bad.push({y,why:'line cell carries no road axis'});
+      if(up&&dn){
+        const opposing=(up!==dn);
+        if(opposing&&c.color!=='yellow_direction')
+          bad.push({y,why:'opposing traffic separated by '+c.color+', law says yellow'});
+        if(!opposing&&c.color!=='white_lane')
+          bad.push({y,why:'same-direction lanes separated by '+c.color+', law says white'});
+      }
+    }
+    // rule 3: nothing may carry a with-axis line colour on a crosswalk cell
+    for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+      const c=b.grid[y][x];
+      if(c.g==='crosswalk'&&c.color)bad.push({x,y,why:'crosswalk carries a with-axis line colour'});
+    }
+    return bad;
+  }
+
+  // Post-gen audit for the gate: returns every violation found in a block.
+  function auditSidewalks(b){
+    const bad=[];
+    for(let y=0;y<b.H;y++)for(let x=0;x<b.W;x++){
+      const c=b.grid[y][x];
+      if(c.g!=='side')continue;
+      for(const p of c.props)
+        if(!SIDEWALK_LEGAL.has(p.p)&&SIDEWALK_PROPOSED.indexOf(p.p)<0) bad.push({x,y,prop:p.p});
+    }
+    return bad;
+  }
+  function streetLayout(r,opts){
+    const o=opts||{};
+    const lanes=o.lanes!=null?o.lanes:(1+Math.floor(r()*3)); // 1-3 typical, 4 busy
+    const mw=o.median!=null?o.median:(r()<0.75?1:2);
+    const sw=o.sidewalk!=null?o.sidewalk:(r()<0.7?1:2);
+    const rows=[];
+    // LINE COLOR LAW (Paolo 7/13): yellow/orange ALWAYS separates DIRECTION;
+    // white separates same-direction lanes; lines run WITH the road axis and a
+    // marking across travel direction is legal ONLY as a crosswalk.
+    // Rows now carry `dir` (A / B / null) so the law is PROVABLE and not just
+    // asserted by the code that wrote it: a divider is legal iff the lanes on
+    // either side of it agree (white) or disagree (yellow) about direction.
+    for(let i=0;i<sw;i++)rows.push({t:'side'});
+    for(let d=0;d<lanes;d++){for(let i=0;i<LANE_W;i++)rows.push({t:'lane',dir:'A'});
+      if(d<lanes-1)rows.push({t:'lane_div',color:'white_lane',axis:'road'});}
+    for(let i=0;i<mw;i++)rows.push({t:'median',color:'yellow_direction',axis:'road'});
+    for(let d=0;d<lanes;d++){if(d>0)rows.push({t:'lane_div',color:'white_lane',axis:'road'});
+      for(let i=0;i<LANE_W;i++)rows.push({t:'lane',dir:'B'});}
+    for(let i=0;i<sw;i++)rows.push({t:'side'});
+    return {rows,lanes,median:mw,sidewalk:sw};
+  }
+  function genStreet(seed,W,opts){
+    const r=rng(seed);
+    const L=streetLayout(r,opts);
+    const H=L.rows.length;
+    const grid=[];
+    for(let y=0;y<H;y++){grid.push([]);
+      for(let x=0;x<W;x++)grid[y].push({g:L.rows[y].t,color:L.rows[y].color||null,
+        dir:L.rows[y].dir||null,axis:L.rows[y].axis?'EW':null,props:[]});}
+    // crosswalk only if this block hosts an intersection
+    const hasIntersection=(opts&&opts.intersection!=null)?opts.intersection:(r()<0.35);
+    let cwX=-1, cwW=0;
+    if(hasIntersection){
+      const cw=r()<0.8?1:2, cx=2+Math.floor(r()*(W-6));
+      cwX=cx; cwW=cw;
+      for(let y=L.sidewalk;y<H-L.sidewalk;y++)for(let i=0;i<cw;i++){
+        const c=grid[y][cx+i];
+        // A crosswalk is perpendicular BY DEFINITION (law rule 3). It must not
+        // keep the with-axis line colour it inherited from the row underneath,
+        // or the renderer draws a lane stripe running through the crossing.
+        c.g='crosswalk'; c.color=null; c.axis='NS';
+      }
+    }
+    // TURN POCKETS (7/17, markings bank APPROVED): at intersections, the
+    // innermost lane(s) of each approach carry a left-turn pocket ending one
+    // cell before the crosswalk; arterials (lanes>=3) run DUAL left pockets
+    // plus a right pocket on the outer lane; 4-lane runs go TRIPLE (researched
+    // Vegas anatomy, act-1 gap queue closed 7/17). Markings are cell.mk; the
+    // renderer maps mk -> BOHEMIA_MARKING_BANK classes (arrows WHITE, per the
+    // LINE COLOR LAW; the yellow lives only in twlt border tiles).
+    let pocketsLeft=0,pocketsRight=0;const PL=6;
+    if(hasIntersection){
+      const laneRowsOf=d=>{const out=[];L.rows.forEach((rw,i)=>{if(rw.t==='lane'&&rw.dir===d)out.push(i);});return out;};
+      const nLeft=L.lanes>=4?3:(L.lanes>=3?2:1);
+      const nRight=L.lanes>=3?1:0;
+      const mark=(y,x0,x1,arrow)=>{
+        for(let x=Math.max(1,x0);x<=Math.min(W-2,x1);x++){
+          const c=grid[y][x];
+          if(c.g!=='lane')continue;
+          c.mk=((x-x0)%3===1)?arrow:'pocket_line';
+        }
+      };
+      const A=laneRowsOf('A'),B=laneRowsOf('B');
+      // A approaches from the west of the crossing; B from the east.
+      for(let p=0;p<nLeft;p++){
+        const ya=A[A.length-1-p*LANE_W], yb=B[p*LANE_W];
+        if(ya!=null&&cwX-1-PL>=1){mark(ya,cwX-PL,cwX-1,'turn_arrow_left');pocketsLeft++;}
+        if(yb!=null&&cwX+cwW+PL<=W-2){mark(yb,cwX+cwW,cwX+cwW+PL-1,'turn_arrow_left');pocketsLeft++;}
+      }
+      for(let p=0;p<nRight;p++){
+        const ya=A[p*LANE_W], yb=B[B.length-1-p*LANE_W];
+        if(ya!=null&&cwX-1-PL>=1){mark(ya,cwX-PL,cwX-1,'turn_arrow_right');pocketsRight++;}
+        if(yb!=null&&cwX+cwW+PL<=W-2){mark(yb,cwX+cwW,cwX+cwW+PL-1,'turn_arrow_right');pocketsRight++;}
+      }
+    }
+    // lamps: STAGGERED LAW
+    const ls=(opts&&opts.lampSpacing)||8; let side=0;
+    const lampH=(opts&&opts.lampTall)||(L.lanes>=3?4:3); // LAMP HEIGHT LAW: arterial 4, smaller 3
+    for(let x=2;x<W-1;x+=ls){placeProp(grid[side?H-1:0][x],{p:'street_lamp',hTiles:lampH,state:'dead'});side=1-side;}
+    // FIRE BARRELS RARE (7/14): standalone props, never lamp stand-ins
+    for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+      const c=grid[y][x];
+      if(c.g==='side'&&!c.props.length&&r()<0.03)placeProp(c,{p:'fire_barrel',hTiles:1});
+    }
+    // wrecks: CAR OVERLAP LAW via occupancy, 4-way facings
+    const occ=new Set(); const laneRows=[]; L.rows.forEach((rw,i)=>{if(rw.t==='lane')laneRows.push(i);});
+    const wrecks=(opts&&opts.wrecks!=null)?opts.wrecks:Math.floor(r()*4);
+    let placed=0,tries=0;
+    while(placed<wrecks&&tries<100){tries++;
+      const ns=r()<0.4, w=ns?2:3,h=ns?3:2;
+      const gx=4+Math.floor(r()*(W-8)), gy=laneRows[Math.floor(r()*laneRows.length)];
+      if(gy+h>H-L.sidewalk)continue;
+      let free=true;
+      for(let x=gx;x<gx+w;x++)for(let y=gy;y<gy+h;y++)if(occ.has(x+','+y))free=false;
+      if(!free)continue;
+      for(let x=gx;x<gx+w;x++)for(let y=gy;y<gy+h;y++)occ.add(x+','+y);
+      // a wreck is not street furniture: the choke refuses it if a lane row ever
+      // resolves onto a sidewalk cell. It counts only if it actually landed.
+      if(placeProp(grid[gy][gx],{p:'car_wreck',w,h,facing:ns?'NS':'EW'}))placed++;
+    }
+    return {type:'street',W,H,grid,meta:{lanes:L.lanes,median:L.median,sidewalk:L.sidewalk,intersection:hasIntersection,wrecks:placed,pocketsLeft,pocketsRight,pocketLen:PL,crosswalkX:cwX,crosswalkW:cwW}};
+  }
+  // recipe registry per BLOCK CANON (street-scene-first; others are presets/stubs)
+  // TERRAIN TYPES (7/14): the valley's edges.
+    // RUIN FLANKS — DEAD (Paolo 7/14, SIDEWALK SANCTITY LAW): sidewalks carry NOTHING
+  // but lamp posts / street furniture; buildings+ruins live PAST the sidewalk in a
+  // zone not yet designed. Function retained unused as the graveyard record.
+  // (original intent below)
+  // along their building edges (top row 0 and bottom row H-1 sidewalk backs).
+  // Placement is lawful spacing, not map design: fragments every 3-6 cells,
+  // density scales with decay (wrecks opt); never on crosswalk columns.
+  // GRAVEYARD (RF0 DOWN, 7/14/26, SIDEWALK SANCTITY LAW): addRuinFlanks and
+  // ruin_frag are DEAD. The record lives in bohemia_graveyard.txt. A dead
+  // function kept inside a live module is a loaded gun — one call site away
+  // from resurrecting a verdict Paolo already made. Ruins live PAST the
+  // sidewalk in a zone he has not designed yet.
+  function genDesert(seed,W,opts){
+    const r=rng(seed);const H=Math.max(10,Math.floor(W*0.6));
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++){
+        const c={g:'desert',props:[]};
+        const v=r();
+        if(v<0.03)c.props.push({p:'rock',w:1,h:1});
+        else if(v<0.045)c.props.push({p:'rubble',w:1,h:1});
+        else if(v<0.053)c.props.push({p:'scorch_patch',w:1,h:1});
+        row.push(c);
+      } grid.push(row);}
+    return {W,H,grid,meta:{type:'desert',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0}};
+  }
+  function genMountain(seed,W,opts){
+    const r=rng(seed);const H=Math.max(10,Math.floor(W*0.6));
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++){
+        const c={g:'rock',props:[]};
+        if(r()<0.35)c.props.push({p:'boulder',w:1,h:1,impassable:true});
+        row.push(c);
+      } grid.push(row);}
+    return {W,H,grid,meta:{type:'mountain',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0}};
+  }
+  // BIG-ACREAGE GRAMMAR (7/14) — semantic roles only, art pools PENDING.
+  // WASH: Vegas flood channels — concrete floor, sloped banks, service road one side.
+  function genWash(seed,W,opts){
+    const H=Math.max(12,Math.floor(W*0.6));
+    const grid=[];
+    const floorW=Math.max(4,Math.floor(W*0.3));
+    const x0=Math.floor((W-floorW)/2);
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++){
+        let g='desert';
+        if(x>=x0&&x<x0+floorW)g='wash_floor';
+        else if(x===x0-1||x===x0+floorW)g='wash_slope';
+        else if(x===x0-2)g='wash_service_road';
+        row.push({g,props:[]});
+      } grid.push(row);}
+    return {W,H,grid,meta:{type:'wash',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,pending:['channel concrete art','culvert crossings']}};
+  }
+  // SOLAR: panel rows on N-S racks, service aisles between, perimeter fence.
+  function genSolar(seed,W,opts){
+    const H=Math.max(12,Math.floor(W*0.6));
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++){
+        const g=(x%4<2)?'panel_row':'service_aisle';
+        row.push({g,props:[]});
+      } grid.push(row);}
+    for(let x=0;x<W;x++){grid[0][x].props.push({p:'fence',impassable:true});grid[H-1][x].props.push({p:'fence',impassable:true});}
+    for(let y=0;y<H;y++){grid[y][0].props.push({p:'fence',impassable:true});grid[y][W-1].props.push({p:'fence',impassable:true});}
+    return {W,H,grid,meta:{type:'solar',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,pending:['panel art','inverter pads','fence art']}};
+  }
+  // FARM: field strips with dirt access lanes every 8 rows.
+  function genFarm(seed,W,opts){
+    const H=Math.max(12,Math.floor(W*0.6));
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++){
+        const g=(y%8===0)?'farm_lane':'field_row';
+        row.push({g,props:[]});
+      } grid.push(row);}
+    return {W,H,grid,meta:{type:'farm',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,pending:['crop art (citybuilder output ties in)','farm buildings']}};
+  }
+  // AIRPORT/AIRBASE (7/14): factual anatomy — runway strip with centerline,
+  // parallel taxiway, apron band. Art pools PENDING (concrete family).
+  function genAirfield(seed,W,opts){
+    const H=Math.max(14,Math.floor(W*0.6));
+    const grid=[];
+    const rwY=Math.floor(H*0.35);
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++){
+        let g='desert';
+        if(y===rwY||y===rwY+1||y===rwY+2)g=(y===rwY+1)?'runway_centerline':'runway';
+        else if(y===rwY+5)g='taxiway';
+        else if(y>=H-5)g='apron_concrete';
+        row.push({g,props:[]});
+      } grid.push(row);}
+    return {W,H,grid,meta:{type:'airfield',lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
+      pending:['runway/taxiway concrete art','marking art','derelict aircraft props']}};
+  }
+  // INTERSECTION (7/17, Paolo: "is it time I can see a proper intersection").
+  // Two streets CROSSING, per the researched Vegas anatomy: the BOX stays
+  // clean (no lane paint, no median inside), crosswalks guard all four
+  // approaches at the box edges, medians stop at the crosswalks, and each
+  // approach's innermost lane carries a left-turn pocket ending one cell
+  // before its crosswalk (arrows face travel; the baker resolves rotation).
+  // Corners are sidewalk with lamps. Cell fields: g (role), o ('ew'|'ns'),
+  // dir, mk. LINE COLOR LAW: yellow only on median cells; pockets are white.
+  function genIntersection(seed,W,opts){
+    const o=opts||{};const r=rng(seed);
+    const lanesEW=o.lanesEW!=null?o.lanesEW:2, lanesNS=o.lanesNS!=null?o.lanesNS:2;
+    const bandEW=2*(lanesEW*LANE_W+(lanesEW-1))+1;  // lanes+divs both dirs + median
+    const bandNS=2*(lanesNS*LANE_W+(lanesNS-1))+1;
+    const cw=1;
+    const H=o.H||(bandEW+2*(cw+8));   // auto-size: room for crosswalks + pockets
+    const PLx=Math.max(0,Math.min(6,(((W-bandNS)/2)|0)-cw-2));   // EW approaches
+    const PLy=Math.max(0,Math.min(6,(((H-bandEW)/2)|0)-cw-2));   // NS approaches
+    const r0=(H-bandEW)>>1, r1=r0+bandEW-1;
+    const c0=(W-bandNS)>>1, c1=c0+bandNS-1;
+    const medRow=r0+(bandEW>>1), medCol=c0+(bandNS>>1);
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];
+      for(let x=0;x<W;x++)row.push({g:'side',o:null,dir:null,color:null,axis:null,mk:null,props:[]});
+      grid.push(row);}
+    const laneRowsEW=[],laneColsNS=[];
+    const halfEW=bandEW>>1, halfNS=bandNS>>1;
+    // side A counts up to the median; side B restarts AFTER it, so both sides
+    // put LANES against the median (the real anatomy; a div there was the bug)
+    const divAt=(i,half)=>{const l=i<half?i:i-half-1;return (l%(LANE_W+1))===LANE_W;};
+    for(let i=0;i<bandEW;i++){const y=r0+i;
+      if(y===medRow)continue;
+      const isDiv=divAt(i,halfEW);
+      for(let x=0;x<W;x++){const c=grid[y][x];c.o='ew';
+        c.g=isDiv?'lane_div':'lane';
+        c.dir=isDiv?null:(y<medRow?'A':'B');
+        if(isDiv){c.color='white_lane';c.axis='road';}}
+      if(!isDiv)laneRowsEW.push(y);}
+    for(let x=0;x<W;x++){const c=grid[medRow][x];c.o='ew';c.g='median';c.color='yellow_direction';c.axis='road';c.dir=null;}
+    for(let j=0;j<bandNS;j++){const x=c0+j;
+      if(x===medCol){for(let y=0;y<H;y++){const c=grid[y][x];if(c.g==='side'){c.o='ns';c.g='median';c.color='yellow_direction';c.axis='road';}}continue;}
+      const isDiv=divAt(j,halfNS);
+      for(let y=0;y<H;y++){const c=grid[y][x];
+        if(c.g!=='side')continue;         // EW band + box already claimed
+        c.o='ns';c.g=isDiv?'lane_div':'lane';
+        c.dir=isDiv?null:(x<medCol?'A':'B');
+        if(isDiv){c.color='white_lane';c.axis='road';}}
+      if(!isDiv)laneColsNS.push(x);}
+    // THE BOX: rows r0..r1 x cols c0..c1 -> clean asphalt, nothing painted
+    for(let y=r0;y<=r1;y++)for(let x=c0;x<=c1;x++){const c=grid[y][x];
+      c.g='box';c.o=null;c.dir=null;c.color=null;c.axis=null;c.mk=null;}
+    // CROSSWALKS at the four box edges (never inside the box)
+    for(let y=r0;y<=r1;y++){grid[y][c0-cw].g='crosswalk';grid[y][c0-cw].o='ew';grid[y][c0-cw].color=null;
+      grid[y][c1+cw].g='crosswalk';grid[y][c1+cw].o='ew';grid[y][c1+cw].color=null;}
+    for(let x=c0;x<=c1;x++){grid[r0-cw][x].g='crosswalk';grid[r0-cw][x].o='ns';grid[r0-cw][x].color=null;
+      grid[r1+cw][x].g='crosswalk';grid[r1+cw][x].o='ns';grid[r1+cw][x].color=null;}
+    // POCKETS: innermost lane per approach, ending one cell before its crosswalk
+    const innerA=medRow-1, innerB=medRow+1;   // EW inner lane rows
+    const innerL=medCol-1, innerR=medCol+1;   // NS inner lane cols
+    const mark=(cells,arrow)=>{cells.forEach(([x,y],i)=>{const c=grid[y][x];
+      if(c.g!=='lane')return;c.mk=(i%3===1)?arrow:'pocket_edge';});};
+    const west=[],east=[],north=[],south=[];
+    for(let k=0;k<PLx;k++){west.push([c0-cw-1-k,innerB]);east.push([c1+cw+1+k,innerA]);}
+    for(let k=0;k<PLy;k++){north.push([innerL,r0-cw-1-k]);south.push([innerR,r1+cw+1+k]);}
+    mark(west,'turn_arrow_left_e');mark(east,'turn_arrow_left_w');
+    mark(north,'turn_arrow_left_s');mark(south,'turn_arrow_left_n');
+    // corner lamps (LAMP HEIGHT LAW: majors get 4)
+    const lampH=(Math.max(lanesEW,lanesNS)>=3)?4:3;
+    for(const [ly,lx] of [[r0-cw-1,c0-cw-1],[r0-cw-1,c1+cw+1],[r1+cw+1,c0-cw-1],[r1+cw+1,c1+cw+1]]){
+      if(grid[ly]&&grid[ly][lx]&&grid[ly][lx].g==='side')placeProp(grid[ly][lx],{p:'street_lamp',hTiles:lampH,state:'dead'});}
+    return {type:'intersection',W,H,grid,meta:{lanesEW,lanesNS,box:[c0,r0,c1,r1],
+      crosswalks:4,pocketLenX:PLx,pocketLenY:PLy,medRow,medCol}};
+  }
+  // PROCEDURAL BUILT LOT (Paolo 7/18/26: "those can be randomly generated
+  // throughout the map... this is a procedural generated world game"). Every
+  // district that used to have NO recipe (return null -> blank desert lot) now
+  // GENERATES from its build ARCHETYPE: footprints + parking + fence + greenery
+  // laid on the plot, deterministic per (seed,cell). Semantic ground only, art
+  // pools resolve at bake exactly like every other recipe. ~9 archetype rules
+  // cover 60 landmark types instead of 60 hand-authored templates.
+  function genBuiltLot(seed,W,opts){
+    const o=opts||{}; const r=rng(seed);
+    const A=o.archetype||'civic';
+    const H=Math.max(12,Math.floor(W*0.6));
+    const base=(A==='green')?'turf':(A==='water')?'water':(A==='extraction')?'rock':
+               (A==='industrial'||A==='utility')?'gravel_yard':'lot_ground';
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:base,props:[]});grid.push(row);}
+    const inb=(x,y)=>x>=0&&y>=0&&x<W&&y<H;
+    const rect=(x0,y0,w,h,g,prop)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g=g;grid[y][x].props=prop?[prop]:[];}};
+    const bldg=(x0,y0,w,h)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)if(inb(x,y)){grid[y][x].g='building_pad';grid[y][x].props=[{p:'building',impassable:true}];}};
+    const fence=()=>{for(let x=0;x<W;x++){grid[0][x].props.push({p:'fence',impassable:true});grid[H-1][x].props.push({p:'fence',impassable:true});}
+      for(let y=0;y<H;y++){grid[y][0].props.push({p:'fence',impassable:true});grid[y][W-1].props.push({p:'fence',impassable:true});}};
+    const trees=(n)=>{for(let k=0;k<n;k++){const x=1+((r()*(W-2))|0),y=1+((r()*(H-2))|0);if(grid[y][x].g!=='building_pad'){grid[y][x].g='turf';grid[y][x].props=[{p:'tree'}];}}};
+    const mid=(W>>1), midH=(H>>1);
+    switch(A){
+      case 'civic':{ const bw=Math.floor(W*0.5),bh=Math.floor(H*0.34),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(6); break; }
+      case 'bigbox':{ const bw=Math.floor(W*0.62),bh=Math.floor(H*0.4),bx=((W-bw)/2)|0;
+        rect(0,2+bh,W,H-(2+bh),'parking_concrete'); bldg(bx,2,bw,bh); trees(3); break; }
+      case 'institutional':{ const pad=2,cols=2,rows=2,cw=((W-pad*3)/cols)|0,ch=((H-pad*3)/rows)|0;
+        for(let ry=0;ry<rows;ry++)for(let cx=0;cx<cols;cx++){if(r()<0.2)continue;
+          bldg(pad+cx*(cw+pad),pad+ry*(ch+pad),Math.max(2,cw-((r()*3)|0)),Math.max(2,ch-((r()*3)|0)));}
+        rect(mid-1,0,2,H,'path'); rect(0,midH-1,W,2,'path'); trees(8); break; }
+      case 'industrial':{ const ap=Math.floor(H*0.22); rect(0,0,W,ap,'drive_concrete');
+        let y=ap+1; while(y<H-3){const sh=Math.min(H-1-y,3+((r()*4)|0)); bldg(3,y,W-6,sh); y+=sh+2;} fence(); break; }
+      case 'utility':{ for(let k=0;k<5+((r()*4)|0);k++){const w=2+((r()*3)|0),h=2+((r()*3)|0);
+          const x=2+((r()*Math.max(1,W-4-w))|0),y=2+((r()*Math.max(1,H-4-h))|0); rect(x,y,w,h,'equipment_pad',{p:'tank',impassable:true});} fence(); break; }
+      case 'landmark':{ rect(0,0,W,H,'plaza'); const bw=Math.floor(W*0.5),bh=Math.floor(H*0.5);
+        bldg(((W-bw)/2)|0,((H-bh)/2)|0,bw,bh); trees(10); break; }
+      case 'green':{ for(let y=0;y<H;y++){const px=mid+Math.round(Math.sin(y*0.4)*(W*0.22));
+          if(inb(px,y)){grid[y][px].g='path';if(inb(px+1,y))grid[y][px+1].g='path';}} bldg(2,2,4,3); trees(22); break; }
+      case 'water':{ break; }
+      case 'extraction':{ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const d=Math.max(Math.abs(x-mid)/Math.max(1,mid),Math.abs(y-midH)/Math.max(1,midH));
+          grid[y][x].g=d<0.35?'pit_floor':d<0.7?'pit_bench':'rock';} break; }
+      case 'rail':{ const rx=mid; for(let y=0;y<H;y++){grid[y][rx].g='rail_bed';
+          if(inb(rx-1,y))grid[y][rx-1].g='rail_ballast'; if(inb(rx+1,y))grid[y][rx+1].g='rail_ballast';} break; }
+      default:{ const bw=Math.floor(W*0.4),bh=Math.floor(H*0.3);
+        bldg(((W-bw)/2)|0,2,bw,bh); rect(0,2+bh,W,H-(2+bh),'parking_concrete'); }
+    }
+    return {W,H,grid,meta:{type:'builtlot',archetype:A,lanes:0,sidewalk:0,median:0,wrecks:0,crosswalk:0,
+      pending:['building art per archetype','signage','yard props']}};
+  }
+  const RECIPES={
+    intersection:(seed,W,o)=>genIntersection(seed,W,o),
+    builtlot:(seed,W,o)=>genBuiltLot(seed,W,o||{}),
+    street:(seed,W,o)=>{
+      const b=genStreet(seed,W,o);
+      // CENTER TURN LANE (7/14, pools blessed): opts.centerTurn converts the
+      // median band into a two-way-left-turn lane, 2 cells wide (twlt_T/B rows).
+      if(o&&o.centerTurn){
+        const rows=[];
+        for(let y=0;y<b.H;y++)if(b.grid[y].some(c=>c.g==='median'))rows.push(y);
+        if(rows.length){
+          const mid=rows[Math.floor(rows.length/2)];
+          for(const y of rows)for(let x=0;x<b.W;x++)if(b.grid[y][x].g==='median')b.grid[y][x].g=(y<=mid)?'twlt_T':'twlt_B';
+          // ensure exactly 2 rows read as the lane: widen single-row medians
+          if(rows.length===1){
+            const y2=Math.min(b.H-1,rows[0]+1);
+            for(let x=0;x<b.W;x++){const g=b.grid[y2][x].g;if(g!=='side'&&g!=='crosswalk')b.grid[y2][x].g='twlt_B';}
+          }
+          b.meta.centerTurn=true;
+        }
+      }
+      return b;
+    },
+    freeway:(seed,W,o)=>genStreet(seed,W,Object.assign({lanes:5,median:2,sidewalk:1,intersection:false},o)),
+    underpass:(seed,W,o)=>genStreet(seed,W,Object.assign({lanes:2,lampSpacing:14,intersection:false},o)),
+    residential:(seed,W,o)=>genStreet(seed,W,Object.assign({lanes:1,median:1,sidewalk:1,wrecks:1},o)),
+    desert:(seed,W,o)=>genDesert(seed,W,o||{}),
+    mountain:(seed,W,o)=>genMountain(seed,W,o||{}),
+    wash:(seed,W,o)=>genWash(seed,W,o||{}),
+    solar:(seed,W,o)=>genSolar(seed,W,o||{}),
+    farm:(seed,W,o)=>genFarm(seed,W,o||{}),
+    airfield:(seed,W,o)=>genAirfield(seed,W,o||{}),
+    sewer_entrance:(seed,W,o)=>({type:'sewer_entrance',W,H:0,grid:null,meta:{stub:'street recipe + manhole entrance cell; pending'}}),
+  };
+  function generate(type,seed,W,opts){
+    if(!RECIPES[type])throw new Error('unknown block type '+type);
+    return RECIPES[type](seed,W||28,opts||{});
+  }
+  return {generate,LANE_W,placeProp,sidewalkLegal,auditSidewalks,auditLines,
+    SIDEWALK_LEGAL,SIDEWALK_PROPOSED,types:Object.keys(RECIPES)};
+})();
+if(typeof module!=='undefined')module.exports=BOH_BLOCKGEN;
+
+/* ==== engine/bohemia_floorplan.js ==== */
+// BOHEMIA FLOORPLAN (7/18/26) — the ENTERABLE rung of the world model.
+// The valley -> district -> plot -> building ladder had no bottom rung: a
+// building was a solid footprint you could not go inside. This generates the
+// INTERIOR: given a footprint (W x H fine tiles) + a zone + seed, it BSP-splits
+// the space into rooms, walls the gaps, carves a door graph that GUARANTEES
+// every room is reachable, and cuts a street-facing entrance. Zoning assigns
+// room roles the Shadows-of-Doubt way (the room by the street door gets the
+// public role, back rooms go private/service). Deterministic per (seed,W,H,zone).
+// Semantic only: 'floor'/'wall'/'door' + role labels; art resolves at bake, the
+// same contract as every other generator.
+const BOH_FLOORPLAN=(function(){
+  function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
+  // zone -> ordered room roles (public first) + minimum room dimension
+  const ZONES={
+    residential:{roles:['living','kitchen','bed','bed','bath'],minRoom:4},
+    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],minRoom:5},
+    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],minRoom:4},
+    civic:      {roles:['hall','reception','office','records','bath'],minRoom:5},
+    institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
+    warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
+    landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    'default':  {roles:['room','room','service'],minRoom:4},
+  };
+  // union-find for the door spanning tree
+  function UF(n){const p=Array.from({length:n},(_,i)=>i);
+    const find=i=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;};
+    return {find,union:(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb){p[ra]=rb;return true;}return false;}};}
+
+  function generate(seed,W,H,opts){
+    const o=opts||{}; const r=rng(seed);
+    const Z=ZONES[o.zone]||ZONES['default'];
+    const minR=o.minRoom||Z.minRoom;
+    const entrance=o.entrance||'S';   // street-facing side
+    W=Math.max(minR+2,W|0); H=Math.max(minR+2,H|0);
+    // 1) BSP the interior (inside a 1-cell perimeter wall)
+    const rooms=[];
+    (function split(x,y,w,h,depth){
+      const canH=w>=minR*2+1, canV=h>=minR*2+1;
+      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){rooms.push({x,y,w,h});return;}
+      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
+      if(horiz){const cut=minR+((r()*(w-2*minR-1))|0)+1; split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
+      else     {const cut=minR+((r()*(h-2*minR-1))|0)+1; split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
+    })(1,1,W-2,H-2,0);
+    // 2) paint grid: everything wall, then stamp room floors
+    const grid=[];
+    for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:'wall',room:-1,door:false,role:null});grid.push(row);}
+    rooms.forEach((rm,i)=>{for(let y=rm.y;y<rm.y+rm.h;y++)for(let x=rm.x;x<rm.x+rm.w;x++){grid[y][x].g='floor';grid[y][x].room=i;}});
+    // 3) door graph: find wall cells separating two rooms, carve a spanning tree
+    const at=(x,y)=>(x<0||y<0||x>=W||y>=H)?null:grid[y][x];
+    const pairKey=(a,b)=>Math.min(a,b)+','+Math.max(a,b);
+    const cand={};   // "a,b" -> [door cells]
+    for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){
+      if(grid[y][x].g!=='wall')continue;
+      const hz=[at(x-1,y),at(x+1,y)], vt=[at(x,y-1),at(x,y+1)];
+      for(const [c0,c1] of [hz,vt]){
+        if(c0&&c1&&c0.room>=0&&c1.room>=0&&c0.room!==c1.room){
+          (cand[pairKey(c0.room,c1.room)]=cand[pairKey(c0.room,c1.room)]||[]).push([x,y]);
+        }
+      }
+    }
+    const uf=UF(rooms.length); const doors=[];
+    const pairs=Object.keys(cand).sort((a,b)=>{const s=(k)=>{const c=cand[k][0];return c[1]*W+c[0];};return s(a)-s(b);});
+    const carve=(x,y)=>{grid[y][x].g='door';grid[y][x].door=true;doors.push([x,y]);};
+    for(const k of pairs){const [a,b]=k.split(',').map(Number);
+      if(uf.union(a,b)){const cells=cand[k];carve(...cells[(cells.length>>1)]);}}
+    // a few loop doors so it is not a strict tree (still fully reachable)
+    for(const k of pairs){if(r()<0.18){const cells=cand[k];const c=cells[(r()*cells.length)|0];if(!grid[c[1]][c[0]].door)carve(...c);}}
+    // 4) street entrance: a perimeter door on `entrance` side into the front room
+    const front=(()=>{ // room whose edge touches the entrance side, nearest the middle
+      let best=null,bd=1e9;const midX=W/2,midY=H/2;
+      rooms.forEach((rm,i)=>{let touches,d;
+        if(entrance==='S'){touches=(rm.y+rm.h===H-1);d=Math.abs(rm.x+rm.w/2-midX);}
+        else if(entrance==='N'){touches=(rm.y===1);d=Math.abs(rm.x+rm.w/2-midX);}
+        else if(entrance==='W'){touches=(rm.x===1);d=Math.abs(rm.y+rm.h/2-midY);}
+        else {touches=(rm.x+rm.w===W-1);d=Math.abs(rm.y+rm.h/2-midY);}
+        if(touches&&d<bd){bd=d;best=i;}});
+      return best==null?0:best;})();
+    const fr=rooms[front];
+    if(entrance==='S')carve(Math.min(W-1,fr.x+(fr.w>>1)),H-1);
+    else if(entrance==='N')carve(Math.min(W-1,fr.x+(fr.w>>1)),0);
+    else if(entrance==='W')carve(0,Math.min(H-1,fr.y+(fr.h>>1)));
+    else carve(W-1,Math.min(H-1,fr.y+(fr.h>>1)));
+    // 5) zoning: role by distance from the entrance room (public near door)
+    const order=[...rooms.keys()].sort((a,b)=>{
+      const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
+      const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
+      return da-db;});
+    order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+      rooms[ri].role=role;
+      for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
+      pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
+  }
+  return {generate,ZONES};
+})();
+if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
+
+/* ==== engine/bohemia_world.js ==== */
+// BOHEMIA WORLD MODEL (7/18/26) — the spine. ONE addressable hierarchy over the
+// whole valley so nothing has to address the world four different ways again:
+//
+//   world(seed).at(x,y)            -> the overmap cell (district, quality, seed)
+//              .plot(x,y)          -> the plot: its block grid + building footprints
+//              .plot(x,y).building(i).floorplan()  -> that building's interior rooms
+//
+// It COMPOSES the existing generators (overmap -> bridge -> blockgen -> floorplan),
+// it does not re-implement them. Lazy + deterministic: every level is derived
+// from the cell's own seed on demand, so addressing a room never generates the
+// whole valley. This is the rung the bakes / combat / city-builder / sim all read.
+(function(root){
+  var HASREQ = (typeof module!=='undefined' && module.exports && typeof require!=='undefined');
+  // browser: the engine modules are script-scope consts in the concatenated
+  // slice (not window props), so fall back to the bare identifier, typeof-guarded.
+  var OM = HASREQ ? require('./bohemia_overmap.js')        : (typeof BohemiaOvermap!=='undefined'?BohemiaOvermap:root.BohemiaOvermap);
+  var BR = HASREQ ? require('./bohemia_overmap_bridge.js') : (typeof BOH_OMBRIDGE!=='undefined'?BOH_OMBRIDGE:root.BOH_OMBRIDGE);
+  var BG = HASREQ ? require('./bohemia_blockgen.js')       : (typeof BOH_BLOCKGEN!=='undefined'?BOH_BLOCKGEN:root.BOH_BLOCKGEN);
+  var FP = HASREQ ? require('./bohemia_floorplan.js')      : (typeof BOH_FLOORPLAN!=='undefined'?BOH_FLOORPLAN:root.BOH_FLOORPLAN);
+
+  // build archetype -> interior zone (the floorplan's room grammar)
+  var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
+    industrial:'warehouse', utility:'office', landmark:'landmark',
+    green:'default', water:'default', rail:'default', extraction:'default'};
+  // cell-types that are a building footprint we can put an interior inside
+  var FOOTPRINT = {building_pad:1, storefront_pad:1, shed_pad:1};
+
+  // connected-component bounding boxes of footprint cells on a block grid
+  function footprints(block){
+    var grid=block.grid, H=block.H, W=block.W, seen={}, out=[];
+    var is=function(x,y){return x>=0&&y>=0&&x<W&&y<H&&grid[y][x]&&FOOTPRINT[grid[y][x].g];};
+    for(var y=0;y<H;y++)for(var x=0;x<W;x++){
+      if(!is(x,y)||seen[x+','+y])continue;
+      var st=[[x,y]]; seen[x+','+y]=1;
+      var x0=x,y0=y,x1=x,y1=y;
+      while(st.length){var p=st.pop(),px=p[0],py=p[1];
+        if(px<x0)x0=px; if(py<y0)y0=py; if(px>x1)x1=px; if(py>y1)y1=py;
+        var d=[[1,0],[-1,0],[0,1],[0,-1]];
+        for(var k=0;k<4;k++){var nx=px+d[k][0],ny=py+d[k][1];
+          if(is(nx,ny)&&!seen[nx+','+ny]){seen[nx+','+ny]=1;st.push([nx,ny]);}}
+      }
+      out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1});
+    }
+    return out;
+  }
+
+  function world(seed){
+    seed=(seed>>>0)||1;
+    var m = OM.buildOvermap(seed);
+    var plotCache = {};
+    function plot(x,y){
+      var key=x+','+y; if(plotCache[key])return plotCache[key];
+      var cell=m.at(x,y);
+      if(!cell) return null;
+      var recipe=BR.recipeFor(cell);
+      var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
+      // W=48 gives footprints big enough to carry real interiors
+      var block=BR.blockFor(cell, BG, 48);
+      var feet = block.grid ? footprints(block) : [];
+      var zone = ZONE[arch] || 'default';
+      var api = {
+        x:x, y:y, district:cell.district, archetype:arch, block:block,
+        buildings: feet.map(function(f,i){
+          return {
+            index:i, x:f.x, y:f.y, w:f.w, h:f.h, zone:zone,
+            floorplan: function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:zone, entrance:'S'}); }
+          };
+        }),
+        building: function(i){ return this.buildings[i]; }
+      };
+      plotCache[key]=api; return api;
+    }
+    return {
+      seed:seed, n:m.n, overmap:m,
+      at:function(x,y){return m.at(x,y);},
+      plot:plot,
+      DISTRICT: OM.DISTRICT
+    };
+  }
+
+  var API = {world:world};
+  if(HASREQ) module.exports = API;
+  root.BohemiaWorld = API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+</script>
+<script>
+
+// ===== ENTER SLICE walk loop (world-model driven) =====
+var SEED=12345, CX=55, CY=30;                 // the convention plot (bigbox)
+var W = BohemiaWorld.world(SEED);
+var plot = W.plot(CX,CY);
+var bldg = plot.building(0);
+var fp   = bldg.floorplan();
+var ext  = plot.block;                        // exterior grid {W,H,grid}
+// entrance cell on the plot = front-center of the building footprint (south edge)
+var ENT = { x: Math.min(ext.W-1, bldg.x + (bldg.w>>1)), y: Math.min(ext.H-1, bldg.y + bldg.h - 1) };
+// the floorplan's perimeter entrance door
+var IDOOR = fp.doors.filter(function(d){return d[0]===0||d[1]===0||d[0]===fp.W-1||d[1]===fp.H-1;})[0] || [fp.W>>1, fp.H-1];
+
+var EXT_BLOCK = {lot_ground:'#c4b28c',parking_concrete:'#96969c',building_pad:'#56504a',turf:'#789456',
+  plaza:'#a8a096',drive_concrete:'#8c8c92',gravel_yard:'#968e78',equipment_pad:'#6e6e74',path:'#b0966e',
+  water:'#4a748c',rock:'#786c56'};
+var INT_ROLE = {atrium:'#b9b4a0',gallery:'#aaa596',service:'#8c877d',bath:'#6ea0af',shopfloor:'#beaa78',
+  checkout:'#be9678',stockroom:'#968c78',office:'#8ca0af',lobby:'#b4af96',meeting:'#a096af',
+  breakroom:'#aaa078',hall:'#b9af91',reception:'#b4a582',records:'#96917d',ward:'#96aaaf','null':'#96917d'};
+
+function passExt(x,y){ if(x<0||y<0||x>=ext.W||y>=ext.H)return false;
+  var c=ext.grid[y][x]; if(x===ENT.x&&y===ENT.y)return true;   // the door
+  if(c.g==='building_pad')return false;
+  if(c.props&&c.props.some(function(p){return p.impassable;}))return false;
+  return true; }
+function passInt(x,y){ if(x<0||y<0||x>=fp.W||y>=fp.H)return false;
+  var c=fp.grid[y][x]; return c.g==='floor'||c.g==='door'; }
+
+var mode='ext', px=ENT.x, py=Math.min(ext.H-1, ENT.y+3);   // spawn in the parking
+var cv=document.getElementById('cv'), cx2=cv.getContext('2d');
+var HUD=document.getElementById('hud');
+function grid(){ return mode==='ext'?ext:fp; }
+function cell(x,y){ return grid().grid[y][x]; }
+
+function draw(){
+  var g=grid(), CELL=Math.floor(Math.min(cv.width/22, cv.height/22));
+  var camx=px, camy=py, halfW=Math.floor(cv.width/CELL/2), halfH=Math.floor(cv.height/CELL/2);
+  cx2.fillStyle='#14140f'; cx2.fillRect(0,0,cv.width,cv.height);
+  for(var sy=-halfH;sy<=halfH;sy++)for(var sx=-halfW;sx<=halfW;sx++){
+    var gx=camx+sx, gy=camy+sy; if(gx<0||gy<0||gx>=g.W||gy>=g.H)continue;
+    var c=g.grid[gy][gx], col;
+    if(mode==='ext'){ col=EXT_BLOCK[c.g]||'#c4b28c';
+      if(c.props&&c.props.some(function(p){return p.p==='tree';}))col='#286428';
+      if(c.props&&c.props.some(function(p){return p.p==='tank';}))col='#5a7890';
+      if(c.props&&c.props.some(function(p){return p.p==='fence';}))col='#463c32'; }
+    else { col = c.g==='wall'?'#302c2a' : c.g==='door'?'#f0cd78' : (INT_ROLE[c.role]||'#96917d'); }
+    var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL;
+    cx2.fillStyle=col; cx2.fillRect(X,Y,CELL-1,CELL-1);
+    if(mode==='ext'&&gx===ENT.x&&gy===ENT.y){ cx2.fillStyle='#f0cd78'; cx2.fillRect(X,Y,CELL-1,CELL-1);
+      cx2.fillStyle='#14140f'; cx2.font=Math.floor(CELL*0.7)+'px monospace'; cx2.fillText('▲',X+CELL*0.2,Y+CELL*0.75); }
+  }
+  // player
+  var pxs=(0+halfW)*CELL, pys=(0+halfH)*CELL;
+  cx2.fillStyle='#ff5a3c'; cx2.beginPath(); cx2.arc(pxs+CELL/2,pys+CELL/2,CELL*0.38,0,7); cx2.fill();
+  cx2.strokeStyle='#14140f'; cx2.lineWidth=2; cx2.stroke();
+}
+function refreshHUD(){
+  if(mode==='ext') HUD.innerHTML='OUTSIDE the '+plot.district+' plot ('+plot.archetype+'). Walk to the ▲ door and step on it.';
+  else HUD.innerHTML='INSIDE — '+bldg.zone+' interior, '+fp.rooms.length+' rooms. This IS world().plot().building().floorplan(). Walk out the ▲ door.';
+}
+function move(dx,dy){
+  var nx=px+dx, ny=py+dy;
+  if(mode==='ext'){
+    if(!passExt(nx,ny))return;
+    px=nx; py=ny;
+    if(px===ENT.x&&py===ENT.y){ mode='int'; px=IDOOR[0]; py=Math.max(0,Math.min(fp.H-1,IDOOR[1]-1)); if(!passInt(px,py)){px=IDOOR[0];py=IDOOR[1];} refreshHUD(); }
+  } else {
+    // exiting: stepping onto/through the perimeter door leaves the building
+    if(nx===IDOOR[0]&&ny===IDOOR[1]){ mode='ext'; px=ENT.x; py=Math.min(ext.H-1,ENT.y+1); refreshHUD(); draw(); return; }
+    if(!passInt(nx,ny))return;
+    px=nx; py=ny;
+  }
+  draw();
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k==='ArrowUp'||k==='w')move(0,-1);
+  else if(k==='ArrowDown'||k==='s')move(0,1);
+  else if(k==='ArrowLeft'||k==='a')move(-1,0);
+  else if(k==='ArrowRight'||k==='d')move(1,0);
+  else return; e.preventDefault();
+});
+['u','d','l','r'].forEach(function(id){var b=document.getElementById('b'+id);
+  if(b)b.addEventListener('click',function(){move(id==='l'?-1:id==='r'?1:0, id==='u'?-1:id==='d'?1:0);});});
+function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight; draw(); }
+window.addEventListener('resize',fit); refreshHUD(); fit();
+window.__ENTER_READY=true;
+
+</script>

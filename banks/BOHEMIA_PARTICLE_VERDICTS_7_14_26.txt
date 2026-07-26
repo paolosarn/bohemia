@@ -1,0 +1,15 @@
+{
+ "version": "PARTICLE_VERDICTS",
+ "date": "2026-07-14",
+ "UP": [
+  "o_fx_flame_burst_00",
+  "o_fx_smoke_puff_01",
+  "o_fx_smoke_small_04",
+  "o_fx_ember_trail_05",
+  "o_fx_spark_burst_06"
+ ],
+ "pending": [
+  "o_fx_smoke_puff_02",
+  "o_fx_smoke_puff_03"
+ ]
+}

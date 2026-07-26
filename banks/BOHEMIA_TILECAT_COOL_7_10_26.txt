@@ -1,0 +1,101 @@
+BOHEMIA TILE CATEGORY: COOL
+exported 2026-07-11T17:47:25.469189+00:00
+total: 942 tiles
+definition: blue/teal/cyan/indigo: sci-fi metal, cold light, water-adjacent
+FULL-SWEEP v2: entire library assigned, one tile = one category
+source: HD masters (BOHEMIA_HD_TILE_REPO_part1-4)
+pointer format: file | pack | idx=list
+============================================================
+BOHEMIA_HD_TILE_REPO_part1.txt | 1. Metal floor tiles | n=34 | idx=0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34
+BOHEMIA_HD_TILE_REPO_part1.txt | 14. Lights and neon elements | n=10 | idx=4,6,7,8,10,11,12,13,14,17
+BOHEMIA_HD_TILE_REPO_part1.txt | 18. Crystals and bioluminescense | n=9 | idx=0,2,3,4,5,6,7,9,10
+BOHEMIA_HD_TILE_REPO_part1.txt | 18. Space station props | n=14 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13
+BOHEMIA_HD_TILE_REPO_part1.txt | 19. Alien tech elements | n=18 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+BOHEMIA_HD_TILE_REPO_part1.txt | 20. Nature and environment | n=3 | idx=4,9,17
+BOHEMIA_HD_TILE_REPO_part1.txt | 4. Water details and foam | n=7 | idx=0,1,2,3,4,5,6
+BOHEMIA_HD_TILE_REPO_part1.txt | 5. Potion bottles and ingredients | n=12 | idx=8,12,14,18,24,25,29,32,33,40,48,53
+BOHEMIA_HD_TILE_REPO_part1.txt | 5. Windows and observation panels | n=33 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
+BOHEMIA_HD_TILE_REPO_part1.txt | 7. Computers and screens | n=29 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
+BOHEMIA_HD_TILE_REPO_part1.txt | 8. Pipes and ventilation | n=7 | idx=10,11,14,15,16,17,25
+BOHEMIA_HD_TILE_REPO_part1.txt | Floor tiles | n=5 | idx=6,24,27,30,35
+BOHEMIA_HD_TILE_REPO_part1.txt | Interior rooms | n=16 | idx=8,9,10,18,20,21,22,23,24,25,26,41,47,49,50,51
+BOHEMIA_HD_TILE_REPO_part1.txt | Lightning and fx | n=1 | idx=13
+BOHEMIA_HD_TILE_REPO_part1.txt | Miscellaneous | n=7 | idx=13,14,15,16,20,35,41
+BOHEMIA_HD_TILE_REPO_part1.txt | Stairs, ladders and Railings | n=11 | idx=2,10,17,24,32,37,42,44,50,51,55
+BOHEMIA_HD_TILE_REPO_part1.txt | Wall tiles and edges (1) | n=6 | idx=5,10,23,25,26,27
+BOHEMIA_HD_TILE_REPO_part1.txt | lightning fx | n=5 | idx=8,11,16,17,20
+BOHEMIA_HD_TILE_REPO_part1.txt | plants and flowers | n=4 | idx=0,3,9,16
+BOHEMIA_HD_TILE_REPO_part2.txt | 10. Telescope and astronomy tools | n=2 | idx=21,22
+BOHEMIA_HD_TILE_REPO_part2.txt | 11. Sci-fi furniture | n=11 | idx=0,1,2,4,5,6,7,8,9,10,11
+BOHEMIA_HD_TILE_REPO_part2.txt | 12. Cave Entrances | n=12 | idx=0,1,2,3,4,5,6,7,8,9,10,11
+BOHEMIA_HD_TILE_REPO_part2.txt | 13. Banners and flags | n=2 | idx=2,3
+BOHEMIA_HD_TILE_REPO_part2.txt | 13. Bridges and platforms | n=25 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
+BOHEMIA_HD_TILE_REPO_part2.txt | 15. Robots and drones | n=2 | idx=0,1
+BOHEMIA_HD_TILE_REPO_part2.txt | 15. Street props | n=2 | idx=7,26
+BOHEMIA_HD_TILE_REPO_part2.txt | 16. Interior cabin props | n=1 | idx=12
+BOHEMIA_HD_TILE_REPO_part2.txt | 19. Deep sea props | n=1 | idx=7
+BOHEMIA_HD_TILE_REPO_part2.txt | 19. Miscellaneous | n=1 | idx=1
+BOHEMIA_HD_TILE_REPO_part2.txt | 20. Environment set pieces | n=3 | idx=7,11,19
+BOHEMIA_HD_TILE_REPO_part2.txt | 20. Special Sci-fi tiles | n=27 | idx=0,1,2,3,6,7,8,9,10,12,13,14,15,16,18,19,20,21,22,24,26,27,28,29,30,31,33
+BOHEMIA_HD_TILE_REPO_part2.txt | 4. Doors and airlocks | n=21 | idx=0,1,2,3,4,5,7,8,10,12,14,15,16,17,18,19,21,22,23,24,25
+BOHEMIA_HD_TILE_REPO_part2.txt | 5. Doors and arches | n=2 | idx=19,22
+BOHEMIA_HD_TILE_REPO_part2.txt | 6. Cauldrons and brewing stations | n=2 | idx=4,7
+BOHEMIA_HD_TILE_REPO_part2.txt | Banners and posters | n=10 | idx=6,7,10,17,27,33,35,36,42,48
+BOHEMIA_HD_TILE_REPO_part2.txt | Containers and items | n=4 | idx=22,56,66,81
+BOHEMIA_HD_TILE_REPO_part2.txt | Floor tiles (2) | n=7 | idx=1,9,10,16,18,26,27
+BOHEMIA_HD_TILE_REPO_part2.txt | Jars, bottles and items | n=12 | idx=0,5,9,13,15,19,25,29,32,37,46,52
+BOHEMIA_HD_TILE_REPO_part2.txt | Lanterns and lights | n=1 | idx=31
+BOHEMIA_HD_TILE_REPO_part2.txt | Special Tiles (1) | n=5 | idx=1,5,7,11,26
+BOHEMIA_HD_TILE_REPO_part2.txt | Streets props and urban | n=10 | idx=0,4,8,10,12,15,24,29,46,53
+BOHEMIA_HD_TILE_REPO_part2.txt | Water and ponds | n=15 | idx=2,4,6,10,11,12,13,14,15,16,27,28,29,30,31
+BOHEMIA_HD_TILE_REPO_part2.txt | special tiles | n=2 | idx=26,27
+BOHEMIA_HD_TILE_REPO_part3.txt | 1. Tower floor tiles | n=22 | idx=0,2,7,16,17,21,22,23,24,26,27,28,29,30,32,43,44,45,46,47,48,49
+BOHEMIA_HD_TILE_REPO_part3.txt | 10. Port decorations | n=3 | idx=3,4,5
+BOHEMIA_HD_TILE_REPO_part3.txt | 10. Storage and containers | n=28 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,17,18,19,20,21,23,24,26,27,29,30,31,34,35
+BOHEMIA_HD_TILE_REPO_part3.txt | 11. Chains and hooks | n=1 | idx=0
+BOHEMIA_HD_TILE_REPO_part3.txt | 12. Laboratory equipment | n=28 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
+BOHEMIA_HD_TILE_REPO_part3.txt | 14. Shells and small details | n=3 | idx=7,8,9
+BOHEMIA_HD_TILE_REPO_part3.txt | 19. Signs and village boards | n=1 | idx=26
+BOHEMIA_HD_TILE_REPO_part3.txt | 3. Wall panels and details | n=24 | idx=0,2,3,4,6,7,8,9,10,11,12,13,14,16,17,19,20,21,22,23,24,25,26,29
+BOHEMIA_HD_TILE_REPO_part3.txt | 4. Cabins and house parts | n=2 | idx=0,1
+BOHEMIA_HD_TILE_REPO_part3.txt | 6. Control panels and consoles | n=20 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+BOHEMIA_HD_TILE_REPO_part3.txt | 8. Treasure and loot | n=2 | idx=11,19
+BOHEMIA_HD_TILE_REPO_part3.txt | Cargo, crates and containers | n=9 | idx=1,4,10,18,22,25,30,33,38
+BOHEMIA_HD_TILE_REPO_part3.txt | Doors and arches (1) | n=8 | idx=1,3,4,9,13,16,19,22
+BOHEMIA_HD_TILE_REPO_part3.txt | Furtniure and fixtures | n=14 | idx=0,2,3,9,13,16,17,20,22,28,30,31,32,35
+BOHEMIA_HD_TILE_REPO_part3.txt | Lightning and fx (1) | n=2 | idx=1,2
+BOHEMIA_HD_TILE_REPO_part3.txt | Machines and tech | n=22 | idx=0,3,5,6,8,9,12,15,16,18,19,20,21,26,27,29,31,33,34,35,38,39
+BOHEMIA_HD_TILE_REPO_part3.txt | Plants and greenery | n=42 | idx=1,2,4,5,6,7,8,11,12,14,16,17,19,20,22,23,25,26,27,28,29,30,31,33,34,35,40,41,42,43,44,49,50,52,54,55,56,57,58,59,60,61
+BOHEMIA_HD_TILE_REPO_part3.txt | Signs and holograms | n=14 | idx=2,6,10,14,16,19,21,24,27,28,29,30,31,35
+BOHEMIA_HD_TILE_REPO_part3.txt | Special effects | n=17 | idx=2,17,19,21,22,23,25,26,28,29,30,31,36,39,46,47,48
+BOHEMIA_HD_TILE_REPO_part3.txt | Statues and monuments | n=2 | idx=21,39
+BOHEMIA_HD_TILE_REPO_part3.txt | Wall and floor details (3) | n=4 | idx=3,20,23,30
+BOHEMIA_HD_TILE_REPO_part3.txt | Water and liquids | n=32 | idx=0,3,4,5,7,8,11,14,16,17,18,19,20,26,28,29,30,31,32,34,35,38,39,46,47,51,58,59,60,61,62,63
+BOHEMIA_HD_TILE_REPO_part4.txt | 1. Floor tiles | n=2 | idx=15,20
+BOHEMIA_HD_TILE_REPO_part4.txt | 1. Water Tiles | n=36 | idx=2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37
+BOHEMIA_HD_TILE_REPO_part4.txt | 10. Ruins pillars and columns | n=41 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40
+BOHEMIA_HD_TILE_REPO_part4.txt | 11. Survival props | n=3 | idx=4,12,32
+BOHEMIA_HD_TILE_REPO_part4.txt | 14. Camp and tents | n=1 | idx=7
+BOHEMIA_HD_TILE_REPO_part4.txt | 15. Statues and ancient relics | n=7 | idx=1,2,3,4,5,6,7
+BOHEMIA_HD_TILE_REPO_part4.txt | 16. Crates and cargo props | n=8 | idx=0,6,7,15,17,20,23,24
+BOHEMIA_HD_TILE_REPO_part4.txt | 16. Lanterns and glow lights | n=12 | idx=0,1,2,3,4,5,6,7,8,9,10,11
+BOHEMIA_HD_TILE_REPO_part4.txt | 16. Staircases and elevation | n=1 | idx=1
+BOHEMIA_HD_TILE_REPO_part4.txt | 17. Cannons and weapons | n=1 | idx=7
+BOHEMIA_HD_TILE_REPO_part4.txt | 17. Mailboxes and birdhouses | n=2 | idx=15,43
+BOHEMIA_HD_TILE_REPO_part4.txt | 18. Pots and planters | n=1 | idx=16
+BOHEMIA_HD_TILE_REPO_part4.txt | 2. Sci-fi wall tiles | n=22 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22
+BOHEMIA_HD_TILE_REPO_part4.txt | 20. Extra cozy details | n=2 | idx=3,16
+BOHEMIA_HD_TILE_REPO_part4.txt | 5. Rock Formations | n=26 | idx=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25
+BOHEMIA_HD_TILE_REPO_part4.txt | 5. Water and ponds | n=17 | idx=0,1,2,3,4,5,6,7,8,14,23,24,25,26,27,28,29
+BOHEMIA_HD_TILE_REPO_part4.txt | 6. Frozen trees and pines | n=2 | idx=0,1
+BOHEMIA_HD_TILE_REPO_part4.txt | 9. Cables and wiring | n=9 | idx=1,4,5,7,10,11,13,14,15
+BOHEMIA_HD_TILE_REPO_part4.txt | Floor tiles! | n=6 | idx=39,40,41,42,43,44
+BOHEMIA_HD_TILE_REPO_part4.txt | Miscellaneous props (1) | n=2 | idx=24,30
+BOHEMIA_HD_TILE_REPO_part4.txt | Pipes, cables and vents | n=7 | idx=0,1,20,21,29,34,51
+BOHEMIA_HD_TILE_REPO_part4.txt | Roof tiles | n=12 | idx=1,3,4,5,6,7,8,9,10,11,12,13
+BOHEMIA_HD_TILE_REPO_part4.txt | Rooftop and building tops | n=4 | idx=35,56,65,68
+BOHEMIA_HD_TILE_REPO_part4.txt | Special tiles (2) | n=1 | idx=5
+BOHEMIA_HD_TILE_REPO_part4.txt | Wall and floor details | n=1 | idx=55
+BOHEMIA_HD_TILE_REPO_part4.txt | doors and arches | n=1 | idx=21
+BOHEMIA_HD_TILE_REPO_part4.txt | furniture and interior | n=3 | idx=33,60,78
+BOHEMIA_HD_TILE_REPO_part4.txt | trees and vegetation | n=1 | idx=50

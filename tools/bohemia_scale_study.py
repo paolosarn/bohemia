@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+"""
+BOHEMIA HOUSE SCALE STUDY (7/18/26)
+
+Paolo approved CUL-DE-SACS but said before graduating it: "I would like to see
+how big your houses are compared to the character... based on real life ratios
+of a human versus a house, single story or two story."
+
+Right — the judge houses were schematic. This grounds them in REAL meters at the
+game's own scale (CELL_M = 0.75m per plot tile, 128 tiles = 96m per cell) and
+puts a real 1.75m human beside a single-story and a two-story Vegas house so the
+ratio is judgeable. Top-down (the in-game 45 view) AND a side elevation for
+height. Interactive in the SLICE menu; thumb/comment/export the ratio.
+
+  python3 tools/bohemia_scale_study.py -> slices/BOHEMIA_SCALE_STUDY_7_18_26.html
+
+Real dimensions used (typical Las Vegas single-family, researched averages):
+  plot tile = 0.75 m           human = 1.75 m tall, ~0.5 m across
+  lot ~ 16 m wide x 24 m deep  (~0.1 acre, the common LV tract lot)
+  single-story: 14 x 11 m footprint, ~5 m tall (walls 3 + roof 2)
+  two-story:    11 x 10 m footprint, ~7.5 m tall (walls 6 + roof 1.5)
+  2-car garage: 6 x 6 m        driveway 6 m wide to the street  setback ~6 m
+"""
+import os
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
+os.chdir(REPO)
+OUT = 'slices/BOHEMIA_SCALE_STUDY_7_18_26.html'
+
+JS = r"""
+var TILE=0.75, HUMAN=1.75;
+var HOMES={
+  single:{name:'SINGLE STORY', fpW:14, fpD:11, tall:5,  gpW:6,gpD:6},
+  two:   {name:'TWO STORY',    fpW:11, fpD:10, tall:7.5,gpW:6,gpD:6}
+};
+var LOTW=16, LOTD=24, DRIVE=6, SETBACK=6;
+var SUN=false, mode='single';
+function C(dark,sun){return SUN?sun:dark;}
+function topdown(cv){
+  var H=HOMES[mode], ctx=cv.getContext('2d');
+  var PXM=Math.min(cv.width/(LOTW+2), cv.height/(LOTD+2));   // px per meter
+  ctx.fillStyle=C('#12140f','#f2ead2');ctx.fillRect(0,0,cv.width,cv.height);
+  var ox=(cv.width-LOTW*PXM)/2, oy=(cv.height-LOTD*PXM)/2;
+  function rect(xm,ym,wm,dm,color){ctx.fillStyle=color;ctx.fillRect(ox+xm*PXM,oy+ym*PXM,wm*PXM,dm*PXM);}
+  // lot (lawn), street at bottom
+  rect(0,0,LOTW,LOTD,C('#1e2618','#cfe0b0'));
+  rect(-1,LOTD,LOTW+2,2,C('#33333c','#7c7c84'));           // the street
+  // driveway from street -> garage (centered-ish)
+  var dvX=(LOTW-DRIVE)/2;
+  rect(dvX,LOTD-SETBACK,DRIVE,SETBACK,C('#c2bfc6','#eceaef'));
+  // garage (front, dark door) + house body behind
+  var gY=LOTD-SETBACK-H.gpD;
+  rect(dvX-0+ (DRIVE-H.gpW)/2,gY,H.gpW,H.gpD,C('#544636','#8a7454'));
+  var bY=gY-H.fpD;
+  rect((LOTW-H.fpW)/2,bY,H.fpW,H.fpD,C('#8a7e6b','#c2b184'));
+  // human (0.5 m dot) standing on the driveway
+  ctx.fillStyle='#ff5a3c';var hx=ox+(LOTW/2)*PXM, hy=oy+(LOTD-1.5)*PXM;
+  ctx.beginPath();ctx.arc(hx,hy,Math.max(2,0.25*PXM),0,7);ctx.fill();
+  ctx.strokeStyle=C('#12140f','#333');ctx.lineWidth=1.5;ctx.stroke();
+  // 5 m scale bar
+  ctx.fillStyle=C('#cdbd8a','#3a3320');ctx.fillRect(ox+2,oy+2,5*PXM,3);
+  ctx.font='11px monospace';ctx.fillText('5 m',ox+2,oy+16);
+  // labels
+  ctx.fillStyle=C('#e0d6b0','#3a3320');ctx.font='12px sans-serif';
+  ctx.fillText(H.name+' house  '+H.fpW+' x '+H.fpD+' m footprint',ox,oy-6<12?12:oy-6);
+  return PXM;
+}
+function elevation(cv){
+  var ctx=cv.getContext('2d');
+  var maxH=9, PXM=(cv.height-28)/maxH;                 // reserve a 28px label strip
+  ctx.fillStyle=C('#12140f','#f2ead2');ctx.fillRect(0,0,cv.width,cv.height);
+  var groundY=cv.height-24;
+  ctx.strokeStyle=C('#3a3220','#b8b090');ctx.beginPath();ctx.moveTo(0,groundY);ctx.lineTo(cv.width,groundY);ctx.stroke();
+  function fig(cx,color){ // 1.75m human silhouette
+    var h=HUMAN*PXM, w=0.5*PXM; ctx.fillStyle=color;
+    ctx.beginPath();ctx.arc(cx,groundY-h+w*0.6,w*0.55,0,7);ctx.fill();           // head
+    ctx.fillRect(cx-w*0.45,groundY-h+w,w*0.9,h-w);                               // body
+  }
+  function house(cx,wm,wallM,roofM,color){
+    var w=wm*PXM, wall=wallM*PXM, roof=roofM*PXM;
+    ctx.fillStyle=color;ctx.fillRect(cx-w/2,groundY-wall,w,wall);
+    ctx.beginPath();ctx.moveTo(cx-w/2-4,groundY-wall);ctx.lineTo(cx,groundY-wall-roof);ctx.lineTo(cx+w/2+4,groundY-wall);ctx.closePath();ctx.fill();
+  }
+  var y0=cv.width*0.16;
+  fig(y0, '#ff5a3c');
+  ctx.fillStyle=C('#cdbd8a','#3a3320');ctx.font='11px monospace';
+  ctx.fillText('1.75 m', y0-18, groundY+14);
+  house(cv.width*0.44, 10, 3, 2, C(mode==='single'?'#a89a80':'#8a7e6b', mode==='single'?'#d8c898':'#c2b184'));
+  ctx.fillText('single  ~5 m', cv.width*0.44-30, groundY+14);
+  house(cv.width*0.78, 9, 6, 1.5, C(mode==='two'?'#a89a80':'#8a7e6b', mode==='two'?'#d8c898':'#c2b184'));
+  ctx.fillText('two  ~7.5 m', cv.width*0.78-28, groundY+14);
+}
+function draw(){
+  document.body.style.background=SUN?'#efe7cf':'#0d0f0a';
+  topdown(document.getElementById('td'));
+  elevation(document.getElementById('el'));
+  document.getElementById('mlabel').textContent=HOMES[mode].name;
+}
+document.getElementById('single').onclick=function(){mode='single';draw();};
+document.getElementById('two').onclick=function(){mode='two';draw();};
+document.getElementById('sun').onclick=function(){SUN=!SUN;draw();};
+function exportTxt(){
+  var l=['=== BOHEMIA HOUSE SCALE VERDICT ===','viewing: '+HOMES[mode].name,
+    'ratio ok? '+(document.getElementById('ok').checked?'YES':'--'),
+    'comment: '+(document.getElementById('cmt').value||'(none)')];
+  var b=new Blob([l.join('\n')],{type:'text/plain'});var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='BOHEMIA_SCALE_VERDICT.txt';a.click();
+}
+document.getElementById('exp').onclick=exportTxt;
+draw();window.__SCALE_READY=true;
+"""
+
+HTML = """<h1 style="font:600 15px/1.35 -apple-system,sans-serif;color:#cdbd8a;margin:8px 10px">BOHEMIA — HOUSE SCALE: is the house-to-human ratio right? Real meters at the game's own scale (0.75 m per tile). The red dot / figure is a 1.75 m person. Top view is what you see in the 45 world; the strip below shows height. Toggle single vs two story.</h1>
+<div style="display:flex;gap:8px;padding:0 10px 8px;flex-wrap:wrap;align-items:center">
+  <button id="single" style="padding:8px 12px;border-radius:8px">SINGLE STORY</button>
+  <button id="two" style="padding:8px 12px;border-radius:8px">TWO STORY</button>
+  <button id="sun" style="padding:8px 12px;border-radius:8px">☀ SUN</button>
+  <span style="font:12px sans-serif;color:#8f8770">showing: <b id="mlabel" style="color:#cdbd8a">SINGLE STORY</b></span>
+</div>
+<div style="padding:0 10px"><div style="font:11px sans-serif;color:#7f7a68;margin-bottom:3px">TOP-DOWN — lot, driveway to a front garage, house, and you (red)</div>
+  <canvas id="td" width="420" height="520" style="width:100%;max-width:420px;border-radius:8px;background:#000;display:block;margin:0 auto"></canvas></div>
+<div style="padding:10px"><div style="font:11px sans-serif;color:#7f7a68;margin-bottom:3px">HEIGHT — you vs single vs two story</div>
+  <canvas id="el" width="420" height="200" style="width:100%;max-width:420px;border-radius:8px;background:#000;display:block;margin:0 auto"></canvas></div>
+<div style="padding:10px">
+  <label style="font:13px sans-serif;color:#cdbd8a;display:flex;gap:8px;align-items:center"><input id="ok" type="checkbox"> the ratio looks right</label>
+  <textarea id="cmt" style="width:100%;height:60px;margin-top:8px;border-radius:8px;padding:8px;background:#111;color:#ddd;border:1px solid #888" placeholder="bigger? smaller? just right?..."></textarea>
+  <button id="exp" style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#3f8c3f;color:#fff;border:0">⤓ EXPORT .txt</button>
+</div>
+<script>
+__JS__
+</script>
+"""
+HTML = HTML.replace('__JS__', JS)
+open(OUT, 'w', encoding='utf8').write(HTML)
+print('scale study -> %s (%d KB)' % (OUT, len(HTML) // 1024))

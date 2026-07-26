@@ -1,0 +1,35 @@
+=== BOHEMIA HOUSE SKIN VERDICT 7/21/26 ===
+bank: BOHEMIA_HOUSE_SKIN_CANDIDATES_v1
+
+roof_shingle_0: UP
+roof_shingle_1: UP
+roof_shingle_2: UP
+roof_shingle_3: UP
+roof_shingle_4: UP
+roof_shingle_5: UP
+roof_gravel_6: UP
+roof_gravel_7: UP
+wall_plain_8: UP
+wall_plain_9: UP
+wall_plain_10: UP
+wall_plain_11: UP
+wall_window_12: UP
+wall_window_13: UP
+wall_window_14: UP
+wall_boarded_15: UP
+wall_boarded_16: UP
+wall_boarded_17: UP
+wall_door_18: UP
+wall_door_19: UP
+wall_door_20: UP
+roof_stile_terracotta_21: UP
+roof_stile_terracotta_22: UP
+roof_stile_desertbrown_23: UP
+roof_stile_desertbrown_24: UP
+roof_stile_graybrown_25: UP
+roof_stile_graybrown_26: UP
+yard_deserttan_27: UP
+yard_mojavegold_28: UP
+yard_rebelred_29: UP
+
+GLOBAL: (none)

@@ -1,0 +1,47 @@
+BOHEMIA MUSIC — VERDICT ON BATCH 18 (7/25/26, character/sound session)
+==============================================================================
+Paolo's full export from the MUSIC tab, pasted verbatim. Batch 18 (the 5
+songs cooked this session: WHAT THE SLOT MACHINE REMEMBERS, THE EMBER NEVER
+COOLS, A GASP IN THE VAULT, THE COUNT NEVER STOPS, WHAT THE DICE FORGOT)
+verdict: 4 CANON, 1 DOWN.
+
+VERDICT: 4 CANON, 1 DOWN
+------------------------
+WHAT THE SLOT MACHINE REMEMBERS: CANON
+THE EMBER NEVER COOLS: DOWN
+A GASP IN THE VAULT: CANON
+THE COUNT NEVER STOPS: CANON
+WHAT THE DICE FORGOT: CANON
+THE GAPS IN THE HYMNAL (batch 17, still pending from last session): CANON
+
+WHAT SHIPPED IN RESPONSE
+-------------------------
+1. CANON_DEFAULTS baked for all 5 newly-canon songs (WHAT THE SLOT MACHINE
+   REMEMBERS#1, A GASP IN THE VAULT#1, THE COUNT NEVER STOPS#1, WHAT THE
+   DICE FORGOT#1, THE GAPS IN THE HYMNAL#1) so the verdict is durable in the
+   repo, not just Paolo's local device (GIT IS THE MEMORY).
+2. THE EMBER NEVER COOLS removed from MLOOPS entirely. GRAVEYARD FINAL for
+   the song (gates/bohemia_graveyard.txt). Its scrapchime voice LIVES per
+   the SONG-DEAD-NOT-VOICES law -- re-birthed same day in batch 19.
+3. Batch 19: WHAT THE PIT BOSS BURIED answers the dead slot, reusing
+   scrapchime in a different fashion (a punchy stabbed accent over a
+   driving mixolydian-b6 call-and-response, vs the original's slow
+   sustained bell over a half-time drum feel) -- legal because the voice
+   is unclaimed again once its old song died.
+4. NEW_VIBES updated: batch 18's 5 names removed (all judged), batch 19's
+   1 name added (freshly cooked, awaiting verdict). The MUSIC GATE requires
+   NEW_VIBES stay non-empty (there must always be a next fresh cook in
+   flight) -- this is why a fresh song answers the dead slot the same turn
+   the graveyard entry lands, matching every prior verdict-processing
+   batch's pattern.
+
+VERIFIED: cross-checked the full pasted export against the current
+CANON_DEFAULTS bake programmatically (not by eye) -- confirmed the ONLY
+deltas were the 6 batch-18-related entries; every other one of the 149
+parsed verdict lines already matched what was baked in source. No
+reversals, no missing/renamed songs.
+Verified live (headless Playwright): THE EMBER NEVER COOLS is gone from
+the MUSIC tab's row list, WHAT THE PIT BOSS BURIED is present and plays
+for real (AudioContext running), zero console/window errors.
+Gates: music_gate.js (14/14), bohemia_graveyard_gate.py --strict (0 live
+references), combat_pool_gate.js (47/47, unaffected).

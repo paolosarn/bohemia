@@ -1,0 +1,156 @@
+{
+ "wash": [
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part2.txt",
+   "pack": "1. Cracked contrete tiles",
+   "idx": 1,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part2.txt",
+   "pack": "1. Cracked contrete tiles",
+   "idx": 0,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part2.txt",
+   "pack": "Floor, walls",
+   "idx": 9,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part2.txt",
+   "pack": "Floor, walls",
+   "idx": 5,
+   "fp": "1x1"
+  }
+ ],
+ "sewer": [
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 24,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 20,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 28,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "Wall and floor details",
+   "idx": 58,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 11,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "1. Floor tiles",
+   "idx": 14,
+   "fp": "1x1"
+  }
+ ],
+ "water": [
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Water and liquids",
+   "idx": 59,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Water and liquids",
+   "idx": 63,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part2.txt",
+   "pack": "Water and ponds",
+   "idx": 11,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Water and liquids",
+   "idx": 60,
+   "fp": "1x1"
+  }
+ ],
+ "wall": [
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 29,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 28,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part2.txt",
+   "pack": "Wall tiles (1)",
+   "idx": 3,
+   "fp": "2x2"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Floor tiles and wall tiles",
+   "idx": 15,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "Wall and floor details",
+   "idx": 23,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "Wall and floor details",
+   "idx": 19,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part3.txt",
+   "pack": "Wall and floor details (3)",
+   "idx": 16,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "Wall and floor details",
+   "idx": 27,
+   "fp": "1x1"
+  }
+ ],
+ "door": [
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "doors and arches",
+   "idx": 4,
+   "fp": "1x1"
+  },
+  {
+   "file": "BOHEMIA_HD_TILE_REPO_part4.txt",
+   "pack": "doors and arches",
+   "idx": 15,
+   "fp": "1x1"
+  }
+ ]
+}

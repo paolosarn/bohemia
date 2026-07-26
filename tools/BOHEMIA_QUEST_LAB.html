@@ -1,0 +1,392 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>BOHEMIA QUEST LAB</title>
+<style>
+:root{--bg:#f4f1e8;--fg:#171310;--dim:#6a6255;--line:#c9c0ad;--card:#fffdf7;
+--ok:#1c6b32;--err:#a11b1b;--warn:#8a5a06;--gate:#2d4d8a;--trap:#8a1b6b;--sil:#5a5a5a;--acc:#b4451e;}
+body.night{--bg:#12100d;--fg:#ece6d8;--dim:#8f8676;--line:#332e26;--card:#1b1813;
+--ok:#5fd383;--err:#ff6b6b;--warn:#e0a83a;--gate:#7aa5f0;--trap:#e07ac4;--sil:#9a9a9a;--acc:#ff8a5c;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 ui-monospace,Menlo,Consolas,monospace;padding-bottom:80px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:2px solid var(--line);padding:8px 10px;z-index:10}
+h1{font-size:17px;margin:0 0 6px;letter-spacing:1px}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+button{font:600 16px ui-monospace,Menlo,monospace;padding:11px 13px;border:2px solid var(--line);
+background:var(--card);color:var(--fg);border-radius:8px;min-height:46px}
+button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+button.go{border-color:var(--acc);color:var(--acc)}
+textarea{width:100%;min-height:230px;font:15px/1.4 ui-monospace,Menlo,monospace;background:var(--card);
+color:var(--fg);border:2px solid var(--line);border-radius:8px;padding:10px}
+.wrap{padding:10px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:10px;padding:10px;margin:8px 0}
+.stat{display:inline-block;border:2px solid var(--line);border-radius:7px;padding:5px 8px;margin:3px 3px 0 0;font-size:14px}
+.stat b{font-size:17px}
+.big{font-size:19px;font-weight:700;letter-spacing:1px;margin:14px 0 6px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.e{color:var(--err);font-weight:700}.w{color:var(--warn)}.o{color:var(--ok);font-weight:700}
+.msg{padding:5px 0;border-bottom:1px solid var(--line);font-size:14px}
+.node{border-left:5px solid var(--gate);padding:8px 10px;margin:8px 0;background:var(--card);
+border-radius:0 8px 8px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.node.orph{border-left-color:var(--err)}
+.nid{font-weight:700;font-size:15px}
+.spk{color:var(--acc);font-size:13px}
+.say{margin:5px 0;padding-left:8px;border-left:2px solid var(--line);color:var(--fg);font-size:15px}
+.opt{margin:4px 0 4px 6px;font-size:14px}
+.g{color:var(--gate);font-weight:700}
+.tr{color:var(--trap);font-weight:700}
+.si{color:var(--sil);font-style:italic}
+.nv{color:var(--err);font-size:13px;margin-left:6px}
+.lk{color:var(--warn);font-size:13px;margin-left:6px}
+.role{font-size:14px;padding:3px 0;border-bottom:1px solid var(--line)}
+.req{color:var(--err);font-weight:700}.optr{color:var(--ok);font-weight:700}
+.hide{display:none}
+small{color:var(--dim)}
+</style></head><body>
+<header>
+<h1>BOHEMIA QUEST LAB <small id="ver"></small></h1>
+<div class="row">
+<button id="bSun" class="on">SUN</button>
+<button id="bVal" class="go">VALIDATE</button>
+<button id="bTxt">TEXT</button>
+<button id="bGrf" class="on">GRAPH</button>
+<button id="bExp" class="go">EXPORT .txt</button>
+<button id="bSmp">SAMPLE</button>
+</div>
+</header>
+<div class="wrap">
+<div id="paneTxt" class="hide"><textarea id="src" spellcheck="false"></textarea>
+<div class="row" style="margin-top:6px"><button id="bLoad" class="go">PARSE THIS</button><button id="bClr">CLEAR</button></div></div>
+<div id="out"></div>
+<div class="card"><div class="big">COMMENTS</div>
+<textarea id="notes" placeholder="Notes on this quest. Exported with the file." style="min-height:110px"></textarea></div>
+</div>
+<script>
+/* bohemia_bq.js — Bohemia Quest (.bq) parser, serializer, validator.
+   LAWS ENFORCED IN CODE:
+   - Never crash on a garbled line. Preserve it, flag it. (voice-to-text law)
+   - Round-trip lossless: parse -> serialize -> byte-identical.
+   - No stat/karma gates. The format cannot express them. (CONSCIENCE SYSTEM)
+   - REQ roles must be castable. (Bethesda alias-fill gate)
+   No dependencies. Runs in node and in the browser. */
+(function(root){
+'use strict';
+
+var BANNED_GATES = ['charm','paragon','renegade','karma','speech','morality','intimidate','persuasion'];
+var GATE_KEYS    = ['none','knows','flag','has','role','faction','gen'];
+
+/* ---------- PARSE ---------- */
+function parse(text){
+  var Q = { id:'', title:'', act:null, faction:null, once:true,
+            roles:[], stages:[], objs:[], talks:[], raw:[], warnings:[] };
+  var lines = String(text).replace(/\r\n/g,'\n').split('\n');
+  var curStage=null, curTalk=null;
+
+  for (var i=0;i<lines.length;i++){
+    var raw = lines[i];
+    Q.raw.push(raw);
+    var L = raw.trim();
+    var ln = i+1;
+    if (L==='' || L[0]==='#'){ continue; }
+
+    var m;
+    if ((m=/^@QUEST\s+(\S+)\s*(.*)$/.exec(L))){ Q.id=m[1]; Q.title=m[2].trim(); curStage=null; curTalk=null; continue; }
+    if ((m=/^@ACT\s+(\S+)/.exec(L))){ Q.act=m[1]; continue; }
+    if ((m=/^@FACTION\s+(\S+)/.exec(L))){ Q.faction=m[1]; continue; }
+    if ((m=/^@ONCE\s+(\S+)/.exec(L))){ Q.once = /^true$/i.test(m[1]); continue; }
+
+    if ((m=/^@ROLE\s+(\S+)\s+(REQ|OPT)\s*(.*)$/i.exec(L))){
+      Q.roles.push({ name:m[1], req:/^REQ$/i.test(m[2]), cond:m[3].trim(), line:ln });
+      continue;
+    }
+
+    if ((m=/^@STAGE\s+(\d+)\s*(.*)$/.exec(L))){
+      var flags = m[2].trim().toUpperCase().split(/\s+/).filter(Boolean);
+      curStage = { n:parseInt(m[1],10), log:'', dos:[], flags:flags, tags:tagsOf(raw), line:ln };
+      Q.stages.push(curStage); curTalk=null; continue;
+    }
+    if ((m=/^@LOG\s+(.*)$/.exec(L))){ if(curStage) curStage.log = m[1].trim(); else warn(Q,ln,'@LOG outside a @STAGE'); continue; }
+    if ((m=/^@DO\s+(.*)$/.exec(L))){
+      var d = { text:m[1].trim(), line:ln };
+      if (curStage) curStage.dos.push(d);
+      else if (curTalk) curTalk.trailingDo = d;
+      else warn(Q,ln,'@DO outside a @STAGE or @TALK');
+      continue;
+    }
+    if ((m=/^@OBJ\s+(\d+)\s+"([^"]*)"\s*(?:target=(\S+))?/.exec(L))){
+      Q.objs.push({ n:parseInt(m[1],10), text:m[2], target:m[3]||null, line:ln }); continue;
+    }
+
+    if ((m=/^@TALK\s+(\S+)\s*(.*)$/.exec(L))){
+      var attrs = attrsOf(m[2]);
+      curTalk = { id:m[1], speaker:attrs.speaker||null, entry:attrs.entry||null,
+                  says:[], opts:[], locks:[], noverbs:[], tags:tagsOf(raw), line:ln };
+      Q.talks.push(curTalk); curStage=null; continue;
+    }
+    if ((m=/^@SAY\s+(.*)$/.exec(L))){ if(curTalk) curTalk.says.push({text:stripTags(m[1]).trim(), tags:tagsOf(raw), line:ln}); else warn(Q,ln,'@SAY outside a @TALK'); continue; }
+    if ((m=/^@OPT\s+(.*)$/.exec(L))){
+      if(!curTalk){ warn(Q,ln,'@OPT outside a @TALK'); continue; }
+      var body = m[1];
+      /* CONTINUATION: an @OPT may wrap. Following lines that start with [gate: or -> or @DO
+         belong to it. Voice-to-text wraps long lines; the format must not punish that. */
+      while (i+1 < lines.length && /^\s*(\[gate:|->|@DO\b|TRAP\b|SILENCE\b)/.test(lines[i+1])){
+        i++; Q.raw.push(lines[i]); body += ' ' + lines[i].trim();
+      }
+      var o = parseOpt(body, ln, Q);
+      curTalk.opts.push(o); continue;
+    }
+    if ((m=/^@LOCK\s+(\S+)/.exec(L))){ if(curTalk) curTalk.locks.push({target:m[1], line:ln}); else warn(Q,ln,'@LOCK outside a @TALK'); continue; }
+    if ((m=/^@NOVERB\s+(.*)$/.exec(L))){ if(curTalk) curTalk.noverbs.push({text:m[1].trim(), line:ln}); else warn(Q,ln,'@NOVERB outside a @TALK'); continue; }
+    if (/^@END\b/.test(L)){ curTalk=null; continue; }
+
+    /* UNKNOWN LINE. Never dropped. Never fatal. Voice-to-text law. */
+    warn(Q, ln, 'unrecognized line kept verbatim: ' + L.slice(0,60));
+  }
+  return Q;
+}
+
+function parseOpt(s, ln, Q){
+  var o = { text:'', gate:'none', gateKey:'none', gateVal:null, trap:false, silence:false,
+            to:null, dos:[], line:ln, raw:s };
+  var m;
+  if ((m=/^"([^"]*)"/.exec(s))) o.text = m[1];
+  else if ((m=/^\(([^)]*)\)/.exec(s))) { o.text = '('+m[1]+')'; o.silence = true; }
+  else { warn(Q, ln, '@OPT has no quoted text'); o.text = s.split('[')[0].trim(); }
+
+  if ((m=/\[gate:\s*([^\]]*)\]/i.exec(s))){
+    o.gate = m[1].trim();
+    var parts = o.gate.split(':');
+    o.gateKey = parts[0].trim().split(/[<>=]/)[0].trim().toLowerCase();
+    o.gateVal = parts.slice(1).join(':').trim() || null;
+  }
+  if (/\bTRAP\b/.test(s)) o.trap = true;
+  if (/\bSILENCE\b/.test(s)) o.silence = true;
+  if ((m=/->\s*(\S+)/.exec(s))) o.to = m[1];
+  var dre = /@DO\s+([^@]+)/g, d;
+  while ((d = dre.exec(s))) o.dos.push({ text:d[1].trim(), line:ln });
+  return o;
+}
+
+function tagsOf(s){ var t=[], m, re=/(?:^|\s)#([A-Za-z0-9_]+)/g; while((m=re.exec(s))) t.push(m[1]); return t; }
+function stripTags(s){ return s.replace(/(?:^|\s)#[A-Za-z0-9_]+/g,''); }
+function attrsOf(s){ var a={}, m, re=/(\w+)=([^\s]+)/g; while((m=re.exec(s))) a[m[1]]=m[2]; return a; }
+function warn(Q,line,msg){ Q.warnings.push({line:line, msg:msg}); }
+
+/* ---------- SERIALIZE (lossless round-trip) ---------- */
+function serialize(Q){ return Q.raw.join('\n'); }
+
+/* ---------- VALIDATE ---------- */
+function validate(Q, world){
+  world = world || null;
+  var errs=[], warns=[];
+  function E(c,m){ errs.push({code:c, msg:m}); }
+  function W(c,m){ warns.push({code:c, msg:m}); }
+
+  if(!Q.id) E('NO_ID','quest has no @QUEST id');
+  if(!Q.stages.length) E('NO_STAGES','quest has no @STAGE');
+
+  var roleNames = {}; Q.roles.forEach(function(r){ roleNames[r.name]=r; });
+
+  /* G6 banned gates — CONSCIENCE SYSTEM enforced by the parser */
+  Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    BANNED_GATES.forEach(function(b){
+      if (new RegExp('\\b'+b+'\\b','i').test(o.gate))
+        E('BANNED_GATE','line '+o.line+': gate "'+o.gate+'" uses '+b.toUpperCase()+'. NO STAT GATES. NO KARMA. Ever.');
+    });
+    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0)
+      W('UNKNOWN_GATE','line '+o.line+': gate key "'+o.gateKey+'" not in the vocabulary');
+    if (o.gateKey==='role' && o.gateVal && !roleNames[o.gateVal])
+      E('GATE_NO_ROLE','line '+o.line+': gate role:'+o.gateVal+' is not a declared @ROLE');
+  });});
+
+  /* G3 dead links */
+  var nodeIds={}; Q.talks.forEach(function(t){
+    if(nodeIds[t.id]) E('DUP_NODE','duplicate @TALK id "'+t.id+'" (line '+t.line+')');
+    nodeIds[t.id]=t;
+  });
+  Q.talks.forEach(function(t){
+    t.opts.forEach(function(o){ if(o.to && o.to!=='END' && !nodeIds[o.to])
+      E('DEAD_LINK','line '+o.line+': -> '+o.to+' does not exist'); });
+    t.locks.forEach(function(l){ if(!nodeIds[l.target])
+      E('DEAD_LOCK','line '+l.line+': @LOCK '+l.target+' does not exist'); });
+    if(t.speaker && !roleNames[t.speaker])
+      E('NODE_NO_ROLE','line '+t.line+': @TALK speaker='+t.speaker+' is not a declared @ROLE');
+  });
+
+  /* G2 orphan nodes — theme-in-optional, the ~18x flaw */
+  var reached={}; Q.talks.forEach(function(t){ if(t.entry) reached[t.id]=true; });
+  if(Q.talks.length && !Object.keys(reached).length && Q.talks[0]) reached[Q.talks[0].id]=true;
+  var moved=true;
+  while(moved){ moved=false;
+    Q.talks.forEach(function(t){ if(reached[t.id]) t.opts.forEach(function(o){
+      if(o.to && nodeIds[o.to] && !reached[o.to]){ reached[o.to]=true; moved=true; } }); });
+  }
+  Q.talks.forEach(function(t){ if(!reached[t.id])
+    W('ORPHAN_NODE','@TALK '+t.id+' (line '+t.line+') is unreachable. Theme-in-optional is the ~18x flaw.'); });
+
+  /* G1 alias-fill — the Bethesda lesson, taken for free */
+  if(world){
+    Q.roles.forEach(function(r){
+      if(!r.req) return;
+      if(typeof world.canCast!=='function') return;
+      if(!world.canCast(r)) E('ALIAS_FILL','REQ @ROLE '+r.name+' (line '+r.line+') cannot be cast: '+r.cond+
+        '. An unfilled REQ role fails the WHOLE quest silently. Bethesda shipped a debug flag for this; we fail the build.');
+    });
+  }
+
+  /* G4 hardcoded names. Root-cause heuristic: a proper noun is a capitalized word that is NOT
+     sentence-initial and NOT a declared role. Sentence-initial caps are grammar, not names. */
+  Q.talks.forEach(function(t){ t.says.forEach(function(s){
+    var txt = s.text, m, re=/([.!?]\s+|,\s+|\s+)([A-Z][a-z]{2,})/g;
+    var STOP={The:1,This:1,That:1,They:1,Then:1,There:1,These:1,Those:1,You:1,Your:1,What:1,When:1,Where:1,Which:1,Who:1,Why:1,How:1,And:1,But:1,For:1,Not:1,Now:1,She:1,Her:1,His:1,Him:1,Its:1,Was:1,Were:1,Are:1,Did:1,Does:1,Get:1,Got:1,Had:1,Has:1,Have:1,Just:1,Like:1,Look:1,Make:1,Never:1,Nothing:1,Only:1,Same:1,Say:1,Said:1,Tell:1,Told:1,Take:1,Went:1,Yes:1,Sit:1,Good:1,Play:1,Cleared:1,Six:1,Everyone:1,Welcome:1,Unhoused:1,Bring:1,Write:1,Their:1,One:1,Instead:1,Nobody:1,All:1,Because:1,Before:1,Beyond:1,Every:1,Find:1,Give:1,Sorry:1,Stop:1,Still:1,Ask:1,Come:1,Keep:1,Wait:1,Watch:1,Speak:1,Read:1};
+    while((m=re.exec(txt))){
+      var w=m[2];
+      if(m[1].match(/[.!?]/)) continue;            /* sentence-initial: grammar, not a name */
+      if(STOP[w]) continue;
+      if(roleNames[w.toLowerCase()]) continue;
+      W('HARDCODED_NAME','line '+s.line+': possible hardcoded name "'+w+'". Quests written against names die with the person. Use a @ROLE.');
+    }
+  });});
+
+  /* G7 removed verb */
+  var nv=0; Q.talks.forEach(function(t){ nv+=t.noverbs.length; });
+  if(Q.talks.length && nv===0)
+    W('NO_NOVERB','quest declares zero @NOVERB. A quest where every obvious thing is sayable has not decided what it is about. (Q118/Q122/Q123/Q125)');
+
+  /* G8 NAMED-BODY LAW (Q125) */
+  Q.stages.forEach(function(st){
+    if(st.tags.indexOf('namedbody')>=0){
+      st.dos.forEach(function(d){
+        if(/\b(give|loot|reward|credits|medicine|electricity|resources|item)\b/i.test(d.text))
+          E('NAMED_BODY','line '+d.line+': stage #'+st.n+' is #namedbody and grants loot. NAMED-BODY LAW: no loot in a room with a corpse the player knows by name.');
+      });
+    }
+  });
+
+  /* G9 cross-generation flags need a test */
+  var genReads=[]; Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    if(o.gateKey==='gen' || /gen\s*>=\s*[23]/.test(o.gate)) genReads.push(o); });});
+  if(genReads.length) W('GEN_FLAG_TEST','quest reads across a generation boundary ('+genReads.length+' gate(s)). FLAW LAW 3: needs a named regression test in bohemia_tests.js. Q116 shipped a flag bugged 25 years.');
+
+  /* G5 branch count (Q117: count branches before scoping volume) */
+  var endings = Q.stages.filter(function(s){ return s.flags.indexOf('COMPLETE')>=0 || s.flags.indexOf('FAIL')>=0; }).length;
+
+  return {
+    ok: errs.length===0,
+    errors: errs, warnings: warns.concat(Q.warnings.map(function(w){ return {code:'PARSE', msg:'line '+w.line+': '+w.msg}; })),
+    stats: { roles:Q.roles.length, reqRoles:Q.roles.filter(function(r){return r.req;}).length,
+             stages:Q.stages.length, objectives:Q.objs.length, nodes:Q.talks.length,
+             options:Q.talks.reduce(function(a,t){return a+t.opts.length;},0),
+             traps:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.trap;}).length;},0),
+             silences:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.silence;}).length;},0),
+             noverbs:nv, locks:Q.talks.reduce(function(a,t){return a+t.locks.length;},0),
+             endings: endings }
+  };
+}
+
+function roundTrip(text){ return serialize(parse(text)) === String(text).replace(/\r\n/g,'\n'); }
+
+var API = { parse:parse, serialize:serialize, validate:validate, roundTrip:roundTrip,
+            BANNED_GATES:BANNED_GATES, GATE_KEYS:GATE_KEYS, VERSION:'bq-1.0.0' };
+if (typeof module!=='undefined' && module.exports) module.exports = API;
+root.BQ = API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+var SAMPLE = "# BOHEMIA QUEST \u2014 .bq FORMAT REFERENCE IMPLEMENTATION\n# THE TRIBUNAL. Port of Q125 (Tali: Treason, ME2) onto Bohemia systems.\n# Written against ROLES. No names anywhere. This quest survives a dynasty.\n# STATUS: reference sample. NOT canon. Paolo has not approved a word of it.\n\n@QUEST   bq_tribunal  The Tribunal\n@ACT     2\n@FACTION NONE\n@ONCE    false\n\n# ---- ROLES. Cast at quest start against whoever actually exists this run.\n@ROLE accused    REQ  is=dynast\n@ROLE presiding  REQ  faction_any rank>=3 bond_to=dynast>=2\n@ROLE warhawk    REQ  faction_any posture=war\n@ROLE harvester  REQ  faction=NETWORK\n@ROLE dove       REQ  faction_any posture=peace\n@ROLE forebear   REQ  is=dead_dynast gen=1\n@ROLE record     REQ  item_tag=record owner=forebear\n@ROLE witness_a  OPT  spared_by_player=true met_before=false\n@ROLE witness_b  OPT  spared_by_player=true met_before=false\n\n@STAGE 10\n  @LOG They are calling it a hearing.\n  @DO show_objective 10\n  @DO cast presiding warhawk harvester dove\n\n@STAGE 20\n  @LOG The plant is dark and the crew is not answering.\n  @DO show_objective 20\n  @DO complete_objective 10\n\n@STAGE 30 #namedbody\n  @LOG Found them.\n  @DO play record\n  @DO set_flag knows_forebear_did_it\n\n@STAGE 40 COMPLETE\n  @LOG It is over. It was never about me.\n\n@STAGE 41 FAIL\n  @LOG Six hours to be gone.\n\n@OBJ 10  \"Answer the summons\"        target=presiding\n@OBJ 20  \"Reach the water plant\"     target=record\n@OBJ 30  \"Return and speak\"          target=presiding\n\n# =====================================================================\n# THE GREETING. The verdict is announced by how someone says hello. (Q125 W2)\n# =====================================================================\n@TALK greeting  speaker=presiding  entry=stage>=10\n  @SAY You came. Good. Sit where I can see you. #dread\n  @SAY I have to read this the way it is written, and it is written wrong, and I am reading it anyway.\n  @SAY Welcome back. Unhoused.\n  @OPT \"Say it again.\"                [gate: none]  -> greeting_again\n  @OPT \"Who took the name off me?\"    [gate: none]  -> greeting_who\n  @OPT (let it pass)                  [gate: none] SILENCE -> greeting_pass  @DO set_flag ate_it\n  @NOVERB \"Auntie, please\"\n@END\n\n@TALK greeting_again  speaker=presiding\n  @SAY Unhoused. It is the paperwork. It is not me.\n  @SAY They took your house off you before the first word so a stranger would have to speak for you.\n  @OPT \"Then a stranger will.\"        [gate: none] -> greeting_pass\n  @OPT \"You could have stepped down.\" [gate: none] -> greeting_recuse\n  @LOCK greeting_who\n@END\n\n@TALK greeting_who  speaker=presiding\n  @SAY The one who wants peace. He thinks a person with no house is easier to be gentle about.\n  @SAY He is not wrong. That is the ugly part.\n  @OPT \"And you let him.\"             [gate: none] -> greeting_recuse\n  @OPT \"Fine.\"                        [gate: none] -> greeting_pass\n  @LOCK greeting_again\n@END\n\n@TALK greeting_recuse  speaker=presiding\n  @SAY I should have. I know what I should have done. I am here anyway. #dread\n  @OPT \"Why?\"                         [gate: none] -> greeting_pass\n  @NOVERB \"You are family\"\n@END\n\n@TALK greeting_pass  speaker=presiding\n  @SAY Go to the plant. Bring back whatever is left of it. Then we will all pretend this is about you.\n  @DO set_stage 20\n@END\n\n# =====================================================================\n# THE FOUR. Optional. Unmarked. And it is the entire quest. (Q125 W6/F4)\n# The FIX for the ~18x flaw: these four are standing between you and the door.\n# You cannot reach the plant without walking past all four. You can refuse to\n# listen. You cannot avoid being spoken to.\n# =====================================================================\n@TALK four_warhawk  speaker=warhawk  entry=stage>=10\n  @SAY You think I want you thrown out. I do not care about you at all. #dread\n  @SAY I want the vote. I want it to say the dead are a live threat, today, inside our own walls.\n  @SAY You walking in here carrying one is the best argument I have had in nine years.\n  @OPT \"I'm an argument.\"             [gate: none] -> four_warhawk_2  @DO learn agenda_war\n  @OPT \"You'd burn me for a vote?\"    [gate: none] -> four_warhawk_2  @DO learn agenda_war\n  @OPT (walk on)                      [gate: none] SILENCE -> END\n  @NOVERB \"Help me and I'll owe you\"\n@END\n\n@TALK four_warhawk_2  speaker=warhawk\n  @SAY Everyone here is an argument. You just found out you were one.\n  @DO learn agenda_war\n@END\n\n@TALK four_harvester  speaker=harvester  entry=stage>=10\n  @SAY Whatever is on that plant, we would like it. #amalgamation\n  @SAY They were people. Now they are a resource, and a resource that is not being used is a waste.\n  @SAY I am not being cruel. I am being accurate. That is what people cannot forgive.\n  @OPT \"They're people.\"              [gate: none] -> four_harvester_2 @DO learn agenda_harvest\n  @OPT \"What would you pay?\"          [gate: none] TRAP -> four_harvester_2 @DO learn agenda_harvest @DO faction NETWORK +5\n  @OPT (walk on)                      [gate: none] SILENCE -> END\n  @NOVERB \"You're a monster\"\n@END\n\n@TALK four_harvester_2  speaker=harvester\n  @SAY We will go and look ourselves eventually. We always do. #amalgamation\n  @DO learn agenda_harvest\n  @DO set_flag harvester_will_dig\n@END\n\n@TALK four_dove  speaker=dove  entry=stage>=10\n  @SAY I want this to stop. All of it. I need one clean atrocity to point at and I need it soon.\n  @SAY I took your house off you. I will tell you that to your face.\n  @SAY A person with no house is easier for me to be merciful about in public, and mercy in public is\n  @SAY how a vote moves. I am sorry. I am not going to undo it.\n  @OPT \"You used me.\"                 [gate: none] -> four_dove_2 @DO learn agenda_peace\n  @OPT \"You're the honest one.\"       [gate: none] -> four_dove_2 @DO learn agenda_peace\n  @OPT (walk on)                      [gate: none] SILENCE -> END\n  @NOVERB \"Give it back\"\n@END\n\n@TALK four_dove_2  speaker=dove\n  @SAY I am the one who told you. That is not the same as being good. #dread\n  @DO learn agenda_peace\n@END\n\n# =====================================================================\n# THE PLANT. Motive lands BEFORE the crime. (Q125 W4, PORT 7)\n# =====================================================================\n@TALK plant_record  speaker=forebear  entry=stage>=30\n  @SAY She had no part in it. #dread\n  @SAY She sent what I told her to send and she checked every crate twice. Write that down.\n  @SAY Then bleed the line at the east junction and take the numbers to whoever will use them.\n  @NOVERB \"I love you too\"\n@END\n\n@TALK plant_after  speaker=accused  entry=flag:knows_forebear_did_it\n  @SAY That is my whole innocence. It is also the last of him.\n  @SAY Do not play it. Please. I will take the six hours.\n  @OPT \"It clears you.\"               [gate: none] -> plant_after_2\n  @OPT \"Your people died in here.\"    [gate: none] -> plant_after_3\n  @OPT (nothing)                      [gate: none] SILENCE -> END\n@END\n\n@TALK plant_after_2  speaker=accused\n  @SAY I know what it does. I am asking anyway. That is what asking is. #dread\n@END\n\n# THE ARGUMENT MASS EFFECT REFUSED TO WRITE. (Q125 F8) You get to say it.\n# You still lose. That is the point.\n@TALK plant_after_3  speaker=accused\n  @SAY Yes. Eleven of them. Their families are in that garden right now, sitting behind me.\n  @SAY I have counted them. I counted them before you did.\n  @SAY And I am still asking you, because he is dead and this is the last thing of his that exists,\n  @SAY and I am not a good person about this and I never will be.\n  @NOVERB \"Then it's decided\"\n@END\n\n# =====================================================================\n# THE VERDICT. Four ways. None gated on a stat. (Q125 PORT 5, F2, F3)\n# =====================================================================\n@TALK verdict  speaker=presiding  entry=stage>=30\n  @SAY Do you have anything to put in front of us.\n  @OPT \"Here.\"                        [gate: has:record]        -> v_file\n  @OPT \"I found nothing.\"             [gate: none]              -> v_lie\n  @OPT \"This isn't about her.\"        [gate: knows:agenda_war]  -> v_name_it\n  @OPT \"Ask them.\"                    [gate: role:witness_a]    -> v_witness\n  @NOVERB \"I need more time\"\n@END\n\n@TALK v_file  speaker=presiding\n  @SAY Play it.\n  @SAY ...\n  @SAY The dead man is struck from every roll he ever appeared on. You keep your house.\n  @DO set_stage 40\n  @DO bond accused -40\n  @DO faction_posture war +1\n  @DO set_flag forebear_struck\n@END\n\n@TALK v_lie  speaker=presiding\n  @SAY Then there is nothing, and nothing is what we rule on.\n  @SAY Six hours. I am sorry. I did this. #dread\n  @DO set_stage 41\n  @DO bond accused +30\n  @DO set_flag accused_exiled\n@END\n\n@TALK v_name_it  speaker=presiding\n  @SAY Go on.\n  @OPT \"One of you wants a war and needs a body in the room to prove it.\"\n       [gate: knows:agenda_war] -> v_name_it_2\n  @OPT \"One of you wants the dead as stock and needs the door opened.\"\n       [gate: knows:agenda_harvest] -> v_name_it_2\n  @OPT \"One of you took her house off her to make her easier to save in public.\"\n       [gate: knows:agenda_peace] -> v_name_it_2\n@END\n\n@TALK v_name_it_2  speaker=presiding\n  @SAY ...\n  @SAY Nobody is going to answer that. That is how you know it landed.\n  @SAY Cleared. All charges. Get out of my garden.\n  @DO set_stage 40\n  @DO bond accused +20\n@END\n\n# THE MERCY THAT SHOWS UP IN COURT. (Q125 W8, PORT 6)\n# No stat. No backup. This is the PRIMARY path and it is bought entirely with\n# two kindnesses that cost something and paid nothing at the time.\n@TALK v_witness  speaker=witness_a  entry=role:witness_a\n  @SAY I am not anybody. I dig. #dread\n  @SAY But she carried me nine blocks with a busted hip and she did not know my name either.\n  @SAY That is my testimony. Write down that I said it.\n  @OPT \"Sit down. You've done enough.\"  [gate: none] -> v_witness_2\n  @OPT (let them talk)                  [gate: none] SILENCE -> v_witness_2\n@END\n\n@TALK v_witness_2  speaker=presiding\n  @SAY Cleared. All charges.\n  @SAY And I want the room to notice who spoke, and that none of them are us.\n  @DO set_stage 40\n  @DO bond accused +20\n@END\n\n# =====================================================================\n# THE MAIL. Suppression is a delay, not a deletion. (Q125 W10, PORT 9)\n# Fires a GENERATION later. Cross-gen flag -> needs a test. The validator says so.\n# =====================================================================\n@TALK the_mail  speaker=harvester  entry=gen>=3\n  @SAY We went back to the plant ourselves. Of course we did. We told you we would. #amalgamation\n  @SAY We found what you decided we should not have. It took eleven years and it was always going to.\n  @SAY You could have been part of what comes next. Instead you will watch it from a distance,\n  @SAY the way your grandmother watched, from behind a name she was not allowed to keep.\n  @NOVERB (there is no reply)\n@END\n";
+var $=function(i){return document.getElementById(i)};
+var esc=function(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})};
+var showGraph=true;
+
+$('ver').textContent = BQ.VERSION;
+$('src').value = SAMPLE;
+
+$('bSun').onclick=function(){ document.body.classList.toggle('night');
+  this.textContent = document.body.classList.contains('night')?'NIGHT':'SUN'; this.classList.toggle('on'); };
+$('bTxt').onclick=function(){ $('paneTxt').classList.toggle('hide'); this.classList.toggle('on'); };
+$('bGrf').onclick=function(){ showGraph=!showGraph; this.classList.toggle('on'); render(); };
+$('bSmp').onclick=function(){ $('src').value=SAMPLE; render(); };
+$('bClr').onclick=function(){ $('src').value=''; render(); };
+$('bLoad').onclick=render;
+$('bVal').onclick=render;
+$('bExp').onclick=function(){
+  var t=$('src').value; var n=$('notes').value.trim();
+  if(n) t += '\n\n# ---- NOTES ----\n' + n.split('\n').map(function(l){return '# '+l}).join('\n') + '\n';
+  var Q=BQ.parse($('src').value);
+  var name=(Q.id||'quest')+'.bq.txt';
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));
+  a.download=name; a.click();
+};
+
+function render(){
+  var src=$('src').value;
+  var Q, v;
+  try{ Q=BQ.parse(src); v=BQ.validate(Q,{canCast:function(){return true;}}); }
+  catch(e){ $('out').innerHTML='<div class="card e">parser threw: '+esc(e.message)+'</div>'; return; }
+  var s=v.stats, h='';
+
+  h+='<div class="card"><div class="big">'+esc(Q.title||'(untitled)')+'</div>';
+  h+='<small>'+esc(Q.id||'(no id)')+' &middot; act '+esc(Q.act||'?')+' &middot; '+(Q.once?'once per dynasty':'repeatable')+'</small><div style="margin-top:6px">';
+  h+=st('ROLES',s.roles)+st('REQ',s.reqRoles)+st('STAGES',s.stages)+st('NODES',s.nodes)+st('OPTIONS',s.options);
+  h+=st('BRANCHES',s.endings)+st('TRAPS',s.traps)+st('SILENCE',s.silences)+st('NO-VERB',s.noverbs)+st('LOCKS',s.locks);
+  h+='</div></div>';
+
+  h+='<div class="card"><div class="big">'+(v.ok?'<span class="o">GATE GREEN</span>':'<span class="e">GATE RED &mdash; '+v.errors.length+' ERROR(S)</span>')+'</div>';
+  if(!v.errors.length && !v.warnings.length) h+='<div class="o">0 errors, 0 warnings. Round-trip '+(BQ.roundTrip(src)?'lossless.':'<span class="e">BROKEN.</span>')+'</div>';
+  v.errors.forEach(function(e){ h+='<div class="msg"><span class="e">X '+esc(e.code)+'</span> '+esc(e.msg)+'</div>'; });
+  v.warnings.forEach(function(w){ h+='<div class="msg"><span class="w">! '+esc(w.code)+'</span> '+esc(w.msg)+'</div>'; });
+  h+='</div>';
+
+  if(Q.roles.length){
+    h+='<div class="card"><div class="big">CAST</div><small>Roles, not names. This quest survives a dynasty.</small>';
+    Q.roles.forEach(function(r){
+      h+='<div class="role"><span class="'+(r.req?'req':'optr')+'">'+(r.req?'REQ':'OPT')+'</span> <b>'+esc(r.name)+'</b> <small>'+esc(r.cond)+'</small></div>';
+    });
+    h+='</div>';
+  }
+
+  if(Q.stages.length){
+    h+='<div class="card"><div class="big">STAGES</div>';
+    Q.stages.forEach(function(t){
+      h+='<div class="msg"><b>'+t.n+'</b> '+(t.flags.length?'<span class="o">'+esc(t.flags.join(' '))+'</span> ':'')+
+         (t.tags.length?'<span class="w">#'+esc(t.tags.join(' #'))+'</span> ':'')+esc(t.log)+'</div>';
+    });
+    h+='</div>';
+  }
+
+  if(showGraph && Q.talks.length){
+    var reach = reachable(Q);
+    h+='<div class="big" style="margin-left:4px">THE CONVERSATIONS</div>';
+    Q.talks.forEach(function(t){
+      h+='<div class="node'+(reach[t.id]?'':' orph')+'"><div class="nid">'+esc(t.id)+
+         ' <span class="spk">'+(t.speaker?'&rarr; '+esc(t.speaker):'')+(t.entry?'  [entry: '+esc(t.entry)+']':'')+'</span></div>';
+      t.says.forEach(function(y){ h+='<div class="say">'+esc(y.text)+'</div>'; });
+      t.opts.forEach(function(o){
+        var cls = o.trap?'tr':(o.silence?'si':'');
+        h+='<div class="opt '+cls+'">&gt; '+esc(o.text)+
+           ' <span class="g">['+esc(o.gate)+']</span>'+
+           (o.trap?' <span class="tr">TRAP</span>':'')+
+           (o.silence?' <span class="si">SILENCE</span>':'')+
+           (o.to?' &rarr; '+esc(o.to):'')+
+           (o.dos.length?' <small>'+esc(o.dos.map(function(d){return d.text}).join(' | '))+'</small>':'')+'</div>';
+      });
+      t.locks.forEach(function(l){ h+='<div class="lk">LOCKS OUT '+esc(l.target)+' forever</div>'; });
+      t.noverbs.forEach(function(n){ h+='<div class="nv">NO VERB: '+esc(n.text)+'</div>'; });
+      h+='</div>';
+    });
+  }
+  $('out').innerHTML=h;
+}
+function st(k,v){ return '<span class="stat">'+k+' <b>'+v+'</b></span>'; }
+function reachable(Q){
+  var ids={}; Q.talks.forEach(function(t){ ids[t.id]=t; });
+  var r={}; Q.talks.forEach(function(t){ if(t.entry) r[t.id]=true; });
+  if(Q.talks.length && !Object.keys(r).length) r[Q.talks[0].id]=true;
+  var moved=true;
+  while(moved){ moved=false; Q.talks.forEach(function(t){ if(r[t.id]) t.opts.forEach(function(o){
+    if(o.to && ids[o.to] && !r[o.to]){ r[o.to]=true; moved=true; } }); }); }
+  return r;
+}
+render();
+</script></body></html>

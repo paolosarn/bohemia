@@ -1,0 +1,111 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S08 — THE TOLL ROAD
+# Shape: exploit-the-lever / racket-break (Three-Card Bounty + Killian leverage).
+# Faction wires: CARTEL, CARAVANS. A cartel checkpoint is taxing a medicine caravan
+# to death. Every enemy is a LEVER not a wall (W7/W9): the checkpoint boss is holding
+# it together with fear and a lieutenant who is one bad night from walking. Systems AS
+# mechanic: the caravan carries MEDICINE (the scarce currency) and the resolution
+# actually shifts CARTEL and CARAVANS posture. No proper names (W8). CLOUT rides the
+# deed: pay the toll and move on -> #quiet; broker a standing deal in the open ->
+# #notable; turn the lieutenant against the boss -> #risky; break the checkpoint loud,
+# guns and all -> #reckless.
+
+@QUEST   bq_toll_road   The Toll Road
+@ACT     2
+@FACTION NONE
+@ONCE    true
+
+@ROLE hauler      REQ  faction=CARAVANS   carrying=medicine
+@ROLE boss        REQ  faction=CARTEL     runs_the_checkpoint=true
+@ROLE lieutenant  OPT  faction=CARTEL     tired_of_the_boss=true
+
+@STAGE 10
+  @LOG A caravan hauling medicine is stalled at a cartel checkpoint. The toll is bleeding it dry.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The checkpoint boss holds it with fear and one lieutenant who looks one bad night from leaving.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Paid the toll out of my own pocket and got the medicine moving. Quiet, forgettable, and a family lives.
+  @DO faction CARAVANS +6
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Brokered a standing rate in the open, both sides shaking on it. The road stays paid but it stays open.
+  @DO faction CARAVANS +8
+  @DO faction CARTEL +4
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Turned the lieutenant against the boss. Quiet knife-work in the dark. The checkpoint has a new owner and owes me.
+  @DO faction_posture CARTEL +1
+  @DO complete_objective 20
+@STAGE 33 COMPLETE #reckless
+  @LOG Broke the checkpoint loud, guns and fire and a crowd. The medicine rolls tonight. The cartel now knows my face.
+  @DO faction CARAVANS +10
+  @DO faction_posture CARTEL +1
+  @DO complete_objective 20
+@STAGE 34 FAIL #quiet
+  @LOG Left the caravan sitting. The medicine spoils in the sun and a block does without.
+
+@OBJ 10  "Reach the stalled caravan"      target=hauler
+@OBJ 20  "Get the medicine past the toll"  target=boss
+
+@TALK caravan  speaker=hauler  entry=stage>=10
+  @SAY Third day sitting here. The cold room in the wagon is dying and so is what is in it. #dread
+  @SAY They call it a toll. It is not a toll. A toll you can pay and still eat. This just takes until there is nothing.
+  @SAY I cannot fight them and I cannot leave the load. If you have any pull, any at all, I am begging.
+  @OPT "Let me talk to whoever runs it."    [gate: none]  -> gate      @DO learn saw_the_caravan
+  @OPT "What is in the wagon?"              [gate: none]  -> load
+  @OPT "Not my problem."                    [gate: none]  -> leave
+  @NOVERB "Promise nobody gets hurt"
+@END
+
+@TALK load  speaker=hauler
+  @SAY Medicine. The real kind, from the granary, rationed for three blocks that have sick in them right now. #dread
+  @SAY Every hour it sits here somebody downstream gets worse. That is the arithmetic. That is why I have not slept.
+  @OPT "I will handle the checkpoint."      [gate: none]  -> gate  @DO learn saw_the_caravan
+@END
+
+@TALK leave  speaker=hauler
+  @SAY Fine. It is nobody's problem until it is everybody's, that is how it always goes out here. #tired
+  @OPT "Wait. I will look at it."           [gate: none]  -> gate  @DO learn saw_the_caravan
+  @OPT "Good luck."                         [gate: none]  -> END   @DO set_stage 34
+@END
+
+# THE CHECKPOINT. The boss is a lever, not a wall. So is the lieutenant beside him.
+@TALK gate  speaker=boss  entry=stage>=10 and knows:saw_the_caravan
+  @SAY New face. The rate is the rate. It goes up the longer you make me look at you. #flat
+  @SAY That wagon pays until it is empty and then it can go. Those are the words. You want to add some of your own.
+  @DO set_stage 20
+  @OPT "I will pay the toll myself. Now."   [gate: none]  -> pay
+  @OPT "Set a fair standing rate. In the open."  [gate: none]  -> deal
+  @OPT "Your man there looks tired."         [gate: none]  TRAP -> turn
+  @OPT (put a hand on your weapon)            [gate: none]  SILENCE -> break
+  @NOVERB "Ask him what he is so afraid of"
+@END
+
+@TALK pay  speaker=boss
+  @SAY Out of your own pocket. For strangers. You know that is the rate again next week and you will not be here. #flat
+  @SAY But it clears today. Wagon rolls. Nobody remembers your name, which for you might be the whole point.
+  @OPT "Just let it through."               [gate: none]  -> END  @DO set_stage 30
+@END
+
+@TALK deal  speaker=boss
+  @SAY A rate I can say out loud without it sounding like robbery. In front of the hauler, in front of my own crew. #flat
+  @SAY That costs me something, looking reasonable. But a road that stays open pays every week, and dead haulers pay once. Fine. Shake.
+  @OPT "Shake on it."                       [gate: none]  -> END  @DO set_stage 31
+@END
+
+@TALK turn  speaker=lieutenant
+  @SAY ...you noticed. Nobody notices. He has not paid the crew in a month and he sleeps like a king. #dread
+  @SAY Say the word and this checkpoint has a new owner tonight. Quiet. And it would owe you. That kind of owing is worth more than medicine.
+  @OPT "Do it. Quietly."                    [gate: none]  -> END  @DO set_stage 32  @DO cast lieutenant
+  @OPT "No. Not like that."                 [gate: none]  -> gate
+@END
+
+@TALK break  speaker=boss
+  @SAY You are actually going to make this loud. Over someone else's medicine. #flat
+  @SAY Then it is loud. And loud gets remembered, upstream, by people who remember faces for a living. Last chance to be smart.
+  @OPT "Move, or be moved."                 [gate: none]  -> END  @DO set_stage 33
+  @OPT "Fine. Name a fair rate instead."    [gate: none]  -> deal
+@END

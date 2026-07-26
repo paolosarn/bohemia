@@ -1,0 +1,15 @@
+BOHEMIA ALPHA 0.9 FIELD REPORT (Paolo, 7/17/26, first GitHub Pages boot)
+Played via paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
+
+WORKS: boot, logo, tap-through, all music played, the city. "Worked beautifully."
+
+BUGS REPORTED (fix in the alpha absorption session, ONE-ALPHA LAW):
+1. SKIN COLOR UI DESYNC: changing skin color did not update the UI display.
+   (character tab; the swatch/preview did not follow the selection)
+
+STANDING NOTE: Paolo has "a lot of things I still wanna change in general"
+in the alpha. Collect the full list at the top of the absorption session.
+
+STANDING PRACTICE (Paolo's ask, 7/17): every serious alpha/main update,
+present the Pages play link in chat, do not make him dig for the bookmark.
+The alpha URL is stable; only content behind it changes (~2min deploy lag).

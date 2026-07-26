@@ -1,0 +1,81 @@
+BOHEMIA MUSIC — BATCH 20: VOLUME ON THE ZERO-POPULATION FACTION POOLS
+==============================================================================
+Part of the marathon cook (Paolo 7/25, "APPROVAL UNLOCKS VOLUME... VOLUME on
+approved music styles: more songs per approved category pool, same
+instrumentation DNA as the approved batches, tagged into the pools").
+
+RESEARCH FIRST: swept every faction/overworld/menu category via CAT_DEFAULTS.
+9 of 18 categories sat at ZERO tagged vibe songs: REDS, BLUES, ANARCHISTS,
+COLORFUL, TRADES, VOLUNTEERS, CARTEL, MOB, CUSTOM. (Their own baked SONG 1/
+SONG 2 hymns exist and are canon -- this is specifically about the EXTRA
+"vibe" pool a faction's encounter rotation draws from beyond its own two
+hymns.) These 9 were the highest-value volume target.
+
+WHAT SHIPPED: one new song per empty pool, each reusing that faction's own
+root/scale/wave/kit family (same instrumentation DNA as its hymn) with a
+fresh kick pattern and one newly-birthed voice (9 new synthV topologies:
+evictionbell, ledgerscratch, pockettwitch, faucetdrip, shatterspark,
+confettipop, weldflash, kindlingchime, blankslate -- short, punchy, mostly
+percussive accents/hits rather than sustained leads, since the ask was
+volume within an established identity, not new sonic ground):
+ REDS         -> THE FORECLOSURE NOTICE
+ CARTEL       -> THE COUNTING ROOM
+ MOB          -> THE BOSS TAKES HIS CUT
+ BLUES        -> THE LAST GOOD CHECK
+ ANARCHISTS   -> BROKEN WINDOW ANTHEM
+ COLORFUL     -> PARADE OF LOST BALLOONS
+ TRADES       -> WHAT THE APPRENTICE BUILDS
+ VOLUNTEERS   -> HANDS THAT STILL BUILD
+ CUSTOM       -> A NAME NOT YET CHOSEN
+CAT-tagged directly into CAT_DEFAULTS so every fresh install ships with the
+pool already populated (matching the durable-canon pattern, not relying on
+a local device's own tags).
+
+TWO REAL BUGS CAUGHT AND FIXED, not routed around:
+1. music_gate.js's single-quote-only name regex silently failed to parse a
+   song titled with an apostrophe ("THE APPRENTICE'S HANDS") -- renamed the
+   song (WHAT THE APPRENTICE BUILDS) rather than fight the parser; simpler
+   and avoids the same landmine in every other quote-sensitive regex in the
+   file (NEW_VIBES, CAT_DEFAULTS).
+2. 'osc' is a real sentinel (CUSTOM's own bass, handled directly in
+   playStep as a raw oscillator using the song's own wave, not a synthV
+   voice) that had simply never been exercised by music_gate.js or
+   combat_pool_gate.js before -- no prior MLOOPS song used it. Both gates
+   fixed to recognize the sentinel instead of flagging it as a missing
+   voice body.
+
+COMBAT POOL DISCIPLINE (per the marathon's own instructions: "Decode
+COMBAT_B64 fresh from HEAD if you touch it"): combat_pool_gate.js caught
+that combat's synth is its OWN FORK, separate from the alpha's MUSIC tab
+engine -- tagging these 9 songs to their factions puts them straight into
+combat's encounter rotation (MUSIC CATEGORY LAW pool clause), and combat's
+fork didn't have the new voices. Re-decoded COMBAT_B64 fresh from the
+CURRENT origin/main tip (main had moved since this session's last sync --
+"COMBAT v63: overworld music in fights" had landed) rather than reusing a
+stale local decode. Ported all 9 new voices plus 3 existing-but-missing
+ones (ivalicebrass, ashchoir, farbell -- reused as bass/am by these songs
+but never previously needed in combat's fork) verbatim into combat's own
+synthV, matching the V63 session's own "ported VERBATIM from the canon
+alpha synthV" convention already established right above the insertion
+point.
+
+VERIFIED LIVE (not just gate numbers): headless Playwright against the
+real alpha -- all 9 songs render as rows in the MUSIC tab and play for
+real (AudioContext state 'running', zero console/window errors). Separately
+verified inside the REAL combat iframe (its own genuine ~30s boot, not
+shortcut): called audio() to init the AudioContext, then called all 12
+ported voices (9 new + 3 reused) directly through combat's own synthV --
+every one executed cleanly, zero errors.
+
+ALSO FIXED IN PASSING (found while re-verifying after the fresh combat
+decode, unrelated to this batch but caught by the same full-suite pass):
+combat_lab_gate.js had a stale assertion for the aim readout's "SHOT n/
+skill" string -- an upstream "V62 weapon-gated" change (a different,
+already-shipped parallel session) replaced the flat G.chainSkill readout
+with a wpnCap() weapon-capped value, but never updated this gate's literal-
+string check. Updated the assertion to match the real, current, legitimate
+behavior.
+
+Gates: music_gate.js (14/14), combat_pool_gate.js (101/101), combat_lab_
+gate.js (183/183), combat_anim_gate.js (118/118, untouched/unaffected).
+Full suite green. Stamp: BUILD 7/25m.

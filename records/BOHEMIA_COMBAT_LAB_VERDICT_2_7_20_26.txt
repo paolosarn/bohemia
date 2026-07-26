@@ -1,0 +1,27 @@
+BOHEMIA COMBAT — LAB VERDICT 2, THE FINAL ONE (7/20/26)
+=========================================================
+PAOLO VERBATIM:
+"i didnt like any of your beat tactics they were ass tbh only i liked
+shove so far tbh and you need to finish the rest of my combat concerns
+the auo targeting still isnt right bro"
+
+DECIPHERED RULINGS (notes are rulings):
+- ALL beat-tactics lab grammars: DOWN. A CONDUCTOR, B PROMISE, C DANCE,
+  E QUEUE, H METRONOME DUEL — dead as standalone grammars, graveyard
+  final (registry: LABFAIL-*).
+- D THE SHOVE: UP (already ruled 7/19 and living in the canon demo).
+- The mechanics that graduated OUT of dead grammars before the verdict
+  stay canon (they were ruled separately): weapon-typed melee movement,
+  the FORESIGHT perk, the shove + IRON SHOULDER/LONG ARM, KICK-LOCK.
+- The BEAT TACTICS LAB surface is RETIRED: alpha combat tab hosts the
+  Dead Eye Dial demo full-time; lab files in /archive; gate renamed
+  COMBAT GATE, locks the demo alone.
+- Auto targeting: still not right (fix shipped same turn, v27 — a
+  tapped pick persisted forever, so auto never resumed closest-first).
+
+POST-MORTEM (banked):
+Research kept ranking the queue; Paolo's hands killed it in one session.
+Research ranks CANDIDATES — only play decides. The grammars that
+survived did so by living INSIDE the real fight (shove, foresight,
+weapon-typed melee), never as separate mini-games. Future combat ideas
+go INTO the dial demo behind settings, not into side surfaces.

@@ -1,0 +1,42 @@
+BOHEMIA COMBAT — MUSIC SYNC ANALYSIS (7/20/26)
+================================================
+Paolo's ask: "go through all the music and find the most consistent part of
+the songs... the most consistent type of layer across all songs... sync the
+deadshot dial to that."
+
+THE SWEEP (machine-counted, every pattern table in the repo)
+------------------------------------------------------------
+COMBAT DEMO (the 14 faction fight songs):
+  kick layer present:        14 / 14 songs
+  kick hits step 0 (beat 1): 14 / 14
+  kick hits step 8 (beat 3): 12 / 14
+  kick step histogram: 0:14  8:12  4:4  12:4  11:3  6:2  7:2  14:2  3:1  15:1
+  avg hits per bar: kick 3.2 · bass 4.3 · hat 3.7
+
+ALPHA MUSIC SYSTEM (all 224 song patterns):
+  kick hits step 0:  215 / 224  (96%)
+  kick hits step 8:  153 / 224  (68%)
+  bass hits step 0:  224 / 224  (100%, but bass is pitch, not pulse)
+
+THE VERDICT
+-----------
+THE KICK IS THE HEARTBEAT. It is the one physical layer every combat song
+shares, and its anchor hits are steps 0 and 8 — beats 1 and 3, the
+downbeats. The bass is technically more step-0-consistent across the full
+catalog but it is a pitched layer; the kick is the thing your chest feels.
+
+WHAT GOT BUILT ON THIS (v24 + v25, same turn)
+---------------------------------------------
+- KICK-LOCK (v24): the dead-eye dial no longer pulses on the bare 120
+  grid. The ember kill band pump and a new rim flash ride the CURRENT
+  SONG'S actual kick pattern (FAC().kick, override-aware for studio
+  pushes, fallback [0,8]). You SEE the kick you HEAR.
+- EAR-LOCK (v25): research consensus (NecroDancer auto-sync, Rhythm Quest
+  devlogs): phone speakers deliver audio TENS OF MS after the game clock
+  (AudioContext outputLatency). The pulse clock now shifts by the
+  device's own measured output latency, automatically. This is the
+  usual root cause of "the rhythm feels off" on mobile.
+- STILL ON THE SHELF [PENDING Paolo]: a tap-to-calibrate setting (the
+  NecroDancer approach) for players whose bluetooth speakers lie about
+  their latency; and whether kick-timed shots should ever EARN anything
+  mechanically (currently feel-only — timing windows unchanged).

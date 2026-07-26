@@ -1,0 +1,17 @@
+BOHEMIA TILE PALETTE CATEGORIZATION — MASTER INDEX (v2 FULL SWEEP)
+updated 2026-07-11T17:47:25.469189+00:00
+library: 8,674 HD masters across 294 packs — 100% CATEGORIZED
+============================================================
+  NEUTRAL   1306  -> BOHEMIA_TILECAT_NEUTRAL_7_10_26.txt
+  BROWN     4754  -> BOHEMIA_TILECAT_BROWN_7_10_26.txt
+  GOLD      1052  -> BOHEMIA_TILECAT_GOLD_7_10_26.txt
+  COOL       942  -> BOHEMIA_TILECAT_COOL_7_10_26.txt
+  GREEN      155  -> BOHEMIA_TILECAT_GREEN_7_10_26.txt
+  REDMAG     465  -> BOHEMIA_TILECAT_REDMAG_7_10_26.txt
+
+  total: 8674 / 8674 (complete, zero unclustered)
+
+RULES: one tile = one category. sat<0.10 -> NEUTRAL. warm hue: dark->BROWN bright->GOLD.
+REDMAG is quarantined: usable ONLY for Amalgamation/threshold contexts (Purple Reservation Law);
+blood/danger reds excepted case-by-case.
+Purity gate (bohemia_purity_gate.py) runs on every bake regardless of category.

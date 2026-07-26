@@ -1,0 +1,248 @@
+# BOHEMIA QUEST — .bq FORMAT REFERENCE IMPLEMENTATION
+# THE TRIBUNAL. Port of Q125 (Tali: Treason, ME2) onto Bohemia systems.
+# Written against ROLES. No names anywhere. This quest survives a dynasty.
+# STATUS: reference sample. NOT canon. Paolo has not approved a word of it.
+
+@QUEST   bq_tribunal  The Tribunal
+@ACT     2
+@FACTION NONE
+@ONCE    false
+
+# ---- ROLES. Cast at quest start against whoever actually exists this run.
+@ROLE accused    REQ  is=dynast
+@ROLE presiding  REQ  faction_any rank>=3 bond_to=dynast>=2
+@ROLE warhawk    REQ  faction_any posture=war
+@ROLE harvester  REQ  faction=NETWORK
+@ROLE dove       REQ  faction_any posture=peace
+@ROLE forebear   REQ  is=dead_dynast gen=1
+@ROLE record     REQ  item_tag=record owner=forebear
+@ROLE witness_a  OPT  spared_by_player=true met_before=false
+@ROLE witness_b  OPT  spared_by_player=true met_before=false
+
+@STAGE 10
+  @LOG They are calling it a hearing.
+  @DO show_objective 10
+  @DO cast presiding warhawk harvester dove
+
+@STAGE 20
+  @LOG The plant is dark and the crew is not answering.
+  @DO show_objective 20
+  @DO complete_objective 10
+
+@STAGE 30 #namedbody
+  @LOG Found them.
+  @DO play record
+  @DO set_flag knows_forebear_did_it
+
+@STAGE 40 COMPLETE
+  @LOG It is over. It was never about me.
+
+@STAGE 41 FAIL
+  @LOG Six hours to be gone.
+
+@OBJ 10  "Answer the summons"        target=presiding
+@OBJ 20  "Reach the water plant"     target=record
+@OBJ 30  "Return and speak"          target=presiding
+
+# =====================================================================
+# THE GREETING. The verdict is announced by how someone says hello. (Q125 W2)
+# =====================================================================
+@TALK greeting  speaker=presiding  entry=stage>=10
+  @SAY You came. Good. Sit where I can see you. #dread
+  @SAY I have to read this the way it is written, and it is written wrong, and I am reading it anyway.
+  @SAY Welcome back. Unhoused.
+  @OPT "Say it again."                [gate: none]  -> greeting_again
+  @OPT "Who took the name off me?"    [gate: none]  -> greeting_who
+  @OPT (let it pass)                  [gate: none] SILENCE -> greeting_pass  @DO set_flag ate_it
+  @NOVERB "Auntie, please"
+@END
+
+@TALK greeting_again  speaker=presiding
+  @SAY Unhoused. It is the paperwork. It is not me.
+  @SAY They took your house off you before the first word so a stranger would have to speak for you.
+  @OPT "Then a stranger will."        [gate: none] -> greeting_pass
+  @OPT "You could have stepped down." [gate: none] -> greeting_recuse
+  @LOCK greeting_who
+@END
+
+@TALK greeting_who  speaker=presiding
+  @SAY The one who wants peace. He thinks a person with no house is easier to be gentle about.
+  @SAY He is not wrong. That is the ugly part.
+  @OPT "And you let him."             [gate: none] -> greeting_recuse
+  @OPT "Fine."                        [gate: none] -> greeting_pass
+  @LOCK greeting_again
+@END
+
+@TALK greeting_recuse  speaker=presiding
+  @SAY I should have. I know what I should have done. I am here anyway. #dread
+  @OPT "Why?"                         [gate: none] -> greeting_pass
+  @NOVERB "You are family"
+@END
+
+@TALK greeting_pass  speaker=presiding
+  @SAY Go to the plant. Bring back whatever is left of it. Then we will all pretend this is about you.
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE FOUR. Optional. Unmarked. And it is the entire quest. (Q125 W6/F4)
+# The FIX for the ~18x flaw: these four are standing between you and the door.
+# You cannot reach the plant without walking past all four. You can refuse to
+# listen. You cannot avoid being spoken to.
+# =====================================================================
+@TALK four_warhawk  speaker=warhawk  entry=stage>=10
+  @SAY You think I want you thrown out. I do not care about you at all. #dread
+  @SAY I want the vote. I want it to say the dead are a live threat, today, inside our own walls.
+  @SAY You walking in here carrying one is the best argument I have had in nine years.
+  @OPT "I'm an argument."             [gate: none] -> four_warhawk_2  @DO learn agenda_war
+  @OPT "You'd burn me for a vote?"    [gate: none] -> four_warhawk_2  @DO learn agenda_war
+  @OPT (walk on)                      [gate: none] SILENCE -> END
+  @NOVERB "Help me and I'll owe you"
+@END
+
+@TALK four_warhawk_2  speaker=warhawk
+  @SAY Everyone here is an argument. You just found out you were one.
+  @DO learn agenda_war
+@END
+
+@TALK four_harvester  speaker=harvester  entry=stage>=10
+  @SAY Whatever is on that plant, we would like it. #amalgamation
+  @SAY They were people. Now they are a resource, and a resource that is not being used is a waste.
+  @SAY I am not being cruel. I am being accurate. That is what people cannot forgive.
+  @OPT "They're people."              [gate: none] -> four_harvester_2 @DO learn agenda_harvest
+  @OPT "What would you pay?"          [gate: none] TRAP -> four_harvester_2 @DO learn agenda_harvest @DO faction NETWORK +5
+  @OPT (walk on)                      [gate: none] SILENCE -> END
+  @NOVERB "You're a monster"
+@END
+
+@TALK four_harvester_2  speaker=harvester
+  @SAY We will go and look ourselves eventually. We always do. #amalgamation
+  @DO learn agenda_harvest
+  @DO set_flag harvester_will_dig
+@END
+
+@TALK four_dove  speaker=dove  entry=stage>=10
+  @SAY I want this to stop. All of it. I need one clean atrocity to point at and I need it soon.
+  @SAY I took your house off you. I will tell you that to your face.
+  @SAY A person with no house is easier for me to be merciful about in public, and mercy in public is
+  @SAY how a vote moves. I am sorry. I am not going to undo it.
+  @OPT "You used me."                 [gate: none] -> four_dove_2 @DO learn agenda_peace
+  @OPT "You're the honest one."       [gate: none] -> four_dove_2 @DO learn agenda_peace
+  @OPT (walk on)                      [gate: none] SILENCE -> END
+  @NOVERB "Give it back"
+@END
+
+@TALK four_dove_2  speaker=dove
+  @SAY I am the one who told you. That is not the same as being good. #dread
+  @DO learn agenda_peace
+@END
+
+# =====================================================================
+# THE PLANT. Motive lands BEFORE the crime. (Q125 W4, PORT 7)
+# =====================================================================
+@TALK plant_record  speaker=forebear  entry=stage>=30
+  @SAY She had no part in it. #dread
+  @SAY She sent what I told her to send and she checked every crate twice. Write that down.
+  @SAY Then bleed the line at the east junction and take the numbers to whoever will use them.
+  @NOVERB "I love you too"
+@END
+
+@TALK plant_after  speaker=accused  entry=flag:knows_forebear_did_it
+  @SAY That is my whole innocence. It is also the last of him.
+  @SAY Do not play it. Please. I will take the six hours.
+  @OPT "It clears you."               [gate: none] -> plant_after_2
+  @OPT "Your people died in here."    [gate: none] -> plant_after_3
+  @OPT (nothing)                      [gate: none] SILENCE -> END
+@END
+
+@TALK plant_after_2  speaker=accused
+  @SAY I know what it does. I am asking anyway. That is what asking is. #dread
+@END
+
+# THE ARGUMENT MASS EFFECT REFUSED TO WRITE. (Q125 F8) You get to say it.
+# You still lose. That is the point.
+@TALK plant_after_3  speaker=accused
+  @SAY Yes. Eleven of them. Their families are in that garden right now, sitting behind me.
+  @SAY I have counted them. I counted them before you did.
+  @SAY And I am still asking you, because he is dead and this is the last thing of his that exists,
+  @SAY and I am not a good person about this and I never will be.
+  @NOVERB "Then it's decided"
+@END
+
+# =====================================================================
+# THE VERDICT. Four ways. None gated on a stat. (Q125 PORT 5, F2, F3)
+# =====================================================================
+@TALK verdict  speaker=presiding  entry=stage>=30
+  @SAY Do you have anything to put in front of us.
+  @OPT "Here."                        [gate: has:record]        -> v_file
+  @OPT "I found nothing."             [gate: none]              -> v_lie
+  @OPT "This isn't about her."        [gate: knows:agenda_war]  -> v_name_it
+  @OPT "Ask them."                    [gate: role:witness_a]    -> v_witness
+  @NOVERB "I need more time"
+@END
+
+@TALK v_file  speaker=presiding
+  @SAY Play it.
+  @SAY ...
+  @SAY The dead man is struck from every roll he ever appeared on. You keep your house.
+  @DO set_stage 40
+  @DO bond accused -40
+  @DO faction_posture war +1
+  @DO set_flag forebear_struck
+@END
+
+@TALK v_lie  speaker=presiding
+  @SAY Then there is nothing, and nothing is what we rule on.
+  @SAY Six hours. I am sorry. I did this. #dread
+  @DO set_stage 41
+  @DO bond accused +30
+  @DO set_flag accused_exiled
+@END
+
+@TALK v_name_it  speaker=presiding
+  @SAY Go on.
+  @OPT "One of you wants a war and needs a body in the room to prove it."
+       [gate: knows:agenda_war] -> v_name_it_2
+  @OPT "One of you wants the dead as stock and needs the door opened."
+       [gate: knows:agenda_harvest] -> v_name_it_2
+  @OPT "One of you took her house off her to make her easier to save in public."
+       [gate: knows:agenda_peace] -> v_name_it_2
+@END
+
+@TALK v_name_it_2  speaker=presiding
+  @SAY ...
+  @SAY Nobody is going to answer that. That is how you know it landed.
+  @SAY Cleared. All charges. Get out of my garden.
+  @DO set_stage 40
+  @DO bond accused +20
+@END
+
+# THE MERCY THAT SHOWS UP IN COURT. (Q125 W8, PORT 6)
+# No stat. No backup. This is the PRIMARY path and it is bought entirely with
+# two kindnesses that cost something and paid nothing at the time.
+@TALK v_witness  speaker=witness_a  entry=role:witness_a
+  @SAY I am not anybody. I dig. #dread
+  @SAY But she carried me nine blocks with a busted hip and she did not know my name either.
+  @SAY That is my testimony. Write down that I said it.
+  @OPT "Sit down. You've done enough."  [gate: none] -> v_witness_2
+  @OPT (let them talk)                  [gate: none] SILENCE -> v_witness_2
+@END
+
+@TALK v_witness_2  speaker=presiding
+  @SAY Cleared. All charges.
+  @SAY And I want the room to notice who spoke, and that none of them are us.
+  @DO set_stage 40
+  @DO bond accused +20
+@END
+
+# =====================================================================
+# THE MAIL. Suppression is a delay, not a deletion. (Q125 W10, PORT 9)
+# Fires a GENERATION later. Cross-gen flag -> needs a test. The validator says so.
+# =====================================================================
+@TALK the_mail  speaker=harvester  entry=gen>=3
+  @SAY We went back to the plant ourselves. Of course we did. We told you we would. #amalgamation
+  @SAY We found what you decided we should not have. It took eleven years and it was always going to.
+  @SAY You could have been part of what comes next. Instead you will watch it from a distance,
+  @SAY the way your grandmother watched, from behind a name she was not allowed to keep.
+  @NOVERB (there is no reply)
+@END

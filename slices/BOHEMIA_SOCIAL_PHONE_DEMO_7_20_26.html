@@ -1,0 +1,1029 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>BOHEMIA — The Phone (systems preview)</title>
+<!-- Drives the REAL engine modules (no copies, ENGINE SYNC safe). SYSTEMS PREVIEW of
+     the phone's data layer: the feed, quest pickups (over the phone vs pull-up in
+     person), the quest log, and the social profile with followers. UI is a design
+     pass; the DATA is the real thing running live off engine/bohemia_loop.js. Demo
+     quests are throwaway, NOT canon. -->
+<script src="../engine/bohemia_engine.js"></script>
+<script src="../engine/bohemia_scheduler.js"></script>
+<script src="../engine/bohemia_bq.js"></script>
+<script src="../engine/bohemia_quest_runtime.js"></script>
+<script src="../engine/bohemia_district_kit.js"></script>
+<script src="../engine/bohemia_suburb.js"></script>
+<script src="../engine/bohemia_commercial.js"></script>
+<script src="../engine/bohemia_industrial.js"></script>
+<script src="../engine/bohemia_medical.js"></script>
+<script src="../engine/bohemia_solar.js"></script>
+<script src="../engine/bohemia_park.js"></script>
+<script src="../engine/bohemia_wash.js"></script>
+<script src="../engine/bohemia_cemetery.js"></script>
+<script src="../engine/bohemia_drivein.js"></script>
+<script src="../engine/bohemia_golf.js"></script>
+<script src="../engine/bohemia_stadium.js"></script>
+<script src="../engine/bohemia_truckstop.js"></script>
+<script src="../engine/bohemia_school.js"></script>
+<script src="../engine/bohemia_firestation.js"></script>
+<script src="../engine/bohemia_swapmeet.js"></script>
+<script src="../engine/bohemia_storage.js"></script>
+<script src="../engine/bohemia_watertreat.js"></script>
+<script src="../engine/bohemia_boneyard.js"></script>
+<script src="../engine/bohemia_policestation.js"></script>
+<script src="../engine/bohemia_library.js"></script>
+<script src="../engine/bohemia_landfill.js"></script>
+<script src="../engine/bohemia_railyard.js"></script>
+<script src="../engine/bohemia_substation.js"></script>
+<script src="../engine/bohemia_chapel.js"></script>
+<script src="../engine/bohemia_courthouse.js"></script>
+<script src="../engine/bohemia_jail.js"></script>
+<script src="../engine/bohemia_farm.js"></script>
+<script src="../engine/bohemia_downtown.js"></script>
+<script src="../engine/bohemia_trailer.js"></script>
+<script src="../engine/bohemia_apartment.js"></script>
+<script src="../engine/bohemia_warehouse.js"></script>
+<script src="../engine/bohemia_waterpark.js"></script>
+<script src="../engine/bohemia_mall.js"></script>
+<script src="../engine/bohemia_cityhall.js"></script>
+<script src="../engine/bohemia_battery.js"></script>
+<script src="../engine/bohemia_terminal.js"></script>
+<script src="../engine/bohemia_overmap.js"></script>
+<script src="../engine/bohemia_overmap_bridge.js"></script>
+<script src="../engine/bohemia_blockgen.js"></script>
+<script src="../engine/bohemia_floorplan.js"></script>
+<script src="../engine/bohemia_garage.js"></script>
+<script src="../engine/bohemia_crypt.js"></script>
+<script src="../engine/bohemia_world.js"></script>
+<script>/* inlined: engine/BOHEMIA_faction_graph.json */
+var BOHEMIA_FACTION_GRAPH = __FACTION_GRAPH_JSON__;
+/* inlined: every quests/bq/*.bq — the real canon quests, verbatim source text.
+   They cast themselves into the valley below; nothing here edits their content. */
+var CANON_QUESTS = __CANON_QUESTS_JSON__;
+</script>
+<script src="../engine/bohemia_loop.js"></script>
+<style>
+  /* ============================================================================
+     BOHEMIA PHONE — "SALVAGED SMARTPHONE, bootleg feed on the Network."
+     Design pass (research-backed): diegetic held device (Pip-Boy/Cyberpunk),
+     beautiful-decay faded-Vegas-neon palette (Neon Museum), CRT scanlines +
+     vignette, failing-neon flicker, compressed "signal" photos, and the UI
+     DEGRADES when signal drops (degradation-as-information). Readable in sun.
+     ========================================================================= */
+  :root{
+    --bg:#0c0a07; --surface:#16110a; --raised:#1e180f; --line:#2c2317;
+    --ink:#ece2cf; --dim:#9c8f76; --faint:#6c614f;
+    --gold:#d8a742; --gold-soft:#372a10; --good:#86ac52; --good-soft:#1e2611;
+    --teal:#61a89f; --teal-soft:#12241f; --amber:#d47a30; --amber-soft:#33200d;
+    --danger:#d9563a;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; background:#050403; font-family:var(--sans);
+    color:var(--ink); -webkit-font-smoothing:antialiased; }
+  #phone{ max-width:430px; margin:0 auto; min-height:100vh; position:relative;
+    display:flex; flex-direction:column; overflow:hidden;
+    background:
+      radial-gradient(130% 80% at 50% -8%, rgba(216,167,66,.10), transparent 55%),
+      linear-gradient(180deg,#0e0b07,#0a0806 60%,#0c0a07);
+    transition:filter .35s ease; }
+  /* CRT overlays — over content, never block taps */
+  .fx-scan{ position:absolute; inset:0; z-index:16; pointer-events:none; opacity:.5;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.16) 0 1px, rgba(0,0,0,0) 1px 3px); }
+  .fx-vig{ position:absolute; inset:0; z-index:15; pointer-events:none;
+    box-shadow:inset 0 0 90px rgba(0,0,0,.55), inset 0 0 26px rgba(0,0,0,.4);
+    background:radial-gradient(140% 60% at 80% 4%, rgba(216,167,66,.05), transparent 50%); }
+  @keyframes flick{ 0%,94%,100%{opacity:1} 95%{opacity:.55} 96%{opacity:.9} 97%{opacity:.65} 98%{opacity:1} }
+  .neon{ color:var(--gold); text-shadow:0 0 6px rgba(216,167,66,.45); animation:flick 7s infinite steps(1); }
+
+  /* device status bar */
+  .statusbar{ display:flex; justify-content:space-between; align-items:center;
+    padding:9px 16px 6px; font-family:var(--mono); font-size:11px; letter-spacing:.5px; }
+  .statusbar .wm{ font-weight:800; letter-spacing:2px; font-size:12px; }
+  .statusbar .wm .net{ margin-left:6px; color:var(--good); font-weight:600; letter-spacing:1px;
+    font-size:9px; border:1px solid var(--good-soft); padding:1px 4px; border-radius:3px; opacity:.85; }
+  .statusbar #sig{ cursor:pointer; color:var(--dim); display:inline-flex; gap:6px; align-items:center; }
+  .statusbar .bars{ letter-spacing:-1px; font-size:12px; }
+  .statusbar .bars.ok{ color:var(--good); } .statusbar .bars.no{ color:var(--danger); }
+  .statusbar .dot{ color:var(--good); font-size:8px; } .statusbar .dot.off{ color:var(--danger); }
+
+  .offline{ background:linear-gradient(90deg,#2a140c,#1a0f09); border:1px solid #4a2413;
+    color:#e79a63; font-family:var(--mono); font-size:12px; padding:10px 12px; border-radius:4px;
+    margin:6px 2px 12px; line-height:1.45; letter-spacing:.3px; }
+  button:disabled{ background:#241d12; color:var(--faint); box-shadow:none; }
+
+  .hero{ padding:14px 16px 15px; position:relative; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(216,167,66,.05), transparent 70%); }
+  .hrow{ display:flex; align-items:center; gap:13px; }
+  .av{ width:52px; height:52px; border-radius:4px; flex:none; display:flex; align-items:center;
+    justify-content:center; font-weight:800; font-size:19px; color:#0c0a07; font-family:var(--mono);
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.35), 0 0 12px rgba(0,0,0,.5); filter:saturate(.8); }
+  .av.sm{ width:38px; height:38px; font-size:14px; }
+  .hname{ font-weight:800; font-size:19px; letter-spacing:.4px; }
+  .hsub{ color:var(--dim); font-size:12px; margin-top:2px; font-family:var(--mono); }
+  .stats{ display:flex; gap:26px; margin-top:14px; }
+  .stat b{ font-size:20px; font-weight:800; display:block; line-height:1; font-family:var(--mono); }
+  .stat span{ font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:1px; }
+  .stat.foll b{ color:var(--gold); text-shadow:0 0 7px rgba(216,167,66,.4); }
+
+  .objbar{ display:flex; gap:9px; align-items:center; padding:9px 16px; font-family:var(--mono);
+    background:linear-gradient(90deg, var(--gold-soft), transparent);
+    border-bottom:1px solid var(--line); font-size:12.5px; color:#e6c887; letter-spacing:.3px; }
+  .objbar.empty{ display:none; } .objbar .ring{ color:var(--gold); }
+
+  .screen{ flex:1; overflow-y:auto; padding:8px 12px 92px; }
+  h2.sec{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:1.4px;
+    color:var(--faint); margin:16px 6px 9px; font-weight:700;
+    display:flex; align-items:center; gap:8px; }
+  h2.sec:before{ content:""; width:8px; height:8px; background:var(--gold); opacity:.5; }
+
+  .card{ background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:13px 14px; margin-bottom:10px; box-shadow:inset 0 1px 0 rgba(255,255,255,.02); }
+
+  /* feed post */
+  .post .head{ display:flex; align-items:center; gap:10px; }
+  .post .h2n{ font-weight:700; font-size:14px; }
+  .post .h2n .at{ color:var(--dim); font-weight:500; font-family:var(--mono); font-size:12px; }
+  .post .time{ margin-left:auto; color:var(--faint); font-size:11px; font-family:var(--mono); }
+  .post .body{ font-size:15px; line-height:1.45; margin:10px 1px 0; }
+  .tag{ display:inline-block; font-family:var(--mono); font-size:10px; font-weight:700; padding:2px 7px;
+    border-radius:3px; vertical-align:middle; margin-left:3px; letter-spacing:.5px; }
+  .tag.done{ background:var(--good-soft); color:var(--good); border:1px solid #2c3a18; }
+  .tag.act{ background:#241d12; color:var(--dim); }
+  /* TEXT-CAM (Paolo 7/21): in a world whose internet barely survived, real photo/
+     video hosting isn't plausible — bandwidth-scarce eras (dial-up BBS ANSI/ASCII
+     art) always produced TEXT-based images instead, and it became real culture
+     (Shift-JIS art still thrives on Japanese textboards decades after bandwidth
+     stopped being scarce). Bohemia's "photos" are community-made text art: cheap
+     to send, no image-hosting infrastructure needed, and it explains why the
+     Network survived when a real Instagram/YouTube couldn't have. */
+  .post .photo{ margin:11px 0 2px; min-height:158px; border-radius:4px; border:1px solid var(--line);
+    position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    overflow:hidden; gap:4px; padding:12px 6px; background:linear-gradient(160deg,#14100a,#0c0a07);
+    filter:saturate(.85) contrast(1.03); }
+  .post .photo:after{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 4px);
+    box-shadow:inset 0 0 40px rgba(0,0,0,.5); }
+  .post .photo .art-cap{ font-family:var(--mono); font-size:9.5px; color:rgba(236,226,207,.55);
+    letter-spacing:.6px; text-transform:uppercase; z-index:1; }
+  .post .photo .artpre{ font-family:var(--mono); font-size:10.5px; line-height:1.08; margin:1px 0;
+    color:#9bc27a; text-shadow:0 0 4px rgba(155,194,122,.35); white-space:pre; z-index:1; }
+  .post .photo .ph-tag{ position:absolute; left:8px; bottom:8px; z-index:1; font-family:var(--mono);
+    font-size:9px; color:rgba(236,226,207,.7); background:rgba(0,0,0,.5); padding:2px 6px; border-radius:2px;
+    letter-spacing:.5px; }
+  .post .photo .ph-tag:before{ content:"◉ "; color:var(--danger); }
+  .post .eng{ display:flex; gap:15px; margin-top:11px; padding-top:11px; font-family:var(--mono);
+    border-top:1px solid var(--line); font-size:12px; color:var(--dim); align-items:center; }
+  .post .eng .g{ color:var(--gold); font-weight:700; margin-left:auto; }
+  .comments{ margin-top:10px; border-top:1px solid var(--line); padding-top:10px; }
+  .comments .cm{ font-size:13px; margin-bottom:5px; line-height:1.35; color:var(--ink); }
+  .comments .cm .cw{ font-weight:700; color:var(--teal); font-family:var(--mono); font-size:12px; }
+  .comments .cmore{ font-size:11.5px; color:var(--faint); margin-top:4px; font-family:var(--mono); }
+
+  /* offers */
+  .offer .otop{ display:flex; align-items:center; gap:11px; }
+  .offer .otitle{ font-weight:700; font-size:15.5px; }
+  .offer .oby{ font-size:11.5px; color:var(--dim); margin-top:1px; font-family:var(--mono); }
+  .offer .orow{ display:flex; align-items:center; justify-content:space-between; margin-top:13px; }
+  .chip{ font-family:var(--mono); font-size:10.5px; font-weight:600; padding:4px 9px; border-radius:3px;
+    display:inline-flex; gap:5px; align-items:center; letter-spacing:.4px; }
+  .chip.feed{ background:var(--teal-soft); color:var(--teal); border:1px solid #1c3a33; }
+  .chip.inperson{ background:var(--amber-soft); color:var(--amber); border:1px solid #43290f; }
+  .locknote{ font-size:11.5px; color:var(--amber); margin-top:9px; opacity:.92; font-family:var(--mono); }
+  button{ font-family:var(--mono); border:0; border-radius:4px; padding:9px 15px; font-weight:700;
+    font-size:13px; background:var(--gold); color:#0c0a07; letter-spacing:1px; text-transform:uppercase;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.25); }
+  button:active{ transform:translateY(1px); }
+  button.ghost{ background:#241d12; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); }
+
+  .log .lhead{ display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; }
+  .log .obj{ font-size:13.5px; margin-top:9px; color:var(--ink); display:flex; gap:8px; }
+  .log .obj.done{ color:var(--dim); }
+  .log .via{ font-size:10.5px; color:var(--faint); margin-top:9px; letter-spacing:.5px; font-family:var(--mono); }
+
+  .empty-state{ text-align:center; color:var(--faint); padding:52px 24px; font-size:14px;
+    line-height:1.6; font-family:var(--mono); }
+  .disclaimer{ font-size:10.5px; color:var(--faint); text-align:center; padding:16px 22px 4px;
+    line-height:1.6; font-family:var(--mono); }
+
+  /* tab bar */
+  .tabs{ position:fixed; left:0; right:0; bottom:0; max-width:430px; margin:0 auto; z-index:17;
+    display:flex; background:rgba(10,8,6,.94); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom); }
+  .tab{ flex:1; text-align:center; padding:9px 0 11px; color:var(--faint); font-size:9.5px;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase; font-family:var(--mono); }
+  .tab svg{ width:22px; height:22px; display:block; margin:0 auto 4px; stroke:currentColor;
+    fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .tab.active{ color:var(--gold); } .tab.active svg{ filter:drop-shadow(0 0 5px rgba(216,167,66,.5)); }
+
+  /* dialogue overlay */
+  #overlay{ position:fixed; inset:0; background:rgba(4,3,2,.7); display:none;
+    align-items:flex-end; justify-content:center; z-index:20; }
+  #overlay.on{ display:flex; }
+  .sheet{ background:linear-gradient(180deg,#141009,#0c0a07); width:100%; max-width:430px;
+    border-radius:10px 10px 0 0; padding:8px 16px 26px; max-height:84vh; overflow-y:auto;
+    border-top:1px solid var(--gold-soft); }
+  .grab{ width:38px; height:4px; background:#3a3020; border-radius:3px; margin:8px auto 14px; }
+  .spk{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .spk .nm{ font-weight:800; font-size:14px; letter-spacing:.5px; }
+  .spk .nm small{ display:block; color:var(--faint); font-weight:500; font-size:10px; letter-spacing:.6px;
+    text-transform:uppercase; font-family:var(--mono); }
+  /* voice signature — a squiggle standing in for a per-character blip sound
+     (research: Animalese/Undertale). Purely visual today, no audio yet. */
+  .vsig{ display:flex; align-items:flex-end; gap:2px; height:16px; margin-left:auto; opacity:.8; }
+  .vsig i{ display:block; width:3px; background:var(--gold); border-radius:2px; animation:vsig ease-in-out infinite; }
+  @keyframes vsig{ 0%,100%{ height:3px; } 50%{ height:15px; } }
+  .say{ font-size:16.5px; line-height:1.5; margin:6px 2px 2px; }
+  .opt{ display:block; width:100%; text-align:left; background:var(--raised); color:var(--ink);
+    border:1px solid var(--line); border-radius:5px; padding:14px 15px; margin-top:10px; font-weight:600; font-size:15px; }
+  .opt .ar{ float:right; color:var(--gold); }
+  .banner{ text-align:center; font-family:var(--mono); font-weight:800; font-size:15px; padding:16px;
+    border-radius:5px; margin:8px 0 2px; letter-spacing:2px; background:var(--good-soft); color:var(--good);
+    border:1px solid #2c3a18; text-shadow:0 0 8px rgba(134,172,82,.5); }
+
+  /* SIGNAL LOST — the interface itself degrades (degradation-as-information) */
+  #phone.nosig{ filter:grayscale(.45) contrast(1.06) brightness(.94); }
+  #phone.nosig .fx-scan{ opacity:.85; animation:roll 6s linear infinite; }
+  @keyframes roll{ from{background-position:0 0} to{background-position:0 12px} }
+  #phone.nosig .fx-vig{ box-shadow:inset 0 0 90px rgba(60,10,4,.5), inset 0 0 26px rgba(0,0,0,.5); }
+
+  /* ---- device shell: home screen, messages app, boot, nav ---- */
+  #nav .homebtn{ background:none; color:var(--gold); font-family:var(--mono); font-size:11px;
+    padding:0; letter-spacing:1px; box-shadow:none; text-transform:none; }
+  #home,#map,#wallet{ display:none; }
+  #phone.view-home #home{ display:block; }
+  #phone.view-map #map{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  #phone.view-wallet #wallet{ display:flex; flex-direction:column; flex:1; min-height:0; }
+
+  /* WALLET easter egg: a dead pre-collapse bank/pay app frozen in amber, jammed
+     inside the salvaged phone's shell. Deliberately a DIFFERENT visual register
+     (a cheerful "old world" fintech look) so it reads as a fossil, not a real app. */
+  .wal-hd{ display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:1px solid var(--line); }
+  .wal-hd .lg{ width:30px; height:30px; border-radius:8px; background:linear-gradient(160deg,#3a5a8a,#1c2c46);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:800; font-size:13px; color:#bcd6ff; }
+  .wal-hd .t{ font-weight:800; font-size:15px; letter-spacing:.2px; } .wal-hd .t small{ display:block; color:var(--faint); font-size:9.5px; font-family:var(--mono); letter-spacing:.6px; text-transform:uppercase; }
+  .wal-body{ flex:1; overflow-y:auto; padding:14px; filter:saturate(.55) brightness(.92); }
+  .wal-frozen{ background:#2a1a0c; border:1px solid #4a3218; color:#e0a860; font-family:var(--mono); font-size:11.5px;
+    padding:9px 12px; border-radius:8px; margin-bottom:14px; text-align:center; letter-spacing:.4px; }
+  .wal-card{ background:linear-gradient(155deg,#22364e,#152131); border:1px solid #2c4460; border-radius:14px;
+    padding:18px; margin-bottom:14px; position:relative; overflow:hidden; }
+  .wal-card:after{ content:"NO SIGNAL SINCE COLLAPSE"; position:absolute; top:10px; right:-34px; background:#7a1f1f;
+    color:#ffd9d9; font-family:var(--mono); font-size:8.5px; padding:3px 40px; transform:rotate(35deg); letter-spacing:.5px; }
+  .wal-card .bal{ font-family:var(--mono); font-size:26px; font-weight:800; color:#bcd6ff; opacity:.55; }
+  .wal-card .cur{ font-family:var(--mono); font-size:11px; color:#7f9ec4; margin-top:3px; letter-spacing:.5px; }
+  .wal-svc{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 13px;
+    margin-bottom:8px; display:flex; align-items:center; gap:11px; opacity:.68; }
+  .wal-svc .ic{ width:30px; height:30px; border-radius:7px; background:#1c2230; display:flex; align-items:center;
+    justify-content:center; font-size:14px; flex:none; }
+  .wal-svc .tx{ flex:1; } .wal-svc .nm{ font-weight:700; font-size:13.5px; }
+  .wal-svc .st{ font-family:var(--mono); font-size:10px; color:var(--danger); letter-spacing:.5px; margin-top:1px; }
+  .wal-foot{ font-family:var(--mono); font-size:11px; color:var(--faint); text-align:center; padding:16px 10px 6px; line-height:1.6; }
+
+  #phone:not(.view-feed) .hero,#phone:not(.view-feed) #objbar,#phone:not(.view-feed) #screen,#phone:not(.view-feed) .tabs{ display:none !important; }
+
+  /* MAP app — salvaged GPS of the real generated valley */
+  .map-hd{ display:flex; align-items:center; justify-content:space-between; padding:11px 14px;
+    border-bottom:1px solid var(--line); font-family:var(--mono); }
+  .map-hd .t{ font-weight:800; font-size:15px; letter-spacing:.4px; } .map-hd .t small{ display:block; color:var(--good); font-size:9px; letter-spacing:.6px; text-transform:uppercase; }
+  .map-hd .co{ font-family:var(--mono); font-size:10px; color:var(--faint); text-align:right; letter-spacing:.5px; }
+  .map-wrap{ position:relative; margin:12px; border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    background:#0a0805; box-shadow:inset 0 0 40px rgba(0,0,0,.6); }
+  .map-wrap canvas{ display:block; width:100%; }
+  .map-sweep{ position:absolute; inset:-25%; pointer-events:none; border-radius:50%;
+    background:conic-gradient(from 0deg, rgba(134,172,82,.18), transparent 32%);
+    animation:sweep 4s linear infinite; mix-blend-mode:screen; }
+  @keyframes sweep{ to{ transform:rotate(360deg); } }
+  .map-scan{ position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
+  .map-brk{ position:absolute; width:14px; height:14px; border:2px solid var(--good); opacity:.5; }
+  .map-brk.tl{ top:6px; left:6px; border-right:0; border-bottom:0; }
+  .map-brk.tr{ top:6px; right:6px; border-left:0; border-bottom:0; }
+  .map-brk.bl{ bottom:6px; left:6px; border-right:0; border-top:0; }
+  .map-brk.br{ bottom:6px; right:6px; border-left:0; border-top:0; }
+  .map-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:2px 16px 10px; font-family:var(--mono);
+    font-size:9.5px; color:var(--dim); letter-spacing:.3px; }
+  .map-legend i{ display:inline-block; width:8px; height:8px; margin-right:5px; vertical-align:middle; border-radius:2px; }
+  .map-pins{ overflow-y:auto; flex:1; padding:2px 12px 16px; }
+  .mpin{ display:flex; align-items:center; gap:11px; padding:11px 4px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .mpin .g{ width:26px; height:26px; flex:none; display:flex; align-items:center; justify-content:center;
+    border-radius:5px; font-size:13px; }
+  .mpin .g.feed{ background:var(--gold-soft); color:var(--gold); } .mpin .g.inp{ background:var(--amber-soft); color:var(--amber); }
+  .mpin .tx{ flex:1; min-width:0; } .mpin .nm{ font-weight:700; font-size:14px; }
+  .mpin .sub{ font-family:var(--mono); font-size:10.5px; color:var(--dim); margin-top:1px; }
+  .mpin .dz{ color:var(--danger); }
+
+  #home{ padding:20px 16px 30px; }
+  .home-hd{ font-family:var(--mono); color:var(--dim); font-size:12px; letter-spacing:.4px; margin:2px 2px 20px; }
+  .home-hd b{ color:var(--ink); display:block; font-size:23px; font-weight:800; letter-spacing:.5px; margin-bottom:4px; }
+  .apps{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px 10px; }
+  .tile{ position:relative; display:flex; flex-direction:column; align-items:center; gap:7px; cursor:pointer; }
+  .tile .ic{ width:62px; height:62px; border-radius:15px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#1e1810,#110d07); border:1px solid var(--line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 5px 12px rgba(0,0,0,.45); }
+  .tile .ic svg{ width:28px; height:28px; stroke:var(--gold); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .tile .lb{ font-family:var(--mono); font-size:10px; letter-spacing:.7px; color:var(--ink); text-transform:uppercase; }
+  .tile .sub{ font-family:var(--mono); font-size:8.5px; color:var(--faint); margin-top:-3px; letter-spacing:.3px; }
+  .tile.soon{ opacity:.38; } .tile.soon .ic svg{ stroke:var(--dim); }
+  .tile .badge{ position:absolute; top:-5px; right:16px; min-width:19px; height:19px; border-radius:10px;
+    background:var(--danger); color:#0c0a07; font-family:var(--mono); font-size:10px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; padding:0 5px; box-shadow:0 0 9px rgba(217,86,58,.6); }
+
+  .msg-hd{ display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:1px solid var(--line); }
+  .msg-hd .t{ font-weight:800; font-size:15px; letter-spacing:.4px; } .msg-hd .t small{ display:block; color:var(--good); font-size:9px; letter-spacing:.6px; font-family:var(--mono); text-transform:uppercase; }
+  .msg-back{ background:none; color:var(--gold); box-shadow:none; padding:0 4px 0 0; font-size:18px; }
+  .threads{ overflow-y:auto; flex:1; }
+  .thread{ display:flex; align-items:center; gap:12px; padding:13px 15px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .thread .tx{ flex:1; min-width:0; } .thread .nm{ font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
+  .thread .pv{ color:var(--dim); font-size:12.5px; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .thread .tm{ font-family:var(--mono); color:var(--faint); font-size:10px; align-self:flex-start; margin-top:2px; }
+  .thread .un{ width:8px; height:8px; border-radius:50%; background:var(--danger); box-shadow:0 0 7px rgba(217,86,58,.7); }
+  .convo{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  .bubbles{ flex:1; overflow-y:auto; padding:14px 14px 6px; display:flex; flex-direction:column; gap:8px; }
+  .bub{ max-width:78%; padding:9px 13px; border-radius:15px; font-size:14.5px; line-height:1.38; }
+  .bub.them{ align-self:flex-start; background:var(--surface); border:1px solid var(--line); border-bottom-left-radius:4px; }
+  .bub.you{ align-self:flex-end; background:linear-gradient(160deg,#3a2c12,#281e0f); color:#f1ddb0; border-bottom-right-radius:4px; }
+  .sysmsg{ align-self:center; font-family:var(--mono); font-size:10px; color:var(--good); letter-spacing:.5px;
+    background:var(--good-soft); border:1px solid #2c3a18; padding:4px 10px; border-radius:3px; margin:4px 0; text-align:center; }
+  .replies{ padding:10px 14px 16px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:8px; }
+  .reply{ background:var(--raised); color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:12px 14px;
+    text-align:left; font-weight:600; font-size:14.5px; box-shadow:none; text-transform:none; letter-spacing:0; font-family:var(--sans); }
+
+  #boot{ position:absolute; inset:0; z-index:30; background:#070503; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:12px; font-family:var(--mono); color:var(--good); transition:opacity .5s ease; }
+  #boot.off{ opacity:0; pointer-events:none; }
+  #boot .logo{ font-size:27px; font-weight:800; letter-spacing:7px; }
+  #boot .ln{ font-size:11px; letter-spacing:1px; opacity:.85; }
+  #boot .bar{ width:190px; height:4px; background:#1a140c; border-radius:2px; overflow:hidden; margin-top:6px; }
+  #boot .bar i{ display:block; height:100%; width:0; background:var(--good); animation:boot 1.3s ease forwards; }
+  @keyframes boot{ to{ width:100%; } }
+
+  /* LOCK SCREEN */
+  #lock{ position:absolute; inset:0; z-index:28; background:linear-gradient(180deg,#0a0806,#0c0a07);
+    display:none; flex-direction:column; align-items:center; padding:58px 22px 26px; cursor:pointer; }
+  #phone.locked #lock{ display:flex; }
+  .lk-time{ font-family:var(--mono); font-size:62px; font-weight:800; letter-spacing:2px; color:var(--ink); line-height:1; }
+  .lk-date{ font-family:var(--mono); font-size:12px; color:var(--dim); letter-spacing:1px; margin-top:9px; text-align:center; }
+  .lk-notifs{ width:100%; margin-top:38px; display:flex; flex-direction:column; gap:10px; }
+  .lk-nf{ display:flex; gap:11px; align-items:center; background:rgba(30,24,16,.6); border:1px solid var(--line);
+    border-radius:13px; padding:12px 13px; }
+  .lk-nf .tx{ flex:1; min-width:0; } .lk-nf .nm{ font-weight:700; font-size:13px; }
+  .lk-nf .bd{ font-size:12.5px; color:var(--dim); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lk-unlock{ margin-top:auto; font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:2px;
+    text-transform:uppercase; animation:flick 5s infinite steps(1); }
+  .toast{ position:absolute; left:50%; bottom:78px; transform:translateX(-50%) translateY(18px); z-index:25;
+    background:linear-gradient(160deg,#1e2610,#141a0b); border:1px solid #2c3a18; color:var(--good);
+    font-family:var(--mono); font-size:12px; padding:10px 16px; border-radius:8px; letter-spacing:.5px;
+    opacity:0; transition:opacity .35s ease, transform .35s ease; pointer-events:none;
+    box-shadow:0 6px 20px rgba(0,0,0,.5); white-space:nowrap; max-width:90%; overflow:hidden; text-overflow:ellipsis; }
+  .toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* DMs live INSIDE the feed app now (Paolo 7/21: "the social feed and messaging
+     should just be one thing, like whatsapp and instagram combined" — no separate
+     phone-number contact system, just handle-based DMs on the same platform). A
+     small dot on the tab icon stands in for the unread badge that used to live on
+     a separate home-screen app. */
+  .tab{ position:relative; }
+  .tab .dot{ position:absolute; top:2px; right:calc(50% - 17px); width:7px; height:7px; border-radius:50%;
+    background:var(--danger); box-shadow:0 0 6px rgba(217,86,58,.7); }
+
+  /* PUSH NOTIFICATION BANNER — arrives regardless of which app is open (Home, Map,
+     Wallet, Feed/DMs...), mimicking a real phone notification popping up while
+     you're doing something else. Cyberpunk 2077's pattern: appears top-of-screen,
+     non-intrusive, tap to jump in or ignore and it clears itself. This is the
+     MECHANISM for "you get a notification even mid-overworld" — the render target
+     is this same banner regardless of what screen is behind it; once a real
+     walkable world exists it drives the identical banner over gameplay instead. */
+  .pushbanner{ position:absolute; left:8px; right:8px; top:8px; z-index:26;
+    background:linear-gradient(160deg,#1a2027,#12161b); border:1px solid var(--line); border-radius:12px;
+    padding:11px 13px; display:flex; gap:10px; align-items:center; cursor:pointer;
+    transform:translateY(-140%); transition:transform .35s cubic-bezier(.2,.8,.2,1); box-shadow:0 8px 24px rgba(0,0,0,.5); }
+  .pushbanner.on{ transform:translateY(0); }
+  .pushbanner .tx{ flex:1; min-width:0; } .pushbanner .nm{ font-weight:700; font-size:13px; }
+  .pushbanner .bd{ font-size:12.5px; color:var(--dim); margin-top:1px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pushbanner .app{ font-family:var(--mono); font-size:9px; color:var(--gold); letter-spacing:.6px; text-transform:uppercase; }
+</style>
+
+<div id="phone" class="view-home">
+  <div class="fx-vig"></div><div class="fx-scan"></div>
+  <div id="boot"><div class="logo neon">BOHEMIA</div><div class="ln">NETWORK OS · v0.9</div><div class="bar"><i></i></div><div class="ln" id="bootln">connecting to the network…</div></div>
+  <div id="lock"></div>
+  <div class="toast" id="toast"></div>
+  <div class="pushbanner" id="pushbanner" onclick="pushBannerTap()"></div>
+  <div class="statusbar"><span id="nav"><span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span></span><span style="display:flex;align-items:center;gap:10px"><span id="lockbtn" onclick="lockPhone()" title="put the phone away" style="cursor:pointer;opacity:.6">&#128274;</span><span id="sig" onclick="toggleSignal()"><span class="bars ok">▁▃▅▇</span> LIVE · the valley</span></span></div>
+  <div id="home"></div>
+  <div id="map"></div>
+  <div id="wallet"></div>
+
+  <div class="hero">
+    <div class="hrow">
+      <div class="av" id="me-av">F1</div>
+      <div>
+        <div class="hname">Founder</div>
+        <div class="hsub">@founder_gen1 · post-collapse Las Vegas</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat foll"><b id="st-foll">0</b><span>followers</span></div>
+      <div class="stat"><b id="st-posts">0</b><span>posts</span></div>
+    </div>
+  </div>
+
+  <div class="objbar empty" id="objbar"><span class="ring">◎</span><span id="obj-text"></span></div>
+
+  <div class="screen" id="screen"></div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="feed" onclick="setTab('feed')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="13" y2="17"/></svg>Feed</div>
+    <div class="tab" data-tab="offers" onclick="setTab('offers')">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>Quests</div>
+    <div class="tab" data-tab="dms" onclick="setTab('dms')" id="dmsTab">
+      <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>DMs</div>
+    <div class="tab" data-tab="log" onclick="setTab('log')">
+      <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Log</div>
+    <div class="tab" data-tab="profile" onclick="setTab('profile')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Me</div>
+  </div>
+</div>
+
+<div id="overlay" onclick="if(event.target.id==='overlay')closeTalk()">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+/* ---- boot the REAL engine ---------------------------------------------------- */
+var Loop = window.BohemiaLoop, Sched = window.BohemiaScheduler;
+var ctx = Loop.boot({ seed:'bohemia' });
+
+var player = Sched.makeActor({ id:'player', tile:{x:128,y:128}, isPlayer:true, layer:'player' });
+Sched.addActor(ctx.scheduler, player);
+
+/* THE REAL follower math (Paolo 7/21 LOCK: reckless/dangerous deeds earn far more
+   followers than quiet good deeds) — this is Loop.defaultFollowerScore, the CLOUT-
+   weighted default, not a placeholder anymore. Kept as a named wrapper only so the
+   rest of this file didn't need touching at every call site. */
+function FOLLOWER_SCORE(post){ return Loop.defaultFollowerScore(post); }
+/* ---- throwaway DEMO quests (NOT canon) — now tagged with a #clout level so the
+   real follower math actually varies: pass 'quiet'|'notable'|'risky'|'reckless'. */
+function demoQuest(id,title,who,l1,o1,l2,l3,clout){
+  return ['@QUEST '+id+'  '+title, '@ACT 1', '@ONCE true',
+    '@STAGE 10','  @DO show_objective 10','@STAGE 20 COMPLETE'+(clout?(' #'+clout):''),
+    '@OBJ 10 "'+o1+'"',
+    '@TALK hi speaker='+who+' entry=stage>=10',
+    '  @SAY '+l1,
+    '  @OPT "'+l2+'" [gate: none] -> hi2',
+    '@END',
+    '@TALK hi2 speaker='+who,
+    '  @SAY "so that is the ask. you in?"',
+    '  @OPT "'+l3+'" [gate: none] @DO complete_objective 10 @DO set_stage 20 -> END',
+    '@END'
+  ].join('\n');
+}
+/* THE NINE REAL CANON QUESTS (7/25). These replaced the three throwaway demo
+   quests that used to sit here at hand-typed coordinates. Each one CASTS ITSELF
+   into the real valley off its own @ROLE declarations (ctx.quests.cast -> the
+   casting bridge in bohemia_loop.js): a quest that needs faction=TRADES lands on
+   ground the Trades really hold, and the phoneless (homeless) automatically
+   become 'inperson' pickups. No coordinate is typed here, by anyone, ever. */
+CANON_QUESTS.forEach(function(text){ ctx.quests.cast(text); });
+
+/* ---- helpers ----------------------------------------------------------------- */
+var TAB='feed', openQuestId=null, online=true;
+function toggleSignal(){
+  online=!online;
+  el('sig').innerHTML = online ? '<span class="bars ok">▁▃▅▇</span> LIVE · the valley'
+                               : '<span class="bars no">▇▅▁▁</span> NO SIGNAL · tunnels';
+  document.getElementById('phone').classList.toggle('nosig', !online);
+  rerender();
+}
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+var AV_COLORS=['#e9b24a','#57c6d6','#d98a3a','#8bc34a','#c98bde','#e77b7b','#6fa8ff'];
+function initials(name){ var p=String(name).replace(/[@_]/g,' ').trim().split(/\s+/);
+  return (p[0]?p[0][0]:'?').toUpperCase()+(p[1]?p[1][0].toUpperCase():''); }
+function hash(s){ var h=0; for(var i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return h; }
+function avatar(name, cls){ var c=AV_COLORS[hash(name)%AV_COLORS.length];
+  return '<div class="av '+(cls||'sm')+'" style="background:'+c+'">'+esc(initials(name))+'</div>'; }
+el('me-av').style.background = AV_COLORS[0];
+
+/* VOICE SIGNATURE (Paolo 7/21, dialogue SFX research): a stand-in for the real
+   "Animalese"/Undertale-style blip-voice system (research: BOHEMIA_ADDENDUM_
+   DIALOGUE_SFX_RESEARCH_7_21_26.md) — one short sound per character archetype,
+   played per letter/syllable as text reveals, no spoken words needed, cheap to
+   mass-produce. NO AUDIO EXISTS YET (needs real sound production); this is a
+   deterministic, purely VISUAL preview of the same idea: every speaker gets an
+   archetype + pitch derived from their name (same hash pattern as avatar colors,
+   zero manual per-character design), shown as a small animated squiggle while
+   they talk — foreshadowing the real per-letter blip once audio is produced. */
+var VOICE_ARCHETYPES = ['gruff','chipper','gravelly','airy','clipped','warm','flat','singsong'];
+function voiceFor(name){
+  var h = hash(name||'x');
+  return { archetype: VOICE_ARCHETYPES[h % VOICE_ARCHETYPES.length], pitch: 0.75 + (h % 50)/100 };
+}
+function voiceSquiggle(name){
+  var v = voiceFor(name), dur = (1.1 / v.pitch).toFixed(2)+'s';
+  var bars = '';
+  for(var i=0;i<5;i++){ var d=((hash(name+i)%4)/10+0.05).toFixed(2)+'s'; bars += '<i style="animation-duration:'+dur+';animation-delay:-'+d+'"></i>'; }
+  return '<div class="vsig">'+bars+'</div>';
+}
+
+/* TEXT-CAM: a "photo" is community-made ASCII/text art, not a real image (locked
+   7/21, TEXT_ART_NETWORK addendum). TEXT_ART_OVERRIDE holds a few HAND-MATCHED
+   pieces for this demo's specific quests (a water tower for Water Run, etc); any
+   OTHER quest id (including any real quest written later, never hand-authored
+   for) falls back to ART_BANK, picked deterministically by a hash of the id —
+   the same zero-manual-authoring pattern as avatar colors and voice archetypes.
+   This is the generalization that matters: the system scales to quests that
+   don't exist yet, it doesn't just cover the 4 demo ones. */
+var TEXT_ART_OVERRIDE = {
+  waterrun: ['  ______  ','  |  []  | ','  |______| ','     ||    ','     ||    ','      o    ','       o   ','        o  '].join('\n'),
+  rooftop: ['      |     ','   ---+---  ','      |     ','     /|\\    ',' ____|_|_|____',"|             |",'|_____________|'].join('\n'),
+  tunnelfavor: ['   .-""""-.   ','  /        \\  ',' |  TUNNEL  | ',' |__________| ',' ||||||||||||'].join('\n'),
+  thewall: [' _|_|_|_|_|_ ','|_|_|_    _|_|',"    BREACH   ",'      ||     ','      \\/     '].join('\n'),
+};
+var ART_BANK = [
+  ['    _|_    ','   |   |   ','   |   |   ','   |   |   ',' __|___|__ '].join('\n'),                    // cactus/pillar
+  ["    _.-''-._ ",'  .`         `.','  ( SUNRISE  ) ','  /\\  /\\  /\\  /\\','  /__\\/__\\/__\\/__\\'].join('\n'), // sunrise ridge
+  ['  .--------.  ',' /          \\ ','|      o     |',' \\          / ','  \'--------\'  ','      ||      ','     [____]   '].join('\n'), // radio dish
+  ['  _______  ','  | o  o | ','  |_______|','     |  |  ','     |__|  ',' T O O L S '].join('\n'),         // wrench/toolkit
+  ['     (  )    ','    (    )   ','   ( (  ) )  ','    \\    /   ','   __\\  /__  ','  |        | ','  |________| '].join('\n'), // campfire
+  ['----o-----------',"      /\\        ",'     /  \\       '].join('\n'),                                    // bird on a wire
+  ['   ___________ ','  |  S I G N  |','  |___________|','       /       ','      /        ','     X         '].join('\n'), // broken sign
+  ['    ____     ','   |    |    ','   |    |___ ','   |________|',"    door | |  ",'         |_| '].join('\n'), // boots by a door
+];
+function textArtFor(qid){ return TEXT_ART_OVERRIDE[qid] || ART_BANK[hash(qid)%ART_BANK.length]; }
+function photoFor(qid){
+  var rt=ctx.quests.get(qid), t=rt&&rt.Q?rt.Q.title:qid;
+  var art = textArtFor(qid);
+  return '<div class="photo"><div class="art-cap">'+esc(t)+'</div><pre class="artpre">'+esc(art)+'</pre>'+
+         '<span class="ph-tag">TEXT-CAM · '+art.split('\n').length+' lines · community art</span></div>';
+}
+/* PLACEHOLDER comments. Paolo 7/21: no visible risky/reckless LABEL on the feed —
+   the game is hardcore but has to read fine for normies too. But the CLOUT weight
+   still drives the data underneath: recklessness shows up as MORE comments, edgier
+   comment TONE, and more likes — never as a stamped tag. Bodies are stand-in text,
+   not canon; tiers are inferred from the weight, never printed. */
+var COMMENTERS=['@wash_rat','@nell_87','@dust_ryder','@saltflat','@neon_mona','@tunnel_ed','@vato_prime','@grid_sister'];
+var COMMENTS_BY_TIER = {
+  calm:  ['nice work','needed this','respect','quietly goated','this the one'],
+  warm:  ['proud of you','keep it up','bohemia stand up','you built diff','solid work'],
+  hype:  ['bro you good??','that was wild','insane work honestly','no way you pulled that off'],
+  chaos: ['NO WAY you survived that','certified lunatic behavior','the network is gonna notice this one...','please never do that again','living legend fr'],
+};
+function tierForWeight(w){ if(w<=8) return 'calm'; if(w<=25) return 'warm'; if(w<=55) return 'hype'; return 'chaos'; }
+function commentsFor(qid, weight, followers){
+  var bank = COMMENTS_BY_TIER[tierForWeight(weight)];
+  var base = Math.max(0, Math.round(weight/6));                      // quiet~1, notable~4, risky~9, reckless~18
+  var count = Math.max(base, Math.round(base * Math.max(1, followers/50)));
+  var sample=[]; var n=Math.min(3, count), b=hash(qid+weight);
+  for(var i=0;i<n;i++){ sample.push({ who:COMMENTERS[(b+i*3)%COMMENTERS.length], text:bank[(b+i*5)%bank.length] }); }
+  return { count:count, sample:sample };
+}
+function commentsBlock(ci){
+  if(!ci.count) return '';
+  var h='<div class="comments">';
+  ci.sample.forEach(function(c){ h += '<div class="cm"><span class="cw">'+esc(c.who)+'</span> '+esc(c.text)+'</div>'; });
+  if(ci.count>ci.sample.length) h += '<div class="cmore">View all '+ci.count+' comments</div>';
+  return h+'</div>';
+}
+
+function refreshTop(){
+  var prof = Loop.socialProfile(ctx, FOLLOWER_SCORE);
+  el('st-foll').textContent = prof.reach;
+  el('st-posts').textContent = prof.posts;
+  var objs = ctx.quests.activeObjectives(), bar = el('objbar');
+  if(objs.length){ bar.classList.remove('empty'); el('obj-text').textContent = objs[0].text + (objs.length>1?('   +'+(objs.length-1)+' more'):''); }
+  else bar.classList.add('empty');
+  var dmsTab = el('dmsTab');
+  if(dmsTab){
+    var had = dmsTab.querySelector('.dot');
+    if(unreadCount()>0 && !had) dmsTab.insertAdjacentHTML('beforeend','<span class="dot"></span>');
+    else if(unreadCount()===0 && had) had.remove();
+  }
+}
+
+function setTab(t){ TAB=t; [].forEach.call(document.querySelectorAll('.tab'),function(x){ x.classList.toggle('active', x.dataset.tab===t); }); el('screen').scrollTop=0; render(); }
+
+function render(){
+  refreshTop();
+  var s = el('screen'), h='';
+  if(TAB==='feed'){
+    if(!online) h += '<div class="offline">📵 No signal in the tunnels. Your posts are saved and go up when you\'re back in range. Everything else on the phone still works.</div>';
+    var feed = Loop.buildFeed(ctx);      // ONE post per completed quest (cached locally, viewable offline)
+    var followers = Loop.socialProfile(ctx, FOLLOWER_SCORE).reach;
+    if(!feed.length) h += '<div class="empty-state">Your feed is quiet.<br>Complete a quest and it posts here.</div>';
+    feed.forEach(function(p, idx){
+      var gain = FOLLOWER_SCORE(p);
+      var weight = Loop.cloutWeight(p.clout);        // drives comments/likes tone+volume, NEVER shown as a label
+      var likes = Math.max(1, Math.round(followers*0.4*(weight/Loop.CLOUT_WEIGHTS.notable)));
+      var ci = commentsFor(p.questId, weight, followers);
+      h += '<div class="card post"><div class="head">'+avatar('@founder_gen1')+
+           '<div><div class="h2n">Founder <span class="at">@founder_gen1</span></div></div>'+
+           '<div class="time">'+(idx===0?'now':('beat '+p.beat))+'</div></div>'+
+           '<div class="body">Wrapped up <b>'+esc(p.title)+'</b>. It is done. <span class="tag done">'+esc(p.outcome)+'</span></div>'+
+           photoFor(p.questId)+
+           '<div class="eng"><span>♥ '+likes+'</span><span>💬 '+ci.count+'</span><span class="g">+'+gain+' followers</span></div>'+
+           commentsBlock(ci)+'</div>';
+    });
+  }
+  else if(TAB==='offers'){
+    h += '<h2 class="sec">Available over the phone</h2>';
+    if(!online) h += '<div class="offline">📵 No signal. You can\'t pull quests off the feed down here, you have to find people in person.</div>';
+    var offers = ctx.quests.feedOffers();
+    if(!offers.length) h += '<div class="empty-state" style="padding:20px">No open quests on the feed right now.</div>';
+    offers.forEach(function(o){
+      h += '<div class="card offer"'+(online?'':' style="opacity:.5"')+'><div class="otop">'+avatar('@'+(o.speaker||'x'))+
+           '<div><div class="otitle">'+esc(o.title)+'</div><div class="oby">from @'+esc(o.speaker||'someone')+'</div></div></div>'+
+           '<div class="orow"><span class="chip feed">📱 over the phone</span>'+
+           (online ? '<button onclick="openTalk(\''+o.questId+'\')">Pick up</button>'
+                   : '<button disabled>No signal</button>')+'</div></div>';
+    });
+    h += '<h2 class="sec">Not on the feed · go find them</h2>';
+    var any=false;
+    ctx.quests.placements().forEach(function(pl){
+      if(pl.channel!=='inperson') return;
+      var rt = ctx.quests.get(pl.questId); if(!rt || rt.state.done) return; any=true;
+      var near = Loop.talkablesNear(ctx, player.tile.x, player.tile.y, 1).some(function(t){return t.questId===pl.questId;});
+      h += '<div class="card offer"><div class="otop">'+avatar('@'+(pl.speaker||'x'))+
+           '<div><div class="otitle">'+esc(rt.Q.title)+'</div><div class="oby">@'+esc(pl.speaker||'?')+' has no phone</div></div></div>'+
+           '<div class="orow"><span class="chip inperson">🚶 in person only</span>'+
+           (near ? '<button onclick="openTalk(\''+pl.questId+'\')">Talk</button>'
+                 : '<button class="ghost" onclick="pullUp(\''+pl.questId+'\')">Pull up on them</button>')+'</div>'+
+           (near ? '' : '<div class="locknote">Can\'t get this over the phone. Walk over to them.</div>')+'</div>';
+    });
+    if(!any) h += '<div class="empty-state" style="padding:16px">(none nearby)</div>';
+  }
+  else if(TAB==='dms'){ h += dmsHtml(); }
+  else if(TAB==='log'){
+    var j = ctx.quests.journal();
+    if(!j.length) h += '<div class="empty-state">No quests yet.</div>';
+    j.forEach(function(q){
+      var stat = q.done ? ('<span class="tag done">'+esc(q.outcome)+'</span>') : '<span class="tag act">active</span>';
+      var objs = q.objectives.map(function(o){ return '<div class="obj'+(o.status==='done'?' done':'')+'">'+(o.status==='done'?'✅':'◎')+' <span>'+esc(o.text)+'</span></div>'; }).join('');
+      h += '<div class="card log"><div class="lhead">'+esc(q.title)+' '+stat+'</div>'+objs+
+           '<div class="via">picked up '+(q.channel==='inperson'?'in person':'over the phone')+'</div></div>';
+    });
+  }
+  else if(TAB==='profile'){
+    var prof = Loop.socialProfile(ctx, FOLLOWER_SCORE);
+    h += '<div class="card"><div class="head" style="gap:12px">'+avatar('@founder_gen1','')+
+         '<div><div class="h2n" style="font-size:16px">Founder <span class="at">@founder_gen1</span></div>'+
+         '<div class="oby">generation 1 · the founding</div></div></div>'+
+         '<div class="stats" style="margin-top:14px"><div class="stat foll"><b>'+prof.reach+'</b><span>followers</span></div>'+
+         '<div class="stat"><b>'+prof.posts+'</b><span>posts</span></div>'+
+         '</div></div>';
+    h += '<div class="disclaimer">DEV NOTE (not shown in-game): followers run on CLOUT, reckless/dangerous '+
+         'deeds earn far more than quiet ones. Each quest tags its own completion internally '+
+         '(#quiet/#notable/#risky/#reckless); untagged defaults neutral. No badge or label for it shows '+
+         'on the feed itself, only the number and how the comments/likes react. The feed, pickups, log, '+
+         'and this profile are all live off the real engine.</div>';
+  }
+  s.innerHTML = h;
+  if(TAB==='dms' && openThreadId){ var bl=s.querySelector('.bubbles'); if(bl) bl.scrollTop=bl.scrollHeight; }
+}
+
+function pullUp(qid){
+  var pl = ctx.quests.placements().filter(function(p){return p.questId===qid;})[0]; if(!pl) return;
+  player.tile = { x:pl.x-1, y:pl.y }; render();
+}
+function openTalk(qid){
+  var rt = ctx.quests.get(qid); if(!rt) return;
+  openQuestId = qid;
+  drawSheet(Loop.talkTo(ctx, qid, rt.available()[0] || 'hi'));
+  el('overlay').classList.add('on');
+}
+function drawSheet(view){
+  var h='<div class="grab"></div>';
+  if(!view || view.ended){
+    h += '<div class="banner">'+(view&&view.outcome?esc(view.outcome):'DONE')+'</div>'+
+         '<button style="width:100%;margin-top:12px" onclick="closeTalk()">Back to the phone</button>';
+    el('sheet').innerHTML=h; return;
+  }
+  h += '<div class="spk">'+avatar('@'+(view.speaker||'x'))+'<div class="nm">'+esc(view.speaker||'')+'<small>talking · in person</small></div>'+voiceSquiggle(view.speaker)+'</div>';
+  (view.says||[]).forEach(function(s){ h += '<div class="say">'+esc(s)+'</div>'; });
+  (view.options||[]).forEach(function(o){
+    h += '<button class="opt" onclick="choose('+o.i+')">'+esc(o.text)+(o.to&&o.to!=='END'?'<span class="ar">›</span>':'')+'</button>';
+  });
+  if(!(view.options||[]).length) h += '<button class="opt" onclick="closeTalk()">(leave)</button>';
+  el('sheet').innerHTML=h;
+}
+function choose(i){
+  var rt = ctx.quests.get(openQuestId); if(!rt) return;
+  var view = rt.choose(i);
+  if(view && view.ended) drawSheet({ended:true, outcome:view.outcome});
+  else drawSheet(view);
+  refreshTop();
+  if(view && view.ended && view.outcome==='COMPLETE') notify('POSTED TO THE FEED · +50 followers');
+}
+function closeTalk(){ el('overlay').classList.remove('on'); openQuestId=null; render(); }
+
+/* ===== DEVICE SHELL: home screen, messages app, boot, navigation ============== */
+var phone = document.getElementById('phone');
+var VIEW = 'home', openThreadId = null;
+
+/* app icons (line SVGs) */
+var ICON = {
+  feed:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="13" y2="17"/></svg>',
+  msg:'<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>',
+  map:'<svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><line x1="9" y1="4" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="20"/></svg>',
+  wallet:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1.3"/></svg>',
+  me:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>'
+};
+
+/* character DM threads. The neighbor delivers a quest by text (family/first-errand). */
+var THREADS = [
+  { id:'neighbor', who:'The Neighbor', av:'neighbor', unread:1, tm:'now', msgs:[
+      { from:'them', t:'you up? saw your lights on.' },
+      { from:'them', t:'we gotta talk about the wall between our yards. come by when you can.' } ],
+    reply:[
+      { t:'on my way', act:'startquest', qtitle:'The Wall', after:'good. bring your hands, not just your face.',
+        quest: demoQuest('thewall','The Wall','neighbor',
+          'two yards, one fence between them. we take that wall down, we got a real base.',
+          'Break the shared wall','why now?','lets do it','risky'),
+        at:{ x:2, y:2, speaker:'neighbor', channel:'inperson' } },
+      { t:'not tonight', act:'dismiss', after:'dont wait too long, kid.' } ] },
+  { id:'sister', who:'Your Sister', av:'sister', unread:0, tm:'2h', msgs:[
+      { from:'them', t:'did you eat today?' }, { from:'you', t:'yeah' },
+      { from:'them', t:'liar. come to camp, i made too much.' } ] },
+  { id:'trader', who:'@trader', av:'trader', unread:0, tm:'1d', msgs:[
+      { from:'them', t:'water runs are open if you want the work. its on the feed.' } ] }
+];
+
+function unreadCount(){ return THREADS.reduce(function(a,t){ return a+(t.unread||0); }, 0); }
+
+function setView(v){
+  VIEW = v;
+  // strip EVERY view-* class (not a hardcoded list) so two screens can never be
+  // display:flex at once — a real bug caught adding the 4th view (wallet).
+  Array.prototype.slice.call(phone.classList).forEach(function(c){ if(c.indexOf('view-')===0) phone.classList.remove(c); });
+  phone.classList.add('view-'+v);
+  el('nav').innerHTML = (v==='home')
+    ? '<span class="wm neon">BOHEMIA<span class="net">NETWORK</span></span>'
+    : '<button class="homebtn" onclick="setView(\'home\')">&#9664; HOME</button>';
+  if(v==='home') renderHome();
+  else if(v==='map') renderMap();
+  else if(v==='wallet') renderWallet();
+  else { setTab(TAB==='dms'?'dms':'feed'); }   // re-entering the Network app keeps the DMs tab if that's where you were
+}
+function rerender(){
+  if(VIEW==='home') renderHome();
+  else if(VIEW==='map') renderMap(); else if(VIEW==='wallet') renderWallet(); else render();
+}
+
+function tile(app,label,icon,sub,badge){
+  var soon = (badge==='soon');
+  var b = (badge && badge!=='soon' && badge>0) ? '<div class="badge">'+badge+'</div>' : '';
+  var oc = soon ? '' : (app==='me'
+        ? ' onclick="setView(\'feed\');setTab(\'profile\')"'
+        : ' onclick="setView(\''+app+'\')"');
+  return '<div class="tile'+(soon?' soon':'')+'"'+oc+'>'+b+'<div class="ic">'+icon+'</div><div class="lb">'+label+'</div><div class="sub">'+esc(sub)+'</div></div>';
+}
+function renderHome(){
+  var pr = Loop.socialProfile(ctx, FOLLOWER_SCORE);
+  var offersN = ctx.quests.feedOffers().length;
+  /* Feed + Messages are ONE app now (Paolo 7/21: whatsapp+instagram combined —
+     the feed IS the DMs too). One tile, one combined badge. */
+  el('home').innerHTML =
+    '<div class="home-hd"><b>the phone</b>@founder_gen1 · '+pr.reach+' followers on the Network</div>'+
+    '<div class="apps">'+
+      tile('feed','Network', ICON.feed, pr.posts+' posts', offersN+unreadCount())+
+      tile('map','Map', ICON.map, 'the valley', 0)+
+      tile('wallet','Wallet', ICON.wallet, 'frozen', 0)+
+      tile('me','Profile', ICON.me, pr.reach+' foll', 0)+
+    '</div>';
+}
+
+/* dmsHtml — DMs living as a TAB inside the Network app (not a separate app
+   anymore). Returns a string like every other TAB branch in render(); scroll-to-
+   bottom on an open conversation happens as a small post-render hook in render(). */
+function dmsHtml(){
+  if(!openThreadId){
+    var h = '<div class="msg-hd"><div class="t">Direct<small>Network · handle-based, no phone number needed</small></div></div><div class="threads">';
+    THREADS.forEach(function(t){
+      var last = t.msgs[t.msgs.length-1];
+      h += '<div class="thread" onclick="openThread(\''+t.id+'\')">'+avatar('@'+t.av)+
+           '<div class="tx"><div class="nm">'+esc(t.who)+(t.unread?' <span class="un"></span>':'')+'</div>'+
+           '<div class="pv">'+(last.from==='you'?'you: ':'')+esc(last.t)+'</div></div>'+
+           '<div class="tm">'+esc(t.tm||'now')+'</div></div>';
+    });
+    return h+'</div>';
+  }
+  var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0];
+  var h = '<div class="msg-hd"><button class="msg-back" onclick="backThreads()">&#9664;</button>'+avatar('@'+t.av)+
+          '<div class="t">'+esc(t.who)+'<small>on the network</small></div></div><div class="convo"><div class="bubbles">';
+  t.msgs.forEach(function(m){
+    if(m.from==='sys') h += '<div class="sysmsg">'+esc(m.t)+'</div>';
+    else h += '<div class="bub '+(m.from==='you'?'you':'them')+'">'+esc(m.t)+'</div>';
+  });
+  h += '</div>';
+  if(t.reply && t.reply.length){
+    h += '<div class="replies">';
+    t.reply.forEach(function(r,i){ h += '<button class="reply" onclick="replyThread('+i+')">'+esc(r.t)+'</button>'; });
+    h += '</div>';
+  }
+  return h+'</div>';
+}
+function openThread(id){ openThreadId=id; var t=THREADS.filter(function(x){return x.id===id;})[0]; if(t) t.unread=0; render(); }
+function backThreads(){ openThreadId=null; render(); }
+function replyThread(i){
+  var t = THREADS.filter(function(x){ return x.id===openThreadId; })[0]; if(!t || !t.reply) return;
+  var r = t.reply[i];
+  t.msgs.push({ from:'you', t:r.t });
+  if(r.act==='startquest'){
+    ctx.quests.place(r.quest, r.at);                       // deliver the quest via DM
+    t.msgs.push({ from:'sys', t:'QUEST ADDED · '+r.qtitle+' — find them in person' });
+    if(r.after) t.msgs.push({ from:'them', t:r.after });
+    notify('QUEST ADDED · '+r.qtitle);
+  } else if(r.act==='dismiss'){
+    if(r.after) t.msgs.push({ from:'them', t:r.after });
+  }
+  t.reply = null;
+  render();
+}
+
+/* ===== MAP app — a salvaged GPS of the REAL generated valley (MAP LAW: render the
+   generated world + pin quests at their real tiles; design no layout). ============ */
+function diamond(g,x,y,r){ g.beginPath(); g.moveTo(x,y-r); g.lineTo(x+r,y); g.lineTo(x,y+r); g.lineTo(x-r,y); g.closePath(); g.fill(); }
+function triangle(g,x,y,r){ g.beginPath(); g.moveTo(x,y-r); g.lineTo(x+r,y+r); g.lineTo(x-r,y+r); g.closePath(); g.fill(); }
+function drawMap(cv){
+  var wm=ctx.worldMap, N=wm.size||256, W=cv.width, H=cv.height, s=W/N, g=cv.getContext('2d');
+  g.clearRect(0,0,W,H);
+  var base=g.createLinearGradient(0,0,0,H); base.addColorStop(0,'#171106'); base.addColorStop(1,'#0c0905');
+  g.fillStyle=base; g.fillRect(0,0,W,H);
+  // valley walls (mountain borders)
+  var mb=wm.mountainBorders||[], t=Math.max(6,s*7); g.fillStyle='#070504';
+  if(mb.indexOf('N')>=0) g.fillRect(0,0,W,t);
+  if(mb.indexOf('S')>=0) g.fillRect(0,H-t,W,t);
+  if(mb.indexOf('W')>=0) g.fillRect(0,0,t,H);
+  if(mb.indexOf('E')>=0) g.fillRect(W-t,0,t,H);
+  // Network signal coverage glow (near the Strip / real hubs — sparse landmarks
+  // only; the real world's `districts` is every individual building lot, not a
+  // curated handful, so it does NOT get a glow of its own or it washes the whole
+  // canvas green). Corners = dead zones.
+  g.globalCompositeOperation='lighter';
+  function glow(x,y,r){ var rg=g.createRadialGradient(x,y,0,x,y,r); rg.addColorStop(0,'rgba(96,150,74,.15)'); rg.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=rg; g.beginPath(); g.arc(x,y,r,0,7); g.fill(); }
+  var sf=wm.strip.from, se=wm.strip.to;
+  for(var i=0;i<=8;i++) glow((sf[0]+(se[0]-sf[0])*i/8)*s,(sf[1]+(se[1]-sf[1])*i/8)*s,s*24);
+  (wm.hubs||[]).forEach(function(h){ glow(h[0]*s,h[1]*s,s*18); });
+  g.globalCompositeOperation='source-over';
+  // routes
+  g.strokeStyle='rgba(150,130,90,.3)'; g.lineWidth=Math.max(1,s*1.1);
+  (wm.routes||[]).forEach(function(r){ if(r.from&&r.gate){ g.beginPath(); g.moveTo(r.from[0]*s,r.from[1]*s); g.lineTo(r.gate[0]*s,r.gate[1]*s); g.stroke(); } });
+  // the Strip
+  g.strokeStyle='rgba(216,167,66,.9)'; g.lineWidth=Math.max(2,s*2.2); g.shadowColor='rgba(216,167,66,.7)'; g.shadowBlur=7;
+  g.beginPath(); g.moveTo(sf[0]*s,sf[1]*s); g.lineTo(se[0]*s,se[1]*s); g.stroke(); g.shadowBlur=0;
+  // districts: the REAL world has one entry per building LOT (thousands), not a
+  // curated handful, so these read as ground TEXTURE (small, low-alpha, no
+  // stroke) rather than individually-legible pins — a bold outlined square per
+  // lot at this density is a solid blob, not a map. Colored by the real zone
+  // (residential = lived-in/recovering, everything else = apocalypse-derelict)
+  // since the old texture flavor ('recovering'/'modern') isn't real data.
+  var w=Math.max(1,s*1.3);
+  g.globalAlpha=.5;
+  (wm.districts||[]).forEach(function(d){
+    g.fillStyle = d.zone==='residential' ? '#5f7a3a' : '#7a3a2a';
+    g.fillRect(d.pos[0]*s-w/2,d.pos[1]*s-w/2,w,w);
+  });
+  g.globalAlpha=1;
+  // landmarks: dam (N) + solar (S)
+  g.textAlign='center';
+  function land(pt,glyph,col,label,ly){ var x=pt[0]*s, y=Math.min(H-4,Math.max(10,pt[1]*s)); g.fillStyle=col; g.font=Math.max(9,s*8)+'px ui-monospace,monospace'; g.fillText(glyph,x,y); g.fillStyle='rgba(236,226,207,.65)'; g.font='7px ui-monospace,monospace'; g.fillText(label,x,y+ly); }
+  if(wm.dam) land(wm.dam.at,'▣','#7fa8c8','DAM',12);
+  if(wm.solar) land(wm.solar.at,'▤','#d8b84a','SOLAR',-8);
+  // hubs
+  (wm.hubs||[]).forEach(function(h){ g.fillStyle='#c8b070'; diamond(g,h[0]*s,h[1]*s,Math.max(2.5,s*3)); });
+  // quest pins
+  ctx.quests.placements().forEach(function(p){ if(p.x==null) return; var rt=ctx.quests.get(p.questId); if(!rt||rt.state.done) return;
+    var x=p.x*s,y=p.y*s; g.shadowColor='rgba(0,0,0,.7)'; g.shadowBlur=4;
+    if(p.channel==='inperson'){ g.fillStyle='#d47a30'; triangle(g,x,y,Math.max(3,s*3.6)); }
+    else { g.fillStyle='#d8a742'; diamond(g,x,y,Math.max(3,s*3.6)); }
+    g.shadowBlur=0;
+  });
+  // player
+  var px=player.tile.x*s, py=player.tile.y*s;
+  g.fillStyle='rgba(134,172,82,.22)'; g.beginPath(); g.arc(px,py,s*6,0,7); g.fill();
+  g.fillStyle='#9ed060'; g.beginPath(); g.arc(px,py,Math.max(2.5,s*2.3),0,7); g.fill();
+  g.strokeStyle='#0a0805'; g.lineWidth=1.5; g.stroke();
+}
+function renderMap(){
+  el('map').innerHTML =
+    '<div class="map-hd"><div class="t">Map<small>'+(online?'Network · live position':'NO SIGNAL · last known')+'</small></div>'+
+      '<div class="co">VALLEY '+(ctx.worldMap.size||256)+'×'+(ctx.worldMap.size||256)+'<br>X'+player.tile.x+' Y'+player.tile.y+'</div></div>'+
+    '<div class="map-wrap"><canvas id="mapcv"></canvas><div class="map-scan"></div>'+(online?'<div class="map-sweep"></div>':'')+
+      '<div class="map-brk tl"></div><div class="map-brk tr"></div><div class="map-brk bl"></div><div class="map-brk br"></div></div>'+
+    '<div class="map-legend"><span><i style="background:#d8a742"></i>Strip</span><span><i style="background:#7a3a2a"></i>apocalypse</span>'+
+      '<span><i style="background:#5f7a3a"></i>recovering</span><span><i style="background:#d47a30"></i>in-person</span><span><i style="background:#9ed060"></i>you</span></div>'+
+    '<div class="map-pins" id="mappins"></div>';
+  var wrap=el('map').querySelector('.map-wrap'), cv=document.getElementById('mapcv');
+  var w=(wrap&&wrap.clientWidth)||380; cv.width=w; cv.height=w; drawMap(cv);
+  var ph='';
+  ctx.quests.placements().forEach(function(p){ if(p.x==null) return; var rt=ctx.quests.get(p.questId); if(!rt||rt.state.done) return;
+    var dz=p.channel==='inperson';
+    ph += '<div class="mpin" onclick="mapPin(\''+p.questId+'\')"><div class="g '+(dz?'inp':'feed')+'">'+(dz?'▲':'◆')+'</div>'+
+          '<div class="tx"><div class="nm">'+esc(rt.Q.title)+'</div><div class="sub">'+
+          (dz?('<span class="dz">in person · X'+p.x+' Y'+p.y+' · dead zone</span>'):('over the phone · X'+p.x+' Y'+p.y))+
+          '</div></div></div>';
+  });
+  document.getElementById('mappins').innerHTML = ph || '<div class="empty-state" style="padding:30px">No active pins in the valley.</div>';
+}
+function mapPin(qid){ var p=ctx.quests.placements().filter(function(x){return x.questId===qid;})[0]; if(!p) return;
+  if(p.channel==='inperson'){ setView('feed'); setTab('offers'); } else { setView('feed'); openTalk(qid); }
+}
+
+/* ===== WALLET — the easter egg (Paolo 7/21): "everything used to be in USD, tap
+   Wallet and it opens an old bank/cashapp thing, service unavailable." A dead
+   pre-collapse fintech app frozen at the moment the dollar died, jammer inside the
+   salvaged phone's shell. NOT interactive beyond a toast — this is flavor, not the
+   real currency system (resources/electricity/clout are the live economy, still
+   being designed). */
+var WALLET_SERVICES = [
+  { nm:'Send Money', ic:'&#8594;' }, { nm:'Direct Deposit', ic:'&#8595;' },
+  { nm:'Bill Pay', ic:'&#128196;' }, { nm:'Rewards', ic:'&#9733;' },
+  { nm:'CoinDash Crypto', ic:'&#9670;' },
+];
+function renderWallet(){
+  var svc='';
+  WALLET_SERVICES.forEach(function(s){
+    svc += '<div class="wal-svc" onclick="walletDead()"><div class="ic">'+s.ic+'</div>'+
+           '<div class="tx"><div class="nm">'+esc(s.nm)+'</div><div class="st">SERVICE UNAVAILABLE</div></div></div>';
+  });
+  el('wallet').innerHTML =
+    '<div class="wal-hd"><div class="lg">Q</div><div class="t">QuikPay<small>by Meridian National</small></div></div>'+
+    '<div class="wal-body">'+
+      '<div class="wal-frozen">&#9888; connection lost. last synced pre-collapse. account FROZEN.</div>'+
+      '<div class="wal-card" onclick="walletDead()"><div class="bal">$14,382.06</div><div class="cur">USD CHECKING &middot; ****4471</div></div>'+
+      svc+
+      '<div class="wal-foot">The dollar\'s last transaction cleared a long time ago.<br>Nobody is coming to fix this.</div>'+
+    '</div>';
+}
+function walletDead(){ notify('NO CONNECTION · this service ended a long time ago'); }
+
+/* toast notifications — the phone reacts to what YOU just did (in-context) */
+function notify(text){ var t=el('toast'); if(!t) return; t.textContent=text; t.classList.add('on');
+  clearTimeout(notify._t); notify._t=setTimeout(function(){ t.classList.remove('on'); }, 2600); }
+
+/* PUSH NOTIFICATION BANNER (Paolo 7/21): "even when they're playing in the
+   overworld there can be a notification phone animation on screen with text
+   about new updates." Cyberpunk 2077's pattern — top-of-screen, non-intrusive,
+   tap it to jump in or ignore it and it clears. This fires regardless of which
+   app/view is currently open (proven here across Home/Map/Wallet/Network); once
+   a real walkable world exists, the SAME call fires the SAME banner over
+   gameplay instead of over another phone screen — the mechanism doesn't change,
+   only what's rendered behind it. */
+var _pushGo = null;
+function pushBanner(appName, name, text, onTap){
+  var b = el('pushbanner'); if(!b) return;
+  b.innerHTML = avatar('@'+name)+'<div class="tx"><div class="app">'+esc(appName)+'</div>'+
+                '<div class="nm">'+esc(name)+'</div><div class="bd">'+esc(text)+'</div></div>';
+  _pushGo = onTap || null;
+  b.classList.add('on');
+  clearTimeout(pushBanner._t); pushBanner._t = setTimeout(function(){ b.classList.remove('on'); }, 5200);
+}
+function pushBannerTap(){ var b=el('pushbanner'); b.classList.remove('on'); if(_pushGo) _pushGo(); }
+
+/* DEMO TRIGGER: a follow-up DM arrives a few seconds after unlock, no matter what
+   app you're in — proves the cross-app delivery. Not canon content, just a wire test. */
+function scheduleDemoNotification(){
+  setTimeout(function(){
+    var t = THREADS.filter(function(x){ return x.id==='sister'; })[0]; if(!t) return;
+    t.msgs.push({ from:'them', t:'for real though, you good? text me back' });
+    t.unread = (t.unread||0)+1; t.tm='now';
+    pushBanner('Network · Direct', t.who, 'for real though, you good? text me back', function(){
+      setView('feed'); setTab('dms'); openThread('sister');
+    });
+    refreshTop();
+  }, 5000);
+}
+
+/* LOCK SCREEN — the salvaged phone boots into this: time + notifications, tap to unlock */
+function notifCard(av,nm,bd){ return '<div class="lk-nf">'+av+'<div class="tx"><div class="nm">'+esc(nm)+'</div><div class="bd">'+esc(bd)+'</div></div></div>'; }
+function renderLock(){
+  var offers=ctx.quests.feedOffers().length, nf='';
+  var neigh=THREADS.filter(function(t){ return t.unread; })[0];
+  if(neigh){ var last=neigh.msgs[neigh.msgs.length-1]; nf+=notifCard(avatar('@'+neigh.av), neigh.who, last.t); }
+  if(offers) nf+=notifCard('<div class="av sm" style="background:'+AV_COLORS[0]+'">&#9670;</div>','Network', offers+' quest'+(offers>1?'s':'')+' available near you');
+  if(!nf) nf=notifCard('<div class="av sm" style="background:'+AV_COLORS[1]+'">&#9679;</div>','Network','all quiet on the feed');
+  el('lock').innerHTML =
+    '<div class="lk-time">07:14</div><div class="lk-date">THE VALLEY · +38&deg;C · post-collapse</div>'+
+    '<div class="lk-notifs">'+nf+'</div><div class="lk-unlock">tap to unlock</div>';
+}
+function unlockPhone(){ phone.classList.remove('locked'); setView('home'); window.__phoneReady=true; window.__ready=true;
+  if(!scheduleDemoNotification._fired){ scheduleDemoNotification._fired=true; scheduleDemoNotification(); } }
+
+/* PUT THE PHONE AWAY (Paolo 7/21): "I like how when you enter the phone the
+   notification[s] come back up. Maybe it can be both." So BOTH patterns coexist:
+   the live pushBanner (fires over whatever app is open, Cyberpunk-style — built
+   earlier) AND a recap that resurfaces whatever you missed the moment you pick
+   the phone back up, same as the very first boot. Locking is the stand-in for
+   "put the phone in your pocket and go do something in the world" until a real
+   overworld exists to actually walk away into. NOTE for later polish: keep this
+   looking like BOHEMIA'S OWN lock screen, never a literal iOS-style banner — the
+   salvaged/mono aesthetic already diverges from that on purpose, keep it that way. */
+function lockPhone(){ phone.classList.add('locked'); renderLock(); }
+
+/* boot the salvaged phone -> lock screen -> (tap) -> home */
+function finishBoot(){ var b=el('boot'); if(!b || b.classList.contains('off')) return; b.classList.add('off');
+  phone.classList.add('locked'); renderLock(); window.__bootDone=true; }
+el('boot').addEventListener('click', finishBoot);
+el('lock').addEventListener('click', unlockPhone);
+setTimeout(finishBoot, 1600);
+</script>

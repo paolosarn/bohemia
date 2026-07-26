@@ -1,0 +1,49 @@
+BOHEMIA COMBAT VERDICTS (Paolo, live-run judging)
+=================================================
+NOTES ARE RULINGS (7/19 law): if Paolo said he likes it, that IS the verdict.
+Logged here so approved combat grammar is locked and never re-judged as a candidate.
+
+7/25/26
+--------
+GRENADES (v60/v61) — APPROVED. "Yeah, I like the grenades right now. I like it
+  very good." One grenade per encounter (his ruling, v61): a gunman lobs it onto
+  your tile, a marker counts down 2 beats, stand = full blast, a 2-tile dash/vault/
+  sprint clears it. The RF4 movement-forcer. LOCKED. (Tuning knobs still open if he
+  wants: frequency is fixed at one/encounter per his call; blast damage 40-52 / 18-25
+  bands; fuse 2 beats.)
+
+STANDING / PENDING his thumbs (shipped, played, not yet ruled):
+  - mobility toolkit (suppress, hand-peek, cover-to-cover dash, vault)
+  - on-beat streak + downbeat pop-out button
+  - day/dusk/night shuffle
+  - weapon identities (v62): rifle 1-shot/wide dial, smg 2/tight, pistol balanced
+  - OVERWORLD MUSIC IN FIGHTS (v63): faction combat songs retired; encounters now play
+    the real overworld creepers (6 night songs, real voices ported). This is the direct
+    answer to "play the overworld music." JUDGE: does the fight feel right on it?
+  - DOUBLE HERO BEAT (v63): beat one of every bar hits double (kick re-strike + sub boom,
+    bass 2x). The Dead Shot Dial downbeat. JUDGE: is "the one" loud enough now?
+  - MUSIC RAMPS (v65): two ramps, 2 kills and 4 kills, now actually audible.
+    JUDGE: can you HEAR both steps land?
+
+7/25/26 - "the music doesn't change when I kill people" (Paolo, the bug behind it)
+-----------------------------------------------------------------------------------
+Paolo: "Does the music not change intensity depending on how many people I kill like what
+the fuck is going on?" He was right that he could not hear it. Measured on the real
+engine before touching anything:
+  1. [NOT A DEFECT -- Paolo ruled on it] I first read "only rungs at 2 and 4 kills" as a
+     bug. It is not. Two ramps is his design and his 7/3 law. Struck.
+  2. THE LAYERS RODE THE SONG'S OWN LEAD VOICE, and after v63 that lead is an AMBIENT
+     overworld voice by design. SATELLITE PRAYER's is solarhymn, hard-capped to a whisper
+     by Paolo's own 7/18 screech fix. So "intensity" was being performed by the quietest
+     voice in the engine. This one was caused by the v63 overworld swap.
+  3. THE STEPS WERE TINY: 11-12 voice events a bar at 0 kills, 14-17 at 2. THE PIT BOSS
+     gained no level at all going 2 kills -> 4.
+FIX (v65, after Paolo corrected v64): TWO RAMPS, exactly where his 7/3 law put them.
+  2 KILLS -> the hats / war percussion.   4 KILLS -> the bass drive.
+v64 had wrongly added rungs at 1, 3 and 6+; Paolo: "I just only wanted to be two kills
+and then four kills at ramps." Removed the same turn. The rung COUNT was never the bug --
+defect #2 was, and that fix stays: the two ramps now play the ladder's own aggressive
+voices instead of the song's whisper-capped ambient lead. Measured: 12 voice events a bar
+at 0-1 kills, 24 at 2-3, 46 at 4+. Two steps, both roughly a doubling, nothing in between.
+The 7/3 LOCKED law holds: keyed to KILLS THIS ENCOUNTER, area-clear returns to the exact
+calm bar. TWO RAMPS IS THE RULING (Paolo 7/25) -- do not add rungs again.

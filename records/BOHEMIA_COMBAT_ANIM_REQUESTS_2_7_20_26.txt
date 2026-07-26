@@ -1,0 +1,186 @@
+BOHEMIA COMBAT — ANIMATION REQUESTS ROUND 2 (7/20/26, for the Animation chat)
+==============================================================================
+Round 1 (cover-rise, cover-drop, gun-walk, cover-fire, get-shoved,
+floor-rise, shiv-jab, bat-arc, spear-drive) is COOKED AND WIRED. This is
+the fresh ask from Paolo's 7/20 message.
+
+THE REQUESTS
+------------
+1. crouch-aim-1h   ~4 beats  Shooting the PISTOL while CROUCHED behind
+                             cover. Same convention as 'deadeye': the
+                             phase sweeps the gun arm through the aim arc
+                             (we bake 9 phases at the needle offsets), but
+                             the BODY STAYS LOW — knees bent, off-hand on
+                             the stone. This is what you look like when
+                             you shoot the enemies you are exposed to
+                             WITHOUT popping out.
+2. crouch-aim-2h   ~4 beats  The TWO-HAND version (rifle/shotgun shoulder
+                             mount from the crouch). Same 9-phase sweep.
+
+WIRING STATUS (already shipped, waiting on the art)
+---------------------------------------------------
+The alpha bake and the combat demo are ALREADY plumbed (v29): the moment
+either clip lands in the CLIPS pipeline, the crouched sweep bakes at the
+9 needle offsets and the fight uses it automatically whenever you engage
+FROM cover (not popped out, stone within 1.8 tiles). Zero combat-side
+surgery needed. Until then the standing deadeye plays (reads as shooting
+over the stone).
+
+CONVENTIONS (same as always)
+----------------------------
+120 BPM grid, leaf-pixel law, 45-degree view, baked from YOUR pose.
+Graveyard names stay dead (crouch/kneel/lean-* are gone as NAMES; these
+new names are clean).
+
+ROUND 2B (added same day, the DOWNED ruling)
+--------------------------------------------
+3. crawl-dying    ~4 beats  The zombie crawl: a downed man dragging
+                            himself along the floor, one arm pulling,
+                            legs limp. Plays when a dying man crawls his
+                            tile toward a downed friend (v30 built; the
+                            prone pose slides until this clip lands —
+                            wire is automatic on landing).
+NOTE: the FINISH death blow reuses 'stomp' (already canon) later if you
+want the stomp read; hands-up (canon) already carries the surrender.
+
+==============================================================================
+WHAT SHIPPED (animation chat, same day): #1 and #2 ABOVE
+==============================================================================
+Both landed in the CANDIDATE_SRC pool (batch #14), thumbs live in the ANIM
+tab, verified across all 8 facings x 9 offsets (headless contact sheet, 0
+render errors) — crouch stays compressed every direction, 1h's off-hand
+brace and 2h's two-handed grip both read distinctly.
+
+WIRING: turned out to need ZERO new code. The V29 hook described above
+("already plumbed... zero combat-side surgery needed") really is exactly
+that — its guarded `_cclip` picker (1h preferred, 2h fallback) and its
+crouched-dial-fire consumer both already existed on main, keyed off a
+single out.dirs[d].caim field. The moment these two clip names existed in
+CLIPS, the bake populated caim and the fight started using it live, no
+touching required. (First pass duplicated this as separate caim1h/caim2h
+fields before finding the existing hook mid-merge; reverted once found —
+the shipped diff is clip-only.)
+
+#3 (crawl-dying) NOT built this pass — outside what Paolo asked the
+animation chat to do this turn. Next up whenever the animation chat picks
+it back up: V30's crawl positioning already runs (a downed man's edist/ea
+slide toward a downed ally every 5th turn, e._crawlAt marks it), only the
+visual is missing — enemyFrame's downed branch currently falls back to
+prone112/the death pose's last frame while crawling.
+
+Gate: gates/combat_anim_gate.js grew to 88 checks (clip mechanics: stays
+crouched, one-hand vs two-hand grip, actual angle sweep across phase).
+
+==============================================================================
+WHAT SHIPPED (animation chat, 7/23): #3, crawl-dying
+==============================================================================
+Landed in CANDIDATE_SRC (~4 beats, matches the ask): a downed man flat on
+the deck the whole cycle (legs stay compressed/limp, body never rises),
+one arm sweeps reach -> plant -> pull -> reset (the drag), the torso inches
+forward across the pull. Baked as L.look.crawl112 (4 phases: 0.05/0.35/0.6/
+0.9) right alongside shoved112/rise112/prone112/cfire112.
+
+WIRING: enemyFrame's downed branch now checks e._crawlAt (the V30 tick
+that was already firing every 5th turn with zero visual) right after the
+death-drop sequence finishes and before the static prone112 fallback —
+same 4-frame/160ms-step/640ms-window convention as get-shoved/rise/stagger.
+A downed man who isn't actively crawling still holds the plain prone pose;
+the drag only plays on the beat the game logic actually moves him.
+
+Gate: gates/combat_anim_gate.js grew to 102 checks (new section 6: clip
+mechanics — stays flat, legs stay limp, the reach-pull arm actually
+sweeps, the off arm doesn't, forward creep is real — plus bake + receiver
++ enemyFrame wiring, plus ordering: crawl checked before the prone
+fallback, after the death drop).
+
+==============================================================================
+CORRECTION (7/23, same day): Paolo caught it live — "soft crawl dying does
+not look like crawl dying, it's really bad." He was right: the first pass
+held legCompressL/R at a constant 0.34 the whole cycle. Only ONLY numeric
+gate checks were run before shipping — never the real render — which is
+exactly the VERIFY ON THE REAL SURFACE law's warning. Actually opening the
+ANIM tab (headless Playwright against the live alpha, not a side probe)
+showed the truth: a hunched, floating, kneeling-looking body, nothing like
+lying on the ground.
+ROOT CAUSE: floor-rise's OWN fully-down frame (the one prone112 already
+bakes from and ships fine) has legCompressL/R === 0 at ph=0.02 — the 0.34
+only ramps in during floor-rise's knee-bend TRANSITION, never at rest on
+the floor. Copying 0.34 as a constant bunched the legs up under the body
+instead of trailing them out flat, which read as a crouch/float, not a
+prone drag.
+FIX: legCompressL/R now near-zero (a tiny 0.05*pullIn hint of effort
+during the pull only), thighL/R and shinL/R now byte-match floor-rise's
+real prone numbers (1.3/1.18/-0.5/-0.42) — same silhouette as the
+already-shipped prone112/rise112 family. Re-verified visually (headless
+render, all 8 facings + full phase sweep): legs now trail straight like
+the floor-rise reference, the reaching arm still visibly cycles reach ->
+plant -> pull -> tuck. Gate grew 102->103 (swapped the wrong ">0.3
+compressed" assertion for a "<0.15, matches floor-rise's real numbers"
+one, so this exact regression can't ship silently again).
+
+==============================================================================
+ROUND 3 (7/24, Paolo's prompt, pasted verbatim):
+==============================================================================
+FLEE / SURRENDER-RUN clip for enemies (COMBAT needs this).
+Bake a run-away cycle: the enemy is sprinting directly AWAY from the
+player with hands up, and it must read instantly as "I give up, I'm
+running," not a normal walk. Two variants:
+- Variant A — panic sprint: both hands thrown high, full-tilt run, body
+  pitched forward.
+- Variant B — stumbling scramble: hands half-up, off-balance,
+  looking-back-over-shoulder scramble.
+Requirements (the laws): all 8 facings like every other enemy clip; the
+world's 45-degree three-quarter view (never flat side-on); same 112
+sprite rig and tint pipeline as the existing enemy looks; LEAF-PIXEL law
+(only the leaf moves, structure stays frozen); baked, not live. ~4 frames
+per variant, a clean loop. Match the crawl-dying bake exactly (round 2B,
+commit c492da0) for structure.
+Expose it on the alpha enemy bake as dirs[d].flee = an array of the 2
+variant cycles (same array-of-arrays shape as dirs[d].death), so the
+loader maps it to L.flee112.
+
+==============================================================================
+WHAT SHIPPED (same day): both variants, built and wired
+==============================================================================
+V35's fleeing mechanic (a broken-nerve enemy who isn't the last man runs
+instead of surrendering, e.fleeing) already ran on main with zero visual
+-- enemyFrame fell back to the plain walk cycle, which read as an ordinary
+patrol, not a man giving up. Two clips landed in CANDIDATE_SRC (~4 beats,
+matching the ask):
+- flee-sprint: both hands thrown high the entire cycle (magnitude >2 every
+  facing/phase, so "surrender-while-running" reads instantly, never
+  ambiguous with a normal run), full run-gait legs (amplitude bumped past
+  the base 'run' clip's), spine pitched forward harder than 'run' (0.16
+  vs 0.10) for the full-tilt read.
+- flee-scramble: hands stay HALF up (visibly lower magnitude than the
+  sprint, off-balance rather than a clean surrender), a real periodic
+  backward glance-over-the-shoulder snap (spine/head swing NEGATIVE
+  against the forward pitch once per loop -- verified visually, the torso
+  visibly whips back while the legs keep running forward), lighter/uneven
+  leg amplitude for the stumble read.
+Baked as L.look.flee = [sprintFrames, scrambleFrames] at the alpha's
+enemy-bake site, same array-of-arrays shape as L.look.death, 4 phases
+each ([0,0.25,0.5,0.75], a clean evenly-spaced loop vs death's dramatic
+knockback timing). Receiver unpacks it into L.flee112 with the identical
+nested-map pattern death already uses.
+WIRING: a variant is rolled ONCE per break (e._fleeVar=0 or 1, set
+alongside e.fleeing=true so it's stable for the whole flee, not re-rolled
+every frame) and enemyFrame's fleeing branch now plays L.flee112[variant]
+stepped every 150ms, falling back to the plain walk if the clip somehow
+never baked (never a hard crash on a missing bake).
+VERIFIED VISUALLY before shipping (headless Playwright against the real
+ANIM tab, all 8 facings + full phase sweep for both clips, per the
+crawl-dying lesson from earlier the same day) -- sprint reads as a
+running figure with both arms thrown up, scramble shows a clear backward
+head/torso snap mid-loop while the legs keep driving forward. Also
+verified live end-to-end in the real combat iframe (not just the pose
+functions in isolation): L.flee112 exists with two 4-frame variants,
+enemyFrame returns a real baked frame for both e._fleeVar values, zero
+console/window errors.
+Gate: gates/combat_anim_gate.js grew 103->118 (new section 7: both
+variants' arm-height contract, the sprint's forced-forward pitch, the
+scramble's real backward snap, the two variants staying mechanically
+distinct, bake + receiver + variant-roll + enemyFrame wiring, and the
+walk-cycle fallback surviving). gates/combat_lab_gate.js's own V35
+FLEEING check updated to match the new enemyFrame line (it had regex-
+matched the literal old walk112-only string).

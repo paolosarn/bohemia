@@ -1,0 +1,128 @@
+=== BOHEMIA CLOTHING GRAVEYARD (born 7/18/26) ===
+The training data for the clothing factory. Every thumbs-DOWN garment lands here
+with a post-mortem so the next cook is sharper. Dead things stay dead; fresh
+cooks answer the slots (GRAVEYARD LAW). Paolo thumbs, this file remembers.
+
+--- BATCH 1 (7/18/26) — ALL THREE DOWN, no comments ---
+RED SHIRT: DOWN
+BLUE JEANS: DOWN
+WHITE SNEAKERS: DOWN
+
+CLAUDE POST-MORTEM (my honest read, since no note was left):
+These were technically "a red shirt / jeans / sneakers," but crude. What's weak:
+- MECHANICAL SHADING: a flat 3-tone rule (top=light, bottom/side=dark, else mid).
+  No real fabric rendering. Reads as flat colored regions, not cloth.
+- ZERO GARMENT DETAIL: no collar, no cuffs, no hem, no denim seams, no belt/loops,
+  no pockets, no laces, no tongue, no sole shaping. Real garments have these tells.
+- SILHOUETTE JUST TRACES THE BODY: the cloth hugs the region outline exactly, no
+  "give" (a shirt bags a little, a sleeve ends in a cuff, jeans stack at the ankle).
+- BARE MANNEQUIN PRESENTATION: shown on a plain skin body, so they read clinical /
+  half-finished rather than as an outfit in context.
+LESSON (pending Paolo's confirm): the factory's SHADING/DETAIL ceiling was too low.
+Next batches need real fabric craft (garment-specific detail + richer shading), and
+likely to be shown ON the actual Punk, not a mannequin.
+
+--- BATCH 2 (7/18/26) — 5 UP (templates), 4 DOWN (tops) ---
+UP  (these graduate to TEMPLATE bases -> variant factory):
+  BLUE JEANS, BLACK CARGOS, GREY SWEATS  (Paolo: "the pants you did a decent job")
+  WHITE SNEAKERS, BROWN BOOTS            (Paolo: "the shoes are OK")
+DOWN (the tops, all four):
+  RED SHIRT, WHITE TEE, BLACK TANK, GREEN FLANNEL
+
+PAOLO'S NOTE (the reason): the NECKLINE. "You thought a collarbone was a neckline
+from all direction." I loved that he saw the attempt ("I love how you tried to
+have a good neckline") but the execution was wrong: my collar band was painted
+along the whole TORSO TOP EDGE, which follows the shoulder/collarbone contour and
+dips at center -- so it read as a neckline cut down at the collarbone, exposing
+the chest, instead of a proper crew collar at the base of the neck.
+
+ROOT CAUSE (confirmed by probing the deformed grid): in front view the neck part
+(id 3) is a tiny 4px strip at the very top of the torso; the torso top row IS the
+shoulder line. Tracing a dark rim along that whole edge = drawing the collarbone,
+not a neckline.
+
+FIX SHIPPED SAME TURN (Paolo explicitly authorized the remake: "if you want try
+to remake the things I thumbs down"): genTop rewritten -- the shirt now covers the
+WHOLE chest+shoulders, and the collar is only a thin RING hugging the neck's own
+columns (id 3), derived per-facing so it's correct front/3-4/side/back. No dark
+band on the collarbone, ever. Verified across all 8 directions (neck_sheet).
+
+UI FIX (same note): killed the cardinal-direction button row. The 8-pose strip is
+now directly tappable -- tap any pose and it becomes the big live idle view.
+
+--- BATCH 2 (7/18/26) — the 4 v1 COATS, all DOWN ---
+DUST DUSTER, ASH LONGCOAT, OXBLOOD COAT, ROADWORN JACKET. GRAVEYARD FINAL.
+PAOLO: "I really like the IDEA of your long coats, but you made it in a way that
+it looks like there's shorts connected to the shirt -- did not look like a long
+coat at all. And the long coat belongs in the JACKET LAYER, a layer on top of a
+shirt. I hope you're putting things in proper layers."
+ROOT CAUSE: genCoat v1 covered each leg (id 9/10) separately down to mid-thigh,
+so it read as two leg-tubes = shorts. It also wasn't layered (rendered on bare
+skin, not as an outer layer over a shirt).
+FIX (fresh cook, new names -- v1 names stay dead): genCoat v2 drapes ONE A-line
+skirt panel from the hips to the ankle, FILLING THE GAP between the legs (via a
+now-additive buildFrame preview hook) and flaring outward, so it reads as hanging
+cloth. Every garment now carries a LAYER (base/legs/feet/outer); coats are 'outer'
+and render OVER a base shirt. Fresh coats: WASTELAND DUSTER, SOOT TRENCH,
+DRIFTER'S COAT, RANGER LONGCOAT (in COOKING, pending verdict).
+
+--- BATCH 3 (7/18/26) — 4 DOWN: 2 hoodies + 2 v-necks ---
+GREY HOODIE, BLACK HOODIE, STEEL V-NECK, OLIVE V-TANK. GRAVEYARD FINAL.
+PAOLO (the lesson): a hoodie is NOT texture painted on a shirt. "You have to
+understand how a hoodie would be ADDITIONAL PIXELS OUTSIDE OF THE SKELETON. The
+hood part actually has to come out the back... same thing with hair -- it's about
+the SHAPE and the pixels that go outside the body skeleton."
+ROOT CAUSE: my genTop neck:'hood' just recolored the top torso rows into a fake
+dark cowl -- paint on the body, no geometry. A hood is a real 3D shape hanging off
+the nape, extending beyond the body silhouette.
+FIX (fresh cook, new names): genHood ADDS pixels outside the skeleton (via the
+additive buildFrame hook, same capability the coat skirt uses) -- a rounded hood
+mass off the back of the neck, facing-aware, never covering the face. The v-necks
+(STEEL V-NECK, OLIVE V-TANK) also DOWN, no comment -- not remade; fresh v-necks
+only if the mechanism improves. This capability is the groundwork for HAIR too.
+
+--- HAT BATCH 1 (7/18/26) — 6 of 7 DOWN ---
+DUST BEANIE, COAL BEANIE, SALVAGE CAP, RUST CAP, OXBLOOD HEADWRAP, OLIVE
+HEADWRAP. GRAVEYARD FINAL. Sole survivor: DESERT WIDE-BRIM -- renamed by Paolo's
+ruling to CHINESE RICE FARMER HAT, canon.
+PAOLO (the lesson): "look at the DURAG we already have -- that's the borders of
+any sort of hat or beanie. Most people aren't going to be bald for real."
+ROOT CAUSE: I invented a shallow 30% "forehead band" instead of using the canon
+that already existed: SLOT_CONTACT.hat + HAT_MAX_Y (the durag's southernmost row
+per direction = the HAT LINE law, already in the engine). My hats floated as
+slivers on a bald dome; the durag border is ~4 rows deep in front/side and ~7
+from behind. ALSO: wraps compete with Paolo's own painted durag -- retired.
+FIX (fresh cook, new names): genHat now derives its bottom border from
+HAT_MAX_Y mapped onto the deformed head; nothing paints below the hat line,
+ever. Fresh: CHARCOAL WATCH CAP, RUST WATCH CAP (knit, durag-deep), OLIVE FIELD
+CAP (crown + brim riding the hat line). Verified across all 8 facings.
+LESSON BANKED: before inventing a border, GREP FOR THE CANON -- the engine
+already knew the answer (MECHANISM-MINE means using the machine that exists).
+
+--- BLACK SHADES (7/19/26) — DOWN but SHELVED, NOT FINAL (Paolo's explicit words:
+    "don't get rid of those shades forever, we're gonna have to re-orient them
+    for the eyes") ---
+NOT a graveyard-final kill, so NO registry token. Blocked on: FACE CALIBRATION.
+Paolo: "when it comes to shades you really have to be in touch with the eye
+locations and the nose locations... we have to recalibrate the eyes in the
+different cardinal directions." The shades re-cook AFTER he calibrates the
+per-direction eye positions (FACE_OFFSETS, face editor), anchored to the TRUE
+calibrated eye pixels instead of the widest-face-row heuristic.
+
+--- BLACK SHADES v2 (7/19/26) — DOWN, now GRAVEYARD FINAL as an item ---
+PAOLO: "literally the worst shades of all time -- a straight black line that
+didn't connect and wrap around the head as it should, the ears and stuff."
+ROOT CAUSE: v2 painted ONLY face-part pixels on the iris rows -- the face part
+doesn't span the head's sides, so the band stopped mid-head: disconnected, no
+wrap, no temples, no ears, 1px tall = a floating line.
+FIX (fresh cook: WRAPAROUND SHADES): a 2-row lens band across the FULL head
+width edge-to-edge (the arms visibly reach the ears), a glint pixel per lens so
+it reads as glass not a blindfold; in profile a lens block on the leading edge
++ the temple arm running back along the head side to the ear. Still anchored to
+the true calibrated iris pixels. Invisible from behind.
+
+--- WRAPAROUND SHADES, EAR-STOP FIX (7/19/26) — Paolo: "facing east/west the
+    shades shouldn't touch the back of the head or they look like goggles --
+    they should end where the ear would be." ---
+Profile arm now stops at the ear: the back ~30% of the head stays bare in E/W.
+Front keeps the full edge-to-edge band (approved read). Item still cooking.

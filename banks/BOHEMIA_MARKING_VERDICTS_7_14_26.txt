@@ -1,0 +1,12 @@
+{
+ "version": "MARKING_VERDICTS_7_14_26",
+ "verdict": "Paolo: i like it nice + thumbs up for everything so far",
+ "items": {
+  "CA0": "UP (engine apron certified)",
+  "TM0": "UP",
+  "TM1": "UP",
+  "ST0": "UP (prior)",
+  "PK0": "UP (prior)",
+  "PK1": "UP (prior)"
+ }
+}

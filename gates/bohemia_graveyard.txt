@@ -1,0 +1,64 @@
+# BOHEMIA GRAVEYARD REGISTRY — GRAVEYARD IS FINAL.
+# Dead things stay dead. No remakes. Fresh cooks answer dead slots.
+# Format:  regex | verdict date | what replaced it
+# The token is a REGEX. Use word boundaries and real context — 'orbit' as a bare
+# substring matches 'addenda now orbit GDD v4', which is prose, not a corpse.
+# The gate greps the tree for these tokens. A line that RECORDS the kill is a
+# tombstone and is legal. A line that USES the token as if it still works is a
+# live reference to a corpse, and that is the violation.
+
+\bSKIN_TONES_HOMELESS\b | 7/10/26 | DEAD. Agents use SKIN_TONES_WORLD; the RAGS carry the homeless read.
+\baddRuinFlanks\b       | 7/14/26 | DEAD (RF0 DOWN). SIDEWALK SANCTITY: ruins live past the sidewalk.
+\bruin_frag\b           | 7/14/26 | DEAD (RF0 DOWN). Same verdict.
+\bNEUROLINK_GLOW_V1\b   | 7/10/26 | DEAD as rendered. Redesign only inside the Universal Reveal System.
+\bNEUROLINK_GLOW_V2\b   | 7/10/26 | DEAD as rendered. No third one-off attempt.
+['"]orbit['"]        | dial    | DELETED — too metronome-like. Do not re-add.
+['"]pulse2['"]       | dial    | DELETED — camped the killshot/centre as home. Do not re-add.
+\bWALL_BATCH2_REJECTS\b | 7/17/26 | FINAL FOR THE PERIMETER POOL ONLY: 47 of 48 batch-2 candidates are DOWN as suburb-perimeter walls, forever (sole survivor WB4 -> perimeter pool v2; never re-judge these 47 for PERIMETER). Paolo 7/17: they are NOT dead as walls; "there's more walls than just gated communities." They live in banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt awaiting other wall classes. POST-MORTEM stands: the pack vein is dry for perimeter-grade; perimeter variety = variants of the 13 approved keys.
+n:'SUNKEN VESPERS'          | 7/18/26 | DOWN (music batch). GRAVEYARD FINAL. Fresh cook answers the slot (batch 12: THE TIDE THAT KEEPS THE NAMES). Do not re-add as a playable song.
+n:'UNDERTOW'                | 7/18/26 | DOWN (music batch). GRAVEYARD FINAL. Note: the living voice 'undertowbass' is unrelated and stays. Do not re-add the SONG.
+n:'VIA PURIFICO'            | 7/18/26 | DOWN (was briefly canon, Paolo reversed). GRAVEYARD FINAL. Fresh cook answers the slot. Do not re-add.
+n:'HYMN IN THE FLOOD'       | 7/18/26 | DOWN (was briefly canon). GRAVEYARD FINAL. Do not re-add.
+n:'THE DROWNED CHOIR'       | 7/18/26 | DOWN (was briefly canon). GRAVEYARD FINAL. Do not re-add.
+n:'WHAT THE GLASS REMEMBERS'| 7/18/26 | DOWN (batch 11). GRAVEYARD FINAL. foldchoir voice retired with it. Do not re-add.
+suburb central cul-de-sac court (campana court variant) | 7/18/26 | REJECTED by Paolo verdict (thumbs down) in favor of THE BLOCK packed grid. Post-mortem: the central court left a dead hole in the middle and packed fewer homes than the grid. Dead things stay dead: no court remake. The packed grid is the one canonical suburb block.
+n:'DUST BEANIE'      | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Shallow floating cap, ignored the durag hat line. Fresh cooks use durag borders.
+n:'COAL BEANIE'      | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same failure. Do not re-add.
+n:'SALVAGE CAP'      | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same failure. Do not re-add.
+n:'RUST CAP'         | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same failure. Do not re-add.
+n:'OXBLOOD HEADWRAP' | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Wraps compete with Paolo's own durag; do not re-add.
+n:'OLIVE HEADWRAP'   | 7/18/26 | DOWN (hat batch 1). GRAVEYARD FINAL. Same. Do not re-add.
+n:'DESERT WIDE-BRIM' | 7/18/26 | RENAMED by Paolo's ruling -> CHINESE RICE FARMER HAT (canon). The old name is retired, the item lives on renamed.
+n:'BLACK SHADES'     | 7/19/26 | DOWN twice, GRAVEYARD FINAL as an item ("worst shades of all time -- a straight black line that didn't connect and wrap around the head"). The shades CONCEPT lives on (Paolo's earlier ruling); fresh cooks answer with new names + the wraparound mechanism.
+PARKFAIL-SUPERPARK   | 7/19/26 | DEAD. Park v1 crammed EVERY amenity (diamond+soccer+3 courts+skate+dog run+garden+more) into one cell. Paolo: "not a big fan of the super park... it's a lot going on and it doesn't look realistic." GRAVEYARD FINAL: never cram a district to look impressive. A real park is mostly open lawn + a FEW things. Guardrail: park_gate LAWN-DOMINANT >55%. Post-mortem: records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md.
+PARKFAIL-CIRCLE      | 7/19/26 | DEAD. Park v2 used a perfect geometric circle for the loop path and let the court punch through it. Paolo: "I don't like that perfect circle and the basketball court like breaking through... it's not realistic." GRAVEYARD FINAL: no fake geometry; real paths are curvilinear and route AROUND features (draw amenities first, trail after). Post-mortem: records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md.
+n:'A PRAYER WOUND BACKWARDS'      | 7/19/26 | DOWN (batch 11, Paolo's full-catalog verdict). GRAVEYARD FINAL. wailmorph voice retired with it. Do not re-add.
+n:'THROAT OF THE DROWNED NAVE'    | 7/19/26 | DOWN (batch 11). GRAVEYARD FINAL. throatsong voice retired with it. Do not re-add.
+n:'THE TIDE THAT KEEPS THE NAMES' | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. chebychoir voice retired with it. Do not re-add.
+n:'A CHORD OF DROWNED BELLS'      | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. clusternave voice retired with it. Do not re-add.
+n:'LAST BREATH OF THE ORGAN'      | 7/19/26 | DOWN (batch 12). GRAVEYARD FINAL. ironlung voice retired with it. Do not re-add.
+n:'THE REED THAT HOLDS ITS BREATH'   | 7/19/26 | DOWN (batch 13, verdict two). GRAVEYARD FINAL. pwmreed voice retired with it. Do not re-add.
+n:'WIND THROUGH THE COUNTING HOUSE'  | 7/19/26 | DOWN (batch 13). GRAVEYARD FINAL. aeolianharp voice retired with it. His CUSTOM tag died with the song. Do not re-add.
+n:'WHAT THE DRAWBARS REMEMBER'       | 7/19/26 | DOWN (batch 13). GRAVEYARD FINAL. drawbarmorph voice retired with it. Do not re-add.
+n:'WHAT SOURS IN THE SINGING'        | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. sourdyad voice retired with it. Do not re-add.
+n:'ONE VOICE BECOMES A CROWD'        | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. unisonsplit voice retired with it. Do not re-add.
+n:'THE NOISE THAT TOOK THE VEIL'     | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. spectretide voice retired with it. Do not re-add.
+n:'THE STRIKE THAT BLOOMS'           | 7/19/26 | DOWN (batch 14). GRAVEYARD FINAL. strikeswell voice retired with it. Do not re-add.
+n:'WHAT SPEAKS THROUGH THE GRILLE'    | 7/20/26 | DOWN as a SONG (batch 15, verdict three). GRAVEYARD FINAL for the song. Its pulseform voice LIVES for new fashions (SONG-DEAD-NOT-VOICES law 7/20). Do not re-add the song.
+n:'A PROCESSION THAT FOLLOWS ITSELF'  | 7/20/26 | DOWN as a SONG (batch 15). GRAVEYARD FINAL for the song; roundchoir voice LIVES. Do not re-add the song.
+n:'IT HAPPENS BACKWARDS HERE'         | 7/20/26 | DOWN as a SONG (batch 15). GRAVEYARD FINAL for the song; reversebloom voice LIVES. Do not re-add the song.
+n:'THE WINDOW BENDS THE HYMN'         | 7/20/26 | DOWN as a SONG (batch 15). GRAVEYARD FINAL for the song; phasedist voice LIVES. Do not re-add the song.
+# SONG-DEAD-NOT-VOICES LAW (Paolo 7/20/26): the graveyard is final for SONGS only.
+# Voices/topologies from dead songs are NOT dead -- earlier lines above saying a
+# voice was "retired with" its song are SUPERSEDED; every such voice is legal to
+# re-try in a different fashion. Full law in the alpha lawbook + records.
+n:'EVERY FLOOR BELOW THIS ONE'        | 7/20/26 | DOWN as a SONG (batch 16, verdict four). GRAVEYARD FINAL for the song; subharmglide + aeolianharp voices LIVE (song-dead-not-voices). Do not re-add the song.
+LABFAIL-CONDUCTOR    | 7/20/26 | DEAD as a lab grammar (Paolo: "i didnt like any of your beat tactics they were ass"). The RULED mechanic it carried — weapon-typed melee movement — is CANON in the dial demo and stays. The standalone grammar never returns.
+LABFAIL-PROMISE      | 7/20/26 | DEAD as a lab grammar. The ruled FORESIGHT PERK it spawned is canon in the demo settings and stays. No remake.
+LABFAIL-DANCE        | 7/20/26 | DEAD twice (first "kind of confused", then the 7/20 verdict). Footwork-openings as a standalone grammar never returns.
+LABFAIL-QUEUE        | 7/20/26 | DEAD same day it shipped. Queued-actions grammar down. POST-MORTEM: three research rounds said queue; Paolo's hands said no — research ranks candidates, only PLAY decides. Never re-pitch the queue.
+LABFAIL-DUEL         | 7/20/26 | DEAD same day it shipped. The kick-beat duel grammar down. KICK-LOCK itself (the dial pulsing on the song's kick) is canon in the demo and stays. No remake.
+DISTRICT_HERO_v1_7_23_26 | 7/23/26 | DOWN, all 6 (Paolo: "they were all dogshit... thumbs down on all of them"). POST-MORTEM: generic tan iso BOXES with tiny signature bits — you could NOT tell what each building was or its purpose (the exact opposite of the ask). Pocket City 2's buildings are ICONIC: distinctive architecture per type, instantly purpose-legible. GRAVEYARD FINAL for the v1 boxes. Fresh cook (v2, iconic-architecture) answers the slot; never re-ship the box approach.
+\brenderCamera\b        | 7/21/26 | DEAD. Paolo: "too much shit going on, i dont want the camera." Built as the last home-screen tile, killed same session — too much surface for a slice with no quests yet. Do not re-add a Camera app. The underlying ART_BANK/textArtFor() generative text-art system SURVIVES (feed photos still use it); only the standalone playable Camera screen (viewfinder/shutter/gallery) is dead.
+n:'THE EMBER NEVER COOLS'            | 7/25/26 | DOWN as a SONG (batch 18). GRAVEYARD FINAL for the song; scrapchime voice LIVES (song-dead-not-voices) -- re-birthed same day in batch 19's WHAT THE PIT BOSS BURIED, a different fashion (punchy stabbed accent over a driving call-and-response, vs the original's slow sustained bell). Do not re-add the song.
+n:'STEEL V-NECK TEE'|n:'SAGE V-NECK HENLEY'|n:'BRICK V-NECK TEE' | 7/25/26 | DOWN, all 3 (marathon wave 2, Paolo: "delete these terrible"). POST-MORTEM: genTop's neck:'v' carve is only a few pixels wide near the collar (opening grows from 0 at the topmost row to +-3px by row 4) -- at this sprite's resolution it reads as visually IDENTICAL to a plain crew neck, no perceptible V. A "new shape" that cannot be told apart from the shape beside it is not structure, it is a recolor wearing a new name -- exactly what STRUCTURE-NOT-COLOR exists to catch. GRAVEYARD FINAL for these 3 items. The neck:'v' code path itself stays in genTop (do not delete the function branch, other future callers may fix the geometry), but never front it as a headline new-shape item again without an actual visual widen/fix, and never re-add these 3 names.

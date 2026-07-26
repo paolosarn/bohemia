@@ -1,0 +1,117 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S04 — WHAT CRIES IN THE DEEP
+# Shape: contract / the-monster-is-a-person (Witcher). Faction wires: HOMELESS,
+# NETWORK. This is the one in the batch that BRUSHES the secret (contrast makes it
+# land): the "haunt" screaming in the deep tunnel at night is a neurolinked person
+# half-taken by the network, grieving, stranded near the water where the deep runs
+# down. Root the monster in a wronged human (W7): investigate and the sanctioned
+# kill reframes as mercy or rescue, never scored. Amalgamation canon respected —
+# the danger is PROXIMITY to the secret, not the creature's strength; going loud
+# down there is what draws the wrong attention. No proper names (W8). CLOUT rides
+# the deed: lead them out gently -> #quiet; put them down loud for the bounty ->
+# #reckless; seal the tunnel and lie that it is gone -> #risky.
+
+@QUEST   bq_deep_cry   What Cries in the Deep
+@ACT     2
+@FACTION NONE
+@ONCE    true
+
+@ROLE elder     REQ  faction=HOMELESS  keeps_the_tunnel=true
+@ROLE haunt     REQ  neurolinked=true  grieving=true
+
+@STAGE 10
+  @LOG The tunnel elders will pay to end the crying that comes up the deep every night.
+  @DO show_objective 10
+@STAGE 20 #namedbody
+  @LOG It is not a haunt. It is a person, half-taken, sitting where the deep runs down toward the water.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Talked them up out of the deep, slow, in the dark, one word at a time. They walked out on their own feet.
+  @DO bond haunt +25
+  @DO faction HOMELESS +6
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #reckless
+  @LOG Ended it loud in the deep, for the bounty. The crying stopped. Something far below noticed the noise.
+  @DO faction HOMELESS +8
+  @DO set_flag looked_under_the_rock
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Sealed the deep tunnel and told the elders it is gone. It is not gone. It is just quieter now, and walled in.
+  @DO faction HOMELESS +6
+  @DO set_flag walled_them_in
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Could not do any of it. Left the crying where it was. The elders will find someone with a harder stomach.
+
+@OBJ 10  "Find the source of the crying"   target=elder
+@OBJ 20  "Decide what the crying is"        target=haunt
+
+@TALK hire  speaker=elder  entry=stage>=10
+  @SAY Every night it comes up the deep. Crying. Sometimes words, and the words are worse than the crying. #dread
+  @SAY The little ones cannot sleep. We do not go down that far. You are not one of us, so you can.
+  @SAY End it. I do not care how. I care that it stops. Do not tell me how.
+  @OPT "I will go down and look."         [gate: none]  -> descend  @DO learn going_deep
+  @OPT "What is down the deep?"           [gate: none]  -> what
+  @OPT "Find someone else."               [gate: none]  -> refuse
+  @NOVERB "Promise it is gone for good"
+@END
+
+@TALK what  speaker=elder
+  @SAY Water. Old pipe. And below that, further than anyone sane goes, more water and a hum you feel in your teeth. #dread
+  @SAY We do not ask about the hum. We ask about the crying. Go find the crying.
+  @OPT "Going down."                      [gate: none]  -> descend  @DO learn going_deep
+@END
+
+@TALK refuse  speaker=elder
+  @SAY Then you are no use to me and my back hurts from this conversation. #tired
+  @OPT "Sorry."                           [gate: none]  -> END  @DO set_stage 33
+  @OPT "No, wait. I will go."             [gate: none]  -> descend  @DO learn going_deep
+@END
+
+# THE DESCENT. The reveal must be found by walking into it, not in an optional
+# node (W3): stepping onto stage 20 IS the reveal, and stage 20 is unavoidable.
+@TALK descend  speaker=haunt  entry=stage>=10 and knows:going_deep
+  @SAY do not shine that at me. i know what i look like now. i know. #dread
+  @SAY they took the half of me that could go home. the other half stayed down here where it is cool and it remembers her.
+  @SAY you have a stick or a wire or a bounty. i can hear it in how you breathe. so do it, or do not, but stop breathing at me.
+  @DO set_stage 20
+  @OPT "Nobody is doing anything. Talk to me."   [gate: none]  -> talk_up
+  @OPT "The elders paid me to end this."          [gate: none]  -> honest
+  @OPT (lower the light, sit down)                [gate: none]  SILENCE -> talk_up
+  @NOVERB "Ask what the network took"
+@END
+
+@TALK honest  speaker=haunt
+  @SAY of course they did. i would pay too, if it cried under my children. #dread
+  @SAY so here is the whole menu. lead me out, which is slow and i might not make it. end me, which is fast and loud and you should not be loud down here. or wall me off and lie, which is the coward's mercy and it works.
+  @OPT "Come up. Slow. I have got you."     [gate: none]  -> lead_out
+  @OPT "I am sorry. I will make it quick."  [gate: none]  -> end_it
+  @OPT "I will seal it and say it is gone."  [gate: none]  TRAP -> wall_it
+@END
+
+@TALK talk_up  speaker=haunt
+  @SAY you are still here. people are not usually still here. #hope
+  @SAY there is a way up if a person walks it with me and does not let go and does not get loud. loud is bad down here. loud is very bad. can you be quiet and stubborn at the same time.
+  @OPT "Come up. Slow. I have got you."     [gate: none]  -> lead_out
+  @OPT "I cannot. I am sorry."              [gate: none]  -> end_it
+  @OPT (take their hand)                    [gate: none]  SILENCE -> lead_out
+@END
+
+@TALK lead_out  speaker=haunt
+  @SAY one word at a time. do not look down at the water. look at me. keep looking at me. #hope
+  @SAY there. there is the air. i forgot the air moved. thank you for being quiet. thank you for being stubborn.
+  @OPT "You walked it yourself."           [gate: none]  -> END  @DO set_stage 30
+@END
+
+@TALK end_it  speaker=haunt
+  @SAY okay. okay. do it up here where it is not so dark, if you can, and be quick, and please do not be loud about it after. #dread
+  @OPT "Look away. It is over."            [gate: none]  -> END  @DO set_stage 31
+  @OPT (do it without a word)              [gate: none]  SILENCE -> END  @DO set_stage 31
+@END
+
+@TALK wall_it  speaker=haunt
+  @SAY the wall. the coward's mercy. it works, you know. it actually works. #dread
+  @SAY they will sleep. i will be quieter. everybody gets a little of what they wanted and nobody has to look at me. go on. build it.
+  @OPT "Sleep now. Nobody will look."      [gate: none]  -> END  @DO set_stage 32
+@END

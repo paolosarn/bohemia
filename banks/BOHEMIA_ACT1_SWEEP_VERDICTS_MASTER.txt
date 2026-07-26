@@ -1,0 +1,2605 @@
+=== BOHEMIA ACT-1 GREAT SWEEP — MASTER VERDICTS (append-across-exports, latest wins) ===
+1. Cobblestone floor tiles#0: UP
+1. Cobblestone floor tiles#1: UP
+1. Cobblestone floor tiles#10: UP
+1. Cobblestone floor tiles#11: UP
+1. Cobblestone floor tiles#12: UP
+1. Cobblestone floor tiles#13: UP
+1. Cobblestone floor tiles#14: UP
+1. Cobblestone floor tiles#15: UP
+1. Cobblestone floor tiles#16: UP
+1. Cobblestone floor tiles#17: UP
+1. Cobblestone floor tiles#18: UP
+1. Cobblestone floor tiles#19: UP
+1. Cobblestone floor tiles#2: UP
+1. Cobblestone floor tiles#20: UP
+1. Cobblestone floor tiles#21: UP
+1. Cobblestone floor tiles#22: UP
+1. Cobblestone floor tiles#23: UP
+1. Cobblestone floor tiles#24: DOWN
+1. Cobblestone floor tiles#25: DOWN
+1. Cobblestone floor tiles#26: DOWN
+1. Cobblestone floor tiles#27: DOWN
+1. Cobblestone floor tiles#28: DOWN
+1. Cobblestone floor tiles#29: DOWN
+1. Cobblestone floor tiles#3: UP
+1. Cobblestone floor tiles#30: DOWN
+1. Cobblestone floor tiles#31: DOWN
+1. Cobblestone floor tiles#32: DOWN
+1. Cobblestone floor tiles#33: UP
+1. Cobblestone floor tiles#34: UP
+1. Cobblestone floor tiles#35: UP
+1. Cobblestone floor tiles#36: UP
+1. Cobblestone floor tiles#37: DOWN
+1. Cobblestone floor tiles#38: DOWN
+1. Cobblestone floor tiles#39: DOWN
+1. Cobblestone floor tiles#4: UP
+1. Cobblestone floor tiles#40: DOWN
+1. Cobblestone floor tiles#41: DOWN
+1. Cobblestone floor tiles#42: DOWN
+1. Cobblestone floor tiles#43: UP
+1. Cobblestone floor tiles#44: UP
+1. Cobblestone floor tiles#45: UP
+1. Cobblestone floor tiles#46: UP
+1. Cobblestone floor tiles#47: UP
+1. Cobblestone floor tiles#48: UP
+1. Cobblestone floor tiles#49: UP
+1. Cobblestone floor tiles#5: UP
+1. Cobblestone floor tiles#6: UP
+1. Cobblestone floor tiles#7: UP
+1. Cobblestone floor tiles#8: UP
+1. Cobblestone floor tiles#9: UP
+1. Cracked contrete tiles#0: UP
+1. Cracked contrete tiles#1: UP
+1. Cracked contrete tiles#10: UP
+1. Cracked contrete tiles#11: DOWN
+1. Cracked contrete tiles#12: UP
+1. Cracked contrete tiles#13: UP
+1. Cracked contrete tiles#14: UP
+1. Cracked contrete tiles#15: UP
+1. Cracked contrete tiles#16: UP
+1. Cracked contrete tiles#17: UP
+1. Cracked contrete tiles#18: UP
+1. Cracked contrete tiles#19: UP
+1. Cracked contrete tiles#2: UP
+1. Cracked contrete tiles#20: UP
+1. Cracked contrete tiles#21: UP
+1. Cracked contrete tiles#22: UP
+1. Cracked contrete tiles#23: UP
+1. Cracked contrete tiles#24: UP
+1. Cracked contrete tiles#25: UP
+1. Cracked contrete tiles#26: UP
+1. Cracked contrete tiles#27: UP
+1. Cracked contrete tiles#28: UP
+1. Cracked contrete tiles#29: UP
+1. Cracked contrete tiles#3: UP
+1. Cracked contrete tiles#30: UP
+1. Cracked contrete tiles#31: UP
+1. Cracked contrete tiles#32: UP
+1. Cracked contrete tiles#33: UP
+1. Cracked contrete tiles#34: UP
+1. Cracked contrete tiles#35: UP
+1. Cracked contrete tiles#36: UP
+1. Cracked contrete tiles#37: UP
+1. Cracked contrete tiles#38: UP
+1. Cracked contrete tiles#39: UP
+1. Cracked contrete tiles#4: UP
+1. Cracked contrete tiles#40: UP | Sewer manhole cover
+1. Cracked contrete tiles#41: UP
+1. Cracked contrete tiles#42: DOWN
+1. Cracked contrete tiles#43: DOWN
+1. Cracked contrete tiles#44: UP
+1. Cracked contrete tiles#5: UP
+1. Cracked contrete tiles#6: UP
+1. Cracked contrete tiles#7: UP
+1. Cracked contrete tiles#8: UP
+1. Cracked contrete tiles#9: UP
+1. Cracked street tiles#0: UP
+1. Cracked street tiles#1: UP
+1. Cracked street tiles#10: UP
+1. Cracked street tiles#11: UP
+1. Cracked street tiles#12: UP
+1. Cracked street tiles#13: UP
+1. Cracked street tiles#14: UP
+1. Cracked street tiles#15: UP
+1. Cracked street tiles#16: UP
+1. Cracked street tiles#17: UP
+1. Cracked street tiles#18: UP
+1. Cracked street tiles#19: UP
+1. Cracked street tiles#2: UP
+1. Cracked street tiles#20: UP
+1. Cracked street tiles#21: UP
+1. Cracked street tiles#22: UP
+1. Cracked street tiles#23: UP
+1. Cracked street tiles#24: DOWN
+1. Cracked street tiles#25: DOWN
+1. Cracked street tiles#26: UP
+1. Cracked street tiles#27: UP
+1. Cracked street tiles#28: UP
+1. Cracked street tiles#29: UP
+1. Cracked street tiles#3: UP
+1. Cracked street tiles#30: UP
+1. Cracked street tiles#31: UP
+1. Cracked street tiles#32: UP
+1. Cracked street tiles#33: UP
+1. Cracked street tiles#34: UP
+1. Cracked street tiles#35: UP
+1. Cracked street tiles#4: UP
+1. Cracked street tiles#5: UP
+1. Cracked street tiles#6: UP
+1. Cracked street tiles#7: UP
+1. Cracked street tiles#8: UP
+1. Cracked street tiles#9: UP
+1. Floor tiles (1)#0: DOWN
+1. Floor tiles (1)#1: DOWN
+1. Floor tiles (1)#10: DOWN
+1. Floor tiles (1)#11: DOWN
+1. Floor tiles (1)#12: DOWN
+1. Floor tiles (1)#13: DOWN
+1. Floor tiles (1)#14: DOWN
+1. Floor tiles (1)#15: DOWN
+1. Floor tiles (1)#16: UP | Wall
+1. Floor tiles (1)#17: UP
+1. Floor tiles (1)#18: UP
+1. Floor tiles (1)#19: DOWN
+1. Floor tiles (1)#2: DOWN
+1. Floor tiles (1)#20: DOWN
+1. Floor tiles (1)#21: DOWN
+1. Floor tiles (1)#22: DOWN
+1. Floor tiles (1)#23: DOWN
+1. Floor tiles (1)#24: UP
+1. Floor tiles (1)#25: UP | Wall
+1. Floor tiles (1)#26: DOWN
+1. Floor tiles (1)#27: DOWN
+1. Floor tiles (1)#28: UP | Wall
+1. Floor tiles (1)#29: DOWN
+1. Floor tiles (1)#3: DOWN
+1. Floor tiles (1)#30: UP
+1. Floor tiles (1)#31: DOWN
+1. Floor tiles (1)#32: UP | Wall
+1. Floor tiles (1)#33: UP
+1. Floor tiles (1)#34: UP
+1. Floor tiles (1)#35: UP
+1. Floor tiles (1)#36: UP
+1. Floor tiles (1)#37: DOWN
+1. Floor tiles (1)#38: DOWN
+1. Floor tiles (1)#39: DOWN
+1. Floor tiles (1)#4: DOWN
+1. Floor tiles (1)#40: DOWN
+1. Floor tiles (1)#41: DOWN
+1. Floor tiles (1)#42: DOWN
+1. Floor tiles (1)#43: DOWN
+1. Floor tiles (1)#44: UP
+1. Floor tiles (1)#45: DOWN
+1. Floor tiles (1)#46: DOWN
+1. Floor tiles (1)#47: UP
+1. Floor tiles (1)#48: DOWN
+1. Floor tiles (1)#5: DOWN
+1. Floor tiles (1)#6: DOWN
+1. Floor tiles (1)#7: DOWN
+1. Floor tiles (1)#8: DOWN
+1. Floor tiles (1)#9: DOWN
+1. Floor tiles#0: DOWN
+1. Floor tiles#1: UP
+1. Floor tiles#10: DOWN
+1. Floor tiles#11: DOWN
+1. Floor tiles#12: UP
+1. Floor tiles#13: UP
+1. Floor tiles#14: UP
+1. Floor tiles#15: UP
+1. Floor tiles#16: UP
+1. Floor tiles#17: UP
+1. Floor tiles#18: UP
+1. Floor tiles#19: UP
+1. Floor tiles#2: DOWN
+1. Floor tiles#20: UP
+1. Floor tiles#21: UP
+1. Floor tiles#22: DOWN
+1. Floor tiles#23: UP
+1. Floor tiles#3: UP
+1. Floor tiles#4: UP
+1. Floor tiles#5: UP
+1. Floor tiles#6: UP
+1. Floor tiles#7: UP
+1. Floor tiles#8: DOWN
+1. Floor tiles#9: DOWN
+1. Metal floor tiles#0: UP
+1. Metal floor tiles#1: UP
+1. Metal floor tiles#10: UP
+1. Metal floor tiles#11: UP
+1. Metal floor tiles#12: UP
+1. Metal floor tiles#13: UP
+1. Metal floor tiles#14: UP
+1. Metal floor tiles#15: UP | Wall vent
+1. Metal floor tiles#16: UP
+1. Metal floor tiles#17: UP
+1. Metal floor tiles#18: UP
+1. Metal floor tiles#19: UP
+1. Metal floor tiles#2: UP
+1. Metal floor tiles#20: UP
+1. Metal floor tiles#21: UP
+1. Metal floor tiles#22: UP
+1. Metal floor tiles#23: UP
+1. Metal floor tiles#24: UP
+1. Metal floor tiles#25: UP
+1. Metal floor tiles#26: UP
+1. Metal floor tiles#27: UP
+1. Metal floor tiles#28: UP | Wall vent
+1. Metal floor tiles#29: UP
+1. Metal floor tiles#3: UP
+1. Metal floor tiles#30: UP | Wall vent
+1. Metal floor tiles#31: UP
+1. Metal floor tiles#32: UP | Wall fan
+1. Metal floor tiles#33: UP | Wall vent
+1. Metal floor tiles#34: UP
+1. Metal floor tiles#35: UP
+1. Metal floor tiles#4: UP
+1. Metal floor tiles#5: UP
+1. Metal floor tiles#6: UP
+1. Metal floor tiles#7: UP
+1. Metal floor tiles#8: UP
+1. Metal floor tiles#9: UP
+1. Water Tiles#0: DOWN
+1. Water Tiles#1: DOWN
+1. Water Tiles#10: UP
+1. Water Tiles#11: UP
+1. Water Tiles#12: UP
+1. Water Tiles#13: UP
+1. Water Tiles#14: UP
+1. Water Tiles#15: UP
+1. Water Tiles#16: UP
+1. Water Tiles#17: UP
+1. Water Tiles#18: UP
+1. Water Tiles#19: UP
+1. Water Tiles#2: UP
+1. Water Tiles#20: UP
+1. Water Tiles#21: UP
+1. Water Tiles#22: UP
+1. Water Tiles#23: UP
+1. Water Tiles#24: UP
+1. Water Tiles#25: UP
+1. Water Tiles#26: UP
+1. Water Tiles#27: UP
+1. Water Tiles#28: UP
+1. Water Tiles#29: UP
+1. Water Tiles#3: UP
+1. Water Tiles#30: UP
+1. Water Tiles#31: UP
+1. Water Tiles#32: UP
+1. Water Tiles#33: UP
+1. Water Tiles#34: UP
+1. Water Tiles#35: UP
+1. Water Tiles#36: UP
+1. Water Tiles#37: UP
+1. Water Tiles#4: UP
+1. Water Tiles#5: UP
+1. Water Tiles#6: UP
+1. Water Tiles#7: UP
+1. Water Tiles#8: UP
+1. Water Tiles#9: UP
+10. Abandoned cars#0: UP [SMALL] | 2x3 i told you
+10. Abandoned cars#1: UP [SMALL]
+10. Abandoned cars#10: UP [SMALL]
+10. Abandoned cars#11: UP [SMALL]
+10. Abandoned cars#12: UP [SMALL]
+10. Abandoned cars#13: UP [SMALL]
+10. Abandoned cars#14: UP [SMALL]
+10. Abandoned cars#15: UP [SMALL]
+10. Abandoned cars#16: UP [SMALL]
+10. Abandoned cars#17: UP [SMALL]
+10. Abandoned cars#18: UP [SMALL]
+10. Abandoned cars#19: UP [SMALL]
+10. Abandoned cars#2: UP [SMALL]
+10. Abandoned cars#3: UP [SMALL]
+10. Abandoned cars#4: UP [SMALL]
+10. Abandoned cars#5: UP [SMALL]
+10. Abandoned cars#6: UP [SMALL]
+10. Abandoned cars#7: UP [SMALL]
+10. Abandoned cars#8: UP [SMALL]
+10. Abandoned cars#9: UP [SMALL]
+10. Zombie bodies and bones#0: DOWN
+10. Zombie bodies and bones#1: DOWN
+10. Zombie bodies and bones#10: UP [BIG]
+10. Zombie bodies and bones#11: UP [BIG]
+10. Zombie bodies and bones#12: UP [BIG]
+10. Zombie bodies and bones#13: UP [BIG]
+10. Zombie bodies and bones#14: UP [BIG]
+10. Zombie bodies and bones#15: UP [BIG]
+10. Zombie bodies and bones#16: UP [BIG]
+10. Zombie bodies and bones#17: UP [BIG]
+10. Zombie bodies and bones#18: DOWN
+10. Zombie bodies and bones#19: DOWN
+10. Zombie bodies and bones#2: DOWN
+10. Zombie bodies and bones#20: UP
+10. Zombie bodies and bones#21: UP
+10. Zombie bodies and bones#22: UP [BIG]
+10. Zombie bodies and bones#23: UP
+10. Zombie bodies and bones#24: UP
+10. Zombie bodies and bones#25: DOWN
+10. Zombie bodies and bones#26: UP [BIG]
+10. Zombie bodies and bones#27: UP [BIG]
+10. Zombie bodies and bones#28: UP [BIG]
+10. Zombie bodies and bones#29: UP [BIG]
+10. Zombie bodies and bones#3: DOWN
+10. Zombie bodies and bones#30: UP [BIG]
+10. Zombie bodies and bones#31: UP [BIG]
+10. Zombie bodies and bones#32: UP [BIG]
+10. Zombie bodies and bones#33: UP [BIG]
+10. Zombie bodies and bones#4: DOWN
+10. Zombie bodies and bones#5: DOWN
+10. Zombie bodies and bones#6: DOWN
+10. Zombie bodies and bones#7: DOWN
+10. Zombie bodies and bones#8: UP [BIG] | Change colors
+10. Zombie bodies and bones#9: UP
+11. Crates and barrels#0: UP [BIG]
+11. Crates and barrels#1: UP [BIG]
+11. Crates and barrels#10: UP [BIG]
+11. Crates and barrels#11: UP [BIG]
+11. Crates and barrels#12: UP
+11. Crates and barrels#13: UP
+11. Crates and barrels#14: UP
+11. Crates and barrels#15: UP | Honestly bro, I would only expect to see
+11. Crates and barrels#16: UP [BIG]
+11. Crates and barrels#17: UP [BIG]
+11. Crates and barrels#18: UP [BIG]
+11. Crates and barrels#19: UP [BIG]
+11. Crates and barrels#2: UP [BIG]
+11. Crates and barrels#20: UP [BIG]
+11. Crates and barrels#21: UP [BIG]
+11. Crates and barrels#22: UP
+11. Crates and barrels#23: UP
+11. Crates and barrels#24: UP
+11. Crates and barrels#25: UP [BIG]
+11. Crates and barrels#26: UP [BIG]
+11. Crates and barrels#27: UP [BIG]
+11. Crates and barrels#28: UP [BIG]
+11. Crates and barrels#29: UP [BIG]
+11. Crates and barrels#3: UP [BIG]
+11. Crates and barrels#30: UP [BIG]
+11. Crates and barrels#31: UP
+11. Crates and barrels#32: UP | Again, unless it's a building where
+11. Crates and barrels#33: UP
+11. Crates and barrels#4: UP
+11. Crates and barrels#5: UP
+11. Crates and barrels#6: UP
+11. Crates and barrels#7: UP
+11. Crates and barrels#8: UP [BIG]
+11. Crates and barrels#9: UP [BIG]
+11. Crates, barrels and supplies#0: DOWN
+11. Crates, barrels and supplies#1: DOWN
+11. Crates, barrels and supplies#10: UP [BIG]
+11. Crates, barrels and supplies#11: UP [BIG]
+11. Crates, barrels and supplies#12: UP [BIG]
+11. Crates, barrels and supplies#13: UP [BIG]
+11. Crates, barrels and supplies#14: UP [BIG]
+11. Crates, barrels and supplies#15: UP [BIG]
+11. Crates, barrels and supplies#16: UP [BIG]
+11. Crates, barrels and supplies#17: UP [BIG]
+11. Crates, barrels and supplies#18: UP [BIG]
+11. Crates, barrels and supplies#19: UP [BIG]
+11. Crates, barrels and supplies#2: UP
+11. Crates, barrels and supplies#20: UP [BIG]
+11. Crates, barrels and supplies#21: UP [BIG]
+11. Crates, barrels and supplies#22: UP [BIG]
+11. Crates, barrels and supplies#23: UP [BIG]
+11. Crates, barrels and supplies#24: UP [BIG]
+11. Crates, barrels and supplies#25: UP [BIG]
+11. Crates, barrels and supplies#26: UP [BIG]
+11. Crates, barrels and supplies#27: UP [BIG]
+11. Crates, barrels and supplies#28: UP [BIG]
+11. Crates, barrels and supplies#29: UP [BIG] | Again, this isn't a
+11. Crates, barrels and supplies#3: UP
+11. Crates, barrels and supplies#30: UP [BIG]
+11. Crates, barrels and supplies#31: UP [BIG]
+11. Crates, barrels and supplies#32: UP [BIG]
+11. Crates, barrels and supplies#33: UP [BIG]
+11. Crates, barrels and supplies#34: UP [BIG]
+11. Crates, barrels and supplies#35: UP [BIG]
+11. Crates, barrels and supplies#36: UP [BIG]
+11. Crates, barrels and supplies#37: UP [BIG]
+11. Crates, barrels and supplies#38: UP [BIG]
+11. Crates, barrels and supplies#39: UP
+11. Crates, barrels and supplies#4: UP [BIG]
+11. Crates, barrels and supplies#40: DOWN
+11. Crates, barrels and supplies#41: DOWN
+11. Crates, barrels and supplies#42: DOWN
+11. Crates, barrels and supplies#43: UP
+11. Crates, barrels and supplies#44: UP
+11. Crates, barrels and supplies#45: UP [BIG]
+11. Crates, barrels and supplies#46: UP [BIG]
+11. Crates, barrels and supplies#47: UP
+11. Crates, barrels and supplies#48: UP
+11. Crates, barrels and supplies#5: UP [BIG]
+11. Crates, barrels and supplies#6: UP [BIG]
+11. Crates, barrels and supplies#7: UP [BIG]
+11. Crates, barrels and supplies#8: UP [BIG]
+11. Crates, barrels and supplies#9: UP [BIG]
+11. Gauges and meters#0: UP [BIG]
+11. Gauges and meters#1: UP [BIG]
+11. Gauges and meters#2: UP [BIG]
+11. Gauges and meters#3: UP [BIG]
+11. Gauges and meters#4: UP [BIG]
+11. Gauges and meters#5: UP [BIG]
+11. Gauges and meters#6: DOWN
+11. Gauges and meters#7: DOWN
+11. Gauges and meters#8: DOWN
+11. Gauges and meters#9: DOWN
+11. Industrial doors and gates#0: UP
+11. Industrial doors and gates#1: UP
+11. Industrial doors and gates#10: UP
+11. Industrial doors and gates#11: UP
+11. Industrial doors and gates#12: UP
+11. Industrial doors and gates#13: UP
+11. Industrial doors and gates#14: UP
+11. Industrial doors and gates#15: UP
+11. Industrial doors and gates#16: UP
+11. Industrial doors and gates#17: UP
+11. Industrial doors and gates#2: UP
+11. Industrial doors and gates#3: UP
+11. Industrial doors and gates#4: UP
+11. Industrial doors and gates#5: UP
+11. Industrial doors and gates#6: DOWN
+11. Industrial doors and gates#7: UP
+11. Industrial doors and gates#8: UP
+11. Industrial doors and gates#9: UP
+11. Survival props#0: UP [BIG]
+11. Survival props#1: UP [BIG]
+11. Survival props#10: UP [BIG]
+11. Survival props#11: UP [BIG]
+11. Survival props#12: UP [BIG]
+11. Survival props#13: UP [BIG]
+11. Survival props#14: UP [BIG]
+11. Survival props#15: UP [BIG]
+11. Survival props#16: UP [BIG]
+11. Survival props#17: UP [BIG]
+11. Survival props#18: UP [BIG]
+11. Survival props#19: UP [BIG]
+11. Survival props#2: UP [BIG]
+11. Survival props#20: UP [BIG]
+11. Survival props#21: UP [BIG]
+11. Survival props#22: UP [BIG]
+11. Survival props#23: UP [BIG]
+11. Survival props#24: UP [BIG]
+11. Survival props#25: UP [BIG]
+11. Survival props#26: UP [BIG]
+11. Survival props#27: UP [BIG]
+11. Survival props#28: UP [BIG]
+11. Survival props#29: UP [BIG]
+11. Survival props#3: UP [BIG]
+11. Survival props#30: UP [BIG]
+11. Survival props#31: UP [BIG]
+11. Survival props#32: UP [BIG]
+11. Survival props#33: UP [BIG]
+11. Survival props#34: UP [BIG]
+11. Survival props#35: UP [BIG]
+11. Survival props#36: UP [BIG]
+11. Survival props#37: UP
+11. Survival props#38: UP [BIG]
+11. Survival props#39: UP [BIG] | LOGO FOR SUPPLIES 1/3 currency?
+11. Survival props#4: UP [BIG]
+11. Survival props#40: UP [BIG]
+11. Survival props#41: UP [BIG]
+11. Survival props#42: UP [BIG]
+11. Survival props#43: UP [BIG]
+11. Survival props#44: UP [BIG]
+11. Survival props#45: UP [BIG] | LOGO for energy currency?
+11. Survival props#46: UP [BIG] | Logo for medicine currency?
+11. Survival props#47: UP [BIG]
+11. Survival props#48: UP [BIG]
+11. Survival props#5: UP [BIG]
+11. Survival props#6: UP [BIG]
+11. Survival props#7: UP [BIG]
+11. Survival props#8: UP [BIG]
+11. Survival props#9: UP [BIG]
+12. Crates, barrels and storage#0: DOWN [BIG]
+12. Crates, barrels and storage#1: DOWN
+12. Crates, barrels and storage#10: DOWN
+12. Crates, barrels and storage#11: DOWN
+12. Crates, barrels and storage#12: DOWN
+12. Crates, barrels and storage#13: DOWN
+12. Crates, barrels and storage#14: DOWN
+12. Crates, barrels and storage#15: DOWN
+12. Crates, barrels and storage#16: DOWN
+12. Crates, barrels and storage#17: DOWN
+12. Crates, barrels and storage#18: DOWN
+12. Crates, barrels and storage#19: DOWN
+12. Crates, barrels and storage#2: DOWN
+12. Crates, barrels and storage#20: DOWN
+12. Crates, barrels and storage#21: DOWN
+12. Crates, barrels and storage#22: DOWN
+12. Crates, barrels and storage#23: DOWN
+12. Crates, barrels and storage#24: DOWN
+12. Crates, barrels and storage#25: DOWN
+12. Crates, barrels and storage#26: DOWN
+12. Crates, barrels and storage#27: DOWN
+12. Crates, barrels and storage#28: UP
+12. Crates, barrels and storage#29: DOWN
+12. Crates, barrels and storage#3: DOWN
+12. Crates, barrels and storage#30: DOWN
+12. Crates, barrels and storage#31: DOWN
+12. Crates, barrels and storage#32: DOWN
+12. Crates, barrels and storage#4: DOWN
+12. Crates, barrels and storage#5: DOWN
+12. Crates, barrels and storage#6: DOWN
+12. Crates, barrels and storage#7: DOWN
+12. Crates, barrels and storage#8: DOWN
+12. Crates, barrels and storage#9: DOWN
+12. Ruined building parts#0: UP [SMALL]
+12. Ruined building parts#1: UP [SMALL]
+12. Ruined building parts#10: UP [SMALL]
+12. Ruined building parts#11: UP [SMALL]
+12. Ruined building parts#12: UP [SMALL]
+12. Ruined building parts#13: UP [SMALL]
+12. Ruined building parts#14: UP [SMALL]
+12. Ruined building parts#15: UP [SMALL]
+12. Ruined building parts#16: UP [SMALL]
+12. Ruined building parts#17: UP [SMALL]
+12. Ruined building parts#18: UP [SMALL]
+12. Ruined building parts#19: UP [SMALL]
+12. Ruined building parts#2: UP [SMALL]
+12. Ruined building parts#3: UP [SMALL]
+12. Ruined building parts#4: UP [SMALL]
+12. Ruined building parts#5: UP [SMALL]
+12. Ruined building parts#6: UP [SMALL]
+12. Ruined building parts#7: UP [SMALL]
+12. Ruined building parts#8: UP [SMALL]
+12. Ruined building parts#9: UP [SMALL]
+12. Weapons and supplies#0: UP
+12. Weapons and supplies#1: UP
+12. Weapons and supplies#10: UP [BIG]
+12. Weapons and supplies#11: UP [BIG]
+12. Weapons and supplies#12: DOWN
+12. Weapons and supplies#13: DOWN
+12. Weapons and supplies#14: UP [BIG]
+12. Weapons and supplies#15: UP
+12. Weapons and supplies#16: UP
+12. Weapons and supplies#17: UP
+12. Weapons and supplies#18: UP [BIG]
+12. Weapons and supplies#19: UP [BIG]
+12. Weapons and supplies#2: UP
+12. Weapons and supplies#20: UP [BIG]
+12. Weapons and supplies#21: UP [BIG]
+12. Weapons and supplies#22: UP [BIG]
+12. Weapons and supplies#23: UP [BIG]
+12. Weapons and supplies#24: UP [BIG]
+12. Weapons and supplies#25: UP [BIG]
+12. Weapons and supplies#26: UP [BIG]
+12. Weapons and supplies#27: UP [BIG]
+12. Weapons and supplies#28: UP [BIG]
+12. Weapons and supplies#29: UP [BIG]
+12. Weapons and supplies#3: UP
+12. Weapons and supplies#30: UP [BIG]
+12. Weapons and supplies#31: UP [BIG]
+12. Weapons and supplies#32: UP [BIG]
+12. Weapons and supplies#33: UP [BIG]
+12. Weapons and supplies#34: UP [BIG]
+12. Weapons and supplies#35: UP [BIG]
+12. Weapons and supplies#36: UP [BIG]
+12. Weapons and supplies#37: UP [BIG]
+12. Weapons and supplies#38: UP [BIG]
+12. Weapons and supplies#39: UP [BIG]
+12. Weapons and supplies#4: UP [BIG]
+12. Weapons and supplies#5: DOWN | Use it as a model?
+12. Weapons and supplies#6: UP [BIG]
+12. Weapons and supplies#7: UP [BIG]
+12. Weapons and supplies#8: UP [BIG]
+12. Weapons and supplies#9: UP [BIG]
+13. Fences and wire#0: UP [SMALL]
+13. Fences and wire#1: UP [SMALL]
+13. Fences and wire#10: UP [SMALL]
+13. Fences and wire#11: UP [SMALL]
+13. Fences and wire#12: UP [SMALL]
+13. Fences and wire#13: UP [SMALL]
+13. Fences and wire#14: UP [SMALL]
+13. Fences and wire#15: UP [SMALL]
+13. Fences and wire#16: UP [SMALL]
+13. Fences and wire#17: UP [SMALL]
+13. Fences and wire#18: UP [SMALL]
+13. Fences and wire#2: UP [SMALL]
+13. Fences and wire#3: UP [SMALL]
+13. Fences and wire#4: UP [SMALL]
+13. Fences and wire#5: UP [SMALL]
+13. Fences and wire#6: UP [BIG]
+13. Fences and wire#7: UP [SMALL]
+13. Fences and wire#8: UP [BIG]
+13. Fences and wire#9: UP [SMALL]
+13. Pipes and wiring#0: DOWN
+13. Pipes and wiring#1: UP [BIG]
+13. Pipes and wiring#2: UP
+13. Pipes and wiring#3: UP
+13. Pipes and wiring#4: UP
+13. Pipes and wiring#5: UP
+13. Pipes and wiring#6: UP
+13. Pipes and wiring#7: UP
+13. Pipes and wiring#8: UP
+13. Port market#0: UP [SMALL]
+13. Port market#1: UP [SMALL]
+13. Port market#10: UP [SMALL]
+13. Port market#11: UP [SMALL]
+13. Port market#12: UP
+13. Port market#13: UP
+13. Port market#14: UP
+13. Port market#15: UP
+13. Port market#16: UP
+13. Port market#17: UP [BIG]
+13. Port market#18: UP
+13. Port market#19: UP [BIG]
+13. Port market#2: UP [SMALL]
+13. Port market#20: UP [BIG]
+13. Port market#21: DOWN
+13. Port market#22: DOWN
+13. Port market#23: UP
+13. Port market#24: UP [BIG]
+13. Port market#25: UP [BIG]
+13. Port market#26: UP [BIG]
+13. Port market#27: UP [BIG]
+13. Port market#28: UP [BIG]
+13. Port market#29: UP [BIG]
+13. Port market#3: UP [SMALL]
+13. Port market#30: UP
+13. Port market#31: DOWN
+13. Port market#32: DOWN
+13. Port market#33: DOWN
+13. Port market#34: DOWN
+13. Port market#4: UP [SMALL]
+13. Port market#5: UP [SMALL]
+13. Port market#6: UP [SMALL]
+13. Port market#7: UP [SMALL]
+13. Port market#8: UP [SMALL]
+13. Port market#9: UP [SMALL]
+13. crates and barrels#0: DOWN
+13. crates and barrels#1: DOWN
+13. crates and barrels#10: UP [BIG]
+13. crates and barrels#11: DOWN
+13. crates and barrels#12: DOWN
+13. crates and barrels#13: UP [BIG]
+13. crates and barrels#14: UP [BIG]
+13. crates and barrels#15: DOWN
+13. crates and barrels#16: DOWN
+13. crates and barrels#17: DOWN
+13. crates and barrels#18: DOWN
+13. crates and barrels#19: DOWN
+13. crates and barrels#2: DOWN
+13. crates and barrels#20: DOWN
+13. crates and barrels#21: DOWN
+13. crates and barrels#22: DOWN
+13. crates and barrels#23: UP
+13. crates and barrels#24: UP
+13. crates and barrels#25: UP
+13. crates and barrels#26: DOWN
+13. crates and barrels#27: DOWN
+13. crates and barrels#28: DOWN
+13. crates and barrels#29: DOWN
+13. crates and barrels#3: DOWN
+13. crates and barrels#30: UP [BIG] | Water bucket
+13. crates and barrels#31: DOWN
+13. crates and barrels#32: DOWN
+13. crates and barrels#33: DOWN
+13. crates and barrels#4: DOWN
+13. crates and barrels#5: UP [BIG]
+13. crates and barrels#6: DOWN
+13. crates and barrels#7: DOWN
+13. crates and barrels#8: DOWN
+13. crates and barrels#9: DOWN
+14. Camp and tents#0: DOWN
+14. Camp and tents#1: DOWN
+14. Camp and tents#10: DOWN
+14. Camp and tents#11: UP
+14. Camp and tents#12: DOWN
+14. Camp and tents#13: DOWN
+14. Camp and tents#14: UP
+14. Camp and tents#15: UP
+14. Camp and tents#16: UP
+14. Camp and tents#17: UP
+14. Camp and tents#18: UP
+14. Camp and tents#19: UP
+14. Camp and tents#2: UP [SMALL] | Training data for quick tents
+14. Camp and tents#20: DOWN
+14. Camp and tents#21: UP
+14. Camp and tents#22: UP
+14. Camp and tents#23: UP
+14. Camp and tents#24: UP
+14. Camp and tents#25: DOWN
+14. Camp and tents#26: DOWN
+14. Camp and tents#27: UP [BIG]
+14. Camp and tents#28: DOWN [BIG]
+14. Camp and tents#29: DOWN
+14. Camp and tents#3: UP [SMALL] | Training data for quick tents
+14. Camp and tents#30: DOWN
+14. Camp and tents#31: UP [BIG]
+14. Camp and tents#32: DOWN
+14. Camp and tents#33: UP [BIG]
+14. Camp and tents#34: UP [BIG]
+14. Camp and tents#4: DOWN
+14. Camp and tents#5: DOWN
+14. Camp and tents#6: UP
+14. Camp and tents#7: DOWN
+14. Camp and tents#8: DOWN
+14. Camp and tents#9: DOWN
+14. Embers and particles#0: UP [BIG]
+14. Embers and particles#1: UP
+14. Embers and particles#2: UP
+14. Embers and particles#3: UP
+14. Embers and particles#4: UP
+14. Embers and particles#5: UP
+14. Embers and particles#6: UP
+14. Market and outdoor props#0: DOWN
+14. Market and outdoor props#1: DOWN
+14. Market and outdoor props#10: DOWN
+14. Market and outdoor props#11: DOWN
+14. Market and outdoor props#12: DOWN
+14. Market and outdoor props#13: DOWN
+14. Market and outdoor props#14: DOWN | Training data for a broom
+14. Market and outdoor props#15: DOWN
+14. Market and outdoor props#16: DOWN
+14. Market and outdoor props#17: DOWN
+14. Market and outdoor props#18: DOWN
+14. Market and outdoor props#19: DOWN
+14. Market and outdoor props#2: DOWN
+14. Market and outdoor props#20: DOWN
+14. Market and outdoor props#21: DOWN
+14. Market and outdoor props#22: DOWN
+14. Market and outdoor props#3: DOWN
+14. Market and outdoor props#4: DOWN
+14. Market and outdoor props#5: DOWN
+14. Market and outdoor props#6: DOWN
+14. Market and outdoor props#7: DOWN
+14. Market and outdoor props#8: DOWN
+14. Market and outdoor props#9: DOWN
+14. Trash and junk props#0: UP [BIG]
+14. Trash and junk props#1: UP [BIG]
+14. Trash and junk props#10: UP
+14. Trash and junk props#11: UP [BIG]
+14. Trash and junk props#12: UP [BIG]
+14. Trash and junk props#13: UP [BIG]
+14. Trash and junk props#14: UP [BIG]
+14. Trash and junk props#15: UP
+14. Trash and junk props#2: UP [BIG]
+14. Trash and junk props#3: UP
+14. Trash and junk props#4: UP [BIG]
+14. Trash and junk props#5: UP [SMALL]
+14. Trash and junk props#6: DOWN
+14. Trash and junk props#7: DOWN
+14. Trash and junk props#8: UP
+14. Trash and junk props#9: UP
+14. Warning Signs#0: UP [BIG]
+14. Warning Signs#1: UP [BIG]
+14. Warning Signs#10: DOWN
+14. Warning Signs#11: DOWN
+14. Warning Signs#12: DOWN
+14. Warning Signs#13: DOWN
+14. Warning Signs#14: DOWN
+14. Warning Signs#15: UP [BIG]
+14. Warning Signs#16: DOWN
+14. Warning Signs#17: UP [BIG]
+14. Warning Signs#18: DOWN
+14. Warning Signs#19: DOWN
+14. Warning Signs#2: UP [BIG]
+14. Warning Signs#20: DOWN
+14. Warning Signs#21: UP [BIG]
+14. Warning Signs#22: DOWN
+14. Warning Signs#23: UP [BIG]
+14. Warning Signs#24: UP
+14. Warning Signs#25: UP [BIG]
+14. Warning Signs#26: DOWN
+14. Warning Signs#27: UP [BIG]
+14. Warning Signs#28: DOWN
+14. Warning Signs#29: DOWN
+14. Warning Signs#3: DOWN [BIG]
+14. Warning Signs#30: DOWN
+14. Warning Signs#31: UP
+14. Warning Signs#32: UP [BIG]
+14. Warning Signs#33: DOWN
+14. Warning Signs#34: DOWN
+14. Warning Signs#4: DOWN
+14. Warning Signs#5: DOWN
+14. Warning Signs#6: UP [BIG]
+14. Warning Signs#7: UP [BIG]
+14. Warning Signs#8: DOWN
+14. Warning Signs#9: DOWN
+15. Dead Trees and dry plants#0: UP [SMALL]
+15. Dead Trees and dry plants#1: UP [SMALL]
+15. Dead Trees and dry plants#2: UP [SMALL]
+15. Dead Trees and dry plants#3: UP [SMALL]
+15. Dead Trees and dry plants#4: UP [SMALL]
+15. Dead Trees and dry plants#5: UP [SMALL]
+15. Dead Trees and dry plants#6: UP [SMALL]
+15. Dead Trees and dry plants#7: UP
+15. Street props#0: UP
+15. Street props#1: UP | Training data for traffic lights
+15. Street props#10: UP [BIG]
+15. Street props#11: UP
+15. Street props#12: UP [BIG]
+15. Street props#13: UP [SMALL]
+15. Street props#14: UP [SMALL]
+15. Street props#15: UP [SMALL]
+15. Street props#16: DOWN
+15. Street props#17: UP [SMALL]
+15. Street props#18: UP [SMALL]
+15. Street props#19: UP [SMALL]
+15. Street props#2: UP | Training data for traffic lights
+15. Street props#20: UP [SMALL]
+15. Street props#21: UP
+15. Street props#22: UP [SMALL]
+15. Street props#23: UP [BIG]
+15. Street props#24: UP
+15. Street props#25: DOWN
+15. Street props#26: DOWN
+15. Street props#27: DOWN
+15. Street props#28: UP [SMALL]
+15. Street props#29: UP [SMALL]
+15. Street props#3: UP [SMALL]
+15. Street props#30: DOWN
+15. Street props#31: UP
+15. Street props#32: UP
+15. Street props#33: UP
+15. Street props#34: UP
+15. Street props#35: UP [BIG]
+15. Street props#36: UP [BIG]
+15. Street props#37: UP
+15. Street props#38: UP
+15. Street props#39: UP
+15. Street props#4: UP [SMALL]
+15. Street props#40: UP
+15. Street props#41: UP [SMALL]
+15. Street props#42: UP
+15. Street props#43: UP
+15. Street props#5: UP [BIG]
+15. Street props#6: UP [BIG]
+15. Street props#7: UP
+15. Street props#8: UP [BIG]
+15. Street props#9: UP [BIG]
+15. Workbenches and tools#0: DOWN
+15. Workbenches and tools#1: UP
+15. Workbenches and tools#10: UP [BIG]
+15. Workbenches and tools#11: UP
+15. Workbenches and tools#12: UP
+15. Workbenches and tools#13: UP
+15. Workbenches and tools#14: UP
+15. Workbenches and tools#15: DOWN
+15. Workbenches and tools#16: UP
+15. Workbenches and tools#17: UP
+15. Workbenches and tools#18: UP [BIG]
+15. Workbenches and tools#19: UP [BIG]
+15. Workbenches and tools#2: UP
+15. Workbenches and tools#20: UP [BIG]
+15. Workbenches and tools#21: UP [BIG]
+15. Workbenches and tools#22: UP [BIG]
+15. Workbenches and tools#23: UP [BIG]
+15. Workbenches and tools#24: UP [BIG]
+15. Workbenches and tools#25: UP [BIG]
+15. Workbenches and tools#26: UP [BIG]
+15. Workbenches and tools#3: UP
+15. Workbenches and tools#4: UP
+15. Workbenches and tools#5: DOWN
+15. Workbenches and tools#6: UP
+15. Workbenches and tools#7: DOWN
+15. Workbenches and tools#8: UP
+15. Workbenches and tools#9: UP
+16. Dead trees and plants#0: UP [SMALL]
+16. Dead trees and plants#1: UP [SMALL]
+16. Dead trees and plants#10: UP [SMALL]
+16. Dead trees and plants#11: UP [SMALL]
+16. Dead trees and plants#12: UP [SMALL]
+16. Dead trees and plants#13: UP
+16. Dead trees and plants#14: UP
+16. Dead trees and plants#15: UP [SMALL]
+16. Dead trees and plants#16: UP [SMALL]
+16. Dead trees and plants#17: UP [SMALL]
+16. Dead trees and plants#18: UP
+16. Dead trees and plants#19: UP
+16. Dead trees and plants#2: UP [SMALL]
+16. Dead trees and plants#20: UP
+16. Dead trees and plants#21: UP
+16. Dead trees and plants#22: UP
+16. Dead trees and plants#23: UP
+16. Dead trees and plants#24: UP
+16. Dead trees and plants#25: UP
+16. Dead trees and plants#26: UP
+16. Dead trees and plants#27: UP
+16. Dead trees and plants#28: DOWN
+16. Dead trees and plants#29: UP
+16. Dead trees and plants#3: UP [SMALL]
+16. Dead trees and plants#30: UP
+16. Dead trees and plants#31: UP
+16. Dead trees and plants#32: UP [SMALL]
+16. Dead trees and plants#33: UP
+16. Dead trees and plants#34: UP
+16. Dead trees and plants#35: UP
+16. Dead trees and plants#36: UP
+16. Dead trees and plants#37: UP
+16. Dead trees and plants#38: UP
+16. Dead trees and plants#39: UP
+16. Dead trees and plants#4: UP [SMALL]
+16. Dead trees and plants#5: UP [SMALL]
+16. Dead trees and plants#6: UP [SMALL]
+16. Dead trees and plants#7: UP [SMALL]
+16. Dead trees and plants#8: UP [SMALL]
+16. Dead trees and plants#9: UP [SMALL]
+16. Gardens and crops#0: DOWN
+16. Gardens and crops#1: UP [SMALL]
+16. Gardens and crops#2: UP
+16. Gardens and crops#3: UP
+16. Gardens and crops#4: UP
+16. Gardens and crops#5: UP
+16. Gardens and crops#6: UP
+16. Gardens and crops#7: UP
+16. Loot and survival props#0: UP [BIG]
+16. Loot and survival props#1: UP [BIG]
+16. Loot and survival props#10: UP [BIG]
+16. Loot and survival props#11: DOWN
+16. Loot and survival props#12: UP [BIG]
+16. Loot and survival props#13: UP [BIG]
+16. Loot and survival props#14: UP [BIG]
+16. Loot and survival props#15: UP [BIG]
+16. Loot and survival props#16: UP [BIG]
+16. Loot and survival props#17: UP [BIG]
+16. Loot and survival props#18: UP [BIG]
+16. Loot and survival props#19: UP [BIG]
+16. Loot and survival props#2: UP [BIG]
+16. Loot and survival props#20: UP [BIG]
+16. Loot and survival props#21: UP [BIG]
+16. Loot and survival props#22: UP [BIG]
+16. Loot and survival props#23: UP [BIG]
+16. Loot and survival props#24: UP [BIG]
+16. Loot and survival props#25: UP [BIG]
+16. Loot and survival props#26: UP [BIG]
+16. Loot and survival props#27: UP [BIG]
+16. Loot and survival props#28: UP [BIG]
+16. Loot and survival props#29: UP [BIG]
+16. Loot and survival props#3: UP [BIG]
+16. Loot and survival props#30: UP [BIG]
+16. Loot and survival props#31: UP [BIG]
+16. Loot and survival props#32: UP [BIG]
+16. Loot and survival props#33: UP [BIG]
+16. Loot and survival props#4: UP [BIG]
+16. Loot and survival props#5: UP [BIG]
+16. Loot and survival props#6: UP [BIG]
+16. Loot and survival props#7: UP [BIG]
+16. Loot and survival props#8: UP [BIG]
+16. Loot and survival props#9: UP [BIG]
+16. Trees and nature#0: DOWN
+16. Trees and nature#1: DOWN
+16. Trees and nature#10: DOWN
+16. Trees and nature#11: DOWN
+16. Trees and nature#12: DOWN
+16. Trees and nature#13: DOWN
+16. Trees and nature#14: DOWN
+16. Trees and nature#15: DOWN
+16. Trees and nature#16: DOWN
+16. Trees and nature#17: DOWN
+16. Trees and nature#18: DOWN
+16. Trees and nature#19: DOWN
+16. Trees and nature#2: DOWN
+16. Trees and nature#20: DOWN
+16. Trees and nature#21: DOWN
+16. Trees and nature#22: DOWN
+16. Trees and nature#3: DOWN
+16. Trees and nature#4: DOWN
+16. Trees and nature#5: DOWN
+16. Trees and nature#6: DOWN
+16. Trees and nature#7: DOWN
+16. Trees and nature#8: DOWN
+16. Trees and nature#9: DOWN
+17. Benches and seating#0: DOWN
+17. Benches and seating#1: UP
+17. Benches and seating#2: UP
+17. Benches and seating#3: UP
+17. Benches and seating#4: UP
+17. Benches and seating#5: UP
+17. Benches and seating#6: DOWN
+17. Benches and seating#7: DOWN
+17. Hazard and warning tiles#0: DOWN
+17. Hazard and warning tiles#1: DOWN
+17. Hazard and warning tiles#10: UP [BIG]
+17. Hazard and warning tiles#11: UP [BIG]
+17. Hazard and warning tiles#12: UP [BIG]
+17. Hazard and warning tiles#13: UP [BIG]
+17. Hazard and warning tiles#14: UP [BIG]
+17. Hazard and warning tiles#15: UP [BIG]
+17. Hazard and warning tiles#16: UP [BIG]
+17. Hazard and warning tiles#17: UP [BIG]
+17. Hazard and warning tiles#18: DOWN
+17. Hazard and warning tiles#19: DOWN
+17. Hazard and warning tiles#2: DOWN
+17. Hazard and warning tiles#20: DOWN
+17. Hazard and warning tiles#21: DOWN
+17. Hazard and warning tiles#22: DOWN
+17. Hazard and warning tiles#3: DOWN
+17. Hazard and warning tiles#4: DOWN
+17. Hazard and warning tiles#5: DOWN
+17. Hazard and warning tiles#6: DOWN
+17. Hazard and warning tiles#7: UP [BIG]
+17. Hazard and warning tiles#8: DOWN
+17. Hazard and warning tiles#9: UP [BIG]
+17. Warning Signs and road props#0: UP
+17. Warning Signs and road props#1: UP
+17. Warning Signs and road props#10: UP | On the freeway
+17. Warning Signs and road props#11: DOWN
+17. Warning Signs and road props#12: UP [BIG]
+17. Warning Signs and road props#13: DOWN
+17. Warning Signs and road props#14: DOWN
+17. Warning Signs and road props#15: UP | On the freeway
+17. Warning Signs and road props#16: UP
+17. Warning Signs and road props#17: UP [BIG]
+17. Warning Signs and road props#18: UP | On the freeway
+17. Warning Signs and road props#19: DOWN
+17. Warning Signs and road props#2: UP
+17. Warning Signs and road props#20: DOWN
+17. Warning Signs and road props#21: UP [BIG]
+17. Warning Signs and road props#22: UP
+17. Warning Signs and road props#23: UP
+17. Warning Signs and road props#3: UP
+17. Warning Signs and road props#4: UP
+17. Warning Signs and road props#5: UP
+17. Warning Signs and road props#6: UP
+17. Warning Signs and road props#7: UP
+17. Warning Signs and road props#8: UP | Training data for street signs
+17. Warning Signs and road props#9: DOWN [SMALL]
+18. Light sources and fire barrels#0: UP [SMALL]
+18. Light sources and fire barrels#1: UP [SMALL]
+18. Light sources and fire barrels#10: DOWN
+18. Light sources and fire barrels#11: DOWN
+18. Light sources and fire barrels#12: UP [BIG]
+18. Light sources and fire barrels#13: UP [BIG]
+18. Light sources and fire barrels#14: DOWN
+18. Light sources and fire barrels#15: DOWN
+18. Light sources and fire barrels#16: UP [BIG]
+18. Light sources and fire barrels#17: UP [BIG]
+18. Light sources and fire barrels#18: DOWN
+18. Light sources and fire barrels#19: UP [BIG]
+18. Light sources and fire barrels#2: UP [SMALL]
+18. Light sources and fire barrels#20: DOWN
+18. Light sources and fire barrels#21: UP [BIG]
+18. Light sources and fire barrels#22: DOWN
+18. Light sources and fire barrels#23: UP
+18. Light sources and fire barrels#24: UP [BIG]
+18. Light sources and fire barrels#25: UP [BIG]
+18. Light sources and fire barrels#26: UP [BIG]
+18. Light sources and fire barrels#27: UP [BIG]
+18. Light sources and fire barrels#28: UP [BIG]
+18. Light sources and fire barrels#29: UP [BIG]
+18. Light sources and fire barrels#3: UP [SMALL]
+18. Light sources and fire barrels#30: UP [BIG]
+18. Light sources and fire barrels#31: UP [BIG]
+18. Light sources and fire barrels#32: UP [BIG]
+18. Light sources and fire barrels#33: UP [BIG]
+18. Light sources and fire barrels#34: UP [BIG]
+18. Light sources and fire barrels#35: UP [BIG]
+18. Light sources and fire barrels#36: UP
+18. Light sources and fire barrels#37: UP
+18. Light sources and fire barrels#38: UP [BIG]
+18. Light sources and fire barrels#39: DOWN
+18. Light sources and fire barrels#4: UP [SMALL]
+18. Light sources and fire barrels#40: UP
+18. Light sources and fire barrels#41: UP [BIG]
+18. Light sources and fire barrels#42: DOWN
+18. Light sources and fire barrels#43: UP [BIG]
+18. Light sources and fire barrels#44: UP [BIG]
+18. Light sources and fire barrels#45: DOWN
+18. Light sources and fire barrels#46: UP [BIG]
+18. Light sources and fire barrels#47: DOWN
+18. Light sources and fire barrels#5: UP [SMALL]
+18. Light sources and fire barrels#6: UP [SMALL]
+18. Light sources and fire barrels#7: DOWN
+18. Light sources and fire barrels#8: DOWN
+18. Light sources and fire barrels#9: DOWN
+18. Lights and emergency props#0: UP [BIG]
+18. Lights and emergency props#1: UP [BIG]
+18. Lights and emergency props#10: DOWN
+18. Lights and emergency props#11: UP [BIG]
+18. Lights and emergency props#2: UP
+18. Lights and emergency props#3: UP
+18. Lights and emergency props#4: DOWN [BIG]
+18. Lights and emergency props#5: UP [BIG]
+18. Lights and emergency props#6: DOWN
+18. Lights and emergency props#7: DOWN
+18. Lights and emergency props#8: DOWN
+18. Lights and emergency props#9: DOWN
+18. Pipes and cables#0: DOWN
+18. Pipes and cables#1: DOWN
+18. Pipes and cables#10: UP [BIG]
+18. Pipes and cables#11: UP
+18. Pipes and cables#12: UP
+18. Pipes and cables#13: UP
+18. Pipes and cables#14: DOWN
+18. Pipes and cables#15: UP
+18. Pipes and cables#16: UP
+18. Pipes and cables#17: UP
+18. Pipes and cables#18: UP [BIG]
+18. Pipes and cables#19: DOWN
+18. Pipes and cables#2: UP
+18. Pipes and cables#20: UP
+18. Pipes and cables#21: UP
+18. Pipes and cables#22: UP
+18. Pipes and cables#3: UP
+18. Pipes and cables#4: UP
+18. Pipes and cables#5: UP [BIG]
+18. Pipes and cables#6: UP
+18. Pipes and cables#7: UP
+18. Pipes and cables#8: UP
+18. Pipes and cables#9: UP [BIG]
+18. Winter food and drinks#0: UP [BIG]
+18. Winter food and drinks#1: UP [BIG]
+18. Winter food and drinks#10: UP [BIG]
+18. Winter food and drinks#11: UP [BIG]
+18. Winter food and drinks#12: UP [BIG]
+18. Winter food and drinks#13: UP [BIG]
+18. Winter food and drinks#14: UP [BIG]
+18. Winter food and drinks#15: UP [BIG]
+18. Winter food and drinks#16: UP [BIG]
+18. Winter food and drinks#17: UP [BIG]
+18. Winter food and drinks#18: UP [BIG]
+18. Winter food and drinks#19: DOWN
+18. Winter food and drinks#2: UP [BIG]
+18. Winter food and drinks#20: UP [BIG]
+18. Winter food and drinks#21: UP [BIG]
+18. Winter food and drinks#22: UP [BIG]
+18. Winter food and drinks#23: UP [BIG]
+18. Winter food and drinks#24: UP [BIG]
+18. Winter food and drinks#25: UP [BIG]
+18. Winter food and drinks#26: UP [BIG]
+18. Winter food and drinks#27: UP [BIG]
+18. Winter food and drinks#3: UP [BIG]
+18. Winter food and drinks#4: UP [BIG]
+18. Winter food and drinks#5: UP [BIG]
+18. Winter food and drinks#6: UP [BIG]
+18. Winter food and drinks#7: UP [BIG]
+18. Winter food and drinks#8: UP [BIG]
+18. Winter food and drinks#9: UP [BIG]
+19. Miscellaneous (1)#0: UP [BIG]
+19. Miscellaneous (1)#1: DOWN
+19. Miscellaneous (1)#10: UP [BIG]
+19. Miscellaneous (1)#11: UP [BIG]
+19. Miscellaneous (1)#12: UP [BIG]
+19. Miscellaneous (1)#13: UP [BIG]
+19. Miscellaneous (1)#14: UP [BIG]
+19. Miscellaneous (1)#15: UP [BIG]
+19. Miscellaneous (1)#16: UP
+19. Miscellaneous (1)#17: UP [BIG]
+19. Miscellaneous (1)#18: DOWN
+19. Miscellaneous (1)#19: DOWN
+19. Miscellaneous (1)#2: UP [BIG]
+19. Miscellaneous (1)#20: UP
+19. Miscellaneous (1)#21: UP
+19. Miscellaneous (1)#22: DOWN
+19. Miscellaneous (1)#23: UP
+19. Miscellaneous (1)#24: UP
+19. Miscellaneous (1)#25: UP
+19. Miscellaneous (1)#26: DOWN
+19. Miscellaneous (1)#27: DOWN
+19. Miscellaneous (1)#28: DOWN
+19. Miscellaneous (1)#29: DOWN
+19. Miscellaneous (1)#3: UP [BIG]
+19. Miscellaneous (1)#30: DOWN
+19. Miscellaneous (1)#31: DOWN
+19. Miscellaneous (1)#32: DOWN
+19. Miscellaneous (1)#33: DOWN
+19. Miscellaneous (1)#34: DOWN
+19. Miscellaneous (1)#35: UP
+19. Miscellaneous (1)#36: UP
+19. Miscellaneous (1)#37: UP
+19. Miscellaneous (1)#38: UP
+19. Miscellaneous (1)#39: UP
+19. Miscellaneous (1)#4: UP [BIG]
+19. Miscellaneous (1)#40: UP
+19. Miscellaneous (1)#41: DOWN
+19. Miscellaneous (1)#42: DOWN
+19. Miscellaneous (1)#43: DOWN
+19. Miscellaneous (1)#44: UP
+19. Miscellaneous (1)#45: DOWN
+19. Miscellaneous (1)#46: DOWN
+19. Miscellaneous (1)#47: DOWN
+19. Miscellaneous (1)#48: DOWN
+19. Miscellaneous (1)#49: DOWN
+19. Miscellaneous (1)#5: UP [BIG]
+19. Miscellaneous (1)#50: DOWN
+19. Miscellaneous (1)#51: DOWN
+19. Miscellaneous (1)#52: DOWN
+19. Miscellaneous (1)#53: DOWN
+19. Miscellaneous (1)#54: DOWN
+19. Miscellaneous (1)#55: DOWN
+19. Miscellaneous (1)#56: DOWN
+19. Miscellaneous (1)#57: DOWN
+19. Miscellaneous (1)#58: DOWN
+19. Miscellaneous (1)#59: UP
+19. Miscellaneous (1)#6: DOWN
+19. Miscellaneous (1)#60: UP
+19. Miscellaneous (1)#61: UP
+19. Miscellaneous (1)#62: UP
+19. Miscellaneous (1)#63: UP
+19. Miscellaneous (1)#64: DOWN
+19. Miscellaneous (1)#7: DOWN
+19. Miscellaneous (1)#8: UP [BIG]
+19. Miscellaneous (1)#9: UP [BIG]
+2. Broken building walls#0: UP [SMALL]
+2. Broken building walls#1: UP [SMALL]
+2. Broken building walls#10: UP [SMALL]
+2. Broken building walls#11: UP [SMALL]
+2. Broken building walls#2: UP [SMALL]
+2. Broken building walls#3: UP [SMALL]
+2. Broken building walls#4: UP [SMALL]
+2. Broken building walls#5: UP [SMALL]
+2. Broken building walls#6: UP [SMALL]
+2. Broken building walls#7: UP [SMALL]
+2. Broken building walls#8: UP [SMALL]
+2. Broken building walls#9: UP [SMALL]
+2. Dirt path tiles#0: DOWN
+2. Dirt path tiles#1: UP
+2. Dirt path tiles#10: UP
+2. Dirt path tiles#11: UP
+2. Dirt path tiles#12: UP
+2. Dirt path tiles#13: UP
+2. Dirt path tiles#14: UP
+2. Dirt path tiles#15: UP
+2. Dirt path tiles#16: UP
+2. Dirt path tiles#17: UP
+2. Dirt path tiles#18: UP
+2. Dirt path tiles#19: UP
+2. Dirt path tiles#2: UP
+2. Dirt path tiles#20: UP
+2. Dirt path tiles#21: UP
+2. Dirt path tiles#22: UP
+2. Dirt path tiles#23: UP
+2. Dirt path tiles#24: UP
+2. Dirt path tiles#25: UP
+2. Dirt path tiles#26: UP
+2. Dirt path tiles#27: UP
+2. Dirt path tiles#28: UP
+2. Dirt path tiles#29: UP
+2. Dirt path tiles#3: UP
+2. Dirt path tiles#30: UP
+2. Dirt path tiles#31: UP
+2. Dirt path tiles#32: UP
+2. Dirt path tiles#33: UP
+2. Dirt path tiles#34: UP
+2. Dirt path tiles#35: UP
+2. Dirt path tiles#36: UP
+2. Dirt path tiles#37: UP
+2. Dirt path tiles#38: UP
+2. Dirt path tiles#39: UP
+2. Dirt path tiles#4: UP
+2. Dirt path tiles#40: UP
+2. Dirt path tiles#41: UP
+2. Dirt path tiles#42: UP
+2. Dirt path tiles#43: UP
+2. Dirt path tiles#44: UP
+2. Dirt path tiles#45: UP
+2. Dirt path tiles#46: UP
+2. Dirt path tiles#47: DOWN
+2. Dirt path tiles#5: UP
+2. Dirt path tiles#6: UP
+2. Dirt path tiles#7: UP
+2. Dirt path tiles#8: UP
+2. Dirt path tiles#9: UP
+2. Rusted metal floor tiles#0: DOWN
+2. Rusted metal floor tiles#1: DOWN
+2. Rusted metal floor tiles#10: DOWN
+2. Rusted metal floor tiles#11: DOWN
+2. Rusted metal floor tiles#12: DOWN
+2. Rusted metal floor tiles#13: DOWN
+2. Rusted metal floor tiles#14: DOWN
+2. Rusted metal floor tiles#15: DOWN
+2. Rusted metal floor tiles#16: DOWN
+2. Rusted metal floor tiles#17: DOWN
+2. Rusted metal floor tiles#18: UP
+2. Rusted metal floor tiles#19: UP
+2. Rusted metal floor tiles#2: DOWN
+2. Rusted metal floor tiles#20: UP
+2. Rusted metal floor tiles#21: UP
+2. Rusted metal floor tiles#22: UP
+2. Rusted metal floor tiles#23: UP
+2. Rusted metal floor tiles#24: DOWN
+2. Rusted metal floor tiles#25: DOWN
+2. Rusted metal floor tiles#26: DOWN
+2. Rusted metal floor tiles#27: UP
+2. Rusted metal floor tiles#28: UP | Air vent
+2. Rusted metal floor tiles#29: UP | Dust air vent
+2. Rusted metal floor tiles#3: DOWN
+2. Rusted metal floor tiles#30: DOWN
+2. Rusted metal floor tiles#31: DOWN
+2. Rusted metal floor tiles#4: DOWN
+2. Rusted metal floor tiles#5: DOWN
+2. Rusted metal floor tiles#6: DOWN
+2. Rusted metal floor tiles#7: UP
+2. Rusted metal floor tiles#8: DOWN
+2. Rusted metal floor tiles#9: DOWN
+2. Soil and dirt tiles#0: UP
+2. Soil and dirt tiles#1: UP
+2. Soil and dirt tiles#10: UP
+2. Soil and dirt tiles#11: UP
+2. Soil and dirt tiles#12: UP
+2. Soil and dirt tiles#13: UP
+2. Soil and dirt tiles#14: UP
+2. Soil and dirt tiles#15: UP
+2. Soil and dirt tiles#16: UP
+2. Soil and dirt tiles#17: UP
+2. Soil and dirt tiles#18: UP
+2. Soil and dirt tiles#19: UP
+2. Soil and dirt tiles#2: UP
+2. Soil and dirt tiles#20: UP
+2. Soil and dirt tiles#21: UP
+2. Soil and dirt tiles#22: UP
+2. Soil and dirt tiles#23: UP
+2. Soil and dirt tiles#3: UP
+2. Soil and dirt tiles#4: UP
+2. Soil and dirt tiles#5: UP
+2. Soil and dirt tiles#6: UP
+2. Soil and dirt tiles#7: UP
+2. Soil and dirt tiles#8: UP
+2. Soil and dirt tiles#9: UP
+20. Airchip dock props#0: DOWN
+20. Airchip dock props#1: DOWN
+20. Airchip dock props#10: DOWN
+20. Airchip dock props#11: DOWN
+20. Airchip dock props#12: DOWN
+20. Airchip dock props#13: DOWN
+20. Airchip dock props#14: DOWN
+20. Airchip dock props#15: DOWN
+20. Airchip dock props#16: DOWN
+20. Airchip dock props#17: DOWN
+20. Airchip dock props#18: DOWN
+20. Airchip dock props#19: UP
+20. Airchip dock props#2: DOWN
+20. Airchip dock props#20: DOWN
+20. Airchip dock props#21: DOWN
+20. Airchip dock props#22: DOWN
+20. Airchip dock props#23: DOWN
+20. Airchip dock props#24: UP
+20. Airchip dock props#25: UP
+20. Airchip dock props#26: DOWN
+20. Airchip dock props#27: UP
+20. Airchip dock props#3: DOWN
+20. Airchip dock props#4: DOWN
+20. Airchip dock props#5: DOWN
+20. Airchip dock props#6: DOWN
+20. Airchip dock props#7: DOWN
+20. Airchip dock props#8: DOWN
+20. Airchip dock props#9: DOWN
+3. Barricades and blockades#0: UP
+3. Barricades and blockades#1: UP
+3. Barricades and blockades#10: UP
+3. Barricades and blockades#11: DOWN
+3. Barricades and blockades#12: UP
+3. Barricades and blockades#13: UP
+3. Barricades and blockades#14: UP
+3. Barricades and blockades#15: UP
+3. Barricades and blockades#16: UP
+3. Barricades and blockades#17: DOWN
+3. Barricades and blockades#18: UP
+3. Barricades and blockades#19: UP
+3. Barricades and blockades#2: UP
+3. Barricades and blockades#20: UP
+3. Barricades and blockades#21: DOWN
+3. Barricades and blockades#22: UP
+3. Barricades and blockades#23: DOWN
+3. Barricades and blockades#3: UP
+3. Barricades and blockades#4: UP
+3. Barricades and blockades#5: UP
+3. Barricades and blockades#6: UP
+3. Barricades and blockades#7: UP
+3. Barricades and blockades#8: UP
+3. Barricades and blockades#9: UP
+3. Broken wall tiles#0: UP [SMALL]
+3. Broken wall tiles#1: UP [SMALL]
+3. Broken wall tiles#10: UP [SMALL]
+3. Broken wall tiles#11: UP [SMALL]
+3. Broken wall tiles#12: UP [SMALL]
+3. Broken wall tiles#13: UP [SMALL]
+3. Broken wall tiles#14: UP [SMALL]
+3. Broken wall tiles#15: UP [SMALL]
+3. Broken wall tiles#16: UP [SMALL]
+3. Broken wall tiles#17: UP [SMALL]
+3. Broken wall tiles#2: UP [SMALL]
+3. Broken wall tiles#3: UP [SMALL]
+3. Broken wall tiles#4: UP [SMALL]
+3. Broken wall tiles#5: UP [SMALL]
+3. Broken wall tiles#6: UP [SMALL]
+3. Broken wall tiles#7: UP [SMALL]
+3. Broken wall tiles#8: UP [SMALL]
+3. Broken wall tiles#9: UP [SMALL]
+3. Grass and ground tiles#0: DOWN
+3. Grass and ground tiles#1: UP
+3. Grass and ground tiles#10: UP
+3. Grass and ground tiles#11: UP
+3. Grass and ground tiles#12: UP
+3. Grass and ground tiles#13: UP
+3. Grass and ground tiles#14: UP
+3. Grass and ground tiles#15: UP
+3. Grass and ground tiles#16: UP
+3. Grass and ground tiles#17: UP
+3. Grass and ground tiles#18: UP
+3. Grass and ground tiles#19: UP
+3. Grass and ground tiles#2: UP
+3. Grass and ground tiles#20: UP
+3. Grass and ground tiles#21: UP
+3. Grass and ground tiles#22: UP
+3. Grass and ground tiles#23: UP
+3. Grass and ground tiles#24: UP
+3. Grass and ground tiles#25: UP
+3. Grass and ground tiles#26: UP
+3. Grass and ground tiles#27: UP
+3. Grass and ground tiles#28: UP
+3. Grass and ground tiles#29: UP
+3. Grass and ground tiles#3: UP
+3. Grass and ground tiles#30: UP
+3. Grass and ground tiles#31: UP
+3. Grass and ground tiles#32: UP
+3. Grass and ground tiles#33: UP
+3. Grass and ground tiles#34: UP
+3. Grass and ground tiles#35: UP
+3. Grass and ground tiles#36: UP
+3. Grass and ground tiles#37: UP
+3. Grass and ground tiles#38: UP
+3. Grass and ground tiles#39: UP
+3. Grass and ground tiles#4: UP
+3. Grass and ground tiles#40: UP
+3. Grass and ground tiles#41: UP
+3. Grass and ground tiles#42: UP
+3. Grass and ground tiles#43: UP
+3. Grass and ground tiles#44: UP
+3. Grass and ground tiles#45: UP
+3. Grass and ground tiles#46: UP
+3. Grass and ground tiles#47: UP [SMALL]
+3. Grass and ground tiles#5: UP
+3. Grass and ground tiles#6: UP
+3. Grass and ground tiles#7: UP
+3. Grass and ground tiles#8: UP
+3. Grass and ground tiles#9: UP
+3. Stone paths#0: UP
+3. Stone paths#1: UP
+3. Stone paths#10: UP
+3. Stone paths#11: UP
+3. Stone paths#12: UP
+3. Stone paths#13: UP
+3. Stone paths#14: UP
+3. Stone paths#15: UP
+3. Stone paths#16: UP
+3. Stone paths#17: UP
+3. Stone paths#18: UP
+3. Stone paths#19: UP
+3. Stone paths#2: UP
+3. Stone paths#20: UP
+3. Stone paths#21: UP
+3. Stone paths#22: UP
+3. Stone paths#23: UP
+3. Stone paths#3: UP
+3. Stone paths#4: UP
+3. Stone paths#5: UP
+3. Stone paths#6: UP
+3. Stone paths#7: UP
+3. Stone paths#8: UP
+3. Stone paths#9: UP
+4. Doors and entrances#0: UP
+4. Doors and entrances#1: UP
+4. Doors and entrances#2: UP
+4. Doors and entrances#3: UP
+4. Doors and entrances#4: UP
+4. Doors and entrances#5: UP
+4. Doors and entrances#6: UP
+4. Doors and entrances#7: UP
+4. Doors and entrances#8: UP
+4. Doors and entrances#9: UP
+4. Scrap wall and panels#0: UP [SMALL]
+4. Scrap wall and panels#1: UP [SMALL]
+4. Scrap wall and panels#10: DOWN
+4. Scrap wall and panels#11: UP [SMALL]
+4. Scrap wall and panels#12: DOWN
+4. Scrap wall and panels#13: UP
+4. Scrap wall and panels#14: UP
+4. Scrap wall and panels#15: DOWN
+4. Scrap wall and panels#16: UP
+4. Scrap wall and panels#2: UP [SMALL]
+4. Scrap wall and panels#3: UP [SMALL]
+4. Scrap wall and panels#4: UP [SMALL]
+4. Scrap wall and panels#5: UP [SMALL]
+4. Scrap wall and panels#6: UP
+4. Scrap wall and panels#7: DOWN
+4. Scrap wall and panels#8: DOWN
+4. Scrap wall and panels#9: UP [SMALL]
+4. Water details and foam#0: UP
+4. Water details and foam#1: UP
+4. Water details and foam#2: UP
+4. Water details and foam#3: UP
+4. Water details and foam#4: UP
+4. Water details and foam#5: UP
+4. Water details and foam#6: UP
+5. Barricades and defenses#0: UP
+5. Barricades and defenses#1: UP
+5. Barricades and defenses#10: UP
+5. Barricades and defenses#11: UP
+5. Barricades and defenses#12: UP
+5. Barricades and defenses#13: UP
+5. Barricades and defenses#14: UP
+5. Barricades and defenses#15: UP
+5. Barricades and defenses#16: UP
+5. Barricades and defenses#2: UP
+5. Barricades and defenses#3: UP
+5. Barricades and defenses#4: DOWN
+5. Barricades and defenses#5: UP
+5. Barricades and defenses#6: UP
+5. Barricades and defenses#7: UP
+5. Barricades and defenses#8: UP
+5. Barricades and defenses#9: UP
+5. Roof tiles#0: DOWN
+5. Roof tiles#1: UP [SMALL]
+5. Roof tiles#10: UP [SMALL]
+5. Roof tiles#11: UP [SMALL]
+5. Roof tiles#12: UP [SMALL]
+5. Roof tiles#13: UP [SMALL]
+5. Roof tiles#14: UP
+5. Roof tiles#15: UP
+5. Roof tiles#16: UP
+5. Roof tiles#17: UP
+5. Roof tiles#18: UP [SMALL]
+5. Roof tiles#19: UP [SMALL]
+5. Roof tiles#2: UP [SMALL]
+5. Roof tiles#20: UP [SMALL]
+5. Roof tiles#21: UP [SMALL]
+5. Roof tiles#22: UP [SMALL]
+5. Roof tiles#23: UP [SMALL]
+5. Roof tiles#24: UP [SMALL]
+5. Roof tiles#25: UP [SMALL]
+5. Roof tiles#26: UP [SMALL]
+5. Roof tiles#27: UP [SMALL]
+5. Roof tiles#28: UP [SMALL]
+5. Roof tiles#29: UP [SMALL]
+5. Roof tiles#3: UP [SMALL]
+5. Roof tiles#30: UP [SMALL]
+5. Roof tiles#31: UP [SMALL]
+5. Roof tiles#32: UP [SMALL]
+5. Roof tiles#33: UP [SMALL]
+5. Roof tiles#34: UP [SMALL]
+5. Roof tiles#35: UP [SMALL]
+5. Roof tiles#36: UP [SMALL]
+5. Roof tiles#4: UP [SMALL]
+5. Roof tiles#5: UP [SMALL]
+5. Roof tiles#6: UP [SMALL]
+5. Roof tiles#7: UP [SMALL]
+5. Roof tiles#8: UP [SMALL]
+5. Roof tiles#9: UP [SMALL]
+5. Windows and broken glass#0: UP
+5. Windows and broken glass#1: UP
+5. Windows and broken glass#10: UP
+5. Windows and broken glass#11: UP
+5. Windows and broken glass#12: UP
+5. Windows and broken glass#13: UP
+5. Windows and broken glass#14: DOWN
+5. Windows and broken glass#15: UP
+5. Windows and broken glass#16: UP
+5. Windows and broken glass#17: UP
+5. Windows and broken glass#18: UP
+5. Windows and broken glass#19: UP
+5. Windows and broken glass#2: UP
+5. Windows and broken glass#20: UP
+5. Windows and broken glass#21: UP
+5. Windows and broken glass#22: UP
+5. Windows and broken glass#3: UP
+5. Windows and broken glass#4: UP
+5. Windows and broken glass#5: UP
+5. Windows and broken glass#6: UP
+5. Windows and broken glass#7: UP
+5. Windows and broken glass#8: UP
+5. Windows and broken glass#9: UP
+6. Blood and infection tiles#0: UP [BIG]
+6. Blood and infection tiles#1: UP [BIG]
+6. Blood and infection tiles#10: DOWN
+6. Blood and infection tiles#11: UP [BIG]
+6. Blood and infection tiles#12: UP [BIG]
+6. Blood and infection tiles#13: UP [BIG]
+6. Blood and infection tiles#14: UP [BIG]
+6. Blood and infection tiles#15: DOWN [BIG]
+6. Blood and infection tiles#16: UP [BIG]
+6. Blood and infection tiles#17: UP [BIG]
+6. Blood and infection tiles#2: DOWN
+6. Blood and infection tiles#3: DOWN
+6. Blood and infection tiles#4: UP [BIG]
+6. Blood and infection tiles#5: DOWN
+6. Blood and infection tiles#6: UP [BIG]
+6. Blood and infection tiles#7: UP [BIG]
+6. Blood and infection tiles#8: UP [BIG]
+6. Blood and infection tiles#9: DOWN
+6. Chain link fences#0: UP [SMALL]
+6. Chain link fences#1: UP [SMALL]
+6. Chain link fences#10: UP [SMALL]
+6. Chain link fences#2: UP [SMALL]
+6. Chain link fences#3: UP [SMALL]
+6. Chain link fences#4: UP [SMALL]
+6. Chain link fences#5: UP [SMALL]
+6. Chain link fences#6: DOWN
+6. Chain link fences#7: UP [SMALL]
+6. Chain link fences#8: UP [SMALL]
+6. Chain link fences#9: UP [SMALL]
+7. Burnt ground tiles#0: UP
+7. Burnt ground tiles#1: UP
+7. Burnt ground tiles#10: DOWN
+7. Burnt ground tiles#11: DOWN
+7. Burnt ground tiles#12: DOWN
+7. Burnt ground tiles#13: DOWN
+7. Burnt ground tiles#14: DOWN
+7. Burnt ground tiles#15: UP
+7. Burnt ground tiles#16: DOWN
+7. Burnt ground tiles#17: DOWN
+7. Burnt ground tiles#18: DOWN
+7. Burnt ground tiles#19: DOWN
+7. Burnt ground tiles#2: UP
+7. Burnt ground tiles#20: DOWN
+7. Burnt ground tiles#21: UP
+7. Burnt ground tiles#22: UP
+7. Burnt ground tiles#23: DOWN
+7. Burnt ground tiles#24: UP
+7. Burnt ground tiles#25: DOWN
+7. Burnt ground tiles#26: DOWN
+7. Burnt ground tiles#27: DOWN
+7. Burnt ground tiles#3: UP
+7. Burnt ground tiles#4: DOWN
+7. Burnt ground tiles#5: DOWN
+7. Burnt ground tiles#6: DOWN
+7. Burnt ground tiles#7: DOWN
+7. Burnt ground tiles#8: DOWN
+7. Burnt ground tiles#9: DOWN
+7. Computers and screens#0: UP [BIG]
+7. Computers and screens#1: UP [BIG]
+7. Computers and screens#10: UP [BIG]
+7. Computers and screens#11: UP [BIG]
+7. Computers and screens#12: UP [BIG]
+7. Computers and screens#13: UP [BIG]
+7. Computers and screens#14: UP [BIG]
+7. Computers and screens#15: UP [BIG]
+7. Computers and screens#16: UP [BIG]
+7. Computers and screens#17: UP [BIG]
+7. Computers and screens#18: UP [BIG]
+7. Computers and screens#19: UP [BIG]
+7. Computers and screens#2: UP [BIG]
+7. Computers and screens#20: UP [BIG]
+7. Computers and screens#21: DOWN
+7. Computers and screens#22: DOWN
+7. Computers and screens#23: DOWN
+7. Computers and screens#24: DOWN
+7. Computers and screens#25: DOWN
+7. Computers and screens#26: DOWN
+7. Computers and screens#27: DOWN
+7. Computers and screens#28: DOWN
+7. Computers and screens#3: UP [BIG]
+7. Computers and screens#4: UP [BIG]
+7. Computers and screens#5: UP [BIG]
+7. Computers and screens#6: UP [BIG]
+7. Computers and screens#7: UP [BIG]
+7. Computers and screens#8: UP [BIG]
+7. Computers and screens#9: UP [BIG]
+7. Fences and palisades#0: DOWN
+7. Fences and palisades#1: DOWN
+7. Fences and palisades#10: UP [SMALL]
+7. Fences and palisades#11: UP [SMALL]
+7. Fences and palisades#12: UP [SMALL]
+7. Fences and palisades#13: UP [SMALL]
+7. Fences and palisades#14: UP [SMALL]
+7. Fences and palisades#15: DOWN
+7. Fences and palisades#16: DOWN
+7. Fences and palisades#17: DOWN
+7. Fences and palisades#18: DOWN
+7. Fences and palisades#19: DOWN
+7. Fences and palisades#2: UP
+7. Fences and palisades#20: DOWN
+7. Fences and palisades#21: DOWN
+7. Fences and palisades#22: DOWN
+7. Fences and palisades#23: DOWN
+7. Fences and palisades#24: DOWN
+7. Fences and palisades#25: DOWN
+7. Fences and palisades#26: DOWN
+7. Fences and palisades#27: DOWN
+7. Fences and palisades#28: DOWN
+7. Fences and palisades#29: DOWN
+7. Fences and palisades#3: UP
+7. Fences and palisades#30: DOWN
+7. Fences and palisades#31: DOWN
+7. Fences and palisades#32: DOWN
+7. Fences and palisades#33: DOWN
+7. Fences and palisades#34: DOWN
+7. Fences and palisades#35: DOWN
+7. Fences and palisades#36: UP
+7. Fences and palisades#37: UP
+7. Fences and palisades#38: UP [SMALL]
+7. Fences and palisades#39: DOWN
+7. Fences and palisades#4: UP
+7. Fences and palisades#40: DOWN
+7. Fences and palisades#5: UP
+7. Fences and palisades#6: UP [SMALL]
+7. Fences and palisades#7: UP [SMALL]
+7. Fences and palisades#8: UP [SMALL]
+7. Fences and palisades#9: UP [SMALL]
+7. Trash and debris#0: UP [BIG]
+7. Trash and debris#1: UP [BIG]
+7. Trash and debris#10: UP
+7. Trash and debris#11: UP
+7. Trash and debris#12: UP
+7. Trash and debris#13: UP
+7. Trash and debris#14: UP
+7. Trash and debris#15: UP [BIG]
+7. Trash and debris#16: UP [BIG]
+7. Trash and debris#17: UP [BIG]
+7. Trash and debris#18: UP
+7. Trash and debris#19: UP
+7. Trash and debris#2: UP [BIG]
+7. Trash and debris#3: UP [BIG]
+7. Trash and debris#4: UP [BIG]
+7. Trash and debris#5: UP [BIG]
+7. Trash and debris#6: UP
+7. Trash and debris#7: UP
+7. Trash and debris#8: UP
+7. Trash and debris#9: UP
+8. Burned Ground and fire marks#0: UP | Grenade
+8. Burned Ground and fire marks#1: UP | Grenade
+8. Burned Ground and fire marks#10: UP
+8. Burned Ground and fire marks#11: UP
+8. Burned Ground and fire marks#12: UP
+8. Burned Ground and fire marks#13: UP
+8. Burned Ground and fire marks#14: UP
+8. Burned Ground and fire marks#15: UP
+8. Burned Ground and fire marks#16: UP
+8. Burned Ground and fire marks#17: UP
+8. Burned Ground and fire marks#18: UP
+8. Burned Ground and fire marks#19: UP
+8. Burned Ground and fire marks#2: UP
+8. Burned Ground and fire marks#20: UP
+8. Burned Ground and fire marks#21: UP | 1730-1750 grenade animation
+8. Burned Ground and fire marks#22: UP
+8. Burned Ground and fire marks#23: UP
+8. Burned Ground and fire marks#24: DOWN
+8. Burned Ground and fire marks#25: UP
+8. Burned Ground and fire marks#26: DOWN
+8. Burned Ground and fire marks#27: DOWN
+8. Burned Ground and fire marks#28: UP
+8. Burned Ground and fire marks#29: DOWN
+8. Burned Ground and fire marks#3: UP
+8. Burned Ground and fire marks#30: UP
+8. Burned Ground and fire marks#31: UP
+8. Burned Ground and fire marks#32: UP
+8. Burned Ground and fire marks#33: UP
+8. Burned Ground and fire marks#34: UP
+8. Burned Ground and fire marks#35: UP
+8. Burned Ground and fire marks#36: UP
+8. Burned Ground and fire marks#37: UP
+8. Burned Ground and fire marks#38: UP
+8. Burned Ground and fire marks#39: UP
+8. Burned Ground and fire marks#4: UP
+8. Burned Ground and fire marks#5: UP
+8. Burned Ground and fire marks#6: UP
+8. Burned Ground and fire marks#7: UP
+8. Burned Ground and fire marks#8: UP
+8. Burned Ground and fire marks#9: UP
+8. Market Stalls#0: DOWN
+8. Market Stalls#1: UP [SMALL]
+8. Market Stalls#10: UP [SMALL]
+8. Market Stalls#11: UP [SMALL]
+8. Market Stalls#12: UP [SMALL]
+8. Market Stalls#13: UP [SMALL]
+8. Market Stalls#14: UP [SMALL]
+8. Market Stalls#15: UP [SMALL]
+8. Market Stalls#16: UP
+8. Market Stalls#17: DOWN
+8. Market Stalls#18: UP
+8. Market Stalls#19: UP [BIG]
+8. Market Stalls#2: UP [SMALL]
+8. Market Stalls#20: DOWN
+8. Market Stalls#21: UP [BIG]
+8. Market Stalls#3: UP [SMALL]
+8. Market Stalls#4: UP [SMALL]
+8. Market Stalls#5: UP [SMALL]
+8. Market Stalls#6: UP [SMALL]
+8. Market Stalls#7: UP [SMALL]
+8. Market Stalls#8: UP [SMALL]
+8. Market Stalls#9: UP [SMALL]
+9. Abandoned cards#0: UP [SMALL]
+9. Abandoned cards#1: UP [SMALL]
+9. Abandoned cards#10: UP [SMALL]
+9. Abandoned cards#11: UP [SMALL]
+9. Abandoned cards#12: UP [SMALL]
+9. Abandoned cards#13: UP [SMALL]
+9. Abandoned cards#14: UP [SMALL]
+9. Abandoned cards#15: UP [SMALL]
+9. Abandoned cards#16: UP [SMALL]
+9. Abandoned cards#17: UP [SMALL]
+9. Abandoned cards#18: UP [SMALL]
+9. Abandoned cards#19: UP [SMALL]
+9. Abandoned cards#2: UP [SMALL]
+9. Abandoned cards#20: UP [SMALL]
+9. Abandoned cards#21: UP [SMALL]
+9. Abandoned cards#22: UP [SMALL]
+9. Abandoned cards#23: UP [SMALL]
+9. Abandoned cards#24: UP [SMALL]
+9. Abandoned cards#25: UP [SMALL]
+9. Abandoned cards#26: UP [SMALL]
+9. Abandoned cards#27: UP [SMALL]
+9. Abandoned cards#28: UP [SMALL]
+9. Abandoned cards#29: UP [SMALL]
+9. Abandoned cards#3: UP [SMALL]
+9. Abandoned cards#30: UP [SMALL]
+9. Abandoned cards#31: UP [SMALL]
+9. Abandoned cards#32: UP [SMALL]
+9. Abandoned cards#33: UP [SMALL]
+9. Abandoned cards#34: UP [SMALL]
+9. Abandoned cards#4: UP [SMALL]
+9. Abandoned cards#5: UP [SMALL]
+9. Abandoned cards#6: UP [SMALL]
+9. Abandoned cards#7: UP [SMALL]
+9. Abandoned cards#8: UP [SMALL]
+9. Abandoned cards#9: UP [SMALL]
+9. Rubble and debris#0: UP
+9. Rubble and debris#1: UP
+9. Rubble and debris#10: UP
+9. Rubble and debris#11: UP
+9. Rubble and debris#12: UP
+9. Rubble and debris#13: UP
+9. Rubble and debris#14: UP
+9. Rubble and debris#15: UP
+9. Rubble and debris#16: UP
+9. Rubble and debris#17: UP
+9. Rubble and debris#2: UP
+9. Rubble and debris#3: UP
+9. Rubble and debris#4: UP
+9. Rubble and debris#5: UP
+9. Rubble and debris#6: UP
+9. Rubble and debris#7: UP
+9. Rubble and debris#8: UP
+9. Rubble and debris#9: UP
+BLOOD AND GORE#0: UP [BIG]
+BLOOD AND GORE#1: UP [BIG]
+BLOOD AND GORE#2: UP [BIG]
+BLOOD AND GORE#3: DOWN [BIG]
+BLOOD AND GORE#4: UP [BIG]
+BLOOD AND GORE#5: UP [BIG]
+BLOOD AND GORE#6: UP [BIG]
+BLOOD AND GORE#7: UP [BIG]
+BLOOD AND GORE#8: UP [BIG]
+Barrels, crates and objects#0: UP
+Barrels, crates and objects#1: UP
+Barrels, crates and objects#10: UP
+Barrels, crates and objects#11: UP
+Barrels, crates and objects#12: UP
+Barrels, crates and objects#13: UP
+Barrels, crates and objects#14: UP
+Barrels, crates and objects#15: UP
+Barrels, crates and objects#16: UP [BIG]
+Barrels, crates and objects#17: UP [BIG]
+Barrels, crates and objects#18: UP
+Barrels, crates and objects#19: UP
+Barrels, crates and objects#2: UP
+Barrels, crates and objects#20: UP [BIG]
+Barrels, crates and objects#21: UP
+Barrels, crates and objects#22: UP
+Barrels, crates and objects#23: UP
+Barrels, crates and objects#24: DOWN
+Barrels, crates and objects#25: DOWN
+Barrels, crates and objects#26: UP [BIG]
+Barrels, crates and objects#27: UP [BIG]
+Barrels, crates and objects#28: UP
+Barrels, crates and objects#3: UP
+Barrels, crates and objects#4: UP
+Barrels, crates and objects#5: UP
+Barrels, crates and objects#6: UP
+Barrels, crates and objects#7: UP
+Barrels, crates and objects#8: UP
+Barrels, crates and objects#9: UP
+Cargo, crates and containers#0: UP
+Cargo, crates and containers#1: DOWN
+Cargo, crates and containers#10: DOWN
+Cargo, crates and containers#11: UP
+Cargo, crates and containers#12: DOWN
+Cargo, crates and containers#13: DOWN
+Cargo, crates and containers#14: DOWN
+Cargo, crates and containers#15: DOWN
+Cargo, crates and containers#16: UP
+Cargo, crates and containers#17: UP
+Cargo, crates and containers#18: UP [SMALL]
+Cargo, crates and containers#19: UP
+Cargo, crates and containers#2: DOWN
+Cargo, crates and containers#20: UP [SMALL]
+Cargo, crates and containers#21: DOWN
+Cargo, crates and containers#22: UP [SMALL]
+Cargo, crates and containers#23: UP [SMALL]
+Cargo, crates and containers#24: UP [SMALL]
+Cargo, crates and containers#25: UP [SMALL]
+Cargo, crates and containers#26: DOWN
+Cargo, crates and containers#27: UP [SMALL]
+Cargo, crates and containers#28: UP [SMALL]
+Cargo, crates and containers#29: UP [SMALL]
+Cargo, crates and containers#3: DOWN
+Cargo, crates and containers#30: DOWN [SMALL]
+Cargo, crates and containers#31: DOWN
+Cargo, crates and containers#32: UP [SMALL]
+Cargo, crates and containers#33: UP [SMALL]
+Cargo, crates and containers#34: UP [SMALL]
+Cargo, crates and containers#35: UP [SMALL]
+Cargo, crates and containers#36: UP [SMALL]
+Cargo, crates and containers#37: UP [SMALL]
+Cargo, crates and containers#38: UP [SMALL]
+Cargo, crates and containers#39: UP [SMALL]
+Cargo, crates and containers#4: DOWN
+Cargo, crates and containers#5: DOWN
+Cargo, crates and containers#6: DOWN
+Cargo, crates and containers#7: UP
+Cargo, crates and containers#8: UP
+Cargo, crates and containers#9: UP
+Doors and Arches!#0: UP
+Doors and Arches!#1: UP
+Doors and Arches!#10: DOWN
+Doors and Arches!#11: DOWN
+Doors and Arches!#12: DOWN
+Doors and Arches!#13: DOWN
+Doors and Arches!#14: DOWN
+Doors and Arches!#15: DOWN
+Doors and Arches!#16: DOWN
+Doors and Arches!#17: DOWN
+Doors and Arches!#18: DOWN
+Doors and Arches!#19: DOWN
+Doors and Arches!#2: DOWN
+Doors and Arches!#3: DOWN
+Doors and Arches!#4: DOWN
+Doors and Arches!#5: UP
+Doors and Arches!#6: DOWN
+Doors and Arches!#7: DOWN
+Doors and Arches!#8: DOWN
+Doors and Arches!#9: DOWN
+Floor tiles (1)#0: DOWN
+Floor tiles (1)#1: UP
+Floor tiles (1)#2: UP
+Floor tiles (1)#3: UP
+Floor tiles (1)#4: UP
+Floor tiles (1)#5: UP
+Floor tiles (1)#6: UP
+Floor tiles (1)#7: DOWN
+Floor tiles (2)#0: DOWN
+Floor tiles (2)#1: DOWN
+Floor tiles (2)#10: DOWN
+Floor tiles (2)#11: DOWN
+Floor tiles (2)#12: DOWN
+Floor tiles (2)#13: DOWN
+Floor tiles (2)#14: DOWN
+Floor tiles (2)#15: DOWN
+Floor tiles (2)#16: DOWN
+Floor tiles (2)#17: DOWN
+Floor tiles (2)#18: DOWN
+Floor tiles (2)#19: DOWN
+Floor tiles (2)#2: DOWN
+Floor tiles (2)#20: DOWN
+Floor tiles (2)#21: DOWN
+Floor tiles (2)#22: DOWN
+Floor tiles (2)#23: DOWN
+Floor tiles (2)#24: DOWN
+Floor tiles (2)#25: DOWN
+Floor tiles (2)#26: DOWN
+Floor tiles (2)#27: DOWN
+Floor tiles (2)#28: DOWN
+Floor tiles (2)#29: DOWN
+Floor tiles (2)#3: DOWN
+Floor tiles (2)#4: DOWN
+Floor tiles (2)#5: DOWN
+Floor tiles (2)#6: DOWN
+Floor tiles (2)#7: DOWN
+Floor tiles (2)#8: DOWN
+Floor tiles (2)#9: DOWN
+Floor tiles and wall tiles#0: UP
+Floor tiles and wall tiles#1: UP
+Floor tiles and wall tiles#10: UP
+Floor tiles and wall tiles#11: UP
+Floor tiles and wall tiles#12: DOWN
+Floor tiles and wall tiles#13: UP
+Floor tiles and wall tiles#14: UP
+Floor tiles and wall tiles#15: UP
+Floor tiles and wall tiles#16: UP
+Floor tiles and wall tiles#17: DOWN
+Floor tiles and wall tiles#18: DOWN
+Floor tiles and wall tiles#19: DOWN
+Floor tiles and wall tiles#2: UP
+Floor tiles and wall tiles#20: UP
+Floor tiles and wall tiles#21: DOWN
+Floor tiles and wall tiles#22: UP
+Floor tiles and wall tiles#23: UP
+Floor tiles and wall tiles#24: DOWN
+Floor tiles and wall tiles#25: UP
+Floor tiles and wall tiles#26: UP
+Floor tiles and wall tiles#27: DOWN
+Floor tiles and wall tiles#28: DOWN
+Floor tiles and wall tiles#29: UP
+Floor tiles and wall tiles#3: UP
+Floor tiles and wall tiles#30: UP
+Floor tiles and wall tiles#4: DOWN
+Floor tiles and wall tiles#5: UP
+Floor tiles and wall tiles#6: UP
+Floor tiles and wall tiles#7: UP
+Floor tiles and wall tiles#8: DOWN
+Floor tiles and wall tiles#9: DOWN
+Floor tiles!#0: UP
+Floor tiles!#1: UP
+Floor tiles!#10: UP
+Floor tiles!#11: UP
+Floor tiles!#12: UP
+Floor tiles!#13: UP
+Floor tiles!#14: UP
+Floor tiles!#15: UP
+Floor tiles!#16: UP
+Floor tiles!#17: UP
+Floor tiles!#18: UP
+Floor tiles!#19: UP
+Floor tiles!#2: UP
+Floor tiles!#20: UP
+Floor tiles!#21: UP
+Floor tiles!#22: UP
+Floor tiles!#23: UP
+Floor tiles!#24: UP
+Floor tiles!#25: UP
+Floor tiles!#26: UP
+Floor tiles!#27: DOWN
+Floor tiles!#28: DOWN
+Floor tiles!#29: DOWN
+Floor tiles!#3: UP
+Floor tiles!#30: DOWN
+Floor tiles!#31: DOWN
+Floor tiles!#32: DOWN
+Floor tiles!#33: DOWN
+Floor tiles!#34: DOWN
+Floor tiles!#35: DOWN
+Floor tiles!#36: DOWN
+Floor tiles!#37: DOWN
+Floor tiles!#38: DOWN
+Floor tiles!#39: DOWN
+Floor tiles!#4: UP
+Floor tiles!#40: DOWN
+Floor tiles!#41: DOWN
+Floor tiles!#42: DOWN
+Floor tiles!#43: DOWN
+Floor tiles!#44: DOWN
+Floor tiles!#45: UP
+Floor tiles!#46: UP
+Floor tiles!#47: UP
+Floor tiles!#48: UP
+Floor tiles!#49: UP
+Floor tiles!#5: UP
+Floor tiles!#50: UP
+Floor tiles!#51: UP
+Floor tiles!#52: UP
+Floor tiles!#53: UP
+Floor tiles!#6: UP
+Floor tiles!#7: UP
+Floor tiles!#8: UP
+Floor tiles!#9: UP
+Floor tiles#0: UP
+Floor tiles#1: UP
+Floor tiles#10: UP
+Floor tiles#11: UP
+Floor tiles#12: DOWN
+Floor tiles#13: DOWN
+Floor tiles#14: DOWN
+Floor tiles#15: DOWN
+Floor tiles#16: UP
+Floor tiles#17: UP
+Floor tiles#18: DOWN
+Floor tiles#19: DOWN
+Floor tiles#2: UP
+Floor tiles#20: DOWN
+Floor tiles#21: DOWN
+Floor tiles#22: DOWN
+Floor tiles#23: DOWN
+Floor tiles#24: DOWN
+Floor tiles#25: DOWN
+Floor tiles#26: DOWN
+Floor tiles#27: DOWN
+Floor tiles#28: DOWN
+Floor tiles#29: DOWN
+Floor tiles#3: UP
+Floor tiles#30: DOWN
+Floor tiles#31: DOWN
+Floor tiles#32: DOWN
+Floor tiles#33: DOWN
+Floor tiles#34: DOWN
+Floor tiles#35: DOWN
+Floor tiles#36: DOWN
+Floor tiles#37: DOWN
+Floor tiles#38: DOWN
+Floor tiles#39: DOWN
+Floor tiles#4: UP
+Floor tiles#5: UP
+Floor tiles#6: DOWN
+Floor tiles#7: DOWN
+Floor tiles#8: UP
+Floor tiles#9: UP
+Floor, walls#0: UP
+Floor, walls#1: UP
+Floor, walls#10: UP
+Floor, walls#11: UP
+Floor, walls#12: DOWN
+Floor, walls#13: UP
+Floor, walls#14: UP
+Floor, walls#15: DOWN
+Floor, walls#16: DOWN
+Floor, walls#17: DOWN
+Floor, walls#18: DOWN
+Floor, walls#19: UP
+Floor, walls#2: UP
+Floor, walls#20: UP
+Floor, walls#21: DOWN
+Floor, walls#22: DOWN
+Floor, walls#23: DOWN
+Floor, walls#24: DOWN
+Floor, walls#25: DOWN
+Floor, walls#26: UP
+Floor, walls#27: UP
+Floor, walls#28: UP
+Floor, walls#29: UP
+Floor, walls#3: UP
+Floor, walls#30: UP
+Floor, walls#31: UP
+Floor, walls#32: UP
+Floor, walls#33: DOWN
+Floor, walls#34: DOWN
+Floor, walls#35: DOWN
+Floor, walls#36: DOWN
+Floor, walls#37: DOWN
+Floor, walls#38: DOWN
+Floor, walls#39: DOWN
+Floor, walls#4: UP
+Floor, walls#40: DOWN
+Floor, walls#41: DOWN
+Floor, walls#42: DOWN
+Floor, walls#43: DOWN
+Floor, walls#44: UP
+Floor, walls#45: UP
+Floor, walls#46: DOWN
+Floor, walls#47: DOWN
+Floor, walls#48: DOWN
+Floor, walls#49: DOWN
+Floor, walls#5: UP
+Floor, walls#6: UP
+Floor, walls#7: UP
+Floor, walls#8: UP
+Floor, walls#9: UP
+Food, drink and cafe props#0: UP [BIG]
+Food, drink and cafe props#1: UP [BIG]
+Food, drink and cafe props#10: UP [BIG]
+Food, drink and cafe props#11: UP [BIG]
+Food, drink and cafe props#12: UP [BIG]
+Food, drink and cafe props#13: UP [BIG]
+Food, drink and cafe props#14: UP [BIG]
+Food, drink and cafe props#15: UP [BIG]
+Food, drink and cafe props#16: UP [BIG]
+Food, drink and cafe props#17: UP [BIG]
+Food, drink and cafe props#18: UP [BIG]
+Food, drink and cafe props#19: UP [BIG]
+Food, drink and cafe props#2: UP [BIG]
+Food, drink and cafe props#20: UP
+Food, drink and cafe props#21: UP
+Food, drink and cafe props#22: UP
+Food, drink and cafe props#23: UP [BIG]
+Food, drink and cafe props#24: UP [BIG]
+Food, drink and cafe props#25: UP [BIG]
+Food, drink and cafe props#26: UP [BIG]
+Food, drink and cafe props#27: UP [BIG]
+Food, drink and cafe props#28: UP [BIG]
+Food, drink and cafe props#29: UP [BIG]
+Food, drink and cafe props#3: UP [BIG]
+Food, drink and cafe props#30: UP [BIG]
+Food, drink and cafe props#31: UP [BIG]
+Food, drink and cafe props#32: UP [BIG]
+Food, drink and cafe props#33: UP [BIG]
+Food, drink and cafe props#34: UP [BIG]
+Food, drink and cafe props#35: UP [BIG]
+Food, drink and cafe props#36: UP [BIG]
+Food, drink and cafe props#37: UP | Act 2
+Food, drink and cafe props#38: UP [BIG]
+Food, drink and cafe props#39: UP [BIG]
+Food, drink and cafe props#4: UP [BIG]
+Food, drink and cafe props#40: UP [BIG]
+Food, drink and cafe props#5: UP [BIG]
+Food, drink and cafe props#6: UP [BIG]
+Food, drink and cafe props#7: UP [BIG]
+Food, drink and cafe props#8: UP [BIG]
+Food, drink and cafe props#9: UP [BIG]
+Furniture and fixtures (1)#0: UP
+Furniture and fixtures (1)#1: UP
+Furniture and fixtures (1)#10: UP [BIG]
+Furniture and fixtures (1)#11: DOWN
+Furniture and fixtures (1)#12: UP
+Furniture and fixtures (1)#13: UP
+Furniture and fixtures (1)#14: UP
+Furniture and fixtures (1)#15: UP
+Furniture and fixtures (1)#16: UP [BIG]
+Furniture and fixtures (1)#17: DOWN
+Furniture and fixtures (1)#18: UP
+Furniture and fixtures (1)#19: UP
+Furniture and fixtures (1)#2: UP
+Furniture and fixtures (1)#20: DOWN
+Furniture and fixtures (1)#21: UP [SMALL]
+Furniture and fixtures (1)#22: UP
+Furniture and fixtures (1)#3: DOWN
+Furniture and fixtures (1)#4: UP
+Furniture and fixtures (1)#5: UP
+Furniture and fixtures (1)#6: DOWN
+Furniture and fixtures (1)#7: UP [SMALL]
+Furniture and fixtures (1)#8: UP
+Furniture and fixtures (1)#9: DOWN
+Furniture and fixtures#0: DOWN
+Furniture and fixtures#1: DOWN
+Furniture and fixtures#10: UP [BIG]
+Furniture and fixtures#11: DOWN
+Furniture and fixtures#12: DOWN
+Furniture and fixtures#13: DOWN
+Furniture and fixtures#14: DOWN
+Furniture and fixtures#15: DOWN
+Furniture and fixtures#16: UP
+Furniture and fixtures#2: UP
+Furniture and fixtures#3: UP
+Furniture and fixtures#4: UP
+Furniture and fixtures#5: UP
+Furniture and fixtures#6: DOWN
+Furniture and fixtures#7: UP [BIG]
+Furniture and fixtures#8: UP [BIG]
+Furniture and fixtures#9: UP
+Jars, bottles and items#0: UP [BIG]
+Jars, bottles and items#1: UP [BIG]
+Jars, bottles and items#10: UP [BIG]
+Jars, bottles and items#11: DOWN
+Jars, bottles and items#12: DOWN
+Jars, bottles and items#13: UP [BIG]
+Jars, bottles and items#14: UP [BIG]
+Jars, bottles and items#15: UP [BIG]
+Jars, bottles and items#16: UP [BIG]
+Jars, bottles and items#17: UP [BIG]
+Jars, bottles and items#18: UP [BIG]
+Jars, bottles and items#19: UP [BIG]
+Jars, bottles and items#2: UP [BIG]
+Jars, bottles and items#20: UP [BIG]
+Jars, bottles and items#21: UP [BIG]
+Jars, bottles and items#22: UP [BIG]
+Jars, bottles and items#23: UP [BIG]
+Jars, bottles and items#24: UP [BIG]
+Jars, bottles and items#25: UP [BIG]
+Jars, bottles and items#26: UP [BIG]
+Jars, bottles and items#27: UP [BIG]
+Jars, bottles and items#28: UP [BIG]
+Jars, bottles and items#29: UP [BIG]
+Jars, bottles and items#3: UP [BIG]
+Jars, bottles and items#30: UP [BIG]
+Jars, bottles and items#31: UP [BIG]
+Jars, bottles and items#32: UP [BIG]
+Jars, bottles and items#33: UP [BIG]
+Jars, bottles and items#34: UP [BIG]
+Jars, bottles and items#35: UP
+Jars, bottles and items#36: DOWN
+Jars, bottles and items#37: DOWN
+Jars, bottles and items#38: DOWN
+Jars, bottles and items#39: DOWN
+Jars, bottles and items#4: UP [BIG]
+Jars, bottles and items#40: UP [BIG]
+Jars, bottles and items#41: UP [BIG]
+Jars, bottles and items#42: UP
+Jars, bottles and items#43: UP [BIG]
+Jars, bottles and items#44: UP [BIG]
+Jars, bottles and items#45: UP [BIG]
+Jars, bottles and items#46: UP [BIG]
+Jars, bottles and items#47: UP [BIG]
+Jars, bottles and items#48: UP [BIG]
+Jars, bottles and items#49: UP [BIG]
+Jars, bottles and items#5: DOWN
+Jars, bottles and items#50: UP [BIG]
+Jars, bottles and items#51: UP [BIG]
+Jars, bottles and items#52: UP [BIG]
+Jars, bottles and items#53: UP [BIG]
+Jars, bottles and items#54: UP [BIG]
+Jars, bottles and items#6: UP [BIG]
+Jars, bottles and items#7: UP [BIG]
+Jars, bottles and items#8: DOWN
+Jars, bottles and items#9: UP [BIG]
+Jars, pots and items#0: UP [BIG]
+Jars, pots and items#1: UP [BIG]
+Jars, pots and items#10: UP [BIG]
+Jars, pots and items#11: UP [BIG]
+Jars, pots and items#12: UP [BIG]
+Jars, pots and items#13: UP [BIG]
+Jars, pots and items#14: UP [BIG]
+Jars, pots and items#15: UP [BIG]
+Jars, pots and items#16: UP [BIG]
+Jars, pots and items#17: UP [BIG]
+Jars, pots and items#18: UP [BIG]
+Jars, pots and items#19: UP [BIG]
+Jars, pots and items#2: UP [BIG]
+Jars, pots and items#20: DOWN
+Jars, pots and items#21: DOWN
+Jars, pots and items#22: DOWN
+Jars, pots and items#23: UP [BIG]
+Jars, pots and items#24: UP [BIG]
+Jars, pots and items#25: DOWN
+Jars, pots and items#26: UP [BIG]
+Jars, pots and items#27: UP [BIG]
+Jars, pots and items#28: UP [BIG]
+Jars, pots and items#29: DOWN
+Jars, pots and items#3: UP [BIG]
+Jars, pots and items#30: UP [BIG]
+Jars, pots and items#31: DOWN
+Jars, pots and items#32: DOWN
+Jars, pots and items#33: DOWN
+Jars, pots and items#34: DOWN
+Jars, pots and items#35: UP [BIG]
+Jars, pots and items#36: DOWN
+Jars, pots and items#37: DOWN
+Jars, pots and items#38: UP
+Jars, pots and items#39: UP
+Jars, pots and items#4: UP [BIG]
+Jars, pots and items#40: UP
+Jars, pots and items#5: UP [BIG]
+Jars, pots and items#6: UP [BIG]
+Jars, pots and items#7: UP [BIG]
+Jars, pots and items#8: UP [BIG]
+Jars, pots and items#9: UP [BIG]
+Miscellaneous#0: UP
+Miscellaneous#1: DOWN
+Miscellaneous#10: DOWN
+Miscellaneous#11: UP
+Miscellaneous#12: DOWN
+Miscellaneous#13: UP
+Miscellaneous#14: UP
+Miscellaneous#15: UP
+Miscellaneous#16: UP
+Miscellaneous#17: UP
+Miscellaneous#18: DOWN
+Miscellaneous#19: UP [BIG]
+Miscellaneous#2: DOWN
+Miscellaneous#20: DOWN
+Miscellaneous#21: DOWN
+Miscellaneous#22: DOWN
+Miscellaneous#23: DOWN
+Miscellaneous#24: DOWN
+Miscellaneous#25: DOWN
+Miscellaneous#26: DOWN
+Miscellaneous#27: DOWN
+Miscellaneous#28: DOWN
+Miscellaneous#29: UP [SMALL]
+Miscellaneous#3: DOWN
+Miscellaneous#30: UP [SMALL]
+Miscellaneous#31: UP [SMALL]
+Miscellaneous#32: UP [SMALL]
+Miscellaneous#33: DOWN [SMALL]
+Miscellaneous#34: DOWN
+Miscellaneous#35: DOWN
+Miscellaneous#36: UP
+Miscellaneous#37: DOWN
+Miscellaneous#38: DOWN
+Miscellaneous#39: UP
+Miscellaneous#4: UP
+Miscellaneous#40: UP
+Miscellaneous#41: UP [SMALL]
+Miscellaneous#42: UP
+Miscellaneous#43: UP
+Miscellaneous#44: UP
+Miscellaneous#45: DOWN
+Miscellaneous#5: DOWN
+Miscellaneous#6: DOWN
+Miscellaneous#7: DOWN
+Miscellaneous#8: DOWN
+Miscellaneous#9: DOWN
+Rocks and stones (1)#0: UP
+Rocks and stones (1)#1: UP
+Rocks and stones (1)#10: UP
+Rocks and stones (1)#11: UP
+Rocks and stones (1)#12: UP
+Rocks and stones (1)#13: UP
+Rocks and stones (1)#14: UP
+Rocks and stones (1)#15: UP
+Rocks and stones (1)#16: UP
+Rocks and stones (1)#17: UP
+Rocks and stones (1)#18: UP
+Rocks and stones (1)#19: UP
+Rocks and stones (1)#2: UP
+Rocks and stones (1)#20: UP
+Rocks and stones (1)#21: UP
+Rocks and stones (1)#22: UP
+Rocks and stones (1)#23: UP
+Rocks and stones (1)#24: UP
+Rocks and stones (1)#25: UP
+Rocks and stones (1)#3: UP
+Rocks and stones (1)#4: UP
+Rocks and stones (1)#5: UP
+Rocks and stones (1)#6: UP
+Rocks and stones (1)#7: UP
+Rocks and stones (1)#8: UP
+Rocks and stones (1)#9: UP
+Rocks and stones#0: UP
+Rocks and stones#1: UP
+Rocks and stones#10: UP
+Rocks and stones#11: UP
+Rocks and stones#12: UP
+Rocks and stones#13: UP
+Rocks and stones#14: UP
+Rocks and stones#15: UP
+Rocks and stones#16: UP
+Rocks and stones#17: UP
+Rocks and stones#18: UP
+Rocks and stones#19: UP
+Rocks and stones#2: UP
+Rocks and stones#20: UP
+Rocks and stones#21: UP
+Rocks and stones#22: UP
+Rocks and stones#23: UP
+Rocks and stones#24: UP
+Rocks and stones#25: UP
+Rocks and stones#26: UP
+Rocks and stones#27: UP
+Rocks and stones#28: UP
+Rocks and stones#29: UP
+Rocks and stones#3: UP
+Rocks and stones#30: UP
+Rocks and stones#31: UP
+Rocks and stones#32: UP
+Rocks and stones#33: UP
+Rocks and stones#34: UP
+Rocks and stones#35: UP
+Rocks and stones#36: UP
+Rocks and stones#37: UP
+Rocks and stones#38: UP
+Rocks and stones#39: UP
+Rocks and stones#4: UP
+Rocks and stones#40: UP
+Rocks and stones#41: UP
+Rocks and stones#42: UP
+Rocks and stones#43: UP
+Rocks and stones#44: UP
+Rocks and stones#45: UP
+Rocks and stones#46: UP
+Rocks and stones#47: UP
+Rocks and stones#48: UP
+Rocks and stones#49: UP
+Rocks and stones#5: UP
+Rocks and stones#50: UP
+Rocks and stones#51: UP
+Rocks and stones#52: UP
+Rocks and stones#53: UP
+Rocks and stones#54: UP
+Rocks and stones#55: UP
+Rocks and stones#56: UP
+Rocks and stones#57: UP
+Rocks and stones#58: UP
+Rocks and stones#59: UP
+Rocks and stones#6: UP
+Rocks and stones#60: UP
+Rocks and stones#61: UP
+Rocks and stones#62: UP
+Rocks and stones#63: UP
+Rocks and stones#64: UP
+Rocks and stones#65: UP
+Rocks and stones#66: UP
+Rocks and stones#67: UP
+Rocks and stones#68: UP
+Rocks and stones#69: UP
+Rocks and stones#7: UP
+Rocks and stones#70: UP
+Rocks and stones#71: UP
+Rocks and stones#72: UP
+Rocks and stones#73: UP
+Rocks and stones#8: UP
+Rocks and stones#9: UP
+Wall tiles (1)#0: UP
+Wall tiles (1)#1: UP
+Wall tiles (1)#10: UP
+Wall tiles (1)#11: UP
+Wall tiles (1)#12: UP
+Wall tiles (1)#13: UP
+Wall tiles (1)#14: UP
+Wall tiles (1)#15: UP
+Wall tiles (1)#16: UP
+Wall tiles (1)#17: UP
+Wall tiles (1)#18: UP
+Wall tiles (1)#19: UP
+Wall tiles (1)#2: UP
+Wall tiles (1)#3: UP
+Wall tiles (1)#4: UP
+Wall tiles (1)#5: UP
+Wall tiles (1)#6: UP
+Wall tiles (1)#7: UP
+Wall tiles (1)#8: UP
+Wall tiles (1)#9: UP
+skeletons and bones#0: UP | Nightmare
+skeletons and bones#1: UP | Nightmare
+skeletons and bones#10: UP [BIG]
+skeletons and bones#11: UP [BIG]
+skeletons and bones#12: UP [BIG]
+skeletons and bones#13: UP [BIG]
+skeletons and bones#14: UP [BIG]
+skeletons and bones#15: UP [BIG]
+skeletons and bones#16: UP [BIG]
+skeletons and bones#17: UP [BIG]
+skeletons and bones#18: UP [BIG]
+skeletons and bones#19: UP [BIG]
+skeletons and bones#2: UP
+skeletons and bones#20: UP [BIG]
+skeletons and bones#21: UP [BIG]
+skeletons and bones#22: UP [BIG]
+skeletons and bones#23: UP [BIG]
+skeletons and bones#24: UP [BIG]
+skeletons and bones#25: UP [BIG]
+skeletons and bones#26: UP [BIG]
+skeletons and bones#27: UP [BIG]
+skeletons and bones#28: UP [BIG]
+skeletons and bones#29: UP
+skeletons and bones#3: UP
+skeletons and bones#30: UP
+skeletons and bones#31: UP
+skeletons and bones#32: UP [BIG]
+skeletons and bones#33: UP
+skeletons and bones#34: UP
+skeletons and bones#35: UP
+skeletons and bones#36: UP
+skeletons and bones#37: UP
+skeletons and bones#38: UP
+skeletons and bones#4: UP
+skeletons and bones#5: UP
+skeletons and bones#6: UP | 2478-2484 nightmare mode
+skeletons and bones#7: UP [BIG]
+skeletons and bones#8: UP [BIG]
+skeletons and bones#9: UP [BIG]
+wooden and nature props#0: UP
+wooden and nature props#1: UP
+wooden and nature props#10: UP [SMALL]
+wooden and nature props#11: UP [SMALL]
+wooden and nature props#12: UP [SMALL]
+wooden and nature props#13: UP
+wooden and nature props#14: UP
+wooden and nature props#15: DOWN
+wooden and nature props#16: DOWN
+wooden and nature props#17: DOWN
+wooden and nature props#18: UP
+wooden and nature props#19: UP
+wooden and nature props#2: UP
+wooden and nature props#20: UP
+wooden and nature props#21: UP [SMALL]
+wooden and nature props#22: DOWN
+wooden and nature props#23: DOWN
+wooden and nature props#24: UP [SMALL]
+wooden and nature props#25: UP [SMALL]
+wooden and nature props#26: UP [SMALL]
+wooden and nature props#27: UP [SMALL]
+wooden and nature props#28: UP
+wooden and nature props#29: UP [SMALL]
+wooden and nature props#3: UP
+wooden and nature props#30: UP
+wooden and nature props#31: UP
+wooden and nature props#32: UP
+wooden and nature props#33: UP [SMALL]
+wooden and nature props#34: UP
+wooden and nature props#35: UP
+wooden and nature props#36: UP
+wooden and nature props#37: UP
+wooden and nature props#38: UP
+wooden and nature props#39: UP
+wooden and nature props#4: UP
+wooden and nature props#40: UP
+wooden and nature props#41: UP
+wooden and nature props#42: UP
+wooden and nature props#43: UP
+wooden and nature props#44: UP
+wooden and nature props#45: UP
+wooden and nature props#46: UP
+wooden and nature props#47: UP
+wooden and nature props#48: UP
+wooden and nature props#49: UP
+wooden and nature props#5: DOWN
+wooden and nature props#50: UP
+wooden and nature props#51: UP
+wooden and nature props#52: UP [SMALL]
+wooden and nature props#53: UP [SMALL]
+wooden and nature props#54: DOWN
+wooden and nature props#55: DOWN
+wooden and nature props#56: DOWN
+wooden and nature props#57: UP [SMALL]
+wooden and nature props#58: UP
+wooden and nature props#59: UP [BIG]
+wooden and nature props#6: UP [BIG]
+wooden and nature props#60: UP [BIG]
+wooden and nature props#61: UP [SMALL]
+wooden and nature props#62: UP [SMALL]
+wooden and nature props#63: UP [SMALL]
+wooden and nature props#64: UP [SMALL]
+wooden and nature props#65: UP [SMALL]
+wooden and nature props#66: UP [SMALL]
+wooden and nature props#7: DOWN
+wooden and nature props#8: UP [SMALL]
+wooden and nature props#9: UP [SMALL]

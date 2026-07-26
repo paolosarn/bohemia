@@ -1,0 +1,245 @@
+BOHEMIA — THE TWO DEATHS (7/17/26). headshot-2 rebuilt THREE times to Paolo's
+eye; v3 is a ground-up rethink.
+
+PAOLO'S VERDICTS drove it:
+- v1 (physics crumple): "tweaking, jumping around, not falling fast enough,
+  unnatural, looks like dog shit... care more about how the human skeleton
+  actually works."
+- Root cause, MEASURED (headless, per-frame joint deltas): the Verlet ragdoll
+  with a dozen stacked correction laws (glue/spine-parallel/anti-jackknife/
+  static-shoulders/hinge/renorm) FIGHT each other -> single-frame joint POPS of
+  17-25px (teleports). That is the "jumping around." And the fall was shallow +
+  floaty (waist dropped ~19px then twitched for a second).
+
+THE FIX = KEYFRAMED, not physics (Paolo's own 7/2 law: "arm inertia stays
+keyframed... real ragdoll physics only if a clip provably cannot sell it." It
+provably couldn't). headshot-2 (THE CRUMPLE) is now authored:
+- FORWARD-KINEMATICS ANGLE INTERPOLATION: every bone's angle eases from its
+  standing angle to its corpse angle along the shortest arc, at exact rest
+  length. Angles vary continuously in ph, so motion is SMOOTH BY CONSTRUCTION
+  -- no direction flip, no pop. (Position-lerp+renormalize, tried first, popped
+  6-25px when bone directions flipped; angle-interp fixed it.)
+- FOLLOW-THROUGH TIMELINE (Disney overlapping action + forensic flaccid
+  collapse): legs buckle first (0-0.24), the mass drops (hip 0.03-0.46, torso
+  0.08-0.55), the head lolls, the ARMS LAG then follow (0.42-0.90). Body down
+  by ph~0.55, arms settle by ~0.88, then HOLD. Fast, decisive.
+- DEATH CORPSE: a side-on splay built from the rig's own rest bone lengths, so
+  the collapse READS on every facing (a body lying straight into the screen is
+  invisible; every corpse now lies along a screen diagonal, face up per FACE
+  LAW, arms flopped out/back, one knee sprawled).
+- FIXED FRAME (not per-frame centering): the body visibly DROPS inside a locked
+  frame; head falls a consistent 33px on all 8 facings.
+
+MACHINE-VERIFIED (headless, all 8 facings, 60 frames each): worst single-frame
+joint jump 3.6px (was 17-25px), body fully in frame, head drop 33px, holds as a
+corpse. v1 THE TOPPLE (physics) is UNTOUCHED and still fires as the other death.
+Watched via clock-driven render sheets (E/S/N), not just static samples --
+that was the earlier mistake.
+
+STILL PAOLO'S CALL: face-up (FACE LAW) vs his "stomach" (face-down needs a face-
+law exception); the exact corpse splay; fall speed. UNJUDGED. Deaths are a
+factory: name the flaw in a word, get a v4.
+
+
+=== UPDATE 7/18: THE CRUMPLE IS NOW 8-DIRECTIONAL ===
+Paolo: "it's only going One Direction for everything... you have to make it for
+each cardinal direction." Right: deathCorpse built one fixed side-on splay for
+all facings. FIXED: the corpse now lies along a per-facing FALL AXIS (AUTO knock
+= topple backward, opposite the facing, y-compressed by FALL_YC for the 3/4
+view). All 8 facings verified DISTINCT (spine angles N52 NE150 E180 SE-150 S-128
+SW-30 W0 NW30), smooth (worst 5.4px/frame), framed. The pure toward/away-camera
+falls (N,S) would lie vertical and read as a headstand / near-standing, so each
+is biased onto its OWN diagonal (still distinct, now sprawls like the rest).
+Paolo's standing note: "even then it's still not what I want but we can move
+onto headshot three" — so a headshot-3 is expected next; this satisfied his
+gate (all 8 made) before that. v1 THE TOPPLE still untouched. UNJUDGED.
+=== UPDATE 7/18 (b): SPREAD-EAGLE -> CRUMPLED HEAP ===
+Paolo: "it looks like the guy is laying on the floor and then spreads his hands
+out... like a real headshot." Online research (ScienceInsights/ScienceABC:
+loss of neck control, NOT the movie spread; TV Tropes 'Knee Fold Fall' + MoCap
+death packs: bodies FOLD into a heap, not spread-eagle) confirmed the pose was
+wrong. Rebuilt the corpse as a COMPACT HEAP: knees FOLD under (shins bend back
+toward the hips), arms fall LIMP + CLOSE to the torso (forearms bent to the
+belly, never splayed wide), head lolled but face-up (FACE LAW). Retuned timing
+so the arms settle EARLY and small -- no late wide splay, which was the "spreads
+his hands" beat. Motion now reads stand -> knees buckle -> sink -> fold -> heap.
+All 8 facings distinct heaps, smooth (3.6px/frame), 0 overflow. Still Paolo's
+call whether a headshot-3 is wanted.
+
+=== UPDATE 7/18 (c): headshot-2 IS NOW A FAKE-PHYSICS RAGDOLL ===
+Paolo killed the keyframe crumple: "so stiff... you keep trying to animate this
+headshot shit and i hate it. what you should be doing is having rules for the
+limbs and have it ragdoll based on a fake physics thing for all direction." He
+also revoked the FACE LAW head-lock for this clip: "theres a rule where the head
+will always face north and i dont like that anymore... have the head move
+properly with the body."
+
+REBUILT headshot-2 as a clean Verlet ragdoll (RG, screen space, deterministic):
+- Gravity + rigid bones + TORSO BRACES (semi-rigid trunk via distance, not a pin).
+- LIMB RULES: one-way hinges on elbows/knees (no hyperextend, partial-correction
+  so no snap-pop) + a NECK CONE (head flops within a human range, capped per step).
+- FREE HEAD: the head is a physics segment; headStampFrame now follows the real
+  neck->headTop bone when RG_HEADROT is set, so the head sprite ROTATES/flops with
+  the body (the old rigid-upright stamp was the 'always faces north').
+- Per-direction shot impulse (topple backward, opposite facing) -> 8 distinct falls.
+- STABILITY (the anti-jitter): speed cap + SOFT floor push (hard clamps fought the
+  solver = 20-30px leaf teleports) + a hard 2.5px/frame per-joint MOVE CAP +
+  freeze-on-settle. NONE of v1's fighting laws (glue/spine-parallel/static-
+  shoulders/rigid-renorm/axis-projection/face-swap).
+- CAMERA: waist-centered horizontally (stable point; bbox-edge centering popped
+  when the extreme joint switched limbs) + floor pinned to y48 so the fall reads.
+Verified headless: in frame on all 8, all freeze, 8 distinct rests, head rotates.
+Peak per-frame ~12px is the fast topple ROTATION (a limb arcing), not a teleport
+(post-landing settle is <2px on the crumple facings). v1 THE TOPPLE untouched.
+Combat bakes both. UNJUDGED -- Paolo judges the FEEL; headshot-3 still on the table.
+
+=== UPDATE 7/18 (d): RIGID CROSS + FASTER ===
+Paolo: "the shoulders and neck and head form a CROSS... the neck and head can
+wiggle a little bit, but there's no reason why that head should be flopping
+around" + "it should really be faster, it looks like it's gliding to death."
+FIXED:
+- RIGID CROSS: the head is held within ~20deg of the SPINE LINE (waC->neck
+  extended), enforced every solver iteration so it holds through the fast
+  tumble. The head now rotates WITH the torso (turns as the body turns) but
+  never flops off the cross. Head deviation: 180deg (flopping) -> 21deg max
+  (little wiggle). BUG FOUND: the cone's rotation sign was inverted -- it was
+  pushing the head AWAY from the spine (to 180) instead of toward it.
+- FASTER: gravity 205->340, move cap 2.5->5.0, knees buckle harder, air damp
+  0.995. Most facings hit the floor in 0.3-0.7s (was ~2s "gliding"); the lateral
+  arcs (E/NE) ~1.2s. All 8 freeze, all in frame, 8 distinct.
+Paolo: "a lot better but still got some work to do" -- more tuning expected.
+
+=== UPDATE 7/18 (e): HEAD NEVER MORPHS + NO SPLIT REST ===
+Paolo (with a screenshot of a split-legged rest): "a body should never end like
+this" + "for the head I never want to see its pixels change shape as the head
+wiggle ever... static asf... not morphing shape and size depending on its
+movement and angle, just the head."
+FIXED:
+- HEAD NEVER MORPHS: headStampFrame under RG_HEADROT now returns the head bone
+  at exactly its REST length (angle from the posed bone, length forced to rest),
+  so the head stamp is a PURE RIGID ROTATION -- scale is always 1, the head
+  pixels never stretch/shrink/change shape. (Feeding the raw posed bone let its
+  length wobble under the solver -> the head morphed.) The head still turns WITH
+  the body (not locked north), it just never deforms. Verified: head size
+  constant across the whole tumble.
+- NO SPLIT: legs can't splay wider than ~1.7x their standing spread (a pair
+  distance cap on knees + feet in the solver) + gentler outward knee buckle.
+  Bodies settle in believable heaps, not side-splits. Verified all 8.
+Still a touch sit-uppy on N/S (torso braces hold it up on landing) -- candidate
+for the next note. UNJUDGED.
+
+=== UPDATE 7/18 (f): HEAD IS TRULY STATIC (translate-only) ===
+Paolo: "the head is still morphing." The rigid ROTATION still resampled the
+pixel head at each angle (pixels reflow = morph). FINAL FIX: the head is now
+translate-ONLY -- always drawn at its exact rest orientation (upright, never
+rotated, never scaled), only moved to follow the head position. Identical
+pixels every frame; it wiggles WITH the body (position) but the sprite is
+static. This rule is now global (ragdoll + every clip). Paolo: "the animations
+came out a lot better" (the body motion is landing; head was the last note).
+
+=== UPDATE 7/18 (g): HEAD ROTATES IN LOSSLESS 90-DEG SNAPS ===
+Paolo: "WHY CANT U ROTATE THE SPRITE WITHOUT IT MORPHING AND RESAMPLING." The
+honest answer: rotating raster pixel art to an ARBITRARY angle MUST resample
+(the rotated pixels don't fall on the grid), which reshapes a low-res head =
+"morph." That's a hard fact of pixel graphics. BUT a rotation by a MULTIPLE OF
+90deg is LOSSLESS -- pixels land exactly on the grid, zero resampling. SOLUTION:
+the ragdoll head snaps to the nearest 90deg of the real neck bone. It TURNS to
+face the way the body fell (fixes 'always facing north') in crisp quarter-turns
+and never morphs one pixel. Drawn at exact rest length so it never scales either.
+The tradeoff Paolo should know: it steps through 4 crisp orientations, not a
+smooth continuous spin (smooth spin is the thing that morphs). If he wants finer
+steps with no morph, the next level is pre-drawn head views per angle (authored
+art, also crisp). This is the 'rotate without resampling' he asked for.
+
+=== UPDATE 7/18 (h): SKELETON, NOT A BOX + BODIES ACTUALLY FALL OVER ===
+Paolo: "the animation is still ass, some angles so weird, the body isnt acting
+like an actual skeleton, i seen someone turn into a SQUARE."
+FIXED:
+- DE-BOXED the torso: the side-rail braces (shL-waA, shR-waB) + waC-shL/shR
+  wired shoulders straight to hips = a rigid RECTANGLE = the "square." Removed.
+  Now a rigid SHOULDER YOKE + rigid PELVIS joined ONLY by the spine (waC-neck),
+  so the trunk BENDS at the waist and limbs dangle = acts like a skeleton.
+- BODIES FALL OVER (no more standing/sitting-up): head-on falls (N/S) have no
+  sideways push, so the body compressed straight down and STOOD there. Now the
+  shot forces a sideways topple whenever the natural push is too vertical, PLUS
+  a LIE-DOWN ASSIST: once the pelvis is grounded and the torso is still upright,
+  it keeps toppling until flat. All 8 now settle lying/crumpled, none upright.
+- Stability held: centroid-X camera (waist-center pushed a limb off-screen on a
+  flat body), harder floor damp, freeze catches. All 8 freeze, in frame, no
+  split (leg-spread cap), head 90-deg snap (no morph). v1 THE TOPPLE untouched.
+UNJUDGED. Physics is real now: any further note = tune the numbers.
+
+=== UPDATE 7/18 (i): HIP CONE — LEGS STAY ATTACHED TO THE WAIST ===
+Paolo (2 screenshots): "ur ragdoll physics with the body is dogshit, the waist
+to the legs are you serious" — thighs folding up over the torso / splaying
+backward at angles no hip joint can make.
+ROOT CAUSE: the hips had NO constraint. Distance bones held leg LENGTH but let a
+thigh point in ANY direction off the pelvis, so the solver was free to fold a
+leg flat against the spine. A real hip has a cone of travel; there was none.
+FIXED — HIP CONE in the solver loop:
+- Spine-down axis = normalize(waC - neck). Each thigh (waA->knA, waB->knB) is
+  held within MAXH=1.25 rad (~72deg) of that axis. Past the limit, the knee+foot
+  rotate rigidly back toward the cone (sign from the cross product, 0.5/iter).
+- Knees keep their one-way hinge, the no-split leg cap still holds the ankles
+  apart, so legs bend at the knee and dangle from the hip like a body, never
+  fold onto the trunk.
+MEASURED (headless, 8 dirs): froze 8/8, max thigh-from-spine angle 73deg (was
+150deg+ pre-cone), all in frame. Bottom four dirs (S/SW/W/NW) settle as clean
+flat-lying corpses; top four crumple without impossible leg folds. SHIPPED.
+
+=== UPDATE 7/18 (j): FLAT SLUMP — no time limit, the whole body lays down flat ===
+Paolo: "you're trying to END the animation too quickly. no time limit on it. at
+the end whatever happens the body should SLUMP and lay down FLAT, the waist and
+the head should NEVER be tucked in the fucking legs, ever."
+ROOT CAUSE (two bugs): (1) FREEZE-TOO-EARLY: it locked the instant motion dropped,
+even settled-but-hunched. (2) LIMBS TENTED UP: the old assist only laid the UPPER
+body down, so legs peaked and arms stuck up while the spine was already flat.
+FIXED:
+- NO TIME LIMIT: there is no clock. The sim runs until the WHOLE spine (waist,
+  neck AND head) is on the floor. Freeze fires only on flat-AND-still, never on
+  'settled but hunched'.
+- PANCAKE: once the pelvis is grounded, EVERY joint is drawn down to the floor
+  (head, arms, legs) with a tapering pull -> the body lays out flat, nothing
+  tents up. The pull tapers to zero at the ground so it settles and locks clean.
+- HEAD NEVER TUCKS: the spine is extended out along the fall side (reach -> 82%
+  of spine length, tapering). Head ends past the shoulders on the fall side; the
+  hip cone holds the thighs pointing the OPPOSITE way -> head and legs always end
+  on opposite sides of the pelvis. Measured 0/8 tucked, all 8 flat.
+MEASURED (headless bake-final @1.65s + freeze): all 8 flat corpses, head laid to
+one side / legs the other, no limb tenting; 7/8 frozen by ~1s, E still settling
+but already flat at the bake frame. SHIPPED.
+
+=== UPDATE 7/18 (k): OMNI PROJECTION — each facing slumps its OWN cardinal way ===
+Paolo: "a lot better -- the only thing is they're only laying down east and west,
+they're not slumping in a cardinal direction."
+ROOT CAUSE: the ragdoll ran in a flat side-view plane with gravity always pulling
+DOWN-screen, so every body pancaked onto the same horizontal ground line = every
+corpse lay E-W no matter which way it faced.
+FIXED (same trick v1 uses): the sim now topples ONE canonical way (+x) and
+pancakes flat; rgPose then PROJECTS that horizontal topple onto the compass axis
+for the facing -- RG.K=[cos th, sin th * 0.55], th = FACEANG[d]+PI (falls backward
+from the facing). Horizontal topple rides K (points N/S/E/W/diagonal, 3/4
+foreshortened); the vertical fall stays vertical. Camera centres on the projected
+centroid so a vertical slump doesn't run off-frame.
+NO STANDING CORPSES: a straight N/S topple lies dead into/out of the screen,
+foreshortens to a narrow vertical blob and reads as STANDING (this is why v1
+BANNED N/S falls). Softened here to a LEAN: floor |cos th|>=0.5 so N/S get a
+diagonal cant -- still up/down-biased, but enough spread to read as lying.
+MEASURED: all 8 freeze flat by ~0.85s, each in a distinct compass orientation,
+none standing. SHIPPED.
+
+=== UPDATE 7/18 (l): NO DISLOCATED ARMS — rigid-length arm chain at render ===
+Paolo: "almost done with headshot two -- only thing is I need to NOT see the arms
+get dislocated. I really hate to see that."
+ROOT CAUSE: the omni projection + the fast tumble change a bone's on-screen length
+(the projection scales the horizontal share by cos th; the MAXMOVE cap lets leaf
+joints lag a frame). The ragdoll, unlike v1, never re-normalised bones at render,
+so the arm could stretch and read as pulled out of its socket.
+FIXED (v1's RIGID LIMB LAW, arms only): after the projection + centring, rgPose
+re-normalises the arm chain from the neck OUTWARD every frame -- neck->shL->elL->
+handL and neck->shR->elR->handR -- keeping the sim's dangle DIRECTION but forcing
+each bone back to its exact rest length. The shoulder can't leave the neck and the
+elbow/hand can't stretch, so the arm stays whole through the entire fall. Legs and
+spine (the compass slump reads right) left untouched.
+MEASURED (8 dirs x 5 time samples motion strip): arm bones hold constant length
+end to end, no stretch at any frame, arms still swing/dangle naturally. SHIPPED.

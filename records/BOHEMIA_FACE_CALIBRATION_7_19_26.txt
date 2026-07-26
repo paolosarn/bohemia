@@ -1,0 +1,20 @@
+=== BOHEMIA FACE CALIBRATION — Paolo's export, BAKED CANON (7/19/26) ===
+Exported from the face editor, baked verbatim into FACE_OFFSETS (his
+placements, not symmetrized by me). S / N / NE / NW untouched (zero).
+SE eyes: dx=1 dy=0
+SE nose: dx=1 dy=0
+SE lips: dx=1 dy=0
+E  eyes: dx=1 dy=0
+E  nose: dx=6 dy=1
+E  lips: dx=2 dy=0
+W  eyes: dx=-1 dy=0
+W  nose: dx=-6 dy=1
+W  lips: dx=-2 dy=0
+SW eyes: dx=-1 dy=0
+SW lips: dx=-1 dy=0
+READ: the profile nose moves 6px toward the facing (the nose belongs on the
+head's leading edge in profile, not mid-face) -- the biggest correction; eyes
+and lips shift 1-2px toward the facing in 3/4 and profile views.
+UNLOCKED: SHADES v2 (re-cooked, anchored to the true iris pixels + these
+offsets + head bob; widest-row heuristic is fallback-only). Mini-expressions
+(brows/lips) ride these same per-feature rails later.

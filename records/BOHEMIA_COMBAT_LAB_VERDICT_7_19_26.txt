@@ -1,0 +1,52 @@
+=== BOHEMIA COMBAT LAB VERDICT (BEAT TACTICS, 7/19/26) — PAOLO, VERBATIM ===
+
+A THE CONDUCTOR: (no thumb)
+  notes: I like it. It sounds like the Malay Enemies would be trying to move
+  every return towards you. I don't know the best way to implement this and
+  why, but I do like how maybe depending on the type of weapon enemy has they
+  will differently in a different pieces of them I don't know if it will
+  impact the game too too much, but I do like the idea, depending on the
+  weather they have they will move differently
+B THE PROMISE: (no thumb)
+  notes: Maybe this could be a perk in the game where you see where Enemies
+  will travel next
+C THE DANCE: (no thumb)
+  notes: Kind of confused by this
+D THE SHOVE: (no thumb)
+  notes: I love the idea and actually like some of your UI elements for
+  example, if an enemy is to the directly next to me when I press the action
+  button, it will give me the option to shove them. Hopefully with a chance
+  to make them fall over if I shove them, I guarantee to be stoned just for
+  one turn, which isn't really a lot, but maybe there's a perk that will
+  increase the chance that there's done for two terms they'll definitely be
+  STONE for two terms if I have them or a different enemy character and they
+  can be stunned for two terms
+PACKAGE-AS-CURRENCY THESIS: (no thumb)
+
+PAOLO COMMENTS:
+Goodresearchprovidesomemore
+
+=== DECIPHERED READING (transcription garble resolved) ===
+- "Malay Enemies" = MELEE enemies. "weather they have" = WEAPON they have.
+  "stoned/STONE" = STUNNED. "terms" = TURNS. "Goodresearchprovidesomemore"
+  = "Good research, provide some more."
+- A CONDUCTOR — LIKED, with a direction: melee enemies close toward you
+  each turn, and enemies MOVE DIFFERENTLY DEPENDING ON THEIR WEAPON TYPE.
+- B PROMISE — not the default game: seeing where enemies travel next
+  becomes a PERK. (Converges with the 6/27 catalogued ability "see the
+  enemy's next move / future enemy movement.")
+- C DANCE — confusing as presented. No kill issued. Needs re-teach or die.
+- D SHOVE — LOVED. Rulings: shove is a CONTEXTUAL option on the action
+  button when an enemy is adjacent; a shove GUARANTEES a 1-turn stun; there
+  is a CHANCE the target falls over; a PERK upgrades to a guaranteed 2-turn
+  stun (and/or raises the odds). Enemy-type resistance possibly implied
+  ("a different enemy character") — flagged, not assumed.
+- CURRENCY THESIS — no verdict yet. Still on the table.
+- Global: MORE RESEARCH requested.
+
+=== ACTIONS TAKEN SAME TURN ===
+Lab rebuilt to the rulings (weapon-typed melee movement in A; FORESIGHT
+perk toggle; shove reworked contextual + stun 1 + fall chance + IRON
+SHOULDER perk; DANCE re-taught with live event labels); second research
+pass launched (enemy archetypes, knockdown/stun design). Gate updated.
+=== END ===

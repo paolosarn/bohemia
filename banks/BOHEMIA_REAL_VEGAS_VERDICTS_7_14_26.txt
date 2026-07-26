@@ -1,0 +1,30 @@
+{
+ "version": "REAL_VEGAS_VERDICTS_7_14_26",
+ "items": {
+  "T0": "DOWN",
+  "T1": "DOWN",
+  "TV2-0": "DOWN",
+  "TV2-1": "UP",
+  "TV3-0": "UP",
+  "TV3-1": "UP",
+  "R2-0": "UP",
+  "R2-1": "UP",
+  "R2-2": "UP",
+  "R2-3": "UP",
+  "R2-4": "UP",
+  "RF0": [
+   "DOWN",
+   "SIDEWALK SANCTITY: nothing on sidewalks except lamp posts and street furniture; buildings/ruins live PAST the sidewalk (zone not yet designed); buildings do not go on streets"
+  ]
+ },
+ "locked": [
+  "desert dominance law (TV3-0 UP)",
+  "mountain v2 (TV3-1 UP)",
+  "all researched-lane street blocks UP (R2 0-4)"
+ ],
+ "graveyard": [
+  "terrain v1 (T0,T1)",
+  "desert confetti v2 (TV2-0)",
+  "RUIN FLANKS (RF0) \u2014 sidewalk violation"
+ ]
+}

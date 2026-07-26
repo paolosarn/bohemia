@@ -1,0 +1,22 @@
+=== BOHEMIA SUBURB VERDICT — 7/18/26 ===
+CAMPANA DR (central cul-de-sac court): DOWN
+THE BLOCK (packed grid): UP  <-- CANONICAL SUBURB
+
+RULING: The packed grid ("THE BLOCK") is the canonical Bohemia suburb block.
+The central cul-de-sac court variant is REJECTED -> graveyard.
+
+WHAT LOCKED:
+- Houses-first: the whole 96 m block is packed (~22-29 homes), streets serve the
+  lots. No empty bands, corners filled.
+- Dead world: no vegetation (no grass/trees/pools). Backyards are DEAD DIRT,
+  rendered textured so ground reads as dead earth, not empty void.
+- Every home keeps a >=3-tile dead backyard to the perimeter wall (never touching).
+- Car-apron driveway (3x4) -> front-corner garage -> house body. Real Vegas scale.
+
+GRADUATED SAME TURN (Paolo law: approval -> implement, not just show):
+- engine/bohemia_suburb.js generate(seed,'ring') is the canonical generator.
+- slices/BOHEMIA_SUBURB_WALK_7_18_26.html: the approved block, WALKABLE. Spawn at
+  the gate, walk the dead streets, step into any of 22 houses -> stand inside its
+  live floorplan rooms (engine/bohemia_floorplan.js), walk back out. Verified in
+  chromium (0 errors), all floorplans generate.
+- SLICE current -> the walk. Judge tool retained for future suburb verdicts.

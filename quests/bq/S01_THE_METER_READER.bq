@@ -1,0 +1,130 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S01 — THE METER READER
+# Shape: economy-as-morality (electricity). Faction wires: TRADES, NETWORK.
+# Systems used AS the mechanic (W9): the ELECTRICITY economy is the whole puzzle;
+# the resolution actually shifts NETWORK posture. Grounded in the house-of-cards
+# power canon (the grid has no owner; the network skims covertly) and the
+# Amalgamation blind-spot canon (the skim runs DOWN toward the water — the deep
+# tunnel / reclaim plant where the secret sleeps; looking under it is the danger,
+# not player strength). No proper names anywhere (W8). CLOUT rides HOW you resolve
+# it, never a label (Paolo 7/21): quiet fix -> #quiet, public patch -> #notable,
+# loud spectacle -> #reckless. The player does not pick a clout number; the
+# loudness of the DEED sets it.
+
+@QUEST   bq_meter_reader   The Meter Reader
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+# ---- ROLES. Cast at runtime against whoever exists. Never a hardcoded name.
+@ROLE lineman  REQ  faction=TRADES  block=browned
+@ROLE fixer    OPT  faction=NETWORK met_before=false
+
+@STAGE 10
+  @LOG The block loses half its light at the same hour every night.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The line tests clean. A clean line that browns out is a shared one. Found the split.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Put the current back myself. The block has light tonight. Nobody was told.
+  @DO bond lineman +15
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Handed the tap to the trades. They patched it in daylight, names on the work order.
+  @DO faction TRADES +8
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Cut the skim line in front of the whole block. Sparks, a crowd, and a message sent up.
+  @DO faction_posture NETWORK +1
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Left it alone. The block goes dark again tonight, same hour.
+
+@OBJ 10  "Find why the block browns out"   target=lineman
+@OBJ 20  "Follow the skimmed line"         target=fixer
+
+# =====================================================================
+# THE ASK. The theme is in the FIRST line, not a missable node (W3).
+# =====================================================================
+@TALK open  speaker=lineman  entry=stage>=10
+  @SAY Every night, same hour, this block loses half its light. #tired
+  @SAY The line tests clean. A clean line that browns out is not a broken line. It is a shared one.
+  @SAY Somebody upstream is drinking before we do. Walk it back for me. Quiet, if you can manage quiet.
+  @OPT "I will walk it back."          [gate: none]  -> walk  @DO learn line_is_clean
+  @OPT "Why not walk it yourself?"     [gate: none]  -> why
+  @OPT "Not my block."                 [gate: none]  -> refuse
+  @OPT (say nothing, just go)          [gate: none]  SILENCE -> walk  @DO learn line_is_clean
+  @NOVERB "Tell me who runs the network"
+@END
+
+@TALK why  speaker=lineman
+  @SAY Because I have a name and a face and a family on this block. #dread
+  @SAY Whoever is drinking that current does not like to be looked at. You are new here. You are cheaper to lose.
+  @OPT "Comforting."                   [gate: none]  -> walk  @DO learn line_is_clean
+  @OPT "Who does not like to be looked at?"  [gate: none]  -> why2
+@END
+
+@TALK why2  speaker=lineman
+  @SAY If I knew that, I would not need you. Nobody who drinks that quiet keeps a name that stays put.
+  @SAY Follow the split. Do not make a show of it.
+  @DO set_stage 20
+@END
+
+@TALK refuse  speaker=lineman
+  @SAY Fair. It is nobody's job out here, which is why it is always nobody's job. #tired
+  @OPT "Maybe another night."          [gate: none]  -> END  @DO set_stage 33
+  @OPT "Fine. I will look."            [gate: none]  -> walk  @DO learn line_is_clean
+@END
+
+@TALK walk  speaker=lineman
+  @SAY Good. It splits somewhere past the dead storefronts. Follow the cable that runs warm. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE SPLIT. You catch the skimmer. They are not a monster (W7) — they are
+# faster than the meter. The fork is loudness, and loudness is the cost.
+# =====================================================================
+@TALK split  speaker=fixer  entry=stage>=20
+  @SAY Easy. You found the tap. Most people never look at a warm cable twice. #wary
+  @SAY I move a little current where it is needed. The grid has no owner. I am just faster than the meter.
+  @SAY Put it back and go home a quiet hero. Or make this loud. Loud is where it gets expensive for both of us.
+  @OPT "Put it back. Nobody hears it."  [gate: none]  SILENCE -> put     @DO set_flag saw_the_skim
+  @OPT "The trades should see this."     [gate: none]  -> report          @DO set_flag saw_the_skim
+  @OPT "Whose current is it, really?"    [gate: none]  TRAP -> whose      @DO set_flag saw_the_skim
+  @OPT (cut the tap, right now)          [gate: none]  -> cut             @DO set_flag saw_the_skim
+  @NOVERB "Turn them in for a bounty"
+@END
+
+# THE TRAP OPTION (W-craft): asking the wrong question near the secret costs.
+# It goes DOWN, toward the water — the reclaim plant, per canon. Looking is the
+# danger, not fighting. This sets the unrecorded flag the fold reads later.
+@TALK whose  speaker=fixer
+  @SAY See, that is the question that costs. I do not know whose. #dread
+  @SAY I know it goes down, not up. Toward the water. I do not follow it down and neither should you.
+  @SAY I gave you nothing. Put it back, or do not. Your block, your name.
+  @OPT "Put it back. Quietly."          [gate: none]  SILENCE -> put  @DO learn it_goes_down
+  @OPT "Cut it. Let them all see."       [gate: none]  -> cut          @DO learn it_goes_down  @DO set_flag looked_under_the_rock
+@END
+
+@TALK put  speaker=lineman
+  @SAY Light is back. I did not ask how. #tired
+  @SAY You did not make a show of it. That is worth more out here than you will understand for a few years.
+  @OPT "Just fixed a line."             [gate: none]  -> END  @DO set_stage 30
+  @NOVERB "It was the network"
+@END
+
+@TALK report  speaker=lineman
+  @SAY You brought it to us instead of eating it yourself. Good. We patch it in the open. #tired
+  @SAY They will know a crew looked, and looked together. That is its own kind of loud, but it is ours.
+  @OPT "Do it in daylight."             [gate: none]  -> END  @DO set_stage 31
+@END
+
+@TALK cut  speaker=lineman
+  @SAY You cut it in front of everyone. Half the block cheered and the other half went very quiet. #dread
+  @SAY They felt that upstream. Whoever drinks that current now knows your face. I hope the light was worth it.
+  @OPT "Let them know my face."          [gate: none]  -> END  @DO set_stage 32
+  @OPT (say nothing)                     [gate: none]  SILENCE -> END  @DO set_stage 32
+@END

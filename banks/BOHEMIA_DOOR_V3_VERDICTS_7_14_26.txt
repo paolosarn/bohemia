@@ -1,0 +1,10 @@
+{
+ "version": "DOOR_V3_VERDICTS",
+ "date": "2026-07-14",
+ "items": {
+  "prov_Doors_and_Arch_00": "UP",
+  "prov_Doors_and_Arch_01": "UP",
+  "prov_Doors_and_Arch_05": "UP"
+ },
+ "result": "open/close animation queue CLOSED 30/30"
+}

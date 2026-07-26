@@ -1,0 +1,119 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S07 — SAY IT BACK
+# Shape: slow-burn faith, NO combat (Sinnerman/Two Coins register). Faction wires:
+# CHURCH, VOLUNTEERS. A dying congregant asks you to carry forgiveness to the person
+# who wronged her, before she goes. The craft (W6): the game REFUSES to score whether
+# forgiveness is right, earned, or wise — it just lets you carry the words, twist them,
+# or not. No stat gate decides if you are "good enough" to be forgiven; there is no
+# meter here at all. No proper names (W8). CLOUT rides the deed: carry it quietly ->
+# #quiet; make the reconciliation a public spectacle -> #notable; deliver it as a curse
+# instead -> #risky (you turned a dying woman's mercy into a loud, ugly thing, and loud
+# is what the feed feeds on).
+
+@QUEST   bq_say_it_back   Say It Back
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE dying      REQ  faction=CHURCH   near_the_end=true
+@ROLE wrongdoer  REQ  faction_any      wronged_the_dying=true
+
+@STAGE 10
+  @LOG An old woman of the church is dying and wants a message carried before she goes.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The message is forgiveness. The one she wants to forgive is the one who took her son.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Carried her words, plain and true, to the man who earned none of them. He wept. Nobody else ever knew.
+  @DO bond dying +20
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Brought them together in front of the whole block. A reconciliation with an audience. She got to see it land.
+  @DO bond dying +12
+  @DO faction CHURCH +6
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Delivered it as a curse instead of a blessing. Loud, in the open. He will not sleep, and neither, later, will I.
+  @DO bond dying -20
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Could not carry it. She died with the words still in her mouth. I will wonder about that for a long time.
+  @DO bond dying -5
+
+@OBJ 10  "Sit with the dying woman"     target=dying
+@OBJ 20  "Carry her message"            target=wrongdoer
+
+@TALK bedside  speaker=dying  entry=stage>=10
+  @SAY Come close, I do not have the breath to say it twice. There is one thing left and I cannot walk it there myself. #tired
+  @SAY There is a man. He took my son from me, years back, in the ugly way. I have carried it so long my hands ache from it.
+  @SAY I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.
+  @OPT "I forgive you. I will carry it."   [gate: none]  -> why     @DO learn holds_the_words
+  @OPT "He does not deserve that."          [gate: none]  -> deserve
+  @OPT "I cannot promise I will."           [gate: none]  -> refuse
+  @NOVERB "Tell her he is already dead"
+@END
+
+@TALK why  speaker=dying
+  @SAY Deserve. You sound like the part of me that stayed angry for nine years. #dread
+  @SAY It is not for him. It never was. It is so the last thing I set down is lighter than the thing I carried. Go on. Please.
+  @OPT "I will find him."                   [gate: none]  -> deliver_true   @DO set_stage 20
+  @OPT "And if I change the words on the way?"  [gate: none]  -> warn
+@END
+
+@TALK deserve  speaker=dying
+  @SAY No. He does not. That is the whole point of the word. Cheap forgiveness is just a debt paid on time. #tired
+  @SAY Mine is not cheap. It cost me nine years. Carry it anyway, or do not, but do not pretend it is small.
+  @OPT "I will carry it."                   [gate: none]  -> deliver_true   @DO learn holds_the_words @DO set_stage 20
+  @OPT "I cannot."                          [gate: none]  -> refuse
+@END
+
+@TALK warn  speaker=dying
+  @SAY Then it is not my message anymore, it is yours, and you will answer for yours the way I answered for mine. #dread
+  @SAY I am trusting a stranger with the last true thing I own. That is what dying makes you do.
+  @OPT "I will keep it true."               [gate: none]  -> deliver_true  @DO learn holds_the_words @DO set_stage 20
+  @OPT "We will see."                       [gate: none]  -> deliver_curse @DO learn holds_the_words @DO set_stage 20
+@END
+
+@TALK refuse  speaker=dying
+  @SAY Then sit with me a while instead, and do not let me talk you into anything. #tired
+  @OPT "I changed my mind. I will go."      [gate: none]  -> deliver_true  @DO learn holds_the_words @DO set_stage 20
+  @OPT (stay until it is over)              [gate: none]  SILENCE -> END  @DO set_stage 33
+@END
+
+# THE DELIVERY. The wronged man. The game will not tell you if this was right.
+@TALK deliver_true  speaker=wrongdoer  entry=stage>=20 and knows:holds_the_words
+  @SAY I know that name. I have waited years for someone to come about that name, and I always thought it would be a knife. #dread
+  @SAY You are telling me she forgives me. Say it again. Say it the way she said it.
+  @OPT "In her words: she forgives you."   [gate: none]  -> true_end
+  @OPT "Bring people. Let them see this."   [gate: none]  -> public
+  @OPT "She curses you with her last breath."  [gate: none]  -> curse_end
+  @NOVERB "Tell him what she really thinks of him"
+@END
+
+@TALK true_end  speaker=wrongdoer
+  @SAY (he does not speak for a long time. when he does it is not words, it is the sound a man makes when a weight he has carried alone is suddenly shared.)
+  @SAY Nobody will ever know you did this. It does not pay. Thank you for doing it anyway.
+  @OPT "She wanted it lighter. Now it is."  [gate: none]  -> END  @DO set_stage 30
+  @OPT (leave him to it)                    [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK public  speaker=wrongdoer
+  @SAY You brought a crowd. For this. #dread
+  @SAY I will say the right things because they are watching, and she will see it land while she can still see. But you and I both know what you traded to make it a show.
+  @OPT "Let her see it land."               [gate: none]  -> END  @DO set_stage 31
+@END
+
+@TALK deliver_curse  speaker=wrongdoer  entry=stage>=20 and knows:holds_the_words
+  @SAY I know that name. I have waited years. Tell me what she wants me to hear. #dread
+  @OPT "She curses you with her last breath."  [gate: none]  -> curse_end
+  @OPT "No. The truth. She forgives you."      [gate: none]  -> true_end
+@END
+
+@TALK curse_end  speaker=wrongdoer
+  @SAY (something in him that was trying to open slams shut, and hardens, and will stay hard now.)
+  @SAY Then I will carry it the rest of my life exactly as heavy as it was. You did that. Not her. You.
+  @OPT "So be it."                          [gate: none]  -> END  @DO set_stage 32
+  @OPT (walk away from what you made)        [gate: none]  SILENCE -> END  @DO set_stage 32
+@END

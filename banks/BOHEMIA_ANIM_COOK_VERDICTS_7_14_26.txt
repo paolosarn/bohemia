@@ -1,0 +1,31 @@
+{
+ "version": "ANIM_COOK_VERDICTS_7_14_26",
+ "items": {
+  "p_camp_firewood_stack_21": [
+   "DOWN",
+   "not on fire \u2014 no idle flicker; anim corrected to none"
+  ],
+  "prov_Doors_and_Arch_05": [
+   "DOWN",
+   "single door \u2014 no center split"
+  ],
+  "prov_Doors_and_Arch_01": [
+   "DOWN",
+   "single door \u2014 no center split"
+  ],
+  "prov_Doors_and_Arch_00": [
+   "DOWN",
+   "single door \u2014 no center split"
+  ],
+  "p_light_flare_road_05": "UP",
+  "p_camp_campfire_small_18": "UP",
+  "p_camp_cookfire_spit_17": "UP",
+  "p_camp_cookfire_pot_16": "UP",
+  "p_camp_campfire_15": "UP",
+  "p_camp_cookfire_tripod_14": "UP"
+ },
+ "laws": {
+  "unlit_no_flicker": "unlit fuel (firewood stacks etc) gets NO idle flicker \u2014 fire is a state change",
+  "door_leaf_law": "SINGLE doors swing as a single leaf hinged on one side; center split is for DOUBLE doors only"
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "version": "V8_VERDICTS",
+ "date": "2026-07-14",
+ "items": {
+  "V8-0": "UP",
+  "V8-1": "UP"
+ },
+ "result": "30yr wash LOCKED at compound strength"
+}

@@ -1,0 +1,105 @@
+{
+ "version": "BOHEMIA_WALL_PICKS_v2",
+ "date": "2026-07-14",
+ "picks": [
+  {
+   "key": "W26",
+   "pack": "Floor, walls",
+   "idx": 14
+  },
+  {
+   "key": "W27",
+   "pack": "Floor, walls",
+   "idx": 19
+  },
+  {
+   "key": "W28",
+   "pack": "Floor, walls",
+   "idx": 20
+  },
+  {
+   "key": "W29",
+   "pack": "Floor, walls",
+   "idx": 26
+  },
+  {
+   "key": "W30",
+   "pack": "Floor, walls",
+   "idx": 27
+  },
+  {
+   "key": "W31",
+   "pack": "Floor, walls",
+   "idx": 28
+  },
+  {
+   "key": "W32",
+   "pack": "Floor, walls",
+   "idx": 29
+  },
+  {
+   "key": "W33",
+   "pack": "Floor, walls",
+   "idx": 30
+  },
+  {
+   "key": "W34",
+   "pack": "Floor, walls",
+   "idx": 31
+  },
+  {
+   "key": "W35",
+   "pack": "Floor, walls",
+   "idx": 32
+  },
+  {
+   "key": "W36",
+   "pack": "Floor, walls",
+   "idx": 35
+  },
+  {
+   "key": "W37",
+   "pack": "Floor, walls",
+   "idx": 37
+  }
+ ],
+ "seam_flagged": [
+  "W36",
+  "W37"
+ ],
+ "paolo_direction": "85% of Vegas walls are desert yellow tan brick vibes \u2014 create tan versions, keep originals; pool weighted 85% tan / 15% original",
+ "killed": [
+  "W0",
+  "W1",
+  "W2",
+  "W3",
+  "W4",
+  "W5",
+  "W6",
+  "W7",
+  "W8",
+  "W9",
+  "W10",
+  "W11",
+  "W12",
+  "W13",
+  "W14",
+  "W15",
+  "W16",
+  "W17",
+  "W18",
+  "W19",
+  "W20",
+  "W21",
+  "W22",
+  "W23",
+  "W24",
+  "W25",
+  "W38",
+  "W39",
+  "W40",
+  "W41",
+  "W42",
+  "W43"
+ ]
+}

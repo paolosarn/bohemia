@@ -1,0 +1,15 @@
+{
+ "version": "PARKING_GEOMETRY_LAW",
+ "date": "2026-07-14",
+ "verdicts": {
+  "ST0": "UP (stall-line tiles approved)",
+  "ST1": "DOWN (geometry wrong)"
+ },
+ "law": {
+  "stall_pattern": "strip space space strip \u2014 vertical lines every 3rd tile, SHARED dividers, stall interior exactly 2 tiles (cars are 2 wide)",
+  "row_depth": 4,
+  "aisle_max": 4,
+  "aisles": "cars must be able to drive around \u2014 max 4 tiles between stall sets",
+  "source": "Paolo 7/14 verbatim intent"
+ }
+}

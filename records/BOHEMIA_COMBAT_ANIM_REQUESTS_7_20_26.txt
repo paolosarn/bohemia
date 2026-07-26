@@ -1,0 +1,49 @@
+BOHEMIA COMBAT — ANIMATION REQUESTS FOR THE ANIMATION CHAT (7/20/26)
+=====================================================================
+From the COMBAT session. Combat already pulls every usable existing clip;
+this list is ONLY what is missing. Names avoid the graveyard (melee, reload,
+hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death are DEAD names,
+never re-add). Every new clip lands in the normal pipeline (CLIPS/CAND pool)
+and combat picks it up by baking it, same as walk/take-cover today.
+
+ALREADY IN USE, DO NOT REMAKE
+-----------------------------
+idle (stand), walk (v20: field steps, enemies too), deadeye (THE dial pose,
+now sweeping with the needle), stagger-hit (getting shot), take-cover
+(crouched in cover, incl. pillar cover), pistol + two-hand (enemy fire
+poses), headshot / headshot-2 (deaths), shove + push (the shove), pickup
+(victory loot walk can reuse), tired-walk (low-HP fallback for now).
+
+THE REQUESTS (in priority order)
+--------------------------------
+1. cover-rise      ~2 beats  Paolo's direct ask: getting OUT of the ducked
+                             take-cover pose UP into the gun-ready stance.
+                             Start = take-cover crouch, end = deadeye ready.
+                             Plays when you engage from cover into the dial.
+2. cover-drop      ~2 beats  The mirror: standing INTO the take-cover crouch.
+                             Plays when you or an enemy claims a pillar.
+                             (Together these make cover feel physical.)
+3. gun-walk        2 beats   Walking with the pistol UP and ready. For moving
+                             while engaged / repositioning mid-fight so the
+                             player does not go casual-stroll between shots.
+4. cover-fire      2 beats   Firing FROM the crouch, a peek-and-snap. Sells
+                             the new v20 counter-snap (tucked men punishing
+                             your miss) without them standing up.
+5. get-shoved      2 beats   The reaction to the shove: hard stumble back.
+                             Right now shoved men just slide a tile.
+6. floor-rise      ~4 beats  Getting up from the ground (after a topple /
+                             prone). Toppled men currently just snap back
+                             to standing.
+7. shiv-jab        2 beats   Melee enemies are weapon-typed (CONDUCTOR
+8. bat-arc         2 beats   ruling): each weapon needs its swing so the
+9. spear-drive     2 beats   windup-then-strike reads. Names are per-weapon
+                             because the old generic name is graveyarded.
+
+NOTES
+-----
+- All on the 120 BPM grid (beats noted per clip), leaf-pixel law applies,
+  45-degree view like the corpus, baked from YOUR pose per the rig law.
+- 1+2 are the ones Paolo asked for by name this turn. 3+4 make the new
+  v20 systems read. 5-9 are polish that combat will wire the turn they land.
+- Combat bakes at 112px via bake112(dir,clip,phase); any clip that enters
+  the pipeline is pullable with zero combat-side surgery.

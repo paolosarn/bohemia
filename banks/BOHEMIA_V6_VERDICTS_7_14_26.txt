@@ -1,0 +1,12 @@
+{
+ "version": "V6_VERDICTS",
+ "date": "2026-07-14",
+ "items": {
+  "V6-0": "DOWN \u2014 tile colors shifted (uniform weather-sibling draw)",
+  "V6-1": "comment only"
+ },
+ "laws": {
+  "weather_rarity": "parents 88% / weathered 12%; uniform sibling draw BANNED",
+  "markings_30yr": "all marking whites/yellows washed toward asphalt (0.55) \u2014 act-1 is the base every act builds on"
+ }
+}

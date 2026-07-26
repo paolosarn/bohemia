@@ -1,0 +1,9 @@
+# Files Claude has edited this session. The guarded intake will not let an
+# upload silently revert any of them. Add a line the moment a file is written.
+BOHEMIA_DEMO_FLOW_7_10_26.md
+BOHEMIA_SKIN_REGRADE_INTEGRATION_7_10_26.md
+BOHEMIA_AGENT_REVEAL_INTEGRATION_7_10_26.md
+BOHEMIA_AGENT_LOOK_7_10_26.js
+BOHEMIA_ADDENDUM_NEUROLINK_REVEAL_7_10_26.md
+BOHEMIA_GRAPHICS_LAWS_MASTER_7_16_26.md
+BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt

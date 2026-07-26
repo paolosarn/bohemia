@@ -1,0 +1,16 @@
+# BOHEMIA PURITY ALLOWLIST — assets the PURPLE RESERVATION LAW itself blesses.
+# Every line is a Paolo law citation, not a convenience. Nothing gets added here
+# to make a sweep go green.
+#
+# LAW (7/10, LOCKED): "purple/magenta/violet is RESERVED. ONLY the door/hatch
+# from the tunnel into the Network build may carry that purple." Extended 7/10
+# by the NEUROLINK REVEAL ruling: agents may carry purple in exactly two ways,
+# purple iris and the damage reveal.
+hatch
+network_hatch
+agent_iris
+neurolink
+# REDMAG (325 tiles) is the quarantine list, not an allow: usable ONLY in
+# Amalgamation/Network-threshold contexts. It is NOT allowlisted here on
+# purpose — if a REDMAG tile shows up inside a world bank, the law was broken
+# by the placement, and the gate should say so.

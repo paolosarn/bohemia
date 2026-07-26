@@ -1,0 +1,24 @@
+=== BOHEMIA MUSIC GRAVEYARD — Paolo's mega-verdict (7/18/26) ===
+Nearly the whole catalog thumbed CANON ("Very good"). Six songs DOWN, final.
+
+BURIED (GRAVEYARD FINAL — tokens n:'NAME' in gates/bohemia_graveyard.txt):
+  SUNKEN VESPERS, UNDERTOW, VIA PURIFICO, HYMN IN THE FLOOD,
+  THE DROWNED CHOIR, WHAT THE GLASS REMEMBERS.
+Reversal on the record: VIA PURIFICO / HYMN IN THE FLOOD / THE DROWNED CHOIR
+were briefly canon (earlier "don't remove it, just lower it"); this verdict
+kills them for good. Newest verdict wins; the graveyard is final.
+
+SWEEP (same turn): removed from MLOOPS / NEW_VIBES / CANON_DEFAULTS; verbatim
+doc copies (embedded lawbook + banks/BOHEMIA_MUSIC_REPO.txt) tombstoned.
+Graveyard gate: 0 live references. Music gate 14/14.
+
+FRESH COOKS ANSWER THE SLOTS — BATCH 12 (NEW badge, pending verdict):
+  THE TIDE THAT KEEPS THE NAMES (chebychoir), WHERE THE PROCESSION DROWNED
+  (ghostflute), A CHORD OF DROWNED BELLS (clusternave), THE HYMN THE STATIC ATE
+  (crushedhymn), LAST BREATH OF THE ORGAN (ironlung), THE BELL THAT COOLS TO
+  SALT (saltbell). Six more never-run topologies, no dead voice reused.
+
+POST-MORTEM READ (no comments left): the deaths cluster on the most
+texture-forward pieces; survivors have a clearer melodic spine. Lesson for
+batch 12+: melodic-under-dread means the MELODY leads; pure texture reads as
+unfinished. Batch 12 leads are all pitched/melodic by design.

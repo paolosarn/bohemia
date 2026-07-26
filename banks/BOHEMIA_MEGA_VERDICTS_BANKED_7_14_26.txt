@@ -1,0 +1,14 @@
+{
+ "version": "MEGA_VERDICTS_7_14_26",
+ "verdict": "Paolo blanket: I like it all",
+ "items": {
+  "ML": "UP",
+  "MW-street": "UP",
+  "MW-side": "UP",
+  "MG-RV": "UP",
+  "MG-NB": "UP",
+  "MG-SLICE": "UP",
+  "MG-TUNER": "UP",
+  "MG-SIGNS": "UP"
+ }
+}
