@@ -223,7 +223,61 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
-CHARACTER (04) 7/26 LATEST — I FOUND THE E/W MORPHING AND IT IS NOT WHERE
+CHARACTER (04) 7/26 NEWEST — THE ARMS NOW HOLD THEIR POSE, AND IT IS THE FIRST
+THING THAT ACTUALLY REDUCED THE MORPHING. Composited tone flips on naked E+W:
+6,481 -> 3,314, **49% removed**; the parts-trading-pixels half 3,810 -> 1,484
+(61%). Thirteen attempts got here, twelve of them negative and all recorded.
+
+THE CHAIN OF FINDINGS, in the order they landed today:
+ 1. RENDER LIKE THE RIG — the alpha had three passes his rig never had (joint
+    weld, EVERY PIXEL LANDS forward-splat, FAR-ARM DARKENING). All retired.
+    Invented pixels 33,400 -> 18,284 (45%). Picture UNMOVED.
+ 2. PARTS ARE PAINTED (his ruling) — the body's tone was recomputed every frame
+    from the COMBINED deformed grid, so the torso wore the arm's shadow. Fixed
+    three ways; ALL THREE MEASURED WORSE (7,524 / 6,735 / 7,238 vs 6,266).
+    Nothing shipped. The failures proved the shading was only 42% of it.
+ 3. OWN CANVAS (his ruling: "so the arm and the torso don't share pixels") —
+    skin() sampled every part into one shared screen with a claim buffer, so the
+    TORSO'S OWN SHAPE depended on where the arm stood. Now each part is sampled
+    alone and composited after. Picture unmoved (6,537 -> 6,481) BUT it made each
+    part measurable alone, which found the real defect:
+        torso 0.38  thigh-L 0.31  thigh-R 0.29  arm-L 1.02  arm-R 1.98
+    own-shape flicker per frame at the SAME pixel area. Torso and legs hold
+    still; the arms do not. In profile an arm is a ~3px strip and a 3px strip
+    cannot be inverse-sampled through continuous rotation without churning.
+ 4. THE ARMS HOLD THEIR POSE — the fix. Five earlier angle-snap attempts all
+    measured WORSE because bucketing with NO MEMORY oscillates at bucket edges
+    and each oscillation is a whole-shape change. With HYSTERESIS (resolve the
+    buckets across the whole clip, stay put unless the angle moves >2 buckets)
+    it cannot oscillate: 2.96 -> 0.88 arm flicker (70%), ~4.6 distinct arm poses
+    per 24-frame clip instead of 9.9. That is how pixel art animation is made
+    and it is the 120 BPM LAW applied to the arms.
+  laws  BOHEMIA_ADDENDUM_RENDER_LIKE_THE_RIG_7_26_26.md
+        BOHEMIA_ADDENDUM_PARTS_ARE_PAINTED_7_26_26.md   (all 3 failures kept)
+        BOHEMIA_ADDENDUM_OWN_CANVAS_7_26_26.md
+        BOHEMIA_ADDENDUM_ARMS_HOLD_THEIR_POSE_7_26_26.md
+  gates render_like_the_rig(23) parts_are_painted(18) own_canvas(17) arm_hold(21)
+        Each one also PINS the negative results — a deleted failure gets rebuilt.
+  tools bohemia_render_like_the_rig_patch.py, bohemia_parts_are_painted_patch.py,
+        bohemia_own_canvas_patch.py, bohemia_arm_hold_patch.py (all idempotent),
+        bohemia_profile_morph_audit.js (the whole evidence chain, re-runnable)
+
+NEXT IN THIS LANE, in this order and for a measured reason:
+ 1. RE-TRY THE PER-PART SHADING FIX. It failed three times because it was a
+    correct rule applied to a churning boundary. The boundary holds still now,
+    and 55% of the remaining 3,314 flips are a cell owned by the SAME limb all
+    three frames — that is shading, not ownership. Worth exactly one more
+    measured attempt; if it is worse again, stop and say so.
+ 2. THE HANDS, not yet measured under the hold. They ride the arm chain and may
+    already be fixed by it.
+ 3. [PENDING Paolo] THE PROFILE REPAINT. Holding the pose manages the symptom; it
+    does not widen a 3px arm. His hand or his go-ahead on candidates.
+ 4. [PENDING Paolo] Whether the far-arm depth read comes back as a real separate
+    light layer (it was retired with FAR-ARM DARKENING).
+DO NOT: ship another animation look-change unasked, or lead a reply with a green
+gate. He rejected three rounds today before any of this worked.
+
+CHARACTER (04) 7/26 EARLIER — I FOUND THE E/W MORPHING AND IT IS NOT WHERE
 ANYONE HAS BEEN LOOKING. Paolo, third rejection: "The east and west animations
 are still dog shit when it comes to morph pixels underneath the arms and the
 back leg in the back arm. All the pieces are made how they should be made
