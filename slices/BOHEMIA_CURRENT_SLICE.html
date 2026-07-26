@@ -12452,6 +12452,116 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
     return ctx;
   }
 
+  /* ------------------------------------------------------------------------
+     THE WALK SURFACE (7/26/26, WORLD lane — engine support request 2 of 2 from
+     the RUN lane: "the player is not registered in ctx.scheduler, so the run's
+     grid clock is the block sim's, not the loop's turn scheduler. Engine request
+     for WORLD: a player actor the run can commit() through").
+
+     WHY IT IS A SECOND SCHEDULER AND NOT THE FIRST ONE. ctx.scheduler runs in
+     OVERMAP CELL space: its actors are spawned per district cell and its passable
+     asks "is this cell crossable". A body walking a street lives in VALLEY TILE
+     space, 128 tiles to the cell. Those are two different grids, and one
+     scheduler cannot hold both without every existing actor silently changing
+     what its coordinates mean. So the walk surface is its own scheduler on the
+     same 120 BPM contract, with passability read straight off the world model's
+     new tile rung — which means the player is blocked by the actual block wall,
+     the actual median, the actual bedrock, not by a hand-kept collision list.
+
+     Everything else stays the loop's: same scheduler module, same I-MOVE-YOU-MOVE
+     turn, same actor shape, so an NPC added here behaves like any other actor.
+     ---------------------------------------------------------------------- */
+  function makeWalkSurface(ctx, opts) {
+    opts = opts || {};
+    const w = ctx.worldMap && ctx.worldMap.real;
+    if (!w || typeof w.solidAt !== 'function') return null;   // no valley, no walk
+    const T = w.TILE_PER_CELL || 128;
+
+    // start where the caller says, else the centre of the first real district
+    let gx = opts.gx, gy = opts.gy;
+    if (gx == null || gy == null) {
+      const d = (ctx.worldMap.districts && ctx.worldMap.districts[0]) || { pos: [0, 0] };
+      gx = d.pos[0] * T + T / 2; gy = d.pos[1] * T + T / 2;
+    }
+    gx = Math.floor(gx); gy = Math.floor(gy);
+    // never start inside a wall: settle onto the nearest real ground
+    if (w.solidAt(gx, gy)) {
+      outer:
+      for (let r = 1; r < 60; r++) {
+        for (let dx = -r; dx <= r; dx++) for (let dy = -r; dy <= r; dy++) {
+          if (!w.solidAt(gx + dx, gy + dy)) { gx += dx; gy += dy; break outer; }
+        }
+      }
+    }
+
+    const sched = Sched.makeScheduler({
+      passable: function (x, y) { return !w.solidAt(x, y); }
+    });
+    // speed is left at the scheduler's default (one grid-step per world-turn); a
+    // caller that wants a faster body passes its own.
+    const player = Sched.addActor(sched, Sched.makeActor(
+      opts.speed ? { id: opts.id || 'player', isPlayer: true, tile: { x: gx, y: gy }, speed: opts.speed }
+                 : { id: opts.id || 'player', isPlayer: true, tile: { x: gx, y: gy } }));
+
+    function where() { return w.tile(player.tile.x, player.tile.y); }
+
+    /* ONE STEP, THE LOOP'S WAY. The run calls this instead of moving a sprite: the
+       turn advances, the world gets its move, and the answer says whether the step
+       CROSSED into another district so the surface can react (stream the next cell,
+       name the place, whatever it wants). Authors nothing. */
+    function commit(dx, dy) {
+      const before = { x: player.tile.x, y: player.tile.y };
+      // the scheduler's intent shape is {kind:'move', dx, dy}; anything else banks
+      // energy and stands still, which is how "wait" is expressed.
+      const intent = (dx || dy) ? { kind: 'move', dx: dx | 0, dy: dy | 0 } : { kind: 'wait' };
+      const res = Sched.commitPlayerAction(sched, intent);
+      /* SETTLE. The scheduler deliberately only sets `target` and leaves the slide
+         for a render layer to play out (that is the animation contract). A caller
+         driving the world headlessly, or a surface that has already played its
+         slide, needs the step to land, so the walk surface settles it here. The
+         tile is the truth; the slide is presentation. */
+      if (player.target) { player.tile = player.target; player.target = null; player.slide = 0; }
+      const after = { x: player.tile.x, y: player.tile.y };
+      const moved = (after.x !== before.x || after.y !== before.y);
+      const from = w.tile(before.x, before.y), to = w.tile(after.x, after.y);
+      const crossed = (moved && from && to && (from.cellX !== to.cellX || from.cellY !== to.cellY))
+        ? { fromCell: [from.cellX, from.cellY], toCell: [to.cellX, to.cellY],
+            fromDistrict: from.district, toDistrict: to.district } : null;
+      return { moved: moved, blocked: !moved, turn: res.turn, at: after,
+               tile: to, crossed: crossed, others: res.moved };
+    }
+
+    /* ROUTE FROM WHERE I AM. The surface does not need to know how the ground
+       connects, only that it does: ask for a path, then commit() its steps. This is
+       the whole intended usage, and it is what the gate walks. */
+    function routeTo(tx, ty, o) { return w.route(player.tile.x, player.tile.y, Math.floor(tx), Math.floor(ty), o || {}); }
+
+    /* Walk a route the loop's way: one commit per step, so the world turn advances
+       per step exactly like a player holding a direction. Stops on the first step
+       the world refuses and says where it stopped. */
+    function follow(path, max) {
+      const out = { steps: 0, crossings: [], stoppedAt: null };
+      const lim = max || path.length;
+      for (let i = 1; i < path.length && i <= lim; i++) {
+        const dx = path[i][0] - player.tile.x, dy = path[i][1] - player.tile.y;
+        if (Math.abs(dx) + Math.abs(dy) !== 1) { out.stoppedAt = i; break; }   // not a step
+        const r = commit(dx, dy);
+        if (!r.moved) { out.stoppedAt = i; break; }
+        out.steps++;
+        if (r.crossed) out.crossings.push(r.crossed);
+      }
+      return out;
+    }
+
+    return { scheduler: sched, player: player, where: where, commit: commit,
+             routeTo: routeTo, follow: follow,
+             teleport: function (nx, ny) {
+               if (w.solidAt(nx, ny)) return false;
+               player.tile = { x: Math.floor(nx), y: Math.floor(ny) };
+               player.target = null; player.slide = 0; return true;
+             } };
+  }
+
   /* Run the whole boot in the one correct order. Returns a ready ctx. */
   function boot(opts) {
     opts = opts || {};
@@ -12474,6 +12584,10 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
     bootPresentation(ctx);
     ctx.booted = true;
     ctx.ready = true;
+    // a walk surface is CHEAP (one scheduler, one actor, no generation) and the run
+    // needs it the moment it boots, so the context carries one by default. Callers
+    // that want a different start tile just make their own.
+    ctx.walk = makeWalkSurface(ctx, opts.walkAt || {});
     return ctx;
   }
 
@@ -12878,6 +12992,9 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
 
   return {
     makeContext, boot, tick, commit, captureSave,
+    // THE WALK SURFACE: a player the run can commit() through, on the loop's own
+    // scheduler, blocked by the world model's real tiles (engine support for RUN)
+    makeWalkSurface,
     spawnActorsForDistrict, enemyRuleForDistrict, updateDistrictLOD,
     talkablesNear, talkTo, buildFeed, socialProfile,
     CLOUT_TAGS, CLOUT_WEIGHTS, cloutWeight, cloutTagFrom, defaultFollowerScore,

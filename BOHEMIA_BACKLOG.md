@@ -162,8 +162,10 @@ stories the world cannot host yet.
    (world.tile / solidAt / step / walk / route). The run can now ask the world model for
    any tile in the valley and walk across cell boundaries on real ground; gate CROSSING
    proves district -> street -> district on foot. RUN's ledger priority 2 is unblocked.
-   STILL OPEN, request 2 of 2: a player actor registered in ctx.scheduler that the run
-   can commit() through (RUN backlog item 3). Non-cook, next up in this lane.
+   [DONE 7/26] request 2 of 2 as well: THE WALK SURFACE
+   (Loop.makeWalkSurface + ctx.walk) — a player actor in a real loop scheduler in
+   valley tile space, blocked by the world's own tiles, with commit/routeTo/follow.
+   Gate CROSSING is 22 checks and walks it end to end. RUN item 3 is unblocked.
 5. Further engine support requests flagged by RUN (as they arrive, priority). | per
    request | — | no.
 5. (discovered 7/26) VALLEY COMPOSITION: 70% of the built valley is suburb, and there are

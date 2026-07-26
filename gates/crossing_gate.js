@@ -144,5 +144,46 @@ function nearestOpen(gx, gy) {
      JSON.stringify(a && a.path) === JSON.stringify(b && b.path));
 }
 
+// ---- 7. THE WALK SURFACE: the player the RUN lane asked for -----------------
+/* Engine support request 2 of 2. The run had no player in a loop scheduler, so its
+   walking was the block sim's clock and not the game's turn. This proves the whole
+   chain end to end: boot the real loop, stand a player on real ground, ask the world
+   for a route, and walk it one committed turn per step, across two cell boundaries. */
+{
+  const Loop = require('../engine/bohemia_loop.js');
+  const ctx = Loop.boot({ seed: 'bohemia' });
+  ok('a booted context carries a walk surface', !!ctx.walk && !!ctx.walk.player);
+  ok('the player never starts inside a wall', !w.solidAt(ctx.walk.player.tile.x, ctx.walk.player.tile.y));
+
+  let trip = null;
+  for (let y = 1; y < w.n - 2 && !trip; y++) for (let x = 1; x < w.n - 1; x++) {
+    const a = w.at(x, y), b = w.at(x, y + 1), c = w.at(x, y + 2);
+    if (a && b && c && World.isAutoDistrict(a.district) && b.district === 'arterial' &&
+        World.isAutoDistrict(c.district)) { trip = [x, y]; break; }
+  }
+  const walk = Loop.makeWalkSurface(ctx, { gx: trip[0] * T + 64, gy: trip[1] * T + 110 });
+  ok('a walk surface can be stood anywhere in the valley', !!walk && !!walk.where());
+
+  const before = walk.scheduler.turn;
+  const waited = walk.commit(0, 0);
+  ok('a wait banks a turn and moves nobody', !waited.moved && walk.scheduler.turn === before + 1);
+
+  const r = walk.routeTo(trip[0] * T + 64, (trip[1] + 2) * T + 16, { maxNodes: 250000 });
+  ok('the surface can route from where it stands', !!r && r.cells.length >= 3);
+  if (r) {
+    const f = walk.follow(r.path);
+    ok('it walks the route one committed turn per step (' + f.steps + ' steps)',
+       f.steps === r.path.length - 1 && !f.stoppedAt);
+    ok('the world turn advanced once per step', walk.scheduler.turn === before + 1 + f.steps);
+    const names = f.crossings.map(c => c.fromDistrict + '->' + c.toDistrict);
+    ok('and it crossed two real boundaries on the way (' + names.join(', ') + ')',
+       f.crossings.length >= 2);
+    ok('it ended up where the route said it would',
+       walk.where().cellX === trip[0] && walk.where().cellY === trip[1] + 2);
+  }
+  ok('the cell-space scheduler is untouched by the walk surface',
+     ctx.scheduler !== walk.scheduler && !ctx.scheduler.actors.some(a => a === walk.player));
+}
+
 console.log('CROSSING GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

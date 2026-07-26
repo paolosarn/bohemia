@@ -297,6 +297,21 @@ startEncounter -> BOHEMIA_RUN_COMBAT_END (runEncounterIn / RUNFIGHT /
 showTabPanel in the alpha shell). Do not repurpose those names.
 
 
+WORLD MODEL (02): 7/26 (e) — THE PLAYER IS ON THE GAME'S CLOCK. RUN's second engine
+request delivered: Loop.makeWalkSurface(ctx,{gx,gy}) + ctx.walk. A real player actor in
+a real loop scheduler, in VALLEY TILE space, whose passability is read straight off the
+world model's tile rung, so the block wall, the median and the bedrock block him because
+they exist and not because somebody kept a collision list. It is a SECOND scheduler on
+purpose: ctx.scheduler is overmap-CELL space, a body walking a street is tile space, and
+one scheduler cannot hold both without silently changing what every existing actor's
+coordinates mean. Same module, same 120 BPM turn contract, same actor shape.
+API: where() / commit(dx,dy) (returns moved, blocked, turn, and the CROSSING) /
+routeTo(x,y) / follow(path) / teleport. Gate CROSSING now 22 checks and walks the real
+thing: boot the loop, stand in a suburb, route across the street, follow it 162 steps,
+one world turn per step, two boundaries crossed, ending in the district the route
+promised — and the cell-space scheduler proven untouched. NON-COOK, freeze-clean.
+RUN's ledger priorities 2 and its backlog item 3 are both unblocked now.
+
 WORLD MODEL (02): 7/26 (d) — YOU CAN WALK OUT OF YOUR BLOCK NOW. Engine support the
 RUN lane filed (ledger priority 2, "the run's block becomes a real cell of the
 generated valley so walking off it lands in a real neighbouring district"). The world
