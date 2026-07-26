@@ -114,11 +114,15 @@ THE SCOREBOARD (this is the answer to "what do I do with this"): every run ship
 quotes records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md, enforced by
 gates/integration_gate.js — a row may NOT be marked INTEGRATED without a machine
 probe proving the wiring is in the shipped run.
-NEXT, IN ORDER (from the ledger): THE OVERWORLD LOOK / 3/4 ISO VIEW (Paolo 7/26:
-"it's kind of looking like shit the whole overworld" — the city tab's human mode
-already renders the real iso world with the real character, so the run should
-adopt THAT renderer, not grow a second one), then the real valley, then district
-art, then day cycle + light.
+NEXT: the overworld look is the loudest gap (Paolo 7/26: "it's kind of looking
+like shit the whole overworld") but its OWNERSHIP moved the same day to the
+ART-FIRST RESET (laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md): the ART lane
+produces TARGET SCREENS, Paolo picks one, and until then no lane cooks new
+visuals. INTEGRATION OF ALREADY-APPROVED ASSETS EXPLICITLY CONTINUES, which is
+this lane's whole job. So: keep pulling approved banks into the run, and the
+moment a target screen is picked, move the run's world render toward it by
+adopting the CITY tab's human-mode renderer instead of growing a second one.
+Then the real valley, district art, day cycle + light.
 
 RUN (01) — the loop itself, shipped earlier the same day: THE FIRST CONNECTED RUN.
 New RUN tab in the alpha (first tab, preloads itself), one thumb: wake up inside

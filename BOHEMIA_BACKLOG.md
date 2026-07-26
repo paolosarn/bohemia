@@ -43,14 +43,18 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    laws/BOHEMIA_ADDENDUM_DOOR_LAW_TWO_TILES_TALL_7_26_26.md.
    Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (14/23),
    enforced by gates/integration_gate.js.
--1. THE OVERWORLD LOOK / 3/4 ISO VIEW. Paolo 7/26: "it's kind of looking like
-   shit the whole overworld." This is now the lane's ONLY next job, ledger
-   priority 1. The CITY tab's human mode ALREADY renders the real iso world
-   walking the real character — the run should adopt that renderer instead of
-   growing a second one. Coordinate with CITY: this crosses into CITY_B64, so
-   it needs the lane boundary agreed before it starts. | ledger row flips to
-   INTEGRATED with a probe + a real-surface screenshot | CITY_B64 is the CITY
-   lane's file | no.
+-1. THE OVERWORLD LOOK. Paolo 7/26: "it's kind of looking like shit the whole
+   overworld." SUPERSEDED IN OWNERSHIP by the ART-FIRST RESET the same day
+   (laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md): the ART lane owns the
+   TARGET SCREEN, and until one is approved NO new visual cooking happens
+   outside that lane. So this lane does NOT cook a look. What it does, in
+   order: (a) keep integrating ALREADY-APPROVED assets (explicitly still
+   allowed), (b) the moment a target screen is picked, move the run's world
+   render toward it — the CITY tab's human mode already renders the real
+   three-quarter world with the real character, so adopt that renderer rather
+   than growing a second one. | ledger row flips with a probe + a real-surface
+   screenshot | CITY_B64 is the CITY lane's file; the target screen is the ART
+   lane's | blocked on the target-screen verdict.
 0b. THE REAL VALLEY (ledger priority 2): the run's block becomes a real cell of
    the generated valley, so walking off it lands in a real district. | run_gate
    proves a second district reached on foot | district engines | no.
