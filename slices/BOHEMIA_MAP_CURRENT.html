@@ -38,13 +38,15 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:b8ce9e9fd1f453f3d3896bf9c8d5f16e -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
+<!-- engine-md5:engine/bohemia_arterial.js:688606075bbefa1e5884068e59f42612 -->
+<!-- engine-md5:engine/bohemia_freeway.js:db2920f1f120e01574be217800b97817 -->
 <!-- engine-md5:engine/bohemia_overmap.js:9e5e6612cfa5f55bc352918e66491342 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:ca045f639821a074c255ebef6d728088 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:3351b9a87e3905f6500f852cf7540d14 -->
+<!-- engine-md5:engine/bohemia_world.js:3a9a97d0eeeb4a34a1157af1163db183 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
   #cv{display:block;width:100%;height:calc(100% - 34px);background:#0d0b08}
@@ -4575,6 +4577,634 @@
   root.BohemiaTerminal=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
+/* ==== engine/bohemia_arterial.js ==== */
+// BOHEMIA ARTERIAL (7/26/26, WORLD lane) — THE MILE-GRID STREET CELL, BUILT FOR REAL.
+//
+// Paolo 7/26: "we need to actually build a fucking world." The census said where the
+// hole was: of 9,216 valley cells, 3,386 (37%) are ROAD cells — arterial and freeway —
+// and not one of them had a generator. They rendered as a flat grey slab. More of the
+// valley was untextured road than was built district. This module builds the arterial
+// half: 2,434 cells, the mile-grid streets every district in the game fronts onto.
+//
+// A road cell is not a district, it is a NETWORK TILE: it takes the set of directions
+// whose neighbours are also road (N/S/E/W) and builds the corridor that serves them —
+// a through street, a corner, a T, a 4-way intersection, a stub. All 16 masks build.
+//
+// REAL REFERENCE (Clark County / City of Las Vegas arterial standards, the actual
+// cross-section you stand in out there, curb to curb and wall to wall):
+//   100 ft right-of-way, 6 travel lanes (3 each way) at 12 ft
+//   raised landscaped median separating the directions, opening to a left-turn pocket
+//     at each intersection
+//   8 ft outside shoulder / bike lane, curb and gutter
+//   DETACHED sidewalk set behind an amenity strip (the Sun Belt norm, not a
+//     curb-attached walk), streetlights in the amenity zone
+//   a landscape setback behind the walk, then the 6 ft CMU BLOCK WALL that backs
+//     every residential tract in the valley
+//   overhead distribution poles down the setback, signal mast arms at the corners
+// So the built corridor here is 85 tiles (64 m) wall to wall inside a 128-tile
+// (96 m) cell, which leaves the honest dirt shoulder the neighbouring cell shares.
+//
+// LAWS HELD: SIDEWALK SANCTITY (a continuous walk wraps every corner; nothing but
+// street furniture stands on it). LINE COLOR (Paolo 7/13): YELLOW separates opposing
+// DIRECTION and appears only at the turn pocket where the median opens; WHITE divides
+// lanes going the same way. WALKABLE-LAND: declared `vehicular:true` — a street IS its
+// vehicle surface — and still dressed, never a void. 45 DEGREE ART is a paint-time law
+// and does not apply to a tile grid. Act-1 DEAD: signals dark, lights dead, faded
+// paint, dead palms, a car left at the curb.
+//
+// LEGEND:
+//  0 dirt shoulder  1 asphalt roadway  2 white lane line  3 crosswalk  4 raised median
+//  5 curb+gutter    6 sidewalk         7 landscape strip  8 block wall 9 streetlight
+// 10 power pole    11 dead palm/shrub 12 signal mast     13 bus stop  14 dead car
+// 15 stop bar      16 storm drain     17 yellow turn-pocket line
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+
+  var C = 64;          // cell centre (128x128)
+  var BOX = 23;        // half-width of the curb-to-curb pavement box at an intersection
+  // WALL TO WALL, EDGE TO EDGE (fixed 7/26 after looking at the real map render). The
+  // corridor first stopped at a 42-tile half-width and left 20 tiles of bare dirt out to
+  // the cell edge, so on the map every street floated in a black moat between the
+  // districts it was supposed to join. In the real valley the tract's BLOCK WALL is the
+  // property line: the corridor runs right up to it and the next parcel starts on the
+  // other side. So the right-of-way now fills the cell and the wall lands on the cell
+  // boundary, which is exactly where the neighbouring district's own edge begins.
+  var ROW = 63;        // half-width of the whole corridor: the wall sits on the cell edge
+
+  // cross-section, as distance OUT from the road's centreline (in tiles, 0.75 m each)
+  var MEDIAN = 2;      // 0..2   raised median island (5 tiles ~ 3.75 m)
+  var PAVE = 21;       // 3..21  6 travel lanes + shoulder
+  var CURB = 23;       // 22..23 curb + gutter
+  var AMEN = 25;       // 24..25 amenity strip (streetlights live here)
+  var WALK = 28;       // 26..28 DETACHED sidewalk
+  var SET = 61;        // 29..61 landscape setback (deep, the way an arterial frontage reads)
+  // 62..63 block wall, sitting on the cell boundary
+
+  var LANE_A = 8, LANE_B = 13;   // white lane lines between same-direction lanes
+  var EDGE = 21;                 // solid white edge line
+  var POCKET = 30;               // the median opens this far out from the box: turn pocket
+
+  function bandCode(b) {
+    if (b <= MEDIAN) return 4;
+    if (b <= PAVE) return 1;
+    if (b <= CURB) return 5;
+    if (b <= AMEN) return 7;
+    if (b <= WALK) return 6;
+    if (b <= SET) return 7;
+    if (b <= ROW) return 8;
+    return 0;
+  }
+
+  /* THE NETWORK TILE. links = the directions whose neighbour cell is also road. The
+     corridor is painted from the band coordinate: for any tile, the distance to the
+     nearest centreline that actually serves it. min() over the served axes is what
+     makes a corner work — a tile is pavement if EITHER road's pavement reaches it,
+     and the curb / walk / wall bands wrap the corner for free. */
+  function generate(seed, opts) {
+    opts = opts || {};
+    var links = opts.links || opts.streets || ['N', 'S'];
+    var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
+    if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
+    var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
+    var vert = hasN || hasS, horiz = hasE || hasW;
+
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    // does the N-S roadway reach this row / the E-W roadway reach this column?
+    function coverV(oy) { return vert && (oy <= 0 ? (hasN || oy >= -BOX) : (hasS || oy <= BOX)); }
+    function coverH(ox) { return horiz && (ox <= 0 ? (hasW || ox >= -BOX) : (hasE || ox <= BOX)); }
+
+    function bandAt(ox, oy) {
+      var b = 1e9;
+      if (coverV(oy)) b = Math.min(b, Math.abs(ox));
+      if (coverH(ox)) b = Math.min(b, Math.abs(oy));
+      return b;
+    }
+
+    // ---- 1. the corridor itself ------------------------------------------------
+    var inPave = function (ox, oy) { return Math.abs(ox) <= BOX && Math.abs(oy) <= BOX; };
+    for (y = 0; y < 128; y++) {
+      var oy = y - C;
+      for (x = 0; x < 128; x++) {
+        var ox = x - C;
+        var b = bandAt(ox, oy);
+        if (b > ROW) continue;                       // dirt shoulder, left as 0
+        var code = bandCode(b);
+        // inside the intersection box the median must not block the crossing road
+        if (code === 4 && vert && horiz && inPave(ox, oy)) code = 1;
+        g[y][x] = code;
+      }
+    }
+
+    // ---- 2. markings -----------------------------------------------------------
+    // WHITE divides lanes travelling the same way; dashed, 6 on 6 off, so the eye
+    // reads movement even on a dead street.
+    function laneLine(alongAxis) {
+      for (var t = 0; t < 128; t++) {
+        var oa = t - C;
+        if (Math.abs(oa) <= BOX) continue;                  // never stripe through the box
+        if (alongAxis === 'v' && !coverV(oa)) continue;
+        if (alongAxis === 'h' && !coverH(oa)) continue;
+        var dash = (Math.floor((t % 12) / 6) === 0);
+        [LANE_A, LANE_B].forEach(function (o) {
+          [-o, o].forEach(function (s) {
+            if (!dash) return;
+            var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
+            if (g[py][px] === 1) g[py][px] = 2;
+          });
+        });
+        [-EDGE, EDGE].forEach(function (s) {                 // solid edge line
+          var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
+          if (g[py][px] === 1) g[py][px] = 2;
+        });
+      }
+    }
+    if (vert) laneLine('v');
+    if (horiz) laneLine('h');
+
+    // THE TURN POCKET. The median stops short of the intersection and the opening
+    // becomes a left-turn bay: two YELLOW lines, the only yellow on the street,
+    // because that is the one place opposing directions meet with no island between
+    // them (LINE COLOR LAW: yellow = direction, and it lives nowhere else here).
+    function pocket(alongAxis, dirSign) {
+      for (var t = 0; t < 128; t++) {
+        var oa = t - C;
+        if (dirSign > 0 ? (oa < BOX + 1 || oa > POCKET) : (oa > -BOX - 1 || oa < -POCKET)) continue;
+        for (var o = -MEDIAN; o <= MEDIAN; o++) {
+          var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+          g[py][px] = (Math.abs(o) === MEDIAN) ? 17 : 1;     // yellow border, bay inside
+        }
+      }
+    }
+    if (vert && horiz) {
+      if (hasN) pocket('v', -1);
+      if (hasS) pocket('v', 1);
+      if (hasE) pocket('h', 1);
+      if (hasW) pocket('h', -1);
+    }
+
+    // CROSSWALKS + STOP BARS at every approach that exists, only at a real crossing.
+    function approach(dir) {
+      var vertical = (dir === 'N' || dir === 'S'), sign = (dir === 'S' || dir === 'E') ? 1 : -1;
+      for (var o = -EDGE; o <= EDGE; o++) {
+        for (var d = BOX - 3; d <= BOX; d++) {                 // the ladder bars
+          var a = C + sign * d;
+          var px = vertical ? C + o : a, py = vertical ? a : C + o;
+          if (g[py][px] === 1 || g[py][px] === 2) g[py][px] = ((o + 64) % 4 < 2) ? 3 : g[py][px];
+        }
+        var sa = C + sign * (BOX + 2);                          // the stop bar behind it
+        var sx = vertical ? C + o : sa, sy = vertical ? sa : C + o;
+        if (g[sy][sx] === 1) g[sy][sx] = 15;
+      }
+      /* CURB RAMPS. Without these the crosswalk dies at the gutter and a body on the
+         sidewalk can never legally reach the other side of the street: the gate caught
+         exactly that. The ramp carries the crossing up over the curb and the amenity
+         strip to the walk, which is what the corner actually looks like out there. */
+      for (var e = 0; e < 2; e++) {
+        var side = e ? 1 : -1;
+        for (var band = CURB - 1; band <= WALK; band++) {
+          for (var d2 = BOX - 3; d2 <= BOX; d2++) {
+            var a2 = C + sign * d2, o2 = side * band;
+            var rx = vertical ? C + o2 : a2, ry = vertical ? a2 : C + o2;
+            if (rx < 0 || ry < 0 || rx > 127 || ry > 127) continue;
+            var cc = g[ry][rx];
+            if (cc === 5 || cc === 7 || cc === 6 || cc === 1 || cc === 2) g[ry][rx] = 3;
+          }
+        }
+      }
+    }
+    if (vert && horiz) {
+      ['N', 'S', 'E', 'W'].forEach(function (d) { if (set[d]) approach(d); });
+    }
+
+    // ---- 3. street furniture (act-1 DEAD) --------------------------------------
+    function put(px, py, code, over) {
+      if (px < 0 || py < 0 || px > 127 || py > 127) return;
+      var c = g[py][px];
+      if (over ? over(c) : (c === 7)) g[py][px] = code;
+    }
+    var onWalkable = function (c) { return c === 7; };
+
+    // streetlights in the amenity strip, staggered down each arm
+    function furnishArm(alongAxis, coverFn) {
+      for (var t = 6; t < 128; t += 20) {
+        if (!coverFn(t - C)) continue;
+        if (Math.abs(t - C) <= BOX) continue;
+        var s = ((t / 20) | 0) % 2 ? AMEN : -AMEN;
+        put(alongAxis === 'v' ? C + s : t, alongAxis === 'v' ? t : C + s, 9, onWalkable);
+      }
+      for (var u = 12; u < 128; u += 18) {                        // overhead distribution poles
+        if (!coverFn(u - C)) continue;
+        var s2 = ((u / 26) | 0) % 2 ? SET - 2 : -(SET - 2);
+        put(alongAxis === 'v' ? C + s2 : u, alongAxis === 'v' ? u : C + s2, 10, onWalkable);
+      }
+      for (var v = 4; v < 128; v += 4) {                          // dead palms + shrubs, clumped
+        if (!coverFn(v - C)) continue;
+        if (r() > 0.62) continue;
+        var s3 = (r() < 0.5 ? 1 : -1) * (AMEN + 4 + Math.floor(r() * (SET - AMEN - 5)));
+        put(alongAxis === 'v' ? C + s3 : v, alongAxis === 'v' ? v : C + s3, 11, onWalkable);
+      }
+    }
+    if (vert) furnishArm('v', coverV);
+    if (horiz) furnishArm('h', coverH);
+
+    // signal mast arms on the four corners of a real intersection (heads dark)
+    if (vert && horiz) {
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (q) {
+        var px = C + q[0] * (CURB + 2), py = C + q[1] * (CURB + 2);
+        put(px, py, 12, function (c) { return c === 7 || c === 6; });
+      });
+      // storm drain inlets in the gutter at each corner (where the valley actually floods)
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (q) {
+        var px = C + q[0] * CURB, py = C + q[1] * (CURB - 6);
+        if (g[py][px] === 5) g[py][px] = 16;
+      });
+    }
+
+    // ONE bus stop per cell, deterministic: a pad cut into the sidewalk plus a shelter
+    if (vert || horiz) {
+      var bAxis = vert ? 'v' : 'h', bt = 26 + Math.floor(r() * 60);
+      var bs = (r() < 0.5 ? 1 : -1) * WALK;
+      if (Math.abs(bt - C) > BOX) {
+        for (i = -3; i <= 3; i++) {
+          var px2 = bAxis === 'v' ? C + bs : bt + i, py2 = bAxis === 'v' ? bt + i : C + bs;
+          put(px2, py2, 13, function (c) { return c === 6 || c === 7; });
+        }
+      }
+    }
+
+    // a car left dead at the curb, on the shoulder, some cells only
+    if (r() < 0.6) {
+      var cAxis = vert ? 'v' : 'h', ct = 20 + Math.floor(r() * 80);
+      var cs = (r() < 0.5 ? 1 : -1) * (PAVE - 2);
+      if (Math.abs(ct - C) > BOX + 4) {
+        for (i = 0; i < 3; i++) for (var j = 0; j < 2; j++) {
+          var px3 = cAxis === 'v' ? C + cs + j : ct + i, py3 = cAxis === 'v' ? ct + i : C + cs + j;
+          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
+        }
+      }
+    }
+
+    return { g: g, W: 128, H: 128, streets: links, links: links, gates: [], footprints: [] };
+  }
+
+  /* a vehicle can cross the cell on every direction the network says connects */
+  function throughDrivable(res, links) {
+    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 14: 1, 15: 1, 17: 1 };
+    return links.every(function (d) {
+      d = String(d).toUpperCase()[0];
+      var i, hit = false;
+      for (i = 0; i < 128; i++) {
+        if (d === 'N' && drive[g[0][i]]) hit = true;
+        if (d === 'S' && drive[g[127][i]]) hit = true;
+        if (d === 'W' && drive[g[i][0]]) hit = true;
+        if (d === 'E' && drive[g[i][127]]) hit = true;
+      }
+      return hit;
+    });
+  }
+
+  var PALETTE = {
+    1: '#33333c', 2: '#c9c1aa', 3: '#c9c1aa', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
+    7: '#6a5f47', 8: '#7a7266', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
+    13: '#5c5648', 14: '#55555f', 15: '#c9c1aa', 16: '#4a4842', 17: '#b09a3a'
+  };
+
+  var LEGEND = {
+    0:  { name: 'dirt shoulder',      kind: 'ground',   act1: 'the bare graded dirt between the block wall and the neighbouring lot' },
+    1:  { name: 'asphalt roadway',    kind: 'drive',    act1: 'six lanes of cracked asphalt, patched and sun-bleached' },
+    2:  { name: 'white lane line',    kind: 'marking',  act1: 'faded white lane line, dashed between lanes going the same way' },
+    3:  { name: 'crosswalk',          kind: 'marking',  act1: 'ladder crosswalk across the approach, half worn off' },
+    4:  { name: 'raised median',      kind: 'ground',   act1: 'raised concrete median island, dead landscaping and gravel', solid: false },
+    5:  { name: 'curb + gutter',      kind: 'ground',   act1: 'concrete curb and gutter, silt and dead leaves packed in it' },
+    6:  { name: 'sidewalk',           kind: 'walk',     act1: 'detached concrete sidewalk, cracked and lifted at the joints' },
+    7:  { name: 'landscape strip',    kind: 'ground',   act1: 'decomposed granite amenity and setback strip, irrigation long dead' },
+    8:  { name: 'block wall',         kind: 'structure',act1: 'six foot CMU block wall backing the tract, tagged and chipped' },
+    9:  { name: 'streetlight',        kind: 'prop',     act1: 'cobra-head streetlight on the amenity strip, head dark' },
+    10: { name: 'power pole',         kind: 'prop',     act1: 'overhead distribution pole down the setback, lines sagging' },
+    11: { name: 'dead palm / shrub',  kind: 'tree-dead',act1: 'dead palm stump and dry oleander left in the setback' },
+    12: { name: 'signal mast',        kind: 'prop',     act1: 'traffic signal mast arm on the corner, every head dark' },
+    13: { name: 'bus stop',           kind: 'structure',act1: 'transit stop pad with a bent shelter frame, the ad panel long gone' },
+    14: { name: 'dead car',           kind: 'vehicle',  act1: 'a car left at the curb, tyres flat, glass gone' },
+    15: { name: 'stop bar',           kind: 'marking',  act1: 'wide white stop bar behind the crosswalk' },
+    16: { name: 'storm drain inlet',  kind: 'ground',   act1: 'curb inlet to the flood system, grate half choked with silt' },
+    17: { name: 'yellow turn-pocket line', kind: 'marking', act1: 'yellow line bordering the left-turn bay where the median opens' }
+  };
+
+  var NOTES = {
+    summary: 'The mile-grid arterial street cell: a real six-lane divided Las Vegas arterial with a raised median, detached sidewalks behind an amenity strip, block walls, and a full signalised intersection when two arterials cross. 2,434 cells of the valley are this.',
+    reference: [
+      'Clark County / City of Las Vegas arterial standard: 100 ft right-of-way, 6 travel lanes at 12 ft, raised landscaped median, 8 ft outside shoulder / bike lane, curb and gutter.',
+      'Sun Belt norm: DETACHED sidewalk set behind an amenity strip (not curb-attached), streetlights in the amenity zone, landscape setback, then the 6 ft CMU block wall that backs every residential tract in the valley.',
+      'The median opens to a left-turn bay at each intersection; that bay is the only place opposing directions meet without an island between them, which is exactly where the yellow lives.'
+    ],
+    layout: [
+      'The corridor is 85 tiles (64 m) wall to wall inside the 96 m cell: median, three lanes each way, shoulder, curb and gutter, amenity strip, detached sidewalk, landscape setback, block wall.',
+      'It is a NETWORK TILE, not a district: it takes the directions whose neighbours are also road and builds what serves them. All sixteen masks build, so a through street, a corner, a T, a 4-way and a stub all come out of one generator.',
+      'At a real crossing the median stops short, the opening becomes a yellow-bordered left-turn bay, ladder crosswalks and stop bars land on all four approaches, and signal mast arms stand on the four corners.',
+      'Street furniture is act-1 dead: cobra-head lights out, signal heads dark, dead palms in the setback, a car left at the curb, silt in the storm inlets.'
+    ],
+    circulation: 'Traffic runs through on every connected direction (proven cell-edge to cell-edge by the gate). Pedestrians get a continuous DETACHED sidewalk that wraps every corner and crosses at the marked crosswalks; the walk is unbroken across the cell, so a body can walk from any district on one side to any district on the other.',
+    layering: 'GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the block wall (8) and the bus stop shelter (13). PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. The wall is the hard edge of the corridor; everything inside it is open ground at one level.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world." The census found 37% of the valley was road cells with no generator at all. This is the arterial half of that hole.',
+      'A road cell is NOT an auto-district: it never becomes faction territory, an economy district or a quest address. It registers as a SURFACE, so the world renders it and bodies walk it, while everything that counts districts still counts only real districts.',
+      'vehicular:true under the WALKABLE-LAND LAW: a street is the one thing whose vehicle surface IS the venue. It is still dressed (walls, walks, furniture, plantings), never a void.',
+      'LINE COLOR LAW held exactly: white divides lanes going the same way, yellow appears only at the left-turn bay where the median opens and opposing directions actually meet.',
+      'Act-1 DEAD throughout: nothing lit, nothing living, nothing maintained.'
+    ]
+  };
+
+  K.register('arterial', {
+    generate: generate, body: function (c) { return c === 8 || c === 13; },
+    category: K.category('arterial') || 'infrastructure',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, throughDrivable: throughDrivable,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaArterial = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_freeway.js ==== */
+// BOHEMIA FREEWAY (7/26/26, WORLD lane) — THE INTERSTATE CELL, BUILT FOR REAL.
+//
+// The other half of the road hole Paolo's 7/26 ruling pointed at ("we need to actually
+// build a fucking world"). 952 valley cells are freeway and every one of them rendered
+// as a flat grey slab. This builds them: the 15 and the beltway, eight lanes between
+// concrete barrier and sound wall, an embankment, and the ARTERIAL OVERPASS where a
+// mile-grid street crosses over the corridor.
+//
+// REAL REFERENCE (I-15 / CC-215 through the valley, and what a dead one looks like):
+//   4 travel lanes each way at 12 ft, 10 ft outside shoulder, 4 ft inside shoulder
+//   a concrete F-shape median barrier separating the directions (so NO yellow line
+//     belongs anywhere on a freeway: nothing here separates opposing traffic by paint)
+//   guardrail, then a graded embankment slope, then the SOUND WALL that fronts every
+//     neighbourhood the corridor runs past
+//   the surface street grid does not meet it at grade: arterials cross on an OVERPASS
+//     carried on centre columns
+//   act-1 DEAD: the lanes are where the traffic stopped. Cars sit in them, doors open,
+//     burned out, drifted over. A dead freeway is a junkyard with lines painted on it.
+//
+// LAWS HELD: LINE COLOR (white divides same-direction lanes; the barrier does the
+// direction-separating job so no yellow exists here). WALKABLE-LAND: `vehicular:true`,
+// and still dressed. LAYERING: the overpass deck is a real OVERHEAD tile you pass
+// UNDER, with solid columns. Act-1 DEAD throughout.
+//
+// LEGEND:
+//  0 dirt frontage   1 travel lane   2 white lane line  3 shoulder   4 median barrier
+//  5 guardrail       6 embankment    7 dead brush       8 sound wall 9 light pole
+// 10 dead car       11 dead semi    12 overpass deck   13 bridge column 14 sign gantry
+// 15 rubble/debris
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+
+  var C = 64;
+  var BARRIER = 1;    // 0..1   concrete F-shape median barrier
+  var INSHLD = 3;     // 2..3   inside shoulder
+  var LANES = 23;     // 4..23  four 12 ft lanes each way
+  var OUTSHLD = 28;   // 24..28 outside shoulder
+  var RAIL = 30;      // 29..30 guardrail
+  var EMBANK = 61;    // 31..61 graded embankment
+  var ROW = 63;       // 62..63 sound wall, sitting on the cell boundary
+  var LANE_LINES = [8, 13, 18];
+  var EDGE = 23;
+
+  function bandCode(b) {
+    if (b <= BARRIER) return 4;
+    if (b <= INSHLD) return 3;
+    if (b <= LANES) return 1;
+    if (b <= OUTSHLD) return 3;
+    if (b <= RAIL) return 5;
+    if (b <= EMBANK) return 6;
+    if (b <= ROW) return 8;
+    return 0;
+  }
+
+  /* links = the neighbours that are FREEWAY (the corridor's own continuation — an
+     arterial neighbour is NOT a connection, a freeway has no at-grade crossings).
+     cross = the neighbours that are surface street, which is what puts an OVERPASS
+     across the corridor. */
+  function generate(seed, opts) {
+    opts = opts || {};
+    var links = opts.same || opts.links || opts.streets || ['N', 'S'];
+    var cross = opts.cross || [];
+    var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
+    if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
+    var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
+    var vert = hasN || hasS, horiz = hasE || hasW;
+
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i, j;
+
+    function coverV(oy) { return vert && (oy <= 0 ? (hasN || oy >= -RAIL) : (hasS || oy <= RAIL)); }
+    function coverH(ox) { return horiz && (ox <= 0 ? (hasW || ox >= -RAIL) : (hasE || ox <= RAIL)); }
+
+    // ---- 1. the corridor ------------------------------------------------------
+    for (y = 0; y < 128; y++) {
+      var oy = y - C;
+      for (x = 0; x < 128; x++) {
+        var ox = x - C, b = 1e9;
+        if (coverV(oy)) b = Math.min(b, Math.abs(ox));
+        if (coverH(ox)) b = Math.min(b, Math.abs(oy));
+        if (b > ROW) continue;
+        var code = bandCode(b);
+        // a true freeway-to-freeway junction keeps pavement through the box; the
+        // barrier never blocks the crossing roadway
+        if (code === 4 && vert && horiz && Math.abs(ox) <= LANES && Math.abs(oy) <= LANES) code = 1;
+        g[y][x] = code;
+      }
+    }
+
+    // ---- 2. lane markings (white only — the barrier separates the directions) ---
+    function stripe(axis, coverFn) {
+      for (var t = 0; t < 128; t++) {
+        var oa = t - C;
+        if (!coverFn(oa)) continue;
+        if (vert && horiz && Math.abs(oa) <= LANES) continue;      // no paint through a junction
+        var dash = (Math.floor((t % 14) / 7) === 0);
+        LANE_LINES.forEach(function (o) {
+          if (!dash) return;
+          [-o, o].forEach(function (s) {
+            var px = axis === 'v' ? C + s : t, py = axis === 'v' ? t : C + s;
+            if (g[py][px] === 1) g[py][px] = 2;
+          });
+        });
+        [-EDGE, EDGE].forEach(function (s) {
+          var px = axis === 'v' ? C + s : t, py = axis === 'v' ? t : C + s;
+          if (g[py][px] === 1) g[py][px] = 2;
+        });
+      }
+    }
+    if (vert) stripe('v', coverV);
+    if (horiz) stripe('h', coverH);
+
+    // ---- 3. THE OVERPASS. A mile-grid arterial crossing the corridor does not meet
+    //         it: it rides over on a deck carried by columns in the median and on the
+    //         shoulders. The deck is an OVERHEAD tile — you drive and walk UNDER it.
+    var deckAxis = null;
+    if (cross.length) {
+      var wantH = cross.some(function (d) { return d === 'E' || d === 'W'; });
+      var wantV = cross.some(function (d) { return d === 'N' || d === 'S'; });
+      if (vert && !horiz && wantH) deckAxis = 'h';
+      else if (horiz && !vert && wantV) deckAxis = 'v';
+    }
+    if (deckAxis) {
+      var half = 11;                                  // ~17 m of deck, a real overpass width
+      for (i = -half; i <= half; i++) {
+        for (var t2 = 0; t2 < 128; t2++) {
+          var px2 = deckAxis === 'h' ? t2 : C + i, py2 = deckAxis === 'h' ? C + i : t2;
+          var cur = g[py2][px2];
+          if (cur === 0) continue;                    // the deck only spans the corridor
+          g[py2][px2] = 12;
+        }
+      }
+      // columns: a centre pier in the median plus one on each shoulder
+      [0, -OUTSHLD - 1, OUTSHLD + 1].forEach(function (o) {
+        for (i = -half; i <= half; i += 22) {
+          for (j = -1; j <= 1; j++) {
+            var px3 = deckAxis === 'h' ? C + o : C + i + j, py3 = deckAxis === 'h' ? C + i + j : C + o;
+            if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128) g[py3][px3] = 13;
+          }
+        }
+      });
+    }
+
+    // ---- 4. act-1 DEAD dressing: this is where the traffic stopped ---------------
+    function onLane(c) { return c === 1 || c === 2 || c === 3; }
+    function block(px, py, w, h, code, test) {
+      for (var a = 0; a < w; a++) for (var b2 = 0; b2 < h; b2++) {
+        var xx = px + a, yy = py + b2;
+        if (xx < 0 || yy < 0 || xx > 127 || yy > 127) continue;
+        if (test(g[yy][xx])) g[yy][xx] = code;
+      }
+    }
+    var alongAxis = vert ? 'v' : 'h';
+    var coverFn = vert ? coverV : coverH;
+    for (i = 0; i < 26; i++) {                        // stopped cars, clustered like a jam
+      var t3 = Math.floor(r() * 128);
+      if (!coverFn(t3 - C)) continue;
+      var s3 = (r() < 0.5 ? -1 : 1) * (INSHLD + 1 + Math.floor(r() * (LANES - INSHLD)));
+      var px4 = alongAxis === 'v' ? C + s3 : t3, py4 = alongAxis === 'v' ? t3 : C + s3;
+      block(px4, py4, alongAxis === 'v' ? 2 : 3, alongAxis === 'v' ? 3 : 2, 10, onLane);
+    }
+    for (i = 0; i < 4; i++) {                         // a jackknifed semi or two
+      var t4 = Math.floor(r() * 128);
+      if (!coverFn(t4 - C)) continue;
+      var s4 = (r() < 0.5 ? -1 : 1) * (INSHLD + 2 + Math.floor(r() * (LANES - INSHLD - 2)));
+      var px5 = alongAxis === 'v' ? C + s4 : t4, py5 = alongAxis === 'v' ? t4 : C + s4;
+      block(px5, py5, alongAxis === 'v' ? 3 : 9, alongAxis === 'v' ? 9 : 3, 11, onLane);
+    }
+    for (i = 0; i < 40; i++) {                        // debris drifted across the lanes
+      var t5 = Math.floor(r() * 128);
+      if (!coverFn(t5 - C)) continue;
+      var s5 = (r() < 0.5 ? -1 : 1) * Math.floor(r() * LANES);
+      var px6 = alongAxis === 'v' ? C + s5 : t5, py6 = alongAxis === 'v' ? t5 : C + s5;
+      block(px6, py6, 1, 1, 15, onLane);
+    }
+    for (i = 6; i < 128; i += 11) {                   // dead brush up the embankment
+      if (!coverFn(i - C)) continue;
+      var s6 = (r() < 0.5 ? -1 : 1) * (RAIL + 3 + Math.floor(r() * (EMBANK - RAIL - 4)));
+      var px7 = alongAxis === 'v' ? C + s6 : i, py7 = alongAxis === 'v' ? i : C + s6;
+      block(px7, py7, 2, 2, 7, function (c) { return c === 6; });
+    }
+    for (i = 14; i < 128; i += 30) {                  // high-mast lights on the shoulder
+      if (!coverFn(i - C)) continue;
+      var s7 = ((i / 30) | 0) % 2 ? RAIL - 1 : -(RAIL - 1);
+      var px8 = alongAxis === 'v' ? C + s7 : i, py8 = alongAxis === 'v' ? i : C + s7;
+      block(px8, py8, 1, 1, 9, function (c) { return c === 5 || c === 6; });
+    }
+    // ONE overhead sign gantry, deterministic, spanning the lanes
+    var gt = 20 + Math.floor(r() * 80);
+    if (coverFn(gt - C) && !(vert && horiz)) {
+      for (i = -LANES; i <= LANES; i++) {
+        var px9 = alongAxis === 'v' ? C + i : gt, py9 = alongAxis === 'v' ? gt : C + i;
+        if (px9 >= 0 && py9 >= 0 && px9 < 128 && py9 < 128 && onLane(g[py9][px9])) g[py9][px9] = 14;
+      }
+    }
+
+    return { g: g, W: 128, H: 128, streets: links, links: links, cross: cross,
+             deck: deckAxis, gates: [], footprints: [] };
+  }
+
+  function throughDrivable(res, links) {
+    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 10: 1, 11: 1, 14: 1, 15: 1, 12: 1 };
+    return links.every(function (d) {
+      d = String(d).toUpperCase()[0];
+      for (var i = 0; i < 128; i++) {
+        if (d === 'N' && drive[g[0][i]]) return true;
+        if (d === 'S' && drive[g[127][i]]) return true;
+        if (d === 'W' && drive[g[i][0]]) return true;
+        if (d === 'E' && drive[g[i][127]]) return true;
+      }
+      return false;
+    });
+  }
+
+  var PALETTE = {
+    1: '#33333c', 2: '#c9c1aa', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
+    7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
+    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842'
+  };
+
+  var LEGEND = {
+    0:  { name: 'dirt frontage',    kind: 'ground',    act1: 'graded dirt outside the sound wall, weeds through it' },
+    1:  { name: 'travel lane',      kind: 'drive',     act1: 'interstate lane, sun-cracked and drifted with grit' },
+    2:  { name: 'white lane line',  kind: 'marking',   act1: 'faded white lane line (a freeway has no yellow: the barrier does that job)' },
+    3:  { name: 'shoulder',         kind: 'drive',     act1: 'paved shoulder, rumble strip worn flat' },
+    4:  { name: 'median barrier',   kind: 'structure', act1: 'concrete F-shape median barrier, scarred and tagged' },
+    5:  { name: 'guardrail',        kind: 'structure', act1: 'steel W-beam guardrail, posts bent where something left the road' },
+    6:  { name: 'embankment',       kind: 'ground',    act1: 'graded embankment slope, decomposed granite and rock' },
+    7:  { name: 'dead brush',       kind: 'tree-dead', act1: 'dry brush and tumbleweed piled up the embankment' },
+    8:  { name: 'sound wall',       kind: 'structure', act1: 'the tall block sound wall fronting the neighbourhood, tagged end to end' },
+    9:  { name: 'high-mast light',  kind: 'prop',      act1: 'high-mast freeway light, every head dark' },
+    10: { name: 'dead car',         kind: 'vehicle',   act1: 'a car stopped in the lane where it died, doors open, glass gone' },
+    11: { name: 'dead semi',        kind: 'vehicle',   act1: 'a jackknifed semi across the lanes, trailer stripped' },
+    12: { name: 'overpass deck',    kind: 'overhead',  act1: 'the mile-grid street crossing overhead on its deck (you pass UNDER)' },
+    13: { name: 'bridge column',    kind: 'structure', act1: 'concrete bridge pier carrying the overpass, tagged at the base' },
+    14: { name: 'sign gantry',      kind: 'overhead',  act1: 'overhead sign gantry, panels gone or hanging' },
+    15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false }
+  };
+
+  var NOTES = {
+    summary: 'The interstate cell: eight lanes between a concrete median barrier and the sound wall, on an embankment, with the mile-grid street crossing OVER it on a deck. Act-1 dead, which on a freeway means the traffic is still sitting in it.',
+    reference: [
+      'I-15 / CC-215 through the Las Vegas valley: 4 travel lanes each way at 12 ft, 10 ft outside shoulder, 4 ft inside shoulder, concrete F-shape median barrier, guardrail, graded embankment, and the sound wall that fronts every neighbourhood the corridor passes.',
+      'A freeway has no at-grade crossings: the surface street grid rides OVER it on an overpass carried by centre and shoulder piers.',
+      'No yellow paint exists on a freeway cross-section: opposing directions are separated by the barrier, not a line (LINE COLOR LAW satisfied by construction).'
+    ],
+    layout: [
+      'Median barrier, inside shoulder, four lanes, outside shoulder, guardrail, embankment, sound wall, out to the cell boundary on both sides.',
+      'A NETWORK TILE like the arterial: it takes the neighbours that are also FREEWAY as its own continuation, and the neighbours that are surface street as what crosses it.',
+      'Where an arterial crosses, an OVERPASS DECK spans the whole corridor on three lines of piers, and the freeway runs on underneath it.',
+      'The dead dressing is the point: stopped cars clustered in the lanes, a jackknifed semi, debris drifted across, brush up the embankment, every light dark.'
+    ],
+    circulation: 'Vehicles run through on every direction the corridor continues (proven edge to edge by the gate), threading the stopped traffic. There is no sidewalk and no pedestrian crossing at grade, which is the point of a freeway: a body on foot is trespassing here, and the way across is the overpass deck above.',
+    layering: 'GROUND (drive): lanes (1), shoulders (3), markings (2), debris (15). GROUND (walk, rough): the embankment (6). STRUCTURE (solid): median barrier (4), guardrail (5), sound wall (8), bridge columns (13). PROPS (solid): high-mast lights (9), dead cars (10), dead semis (11). OVERHEAD (pass UNDER): the overpass deck (12) and the sign gantry (14) — the deck is the mile-grid street crossing above, carried on the columns, so this cell genuinely has two levels. PORTALS: none.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world." 952 freeway cells were a flat grey slab; this builds them.',
+      'A road cell is NOT an auto-district: never faction territory, never an economy district, never a quest address. It registers as a SURFACE.',
+      'The overpass is deliberately an OVERHEAD layer with solid piers, not a painted crossing, so the two-level truth is in the data and not just the picture.',
+      'Act-1 DEAD reads differently here than anywhere else in the valley: an empty freeway is not dead, a freeway full of stopped cars is.'
+    ]
+  };
+
+  K.register('freeway', {
+    generate: generate, body: function (c) { return c === 8 || c === 4; },
+    category: K.category('freeway') || 'infrastructure',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, throughDrivable: throughDrivable,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaFreeway = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
 /* ==== engine/bohemia_overmap.js ==== */
 /* =====================================================================
    BOHEMIA OVERMAP  (bohemia_overmap.js)  7/5/26 pass 4
@@ -6574,6 +7204,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
   var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
   var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
+  var ART= HASREQ ? require('./bohemia_arterial.js')       : (typeof BohemiaArterial!=='undefined'?BohemiaArterial:root.BohemiaArterial);
+  var FWY= HASREQ ? require('./bohemia_freeway.js')        : (typeof BohemiaFreeway!=='undefined'?BohemiaFreeway:root.BohemiaFreeway);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -6620,6 +7252,37 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
     terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' }
   };
+  /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
+     world"). A road cell is NOT a district: it never becomes faction territory, an
+     economy district, a spawn tier or a quest address, so it deliberately does NOT go
+     in DISTGEN (isAutoDistrict stays false for it and every consumer that counts
+     districts keeps counting exactly what it counted before). But it is REAL GROUND
+     a body stands on, and 37% of the valley is made of it, so it gets a generator and
+     plot() renders it like anything else.
+
+     A surface cell is a NETWORK TILE, not a street-fronting lot: it is handed the
+     directions whose neighbours are also road (`links`), never rotateToStreet. */
+  var SURFACEGEN = {
+    arterial: { mod:ART, zone:'default' },
+    freeway:  { mod:FWY, zone:'default' }
+  };
+  /* Which neighbours are road, split by CLASS. A freeway continues only into another
+     freeway (it has no at-grade crossings at all); a mile-grid arterial that runs up
+     against it is not a connection, it is what crosses OVER it on a deck. Getting that
+     split right is the whole difference between a corridor and a plus sign. */
+  function roadLinks(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var D=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]];
+    var same=[], other=[], all=[];
+    for(var i=0;i<D.length;i++){
+      var d=at(x+D[i][1],y+D[i][2]);
+      if(!ROADSET[d]) continue;
+      all.push(D[i][0]);
+      if(kind && d===kind) same.push(D[i][0]); else other.push(D[i][0]);
+    }
+    return { all:all, same:same, cross:other };
+  }
+
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
 
@@ -6859,6 +7522,29 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;
       }
+      // SURFACE CELL (road): a real generated corridor, built from the network links
+      // (which neighbours are also road), never street-fronted. Same read API as a
+      // district plot minus buildings, so renderers/collision treat it uniformly.
+      var sg=SURFACEGEN[cell.district];
+      if(sg && sg.mod){
+        var rl=roadLinks(m,x,y,cell.district);
+        var links=rl.all;
+        var sres=sg.mod.generate(cell.seed>>>0,
+          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross });
+        var slegend=sg.mod.legend||{};
+        var stinfo=function(xx,yy){ var row=sres.g[yy]; var c=(row&&xx>=0&&xx<sres.W)?row[xx]:-1;
+          var L=slegend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          return { code:c, name:L?L.name:(c===0?'dirt shoulder':(c<0?'(off-plot)':'?')),
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; };
+        var sapi={ x:x, y:y, district:cell.district, category:KIT.category(cell.district),
+          archetype:sg.zone, surface:true, links:links, sameLinks:rl.same, crossLinks:rl.cross,
+          block:{W:sres.W,H:sres.H,grid:sres.g,codes:true}, legend:slegend,
+          tileInfo:stinfo,
+          solidAt:function(xx,yy){ return stinfo(xx,yy).solid; },
+          portals:function(){ return []; },        // a street cell has no interior
+          buildings:[], building:function(){ return null; } };
+        plotCache[key]=sapi; return sapi;
+      }
       var recipe=BR.recipeFor(cell);
       var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
       // W=48 gives footprints big enough to carry real interiors
@@ -6904,6 +7590,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       // LOCATION QUERY: every real auto-factory district, findable by type/category/
       // custom predicate, cheap (never generates plot content to answer). The three
       // named helpers cover the common asks; findDistricts is the escape hatch.
+      // SURFACE CELLS: real ground that is not a district (roads). Reported separately
+      // so nothing that counts districts ever accidentally counts a street.
+      isSurface: function(x,y){ var c=m.at(x,y); return !!(c && SURFACEGEN[c.district]); },
+      roadLinks: function(x,y){ var c=m.at(x,y); return roadLinks(m,x,y,c?c.district:null); },
       districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
       districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },
       nearestDistrictOfType: function(x,y,type){ return nearestDistrict(m, x, y, function(c){ return c.district===type; }); },
@@ -6922,7 +7612,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   // instead of sampling whatever a coordinate scan happens to land on.
   function districtTypes(){ return Object.keys(DISTGEN); }
 
-  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone, districtTypes:districtTypes};
+  function isSurfaceCell(type){ return !!SURFACEGEN[type]; }
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone,
+             districtTypes:districtTypes, isSurfaceCell:isSurfaceCell};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -6955,7 +7647,7 @@ var MODMAP = {
   railyard:'BohemiaRailyard', substation:'BohemiaSubstation', chapel:'BohemiaChapel',
   courthouse:'BohemiaCourthouse', jail:'BohemiaJail', farm:'BohemiaFarm', downtown:'BohemiaDowntown',
   trailer:'BohemiaTrailer', warehouse:'BohemiaWarehouse', waterpark:'BohemiaWaterpark', mall:'BohemiaMall',
-  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal'
+  cityhall:'BohemiaCityhall', battery:'BohemiaBattery', terminal:'BohemiaTerminal', arterial:'BohemiaArterial', freeway:'BohemiaFreeway'
 };
 function modOf(dist){ var n = MODMAP[dist]; return n ? window[n] : null; }
 
