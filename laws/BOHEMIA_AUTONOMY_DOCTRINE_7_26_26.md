@@ -16,7 +16,7 @@ research record lives in this file's commit and the coordinator's findings.
 =============================================================================
 Paolo never writes task prompts. His words to any session:
 - **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
-  "combat" / "character" / "art" / "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session opened with it replies one line and stops). That word both assigns
+  "combat" / "character" / "art" / "lab" / "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session opened with it replies one line and stops). That word both assigns
   the lane and means GO. A fresh session that can't match its first word to a
   lane asks ONE word back ("which lane?") and nothing else.
 - **After that, "go"** (or any single word, or garbled transcription, or "continue"):
@@ -123,6 +123,9 @@ toward its intent instead of pinging him. Canon-level gaps stay [PENDING].
 - ART: the target screen is the constitution; art ships as coherent SETS
   judged in context, never loose tiles; referenced always (approved corpus +
   named outside references), invented never; 2-tile doors, human scale.
+- LAB: one session, one system, one named game — working emulation,
+  placeholder art, never touches the alpha; ships a playable page + feel
+  ledger + pattern note; Paolo's play is the verdict; the lab never ports.
 - QUESTS: grounded in the real (science/economics/behavior), a life lesson
   underneath without preaching, loudness-tagged clout, never stat-gated.
 

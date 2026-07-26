@@ -12,6 +12,18 @@
 ## FROZEN and byte-locked - nobody makes another target screen. Verdict record:
 ## records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt ***
 
+## LAB (THE REFERENCE LAB — first word "lab"; law: laws/BOHEMIA_ADDENDUM_
+## THE_REFERENCE_LAB_7_26_26.md. One session = one system = one named game.)
+1. STARDEW TOWN-WALK FEEL: one town screen, Stardew's exact walk feel (speed,
+   acceleration, collision softness), enter/exit two furnished interiors with
+   Stardew transitions, day-night tick, one scheduled NPC. Research the real
+   numbers online first. | playable page + feel ledger + pattern note | the
+   alpha, all engine modules | Paolo plays = the verdict.
+2. ZOMBOID LOOT LOOP: containers, search, weight, the tension of rummaging a
+   house. Same deliverables. | same | same | same.
+3. (Paolo adds more targets by naming a game + system to any lab session or
+   to the coordinator.)
+
 ## ART (new lane — first word "art")
 0. [SHIPPED 7/26] STEP ZERO — THE MOBILE RENDER CONTRACT (amendment D):
    laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md. Pins frame, tile px, integer
