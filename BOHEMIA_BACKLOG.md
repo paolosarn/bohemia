@@ -150,7 +150,8 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    lanes grouped by discipline, side-by-side anchors, APPROVE/CBB/KILL
    buttons, kill-reason tags, .txt export. | replaces per-lane judge sprawl;
    gate: the page exists + exports parse | — | no (tooling, not art).
-2. CANON EXEMPLAR INDEX + KILL-REASON TAXONOMY distilled from banks +
+2. [PRIORITY UP 7/26, Paolo direct order — approved-assets-first addendum]
+   CANON EXEMPLAR INDEX + KILL-REASON TAXONOMY distilled from banks +
    graveyard post-mortems (machine-readable; cooking tools cite which
    exemplar anchored each cook). | reusefirst-style gate extension | — | no.
 3. DRIFT CANARY harness: re-render fixed approved anchors, diff vs blessed.
