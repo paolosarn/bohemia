@@ -351,6 +351,29 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v70: TWO PAOLO RULINGS, both applied exactly.
+(1) "turn the opacity down by 75% so they're barely visible but like still
+there" -- the v69 approach ring and its snap flash keep exactly 25% of their
+alpha. He APPROVED the rings themselves ("I fucked with that, that was a good
+addition"), so the shape/motion is canon now; only the alpha moved.
+(2) "should it be like three times as loud. Just the voice" -- he was right
+TWICE. (a) 2x amplitude is +6dB, and a doubling of PERCEIVED loudness takes
+about +10dB, so the v63 hero bass read as roughly 1.5x and never as double. 3x
+is +9.5dB, the number that actually sounds twice as loud. (b) THE REAL REASON HE
+COULD NOT HEAR IT: the master limiter (-14dB, 6:1) was being slammed by the
+DOUBLED KICK + SUB BOOM that fire on step 0, at the exact instant the hero bass
+note starts -- so the limiter ducked the note it was announcing. Raising the
+bass alone would have been partly squashed away. The drums keep their double but
+now run through their own 0.55 gain, so JUST THE VOICE gets louder, which is
+literally what he asked for.
+Gate: combat_lab_gate section 10 (251 green). Proof:
+slices/BOHEMIA_RING_QUARTER_PROOF_7_26_26.png.
+NEXT EDITION, recommended to him and awaiting his word: THE WHOLE FIGHT ON THE
+GRID (backlog COMBAT 1u) -- the return volley, deaths, steps and camera hits all
+resolve on beats and each gets its own percussion voice, so the fight BECOMES the
+drum track instead of noise over it. That is the single change that turns "a game
+with music" into a rhythm game. Then rhythm-as-difficulty (1v).
+
 COMBAT (04) 7/26 - v69: MAKE THE BEAT PERCEIVABLE. Paolo after v68: "I couldn't
 really tell a difference... how can we do better to make this feel like a rhythm
 game?" The v68 math was right and gated; NOTHING let him perceive it. THE LESSON,

@@ -737,10 +737,10 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes("if(kind==='deadsat'){") && demo.includes("if(kind==='solarhymn'){") &&
     demo.includes("if(kind==='powergrid'){") && demo.includes("if(kind==='signalfade'){") &&
     demo.includes("if(kind==='rouletteghost'){") && demo.includes("if(kind==='dreadbed'){"));
-  ok('V63 HERO BEAT: beat one (step 0) hits DOUBLE -- the kick re-strikes plus a sub boom, and the bass note plays at 2x gain',
-    demo.includes('if(s===0){ drumV((f.kit&&f.kit.k)||\'punchk\',AC,MAST,t); drumV(\'boom\',AC,MAST,t); }') &&
+  ok('V63 HERO BEAT, as amended by V70: beat one still hits DOUBLE (the kick re-strikes plus a sub boom -- the 7/24 ruling that beat one is canon for every song) and the bass note is now the HERO VOICE at 3x, with the drums ducked so the limiter stops eating it',
+    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t);") &&
     demo.includes('/* V63 HERO BEAT: beat one re-strikes + a sub boom') &&
-    demo.includes('const _bi=(f.inst&&f.inst.b)||\'osc\'; const _db=(s===0)?2:1;') &&
+    demo.includes("const _bi=(f.inst&&f.inst.b)||'osc'; const _db=(s===0)?3:1;") &&
     demo.includes('synthV(_bi,AC,MAST,noteHz,_fsd,semi,t,0.13*_db);') &&
     demo.includes('g.gain.linearRampToValueAtTime(0.12*_db,t+0.01);'));
   // v65 (supersedes v64): Paolo's ruling -- EXACTLY TWO RAMPS, 2 kills and 4 kills
@@ -1184,6 +1184,31 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
       demo.includes('id="synccal"') &&
       demo.includes("if(!calTap())calStart();"));
   }
+}
+
+/* ============================================================================
+   10. V70 -- HIS TWO RULINGS: the rings at a quarter, the 808 as the hero
+   ========================================================================== */
+{
+  ok('THE RINGS KEEP EXACTLY 25% OF THEIR ALPHA (Paolo: "turn the opacity down by 75% so they\'re barely visible but still there") -- the ring and its snap flash both, nothing else about them touched',
+    demo.includes('const _a=(_hero?0.42:0.24)*(0.35+0.65*_f)*0.25;') &&
+    demo.includes("+(_snap*0.2125)+')';") &&
+    !demo.includes("+(_snap*0.85)+')';"));
+
+  ok('THE HERO VOICE IS AT 3x, NOT 2x (Paolo: "should it be like three times as loud. Just the voice"). 2x amplitude is +6dB and a doubling of PERCEIVED loudness takes about +10dB, so the old double read as roughly 1.5x. 3x is +9.5dB -- the number that actually sounds twice as loud',
+    demo.includes("const _bi=(f.inst&&f.inst.b)||'osc'; const _db=(s===0)?3:1;") &&
+    !demo.includes("const _bi=(f.inst&&f.inst.b)||'osc'; const _db=(s===0)?2:1;") &&
+    demo.includes('synthV(_bi,AC,MAST,noteHz,_fsd,semi,t,0.13*_db)') &&
+    demo.includes('g.gain.linearRampToValueAtTime(0.12*_db,t+0.01)'));
+
+  ok('AND THE BOOST ACTUALLY REACHES HIS EAR: the doubled kick and sub boom on beat one were slamming the master limiter (-14dB, 6:1) at the exact instant the hero note began, so the limiter ducked the note it was announcing. They keep the double at 0.55 gain and stop stealing the voice\'s headroom -- JUST THE VOICE gets louder',
+    demo.includes("if(s===0){ let _hd=MAST; try{ _hd=AC.createGain(); _hd.gain.value=0.55; _hd.connect(MAST); }catch(_e){ _hd=MAST; }") &&
+    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t); } }") &&
+    // the limiter itself stays: nothing is allowed to hard-clip again
+    demo.includes('_cmp.threshold.value=-14;') && demo.includes('_cmp.ratio.value=6;'));
+
+  ok('the hero beat still DOUBLES the kick and adds the sub boom (7/24 ruling: beat one is canon for every song) -- v70 changed how loud they are, never whether they happen',
+    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,_hd,t); drumV('boom',AC,_hd,t);"));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
