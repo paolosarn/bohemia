@@ -182,6 +182,8 @@ GATES = [
      'the nine islands boot into one driven engine: factions canon-wired, economy+spawner poured', False),
     ('CANON QUESTS',   ['node', 'gates/bohemia_canon_quests_gate.js'],
      'every canon .bq quest parses/round-trips/validates clean and plays to COMPLETE through the live loop', False),
+    ('ROAD CELLS',     ['node', 'gates/roadcell_gate.js'],
+     'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
     ('QUEST PLACEMENT', ['node', 'gates/quest_placement_gate.js'],
      'quest placement candidates are real cells, anchored to the live cast, deterministic', False),
     ('CURRENT SLICE',  ['node', 'gates/current_slice_gate.js'],

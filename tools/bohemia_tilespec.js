@@ -52,6 +52,11 @@ const DISTRICTS = [
   { name: 'cityhall',   mod: require('../engine/bohemia_cityhall.js') },
   { name: 'battery',    mod: require('../engine/bohemia_battery.js') },
   { name: 'terminal',   mod: require('../engine/bohemia_terminal.js') },
+  // SURFACE CELLS (7/26/26): the road network tiles. Not districts (they never become
+  // territory or an address), but they are real ground bodies stand on and 37% of the
+  // valley is made of them, so the tiling phase needs their sheets exactly the same way.
+  { name: 'arterial',   mod: require('../engine/bohemia_arterial.js') },
+  { name: 'freeway',    mod: require('../engine/bohemia_freeway.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;

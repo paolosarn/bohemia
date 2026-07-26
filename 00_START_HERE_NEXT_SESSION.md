@@ -17,6 +17,17 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- WORLD BEFORE QUESTS (Paolo 7/26, LOCKED): laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_
+  QUESTS_7_26_26.md. "We are not ready to worry about quest right now we need to
+  actually build a fucking world." The WORLD lane does NOT touch quests: not
+  placement, not casting, not the bridge. Its quest items are PARKED in the
+  backlog until Paolo reopens them. Build ground. (QUESTS lane still writes
+  quests; that is its charter. What died is WORLD spending turns on quest
+  plumbing.)
+- SURFACE CELL LAW (7/26, machine-gated): a road is REAL GROUND but NOT a district.
+  It registers in the world model's SURFACEGEN, never DISTGEN, so no faction,
+  economy district or quest address can ever resolve to a street, and the loop's
+  district count is unchanged by adding one. Gate: ROAD CELLS.
 - APPROVED-ASSETS-FIRST (Paolo 7/26, LOCKED, hardens REUSE-FIRST):
   laws/BOHEMIA_ADDENDUM_APPROVED_ASSETS_FIRST_7_26_26.md. "If they're gonna
   create any sort of thing they have to be heavily inspired by the assets that
@@ -144,20 +155,30 @@ startEncounter -> BOHEMIA_RUN_COMBAT_END (runEncounterIn / RUNFIGHT /
 showTabPanel in the alpha shell). Do not repurpose those names.
 
 
-WORLD MODEL (02): 7/26 — WHERE THE QUESTS HAPPEN. Backlog WORLD-1 shipped: a
-placement CANDIDATE factory (engine/bohemia_quest_placement.js) proposes 3
-addresses per canon quest by crossing the quest's OWN prose with each district's
-OWN dossier (records/tilespec) over the already-generated valley. MAP LAW held:
-candidates only, Paolo picks. Judge surface in the alpha (LIFE tab -> WHERE THE
-QUESTS HAPPEN): real valley from above, a pin per option, three REAL cell renders
-per quest, tap one, export .txt. Gate QUEST PLACEMENT registered + green (20
-checks: real cells only, anchor === the live cast, byte-identical across runs, no
-stacking, page fresh + reachable). Record:
-records/BOHEMIA_QUEST_PLACEMENT_CANDIDATES_7_26_26.md. Also fixed the same turn:
-ONE VALLEY (above). WAITING ON: his picks, then apply them as a casting-bridge
-override. Earlier: 9 playable canon quests (S01-S09) + quest runtime + casting
-bridge live in the phone; quests move the factions (world bridge); CANON QUESTS
-gate green.
+WORLD MODEL (02): 7/26 (b) — THE STREETS ARE REAL. Paolo ruled mid-session that
+this lane stops touching quests and builds world (hot ruling above). The census
+found the hole in one query: of 9,216 valley cells, 3,386 (37%) were ROAD cells
+with NO generator at all, rendering as a flat grey slab. More of the valley was
+untextured road than was built district, and every district fronts onto it.
+SHIPPED: engine/bohemia_arterial.js (2,434 cells — the real Clark County
+cross-section: six lanes, raised median opening to a yellow left-turn bay at each
+crossing, detached sidewalks behind an amenity strip, curb ramps, ladder
+crosswalks, stop bars, signal masts, block walls wall-to-wall edge-to-edge so a
+street JOINS the districts either side instead of floating in a dirt moat) +
+engine/bohemia_freeway.js (952 cells — eight lanes between concrete barrier and
+sound wall, embankment, the traffic still stopped in the lanes, and a real
+OVERHEAD overpass deck on solid piers where an arterial crosses). Both are
+NETWORK TILES: all 16 link masks build. Both are SURFACE cells, never districts
+(law above). VALLEY: 40% -> 77% generated. Dossiers generated for both; ROAD
+CELLS gate registered (38 checks) and green — it caught a real defect on its
+first run (crosswalks dying at the gutter, so nobody could legally reach the
+sidewalk; curb ramps exist because the gate refused to pass).
+EARLIER 7/26 (a): quest placement candidates + the ONE VALLEY seed fix. Per the
+ruling that judge page stays live in the LIFE tab, unjudged, and is NOT
+re-surfaced at him.
+NEXT IN THIS LANE: the rest of the ground (620 desert cells + the terrain that
+still renders flat, then the non-bespoke landmark placeholders), then the
+APPROVED ambient encounter director. Quests stay parked.
 
 QUESTS (01) 7/26 — TWELVE MORE PLAYABLE QUESTS SHIPPED (S10-S21). The playable
 corpus went 9 -> 21. Census, flash flood, triage, deed, dog on the landing,

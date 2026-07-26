@@ -50,32 +50,43 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    placement].
 
 ## WORLD
-1. DONE 7/26 (awaiting verdict): quest placement CANDIDATES shipped, 3 per quest,
-   rendered on the real valley in the alpha's LIFE tab. Factory:
-   engine/bohemia_quest_placement.js, judge:
-   tools/bohemia_quest_placement_judge.py, gate: QUEST PLACEMENT. NEXT (blocked on
-   his picks): APPLY the picked placements as a casting-bridge override + extend
-   the gate to prove the override sticks across save/reload. | [PENDING Paolo].
+LANE RULING (Paolo 7/26, LOCKED — laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_QUESTS_7_26_26.md):
+"we need to actually build a fucking world." This lane does NOT work on quests. Every
+quest item is PARKED until Paolo himself reopens it. Build ground, not plumbing for
+stories the world cannot host yet.
+
+1. THE REST OF THE GROUND. Roads are done (arterial + freeway, 3,386 cells, valley now
+   77% generated). Next: the 620 desert cells and the terrain that still renders flat
+   (mountain/water/wash edges), then the NON-bespoke landmark placeholders (airport,
+   rail, campus, town). | its own gate section or a terrain gate; render-and-look on
+   the real MAP tab | the Strip / casinos / resorts stay Paolo's hand, never
+   auto-generated | new ground LOOK = judge before volume.
 2. AMBIENT ENCOUNTER DIRECTOR (APPROVED 7/26, records/BOHEMIA_VERDICT_ACT1_
-   ROSTER_7_26_26.txt): the walk-surface encounter system — storyteller
-   tension budget (never dice), 70/20/10 ambient/interactive/forced ratio,
-   district+day/night spawn tables, rare-is-sacred caps, ~90s min gap. The 12
-   approved act-1 encounter types as spawnable tokens routing into the
-   standard encounter handoff; patrols-collide as world-on-world. Enemy ART
-   is NOT this item (approved-assets-first, separate judge). | director
-   proven headless: ratios hold over a simulated long walk, no repeat-spam,
-   deterministic per seed | pacing ruling (no background ticking when player
-   idle) | design approved; art needs thumbs.
-3. World bridge deepening: quest outcomes visibly move factions on the map.
-   | proven headless, deterministic | pacing ruling: no background ticking | no.
-3. Engine support requests flagged by RUN (as they arrive, priority). | per
-   request | — | no.
-4. (discovered 7/26) Faction bases are an even stride across the district list, so
-   all 14 factions sit on suburb tracts and hold exactly 1 cell each. Territory
-   that reads like territory (a faction whose ground matches its trade) is a
-   direction-class call, so it stays [PENDING Paolo] — but the MECHANISM (base
-   placement preferring a kind a faction's own canon names) is buildable the moment
-   he rules. | — | bootFactions is the seam | [PENDING Paolo].
+   ROSTER_7_26_26.txt): the walk-surface encounter system — storyteller tension budget
+   (never dice), 70/20/10 ambient/interactive/forced ratio, district+day/night spawn
+   tables, rare-is-sacred caps, ~90s min gap. The 12 approved act-1 encounter types as
+   spawnable tokens routing into the standard encounter handoff; patrols-collide as
+   world-on-world. Enemy ART is NOT this item (approved-assets-first, separate judge).
+   | director proven headless: ratios hold over a simulated long walk, no repeat-spam,
+   deterministic per seed | pacing ruling (no background ticking when player idle) |
+   design approved; art needs thumbs.
+   NOTE: this is world content, not quest plumbing, so the 7/26 ruling does not park it.
+3. INTERIORS FOR THE GROUND THAT HAS THEM: coordinate with CITY (they own the district
+   interiors item) so nothing is built twice. | — | CITY lane's item 1 | no.
+4. Engine support requests flagged by RUN (as they arrive, priority). | per request | — | no.
+5. (discovered 7/26) VALLEY COMPOSITION: 70% of the built valley is suburb, and there are
+   301 solar cells but 1 library, 1 firestation, 1 jail. Whether that is the city he wants
+   is a DIRECTION call. | — | — | [PENDING Paolo].
+6. (discovered 7/26) Faction bases are an even stride across the district list, so all 14
+   factions sit on suburb tracts holding 1 cell each. Whether a faction's ground should
+   match its trade is his call; the mechanism is a small change to bootFactions.
+   | — | — | [PENDING Paolo].
+
+PARKED BY THE 7/26 RULING (do not pick these up):
+- P1. Quest placement picks -> apply as a casting-bridge override. The candidates shipped
+  (all 21 quests after the QUESTS lane folded theirs in) and the judge page is live in
+  the LIFE tab; it stays there, unjudged, unsurfaced.
+- P2. World bridge deepening (quest outcomes moving factions on the map).
 
 ## CITY
 1. INTERIOR PROPS FROM THE GREAT SWEEP (discovered, CITY 7/26). Interiors ship as

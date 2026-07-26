@@ -56,6 +56,8 @@
   var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
   var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
   var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
+  var ART= HASREQ ? require('./bohemia_arterial.js')       : (typeof BohemiaArterial!=='undefined'?BohemiaArterial:root.BohemiaArterial);
+  var FWY= HASREQ ? require('./bohemia_freeway.js')        : (typeof BohemiaFreeway!=='undefined'?BohemiaFreeway:root.BohemiaFreeway);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -102,6 +104,37 @@
     battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
     terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' }
   };
+  /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
+     world"). A road cell is NOT a district: it never becomes faction territory, an
+     economy district, a spawn tier or a quest address, so it deliberately does NOT go
+     in DISTGEN (isAutoDistrict stays false for it and every consumer that counts
+     districts keeps counting exactly what it counted before). But it is REAL GROUND
+     a body stands on, and 37% of the valley is made of it, so it gets a generator and
+     plot() renders it like anything else.
+
+     A surface cell is a NETWORK TILE, not a street-fronting lot: it is handed the
+     directions whose neighbours are also road (`links`), never rotateToStreet. */
+  var SURFACEGEN = {
+    arterial: { mod:ART, zone:'default' },
+    freeway:  { mod:FWY, zone:'default' }
+  };
+  /* Which neighbours are road, split by CLASS. A freeway continues only into another
+     freeway (it has no at-grade crossings at all); a mile-grid arterial that runs up
+     against it is not a connection, it is what crosses OVER it on a deck. Getting that
+     split right is the whole difference between a corridor and a plus sign. */
+  function roadLinks(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var D=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]];
+    var same=[], other=[], all=[];
+    for(var i=0;i<D.length;i++){
+      var d=at(x+D[i][1],y+D[i][2]);
+      if(!ROADSET[d]) continue;
+      all.push(D[i][0]);
+      if(kind && d===kind) same.push(D[i][0]); else other.push(D[i][0]);
+    }
+    return { all:all, same:same, cross:other };
+  }
+
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
 
@@ -341,6 +374,29 @@
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;
       }
+      // SURFACE CELL (road): a real generated corridor, built from the network links
+      // (which neighbours are also road), never street-fronted. Same read API as a
+      // district plot minus buildings, so renderers/collision treat it uniformly.
+      var sg=SURFACEGEN[cell.district];
+      if(sg && sg.mod){
+        var rl=roadLinks(m,x,y,cell.district);
+        var links=rl.all;
+        var sres=sg.mod.generate(cell.seed>>>0,
+          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross });
+        var slegend=sg.mod.legend||{};
+        var stinfo=function(xx,yy){ var row=sres.g[yy]; var c=(row&&xx>=0&&xx<sres.W)?row[xx]:-1;
+          var L=slegend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          return { code:c, name:L?L.name:(c===0?'dirt shoulder':(c<0?'(off-plot)':'?')),
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; };
+        var sapi={ x:x, y:y, district:cell.district, category:KIT.category(cell.district),
+          archetype:sg.zone, surface:true, links:links, sameLinks:rl.same, crossLinks:rl.cross,
+          block:{W:sres.W,H:sres.H,grid:sres.g,codes:true}, legend:slegend,
+          tileInfo:stinfo,
+          solidAt:function(xx,yy){ return stinfo(xx,yy).solid; },
+          portals:function(){ return []; },        // a street cell has no interior
+          buildings:[], building:function(){ return null; } };
+        plotCache[key]=sapi; return sapi;
+      }
       var recipe=BR.recipeFor(cell);
       var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
       // W=48 gives footprints big enough to carry real interiors
@@ -386,6 +442,10 @@
       // LOCATION QUERY: every real auto-factory district, findable by type/category/
       // custom predicate, cheap (never generates plot content to answer). The three
       // named helpers cover the common asks; findDistricts is the escape hatch.
+      // SURFACE CELLS: real ground that is not a district (roads). Reported separately
+      // so nothing that counts districts ever accidentally counts a street.
+      isSurface: function(x,y){ var c=m.at(x,y); return !!(c && SURFACEGEN[c.district]); },
+      roadLinks: function(x,y){ var c=m.at(x,y); return roadLinks(m,x,y,c?c.district:null); },
       districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
       districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },
       nearestDistrictOfType: function(x,y,type){ return nearestDistrict(m, x, y, function(c){ return c.district===type; }); },
@@ -404,7 +464,9 @@
   // instead of sampling whatever a coordinate scan happens to land on.
   function districtTypes(){ return Object.keys(DISTGEN); }
 
-  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone, districtTypes:districtTypes};
+  function isSurfaceCell(type){ return !!SURFACEGEN[type]; }
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone,
+             districtTypes:districtTypes, isSurfaceCell:isSurfaceCell};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
