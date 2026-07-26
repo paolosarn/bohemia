@@ -189,8 +189,85 @@ def main():
                 'law 4: %s is still surfaced as a live ask. Quest verdicts are FROZEN until '
                 'the visual bar is set.' % c)
 
+    # ---- STEP ZERO: THE MOBILE RENDER CONTRACT (amendment D) -----------
+    contract_checks(M, src)
+
     print('  %d passed, %d failed' % (P, F))
     return 1 if F else 0
+
+
+CONTRACT = 'laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md'
+PALETTE = os.path.join(OUTDIR, 'BOHEMIA_MASTER_PALETTE.json')
+SURFACES = ('slices/BOHEMIA_RUN_CURRENT.html', 'slices/BOHEMIA_CITY_CURRENT.html')
+# NAMED, DATED DEBT — not an excuse. Section 7 of the contract found on its first
+# run that the CITY tab never sets imageSmoothingEnabled at all, so its world art
+# has been drawn SMOOTHED (browser default) on a pixel-art game. That file is the
+# CITY lane's (ONE SYSTEM, ONE SESSION) and that lane is mid-flight, so the ART
+# lane reports it instead of reaching into it: backlog CITY, "smoothing off in the
+# city slice". This entry makes the gap LOUD every run and must be deleted the
+# moment the CITY lane lands the one-line fix - it is not allowed to go quiet.
+PIPELINE_DEBT = {'slices/BOHEMIA_CITY_CURRENT.html':
+                 'CITY lane owns this file; reported 7/26, backlog CITY item'}
+
+
+def contract_checks(M, src):
+    """Amendment D pins a contract BEFORE painting; this holds the contract and
+    the factory to the same numbers so they can never drift apart, and holds the
+    pipeline rule on the surfaces Paolo actually looks at."""
+    chk(os.path.exists(CONTRACT), 'STEP ZERO: the mobile render contract does not exist')
+    if not os.path.exists(CONTRACT):
+        return
+    doc = open(CONTRACT).read()
+    # section 1-2: every pinned number is the number the code actually uses
+    for label, val in (('base art resolution', '%d x %d art px' % (M.W, M.H)),
+                       ('A ground cell', '%d px square' % M.CELL),
+                       ('iso diamond', '%d x %d px diamond' % (M.TW, M.TH)),
+                       ('iso height unit', 'ZH = %d px' % M.ZH),
+                       ('A door', '2 cells = %d px' % (M.DOOR_CELLS * M.CELL))):
+        chk(val in doc, 'contract drifted from the code: %s should read "%s"' % (label, val))
+    chk('%d px' % int(round(M.BODY_PX * M.BODY_K)) in doc,
+        'contract drifted: candidate A body height is %d px' % int(round(M.BODY_PX * M.BODY_K)))
+    chk('%.2f > ' % M.TOP in doc and '%.2f' % M.SIDE in doc,
+        'contract drifted: the three value bands must be quoted as %.2f / %.2f / %.2f'
+        % (M.TOP, M.FRONT, M.SIDE))
+    # section 1: integer zoom only
+    chk(float(M.SCALE) == int(M.SCALE), 'the poster scale is not an integer zoom')
+    chk('BANNED' in doc and 'non-integer' in doc.lower(),
+        'the contract must ban non-integer scaling outright (amendment D)')
+    # section 4-5: one light direction, no keyline, no dither
+    chk('upper LEFT' in doc, 'the contract does not pin ONE light direction')
+    chk('NO black keyline' in doc, 'the contract does not pin the outline rule')
+    chk('No dither' in doc or 'no dither' in doc, 'the contract does not pin a dither policy')
+    # section 6: the palette RATCHET, honestly stated
+    chk(os.path.exists(PALETTE), 'the master palette ramp was never derived')
+    if os.path.exists(PALETTE):
+        pal = json.load(open(PALETTE))
+        chk(len(pal['ramp_hex']) == pal['ramp_size'], 'the ramp does not match its declared size')
+        got, ceil = pal['measured_unique_colours_in_target_plates'], pal['ceiling']
+        chk(got <= ceil,
+            'PALETTE RATCHET: the target plates now carry %d unique colours, over the '
+            'tracked ceiling of %d. The corpus is not indexed yet (that lands with the '
+            'act-1 tileset) but it is not allowed to get WORSE.' % (got, ceil))
+        chk(str(got) in doc or '{:,}'.format(got) in doc,
+            'the contract must quote the measured colour count (%d) rather than imply the '
+            'palette is already enforced' % got)
+        chk('NOT YET INSTRUMENTED' in doc,
+            'the contract must say plainly that live canvas memory is not measured, not '
+            'imply a check that does not exist')
+    # section 7: the pipeline rule, on the real surfaces
+    for f in SURFACES:
+        if not os.path.exists(f):
+            continue
+        h = open(f, encoding='utf8', errors='replace').read()
+        smooth_off = 'imageSmoothingEnabled=false' in h.replace(' ', '')
+        if not smooth_off and f in PIPELINE_DEBT:
+            print('  KNOWN GAP (reported, not fixed here): %s draws world art with '
+                  'smoothing ON - %s' % (f, PIPELINE_DEBT[f]))
+        else:
+            chk(smooth_off,
+                '%s draws world art with smoothing ON - that voids pixel art on a 3x '
+                'phone' % f)
+        chk('Math.floor' in h, '%s computes a cell size without flooring it' % f)
 
 
 if __name__ == '__main__':

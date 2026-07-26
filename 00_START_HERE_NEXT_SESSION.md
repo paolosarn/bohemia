@@ -144,6 +144,25 @@ the picked projection; if A wins, the bank is already correct.
 HONEST LIMIT: these are POSTERS, not the engine rendering. That is what a target
 render is for, but nobody should read them as "the game already looks like this."
 Nothing shipped into the run, the city or any district this turn.
+ALSO SHIPPED THE SAME TURN, because amendment D landed on main mid-session and
+made it STEP ZERO: laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md — frame, tile
+px, integer zoom, portrait viewport, proportion canon, ONE light direction, the
+three value bands, no-keyline, no-dither, the offscreen-1x + integer-blit
+pipeline rule, and the ~224MB memory constraint. Every number is asserted
+against the factory's own constants, so the doc and the code cannot drift. TWO
+CLAUSES ARE HONESTLY UNMET AND THE DOC SAYS SO: the 64-colour master ramp is
+DERIVED from the approved art but the corpus is continuous-tone (59,377 colours
+across the plates) so indexing lands with the act-1 tileset and is held by a
+ratchet ceiling meanwhile; and live canvas memory is NOT instrumented, so the
+gate does not pretend to check it. Order note for whoever reads the law: the
+contract was written FROM the screens, not before them.
+ONE FINDING HANDED TO ANOTHER LANE, NOT TOUCHED: the CITY tab
+(slices/BOHEMIA_CITY_CURRENT.html) never sets imageSmoothingEnabled at all, so
+its world art has been drawn BILINEAR-FILTERED on a pixel-art game, worst on 3x
+phones. The run slice sets it false; the city never did. That file is the CITY
+lane's and that lane is mid-flight, so target_screen_gate prints it as a loud
+KNOWN GAP every run and backlog CITY -1 carries the one-line fix. The exemption
+must be deleted in the same commit that fixes it.
 NEXT IN THIS LANE (blocked on the pick): write the pick into the spec, graveyard
 the losers with a post-mortem, turn target-matching on, lift the freeze, then the
 MASTER ACT-1 TILESET built to the target and judged as ONE assembled scene with

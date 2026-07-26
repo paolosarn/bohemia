@@ -7,12 +7,22 @@
 ## session surfaces quest questions or quest verdicts to Paolo. ***
 
 ## ART (new lane — first word "art")
-0. STEP ZERO — THE MOBILE RENDER CONTRACT (amendment D): pin base resolution,
-   tile px, integer zoom, iPhone portrait viewport, master palette, light
-   direction, outline + dither rules. One page, gated (integer-blit pipeline
-   asserts). The target is painted AT this spec or it is void. | contract doc
-   + pipeline gate | — | the aesthetic knobs (palette/light) ride into the
-   target verdict.
+0. [SHIPPED 7/26] STEP ZERO — THE MOBILE RENDER CONTRACT (amendment D):
+   laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md. Pins frame, tile px, integer
+   zoom, portrait viewport, proportion canon, ONE light direction, the three
+   value bands, no-keyline, no-dither, the pipeline rule and the memory
+   constraint. Every number is asserted against the factory's own constants by
+   target_screen_gate.py, so contract and code cannot drift. TWO CLAUSES ARE
+   HONESTLY UNMET AND SAY SO IN THE DOC: (a) the 64-colour master ramp is
+   DERIVED (records/target/BOHEMIA_MASTER_PALETTE.json) but the approved corpus
+   is continuous-tone, 59,377 colours across the plates — indexing lands with
+   the act-1 tileset (item 2) and is held meanwhile by a ratchet ceiling;
+   (b) live canvas memory vs the ~224MB iOS floor is NOT instrumented and the
+   gate does not pretend to check it. Order note: amendment D landed on main
+   mid-session, so the contract was written FROM the screens, not before them.
+0b. (discovered 7/26, needs instrumentation) MEASURE LIVE CANVAS MEMORY on a
+   real device against the ~224MB iOS floor. Until then section 8 of the
+   contract is a constraint, not a check. | a probe + a gated ceiling | — | no.
 1. [SHIPPED 7/26, AWAITING HIS PICK] THE TARGET SCREENS: three candidates
    (A THE FRONT FACE / B THE ISO BLOCK / C THE CUTAWAY), each side-by-side with
    a real screenshot of the shipped run, judged from alpha -> LIFE -> PICK THE
@@ -149,6 +159,15 @@ PARKED BY THE 7/26 RULING (do not pick these up):
 - P2. World bridge deepening (quest outcomes moving factions on the map).
 
 ## CITY
+-1. (discovered 7/26 by the ART lane's render-contract gate, ONE LINE) THE CITY
+   TAB DRAWS WORLD ART SMOOTHED. slices/BOHEMIA_CITY_CURRENT.html never sets
+   imageSmoothingEnabled at all, so it takes the browser default (true) and the
+   pixel art is bilinear-filtered on every device — worst on 3x phones. The RUN
+   slice sets it false in two places; the city never did. The ART lane did not
+   reach into another lane's live file: target_screen_gate.py prints it as a
+   KNOWN GAP on every run and the exemption must be DELETED the moment this is
+   fixed. | smoothing off wherever the city context draws world art; the ART
+   gate's PIPELINE_DEBT entry removed in the same commit | — | no.
 1. INTERIOR PROPS FROM THE GREAT SWEEP (discovered, CITY 7/26). Interiors ship as
    a blessed but EMPTY shell: approved walls/doors/windows/floors, no furniture.
    The prop authority is banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt (2,604
