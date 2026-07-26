@@ -315,7 +315,7 @@ direction's own waC.x, all 8 directions. Shoulder/arm chain (parts 5+7,
 6+8, plus shL/elL/handL and shR/elR/handR joints in skeleton AND pose)
 rigidly shifted by the same shoulder-row delta so arms reattach with no
 seam (deltas came out 0 to +-1px). BODY_RIGS.FEMALE wired end to end:
-rebuildFromRig() now sources bakedFor(G.bodyRig) instead of a hardcoded
+rebuildFromRig() now sources bakedFor(G.bodyRig) instead of a hardcoded   [DEAD 7/26: removed with the female rig]
 BAKED, and the CHARACTER tab BODY picker calls rebuildFromRig() on click.
 Verified LIVE (not just gate math): headless Playwright screenshot of the
 real CHARACTER tab canvas, bare-chested MALE vs FEMALE side by side -- a

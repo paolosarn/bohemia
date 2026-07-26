@@ -48,7 +48,7 @@ compression fractions, nothing hardcoded to an absolute pixel).
 
 WIRING: BODY_RIGS gained FEMALE:1. rebuildFromRig() (the ONE PACKAGE LAW
 function -- single source of truth for RIG/exp/SKINNERS/REST_GRID) now
-reads bakedFor(G.bodyRig) instead of a hardcoded BAKED, so it can source
+reads bakedFor(G.bodyRig) instead of a hardcoded BAKED, so it can source   [DEAD 7/26: removed with the female rig]
 from either the male paint (BAKED, still the only thing the rig tool ever
 edits) or the derived FEMALE_BAKED. The CHARACTER tab's BODY row picker
 calls rebuildFromRig() on click so switching bodies actually re-skins

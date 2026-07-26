@@ -140,19 +140,40 @@ These were paid for in blood; do not rediscover them.
 
 ---
 
-## CLEANUP OWED (staged, deliberately NOT done this turn — he said stop coding)
+## CLEANUP OWED -- DONE 7/26/26 (all of it, in one commit)
 
-The removal itself is a code change and Paolo said write it down, not code.
-Whoever does it:
+Everything below was carried out exactly as written. Record:
+`records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt`.
 
-- strip `FEMALE_BAKED`, `bakedFor()`'s fork, `BODY_RIGS.FEMALE`, the CHARACTER
-  tab's FEMALE picker button, `tools/bohemia_female_rig_transform.py`, and
-  `gates/woman_rig_gate.js` (plus its line in `gates/bohemia_gates.py`)
-- **KEEP `rigSkel(d)`** and the three call sites it fixed. Those were real bugs
-  on the male body's own contracts and the fix is correct regardless.
-- **KEEP** the buildstamp/ship discipline and the pelvis/stray/nipple lessons
-  as documented above — they are inputs to the slider work.
-- **SEQUENCING TRAP:** the graveyard tombstone line for the female-rig tokens
-  must be added **in the same commit as the code removal, not before it.** The
-  graveyard gate greps the tree and flags any *live* use of a dead token, so
-  registering the token while the code still references it turns the gate red.
+- REMOVED: `FEMALE_BAKED`, the `bakedFor()` rig-name fork, `BODY_RIGS`,
+  the CHARACTER tab's FEMALE picker button, the dead `G.bodyRig` state,
+  `tools/bohemia_female_rig_transform.py`, and `gates/woman_rig_gate.js` (plus
+  its line in `gates/bohemia_gates.py`, replaced by the BODY VARIATION gate).
+- KEPT, as instructed: `rigSkel(d)` and the three call sites it fixed. Those
+  were real bugs on the male body's own contracts and are correct for sliders.
+- KEPT: the buildstamp/ship discipline and the pelvis/stray/nipple lessons.
+- The SEQUENCING TRAP was respected: the tombstone for the dead tokens
+  (`const FEMALE_BAKED`, `const BODY_RIGS`, `G.bodyRig` -- all DEAD, never
+  re-add) landed in the graveyard in the SAME commit as the code removal,
+  never before it.
+
+---
+
+## THE SLIDERS -- BUILT 7/26/26
+
+`G.bodyVar = {height, belly, arms}`, live on the CHARACTER tab, neutral is the
+canon body by identity (the resolver returns the canon object ITSELF, so the
+existing character cannot shift by a pixel). Machine:
+`engine/bohemia_bodyvar.js`, gate: `gates/bodyvar_gate.js` (37 checks),
+real-surface harness: `tools/bohemia_bodyvar_capture.js`.
+
+**ONE MEASURED CONSTRAINT WORTH KNOWING, discovered on the real surface:**
+"taller" is capped by the 56px sprite frame, not by taste. Paolo's painted body
+already paints on the top row in nine clips; at +8% the head gets shaved on
+idle/walk/run, at +6% nothing does. Shipped at +-6%. Going bigger needs a
+ruling (taller frame, or re-centring canon), it is not a tuning knob.
+
+The DIAL RANGES themselves remain **[PENDING Paolo]** exactly as this addendum
+requires -- they ship as candidates in one declared table (`BOH_BODYVAR.AMP`),
+so a verdict is a one-line edit. Nothing was wired to randomise NPC bodies:
+whether dials are per-NPC-random, player-chosen, or both is still his call.

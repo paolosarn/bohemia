@@ -1,0 +1,119 @@
+=== BOHEMIA — ONE RIG, VARIATION SLIDERS: BUILT (7/26/26) ===
+Lane: CHARACTER. Backlog item CHARACTER-1, popped per THE GO PROCEDURE.
+Ruling built from: laws/BOHEMIA_ADDENDUM_ONE_RIG_VARIATIONS_7_25_26.md
+(Paolo 7/25/26, LOCKED).
+
+WHAT PAOLO ASKED FOR, VERBATIM
+  "We're actually gonna remove the whole female rig... Everything is gonna be
+   off the male rig. However I would like to see options for the rig for people
+   to be shorter or taller, maybe their stomach's a little wider or skinnier,
+   their arms and stuff, and we have to make that work."
+
+WHAT SHIPPED
+  1. THE FEMALE RIG IS GONE. FEMALE_BAKED, the BODY_RIGS fork, bakedFor()'s
+     rig-name argument, the dead G.bodyRig state, the MALE/FEMALE picker,
+     tools/bohemia_female_rig_transform.py and gates/woman_rig_gate.js are all
+     deleted. The graveyard tombstone landed in the SAME COMMIT as the code
+     removal (the addendum's own sequencing trap: registering a dead token while
+     live code still references it turns the graveyard gate red).
+     KEPT, exactly as the addendum instructs: rigSkel() and its three call sites
+     (nipple row, shoulder blend, garment contact law). Those were real bugs on
+     the male body's own contracts and the fix is correct for sliders too.
+  2. THE DIALS. G.bodyVar = {height, belly, arms}, each in [-1, 1], 0 = canon.
+     Live on the CHARACTER tab as three sliders plus a CANON reset. Drag one and
+     the body, all 8 facings and every animation rebuild in one shot.
+     They persist with the look and they are hashed into the frame cache, so a
+     drag can never draw a stale frame.
+  3. THE MACHINE. engine/bohemia_bodyvar.js (BOH_BODYVAR), inlined into the
+     alpha by tools/bohemia_bodyvar_patch.py, which also RESYNCS the inline copy
+     from the engine file so tuning a range is a one-line edit that cannot drift
+     (ENGINE SYNC LAW).
+  4. THE GATE. gates/bodyvar_gate.js, 37 checks, wired into the suite in place
+     of the dead woman-rig gate.
+  5. THE HARNESS. tools/bohemia_bodyvar_capture.js drives the REAL alpha in a
+     REAL browser through the FULL clip set at every dial extreme, and prints
+     the contact sheets Paolo judges. Report: records/bodyvar/.
+
+HOW IT WORKS (two families, because they have to be)
+  HEIGHT rides the SKELETON. seg()'s WIDTH LAW (Paolo 7/2/26) scales the
+  along-bone axis with bone length and NEVER the perpendicular axis, so
+  lengthening bones in the POSE gives a taller body at unchanged width for free.
+  Anchored on the ground line, so the feet stay planted at every height and the
+  occupancy contract is untouched. The head keeps its authored bone vector and
+  exact rest length -- a taller adult is not a bigger head, and uniform scaling
+  of the whole sprite is what reads as A CHILD.
+  BELLY and ARMS ride the REST PIXELS, because a width dial cannot ride the
+  skeleton at all (the perpendicular axis is law-bound never to scale). Rows are
+  re-mapped by an INVERSE sample, per part, so a row can never empty and a hole
+  can never open. Nothing is repainted: Paolo's pixels are re-placed, never
+  redrawn (RIG LAW, and REUSE-FIRST: this whole feature cooks zero new art).
+
+THREE THINGS THE RENDER TAUGHT ME THAT REASONING DID NOT
+  (all three were found by looking at pixels, per VERIFY ON THE REAL SURFACE)
+  1. THE FLANK CONTRACT. On head-on facings the hanging arms COVER the torso's
+     flank. A belly that only widened part 4 was invisible behind the arm, and a
+     belly that narrowed tore a 1px hole between the torso and an arm that
+     stayed put. The arms hang ON the flank, so the whole arm unit (arm + hand)
+     now translates with it. Translated, never reshaped.
+  2. THE ARMPIT BRIDGE. An arm and the torso ride different bones, so once the
+     pose deforms them a 1px slide in rest space can open a 1px seam on screen
+     even though the data is exactly adjacent. An arm moving outward now keeps
+     its original inner columns as an anchor: outer edge travels with the belly,
+     armpit edge never leaves the torso.
+  3. THE FINAL FLOATER. With EVERY dial at its minimum at once, five frames
+     across dance/cough/startle facing NE ended up with a single floating
+     clothing pixel. The body already has a de-speckle pass -- but it runs
+     BEFORE garments composite, so a stranded garment pixel sailed straight
+     through it. Fixed at the root with a FINAL FLOATER CULL on the composited
+     frame (zero orthogonal neighbours = a floater by definition; thin art
+     always keeps two, which is the trap the body pass was written to dodge).
+     No-op on the canon body, and it now protects every garment ever made.
+  4. THE ARM ANCHOR. In profile the arms sit ENTIRELY INSIDE the torso's own
+     footprint (facing E: arm-L spans x 25-29, torso spans 24-31), so the only
+     part of the arm on screen is its outer edge. Shrinking about the row centre
+     did not thin the arm, it DELETED it -- at every amplitude tested down to
+     0.15. Fixed properly instead of by shrinking the dial: growing always
+     pushes the outer edge outward, and shrinking pulls the INNER edge when the
+     arm is beside the torso and the OUTER edge when it is buried in it. Full
+     amplitude now renders clean.
+
+THE ONE HONEST LIMIT: "TALLER" IS CAPPED BY THE SPRITE FRAME
+  Measured, not guessed, across 61 clips x 8 facings x 4 phases on the real
+  surface. Paolo's painted body ALREADY paints on the top row of the 56px frame
+  in nine clips (jump, cheer, hands-up, stretch, heave, jumping-jacks, hail,
+  flee-sprint, sleep). His guy is a TALL guy and the frame is full.
+    at +8% the head is SHAVED on idle / walk / run facing NW -- 6 pixels of skull
+      land on row 0
+    at +6% two stray pixels appear on crawl-dying
+    at +5% zero strays, zero shaves anywhere in a 5,712-frame sweep
+  So the shipped range is +-5% of standing height, about +-2.3px on a 46px body,
+  a 4.6px spread end to end. Side by side that is a clearly different person;
+  it is NOT "make me a giant". Going bigger is not a taste question, it needs a
+  ruling: either a taller sprite frame (touches everything) or re-centring canon
+  so Paolo's painted body is no longer sitting at the ceiling.
+
+RANGES ARE PAOLO'S CALL (the addendum says so explicitly)
+  Shipped as CANDIDATES, all in one declared table (BOH_BODYVAR.AMP):
+    height 0.05   belly 0.32   arms 0.45
+  A verdict on any of them is a one-line edit plus a re-run of the patch tool.
+
+STILL PENDING PAOLO (not decided here, per the addendum's own list)
+  - how many dials, and what "and stuff" covers beyond height/belly/arms
+  - the range of each dial (candidates above)
+  - whether dials are per-NPC-random, player-chosen, or both. NOTHING was wired
+    to randomise NPC bodies -- that is a direction-class call, not mechanism.
+  - whether any dial is faction- or role-coded
+
+KNOWN AND NAMED, NOT HIDDEN
+  On the TALL body, two frames out of 5,712 (greet facing E and W, one phase)
+  have the waving hand GRAZE the frame edge by 4-5 pixels. Nothing is cut, and
+  the canon body itself paints on the edge in nine clips of its own. The harness
+  lists every graze by name on every run so it can never grow quietly, and fails
+  outright on a SHAVE (6+ pixels -- the size of the 8% regression above).
+
+PROOF
+  gates/bodyvar_gate.js .................. 37/37
+  full suite ............................. see the commit message
+  real-surface sweep ..................... records/bodyvar/BODYVAR_CAPTURE_REPORT.txt
+  contact sheets ......................... records/bodyvar/BODYVAR_<dial>_<bare|dressed>_walk.png
+  build stamp ............................ BUILD 7/26a - ONE RIG, BODY SLIDERS

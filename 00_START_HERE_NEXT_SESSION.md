@@ -23,6 +23,10 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- THE ONE RIG NOW HAS SLIDERS (shipped 7/26, CHARACTER lane). The female rig is
+  GRAVEYARDED and gone from the code; a body is Paolo's painted rig + HEIGHT /
+  BELLY / ARMS. Neutral is byte-identical canon. Nobody re-pitches a second
+  authored body. Record: records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt.
 - NO PULL REQUESTS, EVER + ONE GATE PASS PER SHIP (Paolo 7/25, LOCKED, in
   CLAUDE.md ship flow). Push main directly, run the full suite once per ship.
   (Also: the stale PR badges #10-#20 on the reused character/sound branch name
@@ -155,11 +159,21 @@ boot payoff, RUN lane's call).
 Maintainer tool: python3 tools/bohemia_combat_handoff_patch.py (idempotent,
 anchor-asserted). combat_lab_gate 208 checks green; v65 ramps intact.
 
-CHARACTER/SOUND (05): marathon cook waves 1-3 shipped (music batch 20 = 9
-faction-pool songs; wardrobe volume 29 items + 3 new shapes; woman-rig
-candidate arc v1-v4 — now superseded by the ONE-RIG ruling above). Music
-batches 18/19 shipped earlier same day. Session told to stand down 7/26 for
-the repo cleanup; its mega-verdict stack is pending Paolo (below).
+CHARACTER/SOUND (05): 7/26 -- ONE RIG + VARIATION SLIDERS BUILT AND SHIPPED
+(backlog CHARACTER-1). The whole female rig is deleted and graveyarded (gate,
+tool, data, picker); rigSkel KEPT per the addendum. G.bodyVar {height, belly,
+arms} is live on the CHARACTER tab, persists with the look, and rebuilds all 8
+facings + every animation on drag. engine/bohemia_bodyvar.js + inline (sync-
+canon registered), gates/bodyvar_gate.js 37/37, and a real-browser capture
+harness that sweeps the FULL clip set at every dial extreme (5,712 frames per
+config; zero strays, zero shaves). Found and fixed ON THE REAL SURFACE: the
+flank contract, the armpit bridge, the arm anchor, plus a FINAL FLOATER CULL in
+buildFrame that now protects every garment ever made. MEASURED LIMIT worth
+knowing: "taller" is capped by the 56px sprite frame at +5%, not by taste --
+Paolo's painted body already fills the frame. DIAL RANGES ARE HIS CALL and are
+waiting in the judge sheets. Earlier same day: marathon cook waves 1-3 (music
+batch 20 = 9 faction-pool songs, wardrobe volume 29 items + 3 new shapes; music
+batches 18/19 before that). That mega-verdict stack is still pending Paolo.
 
 QUEST/LORE (01): its island content is rescued to main. The branch
 claude/quest-log-access-ufcu1u still exists with its full separate history
@@ -205,6 +219,12 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
 - THE RUN's two calls, after he plays it (record has the full reasoning):
   (a) the lineman/fixer placements on the block, (b) whether a LOUD resolution
   should always draw a fight, and who shows up.
+- BODY SLIDER RANGES (built 7/26, judge sheets in records/bodyvar/): how far
+  each dial should go, what "and stuff" covers beyond height/belly/arms, and
+  whether dials are per-NPC-random, player-chosen, or both. Nothing was wired
+  to randomise NPC bodies -- that is his call, not mechanism.
+- WHETHER "TALLER" IS ENOUGH: +5% is everything the 56px sprite frame allows.
+  Going bigger needs a ruling (a taller frame, or re-centring canon).
 - Combat grammar graduation batch (stacked per Prompt 4) when surfaced.
 - Older shelf items live in the archived pile under their original sections.
 

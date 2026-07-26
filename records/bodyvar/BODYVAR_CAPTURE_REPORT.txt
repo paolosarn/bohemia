@@ -1,0 +1,34 @@
+=== BOHEMIA BODY VARIATION -- REAL-SURFACE CAPTURE REPORT (7/26/26) ===
+Driven through the shipped alpha in a real browser: G.bodyVar -> rebuildFromRig()
+-> buildFrame()/drawChar(), the same path that paints Paolo's screen.
+Clip set: every clip in CLIPS, all 8 facings, 7 phases per clip.
+Bar: zero strays, zero empties, zero throws, and zero SHAVES -- a core-clip
+frame gaining 6+ frame-edge pixels, the exact size of the 8%-height head-cut
+this range cap exists to stop. GRAZES (1-5px, a fingertip reaching the box)
+are listed by name every run so they can never grow quietly. The frame-full
+clips -- the ones Paolo's own body already paints on the edge in -- are
+derived from the canon sweep, never hand-picked, and counted separately.
+
+OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=0 [+20 edge frames on the frame-full clips canon already fills; border-touch total 273] empty=0 threw=0
+OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 374] empty=0 threw=0
+OK   height-tall    frames=5712 strays=0 SHAVES=0 grazes=2 [+153 edge frames on the frame-full clips canon already fills; border-touch total 513] empty=0 threw=0
+       - graze (nothing cut), listed so it cannot grow quietly: greet/E@0.65 (+5px)
+       - graze (nothing cut), listed so it cannot grow quietly: greet/W@0.65 (+4px)
+OK   belly-thin     frames=5712 strays=0 SHAVES=0 grazes=0 [+8 edge frames on the frame-full clips canon already fills; border-touch total 369] empty=0 threw=0
+OK   belly-wide     frames=5712 strays=0 SHAVES=0 grazes=0 [+9 edge frames on the frame-full clips canon already fills; border-touch total 383] empty=0 threw=0
+OK   arms-thin      frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 374] empty=0 threw=0
+OK   arms-thick     frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 374] empty=0 threw=0
+OK   ALL-MIN        frames=5712 strays=0 SHAVES=0 grazes=0 [+20 edge frames on the frame-full clips canon already fills; border-touch total 270] empty=0 threw=0
+OK   ALL-MAX        frames=5712 strays=0 SHAVES=0 grazes=2 [+154 edge frames on the frame-full clips canon already fills; border-touch total 514] empty=0 threw=0
+       - graze (nothing cut), listed so it cannot grow quietly: greet/E@0.65 (+5px)
+       - graze (nothing cut), listed so it cannot grow quietly: greet/W@0.65 (+4px)
+
+SHEETS:
+  records/bodyvar/BODYVAR_height_bare_walk.png
+  records/bodyvar/BODYVAR_height_dressed_walk.png
+  records/bodyvar/BODYVAR_belly_bare_walk.png
+  records/bodyvar/BODYVAR_belly_dressed_walk.png
+  records/bodyvar/BODYVAR_arms_bare_walk.png
+  records/bodyvar/BODYVAR_arms_dressed_walk.png
+
+=== ALL DIAL CONFIGS CLEAN ON THE REAL SURFACE ===

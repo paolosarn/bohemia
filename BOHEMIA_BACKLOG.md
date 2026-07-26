@@ -120,9 +120,10 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    distribution, but it is duplicate work on the enter path. NON-COOK tidy.
 
 ## CHARACTER
-1. ONE-RIG VARIATION SLIDERS per the locked 7/25 ruling (read the addendum
-   FIRST). | anim gates green across 8 directions per slider extreme |
-   painted regions SACROSANCT | slider LOOK ranges = judge before volume.
+1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
+   SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
+   The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not
+   wire per-NPC randomisation until he rules on it.
 2. Wardrobe: new SHAPES (structure-not-color), taste-filtered before
    surfacing. | structure_gate | — | fresh shapes = thumbs.
 3. Music pool volume in approved styles, taste-filtered. | music gates | — |
