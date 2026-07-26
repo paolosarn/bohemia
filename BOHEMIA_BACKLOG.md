@@ -143,7 +143,14 @@ stories the world cannot host yet.
    NOTE: this is world content, not quest plumbing, so the 7/26 ruling does not park it.
 3. INTERIORS FOR THE GROUND THAT HAS THEM: coordinate with CITY (they own the district
    interiors item) so nothing is built twice. | — | CITY lane's item 1 | no.
-4. Engine support requests flagged by RUN (as they arrive, priority). | per request | — | no.
+4. [DONE 7/26] Engine support for RUN, request 1 of 2: THE VALLEY TILE + CROSSING
+   (world.tile / solidAt / step / walk / route). The run can now ask the world model for
+   any tile in the valley and walk across cell boundaries on real ground; gate CROSSING
+   proves district -> street -> district on foot. RUN's ledger priority 2 is unblocked.
+   STILL OPEN, request 2 of 2: a player actor registered in ctx.scheduler that the run
+   can commit() through (RUN backlog item 3). Non-cook, next up in this lane.
+5. Further engine support requests flagged by RUN (as they arrive, priority). | per
+   request | — | no.
 5. (discovered 7/26) VALLEY COMPOSITION: 70% of the built valley is suburb, and there are
    301 solar cells but 1 library, 1 firestation, 1 jail. Whether that is the city he wants
    is a DIRECTION call. | — | — | [PENDING Paolo].
