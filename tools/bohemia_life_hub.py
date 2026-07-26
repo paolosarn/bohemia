@@ -48,15 +48,16 @@ html = r"""<meta charset="utf-8">
   <div style="font:700 17px/1.3 -apple-system,sans-serif;color:#cdbd8a">LIFE</div>
   <div style="font:12px/1.5 -apple-system,sans-serif;color:#8f8770;margin:4px 0 16px">
     The people-and-economy engine is built and parked (your 7/19 ruling: world first).
-    This tab routes to what needs your eyes. QUEST ASKS ARE FROZEN by your 7/26 ruling
-    ("there's two or three sessions asking me about quests and we're not even close to
-    that") - the quest pages below stay reachable as the record, but nothing asks you
-    about a quest until you have picked the target screen.
+    This tab routes to what needs your eyes. Quest asks were frozen until the art bar was set;
+    you set it, so they are live again.
   </div>
   <a href="BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#1d1a10;border:2px solid #c79a3f;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">THE TARGET SCREEN &#183; REV 4 <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">IS IT THERE YET</span></div>
+    <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">THE TARGET SCREEN &#183; CBB, LOCKED <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">SHIPPED &#183; FROZEN</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#bdb392;margin:4px 0 8px">
-      NEW: the target is no longer a painting. Our own rule says a target only counts if I
+      YOU RULED THIS "could be better" - so it ships, it is frozen, and nobody makes
+      another one. It is the bar every piece of art from now on gets measured against, by
+      machine. Kept here as the record.
+      The target is no longer a painting. Our own rule says a target only counts if I
       can cut it into a real tile set and rebuild the same picture out of those tiles in the
       real renderer. The painting was cheating - 262 different one-off tiles for 264 squares.
       The one on the page now is built from 38 tiles, reused, drawn the way the phone draws
@@ -69,8 +70,8 @@ html = r"""<meta charset="utf-8">
       something I cannot describe. One tap.
     </div>
   </a>
-  <a href="BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px;opacity:.66">
-    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">WHERE THE QUESTS HAPPEN <span style="font:600 10px sans-serif;background:#444;color:#ccc;border-radius:4px;padding:2px 6px;vertical-align:2px">PARKED - QUEST ASKS FROZEN</span></div>
+  <a href="BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">WHERE THE QUESTS HAPPEN <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">NEEDS YOUR THUMBS</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
       Right now the engine drops every quest in a generic suburb tract. This is the
       real valley from above with three addresses proposed per quest (all 21 now, the
@@ -79,8 +80,8 @@ html = r"""<meta charset="utf-8">
       that is still a short walk. Tap the one you want, or NONE OF THESE.
     </div>
   </a>
-  <a href="BOHEMIA_QUEST_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px;opacity:.66">
-    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">THE 12 NEW CANON QUESTS <span style="font:600 10px sans-serif;background:#444;color:#ccc;border-radius:4px;padding:2px 6px;vertical-align:2px">PARKED - QUEST ASKS FROZEN</span></div>
+  <a href="BOHEMIA_QUEST_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">THE 12 NEW CANON QUESTS <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">NEEDS YOUR THUMBS</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
       Twelve brand new playable quests, live in the phone: the census, the flash flood,
       the last course of medicine, the deed, the dog on the landing, the marquee, the

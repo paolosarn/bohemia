@@ -17,6 +17,27 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- THE TARGET SCREEN IS VERDICTED **CBB** (Paolo 7/26: "Could be better"). Per
+  the verdict pipeline that is SHIPS + FROZEN + NEVER SPAWNS VARIANTS.
+  ** DO NOT MAKE ANOTHER TARGET SCREEN. ** The tile-reassembled frame
+  (records/target/REASSEMBLED.png) and the 42-tile starter set are BYTE-LOCKED
+  in records/target/BOHEMIA_VISUAL_CONSTITUTION.json; changing either needs a
+  NEW RULING from Paolo, not a new render, and gates/target_match_gate.py fails
+  the build on the md5. All further look work happens in the ACT-1 TILESET
+  against this target.
+  ** BOTH FREEZES ARE LIFTED. ** (1) New visual cooking is open again in every
+  lane - the price is that every cook passes the PROXY GATES (palette ceiling,
+  per-layer value bands, no keyline, no dither, one light direction, hashable
+  edge-seam contracts) and every new art bank REGISTERS itself in
+  target_match_gate.py's BANKS list. (2) QUEST ASKS ARE UNFROZEN - law 4 said
+  "until the visual bar is set" and it is set; the two parked LIFE-hub quest
+  cards are live again. The freeze check in target_screen_gate.py now flips off
+  the constitution's own status, so the law and the gate move together instead
+  of needing someone to remember.
+  WHAT A MACHINE WILL NEVER JUDGE: whether art LOOKS right. Amendment B is
+  explicit - the gestalt is always a human side-by-side verdict, Paolo's, and a
+  literal image-diff gate is banned as gameable and false.
+  Verdict record: records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt
 - NAME IT OR DON'T DRAW IT (Paolo 7/26, LOCKED, new law):
   laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md. "every time you make
   something you have to be able to describe what it is. It's so upsetting to me
@@ -235,6 +256,19 @@ STANDING ORDER from the door law: before a surface draws a THING the game alread
 has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
 asked whether a RENDERING surface went looking. That hole is what cost two weeks
 of wrong-size frozen doors.
+ART (08) 7/26 — LANE ITEM 1 IS CLOSED. Target verdicted CBB. The constitution
+exists and is in force, the target is frozen and byte-locked, the fleet-wide
+visual freeze and the quest-ask freeze are both lifted, and the target-match
+gate (215 checks) now holds every registered art bank to the six proxies
+amendment B allows a machine to hold. NEXT IN THIS LANE: backlog item 2, the
+MASTER ACT-1 TILESET - the 42-tile starter set is the seed of it; what remains
+is the ACT TRIPTYCH (act1-dead / act2-recovering / act3-rebuilt derived from the
+act-1 base, per amendment A: born era-READY, not era-complete) and indexing the
+corpus onto the 64-colour ramp. Item 3 (re-cook vehicles to iso) is DEAD - iso
+lost. Still PENDING Paolo: the car art measures ~2 wide x >4 long at true pixel
+scale against a locked 2x3 footprint, so either the art gets re-cooked shorter
+or the footprint becomes 2x5.
+
 ART (08) 7/26 REV 4 — THE TARGET IS NO LONGER A PAINTING. Amendment C (the
 ANTI-BIOSHOCK rule) was run for the first time and the mockup FAILED it: cut on
 the contract's own 38px grid, the painted plate is 262 UNIQUE tiles for 264

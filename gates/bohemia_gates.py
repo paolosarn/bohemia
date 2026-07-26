@@ -248,6 +248,9 @@ GATES = [
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
      'original art is three-quarter view, never flat', False),
+    ('TARGET MATCH',   ['python3', 'gates/target_match_gate.py'],
+     'the VISUAL CONSTITUTION: the CBB target stays frozen, and every registered art bank '
+     'obeys its palette / value bands / outline / dither / light / seam contracts', False),
     ('TARGET SCREEN',  ['python3', 'gates/target_screen_gate.py'],
      'the target screens exist, are built from approved banks, hold 2-tile doors + human '
      'scale, carry no black keyline, are judgeable from the alpha, and quest asks stay frozen',

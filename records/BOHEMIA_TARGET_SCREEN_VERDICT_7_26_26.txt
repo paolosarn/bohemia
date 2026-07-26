@@ -1,0 +1,66 @@
+=== BOHEMIA TARGET SCREEN VERDICT — 7/26/26 ===
+surface: alpha -> LIFE -> THE TARGET SCREEN
+law: laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md (THE TARGET SCREEN LAW)
+
+A_FRONTFACE (tile-reassembled frame): CBB
+
+PAOLO, VERBATIM: "Could be better"
+
+--------------------------------------------------------------------------
+WHAT CBB MEANS, PER THE VERDICT PIPELINE (autonomy doctrine section 5):
+  "CBB ('could be better' — ships, frozen, never spawns variants)"
+
+  SHIPS       -> the tile-reassembled frame IS the target. The visual
+                 constitution now exists.
+  FROZEN      -> the target is byte-locked. It does not get revised.
+  NO VARIANTS -> no session cooks another target screen. Not a rev 5, not a
+                 "quick pass", not an alternate. The iteration is OVER. Any
+                 further look work happens in the ACT-1 TILESET against this
+                 target, never by redrawing the target itself.
+
+THE TARGET, LOCKED:
+  frame     records/target/REASSEMBLED.png  (968 x 2112, 484 x 1056 at 2x)
+  tileset   banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt  (42 tiles)
+  painting  records/target/BOHEMIA_TARGET_A_FRONTFACE.png (the source it was
+            cut from — kept as the record, NOT the target)
+  manifest  records/target/BOHEMIA_TARGET_MANIFEST.txt
+
+WHAT THIS UNLOCKS, THE SAME TURN:
+  1. THE FLEET-WIDE VISUAL FREEZE LIFTS. Art-first reset law 1 froze all new
+     visual cooking outside the ART lane until a target existed. It exists.
+     Every lane may cook again — against the target, through the proxy gates.
+  2. QUEST ASKS UNFREEZE. Law 4 froze every quest question and quest verdict
+     "until the visual bar is set." It is set. The two parked quest cards in
+     the LIFE hub go live again.
+  3. THE PROXY GATES TURN ON (amendment B). gates/target_match_gate.py now
+     holds every future cook to the target's measurable proxies: the master
+     palette, per-layer value bands, one outline convention, one dither
+     policy, one light direction, and hashable edge-seam contracts. The
+     gestalt question — does this LOOK like the target — stays a human
+     verdict, Paolo's, forever. It is never an image diff.
+
+HOW IT GOT HERE (the record, since CBB is not a compliment):
+  rev 1  three candidates, painted
+  rev 2  he picked the FRONT FACE, killed the other two, and named two
+         defects: cars were not 2x3 tiles, roofs were not put on square
+  rev 3  NAME IT OR DON'T DRAW IT — the nameless band, the fake fence, the
+         fake power line, the radioactive barrel, the door with no path, the
+         one-tile garage door, the stacked assets
+  rev 3b he sent rev 3 back as his favourite; the tile build had lost its
+         look, so light/dust/shadow moved into the renderer
+  rev 4  the cell was wrong (38 vs the corpus 44), so everything was being
+         resampled through a blur; the windows were shrunk copies of their
+         own tile; the whole boulder family is volcanic; a lamp stood in the
+         driveway
+  rev 4b the door was still a picture of a door, and the garage bay was one
+         tile wide when a car is two
+  -> CBB
+
+WHAT IS STILL OPEN AND WAS NOT DECIDED BY THIS VERDICT:
+  - the approved car art measures ~2 tiles wide by >4 long at true pixel
+    scale, which is longer than the locked 2x3 footprint. Either the art is
+    re-cooked shorter or the footprint becomes 2x5. PENDING Paolo.
+  - every wall is one tan because the approved wall corpus is one tan
+    material. A corpus problem, not a tiling one.
+  - the palette is derived but not indexed onto the corpus (46,082 colours).
+    That lands with the act triptych.

@@ -1,10 +1,16 @@
 # BOHEMIA BACKLOG (the fleet's queue — read via THE GO PROCEDURE)
 
 ## *** FLEET-WIDE FREEZE (7/26, ART-FIRST RESET — read laws/BOHEMIA_ADDENDUM_
-## ART_FIRST_RESET_7_26_26.md before ANY visual work): until Paolo approves a
-## TARGET SCREEN, all NEW visual cooking outside the ART lane is frozen
-## (integrating already-approved assets is fine; new pixels are not), and NO
-## session surfaces quest questions or quest verdicts to Paolo. ***
+## ART_FIRST_RESET_7_26_26.md). *** BOTH FREEZES ARE LIFTED AS OF 7/26. ***
+## Paolo verdicted the target screen CBB, so the visual constitution EXISTS:
+## records/target/BOHEMIA_VISUAL_CONSTITUTION.json, held by
+## gates/target_match_gate.py. Every lane may cook new pixels again, and quest
+## asks may be surfaced again. THE PRICE: every cook now passes the proxy gates
+## (palette ceiling, per-layer value bands, no keyline, no dither, one light
+## direction, hashable seam contracts) and every new art bank REGISTERS itself
+## in target_match_gate.py's BANKS list. CBB also means the target itself is
+## FROZEN and byte-locked - nobody makes another target screen. Verdict record:
+## records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt ***
 
 ## ART (new lane — first word "art")
 0. [SHIPPED 7/26] STEP ZERO — THE MOBILE RENDER CONTRACT (amendment D):
@@ -23,8 +29,15 @@
 0b. (discovered 7/26, needs instrumentation) MEASURE LIVE CANVAS MEMORY on a
    real device against the ~224MB iOS floor. Until then section 8 of the
    contract is a constraint, not a check. | a probe + a gated ceiling | — | no.
-1. [REV 4, 7/26 - THE TARGET IS NOW TILE-BUILT, LOOK STILL UNJUDGED] THE TARGET
-   SCREEN. Amendment C (ANTI-BIOSHOCK) was run for the first time and the mockup
+1. [CLOSED 7/26 - CBB, SHIPPED, FROZEN] THE TARGET SCREEN. Paolo: "Could be
+   better." Per the verdict pipeline that is SHIPS + FROZEN + NEVER SPAWNS
+   VARIANTS. The tile-reassembled frame IS the target; it and the 42-tile
+   starter set are byte-locked in the constitution and changing either needs a
+   NEW RULING, not a new render. DO NOT MAKE ANOTHER TARGET SCREEN. All further
+   look work happens in the act-1 tileset against this target. Verdict:
+   records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt. Constitution +
+   target-match gate shipped the same turn (215 checks).
+   [HISTORY] Amendment C (ANTI-BIOSHOCK) was run for the first time and the mockup
    FAILED it: the painted plate cut into 262 unique tiles for 264 cells - it was
    never a tiled world. Fixed: banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt is
    a real, bounded, NAMED 38-tile set (+11 sprites + cast-shadow DATA), the frame

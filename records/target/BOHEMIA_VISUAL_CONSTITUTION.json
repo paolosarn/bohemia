@@ -1,0 +1,187 @@
+{
+ "version": "BOHEMIA_VISUAL_CONSTITUTION_v1",
+ "built": "2026-07-26",
+ "status": "IN FORCE",
+ "verdict": "CBB (Paolo 7/26/26) - ships, FROZEN, never spawns variants",
+ "verdict_record": "records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt",
+ "law": "laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md amendment B - machine-gate the PROXIES only. The gestalt \"does it look like the target\" is ALWAYS a human verdict, Paolo's, and is NEVER an image diff.",
+ "frozen": {
+  "frame": {
+   "path": "records/target/REASSEMBLED.png",
+   "md5": "c8c93edc3f37096cc2a8fdf68cfa7448",
+   "size": [
+    968,
+    2112
+   ]
+  },
+  "tileset": {
+   "path": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "md5": "f470e7cbae7695c15642174d25e52041",
+   "tiles": 42
+  },
+  "note": "changing either of these requires a NEW RULING FROM PAOLO, not a new render. CBB does not get quietly improved."
+ },
+ "proxies": {
+  "palette": {
+   "ramp": "records/target/BOHEMIA_MASTER_PALETTE.json",
+   "ramp_size": 64,
+   "measured_colours": 46082,
+   "ceiling": 80000,
+   "rule": "a cook may not raise the corpus colour count above the ceiling"
+  },
+  "value_bands": {
+   "ground": {
+    "mean": 103.7,
+    "lo": 49.3,
+    "hi": 152.2,
+    "tiles": 16
+   },
+   "top": {
+    "mean": 110.2,
+    "lo": 72.8,
+    "hi": 137.4,
+    "tiles": 9
+   },
+   "wall": {
+    "mean": 96.0,
+    "lo": 37.5,
+    "hi": 167.6,
+    "tiles": 17
+   }
+  },
+  "value_band_rule": "each layer has its OWN measured band and a new tile whose layer mean falls more than 26 outside it is not in this world. The ordering is NOT assumed - it is measured, and in this target it comes out top brightest, then ground, then wall, because the yard is bare sun-struck dirt and the walls are the faces sitting in their own eave shadow. Writing \"ground darkest\" here would have been a guess that the numbers contradict.",
+  "outline": {
+   "max_near_black_frac": 0.06,
+   "measured": 0.0291,
+   "rule": "NO black keyline. Edges are value steps."
+  },
+  "dither": {
+   "max_alt_energy": 0.1123,
+   "measured": 0.039,
+   "rule": "act 1 does not stipple. Falloffs are solid alpha ramps."
+  },
+  "light": {
+   "key": "upper left",
+   "shadows": "down and to the right",
+   "rule": "ONE direction everywhere. A mass is brightest on top."
+  },
+  "glow": {
+   "max_hot_frac": 0.02,
+   "measured": 0.0001,
+   "rule": "act 1 windows are DEAD DARK glass. Never a warm night glow."
+  },
+  "seams": {
+   "families": 33,
+   "rule": "tiles in one family must meet identically - their edge rings hash the same. Hashable, per amendment B.",
+   "rings": {
+    "concrete": [
+     "23eb0a8ba3d5",
+     "9f886028482e"
+    ],
+    "dirt": [
+     "21be5bbdd0d5"
+    ],
+    "door_bottom": [
+     "61806ff0d603"
+    ],
+    "door_top": [
+     "972165a6301a"
+    ],
+    "garage_bottom": [
+     "2b80ba54af07"
+    ],
+    "garage_bottom_l": [
+     "dcd0639c3535"
+    ],
+    "garage_bottom_r": [
+     "b5fcad4fa70c"
+    ],
+    "garage_top": [
+     "2d5ca2e3000f"
+    ],
+    "garage_top_l": [
+     "863f5b352546"
+    ],
+    "garage_top_r": [
+     "e2be8de885ba"
+    ],
+    "road": [
+     "016f728b63a5",
+     "ec885f45edc2"
+    ],
+    "road_centre": [
+     "0b94102ee640"
+    ],
+    "road_crossing": [
+     "a3f0b8b722c4"
+    ],
+    "road_gutter": [
+     "6fa47f3671e4"
+    ],
+    "roof_deck": [
+     "2039ed7a7fcd"
+    ],
+    "roof_eave": [
+     "ac913f059bef"
+    ],
+    "roof_hipBL": [
+     "a5c540a408de"
+    ],
+    "roof_hipBR": [
+     "e244ab65d416"
+    ],
+    "roof_hipTL": [
+     "187b593e013b"
+    ],
+    "roof_hipTR": [
+     "1af0c26b4a23"
+    ],
+    "roof_parapet": [
+     "6c96637edd99"
+    ],
+    "roof_ridge": [
+     "b71cad0b2719"
+    ],
+    "roof_slope": [
+     "2e346e325d62"
+    ],
+    "walk": [
+     "1eb6e301ce39",
+     "2b8f5965a2c6",
+     "dc7e4f34e06a"
+    ],
+    "walk_kerb": [
+     "867f696acad7"
+    ],
+    "wall": [
+     "1636639daf52",
+     "b80e16b00e8f",
+     "d94c4010f09a"
+    ],
+    "wall_base": [
+     "f64a2d4730d3"
+    ],
+    "wall_boarded": [
+     "fd09d971e4f9"
+    ],
+    "wall_end_l": [
+     "89e4a8d0376f"
+    ],
+    "wall_end_r": [
+     "f089d675222f"
+    ],
+    "wall_under_eave": [
+     "c94877b81eee"
+    ],
+    "wall_window": [
+     "68c08c047b26"
+    ],
+    "yard": [
+     "6e5fab993866",
+     "9d6929803bdc"
+    ]
+   }
+  }
+ },
+ "never_gated": "whether a thing LOOKS right. That is Paolo, side by side, forever. A literal image-diff gate is gameable and false and is banned."
+}

@@ -43,6 +43,7 @@ LAW_NAMEIT = 'laws/BOHEMIA_ADDENDUM_NAME_IT_OR_DONT_DRAW_IT_7_26_26.md'
 TILESET = 'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt'
 REASSEMBLED = 'records/target/REASSEMBLED.png'
 REASM_HTML = 'slices/BOHEMIA_REASSEMBLY_7_26_26.html'
+CONSTITUTION = 'records/target/BOHEMIA_VISUAL_CONSTITUTION.json'
 KEYS = ('A_FRONTFACE',)   # the other two are DEAD (graveyard registry, 7/26)
 
 P = F = 0
@@ -479,13 +480,26 @@ def main():
         hub = open(LIFEHUB).read()
         chk(os.path.basename(JUDGE) in hub,
             'the target-screen judge is not reachable from inside the alpha (ONE-LINK LAW)')
-        # ---- law 4: QUEST ASKS FROZEN ---------------------------------
+        # ---- law 4: QUEST ASKS FROZEN *UNTIL THE BAR IS SET* -----------
+        # The freeze was never permanent - law 4 says "until the visual bar is
+        # set". Paolo set it on 7/26 (CBB), so the constitution now decides which
+        # way this check points, and the gate flips with the law instead of
+        # needing a human to remember to edit it.
+        in_force = False
+        if os.path.exists(CONSTITUTION):
+            in_force = json.load(open(CONSTITUTION)).get('status') == 'IN FORCE'
         qi = [c for c in ('BOHEMIA_QUEST_PLACEMENT_JUDGE', 'BOHEMIA_QUEST_JUDGE') if c in hub]
         for c in qi:
             seg = hub[hub.index(c):hub.index(c) + 1400]
-            chk('PARKED' in seg or 'FROZEN' in seg,
-                'law 4: %s is still surfaced as a live ask. Quest verdicts are FROZEN until '
-                'the visual bar is set.' % c)
+            parked = 'PARKED' in seg or 'FROZEN' in seg
+            if in_force:
+                chk(not parked,
+                    'the visual bar IS set (target verdicted CBB), so law 4\'s quest freeze '
+                    'is lifted - %s must not still be marked PARKED' % c)
+            else:
+                chk(parked,
+                    'law 4: %s is still surfaced as a live ask. Quest verdicts are FROZEN '
+                    'until the visual bar is set.' % c)
 
     # ---- STEP ZERO: THE MOBILE RENDER CONTRACT (amendment D) -----------
     contract_checks(M, src)
