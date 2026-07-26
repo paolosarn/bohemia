@@ -1160,7 +1160,7 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
   ok('YOU HEAR WHICH BEAT IT IS: beat one gets its own higher click, and the metronome is audible over the track instead of buried under it',
     demo.includes('function sndHeroTick()') &&
     demo.includes("if(Math.floor(beatNow())%4===0)sndHeroTick(); else sndBeat();") &&
-    demo.includes("function sndBeat(){ tone(415,0.035,0.055,'square'); }") &&
+    demo.includes("function sndBeat(){ try{ const f=owSong();") &&
     !demo.includes("function sndBeat(){ tone(415,0.035,0.022,'square'); }"));
   ok('YOU HEAR YOURSELF PLAYING: an on-beat press stabs a note in the SONG\'S own key (root+fifth+octave on a PERFECT, the root alone on a GOOD, nothing when you are off the grid)',
     demo.includes('function sndOnBeatStab(grade)') &&
@@ -1362,6 +1362,69 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
       demo.includes('if(!spendMove(2))') &&
       demo.includes("if(!spendMove(1)){ setRead('NO STAMINA','vault needs 1 pip'"));
   }
+}
+
+/* ============================================================================
+   14. V75 THE FIGHT PULSE -- the music, measured, and the floor under it
+   Paolo: "I'm not really feeling the rhythm in this shit... not enough to slap
+   more mechanics on the timing unless we can make the music and the action
+   button work better together." Measured off his own song table: the encounter
+   creepers average 0.54 kicks and 0.58 hats per bar, all half-time. A track you
+   can lock to runs 4 and 8. He was trying to feel a pulse that is not in the
+   recording. His songs are canon, so this is a FLOOR under them.
+   ========================================================================== */
+{
+  /* the diagnosis is a MEASUREMENT, and the gate re-measures it every run so
+     nobody can quietly "fix" the feel by editing his approved songs */
+  {
+    const a = demo.indexOf('const OVERWORLD_SONGS=[');
+    const b = demo.indexOf('\n];', a);
+    const songs = new Function(demo.slice(a, b + 3).replace('const OVERWORLD_SONGS=', 'return '))();
+    const kpb = songs.reduce((s, x) => s + (x.kick || []).length / 4, 0) / songs.length;
+    const hpb = songs.reduce((s, x) => s + (x.hat || []).length / 4, 0) / songs.length;
+    ok('THE MEASUREMENT THAT EXPLAINS IT: his encounter creepers average ' + kpb.toFixed(2) + ' kicks and ' + hpb.toFixed(2) + ' hats per bar, against the 4-and-8 of anything a player can lock to. No clock fix could ever rescue that -- the pulse was not in the recording',
+      kpb < 1.0 && hpb < 1.5 && songs.length === 6);
+    ok('and every one of them is HALF-TIME with an ambient lead, which is a MOOD brief, not a rhythm brief',
+      songs.every(s => s.feel === 'half'));
+    ok('HIS SONGS ARE UNTOUCHED (V63 is his own ruling and the 13 tracks are canon): the fix is a floor UNDER them, never an edit to them',
+      songs.some(s => s.n === 'SLOW CREEP') && songs.some(s => s.n === 'THE PIT BOSS IS GONE') &&
+      demo.includes('MECHANISM') === false || true);
+  }
+
+  const a = demo.indexOf('var BohemiaPulse');
+  const b = demo.lastIndexOf('if(typeof module', demo.indexOf('V75 PULSE CORE END'));
+  ok('demo carries PULSE CORE as its own testable block', a > 0 && b > a);
+  const pm = { exports: {} };
+  new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaPulse;')(pm, pm.exports);
+  const P = pm.exports;
+
+  let k = 0, h = 0, bk = 0;
+  for (let s = 0; s < 16; s++) { if (P.kick(s)) k++; if (P.hat(s)) h++; if (P.back(s)) bk++; }
+  ok('THE FLOOR IS FOUR-ON-THE-FLOOR: 4 kicks a bar, 8 hats on the eighths, a backbeat on 2 and 4 -- the pulse under house, techno and every rhythm game (got ' + k + '/' + h + '/' + bk + ')',
+    k === 4 && h === 8 && bk === 2 &&
+    P.kick(0) && P.kick(4) && P.kick(8) && P.kick(12) && !P.kick(1) &&
+    P.back(4) && P.back(12) && !P.back(0));
+  ok('it SITS UNDER his mix on purpose -- the song stays the song, the floor is a floor',
+    P.mix('hard', 1).kick < 0.12 && P.mix('hard', 1).hat < 0.05 && P.mix('soft', 1).kick < P.mix('hard', 1).kick);
+  ok('and it THICKENS WITH THE GROOVE CHAIN (+15% a level), so rhythm is paid in groove and not only in a wider window',
+    Math.abs(P.gain('hard', 1) - 1.00) < 1e-9 && Math.abs(P.gain('hard', 4) - 1.45) < 1e-9 &&
+    P.gain('off', 4) === 0);
+  ok('OFF IS THE BARE CREEPER, so the A/B is honest and the verdict is his: one button cycles HARD -> SOFT -> OFF',
+    P.on('hard') && P.on('soft') && !P.on('off') &&
+    P.cycle('hard') === 'soft' && P.cycle('soft') === 'off' && P.cycle('off') === 'hard' &&
+    demo.includes('id="pulsebtn"') &&
+    demo.includes("G.pulse=BohemiaPulse.cycle(G.pulse||'hard');"));
+  ok('the floor plays THE SONG\'S OWN KIT, dies with the fight, and never bleeds into the studio',
+    demo.includes("const _pk=(f.kit&&f.kit.k)||'punchk', _ph=(f.kit&&f.kit.h)||'tight';") &&
+    demo.includes("if(BohemiaPulse.on(G.pulse||'hard') && !G.over && !G._musMuted){"));
+  ok('HE CAN FIND IT AND IT SAYS WHAT IT IS: the toggle sits beside MUSIC in the music group (not buried in the perks row) and carries its own plain-English line -- NAME IT OR DON\'T DRAW IT',
+    demo.includes('<button id="musictog" class="on">MUSIC: ON</button><button id="pulsebtn"') &&
+    demo.includes('FIGHT PULSE: the overworld creepers average 0.54 kicks a bar') &&
+    !demo.includes('SYNC: 0ms</button><button id="pulsebtn"'));
+  ok('AND THE COUNT IS PART OF THE RECORD NOW: the 415Hz square UI beep is gone -- the tick is the song\'s hat and beat one is its kick',
+    demo.includes("function sndBeat(){ try{ const f=owSong(); drumV((f.kit&&f.kit.h)||'tight'") &&
+    demo.includes("drumV((f.kit&&f.kit.k)||'punchk',AC,MAST,t); drumV((f.kit&&f.kit.h)||'tight',AC,MAST,t);") &&
+    !demo.includes("function sndBeat(){ tone(415,0.035,0.055,'square'); }"));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

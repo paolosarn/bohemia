@@ -719,6 +719,40 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v75: THE FIGHT PULSE. NO NEW MECHANICS. Law:
+laws/BOHEMIA_ADDENDUM_THE_FIGHT_PULSE_7_26_26.md.
+Paolo stopped the lane: "the music, I'm not really feeling the rhythm in this
+shit... it's decent, but not enough to slap more mechanics on the timing unless we
+can make the music and the action button work better together." So: nothing new on
+the timing this turn. One job, the music and the button.
+THE MEASUREMENT INSTEAD OF A SIXTH CLOCK FIX (v67-v71 were five correct,
+verified clock fixes he could not feel): his own OVERWORLD_SONGS table, counted -
+the encounter creepers average 0.54 KICKS and 0.58 HATS PER BAR, all six
+half-time, every lead an ambient voice. Four-on-the-floor is 4 and 8. He was
+trying to lock onto a pulse THAT IS NOT IN THE RECORDING. No clock work could
+ever have rescued that. THE LESSON, and the law part: when a fix is correct and
+he still cannot feel it, MEASURE THE THING THE FIX WAS SUPPOSED TO SERVE.
+HIS SONGS ARE UNTOUCHED (V63 is his own ruling, the 13 tracks are canon). They
+get a FLOOR under them, combat only, dead when the fight ends: kick on all four
+beats, hats on the eighths, a backbeat on 2 and 4, played in THE SONG'S OWN KIT
+voices and mixed UNDER his song, thickening +15% per GROOVE chain level so the
+button feeds the music back.
+AND THE BUTTON FINALLY PLAYS INTO THE TRACK: the count was tone(415,'square') -
+a UI beep living outside the music, which is a big share of why five correct
+clock fixes felt like nothing. sndBeat is now the song's own hat; beat one is its
+kick+hat.
+ONE TAP TO JUDGE IT: PULSE: HARD / SOFT / OFF, sitting beside MUSIC: ON in the
+FACTION (floor + music) group with its own plain-English line. OFF is the bare
+creeper byte-for-byte, so the A/B is honest and the verdict is his ear.
+Gate: section 14 RE-MEASURES his song table every run (so no future session can
+delete the floor on the theory the songs got denser) and EXECUTES the pulse core -
+287 checks green. Proof: slices/BOHEMIA_FIGHT_PULSE_PROOF_7_26_26.png plus the
+real-surface count in a live fight: 23.5 drum voices a bar with PULSE HARD against
+7.8 with it OFF, and the button cycling hard->soft->off->hard on the real surface.
+STILL FROZEN, waiting on his ruling: the whole v74 groove chain and every next
+timing swing. A SECOND rejection of the rhythm direction ENDS the direction for
+the session (STOP PRODUCING law); it does not earn a sixth attempt.
+
 COMBAT (04) 7/26 - v74: TWO BIG SWINGS TOWARD A RHYTHM GAME. Law + the research
 + what is still open: laws/BOHEMIA_ADDENDUM_THE_GROOVE_CHAIN_7_26_26.md.
 RESEARCH: Rogue Fable IV ("skill matters more than stats", "you should be in a

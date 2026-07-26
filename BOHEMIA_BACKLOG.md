@@ -300,6 +300,17 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1p. DONE 7/26 (v75): THE FIGHT PULSE. Law:
+   laws/BOHEMIA_ADDENDUM_THE_FIGHT_PULSE_7_26_26.md. Paolo froze new timing
+   mechanics until the music and the button work together, so the encounter
+   music got COUNTED instead of clock-fixed a sixth time: his creepers average
+   0.54 kicks / 0.58 hats a bar (four-on-the-floor is 4 / 8), all half-time. He
+   was trying to lock to a pulse not in the recording. His songs untouched; a
+   combat-only FLOOR under them in the song's own kit (kick on 4, eighth hats,
+   backbeat on 2+4), thickening with the groove chain, plus the count is now the
+   song's hat instead of a 415Hz UI beep. PULSE: HARD/SOFT/OFF for an honest A/B.
+   *** EVERY TIMING MECHANIC IN 1v / 1t / v74's chain IS FROZEN until Paolo
+   rules on this. A SECOND rejection ends the rhythm direction for the session. ***
 1w. DONE 7/26 (v69): the four rhythm-game pillars - approach ring, graded press
    with a persistent ms strip, the shot plays a note in the song's key, and a
    SYNC tap-calibration. Law + what is still missing:
