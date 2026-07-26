@@ -630,7 +630,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V55 DAY PHASE rolls on the SHUFFLE, everywhere the faction does (setup, new encounter, start, SHUFFLE button)',
     demo.includes('if(G.factionShuffle)try{pickDayPhase();}catch(_e){}') &&
     demo.includes('if(G.factionShuffle) pickDayPhase();   /* V55 */') &&
-    demo.includes('pickRandomFaction(); pickDayPhase(); rollSongIfDone(true); });'));   /* V76: and the tap forces a song too */
+    demo.includes('pickRandomFaction(); pickDayPhase(); rollSong(); });'));   /* V78: and the tap rolls the song too */
   // v56: structured safe-area so the dial never lands under the SHOOT button, + dash-aim + suppress clarity
   ok('V56 SAFE AREA: in the dial phase the scene anchors up-left with a smaller RAD and full zoom so the dial clears the bottom-right SHOOT button for any aim direction',
     demo.includes("const _aimP=(G.phase==='aim'||!!G.ks);") &&
@@ -734,7 +734,7 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes('function pickOverworldSong(){') &&
     demo.includes('function owSong(){ return (G.factionShuffle&&G._owSong)?G._owSong:FAC(); }') &&
     demo.includes('const f=owSong();   /* V63: encounters play the overworld creeper') &&
-    demo.includes("G._dayPhaseAt=performance.now(); rollSongIfDone(); }   /* V63: the encounter") &&   /* V76: still driven by the day phase, now through the play-out gate */
+    demo.includes("G._dayPhaseAt=performance.now(); }   /* V78: the song is rolled by NEW ENCOUNTER / SHUFFLE, in one place, never twice an encounter */") &&
     demo.includes("if(kind==='nightpad'){") && demo.includes("if(kind==='rustlead'){") &&
     demo.includes("if(kind==='deadsat'){") && demo.includes("if(kind==='solarhymn'){") &&
     demo.includes("if(kind==='powergrid'){") && demo.includes("if(kind==='signalfade'){") &&
@@ -1273,13 +1273,14 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
       !dupeBeforeExhausted && Object.keys(seen).length === 13);
     ok('and with no pool pushed yet it still falls back to the built-in list rather than going silent',
       mk({}).all.length === 1);
-    /* V76 SUPERSEDES THE FREQUENCY, NOT THE FIX. V71's actual defect was the
-       BAG (a hand-copied 6-song subset hid 13 approved tracks) and that stands.
-       Swapping EVERY encounter was the incidental part, and it was the reason
-       his 2:08 arrangements never got past their first forty seconds. */
-    ok('NEW ENCOUNTER takes the next song out of the WHOLE bag, and (V76) it takes it when the current song has played out its form rather than every single time',
-      demo.includes('if(G.factionShuffle) rollSongIfDone();') &&
-      demo.includes('function rollSongIfDone(force){'));
+    /* V78 RESTORES V71 BY PAOLO'S RULING (7/26): "when I pressed new encounter
+       this song doesn't change like that's so fucking retarded bro." V76 traded
+       the button's visible job for a form he had not heard yet. That was my bet
+       to lose and it lost. NEW ENCOUNTER = NEW SONG, every time. */
+    ok('NEW ENCOUNTER takes the next song out of the WHOLE bag, EVERY SINGLE TIME (Paolo ruled V76 out: a button that visibly does nothing is worse than a section he has not reached)',
+      demo.includes('if(G.factionShuffle) rollSong();') &&
+      demo.includes('function rollSong(){') &&
+      !demo.includes('rollSongIfDone') && !demo.includes('songPlayedOut'));
   }
 }
 
@@ -1451,54 +1452,51 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
 }
 
 /* ============================================================================
-   15. V76 THE SONGS PLAY OUT, AND THE PULSE YIELDS
-   Paolo: "I hate to hear that we're locking great parts of a song... I think
-   each song is like just a 30 or 40 second loop." They are 2:08 arrangements
-   whose FULL section lands at 0:48 -- he was thrown back to bar 0 every
-   encounter and never reached it.
+   15. V78 NEW ENCOUNTER = NEW SONG (Paolo's ruling, reverting my own V76),
+       AND THE PULSE YIELDS
+   Paolo 7/26: "the only thing I don't like that you try to implement was that
+   when I pressed new encounter this song doesn't change like that's so fucking
+   retarded bro."
+   He was RIGHT at v76 that his songs felt like 30-40 second loops, and the cause
+   was real. I pulled the wrong lever: persisting the song across encounters
+   fixed the form at the direct cost of the thing the button is FOR. THE RULE
+   THAT SURVIVES: a fix that trades something the player feels IMMEDIATELY for
+   something they would only feel LATER is a bet, and it is his bet to place.
    ========================================================================== */
 {
-  /* THE FORM, EXECUTED: pull the real arrangement table out of the demo and
-     prove where the payoff actually is, so the claim in the law is not prose. */
+  /* THE FORM IS STILL TRUE AND STILL MEASURED -- it is the diagnosis, not the
+     rejected fix. Recording it means the next session does not have to
+     rediscover why combat only ever plays the opening of his songs. */
   const aa = demo.indexOf("const SONG_ARR=[");
   const bb = demo.indexOf('\n', aa);
   const ARR = new Function(demo.slice(aa, bb).replace('const SONG_ARR=', 'return ').replace(/;$/, ''))();
   const SEC_SEC = 4 * 4 * (60 / 120);                 /* 4 bars x 4 beats x 0.5s = 8s a section */
-  const firstD = ARR.indexOf('D'), lastBar = ARR.length * SEC_SEC;
-  ok('THE SONGS ARE NOT 30-SECOND LOOPS: his 7/3 TWO MINUTE LAW form is ' + ARR.length + ' sections, ' + lastBar + 's, and the FULL section D first lands at 0:' + (firstD * SEC_SEC) + ' -- a fight shorter than that never heard one',
-    ARR.length === 16 && Math.abs(lastBar - 128) < 1e-9 && firstD * SEC_SEC === 48);
-  ok('and the real payoff is the BACK-TO-BACK D at 1:36, which nothing in a per-encounter restart could ever reach',
+  const firstD = ARR.indexOf('D'), whole = ARR.length * SEC_SEC;
+  ok('THE DIAGNOSIS STANDS: his 7/3 TWO MINUTE LAW form is ' + ARR.length + ' sections and ' + whole + 's, with the FULL section D first landing at 0:' + (firstD * SEC_SEC) + '. A fresh song per encounter means combat hears the opening and stops',
+    ARR.length === 16 && Math.abs(whole - 128) < 1e-9 && firstD * SEC_SEC === 48);
+  ok('AND THE COST OF HIS RULING IS RECORDED, NOT HIDDEN: the back-to-back D at 1:36 is unreachable in a fight that gets a new song every encounter. He ruled with that on the table; if combat is ever to reach it, the answer must not cost him the button',
     ARR[12] === 'D' && ARR[13] === 'D' && 12 * SEC_SEC === 96);
 
-  /* THE RULE, EXECUTED: the play-out predicate is a real block, pulled and run. */
-  const pa = demo.indexOf('const SONG_PASS=1024;');
-  const pb2 = demo.indexOf('/* ===== V76 PLAY-OUT END ===== */');
-  ok('demo carries the PLAY-OUT rule as its own testable block', pa > 0 && pb2 > pa);
-  {
-    const sim = { on: true, step: 0 };
-    const fn = new Function('_seq', demo.slice(pa, demo.indexOf('function rollSongIfDone', pa)) +
-      ';return {SONG_PASS:SONG_PASS, songPlayedOut:songPlayedOut};');
-    const R = fn(sim);
-    ok('ONE PASS IS THE WHOLE FORM: 64 bars x 16 steps = ' + R.SONG_PASS + ' steps, the same number CITYMUS already waits for in the overworld -- combat was the only place doing it wrong',
-      R.SONG_PASS === 1024 && 1024 / 16 === 64);
-    sim.step = 0; const atStart = R.songPlayedOut();
-    sim.step = 1023; const nearEnd = R.songPlayedOut();
-    sim.step = 1024; const done = R.songPlayedOut();
-    sim.on = false; const silent = R.songPlayedOut();
-    ok('the song is only swapped once it has PLAYED OUT: bar 0 no, one step short no, a full pass yes, and silence always yes so the streets never stay dead',
-      atStart === false && nearEnd === false && done === true && silent === true);
-  }
-  ok('so a NEW ENCOUNTER joins the song already in progress instead of restarting it, and the bag hands over the next track when the form is finished',
-    demo.includes('if(G.factionShuffle) rollSongIfDone();') &&
-    !demo.includes('if(G.factionShuffle) try{ G._owSong=pickOverworldSong(); }catch(_e){}') &&
-    demo.includes('G._dayPhaseAt=performance.now(); rollSongIfDone(); }'));
-  ok('V67 ONE CLOCK SURVIVES INTACT: a REAL new song still re-anchors beat one, and only the faction re-roll that changes no song at all stops throwing the form away',
-    demo.includes("if(_seq.on){ _seq.step=0; seqAnchor(); }   /* V67 ONE CLOCK: a REAL new song is a new beat one */") &&
-    demo.includes('if(_seq.on&&!G.factionShuffle){_seq.step=0;seqAnchor();}'));
-  ok('and an EXPLICIT tap on SHUFFLE still forces a different song -- waiting for the form applies to the automatic swap, never to something he asked for',
-    demo.includes('rollSongIfDone(true); });   /* V76: an explicit tap still forces a new song */'));
-  ok('the song is pulled from the bag in exactly ONE place now (it used to be pulled TWICE an encounter, by pickDayPhase and again by the V71 line, draining the bag double-time)',
-    demo.split('G._owSong=pickOverworldSong()').length - 1 === 1);
+  /* THE REJECTED MECHANISM IS GONE, NOT PARKED. A force flag wired through a
+     function that no longer decides anything is dead logic pretending to be a
+     feature, and the next session would read it as still live. */
+  ok('V76 IS DELETED OUTRIGHT: no play-out predicate, no pass counter, no force flag left behind pretending to make a decision it no longer makes',
+    !demo.includes('rollSongIfDone') && !demo.includes('songPlayedOut') &&
+    !demo.includes('SONG_PASS') && !demo.includes('V76 PLAY-OUT END'));
+  ok('NEW ENCOUNTER = NEW SONG, every single time, out of the whole approved bag (V71)',
+    demo.includes('function rollSong(){') &&
+    demo.includes('if(G.factionShuffle) rollSong();') &&
+    demo.includes("G._owSong=pickOverworldSong();"));
+  ok('V67 ONE CLOCK: a new song is a new beat one, on the plain unconditional rule -- no leftover V76 branch making it situational',
+    demo.includes('if(_seq.on){ _seq.step=0; seqAnchor(); }   /* V67 ONE CLOCK: a new song is a new beat one */') &&
+    demo.includes('function pickRandomFaction(){ G.faction=Math.floor(Math.random()*FACTIONS.length); if(_seq.on){_seq.step=0;seqAnchor();}') &&
+    !demo.includes('if(_seq.on&&!G.factionShuffle){'));
+  /* the one v76 finding that was a plain bug and is NOT part of what he rejected */
+  ok('THE DOUBLE PULL STAYS FIXED: the song is taken from the bag in exactly ONE place. It used to be pulled TWICE an encounter (pickDayPhase, then the V71 line), burning the shuffle at double speed and skipping songs he never heard',
+    demo.split('G._owSong=pickOverworldSong()').length - 1 === 1 &&
+    demo.includes('G._dayPhaseAt=performance.now(); }   /* V78: the song is rolled by NEW ENCOUNTER / SHUFFLE, in one place, never twice an encounter */'));
+  ok('and the SHUFFLE tap rolls the song too, so both ways he can ask for a different track still give him one',
+    demo.includes('pickRandomFaction(); pickDayPhase(); rollSong(); });'));
 
   /* THE PULSE YIELDS, EXECUTED against his real song table */
   {

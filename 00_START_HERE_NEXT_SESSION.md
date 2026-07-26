@@ -834,6 +834,38 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v78: NEW ENCOUNTER = NEW SONG. I REVERTED MY OWN v76.
+Law AMENDED IN PLACE: laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md.
+Paolo: "the only thing I don't like that you try to implement was that when I
+pressed new encounter this song doesn't change like that's so fucking retarded
+bro." RULED. OUT. NEW ENCOUNTER pulls the next song from the bag every time.
+WHY I GOT IT WRONG (the part worth keeping): his "30 or 40 second loop" report
+was true and the cause was real (every encounter reset the 2:08 form to bar 0, so
+the FULL section at 0:48 was unreachable). The DIAGNOSIS was right; I reached for
+the wrong LEVER. Persisting the song across encounters fixed the form at the
+direct cost of the thing the button exists to do. A button that visibly does
+nothing is worse than a section he has not heard yet.
+THE RULE THIS LEAVES BEHIND, and it generalises past music: when a fix trades
+something the player feels IMMEDIATELY for something they would only feel LATER,
+it is a BET, and it is HIS bet to place. One line to him before building it would
+have got a one-word no and saved the whole detour.
+DELETED OUTRIGHT, not parked: SONG_PASS / songPlayedOut / rollSongIfDone are gone
+from the build. A force flag wired through a function that no longer decides
+anything is dead logic pretending to be a feature.
+SURVIVES (plain bug, not what he rejected): the song used to be pulled from the
+bag TWICE an encounter, burning the shuffle at double speed and skipping songs he
+never heard. One pull now. Also survives: the pulse yielding, the corrected
+2.17/2.33 measurement, the song lock.
+THE COST, ON THE RECORD: combat hears roughly the first 40s of a song again. The
+2:08 form still exists and the overworld still plays it whole. If combat is ever
+to reach the payoff the answer must NOT cost him the button - HIS call, not mine
+to try again.
+Gate: section 15 rewritten to hold the REVERSAL (301 checks green) and to record
+the cost so nobody rediscovers it. Proof:
+slices/BOHEMIA_NEW_ENCOUNTER_SONG_PROOF_7_26_26.png plus the real surface: five
+NEW ENCOUNTER presses, five different songs (SLOW BLEED, SATELLITE PRAYER, GHOST
+IN THE GRID, THE ORGAN IN THE DROWNED CHAPEL, REPO MAN), each on its own beat one.
+
 COMBAT (04) 7/26 - v77: HIS SONGS ARE CANON, AND THE MACHINE CHECKS IT. Law:
 laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md. NEW LAW + NEW GATE.
 Paolo, after v76: "you're not editing any of the actual songs right... I don't

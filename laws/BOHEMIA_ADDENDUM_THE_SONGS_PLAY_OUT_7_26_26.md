@@ -1,5 +1,54 @@
 # BOHEMIA ADDENDUM — THE SONGS PLAY OUT (Paolo 7/26/26)
 
+## *** AMENDED SAME DAY: SECTION 2 IS REVERSED BY PAOLO'S RULING (v78) ***
+
+> "OK, the only thing I don't like that you try to implement was that when I
+> pressed new encounter this song doesn't change like that's so fucking retarded
+> bro."
+> — Paolo, 7/26/26
+
+**NEW ENCOUNTER CHANGES THE SONG. EVERY SINGLE TIME.** Section 2 below (the
+play-out swap) is DEAD and its code is deleted from the build, not parked behind
+a flag. Everything else in this addendum stands: the corrected measurement
+(section 0), the diagnosis of the form (section 1, which was true and is still
+recorded), the pulse yielding (section 3), and the overworld dead path (section
+4).
+
+**WHY I GOT IT WRONG, which is the part worth keeping.** He told me his songs
+felt like 30 to 40 second loops and asked whether they could "play out and go
+longer." That was true and the cause was real: every encounter reset the 2:08
+arrangement to bar 0, so the FULL section at 0:48 was unreachable. I diagnosed it
+correctly and then reached for the wrong lever. Making the song PERSIST across
+encounters fixed the form at the direct cost of the thing the button exists to
+do. **A button that visibly does nothing is worse than a section he has not heard
+yet.**
+
+**THE RULE THIS LEAVES BEHIND, and it generalises past music:** when a fix trades
+away something the player feels IMMEDIATELY for something they would only feel
+LATER, it is not a fix, it is a BET. It is his bet to place, not mine. If I had
+put that trade to him in one line before building it, he would have said no in
+one word and the whole detour would not have happened.
+
+**WHAT SURVIVES FROM SECTION 2, because it was a plain bug and not the thing he
+rejected:** the song used to be pulled from the bag TWICE per encounter (once by
+`pickDayPhase`, again by the V71 line), burning the shuffle at double speed and
+skipping songs he never heard. One pull, one encounter, one new song.
+
+**THE COST, STATED PLAINLY RATHER THAN BURIED:** combat is back to hearing
+roughly the first forty seconds of any song, because a fresh song starts at bar 0
+and D lands at 0:48. The 2:08 form still exists and the overworld still plays it
+in full. He ruled with that on the table. If combat is ever to reach the payoff,
+the answer must be something that does NOT cost him the button, and that is his
+call to make, not mine to try again.
+
+Gate: `combat_lab_gate.js` section 15 now holds the REVERSAL — it asserts the
+mechanism is deleted outright (no predicate, no pass counter, no force flag
+pretending to decide anything), that NEW ENCOUNTER rolls every time, and it
+records the cost of the ruling so nobody has to rediscover it.
+
+---
+
+
 > "Wow, I felt that. I really like that. I understand kind of what you were doing
 > and it works. It really did. I think we just gotta think about the balance
 > between the two kill progression the four kill progression... I hate to hear

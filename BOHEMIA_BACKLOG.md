@@ -320,6 +320,16 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1l. DONE 7/26 (v78): NEW ENCOUNTER = NEW SONG. Paolo RULED OUT the v76 play-out
+   swap ("that's so fucking retarded bro"). Deleted outright, no dead flag left.
+   The v76 diagnosis was right and the lever was wrong: persisting the song fixed
+   the FORM at the cost of the thing the button is for. RULE LEFT BEHIND: a fix
+   that trades what the player feels NOW for what they would feel LATER is a BET,
+   and it is his to place. Survives: the single pull point (the bag was drained
+   twice an encounter), the pulse yield, the corrected measurement.
+   COST ON THE RECORD: combat hears ~the first 40s of a song again; the 2:08 form
+   and its 0:48 payoff stay unreachable in a fight. ANY future answer must NOT
+   cost him the NEW ENCOUNTER song change. [PENDING Paolo] and not mine to retry.
 1m. DONE 7/26 (v77): HIS SONGS ARE CANON + SONG LOCK GATE. Law:
    laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md. Paolo asked whether the
    music work had touched his actual songs. It had not (every body hashes
