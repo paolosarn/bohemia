@@ -264,6 +264,19 @@ crossed -- stop and check before pushing.
 See laws/BOHEMIA_STATE_OF_PLAY and the shelf in records/. Flag anything needing
 an unset direction as [PENDING, Paolo's call].
 
+## STOP PRODUCING (Paolo 7/26/26, LOCKED — READ BEFORE THE GO PROCEDURE)
+laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md. "This is all bad consider the
+last 4 chats terrible... its all really bad." One session built the same unwanted
+feature FOUR times in a day, all gates green every time, asking him to judge each
+round, while a fleet-wide art freeze was on and he had already said he cannot
+approve anything until the world looks consistent. THE LAW: a frozen lane
+produces NOTHING (finding a legal way to ship anyway IS the violation); surface
+NOTHING unasked while he is unhappy with the baseline; a second rejection ends
+the feature for the session; green gates are never an argument and never lead a
+reply; a turn that says "I stopped, here is the one thing blocking everything" is
+a GOOD turn. THE TELL: writing a fourth version of anything means you already
+failed - stop and say so instead of fixing the attempt.
+
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
 short form: the FIRST word of a new session names its lane (run/world/city/
