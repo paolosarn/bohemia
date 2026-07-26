@@ -170,6 +170,8 @@ GATES = [
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
      'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
+    ('BACK LIMB',      ['node', 'gates/back_limb_gate.js'],
+     'the back arm wears its own sleeve: same colours no shade, never invents fill, never undresses the near limb, arms only', False),
     ('FROZEN POSES',   ['node', 'gates/frozen_poses_gate.js'],
      'a clip is a small set of FROZEN poses and every frame of a hold is the same cache entry: zero morph is structural, and every proof clip must report 0', False),
     ('ARM HOLD',       ['node', 'gates/arm_hold_gate.js'],
