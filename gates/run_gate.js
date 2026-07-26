@@ -213,6 +213,13 @@ async function alphaRun() {
     await run.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 120000 });
     out.ready = true;
 
+    /* THE REAL CAST (Paolo's ruling 7/26): the run must be wearing the actual
+       character, not a coloured dot. Wait for the parent's bake to land and
+       assert it is a real multi-direction body set with real portraits. */
+    await run.waitForFunction(() => { const c = window.__RUN.cast(); return !!c && c.dirs >= 8; },
+      null, { timeout: 180000 });
+    out.cast = await run.evaluate(() => window.__RUN.cast());
+
     await walkOutOfHouse(run);
     const st0 = await run.evaluate(() => window.__RUN.state());
     const g = await run.evaluate(() => window.__RUN.grid());
@@ -346,6 +353,15 @@ async function alphaRun() {
 
   const C = await alphaRun();
   ok('ALPHA: the RUN tab really boots the run inside the alpha', C.ready === true);
+  // Paolo 7/26: the run has to BE the game we built, not a dot on squares.
+  ok('ALPHA: the run wears the REAL character — 8 directions of the real baked body',
+    !!C.cast && C.cast.dirs === 8 && C.cast.spriteW > 0 && C.cast.spriteH > 0);
+  ok('ALPHA: the real WALK CYCLE came with it (not a static pose)',
+    !!C.cast && C.cast.walkFrames >= 4);
+  ok('ALPHA: everyone else on the block is a real body too (wardrobe colourways)',
+    !!C.cast && C.cast.looks >= 4 && C.cast.lookDirs === 8);
+  ok('ALPHA: the real FACE SYSTEM renders the dialogue portraits',
+    !!C.cast && C.cast.portrait === true && C.cast.npcPortraits >= 4);
   ok('ALPHA: no page errors while the run plays inside the alpha', C.errors.length === 0);
   if (C.errors.length) console.log('    ' + C.errors.slice(0, 4).join('\n    '));
   ok('ALPHA: a loud resolution really opens the COMBAT tab', C.combatPanelOn === true);

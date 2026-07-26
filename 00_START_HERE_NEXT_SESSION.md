@@ -46,6 +46,29 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+RUN (01) — RULED 7/26, READ THIS BEFORE ANY RUN WORK:
+laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md. Paolo played
+the first run and the verdict was that it did not use the game we spent six weeks
+building ("it didn't use anything that we've done"). He is right: the player was
+an orange dot. THE LANE'S JOB IS NOW INTEGRATION, NOT FEATURES. The run's quest
+is disposable scaffolding whose only job is to route him past whatever was just
+wired in — never surface it for a verdict, never spend a turn writing it.
+SAME TURN, FIRST FIX: the run now wears the REAL CHARACTER. New cast bridge
+(alpha runSendCast -> BOHEMIA_RUN_CAST), same bus the CITY tab already rode: the
+parent bakes the real rig + wardrobe + face, 8 directions, 4-frame walk cycle,
+and every body on the block (you, the neighbours, the quest NPC) is a real
+Bohemia body with the real face in the dialogue portrait. Painter-sorted by depth.
+THE SCOREBOARD (this is the answer to "what do I do with this"): every run ship
+quotes records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md, enforced by
+gates/integration_gate.js — a row may NOT be marked INTEGRATED without a machine
+probe proving the wiring is in the shipped run. Currently 12/22.
+NEXT FIVE, IN ORDER (from the ledger): 3/4 ISO VIEW (the loudest gap — the city
+tab's human mode already renders the real iso world with the real character, so
+the run should adopt THAT renderer, not grow a second one), then the real valley,
+then district art, then music, then day cycle + light.
+
+RUN (01) — the loop itself, shipped earlier the same day: **THE FIRST CONNECTED RUN IS PLAYABLE.** New
+
 CITY (03) 7/26 — INTERIORS EVERYWHERE. You can now WALK INTO BUILDINGS in the
 alpha's CITY tab (DROP IN, then walk into a wall whose dossier declares an
 interior; walk out the door to come back). Three things landed:
@@ -80,8 +103,6 @@ WORLD MODEL (02): the big one landed — THE QUEST SYSTEM IS RESCUED ONTO MAIN.
 phone; quests actually move the factions (world bridge); the live phone runs
 the REAL world (was a fake); MAP app render fixed. CANON QUESTS gate registered
 and green. NEXT flagged: the run itself (see connected-run below).
-
-RUN (01, reborn as the RUN lane): **THE FIRST CONNECTED RUN IS PLAYABLE.** New
 RUN tab in the alpha (first tab, preloads itself). One loop, one thumb: wake up
 inside your own house -> out the real front door -> the lineman on the street
 gives you S01 THE METER READER (real canon .bq) -> follow the skimmed line 57

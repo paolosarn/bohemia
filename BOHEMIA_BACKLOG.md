@@ -6,10 +6,26 @@ only Paolo/verdicts add direction-class items; agents may append (discovered)
 items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
-## RUN
-   [DONE 7/26] THE FIRST CONNECTED RUN — shipped, gated (run_gate.js, 69
-   assertions, both forks + inside the real alpha). Record:
+## RUN  (LANE CHARTER CHANGED 7/26 — read
+##       laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md first.
+##       This lane INTEGRATES what the fleet built; it does not add features, and
+##       the run's quest is disposable scaffolding, never judged.)
+   [DONE 7/26] THE FIRST CONNECTED RUN — shipped, gated. Record:
    records/BOHEMIA_THE_FIRST_CONNECTED_RUN_7_26_26.txt.
+   [DONE 7/26] THE REAL CAST — the run wears the real rig + wardrobe + face.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (12/22),
+   enforced by gates/integration_gate.js.
+-1. THE 3/4 ISO VIEW (the loudest remaining "this isn't our game" gap, ledger
+   priority 1). The CITY tab's human mode ALREADY renders the real iso world
+   walking the real character — the run should adopt that renderer instead of
+   growing a second one. Coordinate with CITY: this crosses into CITY_B64, so
+   it needs the lane boundary agreed before it starts. | ledger row flips to
+   INTEGRATED with a probe + a real-surface screenshot | CITY_B64 is the CITY
+   lane's file | no.
+0b. THE REAL VALLEY (ledger priority 2): the run's block becomes a real cell of
+   the generated valley, so walking off it lands in a real district. | run_gate
+   proves a second district reached on foot | district engines | no.
+0c. DISTRICT ART / MUSIC / DAY CYCLE (ledger priorities 3-5), in that order.
 0. SAVE/LOAD for the run (RULED 7/26, both addenda): sleep saves + free
    manual saves + autosave; death loads closest save; the save is ONE
    portable versioned blob (device prefs excluded) with export/import,

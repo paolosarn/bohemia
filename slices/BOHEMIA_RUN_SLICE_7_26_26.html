@@ -83,8 +83,11 @@
   #talkin{ background:var(--surface); border-top:1px solid var(--line);
     border-radius:10px 10px 0 0; padding:14px 14px calc(16px + env(safe-area-inset-bottom));
     max-height:88%; overflow-y:auto; }
+  .spkrow{ display:flex; align-items:center; gap:11px; margin-bottom:10px; }
+  #spkface{ width:52px; height:52px; flex:none; border-radius:4px; image-rendering:pixelated;
+    background:#0c0a07; box-shadow:inset 0 0 0 1px var(--line); display:none; }
   #spk{ font-family:var(--mono); font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase;
-    color:var(--gold); margin-bottom:9px; }
+    color:var(--gold); }
   #says p{ margin:0 0 9px; font-size:15.5px; line-height:1.46; }
   #says p.nv{ color:var(--faint); font-size:12.5px; font-style:italic; }
   #opts button{ display:block; width:100%; text-align:left; margin-top:8px; min-height:50px;
@@ -155,7 +158,8 @@
   </div>
 
   <div id="talk"><div id="talkin">
-    <div id="spk"></div><div id="says"></div><div id="opts"></div>
+    <div class="spkrow"><canvas id="spkface" width="64" height="64"></canvas><div id="spk"></div></div>
+    <div id="says"></div><div id="opts"></div>
   </div></div>
 
   <div id="hand">
@@ -387,6 +391,20 @@ try{
 /* ---- 8. RUN STATE ---- */
 var RUN = { phase:'home_inside', combatOutcome:null, clout:null, outcome:null, sentEncounter:null };
 var mode='int', px=0, py=0, fp=null, fpDoor=null, backAt=null, curHouse=-1;
+/* facings + walk-cycle frames, so bodies point where they are going and their
+   legs move on the beat (I-MOVE-YOU-MOVE: one frame per committed step). */
+var PFACE='S', PFRAME=0, PMOVING=false, _PIDLE=null;
+var FACES={}, _APOS={}, NPC_LOOK_SEED=0x5eed;
+function updateFaces(){
+  if(!SIM) return;
+  SIM.outAgents().forEach(function(a){
+    var prev=_APOS[a.id], d=FACES[a.id]||{d:'S',f:0,moving:false};
+    if(prev && (prev[0]!==a.loc.x || prev[1]!==a.loc.y)){
+      d.d=dirOf(a.loc.x-prev[0], a.loc.y-prev[1]); d.f=(d.f+1)&3; d.moving=true;
+    } else d.moving=false;
+    FACES[a.id]=d; _APOS[a.id]=[a.loc.x,a.loc.y];
+  });
+}
 var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
 var OBJ=document.getElementById('objtxt'), WHERE=document.getElementById('where'),
     ACT=document.getElementById('act'), TOAST=document.getElementById('toast');
@@ -413,20 +431,114 @@ var EXTCOL={1:'#3a3a44',2:'#9c8e76',3:'#5a5a62',4:'#6a5c44',5:'#c79a3f',6:'#6d5f
 var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',dining:'#aaa078',
   hall:'#b9af91',closet:'#8c877d',garage:'#6d5f4b',entry:'#b4a582','null':'#96917d'};
 
+/* ===========================================================================
+   THE REAL CAST (Paolo's ruling 7/26: the run has to BE the game we built).
+   Nobody on this block is a coloured rectangle. The parent alpha bakes the
+   actual character - the rig, the painted regions, the wardrobe, the face, the
+   walk cycle - and ships it here on BOHEMIA_RUN_CAST. The decoder below is the
+   SAME one the CITY tab already uses for BOHEMIA_CITY_PLAYER (packIdx: palette
+   + RLE), reused rather than reinvented, plus the same epx2 edge-preserving
+   doubler so a 56px body stays crisp at phone scale.
+   =========================================================================== */
+var CAST=null;                      /* {player:{S:{idle,walk[]}}, looks:[...], portraits:{}} */
+var CAST_ASKED=0;
+var DIRS8=['S','SE','E','NE','N','NW','W','SW'];
+function dirOf(dx,dy){
+  if(dx>0&&dy>0)return 'SE'; if(dx>0&&dy<0)return 'NE';
+  if(dx<0&&dy>0)return 'SW'; if(dx<0&&dy<0)return 'NW';
+  if(dx>0)return 'E'; if(dx<0)return 'W'; if(dy<0)return 'N'; return 'S';
+}
+function decodeFrame(s){
+  if(!s)return null;
+  var w=s.w,h=s.h,n=w*h;
+  var off=document.createElement('canvas'); off.width=w; off.height=h;
+  var oc=off.getContext('2d'), img=oc.createImageData(w,h), d=img.data;
+  if(s.raw){ d.set(s.raw.subarray(0,n*4)); oc.putImageData(img,0,0); return off; }
+  var idx=new Uint8Array(n);
+  if(s.rle){ var o=0; for(var i=0;i+1<s.rle.length;i+=2){ var r=s.rle[i],v=s.rle[i+1];
+      for(var k=0;k<r&&o<n;k++)idx[o++]=v; } }
+  else if(s.idx){ idx.set(s.idx.subarray(0,n)); }
+  else return null;
+  var pal=s.pal;
+  for(var p2=0;p2<n;p2++){ var p=idx[p2];
+    if(!p){ d[p2*4+3]=0; continue; }
+    d[p2*4]=pal[p*4]; d[p2*4+1]=pal[p*4+1]; d[p2*4+2]=pal[p*4+2]; d[p2*4+3]=pal[p*4+3]; }
+  oc.putImageData(img,0,0); return off;
+}
+function epx2(src){
+  var w=src.width,h=src.height;
+  var S=src.getContext('2d').getImageData(0,0,w,h).data;
+  var out=document.createElement('canvas'); out.width=w*2; out.height=h*2;
+  var ox=out.getContext('2d'), O=ox.createImageData(w*2,h*2), D=O.data;
+  var at=function(x,y){ x=x<0?0:(x>=w?w-1:x); y=y<0?0:(y>=h?h-1:y); return (y*w+x)*4; };
+  var eq=function(i,j){ return S[i]===S[j]&&S[i+1]===S[j+1]&&S[i+2]===S[j+2]&&S[i+3]===S[j+3]; };
+  for(var y=0;y<h;y++)for(var x=0;x<w;x++){
+    var P=at(x,y),A=at(x,y-1),B=at(x+1,y),C=at(x-1,y),E=at(x,y+1);
+    var e0=P,e1=P,e2=P,e3=P;
+    if(eq(C,A)&&!eq(C,E)&&!eq(A,B))e0=A;
+    if(eq(A,B)&&!eq(A,C)&&!eq(B,E))e1=B;
+    if(eq(E,C)&&!eq(E,B)&&!eq(C,A))e2=C;
+    if(eq(B,E)&&!eq(B,A)&&!eq(E,C))e3=E;
+    var o=(y*2*(w*2)+x*2)*4, o2=o+4, o3=o+(w*2)*4, o4=o3+4;
+    for(var k=0;k<4;k++){ D[o+k]=S[e0+k]; D[o2+k]=S[e1+k]; D[o3+k]=S[e2+k]; D[o4+k]=S[e3+k]; }
+  }
+  ox.putImageData(O,0,0); return out;
+}
+function decodeSet(set){
+  if(!set)return null;
+  var o={ idle:decodeFrame(set.idle), walk:(set.walk||[]).map(decodeFrame).filter(Boolean) };
+  if(!o.idle)return null;
+  o.idle=epx2(o.idle); o.walk=o.walk.map(epx2);
+  return o;
+}
+function askForCast(){
+  if(CAST || CAST_ASKED>6) return;
+  CAST_ASKED++;
+  try{ if(window.parent && window.parent!==window)
+    window.parent.postMessage({type:'BOHEMIA_RUN_NEED_CAST'},'*'); }catch(_e){}
+  setTimeout(askForCast, 3000);
+}
+function castIn(m){
+  var c={ player:{}, looks:[], portraits:{ you:null, looks:[] } };
+  for(var d in (m.player||{})){ var s=decodeSet(m.player[d]); if(s)c.player[d]=s; }
+  (m.looks||[]).forEach(function(L){ var o={};
+    for(var d2 in (L.dirs||{})){ var s2=decodeSet(L.dirs[d2]); if(s2)o[d2]=s2; }
+    c.looks.push(o); });
+  if(m.portraits){
+    if(m.portraits.you) c.portraits.you=decodeFrame(m.portraits.you);
+    (m.portraits.looks||[]).forEach(function(p){ c.portraits.looks.push(decodeFrame(p)); });
+  }
+  if(Object.keys(c.player).length){ CAST=c; refresh(); draw(); }
+}
+/* who wears which body: stable per person, never reshuffles between frames */
+function lookFor(seed){ var n=(CAST&&CAST.looks.length)||0; return n?CAST.looks[(seed>>>0)%n]:null; }
+
 function questNpcTile(){
   if(!RT || RT.state.done) return null;
   var p = CTX.quests._placed[QID];
   return p && p.x!=null ? { x:p.x, y:p.y, speaker:p.speaker } : null;
 }
-function drawBody(NX,NY,CELL,body,ring){
+/* ONE BODY DRAW for everybody on the block, player included. If the real cast
+   has landed we blit the REAL baked character (rig + wardrobe + face), anchored
+   at the tile's bottom-centre and standing about two tiles tall so a person
+   reads as a person next to a house. The flat placeholder only ever appears if
+   this page is opened outside the alpha, where nobody can bake it a body. */
+function drawBody(NX,NY,CELL,set,frame,ring,fallback){
   var cxp=NX+CELL/2;
-  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.beginPath(); ctx.ellipse(cxp,NY+CELL*0.86,CELL*0.24,CELL*0.09,0,0,7); ctx.fill();
-  ctx.fillStyle=body; ctx.fillRect(cxp-CELL*0.16,NY+CELL*0.42,CELL*0.32,CELL*0.4);
+  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.beginPath();
+  ctx.ellipse(cxp,NY+CELL*0.88,CELL*0.26,CELL*0.10,0,0,7); ctx.fill();
+  if(ring){ ctx.strokeStyle=ring; ctx.lineWidth=Math.max(1.5,CELL*0.07);
+    ctx.beginPath(); ctx.ellipse(cxp,NY+CELL*0.88,CELL*0.42,CELL*0.17,0,0,7); ctx.stroke(); }
+  var im = set ? (frame==null ? set.idle : (set.walk.length?set.walk[frame%set.walk.length]:set.idle)) : null;
+  if(im){
+    var HGT=CELL*2.15, WID=HGT*(im.width/im.height);
+    ctx.drawImage(im, Math.round(cxp-WID/2), Math.round(NY+CELL*0.92-HGT), Math.round(WID), Math.round(HGT));
+    return;
+  }
+  ctx.fillStyle=fallback||'#8f7a56'; ctx.fillRect(cxp-CELL*0.16,NY+CELL*0.42,CELL*0.32,CELL*0.4);
   ctx.fillStyle='#c7a884'; ctx.beginPath(); ctx.arc(cxp,NY+CELL*0.34,CELL*0.15,0,7); ctx.fill();
   ctx.strokeStyle='#1a1712'; ctx.lineWidth=Math.max(1,CELL*0.04);
   ctx.strokeRect(cxp-CELL*0.16,NY+CELL*0.42,CELL*0.32,CELL*0.4);
-  if(ring){ ctx.strokeStyle=ring; ctx.lineWidth=Math.max(1.5,CELL*0.07);
-    ctx.beginPath(); ctx.arc(cxp,NY+CELL*0.55,CELL*0.44,0,7); ctx.stroke(); }
 }
 function draw(){
   ctx.imageSmoothingEnabled=false;
@@ -477,20 +589,35 @@ function draw(){
       if(ic.g==='door'){ var _dii=doorPick(gx,gy2); if(_dii.complete&&_dii.naturalWidth) ctx.drawImage(_dii,X,Y,S,S); }
     }
   }
+  /* EVERY BODY, PAINTER-SORTED. Whoever stands lower on the screen is nearer,
+     so they draw last and overlap the people behind them - the player included,
+     which is why he is in this list instead of stamped on top of it. */
+  var bodies=[];
   if(mode==='ext'){
     if(SIM){ var outs=SIM.outAgents();
       for(var ai=0; ai<outs.length; ai++){ var a=outs[ai];
         var nsx=a.loc.x-px, nsy=a.loc.y-py; if(Math.abs(nsx)>halfW||Math.abs(nsy)>halfH) continue;
-        drawBody((nsx+halfW)*CELL,(nsy+halfH)*CELL,CELL,
-          ['#8f7a56','#5f7486','#9a8452','#7a5a4a','#6a7a6a'][(a.seed>>>0)%5], null); } }
+        var fa=FACES[a.id]||{d:'S',f:0};
+        var lk=lookFor(a.seed);
+        bodies.push({ sx:nsx, sy:nsy, set:lk?lk[fa.d]:null, frame:fa.moving?fa.f:null,
+                      ring:null, fb:['#8f7a56','#5f7486','#9a8452','#7a5a4a','#6a7a6a'][(a.seed>>>0)%5] }); } }
     var npc=questNpcTile();
     if(npc){ var qsx=npc.x-px, qsy=npc.y-py;
-      if(Math.abs(qsx)<=halfW && Math.abs(qsy)<=halfH)
-        drawBody((qsx+halfW)*CELL,(qsy+halfH)*CELL,CELL,'#7d6a44','#d8a742'); }
+      if(Math.abs(qsx)<=halfW && Math.abs(qsy)<=halfH){
+        /* the quest body faces you, so walking up to him reads as walking up to him */
+        var nd=dirOf(px-npc.x, py-npc.y), nlk=lookFor(NPC_LOOK_SEED);
+        bodies.push({ sx:qsx, sy:qsy, set:nlk?nlk[nd]:null, frame:null, ring:'#d8a742', fb:'#7d6a44' }); } }
   }
-  var pxs=halfW*CELL, pys=halfH*CELL;
-  ctx.fillStyle='#ff5a3c'; ctx.beginPath(); ctx.arc(pxs+CELL/2,pys+CELL/2,CELL*0.38,0,7); ctx.fill();
-  ctx.strokeStyle='#12140f'; ctx.lineWidth=2; ctx.stroke();
+  /* YOU */
+  bodies.push({ sx:0, sy:0, set:(CAST&&CAST.player[PFACE])||null,
+                frame:PMOVING?PFRAME:null, ring:null, fb:'#ff5a3c', me:true });
+  bodies.sort(function(A,B){ return (A.sy-B.sy)||(A.sx-B.sx); });
+  bodies.forEach(function(b){
+    drawBody((b.sx+halfW)*CELL,(b.sy+halfH)*CELL,CELL,b.set,b.frame,b.ring,b.fb);
+  });
+  /* no cast yet (this page opened outside the alpha): say so, never pretend */
+  if(!CAST){ ctx.fillStyle='rgba(236,226,207,0.5)'; ctx.font='10px ui-monospace,monospace';
+    ctx.fillText('no cast: open THE RUN from the alpha for real bodies', 8, cv.height-8); }
 }
 
 /* ---- 10. HUD + the one contextual action button ---- */
@@ -525,6 +652,10 @@ function refresh(){
 /* ---- 11. MOVEMENT. I-MOVE-YOU-MOVE: one player step = one world minute. ---- */
 function move(dx,dy){
   if(RUN.phase==='talking'||RUN.phase==='combat'||RUN.phase==='done') return;
+  /* you turn to face where you asked to go even when a wall stops you */
+  PFACE=dirOf(dx,dy); PFRAME=(PFRAME+1)&3; PMOVING=true;
+  if(_PIDLE)clearTimeout(_PIDLE);
+  _PIDLE=setTimeout(function(){ PMOVING=false; draw(); }, 320);
   var nx=px+dx, ny=py+dy;
   if(mode==='ext'){
     var d = doorOf[nx+','+ny];
@@ -538,7 +669,7 @@ function move(dx,dy){
       refresh(); draw(); return; }
     if(!passInt(nx,ny)) return; px=nx; py=ny;
   }
-  if(SIM){ SIM.playerAt = (mode==='ext') ? [px,py] : null; SIM.step(); }
+  if(SIM){ SIM.playerAt = (mode==='ext') ? [px,py] : null; SIM.step(); updateFaces(); }
   if(_toastLife>0 && --_toastLife===0) toast(null);
   refresh(); draw();
 }
@@ -570,6 +701,14 @@ function openTalk(){
 function renderTalk(v){
   if(!v || v.ended){ closeTalk(); return; }
   SPK.textContent = (v.speaker||'').replace(/_/g,' ');
+  /* THE FACE YOU ARE TALKING TO: the real face system's render, the same 64x64
+     portrait combat and the city tab already show. Not an avatar letter. */
+  var pf = CAST && CAST.portraits.looks[NPC_LOOK_SEED % Math.max(1,CAST.portraits.looks.length)];
+  var slot=document.getElementById('spkface');
+  if(slot){ var c2=slot.getContext('2d'); c2.imageSmoothingEnabled=false;
+    c2.clearRect(0,0,slot.width,slot.height);
+    if(pf){ slot.style.display='block'; c2.drawImage(pf,0,0,slot.width,slot.height); }
+    else slot.style.display='none'; }
   SAYS.innerHTML='';
   (v.says||[]).forEach(function(s){ var p=document.createElement('p'); p.textContent=s; SAYS.appendChild(p); });
   (v.noverbs||[]).forEach(function(n){ var p=document.createElement('p'); p.className='nv';
@@ -646,6 +785,7 @@ function goLoud(tag){
 HANDBTN.addEventListener('click', function(){ HAND.style.display='none'; RUN.phase='resolved'; refresh(); draw(); });
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if(!d || !d.type) return;
+  if(d.type==='BOHEMIA_RUN_CAST'){ castIn(d); return; }
   if(d.type==='BOHEMIA_RUN_ENCOUNTER_ACK'){
     HANDSUB.textContent='Handing you to the dial…'; return; }
   if(d.type==='BOHEMIA_RUN_COMBAT_END'){
@@ -723,7 +863,8 @@ cv.addEventListener('click', function(e){
 
 function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight; draw(); }
 window.addEventListener('resize', fit);
-refresh(); fit();
+refresh(); fit(); updateFaces();
+askForCast();   /* the real bodies, straight off the rig Paolo built */
 toast('You woke up in your own house. Walk out the front door.');
 
 /* ---- read-only introspection for gates/run_gate.js. Actions go through the
@@ -742,6 +883,12 @@ window.__RUN = {
     for(var y=0;y<fp.H;y++){ var r=[]; for(var x=0;x<fp.W;x++) r.push(passInt(x,y)); a.push(r); }
     return { W:fp.W, H:fp.H, door:fpDoor, pass:a }; },
   talkables: function(){ return talkables(); },
+  cast: function(){ if(!CAST) return null;
+    var d=Object.keys(CAST.player), any=CAST.player[d[0]];
+    return { dirs:d.length, walkFrames:any?any.walk.length:0, looks:CAST.looks.length,
+      lookDirs:CAST.looks.length?Object.keys(CAST.looks[0]).length:0,
+      portrait:!!CAST.portraits.you, npcPortraits:CAST.portraits.looks.filter(Boolean).length,
+      spriteW:any&&any.idle?any.idle.width:0, spriteH:any&&any.idle?any.idle.height:0 }; },
   feed: function(){ return BohemiaLoop.buildFeed(CTX,{}); },
   profile: function(){ return BohemiaLoop.socialProfile(CTX); }
 };
