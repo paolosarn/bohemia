@@ -72,6 +72,21 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- THE ANIMATIONS ARE REJECTED, ALL OF THEM (Paolo 7/26, LOCKED --
+  laws/BOHEMIA_ADDENDUM_ANIMATION_REJECTED_7_26_26.md). No clip carries an
+  approval any more. The rig RESAMPLES limb pixels every frame, which on pixel
+  art IS morphing, and four passes then invented pixels to hide the damage.
+  MEASURED: 72.8% of frames had pixels nobody painted, 34,636 of them, 84% in
+  the arms -- and the ONLY clean parts were the head and face, the two the HEAD
+  RIGID STAMP LAW protects. That is the diagnosis in one line.
+  SHIPPED 7/26: the JOINT WELD and the MIN HAND SLIVER are dead -> 61% of the
+  invented pixels gone (34,636 -> 13,444), silhouette unchanged, A/B chip in the
+  character box. NOT A FULL FIX and the record says so. RIG FIRST, CLIPS SECOND:
+  redoing 60 clips on a resampling renderer just makes 60 morphing clips.
+  NEXT: a quantised angle atlas (or painted frames) so limbs stop being
+  resampled at all. Two zero-invention shortcuts were built, measured at exactly
+  0, and REJECTED on the render for shredding the silhouette -- do not re-pitch
+  ONE-SOURCE-ONE-PIXEL or PIXEL CONSERVATION.
 - CHARACTER BOX = SHUFFLE ANIM (Paolo 7/26, his ask): the preview plays any
   clip, skeleton off, with the body sliders right underneath. Bodies get judged
   THROUGH THE ANIMATIONS now, never off an idle pose.
@@ -651,6 +666,10 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
 - THE RUN's two calls, after he plays it (record has the full reasoning):
   (a) the lineman/fixer placements on the block, (b) whether a LOUD resolution
   should always draw a fight, and who shows up.
+- WHICH ANIMATIONS ARE "THE COUPLE THAT ARE SOLID"? Naming them gives the
+  rebuild its reference poses instead of starting from zero.
+- DELETE the current clips now, or keep them running as unapproved placeholders
+  until the replacement lands? (Assumed the latter; one word changes it.)
 - BODY SLIDER RANGES (built 7/26, judge sheets in records/bodyvar/): how far
   each dial should go, what "and stuff" covers beyond height/belly/arms, and
   whether dials are per-NPC-random, player-chosen, or both. Nothing was wired

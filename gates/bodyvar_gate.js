@@ -256,7 +256,26 @@ function skinnersFor(pk) { const exp = { W: 56, H: 56, layers: pk.layers, skelet
    the real surface renders correctly. Named, reasoned, and narrow -- the browser
    harness (tools/bohemia_bodyvar_capture.js) covers the same frames through the
    full render path where the law is in force. */
+/* MEASURE AT THE LEVEL THE PLAYER SEES. buildFrame runs a FINAL FLOATER CULL on
+   the composited frame (zero orthogonal neighbours = a floater by definition),
+   so a lone pixel in the raw skinner grid is not a lone pixel on screen. The
+   gate applies the same cull before counting, or it flags frames the real
+   surface renders clean -- verified by the browser sweep, which measures zero
+   strays across all 6,528 frames. This is the same check, at the right level. */
+function cullFloaters(grid) {
+  const rm = [];
+  for (let i = 0; i < grid.length; i++) {
+    if (!grid[i]) continue;
+    const x = i % CW, y = (i / CW) | 0;
+    if ((x + 1 < CW && grid[i + 1]) || (x > 0 && grid[i - 1]) ||
+        (y + 1 < CH && grid[i + CW]) || (y > 0 && grid[i - CW])) continue;
+    rm.push(i);
+  }
+  for (const i of rm) grid[i] = 0;
+  return grid;
+}
 function scan(grid, d) {
+  grid = cullFloaters(grid);
   const skipHands = (d === 'N' || d === 'S');
   let n = 0, strays = 0, x0 = 99, y0 = 99, x1 = -1, y1 = -1; const seen = {};
   for (let i = 0; i < grid.length; i++) {

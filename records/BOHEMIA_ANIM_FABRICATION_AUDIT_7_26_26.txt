@@ -1,0 +1,178 @@
+=== BOHEMIA — ANIMATION FABRICATION AUDIT (7/26/26) ===
+
+Paolo 7/26: "the arm moves and then it's just like morphing and glitching
+and providing extra pixels and it's looking like dog shit."
+
+THE METRIC: a limb is a fixed number of PAINTED pixels. Moving a rigid
+thing can never make it bigger -- occlusion only ever takes pixels away.
+So for every part in every frame:  invented = on-screen minus painted.
+Anything above zero is the renderer drawing pixels he never painted.
+Measured through the shipped alpha in a real browser: posedSkel() ->
+Skinner.skin(), the same two calls the game itself makes.
+
+SCOPE: 102 clips x 8 facings x 8 phases = 6528 frames.
+
+--- THE A/B: WHAT THIS TURN REMOVED -------------------------------------
+  Same frames, same code path, one switch. The JOINT WELD stamped limb
+  pixels a SECOND time under the parent bone near the shoulder/elbow --
+  duplicates, sprayed exactly at the torso/arm junction Paolo named.
+
+    renderer he called dog shit : 34636 invented pixels, 4753 dirty frames
+    with the weld retired       : 13444 invented pixels, 3377 dirty frames
+    REMOVED                     : 21192 pixels  (61.2%)
+
+  NOT A FULL FIX, and this report is where that is said out loud. The
+  remaining invention is inherent to resampling pixel art through a
+  continuous bone transform, and it only reaches zero when limbs stop
+  being resampled. Two ways to force zero were built and MEASURED at
+  exactly 0 invented pixels this turn, and BOTH were rejected on the
+  render because they shredded the silhouette:
+    - ONE SOURCE, ONE PIXEL (veto a painted pixel landing twice)
+    - PIXEL CONSERVATION (forward-splat each painted pixel to one cell)
+  The real answer is a quantised angle atlas or painted frames. See the
+  addendum's order of work.
+
+--- THE HEADLINE (current renderer) -------------------------------------
+  frames containing invented pixels : 3377 of 6528  (51.7%)
+  invented pixels, total            : 13446
+  worst single frame                : 24 invented pixels in jump NW@0.375
+
+--- WHICH BODY PART GETS WRECKED ----------------------------------------
+  arm-L    invented=  3255  in  1182 frames   worst frame +8px
+  torso    invented=  3040  in   479 frames   worst frame +22px
+  arm-R    invented=  2415  in   915 frames   worst frame +12px
+  hand-L   invented=  1554  in  1094 frames   worst frame +4px
+  hand-R   invented=  1401  in  1028 frames   worst frame +4px
+  thigh-R  invented=   870  in   373 frames   worst frame +10px
+  foot-L   invented=   352  in   180 frames   worst frame +5px
+  foot-R   invented=   311  in   152 frames   worst frame +5px
+  neck     invented=   172  in   135 frames   worst frame +4px
+  thigh-L  invented=    76  in    22 frames   worst frame +9px
+  CLEAN (never invents a pixel): head, face
+
+--- EVERY CLIP, WORST FIRST ---------------------------------------------
+  clip                  invented   dirty frames        worst frame
+  flee-sprint              348    53/64             +20px NW@0.375
+  balance                  323    52/64             +16px NW@0.5
+  twist-stretch            284    54/64             +18px NW@0.125
+  cheer                    258    46/64             +13px SW@0.25
+  dizzy                    251    53/64             +17px NW@0
+  push                     245    39/64             +24px NW@0
+  sit-ground               228    51/64             +15px NW@0.125
+  headshot                 224    37/64             +15px NE@0
+  retch                    223    38/64             +21px NW@0.5
+  carry                    219    49/64             +16px NW@0.5
+  brace                    218    38/64             +14px NW@0.125
+  bat-arc                  216    45/64             +17px NW@0.5
+  winded                   212    32/64             +24px NW@0
+  drunk                    209    54/64             +14px NE@0.125
+  stretch                  208    46/64             +13px NW@0.125
+  headbang                 208    42/64             +8px NW@0.375
+  heave                    204    31/64             +20px NW@0.5
+  crawl-dying              204    42/64             +13px NW@0.375
+  walk                     203    51/64             +10px NW@0.75
+  hands-up                 203    39/64             +14px NW@0.875
+  swagger                  203    46/64             +15px NW@0.625
+  jumping-jacks            202    46/64             +13px NW@0.125
+  preach                   201    41/64             +15px NW@0.25
+  get-shoved               200    37/64             +19px NW@0.5
+  stumble                  196    41/64             +14px NW@0.25
+  overwatch                193    45/64             +9px NW@0
+  stretch-back             193    42/64             +9px NE@0.25
+  sit-chair                192    50/64             +12px NW@0
+  dig                      190    37/64             +20px NW@0.375
+  sleep                    180    38/64             +11px N@0.125
+  run                      175    43/64             +18px NE@0.25
+  point                    175    48/64             +6px S@0.25
+  throw                    173    44/64             +17px NW@0.875
+  talk                     172    43/64             +10px W@0.75
+  lean                     171    43/64             +12px N@0.25
+  lunge-stretch            160    36/64             +15px NW@0.375
+  greet                    157    36/64             +13px E@0.625
+  flee-scramble            157    37/64             +17px NW@0
+  gun-walk                 157    53/64             +8px SE@0.125
+  eat                      154    42/64             +12px NW@0
+  dash                     154    30/64             +16px NE@0.125
+  chest-thump              152    42/64             +10px E@0.375
+  shove                    146    28/64             +22px NW@0.25
+  pistol                   144    40/64             +9px SW@0.125
+  inspect-ground           142    27/64             +22px NW@0.25
+  punch-heavy              138    43/64             +11px NW@0.375
+  shiv-jab                 138    38/64             +13px NW@0.5
+  dance                    137    31/64             +12px NW@0.125
+  taunt                    136    34/64             +8px NW@0.25
+  dodge                    134    24/64             +15px NW@0.25
+  jump                     132    27/64             +24px NW@0.375
+  kick                     124    38/64             +8px NW@0.25
+  air-guitar               124    28/64             +9px NW@0
+  argue                    120    38/64             +10px NW@0.375
+  pray                     119    40/64             +7px NE@0.125
+  bow                      118    27/64             +9px NW@0.25
+  headshot-2               111    41/64             +7px E@0.625
+  crouch-aim-1h            110    11/64             +15px NW@0.125
+  weave                    108    30/64             +10px NW@0
+  shout                    102    34/64             +8px NE@0.25
+  hail                     102    32/64             +10px E@0.5
+  idle                     101    27/64             +11px N@0.25
+  floor-rise               101    38/64             +9px NE@0.25
+  stagger-hit              100    22/64             +13px NW@0.125
+  sneak                     99    36/64             +8px NW@0.75
+  tired-walk                98    36/64             +5px S@0
+  whistle                   94    39/64             +9px NW@0.125
+  shadowbox                 94    28/64             +14px NW@0.375
+  startle                   90    22/64             +14px NW@0.25
+  stomp                     88    30/64             +7px NW@0.125
+  two-hand                  86    44/64             +5px SW@0.125
+  psych-up                  84    40/64             +7px NW@0
+  deadeye                   81    30/64             +8px NW@0.75
+  smoke                     80    37/64             +3px E@0.125
+  pickup                    77    25/64             +9px NW@0.375
+  haggle                    76    26/64             +9px E@0.125
+  drink                     71    37/64             +2px SE@0.25
+  cover-rise                70    24/64             +15px NW@0
+  cover-drop                70    22/64             +13px NW@0.5
+  search                    68    35/64             +3px S@0.75
+  wander                    67    27/64             +4px S@0
+  cough                     66    38/64             +8px NW@0.125
+  take-cover                66    12/64             +15px NW@0.625
+  beckon                    60    24/64             +6px NE@0
+  howl                      58    23/64             +4px E@0.375
+  scratch-back              58    24/64             +6px NW@0.25
+  laugh                     54    22/64             +5px W@0.25
+  spear-drive               54    32/64             +4px SE@0.5
+  pat-pockets               52    22/64             +4px NE@0
+  fistpump                  46    22/64             +5px NE@0.25
+  cover-fire                42    15/64             +15px NW@0
+  nod                       40    16/64             +3px NE@0
+  look-around               38    22/64             +3px NE@0
+  crack-neck                34    14/64             +3px NE@0
+  duck                      24     4/64             +6px NW@0.125
+  crouch-aim-2h             22    11/64             +5px SW@0.25
+  cower                     16     8/64             +2px SE@0
+  shiver                    14     6/64             +3px NW@0
+  shrug                     13     7/64             +2px NE@0.125
+  sigh                      10     5/64             +3px NE@0
+  slump                      4     2/64             +2px NW@0.25
+  rage                       0     0/64             -
+
+--- THE CLIPS THAT ARE ALREADY CLEAN ------------------------------------
+  rage
+
+--- WHERE THE INVENTED PIXELS COME FROM (named in the source) -----------
+  JOINT WELD        stamps limb pixels a SECOND time under the parent
+                    frame near the shoulder/elbow. Duplicates, exactly at
+                    the torso/arm junction Paolo named.
+  refineSkin        invents pixels with no rest source at all (src=-1) to
+                    close pinholes the resample opened.
+  EVERY PIXEL LANDS forward-splats painted sources the inverse sample
+                    missed -- necessary only BECAUSE the resample misses.
+  MIN HAND SLIVER   stamps a 2x4 rectangle of hand pixels when a head-on
+                    pose buries a hand. Draws a hand the pose does not put
+                    there. This is the hand "feature" he says clips wrong.
+
+  All four exist to paper over damage from ONE root cause: limb pixels are
+  RESAMPLED through a continuous bone transform. At any angle that is not a
+  multiple of 90 degrees that resample cannot be lossless. On pixel art,
+  lossy resampling IS morphing. The HEAD is exempt by law (HEAD RIGID STAMP,
+  Paolo 7/2/26) and the head is the part nobody complains about.
+

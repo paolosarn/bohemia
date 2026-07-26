@@ -33,7 +33,7 @@ import os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALPHA = os.path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_bodyvar.js')
-STAMP = 'BUILD 7/26m · BODY SLIDERS + SHUFFLE ANIM ON THE CHARACTER BOX'
+STAMP = 'BUILD 7/26r · ANIMATION RIG: 21,192 INVENTED PIXELS DELETED'
 
 def die(msg):
     print('  ! ' + msg)
