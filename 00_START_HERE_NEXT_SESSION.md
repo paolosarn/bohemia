@@ -719,6 +719,31 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v74: TWO BIG SWINGS TOWARD A RHYTHM GAME. Law + the research
++ what is still open: laws/BOHEMIA_ADDENDUM_THE_GROOVE_CHAIN_7_26_26.md.
+RESEARCH: Rogue Fable IV ("skill matters more than stats", "you should be in a
+state of near constant motion") + Crypt of the NecroDancer's GROOVE CHAIN
+(on-beat actions compound, a missed beat OR a hit resets, indicator hot at max).
+THE DIAGNOSIS: v69 graded every press and then did NOTHING with the grade. A
+grade with no stake is a scoreboard, not a mechanic. And v73's free movement was
+permitted, not rewarded.
+(1) THE GROOVE CHAIN: x1 -> x2 at 2 on-beat actions -> x3 at 5 -> x4 at 9,
+breaks on an off-beat press or on taking a hit (announced, never silent). It buys
+CAPABILITY: the dial window opens 10% per level (+30% at x4), and the music
+ladder takes the higher of bodies-down and the chain, so THE SONG CLIMBS ON
+RHYTHM ALONE before anybody is dead. Reads on the timing strip, hot orange at max.
+(2) ON-BEAT MOVEMENT IS FREE: a stamina move whose press lands PERFECT refunds
+its pip. In the pocket you can move all turn; sloppy and the bar drains. The
+reward for rhythm is MOBILITY.
+Both key off the SAME graded press -- one definition of on-the-beat in the fight.
+Gate: section 13 EXECUTES the chain and the refund (276 checks green). Proof:
+slices/BOHEMIA_GROOVE_PROOF_7_26_26.png (a PERFECT move at +19ms refunded its pip
+and opened the chain; an EARLY move wiped it).
+NEXT SWINGS, in order, in the addendum: rhythm AS difficulty (the 52 patterns are
+curve shapes, not note values), the enemy telegraph as a beat countdown you can
+dance out of, and ENVIRONMENT (RF4 leans on terrain/clouds/traps; Bohemia has
+pillars and one grenade -- the thinnest part of the fight).
+
 COMBAT (04) 7/26 - v73: STAMINA MOVEMENT IS FREE *AND* SAFE. Law (amended):
 laws/BOHEMIA_ADDENDUM_STAMINA_NEVER_COSTS_A_TURN_7_26_26.md.
 Paolo: "when I press shift it's almost like a run... I get free movement and I

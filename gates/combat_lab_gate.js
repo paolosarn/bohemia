@@ -485,11 +485,11 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes('id="sprintbtn"') &&
     demo.includes('const _sprinting=!!G.sprintArm;') &&
     demo.includes('const _mult=_sprinting?2:1;') &&
-    demo.includes("if(_sprinting){ spendStam(1); G.sprintArm=false; updMoveMode(); }") &&
+    demo.includes("if(_sprinting){ spendMove(1); G.sprintArm=false; updMoveMode(); }") &&
     demo.includes("renderBoard(); updGap(); return; }   /* V73 FREE AND SAFE: no turn end, NO return fire */"));
 ok('V67 SPRINT COSTS STAMINA (Paolo: "sprint should be using up stamina points"): 1 pip, refused when the pips are gone, spent on the move itself',
     demo.includes("if(_sprinting&&(G.stam||0)<1){ setRead('NO STAMINA','sprint needs 1 pip','#8a7d66'); return; }") &&
-    demo.includes('spendStam(1); G.sprintArm=false;'));
+    demo.includes('spendMove(1); G.sprintArm=false;'));
 ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automatically moves for me"): arming either move disarms the other, an arm never survives the turn, and the RING says which move the next tap performs',
     demo.includes('function updMoveMode(){') &&
     demo.includes('if(G.dashArm)G.sprintArm=false;') &&
@@ -590,9 +590,9 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
   ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
     demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
-    demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;"));
+    demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;") && demo.includes('function spendMove(n){'));
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
     demo.includes('function pinned(e){ return (e.supp||0)>0; }') &&
     demo.includes('const SUPP_TURNS=1;') && demo.includes('const SUPP_CD=1;') &&
@@ -640,14 +640,14 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V56 DASH AIMABLE: doDash arms and you tap a ring direction (doMove routes an armed dash to doDashMove); no more auto-placed destination; dashArm resets each fight',
     demo.includes('if(G.dashArm){ G.dashArm=false;') &&
     demo.includes('function doDashMove(d){') &&
-    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
+    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
   ok('V67 SUPPRESS IS LEGIBLE: the pinned wear a PINNED tag on the body, the action button counts them, and the readout names the broken red lines. He pressed it and nothing on screen changed -- that was half the bug',
     demo.includes(":pinned(e)?'PINNED'") &&
     demo.includes("if(_pn>0&&txt!=='SHOOT')txt=txt+' \\u00b7 '+_pn+' PINNED';") &&
     demo.includes('function pinnedCount(){') &&
     demo.includes("POP NOW, they are easy meat"));
 ok('V67 A PINNED MAN IS EASY MEAT: the dial window opens 35% on a suppressed target (the XCOM contract inverted -- suppression makes him easier to kill, it never makes him vanish)',
-    demo.includes('const _pinW=(G.e[G.fireTarget]&&pinned(G.e[G.fireTarget]))?1.35:1;') &&
+    demo.includes('const _pinW=((G.e[G.fireTarget]&&pinned(G.e[G.fireTarget]))?1.35:1)*_grW;') &&
     demo.includes('KILL_GRACE*_ww*_pinW*(G.inFU?1.18:1)'));
   // v57: coordinate the pop-out button to the downbeat (the beat the bass doubles on), + on-the-one reward
   ok('V57 ON THE ONE: the pop-out button breathes HARD on beat one of the bar (soft on 2-4)',
@@ -756,7 +756,8 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes("synthV('growl',AC,MAST,noteHz,stepDur(),f.root-55+f.scale[s%f.scale.length],t,0.12);") &&
     demo.includes("synthV('acid',AC,MAST,noteHz,stepDur(),f.root-43+f.scale[s%f.scale.length],t,0.10); } }") &&
     // the LOCKED 7/3 law survives: layers key off KILLS THIS ENCOUNTER, and area-clear goes calm
-    demo.includes("const _sk=(G._demo&&G._demo.k==='J')?4:((JUICE.J&&!G.over)?(G.e?G.e.filter(e=>e.dead||e.downed||e.broken||e.fleeing).length:0):0);"));
+    demo.includes("(G.e?G.e.filter(e=>e.dead||e.downed||e.broken||e.fleeing).length:0)") &&
+    demo.includes("BohemiaGroove.musicFloor(G.groove)):0);"));
 }
 /* ============================================================================
    5. V66 RUN HANDOFF -- THE REAL BUS, HEADLESS, FIVE FIGHTS BACK TO BACK
@@ -1114,8 +1115,8 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
       demo.includes('fireGrantTick(); }   /* V68: a held shot is granted on the beat */') &&
       demo.includes('if(beatNow()>=G._fireReq.at){ G._fireReq=null; try{setPhaseUI();}catch(_e){} fireNow(); }') &&
       demo.includes("fb.innerHTML='<b style=\"font-size:11px;letter-spacing:1px\">ON THE<br>BEAT</b>'") &&
-      demo.includes('G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G._oneStreak=0;') &&
-      demo.includes('_spawnLayout:null, _fireReq:null };'));
+      demo.includes('G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0;') &&
+      demo.includes('_spawnLayout:null, _fireReq:null, groove:0 };'));
   }
 }
 
@@ -1292,6 +1293,76 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     const dd = (blk.match(/'OVERWORLD DUSK\/DAWN'/g) || []).length;
     return n === 10 && d === 1 && dd === 2;
   })());
+
+/* ============================================================================
+   13. V74 -- THE GROOVE CHAIN + ON-BEAT MOVEMENT IS FREE
+   Paolo asked for big swings toward a rhythm game. Research: Rogue Fable IV
+   ("you should be in a state of near constant motion", skill over stats) and
+   Crypt of the NecroDancer's Groove Chain (on-beat actions compound, a missed
+   beat OR a hit resets it, the indicator goes hot at max). The chain is pulled
+   out of the shipped blob and RUN.
+   ========================================================================== */
+{
+  const a = demo.indexOf('var BohemiaGroove');
+  const b = demo.lastIndexOf('if(typeof module', demo.indexOf('V74 GROOVE CORE END'));
+  ok('demo carries GROOVE CORE as its own testable block', a > 0 && b > a);
+  const gm = { exports: {} };
+  new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaGroove;')(gm, gm.exports);
+  const GR = gm.exports;
+
+  ok('THE CHAIN COMPOUNDS: x1, then x2 at two on-beat actions, x3 at five, x4 at nine, and it never runs past x4',
+    [0, 1].every(g => GR.level(g) === 1) && [2, 4].every(g => GR.level(g) === 2) &&
+    [5, 8].every(g => GR.level(g) === 3) && [9, 20, 99].every(g => GR.level(g) === 4));
+  ok('AN ON-BEAT ACTION ADDS TO IT and an off-beat press wipes it to zero (NecroDancer\'s rule: staying on the grid pays, falling off costs)',
+    GR.hit(4, 'PERFECT') === 5 && GR.hit(4, 'GOOD') === 5 &&
+    GR.hit(4, 'LATE') === 0 && GR.hit(4, 'EARLY') === 0 &&
+    GR.broke(4, 'LATE') === true && GR.broke(4, 'PERFECT') === false &&
+    GR.broke(0, 'LATE') === false);
+  ok('WHAT THE CHAIN BUYS IS REAL, NOT A BADGE: the dial window opens 10% per level to +30% at x4, so playing in the pocket makes you a better shot',
+    Math.abs(GR.dialBonus(0) - 1.00) < 1e-9 && Math.abs(GR.dialBonus(2) - 1.10) < 1e-9 &&
+    Math.abs(GR.dialBonus(5) - 1.20) < 1e-9 && Math.abs(GR.dialBonus(9) - 1.30) < 1e-9);
+  ok('AND THE SONG CLIMBS ON RHYTHM ALONE: the ladder rungs sit at 2 and 4, and the chain reads x2 as two kills and x3 as four -- the track can lift before anybody is down',
+    GR.musicFloor(0) === 0 && GR.musicFloor(2) === 2 && GR.musicFloor(5) === 4 && GR.musicFloor(9) === 6);
+  ok('the chain is wired into the SHIPPED dial, the SHIPPED ladder and the SHIPPED grade, not sitting in a corner unused',
+    demo.includes('const _grW=BohemiaGroove.dialBonus(G.groove);') &&
+    demo.includes('BohemiaGroove.musicFloor(G.groove)):0);') &&
+    demo.includes('if(BohemiaGroove.broke(G.groove,_gr)){ G.groove=0; showVerd(\'CHAIN BROKEN\'') &&
+    demo.includes('G.groove=BohemiaGroove.hit(G.groove,_gr);'));
+  ok('A HIT BREAKS THE CHAIN (the rule that makes it a stake rather than a press counter), and it is announced, not silent',
+    /function hurtFlash\(\)\{[\s\S]{0,400}?G\.groove=0;[\s\S]{0,120}?CHAIN BROKEN/.test(demo));
+  ok('and no chain survives a fight, through the NEW ENCOUNTER path or the run handoff',
+    demo.includes('G._perfects=0; G.groove=0; G._oneStreak=0;') &&
+    demo.includes('_fireReq:null, groove:0 };'));
+  ok('the chain reads on screen with its level and goes HOT at max, on the same strip as the grade',
+    demo.includes("GROOVE x'+_gl+(_max?' MAX':'')") && demo.includes('var _chain=(G.groove||0)>0?') &&
+    demo.includes("t.style.color=_max?'#ff8a3a'"));
+
+  /* SWING 2: on-beat movement refunds its pip */
+  {
+    const _sa = demo.indexOf('function spendMove(n)');
+    const src = demo.slice(_sa, demo.indexOf('function nearestPillar', _sa));
+    const run = (grade) => {
+      const G = { stam: 3, groove: 0, _stamSpent: false };
+      new Function('G', 'STAM_MAX', 'beatErrMs', 'gradeOf', 'beatNow', 'updStam', 'showVerd',
+        'sndOnBeatStab', 'updTiming', 'BohemiaGroove', 'spendStam',
+        src + ';spendMove(1);')(
+        G, 3, () => 0, () => grade, () => 0, () => {}, () => {}, () => {}, () => {}, GR,
+        (n) => { if (G.stam < n) return false; G.stam -= n; G._stamSpent = true; return true; });
+      return G;
+    };
+    const perfect = run('PERFECT'), late = run('LATE'), good = run('GOOD');
+    ok('ON-BEAT MOVEMENT IS FREE: a stamina move whose press lands PERFECT refunds its pip, so a player in the pocket can keep moving all turn (Rogue Fable IV\'s "near constant motion", earned by rhythm)',
+      perfect.stam === 3 && perfect._stamSpent === false);
+    ok('a sloppy move still costs: GOOD and off-beat both spend the pip for real',
+      good.stam === 2 && late.stam === 2);
+    ok('and moving well FEEDS the chain while moving badly breaks it -- movement is playing, not a free pass',
+      perfect.groove === 1 && good.groove === 1 && late.groove === 0);
+    ok('all three mobility verbs route through the graded spend, so there is ONE definition of on-the-beat in the whole fight',
+      demo.includes('if(_sprinting){ spendMove(1); G.sprintArm=false; updMoveMode(); }') &&
+      demo.includes('if(!spendMove(2))') &&
+      demo.includes("if(!spendMove(1)){ setRead('NO STAMINA','vault needs 1 pip'"));
+  }
+}
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
