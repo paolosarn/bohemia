@@ -286,6 +286,15 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+0. THE ONE MAP (Paolo direction, 7/26: "combine the phone map to the city
+   builder map with quest locations on top"): the in-game PHONE's map app
+   renders THE SAME city-builder valley map (one map, one truth — same
+   philosophy as zoom-build), with QUEST LOCATION markers layered on top
+   (use the live casting-bridge locations now; placement-verdict overrides
+   apply later when Paolo picks). Coordinate with RUN on how the phone
+   surfaces in the run. | the phone map IS the valley map with quest pins,
+   proven on the real surface | CITY_B64 render internals stay CITY's |
+   no — Paolo-directed.
 A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOPT THE
    RESOLVE POINT. Paolo APPROVED it and RULED its shape in the same breath: "sleep
    can be hangout or eat too u know" — the world resolves at ANY BLOCK OF TIME THE
