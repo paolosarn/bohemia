@@ -54,12 +54,12 @@ html = r"""<meta charset="utf-8">
     about a quest until you have picked the target screen.
   </div>
   <a href="BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#1d1a10;border:2px solid #c79a3f;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">PICK THE TARGET SCREEN <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">PICK ONE - EVERYTHING WAITS ON THIS</span></div>
+    <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">THE TARGET SCREEN &#183; REV 2 <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">IS IT THERE YET</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#bdb392;margin:4px 0 8px">
-      You said you could not approve any more art until the world looks consistent. So here is
-      the world, three ways: the same street at its best, each one sitting next to the build you
-      actually play. Pick ONE. That one becomes the rule every future piece of art has to move
-      the game toward. Until you pick, nothing new gets drawn.
+      You picked the front face and the other two are dead and buried. You also said this one
+      still looked like slop and named two things: cars were not 2 by 3 tiles, and the roofs
+      were not put on right. Both fixed, both shown with the tile grid drawn on so you can
+      count it yourself. One tap: good enough, could be better, or still slop.
     </div>
   </a>
   <a href="BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #444;border-radius:12px;padding:14px;margin-bottom:14px;opacity:.66">

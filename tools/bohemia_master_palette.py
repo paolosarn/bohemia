@@ -43,7 +43,7 @@ from PIL import Image
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 OUT = 'records/target'
-KEYS = ('A_FRONTFACE', 'B_ISOBLOCK', 'C_CUTAWAY')
+KEYS = ('A_FRONTFACE',)   # the other two were graveyarded 7/26; see the registry
 N = 64                     # the ramp size the act-1 tileset gets quantized to
 
 

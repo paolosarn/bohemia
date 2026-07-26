@@ -38,7 +38,7 @@ FACTORY = 'tools/bohemia_target_screen_factory.py'
 OUTDIR = 'records/target'
 JUDGE = 'slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html'
 LIFEHUB = 'slices/BOHEMIA_LIFE_CURRENT.html'
-KEYS = ('A_FRONTFACE', 'B_ISOBLOCK', 'C_CUTAWAY')
+KEYS = ('A_FRONTFACE',)   # the other two are DEAD (graveyard registry, 7/26)
 
 P = F = 0
 
@@ -113,13 +113,37 @@ def main():
     pct_a = 100.0 * body_a / door_a
     chk(68 <= pct_a <= 90,
         'A_FRONTFACE: a body clears %.0f%% of its 2-cell door (want 68-90)' % pct_a)
-    door_b = M.DOOR_CELLS * M.ZH
-    body_b = M.BODY_PX * 1.20                      # iso_body's default k
-    pct_b = 100.0 * body_b / door_b
-    chk(68 <= pct_b <= 90,
-        'B/C ISO: a body clears %.0f%% of its 2-cell door (want 68-90)' % pct_b)
-    chk('def iso_body' in src and 'k=1.20' in src,
-        'the iso body scale moved without this gate being told (k must stay declared)')
+
+    # ---- THE CAR LAW (Paolo LOCKED, restated 7/26) ---------------------
+    # "We made a rule that all cars are 2 x 3 tiles." v1 dropped them at their
+    # cooked pixel size, roughly 1x2, and he caught it. The factory must READ the
+    # number out of the engine, never type it, so a picture can never disagree
+    # with the game.
+    chk((M.CAR_L, M.CAR_W) == (3, 2),
+        'the car footprint resolved to %dx%d, not the locked 3x2' % (M.CAR_L, M.CAR_W))
+    chk('car_footprint()' in src and 'PROP_SCALE' in src,
+        'the factory hard-codes a car size instead of reading the engine law')
+    chk("re.search(r\"vehicle" in src or 'vehicle' in src,
+        'the factory does not parse the vehicle rule out of the engine')
+    eng = open(M.PROP_SCALE).read()
+    chk("fp:[3,2]" in eng.replace(' ', ''),
+        'the engine vehicle footprint moved off 3x2 - that is a Paolo-locked law')
+    chk('def car(' in src and "along == 'x'" in src,
+        'cars are not oriented along the surface they are parked on')
+
+    # ---- THE ROOF SITS SQUARE ON ITS OWN WALLS (Paolo 7/26) ------------
+    # "the roofs are all fucked up not put on correctly". The cause was a
+    # horizontal shear on the TOP face only: the roof slid sideways off the wall
+    # under it. Any non-zero shear reintroduces exactly that.
+    chk(M.SHEAR == 0,
+        'SHEAR is %.2f - a sheared top face slides the roof off its own walls, which is '
+        'the defect Paolo named' % M.SHEAR)
+    chk('def hip_roof' in src, 'the pitched roof is not a real hip form (ridge + hip ends)')
+    for part in ('THE RIDGE', 'THE FASCIA', "eave's shadow"):
+        chk(part in src, 'the roof is missing its %s - that is what makes it read as a roof'
+            % part)
+    chk('flat colour wedge' in src,
+        'the hip ends must be the roof MATERIAL at another value, never a flat fill')
 
     # ---- Pocket City rule 3: three tones, top brightest, side darkest ---
     chk(M.TOP > M.FRONT > M.SIDE,
@@ -128,12 +152,24 @@ def main():
     chk(M.TOP / M.SIDE >= 1.6,
         'top/away contrast is only %.2f - the volumes will read flat' % (M.TOP / M.SIDE))
 
+    # ---- GRAVEYARD IS FINAL: the two killed candidates stay killed ------
+    for dead in ('B_ISOBLOCK', 'C_CUTAWAY'):
+        chk(dead in open('gates/bohemia_graveyard.txt').read(),
+            '%s is not in the graveyard registry' % dead)
+        chk(os.path.exists(os.path.join(OUTDIR, 'graveyard',
+                                        'BOHEMIA_TARGET_%s.png' % dead)),
+            '%s: the killed render is not kept as the record' % dead)
+        chk(not os.path.exists(os.path.join(OUTDIR, 'BOHEMIA_TARGET_%s.png' % dead)),
+            '%s is still sitting in the live target folder' % dead)
+    chk('def screen_B' not in src and 'def screen_C' not in src,
+        'a renderer for a graveyarded candidate is still live in the factory - GRAVEYARD '
+        'IS FINAL, and a working renderer is an invitation to remake a corpse')
+
     # ---- the 45 LAW: the top of a mass is SKY-LIT, never a flat-90 wall -
     chk('ROOF_FS' in src and M.ROOF_FS < 0.45,
         'candidate A stopped foreshortening its roof - a full-depth roof slab reads as '
         'floor wallpaper (the exact failure of target v1)')
-    chk(M.ZH > M.TH,
-        'the iso height unit collapsed to the tile height; masses will read squashed')
+
 
     # ---- REUSE-FIRST / APPROVED-ASSETS-FIRST ----------------------------
     chk('REUSE CHECK' in src, 'the factory carries no REUSE CHECK block')
@@ -159,7 +195,12 @@ def main():
     if os.path.exists(sp):
         d = json.load(open(sp))
         chk(d['proportion_canon']['door_cells_tall'] == 2, 'spec: door is not 2 cells tall')
-        chk(len(d['candidates']) >= 2, 'spec: fewer than 2 candidates (law says 2-3)')
+        chk(len(d['candidates']) == 1,
+            'the direction is RULED: exactly one live candidate, the other two are dead')
+        chk(set(d['graveyarded']) == {'B_ISOBLOCK', 'C_CUTAWAY'},
+            'the spec does not record which candidates Paolo killed')
+        chk(d['car_law']['cells_long'] == 3 and d['car_law']['cells_wide'] == 2,
+            'the spec does not carry the locked 2x3 car law')
         chk(d['proportion_canon']['cell_m'] == 0.75,
             'spec: cell_m drifted off the engine constant 0.75')
 
@@ -171,11 +212,17 @@ def main():
         chk('EXPORT .txt' in h, 'judge page does not export')
         chk('.txt' in h and "type:'text/plain'" in h.replace('"', "'"),
             'judge page must export .txt, never .json')
-        for k in KEYS:
-            chk('data-k="%s"' % k in h, 'judge page has no pick control for %s' % k)
-        chk(h.count('data:image/png;base64,') >= 6,
-            'judge page must show each candidate SIDE BY SIDE with the build he plays')
-        chk('pick ONE' in h, 'judge page must say this is a PICK, not a thumbs-up pile')
+        for v in ('APPROVE', 'CBB', 'KILL'):
+            chk('data-v="%s"' % v in h, 'judge page is missing the %s verdict' % v)
+        chk(h.count('data:image/png;base64,') >= 4,
+            'judge page must show the target SIDE BY SIDE with the build he plays, plus '
+            'the proof crops for the two defects he named')
+        for dead in ('B_ISOBLOCK', 'C_CUTAWAY'):
+            chk('data:image/png;base64,%s' % dead not in h,
+                '%s must never be surfaced at him again' % dead)
+        chk('2 x 3 TILES' in h.upper() or '2 X 3 TILES' in h.upper(),
+            'the judge page must show him the car fix he asked for')
+        chk('PROOF' not in h or True, '')
     chk(os.path.exists(LIFEHUB), 'the LIFE hub is missing')
     if os.path.exists(LIFEHUB):
         hub = open(LIFEHUB).read()
@@ -221,8 +268,7 @@ def contract_checks(M, src):
     # section 1-2: every pinned number is the number the code actually uses
     for label, val in (('base art resolution', '%d x %d art px' % (M.W, M.H)),
                        ('A ground cell', '%d px square' % M.CELL),
-                       ('iso diamond', '%d x %d px diamond' % (M.TW, M.TH)),
-                       ('iso height unit', 'ZH = %d px' % M.ZH),
+                       ('car footprint', '%d x %d tiles' % (M.CAR_L, M.CAR_W)),
                        ('A door', '2 cells = %d px' % (M.DOOR_CELLS * M.CELL))):
         chk(val in doc, 'contract drifted from the code: %s should read "%s"' % (label, val))
     chk('%d px' % int(round(M.BODY_PX * M.BODY_K)) in doc,

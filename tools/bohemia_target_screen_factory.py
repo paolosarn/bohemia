@@ -59,9 +59,7 @@ If this tool ever emits a candidate BANK, it must call
 bohemia_taste_filter.prefilter() at the emit step like every other factory.
 
   python3 tools/bohemia_target_screen_factory.py
-    -> records/target/BOHEMIA_TARGET_A_FRONTFACE.png
-    -> records/target/BOHEMIA_TARGET_B_ISOBLOCK.png
-    -> records/target/BOHEMIA_TARGET_C_CUTAWAY.png
+    -> records/target/BOHEMIA_TARGET_A_FRONTFACE.png   (the one live target)
     -> records/target/BOHEMIA_TARGET_SPEC.json   (the measurable canon)
     -> slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html
 """
@@ -71,6 +69,7 @@ import json
 import math
 import os
 import random
+import re
 
 from PIL import Image, ImageDraw, ImageFilter
 
@@ -99,6 +98,23 @@ GRID_W, GRID_H = 11, 24    # the framed camera: 11 cells across (the run's own
                            # camera width), so the target is a shot the engine can hold
 W, H = GRID_W * CELL, GRID_H * CELL     # 418 x 912 art px, iPhone portrait aspect
 SCALE = 2                  # poster = 836 x 1824, integer scale law
+
+# CARS ARE 2x3 TILES. Paolo, LOCKED ("2x3 i told you"), and restated 7/26 when
+# the first target screens broke it: "We made a rule that all cars are 2 x 3
+# tiles." The number is not typed here - it is READ OUT of the engine's own
+# resolver so a target screen can never disagree with the game.
+PROP_SCALE = 'engine/bohemia_prop_scale.js'
+
+
+def car_footprint():
+    src = open(PROP_SCALE).read()
+    m = re.search(r"vehicle:\s*\{mode:'FOOTPRINT',\s*fp:\[(\d+),\s*(\d+)\]", src)
+    if not m:
+        raise SystemExit('the car footprint law moved in ' + PROP_SCALE)
+    return int(m.group(1)), int(m.group(2))          # (long, wide) = (3, 2)
+
+
+CAR_L, CAR_W = car_footprint()
 
 BANK_HOUSE = 'banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt'
 BANK_STREET = 'banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt'
@@ -261,10 +277,19 @@ def interior_plate(C, w, h, seed=3):
 # face it exposes is filled with an APPROVED tile. Pocket City rules 2/3:
 # few big clean volumes, three flat tones, NO black keyline.
 # ---------------------------------------------------------------------------
-SHEAR = 0.34          # how far the top slab slides right per cell of height
-ROOF_FS = 0.26        # ROOF FORESHORTENING: a pitched roof seen from the world's
+# WHY THERE IS NO SHEAR ANY MORE (Paolo 7/26: "the roofs are all fucked up not
+# put on correctly"). v1 offset the TOP face to the right by 0.34 cells per cell
+# of height while drawing the FRONT face as a plain rectangle. That is an
+# inconsistent projection: the roof slid ~54px sideways off the walls it was
+# supposed to sit on, which is exactly what a roof put on wrong looks like. The
+# fix is not a smaller shear, it is no shear: a roof sits DIRECTLY over its own
+# footprint, and the 45-view read comes from the roof's own PITCH (a real hip
+# trapezoid with a ridge, a fascia and an eave shadow) instead of from sliding
+# the box.
+SHEAR = 0.0
+ROOF_FS = 0.30        # ROOF FORESHORTENING: a pitched roof seen from the world's
                       # 45 view is squashed. Without this a roof reads as
-                      # wallpaper laid on the floor (target v1's worst read).
+                      # wallpaper laid on the floor (target v1's other failure).
 TOP, FRONT, SIDE = 1.30, 0.97, 0.56     # the three tones (sky / mid / away)
 
 
@@ -275,33 +300,100 @@ def _tex(C, family, w, h, seed, tone, warm=(1.0, 1.0, 1.0), texel=CELL):
     return shade(im, tone, warm=warm)
 
 
-def _paste_poly(dst, src, at, poly):
+def _poly_paste(dst, src, at, poly, feather=0):
     m = Image.new('L', src.size, 0)
     ImageDraw.Draw(m).polygon(poly, fill=255)
-    dst.paste(src, at, m)
+    if feather:
+        m = m.filter(ImageFilter.GaussianBlur(feather))
+    src = src.copy()
+    src.putalpha(Image.composite(src.getchannel('A'), Image.new('L', src.size, 0), m))
+    dst.alpha_composite(src, at)
+
+
+def hip_roof(dst, C, x0, fw, wall_top, rd, roof, seed, eave):
+    """A REAL ROOF, sitting square on its own walls.
+
+    Seen from the world's 45 view a hip roof is a TRAPEZOID: the eave line is
+    the full width of the house plus its overhang, the ridge is shorter and
+    higher, and the two sloped ends are what close the solid. Add a fascia board
+    with a lit top edge, a sun-caught ridge, and the eave's shadow thrown down
+    the wall, and a box becomes a house."""
+    eL, eR = x0 - eave, x0 + fw + eave
+    ry = wall_top - rd
+    inset = int(min(fw * 0.24, rd * 1.25))
+    rL, rR = eL + inset, eR - inset
+    bw, bh = eR - eL, rd + 8
+    tex = _tex(C, roof, bw, bh, seed + 1, TOP, (1.03, 1.0, 0.93), texel=18)
+    # the slope is foreshortened, and lit hardest just under the ridge
+    for i in range(bh):
+        t = i / float(max(1, bh))
+        band(tex, 0, i, bw, 1, (30, 24, 14, int(58 * (t ** 1.5))))
+    _poly_paste(dst, tex, (eL, ry),
+                [(0, rd), (bw, rd), (bw - inset, 0), (inset, 0)])
+    # THE HIP ENDS. They are the SAME ROOF, turned away from the camera - so they
+    # are the same material at a different value, never a flat colour wedge.
+    # (v2 filled them with solid tan and the roof read as a red panel with beige
+    # cardboard wings.)
+    lend = _tex(C, roof, bw, bh, seed + 2, TOP * 0.86, (1.02, 1.0, 0.95), texel=18)
+    _poly_paste(dst, lend, (eL, ry), [(0, rd), (inset, 0), (inset, rd)])
+    rend = _tex(C, roof, bw, bh, seed + 3, SIDE * 1.18, (0.96, 0.97, 1.02), texel=18)
+    _poly_paste(dst, rend, (eL, ry), [(bw, rd), (bw - inset, 0), (bw - inset, rd)])
+    lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    # the two hip creases, read as value steps and not as outlines
+    d.line([(rL, ry), (eL, wall_top)], fill=(255, 244, 212, 90), width=2)
+    d.line([(rR, ry), (eR, wall_top)], fill=(40, 31, 19, 120), width=2)
+    # THE RIDGE, sun-caught, with its own shadow line under it
+    d.line([(rL, ry), (rR, ry)], fill=(255, 246, 216, 235), width=3)
+    d.line([(rL, ry + 3), (rR, ry + 3)], fill=(58, 44, 26, 170), width=2)
+    # THE FASCIA: a real board at the eave, lit on top, dark under
+    d.rectangle([eL, wall_top - 5, eR, wall_top], fill=(96, 80, 56, 255))
+    d.line([(eL, wall_top - 5), (eR, wall_top - 5)], fill=(214, 198, 162, 255), width=2)
+    d.line([(eL, wall_top), (eR, wall_top)], fill=(40, 31, 19, 255), width=2)
+    dst.alpha_composite(lay)
+    # the eave's shadow, thrown down the wall under the overhang
+    for i in range(11):
+        band(dst, x0, wall_top + 1 + i, fw, 1, (24, 19, 11, int(120 * (1 - i / 11.0) ** 1.4)))
+
+
+def flat_roof_deck(dst, C, x0, fw, wall_top, rd, roof, seed, eave, parapet=True):
+    """A commercial flat roof: a parapet you see the OUTER face of, a lit coping
+    on top, and a sliver of dressed deck behind it."""
+    eL, eR = x0 - eave, x0 + fw + eave
+    ry = wall_top - rd
+    deck = _tex(C, roof, eR - eL, rd, seed + 1, TOP * 0.78, (1.0, 1.0, 0.97), texel=18)
+    dst.alpha_composite(deck, (eL, ry))
+    lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    rr = random.Random(seed * 31 + 5)
+    for _ in range(max(2, fw // CELL // 2)):            # roof kit: AC units, vents
+        bx = eL + 6 + rr.randrange(max(1, (eR - eL) - 30))
+        bw2, bh2 = 14 + rr.randrange(16), 8 + rr.randrange(7)
+        by = ry + 3 + rr.randrange(max(1, rd - 8))
+        d.rectangle([bx, by - bh2, bx + bw2, by], fill=(84, 78, 66, 255))
+        d.rectangle([bx, by - bh2, bx + bw2, by - bh2 + 3], fill=(172, 162, 138, 255))
+    if parapet:
+        ph = 9
+        d.rectangle([eL, wall_top - ph, eR, wall_top], fill=(150, 139, 116, 255))
+        d.line([(eL, wall_top - ph), (eR, wall_top - ph)], fill=(224, 212, 184, 255), width=3)
+        d.line([(eL, wall_top), (eR, wall_top)], fill=(44, 34, 21, 255), width=2)
+    dst.alpha_composite(lay)
+    for i in range(9):
+        band(dst, x0, wall_top + 1 + i, fw, 1, (24, 19, 11, int(105 * (1 - i / 9.0) ** 1.4)))
 
 
 def mass(dst, C, gx, gy, w, d, tall, wall='house:wall_plain', roof='house:roof_shingle',
-         seed=0, flat_roof=False, eave=5, parapet=False):
-    """One building volume, in the world's 45 view.
-
-    Ground footprint is (w x d) cells. On screen the mass is:
-      a PITCHED roof (foreshortened, ridge line, sun slope vs shade slope),
-      a MID front face carrying the windows and the 2-cell door,
-      a DARK away-side wedge opened by the shear,
-      and a pooled ground shadow.
-    Returns the front-face rect (x, y, w, h) for dressing."""
+         seed=0, flat_roof=False, eave=6, parapet=False, wall_tone=1.0):
+    """One building volume, in the world's 45 view, sitting square on its own
+    footprint. Returns the front-face rect (x, y, w, h) for dressing."""
     x0, y0 = gx * CELL, gy * CELL
     fw, fd, fh = int(w * CELL), int(d * CELL), int(tall * CELL)
-    sh = int(fh * SHEAR)
-    rd = max(int(CELL * 0.62), int(fd * ROOF_FS))   # the roof's SCREEN depth
-    front_y = y0 + fd - fh                      # top of the front face
-    roof_top = front_y - rd
+    rd = max(int(CELL * 0.66), int(fd * ROOF_FS))      # the roof's SCREEN depth
+    front_y = y0 + fd - fh                             # top of the front face
 
     # 1. THE CAST SHADOW. Vegas noon is a hard light from the upper left, so a
-    #    mass throws a real shape down-right across its own yard. This is the
-    #    biggest single depth cue in the whole plate — a mass with only a pooled
-    #    contact shadow still reads as a sticker.
+    #    mass throws a real shape down-right across its own yard. Biggest single
+    #    depth cue in the plate; a mass with only a contact pool reads as a sticker.
     thr = int(fh * 0.42)
     soft_shadow(dst, [(x0 + 4, y0 + fd - 4), (x0 + fw + 6, y0 + fd - 4),
                       (x0 + fw + 6 + thr, y0 + fd + thr), (x0 + 4 + thr, y0 + fd + thr)],
@@ -310,52 +402,25 @@ def mass(dst, C, gx, gy, w, d, tall, wall='house:wall_plain', roof='house:roof_s
                       (x0 + fw + 16, y0 + fd + 9), (x0 + 12, y0 + fd + 9)],
                 blur=4, alpha=130)
 
-    # 2. the AWAY side face (darkest) — the wedge the shear opens on the right
-    side = _tex(C, wall, sh, fd + fh, seed + 5, SIDE, (0.93, 0.95, 1.03))
-    _paste_poly(dst, side, (x0 + fw, front_y),
-                [(0, 0), (sh, -0), (sh, fd), (0, fd + fh - (fd - 0))]
-                if False else [(0, 0), (sh, -sh), (sh, fd - sh), (0, fd)])
-
-    # 3. the ROOF. Two slopes meeting at a ridge: the far slope catches the sky,
-    #    the near slope is the one you look at. Eaves OVERHANG the wall and cast
-    #    onto it — that overhang is what makes a box read as a building.
-    ex = eave
-    rw = fw + ex * 2
-    if flat_roof:
-        deck = _tex(C, roof, rw, rd, seed + 1, TOP, (1.02, 1.0, 0.95), texel=20)
-        dst.alpha_composite(deck, (x0 - ex + sh, roof_top))
-        if parapet:
-            band(dst, x0 - ex + sh, roof_top + rd - 4, rw, 4, (24, 19, 12, 120))
-            band(dst, x0 - ex + sh, roof_top + rd - 7, rw, 3, (206, 196, 172, 190))
-    else:
-        far = _tex(C, roof, rw, rd, seed + 1, TOP, (1.03, 1.0, 0.93), texel=20).resize(
-            (rw, max(2, int(rd * 0.44))), Image.LANCZOS)
-        near = _tex(C, roof, rw, rd, seed + 2, TOP * 0.80, (1.0, 0.99, 0.96), texel=20).resize(
-            (rw, max(2, rd - int(rd * 0.44))), Image.LANCZOS)
-        dst.alpha_composite(far, (x0 - ex + sh, roof_top))
-        dst.alpha_composite(near, (x0 - ex + sh, roof_top + far.height))
-        ry = roof_top + far.height
-        band(dst, x0 - ex + sh, ry - 2, rw, 2, (255, 244, 214, 120))    # the RIDGE, sun-caught
-        band(dst, x0 - ex + sh, ry, rw, 1, (46, 34, 20, 150))
-    # the eave lip + its cast shadow down the wall
-    band(dst, x0 - ex + sh, roof_top + rd - 3, rw, 3, (58, 44, 28, 235))
-    for i in range(7):
-        band(dst, x0 - ex + sh, roof_top + rd + i, rw, 1, (26, 20, 12, int(110 - i * 15)))
-
-    # 4. the FRONT face
-    fr = _tex(C, wall, fw, fh, seed + 3, FRONT, (1.02, 1.0, 0.97))
+    # 2. THE FRONT FACE
+    fr = _tex(C, wall, fw, fh, seed + 3, FRONT * wall_tone, (1.02, 1.0, 0.97))
     dst.alpha_composite(fr, (x0, front_y))
-    # a soft vertical fall-off: walls are lit from above, not evenly
-    for i in range(fh):
+    for i in range(fh):                                # lit from above, not evenly
         a = int(52 * (i / float(fh)) ** 1.7)
         band(dst, x0, front_y + i, fw, 1, (30, 24, 15, a))
-    # 5. corner value-steps instead of a keyline (Pocket City rule 3)
+    # value-steps at the corners instead of a keyline (Pocket City rule 3)
     band(dst, x0, front_y, 2, fh, (255, 246, 220, 40))
-    band(dst, x0 + fw - 2, front_y, 2, fh, (36, 28, 18, 90))
-    # 6. grime at the base — 30 years of dust, never a clean floor join
+    band(dst, x0 + fw - 2, front_y, 3, fh, (36, 28, 18, 105))
+    # 3. grime at the base - 30 years of dust, never a clean floor join
     for i in range(CELL // 2):
         a = int(86 * (1 - i / (CELL / 2.0)) ** 1.3)
         band(dst, x0, front_y + fh - 1 - i, fw, 1, (34, 26, 16, a))
+
+    # 4. THE ROOF, square over the walls
+    if flat_roof:
+        flat_roof_deck(dst, C, x0, fw, front_y, rd, roof, seed, eave, parapet)
+    else:
+        hip_roof(dst, C, x0, fw, front_y, rd, roof, seed, eave)
     return (x0, front_y, fw, fh)
 
 
@@ -460,6 +525,26 @@ def drop(dst, sprite, gx, gy, scale=None, shadow=True, dark=1.0):
                           (fx + w + 6, (gy + 1) * CELL + 4), (fx + 10, (gy + 1) * CELL + 4)],
                     blur=4, alpha=105)
     dst.alpha_composite(im, (fx, fy))
+
+
+def car(dst, sprite, gx, gy, along='y', dark=1.0):
+    """CARS ARE 2x3 TILES (Paolo, LOCKED, restated 7/26). The sprite is sized to
+    fill its legal footprint exactly - 3 cells along its length, 2 across - and
+    is turned to lie along the surface it is parked on. v1 dropped cars at their
+    cooked pixel size, which came out roughly 1x2, and he caught it."""
+    if along == 'x':
+        sprite = sprite.transpose(Image.ROTATE_90)
+        w, h = CAR_L * CELL, CAR_W * CELL
+    else:
+        w, h = CAR_W * CELL, CAR_L * CELL
+    im = sprite.resize((w, h), Image.LANCZOS)
+    if dark != 1.0:
+        im = shade(im, dark)
+    x, y = gx * CELL, gy * CELL
+    soft_shadow(dst, [(x + 5, y + h - 7), (x + w - 3, y + h - 7),
+                      (x + w + 9, y + h + 5), (x + 13, y + h + 5)], blur=6, alpha=115)
+    dst.alpha_composite(im, (x, y))
+    return (x, y, w, h)
 
 
 def chainlink(dst, gx0, gx1, gy, tall=1.2):
@@ -613,7 +698,7 @@ def crosswalk(im, C, gx0, ncell, gy0, nrow, seed=0):
 def screen_A(C):
     """THE SHOT: standing on the near curb looking north across the street at
     your own frontage. In an axis-aligned 3/4 you only ever see SOUTH faces, so
-    the street's north side is the side that HAS a face — which is exactly the
+    the street's north side is the side that HAS a face - which is exactly the
     shot a walkable street level wants: facade, open door, yard, curb, asphalt,
     and a dark foreground wall to frame it."""
     im = Image.new('RGBA', (W, H), (0, 0, 0, 255))
@@ -633,43 +718,43 @@ def screen_A(C):
     crosswalk(im, C, 2, 4, 14, 2, seed=2)
     band(im, 2 * CELL, 17 * CELL, 4 * CELL, 4, (170, 162, 136, 110))       # faded stop bar
     scorch(im, C, 7, 16, 3, 2, seed=4, a=80)
-    # --- 2. THE FRONTAGE — a CONTINUOUS street wall, never a gap of dirt --
+    # --- 2. THE FRONTAGE - a CONTINUOUS street wall, never a gap of dirt --
     # the backdrop block: the streetwall never breaks to raw dirt at the top edge
-    mass(im, C, -4, -5, 20, 4, 4.0, wall='house:wall_plain',
-         roof='house:roof_stile_desertbrown', seed=61)
-    st = mass(im, C, -3, 1, 6, 5, 5.2, wall='house:wall_plain',
-              roof='house:roof_gravel', seed=12, flat_roof=True, parapet=True)
+    mass(im, C, -4, -5, 20, 4, 4.0, roof='house:roof_gravel', seed=61,
+         flat_roof=True, parapet=True, wall_tone=0.82)
+    st = mass(im, C, -3, 1, 6, 5, 5.2, roof='house:roof_gravel', seed=12,
+              flat_roof=True, parapet=True, wall_tone=0.93)
     windows(im, C, st, cols=3, top=0.36, boarded=0.85, seed=8)
-    far = mass(im, C, 7, 0, 8, 4, 5.4, wall='house:wall_plain',
-               roof='house:roof_stile_graybrown', seed=17)
+    far = mass(im, C, 7, 0, 8, 4, 5.4, roof='house:roof_stile_graybrown', seed=17,
+               wall_tone=0.88)
     windows(im, C, far, cols=3, top=0.42, boarded=0.7, seed=19)
-    # the block behind the block: no hole in a streetwall ever shows raw dirt
-    mass(im, C, 1, -3, 8, 4, 4.0, wall='house:wall_plain',
-         roof='house:roof_stile_desertbrown', seed=52)
-    # THE HERO HOUSE — terracotta over pale, its 2-CELL DOOR standing open
-    rect = mass(im, C, 2, 2, 6, 5, 4.0, wall='house:wall_plain',
-                roof='house:roof_stile_terracotta', seed=31, eave=7)
+    mass(im, C, 1, -3, 8, 4, 4.0, roof='house:roof_stile_desertbrown', seed=52,
+         wall_tone=0.86, eave=7)
+    # THE HERO HOUSE - terracotta over pale, its 2-CELL DOOR standing open
+    rect = mass(im, C, 2, 2, 6, 5, 4.0, roof='house:roof_stile_terracotta', seed=31,
+                eave=8)
     windows(im, C, rect, cols=3, top=0.26, boarded=0.34, seed=5)
     hang_door(im, C, rect, at_cell=2.6, open_amount=0.56, seed=2)
-    # THE GARAGE — a lower mass, so the roofline is a silhouette and not a slab
-    g = mass(im, C, 8, 3, 5, 4, 2.7, wall='house:wall_plain',
-             roof='house:roof_gravel', seed=44, flat_roof=True, parapet=True)
-    hang_door(im, C, g, at_cell=1.2, open_amount=0.0, interior=False, seed=6, stoop=False)
+    # THE GARAGE - a lower mass, so the roofline is a silhouette and not a slab
+    g = mass(im, C, 8, 3, 5, 4, 2.7, roof='house:roof_gravel', seed=44,
+             flat_roof=True, parapet=True, wall_tone=0.9)
+    hang_door(im, C, g, at_cell=1.4, open_amount=0.0, interior=False, seed=6, stoop=False)
     # --- 3. THE DRESSING --------------------------------------------------
     chainlink(im, 0, 3, 11)
     chainlink(im, 5, 8, 11)
     drop(im, C.desert['rubble'][2], 6, 10, scale=0.5)
     drop(im, C.desert['boulder'][11], 1, 9, scale=0.42)
     drop(im, C.desert['rock'][4], 7, 11, scale=0.38)
-    drop(im, C.prop['car_wreck'][6], 9, 10, scale=1.05)
-    drop(im, C.prop['car_wreck'][2], 1, 16, scale=1.05)
-    drop(im, C.prop['car_wreck'][14], 8, 18, scale=1.05)
-    drop(im, C.desert['rubble'][5], 4, 18, scale=0.6)
-    drop(im, C.lamp[4], 2, 20, scale=1.5, dark=0.82)
+    # CARS: 2x3 tiles, turned to lie along whatever they are parked on.
+    car(im, C.prop['car_wreck'][6], 8, 8, along='y')          # nosed into the drive
+    car(im, C.prop['car_wreck'][2], 1, 15, along='x')         # dead in the road
+    car(im, C.prop['car_wreck'][14], 7, 17, along='x')        # dead at the far curb
     drop(im, C.prop['fire_barrel'][3], 0, 13, scale=0.95)
     drop(im, C.lamp[2], 9, 13, scale=1.6, dark=0.9)
     drop(im, C.sign[7], 6, 13, scale=0.85)
     wire(im, [(int(9.4 * CELL), int(10.3 * CELL)), (int(0.4 * CELL), int(10.1 * CELL))], sag=9)
+    drop(im, C.desert['rubble'][5], 4, 18, scale=0.6)
+    drop(im, C.lamp[4], 2, 20, scale=1.5, dark=0.82)
     blockwall(im, C, 23, tall=2.4, seed=3)
     grunge(im)
     # --- 4. THE BODIES ----------------------------------------------------
@@ -679,552 +764,29 @@ def screen_A(C):
 
 
 # ===========================================================================
-# CANDIDATE B — "THE ISO BLOCK"
-# True 2:1 dimetric — the projection of the city-builder Paolo already said he
-# likes ("I like the districts in city builder mode"), brought down to walking
-# distance. Every mass is a real volume with a sky-lit top, a lit SE face and a
-# shaded SW face, so BOTH sides of a street show frontage — the thing candidate
-# A structurally cannot do. Costs a new renderer and a diamond grid.
+# THE TWO KILLED CANDIDATES (7/26/26)
+# Paolo, on the first three target screens: "Front base is the only one I'm
+# concerned with." The FRONT FACE is the direction. The true-2:1-iso candidate
+# and the dollhouse-cutaway candidate are DEAD, registered in
+# gates/bohemia_graveyard.txt, and their renderers were DELETED from this file
+# rather than left switched off - a working iso renderer sitting here is an
+# invitation to remake a corpse, and GRAVEYARD IS FINAL. Git history holds the
+# code; records/target/graveyard/ holds the two images as the record; the
+# post-mortem is records/BOHEMIA_TARGET_SCREEN_RULING_7_26_26.md.
+# (The district CITY-BUILDER view is still iso. That is a different surface and
+# was never part of this verdict.)
 # ===========================================================================
-TW, TH = 52, 26            # the iso diamond: 2:1, the Pocket City ratio
-ZH = 38                    # PX PER CELL OF HEIGHT. Deliberately taller than TH:
-                           # at TH the vertical unit is so short that a 2-cell
-                           # door would be 64px and a body would out-top it. At
-                           # ZH=38 a 2-cell door is 76px and a 59px body clears
-                           # 77% of it — the proportion candidate A also carries.
-ORIGIN = (W // 2, 40)
-
-
-def iso(gx, gy, gz=0.0):
-    return (int(ORIGIN[0] + (gx - gy) * (TW // 2)),
-            int(ORIGIN[1] + (gx + gy) * (TH // 2) - gz * ZH))
-
-
-def _affine_paste(dst, tex, O, U, V, mask_poly=None, extra=None):
-    """Map the texture's own rect onto the parallelogram O + u*U + v*V."""
-    (ux, uy), (vx, vy) = U, V
-    det = ux * vy - uy * vx
-    if abs(det) < 1e-6:
-        return
-    tw, th = tex.size
-    # (u,v) from screen delta
-    a11, a12 = vy / det, -vx / det
-    a21, a22 = -uy / det, ux / det
-    xs = [O[0], O[0] + ux, O[0] + vx, O[0] + ux + vx]
-    ys = [O[1], O[1] + uy, O[1] + vy, O[1] + uy + vy]
-    x0, y0 = int(min(xs)) - 1, int(min(ys)) - 1
-    bw, bh = int(max(xs)) - x0 + 2, int(max(ys)) - y0 + 2
-    if bw <= 0 or bh <= 0:
-        return
-    dx, dy = x0 - O[0], y0 - O[1]
-    coeffs = (tw * a11, tw * a12, tw * (a11 * dx + a12 * dy),
-              th * a21, th * a22, th * (a21 * dx + a22 * dy))
-    warped = tex.transform((bw, bh), Image.AFFINE, coeffs, Image.NEAREST)
-    poly = mask_poly or [(O[0] - x0, O[1] - y0), (O[0] + ux - x0, O[1] + uy - y0),
-                         (O[0] + ux + vx - x0, O[1] + uy + vy - y0),
-                         (O[0] + vx - x0, O[1] + vy - y0)]
-    m = Image.new('L', (bw, bh), 0)
-    ImageDraw.Draw(m).polygon(poly, fill=255)
-    warped.putalpha(Image.composite(warped.getchannel('A'), Image.new('L', (bw, bh), 0), m))
-    dst.alpha_composite(warped, (x0, y0))
-
-
-def iso_ground(dst, C, family, gx, gy, seed=0, tone=1.0, texel=44, uniform=False):
-    """One diamond of approved ground material, sheared into the 2:1 grid."""
-    pool = C.pool(family) if isinstance(family, str) else family
-    tex = cell_tile(pool, gx, gy, texel, seed, uniform=uniform)
-    tex = shade(tex, tone) if tone != 1.0 else tex
-    O = iso(gx, gy)
-    _affine_paste(dst, tex, (O[0] - TW // 2, O[1]), (TW // 2, TH // 2), (-TW // 2, TH // 2))
-
-
-def iso_box(dst, C, gx, gy, w, d, tall, wall='house:wall_plain',
-            roof='house:roof_shingle', seed=0, pitched=True, parapet=False, texel=32):
-    """A real volume in the 2:1 grid: sky-lit top, lit SE face, shaded SW face.
-    Returns (se_face, sw_face) as (O, U, V) frames so doors and windows can be
-    hung ON the face in its own space instead of stamped over it."""
-    hz = tall
-    # ---- the two faces a camera below the world can actually see ---------
-    # LEFT face:  the plane gy = gy+d, spanning gx. Its normal points down-left.
-    #             Sun is upper-left, so this is the LIT face — it carries the door.
-    # RIGHT face: the plane gx = gx+w, spanning gy. Normal points down-right: SHADED.
-    A = iso(gx, gy + d, 0)
-    B = iso(gx + w, gy + d, 0)
-    lf_O, lf_U, lf_V = (A[0], A[1] - int(hz * ZH)), (B[0] - A[0], B[1] - A[1]), (0, int(hz * ZH))
-    Dd = iso(gx + w, gy, 0)
-    rf_O, rf_U, rf_V = (Dd[0], Dd[1] - int(hz * ZH)), (B[0] - Dd[0], B[1] - Dd[1]), (0, int(hz * ZH))
-    se_O, se_U, se_V = lf_O, lf_U, lf_V
-    sw_O, sw_U, sw_V = rf_O, rf_U, rf_V
-    # cast shadow first, on the ground, thrown to the lower right
-    sp = [iso(gx, gy + d), iso(gx + w, gy + d),
-          (iso(gx + w, gy + d)[0] + int(hz * TW * 0.5), iso(gx + w, gy + d)[1] + int(hz * TH * 0.5)),
-          (iso(gx, gy + d)[0] + int(hz * TW * 0.5), iso(gx, gy + d)[1] + int(hz * TH * 0.5))]
-    soft_shadow(dst, sp, blur=8, alpha=120)
-    wtex_r = _tex(C, wall, texel * max(1, d), texel * max(1, int(round(hz))), seed + 2,
-                  SIDE * 1.12, (0.94, 0.96, 1.05), texel=texel)
-    _affine_paste(dst, wtex_r, rf_O, rf_U, rf_V)
-    wtex_l = _tex(C, wall, texel * max(1, w), texel * max(1, int(round(hz))), seed + 3,
-                  FRONT * 1.10, (1.03, 1.0, 0.96), texel=texel)
-    _affine_paste(dst, wtex_l, lf_O, lf_U, lf_V)
-    # the value step where the two faces meet — never a black keyline
-    lay0 = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    ImageDraw.Draw(lay0).line([(B[0], B[1] - int(hz * ZH)), (B[0], B[1])],
-                              fill=(250, 240, 214, 60), width=2)
-    dst.alpha_composite(lay0)
-    # ---- the top ---------------------------------------------------------
-    top_lift = int(hz * ZH)
-    rtex = _tex(C, roof, texel * max(1, w), texel * max(1, d), seed + 1, TOP, (1.03, 1.0, 0.94),
-                texel=22)
-    tO = (iso(gx, gy)[0] - TW // 2, iso(gx, gy)[1] - top_lift)
-    if not pitched:
-        _affine_paste(dst, rtex, tO, (TW // 2 * w, TH // 2 * w), (-TW // 2 * d, TH // 2 * d))
-        if parapet:
-            # a real coping: a low wall around the deck, lit on top, shading the
-            # deck under it. Never a wireframe outline.
-            lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-            dd = ImageDraw.Draw(lay)
-            ph = int(ZH * 0.26)
-            for (a, b, tone) in ((iso(gx, gy + d, hz), iso(gx + w, gy + d, hz), 0.94),
-                                 (iso(gx + w, gy, hz), iso(gx + w, gy + d, hz), 0.62)):
-                dd.polygon([a, b, (b[0], b[1] - ph), (a[0], a[1] - ph)],
-                           fill=(int(158 * tone), int(146 * tone), int(122 * tone), 255))
-                dd.line([(a[0], a[1] - ph), (b[0], b[1] - ph)], fill=(226, 214, 186, 255), width=2)
-            dst.alpha_composite(lay)
-            # DRESSED DECK: AC units, a roof-access box, vents. A blank deck the
-            # size of a city block is the biggest dead area an iso city can have.
-            rr = random.Random(seed * 31 + 7)
-            for _ in range(max(2, (w * d) // 3)):
-                bx = gx + 0.5 + rr.random() * max(0.4, w - 1.4)
-                by = gy + 0.5 + rr.random() * max(0.4, d - 1.4)
-                bh = 0.22 + rr.random() * 0.30
-                bw2 = 0.55 + rr.random() * 0.5
-                p0 = iso(bx, by, hz); p1 = iso(bx + bw2, by, hz)
-                p2 = iso(bx + bw2, by + bw2, hz); p3 = iso(bx, by + bw2, hz)
-                l2 = Image.new('RGBA', dst.size, (0, 0, 0, 0)); d2 = ImageDraw.Draw(l2)
-                d2.polygon([p0, p1, p2, p3], fill=(38, 32, 22, 90))          # its shadow
-                up = lambda q: (q[0], q[1] - int(bh * ZH))
-                d2.polygon([p3, p2, up(p2), up(p3)], fill=(112, 104, 88, 255))
-                d2.polygon([p2, p1, up(p1), up(p2)], fill=(78, 72, 60, 255))
-                d2.polygon([up(p0), up(p1), up(p2), up(p3)], fill=(168, 158, 134, 255))
-                dst.alpha_composite(l2)
-    else:
-        # a GABLE: two slopes meeting over the middle of the depth
-        rz = hz + max(0.75, d * 0.24)
-        mid = gy + d / 2.0
-        far = [iso(gx, gy, hz), iso(gx + w, gy, hz), iso(gx + w, mid, rz), iso(gx, mid, rz)]
-        near = [iso(gx, mid, rz), iso(gx + w, mid, rz),
-                iso(gx + w, gy + d, hz), iso(gx, gy + d, hz)]
-        for poly, tone, sd in ((far, TOP, seed + 1), (near, TOP * 0.74, seed + 4)):
-            xs = [q[0] for q in poly]; ys = [q[1] for q in poly]
-            bx, by = min(xs), min(ys)
-            t = _tex(C, roof, texel * max(1, w), texel * max(2, d), sd, tone, (1.03, 1.0, 0.94),
-                     texel=22)
-            _affine_paste(dst, t, poly[0],
-                          (poly[1][0] - poly[0][0], poly[1][1] - poly[0][1]),
-                          (poly[3][0] - poly[0][0], poly[3][1] - poly[0][1]))
-        lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-        ImageDraw.Draw(lay).line([iso(gx, mid, rz), iso(gx + w, mid, rz)],
-                                 fill=(255, 246, 216, 190), width=3)   # the RIDGE, sun-caught
-        # the two gable ends, so the roof is a solid and not two floating planes
-        for gxx, tone in ((gx, SIDE * 1.1), (gx + w, FRONT * 1.02)):
-            ImageDraw.Draw(lay).polygon([iso(gxx, gy, hz), iso(gxx, mid, rz), iso(gxx, gy + d, hz)],
-                                        fill=(int(150 * tone), int(136 * tone), int(112 * tone), 255))
-        dst.alpha_composite(lay)
-    return (se_O, se_U, se_V), (sw_O, sw_U, sw_V)
-
-
-def face_paste(dst, sprite, frame, u, v, wcell, hcell, cells_w, cells_h):
-    """Hang a flat sprite ON an iso wall face. (u,v) are 0..1 across the face,
-    so a door hung at 2 cells tall stays 2 cells tall in the projection."""
-    O, U, V = frame
-    su, sv = wcell / float(cells_w), hcell / float(cells_h)
-    o = (int(O[0] + U[0] * u + V[0] * v), int(O[1] + U[1] * u + V[1] * v))
-    _affine_paste(dst, sprite, o, (int(U[0] * su), int(U[1] * su)),
-                  (int(V[0] * sv), int(V[1] * sv)))
-
-
-def iso_drop(dst, sprite, gx, gy, scale=1.0, dark=1.0, shadow=True):
-    """Stand an approved 3/4 sprite on an iso cell. The corpus props were cooked
-    in the world's 45 view already, so they drop straight in — no re-projection,
-    which is exactly why the 45 LAW exists."""
-    k = (ZH / 44.0) * scale       # props were cooked at 1 cell = 44px; match HEIGHT
-    w, h = max(1, int(sprite.width * k)), max(1, int(sprite.height * k))
-    im = sprite.resize((w, h), Image.LANCZOS)
-    if dark != 1.0:
-        im = shade(im, dark)
-    cx, cy = iso(gx + 0.5, gy + 0.5)
-    if shadow:
-        soft_shadow(dst, [(cx - w // 3, cy - 3), (cx + w // 3, cy - 3),
-                          (cx + w // 2 + 5, cy + 6), (cx - w // 4 + 5, cy + 6)],
-                    blur=4, alpha=110)
-    dst.alpha_composite(im, (int(cx - w / 2), int(cy - h)))
-
-
-def iso_body(dst, name, gx, gy, k=1.20):
-    src = Image.open(os.path.join(CHARDIR, name + '.png')).convert('RGBA')
-    src = src.crop(src.getbbox())
-    w, h = max(1, int(src.width * k)), max(1, int(src.height * k))
-    im = src.resize((w, h), Image.NEAREST)
-    cx, cy = iso(gx + 0.5, gy + 0.5)
-    soft_shadow(dst, [(cx - w // 3, cy - 3), (cx + w // 3, cy - 3),
-                      (cx + w // 2 + 4, cy + 5), (cx - w // 4 + 4, cy + 5)], blur=3, alpha=125)
-    dst.alpha_composite(im, (int(cx - w / 2), int(cy - h)))
-
-
-def screen_B(C):
-    """THE SHOT: the lane runs DIAGONALLY across the phone (a street along a
-    world axis is a diagonal in 2:1), so the frontage block lands in the middle
-    of frame instead of being pushed off both edges. Sun upper-left, three tones
-    a mass: sky-lit top, lit left face, shaded right face."""
-    im = Image.new('RGBA', (W, H), (14, 12, 9, 255))
-    RY0, RY1 = 15, 19                 # the carriageway: gy in [RY0, RY1]
-    WALKN, WALKS = RY0 - 2, RY1 + 2   # sidewalk either side
-
-    def surface(gy):
-        if RY0 <= gy <= RY1:
-            return ('road', C.street['street'], 1.0, 2, False)
-        if WALKN <= gy < RY0 or RY1 < gy <= WALKS:
-            return ('walk', C.street['side'], 1.0, 4, True)
-        return ('yard', C.house['yard_deserttan'], 0.90, 6, True)
-
-    # --- 1. THE GROUND ----------------------------------------------------
-    for v in range(-4, 78):
-        for u in range(-11, 12):
-            if (u + v) & 1:
-                continue
-            gx, gy = (v + u) // 2, (v - u) // 2
-            sx, sy = iso(gx, gy)
-            if sx < -TW or sx > W + TW or sy < -TH or sy > H + TH:
-                continue
-            kind, fam, tone, sd, uni = surface(gy)
-            if kind == 'road' and gy == (RY0 + RY1) // 2 and gx % 4 < 2:
-                fam, sd, uni = C.street['lane_div'], 5, True
-            iso_ground(im, C, fam, gx, gy, seed=sd, tone=tone, uniform=uni,
-                       texel=44)
-    # the curb lips, both sides of the carriageway
-    lay = Image.new('RGBA', im.size, (0, 0, 0, 0))
-    dd = ImageDraw.Draw(lay)
-    for gy in (RY0 - 0.02, RY1 + 1.02):
-        pts = [iso(gx, gy) for gx in range(-6, 46)]
-        dd.line([(p[0], p[1] + 3) for p in pts], fill=(34, 28, 18, 165), width=4)
-        dd.line(pts, fill=(206, 196, 170, 215), width=3)
-    im.alpha_composite(lay)
-
-    # --- 2. THE MASSES ----------------------------------------------------
-    # NORTH of the lane (gy < RY0): their LIT face turns straight at the street,
-    # so that row carries the doors and windows the shot is about.
-    # SOUTH of the lane: backs and yards — a real block, not a stage flat.
-    plan = [
-        (3,  9, 4, 4, 2.8, 'house:roof_shingle',           True,  False, 71, 'house'),
-        (8,  9, 4, 4, 3.6, 'house:roof_gravel',            False, True,  77, 'store'),
-        (13, 9, 4, 4, 3.0, 'house:roof_stile_terracotta',  True,  False, 84, 'HERO'),
-        (18, 9, 4, 4, 2.7, 'house:roof_stile_graybrown',   True,  False, 87, 'house'),
-        (23, 9, 4, 4, 2.9, 'house:roof_shingle',           True,  False, 90, 'house'),
-        (2,  3, 4, 4, 3.4, 'house:roof_gravel',            False, True,  63, 'store'),
-        (8,  3, 4, 4, 2.8, 'house:roof_shingle',           True,  False, 66, 'house'),
-        (14, 3, 4, 4, 3.1, 'house:roof_stile_desertbrown', True,  False, 69, 'house'),
-        (20, 3, 4, 4, 2.9, 'house:roof_shingle',           True,  False, 60, 'house'),
-        (3,  21, 4, 4, 2.8, 'house:roof_stile_graybrown',  True,  False, 93, 'back'),
-        (9,  21, 4, 4, 3.0, 'house:roof_shingle',          True,  False, 96, 'back'),
-        (15, 21, 4, 4, 2.7, 'house:roof_stile_desertbrown', True, False, 99, 'back'),
-        (21, 21, 4, 4, 3.3, 'house:roof_gravel',           False, True, 102, 'back'),
-        (27, 21, 4, 4, 2.8, 'house:roof_shingle',          True,  False, 105, 'back'),
-        (9,  28, 4, 4, 2.9, 'house:roof_shingle',          True,  False, 108, 'back'),
-        (15, 28, 4, 4, 2.7, 'house:roof_stile_terracotta', True,  False, 111, 'back'),
-        (21, 28, 4, 4, 3.1, 'house:roof_stile_graybrown',  True,  False, 114, 'back'),
-        (27, 28, 4, 4, 2.8, 'house:roof_gravel',          False,  True, 117, 'back'),
-    ]
-    plan.sort(key=lambda b: (b[0] + b[2]) + (b[1] + b[3]))
-    for (gx, gy, w, d, tall, roof, pitched, parapet, seed, kind) in plan:
-        lf, rf = iso_box(im, C, gx, gy, w, d, tall, wall='house:wall_plain',
-                         roof=roof, seed=seed, pitched=pitched, parapet=parapet)
-        rnd = random.Random(seed)
-        for c in range(w):
-            k = 'wall_boarded' if rnd.random() < (0.8 if kind == 'store' else 0.42) else 'wall_window'
-            src = C.house[k][rnd.randrange(len(C.house[k]))]
-            pane = src.crop((5, 5, 39, 31))
-            fr = Image.new('RGBA', (pane.width + 8, pane.height + 8), (80, 72, 56, 255))
-            fr.alpha_composite(shade(pane, 0.9), (4, 4))
-            band(fr, 0, 0, fr.width, 2, (208, 196, 168, 220))
-            face_paste(im, fr, lf, (c + 0.16) / float(w), 0.22, 0.68, 0.52, w, tall)
-        if kind == 'HERO':
-            dw, dh = 44, 88                       # 2 cells tall in face space
-            leaf = Image.new('RGBA', (dw, dh), (0, 0, 0, 0))
-            leaf.alpha_composite(interior_plate(C, dw, dh, seed=4))
-            leaf.alpha_composite(door_panel(C, dw, dh, 0.58))
-            jam = Image.new('RGBA', (dw + 10, dh + 7), (54, 43, 28, 255))
-            jam.alpha_composite(leaf, (5, 7))
-            band(jam, 0, 0, dw + 10, 3, (198, 184, 152, 235))
-            face_paste(im, jam, lf, 1.30 / float(w), 1.0 - DOOR_CELLS / float(tall),
-                       1.06, DOOR_CELLS + 0.16, w, tall)
-
-    # --- 3. THE DRESSING --------------------------------------------------
-    iso_drop(im, C.prop['car_wreck'][6], 14, 16, scale=1.15)
-    iso_drop(im, C.prop['car_wreck'][2], 22, 18, scale=1.15)
-    iso_drop(im, C.prop['car_wreck'][14], 8, 15, scale=1.15)
-    iso_drop(im, C.prop['fire_barrel'][3], 11, 14, scale=0.52)
-    iso_drop(im, C.lamp[2], 13, 13, scale=0.95, dark=0.9)
-    iso_drop(im, C.lamp[2], 8, 13, scale=0.95, dark=0.9)
-    iso_drop(im, C.lamp[2], 22, 20, scale=0.95, dark=0.9)
-    iso_drop(im, C.sign[7], 18, 14, scale=0.5)
-    iso_drop(im, C.desert['boulder'][11], 6, 11, scale=0.3)
-    iso_drop(im, C.desert['rubble'][2], 16, 12, scale=0.35)
-    iso_drop(im, C.desert['rock'][4], 12, 20, scale=0.3)
-    grunge(im)
-    # --- 4. THE BODIES ----------------------------------------------------
-    iso_body(im, 'walk_SE_1', 12, 14)               # the lineman, working the block
-    iso_body(im, 'idle_S', 19, 14)                  # YOU, at your own gate
-    return sun_pass(im)
-
-
-# ===========================================================================
-# CANDIDATE C — "THE CUTAWAY"
-# The same 2:1 world as B, but the building you are IN is drawn open: the two
-# walls between you and the camera are cut to knee height and the dressed
-# interior is on screen at all times. No loading, no separate interior mode —
-# which is the INTERIOR-MATCHES-EXTERIOR law (Paolo 7/19, LOCKED) made visible:
-# the room is literally the footprint. Costs the most renderer work; sells the
-# thing the other two hide behind a door.
-# ===========================================================================
-def iso_open_box(dst, C, gx, gy, w, d, tall, roof='house:roof_stile_terracotta',
-                 seed=0, texel=32):
-    """A cut-open volume. Far walls stand full height with their INNER faces to
-    the camera, near walls are cut to a knee, the floor plate is the footprint
-    (never clamped — that is the law), and the roof is lifted off."""
-    hz = tall
-    knee = 0.42
-    # --- the far walls, inner faces toward the camera ---------------------
-    # plane gy = gy (the north wall), inner side faces +gy = down-left
-    A, Bp = iso(gx, gy, 0), iso(gx + w, gy, 0)
-    n_O, n_U, n_V = (A[0], A[1] - int(hz * ZH)), (Bp[0] - A[0], Bp[1] - A[1]), (0, int(hz * ZH))
-    # plane gx = gx (the west wall), inner side faces +gx = down-right
-    Cw = iso(gx, gy + d, 0)
-    w_O, w_U, w_V = (A[0], A[1] - int(hz * ZH)), (Cw[0] - A[0], Cw[1] - A[1]), (0, int(hz * ZH))
-    # outside shells of those same two walls, so the mass still reads solid
-    iso_box_shell(dst, C, gx, gy, w, d, hz, seed)
-    # --- the floor plate: THE FOOTPRINT, cell for cell --------------------
-    for jx in range(w):
-        for jy in range(d):
-            iso_ground(dst, C, C.street['side'], gx + jx, gy + jy, seed=seed + 3,
-                       tone=0.44, uniform=True)
-    # --- the inner faces --------------------------------------------------
-    itex = _tex(C, 'house:wall_plain', texel * w, texel * max(1, int(round(hz))), seed + 11,
-                0.50, (1.06, 0.98, 0.88), texel=texel)
-    _affine_paste(dst, itex, n_O, n_U, n_V)
-    itex2 = _tex(C, 'house:wall_plain', texel * d, texel * max(1, int(round(hz))), seed + 12,
-                 0.38, (1.02, 0.99, 0.95), texel=texel)
-    _affine_paste(dst, itex2, w_O, w_U, w_V)
-    # a window punched in the far wall: daylight is the only light in there
-    src = C.house['wall_window'][0].crop((5, 5, 39, 31))
-    fr = Image.new('RGBA', (src.width + 8, src.height + 8), (70, 62, 48, 255))
-    fr.alpha_composite(shade(src, 1.35), (4, 4))
-    face_paste(dst, fr, (n_O, n_U, n_V), 0.55, 0.24, 0.62, 0.44, w, hz)
-    # --- the near walls, cut to a knee ------------------------------------
-    D2, E2 = iso(gx, gy + d, 0), iso(gx + w, gy + d, 0)
-    s_O, s_U, s_V = (D2[0], D2[1] - int(knee * ZH)), (E2[0] - D2[0], E2[1] - D2[1]), (0, int(knee * ZH))
-    ktex = _tex(C, 'house:wall_plain', texel * w, texel, seed + 13, FRONT * 1.05,
-                (1.03, 1.0, 0.96), texel=texel)
-    _affine_paste(dst, ktex, s_O, s_U, s_V)
-    F2 = iso(gx + w, gy, 0)
-    e_O, e_U, e_V = (F2[0], F2[1] - int(knee * ZH)), (E2[0] - F2[0], E2[1] - F2[1]), (0, int(knee * ZH))
-    ktex2 = _tex(C, 'house:wall_plain', texel * d, texel, seed + 14, SIDE * 1.12,
-                 (0.95, 0.96, 1.04), texel=texel)
-    _affine_paste(dst, ktex2, e_O, e_U, e_V)
-    lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    dd = ImageDraw.Draw(lay)
-    for a, b in ((D2, E2), (F2, E2)):
-        dd.line([(a[0], a[1] - int(knee * ZH)), (b[0], b[1] - int(knee * ZH))],
-                fill=(226, 214, 186, 220), width=3)
-    # the THRESHOLD: the cut knee opens where the front door is, so the room
-    # and the street are one continuous surface you walk across.
-    t0, t1 = iso(gx + 1.1, gy + d), iso(gx + 2.2, gy + d)
-    dd.polygon([t0, t1, (t1[0], t1[1] - int(knee * ZH)), (t0[0], t0[1] - int(knee * ZH))],
-               fill=(150, 140, 118, 255))
-    dd.line([t0, t1], fill=(216, 204, 176, 240), width=3)
-    dst.alpha_composite(lay)
-    # --- NO ROOF. A dollhouse cut takes the lid off; a floating slab just
-    #     occludes the room it was supposed to reveal (the first C render did
-    #     exactly that). What stays is the wall-top coping so the cut is read
-    #     as deliberate surgery and not as a missing asset.
-    lay3 = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    d3 = ImageDraw.Draw(lay3)
-    top = [iso(gx, gy, hz), iso(gx + w, gy, hz), iso(gx + w, gy + d, hz), iso(gx, gy + d, hz)]
-    d3.line([top[0], top[1]], fill=(232, 220, 190, 235), width=3)
-    d3.line([top[0], top[3]], fill=(232, 220, 190, 235), width=3)
-    dst.alpha_composite(lay3)
-    return (n_O, n_U, n_V)
-
-
-def iso_box_shell(dst, C, gx, gy, w, d, hz, seed, texel=32):
-    """The two OUTER faces of a cut-open building's far walls, so from the
-    street it is still a solid house and not a stage flat."""
-    A = iso(gx, gy, 0)
-    up = int(hz * ZH)
-    Bp = iso(gx + w, gy, 0)
-    Cw = iso(gx, gy + d, 0)
-    t1 = _tex(C, 'house:wall_plain', texel * w, texel * max(1, int(round(hz))), seed + 21,
-              SIDE * 0.9, (0.94, 0.96, 1.04), texel=texel)
-    _affine_paste(dst, t1, (A[0], A[1] - up - 4), (Bp[0] - A[0], Bp[1] - A[1]), (0, up))
-    t2 = _tex(C, 'house:wall_plain', texel * d, texel * max(1, int(round(hz))), seed + 22,
-              SIDE * 0.9, (0.94, 0.96, 1.04), texel=texel)
-    _affine_paste(dst, t2, (A[0] - 4, A[1] - up), (Cw[0] - A[0], Cw[1] - A[1]), (0, up))
-
-
-def iso_room_dressing(dst, C, gx, gy, w, d, seed=0):
-    """What is actually IN the room. Dressing, not decoration: a mattress on the
-    floor, a table with what is left on it, a stove, a footlocker."""
-    def blockprop(cx, cy, sw, sh, top, side, face):
-        p0, p1 = iso(cx, cy), iso(cx + sw, cy)
-        p2, p3 = iso(cx + sw, cy + sw), iso(cx, cy + sw)
-        lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-        dd = ImageDraw.Draw(lay)
-        dd.polygon([p0, p1, p2, p3], fill=(30, 25, 16, 105))
-        u = lambda q: (q[0], q[1] - int(sh * ZH))
-        dd.polygon([p3, p2, u(p2), u(p3)], fill=face)
-        dd.polygon([p2, p1, u(p1), u(p2)], fill=side)
-        dd.polygon([u(p0), u(p1), u(p2), u(p3)], fill=top)
-        dst.alpha_composite(lay)
-    blockprop(gx + 0.35, gy + 0.35, 1.15, 0.18, (146, 136, 118, 255), (62, 57, 49, 255),
-              (96, 89, 78, 255))                                   # the mattress
-    blockprop(gx + 2.4, gy + 0.45, 1.05, 0.46, (150, 112, 66, 255), (52, 38, 22, 255),
-              (98, 73, 43, 255))                                   # the table
-    blockprop(gx + 2.6, gy + 2.3, 0.75, 0.62, (176, 170, 158, 255), (58, 56, 52, 255),
-              (110, 106, 98, 255))                                 # the stove
-    blockprop(gx + 0.45, gy + 2.5, 0.85, 0.34, (132, 106, 62, 255), (46, 36, 21, 255),
-              (88, 70, 41, 255))                                   # a footlocker
-    rr = random.Random(seed * 17 + 3)
-    lay0 = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    d0 = ImageDraw.Draw(lay0)
-    for _ in range(26):                                    # 30 years of floor grit
-        px2, py2 = gx + 0.2 + rr.random() * (w - 0.4), gy + 0.2 + rr.random() * (d - 0.4)
-        q = iso(px2, py2)
-        r2 = 1 + rr.randrange(3)
-        d0.ellipse([q[0] - r2 * 2, q[1] - r2, q[0] + r2 * 2, q[1] + r2],
-                   fill=(96 + rr.randrange(40), 86 + rr.randrange(30), 66, 190))
-    dst.alpha_composite(lay0)
-    # the shaft of daylight from the cut side: the only light in a dead house
-    lay = Image.new('RGBA', dst.size, (0, 0, 0, 0))
-    ImageDraw.Draw(lay).polygon([iso(gx + 0.2, gy + d), iso(gx + w, gy + d),
-                                 iso(gx + w, gy + 1.2), iso(gx + 1.6, gy + 0.4)],
-                                fill=(238, 208, 138, 54))
-    dst.alpha_composite(lay.filter(ImageFilter.GaussianBlur(7)))
-
-
-def screen_C(C):
-    """THE SHOT: the same lane as B, but YOUR house is open. Walk through the
-    door and the near walls drop to a knee — no fade, no second mode. The room
-    IS the footprint (INTERIOR-MATCHES-EXTERIOR, Paolo 7/19)."""
-    im = Image.new('RGBA', (W, H), (14, 12, 9, 255))
-    RY0, RY1 = 15, 19
-    WALKN, WALKS = RY0 - 2, RY1 + 2
-
-    def surface(gy):
-        if RY0 <= gy <= RY1:
-            return ('road', C.street['street'], 1.0, 2, False)
-        if WALKN <= gy < RY0 or RY1 < gy <= WALKS:
-            return ('walk', C.street['side'], 1.0, 4, True)
-        return ('yard', C.house['yard_deserttan'], 0.90, 6, True)
-
-    for v in range(-4, 78):
-        for u in range(-11, 12):
-            if (u + v) & 1:
-                continue
-            gx, gy = (v + u) // 2, (v - u) // 2
-            sx, sy = iso(gx, gy)
-            if sx < -TW or sx > W + TW or sy < -TH or sy > H + TH:
-                continue
-            kind, fam, tone, sd, uni = surface(gy)
-            if kind == 'road' and gy == (RY0 + RY1) // 2 and gx % 4 < 2:
-                fam, sd, uni = C.street['lane_div'], 5, True
-            iso_ground(im, C, fam, gx, gy, seed=sd, tone=tone, uniform=uni, texel=44)
-    lay = Image.new('RGBA', im.size, (0, 0, 0, 0))
-    dd = ImageDraw.Draw(lay)
-    for gy in (RY0 - 0.02, RY1 + 1.02):
-        pts = [iso(gx, gy) for gx in range(-6, 46)]
-        dd.line([(p[0], p[1] + 3) for p in pts], fill=(34, 28, 18, 165), width=4)
-        dd.line(pts, fill=(206, 196, 170, 215), width=3)
-    im.alpha_composite(lay)
-
-    plan = [
-        (3,  9, 4, 4, 2.8, 'house:roof_shingle',           True,  False, 71, 'house'),
-        (8,  9, 4, 4, 3.6, 'house:roof_gravel',            False, True,  77, 'store'),
-        (18, 9, 4, 4, 2.7, 'house:roof_stile_graybrown',   True,  False, 87, 'house'),
-        (23, 9, 4, 4, 2.9, 'house:roof_shingle',           True,  False, 90, 'house'),
-        (2,  3, 4, 4, 3.4, 'house:roof_gravel',            False, True,  63, 'store'),
-        (8,  3, 4, 4, 2.8, 'house:roof_shingle',           True,  False, 66, 'house'),
-        (14, 3, 4, 4, 3.1, 'house:roof_stile_desertbrown', True,  False, 69, 'house'),
-        (20, 3, 4, 4, 2.9, 'house:roof_shingle',           True,  False, 60, 'house'),
-        (3,  21, 4, 4, 2.8, 'house:roof_stile_graybrown',  True,  False, 93, 'back'),
-        (9,  21, 4, 4, 3.0, 'house:roof_shingle',          True,  False, 96, 'back'),
-        (15, 21, 4, 4, 2.7, 'house:roof_stile_desertbrown', True, False, 99, 'back'),
-        (21, 21, 4, 4, 3.3, 'house:roof_gravel',           False, True, 102, 'back'),
-        (27, 21, 4, 4, 2.8, 'house:roof_shingle',          True,  False, 105, 'back'),
-        (9,  28, 4, 4, 2.9, 'house:roof_shingle',          True,  False, 108, 'back'),
-        (15, 28, 4, 4, 2.7, 'house:roof_stile_terracotta', True,  False, 111, 'back'),
-        (21, 28, 4, 4, 3.1, 'house:roof_stile_graybrown',  True,  False, 114, 'back'),
-        (27, 28, 4, 4, 2.8, 'house:roof_gravel',          False,  True, 117, 'back'),
-    ]
-    CUT = (13, 9, 5, 4, 3.0)          # YOUR house, open
-    items = [(b, 'solid') for b in plan] + [(CUT + ('house:roof_stile_terracotta',
-                                                    True, False, 84, 'CUT'), 'cut')]
-    items.sort(key=lambda it: (it[0][0] + it[0][2]) + (it[0][1] + it[0][3]))
-    for (b, mode) in items:
-        gx, gy, w, d, tall = b[0], b[1], b[2], b[3], b[4]
-        if mode == 'cut':
-            iso_open_box(im, C, gx, gy, w, d, tall, roof=b[5], seed=b[8])
-            iso_room_dressing(im, C, gx, gy, w, d, seed=b[8])
-            iso_body(im, 'idle_S', gx + 3.6, gy + 3.1)      # YOU, standing in it
-            continue
-        roof, pitched, parapet, seed, kind = b[5], b[6], b[7], b[8], b[9]
-        lf, rf = iso_box(im, C, gx, gy, w, d, tall, wall='house:wall_plain',
-                         roof=roof, seed=seed, pitched=pitched, parapet=parapet)
-        rnd = random.Random(seed)
-        for c in range(w):
-            k = 'wall_boarded' if rnd.random() < (0.8 if kind == 'store' else 0.42) else 'wall_window'
-            src = C.house[k][rnd.randrange(len(C.house[k]))]
-            pane = src.crop((5, 5, 39, 31))
-            fr = Image.new('RGBA', (pane.width + 8, pane.height + 8), (80, 72, 56, 255))
-            fr.alpha_composite(shade(pane, 0.9), (4, 4))
-            band(fr, 0, 0, fr.width, 2, (208, 196, 168, 220))
-            face_paste(im, fr, lf, (c + 0.16) / float(w), 0.22, 0.68, 0.52, w, tall)
-
-    iso_drop(im, C.prop['car_wreck'][6], 14, 16, scale=1.15)
-    iso_drop(im, C.prop['car_wreck'][2], 22, 18, scale=1.15)
-    iso_drop(im, C.prop['car_wreck'][14], 8, 15, scale=1.15)
-    iso_drop(im, C.prop['fire_barrel'][3], 11, 14, scale=0.52)
-    iso_drop(im, C.lamp[2], 18, 13, scale=0.95, dark=0.9)
-    iso_drop(im, C.lamp[2], 8, 13, scale=0.95, dark=0.9)
-    iso_drop(im, C.lamp[2], 22, 20, scale=0.95, dark=0.9)
-    iso_drop(im, C.sign[7], 20, 14, scale=0.5)
-    iso_drop(im, C.desert['boulder'][11], 6, 11, scale=0.3)
-    iso_drop(im, C.desert['rock'][4], 12, 20, scale=0.3)
-    grunge(im)
-    iso_body(im, 'walk_SE_1', 9, 14)                        # the lineman, outside
-    return sun_pass(im)
 
 
 CANDIDATES = [
     dict(key='A_FRONTFACE', name='A - THE FRONT FACE',
          one_line='The grid we already have, standing up.',
          blurb=('North-up, square grid - the exact grid the run walks today - but every '
-                'building STANDS UP: a pitched sky-lit roof, a wall you can read, windows '
-                'with sills, and a door two tiles tall with the room visible through it. '
-                'Cheapest to reach: the walk, the collision and the map all stay as they are.'),
-         costs='Cheapest. Only one side of a street can ever show its face.'),
-    dict(key='B_ISOBLOCK', name='B - THE ISO BLOCK',
-         one_line='The city-builder look, down at street level.',
-         blurb=('True 3/4 isometric - the same projection as the district view you said you '
-                'liked - brought down to walking distance. Every building is a real box with '
-                'a lit side, a shaded side and a dressed roof, and BOTH sides of a street '
-                'wear a face. The deepest-looking of the three.'),
-         costs='New renderer + diamond grid. The approved car wrecks read top-down against it.'),
-    dict(key='C_CUTAWAY', name='C - THE CUTAWAY',
-         one_line='Same as B, but the house you are in is open.',
-         blurb=('The iso world of B, except the building you walk into loses its two near '
-                'walls: the room, its floor and everything in it are on screen while you are '
-                'in it. No loading, no second mode, and the room is literally the same size '
-                'as the house is from outside.'),
-         costs='Most renderer work. Wall-hiding rules for every building type.'),
+                'building STANDS UP: a real hip roof sitting SQUARE on its own walls with '
+                'a ridge, a fascia and the eave shadow under it, a wall you can read, '
+                'windows with sills, a door two tiles tall with the room visible through '
+                'it, and cars at their legal 2x3 tiles turned along the road they died on.'),
+         costs='The walk, the collision and the map all stay exactly as they are.'),
 ]
 
 
@@ -1235,7 +797,11 @@ def write_spec():
         'version': 'BOHEMIA_TARGET_SCREEN_v1',
         'built': '2026-07-26',
         'law': 'laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md (TARGET SCREEN LAW)',
-        'status': 'AWAITING PAOLO - he picks ONE; the winner becomes the visual constitution',
+        'status': ('DIRECTION SET, NOT YET APPROVED. Paolo 7/26: "Front base is the only '
+                   'one I am concerned with and even then it looks like hallucinated AI '
+                   'slop." THE FRONT FACE is the direction; the other two are graveyarded. '
+                   'The look itself is still unapproved and the named defects (cars not '
+                   '2x3, roofs not put on square) are fixed in this revision.'),
         'frame': {'art_w': W, 'art_h': H, 'poster_scale': SCALE,
                   'aspect': round(W / float(H), 4), 'note': 'iPhone portrait'},
         'proportion_canon': {
@@ -1245,11 +811,23 @@ def write_spec():
             'derivation': ('a 2-cell door is ~2.05m of opening, so a 1.75m body must clear '
                            'about 77% of it. Art that breaks this reads as dolls in a '
                            'dollhouse or giants in a shed.')},
-        'projection': {'A_FRONTFACE': {'kind': 'axis-aligned oblique', 'cell_px': CELL,
-                                       'shear': SHEAR, 'roof_foreshorten': ROOF_FS},
-                       'B_ISOBLOCK': {'kind': '2:1 dimetric', 'tw': TW, 'th': TH, 'zh': ZH},
-                       'C_CUTAWAY': {'kind': '2:1 dimetric, near walls cut', 'tw': TW,
-                                     'th': TH, 'zh': ZH, 'knee_cells': 0.42}},
+        'projection': {'A_FRONTFACE': {
+            'kind': 'axis-aligned oblique, north-up',
+            'cell_px': CELL, 'shear': SHEAR, 'roof_foreshorten': ROOF_FS,
+            'shear_note': ('SHEAR IS 0 BY RULING. v1 slid the top face sideways off its '
+                           'own walls and Paolo called it: "the roofs are all fucked up '
+                           'not put on correctly." A roof sits square over its footprint; '
+                           'the 45 read comes from the roof PITCH, never from sliding the '
+                           'box.')}},
+        'car_law': {'cells_long': CAR_L, 'cells_wide': CAR_W,
+                    'px': [CAR_L * CELL, CAR_W * CELL],
+                    'source': PROP_SCALE + " (PAOLO LOCKED, '2x3 i told you')",
+                    'note': ('read out of the engine at render time so a target screen can '
+                             'never disagree with the game. Restated by Paolo 7/26 after v1 '
+                             'drew them at roughly 1x2.')},
+        'graveyarded': {
+            'B_ISOBLOCK': 'DEAD 7/26 - true 2:1 iso is not the walkable direction',
+            'C_CUTAWAY': 'DEAD 7/26 - the dollhouse cutaway is not the direction'},
         'tones': {'top': TOP, 'front': FRONT, 'side': SIDE,
                   'law': 'three flat tones per volume, NO black keyline (Pocket City rule 3)'},
         'source_banks': [BANK_HOUSE, BANK_STREET, BANK_PROPS, BANK_DESERT,
@@ -1265,25 +843,51 @@ def write_spec():
 
 
 JUDGE = 'slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html'
+
+
+def proof_crops():
+    '''Two zoomed crops with the TILE GRID drawn on them, so the two things he
+    called out are checkable by eye instead of claimed: the roof sitting square
+    on its own walls, and a car measuring exactly 3 tiles by 2.'''
+    src = Image.open(os.path.join(OUTDIR, 'BOHEMIA_TARGET_A_FRONTFACE.png')).convert('RGB')
+    out = {}
+    for name, (gx0, gy0, gw, gh), label in (
+            ('roof', (1, 1, 9, 6), 'ROOF: square on its own walls'),
+            ('car', (0, 14, 6, 4), 'CAR: 3 tiles long x 2 wide')):
+        box = (gx0 * CELL * SCALE, gy0 * CELL * SCALE,
+               (gx0 + gw) * CELL * SCALE, (gy0 + gh) * CELL * SCALE)
+        im = src.crop(box).convert('RGBA')
+        lay = Image.new('RGBA', im.size, (0, 0, 0, 0))
+        d = ImageDraw.Draw(lay)
+        step = CELL * SCALE
+        for i in range(gw + 1):
+            d.line([(i * step, 0), (i * step, im.height)], fill=(255, 232, 150, 90), width=2)
+        for j in range(gh + 1):
+            d.line([(0, j * step), (im.width, j * step)], fill=(255, 232, 150, 90), width=2)
+        im.alpha_composite(lay)
+        d2 = ImageDraw.Draw(im)
+        d2.rectangle([0, im.height - 26, im.width, im.height], fill=(16, 14, 10, 235))
+        d2.text((8, im.height - 19), label, fill=(236, 214, 158))
+        path_ = os.path.join(OUTDIR, 'PROOF_%s.png' % name)
+        im.convert('RGB').save(path_)
+        out[name] = path_
+    return out
+
+
 CARD_T = '''
   <div class="card">
-    <div class="hd"><span class="tag">{n}</span> {name}</div>
+    <div class="hd">{name}</div>
     <div class="one">{one}</div>
     <div class="pair">
       <figure><img src="data:image/png;base64,{before}"><figcaption>NOW &mdash; the build you play</figcaption></figure>
-      <figure><img src="data:image/png;base64,{shot}"><figcaption>{name}</figcaption></figure>
+      <figure><img src="data:image/png;base64,{shot}"><figcaption>THE TARGET</figcaption></figure>
     </div>
     <div class="blurb">{blurb}</div>
     <div class="cost"><b>What it costs:</b> {costs}</div>
-    <div class="row">
-      <button class="pick" data-k="{key}">THIS IS THE ONE</button>
-      <button class="no" data-k="{key}">NOT THIS</button>
-    </div>
-    <textarea data-note="{key}" placeholder="notes on {name} (optional)"></textarea>
   </div>'''
 
 PAGE_HEAD = '''<meta charset="utf-8">
-<title>BOHEMIA - PICK THE TARGET SCREEN</title>
+<title>BOHEMIA - THE TARGET SCREEN</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
  :root{--bg:#0d0f0a;--ink:#e8e0cc;--dim:#9a9480;--acc:#cdbd8a;--card:#181a12;--line:#3a3a2c}
@@ -1294,20 +898,24 @@ PAGE_HEAD = '''<meta charset="utf-8">
  .lede{font:12.5px/1.6 -apple-system,sans-serif;color:var(--dim);margin:0 0 16px}
  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 18px}
  .hd{font:800 15px -apple-system,sans-serif;color:var(--acc)}
- .tag{display:inline-block;background:var(--acc);color:var(--bg);border-radius:5px;padding:1px 7px;margin-right:6px}
  .one{font:600 12.5px/1.5 -apple-system,sans-serif;color:var(--ink);margin:5px 0 9px}
  .pair{display:grid;grid-template-columns:1fr 1fr;gap:7px}
  figure{margin:0}
  figure img{width:100%;display:block;border-radius:8px;image-rendering:pixelated;border:1px solid var(--line)}
  figcaption{font:10px -apple-system,sans-serif;color:var(--dim);text-align:center;margin-top:4px}
  .blurb{font:12px/1.6 -apple-system,sans-serif;color:var(--dim);margin:10px 0 6px}
- .cost{font:11.5px/1.5 -apple-system,sans-serif;color:var(--dim);margin-bottom:10px}
- .row{display:flex;gap:8px}
- button{flex:1;font:800 13px -apple-system,sans-serif;padding:12px 6px;border-radius:10px;border:1px solid var(--line);background:#20241a;color:var(--ink)}
+ .cost{font:11.5px/1.5 -apple-system,sans-serif;color:var(--dim);margin-bottom:4px}
+ .fix{background:#1c1d13;border-left:3px solid #c79a3f;border-radius:0 10px 10px 0;padding:10px 12px;margin:12px 0}
+ body.sun .fix{background:#f4edd8}
+ .fix b{color:var(--acc)}
+ .fix p{font:12px/1.6 -apple-system,sans-serif;color:var(--dim);margin:5px 0 0}
+ .row{display:flex;gap:8px;margin-top:10px}
+ button{flex:1;font:800 13px -apple-system,sans-serif;padding:13px 6px;border-radius:10px;border:1px solid var(--line);background:#20241a;color:var(--ink)}
  body.sun button{background:#eee6d0}
  button.on{background:#3f8c3f;color:#fff;border-color:#3f8c3f}
- button.no.on{background:#8c3f3f;color:#fff;border-color:#8c3f3f}
- textarea{width:100%;box-sizing:border-box;margin-top:8px;min-height:44px;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px;font:12px -apple-system,sans-serif}
+ button.cbb.on{background:#8c7a2f;color:#fff;border-color:#8c7a2f}
+ button.kill.on{background:#8c3f3f;color:#fff;border-color:#8c3f3f}
+ textarea{width:100%;box-sizing:border-box;margin-top:8px;min-height:52px;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px;font:12px -apple-system,sans-serif}
  .bar{position:sticky;top:0;background:var(--bg);padding:8px 0;display:flex;gap:8px;z-index:9}
  pre{white-space:pre-wrap;font:11px ui-monospace,monospace;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--dim)}
 </style>
@@ -1317,47 +925,68 @@ PAGE_HEAD = '''<meta charset="utf-8">
   <button id="sun">SUN MODE</button>
   <button id="exp">EXPORT .txt</button>
  </div>
- <h1>PICK THE TARGET SCREEN</h1>
- <p class="lede">Three versions of the same street at its best, each one sitting next to the
- build you actually play right now. This is not a thumbs-up pile &mdash; <b>pick ONE</b>.
- Whichever you pick becomes the rule every future piece of art has to move the game toward,
- and a machine check gets built the same day to hold it there. Every wall, roof, window, door
- leaf, road, sidewalk, wreck, barrel, lamp and sign in all three is art you already approved.
- The person is your real character, baked by the game itself.</p>
+ <h1>THE TARGET SCREEN &mdash; REVISION 2</h1>
+ <p class="lede">You already ruled: <b>the front face is the one</b>. The iso block and the
+ cutaway are dead and buried, and they are not coming back. You also said this one still
+ looked like slop and named two things. Both are fixed below, with the tile grid drawn on
+ so you can count it yourself instead of taking my word. The only question left is whether
+ the look is there yet.</p>
 '''
 
 PAGE_TAIL = '''
  <div class="card">
-   <div class="hd">ANYTHING ELSE</div>
-   <textarea id="global" placeholder="what is wrong with all three, what is missing, what you actually want"></textarea>
+   <div class="hd">WHAT YOU CALLED OUT, AND WHAT CHANGED</div>
+   <div class="fix">
+     <b>1. CARS ARE 2 x 3 TILES.</b>
+     <p>They were not. They were dropped at whatever size they were painted at, roughly
+     1 x 2, so every car in the street was a toy. Now the size is read straight out of the
+     game's own rule file at draw time, so a picture can never disagree with the game again,
+     and each car is turned to lie along the road it died on instead of all facing the same
+     way. Count the tiles in the crop.</p>
+     <img src="data:image/png;base64,{PROOFCAR}">
+   </div>
+   <div class="fix">
+     <b>2. THE ROOFS WERE PUT ON WRONG.</b>
+     <p>You were right and it was worse than a wonky angle: the roof was being slid sideways
+     off the house by about a tile and a half, so it sat over the neighbour instead of over
+     its own walls. That sideways slide is deleted. A roof now sits square on its own
+     footprint and is a real roof shape - a ridge at the top, the two ends sloping in, a
+     board along the bottom edge and the shadow it throws down the wall underneath.</p>
+     <img src="data:image/png;base64,{PROOFROOF}">
+   </div>
+ </div>
+ <div class="card">
+   <div class="hd">SO: IS IT THERE YET</div>
+   <div class="one">One tap. If it is good enough to build the whole game toward, that is APPROVE.</div>
+   <div class="row">
+     <button class="ok" data-v="APPROVE">GOOD ENOUGH</button>
+     <button class="cbb" data-v="CBB">COULD BE BETTER</button>
+     <button class="kill" data-v="KILL">STILL SLOP</button>
+   </div>
+   <textarea id="global" placeholder="what is still wrong with it"></textarea>
  </div>
  <pre id="out">export shows up here</pre>
 </div>
 <script>
-var V={},N={};
-document.querySelectorAll('button.pick,button.no').forEach(function(b){
+var V='';
+document.querySelectorAll('button[data-v]').forEach(function(b){
   b.onclick=function(){
-    var k=b.dataset.k, mine=b.classList.contains('no')?'NOT':'PICK';
-    if(mine==='PICK'){ document.querySelectorAll('button.pick').forEach(function(o){o.classList.remove('on');}); }
-    document.querySelectorAll('button[data-k="'+k+'"]').forEach(function(o){o.classList.remove('on');});
-    b.classList.add('on'); V[k]=mine;
-    if(mine==='PICK'){ for(var kk in V){ if(kk!==k&&V[kk]==='PICK'){ delete V[kk]; } } }
+    document.querySelectorAll('button[data-v]').forEach(function(o){o.classList.remove('on');});
+    b.classList.add('on'); V=b.dataset.v;
   };
 });
 document.getElementById('sun').onclick=function(){document.body.classList.toggle('sun');};
 document.getElementById('exp').onclick=function(){
-  document.querySelectorAll('textarea[data-note]').forEach(function(t){N[t.dataset.note]=t.value;});
-  var L=['=== BOHEMIA TARGET SCREEN VERDICT 7/26/26 ===',
-         'law: TARGET SCREEN LAW (art-first reset). Paolo picks ONE.',''];
-  ['A_FRONTFACE','B_ISOBLOCK','C_CUTAWAY'].forEach(function(k){
-    L.push(k+': '+(V[k]||'(no answer)')+(N[k]?('  // '+N[k]):''));
-  });
-  L.push('','GLOBAL: '+(document.getElementById('global').value||'(none)'));
+  var L=['=== BOHEMIA TARGET SCREEN VERDICT (rev 2) 7/26/26 ===',
+         'direction already ruled: A THE FRONT FACE. B and C graveyarded.',
+         'fixed this revision: cars 2x3 tiles, roofs square on their own walls.','',
+         'A_FRONTFACE: '+(V||'(no answer)'),
+         '','NOTES: '+(document.getElementById('global').value||'(none)')];
   var txt=L.join('\\n');
   document.getElementById('out').textContent=txt;
   var a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
-  a.download='BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt'; a.click();
+  a.download='BOHEMIA_TARGET_SCREEN_VERDICT_REV2_7_26_26.txt'; a.click();
 };
 </script>'''
 
@@ -1367,24 +996,26 @@ def _b64(path_):
 
 
 def write_judge():
-    """The judging surface. ONE tap picks the constitution; SUN MODE for
-    daylight; per-candidate notes; a comment section at the bottom always;
-    export as .txt (never .json) - the verdict workflow, unchanged."""
+    """The judging surface. The direction is already ruled, so this is now a
+    single ONE-TAP verdict on whether the look is there, with the two named
+    defects shown fixed under a tile grid. SUN MODE, notes, export .txt."""
     before = _b64(os.path.join(OUTDIR, 'BEFORE_RUN.png'))
+    proofs = proof_crops()
     cards = ''.join(
-        CARD_T.format(n=i + 1, name=c['name'], one=c['one_line'], before=before,
+        CARD_T.format(name=c['name'], one=c['one_line'], before=before,
                       shot=_b64(os.path.join(OUTDIR, 'BOHEMIA_TARGET_%s.png' % c['key'])),
-                      blurb=c['blurb'], costs=c['costs'], key=c['key'])
-        for i, c in enumerate(CANDIDATES))
-    open(JUDGE, 'w').write(PAGE_HEAD + cards + PAGE_TAIL)
+                      blurb=c['blurb'], costs=c['costs'])
+        for c in CANDIDATES)
+    tail = (PAGE_TAIL.replace('{PROOFCAR}', _b64(proofs['car']))
+                     .replace('{PROOFROOF}', _b64(proofs['roof'])))
+    open(JUDGE, 'w').write(PAGE_HEAD + cards + tail)
     return JUDGE
 
 
 def main():
     os.makedirs(OUTDIR, exist_ok=True)
     C = load_extra(Corpus())
-    for name, fn in (('A_FRONTFACE', screen_A), ('B_ISOBLOCK', screen_B),
-                     ('C_CUTAWAY', screen_C)):
+    for name, fn in (('A_FRONTFACE', screen_A),):
         art = fn(C)
         art.convert('RGB').resize((W * SCALE, H * SCALE), Image.NEAREST).save(
             os.path.join(OUTDIR, 'BOHEMIA_TARGET_%s.png' % name))

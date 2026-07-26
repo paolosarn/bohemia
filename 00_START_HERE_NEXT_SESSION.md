@@ -16,6 +16,17 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 
 ======================================================================## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- THE TARGET SCREEN IS RULED (Paolo 7/26): "Front base is the only one I'm
+  concerned with and even then it looks like hallucinated AI slop. We made a
+  rule that all cars are 2 x 3 tiles. Yeah the roofs are all fucked up not put
+  on correctly yeah." THE FRONT FACE IS THE DIRECTION. The iso block and the
+  cutaway are GRAVEYARDED and their renderers are DELETED - do not re-pitch iso
+  for the WALKABLE level (the city-builder district view stays iso, different
+  surface). CARS ARE 2x3 TILES, read from engine/bohemia_prop_scale.js at draw
+  time by any tool that draws one. NO SHEAR EVER: a roof sits square over its
+  own footprint; v1 slid it a tile and a half sideways off the walls. Both are
+  gated. The LOOK itself is still unapproved - rev 2 is waiting on one tap.
+  Post-mortem + full reasoning: records/BOHEMIA_TARGET_SCREEN_RULING_7_26_26.md.
 - TARGET SCREENS ARE UP AND EVERYTHING WAITS ON THE PICK (7/26, ART lane).
   Three candidate target screens are live in alpha -> LIFE -> **PICK THE TARGET
   SCREEN** (first card), each SIDE BY SIDE with a real screenshot of the shipped
@@ -106,8 +117,21 @@ STANDING ORDER from the door law: before a surface draws a THING the game alread
 has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
 asked whether a RENDERING surface went looking. That hole is what cost two weeks
 of wrong-size frozen doors.
-ART (08) 7/26 — THE LANE'S FIRST AND ONLY DELIVERABLE IS SHIPPED AND WAITING ON
-A PICK. Three hand-assembled target screens of the walkable street level at its
+ART (08) 7/26 REV 2 — THE PICK IS IN AND THE TWO NAMED DEFECTS ARE FIXED AT THE
+ROOT. Paolo picked THE FRONT FACE, killed the other two, and called the winner
+slop with two specifics. (a) CARS: v1 dropped them at their painted pixel size,
+about 1x2, because no art tool had ever been told the vehicle law existed. Now
+car_footprint() parses engine/bohemia_prop_scale.js at render time, fails loudly
+if the law moves, fills exactly 3x2 cells, and turns each car along the surface
+it is parked on. (b) ROOFS: v1 used a cavalier shear that offset the TOP face
+right by 0.34 cells per cell of height while drawing the front face unsheared -
+two projections in one sprite, putting a 4.2-cell house's roof 54px (a tile and
+a half) sideways off its own walls. SHEAR is now 0 and gated at 0; roofs are
+real hip forms (foreshortened trapezoid, sun-caught ridge, hip ends in the
+roof's OWN material at another value, fascia board, eave shadow down the wall).
+Judge is now ONE TAP. Gate: 91 checks. B and C renderers DELETED, not disabled.
+
+ART (08) 7/26 — THE LANE'S FIRST DELIVERABLE (superseded by rev 2 above). Three hand-assembled target screens of the walkable street level at its
 best, composed like posters, each paired with a real screenshot of what ships
 today so the comparison is a fact and not a claim:
   A THE FRONT FACE — the run's own square grid, but every building STANDS UP:

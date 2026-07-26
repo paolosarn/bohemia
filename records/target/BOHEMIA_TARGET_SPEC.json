@@ -2,7 +2,7 @@
  "version": "BOHEMIA_TARGET_SCREEN_v1",
  "built": "2026-07-26",
  "law": "laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md (TARGET SCREEN LAW)",
- "status": "AWAITING PAOLO - he picks ONE; the winner becomes the visual constitution",
+ "status": "DIRECTION SET, NOT YET APPROVED. Paolo 7/26: \"Front base is the only one I am concerned with and even then it looks like hallucinated AI slop.\" THE FRONT FACE is the direction; the other two are graveyarded. The look itself is still unapproved and the named defects (cars not 2x3, roofs not put on square) are fixed in this revision.",
  "frame": {
   "art_w": 418,
   "art_h": 912,
@@ -21,24 +21,26 @@
  },
  "projection": {
   "A_FRONTFACE": {
-   "kind": "axis-aligned oblique",
+   "kind": "axis-aligned oblique, north-up",
    "cell_px": 38,
-   "shear": 0.34,
-   "roof_foreshorten": 0.26
-  },
-  "B_ISOBLOCK": {
-   "kind": "2:1 dimetric",
-   "tw": 52,
-   "th": 26,
-   "zh": 38
-  },
-  "C_CUTAWAY": {
-   "kind": "2:1 dimetric, near walls cut",
-   "tw": 52,
-   "th": 26,
-   "zh": 38,
-   "knee_cells": 0.42
+   "shear": 0.0,
+   "roof_foreshorten": 0.3,
+   "shear_note": "SHEAR IS 0 BY RULING. v1 slid the top face sideways off its own walls and Paolo called it: \"the roofs are all fucked up not put on correctly.\" A roof sits square over its footprint; the 45 read comes from the roof PITCH, never from sliding the box."
   }
+ },
+ "car_law": {
+  "cells_long": 3,
+  "cells_wide": 2,
+  "px": [
+   114,
+   76
+  ],
+  "source": "engine/bohemia_prop_scale.js (PAOLO LOCKED, '2x3 i told you')",
+  "note": "read out of the engine at render time so a target screen can never disagree with the game. Restated by Paolo 7/26 after v1 drew them at roughly 1x2."
+ },
+ "graveyarded": {
+  "B_ISOBLOCK": "DEAD 7/26 - true 2:1 iso is not the walkable direction",
+  "C_CUTAWAY": "DEAD 7/26 - the dollhouse cutaway is not the direction"
  },
  "tones": {
   "top": 1.3,
@@ -61,19 +63,7 @@
    "key": "A_FRONTFACE",
    "name": "A - THE FRONT FACE",
    "one_line": "The grid we already have, standing up.",
-   "costs": "Cheapest. Only one side of a street can ever show its face."
-  },
-  {
-   "key": "B_ISOBLOCK",
-   "name": "B - THE ISO BLOCK",
-   "one_line": "The city-builder look, down at street level.",
-   "costs": "New renderer + diamond grid. The approved car wrecks read top-down against it."
-  },
-  {
-   "key": "C_CUTAWAY",
-   "name": "C - THE CUTAWAY",
-   "one_line": "Same as B, but the house you are in is open.",
-   "costs": "Most renderer work. Wall-hiding rules for every building type."
+   "costs": "The walk, the collision and the map all stay exactly as they are."
   }
  ]
 }

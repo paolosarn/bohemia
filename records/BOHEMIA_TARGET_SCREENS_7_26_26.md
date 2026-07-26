@@ -1,3 +1,8 @@
+> SUPERSEDED IN PART, 7/26: Paolo ruled the FRONT FACE is the direction and
+> graveyarded the other two candidates the same day. This file stays as the
+> record of the three-way sitting; the live state is
+> records/BOHEMIA_TARGET_SCREEN_RULING_7_26_26.md.
+
 # BOHEMIA — THE TARGET SCREENS (ART lane, 7/26/26) — AWAITING PAOLO'S PICK
 
 The ART lane's first and only deliverable, per the LOCKED art-first reset
@@ -107,7 +112,9 @@ building; nothing asks him about a quest until he picks a screen.
 
 ## FILES
 
-- `records/target/BOHEMIA_TARGET_A_FRONTFACE.png` / `_B_ISOBLOCK.png` / `_C_CUTAWAY.png`
+- `records/target/BOHEMIA_TARGET_A_FRONTFACE.png` (the two other candidates were
+  killed on 7/26 and their renders were retired to `records/target/graveyard/`;
+  see records/BOHEMIA_TARGET_SCREEN_RULING_7_26_26.md)
 - `records/target/BEFORE_RUN.png` — the shipped walkable street level, same frame
 - `records/target/BOHEMIA_TARGET_SPEC.json` — the measurable canon
 - `records/target/char/` — 40 real bakes out of the alpha

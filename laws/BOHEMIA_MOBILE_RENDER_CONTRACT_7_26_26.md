@@ -14,6 +14,11 @@
 # gates/target_screen_gate.py, so the two can never drift apart. Where the
 # screens do NOT satisfy a clause (the palette), it says so instead of
 # pretending.
+#
+# REVISION 2 (7/26, same day): Paolo ruled the FRONT FACE is the direction and
+# killed the other two candidates, then named two defects - cars were not 2x3
+# tiles, and the roofs were not put on square. Both are now pinned here and
+# gated. Sections 2 and 9 changed; nothing else did.
 
 ---
 
@@ -28,14 +33,28 @@
 
 ## 2. TILE PX
 
-| projection | ground cell | height cell | door | body |
-|---|---|---|---|---|
-| **A — front face** (axis-aligned oblique) | 38 px square | 38 px | 2 cells = 76 px | 66 px |
-| **B / C — 2:1 dimetric** | 52 x 26 px diamond | **ZH = 38 px** | 2 cells = 76 px | 59 px |
+| pinned | value |
+|---|---|
+| **A ground cell** | 38 px square |
+| **A door** | 2 cells = 76 px |
+| body | 66 px (77% of the opening) |
+| **car footprint** | **3 x 2 tiles** — 114 x 76 px |
 
-The iso HEIGHT unit is deliberately larger than the tile height. At TH=26 a
-2-cell door is 52 px and a standing body out-tops its own doorway. ZH=38 puts a
-body at 77% of the opening in both projections.
+There is ONE projection: axis-aligned oblique, north-up. The 2:1 dimetric and
+cutaway candidates were graveyarded by Paolo on 7/26 and their numbers are gone
+from this contract with them.
+
+**NO SHEAR.** The top face is never slid sideways relative to the walls under
+it. Revision 1 offset it by 0.34 cells per cell of height, which put a roof
+about a tile and a half off its own house — "the roofs are all fucked up not put
+on correctly." A roof sits square over its own footprint; the 45-degree read
+comes from the roof's PITCH (hip trapezoid, ridge, fascia, eave shadow), never
+from sliding the box.
+
+**CARS ARE 2 x 3 TILES.** Paolo, locked ("2x3 i told you"), restated 7/26. The
+number is not typed into any art tool: it is read out of
+`engine/bohemia_prop_scale.js` at draw time, so a picture can never disagree
+with the game. Cars are turned to lie along the surface they are parked on.
 
 ## 3. PROPORTION CANON (already gated)
 
@@ -65,15 +84,15 @@ body at 77% of the opening in both projections.
 ## 6. PALETTE — THE ONE CLAUSE THIS CONTRACT DOES NOT YET SATISFY
 
 Pinned ramp: **64 colours**, `records/target/BOHEMIA_MASTER_PALETTE.json`
-(+ `.png` swatch sheet), derived by quantizing the three target screens — which
-are themselves built only out of approved banks, so the ramp is the approved
-corpus's own colour, measured.
+(+ `.png` swatch sheet), derived by quantizing the target screen — which is
+itself built only out of approved banks, so the ramp is the approved corpus's
+own colour, measured.
 
 **It is not enforced on the corpus, and saying otherwise would be a lie.** The
 approved tiles were cooked as continuous-tone material, not as indexed pixel
-art: the three plates carry **59,377 unique colours**. Indexing them to the ramp
-is a real re-cook, and it belongs to the ACT-1 MASTER TILESET (ART backlog item
-2), which is where the tiles are made rather than sampled.
+art: the target plate carries **46082 unique colours**. Indexing them to the
+ramp is a real re-cook, and it belongs to the ACT-1 MASTER TILESET (ART backlog
+item 2), which is where the tiles are made rather than sampled.
 
 Until then the number is **tracked with a ceiling of 80,000** so a future cook
 cannot quietly make it worse while the real fix waits. That is a ratchet, not a
@@ -108,7 +127,7 @@ it. Instrumenting it is a backlog item, not a claim.
 
 `gates/target_screen_gate.py` (registered in `python3 gates/bohemia_gates.py`).
 Every number in sections 1–5 is asserted against the factory's own constants, so
-changing `CELL`, `ZH`, `BODY_K`, `SCALE`, `TOP/FRONT/SIDE` or the frame breaks
+changing `CELL`, `SHEAR`, `BODY_K`, `SCALE`, `TOP/FRONT/SIDE` or the frame breaks
 the gate rather than silently breaking proportion. Section 6 is asserted as a
 ratchet. Section 7 is asserted on the shipped surfaces. Section 8 is documented
 and explicitly NOT asserted.

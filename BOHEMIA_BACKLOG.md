@@ -23,7 +23,22 @@
 0b. (discovered 7/26, needs instrumentation) MEASURE LIVE CANVAS MEMORY on a
    real device against the ~224MB iOS floor. Until then section 8 of the
    contract is a constraint, not a check. | a probe + a gated ceiling | — | no.
-1. [SHIPPED 7/26, AWAITING HIS PICK] THE TARGET SCREENS: three candidates
+1. [RULED 7/26 - DIRECTION SET, LOOK STILL UNJUDGED] THE TARGET SCREEN. Paolo:
+   "Front base is the only one I'm concerned with and even then it looks like
+   hallucinated AI slop. We made a rule that all cars are 2 x 3 tiles. Yeah the
+   roofs are all fucked up not put on correctly yeah." A THE FRONT FACE is the
+   direction; B and C are GRAVEYARDED (registry + post-mortem in
+   records/BOHEMIA_TARGET_SCREEN_RULING_7_26_26.md) and their renderers were
+   DELETED, not disabled. REV 2 fixes both named defects at the root: cars are
+   sized from engine/bohemia_prop_scale.js at draw time (never a typed number)
+   and turned along the road they died on; SHEAR is 0 forever, so a roof sits
+   square on its own walls and is a real hip form (ridge, hip ends in the roof's
+   own material, fascia, eave shadow). Judge page is now ONE TAP: GOOD ENOUGH /
+   COULD BE BETTER / STILL SLOP, with both fixes shown under a tile grid.
+   Gate: 91 checks. STILL OPEN: whether the LOOK is there. If it comes back
+   STILL SLOP the named next suspects are the one-tan value range, the unindexed
+   palette, and boxes-instead-of-massing. Do not act on those before he rules.
+1-OLD. [superseded] the three-candidate sitting
    (A THE FRONT FACE / B THE ISO BLOCK / C THE CUTAWAY), each side-by-side with
    a real screenshot of the shipped run, judged from alpha -> LIFE -> PICK THE
    TARGET SCREEN. Built entirely from approved banks; the body is baked by the
