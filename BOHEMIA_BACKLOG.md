@@ -328,7 +328,9 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    twice on a quest handoff (startGame + the shuffle hook). Harmless, same
    distribution, but it is duplicate work on the enter path. NON-COOK tidy.
 
-## CHARACTER
+## CHARACTER  (LANE LAW 7/26: laws/BOHEMIA_ADDENDUM_THE_RIG_IS_LAW_7_26_26.md
+## — the rig is the starting point of ALL body/anim work; RIG CHECK mandatory;
+## first item of the lane's next session: the rig-check gate assertion.)
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not

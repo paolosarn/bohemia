@@ -114,7 +114,9 @@ toward its intent instead of pinging him. Canon-level gaps stay [PENDING].
   walkable, iconic-readable (Pocket City bar), never a void, never a placeholder.
 - COMBAT: the dial + movement-forward toolkit; kills land on the beat; juice
   over realism, readability over simulation.
-- CHARACTER/SOUND: silhouettes readable at arm's length; structure over
+- CHARACTER/SOUND: THE RIG IS LAW — all body/animation work derives from
+  BAKED.pose and its layering, never a new body (7/26 addendum, rig check
+  mandatory); silhouettes readable at arm's length; structure over
   color; one rig, variation by sliders; 120 BPM everything.
 - ART: the target screen is the constitution; art ships as coherent SETS
   judged in context, never loose tiles; referenced always (approved corpus +
