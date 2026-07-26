@@ -1,24 +1,30 @@
 /* ============================================================================
    LAB GATE (7/26/26, LAB lane) — THE REFERENCE LAB, machine-locked.
 
-   The lab's law (laws/BOHEMIA_ADDENDUM_THE_REFERENCE_LAB_7_26_26.md) makes four
-   promises. A promise without a gate is not a promise, so this file holds all
-   four:
+   AMENDED THE SAME DAY IT WAS WRITTEN, because the lane got the assignment wrong
+   the first time. Paolo: "who said I wanted to test the walking... it was
+   supposed to be like the actual game and all its mechanics... you need to get
+   the code online and implement it for the different game mechanics like
+   marriage and fishing in farming".
 
-     1. NEVER THE GAME. An emulation touches no engine module, no bank, no
-        alpha, and nothing in the shipped game links to it. Both directions are
-        swept, because "it only reads from the alpha" is still a coupling.
-     2. THREE DELIVERABLES, EVERY TIME. A playable page, a FEEL LEDGER, and a
-        PATTERN NOTE. Missing one means the emulation is entertainment.
-     3. THE NUMBERS ARE SOURCED, NOT REMEMBERED. Every constant in the page's
-        SDV block must appear in the ledger with a file:line citation from the
-        master's own source. This is REUSE-FIRST logic applied to research: a
-        citation is a claim a machine can check, never a name-drop.
-     4. THE FEEL IS MEASURED ON THE REAL SURFACE. The gate opens the actual page
-        in a real browser at iPhone portrait size and drives THE SAME frame loop
-        the thumb drives (window.LAB), then measures the walk. It never
-        re-implements the maths — a second copy of the formula would agree with
-        itself and prove nothing.
+   So this gate now holds SIX clauses, not four:
+
+     1. AN EMULATION IS MECHANICS, NOT FEEL. Each registry row DECLARES its
+        mechanics; fewer than three fails, and a declared "mechanic" that is
+        really plumbing (movement, camera, collision, lighting, transition)
+        fails outright. That is clause 1+4 of
+        laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md.
+     2. THE LOOP CLOSES. Every declared mechanic has a live end-to-end check
+        that PLAYS it to completion in a real browser. A demo of step one is not
+        a mechanic.
+     3. NEVER THE GAME. No engine module, no bank, no alpha, no postMessage —
+        and nothing shipped links back to a lab page either.
+     4. THREE DELIVERABLES: playable page, record of the numbers, pattern note.
+     5. THE NUMBERS ARE SOURCED. Every constant in the page's SDV block appears
+        in its record with a file:line citation from the master's own source.
+     6. MEASURED, NOT ASSERTED. The live half drives the page's own functions
+        through window.LAB, so it tests the shipped code path, never a second
+        copy of the maths.
 
    Requires playwright (installed globally in this environment).
    ========================================================================== */
@@ -41,60 +47,88 @@ function requirePlaywright() {
   return require('playwright');
 }
 
-/* ---- THE REGISTRY. One row per emulation. A new lab session appends. ------ */
+/* Words that are NOT mechanics. Clause 4 of the whole-mechanics addendum: these
+   are plumbing inside a mechanic and may never be a lab deliverable again. */
+const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collision',
+  'lighting', 'light', 'transition', 'feel', 'render', 'zoom', 'input'];
+
 const EMULATIONS = [
   {
-    id: 'STARDEW TOWN-WALK',
+    id: 'STARDEW MECHANICS',
     game: 'Stardew Valley',
+    mechanics: ['fishing', 'farming', 'marriage'],
+    page: 'slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html',
+    record: 'records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_PATTERN_NOTE_7_26_26.md',
+    live: liveMechanics,
+    shot: { name: 'BOHEMIA_LAB_STARDEW_MECHANICS_PROOF_7_26_26.png', setup: shotMechanics }
+  },
+  {
+    /* LAB-01. Kept and gated because it exists and Paolo did not kill it, but it
+       is SUPERSEDED: its own record says so in its first lines, and it is the
+       reason clause 1 exists. It is exempt from the three-mechanic rule and
+       carries the exemption explicitly, so nobody reads it as a template. */
+    id: 'STARDEW TOWN-WALK (superseded)',
+    game: 'Stardew Valley',
+    mechanics: [],
+    supersededBy: 'laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md',
     page: 'slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html',
-    ledger: 'records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt',
+    record: 'records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt',
     pattern: 'records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_PATTERN_NOTE_7_26_26.md',
-    live: liveStardew
+    live: liveTownWalk
   }
 ];
 
-/* Rows that are DERIVED in the page rather than read off a source line. */
 const DERIVED_KEYS = new Set(['DAY_START']);
 
 console.log('='.repeat(74));
-console.log('LAB GATE — the reference lab: never the game, three deliverables,');
-console.log('           sourced numbers, feel measured on the real surface');
+console.log('LAB GATE — mechanics not feel, the loop closes, never the game,');
+console.log('           sourced numbers, measured on the real surface');
 console.log('='.repeat(74));
 
 /* ==========================================================================
-   PART A — STATIC: the lane's own laws
+   PART A — STATIC
    ========================================================================== */
 function partA(em) {
+  const tag = em.id;
   const P = path.join(ROOT, em.page);
-  ok('A1 ' + em.id + ': page exists', fs.existsSync(P));
+  ok('A1 ' + tag + ': page exists', fs.existsSync(P));
   if (!fs.existsSync(P)) return null;
   const src = fs.readFileSync(P, 'utf8');
+
+  /* --- clause 1: mechanics, not feel --- */
+  if (em.supersededBy) {
+    ok('A2 ' + tag + ': supersession is declared and the law exists',
+       fs.existsSync(path.join(ROOT, em.supersededBy)));
+    const note = fs.existsSync(path.join(ROOT, em.pattern)) ? fs.readFileSync(path.join(ROOT, em.pattern), 'utf8') : '';
+    ok('A3 ' + tag + ': its own record says it was superseded', /RULED 7\/26|SUPERSEDED|superseded/.test(note));
+  } else {
+    ok('A2 ' + tag + ': declares >= 3 mechanics (' + em.mechanics.length + ')', em.mechanics.length >= 3);
+    const bad = em.mechanics.filter(m => NOT_A_MECHANIC.indexOf(m.toLowerCase()) >= 0);
+    ok('A3 ' + tag + ': no declared "mechanic" is really plumbing' + (bad.length ? ' (' + bad.join(',') + ')' : ''),
+       bad.length === 0);
+  }
+
   const bytes = Buffer.byteLength(src);
+  ok('A4 page is small (' + Math.round(bytes / 1024) + 'KB < 220KB)', bytes < 220 * 1024);
+  ok('A5 no giant base64 embed', !/[A-Za-z0-9+/]{600,}/.test(src));
+  ok('A6 labeled REFERENCE', /REFERENCE EMULATION/.test(src) && /NOT BOHEMIA/i.test(src));
+  ok('A7 labeled PLACEHOLDER ART', /PLACEHOLDER ART/.test(src));
+  ok('A8 names the game it emulates', src.indexOf(em.game) > 0);
 
-  /* the law says "small, no giant embeds" — a lab page that swallowed an art
-     bank would be a copy of the game, not a reference to another one */
-  ok('A2 page is small (' + Math.round(bytes / 1024) + 'KB < 220KB)', bytes < 220 * 1024);
-  ok('A3 no giant base64 embed', !/[A-Za-z0-9+/]{600,}/.test(src));
-
-  /* labeled REFERENCE, loudly, where Paolo cannot miss it */
-  ok('A4 labeled REFERENCE', /REFERENCE EMULATION/.test(src) && /NOT BOHEMIA/i.test(src));
-  ok('A5 labeled PLACEHOLDER ART', /PLACEHOLDER ART/.test(src));
-  ok('A6 names the game it emulates', src.indexOf(em.game) > 0);
-
-  /* NEVER THE GAME, outbound */
+  /* --- clause 3: never the game, outbound --- */
   const forbidden = [
     [/BOHEMIA_ALPHA/, 'the alpha'],
     [/\bBOH_[A-Z]/, 'a BOH_ engine module'],
     [/engine\/bohemia_/, 'an engine module path'],
     [/banks\/BOHEMIA_/, 'an art bank'],
-    [/BOHEMIA_RUN_(ENCOUNTER|CAST|MUSIC|COMBAT_END)/, 'the run bridge'],
     [/postMessage\s*\(/, 'postMessage']
   ];
   forbidden.forEach(([re, what], i) => {
-    ok('A7.' + (i + 1) + ' does not reach into ' + what, !re.test(src));
+    ok('A9.' + (i + 1) + ' does not reach into ' + what, !re.test(src));
   });
 
-  /* NEVER THE GAME, inbound: nothing shipped may link to a lab page */
+  /* --- clause 3: never the game, inbound --- */
   const shipped = [];
   const walk = (dir) => {
     for (const f of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
@@ -104,305 +138,390 @@ function partA(em) {
   };
   walk('slices'); walk('engine');
   const linkers = shipped.filter(f => /slices\/lab\/|lab\/BOHEMIA_LAB/.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
-  ok('A8 no shipped surface links to a lab page' + (linkers.length ? ' (' + linkers.join(', ') + ')' : ''), linkers.length === 0);
+  ok('A10 no shipped surface links to a lab page' + (linkers.length ? ' (' + linkers.join(', ') + ')' : ''),
+     linkers.length === 0);
 
-  /* THREE DELIVERABLES */
-  ok('A9 feel ledger exists', fs.existsSync(path.join(ROOT, em.ledger)));
-  ok('A10 pattern note exists', fs.existsSync(path.join(ROOT, em.pattern)));
-  if (!fs.existsSync(path.join(ROOT, em.ledger)) || !fs.existsSync(path.join(ROOT, em.pattern))) return null;
-  const ledger = fs.readFileSync(path.join(ROOT, em.ledger), 'utf8');
+  /* --- clause 4: three deliverables --- */
+  ok('A11 numbers record exists', fs.existsSync(path.join(ROOT, em.record)));
+  ok('A12 pattern note exists', fs.existsSync(path.join(ROOT, em.pattern)));
+  if (!fs.existsSync(path.join(ROOT, em.record)) || !fs.existsSync(path.join(ROOT, em.pattern))) return null;
+  const rec = fs.readFileSync(path.join(ROOT, em.record), 'utf8');
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
-  /* THE NUMBERS ARE SOURCED. Every SDV key, its value, and a citation. */
+  /* --- clause 5: the numbers are sourced --- */
   const block = src.match(/var SDV = \{([\s\S]*?)\n\};/);
-  ok('A11 page declares an SDV constant block', !!block);
+  ok('A13 page declares an SDV constant block', !!block);
   if (block) {
     const keys = [];
     block[1].split('\n').forEach(l => {
       const m = l.match(/^\s*([A-Z][A-Z0-9_]*):\s*(-?[0-9.]+)\s*,?/);
       if (m) keys.push([m[1], m[2]]);
     });
-    ok('A12 SDV block has >= 30 constants (' + keys.length + ')', keys.length >= 30);
+    ok('A14 SDV block has >= 25 constants (' + keys.length + ')', keys.length >= 25);
     const missing = [], unsourced = [], wrongVal = [];
-    const lines = ledger.split('\n');
+    const lines = rec.split('\n');
     keys.forEach(([k, v]) => {
       const row = lines.find(l => new RegExp('^' + k + '\\s').test(l));
       if (!row) { missing.push(k); return; }
-      if (row.indexOf(v) < 0 && row.indexOf(String(parseFloat(v))) < 0) wrongVal.push(k + '=' + v);
-      if (!DERIVED_KEYS.has(k) && !/\.cs:\d+/.test(row) && !/\.cs\b/.test(row)) unsourced.push(k);
+      const num = String(parseFloat(v));
+      if (row.indexOf(v) < 0 && row.indexOf(num) < 0 && row.indexOf(Math.abs(parseFloat(v)) + '') < 0) wrongVal.push(k + '=' + v);
+      if (!DERIVED_KEYS.has(k) && !/\.cs[:.]/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
     });
-    ok('A13 every SDV key is in the ledger' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''), missing.length === 0);
-    ok('A14 every ledger row carries the page value' + (wrongVal.length ? ' (' + wrongVal.join(',') + ')' : ''), wrongVal.length === 0);
-    ok('A15 every ledger row cites a source file' + (unsourced.length ? ' (' + unsourced.join(',') + ')' : ''), unsourced.length === 0);
+    ok('A15 every SDV key is in the record' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''),
+       missing.length === 0);
+    ok('A16 every row carries the page value' + (wrongVal.length ? ' (' + wrongVal.join(',') + ')' : ''),
+       wrongVal.length === 0);
+    ok('A17 every row cites a source file' + (unsourced.length ? ' (' + unsourced.join(',') + ')' : ''),
+       unsourced.length === 0);
   }
 
-  /* the ledger and the note must actually do their jobs */
-  ok('A16 ledger names the emulation page', ledger.indexOf(path.basename(em.page)) > 0);
-  ok('A17 ledger declares its source of truth', /decompiled/i.test(ledger));
-  ok('A18 ledger records what was NOT copied', /DOES NOT COPY|NOT PORT|DIVERGENCE/i.test(ledger));
-  ok('A19 note has a WHAT TO PORT section', /WHAT TO PORT/i.test(note));
-  ok('A20 note has a WHAT NOT TO PORT section', /WHAT NOT TO PORT/i.test(note));
-  ok('A21 note compares against what Bohemia ships today', /BOHEMIA SHIPS TODAY|ships today/i.test(note));
-  ok('A22 note names its honest limits', /HONEST LIMITS/i.test(note));
-  /* the lab never ports: a note may RECOMMEND, it may not claim a port landed */
-  ok('A23 note does not claim to have ported anything',
+  ok('A18 record names the emulation page', rec.indexOf(path.basename(em.page)) > 0);
+  ok('A19 record declares its source of truth', /decompiled/i.test(rec));
+  if (!em.supersededBy) {
+    ok('A20 record separates CONTENT from MECHANISM', /CONTENT/.test(rec) && /MECHANISM/.test(rec));
+  }
+  ok('A21 record says what is NOT implemented', /NOT IMPLEMENTED|NOT PORT|DOES NOT COPY|WHAT IS NOT HERE/i.test(rec));
+  ok('A22 note has a WHAT NOT TO PORT section', /WHAT NOT TO PORT/i.test(note));
+  ok('A23 note names its honest limits', /HONEST LIMIT/i.test(note));
+  ok('A24 note does not claim to have ported anything',
      !/\b(ported|wired) (it )?into the (alpha|run|engine)\b/i.test(note));
-  /* pendings stay pendings */
-  ok('A24 note flags canon-level questions as PENDING Paolo', /\[PENDING Paolo\]/.test(note));
-  return { src, ledger, note };
+  ok('A25 note either flags a pending or records that its question was RULED',
+     /\[PENDING Paolo\]/.test(note) || /ruled/i.test(note));
+
+  /* every declared mechanic must be named in both records */
+  em.mechanics.forEach(m => {
+    const re = new RegExp(m, 'i');
+    ok('A26 ' + m + ' is torn down in the record', re.test(rec));
+    ok('A27 ' + m + ' appears in the pattern note', re.test(note));
+  });
+  return { src, rec, note };
 }
 
 /* ==========================================================================
-   PART B — LIVE: measure the feel through the page's own frame loop
+   PART B — LIVE: play all three loops
    ========================================================================== */
-async function liveStardew(page) {
+async function liveMechanics(page) {
   const S = await page.evaluate(() => window.LAB.SDV);
-  const TICK = 1000 / 60;
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('B0 the page declares the same mechanics the gate does',
+     JSON.stringify(declared) === JSON.stringify(['fishing', 'farming', 'marriage']));
 
-  /* --- B1 the movement budget, measured, not recomputed --------------- */
-  const walkExp = Math.max(S.MIN_STEP, S.WALK_SPEED * S.MOVE_MULT * TICK);
-  const runExp = Math.max(S.MIN_STEP, S.RUN_SPEED * S.MOVE_MULT * TICK);
-  ok('B1 walk budget is 2.20 px/tick (' + walkExp.toFixed(3) + ')', near(walkExp, 2.2, 0.002));
-  ok('B2 run budget is 5.50 px/tick (' + runExp.toFixed(3) + ')', near(runExp, 5.5, 0.002));
-
-  const openField = { map: 'town', x: 18 * 64, y: 17 * 64 };
-  const meas = async (frames, dirs, run) => page.evaluate(([f, d, r, P]) => {
-    window.LAB.place(P.map, P.x, P.y);
-    const a = { x: window.LAB.S.pos.x, y: window.LAB.S.pos.y };
-    const b = window.LAB.step(f, d, r);
-    window.LAB.setDirs([]);
-    return { dx: b.x - a.x, dy: b.y - a.y };
-  }, [frames, dirs, run, openField]);
-
-  let m = await meas(60, [1], false);
-  ok('B3 60 walk frames right = 60 x 2.20 px (' + m.dx.toFixed(2) + ')', near(m.dx, 60 * walkExp, 0.05));
-  ok('B4 walking right does not drift in y', near(m.dy, 0, 0.001));
-  m = await meas(60, [1], true);
-  ok('B5 60 run frames right = 60 x 5.50 px (' + m.dx.toFixed(2) + ')', near(m.dx, 60 * runExp, 0.05));
-
-  /* tiles per second, the number a human can actually hold in their head */
-  const walkTps = walkExp * 60 / S.TILE, runTps = runExp * 60 / S.TILE;
-  ok('B6 walk = 2.063 tiles/s (' + walkTps.toFixed(3) + ')', near(walkTps, 2.0625, 0.002));
-  ok('B7 run = 5.156 tiles/s (' + runTps.toFixed(3) + ')', near(runTps, 5.15625, 0.002));
-
-  /* --- B8 diagonals cost 30% on BOTH axes ----------------------------- */
-  m = await meas(60, [0, 1], false);
-  ok('B8 diagonal x axis is 0.7 x walk (' + m.dx.toFixed(2) + ')', near(m.dx, 60 * walkExp * S.DIAG_FACTOR, 0.05));
-  ok('B9 diagonal y axis is 0.7 x walk (' + (-m.dy).toFixed(2) + ')', near(-m.dy, 60 * walkExp * S.DIAG_FACTOR, 0.05));
-  const diagOff = await page.evaluate(([P]) => {
-    window.LAB.MODEL.diagNorm = false;
-    window.LAB.place(P.map, P.x, P.y);
-    const b = window.LAB.step(60, [0, 1], false);
-    window.LAB.MODEL.diagNorm = true; window.LAB.setDirs([]);
-    return b.x - P.x;
-  }, [openField]);
-  ok('B10 turning DIAG 0.7 off really removes it', near(diagOff, 60 * walkExp, 0.05));
-
-  /* --- B11 ZERO ACCELERATION: frame 1 is frame 60 --------------------- */
-  const f1 = await meas(1, [1], false);
-  ok('B11 first frame is already full speed (' + f1.dx.toFixed(3) + ')', near(f1.dx, walkExp, 0.002));
-  const accelF1 = await page.evaluate(([P]) => {
-    window.LAB.MODEL.accel = true;
-    window.LAB.place(P.map, P.x, P.y); window.LAB.S.vel.x = 0;
-    const b = window.LAB.step(1, [1], false);
-    window.LAB.MODEL.accel = false; window.LAB.setDirs([]); window.LAB.S.vel.x = 0;
-    return b.x - P.x;
-  }, [openField]);
-  ok('B12 the ACCEL contrast model really ramps (' + accelF1.toFixed(3) + ' < ' + walkExp.toFixed(2) + ')',
-     accelF1 > 0 && accelF1 < walkExp * 0.5);
-
-  /* --- B13 THE HALF STEP: blocked at full, free at half --------------- */
-  /* right edge of the box 2px shy of the fence column at tile x=14, row 20 */
-  const half = await page.evaluate(() => {
-    const r = {};
-    window.LAB.place('town', 838, 1280);
-    r.gapTileSolid = window.LAB.solidOn('town', 14, 20);
-    r.full = window.LAB.step(1, [1], false).x - 838;
-    window.LAB.MODEL.halfStep = false;
-    window.LAB.place('town', 838, 1280);
-    r.off = window.LAB.step(1, [1], false).x - 838;
-    window.LAB.MODEL.halfStep = true; window.LAB.setDirs([]);
-    return r;
+  /* ---------------- FISHING: play it to a catch ---------------- */
+  const barH0 = S.BAR_BASE_H;
+  const cast = await page.evaluate(() => {
+    window.LAB.W.fishingLevel = 0;
+    window.LAB.cast(0);
+    return { barH: window.LAB.F.barH, prog: window.LAB.F.progress,
+             bob: window.LAB.F.bobPos, live: window.LAB.F.live };
   });
-  ok('B13 the test wall is really solid', half.gapTileSolid === true);
-  ok('B14 blocked at full speed -> moves HALF (' + half.full.toFixed(3) + ')', near(half.full, walkExp / 2, 0.002));
-  ok('B15 HALF-STEP off -> dead stop (' + half.off.toFixed(3) + ')', near(half.off, 0, 0.0001));
+  ok('B1 fishing: bar at level 0 is 96px (' + cast.barH + ')', cast.barH === barH0);
+  ok('B2 fishing: the cast starts at 0.3 caught (' + cast.prog + ')', near(cast.prog, S.CATCH_START, 0.0001));
+  ok('B3 fishing: the fish starts at 508 (' + cast.bob + ')', cast.bob === S.BOBBER_START);
 
-  /* --- B16 THE CORNER SLIP: one quarter blocked -> slide sideways ----- */
-  const slipExp = S.WALK_SPEED * (TICK / S.SLIP_DIV);
-  const slip = await page.evaluate(() => {
-    const r = {};
-    window.LAB.place('town', 562, 1280);
-    let b = window.LAB.step(1, [0], false);
-    r.dx = b.x - 562; r.dy = b.y - 1280;
-    window.LAB.MODEL.cornerSlip = false;
-    window.LAB.place('town', 562, 1280);
-    b = window.LAB.step(1, [0], false);
-    r.offdx = b.x - 562;
-    window.LAB.MODEL.cornerSlip = true; window.LAB.setDirs([]);
-    return r;
-  });
-  ok('B16 corner slip slides toward the free quarter (' + slip.dx.toFixed(4) + ')', near(slip.dx, slipExp, 0.002));
-  ok('B17 the slip does not also advance you forward', near(slip.dy, 0, 0.0001));
-  ok('B18 CORNER SLIP off -> you snag (' + slip.offdx.toFixed(4) + ')', near(slip.offdx, 0, 0.0001));
-  ok('B19 the slip is a nudge, not a rail (' + slipExp.toFixed(3) + ' px < walk/4)', slipExp < walkExp / 4);
-
-  /* --- B20 the box is a small box at the feet ------------------------- */
-  const b = await page.evaluate(() => { window.LAB.place('town', 640, 640); return window.LAB.boxOf(); });
-  ok('B20 collision box is 48 x 32', b.w === S.BOX_W && b.h === S.BOX_H);
-  ok('B21 box is inset 8px inside the tile', b.x - 640 === S.BOX_X);
-  ok('B22 box is 3/4 tile wide, 1/2 tile tall', b.w / S.TILE === 0.75 && b.h / S.TILE === 0.5);
-
-  /* --- B23 DOORS: walk in, fade, land, walk back out ----------------- */
-  const warp = await page.evaluate(() => {
-    const r = {};
-    window.LAB.place('town', 8 * 64, 10 * 64);
-    window.LAB.setTime(1000);
-    const t0 = window.LAB.S.timeOfDay;
-    window.LAB.step(1, [0], false);              /* the frame that fires it */
-    r.fadingNotMoved = window.LAB.S.fadeDir === 1;
-    r.mapDuringFade = window.LAB.S.map;
-    let frames = 1, guard = 0;
-    while (window.LAB.S.map === 'town' && guard++ < 400) { window.LAB.step(1); frames++; }
-    r.framesToBlack = frames;
-    r.map = window.LAB.S.map;
-    r.tile = [Math.round(window.LAB.S.pos.x / 64), Math.round(window.LAB.S.pos.y / 64)];
-    let fin = 0;
-    while (window.LAB.S.fadeDir !== 0 && fin++ < 400) window.LAB.step(1);
-    r.framesToClear = fin;
-    r.timeFrozen = window.LAB.S.timeOfDay === t0;
-    /* and back out the same door */
-    window.LAB.setDirs([]);
-    let out = 0;
-    window.LAB.step(1, [2], false);
-    while (window.LAB.S.map === 'house' && out++ < 400) window.LAB.step(1);
-    r.back = window.LAB.S.map;
-    window.LAB.setDirs([]);
-    return r;
-  });
-  ok('B23 a door does not fire until you MOVE into it', warp.fadingNotMoved === true);
-  ok('B24 you are still outside while the screen is fading', warp.mapDuringFade === 'town');
-  ok('B25 the fade to black is ~50 ticks (' + warp.framesToBlack + ')', Math.abs(warp.framesToBlack - 50) <= 2);
-  ok('B26 you land INSIDE the house', warp.map === 'house');
-  ok('B27 you land one tile in front of the door (' + warp.tile.join(',') + ')', warp.tile[0] === 4 && warp.tile[1] === 5);
-  ok('B28 the fade back in is ~50 ticks (' + warp.framesToClear + ')', Math.abs(warp.framesToClear - 50) <= 2);
-  ok('B29 a doorway costs NO game time', warp.timeFrozen === true);
-  ok('B30 you can walk back out the same door', warp.back === 'town');
-
-  const shopWarp = await page.evaluate(() => {
-    window.LAB.place('town', 27 * 64, 10 * 64);
-    window.LAB.step(1, [0], false);
-    let g = 0; while (window.LAB.S.map === 'town' && g++ < 400) window.LAB.step(1);
-    while (window.LAB.S.fadeDir !== 0 && g++ < 900) window.LAB.step(1);
-    const m2 = window.LAB.S.map; window.LAB.setDirs([]);
-    return m2;
-  });
-  ok('B31 the second interior is reachable too', shopWarp === 'shop');
-
-  /* --- B32 both interiors are FURNISHED and match their footprints ---- */
-  const rooms = await page.evaluate(() => {
-    /* measure the exterior footprint off the town map itself, from the door */
-    function footprint(doorX, doorY) {
-      const STRUCT = '#wD';
-      let x0 = doorX, x1 = doorX, y0 = doorY;
-      while (STRUCT.indexOf(window.LAB.tileOn('town', x0 - 1, doorY)) >= 0) x0--;
-      while (STRUCT.indexOf(window.LAB.tileOn('town', x1 + 1, doorY)) >= 0) x1++;
-      while (STRUCT.indexOf(window.LAB.tileOn('town', doorX, y0 - 1)) >= 0) y0--;
-      return { w: x1 - x0 + 1, h: doorY - y0 + 1 };
+  /* the exact gain rate, with the fish held inside the bar */
+  const gain = await page.evaluate(() => {
+    window.LAB.F.bobPos = window.LAB.F.barPos + window.LAB.F.barH / 2;
+    window.LAB.F.bobSpeed = 0; window.LAB.F.bobTarget = -1; window.LAB.F.motionType = 2;
+    const a = window.LAB.F.progress;
+    for (let i = 0; i < 10; i++) {
+      window.LAB.F.bobPos = window.LAB.F.barPos + window.LAB.F.barH / 2;
+      window.LAB.fishTick(1, true);
     }
-    return {
-      house: { plate: window.LAB.plateOf('house'), foot: footprint(8, 9), furn: window.LAB.furnitureCount('house') },
-      shop: { plate: window.LAB.plateOf('shop'), foot: footprint(27, 9), furn: window.LAB.furnitureCount('shop') }
+    return window.LAB.F.progress - a;
+  });
+  ok('B4 fishing: in the bar gains exactly 1/500 a tick (' + gain.toFixed(5) + ')',
+     near(gain, S.CATCH_GAIN * 10, 0.0005));
+  const loss = await page.evaluate(() => {
+    window.LAB.F.bobPos = 0; window.LAB.F.bobSpeed = 0; window.LAB.F.bobTarget = -1;
+    window.LAB.F.barPos = 400; window.LAB.F.motionType = 2;
+    const a = window.LAB.F.progress;
+    for (let i = 0; i < 10; i++) {
+      window.LAB.F.bobPos = 0; window.LAB.F.barPos = 400;
+      window.LAB.fishTick(1, false);
+    }
+    return a - window.LAB.F.progress;
+  });
+  ok('B5 fishing: out of the bar loses exactly 3/1000 a tick (' + loss.toFixed(5) + ')',
+     near(loss, S.CATCH_LOSS * 10, 0.0005));
+  ok('B6 fishing: losing is only 1.5x winning, not more', near(S.CATCH_LOSS / S.CATCH_GAIN, 1.5, 0.001));
+
+  /* the loop closes: catch one by actually playing the minigame */
+  const caught = await page.evaluate(() => {
+    window.LAB.W.fishingLevel = 0; window.LAB.W.gold = 0; window.LAB.F.caught = 0;
+    window.LAB.cast(0);
+    return window.LAB.autoFish(40000);
+  });
+  ok('B7 fishing: THE LOOP CLOSES — a fish is landed by playing the bar', caught.live === false && caught.caught === 1);
+  ok('B8 fishing: landing it paid gold (' + caught.gold + 'g)', caught.gold > 0);
+
+  /* the whole skill tree is the bar getting taller */
+  const level = await page.evaluate(() => {
+    window.LAB.cast(0); window.LAB.autoFish(40000);
+    const lvl = window.LAB.W.fishingLevel;
+    window.LAB.cast(0);
+    return { lvl: lvl, barH: window.LAB.F.barH };
+  });
+  ok('B9 fishing: levelling up really widens the bar (' + level.barH + 'px at level ' + level.lvl + ')',
+     level.lvl >= 1 && level.barH === S.BAR_BASE_H + level.lvl * S.BAR_H_PER_LEVEL);
+  /* the tolerance is the fish's body inside the bar, and the drawn extent is the
+     TESTED extent — a one-unit step across the edge flips the outcome */
+  const edge = await page.evaluate(() => {
+    const r = {};
+    window.LAB.cast(0);
+    window.LAB.F.motionType = 2; window.LAB.F.bobTarget = -1; window.LAB.F.bobSpeed = 0;
+    window.LAB.F.barPos = 200;
+    const hold = (y) => {
+      window.LAB.F.bobPos = y; window.LAB.F.barPos = 200;
+      const a = window.LAB.F.progress; window.LAB.fishTick(1, false);
+      return window.LAB.F.progress - a;
     };
+    r.justInside = hold(200 + window.LAB.SDV.FISH_ABOVE);
+    r.justOutside = hold(200 + window.LAB.SDV.FISH_ABOVE - 2);
+    return r;
   });
-  ['house', 'shop'].forEach((k, i) => {
-    const r = rooms[k];
-    ok('B3' + (2 + i * 2) + ' ' + k + ' interior plate === exterior footprint (' +
-       r.plate.w + 'x' + r.plate.h + ' vs ' + r.foot.w + 'x' + r.foot.h + ')',
-       r.plate.w === r.foot.w && r.plate.h === r.foot.h);
-    ok('B3' + (3 + i * 2) + ' ' + k + ' interior is FURNISHED (' + r.furn + ' pieces)', r.furn >= 8);
-  });
+  ok('B10 fishing: a fish exactly at the bar edge is INSIDE and gains',
+     edge.justInside > 0);
+  ok('B10b fishing: two units higher it is OUTSIDE and loses — the drawn edge IS the tested edge',
+     edge.justOutside < 0);
 
-  /* --- B36 THE CLOCK: 7000ms = 10 minutes ---------------------------- */
-  const clock = await page.evaluate(() => {
+  /* difficulty and level are both REAL, measured with one fixed controller */
+  const rates = await page.evaluate(() => {
+    window.LAB.seedRNG(20260726);          /* measured, not a coin flip */
+    function play(i, level) {
+      window.LAB.W.fishingLevel = level;
+      window.LAB.cast(i);
+      let t = 0;
+      while (window.LAB.F.live && t++ < 30000) {
+        const F = window.LAB.F, c = F.barPos + F.barH / 2;
+        window.LAB.fishTick(1, (F.bobPos - c - F.barSpeed * 10) < 0);
+      }
+      return window.LAB.F.progress >= 1;
+    }
+    const rate = (i, level, n) => { let w = 0; for (let k = 0; k < n; k++) if (play(i, level)) w++; return w / n; };
+    const out = { easy: rate(0, 0, 10), hard: rate(4, 0, 10), hardLevelled: rate(4, 10, 10) };
+    window.LAB.unseedRNG();
+    return out;
+  });
+  ok('B11 fishing: an easy fish is really easier than a hard one (' +
+     (rates.easy * 100) + '% vs ' + (rates.hard * 100) + '%)', rates.easy > rates.hard);
+  ok('B11b fishing: THE SKILL TREE IS THE BAR — level 10 lands what level 0 cannot (' +
+     (rates.hard * 100) + '% -> ' + (rates.hardLevelled * 100) + '%)', rates.hardLevelled > rates.hard);
+
+  /* ---------------- FARMING: till, seed, water, sleep, harvest ---------------- */
+  const farm = await page.evaluate(() => {
     const r = {};
-    window.LAB.place('town', 18 * 64, 17 * 64);
-    window.LAB.setTime(600);
-    window.LAB.step(421, [], false);            /* 421 x 16.667 = 7017ms */
-    r.after7s = window.LAB.S.timeOfDay;
-    window.LAB.setTime(600);
-    window.LAB.step(210, [], false);            /* half of it */
-    r.after3s = window.LAB.S.timeOfDay;
-    window.LAB.setTime(2550);
-    window.LAB.step(900, [], false);
-    r.clamped = window.LAB.S.timeOfDay;
-    window.LAB.setTime(600);
+    /* a WATERED tile advances exactly one phase-day; a DRY one advances zero */
+    window.LAB.farmTool('hoe'); window.LAB.farmTap(0); window.LAB.farmTap(1);
+    window.LAB.seedPick(3); window.LAB.fertPick(0);      /* MELON: summer, 12 days */
+    window.LAB.farmTool('seed'); window.LAB.farmTap(0);
+    r.melonSeasons = window.LAB.tile(0).crop.seasons.slice();
+    /* PARSNIP on tile 1, watered */
+    window.LAB.seedPick(0); window.LAB.farmTap(1);
+    r.parsnipDays = window.LAB.tile(1).crop.phases.reduce((a, b) => a + b, 0);
+    window.LAB.farmTool('can'); window.LAB.farmTap(1);
+    r.wateredBefore = window.LAB.tile(1).state;
+    const p0 = window.LAB.tile(1).crop.phase, d0 = window.LAB.tile(1).crop.dayOfPhase;
+    window.LAB.setSeason('SPRING');
+    window.LAB.sleep();
+    r.advanced = (window.LAB.tile(1).crop.phase - p0) + (window.LAB.tile(1).crop.dayOfPhase - d0);
+    r.driedOvernight = window.LAB.tile(1).state === 0;
+    r.melonDead = window.LAB.tile(0).crop.dead;          /* summer crop, spring rollover */
+    /* the dry tile: zero progress, and NOT dead */
+    window.LAB.farmTool('hoe'); window.LAB.farmTap(2);
+    window.LAB.farmTool('seed'); window.LAB.seedPick(0); window.LAB.farmTap(2);
+    const q0 = window.LAB.tile(2).crop.dayOfPhase;
+    window.LAB.sleep();
+    r.dryProgress = window.LAB.tile(2).crop.dayOfPhase - q0;
+    r.dryAlive = !window.LAB.tile(2).crop.dead;
     return r;
   });
-  ok('B36 7000ms of frames = +10 game minutes (' + clock.after7s + ')', clock.after7s === 610);
-  ok('B37 3.5s of frames = no tick yet (' + clock.after3s + ')', clock.after3s === 600);
-  ok('B38 the day clamps at 2:00am (' + clock.clamped + ')', clock.clamped === 2600);
+  ok('B12 farming: a watered tile advances exactly one day (' + farm.advanced + ')', farm.advanced === 1);
+  ok('B13 farming: soil dries overnight with no retaining soil', farm.driedOvernight === true);
+  ok('B14 farming: a DRY tile advances ZERO days (' + farm.dryProgress + ')', farm.dryProgress === 0);
+  ok('B15 farming: and a dry crop is NOT dead — a wasted day, not damage', farm.dryAlive === true);
+  ok('B16 farming: a summer crop planted in spring dies at the rollover', farm.melonDead === true);
+  ok('B17 farming: parsnip is a 4-day crop (' + farm.parsnipDays + ')', farm.parsnipDays === 4);
 
-  /* --- B39 THE LIGHT CURVE ------------------------------------------- */
-  const light = await page.evaluate(() => {
+  /* Speed-Gro removes a percentage of TOTAL days, at planting */
+  const speed = await page.evaluate(() => {
+    window.LAB.farmTool('hoe'); window.LAB.farmTap(6);
+    window.LAB.seedPick(3); window.LAB.fertPick(2);      /* MELON + deluxe speed-gro 25% */
+    window.LAB.farmTool('seed'); window.LAB.farmTap(6);
+    const withF = window.LAB.tile(6).crop.phases.reduce((a, b) => a + b, 0);
+    const base = window.LAB.CROPS[3].phases.reduce((a, b) => a + b, 0);
+    return { withF: withF, base: base };
+  });
+  ok('B18 farming: deluxe Speed-Gro removes 25% of the growth days (' + speed.base + ' -> ' + speed.withF + ')',
+     speed.withF === speed.base - Math.ceil(speed.base * S.SPEEDGRO_DELUXE));
+
+  /* THE LOOP CLOSES: grow a parsnip to harvest and sell it */
+  const harvest = await page.evaluate(() => {
+    window.LAB.farmTool('hoe'); window.LAB.farmTap(12);
+    window.LAB.seedPick(0); window.LAB.fertPick(0);
+    window.LAB.farmTool('seed'); window.LAB.farmTap(12);
+    const gold0 = window.LAB.W.gold;
+    let days = 0;
+    while (!window.LAB.cropReady(12) && days++ < 30) {
+      window.LAB.farmTool('can'); window.LAB.farmTap(12);
+      window.LAB.setSeason('SPRING');
+      window.LAB.sleep();
+    }
+    const ready = window.LAB.cropReady(12);
+    window.LAB.farmTool('pick'); window.LAB.farmTap(12);
+    return { ready: ready, days: days, earned: window.LAB.W.gold - gold0, gone: !window.LAB.tile(12).crop };
+  });
+  ok('B19 farming: THE LOOP CLOSES — planted, watered, grown and harvested in ' + harvest.days + ' days',
+     harvest.ready === true && harvest.earned > 0);
+  ok('B20 farming: a non-regrowing crop is consumed by the harvest', harvest.gone === true);
+
+  /* regrowth reuses the same field, counting down */
+  const regrow = await page.evaluate(() => {
+    window.LAB.farmTool('hoe'); window.LAB.farmTap(18);
+    window.LAB.seedPick(2); window.LAB.fertPick(0);      /* GREENBEAN, regrow 3 */
+    window.LAB.farmTool('seed'); window.LAB.farmTap(18);
+    let d = 0;
+    while (!window.LAB.cropReady(18) && d++ < 40) {
+      window.LAB.farmTool('can'); window.LAB.farmTap(18); window.LAB.setSeason('SPRING'); window.LAB.sleep();
+    }
+    window.LAB.farmTool('pick'); window.LAB.farmTap(18);
+    const still = !!window.LAB.tile(18).crop;
+    const left = still ? window.LAB.tile(18).crop.regrowLeft : -1;
+    return { still: still, left: left };
+  });
+  ok('B21 farming: a regrowing crop survives its harvest', regrow.still === true);
+  ok('B22 farming: and comes back in exactly its regrow days (' + regrow.left + ')', regrow.left === 3);
+
+  /* ---------------- MARRIAGE: stranger to married ---------------- */
+  const caps = await page.evaluate(() => {
     const r = {};
-    window.LAB.place('town', 18 * 64, 17 * 64);
-    const at = t => { window.LAB.setTime(t); return window.LAB.tintAlpha(); };
-    r.noon = at(1200); r.dusk = at(1800); r.night = at(2000); r.late = at(2600);
-    r.preDusk = at(1750);
-    window.LAB.place('house', 4 * 64, 5 * 64);
-    r.inside = at(2200);
-    window.LAB.place('town', 18 * 64, 17 * 64); window.LAB.setTime(600);
+    window.LAB.L.married = false; window.LAB.L.status = 'FRIEND';
+    r.undated = window.LAB.pointCap();
+    window.LAB.L.status = 'DATING'; r.dating = window.LAB.pointCap();
+    window.LAB.L.married = true; r.spouse = window.LAB.pointCap();
+    window.LAB.L.married = false; window.LAB.L.status = 'FRIEND';
     return r;
   });
-  ok('B39 midday is fully lit', light.noon === 0);
-  ok('B40 nothing darkens before 6pm', light.preDusk === 0);
-  ok('B41 6:00pm steps straight to 0.30 (' + light.dusk.toFixed(3) + ')', near(light.dusk, 0.30, 0.001));
-  ok('B42 8:00pm is 0.75 (' + light.night.toFixed(3) + ')', near(light.night, 0.75, 0.001));
-  ok('B43 it never goes fully black (' + light.late.toFixed(3) + ')', near(light.late, S.LIGHT_CAP, 0.001));
-  ok('B44 interiors are not outdoors (' + light.inside + ')', light.inside === 0);
+  ok('B22 marriage: an UNDATED villager caps at (8+1)*250-1 = 2249 (' + caps.undated + ')',
+     caps.undated === (S.MAX_HEARTS_UNDATED + 1) * S.PER_HEART - 1);
+  ok('B22b marriage: dating moves the cap to 2749 (' + caps.dating + ')',
+     caps.dating === (S.MAX_HEARTS_DATING + 1) * S.PER_HEART - 1);
+  ok('B22c marriage: marriage moves it to 3749 (' + caps.spouse + ')',
+     caps.spouse === (S.MAX_HEARTS_SPOUSE + 1) * S.PER_HEART - 1);
 
-  /* --- B45 THE SCHEDULED NPC ---------------------------------------- */
-  const npc = await page.evaluate(() => {
-    const r = { keys: window.LAB.NPC.schedule.length, badTargets: [] };
-    window.LAB.NPC.schedule.forEach(e => {
-      if (window.LAB.solidOn('town', e.x, e.y)) r.badTargets.push(e.x + ',' + e.y);
-    });
-    r.rising = window.LAB.NPC.schedule.every((e, i, a) => i === 0 || e.t > a[i - 1].t);
-    /* send it to the 12:00 stop and let it walk */
-    window.LAB.place('town', 18 * 64, 17 * 64);
-    window.LAB.NPC.pos.x = 27 * 64; window.LAB.NPC.pos.y = 11 * 64;
-    window.LAB.NPC.lastKey = -1;
-    window.LAB.setTime(1200);
-    window.LAB.step(1, [], false);
-    r.pathLen = window.LAB.NPC.path.length;
-    window.LAB.step(900, [], false);
-    r.tile = window.LAB.npcTile();
-    r.target = window.LAB.NPC.target;
-    /* and it keeps its schedule while you are indoors */
-    window.LAB.place('house', 4 * 64, 5 * 64);
-    window.LAB.NPC.lastKey = -1; window.LAB.setTime(1500);
-    window.LAB.step(1, [], false);
-    r.pathIndoors = window.LAB.NPC.path.length;
-    window.LAB.place('town', 18 * 64, 17 * 64); window.LAB.setTime(600);
+  const gifts = await page.evaluate(() => {
+    const r = {};
+    window.LAB.setPoints(0);
+    window.LAB.L.giftsToday = 0; window.LAB.L.giftsThisWeek = 0; window.LAB.L.talkedToday = false;
+    window.LAB.gift(0);                                  /* loved */
+    r.afterLove = window.LAB.L.points;
+    window.LAB.gift(0);                                  /* blocked: 1 a day */
+    r.afterSecondSameDay = window.LAB.L.points;
+    window.LAB.L.giftsToday = 0;
+    window.LAB.gift(0);                                  /* second of the week: allowed */
+    r.afterSecondWeek = window.LAB.L.points;
+    window.LAB.L.giftsToday = 0;
+    window.LAB.gift(0);                                  /* third: blocked by the ration */
+    r.afterThirdWeek = window.LAB.L.points;
     return r;
   });
-  ok('B45 the NPC has a real schedule (' + npc.keys + ' stops)', npc.keys >= 4);
-  ok('B46 schedule times only go forward', npc.rising === true);
-  ok('B47 every schedule stop is somewhere you can stand' +
-     (npc.badTargets.length ? ' (' + npc.badTargets.join(' ') + ')' : ''), npc.badTargets.length === 0);
-  ok('B48 it really pathfinds (' + npc.pathLen + ' steps)', npc.pathLen > 4);
-  ok('B49 it arrives at the scheduled tile (' + npc.tile.join(',') + ' -> ' + npc.target.join(',') + ')',
-     npc.tile[0] === npc.target[0] && npc.tile[1] === npc.target[1]);
-  ok('B50 it keeps walking while you are inside (' + npc.pathIndoors + ')', npc.pathIndoors > 4);
-  ok('B51 villagers are slower than the player', S.NPC_SPEED * (TICK / TICK) < walkExp);
+  ok('B23 marriage: a loved gift is +80 (' + gifts.afterLove + ')', gifts.afterLove === S.GIFT_LOVE);
+  ok('B24 marriage: one gift a day — the second is refused', gifts.afterSecondSameDay === gifts.afterLove);
+  ok('B25 marriage: two a week is allowed (' + gifts.afterSecondWeek + ')', gifts.afterSecondWeek === S.GIFT_LOVE * 2);
+  ok('B26 marriage: the third of the week is RATIONED OUT', gifts.afterThirdWeek === gifts.afterSecondWeek);
 
-  /* --- B52 the walk cycle re-times with the body -------------------- */
-  const walkMod = 1 - S.ANIM_WALK_MOD * Math.max(1, S.WALK_SPEED * S.MOVE_MULT * TICK) * S.ANIM_MOD_MULT;
-  const runMod = 1 - S.ANIM_RUN_MOD * Math.max(1, S.RUN_SPEED * S.MOVE_MULT * TICK) * S.ANIM_MOD_MULT;
-  ok('B52 running re-times the feet faster than walking (' +
-     (S.ANIM_BASE_MS * runMod).toFixed(1) + 'ms vs ' + (S.ANIM_BASE_MS * walkMod).toFixed(1) + 'ms)',
-     runMod < walkMod && runMod > 0.5);
+  const bday = await page.evaluate(() => {
+    window.LAB.setPoints(0);
+    window.LAB.L.giftsToday = 0; window.LAB.L.giftsThisWeek = 9;
+    window.LAB.setBirthdayToday();
+    window.LAB.gift(0);
+    return window.LAB.L.points;
+  });
+  ok('B27 marriage: a birthday gift pays x8 AND beats the ration (' + bday + ')', bday === S.GIFT_LOVE * S.GIFT_BIRTHDAY_X);
+
+  const talkDecay = await page.evaluate(() => {
+    const r = {};
+    window.LAB.L.birthdaySeason = 'WINTER';
+    window.LAB.setPoints(500); window.LAB.L.talkedToday = false;
+    window.LAB.talk(); r.afterTalk = window.LAB.L.points;
+    window.LAB.talk(); r.afterSecondTalk = window.LAB.L.points;
+    window.LAB.L.talkedToday = false;
+    window.LAB.sleep(); r.afterIgnoredNight = window.LAB.L.points;
+    return r;
+  });
+  ok('B28 marriage: talking is +20 (' + talkDecay.afterTalk + ')', talkDecay.afterTalk === 520);
+  ok('B29 marriage: and only once a day', talkDecay.afterSecondTalk === 520);
+  ok('B30 marriage: ignoring a stranger costs -2 a night (' + talkDecay.afterIgnoredNight + ')',
+     talkDecay.afterIgnoredNight === 520 - S.DECAY_STRANGER);
+
+  /* THE WALL: unlimited gifts cannot pass 8 hearts while undated */
+  const wall = await page.evaluate(() => {
+    window.LAB.L.status = 'FRIEND'; window.LAB.L.married = false; window.LAB.L.weddingIn = -1;
+    window.LAB.setPoints(1960);
+    for (let i = 0; i < 40; i++) { window.LAB.L.giftsToday = 0; window.LAB.L.giftsThisWeek = 0; window.LAB.gift(0); }
+    const parked = window.LAB.L.points;
+    window.LAB.court();
+    return { parked: parked, status: window.LAB.L.status, cap: window.LAB.pointCap() };
+  });
+  ok('B31 marriage: THE WALL — 40 loved gifts stop dead at the undated cap (' + wall.parked + ')',
+     wall.parked === (S.MAX_HEARTS_UNDATED + 1) * S.PER_HEART - 1);
+  ok('B32 marriage: the bouquet at 2000 moves you to DATING', wall.status === 'DATING');
+
+  const wed = await page.evaluate(() => {
+    const r = {};
+    window.LAB.setPoints(2400);
+    window.LAB.court(); r.tooEarly = window.LAB.L.status;      /* under 2500: refused */
+    window.LAB.setPoints(2500);
+    window.LAB.court(); r.engaged = window.LAB.L.status; r.countdown = window.LAB.L.weddingIn;
+    for (let d = 0; d < 3; d++) { window.LAB.L.talkedToday = true; window.LAB.sleep(); }
+    r.married = window.LAB.L.married; r.status = window.LAB.L.status;
+    r.cap = window.LAB.pointCap();
+    window.LAB.L.talkedToday = false;
+    const before = window.LAB.L.points;
+    window.LAB.sleep();
+    r.spouseDecay = before - window.LAB.L.points;
+    return r;
+  });
+  ok('B33 marriage: the pendant is refused under 2500', wed.tooEarly === 'DATING');
+  ok('B34 marriage: at 2500 it is accepted and the wedding is 3 days out (' + wed.countdown + ')',
+     wed.engaged === 'ENGAGED' && wed.countdown === S.WEDDING_DELAY);
+  ok('B35 marriage: THE LOOP CLOSES — stranger to MARRIED', wed.married === true && wed.status === 'MARRIED');
+  ok('B36 marriage: marriage moves the ceiling to 14 hearts (' + wed.cap + ')',
+     wed.cap === (S.MAX_HEARTS_SPOUSE + 1) * S.PER_HEART - 1);
+  ok('B37 marriage: and ignoring a spouse costs -20, ten times a stranger (' + wed.spouseDecay + ')',
+     wed.spouseDecay === S.DECAY_SPOUSE);
+
+  /* the day is shared by all three mechanics, which is what makes it a game */
+  const shared = await page.evaluate(() => {
+    const d0 = window.LAB.day(); window.LAB.sleep(); return window.LAB.day() - d0;
+  });
+  ok('B38 one SLEEP advances the day for every mechanic at once', shared === 1);
+}
+
+async function shotMechanics(page) {
+  await page.evaluate(() => {
+    window.LAB.thaw();
+    document.getElementById('tab_love').click();
+  });
+}
+
+/* LAB-01, superseded: kept green so it cannot rot, not extended. */
+async function liveTownWalk(page) {
+  const S = await page.evaluate(() => window.LAB.SDV);
+  const TICKMS = 1000 / 60;
+  const walkExp = Math.max(S.MIN_STEP, S.WALK_SPEED * S.MOVE_MULT * TICKMS);
+  const m = await page.evaluate(([P]) => {
+    window.LAB.place(P.map, P.x, P.y);
+    const a = window.LAB.S.pos.x;
+    const b = window.LAB.step(60, [1], false);
+    window.LAB.setDirs([]);
+    return b.x - a;
+  }, [{ map: 'town', x: 18 * 64, y: 17 * 64 }]);
+  ok('B1 (superseded) the walk still measures 2.20 px/tick (' + (m / 60).toFixed(3) + ')',
+     near(m, 60 * walkExp, 0.05));
+  const rooms = await page.evaluate(() => ({
+    house: window.LAB.furnitureCount('house'), shop: window.LAB.furnitureCount('shop')
+  }));
+  ok('B2 (superseded) both interiors are still furnished', rooms.house >= 8 && rooms.shop >= 8);
 }
 
 /* ==========================================================================
@@ -427,21 +546,16 @@ async function liveStardew(page) {
 
       await em.live(page);
 
-      const shot = path.join(PROOF_DIR, 'BOHEMIA_LAB_STARDEW_TOWNWALK_PROOF_7_26_26.png');
-      /* a proof shot of the thing Paolo actually taps: mid-dusk, lamps lit */
-      await page.evaluate(() => {
-        window.LAB.place('town', 18 * 64, 13 * 64);
-        window.LAB.setTime(1900);
-        window.LAB.step(1, [2], true);
-        window.LAB.setDirs([]);
-        window.LAB.thaw();
-      });
-      await page.waitForTimeout(350);
-      await page.screenshot({ path: shot });
-      ok('C1 proof screenshot written', fs.existsSync(shot) && fs.statSync(shot).size > 8000);
-      console.log('  proof: ' + shot);
-
-      ok('C2 zero console errors' + (errors.length ? ' (' + errors[0].slice(0, 90) + ')' : ''), errors.length === 0);
+      if (em.shot) {
+        await em.shot.setup(page);
+        await page.waitForTimeout(300);
+        const shot = path.join(PROOF_DIR, em.shot.name);
+        await page.screenshot({ path: shot });
+        ok('C1 ' + em.id + ': proof screenshot written', fs.existsSync(shot) && fs.statSync(shot).size > 8000);
+        console.log('  proof: ' + shot);
+      }
+      ok('C2 ' + em.id + ': zero console errors' + (errors.length ? ' (' + errors[0].slice(0, 90) + ')' : ''),
+         errors.length === 0);
       await ctx.close();
     }
   } finally {

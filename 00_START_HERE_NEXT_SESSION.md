@@ -1,3 +1,68 @@
+LAB (09): 7/26 (b) — PAOLO REJECTED THE FIRST EMULATION'S WHOLE PREMISE, AND HE WAS
+RIGHT. "who said I wanted to test the walking like why did you just focus on like
+movement like it was supposed to be like the actual game and all its mechanics... you
+need to get the code online and implement it for the different game mechanics like
+marriage and fishing in farming". TWO LAWS LANDED THE SAME TURN, both LOCKED:
+  laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md — a lab emulation is THREE
+  OR MORE NAMED MECHANICS, each playable END TO END, built from the master's real
+  source. Movement / camera / collision / lighting / transitions are PLUMBING and can
+  never be a lab deliverable again; lab_gate fails any row that declares one. Speed is
+  the point: he named the bar himself (people remake a game in an hour), so breadth
+  first, depth only on request.
+  laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md — "Bohemian movement is
+  gonna be the world moves when you move where the world moves when you spend time
+  taking an action". THE WORLD ADVANCES WHEN THE PLAYER SPENDS TIME ON AN ACTION. No
+  continuous free walking in the overworld, ever; the beat is the QUANTISER, not a
+  clock the world runs on by itself. The three-option fork LAB-01 had written up is
+  CLOSED. Still his and still unwritten: the ACTION COST TABLE (what a step costs vs a
+  swing vs a search). No lane invents that.
+SHIPPED, the actual assignment: slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html
+— FISHING, FARMING and MARRIAGE, three tabs, one shared day, every loop closing.
+  FISHING is the real bobber bar: a 96px bar in a 568px column, +8px per fishing level,
+  gravity 0.25 down and 0.25 up while you hold, BOTH damped x0.6 while the fish is
+  inside, progress +1/500 a tick in the bar and -3/1000 out. THE WHOLE FISHING SKILL
+  TREE IS BAR HEIGHT — there is no other mechanical reward for levelling it.
+  FARMING is Crop.newDay: a crop advances a day ONLY if the soil was watered at the
+  rollover. Forgetting is NOT damage, the day just does not count. Wrong season
+  outdoors is the only hard kill. Speed-Gro removes a % of TOTAL days at planting;
+  retaining soil buys a CHANCE to skip the chore. Everything resolves at SLEEP.
+  MARRIAGE is one integer: 250 a heart, talk +20 once a day, gifts RATIONED to 1 a day
+  and 2 a week (birthday bypasses both AND pays x8), neglect -2 stranger / -8 dating /
+  -20 spouse, and a HARD CAP at 8 hearts for anyone you have not dated
+  (Utility.cs:2901 returns 8 for a datable NPC, so the clamp is 2249) — gifting cannot
+  pass it, you have to accept the bouquet. Dating moves the ceiling to 10, marriage to
+  14. THE MECHANIC GETS MORE EXPENSIVE AFTER YOU WIN IT.
+Teardown, every number with its file:line:
+records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt
+Patterns + what Bohemia should actually take (10 named patterns, 7 recommendations,
+4 do-not-ports): records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_PATTERN_NOTE_7_26_26.md
+The two that matter most for us, and neither is about farming: RATION DO NOT PRICE
+(limit a favour/post/bribe by COUNT per week, not by money, or a rich player switches
+it off) and THE CEILING THAT ONLY MOVES ON A COMMITMENT (faction standing should have
+a wall you cannot grind through — you get past it by taking a side, not by doing more
+jobs).
+TWO REAL PORTING BUGS FOUND BY MEASURING ON THE REAL SURFACE, both now gated: (1) the
+else that re-rolls a resting fish's target must also run when the target is -1, or the
+fish keeps its last velocity, parks on the floor and every fish above difficulty 30
+becomes uncatchable (pike 0/12 -> 12/12 after the fix); (2) copying the master's -32
+sprite-origin offset into a page with no sprites made the DRAWN bar and the TESTED bar
+32 units apart, so the picture lied about whether you were winning. Measured catch
+rates now: carp 12/12, pike 12/12, catfish 10/12, octopus 0/12 at level 0 and 4/12 at
+level 10 — the skill tree, measured.
+Gate: gates/lab_gate.js, 112 checks, registered as REFERENCE LAB. It PLAYS all three
+loops (lands a fish by working the bar, grows a parsnip to harvest, walks a villager
+from stranger to married) and holds all six clauses of the amended law.
+LAB-01 (the walk) is SUPERSEDED, not deleted: its pattern note now opens with the
+ruling, its gate row is marked superseded and exempted from the three-mechanic rule so
+nobody reads it as a template, and its checks stay green so it cannot rot.
+NEXT IN THIS LANE: Paolo names a game and a set of mechanics. Backlog LAB-2 (Zomboid
+loot loop) is still queued and now means containers + weight + search + degradation,
+not one of them.
+FLEET CONDITION, FLAGGED NOT FIXED (coordinator's file, not mine): this handoff is over
+1,100 lines against a ~500-line DIET LAW cap. Trimming it means rewriting eight other
+lanes' entries in a file they are all appending to right now, which is the boundary the
+parallel-sessions rule says to stop at. Raising it here instead of crossing it.
+
 LAB (09): 7/26 — THE LANE'S FIRST EMULATION IS PLAYABLE: STARDEW'S TOWN WALK, REBUILT
 FROM THE MASTER'S OWN SOURCE. Backlog LAB-1, all three deliverables, nothing ported.
 Page: slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html (standalone, labeled
@@ -52,12 +117,9 @@ forcing DIAG_FACTOR to 1.0 moves the measurement from 92.4 to 132.0).
 NOTE FOR THE FLEET: this lane deliberately did NOT touch the alpha, and that includes
 the build stamp — the alpha did not change this turn, so stamping it would have been a
 lie. A lab ship is reached by its own reference link, never as "the build".
-NEXT IN THIS LANE: backlog LAB-2, the Zomboid loot loop. Do not port anything from
-LAB-1 from inside this lane; a port is the owning lane's build item, after Paolo plays.
-FLEET CONDITION, FLAGGED NOT FIXED (coordinator's file, not mine): this handoff is over
-1,100 lines against a ~500-line DIET LAW cap. Trimming it means rewriting eight other
-lanes' entries in a file they are all appending to right now, which is the boundary the
-parallel-sessions rule says to stop at. Raising it here instead of crossing it.
+NOTE, READ THE 7/26 (b) ENTRY ABOVE FIRST: this walk study was REJECTED by Paolo and
+the lane's assignment changed. Kept as the record of what was measured, never as a
+template.
 
 WORLD MODEL (02): 7/26 (f) — THE GROUND NOW OBEYS THE CONSTITUTION. The freeze lifted
 when Paolo ruled the target CBB, which made the promise this lane wrote during it come

@@ -14,7 +14,32 @@
 
 ## LAB (THE REFERENCE LAB — first word "lab"; law: laws/BOHEMIA_ADDENDUM_
 ## THE_REFERENCE_LAB_7_26_26.md. One session = one system = one named game.)
-1. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] STARDEW TOWN-WALK FEEL. All three
+0. [RULED 7/26] THE LANE'S ASSIGNMENT CHANGED MID-DAY. Paolo: "who said I
+   wanted to test the walking... it was supposed to be like the actual game and
+   all its mechanics... you need to get the code online and implement it for the
+   different game mechanics like marriage and fishing in farming". Law:
+   laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md — an emulation is
+   THREE OR MORE NAMED MECHANICS, each playable end to end, from the real source.
+   Movement/camera/collision/lighting are plumbing and can never be a lab
+   deliverable again; the gate fails a row that declares one. He also RULED
+   Bohemia's movement in the same breath
+   (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
+   when you spend time taking an action. That closed LAB-1's open question.
+1b. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] STARDEW MECHANICS: FISHING + FARMING
+   + MARRIAGE, all three playable end to end in
+   slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html. The real bobber-bar
+   physics (bar height IS the entire fishing skill tree); till/seed/water/sleep/
+   harvest/regrow with the real reasons a crop stalls (dry = a wasted day, not
+   damage) or dies (wrong season); and stranger -> friend -> dating -> engaged ->
+   married on the real point economy (250/heart, gifts rationed 1/day + 2/week,
+   birthday x8, neglect -2/-8/-20, and the HARD 8-heart cap that gifting cannot
+   pass). Teardown with every file:line:
+   records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt. Patterns +
+   what Bohemia should take: records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_PATTERN_
+   NOTE_7_26_26.md (10 named patterns, 7 recommendations, 4 do-not-ports).
+   Gate: 112 checks that PLAY all three loops.
+1. [SUPERSEDED 7/26 by item 0 — kept as the record, not a template] STARDEW
+   TOWN-WALK FEEL. All three
    deliverables landed: slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html
    (one town, two furnished interiors, fade transitions, the 7s/10min clock with
    the real dusk curve, one scheduled NPC),

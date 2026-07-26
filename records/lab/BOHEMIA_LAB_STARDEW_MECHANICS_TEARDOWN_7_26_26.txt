@@ -1,0 +1,227 @@
+==============================================================================
+BOHEMIA REFERENCE LAB 02 — MECHANICS TEARDOWN
+STARDEW VALLEY: FISHING / FARMING / MARRIAGE      7/26/26 (lab lane)
+==============================================================================
+Law: laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md (Paolo 7/26/26) —
+"it was supposed to be like the actual game and all its mechanics... you need to
+get the code online and implement it for the different game mechanics like
+marriage and fishing in farming".
+Playable: slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html
+Pattern note: records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_PATTERN_NOTE_7_26_26.md
+Gate: gates/lab_gate.js (plays all three loops end to end in a real browser)
+
+SOURCE: the decompiled Stardew Valley 1.5.6 C# source, read directly. Every row
+carries the file:line. Nothing here is remembered or eyeballed.
+CONTENT vs MECHANISM: where the master keeps a number in Content/Data (fish
+difficulty tables, crop phase-day tables, gift lists) it is DECLARED as content
+and stands in as ours. The mechanism is copied exactly. MECHANISM-MINE /
+CONTENTS-PAOLO'S.
+
+==============================================================================
+MECHANIC 1 — FISHING            (Menus/BobberBar.cs)
+==============================================================================
+THE WHOLE MINIGAME IN ONE SENTENCE: one number grows while the fish is inside a
+bar you are juggling against gravity, and shrinks while it is not.
+
+KEY               VALUE   SOURCE               WHAT IT MEANS
+BAR_TRACK         568     BobberBar.cs:145     the whole water column, px
+BAR_BASE_H        96      BobberBar.cs:90      your bar at fishing level 0
+BAR_H_PER_LEVEL   8       BobberBar.cs:90      + 8px per fishing level
+BOBBER_START      508     BobberBar.cs:146     the fish starts near the bottom
+BOBBER_BOTTOM     532     BobberBar.cs:282     and is clamped there
+BOBBER_TOP        0       BobberBar.cs:284
+CATCH_START       0.3     BobberBar.cs:74      distanceFromCatching at the cast
+CATCH_GAIN        0.002   BobberBar.cs:367     +1/500 per tick, fish in the bar
+CATCH_LOSS        0.003   BobberBar.cs:398     -3/1000 per tick, fish outside
+BAR_GRAVITY       0.25    BobberBar.cs:292     bar accelerates DOWN, always
+BAR_LIFT          0.25    BobberBar.cs:292     and UP while you hold the button
+BAR_IN_DAMP       0.6     BobberBar.cs:297     BOTH are x0.6 with the fish inside
+BAR_BOUNCE        0.6667  BobberBar.cs:312     -2/3 of speed at either end
+FISH_SMOOTH       5       BobberBar.cs:273     speed chases accel over 5 ticks
+FLOAT_ACCEL       0.01    BobberBar.cs:267     floaters/sinkers drift, forever
+FLOAT_MAX         1.5     BobberBar.cs:267     clamped
+SIZE_DROP_MS      800     BobberBar.cs:129     1 inch lost per 800ms of struggle
+FISH_ABOVE        16      BobberBar.cs:285     the fish's extent above its pos
+FISH_BELOW        12      BobberBar.cs:285     and below: a 28-unit body
+
+THE FOUR DESIGN FACTS UNDER IT:
+1. THE ENTIRE FISHING SKILL TREE IS BAR HEIGHT. Level 0 gives you a 96px bar in
+   a 568px column (17%). Level 10 gives you 176px (31%). There is no other
+   mechanical reward for levelling fishing. The skill curve IS one number.
+2. GAIN AND LOSS ARE NEARLY EQUAL (0.002 vs 0.003). Losing is only 1.5x faster
+   than winning, so a fight is long, recoverable, and always feels close. Make
+   loss 3x and the same minigame becomes rage.
+3. THE BAR IS DAMPED WHILE YOU ARE WINNING (x0.6 both directions,
+   BobberBar.cs:297). Being on target makes the controls calmer. That is the
+   feel of "gripping" the fish, and it is one multiplier.
+4. DIFFICULTY IS A SINGLE 0-110 SCALAR that feeds THREE separate things: how
+   often the fish picks a new target (:259), how far it picks (:264), and how
+   fast it eases there (:272). One authored number per fish, three behaviours.
+   Plus five motion TYPES: mixed / dart / smooth / sinker / floater (:100-122).
+
+CONTENT (ours): the fish table (name, difficulty, motion, size range). The real
+values live in Content/Data/Fish. Our stand-ins keep the real ranges: Carp 15,
+Sardine 30, Pike 60, Catfish 75, Octopus 95 (sinker), Legendary 110.
+
+THE TOLERANCE, which is the number that actually decides whether fishing is fun:
+the fish's own body is 28 units tall (bobPos-16 .. bobPos+12, :285) and it must
+fit ENTIRELY inside the bar. At level 0 that is 96-28 = 68 units of slack in a
+568-unit column, 12%. At level 10 it is 176-28 = 148, 26%. THAT is the skill
+curve, stated as the thing a player feels.
+
+DECLARED DIVERGENCE: the master's inBar test carries a -32 sprite-origin offset
+between the bar's coordinate space and the fish's. We have no sprites, so the
+offset is dropped and the fish is DRAWN at exactly the extent that is TESTED.
+The mechanism (a 28-unit fish inside a 96-unit bar) is unchanged.
+
+TWO PORTING BUGS THIS FOUND, BOTH ONLY VISIBLE BY MEASURING, both now gated:
+  (1) The `else` that re-rolls the fish's target must ALSO run when the target
+      is -1 (its resting state, :276). With an extra `target !== -1` guard on
+      that else, a resting fish keeps its last velocity forever, drifts into the
+      floor and parks there — and every fish above difficulty 30 becomes
+      uncatchable. Measured: pike 0/12 before, 12/12 after.
+  (2) Copying the -32 offset into a page that has no sprite offset made the
+      drawn bar and the tested bar 32 units apart, so the picture lied about
+      whether you were winning. Fixed by dropping the offset, not by nudging the
+      art.
+MEASURED CATCH RATES with one fixed controller and a SEEDED rng (a rate measured
+against Math.random is a coin flip, and a flaky gate is not a gate), at level 0:
+  carp 15 -> 12/12 · sardine 30 -> 12/12 · pike 60 -> 12/12 · catfish 75 -> 10/12
+  octopus 95 -> 0/12 · at level 10 the same octopus -> 4/12
+That last pair is the whole fishing skill tree, measured: nothing changed except
+the bar got 80 units taller.
+
+NOT IMPLEMENTED, ON PURPOSE: treasure chests, bait, tackle, the quality roll,
+the trap/cork/lead bobbers (their branches are read and cited in the code
+comments but each is one modifier on the rules above).
+
+==============================================================================
+MECHANIC 2 — FARMING            (Crop.cs + TerrainFeatures/HoeDirt.cs)
+==============================================================================
+THE WHOLE SYSTEM IN ONE SENTENCE: a crop advances one day ONLY if its soil was
+watered at the day rollover; being out of season outdoors kills it.
+
+KEY               VALUE   SOURCE               WHAT IT MEANS
+WATERED           1       Crop.cs:522          the ONLY state that advances a crop
+DRY               0       HoeDirt.cs:607       soil dries every morning
+SPEEDGRO          0.10    HoeDirt.cs:387       Speed-Gro removes 10% of total days
+SPEEDGRO_DELUXE   0.25    HoeDirt.cs:389
+SPEEDGRO_HYPER    0.33    HoeDirt.cs:391
+RETAIN_BASIC      0.33    HoeDirt.cs:606       chance the soil stays wet overnight
+RETAIN_QUALITY    0.66    HoeDirt.cs:606
+RETAIN_DELUXE     1.00    HoeDirt.cs:606       always
+
+Crop.newDay (Crop.cs:509-535) verbatim in shape:
+  if (outdoors && (dead || !seasonsToGrowIn.Contains(season)))  Kill();
+  else if (state == watered) {
+     dayOfCurrentPhase = min(dayOfCurrentPhase + 1, phaseDays[currentPhase]);
+     if (dayOfCurrentPhase >= phaseDays[currentPhase] && currentPhase < last)
+        { currentPhase++; dayOfCurrentPhase = 0; }
+  }
+Growth is a LIST OF PHASE LENGTHS, not a total. That is why fertilizer can shave
+days off the early phases and why a crop's art changes at uneven intervals.
+After harvest, a regrowing crop sets fullyGrown and counts regrowAfterHarvest
+DOWN (Crop.cs:246-248) — the same field, run backwards.
+
+THE FOUR DESIGN FACTS UNDER IT:
+1. FORGETTING TO WATER IS NOT PUNISHED, IT IS WASTED. No damage, no death: the
+   day simply does not count. The cost is TIME, and time is the currency.
+2. THE SEASON IS THE ONLY HARD KILL. Content, not mechanism: a list of seasons
+   per crop. Miss the window and the whole plot dies at the rollover, at once.
+3. FERTILIZER BUYS TIME TWO DIFFERENT WAYS and they are not interchangeable:
+   Speed-Gro removes a PERCENTAGE OF TOTAL GROWTH DAYS at planting time
+   (HoeDirt.cs:382-400 computes it once), while Retaining Soil buys you a
+   CHANCE TO SKIP A CHORE. One is power, the other is convenience.
+4. EVERYTHING RESOLVES AT SLEEP. Nothing grows while you watch. The whole
+   farming loop is: spend the day, then find out. That is the same shape as
+   TIME IS SPENT BY ACTIONS.
+
+CONTENT (ours): the crop table. Real shape (phase lists + regrow + season), our
+numbers.
+
+==============================================================================
+MECHANIC 3 — MARRIAGE           (Farmer.cs + NPC.cs + Friendship.cs)
+==============================================================================
+THE WHOLE COURTSHIP IN ONE SENTENCE: one integer, fed by rationed gifts and a
+free daily hello, drained every day you ignore them, against a ceiling that only
+moves when you commit.
+
+KEY                VALUE   SOURCE              WHAT IT MEANS
+PER_HEART          250     Farmer.cs:3754      250 points is one heart
+point cap                  Farmer.cs:3754      (maxHearts + 1) * 250 - 1
+TALK_POINTS        20      Farmer.cs:3788      talkToFriend, once a day
+GIFT_LOVE          80      NPC.cs:3786         a loved gift
+GIFT_LIKE          45      NPC.cs:3798
+GIFT_NEUTRAL       20      NPC.cs:3831
+GIFT_DISLIKE      -20      NPC.cs:3809
+GIFT_HATE         -40      NPC.cs:3819
+GIFT_BIRTHDAY_X    8       NPC.cs:3728         x8 on their birthday
+GIFT_SILVER_X      1.25    NPC.cs:3720         item quality multiplier
+GIFT_GOLD_X        1.5     NPC.cs:3723
+GIFTS_PER_DAY      1       NPC.cs:1535
+GIFTS_PER_WEEK     2       NPC.cs:1528
+DECAY_STRANGER     2       Farmer.cs:2557      -2/day if you did not talk
+DECAY_DATING       8       Farmer.cs:2553      -8/day while dating, below 2500
+DECAY_SPOUSE      20       Farmer.cs:2551      -20/day if you ignore your spouse
+DECAY_FLOOR_UNDATED 2000   Farmer.cs:2557      undated: -2/day only below this
+BOUQUET_AT      2000       Farmer.cs:3755      the bouquet arrives in the mail
+PENDANT_AT      2500       Farmer.cs:3757      the mermaid's pendant
+MAX_HEARTS_UNDATED  8      Utility.cs:2907     THE WALL: datable + not dating = 8
+MAX_HEARTS_DATING  10      Utility.cs:2916     dating moves the ceiling
+MAX_HEARTS_SPOUSE  14      Utility.cs:2914     marriage moves it again
+WEDDING_DELAY      3       NPC.cs:1095         worldDate.TotalDays += 3
+
+Farmer.resetFriendshipsForNewDay (Farmer.cs:2540-2563) verbatim in shape, and
+note the two penalties STACK — this is not an if/else chain all the way down:
+  spouse and you did not talk  -> -20
+  dating, under 2500, no talk  -> -8
+  talked                       -> clear the flag, no further decay
+  else, if (not-undated and < 2500) or (undated and < 2000)   -> -2 ON TOP
+  so an ignored partner below 2500 actually loses 10 a day, and an ignored
+  spouse below 2500 loses 22.
+
+THE FIVE DESIGN FACTS UNDER IT, AND THIS IS THE GOOD PART:
+1. THE CEILING IS THE STORY, AND IT IS A HARD WALL. Utility.cs:2901
+   GetMaximumHeartsForCharacter returns 10 for a villager, but EIGHT for a
+   DATABLE one you are not dating, and changeFriendship clamps at
+   (maxHearts + 1) * 250 - 1. So an undated love interest hard-caps at 2249
+   points and NO amount of gifting moves it. You cannot grind past a
+   relationship, you have to ACT — accept the bouquet, and the ceiling becomes
+   10 hearts (2749); marry, and it becomes 14 (3749). Progress gates are STATE
+   CHANGES, not point totals. A second, softer wall sits under it: the -2/day
+   neglect decay stops applying to an undated villager once they pass 2000
+   (Farmer.cs:2557), so the game stops punishing you for parking there.
+2. GIFTS ARE RATIONED, NOT PRICED. One a day, two a week. The limit is what
+   makes a gift mean something; without it, the whole system is a money check.
+   Birthdays bypass the ration AND pay x8, which is why players write the
+   calendar down. One number turned a date into an event.
+3. IGNORING SOMEONE COSTS MORE THE CLOSER YOU ARE. -2 stranger, -8 dating, -20
+   spouse. The mechanic gets HARDER after the wedding, which is the exact
+   opposite of how a reward system is usually built, and it is why the marriage
+   keeps being a thing you do instead of a trophy you won.
+4. TALKING IS FREE, SMALL, AND DAILY (+20, once). It exactly cancels ten days of
+   stranger decay. The floor of the system is "show up".
+5. A HATED GIFT IS -40, HALF a loved gift's +80. Getting it wrong is cheap
+   enough to risk and expensive enough to learn from.
+
+CONTENT (ours): the gift taste lists, birthdays, and who is datable. Real shape,
+our stand-ins.
+
+NOT IMPLEMENTED, ON PURPOSE: heart events, dialogue, jealousy (NPC.cs:1545 has a
+real 0.3 - luck chance of a dating partner reacting badly to you gifting a
+rival), children, divorce.
+
+==============================================================================
+HOW TO RE-VERIFY
+==============================================================================
+  node gates/lab_gate.js
+It opens the page in a real browser at iPhone portrait size and PLAYS each loop:
+catches a fish by chasing the bar and asserts the exact catch/loss rates and the
+level-up bar growth; tills/seeds/waters/sleeps a plot and asserts a dry tile
+loses exactly zero days while a watered one advances exactly one phase-day, that
+Speed-Gro removes the right number of days, and that a summer crop planted in
+spring dies at the rollover; and walks a villager from stranger to married,
+asserting the 2000 wall holds against unlimited gifts, that the ration blocks the
+third gift of a week, that a birthday pays x8, and that the wedding lands 3 days
+after the pendant.
+==============================================================================

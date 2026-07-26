@@ -1,3 +1,17 @@
+> **RULED 7/26, SAME DAY, READ THIS FIRST.** Paolo rejected this study's premise:
+> "who said I wanted to test the walking... this does not help me right now."
+> Two things follow and both are LOCKED.
+> (1) THE LAB DOES NOT STUDY MOVEMENT. A lab emulation is a game's MECHANICS,
+> three or more, playable end to end — see
+> laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md. LAB-02 (fishing,
+> farming, marriage) is what this lane should have shipped first.
+> (2) SECTION 3'S FORK IS CLOSED. He ruled Bohemia's movement in the same breath:
+> "the world moves when you move, where the world moves when you spend time taking
+> an action". Options A/B/C below are ANSWERED —
+> laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md. Nothing in section 4
+> is a live build item any more except by his say-so.
+> This file is kept as the record of what was measured, not as a recommendation.
+
 # LAB 01 — PATTERN NOTE: HOW STARDEW'S TOWN WALK IS BUILT, AND WHAT BOHEMIA SHOULD TAKE
 
 Lane: LAB (law: `laws/BOHEMIA_ADDENDUM_THE_REFERENCE_LAB_7_26_26.md`, Paolo 7/26/26)
@@ -153,7 +167,13 @@ coarser**: it teleports a full tile at a time with a hitch on the first repeat.
 That combination — big discrete jumps, high rate, a hitch — is most of why the
 overworld reads as stiff. It is not the art.
 
-**The deep tension, and it is a ruling, not a task:** Bohemia's 120 BPM LAW
+**RULED THE SAME DAY — the fork below is CLOSED, kept for the record.** Paolo:
+"the world moves when you move, where the world moves when you spend time taking
+an action." Option 1 is effectively what he described, option 3 is dead, and an
+action-cost table is canon he has not written yet
+(laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md).
+
+**The deep tension, as it was written before he ruled it:** Bohemia's 120 BPM LAW
 (I-MOVE-YOU-MOVE) and OCCUPANCY LAW (one body per cell, including the player)
 make the world turn-based on the beat. Stardew's walk is continuous and
 sub-pixel and has no turn at all. You cannot have both in the same surface.
@@ -170,8 +190,10 @@ The three honest options, all Paolo's call:
 3. **Free walking everywhere**, which retires I-MOVE-YOU-MOVE for the overworld.
    That is a canon change and is not mine to propose further.
 
-**[PENDING Paolo] — which of the three.** Nothing in section 4 below assumes an
-answer; every item there is legal under option 1.
+**RULED, not [PENDING Paolo] any more.** He picked the shape himself before this
+note reached him: the world moves when you spend time on an action. What is still
+his and still unwritten is the ACTION COST TABLE (what a step costs versus a swing
+versus a search), and no lane invents that.
 
 ---
 

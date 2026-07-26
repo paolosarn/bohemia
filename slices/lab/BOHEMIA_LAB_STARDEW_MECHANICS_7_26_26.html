@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 02 — STARDEW MECHANICS: FISHING / FARMING / MARRIAGE (REFERENCE)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 02 — STARDEW VALLEY, THE ACTUAL MECHANICS
+  laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md (Paolo 7/26/26)
+
+  THREE MECHANICS, EACH PLAYABLE END TO END:
+    FISHING   the real bobber-bar minigame, the real physics, the real fish
+    FARMING   till -> seed -> water -> sleep -> grow -> harvest -> regrow, and
+              the real reasons a crop stalls or dies
+    MARRIAGE  stranger -> friend -> dating -> engaged -> married, on the real
+              point economy (gifts, talk, decay, the caps that gate each step)
+
+  EVERY RULE IS READ OFF THE DECOMPILED 1.5.6 SOURCE with its file:line
+  recorded in records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt.
+  Where the master keeps a number in CONTENT DATA instead of code (crop phase
+  tables, fish difficulty tables, gift lists) it is marked CONTENT below and
+  stands in as ours — the MECHANISM is what is copied exactly.
+
+  NOT BOHEMIA. No engine module, no bank, no alpha, placeholder art only.
+  gates/lab_gate.js plays all three loops in a real browser.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#14161c; color:#e8e6df;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:manipulation; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#b8342a; color:#fff; font-size:10px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #bar { flex:0 0 auto; display:flex; gap:3px; padding:4px 5px 0; background:#191c24; }
+  .tab { flex:1 1 0; padding:8px 2px; font-size:11px; font-weight:700; letter-spacing:.04em;
+    border:1px solid #39415a; border-bottom:none; border-radius:4px 4px 0 0;
+    background:#22262f; color:#8b93a8; }
+  .tab.on { background:#2f3a5c; color:#dfe6ff; border-color:#7f8cb8; }
+  #clockbar { flex:0 0 auto; display:flex; justify-content:space-between; align-items:center;
+    gap:6px; padding:4px 6px; background:#111319; border-top:1px solid #2c3140;
+    border-bottom:1px solid #2c3140; font-size:10px; }
+  #stage { position:relative; flex:1 1 auto; min-height:0; overflow:hidden; }
+  .panel { position:absolute; inset:0; display:none; flex-direction:column; }
+  .panel.on { display:flex; }
+  canvas { display:block; image-rendering:pixelated; }
+  #ctl { flex:0 0 auto; padding:5px 6px 8px; background:#191c24; border-top:1px solid #2c3140; }
+  .row { display:flex; flex-wrap:wrap; gap:4px; }
+  button {
+    font-family:inherit; font-size:10px; padding:7px 8px; border-radius:4px;
+    border:1px solid #454d63; background:#22262f; color:#c3cadb; letter-spacing:.02em; }
+  button.big { font-size:13px; font-weight:700; padding:11px 10px; flex:1 1 auto;
+    background:#2f3a5c; border-color:#7f8cb8; color:#dfe6ff; }
+  button.on { background:#2d4a30; border-color:#5f8c63; color:#d6f0d8; }
+  button:disabled { opacity:.4; }
+  .log { flex:1 1 auto; overflow:auto; padding:5px 7px; font-size:10.5px; line-height:1.45;
+    background:#0e1015; }
+  .log div { border-bottom:1px solid #1c2029; padding:1px 0; }
+  .good { color:#8ce39a; } .bad { color:#ff9b8f; } .note { color:#8fb8ff; }
+  .grid { display:grid; gap:3px; padding:6px; }
+  .cellbtn { aspect-ratio:1; border-radius:3px; border:1px solid #2c3140; font-size:8px;
+    display:flex; align-items:center; justify-content:center; color:#0c0c0c; font-weight:700; }
+  .hearts { font-size:12px; letter-spacing:1px; color:#ff6f8a; }
+  table.st { width:100%; border-collapse:collapse; font-size:10px; }
+  table.st td { padding:1px 3px; border-bottom:1px solid #1c2029; }
+  table.st td.n { color:#8fd0ff; } table.st td.v { text-align:right; color:#fff; }
+  #teardown { position:absolute; inset:0; background:rgba(8,9,12,.97); overflow:auto;
+    padding:10px 12px; font-size:10px; line-height:1.5; display:none; z-index:5; }
+  #teardown.open { display:block; }
+  #teardown h3 { margin:8px 0 4px; font-size:11px; color:#ffd76a; }
+  .wm { position:absolute; right:5px; bottom:3px; font-size:8px; color:#fff; opacity:.3; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE EMULATION — NOT BOHEMIA.</b> Stardew Valley's real mechanics,
+    built from the game's own code. Placeholder art.</div>
+
+  <div id="bar">
+    <button class="tab on" id="tab_fish">FISHING</button>
+    <button class="tab" id="tab_farm">FARMING</button>
+    <button class="tab" id="tab_love">MARRIAGE</button>
+  </div>
+
+  <div id="clockbar">
+    <span id="datetxt">SPRING 1 · MON</span>
+    <span id="goldtxt">0g</span>
+    <button id="btn_sleep">SLEEP &rarr; NEXT DAY</button>
+    <button id="btn_teardown">NUMBERS</button>
+  </div>
+
+  <div id="stage">
+
+    <!-- ============================ FISHING ============================ -->
+    <div class="panel on" id="p_fish">
+      <div id="fishwrap" style="flex:1 1 auto;min-height:0;background:#0b1a26">
+        <canvas id="fishcv"></canvas>
+      </div>
+      <div class="log" id="fishlog" style="flex:0 0 118px"></div>
+      <div id="ctl">
+        <div class="row" style="margin-bottom:4px">
+          <button class="big" id="btn_cast">CAST</button>
+          <button class="big" id="btn_reel" disabled>HOLD TO REEL</button>
+        </div>
+        <div class="row" id="fishpick"></div>
+      </div>
+    </div>
+
+    <!-- ============================ FARMING ============================ -->
+    <div class="panel" id="p_farm">
+      <div class="grid" id="farmgrid" style="grid-template-columns:repeat(6,1fr);flex:0 0 auto"></div>
+      <div class="log" id="farmlog"></div>
+      <div id="ctl">
+        <div class="row" style="margin-bottom:4px">
+          <button class="big on" id="tool_hoe">HOE</button>
+          <button class="big" id="tool_can">WATER</button>
+          <button class="big" id="tool_seed">SEED</button>
+          <button class="big" id="tool_pick">HARVEST</button>
+        </div>
+        <div class="row" id="seedpick"></div>
+        <div class="row" style="margin-top:4px" id="fertpick"></div>
+      </div>
+    </div>
+
+    <!-- =========================== MARRIAGE ============================ -->
+    <div class="panel" id="p_love">
+      <div style="flex:0 0 auto;padding:6px 7px;background:#0f1219">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <b id="npcname" style="font-size:13px">EMILY</b>
+          <span class="hearts" id="npchearts"></span>
+        </div>
+        <table class="st" id="lovestat"></table>
+      </div>
+      <div class="log" id="lovelog"></div>
+      <div id="ctl">
+        <div class="row" style="margin-bottom:4px">
+          <button class="big" id="btn_talk">TALK (+20)</button>
+          <button class="big" id="btn_court">COURT</button>
+        </div>
+        <div class="row" id="giftpick"></div>
+      </div>
+    </div>
+
+    <div id="teardown"><button id="closetd">CLOSE</button><div id="tdbody"></div></div>
+    <div class="wm">PLACEHOLDER ART</div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* =========================================================================
+   THE NUMBERS. Read off the decompiled Stardew Valley 1.5.6 source. Keys are
+   cross-checked against the teardown record by gates/lab_gate.js, which fails
+   the build if any key loses its source citation.
+   ========================================================================= */
+var SDV = {
+  /* --- fishing: Menus/BobberBar.cs --- */
+  BAR_TRACK:          568,    /* bar travel space, px                        */
+  BAR_BASE_H:         96,     /* bobberBarHeight base                        */
+  BAR_H_PER_LEVEL:    8,      /* + fishingLevel * 8                          */
+  BOBBER_TOP:         0,      /* bobberPosition clamp low                    */
+  BOBBER_BOTTOM:      532,    /* bobberPosition clamp high                   */
+  BOBBER_START:       508,    /* where the fish starts                       */
+  CATCH_START:        0.3,    /* distanceFromCatching at cast                */
+  CATCH_GAIN:         0.002,  /* +1/500 per tick while the fish is in the bar */
+  CATCH_LOSS:         0.003,  /* -3/1000 per tick while it is not            */
+  BAR_GRAVITY:        0.25,   /* bar accel down when you are not reeling     */
+  BAR_LIFT:           0.25,   /* bar accel up while you reel                 */
+  BAR_IN_DAMP:        0.6,    /* both are * 0.6 while the fish is in the bar */
+  BAR_BOUNCE:         0.6667, /* -2/3 of speed at either end                 */
+  FISH_SMOOTH:        5,      /* bobberSpeed chases its target over 5 ticks  */
+  FLOAT_ACCEL:        0.01,   /* floater/sinker accel step per tick          */
+  FLOAT_MAX:          1.5,    /* and its clamp                              */
+  SIZE_DROP_MS:       800,    /* fish loses 1 inch per 800ms of struggle     */
+  FISH_ABOVE:         16,     /* the fish's own extent above its position    */
+  FISH_BELOW:         12,     /* and below: a 28-unit body inside a 96 bar   */
+  /* --- farming: TerrainFeatures/HoeDirt.cs + Crop.cs --- */
+  DRY:                0,      /* HoeDirt.state dry                           */
+  WATERED:            1,      /* HoeDirt.state watered                       */
+  SPEEDGRO:           0.10,   /* Speed-Gro removes 10% of total growth days  */
+  SPEEDGRO_DELUXE:    0.25,   /* Deluxe Speed-Gro                            */
+  SPEEDGRO_HYPER:     0.33,   /* Hyper Speed-Gro                             */
+  RETAIN_BASIC:       0.33,   /* Basic Retaining Soil: chance soil stays wet */
+  RETAIN_QUALITY:     0.66,   /* Quality Retaining Soil                      */
+  RETAIN_DELUXE:      1.00,   /* Deluxe Retaining Soil: always               */
+  /* --- marriage: Farmer.cs + NPC.cs + Friendship.cs --- */
+  PER_HEART:          250,    /* 250 friendship points per heart             */
+  TALK_POINTS:        20,     /* talkToFriend default, once a day            */
+  GIFT_LOVE:          80,     /* receiveGift, loved                          */
+  GIFT_LIKE:          45,     /* liked                                       */
+  GIFT_NEUTRAL:       20,     /* neutral                                     */
+  GIFT_DISLIKE:      -20,     /* disliked                                    */
+  GIFT_HATE:         -40,     /* hated                                       */
+  GIFT_BIRTHDAY_X:    8,      /* friendshipChangeMultiplier on a birthday    */
+  GIFT_SILVER_X:      1.25,   /* silver-quality item multiplier              */
+  GIFT_GOLD_X:        1.5,    /* gold-quality item multiplier                */
+  GIFTS_PER_DAY:      1,      /* GiftsToday limit                            */
+  GIFTS_PER_WEEK:     2,      /* GiftsThisWeek limit                         */
+  DECAY_STRANGER:     2,      /* -2 a day if you did not talk to them        */
+  DECAY_DATING:       8,      /* -8 a day while dating, below 2500           */
+  DECAY_SPOUSE:      20,      /* -20 a day if you ignore your spouse         */
+  DECAY_FLOOR_UNDATED: 2000,  /* undated: the -2 a day only bites below this */
+  BOUQUET_AT:         2000,   /* the bouquet becomes available               */
+  PENDANT_AT:         2500,   /* the mermaid's pendant becomes available     */
+  MAX_HEARTS_UNDATED: 8,      /* THE WALL: a datable villager caps at 8       */
+  MAX_HEARTS_DATING:  10,     /* dating moves it to 10                       */
+  MAX_HEARTS_SPOUSE:  14,     /* marriage moves it to 14                     */
+  WEDDING_DELAY:      3       /* days from accepting the pendant to the wedding */
+};
+var TICK = 1000 / 60;
+
+/* =========================================================================
+   CONTENT (declared, not pretended). The master keeps these in Content/Data
+   tables, not in code, so they stand in as ours. The MECHANISM above is exact.
+   ========================================================================= */
+var FISH = [                    /* name, difficulty 0-110, motion            */
+  { n: 'CARP',     d: 15,  m: 'mixed',   min: 12, max: 40 },
+  { n: 'SARDINE',  d: 30,  m: 'dart',    min: 7,  max: 20 },
+  { n: 'PIKE',     d: 60,  m: 'dart',    min: 15, max: 45 },
+  { n: 'CATFISH',  d: 75,  m: 'mixed',   min: 25, max: 72 },
+  { n: 'OCTOPUS',  d: 95,  m: 'sinker',  min: 12, max: 48 },
+  { n: 'LEGEND',   d: 110, m: 'mixed',   min: 50, max: 82 }
+];
+var MOTION = { mixed: 0, dart: 1, smooth: 2, sinker: 3, floater: 4 };
+var CROPS = [                   /* phase day list + regrow, as Crops.xnb does */
+  { n: 'PARSNIP',   phases: [1, 1, 1, 1],    regrow: -1, sell: 35,  seasons: ['SPRING'] },
+  { n: 'POTATO',    phases: [1, 1, 1, 2, 1], regrow: -1, sell: 80,  seasons: ['SPRING'] },
+  { n: 'GREENBEAN', phases: [1, 1, 1, 3, 4], regrow: 3,  sell: 40,  seasons: ['SPRING'] },
+  { n: 'MELON',     phases: [1, 2, 3, 3, 3], regrow: -1, sell: 250, seasons: ['SUMMER'] }
+];
+var FERTS = [
+  { n: 'NONE',        speed: 0,                     retain: 0 },
+  { n: 'SPEED-GRO',   speed: SDV.SPEEDGRO,          retain: 0 },
+  { n: 'DELUXE SPD',  speed: SDV.SPEEDGRO_DELUXE,   retain: 0 },
+  { n: 'RETAIN Q',    speed: 0,                     retain: SDV.RETAIN_QUALITY }
+];
+var GIFTS = [
+  { n: 'AMETHYST',  taste: 'LOVE',    q: 0 },
+  { n: 'WINE (GOLD)', taste: 'LIKE',  q: 2 },
+  { n: 'DAFFODIL',  taste: 'NEUTRAL', q: 0 },
+  { n: 'CLAY',      taste: 'DISLIKE', q: 0 },
+  { n: 'SALMONBERRY', taste: 'HATE',  q: 0 }
+];
+var TASTE_POINTS = { LOVE: SDV.GIFT_LOVE, LIKE: SDV.GIFT_LIKE, NEUTRAL: SDV.GIFT_NEUTRAL,
+                     DISLIKE: SDV.GIFT_DISLIKE, HATE: SDV.GIFT_HATE };
+var DAYNAMES = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+
+/* =========================================================================
+   SHARED WORLD: the day, which every mechanic hangs off
+   ========================================================================= */
+var W = { day: 1, season: 'SPRING', gold: 0, fishingLevel: 0, tab: 'fish' };
+function dayName() { return DAYNAMES[(W.day - 1) % 7]; }
+function isMonday() { return dayName() === 'MON'; }
+
+function log(where, cls, msg) {
+  var el = document.getElementById(where), d = document.createElement('div');
+  d.className = cls || ''; d.textContent = msg;
+  el.insertBefore(d, el.firstChild);
+  while (el.children.length > 60) el.removeChild(el.lastChild);
+}
+
+/* =========================================================================
+   MECHANIC 1 — FISHING (Menus/BobberBar.cs, rule for rule)
+
+   The whole minigame is: a bar you push up by holding, gravity pulling it
+   down, a fish that picks random targets and eases toward them, and one
+   number that grows while the fish is inside the bar and shrinks while it is
+   not. That is it. Everything else is dressing.
+   ========================================================================= */
+var F = {
+  live: false, fish: null, difficulty: 0, motionType: 0,
+  barH: 0, barPos: 0, barSpeed: 0,
+  bobPos: 0, bobSpeed: 0, bobTarget: 0, bobAccel: 0, floatAccel: 0,
+  progress: 0, reeling: false, perfect: true, size: 0, sizeTimer: 0, caught: 0
+};
+/* The randomness is swappable so the gate can measure catch RATES that mean
+   something instead of a coin flip. Play uses Math.random; the gate seeds it. */
+var RNG = Math.random;
+function rnd() { return RNG(); }
+function rndInt(a, b) { return Math.floor(a + RNG() * (b - a)); }
+
+function cast(fish) {
+  F.fish = fish;
+  F.difficulty = fish.d;
+  F.motionType = MOTION[fish.m];
+  /* bobberBarHeight = 96 + FishingLevel * 8  (BobberBar.cs:90) */
+  F.barH = SDV.BAR_BASE_H + W.fishingLevel * SDV.BAR_H_PER_LEVEL;
+  F.barPos = SDV.BAR_TRACK - F.barH;                    /* :145 */
+  F.barSpeed = 0;
+  F.bobPos = SDV.BOBBER_START;                          /* :146 */
+  F.bobTarget = (100 - F.difficulty) / 100 * 548;       /* :147 */
+  F.bobSpeed = 0; F.bobAccel = 0; F.floatAccel = 0;
+  F.progress = SDV.CATCH_START;                         /* :74  */
+  F.perfect = true;
+  F.size = Math.round(fish.min + (fish.max - fish.min) * rnd()) + 1;
+  F.sizeTimer = SDV.SIZE_DROP_MS;
+  F.live = true;
+  document.getElementById('btn_reel').disabled = false;
+  log('fishlog', 'note', 'HOOKED ' + fish.n + ' · difficulty ' + fish.d + ' · ' + fish.m +
+    ' · your bar is ' + F.barH + 'px of ' + SDV.BAR_TRACK);
+}
+
+function fishTick(dt) {
+  if (!F.live) return;
+  var ticks = dt / TICK;
+
+  /* --- the fish picks a new target, more often the harder it is (:259) --- */
+  if (rnd() < F.difficulty * (F.motionType === 2 ? 20 : 1) / 4000 &&
+      (F.motionType !== 2 || F.bobTarget === -1)) {
+    var room = 548 - F.bobPos;
+    var scale = Math.min(99, F.difficulty + rndInt(10, 45)) / 100;
+    F.bobTarget = F.bobPos + rndInt(Math.min(-F.bobPos, room), room) * scale;
+  }
+  /* --- floaters rise, sinkers sink, forever (:266) --- */
+  if (F.motionType === 4) F.floatAccel = Math.max(F.floatAccel - SDV.FLOAT_ACCEL, -SDV.FLOAT_MAX);
+  else if (F.motionType === 3) F.floatAccel = Math.min(F.floatAccel + SDV.FLOAT_ACCEL, SDV.FLOAT_MAX);
+
+  /* --- ease toward the target; the harder the fish, the snappier (:270).
+     The else runs when the target is -1 TOO — that is the fish's resting
+     state re-rolling a small nearby target, and it is what stops a fish
+     drifting at a constant speed into the floor. Getting that else condition
+     wrong made every fish above difficulty 30 uncatchable. --- */
+  if (Math.abs(F.bobPos - F.bobTarget) > 3 && F.bobTarget !== -1) {
+    F.bobAccel = (F.bobTarget - F.bobPos) / (rndInt(10, 30) + (100 - Math.min(100, F.difficulty)));
+    F.bobSpeed += (F.bobAccel - F.bobSpeed) / SDV.FISH_SMOOTH;
+  } else {
+    F.bobTarget = (F.motionType === 2 || rnd() >= F.difficulty / 2000) ? -1
+      : F.bobPos + (rnd() < 0.5 ? rndInt(-100, -51) : rndInt(50, 101));
+  }
+  /* --- darters just jump (:277) --- */
+  if (F.motionType === 1 && rnd() < F.difficulty / 1000) {
+    F.bobTarget = F.bobPos + (rnd() < 0.5 ? rndInt(-100 - F.difficulty * 2, -51)
+                                          : rndInt(50, 101 + F.difficulty * 2));
+  }
+  F.bobTarget = Math.max(-1, Math.min(F.bobTarget, 548));   /* :279 */
+  F.bobPos += (F.bobSpeed + F.floatAccel) * ticks;      /* :280 */
+  if (F.bobPos > SDV.BOBBER_BOTTOM) F.bobPos = SDV.BOBBER_BOTTOM;
+  if (F.bobPos < SDV.BOBBER_TOP) F.bobPos = SDV.BOBBER_TOP;
+
+  /* --- is the fish inside the bar (:285). The master's test carries a -32
+     sprite-origin offset between the two coordinate spaces; we have no sprites,
+     so the offset is dropped and the fish is DRAWN at exactly the extent that
+     is TESTED (-16..+12, a 28-unit fish). The mechanism is unchanged: a 28-unit
+     fish must fit entirely inside a 96-unit bar, so the tolerance is 68 of the
+     568 track at level 0. Declared in the teardown as a divergence. --- */
+  var inBar = (F.bobPos + SDV.FISH_BELOW <= F.barPos + F.barH) && (F.bobPos - SDV.FISH_ABOVE >= F.barPos);
+  if (F.bobPos >= SDV.BAR_TRACK - 20 - F.barH && F.barPos >= SDV.BAR_TRACK - F.barH - 4) inBar = true;
+
+  /* --- the bar: constant accel, damped while the fish is inside (:292) --- */
+  var accel = F.reeling ? -SDV.BAR_LIFT : SDV.BAR_GRAVITY;
+  /* :293 — reeling while already pinned at either end kills the stored speed,
+     so you do not spring off the wall when you let go */
+  if (F.reeling && (F.barPos === 0 || F.barPos === SDV.BAR_TRACK - F.barH)) F.barSpeed = 0;
+  if (inBar) accel *= SDV.BAR_IN_DAMP;
+  F.barSpeed += accel * ticks;
+  F.barPos += F.barSpeed * ticks;
+  if (F.barPos + F.barH > SDV.BAR_TRACK) {              /* bounce off the bottom */
+    F.barPos = SDV.BAR_TRACK - F.barH; F.barSpeed = -F.barSpeed * SDV.BAR_BOUNCE;
+  } else if (F.barPos < 0) {                            /* and off the top */
+    F.barPos = 0; F.barSpeed = -F.barSpeed * SDV.BAR_BOUNCE;
+  }
+
+  /* --- the only number that matters (:367 / :398) --- */
+  if (inBar) F.progress += SDV.CATCH_GAIN * ticks;
+  else {
+    F.progress -= SDV.CATCH_LOSS * ticks;
+    F.perfect = false;                                  /* :385 */
+    F.sizeTimer -= dt;
+    if (F.sizeTimer <= 0) { F.size = Math.max(F.fish.min, F.size - 1); F.sizeTimer = SDV.SIZE_DROP_MS; }
+  }
+  if (F.progress >= 1) endFish(true);
+  else if (F.progress <= 0) endFish(false);
+}
+
+function endFish(won) {
+  F.live = false; F.reeling = false;
+  document.getElementById('btn_reel').disabled = true;
+  if (won) {
+    var gold = Math.round(F.fish.d * 2 + F.size * 3) * (F.perfect ? 2 : 1);
+    W.gold += gold; F.caught++;
+    if (F.caught % 2 === 0 && W.fishingLevel < 10) {
+      W.fishingLevel++;
+      log('fishlog', 'note', 'FISHING LEVEL ' + W.fishingLevel + ' — your bar is now ' +
+        (SDV.BAR_BASE_H + W.fishingLevel * SDV.BAR_H_PER_LEVEL) + 'px. That IS the whole skill tree.');
+    }
+    log('fishlog', 'good', 'CAUGHT ' + F.fish.n + ' · ' + F.size + ' inches' +
+      (F.perfect ? ' · PERFECT (never left the bar)' : '') + ' · +' + gold + 'g');
+  } else {
+    log('fishlog', 'bad', 'IT GOT AWAY. ' + F.fish.n + ' ran the bar out.');
+  }
+  paintGold();
+}
+
+var fcv = document.getElementById('fishcv'), fctx = fcv.getContext('2d');
+var FW = 120, FH = 300;
+function resizeFish() {
+  var wrap = document.getElementById('fishwrap'), r = wrap.getBoundingClientRect();
+  FW = Math.max(80, Math.round(r.width)); FH = Math.max(120, Math.round(r.height));
+  fcv.width = FW; fcv.height = FH;
+  fcv.style.width = FW + 'px'; fcv.style.height = FH + 'px';
+}
+window.addEventListener('resize', resizeFish);
+function drawFish() {
+  var scale = FH / SDV.BAR_TRACK;
+  var colW = Math.min(160, Math.round(FW * 0.44)), colX = Math.round((FW - colW) / 2);
+  fctx.fillStyle = '#0b1a26'; fctx.fillRect(0, 0, FW, FH);
+  fctx.fillStyle = '#123a52'; fctx.fillRect(colX, 0, colW, FH);
+  /* the depth marks, so the column reads as water and not a strip */
+  fctx.fillStyle = 'rgba(255,255,255,.05)';
+  for (var d = 0; d < FH; d += 24) fctx.fillRect(colX, d, colW, 1);
+  if (!F.live) {
+    fctx.fillStyle = '#5d7b8c'; fctx.font = '11px monospace'; fctx.textAlign = 'center';
+    fctx.fillText('CAST TO FISH', FW / 2, FH / 2);
+    fctx.font = '9px monospace';
+    fctx.fillText('hold REEL to lift the bar', FW / 2, FH / 2 + 16);
+    fctx.textAlign = 'left';
+    return;
+  }
+  /* the green bar you control */
+  var barY = Math.round(F.barPos * scale), barHpx = Math.max(3, Math.round(F.barH * scale));
+  fctx.fillStyle = 'rgba(120,220,140,.30)'; fctx.fillRect(colX, barY, colW, barHpx);
+  fctx.strokeStyle = '#7adc8c'; fctx.lineWidth = 2;
+  fctx.strokeRect(colX + 1, barY + 1, colW - 2, barHpx - 2);
+  /* the fish */
+  /* drawn at exactly the extent the collision test uses, so what you see is
+     what is measured */
+  var fy = Math.round((F.bobPos - SDV.FISH_ABOVE) * scale);
+  var fh = Math.max(4, Math.round((SDV.FISH_ABOVE + SDV.FISH_BELOW) * scale));
+  var fx = colX + Math.round(colW / 2) - 18;
+  fctx.fillStyle = '#ffd24a'; fctx.fillRect(fx, fy, 36, fh);
+  fctx.fillStyle = '#e0a516'; fctx.fillRect(fx - 10, fy + Math.round(fh * 0.28), 11, Math.max(2, Math.round(fh * 0.44)));
+  fctx.fillStyle = '#1a1208'; fctx.fillRect(fx + 27, fy + Math.round(fh * 0.28), 3, 3);
+  /* the progress rail */
+  fctx.fillStyle = '#20303c'; fctx.fillRect(6, 0, 22, FH);
+  var ph = Math.round(Math.max(0, Math.min(1, F.progress)) * FH);
+  fctx.fillStyle = F.progress > 0.5 ? '#7adc8c' : (F.progress > 0.2 ? '#ffd24a' : '#ff7060');
+  fctx.fillRect(6, FH - ph, 22, ph);
+  fctx.fillStyle = '#dfe6ff'; fctx.font = 'bold 11px monospace';
+  fctx.fillText(Math.round(F.progress * 100) + '%', 5, FH - 5);
+  fctx.fillStyle = '#9fb3c0'; fctx.font = '10px monospace';
+  fctx.fillText(F.fish.n + ' ' + F.size + '"', colX + colW + 6, 14);
+  fctx.fillText('diff ' + F.difficulty, colX + colW + 6, 28);
+  fctx.fillText('bar ' + F.barH, colX + colW + 6, 42);
+}
+
+/* =========================================================================
+   MECHANIC 2 — FARMING (Crop.cs newDay + TerrainFeatures/HoeDirt.cs)
+
+   The rule that IS farming: a crop advances a day ONLY if its soil was
+   watered at the day rollover. Not watered is not death, it is a wasted day.
+   Wrong season outdoors IS death. Everything else is fertilizer maths.
+   ========================================================================= */
+var PLOT_W = 6, PLOT_H = 5, PLOT = [];
+var farmTool = 'hoe', seedPick = 0, fertPick = 0;
+
+function newTile() { return { tilled: false, state: SDV.DRY, crop: null, fert: 0 }; }
+for (var i = 0; i < PLOT_W * PLOT_H; i++) PLOT.push(newTile());
+
+function plantCrop(t, def) {
+  /* Crop.cs:210 — phaseDays is the list, plus a 99999 terminator */
+  var phases = def.phases.slice();
+  var total = phases.reduce(function (a, b) { return a + b; }, 0);
+  var speed = FERTS[t.fert].speed;
+  /* HoeDirt.cs:382-400 — speed-gro removes a PERCENTAGE of total days, taken
+     off the phases from the front, never off the last one. */
+  var remove = Math.ceil(total * speed);
+  var trimmed = phases.slice();
+  for (var pass = 0; remove > 0 && pass < 3; pass++) {
+    for (var k = 0; k < trimmed.length && remove > 0; k++) {
+      if (trimmed[k] > (k === 0 ? 1 : 0)) { trimmed[k]--; remove--; }
+    }
+  }
+  t.crop = { def: def, phases: trimmed, phase: 0, dayOfPhase: 0, dead: false,
+             fullyGrown: false, regrowLeft: 0, planted: W.day, seasons: def.seasons };
+}
+function cropReady(c) { return !c.dead && (c.phase >= c.phases.length - 1) && (!c.fullyGrown || c.regrowLeft <= 0); }
+
+function farmNewDay() {
+  var grew = 0, stalled = 0, died = 0, dried = 0;
+  PLOT.forEach(function (t) {
+    if (t.crop && !t.crop.dead) {
+      /* Crop.newDay: wrong season outdoors kills it (Crop.cs:516) */
+      if (t.crop.seasons.indexOf(W.season) < 0) { t.crop.dead = true; died++; return; }
+      /* only a WATERED tile advances (Crop.cs:522) */
+      if (t.state === SDV.WATERED) {
+        if (t.crop.fullyGrown) { if (t.crop.regrowLeft > 0) t.crop.regrowLeft--; }
+        else {
+          var need = t.crop.phases[Math.min(t.crop.phases.length - 1, t.crop.phase)];
+          t.crop.dayOfPhase = Math.min(t.crop.dayOfPhase + 1, need);
+          if (t.crop.dayOfPhase >= need && t.crop.phase < t.crop.phases.length - 1) {
+            t.crop.phase++; t.crop.dayOfPhase = 0;
+          }
+        }
+        grew++;
+      } else stalled++;
+    }
+    /* HoeDirt.cs:606 — the soil dries overnight unless retaining soil holds it */
+    if (t.state === SDV.WATERED) {
+      var keep = FERTS[t.fert].retain;
+      if (!(keep >= 1 || Math.random() < keep)) { t.state = SDV.DRY; dried++; }
+    }
+  });
+  if (grew || stalled || died) {
+    log('farmlog', stalled || died ? 'bad' : 'good',
+      'DAY ' + W.day + ': ' + grew + ' grew, ' + stalled + ' STALLED (dry soil, a wasted day), ' +
+      died + ' died out of season, ' + dried + ' tiles dried out.');
+  }
+}
+
+function farmTap(idx) {
+  var t = PLOT[idx];
+  if (farmTool === 'hoe') {
+    if (t.crop) { log('farmlog', 'bad', 'There is a crop there.'); return; }
+    t.tilled = !t.tilled; t.state = SDV.DRY;
+    log('farmlog', '', t.tilled ? 'Tilled.' : 'Cleared back to grass.');
+  } else if (farmTool === 'can') {
+    if (!t.tilled) { log('farmlog', 'bad', 'Nothing to water. Till it first.'); return; }
+    t.state = SDV.WATERED; log('farmlog', '', 'Watered. It grows at the day rollover, not now.');
+  } else if (farmTool === 'seed') {
+    if (!t.tilled) { log('farmlog', 'bad', 'Till it first.'); return; }
+    if (t.crop) { log('farmlog', 'bad', 'Already planted.'); return; }
+    t.fert = fertPick;
+    plantCrop(t, CROPS[seedPick]);
+    var days = t.crop.phases.reduce(function (a, b) { return a + b; }, 0);
+    log('farmlog', '', 'Planted ' + CROPS[seedPick].n + ' with ' + FERTS[fertPick].n +
+      ' · ' + days + ' watered days to harvest' +
+      (CROPS[seedPick].regrow > 0 ? ', then every ' + CROPS[seedPick].regrow + ' days' : ''));
+  } else if (farmTool === 'pick') {
+    if (!t.crop) { log('farmlog', 'bad', 'Nothing there.'); return; }
+    if (t.crop.dead) { t.crop = null; log('farmlog', '', 'Cleared the dead crop.'); }
+    else if (!cropReady(t.crop)) {
+      var need = t.crop.phases[Math.min(t.crop.phases.length - 1, t.crop.phase)];
+      log('farmlog', 'bad', 'Not ready. Phase ' + (t.crop.phase + 1) + '/' + t.crop.phases.length +
+        ', day ' + t.crop.dayOfPhase + '/' + need + '.');
+    } else {
+      W.gold += t.crop.def.sell;
+      log('farmlog', 'good', 'Harvested ' + t.crop.def.n + ' · +' + t.crop.def.sell + 'g');
+      /* Crop.cs:246 — a regrowing crop resets to the last phase and counts down */
+      if (t.crop.def.regrow > 0) { t.crop.fullyGrown = true; t.crop.regrowLeft = t.crop.def.regrow; }
+      else t.crop = null;
+      paintGold();
+    }
+  }
+  paintFarm();
+}
+
+function paintFarm() {
+  var g = document.getElementById('farmgrid');
+  if (!g.children.length) {
+    for (var i = 0; i < PLOT.length; i++) {
+      var b = document.createElement('button');
+      b.className = 'cellbtn'; b.dataset.i = i;
+      b.addEventListener('click', function () { farmTap(+this.dataset.i); });
+      g.appendChild(b);
+    }
+  }
+  for (var j = 0; j < PLOT.length; j++) {
+    var t = PLOT[j], el = g.children[j], label = '', bg = '#3f6b2c';
+    if (t.tilled) bg = t.state === SDV.WATERED ? '#5a4a2e' : '#8a6a42';
+    if (t.crop) {
+      if (t.crop.dead) { bg = '#6b5330'; label = 'DEAD'; }
+      else if (cropReady(t.crop)) { bg = '#ffcf4a'; label = 'PICK'; }
+      else {
+        var frac = (t.crop.phase + 1) / t.crop.phases.length;
+        bg = 'rgb(' + Math.round(90 - frac * 40) + ',' + Math.round(120 + frac * 90) + ',60)';
+        label = (t.crop.phase + 1) + '/' + t.crop.phases.length;
+      }
+    } else if (t.state === SDV.WATERED) label = 'WET';
+    el.style.background = bg;
+    el.textContent = label;
+  }
+}
+
+/* =========================================================================
+   MECHANIC 3 — MARRIAGE (Farmer.changeFriendship / resetFriendshipsForNewDay,
+   NPC.receiveGift, Friendship.cs)
+
+   The whole courtship is one integer. 250 points is a heart. Gifts are the
+   fast lane and they are RATIONED (one a day, two a week). Talking is free
+   and small. Ignoring someone costs you every single day. And the ceiling
+   MOVES: you cannot pass 8 hearts until you date, or 10 until you marry.
+   ========================================================================= */
+var L = {
+  name: 'EMILY', points: 0, status: 'STRANGER', talkedToday: false,
+  giftsToday: 0, giftsThisWeek: 0, birthdaySeason: 'SPRING', birthdayDay: 5,
+  weddingIn: -1, married: false
+};
+/* Utility.GetMaximumHeartsForCharacter (Utility.cs:2901). THIS is the wall: a
+   datable villager you are not dating caps at EIGHT hearts, so the cap on the
+   integer is (8+1)*250-1 = 2249 and no amount of gifting passes it. Dating
+   raises it to 10, marriage to 14. */
+function maxHearts() {
+  if (L.married) return SDV.MAX_HEARTS_SPOUSE;
+  if (L.status === 'DATING' || L.status === 'ENGAGED') return SDV.MAX_HEARTS_DATING;
+  return SDV.MAX_HEARTS_UNDATED;
+}
+function pointCap() { return (maxHearts() + 1) * SDV.PER_HEART - 1; }   /* Farmer.cs:3754 */
+function hearts() { return Math.floor(L.points / SDV.PER_HEART); }
+function isBirthday() { return W.season === L.birthdaySeason && ((W.day - 1) % 28) + 1 === L.birthdayDay; }
+
+function changeFriendship(amount) {
+  var before = L.points;
+  L.points = Math.max(0, Math.min(L.points + amount, pointCap()));
+  return L.points - before;
+}
+function loveTalk() {
+  if (L.talkedToday) { log('lovelog', 'bad', 'Already talked to her today. Talking is once a day.'); return; }
+  var d = changeFriendship(SDV.TALK_POINTS);
+  L.talkedToday = true;
+  log('lovelog', 'good', 'Talked. +' + d + ' (' + L.points + '/' + pointCap() + ')');
+  paintLove();
+}
+function giveGift(g) {
+  if (L.giftsToday >= SDV.GIFTS_PER_DAY && !isBirthday()) {
+    log('lovelog', 'bad', 'One gift a day. Come back tomorrow.'); return;
+  }
+  if (L.giftsThisWeek >= SDV.GIFTS_PER_WEEK && !L.married && !isBirthday()) {
+    log('lovelog', 'bad', 'Two gifts a week, and you have spent both. This is the rationing that makes gifts matter.');
+    return;
+  }
+  var mult = 1;
+  if (g.q === 1) mult = SDV.GIFT_SILVER_X;
+  if (g.q === 2) mult = SDV.GIFT_GOLD_X;
+  var bday = isBirthday() ? SDV.GIFT_BIRTHDAY_X : 1;
+  var raw = Math.trunc(TASTE_POINTS[g.taste] * bday * mult);
+  var d = changeFriendship(raw);
+  L.giftsToday++; L.giftsThisWeek++;
+  log('lovelog', raw >= 0 ? 'good' : 'bad',
+    'Gave ' + g.n + ' (' + g.taste + ') ' + (bday > 1 ? 'ON HER BIRTHDAY x8 ' : '') +
+    (mult > 1 ? 'quality x' + mult + ' ' : '') + '= ' + (raw > 0 ? '+' : '') + raw +
+    (d !== raw ? ' (capped, gained ' + d + ')' : '') + ' · ' + L.points + '/' + pointCap());
+  paintLove();
+}
+function court() {
+  if (L.married) { log('lovelog', '', 'You are already married.'); return; }
+  if (L.weddingIn >= 0) { log('lovelog', '', 'The wedding is in ' + L.weddingIn + ' days.'); return; }
+  if (L.status === 'STRANGER' || L.status === 'FRIEND') {
+    if (L.points < SDV.BOUQUET_AT) {
+      log('lovelog', 'bad', 'The bouquet needs ' + SDV.BOUQUET_AT + ' points (8 hearts). You have ' +
+        L.points + '. And gifting cannot carry you past ' + pointCap() +
+        ' — an undated villager is HARD CAPPED at 8 hearts (Utility.cs:2901).');
+      return;
+    }
+    L.status = 'DATING';
+    log('lovelog', 'good', 'BOUQUET ACCEPTED. Dating. The ceiling moves to 10 hearts, and ignoring her now costs -' +
+      SDV.DECAY_DATING + ' a day instead of -' + SDV.DECAY_STRANGER + '.');
+  } else if (L.status === 'DATING') {
+    if (L.points < SDV.PENDANT_AT) {
+      log('lovelog', 'bad', "The mermaid's pendant needs " + SDV.PENDANT_AT + ' points (10 hearts). You have ' + L.points + '.');
+      return;
+    }
+    L.status = 'ENGAGED'; L.weddingIn = SDV.WEDDING_DELAY;
+    log('lovelog', 'good', 'PENDANT ACCEPTED. Engaged. The wedding is in ' + SDV.WEDDING_DELAY + ' days (NPC.cs:1095).');
+  }
+  paintLove();
+}
+function loveNewDay() {
+  /* Farmer.resetFriendshipsForNewDay (Farmer.cs:2540) */
+  /* Farmer.cs:2540-2563, exactly: the big penalty and the small one are NOT
+     exclusive — an ignored spouse takes -20 and then -2 on top while below
+     2500, and an ignored partner takes -8 and then -2. */
+  var decay = 0;
+  var undated = (L.status === 'STRANGER' || L.status === 'FRIEND');
+  if (!L.talkedToday) {
+    if (L.married) decay += SDV.DECAY_SPOUSE;
+    else if ((L.status === 'DATING' || L.status === 'ENGAGED') && L.points < SDV.PENDANT_AT)
+      decay += SDV.DECAY_DATING;
+    if ((!undated && L.points < 2500) || (undated && L.points < SDV.DECAY_FLOOR_UNDATED))
+      decay += SDV.DECAY_STRANGER;
+    changeFriendship(-decay);
+  }
+  L.talkedToday = false; L.giftsToday = 0;
+  if (isMonday()) L.giftsThisWeek = 0;                 /* updateFriendshipGifts */
+  if (L.status === 'STRANGER' && L.points >= SDV.PER_HEART * 2) L.status = 'FRIEND';
+  if (L.weddingIn > 0) {
+    L.weddingIn--;
+    if (L.weddingIn === 0) {
+      L.married = true; L.status = 'MARRIED'; L.weddingIn = -1;
+      log('lovelog', 'good', 'MARRIED. The ceiling moves to 14 hearts, and ignoring her now costs -' +
+        SDV.DECAY_SPOUSE + ' a day. The mechanic does not end at the wedding, it gets more expensive.');
+    }
+  }
+  if (decay) log('lovelog', 'bad', 'You did not talk to her yesterday: -' + decay + ' (' + L.points + ')');
+  paintLove();
+}
+function paintLove() {
+  document.getElementById('npcname').textContent = L.name + ' · ' + L.status;
+  var h = hearts(), s = '';
+  for (var i = 0; i < maxHearts(); i++) s += (i < h ? '♥' : '♡');
+  document.getElementById('npchearts').textContent = s;
+  var next = L.status === 'DATING' ? SDV.PENDANT_AT : SDV.BOUQUET_AT;
+  document.getElementById('lovestat').innerHTML =
+    '<tr><td class="n">points</td><td class="v">' + L.points + ' / ' + pointCap() + '</td></tr>' +
+    '<tr><td class="n">hearts</td><td class="v">' + h + ' of ' + maxHearts() + '</td></tr>' +
+    '<tr><td class="n">gifts left</td><td class="v">day ' + (SDV.GIFTS_PER_DAY - L.giftsToday) +
+      ' / week ' + Math.max(0, SDV.GIFTS_PER_WEEK - L.giftsThisWeek) + '</td></tr>' +
+    '<tr><td class="n">talked today</td><td class="v">' + (L.talkedToday ? 'yes' : 'no, -' +
+      (L.married ? SDV.DECAY_SPOUSE : L.status === 'DATING' ? SDV.DECAY_DATING : SDV.DECAY_STRANGER) +
+      ' tomorrow') + '</td></tr>' +
+    '<tr><td class="n">next step at</td><td class="v">' + (L.married ? 'married' : next + ' pts') + '</td></tr>' +
+    '<tr><td class="n">her birthday</td><td class="v">' + L.birthdaySeason + ' ' + L.birthdayDay +
+      (isBirthday() ? ' — TODAY, gifts x8' : '') + '</td></tr>';
+  var btn = document.getElementById('btn_court');
+  btn.textContent = L.married ? 'MARRIED' :
+    L.weddingIn >= 0 ? 'WEDDING IN ' + L.weddingIn :
+    L.status === 'DATING' ? "GIVE MERMAID'S PENDANT" : 'GIVE BOUQUET';
+}
+
+/* =========================================================================
+   THE DAY, AND THE SHELL
+   ========================================================================= */
+function sleep() {
+  W.day++;
+  if ((W.day - 1) % 28 === 0) {
+    W.season = W.season === 'SPRING' ? 'SUMMER' : W.season === 'SUMMER' ? 'FALL' :
+               W.season === 'FALL' ? 'WINTER' : 'SPRING';
+  }
+  farmNewDay(); loveNewDay(); paintFarm(); paintDate();
+}
+function paintDate() {
+  document.getElementById('datetxt').textContent =
+    W.season + ' ' + (((W.day - 1) % 28) + 1) + ' · ' + dayName();
+}
+function paintGold() { document.getElementById('goldtxt').textContent = W.gold + 'g'; }
+
+function showTab(t) {
+  W.tab = t;
+  ['fish', 'farm', 'love'].forEach(function (k) {
+    document.getElementById('p_' + k).classList.toggle('on', k === t);
+    document.getElementById('tab_' + k).classList.toggle('on', k === t);
+  });
+}
+['fish', 'farm', 'love'].forEach(function (k) {
+  document.getElementById('tab_' + k).addEventListener('click', function () { showTab(k); });
+});
+document.getElementById('btn_sleep').addEventListener('click', sleep);
+document.getElementById('btn_teardown').addEventListener('click', function () {
+  document.getElementById('teardown').classList.add('open');
+});
+document.getElementById('closetd').addEventListener('click', function () {
+  document.getElementById('teardown').classList.remove('open');
+});
+
+/* fishing controls */
+(function () {
+  var host = document.getElementById('fishpick');
+  FISH.forEach(function (f) {
+    var b = document.createElement('button');
+    b.textContent = f.n + ' ' + f.d; b.id = 'fish_' + f.n;
+    b.addEventListener('click', function () { if (!F.live) cast(f); });
+    host.appendChild(b);
+  });
+  document.getElementById('btn_cast').addEventListener('click', function () {
+    if (!F.live) cast(FISH[Math.min(FISH.length - 1, Math.floor(F.caught / 2))]);
+  });
+  var reel = document.getElementById('btn_reel');
+  var down = function (e) { e.preventDefault(); F.reeling = true; };
+  var up = function (e) { e.preventDefault(); F.reeling = false; };
+  reel.addEventListener('touchstart', down, { passive: false });
+  reel.addEventListener('touchend', up, { passive: false });
+  reel.addEventListener('mousedown', down);
+  window.addEventListener('mouseup', up);
+  window.addEventListener('keydown', function (e) { if (e.code === 'Space') { F.reeling = true; e.preventDefault(); } });
+  window.addEventListener('keyup', function (e) { if (e.code === 'Space') { F.reeling = false; e.preventDefault(); } });
+})();
+
+/* farming controls */
+(function () {
+  [['tool_hoe', 'hoe'], ['tool_can', 'can'], ['tool_seed', 'seed'], ['tool_pick', 'pick']].forEach(function (p) {
+    document.getElementById(p[0]).addEventListener('click', function () {
+      farmTool = p[1];
+      ['tool_hoe', 'tool_can', 'tool_seed', 'tool_pick'].forEach(function (id) {
+        document.getElementById(id).classList.toggle('on', id === p[0]);
+      });
+    });
+  });
+  var sp = document.getElementById('seedpick');
+  CROPS.forEach(function (c, i) {
+    var b = document.createElement('button');
+    b.textContent = c.n; b.id = 'seed_' + i;
+    if (i === 0) b.className = 'on';
+    b.addEventListener('click', function () {
+      seedPick = i;
+      CROPS.forEach(function (_, k) { document.getElementById('seed_' + k).className = k === i ? 'on' : ''; });
+    });
+    sp.appendChild(b);
+  });
+  var fp = document.getElementById('fertpick');
+  FERTS.forEach(function (f, i) {
+    var b = document.createElement('button');
+    b.textContent = f.n; b.id = 'fert_' + i;
+    if (i === 0) b.className = 'on';
+    b.addEventListener('click', function () {
+      fertPick = i;
+      FERTS.forEach(function (_, k) { document.getElementById('fert_' + k).className = k === i ? 'on' : ''; });
+    });
+    fp.appendChild(b);
+  });
+})();
+
+/* marriage controls */
+(function () {
+  document.getElementById('btn_talk').addEventListener('click', loveTalk);
+  document.getElementById('btn_court').addEventListener('click', court);
+  var host = document.getElementById('giftpick');
+  GIFTS.forEach(function (g, i) {
+    var b = document.createElement('button');
+    b.textContent = g.n + ' (' + (TASTE_POINTS[g.taste] > 0 ? '+' : '') + TASTE_POINTS[g.taste] + ')';
+    b.id = 'gift_' + i;
+    b.addEventListener('click', function () { giveGift(g); });
+    host.appendChild(b);
+  });
+})();
+
+/* the numbers panel: the teardown travels with the page */
+(function () {
+  var SRC = {
+    BAR_TRACK: 'BobberBar.cs:145', BAR_BASE_H: 'BobberBar.cs:90', BAR_H_PER_LEVEL: 'BobberBar.cs:90',
+    BOBBER_TOP: 'BobberBar.cs:284', BOBBER_BOTTOM: 'BobberBar.cs:282', BOBBER_START: 'BobberBar.cs:146',
+    CATCH_START: 'BobberBar.cs:74', CATCH_GAIN: 'BobberBar.cs:367', CATCH_LOSS: 'BobberBar.cs:398',
+    BAR_GRAVITY: 'BobberBar.cs:292', BAR_LIFT: 'BobberBar.cs:292', BAR_IN_DAMP: 'BobberBar.cs:297',
+    BAR_BOUNCE: 'BobberBar.cs:312', FISH_SMOOTH: 'BobberBar.cs:273',
+    FLOAT_ACCEL: 'BobberBar.cs:267', FLOAT_MAX: 'BobberBar.cs:267', SIZE_DROP_MS: 'BobberBar.cs:129',
+    FISH_ABOVE: 'BobberBar.cs:285', FISH_BELOW: 'BobberBar.cs:285',
+    DRY: 'HoeDirt.cs:607', WATERED: 'Crop.cs:522', SPEEDGRO: 'HoeDirt.cs:387',
+    SPEEDGRO_DELUXE: 'HoeDirt.cs:389', SPEEDGRO_HYPER: 'HoeDirt.cs:391',
+    RETAIN_BASIC: 'HoeDirt.cs:606', RETAIN_QUALITY: 'HoeDirt.cs:606', RETAIN_DELUXE: 'HoeDirt.cs:606',
+    PER_HEART: 'Farmer.cs:3754', TALK_POINTS: 'Farmer.cs:3788', GIFT_LOVE: 'NPC.cs:3786',
+    GIFT_LIKE: 'NPC.cs:3798', GIFT_NEUTRAL: 'NPC.cs:3831', GIFT_DISLIKE: 'NPC.cs:3809',
+    GIFT_HATE: 'NPC.cs:3819', GIFT_BIRTHDAY_X: 'NPC.cs:3728', GIFT_SILVER_X: 'NPC.cs:3720',
+    GIFT_GOLD_X: 'NPC.cs:3723', GIFTS_PER_DAY: 'NPC.cs:1535', GIFTS_PER_WEEK: 'NPC.cs:1528',
+    DECAY_STRANGER: 'Farmer.cs:2557', DECAY_DATING: 'Farmer.cs:2553', DECAY_SPOUSE: 'Farmer.cs:2551',
+    DECAY_FLOOR_UNDATED: 'Farmer.cs:2557', BOUQUET_AT: 'Farmer.cs:3755', PENDANT_AT: 'Farmer.cs:3757',
+    MAX_HEARTS_UNDATED: 'Utility.cs:2907', MAX_HEARTS_DATING: 'Utility.cs:2916',
+    MAX_HEARTS_SPOUSE: 'Utility.cs:2914',
+    WEDDING_DELAY: 'NPC.cs:1095'
+  };
+  var h = '<h3>THE MECHANISM (every number, and the line it came from)</h3><table class="st">';
+  for (var k in SDV) h += '<tr><td class="n">' + k + '</td><td class="v">' + SDV[k] +
+    '</td><td style="color:#7d8699">' + (SRC[k] || '') + '</td></tr>';
+  h += '</table><h3>CONTENT, NOT MECHANISM (declared: ours, not theirs)</h3>' +
+    '<p style="color:#c9c6bd">The fish difficulty/motion table, the crop phase-day tables and the ' +
+    'gift taste lists live in the master\'s Content/Data files, not its code. The tables here are ' +
+    'PLACEHOLDER CONTENT in the real shapes. MECHANISM-MINE / CONTENTS-PAOLO\'S.</p>' +
+    '<h3>WHAT IS NOT HERE</h3><p style="color:#c9c6bd">No treasure chests in fishing, no bait or ' +
+    'tackle, no crop quality roll, no giant crops, no heart events, no children, no jealousy. ' +
+    'Three loops, each one closing. Depth only if Paolo asks for it.</p>';
+  document.getElementById('tdbody').innerHTML = h;
+})();
+
+/* the loop: only fishing needs frames */
+var last = 0;
+function loop(ts) {
+  if (!last) last = ts;
+  var dt = Math.max(4, Math.min(50, ts - last)); last = ts;
+  if (W.driven !== false) fishTick(dt);
+  drawFish();
+  requestAnimationFrame(loop);
+}
+resizeFish(); paintFarm(); paintLove(); paintDate(); paintGold();
+log('fishlog', 'note', 'Pick a fish or CAST. HOLD to reel: the bar rises while you hold and falls when you let go. Keep the fish inside the bar.');
+log('farmlog', 'note', 'HOE a tile, SEED it, WATER it, then SLEEP. A dry tile at the rollover is a WASTED DAY, not a dead crop. Plant a SUMMER crop in spring and watch it die at the rollover.');
+log('lovelog', 'note', 'Talk once a day (+20). Gifts are rationed: 1 a day, 2 a week. Skip a day and you lose points. And you are HARD CAPPED at 8 hearts until you give the bouquet: gifting cannot get you there.');
+requestAnimationFrame(loop);
+
+/* =========================================================================
+   THE TEST SURFACE. gates/lab_gate.js drives these, so the gate measures the
+   shipped code path and never a parallel copy of the rules.
+   ========================================================================= */
+window.LAB = {
+  SDV: SDV, W: W, F: F, L: L, PLOT: PLOT, CROPS: CROPS, FISH: FISH, GIFTS: GIFTS, FERTS: FERTS,
+  mechanics: ['fishing', 'farming', 'marriage'],
+  freeze: function () { W.driven = false; }, thaw: function () { W.driven = true; },
+  /* fishing */
+  cast: function (i) { cast(FISH[i]); },
+  fishTick: function (n, reeling) { F.reeling = !!reeling; for (var k = 0; k < n; k++) fishTick(TICK); return F.progress; },
+  seedRNG: function (n) {
+    var st = n >>> 0;
+    RNG = function () { st = (st * 1103515245 + 12345) & 0x7fffffff; return st / 0x7fffffff; };
+  },
+  unseedRNG: function () { RNG = Math.random; },
+  /* play the minigame perfectly: chase the fish with the bar */
+  autoFish: function (maxTicks) {
+    var t = 0;
+    while (F.live && t++ < (maxTicks || 20000)) {
+      var centre = F.barPos + F.barH / 2;
+      F.reeling = (F.bobPos < centre - 2);
+      fishTick(TICK);
+    }
+    return { live: F.live, progress: F.progress, caught: F.caught, gold: W.gold, level: W.fishingLevel };
+  },
+  /* farming */
+  farmTool: function (t) { farmTool = t; }, seedPick: function (i) { seedPick = i; },
+  fertPick: function (i) { fertPick = i; }, farmTap: farmTap,
+  tile: function (i) { return PLOT[i]; },
+  cropReady: function (i) { return !!PLOT[i].crop && cropReady(PLOT[i].crop); },
+  /* marriage */
+  talk: loveTalk, gift: function (i) { giveGift(GIFTS[i]); }, court: court,
+  hearts: hearts, pointCap: pointCap, setPoints: function (p) { L.points = p; paintLove(); },
+  setSeason: function (s) { W.season = s; paintDate(); },
+  setBirthdayToday: function () { L.birthdaySeason = W.season; L.birthdayDay = ((W.day - 1) % 28) + 1; },
+  /* the day */
+  sleep: sleep, day: function () { return W.day; }
+};
+</script>
+</body>
+</html>
