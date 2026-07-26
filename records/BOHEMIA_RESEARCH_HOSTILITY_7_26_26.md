@@ -1,6 +1,15 @@
 # RESEARCH RECORD — HOW COMBAT STARTS (coordinator, 7/26/26)
 Commissioned by Paolo (question 5). Full report in the coordinator session.
-Verdict [PENDING Paolo]: Model A / B / C.
+VERDICT 7/26: ALL THREE MODELS KILLED by Paolo ("I hated these options,
+they made no sense to me. You telling me light makes people hostile like
+that, that was so retarded."). POST-MORTEM (kill-reason for the taxonomy:
+OVER-ABSTRACTED-LORE-INTO-GIMMICK): the models turned the light=territory
+FLAVOR canon into a literal jurisdiction mechanic instead of deriving the
+system from Paolo's own street fiction. LESSON: hostility design starts from
+HIS head-movie of a street confrontation, asked concretely; systems get
+derived from his scene, never offered as abstractions. The case-study
+research below stays useful as reference material; the three synthesized
+models are dead and must not be re-pitched.
 
 THE FINDING: no shipped game makes LIGHT the literal jurisdiction boundary of
 its crime system — Bohemia's canon (owners patrol what they light, nobody
