@@ -7,12 +7,12 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
-0. SAVE/LOAD for the run (per the 7/26 DEATH IS A RELOAD ruling): mechanism
-   for saving and reloading run state; death triggers load-closest-save. What
-   counts as a save point is [PENDING Paolo] — build the machinery with a
-   placeholder autosave, surface save-point OPTIONS as two thumbable
-   candidates. | reload restores a mid-run state headless, proven | engine/
-   bohemia_loop.js (flag needs to WORLD) | save-point rules = Paolo verdict.
+0. SAVE/LOAD for the run (RULED 7/26, both addenda): sleep saves + free
+   manual saves + autosave; death loads closest save; the save is ONE
+   portable versioned blob (device prefs excluded) with export/import,
+   per laws/BOHEMIA_ADDENDUM_SAVES_AND_CLOUD_7_26_26.md. | save->reload->
+   identical state proven headless + export/import round-trip | engine/
+   bohemia_loop.js (flag needs to WORLD) | no — fully ruled.
 1. THE FIRST CONNECTED RUN (Prompt 2, laws/BOHEMIA_COORDINATOR_PROMPT_LIBRARY_
    7_25_26.md): house -> street -> S01 -> combat handoff -> home -> feed post,
    one thumb, in the alpha's run surface. | run_gate.js executes the loop
