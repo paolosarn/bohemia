@@ -42,6 +42,41 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CITY (03) 7/26 — INTERIORS EVERYWHERE. You can now WALK INTO BUILDINGS in the
+alpha's CITY tab (DROP IN, then walk into a wall whose dossier declares an
+interior; walk out the door to come back). Three things landed:
+(1) A LOCKED LAW WAS BEING BROKEN: bohemia_floorplan.js padded any footprint too
+small for its zone's room grammar, so 343 buildings valley-wide were BIGGER
+inside than out (storage unit rows 3x108 -> 10x108, farm strips, trailers, a
+watertreat plant). world_gate's dim check passed because it sampled a coordinate
+window and stopped at 200 buildings. Now 0 of 67,034 clamped, and world_gate
+sweeps every married district type BY NAME across four seeds.
+(2) Interiors reach everywhere: the 219 bespoke/landmark-cell buildings (casino,
+resort, strip, airport, campus, prison...) answer interior() through the same
+dispatch; the missing `leisure` zone exists; the interior door is cut on the side
+the exterior actually opens on instead of always south.
+(3) FOUND, NOT FIXED: COMMERCIAL WAS NEVER MARRIED. It never binds K, so the
+registration behind `typeof K` was silently swallowed and the walked city still
+renders commercial from LEGACY PREFAB STAMPS with nothing enterable. Binding K is
+one line and it turns walkable_gate RED — on a single W or N street the plaza
+builds only ONE store strip and parking fills the rest (drive 61% vs content 30%),
+which is the [PENDING Paolo] "mid-block form" its own NOTES already flag. So the
+binding is REVERTED, the numbers are written into the module's own head, and it is
+backlog CITY-1: fix the mid-block form, THEN bind.
+New tools/bohemia_city_module_resync.py re-syncs every engine module inlined in
+CITY_B64 (the embedding tools were all one-shot, so engine fixes never reached the
+app); it also caught district_kit a revision behind.
+NEW GATE: interiors_gate.js (22 checks, registered). NEXT in this lane: CITY-1
+commercial, then CITY-2 — garage/crypt interiors still render as ROOMS in the
+alpha (the engine dispatches decks and vault halls correctly, the app does not
+yet), then interior dressing off the dossiers.
+
+WORLD MODEL (02): the big one landed — THE QUEST SYSTEM IS RESCUED ONTO MAIN.
+9 playable canon quests (S01-S09) + quest runtime + casting bridge live in the
+phone; quests actually move the factions (world bridge); the live phone runs
+the REAL world (was a fake); MAP app render fixed. CANON QUESTS gate registered
+and green. NEXT flagged: the run itself (see connected-run below).
+
 RUN (01, reborn as the RUN lane): **THE FIRST CONNECTED RUN IS PLAYABLE.** New
 RUN tab in the alpha (first tab, preloads itself). One loop, one thumb: wake up
 inside your own house -> out the real front door -> the lineman on the street

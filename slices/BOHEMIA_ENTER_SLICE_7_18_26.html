@@ -33,8 +33,20 @@
 const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
-SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory'};
+SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
+// BIG ARCHITECTURE (Paolo 7/18/26): "even monuments... would just be in their big ass plots not
+// breaking any city streets" — the ONLY district types allowed to sit without touching the
+// surface-street grid: real physical masses + genuinely huge installations + the blessed
+// megablocks. Hoisted to module scope (was local to buildOvermap) so the LANDLOCKED DISTRICT LAW
+// (Paolo 7/21/26) can reuse this exact whitelist instead of drifting a second copy.
+const BIG=new Set([DISTRICT.MOUNTAIN,DISTRICT.WATER,DISTRICT.FREEWAY,DISTRICT.INTERCHANGE,DISTRICT.BELTWAY,
+  DISTRICT.DAM,DISTRICT.RAIL,DISTRICT.RAILYARD,DISTRICT.WASH,DISTRICT.BASIN,DISTRICT.GYPSUM,DISTRICT.QUARRY,
+  DISTRICT.INTAKE,DISTRICT.SOLAR,DISTRICT.AIRPORT,DISTRICT.AIRBASE,DISTRICT.SPEEDWAY,DISTRICT.PRISON,
+  DISTRICT.DATAFORT,DISTRICT.ARSENAL,DISTRICT.LANDFILL,DISTRICT.BONEYARD,DISTRICT.WATERPARK,DISTRICT.MINIGP,
+  DISTRICT.STADIUM,DISTRICT.BALLPARK,DISTRICT.CONVENTION,DISTRICT.SPRINGS,DISTRICT.STRIP,DISTRICT.RESORT,
+  DISTRICT.CASINO,DISTRICT.LUXOR,DISTRICT.SPHERE,DISTRICT.HIGHROLLER,DISTRICT.STRAT,DISTRICT.SIGN,
+  DISTRICT.TOWN,DISTRICT.TRUCKSTOP,DISTRICT.GRANARY,DISTRICT.PUMPSTATION]);
 function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 function hash2(seed,x,y){let h=(seed^Math.imul(x,73856093)^Math.imul(y,19349663))>>>0;h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return(h^h>>>16)>>>0;}
 function segDist(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay;const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy)));return Math.hypot(px-(ax+t*dx),py-(ay+t*dy));}
@@ -252,7 +264,7 @@ function layoutFromSeed(seed){
     for(const py of passesA.concat(passesB)){ if(Math.abs(prison.y-py)<3)hit=true; }
     if(!hit)break; prison.y+=4; }
   // BRIGHTLINE TERMINAL: beside the rail at the strip's south end (the LA train)
-  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:2, h:1};
+  const terminal={x: railX+(fwySide>0?1:-2), y: stripEndY, w:1, h:1};
   // THE SPHERE: east of the strip mid-run (real position)
   const sphere={x:stripX+dirE*4, y:Math.round(N*0.44), w:2, h:2};
   // LAS VEGAS BLVD NORTH CLUSTER (real): Cashman Field + Neon Boneyard + Mormon Fort
@@ -296,6 +308,9 @@ function layoutFromSeed(seed){
   const jail={x:stripX+dirE*5, y:Math.round(N*0.24), w:1, h:1};
   // Courthouse / civic block (D): the mayor arc's seat
   const courthouse={x:stripX+dirE*3, y:Math.round(N*0.25), w:2, h:1};
+  // City Hall (7/23/26): the executive/administrative seat beside the courthouse's
+  // judicial block (real LV City Hall is the downtown civic core) — the mayor arc's office
+  const cityhall={x:stripX+dirE*3, y:Math.round(N*0.25)+1, w:1, h:1};
   // Warehouse district (F): the salvage economy's shelves, by the rail
   const warehouse={x:railX+(fwySide>0?2:-4), y:railyard.y+4, w:2, h:2};
   // Truck stop (G): spine south approach
@@ -455,7 +470,7 @@ function layoutFromSeed(seed){
           reclaim, landfill, intake, substations, cemetery, cemetery2, prison, terminal, sphere,
           cashman, boneyard, fort, ballparkS, chapels, basins, swapmeet, drivein, highroller,
           watertreat, reservoirs, pumpstation, vegassign, strat, datafort, arsenal,
-          firestations, policestations, jail, courthouse, warehouse, truckstop,
+          firestations, policestations, jail, courthouse, cityhall, warehouse, truckstop,
           battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, seed};
 }
 
@@ -563,6 +578,7 @@ function skeleton(x,y,L){
   for(const R of L.policestations){ if(inRect(x,y,R))return DISTRICT.POLICESTATION; }
   if(inRect(x,y,L.jail))return DISTRICT.JAIL;
   if(inRect(x,y,L.courthouse))return DISTRICT.COURTHOUSE;
+  if(inRect(x,y,L.cityhall))return DISTRICT.CITYHALL;
   if(inRect(x,y,L.warehouse))return DISTRICT.WAREHOUSE;
   if(inRect(x,y,L.battery))return DISTRICT.BATTERY;
   for(const R of L.fueldepots){ if(inRect(x,y,R))return DISTRICT.FUELDEPOT; }
@@ -631,28 +647,33 @@ function qualityAt(x,y,L){
   return Math.max(0.1,Math.min(0.95,q));
 }
 
+// LANDLOCKED DISTRICT LAW (Paolo 7/21/26, LOCKED): "if there is an interior district not
+// touching a street it has to be a suburb or apt complex." A cell 2+ tiles off every mile
+// arterial line has no real street to front — only the suburb family (residential, whose own
+// generator can relay a driveway/road out through a neighboring suburb cell, world.js's
+// landlockConnect pass) is allowed there. DESERT stays legal (undeveloped land needs no access).
 function proceduralDistrict(x,y,r,L){
   const N=OVER_N;
   const dStrip=Math.abs(x-L.stripX);
   const edge=Math.min(x,y,N-1-x,N-1-y);
   if(edge<8&&r()<0.5)return DISTRICT.DESERT;
   const q=qualityAt(x,y,L);
+  const nearAx=(x%9===1||x%9===8), nearAy=(y%9===1||y%9===8);
+  const streetAdjacent=nearAx||nearAy;                // touches (or is one tile off) a real mile arterial
   // SUMMERLIN LAKES: the west master-planned zone rolls small neighborhood lakes
   const dir=(L.fwyX<L.stripX)?1:-1, side=(x-L.stripX)*dir;
   if(side<-12&&y>N*0.20&&y<N*0.70&&r()<0.009)return DISTRICT.WATER; // rare, a touch of Summerlin lake vibe, not a lake district
-  if(r()<0.02+q*0.06)return DISTRICT.PARK;          // parks follow quality
+  if(streetAdjacent&&r()<0.02+q*0.06)return DISTRICT.PARK;          // parks follow quality (street-fronting only)
   if(q<0.35&&r()<0.12)return DISTRICT.DESERT;       // rough side: vacant lots
-  if(q<0.42&&r()<0.03)return DISTRICT.TRAILER;      // trailer/RV parks in the rough fabric
+  if(streetAdjacent&&q<0.42&&r()<0.03)return DISTRICT.TRAILER;      // trailer/RV parks in the rough fabric
   // HOMESTEADS (Paolo 7/5/26): people who took farming on their own, yard
   // crops + private well/cistern (real: the valley sits on groundwater,
   // thousands of private wells). Flag rides on the suburb cell.
   // (flag applied in post-pass so the suburb render + quality stay intact)
-  const nearAx0=(x%9===1||x%9===8), nearAy0=(y%9===1||y%9===8);
-  if(q<0.6&&(nearAx0||nearAy0)&&r()<0.012)return DISTRICT.STORAGE; // self-storage sprawl
+  if(streetAdjacent&&q<0.6&&r()<0.012)return DISTRICT.STORAGE; // self-storage sprawl
   const d1=Math.hypot(x-L.ind1.x,y-L.ind1.y), d2=Math.hypot(x-L.ind2.x,y-L.ind2.y);
-  if((d1<3.2||d2<3.2)&&r()<0.9)return DISTRICT.INDUSTRIAL;
-  const nearAx=(x%9===1||x%9===8), nearAy=(y%9===1||y%9===8);
-  if(nearAx&&nearAy&&r()<0.7)return DISTRICT.COMMERCIAL;
+  if(streetAdjacent&&(d1<3.2||d2<3.2)&&r()<0.9)return DISTRICT.INDUSTRIAL;
+  if(nearAx&&nearAy&&r()<0.7)return DISTRICT.COMMERCIAL;   // the mile-grid CORNER: real Vegas piles retail here
   // CA HIGHWAY APPROACH: the 15 enters through DIRT before the city swallows it
   if(y>N*0.80&&Math.abs(x-L.fwyX)<6&&r()<0.93)return DISTRICT.DESERT;
   // DESERT POCKETS (Paolo 7/5/26): two DISTINCT desert zones, not a band:
@@ -663,11 +684,14 @@ function proceduralDistrict(x,y,r,L){
     if((nearR(L.mead,6)||nearR(L.lakeLV,6)||nearR(L.boulder,6)||nearR(L.damR,6))&&r()<0.6)return DISTRICT.DESERT;
     if((nearR(L.airbase,5)||nearR(L.speedway,5))&&r()<0.55)return DISTRICT.DESERT;
   }
+  if(!streetAdjacent) return DISTRICT.SUBURB; // LANDLOCKED: suburb/apt only, no exceptions (see law above)
   const v=r();
   const busier=(side<0&&(y<N*0.18||y>N*0.80))?0.10:0;  // west fringe busier
-  if(dStrip<8){ return v<0.35+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
-  if(dStrip<18){ return v<0.15+busier?DISTRICT.COMMERCIAL: DISTRICT.SUBURB; }
-  return v<0.06+busier?DISTRICT.COMMERCIAL: v<0.95?DISTRICT.SUBURB: DISTRICT.DESERT; // spread shrunk (Paolo)
+  // APARTMENT (7/21/26): real Vegas garden-apartment geography clusters near the strip/downtown
+  // core, tapering fast toward the periphery where single-family sprawl dominates.
+  if(dStrip<8){ return v<0.35+busier?DISTRICT.COMMERCIAL: v<0.55+busier?DISTRICT.APARTMENT: DISTRICT.SUBURB; }
+  if(dStrip<18){ return v<0.15+busier?DISTRICT.COMMERCIAL: v<0.30+busier?DISTRICT.APARTMENT: DISTRICT.SUBURB; }
+  return v<0.06+busier?DISTRICT.COMMERCIAL: v<0.10+busier?DISTRICT.APARTMENT: v<0.95?DISTRICT.SUBURB: DISTRICT.DESERT; // spread shrunk (Paolo)
 }
 
 function OM_rr(seed){ return (hash2(seed,911,373)%1000)/1000; }
@@ -1012,12 +1036,96 @@ function buildOvermap(seed){
     lPath(under.aqueduct, L.watertreat.x+1, L.watertreat.y+1, L.pumpstation.x, L.pumpstation.y);
     for(const rv of L.reservoirs){ lPath(under.aqueduct, L.pumpstation.x, L.pumpstation.y, rv.x, rv.y); }
   }
+  // ORPHANED ROAD CLEANUP (7/24/26, world-model research pass): a mile-arterial line can
+  // get CHOPPED when a landmark (a desert TOWN, most often) gets placed directly across
+  // its path — the line's cells on either side of the landmark survive as placed, but if
+  // the far side never reconnects (blocked by water/mountain/another landmark), a bare
+  // 1-cell road stub is left with NO road neighbor in any direction: undriveable, useless,
+  // invisible to every reconnection mechanism this engine has (landlockConnect and the
+  // access spur below both reconnect a DISTRICT to a street — neither touches a broken
+  // STREET fragment, because a road isn't a "district" needing access to itself). Found via
+  // landlocked_gate.js incidentally flagging an 'arterial' entry in its gap breakdown (it
+  // was never designed to catch this — a street fragment isn't a landlocked district — but
+  // the audit surfaced it anyway). A 1-cell island of road can never legitimately be
+  // reached or driven; demoting it to DESERT (an always-valid tile) is strictly safer than
+  // leaving a phantom street that goes nowhere. ROAD = {freeway,arterial,strip,beltway}
+  // only — every one of those types is a continuous line/spine/ring by design, never a
+  // legitimate lone cell, so this can't misfire on real, intentional road geometry.
+  {
+    const isRoadCell=(x,y)=>{ const c=at(x,y); return !!c&&!!ROAD[c.district]; };
+    for(const t of tiles){
+      if(!ROAD[t.district])continue;
+      let hasRoadNeighbor=false;
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ if(isRoadCell(t.x+dx,t.y+dy)){hasRoadNeighbor=true;break;} }
+      if(!hasRoadNeighbor) t.district=DISTRICT.DESERT;
+    }
+  }
+  // LANDMARK ACCESS SPUR (Paolo 7/21/26, LANDLOCKED DISTRICT LAW residual close-out): the
+  // same-family relay (bohemia_world.js buildLandlockConnect) can't help an ISOLATED cell with
+  // no same-type neighbor to chain through — a single-cell landmark (school/medical/jail/...),
+  // or a suburb/apt pocket fully encircled by desert with no residential neighbor at all. Rather
+  // than move a landmark's canon position (MAP LAW: Claude never designs map layouts), carve a
+  // minimal 1-wide access spur to the nearest real street — but ONLY through bare DESERT cells,
+  // never through another built district, so no existing content is ever overwritten. A
+  // driveway to a monument, not a redesign of the block. Runs for every landlocked type
+  // (including suburb-family): it only ever consumes desert, so it can't conflict with or
+  // duplicate the same-family relay — strictly additive.
+  // NO-STREET-BREAK LAW (Paolo 7/18/26) compliance: a 1-wide spur's tip cell would touch only
+  // the target (non-road, non-BIG) + the previous spur cell, i.e. exactly ONE road neighbor —
+  // street_connectivity_gate.js correctly reads that as "dead-ends into fabric." Cap the target
+  // end with a self-contained 2x2 block instead: every cell in a solid 2x2 square has TWO
+  // orthogonal neighbors inside the square itself, satisfying the rule independent of whatever
+  // (school, suburb, ...) sits outside it — a real cul-de-sac bulb, not a bare dead end.
+  {
+    const touchesRoad=(x,y)=>{ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const n=at(x+dx,y+dy); if(n&&ROAD[n.district])return true; } return false; };
+    const okForBulb=(x,y)=>{ const c=at(x,y); return !!c&&(ROAD[c.district]||c.district===DISTRICT.DESERT); };
+    function capWithBulb(px,py){
+      const offsets=[[0,0,1,0,0,1,1,1],[-1,0,0,0,-1,1,0,1],[0,-1,1,-1,0,0,1,0],[-1,-1,0,-1,-1,0,0,0]];
+      for(const o of offsets){
+        const cells=[[px+o[0],py+o[1]],[px+o[2],py+o[3]],[px+o[4],py+o[5]],[px+o[6],py+o[7]]];
+        if(cells.every(c=>okForBulb(c[0],c[1]))){
+          for(const c of cells){ const cc=at(c[0],c[1]); if(cc&&cc.district===DISTRICT.DESERT){ cc.district=DISTRICT.ARTERIAL; cc.fixed=true; } }
+          return true;
+        }
+      }
+      return false;
+    }
+    for(const t of tiles){
+      if(t.district===DISTRICT.DESERT||BIG.has(t.district))continue;
+      if(touchesRoad(t.x,t.y))continue;                    // already street-adjacent, nothing to do
+      // BFS outward through DESERT-only cells to the nearest street (or a cell that touches one)
+      const key=(x,y)=>x+','+y, seen=new Set([key(t.x,t.y)]);
+      let q=[{x:t.x,y:t.y,path:[]}], head=0, found=null;
+      while(head<q.length&&!found&&head<200){
+        const cur=q[head++];
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nx=cur.x+dx, ny=cur.y+dy, k=key(nx,ny); if(seen.has(k))continue;
+          const nc=at(nx,ny); if(!nc)continue;
+          const isDesert=nc.district===DISTRICT.DESERT;
+          if(!isDesert&&!ROAD[nc.district])continue;        // only desert or a real street may extend the path
+          seen.add(k);
+          const np={x:nx,y:ny,path:cur.path.concat([{x:nx,y:ny}])};
+          if(ROAD[nc.district]||touchesRoad(nx,ny)){ found=np; break; }
+          if(isDesert) q.push(np);
+        }
+      }
+      if(!found||!found.path.length)continue;
+      const tip=found.path[0];                              // path[0] is the cell touching the TARGET (not the
+                                                              // street end at path[length-1], which already has
+                                                              // the chain + the pre-existing street as neighbors)
+      if(!capWithBulb(tip.x,tip.y))continue;                // no room for a compliant bulb: skip, stays residual
+      for(const p of found.path){
+        const pc=at(p.x,p.y);
+        if(pc&&pc.district===DISTRICT.DESERT){ pc.district=DISTRICT.ARTERIAL; pc.fixed=true; }
+      }
+    }
+  }
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
 }
 function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
@@ -1594,6 +1702,16 @@ if(typeof module!=='undefined')module.exports=BOH_BLOCKGEN;
 // public role, back rooms go private/service). Deterministic per (seed,W,H,zone).
 // Semantic only: 'floor'/'wall'/'door' + role labels; art resolves at bake, the
 // same contract as every other generator.
+//
+// 7/26/26 — INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED: "if your interior
+// does not match the width and length of the exterior every time, you are
+// failing... I am not having it any other way"). This file was BREAKING that law
+// on 343 buildings in the seed-12345 valley: `W=Math.max(minR+2,W|0)` silently
+// GREW any footprint too small for its zone's room grammar (a 3x108 storage unit
+// row became 10x108, a 1x19 farm strip became 6x19, a 7x6 plant became 10x10).
+// The plate is now EXACTLY the footprint, always; the GRAMMAR shrinks to fit the
+// plate instead of the plate growing to fit the grammar, and a sliver too thin to
+// carry walled rooms becomes one open plate with a perimeter entrance.
 const BOH_FLOORPLAN=(function(){
   function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
   // zone -> ordered room roles (public first) + minimum room dimension
@@ -1605,6 +1723,14 @@ const BOH_FLOORPLAN=(function(){
     institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
     warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
     landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
+    // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
+    // silently falling through to the nameless 'default' grammar — 46 buildings
+    // whose recorded dossiers describe real rooms (golf: "pro shop + bag room up
+    // front, grill + locker rooms behind"; drivein: "counter + kitchen up front,
+    // the projection room behind"; stadium: "the ring corridor under the stands,
+    // boarded concession windows + restrooms"). Roles read off those dossiers.
+    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],minRoom:5},
     'default':  {roles:['room','room','service'],minRoom:4},
   };
   // union-find for the door spanning tree
@@ -1615,21 +1741,59 @@ const BOH_FLOORPLAN=(function(){
   function generate(seed,W,H,opts){
     const o=opts||{}; const r=rng(seed);
     const Z=ZONES[o.zone]||ZONES['default'];
-    const minR=o.minRoom||Z.minRoom;
     const entrance=o.entrance||'S';   // street-facing side
-    W=Math.max(minR+2,W|0); H=Math.max(minR+2,H|0);
-    // 1) BSP the interior (inside a 1-cell perimeter wall)
-    const rooms=[];
-    (function split(x,y,w,h,depth){
-      const canH=w>=minR*2+1, canV=h>=minR*2+1;
-      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){rooms.push({x,y,w,h});return;}
-      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
-      if(horiz){const cut=minR+((r()*(w-2*minR-1))|0)+1; split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
-      else     {const cut=minR+((r()*(h-2*minR-1))|0)+1; split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
-    })(1,1,W-2,H-2,0);
-    // 2) paint grid: everything wall, then stamp room floors
+    // THE PLATE IS THE FOOTPRINT. Never padded, never clamped, never resized.
+    W=Math.max(1,W|0); H=Math.max(1,H|0);
+    // the GRAMMAR bends instead: a room can never be asked to be bigger than the
+    // walled interior it has to live in.
+    const minR=Math.max(1,Math.min(o.minRoom||Z.minRoom,Math.min(W-2,H-2)));
+    const rooms=[],doors=[];
     const grid=[];
     for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:'wall',room:-1,door:false,role:null});grid.push(row);}
+    const carve=(x,y)=>{if(x<0||y<0||x>=W||y>=H)return;const c=grid[y][x];if(c.door)return;c.g='door';c.door=true;doors.push([x,y]);};
+    const perimeterDoor=()=>{ // the entrance, on the requested side, mid-edge
+      if(entrance==='N')carve(W>>1,0);
+      else if(entrance==='W')carve(0,H>>1);
+      else if(entrance==='E')carve(W-1,H>>1);
+      else carve(W>>1,H-1);
+    };
+    const zoneRooms=()=>{ // roles by distance from the entrance room (public near door)
+      const front=rooms.__front||0;
+      const order=[...rooms.keys()].sort((a,b)=>{
+        const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
+        const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
+        return da-db;});
+      order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+        rooms[ri].role=role;
+        for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    };
+
+    // SLIVER PLATE (7/26): a footprint under 3 cells on either axis — a storage
+    // unit row seen edge-on, a 1-wide farm strip, a thin utility shed. There is
+    // no room left over once you spend a cell per side on wall, so the plate IS
+    // the room: one open space, entrance cut straight through its perimeter.
+    // Exactly W x H, like every other interior in this engine.
+    if(W<3||H<3){
+      rooms.push({x:0,y:0,w:W,h:H});
+      for(let y=0;y<H;y++)for(let x=0;x<W;x++){grid[y][x].g='floor';grid[y][x].room=0;}
+      perimeterDoor();
+      zoneRooms();
+      return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
+        sliver:true,pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
+    }
+
+    // 1) BSP the interior (inside a 1-cell perimeter wall)
+    (function split(x,y,w,h,depth){
+      const canH=w>=minR*2+1, canV=h>=minR*2+1;
+      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){if(w>0&&h>0)rooms.push({x,y,w,h});return;}
+      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
+      // the cut lands so BOTH halves are >= minR. The old formula
+      // (minR + rand(span-2*minR-1) + 1) could hand the right half minR-1 cells,
+      // and at minR=1 it handed it ZERO — an empty room nothing can ever reach.
+      if(horiz){const cut=minR+((r()*(w-2*minR))|0); split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
+      else     {const cut=minR+((r()*(h-2*minR))|0); split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
+    })(1,1,W-2,H-2,0);
+    // 2) paint grid: everything wall, then stamp room floors
     rooms.forEach((rm,i)=>{for(let y=rm.y;y<rm.y+rm.h;y++)for(let x=rm.x;x<rm.x+rm.w;x++){grid[y][x].g='floor';grid[y][x].room=i;}});
     // 3) door graph: find wall cells separating two rooms, carve a spanning tree
     const at=(x,y)=>(x<0||y<0||x>=W||y>=H)?null:grid[y][x];
@@ -1644,9 +1808,8 @@ const BOH_FLOORPLAN=(function(){
         }
       }
     }
-    const uf=UF(rooms.length); const doors=[];
+    const uf=UF(rooms.length);
     const pairs=Object.keys(cand).sort((a,b)=>{const s=(k)=>{const c=cand[k][0];return c[1]*W+c[0];};return s(a)-s(b);});
-    const carve=(x,y)=>{grid[y][x].g='door';grid[y][x].door=true;doors.push([x,y]);};
     for(const k of pairs){const [a,b]=k.split(',').map(Number);
       if(uf.union(a,b)){const cells=cand[k];carve(...cells[(cells.length>>1)]);}}
     // a few loop doors so it is not a strict tree (still fully reachable)
@@ -1667,13 +1830,7 @@ const BOH_FLOORPLAN=(function(){
     else if(entrance==='W')carve(0,Math.min(H-1,fr.y+(fr.h>>1)));
     else carve(W-1,Math.min(H-1,fr.y+(fr.h>>1)));
     // 5) zoning: role by distance from the entrance room (public near door)
-    const order=[...rooms.keys()].sort((a,b)=>{
-      const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
-      const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
-      return da-db;});
-    order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
-      rooms[ri].role=role;
-      for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    rooms.__front=front; zoneRooms(); delete rooms.__front;
     return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
       pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
   }
@@ -1701,6 +1858,212 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var BR = HASREQ ? require('./bohemia_overmap_bridge.js') : (typeof BOH_OMBRIDGE!=='undefined'?BOH_OMBRIDGE:root.BOH_OMBRIDGE);
   var BG = HASREQ ? require('./bohemia_blockgen.js')       : (typeof BOH_BLOCKGEN!=='undefined'?BOH_BLOCKGEN:root.BOH_BLOCKGEN);
   var FP = HASREQ ? require('./bohemia_floorplan.js')      : (typeof BOH_FLOORPLAN!=='undefined'?BOH_FLOORPLAN:root.BOH_FLOORPLAN);
+  var KIT= HASREQ ? require('./bohemia_district_kit.js')   : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var SUB= HASREQ ? require('./bohemia_suburb.js')         : (typeof BohemiaSuburb!=='undefined'?BohemiaSuburb:root.BohemiaSuburb);
+  var COM= HASREQ ? require('./bohemia_commercial.js')     : (typeof BohemiaCommercial!=='undefined'?BohemiaCommercial:root.BohemiaCommercial);
+  var IND= HASREQ ? require('./bohemia_industrial.js')     : (typeof BohemiaIndustrial!=='undefined'?BohemiaIndustrial:root.BohemiaIndustrial);
+  var MED= HASREQ ? require('./bohemia_medical.js')        : (typeof BohemiaMedical!=='undefined'?BohemiaMedical:root.BohemiaMedical);
+  var SOL= HASREQ ? require('./bohemia_solar.js')          : (typeof BohemiaSolar!=='undefined'?BohemiaSolar:root.BohemiaSolar);
+  var PRK= HASREQ ? require('./bohemia_park.js')           : (typeof BohemiaPark!=='undefined'?BohemiaPark:root.BohemiaPark);
+  var WSH= HASREQ ? require('./bohemia_wash.js')           : (typeof BohemiaWash!=='undefined'?BohemiaWash:root.BohemiaWash);
+  var CEM= HASREQ ? require('./bohemia_cemetery.js')       : (typeof BohemiaCemetery!=='undefined'?BohemiaCemetery:root.BohemiaCemetery);
+  var DRV= HASREQ ? require('./bohemia_drivein.js')        : (typeof BohemiaDrivein!=='undefined'?BohemiaDrivein:root.BohemiaDrivein);
+  var GLF= HASREQ ? require('./bohemia_golf.js')           : (typeof BohemiaGolf!=='undefined'?BohemiaGolf:root.BohemiaGolf);
+  var STD= HASREQ ? require('./bohemia_stadium.js')        : (typeof BohemiaStadium!=='undefined'?BohemiaStadium:root.BohemiaStadium);
+  var TKS= HASREQ ? require('./bohemia_truckstop.js')      : (typeof BohemiaTruckstop!=='undefined'?BohemiaTruckstop:root.BohemiaTruckstop);
+  var SCH= HASREQ ? require('./bohemia_school.js')         : (typeof BohemiaSchool!=='undefined'?BohemiaSchool:root.BohemiaSchool);
+  var FIR= HASREQ ? require('./bohemia_firestation.js')    : (typeof BohemiaFirestation!=='undefined'?BohemiaFirestation:root.BohemiaFirestation);
+  var SWP= HASREQ ? require('./bohemia_swapmeet.js')       : (typeof BohemiaSwapmeet!=='undefined'?BohemiaSwapmeet:root.BohemiaSwapmeet);
+  var STO= HASREQ ? require('./bohemia_storage.js')        : (typeof BohemiaStorage!=='undefined'?BohemiaStorage:root.BohemiaStorage);
+  var WTR= HASREQ ? require('./bohemia_watertreat.js')     : (typeof BohemiaWatertreat!=='undefined'?BohemiaWatertreat:root.BohemiaWatertreat);
+  var BNY= HASREQ ? require('./bohemia_boneyard.js')       : (typeof BohemiaBoneyard!=='undefined'?BohemiaBoneyard:root.BohemiaBoneyard);
+  var POL= HASREQ ? require('./bohemia_policestation.js')  : (typeof BohemiaPolicestation!=='undefined'?BohemiaPolicestation:root.BohemiaPolicestation);
+  var LIB= HASREQ ? require('./bohemia_library.js')        : (typeof BohemiaLibrary!=='undefined'?BohemiaLibrary:root.BohemiaLibrary);
+  var LFL= HASREQ ? require('./bohemia_landfill.js')       : (typeof BohemiaLandfill!=='undefined'?BohemiaLandfill:root.BohemiaLandfill);
+  var RLY= HASREQ ? require('./bohemia_railyard.js')       : (typeof BohemiaRailyard!=='undefined'?BohemiaRailyard:root.BohemiaRailyard);
+  var SBS= HASREQ ? require('./bohemia_substation.js')     : (typeof BohemiaSubstation!=='undefined'?BohemiaSubstation:root.BohemiaSubstation);
+  var CHP= HASREQ ? require('./bohemia_chapel.js')         : (typeof BohemiaChapel!=='undefined'?BohemiaChapel:root.BohemiaChapel);
+  var CTH= HASREQ ? require('./bohemia_courthouse.js')     : (typeof BohemiaCourthouse!=='undefined'?BohemiaCourthouse:root.BohemiaCourthouse);
+  var JAL= HASREQ ? require('./bohemia_jail.js')           : (typeof BohemiaJail!=='undefined'?BohemiaJail:root.BohemiaJail);
+  var FRM= HASREQ ? require('./bohemia_farm.js')           : (typeof BohemiaFarm!=='undefined'?BohemiaFarm:root.BohemiaFarm);
+  var DTN= HASREQ ? require('./bohemia_downtown.js')       : (typeof BohemiaDowntown!=='undefined'?BohemiaDowntown:root.BohemiaDowntown);
+  var TRL= HASREQ ? require('./bohemia_trailer.js')        : (typeof BohemiaTrailer!=='undefined'?BohemiaTrailer:root.BohemiaTrailer);
+  var APT= HASREQ ? require('./bohemia_apartment.js')      : (typeof BohemiaApartment!=='undefined'?BohemiaApartment:root.BohemiaApartment);
+  var WHS= HASREQ ? require('./bohemia_warehouse.js')      : (typeof BohemiaWarehouse!=='undefined'?BohemiaWarehouse:root.BohemiaWarehouse);
+  var WTP= HASREQ ? require('./bohemia_waterpark.js')      : (typeof BohemiaWaterpark!=='undefined'?BohemiaWaterpark:root.BohemiaWaterpark);
+  var MLL= HASREQ ? require('./bohemia_mall.js')           : (typeof BohemiaMall!=='undefined'?BohemiaMall:root.BohemiaMall);
+  var GAR= HASREQ ? require('./bohemia_garage.js')         : (typeof BohemiaGarage!=='undefined'?BohemiaGarage:root.BohemiaGarage);
+  var CRY= HASREQ ? require('./bohemia_crypt.js')          : (typeof BohemiaCrypt!=='undefined'?BohemiaCrypt:root.BohemiaCrypt);
+  var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
+  var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
+  var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
+  // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
+  // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
+
+  // THE FACTORY (Paolo 7/18): a district TYPE -> its generator. Adding a district is now
+  // one line here. Each generator emits {g,W,H} + a footprints() of enterable buildings;
+  // the world model treats them all uniformly. streets are inferred from road neighbors.
+  var DISTGEN = {
+    suburb:     { mod:SUB, foot:function(r){return SUB.homeFootprints(r);},  zone:'residential' },
+    gated:      { mod:SUB, foot:function(r){return SUB.homeFootprints(r);},  zone:'residential' },
+    estate:     { mod:SUB, foot:function(r){return SUB.homeFootprints(r);},  zone:'residential' },
+    commercial: { mod:COM, foot:function(r){return COM.storeFootprints(r);}, zone:'retail' },
+    industrial: { mod:IND, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    medical:    { mod:MED, foot:function(r){return r.footprints;},           zone:'institutional' },
+    solar:      { mod:SOL, foot:function(r){return r.footprints;},           zone:'office' },
+    park:       { mod:PRK, foot:function(r){return r.footprints;},           zone:'default' },
+    wash:       { mod:WSH, foot:function(r){return r.footprints;},           zone:'default' },
+    cemetery:   { mod:CEM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    drivein:    { mod:DRV, foot:function(r){return r.footprints;},           zone:'leisure' },
+    golf:       { mod:GLF, foot:function(r){return r.footprints;},           zone:'leisure' },
+    stadium:    { mod:STD, foot:function(r){return r.footprints;},           zone:'leisure' },
+    truckstop:  { mod:TKS, foot:function(r){return r.footprints;},           zone:'retail' },
+    school:     { mod:SCH, foot:function(r){return r.footprints;},           zone:'institutional' },
+    firestation:{ mod:FIR, foot:function(r){return r.footprints;},           zone:'institutional' },
+    swapmeet:   { mod:SWP, foot:function(r){return r.footprints;},           zone:'retail' },
+    storage:    { mod:STO, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    watertreat: { mod:WTR, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    boneyard:   { mod:BNY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    policestation:{ mod:POL, foot:function(r){return r.footprints;},         zone:'institutional' },
+    library:    { mod:LIB, foot:function(r){return r.footprints;},           zone:'civic' },
+    landfill:   { mod:LFL, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    railyard:   { mod:RLY, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    substation: { mod:SBS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    chapel:     { mod:CHP, foot:function(r){return r.footprints;},           zone:'civic' },
+    courthouse: { mod:CTH, foot:function(r){return r.footprints;},           zone:'civic' },
+    jail:       { mod:JAL, foot:function(r){return r.footprints;},           zone:'institutional' },
+    farm:       { mod:FRM, foot:function(r){return r.footprints;},           zone:'default' },
+    downtown:   { mod:DTN, foot:function(r){return r.footprints;},           zone:'retail' },
+    trailer:    { mod:TRL, foot:function(r){return r.footprints;},           zone:'residential' },
+    apartment:  { mod:APT, foot:function(r){return r.footprints;},           zone:'residential' },
+    warehouse:  { mod:WHS, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    waterpark:  { mod:WTP, foot:function(r){return r.footprints;},           zone:'leisure' },
+    mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' },
+    cityhall:   { mod:CTY, foot:function(r){return r.footprints;},           zone:'civic' },
+    battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
+    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' }
+  };
+  function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
+
+  // LANDLOCKED DISTRICT LAW (Paolo 7/21/26, LOCKED): "if there is an interior district not
+  // touching a street it has to be a suburb or apt complex that has roads from another
+  // suburb/apt complex touching the street, so the two districts' street touch." The overmap
+  // generator (bohemia_overmap.js) enforces the TYPE half for the common case: a RANDOM-ROLL
+  // interior cell can only become suburb/desert, never commercial/industrial/park/etc. Some
+  // district types still place as multi-cell CLUSTERS/blobs (downtown's rect, a farm/park blob,
+  // a granary/pumpstation landmark pair) where the interior of that same-type blob can still be
+  // 2+ tiles off the nearest real street even though the blob's seed cell was street-checked —
+  // the exact same shape of problem, one level up. This is the CONNECTIVITY half, generalized to
+  // every auto-factory type (not just suburb): a real, no-default street-edge check (unlike
+  // neighborStreets, which fakes ['S'] when nothing real is there), and a one-time BFS that finds,
+  // for every landlocked cell, the shortest chain of SAME-FAMILY neighbors out to a cell that
+  // truly touches a mile arterial — then marks the connecting edge on BOTH sides of every hop so
+  // the two districts' gates land on the same tile offset (K.pedGate/suburb's denseFill always
+  // center a gate at n/2, so two neighbors that both open toward each other line up automatically).
+  var SUBURB_FAMILY={suburb:1,gated:1,estate:1,apartment:1};  // apt complex: built 7/21/26
+  function familyOf(d){ return SUBURB_FAMILY[d] ? 'suburb' : d; }
+  var ROADSET={freeway:1,arterial:1,strip:1,beltway:1};
+  function rawStreetEdges(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var out=[]; if(ROADSET[at(x,y-1)])out.push('N'); if(ROADSET[at(x,y+1)])out.push('S');
+    if(ROADSET[at(x-1,y)])out.push('W'); if(ROADSET[at(x+1,y)])out.push('E'); return out; }
+  function buildLandlockConnect(m){
+    var N=m.n, extra={}, touchesCache={}, key=function(x,y){return x+','+y;};
+    function isBuilt(d){ return !!DISTGEN[d]; }  // only real auto-factory districts relay
+    function touches(x,y){ var k=key(x,y); if(k in touchesCache)return touchesCache[k];
+      return touchesCache[k]=rawStreetEdges(m,x,y).length>0; }
+    function addEdge(k,e){ (extra[k]=extra[k]||{})[e]=1; }
+    var DIRS=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], OPP={N:'S',S:'N',E:'W',W:'E'};
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var cell=m.at(x,y); if(!cell||!isBuilt(cell.district)||touches(x,y))continue;
+      var fam=familyOf(cell.district);
+      var seen={}; seen[key(x,y)]=1;
+      var q=[{x:x,y:y,path:[]}], head=0, found=null;
+      while(head<q.length && !found){
+        var cur=q[head++];
+        for(var i=0;i<4;i++){
+          var e=DIRS[i][0], nx=cur.x+DIRS[i][1], ny=cur.y+DIRS[i][2], nk=key(nx,ny);
+          if(seen[nk])continue; var nc=m.at(nx,ny); if(!nc||familyOf(nc.district)!==fam)continue;
+          seen[nk]=1;
+          var hop={fromX:cur.x,fromY:cur.y,edge:e,toX:nx,toY:ny};
+          var np={x:nx,y:ny,path:cur.path.concat([hop])};
+          if(touches(nx,ny)){ found=np; break; }
+          q.push(np);
+        }
+      }
+      if(found) found.path.forEach(function(hop){
+        addEdge(key(hop.fromX,hop.fromY),hop.edge);
+        addEdge(key(hop.toX,hop.toY),OPP[hop.edge]);
+      });
+    }
+    var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
+  }
+
+  // COSMETIC CONNECT (7/22/26, from the 7/21 Vegas-urbanism research thread — real Sun Belt
+  // subdivisions don't fully interconnect: Summerlin's model is loop/cul-de-sac streets with
+  // only the OCCASIONAL deliberate through-connector between adjacent tracts, for privacy and
+  // lot yield, not full-mesh streets). Unlike buildLandlockConnect (mandatory — a landlocked
+  // cell MUST reach a street somehow), this is a LOW-probability optional bonus applied ONLY
+  // between two suburb-family cells that ALREADY independently touch a real street: some
+  // adjacent subdivisions get a real through-connector between them, most don't, matching how
+  // an actual neighborhood reads from the air (mostly walled-off tracts, the occasional
+  // deliberate cut-through). Deterministic per (seed via coords), so it's reproducible.
+  var COSMETIC_CONNECT_CHANCE=0.25;
+  function cosmeticChance(x,y,dx,dy){
+    var h=((x*2246822519)^(y*3266489917)^((dx+2)*668265263)^((dy+2)*374761393))>>>0;
+    h=Math.imul(h^h>>>15,2246822507); h=Math.imul(h^h>>>13,3266489909);
+    return ((h^h>>>16)>>>0)/4294967296;
+  }
+  function buildCosmeticConnect(m){
+    var N=m.n, extra={}, key=function(x,y){return x+','+y;}, touchesCache={};
+    function isBuilt(d){ return !!DISTGEN[d]; }
+    function touches(x,y){ var k=key(x,y); if(k in touchesCache)return touchesCache[k];
+      return touchesCache[k]=rawStreetEdges(m,x,y).length>0; }
+    function addEdge(k,e){ (extra[k]=extra[k]||{})[e]=1; }
+    var PAIRS=[['S',0,1],['E',1,0]], OPP={N:'S',S:'N',E:'W',W:'E'};  // each unordered pair visited once
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var cell=m.at(x,y); if(!cell||!isBuilt(cell.district)||!SUBURB_FAMILY[cell.district])continue;
+      if(!touches(x,y))continue;                          // only street-fronting cells get the cosmetic knob
+      for(var i=0;i<PAIRS.length;i++){
+        var e=PAIRS[i][0], nx=x+PAIRS[i][1], ny=y+PAIRS[i][2];
+        var nc=m.at(nx,ny); if(!nc||!SUBURB_FAMILY[nc.district]||!touches(nx,ny))continue;
+        if(cosmeticChance(x,y,PAIRS[i][1],PAIRS[i][2])<COSMETIC_CONNECT_CHANCE){
+          addEdge(key(x,y),e); addEdge(key(nx,ny),OPP[e]);
+        }
+      }
+    }
+    var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
+  }
+
+  // ENTRANCE SIDE (7/26): which wall the interior's street door gets cut into.
+  // It used to be hardcoded 'S' for every building in the valley, so a store
+  // whose only real access is the north aisle still got its door on a blind
+  // south wall backed against a fence — the interior contradicted the exterior
+  // it is supposed to match. Now the side is READ OFF THE PLOT: score each of
+  // the four sides by the exterior tiles actually lying against it, a declared
+  // PORTAL tile (the dossier's own door) outranking plain walkable ground, and
+  // ties broken S>E>W>N — the same primary-street ordering the STREET-AWARE /
+  // DRIVABLE ACCESS LAW uses everywhere else. Pure geometry over the generated
+  // plot: no canon invented, nothing placed.
+  var SIDE_ORDER=['S','E','W','N'];
+  function entranceSide(f,probe){
+    // probe(x,y) -> {solid:bool, portal:bool} for an EXTERIOR tile, or null off-plot
+    var strips={
+      S:function(cb){for(var x=f.x;x<f.x+f.w;x++)cb(x,f.y+f.h);},
+      N:function(cb){for(var x=f.x;x<f.x+f.w;x++)cb(x,f.y-1);},
+      W:function(cb){for(var y=f.y;y<f.y+f.h;y++)cb(f.x-1,y);},
+      E:function(cb){for(var y=f.y;y<f.y+f.h;y++)cb(f.x+f.w,y);}
+    };
+    var best=null,bestScore=-1;
+    for(var i=0;i<SIDE_ORDER.length;i++){
+      var side=SIDE_ORDER[i],score=0;
+      strips[side](function(x,y){ var p=probe(x,y); if(!p)return;
+        if(p.portal)score+=8;            // the dossier's own declared door wins outright
+        else if(!p.solid)score+=1; });   // plain reachable ground beside the wall
+      if(score>bestScore){bestScore=score;best=side;}
+    }
+    return bestScore>0?best:'S';         // walled in on all four sides: fall back to canon south
+  }
 
   // build archetype -> interior zone (the floorplan's room grammar)
   var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
@@ -1728,26 +2091,125 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     return out;
   }
 
+  // LOCATION QUERY (7/24/26): the missing link between "the world is real" and
+  // anything actually FINDING something in it. Quests reference districts only
+  // as narrative flavor today ("tie faction leaders to their district") with
+  // zero binding to a real coordinate; the master loop's territory AI has real
+  // adjacency now but no way to ask "which district is a courthouse"; nothing
+  // anywhere can answer "nearest police station from here." Cheap (w.at() only,
+  // never w.plot() — no content generates just to answer a location query) and
+  // predicate-based so it's content-agnostic: it names WHERE things are, never
+  // WHICH quest/faction/agent cares, same separation MECHANISM-MINE draws
+  // everywhere else in this engine.
+  function findDistricts(m,predicate){
+    var N=m.n, out=[];
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var c=m.at(x,y);
+      if(c && DISTGEN[c.district] && predicate(c,x,y)) out.push({x:x,y:y,district:c.district});
+    }
+    return out;
+  }
+  function nearestDistrict(m,x0,y0,predicate){
+    var N=m.n, best=null, bestD=Infinity;
+    for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+      var c=m.at(x,y);
+      if(!c || !DISTGEN[c.district] || !predicate(c,x,y)) continue;
+      var dx=x-x0, dy=y-y0, d=dx*dx+dy*dy;
+      if(d<bestD){ bestD=d; best={x:x,y:y,district:c.district,dist:Math.sqrt(d)}; }
+    }
+    return best;
+  }
+
   function world(seed){
     seed=(seed>>>0)||1;
     var m = OM.buildOvermap(seed);
+    var landlockConnect = (function(){
+      var mand=buildLandlockConnect(m), cosmetic=buildCosmeticConnect(m), out={};
+      for(var k in mand) out[k]=mand[k].slice();
+      for(var k2 in cosmetic){ var set={}; (out[k2]||[]).forEach(function(e){set[e]=1;});
+        cosmetic[k2].forEach(function(e){set[e]=1;}); out[k2]=Object.keys(set); }
+      return out;
+    })();
     var plotCache = {};
     function plot(x,y){
       var key=x+','+y; if(plotCache[key])return plotCache[key];
       var cell=m.at(x,y);
       if(!cell) return null;
+      // FACTORY-GENERATED DISTRICT: a real generated block (suburb / commercial /
+      // industrial / ...), gated to the streets it touches, every building enterable.
+      var dg=DISTGEN[cell.district];
+      if(dg && dg.mod){
+        // LANDLOCKED DISTRICT LAW: real street edges + whatever landlockConnect computed toward
+        // a same-family neighbor that relays back out to a real mile arterial. For any cell that
+        // already touches a real street this is identical to neighborStreets() (no default ever
+        // fires when real edges exist), so ordinary street-fronting districts are unaffected.
+        var realEdges=rawStreetEdges(m,x,y), relayEdges=landlockConnect[x+','+y]||[];
+        var eset={}; realEdges.forEach(function(e){eset[e]=1;}); relayEdges.forEach(function(e){eset[e]=1;});
+        var uniq=Object.keys(eset);
+        var streets = uniq.length ? uniq : ['S'];
+        var gres=dg.mod.generate(cell.seed>>>0, {cw:1,ch:1,streets:streets});
+        var feet=dg.foot(gres)||[];
+        // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the
+        // renderer + collision + interior/zoom systems can READ what blocks, what you pass
+        // under, and what you go INTO — not just the raw code.
+        var legend=dg.mod.legend||{};
+        function tinfo(xx,yy){ var row=gres.g[yy]; var c=(row&&xx>=0&&xx<gres.W)?row[xx]:-1;
+          var L=legend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          return { code:c, name:L?L.name:(c===0?'dead-ground':(c<0?'(off-plot)':'?')),
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; }
+        var dapi={ x:x,y:y,district:cell.district,category:KIT.category(cell.district),archetype:dg.zone,
+          block:{W:gres.W,H:gres.H,grid:gres.g,codes:true}, legend:legend,
+          tileInfo:tinfo,
+          solidAt:function(xx,yy){ return tinfo(xx,yy).solid; },   // OCCUPANCY: does this cell block a body
+          // PORTALS: every way INTO an interior on this plot (doors, garage ramps, tunnel mouths, gates)
+          portals:function(){ return KIT.footprints(gres.g,function(v){ var L=legend[v]; return !!(L&&KIT.tileLayer(L).layer==='portal'); })
+            .map(function(f){ var c=gres.g[f.y][f.x], L=legend[c]; return {x:f.x,y:f.y,w:f.w,h:f.h,code:c,name:L?L.name:'',enter:(L&&L.enter)||null}; }); },
+          buildings: feet.map(function(f,i){ var fc=(f.code!=null)?f.code:(gres.g[f.y]&&gres.g[f.y][f.x]), fL=legend[fc];
+            var enter=(fL&&fL.enter)||null, iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
+            var kind=(enter&&/GARAGE INTERIOR/i.test(enter))?'garage':((enter&&/CRYPT INTERIOR/i.test(enter))?'crypt':'floorplan');
+            // the door goes where the plot actually lets you walk up to the wall
+            var ent=entranceSide(f,function(xx,yy){ var row=gres.g[yy]; if(!row||xx<0||xx>=gres.W)return null;
+              var t=tinfo(xx,yy); return {solid:t.solid,portal:t.layer==='portal'}; });
+            return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
+            enter:enter, kind:kind, entrance:ent,                  // what this building becomes inside (from the dossier)
+            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent}); },
+            // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
+            // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
+            // levels) is a separate 3D property derived from the seed, not the floor-plate size.
+            interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
+              if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
+              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
+          building:function(i){ return this.buildings[i]; } };
+        plotCache[key]=dapi; return dapi;
+      }
       var recipe=BR.recipeFor(cell);
       var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
       // W=48 gives footprints big enough to carry real interiors
       var block=BR.blockFor(cell, BG, 48);
       var feet = block.grid ? footprints(block) : [];
       var zone = ZONE[arch] || 'default';
+      // LANDMARK / BESPOKE CELLS: the districts with no DISTGEN factory entry —
+      // the hand-reserved ones (casino, resort, strip: Paolo 7/18, they get
+      // individual love, never the auto-factory) plus the recipe-built landmarks
+      // (airport, campus, prison, town, convention...). 219 of their buildings in
+      // the seed-12345 valley exposed floorplan() but NO interior(), so the one
+      // uniform question every consumer asks — "what is inside this?" — threw on
+      // them and the enterable rung stopped at the factory districts. They now
+      // answer it through the SAME dispatch, returning the SAME floorplan they
+      // already generated: mechanism only, zero content invented for the cells
+      // Paolo reserved for his own hand.
       var api = {
         x:x, y:y, district:cell.district, archetype:arch, block:block,
         buildings: feet.map(function(f,i){
+          var iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
+          var ent=entranceSide(f,function(xx,yy){ var row=block.grid&&block.grid[yy];
+            if(!row||xx<0||xx>=block.W)return null; var g=row[xx];
+            return {solid:!!(g&&FOOTPRINT[g.g]),portal:false}; });
           return {
             index:i, x:f.x, y:f.y, w:f.w, h:f.h, zone:zone,
-            floorplan: function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:zone, entrance:'S'}); }
+            enter:null, kind:'floorplan', entrance:ent,
+            floorplan: function(){ return FP.generate(iseed, f.w, f.h, {zone:zone, entrance:ent}); },
+            interior: function(){ return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:zone, entrance:ent})}; }
           };
         }),
         building: function(i){ return this.buildings[i]; }
@@ -1758,11 +2220,32 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       seed:seed, n:m.n, overmap:m,
       at:function(x,y){return m.at(x,y);},
       plot:plot,
-      DISTRICT: OM.DISTRICT
+      DISTRICT: OM.DISTRICT,
+      landlockConnect: landlockConnect,          // LANDLOCKED DISTRICT LAW audit surface
+      rawStreetEdges: function(x,y){ return rawStreetEdges(m,x,y); },
+      SUBURB_FAMILY: SUBURB_FAMILY,
+      // LOCATION QUERY: every real auto-factory district, findable by type/category/
+      // custom predicate, cheap (never generates plot content to answer). The three
+      // named helpers cover the common asks; findDistricts is the escape hatch.
+      districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
+      districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },
+      nearestDistrictOfType: function(x,y,type){ return nearestDistrict(m, x, y, function(c){ return c.district===type; }); },
+      nearestDistrictInCategory: function(x,y,category){ return nearestDistrict(m, x, y, function(c){ return KIT.category(c.district)===category; }); },
+      findDistricts: function(predicate){ return findDistricts(m, predicate); }
     };
   }
 
-  var API = {world:world};
+  // isAutoDistrict/districtZone: read-only membership + zone lookup against the
+  // real DISTGEN table, for callers (the master-loop scaffold) that need to
+  // catalog real district cells cheaply — from cell.district alone, no plot()
+  // generation — without duplicating DISTGEN's key list a second time anywhere.
+  function isAutoDistrict(type){ return !!DISTGEN[type]; }
+  function districtZone(type){ return DISTGEN[type] ? DISTGEN[type].zone : null; }
+  // every married district type, in one place, so a gate can sweep them ALL
+  // instead of sampling whatever a coordinate scan happens to land on.
+  function districtTypes(){ return Object.keys(DISTGEN); }
+
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone, districtTypes:districtTypes};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

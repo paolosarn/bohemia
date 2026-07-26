@@ -52,16 +52,48 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    he rules. | — | bootFactions is the seam | [PENDING Paolo].
 
 ## CITY
-1. Interiors everywhere: every married district's buildings enterable per
-   interior=exterior. | world_gate interior checks extended | loop.js,
-   COMBAT_B64 | no.
-2. District volume: next Pocket-City-type gaps that fit the dead world, on
+1. MARRY COMMERCIAL (discovered, CITY 7/26). The corner plaza has NEVER been
+   registered with the district kit (it never binds K, and the registration sits
+   behind a `typeof K` guard that silently swallowed it), so the walked city
+   still renders commercial from the LEGACY PREFAB STAMPS — not the canon plaza,
+   nothing enterable. Binding K is one line and turns walkable_gate RED: on a
+   single W or N street the generator builds only ONE store strip and parking
+   fills the rest (drive 61% vs content 30%). Fix the mid-block/single-edge form
+   FIRST, then bind K. Full numbers in the module's own head comment + records/
+   BOHEMIA_INTERIORS_EVERYWHERE_7_26_26.md. | walkable_gate green with commercial
+   swept + interiors_gate proves a plaza store is enterable | the S/corner form is
+   approved, do not reshape it | the mid-block plaza form is [PENDING Paolo] per
+   the module's own NOTES — surface it as rendered candidates, do not pick one.
+2. GARAGE + CRYPT INTERIORS IN THE ALPHA (discovered, CITY 7/26). The engine
+   DISPATCHES a building's interior by kind (garage -> multi-deck parking, crypt
+   -> vault hall, everything else -> rooms) and world_gate proves it. The alpha's
+   STEP-INSIDE renders the ROOMS kind only, so walking into a parking structure
+   or a mausoleum gets you a floorplan instead of decks/vaults. Embed
+   bohemia_garage.js + bohemia_crypt.js in CITY_B64 (resync tool exists now) and
+   branch the render the way the engine branches. | interiors_gate extended to
+   assert all three kinds render | engine dispatch is correct, do not touch it |
+   the deck/vault LOOK = judge before volume.
+3. INTERIOR DRESSING (discovered, CITY 7/26). Rooms are flat role-tinted plates
+   with wear + wall AO. Every district dossier already describes what is inside
+   ("registers + coolers + aisles up front", "rows of rusted lockers, a dead
+   shower block") — furniture/props per ROLE, off the dossiers, reuse-first from
+   banks/. | per-role prop pass gated | never invent contents a dossier
+   does not state | yes, fresh look.
+4. Interiors everywhere: DONE 7/26 (records/BOHEMIA_INTERIORS_EVERYWHERE_7_26_26
+   .md). Left standing: THE UNDERGROUND behind wash's sewer tunnel mouth is a
+   LIFE-lane below-grade level, not a room in a footprint. [PENDING — LIFE lane]
+5. District volume: next Pocket-City-type gaps that fit the dead world, on
    the KIT, full touchpoint list per the architecture map. | per-district gate
    x6 configs | bespoke strip/casino (Paolo's hand) | new district LOOK =
    judge before volume.
-3. (discovered, coordinator 7/25) RIG_B64/PREFAB_B64 byte-lock holes + sync-
+6. (discovered, coordinator 7/25) RIG_B64/PREFAB_B64 byte-lock holes + sync-
    canon gaps (PLOTGEN/POWERGRID/FLOORPLAN/TRANSITIONS). NON-COOK item. |
    new byte-lock gates registered | — | no.
+   (CITY 7/26 note: tools/bohemia_city_module_resync.py now re-syncs every
+   engine module inlined in CITY_B64 and `--check` reports staleness, which is
+   the freshness half of this item for the CITY app. It caught commercial +
+   suburb + district_kit all silently behind. The remaining half is the same
+   treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
 0. ALLY-IN-COMBAT foundation (RULED 7/26, companions addendum): the encounter

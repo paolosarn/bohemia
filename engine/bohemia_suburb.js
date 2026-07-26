@@ -9,6 +9,15 @@
 // ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
 // dead ground (code 0). Homes NEVER touch the wall — 3-tile dead backyard minimum.
 (function(root){
+  // THE KIT BINDING (7/26 fix): every other district module binds K up front;
+  // this one referenced a bare `K` guarded by `typeof K!=='undefined'`, so in the
+  // browser the guard silently swallowed it and the module NEVER registered with
+  // the district kit. The whole generic marriage in the CITY app keys off that
+  // registry, so the walked district fell back to the legacy prefab stamps -
+  // not the canon plot, and not one enterable building in it.
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+
   var SZ=128, TILE=0.75;                                  // tiles/cell, m/tile
   var M=function(m){return Math.round(m/TILE);};          // meters -> tiles
   function rng(seed){var s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}

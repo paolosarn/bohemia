@@ -11,6 +11,24 @@
 //  0 dead-ground 1 parking-asphalt 2 store 3 drive-aisle 4 stall-stripe 5 curb-cut
 //  6 sidewalk 7 store-door 8 service-alley 9 service-door 10 gas-canopy 11 gas-pump
 (function(root){
+  // NOT K-REGISTERED, AND THAT IS A KNOWN HOLE (7/26, CITY lane). The registration
+  // at the bottom of this file sits behind `typeof K!=='undefined'` and nothing in
+  // this module ever binds K - every other district module opens with a `var K =
+  // require(...)/BohemiaDistrictKit` line, this one never did. So the guard has
+  // silently swallowed it since day one and this plaza has NEVER joined the
+  // district kit: the walked city in the alpha still renders commercial from the
+  // LEGACY PREFAB STAMPS, not this canon layout, with not one enterable building.
+  // Binding K is a one-line fix and it was tried. It turns walkable_gate RED: on a
+  // SINGLE W or N street this generator builds only ONE store strip (see `back` in
+  // generate() - a lone street edge leaves just the top band) and parking fills the
+  // rest, drive 61% vs content 30%, a WALKABLE-LAND LAW violation the unregistered
+  // state has been hiding. That is precisely the gap this module's own NOTES
+  // already flag: "[PENDING Paolo] its standalone / mid-block form ... gated on
+  // S/corners/N only for now, NOT arbitrary single edges." Designing the mid-block
+  // plaza is a district-build decision, not a one-line binding. Backlog: CITY,
+  // "MARRY COMMERCIAL". Fix the mid-block form, THEN bind K, and the plaza lands
+  // in the walked city enterable.
+
   var SZ=128, TILE=0.75;
   var M=function(m){return Math.round(m/TILE);};
   function blank(){var g=[];for(var y=0;y<SZ;y++){var r=[];for(var x=0;x<SZ;x++)r.push(0);g.push(r);}return g;}

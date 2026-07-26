@@ -214,6 +214,8 @@ GATES = [
      'city-builder verbs: skeleton sacred, demolish-to-desert, canon builds only', False),
     ('ZOOM BUILD',     ['python3', 'gates/zoombuild_gate.py'],
      'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
+    ('INTERIORS',      ['node', 'gates/interiors_gate.js'],
+     'walk into a building and you are IN it: interior === exterior footprint, one generator, the dossier decides', False),
     ('MAP TAB',        ['node', 'gates/map_tab_gate.js'],
      'the MAP tab: THE VALLEY AERIAL live + reachable, every generator module byte-locked to canon', False),
     ('HOUSE ART',      ['python3', 'gates/houseart_gate.py'],

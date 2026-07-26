@@ -194,6 +194,36 @@
     var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
   }
 
+  // ENTRANCE SIDE (7/26): which wall the interior's street door gets cut into.
+  // It used to be hardcoded 'S' for every building in the valley, so a store
+  // whose only real access is the north aisle still got its door on a blind
+  // south wall backed against a fence — the interior contradicted the exterior
+  // it is supposed to match. Now the side is READ OFF THE PLOT: score each of
+  // the four sides by the exterior tiles actually lying against it, a declared
+  // PORTAL tile (the dossier's own door) outranking plain walkable ground, and
+  // ties broken S>E>W>N — the same primary-street ordering the STREET-AWARE /
+  // DRIVABLE ACCESS LAW uses everywhere else. Pure geometry over the generated
+  // plot: no canon invented, nothing placed.
+  var SIDE_ORDER=['S','E','W','N'];
+  function entranceSide(f,probe){
+    // probe(x,y) -> {solid:bool, portal:bool} for an EXTERIOR tile, or null off-plot
+    var strips={
+      S:function(cb){for(var x=f.x;x<f.x+f.w;x++)cb(x,f.y+f.h);},
+      N:function(cb){for(var x=f.x;x<f.x+f.w;x++)cb(x,f.y-1);},
+      W:function(cb){for(var y=f.y;y<f.y+f.h;y++)cb(f.x-1,y);},
+      E:function(cb){for(var y=f.y;y<f.y+f.h;y++)cb(f.x+f.w,y);}
+    };
+    var best=null,bestScore=-1;
+    for(var i=0;i<SIDE_ORDER.length;i++){
+      var side=SIDE_ORDER[i],score=0;
+      strips[side](function(x,y){ var p=probe(x,y); if(!p)return;
+        if(p.portal)score+=8;            // the dossier's own declared door wins outright
+        else if(!p.solid)score+=1; });   // plain reachable ground beside the wall
+      if(score>bestScore){bestScore=score;best=side;}
+    }
+    return bestScore>0?best:'S';         // walled in on all four sides: fall back to canon south
+  }
+
   // build archetype -> interior zone (the floorplan's room grammar)
   var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
     industrial:'warehouse', utility:'office', landmark:'landmark',
@@ -296,15 +326,18 @@
           buildings: feet.map(function(f,i){ var fc=(f.code!=null)?f.code:(gres.g[f.y]&&gres.g[f.y][f.x]), fL=legend[fc];
             var enter=(fL&&fL.enter)||null, iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
             var kind=(enter&&/GARAGE INTERIOR/i.test(enter))?'garage':((enter&&/CRYPT INTERIOR/i.test(enter))?'crypt':'floorplan');
+            // the door goes where the plot actually lets you walk up to the wall
+            var ent=entranceSide(f,function(xx,yy){ var row=gres.g[yy]; if(!row||xx<0||xx>=gres.W)return null;
+              var t=tinfo(xx,yy); return {solid:t.solid,portal:t.layer==='portal'}; });
             return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
-            enter:enter, kind:kind,                                // what this building becomes inside (from the dossier)
-            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'}); },
+            enter:enter, kind:kind, entrance:ent,                  // what this building becomes inside (from the dossier)
+            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent}); },
             // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
             // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
             // levels) is a separate 3D property derived from the seed, not the floor-plate size.
             interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
-              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'})}; } }; }),
+              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;
       }
@@ -314,12 +347,28 @@
       var block=BR.blockFor(cell, BG, 48);
       var feet = block.grid ? footprints(block) : [];
       var zone = ZONE[arch] || 'default';
+      // LANDMARK / BESPOKE CELLS: the districts with no DISTGEN factory entry —
+      // the hand-reserved ones (casino, resort, strip: Paolo 7/18, they get
+      // individual love, never the auto-factory) plus the recipe-built landmarks
+      // (airport, campus, prison, town, convention...). 219 of their buildings in
+      // the seed-12345 valley exposed floorplan() but NO interior(), so the one
+      // uniform question every consumer asks — "what is inside this?" — threw on
+      // them and the enterable rung stopped at the factory districts. They now
+      // answer it through the SAME dispatch, returning the SAME floorplan they
+      // already generated: mechanism only, zero content invented for the cells
+      // Paolo reserved for his own hand.
       var api = {
         x:x, y:y, district:cell.district, archetype:arch, block:block,
         buildings: feet.map(function(f,i){
+          var iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
+          var ent=entranceSide(f,function(xx,yy){ var row=block.grid&&block.grid[yy];
+            if(!row||xx<0||xx>=block.W)return null; var g=row[xx];
+            return {solid:!!(g&&FOOTPRINT[g.g]),portal:false}; });
           return {
             index:i, x:f.x, y:f.y, w:f.w, h:f.h, zone:zone,
-            floorplan: function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:zone, entrance:'S'}); }
+            enter:null, kind:'floorplan', entrance:ent,
+            floorplan: function(){ return FP.generate(iseed, f.w, f.h, {zone:zone, entrance:ent}); },
+            interior: function(){ return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:zone, entrance:ent})}; }
           };
         }),
         building: function(i){ return this.buildings[i]; }
@@ -351,8 +400,11 @@
   // generation — without duplicating DISTGEN's key list a second time anywhere.
   function isAutoDistrict(type){ return !!DISTGEN[type]; }
   function districtZone(type){ return DISTGEN[type] ? DISTGEN[type].zone : null; }
+  // every married district type, in one place, so a gate can sweep them ALL
+  // instead of sampling whatever a coordinate scan happens to land on.
+  function districtTypes(){ return Object.keys(DISTGEN); }
 
-  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone};
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone, districtTypes:districtTypes};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

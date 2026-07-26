@@ -4611,6 +4611,15 @@ root.BQRuntime=API;
 // ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
 // dead ground (code 0). Homes NEVER touch the wall — 3-tile dead backyard minimum.
 (function(root){
+  // THE KIT BINDING (7/26 fix): every other district module binds K up front;
+  // this one referenced a bare `K` guarded by `typeof K!=='undefined'`, so in the
+  // browser the guard silently swallowed it and the module NEVER registered with
+  // the district kit. The whole generic marriage in the CITY app keys off that
+  // registry, so the walked district fell back to the legacy prefab stamps -
+  // not the canon plot, and not one enterable building in it.
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+
   var SZ=128, TILE=0.75;                                  // tiles/cell, m/tile
   var M=function(m){return Math.round(m/TILE);};          // meters -> tiles
   function rng(seed){var s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
@@ -4850,6 +4859,24 @@ root.BQRuntime=API;
 //  0 dead-ground 1 parking-asphalt 2 store 3 drive-aisle 4 stall-stripe 5 curb-cut
 //  6 sidewalk 7 store-door 8 service-alley 9 service-door 10 gas-canopy 11 gas-pump
 (function(root){
+  // NOT K-REGISTERED, AND THAT IS A KNOWN HOLE (7/26, CITY lane). The registration
+  // at the bottom of this file sits behind `typeof K!=='undefined'` and nothing in
+  // this module ever binds K - every other district module opens with a `var K =
+  // require(...)/BohemiaDistrictKit` line, this one never did. So the guard has
+  // silently swallowed it since day one and this plaza has NEVER joined the
+  // district kit: the walked city in the alpha still renders commercial from the
+  // LEGACY PREFAB STAMPS, not this canon layout, with not one enterable building.
+  // Binding K is a one-line fix and it was tried. It turns walkable_gate RED: on a
+  // SINGLE W or N street this generator builds only ONE store strip (see `back` in
+  // generate() - a lone street edge leaves just the top band) and parking fills the
+  // rest, drive 61% vs content 30%, a WALKABLE-LAND LAW violation the unregistered
+  // state has been hiding. That is precisely the gap this module's own NOTES
+  // already flag: "[PENDING Paolo] its standalone / mid-block form ... gated on
+  // S/corners/N only for now, NOT arbitrary single edges." Designing the mid-block
+  // plaza is a district-build decision, not a one-line binding. Backlog: CITY,
+  // "MARRY COMMERCIAL". Fix the mid-block form, THEN bind K, and the plaza lands
+  // in the walked city enterable.
+
   var SZ=128, TILE=0.75;
   var M=function(m){return Math.round(m/TILE);};
   function blank(){var g=[];for(var y=0;y<SZ;y++){var r=[];for(var x=0;x<SZ;x++)r.push(0);g.push(r);}return g;}
@@ -10622,6 +10649,16 @@ if(typeof module!=='undefined')module.exports=BOH_BLOCKGEN;
 // public role, back rooms go private/service). Deterministic per (seed,W,H,zone).
 // Semantic only: 'floor'/'wall'/'door' + role labels; art resolves at bake, the
 // same contract as every other generator.
+//
+// 7/26/26 — INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED: "if your interior
+// does not match the width and length of the exterior every time, you are
+// failing... I am not having it any other way"). This file was BREAKING that law
+// on 343 buildings in the seed-12345 valley: `W=Math.max(minR+2,W|0)` silently
+// GREW any footprint too small for its zone's room grammar (a 3x108 storage unit
+// row became 10x108, a 1x19 farm strip became 6x19, a 7x6 plant became 10x10).
+// The plate is now EXACTLY the footprint, always; the GRAMMAR shrinks to fit the
+// plate instead of the plate growing to fit the grammar, and a sliver too thin to
+// carry walled rooms becomes one open plate with a perimeter entrance.
 const BOH_FLOORPLAN=(function(){
   function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
   // zone -> ordered room roles (public first) + minimum room dimension
@@ -10633,6 +10670,14 @@ const BOH_FLOORPLAN=(function(){
     institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
     warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
     landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
+    // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
+    // silently falling through to the nameless 'default' grammar — 46 buildings
+    // whose recorded dossiers describe real rooms (golf: "pro shop + bag room up
+    // front, grill + locker rooms behind"; drivein: "counter + kitchen up front,
+    // the projection room behind"; stadium: "the ring corridor under the stands,
+    // boarded concession windows + restrooms"). Roles read off those dossiers.
+    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],minRoom:5},
     'default':  {roles:['room','room','service'],minRoom:4},
   };
   // union-find for the door spanning tree
@@ -10643,21 +10688,59 @@ const BOH_FLOORPLAN=(function(){
   function generate(seed,W,H,opts){
     const o=opts||{}; const r=rng(seed);
     const Z=ZONES[o.zone]||ZONES['default'];
-    const minR=o.minRoom||Z.minRoom;
     const entrance=o.entrance||'S';   // street-facing side
-    W=Math.max(minR+2,W|0); H=Math.max(minR+2,H|0);
-    // 1) BSP the interior (inside a 1-cell perimeter wall)
-    const rooms=[];
-    (function split(x,y,w,h,depth){
-      const canH=w>=minR*2+1, canV=h>=minR*2+1;
-      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){rooms.push({x,y,w,h});return;}
-      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
-      if(horiz){const cut=minR+((r()*(w-2*minR-1))|0)+1; split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
-      else     {const cut=minR+((r()*(h-2*minR-1))|0)+1; split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
-    })(1,1,W-2,H-2,0);
-    // 2) paint grid: everything wall, then stamp room floors
+    // THE PLATE IS THE FOOTPRINT. Never padded, never clamped, never resized.
+    W=Math.max(1,W|0); H=Math.max(1,H|0);
+    // the GRAMMAR bends instead: a room can never be asked to be bigger than the
+    // walled interior it has to live in.
+    const minR=Math.max(1,Math.min(o.minRoom||Z.minRoom,Math.min(W-2,H-2)));
+    const rooms=[],doors=[];
     const grid=[];
     for(let y=0;y<H;y++){const row=[];for(let x=0;x<W;x++)row.push({g:'wall',room:-1,door:false,role:null});grid.push(row);}
+    const carve=(x,y)=>{if(x<0||y<0||x>=W||y>=H)return;const c=grid[y][x];if(c.door)return;c.g='door';c.door=true;doors.push([x,y]);};
+    const perimeterDoor=()=>{ // the entrance, on the requested side, mid-edge
+      if(entrance==='N')carve(W>>1,0);
+      else if(entrance==='W')carve(0,H>>1);
+      else if(entrance==='E')carve(W-1,H>>1);
+      else carve(W>>1,H-1);
+    };
+    const zoneRooms=()=>{ // roles by distance from the entrance room (public near door)
+      const front=rooms.__front||0;
+      const order=[...rooms.keys()].sort((a,b)=>{
+        const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
+        const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
+        return da-db;});
+      order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+        rooms[ri].role=role;
+        for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    };
+
+    // SLIVER PLATE (7/26): a footprint under 3 cells on either axis — a storage
+    // unit row seen edge-on, a 1-wide farm strip, a thin utility shed. There is
+    // no room left over once you spend a cell per side on wall, so the plate IS
+    // the room: one open space, entrance cut straight through its perimeter.
+    // Exactly W x H, like every other interior in this engine.
+    if(W<3||H<3){
+      rooms.push({x:0,y:0,w:W,h:H});
+      for(let y=0;y<H;y++)for(let x=0;x<W;x++){grid[y][x].g='floor';grid[y][x].room=0;}
+      perimeterDoor();
+      zoneRooms();
+      return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
+        sliver:true,pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
+    }
+
+    // 1) BSP the interior (inside a 1-cell perimeter wall)
+    (function split(x,y,w,h,depth){
+      const canH=w>=minR*2+1, canV=h>=minR*2+1;
+      if((!canH&&!canV)||depth>6||(depth>1&&w<minR*3&&h<minR*3&&r()<0.35)){if(w>0&&h>0)rooms.push({x,y,w,h});return;}
+      let horiz; if(canH&&canV)horiz=(r()<(w/(w+h))); else horiz=canH;
+      // the cut lands so BOTH halves are >= minR. The old formula
+      // (minR + rand(span-2*minR-1) + 1) could hand the right half minR-1 cells,
+      // and at minR=1 it handed it ZERO — an empty room nothing can ever reach.
+      if(horiz){const cut=minR+((r()*(w-2*minR))|0); split(x,y,cut,h,depth+1); split(x+cut+1,y,w-cut-1,h,depth+1);}
+      else     {const cut=minR+((r()*(h-2*minR))|0); split(x,y,w,cut,depth+1); split(x,y+cut+1,w,h-cut-1,depth+1);}
+    })(1,1,W-2,H-2,0);
+    // 2) paint grid: everything wall, then stamp room floors
     rooms.forEach((rm,i)=>{for(let y=rm.y;y<rm.y+rm.h;y++)for(let x=rm.x;x<rm.x+rm.w;x++){grid[y][x].g='floor';grid[y][x].room=i;}});
     // 3) door graph: find wall cells separating two rooms, carve a spanning tree
     const at=(x,y)=>(x<0||y<0||x>=W||y>=H)?null:grid[y][x];
@@ -10672,9 +10755,8 @@ const BOH_FLOORPLAN=(function(){
         }
       }
     }
-    const uf=UF(rooms.length); const doors=[];
+    const uf=UF(rooms.length);
     const pairs=Object.keys(cand).sort((a,b)=>{const s=(k)=>{const c=cand[k][0];return c[1]*W+c[0];};return s(a)-s(b);});
-    const carve=(x,y)=>{grid[y][x].g='door';grid[y][x].door=true;doors.push([x,y]);};
     for(const k of pairs){const [a,b]=k.split(',').map(Number);
       if(uf.union(a,b)){const cells=cand[k];carve(...cells[(cells.length>>1)]);}}
     // a few loop doors so it is not a strict tree (still fully reachable)
@@ -10695,13 +10777,7 @@ const BOH_FLOORPLAN=(function(){
     else if(entrance==='W')carve(0,Math.min(H-1,fr.y+(fr.h>>1)));
     else carve(W-1,Math.min(H-1,fr.y+(fr.h>>1)));
     // 5) zoning: role by distance from the entrance room (public near door)
-    const order=[...rooms.keys()].sort((a,b)=>{
-      const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
-      const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
-      return da-db;});
-    order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
-      rooms[ri].role=role;
-      for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
+    rooms.__front=front; zoneRooms(); delete rooms.__front;
     return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
       pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
   }
@@ -11024,6 +11100,36 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
   }
 
+  // ENTRANCE SIDE (7/26): which wall the interior's street door gets cut into.
+  // It used to be hardcoded 'S' for every building in the valley, so a store
+  // whose only real access is the north aisle still got its door on a blind
+  // south wall backed against a fence — the interior contradicted the exterior
+  // it is supposed to match. Now the side is READ OFF THE PLOT: score each of
+  // the four sides by the exterior tiles actually lying against it, a declared
+  // PORTAL tile (the dossier's own door) outranking plain walkable ground, and
+  // ties broken S>E>W>N — the same primary-street ordering the STREET-AWARE /
+  // DRIVABLE ACCESS LAW uses everywhere else. Pure geometry over the generated
+  // plot: no canon invented, nothing placed.
+  var SIDE_ORDER=['S','E','W','N'];
+  function entranceSide(f,probe){
+    // probe(x,y) -> {solid:bool, portal:bool} for an EXTERIOR tile, or null off-plot
+    var strips={
+      S:function(cb){for(var x=f.x;x<f.x+f.w;x++)cb(x,f.y+f.h);},
+      N:function(cb){for(var x=f.x;x<f.x+f.w;x++)cb(x,f.y-1);},
+      W:function(cb){for(var y=f.y;y<f.y+f.h;y++)cb(f.x-1,y);},
+      E:function(cb){for(var y=f.y;y<f.y+f.h;y++)cb(f.x+f.w,y);}
+    };
+    var best=null,bestScore=-1;
+    for(var i=0;i<SIDE_ORDER.length;i++){
+      var side=SIDE_ORDER[i],score=0;
+      strips[side](function(x,y){ var p=probe(x,y); if(!p)return;
+        if(p.portal)score+=8;            // the dossier's own declared door wins outright
+        else if(!p.solid)score+=1; });   // plain reachable ground beside the wall
+      if(score>bestScore){bestScore=score;best=side;}
+    }
+    return bestScore>0?best:'S';         // walled in on all four sides: fall back to canon south
+  }
+
   // build archetype -> interior zone (the floorplan's room grammar)
   var ZONE = {civic:'civic', bigbox:'retail', institutional:'institutional',
     industrial:'warehouse', utility:'office', landmark:'landmark',
@@ -11126,15 +11232,18 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
           buildings: feet.map(function(f,i){ var fc=(f.code!=null)?f.code:(gres.g[f.y]&&gres.g[f.y][f.x]), fL=legend[fc];
             var enter=(fL&&fL.enter)||null, iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
             var kind=(enter&&/GARAGE INTERIOR/i.test(enter))?'garage':((enter&&/CRYPT INTERIOR/i.test(enter))?'crypt':'floorplan');
+            // the door goes where the plot actually lets you walk up to the wall
+            var ent=entranceSide(f,function(xx,yy){ var row=gres.g[yy]; if(!row||xx<0||xx>=gres.W)return null;
+              var t=tinfo(xx,yy); return {solid:t.solid,portal:t.layer==='portal'}; });
             return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
-            enter:enter, kind:kind,                                // what this building becomes inside (from the dossier)
-            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'}); },
+            enter:enter, kind:kind, entrance:ent,                  // what this building becomes inside (from the dossier)
+            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent}); },
             // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
             // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
             // levels) is a separate 3D property derived from the seed, not the floor-plate size.
             interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
-              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:'S'})}; } }; }),
+              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         plotCache[key]=dapi; return dapi;
       }
@@ -11144,12 +11253,28 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       var block=BR.blockFor(cell, BG, 48);
       var feet = block.grid ? footprints(block) : [];
       var zone = ZONE[arch] || 'default';
+      // LANDMARK / BESPOKE CELLS: the districts with no DISTGEN factory entry —
+      // the hand-reserved ones (casino, resort, strip: Paolo 7/18, they get
+      // individual love, never the auto-factory) plus the recipe-built landmarks
+      // (airport, campus, prison, town, convention...). 219 of their buildings in
+      // the seed-12345 valley exposed floorplan() but NO interior(), so the one
+      // uniform question every consumer asks — "what is inside this?" — threw on
+      // them and the enterable rung stopped at the factory districts. They now
+      // answer it through the SAME dispatch, returning the SAME floorplan they
+      // already generated: mechanism only, zero content invented for the cells
+      // Paolo reserved for his own hand.
       var api = {
         x:x, y:y, district:cell.district, archetype:arch, block:block,
         buildings: feet.map(function(f,i){
+          var iseed=(cell.seed ^ (0x9E3779B1*(i+1)))>>>0;
+          var ent=entranceSide(f,function(xx,yy){ var row=block.grid&&block.grid[yy];
+            if(!row||xx<0||xx>=block.W)return null; var g=row[xx];
+            return {solid:!!(g&&FOOTPRINT[g.g]),portal:false}; });
           return {
             index:i, x:f.x, y:f.y, w:f.w, h:f.h, zone:zone,
-            floorplan: function(){ return FP.generate((cell.seed ^ (0x9E3779B1*(i+1)))>>>0, f.w, f.h, {zone:zone, entrance:'S'}); }
+            enter:null, kind:'floorplan', entrance:ent,
+            floorplan: function(){ return FP.generate(iseed, f.w, f.h, {zone:zone, entrance:ent}); },
+            interior: function(){ return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:zone, entrance:ent})}; }
           };
         }),
         building: function(i){ return this.buildings[i]; }
@@ -11181,8 +11306,11 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   // generation — without duplicating DISTGEN's key list a second time anywhere.
   function isAutoDistrict(type){ return !!DISTGEN[type]; }
   function districtZone(type){ return DISTGEN[type] ? DISTGEN[type].zone : null; }
+  // every married district type, in one place, so a gate can sweep them ALL
+  // instead of sampling whatever a coordinate scan happens to land on.
+  function districtTypes(){ return Object.keys(DISTGEN); }
 
-  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone};
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone, districtTypes:districtTypes};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

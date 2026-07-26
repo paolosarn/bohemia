@@ -2,7 +2,7 @@
 // never throw. Proves world(seed) addresses valley -> district -> plot ->
 // building -> floorplan for every cell, that the chain is deterministic, and
 // that every building a plot exposes yields a real (reachable) interior.
-const { world } = require('../engine/bohemia_world.js');
+const { world, districtTypes } = require('../engine/bohemia_world.js');
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 const d4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -86,6 +86,87 @@ for (let y = 6; y < 90 && dimChecked < 200; y++) for (let x = 6; x < 90 && dimCh
   }
 }
 ok('INTERIOR matches EXTERIOR footprint w x h EXACTLY, every building (' + dimChecked + ' checked)' + (dimBad ? ' — ' + dimBad : ''), dimOk && dimChecked > 0);
+
+// INTERIORS EVERYWHERE (7/26) — the coordinate scan above only ever reached whatever
+// district types happened to sit in its window, and it stopped at 200 buildings. That is
+// how 343 clamped interiors (storage unit rows, farm strips, trailer singles, a watertreat
+// plant) lived in the valley under a green gate. This sweeps EVERY married district type by
+// name, one real cell each, ALL of its buildings — so a type can never again be enterable
+// only in the sample. Plus: a building that cannot answer interior() is not enterable at
+// all, and a floorplan whose door lands on a wall with nothing outside it is an interior
+// that contradicts its exterior.
+// A rare landmark type (firestation, swapmeet, terminal, cityhall, jail...) does not place
+// in EVERY valley, so one seed can never cover the table — sweep several and union them.
+const TYPES = districtTypes();
+const SEEDS = [12345, 7, 99, 2026];
+const covered = new Set();
+let typesMissing = [], typeDimBad = [], typeNoInterior = [], typeSwept = 0, entBad = [], noSurface = [];
+for (const seed of SEEDS) {
+  const ws = seed === 12345 ? w : world(seed);
+  for (const t of TYPES) {
+    if (covered.has(t)) continue;
+    const found = ws.districtsOfType(t);
+    let p = null;
+    for (const c of found.slice(0, 4)) { const pp = ws.plot(c.x, c.y); if (pp && pp.buildings && pp.buildings.length) { p = pp; break; } }
+    if (!p) continue;
+    covered.add(t);
+    for (const b of p.buildings) {
+      typeSwept++;
+      if (typeof b.interior !== 'function') { typeNoInterior.push(t); break; }
+      const it = b.interior();
+      let iw, ih;
+      if (it.kind === 'garage' || it.kind === 'crypt') { iw = it.W; ih = it.H; }
+      else { iw = it.floorplan.W; ih = it.floorplan.H; }
+      if (iw !== b.w || ih !== b.h) { typeDimBad.push(t + ' ' + b.kind + ' ' + b.w + 'x' + b.h + ' -> ' + iw + 'x' + ih); break; }
+      // the door is cut into a side the plot can actually deliver you to
+      if (it.kind === 'floorplan' && b.entrance && it.floorplan.meta.entrance !== b.entrance) { entBad.push(t); break; }
+    }
+  }
+}
+// A district with NO surface buildings at all is legal, but only DELIBERATELY: `wash` is a
+// concrete flood channel whose only way in is the SEWER TUNNEL MOUTH down to THE UNDERGROUND
+// (the LIFE flood-tunnel level), so it declares footprints:[] on purpose. The gate makes that
+// explicit instead of letting a district with silently-zero buildings pass as "covered".
+for (const t of TYPES) {
+  if (covered.has(t)) continue;
+  let sawCell = false, sawFoot = false;
+  for (const seed of SEEDS) {
+    const ws = seed === 12345 ? w : world(seed);
+    const found = ws.districtsOfType(t);
+    if (found.length) sawCell = true;
+    for (const c of found.slice(0, 4)) { const pp = ws.plot(c.x, c.y); if (pp && pp.buildings && pp.buildings.length) sawFoot = true; }
+  }
+  if (sawCell && !sawFoot) noSurface.push(t); else typesMissing.push(t);
+}
+ok('every married district type is covered — enterable buildings, or deliberately none (' +
+  covered.size + ' enterable + ' + noSurface.length + ' no-surface [' + (noSurface.join(',') || '-') + '] of ' + TYPES.length + ')' +
+  (typesMissing.length ? ' — never placed in any test seed: ' + typesMissing.join(',') : ''), typesMissing.length === 0);
+ok('every building of every district type answers interior() (' + typeSwept + ' swept)' +
+  (typeNoInterior.length ? ' — ' + typeNoInterior.join(',') : ''), typeNoInterior.length === 0);
+ok('INTERIOR === EXTERIOR across EVERY district type, all buildings' +
+  (typeDimBad.length ? ' — ' + typeDimBad.slice(0, 3).join(' | ') : ''), typeDimBad.length === 0);
+ok('the interior door is cut into the side the exterior actually opens on' +
+  (entBad.length ? ' — ' + entBad.join(',') : ''), entBad.length === 0);
+
+// THE BESPOKE / LANDMARK CELLS: casino, resort, strip (Paolo 7/18 — reserved for his own
+// hand, no DISTGEN entry) and the recipe-built landmarks (airport, campus, prison, town...).
+// They exposed floorplan() but no interior(), so the one uniform question every consumer
+// asks threw on them. Enterable is enterable EVERYWHERE or the rung has a hole in it.
+let lmCells = 0, lmBuildings = 0, lmNoInterior = 0, lmDimBad = null;
+for (let y = 0; y < 96 && lmCells < 25; y++) for (let x = 0; x < 96 && lmCells < 25; x++) {
+  const c = w.at(x, y); if (!c) continue;
+  const p = w.plot(x, y);
+  if (!p || typeof p.tileInfo === 'function' || !p.buildings || !p.buildings.length) continue;  // NON-factory only
+  lmCells++;
+  for (const b of p.buildings) {
+    lmBuildings++;
+    if (typeof b.interior !== 'function') { lmNoInterior++; continue; }
+    const it = b.interior();
+    if (it.floorplan.W !== b.w || it.floorplan.H !== b.h) lmDimBad = c.district + ' ' + b.w + 'x' + b.h;
+  }
+}
+ok('bespoke/landmark cells are enterable too (' + lmCells + ' cells, ' + lmBuildings + ' buildings)', lmCells > 0 && lmBuildings > 0 && lmNoInterior === 0);
+ok('bespoke/landmark interiors match their footprint exactly' + (lmDimBad ? ' — ' + lmDimBad : ''), !lmDimBad);
 
 // determinism: same seed -> same plot building counts across a sample
 const w2 = world(12345);
