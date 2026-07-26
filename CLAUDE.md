@@ -251,3 +251,18 @@ crossed -- stop and check before pushing.
 ## WHAT'S PENDING PAOLO (never decide these yourself)
 See laws/BOHEMIA_STATE_OF_PLAY and the shelf in records/. Flag anything needing
 an unset direction as [PENDING, Paolo's call].
+
+## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
+Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
+short form: Paolo's entire vocabulary is "go" / "verdicts in" / "status" —
+any other word from him is a RULING to record, never a discussion to have.
+On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's
+top unblocked item from BOHEMIA_BACKLOG.md; [PENDING] blocks nothing; over
+the verdict-queue cap you do only non-cook work). EVERY reply to Paolo ends
+with: a 3-line plain-English TLDR (he does not read code), a numbered JUDGE
+THIS list (side-by-side anchors, or "Nothing to judge"), any DID-NOT-DECIDE
+pendings, and the proof line. Verdicts: APPROVE unlocks volume, CBB ships
+frozen, KILL graveyards with post-mortem. STALE UNJUDGED IS DEAD (bulk
+silence is a verdict — laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md).
+Forbidden shortcuts are pre-named in the doctrine; verification is never
+self-attestation. He thumbs and he playtests; everything else is yours.
