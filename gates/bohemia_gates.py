@@ -168,6 +168,8 @@ GATES = [
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
      'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
+    ('ARM HOLD',       ['node', 'gates/arm_hold_gate.js'],
+     'the arms are drawn at held poses resolved with HYSTERESIS, never snapped without memory (five memoryless attempts all measured worse)', False),
     ('OWN CANVAS',     ['node', 'gates/own_canvas_gate.js'],
      'parts never share pixels: each is sampled alone then composited, and the record keeps every negative result', False),
     ('PARTS PAINTED',  ['node', 'gates/parts_are_painted_gate.js'],
