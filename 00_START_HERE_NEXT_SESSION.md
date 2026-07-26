@@ -1,3 +1,16 @@
+WORLD MODEL (02): 7/26 (f) — THE GROUND NOW OBEYS THE CONSTITUTION. The freeze lifted
+when Paolo ruled the target CBB, which made the promise this lane wrote during it come
+due: the five surfaces (arterial, freeway, desert, mountain, water) shipped flagged
+PROVISIONAL SKIN, and they are provisional no longer. Every palette entry was measured
+against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and 5 of 64 were outside their
+layer's value band: road paint, crosswalks, stop bars and the lake's mineral ring, all
+too bright. Toned into band, which is also more true (act-1 paint is filthy, not clean
+white). A CONSTITUTION CONFORMANCE section now lives in both roadcell_gate (41 checks)
+and terrain_gate (62 checks), reading the constitution at run time, so this can never
+drift back. The PROVISIONAL SKIN flags are replaced with the conformance record in all
+five modules and their dossiers. STILL [PENDING Paolo]: act-2 and act-3 materials for
+these families (the ACT TRIPTYCH rule) — that is content, not mine to invent.
+
 === BOHEMIA HANDOFF (DIETED 7/26/26 — the pointer, never the pile) ===
 FILENAME LAW: this file is always named 00_START_HERE_NEXT_SESSION.md, lives at
 repo root, sorts first, and is REWRITTEN at the end of every working session.

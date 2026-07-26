@@ -312,9 +312,9 @@
   }
 
   var PALETTE = {
-    1: '#33333c', 2: '#c9c1aa', 3: '#c9c1aa', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
+    1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
     7: '#6a5f47', 8: '#7a7266', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
-    13: '#5c5648', 14: '#55555f', 15: '#c9c1aa', 16: '#4a4842', 17: '#b09a3a'
+    13: '#5c5648', 14: '#55555f', 15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a'
   };
 
   var LEGEND = {
@@ -354,8 +354,8 @@
     circulation: 'Traffic runs through on every connected direction (proven cell-edge to cell-edge by the gate). Pedestrians get a continuous DETACHED sidewalk that wraps every corner and crosses at the marked crosswalks; the walk is unbroken across the cell, so a body can walk from any district on one side to any district on the other.',
     layering: 'GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the block wall (8) and the bus stop shelter (13). PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. The wall is the hard edge of the corridor; everything inside it is open ground at one level.',
     decisions: [
-      'PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane\'s target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.',
-      'ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
+      'CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped\n       flagged provisional; the moment Paolo ruled the target screen CBB this palette was\n       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside\n       its layer value bands. Road paint and the lake ring were the only things out, and\n       they were wrong on their own terms too: act-1 paint is filthy, not clean white.\n       Locked by the CONSTITUTION CONFORMANCE section of this module\'s gate.',
+      'ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and\n       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
       'Paolo 7/26: "we need to actually build a fucking world." The census found 37% of the valley was road cells with no generator at all. This is the arterial half of that hole.',
       'A road cell is NOT an auto-district: it never becomes faction territory, an economy district or a quest address. It registers as a SURFACE, so the world renders it and bodies walk it, while everything that counts districts still counts only real districts.',
       'vehicular:true under the WALKABLE-LAND LAW: a street is the one thing whose vehicle surface IS the venue. It is still dressed (walls, walks, furniture, plantings), never a void.',

@@ -207,5 +207,53 @@ ok('the valley is now mostly real ground (' + pct.toFixed(1) + '%)', pct > 90);
 console.log('  the valley: ' + generated + ' of ' + (w.n * w.n) + ' cells generate real ground (' +
             pct.toFixed(1) + '%)');
 
+const CONFORM_MODS = MODS;
+
+// ---- CONSTITUTION CONFORMANCE (7/26, after the target screen was ruled CBB) --
+/* The freeze lifted the moment Paolo ruled, and the price of cooking again is that
+   every cook answers to records/target/BOHEMIA_VISUAL_CONSTITUTION.json. These
+   surfaces were built DURING the freeze and shipped flagged PROVISIONAL SKIN, so
+   this is that promise coming due: every palette entry must sit inside the measured
+   value band for the layer it is drawn on. It caught real drift the first time it
+   ran — road paint and the lake's mineral ring were brighter than anything in the
+   target, which for act-1 paint was wrong anyway: dead paint is filthy paint. */
+{
+  const fs2 = require('fs');
+  const CPATH = 'records/target/BOHEMIA_VISUAL_CONSTITUTION.json';
+  if (!fs2.existsSync(CPATH)) {
+    ok('the visual constitution exists to conform to', false);
+  } else {
+    const C = JSON.parse(fs2.readFileSync(CPATH, 'utf8'));
+    const bands = C.proxies.value_bands, slack = 26.0;
+    const LAYER_BAND = { ground: 'ground', walk: 'ground', drive: 'ground',
+                         marking: 'ground', prop: 'ground', portal: 'wall',
+                         structure: 'wall', building: 'wall', fence: 'wall',
+                         overhead: 'top' };
+    const lum = h => {
+      h = h.replace('#', '');
+      return 0.299 * parseInt(h.slice(0, 2), 16) + 0.587 * parseInt(h.slice(2, 4), 16)
+           + 0.114 * parseInt(h.slice(4, 6), 16);
+    };
+    let outside = 0, seen = 0;
+    for (const [name, mod] of CONFORM_MODS) {
+      Object.keys(mod.palette).forEach(code => {
+        const L = mod.legend[code];
+        if (!L) return;
+        seen++;
+        const b = bands[LAYER_BAND[K.tileLayer(L).layer] || 'ground'] || bands.ground;
+        const v = lum(mod.palette[code]);
+        if (v < b.lo - slack || v > b.hi + slack) {
+          outside++;
+          console.log('    OUT OF BAND: ' + name + ' ' + code + ' ' + L.name +
+                      ' lum ' + v.toFixed(0) + ' vs ' + b.lo + '..' + b.hi);
+        }
+      });
+    }
+    ok('every palette entry sits in its layer\'s value band (' + (seen - outside) + '/' + seen + ')',
+       seen > 0 && outside === 0);
+    ok('the constitution being conformed to is the frozen one', C.status === 'IN FORCE');
+  }
+}
+
 console.log('TERRAIN GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

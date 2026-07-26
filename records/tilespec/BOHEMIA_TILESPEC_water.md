@@ -25,8 +25,14 @@ Everything below the ring is walkable ground now, which is the whole horror of i
 GROUND (flat, walkable): bathtub ring (2), exposed lakebed (3), cracked silt (4), shell bed (5), shore rock (6), launch ramp (7). WATER (dead, not walked): open water (0), shallows (1). PROPS: sunken boat (8, solid), mooring debris (10, solid), dead brush (9, passable). No structures, no portals, one level.
 
 ### Decisions & rulings
-- PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane's target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.
-- ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
+- CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped
+       flagged provisional; the moment Paolo ruled the target screen CBB this palette was
+       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside
+       its layer value bands. Road paint and the lake ring were the only things out, and
+       they were wrong on their own terms too: act-1 paint is filthy, not clean white.
+       Locked by the CONSTITUTION CONFORMANCE section of this module's gate.
+- ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and
+       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
 - Paolo 7/26: "we need to actually build a fucking world."
 - The drawdown IS the content. A full blue lake would be the one thing about this landscape that is not true, and the ring says more about the world than any prop could.
 - A water cell is a SURFACE, not a district.
@@ -39,7 +45,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | open water | water-dead | what is left of the reservoir, flat and dead still | ground | no | — | 1839 |
 | 1 | `#3c6a76` | shallow water | water-dead | silty shallows over the drowned bed | ground | no | — | 1201 |
-| 2 | `#c2bca8` | bathtub ring | ground | the white mineral band on the rock marking where the water used to be | ground | no | — | 2619 |
+| 2 | `#b8b09c` | bathtub ring | ground | the white mineral band on the rock marking where the water used to be | ground | no | — | 2619 |
 | 3 | `#8a8069` | exposed lakebed | ground | lakebed the water gave up, grey silt gone hard | ground | no | — | 2337 |
 | 4 | `#948a72` | cracked silt | ground | silt dried into plates and curled at the edges | ground | no | — | 1281 |
 | 5 | `#a49a80` | shell bed | ground | a crust of stranded mussel shell, crunching underfoot | ground | no | — | 548 |

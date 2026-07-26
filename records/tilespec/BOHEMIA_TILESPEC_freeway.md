@@ -24,8 +24,14 @@ Vehicles run through on every direction the corridor continues (proven edge to e
 GROUND (drive): lanes (1), shoulders (3), markings (2), debris (15). GROUND (walk, rough): the embankment (6). STRUCTURE (solid): median barrier (4), guardrail (5), sound wall (8), bridge columns (13). PROPS (solid): high-mast lights (9), dead cars (10), dead semis (11). OVERHEAD (pass UNDER): the overpass deck (12) and the sign gantry (14) — the deck is the mile-grid street crossing above, carried on the columns, so this cell genuinely has two levels. PORTALS: none.
 
 ### Decisions & rulings
-- PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane's target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.
-- ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
+- CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped
+       flagged provisional; the moment Paolo ruled the target screen CBB this palette was
+       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside
+       its layer value bands. Road paint and the lake ring were the only things out, and
+       they were wrong on their own terms too: act-1 paint is filthy, not clean white.
+       Locked by the CONSTITUTION CONFORMANCE section of this module's gate.
+- ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and
+       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
 - Paolo 7/26: "we need to actually build a fucking world." 952 freeway cells were a flat grey slab; this builds them.
 - A road cell is NOT an auto-district: never faction territory, never an economy district, never a quest address. It registers as a SURFACE.
 - The overpass is deliberately an OVERHEAD layer with solid piers, not a painted crossing, so the two-level truth is in the data and not just the picture.
@@ -38,7 +44,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dirt frontage | ground | graded dirt outside the sound wall, weeds through it | ground | no | — | 4446 |
 | 1 | `#33333c` | travel lane | drive | interstate lane, sun-cracked and drifted with grit | ground | no | — | 3084 |
-| 2 | `#c9c1aa` | white lane line | marking | faded white lane line (a freeway has no yellow: the barrier does that job) | ground | no | — | 438 |
+| 2 | `#b3ab97` | white lane line | marking | faded white lane line (a freeway has no yellow: the barrier does that job) | ground | no | — | 438 |
 | 3 | `#3d3d46` | shoulder | drive | paved shoulder, rumble strip worn flat | ground | no | — | 1304 |
 | 4 | `#8a8a92` | median barrier | structure | concrete F-shape median barrier, scarred and tagged | structure | yes | — | 282 |
 | 5 | `#6b6b74` | guardrail | structure | steel W-beam guardrail, posts bent where something left the road | structure | yes | — | 373 |

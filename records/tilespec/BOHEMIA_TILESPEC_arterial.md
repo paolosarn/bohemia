@@ -24,8 +24,14 @@ Traffic runs through on every connected direction (proven cell-edge to cell-edge
 GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the block wall (8) and the bus stop shelter (13). PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. The wall is the hard edge of the corridor; everything inside it is open ground at one level.
 
 ### Decisions & rulings
-- PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane's target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.
-- ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
+- CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped
+       flagged provisional; the moment Paolo ruled the target screen CBB this palette was
+       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside
+       its layer value bands. Road paint and the lake ring were the only things out, and
+       they were wrong on their own terms too: act-1 paint is filthy, not clean white.
+       Locked by the CONSTITUTION CONFORMANCE section of this module's gate.
+- ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and
+       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
 - Paolo 7/26: "we need to actually build a fucking world." The census found 37% of the valley was road cells with no generator at all. This is the arterial half of that hole.
 - A road cell is NOT an auto-district: it never becomes faction territory, an economy district or a quest address. It registers as a SURFACE, so the world renders it and bodies walk it, while everything that counts districts still counts only real districts.
 - vehicular:true under the WALKABLE-LAND LAW: a street is the one thing whose vehicle surface IS the venue. It is still dressed (walls, walks, furniture, plantings), never a void.
@@ -39,8 +45,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dirt shoulder | ground | the bare graded dirt between the block wall and the neighbouring lot | ground | no | — | 5335 |
 | 1 | `#33333c` | asphalt roadway | drive | six lanes of cracked asphalt, patched and sun-bleached | ground | no | — | 3146 |
-| 2 | `#c9c1aa` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 160 |
-| 3 | `#c9c1aa` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | — |
+| 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 160 |
+| 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | — |
 | 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | 435 |
 | 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 348 |
 | 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 522 |
@@ -52,7 +58,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm on the corner, every head dark | prop | yes | — | — |
 | 13 | `#5c5648` | bus stop | structure | transit stop pad with a bent shelter frame, the ad panel long gone | structure | yes | — | — |
 | 14 | `#55555f` | dead car | vehicle | a car left at the curb, tyres flat, glass gone | prop | yes | — | — |
-| 15 | `#c9c1aa` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
+| 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
 | 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | — |
 | 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | — |
 

@@ -26,8 +26,14 @@ Open ground: crossable in every direction on foot, and the OHV tracks are a real
 GROUND (flat, walk or drive): pavement (0), rock lag (1), caliche (4), rill bed (5), OHV track (6), graded pad (9), curb stub (10). PROPS: creosote and bursage and dead yucca (2, 3, 12, low and passable), survey stake (13, passable), rock outcrop (11, solid), dumped debris (7, solid), burned car (8, solid). No structures, no portals: this is land nobody built on.
 
 ### Decisions & rulings
-- PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane's target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.
-- ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
+- CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped
+       flagged provisional; the moment Paolo ruled the target screen CBB this palette was
+       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside
+       its layer value bands. Road paint and the lake ring were the only things out, and
+       they were wrong on their own terms too: act-1 paint is filthy, not clean white.
+       Locked by the CONSTITUTION CONFORMANCE section of this module's gate.
+- ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and
+       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
 - Paolo 7/26: "we need to actually build a fucking world." 620 cells of flat tan square is not world.
 - Terrain is sampled from ONE valley-wide noise field in global coordinates, never from the cell seed, so ridges, rills and scrub density cross cell boundaries with no seam. That is the difference between terrain and wallpaper.
 - A desert cell is a SURFACE, not a district: no faction, economy or address ever resolves to it.

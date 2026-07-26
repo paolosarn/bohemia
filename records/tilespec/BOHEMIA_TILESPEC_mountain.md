@@ -25,8 +25,14 @@ THIS IS THE EDGE OF THE WORLD AND IT IS MEANT TO STOP YOU. Bedrock, crest and cl
 STRUCTURE (solid, blocks): bedrock face (0), ridge crest (1), cliff band (2). GROUND (walkable, rough): talus (3), ravine floor (4), dry drainage (5), alluvial fan (8), rockfall scar (9). PROPS: boulder (7, solid), desert shrub (6, passable). No overhead, no portals. One level, and most of it is in your way.
 
 ### Decisions & rulings
-- PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane's target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.
-- ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
+- CONFORMS TO THE VISUAL CONSTITUTION (7/26). Built during the freeze and shipped
+       flagged provisional; the moment Paolo ruled the target screen CBB this palette was
+       measured against records/target/BOHEMIA_VISUAL_CONSTITUTION.json and brought inside
+       its layer value bands. Road paint and the lake ring were the only things out, and
+       they were wrong on their own terms too: act-1 paint is filthy, not clean white.
+       Locked by the CONSTITUTION CONFORMANCE section of this module's gate.
+- ACT TRIPTYCH: only the act-1 dead material is specified. The act-2 recovering and
+       act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.
 - Paolo 7/26: "we need to actually build a fucking world." 927 flat brown squares was the single biggest unbuilt thing in the valley.
 - Solid rock plus passable ravines is a deliberate play property: the valley is a bowl with named ways through it, and nothing had to be hard-coded to make that true.
 - A mountain cell is a SURFACE, not a district: never territory, never an address.
