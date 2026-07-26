@@ -1,0 +1,67 @@
+=== BOHEMIA — WHERE THE BAKED LIGHT ACTUALLY LIVES (7/26/26) ===
+Lane: CHARACTER. Evidence for laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md
+(Paolo 7/26, LOCKED). That addendum is the law; this is the mechanism under it,
+found by reading the shipped code after he described the symptom.
+
+HIS WORDS (this session's phrasing of the same ruling)
+  "lighting and shadows is just a completely different layer... shadows that you
+   might have drawn aren't a permanent fixture on clothes... when it's animation
+   time and I just see what was supposed to be shadows fucked up with the
+   animation, it's really upsetting."
+
+THE FUNCTION THAT DOES IT
+  function bshade(inG,x,y,r){
+    if(!inG(x,y-1)) return r.lt;                  // nothing above -> LIT
+    if(!inG(x,y-2)) return r.lt;                  // near the top  -> LIT
+    if(!inG(x,y+1)) return r.dk;                  // nothing below -> SHADOW
+    if(!inG(x-1,y)||!inG(x+1,y)) return r.dk;     // side edge     -> SHADOW
+    return r.mid;
+  }
+That is a lighting model: top-lit, shadowed underneath and along the edges. It
+runs AT COOK TIME on the REST silhouette and the answer is frozen into the
+garment's pixels.
+
+THE RAMPS ARE LIGHTING, NOT MATERIAL
+  var BLK={dk:[20,20,24], mid:[42,42,50], lt:[74,74,86]}
+  var RED={dk:[96,40,38], mid:[150,60,54], lt:[190,88,78]}
+Three steps, and the three steps ARE lit / neutral / shadowed. There is no
+separate material channel at all.
+
+THE SCALE, MEASURED
+  bshade call sites in the clothing factory : 7
+  garments in the shipped bank              : 9
+  garments carrying 3+ ramp steps           : 7 of 9
+
+WHY IT BREAKS IN MOTION
+A sleeve's lit pixels are lit BECAUSE they were the top edge of a hanging
+sleeve. Rotate the arm and that lit edge rotates with the cloth -- now pointing
+sideways, or down -- while the shadow that meant "underside" ends up on top.
+Nothing about it is an animation bug; the light is nailed to the fabric.
+
+THE PROOF IT IS THE CLOTH AND NOT THE RIG
+The BODY has never had this problem, and it is the same renderer: the body's
+shading (anatomy border, sky top-light, neck shadow) is recomputed EVERY FRAME
+from the deformed grid. Cloth was the only thing carrying frozen light. That
+asymmetry is the whole bug in one sentence.
+
+THE FIX, SPECIFIED (no repainting required)
+Because a garment ramp is exactly {dk, mid, lt}, a pixel's current step is
+recoverable by matching its colour. So:
+  - move bshade OUT of the cook and INTO the render, running it on the DEFORMED
+    silhouette instead of the rest one
+  - the cook emits form + material only (every pixel `mid`), so nothing freezes
+ONE HONEST COMPLICATION, named rather than papered over: patc() currently makes
+PATTERN by choosing a ramp step (a stripe is a run of `dk`). Pattern and light
+share one channel. Pattern must become its own channel first, or a relight will
+erase the plaid along with the shadows.
+
+SCOPE, PER THE LAW'S POINT 4
+Approved garments with baked shading are NOT re-cooked wholesale. The separation
+binds all NEW cooks now, and any approved asset the moment it is re-touched.
+This record does not change that.
+
+THE GATE THIS TURN BUILT (the law's point 5, assigned to the CHARACTER lane)
+gates/shading_separation_gate.js freezes the baseline as a RATCHET: the number
+of bshade call sites and the number of garments carrying baked light may go
+DOWN, never up. A new cook that bakes light fails the build. Grandfathered
+assets stay exactly as the law says they may.

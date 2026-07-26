@@ -110,6 +110,23 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- SHADOWS ARE A SEPARATE LAYER (Paolo 7/26, LOCKED -- the law is
+  laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md, written by another
+  session the same hour; CHARACTER found the mechanism under it:
+  records/BOHEMIA_BAKED_LIGHT_MECHANISM_7_26_26.txt). The clothing factory bakes
+  lighting into the cloth: bshade() picks lit/mid/shadow from the REST
+  silhouette AT COOK TIME and freezes it, and every garment ramp is literally
+  {dk,mid,lt} -- three lighting steps, no material. 7 of the 9 shipped garments
+  carry it. So a sleeve's lit edge rotates WITH the sleeve and the shadow that
+  meant "underside" ends up on top. The body never had this bug: its shading is
+  computed per frame from the deformed grid -- that asymmetry IS the bug.
+  GATED this turn (the law's point 5, assigned to CHARACTER):
+  gates/shading_separation_gate.js is a RATCHET -- baked light may go down,
+  never up, and the grandfathered bank stays per the law's point 4.
+  NEXT BUILD, fully specified in the record: move bshade to render time on the
+  DEFORMED silhouette, cook emits form+material only. Complication named, not
+  papered over: patc() entangles PATTERN with shade, so pattern needs its own
+  channel first or the relight eats the plaid.
 - THE RIG IS LAW (Paolo 7/26, LOCKED --
   laws/BOHEMIA_ADDENDUM_RIG_IS_LAW_7_26_26.md). The rig tool's painted body IS
   the character, everywhere, for animation and customization both. The alpha had
