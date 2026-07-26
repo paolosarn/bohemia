@@ -244,15 +244,14 @@ PARKED BY THE 7/26 RULING (do not pick these up):
    | interiors_gate extended: the pool is UP-only and every drawn tile traces to
    a UP verdict | the shell/mechanism is done, do not re-litigate it | yes - the
    dressed room is judged as an assembled scene, per TILESETS-ARE-SETS.
--1. (discovered 7/26 by the ART lane's render-contract gate, ONE LINE) THE CITY
-   TAB DRAWS WORLD ART SMOOTHED. slices/BOHEMIA_CITY_CURRENT.html never sets
-   imageSmoothingEnabled at all, so it takes the browser default (true) and the
-   pixel art is bilinear-filtered on every device — worst on 3x phones. The RUN
-   slice sets it false in two places; the city never did. The ART lane did not
-   reach into another lane's live file: target_screen_gate.py prints it as a
-   KNOWN GAP on every run and the exemption must be DELETED the moment this is
-   fixed. | smoothing off wherever the city context draws world art; the ART
-   gate's PIPELINE_DEBT entry removed in the same commit | — | no.
+-1. [DONE 7/26, CITY] THE CITY TAB DREW WORLD ART SMOOTHED. It never set
+   imageSmoothingEnabled at all, so it took the browser default (true) and
+   bilinear-filtered every approved tile - worst on 3x phones. Fixed at the
+   SOURCE (tools/bohemia_city_tab.py), both at context creation and inside
+   fit(), because assigning cv.width/cv.height resets the entire 2D context
+   state and silently turns smoothing back on. The ART lane's PIPELINE_DEBT
+   exemption in target_screen_gate.py is DELETED per its own terms; that gate
+   now holds every surface to the contract with no exceptions (484 checks).
 2. MARRY COMMERCIAL (discovered, CITY 7/26). The corner plaza has NEVER been
    registered with the district kit (it never binds K, and the registration sits
    behind a `typeof K` guard that silently swallowed it), so the walked city

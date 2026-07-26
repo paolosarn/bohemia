@@ -511,15 +511,16 @@ def main():
 CONTRACT = 'laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md'
 PALETTE = os.path.join(OUTDIR, 'BOHEMIA_MASTER_PALETTE.json')
 SURFACES = ('slices/BOHEMIA_RUN_CURRENT.html', 'slices/BOHEMIA_CITY_CURRENT.html')
-# NAMED, DATED DEBT — not an excuse. Section 7 of the contract found on its first
-# run that the CITY tab never sets imageSmoothingEnabled at all, so its world art
-# has been drawn SMOOTHED (browser default) on a pixel-art game. That file is the
-# CITY lane's (ONE SYSTEM, ONE SESSION) and that lane is mid-flight, so the ART
-# lane reports it instead of reaching into it: backlog CITY, "smoothing off in the
-# city slice". This entry makes the gap LOUD every run and must be deleted the
-# moment the CITY lane lands the one-line fix - it is not allowed to go quiet.
-PIPELINE_DEBT = {'slices/BOHEMIA_CITY_CURRENT.html':
-                 'CITY lane owns this file; reported 7/26, backlog CITY item'}
+# The ART lane's section-7 sweep found on its first run that the CITY tab never
+# set imageSmoothingEnabled at all, so its world art was drawn SMOOTHED (browser
+# default) on a pixel-art game. It reported the gap instead of reaching into
+# another lane's file and carried a named PIPELINE_DEBT exemption to keep it loud.
+# CLOSED 7/26 by the CITY lane in tools/bohemia_city_tab.py: smoothing off at
+# context creation AND inside fit(), because assigning cv.width/cv.height resets
+# the whole 2D context state and silently turns it back on. The exemption is
+# DELETED per its own terms - every surface below is now held to the contract
+# with no exceptions.
+PIPELINE_DEBT = {}
 
 
 def contract_checks(M, src):

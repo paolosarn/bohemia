@@ -1279,6 +1279,15 @@ function persist(){ try{ localStorage.setItem(LSKEY, CE.serialize(edits)); }catc
 function distAt(x,y){ return CE.resolve(edits,x,y,GRID[y][x]); }
 
 var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+/* THE MOBILE RENDER CONTRACT (laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md):
+   "smoothing off (non-integer scaling voids pixel art on 3x phones)". This page
+   never set it, so it took the browser default of TRUE and bilinear-filtered
+   every approved tile it drew - worst on exactly the phones Paolo looks at it
+   on. Set here AND in fit(), because assigning cv.width/cv.height RESETS the
+   whole 2D context state, so a resize silently turns smoothing back on. */
+function crisp(c){ c.imageSmoothingEnabled=false;
+  c.mozImageSmoothingEnabled=false; c.webkitImageSmoothingEnabled=false; c.msImageSmoothingEnabled=false; }
+crisp(ctx);
 var HUD=document.getElementById('hud'), ACT=document.getElementById('actions');
 var px=N/2, py=N/2, Z=6, ZMIN=3, ZMAX=40;
 var sel=null;
@@ -1385,6 +1394,7 @@ document.getElementById('reset').onclick=function(){
   if(!CE.count(edits)) return;
   edits=CE.makeEdits(); persist(); refreshHUD(); draw(); };
 function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight;
+  crisp(ctx);                      /* the resize just wiped the context state */
   if(!fit.done){ Z=Math.max(ZMIN,Math.min(cv.width,cv.height)/N); fit.done=true; }
   draw(); }
 window.addEventListener('resize',fit);
