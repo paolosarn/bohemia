@@ -71,6 +71,20 @@ const PROBES = {
     ALPHA.indexOf('CITYMUS.startShuffle()') >= 0 &&
     // no second synth: the run must never CONSTRUCT an audio context of its own
     !/new\s*\(?\s*(window\.)?(webkit)?AudioContext/.test(RUN),
+  /* SAVE/LOAD, to the two 7/26 rulings: one versioned blob through the engine's
+     own save, no private side-channel, no device prefs riding along. */
+  save_blob: () =>
+    RUN.indexOf('function saveBlob(') >= 0 && RUN.indexOf('function applyBlob(') >= 0 &&
+    RUN.indexOf('function migrateBlob(') >= 0 &&
+    RUN.indexOf('BohemiaLoop.captureSave(CTX)') >= 0 &&      // through the ENGINE save
+    RUN.indexOf('function sleepSave(') >= 0 && RUN.indexOf('function manualSave(') >= 0 &&
+    RUN.indexOf('function autoSave(') >= 0 &&                 // all three kinds, per "BOTH"
+    RUN.indexOf('SAVE_ENV_VERSION') >= 0 &&                   // versioned from day one
+    // the music toggle is a DEVICE PREFERENCE and must never be written into a blob
+    !/run:\s*\{[^}]*MUSIC_ON/.test(RUN),
+  death_reload: () =>
+    RUN.indexOf('function loadClosest(') >= 0 &&
+    /if\(!d\.victory\)\{[\s\S]{0,400}loadClosest\(\)/.test(RUN),
   floorplan_module: () => RUN.indexOf(engine('bohemia_floorplan.js')) >= 0 &&
     RUN.indexOf('BOH_FLOORPLAN.generate(') >= 0,
   agents_module: () => RUN.indexOf(engine('bohemia_agents.js')) >= 0 &&

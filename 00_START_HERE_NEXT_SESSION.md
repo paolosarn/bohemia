@@ -14,7 +14,8 @@ READ ORDER: CLAUDE.md -> this file -> laws/BOHEMIA_COORDINATOR_ARCHITECTURE_MAP.
 (the whole machine: engine spine, the B64 embed/resync chains, gates, lanes) ->
 BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 
-======================================================================## HOT LOCKED RULINGS (newest first — read before building anything)
+=============================================================================
+## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
 - THE TARGET SCREEN IS RULED (Paolo 7/26): "Front base is the only one I'm
   concerned with and even then it looks like hallucinated AI slop. We made a
@@ -58,7 +59,6 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   That is the PRE-VERDICT judging surface (the TILES button) and sampling it put
   purple + neon + live grass in a dead house. Build from what he JUDGED: the
   all-30-UP house skins, the harmonized street pools, the Great Sweep's 1,927 UPs.
-=======
 - QUEST STUDY LAW (Paolo 7/26, LOCKED, in CLAUDE.md): the 240-file questbook
   (3,672 citable findings from 152 dissected quests) was being ignored in favor
   of summary bullets. Now every canon .bq CITES the corpus laws it is built on,
@@ -102,7 +102,25 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
-RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
+RUN (01) 7/26 LATEST — SAVE/LOAD + DEATH IS A RELOAD. Built to Paolo's two save
+rulings the same day, to their own words: ONE portable versioned blob (the
+engine's own save via BohemiaLoop.captureSave PLUS the run's surface state, in a
+versioned envelope), all three kinds coexisting (SLEEP AND SAVE at home, SAVE NOW
+anytime, quiet autosave on every threshold/talk/fight), an EXPORT SAVE CODE that
+imports onto a fresh device with no server, old envelope versions MIGRATE FORWARD
+and are never rejected, and NO device preference inside the blob (the music
+toggle deliberately stays out — the law says prefs never travel). Losing a fight
+LOADS THE CLOSEST PREVIOUS SAVE, never a reset, and the quest keeps its progress.
+Menu is the ☰ in the objective bar. run_gate now 93 assertions incl. the full
+round trip (save -> really move -> load -> diff), export/import on a FRESH page,
+an older-version migrate, junk refused, and the death reload. Ledger 16/24.
+WHERE THE SAVE LIVES: one localStorage key holding the last 6 complete blobs. If
+WORLD later folds CITYSAVE in, it becomes another field of the SAME envelope —
+the law's "no private side-channel" rule. The cleaner long-term home is a field
+on the engine's own save schema (a version bump + migration), which is a shared-
+substrate change and is flagged to WORLD rather than taken here.
+
+RUN (01) 7/26 — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 two by one... we already made a lot of doors with even animations where it opens,
 you can't find that anywhere in the fucking files." He was right again: the bank
 (banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt, 30 clips, 9 frames, 2 beats, queue

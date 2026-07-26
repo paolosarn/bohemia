@@ -54,6 +54,9 @@
     letter-spacing:1px; padding:5px 9px; border:0; border-radius:3px; background:#241d12;
     color:var(--faint); box-shadow:inset 0 0 0 1px var(--line); text-transform:none; }
   #obj #mus.on{ background:var(--gold-soft); color:var(--gold); }
+  #obj #menu{ margin-left:6px; flex:none; font-family:var(--mono); font-size:12px; font-weight:700;
+    padding:4px 10px; border:0; border-radius:3px; background:#241d12; color:var(--dim);
+    box-shadow:inset 0 0 0 1px var(--line); }
   #obj b{ color:var(--ink); font-weight:700; }
 
   /* ---- THE WORLD ---- */
@@ -129,6 +132,28 @@
     border:0; border-radius:5px; background:#241d12; color:var(--ink);
     box-shadow:inset 0 0 0 1px var(--line); }
 
+  /* ---- SAVE SHEET ---- */
+  #save{ position:absolute; inset:0; z-index:26; display:none; flex-direction:column;
+    justify-content:flex-end; background:rgba(4,4,3,.72); }
+  #savein{ background:var(--surface); border-top:1px solid var(--line);
+    border-radius:10px 10px 0 0; padding:14px 14px calc(16px + env(safe-area-inset-bottom));
+    max-height:90%; overflow-y:auto; }
+  #savetitle{ font-family:var(--mono); font-size:10.5px; letter-spacing:1.6px; color:var(--gold);
+    margin-bottom:10px; }
+  #savelist .slot{ display:flex; gap:10px; align-items:center; padding:9px 11px; margin-bottom:7px;
+    background:#141009; border:1px solid var(--line); border-radius:5px; font-size:13.5px; }
+  #savelist .slot .when{ margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--faint); }
+  #savelist .none{ color:var(--faint); font-size:13px; margin-bottom:8px; }
+  #saveacts button, #save .ghostbtn{ display:block; width:100%; min-height:48px; margin-top:8px;
+    font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    border:0; border-radius:5px; background:var(--gold); color:#0c0a07; }
+  #saveacts button.ghost, #save .ghostbtn{ background:#241d12; color:var(--ink);
+    box-shadow:inset 0 0 0 1px var(--line); }
+  #saveacts button:disabled{ background:#241d12; color:var(--faint); box-shadow:none; }
+  #savecode{ width:100%; height:72px; margin-top:10px; background:#0c0a07; color:var(--dim);
+    border:1px solid var(--line); border-radius:5px; padding:8px; font-family:var(--mono);
+    font-size:11px; resize:none; }
+
   /* ---- COMBAT HANDOFF CURTAIN ---- */
   #hand{ position:absolute; inset:0; z-index:25; display:none; flex-direction:column;
     align-items:center; justify-content:center; gap:14px; padding:24px;
@@ -143,7 +168,7 @@
 </style>
 
 <div id="run">
-  <div id="obj"><span class="ring">◈</span><span id="objtxt">waking up</span><button id="mus">♪ OFF</button></div>
+  <div id="obj"><span class="ring">◈</span><span id="objtxt">waking up</span><button id="mus">♪ OFF</button><button id="menu">☰</button></div>
   <div id="stage">
     <canvas id="cv"></canvas>
     <div id="where">INSIDE</div>
@@ -164,6 +189,14 @@
   <div id="talk"><div id="talkin">
     <div class="spkrow"><canvas id="spkface" width="64" height="64"></canvas><div id="spk"></div></div>
     <div id="says"></div><div id="opts"></div>
+  </div></div>
+
+  <div id="save"><div id="savein">
+    <div id="savetitle">SAVE</div>
+    <div id="savelist"></div>
+    <div id="saveacts"></div>
+    <textarea id="savecode" placeholder="paste a save code here to load it on this device"></textarea>
+    <button id="saveclose" class="ghostbtn">BACK TO THE RUN</button>
   </div></div>
 
   <div id="hand">
@@ -736,15 +769,15 @@ function move(dx,dy){
          the integration contract's own collision rule). */
       var k=doorKey(nx,ny);
       if(!doorPassable(k)){ openDoor(k); refresh(); return; }
-      if(d===HOME && RT && RT.state.done && RUN.phase!=='home_after'){ backAt=[px,py]; enter(d); RUN.phase='home_after'; openPhone(); refresh(); draw(); return; }
-      backAt=[px,py]; enter(d); refresh(); draw(); return; }
+      if(d===HOME && RT && RT.state.done && RUN.phase!=='home_after'){ backAt=[px,py]; enter(d); RUN.phase='home_after'; autoSave('home'); openPhone(); refresh(); draw(); return; }
+      backAt=[px,py]; enter(d); autoSave('inside'); refresh(); draw(); return; }
     if(!passExt(nx,ny)) return; px=nx; py=ny;
   } else {
     if(nx===fpDoor[0] && ny===fpDoor[1]){
       var ik=doorKey(nx,ny);
       if(!doorPassable(ik)){ openDoor(ik); refresh(); return; }
       leave(); if(RUN.phase==='home_inside') RUN.phase='street';
-      refresh(); draw(); return; }
+      autoSave('outside'); refresh(); draw(); return; }
     if(!passInt(nx,ny)) return; px=nx; py=ny;
   }
   if(SIM){ SIM.playerAt = (mode==='ext') ? [px,py] : null; SIM.step(); updateFaces(); }
@@ -810,6 +843,7 @@ function closeTalk(){
    objective 20 "Follow the skimmed line" is a walk, not a menu. */
 var rebound=false;
 function afterTalk(){
+  autoSave('talk');
   if(RT && !RT.state.done && RT.state.stage>=20 && !rebound){
     rebound=true;
     CTX.quests.place(QID, { x:FIXER_AT[0], y:FIXER_AT[1], channel:'inperson', speaker:'fixer' });
@@ -871,9 +905,14 @@ window.addEventListener('message', function(ev){
     RUN.combatOutcome = { victory:!!d.victory, kills:d.kills|0, dead:d.dead|0,
                           spared:d.spared|0, fled:d.fled|0, playerHP:d.playerHP };
     RUN.phase='resolved'; HAND.style.display='none';
-    toast(d.victory
-      ? ('You walked out of it. '+(d.dead|0)+' down, '+(d.spared|0)+' left breathing. Get home.')
-      : 'You did not walk out of that clean. Get home.');
+    if(!d.victory){
+      /* DEATH IS A RELOAD, NOT A RESET (Paolo 7/26): you go back to the closest
+         previous save. Never a wipe, never start-from-the-beginning. */
+      if(loadClosest()) toast('You went down. Back to your last save.');
+      else toast('You went down, and there was no save to go back to.');
+      return; }
+    autoSave('fight');
+    toast('You walked out of it. '+(d.dead|0)+' down, '+(d.spared|0)+' left breathing. Get home.');
     refresh(); draw(); }
 });
 
@@ -923,6 +962,128 @@ function musicAsk(on){ bridgePost({type:'BOHEMIA_RUN_MUSIC',on:!!on}); }
 var _musKick=false;
 function musicKick(){ if(_musKick)return; _musKick=true; musicAsk(true); }
 
+/* ===========================================================================
+   14c. SAVE / LOAD — ONE PORTABLE BLOB.
+   Ruled 7/26 by Paolo, twice, and built exactly to those two rulings:
+     laws/BOHEMIA_ADDENDUM_SAVES_AND_CLOUD_7_26_26.md
+       "BOTH kinds": sleep saves AND free manual saves AND a quiet autosave, all
+       coexisting. ONE serializable, versioned, device-agnostic package;
+       everything about the player's game in it; NOTHING device-specific in it;
+       no system keeps its own private side-channel; version from day one and
+       loaders migrate old versions forward, never reject them; export/import a
+       save code so it travels between devices with no server (phase 1).
+     laws/BOHEMIA_ADDENDUM_DEATH_IS_A_RELOAD_7_26_26.md
+       death loads the CLOSEST PREVIOUS SAVE. Never a reset, never permadeath.
+
+   THE BLOB is the engine's own versioned save (E.Save via BohemiaLoop) plus the
+   run's surface state, inside ONE envelope that is itself versioned. The music
+   toggle is deliberately NOT in it: that is a device preference and the law says
+   device preferences never travel in the save.
+   =========================================================================== */
+var SAVE_ENV_VERSION=1, SAVE_KEY='bohemia.save.v1', SAVE_KEEP=6;
+function saveBlob(label){
+  return { env:SAVE_ENV_VERSION, kind:'BOHEMIA_SAVE', label:label||'save',
+    /* stamped from the world's own clock, never wall-clock: a save has to mean
+       the same thing on a device in another timezone */
+    beat: CTX.clock ? CTX.clock.snapshot().beat : 0,
+    step: SIM ? SIM.turn : 0,
+    engine: JSON.parse(BohemiaLoop.captureSave(CTX)),
+    run: { mode:mode, px:px, py:py, curHouse:curHouse, backAt:backAt&&backAt.slice(),
+           phase:RUN.phase, outcome:RUN.outcome, clout:RUN.clout,
+           combat:RUN.combatOutcome, rebound:rebound,
+           doors:JSON.parse(JSON.stringify(DOORST)),
+           npc:(function(){ var p=CTX.quests._placed[QID];
+             return p?{x:p.x,y:p.y,speaker:p.speaker,channel:p.channel}:null; })() } };
+}
+/* loaders migrate forward, never reject (the law's own words) */
+function migrateBlob(b){
+  if(!b||b.kind!=='BOHEMIA_SAVE') return null;
+  var v=b.env||1;
+  /* v1 is current; each future bump adds one step here and never a rejection */
+  while(v<SAVE_ENV_VERSION){ v++; b.env=v; }
+  return b;
+}
+function applyBlob(b){
+  b=migrateBlob(b); if(!b) return false;
+  try{
+    CTX = BohemiaLoop.boot({ saveText: JSON.stringify(b.engine) });
+    RT = QID ? CTX.quests.get(QID) : null;
+    if(!RT && S01_TEXT){ CTX.quests.place(S01_TEXT,{x:LINEMAN_AT[0],y:LINEMAN_AT[1],channel:'inperson',speaker:'lineman'}); RT=CTX.quests.get(QID); }
+    var pl=b.run.npc;
+    if(pl) CTX.quests.place(QID,{x:pl.x,y:pl.y,channel:pl.channel||'inperson',speaker:pl.speaker});
+    mode=b.run.mode; px=b.run.px; py=b.run.py; backAt=b.run.backAt?b.run.backAt.slice():null;
+    rebound=!!b.run.rebound;
+    RUN.phase=b.run.phase; RUN.outcome=b.run.outcome; RUN.clout=b.run.clout;
+    RUN.combatOutcome=b.run.combat||null;
+    DOORST=b.run.doors||{};
+    if(b.run.curHouse>=0){ var keepPX=px, keepPY=py; enter(b.run.curHouse); px=keepPX; py=keepPY; }
+    else { curHouse=-1; fp=null; fpDoor=null; }
+    /* the block sim is deterministic from the seed, so a save stores HOW FAR it
+       ran, not a dump of every body: re-step it to the same world minute. */
+    if(SIM){ try{ var _a=BohemiaAgents.agentsForBlock(SEED,feet,[],fpOf);
+        SIM=BohemiaAgents.makeSim(res,feet,_a,{fpOf:fpOf,doorOf:doorOf,startTurn:0});
+        SIM.playerAt=(mode==='ext')?[px,py]:null;
+        for(var i=0;i<(b.step||0);i++)SIM.step();
+        FACES={}; _APOS={}; updateFaces(); }catch(_e){} }
+    PHONE.style.display='none'; TALKEL.style.display='none'; HAND.style.display='none';
+    refresh(); draw(); return true;
+  }catch(e){ return false; }
+}
+function saveSlots(){
+  try{ var raw=localStorage.getItem(SAVE_KEY); if(!raw) return [];
+    var a=JSON.parse(raw); return Array.isArray(a)?a:[]; }catch(_e){ return []; }
+}
+function writeSave(label){
+  var a=saveSlots(); a.unshift(saveBlob(label));
+  while(a.length>SAVE_KEEP) a.pop();
+  try{ localStorage.setItem(SAVE_KEY, JSON.stringify(a)); }catch(_e){}
+  return a[0];
+}
+/* the three kinds, all coexisting per the ruling */
+function manualSave(){ writeSave('manual'); toast('Saved.'); renderSaveSheet(); }
+function sleepSave(){ writeSave('slept'); toast('You slept. Saved.'); renderSaveSheet(); }
+function autoSave(why){ writeSave('auto:'+why); }
+/* DEATH IS A RELOAD: the closest previous save, never a reset */
+function loadClosest(){
+  var a=saveSlots(); if(!a.length) return false;
+  return applyBlob(a[0]);
+}
+
+/* ---- the save sheet ---- */
+var SAVEEL=document.getElementById('save');
+function renderSaveSheet(){
+  var list=document.getElementById('savelist'), acts=document.getElementById('saveacts');
+  var a=saveSlots();
+  list.innerHTML='';
+  if(!a.length) list.innerHTML='<div class="none">No saves on this device yet.</div>';
+  a.forEach(function(b,i){
+    var el=document.createElement('div'); el.className='slot';
+    el.innerHTML='<span>'+(b.label==='slept'?'slept':(b.label==='manual'?'saved':'autosave'))+
+      '</span><span class="when">beat '+(b.beat||0)+' · step '+(b.step||0)+'</span>';
+    list.appendChild(el);
+  });
+  acts.innerHTML='';
+  function btn(txt,fn,ghost,off){ var b=document.createElement('button');
+    b.textContent=txt; if(ghost)b.className='ghost'; if(off)b.disabled=true;
+    else b.addEventListener('click',fn); acts.appendChild(b); return b; }
+  var inOwnBed = (mode==='int' && curHouse===HOME);
+  btn(inOwnBed?'SLEEP AND SAVE':'SLEEP AND SAVE (ONLY AT HOME)', sleepSave, false, !inOwnBed);
+  btn('SAVE NOW', manualSave, true);
+  btn('LOAD LAST SAVE', function(){ if(loadClosest()){ closeSave(); toast('Loaded.'); } }, true, !a.length);
+  btn('EXPORT SAVE CODE (.txt)', function(){
+    bridgePost({bohemiaExport:{name:'bohemia_save.txt',text:JSON.stringify(saveBlob('export'))}});
+    toast('Save code sent to the export sheet.'); }, true);
+  btn('LOAD FROM PASTED CODE', function(){
+    var t=document.getElementById('savecode').value.trim(); if(!t)return;
+    var ok=false; try{ ok=applyBlob(JSON.parse(t)); }catch(_e){ ok=false; }
+    toast(ok?'Loaded that save.':'That save code did not read.');
+    if(ok) closeSave(); }, true);
+}
+function openSave(){ renderSaveSheet(); SAVEEL.style.display='flex'; }
+function closeSave(){ SAVEEL.style.display='none'; }
+document.getElementById('menu').addEventListener('click', openSave);
+document.getElementById('saveclose').addEventListener('click', closeSave);
+
 /* ---- 15. INPUT: d-pad, keys, and tap-the-world (one thumb, arm's length). ---- */
 ACT.addEventListener('click', function(){
   if(ACT.disabled) return;
@@ -958,6 +1119,7 @@ function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight; draw(); }
 window.addEventListener('resize', fit);
 refresh(); fit(); updateFaces();
 askForCast();   /* the real bodies, straight off the rig Paolo built */
+autoSave('start');   /* death is a reload: there is always a save to land on */
 toast('You woke up in your own house. Walk out the front door.');
 
 /* ---- read-only introspection for gates/run_gate.js. Actions go through the
@@ -980,6 +1142,17 @@ window.__RUN = {
     tileW:DOOR_ANIM.tileW, tileH:DOOR_ANIM.tileH, version:DOOR_ANIM.version,
     state:JSON.parse(JSON.stringify(DOORST)) }; },
   music: function(){ return MUSIC_ON; },
+  /* save/load introspection for gates/run_gate.js — reports, never acts */
+  saves: function(){ return saveSlots().map(function(b){
+    return { label:b.label, env:b.env, beat:b.beat, step:b.step,
+             hasEngine:!!b.engine, hasRun:!!b.run,
+             /* the law: device preferences NEVER travel in the save */
+             carriesDevicePrefs: JSON.stringify(b).indexOf('MUSIC_ON')>=0 }; }); },
+  saveNow: function(label){ return !!writeSave(label||'manual'); },
+  loadLast: function(){ return loadClosest(); },
+  exportCode: function(){ return JSON.stringify(saveBlob('export')); },
+  importCode: function(t){ try{ return applyBlob(JSON.parse(t)); }catch(_e){ return false; } },
+  wipeSaves: function(){ try{ localStorage.removeItem(SAVE_KEY); }catch(_e){} },
   cast: function(){ if(!CAST) return null;
     var d=Object.keys(CAST.player), any=CAST.player[d[0]];
     return { dirs:d.length, walkFrames:any?any.walk.length:0, looks:CAST.looks.length,

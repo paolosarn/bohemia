@@ -224,6 +224,92 @@ async function playRun(browser, fork) {
 }
 
 /* --------------------------------------------------------------------------
+   SAVE / LOAD — built to two rulings Paolo made on 7/26 and checked against
+   their own words:
+     SAVES AND CLOUD: both kinds (sleep + free manual + autosave), ONE
+       versioned device-agnostic blob, NO device preferences inside it, loaders
+       migrate old versions forward and never reject them, and an export/import
+       code that travels between devices with no server.
+     DEATH IS A RELOAD: losing loads the CLOSEST PREVIOUS SAVE. Never a reset.
+   Round-trip is proven the only way that means anything: save, actually change
+   the world, load, and diff.
+   ------------------------------------------------------------------------ */
+async function saveRun(browser) {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const errors = [];
+  page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
+  page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+  // the gate plays the parent's half of the combat bridge, and LOSES the fight.
+  await page.addInitScript(() => {
+    window.addEventListener('message', ev => {
+      const d = ev && ev.data;
+      if (!d || d.type !== 'BOHEMIA_RUN_ENCOUNTER') return;
+      window.postMessage({ type: 'BOHEMIA_RUN_ENCOUNTER_ACK' }, '*');
+      setTimeout(() => window.postMessage({ type: 'BOHEMIA_RUN_COMBAT_END', victory: false,
+        result: 'loss', kills: 0, dead: 0, spared: 0, fled: 0, playerHP: 0 }, '*'), 60);
+    });
+  });
+  await page.goto('file://' + RUN_FILE);
+  await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
+  await page.evaluate(() => window.__RUN.wipeSaves());
+
+  const out = { errors };
+  // a save must exist from the first second, or "death is a reload" has nowhere to land
+  await page.reload();
+  await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
+  out.bootSaves = await page.evaluate(() => window.__RUN.saves());
+
+  // ---- ROUND TRIP: save, really change the world, load, diff
+  await walkOutOfHouse(page);
+  const g = await page.evaluate(() => window.__RUN.grid());
+  const st0 = await page.evaluate(() => window.__RUN.state());
+  const L = st0.lineman;
+  await walkTo(page, g.pass[L[1] + 1] && g.pass[L[1] + 1][L[0]] ? [L[0], L[1] + 1] : [L[0], L[1] - 1]);
+  await page.click('#act');
+  await page.click('#opts button:nth-child(1)');   // "I will walk it back." -> stage 20
+  await page.click('#talkcont');
+  await page.evaluate(() => window.__RUN.saveNow('manual'));
+  out.saved = await page.evaluate(() => window.__RUN.state());
+  await tapStep(page, [-1, 0]); await tapStep(page, [-1, 0]); await tapStep(page, [-1, 0]);
+  out.drifted = await page.evaluate(() => window.__RUN.state());
+  out.loadOk = await page.evaluate(() => window.__RUN.loadLast());
+  out.restored = await page.evaluate(() => window.__RUN.state());
+  out.slots = await page.evaluate(() => window.__RUN.saves());
+
+  // ---- EXPORT / IMPORT on a FRESH page: the no-server cross-device path
+  const code = await page.evaluate(() => window.__RUN.exportCode());
+  out.codeBytes = code.length;
+  const fresh = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  fresh.on('pageerror', e => errors.push('PAGEERROR(import): ' + e.message));
+  await fresh.goto('file://' + RUN_FILE);
+  await fresh.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
+  await fresh.evaluate(() => window.__RUN.wipeSaves());
+  out.importOk = await fresh.evaluate(c => window.__RUN.importCode(c), code);
+  out.imported = await fresh.evaluate(() => window.__RUN.state());
+  // an OLDER envelope must migrate forward, never be rejected
+  const old = JSON.parse(code); old.env = 0;
+  out.oldImportOk = await fresh.evaluate(c => window.__RUN.importCode(c), JSON.stringify(old));
+  // junk must not be silently "loaded"
+  out.junkRejected = !(await fresh.evaluate(() => window.__RUN.importCode('{"nope":1}')));
+  await fresh.close();
+
+  // ---- DEATH IS A RELOAD: lose the fight, land on the closest save
+  const F = out.saved.fixer;
+  const g2 = await page.evaluate(() => window.__RUN.grid());
+  await walkTo(page, g2.pass[F[1] + 1] && g2.pass[F[1] + 1][F[0]] ? [F[0], F[1] + 1] : [F[0], F[1] - 1]);
+  await page.evaluate(() => window.__RUN.saveNow('manual'));
+  const beforeFight = await page.evaluate(() => window.__RUN.state());
+  await page.click('#act');
+  await page.click('#opts button:nth-child(4)');   // cut the tap -> it goes loud
+  await page.click('#opts button:nth-child(1)');
+  await page.waitForTimeout(900);
+  out.afterDeath = await page.evaluate(() => window.__RUN.state());
+  out.deathLandedOnSave = out.afterDeath.px === beforeFight.px && out.afterDeath.py === beforeFight.py;
+  await page.close();
+  return out;
+}
+
+/* --------------------------------------------------------------------------
    THE SAME RUN, PLAYED INSIDE THE REAL ALPHA. No stand-in for anything: the run
    frame posts to the real alpha, the alpha brings up the real combat frame, and
    the combat frame's OWN window sends the real BOHEMIA_COMBAT_END the dial sends
@@ -357,10 +443,11 @@ async function alphaRun() {
   // ---- B. THE RUN ITSELF, played in a real browser -------------------------
   const { chromium } = requirePlaywright();
   const browser = await chromium.launch();
-  let loud = null, quiet = null;
+  let loud = null, quiet = null, sv = null;
   try {
     loud = await playRun(browser, 'loud');
     quiet = await playRun(browser, 'quiet');
+    sv = await saveRun(browser);
   } finally { await browser.close(); }
 
   for (const rep of [loud, quiet]) {
@@ -405,6 +492,33 @@ async function alphaRun() {
   ok('QUIET: the quiet fork posts as #quiet', quiet.feed[0] && quiet.feed[0].clout === 'quiet');
   ok('CLOUT ORDER HOLDS: loud out-earns quiet on the same quest',
     loud.profile.reach > quiet.profile.reach);
+
+  // ---- B2. SAVE / LOAD, against the two rulings' own words -----------------
+  ok('SAVE: no page errors across the save/load suite', sv.errors.length === 0);
+  if (sv.errors.length) console.log('    ' + sv.errors.slice(0, 4).join('\n    '));
+  ok('SAVE: a save exists from the first second (death always has somewhere to land)',
+    sv.bootSaves.length >= 1);
+  ok('SAVE: the blob is VERSIONED and carries the engine save AND the run state',
+    !!sv.slots[0] && sv.slots[0].env >= 1 && sv.slots[0].hasEngine && sv.slots[0].hasRun);
+  ok('SAVE: DEVICE PREFERENCES NEVER TRAVEL IN THE SAVE (the law\'s own rule)',
+    sv.slots.every(s => s.carriesDevicePrefs === false));
+  ok('SAVE: the world really moved between save and load (the test is not a no-op)',
+    sv.drifted.px !== sv.saved.px || sv.drifted.py !== sv.saved.py);
+  ok('SAVE: load restores the exact state — position, surface and quest stage',
+    sv.loadOk === true && sv.restored.px === sv.saved.px && sv.restored.py === sv.saved.py &&
+    sv.restored.mode === sv.saved.mode && sv.restored.stage === sv.saved.stage);
+  ok('SAVE: all three kinds coexist (sleep + manual + autosave), per "BOTH"',
+    sv.slots.some(s => s.label === 'manual') && sv.slots.some(s => /^auto:/.test(s.label)));
+  ok('SAVE: an EXPORT CODE carries the whole game (no server, phase 1)', sv.codeBytes > 500);
+  ok('SAVE: that code IMPORTS onto a FRESH device and restores the same state',
+    sv.importOk === true && sv.imported.px === sv.saved.px && sv.imported.py === sv.saved.py &&
+    sv.imported.stage === sv.saved.stage);
+  ok('SAVE: an OLDER save version MIGRATES FORWARD, it is never rejected', sv.oldImportOk === true);
+  ok('SAVE: a junk code is refused instead of half-loading', sv.junkRejected === true);
+  ok('DEATH IS A RELOAD: losing the fight lands you on the closest previous save',
+    sv.deathLandedOnSave === true);
+  ok('DEATH IS A RELOAD: it is a LOAD, not a reset — the quest keeps its progress',
+    sv.afterDeath.stage >= 20);
 
   // ---- C. THE WHOLE BRIDGE, INSIDE THE REAL ALPHA --------------------------
   const alpha = fs.readFileSync(ALPHA_FILE, 'utf8');

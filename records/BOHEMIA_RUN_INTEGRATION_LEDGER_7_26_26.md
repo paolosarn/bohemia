@@ -34,7 +34,8 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 | economy | NOT YET | — | booted in the context, untouched by the run |
 | dress-by-rank | NOT YET | — | bodies are random colourways, not rank-dressed |
 | vehicles | NOT YET | — | driveways are empty; the drivable network is unused |
-| save / load | NOT YET | — | ruled 7/26 (DEATH IS A RELOAD + SAVES AND CLOUD); not wired to the run yet |
+| save / load | INTEGRATED | save_blob | ONE versioned device-agnostic blob (engine save + run state), sleep + manual + autosave, export/import code, no device prefs inside, older versions migrate forward |
+| death is a reload | INTEGRATED | death_reload | losing a fight loads the closest previous save, never a reset (7/26 ruling) |
 
 ## THE ORDER THE GAPS GET CLOSED (biggest visible first)
 1. **3/4 ISO VIEW** — the single loudest "this isn't our game" signal. The city

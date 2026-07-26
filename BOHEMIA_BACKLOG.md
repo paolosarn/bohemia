@@ -81,7 +81,10 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    [DONE 7/26] REAL ANIMATED DOORS (2 tiles tall, approved 7/13 bank) + MUSIC
    (the alpha's own synth scores the walk). Law:
    laws/BOHEMIA_ADDENDUM_DOOR_LAW_TWO_TILES_TALL_7_26_26.md.
-   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (14/23),
+   [DONE 7/26] SAVE / LOAD — one portable versioned blob (sleep + manual +
+   autosave, export/import code, no device prefs inside, old versions migrate
+   forward) and DEATH IS A RELOAD wired to it.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (16/24),
    enforced by gates/integration_gate.js.
 -1. THE OVERWORLD LOOK. Paolo 7/26: "it's kind of looking like shit the whole
    overworld." SUPERSEDED IN OWNERSHIP by the ART-FIRST RESET the same day
@@ -99,12 +102,6 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    the generated valley, so walking off it lands in a real district. | run_gate
    proves a second district reached on foot | district engines | no.
 0c. DISTRICT ART / MUSIC / DAY CYCLE (ledger priorities 3-5), in that order.
-0. SAVE/LOAD for the run (RULED 7/26, both addenda): sleep saves + free
-   manual saves + autosave; death loads closest save; the save is ONE
-   portable versioned blob (device prefs excluded) with export/import,
-   per laws/BOHEMIA_ADDENDUM_SAVES_AND_CLOUD_7_26_26.md. | save->reload->
-   identical state proven headless + export/import round-trip | engine/
-   bohemia_loop.js (flag needs to WORLD) | no — fully ruled.
 1. Phone-feel pass on the run (touch responsiveness at arm's length): real
    device-shaped viewports, hold-to-walk tuning, tap-to-step target sizes,
    the objective bar at arm's length. | run_gate extended with a real-device
