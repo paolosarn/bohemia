@@ -1,0 +1,1513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 03 — STARDEW, ONE WORLD: WALK UP AND DO IT (REFERENCE)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 03 — ONE WORLD, THREE MECHANICS, REACHED BY WALKING
+  laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md (Paolo 7/26/26)
+
+  Paolo: "are you able to code these into the walkable version of Stardew
+  Valley made earlier pull up to the mini lake you can start fishing pull up on
+  your potential spouse. Do all of this pull up on your farm".
+
+  So: LAB-01's walk stops being a deliverable and becomes what it always
+  should have been — the CONNECTIVE TISSUE between mechanics. One town, one
+  clock, one purse. Walk to the dock and fish. Walk to your plot and farm.
+  Walk up to her and court her. Walk to your bed and sleep, and the whole
+  world resolves at once.
+
+  Every rule comes from the decompiled 1.5.6 source, cited in
+  records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt and
+  records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt.
+  What MERGING them taught is in
+  records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md.
+
+  NOT BOHEMIA. No engine module, no bank, no alpha. Placeholder art only.
+  gates/lab_gate.js walks this world and plays every loop in it.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#14161c; color:#e8e6df;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#b8342a; color:#fff; font-size:10px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #stage { position:relative; flex:1 1 auto; min-height:0; background:#000; }
+  #c { display:block; width:100%; height:100%; image-rendering:pixelated; }
+  #hud { position:absolute; left:4px; top:4px; right:4px; pointer-events:none;
+    display:flex; justify-content:space-between; align-items:flex-start; gap:6px; }
+  .card { background:rgba(12,14,18,.80); border:1px solid #39404f; border-radius:4px;
+    padding:3px 6px; font-size:10px; line-height:1.35; white-space:pre; }
+  #toast { position:absolute; left:6px; right:6px; bottom:6px; pointer-events:none;
+    font-size:10.5px; line-height:1.4; }
+  #toast div { background:rgba(10,12,16,.86); border-left:3px solid #4a5570;
+    padding:2px 6px; margin-top:2px; border-radius:2px; }
+  #toast .good { border-left-color:#5f8c63; color:#c8f0cd; }
+  #toast .bad { border-left-color:#a5563f; color:#ffcfc4; }
+  #ctl { flex:0 0 auto; padding:5px 6px 8px; background:#191c24; border-top:1px solid #2c3140; }
+  #row1 { display:flex; align-items:center; gap:8px; }
+  #stick { position:relative; width:112px; height:112px; flex:0 0 auto; border-radius:50%;
+    background:#23283a; border:2px solid #39415a; }
+  #knob { position:absolute; left:50%; top:50%; width:42px; height:42px; margin:-21px 0 0 -21px;
+    border-radius:50%; background:#59648c; border:2px solid #7f8cb8; }
+  #right { flex:1 1 auto; display:flex; flex-direction:column; gap:5px; min-width:0; }
+  #act { width:100%; padding:14px 6px; font-size:14px; font-weight:700; letter-spacing:.06em;
+    border-radius:5px; border:2px solid #7f8cb8; background:#2f3a5c; color:#dfe6ff; }
+  #act.hot { background:#2d5a34; border-color:#6fae78; color:#dcf6df; }
+  #act:disabled { opacity:.35; }
+  .chips { display:flex; flex-wrap:wrap; gap:4px; }
+  button.chip { font-family:inherit; font-size:9.5px; padding:6px 7px; border-radius:4px;
+    border:1px solid #454d63; background:#22262f; color:#9aa3b8; }
+  button.chip.on { background:#2d4a30; border-color:#5f8c63; color:#d6f0d8; }
+  .modal { position:absolute; inset:0; background:rgba(8,10,14,.96); display:none;
+    flex-direction:column; padding:8px 10px; overflow:auto; z-index:6; }
+  .modal.open { display:flex; }
+  .modal h3 { margin:0 0 6px; font-size:12px; color:#ffd76a; letter-spacing:.05em; }
+  table.st { width:100%; border-collapse:collapse; font-size:10px; }
+  table.st td { padding:1px 3px; border-bottom:1px solid #1c2029; }
+  table.st td.n { color:#8fd0ff; } table.st td.v { text-align:right; color:#fff; }
+  .hearts { color:#ff6f8a; letter-spacing:1px; }
+  .wm { position:absolute; right:5px; top:50%; font-size:8px; color:#fff; opacity:.28;
+    transform:rotate(90deg); transform-origin:right center; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE EMULATION — NOT BOHEMIA.</b> One walkable world: fish at the dock,
+    farm your plot, court her, sleep. Placeholder art.</div>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div class="card" id="clock">6:00 AM</div>
+      <div class="card" id="tele"></div>
+    </div>
+    <div id="toast"></div>
+    <div class="wm">PLACEHOLDER ART</div>
+
+    <!-- courtship -->
+    <div class="modal" id="m_love">
+      <h3 id="lovehead">EMILY</h3>
+      <table class="st" id="lovestat"></table>
+      <div class="chips" style="margin:6px 0">
+        <button class="chip" id="l_talk">TALK (+20)</button>
+        <button class="chip" id="l_court">COURT</button>
+        <button class="chip" id="l_close">WALK AWAY</button>
+      </div>
+      <div class="chips" id="giftpick"></div>
+      <div id="lovelog" style="margin-top:6px;font-size:10.5px;line-height:1.45"></div>
+    </div>
+
+    <!-- the numbers -->
+    <div class="modal" id="m_num">
+      <h3>THE NUMBERS, AND THE LINE EACH ONE CAME FROM</h3>
+      <button class="chip" id="n_close" style="align-self:flex-start;margin-bottom:6px">CLOSE</button>
+      <div id="numbody"></div>
+    </div>
+  </div>
+
+  <div id="ctl">
+    <div id="row1">
+      <div id="stick"><div id="knob"></div></div>
+      <div id="right">
+        <button id="act">—</button>
+        <div class="chips" id="tools"></div>
+        <div class="chips" id="chips2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   THE NUMBERS. Read off the decompiled Stardew Valley 1.5.6 source. Every key
+   is cross-checked against the two records by gates/lab_gate.js, which fails
+   the build if one loses its file:line citation.
+   ========================================================================= */
+var SDV = {
+  /* --- the world + the walk (Game1 / Farmer / Character) --- */
+  TILE:               64,
+  PIXEL_ZOOM:         4,
+  WALK_SPEED:         2,
+  RUN_SPEED:          5,
+  MOVE_MULT:          0.066,
+  MIN_STEP:           1,
+  DIAG_FACTOR:        0.7,
+  BOX_X:              8,
+  BOX_W:              48,
+  BOX_H:              32,
+  SLIP_DIV:           64,
+  CAM_SNAP:           64,
+  FADE_STEP:          0.02,
+  ANIM_BASE_MS:       87.5,
+  ANIM_FRAMES:        4,
+  ANIM_WALK_MOD:      0.025,
+  ANIM_RUN_MOD:       0.03,
+  ANIM_MOD_MULT:      1.25,
+  /* --- the clock + the light (Game1.UpdateGameClock) --- */
+  MS_PER_10MIN:       7000,
+  DAY_START:          600,
+  DAY_END:            2600,
+  DARK_START:         1800,
+  DARK_TRULY:         2000,
+  DUSK_BASE:          0.30,
+  DUSK_RATE:          0.00225,
+  NIGHT_BASE:         0.75,
+  NIGHT_RATE:         0.000625,
+  LIGHT_CAP:          0.93,
+  MINUTE_UNIT:        16.66,
+  /* --- fishing (Menus/BobberBar.cs) --- */
+  BAR_TRACK:          568,
+  BAR_BASE_H:         96,
+  BAR_H_PER_LEVEL:    8,
+  BOBBER_TOP:         0,
+  BOBBER_BOTTOM:      532,
+  BOBBER_START:       508,
+  CATCH_START:        0.3,
+  CATCH_GAIN:         0.002,
+  CATCH_LOSS:         0.003,
+  BAR_GRAVITY:        0.25,
+  BAR_LIFT:           0.25,
+  BAR_IN_DAMP:        0.6,
+  BAR_BOUNCE:         0.6667,
+  FISH_SMOOTH:        5,
+  FLOAT_ACCEL:        0.01,
+  FLOAT_MAX:          1.5,
+  SIZE_DROP_MS:       800,
+  FISH_ABOVE:         16,
+  FISH_BELOW:         12,
+  /* --- farming (Crop.cs / HoeDirt.cs) --- */
+  DRY:                0,
+  WATERED:            1,
+  SPEEDGRO:           0.10,
+  SPEEDGRO_DELUXE:    0.25,
+  SPEEDGRO_HYPER:     0.33,
+  RETAIN_BASIC:       0.33,
+  RETAIN_QUALITY:     0.66,
+  RETAIN_DELUXE:      1.00,
+  /* --- marriage (Farmer.cs / NPC.cs / Friendship.cs / Utility.cs) --- */
+  PER_HEART:          250,
+  TALK_POINTS:        20,
+  GIFT_LOVE:          80,
+  GIFT_LIKE:          45,
+  GIFT_NEUTRAL:       20,
+  GIFT_DISLIKE:      -20,
+  GIFT_HATE:         -40,
+  GIFT_BIRTHDAY_X:    8,
+  GIFT_SILVER_X:      1.25,
+  GIFT_GOLD_X:        1.5,
+  GIFTS_PER_DAY:      1,
+  GIFTS_PER_WEEK:     2,
+  DECAY_STRANGER:     2,
+  DECAY_DATING:       8,
+  DECAY_SPOUSE:      20,
+  DECAY_FLOOR_UNDATED: 2000,
+  BOUQUET_AT:         2000,
+  PENDANT_AT:         2500,
+  MAX_HEARTS_UNDATED: 8,
+  MAX_HEARTS_DATING:  10,
+  MAX_HEARTS_SPOUSE:  14,
+  WEDDING_DELAY:      3,
+  /* --- NPC schedules (NPC.cs / Character.cs) --- */
+  NPC_SPEED:          2,
+  NPC_PAUSE_MIN:      6000,
+  NPC_PAUSE_MAX:      12000,
+  BREATH_MS:          600,
+  /* --- ours: how close you have to be to talk to somebody. Stardew uses the
+     facing tile and a bounding-box check; one tile is the honest version. --- */
+  REACH_TILES:        1
+};
+var TICK = 1000 / 60;
+
+/* CONTENT (declared, ours, not theirs): the master keeps these in
+   Content/Data tables, not in code. MECHANISM-MINE / CONTENTS-PAOLO'S. */
+var FISH = [
+  { n: 'CARP',    d: 15,  m: 'mixed',  min: 12, max: 40 },
+  { n: 'SARDINE', d: 30,  m: 'dart',   min: 7,  max: 20 },
+  { n: 'PIKE',    d: 60,  m: 'dart',   min: 15, max: 45 },
+  { n: 'CATFISH', d: 75,  m: 'mixed',  min: 25, max: 72 },
+  { n: 'OCTOPUS', d: 95,  m: 'sinker', min: 12, max: 48 }
+];
+var MOTION = { mixed: 0, dart: 1, smooth: 2, sinker: 3, floater: 4 };
+var CROPS = [
+  { n: 'PARSNIP',   phases: [1, 1, 1, 1],    regrow: -1, sell: 35,  seasons: ['SPRING'] },
+  { n: 'POTATO',    phases: [1, 1, 1, 2, 1], regrow: -1, sell: 80,  seasons: ['SPRING'] },
+  { n: 'GREENBEAN', phases: [1, 1, 1, 3, 4], regrow: 3,  sell: 40,  seasons: ['SPRING'] },
+  { n: 'MELON',     phases: [1, 2, 3, 3, 3], regrow: -1, sell: 250, seasons: ['SUMMER'] }
+];
+var FERTS = [
+  { n: 'NONE',      speed: 0,                   retain: 0 },
+  { n: 'SPEED-GRO', speed: SDV.SPEEDGRO,        retain: 0 },
+  { n: 'DELUXE',    speed: SDV.SPEEDGRO_DELUXE, retain: 0 },
+  { n: 'RETAIN Q',  speed: 0,                   retain: SDV.RETAIN_QUALITY }
+];
+var GIFTS = [
+  { n: 'AMETHYST',    taste: 'LOVE',    q: 0 },
+  { n: 'WINE (GOLD)', taste: 'LIKE',    q: 2 },
+  { n: 'DAFFODIL',    taste: 'NEUTRAL', q: 0 },
+  { n: 'CLAY',        taste: 'DISLIKE', q: 0 },
+  { n: 'SALMONBERRY', taste: 'HATE',    q: 0 }
+];
+var TASTE_POINTS = { LOVE: SDV.GIFT_LOVE, LIKE: SDV.GIFT_LIKE, NEUTRAL: SDV.GIFT_NEUTRAL,
+                     DISLIKE: SDV.GIFT_DISLIKE, HATE: SDV.GIFT_HATE };
+var DAYNAMES = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+
+/* =========================================================================
+   THE WORLD. Your farmhouse and its plot on the left, the shop up the road,
+   the lake and its dock down at the bottom right. One map, everything on it.
+   INTERIOR PLATE === EXTERIOR FOOTPRINT (Bohemia's locked law; Stardew does
+   the opposite and the divergence is recorded).
+   ========================================================================= */
+var TOWN = [
+  'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+  'T......................................T',
+  'T.................,,...................T',
+  'T...#########.....,,...##########......T',
+  'T...#########.....,,...##########......T',
+  'T...#########.....,,...##########......T',
+  'T...#########.....,,...##########......T',
+  'T...#########.....,,...##########......T',
+  'T...#########.....,,...##########......T',
+  'T...#w##D##w#.....,,...#ww#D#ww##......T',
+  'T......===........,,......===..........T',
+  'T.......,.........,,.......,...........T',
+  'T...ffff,ffffff...,,.......,...........T',
+  'T...fooooooooof...,,.......,...........T',
+  'T...fooooooooof...,,.......,...........T',
+  'T...fooooooooof...,,.......,...........T',
+  'T...fooooooooof...,,.......,...........T',
+  'T...fooooooooof...,,.......,...........T',
+  'T...fooooooooof...,,.......,...........T',
+  'T...fffffffffff...,,.......,...........T',
+  'T................L,,L..................T',
+  'T.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.T',
+  'T.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.T',
+  'T.................,,...................T',
+  'T.................,,....B..===.........T',
+  'T.................,,....~~~~~~~~~~~~~..T',
+  'T.................,,....~~~~~~~~~~~~~..T',
+  'T.................,,....~~~~~~~~~~~~~..T',
+  'T.....T...........,,....~~~~~~~~~~~~~..T',
+  'T.................,,....~~~~~~~~~~~~~..T',
+  'T.................,,....~~~~~~~~~~~~~..T',
+  'T.................,,....~~~~~~~~~~~~~..T',
+  'T.................,,...................T',
+  'T................L,,L..................T',
+  'T......................................T',
+  'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+];
+var HOUSE = [
+  '#########',
+  '#ZZ..t.p#',
+  '#ZZ.....#',
+  '#...rr..#',
+  '#v..rr.k#',
+  '#.......#',
+  '####D####'
+];
+var SHOP = [
+  '##########',
+  '#CCCCC..s#',
+  '#.......s#',
+  '#k..rrr.s#',
+  '#k..rrr..#',
+  '#p.....tt#',
+  '####D#####'
+];
+
+var SOLID = 'T~fBLSx#wZthCsvkpb';
+var FURNITURE = 'ZthCsvkpr';
+
+var MAPS = {
+  town:  { rows: TOWN, outdoors: true,
+           lights: [[17,20],[20,20],[17,33],[20,33]],
+           warps: { '8,9': { map: 'house', tx: 4, ty: 5 },
+                    '27,9': { map: 'shop', tx: 4, ty: 5 } } },
+  house: { rows: HOUSE, outdoors: false, lights: [[1,4]],
+           warps: { '4,6': { map: 'town', tx: 8, ty: 10 } } },
+  shop:  { rows: SHOP, outdoors: false, lights: [[5,1]],
+           warps: { '4,6': { map: 'town', tx: 27, ty: 10 } } }
+};
+
+(function validate() {
+  for (var k in MAPS) {
+    var rows = MAPS[k].rows, w = rows[0].length;
+    for (var y = 0; y < rows.length; y++) {
+      if (rows[y].length !== w) throw new Error('MAP ' + k + ' row ' + y + ' is ' + rows[y].length + ' not ' + w);
+    }
+    for (var key in MAPS[k].warps) {
+      var p = key.split(',');
+      if (rows[+p[1]][+p[0]] !== 'D') throw new Error('MAP ' + k + ' warp ' + key + ' is not a door');
+    }
+  }
+})();
+
+/* =========================================================================
+   STATE — one world, one clock, one purse
+   ========================================================================= */
+var S = {
+  map: 'town',
+  pos: { x: 8 * SDV.TILE, y: 11 * SDV.TILE },
+  facing: 2, running: true,
+  dirs: { 0: false, 1: false, 2: false, 3: false },
+  animTimer: 0, animFrame: 0,
+  timeOfDay: SDV.DAY_START, clockAcc: 0,
+  day: 1, season: 'SPRING', gold: 0, fishingLevel: 0,
+  fade: 0, fadeDir: 0, pendingWarp: null,
+  cam: { x: 0, y: 0 }, zoom: 32, grid: false,
+  driven: true, now: 0, tool: 'hoe', seedPick: 0, fertPick: 0,
+  modal: null                       /* 'love' | 'num' | null */
+};
+var NPC = {
+  name: 'EMILY',
+  pos: { x: 27 * SDV.TILE, y: 11 * SDV.TILE },
+  facing: 2, path: [], target: null, pauseLeft: 0, animTimer: 0, animFrame: 0, seed: 1337,
+  schedule: [
+    { t: 600,  x: 27, y: 11 },
+    { t: 800,  x: 19, y: 22 },
+    { t: 1100, x: 26, y: 24 },
+    { t: 1400, x: 8,  y: 11 },
+    { t: 1700, x: 27, y: 11 },
+    { t: 2000, x: 27, y: 10 }
+  ],
+  lastKey: -1
+};
+var L = {
+  points: 0, status: 'STRANGER', talkedToday: false, giftsToday: 0, giftsThisWeek: 0,
+  birthdaySeason: 'SPRING', birthdayDay: 12, weddingIn: -1, married: false
+};
+var FARM = {};                        /* "x,y" -> { tilled, state, crop, fert } */
+
+function dayName() { return DAYNAMES[(S.day - 1) % 7]; }
+function rows() { return MAPS[S.map].rows; }
+function mapW() { return rows()[0].length; }
+function mapH() { return rows().length; }
+function tileOn(map, tx, ty) {
+  var r = MAPS[map].rows;
+  if (tx < 0 || ty < 0 || ty >= r.length || tx >= r[0].length) return 'T';
+  return r[ty][tx];
+}
+function tileAt(tx, ty) { return tileOn(S.map, tx, ty); }
+function solidOn(map, tx, ty) { return SOLID.indexOf(tileOn(map, tx, ty)) >= 0; }
+function solidTile(tx, ty) { return solidOn(S.map, tx, ty); }
+function farmAt(tx, ty) {
+  var k = tx + ',' + ty;
+  if (!FARM[k]) FARM[k] = { tilled: false, state: SDV.DRY, crop: null, fert: 0 };
+  return FARM[k];
+}
+function toast(cls, msg) {
+  var host = document.getElementById('toast'), d = document.createElement('div');
+  d.className = cls || ''; d.textContent = msg;
+  host.insertBefore(d, host.firstChild);
+  while (host.children.length > 4) host.removeChild(host.lastChild);
+  setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 6000);
+}
+
+/* =========================================================================
+   THE WALK — Farmer.MovePosition, rule for rule. It is not the deliverable
+   here; it is how you REACH the mechanics, which is what it is for.
+   ========================================================================= */
+function movementSpeed(dtms, dirCount) {
+  var spd = S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED;
+  var v = Math.max(SDV.MIN_STEP, spd * SDV.MOVE_MULT * dtms);
+  if (dirCount > 1) v = SDV.DIAG_FACTOR * v;
+  return v;
+}
+function box(px, py) { return { x: px + SDV.BOX_X, y: py, w: SDV.BOX_W, h: SDV.BOX_H }; }
+function nextBox(dir, dist) {
+  var b = box(S.pos.x, S.pos.y), d = Math.ceil(dist);
+  if (dir === 0) b.y -= d; else if (dir === 2) b.y += d;
+  else if (dir === 1) b.x += d; else b.x -= d;
+  return b;
+}
+function colliding(b) {
+  var x0 = Math.floor(b.x / SDV.TILE), x1 = Math.floor((b.x + b.w - 1) / SDV.TILE);
+  var y0 = Math.floor(b.y / SDV.TILE), y1 = Math.floor((b.y + b.h - 1) / SDV.TILE);
+  for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) if (solidTile(x, y)) return true;
+  return false;
+}
+function warpUnder(b) {
+  var W = MAPS[S.map].warps;
+  var x0 = Math.floor(b.x / SDV.TILE), x1 = Math.floor((b.x + b.w - 1) / SDV.TILE);
+  var y0 = Math.floor(b.y / SDV.TILE), y1 = Math.floor((b.y + b.h - 1) / SDV.TILE);
+  for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
+    var w = W[x + ',' + y]; if (w) return w;
+  }
+  return null;
+}
+function shift(dir, d) {
+  if (dir === 0) S.pos.y -= d; else if (dir === 2) S.pos.y += d;
+  else if (dir === 1) S.pos.x += d; else S.pos.x -= d;
+}
+function tryDir(dir, spd, dirCount, dtms) {
+  var w = warpUnder(nextBox(dir, spd));
+  if (w) { startWarp(w); return 'warp'; }
+  if (!colliding(nextBox(dir, spd))) { shift(dir, spd); return 'full'; }
+  if (!colliding(nextBox(dir, spd / 2))) { shift(dir, spd / 2); return 'half'; }
+  if (dirCount === 1) {
+    var b = nextBox(dir, spd), vertical = (dir === 0 || dir === 2);
+    var q = { x: b.x, y: b.y, w: b.w, h: b.h }, a, c;
+    if (vertical) { q.w = Math.floor(b.w / 4); a = colliding(q); q.x += q.w * 3; c = colliding(q); }
+    else { q.h = Math.floor(b.h / 4); a = colliding(q); q.y += q.h * 3; c = colliding(q); }
+    var slip = (S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED) * (dtms / SDV.SLIP_DIV);
+    var p = vertical ? 1 : 2, n = vertical ? 3 : 0;
+    if (a && !c && !colliding(nextBox(p, spd))) { shift(p, slip); return 'slip'; }
+    if (c && !a && !colliding(nextBox(n, spd))) { shift(n, slip); return 'slip'; }
+  }
+  return 'blocked';
+}
+function canWalk() { return S.fadeDir === 0 && !F.live && !S.modal; }
+function stepPlayer(dtms) {
+  var held = [];
+  for (var d = 0; d < 4; d++) if (S.dirs[d]) held.push(d);
+  if (held.length) S.facing = (S.dirs[2] ? 2 : S.dirs[0] ? 0 : S.dirs[1] ? 1 : 3);
+  var spd = movementSpeed(dtms, held.length);
+  var order = [0, 2, 1, 3];
+  for (var i = 0; i < order.length; i++) {
+    if (!S.dirs[order[i]]) continue;
+    if (tryDir(order[i], spd, held.length, dtms) === 'warp') return;
+  }
+  if (held.length) {
+    var mod = 1 - (S.running ? SDV.ANIM_RUN_MOD : SDV.ANIM_WALK_MOD) *
+      Math.max(1, (S.running ? SDV.RUN_SPEED : SDV.WALK_SPEED) * SDV.MOVE_MULT * dtms) * SDV.ANIM_MOD_MULT;
+    S.animTimer += dtms;
+    var per = SDV.ANIM_BASE_MS * mod;
+    while (S.animTimer >= per) { S.animTimer -= per; S.animFrame = (S.animFrame + 1) % SDV.ANIM_FRAMES; }
+  } else { S.animFrame = 0; S.animTimer = 0; }
+}
+function startWarp(w) {
+  if (S.fadeDir) return;
+  S.pendingWarp = w; S.fadeDir = 1;
+  for (var d = 0; d < 4; d++) S.dirs[d] = false;
+}
+function stepFade(dtms) {
+  if (!S.fadeDir) return;
+  var step = SDV.FADE_STEP * (dtms / TICK);
+  if (S.fadeDir === 1) {
+    S.fade += step;
+    if (S.fade >= 1) {
+      S.fade = 1;
+      var w = S.pendingWarp; S.pendingWarp = null;
+      S.map = w.map; S.pos.x = w.tx * SDV.TILE; S.pos.y = w.ty * SDV.TILE;
+      S.fadeDir = -1;
+    }
+  } else {
+    S.fade -= step;
+    if (S.fade <= 0) { S.fade = 0; S.fadeDir = 0; }
+  }
+}
+
+/* =========================================================================
+   THE CLOCK + THE LIGHT — and the rule that makes a doorway free
+   ========================================================================= */
+function pseudoMinutes(t) { return (t - t % 100) + (t % 100 / 10) * SDV.MINUTE_UNIT; }
+function tintAlpha() {
+  if (!MAPS[S.map].outdoors) return 0;
+  var extra = S.clockAcc / SDV.MS_PER_10MIN * SDV.MINUTE_UNIT;
+  if (S.timeOfDay >= SDV.DARK_TRULY) {
+    return Math.min(SDV.LIGHT_CAP, SDV.NIGHT_BASE +
+      (pseudoMinutes(S.timeOfDay) - SDV.DARK_TRULY + extra) * SDV.NIGHT_RATE);
+  }
+  if (S.timeOfDay >= SDV.DARK_START) {
+    return Math.min(SDV.LIGHT_CAP, SDV.DUSK_BASE +
+      (pseudoMinutes(S.timeOfDay) - SDV.DARK_START + extra) * SDV.DUSK_RATE);
+  }
+  return 0;
+}
+function timePasses() { return S.fadeDir === 0 && !S.modal; }
+function stepClock(dtms) {
+  if (!timePasses()) return;
+  S.clockAcc += dtms;
+  while (S.clockAcc > SDV.MS_PER_10MIN) {
+    S.clockAcc = 0;
+    S.timeOfDay += 10;
+    if (S.timeOfDay % 100 >= 60) S.timeOfDay = S.timeOfDay - S.timeOfDay % 100 + 100;
+    S.timeOfDay = Math.min(S.timeOfDay, SDV.DAY_END);
+  }
+}
+function clockText() {
+  var t = S.timeOfDay, h = Math.floor(t / 100), m = t % 100, suf = 'AM';
+  if (h >= 24) h -= 24;
+  if (h >= 12) { suf = 'PM'; if (h > 12) h -= 12; }
+  if (h === 0) h = 12;
+  return h + ':' + (m < 10 ? '0' + m : m) + ' ' + suf;
+}
+
+/* =========================================================================
+   MECHANIC 1 — FISHING, at the dock. Same BobberBar rules, reached on foot.
+   ========================================================================= */
+var RNG = Math.random;
+function rnd() { return RNG(); }
+function rndInt(a, b) { return Math.floor(a + RNG() * (b - a)); }
+var F = { live: false, fish: null, difficulty: 0, motionType: 0, barH: 0, barPos: 0, barSpeed: 0,
+  bobPos: 0, bobSpeed: 0, bobTarget: 0, bobAccel: 0, floatAccel: 0,
+  progress: 0, reeling: false, perfect: true, size: 0, sizeTimer: 0, caught: 0 };
+
+/* which fish bites is CONTENT: deeper water, harder fish. Ours, declared. */
+function pickFish() {
+  var deep = 0, t = facingTile();
+  for (var d = 1; d <= 6; d++) if (tileAt(t.x, t.y + d - 1) === '~') deep++;
+  var band = Math.min(FISH.length - 1, Math.floor(rnd() * (1 + deep / 2)));
+  return FISH[band];
+}
+function castAt(fish) {
+  F.fish = fish; F.difficulty = fish.d; F.motionType = MOTION[fish.m];
+  F.barH = SDV.BAR_BASE_H + S.fishingLevel * SDV.BAR_H_PER_LEVEL;
+  F.barPos = SDV.BAR_TRACK - F.barH; F.barSpeed = 0;
+  F.bobPos = SDV.BOBBER_START;
+  F.bobTarget = (100 - F.difficulty) / 100 * 548;
+  F.bobSpeed = 0; F.bobAccel = 0; F.floatAccel = 0;
+  F.progress = SDV.CATCH_START; F.perfect = true;
+  F.size = Math.round(fish.min + (fish.max - fish.min) * rnd()) + 1;
+  F.sizeTimer = SDV.SIZE_DROP_MS;
+  F.live = true;
+  for (var d = 0; d < 4; d++) S.dirs[d] = false;
+  toast('', 'HOOKED ' + fish.n + ' · difficulty ' + fish.d + ' · ' + fish.m +
+    ' · your bar is ' + F.barH + ' of ' + SDV.BAR_TRACK);
+  syncAct();
+}
+function fishTick(dt) {
+  if (!F.live) return;
+  var ticks = dt / TICK;
+  if (rnd() < F.difficulty * (F.motionType === 2 ? 20 : 1) / 4000 &&
+      (F.motionType !== 2 || F.bobTarget === -1)) {
+    var room = 548 - F.bobPos;
+    var scale = Math.min(99, F.difficulty + rndInt(10, 45)) / 100;
+    F.bobTarget = F.bobPos + rndInt(Math.min(-F.bobPos, room), room) * scale;
+  }
+  if (F.motionType === 4) F.floatAccel = Math.max(F.floatAccel - SDV.FLOAT_ACCEL, -SDV.FLOAT_MAX);
+  else if (F.motionType === 3) F.floatAccel = Math.min(F.floatAccel + SDV.FLOAT_ACCEL, SDV.FLOAT_MAX);
+  if (Math.abs(F.bobPos - F.bobTarget) > 3 && F.bobTarget !== -1) {
+    F.bobAccel = (F.bobTarget - F.bobPos) / (rndInt(10, 30) + (100 - Math.min(100, F.difficulty)));
+    F.bobSpeed += (F.bobAccel - F.bobSpeed) / SDV.FISH_SMOOTH;
+  } else {
+    F.bobTarget = (F.motionType === 2 || rnd() >= F.difficulty / 2000) ? -1
+      : F.bobPos + (rnd() < 0.5 ? rndInt(-100, -51) : rndInt(50, 101));
+  }
+  if (F.motionType === 1 && rnd() < F.difficulty / 1000) {
+    F.bobTarget = F.bobPos + (rnd() < 0.5 ? rndInt(-100 - F.difficulty * 2, -51)
+                                          : rndInt(50, 101 + F.difficulty * 2));
+  }
+  F.bobTarget = Math.max(-1, Math.min(F.bobTarget, 548));
+  F.bobPos += (F.bobSpeed + F.floatAccel) * ticks;
+  if (F.bobPos > SDV.BOBBER_BOTTOM) F.bobPos = SDV.BOBBER_BOTTOM;
+  if (F.bobPos < SDV.BOBBER_TOP) F.bobPos = SDV.BOBBER_TOP;
+
+  var inBar = (F.bobPos + SDV.FISH_BELOW <= F.barPos + F.barH) && (F.bobPos - SDV.FISH_ABOVE >= F.barPos);
+  if (F.bobPos >= SDV.BAR_TRACK - 20 - F.barH && F.barPos >= SDV.BAR_TRACK - F.barH - 4) inBar = true;
+
+  var accel = F.reeling ? -SDV.BAR_LIFT : SDV.BAR_GRAVITY;
+  if (F.reeling && (F.barPos === 0 || F.barPos === SDV.BAR_TRACK - F.barH)) F.barSpeed = 0;
+  if (inBar) accel *= SDV.BAR_IN_DAMP;
+  F.barSpeed += accel * ticks;
+  F.barPos += F.barSpeed * ticks;
+  if (F.barPos + F.barH > SDV.BAR_TRACK) { F.barPos = SDV.BAR_TRACK - F.barH; F.barSpeed = -F.barSpeed * SDV.BAR_BOUNCE; }
+  else if (F.barPos < 0) { F.barPos = 0; F.barSpeed = -F.barSpeed * SDV.BAR_BOUNCE; }
+
+  if (inBar) F.progress += SDV.CATCH_GAIN * ticks;
+  else {
+    F.progress -= SDV.CATCH_LOSS * ticks;
+    F.perfect = false;
+    F.sizeTimer -= dt;
+    if (F.sizeTimer <= 0) { F.size = Math.max(F.fish.min, F.size - 1); F.sizeTimer = SDV.SIZE_DROP_MS; }
+  }
+  if (F.progress >= 1) endFish(true);
+  else if (F.progress <= 0) endFish(false);
+}
+function endFish(won) {
+  F.live = false; F.reeling = false;
+  if (won) {
+    var gold = Math.round(F.fish.d * 2 + F.size * 3) * (F.perfect ? 2 : 1);
+    S.gold += gold; F.caught++;
+    if (F.caught % 2 === 0 && S.fishingLevel < 10) {
+      S.fishingLevel++;
+      toast('good', 'FISHING LEVEL ' + S.fishingLevel + ' — your bar is now ' +
+        (SDV.BAR_BASE_H + S.fishingLevel * SDV.BAR_H_PER_LEVEL) + '. That is the whole skill tree.');
+    }
+    toast('good', 'CAUGHT ' + F.fish.n + ' · ' + F.size + '"' + (F.perfect ? ' · PERFECT' : '') + ' · +' + gold + 'g');
+  } else toast('bad', 'IT GOT AWAY. ' + F.fish.n + ' ran the bar out.');
+  syncAct();
+}
+
+/* =========================================================================
+   MECHANIC 2 — FARMING, on the plot behind your house
+   ========================================================================= */
+function plantCrop(t, def) {
+  var phases = def.phases.slice();
+  var total = phases.reduce(function (a, b) { return a + b; }, 0);
+  var remove = Math.ceil(total * FERTS[t.fert].speed);
+  for (var pass = 0; remove > 0 && pass < 3; pass++) {
+    for (var k = 0; k < phases.length && remove > 0; k++) {
+      if (phases[k] > (k === 0 ? 1 : 0)) { phases[k]--; remove--; }
+    }
+  }
+  t.crop = { def: def, phases: phases, phase: 0, dayOfPhase: 0, dead: false,
+             fullyGrown: false, regrowLeft: 0, seasons: def.seasons };
+}
+function cropReady(c) { return !!c && !c.dead && c.phase >= c.phases.length - 1 && (!c.fullyGrown || c.regrowLeft <= 0); }
+function farmNewDay() {
+  var grew = 0, stalled = 0, died = 0;
+  for (var k in FARM) {
+    var t = FARM[k];
+    if (t.crop && !t.crop.dead) {
+      if (t.crop.seasons.indexOf(S.season) < 0) { t.crop.dead = true; died++; }
+      else if (t.state === SDV.WATERED) {
+        if (t.crop.fullyGrown) { if (t.crop.regrowLeft > 0) t.crop.regrowLeft--; }
+        else {
+          var need = t.crop.phases[Math.min(t.crop.phases.length - 1, t.crop.phase)];
+          t.crop.dayOfPhase = Math.min(t.crop.dayOfPhase + 1, need);
+          if (t.crop.dayOfPhase >= need && t.crop.phase < t.crop.phases.length - 1) {
+            t.crop.phase++; t.crop.dayOfPhase = 0;
+          }
+        }
+        grew++;
+      } else stalled++;
+    }
+    if (t.state === SDV.WATERED) {
+      var keep = FERTS[t.fert].retain;
+      if (!(keep >= 1 || Math.random() < keep)) t.state = SDV.DRY;
+    }
+  }
+  if (grew || stalled || died) {
+    toast(stalled || died ? 'bad' : 'good', 'THE PLOT: ' + grew + ' grew, ' + stalled +
+      ' STALLED on dry soil (a wasted day, not damage), ' + died + ' died out of season.');
+  }
+}
+function useTool(tx, ty) {
+  var t = farmAt(tx, ty);
+  if (S.tool === 'hoe') {
+    if (t.crop) { toast('bad', 'There is a crop there.'); return; }
+    t.tilled = !t.tilled; t.state = SDV.DRY;
+    toast('', t.tilled ? 'Tilled.' : 'Cleared.');
+  } else if (S.tool === 'can') {
+    if (!t.tilled) { toast('bad', 'Till it first.'); return; }
+    t.state = SDV.WATERED; toast('', 'Watered. It grows at the rollover, not now.');
+  } else if (S.tool === 'seed') {
+    if (!t.tilled) { toast('bad', 'Till it first.'); return; }
+    if (t.crop) { toast('bad', 'Already planted.'); return; }
+    t.fert = S.fertPick; plantCrop(t, CROPS[S.seedPick]);
+    var days = t.crop.phases.reduce(function (a, b) { return a + b; }, 0);
+    toast('', 'Planted ' + CROPS[S.seedPick].n + ' (' + FERTS[S.fertPick].n + ') · ' +
+      days + ' watered days' + (CROPS[S.seedPick].regrow > 0 ? ', then every ' + CROPS[S.seedPick].regrow : ''));
+  } else if (S.tool === 'pick') {
+    if (!t.crop) { toast('bad', 'Nothing there.'); return; }
+    if (t.crop.dead) { t.crop = null; toast('', 'Cleared the dead crop.'); return; }
+    if (!cropReady(t.crop)) {
+      var need = t.crop.phases[Math.min(t.crop.phases.length - 1, t.crop.phase)];
+      toast('bad', 'Not ready: phase ' + (t.crop.phase + 1) + '/' + t.crop.phases.length +
+        ', day ' + t.crop.dayOfPhase + '/' + need);
+      return;
+    }
+    S.gold += t.crop.def.sell;
+    toast('good', 'Harvested ' + t.crop.def.n + ' · +' + t.crop.def.sell + 'g');
+    if (t.crop.def.regrow > 0) { t.crop.fullyGrown = true; t.crop.regrowLeft = t.crop.def.regrow; }
+    else t.crop = null;
+  }
+}
+
+/* =========================================================================
+   MECHANIC 3 — MARRIAGE, by walking up to her
+   ========================================================================= */
+function maxHearts() {
+  if (L.married) return SDV.MAX_HEARTS_SPOUSE;
+  if (L.status === 'DATING' || L.status === 'ENGAGED') return SDV.MAX_HEARTS_DATING;
+  return SDV.MAX_HEARTS_UNDATED;
+}
+function pointCap() { return (maxHearts() + 1) * SDV.PER_HEART - 1; }
+function hearts() { return Math.floor(L.points / SDV.PER_HEART); }
+function isBirthday() { return S.season === L.birthdaySeason && ((S.day - 1) % 28) + 1 === L.birthdayDay; }
+function changeFriendship(a) {
+  var b = L.points;
+  L.points = Math.max(0, Math.min(L.points + a, pointCap()));
+  return L.points - b;
+}
+function loveLog(cls, m) {
+  var el = document.getElementById('lovelog'), d = document.createElement('div');
+  d.className = cls; d.textContent = m;
+  el.insertBefore(d, el.firstChild);
+  while (el.children.length > 10) el.removeChild(el.lastChild);
+}
+function talk() {
+  if (L.talkedToday) { loveLog('bad', 'Already talked to her today. Talking is once a day.'); return; }
+  var d = changeFriendship(SDV.TALK_POINTS);
+  L.talkedToday = true;
+  loveLog('good', 'Talked. +' + d + ' (' + L.points + '/' + pointCap() + ')');
+  paintLove();
+}
+function giveGift(g) {
+  if (L.giftsToday >= SDV.GIFTS_PER_DAY && !isBirthday()) {
+    loveLog('bad', 'One gift a day. Come back tomorrow.'); return;
+  }
+  if (L.giftsThisWeek >= SDV.GIFTS_PER_WEEK && !L.married && !isBirthday()) {
+    loveLog('bad', 'Two gifts a week and you spent both. The ration is what makes a gift mean anything.');
+    return;
+  }
+  var mult = g.q === 1 ? SDV.GIFT_SILVER_X : g.q === 2 ? SDV.GIFT_GOLD_X : 1;
+  var bday = isBirthday() ? SDV.GIFT_BIRTHDAY_X : 1;
+  var raw = Math.trunc(TASTE_POINTS[g.taste] * bday * mult);
+  var d = changeFriendship(raw);
+  L.giftsToday++; L.giftsThisWeek++;
+  loveLog(raw >= 0 ? 'good' : 'bad', 'Gave ' + g.n + ' (' + g.taste + ') ' +
+    (bday > 1 ? 'ON HER BIRTHDAY x8 ' : '') + (mult > 1 ? 'quality x' + mult + ' ' : '') +
+    '= ' + (raw > 0 ? '+' : '') + raw + (d !== raw ? ' (capped, gained ' + d + ')' : '') +
+    ' · ' + L.points + '/' + pointCap());
+  paintLove();
+}
+function court() {
+  if (L.married) { loveLog('', 'You are already married.'); return; }
+  if (L.weddingIn >= 0) { loveLog('', 'The wedding is in ' + L.weddingIn + ' days.'); return; }
+  if (L.status === 'STRANGER' || L.status === 'FRIEND') {
+    if (L.points < SDV.BOUQUET_AT) {
+      loveLog('bad', 'The bouquet needs ' + SDV.BOUQUET_AT + ' (8 hearts). You have ' + L.points +
+        ', and gifting cannot carry you past ' + pointCap() + ': undated is HARD CAPPED at 8 hearts.');
+      return;
+    }
+    L.status = 'DATING';
+    loveLog('good', 'BOUQUET ACCEPTED. Dating. The ceiling moves to 10 hearts and neglect now costs -' +
+      SDV.DECAY_DATING + ' a day.');
+  } else if (L.status === 'DATING') {
+    if (L.points < SDV.PENDANT_AT) {
+      loveLog('bad', "The pendant needs " + SDV.PENDANT_AT + ' (10 hearts). You have ' + L.points + '.');
+      return;
+    }
+    L.status = 'ENGAGED'; L.weddingIn = SDV.WEDDING_DELAY;
+    loveLog('good', 'PENDANT ACCEPTED. The wedding is in ' + SDV.WEDDING_DELAY + ' days.');
+  }
+  paintLove();
+}
+function loveNewDay() {
+  var decay = 0, undated = (L.status === 'STRANGER' || L.status === 'FRIEND');
+  if (!L.talkedToday) {
+    if (L.married) decay += SDV.DECAY_SPOUSE;
+    else if ((L.status === 'DATING' || L.status === 'ENGAGED') && L.points < SDV.PENDANT_AT) decay += SDV.DECAY_DATING;
+    if ((!undated && L.points < 2500) || (undated && L.points < SDV.DECAY_FLOOR_UNDATED)) decay += SDV.DECAY_STRANGER;
+    changeFriendship(-decay);
+  }
+  L.talkedToday = false; L.giftsToday = 0;
+  if (dayName() === 'MON') L.giftsThisWeek = 0;
+  if (L.status === 'STRANGER' && L.points >= SDV.PER_HEART * 2) L.status = 'FRIEND';
+  if (L.weddingIn > 0) {
+    L.weddingIn--;
+    if (L.weddingIn === 0) {
+      L.married = true; L.status = 'MARRIED'; L.weddingIn = -1;
+      toast('good', 'MARRIED. The ceiling moves to 14 hearts and ignoring her now costs -' + SDV.DECAY_SPOUSE + ' a day.');
+    }
+  }
+  if (decay) toast('bad', 'You did not talk to ' + NPC.name + ' yesterday: -' + decay);
+  paintLove();
+}
+function paintLove() {
+  var h = hearts(), s = '';
+  for (var i = 0; i < maxHearts(); i++) s += (i < h ? '♥' : '♡');
+  document.getElementById('lovehead').innerHTML = NPC.name + ' &middot; ' + L.status +
+    ' <span class="hearts">' + s + '</span>';
+  document.getElementById('lovestat').innerHTML =
+    '<tr><td class="n">points</td><td class="v">' + L.points + ' / ' + pointCap() + '</td></tr>' +
+    '<tr><td class="n">hearts</td><td class="v">' + h + ' of ' + maxHearts() + '</td></tr>' +
+    '<tr><td class="n">gifts left</td><td class="v">day ' + (SDV.GIFTS_PER_DAY - L.giftsToday) +
+      ' / week ' + Math.max(0, SDV.GIFTS_PER_WEEK - L.giftsThisWeek) + '</td></tr>' +
+    '<tr><td class="n">talked today</td><td class="v">' + (L.talkedToday ? 'yes' : 'no, -' +
+      (L.married ? SDV.DECAY_SPOUSE : (L.status === 'DATING' || L.status === 'ENGAGED') ? SDV.DECAY_DATING : SDV.DECAY_STRANGER) +
+      ' tomorrow') + '</td></tr>' +
+    '<tr><td class="n">next step</td><td class="v">' + (L.married ? 'married' :
+      (L.status === 'DATING' ? SDV.PENDANT_AT : SDV.BOUQUET_AT) + ' pts') + '</td></tr>' +
+    '<tr><td class="n">her birthday</td><td class="v">' + L.birthdaySeason + ' ' + L.birthdayDay +
+      (isBirthday() ? ' — TODAY, x8' : '') + '</td></tr>';
+  document.getElementById('l_court').textContent = L.married ? 'MARRIED' :
+    L.weddingIn >= 0 ? 'WEDDING IN ' + L.weddingIn :
+    L.status === 'DATING' ? "GIVE PENDANT" : 'GIVE BOUQUET';
+}
+
+/* =========================================================================
+   THE SCHEDULED NPC — she keeps her day whether or not you are watching
+   ========================================================================= */
+function nrnd() { NPC.seed = (NPC.seed * 1103515245 + 12345) & 0x7fffffff; return NPC.seed / 0x7fffffff; }
+function bfs(map, from, to) {
+  if (from[0] === to[0] && from[1] === to[1]) return [];
+  var W = MAPS[map].rows[0].length, H = MAPS[map].rows.length, seen = {}, q = [[from[0], from[1]]], prev = {};
+  seen[from[0] + ',' + from[1]] = 1;
+  var dirs = [[0,-1],[1,0],[0,1],[-1,0]];
+  while (q.length) {
+    var cur = q.shift();
+    for (var i = 0; i < 4; i++) {
+      var nx = cur[0] + dirs[i][0], ny = cur[1] + dirs[i][1], key = nx + ',' + ny;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H || seen[key] || solidOn(map, nx, ny)) continue;
+      seen[key] = 1; prev[key] = cur;
+      if (nx === to[0] && ny === to[1]) {
+        var path = [[nx, ny]], p = key;
+        while (prev[p]) { var c = prev[p]; path.unshift(c); p = c[0] + ',' + c[1]; }
+        path.shift(); return path;
+      }
+      q.push([nx, ny]);
+    }
+  }
+  return [];
+}
+function npcTile() {
+  return [Math.floor((NPC.pos.x + SDV.TILE / 2) / SDV.TILE), Math.floor((NPC.pos.y + SDV.TILE / 2) / SDV.TILE)];
+}
+function stepNPC(dtms) {
+  var due = null;
+  for (var i = 0; i < NPC.schedule.length; i++) if (S.timeOfDay >= NPC.schedule[i].t) due = i;
+  if (due !== null && due !== NPC.lastKey) {
+    NPC.lastKey = due;
+    var e = NPC.schedule[due];
+    NPC.target = [e.x, e.y];
+    NPC.path = bfs('town', npcTile(), NPC.target);
+    NPC.pauseLeft = 0;
+  }
+  if (!NPC.path.length) {
+    NPC.pauseLeft -= dtms;
+    if (NPC.pauseLeft <= 0) {
+      NPC.pauseLeft = SDV.NPC_PAUSE_MIN + nrnd() * (SDV.NPC_PAUSE_MAX - SDV.NPC_PAUSE_MIN);
+      NPC.facing = Math.floor(nrnd() * 4);
+    }
+    NPC.animFrame = 0; return;
+  }
+  var step = SDV.NPC_SPEED * (dtms / TICK);
+  var n = NPC.path[0], tx = n[0] * SDV.TILE, ty = n[1] * SDV.TILE;
+  var dx = tx - NPC.pos.x, dy = ty - NPC.pos.y;
+  if (Math.abs(dx) > 0.001) { NPC.facing = dx > 0 ? 1 : 3; NPC.pos.x += Math.sign(dx) * Math.min(step, Math.abs(dx)); }
+  else if (Math.abs(dy) > 0.001) { NPC.facing = dy > 0 ? 2 : 0; NPC.pos.y += Math.sign(dy) * Math.min(step, Math.abs(dy)); }
+  if (Math.abs(tx - NPC.pos.x) < 0.001 && Math.abs(ty - NPC.pos.y) < 0.001) NPC.path.shift();
+  NPC.animTimer += dtms;
+  while (NPC.animTimer >= SDV.ANIM_BASE_MS) { NPC.animTimer -= SDV.ANIM_BASE_MS; NPC.animFrame = (NPC.animFrame + 1) % SDV.ANIM_FRAMES; }
+}
+
+/* =========================================================================
+   THE ONE BUTTON. What it does depends on what you are standing in front of,
+   which is the whole point of putting mechanics in a world instead of a menu.
+   ========================================================================= */
+function standTile() {
+  return { x: Math.floor((S.pos.x + SDV.TILE / 2) / SDV.TILE),
+           y: Math.floor((S.pos.y + SDV.BOX_H / 2) / SDV.TILE) };
+}
+function facingTile() {
+  var t = standTile();
+  if (S.facing === 0) t.y--; else if (S.facing === 2) t.y++;
+  else if (S.facing === 1) t.x++; else t.x--;
+  return t;
+}
+function npcInReach() {
+  if (S.map !== 'town') return false;
+  var a = standTile(), n = npcTile();      /* npcTile returns [x,y], not {x,y} */
+  return Math.abs(a.x - n[0]) + Math.abs(a.y - n[1]) <= SDV.REACH_TILES + 1;
+}
+function context() {
+  if (F.live) return 'REEL';
+  if (S.fadeDir) return null;
+  if (S.modal) return null;
+  var f = facingTile(), s = standTile();
+  if (tileAt(f.x, f.y) === 'Z' || tileAt(s.x, s.y) === 'Z') return 'SLEEP';
+  if (npcInReach()) return 'TALK';
+  if (tileAt(f.x, f.y) === '~') return 'FISH';
+  if (tileAt(f.x, f.y) === 'o') return 'FARM';
+  if (tileAt(s.x, s.y) === 'o') return 'FARM_HERE';
+  return null;
+}
+function act() {
+  var c = context();
+  if (c === 'REEL') return;
+  if (c === 'SLEEP') { sleep(); return; }
+  if (c === 'TALK') { openLove(); return; }
+  if (c === 'FISH') { castAt(pickFish()); return; }
+  if (c === 'FARM') { var f = facingTile(); useTool(f.x, f.y); syncTools(); return; }
+  if (c === 'FARM_HERE') { var s = standTile(); useTool(s.x, s.y); syncTools(); return; }
+}
+function openLove() {
+  S.modal = 'love';
+  for (var d = 0; d < 4; d++) S.dirs[d] = false;
+  document.getElementById('m_love').classList.add('open');
+  paintLove(); syncAct();
+}
+function closeLove() {
+  S.modal = null;
+  document.getElementById('m_love').classList.remove('open');
+  syncAct();
+}
+function sleep() {
+  S.day++;
+  if ((S.day - 1) % 28 === 0) {
+    S.season = S.season === 'SPRING' ? 'SUMMER' : S.season === 'SUMMER' ? 'FALL' :
+               S.season === 'FALL' ? 'WINTER' : 'SPRING';
+  }
+  S.timeOfDay = SDV.DAY_START; S.clockAcc = 0;
+  NPC.lastKey = -1;
+  farmNewDay(); loveNewDay();
+  toast('', 'DAY ' + S.day + ' · ' + S.season + ' ' + (((S.day - 1) % 28) + 1) + ' · ' + dayName() +
+    '. Everything resolved while you slept.');
+  syncAct();
+}
+
+/* =========================================================================
+   RENDER — placeholder art, deliberately nothing like Bohemia
+   ========================================================================= */
+var cv = document.getElementById('c'), ctx = cv.getContext('2d', { alpha: false });
+var VW = 0, VH = 0, DPR = 1;
+function resize() {
+  DPR = Math.min(3, window.devicePixelRatio || 1);
+  var r = cv.getBoundingClientRect();
+  VW = Math.max(120, Math.round(r.width)); VH = Math.max(120, Math.round(r.height));
+  cv.width = Math.round(VW * DPR); cv.height = Math.round(VH * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+}
+window.addEventListener('resize', resize);
+function hash(x, y) { var h = (x * 374761393 + y * 668265263) ^ 0x5bf03635; h = (h ^ (h >> 13)) * 1274126177; return ((h ^ (h >> 16)) & 0xffff) / 0xffff; }
+var PAL = {
+  grass:'#4a7f2f', grassA:'#508634', grassB:'#45782c',
+  dirt:'#9b7a4f', dirtA:'#a18055', dirtB:'#94734a',
+  soil:'#6b5334', soilTill:'#8a6a42', soilWet:'#5a4526',
+  plank:'#a9743f', plankLine:'#8d5f33', water:'#2f6fa8', waterA:'#3a80bd',
+  wall:'#c9b48f', wallLine:'#b09a76', roof:'#8c4a3a', roofLine:'#79402f',
+  win:'#6fb4d8', winNight:'#ffd98a', door:'#6b4326', doorFrame:'#43291a',
+  trunk:'#5a3a22', leaf:'#2f6b2a', leafA:'#3a7d33',
+  fence:'#b08a5a', rock:'#8d8d94', bench:'#a06a3a', post:'#4a4a52', globe:'#ffe9a0', sign:'#c9a25e',
+  ifloor:'#b98a52', ifloorLine:'#a1743f', iwall:'#41301e', iwallTop:'#5c452c',
+  rug:'#8f3f52', rugA:'#a04a5e', counter:'#6d4423', shelf:'#503418',
+  bed:'#dde4f0', bedFrame:'#7c5230', table:'#9a6a3a', chair:'#845a30',
+  stove:'#55555c', crate:'#9a7a4a', plant:'#2f7a3a', pot:'#a4603c',
+  bodyA:'#3f6fd8', bodyB:'#d94f4f', skin:'#e8b98a', hair:'#3a2a1c', boot:'#31241a'
+};
+function drawGround(ch, x, y, s, tx, ty) {
+  var h = hash(tx, ty);
+  if (ch === '~') {
+    ctx.fillStyle = (h + S.now / 900) % 1 > 0.7 ? PAL.waterA : PAL.water;
+    ctx.fillRect(x, y, s, s);
+    if (h > 0.8) { ctx.fillStyle = 'rgba(255,255,255,.20)'; ctx.fillRect(x + s * 0.2, y + s * 0.45, s * 0.5, Math.max(1, s * 0.08)); }
+    return;
+  }
+  if (ch === 'o') {
+    var t = farmAt(tx, ty);
+    ctx.fillStyle = t.tilled ? (t.state === SDV.WATERED ? PAL.soilWet : PAL.soilTill) : PAL.soil;
+    ctx.fillRect(x, y, s, s);
+    if (t.tilled) {
+      ctx.fillStyle = 'rgba(0,0,0,.18)';
+      for (var i = 1; i < 4; i++) ctx.fillRect(x, y + Math.round(s * i / 4), s, 1);
+    }
+    if (t.crop) {
+      if (t.crop.dead) { ctx.fillStyle = '#7a6a4a'; ctx.fillRect(x + s * 0.42, y + s * 0.3, Math.max(1, s * 0.16), s * 0.5); }
+      else {
+        var frac = (t.crop.phase + 1) / t.crop.phases.length, done = cropReady(t.crop);
+        ctx.fillStyle = done ? '#ffcf4a' : 'rgb(' + Math.round(90 - frac * 40) + ',' + Math.round(120 + frac * 90) + ',60)';
+        var ch2 = Math.max(2, Math.round(s * (0.2 + frac * 0.55)));
+        ctx.fillRect(x + Math.round(s * 0.34), y + s - ch2 - 2, Math.max(2, Math.round(s * 0.32)), ch2);
+        if (done) { ctx.fillStyle = '#ff8a3a'; ctx.beginPath(); ctx.arc(x + s * 0.5, y + s - ch2 - 2, s * 0.16, 0, 6.2832); ctx.fill(); }
+      }
+    }
+    return;
+  }
+  if (ch === ',') { ctx.fillStyle = h > 0.7 ? PAL.dirtA : (h < 0.2 ? PAL.dirtB : PAL.dirt); ctx.fillRect(x, y, s, s); return; }
+  if (ch === '=') {
+    ctx.fillStyle = PAL.plank; ctx.fillRect(x, y, s, s);
+    ctx.fillStyle = PAL.plankLine; ctx.fillRect(x, y + Math.round(s / 2), s, 1); return;
+  }
+  if (MAPS[S.map].outdoors) {
+    ctx.fillStyle = h > 0.72 ? PAL.grassA : (h < 0.16 ? PAL.grassB : PAL.grass);
+    ctx.fillRect(x, y, s, s);
+  } else {
+    ctx.fillStyle = PAL.ifloor; ctx.fillRect(x, y, s, s);
+    ctx.fillStyle = PAL.ifloorLine; ctx.fillRect(x, y + s - 1, s, 1);
+    if ((tx + ty) % 2 === 0) ctx.fillRect(x + Math.round(s / 2), y, 1, s);
+  }
+}
+function drawStructure(ch, x, y, s, tx, ty) {
+  var night = tintAlpha() > 0.45;
+  switch (ch) {
+    case '#':
+      if (MAPS[S.map].outdoors) {
+        var below = tileAt(tx, ty + 1), face = (below === '.' || below === ',' || below === '=');
+        ctx.fillStyle = face ? PAL.wall : PAL.roof; ctx.fillRect(x, y, s, s);
+        ctx.fillStyle = face ? PAL.wallLine : PAL.roofLine; ctx.fillRect(x, y + Math.round(s * 0.66), s, 1);
+      } else {
+        ctx.fillStyle = PAL.iwall; ctx.fillRect(x, y, s, s);
+        ctx.fillStyle = PAL.iwallTop; ctx.fillRect(x, y, s, Math.max(1, Math.round(s * 0.3)));
+      }
+      break;
+    case 'w':
+      ctx.fillStyle = PAL.wall; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = night ? PAL.winNight : PAL.win;
+      ctx.fillRect(x + Math.round(s * 0.2), y + Math.round(s * 0.2), Math.round(s * 0.6), Math.round(s * 0.5));
+      break;
+    case 'T':
+      ctx.fillStyle = PAL.trunk; ctx.fillRect(x + Math.round(s * 0.4), y + Math.round(s * 0.5), Math.round(s * 0.2), Math.round(s * 0.5));
+      ctx.fillStyle = hash(tx, ty) > 0.5 ? PAL.leafA : PAL.leaf;
+      ctx.beginPath(); ctx.arc(x + s / 2, y + s * 0.32, s * 0.52, 0, 6.2832); ctx.fill();
+      break;
+    case 'f':
+      ctx.fillStyle = PAL.fence;
+      ctx.fillRect(x, y + Math.round(s * 0.42), s, Math.max(1, Math.round(s * 0.1)));
+      ctx.fillRect(x + Math.round(s * 0.42), y + Math.round(s * 0.28), Math.max(1, Math.round(s * 0.16)), Math.round(s * 0.55));
+      break;
+    case 'x': ctx.fillStyle = PAL.rock; ctx.beginPath(); ctx.arc(x + s / 2, y + s * 0.6, s * 0.36, 0, 6.2832); ctx.fill(); break;
+    case 'B': ctx.fillStyle = PAL.bench;
+      ctx.fillRect(x + Math.round(s * 0.06), y + Math.round(s * 0.4), Math.round(s * 0.88), Math.round(s * 0.22));
+      ctx.fillRect(x + Math.round(s * 0.12), y + Math.round(s * 0.6), Math.max(1, Math.round(s * 0.1)), Math.round(s * 0.3));
+      ctx.fillRect(x + Math.round(s * 0.76), y + Math.round(s * 0.6), Math.max(1, Math.round(s * 0.1)), Math.round(s * 0.3));
+      break;
+    case 'L':
+      ctx.fillStyle = PAL.post; ctx.fillRect(x + Math.round(s * 0.44), y + Math.round(s * 0.2), Math.max(1, Math.round(s * 0.14)), Math.round(s * 0.8));
+      ctx.fillStyle = night ? PAL.globe : '#cfd2c4';
+      ctx.beginPath(); ctx.arc(x + s * 0.5, y + s * 0.18, s * 0.2, 0, 6.2832); ctx.fill();
+      break;
+    case 'S':
+      ctx.fillStyle = PAL.post; ctx.fillRect(x + Math.round(s * 0.46), y + Math.round(s * 0.5), Math.max(1, Math.round(s * 0.1)), Math.round(s * 0.45));
+      ctx.fillStyle = PAL.sign; ctx.fillRect(x + Math.round(s * 0.18), y + Math.round(s * 0.22), Math.round(s * 0.64), Math.round(s * 0.34));
+      break;
+    case 'Z': ctx.fillStyle = PAL.bedFrame; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = PAL.bed; ctx.fillRect(x + Math.round(s * 0.1), y + Math.round(s * 0.1), Math.round(s * 0.8), Math.round(s * 0.8)); break;
+    case 't': ctx.fillStyle = PAL.table; ctx.fillRect(x + Math.round(s * 0.05), y + Math.round(s * 0.15), Math.round(s * 0.9), Math.round(s * 0.7)); break;
+    case 'h': ctx.fillStyle = PAL.chair; ctx.fillRect(x + Math.round(s * 0.2), y + Math.round(s * 0.25), Math.round(s * 0.6), Math.round(s * 0.6)); break;
+    case 'C': ctx.fillStyle = PAL.counter; ctx.fillRect(x, y + Math.round(s * 0.2), s, Math.round(s * 0.7)); break;
+    case 's': ctx.fillStyle = PAL.shelf; ctx.fillRect(x, y, s, s);
+      ctx.fillStyle = '#c8a05c'; ctx.fillRect(x + 1, y + Math.round(s * 0.22), s - 2, Math.max(1, Math.round(s * 0.12)));
+      ctx.fillRect(x + 1, y + Math.round(s * 0.62), s - 2, Math.max(1, Math.round(s * 0.12))); break;
+    case 'v': ctx.fillStyle = PAL.stove; ctx.fillRect(x + Math.round(s * 0.08), y, Math.round(s * 0.84), s);
+      ctx.fillStyle = '#e07a2a'; ctx.fillRect(x + Math.round(s * 0.28), y + Math.round(s * 0.5), Math.round(s * 0.44), Math.round(s * 0.3)); break;
+    case 'k': ctx.fillStyle = PAL.crate; ctx.fillRect(x + Math.round(s * 0.08), y + Math.round(s * 0.08), Math.round(s * 0.84), Math.round(s * 0.84)); break;
+    case 'p': ctx.fillStyle = PAL.pot; ctx.fillRect(x + Math.round(s * 0.28), y + Math.round(s * 0.58), Math.round(s * 0.44), Math.round(s * 0.36));
+      ctx.fillStyle = PAL.plant; ctx.beginPath(); ctx.arc(x + s * 0.5, y + s * 0.44, s * 0.3, 0, 6.2832); ctx.fill(); break;
+    case 'b': ctx.fillStyle = PAL.leafA; ctx.beginPath(); ctx.arc(x + s / 2, y + s * 0.62, s * 0.34, 0, 6.2832); ctx.fill(); break;
+  }
+}
+function drawRug(x, y, s, tx, ty) { ctx.fillStyle = (tx + ty) % 2 ? PAL.rug : PAL.rugA; ctx.fillRect(x + 1, y + 1, s - 2, s - 2); }
+function drawDoor(x, y, s) {
+  ctx.fillStyle = PAL.doorFrame; ctx.fillRect(x + Math.round(s * 0.08), y - s, Math.round(s * 0.84), s * 2);
+  ctx.fillStyle = PAL.door; ctx.fillRect(x + Math.round(s * 0.16), y - s + Math.round(s * 0.12), Math.round(s * 0.68), s * 2 - Math.round(s * 0.16));
+  ctx.fillStyle = '#e2c37a'; ctx.fillRect(x + Math.round(s * 0.68), y - Math.round(s * 0.42), Math.max(1, Math.round(s * 0.1)), Math.max(1, Math.round(s * 0.1)));
+}
+function drawBody(cx, footY, s, facing, frame, moving, shirt) {
+  var u = s / SDV.TILE;
+  var bw = Math.max(3, Math.round(26 * u)), bh = Math.max(4, Math.round(30 * u)), hs = Math.max(3, Math.round(22 * u));
+  var swing = moving ? [0, 1, 0, -1][frame] * Math.max(1, Math.round(3 * u)) : 0;
+  var x = Math.round(cx - bw / 2), y = Math.round(footY - bh);
+  ctx.fillStyle = 'rgba(0,0,0,.28)';
+  ctx.beginPath(); ctx.ellipse(cx, footY, bw * 0.55, bw * 0.22, 0, 0, 6.2832); ctx.fill();
+  ctx.fillStyle = PAL.boot;
+  ctx.fillRect(x + Math.round(bw * 0.14), footY - Math.round(bh * 0.32) + swing, Math.round(bw * 0.26), Math.round(bh * 0.32));
+  ctx.fillRect(x + Math.round(bw * 0.58), footY - Math.round(bh * 0.32) - swing, Math.round(bw * 0.26), Math.round(bh * 0.32));
+  ctx.fillStyle = shirt; ctx.fillRect(x, y + hs - Math.round(2 * u), bw, Math.round(bh * 0.42));
+  ctx.fillStyle = PAL.skin; ctx.fillRect(Math.round(cx - hs / 2), y, hs, hs);
+  ctx.fillStyle = PAL.hair; ctx.fillRect(Math.round(cx - hs / 2), y, hs, Math.max(1, Math.round(hs * 0.34)));
+  if (facing === 3) ctx.fillRect(Math.round(cx - hs / 2), y, Math.max(1, Math.round(hs * 0.3)), hs);
+  if (facing === 1) ctx.fillRect(Math.round(cx + hs / 2 - Math.round(hs * 0.3)), y, Math.max(1, Math.round(hs * 0.3)), hs);
+  if (facing === 0) ctx.fillRect(Math.round(cx - hs / 2), y, hs, Math.round(hs * 0.7));
+  if (facing === 2) {
+    ctx.fillStyle = '#2b2118';
+    ctx.fillRect(Math.round(cx - hs * 0.26), y + Math.round(hs * 0.52), Math.max(1, Math.round(2 * u)), Math.max(1, Math.round(3 * u)));
+    ctx.fillRect(Math.round(cx + hs * 0.14), y + Math.round(hs * 0.52), Math.max(1, Math.round(2 * u)), Math.max(1, Math.round(3 * u)));
+  }
+}
+function updateCam() {
+  var scale = S.zoom / SDV.TILE;
+  var worldW = mapW() * S.zoom, worldH = mapH() * S.zoom;
+  var sx = (S.pos.x + SDV.TILE / 2) * scale, sy = (S.pos.y + SDV.BOX_H / 2) * scale;
+  var tx = sx - VW / 2, ty = sy - VH / 2;
+  if (worldW <= VW) tx = -(VW - worldW) / 2; else tx = Math.max(0, Math.min(worldW - VW, tx));
+  if (worldH <= VH) ty = -(VH - worldH) / 2; else ty = Math.max(0, Math.min(worldH - VH, ty));
+  var rate = movementSpeed(TICK, 1) * scale;
+  var dx = tx - S.cam.x, dy = ty - S.cam.y;
+  S.cam.x = Math.abs(dx) > SDV.CAM_SNAP * scale ? tx : S.cam.x + Math.sign(dx) * Math.min(Math.abs(dx), rate);
+  S.cam.y = Math.abs(dy) > SDV.CAM_SNAP * scale ? ty : S.cam.y + Math.sign(dy) * Math.min(Math.abs(dy), rate);
+}
+var dark = document.createElement('canvas'), dctx = dark.getContext('2d');
+function render() {
+  var s = S.zoom, scale = s / SDV.TILE;
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, VW, VH);
+  var x0 = Math.floor(S.cam.x / s) - 1, x1 = Math.ceil((S.cam.x + VW) / s) + 1;
+  var y0 = Math.floor(S.cam.y / s) - 1, y1 = Math.ceil((S.cam.y + VH) / s) + 2;
+  var tx, ty, ch, sx, sy;
+  for (ty = y0; ty <= y1; ty++) for (tx = x0; tx <= x1; tx++) {
+    if (tx < 0 || ty < 0 || tx >= mapW() || ty >= mapH()) continue;
+    ch = rows()[ty][tx]; sx = Math.round(tx * s - S.cam.x); sy = Math.round(ty * s - S.cam.y);
+    drawGround(ch, sx, sy, s, tx, ty);
+    if (ch === 'r') drawRug(sx, sy, s, tx, ty);
+  }
+  for (ty = y0; ty <= y1; ty++) for (tx = x0; tx <= x1; tx++) {
+    if (tx < 0 || ty < 0 || tx >= mapW() || ty >= mapH()) continue;
+    ch = rows()[ty][tx]; sx = Math.round(tx * s - S.cam.x); sy = Math.round(ty * s - S.cam.y);
+    if (ch === 'D') { drawDoor(sx, sy, s); continue; }
+    drawStructure(ch, sx, sy, s, tx, ty);
+  }
+  /* the tile you are about to act on, so the one button is never a mystery */
+  var c = context();
+  if (c && c !== 'REEL' && c !== 'TALK') {
+    var f = (c === 'FARM_HERE' || c === 'SLEEP') ? standTile() : facingTile();
+    ctx.strokeStyle = 'rgba(255,232,138,.85)'; ctx.lineWidth = 2;
+    ctx.strokeRect(Math.round(f.x * s - S.cam.x) + 1, Math.round(f.y * s - S.cam.y) + 1, s - 2, s - 2);
+  }
+  var actors = [];
+  if (S.map === 'town') actors.push({ p: NPC.pos, f: NPC.facing, fr: NPC.animFrame,
+    mv: NPC.path.length > 0, c: PAL.bodyB, tag: NPC.name + ' ' + hearts() + '♥',
+    bob: NPC.path.length ? 0 : Math.max(0, Math.ceil(Math.sin(S.now / SDV.BREATH_MS)) / 4) });
+  actors.push({ p: S.pos, f: S.facing, fr: S.animFrame, mv: true, c: PAL.bodyA, tag: '', bob: 0 });
+  actors.sort(function (a, b) { return a.p.y - b.p.y; });
+  for (var i = 0; i < actors.length; i++) {
+    var a = actors[i];
+    var cx = Math.round((a.p.x + SDV.TILE / 2) * scale - S.cam.x);
+    var fy = Math.round((a.p.y + SDV.BOX_H) * scale - S.cam.y) - Math.round(a.bob * scale);
+    drawBody(cx, fy, s, a.f, a.fr, a.mv, a.c);
+    if (a.tag) {
+      ctx.font = '9px ui-monospace, monospace'; ctx.textAlign = 'center';
+      var tw = ctx.measureText(a.tag).width + 6;
+      ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fillRect(cx - tw / 2, fy - Math.round(38 * scale) - 11, tw, 11);
+      ctx.fillStyle = '#ffe9a0'; ctx.fillText(a.tag, cx, fy - Math.round(38 * scale) - 2.5);
+      ctx.textAlign = 'left';
+    }
+  }
+  var a2 = tintAlpha();
+  if (a2 > 0.001) {
+    if (dark.width !== VW || dark.height !== VH) { dark.width = VW; dark.height = VH; }
+    dctx.setTransform(1, 0, 0, 1, 0, 0);
+    dctx.clearRect(0, 0, VW, VH);
+    dctx.globalCompositeOperation = 'source-over';
+    dctx.fillStyle = 'rgba(10,16,52,' + a2.toFixed(3) + ')'; dctx.fillRect(0, 0, VW, VH);
+    dctx.globalCompositeOperation = 'destination-out';
+    var LT = MAPS[S.map].lights, rad = s * 2.6, li, lx, ly, g;
+    for (li = 0; li < LT.length; li++) {
+      lx = (LT[li][0] + 0.5) * s - S.cam.x; ly = (LT[li][1] + 0.35) * s - S.cam.y;
+      if (lx < -rad || ly < -rad || lx > VW + rad || ly > VH + rad) continue;
+      g = dctx.createRadialGradient(lx, ly, 0, lx, ly, rad);
+      g.addColorStop(0, 'rgba(0,0,0,.74)'); g.addColorStop(0.5, 'rgba(0,0,0,.34)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      dctx.fillStyle = g; dctx.fillRect(lx - rad, ly - rad, rad * 2, rad * 2);
+    }
+    dctx.globalCompositeOperation = 'source-over';
+    ctx.drawImage(dark, 0, 0, VW, VH);
+    ctx.globalCompositeOperation = 'lighter';
+    for (li = 0; li < LT.length; li++) {
+      lx = (LT[li][0] + 0.5) * s - S.cam.x; ly = (LT[li][1] + 0.35) * s - S.cam.y;
+      if (lx < -rad || ly < -rad || lx > VW + rad || ly > VH + rad) continue;
+      g = ctx.createRadialGradient(lx, ly, 0, lx, ly, rad);
+      g.addColorStop(0, 'rgba(255,214,130,' + (0.46 * a2).toFixed(3) + ')');
+      g.addColorStop(1, 'rgba(255,214,130,0)');
+      ctx.fillStyle = g; ctx.fillRect(lx - rad, ly - rad, rad * 2, rad * 2);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  if (F.live) drawFishOverlay();
+  if (S.fade > 0.001) { ctx.fillStyle = 'rgba(0,0,0,' + Math.min(1, S.fade).toFixed(3) + ')'; ctx.fillRect(0, 0, VW, VH); }
+}
+function drawFishOverlay() {
+  var pad = 14, colW = Math.min(150, Math.round(VW * 0.34));
+  var top = 112;                                  /* clear of the HUD cards */
+  var trackH = VH - top - pad, scale = trackH / SDV.BAR_TRACK;
+  var colX = Math.round((VW - colW) / 2 + 16);
+  ctx.fillStyle = 'rgba(6,14,22,.82)'; ctx.fillRect(0, 0, VW, VH);
+  ctx.fillStyle = '#123a52'; ctx.fillRect(colX, top, colW, trackH);
+  ctx.fillStyle = 'rgba(255,255,255,.05)';
+  for (var d = top; d < top + trackH; d += 24) ctx.fillRect(colX, d, colW, 1);
+  var barY = top + Math.round(F.barPos * scale), barH = Math.max(3, Math.round(F.barH * scale));
+  ctx.fillStyle = 'rgba(120,220,140,.30)'; ctx.fillRect(colX, barY, colW, barH);
+  ctx.strokeStyle = '#7adc8c'; ctx.lineWidth = 2; ctx.strokeRect(colX + 1, barY + 1, colW - 2, barH - 2);
+  var fy = top + Math.round((F.bobPos - SDV.FISH_ABOVE) * scale);
+  var fh = Math.max(4, Math.round((SDV.FISH_ABOVE + SDV.FISH_BELOW) * scale));
+  var fx = colX + Math.round(colW / 2) - 18;
+  ctx.fillStyle = '#ffd24a'; ctx.fillRect(fx, fy, 36, fh);
+  ctx.fillStyle = '#e0a516'; ctx.fillRect(fx - 10, fy + Math.round(fh * 0.28), 11, Math.max(2, Math.round(fh * 0.44)));
+  /* the progress rail sits INSIDE the frame, left of the column */
+  var railX = colX - 26;
+  ctx.fillStyle = '#20303c'; ctx.fillRect(railX, top, 20, trackH);
+  var ph = Math.round(Math.max(0, Math.min(1, F.progress)) * trackH);
+  ctx.fillStyle = F.progress > 0.5 ? '#7adc8c' : (F.progress > 0.2 ? '#ffd24a' : '#ff7060');
+  ctx.fillRect(railX, top + trackH - ph, 20, ph);
+  ctx.fillStyle = '#dfe6ff'; ctx.font = 'bold 13px ui-monospace, monospace';
+  ctx.fillText(Math.round(F.progress * 100) + '%', railX - 4, top - 26);
+  ctx.font = '10px ui-monospace, monospace'; ctx.fillStyle = '#9fb3c0';
+  ctx.fillText(F.fish.n + ' ' + F.size + '"  ·  difficulty ' + F.difficulty, railX - 4, top - 12);
+  ctx.fillText('bar ' + F.barH + ' of ' + SDV.BAR_TRACK + '  ·  HOLD to lift', railX - 4, top - 1);
+}
+
+/* =========================================================================
+   HUD + CONTROLS
+   ========================================================================= */
+var elClock = document.getElementById('clock'), elTele = document.getElementById('tele');
+var elAct = document.getElementById('act');
+var ACT_LABEL = { REEL: 'HOLD TO REEL', SLEEP: 'SLEEP', TALK: 'TALK TO ' + NPC.name,
+                  FISH: 'CAST', FARM: 'USE TOOL', FARM_HERE: 'USE TOOL' };
+function syncAct() {
+  var c = context();
+  elAct.textContent = c ? ACT_LABEL[c] : '—';
+  elAct.disabled = !c;
+  elAct.className = c ? 'hot' : '';
+  document.getElementById('tools').style.display = (c === 'FARM' || c === 'FARM_HERE') ? 'flex' : 'none';
+}
+function hud() {
+  elClock.textContent = clockText() + '  ' + S.season + ' ' + (((S.day - 1) % 28) + 1);
+  elTele.textContent =
+    S.gold + 'g\n' +
+    'fishing lv ' + S.fishingLevel + '\n' +
+    NPC.name + ' ' + hearts() + '/' + maxHearts() + '♥\n' +
+    'day ' + S.day + ' ' + dayName();
+}
+function syncTools() {
+  ['hoe', 'can', 'seed', 'pick'].forEach(function (t) {
+    var b = document.getElementById('tool_' + t);
+    if (b) b.className = 'chip' + (S.tool === t ? ' on' : '');
+  });
+  CROPS.forEach(function (c, i) {
+    var b = document.getElementById('seed_' + i);
+    if (b) b.className = 'chip' + (S.seedPick === i ? ' on' : '');
+  });
+  FERTS.forEach(function (f, i) {
+    var b = document.getElementById('fert_' + i);
+    if (b) b.className = 'chip' + (S.fertPick === i ? ' on' : '');
+  });
+}
+(function buildTools() {
+  var host = document.getElementById('tools');
+  [['hoe', 'HOE'], ['can', 'WATER'], ['seed', 'SEED'], ['pick', 'HARVEST']].forEach(function (p) {
+    var b = document.createElement('button');
+    b.className = 'chip'; b.id = 'tool_' + p[0]; b.textContent = p[1];
+    b.addEventListener('click', function () { S.tool = p[0]; syncTools(); });
+    host.appendChild(b);
+  });
+  CROPS.forEach(function (c, i) {
+    var b = document.createElement('button');
+    b.className = 'chip'; b.id = 'seed_' + i; b.textContent = c.n;
+    b.addEventListener('click', function () { S.seedPick = i; syncTools(); });
+    host.appendChild(b);
+  });
+  FERTS.forEach(function (f, i) {
+    var b = document.createElement('button');
+    b.className = 'chip'; b.id = 'fert_' + i; b.textContent = f.n;
+    b.addEventListener('click', function () { S.fertPick = i; syncTools(); });
+    host.appendChild(b);
+  });
+})();
+(function buildChips() {
+  var host = document.getElementById('chips2');
+  var mk = function (id, label, fn) {
+    var b = document.createElement('button');
+    b.className = 'chip'; b.id = id; b.textContent = label;
+    b.addEventListener('click', fn); host.appendChild(b); return b;
+  };
+  mk('c_gait', 'RUNNING', function () {
+    S.running = !S.running;
+    document.getElementById('c_gait').textContent = S.running ? 'RUNNING' : 'WALKING';
+  });
+  mk('c_zoom', 'ZOOM 32', function () {
+    S.zoom = S.zoom === 32 ? 64 : 32;
+    document.getElementById('c_zoom').textContent = 'ZOOM ' + S.zoom;
+  });
+  mk('c_num', 'NUMBERS', function () {
+    S.modal = 'num'; document.getElementById('m_num').classList.add('open'); syncAct();
+  });
+})();
+document.getElementById('n_close').addEventListener('click', function () {
+  S.modal = null; document.getElementById('m_num').classList.remove('open'); syncAct();
+});
+document.getElementById('l_close').addEventListener('click', closeLove);
+document.getElementById('l_talk').addEventListener('click', talk);
+document.getElementById('l_court').addEventListener('click', court);
+(function buildGifts() {
+  var host = document.getElementById('giftpick');
+  GIFTS.forEach(function (g, i) {
+    var b = document.createElement('button');
+    b.className = 'chip'; b.id = 'gift_' + i;
+    b.textContent = g.n + ' (' + (TASTE_POINTS[g.taste] > 0 ? '+' : '') + TASTE_POINTS[g.taste] + ')';
+    b.addEventListener('click', function () { giveGift(g); });
+    host.appendChild(b);
+  });
+})();
+(function buildNumbers() {
+  var SRC = {
+    TILE:'Game1.cs:59', PIXEL_ZOOM:'Game1.cs:58', WALK_SPEED:'Farmer.cs:1435', RUN_SPEED:'Farmer.cs:1435',
+    MOVE_MULT:'Farmer.cs:5611', MIN_STEP:'Farmer.cs:5612', DIAG_FACTOR:'Farmer.cs:5614',
+    BOX_X:'Farmer.cs:4041', BOX_W:'Farmer.cs:4041', BOX_H:'Farmer.cs:4041', SLIP_DIV:'Farmer.cs:5985',
+    CAM_SNAP:'Game1.cs:7744', FADE_STEP:'Game1.cs:4826', ANIM_BASE_MS:'AnimatedSprite.cs:22',
+    ANIM_FRAMES:'AnimatedSprite.cs:23', ANIM_WALK_MOD:'Farmer.cs:6082', ANIM_RUN_MOD:'Farmer.cs:6082',
+    ANIM_MOD_MULT:'Farmer.cs:6082', MS_PER_10MIN:'Game1.cs:5086', DAY_START:'Game1 (6:00am)',
+    DAY_END:'Game1.cs:4958', DARK_START:'Game1.cs:3769', DARK_TRULY:'Game1.cs:3804',
+    DUSK_BASE:'Game1.cs:5081', DUSK_RATE:'Game1.cs:5081', NIGHT_BASE:'Game1.cs:5076',
+    NIGHT_RATE:'Game1.cs:5076', LIGHT_CAP:'Game1.cs:5076', MINUTE_UNIT:'Game1.cs:5076',
+    BAR_TRACK:'BobberBar.cs:145', BAR_BASE_H:'BobberBar.cs:90', BAR_H_PER_LEVEL:'BobberBar.cs:90',
+    BOBBER_TOP:'BobberBar.cs:284', BOBBER_BOTTOM:'BobberBar.cs:282', BOBBER_START:'BobberBar.cs:146',
+    CATCH_START:'BobberBar.cs:74', CATCH_GAIN:'BobberBar.cs:367', CATCH_LOSS:'BobberBar.cs:398',
+    BAR_GRAVITY:'BobberBar.cs:292', BAR_LIFT:'BobberBar.cs:292', BAR_IN_DAMP:'BobberBar.cs:297',
+    BAR_BOUNCE:'BobberBar.cs:312', FISH_SMOOTH:'BobberBar.cs:273', FLOAT_ACCEL:'BobberBar.cs:267',
+    FLOAT_MAX:'BobberBar.cs:267', SIZE_DROP_MS:'BobberBar.cs:129', FISH_ABOVE:'BobberBar.cs:285',
+    FISH_BELOW:'BobberBar.cs:285', DRY:'HoeDirt.cs:607', WATERED:'Crop.cs:522',
+    SPEEDGRO:'HoeDirt.cs:387', SPEEDGRO_DELUXE:'HoeDirt.cs:389', SPEEDGRO_HYPER:'HoeDirt.cs:391',
+    RETAIN_BASIC:'HoeDirt.cs:606', RETAIN_QUALITY:'HoeDirt.cs:606', RETAIN_DELUXE:'HoeDirt.cs:606',
+    PER_HEART:'Farmer.cs:3754', TALK_POINTS:'Farmer.cs:3788', GIFT_LOVE:'NPC.cs:3786',
+    GIFT_LIKE:'NPC.cs:3798', GIFT_NEUTRAL:'NPC.cs:3831', GIFT_DISLIKE:'NPC.cs:3809',
+    GIFT_HATE:'NPC.cs:3819', GIFT_BIRTHDAY_X:'NPC.cs:3728', GIFT_SILVER_X:'NPC.cs:3720',
+    GIFT_GOLD_X:'NPC.cs:3723', GIFTS_PER_DAY:'NPC.cs:1535', GIFTS_PER_WEEK:'NPC.cs:1528',
+    DECAY_STRANGER:'Farmer.cs:2557', DECAY_DATING:'Farmer.cs:2553', DECAY_SPOUSE:'Farmer.cs:2551',
+    DECAY_FLOOR_UNDATED:'Farmer.cs:2557', BOUQUET_AT:'Farmer.cs:3755', PENDANT_AT:'Farmer.cs:3757',
+    MAX_HEARTS_UNDATED:'Utility.cs:2907', MAX_HEARTS_DATING:'Utility.cs:2916',
+    MAX_HEARTS_SPOUSE:'Utility.cs:2914', WEDDING_DELAY:'NPC.cs:1095', NPC_SPEED:'NPC.cs:2601',
+    NPC_PAUSE_MIN:'NPC.cs:34', NPC_PAUSE_MAX:'NPC.cs:35', BREATH_MS:'NPC.cs:3875',
+    REACH_TILES:'ours (declared)'
+  };
+  var h = '<table class="st">';
+  for (var k in SDV) h += '<tr><td class="n">' + k + '</td><td class="v">' + SDV[k] +
+    '</td><td style="color:#7d8699">' + (SRC[k] || '') + '</td></tr>';
+  h += '</table><p style="color:#c9c6bd;font-size:10px">CONTENT, not mechanism, and therefore ' +
+    'OURS: the fish table, the crop phase tables, the gift tastes, which fish bites at which depth, ' +
+    'and how far away you can talk to somebody. The mechanism above is copied exactly.</p>';
+  document.getElementById('numbody').innerHTML = h;
+})();
+
+/* --- the stick --- */
+var stick = document.getElementById('stick'), knob = document.getElementById('knob');
+var stickActive = false;
+function setDirsFromVec(dx, dy, r) {
+  var dead = r * 0.34, m = Math.sqrt(dx * dx + dy * dy);
+  S.dirs[0] = S.dirs[1] = S.dirs[2] = S.dirs[3] = false;
+  if (m < dead) { knob.style.transform = 'translate(0,0)'; return; }
+  var ang = Math.atan2(dy, dx), oct = Math.round(ang / (Math.PI / 4));
+  if (oct === -4 || oct === 4) S.dirs[3] = true;
+  if (oct === -3) { S.dirs[3] = S.dirs[0] = true; }
+  if (oct === -2) S.dirs[0] = true;
+  if (oct === -1) { S.dirs[0] = S.dirs[1] = true; }
+  if (oct === 0) S.dirs[1] = true;
+  if (oct === 1) { S.dirs[1] = S.dirs[2] = true; }
+  if (oct === 2) S.dirs[2] = true;
+  if (oct === 3) { S.dirs[2] = S.dirs[3] = true; }
+  var cl = Math.min(1, m / r) * (r * 0.42);
+  knob.style.transform = 'translate(' + (Math.cos(ang) * cl).toFixed(1) + 'px,' + (Math.sin(ang) * cl).toFixed(1) + 'px)';
+}
+function stickAt(e) {
+  var r = stick.getBoundingClientRect(), t = e.touches ? e.touches[0] : e;
+  setDirsFromVec(t.clientX - (r.left + r.width / 2), t.clientY - (r.top + r.height / 2), r.width / 2);
+}
+function stickEnd() { stickActive = false; S.dirs[0] = S.dirs[1] = S.dirs[2] = S.dirs[3] = false; knob.style.transform = 'translate(0,0)'; }
+stick.addEventListener('touchstart', function (e) { e.preventDefault(); stickActive = true; stickAt(e); }, { passive: false });
+stick.addEventListener('touchmove', function (e) { e.preventDefault(); if (stickActive) stickAt(e); }, { passive: false });
+stick.addEventListener('touchend', function (e) { e.preventDefault(); stickEnd(); }, { passive: false });
+stick.addEventListener('mousedown', function (e) { e.preventDefault(); stickActive = true; stickAt(e); });
+window.addEventListener('mousemove', function (e) { if (stickActive) stickAt(e); });
+window.addEventListener('mouseup', function () { if (stickActive) stickEnd(); });
+
+/* --- the one button: tap to act, hold to reel --- */
+var actDown = function (e) {
+  if (e) e.preventDefault();
+  if (F.live) { F.reeling = true; return; }
+  act();
+};
+var actUp = function (e) { if (e) e.preventDefault(); F.reeling = false; };
+elAct.addEventListener('touchstart', actDown, { passive: false });
+elAct.addEventListener('touchend', actUp, { passive: false });
+elAct.addEventListener('mousedown', actDown);
+window.addEventListener('mouseup', actUp);
+
+var KEYMAP = { ArrowUp:0, KeyW:0, ArrowRight:1, KeyD:1, ArrowDown:2, KeyS:2, ArrowLeft:3, KeyA:3 };
+window.addEventListener('keydown', function (e) {
+  if (e.code in KEYMAP) { S.dirs[KEYMAP[e.code]] = true; e.preventDefault(); }
+  if (e.code === 'Space') { actDown(e); }
+});
+window.addEventListener('keyup', function (e) {
+  if (e.code in KEYMAP) { S.dirs[KEYMAP[e.code]] = false; e.preventDefault(); }
+  if (e.code === 'Space') actUp(e);
+});
+
+/* =========================================================================
+   THE LOOP
+   ========================================================================= */
+function frame(dtms) {
+  S.now += dtms;
+  stepFade(dtms);
+  if (F.live) fishTick(dtms);
+  else if (canWalk()) stepPlayer(dtms);
+  stepClock(dtms);
+  if (timePasses()) stepNPC(dtms);
+  updateCam();
+}
+var last = 0, actTick = 0;
+function loop(ts) {
+  if (!last) last = ts;
+  var dt = Math.max(4, Math.min(50, ts - last)); last = ts;
+  if (S.driven) frame(dt);
+  render(); hud();
+  actTick += dt;
+  if (actTick > 120) { actTick = 0; syncAct(); }
+  requestAnimationFrame(loop);
+}
+resize(); syncTools(); syncAct(); paintLove(); updateCam();
+toast('', 'Walk to the DOCK bottom-right and face the water to fish. The PLOT behind your house is soil: face it and use a tool. Walk up to ' + NPC.name + ' to court her. Sleep in your BED to end the day.');
+requestAnimationFrame(loop);
+
+/* =========================================================================
+   THE TEST SURFACE — the gate walks this world and plays every loop in it
+   ========================================================================= */
+window.LAB = {
+  SDV: SDV, S: S, F: F, L: L, NPC: NPC, FARM: FARM, MAPS: MAPS,
+  CROPS: CROPS, FISH: FISH, GIFTS: GIFTS, FERTS: FERTS,
+  mechanics: ['fishing', 'farming', 'marriage'],
+  freeze: function () { S.driven = false; }, thaw: function () { S.driven = true; },
+  seedRNG: function (n) { var st = n >>> 0; RNG = function () { st = (st * 1103515245 + 12345) & 0x7fffffff; return st / 0x7fffffff; }; },
+  unseedRNG: function () { RNG = Math.random; },
+  setDirs: function (list) {
+    S.dirs[0] = S.dirs[1] = S.dirs[2] = S.dirs[3] = false;
+    (list || []).forEach(function (d) { S.dirs[d] = true; });
+  },
+  step: function (n, dirs, run) {
+    if (dirs !== undefined) window.LAB.setDirs(dirs);
+    if (run !== undefined) S.running = !!run;
+    for (var i = 0; i < n; i++) frame(TICK);
+    return { x: S.pos.x, y: S.pos.y, map: S.map, time: S.timeOfDay };
+  },
+  place: function (map, tx, ty, facing) {
+    S.map = map; S.pos.x = tx * SDV.TILE; S.pos.y = ty * SDV.TILE;
+    if (facing !== undefined) S.facing = facing;
+    S.fade = 0; S.fadeDir = 0; S.pendingWarp = null;
+  },
+  /* walk toward a tile with the real movement code, the way a thumb would */
+  walkTo: function (tx, ty, maxFrames) {
+    var guard = 0;
+    while (guard++ < (maxFrames || 4000)) {
+      var s = standTile();
+      if (s.x === tx && s.y === ty) { window.LAB.setDirs([]); return true; }
+      var dirs = [];
+      if (Math.abs(tx - s.x) > 0) dirs.push(tx > s.x ? 1 : 3);
+      else if (ty !== s.y) dirs.push(ty > s.y ? 2 : 0);
+      window.LAB.setDirs(dirs);
+      frame(TICK);
+      if (S.map !== 'town' && MAPS.town.rows) { /* a warp fired: caller decides */ }
+    }
+    window.LAB.setDirs([]); return false;
+  },
+  context: context, act: act,
+  facingTile: facingTile, standTile: standTile, setFacing: function (f) { S.facing = f; },
+  fishTick: function (n, reeling) { F.reeling = !!reeling; for (var k = 0; k < n; k++) fishTick(TICK); return F.progress; },
+  autoFish: function (maxTicks) {
+    var t = 0;
+    while (F.live && t++ < (maxTicks || 30000)) {
+      var c = F.barPos + F.barH / 2;
+      F.reeling = (F.bobPos - c - F.barSpeed * 10) < 0;
+      fishTick(TICK);
+    }
+    return { live: F.live, progress: F.progress, caught: F.caught, gold: S.gold, level: S.fishingLevel };
+  },
+  castFish: function (i) { castAt(FISH[i]); },
+  tool: function (t) { S.tool = t; }, seedPick: function (i) { S.seedPick = i; }, fertPick: function (i) { S.fertPick = i; },
+  farmAt: farmAt, cropReady: function (tx, ty) { return cropReady(farmAt(tx, ty).crop); },
+  talk: talk, gift: function (i) { giveGift(GIFTS[i]); }, court: court,
+  openLove: openLove, closeLove: closeLove,
+  hearts: hearts, pointCap: pointCap, setPoints: function (p) { L.points = p; paintLove(); },
+  setBirthdayToday: function () { L.birthdaySeason = S.season; L.birthdayDay = ((S.day - 1) % 28) + 1; },
+  sleep: sleep, setTime: function (t) { S.timeOfDay = t; S.clockAcc = 0; },
+  setSeason: function (s) { S.season = s; },
+  tintAlpha: tintAlpha, npcTile: npcTile, tileOn: tileOn, solidOn: solidOn,
+  plateOf: function (m) { return { w: MAPS[m].rows[0].length, h: MAPS[m].rows.length }; },
+  furnitureCount: function (m) {
+    var r = MAPS[m].rows, n = 0;
+    for (var y = 0; y < r.length; y++) for (var x = 0; x < r[y].length; x++) if (FURNITURE.indexOf(r[y][x]) >= 0) n++;
+    return n;
+  },
+  soilCount: function () {
+    var r = MAPS.town.rows, n = 0;
+    for (var y = 0; y < r.length; y++) for (var x = 0; x < r[y].length; x++) if (r[y][x] === 'o') n++;
+    return n;
+  }
+};
+</script>
+</body>
+</html>

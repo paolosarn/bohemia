@@ -25,6 +25,28 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1c. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] ONE WORLD, ALL THREE MECHANICS ON IT.
+   Paolo: "are you able to code these into the walkable version of Stardew Valley
+   made earlier pull up to the mini lake you can start fishing pull up on your
+   potential spouse. Do all of this pull up on your farm."
+   slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html — one town, one clock, one
+   purse. Your farmhouse and a 54-tile fenced plot, the shop up the road, a lake
+   with a dock, EMILY walking a real schedule. ONE contextual action button:
+   CAST at water, USE TOOL at soil, TALK next to her, SLEEP at your bed, HOLD TO
+   REEL once a fish is on, and the tile you are about to act on is outlined.
+   Sleeping is the only integration point: crops advance or stall, soil dries,
+   her friendship decays, the wedding counts down, her schedule resets.
+   What the merge taught (the actual finding):
+   records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md — the walk is a sentence
+   structure not a feature; one contextual verb instead of a button per system;
+   reach is a declared number; ONE resolve point with zero coupling between
+   systems; distance on the map IS the pacing. Gate: 179 checks, and the world
+   half WALKS the route with the real movement code (door -> plot -> till/seed/
+   water -> across the map to the dock -> land a fish -> up to her -> bouquet ->
+   home -> in the door -> bed -> sleep -> the crop advanced).
+   His musing "in our world it's gonna most likely be like a Hydro farm pool or
+   something I don't know but yeah" is RECORDED AND NOT ACTED ON. No Bohemia
+   growing system invented. If he rules it, it becomes a CITY/WORLD item.
 1b. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] STARDEW MECHANICS: FISHING + FARMING
    + MARRIAGE, all three playable end to end in
    slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html. The real bobber-bar

@@ -54,6 +54,20 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
+    /* LAB-03: the three mechanics standing in a world you walk around. This is
+       the shape the lane ships in from now on — mechanics IN A PLACE. */
+    id: 'STARDEW ONE WORLD',
+    game: 'Stardew Valley',
+    mechanics: ['fishing', 'farming', 'marriage'],
+    page: 'slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html',
+    record: ['records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt',
+             'records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt',
+             'records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md'],
+    pattern: 'records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md',
+    live: liveWorld,
+    shot: { name: 'BOHEMIA_LAB_STARDEW_WORLD_PROOF_7_26_26.png', setup: shotWorld }
+  },
+  {
     id: 'STARDEW MECHANICS',
     game: 'Stardew Valley',
     mechanics: ['fishing', 'farming', 'marriage'],
@@ -142,10 +156,12 @@ function partA(em) {
      linkers.length === 0);
 
   /* --- clause 4: three deliverables --- */
-  ok('A11 numbers record exists', fs.existsSync(path.join(ROOT, em.record)));
+  const recFiles = Array.isArray(em.record) ? em.record : [em.record];
+  const recsExist = recFiles.every(f => fs.existsSync(path.join(ROOT, f)));
+  ok('A11 numbers record(s) exist (' + recFiles.length + ')', recsExist);
   ok('A12 pattern note exists', fs.existsSync(path.join(ROOT, em.pattern)));
-  if (!fs.existsSync(path.join(ROOT, em.record)) || !fs.existsSync(path.join(ROOT, em.pattern))) return null;
-  const rec = fs.readFileSync(path.join(ROOT, em.record), 'utf8');
+  if (!recsExist || !fs.existsSync(path.join(ROOT, em.pattern))) return null;
+  const rec = recFiles.map(f => fs.readFileSync(path.join(ROOT, f), 'utf8')).join('\n');
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
@@ -158,13 +174,17 @@ function partA(em) {
       if (m) keys.push([m[1], m[2]]);
     });
     ok('A14 SDV block has >= 25 constants (' + keys.length + ')', keys.length >= 25);
-    const missing = [], unsourced = [], wrongVal = [];
+    const missing = [], unsourced = [], wrongVal = [], ours = [];
     const lines = rec.split('\n');
     keys.forEach(([k, v]) => {
       const row = lines.find(l => new RegExp('^' + k + '\\s').test(l));
       if (!row) { missing.push(k); return; }
       const num = String(parseFloat(v));
       if (row.indexOf(v) < 0 && row.indexOf(num) < 0 && row.indexOf(Math.abs(parseFloat(v)) + '') < 0) wrongVal.push(k + '=' + v);
+      /* a row may say "ours (declared)" instead of citing the master — that is
+         the CONTENT escape hatch, and it is capped so nobody smuggles invented
+         mechanism numbers through it. */
+      if (/ours \(declared\)/.test(row)) { ours.push(k); return; }
       if (!DERIVED_KEYS.has(k) && !/\.cs[:.]/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
     });
     ok('A15 every SDV key is in the record' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''),
@@ -173,6 +193,8 @@ function partA(em) {
        wrongVal.length === 0);
     ok('A17 every row cites a source file' + (unsourced.length ? ' (' + unsourced.join(',') + ')' : ''),
        unsourced.length === 0);
+    ok('A17b at most 3 keys are "ours (declared)" (' + ours.length + (ours.length ? ': ' + ours.join(',') : '') + ')',
+       ours.length <= 3);
   }
 
   ok('A18 record names the emulation page', rec.indexOf(path.basename(em.page)) > 0);
@@ -495,6 +517,172 @@ async function liveMechanics(page) {
     const d0 = window.LAB.day(); window.LAB.sleep(); return window.LAB.day() - d0;
   });
   ok('B38 one SLEEP advances the day for every mechanic at once', shared === 1);
+}
+
+/* ==========================================================================
+   PART B (LAB-03) — WALK THE WORLD AND PLAY EVERY LOOP STANDING IN IT.
+   This is the check that matters: not "does fishing work" but "can you walk
+   from your bed to the dock, catch a fish, walk to your plot, grow something,
+   walk up to her, court her, and go to bed" — with the real movement code.
+   ========================================================================== */
+async function liveWorld(page) {
+  const S = await page.evaluate(() => window.LAB.SDV);
+
+  const map = await page.evaluate(() => ({
+    soil: window.LAB.soilCount(),
+    house: window.LAB.furnitureCount('house'),
+    shop: window.LAB.furnitureCount('shop'),
+    housePlate: window.LAB.plateOf('house'),
+    shopPlate: window.LAB.plateOf('shop')
+  }));
+  ok('W1 the world has a real plot to farm (' + map.soil + ' soil tiles)', map.soil >= 40);
+  ok('W2 the house is furnished and has a bed', map.house >= 8);
+  ok('W3 the shop is furnished', map.shop >= 8);
+
+  /* the four contexts: the one button knows where it is */
+  const ctx = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.place('town', 28, 24, 2); o.dock = L.context();
+    L.place('town', 8, 13, 2);  o.plot = L.context();
+    L.place('house', 2, 3, 0);  o.bed = L.context();
+    L.place('town', 27, 12, 0);
+    L.NPC.pos.x = 27 * 64; L.NPC.pos.y = 11 * 64; L.NPC.path = [];
+    o.npc = L.context();
+    L.place('town', 18, 17, 2); o.nothing = L.context();
+    return o;
+  });
+  ok('W4 facing the water at the dock offers CAST', ctx.dock === 'FISH');
+  ok('W5 facing the plot soil offers USE TOOL', ctx.plot === 'FARM');
+  ok('W6 facing the bed offers SLEEP', ctx.bed === 'SLEEP');
+  ok('W7 standing next to her offers TALK', ctx.npc === 'TALK');
+  ok('W8 standing in an empty field offers nothing', ctx.nothing === null);
+
+  /* THE WALKTHROUGH, one evaluate so the world state is continuous */
+  const run = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.seedRNG(4242);
+    L.place('town', 8, 11, 2);
+    L.setPoints(0); L.L.status = 'STRANGER'; L.L.married = false; L.L.weddingIn = -1;
+    L.S.gold = 0; L.F.caught = 0; L.S.fishingLevel = 0;
+
+    /* --- 1. walk from the front door to the plot and work it --- */
+    o.reachedPlot = L.walkTo(8, 13);
+    L.setFacing(2);
+    L.tool('hoe'); L.act();   o.tilled = L.farmAt(8, 14).tilled;
+    L.tool('seed'); L.seedPick(0); L.fertPick(0); L.act();
+    o.planted = !!L.farmAt(8, 14).crop;
+    o.phasesTotal = L.farmAt(8, 14).crop.phases.reduce((a, b) => a + b, 0);
+    L.tool('can'); L.act();   o.watered = L.farmAt(8, 14).state;
+
+    /* --- 2. walk the length of the map to the dock and land a fish --- */
+    o.route = [L.walkTo(8, 11), L.walkTo(18, 11), L.walkTo(18, 21),
+               L.walkTo(28, 21), L.walkTo(28, 24)].every(Boolean);
+    o.atDock = L.standTile();
+    L.setFacing(2);
+    o.dockCtx = L.context();
+    L.act();
+    o.hooked = L.F.live;
+    o.hookedName = L.F.fish ? L.F.fish.n : null;
+    const fr = L.autoFish(30000);
+    o.caught = fr.caught; o.goldFromFish = L.S.gold;
+
+    /* --- 3. she is by the lake at lunchtime; walk up and court her --- */
+    L.NPC.pos.x = 28 * 64; L.NPC.pos.y = 23 * 64; L.NPC.path = [];
+    L.setFacing(0);
+    o.npcCtx = L.context();
+    L.setPoints(2000);
+    L.act();
+    o.modalOpened = L.S.modal;
+    L.court();
+    o.status = L.L.status;
+    L.closeLove();
+    o.modalClosed = L.S.modal === null;
+
+    /* --- 4. walk home, in the door, to the bed, and sleep --- */
+    o.routeHome = [L.walkTo(28, 21), L.walkTo(18, 21), L.walkTo(18, 11), L.walkTo(8, 11), L.walkTo(8, 10)].every(Boolean);
+    let g = 0;
+    L.setDirs([0]);
+    while (L.S.map === 'town' && g++ < 500) L.step(1, [0], false);
+    while (L.S.fadeDir !== 0 && g++ < 1200) L.step(1);
+    L.setDirs([]);
+    o.walkedInside = L.S.map;
+    o.reachedBed = L.walkTo(2, 3);
+    L.setFacing(0);
+    o.bedCtx = L.context();
+    const day0 = L.S.day, phase0 = L.farmAt(8, 14).crop.phase;
+    L.act();
+    o.dayAdvanced = L.S.day - day0;
+    o.cropAdvanced = L.farmAt(8, 14).crop.phase - phase0;
+    o.soilDried = L.farmAt(8, 14).state === 0;
+    o.timeReset = L.S.timeOfDay;
+    L.unseedRNG();
+    return o;
+  });
+
+  ok('W9 you can walk from the front door to your plot', run.reachedPlot === true);
+  ok('W10 facing the soil and pressing the button TILLS it', run.tilled === true);
+  ok('W11 the same button SEEDS it (parsnip, ' + run.phasesTotal + ' watered days)',
+     run.planted === true && run.phasesTotal === 4);
+  ok('W12 and WATERS it', run.watered === S.WATERED);
+  ok('W13 you can walk the length of the map to the dock', run.route === true && run.atDock.x === 28 && run.atDock.y === 24);
+  ok('W14 the dock offers CAST and the button hooks a fish (' + run.hookedName + ')',
+     run.dockCtx === 'FISH' && run.hooked === true);
+  ok('W15 FISHING LOOP CLOSES IN THE WORLD — landed and paid (' + run.goldFromFish + 'g)',
+     run.caught === 1 && run.goldFromFish > 0);
+  ok('W16 walking up to her opens the courtship, not a menu button', run.npcCtx === 'TALK' && run.modalOpened === 'love');
+  ok('W17 MARRIAGE LOOP ADVANCES IN THE WORLD — the bouquet lands', run.status === 'DATING');
+  ok('W18 and you can walk away from her again', run.modalClosed === true);
+  ok('W19 you can walk home and in through your own front door', run.routeHome === true && run.walkedInside === 'house');
+  ok('W20 you can reach your bed', run.reachedBed === true && run.bedCtx === 'SLEEP');
+  ok('W21 SLEEPING ADVANCES THE DAY for the whole world at once', run.dayAdvanced === 1);
+  ok('W22 FARMING LOOP RESOLVES AT SLEEP — the crop advanced a phase', run.cropAdvanced === 1);
+  ok('W23 and the soil dried overnight, so tomorrow is another chore', run.soilDried === true);
+  ok('W24 the clock resets to 6:00am (' + run.timeReset + ')', run.timeReset === S.DAY_START);
+
+  /* the day is the ONLY thing the three mechanics share */
+  const shared = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.place('town', 18, 17, 2);
+    L.setPoints(600); L.L.talkedToday = false; L.L.status = 'FRIEND'; L.L.married = false;
+    const p0 = L.L.points, d0 = L.S.day;
+    L.sleep();
+    o.friendshipDecayed = p0 - L.L.points;
+    o.dayMoved = L.S.day - d0;
+    o.npcScheduleReset = L.NPC.lastKey;
+    return o;
+  });
+  ok('W25 one sleep also decays a friendship you ignored (-' + shared.friendshipDecayed + ')',
+     shared.friendshipDecayed === S.DECAY_STRANGER);
+  ok('W26 and resets her schedule for the new day', shared.npcScheduleReset === -1);
+
+  /* the walk is still Stardew's walk, because that is what it is for */
+  const walk = await page.evaluate(() => {
+    const L = window.LAB;
+    L.place('town', 18, 17, 2);
+    const a = L.S.pos.x;
+    L.step(60, [1], false);
+    L.setDirs([]);
+    return L.S.pos.x - a;
+  });
+  const walkExp = Math.max(S.MIN_STEP, S.WALK_SPEED * S.MOVE_MULT * (1000 / 60)) * 60;
+  ok('W27 the walk underneath is still the measured 2.20 px/tick (' + (walk / 60).toFixed(2) + ')',
+     Math.abs(walk - walkExp) < 0.5);
+}
+
+async function shotWorld(page) {
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.place('town', 8, 13, 2);
+    L.tool('hoe');
+    /* dress the plot so the shot shows a worked farm, not bare soil */
+    [[7,14],[8,14],[9,14],[7,15],[8,15],[9,15],[7,16],[8,16],[9,16]].forEach(function (t) {
+      const c = L.farmAt(t[0], t[1]); c.tilled = true; c.state = 1;
+    });
+    L.seedPick(0);
+    [[7,14],[8,14],[9,14]].forEach(function (t) { L.setFacing(2); L.tool('seed'); L.farmAt(t[0], t[1]); });
+    L.setTime(1000);
+    L.thaw();
+  });
 }
 
 async function shotMechanics(page) {

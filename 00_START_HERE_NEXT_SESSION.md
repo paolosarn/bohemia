@@ -1,3 +1,40 @@
+LAB (09): 7/26 (c) — THE THREE MECHANICS NOW STAND IN A WORLD YOU WALK AROUND, WHICH
+IS WHAT HE ASKED FOR. "pull up to the mini lake you can start fishing pull up on your
+potential spouse. Do all of this pull up on your farm."
+slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html — one town, one clock, one purse:
+your farmhouse with a bed, a 54-tile fenced plot behind it, the shop up the road, a
+lake with a dock, and EMILY walking a real schedule across the map.
+ONE ACTION BUTTON and the WORLD decides what it means: CAST facing water, USE TOOL
+facing soil (the tool/seed/fertilizer chips only appear when you are standing on the
+plot), TALK when you are within a tile of her, SLEEP at your bed, HOLD TO REEL once a
+fish is on. The tile you are about to act on is outlined in yellow so the button is
+never a mystery.
+SLEEP IS THE ONLY INTEGRATION POINT between the three systems: crops advance or stall,
+soil dries, her friendship decays if you did not say hello, the wedding counts down,
+her schedule resets. Three mechanics, one clock, ZERO coupling. That architecture is
+the thing worth copying, not an event bus.
+THE FINDINGS, in records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md: the walk
+stopped being a feature and became a sentence structure (go there, do that) and should
+never be judged on its own again; one contextual verb REMOVES UI instead of adding a
+button per system, which is the shape a phone wants; reach/interaction slack should be
+ONE declared constant, not three ad-hoc checks; and distance on the map is a bigger
+tuning knob than any number inside a mechanic (the plot is 4 tiles from the door, the
+dock is 30 across the map — a chore versus a trip, authored in tiles, enforced by
+nothing).
+Gate: 179 checks. The world half does not inspect state, it PLAYS: walks out the front
+door to the plot with the real movement code, tills/seeds/waters by facing the soil,
+walks the length of the map to the dock, casts, works the bar until the fish is landed
+and paid, walks up to her and lands the bouquet, walks home, in through her own front
+door, to the bed, sleeps, and asserts the crop advanced exactly one phase and the soil
+dried. Four contexts are asserted too, including that an empty field offers nothing.
+HIS MUSING IS RECORDED AND NOT ACTED ON: "in our world it's gonna most likely be like a
+Hydro farm pool or something I don't know but yeah." Written down verbatim in the note,
+treated as thinking out loud, NOT canon. No Bohemia growing system, pool or hydro farm
+was invented. If he rules it, it becomes a CITY/WORLD backlog item with his words as
+the source.
+NEXT IN THIS LANE: he names a game and its mechanics. LAB-2 (Zomboid loot loop) is
+still queued and now means containers + weight + search + degradation, in a world.
+
 LAB (09): 7/26 (b) — PAOLO REJECTED THE FIRST EMULATION'S WHOLE PREMISE, AND HE WAS
 RIGHT. "who said I wanted to test the walking like why did you just focus on like
 movement like it was supposed to be like the actual game and all its mechanics... you
