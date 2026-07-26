@@ -64,6 +64,12 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    new byte-lock gates registered | — | no.
 
 ## COMBAT
+0. ALLY-IN-COMBAT foundation (RULED 7/26, companions addendum): the encounter
+   system supports friendly combatants on the player's side — spawn, target
+   correctly, go down but never permanently die. Mechanism only; WHO joins
+   and companion personalities are Paolo's/quest canon. | proven headless: an
+   ally fights alongside through the real bus, downed ally never deleted |
+   CITY_B64 | no.
 1. Encounter handoff hardening for the RUN: quest context in, outcome out
    (dead/spared/fled), clean state, 5 back-to-back proven through the real
    bus. | combat_lab_gate section | CITY_B64 | no.
