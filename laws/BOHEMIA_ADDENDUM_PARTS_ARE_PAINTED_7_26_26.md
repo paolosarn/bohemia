@@ -142,6 +142,47 @@ length + angle snapped to 48/32/24/16/12/8 steps, 4.76 -> 3.32 only at
 temporal coherence on the claim buffer -- a cell staying with the limb that owned
 it unless the new frame's evidence is unambiguous.
 
+## ATTEMPT 4, AFTER THE ARM HOLD — ALSO WORSE. THIS RULE IS NOW CLOSED.
+
+The arm hold (`BOHEMIA_ADDENDUM_ARMS_HOLD_THEIR_POSE_7_26_26.md`) removed 49% of
+the morphing and left a boundary that finally holds still for ~5 frames at a
+time. That was the stated reason the three failures above deserved exactly one
+retry: they were correct rules applied to a churning edge. So the retry was run,
+reusing `partCv` (the per-part shape OWN CANVAS already records before occlusion)
+and deliberately leaving the sky top-light on the combined grid, since moving
+that was measured as harmful in attempt 3.
+
+    after the arm hold, baseline   3,314 flips
+    attempt 4, own-shape shading   3,564 flips   (+8%, WORSE)
+
+AND THE SPLIT SAYS EXACTLY WHY, which is the useful part:
+
+    same limb all three frames (the shading half)  1,830 -> 1,712   -6%
+    a different limb moved over it (ownership)     1,484 -> 1,852  +25%
+
+**The rule works on its own target and loses more than it wins elsewhere.**
+Shading each part on its own shape does reduce shading instability, exactly as
+predicted. But it gives the arm a full dark outline where it meets the torso, so
+every time the arm vacates a cell that cell swings from arm-line to torso-base --
+a bigger contrast step than before, and more of them cross the visible threshold.
+
+FOUR ATTEMPTS, FOUR MEASURED LOSSES. This rule is CLOSED for the renderer. It is
+not wrong as a law -- his ruling stands and the gate still pins the violation --
+but no implementation of it improves the picture while the arm is a 3px strip
+sharing an 8px torso. Reopen it only after the profile is repainted, not before.
+
+## WHERE THE REMAINDER ACTUALLY IS (measured after the hold)
+
+    frames where the arm CHANGES its held pose : 5.13 flips/frame (134 frames)
+    frames where the arm is HOLDING            : 1.84 flips/frame (1,306 frames)
+
+Two different things, and only one of them is a bug:
+- the 5.13 at pose changes is a DISCRETE STEP, by design. Whether that reads as
+  clean animation or as chop is a judgement, not a number, and it is Paolo's.
+- the 1.84 during holds is the TORSO AND LEGS still moving under a frozen arm,
+  with the combined-grid shading following them. That is the shading half again,
+  and attempt 4 above is the reason it is not being chased further.
+
 ## CONSEQUENCE FOR THE SHOULDER
 
 Per-part outlining gives the arm a full line where it meets the torso, which

@@ -149,6 +149,16 @@ ok('all eight facings are painted', DIRS.length === 8);
   ok('the law still states nothing was shipped', /NOTHING WAS SHIPPED/.test(law));
   ok('the attempted patch is checked in so the failures can be re-run, not re-guessed',
     fs.existsSync(path.join(ROOT, 'tools', 'bohemia_parts_are_painted_patch.py')));
+  /* ATTEMPT 4 ran after the arm hold gave the rule a stable boundary, and lost
+     too. The rule is CLOSED for the renderer until the profile is repainted.
+     Keeping this recorded is the only thing stopping a fifth rebuild. */
+  ok('the law records attempt 4 (post arm-hold) and that it also measured worse',
+    /ATTEMPT 4/.test(law) && /3,564/.test(law) && /THIS RULE IS NOW CLOSED/.test(law));
+  ok('the law records the split that explains attempt 4 (shading -6%, ownership +25%)',
+    /-6%/.test(law) && /\+25%/.test(law));
+  ok('the law records where the remainder actually sits (pose steps vs holds)',
+    /5\.13/.test(law) && /1\.84/.test(law));
+  ok('the attempt-4 tool is checked in too', fs.existsSync(path.join(ROOT, 'tools', 'bohemia_own_shading_patch.py')));
 }
 
 done();
