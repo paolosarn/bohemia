@@ -423,47 +423,11 @@ NEW_END = """  if(d.type==='BOHEMIA_COMBAT_READY'){   /* V66: the demo is listen
     return true;
   }"""
 
-# WARM THE FIGHT. Even a fast cold boot is dead air in the middle of a run, so
-# the combat frame builds itself quietly once the app is open and idle. By the
-# time a quest hands off, the demo has already said READY.
-
-OLD_FRONT = """document.getElementById('front').addEventListener('click',()=>{
-  document.getElementById('front').style.display='none';
-  document.getElementById('app').style.display='flex';buildUI();});"""
-
-NEW_FRONT = """document.getElementById('front').addEventListener('click',()=>{
-  document.getElementById('front').style.display='none';
-  document.getElementById('app').style.display='flex';buildUI();
-  /* V66 RUN HANDOFF: warm the combat frame in the background so a quest that
-     hands off mid-run gets a fight instantly instead of a cold boot. */
-  const warm=()=>{try{ensureCombatFrame();}catch(_e){}};
-  if(window.requestIdleCallback)requestIdleCallback(warm,{timeout:6000}); else setTimeout(warm,2500);});"""
-
-
-# THE RUN LANE landed its own relay inside this same handler on 7/26 (it hands
-# the settled fight back down to the RUN tab). Both shapes are supported, and
-# the relay is carried through UNTOUCHED -- combat hardens the bus, the run
-# keeps its own homecoming.
-RUN_RELAY = """    /* THE RUN HANDOFF, coming home: the fight the run asked for is settled, so
-       hand the outcome (dead/spared/fled per the mercy mechanics) back down and
-       put Paolo straight back on the block where he was standing. */
-    if(RUNFIGHT){
-      RUNFIGHT=false;
-      if(G.encounter)G.encounter.fromRun=false;
-      window.__RUN_HANDOFF.ended=true;
-      runPost({type:'BOHEMIA_RUN_COMBAT_END',victory:!!d.victory,kills:d.kills,
-        dead:d.dead,spared:d.spared,fled:d.fled,playerHP:d.playerHP});
-      showTabPanel('run');
-    }
-"""
-
-OLD_END_WITH_RUN = OLD_END.replace(
-    "    /* faction standing + loot settle here [PENDING, sim state in the alpha] */",
-    RUN_RELAY + "    /* faction standing + loot settle here [PENDING, sim state in the alpha] */")
-
-NEW_END_WITH_RUN = NEW_END.replace(
-    "    /* faction standing + loot settle here [PENDING, sim state in the alpha] */",
-    RUN_RELAY + "    /* faction standing + loot settle here [PENDING, sim state in the alpha] */")
+# WARM THE FIGHT: REVERTED 7/26 (Paolo: the fight was showing the wrong
+# character with no clothing). Pre-building the combat frame at app open also
+# pre-BAKES the player's sprites, and any look that restores late would get
+# baked stale. Not worth the risk for a boot that is already 14ms since the
+# font fix. The frame is built on demand, exactly as it always was.
 
 OLD_TAB = """  if(t.dataset.p==='combat'&&!document.getElementById('combatFrame')){
     const pc=document.getElementById('p-combat');
@@ -488,7 +452,6 @@ def patch_parent(src):
     else:
         src = sub1(src, OLD_END, NEW_END, 'combat end handler')
     src = sub1(src, OLD_TAB, NEW_TAB, 'combat tab frame')
-    src = sub1(src, OLD_FRONT, NEW_FRONT, 'warm the combat frame')
     return src
 
 

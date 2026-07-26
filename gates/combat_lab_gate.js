@@ -913,9 +913,10 @@ ok('V66 PARENT: startEncounter carries the quest context onto the bus and takes 
   alpha.includes('onEnd:(typeof spec.onEnd===\'function\')?spec.onEnd:null};') &&
   alpha.includes('G.lastEncounter=enc.outcome;') &&
   alpha.includes('if(enc.onEnd)try{enc.onEnd(enc.outcome);}catch(_e){}'));
-ok('V66 PARENT: the combat frame WARMS itself once the app is open and idle, so a mid-run handoff gets a fight immediately instead of a cold boot',
-  alpha.includes('/* V66 RUN HANDOFF: warm the combat frame in the background so a quest that') &&
-  alpha.includes('if(window.requestIdleCallback)requestIdleCallback(warm,{timeout:6000}); else setTimeout(warm,2500);});'));
+ok('THE PRE-WARM STAYS DEAD (Paolo 7/26: the fight showed the wrong character with no clothing). Building the combat frame at app open also pre-BAKES the player sprites, so any part of his look that restores late gets baked stale and the fight wears it. The frame is built ON DEMAND, always.',
+  !alpha.includes('requestIdleCallback(warm') &&
+  !alpha.includes('warm the combat frame in the background') &&
+  alpha.includes('WARM THE FIGHT: REVERTED 7/26'));
 ok('V66 PARENT: the outcome settles exactly once per encounter, and a broken handoff lands in the combat log instead of falling on the floor',
   alpha.includes('if(enc&&!enc.settled){') &&
   alpha.includes('enc.over=true; enc.settled=true; enc.live=false;') &&

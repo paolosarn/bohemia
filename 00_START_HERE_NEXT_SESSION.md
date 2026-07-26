@@ -177,6 +177,17 @@ cross-origin Google Fonts link in the demo head was holding combat's entire
 boot. Now non-blocking: 12,910ms -> 14ms. THE ALPHA SHELL STILL HAS THE SAME
 LINK (backlog COMBAT 3, left alone for lane discipline; one line, whole-game
 boot payoff, RUN lane's call).
+REVERTED SAME DAY, on Paolo's report ("none of the enemies have clothing and
+it's not the original player character"): the combat frame PRE-WARM is gone.
+Building the frame at app open also pre-BAKES the player's sprites, so any part
+of his look that restores late would be baked stale and the fight would wear
+it. Gate now asserts the pre-warm stays dead. NOT REPRODUCED on a clean profile
+or a save-and-restore profile, on either build (before or after v66), so the
+cause may well be elsewhere: the ONE RIG / body-slider rewrite (3a7d9d9, 453
+lines through the character+rig code) landed about an hour before he looked and
+is the stronger suspect. NEXT SESSION IN THIS LANE: do not add combat features.
+Find out whether the wrong character shows on the CHARACTER tab too (that would
+make it the rig rewrite, not the combat bake) and fix the real cause.
 Maintainer tool: python3 tools/bohemia_combat_handoff_patch.py (idempotent,
 anchor-asserted). combat_lab_gate 208 checks green; v65 ramps intact.
 
