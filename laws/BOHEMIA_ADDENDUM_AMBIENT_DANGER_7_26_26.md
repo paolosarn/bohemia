@@ -15,6 +15,12 @@ LOCKED:
    earlier all-or-nothing framings are dead (see the killed hostility-models
    post-mortem).
 2. Ambient encounters route into the same encounter handoff the run uses.
-3. WHAT spawns, WHERE, and HOW OFTEN are Paolo's dials [PENDING]: the
+3. PLAYER-INITIATED TOO (Paolo, same day): "you could start combat with
+   peaceful people and just start murdering everyone — that's kind of the
+   whole point." Attacking any peaceful NPC at will is a first-class combat
+   entry, same encounter handoff.
+4. WHAT spawns, WHERE, and HOW OFTEN are Paolo's dials [PENDING]: the
    mechanism (ambient encounter triggers on the walk surface) is buildable;
-   the bestiary/threat list and frequency are his.
+   the bestiary/threat list and frequency are his. Enemy-variety research
+   commissioned 7/26 (Paolo: "I'm concerned this game could be very boring
+   if not done right") — returns a thumbable act-1 starter roster.
