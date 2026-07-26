@@ -101,26 +101,21 @@ with where its pixels came from. Nothing is drawn anonymously.
 20. the pile of rubble   [object]
     WHAT: broken masonry dumped in the yard, the kind that comes off a wall that fell down somewhere else
     FROM: banks/BOHEMIA_DESERT_POOLS_7_18_26.txt (rubble)
-    AT:   6,12.18  size 1.08x0.82 tiles
+    AT:   6,12.16  size 1.09x0.84 tiles
 
-21. the landscaping boulder   [object]
-    WHAT: a decorative boulder from back when this yard was landscaped, still sitting exactly where somebody placed it
-    FROM: banks/BOHEMIA_DESERT_POOLS_7_18_26.txt (boulder)
-    AT:   1,11.11  size 0.68x0.89 tiles
-
-22. the debris in the road   [object]
+21. the debris in the road   [object]
     WHAT: a heap of broken concrete somebody swept over to the side of the carriageway
     FROM: banks/BOHEMIA_DESERT_POOLS_7_18_26.txt (rubble)
     AT:   4,20.16  size 1.18x0.84 tiles
 
-23. YOU   [object]
+22. YOU   [object]
     WHAT: the character you built in the CHARACTER tab, standing on your own front walk at the kerb, facing the street
     FROM: the alpha's own rig bake (buildFrame/frameToRGBA)
-    AT:   3,12.26  size 0.66x1.74 tiles
+    AT:   3,12.48  size 0.59x1.52 tiles
 
-24. the neighbour   [object]
+23. the neighbour   [object]
     WHAT: somebody else off this block walking east along the sidewalk - same rig, different clothes
     FROM: the alpha's own rig bake (buildFrame/frameToRGBA)
-    AT:   6.4,13.94  size 0.84x1.66 tiles
+    AT:   6.4,14.15  size 0.75x1.45 tiles
 
-24 things, all named.
+23 things, all named.

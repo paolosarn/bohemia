@@ -91,7 +91,7 @@ class TileSet:
         if name in self.by_name:
             return self.by_name[name]
         if img.size != (self.cell, self.cell):
-            img = img.resize((self.cell, self.cell), Image.LANCZOS)
+            img = img.resize((self.cell, self.cell), Image.NEAREST)
         idx = len(self.tiles)
         self.tiles.append({'id': name, 'what': what, 'img': img.convert('RGBA')})
         self.by_name[name] = idx
@@ -169,22 +169,20 @@ def build_tiles(M, C):
     T.add('wall_under_eave', 'the top course of a wall, in the shadow the eave throws', wt)
 
     def pane(kind, seed):
-        w = mat(C.house['wall_plain'], 3, tone=W_TONE, warm=(1.02, 1.0, 0.97))
+        """THE APPROVED WINDOW TILE, USED WHOLE. Paolo 7/26: "why are you like not
+        just using the windows and you're like doing zoomed in zoomed out pictures
+        of windows." He was right - the old version cropped the window out of the
+        approved 44px tile, shrank it by a non-integer ratio and drew my own frame
+        and sill around it, so the same window appeared at three different sizes on
+        one screen. The corpus tile already IS a wall with a window in it. Use it."""
         src = C.house[kind][seed % len(C.house[kind])]
-        p = src.crop((6, 6, 38, 32)).resize((int(M.CELL * 0.66), int(M.CELL * 0.50)),
-                                            Image.LANCZOS)
-        px, py = (M.CELL - p.width) // 2, int(M.CELL * 0.24)
-        M.band(w, px - 3, py - 3, p.width + 6, p.height + 6, (78, 70, 55, 255))
-        M.band(w, px - 3, py - 3, p.width + 6, 2, (198, 186, 158, 215))
-        w.alpha_composite(M.shade(p, 0.92), (px, py))
-        M.band(w, px, py, p.width, 3, (18, 14, 9, 150))
-        M.band(w, px - 5, py + p.height + 3, p.width + 10, 3, (208, 196, 168, 235))
-        for i in range(5):
-            M.band(w, px - 5, py + p.height + 6 + i, p.width + 10, 1, (28, 22, 14, 100 - i * 18))
-        return w
-    T.add('wall_window', 'a wall tile with a window in it - dead dark glass, sill and reveal',
-          pane('wall_window', 0))
-    T.add('wall_boarded', 'a wall tile whose window is boarded over', pane('wall_boarded', 1))
+        im = src.copy() if src.size == (M.CELL, M.CELL) else src.resize(
+            (M.CELL, M.CELL), Image.NEAREST)
+        return M.shade(im, W_TONE, warm=(1.02 * SUN[0], 1.0 * SUN[1], 0.97 * SUN[2]))
+    T.add('wall_window', 'the approved wall-with-a-window tile, used whole and at its own '
+          'size - dead dark glass, never a shrunk copy', pane('wall_window', 0))
+    T.add('wall_boarded', 'the approved boarded-window tile, used whole and at its own size',
+          pane('wall_boarded', 1))
 
     # --- THE DOOR, two tiles tall (the law) --------------------------------
     dw, dh = M.CELL, M.CELL * 2
@@ -371,31 +369,46 @@ def sprites(M, C):
         if rot:
             img = img.transpose(Image.ROTATE_90)
         px = (int(w_cells * M.CELL), int(h_cells * M.CELL))
-        lit = M.shade(img.resize(px, Image.LANCZOS).convert('RGBA'), 1.0,
+        lit = M.shade(img.resize(px, Image.NEAREST).convert('RGBA'), 1.0,
                       warm=(1.045, 1.005, 0.93))
         out.append({'id': name, 'what': what, 'x': gx, 'y': gy,
                     'w': w_cells, 'h': h_cells, 'img': lit})
 
-    add('wreck_driveway', 'a stripped patrol car nose-in on the driveway',
-        C.prop['car_wreck'][6], 8.4, 9.2, M.CAR_W, M.CAR_L)
+    # CARS AT A CLEAN INTEGER 2x. The approved wreck art is 46x96 - at the corpus
+    # cell that is almost exactly 1 tile wide, so 2x lands it on 2 tiles wide with
+    # every pixel doubled and nothing resampled. Stretching it to fill a 2x3 box
+    # is what made them look, in his words, low quality pixel wise.
+    def car2x(img):
+        return (2 * img.width / float(M.CELL), 2 * img.height / float(M.CELL))
+    cw, ch = car2x(C.prop['car_wreck'][6])
+    add('wreck_driveway', 'a stripped patrol car nose-in on the driveway, wheels gone',
+        C.prop['car_wreck'][6], 8.6, 8.4, cw, ch)
+    cw2, ch2 = car2x(C.prop['car_wreck'][2])
     add('wreck_road', 'a burnt-out sedan dead in the near lane, clear of the crossing',
-        C.prop['car_wreck'][2], 6.5, 16.5, M.CAR_L, M.CAR_W, rot=1)
+        C.prop['car_wreck'][2], 5.6, 16.6, ch2, cw2, rot=1)
+    cw3, ch3 = car2x(C.prop['car_wreck'][14])
     add('wreck_kerb', 'another dead car shoved against the far kerb',
-        C.prop['car_wreck'][14], 0.2, 19.4, M.CAR_L, M.CAR_W, rot=1)
+        C.prop['car_wreck'][14], -0.4, 19.5, ch3, cw3, rot=1)
     add('oil_drum', 'a plain rusted drum with a fire in it - no hazard markings on it',
         C.prop['fire_barrel'][7], 0.1, 13.3, 0.85, 1.7)
-    add('lamp_house_side', 'a cast-iron street lamp on a slim post, three tiles of post',
-        C.lamp[3], 9.4, 12.8, 1.3, 3.2)
+    # NOT IN THE DRIVEWAY. Paolo 7/26: "a light post should never be in the
+    # driveway where a car enters." It stands on the walk beside the front path.
+    add('lamp_house_side', 'a cast-iron street lamp on a slim post, clear of the drive',
+        C.lamp[3], 6.6, 12.6, 1.3, 3.2)
     add('lamp_your_side', 'the matching street lamp on your side of the road',
-        C.lamp[3], 6.3, 20.8, 1.3, 3.2)
-    add('rubble_yard', 'broken masonry dumped in the yard', C.desert['rubble'][2], 6, 12.2, 1.2, 0.8)
-    add('boulder_yard', 'a decorative boulder from when this yard was landscaped',
-        C.desert['boulder'][11], 1, 11.3, 0.9, 0.7)
+        C.lamp[3], 8.6, 20.8, 1.3, 3.2)
+    # NO VOLCANIC ROCK. Paolo 7/26: "there's an asset I don't remember approving.
+    # It looks like a volcanic [fire] that you're trying to have as a rock." He is
+    # right - the whole BOULDER family in the desert pool is glowing lava rock, all
+    # 24 of them, and there is no volcano anywhere near this valley. Banned by
+    # lore, same as the radiation marks. What is left is plain broken concrete.
+    add('rubble_yard', 'broken masonry dumped in the yard - grey concrete, off a wall '
+        'that fell down somewhere else', C.desert['rubble'][2], 5.4, 11.1, 1.2, 0.8)
     add('rubble_road', 'a heap of broken concrete swept to the side of the carriageway',
         C.desert['rubble'][5], 4, 20.2, 1.3, 0.9)
     for clip, nm, wht, gx, gy in (
             ('idle_S', 'you', 'the character you built, on your own front walk', 3.0, 12.3),
-            ('walk_E_1', 'the_neighbour', 'somebody else off this block, walking east', 6.4, 13.9)):
+            ('walk_E_1', 'the_neighbour', 'somebody else off this block, walking east', 4.3, 13.9)):
         b = Image.open(os.path.join(OUTDIR, 'char', clip + '.png')).convert('RGBA')
         b = b.crop(b.getbbox())
         h = M.BODY_PX * M.BODY_K / float(M.CELL)

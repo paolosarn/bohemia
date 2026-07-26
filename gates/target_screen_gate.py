@@ -219,6 +219,41 @@ def main():
     chk('no hazard markings' in ' '.join(e['source'] for e in ents),
         'the barrel on screen does not declare that it is clean of hazard marks')
 
+    # ---- PIXEL QUALITY: NEVER RESAMPLE APPROVED ART ---------------------
+    # Paolo 7/26: "I'm a little confused why the cars look like they're low
+    # quality pixel wise." They were. The world cell was 38px while every
+    # approved tile is 44px, so ALL of it was being resampled, with a SMOOTHING
+    # filter, at a non-integer ratio. Two rules now, both machine-held.
+    CORPUS_CELL = 44
+    chk(M.CELL == CORPUS_CELL,
+        'the world cell is %d but every approved tile is %d - drawing at anything else '
+        'resamples the whole corpus and it goes soft' % (M.CELL, CORPUS_CELL))
+    for f in (FACTORY, 'tools/bohemia_starter_tileset.py'):
+        body_src = open(f).read()
+        for smooth in ('LANCZOS', 'BICUBIC', 'BILINEAR', 'ANTIALIAS'):
+            bad = [ln for ln in body_src.splitlines()
+                   if 'Image.' + smooth in ln and 'noise' not in ln.lower()]
+            chk(not bad, '%s resizes art with %s. A smoothing filter is what makes crisp '
+                         'pixel art look low quality; art scales NEAREST, always.'
+                % (os.path.basename(f), smooth))
+    # ---- THE WINDOW IS THE APPROVED TILE, WHOLE -------------------------
+    # "why are you like not just using the windows and you're like doing zoomed in
+    #  zoomed out pictures of windows"
+    tsrc = open('tools/bohemia_starter_tileset.py').read()
+    chk('USED WHOLE' in tsrc,
+        'the window tile is not documented as the approved tile used whole')
+    chk('.crop((6, 6, 38, 32))' not in tsrc,
+        'the window is being cropped out of its own tile and rescaled again - that is the '
+        'zoomed-in-zoomed-out windows he called out')
+
+    # ---- NO VOLCANIC ROCK (LORE, Paolo 7/26) ----------------------------
+    chk('boulder' in M.BANNED_FACES and len(M.BANNED_FACES['boulder']) >= 24,
+        'the volcanic boulder family is not banned - all 24 of them glow, and there is no '
+        'volcano in this valley')
+    for e in ents:
+        chk('boulder' not in e['source'].lower(),
+            '"%s" places a volcanic boulder' % e['name'])
+
     # ---- EVERY DOOR HAS A PATH, THE CROSSING CROSSES --------------------
     by_name = {e['name']: e for e in ents}
     door, walk = by_name.get('your front door'), by_name.get('the front walk')
@@ -301,6 +336,18 @@ def main():
     # vignette and called it a win. A tileset that loses the look has not passed.
     if os.path.exists(TILESET):
         ts2 = json.load(open(TILESET))
+        # nothing stands in a driveway a car has to drive through
+        drives = [(8, 6, 3, 10)]
+        for sp in ts2.get('sprites', []):
+            if 'lamp' not in sp['id']:
+                continue
+            for (dx, dy, dw, dh) in drives:
+                ix = min(sp['x'] + sp['w'], dx + dw) - max(sp['x'], dx)
+                iy = min(sp['y'] + sp['h'], dy + dh) - max(sp['y'], dy)
+                chk(not (ix > 0.25 and iy > 0.25),
+                    'a light post is standing in the driveway a car drives through')
+        for sp in ts2.get('sprites', []):
+            chk('boulder' not in sp['id'], 'a volcanic boulder is back on the map')
         chk(len(ts2.get('lights', [])) >= 2,
             'no wall-falloff data - a face that does not darken from the eave down is the '
             'flat wall the painting did not have')

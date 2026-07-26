@@ -26,8 +26,8 @@
 
 | pinned | value | why |
 |---|---|---|
-| base art resolution | **418 x 912 art px** | iPhone portrait aspect 0.4583; 390x844 CSS px maps 1:1.07 |
-| integer zoom levels | **1x, 2x, 3x only** | the poster ships at 2x (836 x 1824) |
+| base art resolution | **484 x 1056 art px** | iPhone portrait aspect 0.4583, and 11 x 24 cells at the corpus cell |
+| integer zoom levels | **1x, 2x, 3x only** | the frame ships at 2x (968 x 2112) |
 | viewport | iPhone portrait, safe-area aware | the only device shape that matters |
 | non-integer scale | **BANNED** | a 3x phone blitting a 1.07x buffer destroys pixel art |
 
@@ -35,9 +35,9 @@
 
 | pinned | value |
 |---|---|
-| **A ground cell** | 38 px square |
-| **A door** | 2 cells = 76 px |
-| body | 66 px (77% of the opening) |
+| **A ground cell** | **44 px square — THE CORPUS CELL** |
+| **A door** | 2 cells = 88 px |
+| body | 68 px (77% of the opening) |
 | **car footprint** | **3 x 2 tiles** — 114 x 76 px |
 
 There is ONE projection: axis-aligned oblique, north-up. The 2:1 dimetric and
@@ -50,6 +50,29 @@ about a tile and a half off its own house — "the roofs are all fucked up not p
 on correctly." A roof sits square over its own footprint; the 45-degree read
 comes from the roof's PITCH (hip trapezoid, ridge, fascia, eave shadow), never
 from sliding the box.
+
+**THE CELL IS THE CORPUS CELL, AND ART NEVER RESAMPLES.** Paolo 7/26: *"I'm a
+little confused why the cars look like they're low quality pixel wise."* They
+were. Every approved tile in every bank is 44px; the world was being drawn at 38,
+so the entire corpus was resampled every frame at a non-integer ratio **through a
+smoothing filter**. Two rules, both gated:
+
+1. the world cell **is** the corpus cell, 44px, so an approved tile blits 1:1
+2. any scaling of art is **NEAREST**. Never LANCZOS, BICUBIC or BILINEAR. A
+   smoothing filter is exactly what makes crisp pixel art look low quality.
+
+**A WINDOW IS THE APPROVED TILE, WHOLE.** *"why are you like not just using the
+windows and you're like doing zoomed in zoomed out pictures of windows"* — the
+corpus tile already IS a wall with a window in it. It is never cropped out,
+rescaled, and re-framed by hand; that is what put the same window on one screen
+at three different sizes.
+
+**NOTHING STANDS IN A DRIVEWAY.** *"a light post should never be in the driveway
+where a car enters"* — gated against the driveway rect.
+
+**NO VOLCANIC ROCK.** All 24 members of the desert BOULDER family are glowing
+lava rock. This valley is limestone and sandstone; there is no volcano and never
+was. Banned by lore alongside the radiation marks.
 
 **CARS ARE 2 x 3 TILES.** Paolo, locked ("2x3 i told you"), restated 7/26. The
 number is not typed into any art tool: it is read out of

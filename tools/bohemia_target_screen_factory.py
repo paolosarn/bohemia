@@ -90,14 +90,20 @@ CHARDIR = os.path.join(OUTDIR, 'char')
 # which is what a 1.75 m person looks like in a 2.05 m doorway. Both numbers
 # are asserted by gates/target_screen_gate.py.
 # ---------------------------------------------------------------------------
-CELL = 38                  # ground cell, art px
+CELL = 44                  # ground cell, art px == THE CORPUS CELL.
+                           # Paolo 7/26: "I'm a little confused why the cars look
+                           # like they're low quality pixel wise." Because they
+                           # were. Every approved tile is 44px; drawing the world
+                           # at 38 meant resampling ALL of it, every frame, at a
+                           # non-integer ratio. At 44 an approved tile is blitted
+                           # 1:1 and nothing is touched.
 DOOR_CELLS = 2             # LAW: a door opening is 2 cells tall
 BODY_PX = 49               # painted body height inside the 56px bake
-BODY_K = 1.35              # so a body stands 66px = 1.74 cells against a 2-cell door
+BODY_K = 1.38              # so a body stands 68px = 77% of a 2-cell (88px) door
 GRID_W, GRID_H = 11, 24    # the framed camera: 11 cells across (the run's own
                            # camera width), so the target is a shot the engine can hold
-W, H = GRID_W * CELL, GRID_H * CELL     # 418 x 912 art px, iPhone portrait aspect
-SCALE = 2                  # poster = 836 x 1824, integer scale law
+W, H = GRID_W * CELL, GRID_H * CELL     # 484 x 1056 art px, iPhone portrait aspect
+SCALE = 2                  # poster = 968 x 2112, integer scale law
 
 # CARS ARE 2x3 TILES. Paolo, LOCKED ("2x3 i told you"), and restated 7/26 when
 # the first target screens broke it: "We made a rule that all cars are 2 x 3
@@ -170,6 +176,15 @@ BANNED_FACES = {
                     3: 'radiation trefoil', 6: 'radiation trefoil',
                     8: 'hazard chevrons', 1: 'skull and crossbones',
                     5: 'skull and crossbones', 11: 'skull and crossbones'},
+    # NO VOLCANIC ROCK. Paolo 7/26, looking at one in his own front yard: "there's
+    # an asset I don't remember approving. It looks like a volcanic [fire] that
+    # you're trying to have as a rock." He is right, and it is not one bad apple:
+    # ALL 24 members of the desert BOULDER family are glowing lava rock. Las Vegas
+    # sits in a basin of limestone and sandstone. There is no volcano, there never
+    # was, and a rock that glows is a rock from a different game.
+    'boulder': dict((i, 'glowing volcanic rock - there is no volcano in this valley')
+                    for i in range(24)),
+    'rubble': {4: 'molten glow in the debris'},
 }
 
 
@@ -266,7 +281,7 @@ def cell_tile(pool, gx, gy, size, seed=0, vary=True, uniform=False):
         if fl & 2:
             im = im.transpose(Image.FLIP_TOP_BOTTOM)
         if im.size != (size, size):
-            im = im.resize((size, size), Image.LANCZOS)
+            im = im.resize((size, size), Image.NEAREST)
         got = _TCACHE[key] = im
     return got
 
@@ -327,14 +342,14 @@ def door_panel(C, w, h, open_amount=0.0):
     OPENING is new."""
     src = C.house['wall_door'][0]
     bb = (6, 6, 38, 44)                      # the leaf inside the 44px tile
-    leaf = src.crop(bb).resize((w, h), Image.LANCZOS)
+    leaf = src.crop(bb).resize((w, h), Image.NEAREST)
     out = Image.new('RGBA', (w, h), (0, 0, 0, 0))
     if open_amount <= 0.01:
         out.alpha_composite(leaf)
         return out
     # swung inward: the visible sliver of leaf, foreshortened, plus the dark jamb
     sw = max(2, int(w * (1.0 - open_amount)))
-    out.alpha_composite(shade(leaf.resize((sw, h), Image.LANCZOS), 0.55), (w - sw, 0))
+    out.alpha_composite(shade(leaf.resize((sw, h), Image.NEAREST), 0.55), (w - sw, 0))
     return out
 
 
@@ -546,7 +561,7 @@ def windows(dst, C, rect, cols, rows=1, kind='wall_window', top=0.30, boarded=0.
                 continue
             k = 'wall_boarded' if rnd.random() < boarded else kind
             src = C.house[k][rnd.randrange(len(C.house[k]))]
-            pane = src.crop((6, 6, 38, 32)).resize((cw, ch), Image.LANCZOS)
+            pane = src.crop((6, 6, 38, 32)).resize((cw, ch), Image.NEAREST)
             band(dst, wx - 3, wy - 3, cw + 6, ch + 6, (74, 66, 52, 235))     # the frame
             band(dst, wx - 3, wy - 3, cw + 6, 2, (196, 184, 156, 210))       # lit head
             dst.alpha_composite(shade(pane, 0.92), (wx, wy))
@@ -618,7 +633,7 @@ def drop(dst, sprite, gx, gy, name, what, source, scale=None, shadow=True, dark=
     the cell's front edge, so it occupies one footprint and rises out of it."""
     k = (CELL / float(TILE_SRC)) * (scale or 1.0)
     w, h = max(1, int(sprite.width * k)), max(1, int(sprite.height * k))
-    im = sprite.resize((w, h), Image.LANCZOS)
+    im = sprite.resize((w, h), Image.NEAREST)
     if dark != 1.0:
         im = shade(im, dark)
     fx = int(gx * CELL + CELL / 2 - w / 2)
@@ -643,7 +658,7 @@ def car(dst, sprite, gx, gy, along, name, what, source, dark=1.0):
         w, h = CAR_L * CELL, CAR_W * CELL
     else:
         w, h = CAR_W * CELL, CAR_L * CELL
-    im = sprite.resize((w, h), Image.LANCZOS)
+    im = sprite.resize((w, h), Image.NEAREST)
     if dark != 1.0:
         im = shade(im, dark)
     x, y = int(gx * CELL), int(gy * CELL)
@@ -674,7 +689,7 @@ def grunge(im, seed=7, strength=34, cellsize=57):
     w, h = im.width // cellsize + 2, im.height // cellsize + 2
     n = Image.new('L', (w, h))
     n.putdata([128 + rnd.randint(-strength, strength) for _ in range(w * h)])
-    n = n.resize(im.size, Image.BICUBIC)
+    n = n.resize(im.size, Image.BICUBIC)   # noise field, not art: it must be smooth
     lay = Image.new('RGBA', im.size, (0, 0, 0, 0))
     lay.putalpha(n.point(lambda v: max(0, 128 - v)))
     lay = Image.merge('RGBA', (Image.new('L', im.size, 44), Image.new('L', im.size, 35),
@@ -768,7 +783,7 @@ def lamp_post(im, C, gx, gy, name):
     src = C.lamp[3]
     h = int(CELL * 3.2)                       # a tile taller than it was
     w = src.width                             # and not one pixel thicker
-    sprite = src.resize((w, h), Image.LANCZOS)
+    sprite = src.resize((w, h), Image.NEAREST)
     fx = int(gx * CELL + CELL / 2 - w / 2)
     fy = int((gy + 1) * CELL - h)
     soft_shadow(im, [(fx + w // 2 - 5, (gy + 1) * CELL - 4),
@@ -999,10 +1014,6 @@ def screen_A(C):
          'the pile of rubble',
          'broken masonry dumped in the yard, the kind that comes off a wall that '
          'fell down somewhere else', BANK_DESERT + ' (rubble)', scale=0.5)
-    drop(im, C.desert['boulder'][11], 1, 11,
-         'the landscaping boulder',
-         'a decorative boulder from back when this yard was landscaped, still sitting '
-         'exactly where somebody placed it', BANK_DESERT + ' (boulder)', scale=0.42)
     drop(im, C.desert['rubble'][5], 4, 20,
          'the debris in the road',
          'a heap of broken concrete somebody swept over to the side of the '

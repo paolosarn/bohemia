@@ -100,6 +100,41 @@ material, as the painting had), the fascia highlight was a highlighter line (now
 a board), and the back row sat in the same light as the hero house (now hazed
 back).
 
+## SECOND MARKED-UP SHOT, SAME DAY — FOUR MORE, ALL ONE ROOT CAUSE
+
+> "a light post [should] never be in the driveway where a car enters… why are
+> you like not just using the windows and you're like doing zoomed in zoomed out
+> pictures of windows… there's an asset I don't remember approving. It looks
+> like a volcanic [fire] that you're trying to have as a rock… I'm a little
+> confused why the cars look like they're low quality pixel wise."
+
+Three of the four are the same defect wearing different clothes: **I was
+resampling his approved art.**
+
+**THE CELL WAS WRONG.** Every tile in every approved bank is **44 px**. The world
+was being drawn at **38 px**, so the ENTIRE corpus was being resized every frame
+at a 0.86 ratio — and through `LANCZOS`, a *smoothing* filter. That is precisely
+"low quality pixel wise": crisp painted pixels blurred into mush. The cell is now
+44, an approved tile blits 1:1 and is never touched, and every remaining scale is
+`NEAREST`. Cars specifically now draw at a clean integer **2×**, every pixel
+doubled, nothing resampled. Gated: the cell must equal the corpus cell, and any
+`LANCZOS`/`BICUBIC`/`BILINEAR` on art fails the build.
+
+**THE WINDOWS.** The corpus tile already IS a wall with a window in it. I was
+cropping the window out of it, shrinking it by a non-integer ratio, and drawing
+my own frame and sill around it — so the same window appeared at three different
+sizes on one screen. Now the approved tile is used **whole**, untouched. Gated.
+
+**THE VOLCANIC ROCK.** He never approved it, and it is not one bad sprite: **all
+24 members of the desert BOULDER family are glowing lava rock.** Las Vegas sits
+in a basin of limestone and sandstone; there is no volcano and there never was.
+Banned by LORE, registered by bank and index next to the radiation marks, and the
+build dies if one is placed. What is left in the yard is plain grey broken
+concrete.
+
+**THE LIGHT POST IN THE DRIVEWAY.** Moved onto the walk, clear of the drive, and
+now gated against the driveway rect — nothing may stand where a car drives in.
+
 ## WHAT THIS CHANGES
 
 - **The tile-reassembled frame is now THE TARGET**, per amendment C, and the

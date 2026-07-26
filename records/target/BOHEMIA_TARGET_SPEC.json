@@ -4,8 +4,8 @@
  "law": "laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md (TARGET SCREEN LAW)",
  "status": "DIRECTION SET, NOT YET APPROVED. Paolo 7/26: \"Front base is the only one I am concerned with and even then it looks like hallucinated AI slop.\" THE FRONT FACE is the direction; the other two are graveyarded. The look itself is still unapproved and the named defects (cars not 2x3, roofs not put on square) are fixed in this revision.",
  "frame": {
-  "art_w": 418,
-  "art_h": 912,
+  "art_w": 484,
+  "art_h": 1056,
   "poster_scale": 2,
   "aspect": 0.4583,
   "note": "iPhone portrait"
@@ -22,7 +22,7 @@
  "projection": {
   "A_FRONTFACE": {
    "kind": "axis-aligned oblique, north-up",
-   "cell_px": 38,
+   "cell_px": 44,
    "shear": 0.0,
    "roof_foreshorten": 0.3,
    "shear_note": "SHEAR IS 0 BY RULING. v1 slid the top face sideways off its own walls and Paolo called it: \"the roofs are all fucked up not put on correctly.\" A roof sits square over its footprint; the 45 read comes from the roof PITCH, never from sliding the box."
@@ -32,8 +32,8 @@
   "cells_long": 3,
   "cells_wide": 2,
   "px": [
-   114,
-   76
+   132,
+   88
   ],
   "source": "engine/bohemia_prop_scale.js (PAOLO LOCKED, '2x3 i told you')",
   "note": "read out of the engine at render time so a target screen can never disagree with the game. Restated by Paolo 7/26 after v1 drew them at roughly 1x2."
