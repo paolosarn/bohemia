@@ -1,0 +1,140 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S16 — THE VOICE AT THREE
+# Shape: the signal quest. Faction wires: ANARCHISTS, NETWORK. Grounded in the
+# real: a transmitter can be found by anyone with two receivers and a compass,
+# because two bearings cross at exactly one roof, and the only defense pirate
+# broadcasters have ever had is being short and being somewhere else tomorrow.
+# The whole quest is that one true fact: talking is not the danger, staying still
+# while you talk is. Systems AS the mechanic: the network is manufactured
+# protection (canon) and its finder crew are technicians doing a job well, not
+# monsters. No proper names. The lesson underneath: a voice that knows it can be
+# found and keeps talking anyway is worth more than a safe one, and it is not
+# your voice, so it is not your risk to spend. CLOUT rides the deed: teaching her
+# to move is #quiet, one last long broadcast everybody hears is #notable, lying
+# to the finder crew is #risky, putting their own method on the air live is
+# #reckless.
+
+@QUEST   bq_voice_at_three   The Voice At Three
+@ACT     2
+@FACTION ANARCHISTS
+@ONCE    true
+
+@ROLE voice  REQ  faction=ANARCHISTS  runs_the_transmitter=true
+@ROLE tech   REQ  faction=NETWORK     carries_the_finder=true
+
+@STAGE 10
+  @LOG Somebody talks on a dead band at three in the morning and half the valley quietly listens.
+  @DO show_objective 10
+@STAGE 20
+  @LOG There is a crew walking bearings on her. Two crossings and they have the roof.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Taught her to be short and to be somewhere else. Four minutes a night, a different roof, no pattern. She is still on the air and nobody has ever written it down.
+  @DO bond voice +20
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Gave her one long night with the whole valley listening, then took the set apart at dawn and buried the pieces. One broadcast everybody heard once and nobody will ever hear again.
+  @DO faction ANARCHISTS +10
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Walked the finder crew a false bearing and watched them believe me. She got weeks out of it. I got a face in somebody's notebook.
+  @DO faction_posture NETWORK +1
+  @DO set_flag lied_to_the_finders
+  @DO complete_objective 20
+@STAGE 33 COMPLETE #reckless
+  @LOG Put their own method on the air. Live, at three, in plain words, so every roof in the valley knows exactly how a voice gets found. She is safer now. So is nobody else who works for them.
+  @DO faction ANARCHISTS +14
+  @DO faction_posture NETWORK +2
+  @DO set_flag aired_the_method
+  @DO complete_objective 20
+@STAGE 34 FAIL #quiet
+  @LOG Told her to go dark and she did. The band is static at three now, and the people who used to sit up for it do not talk about it.
+  @DO bond voice -15
+
+@OBJ 10  "Find the voice on the dead band"   target=voice
+@OBJ 20  "Keep her on the air"               target=tech
+
+# =====================================================================
+# THE ASK. Theme in the first exchange: she already knows the arithmetic
+# and has decided to lose it slowly instead of quickly.
+# =====================================================================
+@TALK roof  speaker=voice  entry=stage>=10,stage<20
+  @SAY You found me the easy way, which means the hard way is about two nights behind you. #wary
+  @SAY I read weather, water levels, which line is out, who got taken and from where. It is not a movement. It is a bulletin.
+  @SAY And it works because at three in the morning people are alone and a voice is the only company that has ever been free.
+  @OPT "How long before they find you?"     [gate: none]  -> found
+  @OPT "Why not just stop?"                  [gate: none]  -> stop
+  @OPT "Go dark. Tonight."                   [gate: none]  -> END  @DO set_stage 34
+  @OPT (let her finish the broadcast)        [gate: none]  SILENCE -> found
+  @NOVERB "Ask her who else is on the band"
+@END
+
+@TALK found  speaker=voice
+  @SAY Two receivers, two bearings, one roof. That is the entire trick and it has not changed in a hundred years. #dread
+  @SAY They have been walking my street with a case for a week. I know because they are polite and nobody is polite up here.
+  @DO set_stage 20
+@END
+
+@TALK stop  speaker=voice
+  @SAY Because the night the water came through the wash, forty people were awake at three and heard it from me before it got to them. #tired
+  @SAY I do not think I am brave. I think I am the only one who did not put the set down, and that is a much smaller thing than people want it to be.
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE CREW. He is a technician who likes his work and is bored of being
+# treated as a ghoul. That is exactly what makes him dangerous.
+# =====================================================================
+@TALK finder  speaker=tech  entry=stage>=20
+  @SAY You are the fourth person this week to be standing exactly where somebody stands when they want to know what is in the case. #flat
+  @SAY It is a receiver and a compass. That is all it is. People imagine something wicked and get disappointed.
+  @SAY I take a bearing here, a bearing four streets over, and they cross. Then I write down a roof. What happens after the roof is not my department, and yes, I know how that sounds.
+  @OPT "What happens after the roof?"       [gate: none]  TRAP -> after
+  @OPT "The bearing runs north, past the yards."  [gate: none]  -> lie
+  @OPT "Nothing up there but wind."          [gate: none]  -> move
+  @NOVERB "Offer him something to walk away"
+@END
+
+@TALK after  speaker=tech
+  @SAY A conversation. A polite one, usually in daylight, usually with somebody who does not raise their voice. #wary
+  @SAY I have never seen the end of one. I have noticed that the band goes quiet afterward and stays quiet, and I have decided not to be curious about that, and you can think whatever you like about the deciding.
+  @OPT "The bearing runs north."            [gate: none]  -> lie   @DO learn the_band_goes_quiet
+  @OPT "Then I will move her instead."       [gate: none]  -> move  @DO learn the_band_goes_quiet
+  @OPT "Everybody is going to hear about the case."  [gate: none]  -> air  @DO learn the_band_goes_quiet
+@END
+
+@TALK lie  speaker=tech
+  @SAY North. Past the yards. #flat
+  @SAY You said that very smoothly, and I am going to write it down exactly as smoothly as you said it, and one of us is going to be wrong on paper.
+  @OPT "North. That is what I heard."       [gate: none]  -> END  @DO set_stage 32
+  @OPT (hold his eye and say nothing)        [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "Forget it. I never talked to you."   [gate: none]  -> move
+@END
+
+# =====================================================================
+# THE ANSWER. Short and mobile beats loud and brave, and the loud option
+# is genuinely better for HER and genuinely worse for everyone else.
+# =====================================================================
+@TALK move  speaker=voice
+  @SAY Four minutes. Different roof. No pattern, not even a clever one, because a clever pattern is still a pattern. #wary
+  @SAY It is a smaller bulletin. It is a bulletin that keeps happening. I can live with small.
+  @OPT "Four minutes. Then gone."           [gate: none]  -> END  @DO set_stage 30
+  @OPT (help her carry the set down)         [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. One long night first."           [gate: none]  -> lastnight
+@END
+
+@TALK lastnight  speaker=voice
+  @SAY One night, all of it, everything I have been too careful to say, and then the set goes in the ground before dawn. #dread
+  @SAY Everyone hears it once. Nobody ever hears it again. I have wanted to do that since the first week and I have never been stupid enough.
+  @OPT "One night. Say all of it."          [gate: none]  -> END  @DO set_stage 31
+  @OPT "No. Short and moving. Stay alive."   [gate: none]  -> move
+@END
+
+@TALK air  speaker=voice
+  @SAY Their method. On the air. Bearings, crossings, the case, the polite men, all of it in plain words at three in the morning. #dread
+  @SAY After that every roof in the valley knows how it is done, and every person who does it for a living is a face people recognize. That is not a broadcast. That is a door I cannot close.
+  @OPT "Open it."                           [gate: none]  -> END  @DO set_stage 33
+  @OPT (hand her the notes and nod)          [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT "Too far. Short and moving instead."  [gate: none]  -> move
+@END

@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
-BOHEMIA QUEST JUDGE (7/25/26) - Paolo judges the NINE REAL CANON QUESTS, the
-first playable Bohemia quests ever to ship into the live phone.
+BOHEMIA QUEST JUDGE (7/25/26, BATCHED 7/26/26) - Paolo judges the REAL CANON
+QUESTS, the playable Bohemia quests that ship into the live phone.
+
+BATCHED (7/26, UNJUDGED-IS-DEAD law): a judge page only ever carries candidates
+Paolo has NEVER SEEN. Old batches are never re-surfaced, so this tool takes a
+batch name and builds exactly one sitting's page:
+
+  python3 tools/bohemia_quest_judge.py            -> the 7/25 page, S01-S09 (the record)
+  python3 tools/bohemia_quest_judge.py fresh      -> the 7/26 page, S10-S21 (fresh sitting)
 
 These are not mockups. Each card carries the quest's real parsed content, the
 REAL tile the casting bridge cast it to in the live valley (faction + x/y,
@@ -33,15 +40,28 @@ import json
 import os
 import re
 import subprocess
+import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 BQ_DIR = 'quests/bq'
-OUT = 'slices/BOHEMIA_QUEST_JUDGE_7_25_26.html'
 
-files = sorted(f for f in os.listdir(BQ_DIR) if f.endswith('.bq'))
+# name -> (output page, page heading, filename prefixes in this sitting)
+BATCHES = {
+    'first': ('slices/BOHEMIA_QUEST_JUDGE_7_25_26.html', 'THE 9 CANON QUESTS',
+              tuple('S0%d' % i for i in range(1, 10))),
+    'fresh': ('slices/BOHEMIA_QUEST_JUDGE_7_26_26.html', 'THE 12 NEW CANON QUESTS',
+              tuple('S%d' % i for i in range(10, 22))),
+}
+BATCH = sys.argv[1] if len(sys.argv) > 1 else 'first'
+if BATCH not in BATCHES:
+    raise SystemExit('QUEST JUDGE REFUSES: unknown batch %r (have: %s)' % (BATCH, ', '.join(BATCHES)))
+OUT, HEADING, PREFIXES = BATCHES[BATCH]
+
+files = sorted(f for f in os.listdir(BQ_DIR)
+               if f.endswith('.bq') and f.startswith(PREFIXES))
 if not files:
-    raise SystemExit('QUEST JUDGE REFUSES: no .bq quests found in ' + BQ_DIR)
+    raise SystemExit('QUEST JUDGE REFUSES: no .bq quests in batch %r' % BATCH)
 
 # THE REAL CAST, from the REAL engine. We boot the actual loop and ask it where
 # each quest lands, rather than re-deriving the rule here (two implementations of
@@ -112,16 +132,16 @@ bq_js = open('engine/bohemia_bq.js', encoding='utf-8').read()
 rt_js = open('engine/bohemia_quest_runtime.js', encoding='utf-8').read()
 
 html = """<meta charset="utf-8">
-<title>BOHEMIA - JUDGE THE 9 CANON QUESTS</title>
+<title>BOHEMIA - JUDGE __HEADING__</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
 <div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2a1f">
-  <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a;flex:1">THE 9 CANON QUESTS <span id="tally" style="font:600 11px monospace;color:#8f8770"></span></div>
+  <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a;flex:1">__HEADING__ <span id="tally" style="font:600 11px monospace;color:#8f8770"></span></div>
   <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
   <button id="exp" style="padding:9px 13px;border-radius:8px;background:#3f8c3f;color:#fff;border:0">&#10515; EXPORT .txt</button>
 </div>
 <div id="intro" style="font:12px/1.6 -apple-system,sans-serif;color:#8f8770;padding:12px 14px 0;max-width:760px">
-  These are the first playable Bohemia quests, live in the phone right now. Every one
+  These are real playable Bohemia quests, live in the phone right now. Every one
   is real: real dialogue, real forks, real endings. Tap PLAY IT and walk one to an
   ending, then thumb it. The ending you land on decides your CLOUT, which is what the
   feed rewards. WHERE says the real tile the engine cast the quest to in the valley.
@@ -286,7 +306,7 @@ function build(){
 
 function exportTxt(){
   const L=[];
-  L.push('BOHEMIA QUEST VERDICT - THE 9 CANON QUESTS');
+  L.push('BOHEMIA QUEST VERDICT - __HEADING__');
   L.push('the first playable Bohemia quests, live in the phone');
   L.push('');
   QUESTS.forEach(q=>{
@@ -307,7 +327,7 @@ function exportTxt(){
   const blob=new Blob([L.join('\\n')],{type:'text/plain'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  a.download='BOHEMIA_QUEST_VERDICT_7_25_26.txt'; a.click();
+  a.download='__EXPORTNAME__'; a.click();
 }
 document.getElementById('sun').onclick=()=>{ SUN=!SUN; build(); };
 document.getElementById('exp').onclick=exportTxt;
@@ -317,6 +337,8 @@ build();
 
 html = (html.replace('__BQ__', bq_js)
             .replace('__RT__', rt_js)
+            .replace('__HEADING__', HEADING)
+            .replace('__EXPORTNAME__', os.path.basename(OUT).replace('BOHEMIA_QUEST_JUDGE', 'BOHEMIA_QUEST_VERDICT').replace('.html', '.txt'))
             .replace('__DATA__', json.dumps(quests)))
 open(OUT, 'w', encoding='utf-8').write(html)
 print('built %s (%d quests, %d bytes)' % (OUT, len(quests), len(html)))

@@ -1,0 +1,145 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S19 — THE MIDWIFE'S HOUR
+# Shape: two kinds of care fighting over one room. Faction wires: CHURCH,
+# VOLUNTEERS. Grounded in real medicine, no invention: what actually keeps a
+# mother and a newborn alive is clean hands, boiled water and a clean cord, and
+# for most of human history the thing that killed them was attendants who would
+# not wash. Light is a comfort; heat and soap are the medicine. So the fuel in
+# the church generator can run a lit room full of people or a boiling pot in the
+# dark, and it cannot run both for an hour. Neither side is stupid: a woman
+# frightened in the dark is a real medical problem too. Systems AS the mechanic:
+# the church is the best crisis organization in the valley (canon) and it is
+# their fuel. No proper names. CLOUT rides the deed: dark and clean is #quiet,
+# the open room singing is #notable, taking the fuel without asking is #risky.
+
+@QUEST   bq_midwifes_hour   The Midwife's Hour
+@ACT     1
+@FACTION CHURCH
+@ONCE    true
+
+@ROLE midwife  REQ  faction=VOLUNTEERS  delivers_the_block=true
+@ROLE pastor   REQ  faction=CHURCH      keeps_the_generator=true
+
+@STAGE 10
+  @LOG A woman on the second floor is in labor and the grid went down two hours ago.
+  @DO show_objective 10
+@STAGE 20
+  @LOG There is one hour of fuel in the church generator. It runs the lights or it runs the boiler.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Burned the hour on hot water and washed hands and did the whole thing by two candles. Nobody watched. She is fine and so is he.
+  @DO bond midwife +22
+  @DO faction VOLUNTEERS +6
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Lit the room and filled it and let them sing her through it, and boiled what we could before the fuel went. She asked for the singing. Everyone on the block heard him arrive.
+  @DO faction CHURCH +10
+  @DO bond midwife +8
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Took the fuel out of the church store without asking anybody. Water boiled, lamps lit, both of them alive, and a door that will be locked to this block from tomorrow.
+  @DO faction CHURCH -12
+  @DO faction VOLUNTEERS +4
+  @DO set_flag took_the_fuel
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Argued about the room for forty minutes. It went the way it goes when the water is cold and the hands are not clean, and everybody was very reasonable the whole time.
+  @DO bond midwife -20
+
+@OBJ 10  "Get to the second floor"       target=midwife
+@OBJ 20  "Spend the hour"                target=pastor
+
+# =====================================================================
+# THE ASK. Theme in her first line. She is not asking for light and she
+# knows exactly how strange that sounds to everyone else in the building.
+# =====================================================================
+@TALK upstairs  speaker=midwife  entry=stage>=10,stage<20
+  @SAY I do not need the lights. I need water at a boil and I need my hands and her hands clean, and I need it in the next hour. #tired
+  @SAY People die in this room from what is on somebody's hands, not from the dark. That has been true for two hundred years and every single year somebody argues with me about it.
+  @SAY The fuel is downstairs and it is not mine. Go and get me an hour.
+  @OPT "Why not both, lights and water?"    [gate: none]  -> both
+  @OPT "How bad is it up here?"              [gate: none]  -> bad
+  @OPT "I will get the hour."                 [gate: none]  -> down
+  @OPT (go straight down the stairs)          [gate: none]  SILENCE -> down
+  @NOVERB "Tell her the church will not give up the room"
+@END
+
+@TALK both  speaker=midwife
+  @SAY One hour of fuel. The boiler eats it or the lamps eat it. There is no version where it does both and I have already done that arithmetic twice while you were coming up the stairs. #tired
+  @SAY If it has to be lamps, I will manage. It will just be the kind of managing I remember afterward.
+  @OPT "Then I will go and ask."             [gate: none]  -> down
+  @OPT (nod and head down)                    [gate: none]  SILENCE -> down
+@END
+
+@TALK bad  speaker=midwife
+  @SAY It is a first baby and she is nineteen and terrified and it is going to be a long one. That is not bad. That is normal, and normal kills people out here. #dread
+  @SAY What she wants is to not be alone in the dark. What she needs is boiled water. I will not pretend those are the same thing and I will not pretend the first one does not matter.
+  @OPT "Then she should be the one who picks." [gate: none]  -> down  @DO learn she_should_choose
+  @OPT "Water. Go get the pot on."             [gate: none]  -> down
+@END
+
+@TALK down  speaker=midwife
+  @SAY Chapel, back room, blue cans. Ask him properly, he is not a stone. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE GENERATOR. He is not fighting her. He genuinely believes a room full
+# of voices is medicine, and out here he has watched it be exactly that.
+# =====================================================================
+@TALK chapel  speaker=pastor  entry=stage>=20
+  @SAY I know what she wants and she is not wrong. I have also carried more people through bad nights than she has, and not one of them was carried by a clean pot. #flat
+  @SAY An hour of light is a room full of people who love her, singing, and her seeing their faces. That is not superstition. That is the oldest medicine there is and I have watched it work.
+  @SAY It is one hour and it is the last fuel in this building. Tell me which one it buys.
+  @OPT "Water. Dark room, clean hands."      [gate: none]  -> water
+  @OPT "Light. Fill the room. Let them sing." [gate: none]  -> light
+  @OPT "Ask her. It is her hour."             [gate: none]  -> asker
+  @OPT "What is the fuel actually for?"        [gate: none]  TRAP -> forwhat
+  @NOVERB "Tell him the church can find more fuel tomorrow"
+@END
+
+# THE TRAP: the honest answer is that the fuel is the block's whole winter
+# reserve, and knowing that makes every option heavier and none of them wrong.
+@TALK forwhat  speaker=pastor
+  @SAY Winter. Two nights of heat in this hall when it gets cold enough that people come here instead of dying at home. #dread
+  @SAY So it is not an hour against an hour. It is an hour against a cold night in the deep of winter that I cannot see from here and neither can you.
+  @OPT "Still. Boil the water."              [gate: none]  -> water  @DO learn fuel_is_the_winter
+  @OPT "Then let them sing and see her face."  [gate: none]  -> light  @DO learn fuel_is_the_winter
+  @OPT "Then nobody spends it yet."           [gate: none]  -> stall  @DO learn fuel_is_the_winter
+  @OPT (take the cans and go)                  [gate: none]  SILENCE -> steal  @DO learn fuel_is_the_winter
+@END
+
+@TALK water  speaker=pastor
+  @SAY Boiled water and two candles, then. It is the answer I would give if I trusted arithmetic more than I trust people, and tonight you are the one deciding. #flat
+  @SAY Take the cans. And come and tell me afterward, whichever way it goes. Do not make me hear it from the street.
+  @OPT "Water. Dark room."                  [gate: none]  -> END  @DO set_stage 30
+  @OPT (take the cans and go up)             [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK light  speaker=pastor
+  @SAY Then we fill the room and we sing, and she will remember every face in it for the rest of her life. #flat
+  @SAY And what water we can boil before the tank goes, we boil. It will not be as much as she wants. I know what that might cost and I am going to be in the room when it does.
+  @OPT "Light the room."                    [gate: none]  -> END  @DO set_stage 31
+  @OPT "No. Water. She needs the pot."       [gate: none]  -> water
+@END
+
+@TALK asker  speaker=pastor
+  @SAY Ask a girl in the middle of it to decide between what she is afraid of and what she needs. #dread
+  @SAY She will say lights. They always say lights. And she will be choosing with better information than either of us has, because it is her hour and her body and her son.
+  @OPT "Then it is lights. She said lights."  [gate: none]  -> light
+  @OPT "No. Water, and I will sit with her myself."  [gate: none]  -> water
+@END
+
+@TALK steal  speaker=midwife
+  @SAY You did not ask him. #wary
+  @SAY Water is on and the lamps are lit and both of them are going to be fine, and that door is closed to this block from tomorrow morning, and I will be the one standing at it.
+  @OPT "Both of them live. That is the trade."  [gate: none]  -> END  @DO set_stage 32
+  @OPT (get the pot on and say nothing)          [gate: none]  SILENCE -> END  @DO set_stage 32
+@END
+
+@TALK stall  speaker=pastor  entry=stage>=20,knows:fuel_is_the_winter
+  @SAY We can keep discussing it. That is a choice too, and it is the only one that gets made by not making it. #dread
+  @OPT "Keep talking."                      [gate: none]  -> END  @DO set_stage 33
+  @OPT "No. Decide it now."                  [gate: none]  -> chapel
+@END

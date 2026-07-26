@@ -1,0 +1,125 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S14 — WHAT THE DOG KNOWS
+# Shape: grief with no villain and nothing to win. Faction wires: REMNANTS,
+# HOMELESS. Grounded in the real: working dogs guard their handler's body, they
+# do not understand death, and a starving guard dog is dangerous for exactly as
+# long as it takes somebody patient to sit down and wait. That patience is the
+# whole quest and the whole lesson: some things are only solved by being willing
+# to spend two hours you do not have. NO LOOT ANYWHERE in this quest by design
+# (named-body spirit): nothing in the stairwell is a reward. Systems AS the
+# mechanic: the remnants are the floor of civilization and how one of theirs gets
+# carried out in public is a statement about them, whether you meant it or not.
+# No proper names. CLOUT rides the deed: sitting with it is #quiet, the by-the-
+# book crew with a catchpole is #notable, carrying him out through the block in
+# daylight is #reckless because it shows everyone that a soldier died alone and
+# nobody came.
+
+@QUEST   bq_what_the_dog_knows   What The Dog Knows
+@ACT     1
+@FACTION REMNANTS
+@ONCE    true
+
+@ROLE sergeant  REQ  faction=REMNANTS  knew_the_handler=true
+@ROLE scav      REQ  faction=HOMELESS  found_the_stairwell=true
+
+@STAGE 10
+  @LOG Something is snarling in a stairwell on the north side and nobody will go past the second floor.
+  @DO show_objective 10
+@STAGE 20
+  @LOG It is a working dog. Its handler is dead on the landing and it has not left him.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Sat on the step for two hours saying nothing until it took food out of my hand. Buried him behind the wall. The dog walks with me now.
+  @DO bond sergeant +20
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Called the crew. Catchpole, blanket, the whole procedure, done properly with people watching. The dog eats every day now and works for somebody again.
+  @DO faction REMNANTS +9
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Carried him out through the middle of the block in daylight with the dog behind me, so the whole valley could see how one of theirs ended and how long it took anyone to notice.
+  @DO faction REMNANTS -6
+  @DO faction_posture REMNANTS +1
+  @DO set_flag carried_him_through_the_block
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Left it alone. Three days later the stairwell was quiet, the landing was empty, and nobody will tell me which part of that they did.
+  @DO bond sergeant -10
+
+@OBJ 10  "Find what is in the stairwell"     target=scav
+@OBJ 20  "Get the handler off the landing"   target=sergeant
+
+# =====================================================================
+# THE ASK. He does not know what is up there and he is not pretending to.
+# The theme arrives in the first line: something up there is still on duty.
+# =====================================================================
+@TALK stairwell  speaker=scav  entry=stage>=10,stage<20
+  @SAY Second floor and up is spoken for. Something big is holding the landing and it has not eaten in a while. #wary
+  @SAY It does not chase. It does not bark much. It holds. That is worse, because a thing that holds has a reason.
+  @OPT "I will go up."                    [gate: none]  -> landing
+  @OPT "Holding what?"                     [gate: none]  -> holding
+  @OPT "Leave it. It will sort itself."    [gate: none]  -> END  @DO set_stage 33
+  @OPT (start up the stairs)               [gate: none]  SILENCE -> landing
+  @NOVERB "Ask him to go up first"
+@END
+
+@TALK holding  speaker=scav
+  @SAY There is a man up there who stopped moving four days ago, and there is a dog up there who has not accepted that. #dread
+  @SAY I got close enough once to see the collar and the kit. Then it stood up, and I decided I had seen plenty.
+  @OPT "I am going up."                   [gate: none]  -> landing
+  @OPT (go up without answering)           [gate: none]  SILENCE -> landing
+@END
+
+@TALK landing  speaker=scav
+  @SAY Slow, then. Do not look it in the face and do not put your hand out yet. It is not angry. It is on duty. #wary
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE LANDING. The sergeant meets you at the bottom. He is not cold, he is
+# rationed: he has done this eleven times and has a procedure because the
+# procedure is the only thing that lets him keep doing it.
+# =====================================================================
+@TALK bottom  speaker=sergeant  entry=stage>=20
+  @SAY I know whose dog that is. I knew before you told me, because I know who has not checked in. #flat
+  @SAY So there are three ways this goes and I have done all three. I can bring the crew and do it properly, poles and a blanket, and the whole street watches us be competent.
+  @SAY Or somebody with more patience than sense sits on that step and waits it out, which takes hours and works better than anything I own.
+  @SAY Or you make a parade of it, and every person in this valley learns one of mine died alone in a stairwell and lay there four days. Pick.
+  @OPT "I will sit with it."               [gate: none]  -> sit
+  @OPT "Bring the crew. Do it properly."    [gate: none]  -> crew
+  @OPT "The block should see this."         [gate: none]  -> parade
+  @OPT "How long was he up there alone?"    [gate: none]  TRAP -> alone
+  @NOVERB "Ask him if the dog has a name"
+@END
+
+# THE TRAP: the honest answer costs him something he was holding together, and
+# once it is said out loud in a stairwell it cannot be unsaid.
+@TALK alone  speaker=sergeant
+  @SAY Four days. He was two streets from a post with eleven people in it and nobody walked two streets. #dread
+  @SAY Ask me that again in front of my crew and you will find out what we are actually like. Ask me here and I will tell you it keeps me up.
+  @OPT "Then I will sit with it."          [gate: none]  -> sit    @DO learn nobody_walked_two_streets
+  @OPT "Then the block should see it."      [gate: none]  -> parade @DO learn nobody_walked_two_streets
+@END
+
+@TALK sit  speaker=sergeant
+  @SAY Two hours. Maybe three. No talking, no reaching, and do not take the kit, the kit is what it is guarding. #flat
+  @SAY When it finally eats out of your hand it will lie down, and that is the part that will get you, not the smell and not the stairs.
+  @OPT "I have the time."                  [gate: none]  -> END  @DO set_stage 30
+  @OPT (sit down on the step and wait)      [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. Bring the crew instead."        [gate: none]  -> crew
+@END
+
+@TALK crew  speaker=sergeant
+  @SAY Poles, blanket, two men, ten minutes. It is clean, it is public, and it is the correct way to do a thing you do not want to feel. #flat
+  @SAY The dog goes to the kennel, gets fed twice a day, and works for somebody else inside a month. That is a good outcome. I want you to notice that I said good and not kind.
+  @OPT "Do it by the book."                [gate: none]  -> END  @DO set_stage 31
+@END
+
+@TALK parade  speaker=sergeant
+  @SAY Through the middle of the block. In the light. With his dog walking behind him. #dread
+  @SAY Every person out here will look at my uniform differently by tomorrow, and some of them will be right to. Do it if you think it needs doing. Do not do it because it will look good.
+  @OPT "It needs doing."                   [gate: none]  -> END  @DO set_stage 32
+  @OPT (lift him and start walking)         [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "No. Quietly. I will sit with it."   [gate: none]  -> sit
+@END

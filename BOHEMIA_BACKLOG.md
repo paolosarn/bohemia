@@ -69,13 +69,21 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    fresh songs = thumbs.
 
 ## QUESTS
-1. 10+ new playable .bq quests in the locked canon style: parse clean,
-   validate zero errors/warnings, play to COMPLETE through the real runtime,
-   clout-tagged by loudness, placement [PENDING Paolo]. | canon-quests gate
-   extended to cover them | engine code, the alpha | quest TEXT = Paolo reads
-   in one sitting (fresh, first look).
-2. (after 1) Act-1 main-quest beats from the locked lore (cold open ->
-   flash-flood climax) drafted as .bq chains. | same bar | same | yes.
+1. DONE 7/26 (S10-S21 shipped, corpus 9 -> 21, gate hardened with 5 new checks,
+   laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md). Sitting is live in
+   the alpha: LIFE tab -> THE 12 NEW CANON QUESTS. Awaiting thumbs.
+2. Act-1 main-quest beats from the locked lore (cold open -> flash-flood climax)
+   drafted as .bq chains. | same bar as S10-S21, plus chain continuity proven
+   headless | engine code, the alpha | yes.
+3. (discovered 7/26) MULTI-QUEST CHAIN SUPPORT: nothing in the format or the
+   runtime lets quest B read that quest A resolved (S09 -> S06 is a chain only in
+   prose). Act-1 beats need it. NON-COOK item: a cross-quest flag surface on
+   ctx.quests + a gate proving A's ending really opens B. | new gate section |
+   the .bq format's no-stat-gates law is untouchable | no.
+4. (discovered 7/26) The batch plants unread flags (opened_the_deep,
+   aired_the_method, killed_the_token, walked_them_out, owes_the_cartel,
+   sold_the_forger). Nothing consumes them. Wiring them to world beats is
+   [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
 1. VERDICT TOOLING upgrade per the doctrine: one AGGREGATED judge page across

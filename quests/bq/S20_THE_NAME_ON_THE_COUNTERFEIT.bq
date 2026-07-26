@@ -1,0 +1,151 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S20 — THE NAME ON THE COUNTERFEIT
+# Shape: the trust quest. Faction wires: REDS, CARTEL. Grounded in real economics:
+# money is not metal or charge, it is the shared belief that the next person will
+# take it, and a counterfeit is a tax levied on everyone honest enough to accept
+# in good faith. The second true thing, the one nobody expects: the CURE can be
+# worse than the disease, because the moment people stop taking the token at all,
+# the ones holding the small denominations lose everything and the ones holding
+# goods lose nothing. Systems AS the mechanic: ELECTRICITY IS THE CURRENCY (canon)
+# and these tokens are stamped claims on stored charge, so a hollow token is a
+# lie about a battery. The forger is a real technician doing real work badly
+# under pressure, not a villain. No proper names. CLOUT rides the deed: quietly
+# making the tokens good is #quiet, posting the bad serials for everyone is
+# #notable, handing him to the clearing house is #risky, telling the market the
+# token was always a story is #reckless.
+
+@QUEST   bq_name_on_counterfeit   The Name On The Counterfeit
+@ACT     2
+@FACTION REDS
+@ONCE    true
+
+@ROLE banker  REQ  faction=REDS    clears_the_tokens=true
+@ROLE forger  REQ  faction_any     stamps_the_cells=true
+@ROLE muscle  OPT  faction=CARTEL  buys_bad_paper=true
+
+@STAGE 10
+  @LOG Half the tokens coming off the market read full charge and hold nothing.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The stamp is real work by a real technician. Some of his cells are good. Some are a story about a cell.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Walked the bad ones back to him and made him work them good, cell by cell, on his own time. Nobody in the market ever learned there was a reason to doubt a token.
+  @DO faction REDS +8
+  @DO bond forger +12
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Posted every bad serial on the market wall so anybody could check their own. Trust survived. Everyone holding a hollow one ate it in public, and most of them were holding the small ones.
+  @DO faction REDS +12
+  @DO set_flag posted_the_serials
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Handed him to the clearing house and took the finder's cut. They will make an example and the example will be very effective and I will not be watching it.
+  @DO faction REDS +15
+  @DO bond forger -25
+  @DO set_flag sold_the_forger
+  @DO complete_objective 20
+@STAGE 33 COMPLETE #reckless
+  @LOG Told the whole market the token was only ever a promise on somebody else's battery. True, and by nightfall nobody was taking them, and the people with nothing but tokens had nothing.
+  @DO faction REDS -18
+  @DO faction_posture REDS +1
+  @DO advance_territory
+  @DO set_flag killed_the_token
+  @DO complete_objective 20
+@STAGE 34 FAIL #quiet
+  @LOG Said nothing. The token died slowly over a month instead of in an afternoon, and everybody blamed the weather and the caravans and each other.
+  @DO faction REDS -8
+
+@OBJ 10  "Find where the hollow tokens start"   target=banker
+@OBJ 20  "Settle the token"                     target=forger
+
+# =====================================================================
+# THE ASK. Theme in the first line: the token is not charge, it is belief,
+# and he knows exactly how thin that is because he clears them all day.
+# =====================================================================
+@TALK counter  speaker=banker  entry=stage>=10,stage<20
+  @SAY A token is a promise that somewhere there is a cell with that much left in it. That is all it has ever been. #flat
+  @SAY I cleared eleven yesterday that read full and were hollow, and the people holding them were not swindlers, they were a laundry and two kids and a man who sells eggs.
+  @SAY Whoever is stamping them is good. That is the frightening part. Bad forgeries are a nuisance. Good ones make everybody wonder about the good tokens too.
+  @OPT "What happens if people stop taking them?"  [gate: none]  TRAP -> stop
+  @OPT "Where do they come from?"                   [gate: none]  -> where
+  @OPT "Not my market."                              [gate: none]  -> END  @DO set_stage 34
+  @OPT (turn one over in your hand)                  [gate: none]  SILENCE -> where
+  @NOVERB "Ask him how many hollow ones he has cleared himself"
+@END
+
+# THE TRAP: the answer is the reason the loud fix is the worst fix, and it
+# is delivered as accounting, not as a warning.
+@TALK stop  speaker=banker
+  @SAY Then a man with a wall of tinned food is exactly as rich tomorrow as he is today, and a woman holding forty small tokens has nothing at all. #dread
+  @SAY That is what a currency dying looks like. It does not take from everyone evenly. It takes everything from whoever was too poor to be holding anything but money.
+  @OPT "Then it stays alive. Where is he?"   [gate: none]  -> where  @DO learn the_poor_hold_the_money
+  @OPT (say nothing and keep listening)       [gate: none]  SILENCE -> where  @DO learn the_poor_hold_the_money
+@END
+
+@TALK where  speaker=banker
+  @SAY Same stamp, same batch marks, all of them from the east side of the yards. It is one bench and one pair of hands. #flat
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE BENCH. He is not printing lies for fun. He is reconditioning dead
+# cells, which is real and hard, and he stopped testing when he got behind.
+# =====================================================================
+@TALK bench  speaker=forger  entry=stage>=20
+  @SAY I recondition dead cells. That is a real trade, it takes real work, and about a third of them come back genuinely good. #wary
+  @SAY The other two thirds I used to scrap. Then I got behind, and a scrapped cell pays nothing, and a stamped one pays whether or not anybody ever draws it down.
+  @SAY I have not slept properly in five weeks and I know exactly what I did, so do not do the part where you explain it to me.
+  @OPT "You work every hollow one good again."     [gate: none]  -> good
+  @OPT "The serials go up on the market wall."      [gate: none]  -> serials
+  @OPT "The clearing house can have you."            [gate: none]  -> sell
+  @OPT "Who else bought these off you in bulk?"       [gate: none]  TRAP -> bulk
+  @NOVERB "Ask him how many he stamped in total"
+@END
+
+@TALK bulk  speaker=forger
+  @SAY One buyer, in volume, who did not ask a single question about the test results and paid over the odds for that privilege. #dread
+  @SAY He knew. Of course he knew. He wanted hollow ones, because hollow ones travel and nobody can trace where a promise stopped being true.
+  @OPT "Then you make them good, all of them."   [gate: none]  -> good     @DO cast muscle  @DO learn bought_in_bulk
+  @OPT "Then everyone sees the serials."          [gate: none]  -> serials  @DO cast muscle  @DO learn bought_in_bulk
+  @OPT "Take me to the buyer."                     [gate: none]  -> market   @DO cast muscle  @DO learn bought_in_bulk
+@END
+
+@TALK good  speaker=forger
+  @SAY Every hollow one, worked back to what it says on the stamp, on my own time, until the number is zero. #tired
+  @SAY That is four months of nights. Nobody ever hears about any of it, and every person who took one gets the charge they were promised. Yes. I will do that.
+  @OPT "Cell by cell. Start tonight."         [gate: none]  -> END  @DO set_stage 30
+  @OPT (put the hollow ones on his bench and leave)  [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK serials  speaker=forger
+  @SAY Every bad number on the wall where anybody can read it. #dread
+  @SAY People will check their pockets and about forty of them will find out today that they are poorer than they were this morning. And they will keep taking tokens tomorrow, because now there is a wall.
+  @OPT "It goes on the wall."                 [gate: none]  -> END  @DO set_stage 31
+  @OPT "No. You work them good instead."       [gate: none]  -> good
+@END
+
+@TALK sell  speaker=forger
+  @SAY The clearing house. They are very calm people and they are very consistent. #dread
+  @SAY There is a finder's cut, so you will be paid for it, and that is the part you should sit with, not the rest.
+  @OPT "Take him."                            [gate: none]  -> END  @DO set_stage 32
+  @OPT (hand him over without a word)          [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "No. You are working them good."        [gate: none]  -> good
+@END
+
+@TALK market  speaker=muscle  entry=stage>=20,role:muscle
+  @SAY You have been asking about a bench. I bought two hundred off that bench and I would buy two hundred more. #flat
+  @SAY A promise that cannot be checked is the best thing anyone has invented out here, and every one of you keeps inventing it again.
+  @OPT "The market is going to hear all of this."  [gate: none]  -> burnit
+  @OPT "The serials go on the wall instead."        [gate: none]  -> serials
+  @NOVERB "Ask him to buy the hollow ones back"
+@END
+
+@TALK burnit  speaker=muscle
+  @SAY Tell them. Tell them the whole thing, that the token is a story about somebody else's battery, and watch what an afternoon does. #flat
+  @SAY By dark nobody takes one. Everybody with goods gets richer and everybody with tokens gets nothing, and you will have been completely honest.
+  @OPT "They should hear it anyway."          [gate: none]  -> END  @DO set_stage 33
+  @OPT (say it out loud in the middle of the market)  [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT "No. The wall. The serials."            [gate: none]  -> serials
+@END

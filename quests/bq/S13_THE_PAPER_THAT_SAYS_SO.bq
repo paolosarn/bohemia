@@ -1,0 +1,147 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S13 — THE PAPER THAT SAYS SO
+# Shape: the property claim. Faction wires: REDS, TRADES. Grounded in the real:
+# after every collapse the first thing people rebuild is not law, it is the habit
+# of honoring paper, and possession versus title is the oldest argument there is.
+# The holder's deed is genuine. The family in the building is genuine. Neither is
+# lying and the valley has no court, so what a paper is worth is exactly what the
+# block agrees it is worth, which is the lesson the game never states. Systems AS
+# the mechanic: the reds are the compound-interest faction and a precedent set in
+# public costs them more than one building. No proper names. CLOUT rides the deed:
+# a brokered deal nobody sees is #quiet, a new paper signed in front of witnesses
+# is #notable, enforcing the old paper is #risky, burning it in his hands is
+# #reckless.
+
+@QUEST   bq_paper_says_so   The Paper That Says So
+@ACT     1
+@FACTION REDS
+@ONCE    true
+
+@ROLE holder  REQ  faction=REDS   holds_the_paper=true
+@ROLE tenant  REQ  faction_any    lives_in_the_building=true
+@ROLE welder  OPT  faction=TRADES fixed_the_roof=true
+
+@STAGE 10
+  @LOG A man with a folded deed wants the building on the corner. Four families sleep in it.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The paper is real. So is the roof they patched, the door they hung, the eleven years.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Brokered it in a stairwell. He gets paid in work and light, they keep the door. No witnesses, no precedent, no trouble.
+  @DO faction REDS +5
+  @DO bond tenant +15
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Wrote a new paper in the street with the block watching and every name on it. Now there is a precedent, and precedents are the thing his faction actually owns.
+  @DO faction TRADES +8
+  @DO faction REDS -6
+  @DO set_flag wrote_a_new_paper
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Honored the deed. Four families out by the weekend, the paper intact, and a man who owes me a favor I will not enjoy spending.
+  @DO faction REDS +12
+  @DO bond tenant -25
+  @DO complete_objective 20
+@STAGE 33 COMPLETE #reckless
+  @LOG Burned the deed in his hands in front of everybody. The building is theirs tonight. Paper is cheap. Being the person who burns paper is not.
+  @DO faction REDS -15
+  @DO faction_posture REDS +1
+  @DO complete_objective 20
+@STAGE 34 FAIL #quiet
+  @LOG Stayed out of it. They were out by the weekend anyway and I got to keep my hands clean and my walk to the market quiet.
+  @DO bond tenant -10
+
+@OBJ 10  "Read the deed"                   target=holder
+@OBJ 20  "Settle who the building belongs to"  target=tenant
+
+# =====================================================================
+# THE ASK. Theme in the first line. He is not a bully. He is worse than
+# that, he is correct.
+# =====================================================================
+@TALK deed  speaker=holder  entry=stage>=10,stage<20
+  @SAY It is a real deed, filed in a real office, in a city that had offices. I am not asking anybody to take my word. #flat
+  @SAY Nobody in that building has anything but time in it. Time is not a claim. If time were a claim then the strongest man on any street owns everything he can sit on, and we have all seen where that ends.
+  @SAY I am not going to throw anyone out with my hands. I am going to stand here holding this until the block decides paper still means something. You are the block today.
+  @OPT "Show me the paper."             [gate: none]  -> read
+  @OPT "Who was the office filed with?"  [gate: none]  TRAP -> office
+  @OPT "Time is exactly a claim."        [gate: none]  -> argue
+  @OPT "Not my building. Not my paper."   [gate: none]  -> END  @DO set_stage 34
+  @OPT (take the deed and read it)       [gate: none]  SILENCE -> read
+  @NOVERB "Offer to buy it off him"
+@END
+
+@TALK read  speaker=holder
+  @SAY Ink, stamp, a number that used to mean a drawer. It says the corner lot and the building on it, and it does not say anything about who is warm inside it tonight. #flat
+  @SAY That is the whole trouble. Every honest thing I own is written in a language nobody speaks anymore.
+  @DO set_stage 20
+@END
+
+# THE TRAP: pull the thread and the paper's authority unravels for both of you.
+# It does not help. It just means neither of you gets to be certain again.
+@TALK office  speaker=holder
+  @SAY A county that has not collected a tax in thirty years, in a state nobody has heard from, under a country I have stopped explaining to children. #dread
+  @SAY Yes. I know. Ask it out loud on this street and the paper stops working, and then the only claims left are the ones with people standing on them.
+  @OPT "So it is worth what we say it is."   [gate: none]  -> argue  @DO learn paper_has_no_court
+  @OPT "It still says what it says."          [gate: none]  -> read   @DO learn paper_has_no_court
+@END
+
+@TALK argue  speaker=holder
+  @SAY Eleven years of patched roof, I know. I have counted the patches. They are good patches. #flat
+  @SAY And if I let this one go, the next one goes, and by spring the only thing that decides anything out here is who has the most cousins. I would rather live under bad paper than that.
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE DOOR. She has no argument, only the eleven years, and she knows
+# exactly how weak that sounds and says it first.
+# =====================================================================
+@TALK door  speaker=tenant  entry=stage>=20
+  @SAY I know what he has. I do not have one of those. I have a roof we tarred twice and a door my brother hung and four kids who have never slept anywhere else. #tired
+  @SAY If it comes down to what is written, we lose. So do not tell me what is written. Tell me what happens.
+  @OPT "A quiet deal. He gets paid in work."  [gate: none]  -> broker
+  @OPT "A new paper, in the street, witnessed."  [gate: none]  -> public
+  @OPT "The deed stands. You have the weekend."   [gate: none]  -> evict
+  @OPT "I am burning it in his hands."             [gate: none]  -> burn
+  @NOVERB "Promise her nobody is ever taking this building"
+@END
+
+@TALK broker  speaker=tenant
+  @SAY Work and light for the corner. He gets a return, we get the door, nobody has to be right in front of an audience. #tired
+  @SAY It is not justice. It is a stairwell handshake. I will take a stairwell handshake over being right and outside.
+  @OPT "Done. In the stairwell."          [gate: none]  -> END  @DO set_stage 30
+  @OPT (shake on it and say nothing)      [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK public  speaker=tenant
+  @SAY Names on it. Everyone watching. That means the next block does it too, and the block after. #wary
+  @SAY His people will hate that more than losing this building, and they will remember it longer than we will.
+  @OPT "Then we write it in the street."  [gate: none]  -> END  @DO set_stage 31
+  @OPT "Too loud. The stairwell instead."  [gate: none]  -> broker
+@END
+
+@TALK evict  speaker=tenant
+  @SAY Say it plain then. Do not dress it. #dread
+  @SAY Fine. The weekend. Do not come and help us carry anything, I could not stand it.
+  @OPT "The paper stands."                [gate: none]  -> END  @DO set_stage 32
+  @OPT "No. Wait. A deal instead."         [gate: none]  -> broker
+@END
+
+@TALK burn  speaker=tenant
+  @SAY In his hands. In front of everybody. #dread
+  @SAY They will love you for a week. Then every man with a folded paper in this valley knows exactly what kind of person you are, and some of them will come to find out if it is true.
+  @OPT "Light it."                        [gate: none]  -> END  @DO set_stage 33
+  @OPT (take the deed and burn it without a word)  [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT "You are right. Quietly, then."     [gate: none]  -> broker
+@END
+
+# The welder is the block's memory of who actually built what. Optional, and the
+# only place the eleven years get counted out loud.
+@TALK roof  speaker=welder  entry=stage>=20
+  @SAY I tarred that roof twice and hung the flashing myself, and I did not do it for a man with a drawer number. #flat
+  @SAY Whatever you settle, settle it so the next person who fixes something believes fixing it means anything. That is all the crew wants out of this.
+  @OPT "Noted. It matters."               [gate: none]  -> door
+  @OPT (nod and go back to the door)      [gate: none]  SILENCE -> door
+  @NOVERB "Ask him to bring the crew and make it a fight"
+@END

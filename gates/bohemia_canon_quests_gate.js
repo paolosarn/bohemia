@@ -16,6 +16,23 @@
      5) it loads and plays through the REAL loop (Loop.boot -> ctx.quests.start),
         so canon quests are proven as first-class engine citizens, not just parseable text.
 
+   HARDENED 7/26/26 (the S10-S21 batch, QUESTS lane). Five checks added, all of which
+   the original nine already passed, so the bar went UP and nothing was grandfathered:
+     6) NO PHANTOM ENDING — every DECLARED terminal stage is actually REACHED by the
+        explorer. Declaring an ending nobody can play is the cheapest way to fake
+        branch count, and it is exactly the defect that hid in two files of this very
+        batch while they were being written.
+     7) THE FORK IS LOUDNESS — at least TWO distinct CLOUT tags across a quest's
+        terminal stages. A quest whose every ending scores the same has no loudness
+        fork, so it is not expressing the clout mechanic at all (Paolo 7/21: the
+        loudness of the DEED sets it).
+     8) SILENCE IS ALWAYS AN OPTION — at least one SILENCE option per quest
+        (opening-craft law 12: silence is the premium option, never a missing one).
+     9) NO DEAD OBJECTIVE — every declared @OBJ is actually raised by some
+        show_objective, so the quest log can never carry a line the play never sets.
+    10) UNIQUE QUEST ID across the whole corpus — two files sharing a @QUEST id
+        silently collide in ctx.quests (pull-from-anywhere returns one of them).
+
    Run: node gates/bohemia_canon_quests_gate.js
    Registered in gates/bohemia_gates.py as CANON QUESTS. */
 'use strict';
@@ -29,6 +46,7 @@ var DIR = path.join(__dirname, '..', 'quests', 'bq');
 var CLOUT = { quiet:1, notable:1, risky:1, reckless:1 };
 
 var pass = 0, fail = 0, fails = [];
+var seenIds = {};   // @QUEST id -> the file that claimed it first (uniqueness check 10)
 function ok(c, m) { if (c) { pass++; } else { fail++; fails.push(m); console.log('  FAIL: ' + m); } }
 
 /* An exhaustive, cycle-safe explorer. From the start it tries EVERY available entry
@@ -128,6 +146,30 @@ files.forEach(function (f) {
     var ct = (s.tags || []).filter(function (t) { return CLOUT[t]; });
     ok(ct.length === 1, tag + ': terminal stage #' + s.n + ' carries exactly one CLOUT tag (found: ' + (s.tags || []).join(',') + ')');
   });
+
+  // 6) NO PHANTOM ENDING: a declared ending the explorer can never reach is a lie
+  //    about the branch count. Compare DECLARED terminal stages to REACHED ones.
+  var declaredTerm = termStagesDef.map(function (s) { return s.n; });
+  var phantom = declaredTerm.filter(function (n) { return ex.terminalStages.indexOf(n) < 0; });
+  ok(phantom.length === 0, tag + ': every declared ending is actually reachable in play (unreachable: ' + (phantom.join(',') || 'none') + ')');
+
+  // 7) THE FORK IS LOUDNESS: >= 2 distinct clout tags across the terminal stages
+  var cloutSet = {};
+  termStagesDef.forEach(function (s) { (s.tags || []).forEach(function (t) { if (CLOUT[t]) cloutSet[t] = true; }); });
+  ok(Object.keys(cloutSet).length >= 2, tag + ': endings carry at least TWO distinct CLOUT tags (found: ' + (Object.keys(cloutSet).join(',') || 'none') + ')');
+
+  // 8) SILENCE IS ALWAYS AN OPTION (opening-craft law 12)
+  ok(v.stats.silences >= 1, tag + ': offers at least one SILENCE option (found ' + v.stats.silences + ')');
+
+  // 9) NO DEAD OBJECTIVE: every @OBJ must actually be raised by a show_objective
+  var shown = {};
+  (text.match(/show_objective\s+(\d+)/g) || []).forEach(function (m) { shown[m.replace(/\D+/g, '')] = true; });
+  var deadObjs = (ex.Q.objs || []).map(function (o) { return o.n; }).filter(function (n) { return !shown[String(n)]; });
+  ok(deadObjs.length === 0, tag + ': every declared @OBJ is raised by a show_objective (never shown: ' + (deadObjs.join(',') || 'none') + ')');
+
+  // 10) UNIQUE QUEST ID across the corpus (a collision silently shadows a quest in ctx.quests)
+  ok(!seenIds[Q.id], tag + ': @QUEST id "' + Q.id + '" is unique across the corpus' + (seenIds[Q.id] ? ' (also in ' + seenIds[Q.id] + ')' : ''));
+  seenIds[Q.id] = tag;
 
   // 5) loads and plays through the REAL loop as a context citizen
   var ctx = Loop.boot({ seed: 'canon-quests' });

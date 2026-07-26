@@ -1,0 +1,120 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S11 — SIXTY SECONDS OF RAIN
+# Shape: the clock quest. No villain, no negotiation, just minutes. Faction wires:
+# BLUES, HOMELESS. Grounded hard in the real: the Las Vegas wash floods from rain
+# you never see fall, twenty miles upstream, in dry sunshine, and the flood channels
+# and storm tunnels people actually live in go from dust to chest-high in minutes.
+# The whole quest is that one true fact turned into a fork. Systems AS the mechanic:
+# time is the only currency here and every option spends it somewhere different.
+# The lesson underneath, never spoken: the seconds you spend making sure are the
+# seconds somebody else drowns in. No proper names. CLOUT rides the deed: going
+# down the tunnel yourself is #quiet (nobody upstairs ever knows), ringing the
+# market bell is #notable, breaking the grate open in front of everyone is
+# #reckless. Waiting for proof is the failure, and the failure is #quiet too,
+# because nobody sees you not act.
+
+@QUEST   bq_sixty_seconds   Sixty Seconds Of Rain
+@ACT     1
+@FACTION BLUES
+@ONCE    true
+
+@ROLE watcher  REQ  faction=BLUES     reads_the_sky=true
+@ROLE tunnel   REQ  faction=HOMELESS  sleeps_in_the_wash=true
+
+@STAGE 10
+  @LOG Storm upstream, twenty miles out. Not a drop falling here. The wash is bone dry and the sky over it is blue.
+  @DO show_objective 10
+@STAGE 20
+  @LOG People are sleeping in the culvert. The water gets there before the sound does.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Went down myself and walked them out with a hand on each shoulder. It came through eight minutes later. Nobody up top ever knew.
+  @DO bond tunnel +25
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Rang the market bell. Half the block came to help and a few came to see what got left unattended. Everyone in the culvert got out.
+  @DO faction BLUES +8
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Broke the grate off the culvert mouth with a crowd watching, screaming into a hole in the ground. They got out. So did everything that lived down there.
+  @DO faction BLUES +4
+  @DO set_flag opened_the_deep
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Waited to be sure. It was sunny the whole time, right up until the wash filled. Nobody watched me decide nothing.
+  @DO bond tunnel -20
+
+@OBJ 10  "Believe the sky you cannot see"   target=watcher
+@OBJ 20  "Get them out of the wash"         target=tunnel
+
+# =====================================================================
+# THE ASK. The theme is the first line. She is not asking for a favor, she
+# is handing you a countdown and she cannot run it herself.
+# =====================================================================
+@TALK sky  speaker=watcher  entry=stage>=10,stage<20
+  @SAY Look up. Blue, all the way across, and that is exactly the problem. #dread
+  @SAY It is raining hard twenty miles north where nobody lives. All of it comes here. The wash does not care that the sun is out over your head.
+  @SAY I have maybe twenty minutes of usefulness left and two bad knees. There are people sleeping in the culvert. Go.
+  @OPT "How sure are you?"                 [gate: none]  -> sure
+  @OPT "Going now."                        [gate: none]  -> down       @DO learn water_is_coming
+  @OPT "You have been wrong before."       [gate: none]  TRAP -> wrong
+  @OPT (already moving)                    [gate: none]  SILENCE -> down  @DO learn water_is_coming
+  @NOVERB "Ask her to come with me"
+@END
+
+@TALK sure  speaker=watcher
+  @SAY Sure enough that I am standing in the street telling a stranger instead of sitting down. #dread
+  @SAY Nobody ever gets a wall of water on the horizon. You get a sound, and by the time you get the sound you are already in it.
+  @OPT "Then I am gone."                   [gate: none]  -> down  @DO learn water_is_coming
+  @OPT (turn and run)                      [gate: none]  SILENCE -> down  @DO learn water_is_coming
+@END
+
+# THE TRAP: making her prove it is the only genuinely fatal option in the quest.
+# It costs the exact thing that matters, and the game never says so out loud.
+@TALK wrong  speaker=watcher
+  @SAY Twice. Both times I was wrong I was early, and both times everybody got wet and annoyed and alive. #dread
+  @SAY You want me to be certain. Certainty out here arrives about four minutes after it is useful. Stand there and wait for it if you like.
+  @OPT "Then I wait for the rain."         [gate: none]  -> END  @DO set_stage 33
+  @OPT "No. Moving."                       [gate: none]  -> down  @DO learn water_is_coming
+@END
+
+@TALK down  speaker=watcher
+  @SAY Culvert mouth, past the dead lot. There will be four or five of them and at least one who will not believe you. #dread
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE MOUTH. He is not stupid and he is not stubborn. He has been moved
+# along by people yelling at him his entire life and this sounds like that.
+# =====================================================================
+@TALK mouth  speaker=tunnel  entry=stage>=20
+  @SAY Sun is out. Whatever this is, say it fast, because it usually ends with me carrying my bedroll somewhere worse. #wary
+  @SAY I have heard flood, fire, raid, sweep and inspection. Four of those were somebody wanting this spot.
+  @OPT "It is raining north. Come up with me now."   [gate: none]  -> hand
+  @OPT "Ringing the market bell. Everyone comes."     [gate: none]  -> bell
+  @OPT "Then I am taking the grate off."              [gate: none]  -> grate
+  @NOVERB "Tell him the water is already here"
+@END
+
+@TALK hand  speaker=tunnel
+  @SAY You came down here. Nobody comes down here. #wary
+  @SAY All right. All right, I am up. There are two more asleep at the bend and one of them will swing at you before he is awake. Take my hand, do not take his.
+  @OPT "One at a time. Go."           [gate: none]  -> END  @DO set_stage 30
+  @OPT (haul him up and go back for the others)  [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK bell  speaker=tunnel
+  @SAY The bell brings help and it brings shoppers. Half of them will be pulling us out and half will be checking what we left behind. #wary
+  @SAY Ring it anyway. I would rather be robbed than drowned, and that is a sentence I did not think I would say today.
+  @OPT "Ringing it."                  [gate: none]  -> END  @DO set_stage 31
+  @OPT "No. Quietly. Just you and me and the bend."  [gate: none]  -> hand
+@END
+
+@TALK grate  speaker=tunnel
+  @SAY You are going to open the whole mouth. In daylight. With people watching where we sleep. #dread
+  @SAY Everyone gets out. And everyone learns exactly where the deep goes and who is in it. You cannot put a hole back.
+  @OPT "Open it. Everyone out."       [gate: none]  -> END  @DO set_stage 32
+  @OPT (say nothing and pull the grate anyway)  [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "Fine. Quietly. Your hand."    [gate: none]  -> hand
+@END

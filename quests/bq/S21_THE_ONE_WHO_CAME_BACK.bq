@@ -1,0 +1,138 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S21 — THE ONE WHO CAME BACK
+# Shape: the rumor. Faction wires: REMNANTS, CARAVANS. Grounded in the real: in
+# every information blackout the scarcest and most valuable commodity is news,
+# and the price of hope is paid by whoever acts on it first. THE QUEST NEVER
+# RESOLVES WHETHER HE IS TELLING THE TRUTH, and that is deliberate on two levels:
+# it is better craft, and what is actually outside the valley is Paolo's canon to
+# set, never a side quest's. Nothing here declares anything about the outside
+# world; every line is somebody's belief about it, and the quest is about what a
+# block does with a story it cannot check. Systems AS the mechanic: the gate is
+# the remnants' whole function and the roads are the caravans' whole livelihood,
+# so both have a stake in what gets believed. No proper names. CLOUT rides the
+# deed: checking his story quietly against somebody who knows the roads is
+# #quiet, letting him tell it in the square is #notable, holding him at the gate
+# until the story changes is #risky, walking a crowd out the road on his word is
+# #reckless.
+
+@QUEST   bq_one_who_came_back   The One Who Came Back
+@ACT     2
+@FACTION REMNANTS
+@ONCE    true
+
+@ROLE returned  REQ  faction_any        walked_back_in=true
+@ROLE sergeant  REQ  faction=REMNANTS   holds_the_gate=true
+@ROLE trader    OPT  faction=CARAVANS   knows_the_roads=true
+
+@STAGE 10
+  @LOG Somebody walked in from outside the valley this morning, which is not a thing that happens.
+  @DO show_objective 10
+@STAGE 20
+  @LOG He says it is better out there. He has no proof and he is not asking anybody for anything.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Sat him down with somebody who has walked a hundred miles of that road and let them talk for three hours. Whatever the two of them concluded stayed in that room, and people can go on deciding for themselves.
+  @DO bond returned +15
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Let him tell it in the square. The block got the best night it has had in a year and by morning four families were packing, and nobody can say whether that was a gift or the opposite.
+  @DO faction CARAVANS +6
+  @DO set_flag told_it_in_the_square
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Held him at the gate until the story got smaller. It got smaller fast. That proved nothing about the road and quite a lot about the gate, and the gate is what everybody looked at afterward.
+  @DO faction REMNANTS +10
+  @DO bond returned -25
+  @DO set_flag squeezed_him_at_the_gate
+  @DO complete_objective 20
+@STAGE 33 COMPLETE #reckless
+  @LOG Walked thirty people out the east road on the word of one man with no proof, in daylight, with everybody watching them go.
+  @DO faction REMNANTS -12
+  @DO faction_posture REMNANTS +1
+  @DO advance_territory
+  @DO set_flag walked_them_out
+  @DO complete_objective 20
+@STAGE 34 FAIL #quiet
+  @LOG Did nothing with it. He left alone before dawn and nobody went with him and nobody knows, and the not knowing settled over the block like dust.
+  @DO bond returned -10
+
+@OBJ 10  "Talk to the one who walked in"    target=returned
+@OBJ 20  "Decide what the block does with it"  target=sergeant
+
+# =====================================================================
+# THE ASK. Theme in the first line: he is not selling it, which is exactly
+# what makes it dangerous. A pitch you can argue with. A shrug you cannot.
+# =====================================================================
+@TALK gate  speaker=returned  entry=stage>=10,stage<20
+  @SAY I am not selling anything and I do not want a room. I came back for my sister and I will be gone in two days either way. #tired
+  @SAY People keep asking me to describe it and then getting angry at the description. I have stopped offering.
+  @SAY All I will say is that I walked out of here four years ago and I walked back in, and both of those are things everybody here has been told are impossible.
+  @OPT "Describe it anyway."                [gate: none]  -> describe
+  @OPT "Prove any of it."                    [gate: none]  TRAP -> prove
+  @OPT "Then say nothing to anybody."        [gate: none]  -> END  @DO set_stage 34
+  @OPT (wait, and let him decide to talk)    [gate: none]  SILENCE -> describe
+  @NOVERB "Ask him whether we should all leave"
+@END
+
+@TALK describe  speaker=returned
+  @SAY Roads with people on them. A town where the lights came on at the same time every evening and nobody thought that was remarkable. #tired
+  @SAY I do not know how far it goes. I know what I walked through, and I know I could have been walking through the one good stretch on the whole continent.
+  @SAY That is the honest version. It is much worse for everybody than the version where I am certain.
+  @DO set_stage 20
+@END
+
+# THE TRAP: demanding proof gets you the true and useless answer, and now
+# you are the one who has to decide without it, in front of people.
+@TALK prove  speaker=returned
+  @SAY With what. A photograph. A signed letter from a mayor. #dread
+  @SAY I have boots that have been resoled twice and a sister who is not here anymore. Nobody who walks four hundred miles arrives carrying evidence. You either weigh the man or you do not weigh anything.
+  @OPT "Then I weigh the man."              [gate: none]  -> describe  @DO learn no_proof_exists
+  @OPT (look at his boots and say nothing)   [gate: none]  SILENCE -> describe  @DO learn no_proof_exists
+@END
+
+# =====================================================================
+# THE GATE. She is not a cynic. She has watched this valley empty itself
+# on rumors twice and she counts the ones who did not come back.
+# =====================================================================
+@TALK post  speaker=sergeant  entry=stage>=20
+  @SAY Third one in six years. The other two also had no proof and also were not asking for anything, which is the part people find convincing. #flat
+  @SAY After the last one, nineteen people left on a story. Four came back. I do not know what happened to the other fifteen and neither does anybody, and that not knowing is the actual product here.
+  @SAY So. Quiet room with somebody who knows the roads, the square, my gate, or a crowd walking out the east road in daylight. Pick one and I will hold the line for it.
+  @OPT "A quiet room. Check the story."      [gate: none]  -> room   @DO cast trader
+  @OPT "Let him tell it in the square."       [gate: none]  -> square
+  @OPT "Hold him until the story changes."     [gate: none]  -> squeeze
+  @OPT "Then we walk out and see."             [gate: none]  -> walkout
+  @NOVERB "Ask her whether she believes him herself"
+@END
+
+@TALK room  speaker=trader
+  @SAY I have walked the first ninety miles of that road eleven times and I can ask him nine questions that no liar answers the same way twice. #flat
+  @SAY And whatever I decide, it stays in this room. If I say it out loud in the square, I am not a man with an opinion anymore, I am a man selling passage.
+  @OPT "Ask your nine questions."           [gate: none]  -> END  @DO set_stage 30
+  @OPT (sit down and let them talk)          [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. Let him say it in the square."    [gate: none]  -> square
+  @NOVERB "Ask the trader to say it is true"
+@END
+
+@TALK square  speaker=sergeant
+  @SAY The square, then. Everybody hears it at once from him instead of in pieces from each other. #wary
+  @SAY They will have the best evening they have had in a year, and some of them will start packing before the fire is out, and you will have given them both of those at the same time.
+  @OPT "Let him tell it."                   [gate: none]  -> END  @DO set_stage 31
+  @OPT "No. A quiet room first."             [gate: none]  -> room  @DO cast trader
+@END
+
+@TALK squeeze  speaker=sergeant
+  @SAY Hold him. No food, no sleep, a lot of the same question. #dread
+  @SAY The story will get smaller. They always get smaller. That tells you what a man does when he is tired and hungry and it tells you nothing whatsoever about the road, and every person watching my gate will learn something about us instead.
+  @OPT "Hold him anyway."                   [gate: none]  -> END  @DO set_stage 32
+  @OPT "No. Not at the gate. Not like that."  [gate: none]  -> room  @DO cast trader
+@END
+
+@TALK walkout  speaker=sergeant
+  @SAY Thirty people. Out the east road. On one man's word and no proof at all. #dread
+  @SAY If he is right you are the person who opened the door. If he is wrong you are the person who walked thirty people into whatever the other fifteen found. Same walk, same daylight, and you do not find out which for a year.
+  @OPT "We go."                             [gate: none]  -> END  @DO set_stage 33
+  @OPT (open the gate and start walking)     [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT "No. Nine questions in a quiet room."  [gate: none]  -> room  @DO cast trader
+@END

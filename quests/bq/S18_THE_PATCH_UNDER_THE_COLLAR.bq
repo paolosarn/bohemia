@@ -1,0 +1,147 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S18 — THE PATCH UNDER THE COLLAR
+# Shape: the crew problem. Faction wires: TRADES, VOLUNTEERS. Canon: the valley's
+# identity-supremacist groups are SOCIAL FORCES with members sitting inside other
+# factions, not territories you can go and fight, which means they show up exactly
+# like this: as a person who is already on your crew and already good at the work.
+# The quest never argues the creed and never puts a word of it on the page,
+# because the crew would not argue it either; it is about who has to stand next
+# to him at six in the morning. The game refuses to score you. Systems AS the
+# mechanic: labor is the trades' whole currency and losing the best hand on a crew
+# is a real cost paid by real people. No proper names. CLOUT rides the deed:
+# cutting him loose without a speech is #quiet, the crew setting the line in the
+# open is #notable, keeping him and keeping it quiet is #risky, pulling his collar
+# down in front of the yard is #reckless.
+
+@QUEST   bq_patch_under_collar   The Patch Under The Collar
+@ACT     2
+@FACTION TRADES
+@ONCE    true
+
+@ROLE foreman  REQ  faction=TRADES      runs_the_crew=true
+@ROLE hand     REQ  faction_any         works_beside_you=true
+@ROLE nurse    OPT  faction=VOLUNTEERS  patched_the_crew=true
+
+@STAGE 10
+  @LOG Somebody on the crew is wearing something under his collar that two other hands have seen.
+  @DO show_objective 10
+@STAGE 20
+  @LOG He is the best welder on the job and the two who saw it have stopped taking the early shift.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Told him off the job with nobody watching. No speech, no yard, no crowd. He took his tools and went and there was nothing for anyone to rally around.
+  @DO faction TRADES +6
+  @DO bond foreman +12
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Put it to the crew in daylight and let them write the line themselves. He stays under terms every hand can see and enforce, and the terms are the crew's, not mine.
+  @DO faction TRADES +10
+  @DO set_flag crew_set_the_line
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Kept him and kept it quiet. The job finishes on time and I own every part of what happens the day it comes out, and it will come out.
+  @DO faction TRADES +4
+  @DO bond hand -18
+  @DO set_flag kept_it_quiet
+  @DO complete_objective 20
+@STAGE 33 COMPLETE #reckless
+  @LOG Pulled the collar down in the middle of the yard. Everybody saw it, and now everybody has to have an opinion, and half of them found out today which half they are.
+  @DO faction TRADES -8
+  @DO faction_posture TRADES +1
+  @DO advance_territory
+  @DO complete_objective 20
+@STAGE 34 FAIL #quiet
+  @LOG Said nothing to anybody. Two hands stopped showing up and neither of them will tell me why, and I already know why.
+  @DO faction TRADES -10
+  @DO bond hand -10
+
+@OBJ 10  "Find out what the crew saw"   target=hand
+@OBJ 20  "Settle the crew"              target=foreman
+
+# =====================================================================
+# THE ASK. Theme in the first line: this is not about what he believes,
+# it is about who has to stand beside him at six in the morning.
+# =====================================================================
+@TALK shift  speaker=hand  entry=stage>=10,stage<20
+  @SAY I am not going to describe it and I am not going to argue about it. I saw what is under his collar and so did one other person. #wary
+  @SAY I do not need you to agree with me about what it means. I need you to understand that I am not standing on a scaffold with him at six in the morning, and neither is she.
+  @SAY So either it gets dealt with or you have two fewer hands, and you will find out which one costs you more.
+  @OPT "Does he know you saw it?"          [gate: none]  -> knows
+  @OPT "Has he ever done anything on the job?"  [gate: none]  TRAP -> onthejob
+  @OPT "I will handle it."                  [gate: none]  -> handle
+  @OPT (let the silence sit)                [gate: none]  SILENCE -> knows
+  @NOVERB "Ask him what exactly the patch was"
+@END
+
+@TALK knows  speaker=hand
+  @SAY He knows. He buttoned it and he looked at me while he buttoned it, and that is the whole conversation we have had about it. #wary
+  @DO set_stage 20
+@END
+
+# THE TRAP: the answer is honest and it is the hardest thing in the quest,
+# because it is exactly the answer that lets you do nothing.
+@TALK onthejob  speaker=hand
+  @SAY No. Never. He is polite, he is early, he covers people's shifts, and he is the best welder any of us has worked with. #tired
+  @SAY That is the part that makes it hard and I am not going to pretend it away for you. You wanted the honest answer. It is inconvenient for everybody, mostly me.
+  @OPT "Then I will handle it."             [gate: none]  -> handle  @DO learn he_is_good_at_the_work
+  @OPT (nod and say nothing)                [gate: none]  SILENCE -> knows  @DO learn he_is_good_at_the_work
+@END
+
+@TALK handle  speaker=hand
+  @SAY Handle it however you want. Just do not do the thing where it gets handled so gently that nothing actually changes. #wary
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE FOREMAN. He is not defending anybody. He is counting, out loud,
+# what each option costs, and he will do whichever one you name.
+# =====================================================================
+@TALK yard  speaker=foreman  entry=stage>=20
+  @SAY I have been doing this a long time and there is no version of today where the crew is the same at the end of it. #flat
+  @SAY Quiet, he goes, nobody makes a martyr out of him and nobody makes a speech. Open, the crew writes the rule and lives under a rule they wrote. Keep him, we finish the job and I hand you the bill later.
+  @SAY And there is loud, which fixes nothing and settles everything, and I have seen a yard split in half over less.
+  @OPT "Off the job. Quietly."              [gate: none]  -> quiet_out
+  @OPT "Put it to the crew in the open."     [gate: none]  -> open
+  @OPT "He stays. Nobody hears about it."    [gate: none]  -> keep
+  @OPT "Pull the collar down in front of everyone."  [gate: none]  -> loud
+  @NOVERB "Ask the foreman what he believes about it himself"
+@END
+
+@TALK quiet_out  speaker=foreman
+  @SAY No yard, no crowd, no speech. He picks his tools up and he is gone by lunch and there is nothing left behind for anyone to be a hero about. #flat
+  @SAY It costs me a month on this job. It costs him work in a valley with not much of it. I am not going to pretend that is nothing.
+  @OPT "Do it quietly."                     [gate: none]  -> END  @DO set_stage 30
+  @OPT (nod once and let him go do it)       [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK open  speaker=foreman
+  @SAY The crew writes it. Not me, not you. Whatever they put down, they have to enforce at six in the morning, so they will write something they can actually live with. #flat
+  @SAY It will be slower and uglier than either of us wants and it will still be standing in a year, which is more than I can say for anything I have ever decided alone.
+  @OPT "The crew writes the line."          [gate: none]  -> END  @DO set_stage 31
+  @OPT "Too slow. Quietly instead."          [gate: none]  -> quiet_out
+@END
+
+@TALK keep  speaker=foreman
+  @SAY He stays, it stays buried, and the job lands on time. #wary
+  @SAY And the two who saw it work somewhere else eventually, and one day it comes out in the worst possible week, and on that day this was your decision and everyone will remember that it was.
+  @OPT "He stays. That is the call."        [gate: none]  -> END  @DO set_stage 32
+  @OPT "No. In the open, then."              [gate: none]  -> open
+@END
+
+@TALK loud  speaker=foreman
+  @SAY In front of the whole yard. #dread
+  @SAY Half of them will back you before you finish the sentence, and the other half will find out today that they are the other half, and they work here too. You will not know which is which until you do it.
+  @OPT "Do it in the open air."             [gate: none]  -> END  @DO set_stage 33
+  @OPT (walk over and pull the collar down)  [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT "No. Let the crew write the rule."    [gate: none]  -> open
+@END
+
+@TALK clinic  speaker=nurse  entry=stage>=20
+  @SAY I stitched four of that crew this year and I did not ask any of them what they think about anything. #tired
+  @SAY Whatever you decide, decide it in a way that still lets people come to me bleeding without checking who is in the room first. That is the only thing I am asking anyone to protect.
+  @OPT "Understood."                        [gate: none]  -> yard
+  @OPT "Nothing gets decided at all."        [gate: none]  -> END  @DO set_stage 34
+  @OPT (go back to the yard)                 [gate: none]  SILENCE -> yard
+  @NOVERB "Ask her to take a side"
+@END

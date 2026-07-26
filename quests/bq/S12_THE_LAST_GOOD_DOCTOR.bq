@@ -1,0 +1,132 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S12 — THE LAST GOOD DOCTOR
+# Shape: triage. The quest that refuses to score you. Faction wires: VOLUNTEERS,
+# CARTEL. Grounded in real medicine: one full course of antibiotics cures one
+# person, and splitting a course between two people cures neither and breeds a
+# bug that laughs at the next course. That is not a game rule, it is why the
+# split option is the FAIL and why the game never tells you it was wrong until
+# the week is over. Systems AS the mechanic: MEDICINE is the scarcest currency in
+# the valley, so the cartel's crate is a real answer and a real debt. No proper
+# names. The-monster-is-a-person: the cartel runner is polite, correct, and
+# genuinely helpful, which is exactly what makes him expensive. CLOUT rides the
+# deed: choosing quietly is #quiet, putting the choice to the block out loud is
+# #notable, taking the crate is #risky.
+
+@QUEST   bq_last_good_doctor   The Last Good Doctor
+@ACT     2
+@FACTION VOLUNTEERS
+@ONCE    true
+
+@ROLE medic   REQ  faction=VOLUNTEERS  last_of_the_clinic=true
+@ROLE runner  OPT  faction=CARTEL      moves_medicine=true
+
+@STAGE 10
+  @LOG The clinic has one full course left and two people who need it tonight.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The arithmetic is ugly and simple. A whole course saves one. Half a course saves nobody and teaches the bug.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Gave the whole course to the one it could actually save. Never told anyone how I picked. I will not forget how I picked.
+  @DO bond medic +18
+  @DO faction VOLUNTEERS +6
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Put it to the block, out loud, and let them choose in front of both families. Nobody can say it was done in the dark. Both families heard every word.
+  @DO faction VOLUNTEERS +9
+  @DO set_flag chose_in_the_open
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Took the crate. Both of them live, the clinic runs another month, and somewhere a ledger has my name in it waiting for a use.
+  @DO faction CARTEL +10
+  @DO set_flag owes_the_cartel
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Split the course down the middle so neither family could say I chose. They both got a good week. Then it came back, and it came back stronger than it started.
+  @DO bond medic -12
+
+@OBJ 10  "Hear the arithmetic"          target=medic
+@OBJ 20  "Decide who gets the course"   target=medic
+
+# =====================================================================
+# THE ASK. Theme in the first breath: she is not asking you to be wise,
+# she is asking you to be the one who signs it.
+# =====================================================================
+@TALK clinic  speaker=medic  entry=stage>=10,stage<20
+  @SAY One course. Two people. I have run the numbers four times hoping they were three people ago. #tired
+  @SAY I am not asking your opinion. I am asking you to be the one who says it, because if I say it again this month I am going to stop being able to.
+  @OPT "Tell me about both of them."        [gate: none]  -> both
+  @OPT "Can it be stretched?"                [gate: none]  TRAP -> split
+  @OPT "Is there anywhere else to get more?" [gate: none]  -> more  @DO cast runner
+  @OPT (wait for her to keep going)          [gate: none]  SILENCE -> both
+  @NOVERB "Ask which one she would pick"
+@END
+
+@TALK both  speaker=medic
+  @SAY One is forty, strong lungs, will be back on a roof in nine days with the full course. Nothing else wrong with him. #tired
+  @SAY The other is sixty three, already thin, already tired, and has four people who sit in my doorway every night waiting. With the full course she has a chance. Not a good one. A chance.
+  @SAY The arithmetic says him. The doorway says her. I have both and I cannot carry both.
+  @DO set_stage 20
+@END
+
+# THE TRAP: the humane-sounding option is the one that kills them both and
+# poisons the next course too. She tells you the truth. You can still do it.
+@TALK split  speaker=medic
+  @SAY Half each. Everybody wants that one. It sounds like mercy and it is the worst thing in this room. #dread
+  @SAY Half a course knocks a bug down and lets the survivors of it learn you. Both of them get one good week and then it comes back wearing armor, and so does the next one, and the next.
+  @OPT "Then no. Tell me about both."       [gate: none]  -> both
+  @OPT "Split it anyway. I will not choose." [gate: none]  -> END  @DO set_stage 33
+@END
+
+@TALK more  speaker=medic
+  @SAY There is one place. There is always one place. He is polite and he is punctual and he has never once raised his voice at me. #wary
+  @SAY If you talk to him, understand you are not buying medicine. You are selling something, and he gets to name it later.
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE CRATE. He is the most reasonable person in the quest. That is the point.
+# Only reachable if you actually asked for another way (role gate, not a stat).
+# =====================================================================
+@TALK crate  speaker=runner  entry=stage>=20,role:runner
+  @SAY She sent you. She always sends someone, she has never once come herself, and I have never held that against her. #flat
+  @SAY Full crate. Twelve courses. Tonight, no charge, no interest, no paper.
+  @SAY One day, not soon, somebody knocks and asks the clinic for a small thing. You will not be there. She will be. That is the price and I am telling it to you straight, which is more than most people get.
+  @OPT "What is the small thing?"          [gate: none]  TRAP -> smallthing
+  @OPT "Take the crate. Both of them live."  [gate: none]  -> END  @DO set_stage 32
+  @OPT "No. We do it with what we have."     [gate: none]  -> both
+  @NOVERB "Promise him it will never be collected"
+@END
+
+@TALK smallthing  speaker=runner
+  @SAY If I knew, it would be a contract, and contracts are for people who plan to argue. #flat
+  @SAY It will be small. It always is. That is the whole craft of it, and you already know that, or you would not have asked.
+  @OPT "Take the crate anyway."            [gate: none]  -> END  @DO learn the_price_is_later  @DO set_stage 32
+  @OPT (walk out without answering)         [gate: none]  SILENCE -> both  @DO learn the_price_is_later
+@END
+
+# =====================================================================
+# THE SIGNING. Both real options are defensible. Neither is clean. She
+# will do exactly what you say and she will not tell you if you were right.
+# =====================================================================
+@TALK sign  speaker=medic  entry=stage>=20
+  @SAY Say it, then. Out loud, to me, so it is a thing a person decided and not a thing that happened. #tired
+  @OPT "Him. The one it saves."             [gate: none]  -> quiet_end
+  @OPT "Her. The doorway."                   [gate: none]  -> quiet_end
+  @OPT "Not me. Ask the block, in the open."  [gate: none]  -> open_end
+  @NOVERB "Tell her it does not matter which"
+@END
+
+@TALK quiet_end  speaker=medic
+  @SAY Then that is what we do. It goes in tonight. #tired
+  @SAY Nobody else will ever know there was a second name. That part is mine to carry and I would rather carry it than have it read aloud.
+  @OPT "Nobody hears about this."           [gate: none]  -> END  @DO set_stage 30
+  @OPT (help her set the line and say nothing)  [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK open_end  speaker=medic
+  @SAY In front of both families. They will vote like it is a fair thing and go home knowing exactly what they voted for. #dread
+  @SAY It is the honest way and it is the cruelest room I will ever stand in. Fine. Call them.
+  @OPT "Call them. All of them."            [gate: none]  -> END  @DO set_stage 31
+@END

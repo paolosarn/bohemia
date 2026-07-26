@@ -1,0 +1,123 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S10 — THE COUNT THAT DOES NOT ADD
+# Shape: the census / being-counted dilemma. Faction wires: NETWORK, VOLUNTEERS.
+# Grounded in the real: every aid system on earth allocates by headcount, and every
+# headcount is also a list. Post-collapse Vegas runs food off a number somebody
+# writes down, and the number leaves the block the second it is written. The
+# canvasser is NOT a villain (the-monster-is-a-person): she says out loud that both
+# things are true and refuses to lie about the second one to get the first.
+# Systems AS the mechanic: the count is the allocation; refusing it really costs the
+# block food. No proper names anywhere. CLOUT rides HOW you resolve it: an honest
+# count given quietly is #quiet, a shaved count is #risky (you lied to the network),
+# reading the list aloud on the street is #reckless. Brushes the secret only as far
+# as canon allows: the network is manufactured protection, and the stairwell the
+# count climbs has no landings anyone has ever seen.
+
+@QUEST   bq_the_count   The Count That Does Not Add
+@ACT     1
+@FACTION NETWORK
+@ONCE    true
+
+@ROLE canvasser  REQ  faction=NETWORK     counts_the_block=true
+@ROLE organizer  REQ  faction=VOLUNTEERS  runs_the_food_line=true
+
+@STAGE 10
+  @LOG Somebody is going door to door counting how many sleep on this block.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The count becomes crates. It also becomes a page in a room nobody here has seen.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Gave the true number, plainly, and let it go up. The block eats. The block is also on a page now.
+  @DO faction VOLUNTEERS +6
+  @DO bond organizer +12
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #risky
+  @LOG Handed up a short number. The ones who cannot be on any list stayed off it, and everyone eats a little less for that.
+  @DO faction VOLUNTEERS +3
+  @DO set_flag shaved_the_count
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Read the page out loud on the street first, every name, so nobody could be listed without knowing they were listed.
+  @DO faction_posture NETWORK +1
+  @DO set_flag read_the_list_out
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Nobody got counted. Nobody gets crates either. The block cuts its meals in half and calls it dignity.
+  @DO bond organizer -8
+
+@OBJ 10  "Answer the head count"              target=canvasser
+@OBJ 20  "Decide what the block tells them"   target=organizer
+
+# =====================================================================
+# THE ASK. Theme in the first exchange: a number that feeds you is a number
+# that finds you. She says it herself before you can catch her at it.
+# =====================================================================
+@TALK count  speaker=canvasser  entry=stage>=10,stage<20
+  @SAY Head count. Not names if you would rather not give names. Just how many sleep on this block. #flat
+  @SAY The food line allocates by count. No count, no crates. That is not a threat, that is arithmetic.
+  @SAY So. How many.
+  @OPT "How many, or how many I admit to?"  [gate: none]  -> why
+  @OPT "Who reads it after you?"            [gate: none]  TRAP -> whoreads
+  @OPT "Nobody here gets counted."          [gate: none]  -> refuse
+  @OPT (wait for the rest of it)            [gate: none]  SILENCE -> why
+  @NOVERB "Ask her to leave this block off entirely"
+@END
+
+@TALK why  speaker=canvasser
+  @SAY Both, usually. I have been doing this eleven months and the second number is always the honest one. #flat
+  @SAY I write a number. The number becomes crates. Crates become a week where nobody here halves a meal.
+  @SAY The number also becomes a page in a room I have never stood in. Both things are true. I am not going to lie about the second one to sell you the first.
+  @DO set_stage 20
+@END
+
+# THE TRAP: asking where it goes is exactly how a block gets a mark next to it.
+@TALK whoreads  speaker=canvasser
+  @SAY There it is. That question puts a mark beside a block, and I cannot unhear it. #wary
+  @SAY I hand it up. Up is a stairwell with no landings I have ever seen. I stopped asking what is at the top, because asking is how you stop being the one who counts.
+  @OPT "Then I decide what you get."     [gate: none]  -> END  @DO learn count_goes_up  @DO set_stage 20
+  @OPT (nod, and let it sit)             [gate: none]  SILENCE -> END  @DO learn count_goes_up  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE FORK. The organizer knows both halves and will not decide for you.
+# Every option feeds someone and exposes someone. No option is clean.
+# =====================================================================
+@TALK line  speaker=organizer  entry=stage>=20
+  @SAY They already came to you. It is on your face. #tired
+  @SAY Here is what the line knows. The crates are real, I have carried them. And twice now a block that gave a full honest count had two polite people knocking a month later, asking after names that were on it.
+  @SAY True number feeds everybody and lists everybody. Short number feeds most and hides the few who cannot survive a page. Loud feeds nobody and makes a point. Say it and I will back it.
+  @OPT "True count. All of us."                 [gate: none]  -> true_end
+  @OPT "Short. Leave off the ones who cannot be listed."  [gate: none]  -> shave
+  @OPT "I read the list on the street first."   [gate: none]  -> public
+  @OPT "Nobody gets counted. Not for food, not for anything."  [gate: none]  -> refuse
+  @NOVERB "Ask her which neighbors are the ones who cannot be listed"
+@END
+
+@TALK true_end  speaker=organizer
+  @SAY Honest, then. It is the answer that feeds the most people and I still do not feel good handing it up. #tired
+  @SAY If the knock comes, it comes to my door too. That is the only part of this I am sure is fair.
+  @OPT "Send the true number."          [gate: none]  -> END  @DO set_stage 30
+  @OPT (nod once and let her write it)  [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK shave  speaker=organizer
+  @SAY Short it is. Four fewer crates, and four people who do not exist on paper get to keep not existing. #tired
+  @SAY Everybody on this block eats a little less so that a few of them can stay invisible. Nobody will ever thank you for it, because nobody can be told.
+  @OPT "Short number. That is the trade."  [gate: none]  -> END  @DO set_stage 31
+@END
+
+@TALK public  speaker=organizer
+  @SAY In the open. Every name, out loud, so nobody is on a page they never agreed to. #dread
+  @SAY They will hear about that upstairs before the sun goes down, and they will hear it as a block that reads their mail. But not one person here gets listed in the dark.
+  @OPT "Read it out. All of it."       [gate: none]  -> END  @DO set_stage 32
+  @OPT "Wait. Send the true number quietly instead."  [gate: none]  -> true_end
+@END
+
+@TALK refuse  speaker=organizer
+  @SAY Then we are a blank space on their page and an empty shelf on mine. #tired
+  @SAY I have watched two blocks do that. Both of them were very proud for about nine days.
+  @OPT "Blank space. That is final."        [gate: none]  -> END  @DO set_stage 33
+  @OPT "No. Give them the true number."     [gate: none]  -> true_end
+@END

@@ -57,6 +57,23 @@ override. Earlier: 9 playable canon quests (S01-S09) + quest runtime + casting
 bridge live in the phone; quests move the factions (world bridge); CANON QUESTS
 gate green.
 
+QUESTS (01) 7/26 — TWELVE MORE PLAYABLE QUESTS SHIPPED (S10-S21). The playable
+corpus went 9 -> 21. Census, flash flood, triage, deed, dog on the landing,
+marquee strike, pirate radio, hybrid seed, the crew problem, the blackout
+birth, counterfeit charge tokens, the man who walked back in. All twelve are
+live in the phone (same bytes the gate proves) and judged from inside the
+alpha: LIFE tab -> THE 12 NEW CANON QUESTS. The canon-quests gate got HARDER
+the same turn: no phantom endings, >=2 clout tags, >=1 silence option, no dead
+objectives, unique ids — five checks the original nine also pass, nothing
+grandfathered. 426/426 on 21 files; full suite green. Verified on the real
+surface: a headless browser played all twelve to real endings, zero page
+errors. The judge tool is now BATCHED per unjudged-is-dead (the 7/25 page for
+S01-S09 stays byte-identical as the record; the fresh page carries only what he
+has never seen). Record: laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md.
+NEXT in this lane: Act-1 main-quest beats as .bq chains, which first needs the
+cross-quest chain support the backlog now names (items 2-3). NOTE for WORLD: the
+placement factory now has 12 more quests to propose addresses for.
+
 LIFE + CITY (03): WALK-THIS-GAME redirect fully shipped — (1) SLICE walk
 surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
@@ -99,6 +116,8 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
 =============================================================================
 ## PENDING PAOLO (the shelf — never decide these for him)
 =============================================================================
+- THE 12 NEW CANON QUESTS (S10-S21), fresh 7/26, never seen: LIFE tab ->
+  THE 12 NEW CANON QUESTS. One sitting, thumbs per quest, export .txt.
 - THE MEGA VERDICT (FRESH items only, per the UNJUDGED-IS-DEAD ruling 7/26):
   the marathon waves Paolo has never seen — music batch 20, wardrobe volume,
   plus whatever lanes stack next. STALE unjudged banks are presumed dismissed,

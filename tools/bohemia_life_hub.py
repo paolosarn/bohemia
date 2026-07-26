@@ -56,12 +56,13 @@ html = r"""<meta charset="utf-8">
       that is still a short walk. Tap the one you want, or NONE OF THESE.
     </div>
   </a>
-  <a href="BOHEMIA_QUEST_JUDGE_7_25_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">THE 9 CANON QUESTS <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">NEEDS YOUR THUMBS</span></div>
+  <a href="BOHEMIA_QUEST_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">THE 12 NEW CANON QUESTS <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">NEEDS YOUR THUMBS</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
-      The first playable Bohemia quests, now live in the phone. Real dialogue, real
-      forks, real endings, and the ending you land on sets your CLOUT. Tap PLAY IT,
-      walk one to a finish, then thumb it.
+      Twelve brand new playable quests, live in the phone: the census, the flash flood,
+      the last course of medicine, the deed, the dog on the landing, the marquee, the
+      voice at three, the seed, the crew, the birth, the fake tokens, the man who walked
+      back in. Tap PLAY IT, walk one to a finish, then thumb it.
     </div>
   </a>
   <a href="BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
