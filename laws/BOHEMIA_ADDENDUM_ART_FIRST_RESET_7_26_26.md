@@ -46,3 +46,39 @@ THE DIRECTIVE (LOCKED):
    out of the save blob (existing law).
 7. ONE art-direction chat for now ("art" joins the lane vocabulary). More
    production chats only AFTER the target screen exists.
+
+## CORRECTIONS FROM THE PRESSURE-TEST RESEARCH (7/26, same day — the research
+## was commissioned to DISAGREE and it did; these amend the directive above):
+A. ERA RULE CORRECTED: assets are born era-READY (3D-bake source structured
+   with overlay/material layers so act variants derive cheaply), NOT
+   era-complete. Act-1 look locks first. Era derivation proven on 2-3
+   representative families only. Landmarks get bespoke era looks; filler
+   SHARES era treatments (the AoE model). Never hold an approval hostage to
+   three finished eras.
+B. "MACHINE-CHECKED CONSTITUTION" PRECISELY: machine-gate the PROXIES only —
+   locked master palette (every pixel indexes it), per-layer value bands
+   (floors/walls/tops), one outline convention, one dither policy, one light
+   direction, edge-pixel seam contracts (hashable). The gestalt "matches the
+   target" is ALWAYS a human side-by-side verdict (Paolo). Never a literal
+   image-diff gate (gameable/false).
+C. THE ANTI-BIOSHOCK RULE: the painted mockup is not the constitution — the
+   target phase's acceptance test is CUT the picked mockup into the real
+   starter tileset and REASSEMBLE the identical frame from those tiles on
+   the real render path. The tile-reassembled frame is the framed target.
+   If reassembly looks worse, the mockup lied; fix before locking.
+D. STEP ZERO, THE MOBILE RENDER CONTRACT, pinned BEFORE painting: base
+   resolution, tile px size, integer zoom level(s), iPhone portrait
+   viewport, palette, light direction, outline/dither rules. Target painted
+   at exactly that spec. Pipeline rule gated: offscreen 1x render + integer
+   blit + smoothing off (non-integer scaling voids pixel art on 3x phones).
+   Track live canvas memory vs the ~224MB iOS floor (chunk caches x eras is
+   how a 32MB game hits a 224MB wall).
+E. GREYBOX CAVEAT: systems lanes keep working during the freeze ONLY on the
+   final data contracts (real tile size, real layer enum, real tilespec —
+   fake pixels, real contracts), and one real tile family gets pushed
+   through every system (render/occupancy/save/era-swap) within days of the
+   target locking. No feel-canon gets locked from grey builds (placeholder
+   art skews playtests).
+F. STYLE-DRIFT DEFENSE: every future cook runs the proxy gates (B); every
+   batch is judged only as an assembled scene next to the target. The gates
+   are the art director's presence in sessions Paolo isn't in.

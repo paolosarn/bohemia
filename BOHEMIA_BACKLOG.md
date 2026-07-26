@@ -7,7 +7,14 @@
 ## session surfaces quest questions or quest verdicts to Paolo. ***
 
 ## ART (new lane — first word "art")
-1. THE TARGET SCREENS: 2-3 hand-assembled candidate fake screenshots of the
+0. STEP ZERO — THE MOBILE RENDER CONTRACT (amendment D): pin base resolution,
+   tile px, integer zoom, iPhone portrait viewport, master palette, light
+   direction, outline + dither rules. One page, gated (integer-blit pipeline
+   asserts). The target is painted AT this spec or it is void. | contract doc
+   + pipeline gate | — | the aesthetic knobs (palette/light) ride into the
+   target verdict.
+1. THE TARGET SCREENS (amendments B+C apply — cut-and-reassemble is the
+   acceptance test, proxy gates ship with the pick): 2-3 hand-assembled candidate fake screenshots of the
    walkable street level at its best (real character on a decorated street,
    2-tile doors, a dressed interior visible, approved assets as the base,
    coherent new tiles where needed, composed like a poster; SUN-mode judge,
