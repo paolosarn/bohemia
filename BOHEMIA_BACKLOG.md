@@ -137,20 +137,20 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    [DONE 7/26] SAVE / LOAD — one portable versioned blob (sleep + manual +
    autosave, export/import code, no device prefs inside, old versions migrate
    forward) and DEATH IS A RELOAD wired to it.
-   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (16/24),
+   [DONE 7/26] THE OVERWORLD LOOK — the block is laid from the FROZEN starter
+   tileset of Paolo's CBB target. Consumed, never re-rendered; the builder
+   refuses to ship if the bank md5 moves. CORRECTION ON RECORD: the target he
+   picked is TOP-DOWN, so this lane's old "the run must go 3/4 iso" premise was
+   wrong and is retired.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (17/24),
    enforced by gates/integration_gate.js.
--1. THE OVERWORLD LOOK. Paolo 7/26: "it's kind of looking like shit the whole
-   overworld." SUPERSEDED IN OWNERSHIP by the ART-FIRST RESET the same day
-   (laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md): the ART lane owns the
-   TARGET SCREEN, and until one is approved NO new visual cooking happens
-   outside that lane. So this lane does NOT cook a look. What it does, in
-   order: (a) keep integrating ALREADY-APPROVED assets (explicitly still
-   allowed), (b) the moment a target screen is picked, move the run's world
-   render toward it — the CITY tab's human mode already renders the real
-   three-quarter world with the real character, so adopt that renderer rather
-   than growing a second one. | ledger row flips with a probe + a real-surface
-   screenshot | CITY_B64 is the CITY lane's file; the target screen is the ART
-   lane's | blocked on the target-screen verdict.
+-1. INTERIORS TO THE TARGET (new top item). The outside now speaks the
+   constitution; inside is still flat role-tinted plates. CITY already delivered
+   the ingredient and deliberately left it unwired for exactly this:
+   banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt (465 swept-UP tiles bucketed by room
+   function, with per-tile draw scale). | interiors laid from the pool, target-
+   match proxies green, real-surface screenshot | the pool is CITY's artifact,
+   consume it, do not re-cook it | yes, fresh look.
 0b. THE REAL VALLEY (ledger priority 2): the run's block becomes a real cell of
    the generated valley, so walking off it lands in a real district. | run_gate
    proves a second district reached on foot | district engines | no.

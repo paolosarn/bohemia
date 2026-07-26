@@ -283,6 +283,11 @@ var CANON_QUESTS = __CANON_QUESTS_JSON__;
    that is not. 9 frames spanning 2 beats at 120 BPM, per the integration
    contract in laws/BOHEMIA_DOOR_ANIM_INTEGRATION_7_13_26.md. */
 var DOOR_ANIM = __DOOR_ANIM_JSON__;
+/* THE VISUAL CONSTITUTION'S OWN 42 TILES, frozen by Paolo's CBB verdict on the
+   target screen (7/26) and byte-locked by gates/target_match_gate.py. The block
+   is laid from THESE, in the target frame's own language. Consumed, never
+   re-rendered: the builder refuses to ship if the bank's md5 has moved. */
+var TARGET_TILES = __TARGET_TILES_JSON__;
 </script>
 <script src="../engine/bohemia_loop.js"></script>
 <script>
@@ -469,7 +474,83 @@ function leave(){ mode='ext'; if(backAt){ px=backAt[0]; py=backAt[1]; } else { p
 enter(HOME);
 backAt = HOME_DOOR.slice();
 
-/* ---- 9. RENDER. The approved dead-block look, person-scale. ---- */
+/* ===========================================================================
+   9. RENDER — THE BLOCK, LAID FROM THE VISUAL CONSTITUTION'S OWN TILES.
+   Paolo verdicted the target screen CBB on 7/26 and the visual freeze lifted
+   with it, so the run stops drawing coloured squares and speaks the target's
+   language instead: its ground tiles, its stucco wall face with windows and
+   boarded windows, its real hip roof, its garage face, its kerbs and gutters
+   and lane dashes. Nothing here is cooked — every pixel is a tile out of the
+   frozen bank, and the builder refuses to ship if that bank's md5 moves.
+
+   HOW A HOUSE READS, exactly as the target frame reads it, bottom to top:
+   the FRONT ROW of the building is its WALL FACE (windows, boarded windows,
+   the door, the garage), the row above it is the EAVE, then roof slope, then
+   the RIDGE, with hip corners where the roof turns. That stack is what makes
+   a top-down block look like buildings instead of blocks of colour.
+   =========================================================================== */
+var TT={}, TT_READY=0;
+(function(){ var ids=Object.keys(TARGET_TILES.tiles||{});
+  ids.forEach(function(id){ var im=new Image();
+    im.onload=function(){ TT_READY++; draw(); };
+    im.src='data:image/png;base64,'+TARGET_TILES.tiles[id]; TT[id]=im; }); })();
+function th(x,y,n){ return (((x*73856093)^(y*19349663))>>>0)%n; }
+function tput(id,X,Y,S){ var im=TT[id];
+  if(im&&im.complete&&im.naturalWidth){ ctx.drawImage(im,X,Y,S,S); return true; } return false; }
+function isBody(a,b){ var c=(a>=0&&b>=0&&a<W&&b<H)?G[b][a]:-1; return c===2||c===9||c===6; }
+/* the front row of a building: the face you actually see from the street */
+function isFace(a,b){ return isBody(a,b) && !isBody(a,b+1); }
+/* which ground tile a cell wears */
+function groundTile(c,gx,gy){
+  if(c===1){                                   /* street */
+    if(!isRoad(gx,gy+1)||!isRoad(gx,gy-1)) return 'road_gutter';   /* against the kerb */
+    return ['road_0','road_1','road_2'][th(gx,gy,3)];
+  }
+  if(c===3) return ['concrete_0','concrete_1'][th(gx,gy,2)];       /* driveway */
+  if(c===5) return 'concrete_0';                                    /* the gate mouth */
+  if(c===4) return 'wall_base';                                     /* perimeter wall top */
+  /* dead ground: the block's yards, with the walk band where it meets the street */
+  if(isRoad(gx,gy+1)||isRoad(gx,gy-1)||isRoad(gx+1,gy)||isRoad(gx-1,gy)) return 'walk_kerb';
+  if(th(gx,gy,11)===0) return 'dirt';
+  if(th(gx,gy,7)===0) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
+  return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
+}
+function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
+/* THE BUILDING STACK, read the way the target frame reads: the street-facing
+   row is the WALL FACE, the row behind it is the EAVE, then roof, with hips
+   where the mass turns and a ridge along its back. A garage opens onto its OWN
+   driveway, whichever side that is, so the roll door lands where a car would
+   actually go in instead of striping the whole mass. */
+function driveSide(gx,gy){
+  if(isCode(gx,gy+1,3)) return [0,1]; if(isCode(gx,gy-1,3)) return [0,-1];
+  if(isCode(gx+1,gy,3)) return [1,0];  if(isCode(gx-1,gy,3)) return [-1,0];
+  return null;
+}
+function isCode(a,b,c){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===c; }
+function bodyTile(c,gx,gy){
+  if(c===6){                                   /* the garage mass */
+    if(driveSide(gx,gy)) return 'garage_bottom';               /* the opening itself */
+    var ds=driveSide(gx,gy+1)||driveSide(gx,gy-1)||driveSide(gx+1,gy)||driveSide(gx-1,gy);
+    if(ds) return 'garage_top';                                /* the header above it */
+  }
+  if(isFace(gx,gy)){
+    var h=th(gx,gy,9);
+    if(h===0) return 'wall_window';
+    if(h===1) return 'wall_boarded';
+    if(!isBody(gx-1,gy)) return 'wall_end_l';
+    if(!isBody(gx+1,gy)) return 'wall_end_r';
+    return ['wall_0','wall_1','wall_2'][th(gx,gy,3)];
+  }
+  if(isFace(gx,gy+1)) return 'wall_under_eave';   /* the band the roof sits on */
+  if(isBody(gx,gy+1) && isFace(gx,gy+2)) return 'roof_eave';
+  var n=!isBody(gx,gy-1), w2=!isBody(gx-1,gy), e=!isBody(gx+1,gy);
+  if(n&&w2) return 'roof_hipTL';
+  if(n&&e) return 'roof_hipTR';
+  if(w2) return 'roof_hipBL';
+  if(e) return 'roof_hipBR';
+  if(n) return 'roof_ridge';
+  return 'roof_slope';
+}
 function gcol(x,y){ var h=((x*73856093)^(y*19349663))>>>0, v=h%3; return ['#463f30','#3d382a','#4e4838'][v]; }
 var EXTCOL={1:'#3a3a44',2:'#9c8e76',3:'#5a5a62',4:'#6a5c44',5:'#c79a3f',6:'#6d5f4b',9:'#b3a488'};
 var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',dining:'#aaa078',
@@ -649,31 +730,20 @@ function draw(){
            animated door face on top of it in the overlay pass below */
         ctx.fillStyle='#17130d'; ctx.fillRect(X,Y,S,S);
         doorDraws.push([gx,gy2,X,Y,CELL,doorOf[gx+','+gy2]===HOME]); }
-      else if(c===2||c===9||c===6){
-        if(!tile(ROOF_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle=EXTCOL[c]; ctx.fillRect(X,Y,S,S); }
-        if(c===9){ ctx.fillStyle='rgba(0,0,0,0.18)'; ctx.fillRect(X,Y,S,S); }
-        var _h=function(a,b){ var cc=(a>=0&&b>=0&&a<W&&b<H)?G[b][a]:-1; return cc===2||cc===9||cc===6; };
-        ctx.fillStyle='#1a1712';
-        if(!_h(gx,gy2-1)) ctx.fillRect(X,Y,S,2); if(!_h(gx,gy2+1)) ctx.fillRect(X,Y+S-2,S,2);
-        if(!_h(gx-1,gy2)) ctx.fillRect(X,Y,2,S); if(!_h(gx+1,gy2)) ctx.fillRect(X+S-2,Y,2,S);
+      else {
+        /* THE CONSTITUTION'S TILES, ground first then the building stack.
+           A cell is drawn at CELL size with the tile scaled to it (integer blit,
+           smoothing already off) — the mobile render contract's own rule. */
+        var laid = isBody(gx,gy2) ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2);
+        if(!tput(laid,X,Y,S)){
+          /* only ever reached in the first frames while the bank decodes */
+          ctx.fillStyle = isBody(gx,gy2) ? (EXTCOL[c]||'#8a5a3a') : gcol(gx,gy2);
+          ctx.fillRect(X,Y,S,S);
+        }
+        /* the street's own centre dashes, the target's road_centre tile */
+        if(c===1 && isRoad(gx,gy2+1) && isRoad(gx,gy2-1) && !isRoad(gx+1,gy2) === !isRoad(gx-1,gy2)
+           && th(gx,0,1)===0 && (gx%6===0)) tput('road_centre',X,Y,S);
       }
-      else if(c===0){ if(!tile(YARD_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle=gcol(gx,gy2); ctx.fillRect(X,Y,S,S); }
-        ctx.fillStyle='rgba(28,24,16,0.34)'; ctx.fillRect(X,Y,S,S);
-        var yh=((gx*2246822519)^(gy2*3266489917))>>>0;
-        if(yh%7===0){ ctx.fillStyle='#3a3a2a'; ctx.beginPath(); ctx.arc(X+S*0.5,Y+S*0.5,S*0.22,0,7); ctx.fill();
-          ctx.fillStyle='#2c2c20'; ctx.beginPath(); ctx.arc(X+S*0.4,Y+S*0.45,S*0.13,0,7); ctx.fill(); }
-        else if(yh%13===0){ ctx.fillStyle='#4a463c'; ctx.fillRect(X+S*0.4,Y+S*0.35,S*0.2,S*0.3); } }
-      else if(c===4){ if(!tile(WALL_IMG,gx,gy2,X,Y,S)){ ctx.fillStyle='#4a4030'; ctx.fillRect(X,Y,S,S);
-          ctx.fillStyle='#5a4c38'; ctx.fillRect(X,Y+S*0.35,S,S*0.3); } }
-      else if(c===1){ var hh=((gx*2654435761)^(gy2*40503))>>>0;
-        ctx.fillStyle=['#33333c','#37373f','#303038'][hh%3]; ctx.fillRect(X,Y,S,S);
-        if(gx%2===0){ ctx.fillStyle='#5a5340'; ctx.fillRect(X+S*0.46,Y,S*0.08,S*0.5); } }
-      else if(c===3){ ctx.fillStyle='#5a5a62'; ctx.fillRect(X,Y,S,S);
-        var dh=((gx*668265263)^(gy2*374761393))>>>0;
-        if(dh%3===0){ ctx.fillStyle=['#6a5040','#4a5560','#55555f'][dh%3];
-          ctx.fillRect(X+S*0.12,Y+S*0.16,S*0.76,S*0.68);
-          ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fillRect(X+S*0.22,Y+S*0.26,S*0.56,S*0.2); } }
-      else { ctx.fillStyle=EXTCOL[c]||'#463f30'; ctx.fillRect(X,Y,S,S); }
       if(c===1&&lampAt(gx,gy2)){ ctx.fillStyle='#2a2a30'; ctx.fillRect(X+S*0.42,Y+S*0.1,S*0.16,S*0.8);
         ctx.fillStyle='#3a3a42'; ctx.fillRect(X+S*0.3,Y,S*0.4,S*0.18); }
     } else {

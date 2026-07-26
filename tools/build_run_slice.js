@@ -86,6 +86,32 @@ if (html.indexOf('__DOOR_ANIM_JSON__') < 0) throw new Error('missing __DOOR_ANIM
 html = html.replace('__DOOR_ANIM_JSON__', JSON.stringify({
   version: bank.version, framesPerClip: bank.frames_per_clip, tileW: 1, tileH: 2, clips: doorOut }));
 
+/* ---- THE VISUAL CONSTITUTION'S OWN TILES (Paolo verdicted the target screen
+   CBB on 7/26: it ships, it is FROZEN, and the visual freeze lifted with it).
+   banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt is the 42-tile set the target
+   frame was reassembled from, byte-locked by gates/target_match_gate.py. The run
+   CONSUMES it — no new pixels are cooked here, which is why nothing registers a
+   new bank. The tile ids are the language: road/walk/kerb/gutter/crossing,
+   yard/concrete/dirt, wall + window/boarded/base/under_eave/ends, door_top and
+   door_bottom (the 2-tall door law, in the target's own hand), garage top and
+   bottom, and a real hip roof (slope/ridge/eave/four hips) + deck/parapet. ---- */
+var TS_PATH = 'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt';
+var ts = JSON.parse(fs.readFileSync(TS_PATH, 'utf8'));
+var tsMD5 = require('crypto').createHash('md5').update(fs.readFileSync(TS_PATH)).digest('hex');
+var constitution = JSON.parse(fs.readFileSync('records/target/BOHEMIA_VISUAL_CONSTITUTION.json', 'utf8'));
+if (constitution.frozen.tileset.md5 !== tsMD5) {
+  throw new Error('the starter tileset does not match the frozen constitution md5 — it is FROZEN, do not re-render it');
+}
+var tsTiles = {};
+(ts.tiles || []).forEach(function (t) { tsTiles[t.id] = t.b64; });
+['road_0', 'walk_0', 'yard_0', 'concrete_0', 'dirt', 'wall_0', 'door_top',
+ 'door_bottom', 'roof_slope', 'roof_ridge', 'roof_eave'].forEach(function (id) {
+  if (!tsTiles[id]) throw new Error('the frozen tileset is missing ' + id);
+});
+if (html.indexOf('__TARGET_TILES_JSON__') < 0) throw new Error('missing __TARGET_TILES_JSON__ placeholder');
+html = html.replace('__TARGET_TILES_JSON__', JSON.stringify({
+  version: ts.version, cell: ts.cell_px, md5: tsMD5, tiles: tsTiles }));
+
 /* ---- the engine modules, inlined in the page's own (canonical) order. Every
    `<script src="../engine/X.js">` becomes the byte-identical body of engine/X.js,
    so gates/run_gate.js can prove freshness by substring. ---- */

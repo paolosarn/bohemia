@@ -27,7 +27,7 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 | combat (Dead Eye Dial) | INTEGRATED | combat_bridge | a loud resolution really hands off to the real combat frame and back |
 | factions / world bridge | PARTIAL | world_bridge | quest outcomes really move faction standing, but nothing in the run SHOWS it |
 | real valley / districts | NOT YET | — | the run is one detached block, not a cell of the generated valley |
-| 3/4 iso view (45 DEGREE ART LAW) | NOT YET | — | the run is flat top-down; the game's art is three-quarter. Biggest visual gap. |
+| the target screen's look (visual constitution) | INTEGRATED | target_tiles | the block is laid from the FROZEN 42-tile starter set: cracked asphalt, kerb/gutter, weedy walk, tan stucco face with windows and boarded windows, real hip roof, garage openings on their own driveways. CORRECTION: the target Paolo picked is TOP-DOWN, not three-quarter, so the old "the run must go iso" row was wrong and is retired. |
 | district heroes + district art (21 types) | NOT YET | — | none of the built districts are walkable in the run |
 | music (faction pools, 120 BPM) | INTEGRATED | music_bridge | the alpha's own MUS/CITYMUS synth scores the walk; one AudioContext in the parent, no second music engine |
 | day cycle / light pass / LIGHT=TERRITORY | NOT YET | — | the block is one fixed time of day, lamps are dead props |
@@ -38,9 +38,10 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 | death is a reload | INTEGRATED | death_reload | losing a fight loads the closest previous save, never a reset (7/26 ruling) |
 
 ## THE ORDER THE GAPS GET CLOSED (biggest visible first)
-1. **3/4 ISO VIEW** — the single loudest "this isn't our game" signal. The city
-   tab already renders the real iso world with the real character in human mode;
-   the run's world view should become that renderer, not a second one.
+1. **INTERIORS TO THE TARGET** — the outside now speaks the constitution's
+   language; inside is still flat role-tinted plates. CITY's interior pool
+   (banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt, 465 swept-UP tiles) is the
+   ingredient and it is deliberately unwired, waiting for exactly this.
 2. **THE REAL VALLEY** — the run's block becomes a real cell of the generated
    valley so walking off it lands in a real neighbouring district.
 3. **DISTRICT ART** — the 21 built district types become places the errand can

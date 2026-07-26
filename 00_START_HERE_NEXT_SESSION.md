@@ -253,7 +253,24 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/26 LATEST — SAVE/LOAD + DEATH IS A RELOAD. Built to Paolo's two save
+RUN (01) 7/26 LATEST — THE BLOCK NOW LOOKS LIKE THE TARGET. Paolo's CBB verdict
+froze the target screen and lifted the freeze, so the run stopped drawing coloured
+squares: the whole block is laid from the FROZEN 42-tile starter set
+(banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt) in the target frame's own
+language — cracked asphalt with kerbs and gutters, weedy walk, tan stucco faces
+with windows and boarded windows, a real hip roof (eave/slope/ridge/four hips),
+garage openings that land on their OWN driveway whichever side it is. Consumed,
+never re-rendered: tools/build_run_slice.js refuses to build if the bank's md5
+has moved off the constitution, so the frozen thing stays frozen.
+CORRECTION ON RECORD, so nobody repeats it: this lane had been telling Paolo the
+biggest visual gap was going THREE-QUARTER. The target he actually picked is
+TOP-DOWN. That premise was wrong and the ledger row is retired.
+NEXT IN THIS LANE: interiors to the target. Outside speaks the constitution now,
+inside is still flat role-tinted plates, and CITY already delivered the
+ingredient and left it unwired for exactly this
+(banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt, 465 swept-UP tiles by room function).
+
+RUN (01) 7/26 — SAVE/LOAD + DEATH IS A RELOAD. Built to Paolo's two save
 rulings the same day, to their own words: ONE portable versioned blob (the
 engine's own save via BohemiaLoop.captureSave PLUS the run's surface state, in a
 versioned envelope), all three kinds coexisting (SLEEP AND SAVE at home, SAVE NOW

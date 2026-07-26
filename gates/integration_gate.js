@@ -71,6 +71,24 @@ const PROBES = {
     ALPHA.indexOf('CITYMUS.startShuffle()') >= 0 &&
     // no second synth: the run must never CONSTRUCT an audio context of its own
     !/new\s*\(?\s*(window\.)?(webkit)?AudioContext/.test(RUN),
+  /* THE VISUAL CONSTITUTION (Paolo's CBB verdict on the target, 7/26): the run
+     is laid from the FROZEN starter tileset, consumed byte-for-byte, and the
+     tiles are really used by the renderer rather than merely shipped. */
+  target_tiles: () => {
+    const constPath = path.join(ROOT, 'records/target/BOHEMIA_VISUAL_CONSTITUTION.json');
+    if (!fs.existsSync(constPath)) return false;
+    const con = JSON.parse(fs.readFileSync(constPath, 'utf8'));
+    const bankPath = path.join(ROOT, con.frozen.tileset.path);
+    const md5 = require('crypto').createHash('md5').update(fs.readFileSync(bankPath)).digest('hex');
+    if (md5 !== con.frozen.tileset.md5) return false;      // the frozen set moved
+    const bank = JSON.parse(fs.readFileSync(bankPath, 'utf8'));
+    // every approved tile ships verbatim...
+    if (!bank.tiles.every(t => RUN.indexOf(t.b64) >= 0)) return false;
+    // ...and the renderer actually lays them, in the target's own language
+    return RUN.indexOf('function bodyTile(') >= 0 && RUN.indexOf('function groundTile(') >= 0 &&
+           RUN.indexOf("'roof_ridge'") >= 0 && RUN.indexOf("'wall_window'") >= 0 &&
+           RUN.indexOf("'road_gutter'") >= 0 && RUN.indexOf("'garage_bottom'") >= 0;
+  },
   /* SAVE/LOAD, to the two 7/26 rulings: one versioned blob through the engine's
      own save, no private side-channel, no device prefs riding along. */
   save_blob: () =>
