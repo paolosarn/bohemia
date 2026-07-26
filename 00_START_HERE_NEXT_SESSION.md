@@ -1,3 +1,46 @@
+LAB (09): 7/26 (f) — BACKLOG LAB-2 SHIPPED: PROJECT ZOMBOID, AND ITS OWN LOOT DATA IS
+IN THE PAGE. His ask was "containers, search, weight, the tension of rummaging a house."
+slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html — a four-room house (kitchen, living
+room, bathroom, bedroom) with 12 containers, and PROJECT ZOMBOID'S REAL LOOT TABLES
+EMBEDDED VERBATIM from the vanilla Lua: 4 rooms, 18 container slots, 65 tables, trimmed
+to the top 12 items and top 6 junk entries per table with NOT ONE WEIGHT ALTERED. Walk
+up to a counter, face it, hold RUMMAGE, and real Zomboid items come out of the real
+tables with the real odds.
+THREE MECHANICS, all three closing:
+  LOOTING — the two-stage roll. The ROOM plus the CONTAINER TYPE together pick named
+  tables by weightChance out of 100, then each table rolls its weighted item list AND
+  ITS OWN SEPARATE JUNK TABLE. That junk roll is the mechanical reason rummaging feels
+  like rummaging: the game is deliberately spending your time on a dead rat.
+  RUMMAGING — the real time formula (ISInventoryTransferAction.lua:784-833). WEIGHT IS
+  TIME, capped at 3kg, so a pot costs 3x a can and 30x a bandaid. Organising costs 120
+  base against 50 for grabbing. Traits are one flat multiplier on the whole economy
+  (x0.5 dextrous, x2 all thumbs). Dropping is nearly free at x0.1.
+  ENCUMBRANCE — AND I HAD THIS BACKWARDS ON THE FIRST READ, WHICH THE RECORD SAYS
+  PLAINLY. I told Paolo "a full bag is a slow bag" for everything. The source only
+  applies the fullness term when BOTH containers are on your body. GRABBING OFF A SHELF
+  IS FLAT no matter how loaded you are; PACKING is what a full bag taxes, up to 2.4x
+  measured. ZOMBOID CHARGES YOU FOR ORGANISING, NOT FOR GRABBING — snatching is cheap,
+  curating is expensive, and it is one if-branch. The page now models the real two-step
+  loop players actually do: take into your hands (flat), then pack into the bag (taxed).
+Teardown, every number with its file:line, including the correction:
+records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt
+Patterns (8 named, 5 recommendations, 4 do-not-ports):
+records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
+THE PICKS FOR US, and none of them is survival looting: THE CONTAINER IS THE CONTRACT
+(key what you find on district + container KIND, not a global loot level — our tilespec
+dossiers already name every tile's kind, so this is nearly free); JUNK IS A SEPARATE
+ROLL; and CHARGE FOR ORGANISING NOT GRABBING, which gives his TIME IS SPENT BY ACTIONS
+ruling teeth for two numbers in the action cost table he has not written yet.
+Gate: lab_gate.js is now 245 checks. The Zomboid half walks the house with the real step
+code, rolls 40 kitchen counters to prove the junk roll really fires, measures the 3kg
+weight cap and both trait multipliers, proves grabbing is flat while packing scales with
+fullness, and plays both loops through to a loaded bag. Three gate generalisations came
+with it: a citation may be .lua as well as .cs, a game that SHIPS its source is "read
+directly" rather than decompiled, and the minimum sourced-constant count is per row
+(Zomboid's whole time economy is 8 numbers).
+KNOWN LIMIT, stated in the note: the view is a whole-house floor plan rather than a
+camera on the player. Good for a loot reference, wrong shape for a phone surface.
+
 LAB (09): 7/26 (e) — HE APPROVED ALL FOUR PORTED MECHANISMS AND RULED THE BIG ONE
 WIDER IN THE SAME BREATH. "I like it all tbh all 3 and sleep understand sleep can be
 hangout or eat too u know".

@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 04 — ZOMBOID: RUMMAGING A HOUSE (REFERENCE)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 04 — PROJECT ZOMBOID: LOOTING / RUMMAGING / ENCUMBRANCE
+  laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md
+
+  Backlog LAB-2: "ZOMBOID LOOT LOOP: containers, search, weight, the tension of
+  rummaging a house."
+
+  THREE MECHANICS, IN A HOUSE YOU WALK AROUND:
+    LOOTING      the real two-stage procedural distribution. A room plus a
+                 container type picks named tables by weightChance; each table
+                 rolls a weighted item list; and every table has its own
+                 separate JUNK roll, which is why rummaging feels like
+                 rummaging instead of shopping.
+    RUMMAGING    the real time economy. Every item you touch costs time, and
+                 what it costs depends on how heavy it is and how full the bag
+                 you are putting it in already is.
+    ENCUMBRANCE  the consequence, exactly as the source computes it, and NOT
+                 what I first assumed: grabbing off a shelf is a FLAT cost, and
+                 the fullness tax lands when you PACK what you grabbed into a
+                 bag. Project Zomboid charges you for organising, not for
+                 grabbing. So the loop here is the real two-step one players
+                 actually do: take into your hands, then pack into the bag.
+
+  SOURCE: the vanilla Project Zomboid Lua, read directly.
+    server/Items/Distributions.lua           room -> container -> procList
+    server/Items/ProceduralDistributions.lua the tables, rolls, weights, junk
+    client/TimedActions/ISInventoryTransferAction.lua:784-833  the time formula
+  Numbers + citations: records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt
+  Patterns: records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
+
+  NOT BOHEMIA. No engine module, no bank, no alpha. Placeholder art only.
+  gates/lab_gate.js walks this house and plays all three loops in it.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; padding:0; height:100%; background:#0e0f13; color:#dcd8cf;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#b8342a; color:#fff; font-size:10px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #stage { position:relative; flex:1 1 auto; min-height:0; background:#000; }
+  #c { display:block; width:100%; height:100%; image-rendering:pixelated; }
+  #hud { position:absolute; left:4px; top:4px; right:4px; pointer-events:none;
+    display:flex; justify-content:space-between; gap:6px; }
+  .card { background:rgba(8,9,12,.84); border:1px solid #333a45; border-radius:3px;
+    padding:3px 6px; font-size:10px; line-height:1.4; white-space:pre; }
+  #bagbar { position:absolute; left:6px; right:6px; bottom:6px; height:14px;
+    background:rgba(8,9,12,.86); border:1px solid #333a45; border-radius:2px; pointer-events:none; }
+  #bagfill { height:100%; background:#6f8c4f; width:0%; }
+  #bagtxt { position:absolute; left:5px; top:0; font-size:9px; line-height:12px; color:#fff; }
+  #log { position:absolute; left:6px; right:6px; bottom:26px; pointer-events:none; font-size:10px; }
+  #log div { background:rgba(8,9,12,.86); border-left:3px solid #3f4652; padding:1px 5px;
+    margin-top:2px; border-radius:2px; }
+  #log .good { border-left-color:#6f8c4f; color:#d3ecc0; }
+  #log .junk { border-left-color:#6a5a3a; color:#cbbb96; }
+  #log .bad  { border-left-color:#9c4a3a; color:#f0c3b8; }
+  #ctl { flex:0 0 auto; padding:5px 6px 8px; background:#15171d; border-top:1px solid #262b34; }
+  #row1 { display:flex; align-items:center; gap:8px; }
+  #stick { position:relative; width:110px; height:110px; flex:0 0 auto; border-radius:50%;
+    background:#1e222b; border:2px solid #333a45; }
+  #knob { position:absolute; left:50%; top:50%; width:42px; height:42px; margin:-21px 0 0 -21px;
+    border-radius:50%; background:#4b5568; border:2px solid #6d7a92; }
+  #right { flex:1 1 auto; display:flex; flex-direction:column; gap:5px; min-width:0; }
+  #act { width:100%; padding:13px 6px; font-size:13px; font-weight:700; letter-spacing:.05em;
+    border-radius:4px; border:2px solid #6d7a92; background:#2a3140; color:#dbe3f0; }
+  #act.hot { background:#3d5230; border-color:#7ba05e; color:#e0f2cf; }
+  #act:disabled { opacity:.35; }
+  #prog { height:6px; background:#22262f; border-radius:3px; overflow:hidden; }
+  #progfill { height:100%; width:0%; background:#c9a24a; }
+  .chips { display:flex; flex-wrap:wrap; gap:4px; }
+  button.chip { font-family:inherit; font-size:9.5px; padding:6px 7px; border-radius:3px;
+    border:1px solid #3b424f; background:#1e222b; color:#98a0ae; }
+  button.chip.on { background:#3d5230; border-color:#7ba05e; color:#dcefcb; }
+  .modal { position:absolute; inset:0; background:rgba(6,7,10,.97); display:none;
+    flex-direction:column; padding:8px 10px; overflow:auto; z-index:6; font-size:10px; }
+  .modal.open { display:flex; }
+  .modal h3 { margin:0 0 6px; font-size:11px; color:#e0b64a; }
+  table.st { width:100%; border-collapse:collapse; font-size:10px; }
+  table.st td { padding:1px 3px; border-bottom:1px solid #1c2029; }
+  table.st td.n { color:#8fb8d8; } table.st td.v { text-align:right; color:#fff; }
+  .wm { position:absolute; right:4px; bottom:44px; font-size:8px; color:#fff; opacity:.3; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE EMULATION — NOT BOHEMIA.</b> Project Zomboid's real loot tables and
+    its real rummage-time formula, in a house you walk. Placeholder art.</div>
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div class="card" id="hudl"></div>
+      <div class="card" id="hudr"></div>
+    </div>
+    <div id="log"></div>
+    <div id="bagbar"><div id="bagfill"></div><div id="bagtxt"></div></div>
+    <div class="wm">PLACEHOLDER ART</div>
+    <div class="modal" id="m_bag">
+      <h3 id="baghead">THE BAG</h3>
+      <button class="chip" id="b_close" style="align-self:flex-start;margin-bottom:6px">CLOSE</button>
+      <table class="st" id="bagtable"></table>
+    </div>
+    <div class="modal" id="m_num">
+      <h3>THE NUMBERS, AND THE LINE EACH CAME FROM</h3>
+      <button class="chip" id="n_close" style="align-self:flex-start;margin-bottom:6px">CLOSE</button>
+      <div id="numbody"></div>
+    </div>
+  </div>
+  <div id="ctl">
+    <div id="row1">
+      <div id="stick"><div id="knob"></div></div>
+      <div id="right">
+        <button id="act">—</button>
+        <div id="prog"><div id="progfill"></div></div>
+        <div class="chips" id="chips"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+/* REAL PROJECT ZOMBOID LOOT DATA, extracted verbatim from the vanilla Lua:
+   server/Items/Distributions.lua  (room -> container -> procList, with the
+   real weightChance values) and server/Items/ProceduralDistributions.lua
+   (each table's real rolls, its real item weights, and its real junk table).
+   TRIMMED, and the trim is declared: each table keeps its TOP 12 items by
+   weight and its top 6 junk entries. No weight was changed. Nothing was added.
+   4 rooms, 18 container slots, 65 tables. */
+var PZ_ROOMS = {"kitchen":{"counter":[{"t":"KitchenBottles","min":0,"max":1,"w":40.0},{"t":"KitchenBaking","min":0,"max":1,"w":40.0},{"t":"KitchenBreakfast","min":0,"max":1,"w":80.0},{"t":"KitchenCannedFood","min":0,"max":1,"w":100.0},{"t":"KitchenDishes","min":0,"max":1,"w":80.0},{"t":"KitchenDryFood","min":0,"max":1,"w":100.0},{"t":"KitchenPots","min":0,"max":1,"w":80.0},{"t":"KitchenRandom","min":0,"max":1,"w":20.0}],"crate":[{"t":"ArtSupplies","min":0,"max":1,"w":10.0},{"t":"CrateCannedFood","min":0,"max":1,"w":60.0},{"t":"CrateDishes","min":0,"max":1,"w":80.0},{"t":"CrateTools","min":0,"max":1,"w":20.0},{"t":"CrateToolsOld","min":0,"max":1,"w":80.0},{"t":"Hobbies","min":0,"max":1,"w":10.0},{"t":"Homesteading","min":0,"max":1,"w":10.0},{"t":"ImprovisedCrafts","min":0,"max":1,"w":10.0},{"t":"JunkHoard","min":0,"max":1,"w":10.0},{"t":"KitchenBook","min":0,"max":1,"w":100.0},{"t":"PlumbingSupplies","min":0,"max":1,"w":10.0}],"overhead":[{"t":"KitchenBaking","min":0,"max":1,"w":40.0},{"t":"KitchenBottles","min":0,"max":1,"w":40.0},{"t":"KitchenBreakfast","min":0,"max":1,"w":80.0},{"t":"KitchenCannedFood","min":0,"max":2,"w":100.0},{"t":"KitchenDishes","min":1,"max":1,"w":100.0},{"t":"KitchenDryFood","min":0,"max":4,"w":100.0}],"shelves":[{"t":"KitchenBottles","min":0,"max":1,"w":40.0},{"t":"KitchenCannedFood","min":0,"max":1,"w":100.0},{"t":"KitchenDishes","min":0,"max":1,"w":80.0},{"t":"KitchenDryFood","min":0,"max":1,"w":100.0}]},"bathroom":{"crate":[{"t":"CrateBooks","min":0,"max":1,"w":40.0},{"t":"CrateLinens","min":0,"max":1,"w":40.0},{"t":"CrateMagazines","min":0,"max":1,"w":100.0},{"t":"CrateNewspapers","min":0,"max":1,"w":40.0},{"t":"CrateToiletPaper","min":0,"max":1,"w":10.0},{"t":"GymTowels","min":0,"max":1,"w":60.0}]},"livingroom":{"counter":[{"t":"KitchenDishes","min":1,"max":1,"w":100.0},{"t":"KitchenPots","min":1,"max":1,"w":100.0},{"t":"KitchenCannedFood","min":1,"max":1,"w":100.0},{"t":"KitchenDryFood","min":0,"max":1,"w":100.0},{"t":"KitchenBreakfast","min":0,"max":1,"w":100.0},{"t":"KitchenBottles","min":0,"max":1,"w":100.0},{"t":"KitchenRandom","min":0,"max":1,"w":100.0}],"crate":[{"t":"Antiques","min":0,"max":1,"w":20.0},{"t":"ArtSupplies","min":0,"max":1,"w":20.0},{"t":"BurglarTools","min":0,"max":1,"w":5.0},{"t":"Chemistry","min":0,"max":1,"w":10.0},{"t":"ClothingStorageWinter","min":0,"max":1,"w":10.0},{"t":"CrateBooks","min":0,"max":1,"w":60.0},{"t":"CrateCanning","min":0,"max":1,"w":5.0},{"t":"CrateClothesRandom","min":0,"max":1,"w":20.0},{"t":"CrateComics","min":0,"max":1,"w":60.0},{"t":"CrateCompactDiscs","min":0,"max":1,"w":40.0},{"t":"CrateComputer","min":0,"max":1,"w":10.0},{"t":"CrateCostume","min":0,"max":1,"w":10.0},{"t":"CrateDishes","min":0,"max":1,"w":10.0},{"t":"CrateElectronics","min":0,"max":1,"w":40.0},{"t":"CrateFitnessWeights","min":0,"max":1,"w":10.0},{"t":"CrateFootwearRandom","min":0,"max":1,"w":10.0},{"t":"CrateInstruments","min":0,"max":1,"w":10.0},{"t":"CrateLinens","min":0,"max":1,"w":10.0},{"t":"CrateMagazines","min":0,"max":1,"w":80.0},{"t":"CrateNewspapers","min":0,"max":1,"w":60.0},{"t":"CratePetSupplies","min":0,"max":1,"w":10.0},{"t":"CrateTailoring","min":0,"max":1,"w":10.0},{"t":"CrateTools","min":0,"max":1,"w":60.0},{"t":"CrateToolsOld","min":0,"max":1,"w":80.0},{"t":"CrateToys","min":0,"max":1,"w":10.0},{"t":"CrateTV","min":0,"max":1,"w":10.0},{"t":"CrateTVWide","min":0,"max":1,"w":10.0},{"t":"CrateVHSTapes","min":0,"max":1,"w":80.0},{"t":"EngineerTools","min":0,"max":1,"w":5.0},{"t":"FitnessTrainer","min":0,"max":1,"w":10.0},{"t":"Gifts","min":0,"max":1,"w":10.0},{"t":"Hiker","min":0,"max":1,"w":5.0},{"t":"Hobbies","min":0,"max":1,"w":20.0},{"t":"HolidayStuff","min":0,"max":1,"w":10.0},{"t":"Homesteading","min":0,"max":1,"w":5.0},{"t":"ImprovisedCrafts","min":0,"max":1,"w":20.0},{"t":"JunkHoard","min":0,"max":1,"w":20.0},{"t":"MechanicSpecial","min":0,"max":1,"w":5.0},{"t":"Photographer","min":0,"max":1,"w":10.0},{"t":"PlumbingSupplies","min":0,"max":1,"w":5.0},{"t":"ScienceMisc","min":0,"max":1,"w":5.0},{"t":"SurvivalGear","min":0,"max":1,"w":5.0},{"t":"Trapper","min":0,"max":1,"w":5.0},{"t":"VacationStuff","min":0,"max":1,"w":20.0}],"fridge":[{"t":"FridgeGeneric","min":0,"max":99,"w":100.0}],"shelves":[{"t":"LivingRoomShelf","min":98,"max":99,"w":100.0}],"sidetable":[{"t":"LivingRoomSideTable","min":98,"max":99,"w":100.0}],"overhead":[{"t":"KitchenDishes","min":1,"max":1,"w":100.0},{"t":"KitchenCannedFood","min":1,"max":1,"w":100.0},{"t":"KitchenDryFood","min":0,"max":1,"w":100.0},{"t":"KitchenBreakfast","min":0,"max":1,"w":100.0},{"t":"KitchenBottles","min":0,"max":1,"w":100.0},{"t":"KitchenBook","min":0,"max":1,"w":100.0}],"wardrobe":[{"t":"Antiques","min":0,"max":1,"w":1.0},{"t":"ArtSupplies","min":0,"max":1,"w":1.0},{"t":"Hobbies","min":0,"max":1,"w":1.0},{"t":"LivingRoomWardrobe","min":0,"max":99,"w":100.0}]},"bedroom":{"crate":[{"t":"ClothingStorageWinter","min":0,"max":1,"w":40.0},{"t":"CrateBooks","min":0,"max":1,"w":60.0},{"t":"CrateCanning","min":0,"max":1,"w":20.0},{"t":"CrateClothesRandom","min":0,"max":1,"w":40.0},{"t":"CrateComics","min":0,"max":1,"w":60.0},{"t":"CrateCompactDiscs","min":0,"max":1,"w":40.0},{"t":"CrateElectronics","min":0,"max":1,"w":80.0},{"t":"CrateFitnessWeights","min":0,"max":1,"w":10.0},{"t":"CrateFootwearRandom","min":0,"max":1,"w":40.0},{"t":"CrateInstruments","min":0,"max":1,"w":20.0},{"t":"CrateLinens","min":0,"max":1,"w":40.0},{"t":"CrateMagazines","min":0,"max":1,"w":60.0},{"t":"CrateNewspapers","min":0,"max":1,"w":60.0},{"t":"CrateRandomJunk","min":0,"max":1,"w":20.0},{"t":"CrateTailoring","min":0,"max":1,"w":80.0},{"t":"CrateTools","min":0,"max":1,"w":40.0},{"t":"CrateToolsOld","min":0,"max":1,"w":100.0},{"t":"CrateVHSTapes","min":0,"max":1,"w":60.0}],"desk":[{"t":"OfficeDeskHome","min":0,"max":99,"w":100.0}],"dresser":[{"t":"BedroomDresser","min":98,"max":99,"w":100.0}],"locker":[{"t":"WardrobeGeneric","min":98,"max":99,"w":100.0}],"sidetable":[{"t":"BedroomSidetable","min":98,"max":99,"w":100.0}],"wardrobe":[{"t":"WardrobeGeneric","min":98,"max":99,"w":100.0}]}};
+var PZ_TABLES = {"Antiques":{"rolls":4,"items":[["Postcard",20.0],["Photo",20.0],["LetterHandwritten",10.0],["Newspaper",10.0],["Newspaper",10.0],["PenFancy",10.0],["Photo",10.0],["Photo_VeryOld",10.0],["Locket",10.0],["Pocketwatch",10.0],["Lighter",10.0],["Bell",10.0]],"junk":{"rolls":1,"items":[["Necklace_DogTag",10.0],["BobPic",0.1],["CaseyPic",0.1],["ChrisPic",0.1],["CortmanPic",0.1],["HankPic",0.1]]}},"ArtSupplies":{"rolls":4,"items":[["Magazine_Art",10.0],["Paintbrush",10.0],["Paperclip",10.0],["Pencil",10.0],["SheetPaper2",10.0],["BluePen",8.0],["Brush",8.0],["ClayTool",8.0],["CompassGeometry",8.0],["Crayons",8.0],["Eraser",8.0],["Pen",8.0]],"junk":null},"BedroomDresser":{"rolls":4,"items":[["Pillow",10.0],["Sheet",10.0],["Tissue",10.0],["Magazine",6.0],["Magazine_Popular",6.0],["Paperback_Fiction",6.0],["Vest_DefaultTEXTURE_TINT",4.0],["Paperback_AdventureNonFiction",4.0],["Paperback_SadNonFiction",4.0],["Belt2",4.0],["Photo",4.0],["TissueBox",4.0]],"junk":{"rolls":1,"items":[["IDcard",1.0],["BobPic",0.001],["CaseyPic",0.001],["ChrisPic",0.001],["CortmanPic",0.001],["HankPic",0.001]]}},"BedroomSidetable":{"rolls":4,"items":[["AlarmClock2",10.0],["Pencil",10.0],["SheetPaper2",10.0],["Tissue",10.0],["BluePen",8.0],["Catalog",8.0],["Matches",8.0],["Pen",8.0],["RedPen",8.0],["TVMagazine",8.0],["Magazine",6.0],["Magazine_Popular",6.0]],"junk":{"rolls":1,"items":[["IDcard",1.0],["BobPic",0.001],["CaseyPic",0.001],["ChrisPic",0.001],["CortmanPic",0.001],["HankPic",0.001]]}},"BurglarTools":{"rolls":4,"items":[["Garbagebag",10.0],["Gloves_Surgical",10.0],["IDcard_Blank",10.0],["Rope",10.0],["RubberHose",10.0],["Screwdriver",10.0],["SwitchKnife",10.0],["Tarp",10.0],["BaseballBat",8.0],["BlowTorch",8.0],["BoltCutters",8.0],["ClubHammer",8.0]],"junk":null},"Chemistry":{"rolls":4,"items":[["BakingSoda",10.0],["Bleach",10.0],["Funnel",10.0],["Gloves_Dish",10.0],["RubberHose",10.0],["SteelWool",10.0],["Vinegar_Jug",10.0],["WaterBottle",10.0],["Extinguisher",8.0],["Glasses_SafetyGoggles",8.0],["CleaningLiquid2",4.0],["Disinfectant",4.0]],"junk":null},"ClothingStorageWinter":{"rolls":4,"items":[["Hat_WinterHat",10.0],["Hat_WoolyHat",10.0],["Scarf_StripeBlackWhite",10.0],["Scarf_StripeBlueWhite",10.0],["Scarf_StripeRedWhite",10.0],["Scarf_White",10.0],["Hat_BalaclavaFace",8.0],["Hat_BalaclavaFull",8.0],["Hat_EarMuffs",8.0],["Jacket_PaddedDOWN",8.0],["Jacket_PaddedDOWN",8.0],["LongJohns_Bottoms",8.0]],"junk":null},"CrateBooks":{"rolls":4,"items":[["BookBlacksmith1",6.0],["BookButchering1",6.0],["BookCarpentry1",6.0],["BookCarving1",6.0],["BookCooking1",6.0],["BookElectrician1",6.0],["BookFarming1",6.0],["BookFirstAid1",6.0],["BookFishing1",6.0],["BookForaging1",6.0],["BookGlassmaking1",6.0],["BookHusbandry1",6.0]],"junk":null},"CrateCannedFood":{"rolls":4,"items":[["MysteryCan",8.0],["CannedBolognese",6.0],["CannedChili",6.0],["CannedCornedBeef",6.0],["CannedFruitBeverage",6.0],["CannedFruitCocktail",6.0],["CannedMushroomSoup",6.0],["CannedSardines",6.0],["TinnedBeans",6.0],["TinnedSoup",6.0],["TunaTin",6.0],["CannedCarrots2",4.0]],"junk":null},"CrateCanning":{"rolls":4,"items":[["EmptyJar",20.0],["EmptyJar",20.0],["JarLid",20.0],["JarLid",20.0],["EmptyJar",10.0],["EmptyJar",10.0],["JarLid",10.0],["JarLid",10.0],["BoxOfJars",4.0]],"junk":null},"CrateClothesRandom":{"rolls":4,"items":[["Belt2",4.0],["Boxers_White",4.0],["Briefs_White",4.0],["HoodieDOWN_WhiteTINT",4.0],["Jumper_TankTopTINT",4.0],["Jumper_VNeck",4.0],["Trousers_WhiteTINT",4.0],["Tshirt_DefaultTEXTURE_TINT",4.0],["Vest_DefaultTEXTURE_TINT",4.0],["BoobTube",2.0],["BoobTubeSmall",2.0],["Bra_Straps_Black",2.0]],"junk":null},"CrateComics":{"rolls":4,"items":[["ComicBook",50.0],["ComicBook",20.0],["ComicBook",20.0],["ComicBook",10.0],["ComicBook",10.0],["RPGmanual",10.0]],"junk":null},"CrateCompactDiscs":{"rolls":4,"items":[["Disc_Retail",50.0],["Disc_Retail",20.0],["Disc_Retail",20.0],["Disc_Retail",10.0],["Disc_Retail",10.0]],"junk":null},"CrateComputer":{"rolls":4,"items":[["ElectronicsScrap",10.0]],"junk":{"rolls":1,"items":[["Mov_DesktopComputer",100.0]]}},"CrateCostume":{"rolls":4,"items":[["Glasses_Sun",10.0],["Glasses_Aviators",8.0],["Glasses_SafetyGoggles",8.0],["Hat_HeadMirrorUP",8.0],["Mirror",8.0],["Glasses_SkiGoggles",6.0],["Glasses_SwimmingGoggles",6.0],["HairDyeUncommon",6.0],["Hairspray2",6.0],["MakeupEyeshadow",6.0],["MakeupFoundation",6.0],["Comb",4.0]],"junk":null},"CrateDishes":{"rolls":4,"items":[["Bowl",20.0],["DrinkingGlass",20.0],["Plate",20.0],["Bowl",10.0],["DrinkingGlass",10.0],["GlassTumbler",10.0],["Mugl",10.0],["Plate",10.0],["GlassWine",4.0],["Teacup",4.0]],"junk":null},"CrateElectronics":{"rolls":4,"items":[["ElectricWire",20.0],["ElectronicsScrap",20.0],["CopperScrap",10.0],["ElectricWire",10.0],["ElectronicsScrap",10.0],["HairDryer",10.0],["HairIron",10.0],["HandTorch",8.0],["CDplayer",4.0],["Earbuds",4.0],["Headphones",4.0],["Microphone",4.0]],"junk":{"rolls":1,"items":[["Mov_SatelliteDish",4.0]]}},"CrateFitnessWeights":{"rolls":4,"items":[["DumbBell",50.0],["BarBell",20.0],["DumbBell",10.0]],"junk":{"rolls":1,"items":[["Mov_FitnessContraption",200.0]]}},"CrateFootwearRandom":{"rolls":4,"items":[["Shoes_Black",8.0],["Shoes_Brown",8.0],["Shoes_TrainerTINT",8.0],["Shoes_BlueTrainers",4.0],["Shoes_FlipFlop",4.0],["Shoes_HikingBoots",4.0],["Shoes_RedTrainers",4.0],["Shoes_WorkBoots",4.0],["Shoes_BlackBoots",2.0],["Shoes_RidingBoots",2.0],["Shoes_ArmyBoots",1.0],["Shoes_Wellies",1.0]],"junk":null},"CrateInstruments":{"rolls":4,"items":[["Drumstick",20.0],["Drumstick",10.0],["Harmonica",8.0],["Banjo",6.0],["Keytar",6.0],["Flute",4.0],["GuitarAcoustic",4.0],["GuitarElectricBass",4.0],["GuitarElectric",4.0],["Saxophone",4.0],["Trumpet",4.0],["Violin",4.0]],"junk":null},"CrateLinens":{"rolls":4,"items":[["Sheet",50.0],["Sheet",20.0],["Sheet",20.0],["BathTowel",20.0],["Pillow",20.0],["Sheet",10.0],["Sheet",10.0],["BathTowel",10.0],["Pillow",10.0]],"junk":null},"CrateMagazines":{"rolls":4,"items":[["MagazineCrossword",10.0],["MagazineWordsearch",10.0],["TVMagazine",8.0],["Magazine_Car",4.0],["Magazine_Childs",4.0],["Magazine_Fashion",4.0],["Magazine_Hobby",4.0],["Magazine_Horror",4.0],["Magazine_Humor",4.0],["Magazine_Sports",4.0],["Magazine_Teens",4.0],["Magazine_Art",2.0]],"junk":null},"CrateNewspapers":{"rolls":4,"items":[["Newspaper",50.0],["Newspaper",20.0],["Newspaper",20.0],["Newspaper",10.0],["Newspaper",10.0]],"junk":null},"CratePetSupplies":{"rolls":4,"items":[["Dogfood",20.0],["CatFoodBag",10.0],["CatTreats",10.0],["Dogfood",10.0],["DogFoodBag",10.0],["TennisBall",8.0],["CatToy",6.0],["DogChew",6.0],["Leash",4.0],["Rubberducky",4.0],["WaterDishEmpty",4.0],["DogTag_Pet",1.0]],"junk":null},"CrateRandomJunk":{"rolls":1,"items":[["IndustrialDye",20.0],["Matchbox",10.0],["Paintbrush",10.0],["PlasterTrowel",10.0],["Thread",10.0],["Paperback",8.0],["Magazine",5.0],["Magazine_Popular",5.0],["Battery",4.0],["Book",4.0],["Catalog",2.0],["PokerChips",2.0]],"junk":null},"CrateTV":{"rolls":1,"items":[["TvBlack",200.0]],"junk":null},"CrateTVWide":{"rolls":1,"items":[["TvWideScreen",200.0]],"junk":null},"CrateTailoring":{"rolls":4,"items":[["IndustrialDye",50.0],["SewingPattern",50.0],["Needle",20.0],["SewingPattern",20.0],["Thread",20.0],["DenimStrips",10.0],["LeatherStrips",10.0],["Thread",10.0],["Awl",8.0],["Shirt_FormalWhite",8.0],["Shirt_FormalWhite",8.0],["Trousers_Suit",8.0]],"junk":null},"CrateToiletPaper":{"rolls":4,"items":[["ToiletPaper",50.0],["ToiletPaper",20.0],["ToiletPaper",20.0],["ToiletPaper",10.0],["ToiletPaper",10.0]],"junk":null},"CrateTools":{"rolls":4,"items":[["Whetstone",10.0],["GardenSaw",8.0],["HandShovel",8.0],["LeafRake",8.0],["Rake",8.0],["Funnel",8.0],["RubberHose",8.0],["Twine",8.0],["Screwdriver",6.0],["Shovel",4.0],["Shovel2",4.0],["LugWrench",4.0]],"junk":{"rolls":1,"items":[["MeasuringTape",10.0]]}},"CrateToolsOld":{"rolls":4,"items":[["Fleshing_Tool",10.0],["Funnel",10.0],["GardenSaw",10.0],["HandShovel",10.0],["LeafRake",10.0],["PlasterTrowel",10.0],["Rake",10.0],["Ratchet",10.0],["Screwdriver",10.0],["Whetstone",10.0],["BlowTorch",8.0],["BoltCutters",8.0]],"junk":null},"CrateToys":{"rolls":4,"items":[["Bricktoys",20.0],["Doll",20.0],["ToyBear",20.0],["Bricktoys",10.0],["CardDeck",10.0],["Crayons",10.0],["Cube",10.0],["Doll",10.0],["RubberSpider",10.0],["ToyBear",10.0],["ToyCar",10.0],["ToyPlane",10.0]],"junk":null},"CrateVHSTapes":{"rolls":4,"items":[["VHS_Retail",50.0],["VHS_Retail",20.0],["VHS_Retail",20.0],["Magazine_Cinema",10.0],["VHS_Retail",10.0],["VHS_Retail",10.0]],"junk":null},"EngineerTools":{"rolls":4,"items":[["ElectronicsScrap",20.0],["Battery",10.0],["BookElectrician1",10.0],["CopperScrap",10.0],["ElectricWire",10.0],["ElectronicsScrap",10.0],["GraphPaper",10.0],["LightBulbGreen",10.0],["LightBulbRed",10.0],["Magazine_Tech",10.0],["MetalPipe",10.0],["Screwdriver",10.0]],"junk":null},"FitnessTrainer":{"rolls":4,"items":[["DumbBell",10.0],["Magazine_Health",10.0],["Sportsbottle",10.0],["Hat_Sweatband",8.0],["BarBell",4.0],["Kneepad_Left_Sport",4.0],["Paperback_Diet",4.0],["Paperback_NewAge",4.0],["Paperback_SelfHelp",4.0],["Whistle",4.0],["Bag_FannyPackFront",2.0],["CDplayer",2.0]],"junk":null},"FridgeGeneric":{"rolls":2,"items":[["Pickles",8.0],["Bacon",8.0],["Baloney",8.0],["MeatPatty",8.0],["MincedMeat",8.0],["PorkChop",8.0],["Salami",8.0],["Sausage",8.0],["Milk",8.0],["Processedcheese",8.0],["Chicken",6.0],["Ham",6.0]],"junk":null},"Gifts":{"rolls":4,"items":[["ToyBear",20.0],["Wallet",20.0],["Bricktoys",10.0],["Card_Birthday",10.0],["Card_Christmas",10.0],["Card_Hanukkah",10.0],["Card_LunarYear",10.0],["Card_Valentine",10.0],["Crayons",10.0],["Cube",10.0],["Doll",10.0],["ToyCar",10.0]],"junk":null},"GymTowels":{"rolls":4,"items":[["BathTowel",50.0],["BathTowel",20.0],["BathTowel",20.0],["BathTowel",10.0],["BathTowel",10.0]],"junk":null},"Hiker":{"rolls":4,"items":[["Candle",10.0],["Canteen",10.0],["GranolaBar",10.0],["Hat_Bandana",10.0],["Hat_BandanaTINT",10.0],["Hat_Beany",10.0],["Hat_BonnieHat",10.0],["InsectRepellent",10.0],["Magazine_Outdoors",10.0],["Matches",10.0],["Shoes_HikingBoots",10.0],["Spork",10.0]],"junk":null},"Hobbies":{"rolls":4,"items":[["ChessBlack",20.0],["ChessWhite",20.0],["ComicBook",20.0],["Dice_00",20.0],["Dice_10",20.0],["Dice_12",20.0],["Dice_20",20.0],["Dice_4",20.0],["Dice_6",20.0],["Dice_8",20.0],["DiceBag",20.0],["Doodle",20.0]],"junk":{"rolls":1,"items":[["Katana",0.001]]}},"HolidayStuff":{"rolls":4,"items":[["Candycane",20.0],["CandyMolasses",20.0],["ToyBear",20.0],["Bricktoys",10.0],["Candycane",10.0],["CandyMolasses",10.0],["Card_Christmas",10.0],["Card_Easter",10.0],["Card_Halloween",10.0],["Card_Hanukkah",10.0],["Card_LunarYear",10.0],["Card_StPatrick",10.0]],"junk":null},"Homesteading":{"rolls":4,"items":[["CheeseCloth",20.0],["EmptyJar",20.0],["JarLid",20.0],["Bag_GardenBasket",10.0],["BookButchering1",10.0],["BookFarming1",10.0],["BookHusbandry1",10.0],["CannedBellPepper",10.0],["CannedBroccoli",10.0],["CannedCabbage",10.0],["CannedCarrots",10.0],["CannedEggplant",10.0]],"junk":null},"ImprovisedCrafts":{"rolls":4,"items":[["MetalPipe",20.0],["Pipe",20.0],["WoodenStick2",20.0],["CopperScrap",10.0],["ElectronicsScrap",10.0],["Glue",10.0],["Magazine_Hobby",10.0],["MetalPipe",10.0],["Pipe",10.0],["Scotchtape",10.0],["Screwdriver",10.0],["SharpedStone",10.0]],"junk":null},"JunkHoard":{"rolls":4,"items":[["Bag_TrashBag",20.0],["LetterHandwritten",20.0],["Newspaper",20.0],["Note",20.0],["Paperback",20.0],["Phonebook",20.0],["Photo",20.0],["TVMagazine",20.0],["Bag_TrashBag",10.0],["Buckle",10.0],["Book",10.0],["ComicBook",10.0]],"junk":null},"KitchenBaking":{"rolls":4,"items":[["Spoon",10.0],["DishCloth",10.0],["Bowl",8.0],["Whisk",8.0],["OvenMitt",8.0],["SugarCubes",6.0],["Ladle",6.0],["Flour2",4.0],["Yeast",4.0],["BakingPan",4.0],["BakingTray",4.0],["MuffinTray",4.0]],"junk":{"rolls":1,"items":[["Yeast",4.0],["DeadMouse",1.0],["DeadRat",1.0]]}},"KitchenBook":{"rolls":4,"items":[["GenericMail",20.0],["IndexCard",20.0],["Note",20.0],["Phonebook",20.0],["Receipt",20.0],["RecipeClipping",10.0],["Catalog",10.0],["DoodleKids",10.0],["LetterHandwritten",10.0],["Magazine_Popular",10.0],["Photo",10.0],["Paperclip",8.0]],"junk":{"rolls":1,"items":[["IDcard",1.0],["BobPic",0.001],["CaseyPic",0.001],["ChrisPic",0.001],["CortmanPic",0.001],["HankPic",0.001]]}},"KitchenBottles":{"rolls":2,"items":[["Pop",8.0],["Pop2",8.0],["Pop3",8.0],["SodaCan",8.0],["JuiceBox",4.0],["JuiceBoxApple",4.0],["JuiceBoxFruitpunch",4.0],["JuiceBoxOrange",4.0],["PopBottle",4.0],["WaterBottle",4.0],["BeerCan",2.0],["SodaCanRare",2.0]],"junk":{"rolls":4,"items":[["BottleOpener",10.0],["DishCloth",10.0],["DrinkingGlass",10.0],["PlasticCup",10.0],["GlassTumbler",8.0],["Corkscrew",4.0]]}},"KitchenBreakfast":{"rolls":2,"items":[["Cereal",8.0],["Crackers",8.0],["PeanutButter",8.0],["Bread",6.0],["Chocolate",6.0],["GranolaBar",6.0],["JamFruit",6.0],["OatsRaw",6.0],["PancakeMix",6.0],["SugarCubes",6.0],["Cinnamon",4.0],["Coffee2",4.0]],"junk":{"rolls":1,"items":[["DishCloth",10.0],["DeadMouse",1.0],["DeadRat",1.0]]}},"KitchenCannedFood":{"rolls":2,"items":[["TinOpener",8.0],["CannedBolognese",4.0],["CannedChili",4.0],["CannedCornedBeef",4.0],["CannedFruitBeverage",4.0],["CannedFruitCocktail",4.0],["CannedMushroomSoup",4.0],["CannedSardines",4.0],["TinnedBeans",4.0],["TinnedSoup",4.0],["CannedCarrots2",2.0],["CannedCorn",2.0]],"junk":{"rolls":1,"items":[["DishCloth",10.0],["DentedCan",2.0],["DeadMouse",1.0],["DeadRat",1.0],["MysteryCan",1.0]]}},"KitchenDishes":{"rolls":4,"items":[["Bowl",10.0],["ButterKnife",10.0],["DrinkingGlass",10.0],["Fork",10.0],["Mugl",10.0],["Plate",10.0],["Spoon",10.0],["BreadKnife",8.0],["CheeseGrater",8.0],["GlassTumbler",8.0],["KitchenTongs",8.0],["Ladle",8.0]],"junk":{"rolls":1,"items":[["DishCloth",10.0]]}},"KitchenDryFood":{"rolls":2,"items":[["Pepper",20.0],["Salt",20.0],["BouillonCube",10.0],["Yeast",10.0],["Cereal",8.0],["Crackers",8.0],["Macandcheese",8.0],["Marinara",8.0],["Chocolate",6.0],["DriedApricots",6.0],["Popcorn",6.0],["SeasoningSalt",6.0]],"junk":{"rolls":1,"items":[["DishCloth",10.0],["DeadMouse",1.0],["DeadRat",1.0]]}},"KitchenPots":{"rolls":4,"items":[["BakingTray",10.0],["BastingBrush",10.0],["Kettle",10.0],["Pan",10.0],["Saucepan",10.0],["BakingPan",8.0],["CheeseGrater",8.0],["GridlePan",8.0],["KitchenTongs",8.0],["Ladle",8.0],["MuffinTray",8.0],["OvenMitt",8.0]],"junk":{"rolls":1,"items":[["DishCloth",10.0]]}},"KitchenRandom":{"rolls":2,"items":[["IndustrialDye",20.0],["CheeseCloth",8.0],["Gloves_Dish",8.0],["Catalog",8.0],["Note",8.0],["Receipt",8.0],["Battery",8.0],["Timer",8.0],["Garbagebag",8.0],["Corkscrew",6.0],["Funnel",6.0],["MeasuringTape",6.0]],"junk":{"rolls":1,"items":[["IDcard",1.0],["BobPic",0.001],["CaseyPic",0.001],["ChrisPic",0.001],["CortmanPic",0.001],["HankPic",0.001]]}},"LivingRoomShelf":{"rolls":4,"items":[["VHS_Retail",20.0],["Magazine_Popular",10.0],["VHS_Retail",10.0],["Paperback",8.0],["TVMagazine",8.0],["ComicBook",6.0],["ComicBook_Retail",6.0],["Book",4.0],["PhotoBook",4.0],["Disc_Retail",4.0],["PhotoAlbum",4.0],["VHS_Home",4.0]],"junk":null},"LivingRoomSideTable":{"rolls":4,"items":[["Remote",20.0],["GenericMail",8.0],["Brochure",4.0],["Flier",4.0],["Magazine",4.0],["Magazine_Popular",4.0],["Paperback",4.0],["Phonebook",4.0],["PhotoBook",4.0],["Postcard",4.0],["PhotoAlbum",4.0],["PowerBar",4.0]],"junk":null},"LivingRoomWardrobe":{"rolls":2,"items":[["VHS_Retail",20.0],["Magazine_Popular",10.0],["Notebook",10.0],["Pencil",10.0],["SheetPaper2",10.0],["VHS_Retail",10.0],["BluePen",8.0],["Catalog",8.0],["Eraser",8.0],["Paperback",8.0],["Pen",8.0],["PhotoAlbum",8.0]],"junk":{"rolls":1,"items":[["BobPic",0.001],["CaseyPic",0.001],["ChrisPic",0.001],["CortmanPic",0.001],["HankPic",0.001],["JamesPic",0.001]]}},"MechanicSpecial":{"rolls":4,"items":[["LargeHook",20.0],["EngineParts",10.0],["Funnel",10.0],["GraphPaper",10.0],["RubberHose",10.0],["Screwdriver",10.0],["Tarp",10.0],["TirePump",10.0],["Wrench",10.0],["BlowTorch",8.0],["BoltCutters",8.0],["HandTorch",8.0]],"junk":null},"OfficeDeskHome":{"rolls":4,"items":[["IndexCard",10.0],["Paperwork",10.0],["Photo",10.0],["StockCertificate",10.0],["Money",10.0],["Paperback_Business",8.0],["Calculator",8.0],["CordlessPhone",8.0],["Gum",8.0],["Book_Business",4.0],["Magazine_Rich",4.0],["Newspaper",4.0]],"junk":null},"Photographer":{"rolls":4,"items":[["Photo",50.0],["Camera",20.0],["CameraFilm",20.0],["Photo",20.0],["Photo",20.0],["Bag_SatchelPhoto",10.0],["Camera",10.0],["CameraFilm",10.0],["Paperback_Art",8.0],["Book_Art",4.0],["CameraExpensive",4.0],["Mov_Projector",0.1]],"junk":{"rolls":1,"items":[["BobPic",0.1],["CaseyPic",0.1],["ChrisPic",0.1],["CortmanPic",0.1],["HankPic",0.1],["JamesPic",0.1]]}},"PlumbingSupplies":{"rolls":4,"items":[["LeadPipe",20.0],["MetalPipe",20.0],["Pipe",20.0],["BlowTorch",10.0],["CopperScrap",10.0],["LeadPipe",10.0],["MetalPipe",10.0],["Oxygen_Tank",10.0],["Pipe",10.0],["PipeWrench",10.0],["Plunger",10.0],["Propane_Refill",10.0]],"junk":null},"ScienceMisc":{"rolls":4,"items":[["GraphPaper",20.0],["Battery",20.0],["LightBulb",20.0],["GraphPaper",10.0],["IndexCard",10.0],["Magazine_Science",10.0],["Magazine_Tech",10.0],["Scalpel",10.0],["Screwdriver",10.0],["SutureNeedleHolder",10.0],["Tweezers",10.0],["CottonBalls",10.0]],"junk":{"rolls":1,"items":[["Calculator",8.0],["Clipboard",8.0],["CompassGeometry",8.0],["MagnifyingGlass",8.0],["Paperclip",8.0],["RubberBand",8.0]]}},"SurvivalGear":{"rolls":4,"items":[["Bobber",10.0],["Candle",10.0],["Matches",10.0],["P38",10.0],["PanForged",10.0],["Whetstone",10.0],["FishingHook",10.0],["FishingLine",10.0],["FishingNet",10.0],["FishingRod",10.0],["JigLure",10.0],["MinnowLure",10.0]],"junk":null},"Trapper":{"rolls":4,"items":[["TrapBox",10.0],["TrapCage",10.0],["TrapCrate",10.0],["TrapMouse",10.0],["TrapSnare",10.0],["TrapStick",10.0],["HuntingKnife",10.0],["KnifeFillet",10.0],["InsectRepellent",10.0],["Whetstone",10.0],["Hat_BaseballCap_HuntingCamo",10.0],["Hat_BonnieHat",10.0]],"junk":null},"VacationStuff":{"rolls":4,"items":[["Brochure",50.0],["Flier",50.0],["Postcard",50.0],["Photo",50.0],["Postcard",20.0],["BathTowel",20.0],["Photo",20.0],["Photo",20.0],["Glasses_SwimmingGoggles",10.0],["Shoes_FlipFlop",10.0],["Cooler",10.0],["Magazine_Rich",10.0]],"junk":null},"WardrobeGeneric":{"rolls":4,"items":[["Pillow",10.0],["Sheet",10.0],["Belt2",4.0],["Vest_DefaultTEXTURE_TINT",4.0],["Photo",4.0],["Boxers_White",2.0],["Bra_Straps_Black",2.0],["Bra_Straps_White",2.0],["Briefs_White",2.0],["HoodieDOWN_WhiteTINT",2.0],["LongCoat_Bathrobe",2.0],["Socks_Ankle",2.0]],"junk":{"rolls":1,"items":[["IDcard",1.0],["BobPic",0.001],["CaseyPic",0.001],["ChrisPic",0.001],["CortmanPic",0.001],["HankPic",0.001]]}}};
+
+/* =========================================================================
+   THE NUMBERS. Read off the vanilla Project Zomboid Lua. Every key is
+   cross-checked against the teardown record by gates/lab_gate.js, which fails
+   the build if one loses its file:line citation.
+   ========================================================================= */
+var PZ = {
+  /* --- the rummage time economy (ISInventoryTransferAction.lua:784-833) --- */
+  T_BASE:         120,   /* maxTime for moving something between two things on you */
+  T_CONTAINER:    50,    /* taking from, or putting into, a container in the world */
+  T_WEIGHT_CAP:   3,     /* w = min(item weight, 3): heavier costs more, capped   */
+  T_DELTA_FLOOR:  0.4,   /* destCapacityDelta is floored here                     */
+  T_FLOOR_DROP:   0.2,   /* dropping to the floor from a container                 */
+  T_SELF_DROP:    0.1,   /* dropping to the floor out of your own hands            */
+  T_DEXTROUS:     0.5,   /* the trait multiplier                                  */
+  T_ALLTHUMBS:    2.0,   /* and its opposite                                      */
+  /* --- the loot mechanism (Distributions / ProceduralDistributions) --- */
+  CHANCE_BASE:    100,   /* weightChance is out of 100                            */
+  GUARANTEED_MIN: 98,    /* min>=98 in the real data is a "guaranteed" sentinel    */
+  /* --- ours, declared: the master keeps these outside the Lua --- */
+  TICKS_PER_SEC:  36,    /* ours (declared): PZ action ticks are a Java unit       */
+  HANDS_CAPACITY: 5,     /* ours (declared): what you can hold before packing      */
+  BAG_CAPACITY:   20     /* ours (declared): item weights live in media/scripts    */
+};
+var TICK = 1000 / 60;
+
+/* ITEM WEIGHT IS OURS, DECLARED. Project Zomboid keeps item weights in
+   media/scripts/items_*.txt, which is not in the Lua repo, so this is a
+   category guess in the right ballpark and it is labelled as ours everywhere
+   it shows up. The MECHANISM (weight drives time) is theirs and exact. */
+function weightOf(name) {
+  var n = name.toLowerCase();
+  if (/water|jug|gascan|propane|weight|sledge|axe|barbell/.test(n)) return 8;
+  if (/pot|pan|kettle|toolbox|tv|radio|generator|bag_|suitcase/.test(n)) return 3;
+  if (/canned|tinned|beans|soup|bottle|book|magazine|paperback|hammer|saw|wrench|torch/.test(n)) return 1;
+  if (/pills|bandaid|bandage|needle|thread|nail|screw|battery|key|spoon|fork|knife|comb|floss/.test(n)) return 0.1;
+  return 0.4;
+}
+function pretty(name) { return name.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase(); }
+
+/* =========================================================================
+   MECHANIC 1 — LOOTING: the real two-stage procedural distribution.
+   ========================================================================= */
+var RNG = Math.random;
+function rnd() { return RNG(); }
+function weightedPick(items) {
+  if (!items || !items.length) return null;   /* an empty table yields nothing */
+  var total = 0, i;
+  for (i = 0; i < items.length; i++) total += items[i][1];
+  var r = rnd() * total;
+  for (i = 0; i < items.length; i++) { r -= items[i][1]; if (r <= 0) return items[i][0]; }
+  return items[items.length - 1][0];
+}
+/* STAGE 1: the room and the CONTAINER TYPE together pick which named tables are
+   in play, each on its own weightChance out of 100, then min..max instances.
+   STAGE 2: each table rolls its weighted item list `rolls` times, and then its
+   JUNK table rolls separately. The junk is the point. */
+function rollContainer(room, container) {
+  var procList = (PZ_ROOMS[room] || {})[container];
+  if (!procList) return [];
+  var out = [];
+  procList.forEach(function (entry) {
+    if (rnd() * PZ.CHANCE_BASE >= entry.w) return;                 /* weightChance */
+    var count = entry.min >= PZ.GUARANTEED_MIN ? 1
+      : entry.min + Math.floor(rnd() * (entry.max - entry.min + 1));
+    var table = PZ_TABLES[entry.t];
+    if (!table || !count) return;
+    for (var c = 0; c < count; c++) {
+      for (var r = 0; r < table.rolls; r++) {
+        var pick = weightedPick(table.items);
+        if (pick) out.push({ name: pick, from: entry.t, junk: false });
+      }
+      if (table.junk) {
+        for (var j = 0; j < table.junk.rolls; j++) {
+          var jp = weightedPick(table.junk.items);
+          if (jp) out.push({ name: jp, from: entry.t, junk: true });
+        }
+      }
+    }
+  });
+  return out;
+}
+
+/* =========================================================================
+   MECHANIC 2 + 3 — RUMMAGING and ENCUMBRANCE, which are the same formula.
+   ISInventoryTransferAction:new, lines 784-833, rule for rule.
+   ========================================================================= */
+function transferTicks(item, opts) {
+  var o = opts || {};
+  var maxTime = PZ.T_BASE;
+  var destCapacityDelta = 1.0;
+  if (o.fromSelf && o.toSelf) {
+    destCapacityDelta = o.destWeight / o.destMax;       /* packing your own bag */
+  } else if (o.fromSelf) {
+    maxTime = PZ.T_CONTAINER;                           /* putting it away     */
+  } else if (o.toSelf) {
+    maxTime = PZ.T_CONTAINER;                           /* taking it           */
+  }
+  if (destCapacityDelta < PZ.T_DELTA_FLOOR) destCapacityDelta = PZ.T_DELTA_FLOOR;
+  var w = weightOf(item);
+  if (w > PZ.T_WEIGHT_CAP) w = PZ.T_WEIGHT_CAP;
+  maxTime = maxTime * w * destCapacityDelta;
+  if (o.toFloor) maxTime = maxTime * (o.fromSelf ? PZ.T_SELF_DROP : PZ.T_FLOOR_DROP);
+  if (o.dextrous) maxTime = maxTime * PZ.T_DEXTROUS;
+  if (o.allThumbs) maxTime = maxTime * PZ.T_ALLTHUMBS;
+  return maxTime;
+}
+
+/* =========================================================================
+   THE HOUSE. Rooms are TAGGED, because in the real data the room and the
+   container type together decide what is inside.
+   ========================================================================= */
+var HOUSE = [
+  '###################',
+  '#.....#.......#...#',
+  '#..K..#...L...#.B.#',
+  '#.....+.......+...#',
+  '#CCOO.#..sSf..#.mc#',
+  '###+###.......#####',
+  '#.....#...+...#####',
+  '#..D..+...#...#####',
+  '#.dwl.#...#...#####',
+  '###################'
+];
+/* which room each tile belongs to, painted by hand because a room is authored */
+var ROOM_MAP = [
+  '                   ',
+  ' KKKKK  LLLLLLL BBB',
+  ' KKKKK  LLLLLLL BBB',
+  ' KKKKK  LLLLLLL BBB',
+  ' KKKKK  LLLLLLL BBB',
+  '                   ',
+  ' DDDDD  LLLLLLL    ',
+  ' DDDDD  LLLLLLL    ',
+  ' DDDDD  LLLLLLL    ',
+  '                   '
+];
+var ROOM_OF = { K: 'kitchen', L: 'livingroom', B: 'bathroom', D: 'bedroom' };
+/* tile char -> container type, using the real container keys from the Lua */
+var CONTAINER_OF = {
+  C: 'counter', O: 'overhead', S: 'shelves', s: 'sidetable', f: 'fridge',
+  w: 'wardrobe', d: 'dresser', l: 'locker', m: 'medicine', c: 'crate', D2: 'desk'
+};
+var SOLID = '#COSsfwdlmc';      /* '+' is a doorway, '.' is floor */
+var LABEL = { C: 'COUNTER', O: 'OVERHEAD', S: 'SHELVES', s: 'SIDE TABLE', f: 'FRIDGE',
+  w: 'WARDROBE', d: 'DRESSER', l: 'LOCKER', m: 'MEDICINE CABINET', c: 'CRATE' };
+
+var S = {
+  pos: { x: 2, y: 6 }, facing: 0, sub: { x: 0, y: 0 },
+  hands: [], handsWeight: 0, bag: [], bagWeight: 0, searched: {}, contents: {},
+  rummage: null,            /* { key, queue, ticksLeft, ticksTotal, item } */
+  modal: null, tookTotal: 0, timeSpent: 0, dextrous: false, allThumbs: false,
+  driven: true, now: 0
+};
+function tileAt(x, y) {
+  if (y < 0 || y >= HOUSE.length || x < 0 || x >= HOUSE[0].length) return '#';
+  return HOUSE[y][x];
+}
+function roomAt(x, y) {
+  if (y < 0 || y >= ROOM_MAP.length || x < 0 || x >= ROOM_MAP[0].length) return null;
+  return ROOM_OF[ROOM_MAP[y][x]] || null;
+}
+function solid(x, y) { return SOLID.indexOf(tileAt(x, y)) >= 0; }
+function facingXY() {
+  var d = [[0,-1],[1,0],[0,1],[-1,0]][S.facing];
+  return { x: S.pos.x + d[0], y: S.pos.y + d[1] };
+}
+function logLine(cls, msg) {
+  var host = document.getElementById('log'), d = document.createElement('div');
+  d.className = cls || ''; d.textContent = msg;
+  host.insertBefore(d, host.firstChild);
+  while (host.children.length > 5) host.removeChild(host.lastChild);
+  setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 7000);
+}
+
+/* --- the container you are facing, and its rolled contents (rolled ONCE) --- */
+function facedContainer() {
+  var f = facingXY(), ch = tileAt(f.x, f.y);
+  if (!CONTAINER_OF[ch]) return null;
+  /* a container belongs to the room BEHIND it, which is the room you are in */
+  var room = roomAt(S.pos.x, S.pos.y) || roomAt(f.x, f.y);
+  if (!room) return null;
+  return { key: f.x + ',' + f.y, x: f.x, y: f.y, ch: ch, type: CONTAINER_OF[ch], room: room };
+}
+function contentsOf(c) {
+  if (!S.contents[c.key]) S.contents[c.key] = rollContainer(c.room, c.type);
+  return S.contents[c.key];
+}
+function context() {
+  if (S.rummage) return S.rummage.mode === 'pack' ? 'PACKING' : 'RUMMAGING';
+  if (S.modal) return null;
+  /* hands full is the loudest thing in the world: you cannot grab any more */
+  if (S.handsWeight >= PZ.HANDS_CAPACITY && S.bagWeight < PZ.BAG_CAPACITY) return 'PACK';
+  var c = facedContainer();
+  if (c && contentsOf(c).length) return 'RUMMAGE';
+  if (S.hands.length && S.bagWeight < PZ.BAG_CAPACITY) return 'PACK';
+  if (c) return 'EMPTY';
+  return null;
+}
+
+/* --- start rummaging: one item at a time, each costing its own real time --- */
+function startRummage() {
+  var mode = context();
+  if (mode === 'PACK') { S.rummage = { mode: 'pack', ticksLeft: 0, ticksTotal: 0, item: null }; nextPack(); return; }
+  var c = facedContainer();
+  if (!c) return;
+  var items = contentsOf(c);
+  if (!items.length) { logLine('bad', LABEL[c.ch] + ' is empty.'); return; }
+  S.rummage = { mode: 'take', c: c, ticksLeft: 0, ticksTotal: 0, item: null };
+  nextItem();
+}
+/* TAKE: from a container in the world into your hands. FLAT 50 * min(w,3) — the
+   source only applies the fullness tax to the self-to-self case, so grabbing is
+   cheap no matter how loaded you are. */
+function nextItem() {
+  var r = S.rummage; if (!r) return;
+  if (S.handsWeight >= PZ.HANDS_CAPACITY) { stopRummage('YOUR HANDS ARE FULL. Pack it into the bag.'); return; }
+  var items = contentsOf(r.c);
+  if (!items.length) { stopRummage('Nothing left in the ' + LABEL[r.c.ch].toLowerCase() + '.'); return; }
+  var item = items[0];
+  var ticks = transferTicks(item.name, {
+    toSelf: true, dextrous: S.dextrous, allThumbs: S.allThumbs
+  });
+  r.item = item; r.ticksTotal = ticks; r.ticksLeft = ticks;
+}
+/* PACK: from your hands into your bag. 120 * min(w,3) * how full the bag is,
+   floored at 0.4. THIS is where encumbrance actually bites. */
+function nextPack() {
+  var r = S.rummage; if (!r) return;
+  if (!S.hands.length) { stopRummage('Hands empty.'); return; }
+  if (S.bagWeight >= PZ.BAG_CAPACITY) { stopRummage('THE BAG IS FULL.'); return; }
+  var item = S.hands[0];
+  var ticks = transferTicks(item.name, {
+    fromSelf: true, toSelf: true, destWeight: S.bagWeight, destMax: PZ.BAG_CAPACITY,
+    dextrous: S.dextrous, allThumbs: S.allThumbs
+  });
+  r.item = item; r.ticksTotal = ticks; r.ticksLeft = ticks;
+}
+function stopRummage(msg) { S.rummage = null; if (msg) logLine('', msg); }
+function stepRummage(dtms) {
+  var r = S.rummage; if (!r || !r.item) return;
+  r.ticksLeft -= (dtms / 1000) * PZ.TICKS_PER_SEC;
+  S.timeSpent += dtms;
+  if (r.ticksLeft > 0) return;
+  if (r.mode === 'pack') {
+    var it = S.hands.shift();
+    S.handsWeight = Math.max(0, Math.round((S.handsWeight - it.w) * 100) / 100);
+    S.bag.push(it);
+    S.bagWeight = Math.round((S.bagWeight + it.w) * 100) / 100;
+    logLine('', 'packed ' + pretty(it.name) + ' — ' + Math.round(r.ticksTotal) + ' ticks at ' +
+      Math.round((S.bagWeight / PZ.BAG_CAPACITY) * 100) + '% full');
+    if (S.bagWeight >= PZ.BAG_CAPACITY) { stopRummage('THE BAG IS FULL.'); return; }
+    nextPack();
+    return;
+  }
+  var items = contentsOf(r.c), item = items.shift();
+  var w = weightOf(item.name);
+  S.hands.push({ name: item.name, w: w, junk: item.junk, from: item.from });
+  S.handsWeight = Math.round((S.handsWeight + w) * 100) / 100;
+  S.tookTotal++;
+  logLine(item.junk ? 'junk' : 'good',
+    (item.junk ? 'junk: ' : '') + pretty(item.name) + '  ' + w + 'kg  (' + item.from + ')');
+  if (S.handsWeight >= PZ.HANDS_CAPACITY) { stopRummage('YOUR HANDS ARE FULL. Pack it.'); return; }
+  nextItem();
+}
+
+/* =========================================================================
+   THE WALK — one cell per step, because Bohemia's movement is ruled
+   (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md) and a reference
+   page has no business teaching a walk we are not going to use.
+   ========================================================================= */
+var STEP_MS = 150, stepCd = 0;
+function tryStep(dx, dy) {
+  if (S.rummage || S.modal) return false;
+  if (dx) S.facing = dx > 0 ? 1 : 3; else if (dy) S.facing = dy > 0 ? 2 : 0;
+  var nx = S.pos.x + dx, ny = S.pos.y + dy;
+  if (solid(nx, ny)) return false;
+  S.pos.x = nx; S.pos.y = ny;
+  return true;
+}
+
+/* =========================================================================
+   RENDER — placeholder art, deliberately grim and deliberately not ours
+   ========================================================================= */
+var cv = document.getElementById('c'), ctx = cv.getContext('2d', { alpha: false });
+var VW = 0, VH = 0, DPR = 1, TS = 34;
+function resize() {
+  DPR = Math.min(3, window.devicePixelRatio || 1);
+  var r = cv.getBoundingClientRect();
+  VW = Math.max(120, Math.round(r.width)); VH = Math.max(120, Math.round(r.height));
+  cv.width = Math.round(VW * DPR); cv.height = Math.round(VH * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+  TS = Math.max(18, Math.floor(Math.min(VW / HOUSE[0].length, (VH - 40) / HOUSE.length)));
+}
+window.addEventListener('resize', resize);
+var PAL = { floor:'#4a4136', floorB:'#443b31', wall:'#2b2a2c', wallTop:'#3a3739',
+  door:'#6b4b28', counter:'#7a6a4a', metal:'#5a6068', wood:'#6a5236', fabric:'#5a4a5a',
+  fridge:'#8a9098', body:'#8a7f5a', skin:'#c8a37a', hair:'#2e2620',
+  searched:'#3c4a3c', full:'#8c6a3a' };
+function render() {
+  var W = HOUSE[0].length, H = HOUSE.length;
+  var ox = Math.round((VW - W * TS) / 2), oy = Math.round((VH - H * TS) / 2) - 6;
+  ctx.fillStyle = '#0b0c0f'; ctx.fillRect(0, 0, VW, VH);
+  for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+    var ch = HOUSE[y][x], sx = ox + x * TS, sy = oy + y * TS;
+    if (ch === '#') {
+      ctx.fillStyle = PAL.wall; ctx.fillRect(sx, sy, TS, TS);
+      ctx.fillStyle = PAL.wallTop; ctx.fillRect(sx, sy, TS, Math.max(1, TS * 0.22));
+      continue;
+    }
+    ctx.fillStyle = ((x + y) % 2) ? PAL.floor : PAL.floorB; ctx.fillRect(sx, sy, TS, TS);
+    if (ch === '+') { ctx.fillStyle = PAL.door; ctx.fillRect(sx + 2, sy + 2, TS - 4, TS - 4); continue; }
+    if (!CONTAINER_OF[ch]) continue;
+    var col = ch === 'f' ? PAL.fridge : (ch === 'l' || ch === 'm' || ch === 'O') ? PAL.metal
+      : (ch === 'w' || ch === 'd') ? PAL.fabric : (ch === 'c') ? PAL.wood : PAL.counter;
+    ctx.fillStyle = col; ctx.fillRect(sx + 1, sy + 1, TS - 2, TS - 2);
+    ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(sx + 1, sy + Math.round(TS * 0.55), TS - 2, 1);
+    var key = x + ',' + y;
+    if (S.contents[key]) {
+      var n = S.contents[key].length;
+      ctx.fillStyle = n ? PAL.full : PAL.searched;
+      ctx.fillRect(sx + TS - 8, sy + 2, 6, 6);
+      if (n) { ctx.fillStyle = '#0d0d0d'; ctx.font = '7px monospace'; ctx.fillText(String(Math.min(9, n)), sx + TS - 7, sy + 8); }
+    }
+    ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '7px ui-monospace, monospace';
+    ctx.fillText(LABEL[ch].slice(0, 4), sx + 2, sy + TS - 3);
+  }
+  /* the tile you are about to act on */
+  var f = facingXY();
+  if (CONTAINER_OF[tileAt(f.x, f.y)]) {
+    ctx.strokeStyle = 'rgba(255,224,120,.9)'; ctx.lineWidth = 2;
+    ctx.strokeRect(ox + f.x * TS + 1, oy + f.y * TS + 1, TS - 2, TS - 2);
+  }
+  /* you */
+  var px = ox + S.pos.x * TS, py = oy + S.pos.y * TS;
+  ctx.fillStyle = 'rgba(0,0,0,.35)';
+  ctx.beginPath(); ctx.ellipse(px + TS / 2, py + TS - 5, TS * 0.28, TS * 0.12, 0, 0, 6.2832); ctx.fill();
+  ctx.fillStyle = PAL.body; ctx.fillRect(px + TS * 0.28, py + TS * 0.34, TS * 0.44, TS * 0.42);
+  ctx.fillStyle = PAL.skin; ctx.fillRect(px + TS * 0.3, py + TS * 0.14, TS * 0.4, TS * 0.26);
+  ctx.fillStyle = PAL.hair; ctx.fillRect(px + TS * 0.3, py + TS * 0.14, TS * 0.4, TS * 0.1);
+  if (S.facing === 3) ctx.fillRect(px + TS * 0.3, py + TS * 0.14, TS * 0.12, TS * 0.26);
+  if (S.facing === 1) ctx.fillRect(px + TS * 0.58, py + TS * 0.14, TS * 0.12, TS * 0.26);
+  if (S.facing === 0) ctx.fillRect(px + TS * 0.3, py + TS * 0.14, TS * 0.4, TS * 0.2);
+  /* room labels */
+  ctx.font = '8px ui-monospace, monospace';
+  [['kitchen',2,1],['livingroom',9,1],['bathroom',16,1],['bedroom',2,6]].forEach(function (r) {
+    ctx.fillStyle = 'rgba(255,255,255,.30)';
+    ctx.fillText(r[0].toUpperCase(), ox + r[1] * TS, oy + r[2] * TS + 9);
+  });
+}
+function hud() {
+  var r = S.rummage;
+  document.getElementById('hudl').textContent =
+    'room      ' + (roomAt(S.pos.x, S.pos.y) || '-') + '\n' +
+    'took      ' + S.tookTotal + '\n' +
+    'time      ' + (S.timeSpent / 1000).toFixed(1) + 's';
+  var full = S.bagWeight / PZ.BAG_CAPACITY;
+  var delta = Math.max(PZ.T_DELTA_FLOOR, full);
+  document.getElementById('hudr').textContent =
+    'hands     ' + S.handsWeight.toFixed(1) + '/' + PZ.HANDS_CAPACITY + 'kg\n' +
+    'bag       ' + S.bagWeight.toFixed(1) + '/' + PZ.BAG_CAPACITY + 'kg (' + Math.round(full * 100) + '%)\n' +
+    (r && r.item ? (r.mode === 'pack' ? 'packing   ' : 'taking    ') +
+        Math.ceil(r.ticksLeft) + '/' + Math.round(r.ticksTotal) + ' ticks'
+      : 'grab flat 50 · pack x' + delta.toFixed(2));
+  document.getElementById('bagfill').style.width = Math.min(100, full * 100) + '%';
+  document.getElementById('bagtxt').textContent =
+    'BAG ' + S.bagWeight.toFixed(1) + 'kg of ' + PZ.BAG_CAPACITY +
+    ' — grabbing is flat, PACKING is what a full bag taxes';
+  document.getElementById('progfill').style.width =
+    (r && r.ticksTotal ? (1 - r.ticksLeft / r.ticksTotal) * 100 : 0) + '%';
+}
+var elAct = document.getElementById('act');
+var ACT_LABEL = { RUMMAGE: 'RUMMAGE', RUMMAGING: 'HOLD — TAKING', PACK: 'PACK THE BAG',
+  PACKING: 'HOLD — PACKING', EMPTY: 'EMPTIED' };
+function syncAct() {
+  var c = context();
+  elAct.textContent = c ? ACT_LABEL[c] : '—';
+  elAct.disabled = !c || c === 'EMPTY';
+  elAct.className = (c && c !== 'EMPTY') ? 'hot' : '';
+}
+
+/* =========================================================================
+   CONTROLS
+   ========================================================================= */
+var stick = document.getElementById('stick'), knob = document.getElementById('knob');
+var stickActive = false, held = null;
+function stickVec(e) {
+  var r = stick.getBoundingClientRect(), t = e.touches ? e.touches[0] : e;
+  var dx = t.clientX - (r.left + r.width / 2), dy = t.clientY - (r.top + r.height / 2);
+  var m = Math.sqrt(dx * dx + dy * dy);
+  if (m < r.width * 0.17) { held = null; knob.style.transform = 'translate(0,0)'; return; }
+  held = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? [1, 0] : [-1, 0]) : (dy > 0 ? [0, 1] : [0, -1]);
+  var cl = Math.min(1, m / (r.width / 2)) * (r.width * 0.21);
+  knob.style.transform = 'translate(' + (held[0] * cl).toFixed(0) + 'px,' + (held[1] * cl).toFixed(0) + 'px)';
+}
+function stickEnd() { stickActive = false; held = null; knob.style.transform = 'translate(0,0)'; }
+stick.addEventListener('touchstart', function (e) { e.preventDefault(); stickActive = true; stickVec(e); }, { passive: false });
+stick.addEventListener('touchmove', function (e) { e.preventDefault(); if (stickActive) stickVec(e); }, { passive: false });
+stick.addEventListener('touchend', function (e) { e.preventDefault(); stickEnd(); }, { passive: false });
+stick.addEventListener('mousedown', function (e) { e.preventDefault(); stickActive = true; stickVec(e); });
+window.addEventListener('mousemove', function (e) { if (stickActive) stickVec(e); });
+window.addEventListener('mouseup', function () { if (stickActive) stickEnd(); });
+var actHeld = false;
+var actDown = function (e) { if (e) e.preventDefault(); actHeld = true; if (!S.rummage) { startRummage(); syncAct(); } };
+var actUp = function (e) { if (e) e.preventDefault(); actHeld = false; if (S.rummage) stopRummage('Stopped.'); syncAct(); };
+elAct.addEventListener('touchstart', actDown, { passive: false });
+elAct.addEventListener('touchend', actUp, { passive: false });
+elAct.addEventListener('mousedown', actDown);
+window.addEventListener('mouseup', actUp);
+var KEY = { ArrowUp:[0,-1], KeyW:[0,-1], ArrowRight:[1,0], KeyD:[1,0], ArrowDown:[0,1], KeyS:[0,1], ArrowLeft:[-1,0], KeyA:[-1,0] };
+window.addEventListener('keydown', function (e) {
+  if (e.code in KEY) { held = KEY[e.code]; e.preventDefault(); }
+  if (e.code === 'Space') actDown(e);
+});
+window.addEventListener('keyup', function (e) {
+  if (e.code in KEY) { held = null; e.preventDefault(); }
+  if (e.code === 'Space') actUp(e);
+});
+(function chips() {
+  var host = document.getElementById('chips');
+  var mk = function (id, label, fn) {
+    var b = document.createElement('button');
+    b.className = 'chip'; b.id = id; b.textContent = label;
+    b.addEventListener('click', fn); host.appendChild(b); return b;
+  };
+  mk('c_bag', 'THE BAG', function () {
+    S.modal = 'bag'; document.getElementById('m_bag').classList.add('open'); paintBag(); syncAct();
+  });
+  mk('c_dex', 'DEXTROUS x0.5', function () {
+    S.dextrous = !S.dextrous; S.allThumbs = false; syncChips();
+  });
+  mk('c_thumb', 'ALL THUMBS x2', function () {
+    S.allThumbs = !S.allThumbs; S.dextrous = false; syncChips();
+  });
+  mk('c_num', 'NUMBERS', function () {
+    S.modal = 'num'; document.getElementById('m_num').classList.add('open'); syncAct();
+  });
+})();
+function syncChips() {
+  document.getElementById('c_dex').className = 'chip' + (S.dextrous ? ' on' : '');
+  document.getElementById('c_thumb').className = 'chip' + (S.allThumbs ? ' on' : '');
+}
+document.getElementById('b_close').addEventListener('click', function () {
+  S.modal = null; document.getElementById('m_bag').classList.remove('open'); syncAct();
+});
+document.getElementById('n_close').addEventListener('click', function () {
+  S.modal = null; document.getElementById('m_num').classList.remove('open'); syncAct();
+});
+function paintBag() {
+  var junk = S.bag.filter(function (i) { return i.junk; }).length;
+  document.getElementById('baghead').textContent =
+    'THE BAG — ' + S.bag.length + ' items, ' + S.bagWeight.toFixed(1) + 'kg, ' + junk + ' of it junk';
+  var rows = S.bag.slice().reverse().map(function (i) {
+    return '<tr><td class="n">' + (i.junk ? 'junk · ' : '') + pretty(i.name) +
+      '</td><td class="v">' + i.w + 'kg</td><td style="color:#7d8699;text-align:right">' + i.from + '</td></tr>';
+  }).join('');
+  document.getElementById('bagtable').innerHTML = rows || '<tr><td class="n">empty</td></tr>';
+}
+(function numbers() {
+  var SRC = {
+    T_BASE:'ISInventoryTransferAction.lua:785', T_CONTAINER:'ISInventoryTransferAction.lua:795',
+    T_WEIGHT_CAP:'ISInventoryTransferAction.lua:810', T_DELTA_FLOOR:'ISInventoryTransferAction.lua:805',
+    T_FLOOR_DROP:'ISInventoryTransferAction.lua:822', T_SELF_DROP:'ISInventoryTransferAction.lua:820',
+    T_DEXTROUS:'ISInventoryTransferAction.lua:828', T_ALLTHUMBS:'ISInventoryTransferAction.lua:831',
+    CHANCE_BASE:'Distributions.lua (weightChance)', GUARANTEED_MIN:'Distributions.lua (min=98 sentinel)',
+    TICKS_PER_SEC:'ours (declared)', HANDS_CAPACITY:'ours (declared)', BAG_CAPACITY:'ours (declared)'
+  };
+  var h = '<table class="st">';
+  for (var k in PZ) h += '<tr><td class="n">' + k + '</td><td class="v">' + PZ[k] +
+    '</td><td style="color:#7d8699">' + (SRC[k] || '') + '</td></tr>';
+  h += '</table><p style="color:#c9c6bd">THE TIME FORMULA, verbatim: base 120 for moving ' +
+    'something between two things you carry, 50 for taking from or putting into a container in ' +
+    'the world; times min(item weight, 3); and times how full the DESTINATION is, floored at 0.4 — ' +
+    'but read the source carefully, because I got this wrong at first: that fullness term is only ' +
+    'computed when BOTH containers are on your body. Grabbing off a shelf is FLAT. The fullness ' +
+    'tax lands when you PACK. Zomboid charges you for organising, not for grabbing.</p>' +
+    '<p style="color:#c9c6bd">THE LOOT is two stages: the ROOM plus the CONTAINER TYPE pick named ' +
+    'tables by weightChance out of 100, then each table rolls its weighted item list `rolls` times ' +
+    'AND rolls its own separate JUNK table. The junk is why rummaging feels like rummaging.</p>' +
+    '<p style="color:#c9c6bd">OURS, DECLARED: item weights (the master keeps them in ' +
+    'media/scripts, not the Lua), the ticks-per-second conversion, the bag size and the reach. ' +
+    'Everything else above is theirs, exactly.</p>';
+  document.getElementById('numbody').innerHTML = h;
+})();
+
+/* =========================================================================
+   THE LOOP
+   ========================================================================= */
+function frame(dtms) {
+  S.now += dtms;
+  if (S.rummage) { if (actHeld || S.forceHold) stepRummage(dtms); }
+  else {
+    stepCd -= dtms;
+    if (held && stepCd <= 0) { tryStep(held[0], held[1]); stepCd = STEP_MS; }
+    if (!held) stepCd = 0;
+  }
+}
+var last = 0, syncCd = 0;
+function loop(ts) {
+  if (!last) last = ts;
+  var dt = Math.max(4, Math.min(50, ts - last)); last = ts;
+  if (S.driven) frame(dt);
+  render(); hud();
+  syncCd += dt; if (syncCd > 120) { syncCd = 0; syncAct(); }
+  requestAnimationFrame(loop);
+}
+resize(); syncChips(); syncAct();
+logLine('', 'Walk up to a container and face it, then HOLD RUMMAGE. Each item costs its own time: heavy things cost more and a fuller bag costs more.');
+requestAnimationFrame(loop);
+
+/* =========================================================================
+   THE TEST SURFACE — the gate walks this house and plays all three loops
+   ========================================================================= */
+window.LAB = {
+  PZ: PZ, S: S, PZ_ROOMS: PZ_ROOMS, PZ_TABLES: PZ_TABLES,
+  mechanics: ['looting', 'rummaging', 'encumbrance'],
+  freeze: function () { S.driven = false; }, thaw: function () { S.driven = true; },
+  seedRNG: function (n) { var st = n >>> 0; RNG = function () { st = (st * 1103515245 + 12345) & 0x7fffffff; return st / 0x7fffffff; }; },
+  unseedRNG: function () { RNG = Math.random; },
+  place: function (x, y, facing) { S.pos.x = x; S.pos.y = y; if (facing !== undefined) S.facing = facing; },
+  step: function (n, dir) {
+    held = dir || null;
+    for (var i = 0; i < n; i++) frame(TICK);
+    held = null;
+    return { x: S.pos.x, y: S.pos.y };
+  },
+  walkTo: function (x, y, max) {
+    var g = 0;
+    while (g++ < (max || 2000)) {
+      if (S.pos.x === x && S.pos.y === y) return true;
+      var d = (S.pos.x !== x) ? [(x > S.pos.x ? 1 : -1), 0] : [0, (y > S.pos.y ? 1 : -1)];
+      var before = S.pos.x + ',' + S.pos.y;
+      held = d; frame(TICK); held = null;
+      if (before === S.pos.x + ',' + S.pos.y) { stepCd = 0; frame(TICK); }
+      if (before === S.pos.x + ',' + S.pos.y) {
+        /* blocked on this axis: try the other one */
+        d = (S.pos.y !== y) ? [0, (y > S.pos.y ? 1 : -1)] : [(x > S.pos.x ? 1 : -1), 0];
+        stepCd = 0; held = d; frame(TICK); held = null;
+        if (before === S.pos.x + ',' + S.pos.y) return false;
+      }
+      stepCd = 0;
+    }
+    return false;
+  },
+  setFacing: function (f) { S.facing = f; },
+  context: context, facedContainer: facedContainer, contentsOf: contentsOf,
+  rollContainer: rollContainer, transferTicks: transferTicks, weightOf: weightOf,
+  startRummage: function () { startRummage(); S.forceHold = true; },
+  rummageFrames: function (n) { S.forceHold = true; for (var i = 0; i < n; i++) frame(TICK); },
+  stopRummage: function () { S.forceHold = false; stopRummage(); },
+  bag: function () { return { items: S.bag.slice(), weight: S.bagWeight, count: S.bag.length,
+                              junk: S.bag.filter(function (i) { return i.junk; }).length }; },
+  hands: function () { return { items: S.hands.slice(), weight: S.handsWeight, count: S.hands.length }; },
+  setBagWeight: function (w) { S.bagWeight = w; },
+  setHands: function (list) {
+    S.hands = list.map(function (n) { return { name: n, w: weightOf(n), junk: false, from: 'test' }; });
+    S.handsWeight = S.hands.reduce(function (a, i) { return a + i.w; }, 0);
+  },
+  house: HOUSE, roomAt: roomAt, tileAt: tileAt,
+  containerCount: function () {
+    var n = 0;
+    for (var y = 0; y < HOUSE.length; y++) for (var x = 0; x < HOUSE[0].length; x++) {
+      if (CONTAINER_OF[HOUSE[y][x]]) n++;
+    }
+    return n;
+  },
+  reset: function () {
+    S.bag = []; S.bagWeight = 0; S.hands = []; S.handsWeight = 0;
+    S.contents = {}; S.tookTotal = 0; S.timeSpent = 0;
+    S.rummage = null; S.forceHold = false; S.dextrous = false; S.allThumbs = false;
+  }
+};
+</script>
+</body>
+</html>

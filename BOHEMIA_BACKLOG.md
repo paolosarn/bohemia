@@ -105,8 +105,32 @@
    the note: Bohemia's 120 BPM / one-body-per-cell walk and Stardew's continuous
    sub-pixel walk cannot both live in one surface — three options are laid out,
    all three are his call.
-2. ZOMBOID LOOT LOOP: containers, search, weight, the tension of rummaging a
-   house. Same deliverables. | same | same | same. NEXT UP in this lane.
+2. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] ZOMBOID LOOT LOOP. His ask:
+   "containers, search, weight, the tension of rummaging a house."
+   slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html — a four-room house with 12
+   containers, and PROJECT ZOMBOID'S OWN LOOT DATA EMBEDDED VERBATIM from the
+   vanilla Lua (4 rooms, 18 container slots, 65 tables, trimmed to the top 12
+   items and top 6 junk per table, no weight altered). Three mechanics:
+     LOOTING     the real two-stage roll. The ROOM plus the CONTAINER TYPE pick
+                 named tables by weightChance out of 100; each table rolls its
+                 weighted item list AND its own SEPARATE JUNK table. The junk is
+                 why rummaging feels like rummaging.
+     RUMMAGING   the real time formula (ISInventoryTransferAction.lua:784-833):
+                 weight IS time, capped at 3kg; organising costs 120 base against
+                 50 for grabbing; traits are flat x0.5 / x2.0 on everything.
+     ENCUMBRANCE the fullness tax, and I HAD IT BACKWARDS AT FIRST: the source
+                 only applies it when BOTH containers are on your body. Grabbing
+                 off a shelf is FLAT. PACKING is what a full bag taxes, up to
+                 2.4x. Zomboid charges you for organising, not for grabbing. The
+                 page models the real two-step loop: take into hands, then pack.
+   Teardown with every file:line + the correction stated plainly:
+   records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt
+   Patterns (8 named, 5 recommendations, 4 do-not-ports):
+   records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
+   Gate: lab_gate.js is now 245 checks; the Zomboid half walks the house, rolls
+   40 counters to prove the junk roll, measures the weight cap and both trait
+   multipliers, proves grabbing is flat while packing scales, and plays both
+   loops to a full bag.
 3. (Paolo adds more targets by naming a game + system to any lab session or
    to the coordinator.)
 

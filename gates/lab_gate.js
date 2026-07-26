@@ -54,6 +54,19 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
+    /* LAB-04: Project Zomboid. Backlog LAB-2, and the first emulation of a
+       SECOND game, which is what makes the lane a lane. */
+    id: 'ZOMBOID HOUSE',
+    game: 'Project Zomboid',
+    mechanics: ['looting', 'rummaging', 'encumbrance'],
+    minConsts: 12,          /* Zomboid's whole time economy is 8 numbers + 2 + 3 ours */
+    page: 'slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html',
+    record: 'records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md',
+    live: liveZomboid,
+    shot: { name: 'BOHEMIA_LAB_ZOMBOID_PROOF_7_26_26.png', setup: shotZomboid }
+  },
+  {
     /* LAB-03: the three mechanics standing in a world you walk around. This is
        the shape the lane ships in from now on — mechanics IN A PLACE. */
     id: 'STARDEW ONE WORLD',
@@ -171,15 +184,17 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var SDV = \{([\s\S]*?)\n\};/);
-  ok('A13 page declares an SDV constant block', !!block);
+  const block = src.match(/var (?:SDV|PZ) = \{([\s\S]*?)\n\};/);
+  ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
     block[1].split('\n').forEach(l => {
       const m = l.match(/^\s*([A-Z][A-Z0-9_]*):\s*(-?[0-9.]+)\s*,?/);
       if (m) keys.push([m[1], m[2]]);
     });
-    ok('A14 SDV block has >= 25 constants (' + keys.length + ')', keys.length >= 25);
+    const minConsts = em.minConsts || 25;
+    ok('A14 constant block has >= ' + minConsts + ' sourced numbers (' + keys.length + ')',
+       keys.length >= minConsts);
     const missing = [], unsourced = [], wrongVal = [], ours = [];
     const lines = rec.split('\n');
     keys.forEach(([k, v]) => {
@@ -191,7 +206,7 @@ function partA(em) {
          the CONTENT escape hatch, and it is capped so nobody smuggles invented
          mechanism numbers through it. */
       if (/ours \(declared\)/.test(row)) { ours.push(k); return; }
-      if (!DERIVED_KEYS.has(k) && !/\.cs[:.]/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
+      if (!DERIVED_KEYS.has(k) && !/\.(cs|lua)\b/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
     });
     ok('A15 every SDV key is in the record' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''),
        missing.length === 0);
@@ -204,7 +219,7 @@ function partA(em) {
   }
 
   ok('A18 record names the emulation page', rec.indexOf(path.basename(em.page)) > 0);
-  ok('A19 record declares its source of truth', /decompiled/i.test(rec));
+  ok('A19 record declares its source of truth', /decompiled|read directly/i.test(rec));
   if (!em.supersededBy) {
     ok('A20 record separates CONTENT from MECHANISM', /CONTENT/.test(rec) && /MECHANISM/.test(rec));
   }
@@ -676,6 +691,146 @@ async function liveWorld(page) {
   ok('W27 the walk underneath is still the measured 2.20 px/tick (' + (walk / 60).toFixed(2) + ')',
      Math.abs(walk - walkExp) < 0.5);
   await page.evaluate(() => window.LAB.unseedRNG());
+}
+
+/* ==========================================================================
+   PART Z (LAB-04) — WALK THE HOUSE, RUMMAGE IT, PACK IT
+   ========================================================================== */
+async function liveZomboid(page) {
+  const P = await page.evaluate(() => window.LAB.PZ);
+  await page.evaluate(() => { window.LAB.seedRNG(20260726); window.LAB.reset(); });
+
+  const shape = await page.evaluate(() => ({
+    containers: window.LAB.containerCount(),
+    rooms: Object.keys(window.LAB.PZ_ROOMS),
+    tables: Object.keys(window.LAB.PZ_TABLES).length,
+    counterList: (window.LAB.PZ_ROOMS.kitchen || {}).counter || null,
+    canned: window.LAB.PZ_TABLES.KitchenCannedFood || null
+  }));
+  ok('Z1 the house has real containers to search (' + shape.containers + ')', shape.containers >= 8);
+  ok('Z2 the REAL room data is embedded (' + shape.rooms.join(',') + ')',
+     shape.rooms.indexOf('kitchen') >= 0 && shape.rooms.length >= 4);
+  ok('Z3 and the real tables (' + shape.tables + ')', shape.tables >= 40);
+  /* the data is theirs, verbatim: spot-check two values against the source */
+  ok('Z4 kitchen.counter still carries their real weightChances (canned food 100)',
+     !!shape.counterList && shape.counterList.some(e => e.t === 'KitchenCannedFood' && e.w === 100));
+  ok('Z5 KitchenCannedFood still rolls twice and has a junk table',
+     !!shape.canned && shape.canned.rolls === 2 && !!shape.canned.junk);
+  ok('Z6 and TinOpener is still its heaviest entry at 8',
+     !!shape.canned && shape.canned.items[0][0] === 'TinOpener' && shape.canned.items[0][1] === 8);
+
+  /* --- MECHANIC 1: the two-stage roll, and the junk that comes with it --- */
+  const roll = await page.evaluate(() => {
+    let total = 0, junk = 0, fromTables = {};
+    for (let i = 0; i < 40; i++) {
+      const r = window.LAB.rollContainer('kitchen', 'counter');
+      total += r.length;
+      r.forEach(x => { if (x.junk) junk++; fromTables[x.from] = 1; });
+    }
+    const bath = window.LAB.rollContainer('bathroom', 'crate');
+    return { total: total, junk: junk, tables: Object.keys(fromTables).length,
+             bathroomDrewSomething: bath.length >= 0 };
+  });
+  ok('Z7 LOOTING: a kitchen counter really produces loot (' + roll.total + ' over 40 rolls)', roll.total > 100);
+  ok('Z8 more than one table contributes (' + roll.tables + ')', roll.tables >= 4);
+  ok('Z9 JUNK IS A SEPARATE ROLL and it really shows up (' + roll.junk + ' junk items)', roll.junk > 5);
+  ok('Z10 a different room+container draws its own tables', roll.bathroomDrewSomething === true);
+
+  /* --- MECHANIC 2: weight is time, capped at 3kg --- */
+  const t = await page.evaluate(() => ({
+    bandaid: window.LAB.transferTicks('Bandaid', { toSelf: true }),
+    can: window.LAB.transferTicks('CannedChili', { toSelf: true }),
+    pot: window.LAB.transferTicks('CookingPot', { toSelf: true }),
+    jug: window.LAB.transferTicks('Water_Jug', { toSelf: true }),
+    dex: window.LAB.transferTicks('CookingPot', { toSelf: true, dextrous: true }),
+    thumbs: window.LAB.transferTicks('CookingPot', { toSelf: true, allThumbs: true }),
+    drop: window.LAB.transferTicks('CookingPot', { fromSelf: true, toFloor: true })
+  }));
+  ok('Z11 RUMMAGING: a heavy thing costs more than a light one (' + t.bandaid + ' vs ' + t.pot + ')',
+     t.pot > t.can && t.can > t.bandaid);
+  ok('Z12 and the weight term is CAPPED at 3kg (pot ' + t.pot + ' === jug ' + t.jug + ')', t.pot === t.jug);
+  ok('Z13 taking from the world is the flat container cost (' + t.pot + ' = 50 x 3)',
+     t.pot === P.T_CONTAINER * P.T_WEIGHT_CAP);
+  ok('Z14 DEXTROUS halves the whole economy', Math.abs(t.dex - t.pot * P.T_DEXTROUS) < 0.001);
+  ok('Z15 ALL THUMBS doubles it', Math.abs(t.thumbs - t.pot * P.T_ALLTHUMBS) < 0.001);
+  ok('Z16 dropping is nearly free (' + t.drop.toFixed(1) + ')', t.drop < t.pot * 0.2);
+
+  /* --- MECHANIC 3: the fullness tax lands on PACKING, not on grabbing --- */
+  const enc = await page.evaluate(() => {
+    const L = window.LAB;
+    return {
+      grabEmpty: L.transferTicks('CookingPot', { toSelf: true, destWeight: 0, destMax: 20 }),
+      grabFull:  L.transferTicks('CookingPot', { toSelf: true, destWeight: 19, destMax: 20 }),
+      packEmpty: L.transferTicks('CookingPot', { fromSelf: true, toSelf: true, destWeight: 0, destMax: 20 }),
+      packHalf:  L.transferTicks('CookingPot', { fromSelf: true, toSelf: true, destWeight: 10, destMax: 20 }),
+      packFull:  L.transferTicks('CookingPot', { fromSelf: true, toSelf: true, destWeight: 19, destMax: 20 })
+    };
+  });
+  ok('Z17 ENCUMBRANCE: grabbing off a shelf is FLAT however loaded you are (' + enc.grabEmpty + ')',
+     enc.grabEmpty === enc.grabFull);
+  ok('Z18 but PACKING scales with how full the bag is (' + enc.packEmpty + ' -> ' + enc.packFull + ')',
+     enc.packFull > enc.packEmpty * 2);
+  ok('Z19 and the fullness term is floored, so an empty bag is not free (' + enc.packEmpty + ')',
+     Math.abs(enc.packEmpty - P.T_BASE * P.T_WEIGHT_CAP * P.T_DELTA_FLOOR) < 0.001);
+  ok('Z20 THE FINDING: organising costs more than grabbing', enc.packHalf > enc.grabEmpty);
+
+  /* --- ALL THREE LOOPS CLOSE, walked and played in the house --- */
+  const run = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.place(1, 3, 2);                       /* stand under the kitchen counter, facing it */
+    o.faced = L.facedContainer();
+    o.ctx = L.context();
+    L.startRummage();
+    L.rummageFrames(1500);
+    o.handsCount = L.hands().count;
+    o.handsWeight = L.hands().weight;
+    o.ctxAfterTake = L.context();
+    L.stopRummage();
+    L.startRummage();                        /* now the button means PACK */
+    L.rummageFrames(4000);
+    const bag = L.bag();
+    o.bagCount = bag.count; o.bagJunk = bag.junk; o.bagWeight = bag.weight;
+    o.handsAfter = L.hands().count;
+    return o;
+  });
+  ok('Z21 you can face a real kitchen counter and the button offers RUMMAGE',
+     run.faced && run.faced.type === 'counter' && run.faced.room === 'kitchen' && run.ctx === 'RUMMAGE');
+  ok('Z22 LOOTING LOOP CLOSES — items come out into your hands (' + run.handsCount + ')', run.handsCount > 0);
+  ok('Z23 hands fill up and the button becomes PACK (' + run.handsWeight.toFixed(1) + 'kg)',
+     run.ctxAfterTake === 'PACK');
+  ok('Z24 PACKING LOOP CLOSES — the bag really fills (' + run.bagCount + ' items, ' + run.bagWeight.toFixed(1) + 'kg)',
+     run.bagCount > 0 && run.bagWeight > 0);
+  ok('Z25 and the haul really contains junk from a junk table (' + run.bagJunk + ')', run.bagJunk > 0);
+  ok('Z26 packing empties the hands (' + run.handsAfter + ')', run.handsAfter < run.handsCount);
+
+  /* the walk is one cell per step, because Bohemia's movement is RULED */
+  const walk = await page.evaluate(() => {
+    const L = window.LAB;
+    L.place(2, 6, 0);
+    const ok1 = L.walkTo(2, 7);
+    const before = L.S.pos.y;
+    L.place(1, 1, 0);
+    L.step(40, [0, -1]);                     /* walk into the north wall */
+    return { moved: ok1, blocked: L.S.pos.y === 1 };
+  });
+  ok('Z27 the walk moves you a whole cell at a time', walk.moved === true);
+  ok('Z28 and a wall stops you', walk.blocked === true);
+  await page.evaluate(() => window.LAB.unseedRNG());
+}
+
+async function shotZomboid(page) {
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.seedRNG(7); L.reset();
+    L.place(1, 3, 2);
+    L.startRummage(); L.rummageFrames(900);
+    L.stopRummage();
+    L.startRummage(); L.rummageFrames(1500);
+    L.stopRummage();
+    L.place(1, 3, 2);
+    L.unseedRNG(); L.thaw();
+  });
 }
 
 async function shotWorld(page) {

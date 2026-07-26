@@ -1,0 +1,147 @@
+==============================================================================
+BOHEMIA REFERENCE LAB 04 — MECHANICS TEARDOWN
+PROJECT ZOMBOID: LOOTING / RUMMAGING / ENCUMBRANCE     7/26/26 (lab lane)
+==============================================================================
+Law: laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md
+Backlog: LAB-2 "ZOMBOID LOOT LOOP: containers, search, weight, the tension of
+rummaging a house."
+Playable: slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html
+Pattern note: records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
+Gate: gates/lab_gate.js (walks the house and plays all three loops in it)
+
+SOURCE: the vanilla Project Zomboid Lua, read directly from the community
+mirror of the shipped game files.
+  server/Items/Distributions.lua            room -> container -> procList
+  server/Items/ProceduralDistributions.lua  the tables: rolls, weights, junk
+  client/TimedActions/ISInventoryTransferAction.lua   the time formula
+Every row below carries the file:line. Nothing is remembered or eyeballed.
+
+==============================================================================
+MECHANIC 1 — LOOTING: a two-stage procedural distribution
+==============================================================================
+THE WHOLE SYSTEM IN ONE SENTENCE: the ROOM and the CONTAINER TYPE together pick
+which named loot tables are in play, and every table rolls its good items AND a
+separate junk table.
+
+KEY               VALUE   SOURCE                      WHAT IT MEANS
+CHANCE_BASE       100     Distributions.lua           weightChance is out of 100
+GUARANTEED_MIN    98      Distributions.lua           min>=98 is their "always" sentinel
+
+STAGE 1 (Distributions.lua:10972, the real kitchen counter):
+  kitchen.counter.procList = {
+    {name="KitchenBottles",    min=0, max=1, weightChance=40},
+    {name="KitchenBaking",     min=0, max=1, weightChance=40},
+    {name="KitchenBreakfast",  min=0, max=1, weightChance=80},
+    {name="KitchenCannedFood", min=0, max=1, weightChance=100},
+    {name="KitchenDishes",     min=0, max=1, weightChance=80},
+    {name="KitchenDryFood",    min=0, max=1, weightChance=100},
+    {name="KitchenPots",       min=0, max=1, weightChance=80},
+    {name="KitchenRandom",     min=0, max=1, weightChance=20},
+  }
+STAGE 2 (ProceduralDistributions.lua, the real KitchenCannedFood):
+  rolls = 2, items = { "TinOpener", 8, "CannedChili", 4, ... "Vinegar_Jug", 0.05 },
+  junk  = { rolls = 1, items = { "DeadMouse", 1, ... } }
+
+THE FIVE DESIGN FACTS UNDER IT:
+1. THE CONTAINER TYPE IS THE KEY, NOT THE ROOM. A kitchen COUNTER and a kitchen
+   CRATE draw completely different tables. The same crate in a bedroom draws a
+   third set. Place a container and you have authored an expectation.
+2. JUNK IS A SEPARATE ROLL WITH ITS OWN ROLLS COUNT. That is the mechanical
+   reason rummaging feels like rummaging instead of shopping: the game is
+   deliberately spending your time on a dead mouse.
+3. WEIGHTS SPAN FIVE ORDERS OF MAGNITUDE IN ONE LIST. In LivingRoomShelf a
+   skill book sits at 0.005 next to entries at 8. Rarity is not a separate
+   system, a separate roll, or a separate table: it is the same weighted list
+   with a small number in it.
+4. A TABLE IS REUSED EVERYWHERE. KitchenCannedFood appears in the kitchen
+   counter, the kitchen shelves, the overhead cupboards and the livingroom
+   counter, at different weightChances. One authored table, many places.
+5. THE MIN/MAX IS AN INSTANCE COUNT, NOT AN ITEM COUNT. min=0,max=4 on
+   KitchenDryFood means the whole table can roll FOUR TIMES in one cupboard.
+
+CONTENT: the tables themselves are theirs, and the emulation embeds the REAL
+data, trimmed and declared: 4 rooms, 18 container slots, 65 tables, each keeping
+its top 12 items by weight and top 6 junk entries. No weight was altered and
+nothing was invented. Item WEIGHTS are ours (see below).
+
+==============================================================================
+MECHANIC 2 — RUMMAGING: the time economy
+==============================================================================
+THE WHOLE SYSTEM IN ONE SENTENCE: every item you touch costs time, and the cost
+is set by how heavy it is and by which two containers you are moving it between.
+
+KEY               VALUE   SOURCE                                WHAT IT MEANS
+T_BASE            120     ISInventoryTransferAction.lua:785     moving between two things on you
+T_CONTAINER       50      ISInventoryTransferAction.lua:795     taking from / putting into the world
+T_WEIGHT_CAP      3       ISInventoryTransferAction.lua:810     w = min(weight, 3)
+T_DELTA_FLOOR     0.4     ISInventoryTransferAction.lua:805     the fullness term's floor
+T_SELF_DROP       0.1     ISInventoryTransferAction.lua:820     dropping from your own hands
+T_FLOOR_DROP      0.2     ISInventoryTransferAction.lua:822     dropping out of a container
+T_DEXTROUS        0.5     ISInventoryTransferAction.lua:828     the trait
+T_ALLTHUMBS       2.0     ISInventoryTransferAction.lua:831     and its opposite
+
+THE FORMULA, verbatim in shape:
+  maxTime = 120
+  if src is your inventory and dest is also on you:  delta = destWeight/destMax
+  elif src is your inventory:                        maxTime = 50
+  elif dest is on you:                               maxTime = 50
+  delta = max(0.4, delta)
+  w = min(item.actualWeight, 3)
+  maxTime = maxTime * w * delta
+
+THE FOUR DESIGN FACTS UNDER IT:
+1. WEIGHT IS TIME. A 3kg pot costs 3x a 1kg can and 30x a 0.1kg bandaid, capped
+   at 3kg so nothing takes forever. Looting time is a function of WHAT you loot,
+   not a flat search timer. Almost every game gets this wrong.
+2. ORGANISING COSTS MORE THAN TAKING. 120 base to move something between two
+   things you carry, 50 to take from or stash into the world. The game charges
+   you 2.4x for fiddling with your own inventory.
+3. TRAITS ARE FLAT MULTIPLIERS ON THE WHOLE ECONOMY. 0.5 and 2.0. One number
+   makes a character a hoarder or a fumbler across every interaction they have.
+4. DROPPING IS ALMOST FREE (x0.1 out of your hands). Panic-dumping is always
+   available, which is what makes encumbrance a decision and not a trap.
+
+==============================================================================
+MECHANIC 3 — ENCUMBRANCE, AND THE THING I GOT WRONG FIRST
+==============================================================================
+I ASSUMED "a full bag is a slow bag" applies to everything. IT DOES NOT, and the
+source is unambiguous: destCapacityDelta is only computed in the branch where
+BOTH containers are on your body (ISInventoryTransferAction.lua:790-792).
+GRABBING OFF A SHELF IS FLAT. The fullness tax lands when you PACK.
+
+Measured on the shipped page, 3kg item, ticks:
+  grab from a container (any fullness)      150
+  pack into a 0%-full bag                   144
+  pack into a 95%-full bag                  342     <- 2.4x
+So the emulation models THE REAL TWO-STEP LOOP a Zomboid player actually does:
+take into your hands (flat), then pack into the bag (taxed by fullness).
+
+THE DESIGN FACT, and it is the best one in the file: ZOMBOID CHARGES YOU FOR
+ORGANISING, NOT FOR GRABBING. Snatching is cheap; deciding what to keep is
+expensive. That is exactly the right way round for a looting game, and it is one
+if-branch.
+
+NOT IMPLEMENTED, ON PURPOSE: the movement/stamina penalty for being overloaded
+(Java-side, not in the Lua I read), loot-rarity sandbox settings, zombie density
+scaling (`ignoreZombieDensity` is read and cited but not modelled), container
+capacity limits, item condition, and the whole noise/attention system.
+
+==============================================================================
+OURS, DECLARED (the master keeps these outside the Lua)
+==============================================================================
+TICKS_PER_SEC     36      ours (declared)   action ticks are a Java unit
+HANDS_CAPACITY    5       ours (declared)   what you can hold before packing
+BAG_CAPACITY      20      ours (declared)   item weights live in media/scripts
+Item weights are also ours: a category guess in the right ballpark, labelled as
+ours everywhere it appears. The MECHANISM (weight drives time) is theirs, exact.
+
+==============================================================================
+HOW TO RE-VERIFY
+==============================================================================
+  node gates/lab_gate.js
+It opens the house at iPhone portrait size, walks to the kitchen counter with the
+real step code, rummages it into hands, packs the hands into the bag, and asserts
+the two-stage roll produced junk from a junk table, that grabbing is flat while
+packing scales with fullness, that weight drives time at the 3kg cap, and that
+the trait multipliers are 0.5 and 2.0.
+==============================================================================
