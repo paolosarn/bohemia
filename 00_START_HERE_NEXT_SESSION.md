@@ -89,6 +89,16 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
   cast into. Pinned to the engine's own hashSeed('bohemia') in
   tools/bohemia_map_tab.py, asserted in gates/map_tab_gate.js. Never hand-type a
   seed number into a surface again.
+- EAST IS A PLANK, AND IT IS ART NOT CODE (Paolo 7/26, measured:
+  records/BOHEMIA_EAST_PROFILE_FINDING_7_26_26.txt). Painted torso is 8px wide
+  on East vs 13px on South; both arms live inside that footprint. No renderer
+  change fixes it. STEP ZERO of the animation redo is repainting the profile
+  body with real depth -- Paolo's hand or his explicit go-ahead for candidates
+  (RIG LAW: never reshape his regions). Do not polish East before that.
+- DO NOT LEAD WITH METRICS HE CANNOT SEE (7/26, learned the hard way): the weld
+  fix removed 61% of invented pixels and changed the picture by 4 pixels a
+  frame. He said "literally no difference" and he was right. Measure the
+  EXPERIENCE (pixel diff at 1x on the dressed body), not just the defect count.
 - THE ANIMATIONS ARE REJECTED, ALL OF THEM (Paolo 7/26, LOCKED --
   laws/BOHEMIA_ADDENDUM_ANIMATION_REJECTED_7_26_26.md). No clip carries an
   approval any more. The rig RESAMPLES limb pixels every frame, which on pixel

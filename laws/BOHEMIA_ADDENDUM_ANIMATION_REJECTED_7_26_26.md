@@ -94,6 +94,33 @@ The number for a shipped clip is zero.
 - DOES NOT BLOCK: the RUN, combat, city or quest lanes using the body as-is.
   The character still draws; it just is not approved-looking in motion yet.
 
+## AMENDED SAME DAY — THE PROFILE IS A PLANK, AND THAT COMES FIRST
+
+Paolo, after the first fix shipped: *"literally no difference between the new
+rig and the old rig. I'm so fucking confused when I faced the east and try to
+do all the animations. It's all really bad bro."*
+
+Both halves measured and both correct — full write-up in
+`records/BOHEMIA_EAST_PROFILE_FINDING_7_26_26.txt`:
+
+- **"No difference" is true.** The weld removal changes 74% of frames by an
+  average of **4.2 pixels** on a ~450-pixel body. Real, and invisible at 1x.
+  Leading with "61% of invented pixels removed" was reporting a metric instead
+  of an experience. The change stays in; it is not the fix and must never be
+  presented as one again.
+- **East is a NARROW SLAB, and that is ART, not the renderer.** Painted torso
+  width is **8px on East against 13px on South**; whole-body width 17.2 vs
+  21.2; arm pixels per frame 91 vs 142. Both arms live *inside* that 8px
+  footprint, so in profile an arm can only slide around inside the body or
+  poke out as a bar. No sampling change makes eight pixels read as a body with
+  depth.
+
+**So the order of work below gains a step ZERO: the profile body has to be
+repainted with real depth before anything downstream is worth doing.** That art
+is Paolo's and RIG LAW forbids me reshaping his regions — so it needs either
+his hand or his explicit go-ahead for candidates. Until then, east stays a
+plank and nobody should be polishing it.
+
 ## THE ORDER OF WORK (rig first, clips second — this is the whole point)
 
 Redoing 60 clips on a renderer that morphs would produce 60 morphing clips. So:
@@ -103,6 +130,8 @@ Redoing 60 clips on a renderer that morphs would produce 60 morphing clips. So:
 
 ## PENDING PAOLO
 
+- **THE PROFILE REPAINT: his hand, or his go-ahead for candidates?** RIG LAW
+  says I never reshape his painted regions, so this one cannot be assumed.
 - Which clips are "the couple that are solid"? Naming them gives the rebuild its
   reference poses instead of starting from nothing.
 - Whether the current clips are deleted outright before the replacement lands,

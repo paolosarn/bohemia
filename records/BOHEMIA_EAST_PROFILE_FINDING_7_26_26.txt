@@ -1,0 +1,88 @@
+=== BOHEMIA — WHY EAST IS THE WORST, AND WHY MY LAST SHIP DID NOTHING (7/26/26) ===
+Lane: CHARACTER. Two verdicts from Paolo, both correct, both recorded here.
+
+-----------------------------------------------------------------------------
+VERDICT 1: "literally no difference between the new rig and the old rig"
+-----------------------------------------------------------------------------
+HE IS RIGHT. I measured the A/B on the real surface, dressed, final composited
+frames, 4,080 of them:
+
+    frames that change when you tap the chip : 3,024  (74%)
+    average pixels changed per changed frame : 4.2
+    on EAST specifically                     : 208 of 510 frames, 707 pixels
+
+The chip is wired and it does change the render. It changes it by FOUR PIXELS
+on a body of roughly 450. At 1x on a phone that is invisible, and calling it a
+fix was wrong.
+
+WHAT I DID WRONG: I led with "61% of invented pixels removed" -- a true number
+that is worthless to him. 61% of a defect nobody can see at 1x is still nothing
+to see at 1x. I reported a metric instead of an experience, which is the exact
+failure mode the laws already name (a green metric proves NON-VIOLATION only,
+never quality). The weld removal stays in -- it is a real reduction with no
+downside -- but it is NOT the fix and must never again be presented as one.
+
+-----------------------------------------------------------------------------
+VERDICT 2: "when I faced the east and try to do all the animations, it's all
+           really bad"
+-----------------------------------------------------------------------------
+HE IS RIGHT, AND IT IS NOT THE RENDERER. Measured over the full clip set
+(tools/bohemia_profile_depth_audit.js, reproducible):
+
+    painted TORSO width      EAST  8px      SOUTH 13px
+    average whole-body width EAST 17.2px    SOUTH 21.2px
+    average arm pixels/frame EAST   91      SOUTH  142
+
+The east-facing body is a NARROW SLAB. Eight painted pixels of torso. Both arms
+live INSIDE that eight-pixel footprint (arm-L spans x25-29, arm-R x27-31, torso
+x24-31), so in profile an arm can only slide around inside the body or poke out
+as a bar. You see 35% less arm than head-on.
+
+Look at records/anim/BOHEMIA_EAST_ANIMATIONS_7_26_26.png (7x, dressed, eight
+animations x seven phases). What is actually wrong there:
+  - the torso is a featureless black plank with no chest, no back, no shoulder
+    depth -- nothing that says "a person seen from the side"
+  - arms read as rectangular bars with a blob on the end: no elbow, no forearm
+    taper, no foreshortening
+  - across idle / pistol / talk / point the frames barely differ -- there is so
+    little body that the animation has nothing to move
+  - the near and far leg do not separate; the feet are dark blobs
+
+NO RENDERER CHANGE FIXES THIS. Eight pixels of profile torso cannot be made to
+read as a body with depth by changing how those eight pixels are sampled. The
+animation looks stiff on east because there is almost nothing there to animate.
+This is ART, and the painted regions are Paolo's -- RIG LAW: never reshape,
+mesh, mirror or "fix" his region geometry. Ever. So this is his call, not mine.
+
+-----------------------------------------------------------------------------
+WHAT THIS MEANS FOR THE ANIMATION REDO (amends the order of work)
+-----------------------------------------------------------------------------
+laws/BOHEMIA_ADDENDUM_ANIMATION_REJECTED_7_26_26.md said: rig first, clips
+second. That is still right, but "rig" now splits in two, and the ART half
+comes first:
+
+  1. THE PROFILE BODY IS REPAINTED WITH REAL DEPTH (Paolo's hand, or his
+     explicit go-ahead for a candidate). East and West need a torso that reads
+     as a body from the side, and arms that live partly OUTSIDE the torso
+     footprint so they have somewhere to swing. Everything else is downstream
+     of this.
+  2. THEN the resampling problem (limbs stop being resampled: quantised angle
+     atlas or painted frames).
+  3. THEN the clips.
+
+Doing 2 or 3 before 1 polishes a plank.
+
+-----------------------------------------------------------------------------
+THE DECISION I NEED FROM HIM (do not guess this one)
+-----------------------------------------------------------------------------
+The profile body is painted art and it is his. Either:
+  (a) he repaints E/W himself in the rig tool, or
+  (b) he green-lights ME to produce profile candidates for his thumb -- which
+      is a direct exception to RIG LAW's "never reshape his regions" and needs
+      to be said out loud, not assumed.
+Until one of those, east stays a plank and I should not touch it.
+
+PROOF
+  A/B pixel diff .......... 4,080 dressed frames, real browser
+  profile depth audit ..... tools/bohemia_profile_depth_audit.js
+  the render itself ....... records/anim/BOHEMIA_EAST_ANIMATIONS_7_26_26.png
