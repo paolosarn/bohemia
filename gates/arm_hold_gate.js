@@ -30,7 +30,15 @@ const src = fs.readFileSync(ALPHA, 'utf8');
 const law = fs.readFileSync(LAW, 'utf8');
 
 /* ---- the mechanism ------------------------------------------------------- */
-ok('the arm hold is on', /const ARMHOLD=\{on:true,steps:16,hyst:2\.0\}/.test(src));
+/* SUPERSEDED 7/26/26 by KEY THE EXTREMES. Paolo: "the arms aren't moving for a
+   lot of the animations." This bucketed the arm ANGLE with hysteresis, which is a
+   stay-put rule, and stay-put rules LAG: measured, walk lost 100% of its hand
+   travel. The flag is OFF and must stay off. The gate keeps guarding the code so
+   the reasoning survives, and asserts it is not switched back on. */
+ok('the arm-angle hold is OFF (it clipped the swing; superseded by key poses)',
+  /const ARMHOLD=\{on:false,steps:16,hyst:2\.0\}/.test(src));
+ok('its supersession is reasoned at the code, not silently flipped',
+  /SUPERSEDED 7\/26\/26 by KEY THE EXTREMES/.test(src));
 ok('it covers BOTH arm chains, shoulder through hand',
   /const ARMHOLD_CHAINS=\[\['shL','elL','handL'\],\['shR','elR','handR'\]\]/.test(src));
 ok('the resolver exists', /function armHoldSeq\(d,clip\)/.test(src));
@@ -39,9 +47,7 @@ ok('the resolver exists', /function armHoldSeq\(d,clip\)/.test(src));
    renderer draws is now resolved by poseHoldResolve, and armHoldApply is applied
    INSIDE it, before the position freeze. It must still be on the path that
    produces the drawn pose -- both when the freeze is on and when it is off. */
-ok('the arm hold is applied inside the frozen-pose resolver (the path that produces the drawn pose)',
-  /const P=armHoldApply\(d,clip,ph,raw\.sk\);/.test(src));
-ok('the arm hold still applies when the frozen-pose path is off (the fallback keeps it)',
+ok('the fallback path still routes through armHoldApply, so flipping the flag back on is a real switch and not dead code',
   /const P=_hp\?_hp\.sk:armHoldApply\(d,clip,ph,_ps\.sk\)/.test(src));
 ok('buildFrame draws that resolved pose', /const _hp=poseHoldAt\(d,clip,ph\)/.test(src));
 

@@ -38,21 +38,30 @@ const src = fs.readFileSync(ALPHA, 'utf8');
 const law = fs.readFileSync(LAW, 'utf8');
 const proof = fs.readFileSync(PROOF, 'utf8');
 
-/* ---- piece 1: hysteresis on position, across the clip -------------------- */
+/* ---- piece 1: KEY THE EXTREMES ------------------------------------------- */
+/* The original mechanism here was "hold the joint unless it moved more than X".
+   Paolo killed it on sight: "the arms aren't moving for a lot of the animations."
+   Measured, walk lost 100% of its hand travel, because a stay-put rule LAGS and
+   the swing reverses before the last step fires. The rule is now the animator's
+   rule and the gate guards THAT. */
 ok('the frozen-pose path is on', /const POSEHOLD=\{on:true,/.test(src));
-ok('joints are held with hysteresis on POSITION, and snap to WHOLE pixels when they move',
-  /if\(!h\|\|Math\.abs\(v\[0\]-h\[0\]\)>px\|\|Math\.abs\(v\[1\]-h\[1\]\)>px\)\s*\n?\s*h=\[Math\.round\(v\[0\]\),Math\.round\(v\[1\]\)\]/.test(src));
-ok('the hold memory carries ACROSS the clip rather than per frame', /const B=FRAME_CACHE\.buckets, held=\{\}, seq=new Array\(B\)/.test(src));
-ok('the clip is resolved twice so the loop point agrees with itself',
-  /for\(let pass=0;pass<2;pass\+\+\)/.test(src));
+ok('the lagging stay-put position rule is GONE (it killed the arm swing)',
+  !/Math\.abs\(v\[0\]-h\[0\]\)>px/.test(src));
+ok('every phase where a hand REVERSES DIRECTION is a key, so the extremes are drawn',
+  /if\(v1\[0\]\*v2\[0\]\+v1\[1\]\*v2\[1\] < 0\) isKey\[q\]=1;/.test(src) &&
+  /for\(const hj of \['handL','handR'\]\)/.test(src));
+ok('keys are filled in by EQUAL ARC LENGTH along the pose trajectory',
+  /const want=Math\.max\(2,POSEHOLD\.keys\), gap=total\/want/.test(src));
+ok('every frame snaps to its NEAREST key, never the previous one (nearest cannot lag)',
+  /every phase snaps to its NEAREST key/.test(src) &&
+  /const dd=Math\.min\(\(q-k\+B\)%B,\(k-q\+B\)%B\)/.test(src));
+ok('the drawn pose is still snapped to WHOLE pixels', /const x=Math\.round\(v\[0\]\), y=Math\.round\(v\[1\]\)/.test(src));
 
-/* ---- piece 2: a frame COUNT, not a threshold ----------------------------- */
-ok('the tolerance is solved for per clip against a pose-count target',
-  /target:\[\d+,\d+\]/.test(src) && /function poseHoldSeq\(d,clip\)/.test(src) && /it<12/.test(src));
-ok('the target is a real band in pixel-art range (a walk cycle is 4-8 drawn frames)',
-  (() => { const m = /target:\[(\d+),(\d+)\]/.exec(src); return m && +m[1] >= 4 && +m[2] <= 12; })());
-ok('the reason a FIXED tolerance was rejected is recorded at the code, not just in the law',
-  /left RUN on 20 poses/.test(src) && /collapsed IDLE to 1/.test(src));
+/* ---- piece 2: a key count in pixel-art range ----------------------------- */
+ok('the key count is a real number in pixel-art range (a cycle is 8-12 drawn frames)',
+  (() => { const m = /keys:(\d+)\}/.exec(src); return m && +m[1] >= 6 && +m[1] <= 16; })());
+ok('the reason the stay-put rule was killed is recorded at the code, not just in the law',
+  /the arms aren't moving for a lot of the/.test(src) && /29\.8 -> 0\.0/.test(src));
 
 /* ---- piece 3: the cache keys on the POSE, which is what makes it exact --- */
 ok('the frame cache keys on the resolved pose signature, not the phase index',
@@ -63,8 +72,8 @@ ok('buildFrame draws the frozen pose', /const _hp=poseHoldAt\(d,clip,ph\)/.test(
 /* ---- plumbing ------------------------------------------------------------ */
 ok('a rig edit or body-slider move re-resolves the frozen poses',
   /try\{POSEHOLD_CACHE\.clear\(\);\}catch\(e\)\{\}/.test(src));
-ok('the arm-angle hold is applied INSIDE the resolver, so both mechanisms compose',
-  /const P=armHoldApply\(d,clip,ph,raw\.sk\);/.test(src));
+ok('the superseded arm-angle hold is switched OFF (it was the same lagging rule)',
+  /const ARMHOLD=\{on:false,/.test(src));
 
 /* ---- the measured claim, ratcheted -------------------------------------- */
 {
@@ -78,6 +87,17 @@ ok('the arm-angle hold is applied INSIDE the resolver, so both mechanisms compos
     fs.existsSync(path.join(ROOT, 'records', 'zeromorph')) &&
     fs.readdirSync(path.join(ROOT, 'records', 'zeromorph')).filter(x => x.endsWith('.png')).length >= 4);
 }
+
+/* ---- AMPLITUDE IS A GUARANTEE NOW, not an afterthought ------------------- */
+/* Zero morph with dead arms is a worse build than morph with live arms. He proved
+   that by looking at it. So the swing is gated alongside the morph, and the two
+   are measured in the same report. */
+ok('the law records the amplitude collapse that got the first version rejected',
+  /-100%/.test(law) && /the hands do not move/.test(law));
+ok('the law records the amplitude RESTORED by keying the extremes',
+  /89%/.test(law) || /handTravelKept/.test(law));
+ok('the law names the rule that caused it, so nobody writes a stay-put hold again',
+  /STAY PUT UNLESS/.test(law) && /LAGS/.test(law));
 
 /* ---- the record stays honest -------------------------------------------- */
 ok('the law records that fourteen earlier attempts failed and why (they kept recomputing)',

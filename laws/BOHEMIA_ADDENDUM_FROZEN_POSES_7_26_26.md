@@ -70,6 +70,60 @@ pixels changed, dressed and naked.**
 Proof sheets he can look at, three rows each (the frames / before / after, red =
 morph, green = a deliberate pose step): `records/zeromorph/`.
 
+## THE FIRST VERSION WAS REJECTED ON SIGHT, AND HE WAS RIGHT
+
+Paolo, after playing it: "it didn't really look that different. The difference is
+the arms aren't moving for a lot of the animations."
+
+Measured hand travel per cycle, holds off -> on, on the first version:
+
+    walk   29.8 -> 0.0   (-100%)   the hands do not move AT ALL
+    run    43.4 -> 6.5   ( -85%)
+    drunk  22.6 -> 5.6   ( -75%)
+    dance  32.0 -> 9.4   ( -71%)
+    greet  41.5 -> 26.2  ( -37%)
+    throw  41.5 -> 29.4  ( -29%)
+
+Zero morphing had been bought with dead arms. That is a WORSE build, not a better
+one, and no morph metric was ever going to reveal it -- a frozen limb is perfectly
+non-morphing. He caught it in seconds by looking.
+
+### THE RULE THAT CAUSED IT, NAMED SO NOBODY WRITES IT AGAIN
+
+Both holds said **"STAY PUT UNLESS YOU HAVE MOVED MORE THAN X"**. That rule LAGS
+by construction: the pose only updates after the motion has already gone past, so
+the swing reverses before the last step ever fires and the extremes are clipped
+off. Solving the tolerance for a pose count made it worse, because a big swing
+earns a big tolerance -- which is exactly why WALK, with the widest, cleanest arm
+swing in the set, lost all of it.
+
+**Never write a stay-put hold for animation.** It cannot reach an extreme.
+
+### WHAT REPLACED IT: KEY THE EXTREMES, THEN HOLD
+
+How animators actually work, and it costs nothing in morph:
+
+1. every phase where a hand REVERSES DIRECTION is a key, always. Those are the
+   ends of the swing, and drawing them verbatim is what preserves amplitude.
+2. fill to the target count by EQUAL ARC LENGTH along the pose trajectory, so
+   keys land where the motion actually is: detail in fast passages, holds in slow
+   ones.
+3. every frame snaps to its NEAREST key, never the previous one. **Nearest cannot
+   lag; previous always does.** That one word is the whole fix.
+
+    keys   hand travel kept   poses/clip   morph pixels during holds
+      8          80%             6.3                0
+     10          85%             7.5                0
+     12          89%             8.3                0     <-- SHIPPED
+     14          91%             9.7                0
+
+Zero morph at EVERY key count, so amplitude and zero-morph were never in tension.
+The stay-put rule was simply the wrong way to get the second one. Shipped at 12
+keys: 89% of the swing kept, ~8 drawn poses per clip, which is a textbook cycle.
+
+ARMHOLD (the arm-angle bucketing, hysteresis 2.0) is SUPERSEDED and switched off:
+it was the same stay-put rule one level down and it clipped the swing too.
+
 ## WHAT IS LEFT IS ANIMATION, NOT MORPHING
 
 The picture now changes ONLY on the frames where the pose steps. That is a drawn
