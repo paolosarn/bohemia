@@ -203,6 +203,14 @@ startEncounter -> BOHEMIA_RUN_COMBAT_END (runEncounterIn / RUNFIGHT /
 showTabPanel in the alpha shell). Do not repurpose those names.
 
 
+WORLD MODEL (02) — FREEZE COMPLIANCE NOTE (read with the entry below): the five new
+surfaces (arterial, freeway, desert, mountain, water) were built in the same hours the
+ART-FIRST RESET landed. They are STRUCTURE, not approved art: what ground exists, what
+blocks, what you walk on, where the passes are. Every one is flagged PROVISIONAL SKIN in
+its own module and dossier, and NONE of them is surfaced to Paolo for an art verdict.
+When the ART lane's target screen is picked, these five get re-skinned to it. The ACT
+TRIPTYCH gap (act-2 / act-3 materials) is recorded in each dossier as [PENDING Paolo].
+
 WORLD MODEL (02): 7/26 (c) — THE GROUND IS BUILT. Two ships, same day, same ruling
 ("build a fucking world"). FIRST the roads: engine/bohemia_arterial.js (2,434 cells,
 real Clark County cross-section, median opening to a yellow turn bay, detached walks,

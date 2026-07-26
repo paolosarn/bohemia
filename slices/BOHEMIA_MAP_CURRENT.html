@@ -38,12 +38,12 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:b8ce9e9fd1f453f3d3896bf9c8d5f16e -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
-<!-- engine-md5:engine/bohemia_arterial.js:688606075bbefa1e5884068e59f42612 -->
-<!-- engine-md5:engine/bohemia_freeway.js:db2920f1f120e01574be217800b97817 -->
+<!-- engine-md5:engine/bohemia_arterial.js:2ff017a4901e0c4269da3f22cbab9bae -->
+<!-- engine-md5:engine/bohemia_freeway.js:9c87a88b1db99d8ac2a79de49ebc704f -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
-<!-- engine-md5:engine/bohemia_desert.js:b7f433f0e128fa8869b3c2d91b0a336e -->
-<!-- engine-md5:engine/bohemia_mountain.js:7d871960ed5fecc81947892a0e5b89e9 -->
-<!-- engine-md5:engine/bohemia_water.js:3c61b0d5b734b010d5ca0b7b887e40fd -->
+<!-- engine-md5:engine/bohemia_desert.js:da3a2734182cb48297c69a6b147a4622 -->
+<!-- engine-md5:engine/bohemia_mountain.js:61879429c8d4ecc7d459c84fe5bdf6ae -->
+<!-- engine-md5:engine/bohemia_water.js:8b66acabdfccc914998fb5d402fbc2cc -->
 <!-- engine-md5:engine/bohemia_overmap.js:9e5e6612cfa5f55bc352918e66491342 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
@@ -4912,6 +4912,8 @@
     circulation: 'Traffic runs through on every connected direction (proven cell-edge to cell-edge by the gate). Pedestrians get a continuous DETACHED sidewalk that wraps every corner and crosses at the marked crosswalks; the walk is unbroken across the cell, so a body can walk from any district on one side to any district on the other.',
     layering: 'GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the landscape strips (7), and the raised median (4) which is a low island you can step onto, not a blocker. WALK: the detached sidewalk (6). STRUCTURE (blocks, ¾ face): the block wall (8) and the bus stop shelter (13). PROPS (solid): streetlight (9), power pole (10), signal mast (12), dead car (14), dead palm (11). PORTALS: none, a street cell has no interior. The wall is the hard edge of the corridor; everything inside it is open ground at one level.',
     decisions: [
+      'PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane\'s target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.',
+      'ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
       'Paolo 7/26: "we need to actually build a fucking world." The census found 37% of the valley was road cells with no generator at all. This is the arterial half of that hole.',
       'A road cell is NOT an auto-district: it never becomes faction territory, an economy district or a quest address. It registers as a SURFACE, so the world renders it and bodies walk it, while everything that counts districts still counts only real districts.',
       'vehicular:true under the WALKABLE-LAND LAW: a street is the one thing whose vehicle surface IS the venue. It is still dressed (walls, walks, furniture, plantings), never a void.',
@@ -5189,6 +5191,8 @@
     circulation: 'Vehicles run through on every direction the corridor continues (proven edge to edge by the gate), threading the stopped traffic. There is no sidewalk and no pedestrian crossing at grade, which is the point of a freeway: a body on foot is trespassing here, and the way across is the overpass deck above.',
     layering: 'GROUND (drive): lanes (1), shoulders (3), markings (2), debris (15). GROUND (walk, rough): the embankment (6). STRUCTURE (solid): median barrier (4), guardrail (5), sound wall (8), bridge columns (13). PROPS (solid): high-mast lights (9), dead cars (10), dead semis (11). OVERHEAD (pass UNDER): the overpass deck (12) and the sign gantry (14) — the deck is the mile-grid street crossing above, carried on the columns, so this cell genuinely has two levels. PORTALS: none.',
     decisions: [
+      'PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane\'s target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.',
+      'ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
       'Paolo 7/26: "we need to actually build a fucking world." 952 freeway cells were a flat grey slab; this builds them.',
       'A road cell is NOT an auto-district: never faction territory, never an economy district, never a quest address. It registers as a SURFACE.',
       'The overpass is deliberately an OVERHEAD layer with solid piers, not a painted crossing, so the two-level truth is in the data and not just the picture.',
@@ -5506,6 +5510,8 @@
     circulation: 'Open ground: crossable in every direction on foot, and the OHV tracks are a real drivable line through it. The rills are walkable beds, a little lower than the pavement. Nothing here gates access to anything, which is the point of vacant land.',
     layering: 'GROUND (flat, walk or drive): pavement (0), rock lag (1), caliche (4), rill bed (5), OHV track (6), graded pad (9), curb stub (10). PROPS: creosote and bursage and dead yucca (2, 3, 12, low and passable), survey stake (13, passable), rock outcrop (11, solid), dumped debris (7, solid), burned car (8, solid). No structures, no portals: this is land nobody built on.',
     decisions: [
+      'PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane\'s target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.',
+      'ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
       'Paolo 7/26: "we need to actually build a fucking world." 620 cells of flat tan square is not world.',
       'Terrain is sampled from ONE valley-wide noise field in global coordinates, never from the cell seed, so ridges, rills and scrub density cross cell boundaries with no seam. That is the difference between terrain and wallpaper.',
       'A desert cell is a SURFACE, not a district: no faction, economy or address ever resolves to it.',
@@ -5727,6 +5733,8 @@
     circulation: 'THIS IS THE EDGE OF THE WORLD AND IT IS MEANT TO STOP YOU. Bedrock, crest and cliff band are SOLID: no body walks up the face. Talus, ravine floors, drainages and fans are passable, so the mountains wall the valley in and the ravines are the passes. That is how the real geography works, and here it falls out of the terrain rather than being a rule bolted on top. No vehicle surface, no street, no gate.',
     layering: 'STRUCTURE (solid, blocks): bedrock face (0), ridge crest (1), cliff band (2). GROUND (walkable, rough): talus (3), ravine floor (4), dry drainage (5), alluvial fan (8), rockfall scar (9). PROPS: boulder (7, solid), desert shrub (6, passable). No overhead, no portals. One level, and most of it is in your way.',
     decisions: [
+      'PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane\'s target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.',
+      'ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
       'Paolo 7/26: "we need to actually build a fucking world." 927 flat brown squares was the single biggest unbuilt thing in the valley.',
       'Solid rock plus passable ravines is a deliberate play property: the valley is a bowl with named ways through it, and nothing had to be hard-coded to make that true.',
       'A mountain cell is a SURFACE, not a district: never territory, never an address.',
@@ -5911,6 +5919,8 @@
     circulation: 'Everything below the ring is walkable ground now, which is the whole horror of it: you can stroll a quarter mile out onto what used to be a lake. Open water and shallows are the only tiles that are not simply crossed on foot. No street, no gate, no vehicle network.',
     layering: 'GROUND (flat, walkable): bathtub ring (2), exposed lakebed (3), cracked silt (4), shell bed (5), shore rock (6), launch ramp (7). WATER (dead, not walked): open water (0), shallows (1). PROPS: sunken boat (8, solid), mooring debris (10, solid), dead brush (9, passable). No structures, no portals, one level.',
     decisions: [
+      'PROVISIONAL SKIN, under the ART-FIRST RESET (Paolo 7/26, landed the same day as this module): the palette and materials here predate the target screen. This is STRUCTURE (what ground exists, what blocks, what you walk on), not approved art. When the ART lane\'s target screen is picked it becomes the visual constitution and these five surfaces get re-skinned to it. Nothing here is surfaced to Paolo for an art verdict in the meantime.',
+      'ACT TRIPTYCH (same ruling): only the act-1 dead material is specified. The act-2 recovering and act-3 rebuilt variants are [PENDING Paolo] content, not mine to invent.',
       'Paolo 7/26: "we need to actually build a fucking world."',
       'The drawdown IS the content. A full blue lake would be the one thing about this landscape that is not true, and the ring says more about the world than any prop could.',
       'A water cell is a SURFACE, not a district.',

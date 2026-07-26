@@ -88,6 +88,11 @@ LANE RULING (Paolo 7/26, LOCKED — laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_QUESTS_7_
 quest item is PARKED until Paolo himself reopens it. Build ground, not plumbing for
 stories the world cannot host yet.
 
+0. UNDER THE VISUAL FREEZE (ART-FIRST RESET, Paolo 7/26): this lane ships STRUCTURE
+   only until the target screen is approved. Ground that exists, blocks, and can be
+   walked is structure; a palette is not. The five surfaces already built are flagged
+   PROVISIONAL SKIN and get re-skinned to the target when it lands. Do not surface any
+   of them for an art verdict, and do not cook decorative tiles in this lane.
 1. DONE 7/26: THE GROUND IS BUILT. Roads (arterial 2,434 + freeway 952) and terrain
    (mountain 927 + desert 620 + water 74) all generate real ground on one continuous
    valley-wide noise field. Valley: 40% -> 95% generated. Gates ROAD CELLS + TERRAIN.
