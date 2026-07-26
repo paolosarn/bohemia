@@ -1,0 +1,28 @@
+BOHEMIA — ZERO MORPH PROOF (7/26/26)
+
+Paolo: "Show me a couple animations where there's just zero morphing."
+
+MORPH is defined the only way that is fair: a pixel that changes on a frame
+where the POSE DID NOT CHANGE. A pose change is animation and is excluded.
+
+clip        morph pixels during holds      drawn poses
+            before        ->     after     per clip
+----------------------------------------------------------
+E/walk        1407 (14 frames) ->      0      6
+W/walk        1487 (14 frames) ->      0      6
+E/run         2128 (12 frames) ->      0      9
+E/idle           0 ( 0 frames) ->      0      2
+E/dance       1807 (14 frames) ->      0      6
+W/drunk       1466 (14 frames) ->      0      9
+
+Sheets (row 1 the frames, row 2 before, row 3 after):
+  records/zeromorph/ZEROMORPH_E_walk.png
+  records/zeromorph/ZEROMORPH_W_walk.png
+  records/zeromorph/ZEROMORPH_E_run.png
+  records/zeromorph/ZEROMORPH_E_idle.png
+  records/zeromorph/ZEROMORPH_E_dance.png
+  records/zeromorph/ZEROMORPH_W_drunk.png
+
+page errors: none
+
+regenerate: node tools/bohemia_zero_morph_proof.js

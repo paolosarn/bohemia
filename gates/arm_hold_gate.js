@@ -34,8 +34,16 @@ ok('the arm hold is on', /const ARMHOLD=\{on:true,steps:16,hyst:2\.0\}/.test(src
 ok('it covers BOTH arm chains, shoulder through hand',
   /const ARMHOLD_CHAINS=\[\['shL','elL','handL'\],\['shR','elR','handR'\]\]/.test(src));
 ok('the resolver exists', /function armHoldSeq\(d,clip\)/.test(src));
-ok('buildFrame actually draws the held pose (a resolver nothing calls is decoration)',
-  /const P=armHoldApply\(d,clip,ph,_ps\.sk\)/.test(src));
+/* A RESOLVER NOTHING CALLS IS DECORATION. armHoldApply moved when the FROZEN
+   POSE work landed (BOHEMIA_ADDENDUM_FROZEN_POSES_7_26_26.md): the pose the
+   renderer draws is now resolved by poseHoldResolve, and armHoldApply is applied
+   INSIDE it, before the position freeze. It must still be on the path that
+   produces the drawn pose -- both when the freeze is on and when it is off. */
+ok('the arm hold is applied inside the frozen-pose resolver (the path that produces the drawn pose)',
+  /const P=armHoldApply\(d,clip,ph,raw\.sk\);/.test(src));
+ok('the arm hold still applies when the frozen-pose path is off (the fallback keeps it)',
+  /const P=_hp\?_hp\.sk:armHoldApply\(d,clip,ph,_ps\.sk\)/.test(src));
+ok('buildFrame draws that resolved pose', /const _hp=poseHoldAt\(d,clip,ph\)/.test(src));
 
 /* THE HYSTERESIS ITSELF -- the whole reason this works where five attempts did not */
 ok('the bucket is only left when the angle moves MORE than the hysteresis band',
