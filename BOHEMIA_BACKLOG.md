@@ -13,17 +13,32 @@
    asserts). The target is painted AT this spec or it is void. | contract doc
    + pipeline gate | — | the aesthetic knobs (palette/light) ride into the
    target verdict.
-1. THE TARGET SCREENS (amendments B+C apply — cut-and-reassemble is the
-   acceptance test, proxy gates ship with the pick): 2-3 hand-assembled candidate fake screenshots of the
-   walkable street level at its best (real character on a decorated street,
-   2-tile doors, a dressed interior visible, approved assets as the base,
-   coherent new tiles where needed, composed like a poster; SUN-mode judge,
-   side-by-side). | Paolo picks one; the pick becomes the visual constitution
-   + a target-match gate ships the same turn | nothing outside slices/judge
-   surfaces | yes — THE verdict.
+1. [SHIPPED 7/26, AWAITING HIS PICK] THE TARGET SCREENS: three candidates
+   (A THE FRONT FACE / B THE ISO BLOCK / C THE CUTAWAY), each side-by-side with
+   a real screenshot of the shipped run, judged from alpha -> LIFE -> PICK THE
+   TARGET SCREEN. Built entirely from approved banks; the body is baked by the
+   alpha itself. Record: records/BOHEMIA_TARGET_SCREENS_7_26_26.md. Gate:
+   target_screen_gate.py (63 checks, registered) — it holds 2-tile doors, human
+   scale, three-tone/no-keyline, dead-dark glass, and law 4's quest-ask freeze.
+   NOTE: they were composed BEFORE amendment D landed on main, so item 0's
+   MOBILE RENDER CONTRACT is written FROM them (records/target/BOHEMIA_TARGET_
+   SPEC.json already pins resolution, tile px, integer scale, portrait viewport,
+   light direction and the three-tone/no-outline rule) rather than the other way
+   round. Amendments B+C (cut-and-reassemble acceptance, proxy gates) attach at
+   the moment of the pick, not before it.
+1b. (blocked on the pick) WRITE THE PICK IN: status PICKED in the spec, losers
+   to the graveyard with a post-mortem, target-match diffing on, proxy gates +
+   the cut-and-reassemble acceptance test per amendments B+C, freeze lifted.
 2. (after the pick) MASTER ACT-1 TILESET to the target, produced + judged as
    one assembled scene; act triptych variants in spec. | tileset gate +
-   proportion gate (2-tile doors, human scale) | — | yes, as a set.
+   proportion gate (2-tile doors, human scale — the proportion half already
+   ships inside target_screen_gate.py) | — | yes, as a set.
+3. (discovered 7/26, blocked on the pick landing on B or C) RE-COOK THE VEHICLE
+   FAMILY TO THE PICKED PROJECTION. The approved car wrecks were cooked
+   near-top-down; in true 2:1 iso they read wrong, and the target screens show
+   that cost on purpose instead of hiding it. Dead work if A wins. | vehicle
+   sprites sit correctly in the picked projection, art_45 + vehicle_size green |
+   the approved bank stays intact until a verdict retires it | yes.
 
 Rules (full doctrine: laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md): topmost
 unblocked item in YOUR lane; [PENDING Paolo] items are SKIPPED, never resolved;

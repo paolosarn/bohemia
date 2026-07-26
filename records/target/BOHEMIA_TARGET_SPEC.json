@@ -1,0 +1,79 @@
+{
+ "version": "BOHEMIA_TARGET_SCREEN_v1",
+ "built": "2026-07-26",
+ "law": "laws/BOHEMIA_ADDENDUM_ART_FIRST_RESET_7_26_26.md (TARGET SCREEN LAW)",
+ "status": "AWAITING PAOLO - he picks ONE; the winner becomes the visual constitution",
+ "frame": {
+  "art_w": 418,
+  "art_h": 912,
+  "poster_scale": 2,
+  "aspect": 0.4583,
+  "note": "iPhone portrait"
+ },
+ "proportion_canon": {
+  "cell_m": 0.75,
+  "human_m": 1.75,
+  "door_cells_tall": 2,
+  "body_px_in_56_bake": 49,
+  "head_clears_door_pct_min": 68,
+  "head_clears_door_pct_max": 90,
+  "derivation": "a 2-cell door is ~2.05m of opening, so a 1.75m body must clear about 77% of it. Art that breaks this reads as dolls in a dollhouse or giants in a shed."
+ },
+ "projection": {
+  "A_FRONTFACE": {
+   "kind": "axis-aligned oblique",
+   "cell_px": 38,
+   "shear": 0.34,
+   "roof_foreshorten": 0.26
+  },
+  "B_ISOBLOCK": {
+   "kind": "2:1 dimetric",
+   "tw": 52,
+   "th": 26,
+   "zh": 38
+  },
+  "C_CUTAWAY": {
+   "kind": "2:1 dimetric, near walls cut",
+   "tw": 52,
+   "th": 26,
+   "zh": 38,
+   "knee_cells": 0.42
+  }
+ },
+ "tones": {
+  "top": 1.3,
+  "front": 0.97,
+  "side": 0.56,
+  "law": "three flat tones per volume, NO black keyline (Pocket City rule 3)"
+ },
+ "source_banks": [
+  "banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+  "banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt",
+  "banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt",
+  "banks/BOHEMIA_DESERT_POOLS_7_18_26.txt",
+  "banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt",
+  "banks/BOHEMIA_MOUNTED_SIGNS_7_13_26.txt",
+  "banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt"
+ ],
+ "character_source": "the shipped alpha buildFrame()/frameToRGBA(), exported by tools/bohemia_char_export.js",
+ "candidates": [
+  {
+   "key": "A_FRONTFACE",
+   "name": "A - THE FRONT FACE",
+   "one_line": "The grid we already have, standing up.",
+   "costs": "Cheapest. Only one side of a street can ever show its face."
+  },
+  {
+   "key": "B_ISOBLOCK",
+   "name": "B - THE ISO BLOCK",
+   "one_line": "The city-builder look, down at street level.",
+   "costs": "New renderer + diamond grid. The approved car wrecks read top-down against it."
+  },
+  {
+   "key": "C_CUTAWAY",
+   "name": "C - THE CUTAWAY",
+   "one_line": "Same as B, but the house you are in is open.",
+   "costs": "Most renderer work. Wall-hiding rules for every building type."
+  }
+ ]
+}

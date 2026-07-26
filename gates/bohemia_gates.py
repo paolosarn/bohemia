@@ -242,6 +242,10 @@ GATES = [
      'v2 files are implementable, numbers audited', False),
     ('ART 45',         ['python3', 'gates/art_45_gate.py'],
      'original art is three-quarter view, never flat', False),
+    ('TARGET SCREEN',  ['python3', 'gates/target_screen_gate.py'],
+     'the target screens exist, are built from approved banks, hold 2-tile doors + human '
+     'scale, carry no black keyline, are judgeable from the alpha, and quest asks stay frozen',
+     False),
     ('HERO WIRE',      ['node', 'gates/hero_wire_gate.js'],
      'approved district heroes drawn on their city tiles (cityhall/battery/terminal), no flat-block regression', False),
     ('VEHICLE SIZE',   ['python3', 'gates/vehicle_size_gate.py'],

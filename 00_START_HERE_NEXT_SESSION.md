@@ -16,6 +16,15 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 
 ======================================================================## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- TARGET SCREENS ARE UP AND EVERYTHING WAITS ON THE PICK (7/26, ART lane).
+  Three candidate target screens are live in alpha -> LIFE -> **PICK THE TARGET
+  SCREEN** (first card), each SIDE BY SIDE with a real screenshot of the shipped
+  run. A = the grid we have, standing up. B = true 2:1 iso (the city-builder look
+  at street level). C = B with the house you are in cut open. Until Paolo picks,
+  the art-first reset's freeze on new visual cooking outside the ART lane STAYS
+  ON, and QUEST ASKS STAY FROZEN (law 4 is now machine-enforced: the LIFE hub's
+  two quest cards are marked PARKED and target_screen_gate fails if either goes
+  back to asking). Record: records/BOHEMIA_TARGET_SCREENS_7_26_26.md.
 - WORLD BEFORE QUESTS (Paolo 7/26, LOCKED): laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_
   QUESTS_7_26_26.md. "We are not ready to worry about quest right now we need to
   actually build a fucking world." The WORLD lane does NOT touch quests: not
@@ -97,6 +106,48 @@ STANDING ORDER from the door law: before a surface draws a THING the game alread
 has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
 asked whether a RENDERING surface went looking. That hole is what cost two weeks
 of wrong-size frozen doors.
+ART (08) 7/26 — THE LANE'S FIRST AND ONLY DELIVERABLE IS SHIPPED AND WAITING ON
+A PICK. Three hand-assembled target screens of the walkable street level at its
+best, composed like posters, each paired with a real screenshot of what ships
+today so the comparison is a fact and not a claim:
+  A THE FRONT FACE — the run's own square grid, but every building STANDS UP:
+    pitched sky-lit roof, readable wall, windows with sills, a 2-tile door with
+    the room visible through it. Cheapest; only one side of a street can ever
+    show a face.
+  B THE ISO BLOCK — true 2:1 dimetric, the district-view projection he already
+    said he likes, at walking distance. Lit side, shaded side, dressed roofs,
+    BOTH sides of a street wear a face. New renderer + diamond grid.
+  C THE CUTAWAY — B, but the building you walk into loses its two near walls:
+    the room, its floor and its contents are on screen while you are in it.
+    Most renderer work; sells INTERIOR-MATCHES-EXTERIOR harder than a door can.
+EVERY PIXEL OF MATERIAL IS APPROVED ART (house skins 30/30 UP, harmonized street
+pools, street props, desert pools, the BLESSED lamp bank, mounted signs, the
+85/15 perimeter wall). The body is not drawn at all — tools/bohemia_char_export.js
+drives the SHIPPED alpha in a real browser and bakes it through the game's own
+buildFrame()/frameToRGBA(). Only two things are new, both documented in the
+factory's REUSE CHECK: 2-CELL DOOR OPENINGS (cut from the approved leaf's own
+pixels, because the corpus only has a whole door inside ONE tile) and BUILDING
+MASSING/SHADING/SHADOWS (geometry only — the district heroes were killed, so no
+approved volume bank exists; every face is filled with an approved tile).
+NEW GATE, same turn: gates/target_screen_gate.py (63 checks, registered in the
+suite). It holds the PROPORTION CANON as arithmetic on the factory's own
+constants (cell 0.75m, human 1.75m, door = 2 cells, a body clears 68-90% of its
+own doorway), three tones ordered sky>front>away with >=1.6 contrast, NO black
+keyline, no warm night glow on act-1 windows, iPhone-portrait frames, every
+declared bank really opened, the judge page reachable from inside the alpha, and
+law 4's quest-ask freeze on the LIFE hub. The TARGET-MATCH half turns on the
+moment he picks.
+DISCOVERED AND WRITTEN INTO THE BACKLOG (ART-3): the approved car wrecks were
+cooked near-top-down and read WRONG in true iso. That cost is visible in the B
+and C screens on purpose. If B or C wins, the vehicle family gets re-cooked to
+the picked projection; if A wins, the bank is already correct.
+HONEST LIMIT: these are POSTERS, not the engine rendering. That is what a target
+render is for, but nobody should read them as "the game already looks like this."
+Nothing shipped into the run, the city or any district this turn.
+NEXT IN THIS LANE (blocked on the pick): write the pick into the spec, graveyard
+the losers with a post-mortem, turn target-matching on, lift the freeze, then the
+MASTER ACT-1 TILESET built to the target and judged as ONE assembled scene with
+the act1/act2/act3 triptych in spec.
 
 RUN (01) — RULED 7/26, READ THIS BEFORE ANY RUN WORK:
 laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md. Paolo played
@@ -410,14 +461,18 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
 =============================================================================
 ## PENDING PAOLO (the shelf — never decide these for him)
 =============================================================================
-- THE 12 NEW CANON QUESTS (S10-S21), fresh 7/26, never seen: LIFE tab ->
-  THE 12 NEW CANON QUESTS. One sitting, thumbs per quest, export .txt.
+- **THE TARGET SCREEN PICK (7/26, ART lane) — THE BLOCKING ONE.** alpha -> LIFE
+  -> PICK THE TARGET SCREEN. Three candidates, each beside the build he plays.
+  He picks ONE and it becomes the visual constitution. Nothing new gets drawn
+  fleet-wide until he does.
+- THE 12 NEW CANON QUESTS (S10-S21): **PARKED** by the art-first reset's law 4
+  (QUEST ASKS FROZEN). Still reachable in the LIFE tab as the record; nobody
+  surfaces it at him until the target screen is picked.
 - THE MEGA VERDICT (FRESH items only, per the UNJUDGED-IS-DEAD ruling 7/26):
   the marathon waves Paolo has never seen — music batch 20, wardrobe volume,
   plus whatever lanes stack next. STALE unjudged banks are presumed dismissed,
   never re-surfaced (laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md).
-- QUEST PLACEMENT PICKS (fresh, 7/26): 9 quests x 3 addresses in the alpha's LIFE
-  tab. One tap per quest. Unpicked = stays where it is.
+- QUEST PLACEMENT PICKS: **PARKED** by law 4 (QUEST ASKS FROZEN), same as above.
 - FACTION TERRITORY SHAPE (discovered 7/26): every faction sits on a suburb tract
   and holds exactly 1 cell, because bases are an even stride across the district
   list. Whether a faction's ground should match its trade is HIS call; the
