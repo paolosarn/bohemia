@@ -135,6 +135,13 @@
    to the coordinator.)
 
 ## ART (new lane — first word "art")
+-1. (discovered 7/26) FLEET: TWO SESSIONS BUILT THE SAME THING IN THE SAME HOUR.
+   ART and RUN both wired the frozen tileset into the run; RUN landed first and
+   ART binned its duplicate. "Check main before you start" does not help when
+   the other lane lands mid-turn. Needs a real mechanism (a claim/lock on a file
+   or a system, visible across sessions), not a promise. NOT designed here -
+   fleet process is not this lane's to invent. Record:
+   records/BOHEMIA_ART_LANE_COLLISION_7_26_26.md
 0. [SHIPPED 7/26] STEP ZERO — THE MOBILE RENDER CONTRACT (amendment D):
    laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md. Pins frame, tile px, integer
    zoom, portrait viewport, proportion canon, ONE light direction, the three

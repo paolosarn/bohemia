@@ -321,6 +321,17 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## HOT LOCKED RULINGS (newest first — read before building anything)
 =============================================================================
+- LANE COLLISION, 7/26, RECORDED NOT SMOOTHED OVER: the ART lane and the RUN
+  lane independently built the same thing in the same hour - the run drawing its
+  block from the frozen tileset. RUN landed first (a098a5a) and theirs is
+  better. ART THREW ITS VERSION AWAY rather than force-merging two renderers.
+  What ART kept was the one thing RUN missed and it was the big one: every tile
+  was being drawn at CELL-1, so the page background showed through two edges of
+  every cell - THAT is the black grid in every screenshot of this game, all day.
+  Not an outline anybody drew; a gap nobody closed. Now S=CELL and gated both
+  ways. Record: records/BOHEMIA_ART_LANE_COLLISION_7_26_26.md. THE PROCESS HOLE:
+  checking main before you start does not help when the other lane lands
+  mid-turn. Logged as discovered work, not designed here.
 - THE TARGET SCREEN IS VERDICTED **CBB** (Paolo 7/26: "Could be better"). Per
   the verdict pipeline that is SHIPS + FROZEN + NEVER SPAWNS VARIANTS.
   ** DO NOT MAKE ANOTHER TARGET SCREEN. ** The tile-reassembled frame

@@ -259,6 +259,21 @@ def main():
                 'layer now - a new cook does not bake light into its own pixels.'
                 % (t['id'], g))
 
+    # ---- NO GRID. The one-pixel gap that WAS the black grid --------------
+    # The run laid the constitution's tiles correctly and still drew every one of
+    # them one pixel short, so the page background showed through on two edges of
+    # every cell. That is where the black grid in every screenshot of this game
+    # came from - not from an outline anybody drew, from a gap nobody closed. The
+    # renderer's own comment said "a cell is drawn at CELL size"; the code said
+    # CELL-1. This keeps them agreeing.
+    RUN_SRC = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
+    if os.path.exists(RUN_SRC):
+        rs = open(RUN_SRC, encoding='utf8', errors='replace').read().replace(' ', '')
+        chk('S=CELL-1' not in rs,
+            'the run draws tiles at CELL-1 again. That single pixel is the black grid.')
+        chk('S=CELL;' in rs or 'S=CELL,' in rs,
+            'the run no longer declares a full-cell blit')
+
     # ---- THE PALETTE RATCHET --------------------------------------------
     pal = json.load(open(PR['palette']['ramp']))
     got = pal['measured_unique_colours_in_target_plates']

@@ -14284,7 +14284,11 @@ function draw(){
   var doorDraws=[];   /* 2-tall door faces, drawn after the ground so they stand up */
   for(var sy=-halfH; sy<=halfH; sy++) for(var sx=-halfW; sx<=halfW; sx++){
     var gx=px+sx, gy2=py+sy; if(gx<0||gy2<0||gx>=gw||gy2>=gh) continue;
-    var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL, S=CELL-1;
+    /* S IS CELL, NOT CELL-1. Drawing every tile one pixel short let the page
+       background show through on two edges of every single cell, and THAT is
+       the black grid in every screenshot of this game. The comment below always
+       said "a cell is drawn at CELL size" - the code just did not. */
+    var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL, S=CELL;
     if(mode==='ext'){
       var c=G[gy2][gx], isDoor=doorOf[gx+','+gy2]!=null;
       if(isDoor){
