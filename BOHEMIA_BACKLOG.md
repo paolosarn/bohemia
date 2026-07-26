@@ -97,7 +97,12 @@
 1b. (blocked on the pick) WRITE THE PICK IN: status PICKED in the spec, losers
    to the graveyard with a post-mortem, target-match diffing on, proxy gates +
    the cut-and-reassemble acceptance test per amendments B+C, freeze lifted.
-2. (after the pick) MASTER ACT-1 TILESET to the target. INGREDIENT DELIVERED
+2. (after the pick) MASTER ACT-1 TILESET to the target. INTERIOR COMPOSITION
+   SOURCE (7/26): records/BOHEMIA_ROOM_RECIPE_BOOK_7_26_26.md — 12 room
+   recipes + composition laws + the 70/20/10 dead-world translation,
+   [PENDING Paolo bulk verdict]; on APPROVE, rooms are composed FROM the
+   recipes (manifests mapped to the interior pool), never invented.
+   INGREDIENT DELIVERED
    7/26 by CITY: banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt - Paolo's Great Sweep
    crossed to real images for the first time (all 87 swept packs resolve against
    the HD masters, 0 unresolved), filtered UP-ONLY, 465 tiles bucketed by room
