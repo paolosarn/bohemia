@@ -109,12 +109,14 @@
    one assembled scene; act triptych variants in spec. | tileset gate +
    proportion gate (2-tile doors, human scale — the proportion half already
    ships inside target_screen_gate.py) | — | yes, as a set.
-3. (discovered 7/26, blocked on the pick landing on B or C) RE-COOK THE VEHICLE
-   FAMILY TO THE PICKED PROJECTION. The approved car wrecks were cooked
-   near-top-down; in true 2:1 iso they read wrong, and the target screens show
-   that cost on purpose instead of hiding it. Dead work if A wins. | vehicle
-   sprites sit correctly in the picked projection, art_45 + vehicle_size green |
-   the approved bank stays intact until a verdict retires it | yes.
+3. [RETIRED 7/26 - the work is dead, not done] RE-COOK VEHICLES TO ISO. This was
+   only ever needed if candidate B or C won. A won and both are graveyarded, so
+   the approved car art is already in the right projection. Removing it rather
+   than leaving it to rot at the bottom of the lane.
+3b. [PENDING Paolo, carried] THE CAR LENGTH. At true pixel scale the approved
+   wreck art is ~2 tiles wide by >4 long, against his locked 2x3 footprint.
+   Either the art is re-cooked shorter or the footprint becomes 2x5. Not a
+   guess I get to make.
 
 Rules (full doctrine: laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md): topmost
 unblocked item in YOUR lane; [PENDING Paolo] items are SKIPPED, never resolved;

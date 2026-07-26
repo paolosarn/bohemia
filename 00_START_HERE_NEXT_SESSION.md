@@ -273,6 +273,44 @@ STANDING ORDER from the door law: before a surface draws a THING the game alread
 has, it opens banks/ first. REUSE-FIRST only ever swept COOKING tools; it never
 asked whether a RENDERING surface went looking. That hole is what cost two weeks
 of wrong-size frozen doors.
+ART (08) 7/26 — SELF-AUDIT vs the SHADOWS-ARE-SEPARATE ruling that landed
+mid-turn: the new act-triptych cook is CLEAN (no tile carries directional
+light). ONE DEBT LOGGED, deliberately not fixed: the frozen act-1 tile
+`wall_under_eave` bakes its eave shadow into its own pixels, which under the new
+law belongs at render time - but clause 4 says approved assets are not re-cooked
+wholesale and the set is byte-locked by the CBB, so it moves to the runtime
+light pass THE MOMENT THAT TILE IS TOUCHED FOR ANY OTHER REASON. Also recorded:
+a top-to-bottom luminance ramp CANNOT detect baked shadows (the garage tiles
+trip it at -83 and are innocent - a bay is dark for being a hole), so that check
+ships as a ratchet on NEW cooks only and is never pointed at anything it would
+falsely accuse.
+
+ART (08) 7/26 — ITEM 2 DELIVERED: THE ACT TRIPTYCH DERIVES. Per amendment A
+(era-READY, NOT era-complete) it is proven on THREE families, one per render
+layer - yard/wall/roof - and deliberately stops there; filler SHARES the
+treatment and nobody paints 126 tiles.
+THE FINDING WORTH CARRYING: amendment A assumes assets are structured with
+overlay layers so acts derive cheaply. OURS ARE NOT - the approved corpus has
+its cracks, dust and weeds painted straight into the pixels, with no clean
+source underneath. So the overlay layer had to be RECOVERED from the art rather
+than authored: blur the tile hard (that is the surface before thirty years
+happened to it), take every pixel darker than that estimate as the decay mask,
+then heal toward clean by 55% for act 2 and 90% for act 3. Weeds need their own
+term because they are LIGHTER and GREENER than what they grow out of and a
+darkness mask cannot see them. No per-tile hand work anywhere in the treatment.
+The gate is now ACT-AWARE and the exemptions are declared, not assumed: act-1
+value bands and DEAD DARK GLASS are ACT 1 rules and do not bind later acts (a
+repaired wall IS brighter - that is the point); nothing else is relaxed, and
+radiation + volcanic iconography stay banned in EVERY act because those are lore
+not weathering. Each act must measure cleaner than the one before it, so a copy
+with a new name fails the build.
+HONESTLY NOT DONE, AND WHY: act 3 reads as act 1 with the dirt turned down. A
+rebuilt building is REPAINTED, and what colour rebuilt Vegas is painted is CANON
+- so is whether act 3 gains content (planters, signage, lit windows). Both are
+[PENDING Paolo], not guessed. MECHANISM-MINE / CONTENTS-PAOLO'S.
+Also retired this turn: backlog ART-3 (re-cook vehicles to iso) is DEAD work, not
+done work - it only existed if candidate B or C won, and both are graveyarded.
+
 ART (08) 7/26 — LANE ITEM 1 IS CLOSED. Target verdicted CBB. The constitution
 exists and is in force, the target is frozen and byte-locked, the fleet-wide
 visual freeze and the quest-ask freeze are both lifted, and the target-match

@@ -192,3 +192,88 @@ it is not exactly two tiles.
 - `records/target/REASSEMBLED.png` — **the framed target**
 - `records/target/TILESET_CONTACT.png` — every tile in the set, labelled
 - `gates/target_screen_gate.py` — 1,074 checks, the reassembly test among them
+
+
+---
+
+# ADDENDUM — THE ACT TRIPTYCH, PROVEN (7/26/26, after the CBB)
+
+Law 3 says every tile family is born with act1-dead / act2-recovering /
+act3-rebuilt. Amendment A corrects it: assets are born **era-READY, not
+era-complete**, derivation is proven on **2-3 representative families only**,
+filler **shares** the treatment, and an approval is never held hostage to three
+finished eras. So this is a proof on three families — one per render layer
+(`yard_0` ground, `wall_0` wall, `roof_slope` top) — and it stops there.
+
+## THE FINDING: THE DECAY WAS PAINTED IN, SO THE OVERLAY HAD TO BE RECOVERED
+
+Amendment A assumes assets are *structured* with overlay layers so acts derive
+cheaply. Bohemia's approved corpus is not: its cracks, dust and weeds are
+already pixels, and there is no clean source underneath to reveal. "Derive act
+2" therefore cannot mean turning a knob down. It means **undoing paint nobody
+authored as a layer** — so the layer had to be found:
+
+1. **Blur the tile hard.** Cracks and grime are small and dark; the blur is what
+   the surface looked like before them.
+2. **Wherever a pixel is darker than that estimate, the difference IS the
+   decay.** That mask is the overlay layer, recovered instead of authored.
+3. **Heal by a factor** — act 2 lerps toward clean by 55% of the decay weight,
+   act 3 by 90%, plus a lift on the surface value.
+4. **Weeds get their own term**, because they are *lighter and greener* than
+   what they grow out of, and a darkness mask is blind to them. Without this
+   step act 3 stays overgrown.
+
+No per-tile hand work anywhere in the treatment. That is the point: filler
+shares it.
+
+## WHAT THE GATE HOLDS
+
+`target_match_gate.py` is now **act-aware**, and the exemptions are declared
+rather than assumed:
+
+- act-1 **value bands do not apply** to later acts — a repaired wall *is*
+  brighter, that is the whole point of act 2
+- **DEAD DARK GLASS is an act-1 rule** (the dead-world reconciliation says so),
+  so act 3 may show clean glass
+- **nothing else is relaxed**: no keyline, no dither, and radiation and volcanic
+  iconography stay banned in every act, because those are lore, not weathering
+- each act must be **measurably cleaner than the one before it**, so a copy with
+  a new name fails the build
+
+## WHAT IS HONESTLY NOT DONE
+
+**Act 3 reads as act 1 with the dirt turned down, and it will until Paolo rules
+on a colour.** A rebuilt building is repainted, and what colour rebuilt Vegas is
+painted is *canon*, not something a filter gets to pick. Same for content: act 3
+having planters, signage or lit windows is rebuilt-Vegas canon. Both are logged
+[PENDING Paolo] rather than guessed. MECHANISM-MINE / CONTENTS-PAOLO'S.
+
+
+## SELF-AUDIT AGAINST A RULING THAT LANDED MID-TURN
+
+`laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md` reached main while this
+work was in flight: *"when you make shadows or whatever you're doing, it has to
+be separate from the actual clothing. I see you make shadows ON the clothing and
+it's really bad when it's animation time."* Clause 3 names this lane's
+cast-shadow DATA as the correct precedent, so I audited my own banks against it
+rather than assuming the compliment applied.
+
+**RESULT:**
+- **the act-triptych cook (new): clean.** No tile carries a directional light
+  ramp. The treatment only removes decay and lifts surface value uniformly,
+  which is paint, not light.
+- **the frozen act-1 set: one real debt.** `wall_under_eave` bakes the eave
+  shadow into its own pixels. Under the new law that belongs at render time. It
+  is NOT being fixed now, and the reason is the law itself: clause 4 says
+  approved assets are not re-cooked wholesale, and the set is byte-locked by
+  Paolo's CBB. **Logged to be moved to the runtime light pass the moment that
+  tile is touched for any other reason** (clause 4's own condition).
+
+**AND A LIMIT WORTH WRITING DOWN.** My first instinct was to ship a "baked
+shadow detector" — measure each tile's top-to-bottom luminance ramp and fail
+anything steep. It does not work: the garage tiles in the frozen set trip it at
+-83 and they are innocent, because a bay is dark for being a *hole*, not for
+being shaded. A ramp cannot tell those apart. So it ships as a **ratchet on new
+cooks only** (which currently measure 0), it is never pointed at anything it
+would falsely accuse, and the gate says so in its own comment. A check that
+cries wolf gets ignored, and then it protects nothing.

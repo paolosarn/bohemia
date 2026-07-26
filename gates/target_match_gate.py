@@ -42,7 +42,9 @@ os.chdir(REPO)
 CONST = 'records/target/BOHEMIA_VISUAL_CONSTITUTION.json'
 VERDICT = 'records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt'
 # (bank path, key holding the sprite list) — the registry grows as art ships.
-BANKS = [('banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt', 'tiles')]
+BANKS = [('banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt', 'tiles'),
+         ('banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt', 'tiles')]
+TRIPTYCH = 'banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt'
 
 LAYER_OF = {'road': 'ground', 'walk': 'ground', 'yard': 'ground',
             'concrete': 'ground', 'dirt': 'ground', 'wall': 'wall',
@@ -146,8 +148,14 @@ def main():
             img = Image.open(io.BytesIO(base64.b64decode(t['b64'])))
             mean, hot, black = stats(img)
             tid = t['id']
-            L = layer_of(tid)
-            if L and L in bands:
+            # ACT-AWARE. The act-1 value bands and the DEAD DARK GLASS rule are
+            # ACT 1 rules - the dead-world reconciliation says so in as many
+            # words. A repaired wall being brighter than a dead one is the whole
+            # point of act 2. So later acts are exempt from those two and from
+            # nothing else: no keyline, no dither, no banned iconography, ever.
+            act = t.get('act', 'act1')
+            L = t.get('layer') or layer_of(tid)
+            if act == 'act1' and L and L in bands:
                 b = bands[L]
                 chk(b['lo'] - BAND_SLACK <= mean <= b['hi'] + BAND_SLACK,
                     '%s: value %.0f is outside the %s band %.0f-%.0f (+/-%d). Per-layer '
@@ -156,10 +164,13 @@ def main():
             chk(black <= PR['outline']['max_near_black_frac'] + 0.02,
                 '%s: %.1f%% near-pure black - that is a keyline, and edges here are value '
                 'steps' % (tid, black * 100))
-            chk(hot <= PR['glow']['max_hot_frac'] + 0.005,
-                '%s: %.1f%% hot yellow - act 1 glass is DEAD DARK' % (tid, hot * 100))
+            if act == 'act1':
+                chk(hot <= PR['glow']['max_hot_frac'] + 0.005,
+                    '%s: %.1f%% hot yellow - act 1 glass is DEAD DARK' % (tid, hot * 100))
             chk(dither_energy(img) <= PR['dither']['max_alt_energy'] + 0.02,
                 '%s: stippled. Act 1 does not dither; falloffs are solid alpha ramps.' % tid)
+            if act != 'act1':
+                continue          # later acts have their own seams, not act 1's
             # EDGE-PIXEL SEAM CONTRACT, hashable
             fam = tid.rstrip('0123456789_')
             e = img.convert('RGB')
@@ -174,6 +185,79 @@ def main():
                 chk(sorted(rings) == locked[fam],
                     '%s: the family\'s edge ring changed. Tiles in one family must meet '
                     'identically or the ground seams.' % fam)
+
+    # ---- THE ACT TRIPTYCH: derivation, not decoration --------------------
+    # Amendment A: assets are born era-READY, not era-complete; derivation is
+    # proven on 2-3 representative families and filler SHARES the treatment.
+    if os.path.exists(TRIPTYCH):
+        tri = json.load(open(TRIPTYCH))
+        fams = {}
+        for t in tri['tiles']:
+            fams.setdefault(t['family'], {})[t['act']] = t
+        chk(2 <= len(fams) <= 4,
+            'the triptych proof covers %d families - amendment A says 2-3 representative '
+            'ones, not the whole set (era-READY, never era-complete)' % len(fams))
+        chk(len(set(t['layer'] for t in tri['tiles'])) >= 3,
+            'the proof does not cover one family per render layer')
+        chk(tri.get('source_is_frozen') and tri['source'] in dict(BANKS),
+            'the triptych does not derive from the frozen act-1 set')
+        for fam, acts in fams.items():
+            chk(set(acts) == {'act1', 'act2', 'act3'},
+                '%s does not carry all three acts' % fam)
+            if set(acts) != {'act1', 'act2', 'act3'}:
+                continue
+            ms = {}
+            for a in ('act1', 'act2', 'act3'):
+                im = Image.open(io.BytesIO(base64.b64decode(acts[a]['b64'])))
+                ms[a] = stats(im)[0]
+            # a later act must be measurably CLEANER, i.e. lighter, than the one
+            # before it. If act3 is not brighter than act1 the treatment did
+            # nothing and the "derivation" is a copy with a new name.
+            chk(ms['act2'] > ms['act1'] + 0.4,
+                '%s: act2 (%.1f) is not measurably cleaner than act1 (%.1f) - the '
+                'derivation did nothing' % (fam, ms['act2'], ms['act1']))
+            chk(ms['act3'] > ms['act2'] + 0.4,
+                '%s: act3 (%.1f) is not measurably cleaner than act2 (%.1f)'
+                % (fam, ms['act3'], ms['act2']))
+        chk('why_not_a_knob' in tri.get('treatment', {}),
+            'the treatment does not explain why act variants had to be recovered from the '
+            'art instead of turned down - that is the whole finding')
+        chk('relaxed_for_later_acts' in tri,
+            'the proof does not declare which act-1 rules it relaxes and why')
+        chk('still_banned_in_every_act' in tri,
+            'the proof does not say what stays banned regardless of act')
+
+    # ---- SHADOWS ARE A SEPARATE LAYER (Paolo 7/26, landed mid-turn) -----
+    # laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md clause 3 names this
+    # lane's cast-shadow DATA as the correct precedent. Clause 4 says approved
+    # assets are NOT re-cooked wholesale, so the FROZEN act-1 set is out of
+    # scope and stays out. This holds NEW cooks only.
+    #
+    # HONEST LIMIT, stated so nobody reads more into this number than it can
+    # carry: a top-to-bottom luminance ramp cannot tell a baked shadow from a
+    # dark hole. The garage tiles in the frozen set trip it at -83 and they are
+    # innocent - a bay is dark because it is a hole. So this is a RATCHET on new
+    # cooks (which currently measure 0), never a shadow detector, and it is not
+    # applied to anything it would falsely accuse.
+    def vramp(img):
+        im = img.convert('RGBA')
+        w, h = im.size
+        raw = im.tobytes()
+        rows = []
+        for y in range(h):
+            v = [0.299 * raw[(y * w + x) * 4] + 0.587 * raw[(y * w + x) * 4 + 1] +
+                 0.114 * raw[(y * w + x) * 4 + 2]
+                 for x in range(w) if raw[(y * w + x) * 4 + 3] > 8]
+            rows.append(sum(v) / len(v) if v else 0)
+        q = max(1, h // 4)
+        return sum(rows[-q:]) / q - sum(rows[:q]) / q
+    if os.path.exists(TRIPTYCH):
+        for t in json.load(open(TRIPTYCH))['tiles']:
+            g = vramp(Image.open(io.BytesIO(base64.b64decode(t['b64']))))
+            chk(abs(g) <= 18,
+                '%s carries a %.0f top-to-bottom light ramp. Shading is a RENDER-TIME '
+                'layer now - a new cook does not bake light into its own pixels.'
+                % (t['id'], g))
 
     # ---- THE PALETTE RATCHET --------------------------------------------
     pal = json.load(open(PR['palette']['ramp']))
