@@ -1,0 +1,65 @@
+BOHEMIA — VERDICT ON THE VALHEIM COMFORT MODEL (Paolo 7/27/26)
+=============================================================
+page judged: slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html
+law it produced: laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md
+
+THE VERDICT: APPROVE
+--------------------
+"awesome so i am in love with the mobile camp idea... i liked this valheim shit
+alot."
+
+That is the lab's first APPROVE on a MODEL row, and it approves the LOOP, not the
+numbers. Under the doctrine an approve unlocks volume; what it unlocks here is the
+survival system's constitution, which is the addendum above.
+
+WHAT HE KEPT
+------------
+- The camp as a place that makes you stronger. Approved outright, and RENAMED by
+  him in the act of approving it: it is a MOBILE camp.
+- COMFORT: what is around your rest spot extends the buff. Approved as a mechanism.
+- Chilling at camp, with SLEEP as a separate option.
+- The payoffs: health regen, stamina regen, more stamina points.
+
+WHAT HE CHANGED, AND EVERY ONE IS A RULING
+------------------------------------------
+1. MOBILE, not a fixed base.
+2. THE TIMER IS IN TILES MOVED, not seconds. A buff may not burn while the player
+   stands still.
+3. NO FOOD ITEMS AND NO FOOD CRAFTING. One clumped pool (water + food + build),
+   camp actions spend from it, loot adds to it.
+4. THE MAGNITUDES ARE TINY: "+1 or 2 or 3 stamina points type shit", Rogue Fable
+   IV's register. Valheim's 25 -> 148 health is explicitly the wrong scale.
+5. THE CAMP IS A MEDICAL STATION: bandage, gauze, and a COMPANION pulling a bullet
+   out of you. That last one is the first ruled mechanical role a companion has.
+6. IGNORING THE CAMP MUST STAY PLAYABLE: "if people dont want to give a fuck about
+   that its okay too."
+
+WHAT HE LEFT OPEN, IN HIS OWN WORDS
+-----------------------------------
+"idk about how it impacts hp points" and "im not super sure on the food crafting
+system". Those are the two he flagged himself, and clause (d) and clause (a) of the
+addendum hold them. Five more values are open and listed there. NOBODY INVENTS ANY
+OF THEM.
+
+WHAT THIS UNLOCKED, SAME TURN
+-----------------------------
+- laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md — 10 clauses, his words verbatim.
+- slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html — HIS ruleset, playable,
+  with every value he did NOT set exposed as a dial instead of guessed. He said he
+  rules off the feel and not off a document, so the open questions are things he
+  can answer by turning a knob and walking twenty tiles.
+- gates/camp_dial_gate.js — the machine half of the law.
+
+WHAT WAS NOT DONE, DELIBERATELY
+-------------------------------
+Nothing was ported into the engine or the alpha. An approve on a reference is not
+an order to build the real system, and
+laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md holds: the lab ports on his
+word only. The dial page is a lab surface, not Bohemia content, and it invents no
+canon — every number in it is either his, or a dial he sets.
+
+THE VALHEIM MODEL ITSELF
+------------------------
+Stays green and stays registered. It is the reference the addendum cites and it is
+not superseded by the dial page: one is what Valheim does, the other is what he
+ruled. Keeping both is how the next session sees the difference.

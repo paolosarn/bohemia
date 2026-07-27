@@ -99,10 +99,23 @@ system has to pass, and it is the thing our own systems should be checked agains
 - The mountain is cold and empty. Without wolves it tests the buffs' MATH, not the
   fear that makes Valheim's mountain famous.
 
-## THE QUESTION THIS PAGE IS ASKING, AND IT IS HIS
-Not whether the mechanisms work — they are measured. The question is the FEEL,
-which is what he said he would rule on:
-**does a camp that makes you stronger belong in Bohemia?** [PENDING Paolo]. If it
-does, the sub-rulings behind it are also his: what our comfort CATEGORIES are, how
-long our rest ritual takes, whether food raises a ceiling or fills a meter, and
-whether we have a hunger axis at all (Valheim's case for "no" is strong).
+## ANSWERED 7/27/26 — HE RULED, AND THE ANSWER WAS YES WITH CHANGES
+The question this page asked was whether a camp that makes you stronger belongs in
+Bohemia. It does: "awesome so i am in love with the mobile camp idea... i liked
+this valheim shit alot."
+
+But he changed five things in the same breath, and they are now law in
+`laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md`:
+1. **the camp is MOBILE** — carried and set down, never a fixed base;
+2. **the timer is TILES MOVED, not seconds** — a buff may not burn while you stand
+   still, which is the single biggest departure from the page above;
+3. **no food items and no food crafting** — one clumped pool (water + food +
+   build), camp actions spend it, loot adds to it;
+4. **the magnitudes are tiny** — "plus 1 or 2 or 3 stamina points type shit",
+   Rogue Fable IV's register. Valheim's 25 -> 148 health is explicitly out;
+5. **the camp is a medical station** — bandage, gauze, and a COMPANION pulling a
+   bullet out of you, which is the first ruled mechanical job a companion has.
+Verdict: `records/BOHEMIA_LAB_VALHEIM_VERDICT_7_27_26.txt`.
+His ruleset is playable at `slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html`,
+where every value he did NOT set is a dial rather than a guess.
+What is still [PENDING Paolo] is listed in the addendum, clauses (a) to (g).

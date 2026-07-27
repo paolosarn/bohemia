@@ -344,6 +344,50 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
+LAB (09): 7/27 (l) LATEST — HE APPROVED THE VALHEIM CAMP AND REWROTE IT IN THE SAME
+BREATH. BOHEMIA'S SURVIVAL SYSTEM IS NOW RULED. "awesome so i am in love with the mobile
+camp idea... i liked this valheim shit alot."
+LAW: laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md (LOCKED, 10 clauses, his words
+verbatim). VERDICT: records/BOHEMIA_LAB_VALHEIM_VERDICT_7_27_26.txt. READ THE LAW BEFORE
+TOUCHING ANY SURVIVAL, FOOD, STAMINA OR COMPANION WORK. The short form:
+  * THE CAMP IS MOBILE — carried and set down, never a fixed base.
+  * THE TIMER IS TILES MOVED, NOT SECONDS. "it would be on a timer it would be set for how
+    many tiles you move and shit." A buff may NOT burn while the player stands still. This
+    is the mate to TIME IS SPENT BY ACTIONS and the biggest departure from Valheim.
+  * ONE CLUMPED POOL. NO FOOD ITEMS, NO FOOD CRAFTING, NO RECIPES. "water, food, and build
+    shit are clumped into one category essentially... loot in the world would add to that."
+    This also settles the shape of loot-law clause (a): very few kinds, and this one is a
+    clump rather than a shopping list.
+  * THE REWARD IS HEALTH REGEN, STAMINA REGEN, MORE STAMINA POINTS.
+  * THE NUMBERS ARE TINY — ROGUE FABLE IV REGISTER. "plus 1 or 2 or 3 stamina points type
+    shit." Valheim's 25 -> 148 health is explicitly OUT and no Bohemia system may inherit
+    it. If a survival number in this repo is bigger than about 20, it is wrong.
+  * IGNORING THE CAMP STAYS PLAYABLE — "if people dont want to give a fuck about that its
+    okay too." Weaker, never blocked. Nothing survival may become mandatory.
+  * THE CAMP IS THE MEDICAL STATION: bandage, gauze, and A COMPANION PULLS A BULLET OUT OF
+    YOU. That is the FIRST RULED MECHANICAL JOB A COMPANION HAS — CHARACTER/COMBAT lanes
+    should know it exists.
+  * CHILL, and SLEEP as a separate bigger option. COMFORT approved, ported to tiles.
+PLAYABLE IN HIS RULESET: slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html — walk in
+tiles, set the camp down anywhere, dress it from what you carried, chill or sleep, eat out
+of the one pool, take a test wound and get patched (nothing on the page deals damage: NO
+DAMAGE BEFORE THE DIAL). He said twice he is unsure about two things ("idk about how it
+impacts hp points", "im not super sure on the food crafting system"), so EVERY VALUE HE DID
+NOT SET IS A DIAL — 18 of them on their own tab, each carrying the law clause it answers
+and why it exists. MAX_HP_MOVES defaults to OFF, because "idk" is not a ruling.
+GATE: gates/camp_dial_gate.js, 75 checks, registered in the suite as CAMP DIAL. It asserts
+the law on the real surface: standing still for 20,000 frames burns ZERO tiles of buff; one
+pool with no food table anywhere; the stamina bonus cannot be dialled past +3; a bullet
+cannot be dug out alone and CAN be with a companion; 120 tiles walked having never camped
+leaves you unblocked; and every pending value must be reachable as a dial, because a default
+he never saw is an invented ruling.
+STILL [PENDING Paolo], addendum clauses (a)-(g): the pool's name and whether it is literally
+one number; tiles per rest and per comfort level; what each camp action costs; whether max
+health moves at all; the exact stamina numbers; what limits how much camp you can carry; and
+the real camp item list (the five on the page are placeholders and say so).
+NOTHING WAS PORTED. An approve on a reference is not an order to build the real system, and
+the alpha was not touched, so the build stamp did not change.
+
 LAB (09): 7/27 (k) LATEST — VALHEIM'S COMFORT LOOP, AND THE MACHINE LEARNED WHAT A
 "MODEL" IS. He commissioned this one by name: "Next emulation, whole mechanics: VALHEIM'S
 COMFORT LOOP... I play it and then rule Bohemia's survival system off the feel, not off a

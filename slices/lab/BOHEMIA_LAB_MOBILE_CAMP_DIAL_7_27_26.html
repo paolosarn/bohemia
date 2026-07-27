@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>THE MOBILE CAMP — HIS RULESET, YOUR DIALS</title>
+<!--
+  ===========================================================================
+  BOHEMIA LAB — THE MOBILE CAMP DIAL
+  laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md (Paolo 7/27/26, LOCKED)
+
+  This is NOT an emulation of another game. Every mechanism on this page is
+  Paolo's own ruling, made 7/27/26 after playing the Valheim comfort model:
+
+    "i am in love with the mobile camp idea... it would be on a timer it would
+     be set for how many tiles you move and shit... i thought it would just suck
+     up from the resources pool... water,food,and build shit are clumped into one
+     category essentially... loot in the world would add to that... i liked the
+     idea of chilling at camp and then the option of sleeping and shit... we want
+     to reawrd them with hp stamina regen and more stamina points. compared to
+     combat style of rogue fable 4 it would be like plus 1 or 2 or 3 stamina
+     points type shit. a camp where u can apply a bandage. a place a companion
+     can pull out a bullet from your body. apply gauze."
+
+  He also said, twice, that he is NOT sure about two things: whether the camp
+  should move max HP, and the food side. So this page does not guess. EVERY
+  VALUE HE DID NOT SET IS A DIAL, on the DIALS tab, labelled [PENDING]. He rules
+  off the feel and not off a document — so the questions are things he can answer
+  by turning a knob and walking twenty tiles.
+
+  NOTHING HERE IS PORTED. No engine module, no bank, no alpha. The lab ports on
+  his word only (laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md).
+  Placeholder art. gates/camp_dial_gate.js is the machine half of the law.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#0d1014; color:#e8e6df;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#2f5c3a; color:#fff; font-size:10px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #stage { position:relative; flex:1 1 auto; min-height:0; background:#000; }
+  #c { display:block; width:100%; height:100%; image-rendering:pixelated; }
+  #hud { position:absolute; left:4px; top:4px; right:4px; pointer-events:none;
+    display:flex; flex-direction:column; gap:3px; align-items:flex-start; }
+  .card { background:rgba(10,12,16,.84); border:1px solid #39404f; border-radius:3px;
+    padding:2px 6px; font-size:10px; line-height:1.45; white-space:pre; }
+  .card b { color:#ffd76a; }
+  #rested.on { border-color:#c8a94a; color:#ffe6a2; }
+  #wound.on { border-color:#a5563f; color:#ffcfc4; }
+  #pips { letter-spacing:1px; }
+  #toast { position:absolute; left:6px; right:6px; bottom:6px; pointer-events:none;
+    font-size:10px; line-height:1.35; }
+  #toast div { background:rgba(10,12,16,.88); border-left:3px solid #4a5570;
+    padding:2px 5px; margin-top:2px; border-radius:2px; }
+  #toast .good { border-left-color:#5f8c63; color:#c8f0cd; }
+  #toast .bad { border-left-color:#a5563f; color:#ffcfc4; }
+  #ctl { flex:0 0 auto; padding:5px 6px 8px; background:#14171d; border-top:1px solid #2c3140; }
+  #row1 { display:flex; align-items:center; gap:8px; }
+  #stick { position:relative; width:100px; height:100px; flex:0 0 auto; border-radius:50%;
+    background:#1d212c; border:2px solid #333a4c; }
+  #knob { position:absolute; left:50%; top:50%; width:38px; height:38px; margin:-19px 0 0 -19px;
+    border-radius:50%; background:#59648c; border:2px solid #7f8cb8; }
+  #right { flex:1 1 auto; display:flex; flex-direction:column; gap:4px; min-width:0; }
+  #act { width:100%; padding:12px 6px; font-size:13px; font-weight:700; letter-spacing:.05em;
+    border-radius:5px; border:2px solid #7f8cb8; background:#2f3a5c; color:#dfe6ff; }
+  #act.hot { background:#2d5a34; border-color:#6fae78; color:#dcf6df; }
+  #act:disabled { opacity:.32; }
+  .chips { display:flex; flex-wrap:wrap; gap:3px; }
+  button.chip { font-family:inherit; font-size:9px; padding:5px 6px; border-radius:4px;
+    border:1px solid #454d63; background:#22262f; color:#9aa3b8; }
+  button.chip.on { background:#2d4a30; border-color:#5f8c63; color:#d6f0d8; }
+  button.chip:disabled { opacity:.3; }
+  .modal { position:absolute; inset:auto 0 0 0; max-height:82%; background:rgba(8,9,12,.97);
+    display:none; flex-direction:column; padding:8px 10px; overflow:auto; z-index:6;
+    border-top:2px solid #4a5570; border-radius:8px 8px 0 0; }
+  .modal.open { display:flex; }
+  .modal h3 { margin:0 0 4px; font-size:11.5px; color:#ffd76a; letter-spacing:.04em; }
+  .modal .sub { font-size:9px; color:#8d99ad; line-height:1.5; margin-bottom:7px; }
+  .arow { display:flex; align-items:center; gap:6px; font-size:10.5px; padding:4px 0;
+    border-bottom:1px solid #1c2029; }
+  .arow .an { flex:1 1 auto; color:#cbd6a8; }
+  .arow .ac { flex:0 0 96px; text-align:right; color:#8d99ad; font-size:9px; }
+  .arow button { font-family:inherit; font-size:9px; padding:5px 8px; border-radius:3px;
+    border:1px solid #5f8c63; background:#2d4a30; color:#d6f0d8; }
+  .arow button:disabled { opacity:.3; border-color:#454d63; background:#22262f; color:#9aa3b8; }
+  .drow { display:flex; align-items:center; gap:5px; font-size:10px; padding:3px 0;
+    border-bottom:1px solid #1c2029; }
+  .drow .dn { flex:1 1 auto; color:#8fd0ff; }
+  .drow .dq { flex:0 0 100%; font-size:8.5px; color:#6f7889; line-height:1.4; }
+  .drow .dv { width:34px; text-align:right; color:#fff; font-weight:700; }
+  .drow button { font-family:inherit; font-size:11px; width:24px; padding:2px 0; border-radius:3px;
+    border:1px solid #454d63; background:#22262f; color:#c8cfdd; }
+  .pend { color:#ffb4a8; font-size:8.5px; }
+  .wm { position:absolute; right:5px; top:46%; font-size:8px; color:#fff; opacity:.26;
+    transform:rotate(90deg); transform-origin:right center; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>YOUR RULESET, NOT VALHEIM'S.</b> Tiles not seconds, one supply pool, small
+    numbers. Everything you said "idk" about is a DIAL. Placeholder art.</div>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div class="card" id="body"></div>
+      <div class="card" id="rested"></div>
+      <div class="card" id="wound"></div>
+    </div>
+    <div id="toast"></div>
+    <div class="wm">PLACEHOLDER ART</div>
+
+    <!-- the camp -->
+    <div class="modal" id="m_camp">
+      <h3>CAMP</h3>
+      <div class="sub" id="campsub"></div>
+      <div id="campacts"></div>
+      <div style="font-size:9px;color:#8d99ad;letter-spacing:.06em;margin:8px 0 2px">
+        WHAT YOU CARRIED AND SET DOWN — each one adds comfort, and comfort is TILES</div>
+      <div id="kitlist"></div>
+      <div class="chips" style="margin-top:8px">
+        <button class="chip" id="c_close">STAND UP</button>
+      </div>
+    </div>
+
+    <!-- the dials -->
+    <div class="modal" id="m_dials">
+      <h3>THE DIALS — EVERY NUMBER YOU HAVE NOT RULED YET</h3>
+      <div class="sub">You said you rule off the feel, not off a document. So none of these are
+        guesses dressed up as defaults: turn one, walk twenty tiles, and tell me. Nothing here is
+        canon until you say a number out loud.</div>
+      <div id="diallist"></div>
+      <div class="chips" style="margin-top:8px">
+        <button class="chip" id="d_close">CLOSE</button>
+      </div>
+    </div>
+
+    <!-- test injuries, because nothing on this page deals damage -->
+    <div class="modal" id="m_hurt">
+      <h3>GIVE YOURSELF A WOUND (test only)</h3>
+      <div class="sub">NO DAMAGE BEFORE THE DIAL: nothing on this page can hurt you. These buttons
+        exist so the bandage, the gauze and the companion's bullet have something to treat.</div>
+      <div id="hurtlist"></div>
+      <div class="chips" style="margin-top:8px">
+        <button class="chip" id="h_close">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ctl">
+    <div id="row1">
+      <div id="stick"><div id="knob"></div></div>
+      <div id="right">
+        <button id="act">—</button>
+        <div class="chips" id="chips1"></div>
+        <div class="chips" id="chips2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   THE DIALS. Every one of these is [PENDING Paolo] per
+   laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md. The values below are
+   STARTING POSITIONS so the page runs, never rulings — the gate checks that
+   each one is reachable from the DIALS tab, so nothing can quietly harden into
+   canon while he is not looking.
+   ========================================================================= */
+var DIALS = {
+  BASE_HEALTH:      { v: 10, min: 4,  max: 20, step: 1, clause: 'e',
+    why: 'Base health. Small integers, Rogue Fable IV register, never Valheim\'s 25->148.' },
+  BASE_STAMINA:     { v: 6,  min: 2,  max: 12, step: 1, clause: 'e',
+    why: 'Base stamina points. "plus 1 or 2 or 3 stamina points type shit" is the scale.' },
+  REST_TILES:       { v: 40, min: 10, max: 120, step: 5, clause: 'b',
+    why: 'How many TILES a chill at camp is worth. Across the map and back is a full day.' },
+  TILES_PER_COMFORT:{ v: 10, min: 0,  max: 40, step: 2, clause: 'b',
+    why: 'Tiles added per comfort level — i.e. what one thing you carried is worth.' },
+  SLEEP_TILES_MULT: { v: 2,  min: 1,  max: 4,  step: 1, clause: 'b',
+    why: 'Sleeping is the bigger commitment, so its buff lasts this many times longer.' },
+  STAMINA_BONUS:    { v: 2,  min: 1,  max: 3,  step: 1, clause: 'e',
+    why: 'Extra stamina POINTS while rested. He named the range himself: 1, 2 or 3.' },
+  HP_REGEN_TILES:   { v: 12, min: 2,  max: 40, step: 2, clause: 'e',
+    why: 'Walk this many tiles to regain 1 health. Rested halves it.' },
+  ST_REGEN_TILES:   { v: 4,  min: 1,  max: 20, step: 1, clause: 'e',
+    why: 'Walk this many tiles to regain 1 stamina. Rested halves it.' },
+  SPRINT_COST:      { v: 1,  min: 1,  max: 3,  step: 1, clause: 'e',
+    why: 'Stamina spent to cover two tiles in one step. This is what stamina is FOR.' },
+  MAX_HP_MOVES:     { v: 0,  min: 0,  max: 1,  step: 1, clause: 'd',
+    why: 'THE ONE HE SAID IDK ABOUT. 1 = a rested camp raises max health too. 0 = regen only.' },
+  MAX_HP_BONUS:     { v: 2,  min: 1,  max: 5,  step: 1, clause: 'd',
+    why: 'If max health does move, by how much. Only matters when MAX_HP_MOVES is 1.' },
+  EAT_COST:         { v: 1,  min: 0,  max: 5,  step: 1, clause: 'c',
+    why: 'Supply spent to eat. There are no food items — it comes out of the one pool.' },
+  BANDAGE_COST:     { v: 1,  min: 0,  max: 5,  step: 1, clause: 'c',
+    why: 'Supply spent on a bandage.' },
+  GAUZE_COST:       { v: 2,  min: 0,  max: 5,  step: 1, clause: 'c',
+    why: 'Supply spent on gauze.' },
+  BULLET_COST:      { v: 2,  min: 0,  max: 5,  step: 1, clause: 'c',
+    why: 'Supply spent when the companion pulls the bullet out.' },
+  KIT_CAPACITY:     { v: 3,  min: 1,  max: 8,  step: 1, clause: 'f',
+    why: 'How much camp you can carry at once. He implied a limit and did not name it.' },
+  BLEED_TILES:      { v: 6,  min: 2,  max: 20, step: 1, clause: 'c',
+    why: 'Walk this many tiles while bleeding to lose 1 health.' },
+  SUPPLY_PER_FIND:  { v: 3,  min: 1,  max: 9,  step: 1, clause: 'a',
+    why: 'What one thing found in the world adds to the pool. "you found like three."' }
+};
+function D(k) { return DIALS[k].v; }
+
+/* plumbing that is MINE — nothing here is a ruling either, it is just a map */
+var TILE = 28, GRID_W = 22, GRID_H = 44, STEP_MS = 110;
+
+/* THE ONE POOL. Water, food and build material clumped, exactly as ruled. There
+   is no food table on this page and there never will be: clause 4. */
+var POOL_NAME = 'supply';
+
+/* THE CARRIED CAMP. PLACEHOLDER NAMES — clause (g) is [PENDING Paolo] and the
+   Valheim names (rug, hearth, banner) are theirs, not ours. Each is one comfort
+   level, which is TILES_PER_COMFORT more tiles of buff. */
+var KIT = [
+  { id: 'bedroll',  name: 'bedroll',      note: 'placeholder name' },
+  { id: 'tarp',     name: 'tarp',         note: 'placeholder name' },
+  { id: 'stove',    name: 'burner',       note: 'placeholder name' },
+  { id: 'seat',     name: 'folding seat', note: 'placeholder name' },
+  { id: 'lamp',     name: 'lamp',         note: 'placeholder name' }
+];
+function kitDef(id) { for (var i = 0; i < KIT.length; i++) if (KIT[i].id === id) return KIT[i]; return null; }
+
+/* WOUNDS. Nothing on this page inflicts one — NO DAMAGE BEFORE THE DIAL. They
+   exist so the bandage, the gauze and the companion have something to treat. */
+var WOUNDS = [
+  { id: 'bleeding', name: 'bleeding',        treat: 'bandage', self: true,
+    what: 'loses 1 health every BLEED_TILES tiles' },
+  { id: 'graze',    name: 'an open graze',   treat: 'gauze',   self: true,
+    what: 'health cannot regen at all' },
+  { id: 'bullet',   name: 'a bullet in you', treat: 'bullet',  self: false,
+    what: 'stamina is capped at 1 until a COMPANION digs it out' }
+];
+function woundDef(id) { for (var i = 0; i < WOUNDS.length; i++) if (WOUNDS[i].id === id) return WOUNDS[i]; return null; }
+
+/* =========================================================================
+   THE WORLD — built cell by cell so a row can never come out ragged
+   ========================================================================= */
+var FINDS = [
+  { x: 6,  y: 22 }, { x: 16, y: 20 }, { x: 4,  y: 15 },
+  { x: 18, y: 12 }, { x: 9,  y: 8 },  { x: 14, y: 4 }, { x: 3, y: 3 }
+];
+var GRID = [];
+function hash(x, y) { var h = (x * 73856093) ^ (y * 19349663); h = (h ^ (h >> 13)) * 1274126177; return ((h ^ (h >> 16)) & 0xffff) / 0xffff; }
+function buildWorld() {
+  GRID = [];
+  for (var y = 0; y < GRID_H; y++) {
+    var row = [];
+    for (var x = 0; x < GRID_W; x++) {
+      var h = hash(x, y);
+      row.push(h < 0.13 ? 'B' : (h < 0.4 ? 'r' : '.'));
+    }
+    GRID.push(row);
+  }
+  for (var y2 = 0; y2 < GRID_H; y2++) GRID[y2][11] = '#';
+  FINDS.forEach(function (f) { GRID[f.y][f.x] = 'o'; });
+}
+buildWorld();
+function tileAt(x, y) { return (x < 0 || y < 0 || x >= GRID_W || y >= GRID_H) ? null : GRID[y][x]; }
+function solid(x, y) { return tileAt(x, y) === null || tileAt(x, y) === 'B'; }
+
+/* =========================================================================
+   STATE
+   ========================================================================= */
+var S = {
+  tx: 11, ty: 28, px: 0, py: 0, moving: null, facing: 2,
+  tiles: 0,                     /* every tile ever walked — the only clock */
+  health: 0, stamina: 0,
+  supply: 4,
+  camp: null,                   /* {x,y} when set down; null while carried */
+  carried: ['bedroll'],         /* what is in the pack */
+  deployed: [],                 /* what is set down at this camp */
+  rested: 0,                    /* TILES of buff left, never seconds */
+  restedFrom: 'chill',
+  wounds: [],
+  companion: true,
+  sleeps: 0, chills: 0,
+  hpDebt: 0, stDebt: 0, bleedDebt: 0,
+  modal: null, frozen: false, dirs: [], sprint: false, found: {}
+};
+S.health = D('BASE_HEALTH'); S.stamina = D('BASE_STAMINA');
+
+function toast(cls, msg) {
+  var host = document.getElementById('toast');
+  if (!host) return;
+  var d = document.createElement('div');
+  d.className = cls; d.textContent = msg;
+  host.appendChild(d);
+  while (host.children.length > 3) host.removeChild(host.firstChild);
+  setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 3200);
+}
+
+/* =========================================================================
+   CLAUSE 5 + 7 — THE PAYOFFS, AND THEY ARE SMALL INTEGERS.
+   health regen, stamina regen, and more stamina POINTS. Nothing else.
+   ========================================================================= */
+function isRested() { return S.rested > 0; }
+function hasWound(id) { return S.wounds.indexOf(id) >= 0; }
+function maxHealth() {
+  var n = D('BASE_HEALTH');
+  if (D('MAX_HP_MOVES') === 1 && isRested()) n += D('MAX_HP_BONUS');
+  return n;
+}
+function maxStamina() {
+  var n = D('BASE_STAMINA');
+  if (isRested()) n += D('STAMINA_BONUS');
+  if (hasWound('bullet')) return 1;
+  return n;
+}
+function hpRegenTiles() { return Math.max(1, isRested() ? Math.ceil(D('HP_REGEN_TILES') / 2) : D('HP_REGEN_TILES')); }
+function stRegenTiles() { return Math.max(1, isRested() ? Math.ceil(D('ST_REGEN_TILES') / 2) : D('ST_REGEN_TILES')); }
+
+/* =========================================================================
+   CLAUSE 2 — THE TIMER IS TILES. Standing still costs NOTHING, forever. This
+   is the whole difference from Valheim and it is the ruling that matters most.
+   ========================================================================= */
+function spendTile(n) {
+  var k = n || 1;
+  S.tiles += k;
+
+  if (S.rested > 0) {
+    S.rested = Math.max(0, S.rested - k);
+    if (S.rested === 0) toast('bad', 'the camp has worn off');
+  }
+
+  /* health regen, per tile walked, blocked by an open graze */
+  if (!hasWound('graze')) {
+    S.hpDebt += k;
+    while (S.hpDebt >= hpRegenTiles()) {
+      S.hpDebt -= hpRegenTiles();
+      if (S.health < maxHealth()) S.health++;
+    }
+  }
+  /* stamina regen, per tile walked */
+  S.stDebt += k;
+  while (S.stDebt >= stRegenTiles()) {
+    S.stDebt -= stRegenTiles();
+    if (S.stamina < maxStamina()) S.stamina++;
+  }
+  /* bleeding costs health per tile, which is what the bandage is for */
+  if (hasWound('bleeding')) {
+    S.bleedDebt += k;
+    while (S.bleedDebt >= D('BLEED_TILES')) {
+      S.bleedDebt -= D('BLEED_TILES');
+      S.health--;
+      toast('bad', 'bleeding — 1 health');
+    }
+  }
+  if (S.health > maxHealth()) S.health = maxHealth();
+  if (S.stamina > maxStamina()) S.stamina = maxStamina();
+  if (S.health < 0) S.health = 0;
+  paintHud();
+}
+
+/* =========================================================================
+   CLAUSE 1 — THE CAMP IS MOBILE. You carry it and set it down.
+   ========================================================================= */
+function campHere() { return S.camp && S.camp.x === S.tx && S.camp.y === S.ty; }
+function atCamp() {
+  return !!S.camp && Math.abs(S.camp.x - S.tx) <= 1 && Math.abs(S.camp.y - S.ty) <= 1;
+}
+function setDownCamp() {
+  if (S.camp) return false;
+  S.camp = { x: S.tx, y: S.ty };
+  S.deployed = [];
+  toast('good', 'camp set down here');
+  paintHud();
+  return true;
+}
+function packUpCamp() {
+  if (!S.camp) return false;
+  S.camp = null; S.deployed = [];
+  toast('good', 'camp packed');
+  paintHud();
+  return true;
+}
+function deploy(id) {
+  if (!atCamp() || !S.camp) return false;
+  if (S.carried.indexOf(id) < 0) return false;
+  if (S.deployed.indexOf(id) >= 0) return false;
+  S.deployed.push(id);
+  paintCamp(); paintHud();
+  return true;
+}
+function pickUp(id) {
+  var i = S.deployed.indexOf(id);
+  if (i < 0) return false;
+  S.deployed.splice(i, 1);
+  paintCamp(); paintHud();
+  return true;
+}
+function carry(id) {
+  if (S.carried.indexOf(id) >= 0) return false;
+  if (S.carried.length >= D('KIT_CAPACITY')) return false;   /* clause (f), dialled */
+  S.carried.push(id);
+  paintCamp();
+  return true;
+}
+/* COMFORT, ported to his ruling: what you set down buys TILES, not minutes. */
+function comfort() { return S.deployed.length; }
+function restTilesFor(kind) {
+  var t = D('REST_TILES') + comfort() * D('TILES_PER_COMFORT');
+  return kind === 'sleep' ? t * D('SLEEP_TILES_MULT') : t;
+}
+
+/* =========================================================================
+   CLAUSE 4 — ONE POOL. Every camp action spends from it; loot adds to it.
+   CLAUSE 9 — CHILL and SLEEP are different things.
+   ========================================================================= */
+function spendSupply(n) {
+  if (S.supply < n) return false;
+  S.supply -= n;
+  paintHud(); paintCamp();
+  return true;
+}
+function findSupply() {
+  var k = S.tx + ',' + S.ty;
+  if (tileAt(S.tx, S.ty) !== 'o' || S.found[k]) return 0;
+  S.found[k] = true;
+  S.supply += D('SUPPLY_PER_FIND');
+  toast('good', 'you found ' + D('SUPPLY_PER_FIND') + ' ' + POOL_NAME);
+  paintHud();
+  return D('SUPPLY_PER_FIND');
+}
+
+var CAMP_ACTIONS = [
+  { id: 'chill', name: 'chill here', cost: 0, needsCompanion: false,
+    can: function () { return atCamp() && !isRested(); },
+    why: function () { return isRested() ? 'already rested' : 'free'; },
+    run: function () {
+      S.rested = restTilesFor('chill'); S.restedFrom = 'chill'; S.chills++;
+      S.stamina = maxStamina();
+      toast('good', 'rested for ' + S.rested + ' tiles (comfort ' + comfort() + ')');
+      return true;
+    } },
+  { id: 'sleep', name: 'sleep', cost: 0, needsCompanion: false,
+    can: function () { return atCamp(); },
+    why: function () { return 'a spent block'; },
+    run: function () {
+      S.rested = restTilesFor('sleep'); S.restedFrom = 'sleep'; S.sleeps++;
+      S.stamina = maxStamina();
+      if (S.health < maxHealth()) S.health++;
+      toast('good', 'slept — rested for ' + S.rested + ' tiles');
+      return true;
+    } },
+  { id: 'eat', name: 'eat', costDial: 'EAT_COST', needsCompanion: false,
+    can: function () { return atCamp() && S.supply >= D('EAT_COST'); },
+    why: function () { return D('EAT_COST') + ' ' + POOL_NAME; },
+    run: function () {
+      if (!spendSupply(D('EAT_COST'))) return false;
+      S.stamina = maxStamina();
+      if (S.health < maxHealth()) S.health++;
+      toast('good', 'ate out of the pool — no recipe, no item');
+      return true;
+    } },
+  { id: 'bandage', name: 'apply a bandage', costDial: 'BANDAGE_COST', needsCompanion: false,
+    can: function () { return atCamp() && hasWound('bleeding') && S.supply >= D('BANDAGE_COST'); },
+    why: function () { return D('BANDAGE_COST') + ' ' + POOL_NAME + ', stops bleeding'; },
+    run: function () {
+      if (!spendSupply(D('BANDAGE_COST'))) return false;
+      heal('bleeding');
+      toast('good', 'bandaged — the bleeding stops');
+      return true;
+    } },
+  { id: 'gauze', name: 'apply gauze', costDial: 'GAUZE_COST', needsCompanion: false,
+    can: function () { return atCamp() && hasWound('graze') && S.supply >= D('GAUZE_COST'); },
+    why: function () { return D('GAUZE_COST') + ' ' + POOL_NAME + ', closes a graze'; },
+    run: function () {
+      if (!spendSupply(D('GAUZE_COST'))) return false;
+      heal('graze');
+      toast('good', 'gauze on — you can heal again');
+      return true;
+    } },
+  /* HIS LINE, AND THE FIRST RULED JOB A COMPANION HAS: "a place a companion can
+     pull out a bullet from your body". You cannot do this one to yourself. */
+  { id: 'bullet', name: 'have the bullet pulled out', costDial: 'BULLET_COST', needsCompanion: true,
+    can: function () { return atCamp() && hasWound('bullet') && S.companion && S.supply >= D('BULLET_COST'); },
+    why: function () { return D('BULLET_COST') + ' ' + POOL_NAME + ', COMPANION ONLY'; },
+    run: function () {
+      if (!S.companion) return false;
+      if (!spendSupply(D('BULLET_COST'))) return false;
+      heal('bullet');
+      S.stamina = Math.min(maxStamina(), S.stamina + 1);
+      toast('good', 'they dig it out. your wind comes back');
+      return true;
+    } }
+];
+function campAction(id) {
+  for (var i = 0; i < CAMP_ACTIONS.length; i++) {
+    var a = CAMP_ACTIONS[i];
+    if (a.id !== id) continue;
+    if (!a.can()) return false;
+    var r = a.run();
+    paintHud(); paintCamp();
+    return r;
+  }
+  return false;
+}
+function hurt(id) {
+  if (hasWound(id) || !woundDef(id)) return false;
+  S.wounds.push(id);
+  S.bleedDebt = 0;
+  if (S.stamina > maxStamina()) S.stamina = maxStamina();
+  toast('bad', woundDef(id).name + ' — ' + woundDef(id).what);
+  paintHud(); paintCamp(); paintHurt();
+  return true;
+}
+function heal(id) {
+  var i = S.wounds.indexOf(id);
+  if (i < 0) return false;
+  S.wounds.splice(i, 1);
+  paintHud(); paintCamp(); paintHurt();
+  return true;
+}
+
+/* =========================================================================
+   MOVEMENT — discrete tiles, because a tile is the unit he ruled in
+   ========================================================================= */
+function beginStep(dir, sprinting) {
+  if (S.moving || S.modal) return false;
+  var far = sprinting && S.stamina >= D('SPRINT_COST') ? 2 : 1;
+  var dx = dir === 1 ? 1 : dir === 3 ? -1 : 0;
+  var dy = dir === 2 ? 1 : dir === 0 ? -1 : 0;
+  S.facing = dir;
+  var nx = S.tx, ny = S.ty, moved = 0;
+  for (var i = 0; i < far; i++) {
+    if (solid(nx + dx, ny + dy)) break;
+    nx += dx; ny += dy; moved++;
+  }
+  if (!moved) return false;
+  if (far === 2 && moved === 2) S.stamina -= D('SPRINT_COST');
+  S.moving = { fx: S.tx, fy: S.ty, tx: nx, ty: ny, t: 0, n: moved };
+  return true;
+}
+function stepTick(dtms) {
+  if (!S.moving) return;
+  S.moving.t += dtms;
+  var f = Math.min(1, S.moving.t / (STEP_MS * S.moving.n));
+  S.px = (S.moving.fx + (S.moving.tx - S.moving.fx) * f) * TILE;
+  S.py = (S.moving.fy + (S.moving.ty - S.moving.fy) * f) * TILE;
+  if (f >= 1) {
+    var n = S.moving.n;
+    S.tx = S.moving.tx; S.ty = S.moving.ty; S.moving = null;
+    S.px = S.tx * TILE; S.py = S.ty * TILE;
+    spendTile(n);
+    findSupply();
+  }
+}
+
+/* =========================================================================
+   RENDER — placeholder art
+   ========================================================================= */
+var cv = document.getElementById('c'), cx = cv ? cv.getContext('2d') : null;
+var VW = 0, VHP = 0;
+function sizeCanvas() {
+  if (!cv) return;
+  var r = cv.parentNode.getBoundingClientRect();
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  VW = Math.max(1, Math.floor(r.width)); VHP = Math.max(1, Math.floor(r.height));
+  cv.width = Math.floor(VW * dpr); cv.height = Math.floor(VHP * dpr);
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx.imageSmoothingEnabled = false;
+}
+var GROUND = { '.': '#4a4334', 'r': '#574c37', 'B': '#2f2a22', '#': '#675e4a', 'o': '#5c5c33' };
+function draw() {
+  if (!cx) return;
+  cx.fillStyle = '#0a0b0d'; cx.fillRect(0, 0, VW, VHP);
+  var camx = S.px + TILE / 2 - VW / 2, camy = S.py + TILE / 2 - VHP / 2;
+  var maxx = GRID_W * TILE - VW, maxy = GRID_H * TILE - VHP;
+  camx = maxx <= 0 ? maxx / 2 : Math.max(0, Math.min(maxx, camx));
+  camy = maxy <= 0 ? maxy / 2 : Math.max(0, Math.min(maxy, camy));
+  var x0 = Math.max(0, Math.floor(camx / TILE)), x1 = Math.min(GRID_W - 1, Math.ceil((camx + VW) / TILE));
+  var y0 = Math.max(0, Math.floor(camy / TILE)), y1 = Math.min(GRID_H - 1, Math.ceil((camy + VHP) / TILE));
+  for (var y = y0; y <= y1; y++) {
+    for (var x = x0; x <= x1; x++) {
+      var t = GRID[y][x], sx = Math.round(x * TILE - camx), sy = Math.round(y * TILE - camy);
+      cx.fillStyle = GROUND[t] || '#3a352a';
+      cx.fillRect(sx, sy, TILE, TILE);
+      if (t === 'B') { cx.fillStyle = '#1d1a15'; cx.fillRect(sx + 3, sy + 4, TILE - 6, TILE - 8); }
+      if (t === 'o') {
+        cx.fillStyle = S.found[x + ',' + y] ? '#33331f' : '#c9c46a';
+        cx.fillRect(sx + 8, sy + 8, TILE - 16, TILE - 16);
+      }
+    }
+  }
+  /* the camp, wherever he put it */
+  if (S.camp) {
+    var fx = S.camp.x * TILE + TILE / 2 - camx, fy = S.camp.y * TILE + TILE / 2 - camy;
+    var g = cx.createRadialGradient(fx, fy, 2, fx, fy, TILE * 1.9);
+    g.addColorStop(0, 'rgba(255,196,92,.50)'); g.addColorStop(1, 'rgba(255,150,40,0)');
+    cx.fillStyle = g; cx.beginPath(); cx.arc(fx, fy, TILE * 1.9, 0, Math.PI * 2); cx.fill();
+    cx.fillStyle = '#3a2a18'; cx.fillRect(fx - 10, fy - 10, 20, 20);
+    cx.fillStyle = '#e0872c'; cx.fillRect(fx - 7, fy - 7, 14, 14);
+    cx.fillStyle = '#ffd76a'; cx.fillRect(fx - 3, fy - 3, 6, 6);
+    S.deployed.forEach(function (id, i) {
+      var a = i * 1.35, r = TILE * 1.15;
+      var px = fx + Math.cos(a) * r, py = fy + Math.sin(a) * r;
+      cx.fillStyle = '#241d13'; cx.fillRect(px - 8, py - 8, 16, 16);
+      cx.fillStyle = '#b9a172'; cx.fillRect(px - 6, py - 6, 12, 12);
+      cx.fillStyle = '#241d13'; cx.font = 'bold 10px ui-monospace,monospace';
+      cx.textAlign = 'center'; cx.textBaseline = 'middle';
+      cx.fillText(kitDef(id).name[0].toUpperCase(), px, py + 1);
+    });
+    if (S.companion) {
+      cx.fillStyle = '#7f9ac8'; cx.fillRect(fx + TILE - 6, fy - 8, 11, 17);
+    }
+  }
+  /* the walker */
+  /* offset up a touch so standing on your own camp never hides the fire */
+  var wx = Math.round(S.px - camx), wy = Math.round(S.py - camy) - 5;
+  cx.fillStyle = '#0b0c10'; cx.fillRect(wx + 6, wy + 3, TILE - 12, TILE - 6);
+  cx.fillStyle = isRested() ? '#ffe6a2' : '#f2f4ff'; cx.fillRect(wx + 8, wy + 5, TILE - 16, TILE - 10);
+  if (S.wounds.length) { cx.fillStyle = '#c04a3a'; cx.fillRect(wx + TILE - 9, wy + 2, 5, 5); }
+  if (!S.camp) { cx.fillStyle = '#8a7f5a'; cx.fillRect(wx + 3, wy + TILE - 10, 6, 7); }
+}
+
+/* =========================================================================
+   HUD + PANELS
+   ========================================================================= */
+function pips(n, max, on, off) {
+  var s = '';
+  for (var i = 0; i < max; i++) s += (i < n ? on : off);
+  return s;
+}
+function paintHud() {
+  var b = document.getElementById('body');
+  if (b) {
+    b.innerHTML = 'health  <b>' + S.health + '/' + maxHealth() + '</b>  ' +
+      pips(S.health, maxHealth(), '#', '.') + '\n' +
+      'stamina <b>' + S.stamina + '/' + maxStamina() + '</b>  ' +
+      pips(S.stamina, maxStamina(), '#', '.') + '\n' +
+      POOL_NAME + '  <b>' + S.supply + '</b>   tiles walked <b>' + S.tiles + '</b>';
+  }
+  var r = document.getElementById('rested');
+  if (r) {
+    if (isRested()) {
+      r.className = 'card on';
+      r.textContent = 'RESTED — ' + S.rested + ' TILES LEFT (' + S.restedFrom + ')\n' +
+        '+' + D('STAMINA_BONUS') + ' stamina · regen every ' + hpRegenTiles() + '/' +
+        stRegenTiles() + ' tiles' + (D('MAX_HP_MOVES') === 1 ? '\n+' + D('MAX_HP_BONUS') + ' max health' : '');
+    } else {
+      r.className = 'card';
+      r.textContent = 'not rested — regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
+        (S.camp ? '' : '\ncamp is in your pack');
+    }
+  }
+  var w = document.getElementById('wound');
+  if (w) {
+    if (S.wounds.length) {
+      w.className = 'card on';
+      w.textContent = S.wounds.map(function (id) { return woundDef(id).name; }).join(', ');
+    } else { w.className = 'card'; w.textContent = 'no wounds'; }
+  }
+  var act = document.getElementById('act');
+  if (act) {
+    var c = context();
+    act.textContent = c ? c.label : '—';
+    act.disabled = !c;
+    act.className = c ? 'hot' : '';
+  }
+}
+function context() {
+  if (S.modal) return null;
+  if (atCamp()) return { label: 'CAMP', fn: openCamp };
+  if (!S.camp) return { label: 'SET DOWN CAMP', fn: function () { setDownCamp(); openCamp(); } };
+  return null;
+}
+function closeModals() {
+  ['m_camp', 'm_dials', 'm_hurt'].forEach(function (id) {
+    var e = document.getElementById(id); if (e) e.classList.remove('open');
+  });
+  S.modal = null;
+  paintHud();
+}
+function openOnly(id, name) {
+  ['m_camp', 'm_dials', 'm_hurt'].forEach(function (i) {
+    var e = document.getElementById(i); if (e) e.classList.remove('open');
+  });
+  var e = document.getElementById(id); if (e) e.classList.add('open');
+  S.modal = name; paintHud();
+}
+function openCamp() { paintCamp(); openOnly('m_camp', 'camp'); }
+function openDials() { paintDials(); openOnly('m_dials', 'dials'); }
+function openHurt() { paintHurt(); openOnly('m_hurt', 'hurt'); }
+function paintCamp() {
+  var sub = document.getElementById('campsub');
+  if (sub) {
+    sub.innerHTML = 'comfort <b style="color:#ffd76a">' + comfort() + '</b> from what you set down &rarr; ' +
+      'a chill is worth <b style="color:#ffd76a">' + restTilesFor('chill') + ' tiles</b>, ' +
+      'a sleep <b style="color:#ffd76a">' + restTilesFor('sleep') + '</b>. ' +
+      POOL_NAME + ' in the pool: <b style="color:#ffd76a">' + S.supply + '</b>. ' +
+      'No food items exist — every action below draws on the one pool.';
+  }
+  var host = document.getElementById('campacts');
+  if (!host) return;
+  host.innerHTML = '';
+  CAMP_ACTIONS.forEach(function (a) {
+    var row = document.createElement('div'); row.className = 'arow';
+    row.innerHTML = '<span class="an">' + a.name + (a.needsCompanion ? ' <span class="pend">(companion)</span>' : '') +
+      '</span><span class="ac">' + a.why() + '</span>';
+    var b = document.createElement('button');
+    b.textContent = 'DO';
+    b.disabled = !a.can();
+    b.onclick = function () { campAction(a.id); };
+    row.appendChild(b);
+    host.appendChild(row);
+  });
+  var kh = document.getElementById('kitlist');
+  kh.innerHTML = '<div class="drow"><span class="dq">Carrying ' + S.carried.length + ' of ' +
+    D('KIT_CAPACITY') + ' (KIT_CAPACITY is a dial — clause f). Names are placeholders; the real list is yours.</span></div>';
+  KIT.forEach(function (d) {
+    var carried = S.carried.indexOf(d.id) >= 0, out = S.deployed.indexOf(d.id) >= 0;
+    var row = document.createElement('div'); row.className = 'arow';
+    row.innerHTML = '<span class="an">' + d.name + '</span><span class="ac">' +
+      (out ? 'set down, +' + D('TILES_PER_COMFORT') + ' tiles' : carried ? 'in the pack' : 'not carried') + '</span>';
+    var b = document.createElement('button');
+    if (out) { b.textContent = 'PICK UP'; b.onclick = function () { pickUp(d.id); }; }
+    else if (carried) { b.textContent = 'SET DOWN'; b.disabled = !atCamp(); b.onclick = function () { deploy(d.id); }; }
+    else { b.textContent = 'CARRY'; b.disabled = S.carried.length >= D('KIT_CAPACITY'); b.onclick = function () { carry(d.id); }; }
+    row.appendChild(b);
+    kh.appendChild(row);
+  });
+  var pk = document.createElement('div'); pk.className = 'arow';
+  pk.innerHTML = '<span class="an">the camp itself</span><span class="ac">' +
+    (S.camp ? 'set down' : 'in your pack') + '</span>';
+  var pb = document.createElement('button');
+  pb.textContent = S.camp ? 'PACK UP' : 'SET DOWN';
+  pb.onclick = function () { if (S.camp) { packUpCamp(); closeModals(); } else { setDownCamp(); } paintCamp(); };
+  pk.appendChild(pb);
+  kh.appendChild(pk);
+}
+function paintDials() {
+  var host = document.getElementById('diallist');
+  if (!host) return;
+  host.innerHTML = '';
+  Object.keys(DIALS).forEach(function (k) {
+    var d = DIALS[k];
+    var row = document.createElement('div'); row.className = 'drow';
+    var name = document.createElement('span');
+    name.className = 'dn';
+    name.innerHTML = k + ' <span class="pend">[PENDING ' + d.clause + ']</span>';
+    var val = document.createElement('span'); val.className = 'dv'; val.textContent = d.v;
+    var minus = document.createElement('button'); minus.textContent = '-';
+    minus.onclick = function () { setDial(k, d.v - d.step); paintDials(); };
+    var plus = document.createElement('button'); plus.textContent = '+';
+    plus.onclick = function () { setDial(k, d.v + d.step); paintDials(); };
+    row.appendChild(name); row.appendChild(val); row.appendChild(minus); row.appendChild(plus);
+    var q = document.createElement('div'); q.className = 'drow';
+    q.innerHTML = '<span class="dq">' + d.why + '</span>';
+    host.appendChild(row); host.appendChild(q);
+  });
+}
+function setDial(k, v) {
+  var d = DIALS[k];
+  if (!d) return false;
+  d.v = Math.max(d.min, Math.min(d.max, v));
+  if (S.health > maxHealth()) S.health = maxHealth();
+  if (S.stamina > maxStamina()) S.stamina = maxStamina();
+  paintHud(); paintCamp();
+  return true;
+}
+function paintHurt() {
+  var host = document.getElementById('hurtlist');
+  if (!host) return;
+  host.innerHTML = '';
+  WOUNDS.forEach(function (w) {
+    var row = document.createElement('div'); row.className = 'arow';
+    row.innerHTML = '<span class="an">' + w.name + '</span><span class="ac">' + w.what + '</span>';
+    var b = document.createElement('button');
+    b.textContent = hasWound(w.id) ? 'HEAL' : 'GIVE';
+    b.onclick = function () { hasWound(w.id) ? heal(w.id) : hurt(w.id); };
+    row.appendChild(b);
+    host.appendChild(row);
+  });
+  var c = document.createElement('div'); c.className = 'arow';
+  c.innerHTML = '<span class="an">companion with you</span><span class="ac">' +
+    (S.companion ? 'yes' : 'no — the bullet stays in') + '</span>';
+  var cb = document.createElement('button');
+  cb.textContent = S.companion ? 'SEND AWAY' : 'BRING';
+  cb.onclick = function () { S.companion = !S.companion; paintHurt(); paintCamp(); };
+  c.appendChild(cb);
+  host.appendChild(c);
+}
+
+/* =========================================================================
+   INPUT
+   ========================================================================= */
+function bindStick() {
+  var stick = document.getElementById('stick'), knob = document.getElementById('knob');
+  if (!stick) return;
+  var active = false, cxp = 0, cyp = 0;
+  function dirOf(dx, dy) {
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return -1;
+    return Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0);
+  }
+  function at(e) { var t = e.touches ? e.touches[0] : e; return { x: t.clientX - cxp, y: t.clientY - cyp }; }
+  function set(p) {
+    var d = dirOf(p.x, p.y);
+    S.dirs = d < 0 ? [] : [d];
+    var m = Math.min(30, Math.hypot(p.x, p.y)), a = Math.atan2(p.y, p.x);
+    knob.style.transform = 'translate(' + (Math.cos(a) * m) + 'px,' + (Math.sin(a) * m) + 'px)';
+  }
+  function down(e) {
+    var r = stick.getBoundingClientRect(); cxp = r.left + r.width / 2; cyp = r.top + r.height / 2;
+    active = true; set(at(e)); e.preventDefault();
+  }
+  function move(e) { if (active) { set(at(e)); e.preventDefault(); } }
+  function up(e) { active = false; S.dirs = []; knob.style.transform = ''; if (e) e.preventDefault(); }
+  stick.addEventListener('touchstart', down, { passive: false });
+  stick.addEventListener('touchmove', move, { passive: false });
+  stick.addEventListener('touchend', up, { passive: false });
+  stick.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+  var KEY = { ArrowUp: 0, ArrowRight: 1, ArrowDown: 2, ArrowLeft: 3, w: 0, d: 1, s: 2, a: 3 };
+  window.addEventListener('keydown', function (e) { if (KEY[e.key] !== undefined) { S.dirs = [KEY[e.key]]; e.preventDefault(); } });
+  window.addEventListener('keyup', function (e) { if (KEY[e.key] !== undefined) S.dirs = []; });
+}
+function bindUI() {
+  var act = document.getElementById('act');
+  if (act) act.onclick = function () { var c = context(); if (c) c.fn(); };
+  [['c_close', closeModals], ['d_close', closeModals], ['h_close', closeModals]].forEach(function (p) {
+    var e = document.getElementById(p[0]); if (e) e.onclick = p[1];
+  });
+  var h1 = document.getElementById('chips1');
+  if (h1) {
+    [['CAMP', function () { if (!S.camp) setDownCamp(); openCamp(); }],
+     ['DIALS', openDials], ['WOUNDS', openHurt]].forEach(function (p) {
+      var b = document.createElement('button'); b.className = 'chip'; b.textContent = p[0];
+      b.onclick = p[1]; h1.appendChild(b);
+    });
+  }
+  var h2 = document.getElementById('chips2');
+  if (h2) {
+    var sp = document.createElement('button');
+    sp.className = 'chip'; sp.textContent = 'SPRINT';
+    sp.onclick = function () { S.sprint = !S.sprint; sp.className = 'chip' + (S.sprint ? ' on' : ''); };
+    h2.appendChild(sp);
+    var far = document.createElement('button');
+    far.className = 'chip'; far.textContent = 'WALK 20 TILES';
+    far.onclick = function () { for (var i = 0; i < 20; i++) spendTile(1); toast('good', '20 tiles spent'); };
+    h2.appendChild(far);
+    var wait = document.createElement('button');
+    wait.className = 'chip'; wait.textContent = 'STAND STILL 1 MIN';
+    wait.onclick = function () { toast('good', 'a minute passes. nothing burned — the timer is TILES'); };
+    h2.appendChild(wait);
+  }
+}
+
+/* =========================================================================
+   LOOP
+   ========================================================================= */
+var last = 0;
+function frame(ts) {
+  if (!S.frozen) {
+    var dt = last ? Math.min(80, ts - last) : 16;
+    last = ts;
+    if (!S.moving && S.dirs.length && !S.modal) beginStep(S.dirs[0], S.sprint);
+    stepTick(dt);
+  } else { last = ts; }
+  draw();
+  requestAnimationFrame(frame);
+}
+
+/* =========================================================================
+   HARNESS
+   ========================================================================= */
+function place(tx, ty) { S.tx = tx; S.ty = ty; S.px = tx * TILE; S.py = ty * TILE; S.moving = null; S.dirs = []; }
+function walkTiles(n, sprinting) {
+  var done = 0, guard = n * 40;
+  while (done < n && guard-- > 0) {
+    var dirs = [0, 1, 2, 3], ok = false;
+    for (var i = 0; i < dirs.length && !ok; i++) ok = beginStep(dirs[(done + i) % 4], sprinting);
+    if (!ok) break;
+    var moved = S.moving ? S.moving.n : 0;
+    while (S.moving) stepTick(STEP_MS * 3);
+    done += moved;
+  }
+  return done;
+}
+
+window.LAB = {
+  kind: 'HIS RULESET',
+  law: 'laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md',
+  mechanics: ['mobile camp', 'tile-timed rest', 'one supply pool', 'camp first aid'],
+  DIALS: DIALS, D: D, setDial: setDial, POOL_NAME: POOL_NAME,
+  KIT: KIT, WOUNDS: WOUNDS, CAMP_ACTIONS: CAMP_ACTIONS, S: S,
+  /* world */
+  place: place, walkTiles: walkTiles, spendTile: spendTile, tileAt: tileAt,
+  at: function () { return { x: S.tx, y: S.ty }; }, findSupply: findSupply,
+  /* camp */
+  setDownCamp: setDownCamp, packUpCamp: packUpCamp, atCamp: atCamp,
+  deploy: deploy, pickUp: pickUp, carry: carry, comfort: comfort, restTilesFor: restTilesFor,
+  campAction: campAction, canDo: function (id) {
+    for (var i = 0; i < CAMP_ACTIONS.length; i++) if (CAMP_ACTIONS[i].id === id) return CAMP_ACTIONS[i].can();
+    return false;
+  },
+  /* body */
+  maxHealth: maxHealth, maxStamina: maxStamina, isRested: isRested,
+  rested: function () { return S.rested; }, tiles: function () { return S.tiles; },
+  supply: function () { return S.supply; }, addSupply: function (n) { S.supply += n; paintHud(); },
+  hpRegenTiles: hpRegenTiles, stRegenTiles: stRegenTiles,
+  /* wounds */
+  hurt: hurt, heal: heal, hasWound: hasWound,
+  setCompanion: function (v) { S.companion = !!v; paintHurt(); paintCamp(); },
+  /* ui */
+  context: function () { var c = context(); return c ? c.label : null; },
+  openCamp: openCamp, openDials: openDials, openHurt: openHurt, closeModals: closeModals,
+  /* harness */
+  freeze: function () { S.frozen = true; }, thaw: function () { S.frozen = false; last = 0; },
+  reset: function () {
+    S.tx = 11; S.ty = 28; S.px = S.tx * TILE; S.py = S.ty * TILE; S.moving = null; S.dirs = [];
+    S.tiles = 0; S.supply = 4; S.camp = null; S.carried = ['bedroll']; S.deployed = [];
+    S.rested = 0; S.wounds = []; S.companion = true; S.sleeps = 0; S.chills = 0;
+    S.hpDebt = 0; S.stDebt = 0; S.bleedDebt = 0; S.found = {}; S.sprint = false;
+    S.health = D('BASE_HEALTH'); S.stamina = D('BASE_STAMINA');
+    closeModals(); paintHud(); paintCamp(); paintHurt();
+  }
+};
+
+window.addEventListener('resize', sizeCanvas);
+sizeCanvas();
+bindStick();
+bindUI();
+place(S.tx, S.ty);
+paintHud();
+paintCamp();
+paintHurt();
+paintDials();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -25,6 +25,54 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1h. [RULED 7/27 — HE APPROVED IT AND REWROTE IT IN THE SAME BREATH] THE MOBILE CAMP
+   IS BOHEMIA'S SURVIVAL SYSTEM. Paolo, after playing the Valheim model: "awesome so
+   i am in love with the mobile camp idea... i liked this valheim shit alot."
+   LAW: laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md (LOCKED, 10 clauses, his
+   words verbatim). VERDICT: records/BOHEMIA_LAB_VALHEIM_VERDICT_7_27_26.txt.
+   WHAT HE RULED, and every one of these is now canon:
+     1. THE CAMP IS MOBILE. Carried and set down, never a fixed base.
+     2. THE TIMER IS TILES MOVED, NOT SECONDS. "it would be on a timer it would be
+        set for how many tiles you move and shit." A buff may not burn while the
+        player stands still — this is the perfect mate to TIME IS SPENT BY ACTIONS
+        and it is the biggest single departure from Valheim.
+     3. SCALE: a full day is across the map and back.
+     4. ONE CLUMPED POOL, NO FOOD ITEMS, NO FOOD CRAFTING. "water, food, and build
+        shit are clumped into one category essentially... it would suck from that
+        and loot in the world would add to that." This also settles the shape of
+        clause (a) of the loot law: the kinds are very few and this one is a clump.
+     5. THE REWARD IS HEALTH REGEN, STAMINA REGEN, AND MORE STAMINA POINTS.
+     6. IGNORING THE CAMP MUST STAY PLAYABLE. "if people dont want to give a fuck
+        about that its okay too." Weaker, never blocked.
+     7. THE NUMBERS ARE TINY — ROGUE FABLE IV SCALE. "like plus 1 or 2 or 3 stamina
+        points type shit." Valheim's 25 -> 148 health is explicitly the wrong
+        register and no Bohemia system may inherit it.
+     8. THE CAMP IS ALSO THE MEDICAL STATION: bandage, gauze, and A COMPANION
+        PULLING A BULLET OUT OF YOU — the first ruled mechanical job a companion has.
+     9. CHILL, AND SLEEP AS A SEPARATE OPTION.
+    10. COMFORT IS APPROVED as a mechanism, ported to tiles: what you CARRIED and
+        SET DOWN buys tiles of buff.
+   PLAYABLE IN HIS OWN RULESET: slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html
+   Walk in tiles, set the camp down anywhere, dress it from what you carried, chill
+   or sleep, eat out of the one pool, take a wound and get patched — and a companion
+   digs the bullet out because you cannot. He said twice that he is unsure about two
+   things ("idk about how it impacts hp points", "im not super sure on the food
+   crafting system"), so EVERY VALUE HE DID NOT SET IS A DIAL on its own tab, 18 of
+   them, each labelled with the law clause it answers and why it exists. MAX_HP_MOVES
+   defaults to OFF because "idk" is not a ruling.
+   GATE: gates/camp_dial_gate.js, 75 checks, registered in the suite as CAMP DIAL.
+   It asserts the law's mechanical clauses on the real surface — including the one
+   that matters most (standing still for 20,000 frames burns ZERO tiles of buff), the
+   one that protects him from me (every pending value must be reachable as a dial, and
+   the stamina bonus cannot be dialled past +3), and clause 6 (walk 120 tiles having
+   never camped and nothing is blocked).
+   STILL [PENDING Paolo], clauses (a)-(g) of the addendum: the pool's name and whether
+   it is literally one number; how many tiles a rest is worth and per comfort level;
+   what each camp action costs; whether max health moves at all; the exact stamina
+   numbers; what limits how much camp you can carry; and the real camp item list (the
+   five on the page are placeholders and say so).
+   NOTHING WAS PORTED into the engine or the alpha. An approve on a reference is not
+   an order to build the real system.
 1g. [SHIPPED 7/27 — AWAITING PAOLO'S PLAY] VALHEIM'S COMFORT LOOP, COMMISSIONED BY
    NAME. Paolo: "Next emulation, whole mechanics: VALHEIM'S COMFORT LOOP... I play
    it and then rule Bohemia's survival system off the feel, not off a document."
