@@ -9,14 +9,14 @@
  "tileset": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
  "tileset_md5": "f470e7cbae7695c15642174d25e52041",
  "worst_surface": "ALPHA (the shipped build)",
- "worst_resident_peak_mb": 99.6,
- "worst_pct_of_floor": 44.5,
+ "worst_resident_peak_mb": 97.5,
+ "worst_pct_of_floor": 43.5,
  "surfaces": [
   {
    "surface": "BOHEMIA_RUN_CURRENT.html",
    "name": "RUN (the walked world)",
    "why": "the surface that streams cells and therefore the one that can climb forever",
-   "load_ms": 9389,
+   "load_ms": 9349,
    "exercise": "walk",
    "exercise_proof": {
     "before": {
@@ -123,7 +123,7 @@
      ],
      "total": 9024112,
      "moment": "loaded",
-     "heap_precise": 10587960
+     "heap_precise": 10587492
     },
     {
      "canvas": 955504,
@@ -201,7 +201,7 @@
      ],
      "total": 9024112,
      "moment": "out of the house",
-     "heap_precise": 10703708
+     "heap_precise": 10703172
     },
     {
      "canvas": 955504,
@@ -279,7 +279,7 @@
      ],
      "total": 9024112,
      "moment": "after 120 steps",
-     "heap_precise": 10764000
+     "heap_precise": 10763748
     },
     {
      "canvas": 955504,
@@ -357,14 +357,14 @@
      ],
      "total": 9024112,
      "moment": "after 480 steps",
-     "heap_precise": 10780444
+     "heap_precise": 10780188
     }
    ],
    "peak_bytes": 9024112,
    "peak_mb": 8.6,
-   "heap_peak_bytes": 10780444,
+   "heap_peak_bytes": 10780188,
    "heap_peak_mb": 10.3,
-   "resident_peak_bytes": 19804556,
+   "resident_peak_bytes": 19804300,
    "resident_peak_mb": 18.9,
    "growth_under_exercise_mb": 0,
    "heap_growth_under_exercise_mb": 0.2,
@@ -376,7 +376,7 @@
    "surface": "BOHEMIA_CITY_CURRENT.html",
    "name": "CITY (the map)",
    "why": "the other shipped world surface",
-   "load_ms": 3664,
+   "load_ms": 3662,
    "exercise": null,
    "exercise_proof": {},
    "moments": [
@@ -426,7 +426,7 @@
    "surface": "BOHEMIA_ALPHA_0_9.html",
    "name": "ALPHA (the shipped build)",
    "why": "what Paolo actually taps: every tab, every baked body, all in one page",
-   "load_ms": 25634,
+   "load_ms": 24548,
    "exercise": "tabs",
    "exercise_proof": {
     "tabs": [
@@ -527,7 +527,7 @@
      ],
      "total": 8873136,
      "moment": "loaded",
-     "heap_precise": 48741588
+     "heap_precise": 48475796
     },
     {
      "canvas": 56390248,
@@ -641,20 +641,20 @@
      ],
      "total": 65162928,
      "moment": "every tab opened",
-     "heap_precise": 39276660
+     "heap_precise": 37025836
     }
    ],
    "peak_bytes": 65162928,
    "peak_mb": 62.1,
-   "heap_peak_bytes": 48741588,
-   "heap_peak_mb": 46.5,
-   "resident_peak_bytes": 104439588,
-   "resident_peak_mb": 99.6,
+   "heap_peak_bytes": 48475796,
+   "heap_peak_mb": 46.2,
+   "resident_peak_bytes": 102188764,
+   "resident_peak_mb": 97.5,
    "growth_under_exercise_mb": 53.7,
-   "heap_growth_under_exercise_mb": -9,
-   "pct_of_ios_floor": 44.5,
+   "heap_growth_under_exercise_mb": -10.9,
+   "pct_of_ios_floor": 43.5,
    "pct_of_ios_floor_pixels_only": 27.7,
-   "surface_md5": "d3060f9a35aaca24b4bcd751ba7faf1f"
+   "surface_md5": "4e8ae1540bd7db4706a0f5fc4b2773e3"
   }
  ]
 }

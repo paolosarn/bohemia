@@ -151,12 +151,14 @@ uncollected nursery look identical. Record:
 
 | surface | pixels | heap | resident peak | of the floor |
 |---|---|---|---|---|
-| ALPHA, every tab opened | 62.1 MB (2604 canvases) | 46.5 MB | **99.6 MB** | 44% |
+| ALPHA, every tab opened | 62.1 MB (2604 canvases) | 46.2 MB | **97.5 MB** | 44% |
 | RUN, after 480 steps outdoors | 8.6 MB | 10.3 MB | 18.9 MB | 8% |
 | CITY (the map) | 0.8 MB | 1.8 MB | 2.6 MB | 1% |
 
-(The heap moves about a megabyte between runs, so read these to the MB, not to
-the decimal. The pixel column is exact arithmetic and does not drift.)
+(The heap moves a megabyte or two between runs - the alpha measured 97.5, 98.8 and
+99.6 MB resident across three runs of the same build - so read the resident column
+as "about 98 MB, 44% of the floor", never to the decimal. The pixel column is exact
+arithmetic and does not drift at all: 62.1 MB, 2604 canvases, every time.)
 
 **THE CLAUSE HOLDS TODAY.** Walking the valley 480 steps grew the picture by
 **0.0 MB**. The WORLD lane's bounded plot LRU is doing its job: the world streams

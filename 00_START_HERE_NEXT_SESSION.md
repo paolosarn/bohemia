@@ -20,7 +20,7 @@ lane's bounded plot LRU does exactly what it was built to do.
 WHAT IT FOUND INSTEAD: the ALPHA holds 2604 LIVE CANVASES once every tab is open (2217
 in the shell, 188 mapFrame, 193 runFrame, ~21KB each - which is precisely why nobody
 noticed) plus ~46MB of JS heap at load, because the art arrives as base64 and lives as
-JS pixel arrays, never as an image or a canvas. 99.6MB resident = 44% of the 224MB iOS
+JS pixel arrays, never as an image or a canvas. ~98MB resident = 44% of the 224MB iOS
 floor. Real headroom today; both are the kind of thing that goes fine-to-fatal in one
 feature. HANDED OVER, NOT TOUCHED (one system, one session): BOHEMIA_BACKLOG CHARACTER
 1c. Note the neighbour: the CITY lane's canvas_scale_audit measures how canvases are

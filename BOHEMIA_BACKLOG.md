@@ -258,7 +258,7 @@
    every tab is open (2217 in the shell, 188 mapFrame, 193 runFrame, ~21KB each
    - which is why nobody noticed) and ~46MB of JS heap at load, because the art
    arrives as base64 and lives as JS pixel arrays, never as an image or canvas.
-   99.6MB resident = 44% of the floor. Headroom today, work items for the lanes
+   ~98MB resident = 44% of the floor. Headroom today, work items for the lanes
    that own those tabs (see CHARACTER / RUN), written down rather than patched
    from inside the ART lane. LIMIT STATED EVERYWHERE IT APPEARS: headless
    desktop Chromium, not an iPhone - it proves the SHAPE of the curve, which is
@@ -1204,7 +1204,7 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    alpha at ~21 KB each = 53.8 MB of pixels, and 2217 of them are in the shell
    itself, which is where char / clothes / anim live. They survive a forced
    garbage collection, so they are RETAINED, not garbage waiting to go. Nothing
-   is on fire: the whole build peaks at 99.6 MB resident = 44% of the 224 MB iOS
+   is on fire: the whole build peaks at ~98 MB resident = 44% of the 224 MB iOS
    floor. But no single one of those canvases looks wrong, which is exactly why
    this went uncounted until now, and the tile set is about to multiply. Likely
    shape of the fix: one canvas per THUMBNAIL kind reused, or the previews drawn
