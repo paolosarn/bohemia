@@ -524,7 +524,13 @@ async function alphaRun() {
   const alpha = fs.readFileSync(ALPHA_FILE, 'utf8');
   ok('the alpha has a RUN tab', alpha.indexOf('data-p="run"') >= 0);
   ok('the RUN tab loads the generated run page', alpha.indexOf('BOHEMIA_RUN_CURRENT.html') >= 0);
-  ok('the buildstamp names this build', /BUILD 7\/26/.test(alpha));
+  // 7/27: this used to be /BUILD 7\/26/ — a hardcoded DATE, so the assertion
+  // passed all of 7/26 and then failed every session on 7/27 for no reason
+  // except the calendar. The ship law asks for a date-letter stamp
+  // ("BUILD 7/20a · SHUFFLE ANIMS"); check that SHAPE, and that it carries a
+  // headline, which is the part that actually tells Paolo what build he is on.
+  ok('the buildstamp names this build (date-letter + a headline)',
+    /BUILD \d{1,2}\/\d{1,2}[a-z]*\s*[·-]\s*\S/.test(alpha));
   ok('one-link law: the run is reached from the alpha, it ships no link of its own',
     alpha.indexOf('BOHEMIA_RUN_CURRENT.html?') < 0);
 

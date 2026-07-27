@@ -256,6 +256,8 @@ GATES = [
      'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
     ('RENDER PIXEL',   ['node', 'gates/render_pixel_gate.js'],
      'the render contract MEASURED on the real surface: no fractional upscaling, no half-pixel draws, nothing off its aspect', True),
+    ('CANVAS SCALE',   ['node', 'gates/canvas_scale_gate.js'],
+     'the LAST blit, the one the phone does: canvas box === backing store, walked world nearest, overview left smooth', True),
     ('INTERIORS',      ['node', 'gates/interiors_gate.js'],
      'walk into a building and you are IN it: interior === exterior footprint, one generator, the dossier decides', False),
     ('MAP TAB',        ['node', 'gates/map_tab_gate.js'],

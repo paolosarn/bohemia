@@ -435,6 +435,31 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    canvases given their own 64-entry LRU so the bigger bake cannot blow the
    ~224MB iOS floor). Result 41% -> 0.1% and 44% -> 3.4%. Locked by
    gates/render_pixel_gate.js, a RATCHET measured on the real surface.
+0b. [DONE 7/27] THE PHONE WAS BLURRING THE WHOLE WORLD ON THE WAY TO THE SCREEN.
+   The 7/26 fix above made the world blit 1:1 INSIDE the canvas. The browser
+   then undid it: #cv in the city frame never set image-rendering, so it took
+   the default `auto` = smooth, and the 378-wide backing store was BILINEAR
+   upscaled x3 onto the phone's glass every frame. Not one tile has ever
+   reached Paolo's eye at the sharpness it was painted at, and no amount of
+   reading render code could show it, because the damage happens after the game
+   stops drawing. Second defect on the same element: the stage box measures
+   764.61 CSS px while clientHeight rounds to 765, so the whole world was also
+   squeezed x0.9995 - a resample of every row for a squash nobody can see.
+   Fixed: tools/bohemia_city_screenfilter_patch.py (CSS box sized in explicit px
+   to equal the backing store; filter follows MODE - nearest for the walked
+   world, `auto` LEFT ALONE for the builder overview, where 13:1 hero
+   minifications need smoothing and Paolo likes the surface as it is). New
+   instrument: tools/bohemia_canvas_scale_audit.js measures every canvas's CSS
+   box and glass scale against its backing store, on every tab. Locked BOTH
+   directions by gates/canvas_scale_gate.js.
+0c. (measured 7/27, [PENDING Paolo] - a LOOK call, not a bug fix) THE NAV
+   PORTRAIT IS A LUMPY x1.25. #modeFace is a 64x64 player frame shown in the
+   80x80 mode button: 64 -> 80 is x1.25, so with nearest some source pixels are
+   one screen pixel wide and some are two, on a FACE. Every fix is a visible
+   change to a surface he did not ask about - show the face at 64 inside the
+   80px ring (an 8px rim of the button's gradient shows), or take the ring to
+   64. Do not pick one for him. | canvas_scale_gate would lock whichever he
+   picks | measured by tools/bohemia_canvas_scale_audit.js | no.
 0a. (discovered 7/26) PRE-SCALE THE DISTRICT HEROES. 732 draws per walk push a
    ~266x172 hero image into a ~20x13 slot - a 13:1 minification done every
    frame. Smoothing is the RIGHT call at that ratio so the look is fine; the
@@ -734,6 +759,34 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not
    wire per-NPC randomisation until he rules on it.
+1b. (MEASURED BY THE CITY LANE 7/27, handed over untouched — ONE SYSTEM, ONE
+   SESSION) EVERY CHARACTER SURFACE IS DISPLAYED AT A FRACTIONAL SCALE. The
+   city lane built tools/bohemia_canvas_scale_audit.js to catch its own canvas
+   being bilinear-upscaled to the phone screen, and the same sweep measured
+   yours. These are CSS-box-vs-backing-store ratios on a real iPhone-portrait
+   DPR-3 browser; `image-rendering:pixelated` is already set on all of them, so
+   the failure mode is not blur, it is UNEVEN PIXELS - some source pixels land
+   3 screen pixels wide and some 4, which reads as a wobbly, badly drawn
+   sprite, and it is worst on the biggest one:
+       char    #charCv      112x112 -> 358.8 css   x3.2035   (glass x9.61)
+       char    #portraitCv   64x64  -> 120 css     x1.8750   (glass x5.63)
+       clothes .cloBig       56x56  -> 150 css     x2.6786   (glass x8.04)
+       clothes .cloCv        56x56  ->  52 css     x0.9286   (a minification)
+       anim    #g8_0..7     112x112 ->  85.8 css   x0.7660   (drops ~23% of
+                            every row and column - on the gallery the anims are
+                            JUDGED from)
+       rig     #cv          336x336 -> 336 css     x1, but image-rendering is
+                            `auto`, the only canvas in the game with no filter
+                            set at all: at DPR 3 the rig preview is a bilinear
+                            x3 smear.
+   The fix is integer boxes (charCv 112 -> 336 css = x3, portraitCv 64 -> 128,
+   cloBig 56 -> 168 or 112, the g8 gallery baked at 56 rather than shrunk from
+   112) plus `image-rendering:pixelated` in RIG_B64, which has none. Each one
+   nudges an element's size, so it is a look call as much as a fix. Reproduce
+   with: node tools/bohemia_canvas_scale_audit.js
+   slices/BOHEMIA_ALPHA_0_9.html | gates/canvas_scale_gate.js already PRINTS
+   these every run and deliberately does not fail on them; make them yours and
+   turn them into assertions | measured, not read | no.
 2. Wardrobe: new SHAPES (structure-not-color), taste-filtered before
    surfacing. | structure_gate | — | fresh shapes = thumbs.
 3. Music pool volume in approved styles, taste-filtered. | music gates | — |

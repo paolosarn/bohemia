@@ -1,3 +1,50 @@
+CITY (03): 7/27 (a) LATEST — THE PHONE WAS BLURRING THE ENTIRE WORLD ON THE WAY
+TO THE SCREEN, AND NOTHING IN THE MACHINE COULD SEE IT.
+Yesterday's fix made the world blit 1:1 INSIDE the canvas (TPX 16 -> 22, whole-pixel
+camera). Correct, measured, shipped. The browser then undid it, one step later, where
+no instrument was looking: #cv in the city frame never set image-rendering, so it took
+the default `auto` = SMOOTH, and the finished 378-wide backing store was BILINEAR
+UPSCALED x3 onto the phone's glass on every single frame. Not one tile in this game has
+ever reached Paolo's eye at the sharpness it was painted at. Reading render code could
+never have found it: the game finishes drawing correctly and the damage happens
+afterwards, in the compositor.
+Second defect on the same element: the stage box measures 764.61 CSS px tall while
+clientHeight rounds to 765, so the whole world was ALSO squeezed x0.9995 - invisible as
+a squash, a guaranteed resample of every row, and enough to deny the compositor a clean
+integer scale even after the filter was fixed.
+FIXED, tools/bohemia_city_screenfilter_patch.py:
+  fit()    sizes the CSS box in explicit px to equal the backing store. Ratio exactly 1,
+           so the phone's remaining job is a pure integer x3.
+  render() sets the filter PER MODE. Walked world -> pixelated (it is pixel art at 22px
+           per cell; 3 device pixels per art pixel, sharp). Builder overview -> `auto`,
+           LEFT ALONE: those draws are 13:1 minifications of district heroes where
+           nearest samples 1 pixel in 13 and aliases into noise, and it is a surface
+           Paolo already likes. The city frame has zero fillText, so no label got
+           chunkier.
+THE INSTRUMENT, because this class of bug is only ever found by measuring:
+tools/bohemia_canvas_scale_audit.js boots the real alpha at iPhone-portrait DPR 3, walks
+every tab, and reads each canvas's CSS box and GLASS scale against its backing store.
+The glass number is the one that matters - a CSS ratio of x0.5 looks clean until you
+remember the phone is 3x and it is really x1.5.
+GATE: gates/canvas_scale_gate.js, registered in the suite (slow, ~53s). It locks the
+city canvas BOTH DIRECTIONS - box === backing, walked world nearest, AND overview still
+smooth - so a later "fix all the canvases" sweep cannot wreck the surface he likes.
+HANDED OVER, NOT TOUCHED: the same sweep measured the CHARACTER lane and every one of
+its surfaces is displayed at a fractional scale - charCv x3.2035 (the big one), the
+clothes previews, the 8-frame anim gallery at x0.766 (dropping ~23% of every row on the
+gallery the anims are JUDGED from), and the rig frame's canvas, the only canvas in the
+game with no image-rendering at all. Numbers and fixes are written into BOHEMIA_BACKLOG
+under CHARACTER item 1b. ONE SYSTEM ONE SESSION: the gate prints them every run and
+deliberately does not fail on them.
+ALSO FIXED (mechanical, cross-lane): gates/run_gate.js asserted /BUILD 7\/26/ - a
+hardcoded DATE, so it passed all of 7/26 and then failed every session on 7/27 for no
+reason but the calendar. It now checks the SHAPE the ship law asks for (date-letter +
+headline).
+STILL PENDING PAOLO, do not decide it for him: #modeFace, the 64x64 player portrait in
+the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are one
+screen pixel wide and some are two. Every fix changes what that button looks like.
+Options are in BOHEMIA_BACKLOG CITY item 0c.
+
 LAB (09): 7/26 (g) — THE ZOMBOID PAGE IS DEAD AND THE RULING THAT KILLED IT IS THE MOST
 USEFUL THING THIS LANE HAS PRODUCED. Paolo: "That was really bad and not fun."
 KILLED, DELETED, GRAVEYARDED, gate row removed, no v2. Post-mortem:
