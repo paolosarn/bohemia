@@ -1403,6 +1403,49 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v86: THE REST OF THE JUICE PASS, AND EVERY DURATION IS NOW A
+NOTE. Built while Paolo slept, on "do what you have to do next and know what comes
+after." Chosen because it is the lane's top item that needs NO verdict from him:
+backlog 1e, his own pick-list, marked "no" for thumbs, standing word "I want more
+juice. I want this to be juicy and fun and just like wow."
+AUDITING FIRST (REUSE-FIRST) TURNED THREE OF FIVE ITEMS INTO BUGS.
+(a) THE SHOT FLASH WAS FRAME-COUNTED. flash-=0.08 PER FRAME = 208ms at 60Hz and
+104ms on his 120Hz phone. That is not a duration, it is a refresh rate, and it is
+the SAME defect class as the frame-counted hit-stop v81 killed, sitting untouched
+in a second place nobody thought to check.
+(b) THE KILLSHOT PUNCH WAS A FRACTION OF ks.dur. 1-p*3 and 1-p*4 meant the same
+white ran 0.167s behind a clean kill and 0.375s behind a sharp one -- same event,
+duration decided by whichever cinematic the shuffle rolled.
+(c) AND THE ZERO WAS WRONG TWICE, both caught by the probe instead of by Paolo.
+Keyed to ks.t, the hit-stop PINNED it: 633ms of white behind a sharp kill. Keyed to
+G._ksAt, it never drew AT ALL, because the HELD BREATH runs first and
+driveKillshotCamera early-returns through the whole of it, so the effect expired
+before its own code was reached. The honest zero is G._ksGo, stamped on the first
+frame the cinematic actually draws. MEASURED AFTER: clean 91ms, sharp 115ms.
+(d) RECOIL now comes home ON the next sixteenth (was dt*4.5 = 0.222s, which lands
+between a sixteenth and an eighth). Measured 1 -> 0 in 130ms.
+(e) THE HELD BREATH was 0.12s against a sixteenth of 0.125s. 4% off the grid, in
+the one system whose entire premise is the 120 BPM law.
+(f) PERMANENCE: brass is FLOOR STATE by AF v3, except the cap was 14, so the
+fifteenth casing silently deleted the first and the ground stopped accumulating
+within seconds of a real firefight. Now 96, still bounded, still cleared on a fresh
+fight.
+(g) THE IMPACT THROWS ALONG THE SHOT. Twelve particles at k/12*6.28 is a perfect
+circle, the one shape a real impact never makes, and it threw away the only thing a
+burst exists to carry: where it came from. Now x1.30 down-range, x0.45 behind.
+NOT SHIPPED, ON PURPOSE: THE CAMERA THAT LEADS THE SHOT. Everything above is a
+defect with a right answer. Camera lead is a FEEL decision with a dozen right
+answers, and inventing one while he is asleep is exactly what STOP PRODUCING
+forbids. It stays on his pick-list, unbuilt, waiting for him.
+LAW: laws/BOHEMIA_ADDENDUM_EVERY_DURATION_IS_A_NOTE_7_27_26.md -- a visual
+duration is a NOTE VALUE in SECONDS from ONE NAMED TABLE (JUICEMS). Banned: a
+per-frame decrement, a fraction of something else's length, and a number NEAR a
+note. And the CLOCK is part of the duration: pick it by what the effect reacts to,
+then check that nothing pauses, precedes or rescales it between event and draw.
+GATE: combat_lab_gate.js section 21, 368 -> 381 checks. It EXECUTES the freeze core
+plus JUICEMS and asserts every value passes BohemiaFreeze.isNote.
+TOOL: tools/bohemia_combat_juice_grid_patch.py
+
 COMBAT (04) 7/27 - v85: BOTH BOXES NAMED IN A CAPTURED FRAME, BOTH DELETED, AND
 THE HEADSHOT ANIMATION HE ASKED FOR THREE TIMES TURNED OUT TO BE THE SAME LINE.
 Paolo, the FIFTH time: "Brown box still their kill shot orange box doesnt fade away

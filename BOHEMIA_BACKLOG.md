@@ -747,6 +747,33 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    any lane at random will eventually get ignored, which is worse than no gate.
    Suggest: average N runs, or drive a FIXED deterministic route instead of a
    timed walk. Owning lane: ART/render. | — | gates/render_pixel_gate.js | no.
+0. DONE 7/27 (v86): THE REST OF THE JUICE PASS, ON THE GRID. Item 1e's leftovers,
+   built while he slept because they are the lane's top item that needs NO verdict
+   ("no" thumbs, his own pick-list, his standing word "I want more juice").
+   Auditing them first turned three of five into BUGS, and the MEASURING turned up
+   two more the writing had missed.
+   (a) THE SHOT FLASH WAS FRAME-COUNTED: flash-=0.08 PER FRAME = 208ms at 60Hz and
+   104ms on his 120Hz phone. Not a duration, a refresh rate. Same defect class as
+   the frame-counted hit-stop v81 killed, sitting untouched in a second place.
+   (b) THE KILLSHOT PUNCH WAS A FRACTION OF ks.dur: the same white ran 0.167s
+   behind a clean kill and 0.375s behind a sharp one.
+   (c) AND THE ZERO WAS WRONG TWICE, both caught by the probe not by Paolo: keyed
+   to ks.t the hit-stop PINNED it (measured 633ms of white); keyed to G._ksAt it
+   never drew at all, because the HELD BREATH runs first and driveKillshotCamera
+   early-returns through the whole thing. G._ksGo = the first frame the cinematic
+   actually draws. Measured after: clean 91ms, sharp 115ms.
+   (d) RECOIL comes home ON the next sixteenth (was dt*4.5 = 0.222s, between two
+   notes). Measured 130ms. (e) THE HELD BREATH was 0.12 against a sixteenth of
+   0.125 -- 4% off the grid. (f) PERMANENCE: the brass cap was 14, so the
+   fifteenth casing silently deleted the first; now 96, still bounded, still
+   cleared on a fresh fight. (g) THE IMPACT THROWS ALONG THE SHOT: twelve
+   particles at k/12*6.28 is a perfect circle, the one shape a real impact never
+   makes; now x1.30 down-range against x0.45 behind.
+   NOT SHIPPED ON PURPOSE: THE CAMERA THAT LEADS. Every other item is a defect
+   with a right answer; camera lead is a FEEL call with a dozen, and picking one
+   while he is asleep is what STOP PRODUCING forbids. Stays on his pick-list.
+   LAW: laws/BOHEMIA_ADDENDUM_EVERY_DURATION_IS_A_NOTE_7_27_26.md
+   Gate section 21, 381 checks.
 0. DONE 7/27 (v85): THE BROWN BOX AND THE ORANGE ONE, NAMED IN A CAPTURED FRAME
    AND BOTH DELETED. Five reports, five misses, then a reproduction first.
    scratchpad/spot.js: hook fillRect + drawImage + arc/fill + arc/stroke, convert

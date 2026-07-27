@@ -1936,6 +1936,96 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes("x.fillStyle='rgba(184,160,40,'+(0.55*_mk).toFixed(3)+')';"));
 }
 
+/* ============================================================================
+   21. V86 THE REST OF THE JUICE PASS, ON THE GRID
+   Backlog 1e's leftovers from Paolo's own pick-list. Auditing them first turned
+   three of five into BUGS rather than features, and the measuring turned up two
+   more that the writing had missed:
+     - the shot flash was frame-counted (flash-=0.08), so it ran 208ms at 60Hz
+       and 104ms on his phone. Same defect class as the frame-counted hit-stop.
+     - the killshot punch was a fraction of ks.dur, so the same white ran 0.167s
+       behind a clean kill and 0.375s behind a sharp one.
+     - keying that punch to ks.t instead left it PINNED by the hit-stop: measured
+       633ms of white. Keying it to G._ksAt made it never draw at all, because
+       the HELD BREATH runs first and the camera early-returns through all of it.
+   MEASURED ON THE REAL CANVAS after: clean 91ms, sharp 115ms, shot flash
+   136-176ms across runs, recoil home in 130ms.
+   ========================================================================== */
+{
+  /* (a) the table itself, EXECUTED, not string-matched. */
+  const fa = demo.indexOf('var BohemiaFreeze');
+  const ja = demo.indexOf('/* ===== V86 THE JUICE IS ON THE GRID');
+  const jb = demo.indexOf('/* ===== V86 JUICE GRID END');
+  ok('V86: the demo carries JUICEMS as its own testable block, after the freeze core it is built from',
+    fa > 0 && ja > fa && jb > ja);
+  const jm = { exports: {} };
+  new Function('module', 'exports',
+    demo.slice(fa, demo.indexOf('/* ===== V81 FREEZE CORE END')) +
+    ';' + demo.slice(ja, jb) +
+    ';module.exports={JUICEMS:JUICEMS,BRASS:JUICE_BRASS_MAX,F:BohemiaFreeze};')(jm, jm.exports);
+  const J = jm.exports.JUICEMS, F = jm.exports.F;
+  const names = Object.keys(J);
+  ok('EVERY VISUAL JUICE DURATION IS A REAL NOTE VALUE, in seconds, exactly like the freeze tiers: ' +
+      names.map(k => k + '=' + J[k] + 's ' + F.noteName(J[k])).join(', '),
+    names.length >= 4 && names.every(k => F.isNote(J[k])));
+  ok('and the table covers all four: the shot flash, the killshot punch, the recoil and the held breath',
+    ['flash', 'ksPunch', 'recoil', 'breath'].every(k => J[k] > 0));
+
+  /* (b) THE SHOT FLASH WAS FRAME-COUNTED. The same bug v81 killed in the
+     hit-stop, sitting untouched in a second place. */
+  ok('V86 THE SHOT FLASH IS SECONDS, NOT FRAMES: flash-=0.08 PER FRAME meant 208ms at 60Hz and 104ms on his 120Hz phone -- not a duration at all, a refresh rate. Every shot he has judged has been flashing for whatever his screen felt like',
+    !demo.includes('flash-=0.08;') &&
+    demo.includes('flash=Math.max(0,flash-_fdt/JUICEMS.flash); }') &&
+    demo.includes("const _fdt=(G._flashLast!=null)?Math.min(0.25,(_fn-G._flashLast)/1000):0;"));
+  ok('and the wall-clock stamp is released the moment the flash is over, so the next shot measures its own frame and never inherits a stale delta',
+    demo.includes('  else G._flashLast=null;'));
+
+  /* (c) THE KILLSHOT PUNCH: one note, every style, off the cinematic's true
+     zero -- which is neither ks.t (the freeze pins it) nor G._ksAt (the breath
+     runs first). Both wrong answers were MEASURED before this one was kept. */
+  ok('V86 ONE PUNCH, ONE DURATION: it was a fraction of ks.dur, so the same white ran 0.167s behind a clean kill and 0.375s behind a sharp one -- same event, duration decided by whichever cinematic the shuffle rolled',
+    !demo.includes('const punch=Math.max(0,1-p*3);') &&
+    !demo.includes('const snap=Math.max(0,1-p*4);') &&
+    (demo.match(/1-\(\(performance\.now\(\)-\(G\._ksGo\|\|performance\.now\(\)\)\)\/1000\)\/JUICEMS\.ksPunch/g) || []).length === 2);
+  ok('AND ITS ZERO IS THE FIRST FRAME THE CINEMATIC ACTUALLY DRAWS: ks.t is pinned by the hit-stop (measured 633ms of white behind a sharp kill) and G._ksAt is stamped before the HELD BREATH, which this function early-returns through (measured: the flash never drew at all)',
+    demo.includes('if(G._ksGo==null)G._ksGo=performance.now();') &&
+    demo.includes('G._ksGo=null;                /* V86:') &&
+    demo.indexOf('if(G.breathT>0){') < demo.indexOf('if(G._ksGo==null)G._ksGo=performance.now();'));
+
+  /* (d) the recoil comes home ON the sixteenth, which is the pick-list's words. */
+  ok('V86 THE GUN COMES HOME ON THE NEXT SIXTEENTH: dt*4.5 is 0.222s, which lands between a sixteenth and an eighth, so the kick was still travelling when the next sixteenth arrived',
+    !demo.includes('G.recoil=Math.max(0,G.recoil-dt*4.5);') &&
+    demo.includes('G.recoil=Math.max(0,G.recoil-dt/JUICEMS.recoil);') &&
+    Math.abs(J.recoil - F.note(16)) < 1e-9);
+
+  /* (e) the one micro-pause in the kill that never landed on the beat. */
+  ok('V86 THE HELD BREATH LANDS ON THE BEAT: it was 0.12s against a sixteenth of 0.125s -- 4% off the grid, in the one system whose entire premise is the 120 BPM law',
+    !demo.includes('G.breathT = G.heldBreath ? 0.12 : 0;') &&
+    demo.includes('G.breathT = G.heldBreath ? JUICEMS.breath : 0;') &&
+    F.isNote(J.breath));
+
+  /* (f) PERMANENCE: brass is floor state that was deleting itself. */
+  ok('V86 PERMANENCE: the brass cap was 14, so the fifteenth casing silently deleted the first and the floor stopped accumulating within seconds of a real firefight. Now ' + jm.exports.BRASS,
+    !demo.includes('if(G.litter.length>14)G.litter.shift(); }') &&
+    demo.includes('if(G.litter.length>JUICE_BRASS_MAX)G.litter.shift(); }') &&
+    jm.exports.BRASS > 14 && jm.exports.BRASS <= 256);
+  ok('and it is still BOUNDED and still cleared on a fresh fight -- permanence lasts the encounter, not the session',
+    demo.includes('G.litter=[];       /* AF: fresh ground */'));
+
+  /* (g) the impact carries a direction, which is the whole point of a burst. */
+  ok('V86 THE IMPACT THROWS ALONG THE SHOT: twelve particles at k/12*6.28 is a perfect circle, the one shape a real impact never makes, and it threw away the only thing a burst exists to say -- where it came from',
+    !demo.includes('px(c,tx+Math.cos(a)*r-S,ty+Math.sin(a)*r-S,2*S,2*S);}') &&
+    demo.includes('const _lean=0.45+0.85*(0.5+0.5*Math.cos(a-ang));'));
+  {
+    /* run the real formula: down-range must throw materially further than behind */
+    const lean = a => 0.45 + 0.85 * (0.5 + 0.5 * Math.cos(a - 0));
+    const vals = Array.from({ length: 12 }, (_, k) => lean(k / 12 * 6.28));
+    const hi = Math.max(...vals), lo = Math.min(...vals);
+    ok('and the lean is real, not decorative: down-range x' + hi.toFixed(2) + ' against x' + lo.toFixed(2) + ' behind (it was a flat x1.00 in every direction)',
+      hi > 1.2 && lo < 0.6 && vals.every(v => v > 0));
+  }
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&
