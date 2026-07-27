@@ -337,6 +337,25 @@
    gate does not overrule a verdict. Frozen set = ratchet against its own
    baseline; real craft thresholds apply to every bank registered from here on.
    Record: records/BOHEMIA_PIXEL_SCHOOL_7_27_26.md.
+-1a. [RULED 7/27 "show me one" — DELIVERED, awaiting his read] ONE TILE RE-COOKED.
+   tools/bohemia_tile_recook_proof.py rebuilt road_0 (worst + most repeated
+   surface: 99.3% orphan, 1191 colours) as real pixel art. RESULT: 1191 -> 6
+   colours, 99% -> 0% orphans, 996 -> 39 regions/1000px, mean value 65.5 -> 65.2
+   (ground band kept), near-black 0.15% -> 0.00%. THE COLOUR IS HIS: the six-step
+   ramp is lifted out of the approved tile by equal-population luminance banding
+   + mode. ONE named change, printed on the picture: the ramp's deviation from
+   its own mean is stretched 2.15x, because six bands of that tile come back as
+   six near-identical browns and a ramp with no steps draws a flat tile however
+   well built. That is why it reads warmer, and TOO WARM is one of the three
+   buttons. THREE THINGS FIXED BEFORE IT WAS WORTH SHOWING: (1) first cut read as
+   CAMOUFLAGE - perfect numbers, worse picture - because CELL_M=0.75 means 1px is
+   ~1.7cm and my "wear patches" were 22cm blotches; (2) four cracks made a
+   SIGNATURE that the eye locked onto across a 4x4 field (LAW 12) - down to one,
+   heavy damage belongs on road_1/2, which is what variants are FOR; (3) the
+   brightest step was too common so it read as gravel. Judge surface: the same
+   pixel craft judge page, updated (never a second page for the same question).
+   Proofs: records/target/RECOOK_road_0.png (desk) + _PHONE.png (his screen).
+   Nothing entered a bank - candidates live in records/target/ until he rules.
 -1b. [PENDING Paolo — THE ONE QUESTION] RE-COOK THE STARTER TILE SET as actual
    pixel art: real 4-7 value ramps hue-shifted, material as a few clusters
    repeated with varied distribution, one light direction, orphans cleaned. This

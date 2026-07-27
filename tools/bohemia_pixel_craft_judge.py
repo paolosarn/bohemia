@@ -41,6 +41,7 @@ os.chdir(REPO)
 BANK = 'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt'
 AUDIT = 'records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json'
 OUT = 'slices/BOHEMIA_PIXEL_CRAFT_JUDGE_7_27_26.html'
+RECOOK = 'records/target/RECOOK_road_0_PHONE.png'
 
 PAGE = """<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -62,6 +63,7 @@ button{font:600 13px ui-monospace,monospace;background:var(--card);color:var(--f
 .ask h2{font-size:15px;margin:0 0 4px;color:var(--bad)}
 .ask .opt{display:block;width:100%;text-align:left;margin-top:8px;padding:14px}
 .ask .opt.on{outline:3px solid var(--good)}
+.ask img{width:100%;border-radius:8px;border:1px solid var(--line);margin:8px 0;image-rendering:pixelated}
 .grid{display:grid;grid-template-columns:1fr;gap:12px;padding:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
 /* THE CANVASES GO SIDE BY SIDE AND THE NUMBERS GO UNDERNEATH. First cut put all
@@ -104,13 +106,19 @@ The only thing being asked is whether I may re-cook against your own frozen verd
 <button id="sort">SORT: WORST FIRST</button>
 </div>
 <div class="ask">
-<h2>THE ONE RULING — everything in the art lane waits on this</h2>
-<p>Re-cook the starter tile set as actual pixel art: real 4–7 value ramps, material as a
-few clusters repeated, one light direction, orphans cleaned. It is a new cook against a
-verdict you already gave, so it is your call, not mine.</p>
-<button class="opt" data-ask="RECOOK">YES — redo the tiles properly</button>
-<button class="opt" data-ask="KEEP">NO — leave them, they're fine</button>
-<button class="opt" data-ask="SHOWME">SHOW ME ONE FIRST — recook a single tile so I can compare</button>
+<h2>YOU SAID SHOW ME ONE. HERE IS ONE.</h2>
+<p><b>road_0, cracked asphalt</b> — the most repeated surface in the valley, and the worst
+one we own. Rebuilt properly. <b>1191 colours &rarr; 6. 99% bad pixels &rarr; 0.</b></p>
+<p>The big pair is 16 copies laid down, which is the only honest way to look at ground —
+you never see one tile on its own.</p>
+<img src="data:image/png;base64,__RECOOK__" alt="road_0 before and after">
+<p>Every colour came out of your own approved tile. The one thing I changed and am not
+hiding: I pulled the six apart from each other, because straight out of your tile they
+came back as six near-identical browns, and a ramp with no steps in it draws a flat tile
+however well it is built. That is why it reads warmer.</p>
+<button class="opt" data-ask="GO">RIGHT DIRECTION — do the other 41</button>
+<button class="opt" data-ask="TOOWARM">RIGHT BUILD, TOO WARM — same thing, pull the colour back</button>
+<button class="opt" data-ask="NO">NO — leave the tiles alone</button>
 </div>
 <div class="grid" id="grid"></div>
 <footer>
@@ -201,7 +209,7 @@ document.getElementById('exp').onclick=()=>{
   let s='BOHEMIA — PIXEL CRAFT VERDICT\\n';
   s+='date: '+new Date().toISOString().slice(0,10)+'\\n';
   s+='page: BOHEMIA_PIXEL_CRAFT_JUDGE_7_27_26.html\\n\\n';
-  s+='THE RULING (re-cook the starter tile set as real pixel art): '+(V.ask||'NOT ANSWERED')+'\\n\\n';
+  s+='THE RULING (road_0 recook — direction / too warm / no): '+(V.ask||'NOT ANSWERED')+'\\n\\n';
   s+='PER TILE\\n';
   TILES.forEach(t=>{
     const v=V.tiles[t.id], n=V.notes[t.id];
@@ -229,7 +237,12 @@ def main():
             'clusters': round(r['clusters_per_1000px']),
             'px': r['size'][0] * r['size'][1],
         })
-    html = PAGE.replace('__TILES__', json.dumps(tiles))
+    # THE ANSWER TO "SHOW ME ONE" LIVES ON THE PAGE HE ALREADY HAS, not on a new
+    # surface. A second judging page for the same question is how a fleet ends up
+    # asking him the same thing twice.
+    import base64 as _b64
+    recook = _b64.b64encode(open(RECOOK, 'rb').read()).decode()
+    html = PAGE.replace('__TILES__', json.dumps(tiles)).replace('__RECOOK__', recook)
     with open(OUT, 'w') as f:
         f.write(html)
     print('OK -> %s  (%d tiles, %.1f KB)'

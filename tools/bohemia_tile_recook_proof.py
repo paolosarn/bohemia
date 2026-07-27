@@ -62,6 +62,7 @@ regression on any of them is visible in the same breath as the improvement.
   python3 tools/bohemia_tile_recook_proof.py
     -> records/target/RECOOK_road_0.png        (the side by side)
     -> records/target/RECOOK_road_0_TILE.png   (the new tile alone, 1:1)
+    -> records/target/RECOOK_road_0_PHONE.png  (the two fields, phone width)
 """
 import base64
 import io
@@ -80,6 +81,7 @@ N = 44                                   # THE CORPUS CELL. Never anything else.
 RAMP_STEPS = 6
 OUT_AB = 'records/target/RECOOK_road_0.png'
 OUT_TILE = 'records/target/RECOOK_road_0_TILE.png'
+OUT_PHONE = 'records/target/RECOOK_road_0_PHONE.png'
 
 # Deterministic. No Math.random anywhere: the same tile every run, so a verdict
 # on this picture is a verdict on a thing that still exists tomorrow.
@@ -389,6 +391,25 @@ def main():
                           'Tiles seamlessly with itself.' % off,
            fill=(150, 142, 120))
     sheet.save(OUT_AB)
+
+    # THE PHONE CUT. The sheet above is a desk document - crushed into a 340px
+    # column its labels are illegible, and an unreadable comparison is not a
+    # comparison. This is the same two fields, nothing else on it, sized so the
+    # pixels are still pixels on the only screen he uses.
+    # THE CANVAS IS SIZED FROM THE TILES, not the tiles squeezed into a canvas.
+    # Picking a width first left the field 3 tiles wide inside a 4-tile box, so
+    # the picture carried 50px of dead black under it - and a comparison with
+    # slack in it reads as sloppy, which is not the impression to make on the
+    # sheet that argues for craft.
+    kk = 4
+    side = kk * N
+    ph = Image.new('RGB', (side * 2 + 12, side + 18), (18, 18, 15))
+    pd = ImageDraw.Draw(ph)
+    pd.text((0, 2), 'SHIPPING NOW', fill=(255, 130, 120))
+    pd.text((side + 12, 2), 'RE-COOKED', fill=(140, 220, 150))
+    for i, im in enumerate((old, new)):
+        ph.paste(patch(im, kk).convert('RGB'), (i * (side + 12), 18))
+    ph.save(OUT_PHONE)
 
     print('road_0   colours %d -> %d   orphans %d%% -> %d%%   regions/1000px %d -> %d'
           % (a['colours'], b['colours'], round(100 * a['orphan_share']),
