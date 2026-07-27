@@ -97,11 +97,21 @@ function dressBackLimb(restCol,d,slot){
   if(slot==='hair'||slot==='hat'||slot==='glasses'||slot==='facial')return null;
   const CW=56,CH=56, SK=SKINNERS[d]; if(!SK||!SK.layers)return null;
   const near=(DEPTH[d]&&DEPTH[d].nearSide)||'R';
-  /* ARMS AND HANDS ONLY. Measured, the legs never had this defect -- far thigh was
-     within +-8 points of near on every facing -- and an earlier version of this pass
-     made them WORSE (E far thigh 82.4% -> 66.6%) by inventing fill colour. Fix what
-     is broken, leave what is not. */
-  const pairs = near==='R' ? [[6,5],[8,7]] : [[5,6],[7,8]];
+  /* ARMS ONLY. NOT LEGS, NOT HANDS. Fix what is broken, leave what is not.
+
+     NOT LEGS: measured, they never had this defect -- far thigh was within +-8
+     points of near on every facing -- and an earlier version of this pass made
+     them WORSE (E far thigh 82.4% -> 66.6%) by inventing fill colour.
+
+     NOT HANDS (Paolo 7/27, with a screenshot: "on east and west the clothing is
+     a little fucked up towards the actual hands, it might look like there's like
+     two sets of hands"). He was right, and it was this pass. The far hand has a
+     13-pixel painted footprint -- the SAME size as the near hand -- so dressing
+     it laid a second hand-sized garment cluster right beside the real one, which
+     is precisely what reads as two sets of hands. The defect this pass exists for
+     was the back ARM arriving naked; the hand was never part of it. It now paints
+     0 of those 13 cells. */
+  const pairs = near==='R' ? [[6,5]] : [[5,6]];
   let out=null;
   for(const [np,fp] of pairs){
     /* THE LIMB'S OWN PAINTED FOOTPRINT, not the composited rest grid. On E the far

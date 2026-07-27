@@ -50,11 +50,21 @@ ok('the pass only paints the FAR limb\'s own cells', /if\(!_fs\.farParts\[grid\[
 ok('the reason is recorded at the code (near thigh fell 88.8% -> 78.9% without it)',
   /must never undress the front one/.test(src));
 
-/* 3. ARMS ONLY. */
-ok('it runs on arms and hands only, not the legs',
-  /const pairs = near==='R' \? \[\[6,5\],\[8,7\]\] : \[\[5,6\],\[7,8\]\]/.test(src));
+/* 3. ARMS ONLY -- NOT LEGS, NOT HANDS. Over-extended twice; pinned both ways. */
+ok('it runs on the ARMS only: not the legs, and not the hands',
+  /const pairs = near==='R' \? \[\[6,5\]\] : \[\[5,6\]\]/.test(src));
+ok('the hands are not in the pair list (7/27: "two sets of hands")',
+  !/\[8,7\]/.test(src) && !/\[7,8\]/.test(src));
 ok('the reason the legs are excluded is recorded (they never had the defect)',
-  /ARMS AND HANDS ONLY/.test(src) && /leave what is not/.test(src));
+  /NOT LEGS/.test(src) && /leave what is not/.test(src));
+ok('the reason the hands are excluded is recorded at the code',
+  /NOT HANDS/.test(src) && /two sets of hands/.test(src) && /13-pixel painted footprint/.test(src));
+ok('the law records the hands over-extension as wrong turn #5',
+  /Running it on the HANDS/.test(law) && /13-pixel painted footprint/.test(law));
+ok('the law records that the arm fix survived the hands change',
+  /E far arm 41\.0% dressed, W 46\.6%/.test(law));
+ok('the law names the PATTERN: a good fix is not thereby general',
+  /A fix that is \*good\* is not thereby \*general\*/.test(law));
 
 /* NO SHADING. This is the part he was most explicit about. */
 ok('the far limb gets the SAME colour, with no darkening applied',

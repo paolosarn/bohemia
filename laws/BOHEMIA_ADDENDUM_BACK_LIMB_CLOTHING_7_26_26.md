@@ -72,7 +72,22 @@ configs still clean on the real surface.
    must never undress the front one. It is now restricted to the far limb's own
    cells.
 4. **Running it on the legs.** They never had the defect (far thigh was within ±8
-   points on every facing) and the pass made them worse. Arms and hands only.
+   points on every facing) and the pass made them worse. Arms only.
+5. **Running it on the HANDS** (found 7/27/26, from Paolo's screenshot: *"on east
+   and west the clothing is a little fucked up towards the actual hands, it might
+   look like there's like two sets of hands"*). He was right, and it was this
+   pass. The far hand has a **13-pixel painted footprint — exactly the same size
+   as the near hand** — so dressing it laid a second hand-sized garment cluster
+   right beside the real one. At 56x56, two same-sized clothed blobs a few pixels
+   apart read as two hands, which is precisely what he saw. The defect this pass
+   exists for was the back **ARM** arriving naked; the hand was never part of it.
+   The pair list is now `[[6,5]]` / `[[5,6]]` and the pass paints **0** of those
+   13 cells. The arm fix survives the change: E far arm 41.0% dressed, W 46.6%.
+
+   **THE PATTERN ACROSS 4 AND 5:** this pass has now been over-extended twice, to
+   legs and to hands, both times by applying it to a part that did not have the
+   defect. A fix that is *good* is not thereby *general*. Scope it to the thing
+   that was measured broken, and measure again after widening it.
 
 ## STILL OPEN
 
