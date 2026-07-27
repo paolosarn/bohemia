@@ -1,0 +1,27 @@
+BOHEMIA VERDICT — TOWN + BALLPARK (and their icons)
+7/27/26, WORLD lane. Recorded under NOTES ARE RULINGS
+(laws/BOHEMIA_ADDENDUM_NOTES_ARE_RULINGS_7_19_26.md): he said it, so it is the
+verdict. Not re-thumbed, not re-asked.
+
+PAOLO, VERBATIM:
+  "that decent ... its decent i like it its decent"
+
+VERDICT: APPROVED (decent).
+  - engine/bohemia_town.js        — the walkable townsite      APPROVED
+  - engine/bohemia_ballpark.js    — the walkable ballpark      APPROVED
+  - district hero icon: town      — the city builder icon      APPROVED
+  - district hero icon: ballpark  — the city builder icon      APPROVED
+
+WHAT APPROVAL UNLOCKS (standing rule: approval unlocks volume): variants are now
+legal for both districts. NOT taken this turn — he gave an order in the same
+breath and the order comes first.
+
+READ IT HONESTLY. "Decent" three times and "I like it" is a pass, not a rave.
+It is not a KILL and it is not a CBB. Nobody builds a v2 of either district off
+this; STOP PRODUCING rule 3 is not triggered, and neither is a redesign. They
+stand as shipped and the lane moves on to the next ground.
+
+THE ORDER THAT CAME WITH IT, which is the real deliverable:
+  "is there anyway i can comment and judge all ur work in bulk and individually"
+That is a standing complaint about the VERDICT SURFACE, not about the districts.
+Answered the same turn — see the handoff and BOHEMIA_BACKLOG WORLD.
