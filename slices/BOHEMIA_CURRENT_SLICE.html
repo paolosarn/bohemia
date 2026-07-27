@@ -10962,6 +10962,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
   var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
   var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
+  var AIR= HASREQ ? require('./bohemia_airfield.js')       : (typeof BohemiaAirfield!=='undefined'?BohemiaAirfield:root.BohemiaAirfield);
   var ART= HASREQ ? require('./bohemia_arterial.js')       : (typeof BohemiaArterial!=='undefined'?BohemiaArterial:root.BohemiaArterial);
   var FWY= HASREQ ? require('./bohemia_freeway.js')        : (typeof BohemiaFreeway!=='undefined'?BohemiaFreeway:root.BohemiaFreeway);
   var DSR= HASREQ ? require('./bohemia_desert.js')         : (typeof BohemiaDesert!=='undefined'?BohemiaDesert:root.BohemiaDesert);
@@ -11032,8 +11033,42 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // districts: nobody bases a faction on a mountain.
     desert:   { mod:DSR, zone:'default' },
     mountain: { mod:MTN, zone:'default' },
-    water:    { mod:WAT, zone:'default' }
+    water:    { mod:WAT, zone:'default' },
+    // THE AIRFIELDS (7/26): a blob, not a cell. Surfaces, not districts, for the same
+    // reason the roads are: nothing should be able to base a faction on a runway until
+    // Paolo rules that an airfield is claimable ground.
+    airport:  { mod:AIR, zone:'institutional' },
+    airbase:  { mod:AIR, zone:'institutional' }
   };
+  /* THE CLUSTER A CELL BELONGS TO. A runway is three kilometres long and a cell is
+     96 metres, so an airfield is not a cell, it is a BLOB of them, and no generator
+     can lay a runway without knowing where its own field starts and ends. This walks
+     the connected same-type cells once per blob, caches the result on the map, and
+     hands every cell of that blob the same bounds — which is what makes the runway
+     arrive in the next cell exactly where it left this one. */
+  function clusterBoundsOf(m,x,y,kind){
+    m.__clusters = m.__clusters || {};
+    var key0 = kind + ':' + x + ',' + y;
+    if (m.__clusters[key0]) return m.__clusters[key0];
+    var seen = {}, q = [[x,y]], head = 0, cells = [];
+    seen[x+','+y] = 1;
+    while (head < q.length && cells.length < 4096) {
+      var c = q[head++]; cells.push(c);
+      var D = [[1,0],[-1,0],[0,1],[0,-1]];
+      for (var i=0;i<4;i++){
+        var nx=c[0]+D[i][0], ny=c[1]+D[i][1], k=nx+','+ny;
+        if (seen[k]) continue;
+        var cell=m.at(nx,ny); if(!cell||cell.district!==kind) continue;
+        seen[k]=1; q.push([nx,ny]);
+      }
+    }
+    var xs=cells.map(function(c){return c[0];}), ys=cells.map(function(c){return c[1];});
+    var b = { x0:Math.min.apply(null,xs), x1:Math.max.apply(null,xs),
+              y0:Math.min.apply(null,ys), y1:Math.max.apply(null,ys), cells:cells.length };
+    cells.forEach(function(c){ m.__clusters[kind+':'+c[0]+','+c[1]] = b; });
+    return b;
+  }
+
   // which edges face something OTHER than this same terrain (a mountain lays its
   // alluvial fan onto the flat exactly there)
   function openEdges(m,x,y,kind){
@@ -11336,6 +11371,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         var sres=sg.mod.generate(cell.seed>>>0,
           { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross,
             cellX:x, cellY:y, open:openEdges(m,x,y,cell.district),
+            kind:cell.district, bounds:clusterBoundsOf(m,x,y,cell.district),
             // the edges that face something that is NOT road: that is where the
             // districts are, and therefore where the street has to let them in
             access:['N','S','E','W'].filter(function(d){ return rl.all.indexOf(d)<0; }) });

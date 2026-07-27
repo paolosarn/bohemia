@@ -210,6 +210,8 @@ GATES = [
      'every canon .bq quest parses/round-trips/validates clean and plays to COMPLETE through the live loop', False),
     ('ROAD CELLS',     ['node', 'gates/roadcell_gate.js'],
      'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
+    ('AIRFIELD',       ['node', 'gates/airfield_gate.js'],
+     'the airfields are built across their whole cluster: one runway, continuous, no bare cells', False),
     ('STREAMING',      ['node', 'gates/streaming_gate.js'],
      'the valley is walkable on a phone: bounded plot cache, warmed ahead, no hitch at a boundary', False),
     ('CROSSING',       ['node', 'gates/crossing_gate.js'],

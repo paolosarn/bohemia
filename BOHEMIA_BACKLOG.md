@@ -364,8 +364,12 @@ stories the world cannot host yet.
    (mountain 927 + desert 620 + water 74) all generate real ground on one continuous
    valley-wide noise field. Valley: 40% -> 95% generated. Gates ROAD CELLS + TERRAIN.
    WHAT IS LEFT UNBUILT, in order of size, and it is all LANDMARK work now:
-     a. airbase 54, airport 40 (one generator, an airfield kit: runways, aprons,
-        hangars, taxiways) | its own gate | — | new ground LOOK = judge before volume.
+     a. [DONE 7/26] airbase 54 + airport 40: engine/bohemia_airfield.js, built across
+        the CLUSTER (new clusterBoundsOf rung on the world model) so one runway spans
+        the whole field. Gate AIRFIELD, 20 checks. FOLLOW-UP (discovered): the field
+        reads as clean bands and wants dressing — drifted sand over the pavement,
+        cracked slabs, blast staining, wrecks off the taxiway. Cheap, and it is what
+        would make it read finished rather than merely correct.
      b. rail 90 + interchange 16 (rail corridor cells + freeway-to-freeway ramps;
         both are network tiles like the roads, same machinery) | roadcell_gate
         extended | — | no.

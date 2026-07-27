@@ -274,6 +274,24 @@ NOTE, READ THE 7/26 (b) ENTRY ABOVE FIRST: this walk study was REJECTED by Paolo
 the lane's assignment changed. Kept as the record of what was measured, never as a
 template.
 
+WORLD MODEL (02): 7/26 (h) — THE AIRFIELDS. 94 cells (40 airport, 54 airbase), the last
+big flat thing. engine/bohemia_airfield.js builds both from one generator because a
+commercial field and a military one are the same anatomy with different buildings on it.
+THE HARD PART, and why it needed a new rung in the world model: a runway is 3 km long and
+a cell is 96 m, so a field is a BLOB of cells with ONE runway across all of them, and a
+per-cell generator physically cannot draw that. bohemia_world.js now computes
+clusterBoundsOf (the connected same-type blob, cached) and hands every cell of a field
+the same bounds; the runway is laid in valley coordinates against them, so it arrives in
+the next cell exactly where it left the last. Seams measure 1.00. The anatomy is a
+FRACTION of the field, not fixed offsets — the first version left half the airbase as
+bare dirt and the gate caught it — so a big field gets two parallel runways and a small
+one becomes a general-aviation strip out of the same code. Act-1 dead: the aircraft never
+left, they are on the stands with the doors open. Gate: AIRFIELD (20 checks, including
+constitution conformance). VALLEY: 94.6% -> 95.6% generated.
+HONEST NOTE: the field reads as clean bands from above. It is correct and continuous but
+it wants dressing (drifted sand, cracked pavement, blast staining) before anyone would
+call it finished. Written into the backlog rather than quietly left.
+
 WORLD MODEL (02): 7/26 (g) — THE VALLEY IS WALKABLE ON A PHONE. Found while wiring
 streaming: the plot cache was a plain object that only ever grew. A plot is ~190 KB, so
 walking the valley climbed toward ~1.8 GB and the phone would have died long before the
