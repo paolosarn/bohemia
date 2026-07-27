@@ -503,6 +503,15 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1d. DONE 7/26 (v82): THE FREEZE HE COULD NOT FEEL - TWO DEFECTS, BOTH FIXED.
+   (a) The killshot contact fired the WEAPON tier (0.125s) instead of KILL
+   (0.500s); freeze('kill') only ever fired from finishHim and from your own
+   death. (b) The freeze stopped the SIM but not the PICTURE - 27% of the screen
+   was still changing because _bpmClock rides the AUDIO clock and drives the bob,
+   floor pulse and kick pulse. The visual beat clock is now pinned; the audio is
+   not. Measured clean: 43.67% of the screen changes while a killshot runs, 0.06%
+   while frozen. GATE LESSON RECORDED: section 17 checked the TABLE and never the
+   PATH. It now tests the path. 339 checks.
 1e. DONE 7/26 (v81): THE QUANTIZED FREEZE - pick-list item 2, on his word
    ("Lets freeze the game for that snappy satisfying feelings then"). Law:
    laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md. Every freeze is a NOTE

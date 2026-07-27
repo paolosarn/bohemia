@@ -1,5 +1,88 @@
 # BOHEMIA ADDENDUM — THE QUANTIZED FREEZE (Paolo 7/26/26)
 
+## *** AMENDED SAME DAY (v82): HE COULD NOT FEEL IT, AND HE WAS RIGHT TWICE ***
+
+> "I didn't notice time stopping for a whole second or whatever."
+> — Paolo, 7/26/26
+
+**TWO SEPARATE DEFECTS. Both mine, both real, both now measured.**
+
+### DEFECT 1 — THE KILL FREEZE WAS WIRED TO THE WRONG TIER
+
+`startKillshot()` is only ever called after `sndKill()`. It **is** the kill
+cinematic, so every bullet contact inside it is a kill by construction. v81
+handed that contact the **WEAPON** tier:
+
+```js
+freeze(BohemiaFreeze.WPN[WEAPON]||'graze', ...)   //  0.125s for a pistol
+```
+
+Meanwhile `freeze('kill')` — the whole beat, the headline of the entire feature —
+only fired from `finishHim` (manually executing a downed man) and from the bullet
+that kills *you*. **Neither is what he does when he shoots somebody.**
+
+So the thing he was told to go feel was **0.125 seconds**, four times too short,
+buried inside a cinematic already running 0.55 to 2.8 seconds of its own slow
+motion. Of course he felt nothing.
+
+**A kill now fires the KILL tier — one whole beat — and the last man standing
+fires LAST, two beats.** The weapon no longer sets the *duration* of a kill; it
+still colours the *shake*, which is what V43's "the freeze says what killed him"
+actually needs.
+
+### DEFECT 2 — THE FREEZE STOPPED THE SIMULATION, NOT THE PICTURE
+
+Measured on the real surface with screenshots: during a killshot freeze, **27% of
+the screen was still changing every 90ms, against 30% while running.** The world
+was not visibly stopping at all.
+
+The cause is V67 ONE CLOCK doing its job too well. `_bpmClock` is fed from the
+**audio** clock every frame, *before* the freeze is applied, and it drives the body
+bob, the floor pulse, the kick pulse and the dial. **The sim was frozen and the
+whole screen kept breathing on the beat.**
+
+**The VISUAL beat clock is now pinned for the length of the freeze.** The audio is
+deliberately left alone — the song must play straight through the stop, that was
+always the point — and the visual clock snaps back onto the true audio position on
+release.
+
+### THE MEASUREMENT, WITH A CLEAN INSTRUMENT
+
+The first three probes were bad and I threw them out rather than read them
+generously: `getImageData` reported "still" even while the game was running, and a
+screenshot-hash comparison called **473 changed pixels out of 329,160** a moving
+frame. A screenshot pair also takes long enough that it straddles the end of a
+0.5s freeze, which made one run look *worse* after a fix that helped.
+
+Isolating the question — hold a freeze long enough that sampling cannot straddle
+it, during a live killshot so the busiest thing on screen is running:
+
+```
+killshot RUNNING, 120ms apart :  43.67% of the screen changed
+killshot FROZEN,  300ms apart :   0.06% of the screen changed
+```
+
+**The freeze removes essentially all of the motion.** The picture holds dead still.
+
+### WHAT THE GATE WAS DOING WRONG, WHICH IS THE REAL LESSON
+
+Section 17 asserted that the kill tier **is** one beat. It never asserted that a
+kill **fires** it. **A correct table that nothing reaches is worth zero**, and the
+gate would have passed that bug forever while printing twenty green lines about
+note values.
+
+It now tests the **path**: that the killshot contact arms the kill tier, that the
+weapon cannot set a kill's duration, that the visual clock is held, and that the
+audio is not.
+
+This is the same failure shape as the two before it — v75 measured song density
+per pattern and called it per bar; v81 measured impact in frames and called it
+weight. **Every one was a correct value with a broken connection to reality, and
+every one was caught by Paolo playing it rather than by the gate.**
+
+---
+
+
 > "Lets freeze the game for that snappy satisfying feelings then."
 > — Paolo, 7/26/26
 

@@ -1093,6 +1093,44 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v82: HE COULDN'T FEEL THE FREEZE AND HE WAS RIGHT TWICE.
+Law AMENDED IN PLACE: laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md.
+Paolo: "I didn't notice time stopping for a whole second or whatever." TWO
+SEPARATE DEFECTS, both mine, both real, both now measured.
+(1) THE KILL FREEZE WAS WIRED TO THE WRONG TIER. startKillshot() is only ever
+called after sndKill(), so every contact in the cinematic is a KILL by
+construction - and v81 handed it the WEAPON tier (0.125s for a pistol).
+freeze('kill'), the whole beat and the headline of the feature, only fired from
+finishHim (manually executing a downed man) and from the bullet that kills YOU.
+NEITHER IS WHAT HE DOES WHEN HE SHOOTS SOMEBODY. So the thing he was told to go
+feel was 4x too short AND buried inside a cinematic already running 0.55-2.8s of
+its own slow motion. Fixed: a kill fires KILL (one beat), the last man fires LAST
+(two). The weapon now colours the SHAKE, not the duration.
+(2) THE FREEZE STOPPED THE SIM, NOT THE PICTURE. Measured: 27% of the screen was
+STILL CHANGING every 90ms during a freeze, against 30% while running. Cause: V67
+ONE CLOCK doing its job too well - _bpmClock is fed from the AUDIO clock every
+frame BEFORE the freeze applies, and it drives the bob, the floor pulse, the kick
+pulse and the dial. The sim froze and the whole screen kept breathing on the
+beat. Fixed: the VISUAL beat clock is PINNED for the freeze; the AUDIO is
+deliberately untouched (the song must play through the stop) and the visual clock
+snaps back onto the true audio position on release.
+THE CLEAN MEASUREMENT (three earlier probes were BAD and were thrown out, not read
+generously: getImageData reported "still" while the game was running, and a
+screenshot hash called 473 changed pixels out of 329,160 a MOVING frame; a
+screenshot pair also straddles the end of a 0.5s freeze, which made one run look
+WORSE after a fix that helped). Isolating it with a long hold during a LIVE
+killshot: RUNNING 120ms apart = 43.67% of the screen changed; FROZEN 300ms apart =
+0.06%. The picture holds dead still.
+*** THE REAL LESSON, and it is about the GATE: section 17 asserted the kill tier
+IS one beat and NEVER asserted that a kill FIRES it. A CORRECT TABLE THAT NOTHING
+REACHES IS WORTH ZERO, and the gate would have passed that bug forever while
+printing twenty green lines about note values. It now tests the PATH. Same shape
+as v75 (song density measured per pattern, called per bar) and v81 (impact
+measured in frames, called weight): every one a correct value with a broken
+connection to reality, and EVERY ONE CAUGHT BY PAOLO PLAYING IT, NOT BY THE
+GATE. ***
+Gate: 339 checks green.
+
 COMBAT (04) 7/26 - v81: THE QUANTIZED FREEZE. Law:
 laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md.
 Paolo: "Lets freeze the game for that snappy satisfying feelings then." GO on

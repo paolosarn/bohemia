@@ -485,9 +485,10 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
      dependent) but a NOTE VALUE: light guns a sixteenth, heavy guns an eighth. */
   ok('V43 WEAPON KILL IMPACT SURVIVES ON THE GRID: the freeze still says what killed him and the blood burst still scales by weapon, but the stop is now a note value per weapon instead of a frame count',
     demo.includes('V43 WEAPON KILL IMPACT') &&
-    demo.includes("freeze(BohemiaFreeze.WPN[WEAPON]||'graze',_ax,_ay); }") &&
+    demo.includes("freeze(ks.last?'last':'kill',_ax*_hv,_ay*_hv); }") &&
+    demo.includes("const _hv={pistol:0.8,smg:0.7,rifle:1.15,shotgun:1.45}[WEAPON]||1;") &&
     demo.includes("var WPN={pistol:'graze', smg:'graze', rifle:'hit', shotgun:'hit'};") &&
-    demo.includes("{pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]"));
+    demo.includes("{pistol:0.75,smg:0.95,rifle:1.15,shotgun:1.55}[WEAPON]"));   /* V82: the weapon colours the SHAKE and the blood, not the kill's duration */
   // v44: SPRINT -- real movement/strategy stakes, not just repositioning
   ok('V44 SPRINT: arms a 2-tile move that resolves fully engaged (real return fire), blocked if either tile in the path has a pillar, consumes itself after one use',
     demo.includes('V44 SPRINT') &&
@@ -1717,13 +1718,13 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   /* THE FRAME COUNTER IS GONE, NOT SHADOWED */
   ok('THE FRAME COUNTER IS DEAD: no call site sets _hitstop to a frame count any more, and the loop consumes REAL SECONDS so the freeze is the same length on every phone',
     !/_hitstop\s*=\s*(?!0)[^;]/.test(demo) &&
-    demo.includes('if(G._freezeT>0){ G._freezeT=Math.max(0,G._freezeT-dt); if(G._shk)G._shk.t+=dt; dt=0; }'));
+    demo.includes('G._freezeT=Math.max(0,G._freezeT-dt); if(G._shk)G._shk.t+=dt; dt=0; }'));
   ok('and there is ONE place a freeze is armed, by NAMED TIER, so a bare duration can never reappear at a call site',
     demo.includes('function freeze(tier,dirX,dirY){') &&
     ["freeze('hit',-1,0.35)", "freeze('kill',-1,0.5)", "freeze('last',0,-1)",
      "freeze(checkClearSoon()?'last':'kill', 0, -1)"].every(c => demo.includes(c)));
   ok('THE MUSIC KEEPS RUNNING THROUGH IT: the audio clock advances BEFORE the freeze is applied, so the dial cannot drift while the world is stopped',
-    demo.indexOf('{ const _am=audioMs(); if(_am!=null)_bpmClock=_am;') < demo.indexOf('if(G._freezeT>0){ G._freezeT=Math.max(0,G._freezeT-dt);'));
+    demo.indexOf('{ const _am=audioMs(); if(_am!=null)_bpmClock=_am;') < demo.indexOf('if(G._freezeClock==null)G._freezeClock=_bpmClock;'));
 
   /* THE SHAKE MUST FINISH INSIDE THE FREEZE, or it smears into the next beat */
   ok('THE SHAKE RUNS ALONG THE AXIS OF THE HIT and its duration IS the freeze duration, so it always finishes before the next beat instead of smearing into the next action',
@@ -1739,6 +1740,33 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('and a FRESH FIGHT clears both the freeze and the shake, so neither can leak across encounters',
     demo.includes('_hitstop:0, _freezeT:0, _shk:null,') &&
     demo.includes('G._fx=[];G._hitstop=0;G._freezeT=0;G._shk=null;'));
+
+  /* ---- V82: TEST THE PATH, NOT THE TABLE ----------------------------------
+     v81 asserted that the kill TIER is one beat and never asserted that a KILL
+     FIRES IT. It did not: the killshot contact was handed the WEAPON tier, so
+     every pistol kill froze for a SIXTEENTH (0.125s) inside a cinematic already
+     running 0.55-2.8s of its own slow motion, and Paolo felt nothing. A correct
+     table that nothing reaches is worth zero, and this is the assertion that
+     would have caught it. */
+  ok('V82 A KILL FIRES THE KILL TIER: startKillshot() is only ever called after sndKill(), so every contact in the cinematic is a kill BY CONSTRUCTION -- it must arm the whole beat, and two beats on the last man',
+    demo.includes("freeze(ks.last?'last':'kill',_ax*_hv,_ay*_hv); }") &&
+    !demo.includes("freeze(BohemiaFreeze.WPN[WEAPON]||'graze',_ax,_ay); }"));
+  ok('and the WEAPON no longer sets the DURATION of a kill (it was 4x too short) -- it colours the SHAKE instead, which is what V43 "the freeze says what killed him" actually needs',
+    demo.includes("const _hv={pistol:0.8,smg:0.7,rifle:1.15,shotgun:1.45}[WEAPON]||1;") &&
+    ['pistol','smg','rifle','shotgun'].every(w => F.forWeapon(w) < F.secs('kill')));
+
+  /* ---- V82: THE FREEZE MUST HOLD THE PICTURE, NOT JUST THE SIM ------------
+     MEASURED on the real surface: 27% of the screen was still changing during a
+     freeze, because V67 ONE CLOCK feeds _bpmClock from the AUDIO clock every
+     frame -- which drives the body bob, the floor pulse and the kick pulse. The
+     sim was stopped and the picture kept breathing. */
+  ok('V82 THE FREEZE HOLDS THE PICTURE: the VISUAL beat clock is pinned for the length of the freeze, so the bob, the floor pulse and the kick pulse stop with everything else',
+    demo.includes('if(G._freezeClock==null)G._freezeClock=_bpmClock;') &&
+    demo.includes('_bpmClock=G._freezeClock; _bpmPhase=(_bpmClock%BPM_MS)/BPM_MS;'));
+  ok('and the AUDIO is deliberately NOT held -- the song plays straight through the stop, which was the whole point, and the visual clock snaps back onto the true audio position on release',
+    demo.includes('G._freezeClock=null;') &&
+    !demo.includes('stopFactionLoop();  /* freeze */') &&
+    demo.indexOf('const _am=audioMs(); if(_am!=null)_bpmClock=_am;') < demo.indexOf('if(G._freezeClock==null)G._freezeClock=_bpmClock;'));
 
   /* THE LAST MAN GETS THE LONG ONE -- decided BEFORE the body resolves */
   ok('THE LAST MAN DOWN HOLDS THE ROOM: finishHim asks whether this is the final body BEFORE it resolves, so the long freeze lands on the kill that ends the fight and not the one after it',
