@@ -936,6 +936,20 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0P. [PENDING PAOLO - one pick, then it is a day's work] 83% OF THE RUN IS THE CBB
+   TILESET, AND HIS 30 APPROVED HOUSE SKINS ARE LOADED AND NEVER DRAWN. Measured
+   by tools/bohemia_run_art_source_audit.js: out on the block, 273 of 330 draws
+   are the 42-tile CBB target set (his own verdict: could be better) and 57 are
+   the border walls he just approved. ROOF_IMG/WALL_IMG/YARD_IMG appear exactly
+   once each in the built run - their definition - and are never drawn. The
+   builder ASSERTS the banks are present and nothing checks they are USED;
+   loaded-and-unused passed every gate in the repo, twice.
+   NOT FIXED ON PURPOSE: the houses ride a designed projection (base course, eave
+   shadow, corners, garage mouth) and his skins are flat textures with no corner
+   variants, so a wholesale swap returns his materials and removes the massing.
+   His three options are in records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md.
+   | a "banks must be USED, not just present" gate belongs here | measured 7/28 |
+   YES, blocked on his pick.
 0O. [DONE 7/28, and it is the lesson of the day] HE PLAYS THE RUN. THE RUN IS A
    SEPARATE RENDERER. Three consecutive turns diagnosed correctly, fixed
    correctly, gated green and shipped - all in CITY_B64, while he was looking at

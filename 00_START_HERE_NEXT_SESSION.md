@@ -1,3 +1,36 @@
+CITY (03): 7/28 (d) LATEST — THE BORDER WALLS ARE APPROVED, AND I MEASURED WHY THE
+REST STILL LOOKS BAD.
+"walls are there now doing good im happy it still looks like shit so much of the game
+but whatever"
+VERDICT RECORDED: records/BOHEMIA_SUBURB_BORDER_WALL_VERDICT_7_28_26.txt. His 13 keys
+are APPROVED and live in both renderers. NOTES ARE RULINGS - nobody re-thumbs or
+re-cooks them. Approval settles the wall CLASS; it does NOT license a fresh batch of
+wall candidates (the 7/17 post-mortem already said the pack vein is dry for
+perimeter-grade walls).
+THE OTHER HALF, MEASURED not guessed - tools/bohemia_run_art_source_audit.js patches
+drawImage before the run boots, tags every image by the BANK it came from, and counts:
+  OUT ON THE BLOCK, 330 draws:  83% THE CBB TARGET TILESET · 17% his border walls
+  INSIDE THE HOUSE, 288 draws:  63% Great-Sweep interior pool · 35% CBB tileset
+CBB is HIS OWN VERDICT on the target screen: could be better. He never said that art was
+good, he said it was good enough to unfreeze production. Then the entire walked world
+got built out of it. "so much of the game looks like shit" is an accurate description of
+a world that is 83% could-be-better by area. The 17% that is not CBB is the one thing he
+just said he liked.
+AND THE SAME BUG AS THE WALL, ONE LAYER UP: ROOF_IMG / WALL_IMG / YARD_IMG - his THIRTY
+house skins, all thumbed UP 7/21 - appear EXACTLY ONCE each in the built run: their own
+definition. Decoded on load, NEVER DRAWN. The builder even asserts the banks are
+PRESENT and nothing checks they are USED. Loaded-and-unused passed every gate in this
+repo, for the walls until today and for the house skins right now.
+DELIBERATELY NOT FIXED TONIGHT, and the reasoning is in the record: the houses go
+through a designed PROJECTION (the building stack picks different tiles for base course,
+eave shadow, left/right corner, garage mouth so a house reads as a mass). His house
+skins are flat 44x44 textures with no corner or eave variants. Dropping them in
+wholesale gives back his materials and TAKES AWAY the massing - and he had just, for the
+first time all day, said something looked good. That trade is a director's call, not
+mine at 3am. Three options are laid out for him in
+records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md (skin the stack / his skins flat / leave
+the houses and fix the ground). None of them cooks anything: all three are his own
+approved art finally being drawn.
 WORLD MODEL (02): 7/27 (h) LATEST — THE BULK VERDICT CAME BACK 32 DOWN, AND MY OWN
 JUDGE PAGE HAD ITS THUMB ON THE SCALE. NOTHING WAS REBUILT. READ THIS BEFORE BUILDING
 ANY GROUND: records/BOHEMIA_BULK_VERDICT_ANALYSIS_7_27_26.md
