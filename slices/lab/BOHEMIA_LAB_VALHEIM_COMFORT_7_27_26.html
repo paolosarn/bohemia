@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 05 — VALHEIM'S COMFORT LOOP (REFERENCE MODEL)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 05 — VALHEIM'S COMFORT LOOP
+  Commissioned by Paolo 7/27/26, verbatim:
+    "Next emulation, whole mechanics: VALHEIM'S COMFORT LOOP. Three mechanics
+     playable end to end from the real source and real numbers: (1) food as buff
+     stacking... (2) the rested buff... (3) comfort — every piece of furniture
+     near your rest spot extends how long rested lasts, so decorating your camp
+     literally makes you stronger. One small world: a camp, a fire, food to
+     find, furniture to place, somewhere dangerous to walk so the buffs matter.
+     I play it and then rule Bohemia's survival system off the feel."
+
+  THIS IS A MODEL, NOT A MEASUREMENT — AND THAT DISTINCTION IS THE FIRST THING
+  YOU NEED TO KNOW ABOUT IT.
+  Valheim's logic ships as a compiled Unity assembly (assembly_valheim.dll).
+  There is no readable source to fetch, and this environment cannot decompile a
+  binary it cannot download. So unlike LAB-01..04, most numbers here are
+  DOCUMENTED, not read off a line of the master's code. Every single one is
+  tagged [SOURCED] or [DOC] in
+  records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt, and gates/lab_gate.js
+  fails the build if a tag or a value goes missing.
+  Two constants ARE real source, from ValheimPlus's Harmony patches, which name
+  the vanilla values they overwrite: the 10 m comfort radius and the 60 s per
+  comfort level.
+
+  Three mechanics, playable end to end:
+    1. FOOD    — three slots, each adds max health + max stamina for a duration
+                 and decays as it burns; an empty stomach leaves you weak at 25
+                 health and never kills you.
+    2. RESTED  — 20 s of resting by a fire under a roof, then Rested: +50%
+                 health regen and +100% stamina regen for a stretch.
+    3. COMFORT — one item per CATEGORY within 10 m sets your comfort level, and
+                 comfort is exactly how many minutes Rested lasts. Placing a rug
+                 makes you measurably stronger, and the HUD shows it happen.
+
+  And the reason to care: the MOUNTAIN is freezing. You cannot walk up there and
+  come back without food in you and Rested on you.
+
+  NOT BOHEMIA. No engine module, no bank, no alpha. Placeholder art only.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#0d1014; color:#e8e6df;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#b8342a; color:#fff; font-size:10px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #stage { position:relative; flex:1 1 auto; min-height:0; background:#000; }
+  #c { display:block; width:100%; height:100%; image-rendering:pixelated; }
+  #hud { position:absolute; left:4px; top:4px; right:4px; pointer-events:none;
+    display:flex; flex-direction:column; gap:3px; }
+  .bar { position:relative; height:13px; background:rgba(10,12,16,.82); border:1px solid #39404f;
+    border-radius:3px; overflow:hidden; }
+  .bar i { position:absolute; left:0; top:0; bottom:0; display:block; }
+  .bar span { position:absolute; left:4px; top:0; right:4px; line-height:13px; font-size:9px;
+    color:#fff; text-shadow:0 1px 0 #000; display:flex; justify-content:space-between; }
+  #hpfill { background:#8d3a3a; } #stfill { background:#9a8b34; }
+  .card { background:rgba(10,12,16,.82); border:1px solid #39404f; border-radius:3px;
+    padding:2px 5px; font-size:9.5px; line-height:1.4; white-space:pre; align-self:flex-start; }
+  #rested.on { border-color:#c8a94a; color:#ffe6a2; }
+  #zone.cold { border-color:#5b86b8; color:#cfe4ff; }
+  #foods { position:absolute; right:4px; bottom:4px; display:flex; flex-direction:column;
+    gap:2px; align-items:flex-end; pointer-events:none; }
+  .slot { width:118px; background:rgba(10,12,16,.82); border:1px solid #39404f; border-radius:3px;
+    padding:2px 4px; font-size:9px; line-height:1.3; }
+  .slot .n { color:#cbd6a8; display:flex; justify-content:space-between; }
+  .slot .b { height:3px; margin-top:2px; background:#22262f; }
+  .slot .b i { display:block; height:3px; background:#7f9a4a; }
+  #toast { position:absolute; left:6px; bottom:6px; right:130px; pointer-events:none;
+    font-size:10px; line-height:1.35; }
+  #toast div { background:rgba(10,12,16,.86); border-left:3px solid #4a5570;
+    padding:2px 5px; margin-top:2px; border-radius:2px; }
+  #toast .good { border-left-color:#5f8c63; color:#c8f0cd; }
+  #toast .bad { border-left-color:#a5563f; color:#ffcfc4; }
+  #ctl { flex:0 0 auto; padding:5px 6px 8px; background:#14171d; border-top:1px solid #2c3140; }
+  #row1 { display:flex; align-items:center; gap:8px; }
+  #stick { position:relative; width:104px; height:104px; flex:0 0 auto; border-radius:50%;
+    background:#1d212c; border:2px solid #333a4c; }
+  #knob { position:absolute; left:50%; top:50%; width:40px; height:40px; margin:-20px 0 0 -20px;
+    border-radius:50%; background:#59648c; border:2px solid #7f8cb8; }
+  #right { flex:1 1 auto; display:flex; flex-direction:column; gap:4px; min-width:0; }
+  #act { width:100%; padding:12px 6px; font-size:13px; font-weight:700; letter-spacing:.05em;
+    border-radius:5px; border:2px solid #7f8cb8; background:#2f3a5c; color:#dfe6ff; }
+  #act.hot { background:#2d5a34; border-color:#6fae78; color:#dcf6df; }
+  #act:disabled { opacity:.32; }
+  .chips { display:flex; flex-wrap:wrap; gap:3px; }
+  button.chip { font-family:inherit; font-size:9px; padding:5px 6px; border-radius:4px;
+    border:1px solid #454d63; background:#22262f; color:#9aa3b8; }
+  button.chip.on { background:#2d4a30; border-color:#5f8c63; color:#d6f0d8; }
+  button.chip:disabled { opacity:.3; }
+  .modal { position:absolute; inset:auto 0 0 0; max-height:78%; background:rgba(8,9,12,.965);
+    display:none; flex-direction:column; padding:8px 10px; overflow:auto; z-index:6;
+    border-top:2px solid #4a5570; border-radius:8px 8px 0 0; }
+  .modal.open { display:flex; }
+  .modal h3 { margin:0 0 6px; font-size:11.5px; color:#ffd76a; letter-spacing:.05em; }
+  table.st { width:100%; border-collapse:collapse; font-size:9.5px; }
+  table.st td { padding:1px 3px; border-bottom:1px solid #1c2029; }
+  table.st td.n { color:#8fd0ff; } table.st td.v { text-align:right; color:#fff; }
+  .frow { display:flex; align-items:center; gap:5px; font-size:10px; padding:3px 0;
+    border-bottom:1px solid #1c2029; }
+  .frow .fn { flex:1 1 auto; color:#cbd6a8; }
+  .frow .fs { flex:0 0 122px; color:#8d99ad; font-size:9px; text-align:right; }
+  .frow button { font-family:inherit; font-size:9px; padding:4px 7px; border-radius:3px;
+    border:1px solid #5f8c63; background:#2d4a30; color:#d6f0d8; }
+  .frow button:disabled { opacity:.3; border-color:#454d63; background:#22262f; color:#9aa3b8; }
+  .wm { position:absolute; right:5px; top:46%; font-size:8px; color:#fff; opacity:.28;
+    transform:rotate(90deg); transform-origin:right center; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE MODEL — NOT BOHEMIA, AND NOT A MEASUREMENT.</b> Valheim ships as a
+    compiled DLL, so most numbers here are DOCUMENTED, not read off its source. Placeholder art.</div>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div class="bar"><i id="hpfill"></i><span><b>health</b><b id="hptxt"></b></span></div>
+      <div class="bar"><i id="stfill"></i><span><b>stamina</b><b id="sttxt"></b></span></div>
+      <div class="card" id="rested">not rested</div>
+      <div class="card" id="zone">meadow</div>
+    </div>
+    <div id="foods"></div>
+    <div id="toast"></div>
+    <div class="wm">PLACEHOLDER ART</div>
+
+    <!-- the stomach -->
+    <div class="modal" id="m_eat">
+      <h3>WHAT YOU ARE CARRYING — THREE SLOTS, AND A FULL SLOT REFUSES YOU</h3>
+      <div id="eatlist"></div>
+      <div class="chips" style="margin-top:8px">
+        <button class="chip" id="e_close">CLOSE</button>
+      </div>
+    </div>
+
+    <!-- the camp -->
+    <div class="modal" id="m_build">
+      <h3>DECORATE THE CAMP — ONE ITEM PER CATEGORY COUNTS, WITHIN 10 M</h3>
+      <div id="comfortbreak" style="font-size:9.5px;color:#8d99ad;line-height:1.5;margin-bottom:6px"></div>
+      <div id="buildlist"></div>
+      <div class="chips" style="margin-top:8px">
+        <button class="chip" id="b_clear">CLEAR THE CAMP</button>
+        <button class="chip" id="b_close">CLOSE</button>
+      </div>
+    </div>
+
+    <!-- the numbers -->
+    <div class="modal" id="m_num">
+      <h3>EVERY NUMBER, AND WHETHER IT IS SOURCED OR DOCUMENTED</h3>
+      <div id="numbody"></div>
+      <div class="chips" style="margin-top:8px">
+        <button class="chip" id="n_close">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ctl">
+    <div id="row1">
+      <div id="stick"><div id="knob"></div></div>
+      <div id="right">
+        <button id="act">—</button>
+        <div class="chips" id="chips1"></div>
+        <div class="chips" id="chips2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   THE NUMBERS. Two are SOURCED off ValheimPlus's Harmony patches, which name
+   the vanilla values they overwrite. The rest are DOCUMENTED from the wiki and
+   guide tables. Every key is tagged and cross-checked against
+   records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt by gates/lab_gate.js.
+   ========================================================================= */
+var VH = {
+  /* --- comfort and rested --- */
+  COMFORT_RADIUS: 10,             /* SOURCED BuildingConfiguration.cs:9 (vanilla 10 m) */
+  RESTED_SEC_PER_COMFORT: 60,     /* SOURCED PlayerConfiguration.cs:11 (vanilla 60 s) */
+  RESTED_BASE_SEC: 480,           /* DOC 8 minutes at comfort level 1 */
+  COMFORT_BASE: 1,                /* DOC comfort starts at 1 */
+  COMFORT_MAX: 17,                /* DOC max reachable normally */
+  RESTING_TO_RESTED_SEC: 20,      /* DOC Rested applies after 20 s of Resting */
+  RESTED_HP_REGEN_MULT: 1.5,      /* DOC health regen +50% */
+  RESTED_ST_REGEN_MULT: 2,        /* DOC stamina regen +100% */
+
+  /* --- the body with nothing in it --- */
+  BASE_HEALTH: 25,                /* DOC base max health, no food */
+  BASE_STAMINA: 50,               /* DOC base max stamina, no food */
+  FOOD_SLOTS: 3,                  /* DOC you can eat 3 foods at a time */
+  EAT_AGAIN_FRACTION: 0.5,        /* DOC a food can be topped up below half remaining */
+
+  /* --- regeneration --- */
+  HP_REGEN_PER_SEC: 0.4,          /* ours (declared) — a legible base tick */
+  ST_REGEN_PER_SEC: 5,            /* ours (declared) — a legible base tick */
+  RUN_STAMINA_PER_SEC: 10,        /* ours (declared) — running has to cost something */
+
+  /* --- the food table, all DOC --- */
+  MUSHROOM_HP: 15,                /* DOC Mushroom 15 health */
+  MUSHROOM_ST: 15,                /* DOC Mushroom 15 stamina */
+  MUSHROOM_SEC: 900,              /* DOC Mushroom 900 s */
+  HONEY_HP: 8,                    /* DOC Honey 8 health */
+  HONEY_ST: 35,                   /* DOC Honey 35 stamina */
+  HONEY_SEC: 900,                 /* DOC Honey 900 s */
+  NECKTAIL_HP: 25,                /* DOC Grilled neck tail 25 health */
+  NECKTAIL_ST: 8,                 /* DOC Grilled neck tail 8 stamina */
+  NECKTAIL_SEC: 1200,             /* DOC Grilled neck tail 1200 s */
+  BOAR_HP: 30,                    /* DOC Cooked boar meat 30 health */
+  BOAR_ST: 10,                    /* DOC Cooked boar meat 10 stamina */
+  BOAR_SEC: 1200,                 /* DOC Cooked boar meat 1200 s */
+  BOAR_REGEN: 2,                  /* DOC Cooked boar meat heals 2 hp per second */
+  CARROTSOUP_HP: 15,              /* DOC Carrot soup 15 health */
+  CARROTSOUP_ST: 45,              /* DOC Carrot soup 45 stamina */
+  CARROTSOUP_SEC: 1500,           /* DOC Carrot soup 1500 s */
+  CARROTSOUP_REGEN: 2,            /* DOC Carrot soup heals 2 hp per second */
+  QUEENSJAM_HP: 14,               /* DOC Queens jam 14 health */
+  QUEENSJAM_ST: 40,               /* DOC Queens jam 40 stamina */
+  QUEENSJAM_SEC: 1200,            /* DOC Queens jam 1200 s */
+  JERKY_HP: 33,                   /* DOC Wolf jerky 33 health */
+  JERKY_ST: 33,                   /* DOC Wolf jerky 33 stamina */
+  JERKY_SEC: 1800,                /* DOC Wolf jerky 1800 s */
+  STEW_HP: 80,                    /* DOC Serpent stew 80 health */
+  STEW_ST: 26,                    /* DOC Serpent stew 26 stamina */
+  STEW_SEC: 1800,                 /* DOC Serpent stew 1800 s */
+
+  /* --- the mountain, so the buffs matter --- */
+  FREEZING_HP_PER_SEC: 1,         /* DOC Freezing drains health continuously */
+  FREEZING_BLOCKS_REGEN: 1        /* DOC Freezing stops health regen */
+};
+
+/* plumbing that is MINE, not theirs. Deliberately outside the tagged block:
+   nothing in here is a claim about Valheim. */
+var TILE = 26, GRID_W = 26, GRID_H = 58, WALK_TILES_PER_SEC = 1.6;
+/* WHY THE MAP IS THIS SHAPE, and it is the only interesting plumbing decision
+   here: freezing costs 1 health a second and an empty stomach is 25 health, so
+   the cold stretch has to take MORE than 25 seconds to cross both ways or the
+   mountain is scenery. 23 tiles of mountain at 1.6 tiles/s is ~29 s of cold for
+   the round trip: you can reach the cairn empty, and you cannot get home. Fed,
+   the same trip costs 29 of ~145 health and you barely notice. That gap IS the
+   thing he asked to feel. */
+
+/* =========================================================================
+   CONTENT (theirs, documented, NOT Bohemia canon)
+   ========================================================================= */
+var FOODS = [
+  { id: 'mushroom',   name: 'mushroom',          hp: VH.MUSHROOM_HP,    st: VH.MUSHROOM_ST,    sec: VH.MUSHROOM_SEC,    regen: 1, cook: false },
+  { id: 'honey',      name: 'honey',             hp: VH.HONEY_HP,       st: VH.HONEY_ST,       sec: VH.HONEY_SEC,       regen: 1, cook: false },
+  { id: 'necktail',   name: 'grilled neck tail', hp: VH.NECKTAIL_HP,    st: VH.NECKTAIL_ST,    sec: VH.NECKTAIL_SEC,    regen: 1, cook: true },
+  { id: 'boar',       name: 'cooked boar meat',  hp: VH.BOAR_HP,        st: VH.BOAR_ST,        sec: VH.BOAR_SEC,        regen: VH.BOAR_REGEN, cook: true },
+  { id: 'carrotsoup', name: 'carrot soup',       hp: VH.CARROTSOUP_HP,  st: VH.CARROTSOUP_ST,  sec: VH.CARROTSOUP_SEC,  regen: VH.CARROTSOUP_REGEN, cook: true },
+  { id: 'queensjam',  name: "queen's jam",       hp: VH.QUEENSJAM_HP,   st: VH.QUEENSJAM_ST,   sec: VH.QUEENSJAM_SEC,   regen: 1, cook: true },
+  { id: 'jerky',      name: 'wolf jerky',        hp: VH.JERKY_HP,       st: VH.JERKY_ST,       sec: VH.JERKY_SEC,       regen: 1, cook: true },
+  { id: 'stew',       name: 'serpent stew',      hp: VH.STEW_HP,        st: VH.STEW_ST,        sec: VH.STEW_SEC,        regen: 1, cook: true }
+];
+function foodDef(id) { for (var i = 0; i < FOODS.length; i++) if (FOODS[i].id === id) return FOODS[i]; return null; }
+
+/* THE COMFORT TABLE. The mechanism is the CATEGORY: only the highest-value item
+   in a category counts, so breadth makes you stronger and duplicates do not. */
+var COMFORT_ITEMS = [
+  { id: 'campfire',   name: 'campfire',      cat: 'fire',    val: 1, fixed: true },
+  { id: 'hearth',     name: 'hearth',        cat: 'fire',    val: 2 },
+  { id: 'roof',       name: 'thatch roof',   cat: 'shelter', val: 1 },
+  { id: 'bed',        name: 'bed',           cat: 'bed',     val: 1 },
+  { id: 'dragonbed',  name: 'dragon bed',    cat: 'bed',     val: 2 },
+  { id: 'stool',      name: 'stool',         cat: 'chair',   val: 1 },
+  { id: 'table',      name: 'table',         cat: 'table',   val: 1 },
+  { id: 'roundtable', name: 'round table',   cat: 'table',   val: 2 },
+  { id: 'banner',     name: 'banner',        cat: 'banner',  val: 1 },
+  { id: 'rug',        name: 'rug',           cat: 'rug',     val: 1 },
+  { id: 'maypole',    name: 'maypole',       cat: 'maypole', val: 1 }
+];
+function comfortDef(id) { for (var i = 0; i < COMFORT_ITEMS.length; i++) if (COMFORT_ITEMS[i].id === id) return COMFORT_ITEMS[i]; return null; }
+
+/* =========================================================================
+   THE WORLD. Built cell by cell so a row can never come out ragged.
+   ========================================================================= */
+var FIRE = { x: 13, y: 44 };
+var FORAGE = [
+  { x: 9,  y: 40, food: 'mushroom',  label: 'mushrooms' },
+  { x: 18, y: 39, food: 'honey',     label: 'a beehive' },
+  { x: 6,  y: 33, food: 'necktail',  label: 'a neck, sunning itself', raw: true },
+  { x: 20, y: 30, food: 'boar',      label: 'a boar', raw: true },
+  { x: 11, y: 27, food: 'carrotsoup', label: 'wild carrots', raw: true },
+  { x: 16, y: 25, food: 'queensjam', label: 'raspberry canes', raw: true },
+  { x: 8,  y: 18, food: 'jerky',     label: 'a wolf kill, half frozen', raw: true },
+  { x: 13, y: 1,  food: 'stew',      label: 'a cairn, and something in it', raw: true }
+];
+var GRID = [], ROOF = {};
+function hash(x, y) { var h = (x * 73856093) ^ (y * 19349663); h = (h ^ (h >> 13)) * 1274126177; return ((h ^ (h >> 16)) & 0xffff) / 0xffff; }
+function zoneOfRow(y) { return y >= 38 ? 'meadow' : (y >= 24 ? 'forest' : 'mountain'); }
+function buildWorld() {
+  GRID = [];
+  for (var y = 0; y < GRID_H; y++) {
+    var row = [];
+    for (var x = 0; x < GRID_W; x++) {
+      var z = zoneOfRow(y), h = hash(x, y), t;
+      if (z === 'meadow')   t = h < 0.16 ? 'g' : '.';
+      else if (z === 'forest') t = h < 0.34 ? 'T' : (h < 0.5 ? 'g' : '.');
+      else                  t = h < 0.2 ? 'R' : 's';
+      row.push(t);
+    }
+    GRID.push(row);
+  }
+  /* a path from camp to the peak, so the dangerous walk is a walk and not a maze */
+  for (var y2 = 1; y2 < GRID_H; y2++) GRID[y2][13] = 'p';
+  GRID[FIRE.y][FIRE.x] = 'F';
+  FORAGE.forEach(function (f) { GRID[f.y][f.x] = 'o'; });
+}
+buildWorld();
+function tileAt(x, y) { return (x < 0 || y < 0 || x >= GRID_W || y >= GRID_H) ? null : GRID[y][x]; }
+function zoneAt(x, y) { return zoneOfRow(y); }
+function solid(x, y) { return tileAt(x, y) === null || tileAt(x, y) === 'T' || tileAt(x, y) === 'R'; }
+
+/* =========================================================================
+   STATE
+   ========================================================================= */
+var S = {
+  x: 13, y: 45,                 /* tile position, fractional while walking */
+  facing: 0,
+  running: false,
+  health: VH.BASE_HEALTH,
+  stamina: VH.BASE_STAMINA,
+  foods: [],                    /* [{id, left, burn}] — their m_foods, capped at 3 */
+  carrying: {},                 /* id -> count */
+  pieces: [],                   /* [{id, x, y}] placed comfort items */
+  resting: 0,                   /* seconds of Resting accumulated */
+  restedTTL: 0,                 /* seconds of Rested left */
+  blackouts: 0,
+  elapsed: 0,
+  speed: 1,
+  modal: null,
+  frozen: false,
+  dirs: []
+};
+
+/* the campfire is always there — it is the thing the loop is about */
+S.pieces.push({ id: 'campfire', x: FIRE.x, y: FIRE.y });
+
+function toast(cls, msg) {
+  var host = document.getElementById('toast');
+  if (!host) return;
+  var d = document.createElement('div');
+  d.className = cls; d.textContent = msg;
+  host.appendChild(d);
+  while (host.children.length > 3) host.removeChild(host.firstChild);
+  setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 3000);
+}
+
+/* =========================================================================
+   MECHANIC 3 — COMFORT.
+   Only the HIGHEST item in each CATEGORY counts, and only within 10 m. That is
+   the whole idea: breadth of furniture makes you stronger, duplicates do not.
+   ========================================================================= */
+function dist(ax, ay, bx, by) { return Math.sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by)); }
+function restSpot() { return { x: FIRE.x, y: FIRE.y }; }
+function nearbyPieces() {
+  var r = restSpot();
+  return S.pieces.filter(function (p) { return dist(p.x, p.y, r.x, r.y) <= VH.COMFORT_RADIUS; });
+}
+function comfortBreakdown() {
+  var best = {};
+  nearbyPieces().forEach(function (p) {
+    var d = comfortDef(p.id);
+    if (!d) return;
+    if (!best[d.cat] || d.val > best[d.cat].val) best[d.cat] = d;
+  });
+  return best;
+}
+function comfort() {
+  var best = comfortBreakdown(), n = VH.COMFORT_BASE;
+  for (var cat in best) n += best[cat].val;
+  return Math.min(VH.COMFORT_MAX, n);
+}
+/* THE PAYOFF LINE: comfort IS minutes. Their SE_Rested.UpdateTTL. */
+function restedDuration() {
+  return VH.RESTED_BASE_SEC + (comfort() - VH.COMFORT_BASE) * VH.RESTED_SEC_PER_COMFORT;
+}
+function hasCategory(cat) { return !!comfortBreakdown()[cat]; }
+function placePiece(id) {
+  var d = comfortDef(id);
+  if (!d || d.fixed) return false;
+  if (S.pieces.some(function (p) { return p.id === id; })) return false;
+  var r = restSpot(), n = S.pieces.length;
+  /* ring the fire, inside the radius — placement is not the mechanic */
+  var a = n * 0.9, rad = 2 + (n % 2);
+  S.pieces.push({ id: id, x: Math.round(r.x + Math.cos(a) * rad), y: Math.round(r.y + Math.sin(a) * rad) });
+  var before = restedDuration();
+  paintBuild(); paintHud();
+  toast('good', d.name + ' placed — rested is now ' + Math.round(before / 60) + ' minutes');
+  return true;
+}
+function clearCamp() {
+  S.pieces = [{ id: 'campfire', x: FIRE.x, y: FIRE.y }];
+  paintBuild(); paintHud();
+}
+
+/* =========================================================================
+   MECHANIC 2 — RESTED.
+   Stand still by the fire, under a roof, for 20 s. Then you are stronger for
+   exactly as many minutes as your camp is comfortable.
+   ========================================================================= */
+function atFire() { return dist(S.x, S.y, FIRE.x, FIRE.y) <= 2.5; }
+function underRoof() { return hasCategory('shelter'); }
+function canRest() { return atFire() && underRoof() && S.dirs.length === 0; }
+function isRested() { return S.restedTTL > 0; }
+function hpRegenMult() { return isRested() ? VH.RESTED_HP_REGEN_MULT : 1; }
+function stRegenMult() { return isRested() ? VH.RESTED_ST_REGEN_MULT : 1; }
+
+/* =========================================================================
+   MECHANIC 1 — FOOD AS BUFF STACKING.
+   Three slots. Each adds max health and max stamina. Each decays as it burns.
+   An empty stomach leaves you at 25 health, weak, and alive.
+   ========================================================================= */
+function foodFraction(f) { return f.left / f.burn; }
+function maxHealth() {
+  var n = VH.BASE_HEALTH;
+  S.foods.forEach(function (f) { n += foodDef(f.id).hp * foodFraction(f); });
+  return Math.round(n);
+}
+function maxStamina() {
+  var n = VH.BASE_STAMINA;
+  S.foods.forEach(function (f) { n += foodDef(f.id).st * foodFraction(f); });
+  return Math.round(n);
+}
+function foodRegen() {
+  var n = 0;
+  S.foods.forEach(function (f) { n += foodDef(f.id).regen; });
+  return n;
+}
+function slotOf(id) { for (var i = 0; i < S.foods.length; i++) if (S.foods[i].id === id) return i; return -1; }
+/* their Player.CanEat, modelled: top up a food already burning below half, or
+   take a free slot, or displace the emptiest slot once it is below half. */
+function canEat(id) {
+  if (!(S.carrying[id] > 0)) return false;
+  var i = slotOf(id);
+  if (i >= 0) return foodFraction(S.foods[i]) < VH.EAT_AGAIN_FRACTION;
+  if (S.foods.length < VH.FOOD_SLOTS) return true;
+  return lowestSlot() >= 0;
+}
+function lowestSlot() {
+  var idx = -1, low = 1;
+  for (var i = 0; i < S.foods.length; i++) {
+    var fr = foodFraction(S.foods[i]);
+    if (fr < low) { low = fr; idx = i; }
+  }
+  return low < VH.EAT_AGAIN_FRACTION ? idx : -1;
+}
+function eat(id) {
+  if (!canEat(id)) return false;
+  var d = foodDef(id);
+  S.carrying[id]--;
+  var i = slotOf(id);
+  if (i >= 0) { S.foods[i].left = d.sec; }
+  else if (S.foods.length < VH.FOOD_SLOTS) { S.foods.push({ id: id, left: d.sec, burn: d.sec }); }
+  else { S.foods[lowestSlot()] = { id: id, left: d.sec, burn: d.sec }; }
+  toast('good', 'ate ' + d.name + '  +' + d.hp + ' health  +' + d.st + ' stamina');
+  paintHud(); paintEat();
+  return true;
+}
+
+/* =========================================================================
+   FORAGE + COOK — the reason to leave the fire
+   ========================================================================= */
+function forageAt(x, y) {
+  for (var i = 0; i < FORAGE.length; i++) if (FORAGE[i].x === x && FORAGE[i].y === y) return FORAGE[i];
+  return null;
+}
+var TAKEN = {};
+function forage(node) {
+  var k = node.x + ',' + node.y;
+  if (TAKEN[k]) return false;
+  TAKEN[k] = true;
+  var d = foodDef(node.food);
+  if (node.raw) {
+    S.carrying['raw_' + node.food] = (S.carrying['raw_' + node.food] || 0) + 1;
+    toast('good', 'took ' + node.label + ' — needs the fire');
+  } else {
+    S.carrying[node.food] = (S.carrying[node.food] || 0) + 1;
+    toast('good', 'took ' + d.name);
+  }
+  paintHud(); paintEat();
+  return true;
+}
+function cookAll() {
+  var n = 0;
+  for (var k in S.carrying) {
+    if (k.indexOf('raw_') === 0 && S.carrying[k] > 0) {
+      var id = k.slice(4);
+      S.carrying[id] = (S.carrying[id] || 0) + S.carrying[k];
+      n += S.carrying[k];
+      S.carrying[k] = 0;
+    }
+  }
+  if (n > 0) toast('good', 'cooked ' + n + ' at the fire');
+  paintEat(); paintHud();
+  return n;
+}
+function carryingCookable() {
+  for (var k in S.carrying) if (k.indexOf('raw_') === 0 && S.carrying[k] > 0) return true;
+  return false;
+}
+
+/* =========================================================================
+   THE CLOCK — one function, so the gate can drive real seconds without waiting
+   ========================================================================= */
+function freezing() { return zoneAt(Math.round(S.x), Math.round(S.y)) === 'mountain'; }
+function tick(sec) {
+  S.elapsed += sec;
+
+  /* food burns down; an expired food frees its slot */
+  for (var i = S.foods.length - 1; i >= 0; i--) {
+    S.foods[i].left -= sec;
+    if (S.foods[i].left <= 0) {
+      toast('bad', foodDef(S.foods[i].id).name + ' is gone');
+      S.foods.splice(i, 1);
+    }
+  }
+
+  /* resting -> rested */
+  if (canRest()) {
+    S.resting += sec;
+    if (S.resting >= VH.RESTING_TO_RESTED_SEC && S.restedTTL < restedDuration()) {
+      var wasRested = S.restedTTL > 0;
+      S.restedTTL = restedDuration();
+      /* the top-up is silent: at your own fire this re-grants every tick, and
+         announcing it every tick buried the screen in toasts. */
+      if (!wasRested) toast('good', 'RESTED — ' + Math.round(S.restedTTL / 60) +
+        ' minutes, at comfort ' + comfort());
+    }
+  } else {
+    S.resting = 0;
+  }
+  if (S.restedTTL > 0) {
+    S.restedTTL = Math.max(0, S.restedTTL - sec);
+    if (S.restedTTL === 0) toast('bad', 'rested has worn off');
+  }
+
+  /* the mountain is why any of this matters */
+  var cold = freezing();
+  if (cold) {
+    S.health -= VH.FREEZING_HP_PER_SEC * sec;
+  } else if (S.health < maxHealth()) {
+    S.health = Math.min(maxHealth(), S.health + (VH.HP_REGEN_PER_SEC + foodRegen() * 0.25) * hpRegenMult() * sec);
+  }
+  if (S.health > maxHealth()) S.health = maxHealth();
+
+  /* stamina: running burns it, standing still refills it */
+  if (S.running && S.dirs.length) S.stamina -= VH.RUN_STAMINA_PER_SEC * sec;
+  else S.stamina = Math.min(maxStamina(), S.stamina + VH.ST_REGEN_PER_SEC * stRegenMult() * sec);
+  if (S.stamina < 0) { S.stamina = 0; S.running = false; }
+  if (S.stamina > maxStamina()) S.stamina = maxStamina();
+
+  /* the failure state is a blackout at the fire, not a corpse — Bohemia has no
+     damage before the dial and this page is not going to invent one */
+  if (S.health <= 0) blackout();
+  paintHud();
+}
+function blackout() {
+  S.blackouts++;
+  S.foods = [];
+  S.restedTTL = 0; S.resting = 0;
+  S.x = FIRE.x; S.y = FIRE.y + 2;
+  S.health = VH.BASE_HEALTH * 0.5;
+  S.stamina = VH.BASE_STAMINA * 0.5;
+  toast('bad', 'you black out on the mountain and wake by the fire, empty');
+}
+
+/* =========================================================================
+   MOVEMENT — plumbing, never a deliverable
+   ========================================================================= */
+function walkStep(sec) {
+  if (!S.dirs.length || S.modal) return;
+  var d = S.dirs[0];
+  var spd = WALK_TILES_PER_SEC * (S.running && S.stamina > 0 ? 1.8 : 1) * sec;
+  var dx = d === 1 ? spd : d === 3 ? -spd : 0;
+  var dy = d === 2 ? spd : d === 0 ? -spd : 0;
+  S.facing = d;
+  var nx = S.x + dx, ny = S.y + dy;
+  if (!solid(Math.round(nx), Math.round(S.y))) S.x = Math.max(0, Math.min(GRID_W - 1, nx));
+  if (!solid(Math.round(S.x), Math.round(ny))) S.y = Math.max(0, Math.min(GRID_H - 1, ny));
+}
+
+/* =========================================================================
+   RENDER — placeholder art, flat top-down. This is a reference of a 3D game's
+   RULES, and the 45 law governs Bohemia's own art, not this.
+   ========================================================================= */
+var cv = document.getElementById('c'), cx = cv ? cv.getContext('2d') : null;
+var VW = 0, VH_PX = 0;
+function sizeCanvas() {
+  if (!cv) return;
+  var r = cv.parentNode.getBoundingClientRect();
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  VW = Math.max(1, Math.floor(r.width)); VH_PX = Math.max(1, Math.floor(r.height));
+  cv.width = Math.floor(VW * dpr); cv.height = Math.floor(VH_PX * dpr);
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx.imageSmoothingEnabled = false;
+}
+/* one glyph per CATEGORY, not per item — the category IS the mechanic, and two
+   items starting with B (bed, banner) drew the same letter. */
+var CAT_GLYPH = { fire: 'F', shelter: 'H', bed: 'B', chair: 'C', table: 'T',
+                  banner: 'N', rug: 'R', maypole: 'M' };
+var GROUND = { '.': '#3c4a2e', 'g': '#47582f', 'T': '#243219', 'p': '#5b5340',
+               's': '#c8d2dc', 'R': '#8c98a4', 'F': '#5b4630', 'o': '#4f5f34' };
+function draw() {
+  if (!cx) return;
+  cx.fillStyle = '#0a0b0d'; cx.fillRect(0, 0, VW, VH_PX);
+  var camx = S.x * TILE + TILE / 2 - VW / 2, camy = S.y * TILE + TILE / 2 - VH_PX / 2;
+  var maxx = GRID_W * TILE - VW, maxy = GRID_H * TILE - VH_PX;
+  camx = maxx <= 0 ? maxx / 2 : Math.max(0, Math.min(maxx, camx));
+  camy = maxy <= 0 ? maxy / 2 : Math.max(0, Math.min(maxy, camy));
+  var x0 = Math.max(0, Math.floor(camx / TILE)), x1 = Math.min(GRID_W - 1, Math.ceil((camx + VW) / TILE));
+  var y0 = Math.max(0, Math.floor(camy / TILE)), y1 = Math.min(GRID_H - 1, Math.ceil((camy + VH_PX) / TILE));
+  for (var y = y0; y <= y1; y++) {
+    for (var x = x0; x <= x1; x++) {
+      var t = GRID[y][x], sx = Math.round(x * TILE - camx), sy = Math.round(y * TILE - camy);
+      cx.fillStyle = GROUND[t] || '#3c4a2e';
+      cx.fillRect(sx, sy, TILE, TILE);
+      if (t === 'T') { cx.fillStyle = '#1a2412'; cx.fillRect(sx + 4, sy + 3, TILE - 8, TILE - 6); }
+      if (t === 'R') { cx.fillStyle = '#6f7a86'; cx.fillRect(sx + 3, sy + 5, TILE - 6, TILE - 10); }
+      if (t === 'o') {
+        var node = forageAt(x, y), got = TAKEN[x + ',' + y];
+        cx.fillStyle = got ? '#3a4429' : '#c9d46a';
+        cx.fillRect(sx + 7, sy + 7, TILE - 14, TILE - 14);
+      }
+      if (zoneOfRow(y) === 'mountain') { cx.fillStyle = 'rgba(150,190,230,.16)'; cx.fillRect(sx, sy, TILE, TILE); }
+    }
+  }
+  var fx = FIRE.x * TILE + TILE / 2 - camx, fy = FIRE.y * TILE + TILE / 2 - camy;
+
+  /* THE ROOF FIRST, under everything, as a floor pad with posts — a translucent
+     blob over the whole camp read as a smudge and hid the camp. */
+  S.pieces.forEach(function (p) {
+    if (comfortDef(p.id).cat !== 'shelter') return;
+    var px = fx - TILE * 2.5, py = fy - TILE * 2.5, w = TILE * 5;
+    cx.fillStyle = 'rgba(84,64,42,.62)'; cx.fillRect(px, py, w, w);
+    cx.strokeStyle = '#6b5436'; cx.lineWidth = 2; cx.strokeRect(px + 1, py + 1, w - 2, w - 2);
+    cx.fillStyle = '#4a3a26';
+    [[px, py], [px + w - 6, py], [px, py + w - 6], [px + w - 6, py + w - 6]].forEach(function (c) {
+      cx.fillRect(c[0], c[1], 6, 6);
+    });
+  });
+
+  /* the comfort radius, drawn, because the 10 m IS the mechanic */
+  cx.strokeStyle = 'rgba(255,214,106,.28)'; cx.lineWidth = 1;
+  cx.beginPath(); cx.arc(fx, fy, VH.COMFORT_RADIUS * TILE, 0, Math.PI * 2); cx.stroke();
+
+  /* placed comfort pieces, each with its own initial so the camp is legible */
+  S.pieces.forEach(function (p) {
+    var d = comfortDef(p.id);
+    if (d.cat === 'shelter' || d.id === 'campfire') return;
+    var px = p.x * TILE - camx, py = p.y * TILE - camy;
+    cx.fillStyle = '#2a2118'; cx.fillRect(px + 3, py + 3, TILE - 6, TILE - 6);
+    cx.fillStyle = '#b9a172'; cx.fillRect(px + 5, py + 5, TILE - 10, TILE - 10);
+    cx.fillStyle = '#241d13'; cx.font = 'bold 11px ui-monospace,monospace';
+    cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.fillText(CAT_GLYPH[d.cat] || '?', px + TILE / 2, py + TILE / 2 + 1);
+  });
+
+  /* THE FIRE, unmistakable, with a glow — it is the heart of the whole loop and it
+     was a 12px square hidden behind the player. */
+  var g = cx.createRadialGradient(fx, fy, 2, fx, fy, TILE * 2.2);
+  g.addColorStop(0, 'rgba(255,196,92,.55)'); g.addColorStop(1, 'rgba(255,150,40,0)');
+  cx.fillStyle = g; cx.beginPath(); cx.arc(fx, fy, TILE * 2.2, 0, Math.PI * 2); cx.fill();
+  cx.fillStyle = '#3a2a18'; cx.fillRect(fx - 11, fy - 11, 22, 22);
+  cx.fillStyle = '#e0872c'; cx.fillRect(fx - 8, fy - 8, 16, 16);
+  cx.fillStyle = '#ffd76a'; cx.fillRect(fx - 4, fy - 4, 8, 8);
+
+  /* the walker, offset up a touch so standing on the fire never hides it */
+  var wx = Math.round(S.x * TILE - camx), wy = Math.round(S.y * TILE - camy) - 5;
+  cx.fillStyle = '#0b0c10'; cx.fillRect(wx + 5, wy + 2, TILE - 10, TILE - 4);
+  cx.fillStyle = isRested() ? '#ffe6a2' : '#f2f4ff'; cx.fillRect(wx + 7, wy + 4, TILE - 14, TILE - 8);
+  if (isRested()) {
+    cx.strokeStyle = 'rgba(255,214,106,.85)'; cx.lineWidth = 1;
+    cx.strokeRect(wx + 3.5, wy + 0.5, TILE - 7, TILE - 1);
+  }
+}
+
+/* =========================================================================
+   HUD + PANELS
+   ========================================================================= */
+function pct(a, b) { return Math.max(0, Math.min(100, (a / Math.max(1, b)) * 100)); }
+function mmss(sec) {
+  var s = Math.max(0, Math.round(sec));
+  return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+}
+function paintHud() {
+  var mh = maxHealth(), ms = maxStamina();
+  var hf = document.getElementById('hpfill'), sf = document.getElementById('stfill');
+  if (hf) hf.style.width = pct(S.health, mh) + '%';
+  if (sf) sf.style.width = pct(S.stamina, ms) + '%';
+  var ht = document.getElementById('hptxt'), st = document.getElementById('sttxt');
+  if (ht) ht.textContent = Math.round(S.health) + ' / ' + mh;
+  if (st) st.textContent = Math.round(S.stamina) + ' / ' + ms;
+  var r = document.getElementById('rested');
+  if (r) {
+    if (isRested()) {
+      r.className = 'card on';
+      r.textContent = 'RESTED ' + mmss(S.restedTTL) + '   regen x' + VH.RESTED_HP_REGEN_MULT +
+        ' hp / x' + VH.RESTED_ST_REGEN_MULT + ' st';
+    } else if (canRest()) {
+      r.className = 'card';
+      r.textContent = 'resting ' + Math.round(S.resting) + '/' + VH.RESTING_TO_RESTED_SEC + 's';
+    } else {
+      r.className = 'card';
+      r.textContent = 'not rested' + (atFire() && !underRoof() ? '   (no roof — build one)' : '');
+    }
+  }
+  var z = document.getElementById('zone');
+  if (z) {
+    var cold = freezing();
+    z.className = cold ? 'card cold' : 'card';
+    z.textContent = (cold ? 'FREEZING — ' + VH.FREEZING_HP_PER_SEC + ' hp/s, no regen'
+                          : zoneAt(Math.round(S.x), Math.round(S.y))) +
+      '   comfort ' + comfort() + ' = ' + Math.round(restedDuration() / 60) + ' min rested';
+  }
+  var host = document.getElementById('foods');
+  if (host) {
+    host.innerHTML = '';
+    for (var i = 0; i < VH.FOOD_SLOTS; i++) {
+      var f = S.foods[i], d = document.createElement('div');
+      d.className = 'slot';
+      if (!f) { d.innerHTML = '<div class="n"><span style="color:#5d6675">empty slot</span></div>'; }
+      else {
+        var def = foodDef(f.id);
+        d.innerHTML = '<div class="n"><span>' + def.name + '</span><span>' + mmss(f.left) + '</span></div>' +
+          '<div class="b"><i style="width:' + pct(f.left, f.burn) + '%"></i></div>';
+      }
+      host.appendChild(d);
+    }
+  }
+  var act = document.getElementById('act');
+  if (act) {
+    var c = context();
+    act.textContent = c ? c.label : '—';
+    act.disabled = !c;
+    act.className = c ? 'hot' : '';
+  }
+}
+function context() {
+  if (S.modal) return null;
+  var node = forageAt(Math.round(S.x), Math.round(S.y));
+  if (node && !TAKEN[node.x + ',' + node.y]) return { label: 'TAKE ' + node.label.toUpperCase(), fn: function () { forage(node); } };
+  if (atFire() && carryingCookable()) return { label: 'COOK AT THE FIRE', fn: cookAll };
+  if (atFire()) return { label: 'DECORATE THE CAMP', fn: openBuild };
+  return null;
+}
+function closeModals() {
+  ['m_eat', 'm_build', 'm_num'].forEach(function (id) {
+    var e = document.getElementById(id); if (e) e.classList.remove('open');
+  });
+  S.modal = null;
+}
+function openEat() { S.modal = 'eat'; paintEat(); closeModalsThenOpen('m_eat'); }
+function openBuild() { S.modal = 'build'; paintBuild(); closeModalsThenOpen('m_build'); }
+function openNum() { S.modal = 'num'; paintNumbers(); closeModalsThenOpen('m_num'); }
+function closeModalsThenOpen(id) {
+  ['m_eat', 'm_build', 'm_num'].forEach(function (i) {
+    var e = document.getElementById(i); if (e) e.classList.remove('open');
+  });
+  var e = document.getElementById(id); if (e) e.classList.add('open');
+  paintHud();
+}
+function paintEat() {
+  var host = document.getElementById('eatlist');
+  if (!host) return;
+  host.innerHTML = '';
+  var any = false;
+  FOODS.forEach(function (d) {
+    var have = S.carrying[d.id] || 0, raw = S.carrying['raw_' + d.id] || 0;
+    if (!have && !raw) return;
+    any = true;
+    var row = document.createElement('div'); row.className = 'frow';
+    var i = slotOf(d.id);
+    var why = have ? (canEat(d.id) ? '' : (i >= 0 ? 'still burning' : 'stomach full')) : 'raw';
+    row.innerHTML = '<span class="fn">' + d.name + (have ? ' x' + have : '') + (raw ? '  (raw x' + raw + ')' : '') +
+      '</span><span class="fs">+' + d.hp + ' hp  +' + d.st + ' st  ' + Math.round(d.sec / 60) + 'm</span>';
+    var b = document.createElement('button');
+    b.textContent = why || 'EAT';
+    b.disabled = !canEat(d.id);
+    b.onclick = function () { eat(d.id); };
+    row.appendChild(b);
+    host.appendChild(row);
+  });
+  if (!any) host.innerHTML = '<div style="font-size:10px;color:#8d99ad">Nothing on you. There is food out there.</div>';
+}
+function paintBuild() {
+  var host = document.getElementById('buildlist');
+  if (!host) return;
+  var best = comfortBreakdown(), lines = [];
+  for (var cat in best) lines.push(cat + ' +' + best[cat].val + ' (' + best[cat].name + ')');
+  var br = document.getElementById('comfortbreak');
+  if (br) {
+    br.innerHTML = 'base +' + VH.COMFORT_BASE + (lines.length ? '   ' + lines.join('   ') : '') +
+      '<br><b style="color:#ffd76a">comfort ' + comfort() + ' &rarr; rested lasts ' +
+      mmss(restedDuration()) + '</b>  (' + VH.RESTED_BASE_SEC / 60 + ' min at comfort ' + VH.COMFORT_BASE +
+      ', +' + VH.RESTED_SEC_PER_COMFORT + 's per level)';
+  }
+  host.innerHTML = '';
+  COMFORT_ITEMS.forEach(function (d) {
+    if (d.fixed) return;
+    var placed = S.pieces.some(function (p) { return p.id === d.id; });
+    var beaten = best[d.cat] && best[d.cat].val > d.val;
+    var row = document.createElement('div'); row.className = 'frow';
+    row.innerHTML = '<span class="fn">' + d.name + '</span><span class="fs">' + d.cat + ' +' + d.val +
+      (beaten && !placed ? '  (beaten by ' + best[d.cat].name + ')' : '') + '</span>';
+    var b = document.createElement('button');
+    b.textContent = placed ? 'PLACED' : 'PLACE';
+    b.disabled = placed;
+    b.onclick = function () { placePiece(d.id); };
+    row.appendChild(b);
+    host.appendChild(row);
+  });
+}
+function paintNumbers() {
+  var body = document.getElementById('numbody');
+  if (!body) return;
+  var rows = Object.keys(VH).map(function (k) {
+    return '<tr><td class="n">' + k + '</td><td class="v">' + VH[k] + '</td></tr>';
+  }).join('');
+  body.innerHTML = '<div style="font-size:9.5px;color:#ffb4a8;line-height:1.5;margin-bottom:6px">' +
+    'Valheim ships as a compiled DLL. There is no source to fetch, so this page is a MODEL: ' +
+    'COMFORT_RADIUS and RESTED_SEC_PER_COMFORT are SOURCED off ValheimPlus\'s Harmony patches, ' +
+    'which name the vanilla values they overwrite. Everything else is DOCUMENTED. Every key is ' +
+    'tagged in records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt and the gate fails if a tag ' +
+    'or a value goes missing.</div><table class="st">' + rows + '</table>';
+}
+
+/* =========================================================================
+   INPUT
+   ========================================================================= */
+function bindStick() {
+  var stick = document.getElementById('stick'), knob = document.getElementById('knob');
+  if (!stick) return;
+  var active = false, cxp = 0, cyp = 0;
+  function dirOf(dx, dy) {
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return -1;
+    return Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0);
+  }
+  function at(e) { var t = e.touches ? e.touches[0] : e; return { x: t.clientX - cxp, y: t.clientY - cyp }; }
+  function set(p) {
+    var d = dirOf(p.x, p.y);
+    S.dirs = d < 0 ? [] : [d];
+    var m = Math.min(32, Math.hypot(p.x, p.y)), a = Math.atan2(p.y, p.x);
+    knob.style.transform = 'translate(' + (Math.cos(a) * m) + 'px,' + (Math.sin(a) * m) + 'px)';
+  }
+  function down(e) {
+    var r = stick.getBoundingClientRect(); cxp = r.left + r.width / 2; cyp = r.top + r.height / 2;
+    active = true; set(at(e)); e.preventDefault();
+  }
+  function move(e) { if (active) { set(at(e)); e.preventDefault(); } }
+  function up(e) { active = false; S.dirs = []; knob.style.transform = ''; if (e) e.preventDefault(); }
+  stick.addEventListener('touchstart', down, { passive: false });
+  stick.addEventListener('touchmove', move, { passive: false });
+  stick.addEventListener('touchend', up, { passive: false });
+  stick.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+  var KEY = { ArrowUp: 0, ArrowRight: 1, ArrowDown: 2, ArrowLeft: 3, w: 0, d: 1, s: 2, a: 3 };
+  window.addEventListener('keydown', function (e) { if (KEY[e.key] !== undefined) { S.dirs = [KEY[e.key]]; e.preventDefault(); } });
+  window.addEventListener('keyup', function (e) { if (KEY[e.key] !== undefined) S.dirs = []; });
+}
+function bindUI() {
+  var act = document.getElementById('act');
+  if (act) act.onclick = function () { var c = context(); if (c) { c.fn(); paintHud(); } };
+  [['e_close', closeModals], ['b_close', closeModals], ['n_close', closeModals],
+   ['b_clear', clearCamp]].forEach(function (p) {
+    var e = document.getElementById(p[0]);
+    if (e) e.onclick = function () { p[1](); paintHud(); };
+  });
+  var h1 = document.getElementById('chips1');
+  if (h1) {
+    [['EAT', openEat], ['CAMP', openBuild], ['THE NUMBERS', openNum]].forEach(function (p) {
+      var b = document.createElement('button'); b.className = 'chip'; b.textContent = p[0];
+      b.onclick = p[1]; h1.appendChild(b);
+    });
+  }
+  var h2 = document.getElementById('chips2');
+  if (h2) {
+    var runBtn = document.createElement('button');
+    runBtn.className = 'chip'; runBtn.textContent = 'RUN';
+    runBtn.onclick = function () { S.running = !S.running; runBtn.className = 'chip' + (S.running ? ' on' : ''); };
+    h2.appendChild(runBtn);
+    [1, 4, 16].forEach(function (m) {
+      var b = document.createElement('button');
+      b.className = 'chip' + (S.speed === m ? ' on' : '');
+      b.textContent = 'x' + m;
+      b.onclick = function () {
+        S.speed = m;
+        Array.prototype.forEach.call(h2.querySelectorAll('button'), function (o) {
+          if (/^x/.test(o.textContent)) o.className = 'chip' + (o.textContent === 'x' + m ? ' on' : '');
+        });
+      };
+      h2.appendChild(b);
+    });
+    var back = document.createElement('button');
+    back.className = 'chip'; back.textContent = 'TO CAMP';
+    back.onclick = function () { S.x = FIRE.x; S.y = FIRE.y + 2; paintHud(); };
+    h2.appendChild(back);
+  }
+}
+
+/* =========================================================================
+   LOOP
+   ========================================================================= */
+var last = 0;
+function frame(ts) {
+  if (!S.frozen) {
+    var dtms = last ? Math.min(80, ts - last) : 16;
+    last = ts;
+    var sec = (dtms / 1000) * S.speed;
+    walkStep(sec);
+    tick(sec);
+  } else { last = ts; }
+  draw();
+  requestAnimationFrame(frame);
+}
+
+/* =========================================================================
+   THE GATE HARNESS. Everything the gate touches is the page's own function.
+   ========================================================================= */
+function place(x, y) { S.x = x; S.y = y; S.dirs = []; }
+function walkTo(x, y, budget) {
+  var guard = budget || 4000;
+  while (guard-- > 0 && (Math.abs(S.x - x) > 0.2 || Math.abs(S.y - y) > 0.2)) {
+    var dx = x - S.x, dy = y - S.y;
+    S.dirs = [Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0)];
+    var bx = S.x, by = S.y;
+    walkStep(0.05); tick(0.05);
+    if (Math.abs(S.x - bx) < 0.0001 && Math.abs(S.y - by) < 0.0001) { S.dirs = []; return false; }
+    if (S.health <= 0) { S.dirs = []; return false; }
+  }
+  S.dirs = [];
+  return Math.abs(S.x - x) <= 0.5 && Math.abs(S.y - y) <= 0.5;
+}
+function give(id, n) { S.carrying[id] = (S.carrying[id] || 0) + (n || 1); paintEat(); }
+
+window.LAB = {
+  VH: VH,
+  mechanics: ['food', 'rested', 'comfort'],
+  kind: 'MODEL',
+  S: S, FOODS: FOODS, COMFORT_ITEMS: COMFORT_ITEMS, FORAGE: FORAGE, FIRE: FIRE,
+  /* world */
+  place: place, walkTo: walkTo, tick: tick, walkStep: walkStep,
+  zoneAt: zoneAt, tileAt: tileAt, freezing: freezing, at: function () { return { x: S.x, y: S.y }; },
+  forageAt: forageAt, forage: forage, cookAll: cookAll, carrying: function () { return S.carrying; },
+  /* food */
+  eat: eat, canEat: canEat, foods: function () { return S.foods; }, slotOf: slotOf,
+  maxHealth: maxHealth, maxStamina: maxStamina, foodRegen: foodRegen, foodFraction: foodFraction,
+  lowestSlot: lowestSlot, give: give,
+  /* rested */
+  atFire: atFire, underRoof: underRoof, canRest: canRest, isRested: isRested,
+  restedTTL: function () { return S.restedTTL; }, resting: function () { return S.resting; },
+  hpRegenMult: hpRegenMult, stRegenMult: stRegenMult,
+  /* comfort */
+  comfort: comfort, comfortBreakdown: comfortBreakdown, restedDuration: restedDuration,
+  placePiece: placePiece, clearCamp: clearCamp, pieces: function () { return S.pieces; },
+  hasCategory: hasCategory, nearbyPieces: nearbyPieces,
+  /* ui */
+  context: function () { var c = context(); return c ? c.label : null; },
+  act: function () { var c = context(); if (c) { c.fn(); paintHud(); return true; } return false; },
+  openBuild: openBuild, openEat: openEat, closeModals: closeModals,
+  /* harness */
+  freeze: function () { S.frozen = true; }, thaw: function () { S.frozen = false; last = 0; },
+  setRun: function (v) { S.running = !!v; }, setDirs: function (d) { S.dirs = d || []; },
+  reset: function () {
+    S.x = 13; S.y = 45; S.health = VH.BASE_HEALTH; S.stamina = VH.BASE_STAMINA;
+    S.foods = []; S.carrying = {}; S.resting = 0; S.restedTTL = 0; S.elapsed = 0;
+    S.running = false; S.dirs = []; S.blackouts = 0; S.speed = 1;
+    S.pieces = [{ id: 'campfire', x: FIRE.x, y: FIRE.y }];
+    TAKEN = {};
+    closeModals(); paintHud(); paintBuild(); paintEat();
+  }
+};
+
+window.addEventListener('resize', sizeCanvas);
+sizeCanvas();
+bindStick();
+bindUI();
+paintHud();
+paintBuild();
+paintEat();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

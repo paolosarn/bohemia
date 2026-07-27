@@ -1,0 +1,164 @@
+BOHEMIA REFERENCE LAB 05 — VALHEIM'S COMFORT LOOP, TORN DOWN
+============================================================
+7/27/26 · LAB lane · page: slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html
+pattern note: records/lab/BOHEMIA_LAB_VALHEIM_PATTERN_NOTE_7_27_26.md
+commissioned by Paolo 7/27/26: "Next emulation, whole mechanics: VALHEIM'S
+COMFORT LOOP... I play it and then rule Bohemia's survival system off the feel,
+not off a document."
+
+THIS IS A MODEL, NOT A MEASUREMENT
+----------------------------------
+Say it before anything else, because it is the difference between this row and
+every other row in the lab.
+
+NO SOURCE. Valheim's logic ships as a compiled Unity assembly
+(valheim_Data/Managed/assembly_valheim.dll). It is not decompilable here: the
+binary is behind Steam, this environment's network policy reaches
+raw.githubusercontent.com and almost nothing else, and a DLL is not a text file
+you can read directly the way Stardew's decompiled C#, Zomboid's shipped Lua and
+A Dark Room's JavaScript all were. Every probe is recorded below so nobody
+repeats them.
+
+WHAT WAS ACTUALLY TRIED, AND FAILED
+-----------------------------------
+  Valheim-Modding/Valheim-Decompiled     404 on main and master, every path tried
+  zoltanvi/valheim-decompiled            404
+  sbtoonz/ValheimDecompiled              404
+  JereKuusela/valheim-decompiled         404
+  Valheim-Modding/Wiki                   exists, but no numbers in it
+  valheim.fandom.com                     403 at the network gateway, all pages
+  valheim.tools, pcgamer.com             403 at the network gateway
+  artumino/ValheimGameLibs               exists, but ships .dll binaries only
+So the deliverable is a MODEL: documented numbers, every one tagged, and the page
+labeled as a model on its own face.
+
+THE TWO CONSTANTS THAT ARE REAL SOURCE
+--------------------------------------
+ValheimPlus is a Harmony mod whose whole job is to overwrite vanilla values, so
+its patches NAME them. Both files were fetched and read:
+  raw.githubusercontent.com/Grantapher/ValheimPlus/master/ValheimPlus/...
+  GameClasses/SE_Rested.cs        patches SE_Rested.UpdateTTL and
+                                  SE_Rested.GetNearbyComfortPieces
+  Configurations/Sections/PlayerConfiguration.cs:11
+                                  restSecondsPerComfortLevel = 60
+  Configurations/Sections/BuildingConfiguration.cs:9
+                                  pieceComfortRadius = 10f
+The radius is doubly confirmed: the transpiler in SE_Rested.cs skips its own work
+when `config.pieceComfortRadius == 10f`, with the comment "expecting exact
+constant" — i.e. 10f IS what vanilla compiled in, and the patch rewrites the
+first float literal in GetNearbyComfortPieces to replace it.
+It also names the real vanilla API surface, which is worth as much as the numbers:
+  SE_Rested.m_TTLPerComfortLevel        the per-comfort-level seconds field
+  SE_Rested.GetNearbyComfortPieces()    the 10 m sweep
+  Player.EatFood()                      where food enters the stomach
+  ItemDrop.ItemData.SharedData.m_food / m_foodStamina / m_foodEitr / m_foodBurnTime
+                                        health, stamina, eitr, duration per food
+(Player.cs:254, 281, 330-332 in the same repo.)
+
+THE THREE MECHANICS
+-------------------
+1 FOOD    — three slots; each adds max health and max stamina and decays as it
+            burns; an empty stomach leaves you weak, not dead.
+2 RESTED  — 20 s of Resting by a fire under a roof, then +50% health regen and
+            +100% stamina regen for a stretch.
+3 COMFORT — one item per CATEGORY within 10 m sets the comfort level, and the
+            comfort level IS how many minutes Rested lasts.
+
+CONTENT vs MECHANISM
+--------------------
+MECHANISM (portable, and the reason this page exists): the three-slot stomach,
+buff value decaying with the food's remaining time, the top-up-below-half rule,
+a timed idle ritual that grants a buff, and above all COMFORT — a
+highest-per-category sum inside a radius that converts furniture into buff
+duration.
+CONTENT (theirs, documented, NOT Bohemia canon): every food name and number,
+every comfort item and its category, the 8-minute base, the 20-second ritual and
+the 17 cap. Bohemia's survival numbers are Paolo's to rule after he plays this.
+
+THE NUMBERS (every key in the page's VH block, each TAGGED)
+-----------------------------------------------------------
+COMFORT_RADIUS 10 [SOURCED] BuildingConfiguration.cs:9 pieceComfortRadius = 10f — the vanilla comfort sweep, confirmed by the transpiler's "expecting exact constant" guard.
+RESTED_SEC_PER_COMFORT 60 [SOURCED] PlayerConfiguration.cs:11 restSecondsPerComfortLevel = 60 — written straight into SE_Rested.m_TTLPerComfortLevel.
+RESTED_BASE_SEC 480 [DOC] Rested lasts a minimum of 8 minutes at comfort level 1 (8 x 60 = 480).
+COMFORT_BASE 1 [DOC] comfort level starts at 1.
+COMFORT_MAX 17 [DOC] max comfort reachable normally is 17 (18 by a maypole, 19 with the seasonal yule tree). 17 checks out against the base: 480 + 16 x 60 = 1440 s = 24 minutes, which is the documented comfort-17 duration.
+RESTING_TO_RESTED_SEC 20 [DOC] Rested is applied after having the Resting effect for 20 seconds.
+RESTED_HP_REGEN_MULT 1.5 [DOC] Rested is health regen +50%.
+RESTED_ST_REGEN_MULT 2 [DOC] Rested is stamina regen +100% (it also gives +50% XP and +100% eitr regen, neither modelled).
+BASE_HEALTH 25 [DOC] base max health with an empty stomach.
+BASE_STAMINA 50 [DOC] base max stamina with an empty stomach.
+FOOD_SLOTS 3 [DOC] you can eat 3 foods at a time.
+EAT_AGAIN_FRACTION 0.5 [DOC] a food can be topped up once it is below half burnt ("you could eat another bite").
+HP_REGEN_PER_SEC 0.4 ours (declared) — vanilla's regen tick is inside the DLL. A legible base rate so the Rested multiplier is visible on the bar.
+ST_REGEN_PER_SEC 5 ours (declared) — same reason.
+RUN_STAMINA_PER_SEC 10 ours (declared) — running has to cost something or max stamina means nothing.
+MUSHROOM_HP 15 [DOC] Mushroom, 15 health.
+MUSHROOM_ST 15 [DOC] Mushroom, 15 stamina.
+MUSHROOM_SEC 900 [DOC] Mushroom, 15 minutes = 900 s.
+HONEY_HP 8 [DOC] Honey, 8 health.
+HONEY_ST 35 [DOC] Honey, 35 stamina.
+HONEY_SEC 900 [DOC] Honey, 900 s.
+NECKTAIL_HP 25 [DOC] Grilled neck tail, 25 health.
+NECKTAIL_ST 8 [DOC] Grilled neck tail, 8 stamina.
+NECKTAIL_SEC 1200 [DOC] Grilled neck tail, 1200 s.
+BOAR_HP 30 [DOC] Cooked boar meat raises health by 30.
+BOAR_ST 10 [DOC] Cooked boar meat raises stamina by 10.
+BOAR_SEC 1200 [DOC] Cooked boar meat lasts 1200 s.
+BOAR_REGEN 2 [DOC] Cooked boar meat heals 2 hp per second.
+CARROTSOUP_HP 15 [DOC] Carrot soup raises health by 15.
+CARROTSOUP_ST 45 [DOC] Carrot soup raises stamina by 45.
+CARROTSOUP_SEC 1500 [DOC] Carrot soup lasts 1500 s.
+CARROTSOUP_REGEN 2 [DOC] Carrot soup heals 2 hp per second.
+QUEENSJAM_HP 14 [DOC] Queen's jam, 14 health.
+QUEENSJAM_ST 40 [DOC] Queen's jam, 40 stamina.
+QUEENSJAM_SEC 1200 [DOC] Queen's jam, 1200 s.
+JERKY_HP 33 [DOC] Wolf jerky, 33 health.
+JERKY_ST 33 [DOC] Wolf jerky, 33 stamina.
+JERKY_SEC 1800 [DOC] Wolf jerky, 1800 s.
+STEW_HP 80 [DOC] Serpent stew, 80 health — the strongest food in the documented tables.
+STEW_ST 26 [DOC] Serpent stew, 26 stamina.
+STEW_SEC 1800 [DOC] Serpent stew, 1800 s.
+FREEZING_HP_PER_SEC 1 [DOC] Freezing drains health continuously; the exact rate is in the DLL, so 1 hp/s is the modelled rate and it is deliberately legible.
+FREEZING_BLOCKS_REGEN 1 [DOC] Freezing stops health regeneration.
+
+THE COMFORT TABLE (all [DOC], and the CATEGORY rule is the mechanism)
+---------------------------------------------------------------------
+Only the highest-value item in a category counts. Duplicates do nothing. That is
+what makes decorating a real decision instead of a stacking exploit.
+  fire     campfire 1, hearth 2
+  shelter  a roof over the spot, 1
+  bed      bed 1, dragon bed 2
+  chair    stool / bench / sitting log, 1
+  table    table 1, round table 2 (long heavy table 2)
+  banner   any banner, 1
+  rug      any carpet or rug, 1
+  maypole  1 (seasonal, and the reason 18 exists)
+
+WHAT THE MEASURED PAGE PROVES (gates/lab_gate.js, live, in a real browser)
+--------------------------------------------------------------------------
+- Comfort 1 gives exactly 8:00 of Rested; every category added gives exactly one
+  more minute; a SECOND rug adds nothing; a hearth replacing a campfire adds one.
+- Rested arrives at exactly 20 s of standing still at the fire under a roof, and
+  not at 19.
+- Three foods stack their health and stamina onto 25 / 50; the fourth is refused;
+  a food at 60% remaining cannot be topped up and the same food at 40% can.
+- A food's contribution SHRINKS as it burns: max health falls as the bar drains.
+- An empty stomach never kills you: ten minutes in the meadow with nothing eaten
+  leaves you alive at 25 max health.
+- The mountain is survivable fed and rested, and not survivable empty.
+
+WHAT IS NOT IMPLEMENTED
+-----------------------
+- EITR, the whole magic axis. m_foodEitr is real and named; nothing here uses it.
+- The +50% XP from Rested, and skill levels entirely.
+- COMBAT. NO DAMAGE BEFORE THE DIAL. The mountain hurts you with cold; there is
+  nothing up there to fight, and the failure state is a blackout at the fire, not
+  a corpse.
+- Wet, Cold (as distinct from Freezing), Burning, Smoked, and every other status
+  effect; fire fuel burning out; buildings, stability and crafting stations;
+  hunger as a separate axis (Valheim has none — food is the axis).
+- The real vanilla food-decay CURVE. The page models the contribution as linear
+  in remaining time. Vanilla's exact curve is inside the DLL.
+- The real base regen rates, for the same reason (see the three declared keys).
+- Sitting. In Valheim sitting speeds up Resting; here standing still at the fire
+  under a roof is the whole ritual.

@@ -25,6 +25,57 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1g. [SHIPPED 7/27 — AWAITING PAOLO'S PLAY] VALHEIM'S COMFORT LOOP, COMMISSIONED BY
+   NAME. Paolo: "Next emulation, whole mechanics: VALHEIM'S COMFORT LOOP... I play
+   it and then rule Bohemia's survival system off the feel, not off a document."
+   slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html — the three mechanics he
+   named, playable end to end in one small world (meadow camp, forest to forage,
+   freezing mountain with a cairn at the top):
+     FOOD    three slots, each adding max health AND max stamina for tens of
+             minutes; the bonus SHRINKS as the food burns, so your ceiling sags
+             instead of an alarm going off; the fourth food is refused; a food can
+             only be topped up below half. An empty stomach is 25 health — weak,
+             alive, and it never kills you.
+     RESTED  20 seconds standing at the fire UNDER A ROOF, then +50% health regen
+             and +100% stamina regen. It travels with you and it re-grants for
+             free while you are in your own camp.
+     COMFORT the one worth stealing: comfort = 1 + the HIGHEST item in each
+             CATEGORY within 10 m, and the comfort number IS how many minutes
+             Rested lasts (480s + 60s per level). A rug is a minute. A second rug
+             is nothing. Decorating your camp literally makes you stronger, and
+             the HUD says "comfort 9 = 16 min rested" while you do it.
+   THE FIRST **MODEL** ROW, AND THAT IS A NEW THING IN THE MACHINE. Valheim's logic
+   ships as a compiled Unity DLL: no source to fetch, every decompiled-source repo
+   probed came back 404, and the wikis are 403 at this environment's network
+   gateway. So numbers are DOCUMENTED, not read off a line — except two that ARE
+   real source, lifted from ValheimPlus's Harmony patches which name the vanilla
+   values they overwrite (the 10 m comfort radius, BuildingConfiguration.cs:9, and
+   the 60 s per comfort level, PlayerConfiguration.cs:11).
+   gates/lab_gate.js CLAUSE 7 now exists to keep a model from ever passing itself
+   off as a measurement: a row may declare kind:'MODEL', and then EVERY constant
+   must be tagged [SOURCED file:line] or [DOC ...] or declared ours, at least one
+   must be genuinely SOURCED, the page must say NOT A MEASUREMENT on its own face,
+   and the record must list what was actually tried and failed. An untagged number
+   fails the build exactly like a missing citation. (The MODEL deliverable was
+   named in records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md before it was
+   ever needed.)
+   Gate: 83 new checks (262 total in the lab gate), all measured through the page's
+   own tick(), so a 24-minute buff is verified in milliseconds.
+   TWO DEFECTS FOUND BY LOOKING, NOT BY READING — the lesson from the last two
+   kills: (1) the mountain was not actually dangerous (5 tiles of cold crossed in
+   8 seconds, 8 of 25 health, so the buffs did not matter, so the page failed the
+   one thing he asked it to test). The map was rescaled so the cold round trip
+   costs ~29 health: empty you reach the cairn and die on the way down, fed you
+   barely notice. (2) Rested re-granted every frame at your own fire — correct
+   behaviour — but announced itself every frame, burying the screen in toasts.
+   Teardown, every number tagged: records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt
+   Patterns: records/lab/BOHEMIA_LAB_VALHEIM_PATTERN_NOTE_7_27_26.md (6 mechanisms,
+   6 do-not-ports, 5 honest limits).
+   [PENDING Paolo] and it is the whole point of the page: does a camp that makes
+   you stronger belong in Bohemia? Behind that, also his: our comfort CATEGORIES,
+   how long our rest ritual takes, whether food raises a ceiling or fills a meter,
+   and whether we have a hunger axis at all (Valheim's case for "no" is strong).
+   NOTHING WAS PORTED. The lab ports on his word only.
 1f. [KILLED 7/27 — DEAD, GRAVEYARDED, AND LOOT IS NOW A CLOSED LAB SUBJECT]
    Paolo: "That was really bad so bad so bad." The A Dark Room scavenge page
    (slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html — DEAD, do not re-add) is deleted and

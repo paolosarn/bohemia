@@ -127,6 +127,60 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
+LAB (09): 7/27 (k) LATEST — VALHEIM'S COMFORT LOOP, AND THE MACHINE LEARNED WHAT A
+"MODEL" IS. He commissioned this one by name: "Next emulation, whole mechanics: VALHEIM'S
+COMFORT LOOP... I play it and then rule Bohemia's survival system off the feel, not off a
+document." slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html
+THE THREE MECHANICS HE NAMED, playable in one small world (meadow camp, forest to forage
+in, freezing mountain with a cairn at the top):
+  FOOD    three slots; each adds max health AND max stamina for tens of minutes; the bonus
+          SHRINKS as the food burns so your ceiling sags instead of an alarm going off; the
+          fourth food is refused; top-up only below half. An empty stomach is 25 health —
+          weak, alive, never fatal. That is his clause (1) exactly.
+  RESTED  20 s standing at the fire UNDER A ROOF, then +50% health regen and +100% stamina
+          regen. It travels with you, and it re-grants free while you are in your own camp.
+  COMFORT the one worth stealing: comfort = 1 + the HIGHEST item in each CATEGORY within
+          10 m, and that number IS how many minutes Rested lasts (480 s + 60 s per level).
+          A rug is a minute. A SECOND rug is nothing, because only the best item per
+          category counts — which is what makes a room want variety instead of ten rugs.
+          The HUD reads "comfort 9 = 16 min rested" while you place furniture.
+THE FIRST **MODEL** ROW IN THE LAB, AND IT IS A NEW KIND OF DELIVERABLE. Valheim ships a
+compiled Unity DLL. Every decompiled-source repo probed came back 404 (all four are listed
+in the teardown) and the wikis are 403 at this environment's network gateway. So the
+numbers are DOCUMENTED, not read off a line — EXCEPT two that are real source, lifted from
+ValheimPlus's Harmony patches which name the vanilla values they overwrite: the 10 m
+comfort radius (BuildingConfiguration.cs:9) and the 60 s per comfort level
+(PlayerConfiguration.cs:11). The mod source also names the real API surface —
+SE_Rested.m_TTLPerComfortLevel, SE_Rested.GetNearbyComfortPieces, Player.EatFood,
+SharedData.m_food / m_foodStamina / m_foodBurnTime.
+GATE CLAUSE 7 (new, gates/lab_gate.js): a row may declare kind:'MODEL', and then the rules
+CHANGE rather than relax — EVERY constant must be tagged [SOURCED file:line] or [DOC ...]
+or declared ours, at least one must be genuinely SOURCED so the row is not pure hearsay,
+the page must say NOT A MEASUREMENT on its own face, and the record must list what was
+tried and failed. An untagged number fails the build exactly like a missing citation.
+A model is a legal deliverable; a model pretending to be a measurement is not. 83 new
+checks, 262 total, all driven through the page's own tick() so a 24-minute buff is verified
+in milliseconds.
+TWO DEFECTS FOUND BY LOOKING, WHICH IS THE LESSON FROM THE TWO KILLS BEFORE THIS:
+(1) THE MOUNTAIN WAS NOT ACTUALLY DANGEROUS — 5 tiles of cold crossed in 8 seconds, 8 of
+25 health, so the buffs did not matter, so the page failed the one thing he asked it to
+test. The world was rescaled (48 rows, 1.6 tiles/s) so the cold round trip costs ~29
+health: EMPTY you reach the cairn and the mountain kills you on the way down; FED you
+barely notice. The gate measures both outcomes.
+(2) Rested re-granted every frame at your own fire — correct behaviour — but announced
+itself every frame and buried the screen in toasts. Now it announces the transition only.
+Also fixed on the surface, not in the code: the camp did not read as a camp (translucent
+blob roof, anonymous tan squares, the fire hidden under the player). It is now a lit
+shelter with posts, a glowing hearth, furniture labelled by CATEGORY, and the 10 m circle
+drawn — because the radius is the mechanic.
+[PENDING Paolo], and it is the whole point: DOES A CAMP THAT MAKES YOU STRONGER BELONG IN
+BOHEMIA? Behind it, also his: our comfort CATEGORIES, how long our rest ritual takes,
+whether food raises a ceiling or fills a meter, and whether we have a hunger axis at all
+(Valheim has none and is stronger for it). NOTHING WAS PORTED — the lab ports on his word.
+Teardown: records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt (every number tagged).
+Patterns: records/lab/BOHEMIA_LAB_VALHEIM_PATTERN_NOTE_7_27_26.md
+NOTE FOR THE FLEET: the alpha was not touched, so the build stamp was not changed.
+
 LAB (09): 7/27 (j) LATEST — THE SECOND LOOT PAGE IS DEAD AND LOOT IS A CLOSED SUBJECT.
 Paolo: "That was really bad so bad so bad." slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html is DEAD
 is DELETED, graveyarded, and its registry row plus all 44 live checks are gone from

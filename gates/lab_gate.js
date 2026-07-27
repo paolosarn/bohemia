@@ -25,6 +25,17 @@
      6. MEASURED, NOT ASSERTED. The live half drives the page's own functions
         through window.LAB, so it tests the shipped code path, never a second
         copy of the maths.
+     7. A MODEL IS NEVER MISTAKEN FOR A MEASUREMENT (added 7/27, for Valheim).
+        Some games ship no readable source at all — Valheim's logic is a compiled
+        Unity DLL. A row may declare kind:'MODEL', and then the rules CHANGE
+        rather than relax: the page must say on its own face that it is a model
+        and why, the record must list what was actually tried and failed, EVERY
+        constant must be tagged [SOURCED file:line] or [DOC ...] or declared
+        ours, and at least one must be genuinely SOURCED so the row is not pure
+        hearsay. An untagged number fails the build exactly like a missing
+        citation does. Named in records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md
+        before it was ever needed: a model is a legal deliverable, a model
+        pretending to be a measurement is not.
 
    Requires playwright (installed globally in this environment).
    ========================================================================== */
@@ -66,6 +77,22 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
    note survive as records of what was measured, marked dead at the top. */
 
 const EMULATIONS = [
+  {
+    /* LAB-05, commissioned by name: "Next emulation, whole mechanics: VALHEIM'S
+       COMFORT LOOP... I play it and then rule Bohemia's survival system off the
+       feel, not off a document." The first MODEL row: Valheim ships a compiled
+       DLL, so most numbers are documented and every one is tagged. */
+    id: 'VALHEIM COMFORT LOOP',
+    game: 'Valheim',
+    kind: 'MODEL',
+    mechanics: ['food', 'rested', 'comfort'],
+    minConsts: 40,
+    page: 'slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html',
+    record: 'records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_VALHEIM_PATTERN_NOTE_7_27_26.md',
+    live: liveValheim,
+    shot: { name: 'BOHEMIA_LAB_VALHEIM_PROOF_7_27_26.png', setup: shotValheim }
+  },
   {
     /* LAB-03: the three mechanics standing in a world you walk around. This is
        the shape the lane ships in from now on — mechanics IN A PLACE. */
@@ -139,7 +166,7 @@ function partA(em) {
   const bytes = Buffer.byteLength(src);
   ok('A4 page is small (' + Math.round(bytes / 1024) + 'KB < 220KB)', bytes < 220 * 1024);
   ok('A5 no giant base64 embed', !/[A-Za-z0-9+/]{600,}/.test(src));
-  ok('A6 labeled REFERENCE', /REFERENCE EMULATION/.test(src) && /NOT BOHEMIA/i.test(src));
+  ok('A6 labeled REFERENCE', /REFERENCE (EMULATION|MODEL)/.test(src) && /NOT BOHEMIA/i.test(src));
   ok('A7 labeled PLACEHOLDER ART', /PLACEHOLDER ART/.test(src));
   ok('A8 names the game it emulates', src.indexOf(em.game) > 0);
 
@@ -184,7 +211,7 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ|ADR) = \{([\s\S]*?)\n\};/);
+  const block = src.match(/var (?:SDV|PZ|ADR|VH) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -195,7 +222,7 @@ function partA(em) {
     const minConsts = em.minConsts || 25;
     ok('A14 constant block has >= ' + minConsts + ' sourced numbers (' + keys.length + ')',
        keys.length >= minConsts);
-    const missing = [], unsourced = [], wrongVal = [], ours = [];
+    const missing = [], unsourced = [], wrongVal = [], ours = [], sourced = [], doc = [], untagged = [];
     const lines = rec.split('\n');
     keys.forEach(([k, v]) => {
       const row = lines.find(l => new RegExp('^' + k + '\\s').test(l));
@@ -208,7 +235,16 @@ function partA(em) {
       if (/ours \(declared\)/.test(row)) { ours.push(k); return; }
       /* a citation is a real file in the master's tree: C# (Stardew), Lua
          (Zomboid) or JS (A Dark Room). The extension is the proof that somebody
-         opened the source instead of a wiki. */
+         opened the source instead of a wiki.
+         A MODEL row has no such tree, so its proof is a TAG on every row —
+         [SOURCED <file:line>] or [DOC <what documented it>] — and clause 7 makes
+         an untagged row fail exactly like a missing citation. */
+      if (em.kind === 'MODEL') {
+        if (/\[SOURCED\b/.test(row)) { sourced.push(k); return; }
+        if (/\[DOC\b/.test(row)) { doc.push(k); return; }
+        untagged.push(k);
+        return;
+      }
       if (!DERIVED_KEYS.has(k) && !/\.(cs|lua|js)\b/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
     });
     ok('A15 every SDV key is in the record' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''),
@@ -219,10 +255,30 @@ function partA(em) {
        unsourced.length === 0);
     ok('A17b at most 3 keys are "ours (declared)" (' + ours.length + (ours.length ? ': ' + ours.join(',') : '') + ')',
        ours.length <= 3);
+
+    /* --- clause 7: a model is never mistaken for a measurement --- */
+    if (em.kind === 'MODEL') {
+      ok('A28 MODEL: every number is TAGGED [SOURCED] or [DOC] or declared ours (' +
+         sourced.length + ' sourced / ' + doc.length + ' doc / ' + ours.length + ' ours' +
+         (untagged.length ? ', UNTAGGED: ' + untagged.join(',') : '') + ')',
+         untagged.length === 0);
+      ok('A29 MODEL: at least one number is genuinely SOURCED, so it is not pure hearsay (' +
+         sourced.length + ')', sourced.length >= 1);
+      ok('A30 MODEL: the page says on its own face that it is a model and not a measurement',
+         /NOT A MEASUREMENT/i.test(src) && /\bMODEL\b/.test(src));
+      ok('A31 MODEL: the page declares kind MODEL to the harness', /kind:\s*'MODEL'/.test(src));
+      ok('A32 MODEL: the record explains WHY there is no source',
+         /NO SOURCE/.test(rec) && /compiled|DLL|assembly/i.test(rec));
+      ok('A33 MODEL: the record lists what was actually tried and failed',
+         /404/.test(rec) && /403|failed|FAILED/.test(rec));
+      ok('A34 MODEL: the pattern note repeats the model warning, so a reader of ONE file cannot be fooled',
+         /MODEL, not a measurement/i.test(note));
+    }
   }
 
   ok('A18 record names the emulation page', rec.indexOf(path.basename(em.page)) > 0);
-  ok('A19 record declares its source of truth', /decompiled|read directly/i.test(rec));
+  ok('A19 record declares its source of truth', /decompiled|read directly/i.test(rec) ||
+     (em.kind === 'MODEL' && /NO SOURCE/.test(rec)));
   if (!em.supersededBy) {
     ok('A20 record separates CONTENT from MECHANISM', /CONTENT/.test(rec) && /MECHANISM/.test(rec));
   }
@@ -737,6 +793,317 @@ async function liveTownWalk(page) {
     house: window.LAB.furnitureCount('house'), shop: window.LAB.furnitureCount('shop')
   }));
   ok('B2 (superseded) both interiors are still furnished', rooms.house >= 8 && rooms.shop >= 8);
+}
+
+/* ==========================================================================
+   PART B (LAB-05) — VALHEIM. Three mechanics, and the one that matters is the
+   third: comfort has to convert FURNITURE into MINUTES, exactly, or the whole
+   idea is a decoration. Every check drives the page's own function and the clock
+   is the page's own tick(), so a twenty-four-minute buff is measured in
+   milliseconds without a second copy of the maths.
+   ========================================================================== */
+async function liveValheim(page) {
+  const V = await page.evaluate(() => window.LAB.VH);
+  await page.evaluate(() => window.LAB.reset());
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('V0 the page declares the same three mechanics he named',
+     JSON.stringify(declared) === JSON.stringify(['food', 'rested', 'comfort']));
+  ok('V0b and declares itself a MODEL', await page.evaluate(() => window.LAB.kind) === 'MODEL');
+
+  /* ---------------- FOOD: three slots, stacking, decay ---------------- */
+  const empty = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    return { hp: L.maxHealth(), st: L.maxStamina(), slots: L.foods().length };
+  });
+  ok('V1 food: an empty stomach is exactly 25 health (' + empty.hp + ')', empty.hp === V.BASE_HEALTH);
+  ok('V2 food: and 50 stamina (' + empty.st + ')', empty.st === V.BASE_STAMINA);
+
+  const stack = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    ['boar', 'carrotsoup', 'queensjam', 'stew'].forEach(f => L.give(f, 2));
+    o.ate1 = L.eat('boar');       o.hp1 = L.maxHealth();
+    o.ate2 = L.eat('carrotsoup'); o.hp2 = L.maxHealth(); o.st2 = L.maxStamina();
+    o.ate3 = L.eat('queensjam');  o.hp3 = L.maxHealth(); o.st3 = L.maxStamina();
+    o.slots = L.foods().length;
+    o.ate4 = L.eat('stew');       /* the fourth must be refused */
+    o.slotsAfter = L.foods().length;
+    o.canEatFresh = L.canEat('boar');   /* just eaten, still burning */
+    return o;
+  });
+  ok('V3 food: eating stacks onto the base, not over it (' + stack.hp1 + ')',
+     stack.ate1 === true && stack.hp1 === V.BASE_HEALTH + V.BOAR_HP);
+  ok('V4 food: a second food stacks again (' + stack.hp2 + ' hp / ' + stack.st2 + ' st)',
+     stack.hp2 === V.BASE_HEALTH + V.BOAR_HP + V.CARROTSOUP_HP &&
+     stack.st2 === V.BASE_STAMINA + V.BOAR_ST + V.CARROTSOUP_ST);
+  ok('V5 food: three foods is the whole build (' + stack.hp3 + ' hp / ' + stack.st3 + ' st)',
+     stack.hp3 === V.BASE_HEALTH + V.BOAR_HP + V.CARROTSOUP_HP + V.QUEENSJAM_HP && stack.slots === 3);
+  ok('V6 food: THE FOURTH IS REFUSED — three slots is a real decision',
+     stack.ate4 === false && stack.slotsAfter === V.FOOD_SLOTS);
+  ok('V7 food: and a food you just ate cannot be topped up', stack.canEatFresh === false);
+
+  /* the buff DECAYS: the ceiling sags as the bar drains */
+  const decay = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.give('boar', 3);
+    L.eat('boar');
+    o.full = L.maxHealth();
+    L.tick(600);                                 /* half of boar's 1200 s */
+    o.half = L.maxHealth();
+    o.frac = L.foodFraction(L.foods()[0]);
+    o.refusedAtExactlyHalf = L.canEat('boar');
+    L.tick(1);
+    o.canTopUpJustUnderHalf = L.canEat('boar');
+    L.tick(598);
+    o.nearlyGone = L.maxHealth();
+    L.tick(2);
+    o.expired = L.foods().length;
+    o.backToBase = L.maxHealth();
+    return o;
+  });
+  ok('V8 food: at half burnt the ceiling has sagged to half the bonus (' + decay.full +
+     ' -> ' + decay.half + ')', decay.half === Math.round(V.BASE_HEALTH + V.BOAR_HP * 0.5));
+  ok('V9 food: exactly half is still refused, a second under half is not — the edge is real',
+     near(decay.frac, 0.5, 0.001) && decay.refusedAtExactlyHalf === false &&
+     decay.canTopUpJustUnderHalf === true);
+  ok('V10 food: when it burns out the slot frees and you are back to 25 (' + decay.backToBase + ')',
+     decay.expired === 0 && decay.backToBase === V.BASE_HEALTH);
+
+  /* AN EMPTY STOMACH NEVER KILLS YOU — the whole point of his clause (1) */
+  const starve = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    L.place(window.LAB.FIRE.x, window.LAB.FIRE.y + 2);
+    L.tick(600);
+    return { hp: L.S.health, max: L.maxHealth(), blackouts: L.S.blackouts };
+  });
+  ok('V11 food: TEN MINUTES WITH AN EMPTY STOMACH AND YOU ARE FINE, just small (' +
+     Math.round(starve.hp) + '/' + starve.max + ')',
+     starve.hp > 0 && starve.max === V.BASE_HEALTH && starve.blackouts === 0);
+
+  /* ---------------- COMFORT: furniture becomes minutes ---------------- */
+  const comfort = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.bare = L.comfort(); o.bareSec = L.restedDuration();
+    o.roof = L.placePiece('roof');   o.afterRoof = L.comfort(); o.afterRoofSec = L.restedDuration();
+    L.placePiece('rug');             o.afterRug = L.comfort();  o.afterRugSec = L.restedDuration();
+    o.secondRug = L.placePiece('rug');
+    o.afterSecondRug = L.comfort();
+    L.placePiece('table');           o.afterTable = L.comfort();
+    L.placePiece('roundtable');      o.afterRoundTable = L.comfort();
+    return o;
+  });
+  ok('V12 comfort: a bare campfire is comfort 2 and 9 minutes (' + comfort.bare + ', ' +
+     comfort.bareSec + 's)',
+     comfort.bare === V.COMFORT_BASE + 1 &&
+     comfort.bareSec === V.RESTED_BASE_SEC + V.RESTED_SEC_PER_COMFORT);
+  ok('V13 comfort: a ROOF adds exactly one comfort and exactly 60 seconds (' +
+     comfort.afterRoofSec + 's)',
+     comfort.afterRoof === comfort.bare + 1 &&
+     comfort.afterRoofSec === comfort.bareSec + V.RESTED_SEC_PER_COMFORT);
+  ok('V14 comfort: A RUG IS A MINUTE — decorating literally makes you stronger (' +
+     comfort.afterRugSec + 's)',
+     comfort.afterRug === comfort.afterRoof + 1 &&
+     comfort.afterRugSec === comfort.afterRoofSec + V.RESTED_SEC_PER_COMFORT);
+  ok('V15 comfort: A SECOND RUG IS NOTHING — one item per CATEGORY, no stacking exploit',
+     comfort.secondRug === false && comfort.afterSecondRug === comfort.afterRug);
+  ok('V16 comfort: a table adds one, and a ROUND table replaces it for two (' +
+     comfort.afterTable + ' -> ' + comfort.afterRoundTable + ')',
+     comfort.afterTable === comfort.afterRug + 1 &&
+     comfort.afterRoundTable === comfort.afterTable + 1);
+
+  /* the radius is the mechanism: a piece outside 10 m does not count */
+  const radius = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.placePiece('bed');
+    o.inside = L.comfort();
+    const bed = L.pieces().find(p => p.id === 'bed');
+    bed.x = L.FIRE.x + 11; bed.y = L.FIRE.y;      /* one metre too far */
+    o.outside = L.comfort();
+    o.counted = L.nearbyPieces().length;
+    return o;
+  });
+  ok('V17 comfort: THE 10 m RADIUS IS REAL — a bed 11 m away stops counting (' +
+     radius.inside + ' -> ' + radius.outside + ')', radius.outside === radius.inside - 1);
+
+  /* the documented ceiling holds: comfort 17 is 24 minutes */
+  const ceiling = await page.evaluate(() => {
+    const L = window.LAB;
+    return { maxSec: L.VH.RESTED_BASE_SEC + (L.VH.COMFORT_MAX - L.VH.COMFORT_BASE) * L.VH.RESTED_SEC_PER_COMFORT };
+  });
+  ok('V18 comfort: comfort 17 works out to the documented 24 minutes (' +
+     (ceiling.maxSec / 60) + ')', ceiling.maxSec === 1440);
+
+  /* ---------------- RESTED: the twenty-second ritual ---------------- */
+  const rested = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.place(L.FIRE.x, L.FIRE.y);
+    o.atFire = L.atFire();
+    o.noRoof = L.underRoof();
+    o.cannotRestYet = L.canRest();               /* no roof yet */
+    L.placePiece('roof');
+    o.canRestNow = L.canRest();
+    L.tick(19);
+    o.at19 = L.isRested();
+    L.tick(1.1);
+    o.at20 = L.isRested();
+    o.ttl = L.restedTTL();
+    o.expected = L.restedDuration();
+    o.hpMult = L.hpRegenMult();
+    o.stMult = L.stRegenMult();
+    return o;
+  });
+  ok('V19 rested: standing at the fire with NO ROOF is not resting',
+     rested.atFire === true && rested.noRoof === false && rested.cannotRestYet === false);
+  ok('V20 rested: a roof makes the spot a resting spot', rested.canRestNow === true);
+  ok('V21 rested: NOT rested at 19 seconds', rested.at19 === false);
+  ok('V22 rested: RESTED at 20 — the ritual is a real threshold', rested.at20 === true);
+  ok('V23 rested: and it lasts exactly what the camp earns (' + rested.ttl + 's of ' +
+     rested.expected + 's)', near(rested.ttl, rested.expected, 1.2));
+  ok('V24 rested: while rested, regen is x1.5 health and x2 stamina',
+     rested.hpMult === V.RESTED_HP_REGEN_MULT && rested.stMult === V.RESTED_ST_REGEN_MULT);
+
+  const wearoff = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    o.before = L.isRested();
+    L.setDirs([2]);                              /* walk away, resting resets */
+    L.tick(1);
+    o.restingReset = L.resting();
+    L.setDirs([]);
+    /* you cannot lose Rested while standing in your own camp — it re-grants every
+       tick — so walk out of the camp before waiting it out. */
+    L.place(L.FIRE.x, L.FIRE.y - 8);
+    o.stillRestedAwayFromCamp = L.isRested();
+    L.tick(L.restedTTL() + 1);
+    o.after = L.isRested();
+    o.mult = L.hpRegenMult();
+    return o;
+  });
+  ok('V25 rested: walking away resets the RESTING progress', wearoff.restingReset === 0);
+  ok('V26 rested: the buff travels with you out of camp, then runs out and takes the bonus',
+     wearoff.before === true && wearoff.stillRestedAwayFromCamp === true &&
+     wearoff.after === false && wearoff.mult === 1);
+
+  /* rested actually changes the recovery, measured on the bar */
+  const regen = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.place(L.FIRE.x, L.FIRE.y + 3);
+    L.S.stamina = 0;
+    L.tick(2);
+    o.plain = L.S.stamina;
+    L.reset();
+    L.place(L.FIRE.x, L.FIRE.y);
+    L.placePiece('roof');
+    L.tick(21);
+    L.S.stamina = 0;
+    L.tick(2);
+    o.buffed = L.S.stamina;
+    return o;
+  });
+  ok('V27 rested: stamina really comes back twice as fast (' + Math.round(regen.plain) +
+     ' vs ' + Math.round(regen.buffed) + ' in 2s)',
+     near(regen.buffed, regen.plain * V.RESTED_ST_REGEN_MULT, 1.5));
+
+  /* ---------------- THE MOUNTAIN: why any of it matters ---------------- */
+  const cold = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.meadow = L.zoneAt(13, 45);
+    o.forest = L.zoneAt(13, 30);
+    o.mountain = L.zoneAt(13, 4);
+    L.place(13, 4);
+    o.freezing = L.freezing();
+    const h0 = L.S.health;
+    L.tick(5);
+    o.lost = h0 - L.S.health;
+    return o;
+  });
+  ok('V28 the world has three zones and the top one is freezing',
+     cold.meadow === 'meadow' && cold.forest === 'forest' && cold.mountain === 'mountain' &&
+     cold.freezing === true);
+  ok('V29 freezing costs exactly 1 health a second (' + cold.lost.toFixed(1) + ' in 5s)',
+     near(cold.lost, 5 * V.FREEZING_HP_PER_SEC, 0.2));
+
+  /* THE LOOP CLOSES: empty you cannot make the trip; fed and rested you can */
+  const trip = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    /* --- empty stomach, no rested: the cairn is reachable, home is not --- */
+    L.reset();
+    L.place(L.FIRE.x, L.FIRE.y + 1);
+    o.emptyReachedPeak = L.walkTo(13, 1, 20000);
+    o.emptyHpAtPeak = L.S.health;
+    o.emptyBlackoutsAtPeak = L.S.blackouts;
+    L.walkTo(L.FIRE.x, L.FIRE.y, 20000);
+    o.emptyBlackouts = L.S.blackouts;
+    /* --- fed and rested --- */
+    L.reset();
+    L.place(L.FIRE.x, L.FIRE.y);
+    ['stew', 'jerky', 'boar'].forEach(f => L.give(f, 1));
+    L.eat('stew'); L.eat('jerky'); L.eat('boar');
+    o.fedMax = L.maxHealth();
+    L.placePiece('roof'); L.placePiece('rug'); L.placePiece('bed');
+    L.placePiece('stool'); L.placePiece('roundtable'); L.placePiece('banner');
+    o.comfort = L.comfort();
+    o.restedFor = L.restedDuration();
+    L.tick(21);
+    o.rested = L.isRested();
+    o.fedArrived = L.walkTo(13, 1, 20000);
+    o.hpAtPeak = L.S.health;
+    o.gotThere = Math.abs(L.at().y - 1) <= 0.5;
+    /* and the cairn at the top is the payoff */
+    const node = L.forageAt(13, 1);
+    o.tookPrize = node ? L.forage(node) : false;
+    o.backHome = L.walkTo(L.FIRE.x, L.FIRE.y, 20000);
+    o.blackouts = L.S.blackouts;
+    o.survived = L.S.health > 0;
+    return o;
+  });
+  ok('V30 THE LOOP: EMPTY, YOU REACH THE CAIRN ON ' + Math.round(trip.emptyHpAtPeak) +
+     ' HEALTH AND THE MOUNTAIN KILLS YOU ON THE WAY DOWN (blackouts ' + trip.emptyBlackouts + ')',
+     trip.emptyReachedPeak === true && trip.emptyBlackoutsAtPeak === 0 &&
+     trip.emptyBlackouts >= 1);
+  ok('V31 THE LOOP: three foods take you from 25 to ' + trip.fedMax + ' max health',
+     trip.fedMax > V.BASE_HEALTH * 3);
+  ok('V32 THE LOOP: a decorated camp is comfort ' + trip.comfort + ' = ' +
+     Math.round(trip.restedFor / 60) + ' minutes of Rested',
+     trip.comfort >= 7 && trip.restedFor >= V.RESTED_BASE_SEC + 6 * V.RESTED_SEC_PER_COMFORT);
+  ok('V33 THE LOOP: FED AND RESTED YOU REACH THE PEAK (health ' +
+     Math.round(trip.hpAtPeak) + ')', trip.rested === true && trip.gotThere === true);
+  ok('V34 THE LOOP: and the cairn at the top pays out', trip.tookPrize === true);
+  ok('V35 THE LOOP CLOSES: you get home alive, which is the whole point of the buffs',
+     trip.backHome === true && trip.survived === true && trip.blackouts === 0);
+
+  /* the three mechanics are one loop: remove comfort and the trip gets shorter */
+  const coupled = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.place(L.FIRE.x, L.FIRE.y); L.placePiece('roof');
+    L.tick(21); o.plainTTL = L.restedTTL();
+    L.reset(); L.place(L.FIRE.x, L.FIRE.y);
+    ['roof', 'rug', 'bed', 'stool', 'table', 'banner', 'maypole'].forEach(p => L.placePiece(p));
+    L.tick(21); o.dressedTTL = L.restedTTL();
+    return o;
+  });
+  ok('V36 THE THREE ARE ONE LOOP: the same ritual in a dressed camp buys ' +
+     Math.round((coupled.dressedTTL - coupled.plainTTL) / 60) + ' more minutes',
+     coupled.dressedTTL > coupled.plainTTL + 5 * V.RESTED_SEC_PER_COMFORT - 2);
+}
+
+async function shotValheim(page) {
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    L.place(L.FIRE.x, L.FIRE.y);
+    ['stew', 'carrotsoup', 'boar'].forEach(f => L.give(f, 1));
+    L.eat('stew'); L.eat('carrotsoup'); L.eat('boar');
+    ['roof', 'rug', 'bed', 'stool', 'roundtable', 'banner'].forEach(p => L.placePiece(p));
+    L.tick(21);
+    L.thaw();
+  });
 }
 
 /* ==========================================================================
