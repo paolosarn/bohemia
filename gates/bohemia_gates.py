@@ -212,6 +212,8 @@ GATES = [
      'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
     ('AIRFIELD',       ['node', 'gates/airfield_gate.js'],
      'the airfields are built across their whole cluster: one runway, continuous, no bare cells', False),
+    ('WORLD RESOLVE',  ['node', 'gates/world_resolve_gate.js'],
+     "the world's systems subscribe to spent moments: nothing hardcoded, every table empty, faction beats default OFF", False),
     ('ICON',           ['node', 'gates/icon_gate.js'],
      'an icon ships with every build (Paolo 7/27): new work adds no debt, the debt only shrinks, and an icon is real art', False),
     ('RAIL',           ['node', 'gates/rail_gate.js'],
