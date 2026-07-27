@@ -1,3 +1,43 @@
+CITY (03): 7/27 (b) LATEST — "I CAN'T GET OUTSIDE THE SUBURB" AND "I'M TRYING TO
+COPY AND PASTE THE ARROW OF MOVE" ARE THE SAME BUG, AND IT WAS THE PHONE.
+He played on his phone and said both in one message. Movement here is press-and-HOLD
+on an arrow button. iOS Safari's default answer to a long press on text is the
+selection magnifier and the Copy / Look Up / Search callout. The entire 33MB alpha
+contained ZERO occurrences of -webkit-touch-callout, and the shell's reset stopped at
+-webkit-tap-highlight-color and never set user-select at all. Holding the d-pad opened
+the OS menu instead of walking. He was fighting the operating system for every step.
+MEASURED, which clears the level design of the charge he made: every suburb sample sits
+16-50 steps from a different district, and 7,645 of 7,649 built cells can be walked out
+of (4 sealed cells remain, filed). He was not trapped by the map. He was trapped by the
+button.
+FIXED, tools/bohemia_touch_guard_patch.py: shell reset gets user-select:none +
+-webkit-touch-callout:none with selection given BACK to input/textarea (copy/paste is
+correct in a text field and wrong on a d-pad); city, combat and rig frames each get the
+callout suppressed. Deliberately NOT touch-action:none at shell level - the character
+and clothes panels are real scrolling lists.
+GATE: gates/touch_guard_gate.js, registered. It says out loud which half it can
+measure: Chromium does not implement -webkit-touch-callout (drops it from computed
+style AND strips it from cssText), so the callout is asserted in SOURCE on the
+universal selector while user-select is MEASURED in a real browser on the tab bar, the
+walk d-pad and the DROP IN button, plus proof text fields still paste.
+ALSO FIXED, AND IT WAS MY OWN: the render ratchet was FLAKY. render_pixel_gate swung
+3.4% -> 12.4% on an unchanged tree because the --walk sample still contained the frames
+rendered BEFORE the drop-in, i.e. the city-builder overview, whose iso projection is
+fractional by design and is approved. The audit now zeroes its counters once the player
+is on foot, so it measures ONE surface. On that surface, after the 7/27a screen-filter
+fix: fractional 0.0%, non-integer 0.0%, squashed 0.0%, smoothed 0.0% across 7,874 real
+draws. Ceilings re-based to 0.5% each and `smoothed` is now gated too, which was
+impossible while the overview polluted the sample.
+RECORDED, NOT ACTIONED - STOP PRODUCING IS IN FORCE. In the same message he rejected
+the HOUSES, the DOORS and the GARAGE, and asked whether the house is even built from
+the approved target art. NOBODY makes a v2 of any of those until he asks. His one
+actual direction was "you really should be using the suburb district"; the walked world
+already reads BohemiaSuburb's own legend (realizeCell's m.sub path), so the gap is
+between the suburb dossier and what renders - DIAGNOSE before touching a pixel. That,
+plus "the street that I didn't say you could go" (a MAP LAW complaint needing him to
+point at which street) and "the phone system isn't in here, doesn't progress as I walk",
+are BOHEMIA_BACKLOG CITY 0B / 0C / 0D, all blocked on him.
+
 CITY (03): 7/27 (a) LATEST — THE PHONE WAS BLURRING THE ENTIRE WORLD ON THE WAY
 TO THE SCREEN, AND NOTHING IN THE MACHINE COULD SEE IT.
 Yesterday's fix made the world blit 1:1 INSIDE the canvas (TPX 16 -> 22, whole-pixel
