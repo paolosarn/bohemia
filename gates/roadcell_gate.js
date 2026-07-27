@@ -56,10 +56,48 @@ for (const mask of MASKS) {
   const f = FWY.generate(3, { same: links, cross: [] });
   built += 2;
   if (!ART.throughDrivable(a, links)) { notThrough++; console.log('    arterial not through: ' + links.join('')); }
-  if (!FWY.throughDrivable(f, links)) { notThrough++; console.log('    freeway not through: ' + links.join('')); }
+  /* THE FREEWAY IS ASKED ABOUT ITS AXIS, NOT ITS NEIGHBOURS (7/27). An interstate is
+     laid TWO CELLS WIDE, so a straight run has a freeway neighbour to the side that is
+     the PARALLEL CARRIAGEWAY, and you cannot drive sideways off one onto the other —
+     there is an embankment between them. The old form of this check asked the freeway
+     to be through-drivable toward every freeway neighbour, which is only satisfiable if
+     every cell draws itself as a four-way junction, and that is precisely what 926 of
+     the valley's 952 freeway cells were doing. */
+  if (!FWY.throughDrivable(f)) { notThrough++; console.log('    freeway not through: ' + f.through.join('')); }
+  if (f.through.concat(f.parallel).sort().join('') !== links.slice().sort().join('')) {
+    notThrough++; console.log('    freeway lost a neighbour: ' + links.join(''));
+  }
 }
 ok('all 16 link masks build for both road modules (' + built + ' cells)', built === 32);
-ok('a vehicle reaches every connected edge, every mask', notThrough === 0);
+ok('a vehicle reaches every edge the corridor carries, every mask', notThrough === 0);
+
+/* THE LATTICE REGRESSION (7/27). This is the gate for the render defect: a freeway cell
+   takes its axis from the direction it has BOTH neighbours in, and the odd one out is
+   the parallel carriageway. Before the fix, "any freeway neighbour is my axis" made 97%
+   of the corridor draw itself as a crossroads and the interstate rendered as a lattice
+   of tan embankment squares. Genuine four-way freeway junctions barely exist in this
+   valley — where two interstates really cross, the cells are `interchange`. */
+{
+  const wv = World.world(E.WorldGen.hashSeed('bohemia'));
+  let fwCells = 0, junctions = 0, corners = 0, straight = 0;
+  for (let y = 0; y < wv.n; y++) for (let x = 0; x < wv.n; x++) {
+    const c = wv.at(x, y);
+    if (!c || c.district !== 'freeway') continue;
+    fwCells++;
+    const p = wv.plot(x, y);
+    const links = (p.sameLinks && p.sameLinks.length) ? p.sameLinks : ['N', 'S'];
+    const res = FWY.generate(1, { same: links, cross: [] });
+    const has = d => links.indexOf(d) >= 0;
+    // a CROSSROADS has both pairs; a CORNER has one of each and legitimately draws an L
+    if (has('N') && has('S') && has('E') && has('W')) junctions++;
+    else if (res.axis.vert && res.axis.horiz) corners++;
+    else straight++;
+  }
+  ok('the interstate is a corridor, not a lattice: <5% of freeway cells are crossroads (' +
+     junctions + '/' + fwCells + ')', fwCells > 500 && junctions / fwCells < 0.05);
+  ok('the rest run straight through on one axis (' + straight + ') with a few real corners (' +
+     corners + ')', straight > fwCells * 0.9 && corners < fwCells * 0.10);
+}
 
 // ---- 2. determinism ---------------------------------------------------------
 ok('arterial is deterministic (same seed + links => identical grid)',

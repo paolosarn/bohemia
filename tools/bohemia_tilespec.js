@@ -61,6 +61,8 @@ const DISTRICTS = [
   { name: 'mountain',   mod: require('../engine/bohemia_mountain.js') },
   { name: 'water',      mod: require('../engine/bohemia_water.js') },
   { name: 'airport',    mod: require('../engine/bohemia_airfield.js') },
+  { name: 'rail',       mod: require('../engine/bohemia_rail.js') },
+  { name: 'interchange',mod: require('../engine/bohemia_interchange.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;

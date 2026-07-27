@@ -366,9 +366,35 @@ stories the world cannot host yet.
         reads as clean bands and wants dressing — drifted sand over the pavement,
         cracked slabs, blast staining, wrecks off the taxiway. Cheap, and it is what
         would make it read finished rather than merely correct.
-     b. rail 90 + interchange 16 (rail corridor cells + freeway-to-freeway ramps;
-        both are network tiles like the roads, same machinery) | roadcell_gate
-        extended | — | no.
+     b. [DONE 7/27] rail 90 + interchange 16, and they turned out to be nothing like
+        "network tiles like the roads, same machinery" — that line in this backlog was
+        wrong and both had to be built as their own thing.
+        RAIL (engine/bohemia_rail.js): a railway has no lanes, no median, no sidewalk
+        and no intersections, so it gets its own vocabulary — a two-track ballast prism,
+        cess, ditch, a maintenance road on ONE side, a right-of-way fence, and rail-served
+        industrial frontage outside it. Passing sidings keyed on the CELL COORDINATE so
+        they run 16 cells and taper into the main through real point blades. 17 at-grade
+        crossings where the mile grid meets it. THE LINE IS ONE LINE for the whole valley:
+        world.js's new continuityLinks looks THROUGH a crossing surface, and
+        bohemia_freeway.js now carries the ballast and rails UNDER its deck, so the
+        mainline is not severed into three pieces at the freeways. Gate RAIL, 36 checks.
+        INTERCHANGE (engine/bohemia_interchange.js): the stack, solved across all 16
+        cells as ONE PURE FUNCTION of valley position — no per-cell buffer anywhere, which
+        the gate proves outright via the exported solve() rather than inferring it from
+        seams. Two mainlines, one decked over the other on piers, eight ramps (a tight
+        connector and a directional flyover per quadrant), two retention basins, the wall
+        track, and the jam that starts here. Approaches come from the MAP
+        (world.js clusterApproach), not from a symmetry assumption. Gate INTERCHANGE, 43.
+     b2. [DONE 7/27, FOUND BY LOOKING] THE INTERSTATE WAS RENDERING AS A LATTICE. 926 of
+        the valley's 952 freeway cells were drawing themselves as a four-way junction,
+        because the overmap lays an interstate TWO CELLS WIDE and the module read "any
+        freeway neighbour" as its axis — so the third neighbour, which is the PARALLEL
+        CARRIAGEWAY, looked like a crossing. The corridor came out as a grid of tan
+        embankment squares. A cell's axis is now the direction it has BOTH neighbours in,
+        the odd one out is named as parallel, and no sound wall stands between two
+        carriageways. Gated in roadcell_gate (crossroads must stay under 5%).
+        This was my own 7/26 work. It shipped with all gates green because no gate
+        looked at the SHAPE of the corridor, only at whether you could drive through it.
      c. campus 16, town 9, speedway 12, ballpark 8, convention 6, datafort 6,
         prison 4, dam 4, basin 8, reservoir 3 (small landmark set, one at a time).
      d. NEVER AUTO-GENERATED, by law: strip 81, resort 118, casino 5, luxor, sphere,

@@ -10968,6 +10968,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var DSR= HASREQ ? require('./bohemia_desert.js')         : (typeof BohemiaDesert!=='undefined'?BohemiaDesert:root.BohemiaDesert);
   var MTN= HASREQ ? require('./bohemia_mountain.js')       : (typeof BohemiaMountain!=='undefined'?BohemiaMountain:root.BohemiaMountain);
   var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
+  var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
+  var ICH= HASREQ ? require('./bohemia_interchange.js')    : (typeof BohemiaInterchange!=='undefined'?BohemiaInterchange:root.BohemiaInterchange);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -11038,7 +11040,15 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // reason the roads are: nothing should be able to base a faction on a runway until
     // Paolo rules that an airfield is claimable ground.
     airport:  { mod:AIR, zone:'institutional' },
-    airbase:  { mod:AIR, zone:'institutional' }
+    airbase:  { mod:AIR, zone:'institutional' },
+    /* THE RAILWAY AND THE STACK (7/27). The last two network surfaces in the valley: one
+       unbroken 90-cell mainline down column 54, and the 16-cell block where the two
+       interstates cross. The interchange is CLUSTER-BUILT for the same reason the
+       airfield is (a 300 m flyover cannot be drawn 96 m at a time); the railway is a
+       per-cell network tile like the arterial, but its continuity is computed with
+       continuityLinks so the line survives the freeways that bridge over it. */
+    rail:         { mod:RAI, zone:'default' },
+    interchange:  { mod:ICH, zone:'default' }
   };
   /* THE CLUSTER A CELL BELONGS TO. A runway is three kilometres long and a cell is
      96 metres, so an airfield is not a cell, it is a BLOB of them, and no generator
@@ -11067,6 +11077,54 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
               y0:Math.min.apply(null,ys), y1:Math.max.apply(null,ys), cells:cells.length };
     cells.forEach(function(c){ m.__clusters[kind+':'+c[0]+','+c[1]] = b; });
     return b;
+  }
+
+  /* WHICH APPROACHES A CLUSTER ACTUALLY HAS. An interchange has to put its ramps on the
+     real interstate, and the only place that truth lives is the map: which cells around
+     the block are freeway. This walks the block's perimeter once, caches it beside the
+     bounds, and hands back the COLUMNS a road arrives on from the north or south and the
+     ROWS it arrives on from the east or west. Without it the module would have to assume
+     the junction is symmetric, and an assumption is exactly what a generator should never
+     make about ground somebody else laid out. */
+  var HIWAYSET={freeway:1,beltway:1};
+  function clusterApproach(m,b,kind){
+    m.__approach = m.__approach || {};
+    var key0 = kind+':'+b.x0+','+b.y0+','+b.x1+','+b.y1;
+    if (m.__approach[key0]) return m.__approach[key0];
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var nsSet={}, ewSet={}, x, y;
+    /* FREEWAY ONLY, not ROADSET. The mile-grid arterials run right up against the
+       interchange block on every side, so asking "is this a road" answered YES for all
+       four columns and all four rows, the corridors swallowed the whole block, and eight
+       ramps rendered as nothing. An interchange is where two HIGHWAYS cross; a surface
+       street that happens to touch it is a neighbour, not an approach. */
+    for(x=b.x0;x<=b.x1;x++){ if(HIWAYSET[at(x,b.y0-1)]||HIWAYSET[at(x,b.y1+1)]) nsSet[x]=1; }
+    for(y=b.y0;y<=b.y1;y++){ if(HIWAYSET[at(b.x0-1,y)]||HIWAYSET[at(b.x1+1,y)]) ewSet[y]=1; }
+    var out={ ns:Object.keys(nsSet).map(Number).sort(function(a,c){return a-c;}),
+              ew:Object.keys(ewSet).map(Number).sort(function(a,c){return a-c;}) };
+    m.__approach[key0]=out; return out;
+  }
+
+  /* CONTINUITY, WHICH IS NOT THE SAME AS ADJACENCY. A rail cell whose neighbour is a
+     freeway has NOT hit the end of the line: the freeway bridges over and the mainline
+     runs on underneath. So a corridor's own continuation is its same-kind neighbours PLUS
+     any direction where another SURFACE is crossing it and the same kind resumes on the
+     far side, looked ahead as far as a crossing can plausibly be wide. Adjacency alone
+     would have severed the valley's one railway into three pieces at the freeways. */
+  function continuityLinks(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var D=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], out=[];
+    for(var i=0;i<D.length;i++){
+      var d=at(x+D[i][1],y+D[i][2]);
+      if(d===kind){ out.push(D[i][0]); continue; }
+      if(!d || !SURFACEGEN[d]) continue;
+      for(var k=2;k<=4;k++){
+        var far=at(x+D[i][1]*k, y+D[i][2]*k);
+        if(far===kind){ out.push(D[i][0]); break; }
+        if(!far || !SURFACEGEN[far]) break;
+      }
+    }
+    return out;
   }
 
   // which edges face something OTHER than this same terrain (a mountain lays its
@@ -11368,10 +11426,20 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       if(sg && sg.mod){
         var rl=roadLinks(m,x,y,cell.district);
         var links=rl.all;
+        /* A CORRIDOR THAT IS NOT A ROAD gets its continuation from continuityLinks, not
+           from ROADSET: the railway's own neighbours are rail cells, and its `cross` is
+           the street grid that meets it at grade. Getting this from roadLinks would have
+           told the railway that a freeway was its own continuation. */
+        var own=ROADSET[cell.district] ? rl.same : continuityLinks(m,x,y,cell.district);
+        var bnds=clusterBoundsOf(m,x,y,cell.district);
         var sres=sg.mod.generate(cell.seed>>>0,
-          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross,
+          { links:links.length?links:['N','S'], same:own.length?own:rl.same, cross:rl.cross,
             cellX:x, cellY:y, open:openEdges(m,x,y,cell.district),
-            kind:cell.district, bounds:clusterBoundsOf(m,x,y,cell.district),
+            kind:cell.district, bounds:bnds, approach:clusterApproach(m,bnds,cell.district),
+            // which sides a RAILWAY runs up to: what a freeway has to bridge over
+            rail:['N','S','E','W'].filter(function(d,i){
+              var D=[[0,-1],[0,1],[1,0],[-1,0]][i], c2=m.at(x+D[0],y+D[1]);
+              return !!(c2 && c2.district==='rail'); }),
             // the edges that face something that is NOT road: that is where the
             // districts are, and therefore where the street has to let them in
             access:['N','S','E','W'].filter(function(d){ return rl.all.indexOf(d)<0; }) });
@@ -11381,7 +11449,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
           return { code:c, name:L?L.name:(c===0?'dirt shoulder':(c<0?'(off-plot)':'?')),
                    layer:ly.layer, solid:ly.solid, enter:ly.enter }; };
         var sapi={ x:x, y:y, district:cell.district, category:KIT.category(cell.district),
-          archetype:sg.zone, surface:true, links:links, sameLinks:rl.same, crossLinks:rl.cross,
+          archetype:sg.zone, surface:true, links:links, sameLinks:own, crossLinks:rl.cross,
           block:{W:sres.W,H:sres.H,grid:sres.g,codes:true}, legend:slegend,
           tileInfo:stinfo,
           solidAt:function(xx,yy){ return stinfo(xx,yy).solid; },

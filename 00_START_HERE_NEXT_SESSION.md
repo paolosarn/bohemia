@@ -317,6 +317,80 @@ NOTE, READ THE 7/26 (b) ENTRY ABOVE FIRST: this walk study was REJECTED by Paolo
 the lane's assignment changed. Kept as the record of what was measured, never as a
 template.
 
+WORLD MODEL (02): 7/27 (a) — THE RAILWAY, THE STACK, AND A DEFECT IN MY OWN LAST SHIP.
+Three things landed. Valley: 95.6% -> 96.7% generated.
+
+1. THE MAINLINE (engine/bohemia_rail.js, 90 cells, gate RAIL / 36 checks). The Union
+Pacific line down column 54 is why Las Vegas exists — a railroad water stop before it
+was a town — and all 90 cells were flat grey. A railway is NOT built out of the road
+vocabulary and the backlog line that said it was ("network tiles like the roads, same
+machinery") was simply wrong: no lanes, no median, no sidewalk, no intersections. What
+it has is a two-track ballast prism with sleepers and gauge-spaced running rails, a
+cess, a drainage ditch, a maintenance road on ONE side, a right-of-way fence, wayside
+signals with relay huts, and passing sidings that taper off the main through real point
+blades. The sidings are keyed on the CELL COORDINATE, not the cell seed, so a loop runs
+1.5 km continuously instead of flickering on and off every 96 m — and every other loop
+has a whole ten-cell consist standing held in it, which is what a siding is for.
+THE ONE THAT MATTERED: THE LINE IS ONE LINE. Adjacency says it is not — three of the
+freeway crossings are two cells wide, so a naive same-neighbour rule severs the valley's
+only railway into three pieces. Two halves fix it: world.js's new continuityLinks looks
+THROUGH a crossing surface to the far side, and bohemia_freeway.js now lays the ballast
+and rails UNDER its deck on abutments wherever a rail cell is on the other side. The
+gate walks all 12,288 tile rows of the column top to bottom and requires rail under your
+feet the whole way.
+17 real at-grade crossings where the mile grid meets it: roadway through the fence, the
+ditch and the maintenance road, crossing panels with the rails still proud between them,
+stop bars, the painted X, and the gate arms still down.
+FIXED TWICE ON THE WAY, both by looking at the render: the frontage outside the fence
+was 37% bare dirt (half the cell a void), and is now rail-served industry — loading pads
+with their own spurs, fenced material yards, and back lots with the alignment of a spur
+whose rails were lifted for scrap. Void is 6%.
+
+2. THE STACK (engine/bohemia_interchange.js, 16 cells, gate INTERCHANGE / 43 checks).
+The 4x4 block at x50-53 y19-22 where the two interstates cross — the Spaghetti Bowl, the
+biggest man-made object in the city, rendering as sixteen grey squares. Built across the
+whole cluster like the airfield, but harder: this module has NO PER-CELL BUFFER AT ALL.
+Every tile is a pure function of its valley position, and the module exports solve() so
+the GATE CAN PROVE THAT rather than infer it from how the seams look — it solves the
+block once and requires every rendered tile to equal the block-wide answer at its valley
+coordinate. That caught a real one on its first run: the infield noise was keyed on the
+CELL seed, so all sixteen cells were quietly solving different ground.
+Two mainlines, the east-west one carried OVER on a real deck on piers; eight ramps (a
+tight direct connector and a long directional flyover per quadrant); gore striping; two
+retention basins with their ring tracks; the wall track inside the sound wall; and the
+jam that starts here and never moved. The approaches come from the MAP — world.js's new
+clusterApproach reports which columns and rows the freeway actually arrives on.
+FIXED TWICE HERE TOO: the ramp radii were first taken off the axis spacing, which put
+every ramp INSIDE the corridor it was supposed to leave (all eight rendered as 0.9% of
+the block); and the infield went from stippled to one-quadrant-flat before landing on
+single-octave value noise at a real feature size.
+
+3. THE INTERSTATE WAS A LATTICE, AND IT WAS MY OWN 7/26 WORK. Found by rendering the
+freeway to a PNG and looking at it, which is the only reason it was found. The overmap
+lays an interstate TWO CELLS WIDE, so a cell in the middle of a straight run has freeway
+to its east, its west AND to one side. bohemia_freeway.js read "any freeway neighbour"
+as its axis, so that third one looked like a crossing: 926 OF THE VALLEY'S 952 FREEWAY
+CELLS WERE DRAWING THEMSELVES AS A FOUR-WAY JUNCTION, and 10% of the map rendered as a
+grid of tan embankment squares instead of a road. A cell's axis is now the direction it
+has BOTH neighbours in; the odd one out is named as the parallel carriageway; and no
+sound wall stands between two carriageways any more, so the pair reads as one interstate.
+Gated in roadcell_gate: crossroads must stay under 5% of freeway cells.
+WHY NO GATE CAUGHT IT: every road check asked whether you could DRIVE THROUGH the cell,
+and you could. Nothing asked what SHAPE it was. That is the honest lesson and it is the
+same one as VERIFY ON THE REAL SURFACE — green gates said yes while the picture said no.
+
+ALSO FIXED (one line, another lane's gate): run_gate.js pinned the buildstamp to the
+literal "BUILD 7/26", so it went red the moment anybody stamped a 7/27 build — the
+SHIP FLOW law's own requirement turned into a gate failure. It now checks the FORMAT
+(date-letter plus a name), not the date.
+
+STILL FLAT (300 cells): resort 118 and strip 81 are Paolo's hand by law and stay
+reserved. The rest is the small landmark set — campus 16, speedway 12, town 9, ballpark
+8, basin 8, convention 6, datafort 6, casino 5, prison 4, dam 4, reservoir 3 — plus a
+tail of single-cell landmarks. NEXT IN ORDER for this lane after that: the APPROVED
+ambient encounter director (WORLD item 2), which is world content and not parked.
+STILL OPEN from the airfield ship: the fields read as clean bands and want dressing.
+
 WORLD MODEL (02): 7/26 (h) — THE AIRFIELDS. 94 cells (40 airport, 54 airbase), the last
 big flat thing. engine/bohemia_airfield.js builds both from one generator because a
 commercial field and a military one are the same anatomy with different buildings on it.

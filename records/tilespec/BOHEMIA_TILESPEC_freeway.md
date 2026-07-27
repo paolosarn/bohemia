@@ -15,6 +15,7 @@ GENERATED from `engine/bohemia_freeway.js` (NOTES + LEGEND + PALETTE) — do not
 - Median barrier, inside shoulder, four lanes, outside shoulder, guardrail, embankment, sound wall, out to the cell boundary on both sides.
 - A NETWORK TILE like the arterial: it takes the neighbours that are also FREEWAY as its own continuation, and the neighbours that are surface street as what crosses it.
 - Where an arterial crosses, an OVERPASS DECK spans the whole corridor on three lines of piers, and the freeway runs on underneath it.
+- Where the RAILWAY crosses, the roles swap: the interstate is the thing on top, the mainline runs under it on the ground between the abutments, and the freeway roadway over that band becomes deck on piers. Six cells in this valley do that, and without them the one continuous 90-cell railway would be severed into three pieces.
 - The dead dressing is the point: stopped cars clustered in the lanes, a jackknifed semi, debris drifted across, brush up the embankment, every light dark.
 
 ### Circulation (street-aware / drivable)
@@ -58,6 +59,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#6f6a5e` | bridge column | structure | concrete bridge pier carrying the overpass, tagged at the base | structure | yes | — | — |
 | 14 | `#6a6a72` | sign gantry | overhead | overhead sign gantry, panels gone or hanging | overhead | no | — | 44 |
 | 15 | `#4a4842` | rubble / debris | prop | blown tyre, bumper, glass and drift across the lanes | prop | no | — | 25 |
+| 16 | `#5a5348` | rail ballast | ground | the railway ballast running out from under the bridge, in the daylight between the abutments | ground | no | — | — |
+| 17 | `#8e8a84` | rail under bridge | ground | the UP mainline passing under the interstate, rails still bright on top | ground | no | — | — |
 
 **Gate:** `gates/freeway_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

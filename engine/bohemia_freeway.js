@@ -64,7 +64,23 @@
     var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
     if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
     var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
-    var vert = hasN || hasS, horiz = hasE || hasW;
+    /* THE AXIS IS THE PAIR, NOT ANY NEIGHBOUR (fixed 7/27 after looking at the render).
+       The overmap lays an interstate TWO CELLS WIDE, so a cell in the middle of a
+       straight east-west run has freeway to its east, its west AND to one side — and
+       "any freeway neighbour is my axis" read that third one as a crossing. 926 of the
+       valley's 952 freeway cells were drawing themselves as a four-way junction, and
+       the corridor rendered as a lattice of tan embankment squares instead of a road.
+       A cell's axis is the direction it has BOTH neighbours in; the odd one out is the
+       PARALLEL CARRIAGEWAY, which is a different thing entirely and is handled below.
+       Only where no pair exists at all (the end of a run, a corner) does it fall back
+       to single neighbours, which is what draws an L. */
+    var pairV = hasN && hasS, pairH = hasE && hasW;
+    var vert, horiz;
+    if (pairV || pairH) { vert = pairV; horiz = pairH; }
+    else { vert = hasN || hasS; horiz = hasE || hasW; }
+    // the carriageway running alongside this one: no sound wall goes between them
+    var parN = horiz && !vert && hasN, parS = horiz && !vert && hasS;
+    var parE = vert && !horiz && hasE, parW = vert && !horiz && hasW;
 
     var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i, j;
 
@@ -83,6 +99,12 @@
         // a true freeway-to-freeway junction keeps pavement through the box; the
         // barrier never blocks the crossing roadway
         if (code === 4 && vert && horiz && Math.abs(ox) <= LANES && Math.abs(oy) <= LANES) code = 1;
+        // and no sound wall stands between this carriageway and the one beside it:
+        // the embankment runs straight through, which is what makes the two read as
+        // one interstate instead of two roads back to back
+        if (code === 8) {
+          if ((oy < 0 && parN) || (oy > 0 && parS) || (ox > 0 && parE) || (ox < 0 && parW)) code = 6;
+        }
         g[y][x] = code;
       }
     }
@@ -141,6 +163,58 @@
       });
     }
 
+    /* ---- 3b. THE RAILWAY UNDERNEATH (7/27). A freeway has no at-grade crossings and
+       that includes the railway: the interstate BRIDGES OVER the UP mainline, and the
+       line runs on under it. Six freeway cells in this valley sit on top of the rail
+       corridor, and without this the one continuous 90-cell railway is severed into
+       three pieces at the freeways. The rail band is laid on the ground exactly where
+       bohemia_rail.js puts it (centred in the cell, same half-widths), and the freeway's
+       own roadway over that band becomes DECK on piers — the same two-level convention
+       the arterial overpass already uses, just with this road on top instead of under. */
+    var railCross = (opts.rail || []).map(function (d) { return String(d).toUpperCase()[0]; });
+    var railAxis = null;
+    if (railCross.length) {
+      var rV = railCross.some(function (d) { return d === 'N' || d === 'S'; });
+      var rH = railCross.some(function (d) { return d === 'E' || d === 'W'; });
+      if (horiz && rV) railAxis = 'v';                 // the line runs across an E-W freeway
+      else if (vert && rH) railAxis = 'h';
+    }
+    if (railAxis) {
+      var RBAL = 10, RCESS = 16;                       // bohemia_rail.js's own cross-section
+      for (i = -RCESS; i <= RCESS; i++) {
+        var isBal = Math.abs(i) <= RBAL;
+        for (var t0 = 0; t0 < 128; t0++) {
+          var pxr = railAxis === 'v' ? C + i : t0, pyr = railAxis === 'v' ? t0 : C + i;
+          var under = g[pyr][pxr];
+          // the band runs the WHOLE height of the cell, including the dirt outside the
+          // sound wall: the railway does not stop at the interstate's property line, and
+          // stopping it there put a one-tile hole in the mainline at every cell edge
+          // where the freeway's own corridor had already run out.
+          // where the interstate itself is overhead, the tile is DECK; either side of the
+          // bridge you are standing on the railway, in the daylight between the abutments
+          var onRoad = under === 1 || under === 2 || under === 3 || under === 4 || under === 5;
+          g[pyr][pxr] = onRoad ? 12 : (isBal ? 16 : 17);
+        }
+      }
+      [-1, 1].forEach(function (sgn) {                 // the abutments, one each side
+        for (var j2 = -RCESS - 3; j2 <= RCESS + 3; j2++) {
+          for (var k2 = 0; k2 < 3; k2++) {
+            var o2 = sgn * (RCESS + 4 + k2);
+            var pxb = railAxis === 'v' ? C + j2 : C + o2, pyb = railAxis === 'v' ? C + o2 : C + j2;
+            if (pxb < 0 || pyb < 0 || pxb > 127 || pyb > 127) continue;
+            if (g[pyb][pxb] === 12) g[pyb][pxb] = 13;
+          }
+        }
+      });
+      // and the running rails themselves, so the line is visibly one line
+      [-6, -4, 4, 6].forEach(function (o3) {
+        for (var t1 = 0; t1 < 128; t1++) {
+          var pxs = railAxis === 'v' ? C + o3 : t1, pys = railAxis === 'v' ? t1 : C + o3;
+          if (g[pys][pxs] === 16) g[pys][pxs] = 17;
+        }
+      });
+    }
+
     // ---- 4. act-1 DEAD dressing: this is where the traffic stopped ---------------
     function onLane(c) { return c === 1 || c === 2 || c === 3; }
     function block(px, py, w, h, code, test) {
@@ -194,12 +268,23 @@
       }
     }
 
+    /* through = the directions the corridor actually CARRIES, which is not the same as
+       the directions that have a freeway neighbour. The odd-one-out neighbour is the
+       parallel carriageway, and you cannot drive sideways off one carriageway onto the
+       other: there is an embankment between them. Saying so out loud here is what lets
+       the gate assert the real physics instead of the old any-neighbour assumption. */
+    var through = [], parallel = [];
+    [['N', hasN, vert], ['S', hasS, vert], ['E', hasE, horiz], ['W', hasW, horiz]]
+      .forEach(function (d) { if (!d[1]) return; (d[2] ? through : parallel).push(d[0]); });
+
     return { g: g, W: 128, H: 128, streets: links, links: links, cross: cross,
-             deck: deckAxis, gates: [], footprints: [] };
+             deck: deckAxis, railAxis: railAxis, axis: { vert: vert, horiz: horiz },
+             through: through, parallel: parallel, gates: [], footprints: [] };
   }
 
   function throughDrivable(res, links) {
     var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 10: 1, 11: 1, 14: 1, 15: 1, 12: 1 };
+    links = links || res.through || res.links;
     return links.every(function (d) {
       d = String(d).toUpperCase()[0];
       for (var i = 0; i < 128; i++) {
@@ -215,7 +300,7 @@
   var PALETTE = {
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
     7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
-    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842'
+    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#5a5348', 17: '#8e8a84'
   };
 
   var LEGEND = {
@@ -234,7 +319,9 @@
     12: { name: 'overpass deck',    kind: 'overhead',  act1: 'the mile-grid street crossing overhead on its deck (you pass UNDER)' },
     13: { name: 'bridge column',    kind: 'structure', act1: 'concrete bridge pier carrying the overpass, tagged at the base' },
     14: { name: 'sign gantry',      kind: 'overhead',  act1: 'overhead sign gantry, panels gone or hanging' },
-    15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false }
+    15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false },
+    16: { name: 'rail ballast',     kind: 'ground',    act1: 'the railway ballast running out from under the bridge, in the daylight between the abutments' },
+    17: { name: 'rail under bridge',kind: 'ground',    act1: 'the UP mainline passing under the interstate, rails still bright on top' }
   };
 
   var NOTES = {
@@ -248,6 +335,7 @@
       'Median barrier, inside shoulder, four lanes, outside shoulder, guardrail, embankment, sound wall, out to the cell boundary on both sides.',
       'A NETWORK TILE like the arterial: it takes the neighbours that are also FREEWAY as its own continuation, and the neighbours that are surface street as what crosses it.',
       'Where an arterial crosses, an OVERPASS DECK spans the whole corridor on three lines of piers, and the freeway runs on underneath it.',
+      'Where the RAILWAY crosses, the roles swap: the interstate is the thing on top, the mainline runs under it on the ground between the abutments, and the freeway roadway over that band becomes deck on piers. Six cells in this valley do that, and without them the one continuous 90-cell railway would be severed into three pieces.',
       'The dead dressing is the point: stopped cars clustered in the lanes, a jackknifed semi, debris drifted across, brush up the embankment, every light dark.'
     ],
     circulation: 'Vehicles run through on every direction the corridor continues (proven edge to edge by the gate), threading the stopped traffic. There is no sidewalk and no pedestrian crossing at grade, which is the point of a freeway: a body on foot is trespassing here, and the way across is the overpass deck above.',

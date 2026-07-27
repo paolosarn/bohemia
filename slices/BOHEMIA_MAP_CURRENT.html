@@ -39,9 +39,11 @@
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:312a2a00481ba6ae592e3769829a3351 -->
 <!-- engine-md5:engine/bohemia_arterial.js:ed7deb6eaa1620ae9a35fc12c70dde8c -->
-<!-- engine-md5:engine/bohemia_freeway.js:f05d29327dcc67edb5f31642f376894e -->
+<!-- engine-md5:engine/bohemia_freeway.js:dc508616d200065a270789daa7d96399 -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
 <!-- engine-md5:engine/bohemia_airfield.js:218471d6e10c218663aba935b83d0768 -->
+<!-- engine-md5:engine/bohemia_rail.js:faf2e0551e77393895019929f0a86fa4 -->
+<!-- engine-md5:engine/bohemia_interchange.js:b8c8ff977a8e46e465621b07516fafa4 -->
 <!-- engine-md5:engine/bohemia_desert.js:15b4c3fca9ebcbfc40dc5e93503a5bcf -->
 <!-- engine-md5:engine/bohemia_mountain.js:56a331b1f6f0947c87301df2f8fdffa8 -->
 <!-- engine-md5:engine/bohemia_water.js:58ae095c13335690af8d5dd5e9e3b3bf -->
@@ -51,7 +53,7 @@
 <!-- engine-md5:engine/bohemia_floorplan.js:ca045f639821a074c255ebef6d728088 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:40ac09d26350f8469289032b6a146684 -->
+<!-- engine-md5:engine/bohemia_world.js:1b9c9320e6964601e1f688f0beb95021 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
   #cv{display:block;width:100%;height:calc(100% - 34px);background:#0d0b08}
@@ -5029,7 +5031,23 @@
     var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
     if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
     var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
-    var vert = hasN || hasS, horiz = hasE || hasW;
+    /* THE AXIS IS THE PAIR, NOT ANY NEIGHBOUR (fixed 7/27 after looking at the render).
+       The overmap lays an interstate TWO CELLS WIDE, so a cell in the middle of a
+       straight east-west run has freeway to its east, its west AND to one side — and
+       "any freeway neighbour is my axis" read that third one as a crossing. 926 of the
+       valley's 952 freeway cells were drawing themselves as a four-way junction, and
+       the corridor rendered as a lattice of tan embankment squares instead of a road.
+       A cell's axis is the direction it has BOTH neighbours in; the odd one out is the
+       PARALLEL CARRIAGEWAY, which is a different thing entirely and is handled below.
+       Only where no pair exists at all (the end of a run, a corner) does it fall back
+       to single neighbours, which is what draws an L. */
+    var pairV = hasN && hasS, pairH = hasE && hasW;
+    var vert, horiz;
+    if (pairV || pairH) { vert = pairV; horiz = pairH; }
+    else { vert = hasN || hasS; horiz = hasE || hasW; }
+    // the carriageway running alongside this one: no sound wall goes between them
+    var parN = horiz && !vert && hasN, parS = horiz && !vert && hasS;
+    var parE = vert && !horiz && hasE, parW = vert && !horiz && hasW;
 
     var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i, j;
 
@@ -5048,6 +5066,12 @@
         // a true freeway-to-freeway junction keeps pavement through the box; the
         // barrier never blocks the crossing roadway
         if (code === 4 && vert && horiz && Math.abs(ox) <= LANES && Math.abs(oy) <= LANES) code = 1;
+        // and no sound wall stands between this carriageway and the one beside it:
+        // the embankment runs straight through, which is what makes the two read as
+        // one interstate instead of two roads back to back
+        if (code === 8) {
+          if ((oy < 0 && parN) || (oy > 0 && parS) || (ox > 0 && parE) || (ox < 0 && parW)) code = 6;
+        }
         g[y][x] = code;
       }
     }
@@ -5106,6 +5130,58 @@
       });
     }
 
+    /* ---- 3b. THE RAILWAY UNDERNEATH (7/27). A freeway has no at-grade crossings and
+       that includes the railway: the interstate BRIDGES OVER the UP mainline, and the
+       line runs on under it. Six freeway cells in this valley sit on top of the rail
+       corridor, and without this the one continuous 90-cell railway is severed into
+       three pieces at the freeways. The rail band is laid on the ground exactly where
+       bohemia_rail.js puts it (centred in the cell, same half-widths), and the freeway's
+       own roadway over that band becomes DECK on piers — the same two-level convention
+       the arterial overpass already uses, just with this road on top instead of under. */
+    var railCross = (opts.rail || []).map(function (d) { return String(d).toUpperCase()[0]; });
+    var railAxis = null;
+    if (railCross.length) {
+      var rV = railCross.some(function (d) { return d === 'N' || d === 'S'; });
+      var rH = railCross.some(function (d) { return d === 'E' || d === 'W'; });
+      if (horiz && rV) railAxis = 'v';                 // the line runs across an E-W freeway
+      else if (vert && rH) railAxis = 'h';
+    }
+    if (railAxis) {
+      var RBAL = 10, RCESS = 16;                       // bohemia_rail.js's own cross-section
+      for (i = -RCESS; i <= RCESS; i++) {
+        var isBal = Math.abs(i) <= RBAL;
+        for (var t0 = 0; t0 < 128; t0++) {
+          var pxr = railAxis === 'v' ? C + i : t0, pyr = railAxis === 'v' ? t0 : C + i;
+          var under = g[pyr][pxr];
+          // the band runs the WHOLE height of the cell, including the dirt outside the
+          // sound wall: the railway does not stop at the interstate's property line, and
+          // stopping it there put a one-tile hole in the mainline at every cell edge
+          // where the freeway's own corridor had already run out.
+          // where the interstate itself is overhead, the tile is DECK; either side of the
+          // bridge you are standing on the railway, in the daylight between the abutments
+          var onRoad = under === 1 || under === 2 || under === 3 || under === 4 || under === 5;
+          g[pyr][pxr] = onRoad ? 12 : (isBal ? 16 : 17);
+        }
+      }
+      [-1, 1].forEach(function (sgn) {                 // the abutments, one each side
+        for (var j2 = -RCESS - 3; j2 <= RCESS + 3; j2++) {
+          for (var k2 = 0; k2 < 3; k2++) {
+            var o2 = sgn * (RCESS + 4 + k2);
+            var pxb = railAxis === 'v' ? C + j2 : C + o2, pyb = railAxis === 'v' ? C + o2 : C + j2;
+            if (pxb < 0 || pyb < 0 || pxb > 127 || pyb > 127) continue;
+            if (g[pyb][pxb] === 12) g[pyb][pxb] = 13;
+          }
+        }
+      });
+      // and the running rails themselves, so the line is visibly one line
+      [-6, -4, 4, 6].forEach(function (o3) {
+        for (var t1 = 0; t1 < 128; t1++) {
+          var pxs = railAxis === 'v' ? C + o3 : t1, pys = railAxis === 'v' ? t1 : C + o3;
+          if (g[pys][pxs] === 16) g[pys][pxs] = 17;
+        }
+      });
+    }
+
     // ---- 4. act-1 DEAD dressing: this is where the traffic stopped ---------------
     function onLane(c) { return c === 1 || c === 2 || c === 3; }
     function block(px, py, w, h, code, test) {
@@ -5159,12 +5235,23 @@
       }
     }
 
+    /* through = the directions the corridor actually CARRIES, which is not the same as
+       the directions that have a freeway neighbour. The odd-one-out neighbour is the
+       parallel carriageway, and you cannot drive sideways off one carriageway onto the
+       other: there is an embankment between them. Saying so out loud here is what lets
+       the gate assert the real physics instead of the old any-neighbour assumption. */
+    var through = [], parallel = [];
+    [['N', hasN, vert], ['S', hasS, vert], ['E', hasE, horiz], ['W', hasW, horiz]]
+      .forEach(function (d) { if (!d[1]) return; (d[2] ? through : parallel).push(d[0]); });
+
     return { g: g, W: 128, H: 128, streets: links, links: links, cross: cross,
-             deck: deckAxis, gates: [], footprints: [] };
+             deck: deckAxis, railAxis: railAxis, axis: { vert: vert, horiz: horiz },
+             through: through, parallel: parallel, gates: [], footprints: [] };
   }
 
   function throughDrivable(res, links) {
     var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 10: 1, 11: 1, 14: 1, 15: 1, 12: 1 };
+    links = links || res.through || res.links;
     return links.every(function (d) {
       d = String(d).toUpperCase()[0];
       for (var i = 0; i < 128; i++) {
@@ -5180,7 +5267,7 @@
   var PALETTE = {
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
     7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
-    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842'
+    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#5a5348', 17: '#8e8a84'
   };
 
   var LEGEND = {
@@ -5199,7 +5286,9 @@
     12: { name: 'overpass deck',    kind: 'overhead',  act1: 'the mile-grid street crossing overhead on its deck (you pass UNDER)' },
     13: { name: 'bridge column',    kind: 'structure', act1: 'concrete bridge pier carrying the overpass, tagged at the base' },
     14: { name: 'sign gantry',      kind: 'overhead',  act1: 'overhead sign gantry, panels gone or hanging' },
-    15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false }
+    15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false },
+    16: { name: 'rail ballast',     kind: 'ground',    act1: 'the railway ballast running out from under the bridge, in the daylight between the abutments' },
+    17: { name: 'rail under bridge',kind: 'ground',    act1: 'the UP mainline passing under the interstate, rails still bright on top' }
   };
 
   var NOTES = {
@@ -5213,6 +5302,7 @@
       'Median barrier, inside shoulder, four lanes, outside shoulder, guardrail, embankment, sound wall, out to the cell boundary on both sides.',
       'A NETWORK TILE like the arterial: it takes the neighbours that are also FREEWAY as its own continuation, and the neighbours that are surface street as what crosses it.',
       'Where an arterial crosses, an OVERPASS DECK spans the whole corridor on three lines of piers, and the freeway runs on underneath it.',
+      'Where the RAILWAY crosses, the roles swap: the interstate is the thing on top, the mainline runs under it on the ground between the abutments, and the freeway roadway over that band becomes deck on piers. Six cells in this valley do that, and without them the one continuous 90-cell railway would be severed into three pieces.',
       'The dead dressing is the point: stopped cars clustered in the lanes, a jackknifed semi, debris drifted across, brush up the embankment, every light dark.'
     ],
     circulation: 'Vehicles run through on every direction the corridor continues (proven edge to edge by the gate), threading the stopped traffic. There is no sidewalk and no pedestrian crossing at grade, which is the point of a freeway: a body on foot is trespassing here, and the way across is the overpass deck above.',
@@ -5587,6 +5677,790 @@
               palette: PALETTE, legend: LEGEND, notes: NOTES };
   if (typeof module !== 'undefined') module.exports = API;
   root.BohemiaAirfield = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_rail.js ==== */
+// BOHEMIA RAIL (7/27/26, WORLD lane) — THE MAINLINE, AND THE 17 PLACES THE CITY
+// CROSSES IT AT GRADE.
+//
+// 90 valley cells are `rail`: one unbroken north-south corridor down column 54, from
+// the top of the map to the bottom, with the railyard hanging off it at y29-30. It is
+// the Union Pacific line that made Las Vegas exist — the town was a railroad water
+// stop before it was anything else — and until now all 90 cells rendered as flat grey.
+//
+// A RAIL CORRIDOR IS NOT A ROAD. It has no lanes, no median, no sidewalk and no
+// intersections. What it has is a BALLAST PRISM carrying two tracks, a cess either
+// side, a drainage ditch, a maintenance road on one side only, a right-of-way fence,
+// and then a wide dirt frontage that in the real valley is scrap, tagged concrete and
+// the backs of industrial buildings. It meets the street grid in exactly one way: at
+// grade, over a paved crossing, with crossbucks and gate arms. That is the whole
+// vocabulary and it is deliberately nothing like bohemia_arterial.js.
+//
+// REAL REFERENCE (the UP mainline through the valley):
+//   two-track mainline, ~4.5 m track centres, 1.435 m gauge, on a raised ballast prism
+//   wayside signal masts in pairs facing each direction, with relay huts at their feet
+//   long passing SIDINGS every mile or two so trains can meet: a third track that
+//     peels off through a turnout, runs parallel, and rejoins
+//   at-grade crossings on the surface streets: crossing panels through the rails,
+//     stop bars, the painted RXR and the X, gate arms and flashers on both approaches
+//   grade SEPARATION at the freeways: the interstate bridges over, the line runs under
+//   act-1 dead: the train is still on the line. Covered hoppers and a dead unit stand
+//     where the crew walked away from them, and nothing has moved since.
+//
+// LAWS HELD: SURFACE not district (nobody bases a faction on a railway until Paolo
+// rules the corridor is claimable ground). LINE COLOR is a street law: the only paint
+// out here is the crossing's, and it obeys it. WALKABLE-LAND: vehicular:true — the
+// maintenance road and the crossings are the vehicle surface — and it is dressed end
+// to end, never a void. CONSTITUTION: every palette entry measured into its layer band.
+//
+// LEGEND:
+//  0 dirt frontage   1 ballast        2 tie           3 rail          4 cess
+//  5 drainage ditch  6 service road   7 ROW fence     8 signal mast   9 relay hut
+// 10 dead freight   11 dead locomotive 12 crossing pavement 13 crossing marking
+// 14 gate arm       15 scrap pile     16 dead brush   17 turnout      18 mile post
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+
+  var T = 128, C = 64;
+
+  // cross-section, as SIGNED offset from the centreline (tiles, 0.75 m each). Signed and
+  // not absolute because a real right of way is asymmetric: the maintenance road runs on
+  // one side and the passing siding on the other.
+  var BAL = 10;        // 0..10   ballast prism, two tracks at +/-5
+  var TRACK = 5;       //         track centre offset (10 tiles apart = 7.5 m centres)
+  var CESS = 16;       // 11..16  cess / ballast shoulder
+  var DITCH = 20;      // 17..20  drainage ditch
+  var MRD0 = 21, MRD1 = 28;   // maintenance road, WEST/NORTH side only
+  var FEN0 = 30, FEN1 = 31;   // right-of-way fence, both sides
+  var SID_C = 22, SID_HALF = 6;  // passing siding centre and its ballast half-width (+ side)
+
+  // the grade crossing borrows the arterial's own cross-section so the roadway arrives
+  // and leaves at exactly the tile it left the neighbouring street cell on
+  var PAVE = 21, CURB = 23;
+
+  /* THE SIDING IS A MULTI-CELL FEATURE, so it is keyed off the CELL COORDINATE and not
+     the cell seed: cells 0..15 of every 48 along the line carry the siding, which makes
+     a 1.5 km passing loop with its turnouts at the two ends, continuous across every
+     cell in between. Keyed on the seed instead it would flicker on and off cell by cell
+     and read as damage. */
+  function sidingAt(along) {
+    var m = ((along % 48) + 48) % 48;
+    return m < 16 ? { on: true, head: m === 0, tail: m === 15, m: m, run: Math.floor(along / 48) }
+                  : { on: false, m: m, run: Math.floor(along / 48) };
+  }
+
+  /* WHAT LINES A MAINLINE. The corridor proper is only about 45 m of the cell's 96, and
+     the first draft left the other half as bare dirt on both sides — half the cell a
+     void, which is exactly the failure the WALKABLE-LAND law was written about. What is
+     actually out there on the UP line through this valley is INDUSTRY THAT EXISTS
+     BECAUSE THE RAILWAY DOES: team tracks and spurs running into concrete loading pads
+     behind dock walls, and between them fenced material yards stacked with relay rail,
+     ties and ballast. So the frontage is a feature, not a margin, and which one a cell
+     gets is keyed off the cell coordinate so a pad and its spur never split across a
+     boundary. */
+  function frontageAt(along) {
+    var m = ((along % 7) + 7) % 7;
+    if (m === 0 || m === 1) return 'pad';        // rail-served loading pad + its spur
+    if (m === 3) return 'yard';                  // fenced material yard
+    return 'lot';                                // graded dirt, scrap, brush
+  }
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var links = opts.same || opts.links || ['N', 'S'];
+    var cross = opts.cross || [];
+    var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
+    if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
+    var vert = !!(set.N || set.S), horiz = !!(set.E || set.W);
+    if (vert && horiz) horiz = false;      // a corridor runs one way through a cell; a
+                                           // real curve is handled by curveInto below
+    var curve = null;
+    if ((set.N || set.S) && (set.E || set.W)) {
+      curve = { v: set.N ? 'N' : 'S', h: set.E ? 'E' : 'W' };
+      vert = true;
+    }
+    var cellX = opts.cellX || 0, cellY = opts.cellY || 0;
+    var along = vert ? cellY : cellX;
+    var sid = sidingAt(along);
+
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    // s = signed offset ACROSS the corridor, t = position ALONG it, both in cell tiles
+    function put(s, t, code, over) {
+      var px = vert ? C + s : t, py = vert ? t : C + s;
+      if (px < 0 || py < 0 || px >= T || py >= T) return;
+      if (over && !over(g[py][px])) return;
+      g[py][px] = code;
+    }
+    function span(s0, s1, t0, t1, code, over) {
+      for (var s = s0; s <= s1; s++) for (var t = t0; t <= t1; t++) put(s, t, code, over);
+    }
+
+    // ---- 1. the cross-section ---------------------------------------------------
+    function bandCode(s) {
+      var a = Math.abs(s);
+      if (a <= BAL) return 1;
+      if (a <= CESS) return 4;
+      if (a <= DITCH) return 5;
+      if (s <= -MRD0 && s >= -MRD1) return 6;
+      if (a < FEN0) return 4;
+      if (a <= FEN1) return 7;
+      return 0;
+    }
+    for (var s2 = -C; s2 < C; s2++) {
+      var code = bandCode(s2);
+      for (var t2 = 0; t2 < T; t2++) put(s2, t2, code);
+    }
+
+    // ---- 2. the track: ties, then the rails on top -------------------------------
+    var tracks = [-TRACK, TRACK];
+    if (sid.on) tracks.push(SID_C);
+    function layTrack(tc, t3) {
+      if (t3 % 3 === 0) span(tc - 4, tc + 4, t3, t3, 2, function (c) { return c === 1; });
+      [-1, 1].forEach(function (o) { put(tc + o, t3, 3, function (c) { return c === 1 || c === 2; }); });
+    }
+    [-TRACK, TRACK].forEach(function (tc) { for (var t3 = 0; t3 < T; t3++) layTrack(tc, t3); });
+
+    /* THE SIDING AND ITS TURNOUT. A third track that just appears beside the mainline is
+       a bug you can see from the map, so at the head and tail cells the siding is drawn
+       at a TAPERING offset: it comes off the main through real point blades, opens out
+       across the cell, and runs parallel from there. Everywhere in between it sits at a
+       constant offset, which is why it crosses cell boundaries without a step. */
+    function sidOffsetAt(t) {
+      if (!sid.on) return null;
+      if (!sid.head && !sid.tail) return SID_C;
+      var f = sid.head ? t / (T - 1) : 1 - t / (T - 1);
+      return TRACK + (SID_C - TRACK) * f;
+    }
+    if (sid.on) {
+      for (var t5 = 0; t5 < T; t5++) {
+        var off = Math.round(sidOffsetAt(t5));
+        span(off - SID_HALF, off + SID_HALF, t5, t5, 1, function (c) { return c !== 3 && c !== 2; });
+        layTrack(off, t5);
+        if (off < SID_C - 1) { put(off - 1, t5, 17); put(off + 1, t5, 17); }  // point blades
+      }
+    }
+
+    /* THE CURVE. Column 54 runs dead straight the whole valley in this seed, so no cell
+       currently needs this — but a corridor generator that physically cannot turn is a
+       trap for the next map, so a cell whose links are perpendicular sweeps the track
+       through a quarter arc instead of drawing a T. */
+    if (curve) {
+      var sgnV = curve.v === 'N' ? -1 : 1, sgnH = curve.h === 'W' ? -1 : 1;
+      var ccx = C + sgnH * C, ccy = C + sgnV * C, R = C;
+      for (y = 0; y < T; y++) for (x = 0; x < T; x++) {
+        var d = Math.sqrt((x - ccx) * (x - ccx) + (y - ccy) * (y - ccy));
+        var off = d - R;
+        var band = Math.abs(off) <= BAL ? 1 : (Math.abs(off) <= CESS ? 4 : null);
+        if (band !== null) g[y][x] = band;
+      }
+      for (y = 0; y < T; y++) for (x = 0; x < T; x++) {
+        var d2 = Math.sqrt((x - ccx) * (x - ccx) + (y - ccy) * (y - ccy)) - R;
+        tracks.slice(0, 2).forEach(function (tc2) {
+          if (Math.abs(Math.abs(d2 - tc2) - 1) < 0.6 && g[y][x] === 1) g[y][x] = 3;
+        });
+      }
+    }
+
+    /* THE GRADE CROSSING. The only place the city and the railway touch — and it is laid
+       LAST, after the frontage, because the road has to get through everything: the
+       fence, the ditch, the maintenance road, the loading pad, all of it. */
+    var crossE = cross.indexOf(vert ? 'E' : 'S') >= 0, crossW = cross.indexOf(vert ? 'W' : 'N') >= 0;
+    var crossing = crossE || crossW;
+    function layCrossing() {
+      // the roadway arrives on the arterial's OWN pavement band (curb to curb), so it
+      // lines up tile for tile with the street cell it came out of
+      var t0 = C - CURB, t1 = C + CURB;
+      var w0 = crossW ? -C : -(FEN1 + 3);
+      var w1 = crossE ? C - 1 : (FEN1 + 3);
+      span(w0, w1, t0, t1, 12);                     // crossing pavement, straight through
+      // the rails survive the crossing: the panels sit BETWEEN them, steel stays proud
+      tracks.forEach(function (tc3) {
+        [-1, 1].forEach(function (o) { for (var t6 = t0 - 3; t6 <= t1 + 3; t6++) put(tc3 + o, t6, 3); });
+      });
+      var isPave = function (c) { return c === 12; };
+      // one full set of furniture per approach that actually exists
+      [[crossW, -1], [crossE, 1]].forEach(function (ap) {
+        if (!ap[0]) return;
+        var side = ap[1];
+        var h0 = side < 0 ? C + 1 : C - PAVE;       // the approaching half of the roadway
+        var h1 = side < 0 ? C + PAVE : C - 1;
+        var hm = (h0 + h1) >> 1;
+        var bar = side * (CESS + 4);                 // stop bar, set back clear of the ballast
+        span(Math.min(bar, bar - side), Math.max(bar, bar - side), h0, h1, 13, isPave);
+        var xc = side * (CESS + 15);                 // the big painted X on the approach
+        for (i = -10; i <= 10; i++) {
+          put(xc + i, hm + i, 13, isPave);
+          put(xc + i, hm - i, 13, isPave);
+        }
+        var mast = side * (CESS + 2);                // flasher mast on the approach corner
+        var post = side < 0 ? C + CURB + 1 : C - CURB - 1;
+        var armDir = side < 0 ? -1 : 1;              // the arm swings out over ITS half
+        put(mast, post, 14); put(mast + side, post, 14);
+        for (var a2 = 1; a2 <= PAVE + 1; a2++) put(mast, post + armDir * a2, 14, isPave);
+      });
+    }
+
+    // ---- 3. wayside signals, relay huts and a mile post ---------------------------
+    var period = 46, phase = ((along * 29) % period + period) % period;
+    for (var t7 = phase; t7 < T; t7 += period) {
+      span(-CESS + 1, -CESS + 2, t7, t7 + 1, 8, function (c) { return c === 4; });
+      span(CESS - 2, CESS - 1, t7 + 6, t7 + 7, 8, function (c) { return c === 4; });
+      span(-DITCH - 3, -DITCH, t7 + 2, t7 + 5, 9, function (c) { return c === 5 || c === 4; });
+    }
+    if (((along * 7) % 5) === 0) span(CESS + 1, CESS + 1, 30, 32, 18, function (c) { return c === 5 || c === 4; });
+
+    // ---- 4. THE FRONTAGE, which is a feature and not a margin ----------------------
+    /* Everything outside the fence, both sides, all the way to the cell edge. Whichever
+       of the three it is, it is USED ground: a rail-served loading pad with its own spur
+       off the main, a fenced material yard, or a graded lot with the line's own cast-off
+       steel stacked on it. */
+    var front = frontageAt(along);
+    var OUT0 = FEN1 + 2;                                    // first tile outside the fence
+
+    function padSide(side) {                                 // side: +1 east, -1 west
+      var p0 = side * OUT0, p1 = side * (C - 1);
+      var lo = Math.min(p0, p1), hi = Math.max(p0, p1);
+      span(lo, hi, 6, T - 7, 19);                            // the concrete loading apron
+      var wall = side * (C - 8);                             // the dock wall at the back
+      span(Math.min(wall, wall + side * 4), Math.max(wall, wall + side * 4), 4, T - 5, 20);
+      // the SPUR: a track off the main, through the fence, onto the pad
+      var lead = side > 0 ? (sid.on ? SID_C : TRACK) : -TRACK;
+      var tt = 34;
+      for (var q = 0; q <= Math.abs(p1) - Math.abs(lead); q++) {
+        var sx = lead + side * q;
+        var ty = tt + Math.round(q * 0.55);
+        if (ty >= T - 8) break;
+        span(sx, sx, ty - 5, ty + 5, 1, function (c) { return c === 19 || c === 7 || c === 4 || c === 5 || c === 6; });
+        put(sx, ty - 1, 3); put(sx, ty + 1, 3);
+        if (q % 3 === 0) span(sx, sx, ty - 4, ty + 4, 2, function (c) { return c === 1; });
+      }
+      for (i = 0; i < 7; i++) {                              // what was being loaded, still there
+        var cs2 = side * (OUT0 + 4 + Math.floor(r() * (C - OUT0 - 14)));
+        var ct = 10 + Math.floor(r() * (T - 30));
+        span(Math.min(cs2, cs2 + 5), Math.max(cs2, cs2 + 5), ct, ct + 9, 15, function (c) { return c === 19; });
+      }
+    }
+    function yardSide(side) {
+      var y0 = side * OUT0, y1 = side * (C - 3);
+      var lo2 = Math.min(y0, y1), hi2 = Math.max(y0, y1);
+      span(lo2, hi2, 8, T - 9, 21);                          // graded gravel yard
+      span(side * (C - 2), side * (C - 2), 8, T - 9, 7);     // its own chain-link line
+      for (i = 0; i < 12; i++) {                             // relay rail, ties and ballast, stacked
+        var ys = side * (OUT0 + 3 + Math.floor(r() * (C - OUT0 - 12)));
+        var yt = 12 + Math.floor(r() * (T - 40));
+        var lng = 14 + Math.floor(r() * 20);
+        span(Math.min(ys, ys + 3), Math.max(ys, ys + 3), yt, yt + lng, 15, function (c) { return c === 21; });
+      }
+    }
+    /* THE BACK LOT. The default frontage, and the one that had to be fixed twice: the
+       first draft left it as bare dirt with a few blobs on it, which is 37% of the cell
+       reading as nothing. What is actually behind a right-of-way fence in this valley is
+       GRADED GROUND that somebody once used — gravel to the chain link, the alignment of
+       a spur whose rails were lifted for scrap, rows of relay ties, and tumbleweed packed
+       solid against the fence because that is where the wind stops. */
+    function lotSide(side) {
+      var edge = C - 5;
+      for (var q2 = OUT0; q2 <= edge; q2++) {                 // gravel out to the chain link,
+        var jag = 3 + Math.floor(r() * 5);                    // with an edge nothing graded straight
+        for (var t9 = 0; t9 < T; t9++) {
+          if (q2 > edge - ((t9 % 23) < 11 ? jag : 0)) continue;
+          put(side * q2, t9, 21, function (c) { return c === 0; });
+        }
+      }
+      span(Math.min(side * (edge + 1), side * (edge + 2)), Math.max(side * (edge + 1), side * (edge + 2)),
+           0, T - 1, 7, function (c) { return c === 0 || c === 21; });
+      // the alignment of a spur whose rails were lifted for scrap years ago
+      var al = side * (OUT0 + 8 + Math.floor(r() * 10));
+      span(Math.min(al, al + side * 7), Math.max(al, al + side * 7), 0, T - 1, 1,
+           function (c) { return c === 21; });
+      for (var t10 = 0; t10 < T; t10 += 3) {
+        span(Math.min(al + side, al + side * 6), Math.max(al + side, al + side * 6), t10, t10, 2,
+             function (c) { return c === 1; });
+      }
+      // relay ties and cut rail, stacked in rows the way a section gang stacks them
+      for (i = 0; i < 9; i++) {
+        var ls = side * (OUT0 + 14 + Math.floor(r() * (C - OUT0 - 24)));
+        var lt = 6 + Math.floor(r() * (T - 40));
+        var lng2 = 16 + Math.floor(r() * 22);
+        span(Math.min(ls, ls + side * 4), Math.max(ls, ls + side * 4), lt, lt + lng2, 15,
+             function (c) { return c === 21 || c === 0; });
+      }
+      // tumbleweed packed against the fence, because that is where the wind stops
+      for (var t11 = 0; t11 < T; t11++) {
+        if ((t11 % 17) > 12) continue;
+        span(Math.min(side * (FEN1 + 1), side * (FEN1 + 3)), Math.max(side * (FEN1 + 1), side * (FEN1 + 3)),
+             t11, t11, 16, function (c) { return c === 0 || c === 21; });
+      }
+      // the graded track everybody drives down the back of the right of way — only on
+      // the side that does NOT already have the maintenance road, because two parallel
+      // vehicle tracks 20 m apart is not a corridor, it is a car park with weeds
+      if (side > 0) {
+        var tk = side * (edge - 5);
+        span(Math.min(tk, tk + 3), Math.max(tk, tk + 3), 0, T - 1, 6, function (c) { return c === 21 || c === 0; });
+      }
+    }
+    if (front === 'pad') { padSide(1); lotSide(-1); }
+    else if (front === 'yard') { yardSide(-1); lotSide(1); }
+    else { lotSide(1); lotSide(-1); }
+
+    if (crossing && !curve) layCrossing();     // the road goes through ALL of it, last
+
+    // ---- 5. act-1 DEAD: the train is still on the line -----------------------------
+    /* A railway with nothing on it reads as a park path. What makes it a dead railway is
+       rolling stock standing exactly where the crew stopped it. A siding is what a train
+       gets held on, so every other passing loop has a whole consist standing in it, ten
+       cells of it, running on across the boundaries instead of appearing and vanishing
+       every 96 m. On the main it is short cuts of cars and, rarely, the unit itself. */
+    if (sid.on && sid.m >= 3 && sid.m <= 12 && (sid.run % 2) === 0) {
+      for (var t8 = 0; t8 < T; t8++) {
+        if ((t8 % 34) >= 30) continue;                       // the gap between two cars
+        span(SID_C - 4, SID_C + 4, t8, t8, 10, function (c) { return c === 1 || c === 2 || c === 3; });
+      }
+    }
+    if (((along * 13) % 9) === 0) {
+      for (var car = 0; car < 3; car++) {
+        var a0 = car * 34 + ((along * 19) % 30) - 6;
+        span(TRACK - 4, TRACK + 4, Math.max(0, a0), Math.min(T - 1, a0 + 24), 10,
+             function (c) { return c === 1 || c === 2 || c === 3; });
+      }
+    }
+    if (((along * 23) % 31) === 0) {
+      span(-TRACK - 5, -TRACK + 5, 40, 96, 11, function (c) { return c === 1 || c === 2 || c === 3; });
+    }
+
+    // ---- 6. the small decay: brush in the ditch, sand over the ballast --------------
+    for (i = 0; i < 18; i++) {           // brush in the ditch, which is where it actually grows
+      var bs = (r() < 0.5 ? -1 : 1) * (DITCH - Math.floor(r() * 3));
+      span(bs, bs + 1, Math.floor(r() * T), Math.floor(r() * T) + 2, 16, function (c) { return c === 5; });
+    }
+    for (i = 0; i < 30; i++) {           // sand drifted over the ballast
+      var ds = -BAL + Math.floor(r() * (2 * BAL));
+      put(ds, Math.floor(r() * T), 0, function (c) { return (c === 1 || c === 2) && r() < 0.4; });
+    }
+
+    return { g: g, W: T, H: T, links: links, cross: cross, siding: sid.on,
+             crossing: crossing, curve: !!curve, vert: vert,
+             streets: [], gates: [], footprints: [] };
+  }
+
+  var PALETTE = {
+    1: '#5a5348', 2: '#4a4038', 3: '#8e8a84', 4: '#6a6152', 5: '#5b5647', 6: '#726853',
+    7: '#6b6b74', 8: '#7d7a72', 9: '#6d675c', 10: '#4e4a46', 11: '#43413e', 12: '#3f3f47',
+    13: '#a8a08c', 14: '#8f8676', 15: '#585349', 16: '#3a4520', 17: '#8a867e', 18: '#7a7266',
+    19: '#6e6a62', 20: '#7a7266', 21: '#7b7263'
+  };
+
+  var LEGEND = {
+    0:  { name: 'dirt frontage',    kind: 'ground',    act1: 'the wide dirt margin outside the fence, scrap and tag marks and nothing planted' },
+    1:  { name: 'ballast',          kind: 'ground',    act1: 'crushed rock ballast prism, weeds coming up through it now' },
+    2:  { name: 'tie',              kind: 'ground',    act1: 'creosote sleeper, split and bleached where the sun gets it' },
+    3:  { name: 'rail',             kind: 'ground',    act1: 'running rail, still bright on top where the wheels polished it' },
+    4:  { name: 'cess',             kind: 'ground',    act1: 'the walking cess beside the ballast, where the track crews went' },
+    5:  { name: 'drainage ditch',   kind: 'ground',    act1: 'the right-of-way ditch, dry, full of blown trash' },
+    6:  { name: 'service road',     kind: 'drive',     act1: 'the gravel maintenance road that runs the length of the line' },
+    7:  { name: 'ROW fence',        kind: 'fence',     act1: 'right-of-way fence, cut open wherever anybody wanted through' },
+    8:  { name: 'signal mast',      kind: 'prop',      act1: 'a wayside signal, every lamp dark, facing a train that is not coming' },
+    9:  { name: 'relay hut',        kind: 'structure', act1: 'a signal relay hut, door forced, the racks inside stripped for copper' },
+    10: { name: 'dead freight car', kind: 'vehicle',   act1: 'a covered hopper standing on the rail exactly where it was left' },
+    11: { name: 'dead locomotive',  kind: 'vehicle',   act1: 'a dead road unit on the main, cab doors open, long hood gone dull' },
+    12: { name: 'crossing pavement',kind: 'drive',     act1: 'the crossing panels and the road surface through the right of way' },
+    13: { name: 'crossing marking', kind: 'marking',   act1: 'the crossing X and the stop bar, worn down to ghosts' },
+    14: { name: 'gate arm',         kind: 'prop',      act1: 'a crossing gate arm still down across the road, flashers dead' },
+    15: { name: 'scrap pile',       kind: 'prop',      act1: 'relay rail, ties and cut steel stacked on the frontage' },
+    16: { name: 'dead brush',       kind: 'tree-dead', act1: 'tumbleweed packed into the ditch and against the fence' },
+    17: { name: 'turnout',          kind: 'ground',    act1: 'the point blades where the siding comes off the main' },
+    18: { name: 'mile post',        kind: 'prop',      act1: 'a mile post, the number still legible if you get close' },
+    19: { name: 'loading pad',      kind: 'drive',     act1: 'the concrete team-track pad, stained where the forklifts worked it' },
+    20: { name: 'dock wall',        kind: 'building',  act1: 'the loading dock and the blank back wall of the shed behind it' },
+    21: { name: 'material yard',    kind: 'ground',    act1: 'the graded yard where the railway keeps its own steel, gate hanging open' }
+  };
+
+  var NOTES = {
+    summary: 'The Union Pacific mainline: a two-track ballast prism with a passing siding every mile and a half, wayside signals, a maintenance road and a right-of-way fence, meeting the street grid at 17 real at-grade crossings and passing UNDER the freeways. Act-1 dead means the train never left.',
+    reference: [
+      'The UP line through the valley is why Las Vegas exists: it was a railroad water stop before it was a town, and the line still runs the full length of the map on column 54.',
+      'Two-track mainline at about 4.5 m centres on a raised ballast prism, cess either side, drainage ditch, a maintenance road on ONE side, right-of-way fence, then wide dirt frontage.',
+      'Long passing sidings so opposing trains can meet, peeling off through point blades and rejoining a mile or more later.',
+      'At-grade crossings on the surface streets: crossing panels through the rails, stop bar, the painted X, gate arms and flashers. Grade separation at the freeways: the interstate bridges over.'
+    ],
+    layout: [
+      'Ballast prism 0 to 10 out from the centreline with the two tracks at plus and minus 5; cess to 16; ditch to 20; maintenance road 21 to 28 on ONE side only; fence at 30 to 31; dirt frontage out to the cell edge.',
+      'A NETWORK TILE: it takes the neighbours that are also rail as its own continuation, and the neighbours that are street as what crosses it at grade.',
+      'The siding is keyed off the CELL COORDINATE and not the cell seed, so it runs continuously for 16 cells and then stops, instead of flickering on and off every 96 m.',
+      'A cell whose links are perpendicular sweeps the track through a quarter arc. Column 54 is dead straight in this seed so nothing uses it yet, but a corridor generator that cannot turn is a trap for the next map.'
+    ],
+    circulation: 'On foot the corridor is crossable everywhere except through the fence, the relay huts and the standing rolling stock: ballast is rough going and the ditch is a step down, but nothing blocks. For vehicles there are exactly two surfaces, and that is the point of a railway: the maintenance road down one side, and the 17 at-grade crossings where the street grid gets through. The freeways do not cross here at all, they bridge over, and the corridor runs under them.',
+    layering: 'GROUND: ballast (1), ties (2), rails (3), cess (4), ditch (5), turnout (17), crossing pavement (12), crossing markings (13), dirt frontage (0). GROUND (drive): the service road (6) and the crossing (12). STRUCTURE (solid): relay hut (9), ROW fence (7). PROPS (solid): signal mast (8), gate arm (14), scrap pile (15), mile post (18), and the dead rolling stock (10, 11). OVERHEAD: none in a rail cell — the overhead is in the FREEWAY cell that bridges over it. PORTALS: none; a relay hut is a prop, not a room.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world." 90 cells of flat grey down the spine of the map is not a world.',
+      'SURFACE, not district: nobody bases a faction on a railway until Paolo rules the corridor is claimable ground.',
+      'A rail corridor is deliberately NOT built out of the arterial vocabulary. No lanes, no median, no sidewalk, no intersections. The only paint on the whole line is at the crossings.',
+      'The line stays CONTINUOUS through the freeway cells: bohemia_freeway.js carries the ballast and rails UNDER its deck wherever a rail cell is on the other side, so the mainline is one line for the whole valley instead of three severed pieces.',
+      'CONFORMS TO THE VISUAL CONSTITUTION: every palette entry measured into its layer band, gated in rail_gate.js.',
+      'ACT TRIPTYCH: act-1 dead only. Act-2 and act-3 materials are [PENDING Paolo].'
+    ]
+  };
+
+  K.register('rail', {
+    generate: generate, body: function (c) { return c === 9; },
+    category: K.category('rail') || 'infrastructure',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, sidingAt: sidingAt,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES,
+              BAL: BAL, TRACK: TRACK, C: C };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaRail = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_interchange.js ==== */
+// BOHEMIA INTERCHANGE (7/27/26, WORLD lane) — THE STACK, BUILT ACROSS ALL SIXTEEN OF
+// ITS CELLS.
+//
+// 16 valley cells are `interchange`, and they are not sixteen separate things: they are
+// ONE four-by-four block at x50-53, y19-22 where the north-south interstate crosses the
+// east-west one. In the real valley that is the Spaghetti Bowl, and it is the single
+// biggest man-made object in the city. Sixteen grey squares is the worst possible
+// rendering of it, because an interchange is nothing BUT its geometry.
+//
+// SAME TRICK AS THE AIRFIELD, AND FOR THE SAME REASON. A directional flyover is 300 m
+// of continuous curve and a cell is 96 m, so no per-cell generator can draw one: you
+// get sixteen disconnected arcs that stop at every property line. The world model hands
+// every cell of the block the BOUNDS OF ITS CLUSTER (bohemia_world.js clusterBoundsOf)
+// and the APPROACHES (which columns and rows the interstate actually arrives on), the
+// whole interchange is solved in valley coordinates against those, and each cell draws
+// its own 128x128 window onto it. There is no per-cell buffer at all — every tile is a
+// pure function of its valley position, which is what makes the seams exact by
+// construction instead of by luck.
+//
+// REAL REFERENCE (I-15 / US-95, and what a big four-level stack is made of):
+//   the two mainlines cross, one at grade and one on a DECK carried on centre piers
+//   in each of the four quadrants, TWO ramps: a tight direct connector that hugs the
+//     inside corner at grade, and a long directional FLYOVER that sweeps wide and
+//     rides over both mainlines on its own structure
+//   gore-point striping where every ramp leaves and rejoins, and a painted nose
+//   the INFIELD: the unreachable weedy ground inside the ramps, with the drainage
+//     retention basin the whole thing sheds into
+//   sound walls on the outside, because a stack is dropped into a neighbourhood
+//   act-1 dead: the ramps are where the jam was worst. Nothing on them ever moved.
+//
+// LAWS HELD: SURFACE not district. LINE COLOR: white only, exactly as the freeway — the
+// barrier separates opposing directions, never paint. WALKABLE-LAND: vehicular:true and
+// the truest case of it after the airfield, and the infield is still dressed, never a
+// void. LAYERING: every deck is a real OVERHEAD tile on solid piers, so the two-level
+// truth is in the data. CONSTITUTION: every palette entry inside its layer's value band.
+//
+// LEGEND (0-15 are the FREEWAY's own codes, deliberately, so the two read as one road):
+//  0 infield dirt   1 travel lane   2 white lane line  3 shoulder    4 median barrier
+//  5 guardrail      6 embankment    7 dead brush       8 sound wall  9 high-mast light
+// 10 dead car      11 dead semi    12 deck            13 pier       14 sign gantry
+// 15 debris        16 ramp lane    17 ramp shoulder   18 gore marking
+// 19 retention basin  20 maintenance road
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+  var N = (typeof module !== 'undefined') ? require('./bohemia_terrain_noise.js')
+        : (typeof BohemiaTerrainNoise !== 'undefined' ? BohemiaTerrainNoise : root.BohemiaTerrainNoise);
+
+  var T = 128;
+  // the mainline cross-section is the FREEWAY's, tile for tile, so a carriageway arrives
+  // out of the neighbouring freeway cell without a step at the seam
+  var BARRIER = 1, INSHLD = 3, LANES = 23, OUTSHLD = 28, GRAIL = 30;
+  var LANE_LINES = [8, 13, 18], EDGE = 23;
+  var RAMP = 4, RAMP_SH = 7;          // half-widths: two-lane ramp, then its shoulders
+
+  function bandOf(d) {
+    if (d <= BARRIER) return 4;
+    if (d <= INSHLD) return 3;
+    if (d <= LANES) return 1;
+    if (d <= OUTSHLD) return 3;
+    if (d <= GRAIL) return 5;
+    return null;
+  }
+  var CARRIAGE = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 };
+
+  /* THE FIELD SEED COMES FROM THE BLOCK, NEVER FROM THE CELL. Every cell of a cluster
+     arrives here with its OWN cell seed, so anything noise-driven keyed on it would give
+     sixteen different infields that disagree along every internal boundary — which is
+     precisely what the seam check caught the first time it ran. Derived from the bounds,
+     all sixteen cells solve the identical field and the seams are exact by construction. */
+  function fieldSeed(b) {
+    return (Math.imul(b.x0, 73856093) ^ Math.imul(b.y0, 19349663) ^
+            Math.imul(b.x1, 83492791) ^ Math.imul(b.y1, 40503431)) >>> 0;
+  }
+
+  /* solve() is the whole interchange as ONE PURE FUNCTION of valley position. generate()
+     is just a window onto it. Exported so the gate can prove there is no per-cell state
+     anywhere in this module rather than inferring it from how the seams happen to look. */
+  function solve(seed, opts) {
+    opts = opts || {};
+    var b = opts.bounds || { x0: opts.cellX || 0, x1: opts.cellX || 0,
+                             y0: opts.cellY || 0, y1: opts.cellY || 0, cells: 1 };
+    var FS = fieldSeed(b);
+    var BX0 = b.x0 * T, BX1 = (b.x1 + 1) * T - 1;
+    var BY0 = b.y0 * T, BY1 = (b.y1 + 1) * T - 1;
+
+    /* THE APPROACHES ARE NOT GUESSED. The world model looks at which cells around the
+       block are actually freeway and hands over their columns and rows, so the ramps
+       land on the real interstate instead of on a symmetry assumption. With nothing
+       handed over (a lone cell, a gate calling this directly) it falls back to the
+       middle of the block, which is where a single-cell junction belongs anyway. */
+    var ap = opts.approach || {};
+    function centres(cells, lo, hi) {
+      var out = (cells || []).map(function (c) { return c * T + T / 2; });
+      if (!out.length) {
+        var mid = (lo + hi) / 2, span = hi - lo + 1;
+        out = span > 2 * T ? [mid - T / 2, mid + T / 2] : [mid];
+      }
+      return out.sort(function (p, q) { return p - q; });
+    }
+    var ns = centres(ap.ns, BX0, BX1);      // north-south carriageway centres (x)
+    var ew = centres(ap.ew, BY0, BY1);      // east-west carriageway centres (y)
+
+    var minSpan = Math.min(BX1 - BX0 + 1, BY1 - BY0 + 1);
+    /* THE JUNCTION ENVELOPE. Two parallel carriageways per road (that is how the overmap
+       lays an interstate: two cells wide), so a ramp is not tangent to a line, it is
+       tangent to the OUTSIDE of a corridor 190 tiles across. Getting this wrong was the
+       first version's whole failure: radii picked off the axis spacing put every ramp
+       INSIDE the mainline it was supposed to leave, and 8 ramps rendered as 0.9% of the
+       block. The radii come off the envelope now, so they clear it. */
+    var jcx = (ns[0] + ns[ns.length - 1]) / 2, jcy = (ew[0] + ew[ew.length - 1]) / 2;
+    var nsHalf = (ns[ns.length - 1] - ns[0]) / 2 + GRAIL;
+    var ewHalf = (ew[ew.length - 1] - ew[0]) / 2 + GRAIL;
+    var room = Math.min((BX1 - BX0 + 1) / 2 - nsHalf, (BY1 - BY0 + 1) / 2 - ewHalf);
+    var R1 = Math.max(40, Math.round(room * 0.95));                 // tight direct connector
+    var R2 = Math.max(R1 + 60, Math.round(nsHalf + ewHalf + room * 0.6));  // directional flyover
+
+    /* THE EIGHT RAMPS. One tight and one wide in each of the four quadrants. The tight
+       one leaves the outside lane of each mainline and hugs the corner at grade; the
+       wide one is tangent to the FAR side of both corridors, which is exactly why it has
+       to sweep across the whole junction and ride over it on its own structure. */
+    var arcs = [];
+    var MERGE = 15;                                   // where a ramp meets a carriageway
+    [-1, 1].forEach(function (qx) {
+      [-1, 1].forEach(function (qy) {
+        var nx = jcx + qx * (nsHalf - MERGE), nyv = jcy + qy * (ewHalf - MERGE);
+        arcs.push({ cx: nx + qx * R1, cy: nyv + qy * R1, R: R1, qx: qx, qy: qy, fly: false });
+        var fx2 = jcx - qx * (nsHalf - MERGE), fy2 = jcy - qy * (ewHalf - MERGE);
+        arcs.push({ cx: fx2 + qx * R2, cy: fy2 + qy * R2, R: R2, qx: qx, qy: qy, fly: true });
+      });
+    });
+    function arcHit(gx, gy, a) {
+      if ((gx - a.cx) * a.qx > 0 || (gy - a.cy) * a.qy > 0) return null;   // wrong quadrant
+      var dd = Math.sqrt((gx - a.cx) * (gx - a.cx) + (gy - a.cy) * (gy - a.cy));
+      var d = Math.abs(dd - a.R);
+      if (d > RAMP_SH) return null;
+      // u = distance travelled ALONG the arc, which is what spaces the piers evenly
+      var u = Math.abs(Math.atan2(gy - a.cy, gx - a.cx)) * a.R;
+      return { band: d <= RAMP ? 16 : 17, fly: a.fly, edge: d > RAMP, u: u };
+    }
+    // inside the junction envelope a flyover is ALWAYS elevated: it comes down outside it
+    function inEnvelope(gx, gy) {
+      return Math.abs(gx - jcx) <= nsHalf || Math.abs(gy - jcy) <= ewHalf;
+    }
+
+    function nearest(v, list) {
+      var best = 1e9, at = 0;
+      for (var i = 0; i < list.length; i++) {
+        var d = Math.abs(v - list[i]);
+        if (d < best) { best = d; at = list[i]; }
+      }
+      return { d: best, at: at };
+    }
+
+    // ---- one tile, solved from its VALLEY position and nothing else ---------------
+    function codeAt(gx, gy) {
+      if (gx < BX0 || gx > BX1 || gy < BY0 || gy > BY1) return 0;
+      var dn = nearest(gx, ns), de = nearest(gy, ew);
+      var vBand = bandOf(dn.d), hBand = bandOf(de.d);
+      var onNS = vBand !== null, onEW = hBand !== null;
+
+      var code;
+      if (onEW && onNS) {
+        // the east-west mainline rides OVER the north-south one on a deck. Piers stand
+        // in the north-south median and on its shoulders, never in a live lane.
+        var pier = (dn.d <= BARRIER || (dn.d >= OUTSHLD - 1 && dn.d <= GRAIL)) &&
+                   (Math.abs(gy - de.at) % 24) < 3;
+        code = pier ? 13 : (hBand === 5 ? 12 : 12);
+      } else if (onEW) code = hBand;
+      else if (onNS) code = vBand;
+      else code = null;
+
+      // the ramps
+      var hit = null;
+      for (var i = 0; i < arcs.length; i++) {
+        var h2 = arcHit(gx, gy, arcs[i]);
+        if (!h2) continue;
+        if (!hit || h2.band < hit.band || (h2.band === hit.band && h2.fly)) hit = h2;
+      }
+      if (hit) {
+        if (hit.fly && inEnvelope(gx, gy)) {
+          // over the whole junction on its own structure, on piers spaced along the arc
+          code = (hit.edge && (Math.floor(hit.u) % 30) < 4 && code !== 1 && code !== 2) ? 13 : 12;
+        } else if (code === null || code === 4 || code === 5 || code === 6) {
+          code = hit.band;                                    // at grade: infield, or merging in
+        }
+      }
+
+      if (code !== null) {
+        // white edge and lane lines, on the mainlines only (a ramp is a single stream)
+        if (code === 1) {
+          var offV = onNS ? Math.abs(gx - dn.at) : -1, offH = onEW ? Math.abs(gy - de.at) : -1;
+          var dashV = (Math.floor((gy % 14) / 7) === 0), dashH = (Math.floor((gx % 14) / 7) === 0);
+          if (offV === EDGE || offH === EDGE) return 2;
+          if (offV >= 0 && LANE_LINES.indexOf(offV) >= 0 && dashV) return 2;
+          if (offH >= 0 && LANE_LINES.indexOf(offH) >= 0 && dashH) return 2;
+        }
+        // gore striping where a ramp's shoulder runs alongside a carriageway
+        if (code === 17 && (onNS || onEW)) return 18;
+        return code;
+      }
+
+      /* ---- THE INFIELD. The ground inside the ramps that nobody can legally reach, and
+         the second thing this module had to be fixed for: at 33% flat dirt it read as a
+         void, which is exactly what the WALKABLE-LAND law is about. What is really in
+         there is GRADED ground — decomposed-granite slopes shaped by the earthwork, the
+         retention basins the whole structure sheds into, the ring track the crews used
+         to reach them, riprap around the outfalls, and waist-high dry brush over all of
+         it because it has not been touched since the day it stopped. */
+      var fx = (gx - BX0) / (BX1 - BX0 + 1), fy = (gy - BY0) / (BY1 - BY0 + 1);
+      if (fx < 0.012 || fx > 0.988 || fy < 0.012 || fy > 0.988) return 8;   // perimeter sound wall
+      // the wall track: every sound wall in the valley has one running inside it, for the
+      // wall itself and for the drainage. It also does the job of breaking the infield
+      // into reachable pieces instead of one continuous slab of nothing.
+      var ring = Math.min(fx, 1 - fx, fy, 1 - fy);
+      if (ring > 0.030 && ring < 0.038) return 20;
+
+      var basins = [[0.20, 0.80, 0.115], [0.80, 0.22, 0.075]];
+      for (var bi = 0; bi < basins.length; bi++) {
+        var bx = BX0 + (BX1 - BX0) * basins[bi][0], by = BY0 + (BY1 - BY0) * basins[bi][1];
+        var bd = Math.sqrt((gx - bx) * (gx - bx) + (gy - by) * (gy - by));
+        var bw = minSpan * basins[bi][2] * (0.85 + 0.3 * N.value(FS ^ 0x51ed, gx, gy, 40));
+        if (bd < bw) return 19;
+        if (bd < bw + 4) return 15;                                          // riprap on the lip
+        if (Math.abs(bd - (bw + minSpan * 0.055)) < 3.5) return 20;          // the ring track
+      }
+      /* PATCHES, NOT CONFETTI, AND NOT CONTINENTS EITHER. Tight high-octave noise
+         stippled the infield, which the constitution bans outright (act 1 does not
+         dither). Widening it to a fractal stack then went the other way: fbm pulls
+         toward its own mean, so at block scale one whole quadrant came out below the
+         threshold and another entirely above, and a corner cell went 59% flat dirt.
+         Single-octave value noise at a real feature size is the answer: full range,
+         smooth edges, patches you could walk between. */
+      if (N.value(FS ^ 0x9a71, gx, gy, 26) > 0.58) return 7;                 // dry brush
+      if (N.value(FS ^ 0x3e07, gx, gy, 15) > 0.86) return 15;                // gravel stockpiles
+      // two fields at different sizes, averaged: the coarse one shapes the earthwork, the
+      // finer one keeps the bare ground from ever forming one big connected slab
+      return (N.value(FS ^ 0x2c19, gx, gy, 33) + N.value(FS ^ 0x5b41, gx, gy, 11)) / 2 > 0.34 ? 6 : 0;
+    }
+
+    /* ACT-1 DEAD, and the lighting, both solved at the same tile rather than in a second
+       pass over a buffer. That is what keeps the whole module a pure function: a queue of
+       stopped cars runs on across a cell boundary instead of restarting every 96 m, and
+       the light towers march evenly across the block instead of per cell. */
+    function drivable(c) { return c === 1 || c === 2 || c === 3 || c === 16 || c === 18; }
+    function at(gx, gy) {
+      var c = codeAt(gx, gy);
+      if (drivable(c)) {
+        var jam = N.fbm(FS ^ 0x77b3, gx, gy, 9, 2);
+        var h = N.hash2(FS ^ 0x1d4b, Math.floor(gx / 3), Math.floor(gy / 5));
+        if (jam > 0.74 && h > 0.42) return 11;
+        if (jam > 0.60 && h > 0.55) return 10;
+        if (N.hash2(FS ^ 0x63a1, gx, gy) > 0.982) return 15;
+        return c;
+      }
+      if (c === 5 || c === 6 || c === 7) {
+        if ((((gx % 62) + 62) % 62) < 2 && (((gy % 62) + 62) % 62) < 2) return 9;
+      }
+      return c;
+    }
+
+    return { at: at, bounds: b, ns: ns, ew: ew, R1: R1, R2: R2, ramps: arcs.length,
+             jcx: jcx, jcy: jcy, fieldSeed: FS };
+  }
+
+  function generate(seed, opts) {
+    opts = opts || {};
+    var S = solve(seed, opts);
+    var cx0 = (opts.cellX || 0) * T, cy0 = (opts.cellY || 0) * T;
+    var G = K.grid(seed >>> 0), g = G.g, x, y;
+    for (y = 0; y < T; y++) for (x = 0; x < T; x++) g[y][x] = S.at(cx0 + x, cy0 + y);
+    return { g: g, W: T, H: T, bounds: S.bounds, ns: S.ns, ew: S.ew, R1: S.R1, R2: S.R2,
+             ramps: S.ramps, streets: [], gates: [], footprints: [] };
+  }
+
+  var PALETTE = {
+    1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
+    7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
+    13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#38383f', 17: '#42424a',
+    18: '#a8a08c', 19: '#4f4b3e', 20: '#6e6552'
+  };
+
+  var LEGEND = {
+    0:  { name: 'infield dirt',     kind: 'ground',    act1: 'the graded infield inside the ramps, nobody has been in here in years' },
+    1:  { name: 'travel lane',      kind: 'drive',     act1: 'mainline lane through the junction, sun-cracked and drifted' },
+    2:  { name: 'white lane line',  kind: 'marking',   act1: 'faded white lane line (a freeway has no yellow: the barrier does that job)' },
+    3:  { name: 'shoulder',         kind: 'drive',     act1: 'paved shoulder, rumble strip worn flat' },
+    4:  { name: 'median barrier',   kind: 'structure', act1: 'concrete F-shape median barrier, scarred and tagged' },
+    5:  { name: 'guardrail',        kind: 'structure', act1: 'steel W-beam guardrail, posts bent where something left the road' },
+    6:  { name: 'embankment',       kind: 'ground',    act1: 'graded embankment slope, decomposed granite and rock' },
+    7:  { name: 'dead brush',       kind: 'tree-dead', act1: 'dry brush and tumbleweed standing waist high in the infield' },
+    8:  { name: 'sound wall',       kind: 'structure', act1: 'the block sound wall around the outside of the whole structure' },
+    9:  { name: 'high-mast light',  kind: 'prop',      act1: 'a high-mast light tower over the junction, every head dark' },
+    10: { name: 'dead car',         kind: 'vehicle',   act1: 'a car stopped in the queue that never moved again, doors open' },
+    11: { name: 'dead semi',        kind: 'vehicle',   act1: 'a semi stopped nose to tail on the ramp, trailer stripped' },
+    12: { name: 'deck',             kind: 'overhead',  act1: 'the upper roadway on its structure — you drive and walk UNDER it' },
+    13: { name: 'pier',             kind: 'structure', act1: 'a concrete pier carrying the deck, tagged as high as anybody could reach' },
+    14: { name: 'sign gantry',      kind: 'overhead',  act1: 'overhead sign gantry, panels gone or hanging' },
+    15: { name: 'rubble / debris',  kind: 'prop',      act1: 'blown tyre, bumper, glass and drift across the lanes', solid: false },
+    16: { name: 'ramp lane',        kind: 'drive',     act1: 'a two-lane connector ramp curving away from the mainline' },
+    17: { name: 'ramp shoulder',    kind: 'drive',     act1: 'the narrow shoulder of a connector ramp, nowhere to go if you stop' },
+    18: { name: 'gore marking',     kind: 'marking',   act1: 'the painted gore where the ramp splits off, chevrons worn to ghosts' },
+    19: { name: 'retention basin',  kind: 'ground',    act1: 'the drainage basin the whole structure sheds into, dry and cracked' },
+    20: { name: 'maintenance track',kind: 'drive',     act1: 'the dirt track the crews used to reach the basin and the pier bases' }
+  };
+
+  var NOTES = {
+    summary: 'The stack: two interstates crossing, one over the other on a piered deck, with eight ramps in the four quadrants — a tight connector at grade and a long directional flyover that rides over both mainlines. Solved across all sixteen cells of the block at once, with the infield, its retention basin and the dead jam that starts here.',
+    reference: [
+      'I-15 crossing US-95 is the Spaghetti Bowl, the single biggest man-made object in the valley, and the 16 interchange cells are one four-by-four block of it at x50-53, y19-22.',
+      'A big stack is: two mainlines crossing on different levels, a tight direct connector hugging the inside of each quadrant at grade, and a long directional flyover sweeping wide over everything.',
+      'The infield is the unreachable weedy ground inside the ramps, and the retention basin the whole structure drains into sits in it.',
+      'A dead city jams at its interchange first: the ramps back up, and everything behind them stops for good.'
+    ],
+    layout: [
+      'Every tile is a PURE FUNCTION of its valley position — there is no per-cell buffer anywhere in this module — so the sixteen cells agree at their seams by construction rather than by luck.',
+      'The world model supplies the cluster bounds and the APPROACHES: which columns and rows the interstate actually arrives on, so the ramps land on the real road instead of on a symmetry assumption.',
+      'The mainline cross-section is the freeway module\'s, tile for tile: barrier, inside shoulder, four lanes, outside shoulder, guardrail. That is why a carriageway crosses the block boundary without a step.',
+      'Ramp radii scale with the block: about 0.18 of its short span for the tight connectors and 0.38 for the flyovers, so a bigger junction gets bigger sweeps instead of the same eight arcs stretched.'
+    ],
+    circulation: 'Vehicles run through on both mainlines and around all eight ramps, and every ramp physically meets the carriageway it serves. On foot it is the worst ground in the valley and that is correct: no sidewalk, no crossing, a body walking here is walking on the interstate. The one thing a body CAN do is get underneath — the deck is an overhead tile you pass under, and the infield, the basin and the maintenance track are all walkable.',
+    layering: 'GROUND (drive): lanes (1), shoulders (3), ramp lanes (16), ramp shoulders (17), maintenance track (20), and the markings (2, 18). GROUND (walk): infield (0), embankment (6), retention basin (19). STRUCTURE (solid): median barrier (4), guardrail (5), sound wall (8), piers (13). PROPS (solid): high-mast lights (9), dead cars (10), dead semis (11). OVERHEAD (pass UNDER): the deck (12) and the sign gantry (14). PORTALS: none.',
+    decisions: [
+      'Paolo 7/26: "we need to actually build a fucking world." Sixteen grey squares is the worst possible rendering of the biggest object in the city.',
+      'Built across the CLUSTER, not the cell, for the same reason the airfield is: a 300 m flyover cannot be drawn 96 m at a time.',
+      'SURFACE, not district: nobody bases a faction on an interchange until Paolo rules it is claimable ground.',
+      'Codes 0 to 15 are deliberately the FREEWAY module\'s own codes, so the interstate and its junction read as one road and not two art styles meeting.',
+      'CONFORMS TO THE VISUAL CONSTITUTION: every palette entry measured into its layer band, gated in interchange_gate.js.',
+      'ACT TRIPTYCH: act-1 dead only. Act-2 and act-3 materials are [PENDING Paolo].'
+    ]
+  };
+
+  K.register('interchange', {
+    generate: generate, body: function (c) { return c === 8; },
+    category: K.category('interchange') || 'infrastructure',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  var API = { generate: generate, solve: solve, fieldSeed: fieldSeed,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaInterchange = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== engine/bohemia_desert.js ==== */
@@ -8245,6 +9119,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var DSR= HASREQ ? require('./bohemia_desert.js')         : (typeof BohemiaDesert!=='undefined'?BohemiaDesert:root.BohemiaDesert);
   var MTN= HASREQ ? require('./bohemia_mountain.js')       : (typeof BohemiaMountain!=='undefined'?BohemiaMountain:root.BohemiaMountain);
   var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
+  var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
+  var ICH= HASREQ ? require('./bohemia_interchange.js')    : (typeof BohemiaInterchange!=='undefined'?BohemiaInterchange:root.BohemiaInterchange);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -8315,7 +9191,15 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // reason the roads are: nothing should be able to base a faction on a runway until
     // Paolo rules that an airfield is claimable ground.
     airport:  { mod:AIR, zone:'institutional' },
-    airbase:  { mod:AIR, zone:'institutional' }
+    airbase:  { mod:AIR, zone:'institutional' },
+    /* THE RAILWAY AND THE STACK (7/27). The last two network surfaces in the valley: one
+       unbroken 90-cell mainline down column 54, and the 16-cell block where the two
+       interstates cross. The interchange is CLUSTER-BUILT for the same reason the
+       airfield is (a 300 m flyover cannot be drawn 96 m at a time); the railway is a
+       per-cell network tile like the arterial, but its continuity is computed with
+       continuityLinks so the line survives the freeways that bridge over it. */
+    rail:         { mod:RAI, zone:'default' },
+    interchange:  { mod:ICH, zone:'default' }
   };
   /* THE CLUSTER A CELL BELONGS TO. A runway is three kilometres long and a cell is
      96 metres, so an airfield is not a cell, it is a BLOB of them, and no generator
@@ -8344,6 +9228,54 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
               y0:Math.min.apply(null,ys), y1:Math.max.apply(null,ys), cells:cells.length };
     cells.forEach(function(c){ m.__clusters[kind+':'+c[0]+','+c[1]] = b; });
     return b;
+  }
+
+  /* WHICH APPROACHES A CLUSTER ACTUALLY HAS. An interchange has to put its ramps on the
+     real interstate, and the only place that truth lives is the map: which cells around
+     the block are freeway. This walks the block's perimeter once, caches it beside the
+     bounds, and hands back the COLUMNS a road arrives on from the north or south and the
+     ROWS it arrives on from the east or west. Without it the module would have to assume
+     the junction is symmetric, and an assumption is exactly what a generator should never
+     make about ground somebody else laid out. */
+  var HIWAYSET={freeway:1,beltway:1};
+  function clusterApproach(m,b,kind){
+    m.__approach = m.__approach || {};
+    var key0 = kind+':'+b.x0+','+b.y0+','+b.x1+','+b.y1;
+    if (m.__approach[key0]) return m.__approach[key0];
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var nsSet={}, ewSet={}, x, y;
+    /* FREEWAY ONLY, not ROADSET. The mile-grid arterials run right up against the
+       interchange block on every side, so asking "is this a road" answered YES for all
+       four columns and all four rows, the corridors swallowed the whole block, and eight
+       ramps rendered as nothing. An interchange is where two HIGHWAYS cross; a surface
+       street that happens to touch it is a neighbour, not an approach. */
+    for(x=b.x0;x<=b.x1;x++){ if(HIWAYSET[at(x,b.y0-1)]||HIWAYSET[at(x,b.y1+1)]) nsSet[x]=1; }
+    for(y=b.y0;y<=b.y1;y++){ if(HIWAYSET[at(b.x0-1,y)]||HIWAYSET[at(b.x1+1,y)]) ewSet[y]=1; }
+    var out={ ns:Object.keys(nsSet).map(Number).sort(function(a,c){return a-c;}),
+              ew:Object.keys(ewSet).map(Number).sort(function(a,c){return a-c;}) };
+    m.__approach[key0]=out; return out;
+  }
+
+  /* CONTINUITY, WHICH IS NOT THE SAME AS ADJACENCY. A rail cell whose neighbour is a
+     freeway has NOT hit the end of the line: the freeway bridges over and the mainline
+     runs on underneath. So a corridor's own continuation is its same-kind neighbours PLUS
+     any direction where another SURFACE is crossing it and the same kind resumes on the
+     far side, looked ahead as far as a crossing can plausibly be wide. Adjacency alone
+     would have severed the valley's one railway into three pieces at the freeways. */
+  function continuityLinks(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var D=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], out=[];
+    for(var i=0;i<D.length;i++){
+      var d=at(x+D[i][1],y+D[i][2]);
+      if(d===kind){ out.push(D[i][0]); continue; }
+      if(!d || !SURFACEGEN[d]) continue;
+      for(var k=2;k<=4;k++){
+        var far=at(x+D[i][1]*k, y+D[i][2]*k);
+        if(far===kind){ out.push(D[i][0]); break; }
+        if(!far || !SURFACEGEN[far]) break;
+      }
+    }
+    return out;
   }
 
   // which edges face something OTHER than this same terrain (a mountain lays its
@@ -8645,10 +9577,20 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       if(sg && sg.mod){
         var rl=roadLinks(m,x,y,cell.district);
         var links=rl.all;
+        /* A CORRIDOR THAT IS NOT A ROAD gets its continuation from continuityLinks, not
+           from ROADSET: the railway's own neighbours are rail cells, and its `cross` is
+           the street grid that meets it at grade. Getting this from roadLinks would have
+           told the railway that a freeway was its own continuation. */
+        var own=ROADSET[cell.district] ? rl.same : continuityLinks(m,x,y,cell.district);
+        var bnds=clusterBoundsOf(m,x,y,cell.district);
         var sres=sg.mod.generate(cell.seed>>>0,
-          { links:links.length?links:['N','S'], same:rl.same, cross:rl.cross,
+          { links:links.length?links:['N','S'], same:own.length?own:rl.same, cross:rl.cross,
             cellX:x, cellY:y, open:openEdges(m,x,y,cell.district),
-            kind:cell.district, bounds:clusterBoundsOf(m,x,y,cell.district),
+            kind:cell.district, bounds:bnds, approach:clusterApproach(m,bnds,cell.district),
+            // which sides a RAILWAY runs up to: what a freeway has to bridge over
+            rail:['N','S','E','W'].filter(function(d,i){
+              var D=[[0,-1],[0,1],[1,0],[-1,0]][i], c2=m.at(x+D[0],y+D[1]);
+              return !!(c2 && c2.district==='rail'); }),
             // the edges that face something that is NOT road: that is where the
             // districts are, and therefore where the street has to let them in
             access:['N','S','E','W'].filter(function(d){ return rl.all.indexOf(d)<0; }) });
@@ -8658,7 +9600,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
           return { code:c, name:L?L.name:(c===0?'dirt shoulder':(c<0?'(off-plot)':'?')),
                    layer:ly.layer, solid:ly.solid, enter:ly.enter }; };
         var sapi={ x:x, y:y, district:cell.district, category:KIT.category(cell.district),
-          archetype:sg.zone, surface:true, links:links, sameLinks:rl.same, crossLinks:rl.cross,
+          archetype:sg.zone, surface:true, links:links, sameLinks:own, crossLinks:rl.cross,
           block:{W:sres.W,H:sres.H,grid:sres.g,codes:true}, legend:slegend,
           tileInfo:stinfo,
           solidAt:function(xx,yy){ return stinfo(xx,yy).solid; },
