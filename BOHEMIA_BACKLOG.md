@@ -736,6 +736,23 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0I. [DONE 7/27, his ruling] ONE MOVEMENT UI EVERYWHERE. "on the run should be
+   using the same movement ui s the combat shit ... the arrows taking up half the
+   screen is dog shit man". The run's #ctl bar was a flex SIBLING of the stage,
+   so it did not float over the world, it SHRANK the canvas: 390x602 in an 844px
+   viewport. Replaced with the cluster the game already used twice (COMBAT
+   buildMoveRing, CITY #nav): 8 cardinals ringing an 80px portrait that IS the
+   one contextual action button, floating in the thumb corner. Canvas is 390x795
+   now. Four buttons became eight (the run's dirOf/DIRS8 always spoke 8; only the
+   buttons were four), with a corner-squeeze rule so a diagonal cannot slip
+   between two building corners. bu/bd/bl/br keep their ids for run_gate.
+   Gate: navcluster_gate.js, which READS THE PORTRAIT'S PIXELS and fails an empty
+   canvas. NO PIXEL COOKED - the face is the alpha's existing baked portrait.
+0J. (7/27, discovered, NOT mine) THE RUN'S INTERIOR CAMERA IS OFF-CENTRE: the
+   house draws low-right with a large void above it. PRE-EXISTING - confirmed by
+   screenshotting the previous build side by side before shipping the nav
+   cluster. Whoever owns the run should fix it. | no | screenshot comparison
+   7/27 | no.
 0H. [DONE 7/27, his ruling, law in laws/BOHEMIA_ADDENDUM_THREE_TILE_WALL_7_27_26.md]
    THE THREE-TILE WALL AND THE SEE-THROUGH. "every wall supporting a door should
    be three tiles tall ... an opacity filter for when I'm in front of a wall".
