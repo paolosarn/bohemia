@@ -418,11 +418,16 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    button (talk/enter/use/sleep/hang out), and every time-spend resolves the
    world through declared moments in declared phase order. Sleep saves.
    [DONE 7/27] WALK FEEL as playable toggles: GRID / SLIDE / HYBRID / FREE.
-   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (20/27),
+   [DONE 7/27] THE REAL VALLEY — the block is a real CELL of the generated
+   valley, read off the world model's own tile rung; walking off an edge loads
+   the neighbouring district. Passability is the world's answer now.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (21/27),
    enforced by gates/integration_gate.js.
-0b. THE REAL VALLEY (ledger priority 2): the run's block becomes a real cell of
-   the generated valley, so walking off it lands in a real district. | run_gate
-   proves a second district reached on foot | district engines | no.
+0b. DISTRICT ART (now the lane's top gap). The other districts are WALKABLE but
+   wear a generic material pass laid from the world's own tile names. Each type
+   needs its own dressed language the way the suburb has one, built to the
+   constitution. | per-type material map + a real-surface screenshot each |
+   the frozen tileset is frozen; new tiles register in target_match_gate | yes.
 0c. DISTRICT ART / MUSIC / DAY CYCLE (ledger priorities 3-5), in that order.
 1. Phone-feel pass on the run (touch responsiveness at arm's length): real
    device-shaped viewports, hold-to-walk tuning, tap-to-step target sizes,

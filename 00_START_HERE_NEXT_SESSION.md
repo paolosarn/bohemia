@@ -1049,7 +1049,27 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/27 LATEST — THE SENTENCE THE GAME SPEAKS. Paolo, after the lab:
+RUN (01) 7/27 LATEST — THE VALLEY IS REAL. The run's block used to be a
+standalone BohemiaSuburb.generate() with nothing on any side of it: walk to the
+edge and you hit nothing, forever. It now READS THE VALLEY the rest of the game
+runs on, one 128-tile cell at a time, off the world model's own tile rung
+(WORLD.tile) - same seed, same overmap, same generators. Walking off an edge
+really loads the neighbouring district and says which one.
+WHY IT WAS CHEAP: a suburb cell out of the real valley emits EXACTLY the codes
+the local generator did (0 yard, 1 road, 2 house, 3 driveway, 4 wall, 5 gate,
+6 garage, 9 upper), so footprints, doors, interiors and the whole dressed look
+worked unchanged. Home is found, not typed: the first suburb cell in scan order
+(MAP LAW - derived, so it survives a regeneration).
+ALSO: WHAT BLOCKS YOU IS NOW THE WORLD'S ANSWER (tile.solid), not the run's own
+list of walkable suburb codes. That list was a second copy of a rule the world
+already owned and it said nothing at all about the other twenty districts.
+HONEST GAP, and it is the lane's new top item: the other districts are WALKABLE
+but wear a MATERIAL pass, not district art - laid from the constitution's tiles
+using the WORLD'S OWN tile names (asphalt roadway, curb + gutter, dirt shoulder,
+sidewalk, gravel access road, solar panel). Nothing yet reads as a solar farm or
+an arterial specifically. Ledger 21/27, run_gate 109.
+
+RUN (01) 7/27 — THE SENTENCE THE GAME SPEAKS. Paolo, after the lab:
 "walk somewhere, ONE contextual action button that changes by what you're
 standing at, act, spend time, the world resolves." Adopted whole. Every verb in
 the run now goes through the PORTED, approved engine/bohemia_resolve.js:

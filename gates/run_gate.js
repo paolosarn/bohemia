@@ -369,6 +369,10 @@ async function alphaRun() {
     /* THE SENTENCE (Paolo, after the lab): walk somewhere, ONE contextual button
        that changes by what you are standing at, act, spend time, the world
        resolves. Every clause of it, on the real surface. */
+    /* THE VALLEY IS REAL. The block is a CELL of the generated world, and the
+       edge is a way into the next district instead of a wall. */
+    out.cell = await run.evaluate(() => window.__RUN.cell());
+    out.neighbours = await run.evaluate(() => window.__RUN.neighbours());
     out.moments = await run.evaluate(() => window.__RUN.moments());
     out.reach = await run.evaluate(() => window.__RUN.reach());
     out.verbHome = await run.evaluate(() => window.__RUN.verb());
@@ -484,6 +488,29 @@ async function alphaRun() {
       null, { timeout: 30000 });
     out.combatBack = (await run.evaluate(() => window.__RUN.state())).combat;
     await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_RUN_IN_ALPHA_7_26_26.png') });
+
+    /* LAST, so it can never disturb the run: walk to the far edge of the home
+       cell and push off it. The valley has to actually be on the other side. */
+    {
+      const g = await run.evaluate(() => window.__RUN.grid());
+      const st = await run.evaluate(() => window.__RUN.state());
+      if (st.mode === 'ext') {
+        const seen = { [st.px + ',' + st.py]: 1 }; const q = [[st.px, st.py]]; let best = [st.px, st.py];
+        while (q.length) {
+          const c = q.shift();
+          if (c[0] > best[0]) best = c;
+          for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            const nx = c[0] + d[0], ny = c[1] + d[1], k = nx + ',' + ny;
+            if (nx < 0 || ny < 0 || nx >= g.W || ny >= g.H || seen[k] || !g.pass[ny][nx] || g.doorOf[k] != null) continue;
+            seen[k] = 1; q.push([nx, ny]);
+          }
+        }
+        const steps = route(g.pass, [st.px, st.py], best, g.doorOf);
+        if (steps) for (const d of steps) await tapStep(run, d);
+        for (let i = 0; i < 8; i++) await tapStep(run, [1, 0]);
+        out.crossed = await run.evaluate(() => window.__RUN.cell());
+      }
+    }
   } finally { await browser.close(); }
   return out;
 }
@@ -619,6 +646,16 @@ async function alphaRun() {
     !!C.cast && C.cast.looks >= 4 && C.cast.lookDirs === 8);
   ok('ALPHA: the real FACE SYSTEM renders the dialogue portraits',
     !!C.cast && C.cast.portrait === true && C.cast.npcPortraits >= 4);
+  // THE REAL VALLEY (ledger's own next gap, closed)
+  ok('VALLEY: the run stands on a real CELL of the generated valley, not a detached block',
+    !!C.cell && C.cell.isHome === true && C.cell.name === 'suburb' && C.cell.tiles === 128);
+  ok('VALLEY: that cell really holds the neighbourhood (footprints read off the world)',
+    !!C.cell && C.cell.homes >= 8);
+  ok('VALLEY: there are REAL districts on the other side of its edges',
+    !!C.neighbours && Object.keys(C.neighbours).filter(k => C.neighbours[k]).length >= 2);
+  ok('VALLEY: walking off the edge really loads the neighbouring district',
+    !!C.crossed && C.crossed.isHome === false && !!C.crossed.name &&
+    C.crossed.at.join() !== C.cell.at.join());
   // THE SENTENCE THE GAME SPEAKS (Paolo, after the lab)
   ok('SENTENCE: the moments are HIS sizes — sleep 8, hang out 1, eat unpriced',
     !!C.moments && C.moments.length >= 3 &&

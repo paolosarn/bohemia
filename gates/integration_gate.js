@@ -49,7 +49,9 @@ const PROBES = {
   body_sort: () =>
     RUN.indexOf('bodies.sort(') >= 0 && RUN.indexOf('me:true') >= 0,
   suburb_module: () => RUN.indexOf(engine('bohemia_suburb.js')) >= 0 &&
-    RUN.indexOf("BohemiaSuburb.generate(SEED, 'ring', 1, 1)") >= 0,
+    // the block is a real valley cell now, so what the module gives the run is
+    // its footprint reader, run over the world's own grid
+    RUN.indexOf('BohemiaSuburb.homeFootprints({ g:G, W:T, H:T })') >= 0,
   art_banks: () => {
     const walk = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SUBURB_WALK_7_18_26.html'), 'utf8');
     const a = walk.indexOf('var DOOR_B64=['), b = walk.indexOf('function lampAt(', a);
@@ -120,6 +122,18 @@ const PROBES = {
     /var WALKMODES=\['GRID','SLIDE','HYBRID','FREE'\]/.test(RUN) &&
     RUN.indexOf('function walkModeSet(') >= 0 && RUN.indexOf('function drawOffset(') >= 0 &&
     RUN.indexOf('function freeNudge(') >= 0 && RUN.indexOf('walkbtn') >= 0,
+  /* THE VALLEY IS REAL: the run reads the world model's own tile rung one cell
+     at a time, and the edge is a crossing rather than a wall. */
+  real_valley: () =>
+    RUN.indexOf('function loadCell(') >= 0 && RUN.indexOf('WORLD.tile(cx*T+x, cy*T+y)') >= 0 &&
+    RUN.indexOf('function findHomeCell(') >= 0 &&
+    RUN.indexOf('You crossed into the') >= 0 &&
+    // passability is the world's answer now, not a private list of suburb codes
+    RUN.indexOf('return !SOLIDG[y][x];') >= 0 &&
+    RUN.indexOf("BohemiaSuburb.generate(SEED, 'ring', 1, 1)") < 0,
+  district_material: () =>
+    RUN.indexOf('function genericTile(') >= 0 && RUN.indexOf('NAMEG[gy][gx]') >= 0 &&
+    RUN.indexOf('function isSuburbCell(') >= 0,
   /* SAVE/LOAD, to the two 7/26 rulings: one versioned blob through the engine's
      own save, no private side-channel, no device prefs riding along. */
   save_blob: () =>

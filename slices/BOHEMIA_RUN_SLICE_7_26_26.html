@@ -331,25 +331,84 @@ __ART_BANKS__
    real quest manager (world bridge + casting bridge), real save/ledger. ---- */
 var CTX = BohemiaLoop.boot({ seed: 'bohemia' });
 
-/* ---- 2. THE BLOCK. Seed 7, the cul-de-sac block Paolo approved 7/18. ---- */
+/* ===========================================================================
+   2. THE BLOCK IS A REAL CELL OF THE REAL VALLEY.
+   It used to be a standalone generate() with nothing on any side of it: walk to
+   the edge and you hit nothing, forever. Now the run READS THE VALLEY the rest
+   of the game runs on — the same seed, the same overmap, the same generators —
+   one 128-tile cell at a time, and stepping off an edge really loads the
+   neighbouring district.
+
+   The read is the world model's own tile rung (w.tile), so the codes, what is
+   SOLID and what LAYER a thing is on all come from the world rather than from a
+   second copy of the rules living here. A suburb cell out of the valley produces
+   exactly the codes the local generator did (0 yard, 1 road, 2 house, 3
+   driveway, 4 wall, 5 gate, 6 garage, 9 upper), which is why every downstream
+   thing — footprints, doors, interiors, the dressed look — works unchanged.
+   =========================================================================== */
 var SEED = 7;
-var res = BohemiaSuburb.generate(SEED, 'ring', 1, 1);
-var W = res.W, H = res.H, G = res.g;
-var feet = BohemiaSuburb.homeFootprints(res);
+var WORLD = CTX.worldMap && CTX.worldMap.real;
+var T = (WORLD && WORLD.TILE_PER_CELL) || 128;
+var W = T, H = T;
+var G = [], SOLIDG = [], LAYERG = [], NAMEG = [], CELLNAME = '';
+var CELL = null, feet = [];
+/* WHERE YOU LIVE. Deterministic and real: the first suburb cell of the valley
+   in scan order. Not a hand-typed coordinate — MAP LAW, and it survives a
+   regeneration because it is derived, not written down. */
+function findHomeCell(){
+  if(!WORLD) return [0,0];
+  var ds = (CTX.worldMap.districts||[]);
+  for(var i=0;i<ds.length;i++){
+    var p=String(ds[i].id||'').split(','), cx=+p[0], cy=+p[1];
+    if(isNaN(cx)||isNaN(cy)) continue;
+    var t=WORLD.tile(cx*T+(T>>1), cy*T+(T>>1));
+    if(t && String(t.district)==='suburb') return [cx,cy];
+  }
+  return [0,0];
+}
+var HOME_CELL = findHomeCell();
+/* Read one cell of the valley into the grids the run walks and draws on. */
+function loadCell(cx,cy){
+  CELL=[cx,cy]; G=[]; SOLIDG=[]; LAYERG=[]; NAMEG=[]; CELLNAME='';
+  for(var y=0;y<T;y++){
+    var gr=[], sr=[], lr=[], nr=[];
+    for(var x=0;x<T;x++){
+      var t = WORLD ? WORLD.tile(cx*T+x, cy*T+y) : null;
+      gr.push(t && t.code!=null ? t.code : 0);
+      sr.push(t ? !!t.solid : true);
+      lr.push(t ? (t.layer||'ground') : 'ground');
+      nr.push(t ? String(t.name||'') : '');
+      if(t && !CELLNAME) CELLNAME = String(t.district||'');
+    }
+    G.push(gr); SOLIDG.push(sr); LAYERG.push(lr); NAMEG.push(nr);
+  }
+  feet = BohemiaSuburb.homeFootprints({ g:G, W:T, H:T });
+  if(typeof deriveDoors==='function') deriveDoors();
+  _fpc = {};                      /* interiors are per-cell, never carried over */
+  return CELL;
+}
+loadCell(HOME_CELL[0], HOME_CELL[1]);
+var HOME_CELLNAME = CELLNAME;
+function isSuburbCell(){ return CELLNAME==='suburb'; }
 
 /* every house gets a front DOOR: a house-body cell touching its driveway
-   (fallback road, then dead ground). Same rule the approved walk surface uses. */
+   (fallback road, then dead ground). Same rule the approved walk surface uses,
+   re-derived every time a new cell of the valley loads. */
 var doorOf = {}, homeDoor = [];
 function pref(x, y, want){ var nb=[[0,1],[0,-1],[1,0],[-1,0]];
   for(var k=0;k<4;k++){ var ax=x+nb[k][0], ay=y+nb[k][1];
     if(ax>=0&&ay>=0&&ax<W&&ay<H&&G[ay][ax]===want) return true; } return false; }
-feet.forEach(function(f,i){
-  var pick=null;
-  for(var pass=0;pass<3&&!pick;pass++){ var want=[3,1,0][pass];
-    for(var y=f.y;y<f.y+f.h&&!pick;y++) for(var x=f.x;x<f.x+f.w;x++){
-      if(G[y][x]===2&&pref(x,y,want)){ pick=[x,y]; break; } } }
-  if(pick){ doorOf[pick[0]+','+pick[1]]=i; homeDoor[i]=pick; }
-});
+function deriveDoors(){
+  doorOf = {}; homeDoor = [];
+  feet.forEach(function(f,i){
+    var pick=null;
+    for(var pass=0;pass<3&&!pick;pass++){ var want=[3,1,0][pass];
+      for(var y=f.y;y<f.y+f.h&&!pick;y++) for(var x=f.x;x<f.x+f.w;x++){
+        if(G[y][x]===2&&pref(x,y,want)){ pick=[x,y]; break; } } }
+    if(pick){ doorOf[pick[0]+','+pick[1]]=i; homeDoor[i]=pick; }
+  });
+}
+deriveDoors();
 
 /* ---- 3. WHICH HOUSE IS YOURS. Deterministic, never hand-placed: the home
    whose front door sits nearest the block's gate is the one you wake up in. --- */
@@ -363,9 +422,14 @@ var HOME = -1;
 var HOME_DOOR = homeDoor[HOME] || [W>>1, H>>1];
 
 /* ---- 4. WALKABILITY + the road graph (BFS, used for placement + the gate). ---- */
+/* WHAT BLOCKS YOU IS THE WORLD'S OWN ANSWER. The run used to keep its own list
+   of walkable suburb codes, which is a second copy of a rule the world model
+   already owns and which said nothing at all about the other twenty districts.
+   Now it asks the tile. A front door stays walkable because a door is a way in,
+   not a wall. */
 function passExt(x,y){ if(x<0||y<0||x>=W||y>=H) return false;
   if(doorOf[x+','+y]!=null) return true;
-  var c=G[y][x]; return c===0||c===1||c===3||c===5; }
+  return !SOLIDG[y][x]; }
 function bfs(from){
   var dist={}, q=[from], k=from[0]+','+from[1]; dist[k]=0;
   while(q.length){ var cur=q.shift(), d=dist[cur[0]+','+cur[1]];
@@ -446,12 +510,19 @@ function fpOf(i){ if(_fpc[i]!==undefined) return _fpc[i]; var f=feet[i];
   _fpc[i] = f ? BOH_FLOORPLAN.generate((SEED^((i+1)*0x9E3779B1))>>>0, f.w, f.h, {zone:'residential',entrance:'S'}) : null;
   return _fpc[i]; }
 var SIM = null;
-try{
-  var _agents = BohemiaAgents.agentsForBlock(SEED, feet, [], fpOf);
-  SIM = BohemiaAgents.makeSim(res, feet, _agents, { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
-  SIM.playerAt = HOME_DOOR;
-  for(var _w=0; _w<450; _w++) SIM.step();   /* warm to ~07:30 so the street lives */
-}catch(e){ SIM = null; }
+/* the people who live on THIS cell. Rebuilt per cell, seeded from the cell's own
+   coordinates so the same corner of the valley always holds the same lives. */
+function buildSim(warm){
+  try{
+    var seed = (SEED ^ (CELL[0]*73856093) ^ (CELL[1]*19349663)) >>> 0;
+    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf);
+    SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
+      { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
+    SIM.playerAt = [px,py];
+    for(var i=0;i<(warm||0);i++) SIM.step();
+    FACES={}; _APOS={};
+  }catch(e){ SIM = null; }
+}
 
 /* ---- 8. RUN STATE ---- */
 var RUN = { phase:'home_inside', combatOutcome:null, clout:null, outcome:null, sentEncounter:null };
@@ -507,6 +578,7 @@ enter(HOME);
   if(best){ px=best[0]; py=best[1]; }
 })();
 backAt = HOME_DOOR.slice();
+buildSim(450);                 /* warm to ~07:30 so the street is already living */
 
 /* ===========================================================================
    9. RENDER — THE BLOCK, LAID FROM THE VISUAL CONSTITUTION'S OWN TILES.
@@ -550,6 +622,33 @@ function groundTile(c,gx,gy){
   return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
 }
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
+/* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its
+   codes are known; the other twenty do not, and inventing one per district is
+   district art — the very next job, not this one. So a non-suburb cell is laid
+   from what the WORLD ITSELF CALLS each tile, using the constitution's own
+   materials. It is a MATERIAL pass, not district art, and it should read as
+   ground/road/concrete/structure rather than as a suburb wearing a costume. */
+function genericTile(gx,gy){
+  var n=(NAMEG[gy][gx]||'').toLowerCase(), solid=SOLIDG[gy][gx], lay=LAYERG[gy][gx];
+  if(solid || lay==='structure'){
+    if(/roof|canopy|deck/.test(n)) return 'roof_slope';
+    if(/fence|wall|barrier/.test(n)) return 'wall_base';
+    return ['wall_0','wall_1','wall_2'][th(gx,gy,3)];
+  }
+  /* the vocabulary is the WORLD'S, read off its own tiles: asphalt roadway,
+     curb + gutter, raised median, sidewalk, dirt shoulder, landscape strip,
+     gravel access road, graded pad, rock lag, desert pavement, caliche
+     hardpan, dry rill, OHV track. Matched in the order that keeps a dirt
+     shoulder dirt and a curb a curb. */
+  if(/curb|gutter|median/.test(n)) return 'road_gutter';
+  if(/gravel|dirt|sand|rock|caliche|hardpan|lag|scrub|rill|track|shoulder|desert pavement/.test(n)) return 'dirt';
+  if(/asphalt|roadway|lane|street/.test(n)) return ['road_0','road_1','road_2'][th(gx,gy,3)];
+  if(/sidewalk|walk|path/.test(n)) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
+  if(/concrete|apron|pad|slab|lot|parking|platform|court/.test(n)) return ['concrete_0','concrete_1'][th(gx,gy,2)];
+  if(/water|channel|pond|basin/.test(n)) return 'concrete_1';
+  return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
+}
+
 /* THE BUILDING STACK, read the way the target frame reads: the street-facing
    row is the WALL FACE, the row behind it is the EAVE, then roof, with hips
    where the mass turns and a ridge along its back. A garage opens onto its OWN
@@ -834,7 +933,9 @@ function draw(){
         /* THE CONSTITUTION'S TILES, ground first then the building stack.
            A cell is drawn at CELL size with the tile scaled to it (integer blit,
            smoothing already off) — the mobile render contract's own rule. */
-        var laid = isBody(gx,gy2) ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2);
+        var laid = isSuburbCell()
+          ? (isBody(gx,gy2) ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
+          : genericTile(gx,gy2);
         if(!tput(laid,X,Y,S)){
           /* only ever reached in the first frames while the bank decodes */
           ctx.fillStyle = isBody(gx,gy2) ? (EXTCOL[c]||'#8a5a3a') : gcol(gx,gy2);
@@ -1051,7 +1152,8 @@ function refresh(){
   OBJ.textContent = objectiveLine();
   WHERE.textContent = (mode==='int')
     ? (curHouse===HOME ? 'YOUR HOUSE' : 'INSIDE #'+(curHouse+1))
-    : 'CAMPANA DR · the dead block';
+    : (String(CELLNAME||'valley').toUpperCase() + ' · ' +
+       (CELL[0]===HOME_CELL[0]&&CELL[1]===HOME_CELL[1] ? 'your block' : 'cell '+CELL[0]+','+CELL[1]));
   VERB = contextVerb();
   if(VERB){ ACT.disabled=false; ACT.textContent=VERB.label; }
   else { ACT.disabled=true; ACT.textContent='—'; }
@@ -1138,6 +1240,27 @@ function move(dx,dy){
   _PIDLE=setTimeout(function(){ PMOVING=false; draw(); }, 320);
   var nx=px+dx, ny=py+dy;
   if(mode==='ext'){
+    /* THE EDGE IS NOT A WALL ANY MORE. Step off this cell and the neighbouring
+       district really loads: same valley, same generators, same seed. If there
+       is nothing there (the rim of the map) you simply cannot go. */
+    if(nx<0||ny<0||nx>=W||ny>=H){
+      var ncx=CELL[0]+(nx<0?-1:nx>=W?1:0), ncy=CELL[1]+(ny<0?-1:ny>=H?1:0);
+      var probe = WORLD ? WORLD.tile(ncx*T+(T>>1), ncy*T+(T>>1)) : null;
+      if(!probe){ toast('The valley ends here.'); return; }
+      loadCell(ncx,ncy);
+      px = (nx<0)? W-1 : (nx>=W? 0 : px);
+      py = (ny<0)? H-1 : (ny>=H? 0 : py);
+      if(SOLIDG[py][px]){                      /* never land inside a wall */
+        var got=false;
+        for(var r=1;r<24&&!got;r++) for(var ddx=-r;ddx<=r&&!got;ddx++) for(var ddy=-r;ddy<=r&&!got;ddy++){
+          var tx=px+ddx, ty=py+ddy;
+          if(tx>=0&&ty>=0&&tx<W&&ty<H&&!SOLIDG[ty][tx]){ px=tx; py=ty; got=true; } }
+      }
+      buildSim(0);
+      toast('You crossed into the '+(CELLNAME||'valley')+'.');
+      autoSave('cell');
+      refresh(); draw(); return;
+    }
     var d = doorOf[nx+','+ny];
     if(d!=null){
       /* YOU DO NOT WALK THROUGH A SHUT DOOR. First bump swings it open (the real
@@ -1541,6 +1664,13 @@ window.__RUN = {
   lastResolve: function(){ return LAST_RESOLVE; },
   reach: function(){ return { tiles:REACH.tiles, facing:PFACE,
     faced:REACH.facingTile(px,py,facingOf(PFACE)) }; },
+  cell: function(){ return { at:CELL.slice(), name:CELLNAME, home:HOME_CELL.slice(),
+    isHome:(CELL[0]===HOME_CELL[0]&&CELL[1]===HOME_CELL[1]), tiles:T, homes:feet.length }; },
+  neighbours: function(){ var out={};
+    [['E',1,0],['W',-1,0],['S',0,1],['N',0,-1]].forEach(function(d){
+      var t=WORLD?WORLD.tile((CELL[0]+d[1])*T+(T>>1),(CELL[1]+d[2])*T+(T>>1)):null;
+      out[d[0]]=t?String(t.district):null; });
+    return out; },
   walkMode: function(){ return WALKMODE; },
   walkModes: function(){ return WALKMODES.slice(); },
   setWalkMode: function(m){ walkModeSet(m); return WALKMODE; },
