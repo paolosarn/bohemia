@@ -672,6 +672,22 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0H. [DONE 7/27, his ruling, law in laws/BOHEMIA_ADDENDUM_THREE_TILE_WALL_7_27_26.md]
+   THE THREE-TILE WALL AND THE SEE-THROUGH. "every wall supporting a door should
+   be three tiles tall ... an opacity filter for when I'm in front of a wall".
+   Two asks, ONE mechanism: a wall only gets height by leaving the baked chunk
+   (three tiles means drawing into the two cells above, which belong to other
+   rows and sometimes other chunks), and the opacity depends on where he is
+   standing THIS FRAME, which a bake cannot know. So facades are a live pass
+   drawn in two halves around the player: behind him at full opacity, then the
+   player, then what stands between him and the camera, faded to 35% only where
+   it covers him. A door is 2 of the 3 tiles (DOOR LAW); a window moved UP to the
+   middle tile instead of lying on the ground. The tall door is DERIVED ONCE into
+   a cached 16x32 tile so no frame ever stretches it - a law does not get to
+   break the render contract to implement itself. Gate: wallheight_gate.js,
+   which renders two real frames and reads back destination size AND alpha
+   (invisible to a normal draw audit), asserting the fade fires when covered and
+   does NOT fire when clear. NO PIXEL COOKED - all his own 7/21 house verdict.
 0E. [DONE 7/27, diagnosis in records/BOHEMIA_SUBURB_DIAGNOSIS_7_27_26.md] "THE
    DOOR SUCK" WAS A DICE ROLL. Every exposed house tile picked its facade from a
    per-tile hash and 10% of that roll was a DOOR: measured 62 doors across 727

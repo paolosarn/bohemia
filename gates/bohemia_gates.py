@@ -270,6 +270,8 @@ GATES = [
      'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
     ('RENDER PIXEL',   ['node', 'gates/render_pixel_gate.js'],
      'the render contract MEASURED on the real surface: no fractional upscaling, no half-pixel draws, nothing off its aspect', True),
+    ('THREE-TILE WALL',['node', 'gates/wallheight_gate.js'],
+     'Paolo 7/27: a wall carrying a door is 3 tiles tall, a door is 2 of them, and a wall covering the player goes see-through (and only then)', True),
     ('FRONT DOOR',     ['node', 'gates/frontdoor_gate.js'],
      'a door is a fact about the plot, not a dice roll: every front door on its own driveway, no painted doors that cannot open', True),
     ('TOUCH GUARD',    ['node', 'gates/touch_guard_gate.js'],
