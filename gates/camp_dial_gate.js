@@ -102,12 +102,18 @@ if (dialBlock) {
   const stam = rows.find(r => r.k === 'STAMINA_BONUS');
   ok('A17 clause 7: the stamina bonus cannot be dialled past +3 — his own range',
      !!stam && stam.max <= 3 && stam.min >= 1);
-  const huge = rows.filter(r => r.k.indexOf('TILES') < 0 && r.max > 20);
-  ok('A18 clause 7: no stat dial reaches Valheim\'s register' +
+  /* clause 7 is about STAT magnitudes — health, stamina, the pool. Tile counts and
+     MINUTES are durations and costs, not stats, and a sleep is eight hours whether
+     or not the register is small. */
+  const STAT = /HEALTH|STAMINA|COST|SUPPLY|CAPACITY|BONUS/;
+  const huge = rows.filter(r => STAT.test(r.k) && r.max > 20);
+  ok('A18 clause 7: no STAT dial reaches Valheim\'s register' +
      (huge.length ? ' (' + huge.map(h => h.k).join(',') + ')' : ''), huge.length === 0);
+  const stats = rows.filter(r => STAT.test(r.k));
+  ok('A18b clause 7: and there really are stat dials to check (' + stats.length + ')', stats.length >= 6);
   /* every pending clause in the law must have at least one dial pointing at it */
-  const clauses = (dialBlock[1].match(/clause: '([a-g])'/g) || []).map(s => s.slice(-2, -1));
-  ['a', 'b', 'c', 'd', 'e', 'f'].forEach(c => {
+  const clauses = (dialBlock[1].match(/clause: '([a-m])'/g) || []).map(s => s.slice(-2, -1));
+  ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'i', 'j', 'k', 'l', 'm'].forEach(c => {
     ok('A19.' + c + ' law clause (' + c + ') is reachable as a dial', clauses.indexOf(c) >= 0);
   });
   /* THE ONE HE SAID IDK ABOUT must be a switch, not a decision I made */
@@ -117,6 +123,18 @@ if (dialBlock) {
 }
 ok('A21 no dial is a silent constant: every one carries the reason it exists',
    (src.match(/why:\s*'/g) || []).length >= 15);
+
+/* THE AMENDMENT (clauses 11-15, his second message the same day) */
+ok('A22 the law carries the amendment and his words for it',
+   /AMENDED THE SAME DAY/.test(law) && /SETTING UP CAMP TAKES TIME/.test(law));
+ok('A23 clause 13: the law records the act scarcity curve',
+   /ACT SCARCITY CURVE/.test(law) && /ACT 2 A LITTLE LESS/.test(law));
+ok('A24 clause 15: his blood-loss question is answered in writing, with a recommendation',
+   fs.existsSync(path.join(ROOT, 'records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md')));
+ok('A25 clause 15: and the answer is offered as a recommendation, not taken as a decision',
+   /\[PENDING Paolo\]/.test(fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md'), 'utf8')));
+ok('A26 the law parks the numbers because HE parked them',
+   /WELL WORK MORE ON THAT|well work more on that/i.test(law));
 
 /* ==========================================================================
    PART B — LIVE, on the real surface
@@ -318,6 +336,7 @@ ok('A21 no dial is a silent constant: every one carries the reason it exists',
     const aid = await page.evaluate(() => {
       const L = window.LAB, o = {};
       L.reset(); L.place(11, 28); L.setDownCamp(); L.addSupply(20);
+      L.setDial('BLEED_POLICY', 0);          /* test the treatment on the strict policy */
       /* bleeding, and the bandage */
       L.hurt('bleeding');
       o.bleeding = L.hasWound('bleeding');
@@ -449,6 +468,186 @@ ok('A21 no dial is a silent constant: every one carries the reason it exists',
     ok('B40 THE LOOP CLOSES: you pack it, walk ' + loop.walked + ' tiles, and the buff burned ' +
        loop.burned + ' — and it is still on', loop.packed === true &&
        loop.burned === loop.walked && loop.stillRested === true);
+
+    /* ================= THE AMENDMENT: CLAUSES 11 TO 15 ================= */
+
+    /* ---------------- CLAUSE 11: SETTING UP CAMP TAKES TIME ---------------- */
+    const setup = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.place(11, 28);
+      const m0 = L.minutes();
+      o.pitched = L.setDownCamp();
+      o.cost = L.minutes() - m0;
+      o.dial = L.D('SETUP_MINUTES');
+      /* and the clock is not the tile clock: standing there moves neither */
+      const m1 = L.minutes(), r1 = L.rested();
+      o.stillNothing = (L.minutes() === m1) && (L.rested() === r1);
+      return o;
+    });
+    ok('T1 clause 11: SETTING UP CAMP COSTS TIME (' + setup.cost + ' min)',
+       setup.pitched === true && setup.cost === setup.dial && setup.cost > 0);
+    ok('T2 clause 2 still holds alongside it: standing there moves neither clock',
+       setup.stillNothing === true);
+
+    /* ---------------- CLAUSE 12: EVERY BUTTON SPENDS TIME ---------------- */
+    const clock = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.place(11, 28); L.setDownCamp(); L.addSupply(20);
+      const t = (id) => { const m = L.minutes(); L.campAction(id); return L.minutes() - m; };
+      o.chill = t('chill');
+      L.spendTile(L.rested());                 /* let it lapse so sleep is allowed */
+      o.sleep = t('sleep');
+      o.eat = t('eat');
+      L.setDial('BLEED_POLICY', 0);
+      L.hurt('bleeding');
+      o.bandage = t('bandage');
+      L.hurt('bullet');
+      o.bullet = t('bullet');
+      o.dials = { chill: L.D('CHILL_MINUTES'), sleep: L.D('SLEEP_MINUTES'),
+                  eat: L.D('EAT_MINUTES'), aid: L.D('AID_MINUTES'), bullet: L.D('BULLET_MINUTES') };
+      return o;
+    });
+    ok('T3 clause 12: hanging out spends time (' + clock.chill + ' min)',
+       clock.chill === clock.dials.chill && clock.chill > 0);
+    ok('T4 clause 12: sleeping is the big block (' + clock.sleep + ' min)',
+       clock.sleep === clock.dials.sleep && clock.sleep > clock.chill);
+    ok('T5 clause 12: eating spends time (' + clock.eat + ' min)', clock.eat === clock.dials.eat);
+    ok('T6 clause 12: so does patching yourself up (' + clock.bandage + ' min)',
+       clock.bandage === clock.dials.aid);
+    ok('T7 clause 12: and digging a bullet out is the longest of them (' + clock.bullet + ' min)',
+       clock.bullet === clock.dials.bullet && clock.bullet > clock.dials.aid);
+
+    /* the two clocks are separate and both real */
+    const two = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.place(11, 28); L.setDownCamp(); L.campAction('chill');
+      const m0 = L.minutes(), r0 = L.rested();
+      L.spendTile(10);
+      o.clockMoved = L.minutes() - m0;
+      o.buffBurned = r0 - L.rested();
+      o.perTile = L.D('TILE_MINUTES');
+      o.dayInTiles = L.dayInTiles();
+      return o;
+    });
+    ok('T8 clause 3: walking spends BOTH — 10 tiles burned ' + two.buffBurned +
+       ' of buff and ' + two.clockMoved + ' minutes of day',
+       two.buffBurned === 10 && two.clockMoved === 10 * two.perTile);
+    ok('T9 clause 3: and the derivation is shown — a day is ' + two.dayInTiles +
+       ' tiles at ' + two.perTile + ' min each', two.dayInTiles === Math.round(1440 / two.perTile));
+
+    /* ---------------- CLAUSE 13: THE ACT SCARCITY CURVE ---------------- */
+    const acts = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset();
+      L.setDial('ACT', 1); o.act1 = L.sheltersNow().length;
+      L.setDial('ACT', 2); o.act2 = L.sheltersNow().length;
+      L.setDial('ACT', 3); o.act3 = L.sheltersNow().length;
+      o.act1Kinds = (L.setDial('ACT', 1), L.sheltersNow().map(h => h.kind));
+      return o;
+    });
+    ok('T10 clause 13: ACT 1 HAS THE LEAST FRIENDLY SHELTER (' + acts.act1 + ')', acts.act1 >= 1);
+    ok('T11 clause 13: act 2 has a little more (' + acts.act2 + ')', acts.act2 > acts.act1);
+    ok('T12 clause 13: act 3 has hotels and hangouts (' + acts.act3 + ')', acts.act3 > acts.act2);
+    ok('T13 clause 13: and act 1\'s one option is a homie\'s house you have to hoof it to (' +
+       acts.act1Kinds.join(', ') + ')', /homie/.test(acts.act1Kinds.join(' ')));
+
+    const roof = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.setDial('ACT', 3);
+      const h = L.sheltersNow().find(x => /hotel/.test(x.kind));
+      L.place(h.x, h.y);
+      o.atCamp = L.atCamp();                    /* a roof IS a camp */
+      o.ctx = L.context();
+      o.comfort = L.comfort();
+      o.hotelComfort = h.comfort;
+      const m0 = L.minutes();
+      o.noPitch = L.setDownCamp();              /* you do not pitch a tent in a hotel */
+      o.freeToUse = L.minutes() === m0;
+      o.chilled = L.campAction('chill');
+      o.tiles = L.rested();
+      /* the same three verbs work here */
+      L.addSupply(9);
+      o.canEat = L.canDo('eat');
+      L.setDial('BLEED_POLICY', 0); L.hurt('bleeding');
+      o.canBandage = L.canDo('bandage');
+      /* and a pitched camp with nothing set down is worse than a hotel */
+      L.reset(); L.place(11, 28); L.setDownCamp();
+      o.tentComfort = L.comfort();
+      return o;
+    });
+    ok('T14 clause 13: a friendly location IS a camp, with no setup cost',
+       roof.atCamp === true && roof.noPitch === false && roof.freeToUse === true);
+    ok('T15 clause 13: its comfort comes with the place (' + roof.comfort + ')',
+       roof.comfort === roof.hotelComfort && roof.comfort > roof.tentComfort);
+    ok('T16 clause 13: and the same verbs work under a real roof',
+       roof.chilled === true && roof.tiles > 0 && roof.canEat === true && roof.canBandage === true);
+    ok('T17 clause 13: walking in offers GO IN, not SET UP CAMP', /^GO IN/.test(roof.ctx));
+
+    /* ---------------- CLAUSE 14: THE BUFFS COMBINE ---------------- */
+    const meal = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.place(11, 28); L.setDownCamp(); L.addSupply(20);
+      o.plainSt = L.maxStamina();
+      o.plainHpTiles = L.hpRegenTiles();
+      L.campAction('chill');
+      o.restedSt = L.maxStamina();
+      o.restedHpTiles = L.hpRegenTiles();
+      L.campAction('eat');
+      o.bothSt = L.maxStamina();
+      o.bothHpTiles = L.hpRegenTiles();
+      o.mealTiles = L.meal();
+      o.fed = L.isFed();
+      o.stamBonus = L.D('STAMINA_BONUS'); o.mealBonus = L.D('MEAL_STAMINA');
+      /* and the meal burns in TILES, like everything else he ruled */
+      L.spendTile(5);
+      o.afterFive = L.meal();
+      L.spendTile(o.afterFive);
+      o.gone = L.isFed();
+      return o;
+    });
+    ok('T18 clause 14: eating is its own buff, measured in tiles (' + meal.mealTiles + ')',
+       meal.fed === true && meal.mealTiles > 0);
+    ok('T19 clause 14: THE TWO BUFFS COMBINE — ' + meal.plainSt + ' -> ' + meal.restedSt +
+       ' (camp) -> ' + meal.bothSt + ' (camp + meal)',
+       meal.restedSt === meal.plainSt + meal.stamBonus &&
+       meal.bothSt === meal.plainSt + meal.stamBonus + meal.mealBonus);
+    ok('T20 clause 14: and they stack on regen too (' + meal.plainHpTiles + ' -> ' +
+       meal.restedHpTiles + ' -> ' + meal.bothHpTiles + ' tiles per health)',
+       meal.bothHpTiles < meal.restedHpTiles && meal.restedHpTiles < meal.plainHpTiles);
+    ok('T21 clause 14: the meal burns on tiles and runs out',
+       meal.afterFive === meal.mealTiles - 5 && meal.gone === false);
+
+    /* ---------------- CLAUSE 15: HIS QUESTION, ALL THREE ANSWERS ---------------- */
+    const policies = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      /* 0 ALWAYS — it never stops on its own */
+      L.reset(); L.setDial('BLEED_POLICY', 0);
+      L.hurt('bleeding');
+      L.spendTile(L.D('BLEED_STOPS_AFTER') * 3);
+      o.alwaysStillBleeding = L.hasWound('bleeding');
+      /* 1 SELF-LIMITING — it clots by itself */
+      L.reset(); L.setDial('BLEED_POLICY', 1);
+      L.hurt('bleeding');
+      L.spendTile(L.D('BLEED_STOPS_AFTER') - 1);
+      o.stillBleedingJustBefore = L.hasWound('bleeding');
+      L.spendTile(2);
+      o.clotted = !L.hasWound('bleeding');
+      /* 2 ONLY SERIOUS — an ordinary fight leaves nothing to treat */
+      L.reset(); L.setDial('BLEED_POLICY', 2);
+      o.ordinaryRefused = L.hurt('bleeding', false) === false && !L.hasWound('bleeding');
+      o.seriousLands = L.hurt('bleeding', true) === true && L.hasWound('bleeding');
+      L.setDial('BLEED_POLICY', 2);
+      return o;
+    });
+    ok('T22 clause 15, policy 0 ALWAYS: it never stops until you treat it',
+       policies.alwaysStillBleeding === true);
+    ok('T23 clause 15, policy 1 SELF-LIMITING: it clots on its own, and not a tile early',
+       policies.stillBleedingJustBefore === true && policies.clotted === true);
+    ok('T24 clause 15, policy 2 ONLY SERIOUS: AN ORDINARY FIGHT LEAVES NOTHING TO TREAT — ' +
+       'which is the direct answer to "do we always need to prevent blood loss"',
+       policies.ordinaryRefused === true);
+    ok('T25 clause 15, policy 2: and a SERIOUS wound still gets through',
+       policies.seriousLands === true);
 
     /* ---------------- THE DIALS ARE REALLY HIS ---------------- */
     const dials = await page.evaluate(() => {

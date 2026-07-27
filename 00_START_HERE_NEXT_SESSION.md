@@ -522,6 +522,44 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
+LAB (09): 7/27 (m) LATEST — THE CAMP LAW GAINED FIVE MORE CLAUSES: TIME, THE ACT CURVE,
+COMBINED BUFFS, AND HIS BLOOD-LOSS QUESTION ANSWERED.
+laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md now has an AMENDED THE SAME DAY section
+with clauses 11-15, his words verbatim. READ IT BEFORE ANY SURVIVAL, TIME, ACT-PACING OR
+COMPANION WORK.
+  * 11. SETTING UP CAMP COSTS TIME. That cost is what makes camping a decision.
+  * 12. EVERY CAMP BUTTON SPENDS IN-GAME TIME, "REASONABLE AMOUNTS". SO THERE ARE TWO
+    CLOCKS NOW AND THEY ARE NOT THE SAME ONE: buff duration burns in TILES (clause 2),
+    camp actions move the WORLD'S CLOCK. Standing still still burns neither. Do not
+    collapse these two into one timer.
+  * 13. THE ACT SCARCITY CURVE — the FIRST ruled mechanical difference between the three
+    acts. ACT 1: almost no friendly shelter, one homie's house you have to HOOF IT to, so
+    the mobile camp is needed most. ACT 2: a little more. ACT 3: hotels and hangouts where
+    you can just hang out. The camp is an ACT-1 tool that BECOMES OPTIONAL, and the curve
+    is SHELTER DENSITY, not a nerf. WORLD/CITY lanes: this means friendly locations are an
+    act-scaled content axis, and the same three camp verbs must work inside them.
+  * 14. THE CAMP BUFF AND THE EATING BUFF COMBINE — eating is its own stacking buff in the
+    shape Valheim's food had, but out of the ONE POOL, measured in TILES, tiny magnitudes.
+  * 15. HE ASKED ME A QUESTION: "if we get shot in combat do we always need to prevent
+    blood loss? like after every dungeon or raider or enemy faction area we clear". He is
+    naming the CHORE RISK. Answered in writing with all three options playable:
+    records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md. 0 ALWAYS / 1 SELF-LIMITING / 2 ONLY
+    SERIOUS. MY RECOMMENDATION IS 2, because his own clause 6 says ignoring the camp must
+    stay playable and a mandatory bleed makes it compulsory through the back door. STILL
+    [PENDING Paolo] — nobody picks it for him, including the COMBAT lane.
+  * AND HE PARKED THE NUMBERS HIMSELF: "IM NOT SURE HOW MANY TILES YOU WALK OR HOW MUCH
+    INGAME TIME PASSES BEFORE THE BUFFS RUN OUT THOUGH WELL WORK MORE ON THAT!" No tile
+    count and no time cost may harden into a default while that sentence stands.
+ON THE PAGE: a clock in the HUD (day + hour), setup and every action moving it, an ACT dial
+that changes shelter density live (1 -> 3 -> 6 places), hotels and a homie's house you walk
+INTO for free comfort and no setup, the meal buff stacking with the camp buff and both
+burning in tiles, BLEED_POLICY switchable while you play. The walking clock is DERIVED FROM
+HIS OWN SCALE RULING and shows its working: across the map and back is a day, so 80 tiles x
+18 min = 24 h, and TILE_MINUTES is a dial. 13 new dials, 31 total, each carrying its clause.
+GATE: gates/camp_dial_gate.js, 112 checks (was 75), mutation-tested three ways — free setup,
+a non-stacking meal, and policy 2 letting ordinary bleeds through each red exactly the right
+check. The alpha was not touched, so the build stamp did not change.
+
 LAB (09): 7/27 (l) LATEST — HE APPROVED THE VALHEIM CAMP AND REWROTE IT IN THE SAME
 BREATH. BOHEMIA'S SURVIVAL SYSTEM IS NOW RULED. "awesome so i am in love with the mobile
 camp idea... i liked this valheim shit alot."

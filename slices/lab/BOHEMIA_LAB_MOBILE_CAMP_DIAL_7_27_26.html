@@ -207,7 +207,41 @@ var DIALS = {
   BLEED_TILES:      { v: 6,  min: 2,  max: 20, step: 1, clause: 'c',
     why: 'Walk this many tiles while bleeding to lose 1 health.' },
   SUPPLY_PER_FIND:  { v: 3,  min: 1,  max: 9,  step: 1, clause: 'a',
-    why: 'What one thing found in the world adds to the pool. "you found like three."' }
+    why: 'What one thing found in the world adds to the pool. "you found like three."' },
+
+  /* --- clause 11 + 12: TIME. A second clock, and it is not the tile clock. --- */
+  SETUP_MINUTES:    { v: 30, min: 0,  max: 180, step: 10, clause: 'h',
+    why: 'CLAUSE 11: "SETTING UP CAMP TAKES TIME." How long pitching it costs.' },
+  CHILL_MINUTES:    { v: 60, min: 10, max: 240, step: 10, clause: 'i',
+    why: 'CLAUSE 12: hanging out takes time too. "reasonable amounts" is the brief.' },
+  SLEEP_MINUTES:    { v: 480, min: 60, max: 720, step: 30, clause: 'i',
+    why: 'CLAUSE 12: sleeping is the big block. 480 = eight hours.' },
+  EAT_MINUTES:      { v: 15, min: 0,  max: 90,  step: 5,  clause: 'i',
+    why: 'CLAUSE 12: eating moves the clock a little.' },
+  AID_MINUTES:      { v: 20, min: 0,  max: 120, step: 5,  clause: 'i',
+    why: 'CLAUSE 12: a bandage or gauze takes this long.' },
+  BULLET_MINUTES:   { v: 45, min: 5,  max: 240, step: 5,  clause: 'i',
+    why: 'CLAUSE 12: digging a bullet out is the longest thing that happens at camp.' },
+  TILE_MINUTES:     { v: 18, min: 1,  max: 60,  step: 1,  clause: 'j',
+    why: 'CLAUSE 3, derived from YOUR scale: across the map and back is a full day. 80 tiles x 18 min = 24 h. You never said the number, so it is a dial that shows its own working.' },
+
+  /* --- clause 13: the act scarcity curve --- */
+  ACT:              { v: 1,  min: 1,  max: 3,  step: 1, clause: 'k',
+    why: 'CLAUSE 13: ACT 1 has almost no friendly shelter, so you camp the most. ACT 2 a little less. ACT 3 hotels and hangouts. Turn this and watch the map change.' },
+
+  /* --- clause 14: the meal buff, combined with the camp buff --- */
+  MEAL_TILES:       { v: 25, min: 5,  max: 80, step: 5, clause: 'l',
+    why: 'CLAUSE 14: eating is its own buff that STACKS with the camp one. How many tiles a meal lasts.' },
+  MEAL_STAMINA:     { v: 1,  min: 0,  max: 3,  step: 1, clause: 'l',
+    why: 'CLAUSE 14: stamina points a meal is worth, on top of the camp. Still your +1/+2/+3 range.' },
+  MEAL_REGEN_CUT:   { v: 2,  min: 1,  max: 4,  step: 1, clause: 'l',
+    why: 'CLAUSE 14: a meal divides the tiles needed to regain health by this. Stacks with rested.' },
+
+  /* --- clause 15: HIS OPEN QUESTION, as a dial --- */
+  BLEED_POLICY:     { v: 2,  min: 0,  max: 2,  step: 1, clause: 'm',
+    why: 'CLAUSE 15, YOUR QUESTION: 0 = always treat it, 1 = it clots on its own, 2 = ordinary fights never bleed, only a serious wound does. My answer is 2 and the reasoning is in records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md. Your call.' },
+  BLEED_STOPS_AFTER:{ v: 18, min: 4,  max: 60, step: 2, clause: 'm',
+    why: 'CLAUSE 15: if a bleed clots on its own (policy 1 or 2), it stops after this many tiles.' }
 };
 function D(k) { return DIALS[k].v; }
 
@@ -245,6 +279,26 @@ function woundDef(id) { for (var i = 0; i < WOUNDS.length; i++) if (WOUNDS[i].id
 /* =========================================================================
    THE WORLD — built cell by cell so a row can never come out ragged
    ========================================================================= */
+/* CLAUSE 13 — THE ACT SCARCITY CURVE. Friendly shelter appears as the acts turn.
+   ACT 1: one homie's house, and you have to HOOF IT. ACT 2: a little more.
+   ACT 3: hotels and hangouts where you can just hang out.
+   NAMES AND COUNTS ARE [PENDING Paolo] clause (k) — these are placeholders. */
+var SHELTERS = [
+  { x: 3,  y: 6,  act: 1, kind: 'a homie\'s house', comfort: 3 },
+  { x: 19, y: 33, act: 2, kind: 'a friendly faction house', comfort: 4 },
+  { x: 8,  y: 19, act: 2, kind: 'a squat that tolerates you', comfort: 3 },
+  { x: 16, y: 9,  act: 3, kind: 'a hotel', comfort: 6 },
+  { x: 5,  y: 27, act: 3, kind: 'a hangout', comfort: 5 },
+  { x: 13, y: 14, act: 3, kind: 'a hotel', comfort: 6 }
+];
+function sheltersNow() { return SHELTERS.filter(function (h) { return h.act <= D('ACT'); }); }
+function shelterAt(x, y) {
+  var l = sheltersNow();
+  for (var i = 0; i < l.length; i++) if (l[i].x === x && l[i].y === y) return l[i];
+  return null;
+}
+function shelterHere() { return shelterAt(S.tx, S.ty); }
+
 var FINDS = [
   { x: 6,  y: 22 }, { x: 16, y: 20 }, { x: 4,  y: 15 },
   { x: 18, y: 12 }, { x: 9,  y: 8 },  { x: 14, y: 4 }, { x: 3, y: 3 }
@@ -281,6 +335,9 @@ var S = {
   deployed: [],                 /* what is set down at this camp */
   rested: 0,                    /* TILES of buff left, never seconds */
   restedFrom: 'chill',
+  meal: 0,                      /* TILES of the meal buff left — clause 14 */
+  minutes: 8 * 60,              /* the world's clock, moved by BUTTONS — clause 12 */
+  bleedTiles: 0,                /* how far this bleed has run — clause 15 */
   wounds: [],
   companion: true,
   sleeps: 0, chills: 0,
@@ -310,26 +367,61 @@ function maxHealth() {
   if (D('MAX_HP_MOVES') === 1 && isRested()) n += D('MAX_HP_BONUS');
   return n;
 }
+function isFed() { return S.meal > 0; }                 /* clause 14 */
 function maxStamina() {
   var n = D('BASE_STAMINA');
   if (isRested()) n += D('STAMINA_BONUS');
+  if (isFed()) n += D('MEAL_STAMINA');                 /* THE TWO BUFFS COMBINE */
   if (hasWound('bullet')) return 1;
   return n;
 }
-function hpRegenTiles() { return Math.max(1, isRested() ? Math.ceil(D('HP_REGEN_TILES') / 2) : D('HP_REGEN_TILES')); }
-function stRegenTiles() { return Math.max(1, isRested() ? Math.ceil(D('ST_REGEN_TILES') / 2) : D('ST_REGEN_TILES')); }
+/* rested halves the tiles you need; a meal divides them again. Both, together,
+   which is the "combine some of these values with the food eating values" ruling. */
+function hpRegenTiles() {
+  var t = D('HP_REGEN_TILES');
+  if (isRested()) t = Math.ceil(t / 2);
+  if (isFed()) t = Math.ceil(t / D('MEAL_REGEN_CUT'));
+  return Math.max(1, t);
+}
+function stRegenTiles() {
+  var t = D('ST_REGEN_TILES');
+  if (isRested()) t = Math.ceil(t / 2);
+  if (isFed()) t = Math.ceil(t / D('MEAL_REGEN_CUT'));
+  return Math.max(1, t);
+}
 
 /* =========================================================================
    CLAUSE 2 — THE TIMER IS TILES. Standing still costs NOTHING, forever. This
    is the whole difference from Valheim and it is the ruling that matters most.
    ========================================================================= */
+/* CLAUSE 12 — THE WORLD'S CLOCK, moved by BUTTONS, never by standing there. */
+function spendMinutes(m) {
+  if (!m) return;
+  S.minutes += m;
+  paintHud();
+}
+function clockText() {
+  var day = Math.floor(S.minutes / 1440) + 1;
+  var h = Math.floor((S.minutes % 1440) / 60), mm = S.minutes % 60;
+  return 'day ' + day + '  ' + String(h).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+}
+/* his own scale ruling, shown rather than asserted: across and back is a day */
+function dayInTiles() { return Math.round(1440 / Math.max(1, D('TILE_MINUTES'))); }
+
 function spendTile(n) {
   var k = n || 1;
   S.tiles += k;
+  /* walking spends the world's clock too — clause 3's scale, via a dial */
+  S.minutes += k * D('TILE_MINUTES');
 
   if (S.rested > 0) {
     S.rested = Math.max(0, S.rested - k);
     if (S.rested === 0) toast('bad', 'the camp has worn off');
+  }
+  /* CLAUSE 14 — the meal buff burns in tiles as well, and stacks with the camp */
+  if (S.meal > 0) {
+    S.meal = Math.max(0, S.meal - k);
+    if (S.meal === 0) toast('bad', 'the meal has worn off');
   }
 
   /* health regen, per tile walked, blocked by an open graze */
@@ -346,13 +438,23 @@ function spendTile(n) {
     S.stDebt -= stRegenTiles();
     if (S.stamina < maxStamina()) S.stamina++;
   }
-  /* bleeding costs health per tile, which is what the bandage is for */
+  /* CLAUSE 15 — bleeding, under whichever policy he has dialled in.
+     0 ALWAYS: it never stops until treated.
+     1 SELF-LIMITING: it clots on its own after BLEED_STOPS_AFTER tiles.
+     2 ONLY SERIOUS: ordinary fights never bleed at all, and the one that does
+       still clots. My recommendation, his call —
+       records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md */
   if (hasWound('bleeding')) {
+    S.bleedTiles += k;
     S.bleedDebt += k;
     while (S.bleedDebt >= D('BLEED_TILES')) {
       S.bleedDebt -= D('BLEED_TILES');
       S.health--;
       toast('bad', 'bleeding — 1 health');
+    }
+    if (D('BLEED_POLICY') >= 1 && S.bleedTiles >= D('BLEED_STOPS_AFTER')) {
+      heal('bleeding');
+      toast('good', 'the bleeding clots on its own');
     }
   }
   if (S.health > maxHealth()) S.health = maxHealth();
@@ -366,13 +468,18 @@ function spendTile(n) {
    ========================================================================= */
 function campHere() { return S.camp && S.camp.x === S.tx && S.camp.y === S.ty; }
 function atCamp() {
+  if (shelterHere()) return true;                 /* clause 13: a roof is a camp */
   return !!S.camp && Math.abs(S.camp.x - S.tx) <= 1 && Math.abs(S.camp.y - S.ty) <= 1;
 }
+/* CLAUSE 11 — "SETTING UP CAMP TAKES TIME." This is the cost that makes camping a
+   decision instead of a habit, and it is why walking to a friendly place matters. */
 function setDownCamp() {
   if (S.camp) return false;
+  if (shelterHere()) return false;                /* you do not pitch a tent in a hotel */
   S.camp = { x: S.tx, y: S.ty };
   S.deployed = [];
-  toast('good', 'camp set down here');
+  spendMinutes(D('SETUP_MINUTES'));
+  toast('good', 'camp set down — ' + D('SETUP_MINUTES') + ' minutes gone');
   paintHud();
   return true;
 }
@@ -405,8 +512,14 @@ function carry(id) {
   paintCamp();
   return true;
 }
-/* COMFORT, ported to his ruling: what you set down buys TILES, not minutes. */
-function comfort() { return S.deployed.length; }
+/* COMFORT, ported to his ruling: what you set down buys TILES, not minutes.
+   CLAUSE 13: a friendly location brings its OWN comfort and needs no setup — which
+   is exactly why act 3 needs the tent less than act 1 does. */
+function comfort() {
+  var h = shelterHere();
+  if (h) return h.comfort;
+  return S.deployed.length;
+}
 function restTilesFor(kind) {
   var t = D('REST_TILES') + comfort() * D('TILES_PER_COMFORT');
   return kind === 'sleep' ? t * D('SLEEP_TILES_MULT') : t;
@@ -433,50 +546,58 @@ function findSupply() {
 }
 
 var CAMP_ACTIONS = [
-  { id: 'chill', name: 'chill here', cost: 0, needsCompanion: false,
+  { id: 'chill', name: 'hang out here', cost: 0, needsCompanion: false,
     can: function () { return atCamp() && !isRested(); },
-    why: function () { return isRested() ? 'already rested' : 'free'; },
+    why: function () { return isRested() ? 'already rested' : D('CHILL_MINUTES') + ' min'; },
     run: function () {
       S.rested = restTilesFor('chill'); S.restedFrom = 'chill'; S.chills++;
       S.stamina = maxStamina();
+      spendMinutes(D('CHILL_MINUTES'));           /* clause 12 */
       toast('good', 'rested for ' + S.rested + ' tiles (comfort ' + comfort() + ')');
       return true;
     } },
   { id: 'sleep', name: 'sleep', cost: 0, needsCompanion: false,
     can: function () { return atCamp(); },
-    why: function () { return 'a spent block'; },
+    why: function () { return D('SLEEP_MINUTES') + ' min'; },
     run: function () {
       S.rested = restTilesFor('sleep'); S.restedFrom = 'sleep'; S.sleeps++;
       S.stamina = maxStamina();
       if (S.health < maxHealth()) S.health++;
+      spendMinutes(D('SLEEP_MINUTES'));           /* clause 12: the big block */
       toast('good', 'slept — rested for ' + S.rested + ' tiles');
       return true;
     } },
+  /* CLAUSE 14 — eating is its own buff that STACKS with the camp, in the shape
+     Valheim's food had, but out of the ONE POOL and measured in TILES. */
   { id: 'eat', name: 'eat', costDial: 'EAT_COST', needsCompanion: false,
     can: function () { return atCamp() && S.supply >= D('EAT_COST'); },
-    why: function () { return D('EAT_COST') + ' ' + POOL_NAME; },
+    why: function () { return D('EAT_COST') + ' ' + POOL_NAME + ', ' + D('EAT_MINUTES') + ' min'; },
     run: function () {
       if (!spendSupply(D('EAT_COST'))) return false;
+      S.meal = D('MEAL_TILES');
       S.stamina = maxStamina();
       if (S.health < maxHealth()) S.health++;
-      toast('good', 'ate out of the pool — no recipe, no item');
+      spendMinutes(D('EAT_MINUTES'));
+      toast('good', 'ate out of the pool — fed for ' + S.meal + ' tiles, no recipe, no item');
       return true;
     } },
   { id: 'bandage', name: 'apply a bandage', costDial: 'BANDAGE_COST', needsCompanion: false,
     can: function () { return atCamp() && hasWound('bleeding') && S.supply >= D('BANDAGE_COST'); },
-    why: function () { return D('BANDAGE_COST') + ' ' + POOL_NAME + ', stops bleeding'; },
+    why: function () { return D('BANDAGE_COST') + ' ' + POOL_NAME + ', ' + D('AID_MINUTES') + ' min'; },
     run: function () {
       if (!spendSupply(D('BANDAGE_COST'))) return false;
       heal('bleeding');
+      spendMinutes(D('AID_MINUTES'));
       toast('good', 'bandaged — the bleeding stops');
       return true;
     } },
   { id: 'gauze', name: 'apply gauze', costDial: 'GAUZE_COST', needsCompanion: false,
     can: function () { return atCamp() && hasWound('graze') && S.supply >= D('GAUZE_COST'); },
-    why: function () { return D('GAUZE_COST') + ' ' + POOL_NAME + ', closes a graze'; },
+    why: function () { return D('GAUZE_COST') + ' ' + POOL_NAME + ', ' + D('AID_MINUTES') + ' min'; },
     run: function () {
       if (!spendSupply(D('GAUZE_COST'))) return false;
       heal('graze');
+      spendMinutes(D('AID_MINUTES'));
       toast('good', 'gauze on — you can heal again');
       return true;
     } },
@@ -484,12 +605,13 @@ var CAMP_ACTIONS = [
      pull out a bullet from your body". You cannot do this one to yourself. */
   { id: 'bullet', name: 'have the bullet pulled out', costDial: 'BULLET_COST', needsCompanion: true,
     can: function () { return atCamp() && hasWound('bullet') && S.companion && S.supply >= D('BULLET_COST'); },
-    why: function () { return D('BULLET_COST') + ' ' + POOL_NAME + ', COMPANION ONLY'; },
+    why: function () { return D('BULLET_COST') + ' ' + POOL_NAME + ', ' + D('BULLET_MINUTES') + ' min, COMPANION ONLY'; },
     run: function () {
       if (!S.companion) return false;
       if (!spendSupply(D('BULLET_COST'))) return false;
       heal('bullet');
       S.stamina = Math.min(maxStamina(), S.stamina + 1);
+      spendMinutes(D('BULLET_MINUTES'));          /* the longest thing at camp */
       toast('good', 'they dig it out. your wind comes back');
       return true;
     } }
@@ -505,10 +627,16 @@ function campAction(id) {
   }
   return false;
 }
-function hurt(id) {
+function hurt(id, serious) {
   if (hasWound(id) || !woundDef(id)) return false;
+  /* CLAUSE 15, policy 2: an ORDINARY fight does not leave a bleed at all. Only a
+     serious wound does. This is what stops first aid being a tax on playing well. */
+  if (id === 'bleeding' && D('BLEED_POLICY') === 2 && !serious) {
+    toast('good', 'scratched up, but nothing that needs the camp');
+    return false;
+  }
   S.wounds.push(id);
-  S.bleedDebt = 0;
+  S.bleedDebt = 0; S.bleedTiles = 0;
   if (S.stamina > maxStamina()) S.stamina = maxStamina();
   toast('bad', woundDef(id).name + ' — ' + woundDef(id).what);
   paintHud(); paintCamp(); paintHurt();
@@ -592,6 +720,16 @@ function draw() {
       }
     }
   }
+  /* CLAUSE 13 — friendly shelter, as much of it as the ACT allows */
+  sheltersNow().forEach(function (h) {
+    var hx = h.x * TILE - camx, hy = h.y * TILE - camy;
+    cx.fillStyle = '#2b3446'; cx.fillRect(hx - 2, hy - 2, TILE + 4, TILE + 4);
+    cx.fillStyle = '#5c7096'; cx.fillRect(hx + 2, hy + 2, TILE - 4, TILE - 4);
+    cx.fillStyle = '#dfe6ff'; cx.font = 'bold 11px ui-monospace,monospace';
+    cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.fillText(h.kind.indexOf('hotel') >= 0 ? 'H' : (h.kind.indexOf('homie') >= 0 ? 'K' : 'F'),
+      hx + TILE / 2, hy + TILE / 2 + 1);
+  });
   /* the camp, wherever he put it */
   if (S.camp) {
     var fx = S.camp.x * TILE + TILE / 2 - camx, fy = S.camp.y * TILE + TILE / 2 - camy;
@@ -638,19 +776,24 @@ function paintHud() {
       pips(S.health, maxHealth(), '#', '.') + '\n' +
       'stamina <b>' + S.stamina + '/' + maxStamina() + '</b>  ' +
       pips(S.stamina, maxStamina(), '#', '.') + '\n' +
-      POOL_NAME + '  <b>' + S.supply + '</b>   tiles walked <b>' + S.tiles + '</b>';
+      POOL_NAME + '  <b>' + S.supply + '</b>   tiles <b>' + S.tiles + '</b>\n' +
+      '<b>' + clockText() + '</b>   ACT <b>' + D('ACT') + '</b>  ' +
+      sheltersNow().length + ' friendly';
   }
   var r = document.getElementById('rested');
   if (r) {
     if (isRested()) {
       r.className = 'card on';
       r.textContent = 'RESTED — ' + S.rested + ' TILES LEFT (' + S.restedFrom + ')\n' +
-        '+' + D('STAMINA_BONUS') + ' stamina · regen every ' + hpRegenTiles() + '/' +
-        stRegenTiles() + ' tiles' + (D('MAX_HP_MOVES') === 1 ? '\n+' + D('MAX_HP_BONUS') + ' max health' : '');
+        (isFed() ? 'FED — ' + S.meal + ' tiles left (they stack)\n' : '') +
+        '+' + (D('STAMINA_BONUS') + (isFed() ? D('MEAL_STAMINA') : 0)) +
+        ' stamina · regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
+        (D('MAX_HP_MOVES') === 1 ? '\n+' + D('MAX_HP_BONUS') + ' max health' : '');
     } else {
       r.className = 'card';
-      r.textContent = 'not rested — regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
-        (S.camp ? '' : '\ncamp is in your pack');
+      r.textContent = (isFed() ? 'FED — ' + S.meal + ' tiles left\n' : 'not rested') +
+        ' regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
+        (S.camp || shelterHere() ? '' : '\ncamp is in your pack');
     }
   }
   var w = document.getElementById('wound');
@@ -670,8 +813,11 @@ function paintHud() {
 }
 function context() {
   if (S.modal) return null;
+  var h = shelterHere();
+  if (h) return { label: 'GO IN — ' + h.kind.toUpperCase(), fn: openCamp };
   if (atCamp()) return { label: 'CAMP', fn: openCamp };
-  if (!S.camp) return { label: 'SET DOWN CAMP', fn: function () { setDownCamp(); openCamp(); } };
+  if (!S.camp) return { label: 'SET UP CAMP (' + D('SETUP_MINUTES') + ' MIN)',
+                        fn: function () { setDownCamp(); openCamp(); } };
   return null;
 }
 function closeModals() {
@@ -694,7 +840,10 @@ function openHurt() { paintHurt(); openOnly('m_hurt', 'hurt'); }
 function paintCamp() {
   var sub = document.getElementById('campsub');
   if (sub) {
-    sub.innerHTML = 'comfort <b style="color:#ffd76a">' + comfort() + '</b> from what you set down &rarr; ' +
+    var h = shelterHere();
+    sub.innerHTML = (h ? '<b style="color:#8fd0ff">' + h.kind.toUpperCase() +
+        '</b> — a real roof, no setup time, comfort it brings itself. This is why ACT 3 needs the tent less.<br>' : '') +
+      'comfort <b style="color:#ffd76a">' + comfort() + '</b> ' + (h ? 'from the place' : 'from what you set down') + ' &rarr; ' +
       'a chill is worth <b style="color:#ffd76a">' + restTilesFor('chill') + ' tiles</b>, ' +
       'a sleep <b style="color:#ffd76a">' + restTilesFor('sleep') + '</b>. ' +
       POOL_NAME + ' in the pool: <b style="color:#ffd76a">' + S.supply + '</b>. ' +
@@ -772,14 +921,33 @@ function paintHurt() {
   var host = document.getElementById('hurtlist');
   if (!host) return;
   host.innerHTML = '';
+  var pol = ['0 ALWAYS — it never stops until you treat it',
+             '1 SELF-LIMITING — it clots on its own after ' + D('BLEED_STOPS_AFTER') + ' tiles',
+             '2 ONLY SERIOUS — an ordinary fight leaves nothing to treat'][D('BLEED_POLICY')];
+  var head = document.createElement('div'); head.className = 'drow';
+  head.innerHTML = '<span class="dq">BLEED_POLICY is <b style="color:#ffd76a">' + pol +
+    '</b><br>Your question, answered with a recommendation in ' +
+    'records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md — short version: option 2, so first aid ' +
+    'is a rare event instead of a chore after every cleared area. Your call. Change it on the DIALS tab.</span>';
+  host.appendChild(head);
   WOUNDS.forEach(function (w) {
     var row = document.createElement('div'); row.className = 'arow';
     row.innerHTML = '<span class="an">' + w.name + '</span><span class="ac">' + w.what + '</span>';
     var b = document.createElement('button');
     b.textContent = hasWound(w.id) ? 'HEAL' : 'GIVE';
-    b.onclick = function () { hasWound(w.id) ? heal(w.id) : hurt(w.id); };
+    b.onclick = function () { hasWound(w.id) ? heal(w.id) : hurt(w.id, false); };
     row.appendChild(b);
     host.appendChild(row);
+    if (w.id === 'bleeding') {
+      var sr = document.createElement('div'); sr.className = 'arow';
+      sr.innerHTML = '<span class="an">a SERIOUS bleed</span>' +
+        '<span class="ac">gets through policy 2</span>';
+      var sb = document.createElement('button');
+      sb.textContent = 'GIVE';
+      sb.onclick = function () { hurt('bleeding', true); };
+      sr.appendChild(sb);
+      host.appendChild(sr);
+    }
   });
   var c = document.createElement('div'); c.className = 'arow';
   c.innerHTML = '<span class="an">companion with you</span><span class="ac">' +
@@ -847,11 +1015,18 @@ function bindUI() {
     h2.appendChild(sp);
     var far = document.createElement('button');
     far.className = 'chip'; far.textContent = 'WALK 20 TILES';
-    far.onclick = function () { for (var i = 0; i < 20; i++) spendTile(1); toast('good', '20 tiles spent'); };
+    far.onclick = function () {
+      var m0 = S.minutes;
+      for (var i = 0; i < 20; i++) spendTile(1);
+      toast('good', '20 tiles — buffs burned 20, clock moved ' + (S.minutes - m0) + ' min');
+    };
     h2.appendChild(far);
     var wait = document.createElement('button');
     wait.className = 'chip'; wait.textContent = 'STAND STILL 1 MIN';
-    wait.onclick = function () { toast('good', 'a minute passes. nothing burned — the timer is TILES'); };
+    wait.onclick = function () {
+      toast('good', 'a minute of standing still: buffs burned 0, clock moved 0. ' +
+        'Only BUTTONS and TILES move anything.');
+    };
     h2.appendChild(wait);
   }
 }
@@ -897,6 +1072,13 @@ window.LAB = {
   /* world */
   place: place, walkTiles: walkTiles, spendTile: spendTile, tileAt: tileAt,
   at: function () { return { x: S.tx, y: S.ty }; }, findSupply: findSupply,
+  /* time — clause 11 + 12 */
+  minutes: function () { return S.minutes; }, spendMinutes: spendMinutes,
+  clockText: clockText, dayInTiles: dayInTiles,
+  /* acts and friendly shelter — clause 13 */
+  SHELTERS: SHELTERS, sheltersNow: sheltersNow, shelterAt: shelterAt, shelterHere: shelterHere,
+  /* the meal buff — clause 14 */
+  isFed: isFed, meal: function () { return S.meal; },
   /* camp */
   setDownCamp: setDownCamp, packUpCamp: packUpCamp, atCamp: atCamp,
   deploy: deploy, pickUp: pickUp, carry: carry, comfort: comfort, restTilesFor: restTilesFor,
@@ -920,9 +1102,12 @@ window.LAB = {
   reset: function () {
     S.tx = 11; S.ty = 28; S.px = S.tx * TILE; S.py = S.ty * TILE; S.moving = null; S.dirs = [];
     S.tiles = 0; S.supply = 4; S.camp = null; S.carried = ['bedroll']; S.deployed = [];
-    S.rested = 0; S.wounds = []; S.companion = true; S.sleeps = 0; S.chills = 0;
+    S.rested = 0; S.meal = 0; S.minutes = 8 * 60; S.bleedTiles = 0;
+    S.wounds = []; S.companion = true; S.sleeps = 0; S.chills = 0;
     S.hpDebt = 0; S.stDebt = 0; S.bleedDebt = 0; S.found = {}; S.sprint = false;
     S.health = D('BASE_HEALTH'); S.stamina = D('BASE_STAMINA');
+    var th = document.getElementById('toast');
+    if (th) th.innerHTML = '';            /* stale toasts outlived a reset */
     closeModals(); paintHud(); paintCamp(); paintHurt();
   }
 };

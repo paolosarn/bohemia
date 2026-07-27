@@ -129,3 +129,130 @@ gate is not enforced. It asserts the mechanical clauses directly against
 - clause 9: chill and sleep are distinct;
 - and the [PENDING] values are DIALS, not defaults dressed up as decisions — the
   gate fails if a pending value is hardcoded where he cannot reach it.
+
+---
+
+# AMENDED THE SAME DAY — CLAUSES 11 TO 15 (Paolo 7/27/26, second message, LOCKED)
+
+His words, verbatim:
+
+> "YEAH LIKE SETTING UP CAMP TAKES TIME MIND U IN ACT 1 ITS PROBABLY WHEN U WILL
+> NEED TO CAMP THE MOST, WHEN THEYRE MAYBE ISNT A LOT OF FRIENLY OPTIONS OF HOTELS
+> OR FRIENDLY FACTION HOUSING UNLESS U HOOF IT TO A HOMIES HOUSE
+>
+> ACT 2 A LITTLE LESS
+>
+> ACT 3 MORE HOTEL AND FRIENDLY LOCATIONS AVIALABLE WHERE U CAN JUST HANG OUT TYPE
+> SHIT
+>
+> I LIKED IT WHEN WE COMBINE SOME OF THESE VALUES WITH THE FOOD EATING VALUES FROM
+> THE VALHEIM REFERENCE SHIT THAT WILL BE COOL. OBIOUSLY HANGING OUT TAKES UP TIME
+> AS WELL. TIME PASSES BY REASONABLE AMOUNTS WHEN U PRESS THESE BUTTONS. ALSO IDK
+> HOW IT SHOULD WORK DOWN THE LINE BUT IF WE GET SHOT IN COMBAT DO WE ALWAYS NEED
+> TO PREVENT BLOOD LOSS? LIKE AFTER EVERY DUNGEON OR RAIDER OR ENEMY FACTION AREA
+> WE CLEAR AND
+>
+> IM NOT SURE HOW MANY TILES YOU WALK OR HOW MUCH INGAME TIME PASSES BEFORE THE
+> THE BUFFS RUN OUT THOUGH WELL WORK MORE ON THAT!"
+
+## 11. SETTING UP CAMP COSTS TIME
+
+"SETTING UP CAMP TAKES TIME." So the camp is not free to deploy. Setting it down
+is a SPENT BLOCK in the sense of
+`laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md`, and that cost is
+what makes "do I camp here or push on" a decision instead of a habit.
+
+## 12. EVERY CAMP BUTTON SPENDS IN-GAME TIME, IN REASONABLE AMOUNTS
+
+"OBIOUSLY HANGING OUT TAKES UP TIME AS WELL. TIME PASSES BY REASONABLE AMOUNTS
+WHEN U PRESS THESE BUTTONS." So there are now TWO clocks and they are not the same
+clock:
+
+- **BUFF DURATION IS MEASURED IN TILES** (clause 2). It burns when you move.
+- **CAMP ACTIONS SPEND IN-GAME TIME.** Hanging out, sleeping, eating, patching
+  yourself up — each one moves the world's clock by a reasonable amount.
+
+Both are true at once and neither replaces the other. Standing still still never
+burns a buff; pressing a button still costs the day.
+
+## 13. THE ACT SCARCITY CURVE — THE CAMP MATTERS MOST IN ACT 1
+
+"IN ACT 1 ITS PROBABLY WHEN U WILL NEED TO CAMP THE MOST, WHEN THEYRE MAYBE ISNT A
+LOT OF FRIENLY OPTIONS OF HOTELS OR FRIENDLY FACTION HOUSING UNLESS U HOOF IT TO A
+HOMIES HOUSE. ACT 2 A LITTLE LESS. ACT 3 MORE HOTEL AND FRIENDLY LOCATIONS
+AVIALABLE WHERE U CAN JUST HANG OUT TYPE SHIT."
+
+- **ACT 1:** almost no friendly shelter. A homie's house exists but you have to
+  HOOF IT there. The mobile camp is the answer, and it is needed most.
+- **ACT 2:** a little more friendly shelter, so a little less camping.
+- **ACT 3:** hotels and friendly locations are available and you can just hang out.
+
+So the camp is an ACT-1 SURVIVAL TOOL THAT BECOMES OPTIONAL, and the curve is
+FRIENDLY SHELTER DENSITY, not a nerf to the camp. This is also the first ruled
+mechanical difference between the three acts, and it means the same three camp
+verbs (hang out / sleep / patch up) must work in BOTH a camp you set down and a
+friendly location you walk into — the difference being that a real roof costs no
+setup time and is more comfortable.
+
+## 14. THE CAMP BUFF AND THE EATING BUFF COMBINE
+
+"I LIKED IT WHEN WE COMBINE SOME OF THESE VALUES WITH THE FOOD EATING VALUES FROM
+THE VALHEIM REFERENCE SHIT THAT WILL BE COOL."
+
+So eating is not just a top-up, it is its own buff that STACKS with the camp buff,
+in the shape Valheim's food had (a lasting bonus with a duration that decays) —
+but obeying clause 4 (it comes out of the ONE POOL, there are no food items) and
+clause 2 (its duration is in TILES) and clause 7 (the magnitudes are tiny).
+Camp buff + meal buff, added, both burning down as you walk.
+
+## 15. HIS OPEN QUESTION, ASKED OF ME, AND IT IS STILL HIS TO ANSWER
+
+"IDK HOW IT SHOULD WORK DOWN THE LINE BUT IF WE GET SHOT IN COMBAT DO WE ALWAYS
+NEED TO PREVENT BLOOD LOSS? LIKE AFTER EVERY DUNGEON OR RAIDER OR ENEMY FACTION
+AREA WE CLEAR AND..."
+
+He is naming the CHORE RISK: if every cleared area ends in mandatory first aid,
+the medical system becomes a tax you pay for playing well. That is a real danger
+and it is the same failure that killed the Zomboid loot page.
+
+Three policies are implemented as a DIAL so he can feel the difference rather than
+read about it, and the recommendation is written into
+`records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md`:
+  0 ALWAYS      every hit that bleeds must be treated or it keeps costing health
+  1 SELF-LIMITING  bleeding stops on its own after a while; treating it early
+                   saves you the health it would have cost
+  2 ONLY SERIOUS   ordinary fights do not leave a bleed at all; only a real wound
+                   (the bullet) needs the camp
+STILL [PENDING Paolo]. Nobody picks this for him.
+
+## AND HE PARKED THE NUMBERS HIMSELF
+
+"IM NOT SURE HOW MANY TILES YOU WALK OR HOW MUCH INGAME TIME PASSES BEFORE THE
+BUFFS RUN OUT THOUGH WELL WORK MORE ON THAT!"
+
+So clause (b) stays open BY HIS OWN INSTRUCTION, and now so does the time side.
+Nothing in this repo may harden a tile count or a time cost into a default while
+that sentence stands.
+
+## NEW [PENDING Paolo] FROM THIS MESSAGE
+
+h) **HOW LONG SETTING UP CAMP TAKES** (clause 11).
+i) **THE TIME COST OF EVERY CAMP BUTTON** (clause 12) — "reasonable amounts" is
+   the brief, not a number.
+j) **HOW MUCH TIME A TILE OF WALKING COSTS.** Derivable from his own scale ruling
+   (across the map and back is a full day) but he has not said it, so it is a dial
+   that SHOWS its derivation.
+k) **HOW MANY FRIENDLY SHELTERS EXIST PER ACT** (clause 13), and what they are
+   called.
+l) **THE MEAL BUFF'S SIZE AND TILE DURATION** (clause 14).
+m) **THE BLOOD-LOSS POLICY** (clause 15).
+
+## GATE, AMENDED
+
+`gates/camp_dial_gate.js` gains the clauses above: setting up camp must cost time;
+every camp action must move the clock; the ACT dial must change how much friendly
+shelter exists (and act 1 must have the least); a friendly location must give the
+same three verbs with no setup cost; the meal buff must stack with the camp buff
+and burn in tiles; and all three blood-loss policies must be reachable and behave
+differently. And the standing rule holds: every value above is a DIAL, because he
+said in the same breath that he has not decided the numbers.
