@@ -1,3 +1,41 @@
+CITY (03): 7/27 (d) LATEST — THREE TILES TALL, AND THE WALL GETS OUT OF YOUR WAY
+WHEN IT IS HIDING YOU. His ruling, now law:
+laws/BOHEMIA_ADDENDUM_THREE_TILE_WALL_7_27_26.md
+"every wall supporting a door should be three tiles tall you know that's what I'm
+trying to tell you like this game needs to focus on like working on an opacity filter
+for when I'm in front of a wall or something you know like not good enough by any
+means"
+TWO ASKS, ONE MECHANISM, WHICH IS WHY THEY ARRIVED IN ONE BREATH. A wall only gets
+height by LEAVING THE BAKED CHUNK: three tiles tall means drawing into the two cells
+above, which belong to other rows and sometimes to other chunks. And the opacity depends
+on where he is standing THIS FRAME, which a bake by definition cannot know. So facades
+left the bake and became a live pass. Anyone who tries to do either of these in the
+chunk baker will fail; that is why they are one law.
+THE DRAW ORDER IS THE FEATURE: baked ground+roofs -> facades BEHIND him at full opacity
+(so a building he stands south of covers its own roof) -> the player -> facades IN FRONT
+of him last, dropped to 35% only where they overlap his sprite. Only that wall, only
+while it covers him.
+THE THREE TILES: door = wall on top + the DOOR filling the bottom two (DOOR LAW, the
+real ~2m-door-in-a-3m-wall proportion). window/boarded = wall, the opening in the
+MIDDLE, wall at the base - a window belongs up the wall, not lying on the ground where
+it used to be. plain = wall three times.
+THE TALL DOOR IS NOT STRETCHED. The approved door tile is 16x16 and the slot is one
+cell by two, which as a single draw is an aspect change - exactly what the MOBILE
+RENDER CONTRACT bans and render_pixel_gate measures. It is DERIVED ONCE into a cached
+16x32 canvas and blitted 1:1 forever after. One stretch, in a cache, never in a frame.
+A law does not get to break another law to implement itself.
+GATE: gates/wallheight_gate.js patches drawImage before boot and renders TWO real
+frames - one with him behind a door, one walked clear of every facade - and reads back
+destination size AND ALPHA, which a normal draw audit cannot see. It asserts the fade
+FIRES in the first and DOES NOT FIRE in the second, because only checking that it turns
+on would pass a filter that never turns off.
+NO PIXEL WAS COOKED. Every tile is his own 7/21 house verdict, all 30 UP. "Not good
+enough by any means" was said about the RESULT; the result is taller and see-through
+now, and the materials are unchanged and still his to rule on.
+LOOKED AT IT ON THE REAL SURFACE before shipping (VERIFY ON THE REAL SURFACE, 7/18):
+the wall reads as a tan stucco band with windows in it under the roof mass, and standing
+at a front door you can see yourself straight through the wall.
+
 ART (04): 7/27 LATEST — WE FINALLY WEIGHED THE GAME, AND THE WEIGHT IS NOT
 WHERE THE LAW WAS LOOKING.
 The mobile render contract I wrote on 7/26 had exactly one clause marked UNMET in my
