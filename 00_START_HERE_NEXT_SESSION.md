@@ -1,3 +1,56 @@
+ART (04): 7/27 LATEST — WE FINALLY WEIGHED THE GAME, AND THE WEIGHT IS NOT
+WHERE THE LAW WAS LOOKING.
+The mobile render contract I wrote on 7/26 had exactly one clause marked UNMET in my
+own handwriting: memory. "NOT YET INSTRUMENTED. No session has measured live canvas
+bytes on a real device." The next ART item is multiplying the tile set from one
+residential street to a family per district type - the thing that SPENDS that budget.
+You measure the budget before you multiply the spender. So this went AHEAD of the tile
+set, deliberately; that reordering is stated plainly rather than dressed up as the
+plan, and it was the right unattended job: this lane's own logged debt, no other lane's
+files, no behaviour changed. It reads.
+THE INSTRUMENT, tools/bohemia_canvas_memory_probe.js: drives the three shipped surfaces
+in a real browser at iPhone portrait and counts what the tab actually holds - every
+canvas at w*h*4 in EVERY FRAME (the alpha's heaviest modules are iframes; a main-frame
+count reports the biggest thing in the game as weighing nothing), every decoded image at
+natural size, and the JS heap over CDP after a FORCED COLLECTION (otherwise a leak and
+an uncollected nursery look identical). WeakRef-tracked, so a cache that works reads as
+a number that stops climbing.
+THE CLAUSE HOLDS: 480 steps across the valley grew the picture by 0.0 MB. The WORLD
+lane's bounded plot LRU does exactly what it was built to do.
+WHAT IT FOUND INSTEAD: the ALPHA holds 2604 LIVE CANVASES once every tab is open (2217
+in the shell, 188 mapFrame, 193 runFrame, ~21KB each - which is precisely why nobody
+noticed) plus ~46MB of JS heap at load, because the art arrives as base64 and lives as
+JS pixel arrays, never as an image or a canvas. 99.6MB resident = 44% of the 224MB iOS
+floor. Real headroom today; both are the kind of thing that goes fine-to-fatal in one
+feature. HANDED OVER, NOT TOUCHED (one system, one session): BOHEMIA_BACKLOG CHARACTER
+1c. Note the neighbour: the CITY lane's canvas_scale_audit measures how canvases are
+DISPLAYED; this measures how many EXIST. Different sweeps, no overlap.
+GATE: gates/canvas_memory_gate.py, 31 checks, registered. Ratchets 120MB resident /
+75MB pixels / 2MB streaming growth, and it fails if the contract ever goes back to
+claiming it is uninstrumented or a number loses its desktop caveat. It says in its own
+comment what it does NOT do: it reads a recorded measurement rather than launching a
+browser, because a 3-minute probe inside the suite every lane runs on every ship is a
+tax that gets a gate deleted. Staleness hard-fails on ONE hash - the starter tile set's,
+the thing this clause warns will multiply.
+FOUR GREEN LIES KILLED ON THE WAY, all of which would have passed: (1) 480 arrow keys
+pressed into a bedroom wall, "memory did not grow"; (2) eleven tab clicks that all hit
+the TAP TO ENTER splash, whole build "0.8 MB"; (3) greedy door-steering that only worked
+on the floorplan that existed that hour (now BFS over the interior's own pass grid);
+(4) the last step never landing because walking into a shut door opens it and returns
+without moving - doors animate on the beat, so the probe now presses on the beat. The
+record carries proof the walk reached the street and every tab opened; no proof, no pass.
+LIMIT, and it travels with every number: headless desktop Chromium, NOT an iPhone. Pixel
+arithmetic transfers, the heap and the compositor's copies do not. It proves the SHAPE
+of the curve, which is what kills a phone. A real-device number still needs a real device.
+NOTHING TO JUDGE - no art was cooked, no pixel changed. Records:
+records/BOHEMIA_MEMORY_MEASURED_7_27_26.md + records/target/BOHEMIA_CANVAS_MEMORY.json.
+NEXT IN THIS LANE, in order: (1) grow the tile set past one residential street - a
+family per district type, all sharing the act treatment (the AoE model), re-running the
+probe when it lands because that is the hash the gate hard-fails on; (2) the CITY tab
+still does not use the tile set, so the map view and the street view will drift apart
+until it does. Both are heavy cooking and STOP PRODUCING is in force - nothing gets
+surfaced for judgement unasked.
+
 CITY (03): 7/27 (c) LATEST — "THE DOOR SUCK" WAS A DICE ROLL, AND THE PLOT ALREADY
 KNEW WHERE THE DOOR WENT. Full diagnosis, with every number:
 records/BOHEMIA_SUBURB_DIAGNOSIS_7_27_26.md

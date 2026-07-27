@@ -37,9 +37,12 @@ works shows up as a number that stops climbing.
 
 | surface | pixels | heap | resident peak | of the 224 MB iOS floor |
 |---|---|---|---|---|
-| ALPHA, every tab opened | 60.3 MB (2604 canvases) | 44.9 MB | **92.5 MB** | 41% |
-| RUN, 480 steps outdoors | 6.8 MB | 8.5 MB | 15.3 MB | 7% |
+| ALPHA, every tab opened | 62.1 MB (2604 canvases) | 46.5 MB | **99.6 MB** | 44% |
+| RUN, 480 steps outdoors | 8.6 MB | 10.3 MB | 18.9 MB | 8% |
 | CITY (the map) | 0.8 MB | 1.8 MB | 2.6 MB | 1% |
+
+(The heap moves about a megabyte between runs, so read these to the MB, not the
+decimal. The pixel column is exact arithmetic and does not drift.)
 
 ## THE GOOD NEWS, AND IT IS THE ACTUAL CLAUSE
 
@@ -57,11 +60,11 @@ The clause watched canvases. Canvases are not where this game keeps its weight.
    itself, 188 in the map module, 193 in the run module. About 21 KB each, which
    is exactly why nobody ever noticed: no single one of them looks wrong. They
    survive a forced collection, so they are live, not garbage waiting to go.
-2. **~45 MB of JS heap at load**, because the art arrives as base64 text and
+2. **~46 MB of JS heap at load**, because the art arrives as base64 text and
    lives as JavaScript pixel arrays — never as an image, never as a canvas. A
    canvas-only budget would have called the heaviest thing in the build free.
 
-Neither is on fire today. 41% of the floor with every tab open is real headroom.
+Neither is on fire today. 44% of the floor with every tab open is real headroom.
 But both are the kind of thing that goes from fine to fatal in one feature, and
 neither was being counted at all until tonight.
 
@@ -78,9 +81,9 @@ memory level off under exercise, or climb forever — which is the thing that
 actually kills a phone. A real-device number still needs a real device, and
 nothing here pretends otherwise.
 
-## TWO GREEN LIES I HAD TO KILL FIRST
+## FOUR GREEN LIES I HAD TO KILL FIRST
 
-Worth recording, because both would have shipped as passing gates:
+Worth recording, because every one of them would have shipped as a passing gate:
 
 1. The first run pressed 480 arrow keys at the run slice and reported "memory did
    not grow." It had not grown because the player was standing in his own
@@ -90,8 +93,17 @@ Worth recording, because both would have shipped as passing gates:
 2. The second run clicked all eleven tabs of the alpha and reported the whole
    build as holding 0.8 MB. Every click had landed on the TAP TO ENTER splash.
    0.8 MB is what a build weighs when you have never opened it.
+3. Fixed version 2 got out of the house — on the floorplan that existed that
+   hour. Steering toward the door and flipping axis when stuck wedges in a corner
+   the moment the rooms change, and the RUN lane had just re-dressed the
+   interior. So it now reads the interior's own passability grid and BFSes a real
+   path. A probe that only works on one floorplan stops measuring silently the
+   day somebody moves a wall.
+4. Even with a perfect path, the last step never landed: walking into a shut door
+   opens it and returns WITHOUT moving, because doors animate open on the beat.
+   The probe was hammering at a door mid-swing. It now presses on the beat.
 
-Both are now impossible to pass with: the record carries proof that the walk left
+All four are impossible to pass with now: the record carries proof that the walk left
 the house and reached the street and that every tab opened, and the gate refuses
 an exercise that did not happen. A probe that cannot prove it did the thing is
 worth less than no probe, because it produces confidence instead of data.

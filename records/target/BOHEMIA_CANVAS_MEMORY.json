@@ -9,19 +9,19 @@
  "tileset": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
  "tileset_md5": "f470e7cbae7695c15642174d25e52041",
  "worst_surface": "ALPHA (the shipped build)",
- "worst_resident_peak_mb": 92.5,
- "worst_pct_of_floor": 41.3,
+ "worst_resident_peak_mb": 99.6,
+ "worst_pct_of_floor": 44.5,
  "surfaces": [
   {
    "surface": "BOHEMIA_RUN_CURRENT.html",
    "name": "RUN (the walked world)",
    "why": "the surface that streams cells and therefore the one that can climb forever",
-   "load_ms": 7686,
+   "load_ms": 9389,
    "exercise": "walk",
    "exercise_proof": {
     "before": {
-     "x": 9,
-     "y": 10,
+     "x": 1,
+     "y": 1,
      "mode": "int",
      "phase": "home_inside"
     },
@@ -31,11 +31,12 @@
       77,
       112
      ],
-     "steps": 13,
+     "steps": 18,
      "door": [
       9,
       11
-     ]
+     ],
+     "path_len": 18
     },
     "after": {
      "x": 125,
@@ -49,8 +50,8 @@
     {
      "canvas": 955504,
      "canvases": 2,
-     "img": 6133248,
-     "imgs": 162,
+     "img": 8068608,
+     "imgs": 372,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -117,18 +118,18 @@
        "frame": "(main)",
        "canvases": 2,
        "canvas_mb": 0.9,
-       "img_mb": 5.8
+       "img_mb": 7.7
       }
      ],
-     "total": 7088752,
+     "total": 9024112,
      "moment": "loaded",
-     "heap_precise": 8781484
+     "heap_precise": 10587960
     },
     {
      "canvas": 955504,
      "canvases": 2,
-     "img": 6133248,
-     "imgs": 162,
+     "img": 8068608,
+     "imgs": 372,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -195,18 +196,18 @@
        "frame": "(main)",
        "canvases": 2,
        "canvas_mb": 0.9,
-       "img_mb": 5.8
+       "img_mb": 7.7
       }
      ],
-     "total": 7088752,
+     "total": 9024112,
      "moment": "out of the house",
-     "heap_precise": 8829376
+     "heap_precise": 10703708
     },
     {
      "canvas": 955504,
      "canvases": 2,
-     "img": 6133248,
-     "imgs": 162,
+     "img": 8068608,
+     "imgs": 372,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -273,18 +274,18 @@
        "frame": "(main)",
        "canvases": 2,
        "canvas_mb": 0.9,
-       "img_mb": 5.8
+       "img_mb": 7.7
       }
      ],
-     "total": 7088752,
+     "total": 9024112,
      "moment": "after 120 steps",
-     "heap_precise": 8936608
+     "heap_precise": 10764000
     },
     {
      "canvas": 955504,
      "canvases": 2,
-     "img": 6133248,
-     "imgs": 162,
+     "img": 8068608,
+     "imgs": 372,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -351,31 +352,31 @@
        "frame": "(main)",
        "canvases": 2,
        "canvas_mb": 0.9,
-       "img_mb": 5.8
+       "img_mb": 7.7
       }
      ],
-     "total": 7088752,
+     "total": 9024112,
      "moment": "after 480 steps",
-     "heap_precise": 8947660
+     "heap_precise": 10780444
     }
    ],
-   "peak_bytes": 7088752,
-   "peak_mb": 6.8,
-   "heap_peak_bytes": 8947660,
-   "heap_peak_mb": 8.5,
-   "resident_peak_bytes": 16036412,
-   "resident_peak_mb": 15.3,
+   "peak_bytes": 9024112,
+   "peak_mb": 8.6,
+   "heap_peak_bytes": 10780444,
+   "heap_peak_mb": 10.3,
+   "resident_peak_bytes": 19804556,
+   "resident_peak_mb": 18.9,
    "growth_under_exercise_mb": 0,
    "heap_growth_under_exercise_mb": 0.2,
-   "pct_of_ios_floor": 6.8,
-   "pct_of_ios_floor_pixels_only": 3,
-   "surface_md5": "3749ec260a29887c42676992414663a0"
+   "pct_of_ios_floor": 8.4,
+   "pct_of_ios_floor_pixels_only": 3.8,
+   "surface_md5": "3962fda7049c83d9754647608ecbdbe9"
   },
   {
    "surface": "BOHEMIA_CITY_CURRENT.html",
    "name": "CITY (the map)",
    "why": "the other shipped world surface",
-   "load_ms": 3660,
+   "load_ms": 3664,
    "exercise": null,
    "exercise_proof": {},
    "moments": [
@@ -406,14 +407,14 @@
      ],
      "total": 788712,
      "moment": "loaded",
-     "heap_precise": 1899060
+     "heap_precise": 1898780
     }
    ],
    "peak_bytes": 788712,
    "peak_mb": 0.8,
-   "heap_peak_bytes": 1899060,
+   "heap_peak_bytes": 1898780,
    "heap_peak_mb": 1.8,
-   "resident_peak_bytes": 2687772,
+   "resident_peak_bytes": 2687492,
    "resident_peak_mb": 2.6,
    "growth_under_exercise_mb": 0,
    "heap_growth_under_exercise_mb": 0,
@@ -425,7 +426,7 @@
    "surface": "BOHEMIA_ALPHA_0_9.html",
    "name": "ALPHA (the shipped build)",
    "why": "what Paolo actually taps: every tab, every baked body, all in one page",
-   "load_ms": 26121,
+   "load_ms": 25634,
    "exercise": "tabs",
    "exercise_proof": {
     "tabs": [
@@ -447,8 +448,8 @@
     {
      "canvas": 804528,
      "canvases": 13,
-     "img": 6133248,
-     "imgs": 162,
+     "img": 8068608,
+     "imgs": 372,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -515,7 +516,7 @@
        "frame": "runFrame",
        "canvases": 1,
        "canvas_mb": 0,
-       "img_mb": 5.8
+       "img_mb": 7.7
       },
       {
        "frame": "(main)",
@@ -524,15 +525,15 @@
        "img_mb": 0
       }
      ],
-     "total": 6937776,
+     "total": 8873136,
      "moment": "loaded",
-     "heap_precise": 47052272
+     "heap_precise": 48741588
     },
     {
      "canvas": 56390248,
      "canvases": 2604,
-     "img": 6837320,
-     "imgs": 168,
+     "img": 8772680,
+     "imgs": 378,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -605,7 +606,7 @@
        "frame": "runFrame",
        "canvases": 193,
        "canvas_mb": 9.7,
-       "img_mb": 5.8
+       "img_mb": 7.7
       },
       {
        "frame": "mapFrame",
@@ -638,22 +639,22 @@
        "img_mb": 0
       }
      ],
-     "total": 63227568,
+     "total": 65162928,
      "moment": "every tab opened",
-     "heap_precise": 33817180
+     "heap_precise": 39276660
     }
    ],
-   "peak_bytes": 63227568,
-   "peak_mb": 60.3,
-   "heap_peak_bytes": 47052272,
-   "heap_peak_mb": 44.9,
-   "resident_peak_bytes": 97044748,
-   "resident_peak_mb": 92.5,
+   "peak_bytes": 65162928,
+   "peak_mb": 62.1,
+   "heap_peak_bytes": 48741588,
+   "heap_peak_mb": 46.5,
+   "resident_peak_bytes": 104439588,
+   "resident_peak_mb": 99.6,
    "growth_under_exercise_mb": 53.7,
-   "heap_growth_under_exercise_mb": -12.6,
-   "pct_of_ios_floor": 41.3,
-   "pct_of_ios_floor_pixels_only": 26.9,
-   "surface_md5": "b321ee6d59a68f3d03379736c96c5e70"
+   "heap_growth_under_exercise_mb": -9,
+   "pct_of_ios_floor": 44.5,
+   "pct_of_ios_floor_pixels_only": 27.7,
+   "surface_md5": "d3060f9a35aaca24b4bcd751ba7faf1f"
   }
  ]
 }

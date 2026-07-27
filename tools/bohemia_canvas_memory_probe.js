@@ -226,30 +226,87 @@ async function walkOutside(p, tries) {
   /* THE DOOR YOU WANT IS THE INTERIOR'S DOOR. state().homeDoor is in EXTERIOR
    * grid coordinates; while you are inside, px/py are interior coordinates, so
    * steering at homeDoor walks you at a wall in a different coordinate system.
-   * That is exactly what the first run did, for ninety presses. */
-  const door = await p.evaluate(() => {
-    const i = window.__RUN.interior();
-    return i && i.door ? [i.door.x !== undefined ? i.door.x : i.door[0],
-                          i.door.y !== undefined ? i.door.y : i.door[1]] : null;
+   * That is what the first version did, for ninety presses.
+   *
+   * AND GREEDY STEERING IS NOT ENOUGH EITHER. The house is rooms: from the
+   * bedroom the door is through a doorway on the far side of a hallway, so
+   * "press toward it, flip axis when stuck" wedges in a corner - which is where
+   * the second version died the moment the RUN lane re-dressed the interior. So
+   * this reads the interior's own passability grid, BFSes a real path, and walks
+   * it. A probe that only works on one floorplan is a probe that quietly stops
+   * measuring the day somebody moves a wall. */
+  const home = await p.evaluate(() => {
+    const i = window.__RUN.interior(), s = window.__RUN.state();
+    if (!i) return null;
+    const d = i.door;
+    return { W: i.W, H: i.H, pass: i.pass, at: [s.px, s.py],
+             door: d ? (d.x !== undefined ? [d.x, d.y] : [d[0], d[1]]) : null };
   });
-  const st = await p.evaluate(() => window.__RUN.state());
-  let last = { x: st.px, y: st.py }, stuck = 0, axis = 0;
-  for (let i = 0; i < tries; i++) {
-    const s = await p.evaluate(() => window.__RUN.state());
-    if (s.mode !== 'int') return { got_out: true, at: [s.px, s.py], steps: i, door: door };
-    const tx = door ? door[0] : s.px, ty = door ? door[1] : s.py;
-    const dx = Math.sign(tx - s.px), dy = Math.sign(ty - s.py);
-    let key;
-    if ((axis === 0 && dx) || !dy) key = dx > 0 ? 'ArrowRight' : dx < 0 ? 'ArrowLeft' : 'ArrowDown';
-    else key = dy > 0 ? 'ArrowDown' : 'ArrowUp';
-    await p.keyboard.press(key);
+  if (!home || !home.door) {
+    const s0 = await p.evaluate(() => window.__RUN.state());
+    return { got_out: s0.mode !== 'int', at: [s0.px, s0.py], steps: 0,
+             why: 'no interior floorplan to path through' };
+  }
+  const route = bfs(home.pass, home.at, home.door);
+  const KEY = { '1,0': 'ArrowRight', '-1,0': 'ArrowLeft', '0,1': 'ArrowDown', '0,-1': 'ArrowUp' };
+  let pressed = 0;
+  for (const step of route) {
+    if (pressed++ >= tries) break;
+    await p.keyboard.press(KEY[step[0] + ',' + step[1]]);
     await p.waitForTimeout(45);
-    if (s.px === last.x && s.py === last.y) { stuck++; if (stuck > 2) { axis ^= 1; stuck = 0; } }
-    else stuck = 0;
-    last = { x: s.px, y: s.py };
+    const s = await p.evaluate(() => window.__RUN.state());
+    if (s.mode !== 'int') {
+      return { got_out: true, at: [s.px, s.py], steps: pressed,
+               door: home.door, path_len: route.length };
+    }
+  }
+  /* THE DOOR IS SHUT, AND OPENING IT COSTS A STEP. Walking into a closed door
+   * calls openDoor() and RETURNS without moving - by design, doors animate open
+   * on the beat. So the last step of the path never lands, and a probe that
+   * presses three more times at 60 ms apart is pressing at a door mid-swing.
+   * Press into it slowly, on the beat, and take the answer either way. */
+  for (let i = 0; i < 8; i++) {
+    const cur = await p.evaluate(() => window.__RUN.state());
+    if (cur.mode !== 'int') break;
+    const dx = Math.sign(home.door[0] - cur.px), dy = Math.sign(home.door[1] - cur.py);
+    const k = dx ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft')
+                 : (dy > 0 ? 'ArrowDown' : dy < 0 ? 'ArrowUp' : 'ArrowDown');
+    await p.keyboard.press(k);
+    await p.waitForTimeout(520);            // one beat: BEAT = 0.5s, 120 BPM law
   }
   const s = await p.evaluate(() => window.__RUN.state());
-  return { got_out: s.mode !== 'int', at: [s.px, s.py], steps: tries, door: door };
+  return { got_out: s.mode !== 'int', at: [s.px, s.py], steps: pressed,
+           door: home.door, path_len: route.length };
+}
+
+/* Shortest walk over the floorplan's own passability grid. Returns unit steps. */
+function bfs(pass, from, to) {
+  const H = pass.length, W = pass[0].length;
+  const key = (x, y) => x + ',' + y;
+  const prev = new Map([[key(from[0], from[1]), null]]);
+  const q = [from];
+  const D = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  while (q.length) {
+    const [x, y] = q.shift();
+    if (x === to[0] && y === to[1]) break;
+    for (const [dx, dy] of D) {
+      const nx = x + dx, ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      if (!pass[ny][nx]) continue;
+      const k = key(nx, ny);
+      if (prev.has(k)) continue;
+      prev.set(k, [x, y]);
+      q.push([nx, ny]);
+    }
+  }
+  if (!prev.has(key(to[0], to[1]))) return [];
+  const cells = [];
+  for (let c = to; c; c = prev.get(key(c[0], c[1]))) cells.unshift(c);
+  const steps = [];
+  for (let i = 1; i < cells.length; i++) {
+    steps.push([cells[i][0] - cells[i - 1][0], cells[i][1] - cells[i - 1][1]]);
+  }
+  return steps;
 }
 
 async function where(p) {

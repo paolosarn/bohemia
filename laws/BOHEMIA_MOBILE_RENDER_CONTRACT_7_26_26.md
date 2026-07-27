@@ -151,9 +151,12 @@ uncollected nursery look identical. Record:
 
 | surface | pixels | heap | resident peak | of the floor |
 |---|---|---|---|---|
-| ALPHA, every tab opened | 60.3 MB (2604 canvases) | 44.9 MB | **92.5 MB** | 41% |
-| RUN, after 480 steps outdoors | 6.8 MB | 8.5 MB | 15.3 MB | 7% |
+| ALPHA, every tab opened | 62.1 MB (2604 canvases) | 46.5 MB | **99.6 MB** | 44% |
+| RUN, after 480 steps outdoors | 8.6 MB | 10.3 MB | 18.9 MB | 8% |
 | CITY (the map) | 0.8 MB | 1.8 MB | 2.6 MB | 1% |
+
+(The heap moves about a megabyte between runs, so read these to the MB, not to
+the decimal. The pixel column is exact arithmetic and does not drift.)
 
 **THE CLAUSE HOLDS TODAY.** Walking the valley 480 steps grew the picture by
 **0.0 MB**. The WORLD lane's bounded plot LRU is doing its job: the world streams
@@ -169,9 +172,12 @@ and it is two things this clause never named:
    shell itself, 188 in `mapFrame`, 193 in `runFrame`. Small ones, ~21 KB each,
    which is exactly why nobody noticed: no single allocation looks wrong. They
    are retained across a forced collection, so they are live, not garbage.
-2. **~45 MB of JS heap at load**, because the art arrives as base64 and lives as
+2. **~46 MB of JS heap at load**, because the art arrives as base64 and lives as
    JS pixel arrays — never as an image, never as a canvas. A canvas-only budget
    would have reported the heaviest thing in the build as weighing nothing.
+
+Both belong to the lanes that own those tabs. They are written down here rather
+than quietly patched from inside the ART lane.
 
 So the number to watch while the tile set multiplies is **resident** (pixels +
 heap), and the record tracks both. Ratchets in the gate: 120 MB resident, 75 MB

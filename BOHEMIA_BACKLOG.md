@@ -243,9 +243,26 @@
    (b) live canvas memory vs the ~224MB iOS floor is NOT instrumented and the
    gate does not pretend to check it. Order note: amendment D landed on main
    mid-session, so the contract was written FROM the screens, not before them.
-0b. (discovered 7/26, needs instrumentation) MEASURE LIVE CANVAS MEMORY on a
-   real device against the ~224MB iOS floor. Until then section 8 of the
-   contract is a constraint, not a check. | a probe + a gated ceiling | — | no.
+0b. [SHIPPED 7/27] MEASURE LIVE CANVAS MEMORY against the ~224MB iOS floor.
+   tools/bohemia_canvas_memory_probe.js drives the three shipped surfaces in a
+   real browser at iPhone portrait and counts canvas backing stores (w*h*4, in
+   EVERY frame - the alpha's heaviest modules are iframes), decoded image bytes,
+   and the JS heap over CDP after a FORCED collection. WeakRef-tracked, so a
+   cache that works reads as a number that stops climbing. Record:
+   records/target/BOHEMIA_CANVAS_MEMORY.json + records/
+   BOHEMIA_MEMORY_MEASURED_7_27_26.md. Gate: gates/canvas_memory_gate.py (31
+   checks), registered. Section 8 of the contract now carries the numbers.
+   THE CLAUSE HOLDS: 480 steps across the valley grew the picture by 0.0 MB
+   (the WORLD lane's bounded plot LRU works). WHAT IT FOUND INSTEAD, and it is
+   NOT what the clause was watching: the ALPHA holds 2604 live canvases once
+   every tab is open (2217 in the shell, 188 mapFrame, 193 runFrame, ~21KB each
+   - which is why nobody noticed) and ~46MB of JS heap at load, because the art
+   arrives as base64 and lives as JS pixel arrays, never as an image or canvas.
+   99.6MB resident = 44% of the floor. Headroom today, work items for the lanes
+   that own those tabs (see CHARACTER / RUN), written down rather than patched
+   from inside the ART lane. LIMIT STATED EVERYWHERE IT APPEARS: headless
+   desktop Chromium, not an iPhone - it proves the SHAPE of the curve, which is
+   what kills a phone. A real-device number still needs a real device.
 1. [CLOSED 7/26 - CBB, SHIPPED, FROZEN] THE TARGET SCREEN. Paolo: "Could be
    better." Per the verdict pipeline that is SHIPS + FROZEN + NEVER SPAWNS
    VARIANTS. The tile-reassembled frame IS the target; it and the 42-tile
@@ -1179,6 +1196,23 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    slices/BOHEMIA_ALPHA_0_9.html | gates/canvas_scale_gate.js already PRINTS
    these every run and deliberately does not fail on them; make them yours and
    turn them into assertions | measured, not read | no.
+1c. (MEASURED BY THE ART LANE 7/27, handed over untouched — ONE SYSTEM, ONE
+   SESSION) THE SHELL HOLDS 2217 LIVE CANVASES once every tab has been opened.
+   Different sweep, different concern from 1b: that one is about how canvases
+   are DISPLAYED, this one is about how many of them EXIST. The memory probe
+   (tools/bohemia_canvas_memory_probe.js) counts 2604 live canvases across the
+   alpha at ~21 KB each = 53.8 MB of pixels, and 2217 of them are in the shell
+   itself, which is where char / clothes / anim live. They survive a forced
+   garbage collection, so they are RETAINED, not garbage waiting to go. Nothing
+   is on fire: the whole build peaks at 99.6 MB resident = 44% of the 224 MB iOS
+   floor. But no single one of those canvases looks wrong, which is exactly why
+   this went uncounted until now, and the tile set is about to multiply. Likely
+   shape of the fix: one canvas per THUMBNAIL kind reused, or the previews drawn
+   into a shared atlas, rather than one per garment/frame retained forever.
+   Reproduce with: node tools/bohemia_canvas_memory_probe.js (see by_frame in
+   records/target/BOHEMIA_CANVAS_MEMORY.json). gates/canvas_memory_gate.py
+   ratchets the total and deliberately does not fail on the count | measured,
+   not read | no.
 2. Wardrobe: new SHAPES (structure-not-color), taste-filtered before
    surfacing. | structure_gate | — | fresh shapes = thumbs.
 3. Music pool volume in approved styles, taste-filtered. | music gates | — |
