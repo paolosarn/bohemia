@@ -794,6 +794,22 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0K. [DONE 7/28, his ruling] THE SUBURB PERIMETER WALL STANDS, FROM ITS OWN POOL,
+   AT ITS OWN RESOLUTION. The pool was wired since 7/21; what was broken was
+   (a) it drew as ONE FLAT CELL while house facades stood 3 tiles, so the only
+   thing that looked like a wall was the house wall, and (b) its 44x44 approved
+   tiles were shrunk to 16 with LANCZOS then re-blown x1.375 by the new TPX -
+   two resamples on the one asset he passed out of 61 candidates. Now: 2 tiles
+   tall (its bank's own stated minimum, shorter than the 3-tile house wall),
+   perimeter pool only, native 44x44 (exact x0.25/x0.5/x1/x2 on the zoom
+   ladder). Gate: wallclass_gate.js checks the class, the height, the key count
+   AND that the embedded bytes are the bank's bytes.
+0L. (7/28, STANDING INSTRUCTION for this lane, from him) BEFORE TOUCHING ANY ART
+   PATH, READ ITS BANK'S OWN `law` FIELD. The perimeter bank has said "WALL
+   HEIGHT MIN 2 TILES" since 7/14; there was a law file AND two verdict records
+   AND a bank, and it still drifted for ten days because nothing in the machine
+   read any of them. "look in the poject files" - the answer is almost always
+   already there and almost always has no gate on it.
 0I. [DONE 7/27, his ruling] ONE MOVEMENT UI EVERYWHERE. "on the run should be
    using the same movement ui s the combat shit ... the arrows taking up half the
    screen is dog shit man". The run's #ctl bar was a flex SIBLING of the stage,

@@ -1,3 +1,41 @@
+CITY (03): 7/28 (a) LATEST — THE SUBURB WALL HE PICKED WAS LYING ON THE FLOOR, AT A
+QUARTER OF ITS RESOLUTION. "i literally spent hours 2 weeks ago planning the best walls
+for the suburb walls and ur using some bullshit that u made for a house wall as the
+subrub wall ... look in the poject files"
+I LOOKED IN THE PROJECT FILES AND THEY BACK HIM UP.
+  laws/BOHEMIA_ADDENDUM_WALL_TAXONOMY_7_17_26.md - "the walls of suburb communities,
+  different than like building wall". TWO classes that NEVER share a pool.
+  banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt - 13 keys, and its OWN law field says
+  "WALL HEIGHT MIN 2 TILES".
+  records/BOHEMIA_WALL_PICKS_BATCH2_VERDICTS_7_17_26.txt - batch 2 was 48 candidates and
+  exactly ONE survived; batch 1 took 12. That is the hours: 61 judged, 13 kept.
+THE POOL WAS ALREADY WIRED (the 7/21 patch) and the suburb wall has never actually been
+drawn with house-wall art. TWO OTHER THINGS WERE WRONG and together they are exactly why
+it read as a house wall:
+  1. IT WAS ONE FLAT CELL. Code 4 was `{c.s, c.walk:false}` with no face, so the baker
+     drew it lying on the ground. Its bank has said MIN 2 TILES since 7/14 and NOTHING
+     EVER CHECKED. Then 7/27 gave house facades three tiles of height - so the only
+     thing standing up in a suburb was the HOUSE wall.
+  2. HIS ART WAS RESAMPLED TWICE. The 7/21 wiring shrank every 44x44 approved tile to
+     16x16 with a LANCZOS filter to match the old TPX=16; the 7/26 pixel fix then moved
+     TPX to 22, so those already-blurred tiles got blown back up x1.375. Two resamples,
+     one smoothing, on the one asset he hand-picked out of 61.
+FIXED, tools/bohemia_city_wallstands_patch.py: code 4 joins the facade pass with its OWN
+pool and OWN height - `perimeter`, never hwall, TWO tiles (the bank's minimum, and
+correctly SHORTER than the 3-tile house wall; a Vegas block wall is ~6ft, a house eave
+~10ft). The 13 tan tiles are re-embedded at native 44x44 - the bank's own bytes - which
+against the zoom ladder [11,22,44,88] is exactly x0.25/x0.5/x1/x2. Wall height became a
+per-cell property (c.wallH), because "how tall is this wall" always belonged to the wall.
+GATE: gates/wallclass_gate.js, registered. Finds a REAL perimeter cell in a REAL suburb
+and asserts the CLASS (perimeter pool, never a building pool), the HEIGHT (>=2 and less
+than the house wall), that all 13 keys are embedded, and that the embedded bytes ARE THE
+BANK'S BYTES so a future shrink cannot slip through.
+THE LESSON, and it is the one worth carrying: this law had a bank, a law file AND two
+verdict records, and it still drifted for ten days, because nothing in the machine read
+any of them. When he says "look in the project files" the answer is almost always there
+and almost always has no gate on it. Before touching any art path, read its bank's own
+`law` field - the perimeter bank stated its own height rule and that rule was the bug.
+
 CITY (03): 7/27 (e) LATEST — THE RUN GETS COMBAT'S MOVEMENT UI: YOUR FACE, EIGHT
 DIRECTIONS, AND THE WHOLE SCREEN BACK.
 "on the run should be using the same movement ui s the combat shit ... dont present me
