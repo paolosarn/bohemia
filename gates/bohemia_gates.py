@@ -170,6 +170,8 @@ GATES = [
      'shadows are a separate layer: no new cook bakes light into an asset, and the amount already baked only goes down', False),
     ('RIG IS LAW',     ['node', 'gates/rig_is_law_gate.js'],
      'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
+    ('REPLY CONTRACT', ['node', 'gates/reply_contract_gate.js'],
+     'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
     ('BACK LIMB',      ['node', 'gates/back_limb_gate.js'],

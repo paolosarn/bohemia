@@ -52,17 +52,32 @@ items. Inventing canon-level work is forbidden (MECHANISM-MINE).
 =============================================================================
 ## 3. THE REPLY CONTRACT (every session, every turn, no exceptions)
 =============================================================================
-1. **TLDR** — max 3 plain-English lines: what shipped, what it means in the
-   game, what changed. Zero jargon, zero file paths (Paolo does not read code).
-2. **JUDGE THIS** — numbered list, each item one-look-one-verdict, with the
-   judge page linked from inside the alpha. Candidates shown SIDE-BY-SIDE with
-   their nearest approved anchor. If nothing: "Nothing to judge."
-3. **DID NOT DECIDE** — any [PENDING Paolo] surfaced this turn (usually none).
-4. **Proof line** — gates green count + deploy-verified + buildstamp. A green
-   metric proves NON-VIOLATION only; never cite it as proof of quality.
-5. The play link, last line (existing law).
-NOTHING ELSE. No process narration, no options essays, no philosophy. Any
-"which direction?" impulse becomes two rendered candidates in JUDGE THIS.
+AMENDED 7/26/26 by Paolo, LOCKED: "What input do you need for me? You gotta have
+that at the bottom of each chat. I told you to make me a TLDR and it's not at the
+very bottom of the screen every time, it's very annoying."
+
+THE ORDER IS NOW BOTTOM-UP. He reads from the bottom of his screen. Anything he
+has to scroll up for does not exist. So the two things he acts on -- WHAT I NEED
+FROM HIM, and the TLDR -- are the LAST things on screen, always, in this order:
+
+  1. The work. Short. What changed, in plain English. No process narration, no
+     options essays, no philosophy, no file paths (he does not read code).
+  2. **JUDGE THIS** -- numbered, one-look-one-verdict, side-by-side with the
+     nearest approved anchor. If nothing: "Nothing to judge."
+  3. **Proof line** -- gates green + deploy-verified + buildstamp. A green metric
+     proves NON-VIOLATION only; never cite it as proof of quality, and never lead
+     with it.
+  4. **WHAT I NEED FROM YOU** -- the decisions blocking me, numbered, each one a
+     concrete choice he can answer in a word. "Nothing, I'm good" if there is
+     none. THIS IS THE SECOND-TO-LAST THING ON SCREEN, EVERY TIME.
+  5. **TLDR** -- the two-sentence plain-English bottom line (sentence 1 = what I
+     did, sentence 2 = what he should do with it and why it matters). THE LAST
+     THING ON SCREEN, EVERY TIME.
+  6. The play link, on its own line after, when a ship happened (existing law).
+
+WHY THIS IS A LAW AND NOT A PREFERENCE: for a whole session the ask sat buried
+mid-reply behind measurements, and he had to hunt for it every single turn while
+already frustrated. A question he cannot find is a question I did not ask.
 
 =============================================================================
 ## 4. DEFINITION OF DONE (the contract that kills false-done)

@@ -14,11 +14,16 @@ research partner. He DECIDES, you PRODUCE.
 - ONE question max per response, bolded. He answers from farthest-back first.
 - When he corrects something: fix it immediately, root cause, move on.
 - Ship A LOT per turn. Small timid turns are a standing complaint.
-- END EVERY RESPONSE with a TWO-SENTENCE plain-English bottom line (Paolo 7/25,
-  LOCKED): sentence 1 = what you just did, sentence 2 = what he should do with it
-  and why it matters. No jargon, not a big deal, just those two sentences at the
-  very end, every time. (The play link, when one ships, still goes on its own
-  last line after.)
+- END EVERY RESPONSE with, in this exact order, the LAST two blocks on screen:
+  **WHAT I NEED FROM YOU** (the decisions blocking me, numbered, each answerable
+  in a word; "Nothing, I'm good" if none), and then the TWO-SENTENCE plain-English
+  bottom line (Paolo 7/25, LOCKED): sentence 1 = what you just did, sentence 2 =
+  what he should do with it and why it matters. No jargon, not a big deal.
+  (The play link, when one ships, still goes on its own last line after.)
+  BOTTOM-UP (Paolo 7/26, LOCKED): he reads from the bottom of his screen, so
+  anything he has to scroll up for does not exist. The ask and the TLDR are the
+  last things he sees, every single turn. A question he cannot find is a question
+  you did not ask. Full contract: laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md sec 3.
 
 ## THE LAWS THAT GOVERN EVERYTHING (full text in /laws)
 - FACTORY LAW: every system is a mass-production factory: typed spec, generator,
