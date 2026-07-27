@@ -155,6 +155,77 @@ is over its DIET LAW cap and this lane can only legally shrink its own entries.)
   fork from LAB-01: 120 BPM + OCCUPANCY versus a continuous sub-pixel walk — three
   options are written out in the town-walk note and the lane did not pick.
 
+WORLD MODEL (02): 7/27 (d) — THE ENCOUNTER DIRECTOR. He went to sleep, so this turn
+is deliberately work that needed NOTHING from him: an APPROVED item, no new art, no
+new verdict added to his queue.
+
+engine/bohemia_encounters.js, built on records/BOHEMIA_VERDICT_ACT1_ROSTER_7_26_26.txt
+("Approve all", on the 12 act-1 tokens AND the anti-boredom pacing package). It was
+commissioned off one worry of his — "this game could be very boring if not done right"
+— so what this actually protects is that the valley stays interesting.
+
+All 12 tokens under the verdict's own names, each carrying the VERB that makes it
+different (variety is a verb, never a bigger HP bar) and the beat telegraphs the roster
+specified. Every clause of the pacing package is held AND measured by the gate:
+
+  70/20/10 by a DEFICIT CHOOSER, not dice. THE CLASS IS NOT NEGOTIABLE, and that is
+  the bug this build had first: when the wanted class had nothing available it
+  substituted another and came out 40/42/18. If the story wants an ambient beat and no
+  ambient token is free, NOTHING HAPPENS — a substitution keeps the arithmetic tidy and
+  breaks the promise 70/20/10 makes to the player. Now lands 70.0/20.0/10.0.
+
+  STORYTELLER BUDGET: spends big when the player is healthy and it has been quiet,
+  small after hard fights. A hurt player with a hot recent past measurably gets fewer
+  encounters. Same seed + same walk = the identical night, forever.
+
+  ~90s FLOOR. RARE IS SACRED (a spice token fires once a session, ever, even over an
+  8000-step walk). NO REPEAT-SPAM, and with no cooldown ruled a token fires ONCE —
+  nothing invented.
+
+  NO GLOBAL SPAWNS EVER, held by construction rather than discipline: there is no
+  fallback table to spawn from, so a district with no entry spawns nothing and says so.
+
+  NO BACKGROUND TICKING (his pacing ruling). The module owns NO CLOCK — no timer, no
+  interval, no Date.now. It is PULLED through the encounters socket built into
+  bohemia_world_resolve.js earlier today. Gated by simulation: standing still for 5000
+  calls produces nothing.
+
+  PRECONDITIONS THE ROSTER STATED, and an unproven one is a NO rather than a
+  yes-by-default: bounty squad only from your own murders, spotter drone only in owned
+  light (LIGHT=TERRITORY), patrols collide only at a territory seam.
+
+Gate ENCOUNTERS, 46 checks, green first run. Enemy ART is explicitly NOT this item —
+the verdict files it separately under approved-assets-first.
+
+NOT LIVE YET, and that is the honest state. The director is built, the socket exists,
+and nothing will spawn until two things land: (a) Paolo rules the MOMENT TABLE so the
+world resolver fires at all, and (b) somebody supplies the district + day/night spawn
+table, which is content nobody has ruled. Both are one call away. Neither is guessed.
+
+=== WHERE THE WORLD LANE ACTUALLY STANDS, FOR WHOEVER PICKS THIS UP ===
+VALLEY: 96.7% generated. 300 cells still flat, and they split cleanly:
+  199 are RESERVED FOR PAOLO'S HAND BY LAW (resort 118, strip 81) — leave them.
+  101 are the buildable small landmark set: campus 16, speedway 12, town 9, ballpark 8,
+  basin 8, convention 6, datafort 6, casino 5, prison 4, dam 4, reservoir 3, plus a tail
+  of single-cell landmarks. THAT IS THE NEXT GROUND ITEM and it needs nothing from him.
+
+BLOCKED ON PAOLO, in the order they unblock the most:
+  1. THE MOMENT TABLE — which moments exist and what each spends, plus each world
+     system's per-unit rate. Blocks the whole resolver: day, economy, faction beats AND
+     the encounter director above. The RUN lane declared SLEEP=8 / HANGOUT=1 / EAT
+     unpriced on its side; if those are his sizes, the world moves the moment he says a
+     rate. EVERYTHING IS WIRED AND EMPTY, waiting on this one answer.
+  2. THE AIRFIELD ICON composition — should it drop the runway and show the terminal
+     and one big aeroplane? Both builders are written and held out of the roster.
+  3. QUEST PLACEMENT VERDICTS — 21 quests land on 13 cells because castTarget hashes
+     into faction territory; bohemia_quest_placement.js exists to fix it and nothing
+     consumes its output. The judge page is built and unjudged.
+  4. ACT-2 / ACT-3 materials for every surface, and whether terrain gets a city icon.
+
+DO NOT: touch quests beyond READING where they already resolve (WORLD-BEFORE-QUESTS,
+narrowed 7/27 for pins only); auto-generate strip/resort/casino/luxor/sphere/strat/
+highroller/sign; or wire faction beats to anything without an explicit beat predicate.
+
 WORLD MODEL (02): 7/27 (c) — TWO ORDERS: THE ONE MAP, AND THE WORLD'S HALF OF THE
 RESOLVER. Both shipped. The map job turned up four real defects on the way.
 

@@ -505,16 +505,33 @@ stories the world cannot host yet.
         prison 4, dam 4, basin 8, reservoir 3 (small landmark set, one at a time).
      d. NEVER AUTO-GENERATED, by law: strip 81, resort 118, casino 5, luxor, sphere,
         strat, highroller, sign. Paolo's hand. Leave them reserved.
-2. AMBIENT ENCOUNTER DIRECTOR (APPROVED 7/26, records/BOHEMIA_VERDICT_ACT1_
-   ROSTER_7_26_26.txt): the walk-surface encounter system — storyteller tension budget
-   (never dice), 70/20/10 ambient/interactive/forced ratio, district+day/night spawn
-   tables, rare-is-sacred caps, ~90s min gap. The 12 approved act-1 encounter types as
-   spawnable tokens routing into the standard encounter handoff; patrols-collide as
-   world-on-world. Enemy ART is NOT this item (approved-assets-first, separate judge).
-   | director proven headless: ratios hold over a simulated long walk, no repeat-spam,
-   deterministic per seed | pacing ruling (no background ticking when player idle) |
-   design approved; art needs thumbs.
-   NOTE: this is world content, not quest plumbing, so the 7/26 ruling does not park it.
+2. [DONE 7/27] AMBIENT ENCOUNTER DIRECTOR. engine/bohemia_encounters.js, built on
+   his "Approve all" (records/BOHEMIA_VERDICT_ACT1_ROSTER_7_26_26.txt). All 12 act-1
+   tokens under the verdict's own names, each with the VERB that makes it different
+   (variety is a verb, never a bigger HP bar) and the beat telegraphs the roster
+   specified. The whole approved pacing package is held and measured:
+     70/20/10 by a DEFICIT CHOOSER, not dice — and the class is NOT NEGOTIABLE. The
+       first build substituted another class when the wanted one was on cooldown and
+       came out 40/42/18; if the story wants an ambient beat and none is available,
+       NOTHING HAPPENS rather than a forced fight standing in for it. Now lands on
+       70.0/20.0/10.0 over a long walk.
+     STORYTELLER BUDGET — spends big when healthy and quiet, small after hard fights.
+       A hurt player with a hot recent past measurably gets fewer encounters.
+     ~90s FLOOR, RARE IS SACRED (spice once a session, ever), NO REPEAT-SPAM.
+     NO GLOBAL SPAWNS EVER — held by construction: there is no fallback table, so a
+       district with no entry spawns nothing and says so.
+     NO BACKGROUND TICKING (his pacing ruling) — the module owns NO CLOCK at all: no
+       timer, no interval, no Date.now. It is PULLED through the encounters socket in
+       bohemia_world_resolve.js. Standing still forever produces nothing, gated.
+     PRECONDITIONS THE ROSTER STATED are honoured and an unproven one is a NO: the
+       bounty squad only exists because of your own murders, the spotter drone only
+       patrols owned light (LIGHT=TERRITORY), patrols collide only at a seam.
+   Gate ENCOUNTERS, 46 checks. Enemy ART is explicitly NOT this item (the verdict
+   files it as a separate fresh-look judge under approved-assets-first).
+   NOT YET LIVE, and this is the honest state: the director is built and its socket
+   exists, but nothing spawns until (a) Paolo rules the MOMENT TABLE so the world
+   resolver actually fires, and (b) somebody supplies the district+day/night table,
+   which is content nobody has ruled. Both are one call away, neither is guessed.
 3. INTERIORS FOR THE GROUND THAT HAS THEM: coordinate with CITY (they own the district
    interiors item) so nothing is built twice. | — | CITY lane's item 1 | no.
 4. [DONE 7/26] Engine support for RUN, request 1 of 2: THE VALLEY TILE + CROSSING
