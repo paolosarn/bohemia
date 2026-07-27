@@ -502,6 +502,42 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    canvases given their own 64-entry LRU so the bigger bake cannot blow the
    ~224MB iOS floor). Result 41% -> 0.1% and 44% -> 3.4%. Locked by
    gates/render_pixel_gate.js, a RATCHET measured on the real surface.
+0A. [DONE 7/27] THE PHONE WAS EATING THE CONTROLS. He said "I can't get outside
+   the suburb" and "I'm trying to copy and paste the arrow of move" in the same
+   breath, and THOSE ARE ONE BUG. Movement in this game is press-and-HOLD on an
+   arrow. iOS Safari's default answer to a long press on text is the selection
+   magnifier and the Copy / Look Up / Search callout. The entire 33MB alpha
+   contained ZERO occurrences of -webkit-touch-callout and the shell's reset
+   never set user-select at all, so holding the d-pad opened the OS menu instead
+   of walking. MEASURED, so the level design is cleared: every suburb sample
+   sits 16-50 steps from a different district, and 7,645 of 7,649 built cells can
+   be walked out of. He was not trapped by the map, he was trapped by the button.
+   Fixed: tools/bohemia_touch_guard_patch.py (shell + all three frames; text
+   fields keep copy/paste on purpose). Gate: gates/touch_guard_gate.js, which
+   states plainly which half it can measure - Chromium does not implement
+   -webkit-touch-callout, so user-select is measured on the real controls and the
+   callout declaration is asserted in source.
+0B. (7/27, HIS WORDS, NOT ACTIONED - recorded so nobody re-cooks into a
+   rejection) He rejected, in one message: the HOUSES ("the houses aren't
+   good"), the DOORS ("the door suck"), the GARAGE ("the garage is suck"), and
+   asked whether the house is even built from the approved target art ("is this
+   target art"). STOP PRODUCING applies: nobody makes a v2 of any of these until
+   he asks. The one thing he DID direct: "you really should be using the suburb
+   district" - the suburb generator, which the walked world does already read
+   (realizeCell's m.sub path drives off BohemiaSuburb's own legend). What he is
+   pointing at is that the RESULT does not look like the district we built, so
+   the gap is between the suburb dossier and what actually renders. Diagnose
+   before touching pixels. | no new gate until he rules | his message 7/27 | YES,
+   blocked on him.
+0C. (7/27, [PENDING Paolo]) "the street that I didn't say you could go" - reads
+   as a MAP LAW complaint: a street exists that he did not place. MAP LAW says
+   Claude never designs map layouts. Needs him to point at which one before
+   anything is changed. | no | his message 7/27 | YES.
+0D. (7/27, [PENDING Paolo], probably not the CITY lane) "the phone system isn't
+   in here, doesn't progress as I walk" - the phone/feed is not reachable from
+   the walked world and nothing about it advances with steps. Whose lane that is
+   (LIFE/SOCIAL vs CITY) is his call, and so is whether it belongs in the walk at
+   all. | no | his message 7/27 | YES.
 0b. [DONE 7/27] THE PHONE WAS BLURRING THE WHOLE WORLD ON THE WAY TO THE SCREEN.
    The 7/26 fix above made the world blit 1:1 INSIDE the canvas. The browser
    then undid it: #cv in the city frame never set image-rendering, so it took

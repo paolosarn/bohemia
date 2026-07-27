@@ -32,14 +32,17 @@ const REPO = path.dirname(__dirname);
 const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 const AUDIT = path.join(REPO, 'tools/bohemia_render_audit.js');
 
-// RATCHET. Measured 7/26 after the pixel fix, as a share of all draws:
-//   fractional 3.4%  (the iso overview's own projection — that surface is
-//                     approved and is not being reshaped for this)
-//   non-integer 0.1%  (a couple of stragglers baked at the old size)
-//   smoothed    3.5%  (large minifications on the city overview, where
-//                      smoothing is the correct choice; see NOTE below)
-// These are CEILINGS. Lower them when the number drops; never raise them.
-const MAX = { fractional: 6.0, upsmoothed: 1.0, squashed: 0.5 };
+// RATCHET, RE-BASED 7/27. The audit used to include the frames rendered BEFORE
+// the drop-in — the city-builder OVERVIEW, whose iso projection is fractional by
+// design and is approved. That made the total depend on how many overview frames
+// happened to land in the sample, and it swung from 3.4% to 12.4% between runs
+// on an unchanged tree: a flaky ratchet, which is worse than no ratchet. --walk
+// now zeroes the counters once the player is on foot, so this measures ONE
+// surface: the walked world.
+// Measured on that surface after the screen-filter fix, 7,874 real draws:
+//   fractional 0.0%   upsmoothed 0.0%   squashed 0.0%   smoothed 0.0%
+// Clean, so the ceilings are tight. These may only ever go DOWN.
+const MAX = { fractional: 0.5, upsmoothed: 0.5, squashed: 0.5, smoothed: 0.5 };
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
@@ -68,14 +71,15 @@ ok('NOTHING IS DRAWN OFF ITS OWN ASPECT (' + pct(r.squashed).toFixed(1) + '% <= 
   'art stretched to a shape it was not painted at',
   pct(r.squashed) <= MAX.squashed);
 
-// NOTE, stated instead of hidden: `smoothed` is NOT gated. Every remaining case
-// is a large MINIFICATION on the city-builder overview (a ~266px district hero
-// drawn into a ~20px slot), where smoothing is the right call — nearest at 13:1
-// would sample 1 pixel in 13 and alias into noise. The real improvement there is
-// to pre-scale each hero once and cache it, which is identical output for a
-// fraction of the work; it is filed as a CITY backlog item, not forced here.
-console.log('  (not gated: ' + r.smoothed + ' smoothed draws, all large minifications on the ' +
-  'city-builder overview — see the note in this gate)');
+// `smoothed` IS gated now, which it could not be while the overview was in the
+// sample: there, a ~266px district hero lands in a ~20px slot and smoothing is
+// the CORRECT choice (nearest at 13:1 samples 1 pixel in 13 and aliases into
+// noise). On foot there is no such minification, so any smoothed draw in the
+// walked world is art being softened for no reason.
+ok('NOTHING IN THE WALKED WORLD IS RESAMPLED WITH SMOOTHING ON (' + pct(r.smoothed).toFixed(1) +
+  '% <= ' + MAX.smoothed + '%) — bilinear filtering is right for the overview\'s 13:1 hero ' +
+  'minifications and wrong for every tile you walk on',
+  pct(r.smoothed) <= MAX.smoothed);
 
 console.log('RENDER PIXEL GATE: ' + pass + ' passed, ' + fail + ' failed  (' + r.calls + ' real draws measured)');
 process.exit(fail ? 1 : 0);

@@ -99,8 +99,18 @@ const PROBE = `(() => {
   if (process.argv.includes('--walk')) {
     const f = FRAME ? page.frames().find(fr => fr.name() === FRAME + 'Frame') : page.mainFrame();
     if (f) {
-      await f.evaluate(() => { try { if (window.__CITY && window.__CITY.state().mode === 'city') swapMode(); } catch (e) {} }).catch(() => {});
+      const dropped = await f.evaluate(() => {
+        try { if (typeof MODE !== 'undefined' && MODE === 'city') { swapMode(); render(); } return typeof MODE !== 'undefined' && MODE === 'human'; } catch (e) { return false; }
+      }).catch(() => false);
+      if (!dropped) console.log('  WARNING: the drop-in did not take — these numbers are the OVERVIEW, not the walked world');
       await page.waitForTimeout(3500);
+      /* MEASURE ONE SURFACE. --walk is about the WALKED world, but the frames
+       * before the drop-in are the city-builder OVERVIEW, whose iso projection
+       * is fractional by design and is approved. Leaving them in made the total
+       * depend on how many overview frames happened to render before the drop,
+       * which swung the ratchet from 3.4% to 12.4% between runs on an unchanged
+       * tree. Zero the counters once we are on foot. */
+      await f.evaluate(() => { const r = window.__RENDER_AUDIT; if (r) { r.calls = 0; r.smoothed = 0; r.fractional = 0; r.squashed = 0; r.upsmoothed = 0; r.samples = {}; } }).catch(() => {});
       for (const di of [4, 4, 2, 2, 0, 6]) {
         await f.evaluate(d => { try { startHold(d); } catch (e) {} }, di).catch(() => {});
         await page.waitForTimeout(700);
