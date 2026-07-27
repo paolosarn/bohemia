@@ -274,6 +274,8 @@ GATES = [
      'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
     ('RENDER PIXEL',   ['node', 'gates/render_pixel_gate.js'],
      'the render contract MEASURED on the real surface: no fractional upscaling, no half-pixel draws, nothing off its aspect', True),
+    ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],
+     'Paolo 7/27: ONE movement UI everywhere - portrait dead centre, 8 cardinals ringed around it, controls float instead of carving a bar out of the screen', True),
     ('THREE-TILE WALL',['node', 'gates/wallheight_gate.js'],
      'Paolo 7/27: a wall carrying a door is 3 tiles tall, a door is 2 of them, and a wall covering the player goes see-through (and only then)', True),
     ('FRONT DOOR',     ['node', 'gates/frontdoor_gate.js'],

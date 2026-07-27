@@ -198,7 +198,12 @@ async function playRun(browser, fork) {
   const stand = g.pass[near[1]] && g.pass[near[1]][near[0]] ? near : [lineman[0], lineman[1] - 1];
   await walkTo(page, stand);
   rep.talkableAtLineman = await page.evaluate(() => window.__RUN.talkables().length);
-  rep.actLabelAtLineman = await page.textContent('#act');
+  /* 7/27: the one action button became the NAV CLUSTER's centre portrait, so its
+     verb moved out of the button's text into #actlbl beside it (the run's verbs
+     are whole sentences and an 80px circle ate them). Read the label the player
+     actually sees, wherever it lives. */
+  rep.actLabelAtLineman = await page.textContent('#actlbl').catch(() => null)
+    || await page.textContent('#act').catch(() => null);
   await page.click('#act');
   rep.talkOpened = await page.isVisible('#talk');
 
