@@ -25,25 +25,33 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
-1f. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] THE ANSWER TO THE ZOMBOID KILL: FAST
-   LOOT, TWO TAPS. Paolo: "we can try it again except it could be faster. You
-   could try it something else."
-   slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html — A Dark Room
-   (Doublespeak Games, MIT), the minimal-loot extreme, and the only strong
-   candidate whose WHOLE SOURCE is readable, in JavaScript. Four mechanics, all
-   playable in a world you walk: SCAVENGING (walk onto a place, one weighted
-   branch, one loot roll, ONE tap takes the whole container, 1s cooldown),
-   HAULING (everything weighs 1 unless the table says otherwise; the bag ladder
-   is 10/20/40/70/110; take-all clamps and NEVER refuses you), SUPPLIES (a step
-   is a spent action: every move drinks, every second move eats, a stocked house
-   refills the canteen), JOBS (ten table rows are the entire village economy and
-   a row runs WHOLE or not at all). Teardown with every file:line:
-   records/lab/BOHEMIA_LAB_DARKROOM_TEARDOWN_7_26_26.txt. What to take:
-   records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md (6 mechanisms, 6
-   do-not-ports, 4 honest limits). Gate: 44 new live checks inside
-   gates/lab_gate.js (264 total), mutation-tested twice.
-   Its FEEL STATEMENT was checked against his rulings BEFORE a line was written,
-   which is the Zomboid lesson made procedure.
+1f. [KILLED 7/27 — DEAD, GRAVEYARDED, AND LOOT IS NOW A CLOSED LAB SUBJECT]
+   Paolo: "That was really bad so bad so bad." The A Dark Room scavenge page
+   (slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html — DEAD, do not re-add) is deleted and
+   graveyarded; its registry row and all 44 live checks are removed from
+   gates/lab_gate.js. That is the SECOND loot emulation killed in two days, so
+   under laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md LOOT IS ENDED as a lab
+   subject: no v3, no third reference game, nobody re-pitches a loot page unless
+   Paolo names it himself.
+   POST-MORTEM: records/BOHEMIA_DARKROOM_LOOT_KILL_7_27_26.txt. Three causes, and
+   the first is the big one: (1) I PRODUCED SOMETHING HE DID NOT ASK FOR — his
+   message asked for research, and "you could try it something else" is a shrug,
+   not a commission; the research alone was the turn. (2) I answered "too slow" by
+   DELETING THE ACT instead of speeding it up — A Dark Room's loot is a paragraph
+   and one button in a modal, and he said State of Decay is decent AS AN
+   EXPERIENCE, which is exactly the part I removed. Two taps in a menu is not a
+   fast search, it is no search. (3) It looked like nothing — grey squares with
+   letters — in the middle of a fleet-wide look problem that is the reason he
+   cannot approve anything.
+   264 green checks and a verified deploy proved the port was FAITHFUL and could
+   not ask whether he wanted it. I even added a FEEL-STATEMENT step after the
+   Zomboid kill, ran it, and it PASSED, because it checked the reference against
+   his rulings and never against what he actually wanted. A procedure I invented
+   cleared me; that is worth less than nothing.
+   laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md is UNCHANGED and still
+   the ruling. Its four content questions are still [PENDING Paolo] and are still
+   the only real blocker: resource KINDS and how many, yield range per container
+   kind, what a search costs in time, and re-search / noise.
 1e. [SHIPPED 7/26, ON HIS ORDER] THE RESEARCH DOSSIER: WHICH GAMES ARE ACTUALLY
    LIKE OURS, AND WHOSE CODE WE CAN GET. Paolo: "Do big brain online research for
    games that are just like ours or like a combination of what we're going for."

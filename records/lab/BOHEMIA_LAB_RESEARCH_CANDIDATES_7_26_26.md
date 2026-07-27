@@ -62,8 +62,13 @@ Numbers that matter: `LEAVE_COOLDOWN 1` is the ENTIRE time cost of looting a
 place; `path.js:4` says "everything not in this list weighs 1"; the medicine
 cache is literally `min 2, max 5` — "you found like three"; ten worker rows are
 the whole city economy, and a row runs whole or not at all.
-**STATUS: BUILT THIS TURN** — `slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html`,
-44 live checks, teardown and pattern note filed.
+**STATUS: BUILT, THEN KILLED THE SAME DAY.** Paolo, 7/27: "That was really bad so
+bad so bad." `BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html` is DEAD, deleted and
+graveyarded and LOOT IS NOW A CLOSED LAB SUBJECT (second loot kill in two days).
+Post-mortem: `records/BOHEMIA_DARKROOM_LOOT_KILL_7_27_26.txt`. Read it before
+trusting anything in this row: the feel statement above passed his RULINGS and
+still produced something he hated, because a paragraph and one button is not a
+fast search, it is no search.
 
 ### 2. CATACLYSM: DARK DAYS AHEAD — open source, 20 years running · **SOURCE: YES, VERIFIED**
 Owns: **D** outright, plus **F** and a form of **B**.
@@ -79,8 +84,9 @@ a rate times hours worked (`merch_amount = 3 * hours`). That is "you spend a
 block, the world resolves and pays you", in shipped open source, with real
 numbers. It is the shape of the ACTION COST table that is currently
 [PENDING Paolo].
-**RECOMMENDED NEXT LAB.** Scope it to faction camps + activity durations and
-declare the loot side out of bounds in the page header.
+**RANKED #1 IF HE EVER ASKS FOR ANOTHER EMULATION — and it is NOT authorised.**
+After two loot kills this lane builds nothing without him naming the subject
+himself. Its loot side is out of bounds permanently.
 
 ### 3. REBUILD 3: GANGS OF DEADSVILLE — Northway Games, 2015 · **SOURCE: NO**
 Owns: **B**, **C**, **F**, **G** — structurally the closest game to Bohemia found.

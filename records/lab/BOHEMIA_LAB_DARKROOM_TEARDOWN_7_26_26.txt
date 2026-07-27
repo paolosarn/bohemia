@@ -1,6 +1,11 @@
+*** DEAD 7/27/26 — KILLED by Paolo ("That was really bad so bad so bad"). The page
+*** BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html is DELETED and graveyarded, and LOOT IS A
+*** CLOSED LAB SUBJECT: no v3, no third reference game. This file is the record of what
+*** was measured, never a template. Post-mortem: records/BOHEMIA_DARKROOM_LOOT_KILL_7_27_26.txt
+
 BOHEMIA REFERENCE LAB 04 — A DARK ROOM, TORN DOWN
 =================================================
-7/26/26 · LAB lane · page: slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html
+7/26/26 · LAB lane · page: slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html (DEAD, do not re-add)
 pattern note: records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md
 law: laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md (Paolo 7/26/26)
 

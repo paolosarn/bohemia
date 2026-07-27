@@ -45,49 +45,41 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
-LAB (09): 7/27 (i) LATEST — THE FAST-LOOT ANSWER TO THE ZOMBOID KILL, PLUS THE RESEARCH
-DOSSIER HE ASKED FOR. Two deliverables, one turn, nothing touched outside the lab.
-1. THE RESEARCH: records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md. Bohemia's
-combination written as a ten-column checklist (roguelite run / city-builder / district as
-the unit / time spent by actions / fast loot / crew jobs / faction ceiling / relationship
-ration / a world you walk / clout feed), then nine candidate games scored against it with
-a VERIFIED source verdict each — verified by actually fetching, not by assuming. The
-split that matters and it is new: an EMULATION has real source and citable file:line; a
-MODEL has only documentation and needs a NEW GATE ROW TYPE before one is legal to ship.
-Ranked: #1 CATACLYSM: DDA faction camps (open source, fetch-verified) because it is the
-only game that answers his own ruled-but-unfilled question — what an action COSTS and
-what a crew you sent away brings back (their companions go out for a declared 1/4/10/20
-hours and pay a rate times hours worked). #2 Rebuild 3 (city BLOCKS + five survivor jobs
-+ rival factions inside your own city; Unity, no source, would be a MODEL). #3 State of
-Decay 2, his own named reference (a food rucksack holds THREE units, you carry one bag,
-and Wits makes searching faster AND quieter — that answers his open noise question).
-HONEST FINDING: the FEED/clout axis has NO game with obtainable numbers. That is a
-finding, not a gap to fill by inventing.
-2. THE PAGE: slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html, on his "we can try it
-again except it could be faster. You could try it something else." A Dark Room
-(Doublespeak Games, MIT) is the minimal-loot extreme and the only strong candidate whose
-WHOLE SOURCE is readable — in JavaScript, the language our engine already speaks. Four
-mechanics, playable in a world you walk: SCAVENGING (walk onto a place, one weighted
-branch, one {min,max,chance} roll, ONE tap takes the whole container), HAULING
-(everything weighs 1 unless the table says otherwise; ladder 10/20/40/70/110; take-all
-clamps and NEVER refuses you), SUPPLIES (a step IS a spent action — every move drinks,
-every second move eats), JOBS (ten table rows are the entire village economy and a row
-runs WHOLE or not at all). A house is searched in TWO TAPS and the prose explains the
-amount: "the house has been ransacked, but there is a cache of medicine under the
-floorboards" -> medicine x4. That is his loot law arriving independently in a shipped
-game. Teardown: records/lab/BOHEMIA_LAB_DARKROOM_TEARDOWN_7_26_26.txt (every constant,
-every file:line). Patterns: records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md.
-PROCEDURE CHANGE THAT CAME OUT OF THE KILL, and it is why this page exists at all: its
-FEEL STATEMENT was written and checked against his standing rulings BEFORE a line of code
-was written. Zomboid died because 245 green checks could not ask whether it was fun.
-GATE: 44 new live checks inside gates/lab_gate.js (264 total, was 220). Mutation-tested
-twice — making everything weigh 2 reds D16+D20, dropping the all-or-nothing worker guard
-reds D33/D34/D35. Two real defects were found ON THE REAL SURFACE, not in the code: the
-map was smaller than the phone viewport so the bottom 40% of the screen was black
-(grid 20x26 -> 28x40 plus a camera clamp), and the scene panel was a full takeover so you
-lost sight of where you were standing (now a bottom sheet).
-NOTE FOR THE FLEET: the alpha was NOT touched, so the build stamp was NOT changed —
-stamping an unchanged alpha is a lie. A lab ship is reached by its own reference page.
+LAB (09): 7/27 (j) LATEST — THE SECOND LOOT PAGE IS DEAD AND LOOT IS A CLOSED SUBJECT.
+Paolo: "That was really bad so bad so bad." slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html is DEAD
+is DELETED, graveyarded, and its registry row plus all 44 live checks are gone from
+gates/lab_gate.js. SECOND loot emulation killed in two days, so under
+laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md LOOT IS ENDED as a lab subject: no v3, no
+third reference game, nobody re-pitches a loot page unless Paolo names it himself.
+POST-MORTEM, READ IT BEFORE BUILDING ANYTHING IN THIS LANE:
+records/BOHEMIA_DARKROOM_LOOT_KILL_7_27_26.txt. Three causes.
+(1) I PRODUCED SOMETHING HE DID NOT ASK FOR. His message asked for RESEARCH. The only
+thing in it pointing at a build was "we can try it again except it could be faster. You
+could try it something else" — a shrug, not a commission. The research alone was the turn.
+(2) I ANSWERED "TOO SLOW" BY DELETING THE ACT. Zomboid died for being item-by-item, so I
+took the far opposite end of the axis and shipped a paragraph and one button in a modal.
+He said State of Decay is decent AS A LOOTING EXPERIENCE; the experience is the part I
+removed. Two taps in a menu is not a fast search, it is no search.
+(3) IT LOOKED LIKE NOTHING — grey squares with letters — while the fleet-wide look problem
+is the exact reason he cannot approve anything. "PLACEHOLDER ART" being a legal label does
+not make a thing judgeable.
+AND THE PART THAT MATTERS MOST FOR THE NEXT SESSION: 264 green checks, two mutation tests
+and a verified deploy proved the port was FAITHFUL and not one of them could ask whether
+he wanted it. After the Zomboid kill I added a FEEL-STATEMENT step to catch exactly this.
+I ran it. It PASSED — because it checks the reference against his RULINGS, never against
+what he actually wants. A procedure I invented cleared me. Do not trust a self-authored
+check as evidence he will like something.
+WHAT SURVIVES: records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md, because he ASKED
+for it and the reusable half is not about loot — it is which games have obtainable source
+(A Dark Room and Cataclysm DDA verified by fetching; Rebuild 3, State of Decay 2 and
+Persona 5 are documentation only) and the EMULATION-vs-MODEL split, where a MODEL needs a
+new gate row type before one is legal to ship. The teardown and pattern note survive
+marked DEAD at the top. laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md is
+UNCHANGED — he ruled it, this kill touches none of it, and its four content questions
+(resource KINDS and how many, yield range per container kind, what a search costs in time,
+re-search / noise) are still the only real blocker.
+THIS LANE IS NOW WAITING. It builds nothing until he names a subject. The gate suite is
+green with the row removed.
 
 LAB (09): 7/26 (b)-(h), COMPRESSED — the full record is in git and in BOHEMIA_BACKLOG's
 LAB section; this is the state a new session needs. (Compressed on purpose: the handoff
