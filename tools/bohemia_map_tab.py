@@ -51,6 +51,7 @@ MODULES = [
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
     'engine/bohemia_world.js',
+    'engine/bohemia_valleymap.js',
 ]
 # SEED_NOTE: ask the ENGINE what 'bohemia' hashes to rather than restating the
 # number here, so the map can never drift from the seed the loop actually boots.
@@ -92,20 +93,13 @@ var MODMAP = {
 };
 function modOf(dist){ var n = MODMAP[dist]; return n ? window[n] : null; }
 
-// fill tone for non-DISTGEN cells (roads, terrain, not-yet-built district types) — same values
-// as tools/bohemia_aerial.js so the live map and the showcase renders read as one system.
-var FILL = {
-  mountain:'#3b352b', desert:'#8a7a58', wash:'#6f6547', water:'#2f5a6e', dam:'#7a746a',
-  strip:'#5a5350', resort:'#6a6050', mall:'#5a544a', casino:'#645a52', stadium:'#4a5a44',
-  speedway:'#4a4640', convention:'#54504a', waterpark:'#3a6a72', minigp:'#4a4640', estate:'#6a6250',
-  airport:'#565048', airbase:'#4e4a40', campus:'#5a6250', rail:'#463f36', town:'#5f584c',
-  golf:'#4a5e3c', gated:'#6a6250', ballpark:'#4a5a44', fort:'#4e4a40', strat:'#645a58',
-  reclaim:'#5a5040', datafort:'#454048', warehouse:'#524c44', railyard:'#463f36', watertreat:'#4c5a58',
-  springs:'#2f5a6e', default:'#4a463c'
-};
-var ROADCOL = {freeway:'#33333c', arterial:'#33333c', beltway:'#33333c', strip:'#33333c', interchange:'#2b2b31'};
-var ROAD = {freeway:1, arterial:1, strip:1, beltway:1, interchange:1};
-var TERRAIN = {mountain:1, desert:1, wash:1, water:1, dam:1};
+// THE ONE MAP (Paolo 7/27): these tables used to be a SECOND COPY, pasted here
+// from tools/bohemia_aerial.js with a comment admitting it. Copies drift, and this
+// exact class of drift already put the MAP tab on a different valley from the game
+// for months. They now come from engine/bohemia_valleymap.js, which is the one copy
+// the phone's map app reads too. Law: laws/BOHEMIA_ADDENDUM_ONE_MAP_7_27_26.md
+var VM = BohemiaValleyMap;
+var FILL = VM.FILL, ROADCOL = VM.ROADCOL, ROAD = VM.ROAD, TERRAIN = VM.TERRAIN, FABRIC = VM.FABRIC;
 
 function rng(seed){ var s=(seed>>>0)||1; return function(){ s=(s*1103515245+12345)>>>0; return s/4294967296; }; }
 function seedOf(ox,oy){ return ((ox*73856093)^(oy*19349663))>>>0; }
@@ -116,53 +110,8 @@ function renderCell(ox, oy){
   var key = ox+','+oy;
   var hit = cellCache[key]; if (hit) return hit;
   var cv = document.createElement('canvas'); cv.width = 128; cv.height = 128;
-  var cx = cv.getContext('2d');
-  var cell = W.at(ox, oy);
-  if (!cell) { cx.fillStyle = '#161410'; cx.fillRect(0,0,128,128); cellCache[key] = cv; return cv; }
-  var dist = cell.district;
-  var plot = null; try { plot = W.plot(ox, oy); } catch (e) { plot = null; }
-  if (plot && plot.block && plot.block.grid && plot.legend) {
-    var g = plot.block.grid, mod = modOf(dist), pal = (mod && mod.palette) ? mod.palette : {};
-    for (var ty = 0; ty < 128; ty++) {
-      var row = g[ty] || [], i = 0;
-      while (i < 128) {
-        var code = row[i] != null ? row[i] : 0, j = i;
-        while (j < 128 && (row[j] != null ? row[j] : 0) === code) j++;
-        cx.fillStyle = code === 0 ? '#231f18' : (pal[code] || '#3a352b');
-        cx.fillRect(i, ty, j - i, 1);
-        i = j;
-      }
-    }
-  } else if (ROAD[dist]) {
-    cx.fillStyle = ROADCOL[dist] || ROADCOL.freeway; cx.fillRect(0, 0, 128, 128);
-    var isRoad = function(nx, ny){ var c = W.at(nx, ny); return !!(c && ROAD[c.district]); };
-    var vert = isRoad(ox, oy - 1) || isRoad(ox, oy + 1);
-    var horiz = isRoad(ox - 1, oy) || isRoad(ox + 1, oy);
-    if (horiz) {
-      cx.fillStyle = '#26262c'; cx.fillRect(0, 63, 128, 2);
-      cx.fillStyle = '#d9c589'; for (var dx = 6; dx < 128; dx += 16) cx.fillRect(dx, 63, 8, 2);
-    }
-    if (vert) {
-      cx.fillStyle = '#26262c'; cx.fillRect(63, 0, 2, 128);
-      cx.fillStyle = '#d9c589'; for (var dy = 6; dy < 128; dy += 16) cx.fillRect(63, dy, 2, 8);
-    }
-  } else if (TERRAIN[dist]) {
-    var col = FILL[dist] || FILL.default; cx.fillStyle = col; cx.fillRect(0, 0, 128, 128);
-    var r1 = rng(seedOf(ox, oy));
-    for (var i1 = 0; i1 < 90; i1++) {
-      var sx = Math.floor(r1() * 128), sy = Math.floor(r1() * 128), sw = 2 + Math.floor(r1() * 4), sh = 2 + Math.floor(r1() * 4);
-      cx.fillStyle = r1() < 0.5 ? 'rgba(0,0,0,0.19)' : 'rgba(255,255,255,0.08)';
-      cx.fillRect(sx, sy, sw, sh);
-    }
-  } else {
-    // a canon district type NOT YET in the auto-factory (bespoke landmarks: casino, ballpark,
-    // stadium-class, etc.) — RESERVED tag, never rendered as if it were empty/broken land.
-    var col2 = FILL[dist] || FILL.default; cx.fillStyle = col2; cx.fillRect(0, 0, 128, 128);
-    cx.strokeStyle = 'rgba(0,0,0,0.13)'; cx.lineWidth = 3;
-    for (var d2 = -128; d2 < 128; d2 += 14) { cx.beginPath(); cx.moveTo(d2, 0); cx.lineTo(d2 + 128, 128); cx.stroke(); }
-    cx.fillStyle = 'rgba(0,0,0,0.55)'; cx.fillRect(6, 6, Math.min(116, dist.length * 7 + 8), 14);
-    cx.fillStyle = '#c79a3f'; cx.font = '10px ui-monospace,monospace'; cx.fillText(dist.toUpperCase(), 10, 16);
-  }
+  // the SHARED painter — the same pixels the phone's map app draws for this cell
+  VM.paintCell(W, ox, oy, cv.getContext('2d'));
   cellCache[key] = cv; return cv;
 }
 
@@ -175,7 +124,6 @@ var HUD = document.getElementById('hud');
 // (road / terrain / reserved-landmark / built city fabric) straight onto the main canvas — cheap
 // enough to pan the entire valley smoothly, and it reads as a clean minimap, not a muddy blur.
 var px = N / 2, py = N / 2, Z = 48, ZMIN = 3, ZMAX = 128, FAR_ZOOM = 16;
-var FABRIC = '#6a6258'; // built DISTGEN content at far zoom: one honest "city fabric" tone
 
 function draw(){
   var w = cv.width, h = cv.height;
@@ -187,11 +135,7 @@ function draw(){
   for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
     var sx = Math.round((x - px) * Z + w / 2), sy = Math.round((y - py) * Z + h / 2), zc = Math.ceil(Z);
     if (far) {
-      var cell = W.at(x, y);
-      var col = !cell ? '#161410' : ROAD[cell.district] ? (ROADCOL[cell.district] || ROADCOL.freeway) :
-        TERRAIN[cell.district] ? (FILL[cell.district] || FILL.default) :
-        MODMAP[cell.district] ? FABRIC : (FILL[cell.district] || FILL.default);
-      ctx.fillStyle = col; ctx.fillRect(sx, sy, zc, zc);
+      ctx.fillStyle = VM.toneOf(W, x, y); ctx.fillRect(sx, sy, zc, zc);
     } else {
       var bmp = renderCell(x, y);
       ctx.drawImage(bmp, sx, sy, zc, zc);

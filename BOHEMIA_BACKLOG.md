@@ -299,6 +299,25 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 ##       laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md first.
 ##       This lane INTEGRATES what the fleet built; it does not add features, and
 ##       the run's quest is disposable scaffolding, never judged.)
+A2. [DONE 7/27 — HIS ORDER, job two] THE WORLD ADOPTED THE RESOLVER.
+   engine/bohemia_world_resolve.js: four systems subscribe to the declared time-spend
+   moments — day (accrues spend, rolls the day), economy (advances the ledger when the
+   day has moved under it), faction (the beat), encounters (the director's socket).
+   NO MOMENT NAME AND NO RATE LIVES IN THE MODULE: his own example words (sleep, night,
+   meal, hangout) appear nowhere in it, and a resolver whose moments are named nonsense
+   works identically, which is the proof it genuinely does not know them.
+   EVERY TABLE SHIPS EMPTY. An unruled system runs, changes nothing, and reports
+   NO_RULING BY NAME, so an unruled world reads as unruled instead of looking like a
+   working one. Ten small moments equal one big one exactly when he says 0.1 and 1.0,
+   and four equal one when he says 0.25 — the ratio lives in the ruling.
+   THE 7/24 PACING RULING HOLDS: a faction turn cannot fire without a caller-supplied
+   beat predicate, so DEFAULT OFF is structural, not a comment. A spent meal can never
+   quietly become a war. Gate WORLD RESOLVE, 39 checks.
+   FOUND BY THE GATE: ten spends of 0.1 sum to 0.9999999999999999, so a strict >= 1 ate
+   one moment in every ten and the player could eat ten meals and never turn the day.
+   [PENDING Paolo, and it is what blocks everything downstream] THE MOMENT TABLE —
+   which moments exist and how much each one spends — and each system's per-unit rate.
+   Nothing in this lane will guess either.
 A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOPT THE
    ONE CONTEXTUAL VERB AND THE DECLARED REACH. Paolo APPROVED both, so this needs
    no further ask. engine/bohemia_resolve.js ships makeReach(tiles) + facingTile:
@@ -382,15 +401,33 @@ I3. [FIXED 7/27, found while doing I0] tools/bohemia_district_hero_factory.py ha
    scratch path HARD-CODED to one session's private directory, so the factory could not
    be run by anybody else at all — the palette dump died on check=True before the first
    hero was built. Session-portable now (BOHEMIA_SCRATCH, else the system temp dir).
-0. THE ONE MAP (Paolo direction, 7/26: "combine the phone map to the city
-   builder map with quest locations on top"): the in-game PHONE's map app
-   renders THE SAME city-builder valley map (one map, one truth — same
-   philosophy as zoom-build), with QUEST LOCATION markers layered on top
-   (use the live casting-bridge locations now; placement-verdict overrides
-   apply later when Paolo picks). Coordinate with RUN on how the phone
-   surfaces in the run. | the phone map IS the valley map with quest pins,
-   proven on the real surface | CITY_B64 render internals stay CITY's |
-   no — Paolo-directed.
+0. [DONE 7/27 — HIS ORDER, top of the queue] THE ONE MAP.
+   laws/BOHEMIA_ADDENDUM_ONE_MAP_7_27_26.md. The phone's map app drew a SCHEMATIC:
+   gradients, two glyphs, and one tiny square per building lot. It now renders THE
+   REAL GENERATED VALLEY, cell for cell, from engine/bohemia_valleymap.js — the ONE
+   shared renderer the city-builder MAP tab now reads from as well. Quest pins on top,
+   grouped by cell (21 quests land on 13 cells, so a stack reads as a stack with a
+   count instead of three glyphs hiding each other). Tap any cell and it tells you
+   what is really there, straight off the world model. Gate ONE MAP, 37 checks.
+   WHAT THE JOB ACTUALLY UNCOVERED, and it was worse than a re-skin:
+     a. THE PHONE WAS RUNNING A WORLD MODEL WITH NINE GENERATORS MISSING. arterial,
+        freeway, terrain_noise, airfield, desert, mountain, water, rail and
+        interchange were never in build_current_slice.js's MODS, so the railway, the
+        freeways, the interchange, both airfields and all three terrains rendered as
+        nothing on the phone while the MAP tab drew them properly. Fixed and gated.
+     b. FOUR INDEPENDENT VALLEY RENDERERS, no shared layer, tone tables copy-pasted
+        between files with comments admitting it. The MAP tab's private copies are
+        gone; it reads the shared module now.
+     c. DEAD CODE IN THE MAP APP: wm.hubs and wm.routes were read every draw and
+        buildRealWorldMap has never set either one.
+     d. THE PLAYER STOOD OUTSIDE THE WORLD. tile 128,128 on a 96-cell valley, so the
+        blip — the one thing on the map that is YOU — was permanently off the canvas.
+   STILL OPEN, and it is a real one: the placement-verdict overrides. The pins read
+   ctx.quests.castTarget, which hashes into a faction's territory list, so one faction
+   base attracts every quest that demands it. engine/bohemia_quest_placement.js exists
+   to fix exactly that and NOTHING CONSUMES ITS OUTPUT yet. That is [PENDING Paolo] —
+   the judge page is built and unjudged, and the WORLD-BEFORE-QUESTS park only lifted
+   far enough to DRAW pins, not to decide where they go.
 A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOPT THE
    RESOLVE POINT. Paolo APPROVED it and RULED its shape in the same breath: "sleep
    can be hangout or eat too u know" — the world resolves at ANY BLOCK OF TIME THE

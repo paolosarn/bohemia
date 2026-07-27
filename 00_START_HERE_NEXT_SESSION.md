@@ -155,6 +155,87 @@ is over its DIET LAW cap and this lane can only legally shrink its own entries.)
   fork from LAB-01: 120 BPM + OCCUPANCY versus a continuous sub-pixel walk — three
   options are written out in the town-walk note and the lane did not pick.
 
+WORLD MODEL (02): 7/27 (c) — TWO ORDERS: THE ONE MAP, AND THE WORLD'S HALF OF THE
+RESOLVER. Both shipped. The map job turned up four real defects on the way.
+
+=== JOB ONE: THE ONE MAP (his order, top of the queue) ===
+laws/BOHEMIA_ADDENDUM_ONE_MAP_7_27_26.md.
+
+The phone's map app already existed and already pinned quests — but it drew a
+SCHEMATIC of the valley: a vertical gradient, mountain bars, two landmark glyphs and
+one 1px square per building lot. It looked like a map and it was a drawing. It now
+renders THE REAL GENERATED VALLEY, cell for cell, out of the new
+engine/bohemia_valleymap.js, which the city-builder MAP tab now reads from too. Same
+tones, same painter, same seed, one file. Quest pins layer on top, GROUPED BY CELL
+(21 quests land on only 13 cells, so an ungrouped pin layer draws three glyphs on one
+tile and hides two of them); a stack shows its count. Tap any cell and it reports what
+is really there, read off the world model rather than off a label the map invented.
+
+FOUR DEFECTS THE JOB UNCOVERED, none of them cosmetic:
+  1. THE PHONE WAS RUNNING A WORLD MODEL WITH NINE GENERATORS MISSING. arterial,
+     freeway, terrain_noise, airfield, desert, mountain, water, rail and interchange
+     were never in build_current_slice.js's MODS. bohemia_world.js reads every
+     generator as a global, so on the phone — and only on the phone — the railway, the
+     freeways, the interchange, both airfields and all three terrains resolved to
+     nothing. The MAP tab drew them properly the whole time. That asymmetry is exactly
+     what "one map" is supposed to make impossible, and it is now gated.
+  2. FOUR INDEPENDENT VALLEY RENDERERS AND NO SHARED LAYER. map_tab, the placement
+     judge, aerial.js and city_tab, with the tone tables copy-pasted between them and
+     comments in the files admitting it. Three different seeds across them (1337,
+     12345, 2026) against the game's own hashSeed('bohemia'). This is not tidiness:
+     that exact drift already put a quest at X29 Y77 on a tile that only existed in
+     another world. The MAP tab's private copies are deleted; it calls the shared one.
+  3. DEAD CODE IN THE MAP APP. wm.hubs and wm.routes were read on every draw and
+     buildRealWorldMap has never set either one.
+  4. THE PLAYER STOOD OUTSIDE THE WORLD. player.tile was the literal 128,128 on a
+     96-cell valley, so the blip — the one thing on that map that is YOU — was
+     permanently off the edge of the canvas. Placed on a real cell deterministically
+     (the first district the world model itself lists; no layout invented, MAP LAW).
+Gate ONE MAP, 37 checks. Verified on the real surface: booted the built slice in a
+390x844 browser, unlocked the phone, opened the map, screenshotted it, zero console
+errors, 96x96, 13 pin cells, 21 quests, 0 unplaced.
+
+THE NARROW UNPARKING. WORLD-BEFORE-QUESTS (7/26) parked every quest item in this lane.
+He ordered quest pins today, so quests are unparked for EXACTLY that and nothing else:
+the pin is a READER. Placement, casting, the judge and the bridge all stay parked. A
+quest with no location gets no pin and is counted as unplaced, never given one.
+
+STILL OPEN AND IT IS REAL: castTarget hashes into a faction's territory list, so one
+faction base attracts every quest that demands it — hence 21 quests on 13 cells, three
+of them stacked on X29 Y77. engine/bohemia_quest_placement.js was built to fix that and
+NOTHING CONSUMES ITS OUTPUT. The judge page is built and unjudged. [PENDING Paolo]
+
+=== JOB TWO: THE WORLD'S HALF OF THE RESOLVER ===
+engine/bohemia_world_resolve.js. Four systems subscribe to the declared time-spend
+moments: day, economy, faction, encounters.
+
+The three rules in his sentence, each gated:
+  NEVER HARDCODED — no moment name and no rate lives in the module. Proved by source
+  (his own example words appear nowhere) AND by behaviour (a resolver whose moments are
+  named QWERTYUIOP works identically, because the module truly does not know them).
+  ALL TABLES EMPTY — wire everything with nothing in it, spend every moment, nothing
+  changes, and each system reports NO_RULING BY NAME. An unruled world must not look
+  identical to a working one; that is how content gets invented by accident later.
+  THE SIZE OF THE MOMENT IS THE ONLY DIAL — ten small moments equal one big one exactly
+  when the caller says 0.1 and 1.0, four when he says 0.25. The gate changes the ruling
+  and watches the answer follow, which is the proof the ratio is not in the code.
+
+THE 7/24 PACING RULING IS NOT OVERRIDDEN. "A faction's turn fires when the narrative
+calls for it... never on a tick, a heartbeat, or any kind of background clock. Default
+OFF." He said faction BEATS, and a beat is what that ruling allows, so both hold —
+structurally: the faction step cannot fire without a caller-supplied beat predicate.
+A spent meal can never quietly become a war.
+
+A step may not read another step's report, so the day step does not TELL anyone the day
+rolled: it writes the day onto ctx and later phases compare against what they last saw.
+Proved against the real economy ledger, not a stub.
+
+FOUND BY THE GATE: ten spends of 0.1 sum to 0.9999999999999999, so a strict >= 1 ate
+one moment in every ten — eat ten meals, day never turns. Tolerance plus a clamp.
+
+[PENDING Paolo, blocks everything downstream] THE MOMENT TABLE (which moments exist,
+what each spends) and each system's per-unit rate. This lane will not guess either.
+
 WORLD MODEL (02): 7/27 (b) — HE RULED, AND THE RULING FOUND A HOLE FORTY-FOUR TYPES DEEP.
 
 Paolo, verbatim: "And anytime you build something like this you have to make a city

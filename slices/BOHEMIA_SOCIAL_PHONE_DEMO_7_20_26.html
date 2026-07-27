@@ -52,7 +52,22 @@
 <script src="../engine/bohemia_floorplan.js"></script>
 <script src="../engine/bohemia_garage.js"></script>
 <script src="../engine/bohemia_crypt.js"></script>
+<!-- THE SURFACES (7/27). The phone was running a world model with NINE
+     generators missing, so a railway, a freeway, an interchange, an airfield
+     and all three terrains rendered as nothing on its map while the MAP tab
+     drew them properly. Same list, same order, as tools/bohemia_map_tab.py. -->
+<script src="../engine/bohemia_arterial.js"></script>
+<script src="../engine/bohemia_freeway.js"></script>
+<script src="../engine/bohemia_terrain_noise.js"></script>
+<script src="../engine/bohemia_airfield.js"></script>
+<script src="../engine/bohemia_desert.js"></script>
+<script src="../engine/bohemia_mountain.js"></script>
+<script src="../engine/bohemia_water.js"></script>
+<script src="../engine/bohemia_rail.js"></script>
+<script src="../engine/bohemia_interchange.js"></script>
 <script src="../engine/bohemia_world.js"></script>
+<!-- THE ONE VALLEY MAP: the shared renderer both this phone and the MAP tab read. -->
+<script src="../engine/bohemia_valleymap.js"></script>
 <script>/* inlined: engine/BOHEMIA_faction_graph.json */
 var BOHEMIA_FACTION_GRAPH = __FACTION_GRAPH_JSON__;
 /* inlined: every quests/bq/*.bq — the real canon quests, verbatim source text.
@@ -299,7 +314,10 @@ var CANON_QUESTS = __CANON_QUESTS_JSON__;
   .map-brk.tr{ top:6px; right:6px; border-left:0; border-bottom:0; }
   .map-brk.bl{ bottom:6px; left:6px; border-right:0; border-top:0; }
   .map-brk.br{ bottom:6px; right:6px; border-left:0; border-top:0; }
-  .map-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:2px 16px 10px; font-family:var(--mono);
+  .map-cell{font-family:var(--mono);font-size:10px;letter-spacing:.5px;color:#cbb98d;
+  background:rgba(20,16,10,.6);border:1px solid rgba(216,167,66,.18);border-radius:6px;
+  padding:7px 9px;margin:8px 0 2px}
+.map-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:2px 16px 10px; font-family:var(--mono);
     font-size:9.5px; color:var(--dim); letter-spacing:.3px; }
   .map-legend i{ display:inline-block; width:8px; height:8px; margin-right:5px; vertical-align:middle; border-radius:2px; }
   .map-pins{ overflow-y:auto; flex:1; padding:2px 12px 16px; }
@@ -454,7 +472,18 @@ var CANON_QUESTS = __CANON_QUESTS_JSON__;
 var Loop = window.BohemiaLoop, Sched = window.BohemiaScheduler;
 var ctx = Loop.boot({ seed:'bohemia' });
 
-var player = Sched.makeActor({ id:'player', tile:{x:128,y:128}, isPlayer:true, layer:'player' });
+/* THE PLAYER HAS TO STAND SOMEWHERE THAT EXISTS. This was the literal tile
+   128,128 while the real valley is 96 cells across, so the blip on the map was
+   permanently off the edge of the canvas — the one thing on the map that is
+   supposed to be YOU, drawn outside the world. Placed on a REAL cell instead,
+   deterministically and with no layout invented: the first district the world
+   model itself lists, which is whatever the seed already decided. */
+var _startCell = (function(){
+  try { var d = ctx.worldMap.districts; if (d && d.length) return { x:d[0].pos[0], y:d[0].pos[1] }; }
+  catch(e){}
+  return { x:48, y:48 };
+})();
+var player = Sched.makeActor({ id:'player', tile:{x:_startCell.x,y:_startCell.y}, isPlayer:true, layer:'player' });
 Sched.addActor(ctx.scheduler, player);
 
 /* THE REAL follower math (Paolo 7/21 LOCK: reckless/dangerous deeds earn far more
@@ -845,77 +874,109 @@ function replyThread(i){
    generated world + pin quests at their real tiles; design no layout). ============ */
 function diamond(g,x,y,r){ g.beginPath(); g.moveTo(x,y-r); g.lineTo(x+r,y); g.lineTo(x,y+r); g.lineTo(x-r,y); g.closePath(); g.fill(); }
 function triangle(g,x,y,r){ g.beginPath(); g.moveTo(x,y-r); g.lineTo(x+r,y+r); g.lineTo(x-r,y+r); g.closePath(); g.fill(); }
+var VM = (typeof BohemiaValleyMap!=='undefined') ? BohemiaValleyMap : null;
+/* the REAL valley size. The old code said (wm.size||256) in three places and the
+   valley is 96, so every one of those fallbacks was a different map. */
+function MAPN(){ var r=ctx.worldMap&&ctx.worldMap.real; return (r&&r.n)||ctx.worldMap.size||96; }
+
+/* THE ONE MAP (Paolo 7/27): this app used to draw a SCHEMATIC of the valley —
+   gradients, a couple of glyphs, and one tiny square per building lot. It looked
+   like a map and it was a drawing. It now renders THE REAL GENERATED VALLEY,
+   cell for cell, out of engine/bohemia_valleymap.js — the same tones, from the
+   same world model, that the city-builder MAP tab draws. One map, one truth.
+
+   The valley is only 96x96 cells, so the whole thing paints once onto an
+   offscreen canvas at 1 pixel per cell and gets blitted up crisp. That is also
+   why this is cheap enough for a phone: 9,216 fills, cached, not per frame.
+
+   Dead code went with it: wm.hubs and wm.routes were read here every draw and
+   buildRealWorldMap has never set either one. */
+var _valleyBmp=null;
+function valleyBitmap(){
+  if(_valleyBmp) return _valleyBmp;
+  var real=ctx.worldMap&&ctx.worldMap.real, n=(real&&real.n)||ctx.worldMap.size||0;
+  if(!real||!VM||!n) return null;
+  var off=document.createElement('canvas'); off.width=n; off.height=n;
+  VM.paintValley(real, off.getContext('2d'), n);
+  _valleyBmp={cv:off,n:n};
+  return _valleyBmp;
+}
+function diamondAt(g,x,y,r){ diamond(g,x,y,r); }
 function drawMap(cv){
-  var wm=ctx.worldMap, N=wm.size||256, W=cv.width, H=cv.height, s=W/N, g=cv.getContext('2d');
+  var wm=ctx.worldMap, g=cv.getContext('2d'), W=cv.width, H=cv.height;
+  var bmp=valleyBitmap(), N=bmp?bmp.n:(wm.size||96), s=W/N;
   g.clearRect(0,0,W,H);
-  var base=g.createLinearGradient(0,0,0,H); base.addColorStop(0,'#171106'); base.addColorStop(1,'#0c0905');
-  g.fillStyle=base; g.fillRect(0,0,W,H);
-  // valley walls (mountain borders)
-  var mb=wm.mountainBorders||[], t=Math.max(6,s*7); g.fillStyle='#070504';
-  if(mb.indexOf('N')>=0) g.fillRect(0,0,W,t);
-  if(mb.indexOf('S')>=0) g.fillRect(0,H-t,W,t);
-  if(mb.indexOf('W')>=0) g.fillRect(0,0,t,H);
-  if(mb.indexOf('E')>=0) g.fillRect(W-t,0,t,H);
-  // Network signal coverage glow (near the Strip / real hubs — sparse landmarks
-  // only; the real world's `districts` is every individual building lot, not a
-  // curated handful, so it does NOT get a glow of its own or it washes the whole
-  // canvas green). Corners = dead zones.
-  g.globalCompositeOperation='lighter';
-  function glow(x,y,r){ var rg=g.createRadialGradient(x,y,0,x,y,r); rg.addColorStop(0,'rgba(96,150,74,.15)'); rg.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=rg; g.beginPath(); g.arc(x,y,r,0,7); g.fill(); }
-  var sf=wm.strip.from, se=wm.strip.to;
-  for(var i=0;i<=8;i++) glow((sf[0]+(se[0]-sf[0])*i/8)*s,(sf[1]+(se[1]-sf[1])*i/8)*s,s*24);
-  (wm.hubs||[]).forEach(function(h){ glow(h[0]*s,h[1]*s,s*18); });
-  g.globalCompositeOperation='source-over';
-  // routes
-  g.strokeStyle='rgba(150,130,90,.3)'; g.lineWidth=Math.max(1,s*1.1);
-  (wm.routes||[]).forEach(function(r){ if(r.from&&r.gate){ g.beginPath(); g.moveTo(r.from[0]*s,r.from[1]*s); g.lineTo(r.gate[0]*s,r.gate[1]*s); g.stroke(); } });
-  // the Strip
-  g.strokeStyle='rgba(216,167,66,.9)'; g.lineWidth=Math.max(2,s*2.2); g.shadowColor='rgba(216,167,66,.7)'; g.shadowBlur=7;
-  g.beginPath(); g.moveTo(sf[0]*s,sf[1]*s); g.lineTo(se[0]*s,se[1]*s); g.stroke(); g.shadowBlur=0;
-  // districts: the REAL world has one entry per building LOT (thousands), not a
-  // curated handful, so these read as ground TEXTURE (small, low-alpha, no
-  // stroke) rather than individually-legible pins — a bold outlined square per
-  // lot at this density is a solid blob, not a map. Colored by the real zone
-  // (residential = lived-in/recovering, everything else = apocalypse-derelict)
-  // since the old texture flavor ('recovering'/'modern') isn't real data.
-  var w=Math.max(1,s*1.3);
-  g.globalAlpha=.5;
-  (wm.districts||[]).forEach(function(d){
-    g.fillStyle = d.zone==='residential' ? '#5f7a3a' : '#7a3a2a';
-    g.fillRect(d.pos[0]*s-w/2,d.pos[1]*s-w/2,w,w);
-  });
-  g.globalAlpha=1;
-  // landmarks: dam (N) + solar (S)
+  if(bmp){
+    /* crisp: this is a tile map, not a photograph. Smoothing it would blur the
+       street grid into mud at exactly the size a phone shows it. */
+    g.imageSmoothingEnabled=false;
+    g.drawImage(bmp.cv,0,0,N,N,0,0,W,H);
+  } else {
+    g.fillStyle='#0c0905'; g.fillRect(0,0,W,H);
+  }
+  // THE STRIP, the one landmark line worth calling out over the top of the ground
+  if(wm.strip&&wm.strip.from&&wm.strip.to){
+    var sf=wm.strip.from, se=wm.strip.to;
+    g.strokeStyle='rgba(216,167,66,.85)'; g.lineWidth=Math.max(2,s*1.6);
+    g.shadowColor='rgba(216,167,66,.7)'; g.shadowBlur=7;
+    g.beginPath(); g.moveTo(sf[0]*s,sf[1]*s); g.lineTo(se[0]*s,se[1]*s); g.stroke(); g.shadowBlur=0;
+  }
+  // the two named landmarks the world model actually scans for
   g.textAlign='center';
-  function land(pt,glyph,col,label,ly){ var x=pt[0]*s, y=Math.min(H-4,Math.max(10,pt[1]*s)); g.fillStyle=col; g.font=Math.max(9,s*8)+'px ui-monospace,monospace'; g.fillText(glyph,x,y); g.fillStyle='rgba(236,226,207,.65)'; g.font='7px ui-monospace,monospace'; g.fillText(label,x,y+ly); }
-  if(wm.dam) land(wm.dam.at,'▣','#7fa8c8','DAM',12);
-  if(wm.solar) land(wm.solar.at,'▤','#d8b84a','SOLAR',-8);
-  // hubs
-  (wm.hubs||[]).forEach(function(h){ g.fillStyle='#c8b070'; diamond(g,h[0]*s,h[1]*s,Math.max(2.5,s*3)); });
-  // quest pins
-  ctx.quests.placements().forEach(function(p){ if(p.x==null) return; var rt=ctx.quests.get(p.questId); if(!rt||rt.state.done) return;
-    var x=p.x*s,y=p.y*s; g.shadowColor='rgba(0,0,0,.7)'; g.shadowBlur=4;
-    if(p.channel==='inperson'){ g.fillStyle='#d47a30'; triangle(g,x,y,Math.max(3,s*3.6)); }
-    else { g.fillStyle='#d8a742'; diamond(g,x,y,Math.max(3,s*3.6)); }
+  function land(pt,glyph,col,label,ly){ var x=pt[0]*s, y=Math.min(H-4,Math.max(10,pt[1]*s));
+    g.fillStyle=col; g.font=Math.max(9,s*4)+'px ui-monospace,monospace'; g.fillText(glyph,x,y);
+    g.fillStyle='rgba(236,226,207,.65)'; g.font='7px ui-monospace,monospace'; g.fillText(label,x,y+ly); }
+  if(wm.dam) land(wm.dam.at,'\u25a3','#7fa8c8','DAM',12);
+  if(wm.solar) land(wm.solar.at,'\u25a4','#d8b84a','SOLAR',-8);
+  // QUEST PINS, grouped by cell. 21 quests land on 13 cells in this valley, so
+  // three pins get drawn on the same tile; grouped, a stack reads as a stack and
+  // carries its count instead of three glyphs hiding each other.
+  var grouped = VM ? VM.pinsFrom(ctx.quests.placements(), function(qid){
+    var rt=ctx.quests.get(qid); return !!(rt && !rt.state.done); }) : {pins:[]};
+  grouped.pins.forEach(function(c){
+    var x=(c.x+0.5)*s, y=(c.y+0.5)*s, r=Math.max(4,s*0.9);
+    g.shadowColor='rgba(0,0,0,.7)'; g.shadowBlur=4;
+    if(c.channel==='inperson'){ g.fillStyle='#d47a30'; triangle(g,x,y,r); }
+    else { g.fillStyle='#d8a742'; diamond(g,x,y,r); }
     g.shadowBlur=0;
+    if(c.count>1){ g.fillStyle='#1a1610'; g.font='bold '+Math.max(8,r)+'px ui-monospace,monospace';
+      g.textBaseline='middle'; g.fillText(String(c.count),x,y+r*0.15); g.textBaseline='alphabetic'; }
   });
-  // player
-  var px=player.tile.x*s, py=player.tile.y*s;
-  g.fillStyle='rgba(134,172,82,.22)'; g.beginPath(); g.arc(px,py,s*6,0,7); g.fill();
-  g.fillStyle='#9ed060'; g.beginPath(); g.arc(px,py,Math.max(2.5,s*2.3),0,7); g.fill();
+  // you. Clamped into the valley: the demo player starts at tile 128,128 on a
+  // 96-cell map, which drew the blip permanently off the edge of the canvas.
+  var pxc=Math.max(0,Math.min(N-1,player.tile.x)), pyc=Math.max(0,Math.min(N-1,player.tile.y));
+  var px=(pxc+0.5)*s, py=(pyc+0.5)*s;
+  g.fillStyle='rgba(134,172,82,.22)'; g.beginPath(); g.arc(px,py,s*4,0,7); g.fill();
+  g.fillStyle='#9ed060'; g.beginPath(); g.arc(px,py,Math.max(2.5,s*1.2),0,7); g.fill();
   g.strokeStyle='#0a0805'; g.lineWidth=1.5; g.stroke();
 }
 function renderMap(){
   el('map').innerHTML =
     '<div class="map-hd"><div class="t">Map<small>'+(online?'Network · live position':'NO SIGNAL · last known')+'</small></div>'+
-      '<div class="co">VALLEY '+(ctx.worldMap.size||256)+'×'+(ctx.worldMap.size||256)+'<br>X'+player.tile.x+' Y'+player.tile.y+'</div></div>'+
+      '<div class="co">VALLEY '+MAPN()+'×'+MAPN()+'<br>X'+player.tile.x+' Y'+player.tile.y+'</div></div>'+
     '<div class="map-wrap"><canvas id="mapcv"></canvas><div class="map-scan"></div>'+(online?'<div class="map-sweep"></div>':'')+
       '<div class="map-brk tl"></div><div class="map-brk tr"></div><div class="map-brk bl"></div><div class="map-brk br"></div></div>'+
-    '<div class="map-legend"><span><i style="background:#d8a742"></i>Strip</span><span><i style="background:#7a3a2a"></i>apocalypse</span>'+
-      '<span><i style="background:#5f7a3a"></i>recovering</span><span><i style="background:#d47a30"></i>in-person</span><span><i style="background:#9ed060"></i>you</span></div>'+
+    '<div class="map-legend"><span><i style="background:#d8a742"></i>Strip</span>'+
+      '<span><i style="background:#6a6258"></i>built</span><span><i style="background:#8a7a58"></i>desert</span>'+
+      '<span><i style="background:#3b352b"></i>mountain</span><span><i style="background:#33333c"></i>road</span>'+
+      '<span><i style="background:#d47a30"></i>in-person</span><span><i style="background:#9ed060"></i>you</span></div>'+
+    '<div class="map-cell" id="mapcell">tap the valley</div>'+
     '<div class="map-pins" id="mappins"></div>';
   var wrap=el('map').querySelector('.map-wrap'), cv=document.getElementById('mapcv');
   var w=(wrap&&wrap.clientWidth)||380; cv.width=w; cv.height=w; drawMap(cv);
+  /* TAP THE MAP: the whole-valley view is one pixel per cell, so a tap can say
+     exactly which cell it landed on and what is really there — read straight off
+     the world model, never from a label the map made up. */
+  cv.onclick=function(ev){
+    var r=cv.getBoundingClientRect(), n=MAPN();
+    var mx=Math.floor((ev.clientX-r.left)/r.width*n), my=Math.floor((ev.clientY-r.top)/r.height*n);
+    var real=ctx.worldMap&&ctx.worldMap.real;
+    var d=(VM&&real)?VM.describe(real,mx,my):null;
+    var box=document.getElementById('mapcell'); if(!box) return;
+    box.innerHTML = d ? ('<b>X'+d.x+' Y'+d.y+'</b> · '+esc(String(d.district).toUpperCase())+
+      (d.category?(' · '+esc(d.category)):'')+(d.surface?' · surface':'')+(d.built?'':' · reserved'))
+      : 'off the map';
+  };
   var ph='';
   ctx.quests.placements().forEach(function(p){ if(p.x==null) return; var rt=ctx.quests.get(p.questId); if(!rt||rt.state.done) return;
     var dz=p.channel==='inperson';

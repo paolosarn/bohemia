@@ -26,7 +26,12 @@ var MODS = ['bohemia_engine','bohemia_scheduler','bohemia_bq','bohemia_quest_run
   'bohemia_jail','bohemia_farm','bohemia_downtown','bohemia_trailer','bohemia_apartment',
   'bohemia_warehouse','bohemia_waterpark','bohemia_mall','bohemia_cityhall','bohemia_battery',
   'bohemia_terminal','bohemia_overmap','bohemia_overmap_bridge','bohemia_blockgen',
-  'bohemia_floorplan','bohemia_garage','bohemia_crypt','bohemia_world','bohemia_loop'];
+  'bohemia_floorplan','bohemia_garage','bohemia_crypt',
+  // the SURFACES (7/27) — without these the phone's world model is missing nine
+  // generators and its map draws blanks where the MAP tab draws ground
+  'bohemia_arterial','bohemia_freeway','bohemia_terrain_noise','bohemia_airfield',
+  'bohemia_desert','bohemia_mountain','bohemia_water','bohemia_rail','bohemia_interchange',
+  'bohemia_world','bohemia_valleymap','bohemia_loop'];
 
 var html = fs.readFileSync(SRC, 'utf8');
 // the real canon faction graph (GDD v2 §9): loop.js's DEFAULT_GRAPH browser
