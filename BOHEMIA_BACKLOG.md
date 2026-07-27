@@ -862,6 +862,39 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0N. [DONE 7/28] THE BANK LAW INDEX - the class of miss that hit THREE TIMES today.
+   His rulings are not only in /laws. They are in the BANKS, in fields nothing
+   read: a bank's own `law` field said "wall height min 2 tiles" for ten days
+   while the wall lay flat; a `paolo_laws` block said "per-cell wall shuffle
+   BANNED" while the game shuffled per cell; and the same expression hid nine of
+   his thirteen approved walls. /laws has BOHEMIA_CANON_INDEX and a pile of
+   gates; the banks had NOTHING, and a rule inside a 2MB JSON blob is invisible
+   to a human and to every gate. tools/bohemia_bank_law_index.py now sweeps every
+   bank and record for law/paolo_law(s)/ruling/paolo_direction/status at any JSON
+   depth and writes records/BOHEMIA_BANK_LAW_INDEX.md - 35 rulings across 24
+   files, one readable page. gates/banklaw_gate.py fails if the index is stale
+   and byte-checks five rulings verified by hand.
+   STILL UNGATED, NAMED: `gates_touch_streets` and `gated_is_rich` are
+   generator-level rules with no machine. | build them | records/BOHEMIA_BANK_
+   LAW_INDEX.md | no.
+0M. [DONE 7/28, his ruling, and it was HIS LAW being broken] ONE WALL PER
+   COMMUNITY, AND NINE OF THIRTEEN HAD NEVER BEEN DRAWN. "BRO IN THE FILES THERE
+   IS LIKE SO MANY APPROVED SUBURBA BORDER WALLS ... SEARCH THE SYSTEM FOR THAT
+   SHIT". I searched. banks/BOHEMIA_WALL_PICKS_7_14_26.txt (inside the GRAPHICS
+   VERDICTS MASTER, "the act-1 art authority") holds W26-W37 with 32 killed and
+   his direction "85% of Vegas walls are desert yellow tan brick vibes"; batch 2
+   added WB4 out of 48. THIRTEEN approved border walls out of 61 judged. And
+   banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt has a `paolo_laws` block that
+   says VERBATIM: "one_wall_per_community": "each plot = ONE wall design (seeded
+   per plot); variety BETWEEN plots; per-cell wall shuffle BANNED".
+   THE GAME PICKED THE TILE WITH `hash2(gx,gy,404)&3`. Two violations in one
+   expression: the per-cell shuffle his law names and bans, AND the &3 capped the
+   roll at four, so only 4 of the 13 could ever be drawn - NINE OF HIS THIRTEEN
+   HAD NEVER APPEARED IN THIS GAME. Fixed: the design is seeded per PLOT (the 4x4
+   overmap group that makes one 128x128 suburb grid, the same key its layout
+   comes from) and saTex mods by the real pool length. Measured after: 11,193
+   wall cells across 77 communities, ZERO plots mixing designs, all 13 in use.
+   Gate: wallclass_gate.js sweeps the whole valley and proves both halves.
 0K. [DONE 7/28, his ruling] THE SUBURB PERIMETER WALL STANDS, FROM ITS OWN POOL,
    AT ITS OWN RESOLUTION. The pool was wired since 7/21; what was broken was
    (a) it drew as ONE FLAT CELL while house facades stood 3 tiles, so the only

@@ -88,6 +88,44 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   ok('the CITY frame is reachable', !!f);
   if (!f) { console.log('WALL CLASS GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed'); await browser.close(); process.exit(1); }
 
+  /* ONE WALL PER COMMUNITY (banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt,
+   * paolo_laws, verbatim): "each plot = ONE wall design (seeded per plot);
+   * variety BETWEEN plots; per-cell wall shuffle BANNED". The tile used to be
+   * picked with the generic per-cell hash `hash2(gx,gy,404)&3`, which broke that
+   * twice: it shuffled the design down a single wall, and the &3 capped the roll
+   * at four, so NINE of his THIRTEEN approved border walls had never once been
+   * drawn in this game. Sweep the whole valley and prove both halves. */
+  const law = await f.evaluate(() => {
+    const N = (SA_IMG.perimeter || []).length;
+    const perPlot = {}; const seen = new Set(); let cells = 0, n = 0;
+    for (let y = 0; y < om.n; y++) for (let x = 0; x < om.n; x++) {
+      const t = om.at(x, y); if (!t || t.district !== 'suburb') continue;
+      if (++n > 300) break;
+      const m = tileMeta(x, y); if (!m.sub) continue;
+      const plot = (x >> 2) + ',' + (y >> 2);
+      for (let ly = 0; ly < FN; ly++) for (let lx = 0; lx < FN; lx++) {
+        if (m.sub[ly * FN + lx] !== 4) continue;
+        const c = cellAt(x * FN + lx, y * FN + ly);
+        if (!c || c.wallVariant === undefined) continue;
+        cells++;
+        const idx = c.wallVariant % N;
+        seen.add(idx);
+        (perPlot[plot] = perPlot[plot] || new Set()).add(idx);
+      }
+    }
+    const plots = Object.keys(perPlot);
+    return { N, cells, plots: plots.length,
+             mixed: plots.filter(p => perPlot[p].size > 1).length,
+             distinct: seen.size };
+  });
+  ok('the sweep reached real community walls (' + law.cells + ' wall cells across ' +
+    law.plots + ' communities)', law.cells > 500 && law.plots > 5);
+  ok('ONE WALL PER COMMUNITY: not one plot mixes designs (' + law.mixed + ' mixed) — ' +
+    'his law names the per-cell wall shuffle and BANS it', law.mixed === 0);
+  ok('VARIETY BETWEEN PLOTS: ' + law.distinct + ' of the ' + law.N + ' approved designs are ' +
+    'in use across the valley — the old &3 roll capped it at 4 and nine of his thirteen ' +
+    'had never been drawn', law.distinct === law.N);
+
   const r = await f.evaluate(() => {
     let found = null, houseFace = null, n = 0;
     for (let y = 0; y < om.n && !found; y++) for (let x = 0; x < om.n && !found; x++) {

@@ -1,3 +1,45 @@
+CITY (03): 7/28 (b) LATEST — NINE OF HIS THIRTEEN APPROVED SUBURB BORDER WALLS HAD
+NEVER BEEN DRAWN IN THIS GAME, AND THE FOUR THAT HAD WERE BREAKING HIS OWN WRITTEN LAW.
+"BRO IN THE FILES THERE IS LIKE SO MANY APPROVED SUBURBA BORDER WALLS ... SEARCH THE
+SYSTEM FOR THAT SHIT"
+I SEARCHED THE SYSTEM. Two files decide this and BOTH were being ignored:
+  banks/BOHEMIA_WALL_PICKS_7_14_26.txt (also inside BOHEMIA_GRAPHICS_VERDICTS_MASTER,
+  which calls itself "the act-1 art authority") - W26-W37 passed, 32 killed, with his
+  direction attached: "85% of Vegas walls are desert yellow tan brick vibes - create tan
+  versions, keep originals". Batch 2 (7/17) added WB4 out of 48. THIRTEEN approved
+  suburb border walls out of 61 candidates judged.
+  banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt has a `paolo_laws` block, VERBATIM:
+  "one_wall_per_community": "each plot = ONE wall design (seeded per plot); variety
+  BETWEEN plots; per-cell wall shuffle BANNED".
+THE GAME PICKED THE WALL TILE WITH `OM.hash2(gx,gy,404)&3`. TWO violations in one
+expression: the PER-CELL SHUFFLE his law names and bans, AND the `&3` capped the roll at
+four (saTex does arr[variant % arr.length]) so only 4 of 13 could ever be selected.
+NINE OF HIS THIRTEEN HAD NEVER APPEARED.
+FIXED, tools/bohemia_city_onewall_patch.py: seeded per PLOT (the 4x4 overmap group that
+makes one 128x128 BohemiaSuburb grid, the same key its layout comes from), saTex mods by
+the real pool length. MEASURED across the whole valley: 11,193 wall cells, 77
+communities, ZERO plots mixing designs, all 13 designs in use.
+GATE: gates/wallclass_gate.js sweeps the WHOLE valley and proves both halves on top of
+the class / height / bank-bytes checks.
+THE CLASS OF MISS, THREE TIMES IN ONE DAY - AND THE REAL DELIVERABLE OF THIS TURN.
+His rulings are NOT only in /laws. They are inside the BANKS, in fields nothing read:
+a bank's own `law` field said "wall height min 2 tiles" for ten days while the wall lay
+flat; a `paolo_laws` block said "per-cell wall shuffle BANNED" while the game shuffled
+per cell; the same expression hid nine walls. /laws has BOHEMIA_CANON_INDEX and a pile
+of gates. The BANKS had NOTHING, and a rule inside a 2MB JSON blob is invisible to a
+human AND to every gate, so it may as well not exist.
+  tools/bohemia_bank_law_index.py sweeps every bank and record for law / paolo_law(s) /
+  ruling / paolo_direction / status at any JSON depth and writes
+  records/BOHEMIA_BANK_LAW_INDEX.md - 35 rulings across 24 files, ONE readable page.
+  gates/banklaw_gate.py (registered) fails if the index is stale, so a new bank cannot
+  land a ruling that never reaches the page, and byte-checks five rulings verified by
+  hand this turn.
+BEFORE TOUCHING ANY ART PATH: READ records/BOHEMIA_BANK_LAW_INDEX.md.
+STILL UNGATED, NAMED OUT LOUD: `gates_touch_streets` ("entrances must align with the
+adjacent street network; entrance segment = suburb road type") and `gated_is_rich`
+("most Vegas communities are walled but NOT gated; gates = boujee/richer") are
+generator-level rules with no machine of their own. Somebody should build them.
+
 ART (05): 7/27 LATEST — I WENT TO SCHOOL AND THE HOMEWORK CAME BACK ABOUT US:
 OUR ART IS NOT PIXEL ART, AND IT IS MEASURABLE.
 Paolo: "learn the skillset of actualy pixel shit pixel assets and yeah go to school for
