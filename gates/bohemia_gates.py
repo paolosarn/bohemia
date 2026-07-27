@@ -270,6 +270,8 @@ GATES = [
      'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
     ('RENDER PIXEL',   ['node', 'gates/render_pixel_gate.js'],
      'the render contract MEASURED on the real surface: no fractional upscaling, no half-pixel draws, nothing off its aspect', True),
+    ('FRONT DOOR',     ['node', 'gates/frontdoor_gate.js'],
+     'a door is a fact about the plot, not a dice roll: every front door on its own driveway, no painted doors that cannot open', True),
     ('TOUCH GUARD',    ['node', 'gates/touch_guard_gate.js'],
      'the phone cannot eat the controls: hold-to-walk never raises the iOS selection/copy menu, text fields keep paste', True),
     ('CANVAS SCALE',   ['node', 'gates/canvas_scale_gate.js'],

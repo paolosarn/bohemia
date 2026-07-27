@@ -244,8 +244,19 @@ if (b64m) {
     ['hroof', 'hwall', 'hwindow', 'hboarded', 'hdoor', 'hyard'].every(
       p => decoded.indexOf('SA_TILES.' + p + '=') >= 0));
   ok('roof-top cells route through the real art', decoded.indexOf('c.artPool=') >= 0);
-  ok('facade cells compose plain/window/boarded/door deterministically',
-    decoded.indexOf('c.artPool_face=') >= 0 && decoded.indexOf("pick<6?'hwall'") >= 0);
+  // 7/27: this used to byte-lock the string "pick<6?'hwall'" — the per-tile hash
+  // that put a DOOR on 10% of every exposed wall, including the backyard walls
+  // nobody could walk to ("the door suck"). The door is chosen by the PLOT now
+  // (the suburb generator's own driveway/street codes), so the lock moves to the
+  // property that actually matters: the facade still composes only from the four
+  // approved pools, and the door is decided by the approach rather than a dice
+  // roll. gates/frontdoor_gate.js measures the result on the running surface.
+  ok('facade cells compose plain/window/boarded deterministically from the approved pools',
+    decoded.indexOf('c.artPool_face=') >= 0 && decoded.indexOf("pick<14?'hwall'") >= 0
+    && decoded.indexOf("pick<19?'hwindow'") >= 0);
+  ok('the FRONT DOOR is placed by the plot, not by a hash (driveway/street approach)',
+    decoded.indexOf('const approach=(below===3||below===1)') >= 0
+    && decoded.indexOf("doorHere?'hdoor'") >= 0);
   ok('dead-dirt ground picks one DG blend per suburb block',
     decoded.indexOf('c.gArtPool=') >= 0 && decoded.indexOf("'hyard'") >= 0);
 

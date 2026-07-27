@@ -599,6 +599,36 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0E. [DONE 7/27, diagnosis in records/BOHEMIA_SUBURB_DIAGNOSIS_7_27_26.md] "THE
+   DOOR SUCK" WAS A DICE ROLL. Every exposed house tile picked its facade from a
+   per-tile hash and 10% of that roll was a DOOR: measured 62 doors across 727
+   exposed fronts in 24 real suburb cells, scattered down every wall including
+   the 643 that face a dead-dirt backyard with no path to them. The suburb
+   generator already marks its driveway apron (3) and its street (1); the door
+   now goes where the house meets one of those, one per approach. After:
+   17 doors, 17 reachable, 0 on dirt. The generic-district path had the same
+   roll and it was worse - those dossiers declare doors as PORTAL tiles you step
+   through, so a painted door there is a door that lies; it paints none now.
+   Gate: frontdoor_gate.js. NO PIXEL WAS COOKED - it places Paolo's own 7/21
+   approved tiles correctly. HIS CALL, NOT DECIDED: 17 doors over 24 cells means
+   most homes are entered through the GARAGE (whose dossier says it has a door
+   into the house), because that is where the plot's walkable approach goes. Real
+   for a Vegas tract house, or he wants a front door on every home.
+0F. (7/27, [PENDING Paolo], from the same diagnosis - all TASTE, deliberately
+   untouched) (a) The red-brick read is his OWN approved roof art: hroof holds
+   exactly the 14 he thumbed UP on 7/21 (roof_shingle_0-5, roof_gravel_6-7,
+   roof_stile_21-26), so it is not a wiring bug; a seamless tile has no ridge, no
+   slope and no shadow, which is why a roof reads as wallpaper. (b) The facade is
+   drawn ONE tile tall while DOOR LAW says two - the interiors obey it and
+   interiors_gate byte-locks it, the exteriors do not, so inside and outside
+   disagree about the same law. (c) 54% of a suburb cell is dead-dirt yard drawn
+   as one flat noise; the share is honest for a real subdivision but it reads as
+   a void. Each of these changes how every building in the game looks. | no |
+   records/BOHEMIA_SUBURB_DIAGNOSIS_7_27_26.md | YES.
+0G. (7/27, FOR THE WORLD LANE, not touched - ONE SYSTEM ONE SESSION) 4 cells of
+   7,649 are SEALED: you can drop into them and never walk out. 88,1 solar ·
+   92,8 estate · 92,39 suburb · 5,53 gypsum. Found by flood-filling walkable
+   tiles from the game's own drop-in point. Belongs with landlocked_gate.js.
 0B. (7/27, HIS WORDS, NOT ACTIONED - recorded so nobody re-cooks into a
    rejection) He rejected, in one message: the HOUSES ("the houses aren't
    good"), the DOORS ("the door suck"), the GARAGE ("the garage is suck"), and
