@@ -1881,6 +1881,61 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes("if(BohemiaWhatsOn.isArmed()&&G._freezeT>0&&this.canvas&&this.canvas.id==='cv')"));
 }
 
+/* ============================================================================
+   20. V85 THE BROWN BOX AND THE ORANGE ONE, NAMED IN A CAPTURED FRAME
+   Paolo, FIVE times: "Brown box still their kill shot orange box doesnt fade
+   away bro." Five fixes, five misses, because all five were theories about code
+   nobody had watched run. The sixth started with a reproduction:
+     scratchpad/spot.js -- screen-space bounding boxes through ctx.getTransform(),
+     cinematic left to RUN, every draw landing on the body at the frozen frame:
+       THE BROWN BOX    fillRect rgba(70,60,50,0.984)  @197,272  42x50
+       THE ORANGE ONE   arcFill  rgba(255,200,70,0.55)  @197,237  9x9 + glow
+   THE LESSON THIS SECTION EXISTS TO KEEP: every earlier probe measured raw
+   fillRect ARGUMENTS, so a 6*S x 7*S square inside a 3x camera zoom read as tiny
+   and my own threshold threw it away. The instrument was the bug.
+   ========================================================================== */
+{
+  /* (a) THE BROWN BOX. Its own source comment convicted it, and carried Paolo's
+     7/3/26 note: the real sprite death was playing UNDERNEATH it the whole time,
+     which is also why he has asked three times for the headshot fall to start. */
+  ok('V85 THE PLACEHOLDER SLAB IS DELETED: the LEGACY_PRE_REVAMP stand-in body, rgba(70,60,50), is what covered the corpse at every pause. ip=0 at contact so it was OPAQUE, and the freeze holds ks.t still so it stayed opaque for the whole stop',
+    !demo.includes("c.fillStyle='rgba(70,60,50,'+(1-ip*0.8)+')';") &&
+    !demo.includes('px(c,tx-3*S,ty-5*S+ip*9*S,6*S,7*S);') &&
+    demo.includes('V85 THE PLACEHOLDER SLAB IS DELETED'));
+  ok('AND THAT IS THE HEADSHOT ANIMATION HE ASKED FOR THREE TIMES: the clip was never missing, the slab was parked on top of it. The demo still owns the real death clip and still steps it contact-timed',
+    demo.includes('const seq=L.death[Math.min(e._deathVar||0,L.death.length-1)];') &&
+    demo.includes('return seq[Math.min(seq.length-1,Math.floor((now-e._deadAt)/150))];') &&
+    demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;'));
+
+  /* (b) THE ORANGE ONE. The gold payout mote, spawned at contact, flown on p.t,
+     and p.t rides dt -- which is 0 while the world is stopped. */
+  ok('V85 THE PAYOUT ARRIVES WHEN THE WORLD MOVES AGAIN: the ghost chip does not draw during a freeze. It spawns AT contact and flies on p.t, and p.t rides dt, and dt is 0 while time is stopped -- so it hung on the corpse, gold and glowing, for the entire pause',
+    demo.includes("for(const p of G._fx){ if(p.type!=='chip'||p.t<0)continue;") &&
+    /if\(p\.type!=='chip'\|\|p\.t<0\)continue;[\s\S]{0,900}?if\(G\._freezeT>0\)continue;/.test(demo));
+  ok('and the chip itself is untouched: it is still the gold mote arcing into the fire-button corner, still spawned at contact by BOTH the single and the double tap',
+    demo.includes("const gold=ghostRGB(1);") &&
+    demo.includes("if(JUICE.T){const sp=worldToScreen(tx,ty-24);G._fx.push({type:'chip',x:sp[0],y:sp[1],t:0,life:1.05});} }"));
+
+  /* (c) THE STOP IS A STILL, INCLUDING THE BODY -- and the pause is PAID BACK. */
+  ok('V85 THE BODY HOLDS THROUGH THE STOP: visNow() is the wall clock normally and the instant the freeze began while the world is held, so the death clip cannot fall through frames during a dead stop',
+    demo.includes('function visNow(){ return (G._freezeT>0&&G._fzNow!=null)?G._fzNow:performance.now(); }') &&
+    demo.includes('if(G._fzNow==null)G._fzNow=performance.now();'));
+  ok('and EVERY body reads it -- both the board pass and the field pass -- so one view can never animate while the other is frozen',
+    demo.includes('{ const _nowD=visNow();') && demo.includes('const nowMs=visNow();') &&
+    !demo.includes('{ const _nowD=performance.now();') && !demo.includes('const nowMs=performance.now();'));
+  ok('AND THE PAUSE IS PAID BACK: pinning alone left _deadAt on raw wall time, so the clip SNAPPED forward the instant the world moved (measured: frame 0 held, then straight to 4 of 12). Every body timestamp advances by exactly the frozen duration on release',
+    demo.includes("const _ks5=['_deadAt','_fellAt','_hitAt','_roseAt','_swingAt','_snapAt','_movedAt','_crawlAt','_shovedAt'];") &&
+    demo.includes('for(const _b5 of (G.e||[]))for(const _k5 of _ks5)if(_b5[_k5]!=null)_b5[_k5]+=_fd;') &&
+    demo.includes('const _fd=performance.now()-G._fzNow;'));
+  ok('THE DEBT IS PAID ONCE AND ONLY ONCE: _fzNow is cleared in the same branch that pays it, so a long freeze can never charge the bodies twice',
+    /const _fd=performance\.now\(\)-G\._fzNow;[\s\S]{0,1200}?G\._fzNow=null; \}/.test(demo));
+
+  /* (d) THE RULE THIS TURN COST FIVE ROUNDS TO LEARN. */
+  ok('AND THE v84 FIXES BOTH STAND: the floor pulse is still silent during a freeze, and the road markings still fade with the shot -- this turn added to them, it did not trade one symptom for another',
+    demo.includes('if(pb>0.004&&!(G._freezeT>0)){x.fillStyle=f.acc;') &&
+    demo.includes("x.fillStyle='rgba(184,160,40,'+(0.55*_mk).toFixed(3)+')';"));
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

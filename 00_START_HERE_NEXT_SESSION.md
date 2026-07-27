@@ -1128,6 +1128,55 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v85: BOTH BOXES NAMED IN A CAPTURED FRAME, BOTH DELETED, AND
+THE HEADSHOT ANIMATION HE ASKED FOR THREE TIMES TURNED OUT TO BE THE SAME LINE.
+Paolo, the FIFTH time: "Brown box still their kill shot orange box doesnt fade away
+bro." Five reports, five shipped fixes, five misses. So this turn produced a
+REPRODUCTION before it produced a patch, and that is now law.
+THE INSTRUMENT THAT FINALLY WORKED (scratchpad/spot.js): hook fillRect + drawImage +
+arc/fill + arc/stroke (THE DIAL IS DRAWN WITH STROKES - every fill-only probe I built
+was structurally blind to it), convert every draw to SCREEN space through
+ctx.getTransform() (raw arguments are meaningless inside a 3x camera; that filter is
+what threw the brown box out of my own report), let the cinematic RUN untouched, and
+dump everything landing on the body at the frozen frame. One run, both answers:
+    THE BROWN BOX   fillRect rgba(70,60,50,0.984)  @197,272  42x50
+    THE ORANGE ONE  arcFill  rgba(255,200,70,0.55) @197,237  9x9 + glow + trails
+(a) THE BROWN BOX was drawKillshotWorld's LEGACY_PRE_REVAMP stand-in body. Its alpha
+is 1-ip*0.8 and ip is 0 at contact, so it was never translucent at the moment that
+matters - a SOLID slab - and the freeze holds ks.t still, so it stayed solid for the
+entire pause. DELETED.
+(b) AND THAT IS THE HEADSHOT ANSWER. Its own comment has said so since 7/3/26: "still
+drops/fades ON TOP of the real sprite death playing underneath ... delete at cleanup."
+HEADSHOT 1 + HEADSHOT 2 were never missing. L.death is a 12-frame clip with three
+rolled variants, stepped contact-timed off _deadAt, playing correctly every kill,
+under a placeholder square. One deletion, two complaints.
+(c) THE ORANGE ONE was the JUICE.T gold payout chip. It spawns AT contact - the same
+instant the freeze starts - and flies on p.t, which rides dt, which is 0 while frozen.
+So the payout hung on the corpse, gold and glowing, for the whole pause. "Doesn't fade
+away" was literally correct. It no longer draws during a freeze: the stop belongs to
+the kill, the reward comes after it.
+(d) THE STOP IS A STILL, INCLUDING THE BODY, AND THE PAUSE IS PAID BACK. visNow() pins
+the body's clock to the instant the freeze began. Pinning alone was half a fix: _deadAt
+is raw wall time, so the clip SNAPPED forward the moment the world moved - measured
+frame 0 held, then straight to 4 of 12, i.e. the drop he paused FOR is the part that
+got skipped. Every body timestamp now advances by exactly the frozen duration on
+release. Measured after: ALIVE 0 [1 1 1 1 held] release 1 2 3 3 4 5 6 7 8 8 9 10 11.
+THE GENERAL BUG CLASS, and three of this session's five bugs are it: dt=0 freezes the
+SIMULATION, not anything driven by performance.now() and not anything whose APPEARANCE
+is a pure function of a pinned value. A pinned clock does not stop a drawing, it
+FREEZES it at whatever value it had, which is usually the brightest one. When you pin
+a clock, audit everything that reads it.
+LAW: laws/BOHEMIA_ADDENDUM_REPRODUCE_BEFORE_YOU_FIX_7_27_26.md - for any defect Paolo
+reports VISUALLY, the first deliverable is a REPRODUCTION, not a fix; a second report
+of the same symptom ends the guessing immediately and the next turn buys the
+instrument. Also: a LEGACY_PRE_REVAMP marker with a Paolo date on it is a BUG WITH A
+DEADLINE, not a comment, and it is the FIRST suspect in its neighbourhood.
+GATE: combat_lab_gate.js section 20, 359 -> 368 checks.
+TOOL: tools/bohemia_combat_brownbox_kill_patch.py
+STILL UNJUDGED AND THAT IS THE ASK: he has never actually SEEN the death clips, so
+the fall itself has never been judged. Do NOT cook a new one before he looks at the
+one that was already there.
+
 COMBAT (04) 7/27 - v84: I BUILT THE INSTRUMENT AND IT NAMED BOTH OF THEM.
 Paolo, a third time: "the brown box is absolutely still there and the dead shot
 dial orange part is still there like what's wrong with you bro."

@@ -658,7 +658,31 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    any lane at random will eventually get ignored, which is worse than no gate.
    Suggest: average N runs, or drive a FIXED deterministic route instead of a
    timed walk. Owning lane: ART/render. | — | gates/render_pixel_gate.js | no.
-0. DONE 7/27 (v84): THE BROWN BOX + THE ORANGE, BOTH NAMED AND BOTH FIXED, and
+0. DONE 7/27 (v85): THE BROWN BOX AND THE ORANGE ONE, NAMED IN A CAPTURED FRAME
+   AND BOTH DELETED. Five reports, five misses, then a reproduction first.
+   scratchpad/spot.js: hook fillRect + drawImage + arc/fill + arc/stroke, convert
+   every draw to SCREEN space via ctx.getTransform(), let the cinematic RUN, dump
+   everything landing on the body at the frozen frame. It answered in one run:
+     THE BROWN BOX   fillRect rgba(70,60,50,0.984) @197,272 42x50
+     THE ORANGE ONE  arcFill  rgba(255,200,70,0.55) @197,237 9x9 + glow
+   (a) THE BROWN BOX = drawKillshotWorld's LEGACY_PRE_REVAMP stand-in body. Its
+   alpha is 1-ip*0.8 and ip=0 at contact, so it is a SOLID slab, and the freeze
+   holds ks.t still so it stayed solid for the whole pause. DELETED.
+   (b) IT WAS ALSO THE HEADSHOT ANSWER (0b, asked three times). Its own comment
+   said so since 7/3/26: "still drops/fades ON TOP of the real sprite death
+   playing underneath ... delete at cleanup." A 12-frame clip, three rolled
+   variants, contact-timed, playing correctly, invisible under a placeholder.
+   (c) THE ORANGE ONE = the JUICE.T gold payout chip. Spawns AT contact, flies on
+   p.t, p.t rides dt, dt is 0 while frozen -- so it hung on the corpse for the
+   whole pause. It no longer draws during a freeze: the stop belongs to the kill,
+   the reward comes after it.
+   (d) THE STOP IS A STILL, AND THE PAUSE IS PAID BACK. visNow() pins the body's
+   clock during a freeze; every body timestamp then advances by exactly the frozen
+   duration on release, or the clip snaps forward and the drop you paused FOR is
+   the part that gets skipped (measured: frame 0 held, then straight to 4 of 12).
+   LAW: laws/BOHEMIA_ADDENDUM_REPRODUCE_BEFORE_YOU_FIX_7_27_26.md
+   Gate section 20, 368 checks.
+0-prev. DONE 7/27 (v84): THE BROWN BOX + THE ORANGE, BOTH NAMED AND BOTH FIXED, and
    the instrument built so it never costs three turns again.
    (a) The brown box was a REGRESSION I CAUSED: v82 pinned _bpmPhase during the
    freeze, which pinned the JUICE.B floor pulse, which welds a full-screen
@@ -672,8 +696,10 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    HARNESS LESSON: my probe kept freezing the game to photograph it, which stopped
    the cinematic it was measuring. Let it RUN and screenshot at 60ms.
    Gate section 19, 359 checks.
-0a. *** BLOCKED, AND IT IS THE TOP OF THIS LANE. THE BROWN BOX + THE ORANGE DIAL
-   ARE STILL ON HIS SCREEN AFTER THREE ATTEMPTS (v81/v82/v83). *** Post-mortem:
+0a. UNBLOCKED 7/27 by v85 above -- the reproduction landed and both objects were
+   named in a captured frame. History kept because the process lesson is the
+   valuable part. WAS: *** BLOCKED. THE BROWN BOX + THE ORANGE DIAL ARE STILL ON
+   HIS SCREEN AFTER THREE ATTEMPTS (v81/v82/v83). *** Post-mortem:
    records/BOHEMIA_COMBAT_POSTMORTEM_AND_RESEARCH_3_7_27_26.md
    The deploy DID land (8dcb1247 SUCCESS); the fixes were simply wrong. Root
    cause: THE KILL CINEMATIC CANNOT BE DRIVEN HEADLESS, so every fix was reasoning
@@ -689,9 +715,14 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
          text, the guessing ends for this and every future visual bug. Few lines.
      (b) A TEST HOOK that makes the killshot drivable headlessly, so this class of
          bug is reproducible forever.
-0b. *** HE HAS NAMED THESE TWICE, STILL NOT STARTED: HEADSHOT 1 + HEADSHOT 2
-   animations. *** Specific and named, NOT a category to design. A COOK under
-   LEAF-PIXEL + RIG + 45-DEGREE law. Next after 0a is genuinely fixed.
+0b. DONE 7/27 (v85), AND IT WAS NEVER A COOK. HEADSHOT 1 + HEADSHOT 2: the death
+   clips already existed (L.death, 12 frames, three rolled variants, contact-timed
+   off _deadAt). They were INVISIBLE because the LEGACY_PRE_REVAMP placeholder slab
+   was drawn on top of them every killshot. Deleting the slab started the animation.
+   STILL OPEN AS A JUDGE ITEM: he has never SEEN these clips, so the fall itself is
+   UNJUDGED. If he wants a different fall, that is a fresh cook under LEAF-PIXEL +
+   RIG + 45-DEGREE law -- but do not cook one before he has looked at the one that
+   was already there.
 0c. *** SUPPRESS - THIRD TIME HE HAS SAID IT IS CONFUSING. *** Research: XCOM's
    suppression confuses XCOM players too; its value "isn't self-evident" because
    both its effects are invisible until after the enemy acts. THE FIX IS NOT MORE
