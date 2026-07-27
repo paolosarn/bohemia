@@ -1,3 +1,45 @@
+CITY (03): 7/27 (c) LATEST — "THE DOOR SUCK" WAS A DICE ROLL, AND THE PLOT ALREADY
+KNEW WHERE THE DOOR WENT. Full diagnosis, with every number:
+records/BOHEMIA_SUBURB_DIAGNOSIS_7_27_26.md
+He gave ONE instruction inside a pile of rejections - "you really should be using the
+suburb district" - so I answered that instruction and touched nothing he rejected.
+THE PLUMBING IS FINE, which had to be checked first. The suburb district IS used at
+full canon scale: a 4x4 group of overmap cells maps to one 128x128 BohemiaSuburb grid,
+sliced 1:1, no downsampling. A real cell reads back 554 dead-ground / 268 house / 96
+road / 80 garage / 14 upper / 12 driveway. The generator's plot is intact. Worth
+knowing for the feel: ONE overmap cell is 1/16th of a neighborhood, 24m across, so a
+drop-in puts you inside about two houses' worth of a plot authored as a whole walled
+subdivision.
+FIXED - THE DOOR WAS A PER-TILE HASH. Every exposed house tile rolled its facade: 60%
+wall, 20% window, 10% boarded, 10% DOOR. Measured on 24 real suburb cells: 727 exposed
+fronts, 62 doors, one every twelve tiles, down every wall on every side, and 643 of
+those fronts face a dead-dirt backyard with NO PATH TO THEM. A house does not have six
+front doors. The generator marks its driveway apron (3) and its street (1) in its own
+legend and nobody asked it. The door now goes where the house meets one of those, one
+per approach (a driveway run is 3-4 wide, only the leftmost tile takes it). After, same
+24 cells: 17 doors, 17 reachable, 0 on dirt. The generic-district path had the same roll
+and it was worse - those dossiers already declare doors as PORTAL tiles you step
+through, so a painted door there is a door that LIES; it paints none now. NO PIXEL WAS
+COOKED: it places Paolo's own 7/21-approved tiles correctly. Gate: frontdoor_gate.js,
+measured on the running surface. city_tab_gate's old byte-lock on the hash string was
+replaced with a lock on the property that matters.
+NOT FIXED ON PURPOSE - HE REJECTED THESE AND A REJECTION ENDS THE THING (STOP PRODUCING
+rule 3). (a) The red-brick read is his OWN approved art - I checked whether hroof had
+been mis-wired with wall textures and it has NOT; it holds exactly the 14 he thumbed UP
+(roof_shingle_0-5, roof_gravel_6-7, roof_stile_21-26). A seamless tile has no ridge, no
+slope, no shadow, which is why a roof reads as wallpaper, but the material is his.
+(b) The facade is drawn ONE tile tall while DOOR LAW says two - the interiors obey it
+and interiors_gate byte-locks it, the exteriors do not, so inside and outside disagree
+about the same law. (c) 54% of a suburb cell is dead-dirt yard drawn as one flat noise.
+All three are BOHEMIA_BACKLOG CITY 0F, pending him.
+THE ONE THING TO ASK HIM: 17 doors over 24 cells means most homes are entered through
+the GARAGE (whose own dossier says it has a door into the house), because that is where
+the plot's walkable approach goes. Real for a Vegas tract house - or he wants a front
+door on every home. Do not decide it.
+FOR THE WORLD LANE (not touched, ONE SYSTEM ONE SESSION): 4 cells of 7,649 are SEALED,
+you can drop in and never walk out - 88,1 solar, 92,8 estate, 92,39 suburb, 5,53 gypsum.
+Belongs with landlocked_gate.js. BOHEMIA_BACKLOG CITY 0G.
+
 CITY (03): 7/27 (b) LATEST — "I CAN'T GET OUTSIDE THE SUBURB" AND "I'M TRYING TO
 COPY AND PASTE THE ARROW OF MOVE" ARE THE SAME BUG, AND IT WAS THE PHONE.
 He played on his phone and said both in one message. Movement here is press-and-HOLD
