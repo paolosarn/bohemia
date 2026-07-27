@@ -104,4 +104,14 @@ ok('the law records all three fixes and the bare-skin regression that forced the
   /17-21%/.test(law) && /never re-draw what he already drew/.test(law));
 
 
+/* ---- THE STACK HE ASKED FOR, AND THE WIDTH THAT DEFEATS IT --------------- */
+ok('the law records that front-arm > TORSO > back-arm already ships on every angled facing',
+  /armR > TORSO > armL/.test(law) && /armL > TORSO > armR/.test(law));
+ok('the law records that the torso has ZERO holes (it is complete, nothing invented)',
+  /ZERO holes/.test(law));
+ok('the law records the width measurement that answers "one custom pixel"',
+  /48% of profile torso rows render 1-2px/.test(law));
+ok('the law states there is no further renderer fix, only the profile repaint',
+  /no further renderer fix here/.test(law));
+
 done();

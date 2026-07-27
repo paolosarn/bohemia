@@ -160,3 +160,58 @@ keyline. Separation:
 Lower than the 72% an earlier version reported, and that is correct: that number
 was partly produced by the invented clay he rejected. This one uses only colours
 he painted.
+
+## 6. "WHY DOES THERE ONLY HAVE TO BE ONE CUSTOM PIXEL" (Paolo 7/26/26)
+
+His words: "I just don't understand how hard it is to just have the back arms and
+the front arms viewed as separately than the torso... why does there only have to
+be one custom pixel, but when you obviously move the arm he wants to do some weird
+foggy math pixel color... we established what the torso of the body is, its shape
+and the pixels that has to fill from each direction, and it should be a layer
+underneath the front arm and a layer on top of the back arm."
+
+### THE STACK HE DESCRIBED IS ALREADY WHAT SHIPS. Verified per facing:
+
+    E    armR > TORSO > armL      front arm, torso, back arm    OK
+    W    armL > TORSO > armR                                    OK
+    SE   armR > TORSO > armL                                    OK
+    SW   armL > TORSO > armR                                    OK
+    NE   armR > TORSO > armL                                    OK
+    NW   armL > TORSO > armR                                    OK
+    S    both arms in front of the torso   (correct, facing camera)
+    N    both arms behind the torso        (correct, facing away)
+
+So the layering is not the bug, and neither is the torso data: measured over
+walk+run on E, W and SE, the visible torso has **ZERO holes**. It is complete, it
+fills from every direction, and nothing is invented in it.
+
+### THE ANSWER TO HIS QUESTION, AND IT IS LITERAL
+
+How WIDE is the torso you actually SEE, per row, in profile:
+
+    band width   E rows   W rows        SE rows
+      1 px        135      118             34
+      2 px        106      111             50
+      3 px        104      101             24
+      4-8 px      153      158            150
+      9-14 px       0        0            176
+    median          3        3              7
+
+**Roughly half of all visible torso rows in profile are ONE OR TWO PIXELS WIDE.**
+That is his "one custom pixel", and it is not a renderer artefact — it is what is
+left of an 8px painted profile torso once two 5px arms sit on it.
+
+A 1px strip of torso between the front arm and the back arm cannot read as a
+torso. It reads as a stray line, which is why it looks like "foggy math pixels"
+no matter what colour goes there. On SE, where the median is 7px, the same code
+reads correctly.
+
+### CONSEQUENCE
+
+There is no further renderer fix here. The stack is his, the torso is whole, the
+colours are all his own palette (section 5). What is missing is WIDTH in the
+profile art: the torso needs to be wider than the arms in E/W, or the arms need to
+be inset, so that more than one pixel of torso survives.
+
+That is the PROFILE REPAINT, [PENDING Paolo] since 7/26, and this is the number
+that makes it concrete: **~48% of profile torso rows render 1-2px.**
