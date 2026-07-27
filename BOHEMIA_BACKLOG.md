@@ -583,6 +583,33 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+1a. (discovered 7/26 by COMBAT, NOT ours to fix) THE RENDER PIXEL GATE IS FLAKY.
+   It drives a live WALKING CITY and measures whatever draws happen, so the draw
+   count swings ~19.8k-22.8k run to run. It failed once at 12.4% half-pixel draws
+   against a 6% ratchet, then passed 4/4 on six consecutive runs (three on clean
+   main, three with the same working tree that failed). A gate that can red-flag
+   any lane at random will eventually get ignored, which is worse than no gate.
+   Suggest: average N runs, or drive a FIXED deterministic route instead of a
+   timed walk. Owning lane: ART/render. | — | gates/render_pixel_gate.js | no.
+1b. DONE 7/26 (v83): THE BROWN BOX + THE DIAL THAT WOULD NOT LEAVE. From his
+   screenshot. (a) The brown quad was #6c503b, traced to two LEGACY_PRE_REVAMP
+   placeholder body blocks (brown torso rect + head square) from before real
+   sprites existed; the killshot magnified them through the board zoom and the
+   kill camera into a slab covering the frame. DELETED; a missing sprite draws
+   nothing and logs it. (b) The dial's fade was a flat 350ms while a sharp shot
+   contacts at 90ms, so it was 74% VISIBLE at impact. Now derived from the
+   bullet's own travel time, zero at contact, every style and duration.
+   Gate section 18, 346 checks.
+1c. *** [PENDING Paolo / ART LANE] THE GETTING-SHOT ANIMATION CATEGORY. He said:
+   "this would also be a great time to start the headshot fall animation and
+   whatever category of animation we put towards people like getting shot." NOT
+   STARTED - it is a COOK and it needs a declared category list plus his eye, not
+   a guess. Governed by LEAF-PIXEL LAW (structure frozen, leaf only), RIG LAW
+   (painted regions sacrosanct) and the 45 DEGREE LAW. The demo already rolls a
+   _deathVar (3 variants) and has fall/land timing hooks (fallLanded, landDust),
+   so the PLUMBING exists and what is missing is the named set of reactions:
+   headshot drop, gut fold, spin, knocked-back, stumble-and-catch. HE NAMES THE
+   SET. | leaf_pixel_gate + combat_anim_gate | combat demo | yes (thumbs).
 1d. DONE 7/26 (v82): THE FREEZE HE COULD NOT FEEL - TWO DEFECTS, BOTH FIXED.
    (a) The killshot contact fired the WEAPON tier (0.125s) instead of KILL
    (0.500s); freeze('kill') only ever fired from finishHim and from your own

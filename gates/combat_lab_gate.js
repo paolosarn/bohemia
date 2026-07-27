@@ -1774,6 +1774,55 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.indexOf('function checkClearSoon()') < demo.indexOf('function finishHim(t){'));
 }
 
+/* ============================================================================
+   18. V83 THE BROWN BOX AND THE DIAL THAT WOULD NOT LEAVE
+   Paolo, with a screenshot: "there's a brown square that covers everything in...
+   and as that bullet's travelling the dead shot dial can like fade away, so by
+   the time there's that pause the dead shot dial is not there."
+   ========================================================================== */
+{
+  /* THE BROWN BOX: sampled at #6c503b out of his own screenshot, which led to two
+     LEGACY_PRE_REVAMP placeholder blocks -- a 6S x 7S brown torso and a 4S head,
+     from before the game had real sprites. The killshot ran them through the board
+     zoom AND the kill camera, so they landed as a slab over a hundred px across. */
+  ok('V83 NO PLACEHOLDER SLABS: every legacy pre-sprite body block is DELETED, not merely hidden -- not one of the four hardcoded slab colours survives anywhere in the demo',
+    !demo.includes("'#3a3228'") && !demo.includes("'#4a4038'") &&
+    !demo.includes("'#5a4a38'") && !demo.includes("'#5a4a3a'"));
+  ok('and the no-target fallback the kill camera was pointed straight at is gone with it',
+    !demo.includes('LEGACY_PRE_REVAMP (4): no-target fallback blocks') &&
+    demo.includes('V83: the no-target fallback slab is DELETED.'));
+  ok('NAME IT OR DON\'T DRAW IT, APPLIED: a missing sprite now draws NOTHING and says so in the log, because a missing body is a bug to find and not a box to paint over the frame',
+    demo.includes("logLine && logLine('player sprite not ready - drawing nothing (was a brown placeholder slab)')") &&
+    demo.includes('if(!G._noSprWarn){ G._noSprWarn=true;'));
+
+  /* THE DIAL: the old fade was a flat 350ms with no relationship to when the
+     bullet arrives. EXECUTE both, at every style and duration the game can
+     produce, and prove the old one left the dial on screen at impact. */
+  {
+    const FRAC = { sharp: 0.18, hammer: 0.5, follow: 0.55 };
+    const oldAlpha = c => Math.max(0, 1 - (c * 1000) / 350);
+    const newAlpha = (c, d, st) => Math.max(0, 1 - c / Math.max(0.05, d * (FRAC[st] !== undefined ? FRAC[st] : 0.55)));
+    const durs = [0.5, 1.0, 1.5, 2.0, 2.8];        /* dur is snapped to whole beats, min 0.5 */
+    let oldWorst = 0, newWorst = 0;
+    for (const st of Object.keys(FRAC)) for (const d of durs) {
+      const contact = d * FRAC[st];
+      oldWorst = Math.max(oldWorst, oldAlpha(contact));
+      newWorst = Math.max(newWorst, newAlpha(contact, d, st));
+    }
+    ok('THE OLD DIAL FADE LEFT THE INSTRUMENT ON SCREEN AT IMPACT: a flat 350ms against a sharp shot that contacts at 90ms left the dial ' + Math.round(oldWorst * 100) + '% VISIBLE in the frame he screenshotted',
+      oldWorst > 0.7);
+    ok('V83 THE DIAL IS GONE BY CONTACT, at every style and every duration the game can roll: worst-case alpha at impact is ' + newWorst.toFixed(2),
+      newWorst < 1e-9);
+    ok('and it is DERIVED from the bullet\'s own two numbers rather than typed, so the fade can never drift out of step with the shot it is covering',
+      demo.includes("const _dfT=G.ks?Math.max(0.05,G.ks.dur*(G.ks.style==='sharp'?0.18:G.ks.style==='hammer'?0.5:0.55)):0.35;") &&
+      demo.includes('const travel = ks.style===\'sharp\'?0.18 : ks.style===\'hammer\'?0.5 : 0.55;') &&
+      !demo.includes("Math.max(0,1-(performance.now()-G._ksAt)/350)"));
+    ok('THE FADE STILL OWNS THE WHOLE DIAL, not just part of it -- the 7/3 fix that the bands must fade too still stands',
+      demo.includes('ctx.globalAlpha=_df;') &&
+      demo.includes('The fade now owns the ENTIRE dial from the first band.'));
+  }
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

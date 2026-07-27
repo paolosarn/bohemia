@@ -1016,6 +1016,39 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/26 - v83: THE BROWN BOX WAS DEAD CODE FROM BEFORE THE SPRITES.
+Paolo sent a SCREENSHOT: "there's a brown square that covers everything in... and
+as that bullet's travelling the dead shot dial can like fade away, so by the time
+there's that pause the dead shot dial is not there, cause it kind of looks like
+shit." BOTH FIXED, both found by LOOKING (his screen, then the real surface).
+(1) THE BROWN BOX. Sampled his screenshot: the quad is #6c503b, a warm mid-brown.
+NOT the pillar khaki (#6e604a), NOT the faction floor (all near-black). Searching
+the demo for that colour landed on two blocks BOTH LABELLED LEGACY_PRE_REVAMP in
+the source - placeholder bodies from before the game had real sprites: a 6S x 7S
+brown torso rect + a 4S head square, drawn via px(). S is min(W,H)/90, so ~26x30px
+on a phone - and the killshot runs them through the BOARD ZOOM (up to 3.6x) AND
+the kill camera, landing as a slab well over 100px across, right where the camera
+is pointed. DELETED, not hidden. A missing sprite now draws NOTHING and LOGS it,
+because a missing body is a bug to find, not a box to paint over the frame. That
+is NAME IT OR DON'T DRAW IT applied literally: a nameless brown slab standing in
+for a human being is exactly what the law forbids.
+(2) THE DIAL WAS STILL 74% VISIBLE AT IMPACT. A dial fade already existed (7/3):
+a flat 350ms from G._ksAt. But the bullet's contact time is dur * travelFrac, and
+a SHARP shot at the minimum 0.5s dur contacts at 90ms -- so the dial was at 0.74
+in the exact frame he screenshotted. It now fades across the BULLET'S OWN TRAVEL
+TIME, derived from the same two numbers the bullet uses (ks.dur and the style's
+travel fraction), so it reaches ZERO at contact and can never drift out of step
+with the shot it covers. Worst case across every style x duration the game can
+roll: 0.00 at impact.
+Gate: section 18 EXECUTES both fade curves at every style and duration and proves
+the OLD one left the instrument on screen (that is the assertion that matters -
+it fails if someone reverts to a flat timer). 346 checks green.
+*** RECORDED, NOT BUILT: he also said "this would also be a great time to start
+the headshot fall animation and whatever category of animation we put towards
+people getting shot." That is an ANIMATION CATEGORY - a cook, and ART lane
+territory (LEAF-PIXEL LAW, RIG LAW, the 45 DEGREE LAW). Backlog item. Not
+started; it needs a spec of the categories and his eye, not a guess. ***
+
 COMBAT (04) 7/26 - v82: HE COULDN'T FEEL THE FREEZE AND HE WAS RIGHT TWICE.
 Law AMENDED IN PLACE: laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md.
 Paolo: "I didn't notice time stopping for a whole second or whatever." TWO
