@@ -121,11 +121,33 @@ async function walkTo(page, target, opts) {
   }
   return steps.length;
 }
+/* A VERIFIED interior walk: re-plan from the LIVE position after every tap and
+   never route through the exit door. A blind tap sequence desyncs the moment one
+   step is refused, and a desynced sequence walked the player out of their own
+   front door before the run had started. */
+async function walkInterior(page, target) {
+  for (let guard = 0; guard < 80; guard++) {
+    const inr = await page.evaluate(() => window.__RUN.interior());
+    const st = await page.evaluate(() => window.__RUN.state());
+    if (!inr || st.mode !== 'int') throw new Error('walkInterior: left the interior at guard=' + guard + ' pos ' + st.px + ',' + st.py + ' phase ' + st.phase);
+    if (st.px === target[0] && st.py === target[1]) return true;
+    const stop = {}; stop[inr.door[0] + ',' + inr.door[1]] = 1;
+    const steps = route(inr.pass, [st.px, st.py], target, stop);
+    if (!steps || !steps.length) return false;
+    await tapStep(page, steps[0]);
+    const after = await page.evaluate(() => window.__RUN.state());
+    if (after.px === st.px && after.py === st.py) return false;   // refused: stop, do not flail
+  }
+  return false;
+}
 async function walkOutOfHouse(page) {
   const inr = await page.evaluate(() => window.__RUN.interior());
   const st = await page.evaluate(() => window.__RUN.state());
+  if (!inr) throw new Error('walkOutOfHouse: not inside anything (mode ' + st.mode + ')');
   const steps = route(inr.pass, [st.px, st.py], inr.door, null);
-  if (!steps) throw new Error('no route to the interior door');
+  if (!steps) throw new Error('no route to the interior door from ' + st.px + ',' + st.py +
+    ' (mode ' + st.mode + ', house ' + st.curHouse + ', door ' + inr.door + ', passHere ' +
+    (inr.pass[st.py] && inr.pass[st.py][st.px]) + ')');
   for (let i = 0; i < steps.length; i++) {
     const last = i === steps.length - 1;
     if (last) { if (!await tapThroughDoor(page, steps[i], true)) throw new Error('the front door never opened'); }
@@ -323,6 +345,11 @@ async function alphaRun() {
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     page.on('pageerror', e => out.errors.push('PAGEERROR: ' + e.message));
+    /* CLEAN SLATE. Every section of this gate shares one browser, and file://
+       shares one localStorage, so the save suite's blobs were still on disk when
+       the alpha booted. Each section must start from nothing or it is testing
+       the section before it. */
+    await page.addInitScript(() => { try { localStorage.clear(); } catch (_e) {} });
     await page.goto('file://' + ALPHA_FILE, { timeout: 120000 });
     await page.click('#front');
     await page.click('.tab[data-p=run]');
@@ -339,14 +366,61 @@ async function alphaRun() {
     out.cast = await run.evaluate(() => window.__RUN.cast());
     out.doors = await run.evaluate(() => window.__RUN.doors());
 
+    /* THE SENTENCE (Paolo, after the lab): walk somewhere, ONE contextual button
+       that changes by what you are standing at, act, spend time, the world
+       resolves. Every clause of it, on the real surface. */
+    out.moments = await run.evaluate(() => window.__RUN.moments());
+    out.reach = await run.evaluate(() => window.__RUN.reach());
+    out.verbHome = await run.evaluate(() => window.__RUN.verb());
+    await run.click('#act');                       // the verb at home is SLEEP
+    await run.waitForTimeout(500);
+    out.sleepResolve = await run.evaluate(() => window.__RUN.lastResolve());
+    out.savesAfterSleep = await run.evaluate(() => window.__RUN.saves());
+    /* the SAME button becomes the doorway when you stand in it */
+    {
+      const inr = await run.evaluate(() => window.__RUN.interior());
+      const st = await run.evaluate(() => window.__RUN.state());
+      /* route to the tile IN FRONT of the door, and never THROUGH the door:
+         passInt counts a door as walkable, so an unguarded path strolls out of
+         the house and the run starts in the street. */
+      out.reachedDoorway = await walkInterior(run, [inr.door[0], inr.door[1] - 1]);
+      out.verbDoor = await run.evaluate(() => window.__RUN.verb());
+    }
+    /* HOW WALKING FEELS — all three of the pattern note's options, felt.
+       The step is picked to be REVERSIBLE and to avoid the doorway: an early
+       cut nudged the player onto the exit door, bumped it open across three
+       modes, and left the run standing in the street before the run had begun. */
+    out.walkModes = await run.evaluate(() => window.__RUN.walkModes());
+    out.feel = {};
+    {
+      const inr = await run.evaluate(() => window.__RUN.interior());
+      const st = await run.evaluate(() => window.__RUN.state());
+      const safe = [[0, -1], [0, 1], [-1, 0], [1, 0]].find(d => {
+        const nx = st.px + d[0], ny = st.py + d[1];
+        if (nx === inr.door[0] && ny === inr.door[1]) return false;
+        return inr.pass[ny] && inr.pass[ny][nx];
+      });
+      if (!safe) throw new Error('nowhere safe to feel a step from ' + st.px + ',' + st.py);
+      for (const m of ['GRID', 'SLIDE', 'FREE']) {
+        await run.evaluate(mm => window.__RUN.setWalkMode(mm), m);
+        await tapStep(run, safe);
+        await run.waitForTimeout(m === 'SLIDE' ? 120 : 60);
+        const o = await run.evaluate(() => window.__RUN.drawOffset());
+        out.feel[m] = Math.abs(o.x) + Math.abs(o.y);
+        await tapStep(run, [-safe[0], -safe[1]]);   // step back, exactly
+        await run.waitForTimeout(60);
+      }
+      await run.evaluate(() => window.__RUN.setWalkMode('GRID'));
+    }
+    out.feelEndedAt = await run.evaluate(() => window.__RUN.state());
+
+
     /* THE DOOR LAW, behaviourally (Paolo 7/26): a shut door is not a floor tile.
        Walk into it and you do NOT move; it swings (9 frames, 2 beats) and only
        then does it let you through. Prove both halves on the real surface. */
     {
       const inr = await run.evaluate(() => window.__RUN.interior());
-      const st0 = await run.evaluate(() => window.__RUN.state());
-      const steps = route(inr.pass, [st0.px, st0.py], [inr.door[0], inr.door[1] - 1], null);
-      if (steps) for (const d of steps) await tapStep(run, d);
+      await walkInterior(run, [inr.door[0], inr.door[1] - 1]);
       const before = await run.evaluate(() => window.__RUN.state());
       await tapStep(run, [0, 1]);                                  // bump the shut door
       const after = await run.evaluate(() => window.__RUN.state());
@@ -545,6 +619,34 @@ async function alphaRun() {
     !!C.cast && C.cast.looks >= 4 && C.cast.lookDirs === 8);
   ok('ALPHA: the real FACE SYSTEM renders the dialogue portraits',
     !!C.cast && C.cast.portrait === true && C.cast.npcPortraits >= 4);
+  // THE SENTENCE THE GAME SPEAKS (Paolo, after the lab)
+  ok('SENTENCE: the moments are HIS sizes — sleep 8, hang out 1, eat unpriced',
+    !!C.moments && C.moments.length >= 3 &&
+    C.moments.some(m => m.name === 'SLEEP' && m.spends === 8) &&
+    C.moments.some(m => m.name === 'HANGOUT' && m.spends === 1) &&
+    C.moments.some(m => m.name === 'EAT' && m.spends === null));
+  ok('SENTENCE: REACH is one DECLARED number with a facing, not three guesses',
+    !!C.reach && C.reach.tiles === 1 && C.reach.faced && typeof C.reach.faced.x === 'number');
+  ok('SENTENCE: ONE button, and at home it is SLEEP', !!C.verbHome && C.verbHome.verb === 'sleep');
+  ok('SENTENCE: the SAME button becomes the doorway when you stand in it',
+    !!C.verbDoor && C.verbDoor.verb === 'enter');
+  ok('SENTENCE: spending time RESOLVES THE WORLD through the ported resolver',
+    !!C.sleepResolve && C.sleepResolve.moment === 'SLEEP' && C.sleepResolve.spends === 8 &&
+    C.sleepResolve.ok === true);
+  ok('SENTENCE: the resolver ran its steps in DECLARED phase order, not registration order',
+    !!C.sleepResolve && C.sleepResolve.order.join('>') === 'block-clock>doors>neighbours>journal');
+  ok('SENTENCE: a spent night really advanced the world (8 hours of it)',
+    !!C.sleepResolve && C.sleepResolve.reports['block-clock'] &&
+    C.sleepResolve.reports['block-clock'].advanced === 480);
+  ok('SENTENCE: sleeping SAVES, per the ruled save spec',
+    Array.isArray(C.savesAfterSleep) && C.savesAfterSleep.some(s => s.label === 'slept'));
+  // THE WALK QUESTION, as something he can FEEL rather than read
+  ok('WALK FEEL: all of the pattern note\'s options are switchable in the run',
+    Array.isArray(C.walkModes) && ['GRID', 'SLIDE', 'HYBRID', 'FREE'].every(m => C.walkModes.indexOf(m) >= 0));
+  ok('WALK FEEL: GRID really teleports (no drawn offset)', C.feel && C.feel.GRID === 0);
+  ok('WALK FEEL: SLIDE really interpolates across the cell', C.feel && C.feel.SLIDE > 0.1);
+  ok('WALK FEEL: FREE really moves sub-cell, so the three feels are actually different',
+    C.feel && C.feel.FREE > 0 && C.feel.FREE < 1);
   // DOOR LAW (Paolo 7/26): 1 wide, 2 tall, and they are the APPROVED animated bank
   ok('DOORS: the approved animated door bank really shipped in the run',
     !!C.doors && C.doors.clips >= 6 && /DOOR_ANIM_BANK/.test(C.doors.version || ''));

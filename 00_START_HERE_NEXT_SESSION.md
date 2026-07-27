@@ -698,7 +698,38 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/26 LATEST — INSIDE IS DRESSED. CITY's UP-only interior pool
+RUN (01) 7/27 LATEST — THE SENTENCE THE GAME SPEAKS. Paolo, after the lab:
+"walk somewhere, ONE contextual action button that changes by what you're
+standing at, act, spend time, the world resolves." Adopted whole. Every verb in
+the run now goes through the PORTED, approved engine/bohemia_resolve.js:
+ - REACH is ONE declared number (1 tile) with a facing, replacing three
+   assumptions. The number is not invented: it is the radius the run's own talk
+   trigger already used.
+ - ONE BUTTON. It becomes talk / enter / use / sleep / hang out from what is in
+   reach of where you stand and what you face. WHAT YOU ARE STANDING AT BEATS
+   WHAT YOU COULD DO ANYWHERE (standing in the doorway offers the doorway, not
+   the bed), or the one button stops being contextual and becomes a preference.
+ - MOMENTS ARE HIS SIZES: SLEEP spends 8, HANGOUT spends 1, EAT is declared with
+   NO spend because he never priced it and an action-cost table is canon
+   (TIME IS SPENT BY ACTIONS sec 4). The button says so out loud.
+ - Spending time RESOLVES THE WORLD: declared steps in declared phase order
+   (block-clock -> doors -> neighbours -> journal), a thrown step can never eat
+   the time you spent. A night advances 480 world minutes and SAVES.
+ - You now WAKE IN THE BEDROOM, not in your own doorway - required once the
+   button became contextual, or SLEEP was unreachable.
+WALK FEEL, as something to PLAY not read (he re-opened the pattern note's fork):
+GRID / SLIDE / HYBRID / FREE, switchable mid-walk from the ☰ menu, each really
+different (measured: GRID offset 0, SLIDE interpolates, FREE moves sub-cell).
+FREE's own button says it costs a law, since TIME IS SPENT BY ACTIONS called it
+dead on arrival - his feel decides, not mine. In every mode the world still
+advances one step per CELL ENTERED, so nothing slides around a held-breath world.
+run_gate 93 -> 105. Ledger 20/27.
+TWO GATE BUGS FOUND AND FIXED while proving it: the gate's blind tap sequences
+desynced the moment a step was refused (they now re-plan from the live position
+and never route through a door), and its sections shared one file:// localStorage
+so the save suite's blobs were still there when the alpha booted.
+
+RUN (01) 7/26 — INSIDE IS DRESSED. CITY's UP-only interior pool
 (banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt, 465 Great-Sweep tiles bucketed by room
 function) was built and deliberately left unwired for a surface with rooms. This
 is that surface, so it is wired: a room gets ONE floor chosen by its own function

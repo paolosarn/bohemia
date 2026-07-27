@@ -326,7 +326,12 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    [DONE 7/26] INTERIORS DRESSED — CITY's UP-only interior pool consumed: one
    floor per ROOM by the room's own function, props from the role's own buckets,
    walls from the constitution's own tile. Props never became collision.
-   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (18/25),
+   [DONE 7/27] THE SENTENCE (his ruling after the lab): every verb goes through
+   the ported engine/bohemia_resolve.js — REACH declared once, ONE contextual
+   button (talk/enter/use/sleep/hang out), and every time-spend resolves the
+   world through declared moments in declared phase order. Sleep saves.
+   [DONE 7/27] WALK FEEL as playable toggles: GRID / SLIDE / HYBRID / FREE.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (20/27),
    enforced by gates/integration_gate.js.
 0b. THE REAL VALLEY (ledger priority 2): the run's block becomes a real cell of
    the generated valley, so walking off it lands in a real district. | run_gate

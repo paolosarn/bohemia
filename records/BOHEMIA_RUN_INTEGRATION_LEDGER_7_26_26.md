@@ -35,6 +35,8 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 | economy | NOT YET | — | booted in the context, untouched by the run |
 | dress-by-rank | NOT YET | — | bodies are random colourways, not rank-dressed |
 | vehicles | NOT YET | — | driveways are empty; the drivable network is unused |
+| the sentence: one button, act, spend time, resolve | INTEGRATED | resolver | the ported engine/bohemia_resolve.js drives every verb: REACH (1 tile, declared once) picks what you are standing at, ONE button becomes talk/enter/use/sleep/hang out, and every spend runs the world through declared moments in declared phase order (sleep 8, hang out 1, eat unpriced by ruling) |
+| walk feel, playable (lab's 3 options) | INTEGRATED | walk_feel | GRID / SLIDE / HYBRID / FREE, switchable mid-walk from the menu, so the pattern note's fork is something to feel instead of read |
 | save / load | INTEGRATED | save_blob | ONE versioned device-agnostic blob (engine save + run state), sleep + manual + autosave, export/import code, no device prefs inside, older versions migrate forward |
 | death is a reload | INTEGRATED | death_reload | losing a fight loads the closest previous save, never a reset (7/26 ruling) |
 

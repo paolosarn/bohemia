@@ -104,6 +104,22 @@ const PROBES = {
            // walls inside are the constitution's own, not the pool's patchwork
            RUN.indexOf("if(ic.g==='wall'){ tput(['wall_0','wall_1','wall_2']") >= 0;
   },
+  /* THE SENTENCE THE GAME SPEAKS: the run's verbs go through the PORTED
+     resolver, not a private copy, and the moments carry HIS sizes. */
+  resolver: () => {
+    const mod = fs.readFileSync(path.join(ROOT, 'engine/bohemia_resolve.js'), 'utf8');
+    return RUN.indexOf(mod) >= 0 &&                        // the approved port itself
+      RUN.indexOf('BOH_RESOLVE.makeReach(1)') >= 0 &&      // one declared reach
+      RUN.indexOf('BOH_RESOLVE.makeResolver({ moments: MOMENTS })') >= 0 &&
+      /name:'SLEEP', spends:8/.test(RUN) && /name:'HANGOUT', spends:1/.test(RUN) &&
+      /name:'EAT', spends:null/.test(RUN) &&               // unpriced: a cost table is canon
+      RUN.indexOf('function contextVerb(') >= 0 && RUN.indexOf('function spendTime(') >= 0 &&
+      RUN.indexOf("RESOLVER.register('block-clock','WORLD'") >= 0;
+  },
+  walk_feel: () =>
+    /var WALKMODES=\['GRID','SLIDE','HYBRID','FREE'\]/.test(RUN) &&
+    RUN.indexOf('function walkModeSet(') >= 0 && RUN.indexOf('function drawOffset(') >= 0 &&
+    RUN.indexOf('function freeNudge(') >= 0 && RUN.indexOf('walkbtn') >= 0,
   /* SAVE/LOAD, to the two 7/26 rulings: one versioned blob through the engine's
      own save, no private side-channel, no device prefs riding along. */
   save_blob: () =>

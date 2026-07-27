@@ -150,6 +150,17 @@
   #saveacts button.ghost, #save .ghostbtn{ background:#241d12; color:var(--ink);
     box-shadow:inset 0 0 0 1px var(--line); }
   #saveacts button:disabled{ background:#241d12; color:var(--faint); box-shadow:none; }
+  .walkrow{ margin:2px 0 12px; }
+  .walkrow .wlab{ font-family:var(--mono); font-size:9.5px; letter-spacing:1.2px;
+    color:var(--faint); margin-bottom:7px; }
+  .walkbtn{ display:block; width:100%; text-align:left; min-height:46px; margin-top:6px;
+    padding:8px 11px; border:0; border-radius:5px; background:#241d12; color:var(--dim);
+    box-shadow:inset 0 0 0 1px var(--line); font-family:var(--sans); }
+  .walkbtn b{ font-family:var(--mono); font-size:12px; letter-spacing:1.2px; color:var(--ink);
+    display:block; }
+  .walkbtn span{ font-size:11.5px; line-height:1.35; }
+  .walkbtn.on{ background:var(--gold-soft); box-shadow:inset 0 0 0 1px #5a441a; }
+  .walkbtn.on b{ color:var(--gold); }
   #savecode{ width:100%; height:72px; margin-top:10px; background:#0c0a07; color:var(--dim);
     border:1px solid var(--line); border-radius:5px; padding:8px; font-family:var(--mono);
     font-size:11px; resize:none; }
@@ -266,6 +277,7 @@
 <script src="../engine/bohemia_garage.js"></script>
 <script src="../engine/bohemia_crypt.js"></script>
 <script src="../engine/bohemia_agents.js"></script>
+<script src="../engine/bohemia_resolve.js"></script>
 <script src="../engine/bohemia_world.js"></script>
 <script>
 /* the real canon faction graph (GDD v2 §9). Must be a real JS value before
@@ -474,8 +486,26 @@ function enter(i){
 }
 function leave(){ mode='ext'; if(backAt){ px=backAt[0]; py=backAt[1]; } else { px=HOME_DOOR[0]; py=HOME_DOOR[1]; } curHouse=-1; }
 
-/* you start ASLEEP IN YOUR OWN BED, not on the curb. */
+/* YOU START ASLEEP IN YOUR OWN BED, not on the curb and not standing in your
+   own doorway. enter() puts a body at the door because that is where you come
+   IN; waking up is the one time you are already deep in the house, so the run
+   walks you to a BED tile if the floorplan declares one, else the floor tile
+   farthest from the door. (It also matters mechanically now: the one button
+   offers what you are standing AT, so waking in the doorway would offer the
+   doorway and you would never see SLEEP.) */
 enter(HOME);
+(function wakeInBed(){
+  if(!fp) return;
+  var best=null, bestScore=-1;
+  for(var y=0;y<fp.H;y++) for(var x=0;x<fp.W;x++){
+    var c=fp.grid[y][x]; if(!passInt(x,y) || c.g==='door') continue;
+    if(fpDoor && x===fpDoor[0] && y===fpDoor[1]) continue;
+    var d=Math.abs(x-fpDoor[0])+Math.abs(y-fpDoor[1]);
+    var score=(c.role==='bed'? 1000 : 0) + d;
+    if(score>bestScore){ bestScore=score; best=[x,y]; }
+  }
+  if(best){ px=best[0]; py=best[1]; }
+})();
 backAt = HOME_DOOR.slice();
 
 /* ===========================================================================
@@ -864,7 +894,8 @@ function draw(){
         bodies.push({ sx:qsx, sy:qsy, set:nlk?nlk[nd]:null, frame:null, ring:'#d8a742', fb:'#7d6a44' }); } }
   }
   /* YOU */
-  bodies.push({ sx:0, sy:0, set:(CAST&&CAST.player[PFACE])||null,
+  var off=drawOffset();
+  bodies.push({ sx:off.x, sy:off.y, set:(CAST&&CAST.player[PFACE])||null,
                 frame:PMOVING?PFRAME:null, ring:null, fb:'#ff5a3c', me:true });
   bodies.sort(function(A,B){ return (A.sy-B.sy)||(A.sx-B.sx); });
   bodies.forEach(function(b){
@@ -873,6 +904,74 @@ function draw(){
   /* no cast yet (this page opened outside the alpha): say so, never pretend */
   if(!CAST){ ctx.fillStyle='rgba(236,226,207,0.5)'; ctx.font='10px ui-monospace,monospace';
     ctx.fillText('no cast: open THE RUN from the alpha for real bodies', 8, cv.height-8); }
+}
+
+/* ===========================================================================
+   THE SENTENCE THE GAME SPEAKS (Paolo, after the lab: "walk somewhere, ONE
+   contextual action button that changes by what you're standing at, act, spend
+   time, the world resolves"). Every verb in the run goes through the ported,
+   approved engine/bohemia_resolve.js — its REACH decides what is close enough
+   and what you are facing, and its RESOLVER runs the world at every block of
+   time you spend.
+
+   THE MOMENTS ARE HIS. He named the sizes in the same breath: sleep 8, hang out
+   1. He did not price EAT, so EAT is declared with NO spend and the button says
+   so, because an action-cost table is canon and no lane writes one
+   (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md sec 4).
+
+   THE REACH NUMBER is not invented either: it is 1, the radius the run's own
+   talk trigger has always used (BohemiaLoop.talkablesNear(ctx, x, y, 1)), now
+   declared once instead of assumed in three places — which is the exact lesson
+   the lab wrote REACH down for.
+   =========================================================================== */
+var REACH = BOH_RESOLVE.makeReach(1);
+var MOMENTS = [ { name:'SLEEP', spends:8 }, { name:'HANGOUT', spends:1 }, { name:'EAT', spends:null } ];
+var RESOLVER = BOH_RESOLVE.makeResolver({ moments: MOMENTS });
+/* the compass the run draws in, mapped onto the resolver's four facings. A
+   diagonal acts on whichever axis it leans hardest. */
+function facingOf(f){
+  if(f==='N'||f==='NE'||f==='NW') return BOH_RESOLVE.DIRS.UP;
+  if(f==='S'||f==='SE'||f==='SW') return BOH_RESOLVE.DIRS.DOWN;
+  return (f==='E') ? BOH_RESOLVE.DIRS.RIGHT : BOH_RESOLVE.DIRS.LEFT;
+}
+function reaches(tx,ty){ return REACH.canAct({x:px,y:py}, facingOf(PFACE), {x:tx,y:ty}); }
+
+/* ---- THE WORLD RESOLVING. Declared steps, declared order, one per system.
+   A step cannot see another step's report and a thrown step never eats the
+   time the player spent — that is the resolver's contract, not ours. ---- */
+RESOLVER.register('block-clock','WORLD', function(c, moment){
+  /* TIME IS SPENT BY ACTIONS: the spend IS what advances the world. A moment
+     with no ruled spend advances nothing, on purpose. */
+  if(moment.spends == null) return { advanced:0, note:'no ruled cost yet' };
+  var mins = moment.spends * 60, steps = 0;
+  if(SIM){ for(var i=0;i<mins;i++){ SIM.step(); steps++; } }
+  return { advanced: mins, simSteps: steps };
+});
+RESOLVER.register('neighbours','PEOPLE', function(){
+  if(!SIM) return null;
+  FACES={}; _APOS={}; updateFaces();
+  return { onTheBlock: SIM.outAgents().length };
+});
+RESOLVER.register('doors','PLACES', function(c, moment){
+  /* a night is long enough that every door you left swinging is shut again */
+  if(moment.name!=='SLEEP') return null;
+  var n=0; for(var k in DOORST){ if(DOORST[k].state!=='closed'){ DOORST[k]={f:0,state:'closed',t0:0}; n++; } }
+  return { shut:n };
+});
+RESOLVER.register('journal','FEED', function(c, moment){
+  return { objectives: CTX.quests.activeObjectives().length, moment: moment.name };
+});
+/* ONE CALL for every block of time the player spends. */
+var LAST_RESOLVE=null;
+function spendTime(momentName, label){
+  var r = RESOLVER.resolve({ run:RUN, at:[px,py] }, { moment: momentName });
+  LAST_RESOLVE = r;
+  if(momentName==='SLEEP') sleepSave();          /* the ruled sleep-save */
+  else autoSave('moment:'+momentName.toLowerCase());
+  var adv = r.reports['block-clock'];
+  toast(label + (adv && adv.advanced ? ' Time passes.' : ' (that one has no ruled cost yet)'));
+  refresh(); draw();
+  return r;
 }
 
 /* ---- 10. HUD + the one contextual action button ---- */
@@ -890,18 +989,143 @@ function objectiveLine(){
   if(objs.length) return objs[0].text.replace(/^"|"$/g,'');
   return 'Walk the block. Find your neighbour.';
 }
+/* ===========================================================================
+   ONE BUTTON. It is never a menu and never a list: it looks at what is in
+   REACH of where you stand and what you FACE, and it becomes that one verb.
+   talk / enter / use / sleep / hang out — the sentence the lab proved.
+   =========================================================================== */
+function contextVerb(){
+  if(RUN.phase==='talking'||RUN.phase==='combat') return null;
+  /* the phone, when the run has just landed you home */
+  if(mode==='int' && curHouse===HOME && RUN.phase==='home_after')
+    return { verb:'phone', label:'CHECK YOUR PHONE', act:function(){ openPhone(); } };
+  var t = talkables();
+  if(t.length){
+    var p=CTX.quests._placed[QID];
+    if(!p || reaches(p.x,p.y))
+      return { verb:'talk', label:'TALK TO THE '+String(t[0].speaker||'stranger').toUpperCase(),
+               act:openTalk };
+  }
+  if(mode==='ext'){
+    /* a door you are standing at, yours or anyone's */
+    for(var k in doorOf){ var c=k.split(','), dx=+c[0], dy=+c[1];
+      if(reaches(dx,dy)){
+        var mine=(doorOf[k]===HOME);
+        return { verb:'enter', label: mine?'GO INSIDE (HOME)':'GO INSIDE',
+                 act:function(){ var d0=doorKey(dx,dy);
+                   if(!doorPassable(d0)){ openDoor(d0); refresh(); return; }
+                   if(mine && RT && RT.state.done && RUN.phase!=='home_after'){
+                     backAt=[px,py]; enter(HOME); RUN.phase='home_after'; autoSave('home'); openPhone(); draw(); return; }
+                   backAt=[px,py]; enter(doorOf[k]); autoSave('inside'); refresh(); draw(); } };
+      } }
+    /* a neighbour standing near you: a block of time spent with somebody */
+    if(SIM){ var outs=SIM.outAgents();
+      for(var i=0;i<outs.length;i++){ var a=outs[i];
+        if(reaches(a.loc.x,a.loc.y))
+          return { verb:'hangout', label:'HANG OUT (1 HOUR)',
+                   act:function(){ spendTime('HANGOUT','You spent an hour with a neighbour.'); } };
+      } }
+  } else {
+    /* WHAT YOU ARE STANDING AT BEATS WHAT YOU COULD DO ANYWHERE. Standing in
+       the doorway has to offer the doorway, or the one button stops being
+       contextual and becomes a preference. */
+    if(fpDoor && reaches(fpDoor[0],fpDoor[1]))
+      return { verb:'enter', label:'WALK OUT THE DOOR',
+               act:function(){ var ik=doorKey(fpDoor[0],fpDoor[1]);
+                 if(!doorPassable(ik)){ openDoor(ik); refresh(); return; }
+                 leave(); if(RUN.phase==='home_inside') RUN.phase='street';
+                 autoSave('outside'); refresh(); draw(); } };
+    /* anything the room is holding, right where you stand */
+    if(propAt(px,py))
+      return { verb:'use', label:'EAT WHAT YOU FOUND',
+               act:function(){ spendTime('EAT','You ate.'); } };
+    /* your own bed: the biggest block of time there is */
+    if(curHouse===HOME)
+      return { verb:'sleep', label:'SLEEP (8 HOURS, SAVES)',
+               act:function(){ spendTime('SLEEP','You slept the night.'); } };
+  }
+  return null;
+}
+var VERB=null;
 function refresh(){
   OBJ.textContent = objectiveLine();
   WHERE.textContent = (mode==='int')
     ? (curHouse===HOME ? 'YOUR HOUSE' : 'INSIDE #'+(curHouse+1))
     : 'CAMPANA DR · the dead block';
-  var t = talkables();
-  if(t.length){ ACT.disabled=false; ACT.textContent='TALK TO THE '+String(t[0].speaker||'stranger').toUpperCase(); }
-  else if(mode==='ext' && RT && RT.state.done && Math.max(Math.abs(px-HOME_DOOR[0]),Math.abs(py-HOME_DOOR[1]))<=1){
-    ACT.disabled=false; ACT.textContent='GO HOME'; }
-  else if(mode==='int' && curHouse===HOME && RUN.phase==='home_after'){
-    ACT.disabled=false; ACT.textContent='CHECK YOUR PHONE'; }
-  else { ACT.disabled=true; ACT.textContent = mode==='int' ? 'WALK OUT THE DOOR' : '—'; }
+  VERB = contextVerb();
+  if(VERB){ ACT.disabled=false; ACT.textContent=VERB.label; }
+  else { ACT.disabled=true; ACT.textContent='—'; }
+}
+
+/* ===========================================================================
+   HOW WALKING FEELS — the lab's own three options, as things you can FEEL.
+   records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_PATTERN_NOTE_7_26_26.md wrote them
+   up and they were closed on paper; Paolo re-opened them as a thing to play,
+   not a thing to read. So all three are here, switchable mid-walk:
+
+     GRID    the turn lands and you are in the next cell. Today's feel.
+     SLIDE   option 1: SAME rules, the body just slides across the cell over
+             the beat instead of teleporting. The pattern note's cheapest
+             option, and the ruling explicitly leaves how a spent action is
+             DRAWN to us, so this changes no law.
+     HYBRID  option 2: you walk freely while nothing is happening, and the
+             instant something does (a talk, a fight) it snaps to the grid.
+             The seam is real and you are meant to feel it.
+     FREE    option 3: continuous everywhere. HONEST WARNING, because it is
+             his to weigh: this is the one the TIME IS SPENT BY ACTIONS ruling
+             called dead on arrival, since the world stops being something you
+             advance by spending time. It is here to be felt, not to be canon.
+
+   The world still advances ONE STEP PER CELL ENTERED in every mode. Nothing
+   here lets the player slide around a world holding its breath.
+   =========================================================================== */
+var WALKMODES=['GRID','SLIDE','HYBRID','FREE'], WALKMODE='GRID';
+var SLIDE={ on:false, fx:0, fy:0, t0:0 };          /* the drawn position, mid-step */
+var FREEPOS=null;                                   /* continuous position, in cells */
+function walkModeSet(m){
+  if(WALKMODES.indexOf(m)<0) return;
+  WALKMODE=m; SLIDE.on=false;
+  FREEPOS = (m==='FREE'||m==='HYBRID') ? { x:px+0.5, y:py+0.5 } : null;
+  toast('Walk feel: '+m+'.'); refresh(); draw();
+}
+/* where the body is DRAWN this frame, in cells, relative to the tile it owns */
+function drawOffset(){
+  if(FREEPOS && (WALKMODE==='FREE'||(WALKMODE==='HYBRID'&&!freeSnapped())))
+    return { x:FREEPOS.x-0.5-px, y:FREEPOS.y-0.5-py };
+  if(SLIDE.on){
+    var k=Math.min(1,(Date.now()-SLIDE.t0)/BEAT);
+    if(k>=1){ SLIDE.on=false; return {x:0,y:0}; }
+    return { x:-SLIDE.fx*(1-k), y:-SLIDE.fy*(1-k) };
+  }
+  return { x:0, y:0 };
+}
+/* HYBRID's seam, and it has to be SOMETHING HAPPENING, not something merely
+   OFFERED. The first cut tested "is a verb available", and a verb is nearly
+   always available (that is the whole point of the one button), so FREE never
+   actually ran and every nudge was a full grid step. The seam is a talk or a
+   fight — the two things the pattern note itself named. */
+function freeSnapped(){ return RUN.phase==='talking'||RUN.phase==='combat'; }
+var _slideRAF=false;
+function slideTick(){ if(!SLIDE.on&&!FREEPOS){ _slideRAF=false; return; } draw();
+  if(SLIDE.on||FREEPOS) requestAnimationFrame(slideTick); else _slideRAF=false; }
+function slideKick(){ if(!_slideRAF){ _slideRAF=true; requestAnimationFrame(slideTick); } }
+
+/* FREE / HYBRID: a held direction moves a continuous body, and the WORLD only
+   advances when that body enters a new cell — the ruling's own rule, kept. */
+function freeNudge(dx,dy){
+  if(!FREEPOS) return false;
+  var SPEED=0.34;
+  var nx=FREEPOS.x+dx*SPEED, ny=FREEPOS.y+dy*SPEED;
+  var cx=Math.floor(nx), cy=Math.floor(ny);
+  var pass = (mode==='ext') ? passExt(cx,cy) : passInt(cx,cy);
+  if(!pass || doorOf[cx+','+cy]!=null){ /* a door is still a bump, never a slide-through */
+    if(doorOf[cx+','+cy]!=null){ move(dx,dy); }
+    return true; }
+  FREEPOS.x=nx; FREEPOS.y=ny;
+  if(cx!==px||cy!==py){ move(cx-px, cy-py); FREEPOS.x=nx; FREEPOS.y=ny; }
+  else { PFACE=dirOf(dx,dy); PMOVING=true; PFRAME=(PFRAME+1)&3; refresh(); }
+  slideKick();
+  return true;
 }
 
 /* ---- 11. MOVEMENT. I-MOVE-YOU-MOVE: one player step = one world minute. ---- */
@@ -932,8 +1156,13 @@ function move(dx,dy){
       autoSave('outside'); refresh(); draw(); return; }
     if(!passInt(nx,ny)) return; px=nx; py=ny;
   }
+  if(WALKMODE==='SLIDE'){ SLIDE.on=true; SLIDE.fx=dx; SLIDE.fy=dy; SLIDE.t0=Date.now(); slideKick(); }
   if(SIM){ SIM.playerAt = (mode==='ext') ? [px,py] : null; SIM.step(); updateFaces(); }
   if(_toastLife>0 && --_toastLife===0) toast(null);
+  /* the continuous body follows a committed step; freeNudge overwrites this
+     straight after when IT is the one driving, so this only catches the cases
+     where the grid moved underneath it (a door bump, a load, a teleport). */
+  if(FREEPOS){ FREEPOS.x=px+0.5; FREEPOS.y=py+0.5; }
   refresh(); draw();
 }
 
@@ -1215,6 +1444,19 @@ function renderSaveSheet(){
     list.appendChild(el);
   });
   acts.innerHTML='';
+  /* THE WALK QUESTION, as a thing to FEEL. Four buttons, switch mid-walk, and
+     the one that would cost a law says so on its own face. */
+  var wl=document.createElement('div'); wl.className='walkrow';
+  wl.innerHTML='<div class="wlab">HOW WALKING FEELS — switch and go walk</div>';
+  [['GRID','the turn lands, you are in the next cell'],
+   ['SLIDE','same rules, the body slides across the cell'],
+   ['HYBRID','free until something happens, then it snaps'],
+   ['FREE','continuous everywhere (this one costs a law)']].forEach(function(m){
+    var b=document.createElement('button'); b.className='walkbtn'+(WALKMODE===m[0]?' on':'');
+    b.innerHTML='<b>'+m[0]+'</b><span>'+m[1]+'</span>';
+    b.addEventListener('click',function(){ walkModeSet(m[0]); renderSaveSheet(); });
+    wl.appendChild(b); });
+  acts.appendChild(wl);
   function btn(txt,fn,ghost,off){ var b=document.createElement('button');
     b.textContent=txt; if(ghost)b.className='ghost'; if(off)b.disabled=true;
     else b.addEventListener('click',fn); acts.appendChild(b); return b; }
@@ -1237,14 +1479,11 @@ document.getElementById('menu').addEventListener('click', openSave);
 document.getElementById('saveclose').addEventListener('click', closeSave);
 
 /* ---- 15. INPUT: d-pad, keys, and tap-the-world (one thumb, arm's length). ---- */
+/* ONE BUTTON, ONE VERB: whatever the context resolved to is what it does. */
 ACT.addEventListener('click', function(){
-  if(ACT.disabled) return;
-  var t = talkables();
-  if(t.length){ openTalk(); return; }
-  if(mode==='ext' && RT && RT.state.done){
-    var d = Math.max(Math.abs(px-HOME_DOOR[0]),Math.abs(py-HOME_DOOR[1]));
-    if(d<=1){ backAt=[px,py]; enter(HOME); RUN.phase='home_after'; openPhone(); draw(); return; } }
-  if(mode==='int' && curHouse===HOME && RUN.phase==='home_after'){ openPhone(); return; }
+  if(ACT.disabled || !VERB) return;
+  musicKick();
+  VERB.act();
 });
 /* HOLD TO WALK. A block is 128 tiles across; tapping once per step at arm's
    length is not a game, it is data entry. Press and hold and you keep walking:
@@ -1253,8 +1492,9 @@ var HOLD=null;
 function holdStop(){ if(HOLD){ clearTimeout(HOLD.t); clearInterval(HOLD.i); HOLD=null; } }
 ['u','d','l','r'].forEach(function(id){ var b=document.getElementById('b'+id); if(!b) return;
   var dx = id==='l'?-1:id==='r'?1:0, dy = id==='u'?-1:id==='d'?1:0;
-  b.addEventListener('pointerdown', function(e){ e.preventDefault(); holdStop(); move(dx,dy);
-    HOLD={ t:setTimeout(function(){ HOLD.i=setInterval(function(){ move(dx,dy); },110); },220), i:0 }; });
+  var go=function(){ if(FREEPOS && !freeSnapped()) freeNudge(dx,dy); else move(dx,dy); };
+  b.addEventListener('pointerdown', function(e){ e.preventDefault(); holdStop(); go();
+    HOLD={ t:setTimeout(function(){ HOLD.i=setInterval(go, (FREEPOS&&!freeSnapped())?40:110); },220), i:0 }; });
   ['pointerup','pointercancel','pointerleave'].forEach(function(ev){ b.addEventListener(ev, holdStop); });
 });
 window.addEventListener('blur', holdStop);
@@ -1294,6 +1534,17 @@ window.__RUN = {
     tileW:DOOR_ANIM.tileW, tileH:DOOR_ANIM.tileH, version:DOOR_ANIM.version,
     state:JSON.parse(JSON.stringify(DOORST)) }; },
   music: function(){ return MUSIC_ON; },
+  /* the sentence, for gates/run_gate.js: what ONE button is offering right now,
+     what the world did the last time time was spent, and how walking feels. */
+  verb: function(){ return VERB ? { verb:VERB.verb, label:VERB.label } : null; },
+  moments: function(){ return MOMENTS.map(function(m){ return {name:m.name,spends:m.spends}; }); },
+  lastResolve: function(){ return LAST_RESOLVE; },
+  reach: function(){ return { tiles:REACH.tiles, facing:PFACE,
+    faced:REACH.facingTile(px,py,facingOf(PFACE)) }; },
+  walkMode: function(){ return WALKMODE; },
+  walkModes: function(){ return WALKMODES.slice(); },
+  setWalkMode: function(m){ walkModeSet(m); return WALKMODE; },
+  drawOffset: function(){ return drawOffset(); },
   /* save/load introspection for gates/run_gate.js — reports, never acts */
   saves: function(){ return saveSlots().map(function(b){
     return { label:b.label, env:b.env, beat:b.beat, step:b.step,
