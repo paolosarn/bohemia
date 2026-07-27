@@ -1203,7 +1203,45 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/27 LATEST — THE VALLEY IS REAL. The run's block used to be a
+RUN (01) 7/27 LATEST — THE BLOCK IS BUILDINGS NOW. Paolo: "it still looks like
+dog shit u tried to make garages like sideways u's and its very bad man also
+every wall that hosts a door should be at the least three wall tiles tall and we
+gotta fix what it looks like when im underneath a wall with an opcacity filter or
+something man its still bad". THREE DEFECTS, ONE ROOT CAUSE: the run was painting
+a three-quarter view's SOUTH-FACING art onto every side of a mass, and handing
+every leftover cell to the roof. I looked at the render before touching anything
+and it said something worse than the three complaints - a house was one unbroken
+slab of terracotta twelve rows deep with a doorway floating in the middle of it.
+THE MEASUREMENT THAT SETTLED IT: I opened the frozen target frame and measured
+it. Every building in it is FOUR courses of wall under a THREE course roof cap,
+and the next building's wall starts right behind it. The whole frame is that
+rhythm repeating. So the run reads a mass in BANDS off its own south edge -
+4 wall, 3 roof, 4 wall, 3 roof - and the LAST band of a column is SHRUNK to fit
+rather than allowed to run on (a leftover handed to the roof is the six-course
+orange field; a leftover handed to the wall is a course of stucco standing on
+nothing). THE DOOR: the front is the SOUTH FACE, always, because it is the only
+wall this projection draws - doors were landing on north and west edges because
+this valley's driveways come in from the west. THE GARAGE: the sideways U was a
+seven-tile VERTICAL stripe of a tile whose art is the bottom half of a bay seen
+head-on. A bay is now south-facing, at most 3 wide, 2 tall, at the end of its run
+the driveway actually comes from; the rest of the garage front is wall. ALSO
+FIXED WITHOUT BEING ASKED: a hip tile is "the slope cuts in and above the cut
+there is nothing", so laying it on bare canvas punched a BLACK NOTCH into the top
+corner of every roof in the game - the ground goes down under every building tile
+now and the cut shows the yard through it. THE SEE-THROUGH: my first cut faded
+whatever sat north of the player, which GHOSTED him every time he stood in his
+own front yard with the house behind him - he is IN FRONT of that wall and
+belongs opaque. Now exactly two things fade, at the 35% the city lane's
+THREE-TILE WALL addendum fixed for the whole game: an OVERHEAD-layer tile (the
+dossier law's own pass-under layer) and your own doorway's leaf when you stand in
+it. GATE: run_gate.js is 120 (was 109). window.__RUN.look() reports what the
+renderer would actually lay on every cell of the real block and
+window.__RUN.occluders() what is drawn see-through over the player; the ghosting
+is gated in BOTH directions, same reason the city lane does it. NO PIXEL COOKED -
+every tile is the frozen 42-tile starter set. Record:
+records/BOHEMIA_RUN_BUILDING_STACK_7_27_26.md
+
+RUN (01) 7/27 — THE VALLEY IS REAL. The run's block used to be a
 standalone BohemiaSuburb.generate() with nothing on any side of it: walk to the
 edge and you hit nothing, forever. It now READS THE VALLEY the rest of the game
 runs on, one 128-tile cell at a time, off the world model's own tile rung

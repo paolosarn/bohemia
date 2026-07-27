@@ -241,6 +241,29 @@ async function playRun(browser, fork) {
   rep.feedHTML = await page.textContent('#feed');
   rep.shot = path.join(PROOF_DIR, 'BOHEMIA_RUN_PROOF_' + fork + '_7_26_26.png');
   await page.screenshot({ path: rep.shot });
+
+  /* ------------------------------------------------------------------------
+     THE BUILDING STACK (Paolo 7/27, three defects in one sentence: "u tried to
+     make garages like sideways u's and its very bad man also every wall that
+     hosts a door should be at the least three wall tiles tall and we gotta fix
+     what it looks like when im underneath a wall with an opcacity filter").
+     Each of the three is a rule now, so each of the three gets a machine check
+     against what the renderer would ACTUALLY lay on the real block.
+     ---------------------------------------------------------------------- */
+  rep.look = await page.evaluate(() => window.__RUN.look());
+  /* the ghosting regression: standing in the yard with the house wall directly
+     north of you must leave you OPAQUE - you are in front of that wall */
+  rep.occInYard = await page.evaluate(() => {
+    const d = window.homeDoor[window.__RUN.state().home];
+    window.mode = 'ext'; window.curHouse = -1; window.fp = null;
+    window.px = d[0]; window.py = d[1] + 1; window.draw();
+    return window.__RUN.occluders();
+  });
+  rep.occInDoorway = await page.evaluate(() => {
+    const d = window.homeDoor[window.__RUN.state().home];
+    window.px = d[0]; window.py = d[1]; window.draw();
+    return window.__RUN.occluders();
+  });
   await page.close();
   return rep;
 }
@@ -578,6 +601,34 @@ async function alphaRun() {
     ok(T + 'the phone shows the followers it earned', /followers/.test(rep.feedHTML || ''));
     ok(T + 'a proof screenshot of the real surface was written', fs.existsSync(rep.shot));
   }
+
+  /* ---- B1. THE BUILDING STACK, Paolo's three defects of 7/27 -------------- */
+  const L = loud.look;
+  ok('LOOK: the run reports what it would actually lay on the real block', !!L && L.doors > 0);
+  // 1. THE DOOR WALL (Paolo: "at the least three wall tiles tall")
+  ok('DOOR WALL: the street face is four courses of real wall, not a stripe',
+    !!L && L.faceH >= 4);
+  ok('DOOR WALL: EVERY door in the block stands in at least three wall courses',
+    !!L && L.minDoorWallCourses >= 3);
+  ok('DOOR WALL: every door is on the SOUTH face - the only wall this view draws',
+    !!L && L.doors > 0 && L.doorsOnSouthFace === L.doors);
+  // 2. THE GARAGE (Paolo: "sideways u's")
+  ok('GARAGE: a bay is a bay - never wider than three tiles',
+    !!L && L.widestBay <= 3);
+  ok('GARAGE: a bay is never a vertical stripe (the sideways U was 7 tall)',
+    !!L && L.tallestBayColumn <= 2);
+  ok('GARAGE: the block really has garage bays in it, not just roof',
+    !!L && L.bays >= 1);
+  // 3. THE ROOF AND THE CAP (the orange slab, and the wall course capping it)
+  ok('ROOF: no roof is ever a field - three courses of cap, never twelve',
+    !!L && L.worstRoofRun <= L.roofD + 1);
+  ok('ROOF: no mass is capped by a course of wall standing on nothing',
+    !!L && L.strayWallCaps === 0);
+  // 4. UNDERNEATH (Paolo: "with an opacity filter or something")
+  ok('UNDER: standing in the yard with the wall north of you leaves you OPAQUE',
+    !!loud.occInYard && loud.occInYard.wallToTheNorth === true && loud.occInYard.faded === false);
+  ok('UNDER: standing IN the doorway really draws the leaf see-through over you',
+    !!loud.occInDoorway && loud.occInDoorway.inDoorway === true && loud.occInDoorway.faded === true);
 
   // fork-specific: the whole point of each path
   ok('LOUD: the combat handoff really fired over the bridge', loud.encounters.length === 1);

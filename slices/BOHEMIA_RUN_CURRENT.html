@@ -14405,16 +14405,26 @@ function loadCell(cx,cy){
   }
   feet = BohemiaSuburb.homeFootprints({ g:G, W:T, H:T });
   if(typeof deriveDoors==='function') deriveDoors();
-  _fpc = {};                      /* interiors are per-cell, never carried over */
+  _fpc = {}; _garage = null; _depth = null; _top = null;  /* all per-cell */
   return CELL;
 }
 loadCell(HOME_CELL[0], HOME_CELL[1]);
 var HOME_CELLNAME = CELLNAME;
 function isSuburbCell(){ return CELLNAME==='suburb'; }
 
-/* every house gets a front DOOR: a house-body cell touching its driveway
-   (fallback road, then dead ground). Same rule the approved walk surface uses,
-   re-derived every time a new cell of the valley loads. */
+/* ===========================================================================
+   THE FRONT IS THE SOUTH FACE. ALWAYS.
+   (Paolo 7/27: "every wall that hosts a door should be at the least three wall
+   tiles tall".) The first cut put a door on the first house cell touching a
+   driveway in scan order, and in this valley the driveways come in from the
+   WEST, so the doors landed on NORTH and WEST edges. There is no north wall and
+   no west wall in a three-quarter top-down view — you see the SOUTH wall of a
+   mass and roof over everything else — so those doors were holes punched in a
+   roof, which is exactly what the block looked like.
+   A door can only live where a wall can be drawn: the south face. So the front
+   door is the southmost HOUSE cell of a column whose ground below is open,
+   preferring a column that fronts the driveway, then the road, then the yard.
+   =========================================================================== */
 var doorOf = {}, homeDoor = [];
 function pref(x, y, want){ var nb=[[0,1],[0,-1],[1,0],[-1,0]];
   for(var k=0;k<4;k++){ var ax=x+nb[k][0], ay=y+nb[k][1];
@@ -14422,10 +14432,27 @@ function pref(x, y, want){ var nb=[[0,1],[0,-1],[1,0],[-1,0]];
 function deriveDoors(){
   doorOf = {}; homeDoor = [];
   feet.forEach(function(f,i){
-    var pick=null;
-    for(var pass=0;pass<3&&!pick;pass++){ var want=[3,1,0][pass];
-      for(var y=f.y;y<f.y+f.h&&!pick;y++) for(var x=f.x;x<f.x+f.w;x++){
-        if(G[y][x]===2&&pref(x,y,want)){ pick=[x,y]; break; } } }
+    var pick=null, best=-1;
+    for(var x=f.x; x<f.x+f.w && x<W; x++){
+      /* walk this column up from the bottom of the footprint to its lowest
+         house cell that has open ground under it */
+      for(var y=Math.min(H-1,f.y+f.h-1); y>=f.y; y--){
+        if(G[y][x]!==2) continue;
+        if(isBody(x,y+1)) break;                       /* not the south face */
+        var below = (y+1<H) ? G[y+1][x] : -1;
+        var s = below===3 ? 4 : below===1 ? 3 : below===0 ? 2 : below===5 ? 2 : 0;
+        /* a two-tall leaf needs a wall course above it to stand in */
+        if(!isBody(x,y-1)) s = 0;
+        if(s>best){ best=s; pick=[x,y]; }
+        break;
+      }
+    }
+    /* only if the mass genuinely has no drawable face (a one-row shed) do we
+       fall back to the old any-edge rule, so a house is never unenterable */
+    if(!pick || best<=0){ pick=null;
+      for(var pass=0;pass<3&&!pick;pass++){ var want=[3,1,0][pass];
+        for(var y2=f.y;y2<f.y+f.h&&!pick;y2++) for(var x2=f.x;x2<f.x+f.w;x2++){
+          if(G[y2] && G[y2][x2]===2 && pref(x2,y2,want)){ pick=[x2,y2]; break; } } } }
     if(pick){ doorOf[pick[0]+','+pick[1]]=i; homeDoor[i]=pick; }
   });
 }
@@ -14675,36 +14702,151 @@ function genericTile(gx,gy){
    where the mass turns and a ridge along its back. A garage opens onto its OWN
    driveway, whichever side that is, so the roll door lands where a car would
    actually go in instead of striping the whole mass. */
-function driveSide(gx,gy){
-  if(isCode(gx,gy+1,3)) return [0,1]; if(isCode(gx,gy-1,3)) return [0,-1];
-  if(isCode(gx+1,gy,3)) return [1,0];  if(isCode(gx-1,gy,3)) return [-1,0];
-  return null;
-}
-function isCode(a,b,c){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===c; }
-function bodyTile(c,gx,gy){
-  if(c===6){                                   /* the garage mass */
-    if(driveSide(gx,gy)) return 'garage_bottom';               /* the opening itself */
-    var ds=driveSide(gx,gy+1)||driveSide(gx,gy-1)||driveSide(gx+1,gy)||driveSide(gx-1,gy);
-    if(ds) return 'garage_top';                                /* the header above it */
+/* ===========================================================================
+   THE GARAGE MOUTH IS A SOUTH-FACING BAY OR IT IS NOT DRAWN AT ALL.
+   (Paolo 7/27: "u tried to make garages like sideways u's and its very bad".)
+   Two mistakes stacked. The first cut asked each garage cell "is a driveway
+   touching you" and roll-doored every cell that said yes, so a driveway
+   wrapping two sides drew a door wrapping two sides. The second cut picked the
+   winning side by counting — and in this valley the winning side is WEST, so it
+   drew a seven-tile vertical stripe of a tile that is drawn as the BOTTOM HALF
+   OF A SOUTH-FACING BAY. That stripe is the sideways U.
+   The real rule is the projection's: garage_top / garage_bottom (and their _l
+   and _r jambs) are art of a bay seen head on from the south. They can ONLY be
+   laid on a south-facing edge, as a 2-tall pair. A garage whose south side is
+   built over has no visible mouth, so it is roof — which is honestly what you
+   would see looking down at it.
+   =========================================================================== */
+var _garage = null;                       /* cellKey -> {tile:id} */
+function garageMap(){
+  if(_garage) return _garage;
+  _garage = {};
+  var seen = {};
+  for(var y=0;y<H;y++) for(var x=0;x<W;x++){
+    if(G[y][x]!==6 || seen[x+','+y]) continue;
+    /* one garage mass */
+    var cells=[], st=[[x,y]]; seen[x+','+y]=1;
+    while(st.length){ var p2=st.pop(); cells.push(p2);
+      var d4=[[1,0],[-1,0],[0,1],[0,-1]];
+      for(var i=0;i<4;i++){ var nx=p2[0]+d4[i][0], ny=p2[1]+d4[i][1], k=nx+','+ny;
+        if(!seen[k] && nx>=0 && ny>=0 && nx<W && ny<H && G[ny][nx]===6){ seen[k]=1; st.push([nx,ny]); } } }
+    /* the cells of this mass with open ground to the SOUTH and a course of
+       garage above them: the only place a head-on bay can be drawn */
+    var mouth = cells.filter(function(p){ return !isBody(p[0],p[1]+1) && G[p[1]-1] && G[p[1]-1][p[0]]===6; });
+    if(!mouth.length) continue;
+    var inMouth = {}; mouth.forEach(function(p){ inMouth[p[0]+','+p[1]]=1; });
+    /* A BAY IS A BAY, NOT THE WHOLE FRONT. The target frame's garage is three
+       tiles wide set in a wall. Opening every south cell of a seven-wide mass
+       drew a seven-tile black slot, which is the same mistake as the sideways
+       U wearing a different hat. So each unbroken run of the south edge gets
+       ONE bay, at most BAY_W wide, at the end the driveway comes in from. */
+    var BAY_W = 3;
+    var runs = {};
+    mouth.forEach(function(p){ (runs[p[1]] = runs[p[1]] || []).push(p[0]); });
+    Object.keys(runs).forEach(function(ry){
+      var xs = runs[ry].sort(function(a,b){ return a-b; });
+      var seg=[], segs=[];
+      xs.forEach(function(v,ix){ if(ix && v!==xs[ix-1]+1){ segs.push(seg); seg=[]; } seg.push(v); });
+      if(seg.length) segs.push(seg);
+      segs.forEach(function(s){
+        /* which end does a car actually come from? count the driveway, do not guess */
+        var wD=0, eD=0;
+        for(var yy=+ry-4; yy<=+ry; yy++){
+          if(G[yy] && G[yy][s[0]-1]===3) wD++;
+          if(G[yy] && G[yy][s[s.length-1]+1]===3) eD++; }
+        var w = Math.min(BAY_W, s.length);
+        var x0 = (eD>wD) ? s[s.length-1]-w+1 : (wD>eD) ? s[0] : s[0]+((s.length-w)>>1);
+        for(var i2=0;i2<w;i2++){
+          var bx=x0+i2, sfx = (i2===0 && w>1) ? '_l' : (i2===w-1 && w>1) ? '_r' : '';
+          _garage[bx+','+ry] = { tile:'garage_bottom'+sfx, bottom:true };
+          var hk = bx+','+(+ry-1);
+          if(!_garage[hk]) _garage[hk] = { tile:'garage_top'+sfx };
+        }
+      });
+    });
   }
-  if(isFace(gx,gy)){
-    var h=th(gx,gy,9);
+  return _garage;
+}
+/* ===========================================================================
+   A BUILDING IS WALL-AND-CAP, AND IT REPEATS. THE ROOF IS NEVER A FIELD.
+   (Paolo 7/27: "it still looks like dog shit", "every wall that hosts a door
+   should be at the least three wall tiles tall".)
+   Measured off the frozen target frame itself, which is the only thing that
+   gets to say what a building looks like: EVERY building in it is FOUR rows of
+   wall under a THREE row roof cap - a light sun-caught ridge course, a slope,
+   and a dark fascia eave - and the next building's wall starts right behind it.
+   The first cut made the face one band four deep and then handed the entire
+   rest of the footprint to roof_slope, so a twelve-deep house came out as an
+   unbroken orange slab twelve rows tall. Nothing in the target is ever more
+   than three rows of roof.
+   So the mass is read in BANDS off its own south edge, forever: four rows of
+   wall, three of roof, four of wall, three of roof. A deep house reads as a
+   front wing with a second wing standing behind it, which is exactly what the
+   target frame reads as, and a shallow one reads as one house. The door lives
+   at depth 0-1, so the wall hosting it is always the full four courses.
+   =========================================================================== */
+var FACE_H = 4, ROOF_D = 3, BAND = FACE_H + ROOF_D;
+/* how many rows this cell stands above the south edge of its own column's mass */
+var _depth = null;
+function stackDepth(gx,gy){
+  if(!isBody(gx,gy)) return -1;
+  if(!_depth) _depth = {};
+  var k=gx+','+gy; if(_depth[k]!=null) return _depth[k];
+  var d = isBody(gx,gy+1) ? stackDepth(gx,gy+1)+1 : 0;
+  _depth[k]=d; return d;
+}
+/* the deepest row of this column's mass, so a band that cannot fit whole is
+   never started - the first cut capped every house with a stray course of
+   wall_base standing on the roof with nothing above it */
+var _top = null;
+function colTop(gx,gy){
+  if(!isBody(gx,gy)) return -1;
+  if(!_top) _top = {};
+  var k=gx+','+gy; if(_top[k]!=null) return _top[k];
+  var t = isBody(gx,gy-1) ? colTop(gx,gy-1) : stackDepth(gx,gy);
+  _top[k]=t; return t;
+}
+/* WHERE THIS CELL SITS IN ITS COLUMN'S STACK. Bands run from the south edge:
+   four courses of wall, three of roof, four of wall, three of roof. The LAST
+   band of a column is whatever is left over, and it is SHRUNK to fit rather
+   than being allowed to run on - a leftover handed to the roof is how a house
+   grew a six-course orange field, and a leftover handed to the wall is how a
+   mass ended in a course of stucco standing on nothing. Shrunk, it always ends
+   on a roof, and no roof is ever deeper than the cap. */
+function stackAt(gx,gy){
+  var d = stackDepth(gx,gy); if(d<0) return null;
+  var D = colTop(gx,gy);
+  var s = Math.floor(d/BAND)*BAND, sLast = Math.floor(D/BAND)*BAND;
+  var rows = (s===sLast) ? (D-s+1) : BAND;
+  var wallRows = (rows >= FACE_H+1) ? FACE_H : Math.max(0, rows-1);
+  var b = d - s;
+  return (b < wallRows) ? { kind:'wall', off:b, top:wallRows-1 }
+                        : { kind:'roof', off:b-wallRows, top:rows-wallRows-1 };
+}
+/* kept for anything that still asks "is this the street-facing band" */
+function faceDepth(gx,gy){ var a=stackAt(gx,gy); return (a&&a.kind==='wall') ? a.off : -1; }
+function bodyTile(c,gx,gy){
+  var gk = garageMap()[gx+','+gy];
+  if(gk) return gk.tile;
+  var a = stackAt(gx,gy); if(!a) return 'wall_0';
+  var l = !isBody(gx-1,gy), e = !isBody(gx+1,gy);
+  if(a.kind==='wall'){
+    if(a.off===0) return 'wall_base';                 /* thirty years of dust */
+    if(a.off===a.top) return 'wall_under_eave';       /* in the eave's shadow */
+    if(l) return 'wall_end_l';                        /* the sunlit corner */
+    if(e) return 'wall_end_r';                        /* the shaded corner */
+    var h=th(gx,gy,5);
     if(h===0) return 'wall_window';
     if(h===1) return 'wall_boarded';
-    if(!isBody(gx-1,gy)) return 'wall_end_l';
-    if(!isBody(gx+1,gy)) return 'wall_end_r';
     return ['wall_0','wall_1','wall_2'][th(gx,gy,3)];
   }
-  if(isFace(gx,gy+1)) return 'wall_under_eave';   /* the band the roof sits on */
-  if(isBody(gx,gy+1) && isFace(gx,gy+2)) return 'roof_eave';
-  var n=!isBody(gx,gy-1), w2=!isBody(gx-1,gy), e=!isBody(gx+1,gy);
-  if(n&&w2) return 'roof_hipTL';
-  if(n&&e) return 'roof_hipTR';
-  if(w2) return 'roof_hipBL';
-  if(e) return 'roof_hipBR';
-  if(n) return 'roof_ridge';
-  return 'roof_slope';
+  /* the cap: fascia at the bottom, slope, sun-caught ridge at the top, hipped
+     wherever the mass turns a corner */
+  if(a.off===a.top) return l ? 'roof_hipTL' : e ? 'roof_hipTR' : 'roof_ridge';
+  if(a.off===0)     return l ? 'roof_hipBL' : e ? 'roof_hipBR' : 'roof_eave';
+  return l ? 'roof_hipBL' : e ? 'roof_hipBR' : 'roof_slope';
 }
+
 /* ===========================================================================
    INSIDE. The rooms were flat role-tinted plates while CITY's UP-ONLY interior
    pool sat in banks/ unwired, which is the same failure the door bank taught us.
@@ -14936,6 +15078,21 @@ function draw(){
   var halfW = Math.floor(cv.width/CELL/2), halfH = Math.floor(cv.height/CELL/2);
   ctx.fillStyle='#12140f'; ctx.fillRect(0,0,cv.width,cv.height);
   var doorDraws=[];   /* 2-tall door faces, drawn after the ground so they stand up */
+  /* ===========================================================================
+     WHAT IS ACTUALLY OVER YOU. (Paolo 7/27: "we gotta fix what it looks like
+     when im underneath a wall with an opacity filter or something".)
+     Bodies draw after tiles, so nothing in this world is ever accidentally in
+     front of you - the first cut fixed that by re-drawing whatever sat one and
+     two rows north of you see-through over your head, which ghosted the
+     character every time he stood in his own front yard with the house behind
+     him. He is IN FRONT of that wall. He belongs opaque.
+     You are UNDER something in exactly two places, and they are both real:
+       - the tile you are standing on is on the OVERHEAD layer, the layer the
+         dossier law defines as the one you pass under (canopy, deck, carport)
+       - you have stepped INTO a doorway, and the two-tall leaf is around you
+     Those redraw over you see-through. Nothing else does.
+     =========================================================================== */
+  var fade=[], doorOver=null;
   for(var sy=-halfH; sy<=halfH; sy++) for(var sx=-halfW; sx<=halfW; sx++){
     var gx=px+sx, gy2=py+sy; if(gx<0||gy2<0||gx>=gw||gy2>=gh) continue;
     /* S IS CELL, NOT CELL-1. Drawing every tile one pixel short let the page
@@ -14954,10 +15111,17 @@ function draw(){
         /* THE CONSTITUTION'S TILES, ground first then the building stack.
            A cell is drawn at CELL size with the tile scaled to it (integer blit,
            smoothing already off) — the mobile render contract's own rule. */
+        /* GROUND UNDER EVERY BUILDING TILE. A hip tile is drawn as "the slope
+           cuts in, and above the cut there is nothing" - so laying it on bare
+           canvas punched a BLACK NOTCH into the top corner of every roof in the
+           game. The dirt the house stands on goes down first and the cut shows
+           the yard through it, which is what a hip is supposed to look like. */
+        var body = isSuburbCell() && isBody(gx,gy2);
+        if(body) tput(groundTile(0,gx,gy2),X,Y,S);
         var laid = isSuburbCell()
-          ? (isBody(gx,gy2) ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
+          ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
-        if(!tput(laid,X,Y,S)){
+        if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */
           ctx.fillStyle = isBody(gx,gy2) ? (EXTCOL[c]||'#8a5a3a') : gcol(gx,gy2);
           ctx.fillRect(X,Y,S,S);
@@ -14989,6 +15153,17 @@ function draw(){
       if(isX||ic.g==='door') doorDraws.push([gx,gy2,X,Y,CELL,isX]);
     }
   }
+  /* the two real cases, worked out once per frame */
+  (function(){
+    if(mode!=='ext') return;
+    for(var up=0; up<=1; up++){
+      var ox=px, oy=py-up; if(oy<0) continue;
+      var lay = LAYERG[oy] && LAYERG[oy][ox];
+      if(lay!=='overhead') continue;                 /* the pass-under layer */
+      fade.push([ox,oy,halfW*CELL,(halfH-up)*CELL,CELL,up]);
+    }
+    if(doorOf[px+','+py]!=null) doorOver=[px,py,halfW*CELL,halfH*CELL,CELL];
+  })();
   /* THE DOORS, standing two tiles tall over everything the ground pass drew */
   doorDraws.forEach(function(d){
     if(!drawDoorFace(d[0],d[1],d[2],d[3],d[4])){
@@ -15023,6 +15198,22 @@ function draw(){
   bodies.forEach(function(b){
     drawBody((b.sx+halfW)*CELL,(b.sy+halfH)*CELL,CELL,b.set,b.frame,b.ring,b.fb);
   });
+  /* THE FADE. The thing you are under, drawn again over you, see-through, so
+     you read as being under it instead of stamped on top of it. */
+  if(fade.length || doorOver){
+    /* 35%, the number the THREE-TILE WALL addendum fixed for the whole game */
+    ctx.save(); ctx.globalAlpha=0.35;
+    fade.forEach(function(f){
+      var gx=f[0], gy2=f[1], X=f[2], Y=f[3], S=f[4];
+      var laid = isSuburbCell()
+        ? (isBody(gx,gy2) ? bodyTile(G[gy2][gx],gx,gy2) : groundTile(G[gy2][gx],gx,gy2))
+        : genericTile(gx,gy2);
+      tput(laid,X,Y,S);
+    });
+    /* standing in your own doorway: the leaf and its head close around you */
+    if(doorOver) drawDoorFace(doorOver[0],doorOver[1],doorOver[2],doorOver[3],doorOver[4]);
+    ctx.restore();
+  }
   /* no cast yet (this page opened outside the alpha): say so, never pretend */
   if(!CAST){ ctx.fillStyle='rgba(236,226,207,0.5)'; ctx.font='10px ui-monospace,monospace';
     ctx.fillText('no cast: open THE RUN from the alpha for real bodies', 8, cv.height-8); }
@@ -15713,6 +15904,55 @@ window.__RUN = {
       lookDirs:CAST.looks.length?Object.keys(CAST.looks[0]).length:0,
       portrait:!!CAST.portraits.you, npcPortraits:CAST.portraits.looks.filter(Boolean).length,
       spriteW:any&&any.idle?any.idle.width:0, spriteH:any&&any.idle?any.idle.height:0 }; },
+  /* THE BUILDING STACK, as facts a gate can check (Paolo 7/27's three). Reports
+     what the renderer would actually lay on every cell of the loaded block. */
+  look: function(){
+    if(!isSuburbCell()) return null;
+    var isRoof=function(id){ return id.indexOf('roof_')===0; },
+        isWall=function(id){ return id.indexOf('wall_')===0; },
+        isBay =function(id){ return id.indexOf('garage_bottom')===0; },
+        isGar =function(id){ return id.indexOf('garage_')===0; };
+    var o={ faceH:FACE_H, roofD:ROOF_D, band:BAND, doors:0, doorsOnSouthFace:0,
+            minDoorWallCourses:99, bays:0, widestBay:0, tallestBayColumn:0,
+            worstRoofRun:0, strayWallCaps:0, blackHipRisk:0 };
+    var id=function(x,y){ return isBody(x,y) ? bodyTile(G[y][x],x,y) : null; };
+    /* the doors */
+    Object.keys(doorOf).forEach(function(k){
+      var p=k.split(',').map(Number); o.doors++;
+      if(!isBody(p[0],p[1]+1)) o.doorsOnSouthFace++;
+      /* how many courses of real wall this door's column carries, the door's
+         own two rows included: Paolo's "at the least three wall tiles tall" */
+      var n=0, y=p[1];
+      while(isBody(p[0],y) && (doorOf[p[0]+','+y]!=null || isWall(id(p[0],y)||''))){ n++; y--; }
+      if(n<o.minDoorWallCourses) o.minDoorWallCourses=n;
+    });
+    if(o.doors===0) o.minDoorWallCourses=0;
+    /* the garage bays: horizontal runs only, never a vertical stripe */
+    var run=0;
+    for(var y2=0;y2<H;y2++){ run=0;
+      for(var x2=0;x2<W;x2++){
+        var t=id(x2,y2);
+        if(t&&isBay(t)) run++;
+        else { if(run){ o.bays++; if(run>o.widestBay) o.widestBay=run; } run=0; } }
+      if(run){ o.bays++; if(run>o.widestBay) o.widestBay=run; } }
+    for(var x3=0;x3<W;x3++){ var col=0;
+      for(var y3=0;y3<H;y3++){ var t3=id(x3,y3);
+        if(t3&&isGar(t3)){ col++; if(col>o.tallestBayColumn) o.tallestBayColumn=col; } else col=0; } }
+    /* the roof may never become a field, and a wall course may never cap a mass */
+    for(var x4=0;x4<W;x4++){ var r=0;
+      for(var y4=0;y4<H;y4++){ var t4=id(x4,y4);
+        if(t4&&isRoof(t4)){ r++; if(r>o.worstRoofRun) o.worstRoofRun=r; } else r=0;
+        if(t4&&isWall(t4)&&!isBody(x4,y4-1)) o.strayWallCaps++; } }
+    return o;
+  },
+  /* what is drawn see-through OVER you where you stand right now */
+  occluders: function(){
+    var out={ overhead:0, inDoorway:(mode==='ext'&&doorOf[px+','+py]!=null),
+              wallToTheNorth:(mode==='ext'&&isBody(px,py-1)) };
+    if(mode==='ext') for(var up=0;up<=1;up++){ var oy=py-up;
+      if(oy>=0 && LAYERG[oy] && LAYERG[oy][px]==='overhead') out.overhead++; }
+    out.faded = out.overhead>0 || out.inDoorway;
+    return out; },
   feed: function(){ return BohemiaLoop.buildFeed(CTX,{}); },
   profile: function(){ return BohemiaLoop.socialProfile(CTX); }
 };
