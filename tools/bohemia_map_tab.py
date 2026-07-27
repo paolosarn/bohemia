@@ -48,6 +48,7 @@ MODULES = [
     'engine/bohemia_cityhall.js', 'engine/bohemia_battery.js', 'engine/bohemia_terminal.js', 'engine/bohemia_arterial.js', 'engine/bohemia_freeway.js', 'engine/bohemia_terrain_noise.js', 'engine/bohemia_airfield.js',
     'engine/bohemia_rail.js', 'engine/bohemia_interchange.js',
     'engine/bohemia_campus.js', 'engine/bohemia_speedway.js',
+    'engine/bohemia_town.js', 'engine/bohemia_ballpark.js',
     'engine/bohemia_desert.js', 'engine/bohemia_mountain.js', 'engine/bohemia_water.js',
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',

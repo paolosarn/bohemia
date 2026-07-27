@@ -6,9 +6,10 @@ gates/interiors_gate.js requires it to cover EXACTLY the districts DISTGEN does,
 the same zone for each. That is a good gate: a district the builder can place but has
 no room grammar for is a building you can walk into and find nothing in.
 
-So when the WORLD lane promoted `campus` and `speedway` from flat landmark cells to
-real auto-factory districts, that table went stale the same instant, and the gate said
-so. This adds exactly those two keys and touches nothing else.
+So when the WORLD lane promotes a flat landmark cell to a real auto-factory district,
+that table goes stale the same instant, and the gate says so. This adds exactly the
+keys the world model added and touches nothing else. It is idempotent: run it after
+every landmark promotion.
 
 WHY A PATCH TOOL AND NOT AN EDIT: CITY_B64 inside slices/BOHEMIA_ALPHA_0_9.html is a
 base64-embedded payload with no source file in the repo, so every change to it goes
@@ -30,8 +31,9 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 
-# the two the world model added, with the zone DISTGEN itself gives them
-ADD = [('campus', 'institutional'), ('speedway', 'leisure')]
+# the landmark districts the world model has promoted, with the zone DISTGEN gives each
+ADD = [('campus', 'institutional'), ('speedway', 'leisure'),
+       ('town', 'residential'), ('ballpark', 'leisure')]
 
 html = open(ALPHA, encoding='utf8').read()
 m = re.search(r"const CITY_B64='([^']+)'", html)

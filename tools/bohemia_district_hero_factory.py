@@ -1047,6 +1047,159 @@ def build_speedway(P):
     return s, 6.0
 
 
+# ---------------------------------------------------------------- BALLPARK
+def build_ballpark(P):
+    """engine/bohemia_ballpark.js: the DIAMOND is the signature and it is a shape
+    nothing else in the valley makes — a ninety-degree wedge opening away from one
+    corner, where the stadium district is a closed ring around a rectangle.
+
+    THE VIEW IS FROM BEHIND HOME PLATE, which is not a stylistic choice: put the plate
+    at the front and the grandstand stands between the viewer and the entire park. Home
+    goes at the BACK corner, the field opens toward the viewer, and because the foul
+    lines run out along the two ground axes the infield square renders as a true
+    DIAMOND in the 45-degree view for free — the real geometry, not a drawn shape."""
+    TURF, DIRT, CHALK, STAND = P[4], P[6], P[7], P[2]
+    CONC, WALL, TOWER, DUG, PEN, MOUND, LOT = P[9], P[11], P[12], P[8], P[13], P[14], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(92, 88, 78), lotc=(56, 54, 50))
+    hx, hy, FOUL = 1.6, 1.6, 11.2
+    # THE FIELD: a quarter disc between the two foul lines, laid as flat boxes (a prism
+    # would fan — the speedway infield taught that one)
+    step, iy = 0.42, 0.0
+    while iy <= FOUL:
+        ix = 0.0
+        while ix <= FOUL:
+            d = math.hypot(ix, iy)
+            if d <= FOUL:
+                c = DIRT if d > FOUL - 0.9 else TURF                     # warning track inside the wall
+                s.box((hx + ix, hy + iy, 0.0), (step * 1.06, step * 1.06, 0.06), {'c': c})
+            ix += step
+        iy += step
+    # THE SKINNED DIAMOND — an axis-aligned square here, a diamond on screen
+    BASE = 4.8
+    s.box((hx - 0.5, hy - 0.5, 0.05), (BASE + 1.4, BASE + 1.4, 0.05), {'c': DIRT})
+    s.box((hx + 0.7, hy + 0.7, 0.09), (BASE - 0.6, BASE - 0.6, 0.04), {'c': _dark(TURF, 1.05)['c']})
+    s.prism(hx + BASE / 2, hy + BASE / 2, 0.09, 0.7, 0.20, 14, {'c': MOUND})            # the mound
+    for (bxp, byp) in [(hx, hy), (hx + BASE, hy), (hx + BASE, hy + BASE), (hx, hy + BASE)]:
+        s.box((bxp - 0.22, byp - 0.22, 0.10), (0.44, 0.44, 0.05), {'c': CHALK})         # the bases
+    for t in range(0, 40):                                                             # the chalked foul lines
+        f = t / 39.0 * (FOUL - 0.6)
+        s.box((hx + f, hy - 0.18, 0.10), (0.3, 0.16, 0.04), {'c': CHALK})
+        s.box((hx - 0.18, hy + f, 0.10), (0.16, 0.3, 0.04), {'c': CHALK})
+    # THE OUTFIELD WALL, on the same arc as the field
+    for i in range(46):
+        th = i * (math.pi / 2) / 45.0
+        s.box((hx + math.cos(th) * FOUL - 0.16, hy + math.sin(th) * FOUL - 0.16, 0),
+              (0.46, 0.46, 0.62), {'top': _dark(WALL, 1.3), 'px': _dark(WALL, 0.95),
+               'py': _dark(WALL, 0.95), 'nx': _dark(WALL, 0.8), 'ny': _dark(WALL, 0.8)})
+    # THE BOWL: three raked tiers wrapping from foul pole round behind the plate, and the
+    # concourse behind them. It stops at the lines — nobody seats the outfield.
+    # a 200-degree wrap, not 270: a full three-quarter ring reads as the STADIUM district,
+    # and the walkable ballpark's stands stop partway down each line for the same reason
+    A0, A1 = math.radians(125), math.radians(325)          # stops 35 deg short of each line
+    for tier, (r, hgt) in enumerate(((2.2, 0.75), (2.85, 1.2), (3.5, 1.65))):
+        for i in range(56):
+            th = A0 + i * (A1 - A0) / 55.0
+            s.box((hx + math.cos(th) * r - 0.28, hy + math.sin(th) * r - 0.28, 0),
+                  (0.62, 0.62, hgt), {'top': _dark(STAND, 1.18), 'px': _win(STAND, 1, 1, 3 + tier, 0.0),
+                   'py': _dark(STAND, 0.86), 'nx': _dark(STAND, 0.8), 'ny': _dark(STAND, 0.8)})
+    for i in range(56):
+        th = A0 + i * (A1 - A0) / 55.0
+        s.box((hx + math.cos(th) * 4.15 - 0.28, hy + math.sin(th) * 4.15 - 0.28, 0), (0.62, 0.62, 0.10),
+              {'c': CONC})
+    # DUGOUTS on both lines, BULLPENS past them — all in foul territory, where they live
+    s.box((hx + 2.6, hy - 1.5, 0), (2.6, 0.8, 0.55), {'top': _dark(DUG, 1.1), 'px': _dark(DUG, 0.9),
+          'py': _dark(DUG, 0.8), 'nx': _dark(DUG), 'ny': _dark(DUG)})
+    s.box((hx - 1.5, hy + 2.6, 0), (0.8, 2.6, 0.55), {'top': _dark(DUG, 1.1), 'px': _dark(DUG, 0.9),
+          'py': _dark(DUG, 0.8), 'nx': _dark(DUG), 'ny': _dark(DUG)})
+    s.box((hx + 7.2, hy - 1.8, 0), (2.4, 1.0, 0.75), {'top': _dark(PEN, 1.1), 'px': _dark(PEN, 0.9),
+          'py': _dark(PEN, 0.8), 'nx': _dark(PEN), 'ny': _dark(PEN)})
+    s.box((hx - 1.8, hy + 7.2, 0), (1.0, 2.4, 0.75), {'top': _dark(PEN, 1.1), 'px': _dark(PEN, 0.9),
+          'py': _dark(PEN, 0.8), 'nx': _dark(PEN), 'ny': _dark(PEN)})
+    # SIX LIGHT TOWERS ringing the field — the tallest things on a ballpark site
+    for (lx, ly) in [(hx - 1.9, hy + 11.4), (hx + 11.4, hy - 1.9), (hx + 9.2, hy + 9.2),
+                     (hx + 12.2, hy + 4.6), (hx + 4.6, hy + 12.2), (hx - 3.6, hy - 3.6)]:
+        s.box((lx - 0.16, ly - 0.16, 0), (0.32, 0.32, 4.4), {'c': TOWER})
+        s.box((lx - 0.6, ly - 0.6, 4.4), (1.2, 1.2, 0.42),
+              {'c': tuple(min(255, int(c * 1.14)) for c in TOWER)})
+    _vehicle(s, 13.4, 13.4, CAR, _dark(LOT, 1.4)['c'], along='x')                        # one car in the lot
+    return s, 5.2
+
+
+# ---------------------------------------------------------------- TOWN
+def build_town(P):
+    """engine/bohemia_town.js: the signature is the STREET WALL — attached false-front
+    storefronts shoulder to shoulder on both sides of one wide street, with the covered
+    boardwalk between them and the kerb, and the WATER TOWER standing over the lot as
+    the tallest thing and the reason the town is there at all.
+
+    The one CROSS STREET is in the icon on purpose. It is what the walkable district
+    was missing in its first pass, and without it a main street reads as a corridor
+    instead of a town: the block is the unit, and a block needs a corner."""
+    STREET, FRONT, FALSE, SALOON = P[1], P[2], P[7], P[8]
+    WALK, HOUSE, TOWER, POLE, MARK, CANOPY, SHED = P[6], P[9], P[11], P[12], P[10], P[16], P[15]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 96, 76), lotc=(52, 52, 58),
+            drive=(5.0, -3, 9.2, 15))
+    s.box((5.0, 5.4, 0.02), (10.0, 2.6, 0.05), {'c': _dark(STREET, 1.25)['c']})          # the cross street
+    for t in range(9):                                                                  # angle bays down both kerbs
+        yb = -2.0 + t * 1.7
+        if 5.0 < yb < 8.2:
+            continue
+        s.box((5.05, yb, 0.06), (1.1, 0.22, 0.04), {'c': MARK})
+        s.box((8.05, yb, 0.06), (1.1, 0.22, 0.04), {'c': MARK})
+    # THE STREET WALL, both sides, cut by the cross street, each unit a different height
+    for side, (bx, bw, wx) in enumerate(((1.2, 3.6, 4.85), (9.3, 3.6, 9.15))):
+        s.box((wx - (0.55 if side else 0.0), -3, 0.02), (0.6, 18, 0.09), {'c': WALK})    # the boardwalk
+        runs, yy, unit = [], -2.6, 0
+        while yy < 14.0:
+            hgt = 1.6 + ((unit * 7 + side * 3) % 5) * 0.34
+            dep = 1.5 + ((unit * 5 + side) % 3) * 0.5
+            if not (yy + dep > 5.0 and yy < 8.2):                                       # skip the junction
+                anchor = (side == 0 and unit == 2) or (side == 1 and unit == 5)
+                col = SALOON if anchor else FRONT
+                s.box((bx, yy, 0), (bw, dep - 0.12, hgt),
+                      {'top': _dark(col, 0.88), 'px': _win(col, 3, 2, unit + side * 4),
+                       'py': _win(col, 2, 2, unit + 7), 'nx': _dark(col), 'ny': _dark(col)})
+                # THE FALSE FRONT: a parapet on the STREET face, taller than the roof it hides
+                fx = bx + bw - 0.2 if side == 0 else bx
+                s.box((fx, yy, 0), (0.2, dep - 0.12, hgt + 0.55),
+                      {'top': _dark(FALSE, 1.1), 'px': _dark(FALSE, 1.0), 'py': _dark(FALSE, 0.85),
+                       'nx': _dark(FALSE, 1.0), 'ny': _dark(FALSE, 0.85)})
+                runs.append((yy, dep))
+            yy += dep
+            unit += 1
+        # the continuous shade canopy over the boardwalk, which is why anybody walked it
+        for (ry, rd) in runs:
+            s.box((wx - (0.65 if side else -0.05), ry + 0.1, 1.55), (0.75, rd - 0.3, 0.12),
+                  {'c': _dark(WALK, 0.78)['c']})
+    # HOUSES on dirt lots out back, and a shed
+    for (hx2, hy2, hw2, hd2) in [(-2.4, -1.4, 2.4, 2.0), (-2.4, 2.4, 2.0, 2.6),
+                                 (13.0, 0.4, 2.2, 2.4), (13.0, 9.4, 2.4, 2.0)]:
+        s.box((hx2, hy2, 0), (hw2, hd2, 1.5), {'top': _dark(HOUSE, 0.88), 'px': _win(HOUSE, 2, 1, 4),
+              'py': _win(HOUSE, 2, 1, 8), 'nx': _dark(HOUSE), 'ny': _dark(HOUSE)})
+        s.box((hx2 - 0.15, hy2 - 0.15, 1.5), (hw2 + 0.3, hd2 + 0.3, 0.28), {'c': _dark(HOUSE, 1.12)['c']})
+    s.box((-2.2, 6.2, 0), (1.4, 1.2, 1.0), {'c': SHED})
+    # THE GAS STATION at the town's mouth: pumps under a canopy you walk under
+    for (cpx, cpy) in [(10.4, 11.6), (13.4, 11.6), (10.4, 13.6), (13.4, 13.6)]:
+        s.box((cpx - 0.11, cpy - 0.11, 0), (0.22, 0.22, 1.9), {'c': POLE})
+    s.box((10.1, 11.3, 1.9), (3.6, 2.6, 0.32), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.85),
+          'py': _dark(CANOPY, 0.85), 'nx': _dark(CANOPY, 0.85), 'ny': _dark(CANOPY, 0.85)})
+    for px2 in (11.2, 12.6):
+        s.box((px2, 12.3, 0), (0.4, 0.6, 0.9), {'c': _dark(FRONT, 0.7)['c']})
+    # THE WATER TOWER — the tallest thing here, and the reason the town is here
+    for (lx2, ly2) in [(-1.6, 11.2), (0.6, 11.2), (-1.6, 13.4), (0.6, 13.4)]:
+        s.box((lx2 - 0.12, ly2 - 0.12, 0), (0.24, 0.24, 4.2), {'c': _dark(TOWER, 0.82)['c']})
+    s.prism(-0.5, 12.3, 4.2, 1.7, 1.9, 14, {'c': TOWER}, {'c': _dark(TOWER, 1.16)['c']})
+    s.prism(-0.5, 12.3, 6.1, 1.2, 0.7, 14, {'c': _dark(TOWER, 1.1)['c']})
+    for py3 in (0.0, 9.6):                                                              # dark pole lights
+        s.box((4.55, py3, 0), (0.18, 0.18, 2.6), {'c': POLE})
+        s.box((9.45, py3 + 2.4, 0), (0.18, 0.18, 2.6), {'c': POLE})
+    _vehicle(s, 6.2, 3.2, CAR, (86, 82, 76), along='y')                                 # left where it died
+    _vehicle(s, 7.8, 10.4, CAR, (74, 72, 70), along='y')
+    return s, 6.2
+
+
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal,
           'downtown': build_downtown, 'industrial': build_industrial, 'medical': build_medical,
           'mall': build_mall, 'park': build_park, 'warehouse': build_warehouse,
@@ -1057,7 +1210,8 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           # SURFACES (7/27, the icon law) — the ground the WORLD lane built
           'rail': build_rail, 'interchange': build_interchange,
           # THE LANDMARK SET (7/27), icons shipping with their ground per the icon law
-          'campus': build_campus, 'speedway': build_speedway}
+          'campus': build_campus, 'speedway': build_speedway,
+          'town': build_town, 'ballpark': build_ballpark}
 
 # HELD BACK, DELIBERATELY: 'airport': build_airport, 'airbase': build_airbase.
 # Both builders are finished and correct and they stay in this file, but they are
@@ -1110,6 +1264,8 @@ LABEL = {
     'airport': 'Airport — matched: the RUNWAY and its centreline + the amber TAXIWAY + the TERMINAL + a JET BRIDGE still docked to a dead AIRLINER on the stand + a floodlight mast + the perimeter fence.',
     'campus': 'Campus — matched to the walkable district: the QUAD with its diagonal walks and DRY FOUNTAIN, the academic halls turned to FACE it, the colonnaded LIBRARY as the biggest mass, a residence hall set apart, dead quad trees.',
     'speedway': 'Speedway — matched: the banked OVAL with its painted apron, the GRANDSTAND on the front stretch only, the GARAGE ROW and pit lane inside, the spectator TUNNEL mouth, a catch fence and one light tower.',
+    'town': 'Town — matched to the walkable district: the STREET WALL of attached FALSE-FRONT storefronts on both sides of one wide main street, the covered BOARDWALK between the shopfronts and the kerb, the SALOON and the HALL as the anchors, the one CROSS STREET that makes it a block instead of a corridor, angle bays, houses on dirt lots out back, the fuel CANOPY at the town\'s mouth, and the WATER TOWER standing over all of it.',
+    'ballpark': 'Ballpark — matched: the ninety-degree DIAMOND seen from behind home plate, the skinned infield with its MOUND and bases, the chalked FOUL LINES, dead outfield turf inside a WARNING TRACK and the outfield WALL, a raked GRANDSTAND bowl that wraps the plate and stops at the poles, the CONCOURSE behind it, DUGOUTS and BULLPENS down both lines, and six LIGHT TOWERS.',
     'airbase': 'Air base — matched: the same field with the military landside — two arch-roofed HANGARS with their doors open + a dead FIGHTER on its alert pad between two concrete blast REVETMENTS + the blast pad off the runway threshold.',
 }
 
@@ -1289,6 +1445,34 @@ PARTS = {
         'catch fence posts — the fence ring outside the banking (code 11 "catch fence")',
         'light tower — the tallest thing on the site, head dark (code 12 "light tower")',
         'dead race cars x3 (canon CAR) — still on the grid where the race stopped (code 14 "dead race car")',
+    ],
+    'ballpark': [
+        'outfield — the quarter disc of dead turf between the two foul lines, which IS the signature: a ninety-degree wedge, where the stadium district is a closed ring (code 4 "outfield (dead turf)")',
+        'warning track — the band of skinned dirt inside the wall, so a fielder feels the wall before he hits it (code 6 "infield dirt")',
+        'outfield wall — the arc of padded wall on the same radius as the field (code 11 "outfield wall")',
+        'skinned diamond — the dirt square joining the four bases, which renders as a DIAMOND in the 45-degree view because the foul lines really are perpendicular (code 6)',
+        'pitcher\'s mound — the raised mound at the middle of the diamond (code 14 "pitcher\'s mound")',
+        'bases x4 + chalked foul lines — the bases and the two lines running out to the poles (code 7 "base / chalk")',
+        'grandstand — three RAKED tiers wrapping from foul pole round behind home plate and stopping at the other pole, because no small park seats the outfield (code 2 "grandstand")',
+        'concourse — the walkway ring behind the seating (code 9 "concourse")',
+        'dugouts x2 — sunk on both baselines in FOUL territory, where a dugout actually is (code 8 "dugout")',
+        'bullpens x2 — past the end of the seating down both lines (code 13 "bullpen")',
+        'light towers x6 — the masts ringing the field, every head dark (code 12 "light tower")',
+        'abandoned car (canon CAR) — one left in the lot (code 1 "parking / drive")',
+    ],
+    'town': [
+        'street wall (both sides) — attached storefronts shoulder to shoulder, no gaps, which IS the signature: gaps between buildings make a strip mall, a much later object (code 2 "storefront")',
+        'false fronts — the tall parapet on the STREET face of every unit, hiding a shallow roof (code 7 "false front")',
+        'saloon + hall anchors — the two bigger units, one per side (code 8 "saloon / hall")',
+        'boardwalk + shade canopy — the covered footway between the shopfronts and the kerb, under a continuous canopy (code 6 "boardwalk")',
+        'main street — the one wide carriageway, laid out for a wagon team to turn in (code 1 "main street")',
+        'cross street — the junction that makes the row a BLOCK instead of a corridor; the walkable district had none in its first pass and read as a barcode (code 1)',
+        'angle bays — the angled parking down both kerbs, the other thing that says main street (code 10 "angle-park marking")',
+        'houses x4 + shed — detached houses on dirt lots out behind the row (code 9 "house", code 15 "shed / outbuilding")',
+        'fuel canopy + pumps — the station at the town\'s mouth, the one OVERHEAD layer you walk under (code 16 "fuel canopy")',
+        'water tower — the tank on its four legs, the tallest thing here and the reason the town is here at all (code 11 "water tower")',
+        'pole lights x4 — the street poles, heads dark (code 12 "pole light")',
+        'abandoned cars x2 (canon CAR) — left in the street where they died (code 1)',
     ],
     'rail': [
         'main track — the ballast prism (code 1 "ballast") with sleepers across it (code 2 "tie") and two gauge-spaced running rails (code 3 "rail")',

@@ -31,7 +31,7 @@ var MODS = ['bohemia_engine','bohemia_scheduler','bohemia_bq','bohemia_quest_run
   // generators and its map draws blanks where the MAP tab draws ground
   'bohemia_arterial','bohemia_freeway','bohemia_terrain_noise','bohemia_airfield',
   'bohemia_desert','bohemia_mountain','bohemia_water','bohemia_rail','bohemia_interchange',
-  'bohemia_campus','bohemia_speedway',
+  'bohemia_campus','bohemia_speedway','bohemia_town','bohemia_ballpark',
   'bohemia_world','bohemia_valleymap','bohemia_loop'];
 
 var html = fs.readFileSync(SRC, 'utf8');

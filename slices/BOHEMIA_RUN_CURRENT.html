@@ -12076,6 +12076,8 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
   var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
   var CMP= HASREQ ? require('./bohemia_campus.js')          : (typeof BohemiaCampus!=='undefined'?BohemiaCampus:root.BohemiaCampus);
   var SPW= HASREQ ? require('./bohemia_speedway.js')        : (typeof BohemiaSpeedway!=='undefined'?BohemiaSpeedway:root.BohemiaSpeedway);
+  var TWN= HASREQ ? require('./bohemia_town.js')            : (typeof BohemiaTown!=='undefined'?BohemiaTown:root.BohemiaTown);
+  var BLP= HASREQ ? require('./bohemia_ballpark.js')        : (typeof BohemiaBallpark!=='undefined'?BohemiaBallpark:root.BohemiaBallpark);
   var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
   var ICH= HASREQ ? require('./bohemia_interchange.js')    : (typeof BohemiaInterchange!=='undefined'?BohemiaInterchange:root.BohemiaInterchange);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
@@ -12126,7 +12128,9 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
     // THE LANDMARK SET (7/27): the biggest two of the 88 buildable cells that were
     // still flat. Both are real districts on the kit, street-aware and drivable.
     campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'institutional' },
-    speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure' }
+    speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure' },
+    town:       { mod:TWN, foot:function(r){return r.footprints;},           zone:'residential' },
+    ballpark:   { mod:BLP, foot:function(r){return r.footprints;},           zone:'leisure' }
   };
   /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
      world"). A road cell is NOT a district: it never becomes faction territory, an

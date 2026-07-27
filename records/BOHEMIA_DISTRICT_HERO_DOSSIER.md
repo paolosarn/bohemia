@@ -253,3 +253,35 @@ _Speedway — matched: the banked OVAL with its painted apron, the GRANDSTAND on
 - catch fence posts — the fence ring outside the banking (code 11 "catch fence")
 - light tower — the tallest thing on the site, head dark (code 12 "light tower")
 - dead race cars x3 (canon CAR) — still on the grid where the race stopped (code 14 "dead race car")
+
+## TOWN  (252x148, anchor 126,76)
+_Town — matched to the walkable district: the STREET WALL of attached FALSE-FRONT storefronts on both sides of one wide main street, the covered BOARDWALK between the shopfronts and the kerb, the SALOON and the HALL as the anchors, the one CROSS STREET that makes it a block instead of a corridor, angle bays, houses on dirt lots out back, the fuel CANOPY at the town's mouth, and the WATER TOWER standing over all of it._
+
+- street wall (both sides) — attached storefronts shoulder to shoulder, no gaps, which IS the signature: gaps between buildings make a strip mall, a much later object (code 2 "storefront")
+- false fronts — the tall parapet on the STREET face of every unit, hiding a shallow roof (code 7 "false front")
+- saloon + hall anchors — the two bigger units, one per side (code 8 "saloon / hall")
+- boardwalk + shade canopy — the covered footway between the shopfronts and the kerb, under a continuous canopy (code 6 "boardwalk")
+- main street — the one wide carriageway, laid out for a wagon team to turn in (code 1 "main street")
+- cross street — the junction that makes the row a BLOCK instead of a corridor; the walkable district had none in its first pass and read as a barcode (code 1)
+- angle bays — the angled parking down both kerbs, the other thing that says main street (code 10 "angle-park marking")
+- houses x4 + shed — detached houses on dirt lots out behind the row (code 9 "house", code 15 "shed / outbuilding")
+- fuel canopy + pumps — the station at the town's mouth, the one OVERHEAD layer you walk under (code 16 "fuel canopy")
+- water tower — the tank on its four legs, the tallest thing here and the reason the town is here at all (code 11 "water tower")
+- pole lights x4 — the street poles, heads dark (code 12 "pole light")
+- abandoned cars x2 (canon CAR) — left in the street where they died (code 1)
+
+## BALLPARK  (216x148, anchor 108,84)
+_Ballpark — matched: the ninety-degree DIAMOND seen from behind home plate, the skinned infield with its MOUND and bases, the chalked FOUL LINES, dead outfield turf inside a WARNING TRACK and the outfield WALL, a raked GRANDSTAND bowl that wraps the plate and stops at the poles, the CONCOURSE behind it, DUGOUTS and BULLPENS down both lines, and six LIGHT TOWERS._
+
+- outfield — the quarter disc of dead turf between the two foul lines, which IS the signature: a ninety-degree wedge, where the stadium district is a closed ring (code 4 "outfield (dead turf)")
+- warning track — the band of skinned dirt inside the wall, so a fielder feels the wall before he hits it (code 6 "infield dirt")
+- outfield wall — the arc of padded wall on the same radius as the field (code 11 "outfield wall")
+- skinned diamond — the dirt square joining the four bases, which renders as a DIAMOND in the 45-degree view because the foul lines really are perpendicular (code 6)
+- pitcher's mound — the raised mound at the middle of the diamond (code 14 "pitcher's mound")
+- bases x4 + chalked foul lines — the bases and the two lines running out to the poles (code 7 "base / chalk")
+- grandstand — three RAKED tiers wrapping from foul pole round behind home plate and stopping at the other pole, because no small park seats the outfield (code 2 "grandstand")
+- concourse — the walkway ring behind the seating (code 9 "concourse")
+- dugouts x2 — sunk on both baselines in FOUL territory, where a dugout actually is (code 8 "dugout")
+- bullpens x2 — past the end of the seating down both lines (code 13 "bullpen")
+- light towers x6 — the masts ringing the field, every head dark (code 12 "light tower")
+- abandoned car (canon CAR) — one left in the lot (code 1 "parking / drive")

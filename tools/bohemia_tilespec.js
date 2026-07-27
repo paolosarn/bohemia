@@ -65,6 +65,8 @@ const DISTRICTS = [
   { name: 'interchange',mod: require('../engine/bohemia_interchange.js') },
   { name: 'campus',     mod: require('../engine/bohemia_campus.js') },
   { name: 'speedway',   mod: require('../engine/bohemia_speedway.js') },
+  { name: 'town',       mod: require('../engine/bohemia_town.js') },
+  { name: 'ballpark',   mod: require('../engine/bohemia_ballpark.js') },
 ];
 
 const TILE = K.TILE, N = K.SZ;

@@ -25,14 +25,17 @@ const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'city
   // airfield is REQUIRED for its side effect (it registers BOTH airport and airbase
   // into the kit); airport/airbase are then emitted under their real TYPE names.
   'rail', 'interchange', 'airfield', 'airport', 'airbase',
-  'campus', 'speedway'];
+  'campus', 'speedway', 'town', 'ballpark'];
 // require = self-register into K for most modules; a few (e.g. commercial) only
 // register when a GLOBAL K exists (browser), so also keep each module's exported
 // API as a fallback source of generate/palette/legend.
 const EXPORTS = {};
 for (const m of MODULES) { try { EXPORTS[m] = require(path.join(REPO, 'engine/bohemia_' + m + '.js')); } catch (e) {} }
 
-const OUT = process.argv[2] || '/tmp/claude-0/-home-user-bohemia/96a4de31-15c3-52d6-95f6-8087b9cb9964/scratchpad/district_grids.json';
+/* SCRATCH was pinned to one dead session's private directory; honour BOHEMIA_SCRATCH
+   if it is set, else the system temp dir, so this runs in any session. */
+const SCRATCH = process.env.BOHEMIA_SCRATCH || require('os').tmpdir();
+const OUT = process.argv[2] || path.join(SCRATCH, 'bohemia_district_grids.json');
 const SEED = 0x5eed;                       // fixed seed (deterministic; no Date/random)
 
 const out = {};

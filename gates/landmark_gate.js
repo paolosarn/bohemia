@@ -1,13 +1,13 @@
-/* LANDMARK GATE (7/27/26, WORLD lane) — the machine gate for the first two of the
-   valley's buildable LANDMARK districts: engine/bohemia_campus.js (16 cells) and
-   engine/bohemia_speedway.js (12 cells), the two biggest of the 88 cells that were
-   still rendering as flat ground.
+/* LANDMARK GATE (7/27/26, WORLD lane) — the machine gate for the valley's buildable
+   LANDMARK districts: engine/bohemia_campus.js (16 cells), engine/bohemia_speedway.js
+   (12 cells), engine/bohemia_town.js (9) and engine/bohemia_ballpark.js (8), the four
+   biggest of the 88 cells that were still rendering as flat ground.
 
-   These two are gated together because they are the same KIND of claim — a landmark
-   whose whole job is to be recognisable — and because they fail in opposite ways:
-   a campus can collapse into an office park, and a speedway can collapse into a
-   car park with a ring drawn on it. So the gate asks each one for the thing that
-   makes it itself.
+   They are gated together because they are the same KIND of claim — a landmark whose
+   whole job is to be RECOGNISABLE — and because each one fails in its own way: a campus
+   collapses into an office park, a speedway into a car park with a ring drawn on it, a
+   town into a strip mall, and a ballpark into the stadium district. So the gate asks
+   each one for the single thing that makes it itself and nothing else.
 
      THE CAMPUS MUST HAVE A QUAD, and the quad must be the biggest open thing on the
      plot with the buildings turned to face it. A campus whose middle is parking is a
@@ -30,6 +30,8 @@ const fs = require('fs');
 const K = require('../engine/bohemia_district_kit.js');
 const CMP = require('../engine/bohemia_campus.js');
 const SPW = require('../engine/bohemia_speedway.js');
+const TWN = require('../engine/bohemia_town.js');
+const BLP = require('../engine/bohemia_ballpark.js');
 const World = require('../engine/bohemia_world.js');
 const E = require('../engine/bohemia_engine.js');
 
@@ -39,7 +41,7 @@ const counts = g => { const c = {}; g.forEach(r => r.forEach(v => { c[v] = (c[v]
 const MASKS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 
 // ---- 1. THE STANDING DISTRICT LAWS, on both, on every orientation ----------
-[['campus', CMP], ['speedway', SPW]].forEach(([name, mod]) => {
+[['campus', CMP], ['speedway', SPW], ['town', TWN], ['ballpark', BLP]].forEach(([name, mod]) => {
   let built = 0, reached = 0, dominated = 0, named = 0;
   const MARGIN = 22;                       // walkable_gate.js's own number
   MASKS.forEach(streets => {
@@ -168,7 +170,7 @@ const MASKS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 // ---- 4. THEY ARE REAL IN THE REAL VALLEY -----------------------------------
 {
   const w = World.world(E.WorldGen.hashSeed('bohemia'));
-  ['campus', 'speedway'].forEach(t => {
+  ['campus', 'speedway', 'town', 'ballpark'].forEach(t => {
     ok(t + ' is a real auto-district now', World.isAutoDistrict(t));
     let cells = 0, rendered = 0;
     for (let y = 0; y < w.n; y++) for (let x = 0; x < w.n; x++) {
@@ -187,12 +189,85 @@ const MASKS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 {
   const BANK = 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt';
   const bank = JSON.parse(fs.readFileSync(BANK, 'utf8'));
-  ['campus', 'speedway'].forEach(t => {
+  ['campus', 'speedway', 'town', 'ballpark'].forEach(t => {
     const h = bank.heroes.filter(x => x.district === t)[0];
     ok(t + ': has its city builder icon, shipped the same turn as its ground', !!h);
     if (h) ok(t + ': and the icon says what it is', typeof h.label === 'string' && h.label.length > 40);
   });
 }
 
-console.log('LANDMARK GATE: ' + pass + ' passed, ' + fail + ' failed  (campus + speedway)');
+// ---- 6. THE TOWN MUST BE A STREET WALL CUT INTO BLOCKS ---------------------
+{
+  const r = TWN.generate(5, { streets: ['S'] });
+  const c = counts(r.g);
+  ok('there is one wide main street (' + ((c[1] || 0) / 163.84).toFixed(0) + '% of the plot)', (c[1] || 0) > 2600);
+  ok('walled by attached storefronts on BOTH sides', (c[2] || 0) > 2500);
+  ok('with false fronts dividing the units', (c[7] || 0) > 200);
+  ok('the saloon and the hall are the anchors', (c[8] || 0) > 150);
+  ok('a covered boardwalk runs between the shopfronts and the kerb', (c[6] || 0) > 700);
+  ok('angle bays down both kerbs', (c[10] || 0) > 100);
+  ok('the water tower stands over it', (c[11] || 0) > 120);
+  ok('houses and sheds on dirt lots out back', (c[9] || 0) > 400 && (c[15] || 0) > 10);
+  ok('the fuel canopy is the one thing you walk UNDER',
+     (c[16] || 0) > 40 && K.tileLayer(TWN.legend[16]).layer === 'overhead');
+
+  /* THE BLOCK IS THE UNIT. A main street with no junction is a corridor, and the first
+     version of this district was exactly that: five full-height stripes, a barcode. The
+     test is that the storefront row is CUT — scan every column of the row and require
+     the wall to break into separate blocks down the plot. */
+  let breaks = 0, run = 0, blocks = 0;
+  for (let y = 0; y < 128; y++) {
+    const wall = r.g[y][40] === 2 || r.g[y][40] === 7 || r.g[y][40] === 8;
+    if (wall) { run++; } else { if (run > 8) blocks++; run = 0; breaks++; }
+  }
+  if (run > 8) blocks++;
+  ok('CROSS STREETS cut the street wall into blocks (' + blocks + ' blocks down one side)', blocks >= 3);
+  ok('and the cuts are real street, not a gap in the row',
+     r.g[24][40] === 1 && r.g[62][40] === 1);
+
+  /* AND IT IS NOT A SUBURB. The thing that separates a town from the suburb district is
+     that the commercial row OUTWEIGHS the houses, by a lot. */
+  ok('the shopfront row outweighs the houses, which is what makes it a town and not a suburb (' +
+     (c[2] || 0) + ' vs ' + (c[9] || 0) + ')', (c[2] || 0) > (c[9] || 0) * 2);
+}
+
+// ---- 7. THE BALLPARK MUST BE A DIAMOND -------------------------------------
+{
+  const r = BLP.generate(5, { streets: ['S'] });
+  const c = counts(r.g);
+  ok('there is a field of dead outfield turf (' + ((c[4] || 0) / 163.84).toFixed(0) + '%)', (c[4] || 0) > 1800);
+  ok('with skinned dirt — the diamond and the warning track', (c[6] || 0) > 900);
+  ok('a mound at the middle of it', (c[14] || 0) > 20);
+  ok('bases and chalked foul lines', (c[7] || 0) > 200);
+  ok('an outfield wall on the arc', (c[11] || 0) > 300);
+  ok('dugouts and bullpens down both lines', (c[8] || 0) > 100 && (c[13] || 0) > 100);
+  ok('a grandstand and a concourse behind it', (c[2] || 0) > 800 && (c[9] || 0) > 300);
+  ok('light towers', (c[12] || 0) > 30);
+
+  /* THE WEDGE IS THE SIGNATURE, and it is the whole distinction from the stadium
+     district: a stadium is a closed ring around a rectangle, a ballpark is a quarter
+     circle opening away from ONE corner. Measured as asymmetry — the field's own centre
+     of mass must sit well up-plot of home plate, never at the middle of a ring. */
+  let sx = 0, sy = 0, n = 0;
+  for (let y = 0; y < 128; y++) for (let x = 0; x < 128; x++) {
+    if (r.g[y][x] === 4 || r.g[y][x] === 6) { sx += x; sy += y; n++; }
+  }
+  const mx = sx / n, my = sy / n;
+  ok('the field opens AWAY from home plate — a wedge, not a ring (centroid ' +
+     mx.toFixed(0) + ',' + my.toFixed(0) + ' vs plate 64,80)',
+     Math.abs(mx - 64) < 8 && my < 68);
+
+  /* NINETY DEGREES. The two foul lines are perpendicular, so the chalk must appear on
+     BOTH diagonals out of home plate and nowhere near the axes. */
+  ok('the foul lines run at ninety degrees to each other out of home plate',
+     r.g[80 - 30][64 + 30] === 7 && r.g[80 - 30][64 - 30] === 7);
+
+  /* THE STANDS STOP DOWN THE LINES. Seating that wrapped the outfield would make this
+     the stadium district again, which is the exact mistake the shape exists to avoid. */
+  let deep = 0;
+  for (let y = 0; y < 40; y++) for (let x = 0; x < 128; x++) if (r.g[y][x] === 2) deep++;
+  ok('nobody seats the outfield — no stands past the poles (' + deep + ' tiles)', deep === 0);
+}
+
+console.log('LANDMARK GATE: ' + pass + ' passed, ' + fail + ' failed  (campus, speedway, town, ballpark)');
 process.exit(fail ? 1 : 0);

@@ -470,6 +470,9 @@ I2. THE ICON DEBT, 22 of 44 registered types (gate prints it every run): suburb,
    watertreat, boneyard, waterpark, airport, airbase, arterial, freeway, desert, mountain,
    water. Terrain (desert/mountain/water) may not want a building hero at all — that is
    a separate ruling. Chip at this list; it can only shrink.
+I4. [FIXED 7/27] tools/bohemia_district_grid_dump.js had the SAME hard-coded scratch
+   path defect as I3, pinned to a different dead session. Portable now. Worth a sweep:
+   any tool that writes to a session scratch dir should read BOHEMIA_SCRATCH first.
 I3. [FIXED 7/27, found while doing I0] tools/bohemia_district_hero_factory.py had its
    scratch path HARD-CODED to one session's private directory, so the factory could not
    be run by anybody else at all — the palette dump died on check=True before the first
@@ -600,10 +603,43 @@ stories the world cannot host yet.
               never pierced the catch-fence ring, sealing the oval: only 39% of the
               walkable plot was reachable from the street and you could not get to the
               track, the infield or the garages at all. Now 100%.
-        STILL FLAT (60 buildable cells): town 9, ballpark 8, basin 8, convention 6,
-        datafort 6, prison 4, dam 4, reservoir 3, plus a tail of single-cell landmarks
-        (reclaim 2, granary, fort, springs, radio, minigp, arsenal, gypsum, pumpstation,
-        intake, quarry). Same method, two at a time, each with its icon.
+        [DONE 7/27] TOWN 9 + BALLPARK 8, same method, each with its icon the same turn.
+        Gate LANDMARKS grew 52 -> 107. Valley 97.0% -> 97.2%.
+          THE TOWN IS A BLOCK, NOT A MAIN STREET. The first version had every correct
+          PART and was a BARCODE: five full-height stripes running unbroken top to
+          bottom, all in the same brown. Found by rendering it and looking. A town's
+          structure is not its street, it is its BLOCK, and a block is what you get
+          when CROSS STREETS cut the row; a main street with no junction is a corridor.
+          Three cross streets, varied unit widths, anchors on corners. Also: everything
+          was one brown (it separates by MATERIAL now), the boardwalk was invisible,
+          and the fallen town sign spanned the full carriageway and stranded 34% of the
+          drive network north of it.
+          THE BALLPARK IS A WEDGE, NOT A RING — a stadium is a closed ring around a
+          rectangle, a ballpark is a quarter circle opening away from one corner, and
+          getting that wrong makes this the stadium district again. THE COORDINATE
+          SYSTEM IS THE DESIGN: not x and y but a (how far ALONG a foul line) and q
+          (how DEEP into foul territory), so the bowl is three bands of depth that wrap
+          the plate and run down both lines on their own. The first version used RADIUS
+          from home plate: a ring behind the plate is a ring, so the seating came out
+          as two disconnected wings with a hole where the backstop belongs.
+          THE BUGS: (1) G.rect takes (x0,y0,x1,y1) and I passed (x0,x1,y0,y1) —
+          systematic, across both districts; the town's alleys and the ballpark's
+          dugouts and bullpens never drew at all. (2) The bullpens were axis-aligned
+          rects drawn straight through the lot ring, severing the parking (driveReach
+          0.76 against a 0.85 bar) and merging into the grandstand blob. (3) Foul
+          territory was one solid dirt apron and the park read as a brown blob.
+          (4) The lot was a barcode too. All four found by measuring or by looking.
+          THE ICONS: the ballpark's is drawn from BEHIND HOME PLATE, which is not a
+          style choice — put the plate at the front and the grandstand stands between
+          the viewer and the whole park. Home at the back corner means the foul lines
+          run along the two ground axes, so the infield square renders as a true
+          DIAMOND in the 45-degree view for free. Two iterations after that: the bowl
+          wrapped 270 degrees and read as the STADIUM icon (200 now), and the outfield
+          wall was as tall as the stands (a low fence now).
+        STILL FLAT (44 buildable cells): basin 8, convention 6, datafort 6, prison 4,
+        dam 4, reservoir 3, plus a tail of single-cell landmarks (reclaim 2, granary,
+        fort, springs, radio, minigp, arsenal, gypsum, pumpstation, intake, quarry).
+        Same method, two at a time, each with its icon.
      d. NEVER AUTO-GENERATED, by law: strip 81, resort 118, casino 5, luxor, sphere,
         strat, highroller, sign. Paolo's hand. Leave them reserved.
 2. [DONE 7/27] AMBIENT ENCOUNTER DIRECTOR. engine/bohemia_encounters.js, built on

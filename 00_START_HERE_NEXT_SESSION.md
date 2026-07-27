@@ -1,3 +1,90 @@
+WORLD MODEL (02): 7/27 (f) LATEST — THE TOWN AND THE BALLPARK. Two more landmark
+types built as real kit districts, each with its city builder icon the same turn.
+Valley 97.0% -> 97.2%. Gate LANDMARKS 52 -> 107 checks.
+Full record: records/BOHEMIA_TOWN_AND_BALLPARK_7_27_26.md
+
+THE TOWN IS A BLOCK, NOT A MAIN STREET. The first version of it had every correct PART
+— one wide main street, angle parking, a wall of attached false-front storefronts, a
+boardwalk, back alleys, houses, a water tower — and it was a BARCODE. Five full-height
+stripes running unbroken from the top of the plot to the bottom, all in the same brown.
+Found by rendering it to a PNG and looking at it, which is the only way that class of
+defect is ever found. THE LESSON GENERALISES: a town's structure is not its main street,
+it is its BLOCK, and a block is what you get when CROSS STREETS cut the row. A main
+street with no junction is a corridor. Three cross streets, unit widths that vary so no
+two neighbours match, anchors on corners. Also fixed, all render-only: everything was
+one brown (it separates by MATERIAL now — masonry warm, timber houses grey, dirt pale);
+the boardwalk was invisible; and the fallen town sign spanned the whole carriageway and
+sealed the town in half, stranding 34% of the drive network north of it. It fell, it did
+not become a wall.
+
+THE BALLPARK IS A WEDGE, NOT A RING. A stadium is a closed ring around a rectangle; a
+ballpark is a quarter circle opening away from ONE corner. Get that wrong and this
+district is the stadium district with a different name, so the gate measures it rather
+than asserting it (the field's centre of mass must sit well up-plot of home plate).
+THE COORDINATE SYSTEM IS THE WHOLE DESIGN, and it is the reusable idea here: not x and
+y but `a` (how far ALONG a foul line you are) and `q` (how DEEP into foul territory).
+Both are the 45-degree rotation of (dx,dy), and once you have them the bowl is three
+bands of depth — foul dirt, seats, concourse — that wrap behind the plate and run down
+both lines on their own. The first version used RADIUS from home plate and it could not
+work: a ring behind the plate is a ring, so the seating came out as two disconnected
+side wings with a hole where the backstop belongs. Depth is q down the lines and RADIUS
+behind the plate, and the two agree exactly where a = 0, so it is straight along the
+baselines and CURVES round the backstop; pure q gave a pointed chevron, a grey arrowhead.
+
+FOUR REAL BUGS, every one found by measuring or by looking:
+  1. G.rect takes (x0, y0, x1, y1) and I was passing (x0, x1, y0, y1). SYSTEMATIC,
+     across both new districts. The town's back alleys never drew and its houses were
+     mis-shaped; the ballpark's dugouts and bullpens never drew at all.
+  2. The bullpens were axis-aligned rectangles drawn straight THROUGH the lot ring,
+     which severed the parking from the entrance (driveReach 0.76 against a 0.85 bar)
+     and merged them into the grandstand blob — 2 footprints where there should be 5.
+     Dugouts and bullpens live in FOUL TERRITORY parallel to the baselines, which is
+     only expressible in (a, q).
+  3. Foul territory was laid as one solid dirt apron and the whole park read as a brown
+     blob. It is grass now; only the circle round home plate and the strip in front of
+     the stands are skinned, which is what a real park is.
+  4. The lot was a barcode as well — stripes every sixth row edge to edge. Blocks with
+     cross aisles and a clear entrance drive now.
+Final: driveReach 1.00 on all six orientations, 5 footprints, content 49% vs pavement 46%.
+
+THE ICONS, both shipped with their ground per the 7/27 icon law. THE BALLPARK'S IS
+DRAWN FROM BEHIND HOME PLATE and that is not a stylistic choice: put the plate at the
+front and the grandstand stands between the viewer and the entire park. Home at the back
+corner means the foul lines run along the two ground axes — so the infield square
+renders as a true DIAMOND in the 45-degree view for free, the real geometry rather than
+a drawn shape. Two iterations after that, both by baking and looking: the bowl wrapped
+270 degrees and read as a closed ring, i.e. as the STADIUM icon (200 degrees now,
+stopping short of each foul line, the same reason the walkable stands stop down the
+lines); and the outfield wall was as tall as the stands, so wall + bowl read as one ring
+(a low fence now, which is what an outfield wall is).
+
+WIRED, not just built: both are real DISTGEN districts (town -> residential, ballpark ->
+leisure), so they carry territory, economy, spawn tiers and quest addresses like any
+other. Tilespec dossiers, CITY IN_ZONE (the zone-patch tool is general and idempotent
+now instead of hard-coded to two names), phone slice, map tab, placement judge, current
+slice and run slice all rebuilt. ALSO FIXED: bohemia_district_grid_dump.js had its
+scratch path hard-coded to a DEAD SESSION's private directory — the same defect already
+fixed in the hero factory yesterday. Portable now. Worth a sweep across tools/.
+
+=== WHAT COMES AFTER ===
+BLOCKED ON PAOLO, in the order they unblock the most — UNCHANGED, and 1 and 2 are the
+same two answers as the last three turns:
+  1. THE MOMENT TABLE. Still the single answer that switches on the day, the economy,
+     faction beats AND the encounter director at once. Everything is wired and empty.
+     RUN declared SLEEP=8 / HANGOUT=1 / EAT unpriced on its side.
+  2. THE AIRFIELD ICON composition (drop the runway, show the terminal and one big plane?).
+  3. QUEST PLACEMENT VERDICTS — 21 quests still land on 13 cells.
+  4. ACT-2 / ACT-3 materials, and whether terrain gets a city icon at all.
+UNBLOCKED AND NEXT: the last 44 buildable landmark cells — basin 8, convention 6,
+datafort 6, prison 4, dam 4, reservoir 3, reclaim 2, plus eleven single-cell landmarks
+(granary, fort, springs, radio, minigp, arsenal, gypsum, pumpstation, intake, quarry).
+Same method, two at a time, each with its icon the same turn.
+ICON DEBT: 22 of 48 registered types (gate ICON prints it every run; town and ballpark
+arrived WITH icons, so the two new types added none of it).
+DO NOT: touch quests beyond READING where they already resolve (WORLD-BEFORE-QUESTS,
+narrowed 7/27 for pins only); auto-generate strip/resort/casino/luxor/sphere/strat/
+highroller/sign; or wire faction beats to anything without an explicit beat predicate.
+
 CITY (03): 7/27 (d) LATEST — THREE TILES TALL, AND THE WALL GETS OUT OF YOUR WAY
 WHEN IT IS HIDING YOU. His ruling, now law:
 laws/BOHEMIA_ADDENDUM_THREE_TILE_WALL_7_27_26.md
@@ -342,361 +429,73 @@ is over its DIET LAW cap and this lane can only legally shrink its own entries.)
   fork from LAB-01: 120 BPM + OCCUPANCY versus a continuous sub-pixel walk — three
   options are written out in the town-walk note and the lane did not pick.
 
-WORLD MODEL (02): 7/27 (e) — THE CAMPUS AND THE SPEEDWAY. He said "Nice" and went to
-sleep, so this is more of the same posture: an item that needs nothing from him, no new
-question, and the two things that DO need him left untouched at the top of the list.
-
-Two of the 88 buildable landmark cells' worth of types, the biggest two, built as real
-kit districts: engine/bohemia_campus.js (16 cells) and engine/bohemia_speedway.js (12).
-Valley 96.7% -> 97.0%. Gate LANDMARKS, 52 checks. Both got their CITY BUILDER ICON the
-same turn, per the 7/27 icon law — that law has now survived its first real test, which
-was me wanting to ship ground and do the icons later.
-
-THE CAMPUS IS ITS QUAD. That is the entire distinction between a campus and a business
-park, so the layout is arranged around it: an open middle crossed by the two orthogonals
-AND both diagonals (people cut corners), the dry fountain where they meet, the academic
-halls turned to FACE it, the colonnaded library as the biggest single mass, a fan-plan
-lecture hall that actually widens row by row, a residence row set apart from the teaching
-core, and the parking pushed out to a ring road because a campus core is walkable on
-purpose. The gate measures the distinction rather than asserting it: THE QUAD MUST BEAT
-THE PAVEMENT, and the buildings must ring it with the middle left open.
-
-THE SPEEDWAY IS ITS OVAL. The gate floods the track from one tile and requires it to come
-back round — a closed ring you could drive a lap of, not a bend. Painted apron inside the
-banking, catch fence outside, pit road and the garage row inside, the road course ghosting
-through the infield, and the GRANDSTAND ON THE FRONT STRETCH ONLY, because three of the
-four sides of a superspeedway have no stands and ringing the oval with seating is the
-easy wrong version. Declared vehicular:true — the WALKABLE-LAND law's own exception, and
-the clearest case of it in the game.
-
-FOUR REAL BUGS THE GATES CAUGHT, and every one of them looked completely fine rendered:
-  1. The campus lots did not touch the ring road. driveReachFromStreet 0.54 — half the
-     pavement on the plot was unreachable. A lot you cannot drive into is a painted
-     rectangle.
-  2. The speedway's parking apron was inset one tile from the plot edge, so the reach
-     flood had no seed on the border: 0.00 reach with a full car park drawn on it.
-  3. All five speedway light towers were placed OFF the grid. The oval nearly fills the
-     plot, so cx +/- (RX + 14) is x = -4 and x = 132; not one tile of them existed.
-  4. THE BIG ONE: THE TUNNEL SKIPPED THE FENCE. I wrote "it goes under, not through" and
-     skipped the catch fence along with the track, which left the fence ring unbroken and
-     SEALED THE WHOLE OVAL. 39% of the walkable plot reachable from the street; the track,
-     the infield and the garages were behind a closed ring with no way in. It pierces the
-     fence now and leaves the racing surface intact, so the lap stays continuous and the
-     tunnel is the way in, which is what a tunnel is. 100% reachable.
-Also fixed on the way: a 2-tile-wide sliver of garage bay whose interior came back 13x3
-for a 13x2 exterior (INTERIOR-MATCHES-EXTERIOR is LOCKED), and a race garage that was
-routing to the multi-deck PARKING generator because its dossier said "garage interior" —
-a speedway garage is a workshop bay, not a car park, and it now says so.
-
-ONE CROSS-LANE PATCH, deliberately minimal: promoting two types to real districts made
-the CITY tab's IN_ZONE table stale the same instant (interiors_gate requires it to cover
-exactly what DISTGEN does). tools/bohemia_city_landmark_zone_patch.py adds exactly those
-two keys. CITY's RENDER internals were not touched.
-
-=== WHAT COMES AFTER — unchanged, and still the same two answers ===
-BLOCKED ON PAOLO, in the order they unblock the most:
-  1. THE MOMENT TABLE. Still the single answer that switches on the day, the economy,
-     faction beats AND the encounter director at once. Everything is wired and empty.
-     RUN declared SLEEP=8 / HANGOUT=1 / EAT unpriced on its side.
-  2. THE AIRFIELD ICON composition (drop the runway, show the terminal and one big plane?).
-  3. QUEST PLACEMENT VERDICTS — 21 quests still land on 13 cells.
-  4. ACT-2 / ACT-3 materials, and whether terrain gets a city icon at all.
-UNBLOCKED AND NEXT: the rest of the landmark set, 60 buildable cells — town 9, ballpark 8,
-basin 8, convention 6, datafort 6, prison 4, dam 4, reservoir 3, plus eleven single-cell
-landmarks. Same method, two at a time, each with its icon the same turn.
-ICON DEBT: 22 of 46 registered types (gate ICON prints it every run; campus and speedway
-arrived WITH icons, so the two new types added none of it).
-
-WORLD MODEL (02): 7/27 (d) — THE ENCOUNTER DIRECTOR. He went to sleep, so this turn
-is deliberately work that needed NOTHING from him: an APPROVED item, no new art, no
-new verdict added to his queue.
-
-engine/bohemia_encounters.js, built on records/BOHEMIA_VERDICT_ACT1_ROSTER_7_26_26.txt
-("Approve all", on the 12 act-1 tokens AND the anti-boredom pacing package). It was
-commissioned off one worry of his — "this game could be very boring if not done right"
-— so what this actually protects is that the valley stays interesting.
-
-All 12 tokens under the verdict's own names, each carrying the VERB that makes it
-different (variety is a verb, never a bigger HP bar) and the beat telegraphs the roster
-specified. Every clause of the pacing package is held AND measured by the gate:
-
-  70/20/10 by a DEFICIT CHOOSER, not dice. THE CLASS IS NOT NEGOTIABLE, and that is
-  the bug this build had first: when the wanted class had nothing available it
-  substituted another and came out 40/42/18. If the story wants an ambient beat and no
-  ambient token is free, NOTHING HAPPENS — a substitution keeps the arithmetic tidy and
-  breaks the promise 70/20/10 makes to the player. Now lands 70.0/20.0/10.0.
-
-  STORYTELLER BUDGET: spends big when the player is healthy and it has been quiet,
-  small after hard fights. A hurt player with a hot recent past measurably gets fewer
-  encounters. Same seed + same walk = the identical night, forever.
-
-  ~90s FLOOR. RARE IS SACRED (a spice token fires once a session, ever, even over an
-  8000-step walk). NO REPEAT-SPAM, and with no cooldown ruled a token fires ONCE —
-  nothing invented.
-
-  NO GLOBAL SPAWNS EVER, held by construction rather than discipline: there is no
-  fallback table to spawn from, so a district with no entry spawns nothing and says so.
-
-  NO BACKGROUND TICKING (his pacing ruling). The module owns NO CLOCK — no timer, no
-  interval, no Date.now. It is PULLED through the encounters socket built into
-  bohemia_world_resolve.js earlier today. Gated by simulation: standing still for 5000
-  calls produces nothing.
-
-  PRECONDITIONS THE ROSTER STATED, and an unproven one is a NO rather than a
-  yes-by-default: bounty squad only from your own murders, spotter drone only in owned
-  light (LIGHT=TERRITORY), patrols collide only at a territory seam.
-
-Gate ENCOUNTERS, 46 checks, green first run. Enemy ART is explicitly NOT this item —
-the verdict files it separately under approved-assets-first.
-
-NOT LIVE YET, and that is the honest state. The director is built, the socket exists,
-and nothing will spawn until two things land: (a) Paolo rules the MOMENT TABLE so the
-world resolver fires at all, and (b) somebody supplies the district + day/night spawn
-table, which is content nobody has ruled. Both are one call away. Neither is guessed.
-
-=== WHERE THE WORLD LANE ACTUALLY STANDS, FOR WHOEVER PICKS THIS UP ===
-VALLEY: 96.7% generated. 300 cells still flat, and they split cleanly:
-  199 are RESERVED FOR PAOLO'S HAND BY LAW (resort 118, strip 81) — leave them.
-  101 are the buildable small landmark set: campus 16, speedway 12, town 9, ballpark 8,
-  basin 8, convention 6, datafort 6, casino 5, prison 4, dam 4, reservoir 3, plus a tail
-  of single-cell landmarks. THAT IS THE NEXT GROUND ITEM and it needs nothing from him.
-
-BLOCKED ON PAOLO, in the order they unblock the most:
-  1. THE MOMENT TABLE — which moments exist and what each spends, plus each world
-     system's per-unit rate. Blocks the whole resolver: day, economy, faction beats AND
-     the encounter director above. The RUN lane declared SLEEP=8 / HANGOUT=1 / EAT
-     unpriced on its side; if those are his sizes, the world moves the moment he says a
-     rate. EVERYTHING IS WIRED AND EMPTY, waiting on this one answer.
-  2. THE AIRFIELD ICON composition — should it drop the runway and show the terminal
-     and one big aeroplane? Both builders are written and held out of the roster.
-  3. QUEST PLACEMENT VERDICTS — 21 quests land on 13 cells because castTarget hashes
-     into faction territory; bohemia_quest_placement.js exists to fix it and nothing
-     consumes its output. The judge page is built and unjudged.
-  4. ACT-2 / ACT-3 materials for every surface, and whether terrain gets a city icon.
-
-DO NOT: touch quests beyond READING where they already resolve (WORLD-BEFORE-QUESTS,
-narrowed 7/27 for pins only); auto-generate strip/resort/casino/luxor/sphere/strat/
-highroller/sign; or wire faction beats to anything without an explicit beat predicate.
-
-WORLD MODEL (02): 7/27 (c) — TWO ORDERS: THE ONE MAP, AND THE WORLD'S HALF OF THE
-RESOLVER. Both shipped. The map job turned up four real defects on the way.
-
-=== JOB ONE: THE ONE MAP (his order, top of the queue) ===
-laws/BOHEMIA_ADDENDUM_ONE_MAP_7_27_26.md.
-
-The phone's map app already existed and already pinned quests — but it drew a
-SCHEMATIC of the valley: a vertical gradient, mountain bars, two landmark glyphs and
-one 1px square per building lot. It looked like a map and it was a drawing. It now
-renders THE REAL GENERATED VALLEY, cell for cell, out of the new
-engine/bohemia_valleymap.js, which the city-builder MAP tab now reads from too. Same
-tones, same painter, same seed, one file. Quest pins layer on top, GROUPED BY CELL
-(21 quests land on only 13 cells, so an ungrouped pin layer draws three glyphs on one
-tile and hides two of them); a stack shows its count. Tap any cell and it reports what
-is really there, read off the world model rather than off a label the map invented.
-
-FOUR DEFECTS THE JOB UNCOVERED, none of them cosmetic:
-  1. THE PHONE WAS RUNNING A WORLD MODEL WITH NINE GENERATORS MISSING. arterial,
-     freeway, terrain_noise, airfield, desert, mountain, water, rail and interchange
-     were never in build_current_slice.js's MODS. bohemia_world.js reads every
-     generator as a global, so on the phone — and only on the phone — the railway, the
-     freeways, the interchange, both airfields and all three terrains resolved to
-     nothing. The MAP tab drew them properly the whole time. That asymmetry is exactly
-     what "one map" is supposed to make impossible, and it is now gated.
-  2. FOUR INDEPENDENT VALLEY RENDERERS AND NO SHARED LAYER. map_tab, the placement
-     judge, aerial.js and city_tab, with the tone tables copy-pasted between them and
-     comments in the files admitting it. Three different seeds across them (1337,
-     12345, 2026) against the game's own hashSeed('bohemia'). This is not tidiness:
-     that exact drift already put a quest at X29 Y77 on a tile that only existed in
-     another world. The MAP tab's private copies are deleted; it calls the shared one.
-  3. DEAD CODE IN THE MAP APP. wm.hubs and wm.routes were read on every draw and
-     buildRealWorldMap has never set either one.
-  4. THE PLAYER STOOD OUTSIDE THE WORLD. player.tile was the literal 128,128 on a
-     96-cell valley, so the blip — the one thing on that map that is YOU — was
-     permanently off the edge of the canvas. Placed on a real cell deterministically
-     (the first district the world model itself lists; no layout invented, MAP LAW).
-Gate ONE MAP, 37 checks. Verified on the real surface: booted the built slice in a
-390x844 browser, unlocked the phone, opened the map, screenshotted it, zero console
-errors, 96x96, 13 pin cells, 21 quests, 0 unplaced.
-
-THE NARROW UNPARKING. WORLD-BEFORE-QUESTS (7/26) parked every quest item in this lane.
-He ordered quest pins today, so quests are unparked for EXACTLY that and nothing else:
-the pin is a READER. Placement, casting, the judge and the bridge all stay parked. A
-quest with no location gets no pin and is counted as unplaced, never given one.
-
-STILL OPEN AND IT IS REAL: castTarget hashes into a faction's territory list, so one
-faction base attracts every quest that demands it — hence 21 quests on 13 cells, three
-of them stacked on X29 Y77. engine/bohemia_quest_placement.js was built to fix that and
-NOTHING CONSUMES ITS OUTPUT. The judge page is built and unjudged. [PENDING Paolo]
-
-=== JOB TWO: THE WORLD'S HALF OF THE RESOLVER ===
-engine/bohemia_world_resolve.js. Four systems subscribe to the declared time-spend
-moments: day, economy, faction, encounters.
-
-The three rules in his sentence, each gated:
-  NEVER HARDCODED — no moment name and no rate lives in the module. Proved by source
-  (his own example words appear nowhere) AND by behaviour (a resolver whose moments are
-  named QWERTYUIOP works identically, because the module truly does not know them).
-  ALL TABLES EMPTY — wire everything with nothing in it, spend every moment, nothing
-  changes, and each system reports NO_RULING BY NAME. An unruled world must not look
-  identical to a working one; that is how content gets invented by accident later.
-  THE SIZE OF THE MOMENT IS THE ONLY DIAL — ten small moments equal one big one exactly
-  when the caller says 0.1 and 1.0, four when he says 0.25. The gate changes the ruling
-  and watches the answer follow, which is the proof the ratio is not in the code.
-
-THE 7/24 PACING RULING IS NOT OVERRIDDEN. "A faction's turn fires when the narrative
-calls for it... never on a tick, a heartbeat, or any kind of background clock. Default
-OFF." He said faction BEATS, and a beat is what that ruling allows, so both hold —
-structurally: the faction step cannot fire without a caller-supplied beat predicate.
-A spent meal can never quietly become a war.
-
-A step may not read another step's report, so the day step does not TELL anyone the day
-rolled: it writes the day onto ctx and later phases compare against what they last saw.
-Proved against the real economy ledger, not a stub.
-
-FOUND BY THE GATE: ten spends of 0.1 sum to 0.9999999999999999, so a strict >= 1 ate
-one moment in every ten — eat ten meals, day never turns. Tolerance plus a clamp.
-
-[PENDING Paolo, blocks everything downstream] THE MOMENT TABLE (which moments exist,
-what each spends) and each system's per-unit rate. This lane will not guess either.
-
-WORLD MODEL (02): 7/27 (b) — HE RULED, AND THE RULING FOUND A HOLE FORTY-FOUR TYPES DEEP.
-
-Paolo, verbatim: "And anytime you build something like this you have to make a city
-builder icon as well like for real." Said the turn the lane shipped the railway and the
-interchange — full generators, full dossiers, two new machine gates, and not one thing
-you could point at in the city builder.
-
-RECORDED AND COMMITTED THE SAME TURN, before any code:
-laws/BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md. The addendum names what does NOT
-satisfy "like for real" — a coloured square, a letter, the map-tab cell colour, a
-downscaled screenshot of the tile grid, a placeholder with a TODO, or "the icon is the
-next backlog item."
-
-WHAT THE HOLE ACTUALLY WAS. The icon system EXISTS and is called DISTRICT HEROES
-(tools/bohemia_district_hero_factory.py -> banks/BOHEMIA_DISTRICT_HERO_CANDIDATES...txt
--> tools/bohemia_city_hero_wire_patch.py injects HERO_SRC/HERO_ANCH into the alpha's
-CITY_B64). It had a factory, a bank, a judge page, a dossier gate and a vehicle-size
-gate — everything the FACTORY LAW asks for except the one thing that matters: NOTHING
-CHECKED WHETHER A TYPE HAD ONE. So 44 types deep, 21 had a hero and 23 did not, and no
-gate ever went red about it.
-
-SHIPPED: rail + interchange heroes, built the approved way — hand-built 3D volumes baked
-through bohemia_iso3d, PALETTE AND LANDMARKS PULLED FROM THE ENGINE MODULE (the 7/24 law
-that ended the thumbs-down arc: "as long as it kind of resembles the actual walking map
-of that district then I'm so happy"), every part written into PARTS for the dossier gate.
-The railway is two ballasted tracks with a dead locomotive and wagons standing on them, a
-wayside signal and its relay hut, the at-grade crossing with the gate arm still down, and
-the rail-served loading dock. The interchange is two carriageways crossing on TWO LEVELS,
-the upper one on piers, with a connector ramp curving up to it.
-
-GATE ICON (17 checks) IS A RATCHET, and that shape is the point. 23 of 44 types have an
-icon, so a gate demanding "every type has one" would be red the minute it was written,
-and a permanently-red gate is a comment nobody can act on. Instead: (1) new work cannot
-add debt — every type this lane ships is in ICON_REQUIRED and must have a hero right now;
-(2) the debt list may only SHRINK — the gate fails if a listed type is secretly already
-done, fails if a type is missing an icon without being named, and prints the count every
-run; (3) an icon is REAL ART — the PNG is inflated, the row filters undone, and the real
-pixels measured for size, opaque coverage and value variety, so a coloured square cannot
-pass; (4) it is actually WIRED into the CITY tab with its anchor.
-
-AND THE ONE I STOPPED ON. AIRPORT + AIRBASE heroes are written, correct, and deliberately
-NOT in the HEROES dict. The signature of an airfield is the AEROPLANE and at 1x1 tile size
-the aeroplane does not read. Four attempts, all written up in the factory so nobody walks
-them again: axis-aligned wings (a plus-sign of girders), swept quads a value step darker
-(correct — verified by baking the aircraft ALONE on a bare plate, where it reads
-unmistakably), icon proportions instead of scale-model ones, and a darker stand so a pale
-airframe stops vanishing into pale concrete. Better each time and still not there.
-THE DIAGNOSIS, which is not "it needs more polish": every other hero's signature is a
-BUILDING and buildings survive shrinking; an airfield hero has to fit a runway, a taxiway,
-a terminal AND a legible aircraft into one plot, which forces the aircraft small. That is
-a COMPOSITION RULING and it is Paolo's, not mine to keep guessing at. THE QUESTION: should
-an airfield hero drop the runway and show just the terminal and the aeroplane, big?
-Adding them back is one line once he says.
-
-ALSO FIXED (found while doing the above): the hero factory's scratch path was HARD-CODED
-to one session's private directory. It could not be run by anybody else at all — the
-palette dump it depends on died on check=True before the first hero was built. Portable
-now. And gates/vehicle_size_gate.py was extended: "one consistent size" is a rule about
-scale never drifting between heroes, not a rule about cars, so the new canon bodies
-(RAILCAR, LOCO, AIRLINER, FIGHTER) get constants and helpers that refuse a non-canon size,
-exactly like CAR/BUS/TRAILER.
-
-ICON DEBT NOW: 22 of 44 types, named in the gate and in BOHEMIA_BACKLOG.md. Terrain
-(desert/mountain/water) may not want a building hero at all — a separate ruling.
-
-WORLD MODEL (02): 7/27 (a) — THE RAILWAY, THE STACK, AND A DEFECT IN MY OWN LAST SHIP.
-Three things landed. Valley: 95.6% -> 96.7% generated.
-
-1. THE MAINLINE (engine/bohemia_rail.js, 90 cells, gate RAIL / 36 checks). The Union
-Pacific line down column 54 is why Las Vegas exists — a railroad water stop before it
-was a town — and all 90 cells were flat grey. A railway is NOT built out of the road
-vocabulary and the backlog line that said it was ("network tiles like the roads, same
-machinery") was simply wrong: no lanes, no median, no sidewalk, no intersections. What
-it has is a two-track ballast prism with sleepers and gauge-spaced running rails, a
-cess, a drainage ditch, a maintenance road on ONE side, a right-of-way fence, wayside
-signals with relay huts, and passing sidings that taper off the main through real point
-blades. The sidings are keyed on the CELL COORDINATE, not the cell seed, so a loop runs
-1.5 km continuously instead of flickering on and off every 96 m — and every other loop
-has a whole ten-cell consist standing held in it, which is what a siding is for.
-THE ONE THAT MATTERED: THE LINE IS ONE LINE. Adjacency says it is not — three of the
-freeway crossings are two cells wide, so a naive same-neighbour rule severs the valley's
-only railway into three pieces. Two halves fix it: world.js's new continuityLinks looks
-THROUGH a crossing surface to the far side, and bohemia_freeway.js now lays the ballast
-and rails UNDER its deck on abutments wherever a rail cell is on the other side. The
-gate walks all 12,288 tile rows of the column top to bottom and requires rail under your
-feet the whole way.
-17 real at-grade crossings where the mile grid meets it: roadway through the fence, the
-ditch and the maintenance road, crossing panels with the rails still proud between them,
-stop bars, the painted X, and the gate arms still down.
-FIXED TWICE ON THE WAY, both by looking at the render: the frontage outside the fence
-was 37% bare dirt (half the cell a void), and is now rail-served industry — loading pads
-with their own spurs, fenced material yards, and back lots with the alignment of a spur
-whose rails were lifted for scrap. Void is 6%.
-
-2. THE STACK (engine/bohemia_interchange.js, 16 cells, gate INTERCHANGE / 43 checks).
-The 4x4 block at x50-53 y19-22 where the two interstates cross — the Spaghetti Bowl, the
-biggest man-made object in the city, rendering as sixteen grey squares. Built across the
-whole cluster like the airfield, but harder: this module has NO PER-CELL BUFFER AT ALL.
-Every tile is a pure function of its valley position, and the module exports solve() so
-the GATE CAN PROVE THAT rather than infer it from how the seams look — it solves the
-block once and requires every rendered tile to equal the block-wide answer at its valley
-coordinate. That caught a real one on its first run: the infield noise was keyed on the
-CELL seed, so all sixteen cells were quietly solving different ground.
-Two mainlines, the east-west one carried OVER on a real deck on piers; eight ramps (a
-tight direct connector and a long directional flyover per quadrant); gore striping; two
-retention basins with their ring tracks; the wall track inside the sound wall; and the
-jam that starts here and never moved. The approaches come from the MAP — world.js's new
-clusterApproach reports which columns and rows the freeway actually arrives on.
-FIXED TWICE HERE TOO: the ramp radii were first taken off the axis spacing, which put
-every ramp INSIDE the corridor it was supposed to leave (all eight rendered as 0.9% of
-the block); and the infield went from stippled to one-quadrant-flat before landing on
-single-octave value noise at a real feature size.
-
-3. THE INTERSTATE WAS A LATTICE, AND IT WAS MY OWN 7/26 WORK. Found by rendering the
-freeway to a PNG and looking at it, which is the only reason it was found. The overmap
-lays an interstate TWO CELLS WIDE, so a cell in the middle of a straight run has freeway
-to its east, its west AND to one side. bohemia_freeway.js read "any freeway neighbour"
-as its axis, so that third one looked like a crossing: 926 OF THE VALLEY'S 952 FREEWAY
-CELLS WERE DRAWING THEMSELVES AS A FOUR-WAY JUNCTION, and 10% of the map rendered as a
-grid of tan embankment squares instead of a road. A cell's axis is now the direction it
-has BOTH neighbours in; the odd one out is named as the parallel carriageway; and no
-sound wall stands between two carriageways any more, so the pair reads as one interstate.
-Gated in roadcell_gate: crossroads must stay under 5% of freeway cells.
-WHY NO GATE CAUGHT IT: every road check asked whether you could DRIVE THROUGH the cell,
-and you could. Nothing asked what SHAPE it was. That is the honest lesson and it is the
-same one as VERIFY ON THE REAL SURFACE — green gates said yes while the picture said no.
-
-ALSO FIXED (one line, another lane's gate): run_gate.js pinned the buildstamp to the
-literal "BUILD 7/26", so it went red the moment anybody stamped a 7/27 build — the
-SHIP FLOW law's own requirement turned into a gate failure. It now checks the FORMAT
-(date-letter plus a name), not the date.
-
-STILL FLAT (300 cells): resort 118 and strip 81 are Paolo's hand by law and stay
-reserved. The rest is the small landmark set — campus 16, speedway 12, town 9, ballpark
-8, basin 8, convention 6, datafort 6, casino 5, prison 4, dam 4, reservoir 3 — plus a
-tail of single-cell landmarks. NEXT IN ORDER for this lane after that: the APPROVED
-ambient encounter director (WORLD item 2), which is world content and not parked.
-STILL OPEN from the airfield ship: the fields read as clean bands and want dressing.
+WORLD MODEL (02): 7/27 (a)-(e), COMPRESSED — the full record is in git and in
+BOHEMIA_BACKLOG's WORLD section; this is what a new session needs. (Compressed on
+purpose: the handoff is far over its DIET LAW cap and a lane may only legally shrink
+its OWN entries. records/ carries the long form of every line below.)
+- (e) CAMPUS 16 cells + SPEEDWAY 12, real kit districts, gate LANDMARKS, icons the same
+  turn. THE CAMPUS IS ITS QUAD (the gate requires the quad to BEAT the pavement, or it
+  is a business estate wearing the word) and THE SPEEDWAY IS ITS OVAL (the gate floods
+  the track and requires it to come back round; grandstand on the front stretch ONLY;
+  vehicular:true, the walkable-land law's own exception). Four bugs the gates caught,
+  all of which looked fine rendered — lots not touching the ring road (reach 0.54),
+  an apron inset one tile from the plot edge (reach 0.00), five light towers placed
+  entirely off the grid, and THE TUNNEL THAT SKIPPED THE FENCE and sealed the oval (39%
+  reachable, with no way to the track, infield or garages at all).
+- (d) THE ENCOUNTER DIRECTOR, engine/bohemia_encounters.js, on his "Approve all" of the
+  act-1 roster. 12 tokens, each with the VERB that makes it different. 70/20/10 by a
+  DEFICIT CHOOSER where THE CLASS IS NOT NEGOTIABLE (the first build substituted and
+  came out 40/42/18; if the story wants an ambient beat and none is free, NOTHING
+  happens). Storyteller budget, ~90s floor, rare is sacred, no repeat-spam, NO GLOBAL
+  SPAWNS EVER (held by construction — there is no fallback table), and NO BACKGROUND
+  TICKING: the module owns no clock at all and is PULLED through the resolver socket.
+  Gate ENCOUNTERS, 46. NOT LIVE until the moment table lands and somebody rules the
+  district spawn table. Neither is guessed.
+- (c) TWO ORDERS, both shipped. THE ONE MAP (his order): the phone's map app drew a
+  SCHEMATIC and now renders the real generated valley cell for cell out of the shared
+  engine/bohemia_valleymap.js, which the city-builder MAP tab reads from too, with quest
+  pins grouped by cell on top. Gate ONE MAP, 37. It uncovered four real defects: the
+  PHONE WAS RUNNING A WORLD MODEL WITH NINE GENERATORS MISSING (rail, both freeways, the
+  interchange, both airfields and all three terrains resolved to nothing on the phone
+  only); four independent valley renderers with copy-pasted tone tables and three
+  different seeds; dead wm.hubs/wm.routes reads; and the player blip standing at tile
+  128,128 on a 96-cell valley, permanently off the canvas.
+  THE WORLD'S HALF OF THE RESOLVER (his order): engine/bohemia_world_resolve.js, four
+  systems subscribing to declared moments — day, economy, faction, encounters. Never
+  hardcoded (proved by source AND by behaviour: a resolver whose moments are named
+  QWERTYUIOP works identically), all tables EMPTY with each system reporting NO_RULING
+  by name, and the size of the moment as the only dial. The 7/24 pacing ruling is not
+  overridden: the faction step cannot fire without a caller-supplied beat predicate, so
+  a spent meal can never quietly become a war. Gate WORLD RESOLVE, 39.
+- (b) THE ICON LAW landed off his ruling and found a hole 44 types deep: the district
+  hero system had a factory, a bank, a judge page and two gates, and NOTHING CHECKED
+  WHETHER A TYPE HAD ONE. Gate ICON is a RATCHET — new work cannot add debt, the named
+  debt list may only shrink, and an icon must be REAL ART (the PNG is inflated, its row
+  filters undone, and the pixels measured, so a coloured square cannot pass).
+  AND THE ONE I STOPPED ON: airport + airbase heroes are written, correct, and
+  deliberately OUT of the roster. The aeroplane geometry is fine (verified alone on a
+  bare plate); the problem is that every other hero's signature is a BUILDING, which
+  survives shrinking, and an airfield's is an AIRCRAFT, which does not. Four attempts
+  are written up in the factory so nobody re-walks them. It is a COMPOSITION RULING and
+  it is Paolo's.
+- (a) THE MAINLINE (engine/bohemia_rail.js, 90 cells, gate RAIL) — not built out of the
+  road vocabulary at all: ballast prism, sleepers, gauge-spaced rails, cess, ditch, a
+  maintenance road on ONE side, ROW fence, wayside signals, and sidings keyed on the
+  CELL COORDINATE so a loop runs 1.5 km instead of flickering every 96 m. THE LINE IS
+  ONE LINE: world.js's continuityLinks looks THROUGH a crossing surface and the freeway
+  lays rail under its deck, so three two-cell freeway crossings no longer sever the
+  valley's only railway into three pieces.
+  THE STACK (engine/bohemia_interchange.js, 16 cells, gate INTERCHANGE) — NO PER-CELL
+  BUFFER ANYWHERE; every tile is a pure function of valley position, and the module
+  exports solve() so the gate can PROVE it rather than infer it from seams. That caught
+  the infield noise being keyed on the cell seed, i.e. sixteen cells quietly solving
+  different ground.
+  AND A DEFECT IN MY OWN LAST SHIP, found only by rendering the freeway and looking:
+  926 OF THE VALLEY'S 952 FREEWAY CELLS WERE DRAWING AS FOUR-WAY JUNCTIONS, because an
+  interstate is laid TWO CELLS WIDE and the module read "any freeway neighbour" as its
+  axis — so the PARALLEL CARRIAGEWAY looked like a crossing and 10% of the map rendered
+  as tan embankment squares. Every road gate asked whether you could DRIVE THROUGH the
+  cell, and you could; nothing asked what SHAPE it was. Gated now (crossroads under 5%).
 
 WORLD MODEL (02): 7/26 (h) — THE AIRFIELDS. 94 cells (40 airport, 54 airbase), the last
 big flat thing. engine/bohemia_airfield.js builds both from one generator because a
