@@ -475,6 +475,28 @@ async function alphaRun() {
     await run.click('#mus'); await run.waitForTimeout(400);
     out.musicOn = await run.evaluate(() => window.__RUN.music());
 
+    /* OFF MEANS SILENT (Paolo 7/27: "i press the music button off and the music
+       still plays"). A round trip of the FLAG proved nothing: MUS.stop() only
+       cleared the scheduler, so every note already booked into the master kept
+       sounding after the button said OFF. What has to be true is that the audio
+       graph goes quiet, so the gate drives the real synth and reads the real
+       master gain - the only place the sound can actually be. */
+    out.audio = await page.evaluate(async () => {
+      /* MUS is a top-level `const`, so it is in global LEXICAL scope and is NOT
+         a property of window - reading window.MUS reports null forever and the
+         check silently passes on nothing. Reference it bare. */
+      const g = () => MUS.MAST ? +MUS.MAST.gain.value.toFixed(4) : null;
+      try { MUS.build(); } catch (_e) {}
+      MUS.start(); await new Promise(r => setTimeout(r, 250));
+      const playing = { on: MUS.playing, gain: g(), ac: MUS.AC ? MUS.AC.state : null };
+      CITYMUS.stopShuffle(); await new Promise(r => setTimeout(r, 200));
+      const stopped = { on: MUS.playing, timer: !!MUS.timer, gain: g() };
+      MUS.start(); await new Promise(r => setTimeout(r, 200));
+      const again = { on: MUS.playing, gain: g() };
+      CITYMUS.stopShuffle();
+      return { playing, stopped, again };
+    });
+
     await walkOutOfHouse(run);
     const st0 = await run.evaluate(() => window.__RUN.state());
     const g = await run.evaluate(() => window.__RUN.grid());
@@ -755,6 +777,18 @@ async function alphaRun() {
     C.musicAfterWalk === true);
   ok('MUSIC: the toggle really round-trips through the alpha, both ways',
     C.musicOff === false && C.musicOn === true);
+  /* the three that would have caught 7/27's "i press the music button off and
+     the music still plays": the graph is live, OFF actually silences it, and
+     OFF does not leave the synth permanently muted */
+  if(process.env.RUN_GATE_DEBUG) console.log('    audio=',JSON.stringify(C.audio));
+  ok('MUSIC: the gate drove the REAL synth (a live audio context at full master)',
+    !!C.audio && C.audio.playing.on === true && C.audio.playing.ac === 'running'
+    && C.audio.playing.gain > 0.5);
+  ok('MUSIC: OFF MEANS SILENT — the master really goes to zero, not just the scheduler',
+    !!C.audio && C.audio.stopped.on === false && C.audio.stopped.timer === false
+    && C.audio.stopped.gain === 0);
+  ok('MUSIC: ON after OFF is not a silent build — the master comes back up',
+    !!C.audio && C.audio.again.on === true && C.audio.again.gain > 0.5);
   ok('ALPHA: no page errors while the run plays inside the alpha', C.errors.length === 0);
   if (C.errors.length) console.log('    ' + C.errors.slice(0, 4).join('\n    '));
   ok('ALPHA: a loud resolution really opens the COMBAT tab', C.combatPanelOn === true);

@@ -1123,7 +1123,31 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/27 LATEST — THE BLOCK IS BUILDINGS NOW. Paolo: "it still looks like
+RUN (01) 7/27 LATEST — OFF MEANS SILENT. Paolo: "when im in the run i press the
+music button off and the music still plays ass hole". He was right and the gate
+was passing. MUS.stop() cleared the step SCHEDULER and set playing=false, and
+that is all it ever did. The scheduler books notes AHEAD of real time and every
+one it books is a real WebAudio node with its own envelope scheduled to sound at
+an absolute future time - killing the scheduler stops new notes being QUEUED and
+does not touch a single note already in the graph, so a pad or a horn with a long
+release goes right on sounding after the button says OFF. THE OLD GATE ASSERTED
+THE FLAG (musicOff===false && musicOn===true) AND BOTH WERE TRUE THE WHOLE TIME;
+the flags were never the problem, they were the reason nobody caught it. FIX:
+everything routes through one master gain, so stop() ramps MAST.gain to 0 over
+60ms (ducks instead of clicking) and start() ramps it back to 0.8, and
+CITYMUS.stopShuffle() now calls MUS.stop() UNCONDITIONALLY - it was guarded by
+if(MUS.playing), so any desync of that one flag left OFF pressed and the audio
+running with nothing willing to stop it. NEW LAW:
+laws/BOHEMIA_ADDENDUM_OFF_MEANS_SILENT_7_27_26.md - a control that says OFF makes
+the THING stop, not the flag that describes it, and its gate asserts the EFFECT
+in both directions (a control that can never come back on is the same bug wearing
+the other hat). PROVEN, not attested: ran the new assertion against the pre-fix
+code and got playing:false, timer:false, GAIN:0.8. THE TRAP THAT HID IT: MUS is a
+top-level `const`, so it is in global LEXICAL scope and NOT on window - any probe
+written as window.MUS && MUS.MAST reports null forever and passes on nothing.
+Reference it bare. (CITYMUS is fine, it is explicitly exported.) run_gate.js 123.
+
+RUN (01) 7/27 — THE BLOCK IS BUILDINGS NOW. Paolo: "it still looks like
 dog shit u tried to make garages like sideways u's and its very bad man also
 every wall that hosts a door should be at the least three wall tiles tall and we
 gotta fix what it looks like when im underneath a wall with an opcacity filter or
