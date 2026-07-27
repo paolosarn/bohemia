@@ -1,3 +1,69 @@
+WORLD MODEL (02): 7/27 (h) LATEST — THE BULK VERDICT CAME BACK 32 DOWN, AND MY OWN
+JUDGE PAGE HAD ITS THUMB ON THE SCALE. NOTHING WAS REBUILT. READ THIS BEFORE BUILDING
+ANY GROUND: records/BOHEMIA_BULK_VERDICT_ANALYSIS_7_27_26.md
+Raw verdict: records/BOHEMIA_VERDICT_BULK_DISTRICTS_7_27_26.txt
+
+10 up / 32 down / 3 unjudged of 45. "it was mostly all bad." "nothing here was perfect
+all need work fr."
+
+NOTHING IS BEING REBUILT OFF IT, and that is the correct turn, not a dodge. STOP
+PRODUCING: a bulk rejection says the BAR is not met; it is not a work order for 32
+rebuilds, and the turn after it names the blocker instead of shipping version two of
+everything.
+
+THEY ARE REWORK, NOT KILLS — his own words are "needs work" / "could be better" /
+"needs more" / "all need work". NOTHING WENT TO THE GRAVEYARD. Getting this wrong
+would have deleted most of the valley and GRAVEYARD IS FINAL, so it is stated
+explicitly rather than assumed.
+
+MY OWN TOOL BIASED THE VERDICT, and it is a law break I have to own. The bulk judge
+rendered every district's plot as FLAT PALETTE COLOURS, one per tile code. That is a
+schematic, not what the game draws. VERIFY ON THE REAL SURFACE (7/18) says art is
+judged ONLY on the surface he sees and that a side-door probe IS A LIE — and I built
+one, put 45 districts in it, and asked him to judge them, one message after shipping
+it. The split this forces:
+  - THE ICONS ARE REAL ART on the real render path. Every icon complaint is valid,
+    no caveat, and mine to answer.
+  - THE LAYOUT COMPLAINTS ARE VALID — a schematic shows layout truthfully, and
+    parking / scale / what-is-where is most of what he called out.
+  - "LOOKS LIKE SHIT" ON A COLOUR GRID is a fair reaction to a colour grid, and is
+    not yet a verdict on how that district will look in the game.
+
+THE ONE THING BLOCKING ALL OF IT, and it is NOT in this lane: the tile set covers ONE
+RESIDENTIAL STREET, and the CITY tab does not use the tile set at all. 44 of the 45
+districts have no ground art anywhere. Until a tile family exists per district type,
+every look verdict on a district returns the same answer no matter how many times the
+ground is redrawn. That is the ART lane's own item 1. Redrawing layouts will not move
+it, and this lane must not pretend otherwise by shipping more ground.
+
+WHAT IS REAL AND MINE, waiting on his sequencing call:
+  (a) LAYOUT, no new art needed: commercial + ballpark parking (walkable-land, and
+      ballpark is one he APPROVED), library scale ("the worlds biggest library wtf"),
+      farm growing row crops in the Mojave ("this is nevada nevada is in a dessert"),
+      interchange + rail + airfield readability, waterpark.
+  (b) ICONS, real art: firestation + campus bugged, storage bad, solar wants more
+      panels, commercial wants loving, courthouse wants a bigger building, cemetery
+      has none at all.
+  (c) HIS CALL, never invented: is the school a high school or a middle school; and
+      he noted he never asked for the town district.
+
+THE 10 THAT PASSED: suburb, apartment, town, commercial, industrial, storage, solar,
+medical, cemetery, ballpark — all but suburb and apartment with "needs work" attached.
+Approval unlocks volume; NO VARIANTS WERE TAKEN, because "nothing here was perfect" is
+not a mandate to make more of anything.
+
+=== WHAT COMES AFTER ===
+DO NOT: start rebuilding districts off this verdict without him naming which and in
+what order. That is the exact failure STOP PRODUCING was written for.
+BLOCKED ON PAOLO:
+  0. WHAT DO I FIX FIRST — the layout problems, or the icons? (Or neither, until the
+     tile set lands.) He has not sequenced it.
+  1. THE MOMENT TABLE, still the single answer that switches on the day, the economy,
+     faction beats and the encounter director at once.
+  2. School: high school or middle school.
+  3. THE AIRFIELD ICON composition.
+  4. QUEST PLACEMENT VERDICTS.
+
 CITY (03): 7/28 (c) LATEST — HE PLAYS THE RUN. I HAD BEEN FIXING THE CITY TAB ALL DAY.
 "i went on the run and the suburb border walls are not changed its still the house tiles
 dumbass"

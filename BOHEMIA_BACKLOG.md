@@ -595,6 +595,34 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+V-1. [VERDICT IN 7/27 — 10 up / 32 down / 3 unjudged of 45. "it was mostly all bad",
+   "nothing here was perfect all need work fr"]
+   Raw: records/BOHEMIA_VERDICT_BULK_DISTRICTS_7_27_26.txt
+   Read: records/BOHEMIA_BULK_VERDICT_ANALYSIS_7_27_26.md
+   NOTHING IS BEING REBUILT OFF IT. STOP PRODUCING: a bulk rejection is a signal the
+   BAR is not met, not a work order for 32 rebuilds.
+   THESE ARE REWORK, NOT KILLS, by his own words ("needs work" / "could be better" /
+   "needs more" / "all need work"). NOTHING GOES TO THE GRAVEYARD off this verdict —
+   a misread would delete most of the valley, and GRAVEYARD IS FINAL.
+   AND MY OWN TOOL PUT A THUMB ON IT: the bulk judge rendered plots as FLAT PALETTE
+   COLOURS, which is not what the game draws. That is a side-door probe, which
+   VERIFY ON THE REAL SURFACE calls a lie outright, shipped by me one message earlier.
+   The split it forces: ICON complaints are real art and fully valid; LAYOUT
+   complaints (parking, scale, what is where) are valid because a schematic shows
+   layout truthfully; "looks like shit" on a colour grid is a fair reaction to a
+   colour grid and is not yet a verdict on the district's art.
+   THE BLOCKER, and it is not in this lane: the tile set covers ONE residential
+   street, and the CITY tab does not use it at all. 44 of 45 districts have NO ground
+   art. Every look verdict comes back the same until a tile family exists per
+   district type. That is ART's item 1; redrawing layouts will not move it.
+   ACTIONABLE AND MINE, pending his order on sequence:
+     (a) LAYOUT: commercial + ballpark parking (walkable-land), library scale
+         ("the worlds biggest library"), farm growing row crops in the Mojave,
+         interchange + rail + airfield readability, waterpark.
+     (b) ICONS: firestation + campus bugged, storage bad, solar needs more panels,
+         commercial needs loving, courthouse building bigger, cemetery has none.
+     (c) HIS CALL, never invented: is the school a high school or a middle school;
+         and he noted he never asked for the town district.
 V0. [DONE 7/27 — HIS ORDER] JUDGE EVERYTHING, BULK AND ONE BY ONE.
    Paolo, verbatim, in the same breath he approved the town and the ballpark:
    "is there anyway i can comment and judge all ur work in bulk and individually".
