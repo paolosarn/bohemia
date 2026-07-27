@@ -56,6 +56,20 @@ if (banks.indexOf('ROOF_IMG') < 0 || banks.indexOf('YARD_IMG') < 0 ||
     banks.indexOf('WALL_IMG') < 0 || banks.indexOf('DOOR_B64') < 0) {
   throw new Error('the lifted art block is missing one of the approved banks');
 }
+/* ---- RUN PERIMETER (7/28, Paolo: "i went on the run and the suburb border
+   walls are not changed its still the house tiles"). He was right and it was
+   worse than a wiring slip: the run returned 'wall_base' for the suburb
+   perimeter, which is the SAME starter-tileset tile its own bodyTile() lays as
+   the bottom course of a house. His 13 approved border walls - 61 candidates
+   judged down over two sessions - had never existed in this renderer at all.
+   The tan half of the pool comes in verbatim, like the door bank. ---- */
+var PERIM_POOL = 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt';
+var perimBank = JSON.parse(fs.readFileSync(PERIM_POOL, 'utf8'));
+var perimTan = perimBank.pool.filter(function (p) { return p.variant === 'tan'; }).map(function (p) { return p.b64; });
+if (perimTan.length < 12) throw new Error('the approved suburb border walls are missing from ' + PERIM_POOL);
+if (html.indexOf('__PERIM_B64_JSON__') < 0) throw new Error('missing __PERIM_B64_JSON__ placeholder');
+html = html.replace('__PERIM_B64_JSON__', JSON.stringify(perimTan));
+
 if (html.indexOf('__ART_BANKS__') < 0) throw new Error('missing __ART_BANKS__ placeholder');
 html = html.replace('__ART_BANKS__', banks);
 

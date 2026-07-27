@@ -908,6 +908,20 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0O. [DONE 7/28, and it is the lesson of the day] HE PLAYS THE RUN. THE RUN IS A
+   SEPARATE RENDERER. Three consecutive turns diagnosed correctly, fixed
+   correctly, gated green and shipped - all in CITY_B64, while he was looking at
+   slices/BOHEMIA_RUN_CURRENT.html. In the run, `groundTile` returned 'wall_base'
+   for the suburb perimeter, which is the SAME starter-tileset tile its own
+   bodyTile() lays as the bottom course of a HOUSE: the border wall and the house
+   wall were one tile, exactly as he said, twice. His 13 approved border walls
+   had never existed in that renderer. Fixed via the builder (inlines the pool,
+   refuses to build without it) + a perimeter draw path seeded per plot, in both
+   the main and see-through passes. wallclass_gate.js covers BOTH renderers now.
+   STANDING RULE FOR THIS LANE: before fixing anything visual, ASK WHICH SURFACE
+   HE IS ON. The CITY tab and the RUN tab share almost no render code. A gate
+   that only covers your surface is how you say "fixed" three times while he
+   looks at the same broken thing.
 0N. [DONE 7/28] THE BANK LAW INDEX - the class of miss that hit THREE TIMES today.
    His rulings are not only in /laws. They are in the BANKS, in fields nothing
    read: a bank's own `law` field said "wall height min 2 tiles" for ten days

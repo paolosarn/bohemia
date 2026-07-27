@@ -163,6 +163,44 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   if (r.housePool) ok('the house facade still uses a BUILDING pool (' + r.housePool + '), the other side of the same law',
     BUILDING.includes(r.housePool));
 
+  /* ============================================================================
+   * THE RUN IS A SECOND RENDERER, AND IT IS THE ONE HE PLAYS.
+   *
+   * > "i went on the run and the suburb border walls are not changed its still
+   * >  the house tiles dumbass"
+   *
+   * Everything above measures the CITY tab. The run has its OWN tile vocabulary
+   * and for the suburb perimeter it returned 'wall_base' — the SAME
+   * starter-tileset tile its own bodyTile() lays as the bottom course of a
+   * HOUSE. The border wall and the house wall were literally one tile, and his
+   * 13 approved border walls had never existed in that renderer at all.
+   *
+   * Gating one surface and declaring the law held is exactly how this went
+   * wrong, so the gate covers BOTH renderers now.
+   * ========================================================================= */
+  const runPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const runErr = [];
+  runPage.on('pageerror', e => runErr.push(String(e).slice(0, 160)));
+  await runPage.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'),
+    { waitUntil: 'load', timeout: 180000 });
+  await runPage.waitForTimeout(8000);
+  const run = await runPage.evaluate(() => ({
+    pool: (typeof PERIM_B64 !== 'undefined') ? PERIM_B64.length : -1,
+    decoded: (typeof PERIM_IMG !== 'undefined') ? PERIM_IMG.filter(i => i.complete && i.naturalWidth).length : -1,
+    hasDraw: typeof drawPerim === 'function',
+    stillHouseTile: (typeof groundTile === 'function')
+      ? (function () { try { return groundTile(4, 1, 1) === 'wall_base'; } catch (e) { return null; } })() : null,
+  }));
+  ok('THE RUN carries his border-wall pool at all (' + run.pool + ' tiles) — it never did before',
+    run.pool === tan.length);
+  ok('THE RUN decoded all of them (' + run.decoded + ')', run.decoded === tan.length);
+  ok('THE RUN has a perimeter draw path of its own', run.hasDraw === true);
+  ok('THE RUN NO LONGER RETURNS THE HOUSE TILE for the suburb perimeter — ' +
+    "'wall_base' is what its own bodyTile() lays as the bottom course of a house",
+    run.stillHouseTile === false);
+  ok('THE RUN boots clean with the wall in it (' + (runErr.length ? runErr[0] : 'no errors') + ')',
+    runErr.length === 0);
+
   console.log('WALL CLASS GATE: ' + pass + ' passed, ' + fail + ' failed');
   await browser.close();
   process.exit(fail ? 1 : 0);

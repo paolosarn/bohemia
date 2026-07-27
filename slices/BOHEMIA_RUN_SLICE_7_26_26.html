@@ -347,6 +347,7 @@ window.draw = function(){};
    slices/BOHEMIA_SUBURB_WALK_7_18_26.html (canon doors + roof/yard/wall skins,
    Paolo-approved 7/21). REUSE, not a re-cook: same bytes, same block. ---- */
 __ART_BANKS__
+var PERIM_B64 = __PERIM_B64_JSON__;
 </script>
 
 <script>
@@ -682,12 +683,44 @@ function groundTile(c,gx,gy){
   }
   if(c===3) return ['concrete_0','concrete_1'][th(gx,gy,2)];       /* driveway */
   if(c===5) return 'concrete_0';                                    /* the gate mouth */
-  if(c===4) return 'wall_base';                                     /* perimeter wall top */
+  /* RUN PERIMETER (7/28): this returned 'wall_base' - the SAME starter-tileset
+     tile the run's own bodyTile() lays as the bottom course of a HOUSE. The
+     suburb border wall and the house wall were literally one tile. Paolo judged
+     61 candidates down to 13 border walls over two sessions
+     (banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt) and not one of them had ever
+     existed in this renderer. It is drawn from that pool now, in drawPerim(),
+     which is why this returns null - the draw handles it. */
+  if(c===4) return null;
   /* dead ground: the block's yards, with the walk band where it meets the street */
   if(isRoad(gx,gy+1)||isRoad(gx,gy-1)||isRoad(gx+1,gy)||isRoad(gx-1,gy)) return 'walk_kerb';
   if(th(gx,gy,11)===0) return 'dirt';
   if(th(gx,gy,7)===0) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
   return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
+}
+/* ==== RUN PERIMETER (7/28): PAOLO'S OWN SUBURB BORDER WALLS ================
+   banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt - 13 keys he passed out of 61
+   candidates across two judging sessions (7/14 batch 1: 12 of 44; 7/17 batch 2:
+   1 of 48). The builder inlines the tan half verbatim; nothing is re-cooked.
+
+   ONE WALL PER COMMUNITY, his law, verbatim from
+   banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt `paolo_laws`:
+   "each plot = ONE wall design (seeded per plot); variety BETWEEN plots;
+    per-cell wall shuffle BANNED"
+   The plot is the 4x4 overmap group this cell belongs to - the same grouping the
+   suburb layout itself is generated from - so a whole community wears one wall
+   and the community next door wears a different one. ========================= */
+var PERIM_IMG = (typeof PERIM_B64!=='undefined'?PERIM_B64:[]).map(function(b){
+  var im=new Image(); im.src='data:image/png;base64,'+b; return im; });
+function perimImg(){
+  if(!PERIM_IMG.length) return null;
+  var px=(CELL&&CELL[0]||0)>>2, py=(CELL&&CELL[1]||0)>>2;
+  var h=(Math.imul(px,2654435761)^Math.imul(py,40503))>>>0;
+  var im=PERIM_IMG[h%PERIM_IMG.length];
+  return (im&&im.complete&&im.naturalWidth)?im:null;
+}
+function drawPerim(X,Y,S){
+  var im=perimImg(); if(!im) return false;
+  ctx.drawImage(im,X,Y,S,S); return true;
 }
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
 /* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its
@@ -1138,6 +1171,13 @@ function draw(){
            the yard through it, which is what a hip is supposed to look like. */
         var body = isSuburbCell() && isBody(gx,gy2);
         if(body) tput(groundTile(0,gx,gy2),X,Y,S);
+        /* RUN PERIMETER (7/28): the community wall is HIS pool, not the
+           tileset. Ground goes down first so the wall never sits on bare
+           canvas while the bank is still decoding. */
+        if(isSuburbCell() && c===4){
+          tput(groundTile(0,gx,gy2),X,Y,S);
+          if(drawPerim(X,Y,S)) continue;
+        }
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
@@ -1225,6 +1265,9 @@ function draw(){
     ctx.save(); ctx.globalAlpha=0.35;
     fade.forEach(function(f){
       var gx=f[0], gy2=f[1], X=f[2], Y=f[3], S=f[4];
+      /* RUN PERIMETER (7/28): the see-through pass draws the same tiles, so it
+         needs his wall too or a faded community wall reverts to a house tile. */
+      if(isSuburbCell() && G[gy2][gx]===4){ tput(groundTile(0,gx,gy2),X,Y,S); if(drawPerim(X,Y,S)) return; }
       var laid = isSuburbCell()
         ? (isBody(gx,gy2) ? bodyTile(G[gy2][gx],gx,gy2) : groundTile(G[gy2][gx],gx,gy2))
         : genericTile(gx,gy2);

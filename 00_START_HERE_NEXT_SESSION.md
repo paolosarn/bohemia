@@ -1,3 +1,33 @@
+CITY (03): 7/28 (c) LATEST — HE PLAYS THE RUN. I HAD BEEN FIXING THE CITY TAB ALL DAY.
+"i went on the run and the suburb border walls are not changed its still the house tiles
+dumbass"
+HE WAS RIGHT THREE TIMES IN A ROW AND I KEPT MEASURING A SURFACE HE WAS NOT LOOKING AT.
+THE RUN IS A SEPARATE RENDERER with its own tile vocabulary. In it:
+    if(c===4) return 'wall_base';        /* perimeter wall top */
+and its own bodyTile() lays that SAME 'wall_base' as the bottom course of a HOUSE:
+    if(a.kind==='wall'){ if(a.off===0) return 'wall_base'; ... }
+So in the run the suburb border wall and the house wall were LITERALLY THE SAME TILE.
+"ur using some bullshit that u made for a house wall as the subrub wall" was not an
+approximation of the bug. It was the bug, stated exactly, twice, while I fixed CITY_B64.
+His 13 approved border walls had never existed in the run at all - the builder lifts
+DOOR_B64 / ROOF_IMG / YARD_IMG / WALL_IMG off the walk surface and the perimeter pool was
+never among them.
+FIXED, tools/bohemia_run_perimeterwall_patch.py: tools/build_run_slice.js now inlines
+the 13 tan tiles from banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt as PERIM_B64 (same
+way it already inlines the approved animated doors) and REFUSES TO BUILD if the bank is
+missing or short. Code 4 draws from that pool, seeded PER PLOT (the 4x4 overmap group)
+per his one_wall_per_community law, in both the main pass and the see-through pass.
+GATE: gates/wallclass_gate.js covers BOTH RENDERERS now (20 checks). It asserts the run
+carries and decodes all 13, has its own perimeter draw path, and that groundTile(4,...)
+NO LONGER RETURNS 'wall_base'. Gating one surface and declaring the law held is exactly
+how this went wrong.
+THE LESSON FOR EVERY LANE, THE BIG ONE OF THE DAY: ASK WHICH SURFACE HE IS ON BEFORE
+FIXING ANYTHING. The alpha has the CITY tab AND the RUN tab and they share almost no
+render code. Three consecutive turns of correct diagnosis, correct fix, green gates and
+a shipped build - all on the wrong renderer. A fix nobody can see is not a fix, and a
+gate that only covers your surface is how you get to say "fixed" three times in a row
+while he is looking at the same broken thing.
+
 CITY (03): 7/28 (b) LATEST — NINE OF HIS THIRTEEN APPROVED SUBURB BORDER WALLS HAD
 NEVER BEEN DRAWN IN THIS GAME, AND THE FOUR THAT HAD WERE BREAKING HIS OWN WRITTEN LAW.
 "BRO IN THE FILES THERE IS LIKE SO MANY APPROVED SUBURBA BORDER WALLS ... SEARCH THE
