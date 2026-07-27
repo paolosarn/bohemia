@@ -72,7 +72,14 @@ import base64, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALPHA = os.path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html')
-MARK = 'V87 THE PAUSE IS EMPTY'
+# THE MARKER MUST BE A STRING THIS TOOL ACTUALLY WRITES. v1 used
+# 'V87 THE PAUSE IS EMPTY' -- the law's title, which appears in the docstring and
+# in the law file but is never inserted into the demo. So the idempotency check
+# could never fire, and a re-run (which happens on every parallel-session rebase)
+# tried to patch an already-patched file: anchor 1 still matched, anchor 2 was
+# already consumed, and the tool exited on a FAIL that looked like corruption.
+# Caught on a real rebase 7/27. A marker you do not write is not a marker.
+MARK = 'V87 THE STREAK GLOW BLOOMS AND LEAVES'
 
 
 def sub1(src, old, new, tag):

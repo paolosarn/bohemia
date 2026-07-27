@@ -2026,6 +2026,53 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v88: THE PROVING GROUND, AND TWO RULINGS THAT NARROW THE WHOLE
+LANE. Paolo: "u want to get into point blank range and sprinting and not losing a
+turn can help that. i mean when it comes to shooting theres not a lot of ways to
+increase damage other than hit the killshot. just fun position and yeah. maybe its
+time to add a shuffable arena map fr and add companions maybe?"
+*** RULING 1, LOCKED: NO DAMAGE MULTIPLIERS. *** Position does not make the number
+bigger, it makes the killshot LANDABLE. Flank-damage, elevation-damage, angle
+bonuses: all dead before anyone builds one. Gated (KILL_DMG stays flat).
+*** RULING 2: POINT BLANK IS THE OFFENSIVE PLAY -- AND IT WAS ALREADY BUILT, JUST
+INVISIBLE. *** distPkg drops the needle to the EASIEST tier in the game at point
+blank on ANY difficulty; distAccuracy takes their hit chance on you 0.37 -> 0.97.
+A complete, shipped risk/reward that no player has ever been shown either half of.
+MY 7/27 AUDIT CALLED THIS "the wrong way for tension" AND HE CORRECTED ME: it IS
+the tension. The audit is corrected in place with his ruling quoted.
+WHAT SHIPPED:
+(a) SEEDED ARENAS. BohemiaArena.withDice() runs the whole encounter build --
+cover, spawns, looks, weapons -- on a deterministic PRNG, then hands Math.random
+STRAIGHT BACK (gated, including when the generator throws; a proving ground that
+quietly made the whole game deterministic would be a worse bug than the one it
+fixes). One number reproduces one exact fight forever.
+MAP LAW HELD: the generator is WRAPPED, not rewritten. Claude authored no layout.
+This is the MAP LAW hook made literal -- I hand him the dice and the notebook, HE
+says which arena numbers are canon. An arena without a seed is random mush you
+cannot even talk about, let alone keep.
+(b) SHUFFLE. One button, ARENA #4417. Re-rolls cover and spawns WITHOUT touching
+HP or streak, so a dozen arenas cost a dozen seconds instead of a fight each. It
+writes the seed into the comment box (COPY already sits beside it) and reads a
+number back out of that same box to REPLAY an arena. Zero new UI.
+(c) THE RANGE READ, under the dial, always on, computed from THE SAME expressions
+the fight runs so it can never drift out of step:
+    at  3 tiles: POINT BLANK · his dial: EASY   · he hits you 97%
+    at 15 tiles: MID RANGE   · his dial: NORMAL · he hits you 67%
+    at 30 tiles: LONG RANGE  · his dial: V.HARD · he hits you 37%
+*** THE BUG THE CLICK TEST CAUGHT, AND WHY CLICK TESTS EARN THEIR KEEP: *** the
+button wrote the seed OUT into the comment box and then read that box on the way
+back IN, so it locked itself to the first arena and SHUFFLE only ever shuffled
+once. Three taps, one arena. No amount of reading the code would have shown it;
+tapping the button three times showed it instantly. The box is now a REQUEST only
+when PAOLO put the number there, never when I did. Gated.
+NOT BUILT: COMPANIONS. He said "maybe?", and it carries a dozen unruled decisions
+-- who they are, what they cost, whether they can die, whether you order them or
+they act on stances. Building one on spec while he is asking a question is what
+STOP PRODUCING forbids. The arena is what they get tested IN, so it came first
+either way. [PENDING Paolo]
+GATE: combat_lab_gate.js section 24, 399 -> 413 checks.
+TOOL: tools/bohemia_combat_proving_ground_patch.py
+
 COMBAT (04) 7/27 - *** THE COMBAT NORTH STAR, LOCKED, AND THE AUDIT AGAINST IT.
 READ THIS BEFORE PROPOSING ANYTHING FOR COMBAT, EVER. ***
 Paolo, asked what actually makes a fight fun for him, verbatim:

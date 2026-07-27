@@ -1219,6 +1219,40 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-arena. DONE 7/27 (v88): THE PROVING GROUND. On his ask, "maybe its time to add a
+   shuffable arena map fr", plus two rulings in the same message.
+   *** RULING 1: NO DAMAGE MULTIPLIERS. *** "theres not a lot of ways to increase
+   damage other than hit the killshot." Position does not make the number bigger,
+   it makes the killshot LANDABLE. That kills flank-damage, elevation-damage and
+   every other multiplier before anyone builds one. Gated.
+   *** RULING 2: POINT BLANK IS THE OFFENSIVE PLAY, sprint is how you get there.
+   AND IT WAS ALREADY BUILT, JUST INVISIBLE. *** distPkg drops the needle to the
+   EASIEST tier in the game at point blank on any difficulty; distAccuracy takes
+   their hit chance on you from 0.37 to 0.97. Complete shipped risk/reward that no
+   player was ever shown. My 7/27 audit called it "the wrong way for tension" -- he
+   corrected me, it IS the tension. Audit corrected in place.
+   (a) SEEDED ARENAS. BohemiaArena.withDice() runs the whole encounter build on a
+   deterministic PRNG then hands Math.random straight back (gated, including on a
+   throw). One number reproduces one exact fight forever. MAP LAW held: the
+   generator is WRAPPED, not rewritten -- Claude authored no layout. This is the
+   MAP LAW hook made literal: I hand him the dice and the notebook, HE says which
+   arena numbers are canon.
+   (b) SHUFFLE. One button, ARENA #4417. Re-rolls cover and spawns WITHOUT touching
+   HP or streak, so a dozen arenas cost a dozen seconds instead of a fight each.
+   Writes the seed into the comment box (COPY is already beside it) and reads a
+   number back OUT of the same box to replay an arena. Zero new UI.
+   (c) THE RANGE READ. Both halves of the trade on one line, always on, computed
+   from THE SAME expressions the fight runs so it cannot drift:
+     at  3 tiles: POINT BLANK · his dial: EASY   · he hits you 97%
+     at 30 tiles: LONG RANGE  · his dial: V.HARD · he hits you 37%
+   BUG THE CLICK TEST CAUGHT AND THE GATE NOW HOLDS: writing the seed OUT into the
+   comment box poisoned the read back IN, so SHUFFLE locked to the first arena and
+   only ever shuffled once. Three taps gave one arena. The box is a request only
+   when PAOLO put the number there.
+   NOT BUILT: COMPANIONS. He said "maybe?" and it carries a dozen unruled decisions
+   (who they are, what they cost, whether they can die, whether you order them).
+   The arena is what they get tested IN, so it came first either way. [PENDING]
+   Gate section 24, 413 checks.
 0-northstar. *** THE COMBAT NORTH STAR, PAOLO 7/27, LOCKED. *** Asked what makes a
    fight fun for him: "the strategy choice to deal the most damage and take the
    least amount of damage by positioning and abilities and deeper understanding of

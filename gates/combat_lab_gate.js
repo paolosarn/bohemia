@@ -2148,6 +2148,89 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     fs2.readFileSync(LAW, 'utf8').includes('DOES IT CHANGE HOW MUCH DAMAGE I DEAL OR TAKE, THROUGH POSITION, SPEND, OR'));
 }
 
+/* ============================================================================
+   24. V88 THE PROVING GROUND, and the point-blank trade made visible
+   Paolo 7/27/26: "u want to get into point blank range and sprinting and not
+   losing a turn can help that. i mean when it comes to shooting theres not a lot
+   of ways to increase damage other than hit the killshot. just fun position and
+   yeah. maybe its time to add a shuffable arena map fr and add companions maybe?"
+   TWO RULINGS: no damage multipliers (position makes the killshot LANDABLE, not
+   bigger), and point blank is the offensive play.
+   ========================================================================== */
+{
+  /* (a) the seeded arena, EXECUTED. A seed that does not reproduce its arena is
+     not a seed, it is a label. */
+  const a = demo.indexOf('function bohemiaDice(');
+  const b = demo.indexOf('/* ===== V88 ARENA CORE END');
+  ok('V88: the demo carries THE PROVING GROUND as its own testable block', a > 0 && b > a);
+  const am = { exports: {} };
+  new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaArena;')(am, am.exports);
+  const A = am.exports;
+
+  const seq = s => { const d = A.dice(s * 2654435761); return [d(), d(), d(), d(), d()].map(x => x.toFixed(9)).join(','); };
+  ok('SAME SEED, SAME ARENA: the dice are deterministic, so #4417 is #4417 forever and an arena becomes a thing he can NAME and keep',
+    seq(4417) === seq(4417) && seq(4417) !== seq(6021));
+  ok('and the dice are actually distributed, not a stuck value pretending to be random',
+    new Set(seq(4417).split(',')).size === 5);
+
+  ok('A JUNK SEED IS REFUSED rather than silently building a broken arena: letters, zero and out-of-range all return null',
+    A.set('abc') === null && A.set(0) === null && A.set(999999) === null && A.set(-3) === null);
+  ok('a legal seed is accepted and reported back, so the button can show him which arena he is standing in',
+    A.set(4417) === 4417 && A.get() === 4417);
+
+  /* THE ONE THAT MATTERS MOST: a proving ground that quietly made the whole game
+     deterministic would be a far worse bug than the one it fixes. */
+  {
+    const real = Math.random;
+    let inside = null;
+    A.set(883);
+    A.withDice(() => { inside = [Math.random(), Math.random()]; });
+    const after = [Math.random(), Math.random(), Math.random()];
+    ok('MATH.RANDOM IS HANDED STRAIGHT BACK after the build -- the arena borrows the dice for the encounter and the rest of the game stays genuinely random',
+      Math.random === real && new Set(after.map(x => x.toFixed(9))).size === 3 &&
+      inside && inside.length === 2);
+  }
+  {
+    /* and it is handed back even when the generator throws */
+    const real = Math.random;
+    try { A.withDice(() => { throw new Error('boom'); }); } catch (_e) {}
+    ok('AND IT IS HANDED BACK EVEN IF THE GENERATOR THROWS -- a crash mid-build can never leave the whole game running on loaded dice',
+      Math.random === real);
+  }
+
+  /* (b) the generator is WRAPPED, not rewritten. MAP LAW: plumbing only. */
+  ok('V88 MAP LAW HELD: the arena generator is WRAPPED, not rewritten. Claude authored no layout -- setupEnemies just rolls known dice now, and the body it calls is the same body it always was',
+    demo.includes('function setupEnemies(){ return BohemiaArena.withDice(setupEnemiesBody); }') &&
+    demo.includes('function setupEnemiesBody(){ const prev=G.e||[];') &&
+    demo.includes("const layouts=['oneside','twoside_opp','twoside_adj','cluster_flank','ring'];"));
+
+  /* (c) shuffle keeps the fight, and the box is a REQUEST only when HE typed it */
+  ok('SHUFFLE KEEPS THE FIGHT: it rebuilds cover and spawns without touching HP or the streak, so a dozen arenas cost a dozen seconds instead of a fight each',
+    demo.includes("const ab=D('arenabtn'); if(ab)ab.addEventListener('click',()=>{ audio();") &&
+    demo.includes("setupEnemies(); updateGeomCover(); buildBoard(); updPlayer();") &&
+    !/arenabtn[\s\S]{0,1200}?fullResetCombat\(\)/.test(demo));
+  ok('THE BUG THE CLICK TEST CAUGHT IS GATED: writing the seed OUT into the comment box poisoned the read back IN, so SHUFFLE locked to one arena and only ever shuffled once. The box is a request only when PAOLO put the number there',
+    demo.includes("const _mine=(_txt!==''&&_txt===G._arenaWrote);") &&
+    demo.includes("const _asked=(_in&&!_mine)?BohemiaArena.set((_txt.match(/\\d{1,5}/)||[])[0]):null;") &&
+    demo.includes("G._arenaWrote='arena '+s; if(_in)_in.value=G._arenaWrote;"));
+
+  /* (d) THE RANGE READ -- his ruling, made legible. */
+  ok('V88 THE RANGE READ: both halves of the point-blank trade on one line, always on. The mechanic has existed since the dial shipped and has NEVER been shown, which is the same defect he has named three times about SUPPRESS',
+    demo.includes('function updRangeRead(){ const r=D(\'rangeread\'); if(!r)return;') &&
+    demo.includes("const dialTier=Math.max(0,Math.min(4,distPkg(e)+(e.elite?1:0)+(e.gcov?1:-1)+(G.handPeek?1:0)));") &&
+    demo.includes("const theirs=Math.round(distAccuracy(e)*((e.E&&e.E.acc||0.55)/0.55)*100);") &&
+    demo.includes('<div id="rangeread"'));
+  ok('and the read is computed from THE SAME EXPRESSIONS the fight runs, not a second copy that can drift out of step with it',
+    demo.includes('G.pkgDiff=Math.max(0,Math.min(4,distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0)));'));
+  ok('and it rides updGap, which already runs whenever the board does, so it can never go stale behind a phase change',
+    demo.includes("function updGap(){ try{updRangeRead();}catch(_e){}"));
+
+  /* (e) RULING 1, as a standing check: position must never multiply damage. */
+  ok('RULING 1 HELD -- NO DAMAGE MULTIPLIERS. Paolo: "theres not a lot of ways to increase damage other than hit the killshot." Position makes the killshot LANDABLE, never bigger. Kill damage is still the flat constant and nothing positional touches it',
+    demo.includes('const KILL_DMG=100;') &&
+    demo.includes('applyDamage(tgt,KILL_DMG);'));
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

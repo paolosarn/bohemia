@@ -93,9 +93,27 @@ function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }
 // "point blank pulls EASIER patterns, even on Bohemian"
 ```
 
-That is an indirect *execution* effect (an easier pattern is easier to hit the kill
-band on), not a damage effect. And it points the wrong way for tension: it makes
-the safest-to-be-shot-at position also the easiest to shoot from.
+> **CORRECTION, 7/27/26, by Paolo.** This audit originally called that "the wrong
+> way for tension." **It is the tension.** His ruling: *"u want to get into point
+> blank range and sprinting and not losing a turn can help that... theres not a lot
+> of ways to increase damage other than hit the killshot."*
+>
+> Closing does not make your damage bigger. It makes the killshot **landable** —
+> `distPkg` drops the needle to the easiest tier in the game at point blank, on any
+> difficulty — while `distAccuracy` takes their hit chance on you from 0.37 to
+> **0.97**. Easier to kill him, far easier for him to kill you. That is a complete,
+> shipped risk/reward, and the only thing wrong with it was that **the player was
+> never shown either half.**
+>
+> MEASURED on BOHEMIAN after v88's read landed:
+> ```
+> at  3 tiles:  POINT BLANK · his dial: EASY    · he hits you 97%
+> at 15 tiles:  MID RANGE   · his dial: NORMAL  · he hits you 67%
+> at 30 tiles:  LONG RANGE  · his dial: V.HARD  · he hits you 37%
+> ```
+> So the finding below stands with one word changed: position does not raise your
+> **damage**, and per his ruling it never should. It raises your **odds**. What is
+> still absent is any reason to prefer one *angle* over another at the same range.
 
 The dial's band widths, which ARE the real hit model, scale on difficulty, steady
 aim and streak — never on where you are standing:
@@ -106,8 +124,11 @@ const fgv=(G.pkgDiff>=1?1.10:1)*(G.pkgDiff===4?1.10:G.pkgDiff===3?1.05:1)
         *(1+Math.min(0.15,(JUICE.AW?(G.killStreak||0):0)*0.03));
 ```
 
-**VERDICT: "deal the most damage by positioning" is NOT IMPLEMENTED.** Half of the
-north-star sentence has no code behind it.
+**VERDICT (revised 7/27 by his ruling): "deal the most damage by positioning" is
+implemented as ODDS, not as damage, and that is correct and final — no multipliers.
+It was invisible until v88 put both halves of the trade on screen. What has no code
+behind it is anything ANGULAR: at a given range, no direction is better than any
+other.**
 
 ---
 
