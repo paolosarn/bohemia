@@ -89,6 +89,21 @@ const PROBES = {
            RUN.indexOf("'roof_ridge'") >= 0 && RUN.indexOf("'wall_window'") >= 0 &&
            RUN.indexOf("'road_gutter'") >= 0 && RUN.indexOf("'garage_bottom'") >= 0;
   },
+  /* CITY's UP-ONLY interior pool, consumed by the run: the tiles really ship,
+     a room's floor is chosen ONCE per room, and props never become collision. */
+  interior_pool: () => {
+    const pool = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt'), 'utf8'));
+    if (!/UP-ONLY/.test(pool.law || '')) return false;
+    // the surfaces ship whole; props ship capped, so check a real sample of each
+    const shipped = (b, n) => (pool.buckets[b] || []).slice(0, n).every(e => RUN.indexOf(e.b64) >= 0);
+    if (!shipped('floors', pool.buckets.floors.length)) return false;
+    if (!shipped('dirtfloor', pool.buckets.dirtfloor.length)) return false;
+    if (!['furniture', 'container', 'clutter', 'debris', 'tools', 'plant', 'light'].every(b => shipped(b, 4))) return false;
+    return RUN.indexOf('function roomFloor(') >= 0 && RUN.indexOf('function propAt(') >= 0 &&
+           RUN.indexOf('ROLE_PROPS') >= 0 && RUN.indexOf('_roomFloor[k]') >= 0 &&
+           // walls inside are the constitution's own, not the pool's patchwork
+           RUN.indexOf("if(ic.g==='wall'){ tput(['wall_0','wall_1','wall_2']") >= 0;
+  },
   /* SAVE/LOAD, to the two 7/26 rulings: one versioned blob through the engine's
      own save, no private side-channel, no device prefs riding along. */
   save_blob: () =>

@@ -288,6 +288,10 @@ var DOOR_ANIM = __DOOR_ANIM_JSON__;
    is laid from THESE, in the target frame's own language. Consumed, never
    re-rendered: the builder refuses to ship if the bank's md5 has moved. */
 var TARGET_TILES = __TARGET_TILES_JSON__;
+/* CITY's UP-ONLY interior pool (Paolo's Great Sweep crossed to real images),
+   consumed here. Buckets are room FUNCTION: floors, dirtfloor, walls, windows,
+   furniture, container, clutter, debris, tools, plant, light, doors. */
+var INT_POOL = __INTERIOR_POOL_JSON__;
 </script>
 <script src="../engine/bohemia_loop.js"></script>
 <script>
@@ -551,6 +555,68 @@ function bodyTile(c,gx,gy){
   if(n) return 'roof_ridge';
   return 'roof_slope';
 }
+/* ===========================================================================
+   INSIDE. The rooms were flat role-tinted plates while CITY's UP-ONLY interior
+   pool sat in banks/ unwired, which is the same failure the door bank taught us.
+   Now a room wears real surfaces and real things:
+     - its FLOOR is one tile picked per ROOM, so a room reads as one room
+       instead of a checkerboard (a garage gets dirt, not lino)
+     - its WALLS are real broken wall tiles
+     - its CONTENTS come from the room's OWN declared role and nowhere else.
+       A kitchen gets kitchen things, a garage gets tools and crates, a hall
+       gets debris. Nothing is invented: the floorplan states the role, the
+       pool states what each bucket IS, and the mapping between them is the
+       only thing written here.
+   Props are DECORATION, never collision - walking is unchanged, so a room can
+   be dressed without quietly turning into a maze.
+   =========================================================================== */
+var IP={}, IP_LOADED=0;
+(function(){ Object.keys(INT_POOL.buckets||{}).forEach(function(b){
+    IP[b]=INT_POOL.buckets[b].map(function(e){ var im=new Image();
+      im.onload=function(){ IP_LOADED++; draw(); };
+      im.src='data:image/png;base64,'+e.b64; return { im:im, s:e.s, p:e.p||'' }; }); }); })();
+/* room function -> what is in it. Read the roles, never invent a room. */
+var ROLE_PROPS={
+  bed:['furniture','clutter'], bath:['furniture','clutter'],
+  kitchen:['furniture','container','clutter'], living:['furniture','clutter','light'],
+  dining:['furniture','clutter'], hall:['debris','light'],
+  closet:['container','clutter'], garage:['tools','container','debris'],
+  entry:['debris','plant'], 'null':['debris']
+};
+function poolPick(bucket,h){ var a=IP[bucket]; return (a&&a.length)?a[h%a.length]:null; }
+function roomKeyAt(x,y){ var c=fp.grid[y][x]; return (c.room!=null?c.room:(c.role||'null')); }
+/* ONE FLOOR PER ROOM, and the room's own function picks WHICH KIND. The pool
+   keeps each tile's source pack, so a wet room can ask for tile, a garage for
+   dirt, a hall for concrete. Nothing is invented: the floorplan says what the
+   room is and the pack says what the tile is. */
+var ROLE_FLOOR={ bath:/tile/i, kitchen:/tile/i, hall:/contrete|concrete|stone/i,
+                 entry:/contrete|concrete|stone|cobble/i, closet:/metal|contrete|concrete/i };
+var _roomFloor={};
+function roomFloor(x,y){
+  var c=fp.grid[y][x], k=curHouse+':'+roomKeyAt(x,y);
+  if(_roomFloor[k]) return _roomFloor[k];
+  var h=(((curHouse+1)*2654435761)^(String(k).length*40503)^th(x,y,1024))>>>0;
+  if(c.role==='garage'){ _roomFloor[k]=poolPick('dirtfloor',h); return _roomFloor[k]; }
+  var want=ROLE_FLOOR[c.role], all=IP['floors']||[];
+  var fit=want?all.filter(function(e){ return want.test(e.p); }):[];
+  _roomFloor[k]= fit.length ? fit[h%fit.length] : poolPick('floors',h);
+  return _roomFloor[k];
+}
+function ipPut(e,X,Y,S){
+  if(!e||!e.im.complete||!e.im.naturalWidth) return false;
+  var w=S*(e.s||1), h=w*(e.im.naturalHeight/e.im.naturalWidth);
+  ctx.drawImage(e.im, Math.round(X+(S-w)/2), Math.round(Y+S-h), Math.round(w), Math.round(h));
+  return true;
+}
+/* the one prop this cell holds, if any. ~1 in 7 floor cells, never the doorway. */
+function propAt(x,y){
+  var c=fp.grid[y][x]; if(c.g!=='floor') return null;
+  if(fpDoor && x===fpDoor[0] && Math.abs(y-fpDoor[1])<=1) return null;
+  var h=(((x*73856093)^(y*19349663)^((curHouse+1)*2246822519))>>>0);
+  if(h%7!==0) return null;
+  var mix=ROLE_PROPS[c.role||'null']||ROLE_PROPS['null'];
+  return poolPick(mix[(h>>>3)%mix.length], h>>>5);
+}
 function gcol(x,y){ var h=((x*73856093)^(y*19349663))>>>0, v=h%3; return ['#463f30','#3d382a','#4e4838'][v]; }
 var EXTCOL={1:'#3a3a44',2:'#9c8e76',3:'#5a5a62',4:'#6a5c44',5:'#c79a3f',6:'#6d5f4b',9:'#b3a488'};
 var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',dining:'#aaa078',
@@ -753,8 +819,20 @@ function draw(){
     } else {
       var ic=fp.grid[gy2][gx];
       var isX = fpDoor && gx===fpDoor[0] && gy2===fpDoor[1];   /* the way OUT */
-      var col = ic.g==='wall' ? '#2c2824' : (isX||ic.g==='door') ? '#17130d' : (INT_ROLE[ic.role]||'#96917d');
-      ctx.fillStyle=col; ctx.fillRect(X,Y,S,S);
+      /* the role tint stays UNDER the tile as the room's own base value, so a
+         half-decoded pool never shows a hole and every room keeps its identity */
+      ctx.fillStyle = ic.g==='wall' ? '#2c2824' : (isX||ic.g==='door') ? '#17130d' : (INT_ROLE[ic.role]||'#96917d');
+      ctx.fillRect(X,Y,S,S);
+      /* WALLS ARE THE CONSTITUTION'S OWN. The pool's 48 wall variants are a
+         broad corpus (blue tile, brick, planks, curtains) and picking one per
+         cell turned a room into a patchwork quilt. A stucco house has stucco
+         walls inside too, so the interior wears the target's own wall tiles and
+         the pool is left to do what it is actually good at: floors and things. */
+      if(ic.g==='wall'){ tput(['wall_0','wall_1','wall_2'][th(gx,gy2,3)],X,Y,S); }
+      else if(!(isX||ic.g==='door')){
+        var f=roomFloor(gx,gy2); if(f&&f.im.complete&&f.im.naturalWidth) ctx.drawImage(f.im,X,Y,S,S);
+        var pr=propAt(gx,gy2); if(pr) ipPut(pr,X,Y,S);
+      }
       /* inside wears the same real door: 1 wide, 2 tall, same clip bank */
       if(isX||ic.g==='door') doorDraws.push([gx,gy2,X,Y,CELL,isX]);
     }

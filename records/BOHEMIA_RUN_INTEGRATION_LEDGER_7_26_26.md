@@ -21,6 +21,7 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 | house skins | INTEGRATED | art_banks | the approved 7/21 roof/yard/wall skins, byte-identical |
 | animated doors (2 tiles tall) | INTEGRATED | door_anim | the approved 7/13 door-anim bank: 1 wide x 2 tall, 9-frame swing over 2 beats, a shut door really blocks |
 | floorplan interiors | INTEGRATED | floorplan_module | real generated rooms, interior === exterior footprint |
+| interiors dressed (CITY's UP-only pool) | INTEGRATED | interior_pool | one floor per ROOM picked by the room's own function (dirt in a garage, tile in a wet room), props from the role's own buckets, walls from the constitution's own tile. Props are decoration, never collision. |
 | neighbours (agents, homed + scheduled) | INTEGRATED | agents_module | bohemia_agents.js sim, one world-minute per step |
 | quest runtime + canon .bq | INTEGRATED | quest_runtime | the real parser + runtime, real canon bytes (throwaway CONTENT by ruling) |
 | clout / feed / followers | INTEGRATED | clout_feed | the engine's own buildFeed + socialProfile + cloutWeight |
@@ -38,16 +39,12 @@ Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, nam
 | death is a reload | INTEGRATED | death_reload | losing a fight loads the closest previous save, never a reset (7/26 ruling) |
 
 ## THE ORDER THE GAPS GET CLOSED (biggest visible first)
-1. **INTERIORS TO THE TARGET** — the outside now speaks the constitution's
-   language; inside is still flat role-tinted plates. CITY's interior pool
-   (banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt, 465 swept-UP tiles) is the
-   ingredient and it is deliberately unwired, waiting for exactly this.
-2. **THE REAL VALLEY** — the run's block becomes a real cell of the generated
+1. **THE REAL VALLEY** — the run's block becomes a real cell of the generated
    valley so walking off it lands in a real neighbouring district.
-3. **DISTRICT ART** — the 21 built district types become places the errand can
+2. **DISTRICT ART** — the 21 built district types become places the errand can
    route him through.
-4. **DAY CYCLE + LIGHT** — the lamps and the dark mean something.
-5. **VEHICLES + DRESS-BY-RANK** — the driveways are empty and bodies are random
+3. **DAY CYCLE + LIGHT** — the lamps and the dark mean something.
+4. **VEHICLES + DRESS-BY-RANK** — the driveways are empty and bodies are random
    colourways instead of rank-dressed.
 
 Everything below that is bookkeeping compared to those five.

@@ -633,7 +633,22 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/26 LATEST — THE BLOCK NOW LOOKS LIKE THE TARGET. Paolo's CBB verdict
+RUN (01) 7/26 LATEST — INSIDE IS DRESSED. CITY's UP-only interior pool
+(banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt, 465 Great-Sweep tiles bucketed by room
+function) was built and deliberately left unwired for a surface with rooms. This
+is that surface, so it is wired: a room gets ONE floor chosen by its own function
+(dirt in a garage, tile in a wet room, concrete in a hall), its props come from
+its role's own buckets and nowhere else, and props are DECORATION - passability
+is untouched, so a dressed room never turns into a maze.
+ONE JUDGEMENT CALL WORTH KNOWING: the pool's 48 WALL variants are a broad corpus
+(blue tile, brick, planks, curtains) and picking one per cell turned a room into
+a patchwork quilt. Interior walls now use the CONSTITUTION's own wall tile - a
+stucco house has stucco walls inside too. The pool does floors and things, which
+is what it is good at. HONEST GAP: a few pool floors (a pink tile, a blue tile)
+are louder than the target's palette. That is Paolo's eye to rule, not a gate's.
+Ledger 18/25.
+
+RUN (01) 7/26 — THE BLOCK LOOKS LIKE THE TARGET. Paolo's CBB verdict
 froze the target screen and lifted the freeze, so the run stopped drawing coloured
 squares: the whole block is laid from the FROZEN 42-tile starter set
 (banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt) in the target frame's own

@@ -112,6 +112,34 @@ if (html.indexOf('__TARGET_TILES_JSON__') < 0) throw new Error('missing __TARGET
 html = html.replace('__TARGET_TILES_JSON__', JSON.stringify({
   version: ts.version, cell: ts.cell_px, md5: tsMD5, tiles: tsTiles }));
 
+/* ---- THE INTERIOR POOL, CITY's artifact, consumed not re-cooked.
+   banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt is Paolo's Great Sweep crossed to real
+   images and filtered UP-ONLY: 465 tiles bucketed by room function with a draw
+   scale per tile. CITY built it and deliberately left it unwired, waiting for a
+   surface with rooms to put it in. This is that surface.
+   A BOUNDED SUBSET ships: every floor, dirt floor and wall (a room's own
+   surfaces, where variety reads), plus a capped set per prop bucket. The whole
+   465 would put ~4.6MB of art on a phone for props nobody can tell apart. ---- */
+var POOL_PATH = 'banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt';
+var pool = JSON.parse(fs.readFileSync(POOL_PATH, 'utf8'));
+if (!/UP-ONLY/.test(pool.law || '')) throw new Error(POOL_PATH + ' is not the UP-only pool');
+var SURFACE_BUCKETS = ['floors', 'dirtfloor', 'walls'];
+var PROP_CAP = 10;
+var poolOut = {};
+Object.keys(pool.buckets).forEach(function (b) {
+  var list = pool.buckets[b];
+  var take = SURFACE_BUCKETS.indexOf(b) >= 0 ? list.length : Math.min(PROP_CAP, list.length);
+  poolOut[b] = list.slice(0, take).map(function (e) {
+    return { s: parseFloat(e.scale) || 1, p: e.pack, b64: e.b64 };
+  });
+});
+['floors', 'walls', 'dirtfloor', 'furniture', 'container', 'clutter', 'debris'].forEach(function (b) {
+  if (!poolOut[b] || !poolOut[b].length) throw new Error('the interior pool is missing bucket ' + b);
+});
+if (html.indexOf('__INTERIOR_POOL_JSON__') < 0) throw new Error('missing __INTERIOR_POOL_JSON__ placeholder');
+html = html.replace('__INTERIOR_POOL_JSON__', JSON.stringify({
+  version: pool.version, px: pool.px, buckets: poolOut }));
+
 /* ---- the engine modules, inlined in the page's own (canonical) order. Every
    `<script src="../engine/X.js">` becomes the byte-identical body of engine/X.js,
    so gates/run_gate.js can prove freshness by substring. ---- */

@@ -323,15 +323,11 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    refuses to ship if the bank md5 moves. CORRECTION ON RECORD: the target he
    picked is TOP-DOWN, so this lane's old "the run must go 3/4 iso" premise was
    wrong and is retired.
-   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (17/24),
+   [DONE 7/26] INTERIORS DRESSED — CITY's UP-only interior pool consumed: one
+   floor per ROOM by the room's own function, props from the role's own buckets,
+   walls from the constitution's own tile. Props never became collision.
+   Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (18/25),
    enforced by gates/integration_gate.js.
--1. INTERIORS TO THE TARGET (new top item). The outside now speaks the
-   constitution; inside is still flat role-tinted plates. CITY already delivered
-   the ingredient and deliberately left it unwired for exactly this:
-   banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt (465 swept-UP tiles bucketed by room
-   function, with per-tile draw scale). | interiors laid from the pool, target-
-   match proxies green, real-surface screenshot | the pool is CITY's artifact,
-   consume it, do not re-cook it | yes, fresh look.
 0b. THE REAL VALLEY (ledger priority 2): the run's block becomes a real cell of
    the generated valley, so walking off it lands in a real district. | run_gate
    proves a second district reached on foot | district engines | no.
