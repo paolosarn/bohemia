@@ -107,7 +107,13 @@ PASS = '''  /* =================================================================
        wearing a collar -- grid still says "neck" but the pixel is cloth. Tinting
        that would quietly darken his hoodie collar (measured: 25.1 -> 23.1 dressed
        before this guard went in). A neck TONE must only ever touch neck SKIN. */
-    const _sk={}; try{for(const c of skinRampFor()){if(c)_sk[c[0]+','+c[1]+','+c[2]]=1;}}catch(_e){}
+    /* SKIN TONES ONLY, NEVER THE SHARED DARK ENTRY. skinRampFor()[0] is
+       28,22,24 -- the anatomy outline -- and that exact colour is ALSO in the
+       jacket, the pants and the shoes ramps. Including it made this test match
+       every dark sleeve pixel, and the first build of this fix repainted whole
+       sleeves as bare skin. Only the real skin tones count. */
+    const _sk={}; try{const _r=skinRampFor(); for(let _i=1;_i<_r.length;_i++){const c=_r[_i];
+      if(c)_sk[c[0]+','+c[1]+','+c[2]]=1;}}catch(_e){}
     const m=NECK_TONE.mul, npart=NECK_TONE.part;
     for(let i=0;i<grid.length;i++){
       if(grid[i]!==npart)continue;

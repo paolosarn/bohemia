@@ -36,7 +36,7 @@ const ht = fs.readFileSync(HAIRTOOL, 'utf8');
 /* ---- the neck tone ------------------------------------------------------ */
 ok('NECK_TONE is declared exactly once', (src.match(/const NECK_TONE/g) || []).length === 1);
 ok('it is on, targets part 3, and the amount is a single tunable flag',
-  /const NECK_TONE = \{ on: true, part: 3, mul: [0-9.]+ \};/.test(src));
+  /const NECK_TONE = \{ on: true, part: 3, mul: [0-9.]+, throatRows: [0-9]+ \};/.test(src));
 
 const iClose = src.indexOf('return { Skinner, REFINE_STATS,');
 const iFlag = src.indexOf('const NECK_TONE');
@@ -56,7 +56,8 @@ const pass = m[0];
 /* THE GUARD. This is the whole gate. */
 ok('SKIN ONLY: the pass checks each pixel against the live skin ramp before touching it',
   /skinRampFor\(\)/.test(pass) && /if\(!_sk\[/.test(pass));
-ok('it only touches the neck part', /if\(grid\[i\]!==npart\)continue;/.test(pass));
+ok('it only touches the neck part or the throat rows',
+  /if\(_q!==npart&&!_isThroat\)continue;/.test(pass));
 ok('the collar regression is recorded at the code, with its number',
   /25\.1 -> 23\.1 dressed/.test(pass));
 ok('it never writes the occupancy grid', !/grid\[i\]=/.test(pass));
@@ -99,5 +100,43 @@ ok('HIS PIXELS ARE WHAT SHIPS: every authored direction matches his export byte 
 ok('the ramp is still his', JSON.stringify(pd.ramps['hair/curtain-bob']) === JSON.stringify(exp.ramps));
 ok('W/NW/SW are still mirrored, not authored',
   !!live && !['W', 'NW', 'SW'].some(d => live[d]));
+
+
+/* ---- THE THROAT, and the two bugs that made the first builds wrong -------- */
+ok('the tone also takes the visible THROAT, because the cowl covers 100% of part 3',
+  /_isThroat/.test(pass) && /NECK_TONE\.throatRows/.test(pass));
+ok('the throat row is found from the ART each frame, never hardcoded to a row number',
+  /if\(y>_throatY\)_throatY=y;/.test(pass));
+ok('the zero-visible-neck measurement is on the record at the code',
+  /S 0\/8, SE 0\/10, E 0\/9, W 0\/9, N 6\/12/.test(pass));
+ok('part 3 KEEPS its tone too -- nothing was taken away',
+  /nothing is taken away/.test(pass));
+
+/* THE SHARED DARK ENTRY. skinRampFor()[0] is 28,22,24 and that exact colour is
+   also in the jacket/pants/shoes ramps, so a naive "is it skin" test matches every
+   dark sleeve pixel. It did: the first build of the arm fix repainted whole sleeves
+   as bare skin. Both passes must skip index 0. */
+const armM = src.match(/THE SKIN ABOVE THE HAND \(Paolo 7\/27\/26, circled[\s\S]*?a garment's HAND tone on an ARM \*\/[\s\S]{0,40}?\}\}/);
+ok('the skin-above-the-hand pass is present', !!armM);
+ok('BOTH skin tests start at ramp index 1, never index 0',
+  (src.match(/for\(let _i=1;_i<_r\.length;_i\+\+\)/g) || []).length === 2);
+ok('the shared-dark-entry regression is recorded at the code',
+  /repainted whole\n       sleeves as bare skin|repainted whole sleeves as bare skin/.test(src));
+if (armM) {
+  const ap = armM[0];
+  ok('the arm pass only touches arm parts', /if\(q!==5&&q!==6\)continue;/.test(ap));
+  ok('it restores the BODY colour the renderer already computed, inventing nothing',
+    /px\[i\]=\[b\[0\],b\[1\],b\[2\]\];/.test(ap));
+  ok('it leaves cloth alone', /cloth: leave it alone/.test(ap));
+}
+/* ORDER: it must run AFTER garments, or the garment repaints it a pass later. */
+const iSnap = src.indexOf('const _armBody');
+const iGarment = src.indexOf('const cover=Object.assign');
+const iArmFix = src.indexOf("a garment's HAND tone on an ARM");
+ok('the arm-body snapshot is taken BEFORE garments composite', iSnap > 0 && iSnap < iGarment);
+ok('the restore runs AFTER garments composite (anchored before it, it was a no-op)',
+  iArmFix > iGarment);
+ok('the ordering mistake is recorded so it is not repeated',
+  /the fix measured as a complete\n     no-op|measured as a complete no-op/.test(src));
 
 done();
