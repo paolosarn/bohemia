@@ -1050,6 +1050,45 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-northstar. *** THE COMBAT NORTH STAR, PAOLO 7/27, LOCKED. *** Asked what makes a
+   fight fun for him: "the strategy choice to deal the most damage and take the
+   least amount of damage by positioning and abilities and deeper understanding of
+   mechanics. gameplay. feeling snappy and violent and human and fun."
+   LAW: laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md
+   THE TEST EVERY COMBAT ITEM NOW PASSES OR DIES: does it change how much damage I
+   DEAL or TAKE, through POSITION, SPEND, or KNOWLEDGE? If no, it is not a combat
+   feature and it never leads a pick-list.
+   AUDIT OF THE SHIPPING DEMO AGAINST IT, with the real numbers:
+   records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md
+     TAKE LESS DAMAGE BY POSITION: IMPLEMENTED, strongly, but BINARY. Cover is a
+     predicate incoming fire FILTERS on -- an enemy you have cover against is
+     removed from the volley entirely, 0% or 100%, never a modifier. Range is a
+     real curve on top: 0.97 accuracy at point blank to 0.37 at long, a 2.6x swing.
+     DEAL MORE DAMAGE BY POSITION: *** ABSENT. *** KILL_DMG=100, flat, from
+     anywhere on the map. No flank, no angle, no point-blank lethality, no
+     elevation, no positional term ANYWHERE in the player's damage path. The dial's
+     band widths scale on difficulty, steady aim and streak, never on where you
+     stand. Range touches only WHICH PATTERN you get (distPkg) -- execution, not
+     damage -- and it points the wrong way: the safest place is also the easiest to
+     shoot from.
+     ABILITIES: 7 verbs on 3 pips, no turn cost. A real spend economy, well shaped.
+     But move/dash/vault/sprint/suppress/shove are ALL DEFENSIVE. Only the grenade
+     touches your output. Nothing can be spent to hit harder.
+     UNDERSTANDING: the strongest leg and the quietest -- patterns, band widths,
+     lethality gates, cover geometry, readable fire cycles. Mostly unlabelled,
+     which is a LEGIBILITY problem, not a missing mechanic (same shape as the
+     three-times SUPPRESS complaint).
+   *** THE ONE ASYMMETRY: POSITION CONTROLS WHAT YOU SUFFER AND NOTHING ABOUT WHAT
+   YOU DELIVER. *** So moving is housekeeping, not offence, and the ground never
+   argues for attacking from a particular place. WHAT SHAPE THE ANSWER TAKES IS
+   [PENDING Paolo] -- flanking, elevation, point-blank lethality, exposure windows
+   and angle-of-fire are each a DIFFERENT GAME. Mechanism is mine, the ruling is
+   his. Nothing built, nothing pre-selected.
+   Gate section 23 PINS THE AUDIT TO THE LIVE CODE (damage constant, accuracy
+   curve, distance bands, the binary cover predicate, the stamina ceiling, and the
+   headline finding that no positional term multiplies player damage). Change the
+   model and the gate fails, which forces the audit back into line the same turn.
+   399 checks.
 0-kill. *** THE TALLY IS DEAD, KILLED AT THE PITCH, NEVER BUILT (7/27). ***
    Paolo: "this was terrible i hated this this was not a gameplay mechanic this is
    more data to be proud of no one gives a fuck."

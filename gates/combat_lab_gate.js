@@ -2091,6 +2091,63 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes('if(ks.escal>1&&!(G._freezeT>0)){'));
 }
 
+/* ============================================================================
+   23. THE NORTH STAR, AND THE AUDIT THAT MUST STAY TRUE
+   Paolo 7/27/26, asked what actually makes a fight fun, LOCKED:
+     "the strategy choice to deal the most damage and take the least amount of
+      damage by positioning and abilities and deeper understanding of mechanics.
+      gameplay. feeling snappy and violent and human and fun."
+   laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md
+   records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md
+   This section is NOT a feature gate. It pins the AUDIT to the live code, so the
+   day someone changes the damage model the audit and the addendum are forced back
+   into line in the same turn instead of quietly rotting into a lie.
+   ========================================================================== */
+{
+  const fs2 = require('fs'), path2 = require('path');
+  const ROOT2 = path2.join(__dirname, '..');
+  const LAW = path2.join(ROOT2, 'laws', 'BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md');
+  const AUD = path2.join(ROOT2, 'records', 'BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md');
+  ok('THE NORTH STAR IS WRITTEN DOWN, verbatim, in the laws and quoted in the audit -- his sentence is the thing every combat item is now measured against',
+    fs2.existsSync(LAW) && fs2.existsSync(AUD) &&
+    fs2.readFileSync(LAW, 'utf8').includes('deal the most damage and take the least amount of damage') &&
+    fs2.readFileSync(AUD, 'utf8').includes('deal the most damage and take the least amount of damage'));
+
+  /* --- the numbers the audit reports MUST be the numbers the game runs ----- */
+  ok('AUDIT PINNED: player kill damage is a flat constant (KILL_DMG=100) applied through armor only -- if this becomes positional the audit stops being true',
+    demo.includes('const KILL_DMG=100;') &&
+    demo.includes('function applyDamage(tgt,raw){ const mit=Math.max(0,raw-(tgt.armor||0)); tgt.hp=Math.max(0,tgt.hp-mit); return mit; }'));
+  ok('AUDIT PINNED: the enemy accuracy curve is 0.97 - distT*0.60, i.e. 0.97 at point blank down to 0.37 at long range, a 2.6x swing',
+    demo.includes('function distAccuracy(e){ return 0.97 - distT(e)*0.60; }'));
+  ok('AUDIT PINNED: the distance bands are PT_BLANK=4 / FAR_TILE=26 / MAX_RANGE=42, which is what makes that curve mean anything on the board',
+    demo.includes('const PT_BLANK=4, FAR_TILE=26, MAX_RANGE=42;'));
+  ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
+    demo.includes('function myCoverAgainst(ang,dist){') &&
+    demo.includes('!myCoverAgainst(e.ea,e.edist)'));
+  ok('AUDIT PINNED: the stamina economy is 3 pips, +1 only on a turn you spent none, and a stamina move costs no turn (Paolo 7/26, LOCKED)',
+    demo.includes('const STAM_MAX=3;') &&
+    demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
+    demo.includes('function spendStam(n){ if((G.stam||0)<n)return false;'));
+
+  /* --- THE FINDING ITSELF, as a machine check. This is the one that matters:
+     the audit's headline is that NOTHING POSITIONAL MULTIPLIES PLAYER DAMAGE.
+     The day that stops being true is the day the north star's other half got
+     built, and this check is how we find out on purpose instead of by accident. */
+  {
+    const i = demo.indexOf('const fgv=');
+    const fgv = i > 0 ? demo.slice(i, demo.indexOf(';', i)) : '';
+    ok('AUDIT PINNED, AND THIS IS THE HEADLINE: no positional term multiplies the player\'s damage or hit window. fgv scales on difficulty, steady aim and streak -- never on range, angle, cover or elevation. "Deal the most damage BY POSITIONING" has no code behind it yet',
+      fgv.length > 0 &&
+      /pkgDiff/.test(fgv) && /_steadyAtPop/.test(fgv) && /killStreak/.test(fgv) &&
+      !/dist|edist|distT|ea\b|elev|flank|angle/.test(fgv));
+    ok('and range touches only WHICH PATTERN you get, never your output -- an execution effect, not a damage one',
+      demo.includes('function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }'));
+  }
+
+  ok('THE TEST THE NORTH STAR LEAVES IS RECORDED: does it change how much damage I deal or take, through position, spend, or knowledge? If no, it is not a combat feature and it never leads a pick-list',
+    fs2.readFileSync(LAW, 'utf8').includes('DOES IT CHANGE HOW MUCH DAMAGE I DEAL OR TAKE, THROUGH POSITION, SPEND, OR'));
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

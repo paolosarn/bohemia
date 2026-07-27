@@ -1777,6 +1777,59 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - *** THE COMBAT NORTH STAR, LOCKED, AND THE AUDIT AGAINST IT.
+READ THIS BEFORE PROPOSING ANYTHING FOR COMBAT, EVER. ***
+Paolo, asked what actually makes a fight fun for him, verbatim:
+  "the strategy choice to deal the most damage and take the least amount of damage
+   by positioning and abilities and deeper understanding of mechanics. gameplay.
+   feeling snappy and violent and human and fun."
+LAW: laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md
+THE TEST EVERY COMBAT ITEM NOW PASSES OR DIES: does it change how much damage I
+DEAL or TAKE, through POSITION, SPEND, or KNOWLEDGE? If no, it is not a combat
+feature. It may still be worth doing -- feedback, art, sound, readability all
+matter -- but it never leads a combat pick-list. (He said the word "gameplay" on
+its own for a reason: the turn before, he killed a presentation idea.)
+AUDIT OF THE SHIPPING DEMO, real numbers out of COMBAT_B64:
+records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md
+  TAKE LESS DAMAGE BY POSITION -- IMPLEMENTED, STRONGLY, BUT BINARY. myCoverAgainst
+  is a predicate every incoming-fire path FILTERS on, so an enemy you have cover
+  against is REMOVED FROM THE VOLLEY ENTIRELY. 0% or 100%, never a modifier. Range
+  is a real curve on top: distAccuracy = 0.97 - distT*0.60, so 0.97 at point blank,
+  0.67 at 15 tiles, 0.37 at 26+. A 2.6x swing.
+  DEAL MORE DAMAGE BY POSITION -- *** ABSENT. *** KILL_DMG=100, flat, applied
+  through armor, from anywhere on the map. There is NO positional term anywhere in
+  the player's damage path: no flank, no angle, no point-blank lethality, no
+  elevation, no exposure bonus. The dial's band widths (fgv) scale on difficulty,
+  steady aim and kill streak and NEVER on where you stand. Range touches only which
+  needle PATTERN you get (distPkg) -- an execution effect, not a damage one -- and
+  it points the wrong way for tension, because the safest place to stand is also
+  the easiest place to shoot from.
+  ABILITIES -- 7 verbs on 3 pips (STAM_MAX=3, +1 only if you spent none, no turn
+  cost per Paolo 7/26 LOCKED). A real, well-shaped spend economy. But sort them by
+  effect and move/dash/vault/sprint/suppress/shove are ALL DEFENSIVE; only the
+  grenade touches output. NOTHING CAN BE SPENT TO HIT HARDER.
+  UNDERSTANDING -- the strongest leg and the quietest. Per-enemy patterns pulled by
+  range and difficulty, band widths that widen with steady and streak, per-weapon
+  lethality gates, cover geometry that must both block AND sit near the man,
+  readable enemy fire cycles. Real skill ceiling, mostly unlabelled. That is a
+  LEGIBILITY problem, not a missing mechanic -- same shape as the SUPPRESS
+  complaint he has now made three times.
+*** THE ONE ASYMMETRY, AND IT IS THE WHOLE FINDING: POSITION CONTROLS WHAT YOU
+SUFFER AND NOTHING ABOUT WHAT YOU DELIVER. *** So moving reads as defensive
+housekeeping rather than offence, and the ground never argues for attacking from a
+particular place, because no place is better to attack from. Optimal play today is
+get behind stone, get far away, press well.
+WHAT SHAPE THE ANSWER TAKES IS [PENDING Paolo] AND NOTHING IS PRE-SELECTED.
+Flanking, elevation, point-blank lethality, exposure windows and angle-of-fire are
+each a DIFFERENT GAME. MECHANISM-MINE / CONTENTS-PAOLO'S applies: do not pick one
+for him, do not build one on spec.
+GATE: combat_lab_gate.js section 23, 390 -> 399 checks. It does NOT gate a feature.
+It PINS THE AUDIT TO THE LIVE CODE -- the damage constant, the accuracy curve, the
+distance bands, the binary cover predicate, the stamina ceiling, and the headline
+finding that no positional term multiplies player damage. Change the model and the
+gate fails, which forces this note and the audit back into line the same turn. It
+is a machine that will tell us the day this stops being true.
+
 COMBAT (04) 7/27 - *** THE TALLY IS DEAD. KILLED AT THE PITCH, NEVER BUILT. ***
 Paolo: "this was terrible i hated this this was not a gameplay mechanic this is
 more data to be proud of no one gives a fuck."
