@@ -10,7 +10,12 @@ another game.
 
 ---
 
-## 0. THE HEADLINE
+> **STATUS 7/27/26: ITEM 1 IS DEAD, KILLED AT THE PITCH, NEVER BUILT.** Section 0
+> and item 1 below argued for it and were wrong in the one way that matters: a
+> tally is not a mechanic. Both are kept unedited because the post-mortem is worth
+> more than a tidy document. Items 2-6 were never judged and still stand.
+
+## 0. THE HEADLINE ~~(the argument that got killed)~~
 
 **BOHEMIA IS A CASINO GAME THAT DOES NOT YET PAY OUT LIKE ONE.**
 
@@ -52,7 +57,24 @@ object.
 
 ## 1. RANKED PICK-LIST (Paolo picks; nothing is built)
 
-### 1. THE PAYOUT IS A DRUM FILL ★ highest leverage, zero new art
+### 1. ~~THE PAYOUT IS A DRUM FILL~~ — **KILLED 7/27/26, UNBUILT**
+> Paolo: "this was terrible i hated this this was not a gameplay mechanic this is
+> more data to be proud of no one gives a fuck."
+>
+> He is right and it is the whole failure: **a tally changes no decision the
+> player makes.** It happens after the outcome is already fixed. I ranked six
+> items by how impressive the research was instead of by whether they change what
+> the player DOES, and put the only pure-presentation item first.
+>
+> **LANE RULE THIS LEAVES: if it does not change a decision the player makes, it
+> is not a mechanic.** Anything after the outcome is locked — tally, grade,
+> summary, stat, badge, receipt — is FEEDBACK, and never leads a pick-list.
+>
+> GRAVEYARD FINAL. Post-mortem: `records/BOHEMIA_TALLY_KILL_7_27_26.txt`.
+> The five items below were never judged and still stand.
+
+<details><summary>the dead pitch, kept for the record</summary>
+
 The receipt stops being a silent sheet that appears when the shooting stops. When
 the fight ends, the tally ASSEMBLES on the beat: kills click in on the sixteenths,
 the accuracy bonus lands on the next beat, the wager pays on the downbeat, each
@@ -60,6 +82,7 @@ element a semitone higher in the faction's own scale, accelerating into the grad
 Uses: the receipt, the chips, the wager, the ledger, the faction scale. Adds: a
 sequencer for the tally.
 *Source: Balatro's tally cascade; the 120 BPM LAW makes it native.*
+</details>
 
 ### 2. THE BANK ★ the risk mechanic he already half-built
 Push-your-luck is documented as working because it "hands players a question with

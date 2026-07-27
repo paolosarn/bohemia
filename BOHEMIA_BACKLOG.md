@@ -1016,6 +1016,24 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-kill. *** THE TALLY IS DEAD, KILLED AT THE PITCH, NEVER BUILT (7/27). ***
+   Paolo: "this was terrible i hated this this was not a gameplay mechanic this is
+   more data to be proud of no one gives a fuck."
+   His diagnosis IS the failure. A tally changes NO decision the player makes -- it
+   happens after the outcome is already fixed, so it is a presentation layer
+   wearing a mechanic's clothes, pitched in answer to "make combat more fun".
+   ROOT CAUSE: the research doc had six items, five of them mechanics and one pure
+   presentation, and I ranked them by how impressive the RESEARCH was instead of by
+   whether they change what the player DOES. Same failure as the 7/20 queued-actions
+   grammar kill: "research ranks candidates, only PLAY decides." Second time.
+   *** THE LANE RULE THIS LEAVES: IF IT DOES NOT CHANGE A DECISION THE PLAYER
+   MAKES, IT IS NOT A MECHANIC. *** Ask it BEFORE an item goes on a list. Anything
+   after the outcome is locked -- tally, grade, summary, stat, badge, receipt -- is
+   FEEDBACK, and it never leads a pick-list again.
+   Graveyard + post-mortem: records/BOHEMIA_TALLY_KILL_7_27_26.txt.
+   NOT DEAD: the existing receipt (untouched), and research items 2-6 (never
+   judged). Scoring presentation is ENDED as a subject for this session per
+   STOP PRODUCING. Nobody re-pitches it.
 0-research. RESEARCH DELIVERED 7/27 on his ask ("big brain research... addictive
    juicy sauce"): records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md
    HEADLINE: Bohemia is a casino game that does not pay out like one. Balatro's

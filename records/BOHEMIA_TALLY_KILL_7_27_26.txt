@@ -1,0 +1,77 @@
+BOHEMIA — THE TALLY IS DEAD (7/27/26)
+POST-MORTEM. Killed by Paolo, unbuilt, at the pitch.
+
+VERDICT, verbatim:
+  "so just more 'data' for players to be proud of?"
+  "this was terrible i hated this this was not a gameplay mechanic this is more
+   data to be proud of no one gives a fuck"
+
+WHAT IT WAS
+The end-of-fight receipt, re-staged: instead of a silent sheet of numbers, the
+score would assemble itself on the beat — kills clicking in on sixteenths, the
+accuracy bonus on the next beat, the wager paying on the downbeat, each element a
+semitone up the faction scale, accelerating into the grade. Pitched as the #1 item
+in records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md.
+
+NOTHING WAS BUILT. It died at the pitch, which is the cheapest possible place for
+it to die and the only good news in this file.
+
+WHY IT WAS WRONG — HIS WORDS ARE THE DIAGNOSIS
+"THIS WAS NOT A GAMEPLAY MECHANIC."
+
+That is exactly right and it is the whole failure. A tally does not change a single
+decision the player makes. You cannot play toward it, you cannot play against it,
+you cannot get better at it. It happens AFTER the fight is over and the outcome is
+already fixed. It is a presentation layer wearing a mechanic's clothes.
+
+He asked for "interesting awesome addictive juicy sauce" for COMBAT. I gave him a
+scoreboard animation.
+
+THE REAL ROOT CAUSE — I RANKED BY RESEARCH, NOT BY PLAY
+The pick-list had six items. Five of them were mechanics: THE BANK (a real
+decision, every kill, with something to lose), ENEMY INTENT (changes how you read
+the board before you commit), THE BEAT COUNTER (changes whether you can learn the
+timing), THE DISTRICT REMEMBERS (changes what the world is), THE KILL CAM EARNS
+ITS LENGTH (changes what the game rewards).
+
+ONE of them was pure presentation. I put it at #1.
+
+I ranked it first because the Balatro research was the most impressive thing I
+read that day, not because it changed what anyone DOES. That is the same failure
+as the 7/20 queued-actions grammar kill, whose graveyard line reads: "three
+research rounds said queue; Paolo's hands said no -- research ranks candidates,
+only PLAY decides."
+
+Twice now, research has been allowed to outrank play in a ranking. That is the
+pattern this file exists to break.
+
+AND I HALF-KNEW. My own reply, one turn before the kill, said the tally "only
+works if the number costs something" and that the receipt's payout is decorative
+("real XP numbers PENDING Paolo" is in the source). I spotted the hole and then
+kept the item at the top of the list anyway, hedged instead of pulled. A pitch
+with a hole in it is a dead pitch; say so and drop it, do not ship it with a
+caveat attached.
+
+THE TEST THAT WOULD HAVE CAUGHT IT — now the lane's rule:
+
+  *** IF IT DOES NOT CHANGE A DECISION THE PLAYER MAKES, IT IS NOT A MECHANIC. ***
+
+Ask it BEFORE the item goes on a list, not after he reads it. Anything that
+happens after the outcome is locked — a tally, a grade, a summary, a stat, a
+badge, a receipt — is FEEDBACK. Feedback can be good, and Bohemia already has more
+of it than it uses. But it is never the answer to "make combat more fun", and it
+never leads a pick-list again.
+
+WHAT IS DEAD AND WHAT IS NOT
+DEAD, FINAL: the animated end-of-fight tally / score cascade, in any form. No v2,
+no "what if it were shorter", nobody re-pitches the receipt as entertainment.
+
+NOT DEAD: the receipt itself, which already exists and is fine as what it is — a
+piece of paper at the end of the night. Untouched, unchanged, not the problem.
+
+NOT DEAD: the other five items on the research doc. They were never judged. The
+doc stays; item 1 is struck through and this file is the reason.
+
+STANDING: laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md. This is the second
+rejection of a scoring-presentation idea in this lane, so scoring presentation is
+ENDED as a subject for the session. Nothing was built and nothing gets built.

@@ -1642,6 +1642,37 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - *** THE TALLY IS DEAD. KILLED AT THE PITCH, NEVER BUILT. ***
+Paolo: "this was terrible i hated this this was not a gameplay mechanic this is
+more data to be proud of no one gives a fuck."
+He is right, and his sentence is the entire diagnosis. A TALLY CHANGES NO DECISION
+THE PLAYER MAKES. It happens after the outcome is already fixed. It is a
+presentation layer wearing a mechanic's clothes, and it was pitched in answer to
+"make combat more fun".
+ROOT CAUSE, and it is a repeat: the research doc had six items. FIVE were
+mechanics (the bank, enemy intent, the beat counter, the district remembers, the
+kill cam earning its length). ONE was pure presentation. I put that one at #1,
+because the Balatro research was the most impressive thing I read that day -- not
+because it changed what anyone DOES. The 7/20 queued-actions grammar kill says the
+same thing in the graveyard already: "research ranks candidates, only PLAY
+decides." Second time.
+AND I HALF-KNEW: my own reply one turn earlier said the tally "only works if the
+number costs something" and that the receipt payout is decorative (the source
+literally says "real XP numbers PENDING Paolo"). I found the hole, hedged, and
+kept the item at #1 anyway. A pitch with a hole in it is a dead pitch -- say so
+and drop it, never ship it with a caveat attached.
+*** THE LANE RULE THIS LEAVES, APPLY IT BEFORE ANYTHING GOES ON A LIST: IF IT DOES
+NOT CHANGE A DECISION THE PLAYER MAKES, IT IS NOT A MECHANIC. *** Anything after
+the outcome is locked -- tally, grade, summary, stat, badge, receipt -- is
+FEEDBACK. Bohemia already has more feedback than it uses. Feedback is never the
+answer to "make combat more fun" and it never leads a pick-list again.
+GRAVEYARD: gates/bohemia_graveyard.txt ("THE PAYOUT IS A DRUM FILL").
+POST-MORTEM: records/BOHEMIA_TALLY_KILL_7_27_26.txt.
+NOT DEAD: the existing receipt (fine as what it is, untouched, not the problem),
+and research items 2-6, which were never judged and still stand.
+STOP PRODUCING: scoring presentation is ENDED as a subject for this session.
+Nothing was built and nothing gets built. No v2, no "what if it were shorter".
+
 COMBAT (04) 7/27 - v87: THE ORANGE WAS THE STREAK GLOW. SIXTH REPORT, AND THE
 REASON FIVE REPRODUCTIONS FOUND NOTHING IS THE MOST USEFUL THING IN THIS FILE:
 *** EVERY PROBE I EVER WROTE KILLS ONE MAN. PAOLO PLAYS WHOLE ENCOUNTERS. ***
