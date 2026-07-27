@@ -25,7 +25,11 @@ const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'city
   // airfield is REQUIRED for its side effect (it registers BOTH airport and airbase
   // into the kit); airport/airbase are then emitted under their real TYPE names.
   'rail', 'interchange', 'airfield', 'airport', 'airbase',
-  'campus', 'speedway', 'town', 'ballpark'];
+  'campus', 'speedway', 'town', 'ballpark',
+  // 7/27: four DISTGEN types the dump never listed, so they were invisible to every
+  // consumer of it -- including the bulk judge, which is meant to show him EVERYTHING.
+  // (gated + estate share the SUBURB generator, so one plate covers all three.)
+  'suburb', 'substation'];
 // require = self-register into K for most modules; a few (e.g. commercial) only
 // register when a GLOBAL K exists (browser), so also keep each module's exported
 // API as a fallback source of generate/palette/legend.

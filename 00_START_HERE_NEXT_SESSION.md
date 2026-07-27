@@ -1,3 +1,61 @@
+WORLD MODEL (02): 7/27 (g) LATEST — HE RULED, AND THEN ASKED FOR A PLACE TO RULE FROM.
+
+THE RULING, recorded the same turn under NOTES ARE RULINGS:
+records/BOHEMIA_VERDICT_TOWN_BALLPARK_7_27_26.txt. Paolo on the town and the ballpark
+and both their icons: "that decent ... its decent i like it its decent". APPROVED
+(decent) — all four. Read it honestly: a pass, not a rave. Not a KILL, not a CBB,
+nobody builds a v2 off it, and approval unlocks variants for both (not taken — the
+order below came in the same breath and the order comes first).
+
+THE ORDER: "is there anyway i can comment and judge all ur work in bulk and
+individually". That is a complaint about the VERDICT SURFACE, and it was fair. The
+judge pages were one-subject and scattered, nothing put a district's GROUND next to
+its ICON, nothing could clear forty items in one gesture, and most were reachable only
+if you already knew the filename. A verdict cost him a hunt per item — which is
+exactly how STALE UNJUDGED IS DEAD eats a lane's work.
+
+SHIPPED: slices/BOHEMIA_BULK_JUDGE_7_27_26.html (tools/bohemia_bulk_judge.py).
+All 45 districts, one row each: THE PLOT YOU WALK beside THE CITY ICON, because they
+are supposed to read as the same place (his own 7/24 "damn near the same") and that is
+only judgeable when they are next to each other. Per row: thumbs + a comment box. Per
+category: ALL UP / ALL DOWN. Global: ALL UP / ALL DOWN / CLEAR, a live up/down/left
+counter, and NEEDS A LOOK which hides everything already judged so a second pass shows
+only what is left. SUN MODE, global comment box, EXPORT .txt (never .json).
+AND IT IS REACHABLE — a card at the top of the LIFE hub. An unlinked judge page is the
+same bug as no judge page; that is the whole complaint.
+
+COOKS NOTHING (REUSE-FIRST): the plates render from the EXISTING district grid dump
+(the same canonical generate() output the game walks) and the icons are read verbatim
+out of the EXISTING hero bank. It is a viewer over two things that already shipped.
+
+FOUND WHILE DOING IT: tools/bohemia_district_grid_dump.js never listed SUBURB or
+SUBSTATION, two real DISTGEN types — so every consumer of that dump has been blind to
+the single most common district in the valley. Added. (gated + estate legitimately
+share the suburb generator, so one plate covers all three.)
+
+VERIFIED ON THE REAL SURFACE, not by reading the code: booted the LIFE hub at 390x844,
+tapped the card, landed on the page, 72 plates loaded, then exercised bulk ALL UP,
+NEEDS A LOOK, CLEAR, an individual thumb, toggling that same thumb back off, a per-row
+comment and EXPORT — and read the exported .txt back to confirm the comment rode it.
+Zero console errors.
+
+=== WHAT COMES AFTER ===
+BLOCKED ON PAOLO — 1 is unchanged and still the biggest unlock by a distance:
+  1. THE MOMENT TABLE. The one answer that switches on the day clock, the economy,
+     faction beats AND the encounter director at once. All four wired and empty.
+  2. THE AIRFIELD ICON composition (drop the runway, show terminal + one big plane?).
+  3. QUEST PLACEMENT VERDICTS — 21 quests still land on 13 cells.
+  4. ACT-2 / ACT-3 materials, and whether terrain gets a city icon at all.
+NEW AND WORTH DOING NEXT, off his own complaint: there is still NO JUMP-TO-DISTRICT in
+the builder, so finding a specific cell (town is X12 Y88) means panning a 96x96 map by
+hand. He was asked whether he wants one; if he says yes it is small and it kills the
+last "go find it" in this lane.
+UNBLOCKED AND NEXT: the last 44 buildable landmark cells — basin 8, convention 6,
+datafort 6, prison 4, dam 4, reservoir 3, reclaim 2, plus eleven single-cell landmarks.
+Same method, two at a time, each with its icon the same turn.
+ICON DEBT: 18 of the 45 plated districts still owe an icon — and now he can SEE which,
+because the bulk judge prints NO ICON YET in the slot where the icon should be.
+
 CITY (03): 7/28 (a) LATEST — THE SUBURB WALL HE PICKED WAS LYING ON THE FLOOR, AT A
 QUARTER OF ITS RESOLUTION. "i literally spent hours 2 weeks ago planning the best walls
 for the suburb walls and ur using some bullshit that u made for a house wall as the

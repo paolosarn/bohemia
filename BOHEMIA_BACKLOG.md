@@ -505,6 +505,30 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+V0. [DONE 7/27 — HIS ORDER] JUDGE EVERYTHING, BULK AND ONE BY ONE.
+   Paolo, verbatim, in the same breath he approved the town and the ballpark:
+   "is there anyway i can comment and judge all ur work in bulk and individually".
+   That is a complaint about the VERDICT SURFACE and it was fair: the judge pages
+   were one-subject and scattered, nothing put a district's GROUND next to its ICON,
+   nothing cleared forty items in one gesture, and most were reachable only if you
+   knew the filename. A verdict cost him a hunt per item, and STALE UNJUDGED IS DEAD
+   did the rest.
+   slices/BOHEMIA_BULK_JUDGE_7_27_26.html (tools/bohemia_bulk_judge.py): all 45
+   districts, one row each, THE PLOT YOU WALK beside THE CITY ICON because they are
+   meant to read as the same place and that is only judgeable side by side. Per row:
+   thumbs + a comment. Per category: ALL UP / ALL DOWN. Global: ALL UP / ALL DOWN /
+   CLEAR, a live up/down/left counter, and NEEDS A LOOK which hides everything already
+   judged so a second pass only shows what is left. SUN MODE, global comment, export
+   .txt. REACHABLE: a card at the top of the LIFE hub, so it is not another file he
+   has to know the name of.
+   COOKS NOTHING (REUSE-FIRST): plates render from the existing grid dump, icons are
+   read verbatim out of the existing hero bank.
+   FOUND DOING IT: tools/bohemia_district_grid_dump.js was missing suburb and
+   substation, two real DISTGEN types — so every consumer of that dump has been blind
+   to them. Added. (gated + estate legitimately share the suburb generator.)
+   VERIFIED ON THE REAL SURFACE: booted the hub in a 390x844 browser, tapped the card,
+   landed on the page, 72 plates loaded, exercised bulk + individual + toggle-off +
+   comment + export and read the exported .txt back. Zero console errors.
 ICON LAW (Paolo 7/27, LOCKED — laws/BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md):
 "anytime you build something like this you have to make a city builder icon as well like
 for real." A district or surface is NOT FINISHED until it has a city builder icon (a

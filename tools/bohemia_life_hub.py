@@ -89,6 +89,15 @@ html = r"""<meta charset="utf-8">
       back in. Tap PLAY IT, walk one to a finish, then thumb it.
     </div>
   </a>
+  <a href="BOHEMIA_BULK_JUDGE_7_27_26.html" style="display:block;text-decoration:none;background:#181a12;border:2px solid #c79a3f;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">JUDGE EVERYTHING <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">BULK + ONE BY ONE</span></div>
+    <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
+      Every district in the game on one page: THE PLOT YOU WALK next to THE CITY ICON, so you can
+      see whether they read as the same place. Thumb them one at a time, or clear a whole group
+      with ALL UP / ALL DOWN. Comment on any of them. NEEDS A LOOK hides everything you already
+      judged. Export the lot as a .txt when you are done.
+    </div>
+  </a>
   <a href="BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html" style="display:block;text-decoration:none;background:#181a12;border:1px solid #6a5;border-radius:12px;padding:14px;margin-bottom:14px">
     <div style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">DISTRICT HEROES <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">NEEDS YOUR THUMBS</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#9a9480;margin:4px 0 8px">
