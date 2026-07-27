@@ -1194,6 +1194,68 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CHARACTER (04) 7/28 LATEST — THE "TWO HANDS" WAS THE JACKET ALL ALONG, AND THE
+NECK TONE WAS LANDING ON CLOTH. BOTH FIXED, BOTH VERIFIED ON THE RENDER.
+
+He said it a third time: "the neck is not a different color and the skin above the
+hand isnt fixed bro". He was right both times. Neither was what I had assumed.
+
+1 THE WHITE BLOCK ABOVE THE HAND = THE JACKET PAINTING A SECOND HAND.
+  Found by rendering the SAME frame bare and dressed and differencing it:
+    y32 x28  part 6 (arm)   body 191,175,166   dressed 224,211,203  <- GARMENT
+    y33 x28  part 6 (arm)   body 191,175,166   dressed 224,211,203  <- GARMENT
+    y34 x28  part 6 (arm)   body 191,175,166   dressed 191,175,166     body
+    y35 x28  part 8 (hand)  body 191,175,166   dressed 191,175,166     body
+  The real hand starts at y35. Every garment ramp carries the SK_DEF skin stops so
+  the art can show a wrist/hand opening; when the arm bone deforms they land ABOVE
+  the hand and read as a second hand stuck on the sleeve. THE RULE NOW: a garment
+  may not paint a SKIN tone onto an ARM cell. It is the mirror of HAND_PARTS, which
+  already refuses to let an arm-bone garment pixel paint a hand.
+  NOT geometry, NOT depth order, NOT the outline, NOT dressBackLimb. All four were
+  ruled out by measurement first; see the two diagnosis records.
+
+2 THE NECK TONE COULD NEVER HAVE SHOWN. Neck cells showing SKIN with his
+  cowl-hoodie: S 0/8, SE 0/10, E 0/9, W 0/9, N 6/12. On every facing he looks at,
+  part 3 is 100% cloth. The skin he means -- jaw down to collar -- is the bottom of
+  the FACE part. The tone now also takes the lowest rows of visible face skin,
+  found from the art each frame (follows the head bob, follows any neckline).
+  Measured on E: throat is now 20.9 units off the face, was 2.
+
+TWO SELF-INFLICTED BUGS ON THE WAY, both caught by LOOKING at the render, both
+gated so they cannot return:
+  a. ORDER. The arm fix was anchored BEFORE the garment composite (4769 vs 4877),
+     so the garment repainted the cells one pass later. It measured as a total
+     no-op while the code read perfectly correct.
+  b. THE SHARED DARK ENTRY. skinRampFor()[0] is 28,22,24 -- and that exact colour
+     is ALSO in the jacket, pants and shoes ramps. Including it in the is-it-skin
+     test matched every dark sleeve pixel, and the first build repainted WHOLE
+     SLEEVES as bare skin, far worse than the bug. Both passes now start at index 1.
+  THE LESSON, and it is the third time this session: a colour-membership test
+  cannot tell body from garment, because they share entries. Render it and look.
+
+CORRECTION ON THE RECORD: the earlier "far arm 66.4% bare skin on E" figure is
+UNSAFE and must not be cited -- it used exactly the membership test described in
+(b). records/BOHEMIA_WHITE_FOREARM_AND_INVISIBLE_NECK_7_27_26.md carries the
+correction.
+
+Gates: neck_tone_gate.js 30 -> 43 (pins the order and the shared-dark-entry).
+Records: records/BOHEMIA_TWO_SETS_OF_HANDS_DIAGNOSIS_7_27_26.md,
+records/BOHEMIA_WHITE_FOREARM_AND_INVISIBLE_NECK_7_27_26.md
+Proof: records/hands/FIXED_ARM_AND_THROAT_7_27_26.png
+
+STILL HIS CALL, all measured, none blocking each other:
+ - BORDER TONE: pure black / dark brown 38,30,26 / softer brown 58,46,40 / none.
+   He called 1px "too thick"; half a pixel is impossible on a pixel grid and the
+   outerOnly trick was proven a byte-identical no-op, so the only lever is colour.
+   records/outline/BORDER_TONE_CHOICES_7_27_26.png
+ - FAR HAND DEPTH on E/W: far 153.2 vs near 153.8 out of 255 -- no depth cue at
+   all. Shade is banned inside the sprite by his own 7/26 rule, so it is either a
+   separate shading layer or not drawing the far hand in profile.
+ - ARM AND BELLY SLIDERS still look wrong to him; both measure INSIDE the canon
+   invented-pixel baseline, so it is art direction, not a resampler bug.
+ - PROFILE REPAINT (~48% of E/W torso rows are 1-2px) and the TALL BODY.
+
+--- previous ---
 CHARACTER (04) 7/27 NEWEST — HE REJECTED THE HANDS FIX. IT IS DIAGNOSED, NOT
 RE-ATTEMPTED, AND THE DECISION IS HIS.
 
