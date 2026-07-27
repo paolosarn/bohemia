@@ -1,7 +1,18 @@
+> **KILLED 7/26/26 BY PAOLO — READ THIS FIRST.** "That was really bad and not
+> fun." The playable page `slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html` is DEAD:
+> is GRAVEYARDED and DELETED. Dead things stay dead: there is no v2.
+> The ruling that replaced it is
+> `laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md` — loot is a RESOURCE
+> with a COUNT, looting is ONE FAST ACTION, State of Decay is the reference, and
+> Project Zomboid is now an ANTI-REFERENCE for loot pace. Everything below about
+> the time economy is DEAD for our purposes. The one recommendation that survives
+> is THE CONTAINER IS THE CONTRACT. Post-mortem:
+> `records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt`
+
 # LAB 04 — PATTERN NOTE: WHAT MAKES RUMMAGING A HOUSE FEEL LIKE RUMMAGING
 
 Lane: LAB. Law: `laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md`
-Playable: `slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html`
+Playable: `slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html` — DEAD, deleted 7/26
 Numbers: `records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt`
 Gate: `gates/lab_gate.js`
 

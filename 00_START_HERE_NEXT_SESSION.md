@@ -1,45 +1,41 @@
-LAB (09): 7/26 (f) — BACKLOG LAB-2 SHIPPED: PROJECT ZOMBOID, AND ITS OWN LOOT DATA IS
-IN THE PAGE. His ask was "containers, search, weight, the tension of rummaging a house."
-slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html — a four-room house (kitchen, living
-room, bathroom, bedroom) with 12 containers, and PROJECT ZOMBOID'S REAL LOOT TABLES
-EMBEDDED VERBATIM from the vanilla Lua: 4 rooms, 18 container slots, 65 tables, trimmed
-to the top 12 items and top 6 junk entries per table with NOT ONE WEIGHT ALTERED. Walk
-up to a counter, face it, hold RUMMAGE, and real Zomboid items come out of the real
-tables with the real odds.
-THREE MECHANICS, all three closing:
-  LOOTING — the two-stage roll. The ROOM plus the CONTAINER TYPE together pick named
-  tables by weightChance out of 100, then each table rolls its weighted item list AND
-  ITS OWN SEPARATE JUNK TABLE. That junk roll is the mechanical reason rummaging feels
-  like rummaging: the game is deliberately spending your time on a dead rat.
-  RUMMAGING — the real time formula (ISInventoryTransferAction.lua:784-833). WEIGHT IS
-  TIME, capped at 3kg, so a pot costs 3x a can and 30x a bandaid. Organising costs 120
-  base against 50 for grabbing. Traits are one flat multiplier on the whole economy
-  (x0.5 dextrous, x2 all thumbs). Dropping is nearly free at x0.1.
-  ENCUMBRANCE — AND I HAD THIS BACKWARDS ON THE FIRST READ, WHICH THE RECORD SAYS
-  PLAINLY. I told Paolo "a full bag is a slow bag" for everything. The source only
-  applies the fullness term when BOTH containers are on your body. GRABBING OFF A SHELF
-  IS FLAT no matter how loaded you are; PACKING is what a full bag taxes, up to 2.4x
-  measured. ZOMBOID CHARGES YOU FOR ORGANISING, NOT FOR GRABBING — snatching is cheap,
-  curating is expensive, and it is one if-branch. The page now models the real two-step
-  loop players actually do: take into your hands (flat), then pack into the bag (taxed).
-Teardown, every number with its file:line, including the correction:
-records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt
-Patterns (8 named, 5 recommendations, 4 do-not-ports):
-records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
-THE PICKS FOR US, and none of them is survival looting: THE CONTAINER IS THE CONTRACT
-(key what you find on district + container KIND, not a global loot level — our tilespec
-dossiers already name every tile's kind, so this is nearly free); JUNK IS A SEPARATE
-ROLL; and CHARGE FOR ORGANISING NOT GRABBING, which gives his TIME IS SPENT BY ACTIONS
-ruling teeth for two numbers in the action cost table he has not written yet.
-Gate: lab_gate.js is now 245 checks. The Zomboid half walks the house with the real step
-code, rolls 40 kitchen counters to prove the junk roll really fires, measures the 3kg
-weight cap and both trait multipliers, proves grabbing is flat while packing scales with
-fullness, and plays both loops through to a loaded bag. Three gate generalisations came
-with it: a citation may be .lua as well as .cs, a game that SHIPS its source is "read
-directly" rather than decompiled, and the minimum sourced-constant count is per row
-(Zomboid's whole time economy is 8 numbers).
-KNOWN LIMIT, stated in the note: the view is a whole-house floor plan rather than a
-camera on the player. Good for a loot reference, wrong shape for a phone surface.
+LAB (09): 7/26 (g) — THE ZOMBOID PAGE IS DEAD AND THE RULING THAT KILLED IT IS THE MOST
+USEFUL THING THIS LANE HAS PRODUCED. Paolo: "That was really bad and not fun."
+KILLED, DELETED, GRAVEYARDED, gate row removed, no v2. Post-mortem:
+records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt. The teardown and pattern note survive
+marked DEAD at the top, because facts about another game's code stay facts.
+THE LAW (laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md, LOCKED), his words:
+"I kind of want Luc [loot] to be very simplified... I want it easier to loot... imagine
+if that went by really quick instead of really slowly I might give a fuck about it...
+State of decay has decent looting system in place... even if there were less items than
+that... I really want the game to be minimalistic in that regard... maybe the item will
+be resources but like the description it might tell you like what type of resource it is
+to help you understand the amount... at the end of the day I would want the item be like
+you found like three".
+  1. LOOTING IS FAST. A container resolves in ONE ACTION, never an item-by-item queue.
+  2. A FOUND THING IS A RESOURCE WITH A COUNT, not an object with a name. FOOD x3.
+  3. THE DESCRIPTION CARRIES THE FLAVOUR and its job is to explain the amount. Flavour
+     is read, never counted, never inventoried, never carried as separate objects.
+  4. MINIMALISTIC IS THE BAR. FEWER kinds than State of Decay. When in doubt, cut one.
+  5. CUSTOMISATION IS NOT LOOT VOLUME. Depth comes from the wardrobe and the rig.
+  6. STATE OF DECAY (and SoD2) is the reference. PROJECT ZOMBOID IS AN ANTI-REFERENCE
+     FOR LOOT PACE and may never again be cited to make our looting slower or finer.
+[PENDING Paolo], all content and nobody invents it: the resource KINDS and how many, the
+yield range per container kind, what a search costs in time, whether a container can be
+searched twice, and whether searching is noisy.
+WHAT SURVIVES FROM THE DEAD PAGE: exactly one recommendation, THE CONTAINER IS THE
+CONTRACT — what you find is keyed on the district and the KIND of container, which our
+tilespec dossiers already name. Everything about the time economy is dead for us.
+THE LESSON, written into the post-mortem so it binds the next session: A REFERENCE IS
+NOT NEUTRAL. Choosing which game to emulate is already a design decision. Emulating a
+game whose pacing is the opposite of what Paolo has asked for produces a faithful,
+gated, worthless artifact. Before the next emulation, state in ONE LINE what feel the
+target game has and check it against his standing rulings; if it conflicts, the
+emulation is dead before it is written. 245 green checks could not ask whether it was
+fun — GREEN PROVES NON-VIOLATION AND NOTHING ELSE.
+NOTHING WAS BUILT THIS TURN AFTER THE KILL, on purpose (STOP PRODUCING). The next lab
+target is his to name, and the loot system itself belongs to the owning lane once he
+rules the numbers.
+
 
 LAB (09): 7/26 (e) — HE APPROVED ALL FOUR PORTED MECHANISMS AND RULED THE BIG ONE
 WIDER IN THE SAME BREATH. "I like it all tbh all 3 and sleep understand sleep can be

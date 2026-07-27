@@ -1,0 +1,56 @@
+==============================================================================
+KILL + POST-MORTEM — LAB-04, THE ZOMBOID HOUSE            7/26/26
+==============================================================================
+VERDICT (Paolo, verbatim): "That was really bad and not fun."
+STATUS: KILLED. Graveyarded. Dead things stay dead; there is no v2 of this page.
+Ruling that came with it: laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md
+
+WHAT WAS KILLED
+  slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html and its gate row. Both DEAD.
+  The teardown and pattern note are KEPT as the record of what was measured
+  (records/lab/BOHEMIA_LAB_ZOMBOID_*), marked dead at the top. Facts about
+  another game's code do not stop being facts because we rejected the feel.
+
+WHY IT FAILED — THE REAL CAUSE, NOT THE SYMPTOM
+1. I EMULATED A PACE HE HAD ALREADY IMPLIED HE DID NOT WANT. The whole page is
+   built on Zomboid's per-item time economy: eleven separate timed takes to empty
+   one kitchen counter, then eleven more to pack them. His reaction to it was
+   "imagine if that went by really quick instead of really slowly I might give a
+   fuck about it." The mechanism I found most interesting (weight is time,
+   organising costs more than grabbing) is EXACTLY the thing that made it not
+   fun. I mistook "this is a clever rule" for "this is a good rule for us".
+2. I TREATED HIS BACKLOG PHRASE AS A SPEC. He wrote "containers, search, weight,
+   the tension of rummaging a house" weeks of context ago. I built precisely
+   that, faithfully, without asking whether the TENSION he meant was slowness.
+   It was not. He meant the interest of what you find, not the cost of picking
+   it up.
+3. I SHIPPED VOLUME WHERE HE WANTS MINIMALISM. 65 real loot tables and hundreds
+   of distinct named items, presented as a feature ("the game's own loot data is
+   in the page"). He wants FEWER kinds than State of Decay, expressed as
+   resources with a count. The thing I was proudest of is the thing he does not
+   want in Bohemia at all.
+4. THE PAGE WAS A FLOOR PLAN, NOT A GAME. Noted in its own honest limits before
+   he ever saw it, which means I knew the presentation was wrong and shipped it
+   anyway because the mechanics were green.
+
+WHAT THE GATES DID NOT CATCH, AND CANNOT
+  245 green checks proved every rule was faithfully ported and every loop closed.
+  Not one of them could ask "is this fun" or "is this the pace he wants". This is
+  the third time this week a lane has shipped something green and unwanted. The
+  gates are not the problem; using green as evidence of quality is. GREEN PROVES
+  NON-VIOLATION AND NOTHING ELSE (autonomy doctrine 4).
+
+THE LESSON I AM WRITING DOWN SO IT BINDS ME
+  A REFERENCE IS NOT NEUTRAL. Choosing which game to emulate is already a design
+  decision, and emulating a game whose pacing is the opposite of what Paolo has
+  asked for produces a faithful, gated, worthless artifact. Before the next
+  emulation: state in one line what FEEL the target game has, and check that line
+  against his standing rulings. If it conflicts, the emulation is dead before it
+  is written.
+
+WHAT SURVIVES
+  - THE CONTAINER IS THE CONTRACT (yield keyed on district + container kind).
+    Compatible with the new law and worth keeping.
+  - The measured facts in the teardown, as a record.
+  Everything about the time economy is dead for our purposes.
+==============================================================================

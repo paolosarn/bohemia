@@ -105,32 +105,28 @@
    the note: Bohemia's 120 BPM / one-body-per-cell walk and Stardew's continuous
    sub-pixel walk cannot both live in one surface — three options are laid out,
    all three are his call.
-2. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] ZOMBOID LOOT LOOP. His ask:
-   "containers, search, weight, the tension of rummaging a house."
-   slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html — a four-room house with 12
-   containers, and PROJECT ZOMBOID'S OWN LOOT DATA EMBEDDED VERBATIM from the
-   vanilla Lua (4 rooms, 18 container slots, 65 tables, trimmed to the top 12
-   items and top 6 junk per table, no weight altered). Three mechanics:
-     LOOTING     the real two-stage roll. The ROOM plus the CONTAINER TYPE pick
-                 named tables by weightChance out of 100; each table rolls its
-                 weighted item list AND its own SEPARATE JUNK table. The junk is
-                 why rummaging feels like rummaging.
-     RUMMAGING   the real time formula (ISInventoryTransferAction.lua:784-833):
-                 weight IS time, capped at 3kg; organising costs 120 base against
-                 50 for grabbing; traits are flat x0.5 / x2.0 on everything.
-     ENCUMBRANCE the fullness tax, and I HAD IT BACKWARDS AT FIRST: the source
-                 only applies it when BOTH containers are on your body. Grabbing
-                 off a shelf is FLAT. PACKING is what a full bag taxes, up to
-                 2.4x. Zomboid charges you for organising, not for grabbing. The
-                 page models the real two-step loop: take into hands, then pack.
-   Teardown with every file:line + the correction stated plainly:
-   records/lab/BOHEMIA_LAB_ZOMBOID_TEARDOWN_7_26_26.txt
-   Patterns (8 named, 5 recommendations, 4 do-not-ports):
-   records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
-   Gate: lab_gate.js is now 245 checks; the Zomboid half walks the house, rolls
-   40 counters to prove the junk roll, measures the weight cap and both trait
-   multipliers, proves grabbing is flat while packing scales, and plays both
-   loops to a full bag.
+2. [KILLED 7/26 — DEAD, GRAVEYARDED, NO V2] ZOMBOID LOOT LOOP. Paolo: "That was
+   really bad and not fun." The page is DELETED and graveyarded; its gate row is
+   gone. Post-mortem: records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt. The teardown
+   and pattern note survive marked DEAD as the record of what was measured.
+   THE RULING THAT REPLACED IT, and it is the valuable thing:
+   laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md (LOCKED) — Bohemia's
+   loot is VERY SIMPLIFIED: a found thing is a RESOURCE WITH A COUNT ("you found
+   like three"), not a named object; the description carries the flavour and its
+   job is to explain the amount; looting is ONE FAST ACTION, because "imagine if
+   that went by really quick instead of really slowly I might give a fuck about
+   it"; minimalistic, FEWER kinds than State of Decay; customisation is NOT bought
+   with loot volume; STATE OF DECAY (and SoD2) is the reference and PROJECT
+   ZOMBOID IS NOW AN ANTI-REFERENCE for loot pace.
+   [PENDING Paolo] the resource KINDS and how many, the yield range per container
+   kind, what a search costs in time, and whether a container can be searched
+   twice. Nobody invents these.
+   WHY IT FAILED (root cause, in the post-mortem): I emulated a pace he had
+   already implied he did not want, treated an old backlog phrase as a spec, and
+   shipped volume into a lane where he wants minimalism. 245 green checks proved
+   every rule was ported faithfully and not one of them could ask whether it was
+   fun.
+
 3. (Paolo adds more targets by naming a game + system to any lab session or
    to the coordinator.)
 

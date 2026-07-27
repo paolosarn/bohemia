@@ -1,3 +1,14 @@
+******************************************************************************
+*** KILLED 7/26/26 BY PAOLO: "That was really bad and not fun." The playable
+*** page is GRAVEYARDED and DELETED; there is no v2. This file survives ONLY as
+*** the record of what was measured, because facts about another game's code do
+*** not stop being facts. DO NOT build from it.
+*** THE LAW THAT REPLACED IT: laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md
+***   loot is a RESOURCE with a COUNT, looting is ONE FAST ACTION, State of Decay
+***   is the reference, and PROJECT ZOMBOID IS AN ANTI-REFERENCE FOR LOOT PACE.
+*** Post-mortem: records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt
+******************************************************************************
+
 ==============================================================================
 BOHEMIA REFERENCE LAB 04 — MECHANICS TEARDOWN
 PROJECT ZOMBOID: LOOTING / RUMMAGING / ENCUMBRANCE     7/26/26 (lab lane)
@@ -5,7 +16,7 @@ PROJECT ZOMBOID: LOOTING / RUMMAGING / ENCUMBRANCE     7/26/26 (lab lane)
 Law: laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md
 Backlog: LAB-2 "ZOMBOID LOOT LOOP: containers, search, weight, the tension of
 rummaging a house."
-Playable: slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html
+Playable: slices/lab/BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26.html  <-- DEAD, deleted 7/26
 Pattern note: records/lab/BOHEMIA_LAB_ZOMBOID_PATTERN_NOTE_7_26_26.md
 Gate: gates/lab_gate.js (walks the house and plays all three loops in it)
 
