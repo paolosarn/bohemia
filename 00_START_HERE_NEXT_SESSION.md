@@ -945,6 +945,59 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CHARACTER (04) 7/27 NEWEST — HE REJECTED THE HANDS FIX. IT IS DIAGNOSED, NOT
+RE-ATTEMPTED, AND THE DECISION IS HIS.
+
+1 "TWO SETS OF HANDS" — I MADE IT WORSE, AND SAID SO. My earlier fix pulled the
+  far hand out of DRESS THE BACK LIMB. That turned a sleeve-coloured hand
+  (luminance 42, invisible on a near-black coat) into BARE SKIN (153 on that same
+  42 coat). I converted a hidden hand into a second bright blob. He caught it in
+  one build.
+  RULED OUT BY MEASUREMENT, not reasoning: depth order (his authored layering IS
+  obeyed - near hand 13px, far hand 2px at rest); a floating hand (0 disembodied
+  frames in 24); a hand with no arm (0 frames).
+  WHAT IT IS: far hand 153.2, near hand 153.8 on E - a difference of 0.5 out of
+  255 - both against a 42 coat, for 19 of every 24 frames. Two identical pale
+  blobs with NO depth cue. Not geometry. A missing depth cue.
+  NOT FIXED, DELIBERATELY. All three routes need his ruling: occlusion is already
+  applied (and more would override RIG LAW), shade is BANNED by his own 7/26
+  "shadows are a separate layer", and not drawing the far hand in profile is a
+  design call. STOP PRODUCING: no third attempt.
+  Record: records/BOHEMIA_TWO_SETS_OF_HANDS_DIAGNOSIS_7_27_26.md
+  Proof: records/hands/HANDS_ZOOM_7_27_26.png (18x, exactly what ships)
+  [PENDING, Paolo's call] separate shading layer, or no far hand on E/W?
+
+2 HIS CURTAIN BOB APPLIED, byte for byte from his paste (E 30->37, N 72->70,
+  NE 72->70, S 50->40, SE 50->43; W/NW/SW still mirrored, ramp untouched). The
+  applier REFUSES a ramp change, a layer-box change, or unknown directions rather
+  than letting a repaint become a silent retint.
+  records/rig/CURTAIN_BOB_7_27_26.json + tools/bohemia_apply_curtain_bob_7_27.py
+
+3 NECK IS ITS OWN SKIN TONE (his ask). Part 3, verified by geometry not by a
+  comment. A TONE, not a shadow: fixed per facing, fixed per frame, his own hue
+  scaled so no new colour is cooked.
+  THE BUG THE MEASUREMENT CAUGHT: the pass runs AFTER garments composite, so the
+  first version tinted his HOODIE COLLAR (25.1 -> 23.1 dressed). Now skin-only.
+  HONEST HEADLINE: with his current outfit the collar and the hair cover the neck
+  almost completely, so this is nearly INVISIBLE dressed. It shows on the bare
+  body and on any lower neckline.
+
+4 ".5 PIXEL BORDER?" — NO, and the negative result is pinned. A half pixel cannot
+  exist on a pixel grid, and RENDER PIXEL gates half-pixel draws shut on purpose
+  (fractional drawing is what makes pixel art go soft on a phone). TRIED: an
+  outerOnly mode skipping interior notches. Over 96 frames it was BYTE-IDENTICAL,
+  12,170 outline pixels either way, 0% less black - no empty cell beside this body
+  is enclosed, so it was ALREADY outer-only. The code was REMOVED rather than
+  shipped as a knob that does nothing. The only real lever is COLOUR: pure black
+  on pale ground is maximum contrast and contrast is what reads as thick.
+  Four choices rendered: records/outline/BORDER_TONE_CHOICES_7_27_26.png
+  [PENDING, Paolo's call] CHAR_OUTLINE.color is one line.
+
+Gates: character_outline_gate.js now 33 (its scope check is the real closure
+boundary, not a byte distance - the old proxy broke the moment a comment was added
+above the flag). NEW neck_tone_gate.js (30), registered.
+
+--- previous ---
 CHARACTER (04) 7/27 LATEST — HE ASKED FOR A BLACK OUTLINE AND CAUGHT A BUG I MADE.
 Two things this turn, both from one message of his with a screenshot.
 

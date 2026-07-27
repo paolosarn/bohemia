@@ -178,6 +178,8 @@ GATES = [
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
     ('BACK LIMB',      ['node', 'gates/back_limb_gate.js'],
      'the back arm wears its own sleeve: same colours no shade, never invents fill, never undresses the near limb, arms only (not legs, not hands)', False),
+    ('NECK + HAIR',    ['node', 'gates/neck_tone_gate.js'],
+     'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
     ('FROZEN POSES',   ['node', 'gates/frozen_poses_gate.js'],

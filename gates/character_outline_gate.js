@@ -46,8 +46,15 @@ const iFn = src.indexOf('function buildFrame(d,clip,ph){');
 ok('the anchors are all found', iSkin > 0 && iRigid > 0 && iFlag > 0 && iFn > 0);
 ok('CHAR_OUTLINE is NOT declared back in the skinner closure next to RIGID',
   Math.abs(iFlag - iRigid) > 400);
-ok("CHAR_OUTLINE is declared in buildFrame's own scope, immediately above it",
-  iFlag < iFn && (iFn - iFlag) < 700);
+/* The REAL boundary, not a distance proxy: the skinner closure ends at its export
+   statement. The flag must be declared AFTER that (so it is outside the closure)
+   and BEFORE buildFrame (so buildFrame can see it). A byte-distance check broke the
+   moment a comment block was added above the flag -- it was measuring formatting,
+   not scope. */
+const iClose = src.indexOf('return { Skinner, REFINE_STATS,');
+ok('the skinner closure export is found', iClose > 0);
+ok("CHAR_OUTLINE is declared OUTSIDE the skinner closure and BEFORE buildFrame",
+  iFlag > iClose && iFlag < iFn);
 ok('the scope bug is written down so nobody re-does it',
   /RIGID.*INSIDE the\s*`?SKINNER_API`? closure|INSIDE the\s+`SKINNER_API`\s+closure/s.test(law));
 ok('the general rule is recorded: a load-time hang is a page error, capture pageerror first',
@@ -105,5 +112,14 @@ ok('the honest caveat is on the record, not hidden: black on a black coat reads 
   /head, hands and\s*\*\*boots\*\*|head, hands and\s+boots/.test(law));
 ok('the colour alternative is flagged as HIS call, not decided for him',
   /\[PENDING, Paolo's call\]/.test(law));
+
+/* THE .5 PIXEL ANSWER AND ITS NEGATIVE RESULT (Paolo 7/27: "are you able to make
+   it .5 pixel border. it just a little too thick"). */
+ok('the alpha records why half a pixel is impossible',
+  /A half pixel cannot exist on a pixel grid/.test(src));
+ok('the outerOnly negative result is pinned, with its number',
+  /BYTE-IDENTICAL output/.test(src) && /12,170 outline pixels either way/.test(src));
+ok('the dead outerOnly knob was REMOVED, not shipped doing nothing',
+  !/outerOnly:/.test(src));
 
 done();

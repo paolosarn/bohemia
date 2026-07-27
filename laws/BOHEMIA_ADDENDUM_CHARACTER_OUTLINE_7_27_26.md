@@ -125,7 +125,35 @@ black, which separates from the coat as well as from the sand.
 
 ---
 
-## 7. GATE
+## 7. "CAN YOU MAKE IT .5 PIXEL?" — NO, AND HERE IS THE HONEST WHY
+
+Paolo, 7/27, after seeing it: *"are you able to make it .5 pixel border. it just
+a little too thick you know"*.
+
+**A half pixel cannot exist on a pixel grid.** The sprite is 56x56 discrete cells;
+there is no address between two of them. The only way to fake one is to draw the
+outline at display resolution instead of sprite resolution — and `RENDER PIXEL`
+gates that shut, deliberately, because fractional drawing is exactly what makes
+pixel art go soft and shimmery on a phone. Buying a thinner line with a blurrier
+game is a bad trade and it is not one to make quietly.
+
+**TRIED AND MEASURED — NEGATIVE RESULT.** The legitimate way to spend less black
+is to draw *fewer* pixels, not thinner ones: an `outerOnly` mode that traced the
+outside silhouette and skipped interior notches (between the legs, arm to coat).
+Over 96 frames it produced **byte-identical output — 12,170 outline pixels either
+way, 0% less black** — because no empty cell beside this body is enclosed. Every
+notch is open to the outside, so the border was *already* outer-only. **The code
+was removed rather than shipped as a knob that does nothing.**
+
+**WHAT IS ACTUALLY LEFT: the colour.** "Too thick" here is really "too much
+contrast" — 1px of pure black against pale desert ground is the maximum contrast
+two colours can have, and maximum contrast reads as weight. The same single pixel
+in a softer dark tone reads thinner without one pixel moving.
+Choices rendered for him: `records/outline/BORDER_TONE_CHOICES_7_27_26.png`
+(pure black / dark brown 38,30,26 / softer brown 58,46,40 / none).
+**[PENDING, Paolo's call]** — `CHAR_OUTLINE.color` is one line.
+
+## 8. GATE
 
 `gates/character_outline_gate.js` — registered in `gates/bohemia_gates.py`.
 
