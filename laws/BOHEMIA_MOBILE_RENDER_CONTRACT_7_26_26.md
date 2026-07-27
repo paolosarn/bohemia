@@ -141,10 +141,48 @@ multiplied by era variants is how a 32 MB game hits that wall, so:
 - era variants derive at draw time from the act-1 base (amendment A: assets are
   born era-READY, not era-complete)
 
-**NOT YET INSTRUMENTED.** No session has measured live canvas bytes on a real
-device. Until a probe exists this section is a design constraint the lanes are
-expected to honour, not a checked one, and the gate does not pretend to check
-it. Instrumenting it is a backlog item, not a claim.
+**MEASURED 7/27/26.** `tools/bohemia_canvas_memory_probe.js` drives the shipped
+surfaces in a real browser and counts what the tab is actually holding: canvas
+backing stores at `w*h*4`, decoded image bytes, ImageBitmaps — WeakRef-tracked,
+so anything the app has genuinely released stops counting — plus the JS heap read
+over CDP **after a forced collection**, because otherwise a leak and an
+uncollected nursery look identical. Record:
+`records/target/BOHEMIA_CANVAS_MEMORY.json`. Gate: `gates/canvas_memory_gate.py`.
+
+| surface | pixels | heap | resident peak | of the floor |
+|---|---|---|---|---|
+| ALPHA, every tab opened | 60.3 MB (2604 canvases) | 44.9 MB | **92.5 MB** | 41% |
+| RUN, after 480 steps outdoors | 6.8 MB | 8.5 MB | 15.3 MB | 7% |
+| CITY (the map) | 0.8 MB | 1.8 MB | 2.6 MB | 1% |
+
+**THE CLAUSE HOLDS TODAY.** Walking the valley 480 steps grew the picture by
+**0.0 MB**. The WORLD lane's bounded plot LRU is doing its job: the world streams
+past and the memory does not climb. That is the actual content of this section
+and it is now a checked fact rather than an intention.
+
+**WHAT THE MEASUREMENT ACTUALLY FOUND, which is not what this section was
+watching for.** Canvases are not where this game keeps its memory on any single
+surface — the walked world holds 6.8 MB of pixels. The weight is in the ALPHA,
+and it is two things this clause never named:
+
+1. **2604 live canvases once every tab has been opened** — 2217 of them in the
+   shell itself, 188 in `mapFrame`, 193 in `runFrame`. Small ones, ~21 KB each,
+   which is exactly why nobody noticed: no single allocation looks wrong. They
+   are retained across a forced collection, so they are live, not garbage.
+2. **~45 MB of JS heap at load**, because the art arrives as base64 and lives as
+   JS pixel arrays — never as an image, never as a canvas. A canvas-only budget
+   would have reported the heaviest thing in the build as weighing nothing.
+
+So the number to watch while the tile set multiplies is **resident** (pixels +
+heap), and the record tracks both. Ratchets in the gate: 120 MB resident, 75 MB
+pixels, and walking may not grow the picture by more than 2 MB.
+
+**THE LIMIT, and it travels with every number above: THIS IS HEADLESS DESKTOP
+CHROMIUM, NOT AN IPHONE.** Backing-store arithmetic is device-independent, so the
+pixel bytes transfer; the JS heap and the compositor's own copies do not. What
+this proves is the SHAPE of the curve — whether memory levels off under exercise
+— which is the thing that kills a phone. A real-device number still needs a real
+device, and nothing here claims to be one.
 
 ## 9. WHAT THE GATE ACTUALLY HOLDS
 
@@ -152,8 +190,20 @@ it. Instrumenting it is a backlog item, not a claim.
 Every number in sections 1–5 is asserted against the factory's own constants, so
 changing `CELL`, `SHEAR`, `BODY_K`, `SCALE`, `TOP/FRONT/SIDE` or the frame breaks
 the gate rather than silently breaking proportion. Section 6 is asserted as a
-ratchet. Section 7 is asserted on the shipped surfaces. Section 8 is documented
-and explicitly NOT asserted.
+ratchet. Section 7 is asserted on the shipped surfaces.
+
+Section 8 is now held by `gates/canvas_memory_gate.py`, and what it holds is
+stated rather than implied: it reads the RECORDED measurement, it does not launch
+a browser — a three-minute browser probe inside the suite every lane runs on
+every ship is a tax that gets a gate deleted, which enforces nothing. It fails on
+the ceilings, on streaming growth, on a contract that stops citing its own
+record, and on an exercise that did not happen (the first probe run pressed 480
+arrow keys into a bedroom wall and reported "memory did not grow"; the second
+clicked eleven tabs that were all covered by the front splash and reported the
+whole build as 0.8 MB — both green-looking nonsense, both now impossible to pass
+with). Staleness is a hard fail on ONE hash, the starter tile set's, because that
+is the thing this section warns will multiply; the surfaces' hashes are reported,
+not failed.
 
 The gestalt question — *does this look like the target* — is **never** a gate.
 Amendment B is explicit: that is always a human side-by-side verdict, Paolo's.

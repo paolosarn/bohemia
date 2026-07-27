@@ -1,0 +1,659 @@
+{
+ "version": "BOHEMIA_CANVAS_MEMORY_v2",
+ "measured": "2026-07-27",
+ "clause": "section 8, laws/BOHEMIA_MOBILE_RENDER_CONTRACT_7_26_26.md",
+ "ios_floor_mb": 224,
+ "what_is_counted": "canvas backing stores (w*h*4) + decoded image bytes + ImageBitmaps, WeakRef-tracked so anything the app has released stops counting; plus the JS heap read over CDP after a FORCED COLLECTION, which is the only way a leak and an uncollected nursery look different.",
+ "HONESTY": "HEADLESS DESKTOP CHROMIUM, NOT AN IPHONE. Backing-store arithmetic is device-independent so those bytes transfer; the JS heap and the compositor's own copies do not. What this proves is the SHAPE of the curve - whether memory levels off under exercise - which is the thing that kills a phone. A real-device number still needs a real device.",
+ "THE_FINDING": "The 224 MB clause watches canvases. Canvases are not where this game keeps its memory: every shipped surface holds single-digit MB of pixels, and the ALPHA holds most of a phone's budget in the JS HEAP instead - the art arrives as base64 strings and lives as JS pixel arrays, never as an image or a canvas. So the number to watch while the tile set multiplies is the heap, and this record tracks both.",
+ "tileset": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+ "tileset_md5": "f470e7cbae7695c15642174d25e52041",
+ "worst_surface": "ALPHA (the shipped build)",
+ "worst_resident_peak_mb": 92.5,
+ "worst_pct_of_floor": 41.3,
+ "surfaces": [
+  {
+   "surface": "BOHEMIA_RUN_CURRENT.html",
+   "name": "RUN (the walked world)",
+   "why": "the surface that streams cells and therefore the one that can climb forever",
+   "load_ms": 7686,
+   "exercise": "walk",
+   "exercise_proof": {
+    "before": {
+     "x": 9,
+     "y": 10,
+     "mode": "int",
+     "phase": "home_inside"
+    },
+    "exit": {
+     "got_out": true,
+     "at": [
+      77,
+      112
+     ],
+     "steps": 13,
+     "door": [
+      9,
+      11
+     ]
+    },
+    "after": {
+     "x": 125,
+     "y": 126,
+     "mode": "ext",
+     "phase": "street"
+    },
+    "moved": true
+   },
+   "moments": [
+    {
+     "canvas": 955504,
+     "canvases": 2,
+     "img": 6133248,
+     "imgs": 162,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 390,
+       "h": 602,
+       "bytes": 939120
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      }
+     ],
+     "frames": 1,
+     "by_frame": [
+      {
+       "frame": "(main)",
+       "canvases": 2,
+       "canvas_mb": 0.9,
+       "img_mb": 5.8
+      }
+     ],
+     "total": 7088752,
+     "moment": "loaded",
+     "heap_precise": 8781484
+    },
+    {
+     "canvas": 955504,
+     "canvases": 2,
+     "img": 6133248,
+     "imgs": 162,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 390,
+       "h": 602,
+       "bytes": 939120
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      }
+     ],
+     "frames": 1,
+     "by_frame": [
+      {
+       "frame": "(main)",
+       "canvases": 2,
+       "canvas_mb": 0.9,
+       "img_mb": 5.8
+      }
+     ],
+     "total": 7088752,
+     "moment": "out of the house",
+     "heap_precise": 8829376
+    },
+    {
+     "canvas": 955504,
+     "canvases": 2,
+     "img": 6133248,
+     "imgs": 162,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 390,
+       "h": 602,
+       "bytes": 939120
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      }
+     ],
+     "frames": 1,
+     "by_frame": [
+      {
+       "frame": "(main)",
+       "canvases": 2,
+       "canvas_mb": 0.9,
+       "img_mb": 5.8
+      }
+     ],
+     "total": 7088752,
+     "moment": "after 120 steps",
+     "heap_precise": 8936608
+    },
+    {
+     "canvas": 955504,
+     "canvases": 2,
+     "img": 6133248,
+     "imgs": 162,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 390,
+       "h": 602,
+       "bytes": 939120
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      }
+     ],
+     "frames": 1,
+     "by_frame": [
+      {
+       "frame": "(main)",
+       "canvases": 2,
+       "canvas_mb": 0.9,
+       "img_mb": 5.8
+      }
+     ],
+     "total": 7088752,
+     "moment": "after 480 steps",
+     "heap_precise": 8947660
+    }
+   ],
+   "peak_bytes": 7088752,
+   "peak_mb": 6.8,
+   "heap_peak_bytes": 8947660,
+   "heap_peak_mb": 8.5,
+   "resident_peak_bytes": 16036412,
+   "resident_peak_mb": 15.3,
+   "growth_under_exercise_mb": 0,
+   "heap_growth_under_exercise_mb": 0.2,
+   "pct_of_ios_floor": 6.8,
+   "pct_of_ios_floor_pixels_only": 3,
+   "surface_md5": "3749ec260a29887c42676992414663a0"
+  },
+  {
+   "surface": "BOHEMIA_CITY_CURRENT.html",
+   "name": "CITY (the map)",
+   "why": "the other shipped world surface",
+   "load_ms": 3660,
+   "exercise": null,
+   "exercise_proof": {},
+   "moments": [
+    {
+     "canvas": 788712,
+     "canvases": 1,
+     "img": 0,
+     "imgs": 0,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 354,
+       "h": 557,
+       "bytes": 788712
+      }
+     ],
+     "frames": 1,
+     "by_frame": [
+      {
+       "frame": "(main)",
+       "canvases": 1,
+       "canvas_mb": 0.8,
+       "img_mb": 0
+      }
+     ],
+     "total": 788712,
+     "moment": "loaded",
+     "heap_precise": 1899060
+    }
+   ],
+   "peak_bytes": 788712,
+   "peak_mb": 0.8,
+   "heap_peak_bytes": 1899060,
+   "heap_peak_mb": 1.8,
+   "resident_peak_bytes": 2687772,
+   "resident_peak_mb": 2.6,
+   "growth_under_exercise_mb": 0,
+   "heap_growth_under_exercise_mb": 0,
+   "pct_of_ios_floor": 1.1,
+   "pct_of_ios_floor_pixels_only": 0.3,
+   "surface_md5": "7ade9e631af12c0a99e2d715d4d30a8a"
+  },
+  {
+   "surface": "BOHEMIA_ALPHA_0_9.html",
+   "name": "ALPHA (the shipped build)",
+   "why": "what Paolo actually taps: every tab, every baked body, all in one page",
+   "load_ms": 26121,
+   "exercise": "tabs",
+   "exercise_proof": {
+    "tabs": [
+     "run",
+     "char",
+     "clothes",
+     "anim",
+     "rig",
+     "combat",
+     "music",
+     "city",
+     "map",
+     "slice",
+     "life"
+    ],
+    "moved": true
+   },
+   "moments": [
+    {
+     "canvas": 804528,
+     "canvases": 13,
+     "img": 6133248,
+     "imgs": 162,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "logobig",
+       "w": 500,
+       "h": 135,
+       "bytes": 270000
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 88,
+       "h": 176,
+       "bytes": 61952
+      }
+     ],
+     "frames": 5,
+     "by_frame": [
+      {
+       "frame": "runFrame",
+       "canvases": 1,
+       "canvas_mb": 0,
+       "img_mb": 5.8
+      },
+      {
+       "frame": "(main)",
+       "canvases": 12,
+       "canvas_mb": 0.8,
+       "img_mb": 0
+      }
+     ],
+     "total": 6937776,
+     "moment": "loaded",
+     "heap_precise": 47052272
+    },
+    {
+     "canvas": 56390248,
+     "canvases": 2604,
+     "img": 6837320,
+     "imgs": 168,
+     "bitmap": 0,
+     "bitmaps": 0,
+     "biggest": [
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 780,
+       "h": 1068,
+       "bytes": 3332160
+      },
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 390,
+       "h": 756,
+       "bytes": 1179360
+      },
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 390,
+       "h": 548,
+       "bytes": 854880
+      },
+      {
+       "kind": "canvas",
+       "id": "cv",
+       "w": 336,
+       "h": 336,
+       "bytes": 451584
+      },
+      {
+       "kind": "canvas",
+       "id": "logobig",
+       "w": 500,
+       "h": 135,
+       "bytes": 270000
+      },
+      {
+       "kind": "canvas",
+       "id": "logobig",
+       "w": 500,
+       "h": 135,
+       "bytes": 270000
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 295,
+       "h": 208,
+       "bytes": 245440
+      },
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 287,
+       "h": 190,
+       "bytes": 218120
+      }
+     ],
+     "frames": 8,
+     "by_frame": [
+      {
+       "frame": "(main)",
+       "canvases": 2217,
+       "canvas_mb": 27.1,
+       "img_mb": 0
+      },
+      {
+       "frame": "runFrame",
+       "canvases": 193,
+       "canvas_mb": 9.7,
+       "img_mb": 5.8
+      },
+      {
+       "frame": "mapFrame",
+       "canvases": 188,
+       "canvas_mb": 12.8,
+       "img_mb": 0
+      },
+      {
+       "frame": "combatFrame",
+       "canvases": 3,
+       "canvas_mb": 3.5,
+       "img_mb": 0
+      },
+      {
+       "frame": "lifeFrame",
+       "canvases": 0,
+       "canvas_mb": 0,
+       "img_mb": 0.7
+      },
+      {
+       "frame": "rigFrame",
+       "canvases": 1,
+       "canvas_mb": 0.4,
+       "img_mb": 0
+      },
+      {
+       "frame": "cityFrame",
+       "canvases": 2,
+       "canvas_mb": 0.2,
+       "img_mb": 0
+      }
+     ],
+     "total": 63227568,
+     "moment": "every tab opened",
+     "heap_precise": 33817180
+    }
+   ],
+   "peak_bytes": 63227568,
+   "peak_mb": 60.3,
+   "heap_peak_bytes": 47052272,
+   "heap_peak_mb": 44.9,
+   "resident_peak_bytes": 97044748,
+   "resident_peak_mb": 92.5,
+   "growth_under_exercise_mb": 53.7,
+   "heap_growth_under_exercise_mb": -12.6,
+   "pct_of_ios_floor": 41.3,
+   "pct_of_ios_floor_pixels_only": 26.9,
+   "surface_md5": "b321ee6d59a68f3d03379736c96c5e70"
+  }
+ ]
+}
