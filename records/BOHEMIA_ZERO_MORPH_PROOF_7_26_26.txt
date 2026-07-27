@@ -8,12 +8,12 @@ where the POSE DID NOT CHANGE. A pose change is animation and is excluded.
 clip        morph pixels during holds      drawn poses
             before        ->     after     per clip
 ----------------------------------------------------------
-E/walk        1600 (11 frames) ->      0      8
-W/walk        1597 (11 frames) ->      0      8
-E/run         3705 (13 frames) ->      0      5
-E/idle         231 ( 5 frames) ->      0      6
-E/dance       2586 (13 frames) ->      0      8
-W/drunk       2284 (14 frames) ->      0      10
+E/walk        1553 (11 frames) ->      0      8
+W/walk        1556 (11 frames) ->      0      8
+E/run         3668 (13 frames) ->      0      5
+E/idle         223 ( 5 frames) ->      0      6
+E/dance       2580 (13 frames) ->      0      8
+W/drunk       2223 (14 frames) ->      0      10
 
 Sheets (row 1 the frames, row 2 before, row 3 after):
   records/zeromorph/ZEROMORPH_E_walk.png

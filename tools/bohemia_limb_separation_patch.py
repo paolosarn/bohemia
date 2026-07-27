@@ -89,7 +89,7 @@ src = src.replace(OLD_REG, NEW_REG, 1)
 
 # reset the map at the top of each frame
 OLD_TOP = "  const px=new Array(CW*CH).fill(null);"
-NEW_TOP = ("  if(typeof window!=='undefined')window._SEPMAP={};   /* LIMB SEPARATION IS A LAYER: per-frame colour -> garment ramp index */\n"
+NEW_TOP = ('  /* LIMB SEPARATION IS A LAYER: per-frame colour -> ramp index.\n     SEEDED WITH HIS SKIN RAMP FIRST (Paolo 7/26, circling the arm: "for that tan\n     clay color for the skin can you make it similar to the other color"). The map\n     used to hold GARMENT ramps only, so every BARE SKIN boundary pixel missed the\n     lookup and fell through to the derive step -- which invented 120,108,102, a\n     desaturated clay that is in no ramp he ever painted. That was the colour he\n     circled. Skin now resolves to HIS OWN line tone (153,137,129) exactly like the\n     ANATOMY LINE law already does, so the separation line on skin matches the\n     skin instead of going off-hue. */\n  if(typeof window!==\'undefined\'){window._SEPMAP={};\n    try{const _sr=skinRampFor();\n      for(let ri=0;ri<_sr.length;ri++){const c=_sr[ri];if(!c)continue;\n        const kk=c[0]+\',\'+c[1]+\',\'+c[2];\n        if(window._SEPMAP[kk]===undefined)window._SEPMAP[kk]={ramp:_sr,idx:ri};}\n    }catch(e){}}\n'
            + OLD_TOP)
 if src.count(OLD_TOP) != 1:
     die('px init anchor found %d times (need exactly 1)' % src.count(OLD_TOP))
@@ -156,20 +156,38 @@ NEW_CULL = '''  /* =============================================================
    const darkerOf=(c)=>{
      const L0=lumf(c);
      const e=MAP[c[0]+','+c[1]+','+c[2]];
+     /* THE STEP IS BOUNDED AT BOTH ENDS (Paolo 7/26, circling the arm: "for that
+        tan clay color for the skin can you make it similar to the other color").
+        Unbounded, this went wrong twice: a skin pixel already ON his line tone had
+        no near-darker neighbour and jumped to the ramp's darkest entry (28,22,24)
+        -- a black keyline, which the visual constitution forbids -- and before the
+        skin ramp was seeded it fell through to derive and invented 120,108,102, a
+        clay that is in no ramp he painted. A separation line must READ as the same
+        material, so the step must be big enough to see and small enough to belong:
+        MINSTEP..MAXSTEP luminance. Nothing in range means the pixel IS already the
+        line, so leave it alone. */
+     const MINSTEP=CONTRAST*0.5, MAXSTEP=70;
      if(e&&e.ramp){
-       /* 1. his own darker tone */
+       /* 1. his own NEAREST darker tone, within range */
        let best=null,bl=-1;
-       for(const q of e.ramp){if(!q)continue;const L1=lumf(q);
-         if(L1<L0-CONTRAST*0.5&&L1>bl){bl=L1;best=q;}}
+       for(const q of e.ramp){if(!q)continue;const L1=lumf(q), dL=L0-L1;
+         if(dL>=MINSTEP&&dL<=MAXSTEP&&L1>bl){bl=L1;best=q;}}
        if(best)return best;
-       /* 2. his own lighter tone -- a rim separates just as well */
+       /* 2. his own NEAREST lighter tone -- a rim separates just as well */
        let up=null,ul=1e9;
-       for(const q of e.ramp){if(!q)continue;const L1=lumf(q);
-         if(L1>L0+CONTRAST*0.5&&L1<ul){ul=L1;up=q;}}
-       if(up)return up;}
-     /* 3. derive, away from whichever end it is jammed against */
+       for(const q of e.ramp){if(!q)continue;const L1=lumf(q), dL=L1-L0;
+         if(dL>=MINSTEP&&dL<=MAXSTEP&&L1<ul){ul=L1;up=q;}}
+       if(up)return up;
+       /* his ramp HAS this colour and offers nothing in range: this pixel already
+          IS the line. Leave his art alone. */
+       return null;}
+     /* 3. a colour from no known ramp: derive, bounded, away from whichever end
+        it is jammed against. Never toward black. */
      return shift(c, L0<=FLOOR+CONTRAST ? +1 : -1);};
    const skinLine=(()=>{try{const r=skinRampFor();return r&&r[1]?r[1]:null;}catch(e){return null;}})();
+   const SKINSET={};
+   try{for(const c of skinRampFor()){if(!c)continue;SKINSET[c[0]+','+c[1]+','+c[2]]=1;
+     SKINSET[Math.round(c[0]*0.9)+','+Math.round(c[1]*0.9)+','+Math.round(c[2]*0.9)]=1;}}catch(e){}
    const out=[];
    for(let i=0;i<px.length;i++){
      const pid=grid[i]; if(!pid||!px[i])continue;
@@ -184,6 +202,13 @@ NEW_CULL = '''  /* =============================================================
        if((g===1||g===2)&&ng===5&&y<=SHY2+1)continue;        /* SHOULDER BLEND, his */
        hit=true;break;}
      if(!hit)continue;
+     /* SKIN IS ALREADY HANDLED, LEAVE IT ALONE. The ANATOMY LINE law draws the
+        separation on bare skin and always has -- measured, bare limbs separate at
+        57-77% with no help. It was only the CLOTHING that painted the line away.
+        Running this pass on skin too WIDENS his 1px line into a 2px band, and
+        measured it dropped bare separation from 63-89% to 17-21%. Fix what the
+        clothing broke; do not re-draw what he already drew. */
+     if(SKINSET[px[i][0]+','+px[i][1]+','+px[i][2]])continue;
      const dk=darkerOf(px[i]);
      if(dk)out.push([i,dk]);
    }

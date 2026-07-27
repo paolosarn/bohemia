@@ -120,3 +120,43 @@ is starved of colour.
 
 Tool: `tools/bohemia_limb_separation_patch.py` (idempotent).
 Gate: `gates/limb_separation_gate.js`.
+
+
+## 5. THE CLAY COLOUR HE CIRCLED (Paolo 7/26/26)
+
+He sent a screenshot with the arm circled: "for that tan clay color for the skin
+can you make it similar to the other color."
+
+He was pointing at **120,108,102**, and it was mine. Sampling the bare body found
+that tone on the arms, thighs and hands. It is in NO ramp he ever painted. Cause:
+the colour-to-ramp map was seeded with GARMENT ramps only, so every bare-skin
+boundary pixel missed the lookup and fell through to the derive step, which
+invented a desaturated clay. Exactly the thing he forbade.
+
+THREE FIXES, in the order the measurements forced them:
+
+1. **Seed the map with his SKIN ramp too.** Skin then resolves to his own tones.
+   That removed the clay, but exposed the next problem.
+2. **Bound the step at BOTH ends** (MINSTEP..MAXSTEP = 15..70 luminance). Without
+   an upper bound, a pixel already ON his line tone (153,137,129) had no near
+   neighbour and jumped to the ramp's darkest entry, 28,22,24 -- a black keyline,
+   which the visual constitution forbids. Nothing in range now means the pixel IS
+   already the line, so his art is left alone.
+3. **Skip skin entirely.** The ANATOMY LINE law already draws separation on bare
+   skin and always has: bare limbs measure 63-84% with no help. Only the CLOTHING
+   painted the line away. Running the pass on skin too WIDENED his 1px line into a
+   2px band and dropped bare separation from 63-89% to 17-21%. Fix what the
+   clothing broke; never re-draw what he already drew.
+
+FINAL STATE. Bare body renders 100% his own skin ramp -- no clay, no black
+keyline. Separation:
+
+    facing    bare arms/legs      dressed arms/legs   (was dressed)
+    E          63.3% / 80.1%       49.6% / 56.1%       24.3% / 22.1%
+    W          72.6% / 72.2%       54.9% / 54.6%       27.6% / 22.3%
+    SE         73.0% / 80.3%       66.2% / 65.4%       21.6% / 19.2%
+    SW         84.2% / 85.3%       60.9% / 68.5%       16.8% / 19.5%
+
+Lower than the 72% an earlier version reported, and that is correct: that number
+was partly produced by the invented clay he rejected. This one uses only colours
+he painted.

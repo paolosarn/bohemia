@@ -9,19 +9,18 @@ are listed by name every run so they can never grow quietly. The frame-full
 clips -- the ones Paolo's own body already paints on the edge in -- are
 derived from the canon sweep, never hand-picked, and counted separately.
 
-OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=1 [+17 edge frames on the frame-full clips canon already fills; border-touch total 260] empty=0 threw=0
-       - graze (nothing cut), listed so it cannot grow quietly: headshot/N@0.95 (+1px)
-OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 363] empty=0 threw=0
-OK   height-tall    frames=5712 strays=0 SHAVES=0 grazes=2 [+165 edge frames on the frame-full clips canon already fills; border-touch total 511] empty=0 threw=0
+OK   height-short   frames=5712 strays=0 SHAVES=0 grazes=0 [+17 edge frames on the frame-full clips canon already fills; border-touch total 259] empty=0 threw=0
+OK   CANON          frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 362] empty=0 threw=0
+OK   height-tall    frames=5712 strays=0 SHAVES=0 grazes=2 [+163 edge frames on the frame-full clips canon already fills; border-touch total 508] empty=0 threw=0
        - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.65 (+3px)
        - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)
-OK   belly-thin     frames=5712 strays=0 SHAVES=0 grazes=0 [+8 edge frames on the frame-full clips canon already fills; border-touch total 361] empty=0 threw=0
-OK   belly-wide     frames=5712 strays=0 SHAVES=0 grazes=1 [+12 edge frames on the frame-full clips canon already fills; border-touch total 375] empty=0 threw=0
+OK   belly-thin     frames=5712 strays=0 SHAVES=0 grazes=0 [+8 edge frames on the frame-full clips canon already fills; border-touch total 359] empty=0 threw=0
+OK   belly-wide     frames=5712 strays=0 SHAVES=0 grazes=1 [+13 edge frames on the frame-full clips canon already fills; border-touch total 375] empty=0 threw=0
        - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)
-OK   arms-thin      frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 363] empty=0 threw=0
-OK   arms-thick     frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 363] empty=0 threw=0
+OK   arms-thin      frames=5712 strays=0 SHAVES=0 grazes=0 [+1 edge frames on the frame-full clips canon already fills; border-touch total 361] empty=0 threw=0
+OK   arms-thick     frames=5712 strays=0 SHAVES=0 grazes=0 [+0 edge frames on the frame-full clips canon already fills; border-touch total 357] empty=0 threw=0
 OK   ALL-MIN        frames=5712 strays=0 SHAVES=0 grazes=0 [+17 edge frames on the frame-full clips canon already fills; border-touch total 256] empty=0 threw=0
-OK   ALL-MAX        frames=5712 strays=0 SHAVES=0 grazes=2 [+167 edge frames on the frame-full clips canon already fills; border-touch total 512] empty=0 threw=0
+OK   ALL-MAX        frames=5712 strays=0 SHAVES=0 grazes=2 [+158 edge frames on the frame-full clips canon already fills; border-touch total 502] empty=0 threw=0
        - graze (nothing cut), listed so it cannot grow quietly: throw/NE@0.65 (+4px)
        - graze (nothing cut), listed so it cannot grow quietly: throw/SW@0.65 (+4px)
 

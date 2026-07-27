@@ -54,7 +54,7 @@ ok('a derived tone never heads toward black (the constitution forbids a black ke
 ok('deriving is the LAST resort, only when the ramp has no headroom either way',
   /else derive one/.test(src) && /fixed contrast step/.test(src));
 ok('the colour -> ramp map is rebuilt per frame so tints resolve exactly',
-  /window\._SEPMAP=\{\};\s*\/\* LIMB SEPARATION IS A LAYER/.test(src));
+  /window\._SEPMAP=\{\};/.test(src) && /per-frame colour -> ramp index/.test(src));
 
 /* 3. LEGS TOO. */
 {
@@ -88,5 +88,20 @@ ok('the law records the idempotent-patch trap that wasted three measurement roun
   /A PROCESS FAILURE WORTH RECORDING/.test(law) && /is not the same as a tool that did the thing/.test(law));
 ok('the law flags the one derived colour so it can be vetoed',
   /ONE place a colour is derived/.test(law));
+
+/* ---- THE CLAY HE CIRCLED: never invent a skin tone again ----------------- */
+ok('the colour map is seeded with HIS SKIN RAMP, not garment ramps only',
+  /SEEDED WITH HIS SKIN RAMP FIRST/.test(src) && /const _sr=skinRampFor\(\)/.test(src));
+ok('the step is bounded at BOTH ends (no jump to the ramp\'s darkest = a black keyline)',
+  /const MINSTEP=CONTRAST\*0\.5, MAXSTEP=70;/.test(src));
+ok('nothing in range means the pixel IS the line, so his art is left alone',
+  /this pixel already\s*\n?\s*IS the line\. Leave his art alone\./.test(src) || /IS the line\. Leave his art alone/.test(src));
+ok('the pass SKIPS bare skin (the anatomy line already draws it; the pass widened it)',
+  /SKIN IS ALREADY HANDLED, LEAVE IT ALONE/.test(src) && /if\(SKINSET\[/.test(src));
+ok('the law records the clay colour he circled and that it was ours',
+  /120,108,102/.test(law) && /it was mine/.test(law));
+ok('the law records all three fixes and the bare-skin regression that forced the third',
+  /17-21%/.test(law) && /never re-draw what he already drew/.test(law));
+
 
 done();
