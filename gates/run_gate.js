@@ -646,7 +646,12 @@ async function alphaRun() {
     !!L && L.tallestBayColumn <= 2);
   ok('GARAGE: the block really has garage bays in it, not just roof',
     !!L && L.bays >= 1);
-  // 3. THE ROOF AND THE CAP (the orange slab, and the wall course capping it)
+  // 3. THE YARDS (Paolo 7/27: "so many sidewalk cement things spread around")
+  ok('YARDS: not one stray slab of concrete anywhere on the block',
+    !!L && L.strayConcrete === 0);
+  ok('YARDS: the concrete that IS there is a front path that reached the street',
+    !!L && L.pathCells > 0 && L.pathDoors > 0);
+  // 4. THE ROOF AND THE CAP (the orange slab, and the wall course capping it)
   ok('ROOF: no roof is ever a field - three courses of cap, never twelve',
     !!L && L.worstRoofRun <= L.roofD + 1);
   ok('ROOF: no mass is capped by a course of wall standing on nothing',

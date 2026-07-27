@@ -101,3 +101,30 @@ bug.
 Not one pixel of new art. Every tile is the frozen 42-tile starter set from
 `banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt`, md5-locked to the visual
 constitution. This is entirely about which of his own approved tiles goes where.
+
+## CONCRETE HAS TO BE GOING SOMEWHERE (added 7/27, same day)
+
+> "i dont know why theres so many sidewalk cement things spread around on the
+>  floor when it should be like wtf" — Paolo
+
+The yards ran `th(gx,gy,7)===0 -> a sidewalk tile` and `th(gx,gy,11)===0 ->
+dirt`, which sprinkled single slabs of poured concrete at random across every
+lot on the block. **A sidewalk is not a texture. It is a ROUTE**, from somewhere
+to somewhere, and a slab in the middle of a gravel yard with nothing on either
+end of it is litter.
+
+Concrete on open ground now happens for exactly one reason: it is a **FRONT
+PATH**, running from a front door to whatever pavement the world already put
+there — the road, a driveway, the block's gate.
+
+**AND IT BENDS.** Poured straight south it only got out for ten of the block's
+twenty-three doors; the other thirteen face the back of the house in front of
+them, and a path that dead-ends into a wall is the same litter wearing a
+different hat. So it takes the shortest real route across its own yard. Nothing
+reachable within `PATH_MAX` tiles means that door gets no path and none is
+drawn. 23 of 23 doors now have one. The random dirt speckle went with it —
+`yard_0/1/2` already carry the variation.
+
+Gate: `strayConcrete === 0` (every poured tile on open ground is the kerb band,
+a driveway the world placed, or a path that arrived) and `pathCells > 0 &&
+pathDoors > 0`. run_gate.js is 125.

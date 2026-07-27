@@ -1545,7 +1545,26 @@ master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
 RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
-RUN (01) 7/27 LATEST — OFF MEANS SILENT. Paolo: "when im in the run i press the
+RUN (01) 7/27 LATEST — CONCRETE HAS TO BE GOING SOMEWHERE. Paolo: "i dont know
+why theres so many sidewalk cement things spread around on the floor when it
+should be like wtf". The yards ran th(gx,gy,7)===0 -> a sidewalk tile and
+th(gx,gy,11)===0 -> dirt, which sprinkled single slabs of poured concrete at
+random across every lot on the block. A SIDEWALK IS NOT A TEXTURE, IT IS A ROUTE
+- from somewhere to somewhere - and a slab in the middle of a gravel yard with
+nothing on either end of it is litter. Concrete on open ground now happens for
+exactly one reason: it is a FRONT PATH from a door to whatever pavement the world
+already put there (road, driveway, the block gate). AND IT BENDS: poured straight
+south it only got out for TEN of the block's twenty-three doors, because the other
+thirteen face the back of the house in front of them, and a path that dead-ends
+into a wall is the same litter wearing a different hat - so it takes the shortest
+real route across its own yard, and nothing reachable within PATH_MAX means that
+door gets no path and none is drawn. 23 of 23 have one now. The random dirt
+speckle went with it; yard_0/1/2 already carry the variation. GATE:
+strayConcrete===0 (every poured tile on open ground is the kerb band, a driveway
+the world placed, or a path that arrived) plus pathCells>0 && pathDoors>0.
+run_gate.js 125. Record: records/BOHEMIA_RUN_BUILDING_STACK_7_27_26.md
+
+RUN (01) 7/27 — OFF MEANS SILENT. Paolo: "when im in the run i press the
 music button off and the music still plays ass hole". He was right and the gate
 was passing. MUS.stop() cleared the step SCHEDULER and set playing=false, and
 that is all it ever did. The scheduler books notes AHEAD of real time and every

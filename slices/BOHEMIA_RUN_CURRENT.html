@@ -14438,7 +14438,7 @@ function loadCell(cx,cy){
   }
   feet = BohemiaSuburb.homeFootprints({ g:G, W:T, H:T });
   if(typeof deriveDoors==='function') deriveDoors();
-  _fpc = {}; _garage = null; _depth = null; _top = null;  /* all per-cell */
+  _fpc = {}; _garage = null; _depth = null; _top = null; _path = null;  /* all per-cell */
   return CELL;
 }
 loadCell(HOME_CELL[0], HOME_CELL[1]);
@@ -14718,8 +14718,7 @@ function groundTile(c,gx,gy){
   if(c===4) return null;
   /* dead ground: the block's yards, with the walk band where it meets the street */
   if(isRoad(gx,gy+1)||isRoad(gx,gy-1)||isRoad(gx+1,gy)||isRoad(gx-1,gy)) return 'walk_kerb';
-  if(th(gx,gy,11)===0) return 'dirt';
-  if(th(gx,gy,7)===0) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
+  if(pathSet()[gx+','+gy]) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
   return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
 }
 /* ==== RUN PERIMETER (7/28): PAOLO'S OWN SUBURB BORDER WALLS ================
@@ -14746,6 +14745,59 @@ function perimImg(){
 function drawPerim(X,Y,S){
   var im=perimImg(); if(!im) return false;
   ctx.drawImage(im,X,Y,S,S); return true;
+}
+/* ===========================================================================
+   CONCRETE HAS TO BE GOING SOMEWHERE.
+   (Paolo 7/27: "i dont know why theres so many sidewalk cement things spread
+   around on the floor when it should be like wtf".)
+   The yards used to run `th(gx,gy,7)===0 -> a sidewalk tile` and
+   `th(gx,gy,11)===0 -> dirt`, which sprinkled single slabs of poured concrete
+   at random across every lot on the block. A sidewalk is not a texture. It is a
+   ROUTE, from somewhere to somewhere, and a slab in the middle of a gravel yard
+   with nothing on either end of it is just litter.
+   So concrete in a yard now happens for exactly one reason: it is the FRONT
+   PATH, running from a front door straight out to whatever that house's ground
+   actually meets - its driveway, the kerb band, the road, the block gate. If
+   the path cannot reach any of them it is not drawn at all. The random dirt
+   speckle went with it; yard_0/1/2 already carry the variation.
+   =========================================================================== */
+var _path = null, PATH_MAX = 26;
+function pathSet(){
+  if(_path) return _path;
+  _path = {};
+  Object.keys(doorOf).forEach(function(k){
+    var p=k.split(',').map(Number), sx=p[0], sy=p[1]+1;
+    if(sy>=H || isBody(sx,sy) || G[sy][sx]!==0) return;   /* already opens onto pavement */
+    /* A FRONT PATH BENDS. Poured straight south it only got out for ten of the
+       twenty-three doors on this block - the other thirteen face the back of
+       the house in front of them, and a path that dead-ends into a wall is the
+       same litter as a slab in the middle of a lawn. So it takes the SHORTEST
+       real route across its own yard to whatever pavement the world already
+       put there: the road, a driveway, the block's gate. If nothing is within
+       PATH_MAX, that door has no front path and none is drawn. */
+    var prev={}, seen={}, q=[[sx,sy]], head=0, done=null, dist={};
+    seen[sx+','+sy]=1; dist[sx+','+sy]=0;
+    while(head<q.length && !done){
+      var cur=q[head++], cd=dist[cur[0]+','+cur[1]];
+      if(cd>=PATH_MAX) continue;
+      var d4=[[0,1],[1,0],[-1,0],[0,-1]];
+      for(var i=0;i<4;i++){
+        var nx=cur[0]+d4[i][0], ny=cur[1]+d4[i][1];
+        if(nx<0||ny<0||nx>=W||ny>=H) continue;
+        var c=G[ny][nx];
+        if(c===1||c===3||c===5){ done=cur; break; }        /* arrived at real pavement */
+        var kk=nx+','+ny;
+        if(seen[kk]||c!==0||isBody(nx,ny)) continue;
+        seen[kk]=1; dist[kk]=cd+1; prev[kk]=cur; q.push([nx,ny]);
+      }
+    }
+    if(!done) return;
+    for(var cur2=done; cur2; cur2=prev[cur2[0]+','+cur2[1]]){
+      _path[cur2[0]+','+cur2[1]]=1;
+      if(cur2[0]===sx && cur2[1]===sy) break;
+    }
+  });
+  return _path;
 }
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
 /* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its
@@ -16042,6 +16094,25 @@ window.__RUN = {
     for(var x3=0;x3<W;x3++){ var col=0;
       for(var y3=0;y3<H;y3++){ var t3=id(x3,y3);
         if(t3&&isGar(t3)){ col++; if(col>o.tallestBayColumn) o.tallestBayColumn=col; } else col=0; } }
+    /* CONCRETE HAS TO BE GOING SOMEWHERE. Every poured tile on open ground is
+       either the kerb band, a driveway/gate the world itself put there, or a
+       front path that reached the street. Anything else is a stray slab. */
+    var ps=pathSet();
+    o.pathCells=0; o.pathDoors=0; o.strayConcrete=0;
+    for(var k2 in ps) o.pathCells++;
+    Object.keys(doorOf).forEach(function(k3){
+      var p3=k3.split(',').map(Number);
+      if(ps[p3[0]+','+(p3[1]+1)]) o.pathDoors++;
+    });
+    for(var y5=0;y5<H;y5++) for(var x5=0;x5<W;x5++){
+      if(isBody(x5,y5)) continue;
+      var c5=G[y5][x5]; if(c5!==0) continue;              /* only the yards */
+      var t5=groundTile(c5,x5,y5);
+      if(t5.indexOf('walk_')!==0 && t5.indexOf('concrete_')!==0) continue;
+      if(t5==='walk_kerb') continue;                      /* the band against the road */
+      if(ps[x5+','+y5]) continue;                         /* a real front path */
+      o.strayConcrete++;
+    }
     /* the roof may never become a field, and a wall course may never cap a mass */
     for(var x4=0;x4<W;x4++){ var r=0;
       for(var y4=0;y4<H;y4++){ var t4=id(x4,y4);
