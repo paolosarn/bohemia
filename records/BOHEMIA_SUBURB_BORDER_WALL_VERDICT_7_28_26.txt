@@ -1,0 +1,38 @@
+=== BOHEMIA SUBURB BORDER WALL — VERDICT 7/28/26 ===
+class: SUBURB COMMUNITY PERIMETER WALLS (laws/BOHEMIA_ADDENDUM_WALL_TAXONOMY_7_17_26.md)
+surface: the RUN, on his phone, live link.
+
+PAOLO, VERBATIM: "walls are there now doing good im happy"
+
+APPROVED. His 13 keys (W26-W37 + WB4, banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt)
+are live in BOTH renderers, one design per community per his own
+one_wall_per_community law, at their judged 44x44.
+
+NOTES ARE RULINGS (7/19): he said he likes it, so this IS the verdict. Nobody
+re-thumbs it and nobody re-cooks it.
+
+WHAT APPROVAL UNLOCKS, AND WHAT IT DOES NOT:
+  DOES     the wall class is settled. Any future wall work rides these 13 keys;
+           variety comes from the tan factory's variants of them, never from
+           re-mining the packs (the 7/17 post-mortem: the pack vein is dry for
+           perimeter-grade walls).
+  DOES NOT license a fresh batch of wall candidates. He is not asking for more
+           walls and the corpus already said no 48 times.
+
+THE SAME BREATH, RECORDED BECAUSE IT IS THE REAL STATE OF PLAY:
+"it still looks like shit so much of the game but whatever"
+
+That is not a task and it was not given as one. It is the standing baseline
+complaint that has run through this entire day, and "but whatever" is fatigue,
+not permission to go cook. The honest next move is to find out WHICH parts and
+WHY, on the surface he actually plays, and hand him a map instead of more art.
+See records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md.
+
+HOW IT TOOK FOUR TURNS, kept as the production lesson:
+  turn 1  fixed the CITY tab's perimeter height + resolution. He plays the RUN.
+  turn 2  fixed the CITY tab's one-wall-per-plot. He plays the RUN.
+  turn 3  built the bank law index. Useful, still the CITY tab.
+  turn 4  he said "i went on the run" and it was one line: the run returned
+          'wall_base' for the border wall, the same tile its own bodyTile()
+          lays as the bottom course of a house.
+ASK WHICH SURFACE HE IS ON BEFORE FIXING ANYTHING.
