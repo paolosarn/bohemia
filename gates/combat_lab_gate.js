@@ -2026,6 +2026,71 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   }
 }
 
+/* ============================================================================
+   22. V87 THE PAUSE IS EMPTY, AND THE ORANGE WAS THE STREAK GLOW
+   Paolo, SIX times: "that orange part of the dead shot dial is still there not
+   fading away." Five reproductions found nothing because every probe I ever
+   wrote KILLS ONE MAN, and CHAIN ESCALATION only exists at killStreak >= 2. He
+   plays whole encounters. It is a FULL-SCREEN orange wash, brightest at the
+   screen EDGE -- which is where the dial sits, which is why he named the dial.
+   MEASURED at a 3-streak, off the colour stop the game really asks for:
+     +  875ms  ks.t=0.871  freeze=0     rgba(255,60,40) alpha=0.199
+     + 2284ms  ks.t=0.969  freeze=HELD  rgba(255,60,40) alpha=0.190
+   1.4 seconds of wall time, 0.009 of fade, because (1-p) rides ks.t and the
+   hit-stop pins ks.t.
+   AND IN PIXELS, on the freeze frame, screen-edge mean:
+     before  rgb(70.8, 53.1, 42.4)   380 warm px
+     after   rgb(25.7, 24.8, 31.0)     0 warm px
+   ========================================================================== */
+{
+  ok('V87 THE STREAK GLOW IS PAOLO\'S ORANGE: a FULL-SCREEN wash on every kill from the second onward, whose fade rode ks.t -- the one clock the hit-stop pins. Now one beat, on the wall clock',
+    !demo.includes("grd.addColorStop(1,'rgba(255,'+(120-k*60)+',40,'+(0.10+k*0.18)*(1-p)+')');") &&
+    demo.includes("const _sg=Math.max(0,1-((performance.now()-(G._ksGo||performance.now()))/1000)/JUICEMS.streak);") &&
+    demo.includes("grd.addColorStop(1,'rgba(255,'+(120-k*60)+',40,'+((0.10+k*0.18)*_sg).toFixed(3)+')');"));
+  ok('AND IT DOES NOT DRAW DURING THE STOP AT ALL -- the belt as well as the braces, because this is the FOURTH thing this session that a pinned clock welded onto a frozen screen',
+    demo.includes('if(ks.escal>1&&!(G._freezeT>0)){'));
+  ok('the streak glow is in the JUICEMS table like every other duration, and it is a real note (one whole beat)',
+    demo.includes('streak:  BohemiaFreeze.note(4),'));
+
+  ok('V87 THE INSTRUMENT IS NEVER ON SCREEN DURING A STOP: _df, the one alpha that owns the entire dial, is forced to 0 while the world is frozen. Whatever the timing math works out to on a device I do not have, the dial and the pause are never on screen together',
+    demo.includes('const _df=(G._freezeT>0)?0:((G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/(_dfT*1000)):1);') &&
+    !demo.includes('const _df=(G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/(_dfT*1000)):1;'));
+  ok('AND IT IS SAFE BY CONSTRUCTION: the demo resets globalAlpha to 1 immediately before drawKillshotWorld, so _df owns the instrument and nothing else -- the bullet, the blood and the bodies are on the far side of that reset',
+    demo.indexOf('ctx.globalAlpha=_df;') < demo.indexOf('ctx.globalAlpha=1;   /* dial fade never touches the killshot world */') &&
+    demo.indexOf('ctx.globalAlpha=1;   /* dial fade never touches the killshot world */') <
+      demo.indexOf('if(G.ks){ drawKillshotWorld(ctx,cx,cy,RAD,S); ksDust(ctx); }'));
+
+  /* the instrument that could never have found it, fixed so a seventh round
+     cannot happen. EXECUTED, not string-matched. */
+  {
+    const a = demo.indexOf('var BohemiaWhatsOn');
+    const b = demo.indexOf('/* ===== V84B WHATS-ON CORE END');
+    const wm = { exports: {} };
+    new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaWhatsOn;')(wm, wm.exports);
+    const W = wm.exports;
+    ok('V87 WHAT\'S ON SCREEN CAN NOW SEE WHAT IT MISSED: it knows a WARM colour, in rgba or hex',
+      typeof W.isWarm === 'function' &&
+      W.isWarm('rgba(255,60,40,0.19)') === true && W.isWarm('#caa83a') === true &&
+      W.isWarm('rgba(96,150,182,0.5)') === false && W.isWarm('#0b1018') === false);
+    W.arm();
+    const SCREEN = 390 * 534;
+    W.note('gradient', 1, 1, 'rgba(255,60,40,0.19)', 1, SCREEN);   /* tiny, but WARM -> kept */
+    W.note('stroke', 2, 2, 'rgba(96,150,182,0.5)', 4, SCREEN);     /* tiny and cool -> dropped */
+    ok('WARM THINGS COUNT AT ANY SIZE NOW, so a 1px gradient stop that washes the whole screen can no longer hide under a 2% size floor -- which is exactly how the streak glow survived six rounds',
+      W.count() === 1);
+    W.finish();
+  }
+  ok('and it watches STROKES and GRADIENT COLOUR STOPS, not just fills: the dial is strokes, and a gradient fill stringifies to "[object CanvasGradient]" which names nothing at all',
+    demo.includes('P.stroke=function(){') &&
+    demo.includes('CanvasGradient.prototype.addColorStop=function(o,cs){') &&
+    demo.includes("BohemiaWhatsOn.note('gradient',1,1,cs,1,1); }catch(_e){}"));
+
+  ok('AND ALL THREE EARLIER PAUSE FIXES STILL STAND -- the floor pulse (v84), the payout chip (v85) and now the streak glow are the same bug four times, which is why this one shipped a RULE',
+    demo.includes('if(pb>0.004&&!(G._freezeT>0)){x.fillStyle=f.acc;') &&
+    /if\(p\.type!=='chip'\|\|p\.t<0\)continue;[\s\S]{0,900}?if\(G\._freezeT>0\)continue;/.test(demo) &&
+    demo.includes('if(ks.escal>1&&!(G._freezeT>0)){'));
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

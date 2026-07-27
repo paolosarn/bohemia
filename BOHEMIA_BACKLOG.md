@@ -864,6 +864,46 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    any lane at random will eventually get ignored, which is worse than no gate.
    Suggest: average N runs, or drive a FIXED deterministic route instead of a
    timed walk. Owning lane: ART/render. | — | gates/render_pixel_gate.js | no.
+0. DONE 7/27 (v87): THE ORANGE WAS THE STREAK GLOW, AND THE PAUSE IS NOW EMPTY
+   BY LAW. Sixth report. Five reproductions found nothing for one reason: EVERY
+   PROBE I EVER WROTE KILLS ONE MAN, AND PAOLO PLAYS WHOLE ENCOUNTERS. Chain
+   escalation only draws at killStreak>=2. It is a FULL-SCREEN rgba(255,60,40)
+   radial wash, brightest at the screen EDGE, which is where the dial sits --
+   which is why he named the dial and why I kept measuring the dial's arcs and
+   correctly finding them at zero.
+   MEASURED at a 3-streak, off the colour stop the game really asks for:
+     +  875ms  ks.t=0.871  freeze=0     alpha=0.199
+     + 2284ms  ks.t=0.969  freeze=HELD  alpha=0.190   <- 1.4s, 0.009 of fade
+   AND IN PIXELS, freeze frame, outer 12% of screen:
+     before rgb(70.8,53.1,42.4) 380 warm px | after rgb(25.7,24.8,31.0) 0 warm px
+   (a) THE GLOW blooms and leaves: one beat (JUICEMS.streak), wall clock, and it
+   does not draw during a stop.
+   (b) THE INSTRUMENT IS NEVER ON SCREEN DURING A STOP: _df, the one alpha owning
+   the whole dial, is 0 while frozen. Safe because the demo already resets
+   globalAlpha to 1 before drawKillshotWorld.
+   (c) WHAT'S ON SCREEN v2: it could never have found this -- fills only, 2% size
+   floor, and a gradient stringifies to "[object CanvasGradient]". Now watches
+   strokes and gradient colour stops and keeps anything WARM at any size.
+   HARNESS LESSONS, both earned: reproduce at the STATE HE PLAYS IN, not the
+   cheapest state that runs; and THRESHOLDS HIDE BUGS -- five pixel scans tested
+   r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
+   LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
+   Gate section 22, 390 checks.
+0-research. RESEARCH DELIVERED 7/27 on his ask ("big brain research... addictive
+   juicy sauce"): records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md
+   HEADLINE: Bohemia is a casino game that does not pay out like one. Balatro's
+   engine is not the poker, it is THE TALLY -- the score assembling itself one
+   element at a time with pitch and speed climbing. Bohemia already owns every
+   part (receipt, wager, gold chips, kill streak, graded press) and spends none of
+   them, and it has the one thing Balatro has to fake: a 120 BPM grid. A payout
+   that lands each element on a sixteenth IS a drum fill.
+   RANKED, ALL [PENDING Paolo]: 1 the payout is a drum fill, 2 THE BANK
+   (push-your-luck on the wager he already invented), 3 enemy intent on by
+   default, 4 the optional beat counter (Hi-Fi Rush's accessibility answer),
+   5 the district remembers, 6 the kill cam earns its length from the stake.
+   AND THE WARNING EVERY SOURCE AGREES ON: layered rewards must not compete for
+   the same second. He said it himself about audio on 7/26; v87 proves the same
+   failure existed visually.
 0. DONE 7/27 (v86): THE REST OF THE JUICE PASS, ON THE GRID. Item 1e's leftovers,
    built while he slept because they are the lane's top item that needs NO verdict
    ("no" thumbs, his own pick-list, his standing word "I want more juice").

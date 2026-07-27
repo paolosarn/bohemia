@@ -1633,6 +1633,67 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v87: THE ORANGE WAS THE STREAK GLOW. SIXTH REPORT, AND THE
+REASON FIVE REPRODUCTIONS FOUND NOTHING IS THE MOST USEFUL THING IN THIS FILE:
+*** EVERY PROBE I EVER WROTE KILLS ONE MAN. PAOLO PLAYS WHOLE ENCOUNTERS. ***
+CHAIN ESCALATION only draws at killStreak>=2. It is a FULL-SCREEN rgba(255,60,40)
+radial wash, brightest at the screen EDGE -- which is exactly where the dial sits,
+which is why he called it "the orange part of the dead shot dial" all week while I
+kept measuring the dial's own arcs and correctly finding them faded to zero. He
+was pointing at the right pixels and naming the nearest landmark.
+MEASURED at a 3-streak, by recording the colour stop the game actually asks for:
+    +  875ms  ks.t=0.871  freeze=0     rgba(255,60,40) alpha=0.199
+    + 2284ms  ks.t=0.969  freeze=HELD  rgba(255,60,40) alpha=0.190
+1.4 seconds of wall time, 0.009 of fade, because (1-p) rides ks.t and the hit-stop
+pins ks.t. IN PIXELS, freeze frame, mean of the outer 12% of the screen:
+    before  rgb(70.8, 53.1, 42.4)  380 warm px
+    after   rgb(25.7, 24.8, 31.0)    0 warm px
+THE LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md. While the world is
+frozen, NOTHING DECORATIVE DRAWS -- not dimmed, ABSENT. And the corollary that
+cost a week: A PINNED CLOCK DOES NOT STOP A DRAWING, IT WELDS IT ON AT ITS
+BRIGHTEST. Four effects in this codebase were the same bug: the floor pulse (v84),
+the gold chip (v85), the white punch (v86) and the streak glow (v87, his).
+WHAT SHIPPED: (a) the glow blooms and leaves -- one beat, wall clock, never during
+a stop. (b) _df, the one alpha owning the ENTIRE dial, is 0 while frozen; safe
+because the demo already resets globalAlpha to 1 before drawKillshotWorld ("dial
+fade never touches the killshot world"), so bullet/blood/bodies are untouched.
+(c) WHAT'S ON SCREEN v2 -- v1 could never have found this: fills only, a 2% size
+floor, and a gradient fill stringifies to "[object CanvasGradient]", a string with
+no colour in it. Now watches strokes and gradient colour stops and keeps anything
+WARM at any size.
+*** TWO HARNESS RULES, BOTH EARNED THE HARD WAY ***
+1. REPRODUCE AT THE STATE HE PLAYS IN, not the cheapest state that runs. A
+   one-kill harness cannot see a streak effect. If the report says "by the end of
+   my encounters", the harness must get to the end of an encounter.
+2. THRESHOLDS HIDE BUGS. Five pixel scans came back clean because they tested
+   r>100, and rgba(255,60,40) at alpha 0.19 over this floor composites to about
+   rgb(72,31,24). The wash was in every screenshot I ever took. My filter deleted it.
+GATE: combat_lab_gate.js section 22, 381 -> 390 checks.
+TOOL: tools/bohemia_combat_pause_is_empty_patch.py
+
+*** ANIMATION IS NOT THIS LANE'S (Paolo 7/27): "right now in my other chats, I'm
+in the middle of revamping the animations so don't worry too much about it." ONE
+SYSTEM, ONE SESSION. Do not touch a clip, a death sequence or the rig from the
+combat lane until he says otherwise. v85's headshot work is DONE and hands off. ***
+
+COMBAT (04) 7/27 - RESEARCH: THE ADDICTIVE SAUCE, on his ask.
+records/BOHEMIA_COMBAT_RESEARCH_THE_ADDICTIVE_SAUCE_7_27_26.md
+HEADLINE: BOHEMIA IS A CASINO GAME THAT DOES NOT YET PAY OUT LIKE ONE. Balatro's
+addiction engine is not the poker, it is THE TALLY -- the score assembling itself
+one element at a time, pitch and speed climbing into a crescendo. Bohemia already
+owns every part of that (the casino receipt, the wager, gold chips as flying
+currency, the kill streak, the graded press) and spends none of them, AND it has
+the one thing Balatro has to fake with a pitch ramp: a 120 BPM grid. A payout that
+lands each element on a sixteenth in the faction's own scale IS a drum fill.
+RANKED PICK-LIST, ALL [PENDING Paolo]: 1 the payout is a drum fill, 2 THE BANK
+(push-your-luck staked on the wager he already invented -- what a bust costs is
+his call), 3 enemy intent on by default (Into the Breach: every death is your own
+fault), 4 the optional beat counter (Hi-Fi Rush's documented accessibility
+answer), 5 the district remembers, 6 the kill cam earns its length from the stake.
+THE WARNING EVERY SOURCE AGREES ON: layered rewards must not compete for the same
+second. He said it himself about audio on 7/26 ("a lot of volume fighting each
+other"); v87 proves the identical failure existed visually.
+
 COMBAT (04) 7/27 - v86: THE REST OF THE JUICE PASS, AND EVERY DURATION IS NOW A
 NOTE. Built while Paolo slept, on "do what you have to do next and know what comes
 after." Chosen because it is the lane's top item that needs NO verdict from him:
