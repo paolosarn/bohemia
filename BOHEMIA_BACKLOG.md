@@ -363,7 +363,17 @@ only Paolo/verdicts add direction-class items; agents may append (discovered)
 items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
-## RUN  (LANE CHARTER CHANGED 7/26 — read
+## RUN
+0a. THE MOBILE BASE (Paolo direction 7/26, laws/BOHEMIA_ADDENDUM_MOBILE_BASE_
+   COMFORT_7_26_26.md): the cart deploys into camp on the walk surface; ONE
+   contextual button runs the ritual (eat / hang out / sleep) through the
+   ported resolver's declared moments; sleep at camp = save (ruled); camp
+   COMFORT from cart upgrades extends the rested/fed effects (Valheim
+   pattern, feel-approved in the lab — ledger is the tuning reference).
+   Mechanism only: upgrade roster/looks/numbers are Paolo's verdicts, tables
+   ship EMPTY. | deploy -> ritual -> buffed -> sleep-save proven headless +
+   on the real surface | engine/bohemia_loop.js (flag needs to WORLD);
+   upgrade LOOKS are CHARACTER's judged candidates | numbers = [PENDING].  (LANE CHARTER CHANGED 7/26 — read
 ##       laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md first.
 ##       This lane INTEGRATES what the fleet built; it does not add features, and
 ##       the run's quest is disposable scaffolding, never judged.)
