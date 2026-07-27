@@ -967,6 +967,57 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CHARACTER (04) 7/27 LATEST — HE ASKED FOR A BLACK OUTLINE AND CAUGHT A BUG I MADE.
+Two things this turn, both from one message of his with a screenshot.
+
+1 ONE BLACK PIXEL AROUND THE WHOLE CHARACTER (his words, LOCKED). A 1px black
+  border wraps the finished silhouette on all 8 facings, every frame. It is the
+  LAST pass in buildFrame — after the body, garments, back-limb dressing, the
+  separation line and the floater cull — because anything drawn after it covers
+  it, which is the exact bug that made the separation line worthless for a whole
+  session. Computed from a frozen SNAPSHOT so it cannot grow on itself into a
+  2-3px smear. Colour only: the occupancy grid stays 0 under it, so collision and
+  every measurement tool still see the true silhouette.
+  MEASURED, 192 frames built twice and differenced (and re-run after the rebase
+  onto the world lane's 10 commits, identical): 25,628 outline pixels, 0
+  double-thick, 0 gaps in the wrap, 0 of his painted pixels changed. Verified on
+  the REAL SURFACE, the live character menu.
+  Law: laws/BOHEMIA_ADDENDUM_CHARACTER_OUTLINE_7_27_26.md
+  Gate: gates/character_outline_gate.js (29), registered.
+  Proof: records/outline/CHARACTER_OUTLINE_7_27_26.png
+  [PENDING, Paolo's call] PURE BLACK vs THE CONSTITUTION'S DARKEST GROUND VALUE.
+  His coat is nearly black, so the border reads loudest at the head, hands and
+  boots and against pale ground, and quietly across the coat. CHAR_OUTLINE.color
+  is one line. Do not decide this for him.
+
+2 "TWO SETS OF HANDS" ON E/W — he was right and it was MY pass. DRESS THE BACK
+  LIMB was dressing the far HAND. That hand has a 13-pixel painted footprint,
+  exactly the same size as the near hand, so it laid a second hand-sized garment
+  cluster right beside the real one. The pass exists because the back ARM arrived
+  naked; the hand was never part of that. Pairs are now [[6,5]]/[[5,6]] and it
+  paints 0 of those 13 cells. The arm fix survives: E far arm 41.0%, W 46.6%.
+  SECOND TIME this pass has been over-extended to a part that did not have the
+  defect (legs first, hands now). In the law as a pattern: a fix that is good is
+  not thereby general. Scope to what was measured broken; re-measure on widening.
+
+THE PROCESS BUG WORTH MORE THAN EITHER FIX. The outline flag was first declared
+next to RIGID. RIGID is INSIDE the SKINNER_API closure; buildFrame is OUTSIDE it.
+Every frame threw ReferenceError, the alpha never booted, and the symptom
+presented as a PLAYWRIGHT TIMEOUT — which sends you debugging the harness for as
+long as you are willing to be fooled. RIGFAITH had already cost a round to the
+same boundary. RULE, now in the law: a load-time hang in the alpha is a page
+error until proven otherwise. Capture pageerror BEFORE you touch the test.
+
+STILL HIS CALL, unchanged and blocking real work:
+ - THE ARM AND BELLY SLIDERS still look wrong to him (said again 7/27). Measured,
+   both are INSIDE the canon invented-pixel baseline; only height+1 is out (962
+   vs 133). So his complaint is about how they LOOK, not about invention, and
+   the fix is art direction, not a resampler tweak. Needs him.
+ - PROFILE REPAINT: ~48% of E/W torso rows are 1-2px. RIG LAW forbids me
+   narrowing his arms. Needs him.
+ - TALL BODY: authored builds vs row-repeat vs capping the dial at shorter-only.
+
+--- previous ---
 CHARACTER (04) 7/26 FINAL — MORPHING IS FIXED. THE REST IS ART, AND IT IS HIS.
 Nineteen measured attempts got here; the negatives are all recorded and gated so
 nobody rebuilds them. WHAT SHIPPED AND STUCK:
