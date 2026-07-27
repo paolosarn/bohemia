@@ -644,6 +644,56 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CHARACTER (04) 7/26 FINAL — MORPHING IS FIXED. THE REST IS ART, AND IT IS HIS.
+Nineteen measured attempts got here; the negatives are all recorded and gated so
+nobody rebuilds them. WHAT SHIPPED AND STUCK:
+ 1 RENDER LIKE THE RIG — three passes his rig never had (joint weld, forward
+   splat, far-arm darkening), all retired. Invented pixels 33,400 -> 18,284.
+ 2 OWN CANVAS (his ruling) — parts are sampled ALONE then composited, so a part's
+   shape can no longer depend on where its neighbour stands.
+ 3 KEY THE EXTREMES — a clip is ~8 drawn poses; every hand-reversal is a key and
+   each frame snaps to its NEAREST key. **ZERO morph pixels during holds on all 6
+   proof clips**, and 89% of the arm swing kept. THE RULE NEVER TO WRITE AGAIN:
+   "stay put unless you moved more than X" LAGS and clips every extreme — it cost
+   walk 100% of its hand travel and he caught it in seconds by eye.
+ 4 DRESS THE BACK LIMB — in profile both arms SHARE 49 of 83 rest pixels and a
+   shared pixel binds to ONE bone, so the sleeve rode the near arm and the far arm
+   rendered BARE SKIN (11% dressed on E). It now gets its own bound copy: 42-48%.
+ 5 LIMB SEPARATION IS A LAYER — the body drew the line correctly and THE CLOTHING
+   PAINTED OVER IT (~70% destroyed). The line now runs AFTER the clothing, in the
+   garment's own ramp, arms AND legs. Dressed separation 22% -> 50-66%.
+ 6 SKIN USES HIS PALETTE ONLY — the "tan clay" he circled (120,108,102) was MY
+   invention: the ramp map held garment ramps only, so skin fell through to a
+   derive step. Fixed three ways (seed his skin ramp, bound the step both ends,
+   skip skin entirely). Bare body now renders 100% his own tones.
+
+TWO THINGS ARE MEASURED, PROVEN, AND BLOCKED ON PAOLO. Do not attempt either:
+ A THE PROFILE REPAINT. The front-arm > TORSO > back-arm stack he asked for
+   ALREADY SHIPS on every angled facing, and the torso has ZERO holes. But ~48% of
+   visible torso rows in E/W are 1-2px wide (median 3px, vs 7px on SE). A 1px
+   strip cannot read as a torso. There is NO renderer fix left. RIG LAW forbids
+   narrowing his arms to make room — I offered that and it was wrong of me.
+ B THE TALL BODY. Only ONE HALF OF ONE DIAL is broken: height+1 invents 962 px
+   against a canon baseline of 133 (7x). height-1 is 8, belly and arms are inside
+   baseline, because they TRANSLATE whole rows while height STRETCHES bone length.
+   Options in the law: swap between authored builds (recommended), row-repeat, or
+   cap the dial at zero. All cost his art or half his dial.
+
+  laws  RENDER_LIKE_THE_RIG / PARTS_ARE_PAINTED / OWN_CANVAS / FROZEN_POSES /
+        BACK_LIMB_CLOTHING / LIMB_SEPARATION / ONLY_TALLER_BREAKS (all 7_26_26)
+  gates render_like_the_rig(23) parts_are_painted(22) own_canvas(17) arm_hold(23)
+        frozen_poses(29) back_limb(19) limb_separation(36) only_taller_breaks(10)
+        reply_contract(15). Every one also PINS its negative results.
+  tools all patches idempotent; bohemia_zero_morph_proof.js regenerates the
+        before/after sheets in records/zeromorph/ that he can actually look at.
+
+REPLY CONTRACT CHANGED 7/26 (his ruling, gated): the ask and the TLDR are the LAST
+two blocks on screen, every turn. He reads bottom-up; anything he scrolls for does
+not exist.
+DO NOT: ship an animation look-change unasked, lead a reply with a green gate, or
+touch his painted regions (RIG LAW). He rejected several rounds today before any
+of this landed.
+
 CHARACTER (04) 7/26 NEWEST — THE ARMS NOW HOLD THEIR POSE, AND IT IS THE FIRST
 THING THAT ACTUALLY REDUCED THE MORPHING. Composited tone flips on naked E+W:
 6,481 -> 3,314, **49% removed**; the parts-trading-pixels half 3,810 -> 1,484
