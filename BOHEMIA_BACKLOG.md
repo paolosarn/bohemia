@@ -412,6 +412,14 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+0aa. BORDER WALLS INTO THE RUN (Paolo direct order 7/27, furious and right):
+   the 13 approved perimeter-wall keys (banks/BOHEMIA_PERIMETER_WALL_POOL_
+   7_14_26.txt, tan variants, one-wall-per-community law) are wired into the
+   CITY but ABSENT from the run slice — the suburb blocks Paolo walks must
+   wear HIS approved border walls. build_run_slice.js adds the pool to its
+   bank reads; integration ledger gets a perimeter_wall row. | ledger row
+   INTEGRATED + real-surface screenshot of the walled block | the pool stays
+   as-approved, no recooks | no.
 0a. THE MOBILE BASE (Paolo direction 7/26, laws/BOHEMIA_ADDENDUM_MOBILE_BASE_
    COMFORT_7_26_26.md): the cart deploys into camp on the walk surface; ONE
    contextual button runs the ritual (eat / hang out / sleep) through the
@@ -419,7 +427,9 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    COMFORT from cart upgrades extends the rested/fed effects (Valheim
    pattern, feel-approved in the lab — ledger is the tuning reference).
    Mechanism only: upgrade roster/looks/numbers are Paolo's verdicts, tables
-   ship EMPTY. | deploy -> ritual -> buffed -> sleep-save proven headless +
+   ship EMPTY. FIRE ART SOURCE (index 7/27): the camp fire uses the APPROVED
+   fire/campfire loops (banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26 + PARTICLE_
+   LOOP_BANK — 10MB of approved fire with zero consumers until now). | deploy -> ritual -> buffed -> sleep-save proven headless +
    on the real surface | engine/bohemia_loop.js (flag needs to WORLD);
    upgrade LOOKS are CHARACTER's judged candidates | numbers = [PENDING].  (LANE CHARTER CHANGED 7/26 — read
 ##       laws/BOHEMIA_ADDENDUM_THE_RUN_IS_THE_INTEGRATION_LANE_7_26_26.md first.
@@ -1501,6 +1511,13 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+0. THE SHOPPING LAW MACHINE (from the 7/27 index): (a) make records/BOHEMIA_
+   APPROVED_ASSET_INDEX generation a TOOL (sweep verdicts x banks x consumers
+   automatically); (b) NEW GATE: every bank listed APPROVED in the index must
+   have >=1 consumer on a playable surface OR carry an explicit routed
+   backlog item — approved-but-unused turns the gate red; (c) the gate also
+   flags the INVERSION (unjudged banks with surface plumbing). | gate
+   registered, index regenerates deterministically | — | no.
 1. VERDICT TOOLING upgrade per the doctrine: one AGGREGATED judge page across
    lanes grouped by discipline, side-by-side anchors, APPROVE/CBB/KILL
    buttons, kill-reason tags, .txt export. | replaces per-lane judge sprawl;

@@ -19,3 +19,19 @@ check stands but is no longer sufficient):
    to derivation-checking — every cook names WHICH approved bank/exemplar
    anchored it, and the taste filter treats un-derived art as a kill-flag.
    (Backlog: SHARED items — exemplar index + gate hardening.)
+
+## THE SHOPPING LAW (7/27, Paolo furious and correct — hardens this law again)
+Paolo: "FIND EVERYTHING I THUMBS UP AND MAKE IT EASY FOR THE OTHER SESSIONS
+TO PULL FROM... I approved like 20 suburb border walls and the run and the
+other sessions don't know they're supposed to use that."
+1. records/BOHEMIA_APPROVED_ASSET_INDEX_7_27_26.md is THE SHOPPING CATALOG.
+   Before cooking/drawing/placing ANY visual thing, a session checks the
+   index. If an indexed approved asset covers the need, USING it is
+   mandatory; cooking a substitute is a violation.
+2. APPROVED-BUT-UNUSED IS A DEFECT: an approved bank with zero playable-
+   surface consumers is a red flag, not a neutral fact (enforcement machine
+   queued in SHARED). The 7/27 index found 7 such banks; the worst by play
+   impact — the perimeter walls missing from the run — is routed as RUN 0aa.
+3. THE INVERSION IS BANNED GOING FORWARD: unjudged art must never carry more
+   surface plumbing than approved art. Unjudged-but-wired banks (heroes v7,
+   traffic signals) go to Paolo's thumb.
