@@ -563,9 +563,24 @@ def contract_checks(M, src):
         chk(str(got) in doc or '{:,}'.format(got) in doc,
             'the contract must quote the measured colour count (%d) rather than imply the '
             'palette is already enforced' % got)
-        chk('NOT YET INSTRUMENTED' in doc,
-            'the contract must say plainly that live canvas memory is not measured, not '
-            'imply a check that does not exist')
+        # section 8: memory. This check used to assert the OPPOSITE - that the
+        # contract still said NOT YET INSTRUMENTED - because on 7/26 that was the
+        # honest state and the danger was a doc implying a check that did not
+        # exist. On 7/27 the probe landed, so the danger inverted: the doc must
+        # now carry the measurement AND the limit on it, and never drift back to
+        # claiming blindness while a record exists. The check follows the truth;
+        # it is not relaxed to let the doc through. The numbers themselves belong
+        # to gates/canvas_memory_gate.py, which owns that clause.
+        chk('NOT YET INSTRUMENTED' not in doc,
+            'section 8 says NOT YET INSTRUMENTED while '
+            'records/target/BOHEMIA_CANVAS_MEMORY.json exists. Either the law or '
+            'the record is lying.')
+        chk('MEASURED 7/27/26' in doc,
+            'the contract must state when live canvas memory was measured')
+        chk('NOT AN IPHONE' in doc,
+            'the memory numbers must carry their limit - a headless desktop '
+            'measurement that travels without that caveat becomes a claim about a '
+            'phone that nobody made')
     # section 7: the pipeline rule, on the real surfaces
     for f in SURFACES:
         if not os.path.exists(f):
