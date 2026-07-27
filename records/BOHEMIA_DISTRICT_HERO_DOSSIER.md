@@ -227,3 +227,29 @@ _Interchange — matched: two carriageways crossing on TWO LEVELS, the upper one
 - sound wall — the block wall around the outside of the structure (code 8 "sound wall")
 - retention basin — the drainage basin the whole structure sheds into (code 19 "retention basin")
 - dry brush x3 — waist-high brush in the unreachable infield (code 7 "dead brush") on the graded embankment (code 6)
+
+## CAMPUS  (252x173, anchor 126,100)
+_Campus — matched to the walkable district: the QUAD with its diagonal walks and DRY FOUNTAIN, the academic halls turned to FACE it, the colonnaded LIBRARY as the biggest mass, a residence hall set apart, dead quad trees._
+
+- quad — the open green heart with its diagonal walks, the thing that makes a campus a campus (walkable code 4 "quad (dead lawn)" + code 6 "walkway / plaza")
+- dry fountain — the basin where the walks cross, silted, the jet dead (code 7 "dry fountain")
+- library — the biggest single mass, with a COLONNADE of six piers and an architrave facing the quad, doors at ground (code 8 "library")
+- academic halls x2 — teaching blocks turned to FACE the quad, windows with dead panes, a door at grade on the quad side (code 2 "academic hall")
+- residence hall — set apart behind the teaching core, every window dark (code 9 "residence hall")
+- dead quad trees x4 — trunk plus a bare crown, the irrigation that kept them long gone (code 3 "dead tree")
+- pole lights x3 — campus lights, heads dark (code 12 "pole light")
+- abandoned car (canon CAR) — one at the kerb (code 1 pavement / drive); the paved ring is the drive apron
+
+## SPEEDWAY  (244x167, anchor 122,95)
+_Speedway — matched: the banked OVAL with its painted apron, the GRANDSTAND on the front stretch only, the GARAGE ROW and pit lane inside, the spectator TUNNEL mouth, a catch fence and one light tower._
+
+- banked oval — the racing surface as a raised ring, which IS the signature and the reason this icon reads at 1x1 (code 6 "racing surface")
+- painted apron — the marking ring on the inside edge of the banking (code 7 "track marking")
+- infield — the dead turf inside the oval, sunk below the banking (code 4 "infield (dead turf)")
+- grandstand — three rising tiers on the FRONT STRETCH ONLY, because three of the four sides of a superspeedway have no stands (code 2 "grandstand")
+- garage row x7 — the bays behind pit lane, inside the oval (code 8 "garage row")
+- pit lane — the painted lane in front of the garages (code 9 "pit road" / code 10 stall markings)
+- tunnel mouth — the spectator underpass, the only way into the infield (code 13 "tunnel mouth")
+- catch fence posts — the fence ring outside the banking (code 11 "catch fence")
+- light tower — the tallest thing on the site, head dark (code 12 "light tower")
+- dead race cars x3 (canon CAR) — still on the grid where the race stopped (code 14 "dead race car")

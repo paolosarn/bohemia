@@ -45,7 +45,7 @@ bank.heroes.forEach(h => { HERO[h.district] = h; });
 
 /* THE GROUND THIS LANE BUILT AND MUST KEEP COVERED. Anything shipped from here on goes
    in this list the same turn, which is the whole point of the ruling. */
-const ICON_REQUIRED = ['rail', 'interchange'];
+const ICON_REQUIRED = ['rail', 'interchange', 'campus', 'speedway'];
 
 /* THE DEBT, NAMED. Every registered type with no icon yet. This list may only ever get
    shorter. airport/airbase are called out separately below because they are not merely

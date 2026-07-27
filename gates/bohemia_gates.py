@@ -214,6 +214,8 @@ GATES = [
      'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
     ('AIRFIELD',       ['node', 'gates/airfield_gate.js'],
      'the airfields are built across their whole cluster: one runway, continuous, no bare cells', False),
+    ('LANDMARKS',      ['node', 'gates/landmark_gate.js'],
+     'the landmark set: a campus has a QUAD its buildings face, a speedway has a closed OVAL with stands on one side and the tunnel under it', False),
     ('ENCOUNTERS',     ['node', 'gates/encounter_gate.js'],
      "the approved act-1 director: 70/20/10 holds, storyteller not dice, rare is sacred, no global spawns, no background ticking", False),
     ('ONE MAP',        ['node', 'gates/one_map_gate.js'],

@@ -939,6 +939,114 @@ def build_airbase(P):
     return s, 6.0
 
 
+
+# ---------------------------------------------------------------- CAMPUS
+def build_campus(P):
+    """engine/bohemia_campus.js: the QUAD is the signature — an open middle with the
+    academic halls turned to face it, the colonnaded library as the biggest mass, and
+    the dry fountain where the walks cross. A campus icon that shows a building alone
+    is just an office; what says CAMPUS is buildings around a shared green."""
+    LAWN, WALK, HALL, LIB, FOUNT = P[4], P[6], P[2], P[8], P[7]
+    DRIVE, TREE, DORM, POLE = P[1], P[3], P[9], P[12]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(0.5, 0.5, 11.5, 11.5, LAWN)],
+            drive=(-3, 12.2, 15, 15), groundc=(104, 100, 88), lotc=(58, 58, 66))
+    # THE QUAD: its walks, on the diagonals people actually cut
+    for t in range(0, 46):
+        f = t / 45.0
+        s.box((0.8 + 10.4 * f, 0.8 + 10.4 * f, 0.02), (0.5, 0.5, 0.05), {'c': WALK})
+        s.box((0.8 + 10.4 * f, 11.2 - 10.4 * f, 0.02), (0.5, 0.5, 0.05), {'c': WALK})
+    s.box((0.6, 5.6, 0.02), (10.8, 0.8, 0.05), {'c': WALK})
+    s.box((5.6, 0.6, 0.02), (0.8, 10.8, 0.05), {'c': WALK})
+    s.prism(6, 6, 0.02, 1.5, 0.10, 16, {'c': WALK})                                   # fountain apron
+    s.prism(6, 6, 0.10, 1.0, 0.45, 16, {'c': FOUNT}, {'c': _dark(FOUNT, 0.75)['c']})  # dry basin
+    s.box((5.8, 5.8, 0.55), (0.4, 0.4, 0.8), {'c': _dark(FOUNT, 1.15)['c']})          # dead jet
+    # THE LIBRARY, biggest mass, colonnade facing the quad
+    s.box((-2, -2.4, 0), (7.5, 3.2, 5.6), {'top': _dark(LIB, 0.9), 'px': _win(LIB, 5, 2, 4),
+          'py': _win(LIB, 6, 2, 9), 'nx': _dark(LIB), 'ny': _dark(LIB)})
+    for cy2 in (-1.6, -0.6, 0.4, 1.4, 2.4, 3.4):
+        s.box((5.5, cy2, 0), (0.45, 0.45, 4.6), {'c': _dark(LIB, 1.18)['c']})
+    s.box((5.5, -1.8, 4.6), (0.6, 5.8, 0.5), {'c': _dark(LIB, 1.1)['c']})
+    _door(s, 5.5, 0.4, 1.4, 1.6)
+    # ACADEMIC HALLS turning to face the quad
+    s.box((-2.4, 3.4, 0), (2.8, 8.2, 4.4), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 2, 3, 5),
+          'py': _win(HALL, 6, 3, 7), 'nx': _dark(HALL), 'ny': _dark(HALL)})
+    _door(s, 0.4, 6.6, 7.6, 1.5)
+    s.box((12.0, 1.0, 0), (2.6, 7.4, 4.2), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 2, 3, 3),
+          'py': _win(HALL, 5, 3, 6), 'nx': _win(HALL, 2, 3, 8), 'ny': _dark(HALL)})
+    # a residence hall behind, set apart from the teaching core
+    s.box((7.5, 12.4, 0), (6.0, 2.2, 3.6), {'top': _dark(DORM, 0.9), 'px': _win(DORM, 4, 3, 2),
+          'py': _win(DORM, 6, 3, 5), 'nx': _dark(DORM), 'ny': _dark(DORM)})
+    for (tx, ty) in [(2.4, 2.2), (9.4, 3.0), (3.0, 9.4), (9.8, 9.0)]:                  # dead quad trees
+        s.box((tx, ty, 0), (0.28, 0.28, 1.9), {'c': (74, 66, 54)})
+        s.box((tx - 0.5, ty - 0.5, 1.9), (1.3, 1.3, 0.5), {'c': TREE})
+    for (px2, py2) in [(0.4, 0.4), (11.4, 0.4), (0.4, 11.4)]:                          # dark pole lights
+        s.box((px2, py2, 0), (0.2, 0.2, 3.0), {'c': POLE})
+    _vehicle(s, 1.0, 13.2, CAR, (78, 78, 86), along='x')
+    return s, 6.2
+
+
+# ---------------------------------------------------------------- SPEEDWAY
+def build_speedway(P):
+    """engine/bohemia_speedway.js: the OVAL is the signature and nothing else comes
+    close. Unlike an aeroplane it is a shape that SURVIVES SHRINKING — a ring reads at
+    any size — which is exactly why this one works at 1x1 and the airfield's did not."""
+    TRACK, MARK, INFIELD, STAND = P[6], P[7], P[4], P[2]
+    GARAGE, LOT, TOWER, CARC, FENCE = P[8], P[1], P[12], P[14], P[11]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(96, 92, 82), lotc=(58, 58, 62))
+    cx, cy, RX, RY, TW = 6.0, 5.6, 6.6, 4.8, 1.5
+    # the banked oval: a ring of short arcs, raised so the banking reads
+    N = 96
+    for i in range(N):
+        th = i * 2 * math.pi / N
+        px, py = cx + math.cos(th) * RX, cy + math.sin(th) * RY
+        s.box((px - 0.55, py - 0.55, 0), (1.1 + TW * 0.1, 1.1 + TW * 0.1, 0.55),
+              {'top': _dark(TRACK, 1.25), 'px': _dark(TRACK, 0.9), 'py': _dark(TRACK, 0.8),
+               'nx': _dark(TRACK, 0.9), 'ny': _dark(TRACK, 0.8)})
+    for i in range(N):                                                            # the painted apron
+        th = i * 2 * math.pi / N
+        px, py = cx + math.cos(th) * (RX - 1.0), cy + math.sin(th) * (RY - 1.0)
+        s.box((px - 0.3, py - 0.3, 0.55), (0.6, 0.6, 0.05), {'c': MARK})
+    # THE INFIELD IS FLAT BOXES, NOT A PRISM. s.prism triangulates its top face and
+    # shades each facet, so a 26-sided one came out as a radial FAN across the middle of
+    # the icon, a sunburst where the grass should be. A grid of low boxes clipped to the
+    # ellipse gives one flat tone, which is what the style bible asks for anyway.
+    step, iy = 0.55, -RY
+    while iy <= RY:
+        ix = -RX
+        while ix <= RX:
+            if (ix * ix) / ((RX - 1.3) ** 2) + (iy * iy) / ((RY - 1.3) ** 2) <= 1.0:
+                s.box((cx + ix, cy + iy, 0.30), (step * 1.06, step * 1.06, 0.22), {'c': INFIELD})
+            ix += step
+        iy += step
+    # GARAGE ROW + pit lane inside, on the front-stretch side
+    s.box((cx - 3.4, cy + 1.6, 0.5), (6.8, 1.0, 0.06), {'c': MARK})
+    for i in range(7):
+        s.box((cx - 3.3 + i * 1.0, cy + 2.7, 0.5), (0.8, 1.5, 1.1),
+              {'top': _dark(GARAGE, 1.05), 'px': _dark(GARAGE, 1.0), 'py': _dark(GARAGE, 0.8),
+               'nx': _dark(GARAGE), 'ny': _dark(GARAGE)})
+    # THE GRANDSTAND, front stretch only — three of the four sides never have stands
+    # RAKED, and deliberately low: the first bake put a tall blank slab across the front
+    # and it hid the oval, which is the one thing the icon exists to show.
+    for i, (dy, hgt) in enumerate(((0.0, 0.9), (0.85, 1.6), (1.7, 2.3))):
+        s.box((cx - 5.2, cy + RY + 1.5 + dy, 0), (10.4, 0.85, hgt),
+              {'top': _dark(STAND, 1.14), 'px': _win(STAND, 14, 1, 3, 0.0),
+               'py': _dark(STAND, 0.82), 'nx': _dark(STAND), 'ny': _dark(STAND)})
+    s.box((cx - 0.9, cy + RY + 0.6, 0), (1.8, 0.7, 0.4), {'c': _dark(MARK, 0.8)['c']})   # tunnel mouth
+    # the catch fence posts, and one light tower: the tallest thing on the site
+    for i in range(0, N, 8):
+        th = i * 2 * math.pi / N
+        s.box((cx + math.cos(th) * (RX + 1.1) - 0.08, cy + math.sin(th) * (RY + 1.1) - 0.08, 0),
+              (0.16, 0.16, 1.5), {'c': FENCE})
+    s.box((cx - RX - 2.2, cy - RY - 0.6, 0), (0.32, 0.32, 5.4), {'c': TOWER})
+    s.box((cx - RX - 2.6, cy - RY - 1.0, 5.4), (1.1, 1.1, 0.45), {'c': _dark(TOWER, 1.1)['c']})
+    # dead cars still on the grid
+    for i in range(3):
+        _vehicle(s, cx - 2.6 + i * 1.9, cy + 1.7, CAR, CARC, along='x')
+    return s, 6.0
+
+
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal,
           'downtown': build_downtown, 'industrial': build_industrial, 'medical': build_medical,
           'mall': build_mall, 'park': build_park, 'warehouse': build_warehouse,
@@ -947,7 +1055,9 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           'policestation': build_policestation, 'solar': build_solar, 'stadium': build_stadium,
           'storage': build_storage, 'truckstop': build_truckstop, 'swapmeet': build_swapmeet,
           # SURFACES (7/27, the icon law) — the ground the WORLD lane built
-          'rail': build_rail, 'interchange': build_interchange}
+          'rail': build_rail, 'interchange': build_interchange,
+          # THE LANDMARK SET (7/27), icons shipping with their ground per the icon law
+          'campus': build_campus, 'speedway': build_speedway}
 
 # HELD BACK, DELIBERATELY: 'airport': build_airport, 'airbase': build_airbase.
 # Both builders are finished and correct and they stay in this file, but they are
@@ -998,6 +1108,8 @@ LABEL = {
     'rail': 'Railway — matched to the walkable corridor: two ballasted TRACKS with a dead LOCOMOTIVE and FREIGHT WAGONS standing on them + a wayside SIGNAL and its RELAY HUT + the at-grade CROSSING with the GATE ARM still down + the ROW fence + the rail-served LOADING DOCK and stacked relay steel.',
     'interchange': 'Interchange — matched: two carriageways crossing on TWO LEVELS, the upper one on a piered DECK, with a connector RAMP curving up to it + a HIGH-MAST light + the sound wall + the retention basin + the jam that never moved.',
     'airport': 'Airport — matched: the RUNWAY and its centreline + the amber TAXIWAY + the TERMINAL + a JET BRIDGE still docked to a dead AIRLINER on the stand + a floodlight mast + the perimeter fence.',
+    'campus': 'Campus — matched to the walkable district: the QUAD with its diagonal walks and DRY FOUNTAIN, the academic halls turned to FACE it, the colonnaded LIBRARY as the biggest mass, a residence hall set apart, dead quad trees.',
+    'speedway': 'Speedway — matched: the banked OVAL with its painted apron, the GRANDSTAND on the front stretch only, the GARAGE ROW and pit lane inside, the spectator TUNNEL mouth, a catch fence and one light tower.',
     'airbase': 'Air base — matched: the same field with the military landside — two arch-roofed HANGARS with their doors open + a dead FIGHTER on its alert pad between two concrete blast REVETMENTS + the blast pad off the runway threshold.',
 }
 
@@ -1156,6 +1268,28 @@ PARTS = {
     ],
     # ---- THE SURFACES (7/27, the icon law). Every part is a landmark out of the
     # surface's own engine module, in that module's own palette.
+    'campus': [
+        'quad — the open green heart with its diagonal walks, the thing that makes a campus a campus (walkable code 4 "quad (dead lawn)" + code 6 "walkway / plaza")',
+        'dry fountain — the basin where the walks cross, silted, the jet dead (code 7 "dry fountain")',
+        'library — the biggest single mass, with a COLONNADE of six piers and an architrave facing the quad, doors at ground (code 8 "library")',
+        'academic halls x2 — teaching blocks turned to FACE the quad, windows with dead panes, a door at grade on the quad side (code 2 "academic hall")',
+        'residence hall — set apart behind the teaching core, every window dark (code 9 "residence hall")',
+        'dead quad trees x4 — trunk plus a bare crown, the irrigation that kept them long gone (code 3 "dead tree")',
+        'pole lights x3 — campus lights, heads dark (code 12 "pole light")',
+        'abandoned car (canon CAR) — one at the kerb (code 1 pavement / drive); the paved ring is the drive apron',
+    ],
+    'speedway': [
+        'banked oval — the racing surface as a raised ring, which IS the signature and the reason this icon reads at 1x1 (code 6 "racing surface")',
+        'painted apron — the marking ring on the inside edge of the banking (code 7 "track marking")',
+        'infield — the dead turf inside the oval, sunk below the banking (code 4 "infield (dead turf)")',
+        'grandstand — three rising tiers on the FRONT STRETCH ONLY, because three of the four sides of a superspeedway have no stands (code 2 "grandstand")',
+        'garage row x7 — the bays behind pit lane, inside the oval (code 8 "garage row")',
+        'pit lane — the painted lane in front of the garages (code 9 "pit road" / code 10 stall markings)',
+        'tunnel mouth — the spectator underpass, the only way into the infield (code 13 "tunnel mouth")',
+        'catch fence posts — the fence ring outside the banking (code 11 "catch fence")',
+        'light tower — the tallest thing on the site, head dark (code 12 "light tower")',
+        'dead race cars x3 (canon CAR) — still on the grid where the race stopped (code 14 "dead race car")',
+    ],
     'rail': [
         'main track — the ballast prism (code 1 "ballast") with sleepers across it (code 2 "tie") and two gauge-spaced running rails (code 3 "rail")',
         'second track — the same prism again, because the walkable corridor is a TWO-track mainline, not a single line',

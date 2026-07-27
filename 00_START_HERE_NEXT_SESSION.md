@@ -342,6 +342,71 @@ is over its DIET LAW cap and this lane can only legally shrink its own entries.)
   fork from LAB-01: 120 BPM + OCCUPANCY versus a continuous sub-pixel walk — three
   options are written out in the town-walk note and the lane did not pick.
 
+WORLD MODEL (02): 7/27 (e) — THE CAMPUS AND THE SPEEDWAY. He said "Nice" and went to
+sleep, so this is more of the same posture: an item that needs nothing from him, no new
+question, and the two things that DO need him left untouched at the top of the list.
+
+Two of the 88 buildable landmark cells' worth of types, the biggest two, built as real
+kit districts: engine/bohemia_campus.js (16 cells) and engine/bohemia_speedway.js (12).
+Valley 96.7% -> 97.0%. Gate LANDMARKS, 52 checks. Both got their CITY BUILDER ICON the
+same turn, per the 7/27 icon law — that law has now survived its first real test, which
+was me wanting to ship ground and do the icons later.
+
+THE CAMPUS IS ITS QUAD. That is the entire distinction between a campus and a business
+park, so the layout is arranged around it: an open middle crossed by the two orthogonals
+AND both diagonals (people cut corners), the dry fountain where they meet, the academic
+halls turned to FACE it, the colonnaded library as the biggest single mass, a fan-plan
+lecture hall that actually widens row by row, a residence row set apart from the teaching
+core, and the parking pushed out to a ring road because a campus core is walkable on
+purpose. The gate measures the distinction rather than asserting it: THE QUAD MUST BEAT
+THE PAVEMENT, and the buildings must ring it with the middle left open.
+
+THE SPEEDWAY IS ITS OVAL. The gate floods the track from one tile and requires it to come
+back round — a closed ring you could drive a lap of, not a bend. Painted apron inside the
+banking, catch fence outside, pit road and the garage row inside, the road course ghosting
+through the infield, and the GRANDSTAND ON THE FRONT STRETCH ONLY, because three of the
+four sides of a superspeedway have no stands and ringing the oval with seating is the
+easy wrong version. Declared vehicular:true — the WALKABLE-LAND law's own exception, and
+the clearest case of it in the game.
+
+FOUR REAL BUGS THE GATES CAUGHT, and every one of them looked completely fine rendered:
+  1. The campus lots did not touch the ring road. driveReachFromStreet 0.54 — half the
+     pavement on the plot was unreachable. A lot you cannot drive into is a painted
+     rectangle.
+  2. The speedway's parking apron was inset one tile from the plot edge, so the reach
+     flood had no seed on the border: 0.00 reach with a full car park drawn on it.
+  3. All five speedway light towers were placed OFF the grid. The oval nearly fills the
+     plot, so cx +/- (RX + 14) is x = -4 and x = 132; not one tile of them existed.
+  4. THE BIG ONE: THE TUNNEL SKIPPED THE FENCE. I wrote "it goes under, not through" and
+     skipped the catch fence along with the track, which left the fence ring unbroken and
+     SEALED THE WHOLE OVAL. 39% of the walkable plot reachable from the street; the track,
+     the infield and the garages were behind a closed ring with no way in. It pierces the
+     fence now and leaves the racing surface intact, so the lap stays continuous and the
+     tunnel is the way in, which is what a tunnel is. 100% reachable.
+Also fixed on the way: a 2-tile-wide sliver of garage bay whose interior came back 13x3
+for a 13x2 exterior (INTERIOR-MATCHES-EXTERIOR is LOCKED), and a race garage that was
+routing to the multi-deck PARKING generator because its dossier said "garage interior" —
+a speedway garage is a workshop bay, not a car park, and it now says so.
+
+ONE CROSS-LANE PATCH, deliberately minimal: promoting two types to real districts made
+the CITY tab's IN_ZONE table stale the same instant (interiors_gate requires it to cover
+exactly what DISTGEN does). tools/bohemia_city_landmark_zone_patch.py adds exactly those
+two keys. CITY's RENDER internals were not touched.
+
+=== WHAT COMES AFTER — unchanged, and still the same two answers ===
+BLOCKED ON PAOLO, in the order they unblock the most:
+  1. THE MOMENT TABLE. Still the single answer that switches on the day, the economy,
+     faction beats AND the encounter director at once. Everything is wired and empty.
+     RUN declared SLEEP=8 / HANGOUT=1 / EAT unpriced on its side.
+  2. THE AIRFIELD ICON composition (drop the runway, show the terminal and one big plane?).
+  3. QUEST PLACEMENT VERDICTS — 21 quests still land on 13 cells.
+  4. ACT-2 / ACT-3 materials, and whether terrain gets a city icon at all.
+UNBLOCKED AND NEXT: the rest of the landmark set, 60 buildable cells — town 9, ballpark 8,
+basin 8, convention 6, datafort 6, prison 4, dam 4, reservoir 3, plus eleven single-cell
+landmarks. Same method, two at a time, each with its icon the same turn.
+ICON DEBT: 22 of 46 registered types (gate ICON prints it every run; campus and speedway
+arrived WITH icons, so the two new types added none of it).
+
 WORLD MODEL (02): 7/27 (d) — THE ENCOUNTER DIRECTOR. He went to sleep, so this turn
 is deliberately work that needed NOTHING from him: an APPROVED item, no new art, no
 new verdict added to his queue.

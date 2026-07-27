@@ -574,8 +574,36 @@ stories the world cannot host yet.
         carriageways. Gated in roadcell_gate (crossroads must stay under 5%).
         This was my own 7/26 work. It shipped with all gates green because no gate
         looked at the SHAPE of the corridor, only at whether you could drive through it.
-     c. campus 16, town 9, speedway 12, ballpark 8, convention 6, datafort 6,
-        prison 4, dam 4, basin 8, reservoir 3 (small landmark set, one at a time).
+     c. [IN PROGRESS] THE SMALL LANDMARK SET. 88 buildable cells were flat.
+        [DONE 7/27] CAMPUS 16 + SPEEDWAY 12 — the two biggest — as real kit districts,
+        street-aware on every orientation, drivable from the curb, full dossiers, gate
+        LANDMARKS (52 checks), AND their city builder icons the same turn per the icon
+        law. Valley 96.7% -> 97.0%.
+          THE CAMPUS'S WHOLE JOB IS THE QUAD: an open middle with the halls turned to
+          FACE it, the colonnaded library as the biggest mass, a fan-plan lecture hall,
+          a residence row apart, and the parking pushed to a ring because a campus core
+          is walkable on purpose. The gate measures the distinction that matters — the
+          quad must BEAT the pavement, or it is a business estate wearing the word.
+          THE SPEEDWAY'S IS THE OVAL: a closed ring you could drive a lap of (the gate
+          floods it and requires it to come back round), painted apron inside the
+          banking, grandstand on the FRONT STRETCH ONLY because three of four sides of
+          a superspeedway have no stands, pit road and garages inside, the road course
+          ghosting through the infield, and the spectator TUNNEL.
+          FOUR REAL BUGS THE GATES CAUGHT, all of which looked fine rendered:
+            - the campus lots did not touch the ring road: driveReach 0.54, half the
+              pavement unreachable. A lot you cannot drive into is a painted rectangle.
+            - the speedway apron was inset from the plot edge: driveReach 0.00 with a
+              full car park on it.
+            - all five speedway light towers were placed OFF the grid (the oval nearly
+              fills the plot), so not one tile of them existed.
+            - THE TUNNEL SKIPPED THE FENCE. It read "goes under, not through" and so
+              never pierced the catch-fence ring, sealing the oval: only 39% of the
+              walkable plot was reachable from the street and you could not get to the
+              track, the infield or the garages at all. Now 100%.
+        STILL FLAT (60 buildable cells): town 9, ballpark 8, basin 8, convention 6,
+        datafort 6, prison 4, dam 4, reservoir 3, plus a tail of single-cell landmarks
+        (reclaim 2, granary, fort, springs, radio, minigp, arsenal, gypsum, pumpstation,
+        intake, quarry). Same method, two at a time, each with its icon.
      d. NEVER AUTO-GENERATED, by law: strip 81, resort 118, casino 5, luxor, sphere,
         strat, highroller, sign. Paolo's hand. Leave them reserved.
 2. [DONE 7/27] AMBIENT ENCOUNTER DIRECTOR. engine/bohemia_encounters.js, built on
