@@ -25,6 +25,39 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1f. [SHIPPED 7/26 — AWAITING PAOLO'S PLAY] THE ANSWER TO THE ZOMBOID KILL: FAST
+   LOOT, TWO TAPS. Paolo: "we can try it again except it could be faster. You
+   could try it something else."
+   slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html — A Dark Room
+   (Doublespeak Games, MIT), the minimal-loot extreme, and the only strong
+   candidate whose WHOLE SOURCE is readable, in JavaScript. Four mechanics, all
+   playable in a world you walk: SCAVENGING (walk onto a place, one weighted
+   branch, one loot roll, ONE tap takes the whole container, 1s cooldown),
+   HAULING (everything weighs 1 unless the table says otherwise; the bag ladder
+   is 10/20/40/70/110; take-all clamps and NEVER refuses you), SUPPLIES (a step
+   is a spent action: every move drinks, every second move eats, a stocked house
+   refills the canteen), JOBS (ten table rows are the entire village economy and
+   a row runs WHOLE or not at all). Teardown with every file:line:
+   records/lab/BOHEMIA_LAB_DARKROOM_TEARDOWN_7_26_26.txt. What to take:
+   records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md (6 mechanisms, 6
+   do-not-ports, 4 honest limits). Gate: 44 new live checks inside
+   gates/lab_gate.js (264 total), mutation-tested twice.
+   Its FEEL STATEMENT was checked against his rulings BEFORE a line was written,
+   which is the Zomboid lesson made procedure.
+1e. [SHIPPED 7/26, ON HIS ORDER] THE RESEARCH DOSSIER: WHICH GAMES ARE ACTUALLY
+   LIKE OURS, AND WHOSE CODE WE CAN GET. Paolo: "Do big brain online research for
+   games that are just like ours or like a combination of what we're going for."
+   records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md — Bohemia's combination
+   written as a ten-column checklist, nine candidates scored against it, a
+   VERIFIED source verdict per game (fetched, not assumed), a one-line FEEL
+   STATEMENT per game checked against his standing rulings, and a ranked
+   shortlist. It also names the split that matters: an EMULATION has real source
+   and citable lines; a MODEL has only documentation and needs a NEW GATE ROW
+   TYPE before one can legally ship. #1 next target: CATACLYSM: DDA faction camps
+   (open source, verified fetchable) because it is the only game that answers his
+   own ruled-but-unfilled question — what an action COSTS and what a crew you
+   sent away brings back. Honest finding: the FEED/clout axis has NO reference
+   with obtainable numbers, and that is a finding, not a gap to fill by inventing.
 1d. [SHIPPED 7/26, ON HIS ORDER] THE FIRST PORT OUT OF THE LAB.
    Paolo after playing LAB-03: "Awesome! All these things worked. Very good! Did
    you learn anything. Anything we can throw in the bohemia code right now?"

@@ -45,277 +45,83 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
-LAB (09): 7/26 (g) — THE ZOMBOID PAGE IS DEAD AND THE RULING THAT KILLED IT IS THE MOST
-USEFUL THING THIS LANE HAS PRODUCED. Paolo: "That was really bad and not fun."
-KILLED, DELETED, GRAVEYARDED, gate row removed, no v2. Post-mortem:
-records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt. The teardown and pattern note survive
-marked DEAD at the top, because facts about another game's code stay facts.
-THE LAW (laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md, LOCKED), his words:
-"I kind of want Luc [loot] to be very simplified... I want it easier to loot... imagine
-if that went by really quick instead of really slowly I might give a fuck about it...
-State of decay has decent looting system in place... even if there were less items than
-that... I really want the game to be minimalistic in that regard... maybe the item will
-be resources but like the description it might tell you like what type of resource it is
-to help you understand the amount... at the end of the day I would want the item be like
-you found like three".
-  1. LOOTING IS FAST. A container resolves in ONE ACTION, never an item-by-item queue.
-  2. A FOUND THING IS A RESOURCE WITH A COUNT, not an object with a name. FOOD x3.
-  3. THE DESCRIPTION CARRIES THE FLAVOUR and its job is to explain the amount. Flavour
-     is read, never counted, never inventoried, never carried as separate objects.
-  4. MINIMALISTIC IS THE BAR. FEWER kinds than State of Decay. When in doubt, cut one.
-  5. CUSTOMISATION IS NOT LOOT VOLUME. Depth comes from the wardrobe and the rig.
-  6. STATE OF DECAY (and SoD2) is the reference. PROJECT ZOMBOID IS AN ANTI-REFERENCE
-     FOR LOOT PACE and may never again be cited to make our looting slower or finer.
-[PENDING Paolo], all content and nobody invents it: the resource KINDS and how many, the
-yield range per container kind, what a search costs in time, whether a container can be
-searched twice, and whether searching is noisy.
-WHAT SURVIVES FROM THE DEAD PAGE: exactly one recommendation, THE CONTAINER IS THE
-CONTRACT — what you find is keyed on the district and the KIND of container, which our
-tilespec dossiers already name. Everything about the time economy is dead for us.
-THE LESSON, written into the post-mortem so it binds the next session: A REFERENCE IS
-NOT NEUTRAL. Choosing which game to emulate is already a design decision. Emulating a
-game whose pacing is the opposite of what Paolo has asked for produces a faithful,
-gated, worthless artifact. Before the next emulation, state in ONE LINE what feel the
-target game has and check it against his standing rulings; if it conflicts, the
-emulation is dead before it is written. 245 green checks could not ask whether it was
-fun — GREEN PROVES NON-VIOLATION AND NOTHING ELSE.
-NOTHING WAS BUILT THIS TURN AFTER THE KILL, on purpose (STOP PRODUCING). The next lab
-target is his to name, and the loot system itself belongs to the owning lane once he
-rules the numbers.
+LAB (09): 7/27 (i) LATEST — THE FAST-LOOT ANSWER TO THE ZOMBOID KILL, PLUS THE RESEARCH
+DOSSIER HE ASKED FOR. Two deliverables, one turn, nothing touched outside the lab.
+1. THE RESEARCH: records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md. Bohemia's
+combination written as a ten-column checklist (roguelite run / city-builder / district as
+the unit / time spent by actions / fast loot / crew jobs / faction ceiling / relationship
+ration / a world you walk / clout feed), then nine candidate games scored against it with
+a VERIFIED source verdict each — verified by actually fetching, not by assuming. The
+split that matters and it is new: an EMULATION has real source and citable file:line; a
+MODEL has only documentation and needs a NEW GATE ROW TYPE before one is legal to ship.
+Ranked: #1 CATACLYSM: DDA faction camps (open source, fetch-verified) because it is the
+only game that answers his own ruled-but-unfilled question — what an action COSTS and
+what a crew you sent away brings back (their companions go out for a declared 1/4/10/20
+hours and pay a rate times hours worked). #2 Rebuild 3 (city BLOCKS + five survivor jobs
++ rival factions inside your own city; Unity, no source, would be a MODEL). #3 State of
+Decay 2, his own named reference (a food rucksack holds THREE units, you carry one bag,
+and Wits makes searching faster AND quieter — that answers his open noise question).
+HONEST FINDING: the FEED/clout axis has NO game with obtainable numbers. That is a
+finding, not a gap to fill by inventing.
+2. THE PAGE: slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html, on his "we can try it
+again except it could be faster. You could try it something else." A Dark Room
+(Doublespeak Games, MIT) is the minimal-loot extreme and the only strong candidate whose
+WHOLE SOURCE is readable — in JavaScript, the language our engine already speaks. Four
+mechanics, playable in a world you walk: SCAVENGING (walk onto a place, one weighted
+branch, one {min,max,chance} roll, ONE tap takes the whole container), HAULING
+(everything weighs 1 unless the table says otherwise; ladder 10/20/40/70/110; take-all
+clamps and NEVER refuses you), SUPPLIES (a step IS a spent action — every move drinks,
+every second move eats), JOBS (ten table rows are the entire village economy and a row
+runs WHOLE or not at all). A house is searched in TWO TAPS and the prose explains the
+amount: "the house has been ransacked, but there is a cache of medicine under the
+floorboards" -> medicine x4. That is his loot law arriving independently in a shipped
+game. Teardown: records/lab/BOHEMIA_LAB_DARKROOM_TEARDOWN_7_26_26.txt (every constant,
+every file:line). Patterns: records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md.
+PROCEDURE CHANGE THAT CAME OUT OF THE KILL, and it is why this page exists at all: its
+FEEL STATEMENT was written and checked against his standing rulings BEFORE a line of code
+was written. Zomboid died because 245 green checks could not ask whether it was fun.
+GATE: 44 new live checks inside gates/lab_gate.js (264 total, was 220). Mutation-tested
+twice — making everything weigh 2 reds D16+D20, dropping the all-or-nothing worker guard
+reds D33/D34/D35. Two real defects were found ON THE REAL SURFACE, not in the code: the
+map was smaller than the phone viewport so the bottom 40% of the screen was black
+(grid 20x26 -> 28x40 plus a camera clamp), and the scene panel was a full takeover so you
+lost sight of where you were standing (now a bottom sheet).
+NOTE FOR THE FLEET: the alpha was NOT touched, so the build stamp was NOT changed —
+stamping an unchanged alpha is a lie. A lab ship is reached by its own reference page.
 
-
-LAB (09): 7/26 (e) — HE APPROVED ALL FOUR PORTED MECHANISMS AND RULED THE BIG ONE
-WIDER IN THE SAME BREATH. "I like it all tbh all 3 and sleep understand sleep can be
-hangout or eat too u know".
-THE RULING (laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md, LOCKED):
-the world resolves at ANY BLOCK OF TIME THE PLAYER SPENDS. Sleep is only the biggest
-one. A hangout is one. A meal is one. Same mechanism, three sizes.
-WHY IT IS A GOOD RULING, in his own logic: a hangout that moves the world is a REASON
-to hang out, and eating becomes a decision instead of a menu. In a game about being
-watched, every social act becomes a way to spend the only currency there is, and sleep
-stops being the only button that does anything.
-MECHANISM CHANGED THE SAME TURN, engine/bohemia_resolve.js: a resolver is now built
-with a CALLER-DECLARED list of moments, each carrying a SIZE. A system declares WHICH
-moments it answers; a system that declares nothing answers all of them (documented as a
-real choice, not an oversight). Resolving an undeclared moment is a BUILD ERROR, so a
-typo cannot invent a fourth kind of night. The moment reaches each step as its OWN
-FROZEN ARGUMENT, never through the shared context, so zero coupling survived the
-change. A meal moves less than a night because each system says so, not because the
-module hardcoded a night.
-THE MODULE STILL SHIPS NO MOMENT NAMES AND NO SIZES. The gate asserts that the
-executable code contains no SLEEP/HANGOUT/EAT and no size literals: those are canon and
-they are his. STILL [PENDING Paolo], all content: the moment table (which moments, how
-long each spends), the action cost table, the ration limits, the faction standing ladder,
-and reach in tiles. No lane fills any of them in.
-VERDICT RECORDED: records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt — APPROVE on ration,
-ceiling, reach + one contextual verb, and resolve. APPROVE unlocks volume, so the owning
-lanes may now adopt without asking again, and the adoption items are FILED INTO THEIR
-BACKLOG SECTIONS by that verdict:
-  RUN item A  — one contextual verb + the declared reach (it REMOVES UI: the run has a
-                talk trigger AND a door bump AND separate buttons today)
-  WORLD item A — the resolve point, registering territory / who-noticed-you / the
-                overnight feed / decay as steps at a spent block
-  LIFE/SOCIAL item A — the ration for favours, posts and gifts (by COUNT, never money)
-                and the standing ceiling for factions (a wall you pass by committing)
-Each one carries its own [PENDING Paolo] for the numbers. THE LAB STILL DOES NOT WIRE
-THEM IN — that is each lane's build item, because those lanes are editing those files.
-Gate: gates/resolve_gate.js, 77 checks (was 59), all six mutations tested and each one
-turns it red. Nothing here touches the alpha, so its build stamp is unchanged.
-
-LAB (09): 7/26 (d) — THE FIRST PORT LANDED, ON HIS ORDER. He played LAB-03, said "all
-these things worked", and asked "anything we can throw in the bohemia code right now?"
-That is a port order, so laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md now
-governs it: the lab ports ONLY when he says so, ships MECHANISM ONLY in its own new
-file, never wires itself into another lane's surface, and carries its provenance.
-engine/bohemia_resolve.js — headless, zero dependencies, brand new file, so it cannot
-collide with the lanes editing the alpha right now. Four mechanisms, all learned by
-rebuilding Stardew from its own source:
-  RESOLVE — ONE moment, a DECLARED phase order (WORLD/PLACES/PEOPLE/BOOKS/FEED), and no
-  step able to read another step's report. Registration order decides nothing except
-  ties inside a phase. A step that throws is reported BY NAME and the rest of the night
-  still runs, because one broken system must never eat the player's night. This is the
-  LAB-03 finding: three mechanics that share nothing but the rollover.
-  RATION — a limit by COUNT per day and per week, with a bypass that overrides both and
-  can carry a multiplier (the birthday shape). The gate proves there is no cost, price,
-  gold or money term anywhere in the mechanism. This is the one I think matters most for
-  us: a favour or a post limited by money stops mattering the moment the player is rich.
-  CEILING — points cannot pass the CURRENT state's cap, and the ONLY thing that moves
-  the cap is a state change. 500 favours cannot grind past a wall; you have to commit.
-  Neglect is allowed to get more expensive as you get closer. This is the faction
-  standing shape.
-  REACH — one declared range, one facing rule, one predicate. Forgiveness is a number
-  and it is small.
-EVERY TABLE IS EMPTY, ON PURPOSE. No ration limits, no faction thresholds, no reach
-number, no action costs for any real Bohemia system. Callers pass them in and the FIRST
-DEFAULT IS A RULING, not code. The gate enforces it: the executable mechanism may not
-name a single piece of Bohemia or Stardew content.
-Gate: gates/resolve_gate.js, 59 checks, registered as LAB PORT. MUTATION-TESTED, which
-is the only reason to believe it: breaking the ceiling clamp, leaking reports between
-steps, or letting a thrown step kill the moment each turn exactly one check red.
-NOT WIRED INTO ANYTHING. Adoption is the owning lane's build item: RUN wants the
-contextual verb and the reach constant, WORLD wants the resolve point at SLEEP AND SAVE,
-LIFE/SOCIAL wants the ration for favours and posts and the ceiling for faction standing.
-Nothing about this port touches the alpha, so its build stamp is unchanged again.
-
-LAB (09): 7/26 (c) — THE THREE MECHANICS NOW STAND IN A WORLD YOU WALK AROUND, WHICH
-IS WHAT HE ASKED FOR. "pull up to the mini lake you can start fishing pull up on your
-potential spouse. Do all of this pull up on your farm."
-slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html — one town, one clock, one purse:
-your farmhouse with a bed, a 54-tile fenced plot behind it, the shop up the road, a
-lake with a dock, and EMILY walking a real schedule across the map.
-ONE ACTION BUTTON and the WORLD decides what it means: CAST facing water, USE TOOL
-facing soil (the tool/seed/fertilizer chips only appear when you are standing on the
-plot), TALK when you are within a tile of her, SLEEP at your bed, HOLD TO REEL once a
-fish is on. The tile you are about to act on is outlined in yellow so the button is
-never a mystery.
-SLEEP IS THE ONLY INTEGRATION POINT between the three systems: crops advance or stall,
-soil dries, her friendship decays if you did not say hello, the wedding counts down,
-her schedule resets. Three mechanics, one clock, ZERO coupling. That architecture is
-the thing worth copying, not an event bus.
-THE FINDINGS, in records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md: the walk
-stopped being a feature and became a sentence structure (go there, do that) and should
-never be judged on its own again; one contextual verb REMOVES UI instead of adding a
-button per system, which is the shape a phone wants; reach/interaction slack should be
-ONE declared constant, not three ad-hoc checks; and distance on the map is a bigger
-tuning knob than any number inside a mechanic (the plot is 4 tiles from the door, the
-dock is 30 across the map — a chore versus a trip, authored in tiles, enforced by
-nothing).
-Gate: 179 checks. The world half does not inspect state, it PLAYS: walks out the front
-door to the plot with the real movement code, tills/seeds/waters by facing the soil,
-walks the length of the map to the dock, casts, works the bar until the fish is landed
-and paid, walks up to her and lands the bouquet, walks home, in through her own front
-door, to the bed, sleeps, and asserts the crop advanced exactly one phase and the soil
-dried. Four contexts are asserted too, including that an empty field offers nothing.
-HIS MUSING IS RECORDED AND NOT ACTED ON: "in our world it's gonna most likely be like a
-Hydro farm pool or something I don't know but yeah." Written down verbatim in the note,
-treated as thinking out loud, NOT canon. No Bohemia growing system, pool or hydro farm
-was invented. If he rules it, it becomes a CITY/WORLD backlog item with his words as
-the source.
-NEXT IN THIS LANE: he names a game and its mechanics. LAB-2 (Zomboid loot loop) is
-still queued and now means containers + weight + search + degradation, in a world.
-
-LAB (09): 7/26 (b) — PAOLO REJECTED THE FIRST EMULATION'S WHOLE PREMISE, AND HE WAS
-RIGHT. "who said I wanted to test the walking like why did you just focus on like
-movement like it was supposed to be like the actual game and all its mechanics... you
-need to get the code online and implement it for the different game mechanics like
-marriage and fishing in farming". TWO LAWS LANDED THE SAME TURN, both LOCKED:
-  laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md — a lab emulation is THREE
-  OR MORE NAMED MECHANICS, each playable END TO END, built from the master's real
-  source. Movement / camera / collision / lighting / transitions are PLUMBING and can
-  never be a lab deliverable again; lab_gate fails any row that declares one. Speed is
-  the point: he named the bar himself (people remake a game in an hour), so breadth
-  first, depth only on request.
-  laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md — "Bohemian movement is
-  gonna be the world moves when you move where the world moves when you spend time
-  taking an action". THE WORLD ADVANCES WHEN THE PLAYER SPENDS TIME ON AN ACTION. No
-  continuous free walking in the overworld, ever; the beat is the QUANTISER, not a
-  clock the world runs on by itself. The three-option fork LAB-01 had written up is
-  CLOSED. Still his and still unwritten: the ACTION COST TABLE (what a step costs vs a
-  swing vs a search). No lane invents that.
-SHIPPED, the actual assignment: slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html
-— FISHING, FARMING and MARRIAGE, three tabs, one shared day, every loop closing.
-  FISHING is the real bobber bar: a 96px bar in a 568px column, +8px per fishing level,
-  gravity 0.25 down and 0.25 up while you hold, BOTH damped x0.6 while the fish is
-  inside, progress +1/500 a tick in the bar and -3/1000 out. THE WHOLE FISHING SKILL
-  TREE IS BAR HEIGHT — there is no other mechanical reward for levelling it.
-  FARMING is Crop.newDay: a crop advances a day ONLY if the soil was watered at the
-  rollover. Forgetting is NOT damage, the day just does not count. Wrong season
-  outdoors is the only hard kill. Speed-Gro removes a % of TOTAL days at planting;
-  retaining soil buys a CHANCE to skip the chore. Everything resolves at SLEEP.
-  MARRIAGE is one integer: 250 a heart, talk +20 once a day, gifts RATIONED to 1 a day
-  and 2 a week (birthday bypasses both AND pays x8), neglect -2 stranger / -8 dating /
-  -20 spouse, and a HARD CAP at 8 hearts for anyone you have not dated
-  (Utility.cs:2901 returns 8 for a datable NPC, so the clamp is 2249) — gifting cannot
-  pass it, you have to accept the bouquet. Dating moves the ceiling to 10, marriage to
-  14. THE MECHANIC GETS MORE EXPENSIVE AFTER YOU WIN IT.
-Teardown, every number with its file:line:
-records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt
-Patterns + what Bohemia should actually take (10 named patterns, 7 recommendations,
-4 do-not-ports): records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_PATTERN_NOTE_7_26_26.md
-The two that matter most for us, and neither is about farming: RATION DO NOT PRICE
-(limit a favour/post/bribe by COUNT per week, not by money, or a rich player switches
-it off) and THE CEILING THAT ONLY MOVES ON A COMMITMENT (faction standing should have
-a wall you cannot grind through — you get past it by taking a side, not by doing more
-jobs).
-TWO REAL PORTING BUGS FOUND BY MEASURING ON THE REAL SURFACE, both now gated: (1) the
-else that re-rolls a resting fish's target must also run when the target is -1, or the
-fish keeps its last velocity, parks on the floor and every fish above difficulty 30
-becomes uncatchable (pike 0/12 -> 12/12 after the fix); (2) copying the master's -32
-sprite-origin offset into a page with no sprites made the DRAWN bar and the TESTED bar
-32 units apart, so the picture lied about whether you were winning. Measured catch
-rates now: carp 12/12, pike 12/12, catfish 10/12, octopus 0/12 at level 0 and 4/12 at
-level 10 — the skill tree, measured.
-Gate: gates/lab_gate.js, 112 checks, registered as REFERENCE LAB. It PLAYS all three
-loops (lands a fish by working the bar, grows a parsnip to harvest, walks a villager
-from stranger to married) and holds all six clauses of the amended law.
-LAB-01 (the walk) is SUPERSEDED, not deleted: its pattern note now opens with the
-ruling, its gate row is marked superseded and exempted from the three-mechanic rule so
-nobody reads it as a template, and its checks stay green so it cannot rot.
-NEXT IN THIS LANE: Paolo names a game and a set of mechanics. Backlog LAB-2 (Zomboid
-loot loop) is still queued and now means containers + weight + search + degradation,
-not one of them.
-FLEET CONDITION, FLAGGED NOT FIXED (coordinator's file, not mine): this handoff is over
-1,100 lines against a ~500-line DIET LAW cap. Trimming it means rewriting eight other
-lanes' entries in a file they are all appending to right now, which is the boundary the
-parallel-sessions rule says to stop at. Raising it here instead of crossing it.
-
-LAB (09): 7/26 — THE LANE'S FIRST EMULATION IS PLAYABLE: STARDEW'S TOWN WALK, REBUILT
-FROM THE MASTER'S OWN SOURCE. Backlog LAB-1, all three deliverables, nothing ported.
-Page: slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html (standalone, labeled
-REFERENCE, placeholder art, touches no engine module / no bank / no alpha, and the
-gate sweeps BOTH directions so nothing shipped links back to it either).
-HOW THE NUMBERS WERE GOT, because this is the part that makes the lane worth having:
-the decompiled 1.5.6 source was read directly, not remembered. 37 constants, every one
-carrying the file:line it came off, in
-records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_FEEL_LEDGER_7_26_26.txt. The five that matter:
-  - walk 2 / run 5, times movementMultiplier 0.066, times elapsed ms. At 60fps that is
-    2.20 and 5.50 px per tick = 2.06 and 5.16 TILES PER SECOND. And options.autoRun
-    defaults ON, so the RUN BUTTON WALKS YOU: fast is the default gait.
-  - ZERO ACCELERATION anywhere. Frame one is full speed. Measured, not assumed.
-  - the collision box is 48x32 AT THE FEET (3/4 tile wide, half a tile tall), not the
-    sprite. That is why a tiny town feels roomy.
-  - THE CASCADE, which is what "soft collision" actually is: full step, else HALF step,
-    else — if only one direction is held — split the leading box into quarters, and if
-    exactly one quarter is blocked, SLIDE SIDEWAYS at speed*ms/64. That third rule is
-    why nobody has ever snagged a door frame in Stardew.
-  - diagonals are 0.7 per axis (flat 0.7, not 1/sqrt2), so the diagonal is not a shortcut.
-Also emulated and measured: doors fire off the NEXT-position box (you walk into them,
-you never press anything), the 0.02/tick fade is 50 ticks each way and the CLOCK IS
-PAUSED for it (a doorway is free), 7000ms = 10 game minutes so a day is 14 real minutes,
-the dusk curve steps to 0.30 at 6pm and 0.75 at 8pm and caps at 0.93 (never black), and
-night is PURE YELLOW SUBTRACTED — which is the entire reason Stardew nights read blue,
-nobody painted a night palette. One scheduled NPC: time key, A*, axis-by-axis at a RAW
-2px/tick (villagers never got the player's ms-scaling, so you always out-pace the town),
-then a 6-12s idle with a 600ms breath.
-THE PAGE HAS A/B CHIPS ON PURPOSE: HALF-STEP, CORNER SLIP, DIAG 0.7 and a deliberately
-non-Stardew ACCEL 250ms, plus TRUE 4x ZOOM. Turning one off is how you feel what it was
-doing for you. That is the lane's whole thesis and it is now a thing you can hold.
-WHAT IT SAYS ABOUT US, measured against the shipped run: our overworld walk teleports a
-WHOLE TILE every 110ms (9.1 tiles/s, faster than Stardew's run) with a 220ms hitch
-before hold-repeat, no diagonals, and it collides with the whole cell. Big discrete
-jumps at a high rate with a hitch is most of why the overworld reads stiff — that is not
-an art problem. 9 port candidates are ranked in
-records/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_PATTERN_NOTE_7_26_26.md, cheapest first
-(interpolate the cell across the beat; kill the hitch; a feet box; the half-step + slip;
-diagonals; doors as collision; a free clock; night as a subtracted channel; schedule not
-AI) and 4 do-not-ports are named (interiors bigger than their buildings, 20 tiles of
-screen, the frame-rate-dependent NPC speed, any of the art).
-[PENDING Paolo], the one real fork and it is canon: 120 BPM / I-MOVE-YOU-MOVE and
-OCCUPANCY (one body per cell) cannot coexist with a continuous sub-pixel walk in one
-surface. Three options are written out in the note — (1) keep the beat and interpolate
-the picture across it, (2) two modes with a snap into turn-based for fights, (3) free
-walking everywhere, which retires I-MOVE-YOU-MOVE for the overworld. Option 1 breaks no
-law and is by far the cheapest; the lane did NOT pick.
-Gate: gates/lab_gate.js, 83 checks, registered in the suite as REFERENCE LAB. It holds
-all four clauses of the lab law, and the movement half MEASURES through window.LAB — the
-same frame loop the thumb drives, never a second copy of the maths (mutation-checked:
-forcing DIAG_FACTOR to 1.0 moves the measurement from 92.4 to 132.0).
-NOTE FOR THE FLEET: this lane deliberately did NOT touch the alpha, and that includes
-the build stamp — the alpha did not change this turn, so stamping it would have been a
-lie. A lab ship is reached by its own reference link, never as "the build".
-NOTE, READ THE 7/26 (b) ENTRY ABOVE FIRST: this walk study was REJECTED by Paolo and
-the lane's assignment changed. Kept as the record of what was measured, never as a
-template.
+LAB (09): 7/26 (b)-(h), COMPRESSED — the full record is in git and in BOHEMIA_BACKLOG's
+LAB section; this is the state a new session needs. (Compressed on purpose: the handoff
+is over its DIET LAW cap and this lane can only legally shrink its own entries.)
+- THE LANE'S ASSIGNMENT WAS REJECTED AND REWRITTEN ON 7/26. Paolo: "who said I wanted to
+  test the walking... it was supposed to be like the actual game and all its mechanics".
+  laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md: an emulation is 3+ NAMED
+  MECHANICS playable end to end, from the real source. Movement/camera/collision/lighting
+  are plumbing and can NEVER be a deliverable; the gate fails a row that declares one.
+- HE RULED BOHEMIA'S MOVEMENT in the same breath:
+  laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md — the world moves when you
+  spend time taking an action. Then widened it: "sleep can be hangout or eat too u know"
+  (laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md) — the resolve moment
+  is ANY spent block, and a moment has a SIZE.
+- LAB-03 SHIPPED AND HE PLAYED IT: slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html,
+  fishing + farming + marriage standing in one walkable town, one contextual verb, one
+  resolve point at sleep. "Awesome! All these things worked. Very good!"
+- THE FIRST PORT LANDED ON HIS ORDER: engine/bohemia_resolve.js (RESOLVE / RATION /
+  CEILING / REACH), headless, zero deps, EVERY TABLE EMPTY because the contents are his.
+  Gate: gates/resolve_gate.js, 77 checks. NOT WIRED INTO ANY SURFACE — adoption is filed
+  as item A in RUN, WORLD and LIFE/SOCIAL.
+  Verdict: records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt
+- THE ZOMBOID LOOT PAGE IS DEAD. "That was really bad and not fun." Deleted,
+  graveyarded, gate row removed, NO V2. Post-mortem:
+  records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt. The ruling that replaced it is the
+  valuable thing: laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md (LOCKED).
+- LAB-01 (the town-walk) is SUPERSEDED not deleted, kept green, and its note opens by
+  saying so. Never use it as a template.
+- STILL [PENDING Paolo] and nobody invents them: the MOMENT table (which moments, how
+  long each spends), the ACTION COST table, RATION limits, the FACTION STANDING ladder,
+  REACH in tiles, and the LOOT content (resource KINDS and how many, yield range per
+  container kind, what a search costs in time, re-search / noise). Also the one canon
+  fork from LAB-01: 120 BPM + OCCUPANCY versus a continuous sub-pixel walk — three
+  options are written out in the town-walk note and the lane did not pick.
 
 WORLD MODEL (02): 7/27 (a) — THE RAILWAY, THE STACK, AND A DEFECT IN MY OWN LAST SHIP.
 Three things landed. Valley: 95.6% -> 96.7% generated.

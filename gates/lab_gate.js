@@ -60,6 +60,21 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
+    /* LAB-04: the answer to the Zomboid kill. Paolo: "we can try it again except
+       it could be faster. You could try it something else." A Dark Room is the
+       minimal-loot extreme and the only strong candidate whose whole source is
+       legally readable, in the language our engine already speaks. */
+    id: 'A DARK ROOM SCAVENGE',
+    game: 'A Dark Room',
+    mechanics: ['scavenging', 'hauling', 'supplies', 'jobs'],
+    minConsts: 30,
+    page: 'slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html',
+    record: 'records/lab/BOHEMIA_LAB_DARKROOM_TEARDOWN_7_26_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md',
+    live: liveDarkRoom,
+    shot: { name: 'BOHEMIA_LAB_DARKROOM_PROOF_7_26_26.png', setup: shotDarkRoom }
+  },
+  {
     /* LAB-03: the three mechanics standing in a world you walk around. This is
        the shape the lane ships in from now on — mechanics IN A PLACE. */
     id: 'STARDEW ONE WORLD',
@@ -177,7 +192,7 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ) = \{([\s\S]*?)\n\};/);
+  const block = src.match(/var (?:SDV|PZ|ADR) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -199,7 +214,10 @@ function partA(em) {
          the CONTENT escape hatch, and it is capped so nobody smuggles invented
          mechanism numbers through it. */
       if (/ours \(declared\)/.test(row)) { ours.push(k); return; }
-      if (!DERIVED_KEYS.has(k) && !/\.(cs|lua)\b/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
+      /* a citation is a real file in the master's tree: C# (Stardew), Lua
+         (Zomboid) or JS (A Dark Room). The extension is the proof that somebody
+         opened the source instead of a wiki. */
+      if (!DERIVED_KEYS.has(k) && !/\.(cs|lua|js)\b/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
     });
     ok('A15 every SDV key is in the record' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''),
        missing.length === 0);
@@ -727,6 +745,325 @@ async function liveTownWalk(page) {
     house: window.LAB.furnitureCount('house'), shop: window.LAB.furnitureCount('shop')
   }));
   ok('B2 (superseded) both interiors are still furnished', rooms.house >= 8 && rooms.shop >= 8);
+}
+
+/* ==========================================================================
+   PART B (LAB-04) — A DARK ROOM. The question this row exists to answer is not
+   "does loot spawn" but "is looting FAST", which is a thing you can only test by
+   counting the taps and the yields. Every check drives the page's own function.
+   ========================================================================== */
+async function liveDarkRoom(page) {
+  const A = await page.evaluate(() => window.LAB.ADR);
+  await page.evaluate(() => { window.LAB.seedRNG(20260726); window.LAB.reset(); });
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('D0 the page declares the same four mechanics the gate does',
+     JSON.stringify(declared) === JSON.stringify(['scavenging', 'hauling', 'supplies', 'jobs']));
+
+  /* ---------------- SCAVENGING: count the taps ---------------- */
+  const taps = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.place(14, 34);
+    o.opened = L.beginStep(0);                 /* walk UP onto the house at 14,33 */
+    while (L.S.moving) L.stepTick(200);
+    o.tile = L.tileAt(14, 33);
+    o.sceneOpenedByWalking = !!L.scene();
+    o.startHasNoLoot = L.scene().loot === null;
+    o.branchTo = L.sceneButton('go inside');   /* TAP 1 */
+    const loot = L.scene().loot;
+    o.loot = loot;
+    o.lootKinds = Object.keys(loot);
+    o.allCounts = Object.keys(loot).every(k => typeof loot[k] === 'number' && loot[k] === Math.floor(loot[k]));
+    o.got = L.takeEverything();                /* TAP 2 */
+    o.bag = JSON.parse(JSON.stringify(L.bag()));
+    o.cooldown = L.S.cooldown;
+    return o;
+  });
+  ok('D1 scavenging: walking onto a house opens the place, no button first',
+     taps.tile === 'H' && taps.sceneOpenedByWalking === true);
+  ok('D2 scavenging: the first scene is prose only — nothing to browse', taps.startHasNoLoot === true);
+  ok('D3 scavenging: ONE tap branches into a real scene (' + taps.branchTo + ')',
+     ['medicine', 'supplies', 'occupied'].indexOf(taps.branchTo) >= 0);
+  ok('D4 scavenging: the yield is {resource: COUNT}, every value a whole number (' +
+     JSON.stringify(taps.loot) + ')', taps.allCounts === true && taps.lootKinds.length >= 1);
+  ok('D5 scavenging: A SECOND TAP TAKES THE WHOLE CONTAINER — two taps, done',
+     JSON.stringify(taps.got) === JSON.stringify(taps.bag) && Object.keys(taps.bag).length >= 1);
+  ok('D6 scavenging: and the only price is a 1s cooldown (' + taps.cooldown + 's)',
+     near(taps.cooldown, A.LEAVE_COOLDOWN, 0.001));
+
+  /* the cooldown is REAL: it blocks the next step until it burns down */
+  const cd = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    o.blockedInScene = L.beginStep(2) === false;      /* the scene is still open */
+    L.sceneButton('leave');
+    o.blockedByCooldown = L.beginStep(2) === false;   /* out, but still on cooldown */
+    L.step(1100);
+    o.freeAfter = L.S.cooldown;
+    o.movesAgain = L.beginStep(2) === true;
+    while (L.S.moving) L.stepTick(200);
+    return o;
+  });
+  ok('D7 scavenging: you cannot walk off mid-loot, or in the second after it',
+     cd.blockedInScene === true && cd.blockedByCooldown === true);
+  ok('D8 scavenging: and one second later you can (' + cd.freeAfter + ')',
+     cd.freeAfter === 0 && cd.movesAgain === true);
+
+  /* the branch weights are the variety: 25/25/50 out of ONE house */
+  const split = await page.evaluate(() => {
+    const L = window.LAB, c = {};
+    for (let i = 0; i < 600; i++) {
+      const s = L.pickBranch({ 0.25: 'medicine', 0.5: 'supplies', 1: 'occupied' });
+      c[s] = (c[s] || 0) + 1;
+    }
+    return c;
+  });
+  ok('D9 scavenging: one house has three outcomes, 25/25/50 (' +
+     JSON.stringify(split) + ')',
+     Math.abs(split.medicine / 600 - 0.25) < 0.06 &&
+     Math.abs(split.supplies / 600 - 0.25) < 0.06 &&
+     Math.abs(split.occupied / 600 - 0.5) < 0.07);
+
+  /* "you found like three": the medicine cache, 600 rolls, and their off-by-one */
+  const med = await page.evaluate(() => {
+    const L = window.LAB, seen = {};
+    const table = L.SETPIECES.house.scenes.medicine.loot;
+    for (let i = 0; i < 600; i++) {
+      const r = L.rollLoot(table);
+      seen[r.medicine] = (seen[r.medicine] || 0) + 1;
+    }
+    return seen;
+  });
+  const medVals = Object.keys(med).map(Number).sort((a, b) => a - b);
+  ok('D10 scavenging: a medicine cache is always "you found like three" — ' +
+     medVals.join('/') + ' and nothing else',
+     medVals[0] === A.MED_MIN && medVals[medVals.length - 1] === A.MED_MAX - 1);
+  ok('D11 scavenging: their roll can never return max — recorded, not fixed',
+     medVals.indexOf(A.MED_MAX) < 0);
+
+  /* a searched place is done: their World.markVisited */
+  const twice = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.place(14, 33);
+    o.first = L.context();
+    L.openPlace('house'); L.sceneButton('go inside'); L.takeEverything(); L.sceneButton('leave');
+    o.visited = L.visited(14, 33);
+    L.clearCooldown();
+    o.second = L.context();
+    return o;
+  });
+  ok('D12 scavenging: an unsearched house offers a search', /^SEARCH /.test(twice.first));
+  ok('D13 scavenging: a searched one is PICKED CLEAN, not re-rollable',
+     twice.visited === true && twice.second === 'PICKED CLEAN');
+
+  /* ---------------- HAULING ---------------- */
+  const bagLadder = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.base = L.capacity();
+    L.addStore('rucksack', 1); o.ruck = L.capacity();
+    L.addStore('wagon', 1);    o.wagon = L.capacity();
+    L.addStore('convoy', 1);   o.convoy = L.capacity();
+    L.addStore('cargo drone', 1); o.drone = L.capacity();
+    o.unknownWeight = L.weightOf('a thing nobody listed');
+    o.bullets = L.weightOf('bullets');
+    o.sword = L.weightOf('steel sword');
+    L.reset();
+    return o;
+  });
+  ok('D14 hauling: the bag starts at 10 units for the whole game (' + bagLadder.base + ')',
+     bagLadder.base === A.DEFAULT_BAG_SPACE);
+  ok('D15 hauling: the ladder is 20/40/70/110, bought not upgraded (' +
+     [bagLadder.ruck, bagLadder.wagon, bagLadder.convoy, bagLadder.drone].join('/') + ')',
+     bagLadder.ruck === A.DEFAULT_BAG_SPACE + A.BAG_RUCKSACK &&
+     bagLadder.wagon === A.DEFAULT_BAG_SPACE + A.BAG_WAGON &&
+     bagLadder.convoy === A.DEFAULT_BAG_SPACE + A.BAG_CONVOY &&
+     bagLadder.drone === A.DEFAULT_BAG_SPACE + A.BAG_DRONE);
+  ok('D16 hauling: EVERYTHING WEIGHS 1 unless the table says otherwise (' +
+     bagLadder.unknownWeight + ')', bagLadder.unknownWeight === A.WEIGHT_DEFAULT);
+  ok('D17 hauling: only the exceptions are exceptional (bullets ' + bagLadder.bullets +
+     ', steel sword ' + bagLadder.sword + ')',
+     bagLadder.bullets === A.WEIGHT_BULLETS && bagLadder.sword === A.WEIGHT_STEEL_SWORD);
+
+  /* the full bag NEVER refuses you — it just gives you less */
+  const clamp = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.place(17, 21);
+    L.openPlace('town');
+    L.loadScene('shop');                       /* the deliberate over-capacity haul */
+    L.S.scene.loot = { cloth: 20, iron: 20 };
+    o.free = L.freeSpace();
+    o.canTakeAll = L.canTakeEverything();
+    o.takeableCloth = L.takeableOf('cloth');
+    o.got = L.takeEverything();
+    o.carried = L.carried();
+    o.cap = L.capacity();
+    o.refused = o.got === null;
+    return o;
+  });
+  ok('D18 hauling: a 40-unit haul into a 10-unit bag is NOT refused', clamp.refused === false);
+  ok('D19 hauling: it clamps to exactly what fits (' + clamp.carried + '/' + clamp.cap + ')',
+     clamp.carried === clamp.cap && clamp.canTakeAll === false);
+  ok('D20 hauling: take-all is floor(free/weight) per row (' + clamp.takeableCloth + ')',
+     clamp.takeableCloth === Math.floor(clamp.free / 1));
+
+  /* ---------------- SUPPLIES: a step is a spent action ---------------- */
+  const supply = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.place(4, 38);                 /* a clean row, no landmarks */
+    const w0 = L.S.water, f0 = L.S.food;
+    o.arrived = L.walkTo(14, 38);
+    o.moves = L.S.moves;
+    o.water = w0 - L.S.water;
+    o.food = f0 - L.S.food;
+    o.health = L.S.health;
+    return o;
+  });
+  ok('D21 supplies: ten steps really happened', supply.arrived === true && supply.moves === 10);
+  ok('D22 supplies: EVERY step drinks — 10 moves, 10 water (' + supply.water + ')',
+     supply.water === 10 * A.MOVES_PER_WATER);
+  ok('D23 supplies: every second step eats — 10 moves, 5 food (' + supply.food + ')',
+     supply.food === 10 / A.MOVES_PER_FOOD);
+  ok('D24 supplies: and it cost no health while stocked', supply.health === A.BASE_HEALTH);
+
+  const dry = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.S.water = 0;
+    const h0 = L.S.health;
+    L.beginStep(3); while (L.S.moving) L.stepTick(200);
+    o.lost = h0 - L.S.health;
+    /* a stocked house fills you back up: World.setWater(getMaxWater()) */
+    L.place(19, 26); L.openPlace('house'); L.loadScene('supplies');
+    o.refilled = L.S.water;
+    return o;
+  });
+  ok('D25 supplies: a step with no water costs health (' + dry.lost + ')', dry.lost === 1);
+  ok('D26 supplies: a stocked house refills the whole canteen (' + dry.refilled + ')',
+     dry.refilled === A.BASE_WATER);
+
+  /* ---------------- JOBS: one table is the whole economy ---------------- */
+  const jobs = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.rows = Object.keys(L.INCOME).length;
+    o.room = L.capacityOfHuts();
+    o.free = L.freeVillagers();
+    o.tooMany = L.assign('gatherer', 99);
+    o.oneOk = L.assign('gatherer', 1);
+    o.freeAfter = L.freeVillagers();
+    let paidAt = -1;
+    for (let t = 1; t <= 12; t++) { L.incomeTick(); if (paidAt < 0 && L.store('wood') > 0) paidAt = t; }
+    o.paidAt = paidAt;
+    o.wood = L.store('wood');
+    return o;
+  });
+  ok('D27 jobs: the entire village economy is ' + jobs.rows + ' rows of table', jobs.rows === 10);
+  ok('D28 jobs: a hut holds four, so one hut is room for 4 (' + jobs.room + ')', jobs.room === A.HUT_ROOM);
+  ok('D29 jobs: you cannot assign villagers you do not have', jobs.tooMany === false && jobs.oneOk === true);
+  ok('D30 jobs: assigning one leaves three unassigned (' + jobs.freeAfter + ')', jobs.freeAfter === 3);
+  ok('D31 jobs: a gatherer pays on the 10th tick, not before (tick ' + jobs.paidAt + ')',
+     jobs.paidAt === A.INCOME_DELAY);
+  ok('D32 jobs: and pays exactly 1 wood a payout (' + jobs.wood + ' after 12 ticks)', jobs.wood === 1);
+
+  const atomic = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.assign('charcutier', 1);                 /* wants -5 meat AND -5 wood */
+    for (let t = 0; t < 12; t++) L.incomeTick();
+    o.cured = L.store('cured meat');
+    o.meat = L.store('meat');
+    o.wood = L.store('wood');
+    /* now give it exactly enough and watch it run whole */
+    L.addStore('meat', 5); L.addStore('wood', 5);
+    for (let t = 0; t < 10; t++) L.incomeTick();
+    o.curedAfter = L.store('cured meat');
+    o.meatAfter = L.store('meat');
+    return o;
+  });
+  ok('D33 jobs: ALL OR NOTHING — a short input produces nothing (' + atomic.cured + ')', atomic.cured === 0);
+  ok('D34 jobs: and never goes negative (meat ' + atomic.meat + ', wood ' + atomic.wood + ')',
+     atomic.meat === 0 && atomic.wood === 0);
+  ok('D35 jobs: given the whole input it runs whole (' + atomic.curedAfter + ' cured, ' +
+     atomic.meatAfter + ' meat left)', atomic.curedAfter === 1 && atomic.meatAfter === 0);
+
+  const two = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset(); L.assign('gatherer', 2);
+    for (let t = 0; t < 10; t++) L.incomeTick();
+    return L.store('wood');
+  });
+  ok('D36 jobs: two gatherers pay double on the same tick (' + two + ')', two === 2);
+
+  /* ---------------- THE LOOP CLOSES, WALKING ---------------- */
+  const loop = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.seedRNG(777);
+    L.place(14, 35);
+    o.out = L.walkTo(14, 34);                  /* up the road */
+    o.nothingFiredOnTheRoad = L.scene() === null && L.S.modal === null;
+    L.beginStep(0); while (L.S.moving) L.stepTick(200);   /* step onto the house */
+    o.sceneOpen = !!L.scene();
+    L.sceneButton('go inside');
+    o.took = L.takeEverything();
+    L.sceneButton('leave');
+    o.carriedHome = L.carried();
+    L.clearCooldown();
+    o.walkedBack = L.walkTo(14, 36);
+    o.inVillage = L.S.modal === 'village';
+    o.bagEmptied = L.carried() === 0;
+    let total = 0;
+    for (const k in L.stores()) total += L.stores()[k];
+    o.storesTotal = total;
+    /* and the village turns it into something else */
+    L.assign('gatherer', 1);
+    for (let t = 0; t < 10; t++) L.incomeTick();
+    o.wood = L.store('wood');
+    L.unseedRNG();
+    return o;
+  });
+  ok('D37 THE LOOP CLOSES: walk out of the village, and the road itself is quiet',
+     loop.out === true && loop.nothingFiredOnTheRoad === true);
+  ok('D38 THE LOOP CLOSES: the place opens by walking onto it', loop.sceneOpen === true);
+  ok('D39 THE LOOP CLOSES: two taps and it is in your bag (' + loop.carriedHome + ' units)',
+     loop.carriedHome > 0 && loop.took !== null);
+  ok('D40 THE LOOP CLOSES: walk home and the bag becomes the village\'s stores (' +
+     loop.storesTotal + ')', loop.walkedBack === true && loop.inVillage === true &&
+     loop.bagEmptied === true && loop.storesTotal > 0);
+  ok('D41 THE LOOP CLOSES: and a worker turns stores into other stores (' + loop.wood + ' wood)',
+     loop.wood >= 1);
+
+  /* ---------------- MINIMALISM, MEASURED ---------------- */
+  const minimal = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    o.kinds = L.STORE_ORDER.length;
+    o.weightedItems = Object.keys(L.WEIGHT).length;
+    const lootKeys = new Set();
+    Object.keys(L.SETPIECES).forEach(p => {
+      const sc = L.SETPIECES[p].scenes;
+      Object.keys(sc).forEach(s => { if (sc[s].loot) Object.keys(sc[s].loot).forEach(k => lootKeys.add(k)); });
+    });
+    o.lootKinds = lootKeys.size;
+    o.namedObjects = [...lootKeys].filter(k => /\bcan\b|opener|bandage|screwdriver/i.test(k)).length;
+    return o;
+  });
+  ok('D42 minimalism: the whole game has ' + minimal.kinds + ' resource kinds, not thousands',
+     minimal.kinds <= 12);
+  ok('D43 minimalism: only ' + minimal.weightedItems + ' things in the game have a weight at all',
+     minimal.weightedItems <= 10);
+  ok('D44 minimalism: every lootable is a RESOURCE, never a named object',
+     minimal.lootKinds <= 8 && minimal.namedObjects === 0);
+  await page.evaluate(() => window.LAB.unseedRNG());
+}
+
+async function shotDarkRoom(page) {
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset(); L.seedRNG(4242);
+    L.place(14, 34);
+    L.beginStep(0); while (L.S.moving) L.stepTick(200);
+    L.sceneButton('go inside');
+    L.unseedRNG();
+    L.thaw();
+  });
 }
 
 /* ==========================================================================

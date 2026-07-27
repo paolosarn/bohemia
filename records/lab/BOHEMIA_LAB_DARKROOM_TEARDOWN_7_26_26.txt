@@ -1,0 +1,145 @@
+BOHEMIA REFERENCE LAB 04 — A DARK ROOM, TORN DOWN
+=================================================
+7/26/26 · LAB lane · page: slices/lab/BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26.html
+pattern note: records/lab/BOHEMIA_LAB_DARKROOM_PATTERN_NOTE_7_26_26.md
+law: laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md (Paolo 7/26/26)
+
+WHY THIS GAME
+-------------
+Paolo killed the Project Zomboid loot emulation ("that was really bad and not
+fun"), ruled that a found thing is a RESOURCE WITH A COUNT, that looting must be
+FAST, and that the game should be MINIMALISTIC in that regard. Then: "we can try
+it again except it could be faster. You could try it something else."
+
+A Dark Room is the far end of that axis and it is not a guess: ten resources,
+one scene per place, one tap to take a whole container. It is also the only
+strong candidate whose ENTIRE SOURCE is legally readable, in JavaScript, the
+language our engine is already written in.
+
+SOURCE OF TRUTH
+---------------
+Read directly from A Dark Room's own repository (Doublespeak Games, MIT), at
+raw.githubusercontent.com/doublespeakgames/adarkroom/master/script/ — not
+decompiled, not a wiki, not a video. Files pulled and grepped locally:
+  script/events.js          1487 lines
+  script/events/setpieces.js 3587 lines
+  script/path.js             ~300 lines
+  script/world.js           ~1000 lines
+  script/outside.js          ~700 lines
+  script/state_manager.js    ~600 lines
+Line numbers below are that master's, at the commit fetched 7/26/26.
+
+THE FOUR MECHANICS
+------------------
+1 SCAVENGING — walk onto a place, one weighted branch, one loot roll, one tap.
+2 HAULING    — everything weighs 1 unless the table says otherwise.
+3 SUPPLIES   — a step is a spent action: it drinks, and every second step eats.
+4 JOBS       — the whole village economy is one table, ticking all-or-nothing.
+
+CONTENT vs MECHANISM
+--------------------
+MECHANISM (portable, and what we are here for): the two-tap scavenge, the
+weighted branch, the {min,max,chance} roll, one-weight-by-default, the bag
+ladder, the take-all clamp, a step costing a supply, and the all-or-nothing
+worker tick.
+CONTENT (theirs, not ours, and NOT canon for Bohemia): the ten resource names,
+the ten job names, the prose of each scene, and every probability below. Our
+resource kinds and yields are [PENDING Paolo] per clause (a) and (b) of the loot
+law and NOBODY invents them here.
+
+THE NUMBERS (every key in the page's ADR block)
+-----------------------------------------------
+LEAVE_COOLDOWN 1 events.js:14 — Events._LEAVE_COOLDOWN, seconds. THE ENTIRE TIME COST OF LOOTING A PLACE.
+PANEL_FADE 200 events.js:7 — Events._PANEL_FADE, ms, the scene panel fade.
+HOUSE_BRANCH_MEDICINE 0.25 setpieces.js:2953 — nextScene {0.25:'medicine',...} on "go inside".
+HOUSE_BRANCH_SUPPLIES 0.5 setpieces.js:2953 — nextScene 0.5:'supplies'.
+HOUSE_BRANCH_OCCUPIED 1 setpieces.js:2953 — nextScene 1:'occupied', the catch-all key.
+LOOT_MIN 1 setpieces.js:2971 — min on the house 'supplies' loot rows.
+LOOT_MAX 10 setpieces.js:2972 — max on the same rows. A house yields 1..10 of a thing, never a named object.
+CHANCE_MEAT 0.8 setpieces.js:2973 — 'cured meat' chance in the house.
+CHANCE_CLOTH 0.5 setpieces.js:2983 — 'cloth' chance in the house.
+CHANCE_LEATHER 0.2 setpieces.js:2978 — 'leather' chance in the house.
+MED_MIN 2 setpieces.js:3008 — the medicine cache min. "you found like three" is literally this row.
+MED_MAX 5 setpieces.js:3009 — the medicine cache max.
+OUTPOST_MEAT_MIN 5 setpieces.js:15 — outpost start scene, guaranteed (chance 1).
+OUTPOST_MEAT_MAX 10 setpieces.js:16 — same row.
+DEFAULT_BAG_SPACE 10 path.js:2 — Path.DEFAULT_BAG_SPACE. The whole starting inventory is ten units.
+BAG_RUCKSACK 10 path.js:79 — DEFAULT_BAG_SPACE + 10 when stores.rucksack > 0.
+BAG_WAGON 30 path.js:77 — DEFAULT + 30.
+BAG_CONVOY 60 path.js:75 — DEFAULT + 60.
+BAG_DRONE 100 path.js:73 — DEFAULT + 100, the top of the ladder.
+WEIGHT_DEFAULT 1 path.js:4 — the comment says it outright: "Everything not in this list weighs 1".
+WEIGHT_SPEAR 2 path.js:6 — 'bone spear'.
+WEIGHT_IRON_SWORD 3 path.js:7 — 'iron sword'.
+WEIGHT_STEEL_SWORD 5 path.js:8 — 'steel sword', tied with the rifle for heaviest.
+WEIGHT_BULLETS 0.1 path.js:10 — bullets, so ten of them cost one unit.
+WEIGHT_BOLAS 0.5 path.js:13 — bolas.
+BASE_WATER 10 world.js:29 — World.BASE_WATER, and the well in a stocked house refills it whole.
+MOVES_PER_FOOD 2 world.js:30 — one food every second step.
+MOVES_PER_WATER 1 world.js:31 — one water EVERY step. A step is a spent action with a price.
+BASE_HEALTH 10 world.js:34 — World.BASE_HEALTH.
+MEAT_HEAL 8 world.js:36 — eating cured meat heals 8 of 10.
+MEDS_HEAL 20 world.js:37 — medicine heals past the base cap.
+LIGHT_RADIUS 2 world.js:27 — how far you see. The map is dark two tiles out.
+RADIUS 30 world.js:2 — World.RADIUS, so their real map is 61x61.
+FIGHT_CHANCE 0.2 world.js:33 — chance of a fight per eligible step (NOT implemented here).
+FIGHT_DELAY 3 world.js:38 — at least three moves between fights (NOT implemented here).
+INCOME_DELAY 10 outside.js:16 — every worker row's delay. Ten seconds, all ten jobs.
+INCOME_TICK_MS 1000 state_manager.js:391 — Engine.setTimeout($SM.collectIncome, 1000). The tick is one second; delay counts ticks.
+HUT_ROOM 4 outside.js:11 — Outside._HUT_ROOM, four villagers per hut. Population cap is huts x 4.
+GATHER_DELAY 60 outside.js:8 — the player's own gather-wood cooldown.
+TRAPS_DELAY 90 outside.js:9 — the check-traps cooldown.
+POP_DELAY_MIN 0.5 outside.js:10 — Outside._POP_DELAY[0].
+POP_DELAY_MAX 3 outside.js:10 — Outside._POP_DELAY[1].
+
+THE THREE FUNCTIONS THAT ARE THE WHOLE LOOT SYSTEM
+--------------------------------------------------
+events.js:921-931, drawLoot — nine lines and looting is done:
+    for(var k in lootList) {
+      var loot = lootList[k];
+      if(Math.random() < loot.chance) {
+        var num = Math.floor(Math.random() * (loot.max - loot.min)) + loot.min;
+        ...
+That is it. A chance per resource, then a count. No containers-within-containers,
+no per-item weights to check, no queue.
+
+events.js:1281-1290, the weighted branch — the lowest key strictly above the
+roll wins, so {0.25:'medicine', 0.5:'supplies', 1:'occupied'} is a 25/25/50
+split written as cumulative bounds.
+
+events.js:963-970 + Events.takeEverything — take-all clamps per row to
+    Math.min(Math.floor(Path.getFreeSpace() / Path.getWeight(name)), numLeft)
+so a full bag never BLOCKS the tap. The button just renames itself from "take
+everything" to "take all you can" and gives you what fits. Nothing is refused.
+
+WHAT THE MEASURED PAGE PROVES (gates/lab_gate.js, live, in a real browser)
+-------------------------------------------------------------------------
+- A house is searched in exactly TWO taps: "go inside", then "take everything".
+- The yield is always {resource: count} and never a named object.
+- The scene prose that explains the amount is READ, never inventoried.
+- With ten free units and a 20-cloth shop haul, the take-all takes 10 and the
+  button says TAKE ALL YOU CAN — no refusal, no failure state.
+- Walking 10 tiles drinks exactly 10 water and eats exactly 5 food.
+- One gatherer produces 1 wood every 10 income ticks, and a charcutier with no
+  meat produces NOTHING rather than going negative.
+
+WHAT IS NOT IMPLEMENTED
+-----------------------
+- COMBAT. FIGHT_CHANCE and FIGHT_DELAY are recorded and unused; the 'occupied'
+  house branch keeps its real loot table and its real prose and the squatter
+  runs. Bohemia has NO DAMAGE BEFORE THE DIAL and a fight minigame is not what
+  this page is testing.
+- CRAFTING AND BUILDING (Room.Craftables), the trap drop table, the whole
+  spaceship endgame, thieves, and the perk tree.
+- The real 61x61 procedural map with STICKINESS-based terrain: this page uses a
+  small authored 20x26 grid so the walk between places is phone-sized.
+- Their supply-damage cadence: here, a step with no water costs 1 health. Theirs
+  is more forgiving in the early game.
+- THE VILLAGE BUILD TREE. Huts here are a fixed count; in theirs they are built.
+
+HONEST NOTE ON THE RNG
+----------------------
+The gate seeds the page's RNG (window.LAB.seedRNG) before it measures anything
+with a chance in it, and unseeds at the end. LAB-03 went red once inside the
+full suite and green standalone because a 0.8-chance row is a coin flip; that is
+a flaky gate, not a gate.
