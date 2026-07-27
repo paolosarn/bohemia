@@ -1,0 +1,741 @@
+{
+ "version": "BOHEMIA_PIXEL_CRAFT_AUDIT_v1",
+ "measured": "2026-07-27",
+ "law": "laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md",
+ "NOT_A_TASTE_MACHINE": "These six measure whether art was BUILT like pixel art, never whether it looks good. Looking good is Paolo's, forever.",
+ "banks": [
+  {
+   "bank": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "note": "THE FROZEN ACT-1 STARTER SET - Paolo verdicted the target CBB, so this is byte-locked. Measured to know where we stand, NEVER to re-cook.",
+   "tiles": 42,
+   "worst_orphan_share": 0.9959,
+   "mean_orphan_share": 0.7358,
+   "mean_single_use_colour_share": 0.2857,
+   "worst_single_use_colour_share": 0.8468,
+   "max_colours_in_one_tile": 1610,
+   "block_sizes": [
+    1
+   ],
+   "worst_pillow": 0.456,
+   "mean_clusters_per_1000px": 813.8429,
+   "tiles_with_a_light_direction": 38,
+   "tiles_agreeing_with_upper_left_key": 14,
+   "rows": [
+    {
+     "orphan_share": 0.9928,
+     "orphans": 1922,
+     "colours": 1191,
+     "single_use_colour_share": 0.6809,
+     "block_size": 1,
+     "pillow": 0.146,
+     "light_deg": 194.8,
+     "light_strength": 0.0265,
+     "clusters_per_1000px": 996.4,
+     "clusters": 1929,
+     "id": "road_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9948,
+     "orphans": 1926,
+     "colours": 1306,
+     "single_use_colour_share": 0.709,
+     "block_size": 1,
+     "pillow": -0.246,
+     "light_deg": 301.9,
+     "light_strength": 0.0246,
+     "clusters_per_1000px": 997.4,
+     "clusters": 1931,
+     "id": "road_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9788,
+     "orphans": 1895,
+     "colours": 705,
+     "single_use_colour_share": 0.5262,
+     "block_size": 1,
+     "pillow": 0.098,
+     "light_deg": 195.8,
+     "light_strength": 0.0254,
+     "clusters_per_1000px": 989.2,
+     "clusters": 1915,
+     "id": "road_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9731,
+     "orphans": 1884,
+     "colours": 954,
+     "single_use_colour_share": 0.6415,
+     "block_size": 1,
+     "pillow": 0.157,
+     "light_deg": 346.3,
+     "light_strength": 0.124,
+     "clusters_per_1000px": 986.6,
+     "clusters": 1910,
+     "id": "road_centre",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9948,
+     "orphans": 1926,
+     "colours": 1606,
+     "single_use_colour_share": 0.8468,
+     "block_size": 1,
+     "pillow": -0.013,
+     "light_deg": 45.9,
+     "light_strength": 0.4009,
+     "clusters_per_1000px": 997.4,
+     "clusters": 1931,
+     "id": "walk_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9917,
+     "orphans": 1920,
+     "colours": 1172,
+     "single_use_colour_share": 0.686,
+     "block_size": 1,
+     "pillow": -0.119,
+     "light_deg": 310.6,
+     "light_strength": 0.1756,
+     "clusters_per_1000px": 995.9,
+     "clusters": 1928,
+     "id": "walk_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9917,
+     "orphans": 1920,
+     "colours": 1299,
+     "single_use_colour_share": 0.749,
+     "block_size": 1,
+     "pillow": -0.205,
+     "light_deg": 81.6,
+     "light_strength": 0.1931,
+     "clusters_per_1000px": 995.9,
+     "clusters": 1928,
+     "id": "walk_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9876,
+     "orphans": 1912,
+     "colours": 1577,
+     "single_use_colour_share": 0.8434,
+     "block_size": 1,
+     "pillow": -0.094,
+     "light_deg": 63.2,
+     "light_strength": 0.5954,
+     "clusters_per_1000px": 993.3,
+     "clusters": 1923,
+     "id": "walk_kerb",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9886,
+     "orphans": 1914,
+     "colours": 1245,
+     "single_use_colour_share": 0.6843,
+     "block_size": 1,
+     "pillow": 0.28,
+     "light_deg": 100.2,
+     "light_strength": 0.1309,
+     "clusters_per_1000px": 994.3,
+     "clusters": 1925,
+     "id": "road_gutter",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.968,
+     "orphans": 1874,
+     "colours": 1207,
+     "single_use_colour_share": 0.7175,
+     "block_size": 1,
+     "pillow": -0.249,
+     "light_deg": 289.4,
+     "light_strength": 0.2628,
+     "clusters_per_1000px": 983.0,
+     "clusters": 1903,
+     "id": "road_crossing",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.7732,
+     "orphans": 1497,
+     "colours": 35,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.195,
+     "light_deg": 45.1,
+     "light_strength": 0.0238,
+     "clusters_per_1000px": 866.7,
+     "clusters": 1678,
+     "id": "yard_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.7732,
+     "orphans": 1497,
+     "colours": 35,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.195,
+     "light_deg": 314.9,
+     "light_strength": 0.0238,
+     "clusters_per_1000px": 866.7,
+     "clusters": 1678,
+     "id": "yard_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.7732,
+     "orphans": 1497,
+     "colours": 35,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.195,
+     "light_deg": 45.1,
+     "light_strength": 0.0238,
+     "clusters_per_1000px": 866.7,
+     "clusters": 1678,
+     "id": "yard_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9959,
+     "orphans": 1928,
+     "colours": 1382,
+     "single_use_colour_share": 0.7431,
+     "block_size": 1,
+     "pillow": -0.208,
+     "light_deg": 280.5,
+     "light_strength": 0.0438,
+     "clusters_per_1000px": 997.9,
+     "clusters": 1932,
+     "id": "concrete_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.9948,
+     "orphans": 1926,
+     "colours": 1610,
+     "single_use_colour_share": 0.8466,
+     "block_size": 1,
+     "pillow": -0.013,
+     "light_deg": 45.8,
+     "light_strength": 0.418,
+     "clusters_per_1000px": 997.4,
+     "clusters": 1931,
+     "id": "concrete_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.7732,
+     "orphans": 1497,
+     "colours": 35,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.195,
+     "light_deg": 314.1,
+     "light_strength": 0.0208,
+     "clusters_per_1000px": 866.7,
+     "clusters": 1678,
+     "id": "dirt",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6167,
+     "orphans": 1194,
+     "colours": 36,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.097,
+     "light_deg": 273.7,
+     "light_strength": 0.1937,
+     "clusters_per_1000px": 771.7,
+     "clusters": 1494,
+     "id": "wall_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6043,
+     "orphans": 1170,
+     "colours": 43,
+     "single_use_colour_share": 0.186,
+     "block_size": 1,
+     "pillow": 0.15,
+     "light_deg": 101.6,
+     "light_strength": 0.2095,
+     "clusters_per_1000px": 766.0,
+     "clusters": 1483,
+     "id": "wall_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6229,
+     "orphans": 1206,
+     "colours": 44,
+     "single_use_colour_share": 0.1136,
+     "block_size": 1,
+     "pillow": 0.129,
+     "light_deg": 274.2,
+     "light_strength": 0.2326,
+     "clusters_per_1000px": 781.0,
+     "clusters": 1512,
+     "id": "wall_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.671,
+     "orphans": 1299,
+     "colours": 174,
+     "single_use_colour_share": 0.1437,
+     "block_size": 1,
+     "pillow": 0.209,
+     "light_deg": 271.3,
+     "light_strength": 0.5473,
+     "clusters_per_1000px": 807.9,
+     "clusters": 1564,
+     "id": "wall_base",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6632,
+     "orphans": 1284,
+     "colours": 124,
+     "single_use_colour_share": 0.0161,
+     "block_size": 1,
+     "pillow": 0.456,
+     "light_deg": 88.5,
+     "light_strength": 0.436,
+     "clusters_per_1000px": 803.2,
+     "clusters": 1555,
+     "id": "wall_under_eave",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.4375,
+     "orphans": 847,
+     "colours": 35,
+     "single_use_colour_share": 0.0857,
+     "block_size": 1,
+     "pillow": -0.766,
+     "light_deg": 252.5,
+     "light_strength": 0.1936,
+     "clusters_per_1000px": 560.4,
+     "clusters": 1085,
+     "id": "wall_window",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.5687,
+     "orphans": 1101,
+     "colours": 63,
+     "single_use_colour_share": 0.1746,
+     "block_size": 1,
+     "pillow": -0.683,
+     "light_deg": 264.4,
+     "light_strength": 0.1714,
+     "clusters_per_1000px": 696.3,
+     "clusters": 1348,
+     "id": "wall_boarded",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.2753,
+     "orphans": 533,
+     "colours": 51,
+     "single_use_colour_share": 0.1961,
+     "block_size": 1,
+     "pillow": -0.547,
+     "light_deg": 289.4,
+     "light_strength": 0.5995,
+     "clusters_per_1000px": 382.7,
+     "clusters": 741,
+     "id": "door_top",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.5393,
+     "orphans": 1044,
+     "colours": 276,
+     "single_use_colour_share": 0.4384,
+     "block_size": 1,
+     "pillow": -0.521,
+     "light_deg": 75.7,
+     "light_strength": 0.816,
+     "clusters_per_1000px": 638.9,
+     "clusters": 1237,
+     "id": "door_bottom",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.2454,
+     "orphans": 475,
+     "colours": 21,
+     "single_use_colour_share": 0.1429,
+     "block_size": 1,
+     "pillow": -0.264,
+     "light_deg": 270.1,
+     "light_strength": 1.3331,
+     "clusters_per_1000px": 372.4,
+     "clusters": 721,
+     "id": "garage_top",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.5728,
+     "orphans": 1109,
+     "colours": 230,
+     "single_use_colour_share": 0.4261,
+     "block_size": 1,
+     "pillow": -0.308,
+     "light_deg": 90.2,
+     "light_strength": 0.8737,
+     "clusters_per_1000px": 676.1,
+     "clusters": 1309,
+     "id": "garage_bottom",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.2257,
+     "orphans": 437,
+     "colours": 28,
+     "single_use_colour_share": 0.1071,
+     "block_size": 1,
+     "pillow": -0.227,
+     "light_deg": 275.1,
+     "light_strength": 1.2529,
+     "clusters_per_1000px": 353.8,
+     "clusters": 685,
+     "id": "garage_top_l",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.5449,
+     "orphans": 1055,
+     "colours": 231,
+     "single_use_colour_share": 0.4242,
+     "block_size": 1,
+     "pillow": -0.305,
+     "light_deg": 88.0,
+     "light_strength": 0.821,
+     "clusters_per_1000px": 649.8,
+     "clusters": 1258,
+     "id": "garage_bottom_l",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.234,
+     "orphans": 453,
+     "colours": 28,
+     "single_use_colour_share": 0.1071,
+     "block_size": 1,
+     "pillow": -0.227,
+     "light_deg": 265.2,
+     "light_strength": 1.2524,
+     "clusters_per_1000px": 358.0,
+     "clusters": 693,
+     "id": "garage_top_r",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.5429,
+     "orphans": 1051,
+     "colours": 232,
+     "single_use_colour_share": 0.4181,
+     "block_size": 1,
+     "pillow": -0.302,
+     "light_deg": 93.0,
+     "light_strength": 0.8197,
+     "clusters_per_1000px": 646.7,
+     "clusters": 1252,
+     "id": "garage_bottom_r",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8512,
+     "orphans": 1648,
+     "colours": 118,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.016,
+     "light_deg": null,
+     "light_strength": 0.0059,
+     "clusters_per_1000px": 922.5,
+     "clusters": 1786,
+     "id": "roof_slope",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8543,
+     "orphans": 1654,
+     "colours": 199,
+     "single_use_colour_share": 0.1457,
+     "block_size": 1,
+     "pillow": -0.11,
+     "light_deg": 270.7,
+     "light_strength": 0.1674,
+     "clusters_per_1000px": 924.6,
+     "clusters": 1790,
+     "id": "roof_ridge",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.7366,
+     "orphans": 1426,
+     "colours": 121,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.096,
+     "light_deg": 268.7,
+     "light_strength": 0.157,
+     "clusters_per_1000px": 799.1,
+     "clusters": 1547,
+     "id": "roof_eave",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8943,
+     "orphans": 846,
+     "colours": 118,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.048,
+     "light_deg": 141.8,
+     "light_strength": 0.0313,
+     "clusters_per_1000px": 947.1,
+     "clusters": 896,
+     "id": "roof_hipTL",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8905,
+     "orphans": 1724,
+     "colours": 118,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.022,
+     "light_deg": null,
+     "light_strength": 0.005,
+     "clusters_per_1000px": 945.2,
+     "clusters": 1830,
+     "id": "roof_hipBL",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8374,
+     "orphans": 829,
+     "colours": 116,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.044,
+     "light_deg": 62.1,
+     "light_strength": 0.0399,
+     "clusters_per_1000px": 915.2,
+     "clusters": 906,
+     "id": "roof_hipTR",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8373,
+     "orphans": 1621,
+     "colours": 115,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.011,
+     "light_deg": null,
+     "light_strength": 0.0089,
+     "clusters_per_1000px": 915.3,
+     "clusters": 1772,
+     "id": "roof_hipBR",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6214,
+     "orphans": 1203,
+     "colours": 52,
+     "single_use_colour_share": 0.0769,
+     "block_size": 1,
+     "pillow": -0.066,
+     "light_deg": 238.7,
+     "light_strength": 0.2211,
+     "clusters_per_1000px": 774.8,
+     "clusters": 1500,
+     "id": "wall_end_l",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6188,
+     "orphans": 1198,
+     "colours": 57,
+     "single_use_colour_share": 0.1228,
+     "block_size": 1,
+     "pillow": 0.325,
+     "light_deg": 211.3,
+     "light_strength": 0.352,
+     "clusters_per_1000px": 773.2,
+     "clusters": 1497,
+     "id": "wall_end_r",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.8115,
+     "orphans": 1571,
+     "colours": 42,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.051,
+     "light_deg": null,
+     "light_strength": 0.0074,
+     "clusters_per_1000px": 896.2,
+     "clusters": 1735,
+     "id": "roof_deck",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "orphan_share": 0.6405,
+     "orphans": 1240,
+     "colours": 45,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.118,
+     "light_deg": 90.4,
+     "light_strength": 0.5233,
+     "clusters_per_1000px": 711.8,
+     "clusters": 1378,
+     "id": "roof_parapet",
+     "size": [
+      44,
+      44
+     ]
+    }
+   ]
+  }
+ ]
+}

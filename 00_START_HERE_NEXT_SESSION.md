@@ -1,3 +1,43 @@
+ART (05): 7/27 LATEST — I WENT TO SCHOOL AND THE HOMEWORK CAME BACK ABOUT US:
+OUR ART IS NOT PIXEL ART, AND IT IS MEASURABLE.
+Paolo: "learn the skillset of actualy pixel shit pixel assets and yeah go to school for
+me for a couple turns and learn some laws brother." So I did, wrote the laws down with
+their sources, then pointed them at our own banks.
+THE SENTENCE THAT EXPLAINS EVERY REJECTION SINCE 7/26, from the literature on why
+machine-made pixel art looks wrong: "AI learned what pixel art looks like, but never
+learned what pixel art IS... they generate a normal image in a pixel-ish style and
+shrink it down, which leaves you with blurry edges, stray colors." Paolo said
+"hallucinated AI slop" on 7/26 from his eyes alone. He was textbook correct and I spent
+that whole day fixing the symptoms he pointed at one at a time - the door, the garage,
+the barrel, the lamp - while the disease went unnamed.
+THE NUMBERS, on our own FROZEN act-1 starter set: 73.6% ORPHAN PIXELS on average (a
+pixel touching nothing of its own colour - the craft calls these "responsible for the
+image looking noisy and confusing"), 99.6% on concrete_0, up to 1610 COLOURS in one
+44x44 tile, 814 colour regions per 1000px, and only 14 of 38 tiles agree with our OWN
+upper-left key. Every pixel of our roads and sidewalks is a lone speck of a unique
+colour. The one thing we pass clean: block size 1 everywhere, authored at the real cell.
+Picture: records/target/PIXEL_CRAFT_PROOF.png (tile on top, its orphan pixels in red
+underneath - real pixel art is nearly black down there, ours is nearly solid red).
+LAWS: laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md - 12 laws, every one carrying its source,
+mine marked [DERIVED]. The most useful sentence found all night, from Slynyrd:
+"in pixel art, uniformity takes priority over realism" - which retroactively justifies
+the whole proportion canon.
+GATE: gates/pixel_craft_gate.py, 14 checks, registered. tools/bohemia_pixel_craft_audit.py
+measures six laws a machine can honestly measure. It says in its own comment the two
+things it will NEVER do: overrule a verdict, or judge whether art looks good
+(amendment B stands - the gestalt is Paolo's forever).
+NOT RE-COOKED, ON PURPOSE. The set is byte-locked by his CBB verdict, STOP PRODUCING is
+in force, and "finding a legal way to ship anyway IS the violation." Frozen set gets a
+ratchet against its own baseline; the real craft thresholds bind every bank registered
+from here on. Re-cooking the starter set is the ONE question this turn asks him.
+RESEARCH HONESTY, and the gate enforces it: this environment's network policy 403s every
+direct page fetch, so the laws are built from search summaries of the primary sources,
+not from reading them end to end. PIXEL LOGIC (Michael Azzi) is the standard book on this
+and I could not open it - buying it is BOHEMIA_BACKLOG ART -1c, not something to fake.
+NEXT: everything else in this lane sits DOWNSTREAM of the re-cook question. Growing the
+tile set to a family per district type just makes more of the thing he keeps rejecting.
+Do not start it before he rules.
+
 WORLD MODEL (02): 7/27 (g) LATEST — HE RULED, AND THEN ASKED FOR A PLACE TO RULE FROM.
 
 THE RULING, recorded the same turn under NOTES ARE RULINGS:

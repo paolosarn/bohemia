@@ -271,6 +271,40 @@
    to the coordinator.)
 
 ## ART (new lane — first word "art")
+-2. [SHIPPED 7/27 — THE DIAGNOSIS] I WENT TO SCHOOL (Paolo: "learn the skillset of
+   actualy pixel shit pixel assets... go to school for me for a couple turns and
+   learn some laws brother"). laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md: 12 craft
+   laws, every one carrying its source, mine marked [DERIVED].
+   tools/bohemia_pixel_craft_audit.py measures six of them on our own banks.
+   gates/pixel_craft_gate.py (14 checks) holds them, registered.
+   THE FINDING, and it explains every rejection since 7/26: our frozen act-1 set
+   is 73.6% ORPHAN PIXELS on average (99.6% worst — concrete_0), up to 1610
+   colours in one 44x44 tile, 814 colour regions per 1000px, and only 14 of 38
+   tiles agree with our own upper-left key. The craft's name for this exact
+   failure: "AI learned what pixel art looks like, but never learned what pixel
+   art IS... they generate a normal image in a pixel-ish style and shrink it
+   down." Paolo said "hallucinated AI slop" on 7/26 with his eyes alone and was
+   textbook correct. Proof picture: records/target/PIXEL_CRAFT_PROOF.png.
+   The ONE thing we pass clean: every tile is authored at the real 44px cell,
+   block size 1, no hidden upscale.
+   NOT RE-COOKED, ON PURPOSE: the set is byte-locked by his CBB verdict and a
+   gate does not overrule a verdict. Frozen set = ratchet against its own
+   baseline; real craft thresholds apply to every bank registered from here on.
+   Record: records/BOHEMIA_PIXEL_SCHOOL_7_27_26.md.
+-1b. [PENDING Paolo — THE ONE QUESTION] RE-COOK THE STARTER TILE SET as actual
+   pixel art: real 4-7 value ramps hue-shifted, material as a few clusters
+   repeated with varied distribution, one light direction, orphans cleaned. This
+   is a new cook against a CBB-frozen verdict, so it is his word, not my
+   initiative. Everything else in this lane (tile set growth, the CITY tab, the
+   act triptych) sits downstream of it — growing a tile set that is not pixel art
+   just makes more of the thing he keeps rejecting. | pixel_craft_gate thresholds
+   already written and waiting | — | yes, the re-cook is judged.
+-1c. (research debt, 7/27) BUY PIXEL LOGIC (Michael Azzi, ~$9,
+   pixellogicbook.com). It is the standard reference on this craft and the
+   network policy here blocks direct page fetches (403 on every attempt), so the
+   laws above are built from search summaries of it and others, never from
+   reading it. The law file says so and the gate fails if it ever stops saying
+   so. | — | — | no.
 -1. (discovered 7/26) FLEET: TWO SESSIONS BUILT THE SAME THING IN THE SAME HOUR.
    ART and RUN both wired the frozen tileset into the run; RUN landed first and
    ART binned its duplicate. "Check main before you start" does not help when
