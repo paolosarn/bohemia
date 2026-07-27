@@ -1016,6 +1016,59 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - *** I STOPPED. THREE WRONG FIXES IN A ROW. *** Post-mortem +
+the research he asked for: records/BOHEMIA_COMBAT_POSTMORTEM_AND_RESEARCH_3_7_27_26.md
+Paolo: "That brown box is absolutely still there... I didn't even see you do
+anything or change anything... the orange shit from the dead shot dial is still
+there by the time the game pauses."
+THE DEPLOY IS NOT THE EXCUSE: run 8dcb1247 concluded SUCCESS at 03:34 and main
+contains it. HE WAS PLAYING MY CODE. It just did not fix his problem.
+ROOT CAUSE, ONE THING: I NEVER REPRODUCED THE FRAME. v81/v82/v83 were all
+reasoning about code I could not watch running - the kill cinematic will not drive
+headless (fireNow returns early unless the needle is dead-centre; startKillshot
+directly leaves ks.t at 0). So I sampled a colour from his screenshot, grep'd for
+the nearest match, found two blocks the source itself labelled LEGACY_PRE_REVAMP,
+and concluded because it FIT THE STORY. They were dead code and deleting them was
+harmless. THEY WERE NOT HIS BROWN BOX.
+WHAT THE CANVAS HOOK DID PROVE (wrapping CanvasRenderingContext2D.prototype,
+133,811 draws captured during a killshot):
+  x108  fillRect  rgba(184,160,40,..)  2x2670  on cv   <-- THE ORANGE HE MEANS
+Those are DIAL ELEMENTS DRAWN OUTSIDE THE _df ALPHA BLOCK, which is exactly why
+tightening _df changed nothing he could see. FIRST HARD EVIDENCE IN THREE
+ATTEMPTS - but NOT SHIPPED, because one lead after three misses is still a guess.
+THE BLOCKER, and it is the only thing that matters next: I need to SEE the frame.
+Two options, neither built, HIS CALL: (1) a DEBUG CAPTURE in the build that names
+every draw covering >2% of the screen during the freeze and prints it in the
+combat log - he taps once, sends the text, the guessing ends permanently for this
+and every future "what is that thing"; (2) make the killshot drivable headlessly
+with a test hook so this class of bug is reproducible forever.
+*** THE PROCESS FIX, now a rule for this lane: FOR ANY DEFECT PAOLO REPORTS
+VISUALLY, THE FIRST DELIVERABLE IS A REPRODUCTION, NOT A FIX. If I cannot
+reproduce it I say so THAT TURN and build the instrument instead of the patch. A
+fix for something I cannot reproduce is a guess, and a guess shipped as a fix is
+a lie. Three times today I shipped a green gate against a defect he could still
+see; the gate was never wrong, it was answering a question I chose, and I kept
+choosing the wrong question. ***
+HE HAS NOW NAMED THESE TWICE AND THEY ARE STILL NOT STARTED:
+  - HEADSHOT 1 and HEADSHOT 2 animations (specific, named - NOT a category to
+    design). A COOK under LEAF-PIXEL + RIG law. Next after the box is real-fixed.
+  - SUPPRESS: THIRD time he has said it is confusing. Research says XCOM's version
+    confuses XCOM players too ("suppression's tactical value isn't self-evident").
+    The fix is NOT more mechanics, it is a LEGIBLE PROMISE the player can hold in
+    one sentence, shown ON THE MAN and not in a readout. [PENDING Paolo] what that
+    promise is - he has asked three times, so he wants a RULE, not another tweak.
+RESEARCH DELIVERED (Hades, XCOM suppression, reward schedules): the Hades
+consensus is that the feel is RESPONSIVENESS, not content - every hit gives
+DISTINCT feedback (a graze, a vital and a kill should be three different events,
+not one event at three sizes), enemy intent lives in the ANIMATION not a UI
+element, and the camera's job is to keep the arena readable (which Bohemia's kill
+camera is currently doing the OPPOSITE of). On reward: variable-ratio is the most
+powerful schedule and it is ALSO the slot-machine trap - in a game about what that
+machinery did to Las Vegas, building it into combat would be the game arguing
+against itself; put the variance in the SITUATION, never in whether a correct
+input worked. The groove chain and kill ladder currently pay out only in MUSIC and
+nothing the player KEEPS - what that converts into is his call, it is content.
+
 COMBAT (04) 7/26 - v83: THE BROWN BOX WAS DEAD CODE FROM BEFORE THE SPRITES.
 Paolo sent a SCREENSHOT: "there's a brown square that covers everything in... and
 as that bullet's travelling the dead shot dial can like fade away, so by the time

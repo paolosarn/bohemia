@@ -591,6 +591,33 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    any lane at random will eventually get ignored, which is worse than no gate.
    Suggest: average N runs, or drive a FIXED deterministic route instead of a
    timed walk. Owning lane: ART/render. | — | gates/render_pixel_gate.js | no.
+0a. *** BLOCKED, AND IT IS THE TOP OF THIS LANE. THE BROWN BOX + THE ORANGE DIAL
+   ARE STILL ON HIS SCREEN AFTER THREE ATTEMPTS (v81/v82/v83). *** Post-mortem:
+   records/BOHEMIA_COMBAT_POSTMORTEM_AND_RESEARCH_3_7_27_26.md
+   The deploy DID land (8dcb1247 SUCCESS); the fixes were simply wrong. Root
+   cause: THE KILL CINEMATIC CANNOT BE DRIVEN HEADLESS, so every fix was reasoning
+   about code that was never watched running.
+   DO NOT SHIP ANOTHER FIX FOR THIS WITHOUT A REPRODUCTION FIRST.
+   HARD EVIDENCE captured by hooking CanvasRenderingContext2D.prototype during a
+   killshot: rgba(184,160,40) drawn 108x as 2x2670 strips on cv = the orange dial
+   parts, drawn OUTSIDE the _df alpha block. That is why tightening _df did
+   nothing. Promising, NOT proven, NOT shipped.
+   THE UNBLOCK (his call, neither built):
+     (a) DEBUG CAPTURE in the build - during the freeze, name every draw covering
+         >2% of the screen and print it in the combat log. One tap, he sends the
+         text, the guessing ends for this and every future visual bug. Few lines.
+     (b) A TEST HOOK that makes the killshot drivable headlessly, so this class of
+         bug is reproducible forever.
+0b. *** HE HAS NAMED THESE TWICE, STILL NOT STARTED: HEADSHOT 1 + HEADSHOT 2
+   animations. *** Specific and named, NOT a category to design. A COOK under
+   LEAF-PIXEL + RIG + 45-DEGREE law. Next after 0a is genuinely fixed.
+0c. *** SUPPRESS - THIRD TIME HE HAS SAID IT IS CONFUSING. *** Research: XCOM's
+   suppression confuses XCOM players too; its value "isn't self-evident" because
+   both its effects are invisible until after the enemy acts. THE FIX IS NOT MORE
+   MECHANICS, it is a LEGIBLE PROMISE sayable in ONE SENTENCE and shown ON THE MAN
+   rather than in a readout. If the current version cannot be said in one
+   sentence, that is the defect. [PENDING Paolo] what the promise is - three asks
+   means he wants a RULE, not another tweak.
 1b. DONE 7/26 (v83): THE BROWN BOX + THE DIAL THAT WOULD NOT LEAVE. From his
    screenshot. (a) The brown quad was #6c503b, traced to two LEGACY_PRE_REVAMP
    placeholder body blocks (brown torso rect + head square) from before real
