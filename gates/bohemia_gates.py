@@ -274,6 +274,8 @@ GATES = [
      'the builder IS a zoom of the one iso view: tap a plot, canon verbs, edits true at every zoom', False),
     ('RENDER PIXEL',   ['node', 'gates/render_pixel_gate.js'],
      'the render contract MEASURED on the real surface: no fractional upscaling, no half-pixel draws, nothing off its aspect', True),
+    ('WALL CLASS',     ['node', 'gates/wallclass_gate.js'],
+     'WALL TAXONOMY (Paolo 7/17) enforced in the DRAW: the suburb community wall stands 2 tiles from its OWN 13-key pool at its judged 44x44, never a building wall', True),
     ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],
      'Paolo 7/27: ONE movement UI everywhere - portrait dead centre, 8 cardinals ringed around it, controls float instead of carving a bar out of the screen', True),
     ('THREE-TILE WALL',['node', 'gates/wallheight_gate.js'],
