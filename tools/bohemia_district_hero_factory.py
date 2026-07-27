@@ -46,6 +46,7 @@ import math
 import os
 import subprocess
 import sys
+import tempfile
 
 import numpy as np
 from PIL import Image
@@ -54,8 +55,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bohemia_iso3d import Scene, bake
 
 OUT = 'banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt'
-SCRATCH = '/tmp/claude-0/-home-user-bohemia/96a4de31-15c3-52d6-95f6-8087b9cb9964/scratchpad'
-GRIDS = os.path.join(SCRATCH, 'district_grids.json')
+# SCRATCH was hard-coded to one session's private directory, which does not exist in
+# any other session — so this factory could not be run again by anybody, and the
+# palette dump it depends on died with check=True before the first hero was built.
+# Session-portable now: honour BOHEMIA_SCRATCH if it is set, else the system temp dir.
+SCRATCH = os.environ.get('BOHEMIA_SCRATCH') or tempfile.gettempdir()
+GRIDS = os.path.join(SCRATCH, 'bohemia_district_grids.json')
 
 
 def _hex(h):
@@ -638,13 +643,336 @@ def build_swapmeet(P):
     return s, 6.2
 
 
+# ================================================================ THE SURFACES
+# (7/27/26) Paolo: "anytime you build something like this you have to make a city
+# builder icon as well like for real." Said the turn the WORLD lane shipped the
+# railway and the interchange with no way to point at either one in the city
+# builder. Law: laws/BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md
+#
+# These four are SURFACES, not districts, and the rule that made the heroes work
+# does not change for them: DON'T INVENT — MATCH THE WALKABLE. Every part below
+# is a landmark out of the surface's own engine module, in that module's own
+# palette, and every one of them is named in PARTS.
+
+# CANON ROLLING STOCK + AIRCRAFT SIZES, same law as CAR/BUS/TRAILER (Paolo 7/24:
+# "there can only be one consistent car size"). A railway and an airfield need
+# bodies the road set cannot express, so they get their own canon sizes — ONE
+# wagon, ONE locomotive, ONE airliner, ONE fighter, identical in every hero.
+RAILCAR = (3.4, 0.92, 1.05)      # covered hopper: L along the rail, W across, H tall
+LOCO = (4.3, 0.98, 1.30)         # road unit, longer and taller than a wagon
+# ICON PROPORTIONS, NOT SCALE-MODEL ONES. A real narrowbody is about 10:1 body to
+# width and at this size that renders as a thin grey girder — accurate and
+# unreadable. The style bible is explicit ("chunky, simple, BOLD; fewer, larger
+# shapes"), so the body is stubbier and the span is close to the length, which is
+# what the eye actually uses to say "aeroplane".
+AIRLINER = (5.6, 1.15, 1.15)     # narrowbody fuselage; wingspan is derived below
+FIGHTER = (3.0, 0.66, 0.62)
+
+
+def _railcar(s, x, y, size, color, along='x'):
+    """One piece of dead rolling stock: an underframe on trucks with the body
+    above it, so it reads as standing ON the rail and not lying beside it."""
+    assert size in (RAILCAR, LOCO), 'rolling stock must use a CANON size, got %r' % (size,)
+    L, W, H = size
+    dx, dy = (L, W) if along == 'x' else (W, L)
+    s.box((x, y, 0.10), (dx, dy, 0.16), {'c': (44, 42, 40)})                             # underframe + trucks
+    s.box((x + dx * 0.03, y + dy * 0.03, 0.26), (dx * 0.94, dy * 0.94, H),
+          {'top': _dark(color, 1.10), 'px': _dark(color, 1.0), 'py': _dark(color, 0.82),
+           'nx': _dark(color), 'ny': _dark(color)})                                      # body
+    if size is LOCO:                                                                      # the short hood + cab
+        s.box((x + dx * 0.62, y + dy * 0.06, 0.26 + H), (dx * 0.3, dy * 0.88, H * 0.42),
+              {'c': _dark(color, 0.7)['c']})
+
+
+def _aircraft(s, x, y, size, color, along='x', nose='+x'):
+    """One dead aeroplane, and the thing that decides whether it reads at icon size
+    is the WING SWEEP. Built from axis-aligned boxes the first time, it came out a
+    plus-sign of grey girders — a wing that leaves the body at 90 degrees and has
+    the same value as the body is not a wing, it is a beam. So the wings, the
+    tailplane and the fin are QUADS with real sweep, and they are a full value step
+    darker than the fuselage so the dart silhouette separates.
+
+    The fuselage is a three-tier stack (belly, barrel, crown) because in flat 3-tone
+    shading that is what reads as a cylinder instead of a box."""
+    assert size in (AIRLINER, FIGHTER), 'aircraft must use a CANON size, got %r' % (size,)
+    L, W, H = size
+    span = L * 1.02 if size is AIRLINER else L * 0.94
+    top, body, wing = _dark(color, 1.14), _dark(color, 1.0), _dark(color, 0.72)
+    Z = 0.62                                       # belly height: it stands on its gear
+    sgn = 1.0 if nose == '+x' else -1.0
+
+    def P(a, c, z):
+        """a = along the aircraft (0 tail .. 1 nose), c = across (-1 .. 1 half-span)."""
+        da = (a - 0.5) * L * sgn
+        return (x + L * 0.5 + da, y + c, z) if along == 'x' else (x + c, y + L * 0.5 + da, z)
+
+    def slab(a0, c0, a1, c1, a2, c2, a3, c3, z, mat):
+        s.quad(P(a0, c0, z), P(a1, c1, z), P(a2, c2, z), P(a3, c3, z), mat, (0, 0, 1))
+
+    # ---- fuselage: belly, barrel, crown ------------------------------------
+    for (za, zb, inset, mat) in ((Z, Z + H * 0.30, W * 0.30, body),
+                                 (Z + H * 0.30, Z + H * 0.78, 0.0, body),
+                                 (Z + H * 0.78, Z + H, W * 0.26, top)):
+        half = W / 2 - inset
+        if along == 'x':
+            s.box((x + L * 0.03, y - half, za), (L * 0.94, half * 2, zb - za),
+                  {'top': top, 'px': body, 'py': _dark(color, 0.86), 'nx': body, 'ny': _dark(color, 0.86)})
+        else:
+            s.box((x - half, y + L * 0.03, za), (half * 2, L * 0.94, zb - za),
+                  {'top': top, 'px': _dark(color, 0.86), 'py': body, 'nx': _dark(color, 0.86), 'ny': body})
+    p = P(1.0, 0, Z + H * 0.36)                                                   # tapered nose cone
+    if along == 'x':
+        s.box((min(p[0], p[0] - sgn * L * 0.09), y - W * 0.24, Z + H * 0.26), (L * 0.09, W * 0.48, H * 0.44), {'c': top['c']})
+    else:
+        s.box((x - W * 0.24, min(p[1], p[1] - sgn * L * 0.09), Z + H * 0.26), (W * 0.48, L * 0.09, H * 0.44), {'c': top['c']})
+
+    # ---- SWEPT WINGS: root forward, tip aft. This is the whole read. --------
+    hs = span / 2
+    for side in (-1, 1):
+        slab(0.60, 0.0, 0.36, 0.0, 0.22, side * hs, 0.40, side * hs, Z + H * 0.34, wing)
+        slab(0.20, side * hs * 0.62, 0.30, side * hs * 0.62,                       # engine nacelle
+             0.30, side * hs * 0.42, 0.20, side * hs * 0.42, Z + H * 0.30, _dark(color, 0.6))
+        slab(0.10, 0.0, 0.02, 0.0, 0.00, side * hs * 0.34, 0.08, side * hs * 0.34, # tailplane
+             Z + H * 0.86, wing)
+    # ---- the fin, swept back, tall enough to be the tallest thing on it -----
+    fz = Z + H
+    fh = L * 0.42 if size is AIRLINER else L * 0.44
+    a0, a1 = P(0.12, 0, fz), P(0.02, 0, fz)
+    a2, a3 = P(0.02, 0, fz + fh), P(0.16, 0, fz + fh * 0.72)
+    n = (0, 1, 0) if along == 'x' else (1, 0, 0)
+    s.quad(a0, a1, a2, a3, top, n)
+    for lg in (0.24, 0.74):                                                       # gear, so it stands on the apron
+        g = P(lg, 0, 0)
+        s.box((g[0] - 0.07, g[1] - 0.07, 0), (0.14, 0.14, Z), {'c': (52, 52, 54)})
+
+
+def _track(s, x0, x1, y, pal, gauge=1.05, sleepers=True):
+    """A length of two-rail track on its ballast, in the railway's own colours:
+    the ballast prism, the sleepers across it, and the two running rails."""
+    BAL, TIE, STEEL = pal
+    s.box((x0, y - 1.15, 0), (x1 - x0, 2.30, 0.22),
+          {'top': _dark(BAL, 1.10), 'px': _dark(BAL, 0.9), 'py': _dark(BAL, 0.85),
+           'nx': _dark(BAL, 0.9), 'ny': _dark(BAL, 0.85)})                               # ballast prism
+    if sleepers:
+        n = int((x1 - x0) / 0.46)
+        for i in range(n):
+            s.box((x0 + 0.10 + i * 0.46, y - 0.78, 0.22), (0.20, 1.56, 0.07), {'c': TIE})
+    for o in (-gauge / 2, gauge / 2):
+        s.box((x0, y + o - 0.05, 0.29), (x1 - x0, 0.10, 0.10),
+              {'top': _dark(STEEL, 1.15), 'px': _dark(STEEL, 0.8), 'py': _dark(STEEL, 0.8),
+               'nx': _dark(STEEL, 0.8), 'ny': _dark(STEEL, 0.8)})
+
+
+# ---------------------------------------------------------------- RAIL
+def build_rail(P):
+    """engine/bohemia_rail.js: a two-track ballasted mainline with a dead consist
+    standing on it, a wayside signal + its relay hut, the at-grade crossing with
+    the gate arm still down, the right-of-way fence, and the rail-served loading
+    pad behind it."""
+    BAL, TIE, STEEL, CESS = P[1], P[2], P[3], P[4]
+    SROAD, FENCE, SIGNAL, HUT = P[6], P[7], P[8], P[9]
+    FREIGHT, LOCOC, XPAVE, XMARK, GATEARM = P[10], P[11], P[12], P[13], P[14]
+    SCRAP, PAD, DOCK, YARD = P[15], P[19], P[20], P[21]
+    # DEPTH ORDER IS THE WHOLE LAYOUT (learned the hard way on the first bake): in this
+    # projection a bigger x+y draws NEARER, so anything tall placed at the front hides
+    # everything behind it. The first version put the dock shed at the front and the
+    # train behind it, and the train — the entire signature — was invisible. Tall mass
+    # goes to the BACK, the thing that has to read goes to the FRONT.
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, -3, 15, 1.4, YARD), (-3, -3, 15, -0.6, PAD)],
+            drive=(-3, 12.6, 15, 15), groundc=CESS, lotc=SROAD)
+    s.box((-2, -2.6, 0), (12.0, 2.0, 3.2), {'top': _dark(DOCK, 0.9), 'px': _dark(DOCK, 1.0),
+          'py': _win(DOCK, 5, 1, 7), 'nx': _dark(DOCK), 'ny': _dark(DOCK)})              # dock wall / shed
+    for dx in (-1.2, 1.6, 4.4, 7.2):
+        s.box((dx, -0.68, 0.1), (1.5, 0.10, 1.9), {'c': _dark(DOCK, 0.6)['c']})          # dock doors
+    for fx in (-2.6, 2.4, 7.4, 12.4):
+        s.box((fx, 1.9, 0), (0.16, 0.16, 1.9), {'c': FENCE})                             # right-of-way fence
+    _track(s, -3, 15, 5.0, (BAL, TIE, STEEL))                                            # the second track
+    _railcar(s, 8.6, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
+    _railcar(s, 12.2, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
+    s.box((1.2, 3.0, 0), (0.20, 0.20, 3.4), {'c': SIGNAL})                               # wayside signal mast
+    s.box((0.95, 2.85, 3.0), (0.7, 0.5, 0.9), {'c': _dark(SIGNAL, 0.72)['c']})           # signal head
+    s.box((-1.4, 2.6, 0), (1.8, 1.6, 1.9), {'top': _dark(HUT, 0.9), 'px': _win(HUT, 2, 1, 3),
+          'py': _dark(HUT, 0.86), 'nx': _dark(HUT), 'ny': _dark(HUT)})                   # relay hut
+    _door(s, 0.4, 3.0, 3.7, 1.3)
+    _track(s, -3, 15, 8.6, (BAL, TIE, STEEL))                                            # the main, nearest
+    _railcar(s, 1.1, 8.6 - LOCO[1] / 2, LOCO, LOCOC, along='x')                          # the dead road unit
+    _railcar(s, 5.7, 8.6 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
+    # THE GRADE CROSSING, in front of everything, panels between the rails
+    s.box((10.6, 3.0, 0.30), (2.8, 9.6, 0.05), {'c': XPAVE})
+    for by in (3.4, 11.4):
+        s.box((10.7, by, 0.35), (2.6, 0.24, 0.04), {'c': XMARK})                         # stop bars
+    s.box((13.6, 10.4, 0), (0.24, 0.24, 2.6), {'c': GATEARM})                            # crossing mast
+    s.box((10.4, 10.28, 1.6), (3.4, 0.18, 0.18), {'c': GATEARM})                         # the arm, still down
+    for (sx, sy) in [(-1.6, 11.0), (0.4, 12.0), (2.2, 11.2)]:
+        s.box((sx, sy, 0), (1.6, 0.9, 0.55), {'c': SCRAP})                               # stacked relay rail + ties
+    return s, 6.3
+
+
+# ---------------------------------------------------------------- INTERCHANGE
+def build_interchange(P):
+    """engine/bohemia_interchange.js: two carriageways crossing on two LEVELS —
+    the upper one on a piered deck — with a connector ramp curving up to it, the
+    high-mast light, the sound wall, the retention basin, and the jam that never
+    moved."""
+    LANE, LINE, SHLD, BARRIER, GRAIL = P[1], P[2], P[3], P[4], P[5]
+    EMBANK, BRUSH, WALL, MAST = P[6], P[7], P[8], P[9]
+    CARC, SEMIC, DECK, PIER = P[10], P[11], P[12], P[13]
+    DEBRIS, RAMP, GORE, BASIN = P[15], P[16], P[18], P[19]
+    s = Scene()
+    # the sound wall goes to the BACK for the same depth reason as the other three
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, 10.0, 5.4, 15, BASIN)], groundc=EMBANK, lotc=SHLD)
+    # THE LOWER CARRIAGEWAY, at grade, running east-west
+    s.box((-3, 3.4, 0.02), (18, 5.2, 0.10), {'c': LANE})
+    s.box((-3, 3.1, 0.02), (18, 0.34, 0.11), {'c': SHLD})
+    s.box((-3, 8.5, 0.02), (18, 0.34, 0.11), {'c': SHLD})
+    for ly in (4.7, 7.3):
+        for seg in range(9):
+            s.box((-2.6 + seg * 2.0, ly, 0.13), (1.1, 0.13, 0.03), {'c': LINE})          # dashed lane lines
+    s.box((-3, 5.9, 0.12), (18, 0.30, 0.34), {'c': BARRIER})                             # median barrier
+    _vehicle(s, 1.2, 4.2, CAR, CARC, along='x')
+    _vehicle(s, 3.4, 7.0, TRAILER, SEMIC, along='x')
+    _vehicle(s, 11.0, 4.3, CAR, CARC, along='x')
+    s.box((6.4, 4.0, 0.13), (0.5, 0.4, 0.10), {'c': DEBRIS})                             # blown tyre and glass
+    # THE PIERS AND THE DECK: the upper road, crossing north-south over the lower
+    for (px, py) in [(4.6, 2.6), (4.6, 9.2), (7.4, 2.6), (7.4, 9.2), (4.6, 5.95), (7.4, 5.95)]:
+        s.box((px, py, 0), (0.62, 0.62, 3.5), {'c': PIER})
+    s.box((3.9, -3, 3.5), (4.4, 18, 0.55), {'top': _dark(DECK, 1.12), 'px': _dark(DECK, 0.8),
+          'py': _dark(DECK, 0.86), 'nx': _dark(DECK, 0.8), 'ny': _dark(DECK, 0.86)})
+    for seg in range(8):
+        s.box((6.0, -2.6 + seg * 2.2, 4.05), (0.14, 1.2, 0.03), {'c': LINE})             # deck lane line
+    for gx in (3.9, 8.16):
+        s.box((gx, -3, 4.05), (0.18, 18, 0.30), {'c': GRAIL})                            # deck guardrail
+    _vehicle(s, 4.5, 0.4, CAR, CARC, along='y')                                          # stopped on the deck
+    # THE CONNECTOR RAMP, climbing out of the lower road up to the deck
+    for i in range(9):
+        t = i / 8.0
+        rx = 8.9 + 4.6 * math.sin(t * 1.35)
+        ry = 8.9 - 5.2 * t
+        s.box((rx, ry, 0.10 + 3.45 * t), (1.55, 1.35, 0.28),
+              {'top': _dark(RAMP, 1.18), 'px': _dark(RAMP, 0.8), 'py': _dark(RAMP, 0.86),
+               'nx': _dark(RAMP, 0.8), 'ny': _dark(RAMP, 0.86)})
+        if i and i < 8:
+            s.box((rx + 0.55, ry + 0.5, 0), (0.26, 0.26, 0.10 + 3.45 * t), {'c': PIER})  # ramp bent
+    s.box((9.0, 8.7, 0.13), (1.4, 0.20, 0.03), {'c': GORE})                              # the painted gore
+    s.box((12.9, 1.0, 0), (0.30, 0.30, 8.2), {'c': MAST})                                # high-mast light tower
+    s.box((12.55, 0.65, 8.2), (1.0, 1.0, 0.5), {'c': _dark(MAST, 1.1)['c']})
+    s.box((-3, -2.9, 0), (18, 0.5, 2.6), {'top': _dark(WALL, 1.06), 'px': _dark(WALL, 1.0),
+          'py': _dark(WALL, 0.82), 'nx': _dark(WALL), 'ny': _dark(WALL)})                # sound wall
+    for (bx, by) in [(7.0, 11.4), (10.2, 12.6), (13.0, 10.2)]:
+        s.box((bx, by, 0), (0.8, 0.8, 0.55), {'c': BRUSH})                               # dry brush in the infield
+    return s, 6.0
+
+
+# ---------------------------------------------------------------- AIRPORT
+def build_airport(P):
+    """engine/bohemia_airfield.js (kind 'airport'): the runway with its centreline,
+    the parallel taxiway in amber, the terminal, a jet bridge still docked to an
+    airliner that never pushed back, the apron stand markings, a floodlight mast
+    and the perimeter fence."""
+    RUNWAY, RMARK, SHLD, TAXI, TAXIC = P[1], P[2], P[3], P[4], P[5]
+    APRON, STANDM, TERM, BRIDGE = P[6], P[7], P[8], P[10]
+    LINER, FENCE, SROAD, LMAST = P[11], P[13], P[14], P[15]
+    # DEPTH ORDER: the LANDSIDE goes to the BACK and the airside comes FORWARD, so the
+    # aeroplane — the entire signature — stands clear in front of the terminal instead
+    # of behind it. The first bake had it the other way round and the airliner was
+    # completely hidden by the terminal block. Flat things (taxiway, runway) sit at the
+    # very front, where they occlude nothing.
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, 8.6, 15, 10.6, TAXI), (-3, 11.8, 15, 15, RUNWAY)],
+            drive=(-3, -3, 15, -1.8), groundc=APRON, lotc=SROAD)
+    s.box((-2, -1.4, 0), (13.0, 3.0, 4.0), {'top': _dark(TERM, 0.92), 'px': _win(TERM, 8, 2, 4),
+          'py': _win(TERM, 8, 2, 9), 'nx': _dark(TERM), 'ny': _dark(TERM)})              # the terminal
+    _door(s, 11.0, -0.6, 0.6, 1.5)
+    # THE STAND, deliberately a value step darker than the apron: a pale airframe on
+    # pale concrete disappeared, and the aeroplane is the whole point of the icon.
+    s.box((-1.0, 3.4, 0.03), (12.6, 4.6, 0.05), {'c': _dark(APRON, 0.72)['c']})
+    s.box((3.6, 1.6, 0), (0.36, 0.36, 1.9), {'c': _dark(BRIDGE, 0.7)['c']})              # bridge rotunda leg
+    s.box((3.2, 1.6, 1.9), (1.2, 1.9, 0.9), {'top': _dark(BRIDGE, 1.1), 'px': _dark(BRIDGE, 0.9),
+          'py': _dark(BRIDGE, 0.84), 'nx': _dark(BRIDGE, 0.9), 'ny': _dark(BRIDGE, 0.84)})  # jet bridge
+    s.box((-0.6, 7.4, 0.06), (11.4, 0.24, 0.04), {'c': STANDM})                          # stand lead-in line
+    _aircraft(s, 1.4, 4.2, AIRLINER, LINER, along='x')                                   # the airliner on the stand
+    s.box((13.2, 2.0, 0), (0.28, 0.28, 6.2), {'c': LMAST})                               # apron floodlight mast
+    s.box((12.9, 1.7, 6.2), (0.9, 0.9, 0.45), {'c': _dark(LMAST, 1.1)['c']})
+    for fx in (-2.6, 2.4, 7.4, 12.4):
+        s.box((fx, 8.0, 0), (0.16, 0.16, 1.8), {'c': FENCE})                             # perimeter fence
+    s.box((-3, 9.5, 0.08), (18, 0.20, 0.04), {'c': TAXIC})                               # amber taxi centreline
+    s.box((-3, 11.5, 0.03), (18, 0.34, 0.05), {'c': SHLD})                               # paved shoulder
+    for seg in range(7):
+        s.box((-2.4 + seg * 2.6, 13.3, 0.08), (1.5, 0.26, 0.04), {'c': RMARK})           # runway centreline
+    return s, 6.0
+
+
+# ---------------------------------------------------------------- AIRBASE
+def build_airbase(P):
+    """engine/bohemia_airfield.js (kind 'airbase'): the same field anatomy with the
+    military landside — arch-roofed hangars instead of a terminal, and a fighter
+    sitting on its alert pad between two concrete blast revetments."""
+    RUNWAY, RMARK, SHLD, TAXI, TAXIC = P[1], P[2], P[3], P[4], P[5]
+    APRON, STANDM, HANGAR = P[6], P[7], P[9]
+    FIGHTERC, FENCE, SROAD, LMAST, BLAST, REVET = P[12], P[13], P[14], P[15], P[16], P[17]
+    # DEPTH ORDER, same law as the airport: hangars to the BACK, the fighter and its
+    # revetments FORWARD where they read, the flat runway at the front.
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, 8.6, 15, 10.6, TAXI), (-3, 11.8, 15, 15, RUNWAY),
+                                          (11.4, 11.8, 15, 15, BLAST)],
+            drive=(-3, -3, 15, -1.8), groundc=APRON, lotc=SROAD)
+    for hx in (-2.0, 5.4):                                                                # two hangars, doors open
+        s.box((hx, -1.8, 0), (6.0, 3.2, 3.0), {'top': _dark(HANGAR, 0.94), 'px': _dark(HANGAR, 1.0),
+              'py': _dark(HANGAR, 0.86), 'nx': _dark(HANGAR), 'ny': _dark(HANGAR)})
+        s.box((hx + 0.35, -1.3, 3.0), (5.3, 2.2, 0.85), {'c': _dark(HANGAR, 1.12)['c']}) # the arched roof crown
+        s.box((hx + 0.6, 1.32, 0.05), (4.8, 0.10, 2.4), {'c': (26, 28, 32)})             # the open hangar mouth
+    s.box((0.4, 2.8, 0.03), (8.0, 4.6, 0.05), {'c': _dark(APRON, 0.72)['c']})            # the alert pad
+    for ry in (2.9, 7.0):                                                                 # blast revetments
+        s.box((0.6, ry, 0), (7.4, 0.5, 1.6), {'top': _dark(REVET, 1.10), 'px': _dark(REVET, 1.0),
+              'py': _dark(REVET, 0.82), 'nx': _dark(REVET), 'ny': _dark(REVET)})
+    s.box((0.6, 6.6, 0.06), (7.4, 0.18, 0.04), {'c': STANDM})                            # alert-pad lead-in line
+    _aircraft(s, 2.2, 3.9, FIGHTER, FIGHTERC, along='x')                                 # the fighter on its pad
+    s.box((13.0, 2.4, 0), (0.28, 0.28, 6.0), {'c': LMAST})                                # floodlight mast
+    s.box((12.7, 2.1, 6.0), (0.9, 0.9, 0.45), {'c': _dark(LMAST, 1.1)['c']})
+    for fx in (-2.6, 2.4, 7.4, 12.4):
+        s.box((fx, 8.0, 0), (0.16, 0.16, 1.8), {'c': FENCE})                              # perimeter fence
+    s.box((-3, 9.5, 0.08), (18, 0.20, 0.04), {'c': TAXIC})                                # amber taxi centreline
+    s.box((-3, 11.5, 0.03), (18, 0.34, 0.05), {'c': SHLD})
+    for seg in range(7):
+        s.box((-2.4 + seg * 2.6, 13.3, 0.08), (1.5, 0.26, 0.04), {'c': RMARK})            # runway centreline
+    return s, 6.0
+
+
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal,
           'downtown': build_downtown, 'industrial': build_industrial, 'medical': build_medical,
           'mall': build_mall, 'park': build_park, 'warehouse': build_warehouse,
           'commercial': build_commercial, 'school': build_school, 'courthouse': build_courthouse,
           'library': build_library, 'farm': build_farm, 'firestation': build_firestation,
           'policestation': build_policestation, 'solar': build_solar, 'stadium': build_stadium,
-          'storage': build_storage, 'truckstop': build_truckstop, 'swapmeet': build_swapmeet}
+          'storage': build_storage, 'truckstop': build_truckstop, 'swapmeet': build_swapmeet,
+          # SURFACES (7/27, the icon law) — the ground the WORLD lane built
+          'rail': build_rail, 'interchange': build_interchange}
+
+# HELD BACK, DELIBERATELY: 'airport': build_airport, 'airbase': build_airbase.
+# Both builders are finished and correct and they stay in this file, but they are
+# NOT in HEROES, so nothing bakes and nothing wires. The reason is the bar, not the
+# code: the ICONIC SIGNATURE of an airfield is the AEROPLANE, and at 1x1 tile size
+# the aeroplane does not read.
+#
+# What was tried, in order, and what each one taught:
+#   1. axis-aligned boxes for the wings -> a plus-sign of grey girders. A wing that
+#      leaves the body at 90 degrees with the body's own value is not a wing.
+#   2. swept QUADS a full value step darker -> correct dart silhouette. Verified by
+#      baking _aircraft alone on a bare plate: it reads unmistakably as an aeroplane.
+#      So the geometry is NOT the problem and must not be rewritten again.
+#   3. icon proportions instead of scale-model ones (stubby body, span ~= length,
+#      tall fin), per the style bible's "chunky, simple, BOLD".
+#   4. a darker stand under it so a pale airframe stops vanishing into pale concrete.
+# After 4 it is better and still not there. The tell in the STOP PRODUCING law is
+# exactly this: a fourth version means the approach is what is wrong, not the
+# attempt. The real problem is SIZE — a hero is a whole 1x1 district plot, an
+# airfield is the largest flat thing in the valley, and squeezing a runway, a
+# taxiway, a terminal AND a legible aeroplane into one plot asks the aeroplane to
+# be small. Every other hero's signature is a BUILDING, which survives shrinking.
+# That is a design question (does an airfield hero drop the runway and show the
+# aeroplane and terminal only?) and it is Paolo's call, not mine to keep guessing.
+# Tracked in BOHEMIA_BACKLOG.md. Adding these two back is one line, once he rules.
 LABEL = {
     'cityhall': 'City Hall — matched to the walkable district: an admin BLOCK + a CLOCK TOWER over the entrance + a forecourt PLAZA with a DRY FOUNTAIN + flagpoles. Same palette as the tile you walk.',
     'battery': 'Battery — matched to the walkable district: a grid BATTERY-STORAGE yard (control building + rows of BATTERY CONTAINERS with HVAC + an INVERTER/TRANSFORMER rack + gravel + fence). Not a smokestack plant.',
@@ -667,6 +995,10 @@ LABEL = {
     'storage': 'Self-storage — matched: unit rows wall-to-wall with ORANGE roll-up doors + a leasing office + a fortress fence.',
     'truckstop': 'Truck stop — matched: a store/diner + a big FUEL CANOPY over pumps + a wash bay + a tall PYLON sign + parked rigs.',
     'swapmeet': 'Swap meet — matched: a food hall + rows of colorful STALL TENTS (the market) + a pylon sign + gravel lot.',
+    'rail': 'Railway — matched to the walkable corridor: two ballasted TRACKS with a dead LOCOMOTIVE and FREIGHT WAGONS standing on them + a wayside SIGNAL and its RELAY HUT + the at-grade CROSSING with the GATE ARM still down + the ROW fence + the rail-served LOADING DOCK and stacked relay steel.',
+    'interchange': 'Interchange — matched: two carriageways crossing on TWO LEVELS, the upper one on a piered DECK, with a connector RAMP curving up to it + a HIGH-MAST light + the sound wall + the retention basin + the jam that never moved.',
+    'airport': 'Airport — matched: the RUNWAY and its centreline + the amber TAXIWAY + the TERMINAL + a JET BRIDGE still docked to a dead AIRLINER on the stand + a floodlight mast + the perimeter fence.',
+    'airbase': 'Air base — matched: the same field with the military landside — two arch-roofed HANGARS with their doors open + a dead FIGHTER on its alert pad between two concrete blast REVETMENTS + the blast pad off the runway threshold.',
 }
 
 # PARTS — DOSSIER-OR-DON'T (Paolo 7/24, LOCKED): every part of every hero building
@@ -821,6 +1153,60 @@ PARTS = {
         'stall tents — rows of market stall canopies in three colors (code 4 tan + code 13 red + code 14 teal, overhead)',
         'market pylon sign — the market sign (code 8 "market pylon sign")',
         'abandoned car (canon CAR) — a car by the entrance (code 10); the gravel market lot (code 1)',
+    ],
+    # ---- THE SURFACES (7/27, the icon law). Every part is a landmark out of the
+    # surface's own engine module, in that module's own palette.
+    'rail': [
+        'main track — the ballast prism (code 1 "ballast") with sleepers across it (code 2 "tie") and two gauge-spaced running rails (code 3 "rail")',
+        'second track — the same prism again, because the walkable corridor is a TWO-track mainline, not a single line',
+        'dead locomotive (canon LOCO) — the road unit standing on the main where the crew left it (code 11 "dead locomotive"), short hood + cab',
+        'dead freight wagons x2 (canon RAILCAR) — covered hoppers standing on the second track (code 10 "dead freight car")',
+        'wayside signal — the mast and its head, every lamp dark (code 8 "signal mast")',
+        'relay hut — the signal relay hut at the foot of the mast, door at ground, racks stripped (code 9 "relay hut")',
+        'grade crossing — the roadway carried straight through the right of way (code 12 "crossing pavement") with a stop bar on each approach (code 13 "crossing marking")',
+        'gate arm — the crossing mast and its arm, still down across the road (code 14 "gate arm")',
+        'loading dock — the rail-served dock wall and shed behind the corridor (code 20 "dock wall") with its dock doors, on the concrete pad (code 19 "loading pad")',
+        'scrap stacks x3 — relay rail, ties and cut steel stacked on the frontage (code 15 "scrap pile")',
+        'right-of-way fence x4 — the fence line along the corridor (code 7 "ROW fence")',
+        'ground — the walking cess either side of the ballast (code 4 "cess"), the material yard (code 21) and the gravel maintenance road (code 6 "service road")',
+    ],
+    'interchange': [
+        'lower carriageway — the at-grade interstate running east-west (code 1 "travel lane") with its paved shoulders (code 3 "shoulder")',
+        'lane lines — the dashed white lines on both roadways (code 2 "white lane line"); no yellow exists on a freeway, the barrier does that job',
+        'median barrier — the concrete F-shape barrier down the middle of the lower road (code 4 "median barrier")',
+        'piers x6 — the concrete piers standing in the lower road\'s median and on its shoulders (code 13 "pier")',
+        'deck — the upper carriageway crossing north-south on its own structure (code 12 "deck"), the two-level truth the whole junction is about',
+        'deck guardrail — the steel rail down both edges of the deck (code 5 "guardrail")',
+        'connector ramp — the two-lane ramp curving up out of the lower road to deck height on its own bents (code 16 "ramp lane")',
+        'gore marking — the painted nose where the ramp splits off (code 18 "gore marking")',
+        'dead cars x3 + dead semi (canon CAR / TRAILER) — the jam that started here and never moved (codes 10, 11)',
+        'debris — a blown tyre and glass in the lane (code 15 "rubble / debris")',
+        'high-mast light — the light tower over the junction, every head dark (code 9 "high-mast light")',
+        'sound wall — the block wall around the outside of the structure (code 8 "sound wall")',
+        'retention basin — the drainage basin the whole structure sheds into (code 19 "retention basin")',
+        'dry brush x3 — waist-high brush in the unreachable infield (code 7 "dead brush") on the graded embankment (code 6)',
+    ],
+    'airport': [
+        'runway — the runway strip across the field (code 1 "runway") with its paved shoulder (code 3)',
+        'runway centreline — the dashed chalky centreline down it (code 2 "runway marking")',
+        'taxiway — the full-length parallel taxiway (code 4 "taxiway") with the amber centreline that is the one warm line on the whole field (code 5 "taxi centreline")',
+        'terminal — the terminal block, glass dead dark, doors at ground standing open (code 8 "terminal")',
+        'jet bridge — the bridge still docked to the aeroplane, on its rotunda leg (code 10 "jet bridge")',
+        'dead airliner (canon AIRLINER) — the narrowbody on the stand: fuselage, nose, swept wings, tailplane and fin (code 11 "dead airliner")',
+        'stand lead-in line — the painted lead-in to a stand nobody is coming to (code 7 "stand marking")',
+        'floodlight mast — the apron light mast, every head dark (code 15 "light mast")',
+        'perimeter fence x4 — the field fence (code 13 "perimeter fence"); the apron (code 6) and the service road (code 14) are the ground',
+    ],
+    'airbase': [
+        'runway — the runway strip (code 1 "runway") with its paved shoulder (code 3) and the chevroned blast pad off the threshold (code 16 "blast pad")',
+        'runway centreline — the dashed centreline (code 2 "runway marking")',
+        'taxiway — the parallel taxiway (code 4) and its amber centreline (code 5 "taxi centreline")',
+        'hangars x2 — the landside row: arch-roofed hangars with the doors standing half open on nothing (code 9 "hangar")',
+        'blast revetments x2 — the concrete walls either side of the alert pad (code 17 "revetment")',
+        'dead fighter (canon FIGHTER) — the aeroplane on the pad between the revetments, canopy up, tyres flat (code 12 "dead fighter")',
+        'alert-pad lead-in line — the painted lead-in onto the pad (code 7 "stand marking")',
+        'floodlight mast — the apron light mast, dark (code 15 "light mast")',
+        'perimeter fence x4 — the field fence (code 13); the apron (code 6) and the service road (code 14) are the ground',
     ],
 }
 

@@ -19,7 +19,12 @@ const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'city
   'commercial', 'courthouse', 'downtown', 'drivein', 'farm', 'firestation', 'golf',
   'industrial', 'jail', 'landfill', 'library', 'mall', 'medical', 'park', 'policestation',
   'railyard', 'school', 'solar', 'stadium', 'storage', 'swapmeet', 'terminal', 'trailer',
-  'truckstop', 'warehouse', 'wash', 'waterpark', 'watertreat'];
+  'truckstop', 'warehouse', 'wash', 'waterpark', 'watertreat',
+  // SURFACES (7/27): the icon law reaches the ground the WORLD lane built, not just
+  // the districts. rail and interchange are the two Paolo's ruling names directly.
+  // airfield is REQUIRED for its side effect (it registers BOTH airport and airbase
+  // into the kit); airport/airbase are then emitted under their real TYPE names.
+  'rail', 'interchange', 'airfield', 'airport', 'airbase'];
 // require = self-register into K for most modules; a few (e.g. commercial) only
 // register when a GLOBAL K exists (browser), so also keep each module's exported
 // API as a fallback source of generate/palette/legend.

@@ -36,6 +36,18 @@ src = open(SRC, encoding='utf8').read()
 for c in ('CAR', 'BUS', 'TRAILER'):
     ok('%s size constant defined' % c, re.search(r'^%s\s*=\s*\(' % c, src, re.M) is not None)
 
+# 1b. AND THE SAME LAW REACHES THE BODIES THE ROAD SET CANNOT EXPRESS (7/27). A railway
+# and an airfield need rolling stock and aircraft, and "one consistent size" is not a
+# rule about cars — it is a rule about scale never drifting between heroes. So those get
+# canon constants and their own shared helper exactly like CAR/BUS/TRAILER, and each
+# helper asserts its argument is one of them.
+for c in ('RAILCAR', 'LOCO', 'AIRLINER', 'FIGHTER'):
+    ok('%s size constant defined' % c, re.search(r'^%s\s*=\s*\(' % c, src, re.M) is not None)
+for fn, kinds in (('_railcar', "(RAILCAR, LOCO)"), ('_aircraft', "(AIRLINER, FIGHTER)")):
+    ok('%s() helper defined' % fn, 'def %s(' % fn in src)
+    ok('%s() refuses a non-canon size' % fn,
+       re.search(r'def %s\(.*?assert size in %s' % (fn, re.escape(kinds)), src, re.S) is not None)
+
 # 2. the shared helper exists and is actually used
 ok('_vehicle() helper defined', 'def _vehicle(' in src)
 calls = len(re.findall(r'_vehicle\(', src)) - 1   # minus the def

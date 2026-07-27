@@ -193,3 +193,37 @@ _Swap meet — matched: a food hall + rows of colorful STALL TENTS (the market) 
 - stall tents — rows of market stall canopies in three colors (code 4 tan + code 13 red + code 14 teal, overhead)
 - market pylon sign — the market sign (code 8 "market pylon sign")
 - abandoned car (canon CAR) — a car by the entrance (code 10); the gravel market lot (code 1)
+
+## RAIL  (255x161, anchor 129,87)
+_Railway — matched to the walkable corridor: two ballasted TRACKS with a dead LOCOMOTIVE and FREIGHT WAGONS standing on them + a wayside SIGNAL and its RELAY HUT + the at-grade CROSSING with the GATE ARM still down + the ROW fence + the rail-served LOADING DOCK and stacked relay steel._
+
+- main track — the ballast prism (code 1 "ballast") with sleepers across it (code 2 "tie") and two gauge-spaced running rails (code 3 "rail")
+- second track — the same prism again, because the walkable corridor is a TWO-track mainline, not a single line
+- dead locomotive (canon LOCO) — the road unit standing on the main where the crew left it (code 11 "dead locomotive"), short hood + cab
+- dead freight wagons x2 (canon RAILCAR) — covered hoppers standing on the second track (code 10 "dead freight car")
+- wayside signal — the mast and its head, every lamp dark (code 8 "signal mast")
+- relay hut — the signal relay hut at the foot of the mast, door at ground, racks stripped (code 9 "relay hut")
+- grade crossing — the roadway carried straight through the right of way (code 12 "crossing pavement") with a stop bar on each approach (code 13 "crossing marking")
+- gate arm — the crossing mast and its arm, still down across the road (code 14 "gate arm")
+- loading dock — the rail-served dock wall and shed behind the corridor (code 20 "dock wall") with its dock doors, on the concrete pad (code 19 "loading pad")
+- scrap stacks x3 — relay rail, ties and cut steel stacked on the frontage (code 15 "scrap pile")
+- right-of-way fence x4 — the fence line along the corridor (code 7 "ROW fence")
+- ground — the walking cess either side of the ballast (code 4 "cess"), the material yard (code 21) and the gravel maintenance road (code 6 "service road")
+
+## INTERCHANGE  (244x155, anchor 122,83)
+_Interchange — matched: two carriageways crossing on TWO LEVELS, the upper one on a piered DECK, with a connector RAMP curving up to it + a HIGH-MAST light + the sound wall + the retention basin + the jam that never moved._
+
+- lower carriageway — the at-grade interstate running east-west (code 1 "travel lane") with its paved shoulders (code 3 "shoulder")
+- lane lines — the dashed white lines on both roadways (code 2 "white lane line"); no yellow exists on a freeway, the barrier does that job
+- median barrier — the concrete F-shape barrier down the middle of the lower road (code 4 "median barrier")
+- piers x6 — the concrete piers standing in the lower road's median and on its shoulders (code 13 "pier")
+- deck — the upper carriageway crossing north-south on its own structure (code 12 "deck"), the two-level truth the whole junction is about
+- deck guardrail — the steel rail down both edges of the deck (code 5 "guardrail")
+- connector ramp — the two-lane ramp curving up out of the lower road to deck height on its own bents (code 16 "ramp lane")
+- gore marking — the painted nose where the ramp splits off (code 18 "gore marking")
+- dead cars x3 + dead semi (canon CAR / TRAILER) — the jam that started here and never moved (codes 10, 11)
+- debris — a blown tyre and glass in the lane (code 15 "rubble / debris")
+- high-mast light — the light tower over the junction, every head dark (code 9 "high-mast light")
+- sound wall — the block wall around the outside of the structure (code 8 "sound wall")
+- retention basin — the drainage basin the whole structure sheds into (code 19 "retention basin")
+- dry brush x3 — waist-high brush in the unreachable infield (code 7 "dead brush") on the graded embankment (code 6)

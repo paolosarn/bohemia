@@ -155,6 +155,71 @@ is over its DIET LAW cap and this lane can only legally shrink its own entries.)
   fork from LAB-01: 120 BPM + OCCUPANCY versus a continuous sub-pixel walk — three
   options are written out in the town-walk note and the lane did not pick.
 
+WORLD MODEL (02): 7/27 (b) — HE RULED, AND THE RULING FOUND A HOLE FORTY-FOUR TYPES DEEP.
+
+Paolo, verbatim: "And anytime you build something like this you have to make a city
+builder icon as well like for real." Said the turn the lane shipped the railway and the
+interchange — full generators, full dossiers, two new machine gates, and not one thing
+you could point at in the city builder.
+
+RECORDED AND COMMITTED THE SAME TURN, before any code:
+laws/BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md. The addendum names what does NOT
+satisfy "like for real" — a coloured square, a letter, the map-tab cell colour, a
+downscaled screenshot of the tile grid, a placeholder with a TODO, or "the icon is the
+next backlog item."
+
+WHAT THE HOLE ACTUALLY WAS. The icon system EXISTS and is called DISTRICT HEROES
+(tools/bohemia_district_hero_factory.py -> banks/BOHEMIA_DISTRICT_HERO_CANDIDATES...txt
+-> tools/bohemia_city_hero_wire_patch.py injects HERO_SRC/HERO_ANCH into the alpha's
+CITY_B64). It had a factory, a bank, a judge page, a dossier gate and a vehicle-size
+gate — everything the FACTORY LAW asks for except the one thing that matters: NOTHING
+CHECKED WHETHER A TYPE HAD ONE. So 44 types deep, 21 had a hero and 23 did not, and no
+gate ever went red about it.
+
+SHIPPED: rail + interchange heroes, built the approved way — hand-built 3D volumes baked
+through bohemia_iso3d, PALETTE AND LANDMARKS PULLED FROM THE ENGINE MODULE (the 7/24 law
+that ended the thumbs-down arc: "as long as it kind of resembles the actual walking map
+of that district then I'm so happy"), every part written into PARTS for the dossier gate.
+The railway is two ballasted tracks with a dead locomotive and wagons standing on them, a
+wayside signal and its relay hut, the at-grade crossing with the gate arm still down, and
+the rail-served loading dock. The interchange is two carriageways crossing on TWO LEVELS,
+the upper one on piers, with a connector ramp curving up to it.
+
+GATE ICON (17 checks) IS A RATCHET, and that shape is the point. 23 of 44 types have an
+icon, so a gate demanding "every type has one" would be red the minute it was written,
+and a permanently-red gate is a comment nobody can act on. Instead: (1) new work cannot
+add debt — every type this lane ships is in ICON_REQUIRED and must have a hero right now;
+(2) the debt list may only SHRINK — the gate fails if a listed type is secretly already
+done, fails if a type is missing an icon without being named, and prints the count every
+run; (3) an icon is REAL ART — the PNG is inflated, the row filters undone, and the real
+pixels measured for size, opaque coverage and value variety, so a coloured square cannot
+pass; (4) it is actually WIRED into the CITY tab with its anchor.
+
+AND THE ONE I STOPPED ON. AIRPORT + AIRBASE heroes are written, correct, and deliberately
+NOT in the HEROES dict. The signature of an airfield is the AEROPLANE and at 1x1 tile size
+the aeroplane does not read. Four attempts, all written up in the factory so nobody walks
+them again: axis-aligned wings (a plus-sign of girders), swept quads a value step darker
+(correct — verified by baking the aircraft ALONE on a bare plate, where it reads
+unmistakably), icon proportions instead of scale-model ones, and a darker stand so a pale
+airframe stops vanishing into pale concrete. Better each time and still not there.
+THE DIAGNOSIS, which is not "it needs more polish": every other hero's signature is a
+BUILDING and buildings survive shrinking; an airfield hero has to fit a runway, a taxiway,
+a terminal AND a legible aircraft into one plot, which forces the aircraft small. That is
+a COMPOSITION RULING and it is Paolo's, not mine to keep guessing at. THE QUESTION: should
+an airfield hero drop the runway and show just the terminal and the aeroplane, big?
+Adding them back is one line once he says.
+
+ALSO FIXED (found while doing the above): the hero factory's scratch path was HARD-CODED
+to one session's private directory. It could not be run by anybody else at all — the
+palette dump it depends on died on check=True before the first hero was built. Portable
+now. And gates/vehicle_size_gate.py was extended: "one consistent size" is a rule about
+scale never drifting between heroes, not a rule about cars, so the new canon bodies
+(RAILCAR, LOCO, AIRLINER, FIGHTER) get constants and helpers that refuse a non-canon size,
+exactly like CAR/BUS/TRAILER.
+
+ICON DEBT NOW: 22 of 44 types, named in the gate and in BOHEMIA_BACKLOG.md. Terrain
+(desert/mountain/water) may not want a building hero at all — a separate ruling.
+
 WORLD MODEL (02): 7/27 (a) — THE RAILWAY, THE STACK, AND A DEFECT IN MY OWN LAST SHIP.
 Three things landed. Valley: 95.6% -> 96.7% generated.
 

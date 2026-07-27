@@ -350,6 +350,33 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+ICON LAW (Paolo 7/27, LOCKED — laws/BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md):
+"anytime you build something like this you have to make a city builder icon as well like
+for real." A district or surface is NOT FINISHED until it has a city builder icon (a
+DISTRICT HERO), the same turn the ground ships. Gate ICON is a ratchet: new work cannot
+add debt, and the named debt list may only ever shrink.
+I0. [DONE 7/27] rail + interchange heroes, built the approved way (hand-built 3D volumes
+   matched to the walkable district, palette pulled live from the engine module, full
+   PARTS dossier). Wired into the CITY tab. Gate ICON, 17 checks.
+I1. [HELD — needs Paolo's ruling, do NOT just retry] AIRPORT + AIRBASE HEROES. Both
+   builders are written, correct and left in tools/bohemia_district_hero_factory.py, but
+   deliberately OUT of the HEROES dict because the signature does not read. The aeroplane
+   geometry is NOT the problem — baked alone on a bare plate it reads unmistakably as an
+   aeroplane, verified. The problem is SIZE: every other hero's signature is a BUILDING,
+   which survives shrinking to a 1x1 plot; an airfield's signature is an AIRCRAFT, and a
+   plot holding a runway + a taxiway + a terminal has no room left to make it legible.
+   Four attempts are written up in the factory so nobody re-walks them. THE QUESTION FOR
+   PAOLO: should an airfield hero DROP the runway and show just the terminal and the
+   aeroplane, big? That is a composition ruling, not a code fix.
+I2. THE ICON DEBT, 22 of 44 registered types (gate prints it every run): suburb, trailer,
+   apartment, wash, cemetery, drivein, golf, jail, chapel, landfill, railyard, substation,
+   watertreat, boneyard, waterpark, airport, airbase, arterial, freeway, desert, mountain,
+   water. Terrain (desert/mountain/water) may not want a building hero at all — that is
+   a separate ruling. Chip at this list; it can only shrink.
+I3. [FIXED 7/27, found while doing I0] tools/bohemia_district_hero_factory.py had its
+   scratch path HARD-CODED to one session's private directory, so the factory could not
+   be run by anybody else at all — the palette dump died on check=True before the first
+   hero was built. Session-portable now (BOHEMIA_SCRATCH, else the system temp dir).
 0. THE ONE MAP (Paolo direction, 7/26: "combine the phone map to the city
    builder map with quest locations on top"): the in-game PHONE's map app
    renders THE SAME city-builder valley map (one map, one truth — same

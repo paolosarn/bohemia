@@ -212,6 +212,8 @@ GATES = [
      'the 3,386 road cells are real ground: every mask builds, drives through, walks across', False),
     ('AIRFIELD',       ['node', 'gates/airfield_gate.js'],
      'the airfields are built across their whole cluster: one runway, continuous, no bare cells', False),
+    ('ICON',           ['node', 'gates/icon_gate.js'],
+     'an icon ships with every build (Paolo 7/27): new work adds no debt, the debt only shrinks, and an icon is real art', False),
     ('RAIL',           ['node', 'gates/rail_gate.js'],
      'the mainline is ONE line for the whole valley, under the freeways, with 17 real grade crossings', False),
     ('INTERCHANGE',    ['node', 'gates/interchange_gate.js'],
