@@ -635,6 +635,20 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    any lane at random will eventually get ignored, which is worse than no gate.
    Suggest: average N runs, or drive a FIXED deterministic route instead of a
    timed walk. Owning lane: ART/render. | — | gates/render_pixel_gate.js | no.
+0. DONE 7/27 (v84): THE BROWN BOX + THE ORANGE, BOTH NAMED AND BOTH FIXED, and
+   the instrument built so it never costs three turns again.
+   (a) The brown box was a REGRESSION I CAUSED: v82 pinned _bpmPhase during the
+   freeze, which pinned the JUICE.B floor pulse, which welds a full-screen
+   orange-brown faction-accent wash on for the whole pause. The pulse no longer
+   draws while frozen.
+   (b) The orange was NEVER THE DIAL - it is the road's double-yellow median
+   (rgba(184,160,40), 2x2670, ten times per pause), drawn AFTER the vignette that
+   was supposed to dim it. Markings and lane dashes now fade with the shot.
+   (c) WHAT'S ON SCREEN? - arm it, get a kill, the game names every draw covering
+   >2% of the canvas into the comment box next to COPY.
+   HARNESS LESSON: my probe kept freezing the game to photograph it, which stopped
+   the cinematic it was measuring. Let it RUN and screenshot at 60ms.
+   Gate section 19, 359 checks.
 0a. *** BLOCKED, AND IT IS THE TOP OF THIS LANE. THE BROWN BOX + THE ORANGE DIAL
    ARE STILL ON HIS SCREEN AFTER THREE ATTEMPTS (v81/v82/v83). *** Post-mortem:
    records/BOHEMIA_COMBAT_POSTMORTEM_AND_RESEARCH_3_7_27_26.md

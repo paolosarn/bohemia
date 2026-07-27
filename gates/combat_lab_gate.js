@@ -1823,6 +1823,64 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   }
 }
 
+/* ============================================================================
+   19. V84 THE THREE THINGS I HAD TO STOP GUESSING ABOUT
+   Paolo, three times: "the brown box is absolutely still there and the dead shot
+   dial orange part is still there like what's wrong with you bro."
+   He was right three times. v81/v82/v83 all fixed code I could not watch running.
+   ========================================================================== */
+{
+  /* (a) THE REGRESSION I CAUSED. JUICE.B fills the WHOLE canvas with the faction
+     accent once a beat, and every accent is an orange-brown (#d07a2a, #b8642a,
+     #caa05a, #d8a23a). v82 pinned _bpmPhase during the freeze to stop the screen
+     breathing -- and pb is a function of that phase, so the wash WELDED ON at
+     whatever brightness it had, for the whole pause. */
+  ok('V84 THE STOP IS SILENT ON THE FLOOR TOO: the full-screen faction-accent wash does not draw while the world is frozen. v82 pinned the beat phase, which pinned the pulse, which held an orange-brown sheet over the entire screen for the length of every freeze',
+    demo.includes('if(pb>0.004&&!(G._freezeT>0)){x.fillStyle=f.acc;') &&
+    !demo.includes('if(pb>0.004){x.fillStyle=f.acc;'));
+  ok('and the pulse is untouched during normal play -- it is his approved 120 BPM floor and only the FREEZE silences it',
+    demo.includes('FLOORPULSE.base+FLOORPULSE.streakGain') && demo.includes('const pb=Math.pow(1-_bpmPhase,FLOORPULSE.curve)'));
+
+  /* (b) THE ORANGE, NAMED BY THE INSTRUMENT RATHER THAN BY ME. */
+  ok('V84C THE ORANGE WAS NEVER THE DIAL: it is the road\'s DOUBLE-YELLOW MEDIAN, rgba(184,160,40) drawn as a 2x2670 stripe ten times per pause, which is why fading the dial twice changed nothing he could see',
+    demo.includes("x.fillStyle='rgba(184,160,40,'+(0.55*_mk).toFixed(3)+')';") &&
+    !demo.includes("x.fillStyle='rgba(184,160,40,0.55)';"));
+  ok('the street markings now fade with the shot, and the lane dashes go with them -- environment has no business being the brightest object on screen during a kill',
+    demo.includes("const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/260):1;") &&
+    demo.includes("x.fillStyle='rgba(215,205,185,'+(0.38*_mk).toFixed(3)+')';"));
+  ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then drawField paints the markings ON TOP of it, so the one pass meant to dim the scene runs before the brightest thing in it',
+    demo.indexOf('x.fillStyle=vg; x.fillRect(0,0,W,H);') < demo.indexOf("const medX=cx+(2.5-offx)*t;"));
+
+  /* (c) THE INSTRUMENT, so this never costs three turns again. */
+  {
+    const a = demo.indexOf('var BohemiaWhatsOn');
+    const b = demo.indexOf('/* ===== V84B WHATS-ON CORE END');
+    ok('demo carries WHAT\'S ON SCREEN as its own testable block', a > 0 && b > a);
+    const wm = { exports: {} };
+    new Function('module', 'exports', demo.slice(a, b) + ';module.exports=BohemiaWhatsOn;')(wm, wm.exports);
+    const W = wm.exports;
+    ok('IT IS OFF UNTIL ARMED, so it costs nothing in a normal fight', W.isArmed() === false);
+    W.arm();
+    ok('and armed it captures', W.isArmed() === true);
+    const SCREEN = 390 * 534;
+    W.note('fill', 390, 534, '#120f08', 390 * 534, SCREEN);        /* full screen -> kept */
+    W.note('fill', 2, 2670, 'rgba(184,160,40,0.55)', 2 * 2670, SCREEN);
+    W.note('fill', 4, 4, '#fff', 16, SCREEN);                      /* tiny -> ignored */
+    ok('IT ONLY REPORTS THINGS THAT ACTUALLY COVER THE SCREEN (>2%), so a pixel of blood cannot bury the thing he is pointing at',
+      W.count() === 2);
+    const rep = W.report();
+    ok('and it reports BIGGEST FIRST with a count, so a hundred identical fills are ONE finding and not a hundred lines: ' + rep[0],
+      rep.length === 2 && /100% of screen/.test(rep[0]) && /^x1  fill/.test(rep[0]));
+    ok('finishing disarms it, so one tap is one capture and it cannot run forever',
+      W.finish().length === 2 && W.isArmed() === false);
+  }
+  ok('the report lands in the COMMENT BOX, which already has a COPY button beside it -- one tap to send it to me, no trip through a menu',
+    demo.includes("const _in=D('lcinput');") &&
+    demo.includes("if(_in)_in.value='ON SCREEN AT THE PAUSE: '+_r.join('  ||  ');"));
+  ok('and the hook only records during a FREEZE, on the visible canvas, so it can never sample the wrong surface or the wrong moment',
+    demo.includes("if(BohemiaWhatsOn.isArmed()&&G._freezeT>0&&this.canvas&&this.canvas.id==='cv')"));
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

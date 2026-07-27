@@ -1048,6 +1048,45 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v84: I BUILT THE INSTRUMENT AND IT NAMED BOTH OF THEM.
+Paolo, a third time: "the brown box is absolutely still there and the dead shot
+dial orange part is still there like what's wrong with you bro."
+THE BREAKTHROUGH WAS A HARNESS BUG, NOT A CODE BUG: my probe kept FREEZING the
+game in order to photograph it, which stopped the very cinematic it was measuring
+(dt=0 halts ks.t). Letting the killshot RUN and screenshotting every 60ms showed
+the frame instantly.
+(1) THE BROWN BOX IS A REGRESSION I CAUSED. JUICE.B FLOOR PULSE fills the WHOLE
+canvas with the faction ACCENT once a beat, and EVERY accent is an orange-brown
+(#d07a2a #b8642a #caa05a #d8a23a #caa83a). v82 pinned _bpmPhase to stop the screen
+breathing during a freeze - and pb is a function of that phase, so the wash WELDED
+ON at whatever brightness it had, at MAXIMUM if the kill landed just after a
+downbeat, for the entire pause. FIXED: the pulse does not draw while frozen. The
+pulse is the metronome made visible; a pulsing ground during a dead stop is a
+contradiction.
+(2) THE ORANGE WAS NEVER THE DIAL. Named by the INSTRUMENT, not by me:
+    x10  fill rgba(184,160,40,0.55)  2x2670  (3.1% of screen)
+That is the ROAD'S DOUBLE-YELLOW MEDIAN, drawn ten times per pause as a
+full-height gold stripe. THAT is why fading the dial TWICE changed nothing he
+could see - I was fading the wrong object, twice. It survives because drawFloor
+lays base + pulse + VIGNETTE and then drawField paints the markings ON TOP of the
+vignette, so the one pass meant to dim the scene runs before the brightest thing
+in it. FIXED: the markings and lane dashes fade with the shot. Verified by the
+instrument itself: rgba(184,160,40,0) at the pause.
+(3) *** THE INSTRUMENT: "WHAT'S ON SCREEN?" *** A settings button. Arm it, get a
+kill, and at the freeze the game records EVERY draw covering >2% of the canvas
+(colour, size, kind), collapses duplicates, sorts BIGGEST FIRST, and writes the
+list into the COMMENT BOX - which already has a COPY button beside it. One tap and
+he sends me the answer. Off by default, costs nothing when off, only writes text.
+THIS EXISTS BECAUSE THREE TURNS WERE BURNED GUESSING AT A SCREENSHOT. It never
+costs three turns again.
+A REAL BUG IN MY OWN REPORTER, caught by the gate: the sort parsed the percentage
+back out of the label string, and 'rgba(184,...' has an earlier paren than the
+percentage does - so it was sorting on 184. Fixed at the root (pct kept as a
+number), not by loosening the assertion.
+Gate: section 19 EXECUTES the reporter (threshold, dedupe, sort, disarm) and
+asserts the vignette-before-markings ordering that let the stripe survive.
+359 checks green.
+
 COMBAT (04) 7/27 - *** I STOPPED. THREE WRONG FIXES IN A ROW. *** Post-mortem +
 the research he asked for: records/BOHEMIA_COMBAT_POSTMORTEM_AND_RESEARCH_3_7_27_26.md
 Paolo: "That brown box is absolutely still there... I didn't even see you do
