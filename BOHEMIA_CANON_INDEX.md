@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-244 canon files indexed across 2 locations.
+246 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -143,7 +143,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md`
 - `BOHEMIA_ADDENDUM_FACE_SYSTEM_6_28_26.md`
 
-### COMBAT (13)
+### COMBAT (14)
+- `BOHEMIA_ADDENDUM_REAL_COMBAT_ON_THE_WALK_7_28_26.md`
 - `BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md`
 - `BOHEMIA_ADDENDUM_DIAL_SYNC_AND_LAB_RESEARCH_7_20_26.md`
@@ -259,10 +260,11 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (108) — add keywords to DOMAINS
+### UNCLASSIFIED (109) — add keywords to DOMAINS
 - `BOHEMIA_ADDENDUM_CLOTHES_FOLLOW_THE_BODY_7_28_26.md`
 - `BOHEMIA_ADDENDUM_NAME_THE_TAB_7_28_26.md`
 - `BOHEMIA_ADDENDUM_NEVER_DRIFT_7_28_26.md`
+- `BOHEMIA_ADDENDUM_VEGAS_WEATHER_7_28_26.md`
 - `BOHEMIA_ADDENDUM_EVERY_DURATION_IS_A_NOTE_7_27_26.md`
 - `BOHEMIA_ADDENDUM_ICON_WITH_EVERY_BUILD_7_27_26.md`
 - `BOHEMIA_ADDENDUM_OFF_MEANS_SILENT_7_27_26.md`
