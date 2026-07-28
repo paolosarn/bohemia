@@ -3813,9 +3813,22 @@ landed on main, validated both directions against Paolo's own past verdicts.
 Factories pre-filter batches against his recorded NEVERs before he sees them.
 The filter KILLS, it never APPROVES — that line never moves.
 
-COORDINATOR (07): read-only across lanes. Produced the architecture map, the
-findings (quest-rescue plan since executed, collision watch), the prompt
-library, and this diet. REPO CLEANUP: DONE, both phases (7/26). The full
+COORDINATOR (07): read-only across lanes. 7/28 LATEST — THE ENGINE REALITY MAP
+SHIPPED: laws/BOHEMIA_ENGINE_REALITY_MAP_7_28_26.md. Paolo ordered engine
+foresight "not your numbers and hallucinated guesses"; two independent
+read-only auditors swept the run, the alpha (decoded COMBAT_B64 + CITY_B64),
+and engine/, every claim file:line-cited and measured. EVERY SESSION CHECKS IT
+BEFORE ASSUMING ANY ENGINE CAPABILITY (now in the GO procedure read order,
+doctrine §2.1). The ten true gaps are ranked in it; the fixes are routed into
+the backlog as ER items (RUN 0d: run ignores the streaming engine + 2 save
+bugs + daycycle unwired; WORLD ER: stair/z-level engine half + phantom desert
+residents; COMBAT ER: BohemiaMelee has no engine module and no resync tool —
+the wall in front of allies/ambient/seamless; CITY ER: zero people on the
+human-mode walk; SHARED 4-5: FPS gauge + sync-net widening). One stale law
+corrected in place: the run-handoff contract's "warmed frame / 14ms" claim
+(warming was reverted 7/26; correction block added to that addendum).
+Earlier: the architecture map, the findings (quest-rescue plan since
+executed, collision watch), the prompt library, and this diet. REPO CLEANUP: DONE, both phases (7/26). The full
 pre-slim history (every commit 7/16-7/26, all branches) lives permanently in
 paolosarn/bohemia-vault, byte-verified before the rewrite; main is a SLIM
 GENESIS of the identical tree. Procedure + keep-it-slim rules:

@@ -35,7 +35,11 @@ Paolo never writes task prompts. His words to any session:
 ## 2. THE GO PROCEDURE (deterministic — no branching that needs Paolo)
 =============================================================================
 1. Read CLAUDE.md -> 00_START_HERE_NEXT_SESSION.md -> your lane's section of
-   BOHEMIA_BACKLOG.md -> your lane INTENT (§6).
+   BOHEMIA_BACKLOG.md -> your lane INTENT (§6). Before planning any
+   engine-adjacent work, check laws/BOHEMIA_ENGINE_REALITY_MAP_7_28_26.md —
+   the evidence-cited map of what the engine actually supports (EXISTS /
+   PARTIAL / MISSING, file:line proof). Never assume a capability either way
+   when the map already answers it.
 2. If your lane has a task mid-flight in the handoff: RESUME it.
 3. Else POP the topmost backlog item in YOUR lane whose dependencies are met.
    If an item is [PENDING Paolo], SKIP it (pending blocks nothing) and take

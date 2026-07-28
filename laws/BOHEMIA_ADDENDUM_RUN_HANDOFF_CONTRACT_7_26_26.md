@@ -25,8 +25,15 @@ startEncounter({
 ```
 
 - The combat tab does NOT need to have been opened. `ensureCombatFrame()`
-  builds it on demand, and the frame is WARMED in the background as soon as
-  the app opens, so a mid-run handoff is instant.
+  builds it on demand.
+  [CORRECTION, coordinator 7/28/26 — engine reality audit]: the background
+  WARMING this section originally promised was REVERTED the same day it
+  shipped (7/26, it pre-baked stale clothing — see the note at
+  BOHEMIA_ALPHA_0_9.html:6000-6004). The "instant / 14ms" cold-handoff claim
+  measured the warmed path and is STALE: today a first fight decodes the full
+  COMBAT_B64 at handoff time, plus the fixed 250ms, plus the READY queue.
+  Re-landing warming without the stale-clothing bug is routed in
+  laws/BOHEMIA_ENGINE_REALITY_MAP_7_28_26.md.
 - An encounter posted before the demo is listening is QUEUED and flushed on
   `BOHEMIA_COMBAT_READY` (with a ping retry). It is never dropped.
 - `abortEncounter()` calls the fight off (a talk resolved it, a timer ran out)

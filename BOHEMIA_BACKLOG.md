@@ -704,6 +704,26 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    constitution. | per-type material map + a real-surface screenshot each |
    the frozen tileset is frozen; new tiles register in target_match_gate | yes.
 0c. DISTRICT ART / MUSIC / DAY CYCLE (ledger priorities 3-5), in that order.
+0d. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
+   7_28_26.md, all claims file:line-cited there) FOUR REAL DEFECTS ON THE
+   SHIPPED RUN, all integration work, all REUSE-FIRST (the engine halves
+   already exist):
+   (a) THE RUN IGNORES THE STREAMING ENGINE. loadCell() does a synchronous
+   16,384-tile full regen + buildSim() on EVERY district crossing (measured
+   25-40ms cold on desktop — a visible phone stall) while bohemia_world.js's
+   stream()/LRU path is proven <5ms by streaming_gate. Adopt w.stream(),
+   stop rebuilding the whole grid. | streaming_gate-class timing asserted on
+   the run's own crossing path | engine stays untouched | no.
+   (b) SAVE BUG: saveBlob stores px/py but NOT the current CELL — loading
+   after a district crossing restores the right coordinates in the WRONG
+   district. (c) SAVE BUG: applyBlob reseeds the sim with base SEED while
+   buildSim uses SEED^cellX^cellY — load and the neighbours are different
+   people. | run_gate: save->cross->load round-trip proves same cell + same
+   residents | — | no.
+   (d) WIRE bohemia_daycycle (REUSE-FIRST: the module is FINISHED and has
+   zero current consumers; the run's clock already advances and the screen
+   never changes). This IS ledger priority 5, the module already exists.
+   | ambient on the real surface, screenshot | — | no.
 1. Phone-feel pass on the run (touch responsiveness at arm's length): real
    device-shaped viewports, hold-to-walk tuning, tap-to-step target sizes,
    the objective bar at arm's length. | run_gate extended with a real-device
@@ -722,6 +742,24 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
+   7_28_26.md) TWO ENGINE GAPS THIS LANE OWNS:
+   (a) VERTICALITY'S ENGINE HALF. Paolo's stated direction: 2-3 story
+   buildings with climbable stairs. Today: floorplan vocabulary is only
+   floor/wall/door (bohemia_floorplan.js:58, "multi-floor stacking" in its
+   own pending list), no z-level on any surface, story:2 data dies unused,
+   and bohemia_garage.js already generates real 2-6 deck structures with
+   ramps + stair cores that NOTHING renders or walks. The work: a 'stair'
+   tile kind + a floor index in floorplan state (each level still ===
+   footprint per the interior law). The garage decks are the free pilot —
+   generation exists, only walk is new. Stair TILE ART is already filed
+   (BOHEMIA_TILE_REQUESTS.md row 1). | headless: an actor climbs floor 1->2
+   in a floorplan, gated | render half lands with RUN/CITY after | no.
+   (b) PHANTOM DESERT RESIDENTS. homeFootprints treats ANY code 2/9 blob as
+   a house (bohemia_suburb.js:196) — measured: a desert cell yields 78
+   "homes" and 64 residents with sleep schedules living in rock formations.
+   Filter by district family before granting households. | agents gate:
+   desert/arterial cells produce 0 households | — | no.
 V-1. [VERDICT IN 7/27 — 10 up / 32 down / 3 unjudged of 45. "it was mostly all bad",
    "nothing here was perfect all need work fr"]
    Raw: records/BOHEMIA_VERDICT_BULK_DISTRICTS_7_27_26.txt
@@ -1036,6 +1074,18 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    sits, what commitment moves it, what neglect costs per rung. Do not invent them.
 
 ## CITY
+ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
+   7_28_26.md) THE CITY WALK SURFACE HAS ZERO PEOPLE. Human mode has the best
+   render architecture in the repo (chunk LRU + canvas pool sized against the
+   iOS floor, genuinely seamless streaming) and not one scheduled NPC — no
+   BohemiaAgents anywhere in the decoded blob; the only movers are cars and
+   planes. Meanwhile the RUN walks 28 scheduled bodies on a naive renderer:
+   each surface has the half the other is missing. REUSE-FIRST: wire
+   BohemiaAgents (schedules already exist) into human mode, viewport-culled.
+   NOTE the WORLD ER(b) phantom-resident fix lands first or the city fills
+   with desert ghosts. | people visible on the real surface, screenshot;
+   memory stays inside the measured 224MB floor | agent module is WORLD's |
+   no.
 0. [DONE 7/26] THE WALKED WORLD WAS RESAMPLED AT EVERY ZOOM. Found by
    MEASUREMENT (tools/bohemia_render_audit.js patches the canvas before the app
    boots and records every real draw), not by reading code. 41% of all draws
@@ -1380,6 +1430,21 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
+   7_28_26.md) COMBAT HAS NO ENGINE MODULE, AND IT IS THE WALL. BohemiaMelee
+   exists nowhere in engine/ — its only canonical body lives inside the 632KB
+   COMBAT_B64 blob, edited by ~25 one-shot patch scripts with NO resync/
+   freshness tool (CITY_B64 has one, 40/40 green; COMBAT has nothing). Every
+   ruled combat future (ally-in-combat item 0, ambient spawns, any
+   walk-surface combat feel) is blocked behind this. The work, non-cook:
+   extract BohemiaMelee into engine/ as the one canonical body, make the
+   blob a generated carrier, ship a bohemia_combat_resync tool + freshness
+   gate on the CITY_B64 pattern. ALSO: the reverted frame-warming (the
+   "14ms handoff" was measured warmed; warming was pulled 7/26 for baking
+   stale clothing) — re-land it without the stale-bake bug so first fights
+   stop paying the full 632KB decode. | resync --check green + a freshness
+   gate registered; handoff timed on the real surface | the dial's behavior
+   changes ZERO — this is plumbing, byte-identical output is the proof | no.
 1a. (discovered 7/26 by COMBAT, NOT ours to fix) THE RENDER PIXEL GATE IS FLAKY.
    It drives a live WALKING CITY and measures whatever draws happen, so the draw
    count swings ~19.8k-22.8k run to run. It failed once at 12.4% half-pixel draws
@@ -2200,3 +2265,13 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    exemplar anchored each cook). | reusefirst-style gate extension | — | no.
 3. DRIFT CANARY harness: re-render fixed approved anchors, diff vs blessed.
    | canary gate registered | — | no.
+4. (discovered 7/28, ENGINE REALITY AUDIT) FPS/FRAME-TIME INSTRUMENTATION IS
+   MISSING on both walk surfaces — step latency is gated (streaming_gate),
+   render latency is measured nowhere. A perf claim without a gauge is a
+   guess. | a frame-time probe on the run + CITY, numbers in a record | — |
+   no.
+5. (discovered 7/28, ENGINE REALITY AUDIT) WIDEN THE SYNC NET: sync_gate only
+   tracks `const BOH_*` declarations, so bohemia_loop / bohemia_agents /
+   bohemia_bq / quest_runtime and every district generator sit OUTSIDE it
+   (covered only piecemeal by run_gate's 6-module list + city resync). |
+   sync_gate covers the full inlined-module set | — | no.
