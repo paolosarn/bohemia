@@ -74,8 +74,14 @@ ok('no wall-clock or random in the page script', !/Math\.random|Date\.now/.test(
 // still holds: the boot stays DYNAMIC (loader guard intact, no static iframe).
 const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
 ok('the real iso city lives: CITY_B64 payload present in the alpha', alpha.indexOf('CITY_B64') >= 0);
+// The guard's CONDITION was renamed on 7/28 when Paolo asked for the city in the
+// run tab: the tab handler now computes PANEL (run routes to city) and the guard
+// tests that instead of t.dataset.p directly. What this check exists to protect -
+// a DYNAMIC boot, no static iframe hijack, the 7/19 lesson - is unchanged and is
+// still asserted by the two checks below. So the literal string moves with the
+// code; the protection does not move at all.
 ok('the dynamic city boot is intact (loader guard untouched)',
-  alpha.indexOf("t.dataset.p==='city'&&!document.getElementById('cityFrame')") >= 0);
+  alpha.indexOf("PANEL==='city'&&!document.getElementById('cityFrame')") >= 0);
 ok('the CITY tab boots the iso view (CITY_B64 srcdoc, not a separate flat map)',
   alpha.indexOf('fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(CITY_B64)') >= 0);
 ok('NO static cityFrame hijack (the guard must find the panel empty, boot stays dynamic)',

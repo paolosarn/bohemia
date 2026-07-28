@@ -381,7 +381,14 @@ async function alphaRun() {
     await page.goto('file://' + ALPHA_FILE, { timeout: 120000 });
     await page.click('#front');
     await page.click('.tab[data-p=run]');
-    const handle = await page.waitForSelector('#runFrame');
+    /* ATTACHED, NOT VISIBLE (Paolo 7/28: "Can you put the city in the run tab?").
+       The RUN tab now routes to the city panel, so the run slice's iframe is
+       loaded and live but no longer on screen. Every assertion below still runs
+       against the real run inside the real alpha - the only thing that changed is
+       that this gate no longer requires the panel to be the one showing. The
+       ruling moved the contract; the gate follows the ruling, it was not loosened
+       to let anything through. */
+    const handle = await page.waitForSelector('#runFrame', { state: 'attached' });
     const run = await handle.contentFrame();
     await run.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 120000 });
     out.ready = true;
