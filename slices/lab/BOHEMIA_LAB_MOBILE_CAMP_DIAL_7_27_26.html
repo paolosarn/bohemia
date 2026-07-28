@@ -171,15 +171,31 @@
    each one is reachable from the DIALS tab, so nothing can quietly harden into
    canon while he is not looking.
    ========================================================================= */
+/* =========================================================================
+   THE REAL SCALE OF THE VALLEY — from OUR OWN canon, not invented, because he
+   asked "how many steps would it take in our scale of game to walk across
+   Vegas" and the answer is already in the repo:
+     engine/bohemia_overmap.js:20   OVER_N = 96 cells, CELL_M = 0.75 m/tile
+     engine/bohemia_world.js:613    var T = 128 walkable tiles per cell
+     laws/BOHEMIA_GDD_v5.md:37      "ONE UNBROKEN WORLD: 12288x12288 fine cells"
+   96 x 128 = 12,288 tiles across, and 12,288 x 0.75 m = 9,216 m = 9.2 km.
+   So ACROSS VEGAS IS 12,288 STEPS, and clause 3 (a day is across and back)
+   makes a step 3.52 seconds and a crossing twelve hours.
+   ========================================================================= */
+var VEGAS = { CELLS: 96, TILES_PER_CELL: 128, TILE_M: 0.75 };
+function crossingTiles() { return VEGAS.CELLS * VEGAS.TILES_PER_CELL; }   /* 12288 */
+function crossingMetres() { return crossingTiles() * VEGAS.TILE_M; }      /* 9216 */
+function tileSeconds() { return (24 * 3600) / (crossingTiles() * 2); }    /* 3.5156 */
+
 var DIALS = {
   BASE_HEALTH:      { v: 10, min: 4,  max: 20, step: 1, clause: 'e',
     why: 'Base health. Small integers, Rogue Fable IV register, never Valheim\'s 25->148.' },
   BASE_STAMINA:     { v: 6,  min: 2,  max: 12, step: 1, clause: 'e',
     why: 'Base stamina points. "plus 1 or 2 or 3 stamina points type shit" is the scale.' },
-  REST_TILES:       { v: 40, min: 10, max: 120, step: 5, clause: 'b',
-    why: 'How many TILES a chill at camp is worth. Across the map and back is a full day.' },
-  TILES_PER_COMFORT:{ v: 10, min: 0,  max: 40, step: 2, clause: 'b',
-    why: 'Tiles added per comfort level — i.e. what one thing you carried is worth.' },
+  REST_PCT:         { v: 60, min: 5,  max: 150, step: 5, clause: 'b',
+    why: 'The BARE tent, as percent of a Vegas crossing. Your ruling was 75% for "one rest"; on your "do what you think is best" I called that 75 the DRESSED camp, so bare is 60 and the full kit brings it to exactly 75. One word from you flips it back.' },
+  PCT_PER_COMFORT:  { v: 5,  min: 0,  max: 25, step: 1, clause: 'b',
+    why: 'What one thing you carried and set down adds. 60 bare + 3 things x 5 = 75% = 9,216 steps = YOUR NUMBER, earned by what you chose to carry. If comfort were worth nothing you would already cross most of the city on a bare tent, and the mechanism you liked would be decoration.' },
   SLEEP_TILES_MULT: { v: 2,  min: 1,  max: 4,  step: 1, clause: 'b',
     why: 'Sleeping is the bigger commitment, so its buff lasts this many times longer.' },
   STAMINA_BONUS:    { v: 2,  min: 1,  max: 3,  step: 1, clause: 'e',
@@ -222,8 +238,8 @@ var DIALS = {
     why: 'CLAUSE 12: a bandage or gauze takes this long.' },
   BULLET_MINUTES:   { v: 45, min: 5,  max: 240, step: 5,  clause: 'i',
     why: 'CLAUSE 12: digging a bullet out is the longest thing that happens at camp.' },
-  TILE_MINUTES:     { v: 18, min: 1,  max: 60,  step: 1,  clause: 'j',
-    why: 'CLAUSE 3, derived from YOUR scale: across the map and back is a full day. 80 tiles x 18 min = 24 h. You never said the number, so it is a dial that shows its own working.' },
+  SEC_PER_100_STEPS:{ v: 352, min: 20, max: 2000, step: 4, clause: 'j',
+    why: 'CLAUSE 3, derived from YOUR scale at the REAL map size: a day is across AND back = 24,576 steps, so a step is 3.52 s and a crossing is 12 hours. Held per HUNDRED steps so the dial stays a whole number and the 3.52 stays exact. (An earlier version of this page had 18 MINUTES per tile — that was calibrated to this page\'s toy map, not to Vegas, and it was 300x too slow.)' },
 
   /* --- clause 13: the act scarcity curve --- */
   ACT:              { v: 1,  min: 1,  max: 3,  step: 1, clause: 'k',
@@ -336,7 +352,7 @@ var S = {
   rested: 0,                    /* TILES of buff left, never seconds */
   restedFrom: 'chill',
   meal: 0,                      /* TILES of the meal buff left — clause 14 */
-  minutes: 8 * 60,              /* the world's clock, moved by BUTTONS — clause 12 */
+  seconds: 8 * 3600,            /* the world's clock, moved by BUTTONS — clause 12 */
   bleedTiles: 0,                /* how far this bleed has run — clause 15 */
   wounds: [],
   companion: true,
@@ -397,22 +413,25 @@ function stRegenTiles() {
 /* CLAUSE 12 — THE WORLD'S CLOCK, moved by BUTTONS, never by standing there. */
 function spendMinutes(m) {
   if (!m) return;
-  S.minutes += m;
+  S.seconds += m * 60;
   paintHud();
 }
 function clockText() {
-  var day = Math.floor(S.minutes / 1440) + 1;
-  var h = Math.floor((S.minutes % 1440) / 60), mm = S.minutes % 60;
+  var mins = Math.floor(Math.round(S.seconds) / 60);
+  var day = Math.floor(mins / 1440) + 1;
+  var h = Math.floor((mins % 1440) / 60), mm = mins % 60;
   return 'day ' + day + '  ' + String(h).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
 }
 /* his own scale ruling, shown rather than asserted: across and back is a day */
-function dayInTiles() { return Math.round(1440 / Math.max(1, D('TILE_MINUTES'))); }
+function stepSeconds() { return D('SEC_PER_100_STEPS') / 100; }
+function dayInTiles() { return Math.round(86400 / Math.max(0.01, stepSeconds())); }
+function hoursFor(tiles) { return tiles * stepSeconds() / 3600; }
 
 function spendTile(n) {
   var k = n || 1;
   S.tiles += k;
   /* walking spends the world's clock too — clause 3's scale, via a dial */
-  S.minutes += k * D('TILE_MINUTES');
+  S.seconds += k * D('SEC_PER_100_STEPS') / 100;
 
   if (S.rested > 0) {
     S.rested = Math.max(0, S.rested - k);
@@ -520,10 +539,15 @@ function comfort() {
   if (h) return h.comfort;
   return S.deployed.length;
 }
-function restTilesFor(kind) {
-  var t = D('REST_TILES') + comfort() * D('TILES_PER_COMFORT');
-  return kind === 'sleep' ? t * D('SLEEP_TILES_MULT') : t;
+/* HIS RULING, in his unit: a rest is a PERCENTAGE OF A VEGAS CROSSING. */
+function restPctFor(kind) {
+  var pct = D('REST_PCT') + comfort() * D('PCT_PER_COMFORT');
+  return kind === 'sleep' ? pct * D('SLEEP_TILES_MULT') : pct;
 }
+function restTilesFor(kind) {
+  return Math.round(crossingTiles() * restPctFor(kind) / 100);
+}
+function pctOfCrossing(tiles) { return (tiles / crossingTiles()) * 100; }
 
 /* =========================================================================
    CLAUSE 4 — ONE POOL. Every camp action spends from it; loot adds to it.
@@ -553,7 +577,8 @@ var CAMP_ACTIONS = [
       S.rested = restTilesFor('chill'); S.restedFrom = 'chill'; S.chills++;
       S.stamina = maxStamina();
       spendMinutes(D('CHILL_MINUTES'));           /* clause 12 */
-      toast('good', 'rested for ' + S.rested + ' tiles (comfort ' + comfort() + ')');
+      toast('good', 'rested for ' + S.rested.toLocaleString() + ' steps — ' +
+        restPctFor('chill').toFixed(0) + '% of a Vegas crossing (comfort ' + comfort() + ')');
       return true;
     } },
   { id: 'sleep', name: 'sleep', cost: 0, needsCompanion: false,
@@ -564,7 +589,8 @@ var CAMP_ACTIONS = [
       S.stamina = maxStamina();
       if (S.health < maxHealth()) S.health++;
       spendMinutes(D('SLEEP_MINUTES'));           /* clause 12: the big block */
-      toast('good', 'slept — rested for ' + S.rested + ' tiles');
+      toast('good', 'slept — rested for ' + S.rested.toLocaleString() + ' steps, ' +
+        restPctFor('sleep').toFixed(0) + '% of a crossing');
       return true;
     } },
   /* CLAUSE 14 — eating is its own buff that STACKS with the camp, in the shape
@@ -578,7 +604,8 @@ var CAMP_ACTIONS = [
       S.stamina = maxStamina();
       if (S.health < maxHealth()) S.health++;
       spendMinutes(D('EAT_MINUTES'));
-      toast('good', 'ate out of the pool — fed for ' + S.meal + ' tiles, no recipe, no item');
+      toast('good', 'ate out of the pool — fed for ' + S.meal.toLocaleString() +
+        ' steps, no recipe, no item');
       return true;
     } },
   { id: 'bandage', name: 'apply a bandage', costDial: 'BANDAGE_COST', needsCompanion: false,
@@ -776,22 +803,26 @@ function paintHud() {
       pips(S.health, maxHealth(), '#', '.') + '\n' +
       'stamina <b>' + S.stamina + '/' + maxStamina() + '</b>  ' +
       pips(S.stamina, maxStamina(), '#', '.') + '\n' +
-      POOL_NAME + '  <b>' + S.supply + '</b>   tiles <b>' + S.tiles + '</b>\n' +
+      POOL_NAME + '  <b>' + S.supply + '</b>   steps <b>' + S.tiles.toLocaleString() + '</b>\n' +
       '<b>' + clockText() + '</b>   ACT <b>' + D('ACT') + '</b>  ' +
-      sheltersNow().length + ' friendly';
+      sheltersNow().length + ' friendly\n' +
+      'ACROSS VEGAS <b>' + crossingTiles().toLocaleString() + ' steps</b> (' +
+      (crossingMetres() / 1000).toFixed(1) + ' km, ' + hoursFor(crossingTiles()).toFixed(0) + ' h)';
   }
   var r = document.getElementById('rested');
   if (r) {
     if (isRested()) {
       r.className = 'card on';
-      r.textContent = 'RESTED — ' + S.rested + ' TILES LEFT (' + S.restedFrom + ')\n' +
-        (isFed() ? 'FED — ' + S.meal + ' tiles left (they stack)\n' : '') +
+      r.textContent = 'RESTED — ' + pctOfCrossing(S.rested).toFixed(0) + '% OF A CROSSING LEFT\n' +
+        '  ' + S.rested.toLocaleString() + ' steps · ' + hoursFor(S.rested).toFixed(1) +
+        ' h of walking (' + S.restedFrom + ')\n' +
+        (isFed() ? 'FED — ' + S.meal.toLocaleString() + ' steps left (they stack)\n' : '') +
         '+' + (D('STAMINA_BONUS') + (isFed() ? D('MEAL_STAMINA') : 0)) +
         ' stamina · regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
         (D('MAX_HP_MOVES') === 1 ? '\n+' + D('MAX_HP_BONUS') + ' max health' : '');
     } else {
       r.className = 'card';
-      r.textContent = (isFed() ? 'FED — ' + S.meal + ' tiles left\n' : 'not rested') +
+      r.textContent = (isFed() ? 'FED — ' + S.meal.toLocaleString() + ' steps left\n' : 'not rested') +
         ' regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
         (S.camp || shelterHere() ? '' : '\ncamp is in your pack');
     }
@@ -844,8 +875,14 @@ function paintCamp() {
     sub.innerHTML = (h ? '<b style="color:#8fd0ff">' + h.kind.toUpperCase() +
         '</b> — a real roof, no setup time, comfort it brings itself. This is why ACT 3 needs the tent less.<br>' : '') +
       'comfort <b style="color:#ffd76a">' + comfort() + '</b> ' + (h ? 'from the place' : 'from what you set down') + ' &rarr; ' +
-      'a chill is worth <b style="color:#ffd76a">' + restTilesFor('chill') + ' tiles</b>, ' +
-      'a sleep <b style="color:#ffd76a">' + restTilesFor('sleep') + '</b>. ' +
+      'a chill is worth <b style="color:#ffd76a">' + restPctFor('chill').toFixed(0) + '% of a Vegas crossing</b> (' +
+      restTilesFor('chill').toLocaleString() + ' steps, ' + hoursFor(restTilesFor('chill')).toFixed(1) + ' h), ' +
+      'a sleep <b style="color:#ffd76a">' + restPctFor('sleep').toFixed(0) + '%</b> (' +
+      restTilesFor('sleep').toLocaleString() + ' steps). ' +
+      '<br><span style="color:#6f7889">Across Vegas is ' + crossingTiles().toLocaleString() +
+      ' steps at ' + VEGAS.TILE_M + ' m each = ' + (crossingMetres() / 1000).toFixed(1) +
+      ' km, and a day is across and back, so a step is ' + tileSeconds().toFixed(2) +
+      ' s. Your ruling: one rest = 75% of that.</span> ' +
       POOL_NAME + ' in the pool: <b style="color:#ffd76a">' + S.supply + '</b>. ' +
       'No food items exist — every action below draws on the one pool.';
   }
@@ -870,7 +907,7 @@ function paintCamp() {
     var carried = S.carried.indexOf(d.id) >= 0, out = S.deployed.indexOf(d.id) >= 0;
     var row = document.createElement('div'); row.className = 'arow';
     row.innerHTML = '<span class="an">' + d.name + '</span><span class="ac">' +
-      (out ? 'set down, +' + D('TILES_PER_COMFORT') + ' tiles' : carried ? 'in the pack' : 'not carried') + '</span>';
+      (out ? 'set down, +' + D('PCT_PER_COMFORT') + '% of a crossing' : carried ? 'in the pack' : 'not carried') + '</span>';
     var b = document.createElement('button');
     if (out) { b.textContent = 'PICK UP'; b.onclick = function () { pickUp(d.id); }; }
     else if (carried) { b.textContent = 'SET DOWN'; b.disabled = !atCamp(); b.onclick = function () { deploy(d.id); }; }
@@ -1013,14 +1050,21 @@ function bindUI() {
     sp.className = 'chip'; sp.textContent = 'SPRINT';
     sp.onclick = function () { S.sprint = !S.sprint; sp.className = 'chip' + (S.sprint ? ' on' : ''); };
     h2.appendChild(sp);
-    var far = document.createElement('button');
-    far.className = 'chip'; far.textContent = 'WALK 20 TILES';
-    far.onclick = function () {
-      var m0 = S.minutes;
-      for (var i = 0; i < 20; i++) spendTile(1);
-      toast('good', '20 tiles — buffs burned 20, clock moved ' + (S.minutes - m0) + ' min');
-    };
-    h2.appendChild(far);
+    /* AT REAL SCALE a crossing is 12,288 steps, so a 20-tile chip tells him
+       nothing. These do. */
+    [['WALK 100', 100], ['WALK 1,000', 1000], ['CROSS VEGAS', crossingTiles()]].forEach(function (p) {
+      var b = document.createElement('button');
+      b.className = 'chip'; b.textContent = p[0];
+      b.onclick = function () {
+        var s0 = S.seconds, r0 = S.rested;
+        for (var i = 0; i < p[1]; i++) spendTile(1);
+        toast('good', p[1].toLocaleString() + ' steps = ' +
+          Math.round(p[1] * VEGAS.TILE_M) + ' m in ' +
+          (Math.round((S.seconds - s0) / 360) / 10) + ' h — buff burned ' +
+          Math.min(r0, p[1]).toLocaleString());
+      };
+      h2.appendChild(b);
+    });
     var wait = document.createElement('button');
     wait.className = 'chip'; wait.textContent = 'STAND STILL 1 MIN';
     wait.onclick = function () {
@@ -1073,8 +1117,11 @@ window.LAB = {
   place: place, walkTiles: walkTiles, spendTile: spendTile, tileAt: tileAt,
   at: function () { return { x: S.tx, y: S.ty }; }, findSupply: findSupply,
   /* time — clause 11 + 12 */
-  minutes: function () { return S.minutes; }, spendMinutes: spendMinutes,
-  clockText: clockText, dayInTiles: dayInTiles,
+  minutes: function () { return Math.floor(S.seconds / 60); }, seconds: function () { return S.seconds; },
+  spendMinutes: spendMinutes,
+  clockText: clockText, dayInTiles: dayInTiles, hoursFor: hoursFor, stepSeconds: stepSeconds,
+  VEGAS: VEGAS, crossingTiles: crossingTiles, crossingMetres: crossingMetres,
+  tileSeconds: tileSeconds, restPctFor: restPctFor, pctOfCrossing: pctOfCrossing,
   /* acts and friendly shelter — clause 13 */
   SHELTERS: SHELTERS, sheltersNow: sheltersNow, shelterAt: shelterAt, shelterHere: shelterHere,
   /* the meal buff — clause 14 */
@@ -1102,7 +1149,7 @@ window.LAB = {
   reset: function () {
     S.tx = 11; S.ty = 28; S.px = S.tx * TILE; S.py = S.ty * TILE; S.moving = null; S.dirs = [];
     S.tiles = 0; S.supply = 4; S.camp = null; S.carried = ['bedroll']; S.deployed = [];
-    S.rested = 0; S.meal = 0; S.minutes = 8 * 60; S.bleedTiles = 0;
+    S.rested = 0; S.meal = 0; S.seconds = 8 * 3600; S.bleedTiles = 0;
     S.wounds = []; S.companion = true; S.sleeps = 0; S.chills = 0;
     S.hpDebt = 0; S.stDebt = 0; S.bleedDebt = 0; S.found = {}; S.sprint = false;
     S.health = D('BASE_HEALTH'); S.stamina = D('BASE_STAMINA');

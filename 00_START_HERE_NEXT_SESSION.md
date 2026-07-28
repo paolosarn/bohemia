@@ -770,6 +770,70 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
+LAB (09): 7/27 (o) LATEST — THE LAST OPEN NUMBER IS CALLED, AND HERE IS WHAT COMES NEXT.
+Paolo: "Do what you think is best. Do what you have to do next and know what comes after."
+THE CALL (mine, under his delegation, reversible by one word): **75% IS THE DRESSED CAMP.**
+A bare tent is 60% of a Vegas crossing, each thing you carried and set down adds 5%, and the
+full kit of three brings it to exactly 75% = 9,216 steps = his number. Reasons, third being
+decisive: (1) otherwise comfort is decoration, and comfort is the mechanism he said he was in
+love with; (2) it makes clause 1 mean something — the camp is mobile so "what did I carry" is
+supposed to be a decision, and it only is if the kit earns the crossing; (3) IT PROTECTS HIS
+OWN TARGET AT THE TOP OF THE RANGE — he aimed at "you must stop once to cross the city", and
+if 75% were the BARE camp then a dressed one would reach 90% and nearly cross, weakening the
+exact thing he aimed at. Now even the best camp in the game is 3,072 steps short. Gate S5-S8
+pin all of it. Recorded in the law under "CALLED ON HIS DELEGATION".
+
+WHAT COMES NEXT, IN ORDER, AND WHAT EACH ONE WAITS ON:
+1. HIS PLAYTEST OF THE CAMP DIAL. Nothing else can move the camp forward — the mechanisms
+   are built and gate-locked, and the remaining numbers are all feel calls. This is the only
+   item with nothing blocking it on my side.
+2. THE PORT, WHEN HE SAYS PORT. laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md: the
+   camp mechanism goes to engine/ as its own module with its own gate, tables EMPTY, and the
+   OWNING lane wires it (LIFE/SOCIAL for the camp itself, WORLD for the act shelter density).
+   An approve on a reference is not an order to build the real system. DO NOT PRE-EMPT THIS.
+3. THE CONTENT HE STILL OWNS, and none of it is invented: the pool's name and whether it is
+   literally one number (clause a); what each camp action costs in supply (c); whether max
+   health moves at all (d); the exact stamina numbers (e); the real camp item list (g) — the
+   five on the page are placeholders and say so; how many friendly shelters per act and what
+   they are called (k); the meal buff's size (l); and the BLOOD-LOSS POLICY (m), where my
+   recommendation is option 2 and it is written up in
+   records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md.
+4. THE LAB'S NEXT TARGET, only if he names one. The research dossier
+   (records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md) ranks CATACLYSM: DDA faction
+   camps #1 because it is the only open-source game that answers the ACTION COST table, which
+   is still [PENDING] from the TIME IS SPENT BY ACTIONS law. LOOT IS A CLOSED SUBJECT — two
+   kills, no third attempt, per laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md.
+
+LAB (09): 7/27 (n) LATEST — THE SCALE IS SETTLED. ACROSS VEGAS IS 12,288 STEPS AND ONE
+REST IS 75% OF IT. Paolo asked "how many steps would it take in our scale of game to walk
+across Vegas" and ruled in the same line: "you need one rest to walk across 75% of Las
+Vegas." laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md clause 16.
+THE NUMBERS, ALL FROM OUR OWN FILES — if you need the valley's scale, take it from here and
+do not re-derive it:
+  96 cells across      engine/bohemia_overmap.js:20  OVER_N=96
+  128 tiles per cell   engine/bohemia_world.js:613   var T = 128
+  0.75 m per tile      engine/bohemia_overmap.js:20  CELL_M, the SLOT SCALE LAW
+  = 12,288 STEPS ACROSS THE VALLEY (cross-checked: laws/BOHEMIA_GDD_v5.md:37 says the fine
+    layer is 12288x12288), = 9,216 m = 9.2 km
+  = a step is 3.52 SECONDS and a crossing is 12 HOURS, because clause 3 says a day is
+    across AND back (86,400 / 24,576)
+  = HIS REST IS 9,216 STEPS = 6.9 km = 9 HOURS OF WALKING
+AND THE DESIGN LANDS EXACTLY WHERE HE AIMED IT: you cannot quite cross Las Vegas on one
+rest. You are 3,072 steps short and you have to stop once. The gate proves both halves
+(S8: a bare rest falls exactly 3,072 short; S9: a slept camp makes it).
+THE UNIT CHANGED AND THAT IS THE DURABLE PART: a rest is a PERCENT OF A CROSSING
+(REST_PCT, default 75), never an absolute tile count, so it survives a rescale of the map.
+A MISTAKE I OWNED IN THE LAW RATHER THAN PATCHING QUIETLY: the earlier dial page had
+REST_TILES capped at 120 and TILE_MINUTES at 18 — both calibrated to that page's toy test
+map, and 18 min/step is 300x too slow at real scale. Clause 16 records it as what it was.
+The clock dial is now SEC_PER_100_STEPS = 352 so 3.52 stays exact with whole-number dials.
+GATE: gates/camp_dial_gate.js, 127 checks. Mutation-tested: an 80-cell valley reds six
+checks, quietly moving his 75 to 50 reds five.
+[PENDING Paolo] and it is the ONLY thing still open about the rest number: IS 75% THE BARE
+CAMP OR A DRESSED ONE? The page treats it as bare and adds comfort on top (three things =
+90%). One dial apart, and nobody picks it for him.
+The alpha was not touched, so the build stamp did not change.
+
 LAB (09): 7/27 (m) LATEST — THE CAMP LAW GAINED FIVE MORE CLAUSES: TIME, THE ACT CURVE,
 COMBINED BUFFS, AND HIS BLOOD-LOSS QUESTION ANSWERED.
 laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md now has an AMENDED THE SAME DAY section

@@ -25,6 +25,57 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1k. [CALLED 7/27 ON HIS DELEGATION] 75% IS THE DRESSED CAMP, NOT THE BARE TENT.
+   Paolo: "Do what you think is best." So the one open question on the rest number is
+   closed as MY call, reversible by one word: a bare tent is 60% of a Vegas crossing,
+   each thing carried and set down adds 5%, and the full kit of three brings it to
+   exactly 75% = 9,216 steps = his number.
+   WHY, third reason decisive: (1) otherwise comfort is decoration and comfort is the
+   mechanism he loved; (2) the camp is MOBILE so "what did I carry" must be a real
+   decision, which it only is if the kit earns the crossing; (3) IT PROTECTS HIS OWN
+   TARGET AT THE TOP OF THE RANGE — with 75% as the bare camp, a dressed one reaches
+   90% and nearly crosses, weakening the "you must stop once" he aimed at. Now even
+   the best camp in the game falls 3,072 steps short.
+   Gate S5 pins 60 + 3x5 = 75, S6 pins 9,216 steps, S7 proves a bare tent is strictly
+   worse, S8 proves the DRESSED camp still cannot cross. Recorded in the law under
+   "CALLED ON HIS DELEGATION".
+1j. [RULED 7/27 — CLAUSE 16, THE SCALE IS SETTLED] ACROSS VEGAS IS 12,288 STEPS, AND
+   ONE REST IS 75% OF IT. Paolo: "How many steps would it take in our scale of game
+   to walk across Vegas with that math you want you need one rest to walk across 75%
+   of Las Vegas". A question and a ruling in one line.
+   THE ANSWER, entirely from our own files — nothing invented:
+     96 cells across        engine/bohemia_overmap.js:20  OVER_N=96
+     128 tiles per cell     engine/bohemia_world.js:613   var T = 128
+     0.75 m per tile        engine/bohemia_overmap.js:20  CELL_M (SLOT SCALE LAW)
+     -> 12,288 STEPS ACROSS VEGAS, cross-checked by laws/BOHEMIA_GDD_v5.md:37
+        ("ONE UNBROKEN WORLD: 12288x12288 fine cells")
+     -> 9,216 m = 9.2 km
+     -> clause 3 (a day is across AND back) makes a step 3.52 s and a crossing 12 h
+   HIS RULING THEREFORE = 9,216 steps = 6.9 km = 9 HOURS OF WALKING, and it lands
+   exactly where he aimed it: YOU CANNOT QUITE CROSS LAS VEGAS ON ONE REST. You come
+   up 3,072 steps short and have to stop once.
+   THE UNIT CHANGED, WHICH IS THE DURABLE PART: a rest is no longer an absolute tile
+   count, it is a PERCENT OF A CROSSING (REST_PCT, default 75 = his ruling), so the
+   number survives any later rescale of the map. Comfort is PCT_PER_COMFORT on top.
+   AND I OWNED A MISTAKE IN THE LAW RATHER THAN PATCHING IT QUIETLY: the previous
+   dial page had REST_TILES capped at 120 and TILE_MINUTES at 18, both calibrated to
+   that page's toy test map. At the real map size a step is 3.52 SECONDS, so 18
+   minutes was 300x too slow. Corrected, and written into clause 16 as what it was.
+   The clock dial is now SEC_PER_100_STEPS = 352, so 3.52 stays exact while the dial
+   stays a whole number.
+   ON THE PAGE: the HUD states the answer on its own face ("ACROSS VEGAS 12,288 steps
+   (9.2 km, 12 h)"), the buff reads as a PERCENTAGE of a crossing plus steps plus
+   hours, and there are WALK 100 / WALK 1,000 / CROSS VEGAS buttons because a 20-tile
+   chip tells him nothing at real scale.
+   GATE: gates/camp_dial_gate.js now 127 checks, with a new S-series that pins the
+   scale to the engine's own constants so the answer can never drift from the world
+   the game builds — including S8, which proves a bare rest comes up exactly 3,072
+   steps short of the far side, and S9, which proves a slept camp makes it.
+   Mutation-tested: making the valley 80 cells reds six checks; quietly moving his 75
+   to 50 reds five.
+   [PENDING Paolo], and it is now the ONLY open question on the rest number: IS 75%
+   THE BARE CAMP OR A DRESSED ONE? The page treats it as bare and adds comfort on
+   top (three things = 90%). Both readings are one dial apart and nobody picks it.
 1i. [RULED 7/27, SECOND MESSAGE — THE CAMP LAW GAINED CLAUSES 11-15] TIME, THE ACT
    CURVE, THE COMBINED BUFFS, AND HIS BLOOD-LOSS QUESTION.
    Law amended in place: laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md

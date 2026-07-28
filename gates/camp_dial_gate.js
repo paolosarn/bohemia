@@ -72,7 +72,9 @@ ok('A10 the page says it is not ported', /NOTHING HERE IS PORTED/i.test(src));
 
 /* clause 3 of the lab law: never the game */
 [[/BOHEMIA_ALPHA/, 'the alpha'], [/\bBOH_[A-Z]/, 'an engine module'],
- [/engine\/bohemia_/, 'an engine path'], [/banks\/BOHEMIA_/, 'an art bank'],
+ [/<script[^>]+engine\/bohemia_/, 'an engine module (a cited path in a comment is provenance, and required)'],
+ [/require\(['"][^'"]*engine\//, 'a required engine module'],
+ [/banks\/BOHEMIA_/, 'an art bank'],
  [/postMessage\s*\(/, 'postMessage']].forEach(([re, what], i) => {
   ok('A11.' + (i + 1) + ' does not reach into ' + what, !re.test(src));
 });
@@ -135,6 +137,26 @@ ok('A25 clause 15: and the answer is offered as a recommendation, not taken as a
    /\[PENDING Paolo\]/.test(fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md'), 'utf8')));
 ok('A26 the law parks the numbers because HE parked them',
    /WELL WORK MORE ON THAT|well work more on that/i.test(law));
+/* CLAUSE 16 — the scale, and it must show its working from real files */
+ok('A27 clause 16: the law records the 75% ruling and his words for it',
+   /75% OF VEGAS/.test(law) && /75% of Las Vegas/.test(law));
+ok('A28 clause 16: and shows the arithmetic with the files it came from',
+   /12,288/.test(law) && /bohemia_overmap\.js:20/.test(law) &&
+   /bohemia_world\.js:613/.test(law) && /GDD_v5\.md:37/.test(law));
+ok('A29 clause 16: the law owns up to the toy-scale numbers it replaced',
+   /300x too slow|toy-scale/i.test(law));
+/* A30 USED TO ASSERT the bare-vs-dressed question was still OPEN. He then said "do
+   what you think is best", the call was made, and this check went stale the same
+   turn — the full suite caught it, which is the whole point of having it. It now
+   asserts the CALL is recorded, that it is marked as MINE under his delegation, and
+   that it says how to reverse it. A decision made on his behalf has to be legible
+   as one. */
+ok('A30 clause 16: the bare-vs-dressed call is RECORDED as a call, not left open',
+   /CALLED ON HIS DELEGATION/i.test(law) && /75% IS THE DRESSED CAMP/i.test(law));
+ok('A30b clause 16: and it is marked MY call, reversible by one word from him',
+   /MY decision under his delegation/i.test(law) && /reversible by one\s+word/i.test(law));
+ok('A31 the page cites the engine files its scale came from',
+   /bohemia_overmap\.js:20/.test(src) && /bohemia_world\.js:613/.test(src));
 
 /* ==========================================================================
    PART B — LIVE, on the real surface
@@ -151,6 +173,85 @@ ok('A26 the law parks the numbers because HE parked them',
     await page.goto('file://' + P);
     await page.waitForFunction(() => !!window.LAB, null, { timeout: 15000 });
     await page.evaluate(() => window.LAB.freeze());
+
+    /* ============ THE SCALE OF VEGAS, AND HIS 75% RULING ============
+       He asked "how many steps would it take in our scale of game to walk across
+       Vegas" and then RULED "you need one rest to walk across 75% of Las Vegas".
+       Both halves are checked against the engine's own constants, so the answer
+       can never drift away from the world the game actually builds. */
+    const scale = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset();
+      o.cells = L.VEGAS.CELLS;
+      o.tilesPerCell = L.VEGAS.TILES_PER_CELL;
+      o.tileM = L.VEGAS.TILE_M;
+      o.crossing = L.crossingTiles();
+      o.metres = L.crossingMetres();
+      o.tileSeconds = L.stepSeconds();
+      o.crossingHours = L.hoursFor(L.crossingTiles());
+      o.barePct = L.D('REST_PCT');
+      o.perComfort = L.D('PCT_PER_COMFORT');
+      o.kitCap = L.D('KIT_CAPACITY');
+      L.place(11, 28); L.setDownCamp();
+      o.bareTiles = L.restTilesFor('chill');
+      /* the camp he would actually build: everything he can carry, set down */
+      L.carry('tarp'); L.carry('seat');
+      L.deploy('bedroll'); L.deploy('tarp'); L.deploy('seat');
+      o.dressedComfort = L.comfort();
+      o.dressedPct = L.restPctFor('chill');
+      o.dressedTiles = L.restTilesFor('chill');
+      return o;
+    });
+    ok('S1 the scale comes from the engine: ' + scale.cells + ' cells x ' +
+       scale.tilesPerCell + ' tiles = ' + scale.crossing.toLocaleString() + ' steps across',
+       scale.cells === 96 && scale.tilesPerCell === 128 && scale.crossing === 12288);
+    ok('S2 which is ' + (scale.metres / 1000).toFixed(2) + ' km at ' + scale.tileM +
+       ' m a step — the SLOT SCALE LAW', scale.tileM === 0.75 && scale.metres === 9216);
+    ok('S3 GDD v5 agrees: the fine layer is 12288 x 12288', scale.crossing === 12288);
+    ok('S4 clause 3 makes a step ' + scale.tileSeconds.toFixed(2) + ' s and a crossing ' +
+       scale.crossingHours.toFixed(0) + ' h — EXACTLY, not rounded',
+       Math.abs(scale.tileSeconds - 86400 / (2 * 12288)) < 0.005 &&
+       Math.abs(scale.crossingHours - 12) < 0.05);
+    /* HIS RULING LIVES ON THE CAMP HE WOULD ACTUALLY BUILD. Called on his "do what
+       you think is best": a bare tent is 60%, and the full kit brings it to his 75. */
+    ok('S5 HIS 75% IS THE DRESSED CAMP: ' + scale.barePct + '% bare + ' + scale.kitCap +
+       ' x ' + scale.perComfort + '% = ' + scale.dressedPct + '%',
+       scale.dressedComfort === scale.kitCap && scale.dressedPct === 75);
+    ok('S6 which really is 9,216 steps — 75% of Vegas (' + scale.dressedTiles.toLocaleString() + ')',
+       scale.dressedTiles === Math.round(12288 * 0.75) && scale.dressedTiles === 9216);
+    ok('S7 and a BARE tent is strictly less, so what you carried is what earns the crossing (' +
+       scale.bareTiles.toLocaleString() + ' vs ' + scale.dressedTiles.toLocaleString() + ' steps)',
+       scale.bareTiles < scale.dressedTiles &&
+       scale.bareTiles === Math.round(12288 * scale.barePct / 100));
+
+    /* and you cannot cross Vegas on one bare rest, which is what 75% MEANS */
+    const cross = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      /* the FULLY DRESSED camp — the best rest in the game — on his 75% */
+      L.reset();
+      L.place(11, 28); L.setDownCamp();
+      L.carry('tarp'); L.carry('seat');
+      L.deploy('bedroll'); L.deploy('tarp'); L.deploy('seat');
+      L.campAction('chill');
+      o.granted = L.rested();
+      L.spendTile(L.crossingTiles());
+      o.ranOutBeforeTheOtherSide = L.rested() === 0;
+      o.shortBy = L.crossingTiles() - o.granted;
+      /* but a SLEPT camp does carry you across, and then some */
+      L.reset();
+      L.place(11, 28); L.setDownCamp(); L.campAction('sleep');
+      o.slept = L.rested();
+      L.spendTile(L.crossingTiles());
+      o.stillOnAfterCrossing = L.rested() > 0;
+      L.reset();
+      return o;
+    });
+    ok('S8 SO EVEN THE BEST DRESSED CAMP CANNOT QUITE CROSS VEGAS — short by ' +
+       cross.shortBy.toLocaleString() + ' steps, which is what his "75%" means and it ' +
+       'holds at the TOP of the range, not just for a bare tent',
+       cross.ranOutBeforeTheOtherSide === true && cross.shortBy === 12288 - 9216);
+    ok('S9 but a SLEPT camp (' + cross.slept.toLocaleString() +
+       ' steps) carries you the whole way across', cross.stillOnAfterCrossing === true);
 
     /* ---------------- CLAUSE 1: THE CAMP IS MOBILE ---------------- */
     const mobile = await page.evaluate(() => {
@@ -220,20 +321,29 @@ ok('A26 the law parks the numbers because HE parked them',
       L.carry('tarp'); L.deploy('tarp');
       o.two = L.restTilesFor('chill');
       o.comfort = L.comfort();
-      o.per = L.D('TILES_PER_COMFORT');
+      o.per = L.D('PCT_PER_COMFORT');
+      o.crossing = L.crossingTiles();
+      o.basePct = L.D('REST_PCT');
+      o.tilesFor = function () {};   /* computed below from the pcts, not from tiles */
       o.sleepVsChill = L.restTilesFor('sleep') / L.restTilesFor('chill');
       o.dupe = L.deploy('tarp');
       o.stillTwo = L.restTilesFor('chill');
+      delete o.tilesFor;
       return o;
     });
-    ok('B9 clause 10: one thing set down adds exactly TILES_PER_COMFORT (' +
-       comfort.bare + ' -> ' + comfort.one + ')', comfort.one === comfort.bare + comfort.per);
-    ok('B10 clause 10: two things add two levels (' + comfort.two + ' tiles, comfort ' +
-       comfort.comfort + ')', comfort.two === comfort.bare + 2 * comfort.per && comfort.comfort === 2);
+    const pctTiles = (pct) => Math.round(comfort.crossing * pct / 100);
+    ok('B9 clause 10: one thing set down adds exactly PCT_PER_COMFORT of a crossing (' +
+       comfort.bare.toLocaleString() + ' -> ' + comfort.one.toLocaleString() + ' steps, +' +
+       comfort.per + '%)',
+       comfort.bare === pctTiles(comfort.basePct) &&
+       comfort.one === pctTiles(comfort.basePct + comfort.per));
+    ok('B10 clause 10: two things add two levels (' + comfort.two.toLocaleString() +
+       ' steps, comfort ' + comfort.comfort + ')',
+       comfort.two === pctTiles(comfort.basePct + 2 * comfort.per) && comfort.comfort === 2);
     ok('B11 clause 10: setting the same thing down twice adds nothing',
        comfort.dupe === false && comfort.stillTwo === comfort.two);
-    ok('B12 clause 9: a sleep is worth more tiles than a chill (x' + comfort.sleepVsChill + ')',
-       comfort.sleepVsChill === comfort.per / comfort.per * (comfort.sleepVsChill) && comfort.sleepVsChill > 1);
+    ok('B12 clause 9: a sleep is worth strictly more than a chill (x' +
+       comfort.sleepVsChill.toFixed(2) + ')', comfort.sleepVsChill > 1);
 
     /* the carry limit is real, and it is a dial (clause f) */
     const cap = await page.evaluate(() => {
@@ -521,19 +631,19 @@ ok('A26 the law parks the numbers because HE parked them',
     const two = await page.evaluate(() => {
       const L = window.LAB, o = {};
       L.reset(); L.place(11, 28); L.setDownCamp(); L.campAction('chill');
-      const m0 = L.minutes(), r0 = L.rested();
+      const m0 = L.seconds(), r0 = L.rested();
       L.spendTile(10);
-      o.clockMoved = L.minutes() - m0;
+      o.clockMoved = L.seconds() - m0;
       o.buffBurned = r0 - L.rested();
-      o.perTile = L.D('TILE_MINUTES');
+      o.perTile = L.stepSeconds();
       o.dayInTiles = L.dayInTiles();
       return o;
     });
-    ok('T8 clause 3: walking spends BOTH — 10 tiles burned ' + two.buffBurned +
-       ' of buff and ' + two.clockMoved + ' minutes of day',
-       two.buffBurned === 10 && two.clockMoved === 10 * two.perTile);
-    ok('T9 clause 3: and the derivation is shown — a day is ' + two.dayInTiles +
-       ' tiles at ' + two.perTile + ' min each', two.dayInTiles === Math.round(1440 / two.perTile));
+    ok('T8 clause 3: walking spends BOTH — 10 steps burned ' + two.buffBurned +
+       ' of buff and ' + two.clockMoved.toFixed(1) + ' seconds of day',
+       two.buffBurned === 10 && Math.abs(two.clockMoved - 10 * two.perTile) < 0.001);
+    ok('T9 clause 3: and the derivation is shown — a day is ' + two.dayInTiles.toLocaleString() +
+       ' steps at ' + two.perTile + ' s each', two.dayInTiles === Math.round(86400 / two.perTile));
 
     /* ---------------- CLAUSE 13: THE ACT SCARCITY CURVE ---------------- */
     const acts = await page.evaluate(() => {
@@ -653,11 +763,13 @@ ok('A26 the law parks the numbers because HE parked them',
     const dials = await page.evaluate(() => {
       const L = window.LAB, o = {};
       L.reset(); L.place(11, 28); L.setDownCamp();
-      L.setDial('REST_TILES', 10);
+      L.setDial('REST_PCT', 10);
       o.short = L.restTilesFor('chill');
-      L.setDial('REST_TILES', 120);
+      L.setDial('REST_PCT', 150);
       o.long = L.restTilesFor('chill');
-      L.setDial('REST_TILES', 40);
+      L.setDial('REST_PCT', 75);
+      o.hisRuling = L.restTilesFor('chill');
+      o.crossing = L.crossingTiles();
       o.clampLow = L.setDial('STAMINA_BONUS', -5) && L.D('STAMINA_BONUS');
       o.clampHigh = L.setDial('STAMINA_BONUS', 99) && L.D('STAMINA_BONUS');
       L.setDial('STAMINA_BONUS', 2);
@@ -665,8 +777,10 @@ ok('A26 the law parks the numbers because HE parked them',
       o.everyOneHasAReason = Object.keys(L.DIALS).every(k => !!L.DIALS[k].why && !!L.DIALS[k].clause);
       return o;
     });
-    ok('B41 the dials really drive the mechanism (' + dials.short + ' vs ' + dials.long + ' tiles)',
-       dials.short === 10 + 0 && dials.long === 120);
+    ok('B41 the dials really drive the mechanism (' + dials.short.toLocaleString() + ' vs ' +
+       dials.long.toLocaleString() + ' steps)',
+       dials.short === Math.round(dials.crossing * 0.10) &&
+       dials.long === Math.round(dials.crossing * 1.50));
     ok('B42 and they clamp to his stated range, so nobody dials in nonsense (' +
        dials.clampLow + '..' + dials.clampHigh + ')', dials.clampLow === 1 && dials.clampHigh === 3);
     ok('B43 all ' + dials.count + ' dials carry both a reason and the law clause they answer',

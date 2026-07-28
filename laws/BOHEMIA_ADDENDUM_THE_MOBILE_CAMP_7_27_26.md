@@ -256,3 +256,92 @@ same three verbs with no setup cost; the meal buff must stack with the camp buff
 and burn in tiles; and all three blood-loss policies must be reachable and behave
 differently. And the standing rule holds: every value above is a DIAL, because he
 said in the same breath that he has not decided the numbers.
+
+---
+
+# AMENDED AGAIN 7/27/26 — CLAUSE 16: THE SCALE IS SETTLED, AND A REST IS 75% OF VEGAS
+
+His words, verbatim:
+
+> "How many steps would it take in our scale of game to walk across Vegas with that
+> math you want you need one rest to walk across 75% of Las Vegas"
+
+## 16. ONE REST CARRIES YOU 75% OF THE WAY ACROSS LAS VEGAS
+
+This answers clause (b), which had been open since the law was written, and it
+answers it in a UNIT rather than a number — which is why it survives any later
+change to the map.
+
+**THE ARITHMETIC, ALL OF IT FROM OUR OWN FILES. Nothing here is invented:**
+
+| what | value | where it comes from |
+|---|---|---|
+| cells across the valley | 96 | `engine/bohemia_overmap.js:20` — `OVER_N=96` |
+| walkable tiles per cell | 128 | `engine/bohemia_world.js:613` — `var T = 128` |
+| metres per walkable tile | 0.75 | `engine/bohemia_overmap.js:20` — `CELL_M=0.75`, the SLOT SCALE LAW |
+| **steps across Vegas** | **12,288** | 96 x 128, and `laws/BOHEMIA_GDD_v5.md:37` says the fine layer is 12288 x 12288 |
+| metres across Vegas | 9,216 m = 9.2 km | 12,288 x 0.75 |
+| seconds per step | 3.52 s | clause 3: a day is across AND back, so 86,400 / 24,576 |
+| hours for one crossing | 12 h | 12,288 x 3.52 s |
+
+**SO: ACROSS VEGAS IS 12,288 STEPS.** And his ruling makes one rest worth:
+
+> **9,216 steps = 6.9 km = 9 hours of walking = 75% of the city.**
+
+Which lands exactly where he aimed it: **you cannot quite cross Las Vegas on one
+rest.** You come up 3,072 steps short and you have to stop once. That is the whole
+design in one number, and it is now the default on the dial page rather than a
+guess.
+
+## WHAT CLAUSE 16 KILLS
+
+- **Toy-scale numbers.** The dial page previously had `REST_TILES` capped at 120
+  and `TILE_MINUTES` at 18, both calibrated to that page's little test map. At the
+  real map size a step is 3.5 SECONDS, not 18 minutes — the old default was 300x
+  too slow, and it was wrong the moment it met the real valley. It is corrected and
+  the mistake is written down here rather than quietly patched.
+- **Absolute tile counts as the unit for a rest.** The unit is now PERCENT OF A
+  CROSSING, because that is the unit he actually thinks in, and it stays true if
+  the map is ever rescaled.
+
+## CALLED ON HIS DELEGATION — 75% IS THE CAMP YOU ACTUALLY BUILD
+
+The open question was whether "one rest" meant a bare tent or a camp with the kit
+out. He answered it by handing it back: **"Do what you think is best."** So it is
+called, and it is called as MY decision under his delegation, reversible by one
+word from him:
+
+**75% IS THE DRESSED CAMP.** A bare tent is 60% of a crossing; each thing you
+carried and set down adds 5%; the full kit of three brings it to exactly **75% =
+9,216 steps = his number.**
+
+Three reasons, and the third is the one that decided it:
+1. **Otherwise comfort is decoration.** If a bare tent already carried you 75% of
+   the way across Vegas, the kit would be worth a rounding error — and comfort is
+   the mechanism he said he was in love with.
+2. **It makes clause 1 mean something.** The camp is MOBILE, so "what did I choose
+   to carry" is supposed to be a decision. It only is one if the kit is what earns
+   the crossing.
+3. **It protects HIS OWN design target at the top of the range.** He aimed at "one
+   rest gets you 75% of the way", i.e. you must stop once to cross the city. If 75%
+   were the BARE camp, a dressed one would reach 90% and very nearly cross —
+   weakening the exact thing he was aiming at. With 75% as the DRESSED number, the
+   target holds for the BEST rest in the game: even a fully kitted camp comes up
+   3,072 steps short. The gate asserts that at the top of the range now, not the
+   bottom.
+
+Gated: `S5` pins 60 + 3 x 5 = 75, `S6` pins that to 9,216 steps, `S7` proves a bare
+tent is strictly worse, and `S8` proves even the dressed camp cannot cross.
+
+Also still open, unchanged: clauses (a), (c), (d), (e), (f), (g), (i), (k), (l),
+(m). And his own instruction still stands — "WELL WORK MORE ON THAT" — so no other
+tile or time number may harden into a default.
+
+## GATE, AMENDED AGAIN
+
+`gates/camp_dial_gate.js` grows the S-series, which pins the scale to the engine so
+the answer can never drift from the world the game actually builds: 96 cells x 128
+tiles = 12,288 steps; 0.75 m each; 9.2 km; 3.52 s a step; a rest is 75% of that and
+measures back as 75%; ONE BARE REST CANNOT CROSS VEGAS and comes up exactly 3,072
+steps short; a slept camp can. Mutation-tested: changing the valley to 80 cells
+reds six checks, and quietly moving his 75 to 50 reds five.
