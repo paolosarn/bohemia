@@ -381,6 +381,21 @@ async function alphaRun() {
     await page.goto('file://' + ALPHA_FILE, { timeout: 120000 });
     await page.click('#front');
     await page.click('.tab[data-p=run]');
+    /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as
+       a TAB - no tap reaches it, and that is the ruling. But it is still WIRED into
+       the shell: the baked-body cast, the saves and the combat handoff all still
+       run through it, and this section is the fleet's only end-to-end proof that
+       the character, the valley, the districts and the loop work together. Killing
+       the tab is not a licence to quietly delete thirty integration assertions.
+       So the harness shows the panel directly. Every click below is a REAL click on
+       a REAL rendered panel - the only synthetic step is opening a surface the UI no
+       longer exposes, and that is stated here rather than hidden. If the day comes
+       that the shell stops wiring runFrame at all, this section should be deleted
+       outright, not propped up. */
+    await page.evaluate(() => {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+      document.getElementById('p-run').classList.add('on');
+    });
     /* ATTACHED, NOT VISIBLE (Paolo 7/28: "Can you put the city in the run tab?").
        The RUN tab now routes to the city panel, so the run slice's iframe is
        loaded and live but no longer on screen. Every assertion below still runs
@@ -388,7 +403,7 @@ async function alphaRun() {
        that this gate no longer requires the panel to be the one showing. The
        ruling moved the contract; the gate follows the ruling, it was not loosened
        to let anything through. */
-    const handle = await page.waitForSelector('#runFrame', { state: 'attached' });
+    const handle = await page.waitForSelector('#runFrame');
     const run = await handle.contentFrame();
     /* POLL ON A TIMER, NOT ON ANIMATION FRAMES (7/28). Playwright's
        waitForFunction evaluates once immediately and then polls on rAF - and a

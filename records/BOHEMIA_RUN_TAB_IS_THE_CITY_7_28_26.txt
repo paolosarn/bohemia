@@ -1,0 +1,48 @@
+BOHEMIA — RULING: THE RUN TAB IS THE CITY
+date: 2026-07-28
+lane: ART (asked for and executed here; crosses RUN + CITY, recorded as such)
+
+PAOLO, VERBATIM:
+  ask:     "Can you put the city in the run tab?"
+  ruling:  "Kill"
+
+WHAT SHIPPED
+  Tapping RUN opens the city - the one isometric view, same world, same save as
+  the CITY tab. The quest slice is dead as a tab.
+
+ONE CITY, NEVER TWO, which was the whole design decision:
+  - two instances would be two worlds with two saves that silently drift apart;
+    he builds something in one tab and it is missing in the other
+  - MOVING the iframe into the run panel would reparent it, and reparenting
+    reloads an iframe in every browser that matters, so he would lose where he is
+    standing on every tab change
+  So the RUN tab ROUTES to the city panel. One frame, one world, one save.
+
+WHAT WAS KILLED, EXACTLY
+  The RUN tab showing the quest slice. Registered in gates/bohemia_graveyard.txt.
+
+WHAT WAS NOT KILLED, AND WHY THAT IS NOT A LOOPHOLE
+  The run slice stays WIRED in the shell - cast delivery, saves, combat handoff -
+  and gates/run_gate.js still drives it. That section is the fleet's ONLY
+  end-to-end proof that the character, the valley, the districts and the loop work
+  together; those assertions are about systems that are very much alive and were
+  merely OBSERVED through the run slice. Killing a tab is not a licence to delete
+  thirty integration assertions at 5am. The harness now opens that panel directly
+  and says so in its own comment: every click is a real click on a real rendered
+  panel, and the one synthetic step is opening a surface the UI no longer exposes.
+  If the shell ever stops wiring runFrame, that section gets deleted outright
+  rather than propped up.
+
+THE ATTEMPT BEFORE THE RULING, kept because it is the lesson
+  This was built, verified on a real screen, and then BACKED OUT before he ruled -
+  because routing the tab away silently broke nine real user-clicks in run_gate,
+  and the fast fix was to replace them with synthetic dispatches. That would have
+  converted "a person can play this" into "the function runs", which is exactly
+  what a gate exists to prevent. The change was reverted and the question asked
+  instead. It came back in one word.
+
+PROOF
+  records/target/RUN_TAB_IS_CITY.png - the real painted screen after tapping RUN.
+  Verified by waiting for real ink on the real canvas, not by reading state flags:
+  the first check reported every flag true against a BLACK SCREEN, because the city
+  module takes ~14 seconds to paint.

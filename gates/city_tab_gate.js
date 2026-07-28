@@ -81,7 +81,7 @@ ok('the real iso city lives: CITY_B64 payload present in the alpha', alpha.index
 // still asserted by the two checks below. So the literal string moves with the
 // code; the protection does not move at all.
 ok('the dynamic city boot is intact (loader guard untouched)',
-  alpha.indexOf("t.dataset.p==='city'&&!document.getElementById('cityFrame')") >= 0);
+  alpha.indexOf("PANEL==='city'&&!document.getElementById('cityFrame')") >= 0);
 ok('the CITY tab boots the iso view (CITY_B64 srcdoc, not a separate flat map)',
   alpha.indexOf('fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(CITY_B64)') >= 0);
 ok('NO static cityFrame hijack (the guard must find the panel empty, boot stays dynamic)',

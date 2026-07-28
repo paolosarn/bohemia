@@ -74,3 +74,21 @@ INTERIOR_SHELL_v1_7_26_26 | 7/26/26 | DOWN (Paolo: "Dogshit."). The first walk-i
 BOHEMIA_LAB_ZOMBOID_HOUSE_7_26_26\.html | 7/26/26 | KILLED by Paolo ("That was really bad and not fun"). The Zomboid loot emulation is DEAD as a reference: its per-item time economy is the opposite of the pace he wants. Law: laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md (loot is RESOURCES with a COUNT, one fast action, State of Decay as the reference, Zomboid as an ANTI-reference). Post-mortem: records/BOHEMIA_ZOMBOID_LOOT_KILL_7_26_26.txt. No v2 of this page.
 BOHEMIA_LAB_DARKROOM_SCAVENGE_7_26_26\.html | 7/27/26 | KILLED by Paolo ("That was really bad so bad so bad"). The A Dark Room scavenge emulation is DEAD. SECOND loot emulation killed in two days, which under laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md ENDS LOOT AS A LAB SUBJECT: no v3, no third reference game, nobody re-pitches a loot page. POST-MORTEM: records/BOHEMIA_DARKROOM_LOOT_KILL_7_27_26.txt -- Zomboid died for being too slow, so I went to the opposite extreme and deleted the ACT of searching entirely (a paragraph and one button in a modal, over placeholder grey tiles, while the fleet-wide look problem is exactly what he cannot judge past). "Faster" was a note on a real experience, not a licence to remove the experience. It was also PRODUCED UNASKED: he asked for research and got research plus a page. The research (records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md) SURVIVES -- he asked for it, and its source-availability findings are reusable. The ruling that stands is still laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md; nothing in it changed. Do not re-add this page.
 THE PAYOUT IS A DRUM FILL | 7/27/26 | KILLED AT THE PITCH by Paolo, unbuilt ("this was terrible i hated this this was not a gameplay mechanic this is more data to be proud of no one gives a fuck"). The animated end-of-fight TALLY / score cascade is DEAD in any form. POST-MORTEM: records/BOHEMIA_TALLY_KILL_7_27_26.txt. His diagnosis is the whole failure -- a tally changes NO decision the player makes; it happens after the outcome is already fixed, so it is a presentation layer wearing a mechanic's clothes, pitched in answer to "make combat more fun". ROOT CAUSE: I ranked the six research items by how impressive the research was, not by whether they change what the player DOES, and put the one pure-presentation item at #1 -- the same failure as LABFAIL-QUEUE ("research ranks candidates, only PLAY decides"). THE LANE RULE IT LEAVES: IF IT DOES NOT CHANGE A DECISION THE PLAYER MAKES, IT IS NOT A MECHANIC -- anything after the outcome is locked (tally, grade, summary, stat, badge, receipt) is FEEDBACK and never leads a pick-list. NOT DEAD: the existing receipt (fine as a piece of paper at the end of the night, untouched), and the other five research items (never judged). Nobody re-pitches the receipt as entertainment; no v2, no "what if it were shorter".
+
+RUN QUEST SLICE (as a TAB) — killed 7/28/26 by Paolo, verbatim: "Kill"
+  WHAT DIED: the RUN tab showing the quest slice. Tapping RUN now opens the city.
+  WHY: he asked "Can you put the city in the run tab?" and, told the cost, ruled
+  Kill rather than give the slice another tab. CLAUDE.md already called the run's
+  quest "disposable scaffolding, never judged", so this is the scaffolding coming
+  down, not a feature being lost.
+  WHAT DID NOT DIE, deliberately: the run slice is still WIRED into the alpha shell
+  (cast delivery, saves, combat handoff) and gates/run_gate.js still drives it as
+  the fleet's only end-to-end proof that character + valley + districts + loop work
+  together. Dead as a tab, alive as an integration harness. If the shell ever stops
+  wiring runFrame, that gate section gets deleted outright rather than propped up.
+  POST-MORTEM: nothing failed here. A surface was replaced by a better one on his
+  word. The lesson worth keeping is the one from the attempt before the ruling:
+  routing the tab away silently broke nine real user-clicks in the gate, and the
+  temptation was to fake those clicks to keep the suite green. Faking them would
+  have turned "a person can play this" into "the function runs". The ruling was
+  asked for instead, and it came back in one word.
