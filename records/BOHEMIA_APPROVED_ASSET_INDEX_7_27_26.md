@@ -14,7 +14,7 @@
 | HD PACK ($20) JUDGED TILES | 1,927 UP of 2,604 judged, 87 packs | BOHEMIA_HD_TILE_REPO_part1-4 keyed (pack,idx); UP list = BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt | the Great Sweep masters | via extraction pools below |
 | INTERIOR POOL (from the sweep) | 465 UP-only tiles, 12 room buckets | BOHEMIA_INTERIOR_POOL_7_26_26.txt | Great Sweep crossing 7/26 | RUN + interiors: INTEGRATED |
 | DESERT/TERRAIN | 13 terrain picks + desert/rock/rubble pools | BOHEMIA_TERRAIN_PICKS_7_14_26 + BOHEMIA_DESERT_POOLS_7_18_26 | terrain picker + certified seams | bake + target factories (not run) |
-| HOUSE SKINS | 30/30 UP (roofs/walls/windows/boarded/doors/yards) | BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt | HOUSE_SKIN_VERDICT 7/21 | 9 consumers — best-wired bank |
+| HOUSE SKINS | 30/30 UP (roofs/walls/windows/boarded/doors/yards) | BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt | HOUSE_SKIN_VERDICT 7/21 | 9 consumers + **RUN: DRAWING since 7/28** (loaded-and-never-drawn until then) |
 | DOOR CLIPS | 30 clips (10 residential, 2 tiles tall) + E/W edges | BOHEMIA_DOOR_ANIM_BANK_7_13_26 + DOOR_EW_BANK | DOOR_V3 + DEMO verdicts | RUN + interiors: INTEGRATED |
 | ROAD MARKINGS/ARROWS | 84 items, 14 classes ("I like all of them") | BOHEMIA_MARKING_BANK_7_17_26.txt | MARKING_VERDICTS 7/17 | factories ONLY — no live surface, now routed |
 | STREET BLOCKS | 5 researched lanes + street pools | BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt | REAL_VEGAS R2 | CITY: wired (streetart patch) |
@@ -51,6 +51,6 @@ RUN | the CBB target tileset (42) | DRAWS
 RUN | suburb border walls (13, approved 7/28) | DRAWS
 RUN | animated door bank (7/13, 2 tiles tall) | DRAWS
 RUN | interior pool (Great Sweep UP) | DRAWS
-RUN | house skins (7/21 UP - roof + wall + yard) | DEBT
+RUN | house skins (7/21 UP - roof + wall + yard) | DRAWS
 RUN | walk-file door art (superseded) | DEBT
 ```
