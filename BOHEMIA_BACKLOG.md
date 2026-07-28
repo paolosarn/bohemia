@@ -1463,6 +1463,30 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+TILES. (7/28, on Paolo's TILE FORMS ORDER) EIGHT COMBAT TILE FORMS FILED, FOUR
+   THINGS DELIBERATELY NOT FILED. Forms: records/tileforms/TF-CMB-001..008 —
+   low cover (vaultable), tall cover (blocking), the dead car, the upper deck
+   slab, the deck stair run, the deck guard, the muzzle flash, fight litter.
+   Board rows 10-17 in BOHEMIA_TILE_REQUESTS.md. NOTHING COOKED (the art lane
+   cooks from forms only).
+   *** THE SHOPPING CHECK IS THE REAL RESULT: four things this lane draws in
+   code are ALREADY APPROVED with ZERO consumers, so filing forms for them would
+   have been a REUSE-FIRST violation. *** The 42-tile md5-locked starter set has
+   road_0/1/2 + concrete + dirt + gravel + kerb and combat paints a procedural
+   grey fill instead. MARKING_BANK has 84 approved items ("I like all of them")
+   with no live surface while combat hand-draws its median — AND THAT HAND-DRAWN
+   MEDIAN WAS THE PERSISTENT ORANGE PAOLO REPORTED FOR THREE TURNS.
+   GORE_OVERLAY_BANK's own header reads "combat floor-painting layer... blood/
+   gore overlays, draw-after-ground", 20 UP, never touched the combat floor.
+   Approved smoke/spark loops have no consumer. Write-up:
+   records/BOHEMIA_COMBAT_TILE_SHOPPING_FINDINGS_7_28_26.md
+   NEXT (non-cook, this lane's): wire the starter tileset + markings into
+   drawField. [PENDING Paolo] whether combat may AUTO-place the approved gore
+   (the index holds it for story placement, contents are his).
+   [PENDING Paolo] STALL_STRIPE_CANDIDATES (12 items) is cooked and UNJUDGED;
+   one judging pass gives the deck and every lot its stall lines free.
+   FLAGGED, NOT MINE: `gates/tileform_gate` does not exist. The form law names
+   it and routes it to SHARED. Eight forms are currently validated by nothing.
 ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    7_28_26.md) COMBAT HAS NO ENGINE MODULE, AND IT IS THE WALL. BohemiaMelee
    exists nowhere in engine/ — its only canonical body lives inside the 632KB

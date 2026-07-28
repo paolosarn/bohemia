@@ -2524,6 +2524,108 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/28 - EIGHT TILE FORMS FILED, FOUR THINGS DELIBERATELY NOT FILED.
+(Paolo's TILE FORMS ORDER.) NOTHING COOKED - the art lane cooks from forms only.
+FORMS (records/tileforms/, board rows 50-57 in BOHEMIA_TILE_REQUESTS.md):
+ROW NUMBERS: FOUR lanes ran this order concurrently and all four started at 10.
+WORLD moved itself to 30-44 and flagged the residual; I moved mine to 50-57 for
+the same reason (never renumber another lane's rows - their forms carry BOARD
+ROW # pointers). Board now has 50 rows and ZERO duplicate numbers, verified.
+WORLD IS RIGHT ABOUT THE ROOT CAUSE: the stable key is the TF ID, not a
+hand-assigned integer on an append-only board shared by parallel lanes. That is
+the board owner's call, not mine.
+COLLISIONS I FILED (C4-C7 on the board), none of them a straight duplicate:
+  C4 CMU: TF-ART-001 is a building FACE with courses and a bond beam; TF-CMB-002
+     needs a freestanding STUB with two ends and a sky-lit top. Cook the material
+     once, cut both from it.
+  C5 PARAPET: TF-WORLD-007's flat-roof parapet cap and TF-CMB-006's deck guard
+     are the same object family. Cook once. TF-CMB-006 is explicitly a
+     cook-nothing-if-reuse-works row.
+  C6 VEHICLES: TF-WORLD-011 EXCLUDES the passenger car by its own scope note
+     ("the CAR itself is canon and already sized"). SIZED IS NOT DRAWN - the
+     _vehicle helper is a size constant, not pixels. TF-CMB-003 is those pixels.
+     Complementary, not redundant.
+  C7 STAIRS: board row 1 (interior) + row 54 (exterior deck run) are two halves
+     of one problem. Row 54 carries the only verbal Paolo rejection on the whole
+     board, so ITS acceptance tests govern both.
+TWO OF MY OWN CONCLUSIONS WERE WRONG AND ARE CORRECTED IN PLACE (recorded, not
+quietly narrowed, because a shopping check is only worth anything if the next
+lane can trust it):
+  * I wrote that the starter set covers "a fight on a Las Vegas lot". Too broad.
+    The starter 42 is ONE RESIDENTIAL STREET; a lot is a different material and
+    TF-WORLD-001 is right to exist. What saves the wiring job is that the combat
+    field is authored as a STREET (it draws a median and lane dashes), so the
+    starter street tiles ARE the answer for the arena that exists today.
+  * I wrote that the stall stripes were unjudged and blocked on a thumb. WRONG.
+    The CANDIDATES file is the pre-verdict pool; the HARMONIZED bank is the
+    survivor and holds stall_line_v x18 + stall_line_h x18 + 36 weathered each,
+    plus parking_geometry_law sourced to "Paolo 7/14, proof PK0/PK1 blessed".
+    Nothing is blocked. It is wiring.
+AND OPENING THAT BANK MADE FINDING #2 MUCH WORSE (in a good way):
+STREET_POOLS_HARMONIZED also holds median x3 (+6 weathered), lane_div x2 (+4),
+cross x3 (+6) -- the exact objects drawField hand-paints -- AND markings_30yr_law
+= wash 0.55 plus a second 0.40 pass, sourced to Paolo 7/14: "whites and yellows
+of all medians/crosswalks/lanes/parking should be more washed out". *** COMBAT
+DRAWS ITS OWN MEDIAN AT FULL BRIGHTNESS, NO WASH. THE ORANGE HE CHASED FOR THREE
+TURNS WAS A HAND-PAINTED OBJECT IGNORING A LAW WRITTEN TO KEEP THAT EXACT OBJECT
+DIM. ***
+
+  TF-CMB-001 LOW COVER, VAULTABLE  - HIGH. The vaultable/not distinction is a
+    LIVE mechanic (tall:true/false, bestCover(lowOnly)) and it is currently
+    carried by A BLUE TINT ON AN ABSTRACT BOX. Height is the spec (NDOT F-shape
+    barrier = 32in = waist on the rig).
+  TF-CMB-002 TALL COVER, BLOCKING  - HIGH. The other half. NOTHING in any
+    approved bank is tall cover.
+  TF-CMB-003 THE DEAD CAR          - HIGH. Zero vehicles exist on the combat
+    field. car_wreck x20 in STREET_PROP_POOLS is the try-first reuse.
+  TF-CMB-004 THE UPPER DECK SLAB   - HIGH. Top plate + spandrel edge beam +
+    soffit. Real garages have a ~76in deep perimeter beam; we draw a 2.5px line.
+  TF-CMB-005 THE DECK STAIR RUN    - HIGH, highest in the lane. *** THE ONLY
+    ASSET PAOLO HAS VERBALLY REJECTED *** ("dog shit"). No stair exists in ANY
+    bank - checked all 12 prop families, the 42 starter tiles, the 465 interior
+    tiles. SAME BATCH AS BOARD ROW 1 (the interior half): never cook stairs twice.
+  TF-CMB-006 THE DECK GUARD        - MED. roof_parapet is approved and may
+    simply BE the answer; the form says try it and cook nothing if it works.
+  TF-CMB-007 THE MUZZLE FLASH      - MED. Combat FX, NOT the character animation
+    revamp - touches no rig, no pose, no clip. WHITE-HOT, never orange.
+  TF-CMB-008 FIGHT LITTER          - LOW, and the form says out loud that it is
+    dressing and not a mechanic.
+*** THE SHOPPING CHECK IS THE REAL RESULT (records/BOHEMIA_COMBAT_TILE_SHOPPING_
+FINDINGS_7_28_26.md). FOUR THINGS THIS LANE DRAWS IN CODE ARE ALREADY APPROVED
+AND SITTING IN BANKS WITH ZERO CONSUMERS. Filing forms for them would have been
+a REUSE-FIRST violation: ***
+  1. THE FIGHT FLOOR. Combat paints a procedural grey fill with a hash jitter.
+     The md5-locked 42-tile starter set has road_0/1/2, road_centre, road_gutter,
+     road_crossing, concrete_0/1, dirt, yard_0/1/2, walk_0/1/2, walk_kerb.
+  2. THE ROAD MARKINGS. Combat hand-draws a double-yellow median and lane dashes
+     at hardcoded world coordinates. MARKING_BANK has 84 approved items, 14
+     classes, Paolo's own "I like all of them", and ZERO live surface. *** THAT
+     HAND-DRAWN MEDIAN WAS ITSELF THE PERSISTENT ORANGE HE REPORTED FOR THREE
+     TURNS - it drew after the vignette meant to dim it. Painting canon by hand
+     is HOW that happens. ***
+  3. THE BLOOD. GORE_OVERLAY_BANK's own header: "combat floor-painting layer:
+     blood/gore overlays, transparent, draw-after-ground". 20 UP. It has never
+     touched the combat floor. Combat draws two ellipses instead.
+  4. SMOKE + SPARKS. Approved o_fx_smoke_puff_01 / o_fx_smoke_small_04 /
+     o_fx_spark_burst_06 have no consumer; combat draws grey circles.
+METHOD NOTE for whoever files next: the honest shopping check meant cross-
+referencing the demo prop pool's (pack,idx) keys against the 1,927-entry UP list
+and then RENDERING THE HITS AND LOOKING AT THEM. That is how 12 approved
+barricades were found (so TF-CMB-001 says "use these first") and how it was
+confirmed that not one of them is tall (so TF-CMB-002 exists at all). Reading
+bank names would have got both answers wrong.
+NEXT, NON-COOK, THIS LANE'S: wire the starter tileset + the approved markings
+into drawField. That is a pure reuse job and it deletes hand-painted canon.
+[PENDING Paolo] may combat AUTO-place the approved gore overlays? The index
+holds them for story placement and contents are his.
+[PENDING Paolo] STALL_STRIPE_CANDIDATES (12 items) is cooked and UNJUDGED. One
+judging pass and the deck slab and every lot get their stall lines free.
+FLAGGED, NOT MINE: gates/tileform_gate DOES NOT EXIST. The form law names it and
+routes it to SHARED. Eight forms are validated by nothing right now (I checked
+mine by hand against the worked example: all 10 headings, every required field,
+caption JSON parses, layer and edge-contract in the legal vocabulary, board row
+resolves both ways).
+
 COMBAT (04) 7/27 - v93: YOU CAN SEE WHO IS UNDER THE DECK + THE KILLSHOT
 ALLOWANCE (thinking only, nothing built, on his explicit ask).
 --- THE FIX ---

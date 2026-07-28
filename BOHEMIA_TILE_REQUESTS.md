@@ -69,6 +69,28 @@ C3. **SHOPPING CHECK MISSED — PARKING LOT STRIPING (TF-ART-003). DO NOT COOK
    THE GENERAL LESSON, now standing: the index's per-bank rows do not enumerate
    every pool inside a bank. Open the bank.
 
+C4. OVERLAP, NOT DUPLICATE — CMU: TF-ART-001 (row 20) is a BUILDING FACE with
+   courses and a bond beam. TF-CMB-002 (row 51) needs a FREESTANDING 1-tile stub
+   with two authored ENDS and a sky-lit TOP, which a building face never has.
+   Same material, different object. COOK THE CMU MATERIAL ONCE and cut both from
+   it; do not cook block twice.
+C5. OVERLAP, NOT DUPLICATE — PARAPET: TF-WORLD-007 (row 36) includes a parapet
+   cap for commercial flat roofs. TF-CMB-006 (row 55) needs a parking-deck edge
+   guard and says out loud that `roof_parapet` may already BE the answer. Same
+   object family. Whoever cooks the parapet, cook it once and let both consume
+   it. TF-CMB-006 is explicitly a cook-nothing-if-reuse-works row.
+C6. SPLIT SCOPE, DELIBERATE — VEHICLES: TF-WORLD-011 (row 40) covers HEAVY
+   hulls and excludes the passenger car by its own scope note ("the CAR itself
+   is canon and already sized"). TF-CMB-003 (row 52) is the passenger car,
+   because SIZED IS NOT DRAWN — the canon `_vehicle` helper is a size constant,
+   not pixels, and no walkable-surface car art exists. Together they are
+   complete; neither is redundant.
+C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
+   open-air deck run, COMBAT) are the two halves of one problem. ONE BATCH, ONE
+   JUDGING. Row 54 carries the only verbal Paolo rejection in the whole board
+   ("dog shit") and the measured structural failure (v1 never touched the
+   ground), so its acceptance tests are the stricter set. Use them for both.
+
 =============================================================================
 ## OPEN — HIGH (work these first, top-down)
 =============================================================================
@@ -353,6 +375,117 @@ C3. **SHOPPING CHECK MISSED — PARKING LOT STRIPING (TF-ART-003). DO NOT COOK
    faces + ground slopes, WANG-16 cliff bands; ONE-LIGHT is doing all the work
    | approved DESERT/TERRAIN picks (the honest near-miss: flat ground, no
    vertical face) | WORLD | MED | TF-WORLD-015
+
+
+=============================================================================
+## OPEN — COMBAT LANE (filed 7/28 under the TILE FORMS ORDER; every row has a
+## filled form in records/tileforms/. Walked the combat field itself: every
+## object drawFloor/drawField draws as a code primitive, cross-referenced
+## against the banks by (pack,idx) and RENDERED AND LOOKED AT.)
+## ROW NUMBERS: this block is 50-57. Four lanes appended the same day and all
+## four started at 10; WORLD moved itself to 30-44 and flagged the residual,
+## and I have moved mine clear of everything rather than renumber anybody
+## else's rows, because their forms carry BOARD ROW # pointers I would break.
+## I AGREE WITH WORLD'S DIAGNOSIS: the stable key is the TF ID, not the row
+## number. An append-only board shared by parallel lanes cannot use a
+## hand-assigned integer and stay unique. That is the board owner's call.
+=============================================================================
+50. OPEN | LOW COVER, VAULTABLE (jersey barrier, wheel stops, low CMU planter,
+   sandbags — 3-4 silhouettes at ONE shared height) | COMBAT (fight field) +
+   RUN lots — the vaultable/not distinction is a LIVE mechanic (`tall:
+   true/false`, `bestCover(lowOnly)`) and it is currently carried by A BLUE
+   TINT ON AN ABSTRACT BOX, which is STRUCTURE-NOT-COLOR inverted | structure,
+   44px cell, SINGLE PLACEMENT; height IS the spec (NDOT F-shape barrier = 32in
+   = waist on the rig) | 12 APPROVED barricades in DEMO_PROP_POOL pack "5.
+   Barricades and defenses" — USE THESE FIRST; XCOM 2 as the anti-reference |
+   COMBAT lane | HIGH | FORM: TF-CMB-001
+51. OPEN | TALL COVER, BLOCKING (CMU wall stub, concrete column, utility
+   cabinet, dumpster — 3-4 silhouettes above chest height) | COMBAT + RUN lots
+   — the other half of the same mechanic; NOT ONE of the 12 approved barricades
+   is tall, checked by rendering them | structure, 44px cell, blocks sightline,
+   tan 85/15 applies | PERIMETER_WALL_POOL (26 approved) for material truth;
+   Jagged Alliance 2 | COMBAT lane | HIGH | FORM: TF-CMB-002
+52. OPEN | THE DEAD PASSENGER CAR AS COVER | COMBAT + RUN — there are ZERO
+   vehicles on the combat field; a fight in a dead city with no dead cars reads
+   as a test harness | structure, MULTI-TILE, must match the ONE canon
+   `_vehicle` size (vehicle_size_gate); asymmetric hide height (chest at the
+   engine, waist at the boot) | `car_wreck` x20 in STREET_PROP_POOLS — TRY
+   FIRST, cook nothing if it reads at 45; Project Zomboid | COMBAT lane | HIGH
+   | FORM: TF-CMB-003 | NOT a duplicate of row 40 / TF-WORLD-011: that form
+   EXCLUDES the car by its own scope note ("the CAR itself is canon and already
+   sized"). Sized is not DRAWN. This row is the pixels that scope note assumes.
+53. OPEN | THE UPPER DECK SLAB (top plate + spandrel edge beam + soffit) |
+   COMBAT two-storey arenas (LIVE since v90) + CITY/RUN parking structures —
+   the whole second storey is a flat fill, a near-black rectangle and a 2.5px
+   stroke | structure w/ walkable top, WANG-16 edge set, edge beam authored to
+   the demo's real `DECK_H` ratio | `roof_deck` + `roof_parapet` +
+   `concrete_0/1` (approved, all partial); Project Zomboid | COMBAT lane | HIGH
+   | FORM: TF-CMB-004
+54. OPEN | THE DECK STAIR RUN (deck down to the lot, open air) | COMBAT — **the
+   only asset in this lane Paolo has verbally rejected**: "I couldn't find the
+   stairs bro", then "you have stairs right now looking like dog shit" | PORTAL
+   layer, single placement, ALWAYS descends toward the viewer (the generator
+   deletes the other 3 orientations), spans exactly one storey | NO STAIR EXISTS
+   IN ANY BANK — checked all 12 prop families, the 42 starter tiles, the 465
+   interior tiles; SLYNYRD Pixelblog 41 + Project Zomboid | COMBAT lane | HIGH |
+   FORM: TF-CMB-005 | SAME BATCH AS ROW 1 (the INTERIOR half). One cook, one
+   judging, never cook stairs twice.
+55. OPEN | THE DECK GUARD (parapet / pipe rail / kerb wall + END + STAIR
+   OPENING) | COMBAT — a second storey with no edge object means no visual
+   price for standing exposed at the lip | structure, WANG-16 on the slab grid,
+   42in code guard height, `solid` DIFFERS per variant (solid parapet vs
+   see-through rail) | `roof_parapet` is approved and may simply BE the answer —
+   try it, cook nothing if it works | COMBAT lane | MED | FORM: TF-CMB-006
+56. OPEN | THE MUZZLE FLASH | COMBAT — the most-seen frame in the game is a
+   code-drawn shape, identical for a pistol and a shotgun; every hook already
+   exists (`WEAPON_MUZZLE` per-weapon barrel offsets, `G._muzzle` point+angle) |
+   prop/fx, 3-4 frames on a LEGAL NOTE (32nd or 16th, `BohemiaFreeze.note`), 2
+   orientations x 4 weapon sizes, WHITE-HOT never orange, gated on the freeze |
+   approved `o_fx_spark_burst_06` + `o_fx_smoke_puff_01` ship WITH it as reuse;
+   Hotline Miami | COMBAT lane | MED | FORM: TF-CMB-007
+57. OPEN | FIGHT LITTER (spent brass + scorch, 3 densities) | COMBAT — the
+   ground keeps no record of a firefight | ground OVERLAY (sits on real ground
+   texture), single placement; a casing is a 2-3px object and a pile is a
+   TEXTURE | OVERLAY_BANK's 174 stain/rubble overlays + 16 approved
+   `trash_debris`; Hotline Miami | COMBAT lane | LOW (dressing, not a mechanic,
+   and the form says so out loud) | FORM: TF-CMB-008
+
+=============================================================================
+## NOT FILED BY COMBAT — the art already exists and was approved. WIRING.
+=============================================================================
+The COMBAT lane's shopping check turned up things it draws in code that are
+ALREADY APPROVED and sitting in banks with no consumer. Filing forms for these
+would be a REUSE-FIRST violation. Full write-up:
+records/BOHEMIA_COMBAT_TILE_SHOPPING_FINDINGS_7_28_26.md
+- THE STREET UNDER THE FIGHT: combat paints a procedural grey fill off a
+  coordinate hash. The md5-locked 42-tile starter set has road_0/1/2,
+  road_centre, road_gutter, road_crossing, concrete_0/1, dirt, yard_0/1/2,
+  walk_0/1/2 and walk_kerb. The combat field is authored as a STREET (it has a
+  median and lane dashes), so the starter street tiles cover it TODAY. WIRE IT.
+  (For an arena authored as a LOT rather than a street, row 30 / TF-WORLD-001
+  is the correct form and COMBAT is not re-filing it.)
+- THE ROAD MARKINGS: combat hand-draws a double-yellow median and lane dashes at
+  hardcoded world coordinates. MARKING_BANK has 84 approved items, 14 classes,
+  "I like all of them", ZERO live surface. *** THAT HAND-DRAWN MEDIAN WAS THE
+  PERSISTENT ORANGE PAOLO REPORTED FOR THREE TURNS: it drew AFTER the vignette
+  meant to dim it, so the one pass that dims the scene ran before the brightest
+  object in it. Painting canon by hand is HOW that happens. *** WIRE IT.
+- THE BLOOD: GORE_OVERLAY_BANK's own header reads "combat floor-painting layer:
+  blood/gore overlays, transparent, draw-after-ground". 20 UP. It has never
+  touched the combat floor; combat draws two ellipses. WIRE IT — but whether
+  combat may AUTO-place them is [PENDING Paolo]: the index holds them for story
+  placement and contents are his.
+- SMOKE + SPARKS: approved o_fx_smoke_puff_01 / o_fx_smoke_small_04 /
+  o_fx_spark_burst_06 have no consumer; combat draws grey circles. WIRE THEM
+  (they ship with TF-CMB-007).
+- AND THE MEDIAN ITSELF IS IN A BANK, WITH A LAW ATTACHED. Following C3's advice
+  and opening STREET_POOLS_HARMONIZED: it holds `median` x3 (+6 weathered),
+  `lane_div` x2 (+4), `cross` x3 (+6), the 18+18 stall lines C3 already named,
+  AND `markings_30yr_law` = wash 0.55 + a second 0.40 pass, sourced to Paolo
+  7/14: "whites and yellows of all medians/crosswalks/lanes/parking should be
+  more washed out". Combat draws its own median at rgba(184,160,40,0.55), full
+  brightness, no wash. The orange he chased for three turns was a hand-painted
+  object ignoring a law written specifically to keep that object dim.
 
 =============================================================================
 ## HELD — filed, blocked on a NAMED Paolo pick (not workable yet)
