@@ -1194,6 +1194,23 @@ BOHEMIA_CANON_INDEX.md -> your own lane's brief in laws/.
 =============================================================================
 ## LANE STATUS (as of the 7/26 diet — details in the archived pile + git log)
 =============================================================================
+CHARACTER (04) 7/28 NEWEST — NECK TONE IS PER-FACING NOW.
+Paolo: "Make the neck one tile less facing east and west... towards the chin."
+In profile there is far less throat between jaw and collar than head-on, so two
+rows reached up into the chin. NECK_TONE.throatRowsByDir = {E:1, W:1}; every other
+facing keeps 2. Verified by differencing the toned and untoned build and listing
+which rows ACTUALLY change: S rows 14+15, SE 14+15, E row 15 only, W row 15 only.
+A zero count is honoured rather than underflowing the top bound into the whole
+face, so the dial can turn the throat off per facing without a surprise.
+Gate: neck_tone_gate.js 43 -> 48.
+
+NOTE FOR THE NEXT SESSION ON SHIP COST: main moved FIVE times during this one
+ship, every time from another lane, and each move forces a rebase + a full ~520s
+gate re-run. Every conflict was the BUILD STAMP and nothing else. If that keeps
+up, the stamp is worth making a generated one-liner rather than a hand-edited
+line in the alpha, so parallel lanes stop colliding on it.
+
+--- previous ---
 CHARACTER (04) 7/28 LATEST — THE "TWO HANDS" WAS THE JACKET ALL ALONG, AND THE
 NECK TONE WAS LANDING ON CLOTH. BOTH FIXED, BOTH VERIFIED ON THE RENDER.
 
