@@ -171,6 +171,14 @@
 
 =============================================================================
 ## OPEN — WORLD LANE (filed 7/28 under the TILE FORMS ORDER; every row has a
+## ROW NUMBERS: this block is 30-44. THREE lanes appended concurrently and all
+## three started at 10, so rows 10-13 (WORLD icon/misc), 10-17 (ART) and this
+## block collided. I moved MY OWN block clear rather than renumber another
+## lane's rows, because their forms carry BOARD ROW # pointers I would break.
+## THE RESIDUAL COLLISION BETWEEN ROWS 10-13 AND 10-17 IS STILL THERE and is
+## flagged for the board owner. THE REAL FIX: the stable key is the TF ID, not
+## the row number -- an append-only board shared by parallel lanes cannot use a
+## hand-assigned integer and stay unique.
 ## filled form in records/tileforms/. Walked all 48 district + surface
 ## generators: 687 declared legend entries, 483 distinct materials, grouped
 ## into 15 coherent drawing jobs. Rows already covered by 1-9 above are NOT
@@ -178,78 +186,78 @@
 ## between them cover the desert floor, the dead planting and the wet states,
 ## and the approved MARKING/STREET/HOUSE-SKIN/DOOR banks cover what they cover.)
 =============================================================================
-10. OPEN | LOT ASPHALT & APRON | RUN+CITY — the single largest man-made surface
+30. OPEN | LOT ASPHALT & APRON | RUN+CITY — the single largest man-made surface
    in the valley; Las Vegas is 32% parking (measured, legibility bible) and the
    approved 84-item MARKING bank has nothing to be painted ON | ground,
    self-seamless + blob-47 to desert; seam MEASURED before judging | approved
    MARKING bank + frozen CBB ground band | WORLD | HIGH | TF-WORLD-001
-11. OPEN | KERB, GUTTER & SIDEWALK | RUN+CITY — SIDEWALK SANCTITY made visible;
+31. OPEN | KERB, GUTTER & SIDEWALK | RUN+CITY — SIDEWALK SANCTITY made visible;
    the most common real EDGE in a city and Lynch-edges scored "by accident
    only" | ground, WANG-16; kerb face is 0.15m — scale is the whole risk |
    approved STREET BLOCKS (the carriageway it butts against) | WORLD | HIGH |
    TF-WORLD-002
-12. OPEN | CHAIN-LINK & SECURITY FENCE | RUN+CITY — 20 districts declare a
+32. OPEN | CHAIN-LINK & SECURITY FENCE | RUN+CITY — 20 districts declare a
    fence; the approved perimeter walls are SOLID SUBURB STUCCO, the opposite
    object | structure, WANG-16, MUST read see-through | the approved suburb
    wall family as its deliberate opposite number | WORLD | HIGH | TF-WORLD-003
-13. OPEN | DEAD WATER & THE BATHTUB RING | RUN+CITY — drained pools, dry
+33. OPEN | DEAD WATER & THE BATHTUB RING | RUN+CITY — drained pools, dry
    fountains, cracked lakebed; the waterpark hook Paolo called "so fucking
    terrible"; Lake Mead's mineral ring is 30 miles from this map | ground +
    structure coping, WANG-16 ring + seamless floor | cemetery district
    (approved "very good") | WORLD | HIGH | TF-WORLD-004
-14. OPEN | SPORTS SURFACES | RUN+CITY+MAP — track, court, field, green,
+34. OPEN | SPORTS SURFACES | RUN+CITY+MAP — track, court, field, green,
    bunker, banking: for 7 districts the playing surface IS the landmark under
    the 7/28 law | ground, seamless fields + single-placement painted lines;
    real proportions are the read | approved MARKING paint values | WORLD |
    HIGH | TF-WORLD-005
-15. OPEN | RAILWAY PERMANENT WAY | RUN+CITY+MAP — ballast, sleepers, rails,
+35. OPEN | RAILWAY PERMANENT WAY | RUN+CITY+MAP — ballast, sleepers, rails,
    turnouts, crossings; the line the city was founded on, 90 cells, no art.
    NOT built from road vocabulary (named 7/27 error) | ground, seamless along
    the running direction; gauge 1.435m is the critical proportion | frozen CBB
    ground band | WORLD | MED | TF-WORLD-006
-16. OPEN | FLAT COMMERCIAL & CIVIC ROOFS | CITY+RUN+MAP — in a 45-degree view
+36. OPEN | FLAT COMMERCIAL & CIVIC ROOFS | CITY+RUN+MAP — in a 45-degree view
    the ROOF is the largest visible part of every building, and the style
    bible's own rule 4 ("roofs carry the color, walls are pale") was written
    7/23 and never executed. THE PRIMARY HUE CARRIER: measured 3 hue families /
    13.4% chromatic vs Pocket City 2's 12 / 87.5% | structure, seamless field +
    WANG-16 parapet | approved HOUSE SKIN roof VALUES (geometry deliberately
    different — those are pitched residential) | WORLD | HIGH | TF-WORLD-007
-17. OPEN | STOREFRONT, FALSE FRONT & AWNING | RUN+CITY — the one building face
+37. OPEN | STOREFRONT, FALSE FRONT & AWNING | RUN+CITY — the one building face
    you walk right up against; "the building is still trying to sell you
    something and nobody is buying" | structure, WANG-16, 3-tile wall law, glass
    DEAD DARK at night (our inversion of the reference) | approved boarded-window
    treatment + 2-tile door proportion | WORLD | HIGH | TF-WORLD-008
-18. OPEN | OVERHEAD CANOPIES | RUN+CITY — 13 declared overhead materials and
+38. OPEN | OVERHEAD CANOPIES | RUN+CITY — 13 declared overhead materials and
    the OVERHEAD layer has zero art; NOT SOLID is the whole point | overhead,
    WANG-16 deck + separate solid columns | approved LAMP DARK VARIANTS for the
    dead-fitting language | WORLD | MED | TF-WORLD-009
-19. OPEN | SIGNS & PYLONS | RUN+CITY+MAP — every district needs ONE TALL THING
+39. OPEN | SIGNS & PYLONS | RUN+CITY+MAP — every district needs ONE TALL THING
    visible from the next cell; Lynch LANDMARKS scored ZERO and Vegas's
    landmarks ARE its signs | structure, SINGLE PLACEMENT, no readable text ever
    (contents are Paolo's) | approved LAMP DARK VARIANTS | WORLD | HIGH |
    TF-WORLD-010
-20. OPEN | DEAD HEAVY VEHICLES | RUN+CITY — locomotive, wagon, semi, bus, fire
+40. OPEN | DEAD HEAVY VEHICLES | RUN+CITY — locomotive, wagon, semi, bus, fire
    engine, tractor, dozer, boat: what the canon CAR size cannot express |
    prop, single placement (wagons repeat nose-to-tail); bound to the canon size
    constants the vehicle-size gate enforces | canon CAR/BUS/TRAILER/RAILCAR/LOCO
    | WORLD | MED | TF-WORLD-011
-21. OPEN | INDUSTRIAL YARD GROUND | RUN+CITY — gravel, stained concrete, spoil,
+41. OPEN | INDUSTRIAL YARD GROUND | RUN+CITY — gravel, stained concrete, spoil,
    sorted debris; the whole utility family was rejected at once and what they
    share is that their GROUND carries the meaning | ground, seamless + blob-47
    to desert + single-placement piles | approved DESERT values it grades into |
    WORLD | MED | TF-WORLD-012
-22. OPEN | TANKS, TOWERS & SILOS | RUN+CITY+MAP — the vertical landmarks; a
+42. OPEN | TANKS, TOWERS & SILOS | RUN+CITY+MAP — the vertical landmarks; a
    cylinder is the most recognisable silhouette we have and we draw them as
    blocks. THE 45-DEGREE LAW'S own case: ellipse cross-sections or automatic
    fail | structure, single placement | the BLESSED LAMP BANK (the 45-degree
    law's named reference) | WORLD | MED | TF-WORLD-013
-23. OPEN | CENTRE-PIVOT IRRIGATION & DEAD ALFALFA | RUN+CITY+MAP — Paolo's own
+43. OPEN | CENTRE-PIVOT IRRIGATION & DEAD ALFALFA | RUN+CITY+MAP — Paolo's own
    correction, verbatim: "this is nevada nevada is in a dessert so". Nevada
    farms alfalfa under pivot, never row crops; the quarter-mile arc is a
    top-tier silhouette | ground field + single-placement machine; STOPPED
    mid-rotation, never animated | approved DESERT values (the hard circle edge
    against them IS the asset) | WORLD | MED | TF-WORLD-014
-24. OPEN | MOUNTAIN & TERRAIN RELIEF | RUN+CITY+MAP — the ring that makes this
+44. OPEN | MOUNTAIN & TERRAIN RELIEF | RUN+CITY+MAP — the ring that makes this
    a valley; 9 declared materials, no art, and the largest Lynch EDGE in the
    game. The one family that is NOT degraded — rock does not care | structure
    faces + ground slopes, WANG-16 cliff bands; ONE-LIGHT is doing all the work
