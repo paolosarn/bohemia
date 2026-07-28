@@ -98,3 +98,74 @@ Rebuild each hero as: a clean chunky mass on a dressed dead-dirt plot with a sof
 shadow, PALE weathered walls + a colored (faded) roof, big DEAD-glass window grids,
 soft 3-tone shading and NO black outline, its ONE iconic signature bold and clear,
 decay as a finish. Then judge.
+
+---
+
+# THE MEASUREMENT (7/28/26) — WHY THIS BIBLE EXISTED FOR FIVE DAYS AND THE DISTRICTS
+# STILL CAME BACK 32 DOWN
+
+Paolo re-sent this reference on 7/28 after the bulk verdict. It had been sitting in
+`records/refs/pocketcity2/` since 7/24 and this bible had been written against it on
+7/23. So the reference was not missing and the rules were not missing. Something else
+was wrong, and it is now measured rather than guessed.
+
+**COLOUR, COUNTED. Hue families present (12 buckets, counting only pixels with
+saturation > 0.18):**
+
+| | hue families | chromatic pixels |
+|---|---|---|
+| **Pocket City 2** (`IMG_4006`, real gameplay) | **12 of 12** | **87.5%** |
+| **Pocket City 2** (`IMG_4013`) | **12 of 12** | **77.9%** |
+| **Bohemia district icons** (27, median) | **3** | **13.4%** |
+| Bohemia worst (policestation) | 2 | **0.9%** |
+| Bohemia worst (park) | 3 | **0.5%** |
+
+**Our world is four times less colourful than the reference, and half our icons carry
+essentially no colour at all.** Thirteen of twenty-seven icons have only TWO hue families
+in them. That is not a style, that is mud.
+
+**AND IT IS SELF-INFLICTED — NO LAW REQUIRED IT.** The visual constitution constrains
+**value bands** (brightness per layer: ground 103.7, top 110.2, wall 96.0, ±26). It says
+**nothing about saturation or hue at all**. Nothing in canon ever told us to build a
+grey-brown world. We chose those palettes district by district and never once measured
+the result across the set.
+
+**THE MECHANISM OF THE FAILURE — rule 4 of this very bible:**
+> *"ROOFS carry the color; WALLS are pale."*
+
+We wrote that down and did not do it. What happened instead is that the dead-world
+reconciliation section — *"faded, not fresh"* — got applied as **"desaturate everything
+toward brown"**, which is a different instruction. Faded terracotta is still terracotta.
+Faded teal is still teal. A faded roof and a faded wall in the same brown are not faded,
+they are *merged*, and a merged roof and wall destroy exactly the silhouette read the
+whole bible exists to protect.
+
+That is the honest answer to *"each grid each district should feel like its own
+landmark"*: **they cannot, because they are all the same colour.** Hooks and silhouettes
+matter, but two districts rendered in the same three browns will read as the same
+district no matter how different their shapes are.
+
+## THE CORRECTION (proposed, needs his ruling on how far)
+
+A dead Vegas should NOT hit 88% chromatic — that is a living sunny city and copying it
+would be wrong. But 13% and three hue families is far too low. The target is
+**muted but DISTINCT**: every district keeps a recognisable hue identity, dropped in
+saturation and value, never merged into the neighbouring one.
+
+- **KEEP the value bands.** The constitution measured them and they are not the problem.
+- **RAISE hue variety.** Roofs, awnings, signage, doors, trim, vehicles and markings all
+  carry faded-but-real colour. Walls stay pale, which is rule 4 as written.
+- **SEPARATE DISTRICTS BY HUE, deliberately.** Two neighbouring district types should not
+  share a dominant hue. This is a set-wide constraint and nobody has ever checked it.
+
+## THE GATES OWED (neither exists)
+
+1. **HUE VARIETY GATE** — every district icon must carry at least N hue families and at
+   least M% chromatic pixels. Ratchet, so it can only improve. Numbers to be set from a
+   Paolo-approved reference district, never invented.
+2. **THE SQUINT GATE** — render every icon at one tile, threshold to pure black, require
+   silhouettes to be mutually distinguishable. Two districts with the same black shape
+   ARE the same district at map zoom.
+
+Together they cover the two ways a district fails to be a landmark: same shape, or same
+colour. We have been failing on colour and did not know it because nothing measured it.
