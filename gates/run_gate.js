@@ -390,14 +390,23 @@ async function alphaRun() {
        to let anything through. */
     const handle = await page.waitForSelector('#runFrame', { state: 'attached' });
     const run = await handle.contentFrame();
-    await run.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 120000 });
+    /* POLL ON A TIMER, NOT ON ANIMATION FRAMES (7/28). Playwright's
+       waitForFunction evaluates once immediately and then polls on rAF - and a
+       display:none iframe gets NO rAF ticks. Since the RUN tab started routing to
+       the city (Paolo's ruling), the run slice is live but hidden, so any
+       predicate that is not already true on the first evaluation could never be
+       re-checked and timed out at 180s against a condition that was in fact true.
+       Proven by reading the same value with evaluate(): cast came back dirs 8,
+       looks 6, immediately. The assertion is unchanged; only the polling mode is,
+       because the old one cannot see a hidden frame. */
+    await run.waitForFunction(() => window.__RUN_READY === true, null, { polling: 100, timeout: 120000 });
     out.ready = true;
 
     /* THE REAL CAST (Paolo's ruling 7/26): the run must be wearing the actual
        character, not a coloured dot. Wait for the parent's bake to land and
        assert it is a real multi-direction body set with real portraits. */
     await run.waitForFunction(() => { const c = window.__RUN.cast(); return !!c && c.dirs >= 8; },
-      null, { timeout: 180000 });
+      null, { polling: 100, timeout: 180000 });
     out.cast = await run.evaluate(() => window.__RUN.cast());
     out.doors = await run.evaluate(() => window.__RUN.doors());
 
@@ -542,7 +551,7 @@ async function alphaRun() {
     }, null, { timeout: 30000 });
     out.backOnRun = true;
     await run.waitForFunction(() => { const s = window.__RUN.state(); return !!s.combat; },
-      null, { timeout: 30000 });
+      null, { polling: 100, timeout: 30000 });
     out.combatBack = (await run.evaluate(() => window.__RUN.state())).combat;
     await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_RUN_IN_ALPHA_7_26_26.png') });
 
