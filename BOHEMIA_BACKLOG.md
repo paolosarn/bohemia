@@ -1358,6 +1358,38 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-levelsresearch. RESEARCH DELIVERED 7/27 on his ask ("big brain research on how
+   other games to turn base grades handle different levels... just do research").
+   records/BOHEMIA_COMBAT_RESEARCH_LEVELS_IN_GRID_TACTICS_7_27_26.md
+   NOTHING BUILT. He said research, so it is research.
+   HEADLINE: ALMOST EVERY TACTICS GAME PAYS FOR HEIGHT WITH A STAT BONUS, WHICH HIS
+   NO-MULTIPLIERS RULING CLOSES -- and the one famous game that does NOT is the one
+   Bohemia already resembles. XCOM: +20 aim, no defensive bonus. Divinity: bonus
+   damage + range. FF Tactics: shifts hit rate. ALL RULED OUT.
+   JAGGED ALLIANCE 2 IS THE CLOSEST RELATIVE: two levels only, ground and roof, and
+   height pays in LINE OF SIGHT not numbers. That is exactly what v90 shipped,
+   arrived at independently. Two levels is a deliberate shipped choice there, not a
+   shortcut -- so "one deck, not a building" has a real precedent.
+   AND THE CONFIRMATION WORTH KNOWING: XCOM's FLANKING rule is "a unit not
+   benefiting from cover is flanked" -- Bohemia's cross-level rule IS that rule
+   turned vertical. We already have the mechanism XCOM built its positioning game
+   on.
+   THE COST THE LITERATURE NAMES, AND WE ALREADY PAID TWICE IN ONE TURN: verticality
+   is a READABILITY problem, most maps cap at THREE floor planes, and designers
+   "forget about the third dimension because it's difficult to represent in 2D."
+   v90's storey face did not read as height; v90b's way up appeared 0 of 8 times.
+   FOUR IDEAS, ALL [PENDING Paolo], NOTHING BUILT, ranked by whether they change a
+   decision: 1 VERTICAL REACH PER WEAPON (FFT's 3v2 -- a shotgun should not reach a
+   roof like a rifle; makes the climb a loadout decision, and it is reachability not
+   damage). 2 THE ANGLE GRADIENT (XCOM's 44deg->10deg partial flank, expressed as
+   ODDS not damage -- the ONE item that closes the audit's open finding that no
+   direction is better than any other at a given range). 3 A THIRD STOREY (cheap
+   now; three planes is the documented ceiling). 4 ROOF-EDGE COVER (the deck is
+   currently a killing floor with no cover either way; JA2's roofs have parapets --
+   most likely to change how the deck actually plays).
+   NOT RECOMMENDED ON THE EVIDENCE: any height damage or accuracy bonus. Ruled out
+   by him, and the DOS2 critique shows what happens anyway -- the bonus lands in the
+   same slot as crit and a whole skill tree goes redundant.
 0-stairs. DONE 7/27 (v91): THE STAIRS ANNOUNCE THEMSELVES. Paolo: "I couldn't find
    the stairs bro or whatever you had out what the fuck are you talking about?"
    REPRODUCED, eight arenas, played the way he plays them:

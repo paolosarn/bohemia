@@ -2336,6 +2336,52 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - RESEARCH: HOW GRID TACTICS HANDLE LEVELS. On his ask, and he
+said "just do research", so NOTHING WAS BUILT.
+records/BOHEMIA_COMBAT_RESEARCH_LEVELS_IN_GRID_TACTICS_7_27_26.md
+*** HEADLINE: ALMOST EVERY TACTICS GAME PAYS FOR HEIGHT WITH A STAT BONUS, WHICH
+HIS NO-MULTIPLIERS RULING CLOSES -- AND THE ONE FAMOUS GAME THAT DOES NOT IS THE
+ONE BOHEMIA ALREADY RESEMBLES. ***
+  XCOM 2:        +20 aim, flat, and explicitly NO defensive bonus.   ruled out
+  Divinity OS2:  bonus damage AND extra range.                        ruled out
+  FF Tactics:    shifts hit rate; height also gates MOVEMENT (Jump).  ruled out
+  Jagged All. 2: TWO LEVELS ONLY, ground and roof. Pays in SIGHT LINES, not
+                 numbers. <-- exactly what v90 shipped, arrived at independently.
+JA2 IS THE CLOSEST RELATIVE and its two-level cap is a deliberate, shipped,
+well-regarded choice rather than a shortcut. "One deck, not a building" has a real
+precedent behind it.
+THE CONFIRMATION WORTH KNOWING: XCOM's FLANKING rule is "a unit not benefiting
+from any kind of cover is flanked." *** BOHEMIA'S CROSS-LEVEL RULE IS XCOM'S
+FLANKING RULE TURNED VERTICAL. *** We already have the mechanism XCOM built its
+entire positioning game on, and we got there without the stat bonus.
+THE COST THE LITERATURE NAMES, WHICH THIS LANE ALREADY PAID TWICE IN ONE TURN:
+verticality is fundamentally a READABILITY problem. Most maps cap at THREE floor
+planes because players cannot process more, and designers "forget about the third
+dimension because it's difficult to represent in 2D." Both bit us: v90's storey
+face read as a lighter PATCH OF GROUND, and v90b's way up appeared 0 times in 8
+arenas. Bohemia is at two planes; a third is available, a fourth is past where the
+literature says players cope ON A DESKTOP IN 3D WITH A FREE CAMERA. On a phone in
+top-down the honest ceiling is lower.
+FOUR IDEAS, ALL [PENDING Paolo], NOTHING BUILT, ranked by whether they change a
+decision (the rule the tally kill left behind):
+  1 VERTICAL REACH PER WEAPON -- FFT writes vertical tolerance into range (3v2).
+    A shotgun should not reach a roof the way a rifle does. Bohemia already has
+    per-weapon lethality gates and muzzles, so the table exists. Makes the climb a
+    LOADOUT decision too, and it is reachability, never damage.
+  2 THE ANGLE GRADIENT -- XCOM scales a partial flank bonus from 44deg to 10deg.
+    THE ONE ITEM THAT CLOSES THE AUDIT'S OPEN FINDING (at a given range no
+    direction is better than any other). Must be expressed as ODDS, not damage:
+    the shot pulls an easier needle pattern nearer a true flank, exactly the way
+    point blank already does.
+  3 A THIRD STOREY -- cheap now that levels exist and the render is relative.
+  4 ROOF-EDGE COVER -- the deck is currently a killing floor with no cover in
+    EITHER direction. JA2's roofs have parapets and prone. Most likely of the four
+    to change how the deck actually plays: it would make the high ground a place
+    you can HOLD, not just shoot from once.
+NOT RECOMMENDED ON THE EVIDENCE: any height damage or accuracy bonus. Ruled out by
+him, and the DOS2 critique shows what happens if you do it anyway -- the bonus
+lands in the same slot as crit and an entire skill tree goes redundant.
+
 COMBAT (04) 7/27 - v91: THE STAIRS ANNOUNCE THEMSELVES. Paolo: "I couldn't find
 the stairs bro or whatever you had out what the fuck are you talking about?"
 REPRODUCED, eight arenas, loaded and shuffled exactly the way he plays them:
