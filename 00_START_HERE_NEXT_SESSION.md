@@ -1,3 +1,53 @@
+WORLD MODEL (02): 7/28 (b) LATEST — HE RULED "HIGH SCHOOL", AND IT IS THE TEST CASE FOR
+THE WHOLE REVAMP. engine/bohemia_school.js rebuilt + its icon rebaked the same turn.
+
+HE WAS RIGHT THAT IT HAD TO SAY. A high school is not a bigger middle school, it is a
+DIFFERENT BUILDING PROGRAMME, and the old module was a generic K-12 that had a PLAYGROUND
+in it — an elementary-school object, simply wrong. Removed.
+
+THE LANDMARK IS THE STADIUM (law: EVERY DISTRICT IS ITS OWN LANDMARK, 7/28). An obround
+running track with the football field inside it, raked bleachers down BOTH sidelines, a
+press box and four light towers. Nothing else in the valley makes that shape and it
+survives shrinking to one tile, which is the two-zoom test. What else makes it a HIGH
+school specifically: the STUDENT LOT with the cars still in their stalls (high schoolers
+drive — the clearest programmatic tell there is), tennis courts, portable classrooms, the
+marquee at the kerb, and a gym in school colours.
+
+A RUNNING TRACK IS AN OBROUND, NOT AN ELLIPSE. Drawn as an ellipse first and the
+rectangular field punched straight out through the bends — an ellipse narrows everywhere,
+a real track holds full width down the whole straight, and the infield fits inside a track
+for exactly that reason and no other. Found by rendering it and looking.
+
+THE COLOUR FIX, MEASURED, AND THIS IS THE REAL RESULT OF THE TURN:
+  school icon BEFORE:  3 hue families, 17.2% chromatic
+  school icon AFTER:   9 hue families, 70.6% chromatic
+  Pocket City 2 ref:  12 hue families, 87.5% chromatic
+  our set median:      3 hue families (unchanged — only school was rebuilt)
+Maroon roofs, teal gym, rust track, dead green field, blue-green courts, metal bleachers,
+gold marquee — every one faded into the dead world's value bands, none of them merged into
+each other. "Faded" is not the same instruction as "brown": a faded maroon is still maroon.
+The school colours being the last real colour on a dead campus is also true of the real
+ones. THIS IS THE PATTERN THE OTHER 35 SHOULD FOLLOW once he approves it.
+
+A CONTAINER REWIND ATE AN HOUR AND IS WORTH KNOWING ABOUT: this session's local checkout
+silently rewound to a commit from before the town/ballpark work, so four engine modules
+looked DELETED and the tools regenerated against a stale tree (23 icons instead of 27, 39
+districts instead of 45). Nothing was actually lost — every commit was already on
+origin/main. The fix is `git fetch && git reset --hard origin/main`, then re-apply. IF
+YOUR WORKING TREE LOOKS LIKE IT LOST WORK, CHECK origin/main BEFORE BELIEVING IT.
+Also: tools/bohemia_district_grid_dump.js has now had its hard-coded session scratch path
+regress TWICE through rebases, and its module list lost the four landmark districts the
+same way. Both re-fixed, with a comment saying so — a district missing from that list
+silently stops having its icon baked, so the icon law goes quiet instead of red.
+
+=== WHAT COMES AFTER ===
+BLOCKED ON PAOLO:
+  1. JUDGE THE HIGH SCHOOL. It is the test case; if the hook + colour treatment is right,
+     the same pattern rolls out to the other 35 from the theme sheet.
+  2. How long since the collapse — still sets the damage level of all 45 at once.
+DO NOT: roll the colour fix across all 36 before he judges this one. That is the four-
+versions-in-a-day failure that STOP PRODUCING exists to prevent.
+
 WORLD MODEL (02): 7/28 LATEST — HE RULED: EVERY DISTRICT IS ITS OWN LANDMARK, AND
 ACT ONE ONLY. LAW: laws/BOHEMIA_ADDENDUM_EVERY_DISTRICT_IS_A_LANDMARK_7_28_26.md
 Deliverable: records/BOHEMIA_DISTRICT_THEME_SHEET_7_28_26.md (36 hooks, one per type)

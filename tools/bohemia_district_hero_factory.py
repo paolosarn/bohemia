@@ -422,21 +422,71 @@ def build_commercial(P):
 
 # ---------------------------------------------------------------- SCHOOL
 def build_school(P):
-    BLD, GYM, COURT, FIELD, BUSC, DRIVE = P[2], P[7], P[8], P[6], P[12], P[1]
+    """engine/bohemia_school.js — a HIGH SCHOOL (Paolo ruled it 7/28). THE STADIUM IS THE
+    SIGNATURE and it must be in the icon, because it is the one shape nothing else in the
+    valley makes: an obround running track with a rectangle inside it, bleachers down both
+    sides, four light towers over the lot. A school icon that is just a building block is
+    every other civic building; the track is what makes it a high school at one tile.
+
+    The old icon was a generic E-shaped block plus a bus. It read as 'a school-ish
+    building' and nothing more, and it is one of the 32 he rejected."""
+    BLD, GYM, COURT, FIELD = P[2], P[14], P[8], P[6]
+    TRACK, MARK, BLEACH, TOWER, CARC, DRIVE = P[7], P[10], P[9], P[12], P[17], P[1]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), patches=[(7.5, -2.5, 14.5, 4.0, COURT)], lot=(-3, 10, 9, 15),
-            drive=(2, 10, 6, 15), groundc=(102, 100, 94), lotc=(52, 52, 60))
-    # the E-shaped school building (a spine + wings) + a taller gym block
-    s.box((-2, -1, 0), (9, 2.8, 4.6), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 7, 2, 4),
-          'py': _win(BLD, 6, 2, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})        # spine
-    for wy in (-1.0, 2.6, 6.2):                                                 # three wings
-        s.box((-2, wy, 0), (2.6, 3.0, 4.2), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 2, int(wy) + 5),
+    _ground(s, (-3, -3, 15, 15), lot=(-3, 11.5, 15, 15), groundc=(96, 100, 78), lotc=(52, 52, 60))
+
+    # THE STADIUM, front and centre: an OBROUND track (two straights, two round ends)
+    cx, cy, SL, RO, RI = 6.0, 7.4, 2.9, 2.7, 1.7
+    step = 0.30
+    iy = -RO - step
+    while iy <= RO + step:
+        ix = -SL - RO - step
+        while ix <= SL + RO + step:
+            ax, ay = abs(ix), abs(iy)
+            d_out = ay if ax <= SL else math.hypot(ax - SL, ay)
+            if d_out <= RO:
+                inside = ay <= RI if ax <= SL else math.hypot(ax - SL, ay) <= RI
+                s.box((cx + ix, cy + iy, 0.0), (step * 1.08, step * 1.08, 0.07),
+                      {'c': FIELD if (inside and ax <= SL) else (TRACK if not inside else FIELD)})
+            ix += step
+        iy += step
+    for i in range(7):                                                    # the yard lines
+        lx = -SL + 0.2 + i * (2 * SL - 0.4) / 6.0
+        s.box((cx + lx, cy - RI + 0.2, 0.08), (0.09, 2 * RI - 0.4, 0.04), {'c': MARK})
+
+    # RAKED BLEACHERS down both sidelines, and the press box on the home side
+    for i, (dy, hgt) in enumerate(((0.0, 0.34), (0.42, 0.60), (0.84, 0.86))):
+        for sgn in (-1, 1):
+            s.box((cx - SL - 0.5 + i * 0.18, cy + sgn * (RO + 0.45 + dy) - 0.19, 0),
+                  (2 * SL + 1.0 - i * 0.36, 0.38, hgt),
+                  {'top': _dark(BLEACH, 1.18), 'px': _win(BLEACH, 10, 1, 3 + i, 0.0),
+                   'py': _dark(BLEACH, 0.84), 'nx': _dark(BLEACH, 0.8), 'ny': _dark(BLEACH, 0.8)})
+    s.box((cx - 0.8, cy - RO - 1.5, 0.86), (1.6, 0.5, 0.5), {'c': _dark(BLEACH, 1.1)['c']})
+
+    # FOUR LIGHT TOWERS — Friday night lights, the tallest things on the site
+    for (lx, ly) in [(cx - SL - RO - 0.7, cy - RO - 0.7), (cx + SL + RO + 0.7, cy - RO - 0.7),
+                     (cx - SL - RO - 0.7, cy + RO + 0.7), (cx + SL + RO + 0.7, cy + RO + 0.7)]:
+        s.box((lx - 0.13, ly - 0.13, 0), (0.26, 0.26, 5.2), {'c': TOWER})
+        s.box((lx - 0.5, ly - 0.5, 5.2), (1.0, 1.0, 0.4),
+              {'c': tuple(min(255, int(c * 1.15)) for c in TOWER)})
+
+    # THE ACADEMIC SPINE behind it, two storeys, and the GYM in school colours
+    s.box((-2.4, -2.6, 0), (11.5, 2.6, 4.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 2, 4),
+          'py': _win(BLD, 7, 2, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    for wy in (-2.6, 1.2):
+        s.box((-2.4, wy, 0), (2.4, 3.2, 4.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 2, 6),
               'py': _dark(BLD, 0.95), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((5.5, 5.0, 0), (4.5, 4.5, 6.2), {'top': _dark(GYM, 0.9), 'px': _dark(GYM, 1.0),
-          'py': _dark(GYM, 0.85), 'nx': _dark(GYM), 'ny': _dark(GYM)})          # gym
-    _door(s, 7.0, 0.5, 2.3, 2.4, doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
-    _vehicle(s, 8.5, -2.0, BUS, BUSC, along='x')                               # a school bus
-    return s, 6.6
+    s.box((9.6, -2.2, 0), (4.4, 4.2, 5.6), {'top': _dark(GYM, 0.95), 'px': _dark(GYM, 1.05),
+          'py': _dark(GYM, 0.85), 'nx': _dark(GYM), 'ny': _dark(GYM)})           # the gym, teal
+    _door(s, 9.6, -1.4, 0.4, 2.2, doorc=_dark(GYM, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.25)) for c in GYM))
+    s.box((10.2, 2.2, 0), (3.4, 1.6, 0.06), {'c': COURT})                        # a tennis court
+    s.box((11.9, 2.2, 0.06), (0.06, 1.6, 0.03), {'c': MARK})
+
+    # THE STUDENT LOT — the tell. High schoolers drive, and nobody came back for these.
+    for i in range(4):
+        _vehicle(s, -1.4 + i * 3.1, 12.6, CAR, CARC, along='x')
+    return s, 5.4
 
 
 # ---------------------------------------------------------------- COURTHOUSE

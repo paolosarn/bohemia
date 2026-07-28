@@ -1,5 +1,6 @@
 // SCHOOL GATE (7/20/26). A dead K-12 school — an E-shaped building + gym on dead lawn, a sports
-// field ringed by a running track, basketball courts, a playground, and SEPARATE bus-loop / drop-off
+// field ringed by a running track, tennis courts, and SEPARATE bus-loop / student parking
+// (7/28: Paolo ruled the district a HIGH SCHOOL, so the playground assertion is gone)
 // / staff-parking drives. Street-aware + drivable (the paved network reaches the curb), full dossier
 // + layering. Research-first (real school campus site plans).
 const D = require('../engine/bohemia_school.js');
@@ -13,10 +14,23 @@ const purpleFree = pal => { for (const c of Object.keys(pal)) { const h = pal[c]
 let anatomy = true, filled = true, streetOk = true, cornerPed = true, driveConnected = true, contentDom = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = D.generate(s * 13 + 4, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
-  // WALKABLE-LAND rebuild: a dense BUILDING complex(2) + quad plaza(11) + gardens(13) + field(6) +
-  // track(7) + courts(8) + playground(9) dominate; the drive(1) is a small loop.
-  if (!(t[2] > 3000 && t[11] > 600 && (t[13] || 0) > 200 && t[6] > 600 && t[7] > 200 && t[8] > 200 &&
-        (t[9] || 0) > 100 && (t[10] || 0) > 100 && t[4] > 2500 && t[1] > 400 && (t[12] || 0) >= 1)) anatomy = false;
+  /* PAOLO RULED IT A HIGH SCHOOL (7/28), answering his own bulk-verdict note that the
+     district had to say which. This gate used to REQUIRE a PLAYGROUND (code 9) — an
+     elementary-school object — because it was written for the old generic K-12. His
+     ruling supersedes the gate, so the gate moves to the ruling rather than the district
+     being bent back to satisfy a stale assertion. Code 9 is now BLEACHERS.
+     THE HIGH-SCHOOL PROGRAMME, asserted: the academic building(2) + gymnasium(14) +
+     portables(15); the STADIUM — field(6) inside a running track(7) with raked
+     bleachers(9) and light towers(12); tennis courts(8); the marquee(16); and the STUDENT
+     LOT, which is the clearest tell of all — high schoolers drive — with the cars(17)
+     still in it. */
+  if (!(t[2] > 2200 && (t[14] || 0) > 600 && (t[15] || 0) > 200 && t[11] > 300 &&
+        t[6] > 600 && t[7] > 400 && (t[9] || 0) > 100 && t[8] > 400 &&
+        (t[10] || 0) > 100 && t[4] > 2500 && t[1] > 400 && (t[12] || 0) >= 4 &&
+        (t[16] || 0) > 10 && (t[17] || 0) > 20)) anatomy = false;
+  // NO PLAYGROUND. It is an elementary-school object and this district is explicitly a
+  // high school; its presence would be a regression, so the gate holds it at zero.
+  if ((t[9] || 0) > 0 && D.legend[9] && /playground/i.test(D.legend[9].name)) anatomy = false;
   const ls = K.landStats(g, D.legend);
   if (!(ls.contentPct >= ls.drivePct)) contentDom = false;
   if (!K.legendOk(r.g, D.palette) || K.voidFraction(r.g) > 0.20) filled = false;
@@ -26,7 +40,9 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (g[y][x] !== 5) continue; const e = edgeOf(x, y); if (!e || !cfg.includes(e)) streetOk = false; else gE.add(e); }
   if (cfg.length > 1) { for (const e of cfg) if (!gE.has(e)) cornerPed = false; }
 }
-ok('building complex + quad plaza + gardens + field + track + courts + playground + markings + flagpole', anatomy);
+ok('THE HIGH-SCHOOL PROGRAMME: academic building + gym + portables + the STADIUM ' +
+   '(field inside a track, raked bleachers, four light towers) + tennis courts + marquee ' +
+   '+ the student lot with the cars still in it, and NO playground', anatomy);
 ok('WALKABLE-LAND: content dominates pavement (a finished campus, not a sparse lot)', contentDom);
 ok('every tile named + low void (EXPLAIN-EVERY-TILE)', filled);
 ok('DRIVABLE: bus loop + drop-off + parking reach the curb in every placement', driveConnected);
