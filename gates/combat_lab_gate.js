@@ -109,7 +109,8 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo) &&
     /function worldShift\([\s\S]{0,700}?G\.pillars/.test(demo));
   // PILLAR COVER (v5, Paolo: "shuffled pillars that I can take cover from")
-  ok('shuffled pillars spawn each encounter', demo.includes('G.pillars=[]; { const NP=5+'));
+  ok('shuffled pillars spawn each encounter (V89: the count is now a real 2-15 range, so this no longer pins the old 5-7 literal -- it pins the RESHUFFLE)',
+    demo.includes('G.pillars=[]; {') && demo.includes('const NP=2+Math.floor(Math.random()*14);'));
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
     demo.includes('function myCoverAgainst(ang,dist)') &&
     demo.includes('myCoverAgainst(e.ea,e.edist)'));
@@ -132,7 +133,13 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   // v7 (Paolo): grid-true field, real blocks on tiles, two-turn red line
   ok('GRID TRUE: one tile of distance = one board cell (fieldPos linear)',
     demo.includes('const rr=e.edist*ring;'));
-  ok('pillars snap to tile centers', demo.includes('cover sits ON a tile'));
+  /* V89: the old check matched a COMMENT ('cover sits ON a tile') that the rewrite
+     replaced. A comment was never the invariant. Assert the rounding itself, on
+     BOTH placement paths -- the scatter and the new cluster -- which is strictly
+     stronger than what this line used to test. */
+  ok('pillars snap to tile centers, on EVERY placement path (scatter and cluster alike)',
+    demo.includes('nx2=Math.round(Math.cos(a0)*d0); ny2=Math.round(Math.sin(a0)*d0);') &&
+    demo.includes('nx2=Math.round(q[0]+d[0]); ny2=Math.round(q[1]+d[1]);'));
   ok('the magic cover arcs are DEAD (geometry only)',
     !demo.includes('if(G.pCover[dirIndex(ang)])return true'));
   ok('tapping a cell places a REAL block on that tile',
@@ -145,8 +152,10 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   // v8 GRID LOCK: the ghost cells ARE the painted tiles
   ok('GRID LOCK: floor cells centered on integers (player stands mid-cell)',
     demo.includes('(wx-offx-0.5)*t') && demo.includes('(wx-offx+0.5)*t') && demo.includes('(wy-offy+0.5)*t'));
-  ok('GRID LOCK: pillars snap to integer centers (same grid as the board)',
-    demo.includes('Math.round(Math.cos(a0)*d0), ny2=Math.round(Math.sin(a0)*d0)'));
+  ok('GRID LOCK: pillars snap to integer centers (same grid as the board) -- V89 checks both branches, and that a cluster piece can only ever be placed one WHOLE tile off its neighbour',
+    demo.includes('nx2=Math.round(Math.cos(a0)*d0); ny2=Math.round(Math.sin(a0)*d0);') &&
+    demo.includes('const dirs=[[1,0],[-1,0],[0,1],[0,-1]], d=dirs[Math.floor(Math.random()*4)];') &&
+    demo.includes('nx2=Math.round(q[0]+d[0]); ny2=Math.round(q[1]+d[1]);'));
   ok('GRID LOCK: the ghost tap-cell is drawn as exactly one painted tile',
     demo.includes('GRID LOCK V8: the ghost cell IS the painted tile'));
   // v9 (Paolo): the dial happens ON the board; the power of who to shoot next
@@ -2229,6 +2238,53 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('RULING 1 HELD -- NO DAMAGE MULTIPLIERS. Paolo: "theres not a lot of ways to increase damage other than hit the killshot." Position makes the killshot LANDABLE, never bigger. Kill damage is still the flat constant and nothing positional touches it',
     demo.includes('const KILL_DMG=100;') &&
     demo.includes('applyDamage(tgt,KILL_DMG);'));
+}
+
+/* ============================================================================
+   25. V89 THE GENERATOR ONLY EVER MADE ONE ARENA
+   Paolo on v88: "I dont see new arenas shit was boring if u did anything."
+   MEASURED, six arenas rolled back to back on v88:
+     pieces 6,5,7,7,6,7   mean spread 6.50,5.79,5.91,5.99,6.43,6.70
+   One count range, ONE radius (0.55 for every piece ever placed), one placement
+   rule. That is one arena with the dots moved, and no seed can shuffle variety
+   that does not exist. v88 handed him dice for a generator with one brick.
+   AFTER: pieces 6,4,13,15,11,13 and radius varying 0.45-1.15, with runs.
+   ========================================================================== */
+{
+  const i = demo.indexOf('/* ===== V89 THE GENERATOR GETS A VOCABULARY');
+  const j = demo.indexOf('/* V42 COVER REVERT: cover is permanent again.', i);
+  const gen = (i > 0 && j > i) ? demo.slice(i, j) : '';
+  ok('V89: the pillar generator carries the vocabulary as one readable block', gen.length > 0);
+
+  ok('DENSITY IS A REAL RANGE NOW: 2-15 pieces, not 5-7. A five-to-seven swing is a rounding error the eye cannot see, which is exactly what he could not see',
+    gen.includes('const NP=2+Math.floor(Math.random()*14);') &&
+    !demo.includes('const NP=5+Math.floor(Math.random()*3);'));
+  ok('COVER HAS A SIZE: r was 0.55 for EVERY piece ever placed. Now 0.45-1.15, so some is a crate you duck behind and some is a block you go around',
+    gen.includes('const r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') &&
+    !demo.includes('edist:Math.hypot(nx2,ny2),r:0.55,tall:'));
+  ok('AND THE EXISTING COVER MATHS ALREADY SCALED OFF P.r everywhere it is used, so nothing had to be rewritten -- the number was simply never allowed to vary',
+    demo.includes('return dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9; }); }') &&
+    demo.includes('segNear(0,0,exy[0],exy[1],pxy[0],pxy[1],P.r*0.85)') &&
+    demo.includes('Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.35'));
+  ok('PIECES CLUSTER INTO RUNS, so WALLS and CORNERS emerge from the same circle maths that already ships -- a wall is three pillars in a row, and every cover function already understands three pillars in a row. No new geometry, no new collision, no new cover rule',
+    gen.includes('const seedP=(G.pillars.length&&Math.random()<clump*0.8)') &&
+    gen.includes("const dirs=[[1,0],[-1,0],[0,1],[0,-1]], d=dirs[Math.floor(Math.random()*4)];"));
+  ok('and each arena rolls its OWN character once -- bulk and clump -- so two arenas can differ in KIND, not just in where the dots landed',
+    gen.includes('const bulk=0.45+Math.random()*0.70;') && gen.includes('const clump=Math.random();'));
+
+  ok('V89 MAP LAW STILL HELD: density, size and clustering are PARAMETERS. Claude authored no layout and named no arena; the seed decides what the vocabulary says, and which arenas are canon is still only his call',
+    !/const\s+ARENAS\s*=/.test(demo) && !/LAYOUT_NAMES|ARENA_PRESETS/.test(demo) &&
+    demo.includes("const layouts=['oneside','twoside_opp','twoside_adj','cluster_flank','ring'];"));
+
+  ok('THE PLACEMENT STILL LANDS ON TILES and still refuses to build on top of the player or off the far edge, so a denser arena can never wall him in at spawn',
+    gen.includes('if(Math.hypot(nx2,ny2)<1.5)continue;') &&
+    gen.includes('if(Math.hypot(nx2,ny2)>11)continue;') &&
+    gen.includes('return Math.abs(q[0]-nx2)<0.9&&Math.abs(q[1]-ny2)<0.9;'));
+  ok('and the retry budget grew with the density so a 15-piece arena cannot quietly come out half-built',
+    gen.includes('pg++<240'));
+
+  ok('V89 "I DONT SEE": the ARENA button rendered blank until the first tap, because updArenaBtn only ever ran inside the click handler. One control in a row of eleven, saying nothing about what it was for. It now rolls and labels itself on startup',
+    demo.includes('try{ if(BohemiaArena.get()==null)BohemiaArena.roll(); updArenaBtn(); }catch(_e){}'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

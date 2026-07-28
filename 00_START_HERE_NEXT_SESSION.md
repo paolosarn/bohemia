@@ -2107,6 +2107,49 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v89: THE GENERATOR ONLY EVER MADE ONE ARENA, AND v88 SHIPPED
+DICE FOR IT. Paolo: "I dont see new arenas shit was boring if u did anything."
+He is right twice and the measurement is brutal. Six v88 arenas back to back:
+  pieces 6,5,7,7,6,7   mean spread 6.50,5.79,5.91,5.99,6.43,6.70
+One count range. ONE radius -- r=0.55 for every piece ever placed since the demo
+shipped. One placement rule. That is ONE ARENA WITH THE DOTS MOVED, and no seed
+can shuffle variety that does not exist. v88 gave him a notebook for a generator
+with a single brick in it and then asked him to go find keepers.
+AFTER: pieces 6,4,13,15,11,13, radius 0.45-1.15, with runs.
+*** THE LESSON, AND IT IS THE ONE WORTH KEEPING: A SHUFFLE IS ONLY AS GOOD AS THE
+THING IT SHUFFLES. Before shipping a re-roll, MEASURE THE SPREAD OF WHAT IT ROLLS.
+If two rolls are not visibly different in a table, they will not be different on
+his phone either. ***
+WHAT SHIPPED:
+(a) DENSITY IS A REAL RANGE: 2-15 pieces, not 5-7. Five-to-seven is a rounding
+error the eye cannot see.
+(b) COVER HAS A SIZE. The cover maths ALREADY scaled off P.r in every place it is
+used (myCoverAgainst, realCoverPillar, segNear, the dash-path block), so nothing
+needed rewriting. The number was simply never allowed to vary.
+(c) PIECES CLUSTER INTO RUNS -- a share place adjacent to an existing piece, so
+WALLS and CORNERS emerge from the same circle maths that already ships. A wall is
+three pillars in a row, and every cover function already understands three pillars
+in a row: no new geometry, no new collision, no new cover rule. This is the first
+time the ground has ever argued for approaching from a particular SIDE, which is
+the gap the north-star audit named.
+(d) "I DONT SEE" WAS ALSO LITERAL. The ARENA button rendered blank until the first
+tap, because updArenaBtn only ever ran inside the click handler -- one control in a
+row of eleven, saying nothing about what it was for. It labels itself on startup.
+MAP LAW HELD: density, size and clustering are PARAMETERS. No layout authored, no
+arena named. The seed decides what the vocabulary says; which arenas are canon is
+still only his call.
+AND THE GATE CAUGHT ME: three older checks string-matched the OLD generator, and
+one of them matched a COMMENT ("cover sits ON a tile"). A comment was never the
+invariant. All three are rewritten to assert the rounding itself on BOTH placement
+paths, which is strictly stronger than what they tested before. Never relax a check
+to make a change pass -- re-point it at the thing it was actually protecting.
+*** WHAT THIS IS STILL NOT: barrels on a flat lot. He originally asked for "combat
+that could take place across two stories where their stairs" and "an actual arena
+map". VERTICALITY AND ROOMS ARE A DIFFERENT, BIGGER BUILD and are [PENDING Paolo].
+Do not pretend cover variety answered that ask. ***
+GATE: combat_lab_gate.js section 25, 413 -> 423 checks.
+TOOL: tools/bohemia_combat_arena_vocabulary_patch.py
+
 COMBAT (04) 7/27 - v88: THE PROVING GROUND, AND TWO RULINGS THAT NARROW THE WHOLE
 LANE. Paolo: "u want to get into point blank range and sprinting and not losing a
 turn can help that. i mean when it comes to shooting theres not a lot of ways to

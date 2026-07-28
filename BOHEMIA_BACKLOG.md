@@ -1238,6 +1238,38 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-arena2. DONE 7/27 (v89): THE GENERATOR ONLY EVER MADE ONE ARENA. Paolo on v88:
+   "I dont see new arenas shit was boring if u did anything." He is right twice.
+   MEASURED on v88, six arenas back to back: 6,5,7,7,6,7 pieces, mean spread
+   5.79-6.70, and r=0.55 for EVERY piece ever placed since the demo shipped. That
+   is ONE arena with the dots moved. v88 handed him dice and a notebook for a
+   generator with one brick in it, then told him to go find arenas worth keeping.
+   AFTER: 6,4,13,15,11,13 pieces, radius 0.45-1.15, with runs.
+   (a) DENSITY IS A REAL RANGE: 2-15, not 5-7. A five-to-seven swing is a rounding
+   error the eye cannot see, which is exactly what he could not see.
+   (b) COVER HAS A SIZE. The existing cover maths already scaled off P.r in every
+   place it is used (myCoverAgainst, realCoverPillar, segNear, the dash-path
+   block), so nothing needed rewriting -- the number was simply never allowed to
+   vary.
+   (c) PIECES CLUSTER INTO RUNS, so WALLS and CORNERS emerge from the same circle
+   maths that already ships. A wall is three pillars in a row and every cover
+   function already understands three pillars in a row: no new geometry, no new
+   collision, no new cover rule. This is the first time the ground has ever argued
+   for approaching from a particular side.
+   (d) "I DONT SEE" WAS ALSO LITERAL: the ARENA button rendered blank until the
+   first tap (updArenaBtn only ran inside the click handler), so one control in a
+   row of eleven said nothing about itself. It labels itself on startup now.
+   MAP LAW HELD: density, size and clustering are PARAMETERS. No layout authored,
+   no arena named. The seed decides what the vocabulary says; which arenas are
+   canon is still only his call.
+   AND THE GATE CAUGHT ME: three older checks string-matched the OLD generator
+   (one of them matched a COMMENT). A comment was never the invariant -- they are
+   rewritten to assert the rounding itself on BOTH placement paths, which is
+   strictly stronger than what they tested before.
+   *** STILL NOT WHAT HE ORIGINALLY DESCRIBED: this is barrels on a flat lot. He
+   asked for "two stories where their stairs" and "an actual arena map". Verticality
+   and rooms are a different, bigger build and [PENDING Paolo]. ***
+   Gate section 25, 423 checks.
 0-arena. DONE 7/27 (v88): THE PROVING GROUND. On his ask, "maybe its time to add a
    shuffable arena map fr", plus two rulings in the same message.
    *** RULING 1: NO DAMAGE MULTIPLIERS. *** "theres not a lot of ways to increase
