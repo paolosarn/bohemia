@@ -165,5 +165,9 @@ gauge and should land with this work.
   is finished); beat handoff from parent (gap 7).
 - CITY: people on the human-mode walk surface (gap 4, reuse BohemiaAgents).
 - SHARED non-cook: FPS/frame-time instrumentation; widen sync_gate's net.
-- NOT ROUTED (canon-level, [PENDING Paolo]): weather's existence; quest
-  placement rule; seamless-combat as a goal vs the faster tab swap.
+- NOT ROUTED (canon-level, [PENDING Paolo]): the quest placement rule.
+- RULED 7/28 (same day, both former pendings): REAL seamless combat is the
+  goal, extraction-not-rewrite ("in the exact whole coding how we built it")
+  — laws/BOHEMIA_ADDENDUM_REAL_COMBAT_ON_THE_WALK_7_28_26.md. WEATHER
+  EXISTS, Vegas-real and not diverse (sunny > cloudy > rain ~monthly, dead
+  foliage is the baseline) — laws/BOHEMIA_ADDENDUM_VEGAS_WEATHER_7_28_26.md.

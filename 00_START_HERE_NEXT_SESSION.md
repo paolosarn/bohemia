@@ -3827,6 +3827,18 @@ the wall in front of allies/ambient/seamless; CITY ER: zero people on the
 human-mode walk; SHARED 4-5: FPS gauge + sync-net widening). One stale law
 corrected in place: the run-handoff contract's "warmed frame / 14ms" claim
 (warming was reverted 7/26; correction block added to that addendum).
+7/28 LATER, THREE RULINGS OFF THE MAP, all recorded same turn: (1) REAL
+COMBAT ON THE WALK — "in the exact whole coding how we built it" =
+extraction never rewrite, byte-identical dial, faster-tab-swap dead as a
+goal (laws/BOHEMIA_ADDENDUM_REAL_COMBAT_ON_THE_WALK_7_28_26.md, COMBAT ER
+amended). (2) VEGAS WEATHER — yes, three states only (sunny default /
+cloudy / rain ~once a month, an event), NOT diverse, dead foliage is the
+baseline not a weather effect (laws/BOHEMIA_ADDENDUM_VEGAS_WEATHER_
+7_28_26.md, WORLD ER(c)). (3) THE FULL TILE REQUEST FORM — his order;
+BOHEMIA_TILE_REQUESTS.md expanded to the master board: 9 OPEN rows (6 HIGH
+incl. seamless desert ground, dead foliage set, weather overlays) + 4 HELD
+rows blocked on named picks (hook pick, school word, recipe verdict,
+upgrade roster). Every row sourced from recorded rulings, nothing invented.
 Earlier: the architecture map, the findings (quest-rescue plan since
 executed, collision watch), the prompt library, and this diet. REPO CLEANUP: DONE, both phases (7/26). The full
 pre-slim history (every commit 7/16-7/26, all branches) lives permanently in

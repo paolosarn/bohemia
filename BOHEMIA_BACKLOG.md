@@ -760,6 +760,17 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    "homes" and 64 residents with sleep schedules living in rock formations.
    Filter by district family before granting households. | agents gate:
    desert/arterial cells produce 0 households | — | no.
+   (c) RULED 7/28 — VEGAS WEATHER (laws/BOHEMIA_ADDENDUM_VEGAS_WEATHER_
+   7_28_26.md): weather EXISTS. Three states total: MOSTLY SUNNY (default),
+   MOSTLY CLOUDY, RAIN (rare — about once a month of game time, an event).
+   NOT TOO DIVERSE is the law: no fourth type, no seasons-of-weather. Dead
+   foliage is the world's BASELINE, never a weather effect; rain wets the
+   ground and revives nothing. Build as a world state the resolver/day
+   machinery carries; wire TOGETHER with the finished-but-unwired daycycle
+   module (reuse-first), not as rivals. Distribution ratio is his ruling and
+   ships as table contents; overlay/wet-ground art goes through the TILE
+   REQUEST BOARD (rows 5-6, filed). | weather state headless-gated + seen on
+   the real surface | render passes land with RUN/CITY | no.
 V-1. [VERDICT IN 7/27 — 10 up / 32 down / 3 unjudged of 45. "it was mostly all bad",
    "nothing here was perfect all need work fr"]
    Raw: records/BOHEMIA_VERDICT_BULK_DISTRICTS_7_27_26.txt
@@ -1445,6 +1456,14 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    stop paying the full 632KB decode. | resync --check green + a freshness
    gate registered; handoff timed on the real surface | the dial's behavior
    changes ZERO — this is plumbing, byte-identical output is the proof | no.
+   RULED 7/28 (Paolo: "Real combat in the exact whole coding how we built
+   it" — laws/BOHEMIA_ADDENDUM_REAL_COMBAT_ON_THE_WALK_7_28_26.md): the
+   destination is REAL combat ON the walk surface, and the extraction above
+   is step (a) of the ruled sequence — then (b) enemy render on the walk's
+   tile canvas, (c) one input model, (d) one beat clock (the dial's audio
+   clock becomes the walk's). EXTRACTION NEVER REWRITE: byte-identical dial
+   behavior is the gate; any mechanics change during the move is a
+   violation. The faster-tab-swap is dead as a goal (fine as a side effect).
 1a. (discovered 7/26 by COMBAT, NOT ours to fix) THE RENDER PIXEL GATE IS FLAKY.
    It drives a live WALKING CITY and measures whatever draws happen, so the draw
    count swings ~19.8k-22.8k run to run. It failed once at 12.4% half-pixel draws
