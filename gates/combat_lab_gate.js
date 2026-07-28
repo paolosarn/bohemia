@@ -2328,8 +2328,13 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes('if(Math.hypot(tx,ty)<2.6)continue;') && demo.includes('if(Math.hypot(tx,ty)>12)continue;'));
   ok('AND THE DECK EVICTS GROUND COVER UNDER IT, so a pillar can never be stranded inside a slab as cover nobody can see',
     demo.includes('G.pillars=G.pillars.filter(P=>{ const q=pXY(P); return !deckTileAt(q[0],q[1]); });'));
-  ok('THE STAIR IS THE CLOSEST DECK TILE TO YOU, so there is always a way up you can walk to rather than a puzzle about finding the entrance',
-    demo.includes('let s=G.deck[0]; for(const T of G.deck)if(T.edist<s.edist)s=T;') &&
+  /* V92 SUPERSEDES THE PLACEMENT, NOT THE PROMISE. v90 took the closest deck tile
+     outright; v92 takes the closest tile ON THE NEAR EDGE, because a run of steps
+     only reads when it descends toward the viewer. The promise this check exists to
+     protect -- there is always a way up you can walk to -- is unchanged, and section
+     28 asserts the near-edge rule itself. */
+  ok('THE STAIR IS STILL A WAY UP YOU CAN WALK TO, now the nearest tile on the deck\'s near edge (V92)',
+    demo.includes('let s=_edge[0]; for(const T2 of _edge)if(T2.edist<s.edist)s=T2;') &&
     demo.includes("s.stair=true; G.stairs.push(s);"));
 
   ok('V90B THE CLIMB COSTS ONE STAMINA AND NO TURN -- Paolo 7/26 LOCKED, and his own words this session: "sprinting and not losing a turn can help that." Taking the high ground is priced like closing the distance',
@@ -2361,8 +2366,14 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes("x.fillStyle='#15120e'; x.fillRect(p[0]-t2*0.5,fy,t2+1,-dz);") &&
     demo.includes("x.fillStyle='rgba(0,0,0,0.55)';") &&
     !demo.includes("x.fillStyle='#3e372c';"));
-  ok('and the way up is drawn ON the tile as steps, so it is a thing you can see rather than a thing you have to be told',
-    demo.includes("if(T.stair){ x.fillStyle='rgba(232,200,138,0.30)';"));
+  /* V92 REPLACED WHAT THIS CHECKED. The "steps on the tile" it asserted were a
+     DECAL on a tile floating a storey above the lot -- Paolo: "looking like dog
+     shit" -- and it is exactly the kind of check that passes while the thing it
+     describes is broken. The way up is now a real run of steps joining the two
+     floors, asserted properly in section 28. */
+  ok('the way up is drawn as ARCHITECTURE that touches the ground, not a decal on the roof (V92)',
+    !demo.includes("if(T.stair){ x.fillStyle='rgba(232,200,138,0.30)';") &&
+    demo.includes('V92 A REAL RUN OF STEPS'));
 
   ok('V90B THE READ SAYS WHICH FLOOR, and says the loud part: that every piece of stone on the lot just stopped counting',
     demo.includes("(myLvl()===DECK_LVL?'HIGH GROUND':'HE IS ABOVE YOU')") &&
@@ -2416,6 +2427,64 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes("if(!spendStam(1)){ setRead('NO STAMINA','the climb costs one pip','#8a7d66'); return; }") &&
     demo.includes("function stairNear(){ return (G.stairs||[]).find(S=>S.edist<=1.6)||null; }") &&
     /function doStairs\(\)[\s\S]{0,700}?const up=\(myLvl\(\)!==DECK_LVL\);/.test(demo));
+}
+
+/* ============================================================================
+   28. V92 THERE WAS NEVER A STAIRCASE, ONLY A DECAL
+   Paolo: "You have stairs right now looking like dog shit... do a big brain
+   online research. Have some references and do what you're supposed to."
+   WHAT WAS THERE: three faint stripes painted on the TOP FACE of a deck tile,
+   one whole storey above the lot. A decal, joined to nothing. The structural
+   problem was worse than the palette one -- THE STAIRS NEVER TOUCHED THE GROUND.
+   THE RESEARCH (Pixel Parmesan's isometric fundamentals; SLYNYRD Pixelblog 41;
+   the Pixelation top-down-stairs thread) is unanimous on three rules and the
+   decal had none: 3 shades per step, height lines perfectly vertical, and draw
+   back to front so near steps occlude far ones.
+   ========================================================================== */
+{
+  ok('V92 THE DECAL IS GONE: three stripes on a tile floating one storey above the lot were never a way up',
+    !demo.includes("for(let s2=0;s2<3;s2++)x.fillRect(p[0]-t2*0.42,ty+t2*(0.18+s2*0.26),t2*0.84,t2*0.10); } }") &&
+    demo.includes('V92: the three stripes that used to be painted here are GONE'));
+
+  ok('V92 A REAL RUN OF STEPS joins the two floors: five steps, each with a BRIGHT TREAD and a NEAR-BLACK RISER, spanning the storey',
+    demo.includes('const NS=5, run=t4*1.05, halfW=t4*0.46;') &&
+    demo.includes("x.fillStyle='#14110d';") &&
+    demo.includes("x.fillStyle='#8c7d61';") &&
+    demo.includes("x.fillStyle='rgba(232,214,172,0.95)';"));
+  ok('RULE 1, THREE SHADES PER STEP: near-black riser, mid tread, hard lit lip on the leading edge -- three distinct values per step, which is the documented isometric rule',
+    /x\.fillStyle='#14110d';[\s\S]{0,200}?x\.fillStyle='#8c7d61';[\s\S]{0,160}?x\.fillStyle='rgba\(232,214,172,0\.95\)';/.test(demo));
+  ok('RULE 2, THE HEIGHT LINE IS VERTICAL: the riser is a straight vertical face drawn from the tread down, which is the only thing in a top-down frame that says "this is tall"',
+    demo.includes('x.fillRect(ox2-wx*0.5, oy2, wx, riser+tread);'));
+  ok('RULE 3, BACK TO FRONT: the loop runs from the TOP step down, so every lower step occludes the one behind it. Without the occlusion a stack of bands is a barcode',
+    demo.includes('for(let i2=0;i2<NS;i2++){') &&
+    demo.includes('const fr=i2/(NS-1);'));
+
+  ok('V92 A STOREY IS A STOREY WHICHEVER FLOOR YOU ARE ON: measuring the rise relative to your feet made it ZERO on the deck, so the way DOWN was invisible from up there -- the button said DOWN and the picture said nothing',
+    demo.includes('const rise=DECK_H;') && !demo.includes('const rise=-dzS;'));
+
+  /* the generation change that deleted a broken orientation instead of
+     special-casing it -- and this is the one worth keeping, because it is a
+     RENDER problem solved at the SOURCE. */
+  ok('V92 THE ENTRANCE IS GENERATED ON THE DECK\'S NEAR EDGE, so the run always comes DOWN TOWARD THE VIEWER. Marching away up-screen, every riser is taller than the gap to the next step and the run collapsed into a dark smear -- measured invisible in exactly that one case',
+    demo.includes('const _wy=T2=>Math.sin(T2.ea)*T2.edist;') &&
+    demo.includes('const _edge=G.deck.filter(T2=>_wy(T2)>maxY-0.6);') &&
+    demo.includes('let s=_edge[0]; for(const T2 of _edge)if(T2.edist<s.edist)s=T2;') &&
+    !demo.includes('let s=G.deck[0]; for(const T of G.deck)if(T.edist<s.edist)s=T;'));
+  ok('and it is STILL the nearest way up on that edge, so the old nicety survived the fix',
+    /const _edge=G\.deck\.filter[\s\S]{0,200}?if\(T2\.edist<s\.edist\)s=T2;/.test(demo));
+  ok('THE RUN HAS ONE ORIENTATION NOW, not four of which one was broken: it always marches down-screen and narrows slightly with distance so it reads as going away and up',
+    demo.includes('const ox2=sp2[0], oy2=oy+fr*run*0.35;') &&
+    demo.includes('const wx=halfW*2-fr*halfW*0.30;'));
+  ok('and it throws a shadow on the lot at its foot, where a real stair would',
+    demo.includes("x.fillRect(sp2[0]-halfW-2, topY+rise+run*0.35-2, halfW*2+4, 7);"));
+  ok('THE CHEVRON LIFTED OFF THE STEPS, so the wayfinding marker stops sitting on the thing it points at',
+    demo.includes('const yy=sy2-t3*(1.55+c2*0.42)-pu*t3*0.16;'));
+
+  ok('REUSE-FIRST RECORDED: banks/ WAS searched and 19 approved stair tiles DO exist (Stairs+ladders+railings n=6, Stairs and lifts n=12, Staircases and elevation n=1). Not used because the run must span DECK_H, computed at runtime from the live zoom -- a fixed raster cannot stretch between two screen heights. Filed as the replacement for when the combat surface goes tiled',
+    (() => { const fs3 = require('fs'), p3 = require('path');
+      const t = fs3.readFileSync(p3.join(__dirname, '..', 'tools', 'bohemia_combat_staircase_patch.py'), 'utf8');
+      return /REUSE CHECK:/.test(t) && /Stairs, ladders and Railings/.test(t) &&
+             /18\. Stairs and lifts/.test(t) && /16\. Staircases and elevation/.test(t); })());
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

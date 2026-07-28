@@ -2336,6 +2336,54 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v92: THERE WAS NEVER A STAIRCASE, ONLY A DECAL. Paolo: "You
+have stairs right now looking like dog shit... do a big brain online research.
+Have some references and do what you're supposed to."
+WHAT WAS THERE: three faint stripes painted on the TOP FACE of a deck tile, one
+whole storey above the lot. *** THE STAIRS NEVER TOUCHED THE GROUND. *** Nothing in
+the picture joined the two floors. I drew a TEXTURE where a piece of ARCHITECTURE
+was needed, and the structural problem was worse than the palette one.
+THE RESEARCH, and the decal had NONE of the three rules:
+  1. THREE SHADES PER STEP -- bright top face, dark side face.
+     (Pixel Parmesan, Fundamentals of Isometric Pixel Art)
+  2. HEIGHT LINES ARE PERFECTLY VERTICAL -- the riser is the only thing in a
+     top-down frame that says "this is tall". (SLYNYRD, Pixelblog 41)
+  3. DRAW BACK TO FRONT so near steps occlude far ones. The occlusion IS the depth
+     cue; without it a stack of bands is a barcode.
+  Also: Pixelation "Stairs in top down perspective", M. Bitzos on 2D top-down
+  stairs, Zelda ALTTP as the classic top-down elevation vocabulary.
+  Agrees with what this lane already learned on the deck face: VALUE CONTRAST IS
+  THE HEIGHT CUE.
+SHIPPED: a five-step run, bright treads and near-black risers, spanning the full
+storey from the lot to the deck plate, drawn top-step-first, narrowing with
+distance, throwing a shadow at its foot. The chevron lifted off the steps.
+TWO BUGS CAUGHT BY LOOKING AT IT, NOT BY READING IT:
+(a) FOUR ORIENTATIONS, ONE BROKEN. Marching away up-screen, every riser is taller
+than the gap to the next step and the whole run collapsed into a dark smear --
+invisible in exactly one of four cases. FIXED AT THE SOURCE rather than
+special-cased: the entrance is now GENERATED on the deck's near edge, so the run
+always descends toward the viewer. One orientation, one that reads.
+(b) A STOREY IS A STOREY WHICHEVER FLOOR YOU ARE ON. The rise was measured relative
+to your feet, so standing on the deck it computed to ZERO and the way DOWN was
+invisible -- the button said DOWN and the picture said nothing.
+*** THE IDEMPOTENCY TRAP, AND IT WILL BITE AGAIN: I edited v90's tool to move the
+stair placement and NOTHING HAPPENED. v90 is already shipped on main, so its tool
+correctly skips an already-patched tree -- the edit silently left the old code in
+the build and only the gate caught it. A CHANGE TO ALREADY-SHIPPED CODE BELONGS IN
+THE NEW PATCH AS A MIGRATION, never as an edit to the old tool. ***
+REUSE CHECK, RECORDED AND GATED: banks/ was searched and 19 approved stair tiles DO
+exist (Stairs+ladders+railings n=6 part1, Stairs and lifts n=12 part3, Staircases
+and elevation n=1 part4). NOT USED: the run must span DECK_H, computed at runtime
+from the live camera zoom, and a fixed raster tile cannot stretch between two
+screen heights that change. Cooked as vector geometry in the exact language the
+deck and pillars already speak. FILED as the replacement for when the combat
+surface goes tiled.
+TWO OLDER GATE CHECKS re-pointed, not deleted. One of them ASSERTED THE DECAL and
+passed happily while the thing it described was what he called dog shit -- a check
+can describe a broken thing perfectly.
+GATE: combat_lab_gate.js section 28, 450 -> 462 checks.
+TOOL: tools/bohemia_combat_staircase_patch.py
+
 COMBAT (04) 7/27 - RESEARCH: HOW GRID TACTICS HANDLE LEVELS. On his ask, and he
 said "just do research", so NOTHING WAS BUILT.
 records/BOHEMIA_COMBAT_RESEARCH_LEVELS_IN_GRID_TACTICS_7_27_26.md

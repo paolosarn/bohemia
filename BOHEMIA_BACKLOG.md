@@ -1401,6 +1401,48 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    NOT RECOMMENDED ON THE EVIDENCE: any height damage or accuracy bonus. Ruled out
    by him, and the DOS2 critique shows what happens anyway -- the bonus lands in the
    same slot as crit and a whole skill tree goes redundant.
+0-staircase. DONE 7/27 (v92): THERE WAS NEVER A STAIRCASE, ONLY A DECAL. Paolo:
+   "You have stairs right now looking like dog shit... do a big brain online
+   research. Have some references and do what you're supposed to."
+   WHAT WAS THERE: three faint stripes painted on the TOP FACE of a deck tile, one
+   whole storey above the lot. *** THE STAIRS NEVER TOUCHED THE GROUND. *** Nothing
+   in the picture joined the two floors. I drew a texture where a piece of
+   ARCHITECTURE was needed, and the structural problem was worse than the palette
+   one.
+   THE RESEARCH, and all three rules were missing: (1) THREE SHADES PER STEP --
+   bright top face, dark side face (Pixel Parmesan, Fundamentals of Isometric Pixel
+   Art). (2) HEIGHT LINES ARE PERFECTLY VERTICAL -- the riser is the only thing in a
+   top-down frame that says "this is tall" (SLYNYRD, Pixelblog 41). (3) DRAW BACK TO
+   FRONT so near steps occlude far ones; without the occlusion a stack of bands is a
+   barcode. Also consulted: Pixelation's "Stairs in top down perspective", M. Bitzos
+   on 2D top-down stairs, Zelda ALTTP as the classic vocabulary.
+   Which agrees with what this lane already learned on the deck face: VALUE CONTRAST
+   IS THE HEIGHT CUE.
+   SHIPPED: a five-step run with bright treads and near-black risers spanning the
+   full storey, drawn top-step-first, narrowing with distance, throwing a shadow on
+   the lot at its foot; the chevron lifted off the steps it points at.
+   TWO BUGS CAUGHT BY LOOKING, NOT READING:
+   (a) FOUR ORIENTATIONS, ONE BROKEN. Marching away up-screen, every riser is taller
+   than the gap to the next step and the run collapsed into a dark smear -- invisible
+   in exactly that one of four cases. FIXED AT THE SOURCE, not special-cased: the
+   entrance is now GENERATED on the deck's near edge, so the run always descends
+   toward the viewer. One orientation, one that reads.
+   (b) A STOREY IS A STOREY WHICHEVER FLOOR YOU ARE ON. The rise was measured
+   relative to your feet, so standing on the deck it was ZERO and the way DOWN was
+   invisible -- the button said DOWN and the picture said nothing.
+   *** AND THE IDEMPOTENCY TRAP, WORTH REMEMBERING: I edited v90's tool to move the
+   stair placement and NOTHING HAPPENED, because v90 is already shipped on main and
+   its tool correctly skips an already-patched tree. A CHANGE TO SHIPPED CODE BELONGS
+   IN THE NEW PATCH AS A MIGRATION, never as an edit to the old tool. ***
+   REUSE CHECK: banks/ searched. 19 approved stair tiles DO exist (Stairs+ladders+
+   railings n=6 part1, Stairs and lifts n=12 part3, Staircases and elevation n=1
+   part4). NOT USED: the run must span DECK_H, computed at runtime from the live
+   camera zoom, and a fixed raster cannot stretch between two screen heights that
+   change. Cooked as vector geometry in the language the deck and pillars already
+   speak. FILED as the replacement for when the combat surface goes tiled.
+   TWO OLDER CHECKS re-pointed, not deleted -- one of them asserted the DECAL and
+   passed happily while the thing it described was what he called dog shit.
+   Gate section 28, 462 checks.
 0-stairs. DONE 7/27 (v91): THE STAIRS ANNOUNCE THEMSELVES. Paolo: "I couldn't find
    the stairs bro or whatever you had out what the fuck are you talking about?"
    REPRODUCED, eight arenas, played the way he plays them:
