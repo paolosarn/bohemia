@@ -33,6 +33,43 @@
 # KILLED. HELD = filed but blocked on a named Paolo pick; not workable yet.
 
 =============================================================================
+## COLLISIONS — READ BEFORE COOKING ANYTHING (RUN lane, 7/28)
+## Three lanes filed forms the same day and three asks landed twice. Nothing is
+## deleted here (another lane's form is not mine to bin) but the ART lane must
+## reconcile these BEFORE cooking, or the same tile gets drawn twice and one of
+## them gets drawn at all when it should not.
+=============================================================================
+C1. DUPLICATE — CHAIN-LINK FENCE: TF-RUN-003 and TF-ART-004 are the same asset.
+   Merge before cooking. TF-RUN-003 carries the measured per-cell district
+   evidence and one thing the other does not: this is a RENDERING CAPABILITY
+   gap, not only an art gap — the run has NO see-through structure at all, so
+   the run lane and the art lane must agree the transparency contract before
+   pixels exist. Whichever form survives, keep that clause.
+C2. DUPLICATE — CORRUGATED METAL: TF-RUN-004 and TF-ART-002 are the same asset.
+   Merge before cooking. TF-RUN-004 carries the per-cell counts (industrial
+   warehouse x416, storage x333, warehouse tenant unit x267) and the note that
+   it must drop into the run's existing 4-course building stack with no
+   renderer change.
+C3. **SHOPPING CHECK MISSED — PARKING LOT STRIPING (TF-ART-003). DO NOT COOK
+   THIS YET.** That form's shopping check walked the ROAD MARKINGS bank and
+   concluded "it does NOT hold parking STALL geometry — no stall lines, no
+   stall ends". It did not walk banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt,
+   which holds:
+     pool `stall_line_v` x18, `stall_line_h` x18, `pocket_line_v/h` x6 each,
+     `twlt_*` (two-way-left-turn) x6 each — all as WEATHERED ASPHALT WITH THE
+     WHITE LINE ALREADY ON IT
+     plus `parking_geometry_law` = {"stall":"lines every 3rd tile, SHARED
+     dividers, interior 2 tiles (cars 2 wide)","row_depth":4,"aisle":4,
+     "source":"Paolo 7/14, proof PK0/PK1 blessed"} — HIS OWN blessed geometry.
+   RENDERED AND LOOKED AT 7/28 before filing this note, so this is not a
+   filename guess. Under the shopping law ("cooking a substitute for an indexed
+   asset is a violation") this is a WIRING job, not an art ask. If the existing
+   stall tiles are judged inadequate after being seen ON THE SURFACE, refile
+   with that evidence — but they must be seen first.
+   THE GENERAL LESSON, now standing: the index's per-bank rows do not enumerate
+   every pool inside a bank. Open the bank.
+
+=============================================================================
 ## OPEN — HIGH (work these first, top-down)
 =============================================================================
 1. OPEN | STAIRS (interior stair tile family: up + down, both facings, plus
@@ -196,21 +233,21 @@
 # this walk found are named at the bottom of this block and get their forms next
 # ART turn — named rather than quietly dropped.
 
-10. OPEN | CMU BLOCK WALL (GREY CONCRETE MASONRY UNIT) | RUN (the walk) + CITY (human mode) | structure layer, 44px corpus cell, seam contract in the form |
+20. OPEN | CMU BLOCK WALL (GREY CONCRETE MASONRY UNIT) | RUN (the walk) + CITY (human mode) | structure layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | HIGH | TF-ART-001
-11. OPEN | CORRUGATED METAL WALL + ROLL-UP DOOR | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+21. OPEN | CORRUGATED METAL WALL + ROLL-UP DOOR | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | HIGH | TF-ART-002
-12. OPEN | PARKING LOT STRIPING (STALLS, AISLES, WHEEL STOPS) | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+22. OPEN | PARKING LOT STRIPING (STALLS, AISLES, WHEEL STOPS) | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | HIGH | TF-ART-003
-13. OPEN | CHAIN-LINK FENCE (AND ITS RAZOR-WIRE VARIANT) | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+23. OPEN | CHAIN-LINK FENCE (AND ITS RAZOR-WIRE VARIANT) | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | HIGH | TF-ART-004
-14. OPEN | DEAD SPORTS TURF AND RUNNING TRACK | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+24. OPEN | DEAD SPORTS TURF AND RUNNING TRACK | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | MED | TF-ART-005
-15. OPEN | EMPTY POOL AND CONCRETE BASIN | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+25. OPEN | EMPTY POOL AND CONCRETE BASIN | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | MED | TF-ART-006
-16. OPEN | CIVIC CUT-STONE MASONRY | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+26. OPEN | CIVIC CUT-STONE MASONRY | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | MED | TF-ART-007
-17. OPEN | STOREFRONT GLASS AND ALUMINIUM | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+27. OPEN | STOREFRONT GLASS AND ALUMINIUM | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | MED | TF-ART-008
 
 # STILL TO FORM (this walk found them; forms next ART turn, not dropped):

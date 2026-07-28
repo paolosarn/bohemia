@@ -174,6 +174,9 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
+- DUPLICATE OF / WITH: TF-ART-002 (same asset, filed the same day by the
+  ART lane). See board collision C2 — merge before cooking; keep this form's
+  4-course-stack drop-in requirement whichever survives.
 - STATUS: OPEN | REQUESTED BY: RUN lane (0b district-material survey, 7/28)
   | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 11 | VERDICT: —
