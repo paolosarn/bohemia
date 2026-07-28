@@ -2316,3 +2316,12 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    bohemia_bq / quest_runtime and every district generator sit OUTSIDE it
    (covered only piecemeal by run_gate's 6-module list + city resync). |
    sync_gate covers the full inlined-module set | — | no.
+6. (Paolo order 7/28 — the form law, BOHEMIA_TILE_REQUEST_FORM.md) THE
+   TILEFORM GATE: validates every records/tileforms/*.md — all required
+   sections present (A-J), caption JSON parses, shopping check names a real
+   approved-index entry, edge contract is one of the four legal words
+   (single/self-seamless/wang-16/blob-47), anchor resolves. Board rows whose
+   form fails are not OPEN. ALSO: the caption-ingest hook — captions feed the
+   tilespec/dossier pipeline so district builders can query best_time /
+   best_location / never_next_to per tile. | gate registered + one caption
+   queried end-to-end | — | no.

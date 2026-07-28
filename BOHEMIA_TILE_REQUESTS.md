@@ -14,10 +14,21 @@
 # EVERY ROW IS A RECORDED NEED — sourced from Paolo's rulings, approved
 # rosters, the engine reality map, and measured findings. Nothing invented.
 #
+# THE FORM LAW (Paolo 7/28, LOCKED — the board upgraded): every row must be
+# backed by a FILLED TILE REQUEST FORM in records/tileforms/ (template + law:
+# BOHEMIA_TILE_REQUEST_FORM.md at repo root; worked example:
+# records/tileforms/TF-RUN-001_desert_ground.md). The board is the INDEX,
+# the form is the CONTRACT — why/where/when/how, the machine-readable caption
+# that ships with the tile, references incl. real-Vegas grounding, the
+# anti-reference, and the acceptance tests. The ART lane cooks from forms
+# only; a row with no form (or a form that fails tileform_gate) is not OPEN.
+# Rows below filed before the form law get their forms filled by the
+# REQUESTING lane before the art lane touches them (TF-RUN-001 covers row 4).
+#
 # ROW FORMAT:
 # STATUS | WHAT (plain name) | FOR (surface/tab + purpose) | SPECS (size/layer/
 # facing needs) | REFERENCE ANCHOR (approved corpus item or named outside ref) |
-# REQUESTED BY | PRIORITY
+# REQUESTED BY | PRIORITY | FORM (TF id, once filled)
 # STATUS: OPEN -> COOKING -> JUDGING (in Paolo's pile) -> DONE (indexed) /
 # KILLED. HELD = filed but blocked on a named Paolo pick; not workable yet.
 

@@ -3889,6 +3889,18 @@ BOHEMIA_TILE_REQUESTS.md expanded to the master board: 9 OPEN rows (6 HIGH
 incl. seamless desert ground, dead foliage set, weather overlays) + 4 HELD
 rows blocked on named picks (hook pick, school word, recipe verdict,
 upgrade roster). Every row sourced from recorded rulings, nothing invented.
+7/28 LATEST: THE FORM LAW. Paolo ordered "the world's best tile request
+form" he can paste into every chat — BOHEMIA_TILE_REQUEST_FORM.md (repo
+root) is the template + law: one form per tile, sections A-J
+(why/where/when/how, the machine-readable CAPTION that ships with the tile —
+his "invisible text" of best time/location/never-beside — real-Vegas
+grounding, the anti-reference, acceptance tests incl. measured seams and 3x3
+tiled proof). Worked example at the bar: records/tileforms/TF-RUN-001_
+desert_ground.md. Board rows now require a filled form; ART cooks from
+forms only. Gate routed: SHARED 6 (tileform_gate + caption ingest).
+WHEN PAOLO PASTES THE ORDER INTO YOUR CHAT: walk your lane's surfaces,
+list every uncovered tile need, fill one form each into records/tileforms/
+(TF-<LANE>-<NNN>), row each on the board. Do not cook.
 Earlier: the architecture map, the findings (quest-rescue plan since
 executed, collision watch), the prompt library, and this diet. REPO CLEANUP: DONE, both phases (7/26). The full
 pre-slim history (every commit 7/16-7/26, all branches) lives permanently in
