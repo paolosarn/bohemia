@@ -1,0 +1,180 @@
+/* BOHEMIA BANKS-USED GATE (7/28/26) — APPROVED-BUT-UNUSED IS A DEFECT, and now
+ * the machine says so.
+ *
+ * > "Is it possible as you're making any of the assets for the run? You're
+ * >  completely not checking out the rest of the whole project catalog for
+ * >  assets that are approved that you should work with"   — Paolo, 7/28
+ *
+ * THE HOLE THIS CLOSES. The SHOPPING LAW already says approved-but-unused is a
+ * defect (laws/BOHEMIA_ADDENDUM_APPROVED_ASSETS_FIRST_7_26_26.md) and its own
+ * text marks the enforcement machine "queued". Queued is not enforced. So the
+ * same bug shipped TWICE: his 13 suburb border walls were decoded-on-load and
+ * never drawn until 7/28, and his 30 house skins are decoded-on-load and never
+ * drawn right now. The builder even ASSERTS the banks are PRESENT —
+ *   throw new Error('the lifted art block is missing one of the approved banks')
+ * — and nothing anywhere asserted they were USED. Present-and-unused passed
+ * every gate in the repo, twice, which is the whole reason it happened twice.
+ *
+ * PRESENCE IS NOT USE. This gate boots the real run, patches drawImage, tags
+ * every approved bank's image objects, draws real frames INSIDE the house and
+ * OUT on the block, and counts draws per bank. A bank that is loaded and draws
+ * ZERO pixels is a defect.
+ *
+ * WHY IT SHIPS WITH A WAIVER INSTEAD OF RED. There is exactly one bank in that
+ * state today — the house skins — and fixing it is BLOCKED ON PAOLO'S PICK
+ * (backlog 0P: his skins are flat textures with no corner/eave variants, so a
+ * wholesale swap hands back his materials and takes away the massing he just
+ * said he liked; three options are written up for him). A gate cannot force a
+ * director's call. So the known defect is WAIVED BY NAME, tied to the backlog
+ * item, and everything else is enforced hard: any OTHER loaded-and-unused bank
+ * is an instant fail, and the day he picks, the waiver comes out and this bank
+ * is enforced like the rest. A waiver with a name and a ticket is a debt on the
+ * books; silence is how this shipped twice.
+ *
+ *   node gates/banks_used_gate.js
+ */
+'use strict';
+const path = require('path');
+
+const ROOT = path.join(__dirname, '..');
+const RUN = path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html');
+
+let pass = 0, fail = 0;
+const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
+
+function requirePlaywright() {
+  const globals = ['/opt/node22/lib/node_modules', '/usr/lib/node_modules', '/usr/local/lib/node_modules'];
+  for (const g of globals) { try { return require(path.join(g, 'playwright')); } catch (_e) {} }
+  return require('playwright');
+}
+
+/* THE WAIVER LIST. By name, with the reason and the ticket. Delete an entry the
+   moment its bank draws; never add one without a backlog item. */
+const WAIVED = {
+  'house skins (7/21 UP — roof + wall + yard)':
+    'backlog 0P — BLOCKED ON PAOLO\'S PICK. His skins are flat 44x44 textures ' +
+    'with no corner or eave variants; the run\'s houses ride a designed ' +
+    'projection (base course, eave shadow, corners, garage mouth), so a ' +
+    'wholesale swap returns his materials and removes the massing. Three ' +
+    'options are in records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md.',
+  'walk-file door art (superseded)':
+    'backlog 0Q — SUPERSEDED, not missing. The approved animated door bank ' +
+    '(7/13, 2 tiles tall) replaced this on 7/26 and IS drawing. These 9 ride ' +
+    'along because the builder lifts the walk surface\'s art block VERBATIM, ' +
+    'which is that builder\'s contract. Dropping them is a payload cleanup in ' +
+    'the builder\'s own lane, not a rendering defect.',
+};
+
+const PROBE = `(() => {
+  const P = CanvasRenderingContext2D.prototype, orig = P.drawImage;
+  const rec = { on:false, by:{} };
+  window.__BANKS = rec;
+  P.drawImage = function (img, ...a) {
+    if (rec.on) { try { const t = (img && img.__srcTag) || 'untagged';
+      rec.by[t] = (rec.by[t] || 0) + 1; } catch(e){} }
+    return orig.apply(this, [img, ...a]);
+  };
+})();`;
+
+(async () => {
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  let res = null;
+  try {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await page.addInitScript(PROBE);
+    await page.goto('file://' + RUN, { waitUntil: 'load', timeout: 180000 });
+    await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 180000 });
+    await page.waitForTimeout(6000);          // let every bank finish decoding
+
+    res = await page.evaluate(() => {
+      const tag = (arr, name) => { let n = 0; try { (arr || []).forEach(o => {
+        if (o && o.tagName === 'IMG') { o.__srcTag = name; n++; }
+        else if (o && typeof o === 'object') Object.values(o).forEach(v => {
+          if (v && v.tagName === 'IMG') { v.__srcTag = name; n++; } });
+      }); } catch (e) {} return n; };
+
+      /* every APPROVED bank the run loads, by the name Paolo would recognise */
+      const loaded = {};
+      /* ACCUMULATE, never overwrite: his house skins arrive as three arrays
+         under one bank name, and assigning would have reported 3 images where
+         there are 21 - understating the very debt this gate exists to show. */
+      const put = (name, arr) => { const n = tag(arr, name); if (n) loaded[name] = (loaded[name] || 0) + n; };
+      if (typeof TT        !== 'undefined') put('the CBB target tileset (42)', Object.values(TT));
+      /* his 7/21 house skins arrive as three arrays but they are ONE bank and
+         one decision, so they are counted as one */
+      if (typeof ROOF_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', ROOF_IMG);
+      if (typeof WALL_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', WALL_IMG);
+      if (typeof YARD_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', YARD_IMG);
+      if (typeof PERIM_IMG !== 'undefined') put('suburb border walls (13, approved 7/28)', PERIM_IMG);
+      /* DOOR_IMGS (with the S) is the approved animated bank that actually
+         draws; DOOR_IMG is the older walk-file art it superseded. Two different
+         things one letter apart, and conflating them would have reported the
+         live bank as dead. */
+      if (typeof DOOR_IMGS !== 'undefined') put('animated door bank (7/13, 2 tiles tall)', DOOR_IMGS);
+      if (typeof DOOR_IMG  !== 'undefined') put('walk-file door art (superseded)', DOOR_IMG);
+      if (typeof IP        !== 'undefined') Object.keys(IP).forEach(k => put('interior pool (Great Sweep UP)', IP[k]));
+
+      const rec = window.__BANKS; rec.on = true; rec.by = {};
+      /* INSIDE: the run boots you asleep in your own house */
+      for (let i = 0; i < 3; i++) { try { draw(); } catch (e) {} }
+      /* OUT ON THE BLOCK: the surface he actually walks. Stand in a few real
+         places so a bank used only in one corner still gets its chance. */
+      try {
+        mode = 'ext'; curHouse = -1; fp = null;
+        const d = homeDoor[HOME] || [W >> 1, H >> 1];
+        for (const off of [[0, 3], [0, 10], [-8, 3], [8, 6], [0, 20]]) {
+          px = Math.max(1, Math.min(W - 2, d[0] + off[0]));
+          py = Math.max(1, Math.min(H - 2, d[1] + off[1]));
+          draw();
+        }
+      } catch (e) {}
+      rec.on = false;
+      return { loaded, drew: rec.by };
+    });
+  } finally { await browser.close(); }
+
+  console.log('BANKS-USED GATE (approved-but-unused is a defect)');
+  const names = Object.keys(res.loaded);
+  ok('the run really loads approved banks (the probe reached them)', names.length >= 3);
+
+  const unused = [];
+  for (const n of names) {
+    const drew = res.drew[n] || 0;
+    const waiver = WAIVED[n];
+    console.log('  ' + (drew ? String(drew).padStart(6) : '     0') + ' draws  ' +
+      n + ' (' + res.loaded[n] + ' images)' + (drew ? '' : waiver ? '   [WAIVED]' : '   <-- LOADED AND NEVER DRAWN'));
+    if (!drew && !waiver) unused.push(n);
+  }
+
+  ok('PRESENCE IS NOT USE: no approved bank is loaded and never drawn',
+    unused.length === 0);
+  if (unused.length) {
+    console.log('    these banks decode into memory and draw ZERO pixels:');
+    unused.forEach(n => console.log('      - ' + n));
+    console.log('    Either draw them or take them out of the build. If it is blocked on');
+    console.log('    a ruling from Paolo, add it to WAIVED with its backlog item.');
+  }
+
+  /* the waivers are debts, not decoration: each must still be a real loaded bank
+     that is still undrawn, or the list is lying about the state of the game */
+  for (const w of Object.keys(WAIVED)) {
+    ok('WAIVER IS HONEST: "' + w + '" is still loaded (not a stale entry)',
+      res.loaded[w] > 0);
+    ok('WAIVER IS STILL NEEDED: "' + w + '" is still undrawn (delete it if not)',
+      !(res.drew[w] > 0));
+  }
+  if (Object.keys(WAIVED).length) {
+    console.log('  WAIVED, on the books:');
+    Object.entries(WAIVED).forEach(([k, v]) => console.log('    - ' + k + ': ' + v));
+  }
+
+  /* the two banks he has SAID he is happy with must never silently fall out */
+  ok('the border walls he approved 7/28 are really drawing on the block',
+    (res.drew['suburb border walls (13, approved 7/28)'] || 0) > 0);
+  ok('the animated door bank he asked for on 7/26 is really drawing',
+    (res.drew['animated door bank (7/13, 2 tiles tall)'] || 0) > 0);
+
+  console.log('BANKS-USED GATE: ' + pass + ' passed, ' + fail + ' failed');
+  process.exit(fail ? 1 : 0);
+})();

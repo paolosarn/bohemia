@@ -969,6 +969,25 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    His three options are in records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md.
    | a "banks must be USED, not just present" gate belongs here | measured 7/28 |
    YES, blocked on his pick.
+   [7/28 UPDATE] THE GATE NOW EXISTS: gates/banks_used_gate.js. It boots the run,
+   patches drawImage, tags every approved bank's images and counts draws per bank
+   on the REAL surface, inside and out. PRESENCE IS NOT USE. The house skins are
+   WAIVED BY NAME against this item (a gate cannot force a director's call), and
+   any OTHER loaded-and-unused bank is an instant fail. The waiver itself is
+   asserted honest in both directions - it fails if the bank stops being loaded
+   (stale entry) and it fails if the bank STARTS drawing (delete the waiver). The
+   day he picks, the waiver comes out and this bank is enforced like the rest.
+   It also found what the audit missed: the skins are 21 images in the build, not
+   30, across THREE arrays (ROOF_IMG 14 / WALL_IMG 4 / YARD_IMG 3).
+0Q. [SMALL, RUN-BUILDER LANE] WALK-FILE DOOR ART RIDES ALONG DEAD. DOOR_IMG (9
+   images) is the pre-7/26 flat door art, superseded by the approved animated
+   door bank (DOOR_IMGS, 90 images, 2 tiles tall) which IS drawing. It ships
+   because tools/build_run_slice.js lifts the walk surface's art block VERBATIM -
+   that is the builder's contract and dropping these means post-processing the
+   lift, which belongs to whoever owns that builder. Not a rendering defect, a
+   payload cleanup. WAIVED by name in banks_used_gate.js until then.
+   NOTE THE ONE-LETTER TRAP: DOOR_IMG and DOOR_IMGS are different banks. A probe
+   that reads the wrong one reports the LIVE door bank as dead.
 0O. [DONE 7/28, and it is the lesson of the day] HE PLAYS THE RUN. THE RUN IS A
    SEPARATE RENDERER. Three consecutive turns diagnosed correctly, fixed
    correctly, gated green and shipped - all in CITY_B64, while he was looking at

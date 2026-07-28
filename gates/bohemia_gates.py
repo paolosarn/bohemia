@@ -248,6 +248,8 @@ GATES = [
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
     ('THE RUN',        ['node', 'gates/run_gate.js'],
      'the first connected run plays end to end in a real browser: house -> block -> S01 -> combat handoff -> home -> feed post, loud fork and quiet fork, inside the real alpha', False),
+    ('BANKS USED',     ['node', 'gates/banks_used_gate.js'],
+     'APPROVED-BUT-UNUSED IS A DEFECT: every approved bank the run loads must actually DRAW pixels, waivers named and ticketed', False),
     ('LOOP CHANNEL',   ['node', 'engine/bohemia_loop_channel_tests.js'],
      'feed vs in-person quest acquisition channels', False),
     ('LOOP CLOUT',     ['node', 'engine/bohemia_loop_clout_tests.js'],
