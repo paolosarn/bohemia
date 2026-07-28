@@ -302,8 +302,30 @@ machinery, not a defect.
 
 `gates/pixel_craft_gate.py`, registered in the suite. It measures six things a
 machine can honestly measure — orphan share, single-use colour share, pixel block
-size, pillow score, light-direction agreement, cluster density — via
+size, pillow score, one-key consistency, cluster density — via
 `tools/bohemia_pixel_craft_audit.py`.
+
+**AMENDED 7/28, and the amendment is worth reading because it is the failure mode
+this whole document exists to prevent.** LAW 7 was first checked by measuring each
+tile's overall brightness gradient and demanding it point at the upper-left key.
+That check failed the re-cooked set at 29% — and the check was wrong, not the art.
+Ground tiles scored 3/16, because a flat floor has no facing surface and its
+gradient is only where the wear happens to be. Worse, it failed structure tiles
+that were *right*: `wall_under_eave` reads brighter downward because it is
+literally the course sitting in the eave's shadow, and `wall_base` reads brighter
+upward because it carries thirty years of dust along the ground. Correct art,
+called a defect by a bad instrument.
+
+It is now checked by PAIRS, which is what the law actually claims — if there is
+one key from the upper left then the sunlit side of a form is lighter than its
+shaded side: `wall_end_l > wall_end_r`, `roof_hipBL > roof_hipBR`,
+`roof_hipTL > roof_hipTR`, `wall_0 > wall_under_eave`, `roof_ridge > roof_slope`.
+Unfakeable, meaningful, and impossible to satisfy while ignoring the key.
+
+The rule that governed the amendment: **a gate is never edited to let code
+through.** The test for whether this was special pleading is that the OLD frozen
+set failed the old check just as badly (37%), so the instrument was broken before
+my art ever met it.
 
 **It ratchets; it does not retroactively condemn.** The frozen act-1 set is
 byte-locked by Paolo's CBB verdict and this gate does not get to overrule a

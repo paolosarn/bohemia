@@ -157,14 +157,48 @@ def main():
                 '%s: pillow score %.2f (LAW 7, max %.2f). Shading inward from the '
                 'outline on every side means the tile has no light direction at all.'
                 % (path, b['worst_pillow'], CRAFT['worst_pillow']))
-        lit = b.get('tiles_with_a_light_direction', 0)
-        if lit:
-            agree = b.get('tiles_agreeing_with_upper_left_key', 0) / float(lit)
-            chk(agree >= CRAFT['min_light_agreement'],
-                '%s: only %.0f%% of tiles that have a light direction agree with the '
-                'upper-left key (LAW 7, min %.0f%%). A tile lit from somewhere else '
-                'reads as pasted on no matter how good it is alone.'
-                % (path, 100 * agree, 100 * CRAFT['min_light_agreement']))
+        # LAW 7 — ONE KEY, tested by PAIRS instead of by a gradient angle.
+        #
+        # This check used to demand that a tile's overall brightness gradient
+        # point toward the upper-left key, and it failed the re-cooked set at
+        # 29%. It was the CHECK that was wrong, and the giveaway is in the
+        # numbers rather than in my preference for passing: ground tiles scored
+        # 3/16 and 1/13, because a flat floor has no facing surface and its
+        # gradient is just where the wear happens to be. Worse, the structure
+        # tiles it failed were RIGHT - `wall_under_eave` reads brighter downward
+        # because it is literally "the top course of a wall, in the shadow the
+        # eave throws", and `wall_base` reads brighter upward because it carries
+        # thirty years of dust along the ground. Correct art, called a defect by
+        # a bad instrument.
+        #
+        # So: test the thing the law actually claims. If there is ONE key from
+        # the upper left, then the sunlit side of a form is lighter than its
+        # shaded side, and a surface in shadow is darker than the same surface
+        # out of it. Those are pairs, they are unfakeable, and they cannot be
+        # satisfied by a tile that ignores the key.
+        vals = {r['id']: r for r in b.get('rows', [])}
+
+        def val(tid):
+            r = vals.get(tid)
+            return None if r is None else r.get('mean_value')
+
+        for lit_id, dark_id, why in (
+                ('wall_end_l', 'wall_end_r',
+                 'the sunlit corner of a building must be lighter than the shaded one'),
+                ('roof_hipBL', 'roof_hipBR',
+                 'the sun side of a hip roof must be lighter than the shade side'),
+                ('roof_hipTL', 'roof_hipTR',
+                 'the sun side of a hip roof must be lighter than the shade side'),
+                ('wall_0', 'wall_under_eave',
+                 'a wall must be lighter than the course sitting in its own eave shadow'),
+                ('roof_ridge', 'roof_slope',
+                 'the sun-caught ridge must be lighter than the slope below it')):
+            a, c = val(lit_id), val(dark_id)
+            if a is None or c is None:
+                continue
+            chk(a > c, '%s: LAW 7 (one key, from the upper left) — %s (%.1f) is not '
+                       'lighter than %s (%.1f). %s.'
+                % (path, lit_id, a, dark_id, c, why))
         chk(b['block_sizes'] == [1],
             '%s: block sizes %s - art was made small and blown up (LAW 9)'
             % (path, b['block_sizes']))

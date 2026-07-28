@@ -81,6 +81,10 @@ BANKS = [
     ('banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt', 'tiles',
      'THE FROZEN ACT-1 STARTER SET - Paolo verdicted the target CBB, so this is '
      'byte-locked. Measured to know where we stand, NEVER to re-cook.'),
+    ('banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt', 'tiles',
+     'THE RE-COOK. Paolo 7/28: "I checked it to do the other 41 mark it approved." '
+     'Held to the REAL craft thresholds, not a ratchet - it was built to them on '
+     'purpose, so there is no excuse for it to miss them.'),
 ]
 OUT = 'records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json'
 
@@ -257,12 +261,19 @@ def clusters_per_kpx(im):
     return 1000.0 * n / len(cells), n
 
 
+def _opaque_colours(im):
+    px = im.convert('RGBA').load()
+    return [px[x, y][:3] for (x, y) in opaque(im)]
+
+
 def audit_tile(im):
     osh, ocount = orphan_share(im)
     ncol, once = colour_stats(im)
     cpk, ncl = clusters_per_kpx(im)
     ang, strength = light_angle(im)
+    cells = [c for c in _opaque_colours(im)]
     return {
+        'mean_value': round(sum(lum(c) for c in cells) / len(cells), 1) if cells else None,
         'orphan_share': round(osh, 4), 'orphans': ocount,
         'colours': ncol, 'single_use_colour_share': round(once, 4),
         'block_size': block_size(im),

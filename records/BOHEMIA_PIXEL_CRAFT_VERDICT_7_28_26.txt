@@ -1,0 +1,46 @@
+BOHEMIA — PIXEL CRAFT VERDICT
+date: 2026-07-28
+lane: ART
+page: slices/BOHEMIA_PIXEL_CRAFT_JUDGE_7_27_26.html
+proof: records/target/RECOOK_road_0.png  (+ RECOOK_road_0_PHONE.png)
+
+PAOLO, VERBATIM:
+  "I checked it to do the other 41 mark it approved"
+
+VERDICT: APPROVED.
+
+WHAT THIS APPROVES, stated narrowly so nobody widens it later:
+  the CONSTRUCTION METHOD proven on road_0 — a six-value ramp lifted out of the
+  approved tile's own pixels, material authored as a few clusters repeated with
+  varied distribution, one light direction, zero orphan pixels, no dither, no
+  keyline, seamless against itself. Not a new look. Not new colour. The colour
+  stays his; only the way the pixels are placed changes.
+
+WHAT IT UNLOCKS (verdict pipeline: APPROVE unlocks volume):
+  the other 41 tiles of the act-1 starter set, same method.
+
+WHAT IT DOES NOT TOUCH:
+  the TARGET SCREEN verdict of 7/26 ("could be better" = CBB, ships, frozen).
+  That still stands. This ruling lifts the freeze on the TILE SET only, and only
+  for re-cooking it by the approved method — not for making another target.
+
+THE FREEZE, HANDLED HONESTLY:
+  banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt is byte-locked by the visual
+  constitution (records/target/BOHEMIA_VISUAL_CONSTITUTION.json). It is NOT
+  edited, deleted or overwritten — git is the memory and a frozen thing stays
+  frozen. The re-cook lands as a NEW bank that supersedes it, and the
+  constitution records the supersession with this ruling as its authority.
+
+ANSWERED WITHOUT BEING ASKED (he chose the third option and skipped the
+sub-question): the "too warm" concern was mine, not his. He looked at the warmer
+brown and approved anyway. So the ramp treatment ships as proven, and the warmth
+is NOT quietly dialled back on my own initiative — that would be substituting my
+taste for his verdict. If it bothers him he will say so, and it is one number.
+
+MEASURED ON road_0, THE APPROVED PROOF:
+  colours          1191 -> 6
+  orphan pixels     99% -> 0%
+  colour regions    996 -> 39 per 1000px
+  mean value       65.5 -> 65.2   (ground value band kept)
+  near-black      0.15% -> 0.00%  (no keyline)
+  hot-yellow       0.0% -> 0.0%   (dead world, both)

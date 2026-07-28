@@ -22,6 +22,7 @@
    "tiles_agreeing_with_upper_left_key": 14,
    "rows": [
     {
+     "mean_value": 65.5,
      "orphan_share": 0.9928,
      "orphans": 1922,
      "colours": 1191,
@@ -39,6 +40,7 @@
      ]
     },
     {
+     "mean_value": 49.3,
      "orphan_share": 0.9948,
      "orphans": 1926,
      "colours": 1306,
@@ -56,6 +58,7 @@
      ]
     },
     {
+     "mean_value": 63.0,
      "orphan_share": 0.9788,
      "orphans": 1895,
      "colours": 705,
@@ -73,6 +76,7 @@
      ]
     },
     {
+     "mean_value": 63.4,
      "orphan_share": 0.9731,
      "orphans": 1884,
      "colours": 954,
@@ -90,6 +94,7 @@
      ]
     },
     {
+     "mean_value": 107.9,
      "orphan_share": 0.9948,
      "orphans": 1926,
      "colours": 1606,
@@ -107,6 +112,7 @@
      ]
     },
     {
+     "mean_value": 110.9,
      "orphan_share": 0.9917,
      "orphans": 1920,
      "colours": 1172,
@@ -124,6 +130,7 @@
      ]
     },
     {
+     "mean_value": 99.9,
      "orphan_share": 0.9917,
      "orphans": 1920,
      "colours": 1299,
@@ -141,6 +148,7 @@
      ]
     },
     {
+     "mean_value": 112.2,
      "orphan_share": 0.9876,
      "orphans": 1912,
      "colours": 1577,
@@ -158,6 +166,7 @@
      ]
     },
     {
+     "mean_value": 63.1,
      "orphan_share": 0.9886,
      "orphans": 1914,
      "colours": 1245,
@@ -175,6 +184,7 @@
      ]
     },
     {
+     "mean_value": 110.0,
      "orphan_share": 0.968,
      "orphans": 1874,
      "colours": 1207,
@@ -192,6 +202,7 @@
      ]
     },
     {
+     "mean_value": 152.2,
      "orphan_share": 0.7732,
      "orphans": 1497,
      "colours": 35,
@@ -209,6 +220,7 @@
      ]
     },
     {
+     "mean_value": 152.2,
      "orphan_share": 0.7732,
      "orphans": 1497,
      "colours": 35,
@@ -226,6 +238,7 @@
      ]
     },
     {
+     "mean_value": 152.2,
      "orphan_share": 0.7732,
      "orphans": 1497,
      "colours": 35,
@@ -243,6 +256,7 @@
      ]
     },
     {
+     "mean_value": 111.6,
      "orphan_share": 0.9959,
      "orphans": 1928,
      "colours": 1382,
@@ -260,6 +274,7 @@
      ]
     },
     {
+     "mean_value": 112.3,
      "orphan_share": 0.9948,
      "orphans": 1926,
      "colours": 1610,
@@ -277,6 +292,7 @@
      ]
     },
     {
+     "mean_value": 132.8,
      "orphan_share": 0.7732,
      "orphans": 1497,
      "colours": 35,
@@ -294,6 +310,7 @@
      ]
     },
     {
+     "mean_value": 136.9,
      "orphan_share": 0.6167,
      "orphans": 1194,
      "colours": 36,
@@ -311,6 +328,7 @@
      ]
     },
     {
+     "mean_value": 167.6,
      "orphan_share": 0.6043,
      "orphans": 1170,
      "colours": 43,
@@ -328,6 +346,7 @@
      ]
     },
     {
+     "mean_value": 156.6,
      "orphan_share": 0.6229,
      "orphans": 1206,
      "colours": 44,
@@ -345,6 +364,7 @@
      ]
     },
     {
+     "mean_value": 129.2,
      "orphan_share": 0.671,
      "orphans": 1299,
      "colours": 174,
@@ -362,6 +382,7 @@
      ]
     },
     {
+     "mean_value": 125.7,
      "orphan_share": 0.6632,
      "orphans": 1284,
      "colours": 124,
@@ -379,6 +400,7 @@
      ]
     },
     {
+     "mean_value": 133.7,
      "orphan_share": 0.4375,
      "orphans": 847,
      "colours": 35,
@@ -396,6 +418,7 @@
      ]
     },
     {
+     "mean_value": 132.3,
      "orphan_share": 0.5687,
      "orphans": 1101,
      "colours": 63,
@@ -413,6 +436,7 @@
      ]
     },
     {
+     "mean_value": 51.0,
      "orphan_share": 0.2753,
      "orphans": 533,
      "colours": 51,
@@ -430,6 +454,7 @@
      ]
     },
     {
+     "mean_value": 54.5,
      "orphan_share": 0.5393,
      "orphans": 1044,
      "colours": 276,
@@ -447,6 +472,7 @@
      ]
     },
     {
+     "mean_value": 54.4,
      "orphan_share": 0.2454,
      "orphans": 475,
      "colours": 21,
@@ -464,6 +490,7 @@
      ]
     },
     {
+     "mean_value": 38.1,
      "orphan_share": 0.5728,
      "orphans": 1109,
      "colours": 230,
@@ -481,6 +508,7 @@
      ]
     },
     {
+     "mean_value": 52.7,
      "orphan_share": 0.2257,
      "orphans": 437,
      "colours": 28,
@@ -498,6 +526,7 @@
      ]
     },
     {
+     "mean_value": 37.6,
      "orphan_share": 0.5449,
      "orphans": 1055,
      "colours": 231,
@@ -515,6 +544,7 @@
      ]
     },
     {
+     "mean_value": 52.7,
      "orphan_share": 0.234,
      "orphans": 453,
      "colours": 28,
@@ -532,6 +562,7 @@
      ]
     },
     {
+     "mean_value": 37.5,
      "orphan_share": 0.5429,
      "orphans": 1051,
      "colours": 232,
@@ -549,6 +580,7 @@
      ]
     },
     {
+     "mean_value": 117.3,
      "orphan_share": 0.8512,
      "orphans": 1648,
      "colours": 118,
@@ -566,6 +598,7 @@
      ]
     },
     {
+     "mean_value": 137.4,
      "orphan_share": 0.8543,
      "orphans": 1654,
      "colours": 199,
@@ -583,6 +616,7 @@
      ]
     },
     {
+     "mean_value": 115.2,
      "orphan_share": 0.7366,
      "orphans": 1426,
      "colours": 121,
@@ -600,6 +634,7 @@
      ]
     },
     {
+     "mean_value": 135.3,
      "orphan_share": 0.8943,
      "orphans": 846,
      "colours": 118,
@@ -617,6 +652,7 @@
      ]
     },
     {
+     "mean_value": 128.1,
      "orphan_share": 0.8905,
      "orphans": 1724,
      "colours": 118,
@@ -634,6 +670,7 @@
      ]
     },
     {
+     "mean_value": 76.1,
      "orphan_share": 0.8374,
      "orphans": 829,
      "colours": 116,
@@ -651,6 +688,7 @@
      ]
     },
     {
+     "mean_value": 72.8,
      "orphan_share": 0.8373,
      "orphans": 1621,
      "colours": 115,
@@ -668,6 +706,7 @@
      ]
     },
     {
+     "mean_value": 139.0,
      "orphan_share": 0.6214,
      "orphans": 1203,
      "colours": 52,
@@ -685,6 +724,7 @@
      ]
     },
     {
+     "mean_value": 131.9,
      "orphan_share": 0.6188,
      "orphans": 1198,
      "colours": 57,
@@ -702,6 +742,7 @@
      ]
     },
     {
+     "mean_value": 99.3,
      "orphan_share": 0.8115,
      "orphans": 1571,
      "colours": 42,
@@ -719,6 +760,7 @@
      ]
     },
     {
+     "mean_value": 110.3,
      "orphan_share": 0.6405,
      "orphans": 1240,
      "colours": 45,
@@ -729,6 +771,781 @@
      "light_strength": 0.5233,
      "clusters_per_1000px": 711.8,
      "clusters": 1378,
+     "id": "roof_parapet",
+     "size": [
+      44,
+      44
+     ]
+    }
+   ]
+  },
+  {
+   "bank": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "note": "THE RE-COOK. Paolo 7/28: \"I checked it to do the other 41 mark it approved.\" Held to the REAL craft thresholds, not a ratchet - it was built to them on purpose, so there is no excuse for it to miss them.",
+   "tiles": 42,
+   "worst_orphan_share": 0.0145,
+   "mean_orphan_share": 0.0006,
+   "mean_single_use_colour_share": 0.0,
+   "worst_single_use_colour_share": 0.0,
+   "max_colours_in_one_tile": 8,
+   "block_sizes": [
+    1
+   ],
+   "worst_pillow": 0.346,
+   "mean_clusters_per_1000px": 75.2738,
+   "tiles_with_a_light_direction": 35,
+   "tiles_agreeing_with_upper_left_key": 10,
+   "rows": [
+    {
+     "mean_value": 66.0,
+     "orphan_share": 0.0072,
+     "orphans": 14,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.08,
+     "light_deg": 295.8,
+     "light_strength": 0.0413,
+     "clusters_per_1000px": 52.2,
+     "clusters": 101,
+     "id": "road_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 49.6,
+     "orphan_share": 0.0036,
+     "orphans": 7,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.198,
+     "light_deg": 313.1,
+     "light_strength": 0.0772,
+     "clusters_per_1000px": 49.1,
+     "clusters": 95,
+     "id": "road_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 63.0,
+     "orphan_share": 0.0145,
+     "orphans": 28,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.111,
+     "light_deg": 340.8,
+     "light_strength": 0.0354,
+     "clusters_per_1000px": 66.1,
+     "clusters": 128,
+     "id": "road_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 62.9,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 8,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.152,
+     "light_deg": 348.0,
+     "light_strength": 0.1389,
+     "clusters_per_1000px": 120.4,
+     "clusters": 233,
+     "id": "road_centre",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 108.3,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 8,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.064,
+     "light_deg": 44.6,
+     "light_strength": 0.4488,
+     "clusters_per_1000px": 142.6,
+     "clusters": 276,
+     "id": "walk_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 110.9,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.147,
+     "light_deg": 310.2,
+     "light_strength": 0.189,
+     "clusters_per_1000px": 112.1,
+     "clusters": 217,
+     "id": "walk_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 99.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 8,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.289,
+     "light_deg": 81.6,
+     "light_strength": 0.2079,
+     "clusters_per_1000px": 120.4,
+     "clusters": 233,
+     "id": "walk_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 112.3,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 8,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.139,
+     "light_deg": 60.5,
+     "light_strength": 0.6278,
+     "clusters_per_1000px": 131.7,
+     "clusters": 255,
+     "id": "walk_kerb",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 63.1,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.312,
+     "light_deg": 111.7,
+     "light_strength": 0.1319,
+     "clusters_per_1000px": 129.1,
+     "clusters": 250,
+     "id": "road_gutter",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 109.9,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.27,
+     "light_deg": 287.0,
+     "light_strength": 0.1969,
+     "clusters_per_1000px": 71.8,
+     "clusters": 139,
+     "id": "road_crossing",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 152.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 5,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.181,
+     "light_deg": null,
+     "light_strength": 0.0196,
+     "clusters_per_1000px": 96.6,
+     "clusters": 187,
+     "id": "yard_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 152.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 5,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.185,
+     "light_deg": null,
+     "light_strength": 0.0165,
+     "clusters_per_1000px": 97.6,
+     "clusters": 189,
+     "id": "yard_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 152.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 5,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.181,
+     "light_deg": null,
+     "light_strength": 0.0196,
+     "clusters_per_1000px": 96.6,
+     "clusters": 187,
+     "id": "yard_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 111.8,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.25,
+     "light_deg": 297.2,
+     "light_strength": 0.0294,
+     "clusters_per_1000px": 121.4,
+     "clusters": 235,
+     "id": "concrete_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 112.6,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 8,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.065,
+     "light_deg": 45.1,
+     "light_strength": 0.4431,
+     "clusters_per_1000px": 151.3,
+     "clusters": 293,
+     "id": "concrete_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 132.5,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.117,
+     "light_deg": 346.8,
+     "light_strength": 0.0249,
+     "clusters_per_1000px": 72.8,
+     "clusters": 141,
+     "id": "dirt",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 136.5,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.124,
+     "light_deg": 272.8,
+     "light_strength": 0.068,
+     "clusters_per_1000px": 38.2,
+     "clusters": 74,
+     "id": "wall_0",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 167.8,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.203,
+     "light_deg": 95.7,
+     "light_strength": 0.172,
+     "clusters_per_1000px": 7.7,
+     "clusters": 15,
+     "id": "wall_1",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 156.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 5,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.137,
+     "light_deg": 272.3,
+     "light_strength": 0.1869,
+     "clusters_per_1000px": 7.7,
+     "clusters": 15,
+     "id": "wall_2",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 129.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.215,
+     "light_deg": 270.7,
+     "light_strength": 0.4855,
+     "clusters_per_1000px": 23.8,
+     "clusters": 46,
+     "id": "wall_base",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 126.2,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 3,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.346,
+     "light_deg": 89.8,
+     "light_strength": 0.6164,
+     "clusters_per_1000px": 28.4,
+     "clusters": 55,
+     "id": "wall_under_eave",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 134.2,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.77,
+     "light_deg": 262.7,
+     "light_strength": 0.1672,
+     "clusters_per_1000px": 9.8,
+     "clusters": 19,
+     "id": "wall_window",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 132.7,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.646,
+     "light_deg": 263.3,
+     "light_strength": 0.1428,
+     "clusters_per_1000px": 22.2,
+     "clusters": 43,
+     "id": "wall_boarded",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 50.5,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.519,
+     "light_deg": 281.3,
+     "light_strength": 0.5771,
+     "clusters_per_1000px": 13.9,
+     "clusters": 27,
+     "id": "door_top",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 54.3,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.517,
+     "light_deg": 82.3,
+     "light_strength": 0.8172,
+     "clusters_per_1000px": 12.9,
+     "clusters": 25,
+     "id": "door_bottom",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 54.3,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.259,
+     "light_deg": 270.0,
+     "light_strength": 1.4453,
+     "clusters_per_1000px": 7.2,
+     "clusters": 14,
+     "id": "garage_top",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 37.8,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.328,
+     "light_deg": 89.9,
+     "light_strength": 0.86,
+     "clusters_per_1000px": 2.6,
+     "clusters": 5,
+     "id": "garage_bottom",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 52.3,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.218,
+     "light_deg": 275.5,
+     "light_strength": 1.3531,
+     "clusters_per_1000px": 4.6,
+     "clusters": 9,
+     "id": "garage_top_l",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 37.9,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.314,
+     "light_deg": 85.9,
+     "light_strength": 0.808,
+     "clusters_per_1000px": 3.6,
+     "clusters": 7,
+     "id": "garage_bottom_l",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 52.3,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.218,
+     "light_deg": 264.5,
+     "light_strength": 1.3531,
+     "clusters_per_1000px": 4.6,
+     "clusters": 9,
+     "id": "garage_top_r",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 37.9,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.314,
+     "light_deg": 93.8,
+     "light_strength": 0.8077,
+     "clusters_per_1000px": 3.6,
+     "clusters": 7,
+     "id": "garage_bottom_r",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 117.5,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.011,
+     "light_deg": 158.2,
+     "light_strength": 0.0249,
+     "clusters_per_1000px": 203.5,
+     "clusters": 394,
+     "id": "roof_slope",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 137.9,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.2,
+     "light_deg": 271.9,
+     "light_strength": 0.3469,
+     "clusters_per_1000px": 121.9,
+     "clusters": 236,
+     "id": "roof_ridge",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 115.1,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.126,
+     "light_deg": 263.1,
+     "light_strength": 0.186,
+     "clusters_per_1000px": 162.2,
+     "clusters": 314,
+     "id": "roof_eave",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 135.0,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 6,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.059,
+     "light_deg": null,
+     "light_strength": 0.0055,
+     "clusters_per_1000px": 111.0,
+     "clusters": 105,
+     "id": "roof_hipTL",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 127.7,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.036,
+     "light_deg": null,
+     "light_strength": 0.0125,
+     "clusters_per_1000px": 141.5,
+     "clusters": 274,
+     "id": "roof_hipBL",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 75.7,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.007,
+     "light_deg": 66.1,
+     "light_strength": 0.0767,
+     "clusters_per_1000px": 170.7,
+     "clusters": 169,
+     "id": "roof_hipTR",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 73.2,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.03,
+     "light_deg": null,
+     "light_strength": 0.0108,
+     "clusters_per_1000px": 174.6,
+     "clusters": 338,
+     "id": "roof_hipBR",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 139.4,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 5,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.263,
+     "light_deg": 212.5,
+     "light_strength": 0.1349,
+     "clusters_per_1000px": 38.7,
+     "clusters": 75,
+     "id": "wall_end_l",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 131.6,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 4,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": 0.251,
+     "light_deg": 189.5,
+     "light_strength": 0.4928,
+     "clusters_per_1000px": 37.7,
+     "clusters": 73,
+     "id": "wall_end_r",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 99.0,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.056,
+     "light_deg": null,
+     "light_strength": 0.0124,
+     "clusters_per_1000px": 116.7,
+     "clusters": 226,
+     "id": "roof_deck",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "mean_value": 110.6,
+     "orphan_share": 0.0,
+     "orphans": 0,
+     "colours": 7,
+     "single_use_colour_share": 0.0,
+     "block_size": 1,
+     "pillow": -0.092,
+     "light_deg": 90.0,
+     "light_strength": 0.6238,
+     "clusters_per_1000px": 60.4,
+     "clusters": 117,
      "id": "roof_parapet",
      "size": [
       44,
