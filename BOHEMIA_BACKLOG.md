@@ -955,6 +955,16 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0S. (7/28, SEEN AND LEFT ALONE ON PURPOSE, [PENDING Paolo]) THE ROOF HIPS DO NOT
+   MATCH THE ROOF. The straight roof run wears his shingle skins; the four HIP
+   tiles (roof_hipTL/TR/BL/BR, the cut corners where a roof turns) are still the
+   target set's orange, so each house reads as a brown roof with an orange stripe
+   down one side. I saw it in the street shot before shipping and did NOT iterate
+   again - a fourth pass on the same feature in one turn is the tell the STOP
+   PRODUCING law names. The hips carry the SHAPE and his bank has no corner
+   variants, so the choice is his: tint the hips toward the roof skin, cook four
+   corner variants of his roofs, or leave the orange. | no gate until he rules |
+   /tmp street shot 7/28, records/BOHEMIA_RUN_ART_SOURCE_AUDIT | YES.
 0Q. [DONE 7/28] HIS 30 HOUSE SKINS ARE ON THE HOUSES; THE CBB TILESET WENT 83% ->
    30% OF THE BLOCK. Option 1 of the three (skin the stack, keep the massing) -
    he said "do what you have to do next" rather than picking, and option 3
