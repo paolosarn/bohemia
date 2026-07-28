@@ -64,6 +64,14 @@ FROM HIM, and the TLDR -- are the LAST things on screen, always, in this order:
      options essays, no philosophy, no file paths (he does not read code).
   2. **JUDGE THIS** -- numbered, one-look-one-verdict, side-by-side with the
      nearest approved anchor. If nothing: "Nothing to judge."
+     **NAME THE TAB** (Paolo 7/28, LOCKED -- "I need you to always tell me what
+     tab I can find this shit in"): every anchor, and every other thing in the
+     reply he could look at, names THE TAB it lives in -- RUN / CHARACTER /
+     CLOTHES / ANIMATION / RIG / COMBAT / MUSIC / CITY / MAP / SLICE / LIFE --
+     in plain words. Never a file path, never "the judge page". If it is in no
+     tab, the reply says "NOT IN A TAB YET" in those words, because a thing he
+     cannot reach does not exist to him. The link is the door; the tab is the
+     room. Full law: laws/BOHEMIA_ADDENDUM_NAME_THE_TAB_7_28_26.md
   3. **Proof line** -- gates green + deploy-verified + buildstamp. A green metric
      proves NON-VIOLATION only; never cite it as proof of quality, and never lead
      with it.

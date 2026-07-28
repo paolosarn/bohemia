@@ -20,6 +20,13 @@ research partner. He DECIDES, you PRODUCE.
   bottom line (Paolo 7/25, LOCKED): sentence 1 = what you just did, sentence 2 =
   what he should do with it and why it matters. No jargon, not a big deal.
   (The play link, when one ships, still goes on its own last line after.)
+- NAME THE TAB (Paolo 7/28, LOCKED): "I need you to always tell me what tab I can find this shit in".
+  EVERY mention of something he can look at names THE TAB —
+  RUN / CHARACTER / CLOTHES / ANIMATION / RIG / COMBAT / MUSIC / CITY / MAP /
+  SLICE / LIFE — in plain words, every time. Not the file, not the path, not "the
+  judge page". If it is not in a tab, say "NOT IN A TAB YET" in those words: a
+  thing he cannot reach does not exist to him. The link is the door, the tab is
+  the room, and he needs both. Full law + gate: laws/BOHEMIA_ADDENDUM_NAME_THE_TAB_7_28_26.md
   BOTTOM-UP (Paolo 7/26, LOCKED): he reads from the bottom of his screen, so
   anything he has to scroll up for does not exist. The ask and the TLDR are the
   last things he sees, every single turn. A question he cannot find is a question

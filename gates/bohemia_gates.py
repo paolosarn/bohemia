@@ -317,6 +317,9 @@ GATES = [
      'the target screens exist, are built from approved banks, hold 2-tile doors + human '
      'scale, carry no black keyline, are judgeable from the alpha, and quest asks stay frozen',
      False),
+    ('NAME THE TAB',   ['python3', 'gates/name_the_tab_gate.py'],
+     'Paolo 7/28: every reply names the TAB a thing is in — and a judging surface no tab '
+     'links to fails the build, because you cannot name a tab for a thing not in one', False),
     ('PIXEL CRAFT',    ['python3', 'gates/pixel_craft_gate.py'],
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '
