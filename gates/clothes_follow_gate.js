@@ -93,4 +93,31 @@ ok('arm LENGTH is flagged as not existing, and left to him',
   /ARM LENGTH DOES NOT EXIST/.test(law) && /\[PENDING, Paolo's call\]/.test(law));
 ok('the tool documents its REUSE CHECK (it cooks no art)', /REUSE CHECK/.test(tool));
 
+
+/* ---- THE SQUIGGLE AND THE SHOULDER ARE ONE BUG (Paolo 7/28, same day) ----
+   The torso profile returned 0 for the top 35%, so the chest was pinned while the
+   gut moved: shoulder 18/18/18 against a navel of 15/19/23. A fixed shoulder over
+   a moving waist is a STEP, and the step is what reads as squiggly. Separately the
+   arm was shifted PER ROW, which bends it into the waist contour. Both are gated
+   here because both are one-line reversions away. */
+const BV = fs.readFileSync(path.join(ROOT, 'engine', 'bohemia_bodyvar.js'), 'utf8');
+ok('the chest is no longer pinned at zero', !/if \(t < 0\.35\) return 0;/.test(BV));
+ok('the chest takes a SHARE of the dial and eases up to full at the navel',
+  /var SH = 0\.5;/.test(BV) && /if \(t < 0\.35\) return SH \* \(0\.35 \+ 0\.65 \* ss\(t \/ 0\.35\)\);/.test(BV));
+ok('the very top still barely moves, so the shoulder cannot jump off the neck',
+  /A share, not a free pass|share, not a free pass/.test(BV));
+ok('THE ARM IS RIGID: one shift for the whole limb, not one per row',
+  /const rowShift = \{\};\s*\/\* same dx on every row = a rigid translation \*\//.test(BV));
+ok('the single shift is taken at the row the arm ATTACHES to',
+  /let armTop = 1e9;/.test(BV) && /edge\[armTop\]/.test(BV));
+ok('it does not bend at the hip either', /the arm does not bend at the hip either/.test(BV));
+ok('the measured squiggle is recorded at the code',
+  /35 35 35 36 36 36 35 35 35 36 36/.test(BV) && /Three direction\n               flips|three direction flips/i.test(BV));
+ok('the engine module and the alpha carry the same body (ENGINE SYNC LAW)',
+  src.indexOf('same dx on every row = a rigid translation') > 0);
+ok('the law records that the squiggle and the shoulder are ONE bug',
+  /THE SQUIGGLE AND THE SHOULDER ARE ONE BUG/.test(law));
+ok('the law pins the shoulder-never-moved table', /\| belly −1 \| \*\*18\*\* \| 15 \|/.test(law));
+ok('the law pins the flip count before and after', /belly -1  direction flips: 3 -> 1/.test(law));
+
 done();

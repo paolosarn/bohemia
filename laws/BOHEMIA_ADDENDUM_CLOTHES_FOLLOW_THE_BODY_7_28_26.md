@@ -81,7 +81,56 @@ fixed the half that already worked.
    record what it caught.** A silent catch turned a one-line bug into a fix that
    looked correct and did nothing.
 
-## 6. STILL HIS CALL
+## 6. THE SQUIGGLE AND THE SHOULDER ARE ONE BUG (Paolo 7/28/26, same day)
+
+> "why can't you just compact and widen the shoulder to accommodate... it's very
+> upsetting to see the arms getting fucked up... their arms squiggly fucked up."
+
+Two complaints, one cause, measured on S:
+
+| | shoulder (row 18) | navel (row 28) |
+|---|---|---|
+| belly −1 | **18** | 15 |
+| belly 0 | **18** | 19 |
+| belly +1 | **18** | 23 |
+
+**The shoulder never moved.** The torso profile returned `0` for the top 35% — the
+chest was pinned while the gut travelled a full 3px. A fixed shoulder over a moving
+waist is a **step** in the silhouette, and a step is what reads as squiggly: the
+outer edge went out at the shoulder, in at the waist, out again at the hip.
+Direction flips down the edge, 1 at neutral, **3 at belly −1**.
+
+### FIX A — the chest takes a share
+A thin man is narrow at the shoulder too; a heavy one is broader. The chest now
+takes `SH = 0.5` of the dial and eases to the full amount at the navel, so the
+torso tapers as one shape. The very top still barely moves (`SH * 0.35` at t=0)
+because that row joins the neck, and a shoulder that jumps away from the neck is
+the detached-limb bug the zero was originally protecting against. **A share, not a
+free pass.**
+
+### FIX B — the arm is RIGID
+The arm-follows-flank pass was handing `shiftPart` a **per-row** shift, so every row
+of the arm moved by that row's own flank delta — which **bends the arm into the
+waist contour**. On S at belly −1 the outer edge ran `35 35 35 36 36 36 35 35 35 36
+36`: in, out, in, out. That wave *is* the squiggle.
+
+An arm hangs **from the shoulder**. It takes **one** shift — the flank delta at the
+row it attaches to — and every row moves by that same amount. The comment two
+blocks above it has always said *"the arm is TRANSLATED, whole, full stop"*; it
+simply was not doing it. RIG LAW is happier too: **one integer translation cannot
+reshape his painted arm; a per-row one can.**
+
+### MEASURED AFTER
+
+```
+belly -1  direction flips: 3 -> 1   (neutral is 1)
+belly +1  shoulder row 18: 18 -> 20
+belly -1  shoulder row 18: 18 -> narrows with the waist
+```
+
+The edge runs monotonic again at every dial value.
+
+## 7. STILL HIS CALL
 
 **ARM LENGTH DOES NOT EXIST.** The `arms` dial is **thickness** (`±45% of arm
 half-width`). He asked for "arm length" by name. A length dial would ride the bone

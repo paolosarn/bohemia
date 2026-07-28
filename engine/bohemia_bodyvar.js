@@ -90,9 +90,29 @@ const BOH_BODYVAR = (function () {
        never overhangs the thighs. */
     4: {
       dial: 'belly', biasAmp: 0.5, minW: 5,
+      /* THE SHOULDER TAKES A SHARE (Paolo 7/28/26): "why can't you just compact and
+         widen the shoulder to accommodate... it's very upsetting to see the arms
+         getting fucked up... their arms squiggly fucked up."
+
+         The chest used to return 0 -- pinned -- while the gut moved a full 3px.
+         Measured on S, belly -1/0/+1: the shoulder row stayed 18, 18, 18 while the
+         navel went 15, 19, 23. A fixed shoulder over a moving waist is a STEP in the
+         silhouette, and a step is exactly what reads as squiggly: the outer edge went
+         out at the shoulder, back in at the waist, out again at the hip. Direction
+         flips down the edge went from 1 at neutral to 3 at belly -1.
+
+         So THE SQUIGGLE AND THE SHOULDER ARE ONE BUG, not two. A thin man is narrow
+         at the shoulder too; a heavy one is broader. The chest now takes SH of the
+         dial and eases up to the full amount at the navel, so the whole torso tapers
+         as one shape and the edge runs monotonic again.
+
+         The very top still barely moves (SH * 0.35 at t=0) because that row joins the
+         neck, and a shoulder that jumps away from the neck is the detached-limb bug
+         the zero was originally protecting against. It is a share, not a free pass. */
       profile: function (t) {
-        if (t < 0.35) return 0;
-        if (t < 0.75) return ss((t - 0.35) / 0.40);
+        var SH = 0.5;                                   /* the chest/shoulder share */
+        if (t < 0.35) return SH * (0.35 + 0.65 * ss(t / 0.35));
+        if (t < 0.75) return SH + (1 - SH) * ss((t - 0.35) / 0.40);
         return 1 - 0.45 * ss((t - 0.75) / 0.25);
       }
     },
@@ -359,8 +379,31 @@ const BOH_BODYVAR = (function () {
             const side = meanX(src[armP]) - torsoCx;
             if (Math.abs(side) < 1.5) continue;          /* profile: the gut passes the arm, it does not push it */
             const pick = (side < 0) ? 0 : 1;
-            const rowShift = {}; for (let r = 0; r < rows.length; r++) rowShift[rows[r]] = edge[rows[r]][pick];
-            const tail = (side < 0) ? lastL : lastR;     /* below the torso: hold the hip flank's own shift */
+            /* THE ARM IS RIGID (Paolo 7/28/26: "their arms squiggly fucked up").
+               This used to hand shiftPart a PER-ROW shift, so every row of the arm
+               moved by that row's own flank delta -- which BENDS the arm into the
+               waist contour. Measured on S at belly -1, the outer edge ran
+               35 35 35 36 36 36 35 35 35 36 36: in, out, in, out. Three direction
+               flips against one at neutral. That wave IS the squiggle he sees.
+               An arm hangs FROM THE SHOULDER. It swings as one piece, so it takes
+               ONE shift -- the flank delta at the row it attaches to -- and every
+               row of it moves by that same amount. The code comment two blocks up
+               has always said "the arm is TRANSLATED, whole, full stop"; it just
+               was not doing it. RIG LAW is happier too: one integer translation
+               cannot reshape his painted arm, a per-row one can. */
+            let armTop = 1e9;
+            for (let q = 0; q < src[armP].length; q++) {
+              const ry = (src[armP][q] / CW) | 0; if (ry < armTop) armTop = ry;
+            }
+            let dxOne = edge[armTop] ? edge[armTop][pick] : undefined;
+            if (dxOne === undefined) {                   /* shoulder above the belly rows: take the nearest row that moved */
+              let best = null;
+              for (let r = 0; r < rows.length; r++) if (best === null || Math.abs(rows[r] - armTop) < Math.abs(best - armTop)) best = rows[r];
+              dxOne = (best === null) ? 0 : edge[best][pick];
+            }
+            const rowShift = {};                          /* same dx on every row = a rigid translation */
+            for (let r = 0; r < rows.length; r++) rowShift[rows[r]] = dxOne;
+            const tail = dxOne;                           /* below the torso too: the arm does not bend at the hip either */
             dst[armP] = shiftPart(dst[armP], rowShift, tail, side);
             if (src[handP]) dst[handP] = shiftPart(dst[handP], rowShift, tail, side);
           }
