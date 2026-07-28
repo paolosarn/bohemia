@@ -281,3 +281,32 @@ to build first as the test, not last as the afterthought.
 - [How to make seamless pixel art textures](https://axidus.io/blog/how-to-make-seamless-pixel-art-textures) · [Pixel art tiles that don't look terrible](https://www.sprite-ai.art/blog/seamless-pixel-art-tiles) · [Building tileable textures that work in production](https://www.texturly.com/blog/building-tileable-textures-that-actually-work-in-production)
 - [Color cycling in pixel art](https://blog.prototypr.io/color-cycling-in-pixel-art-c8f20e61b4c4) and the Pokemon Gold/Silver day-night palette-swap devlog
 - **Pixel Logic: still NOT read.**
+
+---
+
+# PART 3 — M13: MOST OF IT IS BACKGROUND (7/28, third pass)
+
+Paolo: *"GO TO SCHOOL SOME MORE KNOW WHAT YOU DONT KNOW YET."* The full ignorance
+map, including the four things I did not know this morning and the ten I still do
+not, is `records/BOHEMIA_WHAT_I_DONT_KNOW_7_28_26.md`. One of the four binds the
+eighteen tile forms immediately, so it lands here as law:
+
+> *"If every asset is screaming for attention, then the player won't know where to
+> look. The majority of the assets made for an environment must intentionally be
+> subordinate to the focal point or hero asset."*
+
+**M13. THE MAJORITY OF THE SET IS DELIBERATELY SUBORDINATE.** Of the eighteen
+families queued, almost all are background: CMU block, corrugated metal, asphalt,
+striping, turf, stucco, roof field. They are supposed to be quiet and supporting.
+The focal points are the district HEROES and the things you can walk through —
+doors, openings, portals. A warehouse wall cooked as lovingly as a courthouse
+portico makes the courthouse stop being a courthouse.
+
+This is M3 (contrast is a budget) scaled from one tile to a whole district, and it
+is the rule that decides how much effort each of the eighteen deserves — which is
+not the same amount.
+
+**NOT GATED, and deliberately:** "is this asset appropriately subordinate" is a
+composition judgement, and a machine claiming to check it would be the fake
+verification the doctrine bans. M2's floor-is-quiet number is the closest a
+machine gets, and it only covers ground.
