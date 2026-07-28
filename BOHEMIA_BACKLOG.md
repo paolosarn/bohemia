@@ -1287,6 +1287,37 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-stairs. DONE 7/27 (v91): THE STAIRS ANNOUNCE THEMSELVES. Paolo: "I couldn't find
+   the stairs bro or whatever you had out what the fuck are you talking about?"
+   REPRODUCED, eight arenas, played the way he plays them:
+     arenas with a deck:                 8 of 8
+     whose stair tile was ON SCREEN:     8 of 8
+     that ever showed the STAIRS button: 0 of 8   *** ZERO ***
+   v90b gated the button on stairNear() (1.6 tiles). The stairs spawn 3-6 tiles
+   out. So the only thing that ever said "there is a way up" required walking to
+   it first, under fire, toward a thing he had no reason to believe existed. And
+   v90b's OWN DOCSTRING says "a mechanic nobody can see is not a mechanic yet."
+   I shipped a door that is invisible until you are standing on it.
+   (a) THE BUTTON IS ALWAYS ON SCREEN when the arena has a deck, dimmed, reading
+   "STAIRS 4 N" -- distance and 8-way compass bearing. Adjacent it lights up to
+   "UP - 1 STA". On a phone the BUTTON is the reliable channel: it cannot be
+   zoomed out of, panned off, or mistaken for scenery.
+   (b) A TAP FROM ACROSS THE LOT POINTS instead of no-opping.
+   (c) A BEAT-PULSING CHEVRON over the stair tile, sized in RING UNITS so it
+   survives the auto-frame zooming out to fit eight men, drawn after the deck.
+   (d) THE FIGHT SAYS IT HAS A STOREY, once, at the top, and every SHUFFLE says
+   whether the arena it rolled has a way up or is a flat lot.
+   AFTER: 6 of 6 deck arenas show it; the 2 flat lots correctly do not.
+   *** WHAT DID NOT CHANGE, AND MUST NOT: you still WALK there, it still costs a
+   pip, it is still the only way up. Advertising a position is not giving it away
+   -- the walk under fire IS the price of the high ground. ***
+   AND THE GATE HAD TO BE CORRECTED, NOT RELAXED: v90's own check asserted the
+   button "only exists when you can actually use it, on the same terms SHOVE
+   does". That rule IS the bug. SHOVE is a verb against a man in your face;
+   STAIRS is a verb against a PLACE ACROSS THE LOT, and copying one rule onto the
+   other is what made it unfindable. The check now asserts the invariant that
+   actually matters (usable only from arm's reach).
+   Gate section 27, 450 checks.
 0-storey. DONE 7/27 (v90+v90b): TWO-STOREY ARENAS. On his ruling, "Two-story
    arenas yes", asked for by name twice before that.
    *** THE ONE RULE: ACROSS LEVELS, GROUND COVER DOES NOT COUNT, FOR EITHER OF

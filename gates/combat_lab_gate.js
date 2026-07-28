@@ -2335,9 +2335,17 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('V90B THE CLIMB COSTS ONE STAMINA AND NO TURN -- Paolo 7/26 LOCKED, and his own words this session: "sprinting and not losing a turn can help that." Taking the high ground is priced like closing the distance',
     demo.includes("if(!spendStam(1)){ setRead('NO STAMINA','the climb costs one pip','#8a7d66'); return; }") &&
     !/function doStairs\(\)\{[\s\S]{0,900}?endTurn/.test(demo));
-  ok('and the button only exists when you can actually use it, on the same terms SHOVE does',
-    demo.includes("const s=(G.phase==='cover'&&!G.over&&!G.inc)?stairNear():null;") &&
-    demo.includes("function stairNear(){ return (G.stairs||[]).find(S=>S.edist<=1.6)||null; }"));
+  /* V91 CORRECTS THIS CHECK, IT DOES NOT RELAX IT. v90 asserted the button "only
+     exists when you can actually use it, on the same terms SHOVE does" -- and that
+     rule is precisely what made the whole feature unfindable: measured across eight
+     arenas, the button appeared ZERO times, because the stairs spawn 3-6 tiles out
+     and it only showed within 1.6. SHOVE is a verb against a man who is already in
+     your face; STAIRS is a verb against a PLACE ACROSS THE LOT. Copying SHOVE's rule
+     onto it was the mistake. The invariant that actually matters -- the climb still
+     costs a pip and you still have to be standing there -- is asserted in section 27. */
+  ok('the stairs are still only USABLE from arm\'s reach, even though the button is always visible (V91)',
+    demo.includes("function stairNear(){ return (G.stairs||[]).find(S=>S.edist<=1.6)||null; }") &&
+    demo.includes("const near=!!stairNear();"));
   ok('A BLADE CANNOT REACH A FLOOR ABOVE IT -- not a balance number, an arm being too short',
     /for\(const e of G\.e\)\{ if\(e\.dead\|\|e\.downed\|\|e\.broken\|\|e\.fleeing\|\|!e\.melee\)continue;\s*\n\s*if\(\(e\.lvl\|0\)!==myLvl\(\)\)continue;/.test(demo));
   ok('and every fight starts on the lot',
@@ -2359,6 +2367,55 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('V90B THE READ SAYS WHICH FLOOR, and says the loud part: that every piece of stone on the lot just stopped counting',
     demo.includes("(myLvl()===DECK_LVL?'HIGH GROUND':'HE IS ABOVE YOU')") &&
     demo.includes("+'</b> <span style=\"color:#5a5040\">·</span> no cover counts <span style=\"color:#5a5040\">·</span> '):'';"));
+}
+
+/* ============================================================================
+   27. V91 THE STAIRS ANNOUNCE THEMSELVES
+   Paolo: "I couldn't find the stairs bro or whatever you had out what the fuck
+   are you talking about?"
+   REPRODUCED, eight arenas, loaded and shuffled the way he plays them:
+     arenas with a deck:                 8 of 8
+     whose stair tile was ON SCREEN:     8 of 8
+     that ever showed the STAIRS button: 0 of 8    <-- ZERO
+   v90b gated the button on stairNear() (1.6 tiles) and the stairs spawn 3-6 out.
+   The only thing that ever said "there is a way up" required walking to it first,
+   under fire, toward a thing he had no reason to think existed. v90b's own
+   docstring says "a mechanic nobody can see is not a mechanic yet".
+   AFTER: 6 of 6 deck arenas show it, and the 2 flat lots correctly do not.
+   ========================================================================== */
+{
+  ok('V91 THE BUTTON IS ALWAYS THERE WHEN THERE IS A WAY UP -- it is the one channel on a phone that cannot be zoomed out of, panned off, or mistaken for scenery. It hides ONLY when the arena is a flat lot',
+    demo.includes("const S=(G.stairs||[])[0];\n  if(!live||!S){ b.style.display='none'; return; }\n  b.style.display='';") &&
+    !demo.includes("b.style.display=s?'':'none';\n  if(s)b.textContent=(myLvl()===DECK_LVL?'DOWN':'UP')+' \\u00b7 1 STA'; }"));
+  ok('AND IT SAYS HOW FAR AND WHICH WAY until you are standing on them, then lights up and says what it costs',
+    demo.includes("b.textContent='STAIRS '+Math.round(S.edist)+' '+stairBearing(S);") &&
+    demo.includes("if(near){ b.textContent=(myLvl()===DECK_LVL?'DOWN':'UP')+' \\u00b7 1 STA';") &&
+    demo.includes("const STAIR_ARROWS=['E','SE','S','SW','W','NW','N','NE'];"));
+  ok('the bearing is real 8-way compass maths off the stair tile, not a guess',
+    /function stairBearing\(S\)\{[\s\S]{0,220}?return STAIR_ARROWS\[Math\.round\(a\/\(Math\.PI\/4\)\)%8\];/.test(demo));
+  ok('and a tap from across the lot POINTS instead of no-opping, which is what a dimmed button owes you',
+    demo.includes("if(!s){ const S=(G.stairs||[])[0];   /* V91: a tap from across the lot POINTS, it never no-ops */"));
+
+  ok('V91 THE MARKER: a beat-pulsing chevron stack over the stair tile, so the button has something to point AT. Sized in RING UNITS so it survives the auto-frame zooming out to fit eight men',
+    demo.includes("if(!aimo&&G.stairs&&G.stairs.length&&myLvl()!==DECK_LVL){") &&
+    demo.includes("const pu=Math.pow(1-_bpmPhase,2), t3=ring;") &&
+    demo.includes("x.lineWidth=Math.max(2,t3*0.10); x.lineCap='round';"));
+  ok('and it draws AFTER the deck, so the thing that shows you the way up can never be painted over by the way up',
+    demo.indexOf("x.fillStyle=T.stair?'#7d6c50':'#665c49';") <
+      demo.indexOf("if(!aimo&&G.stairs&&G.stairs.length&&myLvl()!==DECK_LVL){"));
+
+  ok('V91 THE FIGHT SAYS IT HAS A STOREY, once, at the top -- he should never have to infer a rule from a tan rectangle',
+    demo.includes("setRead('HIGH GROUND ON THE LOT','stairs '+Math.round(G.stairs[0].edist)+' '+stairBearing(G.stairs[0])") &&
+    demo.includes("+' — up there no cover counts, theirs or yours','#e8c88a');"));
+  ok('and every SHUFFLE says whether the arena it just rolled has a way up or is a flat lot',
+    demo.includes("? ('HIGH GROUND — stairs '+Math.round(G.stairs[0].edist)+' '+stairBearing(G.stairs[0]))") &&
+    demo.includes("ced' === 'x' ? '' : 'flat lot, no way up')") === false &&
+    demo.includes("'flat lot, no way up')"));
+
+  ok('WHAT DID NOT CHANGE, AND MUST NOT: you still WALK there, it still costs a pip, and it is still the only way up. Advertising a position is not giving it away -- the walk under fire IS the price of the high ground',
+    demo.includes("if(!spendStam(1)){ setRead('NO STAMINA','the climb costs one pip','#8a7d66'); return; }") &&
+    demo.includes("function stairNear(){ return (G.stairs||[]).find(S=>S.edist<=1.6)||null; }") &&
+    /function doStairs\(\)[\s\S]{0,700}?const up=\(myLvl\(\)!==DECK_LVL\);/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
