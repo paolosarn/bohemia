@@ -14430,16 +14430,61 @@ var CELL = null, feet = [];
 /* WHERE YOU LIVE. Deterministic and real: the first suburb cell of the valley
    in scan order. Not a hand-typed coordinate — MAP LAW, and it survives a
    regeneration because it is derived, not written down. */
+/* ===========================================================================
+   WHERE YOU LIVE — CHOSEN, NOT STUMBLED INTO.
+   (Paolo 7/28: "I still wanna start off in a suburb THAT YOU CHOOSE THE
+   LOCATION FOR in Vegas".)
+   The old rule was "the first suburb cell in scan order", which is derived and
+   MAP-LAW-clean but is also, always, the cell nearest the TOP-LEFT CORNER of
+   the valley - the rim. Open the city on it and half the screen is the blue
+   nothing outside the map. It answered "deterministic" and completely ignored
+   "choose a good one".
+   So it is scored now, and the score is what a person means by a good place to
+   start: a suburb with the most DIFFERENT KINDS OF PLACE within a short walk,
+   sitting well inside the built valley rather than on its edge. Somewhere to
+   go, in every direction, on foot.
+   THIS IS NOT MAP DESIGN. Nothing is placed, moved or invented - the generator
+   built the valley and this reads it and picks a doorstep. Same seed, same
+   answer, every time.
+   =========================================================================== */
+var HOME_PICK = null;      /* what was scored, for the record and the gate */
 function findHomeCell(){
   if(!WORLD) return [0,0];
+  var n = WORLD.n || 96, R = 6, best = null;
+  /* THE CHEAP LOOKUP. WORLD.tile() REALIZES the cell it lands in - it generates
+     a whole 128x128 district to answer one question - and scoring every suburb
+     over a 13x13 window would have realized a large part of the valley AT BOOT,
+     on his phone, before the first frame. WORLD.at(cx,cy) is the overmap rung:
+     the district of a cell, generated once for the whole map, no realization.
+     Caught by my own probe taking minutes instead of seconds. */
+  var at = function(cx,cy){
+    if(cx<0||cy<0||cx>=n||cy>=n) return null;
+    var c = WORLD.at(cx,cy);
+    return c ? String(c.district||'') : null;
+  };
   var ds = (CTX.worldMap.districts||[]);
   for(var i=0;i<ds.length;i++){
     var p=String(ds[i].id||'').split(','), cx=+p[0], cy=+p[1];
     if(isNaN(cx)||isNaN(cy)) continue;
-    var t=WORLD.tile(cx*T+(T>>1), cy*T+(T>>1));
-    if(t && String(t.district)==='suburb') return [cx,cy];
+    if(at(cx,cy)!=='suburb') continue;
+    /* how much of Las Vegas is within a short walk of this doorstep? */
+    var kinds={}, nk=0, edge=0;
+    for(var dy=-R; dy<=R; dy++) for(var dx=-R; dx<=R; dx++){
+      var k=at(cx+dx,cy+dy);
+      if(k===null){ edge++; continue; }           /* off the map: dead frontage */
+      if(!kinds[k]){ kinds[k]=1; nk++; }
+    }
+    var span=(2*R+1)*(2*R+1);
+    /* variety is the point; being on the rim is the thing to avoid */
+    var score = nk*100 - Math.round(300*edge/span);
+    if(!best || score>best.score ||
+       (score===best.score && (cy<best.cy || (cy===best.cy && cx<best.cx)))){
+      best={cx:cx, cy:cy, score:score, kinds:nk, edge:edge};
+    }
   }
-  return [0,0];
+  if(!best) return [0,0];
+  HOME_PICK = best;
+  return [best.cx, best.cy];
 }
 var HOME_CELL = findHomeCell();
 /* Read one cell of the valley into the grids the run walks and draws on. */
@@ -14460,6 +14505,14 @@ function loadCell(cx,cy){
   feet = BohemiaSuburb.homeFootprints({ g:G, W:T, H:T });
   if(typeof deriveDoors==='function') deriveDoors();
   _fpc = {}; _garage = null; _depth = null; _top = null; _path = null;  /* all per-cell */
+  /* TELL THE REST OF THE GAME WHERE YOU ARE (Paolo 7/28: "I want that reflected
+     when I'm in the city menu"). The only run->shell traffic used to be the
+     CAST - his sprite - so the city opened on the Strip every single time
+     because nothing had ever told it otherwise. Announced from loadCell, which
+     means it fires on boot AND on every edge crossing: exactly when his
+     location really changes, and never in between. */
+  if(typeof bridgePost==='function')
+    bridgePost({ type:'BOHEMIA_RUN_WHERE', cell:[cx,cy], district:CELLNAME });
   return CELL;
 }
 loadCell(HOME_CELL[0], HOME_CELL[1]);
@@ -15809,11 +15862,17 @@ function afterTalk(){
 /* ---- 13. THE COMBAT HANDOFF. The existing bridge, nothing new:
    this frame -> parent alpha -> BOHEMIA_ENCOUNTER -> the combat frame,
    and BOHEMIA_COMBAT_END all the way back. ---- */
-window.__RUN_SENT = [];
+window.__RUN_SENT = window.__RUN_SENT || [];
 var HAND=document.getElementById('hand'), HANDSUB=document.getElementById('handsub'),
     HANDBTN=document.getElementById('handbtn'), HANDBIG=document.getElementById('handbig');
 function bridgePost(msg){
-  window.__RUN_SENT.push(msg);
+  /* THE LOG CREATES ITSELF. `window.__RUN_SENT = []` is declared a thousand
+     lines below this, at the very bottom of the file, while bridgePost is a
+     hoisted function that boot-time code can and now does call - so the first
+     caller found the array undefined and took the whole run's script down with
+     it. The log is a gate affordance; it must never be able to break the game
+     it is watching. */
+  (window.__RUN_SENT = window.__RUN_SENT || []).push(msg);
   try{ if(window.parent) window.parent.postMessage(msg,'*'); }catch(_e){}
 }
 function goLoud(tag){
@@ -16216,5 +16275,10 @@ window.__RUN = {
   feed: function(){ return BohemiaLoop.buildFeed(CTX,{}); },
   profile: function(){ return BohemiaLoop.socialProfile(CTX); }
 };
+/* SAY IT AGAIN NOW THAT EVERYTHING IS UP. The boot announce from loadCell can
+   outrun the shell attaching its listener, and the CITY frame is lazy so it
+   usually does not exist yet either. The shell REMEMBERS the last cell, so a
+   second, late announce costs nothing and closes the race. */
+if(CELL) bridgePost({ type:'BOHEMIA_RUN_WHERE', cell:CELL.slice(), district:CELLNAME });
 window.__RUN_READY = true;
 </script>

@@ -576,19 +576,36 @@ async function alphaRun() {
       const g = await run.evaluate(() => window.__RUN.grid());
       const st = await run.evaluate(() => window.__RUN.state());
       if (st.mode === 'ext') {
-        const seen = { [st.px + ',' + st.py]: 1 }; const q = [[st.px, st.py]]; let best = [st.px, st.py];
+        /* FIND THE WAY OUT, DO NOT ASSUME EAST.
+           This walked to the furthest EAST reachable tile and then tapped east.
+           That worked only because the old home cell happened to open eastward.
+           A suburb block is WALLED with ONE gate (that is the district's own
+           design), so which edge you can leave by is a property of the block,
+           not a constant - and the moment the spawn moved, an east-only walker
+           reported "you cannot leave the valley cell" about a cell you can
+           leave perfectly well, to the north. Flood the walkable area, find
+           which map edge it actually touches, and cross THERE. */
+        const seen = { [st.px + ',' + st.py]: 1 }; const q = [[st.px, st.py]];
+        const exits = [];
         while (q.length) {
           const c = q.shift();
-          if (c[0] > best[0]) best = c;
+          if (c[1] === 0) exits.push({ at: c, dir: [0, -1] });
+          else if (c[1] === g.H - 1) exits.push({ at: c, dir: [0, 1] });
+          else if (c[0] === 0) exits.push({ at: c, dir: [-1, 0] });
+          else if (c[0] === g.W - 1) exits.push({ at: c, dir: [1, 0] });
           for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
             const nx = c[0] + d[0], ny = c[1] + d[1], k = nx + ',' + ny;
             if (nx < 0 || ny < 0 || nx >= g.W || ny >= g.H || seen[k] || !g.pass[ny][nx] || g.doorOf[k] != null) continue;
             seen[k] = 1; q.push([nx, ny]);
           }
         }
-        const steps = route(g.pass, [st.px, st.py], best, g.doorOf);
-        if (steps) for (const d of steps) await tapStep(run, d);
-        for (let i = 0; i < 8; i++) await tapStep(run, [1, 0]);
+        out.exitsFound = exits.length;
+        if (exits.length) {
+          const e = exits[0];
+          const steps = route(g.pass, [st.px, st.py], e.at, g.doorOf);
+          if (steps) for (const d of steps) await tapStep(run, d);
+          for (let i = 0; i < 4; i++) await tapStep(run, e.dir);
+        }
         out.crossed = await run.evaluate(() => window.__RUN.cell());
       }
     }
@@ -767,6 +784,8 @@ async function alphaRun() {
     !!C.cell && C.cell.homes >= 8);
   ok('VALLEY: there are REAL districts on the other side of its edges',
     !!C.neighbours && Object.keys(C.neighbours).filter(k => C.neighbours[k]).length >= 2);
+  ok('VALLEY: the block you spawn in really has a way out on foot (a walled suburb has ONE gate)',
+    (C.exitsFound || 0) > 0);
   ok('VALLEY: walking off the edge really loads the neighbouring district',
     !!C.crossed && C.crossed.isHome === false && !!C.crossed.name &&
     C.crossed.at.join() !== C.cell.at.join());

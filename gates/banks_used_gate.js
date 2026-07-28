@@ -127,11 +127,25 @@ const PROBE = `(() => {
          places so a bank used only in one corner still gets its chance. */
       try {
         mode = 'ext'; curHouse = -1; fp = null;
-        const d = homeDoor[HOME] || [W >> 1, H >> 1];
-        for (const off of [[0, 3], [0, 10], [-8, 3], [8, 6], [0, 20]]) {
-          px = Math.max(1, Math.min(W - 2, d[0] + off[0]));
-          py = Math.max(1, Math.min(H - 2, d[1] + off[1]));
-          draw();
+        /* STAND WHERE THE THING IS, DO NOT STAND WHERE IT USED TO BE.
+           This sampled five spots around the front door, which happened to have
+           the community wall in shot on the old spawn block and did not on the
+           new one - so it reported his 13 approved border walls as "loaded and
+           never drawn" when they draw perfectly well, twenty tiles away. A
+           coverage gate that only looks in one corner measures the corner.
+           Now it sweeps a grid across the whole cell AND deliberately stands
+           next to one tile of every code that has its own art. */
+        const stand = (x, y) => { px = Math.max(1, Math.min(W - 2, x | 0));
+                                  py = Math.max(1, Math.min(H - 2, y | 0)); draw(); };
+        for (let gy = 8; gy < H; gy += Math.max(8, H >> 3))
+          for (let gx = 8; gx < W; gx += Math.max(8, W >> 3)) stand(gx, gy);
+        /* and specifically beside each code that owns a bank (4 = the community
+           wall, 6 = a garage, 2 = a house) so a rare feature is never missed */
+        for (const code of [4, 6, 2]) {
+          let found = null;
+          for (let y = 1; y < H - 1 && !found; y++)
+            for (let x = 1; x < W - 1; x++) if (G[y][x] === code) { found = [x, y]; break; }
+          if (found) { stand(found[0], found[1] + 2); stand(found[0], found[1] - 2); }
         }
       } catch (e) {}
       rec.on = false;

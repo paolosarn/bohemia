@@ -71,26 +71,41 @@ const PROBE = `(() => {
   const r = await f.evaluate(() => {
     const rec = window.__WALL;
     if (!rec) return { noProbe: true };
-    let hit = null;
-    for (let y = 0; y < om.n && !hit; y++) for (let x = 0; x < om.n && !hit; x++) {
-      const t = om.at(x, y); if (t && t.district === 'suburb') hit = [x, y];
+    /* FIND A SUBURB THAT ACTUALLY HAS A FACADE, not merely the first one.
+       This took the FIRST suburb cell in scan order and committed to it, which
+       is always the cell nearest the top-left corner of the valley - a thin rim
+       block that may hold no house front at all. It passed only because the old
+       overmap seed happened to put a good suburb there. The RUN lane's ONE SEED
+       fix (7/28) pointed the builder at the game's real world and this gate
+       immediately reported "could not set up the measurement" about a feature
+       that works fine two cells over. Keep looking until there is something to
+       measure; only give up when NO suburb in the valley has a facade. */
+    const suburbs = [];
+    for (let y = 0; y < om.n; y++) for (let x = 0; x < om.n; x++) {
+      const t = om.at(x, y); if (t && t.district === 'suburb') suburbs.push([x, y]);
+    }
+    if (!suburbs.length) return { noSuburb: true };
+    let hit = null, door = null, clear = null, tried = 0;
+    for (const cand of suburbs) {
+      if (tried++ >= 40) break;
+      city.x = cand[0]; city.y = cand[1];
+      let d = null;
+      for (let ly = 4; ly < FN - 4; ly++) for (let lx = 4; lx < FN - 4; lx++) {
+        const gx = cand[0] * FN + lx, gy = cand[1] * FN + ly;
+        const c = cellAt(gx, gy);
+        if (!d && c && c.face && c.artPool_face === 'hdoor') d = [gx, gy];
+      }
+      if (!d) for (let ly = 4; ly < FN - 4 && !d; ly++) for (let lx = 4; lx < FN - 4 && !d; lx++) {
+        const gx = cand[0] * FN + lx, gy = cand[1] * FN + ly;
+        const c = cellAt(gx, gy); if (c && c.face) d = [gx, gy];
+      }
+      if (d) { hit = cand; door = d; break; }
     }
     if (!hit) return { noSuburb: true };
     city.x = hit[0]; city.y = hit[1];
     if (MODE === 'city') swapMode();
     HC = 44;
     const C = HC;
-
-    let door = null, clear = null;
-    for (let ly = 4; ly < FN - 4; ly++) for (let lx = 4; lx < FN - 4; lx++) {
-      const gx = hit[0] * FN + lx, gy = hit[1] * FN + ly;
-      const c = cellAt(gx, gy);
-      if (!door && c && c.face && c.artPool_face === 'hdoor') door = [gx, gy];
-    }
-    if (!door) for (let ly = 4; ly < FN - 4 && !door; ly++) for (let lx = 4; lx < FN - 4 && !door; lx++) {
-      const gx = hit[0] * FN + lx, gy = hit[1] * FN + ly;
-      const c = cellAt(gx, gy); if (c && c.face) door = [gx, gy];
-    }
     if (!door) return { noFacade: true };
 
     // FRAME A — standing right behind the wall, which must fade
