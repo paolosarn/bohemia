@@ -41,6 +41,7 @@ os.chdir(REPO)
 
 AUDIT = 'records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json'
 LAWS = 'laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md'
+MASTERY = 'laws/BOHEMIA_PIXEL_MASTERY_LAWS_7_28_26.md'
 TOOL = 'tools/bohemia_pixel_craft_audit.py'
 
 # THE FROZEN BASELINE. These are the act-1 set's own measured numbers on 7/27,
@@ -73,6 +74,19 @@ CRAFT = {
 # Set-wide, not per tile. See the note at the check itself.
 SET_PALETTE_CEILING = 200
 
+# MASTERY LAWS (laws/BOHEMIA_PIXEL_MASTERY_LAWS_7_28_26.md), the two that are
+# honestly measurable. Banks cooked BEFORE the mastery research landed are
+# REPORTED, not failed - Paolo approved the re-cook and a gate does not overrule
+# a verdict. Everything registered after 7/28 (which is all eighteen tile forms)
+# is held to them.
+MASTERY_EXEMPT = {
+    'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt',
+    'banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt',
+}
+GROUND_PREFIXES = ('road', 'walk', 'yard', 'concrete', 'dirt', 'ground', 'gravel',
+                   'asphalt', 'turf', 'track', 'apron', 'lot')
+DETAIL_SPREAD_MAX = 3.0
+
 P = F = 0
 
 
@@ -104,6 +118,14 @@ def main():
         'the laws must keep marking which rules are mine rather than the craft\'s')
     chk('not a taste machine' in law.lower(),
         'the laws must keep saying the machine never judges whether art looks good')
+
+    chk(os.path.exists(MASTERY), 'the mastery laws are missing: %s' % MASTERY)
+    if os.path.exists(MASTERY):
+        m = open(MASTERY).read()
+        chk('still NOT read' in m,
+            'the mastery laws must keep saying Pixel Logic was not read')
+        chk('not gated and say so here' in m,
+            'the mastery laws must keep naming which of them a machine does NOT check')
 
     d = json.load(open(AUDIT))
     chk(d.get('version') == 'BOHEMIA_PIXEL_CRAFT_AUDIT_v1',
@@ -212,6 +234,39 @@ def main():
         # read as one place. This is the number that says the families really do
         # share their ramps. Measured 150 on 7/28 against 9,582 frozen; the
         # ceiling has headroom for the accents new tiles will legitimately need.
+        # M2 THE FLOOR IS QUIET. Ground is the biggest surface in any frame and
+        # the one nobody should be looking at; it exists so the things standing
+        # on it can be seen. Measured 7/28: the re-cook cut noise 9x and still
+        # left ground 1.7x BUSIER than structure (102.0 vs 58.8 regions/1000px).
+        # Fixing noise is not the same as deciding which surface deserves detail.
+        rows = b.get('rows', [])
+        gnd = [r for r in rows if r['id'].startswith(GROUND_PREFIXES)]
+        stc = [r for r in rows if not r['id'].startswith(GROUND_PREFIXES)]
+        if gnd and stc:
+            gq = sum(r['clusters_per_1000px'] for r in gnd) / len(gnd)
+            sq = sum(r['clusters_per_1000px'] for r in stc) / len(stc)
+            msg = ('%s: M2 THE FLOOR IS QUIET — ground averages %.1f colour regions '
+                   'per 1000px against structure %.1f. The floor must be the quieter '
+                   'surface or the buildings standing on it cannot pop.'
+                   % (path, gq, sq))
+            if path in MASTERY_EXEMPT:
+                print('  NOTE  ' + msg + ' (reported: this bank predates the mastery '
+                      'laws and carries a Paolo verdict)')
+            else:
+                chk(gq <= sq, msg)
+
+        # M5 DETAIL MATCHES ACROSS THE SET. "Highly detailed objects next to
+        # simple tiles break immersion." One family cooked at three times the
+        # set's median busyness wrecks itself and its neighbours.
+        if len(rows) >= 6 and path not in MASTERY_EXEMPT:
+            vals = sorted(r['clusters_per_1000px'] for r in rows)
+            med = vals[len(vals) // 2] or 1.0
+            worst = vals[-1]
+            chk(worst <= med * DETAIL_SPREAD_MAX,
+                '%s: M5 DETAIL SPREAD — the busiest tile is %.1fx the set median '
+                '(%.1f vs %.1f). The eighteen forms are ONE job, not eighteen.'
+                % (path, worst / med, worst, med))
+
         seen = set()
         for r in b.get('rows', []):
             seen.update(tuple(c) for c in (r.get('palette') or []))
