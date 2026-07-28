@@ -1,4 +1,35 @@
-<<<<<<< HEAD
+CITY (03): 7/28 (f) LATEST — THE SKINS LANDED, THE MERGE BROKE THE RUN, AND ANOTHER
+SESSION'S GATE CAUGHT MY STALE WAIVER. Final number on the block: THE CBB TILESET IS
+17% OF DRAWS, DOWN FROM 83% THIS MORNING.
+TWO SESSIONS HIT THE SAME BUG FROM OPPOSITE ENDS TODAY. The other one read my
+measurement (tools/bohemia_run_art_source_audit.js), built gates/banks_used_gate.js off
+it, and correctly did NOT pick his house art - a fourth version of the house renderer to
+win a materials argument is exactly what STOP PRODUCING names. This session had been
+told "do what you have to do next", so it did the skinning. Both were right; the halves
+met in a rebase.
+THREE THINGS TO CARRY:
+1. THE REBASE BROKE THE RUN AND THE GATES CAUGHT IT IN SECONDS. Their front-path block
+   and my house-skin block landed in the same region. Resolving the conflict kept both
+   bodies but SWALLOWED pathSet()'s closing brace, so the entire run page failed to
+   parse. run_gate and banks_used_gate both went red immediately. A conflict resolution
+   that looks right is not one that is right - run the gates on the merge, always.
+2. I WROTE A DUPLICATE GATE AND DELETED IT. gates/bankused_gate.js was mine, for the
+   same law, at the same hour. Theirs is better (a named WAIVER TABLE, and it keeps
+   DOOR_IMGS and DOOR_IMG apart - two banks one letter apart, and conflating them
+   reports the live bank as dead). ENGINE SYNC LAW: one canonical body. Theirs is canon.
+   WORTH KNOWING FOR ANY PARALLEL SESSION: check what just landed on main before
+   building a gate for a bug you both just heard about.
+3. THEIR GATE MADE ME DELETE THEIR OWN WAIVER. It fails with "delete it if not" the
+   moment a waived bank starts drawing. The house skins draw now - 491 draws in its own
+   sweep - so the waiver went. That is a good gate: it does not just catch the debt, it
+   refuses to let the excuse outlive it.
+WHY THE NUMBER FELL FURTHER THAN MY OWN 30%: their front-path change (concrete goes
+somewhere now instead of being sprinkled across every lot) removed a pile of target-set
+slabs at the same time.
+STILL OPEN AND NOT WAIVED, because it is a LOOK call and not an unused bank: the four
+roof HIP tiles are still the target set's orange against his shingle roof. Backlog 0S.
+His options: tint them, cook four corner variants of his roofs, or leave it.
+
 ART (06): 7/28 LATEST — ALL 42 TILES RE-COOKED (HE APPROVED IT), AND "NAME THE TAB"
 IS NOW LAW.
 Paolo, on the one-tile proof: "I checked it to do the other 41 mark it approved."
@@ -43,7 +74,6 @@ WHERE THINGS ARE, in his language: the judge page is the FIRST CARD OF THE LIFE 
 crosses into two lanes that were shipping live all night, so it waits for his word AND a
 clear lane - do not walk into their files mid-flight, that is how 7/26 got duplicated.
 ALSO PENDING from earlier: what colour is rebuilt Vegas; cars 2x3 vs re-cook shorter.
-=======
 CITY (03): 7/28 (e) LATEST — HIS 30 APPROVED HOUSE SKINS ARE ON THE HOUSES. THE CBB
 TILESET WENT FROM 83% OF THE BLOCK TO 30%.
 He did not pick from my three options, he said "do what you have to do next", so I took
@@ -86,7 +116,6 @@ next thing is not mine: the tile set covers ONE residential street and 44 of 45 
 have no ground art at all. Until ART grows a tile family per district type, every look
 verdict comes back the same. That is the blocker, it is named in the WORLD lane's record
 too, and no amount of CITY work moves it.
->>>>>>> f9f6caf (HIS 30 HOUSE SKINS ARE ON THE HOUSES: THE CBB TILESET WENT 83% -> 30% OF THE BLOCK)
 
 CITY (03): 7/28 (d) LATEST — THE BORDER WALLS ARE APPROVED, AND I MEASURED WHY THE
 REST STILL LOOKS BAD.
