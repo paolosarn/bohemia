@@ -80,24 +80,56 @@
    laws/BOHEMIA_ADDENDUM_VEGAS_WEATHER_7_28_26.md is the contents ruling |
    coordinator (Paolo 7/28) | HIGH
 
+7. OPEN | CHARACTER CONTACT SHADOW (the shadow every person, NPC and enemy
+   casts on the ground; standing + walk/run + crouched footprints, lit/unlit
+   strength) | RUN + COMBAT + CHARACTER preview — everywhere a body is drawn
+   on a floor | prop layer, single placement, stamped per body at the feet;
+   multiplies the ground band, never its own colour; NEVER baked into the
+   sprite (SHADOWS ARE SEPARATE 7/26) | the blessed lamp bank (one light
+   direction + 45-degree ellipse cross-section); Hyper Light Drifter for how
+   LIGHT a ground pool should be | CHARACTER lane | HIGH | TF-CHAR-001
+8. OPEN | THE CHARACTER STAGE (a real Vegas concrete pad + stucco backdrop
+   for the CHARACTER tab preview, replacing the CSS purple gradient) |
+   CHARACTER + ANIMATION tab previews ONLY, never the world — this is the
+   surface every body, wardrobe and body-dial verdict is made on | ground
+   plate self-seamless horizontally + structure backdrop band; value chosen
+   for CONTRAST against both palest skin (224,211,203) and near-black coat
+   (~42 lum) | the frozen CBB target screen's bands; Darkest Dungeon's hero
+   panels | CHARACTER lane | HIGH | TF-CHAR-002
+
 =============================================================================
 ## OPEN — MED
 =============================================================================
-7. OPEN | ACT-1 TILESET REMAINDER (wall corner families, curb/sidewalk
+9. OPEN | ACT-1 TILESET REMAINDER (wall corner families, curb/sidewalk
    transitions, remaining per-district material coverage) | RUN/CITY — grow
    the 42 frozen starter tiles to full district coverage; this is RUN 0b's
    "each type needs its own dressed language" | per the mobile render
    contract + seam contracts | the frozen target + starter set | ART lane's
    own queue | MED
-8. OPEN | CEMETERY MAP ICON | MAP — the district is APPROVED ("very good")
+10. OPEN | CEMETERY MAP ICON | MAP — the district is APPROVED ("very good")
    and has no icon; named in the theme sheet as the highest-value icon debt
    in the game | map-zoom silhouette readability (squint test) | the approved
    cemetery district itself | WORLD (theme sheet 7/28) | MED
-9. OPEN | INTERIOR STAIRWELL DRESSING (stair-adjacent wall/rail/landing
+11. OPEN | INTERIOR STAIRWELL DRESSING (stair-adjacent wall/rail/landing
    props so upper floors read as real rooms, not bare plates) | RUN + CITY
    interiors — follows row 1 when verticality lands | prop layer, props
    never become collision (7/26 interiors law) | UP interior pool (approved,
    already consumed by the run) | MED — blocked by row 1 shipping first
+
+12. OPEN | FOOTFALL DUST (the pale caliche puff a boot lifts off dry ground;
+   walk puff + heavier run/land puff) | RUN + COMBAT + the CHARACTER stage
+   when a walk clip plays | prop layer, single placement, 4 frames over ONE
+   beat at 120 BPM, leaf-pixel law (anchor frozen, only the cloud edge
+   moves); SUPPRESSED ENTIRELY on wet ground | the approved particle/fire
+   loop bank for loop discipline ONLY (dust occludes, it does not emit);
+   Shovel Knight for pixel landing puffs | CHARACTER lane | MED | TF-CHAR-003
+13. OPEN | PORTRAIT BACKDROP (a material behind the face in the portrait
+   disc, replacing flat #12100c) | CHARACTER tab portrait + any future
+   dialogue portrait | structure layer, single placement, clipped to a 120px
+   disc, authored 1x head-on flat (the deliberate 45-degree exception, stated
+   in the form); must separate BOTH palest skin and near-white hair
+   (237,232,220) | shares material with TF-CHAR-002; Papers Please / Disco
+   Elysium portrait grounds | CHARACTER lane | LOW | TF-CHAR-004
 
 =============================================================================
 ## HELD — filed, blocked on a NAMED Paolo pick (not workable yet)
