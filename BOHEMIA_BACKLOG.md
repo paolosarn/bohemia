@@ -1037,6 +1037,24 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0T. [RESEARCH DELIVERED 7/28, 3 RULINGS PENDING] HOW MANY UNNAMED NPCS, AND WHAT
+   LIVES THEY LIVE. records/BOHEMIA_UNNAMED_NPC_POPULATION_RESEARCH_7_28_26.md.
+   NO CODE WRITTEN, as asked. Measured out of our own files: the full 9,216-cell
+   valley census, 2,832 residential cells = 177 neighborhoods, 23 homes per
+   neighborhood measured from the real generator = ~10,600 pre-collapse people
+   in the WALKABLE valley. THE HEADLINE FINDING: the GDD's death math says ~3%
+   remain and bohemia_agents.js ships OCCUPIED_RATE=0.30 (70% gone) - EIGHT
+   TIMES APART, flagged [PENDING Paolo] since 7/19 and never ruled. Also found:
+   the VALLEY SCALE LAW locks a 5.7-mile valley and the code builds a 1.43-mile
+   one (TILE_M went 96 -> 24 without OVER_N growing, so 1/16th the area).
+   Per-district population table with a grounded reason for every row, six new
+   life archetypes each justified by a district that already exists, and an act
+   1/2/3 curve tied to the GDD's own 50-80k food ceiling.
+   MECHANISM GAPS NAMED, not fixed: agents only exist for suburb plots (a farm
+   has no farmhands because nothing places them), nothing clusters (uniform
+   per-house roll), the job lookup is radius-3 = 72m at today's scale.
+   THREE RULINGS BLOCK ALL OF IT: the die-off rate, clustered vs spread, and the
+   act-3 multiplier. | no gate until he rules | measured 7/28 | YES.
 0S. (7/28, SEEN AND LEFT ALONE ON PURPOSE, [PENDING Paolo]) THE ROOF HIPS DO NOT
    MATCH THE ROOF. The straight roof run wears his shingle skins; the four HIP
    tiles (roof_hipTL/TR/BL/BR, the cut corners where a roof turns) are still the
