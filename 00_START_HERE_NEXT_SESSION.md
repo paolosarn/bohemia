@@ -1,3 +1,48 @@
+ART (06): 7/28 LATEST — ALL 42 TILES RE-COOKED (HE APPROVED IT), AND "NAME THE TAB"
+IS NOW LAW.
+Paolo, on the one-tile proof: "I checked it to do the other 41 mark it approved."
+APPROVE unlocks volume, so all 42 shipped as a NEW bank
+(banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt). The 7/26 bank is untouched and
+still byte-locked - superseded, never overwritten. Verdict:
+records/BOHEMIA_PIXEL_CRAFT_VERDICT_7_28_26.txt
+  orphan pixels 73.58% -> 0.06%   |  colours in one tile 1610 -> 8
+  single-use colours 28.6% -> 0%  |  colour regions/1000px 814 -> 75
+ONE PALETTE PER MATERIAL FAMILY: six ramps of 5-7 steps, pooled only from the tiles that
+ARE that material. Every asphalt tile in the valley is now literally the same seven
+colours. That is the direct fix for the render contract's section 6 palette clause.
+THREE MISTAKES CAUGHT BEFORE HE SAW THEM, all recorded in the tool: (1) authoring 17
+tiles from nothing DELETED HIS DRAWING - sidewalks came back clean and EMPTY where his
+originals had cracks and weeds; authoring is now only the 3 asphalt tiles he actually
+looked at, everything else takes the craft operation and keeps his composition. (2) ramps
+derived from CONTENT not material gave stucco three near-blacks and a 143-luminance
+chasm, and put a GREEN step in terracotta. (3) per-channel stretching clipped to pure
+black, which is a keyline the taste rules ban.
+THE GATE FAILED MY WORK AND THE GATE WAS WRONG. LAW 7 was checked by demanding each
+tile's brightness gradient point upper-left; it failed the re-cook at 29%. Ground tiles
+scored 3/16 (a flat floor has no facing surface) and it failed structure tiles that were
+RIGHT - wall_under_eave reads brighter downward because it IS the course in the eave's
+shadow. Now checked by PAIRS: wall_end_l > wall_end_r, roof_hipBL > roof_hipBR,
+roof_hipTL > roof_hipTR, wall_0 > wall_under_eave, roof_ridge > roof_slope. Proof this
+was not special pleading: the OLD frozen set failed the old check just as badly (37%).
+PROVEN ON THE REAL FRAME (amendment C): the frozen reassembly rebuilt with ONLY the tile
+images swapped, same map, same renderer, real browser canvas.
+records/target/RECOOK_FRAME_AB.png
+NEW LAW, NAME THE TAB (Paolo 7/28, LOCKED): "I need you to always tell me what tab I can
+find this shit in." Every reply names the TAB - RUN/CHARACTER/CLOTHES/ANIMATION/RIG/
+COMBAT/MUSIC/CITY/MAP/SLICE/LIFE - never a file path, never "the judge page", and says
+NOT IN A TAB YET in those exact words when it is in none. In CLAUDE.md's reply contract
+and the doctrine's JUDGE THIS clause. gates/name_the_tab_gate.py (19 checks, registered)
+has TEETH: every judging surface in slices/ must be reachable from the LIFE hub, because
+you cannot name a tab for a thing that is not in one. It immediately caught
+BOHEMIA_SUBURB_JUDGE_7_18_26.html, linked from nowhere for ten days - resolved as DEAD
+under UNJUDGED-IS-DEAD rather than resurrected onto his hub.
+WHERE THINGS ARE, in his language: the judge page is the FIRST CARD OF THE LIFE TAB. The
+42 re-cooked tiles are NOT IN A TAB YET - built, measured, proven, invisible in game.
+[PENDING Paolo] WIRE THE NEW TILES INTO THE CITY AND RUN TABS. Asked, not answered. That
+crosses into two lanes that were shipping live all night, so it waits for his word AND a
+clear lane - do not walk into their files mid-flight, that is how 7/26 got duplicated.
+ALSO PENDING from earlier: what colour is rebuilt Vegas; cars 2x3 vs re-cook shorter.
+
 CITY (03): 7/28 (d) LATEST — THE BORDER WALLS ARE APPROVED, AND I MEASURED WHY THE
 REST STILL LOOKS BAD.
 "walls are there now doing good im happy it still looks like shit so much of the game
