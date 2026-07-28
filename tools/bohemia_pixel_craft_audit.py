@@ -266,6 +266,41 @@ def _opaque_colours(im):
     return [px[x, y][:3] for (x, y) in opaque(im)]
 
 
+def offset_seam(im):
+    """THE OFFSET TEST — the professional way to find a seam, and the one we have
+    failed twice.
+
+    Shift the tile 50% in both axes with wrap. The tile's original edges now meet
+    in a CROSS through the middle, and any discontinuity there is exactly what a
+    player sees as a grid when the tile repeats. Measured as the mean absolute
+    luminance step ACROSS that cross, divided by the tile's own normal
+    neighbour-to-neighbour step. 1.0 means the seam is as quiet as the material's
+    own texture - invisible. Anything much above 1 is a visible grid.
+
+    This is the measurement that would have caught the 7/26 black grid and the
+    desert-pool edge darkening before either shipped."""
+    px = im.convert('RGBA').load()
+    w, h = im.size
+    if w < 8 or h < 8:
+        return None
+    def L(x, y):
+        c = px[x % w, y % h]
+        return None if c[3] <= 8 else lum(c[:3])
+    steps, seam = [], []
+    for y in range(h):
+        for x in range(w):
+            a, b = L(x, y), L(x + 1, y)
+            if a is not None and b is not None:
+                (seam if x == w - 1 else steps).append(abs(a - b))
+            a, b = L(x, y), L(x, y + 1)
+            if a is not None and b is not None:
+                (seam if y == h - 1 else steps).append(abs(a - b))
+    if not steps or not seam:
+        return None
+    base = sum(steps) / len(steps)
+    return round((sum(seam) / len(seam)) / base, 2) if base > 0.5 else None
+
+
 def audit_tile(im):
     osh, ocount = orphan_share(im)
     ncol, once = colour_stats(im)
@@ -284,6 +319,8 @@ def audit_tile(im):
         # the tile's actual colours, so the gate can add up a SET-WIDE palette.
         # A per-tile cap alone would pass 42 tiles of 8 unrelated colours each.
         'palette': sorted(set(_opaque_colours(im))),
+        # 1.0 = the wrap seam is as quiet as the material itself
+        'seam_ratio': offset_seam(im),
     }
 
 

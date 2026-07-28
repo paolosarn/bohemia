@@ -5990,6 +5990,7 @@
        116
       ]
      ],
+     "seam_ratio": 0.83,
      "id": "road_0",
      "size": [
       44,
@@ -12540,6 +12541,7 @@
        110
       ]
      ],
+     "seam_ratio": 0.8,
      "id": "road_1",
      "size": [
       44,
@@ -16085,6 +16087,7 @@
        110
       ]
      ],
+     "seam_ratio": 0.87,
      "id": "road_2",
      "size": [
       44,
@@ -20875,6 +20878,7 @@
        104
       ]
      ],
+     "seam_ratio": 1.27,
      "id": "road_centre",
      "size": [
       44,
@@ -28925,6 +28929,7 @@
        193
       ]
      ],
+     "seam_ratio": 0.7,
      "id": "walk_0",
      "size": [
       44,
@@ -34805,6 +34810,7 @@
        160
       ]
      ],
+     "seam_ratio": 0.71,
      "id": "walk_1",
      "size": [
       44,
@@ -41320,6 +41326,7 @@
        193
       ]
      ],
+     "seam_ratio": 0.68,
      "id": "walk_2",
      "size": [
       44,
@@ -49225,6 +49232,7 @@
        193
       ]
      ],
+     "seam_ratio": 1.32,
      "id": "walk_kerb",
      "size": [
       44,
@@ -55470,6 +55478,7 @@
        116
       ]
      ],
+     "seam_ratio": 1.34,
      "id": "road_gutter",
      "size": [
       44,
@@ -61525,6 +61534,7 @@
        164
       ]
      ],
+     "seam_ratio": 3.45,
      "id": "road_crossing",
      "size": [
       44,
@@ -61720,6 +61730,7 @@
        123
       ]
      ],
+     "seam_ratio": 0.71,
      "id": "yard_0",
      "size": [
       44,
@@ -61915,6 +61926,7 @@
        123
       ]
      ],
+     "seam_ratio": 0.71,
      "id": "yard_1",
      "size": [
       44,
@@ -62110,6 +62122,7 @@
        123
       ]
      ],
+     "seam_ratio": 0.71,
      "id": "yard_2",
      "size": [
       44,
@@ -69040,6 +69053,7 @@
        155
       ]
      ],
+     "seam_ratio": 0.75,
      "id": "concrete_0",
      "size": [
       44,
@@ -77110,6 +77124,7 @@
        201
       ]
      ],
+     "seam_ratio": 0.7,
      "id": "concrete_1",
      "size": [
       44,
@@ -77305,6 +77320,7 @@
        107
       ]
      ],
+     "seam_ratio": 0.71,
      "id": "dirt",
      "size": [
       44,
@@ -77505,6 +77521,7 @@
        115
       ]
      ],
+     "seam_ratio": 5.93,
      "id": "wall_0",
      "size": [
       44,
@@ -77740,6 +77757,7 @@
        138
       ]
      ],
+     "seam_ratio": 6.21,
      "id": "wall_1",
      "size": [
       44,
@@ -77980,6 +77998,7 @@
        132
       ]
      ],
+     "seam_ratio": 6.64,
      "id": "wall_2",
      "size": [
       44,
@@ -78870,6 +78889,7 @@
        115
       ]
      ],
+     "seam_ratio": 8.57,
      "id": "wall_base",
      "size": [
       44,
@@ -79510,6 +79530,7 @@
        98
       ]
      ],
+     "seam_ratio": 3.82,
      "id": "wall_under_eave",
      "size": [
       44,
@@ -79705,6 +79726,7 @@
        138
       ]
      ],
+     "seam_ratio": 4.32,
      "id": "wall_window",
      "size": [
       44,
@@ -80040,6 +80062,7 @@
        132
       ]
      ],
+     "seam_ratio": 3.21,
      "id": "wall_boarded",
      "size": [
       44,
@@ -80315,6 +80338,7 @@
        115
       ]
      ],
+     "seam_ratio": 11.53,
      "id": "door_top",
      "size": [
       44,
@@ -81715,6 +81739,7 @@
        178
       ]
      ],
+     "seam_ratio": 7.42,
      "id": "door_bottom",
      "size": [
       44,
@@ -81840,6 +81865,7 @@
        147
       ]
      ],
+     "seam_ratio": 6.35,
      "id": "garage_top",
      "size": [
       44,
@@ -83010,6 +83036,7 @@
        170
       ]
      ],
+     "seam_ratio": 13.44,
      "id": "garage_bottom",
      "size": [
       44,
@@ -83170,6 +83197,7 @@
        147
       ]
      ],
+     "seam_ratio": 7.46,
      "id": "garage_top_l",
      "size": [
       44,
@@ -84345,6 +84373,7 @@
        170
       ]
      ],
+     "seam_ratio": 14.55,
      "id": "garage_bottom_l",
      "size": [
       44,
@@ -84505,6 +84534,7 @@
        147
       ]
      ],
+     "seam_ratio": 7.46,
      "id": "garage_top_r",
      "size": [
       44,
@@ -85685,6 +85715,7 @@
        170
       ]
      ],
+     "seam_ratio": 14.32,
      "id": "garage_bottom_r",
      "size": [
       44,
@@ -86295,6 +86326,7 @@
        87
       ]
      ],
+     "seam_ratio": 1.0,
      "id": "roof_slope",
      "size": [
       44,
@@ -87310,6 +87342,7 @@
        101
       ]
      ],
+     "seam_ratio": 1.44,
      "id": "roof_ridge",
      "size": [
       44,
@@ -87935,6 +87968,7 @@
        87
       ]
      ],
+     "seam_ratio": 2.14,
      "id": "roof_eave",
      "size": [
       44,
@@ -88545,6 +88579,7 @@
        114
       ]
      ],
+     "seam_ratio": null,
      "id": "roof_hipTL",
      "size": [
       44,
@@ -89155,6 +89190,7 @@
        107
       ]
      ],
+     "seam_ratio": 1.09,
      "id": "roof_hipBL",
      "size": [
       44,
@@ -89755,6 +89791,7 @@
        54
       ]
      ],
+     "seam_ratio": 1.16,
      "id": "roof_hipTR",
      "size": [
       44,
@@ -90350,6 +90387,7 @@
        51
       ]
      ],
+     "seam_ratio": 1.0,
      "id": "roof_hipBR",
      "size": [
       44,
@@ -90630,6 +90668,7 @@
        144
       ]
      ],
+     "seam_ratio": 7.99,
      "id": "wall_end_l",
      "size": [
       44,
@@ -90935,6 +90974,7 @@
        115
       ]
      ],
+     "seam_ratio": 9.84,
      "id": "wall_end_r",
      "size": [
       44,
@@ -91165,6 +91205,7 @@
        95
       ]
      ],
+     "seam_ratio": 1.9,
      "id": "roof_deck",
      "size": [
       44,
@@ -91410,6 +91451,7 @@
        184
       ]
      ],
+     "seam_ratio": 3.67,
      "id": "roof_parapet",
      "size": [
       44,
@@ -91479,6 +91521,7 @@
        82
       ]
      ],
+     "seam_ratio": 0.98,
      "id": "road_0",
      "size": [
       44,
@@ -91529,6 +91572,7 @@
        66
       ]
      ],
+     "seam_ratio": 0.94,
      "id": "road_1",
      "size": [
       44,
@@ -91579,6 +91623,7 @@
        80
       ]
      ],
+     "seam_ratio": 0.95,
      "id": "road_2",
      "size": [
       44,
@@ -91639,6 +91684,7 @@
        99
       ]
      ],
+     "seam_ratio": 1.83,
      "id": "road_centre",
      "size": [
       44,
@@ -91699,6 +91745,7 @@
        133
       ]
      ],
+     "seam_ratio": 0.94,
      "id": "walk_0",
      "size": [
       44,
@@ -91754,6 +91801,7 @@
        131
       ]
      ],
+     "seam_ratio": 1.03,
      "id": "walk_1",
      "size": [
       44,
@@ -91814,6 +91862,7 @@
        132
       ]
      ],
+     "seam_ratio": 1.23,
      "id": "walk_2",
      "size": [
       44,
@@ -91874,6 +91923,7 @@
        133
       ]
      ],
+     "seam_ratio": 1.71,
      "id": "walk_kerb",
      "size": [
       44,
@@ -91929,6 +91979,7 @@
        80
       ]
      ],
+     "seam_ratio": 2.24,
      "id": "road_gutter",
      "size": [
       44,
@@ -91984,6 +92035,7 @@
        137
       ]
      ],
+     "seam_ratio": 5.97,
      "id": "road_crossing",
      "size": [
       44,
@@ -92029,6 +92081,7 @@
        114
       ]
      ],
+     "seam_ratio": 0.94,
      "id": "yard_0",
      "size": [
       44,
@@ -92074,6 +92127,7 @@
        114
       ]
      ],
+     "seam_ratio": 1.02,
      "id": "yard_1",
      "size": [
       44,
@@ -92119,6 +92173,7 @@
        114
       ]
      ],
+     "seam_ratio": 0.94,
      "id": "yard_2",
      "size": [
       44,
@@ -92169,6 +92224,7 @@
        118
       ]
      ],
+     "seam_ratio": 1.18,
      "id": "concrete_0",
      "size": [
       44,
@@ -92229,6 +92285,7 @@
        132
       ]
      ],
+     "seam_ratio": 1.0,
      "id": "concrete_1",
      "size": [
       44,
@@ -92269,6 +92326,7 @@
        106
       ]
      ],
+     "seam_ratio": 1.19,
      "id": "dirt",
      "size": [
       44,
@@ -92309,6 +92367,7 @@
        110
       ]
      ],
+     "seam_ratio": 5.12,
      "id": "wall_0",
      "size": [
       44,
@@ -92349,6 +92408,7 @@
        119
       ]
      ],
+     "seam_ratio": 19.52,
      "id": "wall_1",
      "size": [
       44,
@@ -92394,6 +92454,7 @@
        108
       ]
      ],
+     "seam_ratio": 14.13,
      "id": "wall_2",
      "size": [
       44,
@@ -92434,6 +92495,7 @@
        110
       ]
      ],
+     "seam_ratio": 16.89,
      "id": "wall_base",
      "size": [
       44,
@@ -92469,6 +92531,7 @@
        96
       ]
      ],
+     "seam_ratio": 13.28,
      "id": "wall_under_eave",
      "size": [
       44,
@@ -92519,6 +92582,7 @@
        136
       ]
      ],
+     "seam_ratio": 6.15,
      "id": "wall_window",
      "size": [
       44,
@@ -92569,6 +92633,7 @@
        110
       ]
      ],
+     "seam_ratio": 2.34,
      "id": "wall_boarded",
      "size": [
       44,
@@ -92619,6 +92684,7 @@
        120
       ]
      ],
+     "seam_ratio": 14.72,
      "id": "door_top",
      "size": [
       44,
@@ -92669,6 +92735,7 @@
        179
       ]
      ],
+     "seam_ratio": 11.93,
      "id": "door_bottom",
      "size": [
       44,
@@ -92719,6 +92786,7 @@
        117
       ]
      ],
+     "seam_ratio": 6.59,
      "id": "garage_top",
      "size": [
       44,
@@ -92759,6 +92827,7 @@
        117
       ]
      ],
+     "seam_ratio": 33.29,
      "id": "garage_bottom",
      "size": [
       44,
@@ -92809,6 +92878,7 @@
        117
       ]
      ],
+     "seam_ratio": 7.81,
      "id": "garage_top_l",
      "size": [
       44,
@@ -92849,6 +92919,7 @@
        118
       ]
      ],
+     "seam_ratio": 33.27,
      "id": "garage_bottom_l",
      "size": [
       44,
@@ -92899,6 +92970,7 @@
        117
       ]
      ],
+     "seam_ratio": 7.81,
      "id": "garage_top_r",
      "size": [
       44,
@@ -92939,6 +93011,7 @@
        118
       ]
      ],
+     "seam_ratio": 33.27,
      "id": "garage_bottom_r",
      "size": [
       44,
@@ -92994,6 +93067,7 @@
        70
       ]
      ],
+     "seam_ratio": 1.5,
      "id": "roof_slope",
      "size": [
       44,
@@ -93049,6 +93123,7 @@
        248
       ]
      ],
+     "seam_ratio": 3.6,
      "id": "roof_ridge",
      "size": [
       44,
@@ -93104,6 +93179,7 @@
        70
       ]
      ],
+     "seam_ratio": 3.1,
      "id": "roof_eave",
      "size": [
       44,
@@ -93154,6 +93230,7 @@
        72
       ]
      ],
+     "seam_ratio": null,
      "id": "roof_hipTL",
      "size": [
       44,
@@ -93209,6 +93286,7 @@
        69
       ]
      ],
+     "seam_ratio": 1.11,
      "id": "roof_hipBL",
      "size": [
       44,
@@ -93249,6 +93327,7 @@
        50
       ]
      ],
+     "seam_ratio": 1.77,
      "id": "roof_hipTR",
      "size": [
       44,
@@ -93289,6 +93368,7 @@
        53
       ]
      ],
+     "seam_ratio": 0.97,
      "id": "roof_hipBR",
      "size": [
       44,
@@ -93334,6 +93414,7 @@
        116
       ]
      ],
+     "seam_ratio": 8.15,
      "id": "wall_end_l",
      "size": [
       44,
@@ -93374,6 +93455,7 @@
        113
       ]
      ],
+     "seam_ratio": 14.16,
      "id": "wall_end_r",
      "size": [
       44,
@@ -93429,6 +93511,7 @@
        90
       ]
      ],
+     "seam_ratio": 2.95,
      "id": "roof_deck",
      "size": [
       44,
@@ -93484,6 +93567,7 @@
        248
       ]
      ],
+     "seam_ratio": 3.39,
      "id": "roof_parapet",
      "size": [
       44,

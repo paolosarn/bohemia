@@ -87,6 +87,17 @@ GROUND_PREFIXES = ('road', 'walk', 'yard', 'concrete', 'dirt', 'ground', 'gravel
                    'asphalt', 'turf', 'track', 'apron', 'lot')
 DETAIL_SPREAD_MAX = 3.0
 
+# M10 THE OFFSET SEAM TEST. Ratio of the wrap seam's luminance step to the tile's
+# own internal step: 1.0 means the seam is as quiet as the material. ONLY applied
+# to tiles that actually claim to repeat - a door is supposed to be discontinuous
+# at its edge, and the first cut of this measurement included doors and produced
+# an alarming, useless 33. Measured 7/28: frozen 1.80 mean / 6.64 worst,
+# re-cook 3.27 / 19.52 (wall_1) - the re-cook made wall seams 3x worse.
+SEAMLESS_TILES = ('road_0', 'road_1', 'road_2', 'walk_0', 'walk_1', 'walk_2',
+                  'yard_0', 'yard_1', 'yard_2', 'concrete_0', 'concrete_1', 'dirt',
+                  'wall_0', 'wall_1', 'wall_2', 'roof_slope', 'roof_deck')
+SEAM_RATIO_MAX = 2.0
+
 P = F = 0
 
 
@@ -266,6 +277,20 @@ def main():
                 '%s: M5 DETAIL SPREAD — the busiest tile is %.1fx the set median '
                 '(%.1f vs %.1f). The eighteen forms are ONE job, not eighteen.'
                 % (path, worst / med, worst, med))
+
+        # M10 the offset seam test, on the tiles that claim to repeat
+        sr = [(r.get('seam_ratio'), r['id']) for r in rows
+              if r.get('seam_ratio') and r['id'] in SEAMLESS_TILES]
+        if sr:
+            worst, wid = max(sr)
+            msg = ('%s: M10 OFFSET SEAM — %s wraps at %.1fx its own internal step '
+                   '(max %.1f). A seam louder than the material IS the grid, which '
+                   'is the 7/26 black grid and the desert-pool failure both.'
+                   % (path, wid, worst, SEAM_RATIO_MAX))
+            if path in MASTERY_EXEMPT:
+                print('  NOTE  ' + msg + ' (reported: predates the mastery laws)')
+            else:
+                chk(worst <= SEAM_RATIO_MAX, msg)
 
         seen = set()
         for r in b.get('rows', []):

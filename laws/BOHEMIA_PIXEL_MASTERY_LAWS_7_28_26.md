@@ -175,3 +175,109 @@ bite.
 - Tileset cohesion + detail-matching: [Understanding Tilesets](https://www.animationguides.com/tilesets-in-game-design/), [Top-Down Tile Set Design Guide](https://www.flooringclarity.com/tile-set-design-2d-games/)
 - Material roughness motivation: [Pixune — Textures vs Materials vs Shaders](https://pixune.com/blog/textures-vs-materials-vs-shaders/)
 - **Pixel Logic (Michael Azzi) — still NOT read, still blocked by the network policy, still a real backlog item.**
+
+---
+
+# PART 2 — THE PRODUCTION LAWS (7/28, second research pass)
+
+Paolo: *"Do more research think about our project files and what we need and do
+more research."* So this pass is not general craft. It is aimed at what THIS
+repo is about to do: cook eighteen material families, each promising rain-wet
+states, some promising lit states, most declaring a seamless or blob edge
+contract — none of which I have ever actually built.
+
+## M9. INDEX THE TILES, AND NIGHT / RAIN / ACT 2 / ACT 3 BECOME FREE
+
+> *"Palette swapping works by changing the color mappings of an indexed image...
+> you can change the color that each number corresponds to dynamically, which
+> causes all the corresponding areas in the image to change too."*
+> *"A day/night cycle similar to Pokemon Gold/Silver can be implemented using
+> just a palette swap."*
+> *"Restricting a sprite to fewer colors allows the color data to be stored once
+> with each pixel given an index offset instead."*
+
+**This is the biggest thing in the repo right now and we accidentally earned it
+yesterday.** The re-cook put the whole 42-tile set on six family ramps and 150
+colours set-wide. That means the tiles can be stored as **palette indices** and
+not RGB — and once they are:
+
+- **night** is a palette, not a tileset
+- **rain-wet** is a palette, not a tileset (every one of the eighteen forms
+  promises a wet state; that is 18 extra families we do not have to draw)
+- **act 2 / act 3** are palettes — which retires the whole
+  `bohemia_act_triptych.py` un-painting approach, since with indices you shift
+  ramp steps instead of trying to recover a clean surface from painted decay
+- **district colourways** are palettes (STRUCTURE-NOT-COLOR already says a
+  recolour is never progress — this makes recolours nearly free, so they stop
+  competing with real work)
+- **memory** drops: one byte per pixel instead of four, against the ~224 MB
+  clause already measured in the render contract
+
+It also **kills two named debts at once**: the per-tile value-band offset in
+render contract 6b (tiles cannot drift off a shared palette if they literally
+index into it) and M6's RGB-spaced ramps (perceptual re-spacing becomes editing
+one palette, not re-cooking 42 tiles).
+
+**THE LAW:** every family cooked from a tile form ships INDEXED — its pixels
+reference its family ramp by index, and the ramp ships beside it. **[NAMED, NOT
+DONE: the current banks store RGB. Converting them is the next ART job and it is
+a mechanical, lossless transform, not a re-cook.]**
+
+## M10. THE OFFSET TEST IS THE SEAM TEST — and we fail it on walls
+
+> *"Apply an offset filter, shifting the image horizontally by half its width and
+> vertically by half its height... the original edges of your texture form a
+> cross shape right in the middle of your canvas — this is where the seams are."*
+> *"Heavy borders that outline the edge of the tile... guarantees it reads as a
+> grid of tiles instead of a continuous surface."*
+
+That second line is our own history twice over: the 7/26 black grid, and the
+desert pool's measured edge darkening.
+
+**MEASURED 7/28** — wrap-seam step divided by the tile's own internal step, so
+1.0 means the seam is as quiet as the material itself. Scoped to the tiles that
+actually claim to repeat (a door is *supposed* to be discontinuous at its edge;
+measuring a door's wrap is meaningless and the first cut of this number did
+exactly that and produced an alarming, useless 33):
+
+| self-seamless tiles | mean | worst |
+|---|---|---|
+| frozen 7/26 set | 1.80 | 6.64 (wall_2) |
+| **re-cooked 7/28 set** | **3.27** | **19.52 (wall_1)** |
+
+**The re-cook made wall seams THREE TIMES WORSE.** Ground came through fine;
+snapping the wall field to a ramp amplified a vertical discontinuity that was
+already there, so a long wall now bands every 44 px. Mine, measured, named.
+
+**THE LAW:** any tile declaring SELF-SEAMLESS is measured by the offset test
+before it ships. Reported on existing banks (they carry a verdict); hard fail on
+everything cooked from a form.
+
+## M11. IRREGULAR CLUSTERING, NEVER EVEN SPACING
+
+> *"Perfectly even spacing amplifies the repeat; irregular, slightly clustered
+> detail hides it instead."*
+
+This closes the loop on M1 from the other side. My tiles scatter detail
+*evenly at random*, which is the worst of both: not motivated, and not clustered.
+The fix is one move — put the wear where something happened (M1), in irregular
+clumps, and leave the rest of the surface empty.
+
+## M12. BLOB-47: EDGES, THEN CORNERS, THEN ISOLATED — AND THE INNER CORNERS ARE THE TRAP
+
+> *"The full bitmask considers all 8 neighbours, producing 256 possible
+> combinations... in practice you need 47 unique tile variants."*
+> *"Draw all edge variants first, then corners, then isolated tiles."*
+> *"The inner corner tiles (where a diagonal is empty but all cardinals are
+> filled) are the trickiest to get right visually."*
+
+Eight of the eighteen forms declare a WANG-16 or BLOB-47 contract and I have
+never authored one. That order is the recipe, and the inner corner is the tile
+to build first as the test, not last as the afterthought.
+
+## SOURCES (part 2)
+
+- [Boris the Brave — Classification of Tilesets](https://www.boristhebrave.com/2021/11/14/classification-of-tilesets/) and [Red Blob Games — Autotiling](https://www.redblobgames.com/articles/autotile/)
+- [How to make seamless pixel art textures](https://axidus.io/blog/how-to-make-seamless-pixel-art-textures) · [Pixel art tiles that don't look terrible](https://www.sprite-ai.art/blog/seamless-pixel-art-tiles) · [Building tileable textures that work in production](https://www.texturly.com/blog/building-tileable-textures-that-actually-work-in-production)
+- [Color cycling in pixel art](https://blog.prototypr.io/color-cycling-in-pixel-art-c8f20e61b4c4) and the Pokemon Gold/Silver day-night palette-swap devlog
+- **Pixel Logic: still NOT read.**
