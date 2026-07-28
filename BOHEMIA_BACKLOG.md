@@ -25,6 +25,31 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1m. [DONE 7/28 — TILE FORMS ORDER] FOUR FORMS FILED, AND THE FINDING THAT MOST LAB
+   SURFACES MUST NEVER GET ART.
+   Walked all five lab surfaces. FOUR are REFERENCE pages marked NOT BOHEMIA (Stardew
+   x3, Valheim model) and are FORBIDDEN from consuming approved art by lab_gate clause
+   3 — they need ZERO tiles, permanently. engine/bohemia_resolve.js is headless. Only
+   BOHEMIA_LAB_MOBILE_CAMP_DIAL has real gaps, because its mechanisms are now canon law.
+   SHOPPING FIRST CHANGED THE ASK (two findings worth reusing): pack "14. Camp and
+   tents" has 18 UP tiles (2 REFERENCE-class per Paolo's "training data for quick
+   tents", 4 BIG-flagged), so the camp is PARTLY COVERED and TF-LAB-001 says dress from
+   pack 14 rather than re-draw it; and the approved FIRE/PARTICLE loops already cover
+   the fire, so it is not an ask. Against that, THERE IS NO MEDICAL PACK IN THE 87-PACK
+   CORPUS AT ALL (enumerated) — the cleanest gap on the board.
+   FORMS: TF-LAB-001 the camp SET DOWN (backs board row 3, which was HIGH and formless);
+   TF-LAB-002 the camp PACKED (clause 1's other half, nothing covered it — new row 10,
+   HIGH); TF-LAB-003 field dressings (clause 8 — row 11); TF-LAB-004 the bullet kit
+   (clause 8's companion-only role — row 12). Each carries real Vegas grounding (the
+   storm-drain and drainage-canal camps: scavenged wood and metal under BLUE VINYL TARP,
+   sun-bleached chalky; the shopping cart as the real transport unit), a named outside
+   reference, and the anti-reference.
+   HELD not formed, on purpose: H5 the supply pool's searched-container state (blocked on
+   clause (a) and loot is a CLOSED subject); H6 friendly shelter looks (blocked on clause
+   (k) and it is WORLD's district content — LAB flags, does not claim).
+   NO ART COOKED. tileform_gate does not exist yet and is SHARED's per the form law, so
+   I self-validated the four forms against the law's stated rules instead of building
+   another lane's gate: 4 OK / 0 problems.
 1l. [RULED 7/28 — CLAUSE 17, AND IT IS A CORRECTION OF ME] THE STEP CLOCK IS NOT THE
    DAY CLOCK. Paolo: "I'm glad you have that math, but that's just if you were
    walking... a lot of things in this game will take up time and time will pass just by

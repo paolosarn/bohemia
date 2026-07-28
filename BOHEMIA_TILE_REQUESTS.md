@@ -124,7 +124,11 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    awning, lantern, cook pot — roster pending Paolo but the CART + FIRE are
    already canon) | RUN — the mobile base build | fire uses the APPROVED
    fire-flicker loops (zero-consumer bank, routed 7/27) | cart canon +
-   approved fire bank | RUN lane | HIGH
+   approved fire bank | RUN lane | HIGH | FORM: TF-LAB-001 (the DEPLOYED CAMP
+   half only — filled 7/28 by LAB, which owns
+   laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md. The FIRE is already
+   approved and is NOT an ask. The kit roster stays HELD at H4 until Paolo
+   rules clause (g). The CARRIED half is its own row, 80.)
 4. OPEN | DESERT GROUND, SEAMLESS (a ground family that actually tiles: open
    desert, hardpan, rock scatter, the desert-to-pavement blob edges) | RUN —
    twenty-plus districts sit on desert and the existing DESERT/TERRAIN pool
@@ -601,6 +605,62 @@ records/BOHEMIA_COMBAT_TILE_SHOPPING_FINDINGS_7_28_26.md
    face) are MATERIALS; this row is the COURSE SYSTEM those materials get cut
    into. Agree the course anatomy here, then cook each material against it —
    do not invent a second stack.
+
+
+=====
+## OPEN — LAB LANE (filed 7/28 under the TILE FORMS ORDER)
+## ROW NUMBERS 80-82, WITH A DELIBERATE GAP. This block has been renumbered
+## THREE TIMES in one day: 18-20 (CHARACTER and ART took those while I was
+## verifying), then 60-62 (CITY took those), now 80-82 with a gap above the
+## highest row in use (67). I first took 18-20 and by
+## the time I pushed, CHARACTER held 18-19 and ART held 20 — the third collision
+## of the day on this board. I did NOT renumber anyone else (their forms carry
+## BOARD ROW # pointers I would break); I moved my own block above the highest
+## row in use (57) and left a gap.
+## AND THE RUN LANE'S DIAGNOSIS IS CORRECT, so it is worth restating rather than
+## re-learning: THE STABLE KEY IS THE TF ID, NOT THE ROW NUMBER. An append-only
+## board shared by parallel lanes cannot use a hand-assigned integer and stay
+## unique. Every one of my forms carries its TF id and the art lane should read
+## by id; the row number is a convenience that will keep drifting until the board
+## owner replaces it.
+## WHAT THIS LANE FILED AND WHY IT IS ONLY FOUR: four of the five LAB surfaces
+## are REFERENCE pages marked "NOT BOHEMIA" and lab_gate clause 3 forbids them
+## from ever consuming approved art, so they need ZERO tiles, permanently. Only
+## the MOBILE CAMP DIAL has real gaps, because its mechanisms became canon law
+## (laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md). The DEPLOYED camp is row 3
+## (TF-LAB-001 fills that formerly formless HIGH row); these three are the rest.
+=============================================================================
+80. OPEN | THE CAMP, PACKED (the bundle on the player's back — the carried half
+   of the mobile camp, with its walk facing set) | RUN + CHARACTER — the mobile
+   camp law's clause 1 is TWO states ("a thing you CARRY and SET DOWN") and
+   nothing on this board or in the corpus covers the carried one; today a packed
+   player is visually identical to an unpacked one, which wastes the one
+   silhouette that would communicate the game's headline survival ruling for
+   free | prop, body-mounted, attaches to the rig (RIG LAW: never reshapes a
+   painted region), leaf-pixel law across the walk | the canon rig + approved
+   wardrobe outer layers; judged as a PAIR with TF-LAB-001 ("that unrolls into
+   that") | LAB | HIGH | FORM: TF-LAB-002
+81. OPEN | FIELD DRESSINGS (bandage roll + gauze pad: sealed, opened, and used
+   states) | RUN at the camp + friendly-shelter interiors — the mobile camp law
+   clause 8 is Paolo's own words, "a camp where u can apply a bandage... apply
+   gauze", and clause 15 makes a dressing the answer to a wound | prop, tiny
+   (hand-scale); the sealed state is the ONE clean thing in a dead world and the
+   used state borrows the approved gore bank's legal red | approved GORE OVERLAY
+   bank (20 UP) as the anchor for the used state; blessed lamp bank for the
+   cylinder | LAB | MED | FORM: TF-LAB-003
+   NOTE FOR EVERY LANE: THERE IS NO MEDICAL PACK ANYWHERE IN THE 87-PACK
+   APPROVED CORPUS — enumerated 7/28 against
+   banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt. Not judged down; never present.
+82. OPEN | THE BULLET KIT (instruments laid out on a cloth: ready state + used
+   state with the bullet on the cloth) | RUN at the camp, at NIGHT by the
+   approved firelight — clause 8's "a place a companion can pull out a bullet
+   from your body", which the law records as THE FIRST RULED MECHANICAL ROLE FOR
+   A COMPANION in the game and which camp_dial_gate already locks (alone you
+   cannot, with a companion you can) | prop, ~1 tile spread; specular metal is
+   the point, so it is authored to be judged in firelight | approved
+   fire-flicker bank + gore overlays; the approved junk packs are the CONTROL to
+   compare against (if it reads as litter it failed) | LAB | MED | FORM:
+   TF-LAB-004
 
 =============================================================================
 ## HELD — filed, blocked on a NAMED Paolo pick (not workable yet)

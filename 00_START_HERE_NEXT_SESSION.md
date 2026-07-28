@@ -961,6 +961,81 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
+LAB (09): 7/28 (r) — THE BOARD RENUMBERED MY BLOCK THREE TIMES IN ONE DAY, AND THE FIX IS
+NOT MORE CAREFUL NUMBERING. Six lanes filed tile forms within about an hour, all appending
+hand-assigned integers to ONE shared file. My rows collided three times: I took 18-20
+(CHARACTER took 18-19 and ART took 20 while I was verifying), moved to 60-62 (CITY took
+60-67), and finally to 80-82 with a deliberate gap. I renumbered NOBODY ELSE at any point —
+their forms carry BOARD ROW # pointers I would have broken — and the board now has ZERO
+duplicate row numbers, which it did not when I arrived.
+THE RUN LANE'S DIAGNOSIS IS CORRECT AND IS NOW RESTATED IN MY BLOCK SO NOBODY RE-LEARNS IT:
+THE STABLE KEY IS THE TF ID, NOT THE ROW NUMBER. An append-only board shared by parallel
+lanes cannot use a hand-assigned integer and stay unique. Read by TF id; treat the row number
+as a convenience that will drift until the board owner replaces it.
+AND THE GATE EXISTS NOW: the CITY lane built gates/tileform_gate.py (the one the form law
+named and routed to SHARED). My four forms pass it — 6477 checks across 54 forms, 0 failed —
+and I mutation-tested that it really inspects mine (changing TF-LAB-003's edge_contract to
+"MAGIC" reds exactly one check, naming the four legal words). So my earlier self-validation is
+superseded by the real thing, which is the better outcome.
+MY FOUR FORMS, FINAL ROW NUMBERS: TF-LAB-001 the camp SET DOWN = board row 3 (it fills that
+formerly formless HIGH row); TF-LAB-002 the camp PACKED = row 80; TF-LAB-003 field dressings =
+row 81; TF-LAB-004 the bullet kit = row 82. HELD, unformed on purpose: H5 supply-container
+searched state (clause (a) + loot is a closed subject), H6 friendly shelter looks (clause (k)
++ WORLD's content).
+
+LAB (09): 7/28 (q) LATEST — TILE FORMS FILED: 4 FORMS, AND THE HONEST FINDING THAT MOST OF
+THIS LANE'S SURFACES MUST NEVER GET ART.
+Order: fill one research-backed form per tile the lane needs that the approved index does not
+cover. WALKED ALL FIVE LAB SURFACES AND CLASSIFIED THEM (the evidence, so nobody later reads
+this as under-filing): FOUR of the five are REFERENCE pages carrying "NOT BOHEMIA" and
+"PLACEHOLDER ART" — the Stardew x3 and the Valheim model. By lab_gate clause 3 (NEVER THE
+GAME) they are FORBIDDEN from consuming approved Bohemia art, forever, so they need ZERO
+tiles. engine/bohemia_resolve.js is headless (its only render-ish hits are the word "ctx"
+meaning context). The FIFTH — BOHEMIA_LAB_MOBILE_CAMP_DIAL — is HIS RULESET, and its
+mechanisms are now canon law, so its art gaps are real. Those are the four forms.
+SHOPPING FIRST, AND IT CHANGED WHAT I ASKED FOR (rule 2). Two findings any lane should reuse:
+  * PACK "14. Camp and tents" HAS 18 UP TILES in banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt
+    — 2 are REFERENCE class (Paolo's comment "Training data for quick tents", idx 2/3, SMALL),
+    4 carry BIG flags needing ITEM_SCALE 0.55, leaving ~12 un-commented UP props. So the camp
+    is PARTLY COVERED and the form says DRESS FROM PACK 14, do not re-draw it. The approved
+    FIRE/PARTICLE loops (5 campfire clips, zero consumers, index-routed to the camp) mean the
+    FIRE IS NOT AN ASK either — cooking one would break the shopping law.
+  * THERE IS NO MEDICAL PACK ANYWHERE IN THE 87-PACK CORPUS. I enumerated all 87 pack names
+    against medic/hospital/clinic/pharm/chem: zero. Not judged down — never present. That is
+    the cleanest gap on the whole board.
+THE FOUR FORMS (records/tileforms/, each ~170-220 lines, filled to the TF-RUN-001 bar):
+  TF-LAB-001 THE CAMP, SET DOWN — backs board row 3, which was HIGH and FORMLESS. Filled by
+    LAB because LAB owns the law that defines it. Asks for ONE object with a known 2x2
+    deployed footprint (comfort is a radius from it), not props — pack 14 dresses it.
+  TF-LAB-002 THE CAMP, PACKED — clause 1 is TWO states and nothing covered the carried one.
+    Body-mounted, rig-attached (RIG LAW: never reshapes a painted region), judged as a PAIR
+    with 001 so "that unrolls into that" holds. New board row 10, HIGH.
+  TF-LAB-003 FIELD DRESSINGS — clause 8's bandage and gauze. Row 11, MED.
+  TF-LAB-004 THE BULLET KIT — clause 8's companion-only bullet removal, the first ruled
+    mechanical role a companion has. Row 12, MED.
+REAL VEGAS GROUNDING (researched, cited in every form): the real camps are in the storm-drain
+tunnels and drainage canals built from the 1990s to save the Strip from flash floods, ~1,500
+people; construction is "a frame of scavenged wood and metal covered by BLUE VINYL TARP"; the
+SHOPPING CART is the real transport unit (floods carry carts, wood and boulders through the
+drains); milk crates, pallets and furniture are the real camp furniture. Two Mojave truths the
+forms hold the art lane to: everything is SUN-BLEACHED (blue vinyl goes chalky pale, never
+vivid — which is also how it fits the palette ceiling), and camps sit in washes, dry eleven
+months then lethal. Dressings: real rolled cotton gauze, ~4.5in, sealed in airtight foil
+packets — so a sealed dressing is one of the very few things in a dead city that is still
+genuinely INTACT, and the form makes that contrast the tile's whole job.
+FLAGGED NOT DECIDED, filed as HELD rather than forms because a form for a pending thing is a
+vague form and gets bounced: H5 the supply pool's searched-vs-unsearched container STATE
+(blocked on clause (a), and LOOT IS A CLOSED LAB SUBJECT after two kills — filing it would
+re-open a closed subject); H6 friendly shelter looks for the act curve (blocked on clause (k)
+AND it is WORLD/CITY district content, so LAB flags the need and does not claim the build).
+The camp comfort KIT stays H4 (clause (g) is his).
+NOT DONE, DELIBERATELY: no art cooked (the order forbids it — the ART lane cooks from forms).
+And tileform_gate DOES NOT EXIST YET — the form law routes it to SHARED, so I did not build
+another lane's gate; instead I self-validated all four forms against the law's stated rules
+(every required heading, caption JSON parses with all 15 keys, legal layer, legal edge
+vocabulary, caption id matches filename, shopping check names a real index entry, all three
+references present): 4 OK / 0 problems. SHARED still owns building the real gate.
+
 LAB (09): 7/28 (p) LATEST — CLAUSE 17: THE STEP CLOCK IS NOT THE DAY CLOCK, AND HE HAD TO
 CORRECT ME FOR BLURRING THEM. READ THIS BEFORE SIZING ANY BUFF IN THIS GAME.
 Paolo: "I'm glad you have that math, but that's just if you were walking now you have to
