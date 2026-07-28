@@ -96,34 +96,87 @@
    for CONTRAST against both palest skin (224,211,203) and near-black coat
    (~42 lum) | the frozen CBB target screen's bands; Darkest Dungeon's hero
    panels | CHARACTER lane | HIGH | TF-CHAR-002
+9. OPEN | GRAVEL / BALLAST GROUND (fine yard gravel + coarse rail ballast +
+   the gravel-to-desert blob edges, plus a wet colorway) | RUN — five district
+   types are floored in crushed rock and all of them render as the single
+   starter tile `dirt`: solar `gravel access road` x1150/cell, substation
+   `gravel yard` x924, battery x891, railyard `ballast` x739, swapmeet x398
+   (records/BOHEMIA_RUN_DISTRICT_MATERIAL_SURVEY_7_28_26.md) | ground layer,
+   self-seamless + blob-47 to desert; seam MEASURED before judging | the frozen
+   starter set's `dirt` and `concrete_0` (it must sit between them in value) |
+   RUN lane | HIGH | FORM: TF-RUN-002
+10. OPEN | CHAIN-LINK FENCE + RAZOR WIRE (straight run, corner, gate leaf,
+   breach) | RUN — the game's FIRST see-through structure. Five approved
+   district dossiers specify fencing in their own words ("fortress fence",
+   "double-fenced", "fenced") and every one currently resolves to `wall_base`,
+   the same opaque course the run lays as the bottom of a HOUSE — the identical
+   defect Paolo already named once ("the suburb border walls are not changed
+   its still the house tiles") | structure layer, SOLID, 2 tiles tall (door
+   law), WANG-16 line + single-placement gate/breach; gate leaf reuses the
+   approved 9-frame 2-beat door clip contract | the 13 approved perimeter walls
+   as its deliberate OPPOSITE NUMBER | RUN lane | HIGH | FORM: TF-RUN-003
+11. OPEN | CORRUGATED METAL BUILDING SKIN (wall face, base, under-eave, corner,
+   roll-up surround; 2-3 colorways) | RUN — the industrial half of the valley is
+   built out of house stucco: industrial `warehouse` x416/cell, storage
+   `storage-unit building` x333, warehouse `tenant unit` x267, firestation
+   quarters x355 | structure layer, slots into the run's existing 4-course
+   stack with no renderer change; self-seamless horizontally (highest seam risk
+   on the board - the ribs expose any seam) | the starter set's wall stack +
+   garage bay | RUN lane | HIGH | FORM: TF-RUN-004
+12. OPEN | TILT-UP / PRECAST CONCRETE BUILDING SKIN (panel, panel joint, base,
+   parapet, corner) | RUN — every civic monument in the game wears tract
+   housing: downtown `podium / mid-rise` x882/cell (the largest structure count
+   in the survey), library x682, courthouse x651, jail x424, medical x394,
+   policestation x334 | structure layer, self-seamless + single-placement panel
+   joint every 4-6 tiles; big blank fields, NO dither | the starter set's
+   `roof_deck` + `roof_parapet`, which exist and have nothing to sit on | RUN
+   lane | HIGH | FORM: TF-RUN-005
+13. OPEN | MOBILE HOME SKIN (side, end, skirting, low roof edge, burned-out
+   variant) | RUN — trailer `mobile home` x395/cell renders as stucco with a
+   hip roof, which is wrong in all four ways that matter (metal not masonry,
+   low not tall, shallow roof not hip, on blocks not slab); the approved
+   trailer dossier already gates the LAYOUT ("some burned out") while the
+   MATERIAL does not exist | structure layer, SHORTER than the 4-course stack
+   (2 courses + skirting - stack override to be agreed BEFORE cooking);
+   HORIZONTAL ribs, deliberately opposite to row 12 | the 30 approved house
+   skins, as the deliberate contrast | RUN lane | MED | FORM: TF-RUN-006
+14. OPEN | SOLAR PANEL ARRAY (row, row end, cracked panel, bare rack, frozen
+   tracker) | RUN — solar `solar panel` x354/cell renders as house stucco, so
+   the most recognisable industrial silhouette in the Mojave looks like tiny
+   suburban walls; also unblocks the theme sheet's own solar hook ("frozen
+   solar trackers out of step"), which cannot be drawn today | structure layer,
+   TILTED PLANE (the clearest test of the 45-degree law on the board), dark end
+   of the structure band, self-seamless along the row axis; map-readable so the
+   squint test applies | approved LAMP DARK VARIANTS as the nearest tonal
+   reference | RUN lane | MED | FORM: TF-RUN-007
 
 =============================================================================
 ## OPEN — MED
 =============================================================================
-9. OPEN | ACT-1 TILESET REMAINDER (wall corner families, curb/sidewalk
+15. OPEN | ACT-1 TILESET REMAINDER (wall corner families, curb/sidewalk
    transitions, remaining per-district material coverage) | RUN/CITY — grow
    the 42 frozen starter tiles to full district coverage; this is RUN 0b's
    "each type needs its own dressed language" | per the mobile render
    contract + seam contracts | the frozen target + starter set | ART lane's
    own queue | MED
-10. OPEN | CEMETERY MAP ICON | MAP — the district is APPROVED ("very good")
+16. OPEN | CEMETERY MAP ICON | MAP — the district is APPROVED ("very good")
    and has no icon; named in the theme sheet as the highest-value icon debt
    in the game | map-zoom silhouette readability (squint test) | the approved
    cemetery district itself | WORLD (theme sheet 7/28) | MED
-11. OPEN | INTERIOR STAIRWELL DRESSING (stair-adjacent wall/rail/landing
+17. OPEN | INTERIOR STAIRWELL DRESSING (stair-adjacent wall/rail/landing
    props so upper floors read as real rooms, not bare plates) | RUN + CITY
    interiors — follows row 1 when verticality lands | prop layer, props
    never become collision (7/26 interiors law) | UP interior pool (approved,
    already consumed by the run) | MED — blocked by row 1 shipping first
 
-12. OPEN | FOOTFALL DUST (the pale caliche puff a boot lifts off dry ground;
+18. OPEN | FOOTFALL DUST (the pale caliche puff a boot lifts off dry ground;
    walk puff + heavier run/land puff) | RUN + COMBAT + the CHARACTER stage
    when a walk clip plays | prop layer, single placement, 4 frames over ONE
    beat at 120 BPM, leaf-pixel law (anchor frozen, only the cloud edge
    moves); SUPPRESSED ENTIRELY on wet ground | the approved particle/fire
    loop bank for loop discipline ONLY (dust occludes, it does not emit);
    Shovel Knight for pixel landing puffs | CHARACTER lane | MED | TF-CHAR-003
-13. OPEN | PORTRAIT BACKDROP (a material behind the face in the portrait
+19. OPEN | PORTRAIT BACKDROP (a material behind the face in the portrait
    disc, replacing flat #12100c) | CHARACTER tab portrait + any future
    dialogue portrait | structure layer, single placement, clipped to a 120px
    disc, authored 1x head-on flat (the deliberate 45-degree exception, stated
@@ -297,6 +350,13 @@ H4. HELD | MOBILE-BASE UPGRADE LOOKS (camp comfort tiers) | RUN | tables ship
 =============================================================================
 ## STANDING NOTES FOR THE ART LANE
 =============================================================================
+- OPEN THE BANK, DO NOT READ ITS FILENAME (RUN lane, 7/28). Four candidate
+  forms died to approved banks this turn and two survived only because the
+  near-miss was rendered and LOOKED AT: `Metal floor tiles` sounds like it
+  could clad a warehouse and is sci-fi deck plating; `Wall tiles` sounds
+  universal and is a dungeon with a torch sconce. The shopping check is opening
+  the bank; reading its name is not a shopping check.
+  Full method + what it killed: records/BOHEMIA_RUN_DISTRICT_MATERIAL_SURVEY_7_28_26.md
 - SHOP FIRST, ALWAYS: records/BOHEMIA_APPROVED_ASSET_INDEX_7_27_26.md before
   any row is cooked — 1,927 approved HD tiles, 13 border walls, 30 house
   skins, 30 door clips, 84 markings, plus unused-approved tiers. A row is
