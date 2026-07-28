@@ -1543,7 +1543,36 @@ looks outside the ART lane and TILESETS-ARE-SETS says a look is judged as one
 assembled scene. It is filed as the day-one ingredient for ART item 2, the
 master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
-RUN (01) 7/26 LATEST — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
+RUN (01) 7/28 LATEST — PRESENCE IS NOT USE. Paolo: "You're completely not
+checking out the rest of the whole project catalog for assets that are approved
+that you should work with... are you drifting off?" YES. I rebuilt the run's
+entire house stack that day out of wall_base / wall_under_eave / roof_slope /
+garage_top - the CBB tileset, HIS OWN VERDICT ON WHICH WAS COULD BE BETTER - and
+never once opened banks/ to see what he had already approved. No new pixels were
+cooked so REUSE-FIRST held; the SHOPPING LAW did not. WHY IT HAPPENED TWICE: the
+approved-assets-first law says approved-but-unused is a defect and its own text
+marks the enforcement machine "queued". QUEUED IS NOT ENFORCED. His 13 border
+walls were loaded-and-unused until 7/28; his 30 house skins are loaded-and-unused
+right now. The builder ASSERTS the banks are PRESENT and nothing asserted they
+were USED, so present-and-unused passed every gate in the repo, twice.
+gates/banks_used_gate.js closes it: boots the real run, patches drawImage, tags
+every approved bank, draws frames inside the house and at five real standing
+places on the block, counts draws per bank. Zero draws = defect. IT FOUND MORE
+THAN THE AUDIT DID: the skins are 21 images in the build, not 30, across THREE
+arrays (ROOF_IMG 14 / WALL_IMG 4 / YARD_IMG 3), and DOOR_IMG vs DOOR_IMGS are
+DIFFERENT BANKS ONE LETTER APART - DOOR_IMGS (90) is the approved animated bank
+and it draws, DOOR_IMG (9) is the pre-7/26 flat art it superseded, so a probe
+reading the wrong one reports the LIVE door bank as dead. WAIVERS ARE DEBTS, NOT
+DECORATION: two, named and ticketed (0P house skins BLOCKED ON HIS PICK, 0Q the
+superseded door art), each asserted honest in BOTH directions - fails if the bank
+stops being loaded (stale) AND fails if it starts drawing (delete it). Any other
+loaded-and-unused bank is an instant fail. NOT DONE ON PURPOSE: I did not pick
+his house art for him. Three versions of the house renderer had already shipped
+that day; a fourth to win a materials argument on his behalf is the exact failure
+STOP PRODUCING names. HIS PICK IS PENDING: skin-the-stack / flat / ground-first,
+written up in records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md.
+
+RUN (01) 7/26  — DOORS + MUSIC. Paolo: "doors are always two tiles tall,
 
 RUN (01) 7/27 LATEST — CONCRETE HAS TO BE GOING SOMEWHERE. Paolo: "i dont know
 why theres so many sidewalk cement things spread around on the floor when it
