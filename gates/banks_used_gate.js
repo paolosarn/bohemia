@@ -51,12 +51,17 @@ function requirePlaywright() {
 /* THE WAIVER LIST. By name, with the reason and the ticket. Delete an entry the
    moment its bank draws; never add one without a backlog item. */
 const WAIVED = {
-  'house skins (7/21 UP — roof + wall + yard)':
-    'backlog 0P — BLOCKED ON PAOLO\'S PICK. His skins are flat 44x44 textures ' +
-    'with no corner or eave variants; the run\'s houses ride a designed ' +
-    'projection (base course, eave shadow, corners, garage mouth), so a ' +
-    'wholesale swap returns his materials and removes the massing. Three ' +
-    'options are in records/BOHEMIA_RUN_ART_SOURCE_AUDIT_7_28_26.md.',
+  /* THE HOUSE SKINS WAIVER IS GONE, 7/28, and this gate is why I deleted it: it
+     failed with "delete it if not" the moment the bank started drawing.
+     They draw now - 491 draws in this gate's own sweep. The massing worry the
+     waiver named was real and it was answered rather than ignored: ONLY the
+     field tiles wear his skins (the flat middle of a wall, the straight roof
+     run, the open yard) and every tile that carries SHAPE keeps the target set
+     (base course, eave shadow, corners, window, boarded, all four hips, the
+     garage). Measured on the block: the CBB tileset went 83% -> 17%.
+     Still open and filed, NOT waived here because it is a look call and not an
+     unused bank: the four roof HIP tiles are still the target set's orange
+     against his shingle roof (backlog 0S). */
   'walk-file door art (superseded)':
     'backlog 0Q — SUPERSEDED, not missing. The approved animated door bank ' +
     '(7/13, 2 tiles tall) replaced this on 7/26 and IS drawing. These 9 ride ' +
