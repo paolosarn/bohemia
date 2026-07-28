@@ -3579,6 +3579,10 @@ archive-first procedure; the coordinator watches repo weight on check-ins.
 =============================================================================
 ## PENDING PAOLO (the shelf — never decide these for him)
 =============================================================================
+- THE SHOPPING TRIP (7/27, unblocks the whole art era): buy + upload to the
+  ART chat: LimeZu Modern Interiors + Modern Exteriors (itch.io, ~$8-15 ea)
+  + one post-apoc tileset he likes. Then one bulk sweep sitting. Law:
+  laws/BOHEMIA_ADDENDUM_HUMAN_TILES_FIRST_7_27_26.md.
 - **THE TARGET SCREEN PICK (7/26, ART lane) — THE BLOCKING ONE.** alpha -> LIFE
   -> PICK THE TARGET SCREEN. Three candidates, each beside the build he plays.
   He picks ONE and it becomes the visual constitution. Nothing new gets drawn

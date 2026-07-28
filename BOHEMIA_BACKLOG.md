@@ -368,6 +368,16 @@
    to the coordinator.)
 
 ## ART (new lane — first word "art")
+-1. PACK INTAKE — HUMAN TILES FIRST (Paolo-ordered 7/27, laws/BOHEMIA_
+   ADDENDUM_HUMAN_TILES_FIRST_7_27_26.md): WAITING ON PAOLO'S UPLOADS
+   (LimeZu Modern Interiors + Exteriors + a post-apoc pack). On arrival:
+   ingest to HD-repo-style banks (pack/idx keys, source+license noted),
+   build ONE bulk-sweep judge surface (Great Sweep pattern, whole-pack
+   thumbs), then palette-map the UPs onto the locked ramp + run the
+   dead-world aging pass + register in the Approved Asset Index. The
+   frozen target is NOT re-cut without Paolo's explicit word. | ingest
+   deterministic, sweep surface reachable from the alpha, UPs indexed |
+   the CBB target stays byte-locked | the sweep IS the verdict.
 -2. [SHIPPED 7/27 — THE DIAGNOSIS] I WENT TO SCHOOL (Paolo: "learn the skillset of
    actualy pixel shit pixel assets... go to school for me for a couple turns and
    learn some laws brother"). laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md: 12 craft
