@@ -70,6 +70,9 @@ CRAFT = {
     'min_light_agreement': 0.80,
 }
 
+# Set-wide, not per tile. See the note at the check itself.
+SET_PALETTE_CEILING = 200
+
 P = F = 0
 
 
@@ -202,6 +205,22 @@ def main():
         chk(b['block_sizes'] == [1],
             '%s: block sizes %s - art was made small and blown up (LAW 9)'
             % (path, b['block_sizes']))
+
+        # SET-WIDE PALETTE (section 6b of the mobile render contract). A per-tile
+        # colour cap is not enough on its own: 42 tiles could each hold 8 legal
+        # colours and still be 336 unrelated ones, which is a set that does not
+        # read as one place. This is the number that says the families really do
+        # share their ramps. Measured 150 on 7/28 against 9,582 frozen; the
+        # ceiling has headroom for the accents new tiles will legitimately need.
+        seen = set()
+        for r in b.get('rows', []):
+            seen.update(tuple(c) for c in (r.get('palette') or []))
+        if seen:
+            chk(len(seen) <= SET_PALETTE_CEILING,
+                '%s: %d colours across the whole set (ceiling %d). Six family ramps '
+                'is the point; a set that drifts back toward a colour per tile is '
+                'the thing section 6 exists to stop.'
+                % (path, len(seen), SET_PALETTE_CEILING))
 
     print('  %d passed, %d FAILED' % (P, F))
     if F == 0:

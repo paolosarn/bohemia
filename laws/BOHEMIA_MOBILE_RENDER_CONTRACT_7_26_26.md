@@ -104,7 +104,7 @@ with the game. Cars are turned to lie along the surface they are parked on.
   is needed (wall base grime, eave shadow) it is a per-row alpha ramp, which is
   a solid, and survives integer scaling. Stipple crawls under 2x/3x blit.
 
-## 6. PALETTE — THE ONE CLAUSE THIS CONTRACT DOES NOT YET SATISFY
+## 6. PALETTE — MET FOR THE TILE SET (7/28), STILL UNMET FOR THE REST OF THE CORPUS
 
 Pinned ramp: **64 colours**, `records/target/BOHEMIA_MASTER_PALETTE.json`
 (+ `.png` swatch sheet), derived by quantizing the target screen — which is
@@ -120,6 +120,43 @@ item 2), which is where the tiles are made rather than sampled.
 Until then the number is **tracked with a ceiling of 80,000** so a future cook
 cannot quietly make it worse while the real fix waits. That is a ratchet, not a
 pass, and the gate says so.
+
+### 6b. THE FIX LANDED FOR THE TILE SET (7/28/26)
+
+Paolo ruled the re-cook approved ("I checked it to do the other 41 mark it
+approved"), and indexing was the whole point of it.
+`banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt`, measured:
+
+| | frozen 7/26 set | re-cooked 7/28 set |
+|---|---|---|
+| colours across the whole 42-tile set | **9,582** | **150** |
+| worst single tile | 1,610 | 8 |
+| mean per tile | 431.2 | 5.8 |
+
+**A 64x reduction, set-wide.** Six ramps of 5–7 steps, one per material family,
+each pooled from the approved tiles that ARE that material, so every asphalt tile
+in the valley is now made of the same seven colours instead of two thousand
+near-misses.
+
+**WHY IT IS 150 AND NOT 39, said plainly instead of rounded away.** The six family
+ramps are 39 colours between them. The other ~111 are two things:
+
+1. **Accents** — up to two per tile, taken from that tile's own out-of-range
+   pixels, so the white crossing paint, the dead dark glass and the black inside
+   a doorway survive being snapped to a ramp. These are content and they are
+   supposed to be there.
+2. **Per-tile value-band offsets** — each rebuilt tile gets a flat luminance
+   offset so its mean stays inside its layer's band (section 4). That offset
+   shifts the ramp colours by a few points per tile, which means two tiles in the
+   same family do **not** always share byte-identical colours. **That is a real
+   remaining gap in the shared-palette promise**, it is nobody's mistake but
+   mine, and removing it is the next palette job: bake the band correction into
+   the ramp once per family instead of per tile.
+
+So section 6 is **no longer unmet for the tile set** — it is met and measured,
+with one named residual. It remains unmet for the rest of the corpus (sprites,
+props, bodies, district heroes), which is still continuous-tone and still held by
+the 80,000 ratchet above.
 
 ## 7. PIPELINE RULE (gated on the real render path)
 

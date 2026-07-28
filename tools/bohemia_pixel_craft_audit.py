@@ -281,6 +281,9 @@ def audit_tile(im):
         'light_deg': None if ang is None else round(ang, 1),
         'light_strength': round(strength, 4),
         'clusters_per_1000px': round(cpk, 1), 'clusters': ncl,
+        # the tile's actual colours, so the gate can add up a SET-WIDE palette.
+        # A per-tile cap alone would pass 42 tiles of 8 unrelated colours each.
+        'palette': sorted(set(_opaque_colours(im))),
     }
 
 
