@@ -588,6 +588,10 @@
    Either the art is re-cooked shorter or the footprint becomes 2x5. Not a
    guess I get to make.
 
+TILE REQUESTS: needing a visual asset that doesn't exist = check the
+Approved Asset Index, then FILE A ROW in BOHEMIA_TILE_REQUESTS.md (never
+cook inline outside the ART lane). The ART lane works that board in batches.
+
 Rules (full doctrine: laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md): topmost
 unblocked item in YOUR lane; [PENDING Paolo] items are SKIPPED, never resolved;
 only Paolo/verdicts add direction-class items; agents may append (discovered)
