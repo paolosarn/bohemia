@@ -30,3 +30,20 @@ THE LAW:
    tileset of his choice (itch.io/CraftPix) for wasteland flavor; Kenney.nl
    free packs as filler. The existing HD pack (survival props/rubble/etc.)
    remains fully in force.
+
+## AMENDED 7/28 BY PAOLO (LOCKED — this supersedes the role-reassignment above):
+"WTF, I need you to make tiles — just not like dogshit."
+1. AI TILE AUTHORSHIP IS THE PRODUCTION PATH. The AI makes the tiles. The
+   pack-purchase pipeline above becomes OPTIONAL/SHELVED — a supplementary
+   accelerant available whenever Paolo feels like uploading packs, never a
+   dependency and never his homework.
+2. THE QUALITY HARNESS IS THE DIFFERENCE (why post-reset cooks are held to a
+   bar the dogshit era never had): every cook runs against (a) the frozen
+   target as the bar, (b) the proxy gates (palette lock, value bands, one
+   light direction, no keyline/dither, seam contracts), (c) a NAMED reference
+   anchor per tile family (from the approved corpus: swept HD UPs, Pocket
+   City refs, the starter set) cited in the cook, (d) the Room Recipe Book
+   for interiors, (e) judged only as assembled scenes. Unreferenced,
+   ungated authorship — the actual cause of the dogshit — stays banned.
+3. Everything else in this addendum (AI does recolor/aging/assembly, the
+   intake procedure if packs ever arrive) stands unchanged.

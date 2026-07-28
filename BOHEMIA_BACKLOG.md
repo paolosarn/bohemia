@@ -368,8 +368,9 @@
    to the coordinator.)
 
 ## ART (new lane — first word "art")
--1. PACK INTAKE — HUMAN TILES FIRST (Paolo-ordered 7/27, laws/BOHEMIA_
-   ADDENDUM_HUMAN_TILES_FIRST_7_27_26.md): WAITING ON PAOLO'S UPLOADS
+-1. PACK INTAKE — SHELVED/OPTIONAL (Paolo 7/28: "I need YOU to make tiles,
+   just not dogshit" — AI authorship is the production path under the
+   quality harness; this intake activates ONLY if he ever uploads packs)
    (LimeZu Modern Interiors + Exteriors + a post-apoc pack). On arrival:
    ingest to HD-repo-style banks (pack/idx keys, source+license noted),
    build ONE bulk-sweep judge surface (Great Sweep pattern, whole-pack
