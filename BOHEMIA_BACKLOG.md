@@ -1124,6 +1124,74 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0V. [FILED 7/28, HANDED TO THE ART LANE] EIGHT TILE REQUEST FORMS FOR THIS
+   LANE, ON PAOLO'S TILE FORMS ORDER. NO ART COOKED, as the order says.
+   records/tileforms/TF-CITY-001..008, board rows 10-17. Every gap was found
+   by WALKING THE SURFACES, not by guessing: the run booted in Playwright,
+   walked out of the house, down the driveway, into the street and along the
+   perimeter, screenshotted at each stop, and every claim in every form is
+   either a line of the real renderer or a measured bank enumeration.
+     001 ROOF EDGE FAMILY - the 30 approved house skins are 14 roof FIELD
+         tiles and nothing else; hips/ridge/eave fall back to the frozen
+         target set, so every house wears an orange stripe. (Was backlog 0S.)
+     002 ROOFTOP EQUIPMENT - the roof is the biggest thing on a phone screen
+         in a residential district and there is not one prop on it anywhere
+         in the renderer. Vegas-real: rooftop package AC units are the valley
+         norm, and dead converted swamp coolers are free storytelling.
+     003 RESIDENTIAL GARAGE DOOR in the skin language - a third of a tract
+         house's frontage, still the target set's orange. The door bank's one
+         rollup is INDUSTRIAL and is named in the anti-reference so nobody
+         "reuses" it.
+     004 PERIMETER WALL CORNER/PILASTER/CAP - his 13 approved border walls are
+         ALL straight runs (bank opened, 26 entries enumerated), so the wall
+         butts into itself at every turn. Clark County caps pilasters at 24 ft
+         on centre and requires walls to match the abutting subdivision -
+         which is our own ONE WALL PER COMMUNITY rule, arrived at independently.
+     005 THE NEIGHBOURHOOD GATE - the run literally contains
+         `if(c===5) return 'concrete_0';`. The one entrance to a walled
+         community, a declared PORTAL in its own dossier, is a blank slab, and
+         the street-aware law's mandatory corner pedestrian gate has no pixels
+         at all.
+     006 DRIVEWAY APRON + ROLLED KERB CUT - driveway, kerb and gutter are
+         three unrelated field tiles butted together, so nothing says a car
+         can get from the road onto a lot. Clark County's standard drawings
+         restrict rolled curb to driveway locations, so the kerb profile
+         really does change there.
+     007 SUBURBAN YARD DRESSING - yards are flat fields with nothing on them.
+         Man-made objects only; board row 5 (dead foliage) is the plants and
+         the two compose. Grounded in SNWA's turf-removal program, which is
+         why a Vegas front yard is rock and objects rather than lawn.
+     008 THREE-COURSE FACADE - the CITY tab satisfies his 3-tile wall ruling
+         by VERTICALLY STRETCHING one 16px tile (tallTex), so a tall wall is
+         one texture smeared three times. Must stay legible at WALL_SEE=0.35,
+         because his see-through ruling came in the same breath.
+   AND THE GATE THE FORM LAW NAMED BUT NOBODY WROTE: gates/tileform_gate.py,
+   registered as TILE FORM. 5,990 assertions across ALL 50 forms from FIVE
+   lanes. It proves every field is present and non-empty, captions parse and
+   are ingestable, the caption's layer matches what section C declares, ACT is
+   1, edge vocabulary is one of the four legal words, any path a form names
+   ACTUALLY EXISTS, and the board and records/tileforms/ cannot drift apart in
+   either direction. Proved it can FAIL twice - sabotaged forms, watched it go
+   red on the layer mismatch, the fake path, an emptied field, an illegal edge
+   word and a non-act-1 ACT, restored each time.
+   THE HONEST PART: its first version was TOO STRICT and, run over the other
+   four lanes' work, produced 100 failures that were nearly all FALSE. "none"
+   is the correct answer to SHADOWS, "standalone" is the template's own
+   FAMILY/SET, and naming an approved asset in words rather than by path is
+   the convention all five lanes actually use. Four bugs in the GATE were
+   fixed (heading parentheticals, nested bullets inside an answer, one-word
+   answers scored as stubs, a colon inside an answer eating the answer), each
+   with the reason written into the source so it cannot regress quietly. What
+   survived is the class of failure a machine can genuinely settle, and it
+   caught two real ones: an anchor with no path in my own TF-CITY-008, and
+   `gates/vehicle_size_gate.js` in TF-CMB-003, which is a .py.
+   ROW NUMBERS COLLIDED FIVE WAYS: four lanes all started at 10 on the same
+   day. WORLD moved to 30-44, COMBAT to 50-57, and I moved mine to 60-67
+   rather than renumber anyone else's rows and break the BOARD ROW # pointers
+   inside their forms. The residual RUN/ART 10-17 overlap is untouched and
+   still the board owner's call. All three lanes independently reached the
+   same diagnosis: the stable key is the TF ID, not a hand-assigned integer,
+   and the gate already enforces TF IDs unique. | gate: TILE FORM | 7/28 | YES.
 0U. [RESEARCH DELIVERED 7/28, 1 RULING PENDING] THE SCOPE OF THE ECONOMIC
    APOCALYPSE, TEN YEARS IN. records/BOHEMIA_ECONOMIC_APOCALYPSE_SCOPE_RESEARCH_
    7_28_26.md. NO CODE WRITTEN, as asked. Round two of his research ask, three

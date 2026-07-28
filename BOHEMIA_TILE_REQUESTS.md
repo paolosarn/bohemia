@@ -25,6 +25,16 @@
 # Rows below filed before the form law get their forms filled by the
 # REQUESTING lane before the art lane touches them (TF-RUN-001 covers row 4).
 #
+# THE GATE IS LIVE (7/28, CITY lane): gates/tileform_gate.py, registered in the
+# suite as TILE FORM. Rule 7 of the form law named it and nobody had written
+# it, which meant every contract the ART lane cooks one-shot from was resting
+# on self-attestation. 5,990 assertions across all 50 forms, five lanes. It also
+# proves the board and records/tileforms/ cannot drift apart in EITHER
+# direction: a form with no row fails, and a row claiming a FORM: id with no
+# file fails. IT DOES NOT yet enforce row-number uniqueness -- see the note in
+# the CITY block below, because four lanes proved on day one that a
+# hand-assigned integer is the wrong key.
+#
 # ROW FORMAT:
 # STATUS | WHAT (plain name) | FOR (surface/tab + purpose) | SPECS (size/layer/
 # facing needs) | REFERENCE ANCHOR (approved corpus item or named outside ref) |
@@ -486,6 +496,111 @@ records/BOHEMIA_COMBAT_TILE_SHOPPING_FINDINGS_7_28_26.md
   more washed out". Combat draws its own median at rgba(184,160,40,0.55), full
   brightness, no wash. The orange he chased for three turns was a hand-painted
   object ignoring a law written specifically to keep that object dim.
+
+=============================================================================
+## OPEN — CITY LANE (filed 7/28 under the TILE FORMS ORDER; every row has a
+## filled form in records/tileforms/. Found by WALKING THE SURFACE, not by
+## reading code: the run was booted in a browser, walked out of the house,
+## down the driveway, into the street and along the perimeter wall, and
+## screenshotted at each stop. Every claim below is either a LINE OF THE REAL
+## RENDERER or an enumerated bank -- the forms quote
+## `if(c===5) return 'concrete_0';` and `drawImage(im,0,0,w,h*n)` verbatim.)
+## ROW NUMBERS: this block is 60-67. FIVE lanes appended the same day and four
+## of them started at 10. WORLD moved itself to 30-44, COMBAT to 50-57, and I
+## have moved mine clear of all of them rather than renumber anybody else's
+## rows, because their forms carry BOARD ROW # pointers I would break.
+## I AGREE WITH WORLD AND COMBAT: the stable key is the TF ID, not the row
+## number. THE RESIDUAL 10-17 COLLISION BETWEEN THE RUN AND ART BLOCKS IS
+## STILL THERE and is still the board owner's call -- I did not touch it.
+## The TILE FORM gate already keys on TF IDs and enforces them unique, which
+## is the half of the fix that a gate can hold today.
+=============================================================================
+60. OPEN | ROOF EDGE FAMILY for the approved house skins (4 hips + ridge +
+   eave, cooked per approved roof material) | RUN + CITY — his 30 house skins
+   were approved as the house's MATERIAL and only cover the flat middle of a
+   roof; every edge falls back to the frozen target set, so every house in the
+   valley wears a brown roof with an ORANGE STRIPE where the mass turns |
+   44x44, structure layer, WANG-16; each piece's interior edge must hash to
+   its own material's roof_slope (constitution seam contract); top value band
+   110.2 (72.8-137.4) | the 30 approved house skins + the CBB target's hip/
+   ridge/eave for the SHAPE only; Project Zomboid roof edge sets as outside ref
+   | CITY lane (measured 7/28 in the run's bodyTile) | HIGH | FORM: TF-CITY-001
+61. OPEN | ROOFTOP EQUIPMENT (package AC unit, dead swamp cooler, vent stacks,
+   turbine vent, satellite dish, dead solar) | RUN + CITY — in a 45-degree
+   top-down game the ROOF is the biggest thing on screen in a residential
+   district and ours has NOTHING on it; screenshotted 7/28, a third of the
+   phone screen is one uniform slab | prop layer, single placement, 44x44
+   cell (the AC box draws taller than its cell, 45 law), top value band, no
+   glow — nothing runs | the blessed LAMP DARK VARIANTS bank (dead metal at 45,
+   the 45-law's own reference); Prison Architect / Streets of Rogue for
+   sparseness | CITY lane (screenshotted on the real run surface 7/28) | HIGH
+   | FORM: TF-CITY-002
+62. OPEN | RESIDENTIAL GARAGE DOOR in the house-skin language (closed /
+   forced-racked / open-to-a-dark-bay) | RUN + CITY — the garage door is about
+   a THIRD of a Vegas tract house's street frontage and it is the frozen
+   target set's orange panel bolted onto a house wearing his approved skin |
+   2 tiles tall x BAY_W, structure + PORTAL, WANG-16, wall value band 96.0
+   (37.5-167.6); the interior bay === footprint w x h | the 30 house skins +
+   the CBB garage_* for shape; NOT the door bank's industrial rollup (wrong
+   proportion, wrong pool, named in the form's anti-reference) | CITY lane
+   (measured 7/28) | HIGH | FORM: TF-CITY-003
+63. OPEN | PERIMETER WALL CORNER + PILASTER + END + CAP COURSE | RUN + CITY —
+   his 13 approved suburb border walls are ALL straight runs (bank opened, 26
+   entries enumerated), so a wall that closes a neighbourhood just butts into
+   itself at every turn and has no top | structure, WANG-16, run-facing edges
+   hash to their own pool key; native 44x44 with NO resampling (the 7/28
+   quarter-res regression); 2 tiles tall, not 3 | banks/BOHEMIA_PERIMETER_WALL_
+   POOL_7_14_26.txt itself — the corner is cooked FROM the key it joins, so
+   this is REUSE-FIRST by construction | CITY lane | HIGH | FORM: TF-CITY-004
+64. OPEN | THE NEIGHBOURHOOD GATE (vehicle opening + pilasters + gate leaf in
+   3 states + the pedestrian side gate, lit/unlit) | RUN + CITY + MAP — the
+   run currently draws code 5, the ONE entrance to a walled community and a
+   declared PORTAL in the district's own dossier, as `concrete_0`, a blank
+   slab; the street-aware law's mandatory corner PEDESTRIAN gate has no pixels
+   of any kind | portal + structure, single placement, opening >=2 tiles wide
+   (a car surface), wall/top value bands, lit variant is rgb-only glow
+   (leaf-pixel law), DEAD IS DEFAULT | the perimeter wall pool (the pilasters
+   are cooked from the key the gate interrupts) + the lamp bank for the wired
+   glow pattern; New Vegas's Westside walls as outside ref | CITY lane
+   (measured 7/28 in the run's tile resolver) | HIGH | FORM: TF-CITY-005
+65. OPEN | DRIVEWAY APRON + ROLLED KERB CUT (apron flare L/R, the cut across
+   the gutter, the sidewalk crossing course) | RUN + CITY — the street-aware
+   law makes the drivable network an EXPLICIT car surface and there is no art
+   anywhere saying a car can get from the road onto a lot; driveway, kerb and
+   gutter are three unrelated field tiles butted together | ground layer,
+   WANG-16, this piece is ALL seam so the hash test on all four neighbours IS
+   the acceptance test; ground value band 103.7 (49.3-152.2); two variants,
+   rolled (residential) and vertical (arterial) | the CBB starter set's
+   concrete/walk_kerb/road_gutter, whose seam rings are already published |
+   CITY lane | MED | FORM: TF-CITY-006. SEE ALSO the RUN/ART kerb asks and
+   TF-WORLD-002 (kerb/sidewalk): this row is the DRIVEWAY CROSSING
+   specifically, the one cell run where the kerb profile changes for a car.
+   Cook the kerb material ONCE and cut this from it.
+66. OPEN | SUBURBAN YARD DRESSING (mailbox, ground condenser + pad, wheeled
+   bin, boulder, xeriscape rock border, hose bib, house number) | RUN + CITY —
+   yards render as flat tan fields with literally nothing on them; the
+   walkable-land law's render-and-look bar says a district must read FINISHED
+   AND USED | prop layer, never collision; single placement except the rock
+   border (self-seamless along its axis); ground value band; DENSITY is the
+   judgement, so the proof is a whole dressed block, not a lone-prop sheet |
+   the lamp bank + the 3 approved yard skins | CITY lane (screenshotted 7/28)
+   | MED | FORM: TF-CITY-007. NOT a duplicate of row 5: that is dead PLANTS,
+   this is MAN-MADE OBJECTS; they compose in the same yard.
+67. OPEN | THREE-COURSE BUILDING FACADE (base / mid / cap + the door-header
+   course) | CITY first, RUN second — Paolo ruled every wall carrying a door is
+   3 tiles tall, and the only way the engine can do it today is tallTex(),
+   a documented VERTICAL STRETCH of one 16px tile, so a tall wall is one
+   texture smeared three times with no base, no mid, no cap | structure,
+   WANG-16, mid course must be vertically self-seamless (it repeats up a tall
+   building); wall band for base/mid, top band for the cap's sky sliver;
+   MUST STAY LEGIBLE AT WALL_SEE=0.35 (his see-through ruling is a hard art
+   constraint on this form) | the CBB wall family, wall_base is the direct
+   model; Project Zomboid's course system as outside ref | CITY lane (measured
+   7/28 in the CITY frame's own tallTex) | MED | FORM: TF-CITY-008
+   OVERLAP, NOT DUPLICATE: TF-RUN-005 (tilt-up/precast) and TF-ART-001 (CMU
+   face) are MATERIALS; this row is the COURSE SYSTEM those materials get cut
+   into. Agree the course anatomy here, then cook each material against it —
+   do not invent a second stack.
 
 =============================================================================
 ## HELD — filed, blocked on a NAMED Paolo pick (not workable yet)

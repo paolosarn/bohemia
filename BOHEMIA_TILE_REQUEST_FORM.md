@@ -49,10 +49,27 @@ direction never vary per tile.
    builders, the run, and the CITY can query best-time / best-location /
    never-beside for every tile. The caption is the "invisible text" Paolo
    ordered: the tile knows its own manual.
-7. GATE (routed to SHARED, non-cook): tileform_gate validates every form —
-   all required fields present, caption JSON parses, the shopping check names
-   a real index entry, the anchor resolves, edge vocabulary is one of the
-   four legal words. A board row whose form fails the gate is not OPEN.
+7. GATE — **WRITTEN AND LIVE 7/28: `gates/tileform_gate.py`**, registered in
+   the suite as TILE FORM. It validates every form in records/tileforms/: all
+   required sections and fields present AND non-stub, caption JSON parses and
+   carries every key with the right type, caption id matches the filename,
+   caption layer matches what section C declares, layer is one of the five
+   legal words, ACT is 1, edge vocabulary is one of the four legal words, the
+   SHOPPING CHECK and the APPROVED ANCHOR name files that ACTUALLY EXIST on
+   disk (REUSE-FIRST applied to forms), the outside reference and the
+   real-world grounding clear a length floor, the anti-reference is not
+   empty, and the board and the forms cannot drift apart in either direction.
+   A board row whose form fails the gate is not OPEN.
+   It does NOT judge whether the research is good or the tile will look
+   right — those are Paolo's, forever. It also does NOT demand a repo PATH in
+   the anchor or the shopping check: five lanes' established convention is to
+   name approved assets in words, and requiring a path would have bounced
+   forty honest forms over a rule nobody agreed to. What it settles is the
+   claim a machine CAN settle — a form that names a file which does not exist.
+   FIRST FULL RUN, 50 forms: it caught one real bad path across four other
+   lanes' work, plus four bugs in ITSELF (heading hints, nested bullets,
+   correct one-word answers scored as stubs, and a colon inside an answer).
+   All five fixed with the reason written into the source.
 
 =============================================================================
 ## THE FORM (copy everything between the lines, fill every field)

@@ -26,7 +26,7 @@
     at the canon car size, this form is satisfied by reuse and NOTHING should be
     cooked.
   * VEHICLE SIZE law: there is ONE canon car/bus/trailer size across every hero,
-    enforced by `gates/vehicle_size_gate.js` via the shared `_vehicle` helper.
+    enforced by `gates/vehicle_size_gate.py` via the shared `_vehicle` helper.
     Whatever ships MUST match it. That gate is the size ruler, not this form.
   * DEMO_PROP_POOL: no vehicles in any family. STARTER TILESET 42: no vehicles.
     DISTRICT HERO art draws cars, but via the `_vehicle` helper at hero scale on
@@ -111,7 +111,7 @@
 
 ## G. REFERENCES
 - APPROVED ANCHOR: the canon `_vehicle` size helper (machine-locked by
-  `gates/vehicle_size_gate.js`, 14 checks across every hero) is the size truth;
+  `gates/vehicle_size_gate.py`, 14 checks across every hero) is the size truth;
   the district heroes that already draw cars are the nearest drawn anchor.
   `car_wreck` x20 in STREET_PROP_POOLS is the reuse candidate to try first.
 - NAMED OUTSIDE REFERENCE: **Jagged Alliance 2** again for cover read off the

@@ -1,3 +1,84 @@
+CITY (03): 7/28 (g) LATEST — EIGHT TILE REQUEST FORMS FILED FOR THIS LANE, PLUS THE
+GATE THE FORM LAW NAMED AND NOBODY HAD WRITTEN. NO ART COOKED, as his order says.
+
+HOW THE GAPS WERE FOUND, because this is the part worth copying: I did not read code and
+guess. I booted the run in Playwright, walked out of the house, down the driveway, into
+the street and along the perimeter wall, and screenshotted at every stop. Then every claim
+in every form was traced back to either a LINE OF THE REAL RENDERER or an enumerated bank.
+The forms cite `if(c===5) return 'concrete_0';` and `drawImage(im,0,0,w,h*n)` verbatim,
+because a form the art lane can cook from one-shot has to be evidence, not opinion.
+
+THE EIGHT (records/tileforms/TF-CITY-001..008, board rows 10-17):
+  001 ROOF EDGE FAMILY   his 30 approved skins are 14 roof FIELD tiles; hips/ridge/eave
+                         fall back to the frozen target, so every house has an orange
+                         stripe where the mass turns. This was backlog 0S.
+  002 ROOFTOP EQUIPMENT  the roof is the biggest thing on a phone screen in a suburb and
+                         there is not ONE prop on it anywhere in the renderer. Vegas-real:
+                         rooftop package AC units are the valley norm.
+  003 GARAGE DOOR        a third of a tract house's frontage, still target-set orange. The
+                         door bank's one rollup is INDUSTRIAL — named in the
+                         anti-reference so nobody "reuses" it into the wrong pool.
+  004 WALL CORNER/CAP    his 13 border walls are ALL straight runs (26 entries
+                         enumerated), so the wall butts into itself at every turn.
+  005 THE GATE           the one entrance to a walled community is a blank concrete
+                         square. The street-aware law's corner pedestrian gate has no
+                         pixels at all.
+  006 DRIVEWAY APRON     driveway, kerb and gutter are three unrelated tiles butted
+                         together; nothing says a car can get from road to lot.
+  007 YARD DRESSING      yards are flat fields. Man-made objects only — board row 5 (dead
+                         foliage) is the plants and the two compose.
+  008 THREE-COURSE FACADE the CITY tab satisfies his 3-tile wall ruling by VERTICALLY
+                         STRETCHING one 16px tile. Must stay legible at WALL_SEE=0.35.
+
+NEW GATE: gates/tileform_gate.py, registered as TILE FORM. The form law's own rule 7 named
+it and it did not exist, which meant the contracts the art lane cooks one-shot from were
+resting entirely on self-attestation. 5,990 assertions over ALL 50 forms from FIVE lanes.
+PROVED IT CAN FAIL twice: sabotaged forms, watched it go red on a layer mismatch, a fake
+path, an emptied field, an illegal edge word and a non-act-1 ACT, restored each time. A
+gate that has never been seen to fail is not a gate.
+
+AND THE PART WORTH READING, because it is a lesson about writing gates: the FIRST version
+was too strict. Run over four other lanes' forms it threw 100 failures and nearly all of
+them were FALSE. It demanded 12+ characters in every field, so "none" (the correct answer
+to SHADOWS under the separate-shadow law) and "standalone" (the template's OWN suggested
+FAMILY/SET) were called stubs. It demanded a repo PATH in every anchor, when naming an
+approved asset in words is the convention all five lanes actually use. It anchored section
+headings to end-of-line, so every form keeping the template's parenthetical hints looked
+like it was missing eight sections. And it split field values on the first colon anywhere,
+so any answer containing a colon came back as the wrong half.
+A GATE THAT FAILS HONEST WORK IS WORSE THAN NO GATE, because it teaches everyone to route
+around it. Four gate bugs fixed, each with the reason written into the source. What
+survived is the class of failure a machine can genuinely settle - a form naming a file
+that does not exist - and it caught two real ones: my own TF-CITY-008, and
+`gates/vehicle_size_gate.js` in TF-CMB-003, which is a .py.
+
+ROW NUMBERS COLLIDED FIVE WAYS. Four lanes all started at 10 on the same day. WORLD moved
+itself to 30-44, COMBAT to 50-57, and I moved mine to 60-67 rather than renumber anyone
+else's rows, because their forms carry BOARD ROW # pointers I would silently break. The
+residual RUN/ART 10-17 overlap is untouched and still the board owner's call. Three lanes
+independently reached the same diagnosis and it is right: THE STABLE KEY IS THE TF ID, NOT
+A HAND-ASSIGNED INTEGER. The gate already enforces TF IDs unique, which is the half of the
+fix a machine can hold today.
+
+THREE THINGS TO CARRY:
+  1. FORMS ARE NOT ART. The order was explicit and the STOP PRODUCING law backs it: this
+     lane files contracts, the ART lane cooks. Do not cook a single pixel from these.
+  2. THE OVERLAP IS FLAGGED. Board row 7 ("wall corner families, curb/sidewalk
+     transitions") is now SPECIFIED by rows 13 and 15. The note is on row 7. Do not
+     double-cook.
+  3. TWO ENGINE PRECONDITIONS ARE NAMED IN THE FORMS, NOT SOLVED: the runtime shadow pass
+     has no ROOF-PLANE case (TF-CITY-002), and the suburb generator's legend has no
+     PEDESTRIAN-GATE code (TF-CITY-005). Neither blocks judging the art; both block
+     placing it.
+
+BLOCKED ON PAOLO: nothing new. TF-CITY-003 flags that an ANIMATED garage door is his call,
+and TF-CITY-005 the same for a sliding gate inside a powered cluster. Both ship static
+until he says otherwise. The three from 0T (die-off rate, clustered vs spread, act-3
+multiplier) and the one from 0U (is Cuba the named reference case) are still open.
+
+DO NOT: file more forms for this lane without walking the surface first. Every one of
+these eight came off a screenshot or a line of the renderer, and that is the bar.
+
 WORLD MODEL (02): 7/28 (b) LATEST — HE RULED "HIGH SCHOOL", AND IT IS THE TEST CASE FOR
 THE WHOLE REVAMP. engine/bohemia_school.js rebuilt + its icon rebaked the same turn.
 
