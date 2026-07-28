@@ -1837,7 +1837,51 @@ looks outside the ART lane and TILESETS-ARE-SETS says a look is judged as one
 assembled scene. It is filed as the day-one ingredient for ART item 2, the
 master act-1 tileset. The moment the target screen is picked, the furniture is
 sitting there.
-RUN (01) 7/28 LATEST — PRESENCE IS NOT USE. Paolo: "You're completely not
+RUN (01) 7/28 LATEST — ONE VEGAS. THE RUN AND THE CITY WERE TWO DIFFERENT CITIES.
+Paolo: "I still wanna start off in a suburb that you choose the location for in
+Vegas and I want that reflected when I'm in the city menu... I just want you to
+incorporate all of these things together." HE WAS NOT ASKING FOR A FEATURE, HE
+WAS DESCRIBING TWO WORLDS. Measured on both surfaces at once: the game builds
+buildRealWorldMap('bohemia') -> hashSeed -> overmap seed 2691674296; the city
+builder had `let seed=2026` hardcoded. So overmap cell 12,4 was the SUBURB the
+run spawns him in and ARTERIAL in the builder. Nothing could ever be "reflected
+in the city menu" because the city menu was not the same place. THAT IS THE ONE
+MAP LAW (7/27, LOCKED) BROKEN IN A THIRD PLACE - and that law's own write-up
+names the previous instance (the MAP tab on seed 1337 while the game booted
+'bohemia'). The MAP tab was fixed; THE CITY BUILDER WAS NEVER CHECKED.
+SHIPPED: (1) ONE SEED, tools/bohemia_one_seed_patch.py - the builder takes the
+seed from the game's own hash of its own seed text, inlined verbatim from the
+engine so a copy-paste cannot drift it again. (2) THE CITY OPENS WHERE YOU ARE,
+tools/bohemia_run_city_sync_patch.py - the only run->shell traffic was the
+SPRITE (citySendPlayer), never position, so the city opened on the Strip every
+time; the run now posts BOHEMIA_RUN_WHERE from loadCell (boot AND every edge
+crossing), the shell remembers it, the city camera goes there. Header reads
+SUBURB. (3) A HOME THAT WAS CHOSEN - "first suburb in scan order" is
+deterministic and is ALSO ALWAYS the cell nearest the top-left corner, the rim,
+which is why half the city screen was the blue outside the map. Scored now by
+how many DIFFERENT KINDS OF PLACE are within a short walk minus a map-edge
+penalty: cell 39,23, 23 district types within 6 cells, zero edge.
+THREE BUGS I CAUSED AND CAUGHT FIRST: the scoring loop called WORLD.tile(),
+which REALIZES a 128x128 district, 169x per candidate - minutes of boot on his
+phone; WORLD.at() is the overmap rung and boot is 1087ms. window.__RUN_SENT is
+declared at the BOTTOM of the run while bridgePost is hoisted, so the first
+boot-time caller took the whole script down - a gate affordance must never break
+the game it watches. And one probe of mine called the bridge broken when the
+frame was merely hidden.
+TWO GATES THAT ONLY PASSED BECAUSE OF WHICH CITY WAS LOADED, both fixed, neither
+a game defect: banks_used_gate (mine) called his 13 border walls never-drawn -
+they draw 207x, it was sampling five spots by the front door twenty tiles from
+the wall; wallheight_gate (city lane's) could not find a wall to measure because
+it took the FIRST suburb in scan order - the identical rim bug as the spawn.
+THE OLD SEED WAS HIDING FRAGILITY IN TWO SEPARATE GATES.
+NOT REVERSED, RECORDED: another session wired the RUN tab to open the CITY panel
+today, on his own instruction ("Can you put the city in the run tab?") -
+`PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p`. THAT is why he is looking
+at the city's UI and why travel zooms out. [PENDING PAOLO] whether tapping RUN
+should give the run or the city; two of his asks are in tension and only he can
+reconcile them. Record: records/BOHEMIA_ONE_VEGAS_7_28_26.md
+
+RUN (01) 7/28 — PRESENCE IS NOT USE. Paolo: "You're completely not
 checking out the rest of the whole project catalog for assets that are approved
 that you should work with... are you drifting off?" YES. I rebuilt the run's
 entire house stack that day out of wall_base / wall_under_eave / roof_slope /
