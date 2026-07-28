@@ -830,6 +830,40 @@ the 80x80 nav button, is a lumpy x1.25 - with nearest, some pixels of a FACE are
 screen pixel wide and some are two. Every fix changes what that button looks like.
 Options are in BOHEMIA_BACKLOG CITY item 0c.
 
+LAB (09): 7/28 (p) LATEST — CLAUSE 17: THE STEP CLOCK IS NOT THE DAY CLOCK, AND HE HAD TO
+CORRECT ME FOR BLURRING THEM. READ THIS BEFORE SIZING ANY BUFF IN THIS GAME.
+Paolo: "I'm glad you have that math, but that's just if you were walking now you have to
+understand a lot of things in this game. Will take up time and time will pass just by taking
+actions in this game and you really need to understand that sort of clock when you think
+about how long you get lifted up for your camp and shit. Its just just the amount of steps
+the buff makes you feel good for"
+WHAT I GOT WRONG: clause 16's arithmetic is right, and he said so. What I did with it was
+not. I wrote "9,216 steps = 9 hours of walking" and let that stand as if it described how
+much of the player's DAY the buff covers. It does not. It describes a player who does nothing
+but walk, AND NO SUCH PLAYER EXISTS IN THIS GAME — the day is eaten by looting, talking,
+fighting, camping, treating a wound, sleeping.
+THE TWO CLOCKS, FORMALLY SEPARATE (laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md cl. 17):
+  THE BUFF burns on STEPS. Not time, not actions, not standing still, not sleeping.
+  THE DAY  burns on EVERY ACTION, walking included. It only moves when you act.
+THE CONSEQUENCE THAT MATTERS FOR SIZING: a rest worth 9,216 steps is NOT "most of a day".
+Spend the afternoon in a motel and the evening at a companion's place and the day rolls over
+while the buff barely moves. A SINGLE REST CAN SPAN SEVERAL IN-GAME DAYS. That makes the camp
+buff STRONGER in practice than its step number looks, and it is what to hold in mind when he
+sets the final numbers. It also makes clause 2 LOAD-BEARING rather than elegant: a buff that
+burned on time would punish a player for playing the game.
+FORBIDDEN FROM NOW ON, ANY LANE: presenting a step count as a duration of PLAY without the
+"if you only walked" caveat; sizing a buff by asking "how much of a day is this" (unknowable
+at design time — size it in STEPS and in crossings, his unit); any buff that ticks on the
+clock instead of on steps.
+ON THE PAGE: the crossing line now says "12 h IF YOU DID NOTHING BUT WALK"; the buff reads
+"8,516 STEPS LEFT ... STEPS ONLY — actions cost the day, never the buff" and no longer
+converts itself to hours; the HUD splits the day into TIME WALKING vs TIME DOING THINGS
+(a real playthrough reads "0h 41m walking · 12h 30m doing things" with the buff still at
+69%); and a deliberately UNNAMED "SPEND AN HOUR ON SOMETHING" button eats an hour of day and
+zero buff, so the gap is playable instead of described.
+GATE: gates/camp_dial_gate.js, 138 checks, new C-series. Mutation-tested: making the buff
+tick on time reds C2 and C6 plus three more. The alpha was not touched.
+
 LAB (09): 7/27 (o) LATEST — THE LAST OPEN NUMBER IS CALLED, AND HERE IS WHAT COMES NEXT.
 Paolo: "Do what you think is best. Do what you have to do next and know what comes after."
 THE CALL (mine, under his delegation, reversible by one word): **75% IS THE DRESSED CAMP.**

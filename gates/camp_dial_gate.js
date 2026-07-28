@@ -759,6 +759,82 @@ ok('A31 the page cites the engine files its scale came from',
     ok('T25 clause 15, policy 2: and a SERIOUS wound still gets through',
        policies.seriousLands === true);
 
+    /* ============ CLAUSE 17: THE STEP CLOCK IS NOT THE DAY CLOCK ============
+       He corrected me for writing "9,216 steps = 9 hours" as though it described a
+       day of play. It describes a player who only walks, and there is no such
+       player. These checks hold the two clocks apart for good. */
+    const clocks = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.place(11, 28); L.setDownCamp(); L.campAction('chill');
+      o.buffAtStart = L.rested();
+      /* AN ACTION: eats the day, must not touch the buff */
+      const s0 = L.seconds(), w0 = L.secWalk(), a0 = L.secAct();
+      L.spendMinutes(60);
+      o.dayFromAction = L.seconds() - s0;
+      o.walkFromAction = L.secWalk() - w0;
+      o.actFromAction = L.secAct() - a0;
+      o.buffAfterAction = L.rested();
+      /* WALKING: eats both */
+      const s1 = L.seconds(), w1 = L.secWalk(), a1 = L.secAct();
+      L.spendTile(100);
+      o.dayFromWalk = L.seconds() - s1;
+      o.walkFromWalk = L.secWalk() - w1;
+      o.actFromWalk = L.secAct() - a1;
+      o.buffAfterWalk = L.rested();
+      return o;
+    });
+    ok('C1 clause 17: AN ACTION EATS AN HOUR OF THE DAY (' + (clocks.dayFromAction / 60) + ' min)',
+       clocks.dayFromAction === 3600 && clocks.actFromAction === 3600 &&
+       clocks.walkFromAction === 0);
+    ok('C2 clause 17: AND BURNS ZERO STEPS OF BUFF — the ruling that makes clause 2 ' +
+       'load-bearing instead of merely elegant',
+       clocks.buffAfterAction === clocks.buffAtStart);
+    ok('C3 clause 17: walking burns BOTH — 100 steps cost ' +
+       (clocks.dayFromWalk / 60).toFixed(1) + ' min of day and 100 of buff',
+       clocks.buffAfterWalk === clocks.buffAfterAction - 100 &&
+       clocks.dayFromWalk > 0 && clocks.walkFromWalk === clocks.dayFromWalk &&
+       clocks.actFromWalk === 0);
+    ok('C4 clause 17: the day splits honestly into walking versus doing things',
+       clocks.walkFromAction === 0 && clocks.actFromWalk === 0);
+
+    /* THE CONSEQUENCE HE WANTED ME TO UNDERSTAND: a rest can outlive whole DAYS */
+    const outlive = await page.evaluate(() => {
+      const L = window.LAB, o = {};
+      L.reset(); L.place(11, 28); L.setDownCamp();
+      L.carry('tarp'); L.carry('seat');
+      L.deploy('bedroll'); L.deploy('tarp'); L.deploy('seat');
+      L.campAction('chill');
+      o.buff = L.rested();
+      const day0 = Math.floor(L.seconds() / 86400);
+      /* a player who plays the game: a few hundred steps and a lot of doing */
+      for (let d = 0; d < 3; d++) {
+        L.spendMinutes(10 * 60);        /* ten hours of actions */
+        L.spendTile(200);              /* and a few hundred steps */
+      }
+      o.daysPassed = Math.floor(L.seconds() / 86400) - day0;
+      o.buffLeft = L.rested();
+      o.stillRested = L.isRested();
+      o.pctLeft = L.pctOfCrossing(L.rested());
+      return o;
+    });
+    ok('C5 clause 17: THREE IN-GAME DAYS of playing pass (' + outlive.daysPassed + ' days)',
+       outlive.daysPassed >= 1);
+    ok('C6 clause 17: AND THE REST IS STILL ON — ' + outlive.buffLeft.toLocaleString() +
+       ' of ' + outlive.buff.toLocaleString() + ' steps left (' + outlive.pctLeft.toFixed(0) +
+       '% of a crossing). A rest can span several days, which makes the camp stronger ' +
+       'than the step number looks',
+       outlive.stillRested === true && outlive.buffLeft === outlive.buff - 600);
+
+    /* and the page must never again sell steps as a duration of play */
+    ok('C7 clause 17: the crossing readout carries the "if you did nothing but walk" caveat',
+       /if you did nothing but walk/i.test(src));
+    ok('C8 clause 17: the buff readout says STEPS ONLY and does not convert itself to hours',
+       /STEPS ONLY/.test(src) && !/h of walking \(/.test(src));
+    ok('C9 clause 17: there is a stand-in ACTION on the page, so the gap is playable',
+       /SPEND AN HOUR ON SOMETHING/.test(src));
+    ok('C10 clause 17: the law owns the mistake instead of quietly correcting it',
+       /WHAT I GOT WRONG/.test(law) && /no such player exists in/i.test(law));
+
     /* ---------------- THE DIALS ARE REALLY HIS ---------------- */
     const dials = await page.evaluate(() => {
       const L = window.LAB, o = {};

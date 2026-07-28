@@ -353,6 +353,8 @@ var S = {
   restedFrom: 'chill',
   meal: 0,                      /* TILES of the meal buff left — clause 14 */
   seconds: 8 * 3600,            /* the world's clock, moved by BUTTONS — clause 12 */
+  secWalk: 0,                   /* of that clock, how much was WALKING */
+  secAct: 0,                    /* and how much was everything else — clause 17 */
   bleedTiles: 0,                /* how far this bleed has run — clause 15 */
   wounds: [],
   companion: true,
@@ -411,9 +413,12 @@ function stRegenTiles() {
    is the whole difference from Valheim and it is the ruling that matters most.
    ========================================================================= */
 /* CLAUSE 12 — THE WORLD'S CLOCK, moved by BUTTONS, never by standing there. */
+/* CLAUSE 17 — the day is eaten by ACTIONS, and an action burns NO buff. Every
+   caller here is a button, never a step. */
 function spendMinutes(m) {
   if (!m) return;
   S.seconds += m * 60;
+  S.secAct += m * 60;
   paintHud();
 }
 function clockText() {
@@ -431,7 +436,9 @@ function spendTile(n) {
   var k = n || 1;
   S.tiles += k;
   /* walking spends the world's clock too — clause 3's scale, via a dial */
-  S.seconds += k * D('SEC_PER_100_STEPS') / 100;
+  var walkSec = k * D('SEC_PER_100_STEPS') / 100;
+  S.seconds += walkSec;
+  S.secWalk += walkSec;
 
   if (S.rested > 0) {
     S.rested = Math.max(0, S.rested - k);
@@ -791,6 +798,10 @@ function draw() {
 /* =========================================================================
    HUD + PANELS
    ========================================================================= */
+function hm(sec) {
+  var m = Math.round(sec / 60);
+  return Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm';
+}
 function pips(n, max, on, off) {
   var s = '';
   for (var i = 0; i < max; i++) s += (i < n ? on : off);
@@ -806,16 +817,18 @@ function paintHud() {
       POOL_NAME + '  <b>' + S.supply + '</b>   steps <b>' + S.tiles.toLocaleString() + '</b>\n' +
       '<b>' + clockText() + '</b>   ACT <b>' + D('ACT') + '</b>  ' +
       sheltersNow().length + ' friendly\n' +
-      'ACROSS VEGAS <b>' + crossingTiles().toLocaleString() + ' steps</b> (' +
-      (crossingMetres() / 1000).toFixed(1) + ' km, ' + hoursFor(crossingTiles()).toFixed(0) + ' h)';
+      'ACROSS VEGAS <b>' + crossingTiles().toLocaleString() + ' steps</b> · ' +
+      (crossingMetres() / 1000).toFixed(1) + ' km\n' +
+      '  ' + hoursFor(crossingTiles()).toFixed(0) + ' h <i>if you did nothing but walk</i>\n' +
+      'day: <b>' + hm(S.secWalk) + '</b> walking · <b>' + hm(S.secAct) + '</b> doing things';
   }
   var r = document.getElementById('rested');
   if (r) {
     if (isRested()) {
       r.className = 'card on';
-      r.textContent = 'RESTED — ' + pctOfCrossing(S.rested).toFixed(0) + '% OF A CROSSING LEFT\n' +
-        '  ' + S.rested.toLocaleString() + ' steps · ' + hoursFor(S.rested).toFixed(1) +
-        ' h of walking (' + S.restedFrom + ')\n' +
+      r.textContent = 'RESTED — ' + S.rested.toLocaleString() + ' STEPS LEFT (' +
+        pctOfCrossing(S.rested).toFixed(0) + '% of a crossing, from ' + S.restedFrom + ')\n' +
+        '  STEPS ONLY — actions cost the day, never the buff\n' +
         (isFed() ? 'FED — ' + S.meal.toLocaleString() + ' steps left (they stack)\n' : '') +
         '+' + (D('STAMINA_BONUS') + (isFed() ? D('MEAL_STAMINA') : 0)) +
         ' stamina · regen every ' + hpRegenTiles() + '/' + stRegenTiles() + ' tiles' +
@@ -1065,6 +1078,17 @@ function bindUI() {
       };
       h2.appendChild(b);
     });
+    /* CLAUSE 17 made visible: a thing that eats an hour of the day and NONE of the
+       buff. Deliberately unnamed — what the game's real actions are is not mine. */
+    var an = document.createElement('button');
+    an.className = 'chip'; an.textContent = 'SPEND AN HOUR ON SOMETHING';
+    an.onclick = function () {
+      var r0 = S.rested;
+      spendMinutes(60);
+      toast('good', 'an hour of the day gone, ' + (r0 - S.rested) +
+        ' steps of buff burned. THAT is the difference between the two clocks.');
+    };
+    h2.appendChild(an);
     var wait = document.createElement('button');
     wait.className = 'chip'; wait.textContent = 'STAND STILL 1 MIN';
     wait.onclick = function () {
@@ -1120,6 +1144,7 @@ window.LAB = {
   minutes: function () { return Math.floor(S.seconds / 60); }, seconds: function () { return S.seconds; },
   spendMinutes: spendMinutes,
   clockText: clockText, dayInTiles: dayInTiles, hoursFor: hoursFor, stepSeconds: stepSeconds,
+  secWalk: function () { return S.secWalk; }, secAct: function () { return S.secAct; },
   VEGAS: VEGAS, crossingTiles: crossingTiles, crossingMetres: crossingMetres,
   tileSeconds: tileSeconds, restPctFor: restPctFor, pctOfCrossing: pctOfCrossing,
   /* acts and friendly shelter — clause 13 */
@@ -1149,7 +1174,7 @@ window.LAB = {
   reset: function () {
     S.tx = 11; S.ty = 28; S.px = S.tx * TILE; S.py = S.ty * TILE; S.moving = null; S.dirs = [];
     S.tiles = 0; S.supply = 4; S.camp = null; S.carried = ['bedroll']; S.deployed = [];
-    S.rested = 0; S.meal = 0; S.seconds = 8 * 3600; S.bleedTiles = 0;
+    S.rested = 0; S.meal = 0; S.seconds = 8 * 3600; S.secWalk = 0; S.secAct = 0; S.bleedTiles = 0;
     S.wounds = []; S.companion = true; S.sleeps = 0; S.chills = 0;
     S.hpDebt = 0; S.stDebt = 0; S.bleedDebt = 0; S.found = {}; S.sprint = false;
     S.health = D('BASE_HEALTH'); S.stamina = D('BASE_STAMINA');

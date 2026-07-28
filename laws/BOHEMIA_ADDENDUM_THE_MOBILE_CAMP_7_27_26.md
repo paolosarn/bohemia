@@ -345,3 +345,70 @@ tiles = 12,288 steps; 0.75 m each; 9.2 km; 3.52 s a step; a rest is 75% of that 
 measures back as 75%; ONE BARE REST CANNOT CROSS VEGAS and comes up exactly 3,072
 steps short; a slept camp can. Mutation-tested: changing the valley to 80 cells
 reds six checks, and quietly moving his 75 to 50 reds five.
+
+---
+
+# AMENDED 7/27/26 — CLAUSE 17: THE STEP CLOCK IS NOT THE DAY CLOCK, AND I HAD BLURRED THEM
+
+His words, verbatim, correcting me:
+
+> "Only thing I want you to understand is that I know you made a big on you know
+> tiles as well, which is super important. I'm glad you have that math, but that's
+> just if you were walking now you have to understand a lot of things in this game.
+> Will take up time and time will pass just by taking actions in this game and you
+> really need to understand that sort of clock when you think about how long you get
+> lifted up for your camp and shit. Its just just the amount of steps the buff makes
+> you feel good for"
+
+## 17. A BUFF'S LENGTH IS STEPS. THE DAY'S LENGTH IS ACTIONS. NEVER TRADE ONE FOR THE OTHER.
+
+**WHAT I GOT WRONG.** Clause 16's arithmetic is correct and he says so. What I then
+did with it was not: I wrote "9,216 steps = 9 hours of walking" and let that stand
+as though it described how much of the player's day the buff covers. **It does not.
+It only describes a player who does nothing but walk, and no such player exists in
+this game.** A day here is eaten by looting, talking, fighting, camping, treating a
+wound, sleeping — everything the TIME IS SPENT BY ACTIONS law already said. Steps
+are one small slice of what consumes a day.
+
+**SO THE TWO CLOCKS ARE FORMALLY SEPARATE, AND THEY ALWAYS WERE:**
+
+| | burns on | does NOT burn on |
+|---|---|---|
+| **the buff** | STEPS you take | time, actions, standing still, sleeping |
+| **the day** | EVERY action, walking included | nothing — it only moves when you act |
+
+**THE CONSEQUENCE THAT MATTERS FOR SIZING THE CAMP:** a rest worth 9,216 steps is
+NOT "most of one day". If the player spends the afternoon searching a motel and the
+evening at a companion's place, the day rolls over and the buff has barely moved.
+**A single rest can span several in-game days.** That makes the camp buff STRONGER
+in practice than the step number makes it look, and it is the thing to hold in mind
+when he sets the final numbers. It also makes clause 2 load-bearing rather than
+merely elegant: if the buff burned on TIME, a player who stopped to do anything
+would be punished for playing the game.
+
+**WHAT THIS FORBIDS, IN THIS REPO, FROM NOW ON:**
+- Presenting a step count as an equivalent duration of PLAY. "9,216 steps = 9 hours"
+  is only true of a pure walk and must always say so.
+- Sizing any buff by asking "how much of a day is this" — the answer depends on what
+  the player does, which is unknowable at design time. Size it in STEPS, and in
+  crossings, which is his unit.
+- Any buff that ticks on the clock instead of on steps. Clause 2, now with a reason.
+
+**WHAT THE PAGE DOES ABOUT IT** (`slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html`):
+- the "ACROSS VEGAS 12,288 steps" line now says **"12 h IF YOU DID NOTHING BUT
+  WALK"**, because that caveat is the whole point;
+- the buff reads **"9,216 STEPS LEFT — steps only, actions cost the day, never the
+  buff"**, and no longer converts itself into hours;
+- the HUD splits the day into **time spent walking vs time spent doing things**, so
+  the gap between the two clocks is visible while he plays;
+- and there is a **SPEND AN HOUR ON SOMETHING** button — deliberately unnamed,
+  because what the real actions are is his — which eats an hour of the day and
+  ZERO steps of buff. Press it three times and watch the day die while the buff sits
+  still. That is clause 17 in the hand instead of on paper.
+
+## GATE
+
+`camp_dial_gate.js` gains the C-series: an action burns day and never buff; walking
+burns both; the day's accounting really splits into walking versus doing; a buff can
+outlive a whole in-game day of actions; and the page never presents a step count as
+a duration of play without the "if you only walked" caveat attached.

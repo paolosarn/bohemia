@@ -25,6 +25,28 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1l. [RULED 7/28 — CLAUSE 17, AND IT IS A CORRECTION OF ME] THE STEP CLOCK IS NOT THE
+   DAY CLOCK. Paolo: "I'm glad you have that math, but that's just if you were
+   walking... a lot of things in this game will take up time and time will pass just by
+   taking actions... you really need to understand that sort of clock when you think
+   about how long you get lifted up for your camp. It's just the amount of steps the
+   buff makes you feel good for."
+   WHAT I GOT WRONG: clause 16's arithmetic is right and he said so, but I wrote
+   "9,216 steps = 9 hours of walking" and let it stand as if it described the player's
+   DAY. It describes a player who only walks, and no such player exists in this game.
+   THE LAW NOW: the BUFF burns on STEPS only (never time, actions, standing still or
+   sleeping); the DAY burns on EVERY ACTION including walking. Both true at once.
+   THE CONSEQUENCE FOR SIZING, which is why he pushed: a 9,216-step rest is NOT most of
+   a day — it can span SEVERAL in-game days, because the day is eaten by everything
+   else. So the camp is STRONGER in practice than the step number looks. And clause 2
+   becomes load-bearing: a buff that burned on time would punish playing the game.
+   FORBIDDEN NOW, ANY LANE: selling a step count as a duration of play without the
+   "if you only walked" caveat; sizing a buff by "how much of a day is this"; any buff
+   that ticks on the clock instead of on steps.
+   ON THE PAGE: the caveat is on the crossing line, the buff says STEPS ONLY and no
+   longer converts to hours, the HUD splits the day into walking vs doing things, and
+   an unnamed SPEND AN HOUR ON SOMETHING button eats day and zero buff so the gap is
+   playable. GATE: 138 checks, new C-series; making the buff tick on time reds five.
 1k. [CALLED 7/27 ON HIS DELEGATION] 75% IS THE DRESSED CAMP, NOT THE BARE TENT.
    Paolo: "Do what you think is best." So the one open question on the rest number is
    closed as MY call, reversible by one word: a bare tent is 60% of a Vegas crossing,
