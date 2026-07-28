@@ -26,7 +26,7 @@ world's ships did not move because of American demand; they moved because
 So killing the dollar does not merely impoverish Americans. It **removes the
 promise layer that made strangers trade with strangers.** A ship's cargo changes
 hands four times between loading and unloading, and every one of those handovers
-is a bank promise, not a物 transfer.
+is a bank promise, not a physical transfer.
 
 **OUR CANON ALREADY NAILED THIS.** The GDD, Logistics section: *"Modern logistics
 dies of broken PROMISES, not broken machines (dollar settlement fails → letters
