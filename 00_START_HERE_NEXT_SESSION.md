@@ -2430,6 +2430,66 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v93: YOU CAN SEE WHO IS UNDER THE DECK + THE KILLSHOT
+ALLOWANCE (thinking only, nothing built, on his explicit ask).
+--- THE FIX ---
+Paolo: "there has to be like the [opacity] thing where I could see who's
+underneath the stairs."
+REPRODUCED, AND IT WAS THE OPPOSITE OF HIDDEN: a living man parked on the lot under
+a deck tile was drawn ON TOP OF the storey above him. Every body paints in ONE pass
+at ONE depth, so a man underneath a platform and a man standing on it were
+pixel-identical. *** THE PICTURE ACTIVELY LIED ABOUT WHICH FLOOR ANYONE WAS ON,
+WHICH IS WORSE THAN OCCLUSION -- occlusion at least tells you something is in
+front. ***
+THE X-RAY, which is what every top-down game with a roof does (Diablo, BG3,
+Fallout, Zelda): a body on the lot with a storey over its head draws as a GHOST,
+washed cold blue-grey at 0.42 alpha. SOLID = on the deck. GHOST = underneath. One
+rule for every body, enemies and the player alike, and the read line also says
+UNDER THE DECK for the case the level words could not cover.
+REUSE: rides drawHumanWashed, the tint path the stun/firing/peeking/wounded reads
+already use. No new draw path.
+NOT DONE, AND THE FILE SAYS SO: the honest fix is a three-pass depth sort (ground
+bodies, deck, deck bodies). drawField's body pass is ONE 180-line loop that also
+owns wounds, weapon reads, target rings, beg lines, elite glints and health bars --
+splitting it by level is a large risky reorder of the most-touched function in the
+file AND WOULD STILL NEED THE X-RAY, because a man perfectly hidden under a roof is
+a man you cannot make a decision about. If it is ever split, the ghost stays right.
+GATE: section 29, 462 -> 469 checks, including that a ghost is a READ and not a
+rule change (under the deck alters nothing about cover, damage or exposure).
+TOOL: tools/bohemia_combat_under_the_deck_patch.py
+
+--- THE THINKING (he said "look at the code and think about it for a turn") ---
+records/BOHEMIA_COMBAT_THE_KILLSHOT_ALLOWANCE_7_27_26.md
+HIS IDEA: the difficulty setting becomes HOW MANY KILLSHOTS YOU GET PER TURN before
+the dial ramps up; perks/cards raise that number.
+WHAT THE CODE DOES TODAY, and both halves matter:
+  * THE CHAIN IS UNLIMITED. afterKill() re-enters aim on every landed killshot,
+    forever, until you miss. The turn ends when you FAIL and only when you fail.
+  * THE DIFFICULTY SETTING IS A CEILING, NOT A FLOOR. distPkg = round(distT*userPkg)
+    is ZERO at point blank on EVERY setting including Bohemian. The shot number
+    influences nothing at all. And there is NO per-turn shot counter in the file.
+MY READ: *** BUILD IT. *** Strongest idea to come through this lane. It creates a
+decision that does not exist (stop, or take the harder dial) -- it is THE BANK from
+the 7/27 research, but better, because the stake is THE TURN ITSELF and it needs no
+new currency. It makes "difficulty" sayable in one sentence ("EASY means you are
+good for two kills a turn"), which is the bar SUPPRESS has failed three times. It
+gives progression ONE clean number to grant. And it answers "how long is a turn",
+which today has no shape.
+*** THREE RULINGS NEEDED BEFORE A LINE IS WRITTEN: ***
+1 IT COLLIDES WITH THE RANGE RULE. Point blank already forces EASY on any setting,
+  so naively the ramp would not exist for anyone who closes -- which he ruled
+  yesterday is the correct way to play. FLOOR (pkgDiff = max(range,ramp)) or
+  REPLACE? RECOMMEND FLOOR: closing becomes how you AFFORD the extra shot, which
+  knits the new idea into yesterday's rule instead of overwriting it.
+2 THE ALLOWANCE PER SETTING. Contents are his (MECHANISM-MINE/CONTENTS-PAOLO'S).
+3 THE RAMP SHAPE: +1 tier per shot or accelerating, and does it cap at BOHEMIAN.
+CAUTION: "guaranteed" is a promise the dial cannot keep -- even EASY needs you to
+press in the band. GUARANTEE THE DIAL, NOT THE KILL: say "2 EASY SHOTS", never
+"2 guaranteed kills". A broken promise is worse than no promise.
+BUILD ORDER when he rules: the per-turn counter and the ramp FIRST (that is the
+mechanic), the read SECOND -- the dial must SAY "SHOT 3 OF 2 - V.HARD" or the whole
+thing is invisible, which is the mistake this lane has made three times running.
+
 COMBAT (04) 7/27 - v92: THERE WAS NEVER A STAIRCASE, ONLY A DECAL. Paolo: "You
 have stairs right now looking like dog shit... do a big brain online research.
 Have some references and do what you're supposed to."

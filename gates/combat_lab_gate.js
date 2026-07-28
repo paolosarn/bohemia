@@ -2487,6 +2487,45 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
              /18\. Stairs and lifts/.test(t) && /16\. Staircases and elevation/.test(t); })());
 }
 
+/* ============================================================================
+   29. V93 YOU CAN SEE WHO IS UNDER THE DECK
+   Paolo: "there has to be like the [opacity] thing where I could see who's
+   underneath the stairs."
+   REPRODUCED, and it was the OPPOSITE of hidden: a living man parked on the lot
+   under a deck tile was drawn ON TOP OF the storey above him. Every body paints
+   in one pass at one depth, so a man underneath a platform and a man standing on
+   it were pixel-identical -- the picture actively lied about which floor anyone
+   was on, which is worse than occlusion. Occlusion at least tells you something
+   is in front.
+   ========================================================================== */
+{
+  ok('V93 THE X-RAY: a body on the lot with a storey over its head draws as a GHOST -- washed cold and dropped to low alpha -- which is what every top-down game with a roof does. The hidden thing shows THROUGH rather than vanishing',
+    demo.includes('function underDeck(o){ if(!o||(o.lvl|0)!==0)return false;') &&
+    demo.includes("const UNDER_TINT='rgba(96,132,178,0.90)', UNDER_ALPHA=0.42;"));
+  ok('and the predicate is a REAL level+footprint test, not a distance guess: level 0, standing on a deck tile',
+    /function underDeck\(o\)\{ if\(!o\|\|\(o\.lvl\|0\)!==0\)return false;\s*\n\s*return !!deckTileAt\(Math\.cos\(o\.ea\)\*o\.edist,Math\.sin\(o\.ea\)\*o\.edist\); \}/.test(demo));
+
+  ok('EVERY BODY OBEYS ONE RULE, enemies and YOU alike, so you can always tell which floor your own man is standing on',
+    demo.includes('if(underDeck(e)){ const f2=enemyFrame(e,now); if(!f2)return false;') &&
+    demo.includes('function underDeckMe(){ return myLvl()===0 && !!deckTileAt(0,0); }') &&
+    demo.includes('if(underDeckMe()){ x.save(); x.globalAlpha=UNDER_ALPHA;'));
+  ok('and the ghost REUSES drawHumanWashed, the tint path the stun / firing / peeking / wounded reads already ride -- no new draw path was invented for it',
+    demo.includes('drawHumanWashed(x,f2,ex,ey,UNDER_TINT);') &&
+    demo.includes('function drawHumanWashed(x,cv112,ex,ey,tint){'));
+  ok('the ghost restores the canvas state it borrowed, so a translucent body can never leak its alpha onto whatever draws next',
+    (demo.match(/x\.save\(\); x\.globalAlpha=UNDER_ALPHA;/g) || []).length === 2 &&
+    demo.includes('x.restore(); return true; }'));
+
+  ok('V93 AND THE READ SAYS IT IN WORDS TOO, for the one case the level words alone could not cover: same floor as you, but with a storey over his head, which is where he is hardest to see',
+    demo.includes('const _und=underDeck(e)&&!_lv;') &&
+    demo.includes('UNDER THE DECK'));
+
+  ok('V93 A GHOST IS A READ, NOT A RULE CHANGE: being under the deck alters nothing about cover, damage or exposure -- the cross-level rule is still the only thing levels do to the fight',
+    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;') &&
+    demo.includes('const KILL_DMG=100;') &&
+    !/underDeck\([^)]*\)[^\n]{0,80}(KILL_DMG|applyDamage|distAccuracy)/.test(demo));
+}
+
 /* ---- 6. the parent shell: the other half of the handoff ---- */
 ok('V66 PARENT: ensureCombatFrame builds the combat frame ON DEMAND, so a quest can hand off with the combat tab never opened; the tab click uses the same one builder',
   alpha.includes('function ensureCombatFrame(){') &&

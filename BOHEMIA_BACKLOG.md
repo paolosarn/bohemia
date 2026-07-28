@@ -1441,6 +1441,61 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    NOT RECOMMENDED ON THE EVIDENCE: any height damage or accuracy bonus. Ruled out
    by him, and the DOS2 critique shows what happens anyway -- the bonus lands in the
    same slot as crit and a whole skill tree goes redundant.
+0-under. DONE 7/27 (v93): YOU CAN SEE WHO IS UNDER THE DECK. Paolo: "there has to
+   be like the [opacity] thing where I could see who's underneath the stairs."
+   REPRODUCED, AND IT WAS THE OPPOSITE OF HIDDEN: a living man parked on the lot
+   under a deck tile was drawn ON TOP OF the storey above him. Every body paints in
+   ONE pass at ONE depth, so a man underneath a platform and a man standing on it
+   were pixel-identical -- the picture actively LIED about which floor anyone was
+   on, which is worse than occlusion (occlusion at least tells you something is in
+   front).
+   THE X-RAY, which is what every top-down game with a roof does: a body on the lot
+   with a storey over its head draws as a GHOST, washed cold blue-grey and dropped
+   to 0.42 alpha. Solid = on the deck. Ghost = underneath. No UI words needed, and
+   the read line also says UNDER THE DECK for the case level words could not cover.
+   ONE RULE FOR EVERY BODY, enemies and the player alike.
+   REUSE: rides drawHumanWashed, the existing tint path the stun/firing/peeking/
+   wounded reads already use. No new draw path invented.
+   NOT DONE, AND SAID SO: the honest fix is a three-pass depth sort (ground bodies,
+   deck, deck bodies). drawField's body pass is one 180-line loop that also owns
+   wounds, weapon reads, target rings, beg lines, elite glints and health bars;
+   splitting it by level is a large risky reorder of the most-touched function in
+   the file AND WOULD STILL NEED THE X-RAY, because a man perfectly hidden under a
+   roof is a man you cannot make a decision about. If the pass is ever split for
+   another reason, the ghost stays correct.
+   A GHOST IS A READ, NOT A RULE CHANGE: gated that being under the deck alters
+   nothing about cover, damage or exposure.
+   Gate section 29, 469 checks.
+0-allowance. *** THINKING DELIVERED 7/27, NOTHING BUILT, ON HIS EXPLICIT ASK
+   ("could you look at the code and think about it for a turn"). ***
+   records/BOHEMIA_COMBAT_THE_KILLSHOT_ALLOWANCE_7_27_26.md
+   HIS IDEA: the difficulty setting becomes HOW MANY KILLSHOTS YOU GET PER TURN
+   before the dial ramps up, and perks/cards raise that number.
+   WHAT THE CODE DOES TODAY: the chain is UNLIMITED (afterKill re-enters aim on
+   every landed killshot, forever, until you miss) and the difficulty setting is a
+   CEILING NOT A FLOOR -- distPkg = round(distT*userPkg) is ZERO at point blank on
+   every setting including Bohemian. The shot number influences nothing. There is
+   no per-turn shot counter anywhere in the file.
+   MY READ: BUILD IT. It is the strongest idea to come through this lane. It
+   creates a decision that does not exist (stop, or take the harder dial -- it is
+   THE BANK from the 7/27 research, but better, because the stake is the turn
+   itself and it needs no new currency). It makes "difficulty" sayable in one
+   sentence, which is the bar SUPPRESS has failed three times. It gives progression
+   ONE clean number to grant. And it answers "how long is a turn", which today has
+   no shape at all.
+   *** THREE RULINGS NEEDED BEFORE A LINE IS WRITTEN: ***
+   1 IT COLLIDES WITH THE RANGE RULE. Point blank already forces EASY on any
+     setting, so naively the ramp would not exist for anyone who closes -- which he
+     ruled yesterday is the correct way to play. FLOOR (pkgDiff = max(range, ramp))
+     or REPLACE? I recommend FLOOR: closing becomes how you AFFORD the extra shot.
+   2 THE ALLOWANCE PER SETTING. Contents are his.
+   3 THE RAMP SHAPE: +1 tier per shot, or accelerating? Cap at BOHEMIAN or past it?
+   AND ONE CAUTION: "guaranteed" is a promise the dial cannot keep -- even EASY
+   needs you to press in the band. GUARANTEE THE DIAL, NOT THE KILL ("2 EASY
+   SHOTS", not "2 guaranteed kills").
+   BUILD ORDER when he rules: counter + ramp first (the mechanic), then the read --
+   the dial must SAY "SHOT 3 OF 2 - V.HARD" or it is invisible, which is the
+   mistake this lane has now made three times running.
 0-staircase. DONE 7/27 (v92): THERE WAS NEVER A STAIRCASE, ONLY A DECAL. Paolo:
    "You have stairs right now looking like dog shit... do a big brain online
    research. Have some references and do what you're supposed to."
