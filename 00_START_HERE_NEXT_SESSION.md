@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ART (06): 7/28 LATEST — ALL 42 TILES RE-COOKED (HE APPROVED IT), AND "NAME THE TAB"
 IS NOW LAW.
 Paolo, on the one-tile proof: "I checked it to do the other 41 mark it approved."
@@ -42,6 +43,50 @@ WHERE THINGS ARE, in his language: the judge page is the FIRST CARD OF THE LIFE 
 crosses into two lanes that were shipping live all night, so it waits for his word AND a
 clear lane - do not walk into their files mid-flight, that is how 7/26 got duplicated.
 ALSO PENDING from earlier: what colour is rebuilt Vegas; cars 2x3 vs re-cook shorter.
+=======
+CITY (03): 7/28 (e) LATEST — HIS 30 APPROVED HOUSE SKINS ARE ON THE HOUSES. THE CBB
+TILESET WENT FROM 83% OF THE BLOCK TO 30%.
+He did not pick from my three options, he said "do what you have to do next", so I took
+option 1 (skin the stack, keep the massing) after checking option 3 was blocked: the
+WORLD lane's own record says READ THIS BEFORE BUILDING ANY GROUND, the tile set covers
+ONE residential street, and growing it is the ART lane's item. Ground is cross-lane and
+freshly rejected. Houses are mine.
+WHAT SHIPPED, tools/bohemia_run_houseskin_patch.py: only the FIELD tiles wear his skins
+- the flat middle of a wall (wall_0/1/2), the straight roof run (roof_slope/eave/ridge)
+and the open yard (yard_0/1/2). EVERY tile that carries SHAPE keeps the target set:
+wall_base, wall_under_eave, wall_end_l/r, wall_window, wall_boarded, roof_hipTL/TR/BL/BR,
+the whole garage, every road/kerb/concrete/walk tile. Massing kept, materials returned.
+ONE SKIN PER HOUSE, seeded off the footprint (his own one_wall_per_community law applied
+where it obviously belongs); yard seeded per BLOCK, matching what the CITY tab already
+does with the same bank.
+MEASURED, out on the block: 83% CBB tileset -> 30%. Yard skins 53%, border walls 17%.
+I LOOKED AT IT THREE TIMES AND CHANGED MY MIND TWICE, which is the part worth keeping:
+  v1  skinned roof_slope only -> the roof came out in STRIPES, his tile then the target's
+      orange corrugated then his again. Worse than either alone.
+  v2  dropped the roof entirely -> the whole roof went uniform ORANGE, because that
+      orange IS the target set's roof. Leaving more of the CBB art on screen was never
+      the answer.
+  v3  skinned the whole straight run and kept only the HIPS -> uniform shingle roof from
+      his bank, no orange, no stripes. Shipped.
+  VERIFY ON THE REAL SURFACE is why this landed right; the first version would have
+  shipped green and looked worse.
+NEW GATE: gates/bankused_gate.js — AN APPROVED BANK THAT IS LOADED AND NEVER DRAWN IS
+THE SAME AS NOT HAVING IT. It boots the real run, patches drawImage, draws frames
+inside, outside, in front of a house and at a door, and counts DRAWS PER BANK. Zero
+draws fails. This exact failure happened TWICE IN ONE DAY in one file (the 13 border
+walls, the 30 house skins) and the build script's own check only ever asserted the banks
+were PRESENT. Present-and-unused passed every gate in this repo.
+FOUND AND NOT FAILED ON, stated in the gate: the run carries an OLDER static door array
+DOOR_IMG reachable only through doorPick(), and doorPick() is referenced exactly once -
+its own definition. Dead code from the lifted art block, superseded by the animated door
+bank. Somebody should delete it.
+WHAT COMES AFTER: the interior is still 35% CBB tileset, and the same skin trick has
+nowhere to go there because the interior pool is already wired and already his. The real
+next thing is not mine: the tile set covers ONE residential street and 44 of 45 districts
+have no ground art at all. Until ART grows a tile family per district type, every look
+verdict comes back the same. That is the blocker, it is named in the WORLD lane's record
+too, and no amount of CITY work moves it.
+>>>>>>> f9f6caf (HIS 30 HOUSE SKINS ARE ON THE HOUSES: THE CBB TILESET WENT 83% -> 30% OF THE BLOCK)
 
 CITY (03): 7/28 (d) LATEST — THE BORDER WALLS ARE APPROVED, AND I MEASURED WHY THE
 REST STILL LOOKS BAD.

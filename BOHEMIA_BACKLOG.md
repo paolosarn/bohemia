@@ -955,6 +955,26 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0Q. [DONE 7/28] HIS 30 HOUSE SKINS ARE ON THE HOUSES; THE CBB TILESET WENT 83% ->
+   30% OF THE BLOCK. Option 1 of the three (skin the stack, keep the massing) -
+   he said "do what you have to do next" rather than picking, and option 3
+   (ground) was blocked: the WORLD lane's record says READ BEFORE BUILDING ANY
+   GROUND, the tile set covers ONE residential street, growing it is ART's.
+   Only FIELD tiles wear his skins (flat wall middle, straight roof run, open
+   yard); every tile carrying SHAPE keeps the target set (base course, eave,
+   corners, window, boarded, all four hips, the garage, all road/kerb/concrete).
+   One skin per HOUSE seeded off the footprint, one yard per BLOCK.
+   THREE LOOKS BEFORE IT WAS RIGHT: roof_slope only -> stripes; no roof at all ->
+   uniform orange (that orange IS the target roof); whole straight run + hips
+   kept -> uniform shingle from his bank. The first version would have shipped
+   green and looked worse. VERIFY ON THE REAL SURFACE earned its keep.
+0R. [DONE 7/28] BANK USED GATE. An approved bank that is loaded and never drawn
+   is the same as not having it - it happened TWICE IN ONE DAY in one file (the
+   13 border walls, the 30 house skins) and build_run_slice.js only ever asserted
+   the banks were PRESENT. gates/bankused_gate.js boots the real run, patches
+   drawImage, draws inside / outside / in front of a house / at a door, and
+   counts DRAWS PER BANK. Zero draws fails. Also reports (does not fail) the dead
+   DOOR_IMG + doorPick() pair, superseded by the animated door bank - delete it.
 0P. [PENDING PAOLO - one pick, then it is a day's work] 83% OF THE RUN IS THE CBB
    TILESET, AND HIS 30 APPROVED HOUSE SKINS ARE LOADED AND NEVER DRAWN. Measured
    by tools/bohemia_run_art_source_audit.js: out on the block, 273 of 330 draws

@@ -14798,6 +14798,62 @@ function pathSet(){
     }
   });
   return _path;
+/* ==== HOUSE SKINS (7/28): PAOLO'S OWN 30, FINALLY DRAWN ====================
+   ROOF_IMG / WALL_IMG / YARD_IMG carry his 7/21 verdict (all 30 UP,
+   records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt). They were decoded into this
+   page on every load and NEVER DRAWN - measured at zero draws by
+   tools/bohemia_run_art_source_audit.js, exactly like his 13 border walls sat
+   unused until earlier today.
+
+   ONLY THE FIELD IS SKINNED. The building stack picks different tiles for the
+   base course, eave shadow, corners, ridge, hips and garage mouth so a house
+   reads as a MASS; those carry the shape and they keep the target set. The flat
+   middle of a wall, the flat middle of a roof and the open yard are texture, and
+   texture is what his banks are.
+
+   ONE SKIN PER HOUSE - his own wall law where it obviously belongs: "each plot =
+   ONE wall design (seeded per plot); variety BETWEEN plots; per-cell wall
+   shuffle BANNED". A house wears one wall skin and one roof skin for its whole
+   body; the house next door wears different ones. The yard is seeded per BLOCK,
+   matching what the CITY tab already does with this same bank. ============== */
+/* THE WHOLE STRAIGHT ROOF RUN, not just its middle. I looked at this twice
+   before settling it. Skinning ONLY roof_slope left roof_eave and roof_ridge on
+   the target set, so a roof came out in STRIPES - his tile, then the target's
+   orange corrugated, then his again. Worse than either alone. The orange band is
+   the TARGET set's roof, which is the CBB art he is unhappy with, so the answer
+   was never to leave more of it: it was to skin the whole straight run and stop
+   half-way through nothing. THE HIPS ARE UNTOUCHED - roof_hipTL/TR/BL/BR are the
+   cut corners where a roof turns, they carry the SHAPE, and his bank has no
+   corner variants. Massing kept, materials returned. */
+var SKIN_FIELD = { wall_0:'W', wall_1:'W', wall_2:'W',
+                   roof_slope:'R', roof_eave:'R', roof_ridge:'R',
+                   yard_0:'Y', yard_1:'Y', yard_2:'Y' };
+var _footAt = null;
+function footIndexAt(gx,gy){
+  if(!_footAt){ _footAt={};
+    (feet||[]).forEach(function(f,i){
+      for(var y=f.y;y<f.y+f.h;y++)for(var x=f.x;x<f.x+f.w;x++) _footAt[x+','+y]=i; }); }
+  var v=_footAt[gx+','+gy];
+  return (v===undefined)?-1:v;
+}
+function skinImg(kind,gx,gy){
+  var bank = kind==='R'?ROOF_IMG : kind==='W'?WALL_IMG : YARD_IMG;
+  if(!bank||!bank.length) return null;
+  var seed;
+  if(kind==='Y'){                                  /* one yard per BLOCK */
+    seed=(Math.imul((CELL&&CELL[0])|0,2654435761)^Math.imul((CELL&&CELL[1])|0,40503))>>>0;
+  } else {                                         /* one skin per HOUSE */
+    var fi=footIndexAt(gx,gy);
+    if(fi<0) return null;                          /* not a known home: leave it */
+    seed=(Math.imul(fi+1,2654435761)^Math.imul(kind==='R'?7919:104729,40503))>>>0;
+  }
+  var im=bank[seed%bank.length];
+  return (im&&im.complete&&im.naturalWidth)?im:null;
+}
+function drawSkin(id,gx,gy,X,Y,S){
+  var k=SKIN_FIELD[id]; if(!k) return false;
+  var im=skinImg(k,gx,gy); if(!im) return false;
+  ctx.drawImage(im,X,Y,S,S); return true;
 }
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
 /* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its
@@ -15258,6 +15314,9 @@ function draw(){
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
+        /* HOUSE SKINS (7/28): his own approved texture for the FIELD tiles; the
+           stack's shape tiles fall through to the target set untouched. */
+        if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */
           ctx.fillStyle = isBody(gx,gy2) ? (EXTCOL[c]||'#8a5a3a') : gcol(gx,gy2);
@@ -15348,6 +15407,9 @@ function draw(){
       var laid = isSuburbCell()
         ? (isBody(gx,gy2) ? bodyTile(G[gy2][gx],gx,gy2) : groundTile(G[gy2][gx],gx,gy2))
         : genericTile(gx,gy2);
+      /* HOUSE SKINS: the see-through pass draws the same tiles, so it needs his
+         skins too or a faded wall reverts to the target set. */
+      if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) return;
       tput(laid,X,Y,S);
     });
     /* standing in your own doorway: the leaf and its head close around you */
@@ -15612,6 +15674,7 @@ function move(dx,dy){
           if(tx>=0&&ty>=0&&tx<W&&ty<H&&!SOLIDG[ty][tx]){ px=tx; py=ty; got=true; } }
       }
       buildSim(0);
+      _footAt=null;   /* HOUSE SKINS: new cell, new footprints */
       toast('You crossed into the '+(CELLNAME||'valley')+'.');
       autoSave('cell');
       refresh(); draw(); return;
