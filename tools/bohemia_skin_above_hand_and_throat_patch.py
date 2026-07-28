@@ -175,14 +175,16 @@ NEW_NECK = '''    /* THE THROAT, because part 3 is invisible on him (Paolo 7/27:
        and follows any garment with a different neckline. Part 3 keeps its tone
        for the facings and outfits where it does show; nothing is taken away. */
     let _throatY = -1;
-    if(NECK_TONE.throatRows>0){
+    if(NECK_TONE.throatRows>0||(NECK_TONE.throatRowsByDir&&NECK_TONE.throatRowsByDir[d]>0)){
       for(let i=0;i<grid.length;i++){
         if(grid[i]!==2)continue; const c=px[i]; if(!c)continue;
         if(!_sk[c[0]+','+c[1]+','+c[2]])continue;
         const y=(i/CW)|0; if(y>_throatY)_throatY=y;
       }
     }
-    const _throatTop=_throatY<0?1e9:(_throatY-(NECK_TONE.throatRows-1));
+    const _tRows=(NECK_TONE.throatRowsByDir&&NECK_TONE.throatRowsByDir[d]!=null)
+      ?NECK_TONE.throatRowsByDir[d]:NECK_TONE.throatRows;
+    const _throatTop=(_throatY<0||_tRows<=0)?1e9:(_throatY-(_tRows-1));
     for(let i=0;i<grid.length;i++){
       const _q=grid[i];
       const _isThroat=(_q===2)&&(((i/CW)|0)>=_throatTop);
@@ -193,7 +195,12 @@ OLD_FLAG = 'const NECK_TONE = { on: true, part: 3, mul: 0.93 };'
 if src.count(OLD_FLAG) != 1:
     die('NECK_TONE flag found %d times (need exactly 1)' % src.count(OLD_FLAG))
 src = src.replace(OLD_FLAG,
-    'const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 2 };', 1)
+    'const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 2,
+  /* ONE TILE ON E AND W (Paolo 7/28: "Make the neck one tile less facing east
+     and west... towards the chin"). In profile there is far less throat between
+     the jaw and the collar than there is head-on, so two rows reached up into the
+     chin. One row there, two everywhere else. */
+  throatRowsByDir: { E: 1, W: 1 } };', 1)
 
 open(ALPHA, 'w', encoding='utf-8').write(src)
 print('APPLIED to slices/BOHEMIA_ALPHA_0_9.html')

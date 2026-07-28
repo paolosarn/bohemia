@@ -36,7 +36,7 @@ const ht = fs.readFileSync(HAIRTOOL, 'utf8');
 /* ---- the neck tone ------------------------------------------------------ */
 ok('NECK_TONE is declared exactly once', (src.match(/const NECK_TONE/g) || []).length === 1);
 ok('it is on, targets part 3, and the amount is a single tunable flag',
-  /const NECK_TONE = \{ on: true, part: 3, mul: [0-9.]+, throatRows: [0-9]+ \};/.test(src));
+  /const NECK_TONE = \{ on: true, part: 3, mul: [0-9.]+, throatRows: [0-9]+,/.test(src));
 
 const iClose = src.indexOf('return { Skinner, REFINE_STATS,');
 const iFlag = src.indexOf('const NECK_TONE');
@@ -138,5 +138,18 @@ ok('the restore runs AFTER garments composite (anchored before it, it was a no-o
   iArmFix > iGarment);
 ok('the ordering mistake is recorded so it is not repeated',
   /the fix measured as a complete\n     no-op|measured as a complete no-op/.test(src));
+
+
+/* ONE TILE ON E AND W (Paolo 7/28: "Make the neck one tile less facing east and
+   west... towards the chin"). In profile there is far less throat between jaw and
+   collar than head-on, so two rows reached up into the chin. */
+ok('the throat row count is per-facing', /throatRowsByDir/.test(src));
+ok('E and W take ONE row; every other facing keeps two',
+  /throatRowsByDir: \{ E: 1, W: 1 \}/.test(src) && /throatRows: 2,/.test(src));
+ok('the per-facing override is actually read by the pass',
+  /NECK_TONE\.throatRowsByDir\[d\]!=null/.test(pass));
+ok('a zero row count is honoured rather than underflowing into the whole face',
+  /_tRows<=0/.test(pass));
+ok('his reason is recorded at the code', /towards the chin/.test(src));
 
 done();
