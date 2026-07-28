@@ -1124,6 +1124,28 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0U. [RESEARCH DELIVERED 7/28, 1 RULING PENDING] THE SCOPE OF THE ECONOMIC
+   APOCALYPSE, TEN YEARS IN. records/BOHEMIA_ECONOMIC_APOCALYPSE_SCOPE_RESEARCH_
+   7_28_26.md. NO CODE WRITTEN, as asked. Round two of his research ask, three
+   questions: what a dead dollar actually breaks, what permanent brownouts do to
+   industry, and what international travel at 1% does to trade and to Vegas.
+   THE HEADLINE FINDINGS: (1) the dollar was the world's SETTLEMENT LAYER, not
+   just America's money (~58% of reserves, ~88% of FX transactions), so its death
+   is a global event, not a US one - and since real hyperinflations burn out in
+   1-2 years, at YEAR TEN Bohemia is a functioning bad normal, not chaos. The
+   die-off is MEDICAL (insulin, dialysis, antibiotics, cold chain), not
+   nutritional, which is why MEDICINE is a currency. (2) THE INDUSTRY TIER LAW:
+   continuous-process industry never restarts once cold - no new glass, cement,
+   steel-from-ore, refined fuel, chips, or CHLORINE. The last pool-chemical
+   warehouse in a city of empty pools IS the water supply. Tier 2 survives only
+   where it owns generation = exactly our 12% CLUSTERED POWER, and Lebanon's
+   generator cartels are the behavioural model for whoever holds it. (3) Travel
+   at 1% deletes Vegas's REASON TO EXIST (42M visitors, ~$80B, 1 job in 4), and
+   Cuba's Special Period is the closest real reference case we have. Fertilizer
+   is the hidden import and our biosolids canon already answers it. Rail is
+   under-used: 90 rail cells and a railyard sit idle in a fuel-starved world.
+   ONE RULING BLOCKS THE FOLD-IN: is CUBA'S SPECIAL PERIOD the named reference
+   case for our economy. | no gate until he rules | researched 7/28 | YES.
 0T. [RESEARCH DELIVERED 7/28, 3 RULINGS PENDING] HOW MANY UNNAMED NPCS, AND WHAT
    LIVES THEY LIVE. records/BOHEMIA_UNNAMED_NPC_POPULATION_RESEARCH_7_28_26.md.
    NO CODE WRITTEN, as asked. Measured out of our own files: the full 9,216-cell
