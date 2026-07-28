@@ -134,6 +134,17 @@ const READ = sel => {
   /* THE RUN'S OWN DIRECTION BUTTONS, MEASURED IN THE REAL ALPHA. Source checks
      stop the regression; this is the control he actually had in his thumb. */
   await page.click('.tab[data-p="run"]').catch(() => {});
+  /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as a
+     TAB, but it is still wired into the shell and what this gate measures is still
+     alive in it - so the harness shows that panel directly instead of tapping a tab
+     that no longer leads there. Stated rather than hidden: the only synthetic step
+     is opening a surface the UI no longer exposes; everything measured below is
+     measured on a real rendered panel. If the shell ever stops wiring runFrame,
+     delete this section outright rather than prop it up. */
+  await page.evaluate(() => {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    const r = document.getElementById('p-run'); if (r) r.classList.add('on');
+  }).catch(() => {});
   const rh = await page.waitForSelector('#runFrame', { timeout: 60000 }).catch(() => null);
   const rf = rh ? await rh.contentFrame() : null;
   ok('the RUN frame is reachable', !!rf);
