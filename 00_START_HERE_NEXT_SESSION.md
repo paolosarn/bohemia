@@ -1,3 +1,63 @@
+WORLD MODEL (02): 7/28 LATEST — HE RULED: EVERY DISTRICT IS ITS OWN LANDMARK, AND
+ACT ONE ONLY. LAW: laws/BOHEMIA_ADDENDUM_EVERY_DISTRICT_IS_A_LANDMARK_7_28_26.md
+Deliverable: records/BOHEMIA_DISTRICT_THEME_SHEET_7_28_26.md (36 hooks, one per type)
+
+"each grid each district should feel like its own landmark... I need you to do a lot
+better and fun, unique district themes for the types that you need diverse and fun. I
+only want to act one right now so I don't want you worrying about act two"
+
+Said in answer to the three research terms. His ruling goes FURTHER than the research
+did: the term-3 finding was that we have Lynch's paths and districts but zero nodes and
+zero landmarks. He is saying a landmark is not a feature you add to a district — being
+one IS the district's job. If a cell can be swapped for another and nobody notices, it
+failed.
+
+FOUR THINGS ARE NOW LAW:
+  1. EVERY DISTRICT CELL IS ITS OWN LANDMARK. Not some. Every one. The test: could a
+     player describe this cell in five words and be understood.
+  2. THE POCKET CITY 2 BAR — he named the game and said "you gotta be able to rock with
+     that". Its own reviews name the standard exactly: "everything looks unique enough
+     to know what it is at a glance." Same standard the squint test gives from the other
+     side (~70% of a design's impact is silhouette).
+  3. DIVERSE AND FUN ARE ACCEPTANCE CRITERIA, not polish. Our 36 types are 36 correct,
+     interchangeable arrangements of buildings and pavement. Accurate and boring.
+  4. ACT ONE ONLY. Every lane stops designing acts 2 and 3 — the triptych is canon but
+     PARKED. This KILLS my own open question about act 2 being re-occupation (the Tower
+     of David model) and it kills the act-2/3 material tables that sit [PENDING Paolo] on
+     every district dossier. Do not surface them. Do not ask again this session.
+
+THE REFERENCE IMAGE NEVER ARRIVED. He said "I uploaded what buildings in Pocket City 2
+look like" and nothing landed on my side — checked the uploads path and the filesystem.
+NOTHING WAS INVENTED TO FILL THE GAP: the bar is recorded from his words plus published
+description of the game, and the image is still owed. "Rock with that" is a visual
+standard and I have not seen the picture.
+
+DELIVERED THIS TURN, NOTHING BUILT: a hook for all 36 registered types, each made of ONE
+SILHOUETTE + ONE FROZEN EVENT + ONE THING YOU CAN ONLY DO HERE. Generic districts fail
+because they have a programme (a school has classrooms) and no hook (a school where the
+buses never came). Highlights: the waterpark's empty pools and slides to nowhere (he
+called it "so fucking terrible" and it has the strongest silhouette available anywhere);
+the farm as a quarter-mile CENTRE PIVOT over dead alfalfa, which is his own correction
+("this is nevada nevada is in a dessert so") and factually how Nevada farms; golf as the
+hard dead-green-against-live-desert boundary; the trailer park's TOWED-AWAY PADS, which
+is Vegas's real foreclosure story; and the firestation's open bay doors over empty bays.
+THE FIVE I PROPOSED FIRST ARE ALL SHAPE CHANGES, NOT ART CHANGES, so all five can be
+built and gated before a single tile exists.
+
+A GATE IS OWED and does not exist: the squint test — render each district icon at one
+tile, threshold to black, require the silhouettes to be mutually distinguishable. Two
+districts with the same black shape ARE the same district at map zoom.
+
+=== WHAT COMES AFTER ===
+BLOCKED ON PAOLO:
+  1. THE POCKET CITY 2 IMAGE (owed — re-send).
+  2. Which of the five hooks to build first, or all five.
+  3. School: HIGH SCHOOL OR MIDDLE SCHOOL. He is right that it has to say, and it
+     changes the massing.
+  4. How long since the collapse — still sets the damage level of all 45 at once.
+DO NOT: design act 2 or act 3 anything. Do not rebuild districts off the bulk verdict
+without him naming which. Do not invent the Pocket City reference from memory.
+
 CITY (03): 7/28 (f) LATEST — THE SKINS LANDED, THE MERGE BROKE THE RUN, AND ANOTHER
 SESSION'S GATE CAUGHT MY STALE WAIVER. Final number on the block: THE CBB TILESET IS
 17% OF DRAWS, DOWN FROM 83% THIS MORNING.
