@@ -180,6 +180,47 @@ const PROBE = `(() => {
   ok('the animated door bank he asked for on 7/26 is really drawing',
     (res.drew['animated door bank (7/13, 2 tiles tall)'] || 0) > 0);
 
+  /* ========================================================================
+     THE CATALOG MUST NOT LIE (NEVER DRIFT, Paolo 7/28: "Never drift off ever
+     again"). The shopping index is the ONE document every session is required
+     to trust before it draws anything. Its CONSUMED BY column was prose: a row
+     could claim a live surface it did not have and no machine would notice,
+     which is exactly how a session "checks the catalog" and still drifts.
+     Every DRAWS claim below is now proven against counted draws on the real
+     render path, and every DEBT claim must be a bank that really is loaded and
+     really is not drawing - a debt that quietly got fixed is as misleading as
+     one that quietly appeared.
+     ======================================================================== */
+  const idxPath = path.join(ROOT, 'records/BOHEMIA_APPROVED_ASSET_INDEX_7_27_26.md');
+  const idx = require('fs').existsSync(idxPath) ? require('fs').readFileSync(idxPath, 'utf8') : '';
+  const block = (idx.match(/```routing\n([\s\S]*?)```/) || [])[1];
+  ok('THE SHOPPING INDEX carries a machine-readable routing block', !!block);
+  if (block) {
+    const rows = block.split('\n').map(l => l.trim()).filter(Boolean)
+      .map(l => l.split('|').map(s => s.trim()))
+      .filter(p => p.length === 3 && p[0] === 'RUN');
+    ok('the index actually routes banks to the RUN', rows.length >= 4);
+    /* the labels are the join key between the catalog and the counter, so a
+       typo must fail loudly instead of silently checking nothing */
+    const known = new Set(Object.keys(res.loaded).map(k => k.replace(/[—–]/g, '-')));
+    for (const [, label, claim] of rows) {
+      const key = Object.keys(res.loaded).find(k => k.replace(/[—–]/g, '-') === label);
+      ok('INDEX ROW NAMES A REAL BANK: "' + label + '"', !!key && known.has(label));
+      if (!key) continue;
+      const drew = res.drew[key] || 0;
+      if (claim === 'DRAWS') {
+        ok('INDEX SAYS DRAWS, AND IT DRAWS: "' + label + '" (' + drew + ' draws)', drew > 0);
+      } else if (claim === 'DEBT') {
+        ok('INDEX SAYS DEBT, AND IT IS STILL A DEBT: "' + label + '" (delete the row if it now draws)',
+          drew === 0);
+        ok('A DEBT IS TRACKED, NOT SILENT: "' + label + '" is waived by name with a ticket',
+          !!WAIVED[key]);
+      } else {
+        ok('INDEX ROW HAS A LEGAL CLAIM (DRAWS or DEBT): "' + label + '"', false);
+      }
+    }
+  }
+
   console.log('BANKS-USED GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })();

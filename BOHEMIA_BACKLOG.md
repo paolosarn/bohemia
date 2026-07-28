@@ -641,6 +641,26 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    the neighbouring district. Passability is the world's answer now.
    Scoreboard: records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md (21/27),
    enforced by gates/integration_gate.js.
+0b1. [MEASURED 7/28 — THE NO-COOK ROUTE IS CLOSED, one pick reopens it] THE
+   DESERT POOL IS NOT SEAMLESS AND ITS OWN BANK SAYS IT IS. Shopped the index the
+   way NEVER DRIFT requires, found DESERT/TERRAIN flagged "not run", wired it,
+   looked at it on the real surface: a BLACK GRID across the whole district.
+   Measured all 8 ground tiles: interior mean 115-174 vs EDGE mean 27-67 (a
+   near-black border on every tile, which is the constitution's own "NO black
+   keyline" rule broken), and wrap discontinuity 27-47 where a normal interior
+   neighbour step is ~9 - three to five times. Cropping does not save them (6px
+   inset still 1.73x). Reproduced the grid THREE ways before blaming the art
+   (per-cell scaled / pre-scaled pattern / native-size world-anchored pattern);
+   a symptom that survives every change to how it is drawn is in the source.
+   NOTHING SHIPPED - a grid over twenty districts is worse than the generic pass,
+   and the pool was NOT left loaded-and-unused (that is the defect
+   banks_used_gate.js exists to catch). Full measurement + the three ways out:
+   records/BOHEMIA_DESERT_POOL_SEAM_FINDING_7_28_26.md
+   THE STANDING LESSON: a bank's provenance line is a CLAIM, not a fact. He
+   thumbed those images on LOOK; nobody ever measured their tiling. Measure the
+   property you are about to rely on before it becomes a district's floor.
+   | de-border the pool / shop GROUND_SEAMLESS_SET + TERRAIN_PICKS / dress
+   districts by structure instead | his pick |
 0b. DISTRICT ART (now the lane's top gap). The other districts are WALKABLE but
    wear a generic material pass laid from the world's own tile names. Each type
    needs its own dressed language the way the suburb has one, built to the

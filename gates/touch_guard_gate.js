@@ -64,6 +64,34 @@ const READ = sel => {
     const d = Buffer.from(src.slice(a0, a1), 'base64').toString('utf8');
     ok(key.replace('_B64', '') + ' FRAME SOURCE: its universal reset declares -webkit-touch-callout:none', universal(d));
   }
+  /* ------------------------------------------------------------------------
+     THE RUN, WHICH THIS GATE MISSED ENTIRELY THE FIRST TIME.
+     Paolo, 7/28: "when I'm playing it and I press the direction button keys it
+     tries to like copy and paste it like it's text or something."
+     The 7/27 fix covered the shell and the three BASE64 frames. The RUN is not
+     one of those: the alpha loads it by iframe SRC from its own file, so the
+     patch tool never touched it and this gate never looked at it. Green gate,
+     broken controls, on the ONE surface he actually plays - which is backlog
+     0O's standing rule ("HE PLAYS THE RUN. THE RUN IS A SEPARATE RENDERER")
+     arriving a second time in a week.
+     BOTH FILES ARE CHECKED. The generated run is what ships, but the guard has
+     to live in the DEV SOURCE or the next `node tools/build_run_slice.js`
+     erases it - which is exactly how a patch applied to a generated file
+     silently disappears.
+     ------------------------------------------------------------------------ */
+  for (const [label, file] of [
+    ['RUN DEV SOURCE (where the guard must LIVE)', 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'],
+    ['RUN AS SHIPPED (what the alpha loads)',      'slices/BOHEMIA_RUN_CURRENT.html'],
+  ]) {
+    const p = path.join(path.dirname(__dirname), file);
+    if (!fs.existsSync(p)) { ok(label + ': the file exists', false); continue; }
+    const s = fs.readFileSync(p, 'utf8');
+    ok(label + ': the universal reset declares -webkit-touch-callout:none', universal(s));
+    ok(label + ': the universal reset also kills user-select (the magnifier half)',
+      (s.match(/\*\{[^}]*\}/g) || []).some(r => /user-select\s*:\s*none/.test(r)));
+    ok(label + ': text fields are given copy/paste BACK (the save code is meant to be copied)',
+      /input\s*,\s*textarea\s*\{[^}]*user-select\s*:\s*text/.test(s));
+  }
 }
 
 (async () => {
@@ -103,6 +131,31 @@ const READ = sel => {
     if (mode) ok('DROP IN button MEASURED: not selectable text (user-select: ' + mode.select + ')',
       mode.select === 'none');
   }
+  /* THE RUN'S OWN DIRECTION BUTTONS, MEASURED IN THE REAL ALPHA. Source checks
+     stop the regression; this is the control he actually had in his thumb. */
+  await page.click('.tab[data-p="run"]').catch(() => {});
+  const rh = await page.waitForSelector('#runFrame', { timeout: 60000 }).catch(() => null);
+  const rf = rh ? await rh.contentFrame() : null;
+  ok('the RUN frame is reachable', !!rf);
+  if (rf) {
+    await rf.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 180000 }).catch(() => {});
+    const pb = await rf.evaluate(READ, '.pb');
+    const act = await rf.evaluate(READ, '#act');
+    ok('the run\'s direction buttons exist', !!pb);
+    if (pb) ok('RUN D-PAD MEASURED: the direction button he presses is not selectable text ' +
+      '(user-select: ' + pb.select + ') — this is the exact control that was "trying to copy and paste"',
+      pb.select === 'none');
+    if (act) ok('RUN ACTION BUTTON MEASURED: not selectable text (user-select: ' + act.select + ')',
+      act.select === 'none');
+    /* a d-pad must not double-tap-zoom or steal a scroll either */
+    const ta2 = await rf.evaluate(() => {
+      const el = document.querySelector('.pb'); if (!el) return null;
+      return getComputedStyle(el).touchAction;
+    });
+    if (ta2) ok('RUN D-PAD MEASURED: touch-action is a gesture surface, not a document (' + ta2 + ')',
+      ta2 === 'manipulation' || ta2 === 'none');
+  }
+
   console.log('TOUCH GUARD GATE: ' + pass + ' passed, ' + fail + ' failed');
   await browser.close();
   process.exit(fail ? 1 : 0);

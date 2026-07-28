@@ -64,6 +64,18 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 
+# THE RUN IS NOT PATCHED HERE, ON PURPOSE (7/28). Paolo: "when I'm playing it
+# and I press the direction button keys it tries to like copy and paste it".
+# This tool covered the shell and the three BASE64 frames and MISSED the run
+# entirely, because the run is not a base64 frame - the alpha loads it by iframe
+# SRC from slices/BOHEMIA_RUN_CURRENT.html, which is a GENERATED file. Patching
+# a generated file is worse than not patching it: the very next
+# `node tools/build_run_slice.js` erases the patch, and that command runs
+# several times in a working session. So the run's guard lives in its DEV
+# SOURCE (slices/BOHEMIA_RUN_SLICE_7_26_26.html) where the builder carries it
+# forward, and gates/touch_guard_gate.js now checks BOTH the dev source and the
+# shipped file plus the real computed style of the run's own direction buttons.
+
 alpha = open(ALPHA, encoding='utf8').read()
 if 'TOUCH GUARD' in alpha:
     print('touch guard already applied. no-op.')

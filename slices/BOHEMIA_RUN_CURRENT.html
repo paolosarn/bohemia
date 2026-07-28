@@ -39,7 +39,28 @@
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
   }
-  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  /* TOUCH GUARD (7/28). Paolo: "when I'm playing it and I press the direction
+     button keys it tries to like copy and paste it like it's text or something."
+     This was fixed on 7/27 for the shell and for the CITY / COMBAT / RIG frames
+     - and the RUN was missed by all of it, because the run is NOT a base64
+     frame like those three: it is a separate file the alpha loads by iframe
+     src, so tools/bohemia_touch_guard_patch.py never touched it and
+     touch_guard_gate.js never looked at it. Green gate, broken controls, on the
+     one surface he actually plays. That is the lane's own standing rule from
+     backlog 0O arriving a second time.
+     On iOS, press-and-hold on ANY text - a label, an arrow glyph - raises the
+     selection magnifier and the Copy / Look Up callout, and HOLD IS THIS GAME'S
+     MOVEMENT INPUT. user-select kills the selection, -webkit-touch-callout
+     kills the menu.
+     IT LIVES IN THE DEV SOURCE, NOT THE BUILT FILE. Patching the generated
+     run would be erased by the very next `node tools/build_run_slice.js`, which
+     runs several times a session. */
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent;
+     -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
+  /* and given straight back where copy/paste is the POINT (the save code box) */
+  input,textarea{ -webkit-touch-callout:default; -webkit-user-select:text; user-select:text; }
+  /* the controls are pure gesture surfaces: no double-tap zoom, no scroll steal */
+  #pad,#pad *,#nav,#nav *,.dpad,.dpad *,#act,#mus{ touch-action:manipulation; }
   html,body{ margin:0; height:100%; background:#050403; color:var(--ink);
     font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow:hidden; }
   #run{ position:relative; display:flex; flex-direction:column; height:100%;

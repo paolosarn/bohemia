@@ -36,3 +36,21 @@
   TRAFFIC_SIGNAL_CANDIDATES are UNJUDGED yet carry more plumbing than most
   approved banks (heroes are LIVE on the city map). Both need Paolo's thumb
   or their wiring outranks his approvals — surfaced in JUDGE THIS.
+
+## MACHINE ROUTING (added 7/28 by the NEVER DRIFT law — do not hand-edit loosely)
+The table above is for humans. This block is for `gates/banks_used_gate.js`,
+which proves every RUN claim below actually draws pixels on the real render
+path. A row that claims a consumer it does not have is a lie in the one document
+every session is required to trust, so it is now a gate failure rather than a
+paragraph. Format: `SURFACE | bank label | claim` where claim is DRAWS (must be
+counted drawing) or DEBT (approved, no live consumer, must be named in the
+backlog).
+
+```routing
+RUN | the CBB target tileset (42) | DRAWS
+RUN | suburb border walls (13, approved 7/28) | DRAWS
+RUN | animated door bank (7/13, 2 tiles tall) | DRAWS
+RUN | interior pool (Great Sweep UP) | DRAWS
+RUN | house skins (7/21 UP - roof + wall + yard) | DEBT
+RUN | walk-file door art (superseded) | DEBT
+```
