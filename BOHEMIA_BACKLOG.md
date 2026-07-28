@@ -1257,6 +1257,50 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    r>100 while the wash composites to rgb(72,31,24). It was in every screenshot.
    LAW: laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md
    Gate section 22, 390 checks.
+0-storey. DONE 7/27 (v90+v90b): TWO-STOREY ARENAS. On his ruling, "Two-story
+   arenas yes", asked for by name twice before that.
+   *** THE ONE RULE: ACROSS LEVELS, GROUND COVER DOES NOT COUNT, FOR EITHER OF
+   YOU. *** From the deck you shoot men who thought they were behind stone; from
+   up there you are behind nothing yourself. Physically true, one condition in one
+   function, and the SAME SHAPE as the point-blank trade he ruled on: better odds
+   to kill, worse odds to live.
+   IT OBEYS BOTH HIS RULINGS. No damage multiplier -- KILL_DMG is untouched and
+   gated as untouched. Height changes WHO IS EXPOSED, which is odds. And it is the
+   first thing in the game that changes what you DELIVER by moving, which is the
+   exact gap the north-star audit named.
+   MEASURED, arena #70368 (6-tile deck, 2 men on it, 15 ground cover):
+     from the ground  cover working against you: 0   clean lines on you: 7
+     from the deck    cover working against you: 1   clean lines on you: 6
+   (a) THE DECK is world-anchored tiles like the pillars, so worldShift already
+   carries it and every coordinate function already understood it. Rolled by the
+   ARENA SEED -- including WHETHER there is one (72%), so "flat lot or high
+   ground" is itself a difference between arenas.
+   (b) STAIRS: the closest deck tile to you, always walkable-to. ONE STAMINA, NO
+   TURN (Paolo 7/26 LOCKED, and his own words: "sprinting and not losing a turn
+   can help that"). Taking the high ground is priced like closing the distance.
+   (c) A BLADE CANNOT REACH A FLOOR ABOVE IT. Not a balance number, an arm.
+   (d) LEVELS DRAW RELATIVE TO YOU -- the deck floats above the lot from the
+   ground and becomes the floor under your feet once you climb it. ONE SCENE.
+   (e) THE READ says HIGH GROUND / HE IS ABOVE YOU and says the loud part: every
+   piece of stone on the lot just stopped counting.
+   *** TWO ANCHOR BUGS I CAUGHT MYSELF, SAME ROOT CAUSE. *** v1 anchored the deck
+   placement on "updateGeomCover(); renderBoard();" -- UNIQUE, and inside
+   doSuppress(), so the deck placement ran inside the SUPPRESS verb. v2 anchored on
+   "G.e.push(e); } }" whose "} }" closes the LOOP *and* the FUNCTION, so the block
+   landed OUTSIDE the builder as module-level dead code that ran once at load.
+   *** ANCHOR UNIQUENESS IS NOT ANCHOR CORRECTNESS. Check the brace depth and check
+   WHICH FUNCTION the line is in. *** Both were caught by probing the live game
+   (deck generated, 0 men on it), not by reading.
+   AND THE FIRST RENDER FAILED THE EYE: the storey face was #3e372c and the deck
+   read as a lighter PATCH OF GROUND, not a thing with a height. Value contrast IS
+   the height cue: the face is near-black now against the lot.
+   FIVE OLDER GATE CHECKS string-matched the two-arg myCoverAgainst signature. All
+   re-pointed at the invariant, never relaxed.
+   *** WHAT THIS IS NOT: one deck, not a building. No rooms, no interiors, no roof,
+   no third floor, no ladders, no vaulting off the edge. Each is separate and each
+   is [PENDING Paolo]. This is the smallest thing that makes two storeys a real
+   decision, shipped to be judged before anything is stacked on it. ***
+   Gate section 26, 441 checks.
 0-arena2. DONE 7/27 (v89): THE GENERATOR ONLY EVER MADE ONE ARENA. Paolo on v88:
    "I dont see new arenas shit was boring if u did anything." He is right twice.
    MEASURED on v88, six arenas back to back: 6,5,7,7,6,7 pieces, mean spread

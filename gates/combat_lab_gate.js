@@ -112,8 +112,8 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   ok('shuffled pillars spawn each encounter (V89: the count is now a real 2-15 range, so this no longer pins the old 5-7 literal -- it pins the RESHUFFLE)',
     demo.includes('G.pillars=[]; {') && demo.includes('const NP=2+Math.floor(Math.random()*14);'));
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
-    demo.includes('function myCoverAgainst(ang,dist)') &&
-    demo.includes('myCoverAgainst(e.ea,e.edist)'));
+    demo.includes('function myCoverAgainst(ang,dist,lvl)') &&
+    demo.includes('myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: the signature grew a LEVEL; the invariant (geometry, distance-honest) is unchanged */
   ok('enemies take pillar cover too — REAL cover only (V35: ONE pillar must both block and sit near him)',
     demo.includes('function updateGeomCover()') &&
     demo.includes('e.gcov=(!e.melee&&realCoverPillar(e))?1:0;') &&
@@ -272,7 +272,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
   // v22: the plumbing pass — the red line law finally complete
   ok('V24 LOS BEAD (supersedes v22): a step only resets guns whose LINE you broke',
-    demo.includes('V24 LOS BEAD') && demo.includes('if(myCoverAgainst(e2.ea,e2.edist)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));
+    demo.includes('V24 LOS BEAD') && demo.includes('if(myCoverAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));   /* V90: same check, now level-aware */
   ok('danger outranks its warning: red line 0.30, acquiring amber 0.18',
     demo.includes("'rgba(232,60,40,0.30)'") && demo.includes("'rgba(232,140,40,0.18)'") &&
     !demo.includes("'rgba(232,140,40,0.32)'"));
@@ -286,7 +286,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   ok('the victory walk faces the step, not the last shot',
     demo.includes('V23: the walk faces the step, not the last shot'));
   ok('EXPOSURE HONESTY: firing from behind the stone never opens the covered side',
-    demo.includes('V23 EXPOSURE HONESTY') && demo.includes('G._poppedOut=G._poppedOut||!!myCoverAgainst(tgt.ea,tgt.edist)') &&
+    demo.includes('V23 EXPOSURE HONESTY') && demo.includes('G._poppedOut=G._poppedOut||!!myCoverAgainst(tgt.ea,tgt.edist,tgt.lvl)') &&
     demo.includes('G._poppedOut=false;'));
   ok('AUTO FRAME: cover-phase camera holds the farthest enemy, action-ring margin, through uzEff',
     demo.includes('V23 AUTO FRAME') && demo.includes('function uzEff()') &&
@@ -2131,8 +2131,8 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('AUDIT PINNED: the distance bands are PT_BLANK=4 / FAR_TILE=26 / MAX_RANGE=42, which is what makes that curve mean anything on the board',
     demo.includes('const PT_BLANK=4, FAR_TILE=26, MAX_RANGE=42;'));
   ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
-    demo.includes('function myCoverAgainst(ang,dist){') &&
-    demo.includes('!myCoverAgainst(e.ea,e.edist)'));
+    demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
+    demo.includes('!myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: still a FILTER, now level-aware. The audit's "0% or 100%" finding is unchanged -- a floor simply turns the whole predicate off. */
   ok('AUDIT PINNED: the stamina economy is 3 pips, +1 only on a turn you spent none, and a stamina move costs no turn (Paolo 7/26, LOCKED)',
     demo.includes('const STAM_MAX=3;') &&
     demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
@@ -2285,6 +2285,80 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
 
   ok('V89 "I DONT SEE": the ARENA button rendered blank until the first tap, because updArenaBtn only ever ran inside the click handler. One control in a row of eleven, saying nothing about what it was for. It now rolls and labels itself on startup',
     demo.includes('try{ if(BohemiaArena.get()==null)BohemiaArena.roll(); updArenaBtn(); }catch(_e){}'));
+}
+
+/* ============================================================================
+   26. V90 TWO-STOREY ARENAS. Paolo: "Two-story arenas yes."
+   THE ONE RULE: across levels, ground cover does not count, for EITHER of you.
+   From the deck you shoot men who thought they were behind stone; from up there
+   you are behind nothing. Same shape as the point-blank trade he ruled on --
+   better odds to kill, worse odds to live -- and it obeys his no-multipliers
+   ruling exactly, because it changes WHO IS EXPOSED and never how much damage
+   anything does.
+   MEASURED on arena #70368 (6-tile deck, 2 men on it, 15 ground cover):
+     from the ground   men whose cover works against you: 0    clean lines on you: 7
+     from the deck     men whose cover works against you: 1    clean lines on you: 6
+   ========================================================================== */
+{
+  ok('V90 THE ONE RULE: myCoverAgainst takes a LEVEL and returns false across floors -- a floor between you is not a wall between you',
+    demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
+    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;'));
+  ok('AND IT RUNS BOTH WAYS: his cover from you dies across floors too, in realCoverPillar, so the deck is not a free kill box in one direction only',
+    /function realCoverPillar\(e\)\{[\s\S]{0,260}?if\(\(e\.lvl\|0\)!==myLvl\(\)\)return false;/.test(demo));
+  ok('AND EVERY ENEMY-FACING COVER CALL CARRIES ITS LEVEL -- all 14 of them, so no code path can quietly keep the old flat answer',
+    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 8 &&
+    demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 4 &&
+    demo.includes('myCoverAgainst(tgt.ea,tgt.edist,tgt.lvl)') &&
+    demo.includes('myCoverAgainst(e.ea,null,e.lvl)') &&
+    !/myCoverAgainst\((e|e2|tgt)\.ea,\s*(e|e2|tgt)\.edist\)/.test(demo));
+
+  ok('HIS NO-MULTIPLIERS RULING HOLDS: height changes nothing about damage. KILL_DMG is still the flat constant and no level term is anywhere near it',
+    demo.includes('const KILL_DMG=100;') && demo.includes('applyDamage(tgt,KILL_DMG);') &&
+    !/KILL_DMG\s*\*/.test(demo));
+
+  ok('V90 THE DECK IS WORLD STATE like the pillars, so worldShift already carries it and every coordinate function already understands it',
+    demo.includes('for(const T of (G.deck||[]))mv(T,0.02);') &&
+    demo.includes('G.deck.push({ea:Math.atan2(ty,tx),edist:Math.hypot(ty*0+tx,ty)||Math.hypot(tx,ty),lvl:DECK_LVL});') === false &&
+    demo.includes('lvl:DECK_LVL});'));
+  ok('and it is ROLLED BY THE ARENA SEED, so replaying a seed replays the whole problem -- including WHETHER there is a deck at all, which is itself a difference between arenas',
+    demo.includes('G.deck=[]; G.stairs=[]; G.lvl=0;') &&
+    demo.includes('if(Math.random()<0.72){') &&
+    demo.includes('G._deckHolders='));
+  ok('NEVER BUILT ON TOP OF THE PLAYER, and never so far out it is scenery',
+    demo.includes('if(Math.hypot(tx,ty)<2.6)continue;') && demo.includes('if(Math.hypot(tx,ty)>12)continue;'));
+  ok('AND THE DECK EVICTS GROUND COVER UNDER IT, so a pillar can never be stranded inside a slab as cover nobody can see',
+    demo.includes('G.pillars=G.pillars.filter(P=>{ const q=pXY(P); return !deckTileAt(q[0],q[1]); });'));
+  ok('THE STAIR IS THE CLOSEST DECK TILE TO YOU, so there is always a way up you can walk to rather than a puzzle about finding the entrance',
+    demo.includes('let s=G.deck[0]; for(const T of G.deck)if(T.edist<s.edist)s=T;') &&
+    demo.includes("s.stair=true; G.stairs.push(s);"));
+
+  ok('V90B THE CLIMB COSTS ONE STAMINA AND NO TURN -- Paolo 7/26 LOCKED, and his own words this session: "sprinting and not losing a turn can help that." Taking the high ground is priced like closing the distance',
+    demo.includes("if(!spendStam(1)){ setRead('NO STAMINA','the climb costs one pip','#8a7d66'); return; }") &&
+    !/function doStairs\(\)\{[\s\S]{0,900}?endTurn/.test(demo));
+  ok('and the button only exists when you can actually use it, on the same terms SHOVE does',
+    demo.includes("const s=(G.phase==='cover'&&!G.over&&!G.inc)?stairNear():null;") &&
+    demo.includes("function stairNear(){ return (G.stairs||[]).find(S=>S.edist<=1.6)||null; }"));
+  ok('A BLADE CANNOT REACH A FLOOR ABOVE IT -- not a balance number, an arm being too short',
+    /for\(const e of G\.e\)\{ if\(e\.dead\|\|e\.downed\|\|e\.broken\|\|e\.fleeing\|\|!e\.melee\)continue;\s*\n\s*if\(\(e\.lvl\|0\)!==myLvl\(\)\)continue;/.test(demo));
+  ok('and every fight starts on the lot',
+    demo.includes('G.lvl=0;           /* V90B: every fight starts on the lot */'));
+
+  /* the render: levels are drawn RELATIVE, which is the one-scene law */
+  ok('V90B LEVELS ARE DRAWN RELATIVE TO YOU: the deck floats above the lot from the ground and becomes the floor under your feet once you are on it. ONE SCENE, the same law the killshot and the board already obey',
+    demo.includes('const lvlDY=l=>-(((l|0)-(G.lvl||0))*DECK_H);') &&
+    demo.includes('const epos=e=>{ const p=fieldPos(e,W,H,cx,cy); return [p[0],p[1]+lvlDY(e.lvl)]; };'));
+  ok('and the dead lie on the floor they fell on, instead of snapping to the lot',
+    demo.includes('const _ep=epos(e);   /* V90B: the dead lie on the floor they fell on */'));
+  ok('THE HEIGHT IS READ BY VALUE CONTRAST: the storey face is near-black against the lot. The first render drew it at #3e372c and the deck read as a lighter PATCH OF GROUND rather than a thing with a height',
+    demo.includes("x.fillStyle='#15120e'; x.fillRect(p[0]-t2*0.5,fy,t2+1,-dz);") &&
+    demo.includes("x.fillStyle='rgba(0,0,0,0.55)';") &&
+    !demo.includes("x.fillStyle='#3e372c';"));
+  ok('and the way up is drawn ON the tile as steps, so it is a thing you can see rather than a thing you have to be told',
+    demo.includes("if(T.stair){ x.fillStyle='rgba(232,200,138,0.30)';"));
+
+  ok('V90B THE READ SAYS WHICH FLOOR, and says the loud part: that every piece of stone on the lot just stopped counting',
+    demo.includes("(myLvl()===DECK_LVL?'HIGH GROUND':'HE IS ABOVE YOU')") &&
+    demo.includes("+'</b> <span style=\"color:#5a5040\">·</span> no cover counts <span style=\"color:#5a5040\">·</span> '):'';"));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

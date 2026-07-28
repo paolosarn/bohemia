@@ -2136,6 +2136,55 @@ surface dressed to FINISHED, (2) neighbors homed+scheduled on the block,
 (3) 4-lot big buildings + landmark zoom. Zoom-build: the city builder IS a
 zoom of the one iso view (Paolo 7/25). 15 district heroes on the map.
 
+COMBAT (04) 7/27 - v90 + v90b: TWO-STOREY ARENAS. On his ruling: "Two-story
+arenas yes." Asked for by name twice before that.
+*** THE ONE RULE, AND IT IS THE WHOLE FEATURE: ACROSS LEVELS, GROUND COVER DOES
+NOT COUNT, FOR EITHER OF YOU. *** From the deck you shoot men who thought they
+were behind stone; from up there you are behind nothing yourself. Physically true,
+one condition in one function, and the SAME SHAPE as the point-blank trade he
+ruled on -- better odds to kill, worse odds to live.
+IT OBEYS BOTH HIS RULINGS: no damage multiplier (KILL_DMG untouched, and gated as
+untouched), and it is the FIRST thing in this game that changes what you DELIVER
+by moving, which is the exact gap the north-star audit named.
+MEASURED, arena #70368 (6-tile deck, 2 men on it, 15 ground cover):
+    from the ground   cover working against you: 0   clean lines on you: 7
+    from the deck     cover working against you: 1   clean lines on you: 6
+(a) THE DECK is world-anchored tiles like the pillars, so worldShift already
+carried it and every coordinate function already understood it. Rolled by the
+ARENA SEED -- including WHETHER there is one (72%), so "flat lot or high ground"
+is itself a difference between arenas.
+(b) STAIRS: the closest deck tile to you, so there is always a way up you can walk
+to rather than a puzzle about the entrance. ONE STAMINA, NO TURN (Paolo 7/26
+LOCKED; his own words this session, "sprinting and not losing a turn can help
+that"). Taking the high ground is priced like closing the distance.
+(c) A BLADE CANNOT REACH A FLOOR ABOVE IT. Not a balance number, an arm.
+(d) LEVELS DRAW RELATIVE TO YOU: the deck floats above the lot from the ground and
+becomes the floor under your feet once you climb it, lot dropping away. ONE SCENE.
+(e) THE READ says HIGH GROUND / HE IS ABOVE YOU plus the loud part -- that every
+piece of stone on the lot just stopped counting.
+*** TWO ANCHOR BUGS I CAUGHT MYSELF IN ONE TURN, SAME ROOT CAUSE, WORTH LEARNING
+FROM: *** v1 anchored the deck placement on "updateGeomCover(); renderBoard();"
+which is UNIQUE -- and sits inside doSuppress(), so deck placement ran inside the
+SUPPRESS verb. v2 anchored on "G.e.push(e); } }" whose "} }" closes the LOOP *and*
+the FUNCTION, so the block landed OUTSIDE the builder as module-level dead code
+that ran once at load with G.deck undefined. BOTH passed their count asserts.
+*** ANCHOR UNIQUENESS IS NOT ANCHOR CORRECTNESS. Check the BRACE DEPTH and check
+WHICH FUNCTION the line is actually in. *** Both were caught by probing the live
+game (deck generated fine, 0 men on it), never by reading the diff.
+AND THE FIRST RENDER FAILED THE EYE: the storey face was #3e372c and the whole
+deck read as a lighter PATCH OF GROUND rather than a thing with a height. VALUE
+CONTRAST IS THE HEIGHT CUE -- the face is near-black against the lot now, with a
+harder ground shadow and a bright lip.
+FIVE OLDER GATE CHECKS string-matched the two-arg myCoverAgainst signature. Every
+one re-pointed at the invariant it was protecting, never relaxed.
+*** WHAT THIS IS NOT: ONE DECK, NOT A BUILDING. No rooms, no interiors, no roof,
+no third floor, no ladders, no vaulting off the edge. Each of those is separate and
+each is [PENDING Paolo]. This is the smallest thing that makes "two storeys" a real
+decision, shipped so it gets judged BEFORE anything is stacked on top of it. ***
+GATE: combat_lab_gate.js section 26, 423 -> 441 checks.
+TOOLS: tools/bohemia_combat_two_storey_patch.py (the rule + the world),
+       tools/bohemia_combat_two_storey_ui_patch.py (the deck, the stairs, the read)
+
 COMBAT (04) 7/27 - v89: THE GENERATOR ONLY EVER MADE ONE ARENA, AND v88 SHIPPED
 DICE FOR IT. Paolo: "I dont see new arenas shit was boring if u did anything."
 He is right twice and the measurement is brutal. Six v88 arenas back to back:
