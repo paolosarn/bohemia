@@ -132,6 +132,44 @@
    Elysium portrait grounds | CHARACTER lane | LOW | TF-CHAR-004
 
 =============================================================================
+## OPEN — ART LANE'S OWN MATERIAL FAMILIES (board row 7, broken down 7/28)
+=============================================================================
+# Row 7 said "ACT-1 TILESET REMAINDER ... remaining per-district material
+# coverage" and sat there as one word. The ART lane walked its own surfaces to
+# fill it in: the 42-tile frozen starter set is ONE RESIDENTIAL STREET (asphalt,
+# sidewalk, gravel, slab, dirt, stucco, terracotta, flat deck) and the registered
+# district list is 40+ types. These are the material families that gap, each one
+# a coherent drawing job with a filled form. EIGHT filed below; the remaining TEN
+# this walk found are named at the bottom of this block and get their forms next
+# ART turn — named rather than quietly dropped.
+
+10. OPEN | CMU BLOCK WALL (GREY CONCRETE MASONRY UNIT) | RUN (the walk) + CITY (human mode) | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | HIGH | TF-ART-001
+11. OPEN | CORRUGATED METAL WALL + ROLL-UP DOOR | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | HIGH | TF-ART-002
+12. OPEN | PARKING LOT STRIPING (STALLS, AISLES, WHEEL STOPS) | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | HIGH | TF-ART-003
+13. OPEN | CHAIN-LINK FENCE (AND ITS RAZOR-WIRE VARIANT) | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | HIGH | TF-ART-004
+14. OPEN | DEAD SPORTS TURF AND RUNNING TRACK | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | MED | TF-ART-005
+15. OPEN | EMPTY POOL AND CONCRETE BASIN | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | MED | TF-ART-006
+16. OPEN | CIVIC CUT-STONE MASONRY | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | MED | TF-ART-007
+17. OPEN | STOREFRONT GLASS AND ALUMINIUM | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown) | MED | TF-ART-008
+
+# STILL TO FORM (this walk found them; forms next ART turn, not dropped):
+#   brick masonry (downtown low-rise, older commercial) · railroad track bed
+#   (railyard, crossings) · freeway surface + barrier + guardrail (freeway,
+#   interchange) · commercial flat roof + rooftop mechanical (every non-house
+#   roof) · mobile-home siding + skirting (trailer park) · crop field furrows
+#   (farm) · landfill waste cell ground · solar panel array surface (solar,
+#   battery) · wall CORNER + opening reveal completion (the starter set's own
+#   named gap) · kerb/driveway apron transition set (the other named gap).
+
+=============================================================================
 ## HELD — filed, blocked on a NAMED Paolo pick (not workable yet)
 =============================================================================
 H1. HELD | DISTRICT HOOK SETS — the theme sheet's 36 landmark hooks each need
