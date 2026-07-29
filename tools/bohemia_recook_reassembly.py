@@ -15,12 +15,13 @@ variable in the whole picture is the craft.
 REUSE CHECK: draws nothing. It reads slices/BOHEMIA_REASSEMBLY_7_26_26.html and
 banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt and writes a second page.
 
-  python3 tools/bohemia_recook_reassembly.py
-    -> slices/BOHEMIA_REASSEMBLY_RECOOK_7_28_26.html
+  python3 tools/bohemia_recook_reassembly.py                     # the 7/28 re-cook
+  python3 tools/bohemia_recook_reassembly.py <bank> <out.html>   # any later set
 """
 import json
 import os
 import re
+import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
@@ -32,6 +33,9 @@ OLD_BANK = 'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt'
 
 
 def main():
+    global BANK, OUT_HTML
+    if len(sys.argv) == 3:
+        BANK, OUT_HTML = sys.argv[1], sys.argv[2]
     html = open(SRC_HTML).read()
     m = re.search(r'var D = (\{.*?\});\n', html, re.S)
     if not m:

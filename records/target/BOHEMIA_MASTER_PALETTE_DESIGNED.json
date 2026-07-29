@@ -4,182 +4,205 @@
  "law": "laws/BOHEMIA_THE_PIXEL_BIBLE.md \u2014 M17 (one master palette, families are subsets) and M18 (value skeleton first, hue last)",
  "supersedes_for_design": "records/target/BOHEMIA_MASTER_PALETTE.json, which is a QUANTIZATION of the target screen, not a designed palette",
  "method": "PASS 1 designed the value skeleton in grey with every band and separation decided on purpose. PASS 2 put hue on it, each family taking its hue from the approved corpus so the colour stays Paolo's.",
- "size": 35,
+ "size": 42,
  "skeleton": {
+  "void": {
+   "steps": 4,
+   "lo": 22,
+   "hi": 46,
+   "why": "holes: door interiors, dead glass, the dark under an eave, tunnel mouths. DEAD DARK by act-1 law, shared by every family because a hole reads the same whatever material surrounds it. 39.2% of the approved structure pixels live here, which is why leaving it out wrecked the street."
+  },
   "ground": {
-   "steps": 5,
-   "lo": 78,
-   "hi": 130,
-   "why": "the biggest surface and the one nobody should look at (M2). Mean ~104, which is where the approved corpus already sits \u2014 this band is NOT being redesigned, it is being kept."
+   "steps": 6,
+   "lo": 54,
+   "hi": 160,
+   "why": "the biggest surface and the one nobody should look at (M2). Mean ~107 and a 106-wide spread, both taken from the approved corpus \u2014 this band is not being redesigned, it is being kept."
   },
   "structure": {
    "steps": 6,
-   "lo": 112,
-   "hi": 166,
-   "why": "building faces. Mean ~139, again where the approved corpus sits. Clears ground by 35 points."
+   "lo": 88,
+   "hi": 178,
+   "why": "building faces. Mean ~133 with the corpus's own 93-wide spread, so a wall in shadow still has somewhere to be. Clears ground by 26."
   },
   "top": {
-   "steps": 5,
-   "lo": 52,
-   "hi": 104,
-   "why": "roofs and sky-facing planes. Mean ~78 \u2014 the ONE band that moves, DOWN from the corpus 110.2, because at 110 a terracotta roof sat 6.5 points off the gravel yard and vanished in greyscale (M14). Fired clay is a dark red material; making it lighter than a stucco wall was my error, not the corpus's."
+   "steps": 6,
+   "lo": 40,
+   "hi": 130,
+   "why": "roofs and sky-facing planes. Mean ~85 \u2014 the ONE band that moves, DOWN from the corpus 112.6, because at 112 a terracotta roof sat 6.5 points off the gravel yard and vanished in greyscale (M14). Fired clay is a dark red material; making it lighter than a stucco wall was my error, not the corpus's. Keeps the corpus's full 110-wide spread so the ridge can still catch light."
   },
   "accent": {
-   "steps": 4,
-   "lo": 28,
+   "steps": 2,
+   "lo": 196,
    "hi": 226,
-   "why": "the reserved slots content needs: dead-dark glass and door interiors at the bottom, paint and sun-caught ridge at the top. Deliberately spans the whole range because accents are exactly the things that must escape their band."
+   "why": "the two slots that must escape UPWARD: paint, and the ridge the sun hits square. The two dark accent slots are gone \u2014 the void band replaced them, and does the job properly instead of as an outlier rule."
   }
  },
  "families": {
   "asphalt": {
    "layer": "ground",
    "hue_from_corpus": 0.0694,
-   "saturation": 0.1,
+   "saturation": 0.2,
    "indices": [
     0,
     1,
     2,
     3,
-    4
+    4,
+    5
    ],
    "hex": [
-    "#524c4a",
-    "#5f5a57",
-    "#6c6763",
-    "#797470",
-    "#85817d"
+    "#3c3430",
+    "#534944",
+    "#695e57",
+    "#7e736a",
+    "#93897e",
+    "#a89e92"
    ]
   },
   "concrete": {
    "layer": "ground",
    "hue_from_corpus": 0.0972,
-   "saturation": 0.14,
+   "saturation": 0.35,
    "indices": [
-    5,
     6,
     7,
     8,
-    9
+    9,
+    10,
+    11
    ],
    "hex": [
-    "#534d47",
-    "#605a54",
-    "#6c6760",
-    "#79756c",
-    "#858279"
+    "#403329",
+    "#57493a",
+    "#6d5e4c",
+    "#82745e",
+    "#978a71",
+    "#aba084"
    ]
   },
   "desert": {
    "layer": "ground",
    "hue_from_corpus": 0.0972,
-   "saturation": 0.26,
+   "saturation": 0.52,
    "indices": [
-    10,
-    11,
     12,
     13,
-    14
+    14,
+    15,
+    16,
+    17
    ],
    "hex": [
-    "#584b41",
-    "#64594d",
-    "#716758",
-    "#7d7465",
-    "#888271"
+    "#463222",
+    "#5e4730",
+    "#745d40",
+    "#897351",
+    "#9d8962",
+    "#b1a075"
    ]
   },
   "stucco": {
    "layer": "structure",
    "hue_from_corpus": 0.0972,
-   "saturation": 0.22,
+   "saturation": 0.51,
    "indices": [
-    15,
-    16,
-    17,
     18,
     19,
-    20
+    20,
+    21,
+    22,
+    23
    ],
    "hex": [
-    "#7c6d61",
-    "#86786b",
-    "#908475",
-    "#9a8f7f",
-    "#a39b89",
-    "#ada694"
+    "#715138",
+    "#836445",
+    "#947753",
+    "#a58b62",
+    "#b59e72",
+    "#c4b283"
    ]
   },
   "terracotta": {
    "layer": "top",
    "hue_from_corpus": 0.0556,
-   "saturation": 0.46,
+   "saturation": 0.81,
    "indices": [
-    21,
-    22,
-    23,
     24,
-    25
+    25,
+    26,
+    27,
+    28,
+    29
    ],
    "hex": [
-    "#472d26",
-    "#543a31",
-    "#61483c",
-    "#6c5647",
-    "#776454"
+    "#4c1b0e",
+    "#632b19",
+    "#773e24",
+    "#895131",
+    "#996540",
+    "#a8794f"
    ]
   },
   "deck": {
    "layer": "top",
    "hue_from_corpus": 0.0972,
-   "saturation": 0.16,
+   "saturation": 0.39,
    "indices": [
-    26,
-    27,
-    28,
-    29,
-    30
+    30,
+    31,
+    32,
+    33,
+    34,
+    35
    ],
    "hex": [
-    "#38332f",
-    "#45403b",
-    "#524d47",
-    "#5f5b53",
-    "#6b6860"
+    "#30261d",
+    "#44382b",
+    "#574a3a",
+    "#695c49",
+    "#7b6f58",
+    "#8c8268"
+   ]
+  },
+  "void": {
+   "layer": "void",
+   "hue_from_corpus": 0.0972,
+   "saturation": 0.08,
+   "indices": [
+    36,
+    37,
+    38,
+    39
+   ],
+   "hex": [
+    "#171615",
+    "#1f1e1d",
+    "#272624",
+    "#2f2e2c"
    ]
   }
  },
  "accents": {
-  "dead_glass": {
-   "index": 31,
-   "hex": "#1a1c1f",
-   "why": "act-1 dead dark glass and door interiors \u2014 the one thing that must sit BELOW every ground step"
-  },
-  "shadow_core": {
-   "index": 32,
-   "hex": "#22211e",
-   "why": "the darkest thing in the world, still not black"
-  },
   "paint": {
-   "index": 33,
+   "index": 40,
    "hex": "#cec9bc",
    "why": "road and stall paint, chalked, never pure white"
   },
   "sun_caught": {
-   "index": 34,
+   "index": 41,
    "hex": "#e2c496",
    "why": "the ridge course and anything the sun hits square \u2014 the only slot allowed near the ceiling"
   }
  },
  "band_means": {
-  "ground": 104.0,
-  "structure": 139.1,
-  "top": 78.0
+  "ground": 107.0,
+  "structure": 132.8,
+  "top": 85.0
  },
  "separations": {
-  "ground-structure": 35.1,
-  "ground-top": -26.0,
-  "structure-top": -61.1
+  "ground-structure": 25.8,
+  "ground-top": -22.0,
+  "structure-top": -47.8
  },
  "checks": {
   "no_pure_black": true,
@@ -190,39 +213,46 @@
   "top_separated_from_ground": true
  },
  "hex": [
-  "#524c4a",
-  "#5f5a57",
-  "#6c6763",
-  "#797470",
-  "#85817d",
-  "#534d47",
-  "#605a54",
-  "#6c6760",
-  "#79756c",
-  "#858279",
-  "#584b41",
-  "#64594d",
-  "#716758",
-  "#7d7465",
-  "#888271",
-  "#7c6d61",
-  "#86786b",
-  "#908475",
-  "#9a8f7f",
-  "#a39b89",
-  "#ada694",
-  "#472d26",
-  "#543a31",
-  "#61483c",
-  "#6c5647",
-  "#776454",
-  "#38332f",
-  "#45403b",
-  "#524d47",
-  "#5f5b53",
-  "#6b6860",
-  "#1a1c1f",
-  "#22211e",
+  "#3c3430",
+  "#534944",
+  "#695e57",
+  "#7e736a",
+  "#93897e",
+  "#a89e92",
+  "#403329",
+  "#57493a",
+  "#6d5e4c",
+  "#82745e",
+  "#978a71",
+  "#aba084",
+  "#463222",
+  "#5e4730",
+  "#745d40",
+  "#897351",
+  "#9d8962",
+  "#b1a075",
+  "#715138",
+  "#836445",
+  "#947753",
+  "#a58b62",
+  "#b59e72",
+  "#c4b283",
+  "#4c1b0e",
+  "#632b19",
+  "#773e24",
+  "#895131",
+  "#996540",
+  "#a8794f",
+  "#30261d",
+  "#44382b",
+  "#574a3a",
+  "#695c49",
+  "#7b6f58",
+  "#8c8268",
+  "#171615",
+  "#1f1e1d",
+  "#272624",
+  "#2f2e2c",
   "#cec9bc",
   "#e2c496"
  ],

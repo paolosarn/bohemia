@@ -88,22 +88,47 @@ SKELETON = [
     # (103.7 and 139.2 measured), and move only the thing that is actually broken
     # — roofs, from 110.2 down to ~78, which is both the M14 fix and truer
     # terracotta. Nothing else moves away from what he already said yes to.
-    ('ground',     5, (78, 130),
-     'the biggest surface and the one nobody should look at (M2). Mean ~104, which '
-     'is where the approved corpus already sits — this band is NOT being redesigned, '
-     'it is being kept.'),
-    ('structure',  6, (112, 166),
-     'building faces. Mean ~139, again where the approved corpus sits. Clears ground '
-     'by 35 points.'),
-    ('top',        5, (52, 104),
-     'roofs and sky-facing planes. Mean ~78 — the ONE band that moves, DOWN from the '
-     'corpus 110.2, because at 110 a terracotta roof sat 6.5 points off the gravel '
+    # THE SECOND VERSION OF THESE NUMBERS WAS ALSO WRONG, AND THE STREET SAID SO.
+    # Two errors, both found by rendering the frame and looking at it (7/29):
+    #
+    # (1) NO BAND FOR HOLES. The skeleton was built entirely out of SURFACES, but
+    # 39.2% of the approved corpus's structure pixels sit under luminance 48 — door
+    # interiors, window glass, the dark under an eave. Those are not a dark value of
+    # stucco, they are the ABSENCE of stucco, and with nowhere to go they were
+    # compressed into the wall band: every black doorway on the street turned into a
+    # light grey panel. A hole is its own material and it gets its own band.
+    #
+    # (2) THE BANDS WERE HALF AS WIDE AS THE THING THEY APPROVED. Measured on the
+    # frozen set, body pixels run p5..p95 of 54..160 on ground, 82..175 on structure,
+    # 63..173 on top — spans of 106, 93, 110. I had written 52, 54, 52. Squeezing a
+    # 186-wide source span into 54 is what made the whole picture read as mush.
+    # "Hold it where the corpus has it" has to mean the SPREAD as well as the mean;
+    # a mean alone is not a band.
+    # floor is 22, not the 14 I first wrote: this tool's own act-1 floor is 20 and
+    # a band that starts below it is a law break, not a dark mood. Dead glass in the
+    # approved set sat at 28, so 22 is as dark as this world is allowed to get.
+    ('void',       4, (22, 46),
+     'holes: door interiors, dead glass, the dark under an eave, tunnel mouths. '
+     'DEAD DARK by act-1 law, shared by every family because a hole reads the same '
+     'whatever material surrounds it. 39.2% of the approved structure pixels live '
+     'here, which is why leaving it out wrecked the street.'),
+    ('ground',     6, (54, 160),
+     'the biggest surface and the one nobody should look at (M2). Mean ~107 and a '
+     '106-wide spread, both taken from the approved corpus — this band is not being '
+     'redesigned, it is being kept.'),
+    ('structure',  6, (88, 178),
+     'building faces. Mean ~133 with the corpus\'s own 93-wide spread, so a wall in '
+     'shadow still has somewhere to be. Clears ground by 26.'),
+    ('top',        6, (40, 130),
+     'roofs and sky-facing planes. Mean ~85 — the ONE band that moves, DOWN from the '
+     'corpus 112.6, because at 112 a terracotta roof sat 6.5 points off the gravel '
      'yard and vanished in greyscale (M14). Fired clay is a dark red material; making '
-     'it lighter than a stucco wall was my error, not the corpus\'s.'),
-    ('accent',     4, (28, 226),
-     'the reserved slots content needs: dead-dark glass and door interiors at the '
-     'bottom, paint and sun-caught ridge at the top. Deliberately spans the whole '
-     'range because accents are exactly the things that must escape their band.'),
+     'it lighter than a stucco wall was my error, not the corpus\'s. Keeps the '
+     'corpus\'s full 110-wide spread so the ridge can still catch light.'),
+    ('accent',     2, (196, 226),
+     'the two slots that must escape UPWARD: paint, and the ridge the sun hits '
+     'square. The two dark accent slots are gone — the void band replaced them, and '
+     'does the job properly instead of as an outlier rule.'),
 ]
 
 # HUES pulled from the approved corpus, per family. The KEY is which skeleton
@@ -115,11 +140,26 @@ FAMILIES = {
     'stucco':     ('structure', ['wall_0', 'wall_1', 'wall_2', 'wall_base', 'wall_under_eave']),
     'terracotta': ('top',       ['roof_slope', 'roof_eave', 'roof_hipBL']),
     'deck':       ('top',       ['roof_deck']),
+    # ONE void family, shared. A doorway cut into stucco and a window in a garage
+    # door are the same hole; giving each material its own black would be four
+    # near-identical colours pretending to be a decision.
+    'void':       ('void',      ['door_bottom', 'wall_window', 'garage_bottom']),
 }
 # saturation per family: how colourful this material is allowed to be. Ground
 # gives it up so structure and tops can have it (M3, contrast is a budget).
-SAT = {'asphalt': 0.10, 'concrete': 0.14, 'desert': 0.26,
-       'stucco': 0.22, 'terracotta': 0.46, 'deck': 0.16}
+# EVERY ONE OF THESE IS NOW MEASURED OFF THE APPROVED CORPUS, and the first set was
+# invented. I wrote 0.10 / 0.14 / 0.26 / 0.22 / 0.46 / 0.16 out of a theory that
+# ground should give up colour so structure could have it (M3, contrast is a
+# budget). The theory is fine; the numbers were less than HALF of what Paolo already
+# approved — walls came out at 0.160 mean saturation against the corpus's 0.411,
+# ground 0.116 against 0.274 — and the street rendered cold and washed out. That is
+# the same mistake as the band widths, made twice: I invented a number in a place
+# where the approved set was sitting right there waiting to be measured. Body pixels
+# only (>=48), divided by 0.825 to undo the highlight desaturation the ramp applies.
+SAT = {'asphalt': 0.20, 'concrete': 0.35, 'desert': 0.52,
+       'stucco': 0.51, 'terracotta': 0.81, 'deck': 0.39,
+       # a hole is not a colour. Just enough warmth that it belongs to this world.
+       'void': 0.08}
 
 
 def lum(c):
@@ -186,10 +226,10 @@ def main():
         palette += cols
 
     # the accent slots: content that must escape its band, by design
+    # dead_glass and shadow_core USED to live here as accents. They are gone: the
+    # void band is where holes belong, and calling 39% of the structure pixels an
+    # "accent" is what broke the street on the first attempt.
     ACCENTS = [
-        ('dead_glass', (26, 28, 31), 'act-1 dead dark glass and door interiors — '
-         'the one thing that must sit BELOW every ground step'),
-        ('shadow_core', (34, 33, 30), 'the darkest thing in the world, still not black'),
         ('paint', (206, 201, 188), 'road and stall paint, chalked, never pure white'),
         ('sun_caught', (226, 196, 150), 'the ridge course and anything the sun hits '
          'square — the only slot allowed near the ceiling'),
