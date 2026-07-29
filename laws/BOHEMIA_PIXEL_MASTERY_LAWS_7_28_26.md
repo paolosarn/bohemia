@@ -430,3 +430,83 @@ is the difference between studying someone and copying them.
 
 - [Q&A with Mark J. Ferrari](https://www.effectgames.com/effect/article-Q_A_with_Mark_J_Ferrari.html) and [Old School Color Cycling with HTML5](https://www.effectgames.com/effect/article-Old_School_Color_Cycling_with_HTML5.html) (Effect Games) · [Wikipedia: colour cycling](https://en.wikipedia.org/wiki/Color_cycling)
 - Waneella — [Vice profile](https://www.vice.com/en/article/d74apv/futuristic-landscape-gifs-waneella) and [Pixelscapes (Thames & Hudson)](https://thamesandhudson.com/waneella-pixelscapes-9780500028452)
+
+---
+
+# PART 6 — THE CAPSTONE: VALUE FIRST, HUE LAST (7/29, fifth pass)
+
+## M17. ONE MASTER PALETTE FOR THE WHOLE GAME, SUBSETS PER FAMILY
+
+> *"Creating one master palette for the entire project, then using subsets for
+> individual sprites is the recommended approach... games where every character
+> shares a palette look more professional and intentional than games where each
+> sprite has its own unrelated color scheme."*
+> *"32 colors gives you enough range for... varied environments while still
+> keeping everything cohesive."*
+
+**What we built yesterday is the amateur pattern and I did not know it.** The
+re-cook derived SIX INDEPENDENT family ramps — asphalt from asphalt tiles, stucco
+from stucco tiles, terracotta from roof tiles — each measured separately and each
+knowing nothing about the others. That is exactly *"each sprite has its own
+unrelated color scheme"*, and it is why the set-wide count came out at 150 instead
+of a designed number.
+
+The professional structure is inverted: **one master palette, and every family is
+a SUBSET of it**, sharing steps with its neighbours. Families cohere because they
+are literally made of the same colours, not because they were derived by the same
+script.
+
+**M17.** All eighteen forms draw from ONE Bohemia master palette. A family may use
+a subset; it may not invent a colour outside it. **[NAMED DEBT: the master palette
+does not exist yet. `records/target/BOHEMIA_MASTER_PALETTE.json` is a 64-colour
+ramp QUANTIZED FROM the target screen — a measurement of what we happened to make,
+not a designed palette. Designing the real one is the job that must happen BEFORE
+the eighteen families are cooked, not after.]**
+
+## M18. BUILD THE VALUE STRUCTURE FIRST, PUT THE HUE ON LAST — *the method I have never used*
+
+> *"Decide which zones are dark, mid-tone, and light, and once values are locked
+> in, replacing the grays with actual hues is trivial — and the result always
+> looks cohesive."*
+
+This is the single most important sentence in five research passes, because it is
+a **method**, not a rule, and it is the opposite of what I do.
+
+What I do: pick colours from the source art, build a ramp, place clusters, and
+then *measure afterwards* whether the values landed. What the craft does: decide
+in GREY that ground is dark, walls are mid, roofs are light — lock that skeleton —
+and only then choose hues to sit on it.
+
+**And it explains M14 exactly.** The roof/ground value collapse (6.5 apart, roofs
+vanishing in greyscale) is not a bug I introduced by accident — it is the
+inevitable result of never having built a value skeleton at all. Nobody ever
+decided what value a roof should be. It got whatever colour it inherited.
+
+**M18.** Every family is designed in VALUE first — a greyscale plan for what is
+dark, mid and light across the whole set — and hue is applied to that skeleton
+afterwards. The `look_again` rig's greyscale panel is how it gets checked, and
+M14's 18-point separation is the number it must hit.
+
+## M19. GLASS IS THE BACKGROUND, DARKENED AND FLATTENED
+
+> *"Suggest transparency by blending background color, and use sharp white
+> highlights for reflections."*
+> *"Because opaque objects block more light, when looking through transparent
+> objects like glass, the color value of what you see through it will be LOWER and
+> have LESS CONTRAST."*
+
+Closes half of ignorance item B4. Glass is not a colour — it is whatever is behind
+it, moved down in value and squeezed in contrast, plus one hard highlight.
+
+For the storefront form (TF-ART-008) this is directly buildable and it does not
+fight the DEAD DARK GLASS law: act-1 glass shows the looted interior behind it,
+darker and flatter than it really is, and the "sharp white highlight" is the ONE
+thing act 1 withholds, because a bright specular is what makes a window look alive.
+**Withholding the highlight is how our glass reads dead.** That is a design answer
+falling out of a technique note, and it is the kind of thing five passes of
+research were for.
+
+## SOURCES (part 6)
+
+- [Ansimuz — How to create retro colour palettes for your pixel art game](https://medium.com/@ansimuz/how-to-create-retro-color-palettes-for-your-pixel-art-game-a-practical-guide-7beae8ee9c97) · [FreePixel — palettes complete guide](https://freepixel.art/blog/pixel-art-color-palettes-complete-guide) · [GB Studio Central — creating a colour palette](https://gbstudiocentral.com/tips/dwf-c9-creating-a-color-palette-part-1/)
+- [Pixnote — 15 pro techniques](https://pixnote.net/en/learn/tips/) and glass/reflection references

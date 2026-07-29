@@ -107,9 +107,16 @@ every gate I write says out loud that it is not a taste machine.
 never studied sprite anatomy, posing, or how a body reads at 56px. If I am ever
 asked to touch a character I should say this first.
 
-**B2. Colour harmony above the ramp level.** I can build a ramp. I do not know how
-to choose a whole game's colour STRATEGY — complementary schemes, temperature
-zoning across districts, when to break harmony on purpose.
+**B2. Colour harmony above the ramp level.** ~~I do not know how to choose a whole
+game's colour STRATEGY.~~ **CLOSED 7/29 (M17 + M18), and it convicted the re-cook
+a third time:** the professional structure is ONE master palette for the whole
+game with every family a SUBSET of it - and what I built was six independent ramps
+that know nothing about each other, which is literally the amateur pattern the
+sources name. Worse, the METHOD is inverted: you design in GREYSCALE first (what
+is dark, mid, light), lock that skeleton, and put hue on last. I have never once
+done that - I pick colours and measure the values afterwards, which is exactly why
+the roofs and the ground ended up the same tone. STILL OPEN: temperature zoning
+across districts, and when to break harmony on purpose.
 
 **B3. Atmospheric depth in 2D.** How distance is cued without a 3D camera — value
 compression, saturation falloff, haze. Our render contract mentions depth haze in
@@ -118,8 +125,10 @@ passing and I have never researched it.
 **B4. Water, fire, glass and other "hard" materials.** ~~Every material I have
 studied is opaque and static.~~ **PARTLY CLOSED 7/29 (M16):** Mark Ferrari animated
 rain, fog, smoke, waterfalls, streams and lakes with NOTHING but a cycling palette
-on one flat image - which is exactly what our indexed tiles unlock. Still open:
-GLASS (transparency and refraction) and how fire is SHADED rather than cycled.
+on one flat image - which is exactly what our indexed tiles unlock. **Glass CLOSED 7/29 (M19):** glass is the background moved DOWN in value and
+squeezed in contrast, plus one hard highlight - and withholding that highlight is
+precisely how act-1 glass reads dead. Still open: how fire is SHADED rather than
+cycled.
 
 **B5. Sub-pixel animation.** Named in Pixel Logic's chapter list. Never studied.
 
@@ -155,6 +164,12 @@ caliche, bermuda - which is real knowledge and is still not the same as looking 
 a photograph of one particular corner of Las Vegas and drawing what is there. The
 network policy blocks me from fetching images, so this is a hole I cannot close
 alone: it needs reference Paolo can supply, or a lane that can fetch.
+
+**B12. The master palette does not exist.** Newly opened by closing B2.
+records/target/BOHEMIA_MASTER_PALETTE.json is a 64-colour ramp QUANTIZED FROM the
+target screen - a measurement of what we happened to make, not a designed palette.
+Designing the real one is now a blocker in front of cooking the eighteen families,
+not a job that follows them.
 
 **B10. Whether any of this survives contact with Paolo's eye.** Everything above
 is theory I read today. None of it has been thumbed. The measure of this school

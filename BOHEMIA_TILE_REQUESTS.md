@@ -258,6 +258,24 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    Elysium portrait grounds | CHARACTER lane | LOW | TF-CHAR-004
 
 =============================================================================
+## BLOCKER IN FRONT OF THE ART LANE'S OWN ROWS (added 7/29 by the ART lane)
+=============================================================================
+0A. OPEN | THE BOHEMIA MASTER PALETTE (design one, ~32 colours, every material
+   family a SUBSET of it) | ALL surfaces — this is not a tile, it is the thing
+   the eighteen tile families are drawn FROM | value skeleton designed FIRST in
+   greyscale (M18), hue applied to it after; families share steps so they cohere
+   because they are made of the same colours, not because one script derived
+   them | the frozen CBB target's own measured colour is the raw material |
+   ART lane (mastery law M17) | HIGH — THIS BLOCKS ROWS 10-17
+   WHY IT IS A BLOCKER AND NOT A NICE-TO-HAVE: the 7/28 re-cook derived six
+   INDEPENDENT family ramps that know nothing about each other, which the
+   sources name as exactly the amateur pattern ("games where each sprite has
+   its own unrelated colour scheme"). Cooking eighteen more families the same
+   way would multiply that mistake by three. records/target/
+   BOHEMIA_MASTER_PALETTE.json is NOT this — it is a 64-colour quantization OF
+   the target screen, a measurement of what we happened to make.
+
+=============================================================================
 ## OPEN — ART LANE'S OWN MATERIAL FAMILIES (board row 7, broken down 7/28)
 =============================================================================
 # Row 7 said "ACT-1 TILESET REMAINDER ... remaining per-district material
