@@ -110,7 +110,13 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     /function worldShift\([\s\S]{0,700}?G\.pillars/.test(demo));
   // PILLAR COVER (v5, Paolo: "shuffled pillars that I can take cover from")
   ok('shuffled pillars spawn each encounter (V89: the count is now a real 2-15 range, so this no longer pins the old 5-7 literal -- it pins the RESHUFFLE)',
-    demo.includes('G.pillars=[]; {') && demo.includes('const NP=2+Math.floor(Math.random()*14);'));
+    /* V100 RE-POINTED: the invariant is that cover RESHUFFLES every encounter over a
+       real range. The bare block became an arena-kind branch, and BOTH branches
+       rebuild G.pillars from empty, which is more of what this was asking for. */
+    demo.includes('G.pillars=[];') &&
+    demo.includes("G.arenaKind=(Math.random()<0.5)?'warehouse':'street';") &&
+    demo.includes('const NP=2+Math.floor(Math.random()*14);') &&
+    demo.includes('function buildWarehouse(){'));
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
     demo.includes('function myCoverAgainst(ang,dist,lvl)') &&
     demo.includes('myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: the signature grew a LEVEL; the invariant (geometry, distance-honest) is unchanged */
@@ -620,7 +626,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
   ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();') &&
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;') &&
     demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
     demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;") && demo.includes('function spendMove(n){'));
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
@@ -670,7 +676,12 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V56 DASH AIMABLE: doDash arms and you tap a ring direction (doMove routes an armed dash to doDashMove); no more auto-placed destination; dashArm resets each fight',
     demo.includes('if(G.dashArm){ G.dashArm=false;') &&
     demo.includes('function doDashMove(d){') &&
-    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();   /* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
+    /* V99 RE-POINTED: the grenade pouch refill now sits between the reset and its
+       trailing comment, so the two are asserted separately. The invariant is
+       unchanged: dashArm is cleared on a fresh fight, and the reset is still the
+       MOBILITY TOOLKIT reset it always was. */
+    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;') &&
+    demo.includes('/* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
   ok('V67 SUPPRESS IS LEGIBLE: the pinned wear a PINNED tag on the body, the action button counts them, and the readout names the broken red lines. He pressed it and nothing on screen changed -- that was half the bug',
     demo.includes(":pinned(e)?'PINNED'") &&
     demo.includes("if(_pn>0&&txt!=='SHOOT')txt=txt+' \\u00b7 '+_pn+' PINNED';") &&
@@ -689,7 +700,7 @@ ok('V67 A PINNED MAN IS EASY MEAT: the dial window opens 35% on a suppressed tar
     demo.includes("G._oneStreak=(G._oneStreak||0)+1; showVerd('ON THE ONE'+(G._oneStreak>1?' x'+G._oneStreak:'')") &&
     demo.includes("else { G._onePop=false; G._oneStreak=0; }") &&
     demo.includes("*(1+(G._onePop?Math.min(0.30,0.12+(Math.max(1,G._oneStreak||1)-1)*0.06):0));") &&
-    demo.includes("G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();"));
+    demo.includes("G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;"));
 ok('V67 ONE CLOCK (Paolo: "the dead eye dial is not synced up with beat one"). The dial rode a per-frame counter with no relationship to the audio sequencer\'s step 0, so the sweep and the loud hero downbeat drifted forever. The AUDIO is the clock now, latency-compensated to what the ear hears',
     demo.includes('function audioMs(){') &&
     demo.includes('const lat=((AC.outputLatency||AC.baseLatency||0)||0);') &&
@@ -737,7 +748,7 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     !demo.includes('for(const e of pool){ const w=threatWeight(e); sx+=Math.cos(e.ea)*w'));
   ok('V60 GRENADE: grenadeTurn ticks/throws at the turn-end choke, the grenade is world-anchored (a move carries you off it), graded blast (stand=full, step=clip, dash/vault=clear), telegraph + fuse rendered',
     demo.includes('function grenadeTurn(){') &&
-    demo.includes('bleedTick(); grenadeTurn();') &&
+    demo.includes('grenadeTurn();') && demo.includes('bleedTick();') &&   /* V99: pGrenTurn() now sits between them; the invariant is that grenadeTurn ticks at the choke */
     demo.includes('if(G.grenade)mv(G.grenade,0.02);') &&
     demo.includes('if(d<0.9)dmg=40+Math.floor(Math.random()*12); else if(d<1.5)dmg=18+Math.floor(Math.random()*8);') &&
     demo.includes("G.grenade={ea:a,edist:dd,fuse:2,r:1.5") &&
@@ -746,13 +757,13 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
   ok('V61 ONE GRENADE: exactly one grenade per encounter (Paolo) -- throw gated on G._grenadeThrown, latched on throw, reset each fight',
     demo.includes('if(!_hadG && !G.grenade && !G.over && !G._grenadeThrown){') &&
     demo.includes('_at:performance.now()}; G._grenadeThrown=true;') &&
-    demo.includes('G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false; updStam();'));
+    demo.includes('G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;'));
   // v62: weapon identities -- per-weapon killshot cap + dial width
   ok('V62 WEAPON IDENTITY: each weapon sets a killshots/turn cap (rifle 1, smg 2, shotgun 2, pistol up-to-skill) and a dial width (rifle/shotgun wide, smg mean); chain + dial + readout all use it',
     demo.includes('const WEAPON_CAP={pistol:8,smg:2,rifle:1,shotgun:2};') &&
     demo.includes('const WEAPON_WIDTH={pistol:1.0,smg:0.80,rifle:1.30,shotgun:1.20};') &&
     demo.includes('function chainWall(){ return Math.max(1, WEAPON_CAP[WEAPON]||8); }') &&
-    demo.includes('return Math.max(1,Math.min(t!=null?t:(G.chainSkill||2), chainWall())); }') &&
+    demo.includes('function chainAllowance(){ return Math.max(1,Math.min(perkKillshots(), chainWall())); }') &&   /* V98: the allowance is a PERK slider now; the WEAPON ceiling is what this check owns */
     demo.includes('if(G._chainN>chainWall()){') &&
     demo.includes('const _ww=WEAPON_WIDTH[WEAPON]||1;') &&
     demo.includes('z.hZ*ARC_MULT*fg*KILL_GRACE*_ww*_pinW*(G.inFU?1.18:1)*(G.execWindow?1.35:1)') &&
@@ -2350,7 +2361,10 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     demo.includes('lvl:DECK_LVL});'));
   ok('and it is ROLLED BY THE ARENA SEED, so replaying a seed replays the whole problem -- including WHETHER there is a deck at all, which is itself a difference between arenas',
     demo.includes('G.deck=[]; G.stairs=[]; G.lvl=0;') &&
-    demo.includes('if(Math.random()<0.72){') &&
+    /* V100 RE-POINTED: still rolled on the arena dice outdoors. Indoors a warehouse
+       ALWAYS has its office mezzanine, which is a property of the building, not a
+       coin flip -- and the seed still reproduces which kind of arena you got. */
+    demo.includes("if(G.arenaKind==='warehouse'||Math.random()<0.72){") &&
     demo.includes('G._deckHolders='));
   ok('NEVER BUILT ON TOP OF THE PLAYER, and never so far out it is scenery',
     demo.includes('if(Math.hypot(tx,ty)<2.6)continue;') && demo.includes('if(Math.hypot(tx,ty)>12)continue;'));
@@ -2612,10 +2626,16 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     /G\.pkgDiff=Math\.max\(0,Math\.min\(4,Math\.max\([\s\S]{0,240}chainRampDial\(\)\)\)\);/.test(demo) &&
     demo.includes('distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0),'));
 
-  ok('V95 CONTENTS-PAOLO\'S: the per-difficulty allowance table ships EMPTY. Every null falls back to G.chainSkill, HIS existing KILLSHOTS/TURN dial, which already defaults to 2 -- the one number he actually gave',
-    demo.includes('const CHAIN_ALLOWANCE_BY_DIFF=[null,null,null,null,null];') &&
-    demo.includes('const t=CHAIN_ALLOWANCE_BY_DIFF[G.userPkg|0];') &&
-    demo.includes('return Math.max(1,Math.min(t!=null?t:(G.chainSkill||2), chainWall())); }'));
+  /* SUPERSEDED BY A RULING, WHICH IS THE ONLY LEGITIMATE WAY A CHECK DIES. v95
+   shipped a per-difficulty allowance table; Paolo ruled 7/29 that the allowance is
+   a PERK slider unrelated to difficulty, so v98 deleted the table. The check is
+   rewritten to assert the thing v95 ACTUALLY got right, which is the reason his
+   correction was free: the table shipped EMPTY, so deleting it was deleting a wire
+   rather than rebalancing a fight around five numbers I would have invented. */
+ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EMPTY, so when he ruled 7/29 that the allowance is a perk and not a difficulty, the correction deleted a wire and changed no gameplay. The number still comes from ONE place, and difficulty is not wired into it',
+    !/const CHAIN_ALLOWANCE_BY_DIFF=/.test(demo) &&
+    demo.includes('function perkKillshots(){ return Math.max(1,(G.chainSkill||2)|0); }') &&
+    !/function chainAllowance\(\)\{[^}]*userPkg/.test(demo));
 
   ok('V95 "extremely hard" IS HIS WORD, so it is extreme immediately: first shot past the allowance is V.HARD, the next is BOHEMIAN, and 4 is the top of the dial so it stays there. Both numbers are dials',
     demo.includes('const CHAIN_RAMP_BASE=3, CHAIN_RAMP_STEP=1;') &&
@@ -2633,6 +2653,127 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   ok('V95 BELOW THE ALLOWANCE THE RAMP CHANGES NOTHING: chainRampDial returns 0 when you are inside it, and max(range,0) is just range',
     demo.includes('function chainOver(){ return Math.max(0,(G._chainN||1)-chainAllowance()); }') &&
     demo.includes('function chainRampDial(){ const o=chainOver();'));
+
+  /* ===== 32. V98 THE DARK SHRINKS THE RANGE + THE ALLOWANCE IS A PERK ==== */
+  ok('V98 NIGHT IS NOT AN ACCURACY PENALTY. A symmetric penalty changes no decision and just makes the fight longer, which is the tally mistake. Darkness shrinks the RANGE at which anyone shoots well, through the one function every range read already runs on',
+    demo.includes('V98 THE DARK SHRINKS THE RANGE') &&
+    demo.includes('const NIGHT_RANGE={morning:1.00,dusk:0.72,night:0.50};') &&
+    demo.includes('function farTile(){ return Math.max(PT_BLANK+2, FAR_TILE*rangeMult()); }') &&
+    /function distT\(e\)\{[\s\S]{0,140}farTile\(\)/.test(demo));
+
+  ok('V98 AND POINT BLANK IS EXACTLY UNTOUCHED AT NIGHT, not approximately: distT subtracts PT_BLANK before dividing, so it is 0 for any d <= PT_BLANK whatever the far end is. His 7/27 point-blank ruling gets LOUDER after dark rather than taxed flat',
+    demo.includes('return Math.min(1,Math.max(0,(d-PT_BLANK)/(F-PT_BLANK))); }') &&
+    demo.includes('const PT_BLANK=4, FAR_TILE=26'));
+
+  ok('V98 IT MOVES BOTH SIDES OFF ONE NUMBER: my dial (distPkg), their hit chance (distAccuracy) and the range words+colour all read distT, so there is no second accuracy system to keep in step',
+    demo.includes('function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }') &&
+    demo.includes('function distAccuracy(e){ return 0.97 - distT(e)*0.60; }') &&
+    demo.includes('function rangeTier(e){ const t=distT(e);'));
+
+  ok('V98 AND THE READ SAYS WHY: a man who reads LONG RANGE at night when he read MID RANGE at noon is explained, not mysterious',
+    demo.includes('function isDark(){ return rangeMult()<0.999; }') &&
+    demo.includes('const _drk=isDark();') &&
+    demo.includes('DARK</b>'));
+
+  ok("V98 THE ALLOWANCE IS A PERK, NOT A DIFFICULTY (Paolo 7/29: \"on a slider unrelated to difficulty but to perks you get in the game\"). The per-difficulty table v95 shipped is DELETED, and difficulty must never be wired back in",
+    demo.includes('V98 THE ALLOWANCE IS A PERK') &&
+    !/const CHAIN_ALLOWANCE_BY_DIFF=/.test(demo) &&   /* the DECLARATION, not the word: v98's own comment names the dead table to explain why it is dead, and a check that matches a comment is not a check */
+    demo.includes('function perkKillshots(){ return Math.max(1,(G.chainSkill||2)|0); }') &&
+    demo.includes('function chainAllowance(){ return Math.max(1,Math.min(perkKillshots(), chainWall())); }') &&
+    !/chainAllowance\(\)\{[^}]*userPkg/.test(demo));
+
+  ok('V98 AND THE CONTROL SAYS WHAT IT IS, so the reading matches the ruling',
+    demo.includes("cs.textContent='KILLSHOTS (PERK): '+G.chainSkill;"));
+
+  /* ===== 33. V99 YOU CAN THROW A GRENADE ================================ */
+  ok('V99 THE PLAYER CAN THROW ONE. Before this the ONLY grenade in the game was thrown AT you (grenadeTurn is an enemy action); there was no throw in the file at all',
+    demo.includes('V99 YOU CAN THROW A GRENADE') &&
+    demo.includes('function doThrow(){') &&
+    demo.includes('function pGrenTurn(){') &&
+    demo.includes('id="grenbtn"'));
+
+  ok('V99 THEY GET THE SAME TWO BEATS YOU DO -- which is what makes it a POSITIONING tool and not free damage. A man caught in the blast steps off the tile, and he loses the stone he was tucked behind when he does',
+    demo.includes('function stepOffBlast(e,gp){') &&
+    demo.includes("e.gcov=false;") &&
+    demo.includes("setRead('THEY SCATTER'"));
+
+  ok('V99 A THROW IS YOUR ACTION: it costs a stamina pip AND ends the turn into the return volley, exactly like popping out to shoot. A grenade does not get to opt out of the trade the fight is built on',
+    /doThrow\(\)\{[\s\S]{0,1200}spendStam\(1\)/.test(demo) &&
+    /doThrow\(\)\{[\s\S]{0,2200}endTurnReturn\(\);/.test(demo));
+
+  ok('V99 A GRENADE KILL IS NOT A KILLSHOT: no dial cinematic, no chain shot. The chain is the reward for the DIAL and a thrown object never touches the dial, which is what keeps the allowance mechanic meaning something',
+    /pGrenTurn\(\)\{[\s\S]{0,2600}e\.dead=true; killed\+\+;/.test(demo) &&
+    !/pGrenTurn\(\)\{[\s\S]{0,3000}startKillshot\(\)/.test(demo) &&
+    !/pGrenTurn\(\)\{[\s\S]{0,3000}enterAim\(/.test(demo));
+
+  ok('V99 YOURS IS AMBER AND THEIRS IS RED: two fused objects on one field that looked the same would be unreadable, and the one thing you must never be confused about is which one is about to hurt YOU',
+    demo.includes("x.fillStyle='rgba(232,176,74,'+(0.12+pu2*0.12).toFixed(3)+')';") &&
+    demo.includes("x.fillStyle='rgba(232,60,40,'+(0.13+pu*0.13).toFixed(3)+')';"));
+
+  ok('V99 the pouch refills on a fresh fight and the world carries the thrown grenade the same way it carries every other anchored thing',
+    demo.includes('G.pGren=null; G.pGrenLeft=P_GREN_PER_FIGHT;') &&
+    demo.includes('if(G.pGren)mv(G.pGren,0.02);'));
+
+  /* ===== 34. V100 THE WAREHOUSE ========================================= */
+  ok('V100 THE ARENA HAS A KIND (Paolo 7/29: "for arena lets start off with a warehouse"). The old arena was a scatter of blocks on a field, and a scatter has no THROUGH-LINES, so it can never make one plan better than another at any density',
+    demo.includes('V100 THE WAREHOUSE') &&
+    demo.includes("G.arenaKind=(Math.random()<0.5)?'warehouse':'street';") &&
+    demo.includes('function buildWarehouse(){'));
+
+  ok('V100 THE SHAPE IS THE ARENA: racking in long rows makes AISLES, so you are safe ACROSS the racking and naked ALONG it, and the question becomes which aisle you commit to and where you cross',
+    demo.includes('for(let row=R0; row<=R1; row+=AISLE){') &&
+    demo.includes('put(horiz?t:row, horiz?row:t, 0.58, true); } }'));
+
+  ok('V100 THE CROSS AISLES ARE THE KILL ZONES: the only places you can change aisle, so they are where everyone is looking',
+    demo.includes('if(cross.some(c=>Math.abs(t-c)<=1))continue;'));
+
+  ok('V100 THE STAGING FLOOR IS DELIBERATELY EMPTY: the shortest way across the building is the one with nothing on it',
+    demo.includes('const stageEdge=Math.random()<0.5?-1:1, STAGE=5+Math.floor(Math.random()*3);') &&
+    demo.includes('if(stageEdge*t>STAGE)continue;'));
+
+  ok('V100 AISLES ARE 2-3 TILES, MEASURED THEN TUNED: at 2 the aisles were ONE tile wide and 60 rolls averaged 128 racking blocks -- a corridor you cannot fight in',
+    demo.includes('const AISLE=3+Math.floor(Math.random()*2);'));
+
+  ok('V100 PALLETS ARE LOW AND VAULTABLE and sit IN the aisles -- the only cover inside an aisle, which is the only reason an aisle is survivable; the racking and the columns are TALL, so the tall/low mechanic carries the whole building',
+    demo.includes('put(horiz?t:row, horiz?row:t, 0.5, false); }') &&
+    demo.includes('for(let a=-10;a<=10;a+=BAY)for(let b=-10;b<=10;b+=BAY)put(a,b,0.42,true);'));
+
+  ok('V100 THE MEZZANINE ALWAYS EXISTS INDOORS, and it is the first time the v90 cross-level cover rule has paid for itself: height means seeing down the rows the racking would otherwise close off',
+    demo.includes("if(G.arenaKind==='warehouse'||Math.random()<0.72){"));
+
+  ok('V100 INDOORS THERE IS NO STREET: one material wall to wall, from the approved starter set',
+    demo.includes("if(G.arenaKind==='warehouse')return 'slab';") &&
+    demo.includes('ST_SPIN.slab=1;'));
+
+  ok('V100 AND THE ARENA HAS A NAME, because an arena you cannot name is a field with rocks on it',
+    demo.includes("function arenaName(){ return G.arenaKind==='warehouse'?'WAREHOUSE':'STREET'; }") &&
+    demo.includes("b.textContent=(s==null)?arenaName():(arenaName()+' #'+s); }"));
+
+  /* ===== 35. V101 HIT IN THE CHEST + THE APPROVED STREET BANK =========== */
+  ok('V101 BODIES ARE MARKED AT THE CHEST, NOT THE FEET (Paolo 7/29: "on a second story you just have the location of them wrong... its like their feet"). drawHuman blits 84px ABOVE the point it is handed, so every position in this file is a man\'s FEET',
+    demo.includes('V101 HIT IN THE CHEST') &&
+    demo.includes('const MASS_DY=-42;') &&
+    demo.includes('x.drawImage(cv112,Math.round(ex-56),Math.round(ey-84));'));
+
+  ok('V101 MASS_DY IS DERIVED FROM THE DRAW CALL, not eyeballed: it is half of drawHuman\'s own 84px offset, so a sprite-height change has one number to follow',
+    /MASS_DY=-42/.test(demo) && demo.includes('ey-84'));
+
+  ok('V101 THE MARKS THAT BELONG ON A BODY MOVED: the cover arc and the blade telegraph now sit on him instead of on the floor a storey below him',
+    demo.includes('if(e.gcov){ const _my=ey+MASS_DY;') &&
+    demo.includes('x.beginPath();x.arc(ex,ey+MASS_DY,er*1.5,0,7);x.stroke(); }'));
+
+  ok('V101 AND THE ONES THAT BELONG ON THE FLOOR DID NOT: the blood pool and the brass still land on the ground, because those really are on the floor',
+    demo.includes('function drawBloodPool(x,ex,ey,grow){') &&
+    !/drawBloodPool\([^)]*MASS_DY/.test(demo));
+
+  ok('V101 THE DRIP CARRIES ITS STOREY: a man bleeding on the mezzanine was dripping onto the ground floor, because the effect was pushed with a polar position and no level',
+    demo.includes("G._fx.push({type:'drip',ea:e.ea,edist:e.edist,lvl:e.lvl|0,") &&
+    demo.includes('const dxp=_dp[0], dyp=_dp[1]+lvlDY(p.lvl|0);'));
+
+  ok('V101 THE ROADWAY IS THE APPROVED STREET BANK (Paolo 7/29: "please use approved streets though"). Road and markings are finally cut from the SAME source, so they match by construction instead of by a measurement I had to take',
+    demo.includes('V101 THE APPROVED STREET BANK') &&
+    demo.includes('const STREET_B64S=') &&
+    /"road":\[/.test(demo.slice(demo.indexOf('const STREET_B64S='), demo.indexOf('const STREET_B64S=')+400)));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

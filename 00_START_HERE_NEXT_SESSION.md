@@ -121,6 +121,113 @@ event, and that is correct behaviour, not a bug.
 EVERYTHING BELOW IS THE OTHER LANES' LIVE STATE, CARRIED FORWARD UNTOUCHED.
 --------------------------------------------------------------------------------
 
+COMBAT (04) 7/29 (b) - FOUR RULINGS BUILT, TWO MORE ANSWERED, TWO DELIBERATELY NOT
+BUILT. Paolo sent four calls, then three more mid-turn.
+
+*** v98 THE DARK SHRINKS THE RANGE (he approved the pitch: "i really like this
+nice research lets do it") ***
+NOT an accuracy penalty. A symmetric penalty changes no decision and just makes
+the fight longer = the tally mistake. IT IS ONE NUMBER, and that is the elegance:
+every range read in this fight already runs through distT, so shrinking the far
+end moves MY dial (distPkg), THEIR hit chance (distAccuracy) AND the range
+words+colour at once. *** POINT BLANK IS EXACTLY, PROVABLY UNTOUCHED: distT
+subtracts PT_BLANK before dividing, so it is 0 for any d<=PT_BLANK whatever the
+far end is. His 7/27 point-blank ruling gets LOUDER after dark instead of taxed.
+*** Measured: a man 15 tiles out reads MID RANGE / their acc 0.67 at morning,
+LONG RANGE / 0.52 at dusk, LONG RANGE / 0.37 at night. NIGHT_RANGE is a dial.
+
+*** v98 THE ALLOWANCE IS A PERK, NOT A DIFFICULTY ***
+Paolo: "the kilshot how many u get before its incredibly difficult is on a slider
+unrelated to difficulty but to perks you get in the game."
+v95's CHAIN_ALLOWANCE_BY_DIFF is DELETED. It comes from G.chainSkill only, and
+the settings control now reads KILLSHOTS (PERK). *** THIS IS WHY MECHANISM-MINE/
+CONTENTS-PAOLO'S EXISTS: the table shipped EMPTY, so his correction deleted a
+WIRE and changed no gameplay. Five invented numbers would have silently
+rebalanced the fight. *** The old v95 gate check was rewritten to record that.
+
+*** v99 YOU CAN THROW A GRENADE (Paolo: "grenade first") ***
+The only grenade in the game was thrown AT you. Now both directions.
+*** THEY GET THE SAME TWO BEATS YOU DO. *** A man in the blast STEPS OFF THE TILE
+and loses the stone he was tucked behind. That is what makes it a POSITIONING
+tool instead of free damage: it FLUSHES people out of cover, pushes a shooter off
+an angle, and still kills whoever cannot clear it. Costs a pip AND ends the turn
+into the volley, like popping out to shoot. 2 per fight (dial). A grenade kill is
+NOT a killshot: no dial cinematic, no chain -- the chain is the reward for the
+DIAL, which is what keeps the allowance meaning something. Yours draws AMBER,
+theirs stays RED.
+
+*** v100 THE WAREHOUSE (Paolo: "for arena lets start off with a warehouse or
+something. think about all the shit you will need to hide behind") ***
+After "u have like a 4th grade level of understanding when i say arenas fr",
+which was fair: what I had was a scatter of blocks, and A SCATTER HAS NO
+THROUGH-LINES, so it can never make one plan better than another at any density.
+A warehouse is ONE IDEA REPEATED: racking in long rows, which makes AISLES.
+  ACROSS the racking you are SAFE (tall, no vault, no line)
+  ALONG the aisle you are NAKED (a corridor, no lateral cover)
+So the fight becomes WHICH AISLE DO I COMMIT TO AND WHERE DO I CROSS.
+  RACKING tall | CROSS AISLES = the only way to change aisle = the kill zones |
+  PALLETS low+vaultable IN the aisles = the only reason an aisle is survivable |
+  STEEL COLUMNS on the bay grid | THE STAGING FLOOR left EMPTY on purpose (the
+  shortest way across is the one with nothing on it) | THE MEZZANINE, always
+  present indoors -- the FIRST TIME the v90 cross-level cover rule has paid for
+  itself, because height means seeing down the rows.
+MEASURED THEN TUNED: aisle 2 gave ONE-tile aisles and averaged 128 blocks (max
+186) -- a corridor you cannot fight in. Aisle 3-4 gives 2-3 tile aisles, avg 100.
+Rolls 50/50 with the street; the seed reproduces which kind you got.
+Floor = approved concrete slab. The arena button says WAREHOUSE #nnnnn, because
+an arena you cannot NAME is a field with rocks on it.
+
+*** v101 HIT IN THE CHEST, NOT THE FEET (his reported bug) ***
+Paolo: "when people are on a second story you just have the location of them
+wrong when it comes to getting shot... its like their feet."
+ROOT CAUSE: drawHuman blits the sprite 84px ABOVE the point it is handed, so
+EVERY position in this file is a man's FEET and every ring drawn at it is on the
+floor rather than on him. Always wrong; merely survivable on one floor. On a
+second storey his feet are a whole storey below his body. MASS_DY=-42 is half of
+drawHuman's OWN offset, so it is derived not eyeballed. Body marks moved (cover
+arc, blade telegraph); GROUND marks deliberately did not (blood pool, brass).
+AND THE DRIP CARRIES ITS LEVEL -- a man bleeding on the mezzanine was dripping
+onto the ground floor.
+
+*** v101 THE APPROVED STREET BANK (Paolo: "i really like the street please use
+approved streets though but its looking so good") ***
+The roadway was the starter set's RESIDENTIAL road while the markings came from
+STREET_POOLS_HARMONIZED. Now the whole roadway is the STREET BLOCKS row of the
+approved index (REAL_VEGAS R2, already wired in CITY): pools.street x8 +
+pools.side x8. Road and markings finally cut from the SAME source, so they match
+by construction instead of by a measurement I had to take, and 8 x the v96
+quarter-turns is 32 faces instead of 12. The starter set keeps the kerb, gutter
+and lot (the pieces the street bank does not carry, and whose orientation v94
+measured).
+
+GATE: combat 486 -> 513. ELEVEN older checks asserted superseded text and were
+RE-POINTED AT THEIR INVARIANT, never relaxed. One of v95's checks was superseded
+BY A RULING (the only legitimate way a check dies) and was rewritten to assert
+what v95 got right. AND ONE OF MY OWN NEW CHECKS MATCHED A COMMENT AGAIN --
+v98's comment names the dead table to explain why it is dead. Second time this
+turn. The rule is now written into both: assert the DECLARATION, not the word.
+
+*** NOT BUILT, ON PURPOSE, WITH THE DESIGN WRITTEN OUT ***
+records/BOHEMIA_COMBAT_NEXT_TWO_DIAL_COVER_AND_CARS_7_29_26.md
+Five things shipped this turn that he has not seen. Adding two more untested
+features to that pile is the pile-up STOP PRODUCING exists to prevent.
+  1. THE COVER POSE FOLLOWS THE DIAL ("so that killshot they better be out of
+     cover"). Best idea in the message and nearly free: G.angle, the zone widths
+     and the tuck/peek frames ALL already exist. It makes the dial a PICTURE OF
+     THE TRUTH instead of a gauge drawn over the fight -- you stop reading a
+     needle and start reading a man. It SELECTS existing poses, touches no rig,
+     no clip, no BAKED pose, so it stays clear of the animation revamp.
+  2. CARS. *** HIS RULING: A CAR IS 2 TILES BY 3 TILES. *** That is the first
+     MULTI-TILE cover in the game, which is a genuinely different object: it
+     blocks a LENGTH not a point, and the engine end hides you to the chest while
+     the boot end hides you to the waist -- one object, two cover values, which
+     no block can do. The work is that pillars are CIRCLES and a car is a
+     RECTANGLE, so about five cover/collision functions need rectangle maths.
+     DO THE SHOPPING CHECK FIRST: car_wreck x20 exists in STREET_PROP_POOLS but
+     that bank is "corpus art, no new canon" and is NOT in the approved index --
+     render the 20 at 2x3 and LOOK before deciding this is an art ask at all.
+     His 2x3 ruling must also be amended into TF-CMB-003.
+
 ART (f3eu53): 7/29 (e) LATEST (see the 7/29 c-d-e sections below) — PAOLO RULED "A". THE MASTER PALETTE IS DEAD, AND THE
 TILES HE APPROVED ON 7/28 ARE FINALLY IN THE GAME.
 
