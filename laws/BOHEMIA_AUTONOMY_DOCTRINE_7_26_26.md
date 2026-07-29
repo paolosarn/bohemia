@@ -16,8 +16,12 @@ research record lives in this file's commit and the coordinator's findings.
 =============================================================================
 Paolo never writes task prompts. His words to any session:
 - **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
-  "combat" / "character" / "art" / "lab" / "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session opened with it replies one line and stops). That word both assigns
-  the lane and means GO. A fresh session that can't match its first word to a
+  "combat" / "character" / "sounds" / "art" / "lab" / "coordinator" ("quests"
+  is HIBERNATED per the 7/26 ruling — a session opened with it replies one
+  line and stops). That word both assigns the lane and means GO.
+  ("sounds" added 7/29 by Paolo — "i should just make a dedicated sounds
+  chat". "sound" and "music" resolve to the same lane. AUDIO MOVED: the
+  CHARACTER lane no longer owns music/sfx — one system one session.) A fresh session that can't match its first word to a
   lane asks ONE word back ("which lane?") and nothing else.
 - **After that, "go"** (or any single word, or garbled transcription, or "continue"):
   execute THE GO PROCEDURE (§2). The word carries zero information except
@@ -141,12 +145,18 @@ toward its intent instead of pinging him. Canon-level gaps stay [PENDING].
   walkable, iconic-readable (Pocket City bar), never a void, never a placeholder.
 - COMBAT: the dial + movement-forward toolkit; kills land on the beat; juice
   over realism, readability over simulation.
-- CHARACTER/SOUND: SHADOWS ARE A SEPARATE LAYER — shading never lives in a
+- CHARACTER: SHADOWS ARE A SEPARATE LAYER — shading never lives in a
   garment/body/prop's own pixels, it is a render-time pass (7/26 addendum);
   THE RIG IS LAW — all body/animation work derives from
   BAKED.pose and its layering, never a new body (7/26 addendum, rig check
   mandatory); silhouettes readable at arm's length; structure over
   color; one rig, variation by sliders; 120 BPM everything.
+- SOUNDS (dedicated lane, Paolo 7/29): everything audible — music, the SFX
+  factory, mix/ducking, beat plumbing to other surfaces. 120 BPM law is the
+  spine: EVERY DURATION IS A NOTE; one AudioContext (the parent's), never a
+  second audio engine. Sounds are synthesized parameters, not asset files
+  (the one-file alpha stays light). Juice over realism; a sound's job is to
+  make the moment FEEL landed. Batches arrive as one listen-and-thumb page.
 - ART: the target screen is the constitution; art ships as coherent SETS
   judged in context, never loose tiles; referenced always (approved corpus +
   named outside references), invented never; 2-tile doors, human scale.

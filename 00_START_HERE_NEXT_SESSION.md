@@ -170,3 +170,13 @@ Earlier 7/28 (still live): ENGINE REALITY MAP (laws/BOHEMIA_ENGINE_REALITY_MAP_
 7_28_26.md, in the GO read order) + three rulings recorded (REAL combat on the
 walk = extraction never rewrite; VEGAS WEATHER 3 states rain-monthly; the TILE
 FORM law + board, 54 forms filed by 7 lanes day one).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/29 — THE SOUNDS LANE EXISTS (Paolo: "i should just make a
+didicated sounds chat"). Doctrine lane words now include "sounds" (also
+answers to "sound"/"music"); lane intent added (§6); BOHEMIA_BACKLOG.md has a
+## SOUNDS section whose item 0 is the GREENLIT SFX FACTORY, then run-beat
+plumbing, then ambient beds. AUDIO MOVED OUT OF CHARACTER (one system one
+session): the character chat is bodies/clothing/animation only now — if it has
+in-flight audio work it finishes nothing new and hands off via the handoff.
+Paolo opens the new chat with the single word "sounds" and it goes.

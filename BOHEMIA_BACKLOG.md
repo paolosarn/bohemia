@@ -2337,29 +2337,46 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    twice on a quest handoff (startGame + the shuffle hook). Harmless, same
    distribution, but it is duplicate work on the enter path. NON-COOK tidy.
 
+## SOUNDS  (DEDICATED LANE, Paolo 7/29 — "i should just make a dedicated
+## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
+## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
+## one system one session. Lane intent: doctrine §6.)
+0. THE SFX FACTORY (GREENLIT by Paolo 7/29 when he ordered this lane into
+   existence; routed 7/28 off his own state-of-the-game — sound effects are
+   HIS ONLY 0%. Research record: records/BOHEMIA_RESEARCH_FRICTIONLESS_
+   ACCELERATORS_7_28_26.md) Procedural sound synthesis on the alpha's own
+   Web Audio stack (the sfxr/jsfxr lineage — sounds are ~20 synth
+   parameters, not files; zero asset weight in the one-file alpha). Factory
+   law applied: typed spec (event name + parameter vector) -> generator
+   module -> batches of 8-12 candidates per game event (footsteps by ground
+   type, doors, pickup, hit, block, kill-on-beat, UI tap, phone buzz, save
+   chime, rain, fire) -> ONE judge page that plays them side by side (a
+   60-sound batch is one Paolo sitting — the cheapest verdict pipeline in
+   the game) -> approved vectors bank + hash-replay regression gate. 120 BPM
+   native: durations in beats, combat sounds quantize to the dial's audio
+   clock (EVERY-DURATION-IS-A-NOTE). MECHANISM-MINE: the synth + judge page
+   ship; WHICH sound any event makes is his verdict, tables empty until
+   judged. | judge page live + vector bank + regression gate | one
+   AudioContext (the parent's) — no second audio engine | yes (the batches
+   are the judging).
+1. (carried from the reality map) THE RUN HAS NO BEAT: the walk's BEAT=500
+   is a hardcoded constant; no tempo/beat index crosses the postMessage
+   vocabulary while combat gets full song data + HERO BEAT. Hand the run the
+   real beat clock (this lane owns the plumbing; RUN consumes). | run door/
+   step timing provably driven by the playing song's clock | the dial's
+   audio-clock pattern is the reference | no.
+2. (carried) DAYCYCLE/WEATHER AUDIO HOOKS, after RUN 0d wires the daycycle:
+   ambient beds (wind, night insects, rain when the weather ruling's rare
+   rain fires) from the same synth stack — no files. [Waits on RUN 0d.] |
+   heard on the real surface | — | yes (ambience candidates are judgeable).
+
 ## CHARACTER  (LANE LAW 7/26: laws/BOHEMIA_ADDENDUM_THE_RIG_IS_LAW_7_26_26.md
 ## — the rig is the starting point of ALL body/anim work; RIG CHECK mandatory;
 ## AND laws/BOHEMIA_ADDENDUM_SHADOWS_ARE_SEPARATE_7_26_26.md — shading never
 ## baked into asset pixels, render-time layer only. First items of the lane's
 ## next session: the rig-check gate assertion + the shading-separation gate
-## assertion, same turn.)
-SFX. (routed 7/28 off Paolo's own state-of-the-game: sound effects are HIS
-   ONLY 0%, and he asked for frictionless accelerators — research record:
-   records/BOHEMIA_RESEARCH_FRICTIONLESS_ACCELERATORS_7_28_26.md) THE SFX
-   FACTORY: procedural sound synthesis on the alpha's own Web Audio stack
-   (the sfxr/jsfxr lineage — sounds are ~20 synth parameters, not files;
-   zero asset weight in the one-file alpha). Factory law applied: typed spec
-   (event name + parameter vector) -> generator module -> batches of 8-12
-   candidates per game event (footsteps by ground type, doors, pickup, hit,
-   block, kill-on-beat, UI tap, phone buzz, save chime, rain, fire) -> ONE
-   judge page that plays them side by side (a 60-sound batch is one Paolo
-   sitting — the cheapest verdict pipeline in the game) -> approved vectors
-   bank + hash-replay regression gate. 120 BPM native: durations in beats,
-   combat sounds quantize to the dial's audio clock (EVERY-DURATION-IS-A-
-   NOTE). MECHANISM-MINE: the synth + judge page ship; WHICH sound any event
-   makes is his verdict, tables empty until judged. | judge page live +
-   vector bank + regression gate | one AudioContext (the parent's) — no
-   second audio engine | yes (the batches are the judging).
+## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
+## SOUNDS lane above — this lane is bodies, clothing, animation only.)
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not
