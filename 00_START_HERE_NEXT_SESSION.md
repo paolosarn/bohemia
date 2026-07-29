@@ -1,3 +1,67 @@
+CITY (03): 7/29 LATEST — THE WALK SURFACE HAS PEOPLE IN IT NOW. This was the lane's #1
+item (ER, the engine reality audit) and it is also his 7/29 ruling made real, so it was
+the one obvious thing to do on "go".
+
+THE FINDING, measured before touching anything: human mode had the best render
+architecture in the repo — chunk LRU, canvas pool sized against the measured iOS floor,
+genuinely seamless streaming — and ZERO people. Not few. Zero. No BohemiaAgents, no body
+drawing of any kind; the only movers were cars and planes.
+
+MEASURED ON THE REAL SURFACE, real browser, real tab, real splash dismissed:
+  standing in a CLUSTER        9 people on screen
+  standing in a NO MAN'S LAND  0 people on screen
+
+engine/bohemia_population.js is his zone map as a SHARED module, deliberately not a patch
+inside one renderer. The RUN and the CITY tab share almost no drawing code and this lane
+has already been burned once by fixing the surface he does not play. If each invented its
+own idea of who lives where, the same neighbourhood would be a ghost town in one and a
+settlement in the other.
+
+IT FEEDS THE EXISTING SIM RATHER THAN FORKING IT, and this is the part worth copying.
+bohemia_agents.js (WORLD's module) ALREADY holds a two-plane census and ALREADY takes a
+per-call `occupiedRate` — whose own source comment calls the flat 0.30 "a PLACEHOLDER...
+[PENDING Paolo]". His 7/29 ruling answered that pending item. So the new module supplies
+that rate per neighbourhood (cluster 0.115, spread/loner 0.005, empty 0.000) and adds no
+second census. No edit to another lane's file, ENGINE SYNC intact. BEFORE BUILDING A
+PARALLEL ANYTHING, CHECK WHETHER THE EXISTING MODULE ALREADY TAKES THE OPTION YOU NEED.
+
+THREE THINGS FOUND BY LOOKING AT THE SCREEN, not by reading code:
+  1. A cluster scattered evenly over its 128x128 subdivision put exactly ONE person in
+     view — indistinguishable from a loner. A phone shows ~17 cells across at walk zoom,
+     so the radius is 8 now and 3-5 neighbours are visible at once. You still never see
+     all 13 and you should not: you hear a settlement before you see it.
+  2. My first standable test was homegrown (`!solid && !face`) and put residents ON
+     ROOFTOPS. Fixed to the frame's OWN `walk` flag, the exact predicate move() uses. IF
+     A PERSON CAN STAND WHERE THE PLAYER CANNOT WALK, THE TEST IS WRONG, NOT THE WORLD.
+  3. Placement is CACHED per neighbourhood and the player MOVES, so a standable test that
+     consulted hx/hy would bake a stale answer into the cache. Occupancy is enforced at
+     DRAW time instead, and the gate proves it by stepping him onto a resident and
+     watching the count drop by exactly one.
+
+TWO NEW GATES, and note the name check: gates/population_gate.js ALREADY EXISTED (LIFE
+session, 7/19, two-plane sim). Mine are gates/zone_map_gate.js (56 assertions, node) and
+gates/city_people_gate.js (14, real browser). Both proved able to FAIL before being
+trusted — sabotaging the module produced 1,232 desert ghosts and killed the no man's land.
+
+ZERO PIXELS COOKED. Every body is the character he already built, tinted: the canon
+"enemies are tints of me" mechanism (7/3), the same one the RUN's townsfolk already use.
+
+NOBODY MOVES YET, ON PURPOSE. Schedules live in bohemia_agents.js and duplicating them
+here would fork the simulation. This draws PRESENCE, which is exactly what "how busy the
+city feels" asks for.
+
+WHAT COMES AFTER, in order: (1) wire the real schedules through the same module so the
+clusters wake up, work and come home — the agent module already has them, it just needs
+the zone map's rate; (2) the RUN consumes the SAME module so both surfaces describe one
+city (it is already importable, nothing to design); (3) the eight tile forms from 7/28
+are still waiting on the ART lane and nothing here blocks them.
+
+BLOCKED ON PAOLO: nothing new.
+
+DO NOT: add movement inside the city frame. That forks WORLD's sim. Do not raise the
+population because "it feels empty" — a quarter of the map is empty ON HIS ORDER and the
+gate will catch you.
+
 SOUNDS (xk7pjp): 7/29 (h) LATEST — THE SOUNDS ARE REMADE. HE SAID v1 SOUNDED
 LIKE 2006 SOFTWARE AND HE WAS RIGHT TO THE YEAR. MUSIC TAB, TOP OF THE PANEL.
 

@@ -783,7 +783,7 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
-ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
+ER. [DONE 7/29 — see 0X] (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    7_28_26.md) TWO ENGINE GAPS THIS LANE OWNS:
    (a) VERTICALITY'S ENGINE HALF. Paolo's stated direction: 2-3 story
    buildings with climbable stairs. Today: floorplan vocabulary is only
@@ -1165,6 +1165,51 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0X. [DONE 7/29 — THE LANE'S #1 ITEM, AND IT IS HIS RULING MADE REAL] THE CITY
+   WALK SURFACE HAS PEOPLE IN IT. Was ER, the engine-reality-audit finding:
+   human mode had the best render architecture in the repo and NOT ONE PERSON
+   IN IT - measured before touching anything, zero occurrences of
+   BohemiaAgents or any body drawing at all; the only movers were cars and
+   planes. You could walk the whole valley and never see a human being.
+   MEASURED ON THE REAL SURFACE, in a real browser, on the real tab:
+     standing in a CLUSTER      9 people on screen
+     standing in a NO MAN'S LAND 0 people on screen
+   engine/bohemia_population.js — his 7/29 zone map as a SHARED module, not a
+   patch inside one renderer. The RUN and the CITY tab are separate renderers
+   and this lane has already been burned once by fixing the surface he does not
+   play; if each invented its own idea of who lives where, one neighbourhood
+   would be a ghost town in one and a settlement in the other. One census, both
+   surfaces, same seed same answer.
+   IT FEEDS THE EXISTING SIM RATHER THAN FORKING IT. bohemia_agents.js (WORLD's)
+   already holds the census and ALREADY takes a per-call `occupiedRate` whose
+   own source comment calls the flat 0.30 "a PLACEHOLDER... [PENDING Paolo]".
+   His ruling answered that pending item, so the module supplies that rate per
+   neighbourhood and adds no second census: cluster 0.115, spread/loner 0.005,
+   empty 0.000, against the old flat 0.30 everywhere. No edit to another lane's
+   module, ENGINE SYNC intact.
+   THREE THINGS FOUND BY LOOKING, not by reading code:
+     1. A cluster scattered over its whole 128x128 subdivision put exactly ONE
+        person on screen - indistinguishable from a loner. Clusters are tight
+        now (8-cell radius, measured against the ~17 cells a phone shows at walk
+        zoom), so 3-5 neighbours are visible at once. You still never see all
+        13, and you should not.
+     2. The first standable test was my own (`!solid && !face`) and put
+        residents ON ROOFTOPS. Fixed to the frame's OWN `walk` flag - the exact
+        predicate move() uses. If a person can stand where the player cannot
+        walk, the test is wrong, not the world.
+     3. Placement is CACHED per neighbourhood and the player MOVES, so a
+        standable test that consulted hx/hy would bake a stale answer. Occupancy
+        is enforced at DRAW time instead, and the gate proves it by stepping him
+        onto a resident and watching the count drop by exactly one.
+   ZERO PIXELS COOKED: every body is the character he already built, tinted -
+   the canon "enemies are tints of me" mechanism (7/3), the same one the RUN's
+   own townsfolk use.
+   NOBODY MOVES YET, on purpose. Schedules are bohemia_agents.js's and
+   duplicating them here would fork the simulation. This draws PRESENCE, which
+   is what "how busy the city feels" asks for. WHAT COMES AFTER is wiring the
+   real schedules through the same module so the clusters wake up, work and
+   come home. | gates: ZONE MAP (56 assertions, node) + CITY PEOPLE (14, real
+   browser) | 7/29 | YES.
 0W. [RULED 7/29, ALL FOUR ANSWERED, RESEARCH DELIVERED] HOW MANY PEOPLE, AND
    HOW BUSY THE CITY FEELS. laws/BOHEMIA_ADDENDUM_HOW_MANY_PEOPLE_7_29_26.md
    + records/BOHEMIA_FOOD_CEILING_RESEARCH_7_29_26.md. He answered all four

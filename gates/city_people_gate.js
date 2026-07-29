@@ -1,0 +1,151 @@
+/* BOHEMIA CITY PEOPLE GATE (7/29/26) — measured ON THE REAL SURFACE.
+ *
+ * gates/zone_map_gate.js proves the CENSUS is right. It cannot prove anybody is
+ * actually on screen, and VERIFY ON THE REAL SURFACE (7/18) is explicit that a
+ * side-door probe is a lie: art and presence are verified only on the surface
+ * Paolo sees. So this gate boots the real alpha in a real browser, dismisses
+ * the real splash, taps the real CITY tab, drops into human mode, and counts
+ * bodies that were actually drawn.
+ *
+ * The finding it locks (engine reality audit, the CITY lane's #1 item): the
+ * walk surface had ZERO people in it. Not few — zero. No BohemiaAgents, no
+ * body drawing of any kind; the only movers were cars and planes.
+ *
+ * WHAT IT PROVES, all of it measured in the browser:
+ *  1. The shared census module is LIVE inside the city frame, and its valley
+ *     census matches what the node-side gate says. One module, one answer.
+ *  2. Standing in a CLUSTER you SEE PEOPLE. This is Paolo's "how busy we make
+ *     the city feel", and it is the assertion that would have caught the whole
+ *     original bug.
+ *  3. Standing in a NO MAN'S LAND you see NOBODY. Emptiness is authored, and
+ *     it has to be provable or the next "the world feels dead" change quietly
+ *     fills it in.
+ *  4. NOBODY STANDS WHERE THE PLAYER CANNOT WALK. The first cut of this pass
+ *     used its own standable test and put residents on rooftops; the fix was to
+ *     use the frame's own `walk` flag, and this asserts it directly against
+ *     every drawn body.
+ *  5. Nobody is drawn on top of the player (OCCUPANCY LAW: one body per cell).
+ *  6. It costs nothing when there is nobody about — the pass is culled to the
+ *     visible neighbourhoods, so an empty block does no per-person work.
+ *
+ *   node gates/city_people_gate.js
+ */
+const path = require('path');
+const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+
+let pass = 0; const fails = [];
+const ok = (n, c) => { c ? pass++ : fails.push(n); };
+
+(async () => {
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  const p = await b.newPage({ viewport: { width: 390, height: 844 } });
+  const errs = [];
+  p.on('pageerror', e => errs.push(e.message));
+  await p.goto('file://' + path.resolve('slices/BOHEMIA_ALPHA_0_9.html'), { waitUntil: 'load', timeout: 300000 });
+  await p.waitForTimeout(12000);
+  await p.mouse.click(195, 420);                       /* the real splash: TAP TO ENTER */
+  await p.waitForTimeout(6000);
+  await p.evaluate(() => {
+    const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'CITY');
+    if (t) t.click();
+  });
+  await p.waitForTimeout(22000);
+
+  const f = p.frames().find(fr => fr.name() === 'cityFrame');
+  ok('the CITY tab really mounts its frame', !!f);
+  if (!f) { report(); await b.close(); return; }
+
+  /* 1) the shared module is live in the frame */
+  const live = await f.evaluate(() => {
+    if (typeof BohemiaPopulation === 'undefined') return null;
+    return { census: BohemiaPopulation.census(om, POWER, seed, 96), seed: seed,
+             hasPass: typeof peoplePass === 'function' };
+  });
+  ok('the shared census module is inlined and live in the city frame', !!live);
+  if (!live) { report(); await b.close(); return; }
+  ok('the people pass exists on the render path', live.hasPass);
+  ok(`the frame boots the ONE SEED (${live.seed})`, live.seed === 2691674296);
+  ok(`the frame's census matches the node-side census (${live.census.people} people, ${live.census.zones.cluster} clusters)`,
+     live.census.people >= 270 && live.census.people <= 330 && live.census.zones.cluster >= 11);
+
+  /* 2) a cluster shows people */
+  const clus = await f.evaluate(() => {
+    let best = null;
+    for (let ty = 0; ty < 96 && !best; ty++) for (let tx = 0; tx < 96; tx++) {
+      const c = om.at(tx, ty);
+      if (!c || !BohemiaPopulation.RESIDENTIAL[c.district]) continue;
+      if (BohemiaPopulation.zoneAt(om, POWER, tx, ty, seed) === 'cluster') { best = [tx, ty]; break; }
+    }
+    if (!best) return { err: 'no cluster in the valley' };
+    const homes = BohemiaPopulation.homesIn(om, POWER, best[0] >> 2, best[1] >> 2, seed, FN, pplStandable, 24);
+    if (!homes.length) return { err: 'cluster placed nobody' };
+    /* stand him NEXT to the settlement, not on top of a resident, or the
+       baseline is already one short and the occupancy test below proves
+       nothing */
+    MODE = 'human'; HC = 22;
+    hx = homes[0][0] + 1; hy = homes[0][1] + 1;
+    if (!cellAt(hx, hy) || !cellAt(hx, hy).walk) { hx = homes[0][0]; hy = homes[0][1] + 2; }
+    fit(); render();
+    const drawn = window.__PPL_DRAWN;
+    /* every placed resident must stand where the PLAYER could walk */
+    let unwalkable = 0;
+    for (const h of homes) {
+      const c = cellAt(h[0], h[1]);
+      if (!c || !c.walk) unwalkable++;
+    }
+    /* NOW step him deliberately ONTO a resident's cell. Placement is cached and
+       cannot know where he will walk, so draw time is the only honest place to
+       enforce one-body-per-cell - and the proof is that the count DROPS. */
+    const onCell = homes.find(h => h[0] !== hx || h[1] !== hy);
+    hx = onCell[0]; hy = onCell[1]; render();
+    const onPlayer = (window.__PPL_DRAWN === drawn - 1) ? 0 : 1;
+    return { cell: best, homes: homes.length, drawn: drawn, after: window.__PPL_DRAWN,
+             cv: [cv.width, cv.height], unwalkable, onPlayer };
+  });
+  ok('found a cluster and it placed people', !clus.err);
+  if (!clus.err) {
+    ok(`the canvas is really sized (${clus.cv.join('x')}) - a 1x1 canvas would fake every count`,
+       clus.cv[0] > 100 && clus.cv[1] > 100);
+    ok(`standing in a CLUSTER you SEE PEOPLE (${clus.drawn} on screen)`, clus.drawn >= 3);
+    /* 4) and 5) */
+    ok(`nobody stands where the player cannot walk (${clus.unwalkable} bad cells of ${clus.homes})`,
+       clus.unwalkable === 0);
+    ok(`stepping onto a resident's cell removes exactly that body (${clus.drawn} -> ${clus.after}, OCCUPANCY LAW)`, clus.onPlayer === 0);
+  }
+
+  /* 3) a no man's land shows nobody */
+  const empt = await f.evaluate(() => {
+    let z = null;
+    for (let ty = 0; ty < 96 && !z; ty++) for (let tx = 0; tx < 96; tx++) {
+      const c = om.at(tx, ty);
+      if (!c || !BohemiaPopulation.RESIDENTIAL[c.district]) continue;
+      if (BohemiaPopulation.zoneAt(om, POWER, tx, ty, seed) === 'empty') { z = [tx, ty]; break; }
+    }
+    if (!z) return { err: 'no empty neighbourhood - the no man\'s land was filled in' };
+    hx = z[0] * FN + 64; hy = z[1] * FN + 64; fit(); render();
+    return { cell: z, drawn: window.__PPL_DRAWN };
+  });
+  ok('the valley still has a no man\'s land to stand in', !empt.err);
+  if (!empt.err) ok(`standing in a NO MAN'S LAND you see NOBODY (${empt.drawn})`, empt.drawn === 0);
+
+  /* 6) the pass is cheap where nobody lives */
+  const cost = await f.evaluate(() => {
+    const t0 = performance.now();
+    for (let i = 0; i < 30; i++) render();
+    return performance.now() - t0;
+  });
+  ok(`rendering an empty block 30x stays cheap (${cost.toFixed(0)}ms)`, cost < 4000);
+
+  ok('the frame threw no errors while people were on screen', errs.length === 0);
+  if (errs.length) errs.slice(0, 3).forEach(e => console.log('    page error: ' + e));
+
+  report();
+  await b.close();
+  process.exit(fails.length ? 1 : 0);
+
+  function report() {
+    console.log(`CITY PEOPLE GATE: ${pass} passed, ${fails.length} failed`);
+    if (!clus || !clus.err) console.log(`  cluster: ${clus && clus.drawn} on screen · no man's land: ${empt && empt.drawn}`);
+    fails.forEach(x => console.log('  FAIL  ' + x));
+  }
+})().catch(e => { console.log('CITY PEOPLE GATE: harness error - ' + e.message); process.exit(1); });
