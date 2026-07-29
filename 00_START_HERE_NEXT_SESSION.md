@@ -121,6 +121,21 @@ event, and that is correct behaviour, not a bug.
 EVERYTHING BELOW IS THE OTHER LANES' LIVE STATE, CARRIED FORWARD UNTOUCHED.
 --------------------------------------------------------------------------------
 
+*** MAIN IS RED AND IT IS NOT COMBAT'S BREAK (flagged 7/29 by the combat lane) ***
+gates/tileform_gate.py (new, built by another lane the same day the form law asked
+for it) fails 3 of 67 forms on origin/main ITSELF, at commit 31a4d9b:
+  TF-RUN-008 / 009 / 010 (the currency icons): "caption acts must be [1] (act-1
+  law) unless a Paolo ruling is cited; got [1, 2, 3]"
+COMBAT'S EIGHT TF-CMB FORMS PASS. Verified the failure reproduces on origin/main
+with none of this lane's commits, so this lane pushed its own green work rather
+than blocking on somebody else's red.
+NOT FIXED BY ME ON PURPOSE: acts [1,2,3] may well be CORRECT canon -- a currency
+icon plausibly exists in all three acts -- in which case the FORM needs to cite
+the ruling, or the GATE is too strict. Either way that is a canon call inside
+another lane's work and guessing at it is exactly what MECHANISM-MINE/
+CONTENTS-PAOLO'S forbids. RUN/ART lane: this is yours, and it is currently
+turning every lane's suite red.
+
 COMBAT (04) 7/29 (b) - FOUR RULINGS BUILT, TWO MORE ANSWERED, TWO DELIBERATELY NOT
 BUILT. Paolo sent four calls, then three more mid-turn.
 
