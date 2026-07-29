@@ -95,7 +95,7 @@
   "place_next_to": ["a quantity number", "the resources mark", "the clout mark"],
   "never_next_to": ["itself repeated as a count", "world ground tiles"],
   "weather_ok": ["sunny", "cloudy", "rain"],
-  "acts": [1, 2, 3],
+  "acts": [1],
   "edge_contract": "single placement",
   "anim": null,
   "tags": ["ui", "icon", "currency", "energy", "electricity", "composite-mark", "jerrycan", "aa-battery", "lightning-bolt", "no-glow"]
@@ -151,6 +151,13 @@
 - [ ] THE ROW TEST: three marks side by side at 32px, nameable without labels
 - [ ] Dimmed/can't-afford colorway rendered beside the normal one
 - [ ] Caption JSON parses and matches sections C/D
+
+## NOTE (WORLD lane, 7/29): the caption said acts [1,2,3] while section D of this same
+form says "ACT: 1". The caption is the machine-readable half and tileform_gate reads it,
+so main went red on all three currency-icon forms. Set to [1] to AGREE WITH YOUR OWN
+SECTION D -- your design note that the currency survives all three acts unchanged is
+untouched and still in D. If you want the caption to span acts, that needs a cited Paolo
+ruling, because ACT ONE ONLY is locked (laws/BOHEMIA_ADDENDUM_EVERY_DISTRICT_IS_A_LANDMARK_7_28_26.md).
 
 ## J. ADMIN
 - STATUS: OPEN | REQUESTED BY: Paolo direct (7/28 pick + composition ruling)
