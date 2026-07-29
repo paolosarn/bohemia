@@ -115,9 +115,11 @@ zoning across districts, when to break harmony on purpose.
 compression, saturation falloff, haze. Our render contract mentions depth haze in
 passing and I have never researched it.
 
-**B4. Water, fire, glass and other "hard" materials.** Every material I have
-studied is opaque and static. The waterpark, the wash, the pools and the camp fire
-are all in the backlog and I know nothing about animating or shading any of them.
+**B4. Water, fire, glass and other "hard" materials.** ~~Every material I have
+studied is opaque and static.~~ **PARTLY CLOSED 7/29 (M16):** Mark Ferrari animated
+rain, fog, smoke, waterfalls, streams and lakes with NOTHING but a cycling palette
+on one flat image - which is exactly what our indexed tiles unlock. Still open:
+GLASS (transparency and refraction) and how fire is SHADED rather than cycled.
 
 **B5. Sub-pixel animation.** Named in Pixel Logic's chapter list. Never studied.
 
@@ -125,18 +127,34 @@ are all in the backlog and I know nothing about animating or shading any of them
 (legibility at small size, no ambiguity, accessibility). The game has a phone, a
 map and a nav ring. I have never studied any of it.
 
-**B7. How to critique my own work without a number.** Every judgement I have made
-today reduced to a measurement. Paolo's do not. I do not know how to look at a
+**B7. How to critique my own work without a number.** ~~I cannot.~~ **CLOSED 7/29:**
+built `tools/bohemia_look_again.py` — flip, squint, greyscale, stand back, the four
+mechanical fresh-eye tricks real artists use. It found the roof/ground value
+collapse (M14) on its first run, which none of the six per-tile numbers could see.
+The original text, kept because it is the reason the tool exists: every judgement I have made
+reduced to a measurement. Paolo's do not. I do not know how to look at a
 tile and say "that's wrong" without first computing something — which is exactly
 why I keep needing him for the last step.
 
-**B8. Master study.** I can name Saint11, Slynyrd, Azzi, Waneella, Mark Ferrari.
-I have never analysed a single piece by any of them pixel by pixel and asked why
-each decision was made. Naming an artist is not studying one.
+**B8. Master study.** ~~Never analysed a single piece.~~ **PARTLY CLOSED 7/29:**
+studied Waneella's method (works from Google Streetview photographs of REAL
+streets; praised for perspective and light, never texture) and Ferrari's (palette
+cycling for every environmental effect, on one flat indexed image). Both landed as
+M15 and M16. STILL OPEN and still the honest gap: I have analysed their METHOD
+from writing about them. I have still never looked at one of their images pixel by
+pixel and asked why each decision was made.
 
 **B9. PIXEL LOGIC, still unread.** The network policy 403s every fetch, so both
 law files are built from search summaries of it. Buying it (~$9) is on the board
 as ART -1c and it is the single cheapest upgrade available to this lane.
+
+**B11. What a REAL Las Vegas street actually looks like.** New hole, found by
+closing B8. Waneella works from photographs of specific streets. My eighteen tile
+forms are grounded in what I KNOW about Clark County construction - CMU, R-panel,
+caliche, bermuda - which is real knowledge and is still not the same as looking at
+a photograph of one particular corner of Las Vegas and drawing what is there. The
+network policy blocks me from fetching images, so this is a hole I cannot close
+alone: it needs reference Paolo can supply, or a lane that can fetch.
 
 **B10. Whether any of this survives contact with Paolo's eye.** Everything above
 is theory I read today. None of it has been thumbed. The measure of this school

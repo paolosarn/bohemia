@@ -357,3 +357,76 @@ also the argument for never letting a green gate stand in for a look.
 
 - [7 tools every artist can use to check their own work](https://willkempartschool.com/7-essential-tools-every-artist-can-use-to-check-their-own-work-a-guide-for-painters/) · [How to critique your own artwork](https://www.mastrius.com/how-to-critique-your-own-artwork/) · [Painter's Keys — How to critique yourself](https://painterskeys.com/critique-self/)
 - Atmospheric perspective for the depth half: [Draw Paint Academy](https://drawpaintacademy.com/atmospheric-perspective/) · [pixel art backgrounds](https://www.sprite-ai.art/blog/pixel-art-backgrounds)
+
+---
+
+# PART 5 — WHAT THE MASTERS ACTUALLY DO (7/29, fourth pass)
+
+Item B8 on the ignorance list was *"I can name Saint11, Slynyrd, Azzi, Waneella,
+Mark Ferrari. I have never analysed a single piece by any of them."* So this pass
+studied two of them, and both landed on this project harder than any technique
+tutorial has.
+
+## M15. THE MASTER WORKS FROM REAL PHOTO REFERENCE OF REAL PLACES
+
+> *"Waneella's working style often initially draws influence from Japanese streets
+> found via Google Streetview."* Her work is praised for *"rigorous perspective
+> work"* and *"masterful deployment of light sources and shadow"* — not for
+> texture.
+
+The best environmental pixel artist alive works **from photographs of real
+streets**. She does not invent a city out of her head and then style it. That is
+the whole method, and it is the thing I have been doing wrong from a different
+angle: I write elaborate descriptions of Las Vegas materials and then generate
+from the description instead of from the thing.
+
+**M15. EVERY TILE FORM'S REAL-WORLD GROUNDING IS A LOOKING JOB, NOT A WRITING
+JOB.** The eighteen forms already demand real Vegas grounding and each one has it
+— but grounded in what I *know* about Clark County construction, not in what a
+specific street actually looks like. The upgrade is naming a REAL LOCATION per
+family, not just a real material.
+
+Note what she is praised for and what she is not: **perspective and light**, never
+texture. Every failure I have had on this project has been a texture failure that
+was really a light-and-structure failure underneath.
+
+## M16. COLOUR CYCLING: RAIN, FOG, SMOKE AND WATER FOR FREE — AND WE JUST BUILT THE PREREQUISITE
+
+> *"Ferrari invented unique ways of using color cycling for environmental effects
+> including rain, snow, ocean waves, moving fog, clouds, smoke, waterfalls,
+> streams, lakes, and more — all achieved without any layers or alpha channels,
+> just one single flat image with one 256 color palette."*
+> *"This wasn't animation in the traditional sense, rather it was all being done
+> by just organizing and changing palette registers in sequence."*
+
+**This is the biggest thing I have learned on this project.** Not because the
+technique is clever — because we accidentally built its prerequisite yesterday.
+
+M9 says index the tiles so night, rain and the acts become palette swaps. M16 says
+that once they are indexed, **shifting the palette in sequence animates the
+world**: rain falling, fog drifting, smoke rising, the wash running, the camp fire
+flickering — with **no extra frames, no extra memory, and no alpha layers**. On a
+phone with a measured 224 MB ceiling, that is not a nice trick, it is the only way
+we get animated weather at all.
+
+It also retires work already on the board: the fire-flicker bank (34 loops,
+approved, currently ZERO consumers) exists because frames were the only way we
+knew. Some of it becomes a palette instead.
+
+**M16. ANIMATED ENVIRONMENT EFFECTS ARE PALETTE CYCLES, NOT FRAME SETS**, wherever
+the effect is a colour moving through a static shape — which is rain, fog, smoke,
+running water, and flicker. Things that change SHAPE (a door opening, a body
+walking) stay frame animation. **[NAMED, NOT BUILT: needs indexing (M9) first, and
+it is a renderer feature — RUN/CITY, not this lane alone.]**
+
+**ONE THING WE DO NOT IMPORT.** Ferrari's other signature is heavy patterned
+dither, which he fought his own engineers to use. **Act 1 bans dither** (render
+contract §5, and the craft agrees for our reason: stipple crawls under a 2x/3x
+integer blit on a phone). Cycling and dithering are separable, and we take the
+cycling only. Naming that rather than quietly importing a master's whole toolkit
+is the difference between studying someone and copying them.
+
+## SOURCES (part 5)
+
+- [Q&A with Mark J. Ferrari](https://www.effectgames.com/effect/article-Q_A_with_Mark_J_Ferrari.html) and [Old School Color Cycling with HTML5](https://www.effectgames.com/effect/article-Old_School_Color_Cycling_with_HTML5.html) (Effect Games) · [Wikipedia: colour cycling](https://en.wikipedia.org/wiki/Color_cycling)
+- Waneella — [Vice profile](https://www.vice.com/en/article/d74apv/futuristic-landscape-gifs-waneella) and [Pixelscapes (Thames & Hudson)](https://thamesandhudson.com/waneella-pixelscapes-9780500028452)
