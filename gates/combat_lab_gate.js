@@ -125,9 +125,15 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   ok('PAOLO RULING: shove pushes back ONE tile', BM.shove({ stun: 0, stunCooldown: 0 }, false, 99).pushed === 1);
   ok('LONG ARM perk pushes two', BM.shove({ stun: 0, stunCooldown: 0 }, { longarm: true }, 99).pushed === 2);
   ok('LONG ARM in the settings UI', demo.includes('id="perklongarm"') && demo.includes('LONG ARM: OFF'));
-  ok('STREET FLOOR: world-anchored tile board with median + lane dashes',
+  /* V94 RE-POINTED, NOT RELAXED. The invariant this always protected is that the
+   fight floor is WORLD-ANCHORED and carries a median and lane markings. Both are
+   still true; the markings are approved TILES now instead of hand-drawn rects,
+   which is strictly more of what this check was asking for. */
+ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: the markings are approved art, not hand-drawn rects)',
     demo.includes('STREET FLOOR V6') && demo.includes('G.worldOff') &&
-    demo.includes('rgba(184,160,40') && demo.includes('rgba(215,205,185'));
+    demo.includes("if(wx===ST_MED)return 'median';") &&
+    demo.includes("if(wx===ST_LANE_L||wx===ST_LANE_R)return 'lane';") &&
+    demo.includes('STREET_B64') && /"median":\[/.test(demo) && /"lane":\[/.test(demo));
   ok('full-tile Chebyshev steps (no normalized diagonals)',
     demo.includes('const sx=v[0]*_mult, sy=v[1]*_mult;'));
   // v7 (Paolo): grid-true field, real blocks on tiles, two-turn red line
@@ -207,8 +213,13 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
     demo.includes('V18 DIRS: whole-field scope'));
   ok('the chain skill speaks Paolo (KILLSHOTS/TURN)',
     demo.includes('KILLSHOTS/TURN: '));
-  ok('the aim readout shows SHOT n/skill (V62: weapon-gated via wpnCap(), not a flat chainSkill)',
-    demo.includes("SHOT '+(G._chainN||1)+'/'+wpnCap()") && demo.includes('function wpnCap(){'));
+  /* V95 RE-POINTED. The invariant is that the readout tells you WHICH SHOT of your
+   turn this is, against the cap the fight actually enforces -- never a flat
+   chainSkill that ignores the weapon. Still true, and now it says it in words. */
+ok('the aim readout shows which shot of the turn this is, against the cap the fight really uses (V95: SHOT n OF allowance, and it names the allowance)',
+    demo.includes("'SHOT '+(G._chainN||1)+' OF '+chainAllowance()") &&
+    demo.includes('function wpnCap(){ return chainAllowance(); }') &&
+    !/SHOT '\+\(G\._chainN\|\|1\)\+'\/'\+\(G\.chainSkill/.test(demo));
   ok('obsolete DIAL FACING menu removed', !demo.includes('data-f="0"'));
   // v13: cover AI + loop armor + compact UI
   ok('COVER AI: nobody spawns behind magic cover; gunmen run for the real thing',
@@ -740,11 +751,12 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
   ok('V62 WEAPON IDENTITY: each weapon sets a killshots/turn cap (rifle 1, smg 2, shotgun 2, pistol up-to-skill) and a dial width (rifle/shotgun wide, smg mean); chain + dial + readout all use it',
     demo.includes('const WEAPON_CAP={pistol:8,smg:2,rifle:1,shotgun:2};') &&
     demo.includes('const WEAPON_WIDTH={pistol:1.0,smg:0.80,rifle:1.30,shotgun:1.20};') &&
-    demo.includes('function wpnCap(){ return Math.max(1,Math.min(G.chainSkill||2, WEAPON_CAP[WEAPON]||8)); }') &&
-    demo.includes('if(G._chainN>wpnCap()){') &&
+    demo.includes('function chainWall(){ return Math.max(1, WEAPON_CAP[WEAPON]||8); }') &&
+    demo.includes('return Math.max(1,Math.min(t!=null?t:(G.chainSkill||2), chainWall())); }') &&
+    demo.includes('if(G._chainN>chainWall()){') &&
     demo.includes('const _ww=WEAPON_WIDTH[WEAPON]||1;') &&
     demo.includes('z.hZ*ARC_MULT*fg*KILL_GRACE*_ww*_pinW*(G.inFU?1.18:1)*(G.execWindow?1.35:1)') &&
-    demo.includes("SHOT '+(G._chainN||1)+'/'+wpnCap()+'</b>'"));
+    demo.includes("'SHOT '+(G._chainN||1)+' OF '+chainAllowance()"));
   // v63: two big swings -- overworld encounter music + the double hero beat
   ok('V63 OVERWORLD MUSIC: encounters play the real overworld creepers (6 night songs), the 8 missing overworld voices are ported into synthV, and owSong() sources them only in a SHUFFLE encounter (a lab faction pick still auditions the faction)',
     demo.includes('V63 OVERWORLD ENCOUNTER MUSIC') &&
@@ -1851,14 +1863,30 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes('FLOORPULSE.base+FLOORPULSE.streakGain') && demo.includes('const pb=Math.pow(1-_bpmPhase,FLOORPULSE.curve)'));
 
   /* (b) THE ORANGE, NAMED BY THE INSTRUMENT RATHER THAN BY ME. */
-  ok('V84C THE ORANGE WAS NEVER THE DIAL: it is the road\'s DOUBLE-YELLOW MEDIAN, rgba(184,160,40) drawn as a 2x2670 stripe ten times per pause, which is why fading the dial twice changed nothing he could see',
-    demo.includes("x.fillStyle='rgba(184,160,40,'+(0.55*_mk).toFixed(3)+')';") &&
-    !demo.includes("x.fillStyle='rgba(184,160,40,0.55)';"));
-  ok('the street markings now fade with the shot, and the lane dashes go with them -- environment has no business being the brightest object on screen during a kill',
-    demo.includes("const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/260):1;") &&
-    demo.includes("x.fillStyle='rgba(215,205,185,'+(0.38*_mk).toFixed(3)+')';"));
-  ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then drawField paints the markings ON TOP of it, so the one pass meant to dim the scene runs before the brightest thing in it',
-    demo.indexOf('x.fillStyle=vg; x.fillRect(0,0,W,H);') < demo.indexOf("const medX=cx+(2.5-offx)*t;"));
+  /* V94 RE-POINTED AND HARDENED. v84C could only FADE the offending object because
+   the object was ours to draw. It is gone: the median is an approved tile that
+   obeys Paolo's own 30-year wash law. The invariant is now absolute -- that
+   colour is not drawn by this file AT ALL, at any alpha. */
+ok('V84C/V94 THE ORANGE WAS NEVER THE DIAL: it was the road\'s hand-painted DOUBLE-YELLOW MEDIAN, rgba(184,160,40) as a full-height stripe. The object is now DELETED, not dimmed -- the median is approved art carrying his own washed-out ruling',
+    !/fillStyle='rgba\(184,160,40/.test(demo) &&   /* the DRAW, not the word: v94's own comment quotes the dead colour to explain why it is dead, and a check that matches a comment is not a check */
+    !/x\.fillRect\(medX/.test(demo) &&
+    demo.includes('V94 THE HAND-PAINTED MARKINGS ARE GONE'));
+  /* V94 RE-POINTED. The invariant is that the ENVIRONMENT steps back during a kill.
+   v84C did that to two hand-drawn stripes; now the whole ground does it, which is
+   strictly broader, and it reads visNow() so a held freeze holds it. */
+ok('the environment still steps back during a kill -- generalised from two stripes to the whole ground, and on the FROZEN clock so a held pause holds it too',
+    demo.includes("const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;") &&
+    demo.includes("if(_mk<1){ x.fillStyle='rgba(0,0,0,'+((1-_mk)*0.42).toFixed(3)+')';") &&
+    !/rgba\(215,205,185,'\+\(0\.38\*_mk/.test(demo));
+  /* V94 RE-POINTED. The ordering trap this recorded (drawFloor's vignette runs
+   BEFORE drawField paints on top of it) is still real and still the reason a
+   hand-painted marking could out-shine a body. The fix is that nothing bright is
+   hand-painted there any more, so the check now guards the CAUSE: no full-height
+   marking rectangle may be drawn after the vignette, ever again. */
+ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then drawField paints ON TOP, so the one pass meant to dim the scene runs before anything drawn after it. No hand-painted full-height marking may live there again',
+    demo.includes('x.fillStyle=vg; x.fillRect(0,0,W,H);') &&
+    !/x\.fillRect\([^;]*,-H\*2,[0-9.]+,H\*5\)/.test(demo) &&
+    !demo.includes("const medX=cx+(2.5-offx)*t;"));
 
   /* (c) THE INSTRUMENT, so this never costs three turns again. */
   {
@@ -1940,9 +1968,9 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     /const _fd=performance\.now\(\)-G\._fzNow;[\s\S]{0,1200}?G\._fzNow=null; \}/.test(demo));
 
   /* (d) THE RULE THIS TURN COST FIVE ROUNDS TO LEARN. */
-  ok('AND THE v84 FIXES BOTH STAND: the floor pulse is still silent during a freeze, and the road markings still fade with the shot -- this turn added to them, it did not trade one symptom for another',
+  ok('AND THE v84 FIXES BOTH STAND: the floor pulse is still silent during a freeze, and the environment still steps back on a kill -- every later turn added to them and none traded one symptom for another',
     demo.includes('if(pb>0.004&&!(G._freezeT>0)){x.fillStyle=f.acc;') &&
-    demo.includes("x.fillStyle='rgba(184,160,40,'+(0.55*_mk).toFixed(3)+')';"));
+    demo.includes("if(_mk<1){ x.fillStyle='rgba(0,0,0,'+((1-_mk)*0.42).toFixed(3)+')';"));
 }
 
 /* ============================================================================
@@ -2230,7 +2258,7 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes("const theirs=Math.round(distAccuracy(e)*((e.E&&e.E.acc||0.55)/0.55)*100);") &&
     demo.includes('<div id="rangeread"'));
   ok('and the read is computed from THE SAME EXPRESSIONS the fight runs, not a second copy that can drift out of step with it',
-    demo.includes('G.pkgDiff=Math.max(0,Math.min(4,distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0)));'));
+    demo.includes('distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0),'));
   ok('and it rides updGap, which already runs whenever the board does, so it can never go stale behind a phase change',
     demo.includes("function updGap(){ try{updRangeRead();}catch(_e){}"));
 
@@ -2524,6 +2552,87 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
     demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;') &&
     demo.includes('const KILL_DMG=100;') &&
     !/underDeck\([^)]*\)[^\n]{0,80}(KILL_DMG|applyDamage|distAccuracy)/.test(demo));
+
+  /* ===== 30. V94/96/97 THE FIGHT STANDS ON THE APPROVED STREET ========== */
+  ok('V94 THE GROUND IS APPROVED ART, NOT A PROCEDURAL FILL. Combat was the last surface still inventing its own ground: a coordinate hash, a tone jitter and a flat rgb() per cell. It now blits the tileset Paolo approved 7/28 and picked again 7/29 -- the one the RUN ships and the constitution byte-locks',
+    demo.includes('V94 THE FIGHT STANDS ON THE APPROVED STREET') &&
+    demo.includes('const STREET_B64=') &&
+    demo.includes('x.drawImage(_st,Math.floor(sx2),Math.floor(sy2));'));
+
+  ok('V94 AND THE HAND-PAINTED MARKINGS ARE GONE. The double-yellow median and the lane dashes were drawn in code at hardcoded world coordinates, AFTER the vignette meant to dim them, and Paolo reported that object as a persistent orange for three turns. The markings live in the ground now',
+    !demo.includes("x.fillStyle='rgba(184,160,40,'") &&
+    !demo.includes("x.fillRect(medX-3,-H*2,2.4,H*5);") &&
+    !demo.includes("for(const lane of [-1.5,6.5]){"));
+
+  ok('V94 THE v84C KILL FADE IS GENERALISED, NOT DELETED -- the whole ground steps back on a kill instead of one stripe -- AND IT READS visNow(): the old line used performance.now(), so a held freeze kept fading the marking back in on wall-clock time. That was a latent THE-PAUSE-IS-EMPTY bug',
+    demo.includes('const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;') &&
+    !demo.includes('const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/260):1;'));
+
+  ok('V94 MAP LAW HELD: the street anatomy was ALREADY declared in code (median 2.5, lanes -1.5/6.5) and the tiles render that declaration. Markings snap to the nearest cell centre, ties low, which is a rule and not a taste',
+    demo.includes('const ST_MED=2, ST_LANE_L=-2, ST_LANE_R=6;') &&
+    demo.includes('function streetKindAt(wx){'));
+
+  ok('V94 THE FALLBACK SURVIVES: until the art decodes the original procedural fill still runs, so the floor is never blank for a frame',
+    /if\(_st\)\{[\s\S]{0,120}else \{ const j=\(h%7\)-3;/.test(demo) &&
+    demo.includes("x.fillStyle='rgb('+(g+16)+','+(g+9)+','+(g+1)+')';"));
+
+  ok('V94 THE BLIT IS CACHED PER TILE SIZE, because rescaling 44px art once per cell per frame is the whole cost; the cache drops on a zoom, which is the only time the scale moves',
+    demo.includes('let _stCache={}, _stCacheT=-1;') &&
+    demo.includes('if(_stCacheT!==px){ _stCache={}; _stCacheT=px; }'));
+
+  ok('V96 THE SIDEWALK ENDS. It used to return walk for every cell past the kerb FOREVER, so the fight happened on a road with an infinite concrete sidewalk covering two thirds of the screen. Two tiles, then the lot',
+    demo.includes('V96 THE SIDEWALK ENDS') &&
+    demo.includes("if(wx>=ST_LANE_L-4&&wx<=ST_LANE_R+4)return 'walk';") &&
+    demo.includes("return 'lot'; }"));
+
+  ok('V96 QUARTER TURNS KILL THE REPEAT AT ZERO PAYLOAD -- and DIRECTIONAL tiles are never spun, because the kerb lip and the gutter shadow have to keep facing the road (v94 measured which way that is)',
+    demo.includes('const ST_SPIN={road:1,walk:1,lot:1};') &&
+    demo.includes('rot=ST_SPIN[kind]?((rot|0)&3):0;') &&
+    !/ST_SPIN=\{[^}]*kerb/.test(demo) &&
+    !/ST_SPIN=\{[^}]*gutter/.test(demo) &&
+    !/ST_SPIN=\{[^}]*median/.test(demo));
+
+  ok("V97 PAOLO'S OWN DOMINANCE LAW IS OBEYED ON THE LOT. The street bank says dominant 0.85, accents one tile per region, BANNED: per-cell random shuffle (Paolo 7/14: \"too much diversity with the desert tiles\"). v96 shuffled per cell and the ground came out a checkerboard. One hash per 4x4 region now, and a region is dominant or a single accent, never a mix",
+    demo.includes('V97 THE DOMINANCE LAW') &&
+    demo.includes('const LOT_DOMINANT=0, LOT_ACCENT_PCT=15, LOT_REGION=4;') &&
+    demo.includes('if((c%100)>=LOT_ACCENT_PCT)return LOT_DOMINANT;') &&
+    demo.includes("const _si=(_sk==='lot')?lotIdx(wx,wy,_sn):(h%_sn);") &&
+    /LOT_ACCENT_PCT=15/.test(demo));
+
+  ok('V97 AND NO BUILT THING IS PLACED BY THE GENERATOR: the concrete driveway slabs left the lot pool, because a slab scattered at random through dirt is a BUILT object placed by nobody and placing built things is his call (MAP LAW)',
+    demo.includes('STREET_B64X.lot=STREET_B64X.lot.slice(0,4);'));
+
+  /* ===== 31. V95 THE KILLSHOT ALLOWANCE ================================= */
+  ok('V95 THE WALL IS GONE. Paolo: "i didnt notice my rule where whatever how many killshots u have after it becomes extremely hard implemented i didnt see that." Shot 3 of 2 used to simply not happen -- CHAIN SPENT, turn over, no decision in it. Now it happens, at an extremely hard dial',
+    demo.includes('V95 THE KILLSHOT ALLOWANCE') &&
+    !demo.includes("setRead('CHAIN SPENT','the '+WEAPON+' caps you at '+wpnCap()+' this turn'") &&
+    demo.includes('if(G._chainN>chainWall()){'));
+
+  ok('V95 THE RAMP IS A FLOOR, NOT A REPLACEMENT: point blank still pulls the dial easier exactly as he ruled 7/27, but it can never fully cancel the ramp, so closing the distance is HOW YOU AFFORD the extra shot',
+    /G\.pkgDiff=Math\.max\(0,Math\.min\(4,Math\.max\([\s\S]{0,240}chainRampDial\(\)\)\)\);/.test(demo) &&
+    demo.includes('distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0),'));
+
+  ok('V95 CONTENTS-PAOLO\'S: the per-difficulty allowance table ships EMPTY. Every null falls back to G.chainSkill, HIS existing KILLSHOTS/TURN dial, which already defaults to 2 -- the one number he actually gave',
+    demo.includes('const CHAIN_ALLOWANCE_BY_DIFF=[null,null,null,null,null];') &&
+    demo.includes('const t=CHAIN_ALLOWANCE_BY_DIFF[G.userPkg|0];') &&
+    demo.includes('return Math.max(1,Math.min(t!=null?t:(G.chainSkill||2), chainWall())); }'));
+
+  ok('V95 "extremely hard" IS HIS WORD, so it is extreme immediately: first shot past the allowance is V.HARD, the next is BOHEMIAN, and 4 is the top of the dial so it stays there. Both numbers are dials',
+    demo.includes('const CHAIN_RAMP_BASE=3, CHAIN_RAMP_STEP=1;') &&
+    demo.includes('return o<=0?0:Math.max(0,Math.min(4,CHAIN_RAMP_BASE+(o-1)*CHAIN_RAMP_STEP)); }'));
+
+  ok('V95 THE WEAPON CEILING IS STILL A WALL AND IS NOT RAMPED: a gun running out is physics, not a difficulty question, and it is what keeps the pistol the chain weapon and the rifle a one-shot',
+    demo.includes('function chainWall(){ return Math.max(1, WEAPON_CAP[WEAPON]||8); }') &&
+    demo.includes('const WEAPON_CAP={pistol:8,smg:2,rifle:1,shotgun:2};'));
+
+  ok('V95 "i didnt see that" IS THE ACTUAL COMPLAINT, so the mechanic SAYS itself: the headline flips to PUSHING in the warning red and both reads count the shot against the allowance in words',
+    demo.includes("setRead(_ov?'PUSHING':(isChain?'CHAIN':'AIM'),") &&
+    demo.includes("'SHOT '+(G._chainN||1)+' OF '+chainAllowance()+' · '") &&
+    demo.includes('PAST YOUR ALLOWANCE'));
+
+  ok('V95 BELOW THE ALLOWANCE THE RAMP CHANGES NOTHING: chainRampDial returns 0 when you are inside it, and max(range,0) is just range',
+    demo.includes('function chainOver(){ return Math.max(0,(G._chainN||1)-chainAllowance()); }') &&
+    demo.includes('function chainRampDial(){ const o=chainOver();'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

@@ -1,5 +1,35 @@
 # BOHEMIA — THINKING ABOUT THE KILLSHOT ALLOWANCE (7/27/26)
 
+> ### CORRECTION, 7/29 — TWO THINGS BELOW ARE FALSE. BUILT ANYWAY, DIFFERENTLY.
+> Paolo, 7/29: *"i didnt notice my rule where whatever how many killshots u have
+> after it becomes extremely hard implemented i didnt see that."*
+>
+> He was right that it was not built. I was wrong about why.
+>
+> **I SAID: "THE CHAIN IS UNLIMITED... you shoot until you miss."**
+> FALSE. `enterAim` stopped the chain dead:
+> `if(G._chainN>wpnCap()){ setRead('CHAIN SPENT', ...); return endTurnReturn(); }`
+> It was a WALL, not an open door. The opposite of what I reported.
+>
+> **I SAID: "there is no per-turn shot counter anywhere in the file."**
+> FALSE. `G._chainN` is exactly that, it has existed since v17, the read line has
+> been printing "SHOT 1/2" the whole time, and there is a settings button
+> labelled **KILLSHOTS/TURN** that cycles `G.chainSkill` from 1 to 8.
+>
+> **HOW I GOT IT WRONG:** I searched for the mechanic by its ABSENCE (grepping for
+> a thing I had already decided was missing) instead of by its NAME. The feature
+> he asked for was about 90% built. What was missing was the only part he cared
+> about: past the number the game STOPS you instead of letting you push.
+>
+> **SO THE BUILD IS SMALLER AND BETTER THAN THIS DOC PROPOSED:** one wall came
+> down, the ramp went in as a FLOOR on the dial, and his existing KILLSHOTS/TURN
+> dial became the allowance. Shipped 7/29 as v95.
+> Tool: `tools/bohemia_combat_killshot_allowance_patch.py`, gate section 31.
+>
+> Everything below is the original 7/27 thinking, left as written. The argument
+> for the mechanic still holds; the two factual claims marked above do not.
+
+
 > Paolo: "I was thinking that maybe instead of turning off the shot opportunities
 > after you do perfect kill shots, maybe the setting is to reflect how many
 > killshots you get on your set difficulty before it ramps up. So like let's say

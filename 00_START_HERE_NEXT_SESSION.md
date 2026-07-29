@@ -157,6 +157,108 @@ CAN FAIL: resurrected the buttons, watched it go red, restored.
 BUILD STAMP: 7/29d - BUFFET/PLACE/TILES BUTTONS GONE (CITY TAB). ALL GATES GREEN (667s).
 
 --------------------------------------------------------------------------------
+COMBAT (04) 7/29 - THE FIGHT STANDS ON THE REAL STREET, AND YOU CAN PUSH PAST
+YOUR KILLSHOTS. (Paolo: "lets continue working on combat please", then a
+five-part message mid-turn.)
+
+*** v95 THE KILLSHOT ALLOWANCE, AND A CORRECTION I OWED HIM ***
+Paolo: "i didnt notice my rule where whatever how many killshots u have after it
+becomes extremely hard implemented i didnt see that."
+He was right it was not built. I WAS WRONG ABOUT WHY, and the 7/27 thinking doc
+(records/BOHEMIA_COMBAT_THE_KILLSHOT_ALLOWANCE_7_27_26.md) now carries the
+correction at the top:
+  I SAID "the chain is UNLIMITED, you shoot until you miss." FALSE - enterAim
+  stopped it DEAD: if(G._chainN>wpnCap()) -> 'CHAIN SPENT', turn over. A WALL.
+  I SAID "there is no per-turn shot counter anywhere in the file." FALSE -
+  G._chainN has existed since v17, the read has printed "SHOT 1/2" the whole
+  time, and there is a settings button KILLSHOTS/TURN cycling G.chainSkill 1-8.
+  HOW: I searched for the mechanic by its ABSENCE instead of by its NAME. It was
+  90% built. The missing 10% was the only part he cared about.
+SO THE BUILD IS SMALL, WHICH IS WHY IT IS RIGHT: one wall came down.
+  * allowance = his own KILLSHOTS/TURN dial (default 2), capped by the weapon
+  * past it the shot STILL HAPPENS, at V.HARD then BOHEMIAN ("extremely hard" is
+    his word, so it is extreme immediately)
+  * THE RAMP IS A FLOOR: pkgDiff = max(rangeDial, rampDial). Point blank still
+    pulls easier exactly as he ruled 7/27 but can never cancel the ramp, so
+    closing the distance is HOW YOU AFFORD the extra shot
+  * CONTENTS-PAOLO'S: CHAIN_ALLOWANCE_BY_DIFF ships [null x5]. When he names five
+    numbers they go in and nothing else moves.
+  * THE WEAPON CEILING IS STILL A WALL and is not ramped (physics, not
+    difficulty): pistol 8, smg 2, shotgun 2, rifle 1. Pistol is the chain weapon.
+  * THE READ SAYS IT, because "i didnt see that" IS the complaint: the headline
+    flips to PUSHING in red, both reads say SHOT 3 OF 2 - PAST YOUR ALLOWANCE.
+  TOOL: tools/bohemia_combat_killshot_allowance_patch.py | GATE section 31
+
+*** v94/96/97 THE FIGHT STANDS ON THE APPROVED STREET (the 7/28 wiring debt) ***
+Combat was THE LAST SURFACE STILL INVENTING ITS OWN GROUND: a coordinate hash, a
+tone jitter, a flat rgb() per cell, plus a hand-drawn double-yellow median and
+lane dashes at hardcoded world coords. It now blits the tileset Paolo approved
+7/28 and picked AGAIN 7/29 - the one the RUN ships, byte-locked in the
+constitution - plus the approved median/lane_div from STREET_POOLS_HARMONIZED.
+*** AND IT KILLS THE ORANGE AT THE ROOT. *** The hand-painted median composited
+to luminance 113 across a solid full-height bar drawn AFTER the vignette meant to
+dim it. The approved median tile peaks at 94-101 on a handful of dashed pixels,
+because HIS OWN markings_30yr_law was applied when it was cooked. v84C could only
+FADE the object; now the object is GONE, and the gate forbids that colour being
+drawn by this file at any alpha.
+MEASURED BEFORE MIXING TWO BANKS (not assumed): recook road vs pool median = 2.6
+luminance apart, saturation 0.14-0.16 vs 0.13-0.16. They sit together.
+EVERY ROTATION MEASURED OFF THE PIXELS, none guessed: the kerb lip is a bright
+band on the BOTTOM edge (146.4 vs walk_0's 117.2), the gutter shadow is on the
+TOP edge (49.5 vs 61.4), the markings run HORIZONTAL (row var 4.6 vs col 2.1).
+All are authored for an EW road; this street runs NS, so they turn.
+TWO BUGS I FOUND BY LOOKING AT THE RENDER, BOTH MINE:
+  v96 THE SIDEWALK NEVER ENDED - 'walk' was returned for every cell past the kerb
+    FOREVER, so the fight happened on an infinite concrete sidewalk covering two
+    thirds of the screen. Two tiles now, then the lot.
+  v97 *** I BROKE PAOLO'S OWN DOMINANCE LAW. *** v96 let the per-cell hash pick
+    freely from a 6-tile lot pool -> a CHECKERBOARD. The street bank carries, in
+    his words: desert_dominance_law, dominant 0.85, accents "one tile per
+    region", BANNED "per-cell random shuffle", source "Paolo 7/14: too much
+    diversity with the desert tiles". PER-CELL RANDOM SHUFFLE IS THE ONE THING
+    THE LAW NAMES AS BANNED AND IT IS EXACTLY WHAT I WROTE - and I had quoted
+    that same bank's markings laws into a record the day before without applying
+    the law three lines above them. Now: one hash per 4x4 region, dominant or a
+    single accent, never a mix. Concrete left the pool (a slab scattered through
+    dirt is a BUILT thing placed by nobody = MAP LAW).
+  THIRD PASS ON THIS GROUND. If it is still wrong the next turn SAYS I STOPPED
+  rather than shipping a v98 of the same surface (STOP PRODUCING).
+  TOOLS: bohemia_combat_street_tiles / _street_edges / _lot_dominance _patch.py
+  GATE section 30. Combat gate 469 -> 486 checks. EIGHT older checks asserted the
+  superseded code and were RE-POINTED AT THEIR INVARIANT, never relaxed; two of
+  my own new checks were bugs (one matched a COMMENT quoting the dead colour).
+
+*** ANSWERED, NOT BUILT ***
+records/BOHEMIA_COMBAT_ANSWERS_NIGHT_GRENADES_ARENAS_7_29_26.md
+  NIGHT ACCURACY - he asked if darkness should hurt everyone's accuracy. MY
+    ANSWER IS NO: a symmetric penalty changes no decision, which is the tally
+    mistake again. THE VERSION THAT IS A MECHANIC: darkness shrinks RANGE, not
+    accuracy - multiply the distance term in distPkg. Far shots get much worse,
+    point blank is untouched, so HIS OWN point-blank ruling gets LOUDER after
+    dark. And it turns LIGHT=TERRITORY into a tactical map: lit = hittable from
+    across the lot, dark = they have to come to you. One multiplier, no new
+    system. The size of it is [PENDING Paolo].
+  GRENADES - *** YOU CANNOT THROW ANYTHING. *** The only grenade in the game is
+    thrown AT you (grenadeTurn: one per encounter, 2-beat fuse, move off the tile
+    or eat it). Molotovs do not exist at all. Already built and reusable: the
+    fused object, the pulsing danger tile with the count, the blast ring, the
+    "you moved so you dodged" resolution, and the approved fire loops that have
+    no consumer. Missing: a target picker, blast damage applied to ENEMIES (today
+    it only measures YOUR distance), and what a throw costs.
+    RECOMMEND THE MOLOTOV FIRST: fire that STAYS is area denial, which is a
+    positioning mechanic (north star), and it consumes an approved bank.
+  ARENAS - "u have like a 4th grade level of understanding when i say arenas fr".
+    Taken at face value. What I built is a scatter of blocks on a field with no
+    place, no purpose and nothing that says Las Vegas. An arena is a PLACE whose
+    SHAPE makes one plan better than another. *** I AM NOT BUILDING A FOURTH
+    VERSION ON A GUESS *** - it is question 1 to him.
+  COMPANIONS + SNEAKING - recorded as the lane's next direction, not started.
+    Sneaking is the bigger change: today every fight opens with both sides fully
+    aware and placed, the flattest possible opening. Companions: the occupancy law
+    and the 120 grid already carry a second friendly body; the open question is
+    whether it takes its own turn or acts on yours [PENDING Paolo]. Both are
+    downstream of the arena answer.
+
 COORDINATOR (07), 7/28 EVENING — PAOLO'S OWN PROGRESS LEDGER + THE ACCELERATORS
 
 PAOLO'S NUMBERS, recorded verbatim as ruling-class state (records/BOHEMIA_PAOLO_
