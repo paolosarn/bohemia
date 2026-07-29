@@ -79,3 +79,35 @@ NEXT UNBLOCKED WORK FOR THIS LANE: the palette question is settled and the appro
 set is live, which UNLOCKS VOLUME. The eighteen filled forms (records/tileforms/
 TF-ART-001..018) cook against the re-cook's colours now, top of the board first.
 Do NOT cook a variant of anything B touched.
+
+--------------------------------------------------------------------------------
+7/29 (c) — BOTTOM-LEFT BUTTONS UNSTACKED (CITY TAB)
+
+Paolo, screenshot, three buttons ringed in yellow: "Fix this in the ui pls."
+BUFFET ON / PLACE / TILES were on top of the hint text, running under the nav ring,
+and clipping off the left edge.
+
+SAME BUG THE TOP BAR HAD ON 7/25. Four things share that corner and every one was
+absolute-positioned with its own hardcoded offset, so none knew the others existed:
+#note bottom:58px (and it WRAPS, so it grows up into them), the toolbar bottom:70px
+max-width:62vw, #bikebtn bottom:14px, #nav 180x180 at right:6px. Twelve pixels of
+clearance against a multi-line text block, and 62vw = 242px on a 390px phone while
+the ring starts at x=204. Neither number is wrong alone; they are wrong because
+nothing measured them against each other.
+
+FIX: one bottom-left flex COLUMN (#blstack), right-bounded at 196px so it can never
+reach the ring, children laid out bottom-up with a gap and their offsets neutralized.
+The layout does the arithmetic now. tools/bohemia_city_bottomleft_patch.py, idempotent.
+It RE-ADOPTS its children every 600ms on purpose: these chips are created and
+re-created by different systems, so claiming them once at boot would quietly stop
+working the day one is rebuilt — which is how the offsets drifted apart to begin with.
+
+NEW GATE: gates/bottomleft_gate.py, registered as BOTTOM-LEFT. Measures real
+rectangles in a real browser at 390px (you cannot read overlap out of a stylesheet
+when four systems position four elements). Holds: every chip fully on screen, no chip
+on another, no chip under the ring, and all still VISIBLE so "fixed by hiding it"
+fails. 21 checks. PROVED IT CAN FAIL: put the old offsets back, watched it go red on
+exactly the collision in his shot (TILES on the hint text), restored.
+
+NOTE FOR THE CITY LANE: this touched CITY-tab chrome from the ART lane because he
+asked directly. CSS/DOM reflow only — no game logic, no city verbs, no art.

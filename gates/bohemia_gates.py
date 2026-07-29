@@ -288,6 +288,10 @@ GATES = [
      'WALL TAXONOMY (Paolo 7/17) enforced in the DRAW: the suburb community wall stands 2 tiles from its OWN 13-key pool at its judged 44x44, never a building wall', True),
     ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],
      'Paolo 7/27: ONE movement UI everywhere - portrait dead centre, 8 cardinals ringed around it, controls float instead of carving a bar out of the screen', True),
+    ('BOTTOM-LEFT',    ['python3', 'gates/bottomleft_gate.py'],
+     'Paolo 7/29 with three buttons circled: the bottom-left chrome measured on a real '
+     '390px phone - every chip fully on screen, none on top of another, none under the '
+     'steering ring, and all of them still visible so "fixed by hiding it" fails', True),
     ('THREE-TILE WALL',['node', 'gates/wallheight_gate.js'],
      'Paolo 7/27: a wall carrying a door is 3 tiles tall, a door is 2 of them, and a wall covering the player goes see-through (and only then)', True),
     ('FRONT DOOR',     ['node', 'gates/frontdoor_gate.js'],
