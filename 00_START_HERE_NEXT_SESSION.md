@@ -1,5 +1,116 @@
 SOUNDS (xk7pjp): 7/29 (f) LATEST — THE SFX FACTORY IS IN THE GAME. 60 SOUNDS,
 12 MOMENTS, ALL WAITING ON HIS THUMB. MUSIC TAB, TOP OF THE PANEL.
+
+THE LANE EXISTS AS OF TODAY and this is its item 0, greenlit when Paolo ordered
+the chat into existence. It answers the only 0% on his own progress ledger
+(7/28: combat 40, rig 59, music 30, clothing 25, world 15, animations 15, quests
+10, NPCs 5, items 5, SOUND EFFECTS 0). Full record: records/BOHEMIA_SFX_FACTORY_
+7_29_26.md.
+
+WHAT IS ON HIS SCREEN: the MUSIC tab, above the songs. Twelve game moments —
+footstep on dirt / asphalt / gravel, door opens, door shuts, pick something up,
+you land a hit, blocked, kill-on-the-beat, UI tap, phone buzzes, saved — five
+candidates each. Tap to hear, PLAY 5 to hear a row back to back on the beat,
+thumb up or down, a note per sound, a comment box at the bottom, SUN MODE,
+EXPORT SFX -> bohemia_sfx.txt.
+
+A SOUND IS NOT A FILE. It is 22 numbers rendered at play time on the MUSIC
+studio's own AudioContext — ONE context, the parent's, with its brickwall
+limiter already in the chain. The whole batch is 20 KB of parameters. The 33 MB
+alpha did not get heavier by a single sample, and an approved sound banks as its
+vector, which is why it can be fingerprinted and regression-gated at all.
+
+THE BANK IS EMPTY AND MUST STAY EMPTY. banks/BOHEMIA_SFX_BANK_7_29_26.txt has no
+rows, BOH_SFX.BANK is {}, and play() on an unbanked event is SILENT on purpose.
+The game makes no sound he did not choose. Do not pick sounds for him. Do not
+re-cook this batch: it is surfaced, and bulk silence is itself a verdict
+(UNJUDGED IS DEAD).
+
+WHAT THE MACHINE CAUGHT THAT READING THE CODE WOULD NOT HAVE. Three real defects,
+none of them visible in the parameters, all found by measuring actual audio:
+  1. eight candidates rendered DIFFERENTLY on a second render — the node cleanup
+     timer is a wall-clock timer and an OfflineAudioContext renders faster than
+     the wall clock, so the graph was torn down mid-render. Cleanup is realtime-
+     only now.
+  2. the twelve families came out 20 dB APART (a bandpass at Q 5 throws most of a
+     saw away). He would have been thumbing which ones he could HEAR. Every
+     family's makeup gain is now measured off the real render onto a deliberate
+     loudness ladder — a kill still dwarfs a footstep, because it should.
+  3. the makeup gain sat BEFORE the bitcrusher, and a WaveShaper curve clamps
+     past +-1, so driving a crushed voice hotter hard-clipped four of five PICKUP
+     candidates to one flat level instead of making them louder.
+  -> the lesson worth carrying: for audio, "it validates" proves nothing. A legal
+     vector can render to silence, to a clipped smear, or to something that never
+     stops. VERIFY ON THE REAL SURFACE means the waveform.
+
+TWO THINGS THE BATCH DOES ON PURPOSE: candidate 1 of every event is the recipe
+UN-JITTERED (so "none of these" can never mean "you never played me the straight
+one"), and no two candidates differ by VOLUME alone — two recipes were jittering
+their output gain and it was taken out, because five volumes of one sound is not
+a choice.
+
+GATES (both proved able to fail, then restored):
+  SFX FACTORY  gates/sfx_gate.js — 73 checks. Spec is the only vocabulary, every
+    duration on the 16th-of-a-beat grid, generator deterministic, candidate 1 is
+    the plain recipe, no second AudioContext, no createDelay/createConvolver,
+    bank empty, and the verdict workflow really on the surface (thumbs, per-item
+    note, bottom comment, SUN, .txt export). Proof of teeth: defeated the beat
+    quantizer, watched the grid law go red, restored.
+  SFX RENDER   gates/sfx_render_gate.py — 752 checks. Opens the ONE alpha in a
+    real browser, renders all 60 through an OfflineAudioContext and measures the
+    samples: each makes a sound, none clips, each is SILENT 60 ms past its own
+    spec'd length (the SCREECH LAW proved on the waveform instead of by grepping
+    for createDelay), each renders identically twice, each sits in the judgeable
+    loudness band, and none has drifted from its recorded fingerprint
+    (records/BOHEMIA_SFX_FINGERPRINTS_7_29_26.txt; re-record deliberately with
+    --record). Proof of teeth: moved one recipe's makeup gain, watched 11
+    fingerprint checks go red, restored.
+
+READ THIS AFTER YOU PUSH (cost this session 25 minutes of watching nothing).
+GITHUB PAGES CAN SILENTLY SKIP YOUR PUSH. The push of the SFX commit produced NO
+"pages build and deployment" run at all. Three other lanes pushed in the same
+window and theirs all built. The only run after mine was labelled with my
+commit's PARENT, so there was no run to point at proving the live site carried
+the work — and BUILD STAMP + DEPLOY VERIFY (7/20) says pushing main is not
+shipping until a run whose sha CONTAINS your content concludes SUCCESS.
+  THE FIX, worked in one shot: push an EMPTY commit to main. That produces a
+  fresh run labelled with a sha that contains everything; it concluded success in
+  about two minutes. Do not sit and watch a second time — if no run appears
+  within a few minutes of your push, nudge it.
+  ALSO: this container cannot reach paolosarn.github.io at all (the network
+  policy returns 403), so curl-ing the live page to read its build stamp is not
+  available. The Actions API is the only deploy check you have.
+
+READ THIS BEFORE YOU RUN THE GATES (cost this session a full re-run). A FRESH
+CONTAINER HAS NO IMAGE STACK. Eight pixel-reading gates (HOUSE ART, ASSET
+ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY) need
+Pillow + numpy, and without them they report ModuleNotFoundError at the END of a
+700-second suite - which reads exactly like eight real failures. It is one line:
+    pip install -r gates/requirements.txt
+That file is new, and bohemia_gates.py now prints a loud banner BEFORE the first
+gate if either library is missing. Pass/fail semantics did not change: a gate
+that cannot run still FAILS, because a gate that cannot run has held nothing.
+
+BUILD STAMP: 7/29f - 60 SOUND EFFECTS TO JUDGE (MUSIC TAB).
+GATES: full suite green (718s) on the merged tree, including both new SFX gates.
+DEPLOY: verified — the pages run for this content concluded SUCCESS.
+
+WHAT IS PENDING PAOLO:
+  1. the 60 sounds themselves — MUSIC tab. Nothing downstream moves without it.
+  2. (fleet, open since 7/27) what colour rebuilt Vegas is, in his words
+  3. (fleet, open since 7/28) cars 2x3 vs the re-cook's shorter read
+
+NEXT UNBLOCKED WORK FOR THIS LANE, in order:
+  - IF VERDICTS ARE IN: process them (approve -> bank the vector + cook its
+    variant set, 3-4 alternations per footstep so a walk does not machine-gun one
+    sample; kill -> graveyard + post-mortem), then wire the approved events.
+  - IF NOT: SOUNDS item 1, THE RUN HAS NO BEAT. The walk's BEAT=500 is a
+    hardcoded constant and no tempo or beat index crosses the postMessage
+    vocabulary, while combat gets full song data + HERO BEAT. This lane owns the
+    plumbing, RUN consumes it. It is the prerequisite for footsteps landing on
+    the grid, and it needs no verdict — do that one, not another sound batch.
+  - DO NOT cook a second SFX batch while the first is unjudged. STOP PRODUCING.
+
 NOTE FOR THE OTHER LANES: this touched the MUSIC tab and added engine/
 bohemia_sfx.js. It did not touch a single song, voice or note of the music
 studio, and it added no second audio engine. If your lane wants a sound, call
