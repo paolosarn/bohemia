@@ -1,102 +1,120 @@
-SOUNDS (xk7pjp): 7/29 (f) LATEST — THE SFX FACTORY IS IN THE GAME. 60 SOUNDS,
-12 MOMENTS, ALL WAITING ON HIS THUMB. MUSIC TAB, TOP OF THE PANEL.
+SOUNDS (xk7pjp): 7/29 (h) LATEST — THE SOUNDS ARE REMADE. HE SAID v1 SOUNDED
+LIKE 2006 SOFTWARE AND HE WAS RIGHT TO THE YEAR. MUSIC TAB, TOP OF THE PANEL.
 
-THE LANE EXISTS AS OF TODAY and this is its item 0, greenlit when Paolo ordered
-the chat into existence. It answers the only 0% on his own progress ledger
-(7/28: combat 40, rig 59, music 30, clothing 25, world 15, animations 15, quests
-10, NPCs 5, items 5, SOUND EFFECTS 0). Full record: records/BOHEMIA_SFX_FACTORY_
-7_29_26.md.
+HIS RULING on batch SFX-01: "okay its decent i appreciate it. it sounds like it
+was made with some software from 2006 so if we could do better than that for all
+of them. i want you to do big brain research on final fantasy 10's ui sound
+system. by far my favorite ui sounds of all time. remember i love the idea of
+apocolypictc horror final fantasy shit so remake all of these. they were mid at
+best tbh but its the right direction."
+  DIRECTION APPROVED (the 12 moments, the judge surface, the factory law).
+  SOUNDS KILLED and remade. Graveyard 2026-07-29 with the full post-mortem.
 
-WHAT IS ON HIS SCREEN: the MUSIC tab, above the songs. Twelve game moments —
-footstep on dirt / asphalt / gravel, door opens, door shuts, pick something up,
-you land a hit, blocked, kill-on-the-beat, UI tap, phone buzzes, saved — five
-candidates each. Tap to hear, PLAY 5 to hear a row back to back on the beat,
-thumb up or down, a note per sound, a comment box at the bottom, SUN MODE,
-EXPORT SFX -> bohemia_sfx.txt.
+HE DATED IT ALMOST EXACTLY. v1 was the sfxr topology -- one source, one filter,
+one envelope -- and sfxr shipped in 2007. It was also behind RISSET'S BELL of
+1969, which already gave each of eleven partials its OWN duration. Research with
+sources: records/BOHEMIA_RESEARCH_FFX_UI_SOUND_7_29_26.md
 
-A SOUND IS NOT A FILE. It is 22 numbers rendered at play time on the MUSIC
-studio's own AudioContext — ONE context, the parent's, with its brickwall
-limiter already in the chain. The whole batch is 20 KB of parameters. The 33 MB
-alpha did not get heavier by a single sample, and an approved sound banks as its
-vector, which is why it can be fingerprinted and regression-gated at all.
+WHAT THE RESEARCH FOUND, and what v2 does about it:
+  - FFX played RECORDED RESONANT OBJECTS into the PS2 SPU2's HARDWARE REVERB
+    (Room/Studio/Hall/Space), and FFX was the FIRST Final Fantasy to move its
+    sound effects off MONO. v1 was synthetic, dry, and pan 0 on all 60 -- the
+    exact axis FFX treated as its upgrade.
+  - v2 is MODAL: every sound is a struck material with 8-16 INHARMONIC partials,
+    each with its OWN decay, and the decay SHORTENS as the partial rises. That
+    one property is the loudest "synthetic" tell there is; nothing physical
+    stops all at once.
+  - WARBLE: paired partials offset by a few Hz beat slowly, the way a real bell
+    does from material asymmetry.
+  - THREE LAYERS: transient (the snap), body (the modal bank), tail (the room),
+    transients sample-aligned, snap slightly hotter than the body.
+  - THE ROOM IS BUILT AS SOURCES, NEVER PROCESSORS, because the SCREECH LAW bans
+    createDelay and createConvolver: early reflections are the body re-struck at
+    scheduled offsets, and the late tail is filtered noise under an exponential
+    decay -- which is what a late reverb tail physically IS (the velvet-noise
+    result, inverted). Nothing can ring or feed back.
+  - STEREO for real: partials radiate in different directions, reflections pan
+    opposite.
 
-THE BANK IS EMPTY AND MUST STAY EMPTY. banks/BOHEMIA_SFX_BANK_7_29_26.txt has no
-rows, BOH_SFX.BANK is {}, and play() on an unbanked event is SILENT on purpose.
-The game makes no sound he did not choose. Do not pick sounds for him. Do not
-re-cook this batch: it is surfaced, and bulk silence is itself a verdict
-(UNJUDGED IS DEAD).
+THE MATERIALS (the apocalyptic-horror FF direction, applied):
+  ash -> footsteps, dirt and gravel      stone -> asphalt, wet concrete
+  metal -> doors, blocks, the phone      wood  -> the door shutting
+  crystal -> UI tap and pickup           bell  -> the kill and the save (Risset)
+  and bone for impacts. THE TAIL RULE: only sounds that MEAN something get the
+  room. Footsteps stay dry and close, or walking turns the game into a
+  cathedral. That contrast is the horror.
 
-WHAT THE MACHINE CAUGHT THAT READING THE CODE WOULD NOT HAVE. Three real defects,
-none of them visible in the parameters, all found by measuring actual audio:
-  1. eight candidates rendered DIFFERENTLY on a second render — the node cleanup
-     timer is a wall-clock timer and an OfflineAudioContext renders faster than
-     the wall clock, so the graph was torn down mid-render. Cleanup is realtime-
-     only now.
-  2. the twelve families came out 20 dB APART (a bandpass at Q 5 throws most of a
-     saw away). He would have been thumbing which ones he could HEAR. Every
-     family's makeup gain is now measured off the real render onto a deliberate
-     loudness ladder — a kill still dwarfs a footstep, because it should.
-  3. the makeup gain sat BEFORE the bitcrusher, and a WaveShaper curve clamps
-     past +-1, so driving a crushed voice hotter hard-clipped four of five PICKUP
-     candidates to one flat level instead of making them louder.
-  -> the lesson worth carrying: for audio, "it validates" proves nothing. A legal
-     vector can render to silence, to a clipped smear, or to something that never
-     stops. VERIFY ON THE REAL SURFACE means the waveform.
+THE BANK IS STILL EMPTY AND MUST STAY EMPTY. Nothing is chosen. play() on an
+unbanked event is silent on purpose.
 
-TWO THINGS THE BATCH DOES ON PURPOSE: candidate 1 of every event is the recipe
-UN-JITTERED (so "none of these" can never mean "you never played me the straight
-one"), and no two candidates differ by VOLUME alone — two recipes were jittering
-their output gain and it was taken out, because five volumes of one sound is not
-a choice.
+WHAT THE MACHINE CAUGHT THIS ROUND (v2), all of it real:
+  1. THE OUTPUT GAIN WAS DRIVING INTO THE SATURATOR, pinning HIT/BLOCK/KILL/
+     PHONE at exactly 1.000. Same class of bug as v1's crush placement: a
+     WaveShaper clamps past +-1, so a hotter input does not get louder, it pins.
+     The saturator SHAPES, the gain LEVELS, in that order.
+  2. MY DURATION MATHS WAS WRONG. beatsOf() ADDED the room to the body, but the
+     room is triggered at the same instant as the strike -- so every roomy sound
+     was reported about twice as long as it is. The gate then called five bells
+     "a click" for being audible over a third of a length that never existed.
+     A duration this engine reports is one the game schedules against.
+  3. THE SATURATOR'S 2x OVERSAMPLING CARRIES STATE, and across the ~120 offline
+     contexts a gate run creates, one candidate rendered 1.8% differently the
+     second time while measuring 0.0001% in isolation. It is memoryless now: a
+     judged sound cannot depend on how many sounds were rendered before it.
+  4. THE STEREO SPREAD WAS A LEFT-TO-RIGHT RAMP, which put partial 0 -- the
+     loudest in every bank -- hard on one side and collapsed several candidates
+     back to near-mono. Partials now radiate in alternating, widening directions.
 
-GATES (both proved able to fail, then restored):
-  SFX FACTORY  gates/sfx_gate.js — 73 checks. Spec is the only vocabulary, every
-    duration on the 16th-of-a-beat grid, generator deterministic, candidate 1 is
-    the plain recipe, no second AudioContext, no createDelay/createConvolver,
-    bank empty, and the verdict workflow really on the surface (thumbs, per-item
-    note, bottom comment, SUN, .txt export). Proof of teeth: defeated the beat
-    quantizer, watched the grid law go red, restored.
-  SFX RENDER   gates/sfx_render_gate.py — 752 checks. Opens the ONE alpha in a
-    real browser, renders all 60 through an OfflineAudioContext and measures the
-    samples: each makes a sound, none clips, each is SILENT 60 ms past its own
-    spec'd length (the SCREECH LAW proved on the waveform instead of by grepping
-    for createDelay), each renders identically twice, each sits in the judgeable
-    loudness band, and none has drifted from its recorded fingerprint
-    (records/BOHEMIA_SFX_FINGERPRINTS_7_29_26.txt; re-record deliberately with
-    --record). Proof of teeth: moved one recipe's makeup gain, watched 11
-    fingerprint checks go red, restored.
+AND TWO PLACES WHERE MY OWN NEW GATE WAS WRONG, corrected against the reference
+rather than around it:
+  - "per-partial decay must fall monotonically" FAILED RISSET'S OWN TABLE
+    (partial 6 rings 0.35 against partial 5's 0.325). Real bodies have local
+    exceptions; what they never do is let the top ring as long as the bottom. It
+    is a trend check now.
+  - "every bank must be inharmonic" failed `choir`, and a sung voice really IS a
+    harmonic series. choir and water are named exemptions, for physics.
+
+GATES (both extended, both proved able to fail, then restored):
+  SFX FACTORY  gates/sfx_gate.js — 135 checks. Now also: engine is v2, every
+    material bank inharmonic (with the two physics exemptions named), per-partial
+    decay trend, no partial outliving the fundamental, Risset's bell reproduced
+    VERBATIM, three layers present, the batch not dead-centre mono, footsteps dry
+    and the big moments roomy. Proof of teeth: flattened a bank back to one
+    shared decay -- the exact v1 defect -- and watched it go red by name.
+  SFX RENDER   gates/sfx_render_gate.py — 843 checks, now in STEREO. Each of the
+    60 renders makes a sound, does not clip, is silent 60 ms past its own length,
+    is not a click, has real stereo width, sits in the judgeable loudness band,
+    and has not drifted from its recorded fingerprint. Determinism is measured
+    RELATIVE to each sound's own peak (0.2%, -54 dB), because an absolute bar was
+    measuring voice count rather than correctness.
+
+BUILD STAMP: 7/29h - SOUNDS REMADE: STRUCK MATERIALS (MUSIC TAB).
+  (7/29g was the combat lane's, same afternoon. Check the stamp before you pick
+   a letter; three lanes shipped on 7/29.)
 
 READ THIS AFTER YOU PUSH (cost this session 25 minutes of watching nothing).
-GITHUB PAGES CAN SILENTLY SKIP YOUR PUSH. The push of the SFX commit produced NO
-"pages build and deployment" run at all. Three other lanes pushed in the same
-window and theirs all built. The only run after mine was labelled with my
-commit's PARENT, so there was no run to point at proving the live site carried
-the work — and BUILD STAMP + DEPLOY VERIFY (7/20) says pushing main is not
-shipping until a run whose sha CONTAINS your content concludes SUCCESS.
-  THE FIX, worked in one shot: push an EMPTY commit to main. That produces a
-  fresh run labelled with a sha that contains everything; it concluded success in
-  about two minutes. Do not sit and watch a second time — if no run appears
-  within a few minutes of your push, nudge it.
-  ALSO: this container cannot reach paolosarn.github.io at all (the network
-  policy returns 403), so curl-ing the live page to read its build stamp is not
-  available. The Actions API is the only deploy check you have.
+GITHUB PAGES CAN SILENTLY SKIP YOUR PUSH. An earlier push today produced NO
+"pages build and deployment" run at all, while three other lanes pushed in the
+same window and theirs all built. The only run after it was labelled with the
+PARENT commit, so there was nothing to point at proving the live site carried the
+work -- and BUILD STAMP + DEPLOY VERIFY (7/20) says pushing main is not shipping
+until a run whose sha CONTAINS your content concludes SUCCESS.
+  THE FIX, worked in one shot: push an EMPTY commit to main. Fresh run, correctly
+  labelled, success in about two minutes. If no run appears within a few minutes
+  of your push, nudge it; do not sit and watch.
+  ALSO: this container cannot reach paolosarn.github.io at all (403 from the
+  network policy), so curl-ing the live page to read its stamp is not available.
+  The Actions API is the only deploy check you have.
 
-READ THIS BEFORE YOU RUN THE GATES (cost this session a full re-run). A FRESH
-CONTAINER HAS NO IMAGE STACK. Eight pixel-reading gates (HOUSE ART, ASSET
-ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY) need
-Pillow + numpy, and without them they report ModuleNotFoundError at the END of a
-700-second suite - which reads exactly like eight real failures. It is one line:
+READ THIS BEFORE YOU RUN THE GATES. A FRESH CONTAINER HAS NO IMAGE STACK. Eight
+pixel-reading gates need Pillow + numpy and without them report ModuleNotFoundError
+at the END of a 700-second suite, which reads exactly like eight real failures:
     pip install -r gates/requirements.txt
-That file is new, and bohemia_gates.py now prints a loud banner BEFORE the first
-gate if either library is missing. Pass/fail semantics did not change: a gate
-that cannot run still FAILS, because a gate that cannot run has held nothing.
-
-BUILD STAMP: 7/29f - 60 SOUND EFFECTS TO JUDGE (MUSIC TAB).
-GATES: full suite green (718s) on the merged tree, including both new SFX gates.
-DEPLOY: verified — the pages run for this content concluded SUCCESS.
+bohemia_gates.py now prints a loud banner BEFORE the first gate if either is
+missing. Pass/fail semantics unchanged: a gate that cannot run still FAILS.
 
 WHAT IS PENDING PAOLO:
-  1. the 60 sounds themselves — MUSIC tab. Nothing downstream moves without it.
+  1. the 60 REMADE sounds — MUSIC tab. Nothing downstream moves without it.
   2. (fleet, open since 7/27) what colour rebuilt Vegas is, in his words
   3. (fleet, open since 7/28) cars 2x3 vs the re-cook's shorter read
 
@@ -107,15 +125,17 @@ NEXT UNBLOCKED WORK FOR THIS LANE, in order:
   - IF NOT: SOUNDS item 1, THE RUN HAS NO BEAT. The walk's BEAT=500 is a
     hardcoded constant and no tempo or beat index crosses the postMessage
     vocabulary, while combat gets full song data + HERO BEAT. This lane owns the
-    plumbing, RUN consumes it. It is the prerequisite for footsteps landing on
-    the grid, and it needs no verdict — do that one, not another sound batch.
-  - DO NOT cook a second SFX batch while the first is unjudged. STOP PRODUCING.
+    plumbing, RUN consumes it. Prerequisite for footsteps landing on the grid,
+    and it needs no verdict.
+  - A THIRD BATCH IS NOT THE MOVE. He has rejected once and remade once; STOP
+    PRODUCING says a second rejection ends the feature for the session. If v2
+    misses, the honest turn is to say so and stop, not to cook v3.
 
-NOTE FOR THE OTHER LANES: this touched the MUSIC tab and added engine/
-bohemia_sfx.js. It did not touch a single song, voice or note of the music
-studio, and it added no second audio engine. If your lane wants a sound, call
-BOH_SFX.play(event, AC, dest) — it is silent until Paolo has ruled on that
-event, and that is correct behaviour, not a bug.
+NOTE FOR THE OTHER LANES: this touched the MUSIC tab and engine/bohemia_sfx.js
+only. It did not touch a single song, voice or note of the music studio, and it
+added no second audio engine. If your lane wants a sound, call
+BOH_SFX.play(event, AC, dest) — silent until Paolo has ruled on that event, and
+that is correct behaviour, not a bug.
 
 --------------------------------------------------------------------------------
 EVERYTHING BELOW IS THE OTHER LANES' LIVE STATE, CARRIED FORWARD UNTOUCHED.

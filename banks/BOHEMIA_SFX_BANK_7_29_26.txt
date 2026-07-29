@@ -1,4 +1,6 @@
-=== BOHEMIA SFX BANK (batch SFX-01, opened 7/29/26) ===
+=== BOHEMIA SFX BANK (batch SFX-02 "THE RELIQUARY", 7/29/26) ===
+Batch SFX-01 is in the graveyard (Paolo: "sounds like 2006 software"). These are
+the remade v2 sounds: struck materials in a dead room, FFX-style.
 THE APPROVED SOUND FOR EACH GAME EVENT. One line per event, and the line only
 exists once Paolo has thumbed a candidate up.
 
@@ -15,7 +17,7 @@ HOW A LINE GETS HERE
      named beside it, and BOH_SFX.setBank() is fed the same table
   4. gates/sfx_gate.js fails if a line here cites no verdict file
 
-A LINE IS THE 22-NUMBER VECTOR, NOT AN AUDIO FILE. That is the whole design: a
+A LINE IS THE 24-NUMBER VECTOR, NOT AN AUDIO FILE. That is the whole design: a
 sound is parameters, so the bank weighs nothing and the sound he approved is
 reproducible sample for sample (gates/sfx_render_gate.py fingerprints it).
 
@@ -23,16 +25,16 @@ reproducible sample for sample (gates/sfx_render_gate.py fingerprints it).
 # event          verdict file                              vector
 (empty — nothing judged yet)
 
---- THE 12 EVENTS WAITING ON A VERDICT ---
-step_dirt        FOOTSTEP — DIRT      every step in the desert and the lots
-step_asphalt     FOOTSTEP — ASPHALT   the street. the sound heard most in the game
-step_gravel      FOOTSTEP — GRAVEL    shoulders, yards, the boneyard
-door_open        DOOR OPENS           going INTO a building, every interior
-door_shut        DOOR SHUTS           the door closing behind you
-pickup           PICK SOMETHING UP    loot, items, anything into the bag
-hit              YOU LAND A HIT       combat contact
-block            BLOCKED              the hit that did not land
-kill             KILL — ON THE BEAT   drops exactly on the beat, with the music
-ui_tap           UI TAP               every button on the phone
-phone_buzz       PHONE BUZZES         a new post, a message, the feed
-save_chime       SAVED                the run recorded what you did
+--- THE 12 EVENTS WAITING ON A VERDICT (material shown) ---
+step_dirt        FOOTSTEP — DIRT      every step in the desert and the lots   [ash]
+step_asphalt     FOOTSTEP — ASPHALT   the street. the sound heard most in the game   [stone]
+step_gravel      FOOTSTEP — GRAVEL    shoulders, yards, the boneyard   [ash]
+door_open        DOOR OPENS           going INTO a building, every interior   [metal]
+door_shut        DOOR SHUTS           the door closing behind you   [wood]
+pickup           PICK SOMETHING UP    loot, items, anything into the bag   [crystal]
+hit              YOU LAND A HIT       combat contact   [bone]
+block            BLOCKED              the hit that did not land   [metal]
+kill             KILL — ON THE BEAT   drops exactly on the beat, with the music   [bell]
+ui_tap           UI TAP               every button on the phone   [crystal]
+phone_buzz       PHONE BUZZES         a new post, a message, the feed   [metal]
+save_chime       SAVED                the run recorded what you did   [bell]

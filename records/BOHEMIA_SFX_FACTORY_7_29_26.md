@@ -1,5 +1,15 @@
 # THE SFX FACTORY — SHIPPED 7/29/26 (SOUNDS lane, item 0)
 
+> **SUPERSEDED IN PART, SAME DAY.** Paolo judged batch SFX-01 "decent... sounds
+> like it was made with some software from 2006... mid at best tbh but its the
+> right direction." The DIRECTION, the 12 moments and the judge surface stood.
+> The SOUNDS were killed (graveyard 2026-07-29) and remade as **SFX-02, THE
+> RELIQUARY**: modal synthesis of struck materials, per-partial decay, warble,
+> transient/body/tail layering, synthesized space and real stereo. Why, with
+> sources: `records/BOHEMIA_RESEARCH_FFX_UI_SOUND_7_29_26.md`. Everything below
+> about the FACTORY (law, surface, gates, pipeline) is still current; the
+> synthesis section describes the dead v1 core.
+
 Paolo's own progress ledger, 7/28: **sound effects 0%**. The only zero on the
 board. He ordered a dedicated sounds chat on 7/29 and greenlit this as the first
 thing it builds. It is in the game now, in the **MUSIC tab**, top of the panel.

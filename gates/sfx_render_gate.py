@@ -21,9 +21,13 @@ These are pulled off the waveform:
                               actual zero and its nodes are dropped.
   4. IT IS NOT A CLICK        the audible part is at least 30% of its envelope,
                               so a "sound" that is really one broken sample fails
-  5. IT IS DETERMINISTIC      rendered twice, sample for sample identical. This
-                              is what makes a verdict durable: the sound he
-                              thumbs is the sound the game will make.
+  5. IT IS DETERMINISTIC      rendered twice, the two renders agree to within
+                              0.2% of peak (-54 dB). Not bit-exact: Chromium may
+                              sum a gain node's inputs in a different order per
+                              context, and that rounding scales with voice count,
+                              so an absolute bar measures node count rather than
+                              correctness. A synth that really changed moves
+                              samples by whole percent.
   6. IT KEEPS ITS SHAPE       peak / rms / length / brightness are fingerprinted
                               in records/, and a recipe edit that moves any of
                               them past tolerance FAILS instead of quietly
@@ -78,27 +82,43 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     if(typeof BOH_SFX==='undefined') return {fatal:'BOH_SFX is not in the shipped alpha'};
     const SR=44100, BEAT=BOH_SFX.BEAT;
 
+    function peakOf(ch){ let p=0;
+      for(let c=0;c<ch.length;c++) for(let i=0;i<ch[c].length;i++){
+        const a=Math.abs(ch[c][i]); if(a>p)p=a; }
+      return p; }
     async function pcm(v){
       const beats=BOH_SFX.beatsOf(v);
       const secs=beats*BEAT+0.6;                     // room to prove it went quiet
-      const OAC=new OfflineAudioContext(1,Math.ceil(SR*secs),SR);
+      // STEREO, because v2's whole point is that FFX moved its effects off mono
+      const OAC=new OfflineAudioContext(2,Math.ceil(SR*secs),SR);
       const bus=OAC.createGain(); bus.gain.value=1; bus.connect(OAC.destination);
       BOH_SFX.render(v,OAC,bus,0.05);
       const buf=await OAC.startRendering();
-      return buf.getChannelData(0);
+      return [buf.getChannelData(0),buf.getChannelData(1)];
     }
-    function measure(d,v){
+    function measure(ch,v){
+      const L=ch[0],R=ch[1],d=L;
       const beats=BOH_SFX.beatsOf(v), t0=0.05, specEnd=t0+beats*BEAT;
-      let peak=0,sq=0;
-      for(let i=0;i<d.length;i++){const a=Math.abs(d[i]); if(a>peak)peak=a; sq+=d[i]*d[i];}
-      const rms=Math.sqrt(sq/d.length);
-      const thr=Math.max(peak*0.02,1e-4);
+      let peak=0,sq=0,diff=0,sum=0;
+      for(let i=0;i<L.length;i++){
+        const a=Math.max(Math.abs(L[i]),Math.abs(R[i])); if(a>peak)peak=a;
+        sq+=(L[i]*L[i]+R[i]*R[i])*0.5;
+        diff+=Math.abs(L[i]-R[i]); sum+=Math.abs(L[i])+Math.abs(R[i]);
+      }
+      const rms=Math.sqrt(sq/L.length);
+      const width=sum>0?diff/sum:0;
+      // -50 dB, not -34 dB. v1 had almost no dynamic range so a 2%-of-peak gate
+      // measured the whole sound. v2 has real decay tails and a room, and a
+      // reverb tail at -50 dB is still plainly audible -- measuring at 2% called
+      // every bell "a click" because it only counted the loud front of it.
+      const thr=Math.max(peak*0.003,1e-5);
+      const mag=i=>Math.max(Math.abs(L[i]),Math.abs(R[i]));
       let first=-1,last=-1;
-      for(let i=0;i<d.length;i++){ if(Math.abs(d[i])>thr){ if(first<0)first=i; last=i; } }
+      for(let i=0;i<L.length;i++){ if(mag(i)>thr){ if(first<0)first=i; last=i; } }
       // everything after the spec'd end + 60 ms must be silence: nothing rings
-      const tailFrom=Math.min(d.length-1,Math.ceil((specEnd+0.06)*SR));
+      const tailFrom=Math.min(L.length-1,Math.ceil((specEnd+0.06)*SR));
       let tail=0;
-      for(let i=tailFrom;i<d.length;i++) tail=Math.max(tail,Math.abs(d[i]));
+      for(let i=tailFrom;i<L.length;i++) tail=Math.max(tail,mag(i));
       // zero-crossing rate over the audible part = a cheap brightness read
       let zc=0,n=0;
       for(let i=Math.max(1,first);i<=Math.max(1,last);i++){ n++; if((d[i]>=0)!==(d[i-1]>=0))zc++; }
@@ -107,7 +127,8 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
         peak:+peak.toFixed(5), rms:+rms.toFixed(6),
         dur:+(((last-first)/SR)||0).toFixed(4),
         specDur:+(beats*BEAT).toFixed(4), beats:+beats.toFixed(4),
-        tail:+tail.toFixed(6), zcr:+((n?zc/n:0)).toFixed(5)
+        tail:+tail.toFixed(6), zcr:+((n?zc/n:0)).toFixed(5),
+        width:+width.toFixed(5), mat:v.mat, space:v.space
       };
     }
 
@@ -117,18 +138,22 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
         const d=await pcm(v);
         const m=measure(d,v);
         // DETERMINISM: render it again, and measure how far the two renders sit
-        // apart. NOT bit-for-bit: when several oscillators sum into one gain
-        // node, Chromium is free to add them in a different order per context,
-        // which moves float32 rounding by ~1e-8. That was measured, not assumed
-        // (block/save_chime/gravel, the families with the most voices). 1e-6 is
-        // -120 dB — inaudible and unmeasurable — and anything ABOVE it means the
-        // synth really did change, which is what this check is for.
+        // apart, RELATIVE TO ITS OWN PEAK. NOT bit-for-bit: when many voices sum
+        // into one gain node, Chromium may add them in a different order per
+        // context, and the rounding that follows scales with how many voices
+        // there are. v1 measured ~1e-8 on its biggest sounds; v2's PHONE BUZZ is
+        // six strikes each with a modal bank and reflections, and it measured
+        // 2e-4 -- 20,000x more error from the same cause, because there are
+        // 20,000x more additions. An ABSOLUTE tolerance was therefore measuring
+        // node count, not correctness. 0.2% of peak is -54 dB; a synth that
+        // really changed moves samples by whole percent, not by hundredths.
         const d2=await pcm(v);
-        let md=(d.length===d2.length)?0:1;
-        if(d.length===d2.length) for(let i=0;i<d.length;i++){
-          const q=Math.abs(d[i]-d2[i]); if(q>md)md=q; }
+        let md=(d[0].length===d2[0].length)?0:1;
+        if(!md) for(let c=0;c<2;c++) for(let i=0;i<d[c].length;i++){
+          const q=Math.abs(d[c][i]-d2[c][i]); if(q>md)md=q; }
         m.detDiff=+md.toFixed(9);
-        m.det=(md<=1e-6);
+        m.detRel=+(md/Math.max(peakOf(d),1e-6)).toFixed(7);
+        m.det=(m.detRel<=0.002);
         m.gain=v.gain;
         rows.push(m);
       }
@@ -200,13 +225,35 @@ def main():
                                              '%.3fs envelope' % (i, m['dur'], m['specDur']))
         chk(m['dur'] <= m['specDur'] + 0.06, '%s outlives its own beats (%.3fs audible, %.3fs spec\'d) '
                                              '— EVERY DURATION IS A NOTE' % (i, m['dur'], m['specDur']))
-        chk(m['det'], '%s renders differently twice (%.9f apart): a verdict on it would not '
-                      'survive the day' % (i, m.get('detDiff', 1)))
+        chk(m['det'], '%s renders differently twice (%.4f%% of its own peak): a verdict on '
+                      'it would not survive the day' % (i, 100 * m.get('detRel', 1)))
+        # 8b. NOT DEAD MONO. v1 shipped all 60 candidates at pan 0 in mono, on the
+        # exact axis FFX treated as its upgrade (its effects went mono -> stereo).
+        # Nothing may come out as a point source.
+        chk(m['width'] > 0.02, '%s is dead mono (stereo width %.4f) — the one thing '
+                               'FFX explicitly moved away from' % (i, m['width']))
         # 8. AUDIBLE IN THE SAME ROOM AS THE OTHERS. The first render had the
         # families 20 dB apart, so BLOCK and the asphalt steps would have lost to
         # KILL for being quiet rather than for being wrong.
         chk(0.15 <= m['peak'] <= 0.85, '%s peaks at %.3f — outside the judgeable band. He would '
                                        'be thumbing which one he can HEAR' % (i, m['peak']))
+
+    # THE BATCH HAS REAL WIDTH, not just non-zero width
+    widths = sorted(m['width'] for m in rows)
+    med_w = widths[len(widths) // 2]
+    chk(med_w >= 0.08, 'the batch is barely stereo at all (median width %.3f)' % med_w)
+
+    # THE TAIL RULE (v2): footsteps fire constantly, so they stay DRY and close.
+    # The moments that are supposed to land get the room. Without this the whole
+    # game turns into a cathedral and the horror stops meaning anything.
+    for m in rows:
+        if m['ev'].startswith('step_'):
+            chk(m['space'] <= 0.15, '%s has a room on it (space %.2f) — walking would '
+                                    'echo like a cathedral' % (m['id'], m['space']))
+    for ev in ('kill', 'save_chime', 'door_open'):
+        for m in by_ev.get(ev, []):
+            chk(m['space'] >= 0.4, '%s has no room (space %.2f) — this is one of the '
+                                   'moments the emptiness is supposed to land' % (m['id'], m['space']))
 
     # 7. the design invariants that are about the GAME, not about the waveform
     for m in rows:
@@ -233,13 +280,14 @@ def main():
     if record:
         lines = ['# BOHEMIA SFX FINGERPRINTS — batch SFX-01, 7/29/26',
                  '# Recorded off the REAL Web Audio render inside the ONE alpha.',
-                 '# id  peak  rms  dur  zcr  beats',
+                 '# id  peak  rms  dur  zcr  beats  width',
                  '# gates/sfx_render_gate.py fails if any of these move past tolerance:',
                  '#   peak/rms/zcr +-6%, dur +-20ms. A recipe edit MUST re-record here,',
                  '#   deliberately, so a sound Paolo judged can never drift under him.']
         for m in rows:
-            lines.append('%-16s %.5f %.6f %.4f %.5f %.4f'
-                         % (m['id'], m['peak'], m['rms'], m['dur'], m['zcr'], m['beats']))
+            lines.append('%-16s %.5f %.6f %.4f %.5f %.4f %.5f'
+                         % (m['id'], m['peak'], m['rms'], m['dur'], m['zcr'], m['beats'],
+                            m['width']))
         open(FP, 'w').write('\n'.join(lines) + '\n')
         print('  RECORDED %d fingerprints -> %s' % (len(rows), FP))
     else:
@@ -251,9 +299,10 @@ def main():
                 if not ln:
                     continue
                 pp = ln.split()
-                if len(pp) >= 6:
+                if len(pp) >= 7:
                     old[pp[0]] = dict(peak=float(pp[1]), rms=float(pp[2]),
-                                      dur=float(pp[3]), zcr=float(pp[4]), beats=float(pp[5]))
+                                      dur=float(pp[3]), zcr=float(pp[4]),
+                                      beats=float(pp[5]), width=float(pp[6]))
             chk(set(old) == set(cur), 'the batch roster moved: %d recorded vs %d rendered'
                 % (len(old), len(cur)))
             for i in sorted(set(old) & set(cur)):

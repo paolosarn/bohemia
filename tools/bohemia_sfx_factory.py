@@ -175,7 +175,7 @@ UI = r"""
    +'text-shadow:0 0 12px rgba(200,120,30,0.6)','<b class="sfxHdr">&#9762; S O U N D&nbsp; E F F E C T S &#9762;</b>'));
   W.appendChild(el('div','text-align:center;font:10px ui-monospace,monospace;color:#7a6a4e;'
    +'letter-spacing:1px;margin:3px 0 8px 0',
-   '12 moments in the game &middot; '+N_CAND+' candidates each &middot; tap to hear it, thumb the one that should BE the sound'));
+   '12 moments &middot; '+N_CAND+' each &middot; struck materials in a dead room, FFX-style &middot; tap to hear it, thumb the one that should BE the sound'));
 
   var bar=el('div','display:flex;gap:6px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:6px');
   var sun=el('button',null,'SUN'); sun.addEventListener('click',function(){
@@ -202,6 +202,8 @@ UI = r"""
    SJ.cand(E.ev).forEach(function(v,i){
     var row=el('div'); row.className='sfxRow';
     var pl=el('button',null,'&#9654; '+(i+1)); pl.className='sfxPlay';
+    var mt=el('span','font:9px ui-monospace,monospace;color:#8a7a5a;letter-spacing:1px;min-width:52px',
+      (v.mat||'').toUpperCase());
     pl.addEventListener('click',function(){ SJ.hear(v); });
     var up=el('button',null,'&#128077;'); up.className='sfxUp'+(SJ.V[v.id]===1?' on':'');
     var dn=el('button',null,'&#128078;'); dn.className='sfxDn'+(SJ.V[v.id]===-1?' on':'');
@@ -214,7 +216,7 @@ UI = r"""
     var nt=document.createElement('input'); nt.className='sfxN'; nt.type='text';
     nt.placeholder='note'; nt.value=SJ.C[v.id]||'';
     nt.addEventListener('input',function(){ SJ.C[v.id]=nt.value; SJ.save(); });
-    row.appendChild(pl); row.appendChild(up); row.appendChild(dn); row.appendChild(nt);
+    row.appendChild(pl); row.appendChild(mt); row.appendChild(up); row.appendChild(dn); row.appendChild(nt);
     card.appendChild(row);
    });
    W.appendChild(card);

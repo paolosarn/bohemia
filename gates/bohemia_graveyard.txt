@@ -161,3 +161,43 @@ RUN QUEST SLICE (as a TAB) — killed 7/28/26 by Paolo, verbatim: "Kill"
   gates/city_tab_gate.js asserts that scatter default; that check should keep
   holding a real object rather than pass because the object disappeared.
   gates/bottomleft_gate.py now proves the buttons are absent AND both flags off.
+
+================================================================================
+2026-07-29  SFX BATCH 01 (the sfxr recipes) — DOWN, remade as v2
+================================================================================
+Paolo, on the first 60 sound effects: "okay its decent i appreciate it. it sounds
+like it was made with some software from 2006 so if we could do better than that
+for all of them... they were mid at best tbh but its the right direction."
+
+WHAT DIED: the twelve v1 RECIPES and the sfxr-shaped synthesis core behind them
+(one oscillator or noise -> one filter -> one envelope). Not the events, not the
+judge surface, not the factory law -- he approved the direction explicitly, and
+those all carried straight into v2.
+
+THE POST-MORTEM, and it is not a close call:
+  1. HE DATED IT AND HE WAS BEING GENEROUS. That topology IS sfxr, which shipped
+     in 2007. It was also behind Risset's bell of 1969, which already gave every
+     one of eleven partials its OWN duration.
+  2. ONE DECAY FOR THE WHOLE SOUND. Nothing physical stops all at once. This is
+     the single loudest synthetic tell there is and v1 had it on all 60.
+  3. HARMONIC PARTIALS. Bells, glass and metal are inharmonic; that irregular
+     spectrum is what the ear reads as "metal". v1 detuned copies of one wave.
+  4. NO BEATING. Real bells warble because their modes are slightly asymmetric.
+     v1 sat dead still.
+  5. NO TRANSIENT/BODY/TAIL SPLIT, NO SPACE, AND MONO. FFX ran recorded resonant
+     objects through the PS2's hardware reverb, and FFX was the FIRST Final
+     Fantasy to move its sound effects off mono. All 60 v1 candidates were pan 0.
+     On the exact axis FFX treated as its upgrade, v1 shipped what FFX left.
+
+NO REMAKE OF THESE RECIPES. GRAVEYARD IS FINAL: the sfxr core is not coming back
+under a new name, and "one oscillator through one filter" is now a build failure
+by name -- gates/sfx_gate.js requires inharmonic modal banks whose per-partial
+decay shortens as the partial rises, and it was proved able to fail by flattening
+a bank back to one shared decay and watching it go red.
+
+WHAT SURVIVED, because it is measurement and structure rather than taste:
+  - the 12 game moments and their one-line "why", judged as right
+  - the judge surface in the MUSIC tab (thumbs, per-item note, SUN, .txt export)
+  - the deliberate loudness ladder, re-measured for v2
+  - both gates, extended rather than replaced
+  - the three bugs v1's gates caught, all of which stayed fixed in v2

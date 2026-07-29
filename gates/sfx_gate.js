@@ -77,6 +77,66 @@ ok('the judge surface never constructs an AudioContext',
 ok('the judge surface takes the studio\'s context (MUS.AC) and master bus (MUS.MAST)',
    /MUS\.AC/.test(mount) && /MUS\.MAST/.test(mount));
 
+// --- v2 THE RELIQUARY: the laws that make "2006" un-shippable ---------------
+// Paolo killed v1 for sounding like 2007 software (it was the sfxr topology).
+// These four checks are the machine form of the fix. A future session cannot
+// quietly regress to one-oscillator-one-envelope without going red.
+ok('the engine is v2 (the modal reliquary)', S.VERSION === 2);
+ok('there are modal material banks at all', S.MATERIALS && S.MATERIALS.length >= 6);
+S.MATERIALS.forEach(mat => {
+  const bank = S.MODES[mat];
+  ok(mat + ' has enough partials to be a body, not a bleep', bank && bank.length >= 4);
+  if (!bank) return;
+  // INHARMONIC -- FOR THE STRUCK BODIES. A harmonic stack is what made v1 sound
+  // like a synth, so bell/metal/glass/crystal/stone/bone/wood/ash must be off
+  // the integer grid. `choir` and `water` are NAMED EXEMPTIONS and the reason is
+  // physics, not convenience: a sung voice really is a harmonic series, and
+  // forcing it inharmonic would make it wrong, not better. This gate went red on
+  // choir the first time it ran and the RULE was what was wrong.
+  const HARMONIC_BY_PHYSICS = ['choir', 'water'];
+  if (HARMONIC_BY_PHYSICS.indexOf(mat) < 0) {
+    const offInt = bank.filter(m => Math.abs(m[0] - Math.round(m[0])) > 0.05).length;
+    ok(mat + ' is INHARMONIC (not a harmonic stack)', offInt >= Math.max(2, (bank.length / 3) | 0));
+  }
+  // THE PHYSICAL LAW: high partials die faster than low ones. This is the single
+  // defect that made v1 sound synthetic -- one shared decay means the whole
+  // sound stops at once, which no struck object does.
+  // IT IS A TREND, NOT A STAIRCASE, and that correction came from the reference
+  // itself: Risset's measured bell has partial 6 (ratio 1.70) ringing 0.35 while
+  // partial 5 (ratio 1.19) rings 0.325. Demanding strict monotonicity failed the
+  // very table this engine cites, which means the demand was wrong. Real bodies
+  // have local exceptions; what they never do is let the top ring as long as the
+  // bottom.
+  const third = Math.max(1, Math.round(bank.length / 3));
+  const avg = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const lowAvg = avg(bank.slice(0, third).map(m => m[2]));
+  const highAvg = avg(bank.slice(-third).map(m => m[2]));
+  ok(mat + ': decay SHORTENS as the partial rises (trend)', lowAvg >= highAvg * 2.5);
+  ok(mat + ': no partial outlives the fundamental',
+     bank.every(m => m[2] <= bank[0][2] + 1e-9));
+  // and it must be a real spread, not eleven partials with the same decay
+  ok(mat + ': the decay spread is real (top partial dies much faster)',
+     bank[0][2] / bank[bank.length - 1][2] >= 3);
+});
+// Risset's bell is the cited reference and it is reproduced exactly
+(function () {
+  const b = S.MODES.bell;
+  const RATIOS = [0.56, 0.56, 0.92, 0.92, 1.19, 1.70, 2.00, 2.74, 3.00, 3.76, 4.07];
+  const DURS = [1, 0.9, 0.65, 0.55, 0.325, 0.35, 0.25, 0.2, 0.15, 0.1, 0.075];
+  ok('the bell bank IS Risset 1969, ratios verbatim',
+     !!b && b.length === 11 && RATIOS.every((r, i) => Math.abs(b[i][0] - r) < 1e-9));
+  ok('the bell bank IS Risset 1969, durations verbatim',
+     !!b && DURS.every((d, i) => Math.abs(b[i][2] - d) < 1e-9));
+  ok('the bell warbles: paired partials offset in Hz, not in ratio',
+     !!b && b[1][3] > 0 && b[3][3] > 0);
+})();
+// THREE LAYERS, and the room built without the two banned nodes
+ok('there is a transient layer', !!S.SPEC.trans && !!S.SPEC.transHz);
+ok('there is a room layer', !!S.SPEC.space && !!S.SPEC.room && !!S.SPEC.refl);
+ok('there is a stereo width control', !!S.SPEC.width);
+ok('the renderer builds early reflections and a noise tail, not a delay line',
+   /early reflections/i.test(engine) && /noise/i.test(engine));
+
 // 4/5/6/7. the batch itself
 ok('BEAT is 120 BPM (0.5s)', S.BEAT === 0.5);
 ok('the grid is a 16th of a beat', Math.abs(S.TICK - S.BEAT / 16) < 1e-12);
@@ -120,6 +180,25 @@ S.EVENTS.forEach(E => {
   if (S.serialize(c0) !== S.serialize(base)) plain++;
 });
 ok('candidate 1 of every event is the recipe un-jittered', plain === 0);
+
+// NOT MONO. v1 shipped every candidate at pan 0, which is the exact thing FFX
+// moved away from when its effects went mono -> stereo.
+(function () {
+  const panned = batch.filter(v => Math.abs(v.pan) > 0.01).length;
+  ok('the batch is not dead-centre mono (v1\'s failure)', panned >= batch.length * 0.6);
+  const wide = batch.filter(v => v.width > 0.1).length;
+  ok('every candidate has stereo width', wide === batch.length);
+})();
+// THE TAIL RULE: footsteps stay dry, the meaningful moments get the room.
+(function () {
+  const dry = batch.filter(v => v.ev.indexOf('step_') === 0).every(v => v.space <= 0.15);
+  ok('footsteps are DRY (walking must not echo like a cathedral)', dry);
+  const wet = batch.filter(v => ['kill', 'save_chime', 'door_open'].indexOf(v.ev) >= 0)
+    .every(v => v.space >= 0.4);
+  ok('the moments that matter get the room', wet);
+})();
+// every candidate names a real material
+ok('every candidate is a struck material', batch.every(v => S.MATERIALS.indexOf(v.mat) >= 0));
 
 // 8. MECHANISM-MINE: the bank is empty until he rules
 ok('the engine ships with an EMPTY bank', Object.keys(S.BANK).length === 0);
