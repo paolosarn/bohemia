@@ -152,4 +152,39 @@ ok('a zero row count is honoured rather than underflowing into the whole face',
   /_tRows<=0/.test(pass));
 ok('his reason is recorded at the code', /towards the chin/.test(src));
 
+
+/* ---- PAOLO'S 7/28 RIG EDIT: THE CHIN AND NECK IN PROFILE ------------------
+   He pasted a full rig export saying "i updated the neck and chin". Diffed
+   against the live BAKED it was FOUR pixels: one column at the chin/neck seam
+   on each profile facing (E x=30, W x=25, rows 15-16). A four-pixel edit inside
+   a full-package paste is exactly the kind of thing a later rig apply reverts
+   without anyone noticing, so the live body is checked against his export. */
+const RIGEDIT = path.join(ROOT, 'records', 'rig', 'RIG_NECK_CHIN_7_28_26_layers.json');
+const RIGTOOL = path.join(ROOT, 'tools', 'bohemia_apply_rig_chin_neck_7_28.py');
+ok('his 7/28 rig export is kept verbatim in records/', fs.existsSync(RIGEDIT));
+ok('the applier is kept', fs.existsSync(RIGTOOL));
+if (fs.existsSync(RIGEDIT)) {
+  const want = JSON.parse(fs.readFileSync(RIGEDIT, 'utf8'));
+  const m2 = /(?:const|let|var)\s+BAKED\s*=\s*/.exec(src);
+  let baked = null;
+  if (m2) { const i0 = src.indexOf('{', m2.index + m2[0].length); let dd = 0;
+    for (let k = i0; k < src.length; k++) { if (src[k] === '{') dd++;
+      else if (src[k] === '}') { dd--; if (!dd) { baked = JSON.parse(src.slice(i0, k + 1)); break; } } } }
+  ok('the live BAKED is extractable', !!baked);
+  if (baked) {
+    let bad = 0;
+    for (const d in want) for (const q of ['1', '2', '3'])
+      if (JSON.stringify(baked.layers[d][q]) !== JSON.stringify(want[d][q])) bad++;
+    ok('THE HEAD, FACE AND NECK THE GAME DRAWS ARE HIS 7/28 EXPORT, byte for byte', bad === 0);
+    ok('the chin/neck column he removed on E is gone (face idx 870, neck idx 926)',
+      baked.layers.E['2'].indexOf(870) < 0 && baked.layers.E['3'].indexOf(926) < 0);
+    ok('the chin/neck column he removed on W is gone (face idx 865, neck idx 921)',
+      baked.layers.W['2'].indexOf(865) < 0 && baked.layers.W['3'].indexOf(921) < 0);
+  }
+}
+ok('the applier refuses a skeleton/pose/layer-order change rather than applying it blind',
+  /that is not a chin\/neck edit, stop and check/.test(fs.readFileSync(RIGTOOL, 'utf8')));
+ok('the applier keeps the rig tool byte-identical (RIG IS LAW)',
+  /would not be byte-identical after patching/.test(fs.readFileSync(RIGTOOL, 'utf8')));
+
 done();
