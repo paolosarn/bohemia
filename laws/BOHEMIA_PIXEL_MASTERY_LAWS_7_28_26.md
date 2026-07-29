@@ -1,5 +1,10 @@
 # BOHEMIA — THE PIXEL MASTERY LAWS (7/28/26, LOCKED)
 
+> **CONSOLIDATED INTO `laws/BOHEMIA_THE_PIXEL_BIBLE.md` (7/29).** That file is the
+> one the ART lane reads before touching a pixel; this one is the full text and the
+> sources behind it. They are held together by `gates/pixel_bible_gate.py`.
+
+
 Paolo, 7/28: *"You're gonna be cooking up all the tile request so I need you to
 do big brain online research on how to become a the world's greatest pixel
 artist."*

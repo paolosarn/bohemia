@@ -324,6 +324,10 @@ GATES = [
     ('NAME THE TAB',   ['python3', 'gates/name_the_tab_gate.py'],
      'Paolo 7/28: every reply names the TAB a thing is in — and a judging surface no tab '
      'links to fails the build, because you cannot name a tab for a thing not in one', False),
+    ('PIXEL BIBLE',    ['python3', 'gates/pixel_bible_gate.py'],
+     'the ART lane\'s master document cannot drift: all 32 laws still in it, the three '
+     'honesty clauses intact, the ten-failure record un-rewritten, and the ignorance list '
+     'shrinking only by CLOSING entries, never by deleting them', False),
     ('PIXEL CRAFT',    ['python3', 'gates/pixel_craft_gate.py'],
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '

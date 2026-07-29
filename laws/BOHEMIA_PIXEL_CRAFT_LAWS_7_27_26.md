@@ -1,5 +1,10 @@
 # BOHEMIA — THE PIXEL CRAFT LAWS (7/27/26, LOCKED)
 
+> **CONSOLIDATED INTO `laws/BOHEMIA_THE_PIXEL_BIBLE.md` (7/29).** That file is the
+> one the ART lane reads before touching a pixel; this one is the full text and the
+> sources behind it. They are held together by `gates/pixel_bible_gate.py`.
+
+
 Paolo, 7/27: *"i need you to stop being ass and be a great art direction guy look
 and do big brain online research to learn the skillset of actualy pixel shit
 pixel assets and yeah go to school for me for a couple turns and learn some laws
