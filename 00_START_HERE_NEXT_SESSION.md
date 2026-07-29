@@ -88,6 +88,16 @@ GATES (both extended, both proved able to fail, then restored):
     RELATIVE to each sound's own peak (0.2%, -54 dB), because an absolute bar was
     measuring voice count rather than correctness.
 
+FOR THE RUN LANE, NOT MINE TO FIX: **TILE FORM is RED on main right now**, and it
+was red before this ship. TF-RUN-008_resources_icon, TF-RUN-009_energy_icon and
+TF-RUN-010_clout_icon all declare `acts [1,2,3]` while the act-1 law requires
+[1] unless a Paolo ruling is cited. Proved pre-existing by checking out clean
+origin/main and running gates/tileform_gate.py there: same three failures, none
+of those files in this lane's diff. Whether those icons are act-1-only or
+all-acts is the RUN lane's content call and a session that is not that lane
+should not be editing their forms to make its own suite green. 162 of 163 gates
+were green on this tree; that one is the exception and it is inherited.
+
 BUILD STAMP: 7/29h - SOUNDS REMADE: STRUCK MATERIALS (MUSIC TAB).
   (7/29g was the combat lane's, same afternoon. Check the stamp before you pick
    a letter; three lanes shipped on 7/29.)
