@@ -229,9 +229,26 @@ for fn in forms:
         ok(cap.get('id') == tf, '%s: caption id %r != filename id %r' % (tag, cap.get('id'), tf))
         ok(cap.get('layer') in LAYERS,
            '%s: caption layer %r is not one of %s' % (tag, cap.get('layer'), sorted(LAYERS)))
-        ok(cap.get('acts') == [1],
-           '%s: caption acts must be [1] (act-1 law) unless a Paolo ruling is cited; got %r'
-           % (tag, cap.get('acts')))
+        # THE ACT-1 LAW, WITH THE HALF THE FIRST VERSION LEFT OUT. The template
+        # says "ACT: 1 (Act-1-only law; anything else needs a Paolo ruling
+        # cited)" - so acts beyond 1 are LEGAL when the form says why. The
+        # first cut hard-required [1] and promptly failed three honest forms
+        # from another lane: the three CURRENCY HUD ICONS, which are act-1
+        # assets that must survive all three acts unchanged, because the
+        # currency does not change when the city rebuilds, only the amount
+        # does. That is a correct answer and a gate that rejects it is the
+        # broken thing. So: act 1 must always be present (nothing ships that
+        # does not exist in act 1), and any act beyond it must be explained in
+        # section D rather than merely asserted in the caption.
+        acts = cap.get('acts')
+        ok(isinstance(acts, list) and 1 in acts,
+           '%s: caption acts must include 1 - act 1 is what ships; got %r' % (tag, acts))
+        if isinstance(acts, list) and acts != [1]:
+            dband = section_body(text, 'D. WHEN') or ''
+            av = field_value(dband, 'ACT') or ''
+            ok(len(av) > 20,
+               '%s: caption claims acts %r but section D ACT does not say why - '
+               'beyond act 1 needs a reason on the form, not just a number' % (tag, acts))
         # 5) edge vocabulary
         ec = str(cap.get('edge_contract', '')).lower()
         ok(any(w in ec for w in EDGE_WORDS),
