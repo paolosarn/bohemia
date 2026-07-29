@@ -289,9 +289,10 @@ GATES = [
     ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],
      'Paolo 7/27: ONE movement UI everywhere - portrait dead centre, 8 cardinals ringed around it, controls float instead of carving a bar out of the screen', True),
     ('BOTTOM-LEFT',    ['python3', 'gates/bottomleft_gate.py'],
-     'Paolo 7/29 with three buttons circled: the bottom-left chrome measured on a real '
-     '390px phone - every chip fully on screen, none on top of another, none under the '
-     'steering ring, and all of them still visible so "fixed by hiding it" fails', True),
+     'Paolo 7/29: "I dont want those button anymore" - BUFFET ON/PLACE/TILES are gone from '
+     'the document (killed, not hidden) and the buffet flags pinned off, and whatever '
+     'chrome is still in that corner is measured on a real 390px phone: on screen, not '
+     'on top of each other, not under the steering ring, still visible', True),
     ('THREE-TILE WALL',['node', 'gates/wallheight_gate.js'],
      'Paolo 7/27: a wall carrying a door is 3 tiles tall, a door is 2 of them, and a wall covering the player goes see-through (and only then)', True),
     ('FRONT DOOR',     ['node', 'gates/frontdoor_gate.js'],

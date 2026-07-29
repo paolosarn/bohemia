@@ -111,3 +111,35 @@ exactly the collision in his shot (TILES on the hint text), restored.
 
 NOTE FOR THE CITY LANE: this touched CITY-tab chrome from the ART lane because he
 asked directly. CSS/DOM reflow only — no game logic, no city verbs, no art.
+
+--------------------------------------------------------------------------------
+7/29 (d) — THE BUFFET/PLACE/TILES BUTTONS ARE DEAD (CITY TAB)
+
+Paolo, an hour after the layout fix: "I dont want those button anymore." Killed.
+tools/bohemia_city_killbuffet_patch.py, idempotent. Graveyard 2026-07-29.
+
+KILLED, NOT HIDDEN: the bar is never built and any leftover from a stale build is
+torn out on sight, so there is no invisible tap target in that corner and no
+off-screen node paying for layout.
+
+THE SYSTEM BEHIND THEM IS NOW PERMANENTLY DORMANT, which is why the kill is safe:
+TP already defaults to { on:false, scatter:false } and those three chips were the
+ONLY way to flip either flag. With them gone the buffet cannot happen to his screen.
+TP's internals were deliberately NOT ripped out - gates/city_tab_gate.js asserts that
+scatter default, and that check should keep holding a real object rather than pass
+because the object vanished.
+
+READ THIS BEFORE YOU WRITE YOUR NEXT GATE. I wrote gates/bottomleft_gate.py that
+morning demanding those three chips EXIST and not overlap. One message later they
+were gone and the gate had to assert the exact opposite within the hour. The layout
+fix was still worth having (the column protects the hint and the bike chip, which
+stay), but the GATE was pointed at the wrong thing:
+  -> a gate that names specific CONTENT ("these three chips exist") is betting on a
+     product decision, and he is entitled to change his mind at any time.
+  -> a gate that names an INVARIANT ("nothing in this corner overlaps anything else
+     in it") survives him changing it.
+The flipped gate is written that way now: it proves the buttons are absent and both
+flags off, then measures whatever chrome is ACTUALLY down there. 9 checks. PROVED IT
+CAN FAIL: resurrected the buttons, watched it go red, restored.
+
+BUILD STAMP: 7/29d - BUFFET/PLACE/TILES BUTTONS GONE (CITY TAB). ALL GATES GREEN (667s).

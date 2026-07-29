@@ -130,3 +130,34 @@ RUN QUEST SLICE (as a TAB) — killed 7/28/26 by Paolo, verbatim: "Kill"
 
   ALSO DEAD WITH IT: gates/master_palette_gate.py, whose own docstring said "if
   Paolo kills it, this gate goes with it." A gate guarding a corpse is rot.
+
+--------------------------------------------------------------------------------
+2026-07-29  THE TILE-BUFFET BUTTONS  (BUFFET ON / PLACE / TILES, CITY tab)
+  the tpScatBtn / tpModeBtn / tpJudgeBtn chip row
+  removed by tools/bohemia_city_killbuffet_patch.py
+  KILLED BY: Paolo 7/29, verbatim: "I dont want those button anymore." He had
+  circled the same three chips an hour earlier with "Fix this in the ui pls";
+  the layout fix landed, and then he decided he did not want them at all.
+  DEAD MEANS DEAD: they do not come back as a menu item, a long-press, a debug
+  flag, or a smaller row somewhere else. He did not ask for them moved.
+
+  POST-MORTEM. There is no craft failure here and it is worth saying so plainly:
+  nothing broke, he just does not want the feature on his screen. The lesson is
+  about the ORDER I did things in. He circled three buttons and said fix the UI,
+  so I fixed the collision, wrote a gate demanding those three buttons exist and
+  not overlap, and shipped. One message later they were gone. The layout fix was
+  still worth having - the column now protects the hint text and the bike chip,
+  which are staying - but the GATE I wrote was pointed at the wrong thing, and it
+  had to assert the exact opposite within the hour.
+  WHAT I SHOULD TAKE FROM IT: a gate that names specific CONTENT ("these three
+  chips exist") is betting on a product decision. A gate that names an INVARIANT
+  ("nothing in this corner overlaps anything else in it") survives him changing
+  his mind, which he is entitled to do at any time. The flipped gate is written
+  that way now - it measures whatever chrome is actually down there.
+
+  NOT DEAD, deliberately: the TP object and its placement/scatter internals stay
+  in the city panel. Those chips were the ONLY way to flip either flag, and both
+  default to false, so the buffet is now permanently dormant and unreachable.
+  gates/city_tab_gate.js asserts that scatter default; that check should keep
+  holding a real object rather than pass because the object disappeared.
+  gates/bottomleft_gate.py now proves the buttons are absent AND both flags off.

@@ -3,21 +3,30 @@
 BOHEMIA BOTTOM-LEFT GATE (7/29/26) — the corner Paolo circled stays uncollided.
 
 He sent a screenshot with BUFFET ON, PLACE and TILES ringed in yellow. They were on
-top of the hint text, under the nav ring, and clipping off the left edge. The fix is
-a flex column; this is the gate that stops it drifting back, because the top bar had
-the identical bug on 7/25 and a comment did not prevent this one.
+top of the hint text, under the nav ring, and clipping off the left edge. The fix was
+a flex column, and this gate held it.
 
-A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, and "these buttons do not overlap" is
-only checkable on the REAL SURFACE — you cannot read overlap out of a stylesheet
-when four elements are absolutely positioned by four different systems. So this
-opens the CITY tab in a real browser at iPhone portrait, puts it in the mode where
-the chips appear, and measures actual rectangles.
+THEN HE KILLED THEM OUTRIGHT — 7/29, an hour later: "I dont want those button
+anymore." So this gate now asserts the OPPOSITE of what it asserted this morning, and
+that reversal is the honest thing rather than an embarrassment: a gate still enforcing
+a ruling he has since overturned is worse than no gate at all. The first version
+demanded those three chips exist and not overlap. It now demands they are GONE.
+
+A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, and neither "these are gone" nor "these
+do not overlap" is readable out of a stylesheet when four elements are absolutely
+positioned by four different systems. So this opens the CITY tab in a real browser at
+iPhone portrait, puts it in the mode where the chips USED to appear, and measures
+actual rectangles.
 
 WHAT IT HOLDS:
-  1. every bottom-left chip is fully ON SCREEN (nothing clipped at any edge)
-  2. no chip overlaps ANY other bottom-left chip
-  3. no chip overlaps the nav ring — the thing you steer with always wins
-  4. they are all still VISIBLE, so "fixed by hiding it" fails
+  1. BUFFET ON / PLACE / TILES do not exist — killed, not hidden, so there is no
+     invisible tap target sitting in that corner
+  2. the buffet cannot happen anyway: placement and scatter are both off, and nothing
+     is left that could turn them on
+  3. the chrome still down there is fully ON SCREEN (nothing clipped at any edge)
+  4. none of it overlaps any other bottom-left chrome
+  5. none of it overlaps the nav ring — the thing you steer with always wins
+  6. it is all still VISIBLE, so "fixed by hiding everything" fails
 
 Run from repo root:  python3 gates/bottomleft_gate.py
 """
@@ -67,7 +76,13 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       const b=e.getBoundingClientRect();
       if(b.width<1||b.height<1)return;
       out[id]={x:b.x,y:b.y,w:b.width,h:b.height};});
-    return {boxes:out,W:W,H:H};
+    // KILLED means the node is not in the document at all — a hidden node still
+    // answers getElementById, and "hidden" is exactly what he did not ask for.
+    const alive=['tpScatBtn','tpModeBtn','tpJudgeBtn']
+      .filter(id=>document.getElementById(id));
+    return {boxes:out,W:W,H:H,alive:alive,
+            tpOn:(typeof TP!=='undefined')?!!TP.on:null,
+            tpScatter:(typeof TP!=='undefined')?!!TP.scatter:null};
   });
   fs.writeFileSync(process.argv[3],JSON.stringify(r));
   await p.screenshot({path:path.join(process.argv[2],'records','target','BOTTOMLEFT.png')});
@@ -101,14 +116,21 @@ def main():
         data = json.load(open(out))
 
     boxes, W, H = data['boxes'], data['W'], data['H']
-    CHIPS = [k for k in ('tpScatBtn', 'tpModeBtn', 'tpJudgeBtn') if k in boxes]
-    ok('the tile chips are on screen at all', len(CHIPS) == 3,
-       'found %s — if they are gone this gate is measuring nothing' % (CHIPS,))
-    if len(CHIPS) < 3:
-        print('   BOTTOM-LEFT GATE: %d passed, %d failed' % (P, F))
-        return 1
 
-    for k in CHIPS + [c for c in ('note', 'bikebtn', 'fitbtn') if c in boxes]:
+    # 1) THE KILL. Paolo 7/29: "I dont want those button anymore."
+    ok('buffet_buttons_killed_not_hidden', not data['alive'],
+       'still in the document: %s' % (data['alive'],))
+    ok('placement_off', data['tpOn'] is False, 'TP.on is %r' % (data['tpOn'],))
+    ok('scatter_off', data['tpScatter'] is False, 'TP.scatter is %r' % (data['tpScatter'],))
+
+    # 2) and the corner they came out of is still sane. This is measured on whatever
+    # chrome is actually down there, so it keeps working as chips come and go.
+    CHIPS = []
+    corner_only = [c for c in ('note', 'bikebtn', 'fitbtn') if c in boxes]
+    ok('the corner still has chrome to measure', len(corner_only) >= 1,
+       'nothing found — this gate would be measuring nothing')
+
+    for k in CHIPS + corner_only:
         b = boxes[k]
         ok('on_screen:%s' % k,
            b['x'] >= -0.5 and b['y'] >= -0.5
@@ -129,8 +151,8 @@ def main():
             ok('clears_nav:%s' % a, not hits(boxes[a], boxes['nav']),
                'under the steering ring')
 
-    print('   BOTTOM-LEFT GATE: %d passed, %d failed  (%d chips measured on a %dx%d '
-          'phone)' % (P, F, len(corner), W, H))
+    print('   BOTTOM-LEFT GATE: %d passed, %d failed  (buffet chips gone; %d pieces of '
+          'chrome measured on a %dx%d phone)' % (P, F, len(corner), W, H))
     return 1 if F else 0
 
 
