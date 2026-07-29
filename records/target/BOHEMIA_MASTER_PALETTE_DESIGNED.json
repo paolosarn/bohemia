@@ -1,0 +1,230 @@
+{
+ "version": "BOHEMIA_MASTER_PALETTE_DESIGNED_v1",
+ "built": "2026-07-29",
+ "law": "laws/BOHEMIA_THE_PIXEL_BIBLE.md \u2014 M17 (one master palette, families are subsets) and M18 (value skeleton first, hue last)",
+ "supersedes_for_design": "records/target/BOHEMIA_MASTER_PALETTE.json, which is a QUANTIZATION of the target screen, not a designed palette",
+ "method": "PASS 1 designed the value skeleton in grey with every band and separation decided on purpose. PASS 2 put hue on it, each family taking its hue from the approved corpus so the colour stays Paolo's.",
+ "size": 35,
+ "skeleton": {
+  "ground": {
+   "steps": 5,
+   "lo": 78,
+   "hi": 130,
+   "why": "the biggest surface and the one nobody should look at (M2). Mean ~104, which is where the approved corpus already sits \u2014 this band is NOT being redesigned, it is being kept."
+  },
+  "structure": {
+   "steps": 6,
+   "lo": 112,
+   "hi": 166,
+   "why": "building faces. Mean ~139, again where the approved corpus sits. Clears ground by 35 points."
+  },
+  "top": {
+   "steps": 5,
+   "lo": 52,
+   "hi": 104,
+   "why": "roofs and sky-facing planes. Mean ~78 \u2014 the ONE band that moves, DOWN from the corpus 110.2, because at 110 a terracotta roof sat 6.5 points off the gravel yard and vanished in greyscale (M14). Fired clay is a dark red material; making it lighter than a stucco wall was my error, not the corpus's."
+  },
+  "accent": {
+   "steps": 4,
+   "lo": 28,
+   "hi": 226,
+   "why": "the reserved slots content needs: dead-dark glass and door interiors at the bottom, paint and sun-caught ridge at the top. Deliberately spans the whole range because accents are exactly the things that must escape their band."
+  }
+ },
+ "families": {
+  "asphalt": {
+   "layer": "ground",
+   "hue_from_corpus": 0.0694,
+   "saturation": 0.1,
+   "indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "hex": [
+    "#524c4a",
+    "#5f5a57",
+    "#6c6763",
+    "#797470",
+    "#85817d"
+   ]
+  },
+  "concrete": {
+   "layer": "ground",
+   "hue_from_corpus": 0.0972,
+   "saturation": 0.14,
+   "indices": [
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "hex": [
+    "#534d47",
+    "#605a54",
+    "#6c6760",
+    "#79756c",
+    "#858279"
+   ]
+  },
+  "desert": {
+   "layer": "ground",
+   "hue_from_corpus": 0.0972,
+   "saturation": 0.26,
+   "indices": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "hex": [
+    "#584b41",
+    "#64594d",
+    "#716758",
+    "#7d7465",
+    "#888271"
+   ]
+  },
+  "stucco": {
+   "layer": "structure",
+   "hue_from_corpus": 0.0972,
+   "saturation": 0.22,
+   "indices": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+   ],
+   "hex": [
+    "#7c6d61",
+    "#86786b",
+    "#908475",
+    "#9a8f7f",
+    "#a39b89",
+    "#ada694"
+   ]
+  },
+  "terracotta": {
+   "layer": "top",
+   "hue_from_corpus": 0.0556,
+   "saturation": 0.46,
+   "indices": [
+    21,
+    22,
+    23,
+    24,
+    25
+   ],
+   "hex": [
+    "#472d26",
+    "#543a31",
+    "#61483c",
+    "#6c5647",
+    "#776454"
+   ]
+  },
+  "deck": {
+   "layer": "top",
+   "hue_from_corpus": 0.0972,
+   "saturation": 0.16,
+   "indices": [
+    26,
+    27,
+    28,
+    29,
+    30
+   ],
+   "hex": [
+    "#38332f",
+    "#45403b",
+    "#524d47",
+    "#5f5b53",
+    "#6b6860"
+   ]
+  }
+ },
+ "accents": {
+  "dead_glass": {
+   "index": 31,
+   "hex": "#1a1c1f",
+   "why": "act-1 dead dark glass and door interiors \u2014 the one thing that must sit BELOW every ground step"
+  },
+  "shadow_core": {
+   "index": 32,
+   "hex": "#22211e",
+   "why": "the darkest thing in the world, still not black"
+  },
+  "paint": {
+   "index": 33,
+   "hex": "#cec9bc",
+   "why": "road and stall paint, chalked, never pure white"
+  },
+  "sun_caught": {
+   "index": 34,
+   "hex": "#e2c496",
+   "why": "the ridge course and anything the sun hits square \u2014 the only slot allowed near the ceiling"
+  }
+ },
+ "band_means": {
+  "ground": 104.0,
+  "structure": 139.1,
+  "top": 78.0
+ },
+ "separations": {
+  "ground-structure": 35.1,
+  "ground-top": -26.0,
+  "structure-top": -61.1
+ },
+ "checks": {
+  "no_pure_black": true,
+  "no_white": true,
+  "ground_mean_below_structure_mean": true,
+  "no_purple": true,
+  "M14_separations_18plus": true,
+  "top_separated_from_ground": true
+ },
+ "hex": [
+  "#524c4a",
+  "#5f5a57",
+  "#6c6763",
+  "#797470",
+  "#85817d",
+  "#534d47",
+  "#605a54",
+  "#6c6760",
+  "#79756c",
+  "#858279",
+  "#584b41",
+  "#64594d",
+  "#716758",
+  "#7d7465",
+  "#888271",
+  "#7c6d61",
+  "#86786b",
+  "#908475",
+  "#9a8f7f",
+  "#a39b89",
+  "#ada694",
+  "#472d26",
+  "#543a31",
+  "#61483c",
+  "#6c5647",
+  "#776454",
+  "#38332f",
+  "#45403b",
+  "#524d47",
+  "#5f5b53",
+  "#6b6860",
+  "#1a1c1f",
+  "#22211e",
+  "#cec9bc",
+  "#e2c496"
+ ],
+ "NOT_APPROVED": "designed, gated, and NOT judged. Paolo has not seen it. It is the blocker in front of the eighteen tile forms, not a verdict."
+}

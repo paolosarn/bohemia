@@ -12,6 +12,13 @@
     M4 GUTTER INLET — the local depression, the kerb throat, the grate
     M5 KERB-MEETS-CROSSING — the ramp, its flares, the detectable-warning pad,
        and the junction where the crossing paint dies into the gutter pan
+  SCOPE CAVEAT, so the member list and section B cannot be read as disagreeing:
+  M2 and M3 are DRAWN HERE ONLY IF this form keeps them. Section B proposes
+  handing M2 and M3 to TF-CITY-006 and B's own words are the standing proposal,
+  not a decision. Until that ownership call is made, the guaranteed deliverable
+  of this form is M1, M4 and M5; M2 and M3 are specified in full here so that
+  whichever form cooks them is cooking to the same arithmetic and the same
+  concrete. [PENDING — the coordinator call named in section B.]
 - THE JOB, ONE SENTENCE: this family exists so that the kerb — the single most
   repeated object in the valley and the one line separating every plot from
   every road — can actually turn a corner, let a car in, take water, and meet a
@@ -275,7 +282,9 @@
     mouth, fine silt in the flat of the pan. The grate is HALF BURIED in its own
     gravel fan, and that is the most motivated wear mark in the set.
     WHAT DOES NOT HAPPEN — the steel does not rot away. See G.
-- VARIANTS: five members (M1-M5), plus rotations and mirrors, which are the edge
+- VARIANTS: five members (M1-M5) as specified, of which M1, M4 and M5 are this
+  form's guaranteed deliverable and M2/M3 ride on the ownership call flagged in
+  A and B, plus rotations and mirrors, which are the edge
   set and not variants. Colourways only beyond that: dry, rain-wet, red-kerb
   ghost, address-number ghost. Per STRUCTURE-NOT-COLOR none of those four is
   progress; the five members are the shapes and they are the deliverable.
@@ -289,19 +298,7 @@
   "solid": false,
   "enter": false,
   "district_families": [
-    "suburb",
-    "commercial",
-    "industrial",
-    "self-storage",
-    "school",
-    "fire station",
-    "police station",
-    "park",
-    "trailer",
-    "farm",
-    "town",
-    "arterial frontage",
-    "freeway frontage"
+    "all"
   ],
   "best_time": "both",
   "best_location": "any cell where the kerb stops going straight - a street corner, a car entrance, a low point that takes water, or the head of a crossing",
@@ -510,3 +507,11 @@
   (Row 98, inside the 90-99 band the board reserved for this batch. The form was
   filed claiming row 27, which is already STOREFRONT GLASS / TF-ART-008 — the
   board's own note is right that the stable key is the TF id, not the integer.)
+  DUPLICATE ROW, FLAGGED NOT RESOLVED (found 7/29 on review): the board ALSO
+  carries row 37 "KERB + DRIVEWAY APRON TRANSITION SET | ... | FORM:
+  TF-ART-018", inside the ART block, citing "row 7 breakdown". So one form has
+  two rows and two different parent citations. Row 98 is the correct one (row 15
+  is the ACT-1 TILESET REMAINDER that names "curb/sidewalk transitions"; row 7
+  is the CHARACTER CONTACT SHADOW). Collapsing the two is a board edit that
+  touches the whole ART block's row-7 citation, so it is named here rather than
+  done quietly. [PENDING — whoever owns the board's ART block.]
