@@ -1165,6 +1165,48 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0W. [RULED 7/29, ALL FOUR ANSWERED, RESEARCH DELIVERED] HOW MANY PEOPLE, AND
+   HOW BUSY THE CITY FEELS. laws/BOHEMIA_ADDENDUM_HOW_MANY_PEOPLE_7_29_26.md
+   + records/BOHEMIA_FOOD_CEILING_RESEARCH_7_29_26.md. He answered all four
+   open questions in one message and ordered research on the third.
+   THE RULINGS: (1) the population IS the food carrying capacity, not a
+   die-off percentage - "mfs gotta eat and drink" - AND density is a FEELING,
+   not a headcount, so not every survivor gets an NPC. (2) clusters AND no
+   man's lands AND random spread, all three at once. (3) research ordered on
+   how much more food we can make and import. (4) act 1 is WORSE than Cuba,
+   so Cuba is the FLOOR to measure against, never the match.
+   THE NUMBER: 65,000 in the valley (band 45-80k), which lands INSIDE the
+   7/5 grass-to-food canon band rather than moving it. In the walkable world
+   that is ~300 living bodies, because the walkable valley is 1/217th of real
+   Las Vegas. OCCUPIED_RATE=0.30 is now wrong by construction (it should be a
+   2.8% average) and is superseded by a three-zone MAP: ~60% of bodies in 14
+   clustered neighborhoods, 25% spread one household per neighborhood, 15%
+   loners, and a full QUARTER of the map with nobody in it on purpose.
+   WHAT THE RESEARCH FOUND, all four load-bearing:
+     SOIL IS THE CEILING AND IT IS ~20 ACRES A YEAR. The houses really are
+       there - 571,000 detached homes, ~39,000 acres of convertible yard
+       against 10,000 acres of turf - but the valley is caliche and soil is
+       BUILT, at ~20 acres/yr from the city's own biosolids. The food supply
+       cannot grow meaningfully in a lifetime. The Apex landfill is the only
+       lever that exists, which makes it worth fighting over.
+     YARDS AND HYDROPONICS ARE VITAMINS, NOT CALORIES. A 400 sq ft bed is
+       10-15% of one person's calories; hydroponics is famously calorie-poor
+       and needs the clusters' power. A YARD KEEPS YOU FROM GETTING SCURVY,
+       A GOLF COURSE KEEPS YOU ALIVE.
+     NINE MEGAWATTS IS THE PRICE OF EATING. Measured: 1,944 kWh per acre-foot
+       (853.8M kWh moved 439,187 ac-ft) because Vegas water is LIFTED. Farms
+       plus drinking water = ~8.6 MW continuous, forever.
+     THE 12% IS A DISTRIBUTION STORY, NOT A GENERATION STORY. Hoover makes
+       382 MW even crippled; 9 MW is 2.4% of that. Generation was never the
+       problem - the GRID died. This gives CLUSTERED POWER a physical
+       mechanism and explains its own "eerily perfect inside, dead one street
+       over": you cannot half-energise a feeder.
+     MOAPA VALLEY IS THE ONE NEARBY FARMLAND THAT SURVIVES INTACT, because the
+       Muddy River is spring-fed and gravity-flows to the fields - no pumps,
+       no grid. And Las Vegas had already bought its water. Imports: +5-10k
+       people in a good year, ZERO in a bad one, only if the road is held.
+   WIRING IS A SEPARATE TURN. This is the ruling, not the code.
+   | no gate yet | ruled + researched 7/29 | YES.
 0V. [FILED 7/28, HANDED TO THE ART LANE] EIGHT TILE REQUEST FORMS FOR THIS
    LANE, ON PAOLO'S TILE FORMS ORDER. NO ART COOKED, as the order says.
    records/tileforms/TF-CITY-001..008, board rows 10-17. Every gap was found
@@ -1233,7 +1275,7 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    still the board owner's call. All three lanes independently reached the
    same diagnosis: the stable key is the TF ID, not a hand-assigned integer,
    and the gate already enforces TF IDs unique. | gate: TILE FORM | 7/28 | YES.
-0U. [RESEARCH DELIVERED 7/28, 1 RULING PENDING] THE SCOPE OF THE ECONOMIC
+0U. [ANSWERED 7/29 - Cuba is the FLOOR not the match, see 0W] THE SCOPE OF THE ECONOMIC
    APOCALYPSE, TEN YEARS IN. records/BOHEMIA_ECONOMIC_APOCALYPSE_SCOPE_RESEARCH_
    7_28_26.md. NO CODE WRITTEN, as asked. Round two of his research ask, three
    questions: what a dead dollar actually breaks, what permanent brownouts do to
@@ -1255,7 +1297,7 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    under-used: 90 rail cells and a railyard sit idle in a fuel-starved world.
    ONE RULING BLOCKS THE FOLD-IN: is CUBA'S SPECIAL PERIOD the named reference
    case for our economy. | no gate until he rules | researched 7/28 | YES.
-0T. [RESEARCH DELIVERED 7/28, 3 RULINGS PENDING] HOW MANY UNNAMED NPCS, AND WHAT
+0T. [ANSWERED 7/29 - see 0W. research delivered 7/28] HOW MANY UNNAMED NPCS, AND WHAT
    LIVES THEY LIVE. records/BOHEMIA_UNNAMED_NPC_POPULATION_RESEARCH_7_28_26.md.
    NO CODE WRITTEN, as asked. Measured out of our own files: the full 9,216-cell
    valley census, 2,832 residential cells = 177 neighborhoods, 23 homes per
