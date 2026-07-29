@@ -310,3 +310,50 @@ not the same amount.
 composition judgement, and a machine claiming to check it would be the fake
 verification the doctrine bans. M2's floor-is-quiet number is the closest a
 machine gets, and it only covers ground.
+
+---
+
+# PART 4 — M14: LAYERS SEPARATE IN VALUE, NOT IN HUE (7/29, found by LOOKING)
+
+This one did not come from a measurement. It came from `tools/bohemia_look_again.py`
+— the self-critique rig built to close the worst gap on my ignorance list (*"I do
+not know how to look at my own work and say that's wrong without first computing
+something"*). On its **first run**, the GREYSCALE panel of the re-cooked street
+showed the roofs and the ground sitting at the same tone.
+
+> *"Greyscale conversions and value checks help assess structure."* — if it does
+> not read in grey, it does not read.
+
+**AND THE MEASUREMENT CORRECTED ME, which is the honest half of the story.** My
+eye said "the whole top of the frame is flat". The numbers say otherwise:
+
+| | ground | wall | roof |
+|---|---|---|---|
+| both banks | 103.7 | 139.2 | 110.2 |
+
+Ground-to-wall is **35.6 apart** — healthy, and my "all flat" read was wrong.
+Ground-to-**roof** is **6.5 apart** — which is the thing I actually saw. A
+terracotta roof and a dead gravel yard are the same tone; the roof only reads
+because it is ORANGE. Take the colour away and the roof falls into the ground.
+
+That matters beyond looking pretty: colour-blind players, a phone in sunlight, and
+the map's own zoomed-out read all run on value, not hue.
+
+**M14. ANY TWO LAYERS THAT APPEAR ADJACENT MUST SEPARATE IN VALUE.** Minimum 18
+points of mean luminance between ground / structure / top. Hue may reinforce the
+separation; it may never be the only thing carrying it.
+
+Gated in `pixel_craft_gate.py`: REPORTED on the two existing banks (both carry
+Paolo verdicts and both fail the ground↔roof pair at 6.5), HARD FAIL on every bank
+cooked from a tile form.
+
+**THE REAL LESSON, and it is bigger than the rule:** six numbers ran on this set
+all night and not one of them could see this, because every one measured a tile
+*alone*. The flaw only exists BETWEEN tiles, and it took looking at the picture in
+grey to find it. That is the argument for the whole self-critique rig, and it is
+also the argument for never letting a green gate stand in for a look.
+
+## SOURCES (part 4)
+
+- [7 tools every artist can use to check their own work](https://willkempartschool.com/7-essential-tools-every-artist-can-use-to-check-their-own-work-a-guide-for-painters/) · [How to critique your own artwork](https://www.mastrius.com/how-to-critique-your-own-artwork/) · [Painter's Keys — How to critique yourself](https://painterskeys.com/critique-self/)
+- Atmospheric perspective for the depth half: [Draw Paint Academy](https://drawpaintacademy.com/atmospheric-perspective/) · [pixel art backgrounds](https://www.sprite-ai.art/blog/pixel-art-backgrounds)

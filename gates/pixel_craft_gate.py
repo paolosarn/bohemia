@@ -98,6 +98,15 @@ SEAMLESS_TILES = ('road_0', 'road_1', 'road_2', 'walk_0', 'walk_1', 'walk_2',
                   'wall_0', 'wall_1', 'wall_2', 'roof_slope', 'roof_deck')
 SEAM_RATIO_MAX = 2.0
 
+# M14 LAYERS SEPARATE IN VALUE. Found by LOOKING (the greyscale panel of the
+# look-again rig), not by any of the six per-tile numbers - because the flaw only
+# exists BETWEEN tiles and every one of those measures a tile alone. Measured
+# 7/29: ground 103.7 / wall 139.2 / roof 110.2, so ground-to-roof is 6.5 apart and
+# a terracotta roof reads only because it is orange.
+LAYER_VALUE_MIN = 18.0
+LAYER_PREFIX = {'ground': ('road', 'walk', 'yard', 'concrete', 'dirt'),
+                'wall': ('wall',), 'roof': ('roof',)}
+
 P = F = 0
 
 
@@ -291,6 +300,27 @@ def main():
                 print('  NOTE  ' + msg + ' (reported: predates the mastery laws)')
             else:
                 chk(worst <= SEAM_RATIO_MAX, msg)
+
+        # M14 the layers must separate in value, not only in hue
+        lv = {}
+        for lay, pre in LAYER_PREFIX.items():
+            v = [r['mean_value'] for r in rows
+                 if r['id'].startswith(pre) and r.get('mean_value')]
+            if v:
+                lv[lay] = sum(v) / len(v)
+        for a, b2 in (('ground', 'wall'), ('ground', 'roof'), ('wall', 'roof')):
+            if a in lv and b2 in lv:
+                gap = abs(lv[a] - lv[b2])
+                msg = ('%s: M14 VALUE SEPARATION — %s (%.1f) and %s (%.1f) are only '
+                       '%.1f apart (min %.1f). In greyscale they are the same thing, '
+                       'and value is what colour-blind players, a phone in sunlight '
+                       'and the map zoom all run on.'
+                       % (path, a, lv[a], b2, lv[b2], gap, LAYER_VALUE_MIN))
+                if path in MASTERY_EXEMPT:
+                    if gap < LAYER_VALUE_MIN:
+                        print('  NOTE  ' + msg + ' (reported: carries a verdict)')
+                else:
+                    chk(gap >= LAYER_VALUE_MIN, msg)
 
         seen = set()
         for r in b.get('rows', []):
