@@ -60,6 +60,10 @@ html = r"""<meta charset="utf-8">
       judged. Export the lot as a .txt when you are done.
     </div>
   </a>
+  <a href="BOHEMIA_SCHOOL_JUDGE_7_28_26.html" style="display:block;text-decoration:none;background:#181a12;border:2px solid #c79a3f;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="color:#c79a3f;font:700 17px ui-monospace,monospace;letter-spacing:1px">JUDGE THE HIGH SCHOOL <span style="background:#c79a3f;color:#141410;border-radius:6px;padding:2px 7px;font-size:11px">NEEDS YOUR THUMB</span></div>
+    <div style="color:#b9b2a0;font:14px/1.5 ui-monospace,monospace;margin-top:6px">You ruled "High school" and this is what it built: a real football stadium as the landmark, the student lot with the cars still in it, no playground, and the colour count up from 3 families to 9. THE PLOT YOU WALK next to THE CITY ICON, so you can see whether they read as the same place. One district, one verdict &mdash; it is the test case, and if you like it the same treatment goes on the other 35.</div>
+  </a>
   <a href="BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html" style="display:block;text-decoration:none;background:#1d1a10;border:2px solid #c79a3f;border-radius:12px;padding:14px;margin-bottom:14px">
     <div style="font:800 16px -apple-system,sans-serif;color:#e8c66a">THE TARGET SCREEN &#183; CBB, LOCKED <span style="font:600 10px sans-serif;background:#c79a3f;color:#201700;border-radius:4px;padding:2px 6px;vertical-align:2px">SHIPPED &#183; FROZEN</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#bdb392;margin:4px 0 8px">

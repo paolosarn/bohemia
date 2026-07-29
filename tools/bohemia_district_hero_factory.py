@@ -1298,7 +1298,7 @@ LABEL = {
     'park': 'Park — matched: open dead TURF + a winding PATH + a small SHELTER/restroom + a dead shade tree + benches.',
     'warehouse': 'Warehouse — matched: rows of flex/tenant UNITS (one burned) with roll-up doors + a leasing office + a fortress fence.',
     'commercial': 'Commercial — matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.',
-    'school': 'School — matched: an E-shaped school building + a taller GYM block + a court + a school bus.',
+    'school': 'High school — matched to the walkable district (Paolo ruled it "High school" 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS — plus the two-storey academic spine, the GYM in school colours, a tennis court, and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground: that was the old module\'s error.'
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
     'library': 'Library — matched: a reading-room block + a stacks tower + a front COLONNADE + steps.',
     'farm': 'Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).',
