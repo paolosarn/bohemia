@@ -39,10 +39,15 @@
   tiles) and looked at the two tiles this whole form is about.
     `walk_kerb` ("the sidewalk tile that has the kerb lip on its road edge") is
     byte-for-byte `walk_0` for rows 0-38 and differs ONLY in its last five rows:
-    row means 176 / 179 / 174 / 174 / 59. That is a 4-px lit cap and a ONE-PIXEL
+    row means 176 / 179 / 174 / 173 / 59. That is a 4-px lit cap and a ONE-PIXEL
     dark face. Today's kerb is not a kerb, it is a bright line with a single
-    dark pixel under it, and it is the brightest ground value in the game (176
-    against a ground band mean of 103.7).
+    dark pixel under it, and its cap is the brightest SUSTAINED ground row in
+    the frozen set (row mean 176 against a ground band mean of 103.7). Stated
+    exactly, because the difference decides what gets checked later: 176 is a
+    ROW MEAN, not a peak. The cap's own brightest pixel is 190, and single
+    brighter pixels do exist elsewhere on the walk (walk_2 peaks at 237,
+    concrete_1 at 233) — but no other ground tile holds a value that high
+    across a whole row, and that unbroken row is what reads as a kerb.
     `road_gutter` is byte-for-byte `road_0` except for its first NINE rows,
     which ramp 43 -> 61 and hand off to the road's own 67.5 at row nine: a
     nine-pixel shadow gradient baked into the tile. So
@@ -69,7 +74,9 @@
     the kerb from the wrong side). It is the ANCHOR, not the answer.
     banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt — the 7/28 re-cook of
     the same 42 ids. Same ids, same straight runs, better craft numbers. Adds no
-    member of this family.
+    member of this family. Named for completeness, NOT as an index entry: it is
+    not listed in the 7/27 approved index because it postdates it by a day, so
+    it is a file on disk that was opened and measured, not an approved asset.
     banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (STREET BLOCKS, 5
     researched lanes, REAL_VEGAS R2, CITY-wired) — carriageway lanes. Stops at
     the kerb line by construction; contains no kerb face, no return, no throat.
@@ -143,7 +150,8 @@
 - ACT: 1
 - BEST TIME: both. Unlit at night by default — nobody owns light over a street
   corner in a dead valley (LIGHT=TERRITORY). Where a district IS owned and lit,
-  the kerb cap is the brightest ground value in the game (measured 176) and is
+  the kerb cap is the brightest sustained ground row in the frozen set
+  (measured row mean 176, peak pixel 190) and is
   therefore what makes a lit district read as lit; the transition pieces must
   hold that same cap value or the corner will go dark while the straight run
   glows.
@@ -204,9 +212,17 @@
   not a painted curve. Bands bow toward the viewer; the pan is a shallow dish
   read as a value trough, never an outlined channel.
 - PALETTE: constitution ceiling, one master palette with a family subset (M17).
-  GROUND band (mean 103.7, lo 49.3, hi 152.2) — with the measured exception this
-  family inherits and must not break: the frozen kerb cap sits at 176, above the
-  band's own high, and it is the brightest ground pixel in the game on purpose.
+  GROUND band (mean 103.7, lo 49.3, hi 152.2) — and read that band correctly,
+  because misreading it is how this family breaks target_match_gate. The band is
+  measured on TILE MEANS across the 16 ground tiles and the gate allows 26 of
+  slack, so what it constrains is each new tile's OWN mean, not any pixel in it.
+  The frozen kerb cap is a FOUR-ROW cap of 176/179/174/173 (row means; its
+  brightest single pixel is 190) sitting inside a tile
+  whose mean is 112.2 — comfortably inside the band. So the cap is NOT an
+  exception to the band and there is no exception to claim: hold the 176 cap
+  rows, and keep every piece's tile mean inside the ground band anyway. A piece
+  that raises its whole mean chasing the cap is out of this world by the gate's
+  own arithmetic.
   Concrete sits at the top of the band, the asphalt near the bottom, and THE
   VALUE STEP BETWEEN THEM IS THE WHOLE READ. Measured today: `walk_kerb` 112.2
   against `road_gutter` 63.1 = 49 points apart, comfortably over M14's 18-point
@@ -386,7 +402,14 @@
   loses well under a millimetre in thirty years. It does NOT rust to orange
   flakes and it does NOT collapse — it goes to a dark, dry, plum-brown patina
   and stays perfectly intact, and the only bright corrosion anywhere is the
-  streak where salts wick out of the concrete at the frame contact. The grate is
+  streak where salts wick out of the concrete at the frame contact.
+  ONE COLOUR GUARD ON THAT WORD, because "plum" is the single pixel in this
+  form that can trip a live gate: PURPLE RESERVATION is absolute (section H) and
+  gates/bohemia_purity_gate.py flags any pixel where r > g+25 AND b > g+25 AND
+  r > 80. So the patina is the RED-BROWN half of plum only — blue must stay at
+  or below green on every pixel of the grate, no exceptions. If a swatch reads
+  even slightly violet it is a violation, not a patina; darken toward iron-brown
+  and drop the blue. The grate is
   the most SOLID-looking thing on the whole street, which is a much better and
   much stranger read than rusted-out ruin.
   RESEARCH HONESTY, stated the way the craft laws state it: this environment's
@@ -454,7 +477,9 @@
 - [ ] Value step preserved and measured: walk-side to gutter-side at least the
       inherited 49 points, and no adjacent pair under M14's 18-point floor,
       checked in GREYSCALE not in colour
-- [ ] Kerb cap holds the inherited 176 value; kerb face measures 8-9 px, lit top
+- [ ] Kerb cap holds the inherited cap-row MEAN of 176 (a row mean, not a peak
+      pixel — the frozen cap's own peak is 190) and the piece's whole-tile mean
+      still lands inside the GROUND band; kerb face measures 8-9 px, lit top
       edge 1-2 px
 - [ ] Pixel craft gate green: orphan share, single-use colours, block size 1,
       pillow score, cluster density, set-wide palette, M2 floor-is-quiet, M5
@@ -476,7 +501,10 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 15
+  (ACT-1 TILESET REMAINDER), which names "curb/sidewalk transitions" in its own
+  words; NOT row 7, which is the CHARACTER CONTACT SHADOW. Corrected to agree
+  with section B and with board row 98's own "row 15 breakdown" line.)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 98 | VERDICT: —
   (Row 98, inside the 90-99 band the board reserved for this batch. The form was
