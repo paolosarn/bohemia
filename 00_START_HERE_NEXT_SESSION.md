@@ -1,4 +1,4 @@
-ART (f3eu53): 7/29 (b) LATEST — PAOLO RULED "A". THE MASTER PALETTE IS DEAD, AND THE
+ART (f3eu53): 7/29 (e) LATEST (see the 7/29 c-d-e sections below) — PAOLO RULED "A". THE MASTER PALETTE IS DEAD, AND THE
 TILES HE APPROVED ON 7/28 ARE FINALLY IN THE GAME.
 
 THE RULING: asked A or B on the LIFE-tab judge card, he said **"A"** — the 7/28
@@ -180,3 +180,58 @@ plumbing, then ambient beds. AUDIO MOVED OUT OF CHARACTER (one system one
 session): the character chat is bodies/clothing/animation only now — if it has
 in-flight audio work it finishes nothing new and hands off via the handoff.
 Paolo opens the new chat with the single word "sounds" and it goes.
+--------------------------------------------------------------------------------
+7/29 (e) — HOUSE 01, BUILT TO A REAL PERSON (LIFE TAB, awaiting his thumb)
+
+Paolo: "i think we need to make like 16 houses i approve of that will go in the
+suburb slots... lets make a single house realistic to human sizing please."
+This is candidate 1 of 16. NOT APPROVED. LIFE tab, top card, green border.
+
+THE FINDING, AND IT MATTERS MORE THAN THE HOUSE. CELL_M = 0.75 m and the art cell is
+44 px, so 1 px = 1.705 cm. The THREE-TILE WALL law gives a 3-cell facade and the DOOR
+LAW gives a 2-cell door:
+    plate  3 x 0.75 = 2.25 m   (real: 2.44 m)
+    door   2 x 0.75 = 1.50 m   (real: 2.03 m)
+The player sprite measures 102 px = 1.74 m. **The door is 24 cm SHORTER than the
+character.** He cannot walk through his own front door standing up.
+And a third tile does not save it: real door-to-plate is 2.03/2.44 = 0.83, whole
+tiles only offer 2/3 = 0.67 or 3/4 = 0.75. YOU CANNOT BUILD A HUMAN-PROPORTIONED
+FACADE OUT OF WHOLE 0.75 m TILES. So a house is AUTHORED AS ONE IMAGE at true scale;
+only its FOOTPRINT snaps to cells so it drops in a suburb slot. The other fifteen
+inherit that decision.
+
+DIMENSIONS, ALL REAL (web-confirmed: 36x80 in door and 16x7 ft garage are the
+residential standards; ranch plans average 1500-1700 sq ft):
+  footprint 15.0 x 9.0 m (20 x 12 cells, 1453 sq ft) / plate 8 ft / door 36x80 in /
+  garage 16x7 ft / window 4x4 ft, sill 3 ft / eave 24 in / pitch 4:12
+
+REUSE: every colour sampled from banks/..._RECOOK_7_28_26.txt, the set he approved
+and chose again. 13 colours total. The house cannot drift from its own street.
+
+THREE ART ERRORS, ALL CAUGHT BY LOOKING AT IT, NONE BY A GATE:
+  1. drew the roof at full PLAN depth (528 px) so the house was 79% roof and the
+     roof read as a second wall. Cropped the house he ACTUALLY approved out of the
+     re-cook frame: its roof is ~2 cells against a ~4 cell facade. Now 120 px.
+  2. shaded with continuous gradients -> 426 colours of smooth airbrush. Now flat
+     ramp steps only: 13 colours.
+  3. sampled the roof family by frequency, got #fdfdf8 (luminance 252 — the
+     sun-caught ridge glint), and filled an entire hip PLANE with it. ramp_from now
+     refuses anything over the act-1 ceiling: a highlight is not a material.
+  Also: hips drawn by x-position gave vertical stripes, not a hip. Real 45 diagonals
+  now. And barrel tile streaks run DOWN the slope, not across it.
+
+NEW GATE: gates/human_scale_gate.py, registered as HUMAN SCALE. Holds the ONE
+invariant all sixteen inherit — A PERSON FITS THROUGH THE DOOR — plus the art
+agreeing with its own metre table and with the engine's CELL_M, and no white/black.
+11 checks. PROVED IT CAN FAIL: set the door to the tile grid's 1.50 m and it refused
+it, "-24 cm of headroom".
+
+The judge card renders from an INLINED image, not fetch() — the palette card shipped
+blank rectangles that way earlier today. Verified by clicking through from LIFE in a
+real browser: image painted, vote registers, zero horizontal overflow at 390px.
+
+[PENDING PAOLO] he also said "im concerned we may have to double the art size of the
+tiles they looking a little low quality but thats down the line." NOT ACTED ON — he
+scoped it as later. Doubling the art cell 44 -> 88 px is a whole-corpus decision.
+
+BUILD STAMP: 7/29e. ALL GATES GREEN (632s).
