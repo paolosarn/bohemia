@@ -116,28 +116,38 @@ ok('part 3 KEEPS its tone too -- nothing was taken away',
    also in the jacket/pants/shoes ramps, so a naive "is it skin" test matches every
    dark sleeve pixel. It did: the first build of the arm fix repainted whole sleeves
    as bare skin. Both passes must skip index 0. */
-const armM = src.match(/THE SKIN ABOVE THE HAND \(Paolo 7\/27\/26, circled[\s\S]*?a garment's HAND tone on an ARM \*\/[\s\S]{0,40}?\}\}/);
-ok('the skin-above-the-hand pass is present', !!armM);
-ok('BOTH skin tests start at ramp index 1, never index 0',
-  (src.match(/for\(let _i=1;_i<_r\.length;_i\+\+\)/g) || []).length === 2);
-ok('the shared-dark-entry regression is recorded at the code',
-  /repainted whole\n       sleeves as bare skin|repainted whole sleeves as bare skin/.test(src));
+/* ---- A LONG SLEEVE STOPS AT THE HAND (Paolo 7/29/26, LOCKED) --------------
+   "if a clothing item is long sleeve it stops at the hand!! whats that blob of
+   skin doing its terrible". The rig proves the rule: facing S the same jacket
+   runs cloth solid to the hand with ZERO bare-arm rows, while E and W leaked
+   2-3px of forearm on rows 32-34. That leak is the blob he circled twice.
+
+   THIS REPLACED the 7/27 "skin above the hand" pass, which restored the BODY's
+   skin onto those cells -- it cured a bright garment blob by making a flat skin
+   blob, and it was the wrong direction. Those cells were always meant to be
+   cloth. The old pass and its snapshot are gone; this gate refuses to let either
+   come back. */
+const armM = src.match(/A LONG SLEEVE STOPS AT THE HAND[\s\S]*?if\(best\)px\[i\]=\[best\[0\],best\[1\],best\[2\]\];/);
+ok('the sleeve-to-the-hand pass is present', !!armM);
+ok('the retired skin-restore pass is GONE, not left dormant',
+  !/_armBody/.test(src) && !/a garment's HAND tone on an ARM/.test(src));
 if (armM) {
   const ap = armM[0];
-  ok('the arm pass only touches arm parts', /if\(q!==5&&q!==6\)continue;/.test(ap));
-  ok('it restores the BODY colour the renderer already computed, inventing nothing',
-    /px\[i\]=\[b\[0\],b\[1\],b\[2\]\];/.test(ap));
-  ok('it leaves cloth alone', /cloth: leave it alone/.test(ap));
+  ok('LONG SLEEVE IS MEASURED per limb per frame, never assumed',
+    /if\(lastCloth < handTop-1\) continue;/.test(ap));
+  ok('a SHORT sleeve is left completely alone (a t-shirt still bares a forearm)',
+    /SHORT SLEEVE/.test(ap));
+  ok('it only touches ARM parts, paired to their own hand',
+    /for\(const \[armP,handP\] of \[\[5,7\],\[6,8\]\]\)/.test(ap));
+  ok('REUSE-FIRST: the colour is HIS OWN SLEEVE, nearest cloth on that same arm',
+    /HIS OWN SLEEVE: nearest cloth pixel on this same arm/.test(ap));
+  ok('it never writes the occupancy grid', !/grid\[i\]=/.test(ap));
+  ok('the rig measurement that proves the rule is recorded at the code',
+    /BARE ARM ROWS = none/.test(ap) && /rows 32,33,34/.test(ap));
+  ok('the wrong direction of the 7/27 pass is recorded so it is not re-tried',
+    /it was the wrong direction/.test(ap));
 }
-/* ORDER: it must run AFTER garments, or the garment repaints it a pass later. */
-const iSnap = src.indexOf('const _armBody');
-const iGarment = src.indexOf('const cover=Object.assign');
-const iArmFix = src.indexOf("a garment's HAND tone on an ARM");
-ok('the arm-body snapshot is taken BEFORE garments composite', iSnap > 0 && iSnap < iGarment);
-ok('the restore runs AFTER garments composite (anchored before it, it was a no-op)',
-  iArmFix > iGarment);
-ok('the ordering mistake is recorded so it is not repeated',
-  /the fix measured as a complete\n     no-op|measured as a complete no-op/.test(src));
+
 
 
 /* ONE TILE ON E AND W (Paolo 7/28: "Make the neck one tile less facing east and

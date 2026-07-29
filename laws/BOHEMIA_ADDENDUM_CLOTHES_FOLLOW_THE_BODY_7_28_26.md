@@ -140,3 +140,58 @@ thickness?
 Tool: `tools/bohemia_clothes_follow_the_body_patch.py` (idempotent).
 Gate: `gates/clothes_follow_gate.js`.
 Sweep: `records/dials/DIAL_SWEEP_7_28_26.png`.
+
+---
+
+# ADDENDUM — A LONG SLEEVE STOPS AT THE HAND
+**Paolo, 7/29/26. LOCKED.**
+
+> "what i circled needs to become clothing again bro. i have my hand in the rig
+> and ur not using the rig reference or using it ever! the answer is look at the
+> hand in the rig and if a clothing item is long sleeve it stops at the hand!!
+> cmon bro fr whats that blob of skin doing its terrible"
+
+## THE RULE
+
+**On an arm wearing a LONG sleeve, no cell renders skin. The cloth runs to the
+hand, and the hand is where skin begins.**
+
+## THE RIG ALREADY PROVED IT
+
+Cloth vs bare skin per row down the arm, same jacket, shipped build:
+
+| facing | bare-arm rows |
+|---|---|
+| **S** | **none** — cloth 10px every row down to y33, hand starts y33 |
+| E | rows 32, 33, 34 leak 3px of forearm |
+| W | rows 32, 33, 34 leak 2-3px of forearm |
+
+South is what the garment is *supposed* to do. The profiles leaked, and that leak
+is the pale featureless patch he circled twice and called terrible.
+
+## LONG-SLEEVED IS MEASURED, NOT ASSUMED
+
+Per limb, per frame: the garment's lowest cloth row on that arm must reach the
+hand (within one row). A short sleeve stops well above it and is left completely
+alone — **a t-shirt still bares a forearm.** The rule is about honouring what the
+garment is, not about covering every arm.
+
+## REUSE-FIRST
+
+The colour is **his own sleeve** — the nearest cloth pixel on that same arm, same
+row first, then nearest row. Nothing cooked, nothing blended, no new colour.
+
+## WHAT THIS REPLACED, AND WHY IT WAS WRONG
+
+The 7/27 "skin above the hand" pass restored the **body's skin** onto those cells.
+It was chasing a real bug — the jacket painting a bright hand-coloured block on the
+arm — but it fixed a bright blob by making a **flat** blob, which is what he came
+back with: *"whats that blob of skin doing."* Both complaints were the same cells,
+and both had the same answer all along: **those cells are cloth.** The old pass and
+its snapshot are deleted, and the gate refuses to let either return.
+
+**THE LESSON, and it is the one he actually said out loud:** the rig is the
+reference. Facing S was showing the correct behaviour the entire time, in the
+shipped build, and the answer was one measurement away.
+
+Gate: `gates/neck_tone_gate.js`.
