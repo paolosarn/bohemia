@@ -144,6 +144,16 @@ GATES = [
      'occupancy, beat, world clock', False),
     ('MUSIC',          ['node', 'gates/music_gate.js'],
      'screech law, voices exist, fresh-batch variety', False),
+    ('SFX FACTORY',    ['node', 'gates/sfx_gate.js'],
+     "sound effects are a typed spec and a generator, not files: every duration on the "
+     "16th-of-a-beat grid, nothing invented outside the spec table, the generator "
+     "deterministic, one AudioContext (the studio's), and the bank EMPTY until Paolo "
+     "thumbs one", False),
+    ('SFX RENDER',     ['python3', 'gates/sfx_render_gate.py'],
+     'the 60 candidates measured AS AUDIO in a real browser: each one makes a sound, '
+     'does not clip, goes silent on time (SCREECH LAW proved on the waveform), renders '
+     'identically twice, sits in the judgeable loudness band, and has not drifted from '
+     'its recorded fingerprint', True),
     ('SONG LOCK',      ['node', 'gates/song_lock_gate.js'],
      "Paolo's songs are byte-locked: no session edits a song quietly, ever", False),
     ('COMBAT POOL',    ['node', 'gates/combat_pool_gate.js'],

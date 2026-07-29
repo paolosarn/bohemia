@@ -2383,8 +2383,15 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
-0. THE SFX FACTORY (GREENLIT by Paolo 7/29 when he ordered this lane into
-   existence; routed 7/28 off his own state-of-the-game — sound effects are
+0. (SHIPPED 7/29 - records/BOHEMIA_SFX_FACTORY_7_29_26.md. 60 candidates for
+   12 game moments are LIVE in the MUSIC TAB, top of the panel: tap, hear,
+   thumb, note, export .txt. Gates: sfx_gate.js (73) + sfx_render_gate.py
+   (752, real audio in a real browser). The BANK IS EMPTY and stays empty
+   until he thumbs one - do NOT pick sounds for him, and do NOT re-cook this
+   batch; bulk silence is a verdict. On APPROVE the next move is variants of
+   the approved vector, 3-4 per footstep so a walk does not machine-gun one
+   sample.) THE SFX FACTORY (GREENLIT by Paolo 7/29 when he ordered this lane
+   into existence; routed 7/28 off his own state-of-the-game — sound effects are
    HIS ONLY 0%. Research record: records/BOHEMIA_RESEARCH_FRICTIONLESS_
    ACCELERATORS_7_28_26.md) Procedural sound synthesis on the alpha's own
    Web Audio stack (the sfxr/jsfxr lineage — sounds are ~20 synth
@@ -2411,6 +2418,17 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    ambient beds (wind, night insects, rain when the weather ruling's rare
    rain fires) from the same synth stack — no files. [Waits on RUN 0d.] |
    heard on the real surface | — | yes (ambience candidates are judgeable).
+
+3. (discovered 7/29, while building the factory) VARIANT ROUNDS ARE BLOCKED ON
+   A VERDICT, not on machinery: cook() already takes a count, so an approved
+   vector spawns its alternation set the same turn he approves it. Nothing to
+   build until then.
+4. (discovered 7/29) THE MUSIC STUDIO'S OWN VOICES ARE NOT ON THE SFX SPEC.
+   The 60-odd synth bodies in the alpha's song engine (thud/rim/conga/wireharp/
+   ...) are hand-written node graphs, not vectors, so they cannot be judged,
+   fingerprinted or regression-gated the way a sound effect now can. Not a bug
+   and not urgent - but if music ever wants the same kill/approve pipeline, that
+   is the gap, and it is a big one. NON-COOK, needs a ruling before any work.
 
 ## CHARACTER  (LANE LAW 7/26: laws/BOHEMIA_ADDENDUM_THE_RIG_IS_LAW_7_26_26.md
 ## — the rig is the starting point of ALL body/anim work; RIG CHECK mandatory;

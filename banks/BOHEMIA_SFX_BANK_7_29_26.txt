@@ -1,0 +1,38 @@
+=== BOHEMIA SFX BANK (batch SFX-01, opened 7/29/26) ===
+THE APPROVED SOUND FOR EACH GAME EVENT. One line per event, and the line only
+exists once Paolo has thumbed a candidate up.
+
+MECHANISM-MINE / CONTENTS-PAOLO'S. The synth, the 60 candidates and the judge
+surface are mechanism and they shipped. WHICH sound the game makes when you take
+a step, land a hit or close a door is HIS, and this table is EMPTY until he says
+so. BOH_SFX.BANK is empty in the build to match, and BOH_SFX.play() on an
+unbanked event is silent on purpose — the game makes no sound he did not choose.
+
+HOW A LINE GETS HERE
+  1. he thumbs candidates in the MUSIC tab (SOUND EFFECTS, top of the panel)
+  2. EXPORT SFX -> bohemia_sfx.txt -> lands in records/ as the verdict file
+  3. the winning candidate's VECTOR line is copied here, with the verdict file
+     named beside it, and BOH_SFX.setBank() is fed the same table
+  4. gates/sfx_gate.js fails if a line here cites no verdict file
+
+A LINE IS THE 22-NUMBER VECTOR, NOT AN AUDIO FILE. That is the whole design: a
+sound is parameters, so the bank weighs nothing and the sound he approved is
+reproducible sample for sample (gates/sfx_render_gate.py fingerprints it).
+
+--- THE TABLE ---
+# event          verdict file                              vector
+(empty — nothing judged yet)
+
+--- THE 12 EVENTS WAITING ON A VERDICT ---
+step_dirt        FOOTSTEP — DIRT      every step in the desert and the lots
+step_asphalt     FOOTSTEP — ASPHALT   the street. the sound heard most in the game
+step_gravel      FOOTSTEP — GRAVEL    shoulders, yards, the boneyard
+door_open        DOOR OPENS           going INTO a building, every interior
+door_shut        DOOR SHUTS           the door closing behind you
+pickup           PICK SOMETHING UP    loot, items, anything into the bag
+hit              YOU LAND A HIT       combat contact
+block            BLOCKED              the hit that did not land
+kill             KILL — ON THE BEAT   drops exactly on the beat, with the music
+ui_tap           UI TAP               every button on the phone
+phone_buzz       PHONE BUZZES         a new post, a message, the feed
+save_chime       SAVED                the run recorded what you did
