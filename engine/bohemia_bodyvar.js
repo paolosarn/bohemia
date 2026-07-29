@@ -66,7 +66,21 @@ const BOH_BODYVAR = (function () {
        re-centring canon so the painted body is not sitting at the ceiling). */
     height: 0.05,   /* +-5% of standing height: ~+-2.3px on a 46px body */
     belly:  0.32,   /* +-32% of torso half-width at the widest belly row */
-    arms:   0.45    /* +-45% of arm half-width (arms are thin; thin needs more) */
+    arms:   0.45,   /* +-45% of arm half-width (arms are thin; thin needs more) */
+    /* SHOULDERS (Paolo 7/29/26): "widening shortening the shoulder parts of the
+       rig... i dont want to create a female rig. but these sliders will help us
+       make that." GROUNDED, not guessed: the biacromial-to-biiliac ratio (shoulder
+       breadth over hip breadth) is the strongest silhouette dimorphism there is --
+       about 1.4 in men and 1.2 in women. That is a ~14% narrowing of the shoulder
+       against an unchanged hip, so +-20% of the shoulder's half-width covers the
+       whole real male-to-female span with headroom either side. */
+    shoulders: 0.20,
+    /* ARM LENGTH (same ruling). GROUNDED: arm span tracks height almost exactly --
+       the healthy adult ratio sits between 1.00 and 1.05, men averaging ~5cm of
+       span over height and women ~1cm. Arms are NOT a free dimension on a human
+       body, so this is deliberately a narrow dial: +-12% of the arm's own length,
+       which is a couple of pixels at this scale and still reads. */
+    armLength: 0.12
   };
 
   /* FRONT AXIS per facing = cos(FACEANG). A gut protrudes FORWARD, not sideways:
@@ -90,6 +104,16 @@ const BOH_BODYVAR = (function () {
        never overhangs the thighs. */
     4: {
       dial: 'belly', biasAmp: 0.5, minW: 5,
+      /* THE TORSO ANSWERS TO TWO DIALS. Belly swells at the navel; SHOULDERS
+         works the opposite end -- full at the shoulder band, gone by the navel --
+         so the two never fight over the same rows and a wide-shouldered thin man
+         and a narrow-shouldered heavy one are both reachable. This is the pair
+         that makes a female silhouette without a second rig. */
+      also: { dial: 'shoulders', profile: function (t) {
+        if (t < 0.18) return 1;                       /* the shoulder band itself */
+        if (t < 0.55) return 1 - ss((t - 0.18) / 0.37); /* ease out through the chest */
+        return 0;                                     /* the hip is the hip: it does not move */
+      } },
       /* THE SHOULDER TAKES A SHARE (Paolo 7/28/26): "why can't you just compact and
          widen the shoulder to accommodate... it's very upsetting to see the arms
          getting fucked up... their arms squiggly fucked up."
@@ -141,7 +165,7 @@ const BOH_BODYVAR = (function () {
     return 1;
   }
 
-  const DIAL_NAMES = ['height', 'belly', 'arms'];
+  const DIAL_NAMES = ['height', 'belly', 'arms', 'shoulders', 'armLength'];
 
   function neutral(v) {
     if (!v) return true;
@@ -191,8 +215,9 @@ const BOH_BODYVAR = (function () {
      row, and it preserves any intentional interior gap because the source pixel
      has to actually be painted for the target to light up.
      -------------------------------------------------------------------------- */
-  function warpPart(list, spec, dv, front, edgeOut, anchor) {
-    if (!dv) return list.slice();
+  function warpPart(list, spec, dv, front, edgeOut, anchor, v) {
+    const dv2 = (spec.also && v) ? (v[spec.also.dial] || 0) : 0;
+    if (!dv && !dv2) return list.slice();
     /* group this PART's own pixels by row -- per part, never a shared grid
        (lesson 4: torso and legs claim the same hip pixels; a shared remap
        silently eats a torso row and corrupts every garment keyed to part 4) */
@@ -211,9 +236,15 @@ const BOH_BODYVAR = (function () {
       let mn = CW, mx = -1;
       for (const xs in set) { const x = +xs; if (x < mn) mn = x; if (x > mx) mx = x; }
       const w = mx - mn + 1;
-      const pr = spec.profile((y - y0) / span);
-      const k = 1 + dv * (AMP[spec.dial]) * pr;
-      if (pr <= 0 || Math.abs(k - 1) < 1e-9 || w < 2) {   /* untouched row: copy verbatim */
+      const t = (y - y0) / span;
+      const pr = spec.profile(t);
+      /* TWO DIALS CAN REACH ONE ROW (belly at the navel, shoulders at the cap).
+         They are summed as fractional width, never multiplied, so neither can
+         cancel the other and each keeps its own amplitude. */
+      let amt = dv * (AMP[spec.dial]) * pr;
+      if (dv2) amt += dv2 * (AMP[spec.also.dial]) * spec.also.profile(t);
+      const k = 1 + amt;
+      if (Math.abs(k - 1) < 1e-9 || w < 2) {   /* untouched row: copy verbatim */
         if (edgeOut) edgeOut[y] = [0, 0];
         for (const xs in set) out.push(y * CW + (+xs));
         continue;
@@ -355,7 +386,7 @@ const BOH_BODYVAR = (function () {
     return out;
   }
   function warpLayers(layers, v) {
-    if (!v.belly && !v.arms) return layers;
+    if (!v.belly && !v.arms && !v.shoulders) return layers;
     const out = {};
     for (const d in layers) {
       const src = layers[d], dst = {}, front = FRONT[d] || 0;
@@ -365,10 +396,17 @@ const BOH_BODYVAR = (function () {
       for (const p in src) {
         const spec = PART_SPEC[+p], dv = spec ? v[spec.dial] : 0;
         const anch = (dv && (+p === 5 || +p === 6)) ? armAnchor(tRow, tCx, dv) : null;
-        dst[p] = dv ? warpPart(src[p], spec, dv, front, (+p === 4) ? edge : null, anch) : src[p].slice();
+        dst[p] = spec ? warpPart(src[p], spec, dv, front, (+p === 4) ? edge : null, anch, v) : src[p].slice();
       }
       /* pass 2: the arm units ride the flank the belly just moved */
-      if (v.belly && src[4]) {
+      /* THE ARMS RIDE THE SHOULDER TOO (Paolo 7/29/26). This used to fire for the
+         BELLY only, so narrowing the shoulder moved the torso and left the arms
+         hanging where they were -- measured on S, the silhouette at the shoulder
+         row read 18px at every setting from -1 to 0, because the ARM is what the
+         outline is made of up there, not the torso. An arm hangs FROM the
+         shoulder: move the shoulder, the whole arm unit goes with it. This is the
+         half that makes the biacromial dial actually narrow a body. */
+      if ((v.belly || v.shoulders) && src[4]) {
         const rows = Object.keys(edge).map(Number).sort(function (a, b) { return a - b; });
         if (rows.length) {
           const torsoCx = meanX(src[4]);
@@ -421,6 +459,33 @@ const BOH_BODYVAR = (function () {
      feature lands (the addendum's byte-identical requirement, made structural
      instead of merely tested).
      -------------------------------------------------------------------------- */
+  /* ARM LENGTH: a BONE dial, like height -- the art is not stretched, the joints
+     move and the skinner redraws his painted arm along the longer bone. Scaled
+     from the SHOULDER, because that is where an arm hangs from: the elbow and the
+     hand travel, the shoulder cap does not, so the arm never tears off the torso.
+     The hand rides with it as one unit, which is what keeps a lengthened arm from
+     leaving its hand behind. */
+  function warpArmLength(pose, a) {
+    if (!a) return pose;
+    const s = 1 + a * AMP.armLength, out = {};
+    for (const d in pose) {
+      const P = pose[d], n = {};
+      for (const j in P) n[j] = [P[j][0], P[j][1]];
+      const units = [['shL', 'elL', 'handL'], ['shR', 'elR', 'handR']];
+      for (let u = 0; u < units.length; u++) {
+        const sh = P[units[u][0]];
+        if (!sh) continue;
+        for (let q = 1; q < 3; q++) {
+          const j = units[u][q];
+          if (!P[j]) continue;
+          n[j] = [sh[0] + (P[j][0] - sh[0]) * s, sh[1] + (P[j][1] - sh[1]) * s];
+        }
+      }
+      out[d] = n;
+    }
+    return out;
+  }
+
   function apply(baked, dials) {
     if (neutral(dials)) return baked;
     const v = sanitize(dials);
@@ -428,7 +493,7 @@ const BOH_BODYVAR = (function () {
       W: baked.W, H: baked.H,
       skeleton: baked.skeleton,          /* REST: where the art was painted. Never warped. */
       layers: warpLayers(baked.layers, v),
-      pose: warpPose(baked.pose, v.height),
+      pose: warpArmLength(warpPose(baked.pose, v.height), v.armLength),
       layerOverride: baked.layerOverride,
       swingAmt: baked.swingAmt,
       bodyVar: v
@@ -437,6 +502,7 @@ const BOH_BODYVAR = (function () {
 
   return { apply: apply, neutral: neutral, sanitize: sanitize, clampDial: clampDial,
            warpPose: warpPose, warpLayers: warpLayers, warpPart: warpPart,
+           warpArmLength: warpArmLength,
            AMP: AMP, FRONT: FRONT, PART_SPEC: PART_SPEC, DIAL_NAMES: DIAL_NAMES };
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = BOH_BODYVAR;

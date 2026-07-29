@@ -101,6 +101,22 @@ OUTLINE = '''  /* ==============================================================
       if((x+1<CW&&solid[i+1])||(x>0&&solid[i-1])||
          (y+1<CH&&solid[i+CW])||(y>0&&solid[i-CW])) px[i]=[C[0],C[1],C[2]];
     }
+    /* CLOSE 1PX VOIDS (found 7/29 by the new SHOULDERS dial, but not its bug).
+       A gap exactly ONE pixel wide between two parts is open to the outside when
+       the interior hole-fill runs, so it survives that pass; then this outline
+       paints both its WALLS and leaves the middle cell empty, because at snapshot
+       time that cell's neighbours were empty too. The result is a black ring with
+       a hole punched in it -- measured at (33,15) on SE and (22,15) on SW at
+       shoulders +1, all four neighbours black, the cell itself null.
+       Any empty cell now fully enclosed by the FINISHED sprite is closed with the
+       outline colour. It cannot eat real space: a cell with even one empty
+       neighbour is left alone, so armpits, crotch gaps and every intentional
+       concavity are untouched. */
+    for(let y=1;y<CH-1;y++)for(let x=1;x<CW-1;x++){
+      const i=y*CW+x;
+      if(px[i])continue;
+      if(px[i+1]&&px[i-1]&&px[i+CW]&&px[i-CW]) px[i]=[C[0],C[1],C[2]];
+    }
   }
 ''' + ANCHOR
 if src.count(ANCHOR) != 1:

@@ -120,4 +120,36 @@ ok('the law records that the squiggle and the shoulder are ONE bug',
 ok('the law pins the shoulder-never-moved table', /\| belly −1 \| \*\*18\*\* \| 15 \|/.test(law));
 ok('the law pins the flip count before and after', /belly -1  direction flips: 3 -> 1/.test(law));
 
+
+/* ---- SHOULDERS + ARM LENGTH (Paolo 7/29/26): the two dials that make a female
+   read out of ONE rig. No female rig, ever -- that arc is graveyarded. ------- */
+const SALAW = path.join(ROOT, 'laws', 'BOHEMIA_ADDENDUM_SHOULDERS_AND_ARM_LENGTH_7_29_26.md');
+ok('the shoulders/arm-length law is recorded', fs.existsSync(SALAW));
+ok('both dials are registered', /DIAL_NAMES = \['height', 'belly', 'arms', 'shoulders', 'armLength'\]/.test(BV));
+ok('the amplitudes are GROUNDED in real anthropometry, not picked',
+  /biacromial-to-biiliac/.test(BV) && /1\.4 in men and 1\.2 in women/.test(BV) &&
+  /arm span tracks height/i.test(BV) && /1\.00 and 1\.05/.test(BV));
+ok('shoulders is +-20% and arm length is the narrow +-12%',
+  /shoulders: 0\.20/.test(BV) && /armLength: 0\.12/.test(BV));
+ok('the TORSO answers to two dials, summed as width and never multiplied',
+  /also: \{ dial: 'shoulders'/.test(BV) && /summed as fractional width, never multiplied/.test(BV));
+ok('the shoulder profile is ZERO at the hip (the hip does not move)',
+  /the hip is the hip: it does not move/.test(BV));
+ok('ARM LENGTH is a BONE dial scaled from the shoulder, so the arm cannot tear off',
+  /function warpArmLength/.test(BV) && /that is where an arm hangs from/.test(BV));
+ok('THE ARMS RIDE THE SHOULDER, not just the belly',
+  /if \(\(v\.belly \|\| v\.shoulders\) && src\[4\]\)/.test(BV));
+ok('the dead-in-one-direction measurement is recorded at the code',
+  /18px at every setting from -1 to 0/.test(BV));
+ok('the 1px void fix lives in the OUTLINE, where the bug actually was',
+  /CLOSE 1PX VOIDS/.test(src) && /if\(px\[i\+1\]&&px\[i-1\]&&px\[i\+CW\]&&px\[i-CW\]\)/.test(src));
+ok('the void fix cannot eat armpits or crotch gaps',
+  /a cell with even one empty\s*\n?\s*neighbour is left alone|one empty neighbour is left alone/.test(src));
+ok('the law pins the measured numbers', /\*\*16 \/ 18 \/ 20\*\*/.test(fs.readFileSync(SALAW,'utf8')) &&
+  /14\.08 \/ 16\.00 \/ 17\.92 px/.test(fs.readFileSync(SALAW,'utf8')));
+ok('the law states NO FEMALE RIG, ever',
+  /\*\*No female rig\. Ever\.\*\*/.test(fs.readFileSync(SALAW,'utf8')));
+ok('sex-aware FAT distribution is flagged as his call, not assumed',
+  /\[PENDING, Paolo's call\]/.test(fs.readFileSync(SALAW,'utf8')));
+
 done();
