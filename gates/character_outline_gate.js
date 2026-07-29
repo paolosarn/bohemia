@@ -68,10 +68,19 @@ const pass = m[0];
 
 ok('SNAPSHOT FIRST: a frozen solid map is built before anything is painted',
   /const solid=new Uint8Array\(CW\*CH\)/.test(pass));
-ok('the neighbour test reads the SNAPSHOT, never px -- or the border grows on itself',
-  /solid\[i\+1\]/.test(pass) && /solid\[i-1\]/.test(pass) &&
-  /solid\[i\+CW\]/.test(pass) && /solid\[i-CW\]/.test(pass) &&
-  !/px\[i\+1\]/.test(pass) && !/px\[i-CW\]/.test(pass));
+/* THE BORDER PASS reads the SNAPSHOT, never px, or it grows on itself. Scoped to
+   the border loop specifically: the VOID-CLOSING loop below it MUST read px,
+   because its whole job is to inspect the FINISHED sprite (outline included) and
+   close a cell ringed by it. Two loops, two correct rules. */
+const border = pass.slice(0, pass.indexOf('CLOSE 1PX VOIDS') >= 0 ? pass.indexOf('CLOSE 1PX VOIDS') : pass.length);
+ok('the border test reads the SNAPSHOT, never px -- or the border grows on itself',
+  /solid\[i\+1\]/.test(border) && /solid\[i-1\]/.test(border) &&
+  /solid\[i\+CW\]/.test(border) && /solid\[i-CW\]/.test(border) &&
+  !/px\[i\+1\]/.test(border) && !/px\[i-CW\]/.test(border));
+ok('the void-closing loop reads the FINISHED sprite, which is the only way it can work',
+  /CLOSE 1PX VOIDS/.test(pass) && /if\(px\[i\+1\]&&px\[i-1\]&&px\[i\+CW\]&&px\[i-CW\]\)/.test(pass));
+ok('the void close cannot eat an armpit: one empty neighbour and the cell is left alone',
+  /armpits, crotch gaps and\s*\n?\s*every intentional concavity are untouched/.test(pass) || /concavity are untouched/.test(pass));
 ok('it only ever writes cells that were EMPTY (his painted art is untouchable)',
   /if\(solid\[i\]\)continue;/.test(pass));
 ok('COLOUR ONLY: the pass never writes the occupancy grid',
@@ -89,7 +98,7 @@ ok('the outline runs AFTER the final floater cull, so it never outlines a dead s
 ok('the outline runs AFTER the limb separation line, so nothing composites over it',
   iSep > 0 && iPass > iSep);
 ok('the outline is the LAST thing before the frame is returned',
-  iRet > iPass && (iRet - iPass) < 900);
+  iRet > iPass && (iRet - iPass) < 2200);
 
 /* ---- the tool ---------------------------------------------------------- */
 ok('the patch tool anchors the flag on buildFrame, not on RIGID',

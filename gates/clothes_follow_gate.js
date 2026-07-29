@@ -149,7 +149,13 @@ ok('the law pins the measured numbers', /\*\*16 \/ 18 \/ 20\*\*/.test(fs.readFil
   /14\.08 \/ 16\.00 \/ 17\.92 px/.test(fs.readFileSync(SALAW,'utf8')));
 ok('the law states NO FEMALE RIG, ever',
   /\*\*No female rig\. Ever\.\*\*/.test(fs.readFileSync(SALAW,'utf8')));
-ok('sex-aware FAT distribution is flagged as his call, not assumed',
-  /\[PENDING, Paolo's call\]/.test(fs.readFileSync(SALAW,'utf8')));
+/* HE RULED ON IT THE SAME DAY, so the gate now pins the RULING instead of the
+   open question: "nah when i put fat its like your fat fuck that woman belly
+   shit... more unisex vibes". Fat is fat. */
+ok('his FAT IS FAT ruling is recorded, and the research it overrules is named',
+  /\*\*FAT IS FAT\.\*\*/.test(fs.readFileSync(SALAW,'utf8')) &&
+  /deliberately \*\*overruled\*\*/.test(fs.readFileSync(SALAW,'utf8')));
+ok('how a woman reads is recorded in HIS words, and needs no new mechanism',
+  /slightly skinnier arms, shorter/.test(fs.readFileSync(SALAW,'utf8')));
 
 done();

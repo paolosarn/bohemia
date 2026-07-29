@@ -85,13 +85,24 @@ dial merely exposed.
 Sheet: `records/dials/NEW_DIALS_7_29_26.png` — last column is the point: a
 narrower, softer silhouette out of one rig.
 
-## 7. STILL OPEN
+## 7. FAT IS FAT — HIS RULING, 7/29/26, THE SAME DAY
 
-Fat DISTRIBUTION is not yet sex-aware. The research is unambiguous — male fat
-goes to the belly (android), female to hip and thigh (gynoid), and the same
-growth data shows boys widening in the upper body while girls widen in the lower
-limbs. Today the belly dial swells the navel for everybody. Making the fat follow
-the shoulder setting is the natural next move and is **[PENDING, Paolo's call]**,
-because it changes what his existing belly dial does to his own character.
+I asked whether fat should follow the shoulder setting (male belly / female hip
+and thigh). **He said no, and closed it:**
 
-Gate: `gates/clothes_follow_gate.js`.
+> "nah when i put fat its like your fat fuck that woman belly shit. these
+> characters are going to be more unisex vibes and you can tell a woman is a woman
+> because their arms can be slightly skinnier, they are shorter and yeah."
+
+**FAT IS FAT.** One behaviour for everybody. There is no sex-aware fat
+distribution and there is not going to be one — the research says male fat is
+android and female gynoid, and it is being deliberately **overruled** because
+Bohemia's cast is unisex by design, not by accident.
+
+**HOW A WOMAN READS, in his words:** slightly skinnier arms, shorter, and the
+narrower shoulder this addendum added. Every one of those is a dial that already
+exists. That is the whole female body plan and it needs no new mechanism.
+
+The gate pins it: no `hips`, no `bust`, no `fatDistribution` dial may appear.
+
+Gate: `gates/clothes_follow_gate.js` + `gates/bodyvar_gate.js`.

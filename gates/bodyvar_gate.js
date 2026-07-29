@@ -394,8 +394,21 @@ function scan(grid, d) {
    9. THE RANGES ARE DECLARED IN ONE PLACE (so a verdict is a one-line edit)
    --------------------------------------------------------------------------- */
 ok('the dial amplitudes live in one declared table', !!(BV.AMP && typeof BV.AMP.height === 'number' && typeof BV.AMP.belly === 'number' && typeof BV.AMP.arms === 'number'));
+/* MECHANISM-MINE / CONTENTS-PAOLO'S still holds -- the list only grows when HE
+   names a dial. height/belly/arms were his; SHOULDERS and ARM LENGTH are his too,
+   asked for by name on 7/29 ("arm length and how fat someone is... widening
+   shortening the shoulder parts of the rig... these sliders will help us make
+   that [a woman] "). Nothing here was invented by me, and the exact-match keeps
+   it that way. */
 ok('only the dials Paolo named exist (no invented dials -- MECHANISM-MINE/CONTENTS-PAOLO\'S)',
-  BV.DIAL_NAMES.join(',') === 'height,belly,arms');
+  BV.DIAL_NAMES.join(',') === 'height,belly,arms,shoulders,armLength');
+/* HIS 7/29 RULING ON FAT, recorded because it CLOSES a question I had open:
+   "nah when i put fat its like your fat fuck that woman belly shit. these
+   characters are going to be more unisex vibes." Fat is fat. There is no
+   sex-aware fat distribution and there is not going to be one. */
+ok('FAT IS FAT: no sex-aware distribution dial was added behind his back',
+  BV.DIAL_NAMES.indexOf('hips') < 0 && BV.DIAL_NAMES.indexOf('bust') < 0 &&
+  BV.DIAL_NAMES.indexOf('fatDistribution') < 0);
 ok('a dial value outside [-1,1] is clamped, never trusted', BV.clampDial(4) === 1 && BV.clampDial(-4) === -1 && BV.clampDial('x') === 0);
 
 done();
