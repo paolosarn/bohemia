@@ -223,6 +223,31 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    squint test applies | approved LAMP DARK VARIANTS as the nearest tonal
    reference | RUN lane | MED | FORM: TF-RUN-007
 
+99. OPEN | THE RESOURCES CURRENCY MARK (apple + hammer + duct tape, composed
+   into ONE icon) | PHONE (Wallet), city-builder build costs, pickup readouts —
+   the three currencies were locked 7/26 and NONE of them has a face; the Wallet
+   app is a tile with nothing to show | UI/prop layer, single placement, must
+   read at 32px; THE SOLID-BLACK TEST is the acceptance gate (fill it black - if
+   the blob is a lump the composition failed) | no approved anchor exists: this
+   is the game's FIRST UI icon, so the frozen visual constitution is the anchor |
+   Paolo direct 7/28 | HIGH | FORM: TF-RUN-008
+100. OPEN | THE ENERGY CURRENCY MARK (jerrycan + AA battery + lightning bolt,
+   composed into ONE icon) | PHONE (Wallet), power costs, lit-block readouts —
+   the currency most tied to the game's core (12% lit, LIGHT=TERRITORY,
+   powergrid, the solar/substation/battery districts) and it has no face | UI/prop
+   layer, single placement, 32px; GLOW CEILING is the live risk (an electricity
+   icon wants to glow and the act-1 ceiling is MEASURED) and so is purple |
+   the constitution's glow ceiling + purity gate | Paolo direct 7/28 | HIGH |
+   FORM: TF-RUN-009
+101. OPEN | THE CLOUT CURRENCY MARK (a crowd + a speech bubble, composed into
+   ONE icon) | PHONE (Wallet + the ME tab beside followers), clout costs — the
+   currency with the MOST machinery already built (clout math, follower-scaled
+   comment volume, socialProfile) and the least visibility | UI/prop layer,
+   single placement, 32px; the crowd must read as ONE MASS not countable heads,
+   and the bubble's tail is the first casualty at small size. NEVER ON A FEED
+   POST - the visible clout badge was KILLED 7/21 | Cyberpunk street cred as the
+   outside ref | Paolo direct 7/28 | HIGH | FORM: TF-RUN-010
+
 =============================================================================
 ## OPEN — MED
 =============================================================================
