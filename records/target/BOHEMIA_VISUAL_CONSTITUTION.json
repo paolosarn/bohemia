@@ -15,11 +15,13 @@
    ]
   },
   "tileset": {
-   "path": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
-   "md5": "f470e7cbae7695c15642174d25e52041",
-   "tiles": 42
+   "path": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "md5": "0cfb2204a186ef22522bd151c5d140ad",
+   "tiles": 42,
+   "superseded": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt (md5 f470e7cbae7695c15642174d25e52041), frozen 7/26 by the CBB verdict on the target screen",
+   "ruling": "Paolo 7/28: \"I checked it to do the other 41 mark it approved\". Paolo 7/29, asked A or B on the LIFE-tab judge card where A was this re-cook and B was a 39-colour master palette: \"A\". Approved twice. This is the NEW RULING FROM PAOLO the note below requires; the 7/26 freeze is superseded by his own later word, newest date wins."
   },
-  "note": "changing either of these requires a NEW RULING FROM PAOLO, not a new render. CBB does not get quietly improved."
+  "note": "changing either of these requires a NEW RULING FROM PAOLO, not a new render. CBB does not get quietly improved. The tileset moved on 7/29 under exactly that clause and carries his words in its own \"ruling\" field; the FRAME has not moved and is still the picture he verdicted."
  },
  "proxies": {
   "palette": {

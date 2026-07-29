@@ -53,6 +53,14 @@ SUPERSEDED = {
         'future cleanup knows it is deliberate',
     'BOHEMIA_QUEST_JUDGE_7_25_26.html':
         'superseded by BOHEMIA_QUEST_JUDGE_7_26_26.html (next day, same lane)',
+    'BOHEMIA_PALETTE_JUDGE_7_29_26.html':
+        'ANSWERED, same day it shipped. Paolo 7/29: "A". The hub is a to-do list for '
+        'his thumb, not an archive, and a card asking a question he already answered '
+        'is the surface equivalent of asking him to re-confirm his own words - which '
+        'NOTES ARE RULINGS bans. The verdict lives in '
+        'records/BOHEMIA_PALETTE_VERDICT_7_29_26.txt and the losing side is in the '
+        'graveyard; the page stays on disk as the thing he was actually looking at '
+        'when he ruled.',
     'BOHEMIA_SUBURB_JUDGE_7_18_26.html':
         'DEAD by laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md - it sat ten days '
         'unlinked and unjudged, and bulk silence IS a verdict. Districts are judged '

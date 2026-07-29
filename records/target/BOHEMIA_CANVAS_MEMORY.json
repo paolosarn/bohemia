@@ -9,14 +9,14 @@
  "tileset": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
  "tileset_md5": "f470e7cbae7695c15642174d25e52041",
  "worst_surface": "ALPHA (the shipped build)",
- "worst_resident_peak_mb": 97.5,
- "worst_pct_of_floor": 43.5,
+ "worst_resident_peak_mb": 98.7,
+ "worst_pct_of_floor": 44,
  "surfaces": [
   {
    "surface": "BOHEMIA_RUN_CURRENT.html",
    "name": "RUN (the walked world)",
    "why": "the surface that streams cells and therefore the one that can climb forever",
-   "load_ms": 9349,
+   "load_ms": 10604,
    "exercise": "walk",
    "exercise_proof": {
     "before": {
@@ -28,15 +28,15 @@
     "exit": {
      "got_out": true,
      "at": [
-      77,
-      112
+      83,
+      16
      ],
-     "steps": 18,
+     "steps": 19,
      "door": [
-      9,
+      10,
       11
      ],
-     "path_len": 18
+     "path_len": 19
     },
     "after": {
      "x": 125,
@@ -48,10 +48,10 @@
    },
    "moments": [
     {
-     "canvas": 955504,
-     "canvases": 2,
-     "img": 8068608,
-     "imgs": 372,
+     "canvas": 1272968,
+     "canvases": 3,
+     "img": 8997888,
+     "imgs": 385,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -59,15 +59,15 @@
        "kind": "canvas",
        "id": "cv",
        "w": 390,
-       "h": 602,
-       "bytes": 939120
+       "h": 795,
+       "bytes": 1240200
       },
       {
        "kind": "img",
        "id": "(img)",
-       "w": 88,
-       "h": 176,
-       "bytes": 61952
+       "w": 792,
+       "h": 264,
+       "bytes": 836352
       },
       {
        "kind": "img",
@@ -116,20 +116,20 @@
      "by_frame": [
       {
        "frame": "(main)",
-       "canvases": 2,
-       "canvas_mb": 0.9,
-       "img_mb": 7.7
+       "canvases": 3,
+       "canvas_mb": 1.2,
+       "img_mb": 8.6
       }
      ],
-     "total": 9024112,
+     "total": 10270856,
      "moment": "loaded",
-     "heap_precise": 10587492
+     "heap_precise": 10954340
     },
     {
-     "canvas": 955504,
-     "canvases": 2,
-     "img": 8068608,
-     "imgs": 372,
+     "canvas": 1272968,
+     "canvases": 3,
+     "img": 8997888,
+     "imgs": 385,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -137,15 +137,15 @@
        "kind": "canvas",
        "id": "cv",
        "w": 390,
-       "h": 602,
-       "bytes": 939120
+       "h": 795,
+       "bytes": 1240200
       },
       {
        "kind": "img",
        "id": "(img)",
-       "w": 88,
-       "h": 176,
-       "bytes": 61952
+       "w": 792,
+       "h": 264,
+       "bytes": 836352
       },
       {
        "kind": "img",
@@ -194,20 +194,20 @@
      "by_frame": [
       {
        "frame": "(main)",
-       "canvases": 2,
-       "canvas_mb": 0.9,
-       "img_mb": 7.7
+       "canvases": 3,
+       "canvas_mb": 1.2,
+       "img_mb": 8.6
       }
      ],
-     "total": 9024112,
+     "total": 10270856,
      "moment": "out of the house",
-     "heap_precise": 10703172
+     "heap_precise": 11314480
     },
     {
-     "canvas": 955504,
-     "canvases": 2,
-     "img": 8068608,
-     "imgs": 372,
+     "canvas": 1272968,
+     "canvases": 3,
+     "img": 8997888,
+     "imgs": 385,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -215,15 +215,15 @@
        "kind": "canvas",
        "id": "cv",
        "w": 390,
-       "h": 602,
-       "bytes": 939120
+       "h": 795,
+       "bytes": 1240200
       },
       {
        "kind": "img",
        "id": "(img)",
-       "w": 88,
-       "h": 176,
-       "bytes": 61952
+       "w": 792,
+       "h": 264,
+       "bytes": 836352
       },
       {
        "kind": "img",
@@ -272,20 +272,20 @@
      "by_frame": [
       {
        "frame": "(main)",
-       "canvases": 2,
-       "canvas_mb": 0.9,
-       "img_mb": 7.7
+       "canvases": 3,
+       "canvas_mb": 1.2,
+       "img_mb": 8.6
       }
      ],
-     "total": 9024112,
+     "total": 10270856,
      "moment": "after 120 steps",
-     "heap_precise": 10763748
+     "heap_precise": 11367144
     },
     {
-     "canvas": 955504,
-     "canvases": 2,
-     "img": 8068608,
-     "imgs": 372,
+     "canvas": 1272968,
+     "canvases": 3,
+     "img": 8997888,
+     "imgs": 385,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -293,15 +293,15 @@
        "kind": "canvas",
        "id": "cv",
        "w": 390,
-       "h": 602,
-       "bytes": 939120
+       "h": 795,
+       "bytes": 1240200
       },
       {
        "kind": "img",
        "id": "(img)",
-       "w": 88,
-       "h": 176,
-       "bytes": 61952
+       "w": 792,
+       "h": 264,
+       "bytes": 836352
       },
       {
        "kind": "img",
@@ -350,33 +350,33 @@
      "by_frame": [
       {
        "frame": "(main)",
-       "canvases": 2,
-       "canvas_mb": 0.9,
-       "img_mb": 7.7
+       "canvases": 3,
+       "canvas_mb": 1.2,
+       "img_mb": 8.6
       }
      ],
-     "total": 9024112,
+     "total": 10270856,
      "moment": "after 480 steps",
-     "heap_precise": 10780188
+     "heap_precise": 11459188
     }
    ],
-   "peak_bytes": 9024112,
-   "peak_mb": 8.6,
-   "heap_peak_bytes": 10780188,
-   "heap_peak_mb": 10.3,
-   "resident_peak_bytes": 19804300,
-   "resident_peak_mb": 18.9,
+   "peak_bytes": 10270856,
+   "peak_mb": 9.8,
+   "heap_peak_bytes": 11459188,
+   "heap_peak_mb": 10.9,
+   "resident_peak_bytes": 21730044,
+   "resident_peak_mb": 20.7,
    "growth_under_exercise_mb": 0,
-   "heap_growth_under_exercise_mb": 0.2,
-   "pct_of_ios_floor": 8.4,
-   "pct_of_ios_floor_pixels_only": 3.8,
-   "surface_md5": "3962fda7049c83d9754647608ecbdbe9"
+   "heap_growth_under_exercise_mb": 0.5,
+   "pct_of_ios_floor": 9.3,
+   "pct_of_ios_floor_pixels_only": 4.4,
+   "surface_md5": "62bf0472e098c7fb56f88a9b6d65d2e2"
   },
   {
    "surface": "BOHEMIA_CITY_CURRENT.html",
    "name": "CITY (the map)",
    "why": "the other shipped world surface",
-   "load_ms": 3662,
+   "load_ms": 3646,
    "exercise": null,
    "exercise_proof": {},
    "moments": [
@@ -426,7 +426,7 @@
    "surface": "BOHEMIA_ALPHA_0_9.html",
    "name": "ALPHA (the shipped build)",
    "why": "what Paolo actually taps: every tab, every baked body, all in one page",
-   "load_ms": 24548,
+   "load_ms": 23424,
    "exercise": "tabs",
    "exercise_proof": {
     "tabs": [
@@ -446,26 +446,26 @@
    },
    "moments": [
     {
-     "canvas": 804528,
-     "canvases": 13,
-     "img": 8068608,
-     "imgs": 372,
+     "canvas": 820912,
+     "canvases": 14,
+     "img": 8997888,
+     "imgs": 385,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
+      {
+       "kind": "img",
+       "id": "(img)",
+       "w": 792,
+       "h": 264,
+       "bytes": 836352
+      },
       {
        "kind": "canvas",
        "id": "logobig",
        "w": 500,
        "h": 135,
        "bytes": 270000
-      },
-      {
-       "kind": "img",
-       "id": "(img)",
-       "w": 88,
-       "h": 176,
-       "bytes": 61952
       },
       {
        "kind": "img",
@@ -514,9 +514,9 @@
      "by_frame": [
       {
        "frame": "runFrame",
-       "canvases": 1,
+       "canvases": 2,
        "canvas_mb": 0,
-       "img_mb": 7.7
+       "img_mb": 8.6
       },
       {
        "frame": "(main)",
@@ -525,15 +525,15 @@
        "img_mb": 0
       }
      ],
-     "total": 8873136,
+     "total": 9818800,
      "moment": "loaded",
-     "heap_precise": 48475796
+     "heap_precise": 49329728
     },
     {
-     "canvas": 56390248,
+     "canvas": 55458152,
      "canvases": 2604,
-     "img": 8772680,
-     "imgs": 378,
+     "img": 9701960,
+     "imgs": 391,
      "bitmap": 0,
      "bitmaps": 0,
      "biggest": [
@@ -541,8 +541,8 @@
        "kind": "canvas",
        "id": "cv",
        "w": 780,
-       "h": 1068,
-       "bytes": 3332160
+       "h": 1038,
+       "bytes": 3238560
       },
       {
        "kind": "canvas",
@@ -552,11 +552,11 @@
        "bytes": 1179360
       },
       {
-       "kind": "canvas",
-       "id": "cv",
-       "w": 390,
-       "h": 548,
-       "bytes": 854880
+       "kind": "img",
+       "id": "(img)",
+       "w": 792,
+       "h": 264,
+       "bytes": 836352
       },
       {
        "kind": "canvas",
@@ -605,8 +605,8 @@
       {
        "frame": "runFrame",
        "canvases": 193,
-       "canvas_mb": 9.7,
-       "img_mb": 7.7
+       "canvas_mb": 8.9,
+       "img_mb": 8.6
       },
       {
        "frame": "mapFrame",
@@ -617,7 +617,7 @@
       {
        "frame": "combatFrame",
        "canvases": 3,
-       "canvas_mb": 3.5,
+       "canvas_mb": 3.4,
        "img_mb": 0
       },
       {
@@ -639,22 +639,22 @@
        "img_mb": 0
       }
      ],
-     "total": 65162928,
+     "total": 65160112,
      "moment": "every tab opened",
-     "heap_precise": 37025836
+     "heap_precise": 38300240
     }
    ],
-   "peak_bytes": 65162928,
+   "peak_bytes": 65160112,
    "peak_mb": 62.1,
-   "heap_peak_bytes": 48475796,
-   "heap_peak_mb": 46.2,
-   "resident_peak_bytes": 102188764,
-   "resident_peak_mb": 97.5,
-   "growth_under_exercise_mb": 53.7,
-   "heap_growth_under_exercise_mb": -10.9,
-   "pct_of_ios_floor": 43.5,
+   "heap_peak_bytes": 49329728,
+   "heap_peak_mb": 47,
+   "resident_peak_bytes": 103460352,
+   "resident_peak_mb": 98.7,
+   "growth_under_exercise_mb": 52.8,
+   "heap_growth_under_exercise_mb": -10.5,
+   "pct_of_ios_floor": 44,
    "pct_of_ios_floor_pixels_only": 27.7,
-   "surface_md5": "4e8ae1540bd7db4706a0f5fc4b2773e3"
+   "surface_md5": "f5a108703385778283bd3a9e67015271"
   }
  ]
 }

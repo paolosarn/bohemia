@@ -1,78 +1,81 @@
-ART (f3eu53): 7/29 (a) LATEST — ONE MASTER PALETTE, ON THE REAL STREET. 39 COLOURS
-FOR THE WHOLE SET, AND THE M14 GREYSCALE FAILURE ACTUALLY FIXED (6.5 -> 13.3).
+ART (f3eu53): 7/29 (b) LATEST — PAOLO RULED "A". THE MASTER PALETTE IS DEAD, AND THE
+TILES HE APPROVED ON 7/28 ARE FINALLY IN THE GAME.
 
-**PAOLO HAS NOT JUDGED THIS.** He judged the palette SHEET ("YOUR CLEARLY NOT DONE
-I LIKE IT KEEP GOING") — the swatches, not the street. The candidate bank is NOT
-wired into the game. **NOT IN A TAB YET.** The only way to see it is the A/B image,
-`records/target/PALETTE_AB.png`.
+THE RULING: asked A or B on the LIFE-tab judge card, he said **"A"** — the 7/28
+re-cook (orange roofs, 150 colours). B, the 39-colour master palette, is KILLED.
+Verdict: records/BOHEMIA_PALETTE_VERDICT_7_29_26.txt. Graveyard + post-mortem:
+gates/bohemia_graveyard.txt, 2026-07-29.
 
-WHAT SHIPPED
-  banks/BOHEMIA_STARTER_TILESET_ACT1_MASTER_7_29_26.txt   the candidate, 42 tiles
-  records/BOHEMIA_MASTER_PALETTE_7_29_26.md               the full record + the A/B
-  records/target/PALETTE_AB.png                           three columns, colour + greyscale
-  tools/bohemia_master_palette_design.py                  PASS 1 value skeleton, PASS 2 hue
-  tools/bohemia_palette_apply.py                          puts it on the real tiles
-  tools/bohemia_master_palette_proof.js                   drives all three in a real browser
-  tools/bohemia_palette_ab.py                             composes the judgeable picture
-  gates/master_palette_gate.py                            NEW GATE, registered as MASTER PALETTE
+THE THING THAT MATTERED MORE THAN THE RULING. Executing it exposed a debt owed since
+7/28: he approved the re-cook that day, and **it was never wired in.** The run had
+been shipping the FROZEN 7/26 set this whole time (version ..._ACT1_v1, md5
+f470e7cb). The tiles he approved, and has now picked TWICE, had never once been on
+his screen inside the actual run. NOTES ARE RULINGS says build it into the real
+thing the same turn. Nobody did, and nothing in the machine noticed. THAT is the
+class of miss worth guarding against — an approval that lands in a bank and stops.
 
-THE NUMBER THAT MATTERS: roof-to-ground separation was 6.5 and is now 13.3. At 6.5
-a terracotta roof and a gravel yard are the same VALUE — in colour you can tell them
-apart, in greyscale the roofs dissolve into the ground and buildings stop reading as
-buildings. The bottom row of the A/B is that test with the colour off. Look at it
-before touching any of this.
+WIRED NOW, AND WHY THAT WAS LEGAL. The starter tileset is byte-locked by
+records/target/BOHEMIA_VISUAL_CONSTITUTION.json (target screen verdicted CBB 7/26;
+CBB ships frozen). The constitution's OWN note names the one thing that moves it:
+"changing either of these requires a NEW RULING FROM PAOLO, not a new render."
+There are two — 7/28 "mark it approved", 7/29 "A" — and NEWEST DATE WINS is the
+truth hierarchy, not a loophole. The constitution now points at the re-cook and
+carries his words verbatim in a `ruling` field. tools/build_run_slice.js TS_PATH
+moved with it. **The frozen FRAME did not move**; he verdicted that picture and it
+is still the picture.
+  -> This is the ONLY legitimate reason a baseline ever moves: a human ruling,
+     quoted and dated. Never because the code was easier to change than the gate.
 
-STRUCTURE: seven families, all subsets of ONE 39-colour palette. The 7/28 re-cook
-had six INDEPENDENT ramps that knew nothing about each other — the named amateur
-pattern, "each sprite has its own unrelated colour scheme". Value carries the
-greyscale separation; SATURATION carries the material read. Asking value to do both
-produced mud-coloured roofs on pass 3.
+VERIFIED ON THE REAL SURFACE, not asserted: tools/bohemia_street_shot.js walks OUT
+the front door (BFS over the interior's own pass grid, last step pressed ON THE
+BEAT because walking into a shut door spends the press opening it) and shoots the
+street — because the INTERIOR does not use the street tiles at all, so a bedroom
+screenshot proves nothing about a tileset swap. records/target/STREET_NOW.png.
+target_match_gate then validated 266 checks against the NEW set: the re-cook obeys
+the constitution's proxies, it did not just replace them.
 
-AND THE PART WORTH READING, because it is the same lesson four times: **I invented a
-number in a place where the approved set was sitting right there waiting to be
-measured.** Four passes, four failures, all four caught by rendering the frame and
-LOOKING at it, none of them caught by a gate:
-  1. per-tile rank mapping -> a wall in shadow came out as bright as a wall in sun,
-     and the light-direction pairs passed BY LUCK.
-  2. accents defined as "outside the ramp" -> 58.6% of the roof ridge, its MAIN BODY
-     COLOUR, escaped as "sun-caught" and dragged roofs to 158 against a design of 78.
-  3. no band for HOLES -> 39.2% of the approved corpus's structure pixels sit under
-     luminance 48 (door interiors, glass, the dark under an eave). They had nowhere
-     to go, got compressed into the wall band, and EVERY BLACK DOORWAY ON THE STREET
-     TURNED INTO A LIGHT GREY PANEL. Plus bands 52/54/52 wide against a corpus that
-     spans 106/93/110.
-  4. invented saturation -> walls at 0.160 against the corpus's 0.411. Cold and washed.
-Passes 1 and 2 had BETTER NUMBERS than the thing they replaced and a WORSE PICTURE.
-That is the Pixel Bible's own failure record, live: *a green number, and a picture
-nobody looked at.*
+WHAT DIED WITH B: the bank, the designer, the applier, the A/B composer, the proof
+harness, and gates/master_palette_gate.py (its own docstring said "if Paolo kills
+it, this gate goes with it" — a gate guarding a corpse is rot). Unregistered from
+the suite. GRAVEYARD IS FINAL: no remake, no "one more pass at cohesion", no
+reviving the value-skeleton set under a new date.
 
-THE NEW GATE holds the STRUCTURE and has no opinion on the taste: every pixel is a
-colour that exists in the designed palette (not "close to" — in it), the void band
-still exists, the colour count cannot climb back, roof clears ground by 12+, and the
-five light-direction pairs hold. 53 checks. PROVED IT CAN FAIL: wrote one off-palette
-colour into wall_0, watched it go red, restored.
+WHAT SURVIVED B, because it is measurement and not art (records/BOHEMIA_MASTER_
+PALETTE_7_29_26.md) and it is true of ANY future set:
+  - 39.2% of approved structure pixels sit under luminance 48. Holes (doorways,
+    glass, eave shadow) are their own MATERIAL, not a dark value of the wall.
+  - The corpus's real per-band spreads are 106 / 93 / 110 wide, not the 52/54/52 I
+    invented. "Where the corpus has it" means the SPREAD as well as the mean.
+  - Measured per-family saturation: asphalt 0.20, concrete 0.35, desert 0.52,
+    stucco 0.51, terracotta 0.81, deck 0.39.
+  - Value carries greyscale separation; SATURATION carries the material read.
 
-WHAT IS NOT FIXED (all stated in the record, none hidden):
-  - wall_0 vs wall_under_eave went from 10.3 luminance apart to 2.8. The eave shadow
-    is still correct in direction but quieter, because the whole stucco source span
-    is squeezed onto a 90-wide band.
-  - ramps still spaced in RGB, not perceptually (M6 debt).
-  - banks still store RGB, not palette indices (M9 debt) — this is a 39-colour
-    palette stored as 39 repeated triples.
+THE LESSON, and it is the third time it has been written down: **I invented a number
+in a place where the set he already approved was sitting right there waiting to be
+measured.** And the numbers on B were REAL — greyscale separation 6.5 -> 13.3, 150
+colours -> 39, zero orphan pixels, 53 machine checks — and it lost anyway, because
+what he is choosing is what the game LOOKS like and a metric is not a look. I also
+wrote a FOURTH version of the applier; STOP PRODUCING names that as the tell you
+already failed, and I wrote it anyway.
 
-WHAT IS PENDING PAOLO, and none of it should be decided by a session:
-  1. THE PALETTE ITSELF. Column 2 (hot orange roofs, more punch) vs column 3 (cohesive,
-     fixes greyscale). That is a taste call about what rebuilt Vegas looks like.
-  2. what colour rebuilt Vegas is, in his words (open since 7/27)
-  3. cars 2x3 vs the re-cook's shorter read (open since 7/28)
-  4. TF-ART-017's parapet_corner duplicates TF-ART-012's parapet cap — coordinator call
-  5. a verifier added board row 97 in the reserved 90-99 range; may now collide with
-     the rows 28-37 this lane added
+THE OTHER MISS WORTH COPYING: he asked "WHERE DO I SEE?" and the answer was nowhere
+— I had shipped an A/B image into the chat and called that showing him. The judge
+card was then built into the LIFE tab, and its FIRST version rendered two blank
+rectangles (it fetch()ed the banks; Chromium blocks fetch on file://). Caught only
+by driving the page in a real browser. A file that exists is not a page that works.
+That card is now off the hub (answered same day; the hub is a to-do list for his
+thumb, not an archive) with a named exemption in gates/name_the_tab_gate.py.
 
-IF HE APPROVES THE PALETTE: the 42-tile candidate becomes the set, the 18 tile forms
-(TF-ART-001..018) cook against these 39 colours, and the bank gets wired so it is IN
-A TAB. If he kills it, the 7/28 re-cook stands and gates/master_palette_gate.py goes
-with the candidate.
+BUILD STAMP: 7/29b - YOUR TILES ARE IN THE GAME (RUN TAB). ALL GATES GREEN (462s).
 
-DO NOT re-cook anything before he rules. Four versions of one thing already happened
-here and the STOP PRODUCING law names that as the tell.
+WHAT IS PENDING PAOLO — none of it decidable by a session:
+  1. what colour rebuilt Vegas is, in his words (open since 7/27)
+  2. cars 2x3 vs the re-cook's shorter read (open since 7/28)
+  3. TF-ART-017's parapet_corner duplicates TF-ART-012's parapet cap — coordinator
+  4. a verifier added board row 97 in the reserved 90-99 range; may collide with the
+     rows 28-37 this lane added
+
+NEXT UNBLOCKED WORK FOR THIS LANE: the palette question is settled and the approved
+set is live, which UNLOCKS VOLUME. The eighteen filled forms (records/tileforms/
+TF-ART-001..018) cook against the re-cook's colours now, top of the board first.
+Do NOT cook a variant of anything B touched.

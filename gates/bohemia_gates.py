@@ -332,10 +332,6 @@ GATES = [
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '
      'a judgement of whether it looks good', False),
-    ('MASTER PALETTE', ['python3', 'gates/master_palette_gate.py'],
-     'the candidate one-palette set is actually built the way it claims: every pixel a '
-     'colour that exists in the designed palette, the band for HOLES still there, and '
-     'the roof clearing the ground in greyscale — the structure, never the taste', False),
     ('CANVAS MEMORY',  ['python3', 'gates/canvas_memory_gate.py'],
      'section 8 of the mobile render contract, measured: the shipped surfaces stay under '
      'the resident/pixel ratchets and walking the valley does not grow the picture', False),

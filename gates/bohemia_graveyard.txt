@@ -92,3 +92,41 @@ RUN QUEST SLICE (as a TAB) — killed 7/28/26 by Paolo, verbatim: "Kill"
   temptation was to fake those clicks to keep the suite green. Faking them would
   have turned "a person can play this" into "the function runs". The ruling was
   asked for instead, and it came back in one word.
+
+--------------------------------------------------------------------------------
+2026-07-29  THE MASTER PALETTE  (one 39-colour set for the whole game)
+  banks/BOHEMIA_STARTER_TILESET_ACT1_MASTER_7_29_26.txt
+  records/target/BOHEMIA_MASTER_PALETTE_DESIGNED.json
+  slices/BOHEMIA_REASSEMBLY_MASTER_7_29_26.html
+  KILLED BY: Paolo 7/29, one word: "A". Asked A or B on the LIFE-tab judge card;
+  A is the 7/28 re-cook (orange roofs, 150 colours), B was this. He picked A.
+  DEAD MEANS DEAD: no remake, no "one more pass at cohesion", no reviving the
+  value-skeleton set under a new date. A fresh cook answers this slot, if the slot
+  is ever reopened by him and not by me.
+
+  POST-MORTEM. The numbers were real and it still lost, which is the whole lesson.
+  Roof-to-ground greyscale separation genuinely went 6.5 -> 13.3, set-wide colour
+  went 150 -> 39, orphan pixels hit zero, and 53 machine checks held it. None of
+  that was a lie and none of it was enough, because the thing he is choosing is
+  what the game LOOKS like, and a metric is not a look. I built four versions of
+  the applier chasing those numbers; the STOP PRODUCING law names writing a fourth
+  version as the tell that you already failed, and I wrote the fourth one anyway.
+
+  WHAT IS ACTUALLY WORTH KEEPING, and it is not the art: the four measurement
+  findings that came out of the failures, all of which are true of ANY future set
+  and are recorded in records/BOHEMIA_MASTER_PALETTE_7_29_26.md -
+    - 39.2% of the approved corpus's structure pixels sit under luminance 48. Holes
+      (doorways, glass, eave shadow) are their own material, not a dark value of the
+      wall. Treating them as a value is what turned every black doorway grey.
+    - The corpus's real per-band spreads are 106/93/110 wide, not the 52/54/52 I
+      invented. Holding a band "where the corpus has it" means the SPREAD as well as
+      the mean.
+    - Per-family saturation, measured: 0.20/0.35/0.52/0.51/0.81/0.39. I had guessed
+      numbers less than half of these and the street rendered cold.
+    - Value carries greyscale separation; SATURATION carries the material read.
+      Asking value to do both produces mud.
+  The general lesson, third entry of its kind: I invented a number in a place where
+  the set he already approved was sitting right there waiting to be measured.
+
+  ALSO DEAD WITH IT: gates/master_palette_gate.py, whose own docstring said "if
+  Paolo kills it, this gate goes with it." A gate guarding a corpse is rot.

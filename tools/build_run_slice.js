@@ -109,7 +109,15 @@ html = html.replace('__DOOR_ANIM_JSON__', JSON.stringify({
    yard/concrete/dirt, wall + window/boarded/base/under_eave/ends, door_top and
    door_bottom (the 2-tall door law, in the target's own hand), garage top and
    bottom, and a real hip roof (slope/ridge/eave/four hips) + deck/parapet. ---- */
-var TS_PATH = 'banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt';
+/* 7/29: THIS MOVED, ON HIS WORD, AND IT IS THE ONLY THING THAT EVER MOVES IT.
+   The run shipped the frozen 7/26 set right up until today, which means the tiles
+   Paolo approved on 7/28 ("I checked it to do the other 41 mark it approved") had
+   never once been on his screen inside the actual run. Asked A or B on 7/29 he said
+   "A" — this set — approving it a second time. The constitution's own note says
+   changing the frozen tileset "requires a NEW RULING FROM PAOLO, not a new render";
+   there are two, so it changes. The frozen FRAME does not move: he verdicted that
+   picture and it is still the picture. */
+var TS_PATH = 'banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt';
 var ts = JSON.parse(fs.readFileSync(TS_PATH, 'utf8'));
 var tsMD5 = require('crypto').createHash('md5').update(fs.readFileSync(TS_PATH)).digest('hex');
 var constitution = JSON.parse(fs.readFileSync('records/target/BOHEMIA_VISUAL_CONSTITUTION.json', 'utf8'));

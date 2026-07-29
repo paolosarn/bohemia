@@ -1,0 +1,79 @@
+BOHEMIA — PALETTE VERDICT — 7/29/26
+================================================================================
+
+PAOLO'S WORD, VERBATIM AND COMPLETE:
+
+    "A"
+
+ASKED: LIFE tab, top card, "WHICH ONE IS THE GAME?" — two houses, same map, same
+renderer, tiles the only variable, each shown normal and with the colour drained.
+
+    A = banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt
+        orange roofs, 150 colours, six independent family ramps
+    B = the master palette, one 39-colour set for the whole game
+
+VERDICT: A. APPROVED.
+         B. KILLED — gates/bohemia_graveyard.txt, 2026-07-29, with post-mortem.
+
+================================================================================
+WHAT THIS RULING ACTUALLY SETTLES
+
+The 7/28 re-cook is the game's tile set. That is now his second ruling on the same
+art: on 7/28 he said "I checked it to do the other 41 mark it approved", and on
+7/29 he chose it again over a purpose-built alternative. Approved twice is not
+ambiguous.
+
+AND IT EXPOSES A DEBT I OWED SINCE 7/28. He approved the re-cook that day and it
+was never wired into the game. The run has been shipping the FROZEN 7/26 set this
+whole time — version BOHEMIA_STARTER_TILESET_ACT1_v1, md5 f470e7cb. So the tiles
+he approved, and has now picked twice, have never once been on his screen inside
+the actual run. NOTES ARE RULINGS says build it into the real thing the same turn.
+I did not, and nothing in the machine noticed.
+
+================================================================================
+WHY WIRING IT IS LEGAL, STATED BEFORE DOING IT
+
+The starter tileset is byte-locked by records/target/BOHEMIA_VISUAL_CONSTITUTION.json
+because Paolo verdicted the target screen CBB on 7/26. CBB ships frozen and never
+spawns variants, and gates/target_match_gate.py holds that freeze so a frozen thing
+cannot be quietly re-rendered.
+
+The constitution's own note names the one thing that may move it:
+
+    "changing either of these requires a NEW RULING FROM PAOLO, not a new render.
+     CBB does not get quietly improved."
+
+There is a new ruling from Paolo. Two of them. The 7/26 freeze is superseded by his
+7/28 approval and his 7/29 pick, and NEWEST DATE WINS is the truth hierarchy, not a
+loophole. A gate still enforcing 7/26 after he ruled on 7/28 is enforcing a dead
+ruling — the exact class of rot the hierarchy exists to kill.
+
+So the constitution is updated to point at the re-cook, citing his words. This is
+the ONLY legitimate reason a baseline ever moves: a human ruling, quoted, dated.
+Not because the code was easier to change than the gate.
+
+WHAT DOES NOT MOVE: the frozen target FRAME stays byte-locked. He verdicted that
+picture and it is still the picture. Only the tile set behind it advances, to the
+tiles he approved.
+
+================================================================================
+WHAT DIED, AND WHAT SURVIVED IT
+
+Dead: the 39-colour master palette, its bank, its designer, its applier, its A/B
+composer, its proof harness, its gate. No remake. A fresh cook answers this slot
+if he ever reopens it.
+
+Survived, because it is measurement and not art — recorded in
+records/BOHEMIA_MASTER_PALETTE_7_29_26.md and true of any future set:
+  - 39.2% of approved structure pixels sit under luminance 48. Holes are their own
+    material, not a dark value of the wall.
+  - The corpus's real band spreads are 106 / 93 / 110 wide.
+  - Measured per-family saturation: asphalt 0.20, concrete 0.35, desert 0.52,
+    stucco 0.51, terracotta 0.81, deck 0.39.
+  - Value carries greyscale separation; saturation carries the material read.
+
+THE LESSON, third time it has been written down: I invented a number in a place
+where the set he already approved was sitting right there waiting to be measured.
+And the numbers were real — separation 6.5 to 13.3, 150 colours to 39, zero orphan
+pixels, 53 machine checks — and it lost anyway, because what he is choosing is what
+the game LOOKS like and a metric is not a look.
