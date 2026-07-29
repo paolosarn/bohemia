@@ -6680,82 +6680,112 @@ root.BQRuntime=API;
     G.rect(3,3,W-4,H-4,4);                                   // the campus, dead lawn to the margins
 
     /* ---- THE ACADEMIC BUILDING, north, two-storey, wrapped round a courtyard ---- */
-    G.rect(8,6,104,20,2);                                    // the long classroom spine
-    G.rect(8,20,24,52,2);                                    // west wing
-    G.rect(88,20,104,52,2);                                  // east wing
-    G.rect(26,22,86,44,11);                                  // the courtyard between them
-    G.rect(32,26,44,38,13); G.rect(56,26,68,38,13);          // courtyard planters, gone to weed
-    for(x=30;x<=80;x+=9) set(x,40,3);                        // courtyard trees, dead
-    for(x=12;x<=100;x+=7){ set(x,6,10); set(x,7,10); }       // the window band on the front face
+    G.rect(8,4,104,18,2);                                    // the long classroom spine
+    G.rect(8,18,24,48,2);                                    // west wing
+    G.rect(88,18,104,48,2);                                  // east wing
+    G.rect(26,20,86,34,11);                                  // the courtyard between them
+    G.rect(32,23,44,31,13); G.rect(56,23,68,31,13);          // courtyard planters, gone to weed
+    for(x=30;x<=80;x+=9) set(x,32,3);                        // courtyard trees, dead
+    for(x=12;x<=100;x+=7){ set(x,4,10); set(x,5,10); }       // the window band on the front face
 
     /* ---- THE GYMNASIUM. Its own volume, its own colour, taller than everything: in a
        real high school the gym is the second landmark after the stadium. ---- */
-    G.rect(28,48,76,66,14);
-    for(x=32;x<=72;x+=6){ set(x,48,10); set(x,49,10); }      // clerestory band
-    G.rect(48,66,58,68,11);                                  // the doors out to the field
+    /* CLEAR OF THE STADIUM. The gym and the press box were drawn into each other --
+       two solid masses sharing tiles, which is exactly the meshing Paolo has called out
+       across the whole game. The gym now stops at y=53 and the press box starts at 54. */
+    G.rect(28,38,76,53,14);
+    for(x=32;x<=72;x+=6){ set(x,38,10); set(x,39,10); }      // clerestory band
+    G.rect(48,53,58,55,11);                                  // the doors out to the field
 
     /* ---- PORTABLE CLASSROOMS, the overcrowding annex ---- */
-    for(i=0;i<3;i++){ var py=8+i*11; G.rect(108,py,122,py+8,15); set(109,py+4,10); }
+    for(i=0;i<3;i++){ var py=6+i*11; G.rect(108,py,122,py+8,15); set(109,py+4,10); }
 
     /* ---- THE STADIUM: THE LANDMARK. Track, field, bleachers both sides, four towers.
 
        A RUNNING TRACK IS AN OBROUND, NOT AN ELLIPSE — two straights closed by two
        semicircular ends. Drawn as an ellipse the first time, and the rectangular field
-       inside it punched straight out through the bends, because an ellipse narrows
-       everywhere while a real track holds full width along the whole straight. The
-       infield fits inside a track for exactly this reason and for no other. ---- */
-    var fx=64, fy=88, SL=20, RO=18, RI=12;          // straight half-length, outer/inner radius
-    function obround(px,py,sl,rad){                  // distance test for a stadium shape
+       punched straight out through the bends.
+
+       MOVED UP (Paolo 7/29): the lot below it was too shallow to hold real parking, so
+       the whole stadium shifts north to give the lot the 23 tiles a double-loaded bay
+       actually needs. ---- */
+    var fx=64, fy=78, SL=20, RO=16, RI=11;          // straight half-length, outer/inner radius
+    function obround(px,py,sl,rad){
       var dx=Math.abs(px-fx), dy=Math.abs(py-fy);
       if(dx<=sl) return dy<=rad;
       var ox=dx-sl; return Math.sqrt(ox*ox+dy*dy)<=rad;
     }
     for(y=fy-RO-1;y<=fy+RO+1;y++) for(x=fx-SL-RO-1;x<=fx+SL+RO+1;x++){
-      if(obround(x,y,SL,RO) && !obround(x,y,SL,RI)) set(x,y,7);        // the rust track
+      if(obround(x,y,SL,RO) && !obround(x,y,SL,RI)) set(x,y,7);
     }
-    G.rect(fx-SL,fy-RI+1,fx+SL,fy+RI-1,6);                              // the field, inside the straights
-    for(x=fx-SL+1;x<=fx+SL-1;x++) set(x,fy,10);                         // the 50 yard line
+    G.rect(fx-SL,fy-RI+1,fx+SL,fy+RI-1,6);
+    for(x=fx-SL+1;x<=fx+SL-1;x++) set(x,fy,10);
     for(i=-3;i<=3;i++){ var lx=fx+i*5; if(Math.abs(lx-fx)<SL) for(y=fy-RI+2;y<=fy+RI-2;y++) set(lx,y,10); }
-    for(y=fy-RI+1;y<=fy+RI-1;y++){ set(fx-SL,y,10); set(fx+SL,y,10);    // sidelines
-      set(fx-SL+4,y,10); set(fx+SL-4,y,10); }                           // the end zones
-    // RAKED BLEACHERS down both long sides — three rows, rising away from the field
+    for(y=fy-RI+1;y<=fy+RI-1;y++){ set(fx-SL,y,10); set(fx+SL,y,10);
+      set(fx-SL+4,y,10); set(fx+SL-4,y,10); }
     for(i=0;i<3;i++){
       G.rect(fx-SL-2+i, fy-RO-3-i, fx+SL+2-i, fy-RO-3-i, 9);
       G.rect(fx-SL-2+i, fy+RO+3+i, fx+SL+2-i, fy+RO+3+i, 9);
     }
-    G.rect(fx-7,fy-RO-8,fx+7,fy-RO-6,9);                                // the press box, home side
-    // FOUR LIGHT TOWERS. Friday night lights: the tallest things on the site.
-    [[fx-SL-RO-3,fy-RO-4],[fx+SL+RO+3,fy-RO-4],[fx-SL-RO-3,fy+RO+4],[fx+SL+RO+3,fy+RO+4]].forEach(function(p){
+    G.rect(fx-7,fy-RO-8,fx+7,fy-RO-6,9);
+    /* LIGHT TOWERS PULLED IN (Paolo 7/29: "the light towers are far away from the field
+       which is weird"). Real stadium lights stand just outside the track at the four
+       corners of the bowl, not out in the grass. */
+    [[fx-SL-6,fy-RO-4],[fx+SL+6,fy-RO-4],[fx-SL-6,fy+RO+4],[fx+SL+6,fy+RO+4]].forEach(function(p){
       for(i=-1;i<=1;i++)for(var j=-1;j<=1;j++) set(p[0]+i,p[1]+j,12);
     });
 
-    /* ---- TENNIS COURTS, the athletic strip, north-east beside the gym ---- */
-    for(i=0;i<2;i++){ var cy2=48+i*11;
-      G.rect(84,cy2,120,cy2+9,8);
-      for(x=85;x<=119;x++) set(x,cy2+5,10);                             // the net line
-      G.rect(84,cy2,120,cy2,10); G.rect(84,cy2+9,120,cy2+9,10);
+    /* ---- TENNIS COURTS, east of the gym ---- */
+    for(i=0;i<2;i++){ var cy2=40+i*11;
+      G.rect(86,cy2,120,cy2+9,8);
+      for(x=87;x<=119;x++) set(x,cy2+5,10);
+      G.rect(86,cy2,120,cy2,10); G.rect(86,cy2+9,120,cy2+9,10);
     }
 
-    /* ---- THE STUDENT LOT, across the south. The tell: high schoolers drive, and these
-       cars were never collected. Pavement is not content until something happens on
-       it (measured 7/28). ---- */
-    G.rect(4,110,124,124,1);
-    for(y=113;y<=122;y+=4) for(x=6;x<=122;x++) if(get(x,y)===1) set(x,y,10);
-    for(i=0;i<34;i++){
-      var cx2=6+Math.floor(r()*116), cy3=111+Math.floor(r()*12);
-      if(get(cx2,cy3)===1||get(cx2,cy3)===10){ set(cx2,cy3,17); set(cx2+1,cy3,17); set(cx2,cy3+1,17); set(cx2+1,cy3+1,17); }
+    /* ---- THE STUDENT LOT, REBUILT (Paolo 7/29: "the bottom half of the screen parking
+       lots is dogshit it doesnt look like a parking lot").
+
+       IT DIDN'T, AND HERE IS WHY: I painted stall lines as FULL-WIDTH HORIZONTAL LINES
+       every four rows. That is a barcode. Real stalls are SHORT TICKS PERPENDICULAR to a
+       drive aisle, in double-loaded bays — stalls, aisle, stalls — and that is the only
+       thing that makes a lot read as a lot from above.
+
+       REAL DIMENSIONS at 0.75 m/tile: a stall is 2.6 m x 5.4 m = 3.5 x 7 tiles, and a
+       two-way aisle is 6.7 m = 9 tiles. So one double-loaded bay is 7 + 9 + 7 = 23 tiles
+       deep, which is why the stadium had to move up to make room. ---- */
+    var LOT0=102;
+    G.rect(4,LOT0,124,126,1);
+    function bay(top){                                   // stalls | aisle | stalls
+      for(x=8;x<=120;x+=4){                              // the perpendicular stall ticks
+        for(y=top;y<=top+6;y++) set(x,y,10);             // north band, 7 tiles deep
+        for(y=top+16;y<=top+22;y++) set(x,y,10);         // south band
+      }
+      G.rect(6,top,122,top,10); G.rect(6,top+22,122,top+22,10);   // the bay end lines
+    }
+    bay(LOT0);
+    /* the cars never got collected — one stall in three, and they sit IN the stalls */
+    for(i=0;i<30;i++){
+      var sx=8+Math.floor(r()*28)*4, band=(r()<0.5)?LOT0+1:LOT0+17;
+      var sy=band+Math.floor(r()*5);
+      if(get(sx+1,sy)===1||get(sx+1,sy)===10){
+        G.rect(sx+1,sy,sx+2,sy+3,17);
+      }
     }
 
-    /* ---- THE BUS LOOP, kept separate from student traffic, west edge ---- */
-    G.rect(4,70,18,110,1);   // runs down to MEET the lot -- a one-tile gap severed it
-    for(y=74;y<=104;y+=6) set(11,y,10);
+    /* ---- A SECOND WAY IN (Paolo 7/29: "have another entryway to the school"). One
+       door on a building this long is wrong anyway — a real high school has a main
+       entrance AND a separate gym/athletics entrance, and in a dead world a second
+       opening is a second way the player can get inside. ---- */
+    G.rect(20,18,26,20,11);                                   // west wing side entrance
+    G.rect(86,18,92,20,11);                                   // east wing side entrance
+    G.rect(52,18,62,20,11);                                   // the main doors off the courtyard
 
     /* ---- THE ENTRY PLAZA, walks and the flagpole ---- */
-    G.rect(46,68,72,70,11);                                   // the plaza in front of the gym
-    G.rect(52,44,58,46,11);                                   // courtyard to gym walk
-    G.rect(24,68,26,110,11);                                  // the walk down the west side
-    G.rect(104,68,106,110,11);                                // and the east side
-    set(48,69,12); set(49,69,12);                             // the flagpole
+    G.rect(46,62,72,64,11);                                   // the plaza in front of the gym
+    G.rect(52,34,58,38,11);                                   // courtyard to gym walk
+    G.rect(24,62,26,102,11);                                  // the walk down the west side
+    G.rect(104,62,106,102,11);                                // and the east side
+    set(48,63,12); set(49,63,12);                             // the flagpole
 
     /* ---- THE MARQUEE at the street. Every American high school has one, and in act 1
        it still holds whatever it last said. Paolo authors the words, never me. ---- */

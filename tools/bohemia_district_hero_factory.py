@@ -455,38 +455,57 @@ def build_school(P):
         s.box((cx + lx, cy - RI + 0.2, 0.08), (0.09, 2 * RI - 0.4, 0.04), {'c': MARK})
 
     # RAKED BLEACHERS down both sidelines, and the press box on the home side
-    for i, (dy, hgt) in enumerate(((0.0, 0.34), (0.42, 0.60), (0.84, 0.86))):
-        for sgn in (-1, 1):
-            s.box((cx - SL - 0.5 + i * 0.18, cy + sgn * (RO + 0.45 + dy) - 0.19, 0),
-                  (2 * SL + 1.0 - i * 0.36, 0.38, hgt),
-                  {'top': _dark(BLEACH, 1.18), 'px': _win(BLEACH, 10, 1, 3 + i, 0.0),
-                   'py': _dark(BLEACH, 0.84), 'nx': _dark(BLEACH, 0.8), 'ny': _dark(BLEACH, 0.8)})
-    s.box((cx - 0.8, cy - RO - 1.5, 0.86), (1.6, 0.5, 0.5), {'c': _dark(BLEACH, 1.1)['c']})
+    # THREE THIN STEPS READ AS A FLOATING STAIRCASE at icon size, not as stands. Two
+    # deeper banks with a raked top read as a mass, which is what a bleacher is. The far
+    # side is kept LOWER so it does not fight the school building behind it.
+    for sgn, tall in ((1, 1.0), (-1, 0.62)):
+        for i, (dy, hgt) in enumerate(((0.0, 0.42), (0.55, 0.78))):
+            s.box((cx - SL - 0.4 + i * 0.3, cy + sgn * (RO + 0.5 + dy) - 0.28, 0),
+                  (2 * SL + 0.8 - i * 0.6, 0.56, hgt * tall),
+                  {'top': _dark(BLEACH, 1.2), 'px': _win(BLEACH, 12, 1, 3 + i, 0.0),
+                   'py': _dark(BLEACH, 0.82), 'nx': _dark(BLEACH, 0.78), 'ny': _dark(BLEACH, 0.78)})
 
     # FOUR LIGHT TOWERS — Friday night lights, the tallest things on the site
-    for (lx, ly) in [(cx - SL - RO - 0.7, cy - RO - 0.7), (cx + SL + RO + 0.7, cy - RO - 0.7),
-                     (cx - SL - RO - 0.7, cy + RO + 0.7), (cx + SL + RO + 0.7, cy + RO + 0.7)]:
-        s.box((lx - 0.13, ly - 0.13, 0), (0.26, 0.26, 5.2), {'c': TOWER})
-        s.box((lx - 0.5, ly - 0.5, 5.2), (1.0, 1.0, 0.4),
+    # PAOLO 7/29: "the light towers are far away from the field which is weird and they
+    # are tall asf". Both true. Real stadium lights stand just outside the track at the
+    # corners of the bowl and they are tall RELATIVE TO THE STANDS, not to the sky --
+    # 5.2 units put them at nearly the height of the academic building's whole mass.
+    for (lx, ly) in [(cx - SL - 0.9, cy - RO - 0.5), (cx + SL + 0.9, cy - RO - 0.5),
+                     (cx - SL - 0.9, cy + RO + 0.5), (cx + SL + 0.9, cy + RO + 0.5)]:
+        s.box((lx - 0.12, ly - 0.12, 0), (0.24, 0.24, 3.1), {'c': TOWER})
+        s.box((lx - 0.42, ly - 0.42, 3.1), (0.84, 0.84, 0.34),
               {'c': tuple(min(255, int(c * 1.15)) for c in TOWER)})
 
     # THE ACADEMIC SPINE behind it, two storeys, and the GYM in school colours
-    s.box((-2.4, -2.6, 0), (11.5, 2.6, 4.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 2, 4),
-          'py': _win(BLD, 7, 2, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    for wy in (-2.6, 1.2):
-        s.box((-2.4, wy, 0), (2.4, 3.2, 4.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 2, 6),
-              'py': _dark(BLD, 0.95), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((9.6, -2.2, 0), (4.4, 4.2, 5.6), {'top': _dark(GYM, 0.95), 'px': _dark(GYM, 1.05),
-          'py': _dark(GYM, 0.85), 'nx': _dark(GYM), 'ny': _dark(GYM)})           # the gym, teal
-    _door(s, 9.6, -1.4, 0.4, 2.2, doorc=_dark(GYM, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.25)) for c in GYM))
-    s.box((10.2, 2.2, 0), (3.4, 1.6, 0.06), {'c': COURT})                        # a tennis court
-    s.box((11.9, 2.2, 0.06), (0.06, 1.6, 0.03), {'c': MARK})
+    # PAOLO 7/29: "have more school building incorporated" -- the icon was mostly stadium
+    # with a thin strip of school behind it. The building now runs the full width, gains a
+    # real second storey step-back and TWO wings that come forward, so the mass reads as a
+    # school with a stadium rather than a stadium with a wall behind it.
+    s.box((-2.6, -3.4, 0), (13.2, 2.8, 4.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 9, 2, 4),
+          'py': _win(BLD, 8, 2, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})          # the spine
+    s.box((-1.2, -3.2, 4.4), (10.4, 2.4, 1.5), {'top': _dark(BLD, 1.0), 'px': _win(BLD, 8, 1, 5),
+          'py': _dark(BLD, 0.86), 'nx': _dark(BLD), 'ny': _dark(BLD)})            # second storey
+    for wy in (-3.4, 0.2):                                                        # wings forward
+        s.box((-2.6, wy, 0), (2.8, 3.6, 4.2), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 2, 6),
+              'py': _win(BLD, 3, 2, 9), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+        s.box((9.4, wy, 0), (2.6, 3.6, 4.2), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 2, 7),
+              'py': _win(BLD, 3, 2, 3), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((12.4, -1.4, 0), (3.4, 3.6, 5.2), {'top': _dark(GYM, 0.95), 'px': _dark(GYM, 1.05),
+          'py': _dark(GYM, 0.85), 'nx': _dark(GYM), 'ny': _dark(GYM)})            # the gym, teal
+    # PAOLO 7/29: "have another entryway to the school". A building this long with one
+    # door is wrong anyway -- a real high school has a main entrance AND a separate
+    # athletics entrance, and each one is a way the player gets inside.
+    _door(s, 5.6, -0.6, 0.9, 2.4, doorc=_dark(BLD, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.25)) for c in BLD))                     # main doors
+    _door(s, 12.4, -0.6, 0.5, 2.2, doorc=_dark(GYM, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.25)) for c in GYM))                     # gym doors
+    s.box((12.6, 2.6, 0), (3.0, 1.5, 0.06), {'c': COURT})                        # a tennis court
+    s.box((14.1, 2.6, 0.06), (0.06, 1.5, 0.03), {'c': MARK})
 
     # THE STUDENT LOT — the tell. High schoolers drive, and nobody came back for these.
     for i in range(4):
-        _vehicle(s, -1.4 + i * 3.1, 12.6, CAR, CARC, along='x')
-    return s, 5.4
+        _vehicle(s, -1.0 + i * 3.4, 12.6, CAR, CARC, along='x')
+    return s, 4.6                      # PAOLO 7/29: "its a little biggy" -- scaled down
 
 
 # ---------------------------------------------------------------- COURTHOUSE
@@ -1298,7 +1317,7 @@ LABEL = {
     'park': 'Park — matched: open dead TURF + a winding PATH + a small SHELTER/restroom + a dead shade tree + benches.',
     'warehouse': 'Warehouse — matched: rows of flex/tenant UNITS (one burned) with roll-up doors + a leasing office + a fortress fence.',
     'commercial': 'Commercial — matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.',
-    'school': 'High school — matched to the walkable district (Paolo ruled it "High school" 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS — plus the two-storey academic spine, the GYM in school colours, a tennis court, and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground: that was the old module\'s error.'
+    'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, a tennis court, and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground: that was the error in the module this replaced.',
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
     'library': 'Library — matched: a reading-room block + a stacks tower + a front COLONNADE + steps.',
     'farm': 'Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).',

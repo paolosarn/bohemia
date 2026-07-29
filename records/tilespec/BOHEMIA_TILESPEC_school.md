@@ -39,24 +39,24 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 1435 |
-| 1 | `#33333c` | pavement / drive | drive | cracked pavement — the student lot, bus loop and staff parking (car-drivable) | ground | no | — | 1974 |
-| 2 | `#7a4038` | academic building | building | the two-storey classroom spine and its wings, maroon roof faded, windows out, doors chained | structure | yes | high school interior: a double-loaded classroom corridor with lockers down both walls, offices and labs off it | 2432 |
-| 3 | `#3a4526` | dead tree / landscaping | tree-dead | a dead campus tree gone to stick | prop | no | — | 12 |
-| 4 | `#49512e` | dead lawn (campus ground) | ground | the dead campus lawn — brown grass and weeds between everything | ground | no | — | 4107 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 1249 |
+| 1 | `#33333c` | pavement / drive | drive | cracked pavement — the student lot, bus loop and staff parking (car-drivable) | ground | no | — | 2233 |
+| 2 | `#7a4038` | academic building | building | the two-storey classroom spine and its wings, maroon roof faded, windows out, doors chained | structure | yes | high school interior: a double-loaded classroom corridor with lockers down both walls, offices and labs off it | 2251 |
+| 3 | `#3a4526` | dead tree / landscaping | tree-dead | a dead campus tree gone to stick | prop | no | — | 20 |
+| 4 | `#49512e` | dead lawn (campus ground) | ground | the dead campus lawn — brown grass and weeds between everything | ground | no | — | 4655 |
 | 5 | `#c79a3f` | gate / entrance | gate | the campus drive entrance off the street, amber curb | portal | no | — | 9 |
-| 6 | `#4f6038` | field (dead turf) | ground | the dead football field inside the track — brown, cracked, the yard lines ghosted | ground | no | — | 674 |
-| 7 | `#9a4a38` | running track | ground | the rubberised running track, faded rust-red, cracked and weed-split | ground | no | — | 1020 |
-| 8 | `#3f5f66` | tennis court | ground | a dead tennis court — cracked blue-green slab, nets gone, lines ghosted | ground | no | — | 522 |
-| 9 | `#8a929a` | bleachers | structure | the raked aluminium bleachers down both sidelines, and the press box above the home side | structure | yes | — | 213 |
-| 10 | `#c9c1aa` | white markings | ground | faded white paint — yard lines, court lines, parking stalls, kerb stripes | ground | no | — | 860 |
-| 11 | `#6a675e` | sidewalk / plaza | ground | the entry plaza and campus walks, concrete cracked, weeds in the joints | ground | no | — | 1410 |
-| 12 | `#b0863a` | pole / light tower | structure | a stadium light tower or campus pole, head dark, lamps out | structure | yes | — | 15 |
-| 13 | `#41501f` | garden bed | prop | a dead courtyard planter gone to weed | prop | no | — | 338 |
-| 14 | `#2f5a52` | gymnasium | building | the gym box, teal school-colour paint still holding long after the windows went | structure | yes | gymnasium interior: one full-height court with retracted bleachers down both walls, locker rooms off the end | 805 |
+| 6 | `#4f6038` | field (dead turf) | ground | the dead football field inside the track — brown, cracked, the yard lines ghosted | ground | no | — | 614 |
+| 7 | `#9a4a38` | running track | ground | the rubberised running track, faded rust-red, cracked and weed-split | ground | no | — | 739 |
+| 8 | `#3f5f66` | tennis court | ground | a dead tennis court — cracked blue-green slab, nets gone, lines ghosted | ground | no | — | 494 |
+| 9 | `#8a929a` | bleachers | structure | the raked aluminium bleachers down both sidelines, and the press box above the home side | structure | yes | — | 302 |
+| 10 | `#c9c1aa` | white markings | ground | faded white paint — yard lines, court lines, parking stalls, kerb stripes | ground | no | — | 1049 |
+| 11 | `#6a675e` | sidewalk / plaza | ground | the entry plaza and campus walks, concrete cracked, weeds in the joints | ground | no | — | 1119 |
+| 12 | `#b0863a` | pole / light tower | structure | a stadium light tower or campus pole, head dark, lamps out | structure | yes | — | 31 |
+| 13 | `#41501f` | garden bed | prop | a dead courtyard planter gone to weed | prop | no | — | 234 |
+| 14 | `#2f5a52` | gymnasium | building | the gym box, teal school-colour paint still holding long after the windows went | structure | yes | gymnasium interior: one full-height court with retracted bleachers down both walls, locker rooms off the end | 753 |
 | 15 | `#a89878` | portable classroom | building | a portable classroom on its blocks, skirting split, ramp rusted | structure | yes | portable interior: one room, desks pushed to the walls | 402 |
 | 16 | `#b8912f` | marquee sign | structure | the school marquee at the street, letter board weathered, whatever it last said still up there | structure | yes | — | 38 |
-| 17 | `#6a6e72` | dead car | vehicle | a student's car still in its stall, flat, sun-bleached, never collected | prop | yes | — | 118 |
+| 17 | `#6a6e72` | dead car | vehicle | a student's car still in its stall, flat, sun-bleached, never collected | prop | yes | — | 192 |
 
 **Gate:** `gates/school_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

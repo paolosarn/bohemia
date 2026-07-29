@@ -97,8 +97,8 @@ _Commercial — matched: an L of STORES with glass storefronts + a parking lot +
 - gas-station canopy — the flat fuel canopy on 4 posts in the corner (code 10 "gas canopy", overhead)
 - fuel pumps x2 (code 11) + cars x3 (canon CAR, code 6 tone); parking lot fronting + drive (codes 4/1)
 
-## SCHOOL  (223x149, anchor 111,84)
-_School — matched: an E-shaped school building + a taller GYM block + a court + a school bus._
+## SCHOOL  (194x137, anchor 100,79)
+_High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, a tennis court, and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground: that was the error in the module this replaced._
 
 - E-building — the classroom spine + three wings (code 2 "building (school/gym)"), windows
 - gym block — the taller gymnasium mass (code 7 tone)
