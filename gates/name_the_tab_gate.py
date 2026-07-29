@@ -61,6 +61,12 @@ SUPERSEDED = {
         'records/BOHEMIA_PALETTE_VERDICT_7_29_26.txt and the losing side is in the '
         'graveyard; the page stays on disk as the thing he was actually looking at '
         'when he ruled.',
+    'BOHEMIA_HOUSE_JUDGE_7_29_26.html':
+        'JUDGED AND KILLED the same day. Paolo 7/29: "its ass lowkey... i need you '
+        'to care about house shapes and shit bro." The page is deleted with the house '
+        'it was judging; this entry exists so the deletion reads as a recorded kill '
+        'rather than a page that quietly fell off the hub. Verdict: '
+        'records/BOHEMIA_HOUSE_01_VERDICT_7_29_26.txt.',
     'BOHEMIA_SUBURB_JUDGE_7_18_26.html':
         'DEAD by laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md - it sat ten days '
         'unlinked and unjudged, and bulk silence IS a verdict. Districts are judged '

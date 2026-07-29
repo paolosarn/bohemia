@@ -162,9 +162,7 @@ RUN QUEST SLICE (as a TAB) — killed 7/28/26 by Paolo, verbatim: "Kill"
   holding a real object rather than pass because the object disappeared.
   gates/bottomleft_gate.py now proves the buttons are absent AND both flags off.
 
-================================================================================
 2026-07-29  SFX BATCH 01 (the sfxr recipes) — DOWN, remade as v2
-================================================================================
 Paolo, on the first 60 sound effects: "okay its decent i appreciate it. it sounds
 like it was made with some software from 2006 so if we could do better than that
 for all of them... they were mid at best tbh but its the right direction."
@@ -201,3 +199,35 @@ WHAT SURVIVED, because it is measurement and structure rather than taste:
   - the deliberate loudness ladder, re-measured for v2
   - both gates, extended rather than replaced
   - the three bugs v1's gates caught, all of which stayed fixed in v2
+--------------------------------------------------------------------------------
+2026-07-29  HOUSE 01  (the human-sized single-story stucco ranch)
+  banks/BOHEMIA_HOUSE_01_7_29_26.txt
+  records/target/HOUSE_01.png, HOUSE_01_SHEET.png
+  slices/BOHEMIA_HOUSE_JUDGE_7_29_26.html
+  KILLED BY: Paolo 7/29, verbatim: "so this could be a fucking trailer home bro.
+  a trailer home with a grage? its ass lowkey... i need you to care about house
+  shapes and shit bro. like fr. thats my verdict fo house 01"
+  DEAD MEANS DEAD: this house does not come back with a better roof, a different
+  colourway, or a garage moved six feet. A fresh cook answers the slot.
+
+  POST-MORTEM. I measured everything and shaped nothing. Every dimension was real
+  and checkable and I still built a 15 x 9 m BAR with a flat unbroken front, one
+  continuous roof plane and no massing break anywhere, which is a trailer
+  silhouette. Then I bolted a two-car garage on it, which a trailer does not have,
+  so it was incoherent as well as ugly. His "75% done as a trailer" is a
+  measurement of how close I got to the wrong building.
+  The research convicts every choice: a mobile home reads as one at 2:12-3:12
+  pitch with 6 in eaves, site-built is 4:12+ with 12-16 in eaves; and of all the
+  suburban types, the ONLY one with no massing break is the hip ranch with the
+  garage absorbed into the main volume. That is exactly what I drew, with the
+  shallowest roof available.
+  THE ACTUAL LESSON, and it is order-of-operations: I got the door right to the
+  millimetre before deciding what the building WAS. Human sizing is a CONSTRAINT.
+  Shape is the DESIGN, and it comes first. Nothing in the machine cared what shape
+  a building was, because I had only ever taught it to care about measurements.
+
+  NOT DEAD: gates/human_scale_gate.py and the scale finding (1 px = 1.705 cm, the
+  sprite is 1.74 m, the tile grid's 2-cell door is 1.50 m and therefore 24 cm
+  shorter than the character). True of every future house, and untouched by this
+  verdict — which is itself the point: the gate was green the whole time and had
+  no opinion about the thing that was wrong.

@@ -71,15 +71,14 @@ html = r"""<meta charset="utf-8">
        I hit that once, restored the HTML by hand, then regenerated and broke it
        again -- restoring the artifact leaves the landmine armed. The generator is
        the single source of truth; a card that is not in here does not survive. -->
-  <a href="BOHEMIA_HOUSE_JUDGE_7_29_26.html" style="display:block;text-decoration:none;background:#16210f;border:2px solid #7fc24d;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:800 16px -apple-system,sans-serif;color:#9fe06d">HOUSE 01 &#183; IS THIS THE HOUSE? <span style="font:600 10px sans-serif;background:#7fc24d;color:#12220a;border-radius:4px;padding:2px 6px;vertical-align:2px">ONE TAP</span></div>
+  <a href="BOHEMIA_HOUSE_SHAPE_JUDGE_7_29_26.html" style="display:block;text-decoration:none;background:#16210f;border:2px solid #7fc24d;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:800 16px -apple-system,sans-serif;color:#9fe06d">HOUSE SHAPES &#183; PICK THE ONES YOU WANT <span style="font:600 10px sans-serif;background:#7fc24d;color:#12220a;border-radius:4px;padding:2px 6px;vertical-align:2px">PICK SEVERAL</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#c6dcb2;margin:4px 0 8px">
-      You asked for one house sized to a real person. This is it, with your character
-      standing next to it at the same scale so you can see it is right. The door is 2.03 m
-      and he is 1.74 m. Worth knowing what I found: the tile grid can only make a door
-      1.50 m tall, which is SHORTER than he is, so he could not walk through his own front
-      door standing up. That is why this house is built as one piece instead of out of
-      tiles. Say yes and I build the other fifteen to exactly these numbers.
+      You killed house 01 for being a trailer and you were right. It was one long box with
+      a flat front and no break in it, which is literally what a single-wide is. So this is
+      SHAPE only, no detail to hide behind, seven of them at the same scale with the same
+      man. Number 1 is a real trailer and number 2 is what I gave you, both on there so you
+      can see the mistake. Tap every shape you want in the sixteen.
     </div>
   </a>
 

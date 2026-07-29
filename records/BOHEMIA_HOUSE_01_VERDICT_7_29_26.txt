@@ -1,0 +1,54 @@
+BOHEMIA — HOUSE 01 VERDICT — 7/29/26
+================================================================================
+
+PAOLO, VERBATIM AND COMPLETE:
+
+    "so this could be a fucking trailer home bro. a trailer home with a grage?
+     its ass lowkey. if you tride to made a trailer home it would have a garage
+     and the roof would be more ugly. so if its a trailer home its 75% done.
+     i need you to care about house shapes and shit bro. like fr.
+
+     thats my verdict fo house 01"
+
+VERDICT: KILLED. Graveyard 2026-07-29.
+
+================================================================================
+HE IS RIGHT, AND THE DIAGNOSIS IS EXACT
+
+I measured everything and shaped nothing. Every dimension on that house was real
+and checkable, and I built a 15.0 x 9.0 m BAR with a flat unbroken front, one
+continuous roof plane, and no massing breaks anywhere. That is a trailer
+silhouette. Bolting a two-car garage onto it made the thing incoherent as well as
+ugly, which is exactly what he caught: a trailer home does not have a garage.
+
+His "75% done" is not a joke, it is a measurement of how close I got to the wrong
+building. Drop the garage, uglify the roof, and I would have shipped a competent
+single-wide.
+
+WHAT THE RESEARCH SAYS, and every line of it convicts the house:
+  - a mobile home reads as one at 2:12 to 3:12 pitch with ~6 in eaves; site-built
+    is 4:12 or steeper with 12 to 16 in eaves. "Without eaves, most homes look
+    like a cheap box."
+  - the suburban house types that read as HOUSES all have MASSING BREAKS: the
+    L-ranch (main bar plus a projecting wing, cross gable at the junction), the
+    snout house (garage pushed forward to the street with its own gable), the
+    cross-gable ranch (a gable END facing the street over the entry), the
+    two-story, the split-level.
+  - the ONE type with no break is the hip ranch with the garage absorbed into the
+    main volume. That is precisely what I drew. Of every shape available I picked
+    the flattest one and then drew its roof as shallow as it goes.
+
+THE REAL FAILURE IS AN ORDER-OF-OPERATIONS FAILURE. I went and got the door right
+to the millimetre before deciding what the building WAS. Human sizing is a
+constraint, not a design. Shape is the design, and it comes first.
+
+WHAT SURVIVES, and it is not the art:
+  - the scale work stands. 1 px = 1.705 cm, the sprite is 1.74 m, and the tile
+    grid's 2-cell door is 1.50 m, which is 24 cm shorter than the character. That
+    finding is real and independent of this house.
+  - gates/human_scale_gate.py stays. Its invariant (a person fits through the
+    door) is true of every house that will ever be built here, and it never had an
+    opinion about shape, which is the hole this verdict exposes.
+
+WHAT CHANGES: a house is judged on SHAPE FIRST, before a single detail is drawn.
+The next thing he sees is massing, not a finished elevation.
