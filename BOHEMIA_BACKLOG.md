@@ -749,6 +749,22 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    zero current consumers; the run's clock already advances and the screen
    never changes). This IS ledger priority 5, the module already exists.
    | ambient on the real surface, screenshot | — | no.
+0e. (routed 7/28 off Paolo's accelerator ask — research record: records/
+   BOHEMIA_RESEARCH_FRICTIONLESS_ACCELERATORS_7_28_26.md) PLAYTEST
+   TELEMETRY: the run keeps a lightweight local event log (positions per
+   step, cell crossings, enter/leave, verbs used, fights, deaths, saves,
+   where the session ENDED) and exports it EXACTLY like the save blob — one
+   text code Paolo pastes into any chat, a flow he already knows. Research
+   consensus: where-he-quit beats any survey, and simple logging beats
+   flying blind. Companion (SHARED tooling): a reader that renders a pasted
+   log as a path/death heatmap over the real map + a plain-English digest
+   ("14 min; quit 40s after the mall; never opened the phone"). Playtest
+   notes become first-class verdicts without him writing them; lanes stop
+   interrogating him about what happened on his phone (the trapped-by-the-
+   copy-menu bug would be ONE LINE in a log). Local only, in the blob he
+   chooses to paste — no service, no network. | log captured on a real
+   session + reader digest gate-checked against a scripted walk | save/
+   export pattern already shipped | no (tooling; his playtest is the input).
 1. Phone-feel pass on the run (touch responsiveness at arm's length): real
    device-shaped viewports, hold-to-walk tuning, tap-to-step target sizes,
    the objective bar at arm's length. | run_gate extended with a real-device
@@ -2327,6 +2343,23 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## baked into asset pixels, render-time layer only. First items of the lane's
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn.)
+SFX. (routed 7/28 off Paolo's own state-of-the-game: sound effects are HIS
+   ONLY 0%, and he asked for frictionless accelerators — research record:
+   records/BOHEMIA_RESEARCH_FRICTIONLESS_ACCELERATORS_7_28_26.md) THE SFX
+   FACTORY: procedural sound synthesis on the alpha's own Web Audio stack
+   (the sfxr/jsfxr lineage — sounds are ~20 synth parameters, not files;
+   zero asset weight in the one-file alpha). Factory law applied: typed spec
+   (event name + parameter vector) -> generator module -> batches of 8-12
+   candidates per game event (footsteps by ground type, doors, pickup, hit,
+   block, kill-on-beat, UI tap, phone buzz, save chime, rain, fire) -> ONE
+   judge page that plays them side by side (a 60-sound batch is one Paolo
+   sitting — the cheapest verdict pipeline in the game) -> approved vectors
+   bank + hash-replay regression gate. 120 BPM native: durations in beats,
+   combat sounds quantize to the dial's audio clock (EVERY-DURATION-IS-A-
+   NOTE). MECHANISM-MINE: the synth + judge page ship; WHICH sound any event
+   makes is his verdict, tables empty until judged. | judge page live +
+   vector bank + regression gate | one AudioContext (the parent's) — no
+   second audio engine | yes (the batches are the judging).
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not

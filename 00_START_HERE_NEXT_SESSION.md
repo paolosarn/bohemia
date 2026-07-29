@@ -143,3 +143,30 @@ flags off, then measures whatever chrome is ACTUALLY down there. 9 checks. PROVE
 CAN FAIL: resurrected the buttons, watched it go red, restored.
 
 BUILD STAMP: 7/29d - BUFFET/PLACE/TILES BUTTONS GONE (CITY TAB). ALL GATES GREEN (667s).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/28 EVENING — PAOLO'S OWN PROGRESS LEDGER + THE ACCELERATORS
+
+PAOLO'S NUMBERS, recorded verbatim as ruling-class state (records/BOHEMIA_PAOLO_
+PROGRESS_LEDGER_7_28_26.md): combat 40, rig 59, music 30, clothing 25, world 15,
+animations 15, quests 10 ("even though we havent made a single one yet" — text
+is not a playable quest to him), NPCs 5, items 5, SOUND EFFECTS 0. Calibrate
+against HIS numbers, not lane optimism. The named holes are the zeroes and fives.
+
+ON HIS ACCELERATOR ASK, researched + routed two frictionless force multipliers
+(records/BOHEMIA_RESEARCH_FRICTIONLESS_ACCELERATORS_7_28_26.md):
+1. THE SFX FACTORY (CHARACTER lane, item SFX): procedural synthesis on the
+   alpha's own Web Audio stack (sfxr/jsfxr lineage — a sound is ~20 synth
+   parameters, no files, no asset weight). Batches per game event, ONE judge
+   page; a 60-sound batch is one two-second-per-item Paolo sitting — the
+   cheapest verdict pipeline in the game, against his only 0%.
+2. PLAYTEST TELEMETRY (RUN 0e + SHARED reader): the run logs positions/verbs/
+   fights/deaths/where-he-quit locally and exports it like the save blob; any
+   chat pastes it into a reader for a path heatmap + plain-English digest.
+   His playtests become the fleet's highest-truth input with zero writing
+   from him. Research consensus: where-he-quit beats any survey.
+
+Earlier 7/28 (still live): ENGINE REALITY MAP (laws/BOHEMIA_ENGINE_REALITY_MAP_
+7_28_26.md, in the GO read order) + three rulings recorded (REAL combat on the
+walk = extraction never rewrite; VEGAS WEATHER 3 states rain-monthly; the TILE
+FORM law + board, 54 forms filed by 7 lanes day one).
