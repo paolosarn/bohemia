@@ -304,6 +304,27 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
 27. OPEN | STOREFRONT GLASS AND ALUMINIUM | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
    see form | ART lane (row 7 breakdown) | MED | TF-ART-008
 
+28. OPEN | BRICK MASONRY (RUNNING BOND FACE, SOLDIER COURSE, CORNER RETURN) | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | MED | FORM: TF-ART-009
+29. OPEN | RAILROAD TRACK BED (BALLAST, SLEEPERS+RAIL, TURNOUT, GRADE CROSSING) | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | MED | FORM: TF-ART-010
+30. OPEN | FREEWAY SURFACE + JERSEY BARRIER + GUARDRAIL | RUN + CITY | ground + structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | MED | FORM: TF-ART-011
+31. OPEN | COMMERCIAL FLAT ROOF + ROOFTOP MECHANICAL | RUN + CITY (the top of every non-house building) | top layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | HIGH | FORM: TF-ART-012
+32. OPEN | MOBILE HOME SIDING + SKIRTING + CARPORT EDGE | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | MED | FORM: TF-ART-013
+33. OPEN | CROP FIELD (FURROWS, IRRIGATION BERM, FIELD EDGE) | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | MED | FORM: TF-ART-014
+34. OPEN | LANDFILL WASTE CELL + DAILY COVER + HAUL ROAD | RUN + CITY | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | LOW | FORM: TF-ART-015
+35. OPEN | SOLAR PANEL ARRAY + INVERTER PAD + MAINTENANCE LANE | RUN + CITY | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | MED | FORM: TF-ART-016
+36. OPEN | WALL CORNER + OPENING REVEAL COMPLETION | RUN + CITY (EVERY building in the game) | structure layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | HIGH | FORM: TF-ART-017
+37. OPEN | KERB + DRIVEWAY APRON TRANSITION SET | RUN + CITY (every street edge in the valley) | ground layer, 44px corpus cell, seam contract in the form |
+   see form | ART lane (row 7 breakdown, filled 7/29) | HIGH | FORM: TF-ART-018
+
 # STILL TO FORM (this walk found them; forms next ART turn, not dropped):
 #   brick masonry (downtown low-rise, older commercial) · railroad track bed
 #   (railyard, crossings) · freeway surface + barrier + guardrail (freeway,
@@ -312,6 +333,41 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
 #   (farm) · landfill waste cell ground · solar panel array surface (solar,
 #   battery) · wall CORNER + opening reveal completion (the starter set's own
 #   named gap) · kerb/driveway apron transition set (the other named gap).
+
+# ROW NUMBERS 90-99 RESERVED for the TEN "still to form" items above as their
+# forms land. Deliberately parked above the highest row in use (82) because
+# 28/29 and 45-49 are one collision away from the four other lanes appending to
+# this board the same week, and because the board's own standing note is
+# correct: THE STABLE KEY IS THE TF ID, NOT THE ROW NUMBER.
+# NOTE 7/29: eight of those ten already have forms on disk and STILL HAVE NO ROW
+# HERE, so tileform_gate is red on them. Rows owed, not written by me — the
+# lane that filed the forms files the rows. (No id is spelled out in this
+# comment on purpose: the gate matches board rows by substring, so naming a
+# form here would make its missing row LOOK filed.)
+97. OPEN | WALL CORNER + OPENING REVEAL (the joinery that makes a building a
+   SOLID instead of a cardboard flat) | RUN + CITY + every interior | structure
+   layer, 44px corpus cell, WANG-16 on the wall run plus the concave cases; ten
+   pieces (both hands of the outside and inside corner, jamb/head/sill reveals,
+   parapet and rake corner) | see form | ART lane (row 7 breakdown) | HIGH |
+   FORM: TF-ART-017 | SCOPE OVERLAP, FLAGGED NOT SETTLED: its parapet-corner
+   piece is the same object as the commercial-flat-roof form's parapet-cap
+   corner, and its jamb pieces sit beside the garage-door-skin form's per-skin
+   jamb cases. Both overlaps are named in full in section B of the form. One
+   form must own each piece, and that is a coordinator call, not mine.
+98. OPEN | KERB + DRIVEWAY APRON TRANSITIONS (kerb return, dropped kerb, apron
+   flare, gutter inlet, kerb-meets-crossing) | RUN + CITY — the frozen set's
+   kerb runs dead straight past all four events, so corners do not turn, cars
+   cannot get in and water goes nowhere | ground layer, 44px corpus cell,
+   WANG-16 with the corner authored as a fixed multi-cell block; every road-side
+   edge reproduces road_gutter's baked nine-row shadow ramp at phase | the
+   frozen CBB starter set's walk_kerb / road_gutter / road_crossing (measured in
+   the form); GTA2's street kit anatomy | ART lane (row 15 breakdown) | HIGH |
+   FORM: TF-ART-018 | SCOPE OVERLAP, FLAGGED NOT SETTLED: rows 31 (TF-WORLD-002,
+   kerb/sidewalk) and 65 (TF-CITY-006, driveway apron + rolled kerb cut) both
+   claim members of this family. The form declares the overlap and proposes the
+   split in its section B; who owns the dropped kerb and the apron flare is a
+   coordinator call, not the ART lane's, and it must be settled BEFORE cooking
+   or the same kerb gets drawn in three materials.
 
 =============================================================================
 ## OPEN — WORLD LANE (filed 7/28 under the TILE FORMS ORDER; every row has a

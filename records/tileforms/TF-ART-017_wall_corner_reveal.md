@@ -82,8 +82,34 @@
     records/tileforms/TF-ART-001_cmu_block_wall.md lists a "corner/pilaster"
     variant of CMU specifically — that variant is a MATERIAL SKIN of this form's
     geometry and should be cooked from this contract, not invented twice.
-    Nothing in the index or the board covers a building corner or an opening
-    reveal. This is the gap the starter tileset names on itself.
+    TWO REAL OVERLAPS ON THIS BOARD, NAMED RATHER THAN GLOSSED (found on review
+    7/29, and they are the reason this form's piece list is not yet safe to cook
+    whole):
+      * records/tileforms/TF-ART-012_commercial_flat_roof.md already owns
+        "parapet cap as a WANG-16 boundary set (4 outside corners, 4 straight
+        runs, 4 inside corners, 3 ends/stubs)". That IS this form's
+        `parapet_corner`, same object, filed a day earlier by the same lane.
+        [PENDING, coordinator ruling: one form owns it. Either TF-ART-012 keeps
+        the whole parapet ring and `parapet_corner` is struck from this form's
+        ten, or this form takes the corner case and TF-ART-012 drops to straight
+        runs. DO NOT COOK the parapet corner until that is ruled — this is
+        exactly the C1/C2 duplicate class the board already caught twice.]
+      * records/tileforms/TF-CITY-003_garage_door_skin.md owns "its left/right
+        jamb cases, cooked per approved house-skin material". The delta this
+        form still carries is real and stated narrowly: TF-CITY-003 is the
+        GARAGE BAY's jamb per house skin; this is the generic returned reveal at
+        every door and window on every material, and the head soffit and sill
+        return, which TF-CITY-003 does not draw. Same geometry law, different
+        openings — the garage jamb should be cooked FROM this contract rather
+        than beside it, and if the coordinator disagrees the garage half is
+        struck from here.
+      * records/tileforms/TF-CITY-001_roof_edge_family.md is the per-material
+        pitched-roof edge (4 hips, ridge, eave). It is ROOF geometry; this
+        form's `rake_corner` is the WALL-side junction under it. They meet and
+        must be judged together, but they are not the same tile.
+    Beyond those three, nothing in the index or on the board covers a building
+    corner or a generic opening reveal. This is the gap the starter tileset
+    names on itself.
 
 ## C. WHERE
 - SURFACE + TAB: the RUN tab (the walk — the surface Paolo plays) first, and the
@@ -226,7 +252,9 @@
     it is the darkest surface outdoors and the only place a stain survives.
 - VARIANTS: TEN PIECES, one job — corner_out_l, corner_out_r, corner_in_l,
   corner_in_r, jamb_l (x2 tall), jamb_r (x2 tall), head_return, sill_return,
-  parapet_corner (flat roof, mitred coping), rake_corner (pitched roof landing).
+  parapet_corner (flat roof, mitred coping — HELD, see the overlap flagged in B:
+  TF-ART-012 already owns the parapet WANG-16 corner and one of the two forms
+  must lose it), rake_corner (pitched roof landing).
   Beyond that: MATERIAL colourways only (stucco / CMU / tilt-up / corrugated),
   which is a palette swap on identical geometry and is therefore never progress on
   its own (STRUCTURE-NOT-COLOR). Any new SILHOUETTE — a chamfered corner, a
@@ -257,6 +285,7 @@
     "railyard",
     "trailer park",
     "gas and truck stop",
+    "landfill scale house",
     "farm outbuildings"
   ],
   "best_time": "both",
@@ -269,12 +298,16 @@
     "garage door pair",
     "roof_parapet",
     "roof_eave",
+    "roof_hipBL",
+    "roof_hipBR",
     "concrete apron",
     "sidewalk",
+    "yard",
     "dirt"
   ],
   "never_next_to": [
     "another outside corner with no wall run between",
+    "another building's wall with no gap",
     "a jamb reveal framing solid wall",
     "perimeter wall pool tiles",
     "terracotta roof on an industrial parapet corner"
@@ -305,7 +338,13 @@
 
 ## G. REFERENCES
 - APPROVED ANCHOR: banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt — the
-  CBB-approved 42-tile set. `wall_end_l` (38) and `wall_end_r` (39) are the pieces
+  42-tile act-1 starter set. Its approval status, stated exactly rather than
+  rounded off: the SET is the 7/26 target screen's, judged CBB ("could be
+  better" — ships, frozen); the 7/28 re-cook is the same set rebuilt by the
+  construction method Paolo approved on road_0 that day
+  (records/BOHEMIA_PIXEL_CRAFT_VERDICT_7_28_26.txt, verbatim "I checked it to do
+  the other 41 mark it approved"), which unlocked the other 41 by method and did
+  NOT re-thumb them one by one. `wall_end_l` (38) and `wall_end_r` (39) are the pieces
   this replaces at the building's vertical edges and their material, ramp and
   published seam behaviour are the truth this extends around the corner;
   `wall_window` (21) and `door_top`/`door_bottom` (23/24) are the openings this
@@ -368,8 +407,9 @@
   plane is exactly what is broken today and it violates the 45 DEGREE ART LAW.
 - NOT a black keyline down the arris, and no outline anywhere. The corner is a
   VALUE STEP (PIXEL CRAFT LAW 7 / M18). A dark line at the tile edge is the 7/26
-  black-grid failure and M10's *"heavy borders guarantee it reads as a grid of
-  tiles instead of a continuous surface."*
+  black-grid failure and M10's *"Heavy borders that outline the edge of the
+  tile... guarantees it reads as a grid of tiles instead of a continuous
+  surface."*
 - NOT anti-aliased on the outer silhouette (LAW 4) — the arris is precisely the
   edge that meets an unknown neighbour, so AA there blends into a colour we do not
   know. AA stays internal.
@@ -441,4 +481,5 @@
 ## J. ADMIN
 - STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
-- BOARD ROW #: 26 | VERDICT: —
+- BOARD ROW #: 97 (the ART block's reserved 90-99 range for the ten row-7
+  breakdown forms; row 26 was already TF-ART-007's) | VERDICT: —
