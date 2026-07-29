@@ -401,14 +401,18 @@ ok('the dial amplitudes live in one declared table', !!(BV.AMP && typeof BV.AMP.
    that [a woman] "). Nothing here was invented by me, and the exact-match keeps
    it that way. */
 ok('only the dials Paolo named exist (no invented dials -- MECHANISM-MINE/CONTENTS-PAOLO\'S)',
-  BV.DIAL_NAMES.join(',') === 'height,belly,arms,shoulders,armLength');
+  BV.DIAL_NAMES.join(',') === 'height,belly,arms,shoulders,armLength,hips');
 /* HIS 7/29 RULING ON FAT, recorded because it CLOSES a question I had open:
    "nah when i put fat its like your fat fuck that woman belly shit. these
    characters are going to be more unisex vibes." Fat is fat. There is no
    sex-aware fat distribution and there is not going to be one. */
-ok('FAT IS FAT: no sex-aware distribution dial was added behind his back',
-  BV.DIAL_NAMES.indexOf('hips') < 0 && BV.DIAL_NAMES.indexOf('bust') < 0 &&
-  BV.DIAL_NAMES.indexOf('fatDistribution') < 0);
+/* HIPS IS A WIDTH DIAL HE ASKED FOR BY NAME ("we can add hip width"), not fat
+   distribution -- it moves the pelvis at every fat setting and does nothing to
+   where fat lands. What stays banned is a dial that makes FAT behave differently
+   on a woman, which is the thing he killed. */
+ok('FAT IS FAT: no sex-aware fat-distribution dial was added behind his back',
+  BV.DIAL_NAMES.indexOf('bust') < 0 && BV.DIAL_NAMES.indexOf('fatDistribution') < 0 &&
+  BV.DIAL_NAMES.indexOf('gynoid') < 0);
 ok('a dial value outside [-1,1] is clamped, never trusted', BV.clampDial(4) === 1 && BV.clampDial(-4) === -1 && BV.clampDial('x') === 0);
 
 done();

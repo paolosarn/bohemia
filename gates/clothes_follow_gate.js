@@ -125,20 +125,20 @@ ok('the law pins the flip count before and after', /belly -1  direction flips: 3
    read out of ONE rig. No female rig, ever -- that arc is graveyarded. ------- */
 const SALAW = path.join(ROOT, 'laws', 'BOHEMIA_ADDENDUM_SHOULDERS_AND_ARM_LENGTH_7_29_26.md');
 ok('the shoulders/arm-length law is recorded', fs.existsSync(SALAW));
-ok('both dials are registered', /DIAL_NAMES = \['height', 'belly', 'arms', 'shoulders', 'armLength'\]/.test(BV));
+ok('both dials are registered', /'shoulders', 'armLength'/.test(BV));
 ok('the amplitudes are GROUNDED in real anthropometry, not picked',
   /biacromial-to-biiliac/.test(BV) && /1\.4 in men and 1\.2 in women/.test(BV) &&
   /arm span tracks height/i.test(BV) && /1\.00 and 1\.05/.test(BV));
 ok('shoulders is +-20% and arm length is the narrow +-12%',
   /shoulders: 0\.20/.test(BV) && /armLength: 0\.12/.test(BV));
-ok('the TORSO answers to two dials, summed as width and never multiplied',
-  /also: \{ dial: 'shoulders'/.test(BV) && /summed as fractional width, never multiplied/.test(BV));
-ok('the shoulder profile is ZERO at the hip (the hip does not move)',
-  /the hip is the hip: it does not move/.test(BV));
+ok('the TORSO answers to more than one dial, summed as width and never multiplied',
+  /\{ dial: 'shoulders'/.test(BV) && /summed as fractional width, never multiplied/.test(BV));
+ok('the shoulder profile stops before the pelvis, which hips now owns',
+  /hips own the bottom, not this dial/.test(BV));
 ok('ARM LENGTH is a BONE dial scaled from the shoulder, so the arm cannot tear off',
   /function warpArmLength/.test(BV) && /that is where an arm hangs from/.test(BV));
 ok('THE ARMS RIDE THE SHOULDER, not just the belly',
-  /if \(\(v\.belly \|\| v\.shoulders\) && src\[4\]\)/.test(BV));
+  /if \(\(v\.belly \|\| v\.shoulders \|\| v\.hips\) && src\[4\]\)/.test(BV));
 ok('the dead-in-one-direction measurement is recorded at the code',
   /18px at every setting from -1 to 0/.test(BV));
 ok('the 1px void fix lives in the OUTLINE, where the bug actually was',
@@ -157,5 +157,27 @@ ok('his FAT IS FAT ruling is recorded, and the research it overrules is named',
   /deliberately \*\*overruled\*\*/.test(fs.readFileSync(SALAW,'utf8')));
 ok('how a woman reads is recorded in HIS words, and needs no new mechanism',
   /slightly skinnier arms, shorter/.test(fs.readFileSync(SALAW,'utf8')));
+
+
+/* ---- HIPS + LIMB THICKNESS TIED (Paolo 7/29/26: "we can add hip width and arm
+   width can be tied to leg width too") ------------------------------------- */
+ok('hips is registered and the torso takes THREE dials via a list',
+  /DIAL_NAMES = \['height', 'belly', 'arms', 'shoulders', 'armLength', 'hips'\]/.test(BV) &&
+  /also: \[\s*\n\s*\{ dial: 'shoulders'/.test(BV) && /\{ dial: 'hips'/.test(BV));
+ok('shoulders own the top, hips own the pelvis -- they do not overlap',
+  /hips own the bottom, not this dial/.test(BV) && /shoulders own the top/.test(BV));
+ok('LIMB THICKNESS IS ONE DIAL: the arms dial drives the thighs',
+  /9:  \{ dial: 'arms'/.test(BV) && /10: \{ dial: 'arms'/.test(BV) && /function legProfile/.test(BV));
+ok('the leg is gentler than the arm, and the reason is recorded',
+  /profile caps at 0\.55/.test(BV) && /would be a cartoon/.test(BV));
+ok('the thigh floor is 4, not 5 -- a 5px floor killed the whole narrow half',
+  /9:  \{ dial: 'arms', biasAmp: 0, minW: 4/.test(BV) && /thigh 5\/5\/5\/5\/7/.test(BV));
+/* THE TRAP THAT ATE AN ENTIRE DIAL: a width dial absent from warpLayers' early-out
+   is silently dead no matter what PART_SPEC says. hips measured 11px at every
+   setting until it was named there too. */
+ok('every width dial is named in the warpLayers early-out',
+  /if \(!v\.belly && !v\.arms && !v\.shoulders && !v\.hips\) return layers;/.test(BV));
+ok('the silently-dead-dial trap is recorded at the code',
+  /silently dead, which is exactly how it/.test(BV));
 
 done();

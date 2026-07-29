@@ -80,7 +80,12 @@ const BOH_BODYVAR = (function () {
        span over height and women ~1cm. Arms are NOT a free dimension on a human
        body, so this is deliberately a narrow dial: +-12% of the arm's own length,
        which is a couple of pixels at this scale and still reads. */
-    armLength: 0.12
+    armLength: 0.12,
+    /* HIPS (Paolo 7/29/26: "we can add hip width"). The complement to SHOULDERS --
+       biiliac breadth is the OTHER half of the shoulder:hip ratio, and until now
+       only the top of that ratio could move. Slightly under the shoulder's range
+       because a pelvis is bone and varies less than a shoulder girdle does. */
+    hips: 0.18
   };
 
   /* FRONT AXIS per facing = cos(FACEANG). A gut protrudes FORWARD, not sideways:
@@ -98,6 +103,16 @@ const BOH_BODYVAR = (function () {
      row is what keeps the silhouette continuous at every join at every dial
      value (addendum lesson 3: a part that juts past the part above it draws a
      hard border line that reads as the limb detaching). */
+  /* LEG girth profile: nothing at the hip join, full through the thigh's meat,
+     easing off toward the knee/ankle. Capped at 0.55 of the arm amplitude -- see
+     the note on parts 9/10. */
+  function legProfile(t) {
+    if (t < 0.10) return 0;
+    if (t < 0.45) return 0.55 * ss((t - 0.10) / 0.35);
+    if (t < 0.80) return 0.55;
+    return 0.55 * (1 - ss((t - 0.80) / 0.20));
+  }
+
   const PART_SPEC = {
     /* TORSO. 0 through the chest (the bust/pec line and the nipple row must not
        move), swelling to full at the navel, easing back at the hip so the belly
@@ -109,11 +124,20 @@ const BOH_BODYVAR = (function () {
          so the two never fight over the same rows and a wide-shouldered thin man
          and a narrow-shouldered heavy one are both reachable. This is the pair
          that makes a female silhouette without a second rig. */
-      also: { dial: 'shoulders', profile: function (t) {
-        if (t < 0.18) return 1;                       /* the shoulder band itself */
-        if (t < 0.55) return 1 - ss((t - 0.18) / 0.37); /* ease out through the chest */
-        return 0;                                     /* the hip is the hip: it does not move */
-      } },
+      /* A LIST, not one entry: the torso is the one part three dials can reach --
+         belly at the navel, shoulders at the cap, hips at the pelvis. Each owns a
+         different band, so they compose instead of fighting. */
+      also: [
+        { dial: 'shoulders', profile: function (t) {
+          if (t < 0.18) return 1;                       /* the shoulder band itself */
+          if (t < 0.55) return 1 - ss((t - 0.18) / 0.37); /* ease out through the chest */
+          return 0;                                     /* hips own the bottom, not this dial */
+        } },
+        { dial: 'hips', profile: function (t) {
+          if (t < 0.55) return 0;                       /* shoulders own the top */
+          return ss((t - 0.55) / 0.45);                 /* swell into the pelvis, full at the base */
+        } }
+      ],
       /* THE SHOULDER TAKES A SHARE (Paolo 7/28/26): "why can't you just compact and
          widen the shoulder to accommodate... it's very upsetting to see the arms
          getting fucked up... their arms squiggly fucked up."
@@ -151,7 +175,22 @@ const BOH_BODYVAR = (function () {
        as a stripe glued to the body. Four columns keeps two pixels of skin at
        the thinnest setting, which still reads as a limb. */
     5: { dial: 'arms', biasAmp: 0, minW: 4, profile: armProfile },
-    6: { dial: 'arms', biasAmp: 0, minW: 4, profile: armProfile }
+    6: { dial: 'arms', biasAmp: 0, minW: 4, profile: armProfile },
+    /* LIMB THICKNESS IS ONE DIAL (Paolo 7/29/26: "arm width can be tied to leg
+       width too"). Thin arms on tree-trunk legs is not a body anyone has; limb
+       girth correlates across a person, so the ARMS dial drives the thighs too.
+       It is deliberately GENTLER on a leg: the arm amplitude is +-45% because an
+       arm is a 3-4px strip that needs a big fraction to read at all, and putting
+       that same 45% on a 6px thigh would be a cartoon. The profile caps at 0.55,
+       so a leg moves +-25% -- a proportionally similar change on a thicker limb.
+       Zero at the hip and zero at the ankle, so the leg still joins the pelvis
+       and the foot exactly as painted at every setting. */
+    /* minW 4, NOT 5, and it was measured: the thigh's own painted row IS 5px, so a
+       floor of 5 made the whole NARROW half of the dial dead -- thigh 5/5/5/5/7
+       across the range. Four matches the arm's floor and leaves two pixels of skin
+       between the two outline columns, which still reads as a limb. */
+    9:  { dial: 'arms', biasAmp: 0, minW: 4, profile: legProfile },
+    10: { dial: 'arms', biasAmp: 0, minW: 4, profile: legProfile }
   };
   /* The shoulder end ramps SLOWLY (Paolo 7/26, on the render). A short ramp put
      the arm at full thickness on the row directly under the 3px shoulder cap:
@@ -165,7 +204,7 @@ const BOH_BODYVAR = (function () {
     return 1;
   }
 
-  const DIAL_NAMES = ['height', 'belly', 'arms', 'shoulders', 'armLength'];
+  const DIAL_NAMES = ['height', 'belly', 'arms', 'shoulders', 'armLength', 'hips'];
 
   function neutral(v) {
     if (!v) return true;
@@ -216,8 +255,10 @@ const BOH_BODYVAR = (function () {
      has to actually be painted for the target to light up.
      -------------------------------------------------------------------------- */
   function warpPart(list, spec, dv, front, edgeOut, anchor, v) {
-    const dv2 = (spec.also && v) ? (v[spec.also.dial] || 0) : 0;
-    if (!dv && !dv2) return list.slice();
+    const alsos = (spec.also && v) ? (Array.isArray(spec.also) ? spec.also : [spec.also]) : [];
+    let anyAlso = false;
+    for (let q = 0; q < alsos.length; q++) if (v[alsos[q].dial]) anyAlso = true;
+    if (!dv && !anyAlso) return list.slice();
     /* group this PART's own pixels by row -- per part, never a shared grid
        (lesson 4: torso and legs claim the same hip pixels; a shared remap
        silently eats a torso row and corrupts every garment keyed to part 4) */
@@ -242,7 +283,10 @@ const BOH_BODYVAR = (function () {
          They are summed as fractional width, never multiplied, so neither can
          cancel the other and each keeps its own amplitude. */
       let amt = dv * (AMP[spec.dial]) * pr;
-      if (dv2) amt += dv2 * (AMP[spec.also.dial]) * spec.also.profile(t);
+      for (let q = 0; q < alsos.length; q++) {
+        const a = alsos[q], av = v[a.dial] || 0;
+        if (av) amt += av * (AMP[a.dial]) * a.profile(t);
+      }
       const k = 1 + amt;
       if (Math.abs(k - 1) < 1e-9 || w < 2) {   /* untouched row: copy verbatim */
         if (edgeOut) edgeOut[y] = [0, 0];
@@ -386,7 +430,12 @@ const BOH_BODYVAR = (function () {
     return out;
   }
   function warpLayers(layers, v) {
-    if (!v.belly && !v.arms && !v.shoulders) return layers;
+    /* EVERY WIDTH DIAL MUST BE NAMED HERE. Adding `hips` to PART_SPEC did nothing
+       at all until it was added to this line too -- the rest-layer torso measured
+       11px at every hip setting because warpLayers returned before it ever looked.
+       A dial that is not in this list is silently dead, which is exactly how it
+       failed, so the gate now checks this list against DIAL_NAMES. */
+    if (!v.belly && !v.arms && !v.shoulders && !v.hips) return layers;
     const out = {};
     for (const d in layers) {
       const src = layers[d], dst = {}, front = FRONT[d] || 0;
@@ -406,7 +455,7 @@ const BOH_BODYVAR = (function () {
          outline is made of up there, not the torso. An arm hangs FROM the
          shoulder: move the shoulder, the whole arm unit goes with it. This is the
          half that makes the biacromial dial actually narrow a body. */
-      if ((v.belly || v.shoulders) && src[4]) {
+      if ((v.belly || v.shoulders || v.hips) && src[4]) {
         const rows = Object.keys(edge).map(Number).sort(function (a, b) { return a - b; });
         if (rows.length) {
           const torsoCx = meanX(src[4]);

@@ -106,3 +106,37 @@ exists. That is the whole female body plan and it needs no new mechanism.
 The gate pins it: no `hips`, no `bust`, no `fatDistribution` dial may appear.
 
 Gate: `gates/clothes_follow_gate.js` + `gates/bodyvar_gate.js`.
+
+---
+
+# ADDENDUM 2 — HIPS, AND LIMB THICKNESS IS ONE DIAL
+**Paolo, 7/29/26.** *"we can add hip width and arm width can be tied to leg width too."*
+
+**HIPS** completes the ratio. Shoulders could only ever work one end of
+biacromial:biiliac; the pelvis never moved. ±18% — slightly under the shoulder's
+range, because a pelvis is bone and varies less than a shoulder girdle. The torso
+now takes **three** dials through a list: shoulders own the cap, belly owns the
+navel, hips own the pelvis, each on its own band so they compose instead of
+fighting. Measured at the rest layer: **9 / 11 / 13**.
+
+**LIMB THICKNESS IS ONE DIAL.** The ARMS dial now drives the thighs. Thin arms on
+tree-trunk legs is not a body anyone has. It is deliberately gentler on a leg —
+the arm gets ±45% because a 3-4px strip needs a big fraction to read at all, and
+that same 45% on a 6px thigh would be a cartoon, so the leg profile caps at 0.55
+for ±25%. Zero at the hip join and zero at the ankle, so the leg still meets the
+pelvis and the foot exactly as painted. Measured: thigh **4 / 5 / 7**.
+
+## TWO BUGS FOUND BY MEASURING, BOTH WORTH KEEPING WRITTEN DOWN
+
+**1. A DIAL NOT NAMED IN `warpLayers`' EARLY-OUT IS SILENTLY DEAD.** `hips` was in
+`PART_SPEC`, had a profile, had an amplitude — and did **nothing**, because
+`warpLayers` returns before it ever looks unless the dial is in that one line. The
+rest-layer torso measured 11px at every hip setting. The gate now checks that line.
+
+**2. A FLOOR CAN KILL HALF A DIAL.** The thigh shipped with `minW: 5` while its own
+painted row is 5px, so the entire narrow half was dead: **5/5/5/5/7**. Dropped to
+4 — the arm's own floor — which still leaves two pixels of skin between the outline
+columns.
+
+Neutral is still the identical BAKED object, and enclosed holes across 8 facings x
+extreme dial configs is still **0**.
