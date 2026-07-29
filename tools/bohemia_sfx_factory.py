@@ -21,15 +21,34 @@ the build — putting the sounds anywhere else would mean a second audio engine,
 which the SOUNDS lane intent bans outright, and a page Paolo has to be told how
 to find. He taps MUSIC, the sounds are the first thing on the screen.
 
-REUSE CHECK (REUSE-FIRST LAW, Paolo 7/22): this tool cooks ZERO graphic pixels
-— it draws nothing, so no banks/ art lookup applies to it. What it DOES reuse
-is audio machinery that already exists and is already approved-in-use: the
-MUSIC studio's AudioContext, its master gain and its brickwall limiter chain
-(MUS.audio(), MUS.AC, MUS.MAST inside the alpha). It creates no context, no
-master bus and no limiter of its own. It also reuses the studio's export modal
-(expText / expShare / G._expName) rather than building a second exporter, so a
-sound verdict shares the file, the .txt law and the share sheet with a music
-verdict.
+REUSE CHECK: nothing fit, and nothing needed to — this tool cooks ZERO graphic
+pixels. It draws no art, so no banks/ art bank applies to it and none was used.
+What it DOES reuse is audio machinery that already exists and is already
+approved-in-use inside the alpha: the MUSIC studio's AudioContext, its master
+gain and its brickwall limiter chain (MUS.audio(), MUS.AC, MUS.MAST). It creates
+no context, no master bus and no limiter of its own. It also reuses the studio's
+export modal (expText / expShare / G._expName) rather than building a second
+exporter, so a sound verdict shares the file, the .txt law and the share sheet
+with a music verdict. The one bank this tool touches is the SFX vector bank it
+opens below, and that bank is deliberately empty until Paolo rules.
+
+TASTE CHECK (laws/BOHEMIA_PAOLO_TASTE_CANON.md, section 4 MUSIC — the only
+section with rulings that bind audio):
+  - NEVER feedback loops, createDelay or createConvolver; anything that rings is
+    excited-and-decaying. HELD: the synth has none of the three, every voice
+    decays to actual zero, and gates/sfx_render_gate.py proves it on the
+    waveform (silent 60 ms past its own length) rather than by grepping.
+  - NEVER reuse the same synthesis skeleton batch to batch. HELD BY SHAPE: the
+    twelve recipes are twelve different topologies (noise beds, metal partials,
+    crushed saws, tremolo'd squares), and no two events share one.
+  - NEVER let two candidates in one batch differ trivially. HELD: gain jitter
+    was removed from the two recipes that had it — five volumes of one sound is
+    not a choice, so the five differ in attack, brightness, pitch fall and grit.
+  - LIKE melody/character leading, never drone-flat texture. APPLIED as the
+    audio equivalent: every candidate has a shaped envelope and a pitch or
+    filter move, none is a flat burst.
+  - The canon has no ruling on what a footstep should SOUND like, and this tool
+    does not invent one. That is the verdict this batch exists to collect.
 
 MECHANISM-MINE / CONTENTS-PAOLO'S: the synth and the 60 candidates ship. WHICH
 sound each game event makes is his verdict — BOH_SFX.BANK is empty and play()

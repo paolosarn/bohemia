@@ -391,12 +391,35 @@ def summarize(name, out):
         if 'images checked' in l: return l
     return out.strip().split('\n')[-1][:70] if out.strip() else ''
 
+def deps_check():
+    """SAY IT BEFORE THE RUN, NOT AFTER (7/29/26). Eight gates read pixels and
+    need Pillow + numpy. On a fresh container they are absent, and all eight
+    report ModuleNotFoundError at the END of a 700-second run — which reads like
+    eight real failures and costs a whole re-run to diagnose. It is one pip
+    install. This changes nothing about pass/fail: a gate that cannot run STILL
+    FAILS, because a gate that cannot run has not held anything."""
+    missing = []
+    for mod, pkg in (('PIL', 'Pillow'), ('numpy', 'numpy')):
+        try:
+            __import__(mod)
+        except ImportError:
+            missing.append(pkg)
+    if missing:
+        print('!' * 78)
+        print('  MISSING IMAGE STACK: %s' % ', '.join(missing))
+        print('  8 pixel-reading gates WILL FAIL for this reason alone (HOUSE ART, ASSET')
+        print('  ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY).')
+        print('  Fix it now, before the run:   pip install -r gates/requirements.txt')
+        print('!' * 78)
+
+
 def main():
     fast = '--fast' in sys.argv
     strict = '--strict' in sys.argv
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
+    deps_check()
     failed = []
     t0 = time.time()
     for name, argv, what, slow in GATES:

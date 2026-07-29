@@ -2423,6 +2423,13 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    A VERDICT, not on machinery: cook() already takes a count, so an approved
    vector spawns its alternation set the same turn he approves it. Nothing to
    build until then.
+5. (discovered 7/29, FLEET-WIDE not just this lane) A FRESH CONTAINER FAILS 8
+   GATES FOR ONE MISSING LIBRARY. Pillow + numpy are not installed, so every
+   pixel-reading gate dies with ModuleNotFoundError at the end of a 700s run and
+   looks like eight real failures. Half-closed: gates/requirements.txt exists and
+   bohemia_gates.py warns up front. NOT closed: nothing installs it
+   automatically. A SessionStart hook or setup script would close it for every
+   lane at once. NON-COOK, any lane can take it.
 4. (discovered 7/29) THE MUSIC STUDIO'S OWN VOICES ARE NOT ON THE SFX SPEC.
    The 60-odd synth bodies in the alpha's song engine (thud/rim/conga/wireharp/
    ...) are hand-written node graphs, not vectors, so they cannot be judged,

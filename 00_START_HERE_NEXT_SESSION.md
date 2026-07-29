@@ -1,3 +1,15 @@
+SOUNDS (xk7pjp): 7/29 (f) LATEST — THE SFX FACTORY IS IN THE GAME. 60 SOUNDS,
+12 MOMENTS, ALL WAITING ON HIS THUMB. MUSIC TAB, TOP OF THE PANEL.
+NOTE FOR THE OTHER LANES: this touched the MUSIC tab and added engine/
+bohemia_sfx.js. It did not touch a single song, voice or note of the music
+studio, and it added no second audio engine. If your lane wants a sound, call
+BOH_SFX.play(event, AC, dest) — it is silent until Paolo has ruled on that
+event, and that is correct behaviour, not a bug.
+
+--------------------------------------------------------------------------------
+EVERYTHING BELOW IS THE OTHER LANES' LIVE STATE, CARRIED FORWARD UNTOUCHED.
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 7/29 (e) LATEST (see the 7/29 c-d-e sections below) — PAOLO RULED "A". THE MASTER PALETTE IS DEAD, AND THE
 TILES HE APPROVED ON 7/28 ARE FINALLY IN THE GAME.
 

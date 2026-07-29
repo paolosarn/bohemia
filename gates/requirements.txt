@@ -1,0 +1,15 @@
+# BOHEMIA GATE DEPENDENCIES (7/29/26)
+#
+# Eight gates read PIXELS, so they need an image stack: HOUSE ART, ASSET
+# ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY.
+#
+# On a fresh container these are NOT installed, and all eight report
+# "ModuleNotFoundError" — which reads exactly like eight real gate failures at
+# the end of a 700-second suite run. It cost this session a full re-run to find
+# out it was one missing library. bohemia_gates.py now checks up front and says
+# so before the first gate runs.
+#
+#   pip install -r gates/requirements.txt
+#
+Pillow
+numpy
