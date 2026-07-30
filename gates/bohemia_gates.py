@@ -430,9 +430,71 @@ def deps_check():
         print('!' * 78)
 
 
+LOCK = os.path.join(REPO_ROOT, '.bohemia_gates.lock')
+
+
+def _alive(pid):
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+
+
+def take_lock():
+    """ONE SUITE AT A TIME (7/30). Two suites at once is not slow, it is WRONG.
+
+    Found the hard way: two overlapping runs on the same tree reported
+    'ALL GATES GREEN' and '10 GATE(S) FAILED' within minutes of each other, and
+    a ship went out on the green one. The browser gates drive real Chromium and
+    rebuild slices IN PLACE (run_gate regenerates the run, current_slice_gate
+    regenerates the slice), so a second suite reads half-written files and
+    starves the first of CPU. Both verdicts become worthless and you cannot tell
+    which. A gate suite whose answer depends on what else is running is not a
+    gate suite.
+
+    Stale locks self-clear: the pid is checked, not just the file's existence,
+    so a killed run never wedges the repo.
+    """
+    if os.path.exists(LOCK):
+        try:
+            pid = int(open(LOCK).read().strip() or 0)
+        except (ValueError, OSError):
+            pid = 0
+        if pid and pid != os.getpid() and _alive(pid):
+            print('=' * 78)
+            print('  REFUSING TO RUN: gate suite pid %d is already going.' % pid)
+            print('  Two suites on one tree corrupt each other\'s verdict: they')
+            print('  rebuild the same slices and fight over the same browser.')
+            print('  Wait for it, or kill it, then run again.')
+            print('=' * 78)
+            return False
+        os.unlink(LOCK)          # stale: the owner is gone
+    with open(LOCK, 'w') as f:
+        f.write(str(os.getpid()))
+    return True
+
+
+def drop_lock():
+    try:
+        if os.path.exists(LOCK) and open(LOCK).read().strip() == str(os.getpid()):
+            os.unlink(LOCK)
+    except OSError:
+        pass
+
+
 def main():
     fast = '--fast' in sys.argv
     strict = '--strict' in sys.argv
+    if not take_lock():
+        return 1
+    try:
+        return _run_all(fast, strict)
+    finally:
+        drop_lock()
+
+
+def _run_all(fast, strict):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)

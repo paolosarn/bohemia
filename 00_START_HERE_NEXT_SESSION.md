@@ -233,6 +233,33 @@ SOUNDS (xk7pjp): 7/29 (h) — THE SOUNDS ARE REMADE. HE SAID v1 SOUNDED
 ANOTHER LANE'S SECTION, CARRIED FORWARD UNTOUCHED.
 --------------------------------------------------------------------------------
 
+[CANVAS SCALE: FLAGGED RED BY THIS LANE, THEN FIXED BY ANOTHER LANE'S ALPHA RESTORE
+ BEFORE THIS COMMIT LANDED. Re-measured on the rebased tree: 29 passed, 0 failed.
+ Leaving the note because the METHOD is the reusable part and the next inherited red
+ will want it: gates/canvas_scale_gate.js was failing one assertion (the rig preview
+ compositing bilinear instead of nearest-neighbour). Rather than assume it was not
+ mine, I checked out 7bf83a1 DETACHED and ran the gate there, where it failed HARDER
+ (the audit could not reach the real surfaces at all, which was the dead alpha). That
+ proved the red predated this lane's commit and belonged to the CHARACTER lane. A red
+ you did not cause still has to be PROVED inherited, on the tree where it started, and
+ flagged by owner. It never gets fixed by editing another lane's system to make your
+ own suite green.]
+
+*** ONE SUITE AT A TIME, AND NOW THE MACHINE ENFORCES IT (7/30, RUN lane) ***
+  I ran two gate suites on one tree at the same time. They reported "ALL GATES GREEN"
+  and "10 GATE(S) FAILED" within minutes of each other, on identical trees, and I
+  shipped on the green one. Both verdicts were garbage: run_gate REGENERATES the run
+  slice in place and current_slice_gate regenerates the slice, both drive real
+  Chromium, so a second suite reads half-written files and starves the first of CPU.
+  Every one of those 10 "failures" came back green when re-run alone (front door 3 for
+  3). A GATE SUITE WHOSE ANSWER DEPENDS ON WHAT ELSE IS RUNNING IS NOT A GATE SUITE.
+  gates/bohemia_gates.py now takes a pid lock and REFUSES to start while another suite
+  is live; stale locks self-clear by checking the pid, so a killed run never wedges the
+  repo. Proved all three ways (blocks a live owner, clears a dead one, releases on
+  exit). If you see "REFUSING TO RUN", that is the fix working, not a bug.
+  THE TELL FOR ANY SESSION: if you are about to launch a suite while one is in flight,
+  you are about to generate a number you cannot trust. Wait for it.
+
 RUN (eak241): 7/30 LATEST — EVERYTHING THIS LANE BUILT IS ON MAIN AND GREEN, AND THE
 LANE IS PARKED ON ONE DECISION. Read this section before touching the run.
 
