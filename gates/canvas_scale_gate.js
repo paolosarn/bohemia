@@ -79,9 +79,46 @@ if (walked) {
     isInt(walked.dx) && isInt(walked.dy));
 }
 
+/* ============================================================================
+   THE CHARACTER SURFACES ARE GATED NOW, FOREVER (Paolo 7/29/26: "make those
+   fixes then make those fixes forever please").
+   ----------------------------------------------------------------------------
+   These were measured by the CITY lane on 7/27 and sat in the backlog as printed
+   numbers nobody had to act on. Printed numbers do not hold: 16 of 19 canvases
+   were landing on the glass at a fractional zoom, including the 8-facing gallery
+   he JUDGES animations from, which was shrinking 112px into 85.8 and throwing
+   away roughly a quarter of every row and column. Nearest-neighbour at a
+   fractional scale makes some art pixels wider than others, and that reads as a
+   badly drawn sprite no matter how good the art is.
+   A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, so these are assertions now.
+   ========================================================================= */
+/* keyed on tab+id: `mode` and `frame` are separate fields on a row and keying on
+   the wrong one silently finds nothing, which is a gate that passes by accident */
+const CHAR_SURFACES = [
+  ['char',    'charCv',     3, 'the character preview'],
+  ['char',    'portraitCv', 2, 'the portrait he taps to edit the face'],
+  ['clothes', 'cloBig',     3, 'the big clothing preview'],
+  ['clothes', 'cloCv',      1, 'the clothing strip tiles'],
+  ['anim',    'g8_0',       1, 'the 8-facing gallery — the surface animations are JUDGED on'],
+  ['anim',    'g8_4',       1, 'the 8-facing gallery (S)'],
+  ['rig',     'cv',         1, 'the RIG preview — the body that is LAW'],
+];
+for (const [tab, id, want, what] of CHAR_SURFACES) {
+  const r = rows.find(q => q.tab === tab && q.id === id);
+  ok('CHARACTER: ' + what + ' is drawn at a WHOLE-number scale' +
+     (r ? ' (x' + r.sx.toFixed(4) + ', want x' + want + ')' : ' — SURFACE NOT FOUND'),
+     !!r && isInt(r.sx) && isInt(r.sy) && Math.round(r.sx) === want);
+  ok('CHARACTER: ' + what + ' lands on the GLASS whole (x' +
+     (r ? r.dx.toFixed(4) : '?') + ') — a fractional device scale makes some art ' +
+     'pixels wider than others', !!r && isInt(r.dx) && isInt(r.dy));
+  ok('CHARACTER: ' + what + ' composites NEAREST-NEIGHBOUR, never bilinear',
+     !!r && /pixelated|crisp/.test(r.filter));
+}
+
 // Other lanes: measured, printed, never failed on.
 const mine = new Set(['city|default|cv', 'city|walked|cv']);
-const others = rows.filter(r => !mine.has(r.tab + '|' + r.mode + '|' + r.id) && (r.fractional || r.smoothed));
+const gatedTabs = new Set(['char', 'clothes', 'anim', 'rig']);
+const others = rows.filter(r => !mine.has(r.tab + '|' + r.mode + '|' + r.id) && !gatedTabs.has(r.tab) && (r.fractional || r.smoothed));
 if (others.length) {
   console.log('  (not gated — other lanes own these; numbers filed in BOHEMIA_BACKLOG.md)');
   for (const r of others)
