@@ -43,7 +43,12 @@ CONST = 'records/target/BOHEMIA_VISUAL_CONSTITUTION.json'
 VERDICT = 'records/BOHEMIA_TARGET_SCREEN_VERDICT_7_26_26.txt'
 # (bank path, key holding the sprite list) — the registry grows as art ships.
 BANKS = [('banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt', 'tiles'),
-         ('banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt', 'tiles')]
+         ('banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt', 'tiles'),
+         # TF-ART-001, 7/29: the CMU block family. Registered here because the
+         # art-first reset's price is that EVERY new art bank submits itself to
+         # the constitution's proxies - a bank that grades only against its own
+         # gate is a bank grading its own homework.
+         ('banks/BOHEMIA_CMU_BLOCK_7_29_26.txt', 'tiles')]
 TRIPTYCH = 'banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt'
 
 LAYER_OF = {'road': 'ground', 'walk': 'ground', 'yard': 'ground',
