@@ -420,8 +420,10 @@ def deps_check():
     if missing:
         print('!' * 78)
         print('  MISSING IMAGE STACK: %s' % ', '.join(missing))
-        print('  8 pixel-reading gates WILL FAIL for this reason alone (HOUSE ART, ASSET')
-        print('  ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY).')
+        pix = [g[0] for g in GATES if g[1][0] == 'python3' and any(
+            k in g[0] for k in ('HOUSE ART', 'ASSET', 'DOOR ART', 'ART 45', 'TARGET',
+                                'LEAF', 'PURITY', 'HUMAN SCALE'))]
+        print('  these WILL FAIL for this reason alone: ' + ', '.join(pix))
         print('  Fix it now, before the run:   pip install -r gates/requirements.txt')
         print('!' * 78)
 

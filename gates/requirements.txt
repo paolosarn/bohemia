@@ -1,7 +1,9 @@
 # BOHEMIA GATE DEPENDENCIES (7/29/26)
 #
-# Eight gates read PIXELS, so they need an image stack: HOUSE ART, ASSET
-# ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY.
+# Nine gates read PIXELS, so they need an image stack: HOUSE ART, ASSET
+# ROUNDUP, DOOR ART, ART 45, TARGET MATCH, TARGET SCREEN, LEAF PIXEL, PURITY
+# and HUMAN SCALE (the city lane added that one after this file was written --
+# the count goes up, which is exactly why the banner lists them dynamically).
 #
 # On a fresh container these are NOT installed, and all eight report
 # "ModuleNotFoundError" — which reads exactly like eight real gate failures at
