@@ -149,6 +149,11 @@ GATES = [
      "16th-of-a-beat grid, nothing invented outside the spec table, the generator "
      "deterministic, one AudioContext (the studio's), and the bank EMPTY until Paolo "
      "thumbs one", False),
+    ('RUN BEAT',       ['python3', 'gates/run_beat_gate.py'],
+     "the run is on the SONG'S clock, not its own hardcoded 500ms: the beat crosses "
+     "the parent->run vocabulary, the door and the slide read the live tempo, the run "
+     "locks to the studio while it plays and lets go when it stops, and a silent run "
+     "behaves exactly as it did before", True),
     ('SFX RENDER',     ['python3', 'gates/sfx_render_gate.py'],
      'the 60 candidates measured AS AUDIO in a real browser: each one makes a sound, '
      'does not clip, goes silent on time (SCREECH LAW proved on the waveform), renders '

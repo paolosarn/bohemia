@@ -1,3 +1,47 @@
+SOUNDS (xk7pjp): 7/29 (j) LATEST — THE RUN IS ON THE SONG'S CLOCK (backlog item 1
+DONE), and the 60 remade sounds are still waiting on his thumbs.
+
+ITEM 1 SHIPPED: THE RUN HAD NO BEAT. The walk's beat was the literal `var
+BEAT=500` and nothing about tempo, beat index or transport ever crossed the
+parent->run postMessage vocabulary, while COMBAT got full song data and a HERO
+BEAT. The run and the music agreed only because both numbers were typed the
+same. That is two clocks that have not drifted yet, not the 120 BPM LAW.
+  PARENT (tools/bohemia_run_beat_patch.py): the studio already schedules every
+    16th on the AudioContext clock, so on each beat boundary it posts
+    BOHEMIA_RUN_BEAT with the beat index, BPM, ms-per-beat, and how many
+    milliseconds from now that beat lands.
+  RUN: a small RB receiver phase-locks and exposes msPerBeat/beatNow/phase/
+    msToNextBeat. The door animation and the slide read the live tempo instead
+    of a literal. SILENT RUN IS UNCHANGED: RB reports 500 ms and 120 BPM when
+    nothing is playing, so a quiet run behaves exactly as before.
+  GATE: gates/run_beat_gate.py, registered as RUN BEAT, 22 checks in a real
+    browser with the real studio playing. Proved able to fail by reintroducing
+    the timebase bug: went red on the lock AND on the phase rate, restored.
+
+TWO REAL BUGS THIS ROUND, both caught only by driving a real browser:
+  1. performance.now() IS PER-CONTEXT. An iframe's time origin is when the
+     iframe was created, so a timestamp taken in the parent is ahead of the
+     child's clock by however long the page had been up -- it measured the run
+     22 beats away from the studio. The message carries a DELTA now ("this beat
+     lands in N ms"), which is true in anybody's clock.
+  2. MY OWN IDEMPOTENT REMOVAL CUT ONE LINE SHORT and left an orphaned `})();`
+     inside its own <script> tag, throwing "Unexpected token '}'" on every page
+     load. Invisible to a syntax check of the block (it parsed fine alone) and
+     invisible to grep. The injection is marker-bounded now: a wrapper you
+     insert is a wrapper you delete whole.
+
+NEXT FOR THIS LANE: item 2 (ambient beds) still waits on RUN 0d's daycycle. The
+real next move is HIS VERDICT on the 60 sounds -- approve unlocks the variant
+sets and the wiring of actual footsteps to actual steps, which is now possible
+because the clock exists. DO NOT cook a third batch.
+
+--------------------------------------------------------------------------------
+SOUNDS (xk7pjp): 7/29 (h) — THE SOUNDS ARE REMADE. HE SAID v1 SOUNDED
+
+--------------------------------------------------------------------------------
+ANOTHER LANE'S SECTION, CARRIED FORWARD UNTOUCHED.
+--------------------------------------------------------------------------------
+
 RUN (eak241): 7/30 LATEST — EVERYTHING THIS LANE BUILT IS ON MAIN AND GREEN, AND THE
 LANE IS PARKED ON ONE DECISION. Read this section before touching the run.
 
@@ -121,8 +165,7 @@ DO NOT: add movement inside the city frame. That forks WORLD's sim. Do not raise
 population because "it feels empty" — a quarter of the map is empty ON HIS ORDER and the
 gate will catch you.
 
-SOUNDS (xk7pjp): 7/29 (h) LATEST — THE SOUNDS ARE REMADE. HE SAID v1 SOUNDED
-LIKE 2006 SOFTWARE AND HE WAS RIGHT TO THE YEAR. MUSIC TAB, TOP OF THE PANEL.
+SOUNDS (xk7pjp): 7/29 (h) LATEST — THE SOUNDS ARE REMADE. HE SAID v1 SOUNDEDLIKE 2006 SOFTWARE AND HE WAS RIGHT TO THE YEAR. MUSIC TAB, TOP OF THE PANEL.
 
 HIS RULING on batch SFX-01: "okay its decent i appreciate it. it sounds like it
 was made with some software from 2006 so if we could do better than that for all
