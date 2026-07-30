@@ -2182,7 +2182,10 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
      The day that stops being true is the day the north star's other half got
      built, and this check is how we find out on purpose instead of by accident. */
   {
-    const i = demo.indexOf('const fgv=');
+    /* V102 RE-POINTED: the expression moved into dialFgv() so the band and the
+       enemy's cover pose share ONE definition. The audit pin follows it. The
+       invariant is unchanged and is the one that matters most in this file. */
+    const i = demo.indexOf('function dialFgv(){ return ');
     const fgv = i > 0 ? demo.slice(i, demo.indexOf(';', i)) : '';
     ok('AUDIT PINNED, AND THIS IS THE HEADLINE: no positional term multiplies the player\'s damage or hit window. fgv scales on difficulty, steady aim and streak -- never on range, angle, cover or elevation. "Deal the most damage BY POSITIONING" has no code behind it yet',
       fgv.length > 0 &&
@@ -2774,6 +2777,50 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('V101 THE APPROVED STREET BANK') &&
     demo.includes('const STREET_B64S=') &&
     /"road":\[/.test(demo.slice(demo.indexOf('const STREET_B64S='), demo.indexOf('const STREET_B64S=')+400)));
+
+  /* ===== 36. V102 THE NEEDLE IS HIS BODY =============================== */
+  ok('V102 THE DIAL IS A PICTURE OF THE TRUTH (Paolo 7/29: "i want their cover animation to be tied to where there deadshot dial lands perfectly in the center. so that killshot they better be out of cover"). The needle stops being a gauge drawn over the fight and becomes how exposed he actually is',
+    demo.includes('V102 THE NEEDLE IS HIS BODY') &&
+    demo.includes('function dialExposure(){ if(!dialLive())return null;') &&
+    demo.includes('const EXPO_FOLLOW=0.18;'));
+
+  ok('V102 HE IS OUT EXACTLY WHEN THE RETICLE GOES GREEN -- the SAME zone expression that has driven the green reticle since the dial shipped, so the invariant is learnable and cannot drift',
+    demo.includes('function dialKillZone(){ return G.W.hZ*dialFgv()*KILL_GRACE*ARC_MULT; }') &&
+    demo.includes('if(!G.ks&&Math.abs(G.angle)<=G.W.hZ*fgv*KILL_GRACE*ARC_MULT){'));
+
+  /* CORRECTED THE SAME TURN. My first version of this check claimed "one
+     expression, not two" and counted copies. It found two and failed, and IT WAS
+     RIGHT TO: there have always been TWO DIFFERENT multipliers here and only one
+     of them was unified.
+       fgv  = what the BANDS DRAW (difficulty, steady aim, kill streak)
+       fg   = what the SHOT RESOLVES ON, which additionally carries the on-the-one
+              bonus and the groove width -- deliberately MORE than the band shows
+     That is a real designed difference, not drift. What v102 actually fixed is
+     that the BAND expression was an inline const the pose would have had to copy;
+     it is now defined once and shared. The check asserts the true claim. */
+  ok('V102 THE BAND EXPRESSION IS DEFINED ONCE and shared by the band draw and the enemy\'s cover pose, so his body can never drift from the band you are aiming at. (fg, the RESOLVE multiplier, stays deliberately different: it carries the on-the-one bonus the band does not show.)',
+    demo.includes('function dialFgv(){ return (G.pkgDiff>=1?1.10:1)') &&
+    demo.includes('const fgv=dialFgv();') &&
+    demo.includes('function dialKillZone(){ return G.W.hZ*dialFgv()*KILL_GRACE*ARC_MULT; }') &&
+    /const fg=\(G\.pkgDiff>=1\?1\.10:1\)[\s\S]{0,400}_onePop/.test(demo));
+
+  ok('V102 THE NEEDLE SCRUBS A CLIP THAT ALREADY EXISTS: rise112 is the body coming UP OUT OF THE CROUCH, already baked and already used when a man gets off the deck. Nothing is animated -- the needle indexes it',
+    demo.includes('const R=L.rise112;') &&
+    demo.includes('if(R&&R.length)return R[Math.max(0,Math.min(R.length-1,Math.round(e._expo*(R.length-1))))];'));
+
+  ok('V102 ONLY THE MAN UNDER THE DIAL ("i still like how they animate already"): the branch needs him to be the aim target, the dial to be live, and him to really be in cover. Every other body animates exactly as before',
+    demo.includes('if(e.gcov&&dialLive()&&e===G.e[G.fireTarget]){'));
+
+  ok('V102 IT IS A READ, NOT A RULE CHANGE: e.gcov is never written in the pose branch, so cover, damage, exposure and every AI decision resolve exactly as before -- the picture agrees with maths that were always there, it does not become a second invisible difficulty system',
+    !/dialLive\(\)&&e===G\.e\[G\.fireTarget\]\)\{[\s\S]{0,700}e\.gcov=/.test(demo) &&
+    demo.includes("e.gcov=(!e.melee&&realCoverPillar(e))?1:0;"));
+
+  ok('V102 THE BODY LAGS THE NEEDLE ON PURPOSE: the sweep is fast and reverses, so mirroring it frame-for-frame would make him vibrate. And a fresh dial starts him TUCKED rather than mid-rise from the last one',
+    demo.includes('e._expo=(e._expo==null)?_xt:(e._expo+(_xt-e._expo)*EXPO_FOLLOW);') &&
+    demo.includes('for(const _e of (G.e||[]))_e._expo=null;'));
+
+  ok('V102 AND THE RESET GOES BEFORE THE if/else, NOT INSIDE IT. The first version of this patch anchored on the FIRST HALF of an if/else and orphaned the else, which broke the entire demo while every string check still passed. ANCHOR UNIQUENESS IS NOT ANCHOR CORRECTNESS',
+    /for\(const _e of \(G\.e\|\|\[\]\)\)_e\._expo=null;\s*\n\s*if\(!isChain\)/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
@@ -2809,6 +2856,32 @@ ok('V66 PARENT: the outcome settles exactly once per encounter, and a broken han
 ok('alpha bakes the walk frames the demo plays (player 4-phase, enemies 2-phase)',
   alpha.includes("out.dirs[d].walk=[0,0.25,0.5,0.75].map(p=>bake112(d,'walk',p))") &&
   alpha.includes("L.look.walk112=[0.25,0.75].map(p=>bake112(L.d,'walk',p))"));
+
+/* ===== THE DEMO MUST ACTUALLY PARSE ==================================
+   Added 7/29 after a patch of mine anchored on the first half of an if/else,
+   orphaned the else, and broke the ENTIRE combat demo -- while every one of the
+   500+ string checks below still passed, because a string check cannot tell the
+   difference between valid code and rubble.
+   A gate that proves the right words are present and never proves the file RUNS
+   is not a gate. This parses every script body in the demo with the real JS
+   parser, which is the cheapest possible catch for the most expensive class of
+   mistake this lane makes. */
+(function demoParses(){
+  const os2 = require('os'), pathq = require('path'), cp = require('child_process');
+  const bodies = [...demo.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+  ok('THE DEMO PARSES: every script body in COMBAT_B64 is valid JavaScript (a string check cannot tell valid code from rubble)', bodies.length > 0);
+  bodies.forEach((body, n) => {
+    const f = pathq.join(os2.tmpdir(), 'bohemia_combat_parse_' + process.pid + '_' + n + '.js');
+    let msg = '';
+    try {
+      require('fs').writeFileSync(f, body);
+      const r = cp.spawnSync(process.execPath, ['--check', f], { encoding: 'utf8' });
+      msg = r.status === 0 ? '' : (r.stderr || '').split('\n').slice(0, 4).join(' | ');
+    } catch (e) { msg = String(e); }
+    finally { try { require('fs').unlinkSync(f); } catch (e) {} }
+    ok('THE DEMO PARSES: script body ' + n + ' is valid JavaScript' + (msg ? ' -- ' + msg : ''), !msg);
+  });
+})();
 
 console.log('=== COMBAT GATE: ' + pass + ' pass / ' + fail + ' fail ===');
 if (fail) console.log('HINT: if demo markers are missing, a parallel-session merge clobbered COMBAT_B64 -- run: python3 tools/bohemia_combat_melee_patch.py');

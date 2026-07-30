@@ -530,6 +530,81 @@ another lane's work and guessing at it is exactly what MECHANISM-MINE/
 CONTENTS-PAOLO'S forbids. RUN/ART lane: this is yours, and it is currently
 turning every lane's suite red.
 
+COMBAT (04) 7/29 (c) - THE NEEDLE IS HIS BODY. (Paolo: "whats up. whats next.")
+Built the thing I deferred last turn rather than asking a second time.
+
+*** v102 THE DIAL IS A PICTURE OF THE TRUTH ***
+Paolo: "i want their cover animation to be tied to where there deadshot dial
+lands perfectly in the center. so that killshot they better be out of cover. and
+when its in miss territory they are under cover."
+The dial was an abstraction sitting ON TOP of the fight: the needle swept, you
+pressed, a number decided, and the man was on his own timer. Now the needle IS
+how exposed he is, so you stop reading a gauge and start reading a man.
+*** HE IS OUT EXACTLY WHEN THE RETICLE GOES GREEN *** -- not an approximation
+picked to feel right, the SAME expression that has driven the green reticle since
+the dial shipped. Measured live: |angle| 0 and 0.055 (inside the 0.061 kill zone)
+-> exposure 1.0; 0.175 (halfway to the 0.289 hit edge) -> 0.5; 0.433 (past it)
+-> 0.0.
+NOTHING WAS ANIMATED: rise112 is already baked (the body coming UP OUT OF THE
+CROUCH, already used when a man gets off the deck). The needle INDEXES its 4
+frames. Touches no rig, no clip, no BAKED pose, no bank -- clear of the animation
+revamp in another session.
+ONLY THE MAN UNDER THE DIAL ("i still like how they animate already"): verified
+a second covered man's frame is identical at both ends of the sweep and his
+_expo is never even set.
+IT IS A READ, NOT A RULE CHANGE: verified e.gcov is unchanged across the whole
+sweep, so cover/damage/exposure/AI resolve exactly as before.
+THE BODY LAGS THE NEEDLE ON PURPOSE (EXPO_FOLLOW): the sweep is fast and
+reverses, so mirroring it frame-for-frame would make him vibrate. A man reacting
+to your aim is half a beat behind it.
+TOOL: tools/bohemia_combat_dial_cover_patch.py | GATE section 36
+
+*** I BROKE THE ENTIRE DEMO AND THE GATE DID NOT NOTICE. READ THIS. ***
+The first version of v102 anchored on this line:
+    if(!isChain){G._chainN=1;G._poppedOut=false;}
+and inserted AFTER it. That line is the FIRST HALF OF AN IF/ELSE. The insert
+orphaned the else and the whole combat demo stopped parsing -- G undefined,
+nothing ran, black tab.
+*** AND ALL 500+ STRING CHECKS STILL PASSED, because a string check cannot tell
+the difference between valid code and rubble. *** The anchor was UNIQUE and the
+anchor was WRONG, which is the exact lesson this lane already had written down
+and did not apply.
+SO THE GATE NOW PARSES THE DEMO. combat_lab_gate.js runs node --check over every
+<script> body in COMBAT_B64. Cheapest possible catch for the most expensive class
+of mistake this lane makes, and it should have existed 100 patches ago.
+COMBAT GATE: 513 -> 524 (section 36 + the parse checks).
+
+*** AND I CORRECTED MY OWN CHECK THE SAME TURN ***
+I wrote a check claiming "ONE EXPRESSION, NOT TWO" and it failed, and IT WAS
+RIGHT TO. There have always been TWO different multipliers here:
+   fgv = what the BANDS DRAW      (difficulty, steady aim, kill streak)
+   fg  = what the SHOT RESOLVES ON (all that PLUS the on-the-one bonus + groove)
+That is a DESIGNED difference, not drift, and it stays. What v102 actually fixed
+is that the BAND expression was an inline const the pose would have had to copy;
+it is dialFgv() now, defined once, shared. Check and tool docstring both
+corrected to the true claim.
+ALSO RE-POINTED: the NORTH STAR AUDIT PIN ("no positional term multiplies the
+player's damage or hit window") read the old inline const. It follows the
+expression into dialFgv(). Invariant unchanged; it is the most important pin in
+this file and it must never be allowed to quietly stop looking at anything.
+
+STAMP NOTE: set 7/29i first, which is BEFORE another lane's 7/29k -- the letters
+are a sequence and I went backwards. Then 7/29L, which the run gate rejects
+(the law's shape is lowercase). Landed on 7/29m, skipping l on purpose because a
+lowercase l reads as a 1 on a phone.
+
+STILL NOT BUILT, and it is the only thing left from his last message:
+*** CARS, 2 TILES BY 3 (his ruling). *** Design is written:
+records/BOHEMIA_COMBAT_NEXT_TWO_DIAL_COVER_AND_CARS_7_29_26.md
+First MULTI-TILE cover in the game, which is a different object: blocks a LENGTH
+not a point, and the engine end hides you to the chest while the boot end hides
+you to the waist -- one object, two cover values, which no block can do. The work
+is that pillars are CIRCLES and a car is a RECTANGLE (about five cover/collision
+functions need rectangle maths). DO THE SHOPPING CHECK FIRST: car_wreck x20 is in
+STREET_PROP_POOLS but that bank is "corpus art, no new canon" and is NOT in the
+approved index -- render the 20 at 2x3 and LOOK before deciding it is an art ask
+at all. His 2x3 ruling must also be amended into TF-CMB-003.
+
 COMBAT (04) 7/29 (b) - FOUR RULINGS BUILT, TWO MORE ANSWERED, TWO DELIBERATELY NOT
 BUILT. Paolo sent four calls, then three more mid-turn.
 
