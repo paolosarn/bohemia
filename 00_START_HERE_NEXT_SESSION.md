@@ -1,3 +1,70 @@
+WORLD (9lfjtf): 7/30 — THREE GATES SHIPPED, AND I INDEPENDENTLY DIAGNOSED THE DEAD
+ALPHA THEN THREW MY OWN FIX AWAY BECAUSE SOUNDS GOT THERE FIRST AND GOT IT RIGHTER.
+Read the CHARACTER and SOUNDS sections below for the incident itself; this is only
+what the WORLD lane adds on top.
+
+=== SHIPPED (6582eed, full suite ALL GREEN 586s) ===
+Three laws that had no machine behind them now have one. All three RATCHET: floors
+set from what is already true, named debt may only shrink, new work cannot add.
+  - TOOLS RUN (gates/tools_run_gate.py) — every tools/*.py and *.js PARSES, every
+    gate parses, and the hero bank is REPRODUCIBLE byte-for-byte from its factory
+    (snapshot, re-run, compare, restore). The hole I proved by falling in it: on
+    7/28 I shipped the hero factory to main WITH A PYTHON SYNTAX ERROR and all ~130
+    gates went green, because nothing in the suite ever EXECUTES that tool. On its
+    first run it found a SECOND broken tool that was not mine —
+    tools/bohemia_skin_above_hand_and_throat_patch.py, unterminated string, could
+    not execute at all. Syntax fixed, content untouched. Now 186 tools, 164 gates.
+  - SQUINT (gates/squint_gate.py) — EVERY DISTRICT IS ITS OWN LANDMARK (Paolo 7/28)
+    had no gate. 16x16 silhouettes, TOP HALF ONLY (the full icon is mostly the
+    shared ground plate; the top half separates 38% better). 13 twin pairs declared
+    as debt, worst is storage/warehouse at 0.8% different.
+  - HUE (gates/hue_gate.py) — locks the Pocket City colour measurement so nothing
+    slides back to mud. Set median 3 families / 37.2% chromatic; best is the school
+    at 9. Deliberately does NOT chase the reference's 88%: a dead Vegas should not
+    look like a living sunny city.
+
+=== THE COLLISION, RECORDED HONESTLY ===
+I hit the dead alpha independently while rebasing: 21 gates red across four lanes,
+traced it to `Unexpected token '<'`, restored the three blocks byte-exact from the
+parent, re-landed the rig-tool pixelated fix, wrote a gate (alpha_parses_gate.js,
+9 of 11 claims fire on the broken tree) and a post-mortem. Then I fetched and found
+ccb0d68 + bc68090 already on main doing the same job, with a BETTER root cause than
+mine: I had inferred an ad-hoc line-position stamp edit; SOUNDS proved it was a
+rebase conflict resolution across 161 commits. I dropped ALL of it — restore, gate,
+post-mortem. Two gates for one law is noise, and a wrong root cause in records/ is
+worse than no record. Nothing of mine on that incident is in the repo.
+
+ONE THING STILL WORTH SOMEBODY'S TIME (not urgent, flagged not claimed): the
+alpha-loads gate floors RIG_B64/COMBAT_B64 on LENGTH. A blob that is long but
+corrupt still passes. Decoding them and asserting they are whole HTML documents is
+a two-line upgrade whenever that lane next touches it.
+
+=== THE WALL CLASS RED, AND WHY IT IS ALREADY SOLVED ===
+My post-rebase suite came back "1 GATE(S) FAILED: WALL CLASS". It passed 19/0
+standalone and 3-for-3 under deliberate parallel load — a contention flake, from
+fixed waitForTimeout waits. That is the same finding 5826514 shipped the pid lock
+for. The lock is the right fix and it is in. Do not chase WALL CLASS.
+
+=== WHERE THE WORLD LANE ACTUALLY IS ===
+BLOCKED ON PAOLO, and deliberately not producing around it (STOP PRODUCING law):
+  1. THE HIGH SCHOOL THUMB. He judged it "79% there", gave 8 specific notes across
+     plot and icon, all 8 are applied and judgeable at
+     slices/BOHEMIA_SCHOOL_JUDGE_7_28_26.html. His thumb on the REBUILT one is what
+     unlocks rolling the treatment to the other 35 districts. DO NOT roll it early —
+     that is exactly the four-versions failure the STOP PRODUCING law is about.
+  2. WHICH TILE FORMS THE ART LANE COOKS FIRST. 15 forms filed in records/tileforms/
+     (TF-WORLD-001..015) from an actual walk of 687 legend entries. My proposed
+     order: roofs -> signs -> kerbs. ART has already cooked TF-ART-001 (CMU block).
+  3. HOW LONG SINCE THE COLLAPSE. Still unanswered, still sets the damage level for
+     all 45 districts. Nothing about weathering can be authored until he rules it.
+NOT BLOCKED, available if this lane gets a "go" with no verdicts in: pull the 13
+SQUINT twin pairs apart, starting with storage/warehouse.
+
+STANDING FOR THIS LANE: ACT ONE ONLY (Paolo 7/28). Every district cell is its own
+landmark. Do not cook art here — the ART lane cooks from forms only. Resolver
+tables stay empty until he rules numbers. Never auto-generate strip/resort/casino/
+luxor/sphere/strat/highroller/sign: Paolo's hand by law.
+
 CHARACTER (0lurbs): 7/30 LATEST — I CAUSED THE DEAD ALPHA BELOW, AND I BUILT THE
 GATE THAT MAKES IT UNREPEATABLE. The one red the SOUNDS lane left me is now GREEN.
 Read their section next; it is accurate and I am not softening any of it.
