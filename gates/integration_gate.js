@@ -72,7 +72,75 @@ const PROBES = {
     ALPHA.indexOf("d.type==='BOHEMIA_RUN_MUSIC'") >= 0 &&
     ALPHA.indexOf('CITYMUS.startShuffle()') >= 0 &&
     // no second synth: the run must never CONSTRUCT an audio context of its own
-    !/new\s*\(?\s*(window\.)?(webkit)?AudioContext/.test(RUN),
+    !/new\s*\(?\s*(window\.)?(webkit)?AudioContext/.test(RUN) &&
+    // OFF MEANS SILENT (Paolo 7/27): stopping must cut the MASTER GAIN, not just
+    // the scheduler. Notes already booked into the graph kept playing after the
+    // button said off, which is why clearing the timer alone is not a stop.
+    /MAST\.gain\.cancelScheduledValues/.test(ALPHA) &&
+    /MAST\.gain\.linearRampToValueAtTime\(0/.test(ALPHA),
+
+  /* BORDER WALLS (Paolo direct order 7/27). The 13 approved perimeter keys must
+     really wrap the block he walks. Note what this probe does NOT do: it does not
+     sample a few tiles near the front door. My first version of that check did,
+     the wall is twenty tiles away, and it reported ZERO draws of approved art that
+     was drawing 207 times. So: the bank's own bytes must SHIP, and the renderer
+     must both PICK one per community and DRAW it. */
+  banks_used: () => {
+    const pool = JSON.parse(fs.readFileSync(
+      path.join(ROOT, 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt'), 'utf8')).pool;
+    // the backlog order names the TAN variants specifically; the pool carries 26
+    // entries across colourways and only the tan set is the approved 13
+    const tan = pool.filter(w => w.variant === 'tan');
+    if (tan.length !== 13) return false;
+    if (!tan.every(w => RUN.indexOf(w.b64) >= 0)) return false;   // the bytes, verbatim
+    return RUN.indexOf('function perimImg(') >= 0 &&           // one wall per community
+           RUN.indexOf('function drawPerim(') >= 0 &&          // and it really draws
+           /PERIM_IMG\[h\s*%\s*PERIM_IMG\.length\]/.test(RUN);
+  },
+
+  /* THE D-PAD IS A CONTROL, NOT TEXT (Paolo 7/28). iOS raised the copy/paste menu
+     on every direction press. The run is the ONE tab loaded by iframe src while the
+     others are base64 blobs, so both the 7/27 patch tool and its gate skipped it.
+     The guard must be in the DEV SOURCE — the generated file is overwritten every
+     build — and it must still be present in what ships. Inputs stay selectable. */
+  touch_guard: () => {
+    const dev = fs.readFileSync(
+      path.join(ROOT, 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'), 'utf8');
+    const guarded = (s) =>
+      /-webkit-touch-callout\s*:\s*none/.test(s) &&
+      /user-select\s*:\s*none/.test(s) &&
+      /touch-action\s*:\s*manipulation/.test(s) &&
+      /input\s*,\s*textarea\s*\{[^}]*user-select\s*:\s*text/.test(s);
+    return guarded(dev) && guarded(RUN);
+  },
+
+  /* ONE VEGAS (Paolo 7/28, "incorporate all of these things together"). The run and
+     the city were two different valleys: hashSeed('bohemia') against a hardcoded
+     2026. Three things have to hold now, and the third is the one he actually asked
+     for — the city menu must know where he is standing. */
+  one_seed: () => {
+    // 1. the run boots the SHARED world off the shared seed text, not a number
+    if (RUN.indexOf("BohemiaLoop.boot({ seed: 'bohemia' })") < 0) return false;
+    if (RUN.indexOf('E.WorldGen.hashSeed(seedText)') < 0) return false;
+    if (/World\.world\(\s*2026\s*\)/.test(RUN)) return false;      // the old hardcode
+    // 2. home is CHOSEN and scored, never first-suburb-in-scan-order (= the map rim)
+    if (RUN.indexOf('function findHomeCell(') < 0) return false;
+    if (RUN.indexOf('var HOME_CELL = findHomeCell()') < 0) return false;
+    // the scorer must stay on the CHEAP overmap rung: WORLD.tile() realizes a whole
+    // 128x128 district and calling it per candidate took minutes to boot on a phone
+    // strip comments first: the function CARRIES a comment explaining why it must
+    // not call WORLD.tile(), and a probe that reads prose instead of code would
+    // fail the very fix it is guarding
+    const fh = RUN.slice(RUN.indexOf('function findHomeCell('),
+                         RUN.indexOf('var HOME_CELL = findHomeCell()'))
+                  .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+    if (/WORLD\.tile\(/.test(fh)) return false;
+    if (!/WORLD\.at\(/.test(fh)) return false;          // the cheap overmap rung
+    // 3. the position really crosses the bridge, both ways
+    return RUN.indexOf("type:'BOHEMIA_RUN_WHERE'") >= 0 &&
+           ALPHA.indexOf("d.type==='BOHEMIA_RUN_WHERE'") >= 0 &&
+           ALPHA.indexOf("type:'BOHEMIA_GOTO_CELL'") >= 0;
+  },
   /* THE VISUAL CONSTITUTION (Paolo's CBB verdict on the target, 7/26): the run
      is laid from the FROZEN starter tileset, consumed byte-for-byte, and the
      tiles are really used by the renderer rather than merely shipped. */

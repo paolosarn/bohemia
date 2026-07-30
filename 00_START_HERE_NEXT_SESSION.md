@@ -1,3 +1,62 @@
+RUN (eak241): 7/30 LATEST — EVERYTHING THIS LANE BUILT IS ON MAIN AND GREEN, AND THE
+LANE IS PARKED ON ONE DECISION. Read this section before touching the run.
+
+WHAT LANDED (all shipped, all gated):
+  - THE BUILDING STACK, rebuilt. He said the garages looked like "sideways U's" and he
+    was right. Doors now only ever sit on the SOUTH face (the only face a 3/4 top-down
+    projection can draw), walls are 4 courses under a 3-course roof cap measured off the
+    frozen target frame, garage bays are max 3 wide at the driveway end of a south run.
+  - OCCLUSION. Standing under a canopy/deck fades it to 0.35. My FIRST cut faded whatever
+    sat north of him, which ghosted him standing in his own front yard — he is IN FRONT
+    of that wall. Restricted to the overhead layer plus the doorway leaf.
+  - OFF MEANS SILENT (law, 7/27). MUS.stop() cut the scheduler but not the master gain,
+    so booked notes kept playing after the button said off.
+  - THE D-PAD IS NOT TEXT. iOS raised copy/paste on every direction press. The run is the
+    ONE tab loaded by iframe src (the other three are base64 blobs), so the 7/27 guard and
+    its gate both skipped it. Guard is in the DEV SOURCE — the generated file gets erased.
+  - FRONT PATHS instead of concrete confetti: a real BFS path from the door to the street.
+  - ONE VEGAS. The run and the city were literally two different valleys (hashSeed
+    ('bohemia')=2691674296 vs a hardcoded 2026). Same seed now, plus a run->city position
+    bridge and a CHOSEN home cell [39,23] instead of the map rim.
+  - THE BANKS-USED GATE (from his "are you drifting off?" — laws/BOHEMIA_ADDENDUM_
+    NEVER_DRIFT_7_28_26.md). Approved-but-unused art is a DEFECT, waivers must be named,
+    ticketed, and asserted honest in both directions.
+  - PAPERWORK, no pixels cooked: 9 tile forms, the UI catalogue, 45 currency icon options
+    and his three combined picks (laws/BOHEMIA_ADDENDUM_COMBINED_CURRENCY_ICONS_7_28_26).
+
+THE ONE THING BLOCKING THIS LANE — records/BOHEMIA_DISTRICT_SCALE_FINDING_7_28_26.md.
+He asked why the districts feel small. They ARE small, by 16x, and his own law says so.
+  RUN   engine/bohemia_world.js   `var T = 128`     128x128 = 96m x 96m   valley 5.73 mi
+  CITY  engine/bohemia_overmap.js `TILE_FINE=32`     32x32  = 24m x 24m   valley 1.43 mi
+laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md is LOCKED, is titled "revokes the 24m
+SLOT SCALE LAW of 7/5", says 128, and its own checklist marks the relock DONE. The file
+still reads 32 and its header still cites the revoked law by name.
+ROOT CAUSE, and it is the transferable part: TWO SOURCES OF TRUTH FOR ONE NUMBER. The run
+hardcodes 128 and never reads the overmap, so it has been right by coincidence rather than
+by obeying the law, and nothing in the repo compared them. Same shape as the ONE MAP seed
+bug fixed the same week in the same module.
+I DID NOT FLIP IT. FN appears 4,812 times in the city renderer, 48 generators fill the
+cell, and WALKABLE-LAND would fire loudly the moment a lot becomes a neighbourhood. That
+is a fleet-wide change on his word, not mine. [PENDING Paolo: flip to 128, yes or not yet]
+WHEN HE SAYS YES: set TILE_FINE = SLOT_FINE = 128, delete the stale 7/5 header comment,
+re-run every district gate, and ADD THE MISSING GATE that asserts the run's TILE_PER_CELL
+and the overmap's TILE_FINE are the same number. Without that gate this silently rots again.
+
+ALSO PENDING PAOLO (nothing here blocks the fleet): district floors (de-border the desert
+tiles / shop another bank / dress by structure); walk feel GRID/SLIDE/HYBRID/FREE has been
+live and unjudged since 7/26; what eating costs in time; the moment table + per-unit rates
+(backlog A2, and it blocks everything downstream of the resolver); reach in tiles.
+
+WHAT I'D DO NEXT WITHOUT A WORD FROM HIM: backlog RUN item 1, the PHONE-FEEL PASS — real
+device-shaped viewports, hold-to-walk tuning, tap target sizes. It needs no verdict and no
+art. DISTRICT ART is the biggest visible gap in the ledger but it sits behind both pending
+items above, so starting it now would be building on a number that may change by 4x.
+
+DO NOT: edit slices/BOHEMIA_RUN_CURRENT.html. It is GENERATED. The dev source is
+slices/BOHEMIA_RUN_SLICE_7_26_26.html and the builder overwrites everything else.
+DO NOT: run the full suite while files are still being edited — the run gate asserts
+"rebuilding changes nothing" and you will invalidate your own pass. I did this to myself.
+
 CITY (03): 7/29 LATEST — THE WALK SURFACE HAS PEOPLE IN IT NOW. This was the lane's #1
 item (ER, the engine reality audit) and it is also his 7/29 ruling made real, so it was
 the one obvious thing to do on "go".
@@ -151,6 +210,13 @@ GATES (both extended, both proved able to fail, then restored):
     and has not drifted from its recorded fingerprint. Determinism is measured
     RELATIVE to each sound's own peak (0.2%, -54 dB), because an absolute bar was
     measuring voice count rather than correctness.
+
+[RESOLVED 7/30 — tileform_gate is GREEN on main, 8167 passed / 0 failed. The gate was
+taught that acts beyond 1 are legal when the form says why (e0dc1a5), and the three
+RUN icon forms declared acts [1,2,3] against the act-one law (8bb1588). Leaving the
+original flag below because the SECOND paragraph of it is the reusable lesson: a lane
+that is not the owning lane should not edit another lane's forms to make its own suite
+green — it should prove the red is inherited and say so, which is exactly what happened.]
 
 FOR THE RUN LANE, NOT MINE TO FIX: **TILE FORM is RED on main right now**, and it
 was red before this ship. TF-RUN-008_resources_icon, TF-RUN-009_energy_icon and
