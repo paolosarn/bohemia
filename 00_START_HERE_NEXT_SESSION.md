@@ -530,6 +530,36 @@ another lane's work and guessing at it is exactly what MECHANISM-MINE/
 CONTENTS-PAOLO'S forbids. RUN/ART lane: this is yours, and it is currently
 turning every lane's suite red.
 
+*** MAIN SHIPPED A BUILD WITH NO COMBAT TAB AND NO RIG TAB. REPAIRED 7/29. ***
+Found while rebasing, NOT by any gate. Commit 7bf83a1 ("EVERY CHARACTER SURFACE
+LANDS ON WHOLE PIXELS") replaced THREE LINES of the alpha with A DUPLICATE COPY
+OF THE BUILDSTAMP DIV. The three lines were RIG_B64, COMBAT_B64 and BAKED.
+*** 1.27 MB deleted, and shipped to main. ***
+Everything that USES them was untouched -- ensureCombatFrame, combatFrame,
+p-combat, rigFrame, p-rig -- so the live build had a combat tab and a rig tab
+pointing at blobs that no longer existed. Both dead.
+It reads like a stamp edit that matched the wrong span, which is why the
+fingerprint is a SECOND buildstamp div sitting exactly where the blobs used to
+be. RIG/CHARACTER LANE: check whatever writes your stamp.
+THE REPAIR is mechanical and byte-exact, not a judgement call: the three lines
+restored verbatim from 1399312 (the last alpha that had them) at the same index,
+stray div deleted. Result matches the last good alpha LINE FOR LINE (13287), one
+of each declaration, one stamp div, both blobs decode, and the alpha's script
+bodies parse exactly as before (2 of 9 "fail" a standalone parse in BOTH the good
+and repaired file -- a regex artifact from a </script> inside a string, not
+damage; verified identical).
+RIG_B64 and BAKED are another lane's, but restoring an accidentally deleted blob
+from git history involves no design decision, and leaving them out leaves their
+tab broken on the live build.
+*** AND THE GATE DID NOT REPORT THIS, IT CRASHED ON IT. *** The COMBAT_B64 match
+was null and m[1] threw a stack trace, which reads like a broken GATE rather than
+a broken BUILD. Now combat_lab_gate section 0:
+  - every blob (CITY/COMBAT/PREFAB/RIG) declared EXACTLY ONCE, plus BAKED
+  - EXACTLY ONE buildstamp div, because a second one is this bug's fingerprint
+  - a plain STOP message and exit(1) instead of a stack trace when the demo is gone
+PROVEN against main's real broken alpha: it fails cleanly and names the loss.
+COMBAT GATE 524 -> 530.
+
 COMBAT (04) 7/29 (c) - THE NEEDLE IS HIS BODY. (Paolo: "whats up. whats next.")
 Built the thing I deferred last turn rather than asking a second time.
 
