@@ -1,3 +1,88 @@
+CHARACTER (0lurbs): 7/30 LATEST — I CAUSED THE DEAD ALPHA BELOW, AND I BUILT THE
+GATE THAT MAKES IT UNREPEATABLE. The one red the SOUNDS lane left me is now GREEN.
+Read their section next; it is accurate and I am not softening any of it.
+
+=== WHAT I OWED THEM, PAID ===
+SOUNDS was right on every point. Their handoff says CANVAS SCALE was red on main
+for one check -- "the RIG preview composites NEAREST-NEIGHBOUR" -- because my
+commit deleted RIG_B64 instead of replacing it with the patched one, and that the
+restore neither caused nor worsened it. Correct, and they were right not to touch
+my tab's blob. RIG_B64 is now regenerated with image-rendering:pixelated inside
+its <style>. CANVAS SCALE: 29 passed, 0 failed. 165 of 165.
+
+All 13 character surfaces now land on exact whole-number scales:
+    charCv x3 · portraitCv x2 · cloBig x3 · cloCv x1 · g8_0..7 x1 · rig cv x1
+Fractional canvases 19 -> 4. The 4 left are combat/city and belong to those lanes.
+
+=== THE GATE THAT COMES OUT OF THE EMERGENCY ===
+SOUNDS wrote: "a page-error probe ... takes 10 seconds and would have caught this
+before it ever reached him." That is now a gate, not a suggestion.
+
+gates/alpha_loads_gate.js (wired into the suite, ~5s, ALPHA LOADS 20/0):
+  - the alpha loads in a real browser with ZERO page errors, and BAKED / drawChar
+    / MUS exist at runtime with all 8 facings present
+  - RIG_B64, COMBAT_B64 and BAKED are present AND still full size -- a floor on
+    each, because a TRUNCATED blob is a silent art loss that never throws
+  - exactly ONE buildstamp div, and no loose HTML tag at the start of a line in
+    any script body (that is the exact signature of what I shipped)
+  - no conflict markers (keeps the 7/29 regression dead too)
+Law: laws/BOHEMIA_ADDENDUM_THE_ALPHA_MUST_LOAD_7_30_26.md
+
+WHY IT IS DELIBERATELY CHEAP: the full suite is ~590s, and that is precisely why
+it got skipped under time pressure. A guard you skip is not a guard. Run this one
+before every push; it is affordable enough that there is never a reason not to.
+
+THE PROCESS FAILURE, NAMED SO IT IS NOT REPEATED: my full suite HAD run green --
+BEFORE the rebase. Main moved 161 commits and I did not re-run, because the
+earlier green still felt like it counted. It did not. A green from before a
+rebase describes a tree that no longer exists. The 7/29 conflict-marker pre-push
+guard passed truthfully here; this merge left no markers, it deleted a megabyte
+instead. A guard that checks one signature of a bad merge says nothing about the
+others.
+
+I FOLLOWED THEIR RULE THIS TIME. Their "NEVER RESOLVE AN ALPHA CONFLICT BY HAND"
+is now how this lane ships: `git checkout --ours slices/BOHEMIA_ALPHA_0_9.html`
+(take main's alpha whole), re-run the idempotent patch tool, re-set the stamp,
+run ALPHA LOADS, push. This ship did exactly that and lost nobody's bytes.
+NOTE FOR WHOEVER IS NEXT: the RUN lane landed the restore (ccb0d68) while my
+suite was running, so the BAKED on main is THEIRS, not my splice. Mine was
+byte-identical from 7bf83a1~1 but it is theirs that shipped. Credit where due.
+
+=== CHARACTER LANE STATE ===
+SHIPPED AND GREEN (this session): the 1px black outline on all 8 facings; the
+neck as its own skin TONE (not a shadow) + throat rows, E/W one row shorter per
+his ruling; his curtain-bob hair applied verbatim; his chin/neck rig edit applied;
+A LONG SLEEVE STOPS AT THE HAND (0 arm cells render bare skin on E/W/S);
+CLOTHES FOLLOW THE BODY; shoulder share + rigid arm; the SHOULDERS / ARM LENGTH /
+HIPS dials with legs tied to the arms dial; whole-pixel canvas scaling.
+
+[PENDING, PAOLO'S CALL] -- do not decide these:
+  1. Border tone: pure black / dark brown 38,30,26 / softer brown 58,46,40 / none
+     (anchors: records/outline/BORDER_TONE_CHOICES_7_27_26.png)
+  2. Far-hand depth on E/W: far reads 153.2 vs near 153.8, so there is no depth
+     cue at all. Either a separate shading layer (SHADOWS ARE SEPARATE, 7/26) or
+     do not draw the far hand in profile. Not my call.
+  3. Unbuilt slider proposals he has not ruled on: LEG LENGTH vs TORSO,
+     FRAME/BULK, POSTURE, NECK LENGTH.
+
+ANSWERED HONESTLY, NOT QUIETLY DROPPED: he asked for a 0.5px border. It is
+impossible -- the pixel grid plus the RENDER PIXEL gate forbid half-pixel draws.
+The `outerOnly` alternative was measured byte-identical (12,170 pixels either
+way, 0% less black), so the dead code was removed instead of shipped as a fake
+improvement.
+
+RULINGS RECORDED THIS SESSION: FAT IS FAT -- no sex-aware fat distribution, and
+the gate blocks `bust` / `fatDistribution` / `gynoid` as identifiers. A woman
+reads through "slightly skinnier arms, shorter" plus narrow shoulders. NO female
+rig, ever.
+
+TILE FORMS FILED (art lane cooks from these, I cooked nothing):
+  TF-CHAR-001 contact shadow (row 7, HIGH) · TF-CHAR-002 stage ground (row 8,
+  HIGH) · TF-CHAR-003 footfall dust (row 12, MED) · TF-CHAR-004 portrait
+  backdrop (row 13, LOW)
+
+--------------------------------------------------------------------------------
+
 SOUNDS (xk7pjp): 7/30 LATEST — TWO THINGS. (1) I RESTORED THE RIG, THE COMBAT TAB
 AND PAOLO'S PAINTED BODY: main was shipping a DEAD alpha for ~12 minutes. (2) THE
 RUN IS ON THE SONG'S CLOCK (SOUNDS item 1 done). The 60 remade sounds are still
