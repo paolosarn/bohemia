@@ -1,3 +1,109 @@
+SOUNDS (xk7pjp): 7/30 LATEST — TWO THINGS. (1) I RESTORED THE RIG, THE COMBAT TAB
+AND PAOLO'S PAINTED BODY: main was shipping a DEAD alpha for ~12 minutes. (2) THE
+RUN IS ON THE SONG'S CLOCK (SOUNDS item 1 done). The 60 remade sounds are still
+unjudged and that is still the only thing blocking this lane.
+
+=== THE EMERGENCY, FIRST, BECAUSE IT WILL HAPPEN AGAIN ===
+Commit 7bf83a1 (CHARACTER lane, "EVERY CHARACTER SURFACE LANDS ON WHOLE PIXELS")
+landed on main having DELETED three lines of the alpha and left a stray
+build-stamp <div> where they were -- inside a <script>:
+    const RIG_B64=...      127,857 bytes   THE ENTIRE RIG TAB
+    const COMBAT_B64=...  1,109,816 bytes  THE ENTIRE COMBAT TAB
+    const BAKED={...}        30,339 bytes  PAOLO'S HAND-PAINTED RIG DATA
+An HTML div inside a script is a syntax error, so the whole block failed to parse:
+"Unexpected token '<'" on load, no BAKED, no MUS, EVERY TAB DEAD. And it deployed
+-- the Pages run for that main concluded SUCCESS at 16:45, so the live link was
+broken for him until the restore at 16:58.
+RESTORED verbatim from 7bf83a1~1, asserting none of it was already present so
+nothing of theirs could be clobbered. Their canvas-sizing work is untouched.
+VERIFIED AFTER: zero page errors, RIG IS LAW 12/12, COMBAT 513/513, THE RUN
+126/126, SFX 135/135, SFX RENDER 843/843, RUN BEAT 22/22.
+
+THE RULE THAT COMES OUT OF IT, and this lane made the same class of mistake TWICE
+today before catching it: **NEVER RESOLVE AN ALPHA CONFLICT BY HAND.** The alpha
+is 33 MB of single-line data blobs; a conflict in it cannot be read by eye, and a
+regex-spliced resolution silently ate content both times. The safe move, every
+time:
+    git checkout origin/main -- slices/BOHEMIA_ALPHA_0_9.html
+    <re-run your patch tool(s)>          # they are idempotent, that is the point
+    <re-set the build stamp>
+That reproduces your change deterministically on top of whatever main has, and it
+cannot lose anybody else's bytes. A page-error probe (open the alpha in a real
+browser, listen for `pageerror`) takes 10 seconds and would have caught this
+before it ever reached him.
+
+FOR THE CHARACTER LANE, THE PART I DID **NOT** FIX: CANVAS SCALE is red on main,
+one check -- "the RIG preview composites NEAREST-NEIGHBOUR". That check is YOURS,
+added in 7bf83a1, and the content it demands never landed: the commit deleted
+RIG_B64 rather than replacing it with the fixed one. I restored the PRE-EXISTING
+rig, which does not carry your image-rendering change, so your check still fails.
+  I MEASURED WHETHER I CAUSED IT: ran your gate on your own broken main --
+  28 passed, 1 failed. On the restored tree -- 28 passed, 1 failed. IDENTICAL.
+  You shipped that gate red; the restore neither caused nor worsened it.
+  I did not fix it because it is a CSS property inside your tab's base64 blob and
+  that is your content, not a merge artifact. Regenerate RIG_B64 with the
+  image-rendering fix and it goes green. 164 of 165 gates are green on main now.
+
+=== SOUNDS ITEM 1: THE RUN IS ON THE SONG'S CLOCK ===
+THE HOLE: the walk's beat was the literal `var BEAT=500` and nothing about tempo,
+beat index or transport crossed the parent->run postMessage vocabulary, while
+COMBAT got full song data and a HERO BEAT. The run and the music agreed only
+because both numbers were typed the same. Two clocks that had not drifted yet.
+  PARENT (tools/bohemia_run_beat_patch.py): the studio already schedules every
+    16th on the AudioContext clock, so on each beat it posts BOHEMIA_RUN_BEAT with
+    the beat index, BPM, ms-per-beat and how many ms from now that beat lands.
+  RUN: an RB receiver phase-locks and exposes msPerBeat/beatNow/phase/
+    msToNextBeat. The door animation and the slide read the live tempo. A SILENT
+    RUN IS UNCHANGED: RB reports 500 ms and 120 BPM when nothing plays.
+  GATE: gates/run_beat_gate.py (RUN BEAT), 22 checks driving the real alpha with
+    the real studio playing. Proved able to fail by reintroducing the timebase
+    bug: red on the lock AND the phase rate, restored.
+
+THREE REAL BUGS THIS ROUND, none visible outside a real browser:
+  1. performance.now() IS PER-CONTEXT. An iframe's time origin is when the iframe
+     was created, so a parent timestamp runs ahead of the child's clock by however
+     long the page had been up -- it measured the run 22 beats off. The message
+     carries a DELTA now, true in anybody's clock.
+  2. MY IDEMPOTENT REMOVAL CUT ONE LINE SHORT and left an orphaned `})();` in its
+     own <script>. The block parsed fine in isolation; only opening the page
+     caught it. Marker-bounded now: a wrapper you insert is a wrapper you delete
+     whole.
+  3. I PATCHED A GENERATED FILE. slices/BOHEMIA_RUN_CURRENT.html is built by
+     tools/build_run_slice.js and says "never edit this file directly";
+     gates/run_gate.js caught it via "regenerating changes nothing". The patch
+     edits the dev source and runs the builder now.
+
+=== STATE ===
+BUILD STAMP: 7/29l - THE RUN RUNS ON THE SONG (RUN TAB).
+  (Letters are contended -- three other lanes shipped 7/29g through 7/29k the same
+   day, and one of them reused a letter. CHECK THE STAMP IN THE FILE before you
+   pick, and never assume your letter is free.)
+
+WHAT IS PENDING PAOLO:
+  1. THE 60 REMADE SOUNDS — MUSIC tab. Still the only thing blocking this lane.
+  2. (fleet) what colour rebuilt Vegas is, in his words (open since 7/27)
+  3. (fleet) cars 2x3 vs the re-cook's shorter read (open since 7/28)
+
+NEXT FOR THIS LANE:
+  - IF VERDICTS ARE IN: approve -> bank the vector, cook its variant set (3-4
+    alternations per footstep), and wire the approved events to real steps, which
+    is now possible because the beat clock exists.
+  - IF NOT: item 2 (ambient beds) still waits on RUN 0d's daycycle. There is no
+    third sound batch. He rejected once and I remade once; STOP PRODUCING says a
+    second rejection ends the feature for the session.
+
+READ BEFORE YOU RUN THE GATES: a fresh container has no image stack, and this
+session hit that TWICE (the container reset mid-session). Nine pixel-reading
+gates need it: pip install -r gates/requirements.txt. bohemia_gates.py prints a
+banner naming them before the first gate if either library is missing.
+
+READ AFTER YOU PUSH: GitHub Pages can silently skip a push. If no
+"pages build and deployment" run appears within a few minutes, push an EMPTY
+commit to main -- that produces a correctly-labelled run in about two minutes.
+This container cannot reach paolosarn.github.io (403 from the network policy), so
+the Actions API is the only deploy check available.
+
+--------------------------------------------------------------------------------
 SOUNDS (xk7pjp): 7/29 (j) LATEST — THE RUN IS ON THE SONG'S CLOCK (backlog item 1
 DONE), and the 60 remade sounds are still waiting on his thumbs.
 
