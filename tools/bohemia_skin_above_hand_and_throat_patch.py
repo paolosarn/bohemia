@@ -195,12 +195,12 @@ OLD_FLAG = 'const NECK_TONE = { on: true, part: 3, mul: 0.93 };'
 if src.count(OLD_FLAG) != 1:
     die('NECK_TONE flag found %d times (need exactly 1)' % src.count(OLD_FLAG))
 src = src.replace(OLD_FLAG,
-    'const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 2,
+    '''const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 2,
   /* ONE TILE ON E AND W (Paolo 7/28: "Make the neck one tile less facing east
      and west... towards the chin"). In profile there is far less throat between
      the jaw and the collar than there is head-on, so two rows reached up into the
      chin. One row there, two everywhere else. */
-  throatRowsByDir: { E: 1, W: 1 } };', 1)
+  throatRowsByDir: { E: 1, W: 1 } };''', 1)
 
 open(ALPHA, 'w', encoding='utf-8').write(src)
 print('APPLIED to slices/BOHEMIA_ALPHA_0_9.html')
