@@ -1159,7 +1159,60 @@ var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',di
    tile, and the run honours the integration contract's own rule — you are not
    through until the leaf is actually open (frame >= 5).
    =========================================================================== */
-var BEAT=500, DOOR_MS=BEAT*2;                        /* 120 BPM LAW: 2 beats */
+
+
+
+/* === RUN BEAT RECEIVER (7/29/26, SOUNDS lane) ============================
+   THE RUN USED TO COUNT ITS OWN 500 ms. That agreed with the music only because
+   both numbers were typed the same, which is not the 120 BPM LAW holding, it is
+   two clocks that have not drifted yet.
+
+   RB is the run's view of the SONG'S clock. When the studio is playing it is
+   phase-locked to the real transport; when nothing is playing it free-runs at
+   the last tempo it was told about, which starts at the 120 BPM default -- so a
+   silent run behaves exactly as it did before this existed. */
+var RB=(function(){
+  'use strict';
+  var st={on:false,beat:0,atPerf:0,msPerBeat:500,heard:0};
+  function now(){ return (typeof performance!=='undefined')?performance.now():Date.now(); }
+  return {
+    /* the parent hands us a beat and WHEN it lands in our own timebase */
+    take:function(d){
+      if(!d)return;
+      if(typeof d.msPerBeat==='number'&&d.msPerBeat>50&&d.msPerBeat<4000) st.msPerBeat=d.msPerBeat;
+      st.on=!!d.on;
+      if(d.on&&typeof d.beat==='number'&&typeof d.inMs==='number'){
+        /* resolve the parent's delta into OUR timebase, the only one we can
+           actually measure against */
+        st.beat=d.beat; st.atPerf=now()+d.inMs; st.heard=now();
+      }
+    },
+    msPerBeat:function(){ return st.msPerBeat; },
+    bpm:function(){ return 60000/st.msPerBeat; },
+    playing:function(){
+      /* a transport that has said nothing for two beats is not playing, whatever
+         the last message claimed */
+      return st.on && (now()-st.heard) < st.msPerBeat*2.5;
+    },
+    /* fractional beats since the announced beat: the run's phase on the song */
+    beatNow:function(){
+      if(!this.playing()) return (now()/st.msPerBeat);
+      return st.beat + (now()-st.atPerf)/st.msPerBeat;
+    },
+    phase:function(){ var b=this.beatNow(); return b-Math.floor(b); },
+    /* ms from now until the next downbeat -- what an on-the-beat action waits */
+    msToNextBeat:function(){
+      var b=this.beatNow();
+      return (Math.ceil(b)-b)*st.msPerBeat;
+    },
+    _state:function(){ return {on:st.on,beat:st.beat,msPerBeat:st.msPerBeat,
+                               heard:st.heard,playing:this.playing()}; }
+  };
+})();
+/* the two places the run used the hardcoded number now ask the song */
+function rbBeatMs(){ return RB.msPerBeat(); }
+function rbDoorMs(){ return RB.msPerBeat()*2; }   /* a door is 2 beats, always */
+var BEAT=500, DOOR_MS=BEAT*2;   /* fallback only: RB is the truth (7/29) */
 var DOOR_IMGS=(DOOR_ANIM.clips||[]).map(function(c){
   return c.frames.map(function(b64){ var im=new Image();
     im.onload=function(){ draw(); }; im.src='data:image/png;base64,'+b64; return im; }); });
@@ -1172,7 +1225,7 @@ function doorTick(){
   var live=false, now=Date.now(), n=DOOR_ANIM.framesPerClip||9;
   for(var k in DOORST){ var d=DOORST[k];
     if(d.state!=='opening'&&d.state!=='closing') continue;
-    var p=Math.min(1,(now-d.t0)/DOOR_MS);
+    var p=Math.min(1,(now-d.t0)/rbDoorMs());   /* the SONG says how long a door takes */
     d.f = d.state==='opening' ? Math.round(p*(n-1)) : Math.round((1-p)*(n-1));
     if(p>=1){ d.state = d.state==='opening' ? 'open' : 'closed'; }
     else live=true;
@@ -1662,7 +1715,7 @@ function drawOffset(){
   if(FREEPOS && (WALKMODE==='FREE'||(WALKMODE==='HYBRID'&&!freeSnapped())))
     return { x:FREEPOS.x-0.5-px, y:FREEPOS.y-0.5-py };
   if(SLIDE.on){
-    var k=Math.min(1,(Date.now()-SLIDE.t0)/BEAT);
+    var k=Math.min(1,(Date.now()-SLIDE.t0)/rbBeatMs());   /* one BEAT of the real song */
     if(k>=1){ SLIDE.on=false; return {x:0,y:0}; }
     return { x:-SLIDE.fx*(1-k), y:-SLIDE.fy*(1-k) };
   }
@@ -1874,6 +1927,8 @@ function goLoud(tag){
 }
 HANDBTN.addEventListener('click', function(){ HAND.style.display='none'; RUN.phase='resolved'; refresh(); draw(); });
 window.addEventListener('message', function(ev){
+  /* the song's clock, from the parent (SOUNDS lane plumbing, 7/29) */
+  try{ if(ev&&ev.data&&ev.data.type==='BOHEMIA_RUN_BEAT'){ RB.take(ev.data); return; } }catch(_e){}
   var d = ev && ev.data; if(!d || !d.type) return;
   if(d.type==='BOHEMIA_RUN_CAST'){ castIn(d); return; }
   if(d.type==='BOHEMIA_RUN_MUSIC_STATE'){ MUSIC_ON=!!d.on; refreshMusicBtn(); return; }
