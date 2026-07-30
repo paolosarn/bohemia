@@ -191,6 +191,8 @@ GATES = [
      'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
+    ('ALPHA LOADS',    ['node', 'gates/alpha_loads_gate.js'],
+     'the ONE alpha actually LOADS: zero page errors, BAKED/RIG_B64/COMBAT_B64 present and full size, no loose HTML in the script body — a merge ate all three on 7/30 and shipped a black screen', False),
     ('BACK LIMB',      ['node', 'gates/back_limb_gate.js'],
      'the back arm wears its own sleeve: same colours no shade, never invents fill, never undresses the near limb, arms only (not legs, not hands)', False),
     ('CLOTHES FOLLOW',['node', 'gates/clothes_follow_gate.js'],
