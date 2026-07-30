@@ -25,9 +25,40 @@ function ok(name, cond, extra) {
 
 const alpha = fs.readFileSync(ALPHA, 'utf8');
 
+/* ===== 0. THE ALPHA STILL HAS ITS BLOBS =============================
+   Added 7/29 after a stamp edit in another lane REPLACED THREE LINES of the
+   alpha -- RIG_B64, COMBAT_B64 and BAKED -- with a duplicate copy of the
+   buildstamp div, and shipped it to main. 1.27 MB gone. The combat tab and the
+   rig tab both referenced blobs that no longer existed, so both were dead on the
+   live build, while every line that USES them was still sitting there.
+   This gate did not report it, it CRASHED on it: m was null and m[1] threw a
+   stack trace, which reads like a broken gate rather than a broken build. A gate
+   that dies instead of failing tells you nothing.
+   So: name the loss, fail cleanly, and check the whole set -- because whatever
+   ate COMBAT_B64 was never aiming at COMBAT_B64 specifically. */
+{
+  const BLOBS = ['CITY_B64', 'COMBAT_B64', 'PREFAB_B64', 'RIG_B64'];
+  for (const b of BLOBS) {
+    const n = (alpha.match(new RegExp('const ' + b + "='", 'g')) || []).length;
+    ok('THE ALPHA STILL HAS ITS BLOBS: ' + b + ' is declared exactly once (got ' + n + ')', n === 1);
+  }
+  ok('THE ALPHA STILL HAS ITS BLOBS: BAKED, the rig pose data the render base is built from, is declared exactly once',
+    (alpha.match(/const BAKED=\{/g) || []).length === 1);
+  /* the duplicate-stamp half of the same accident: the stray copy is what
+     overwrote the blobs, so a second stamp div IS the fingerprint of this bug */
+  ok('AND EXACTLY ONE BUILDSTAMP DIV: a second copy is the fingerprint of the edit that ate the blobs',
+    (alpha.match(/<div id="buildstamp"/g) || []).length === 1);
+}
+
 /* ---- 1. the canon demo ---- */
 const m = alpha.match(/const COMBAT_B64='([^']+)'/);
 ok('alpha carries COMBAT_B64', !!m);
+if (!m) {
+  console.log('=== COMBAT GATE: ' + pass + ' pass / ' + fail + ' fail ===');
+  console.log('STOP: the alpha has NO COMBAT_B64. The combat tab is dead on this build.');
+  console.log('      Nothing below can run. Restore the blob before reading any other failure.');
+  process.exit(1);
+}
 const demo = Buffer.from(m[1], 'base64').toString('utf8');
 ok('demo carries the canonical dial ENGINE block',
   demo.indexOf('<!-- ENGINE START') > 0 && demo.indexOf('<!-- ENGINE END') > 0);
