@@ -315,6 +315,8 @@ GATES = [
      "Paolo 7/29: the valley's population IS its food carrying capacity, and it lands as clusters AND no man's lands AND random spread - never a flat rate, and the emptiness is authored", False),
     ('CITY PEOPLE',    ['node', 'gates/city_people_gate.js'],
      'the walk surface had ZERO people in it: measured in a real browser on the real tab that a cluster shows people, a no man\'s land shows nobody, and nobody stands where the player cannot walk', True),
+    ('MASS EDIT',      ['node', 'gates/mass_edit_gate.js'],
+     "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('TILE FORM',      ['python3', 'gates/tileform_gate.py'],
      "the TILE REQUEST FORM law's own gate, which the law names and nobody had written: every form filled, its caption parseable and ingestable, its shopping check and anchor pointing at files that exist, and the board and the forms unable to drift apart", False),
     ('BANK LAW',       ['python3', 'gates/banklaw_gate.py'],

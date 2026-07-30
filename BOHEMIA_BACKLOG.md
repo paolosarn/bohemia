@@ -1165,6 +1165,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0Y. [DONE 7/29, ON HIS CONDITION] THE PEOPLE HAVE ROUTINES, AND THEY ARE
+   MASS-EDITABLE. His words, given as a condition on making them move: "sure
+   just make sure you do the coding right so when its time to mass edit the
+   people you can please." That is an ARCHITECTURE RULING and it is now law:
+   laws/BOHEMIA_ADDENDUM_MASS_EDIT_THE_PEOPLE_7_29_26.md.
+   THE ARCHITECTURE, four rules, all gated:
+     STABLE IDS - "nx:ny:i" under the ONE SEED, from the world and the place,
+       never from array order. The same person survives a reload and is the
+       same person on the RUN and the CITY tab. Without this "mass edit" cannot
+       even be expressed, because there is nothing to address.
+     ONE DERIVATION POINT - personFields(). Every field a person has comes from
+       there; change it and everybody changes at once. No field may be computed
+       at the point of use, which is exactly the habit that makes a population
+       uneditable.
+     AN OVERRIDES LAYER - a rule is a FILTER plus a PATCH, applied on read, in
+       order. Editing people means ADDING A RULE, never touching the
+       derivation, so every edit is reversible, inspectable and diff-able. The
+       table ships EMPTY (MECHANISM-MINE / CONTENTS-PAOLO'S).
+     A RULES VERSION - and this is the piece that makes it real rather than
+       decorative. Surfaces CACHE their people, so a cache that does not know
+       the rules changed serves pre-edit bodies forever. Every consumer keys on
+       it. The gate proves it by sabotaging exactly that and watching the edit
+       silently fail to reach the screen.
+   MOVEMENT, AND IT FORKS NOTHING. engine/bohemia_agents.js is inlined VERBATIM
+   (28KB against a 34MB alpha) and the frame ASKS it where somebody is - it has
+   no opinion of its own about when a scavenger sleeps. This is the OFFLINE
+   PLANE the agent module already describes in its own STALKER-pattern comment:
+   not a second simulation, a lookup. Measured on the real surface across a day:
+     03:00  0 of 9 out       09:00  3 out
+     13:00  1 out            19:00  3 out
+   The 13:00 dip is the scav schedule's OWN "Mojave midday shelter" showing up
+   on screen without anybody writing it twice.
+   THE PATCH TOOL CAN NOW RE-APPLY ITSELF. It used to only no-op when already
+   applied, which is useless the moment its own source changes - and its source
+   changed twice the day it was written. It now strips its previous injection
+   by bracketed delimiters and re-injects, or REFUSES if a delimiter is missing
+   rather than half-strip.
+   | gate: MASS EDIT (30 assertions, node + real browser), proved able to fail
+   | 7/29 | YES.
 0X. [DONE 7/29 — THE LANE'S #1 ITEM, AND IT IS HIS RULING MADE REAL] THE CITY
    WALK SURFACE HAS PEOPLE IN IT. Was ER, the engine-reality-audit finding:
    human mode had the best render architecture in the repo and NOT ONE PERSON

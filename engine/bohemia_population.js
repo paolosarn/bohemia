@@ -269,6 +269,146 @@
              residentialCells: resCells, people: people };
   }
 
+  // =========================================================================
+  // THE PERSON RECORD, and the machinery that lets every one of them be
+  // rewritten at once.
+  //
+  // Paolo 7/29, LOCKED (laws/BOHEMIA_ADDENDUM_MASS_EDIT_THE_PEOPLE_7_29_26.md):
+  //
+  //   "sure just make sure you do the coding right so when its time to mass
+  //    edit the people you can please"
+  //
+  // Given as a CONDITION on making the residents move, and it is the right
+  // condition: this population is going to be edited constantly - looks,
+  // clothes, archetypes, factions, who is armed, who is sick - and every one
+  // of those is a bulk change over a filtered set. Architecture that makes the
+  // first version work and the tenth version a rewrite is the failure this
+  // forecloses. It is the FACTORY LAW applied to people.
+  //
+  // FOUR RULES, all of them load-bearing:
+  //
+  //  1. STABLE IDS. "nx:ny:i" under the ONE SEED - derived from the world and
+  //     the place, never from array order or spawn order. The same person is
+  //     the same person across a reload, and across the RUN and the CITY tab.
+  //     Without this "mass edit" cannot even be expressed, because there is
+  //     nothing to address.
+  //  2. ONE DERIVATION POINT. Every field comes from personFields() below.
+  //     Change that function and everybody changes, everywhere, at once. No
+  //     field may be computed at the point of use - that is exactly the habit
+  //     that makes a population uneditable.
+  //  3. AN OVERRIDES LAYER, and it is the ONLY place edits live. A rule is a
+  //     FILTER plus a PATCH. Rules are data, they are ordered, and they are
+  //     applied on read. Editing people means ADDING A RULE, never touching
+  //     the derivation - which is what makes an edit reversible, inspectable
+  //     and diff-able.
+  //  4. IT IS PROVED, NOT PROMISED. gates/mass_edit_gate.js performs a real
+  //     bulk edit and measures that it landed, including on the drawn surface.
+  //
+  // MECHANISM-MINE / CONTENTS-PAOLO'S: the OVERRIDES table ships EMPTY. The
+  // machinery to change every scavenger in the valley at once is mine to
+  // build; what a scavenger IS stays his.
+
+  // The four life archetypes are agents.js's own (worker / scav / keeper /
+  // watch), referenced rather than redefined so the two modules cannot drift.
+  var ARCHETYPES = ['worker', 'scav', 'keeper', 'watch'];
+
+  // ---- ONE DERIVATION POINT ------------------------------------------------
+  // Everything a person IS, in one place. Nothing else in the codebase may
+  // compute any of these fields.
+  function personFields(nx, ny, i, seed, zone, home) {
+    var r = h2(nx * 8191 + i, ny * 131 + i, (seed | 0) + 5701);
+    return {
+      id: nx + ':' + ny + ':' + i,
+      nx: nx, ny: ny, i: i,
+      zone: zone,                       // cluster | spread | loner
+      home: [home[0], home[1]],         // fine-grid cell
+      look: (r >>> 3) & 7,              // which tint of the rig this body wears
+      face: r & 7,                      // which of the 8 facings they idle in
+      archetype: ARCHETYPES[(r >>> 6) % ARCHETYPES.length],
+      // SCHEDULE IS A REFERENCE, NOT A COPY. bohemia_agents.js owns what a day
+      // looks like; this only says which seed to ask it with, so the two
+      // modules can never disagree about a person's routine (ENGINE SYNC LAW).
+      scheduleSeed: r
+    };
+  }
+
+  // ---- THE OVERRIDES LAYER -------------------------------------------------
+  // A rule is { name, where(person) -> bool, set: {field: value | fn(person)} }.
+  // Applied in order, on read. EMPTY BY LAW until Paolo rules contents.
+  var OVERRIDES = [];
+
+  // RULES VERSION, and it is not bookkeeping - it is what makes a mass edit
+  // actually reach the screen. Surfaces CACHE their people (deriving 300
+  // records every frame would be absurd), so a cache that does not know the
+  // rules changed will happily keep serving pre-edit bodies forever. Every
+  // consumer keys its cache on this number. Bumped by any mutation.
+  var RULES_V = 0;
+  function rulesVersion() { return RULES_V; }
+
+  function addRule(rule) {
+    if (!rule || typeof rule.where !== 'function' || !rule.set) return null;
+    OVERRIDES.push(rule); RULES_V++;
+    return rule;
+  }
+  function removeRule(name) {
+    var n = OVERRIDES.length;
+    for (var i = OVERRIDES.length - 1; i >= 0; i--) if (OVERRIDES[i].name === name) OVERRIDES.splice(i, 1);
+    if (OVERRIDES.length !== n) RULES_V++;
+    return n - OVERRIDES.length;
+  }
+  function clearRules() { if (OVERRIDES.length) { OVERRIDES.length = 0; RULES_V++; } }
+  function rules() { return OVERRIDES.slice(); }
+
+  function applyRules(p) {
+    for (var k = 0; k < OVERRIDES.length; k++) {
+      var r = OVERRIDES[k];
+      var hit = false;
+      try { hit = !!r.where(p); } catch (e) { hit = false; }
+      if (!hit) continue;
+      for (var f in r.set) {
+        var v = r.set[f];
+        p[f] = (typeof v === 'function') ? v(p) : v;
+      }
+    }
+    return p;
+  }
+
+  // ---- READING PEOPLE ------------------------------------------------------
+  // The ONLY way anything gets a person. Derivation then overrides, always in
+  // that order, so a surface can never see an unedited body.
+  function peopleIn(om, POWER, nx, ny, seed, FN, pick, cap) {
+    var homes = homesIn(om, POWER, nx, ny, seed, FN, pick, cap);
+    if (!homes.length) return [];
+    var zone = zoneAt(om, POWER, nx * NB, ny * NB, seed);
+    var out = [];
+    for (var i = 0; i < homes.length; i++) {
+      out.push(applyRules(personFields(nx, ny, i, seed, zone, homes[i])));
+    }
+    return out;
+  }
+
+  // Valley-wide, for bulk operations and for the gate. Walks every residential
+  // neighbourhood once.
+  function allPeople(om, POWER, seed, FN, overN, pick) {
+    var N = overN || 96, seen = {}, out = [];
+    for (var ty = 0; ty < N; ty++) for (var tx = 0; tx < N; tx++) {
+      var c = om.at ? om.at(tx, ty) : null;
+      if (!c || !RESIDENTIAL[c.district]) continue;
+      var n = neighbourhoodOf(tx, ty), k = n[0] + ',' + n[1];
+      if (seen[k]) continue; seen[k] = 1;
+      var ppl = peopleIn(om, POWER, n[0], n[1], seed, FN, pick, 24);
+      for (var j = 0; j < ppl.length; j++) out.push(ppl[j]);
+    }
+    return out;
+  }
+
+  // A named filter helper so callers write intent, not index arithmetic.
+  function where(list, pred) {
+    var out = [];
+    for (var i = 0; i < list.length; i++) if (pred(list[i])) out.push(list[i]);
+    return out;
+  }
+
   // THE ADAPTER, AND IT IS THE POINT OF THIS WHOLE MODULE.
   //
   // engine/bohemia_agents.js (the WORLD lane's) ALREADY holds a two-plane
@@ -310,6 +450,10 @@
   var API = { RESIDENTIAL: RESIDENTIAL, DRAW: DRAW, SHARE: SHARE, HEADS: HEADS, NB: NB,
               zoneAt: zoneAt, headsAt: headsAt, homesIn: homesIn, census: census,
               occupiedRateFor: occupiedRateFor, HOUSEHOLD_MEAN: HOUSEHOLD_MEAN, weightOf: weightOf,
+              ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,
+              allPeople: allPeople, where: where,
+              addRule: addRule, removeRule: removeRule, clearRules: clearRules, rules: rules,
+              applyRules: applyRules, rulesVersion: rulesVersion,
               neighbourhoodOf: neighbourhoodOf, hash: h2, NAMES: NAMES };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaPopulation = API;

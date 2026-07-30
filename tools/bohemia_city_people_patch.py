@@ -60,6 +60,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 POP = 'engine/bohemia_population.js'
+AGENTS = 'engine/bohemia_agents.js'
 
 alpha = open(ALPHA, encoding='utf8').read()
 KEY = "const CITY_B64='"
@@ -67,11 +68,50 @@ a0 = alpha.index(KEY) + len(KEY)
 a1 = alpha.index("'", a0)
 city = base64.b64decode(alpha[a0:a1]).decode('utf8')
 
+# RE-APPLY, NOT JUST NO-OP. An idempotent patch tool that can only refuse is
+# useless the moment ITS OWN source changes - and this one's did, twice, on the
+# day it was written. So when the marker is already present the previously
+# injected regions are STRIPPED by their own delimiters and the current version
+# is injected fresh. Every injection is bracketed for exactly this reason;
+# if a delimiter ever goes missing the tool refuses rather than half-strip.
 if 'CITY PEOPLE' in city:
-    print('city people already applied. no-op.')
-    sys.exit(0)
+    def cut(text, start_mark, end_mark, what):
+        i = text.find(start_mark)
+        if i < 0:
+            print('FAILED: cannot re-apply - %s start marker is gone.' % what)
+            sys.exit(1)
+        j = text.find(end_mark, i)
+        if j < 0:
+            print('FAILED: cannot re-apply - %s end marker is gone.' % what)
+            sys.exit(1)
+        return text[:i] + text[j:]
+    # the inlined block has grown over versions (population first, then agents
+    # ahead of it), so take whichever banner appears EARLIEST
+    _starts = [m for m in ('/* ==== engine/bohemia_agents.js (CITY PEOPLE',
+                           '/* ==== engine/bohemia_population.js (CITY PEOPLE')
+               if m in city]
+    if not _starts:
+        print('FAILED: cannot re-apply - no inlined-module banner found.')
+        sys.exit(1)
+    _first = min(_starts, key=city.index)
+    city = cut(city, _first, '/* ==== engine/bohemia_powergrid.js', 'the inlined modules')
+    city = cut(city, "/* ==== CITY PEOPLE (7/29): Paolo's zone map, on the walk surface",
+               'function renderHuman(){', 'the people pass')
+    city = cut(city, '\n  /* CITY PEOPLE (7/29): residents draw AFTER the walls',
+               '\n  // player: the REAL character', 'the peoplePass call')
+    if 'CITY PEOPLE' in city:
+        print('FAILED: strip left CITY PEOPLE traces behind. Refusing to double-apply.')
+        sys.exit(1)
+    print('  (previous CITY PEOPLE injection stripped; re-applying current version)')
 
 pop_src = open(POP, encoding='utf8').read()
+# THE SCHEDULES ARE NOT REWRITTEN HERE. engine/bohemia_agents.js (the WORLD
+# lane's) owns what a day looks like - four life archetypes, staggered shifts,
+# the Mojave midday shelter. It is 28KB against a 34MB alpha, so it is inlined
+# VERBATIM rather than reimplemented. One canonical body, a copy in the build:
+# that is the ENGINE SYNC LAW satisfied, and it is the only way the CITY tab and
+# the RUN can agree about when a person is home.
+agents_src = open(AGENTS, encoding='utf8').read()
 
 # ---- 1) the shared census module, inlined the same way the overmap is --------
 ANCHOR_ENGINE = '/* ==== engine/bohemia_powergrid.js (canon, married 7/20) ==== */'
@@ -80,9 +120,14 @@ if ANCHOR_ENGINE not in city:
     sys.exit(1)
 city = city.replace(
     ANCHOR_ENGINE,
-    '/* ==== engine/bohemia_population.js (CITY PEOPLE, 7/29) — Paolo\'s zone map.\n'
-    '   Inlined verbatim so the CITY tab and the RUN answer "who lives here" from\n'
-    '   ONE module. Gate: gates/zone_map_gate.js ==== */\n'
+    '/* ==== engine/bohemia_agents.js (CITY PEOPLE, 7/29) — the WORLD lane\'s\n'
+    '   schedules, inlined VERBATIM. This frame asks it when a person is home and\n'
+    '   never decides for itself. ==== */\n'
+    + agents_src + '\n'
+    '/* ==== engine/bohemia_population.js (CITY PEOPLE, 7/29) — Paolo\'s zone map\n'
+    '   and the PERSON RECORD. Inlined verbatim so the CITY tab and the RUN answer\n'
+    '   "who lives here" from ONE module, and so people stay mass-editable.\n'
+    '   Gates: zone_map_gate.js + mass_edit_gate.js ==== */\n'
     + pop_src + '\n' + ANCHOR_ENGINE, 1)
 
 # ---- 2) the people pass -----------------------------------------------------
@@ -106,7 +151,8 @@ PEOPLE_JS = r"""
 const PPL_TINT = [[214,178,140],[150,164,186],[186,150,132],[140,168,148],
                   [200,190,160],[164,148,178],[178,168,140],[148,160,164]];
 const PPL_CACHE = new Map();          /* dir|tint|zoom -> canvas */
-const PPL_HOMES = new Map();          /* "nx,ny" -> [[fx,fy,hash],...] */
+const PPL_PEOPLE = new Map();         /* "nx,ny" -> person[] */
+let PPL_RULES_V = -1;                 /* the rules version the cache was built at */
 
 function pplTinted(dir, ti, img) {
   const k = dir + '|' + ti + '|' + img.width;
@@ -125,34 +171,70 @@ function pplTinted(dir, ti, img) {
 }
 
 /* THE SURFACE DECIDES WHAT IS WALKABLE; the census only offers candidates.
-   And the test is the frame's OWN `walk` flag - the exact same predicate
-   move() uses on line "if(!(c&&c.walk))break;" and that the drop-in spiral
-   uses to find you a legal cell. Rolling a private version of "is this
-   standable" is how you get people on roofs: the first cut here tested
-   `!c.solid && !c.face`, which passes for a building's roof cells, and the
-   first render put residents standing on top of a house. If a person can be
-   somewhere the player cannot walk, the test is wrong, not the world.
-   OCCUPANCY LAW: one body per cell, and the census already refuses duplicates. */
+   The test is the frame's OWN `walk` flag - the exact predicate move() uses.
+   Rolling a private version of "is this standable" is how you get people on
+   roofs: the first cut tested `!c.solid && !c.face`, which passes for a
+   building's roof cells, and the first render put residents on top of a house.
+   If a person can stand where the player cannot walk, the test is wrong, not
+   the world.
+   DELIBERATELY NOT "and not where the player is standing": placement is CACHED
+   and the player MOVES, so that answer would go stale the moment he walked.
+   The OCCUPANCY LAW is enforced at draw time instead. */
 function pplStandable(fx, fy) {
   const c = cellAt(fx, fy);
   if (!c || !c.walk) return false;
   if (c.enter) return false;                   /* a doorway is a threshold, not a place to stand */
-  /* DELIBERATELY NOT "and not where the player is standing". Placement is
-     CACHED per neighbourhood, and the player MOVES - a test that consulted
-     hx/hy would bake a stale answer into the cache and then be wrong the moment
-     he walked. Where a resident may LIVE is a fact about the world; who is
-     standing on that cell right now is a fact about this frame, so the
-     OCCUPANCY LAW is enforced at draw time instead, below. */
   return true;
 }
 
-function pplHomes(nx, ny) {
+/* WHERE SOMEBODY GOES WHEN THEY ARE NOT HOME. Deterministic per person, found
+   once, cached with them: walk outward from the doorstep until the first
+   walkable cell that is NOT one of their neighbours' home cells. Nobody
+   teleports and nobody shares a spot. */
+function pplOutSpot(p, taken) {
+  const r = BohemiaPopulation.hash(p.nx * 977 + p.i, p.ny * 61 + p.i, 424242);
+  const dirs = [[1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
+  const d = dirs[r % dirs.length];
+  for (let step = 4; step <= 12; step++) {
+    const fx = p.home[0] + d[0] * step, fy = p.home[1] + d[1] * step;
+    if (!pplStandable(fx, fy)) continue;
+    if (taken && taken.has(fx + ',' + fy)) continue;
+    return [fx, fy];
+  }
+  return [p.home[0], p.home[1]];               /* nowhere to go: stay in */
+}
+
+/* THE CACHE IS KEYED ON THE RULES VERSION. A mass edit that does not reach the
+   screen is not a mass edit, and a cache that does not know the rules changed
+   would serve pre-edit bodies forever. */
+function pplPeople(nx, ny) {
+  if (PPL_RULES_V !== BohemiaPopulation.rulesVersion()) {
+    PPL_PEOPLE.clear(); PPL_RULES_V = BohemiaPopulation.rulesVersion();
+  }
   const k = nx + ',' + ny;
-  let h = PPL_HOMES.get(k);
-  if (h) return h;
-  h = BohemiaPopulation.homesIn(om, POWER, nx, ny, seed, FN, pplStandable, 24);
-  PPL_HOMES.set(k, h);
-  return h;
+  let list = PPL_PEOPLE.get(k);
+  if (list) return list;
+  list = BohemiaPopulation.peopleIn(om, POWER, nx, ny, seed, FN, pplStandable, 24);
+  const taken = new Set(list.map(p => p.home[0] + ',' + p.home[1]));
+  for (const p of list) {
+    /* THE SCHEDULE IS AGENTS.JS'S, ASKED - NOT REIMPLEMENTED. This frame has no
+       opinion about when a scavenger sleeps; it looks it up. */
+    p.sched = BohemiaAgents.scheduleFor(p.scheduleSeed, p.archetype, 8 * 60);
+    p.outSpot = pplOutSpot(p, taken);
+    taken.add(p.outSpot[0] + ',' + p.outSpot[1]);
+  }
+  PPL_PEOPLE.set(k, list);
+  return list;
+}
+
+/* HOME OR OUT, from the real clock. This is the OFFLINE PLANE the agent module
+   already describes (its own STALKER-pattern comment): we are not stepping a
+   simulation, we are asking the schedule where somebody IS at this minute and
+   drawing them there. The block visibly empties in the morning and fills at
+   night, and it costs one array lookup per visible person. */
+function pplAt(p) {
+  const b = BohemiaAgents.whereAt(p, T.min | 0);
+  return (b && b.where === 'home') ? p.home : p.outSpot;
 }
 
 function peoplePass(ox, oy, C) {
@@ -161,18 +243,18 @@ function peoplePass(ox, oy, C) {
   /* visible neighbourhood window, one ring of margin so somebody never pops in */
   const nx0 = Math.floor((-ox / C) / span) - 1, nx1 = Math.floor(((cv.width - ox) / C) / span) + 1;
   const ny0 = Math.floor((-oy / C) / span) - 1, ny1 = Math.floor(((cv.height - oy) / C) / span) + 1;
-  const night = isNight();
-  let drawn = 0;
+  let drawn = 0, out = 0;
   for (let ny = Math.max(0, ny0); ny <= ny1; ny++)
   for (let nx = Math.max(0, nx0); nx <= nx1; nx++) {
-    const homes = pplHomes(nx, ny);
-    if (!homes.length) continue;
-    for (let i = 0; i < homes.length; i++) {
-      const fx = homes[i][0], fy = homes[i][1], hs = homes[i][2];
-      if (fx === hx && fy === hy) continue;    /* OCCUPANCY LAW: one body per cell, including the player */
+    const ppl = pplPeople(nx, ny);
+    for (let i = 0; i < ppl.length; i++) {
+      const p = ppl[i];
+      const at = pplAt(p);
+      const fx = at[0], fy = at[1];
+      if (fx === hx && fy === hy) continue;    /* OCCUPANCY LAW: one body per cell, player included */
       const sx = ox + fx * C, sy = oy + fy * C;
       if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
-      const dir = _DIRS8[hs % 8];
+      const dir = _DIRS8[p.face % 8];
       const set = PLAYER_CV[dir] || PLAYER_CV.S;
       const spr = set && set.idle; if (!spr) continue;
       /* the ZOOM LEVEL LAW, same ladder the player uses: never a fractional scale */
@@ -181,16 +263,14 @@ function peoplePass(ox, oy, C) {
       if (C >= 64) { if (!spr._hd4) { if (!spr._hd) spr._hd = epx2(spr); spr._hd4 = epx2(spr._hd); } img = spr._hd4; }
       else if (C >= 32) { if (!spr._hd) spr._hd = epx2(spr); img = spr._hd; }
       else if (C < 17) { if (!spr._half) spr._half = half2(spr); img = spr._half; }
-      g.drawImage(pplTinted(dir, hs >>> 3, img),
+      g.drawImage(pplTinted(dir, p.look, img),
                   Math.round(sx + C / 2 - lad / 2), Math.round(sy + C - lad), lad, lad);
       drawn++;
+      if (fx !== p.home[0] || fy !== p.home[1]) out++;
     }
   }
-  /* at night an unpowered body is just a shape in the dark; the chunk wash
-     already darkened the ground, so people get the same wash and no self-glow
-     (DEAD IS DEFAULT, and act 1 windows are dead dark glass). */
-  if (night && drawn) { /* the wash is applied per chunk above; nothing to add */ }
   window.__PPL_DRAWN = drawn;
+  window.__PPL_OUT = out;                      /* how many are away from home right now */
   return drawn;
 }
 """
