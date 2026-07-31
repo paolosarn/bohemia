@@ -372,6 +372,41 @@ window.draw = function(){};
    slices/BOHEMIA_SUBURB_WALK_7_18_26.html (canon doors + roof/yard/wall skins,
    Paolo-approved 7/21). REUSE, not a re-cook: same bytes, same block. ---- */
 __ART_BANKS__
+/* ==== BOUGHT BEATS PAINTED (Paolo 7/31, LOCKED) =========================
+   "Bro why dont u understand that if i bought it i prefer it! Thats for all
+    textures bro!!! Holy shit"
+   HIS PURCHASED GROUND LIBRARY, inlined verbatim by the builder from
+   banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt at 44x44 (the corpus cell), so
+   every tile blits 1:1 and is never resampled. The painted starter-set ground
+   tiles are now the FALLBACK, used only where he owns nothing for that surface.
+   Law: laws/BOHEMIA_ADDENDUM_BOUGHT_BEATS_PAINTED_7_31_26.md
+   Gate: gates/bought_beats_painted_gate.js ===================================== */
+var BOUGHT_WALK_B64 = __BOUGHT_WALK_JSON__;
+var BOUGHT_ROAD_B64 = __BOUGHT_ROAD_JSON__;
+function _mkimgs(arr){ return (arr||[]).map(function(b){ var im=new Image();
+  im.src='data:image/png;base64,'+b; return im; }); }
+var BOUGHT_WALK_IMG = _mkimgs(BOUGHT_WALK_B64);
+var BOUGHT_ROAD_IMG = _mkimgs(BOUGHT_ROAD_B64);
+/* deterministic per cell: same tile in the same place every time, no shimmer */
+function boughtImg(bank,gx,gy){
+  if(!bank||!bank.length) return null;
+  var h=(Math.imul(gx,73856093)^Math.imul(gy,19349663))>>>0;
+  var im=bank[h%bank.length];
+  return (im&&im.complete&&im.naturalWidth)?im:null;
+}
+/* WHICH SURFACES HE OWNS ART FOR. Code 10 = sidewalk and 3 = driveway are both
+   poured concrete, so his cracked-concrete pack covers them; 1 = road is his
+   cracked-street pack. Anything not listed has no bought equivalent YET and
+   honestly falls through to the painted set -- the gate tracks that debt by name
+   rather than letting it hide. */
+function boughtFor(c){ return (c===10||c===3) ? 'walk' : (c===1) ? 'road' : null; }
+/* draws HIS tile if he owns one for this surface; false means fall back to paint */
+function drawBought(kind,gx,gy,X,Y,S){
+  var im=boughtImg(kind==='walk'?BOUGHT_WALK_IMG:BOUGHT_ROAD_IMG,gx,gy);
+  if(!im) return false;
+  ctx.drawImage(im,X,Y,S,S); return true;
+}
+
 var PERIM_B64 = __PERIM_B64_JSON__;
 </script>
 
@@ -1474,6 +1509,8 @@ function draw(){
           : genericTile(gx,gy2);
         /* HOUSE SKINS (7/28): his own approved texture for the FIELD tiles; the
            stack's shape tiles fall through to the target set untouched. */
+        /* BOUGHT BEATS PAINTED (Paolo 7/31): his own tile wins over anything painted */
+        if(isSuburbCell() && boughtFor(c)&&drawBought(boughtFor(c),gx,gy2,X,Y,S)) continue;
         if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */
@@ -1567,6 +1604,9 @@ function draw(){
         : genericTile(gx,gy2);
       /* HOUSE SKINS: the see-through pass draws the same tiles, so it needs his
          skins too or a faded wall reverts to the target set. */
+      /* BOUGHT BEATS PAINTED (Paolo 7/31): his own tile wins over anything painted */
+      var _c2=G[gy2][gx];
+      if(isSuburbCell() && boughtFor(_c2)&&drawBought(boughtFor(_c2),gx,gy2,X,Y,S)) return;
       if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) return;
       tput(laid,X,Y,S);
     });

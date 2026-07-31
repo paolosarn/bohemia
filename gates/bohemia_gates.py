@@ -48,6 +48,8 @@ GATES = [
      'every room reachable, buildings enterable', False),
     ('SUBURB MODULAR', ['node', 'gates/suburb_modular_gate.js'],
      'suburbs snap into 1x2 / 2x2, connected', False),
+    ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
+     'Paolo 7/31: if he bought it, it wins -- his library draws FIRST, painted is the named fallback', False),
     ('SUBURB STREET',  ['node', 'gates/suburb_street_gate.js'],
      'Paolo 7/31: a ONE-GRID sidewalk on every street frontage and driveways exactly 2 wide', False),
     ('COMMERCIAL',     ['node', 'gates/commercial_gate.js'],

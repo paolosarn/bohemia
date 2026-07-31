@@ -70,6 +70,30 @@ if (perimTan.length < 12) throw new Error('the approved suburb border walls are 
 if (html.indexOf('__PERIM_B64_JSON__') < 0) throw new Error('missing __PERIM_B64_JSON__ placeholder');
 html = html.replace('__PERIM_B64_JSON__', JSON.stringify(perimTan));
 
+/* ---- BOUGHT BEATS PAINTED (Paolo 7/31, LOCKED: "if i bought it i prefer it!
+   Thats for all textures bro!!!"). His purchased, seam-processed ground library.
+   These are the tiles he PAID FOR; the painted starter-set ground tiles are the
+   fallback, never the first choice. Lifted VERBATIM at 44x44, which is exactly the
+   corpus cell, so every one blits 1:1 and nothing is ever resampled.
+   Only tier S/A (seam-ready) and only pure=true (PURPLE RESERVATION holds). ---- */
+var GROUND_LIB = 'banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt';
+var groundBank = JSON.parse(fs.readFileSync(GROUND_LIB, 'utf8'));
+function boughtGround(match) {
+  return groundBank.tiles.filter(function (t) {
+    var pack = String(t.pack || '').toLowerCase();
+    return match.test(pack) && (t.tier === 'S' || t.tier === 'A') && t.pure === true && t.b64;
+  }).map(function (t) { return t.b64; });
+}
+var boughtWalk = boughtGround(/contrete|concrete/);      // his pack spells it "contrete"
+var boughtRoad = boughtGround(/cracked street/);
+if (boughtWalk.length < 8) throw new Error('BOUGHT BEATS PAINTED: his concrete pack is missing from ' + GROUND_LIB);
+if (boughtRoad.length < 8) throw new Error('BOUGHT BEATS PAINTED: his street pack is missing from ' + GROUND_LIB);
+if (html.indexOf('__BOUGHT_WALK_JSON__') < 0) throw new Error('missing __BOUGHT_WALK_JSON__ placeholder');
+if (html.indexOf('__BOUGHT_ROAD_JSON__') < 0) throw new Error('missing __BOUGHT_ROAD_JSON__ placeholder');
+html = html.replace('__BOUGHT_WALK_JSON__', JSON.stringify(boughtWalk));
+html = html.replace('__BOUGHT_ROAD_JSON__', JSON.stringify(boughtRoad));
+console.log('  BOUGHT GROUND: ' + boughtWalk.length + ' concrete + ' + boughtRoad.length + ' street, his own, verbatim');
+
 if (html.indexOf('__ART_BANKS__') < 0) throw new Error('missing __ART_BANKS__ placeholder');
 html = html.replace('__ART_BANKS__', banks);
 

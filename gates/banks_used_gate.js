@@ -112,6 +112,12 @@ const PROBE = `(() => {
       if (typeof WALL_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', WALL_IMG);
       if (typeof YARD_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', YARD_IMG);
       if (typeof PERIM_IMG !== 'undefined') put('suburb border walls (13, approved 7/28)', PERIM_IMG);
+      /* BOUGHT BEATS PAINTED (Paolo 7/31): the library he PAID FOR. This gate
+         was written for 'approved-but-unused is a defect' and was never pointed
+         at his purchased art, which is exactly how 98 pavement tiles sat unused
+         until he noticed himself. */
+      if (typeof BOUGHT_WALK_IMG !== 'undefined') put('HIS bought concrete (sidewalk + driveway)', BOUGHT_WALK_IMG);
+      if (typeof BOUGHT_ROAD_IMG !== 'undefined') put('HIS bought cracked street (road)', BOUGHT_ROAD_IMG);
       /* DOOR_IMGS (with the S) is the approved animated bank that actually
          draws; DOOR_IMG is the older walk-file art it superseded. Two different
          things one letter apart, and conflating them would have reported the
@@ -193,6 +199,14 @@ const PROBE = `(() => {
     (res.drew['suburb border walls (13, approved 7/28)'] || 0) > 0);
   ok('the animated door bank he asked for on 7/26 is really drawing',
     (res.drew['animated door bank (7/13, 2 tiles tall)'] || 0) > 0);
+
+  /* BOUGHT BEATS PAINTED (Paolo 7/31, LOCKED): "if i bought it i prefer it!
+     Thats for all textures bro!!!" Art he paid for is not allowed to sit in
+     banks/ while something painted draws in its place. */
+  ok('HIS bought concrete really draws the sidewalk and driveways',
+    (res.drew['HIS bought concrete (sidewalk + driveway)'] || 0) > 0);
+  ok('HIS bought cracked street really draws the road',
+    (res.drew['HIS bought cracked street (road)'] || 0) > 0);
 
   /* ========================================================================
      THE CATALOG MUST NOT LIE (NEVER DRIFT, Paolo 7/28: "Never drift off ever
