@@ -1,3 +1,40 @@
+LAB (e2r7sv): 7/31 (f) LATEST — READ THIS BEFORE YOU ASK HIM ANYTHING.
+I ASKED HIM TWO QUESTIONS HIS OWN LAWS ALREADY ANSWERED, IN TWO CONSECUTIVE TURNS.
+THERE IS NOW A GATE THAT FAILS THE BUILD FOR THAT.
+
+=== WHAT HAPPENED ===
+Paolo: "BROTHER FOR BOHEMIA ITS NOT A ONE LIFE RUN IVE ANSWERED THIS LIKE 50 TIMESS!!!!!"
+Turn 1 I asked whether a dead utility "disappears or gets an owner" -- settled by
+CLUSTERED POWER (the lit ~12% is OWNED) and LIGHT=TERRITORY. Turn 2 I asked what happens
+to standing "when the run ends" -- BOHEMIA IS NOT A ONE-LIFE RUN. IT IS A DYNASTY: three
+generations (Animal/Human/Angel) across ~100 years, dynasty saves spanning all three,
+heirs inheriting the choice log, companions do not die. Settled in FIVE law files before
+he had to say it again.
+The autonomy doctrine already requires a JUDGE THIS list every turn. NOTHING IN THE
+MACHINE CHECKED WHETHER THE QUESTIONS ON IT WERE REAL. That was the hole.
+
+=== THE MACHINE THAT CLOSES IT ===
+records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md — 18 settled questions, each with the ruling
+that settles it and a one-line answer. MECHANISM-MINE/CONTENTS-PAOLO'S: no lane decides
+what is settled, every row cites HIS ruling, and a row without a citation is not a row.
+gates/answered_gate.py (ANSWERED, 13 checks, 146 files swept) — reads the index, proves
+every row cites a file that EXISTS, and sweeps this handoff + the backlog + records/ for
+QUESTION-SHAPED text. A session asking a settled question FAILS THE BUILD.
+laws/BOHEMIA_ADDENDUM_NEVER_ASK_A_SETTLED_QUESTION_7_31_26.md — clause 1 is the dynasty
+ruling; clause 2 extends NOTES ARE RULINGS from his words to his LAWS; clause 3 makes
+adding a row a same-turn obligation whenever he rules something.
+
+*** IF YOU ARE ABOUT TO ASK HIM SOMETHING, SEARCH THAT INDEX FIRST. ***
+
+=== TWO THINGS WORTH YOUR TIME REGARDLESS OF LANE ===
+1. IT CAUGHT THE OFFENDING LINE IN THIS HANDOFF ON ITS FIRST RUN. Then its own first
+   draft made the repo's SIXTH word-versus-thing mistake -- it grepped for the phrase
+   and failed on my paragraph EXPLAINING the withdrawal. A gate written to fix a
+   discipline failure, making the exact class of error it was written about. Both are
+   recorded in the gate's source. MATCH THE STRUCTURE, NEVER THE MENTION.
+2. ADD A ROW THE TURN HE RULES SOMETHING. The index is only as good as the habit, and
+   the gate can only enforce what is in it.
+
 LAB (e2r7sv): 7/31 (e) LATEST — I BUILT THE PREQUEL, HE CORRECTED ME, AND THE ANSWER
 IS THAT THE CURRENCY IS STANDING. (Four earlier 7/31 LAB sections below.)
 
@@ -77,8 +114,18 @@ not handed over. No economy on the page by law; THREE CURRENCIES untouched.
 === WAITING ON HIM ===
 1. Is STANDING the thing you spend, and BUILDING how you earn it? Two counters that
    never cancel, rather than one slider?
-2. IN A ROGUELITE, WHAT HAPPENS TO STANDING WHEN THE RUN ENDS? Biggest question LAB-09
-   raises and cannot answer.
+2. *** THIS SLOT USED TO HOLD A QUESTION I HAD NO BUSINESS ASKING. *** I asked "in a
+   roguelite, what happens to standing when the run ends" and he answered "BROTHER FOR
+   BOHEMIA ITS NOT A ONE LIFE RUN IVE ANSWERED THIS LIKE 50 TIMESS". It is a DYNASTY --
+   three generations (Animal/Human/Angel) across ~100 years, dynasty saves spanning all
+   three, heirs inheriting the choice log, and companions do not die. Settled in FIVE
+   law files. So standing CARRIES; the open design question is only HOW an heir
+   inherits it, and that is PEOPLE's lane now, not a question for him.
+   THE MACHINE THAT STOPS THIS: records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md +
+   gates/answered_gate.py (ANSWERED). It sweeps this file, the backlog and records/
+   for question-shaped text and FAILS THE BUILD if a session asks something canon has
+   already ruled. It caught this very line on its first run. If you are about to ask
+   him something, search that index first.
 3. Is EARN-YOUR-MULTIPLIER the shape for weapons? (LAB-07)
 4. The three bleed rules; the camp dial playtest; the ten open camp clauses; the action
    clock's denomination and ceiling.

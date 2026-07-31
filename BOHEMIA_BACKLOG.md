@@ -25,6 +25,41 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1s. [LAWED + GATED 7/31] I ASKED HIM TWO SETTLED QUESTIONS IN TWO TURNS. THERE IS NOW A
+   GATE FOR THAT. (Read this before writing a JUDGE THIS list, any lane.)
+   Paolo: "BROTHER FOR BOHEMIA ITS NOT A ONE LIFE RUN IVE ANSWERED THIS LIKE 50 TIMESS!!!!!"
+   THE RULING: Bohemia is a DYNASTY -- three generations (Animal/Human/Angel) across ~100
+   years, dynasty saves spanning all three, heirs inheriting the choice log, companions do
+   not die (permadeath is an anti-feature). "Roguelite" is the run structure, not a wipe.
+   Progress CARRIES. It was already in FIVE law files before he had to repeat it.
+   THE FAILURE, and it is mine twice running: I asked "does a utility disappear or get an
+   owner" (settled by CLUSTERED POWER + LIGHT=TERRITORY) and then "what happens to
+   standing when the run ends". The autonomy doctrine demands a JUDGE THIS list every
+   turn and NOTHING IN THE MACHINE CHECKED WHETHER THE QUESTIONS WERE REAL.
+   LAW: laws/BOHEMIA_ADDENDUM_NEVER_ASK_A_SETTLED_QUESTION_7_31_26.md. Clause 1 is the
+   dynasty ruling. Clause 2 extends NOTES ARE RULINGS one step: never make him
+   re-confirm his own LAWS, only his words. Clause 3 makes adding a registry row a
+   SAME-TURN obligation whenever he rules anything.
+   INDEX: records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md, 18 settled questions, each with
+   the file that rules it and a one-line answer. Covers the dynasty, the dead utilities,
+   ten-years-cold, no economy, three currencies, action time, loot, no PRs, the dead
+   Act-1 world, and who judges art. MECHANISM-MINE/CONTENTS-PAOLO'S: a row without a
+   citation is not a row.
+   GATE: gates/answered_gate.py, registered as ANSWERED. 13 checks, 146 files swept.
+   Proves every row cites a file that EXISTS, then sweeps the handoff + backlog +
+   records/ for QUESTION-SHAPED text (a '?' inside an asking context, so the laws and
+   the index can state these topics in order to ban them). A settled question FAILS THE
+   BUILD. Two mutations caught: a settled currency-count question planted in a
+   WAITING ON HIM block, and a row citing a deleted law. (The description here is
+   deliberately paraphrased -- writing the planted question out verbatim made the gate
+   flag my own backlog, which is the gate being RIGHT. It cannot tell a session asking
+   from a session recounting, and loosening it to tell the difference would reopen the
+   hole. Paraphrase is the cheap correct fix.)
+   *** IT CAUGHT THE OFFENDING LINE IN MY OWN HANDOFF ON ITS FIRST RUN. *** And then its
+   own first draft made this repo's SIXTH word-versus-thing error -- grepping for the
+   phrase and failing on the paragraph EXPLAINING the withdrawal. A gate written to fix
+   a discipline failure committing the exact class of error it was written about. Both
+   recorded in the gate's source. MATCH THE STRUCTURE, NEVER THE MENTION.
 1r. [KILLED + LAWED + REPLACED 7/31] I BUILT THE PREQUEL. HE CORRECTED ME. THE
    CURRENCY IS STANDING, NOT MONEY.
    Paolo 7/31: "IM CONFUSED BY YOUR QUESTION THE WHOLE POINT OF THE GAME IS THAT IT

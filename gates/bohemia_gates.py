@@ -412,6 +412,8 @@ GATES = [
      'DOSSIER-OR-DON\'T: every hero building has all its parts written up, keyed to the walkable landmarks', False),
     ('CAMP DIAL',      ['node', 'gates/camp_dial_gate.js'],
      'his mobile-camp ruling, machine-locked: tiles not seconds, one pool, small numbers, every unruled value a dial', False),
+    ('ANSWERED', ['python3', 'gates/answered_gate.py'],
+     "Paolo 7/31: 'IVE ANSWERED THIS LIKE 50 TIMESS' -- no session may ask him a question canon has already ruled; sweeps the handoff, the backlog and records/ for question-shaped text against the settled-questions index", False),
     ('TEN YEARS COLD', ['node', 'gates/ten_years_cold_gate.js'],
      'Paolo 7/31: the crash is BACKSTORY (act 1 opens ten years after), NO economic gameplay as a category, and the utility is already dead everywhere - swept across every shipped surface, because a banned CATEGORY needs a sweep and not a paragraph', False),
     ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
