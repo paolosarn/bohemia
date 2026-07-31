@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 LAB (e2r7sv): 7/31 (g) LATEST — I FOUND TWO LIVE LAWS CONTRADICTING EACH OTHER.
 BUILDINGS ARE EARNED, NOT AFFORDED.
 
@@ -265,6 +266,57 @@ would be a fourth currency wearing a hat). FLAGGED FOR WORLD, not handed to it.
    most-hits-don't).
 4. The camp dial playtest, the ten open camp clauses, and the action clock's denomination
    and ceiling number.
+=======
+RUN (eak241): 7/31 LATEST — READ laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md FIRST.
+It is his 7/31 rant taken apart into 19 LOCKED clauses with a GATE column that is
+allowed to say NOT ENFORCED. That file is the handoff for this work.
+
+THE ONE FACT THAT COST THE MOST TIME, AND WILL COST YOURS IF YOU MISS IT:
+  var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p;
+THE RUN TAB OPENS THE CITY PANEL. Deliberate, his 7/25 one-view ruling, and the
+alpha says so in a comment right there. He has NEVER opened
+slices/BOHEMIA_RUN_SLICE_7_26_26.html. A rendering fix that lands only in the run
+slice is invisible to him. CHECK WHICH FRAME THE TAB LOADS BEFORE FIXING ANYTHING
+VISUAL. I did not, and shipped two "fixes" he could not see.
+
+REAL AND ON HIS SCREEN (both live in bohemia_suburb.js, which the CITY embeds):
+  - driveways exactly 4x5, garage-aligned (supersedes his own "2 wide" the same day)
+  - NO BUILDING ON THE SIDEWALK in the suburb: the walk is laid BEFORE the houses,
+    so home() cannot claim the land. Order IS the enforcement. Reverting the order
+    puts 456 masses back on the kerb across 24 blocks.
+  - both held by gates/suburb_street_gate.js (13 checks)
+
+REAL BUT RUN-SLICE ONLY, SO HE CANNOT SEE IT (marked that way in the law, not
+counted as a win): the door drawn 1:1, the device-resolution canvas, the zoom.
+
+TWO THINGS I GOT WRONG AND CORRECTED IN-SESSION, both worth reading:
+  1. I "fixed" the city's canvas to a device-pixel buffer as the answer to his
+     pixel complaint. canvas_scale_gate went red and its HEADER held the
+     measurement I was about to redo wrong: the CITY lane solved this on 7/27 with
+     cv.style.imageRendering='pixelated' while walking, so the phone's 3x upscale
+     is already NEAREST. My change was a placebo -- same 132 physical pixels either
+     way, 9x the memory, broke a locked contract. REVERTED, tool deleted.
+     A RED GATE FROM ANOTHER LANE IS EVIDENCE, NOT AN OBSTACLE. Read its header.
+  2. HIS PIXEL-QUALITY COMPLAINT IS THEREFORE STILL OPEN AND UNEXPLAINED. Every
+     obvious mechanical cause is ruled out. DO NOT GUESS A THIRD TIME -- ask him
+     which screen and what zoom, or get a screenshot with a known stamp.
+
+D1 IS TRUE IN 1 OF 48 DISTRICTS. Measured: 5,195 building cells still sit on public
+streets (mall 1566, industrial 1455, trailer 498, farm 438, battery 360, medical
+288, +5 more), and 36 of 48 districts have no sidewalk concept at all. layWalks is
+PRIVATE to bohemia_suburb.js and sidewalk_gate never touches K.types(). Full table,
+root cause and fix order are in the law file.
+  VERIFIED BY HAND: bohemia_mall.js:55 draws a drive lane THROUGH both anchor
+  stores -- 59 street cells inside the west anchor. NOT FIXED: the building spans
+  x=2..126 so the only free columns are the plot edges, and rerouting the ring is
+  designing a layout, which MAP LAW forbids. Exact lines are in the law.
+
+[PENDING Paolo, blocks the registry-wide D1 gate]: does D1 inherit WALKABLE-LAND's
+vehicular-venue exemption? A railyard with a sidewalk is silly, but that is his call.
+[PENDING Paolo]: the interior rebuild (A1/A3/A4) is ONE architectural item --
+mode='int' swaps the player onto a separate grid, and six of his complaints are
+downstream of it. Biggest remaining item. He was asked; he has not answered yet.
+>>>>>>> a8adf53 (handoff: the RUN tab opens the CITY, and the two things I got wrong)
 
 LAB (e2r7sv): 7/31 (c) LATEST — VALHEIM'S WEAPON TYPES, AND THEY ANSWER THE HOLE THE
 COMBAT AUDIT FOUND. (Two earlier 7/31 LAB sections below: the CDDA action clock, and
