@@ -201,6 +201,8 @@ GATES = [
      'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
+    ('RIG NO-DRIFT', ['python3', 'gates/rig_no_drift_gate.py'],
+     'Paolo 7/31 "THE RIG IS LAW FOREVER NEVER TO BE DRIFTED FROM": his 5,246 painted pixels pinned by sha256 + per-facing counts, because he had to hand-fix ONE stray pixel nothing else would have caught', False),
     ('JUDGE SURFACE',['node', 'gates/judging_surface_gate.js'],
      'his 7/31 list: he can WEAR the 221 garments (asserted by pixel count -- the first wiring changed 0), auto-spin on, skeleton off, swing/knock gone, judge-all lists every clip', False),
     ('MOTION VISIBLE',['node', 'gates/motion_visible_gate.js'],
