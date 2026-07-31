@@ -1,0 +1,263 @@
+BOHEMIA LAB 07 — VALHEIM WEAPON TYPES TEARDOWN (7/31/26, LAB lane)
+=============================================================================
+PAGE: slices/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_7_31_26.html
+GAME: Valheim (Iron Gate AB)
+KIND: MODEL, not a measurement. Declared kind:'MODEL' to the harness.
+
+COMMISSIONED BY NAME. Paolo 7/31: "look at the weapon types in valheim. valheim
+does weapon types really good so i like that. valheim i think is a top 5 game of
+all time the most we can suck from it the better."
+
+MECHANICS DECLARED (five, each played end to end by gates/lab_gate.js):
+  1. damage types   2. resistances   3. backstab   4. parry   5. weapon skill
+
+NO SOURCE: Valheim ships as compiled Unity assemblies (assembly_valheim.dll and
+friends). There is no readable source tree to fetch, exactly as with the 7/27
+comfort model. So this is a MODEL and clause 7 of the lab law applies: every
+number below is tagged [SOURCED file:line] or [DOC ...], and an untagged row
+fails the build the same way a missing citation does.
+
+WHAT WAS ACTUALLY TRIED, AND WHAT FAILED. Recorded so the "no source" claim is
+checkable rather than asserted:
+  - valheim.fandom.com/wiki/Damage_mechanics  -> 403 at the gateway (twice)
+  - xgamingserver.com/tools/valheim/weapons   -> 403 at the gateway
+  - Valheim-Modding/Jotunn .../data/prefabs/index.md      -> 404
+  - Valheim-Modding/Wiki assets_items.md                   -> 404
+  - RandyKnapp/ValheimMods .../MagicItemEffectDefinitions.cs -> 404
+  - blaxxun-boop/CreatureLevelControl                      -> 404
+  - JereKuusela/valheim-server_devcommands Tools/Info.cs   -> 404
+  - api.github.com code search                              -> 403 at the gateway
+  - ValheimPlus .../DamageConfiguration.cs                  -> 404
+WHAT WORKED, and it is the only genuinely SOURCED material here:
+  - raw.githubusercontent.com/valheimPlus/ValheimPlus/master/ValheimPlus/
+    GameClasses/Skills.cs   -> 200
+  - .../GameClasses/Player.cs -> 200
+  ValheimPlus is a HarmonyX mod: it patches the LIVE GAME, so its C# names the
+  game's own types and mirrors its own enum. That is real code, not a wiki, and
+  it is why the weapon-CLASS list below is SOURCED while the damage numbers are
+  DOC. It is also the honest limit of this document: a mod can tell you the
+  game's type system, it cannot tell you the game's balance values.
+
+=============================================================================
+THE FINDING
+=============================================================================
+VALHEIM'S WEAPON SYSTEM IS A DAMAGE-MULTIPLIER SYSTEM WEARING A WEAPON LIST AS
+A COSTUME. Almost nothing good about it is the damage printed on the weapon. It
+is FOUR MULTIPLIERS YOU EARN — know what you are fighting, stand behind it, time
+a block, have used the thing before — and the weapon's real job is deciding which
+of those four you can reach.
+
+WHY IT LANDS ON US EXACTLY. His north star
+(laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md, LOCKED) is "deal the most
+damage and take the least amount of damage by positioning and abilities and
+deeper understanding of mechanics." His own audit
+(records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md) then found, in
+capitals: "DEAL THE MOST DAMAGE BY POSITIONING — NOT IMPLEMENTED AT ALL" and of
+the seven ability verbs, "None of them increases your damage." Half the sentence
+has no code behind it. Valheim's four multipliers map onto that missing half one
+for one:
+    damage type vs resistance  ->  DEEPER UNDERSTANDING OF MECHANICS
+    backstab                   ->  DEAL MORE DAMAGE BY POSITIONING
+    parry into stagger         ->  DEAL MORE DAMAGE BY WHAT YOU SPEND
+    weapon skill               ->  the switching cost that makes the choice real
+That is the whole reason this is a lab row and not a paragraph.
+
+=============================================================================
+MECHANISM — every constant in the page's VW block, tagged
+=============================================================================
+
+--- SOURCED: THE WEAPON CLASS SYSTEM, from real open-source C# ---
+SKILL_TYPES_BEFORE_JUMP 14 — [SOURCED ValheimPlus/ValheimPlus/GameClasses/Skills.cs:103-116]
+  The enum opens at Skills.cs:101 `public enum SkillType` and its first fourteen
+  members are, verbatim and in order: None, Swords, Knives, Clubs, Polearms,
+  Spears, Blocking, Axes, Bows, FireMagic, FrostMagic, Unarmed, Pickaxes,
+  WoodCutting. THAT IS THE WEAPON TYPE LIST, and it is a list of SKILLS, not a
+  list of items — which is the first structural finding: in Valheim a weapon
+  type IS a skill you level, so the type is a long-term investment and not a
+  stat block.
+SKILLTYPE_JUMP 100 — [SOURCED Skills.cs:117 `Jump = 100,`]
+  The numbering JUMPS to 100 for the non-combat skills (Jump, Sneak, Run, Swim).
+  Combat skills are 1-13, movement skills are 100-103. A deliberate gap so new
+  weapon classes can be added without renumbering anything.
+SKILLTYPE_ALL 999 — [SOURCED Skills.cs:121 `All = 999`]
+  A sentinel meaning "every skill", used by their raise/lower-all paths.
+  ALSO SOURCED, and it is the load-bearing line for the whole model:
+  [SOURCED ValheimPlus/GameClasses/Player.cs:376]
+    `if (item?.m_shared.m_skillType == Skills.SkillType.Bows)`
+  A weapon ITEM carries `m_shared.m_skillType`. That single field is the entire
+  weapon-type system: the item declares its class, the class is a skill, the
+  skill scales the damage. Everything else on this page hangs off it.
+  And the per-skill switch at Skills.cs:20-72 enumerates them one by one
+  (Swords:22, Knives:25, Clubs:28, Polearms:31, Spears:34, Blocking:37, Axes:40,
+  Bows:43), which is independent confirmation that these are the real names.
+
+--- DOC: THE TYPE SYSTEM ---
+DMG_TYPES 10 — [DOC the documented damage-type list: slash, blunt, pierce, chop,
+  pickaxe (physical) + fire, frost, lightning, poison, spirit (elemental)]
+PHYSICAL_TYPES 3 — [DOC slash / blunt / pierce are the three that weapons use in
+  combat; chop and pickaxe are for trees and rock]
+SLASH_WEAKNESS_COUNT 0 — [DOC no enemy in Valheim is weak to slash]
+  THIS IS A DESIGN STATEMENT STORED AS A NUMBER, and it is the most quietly
+  clever thing in the system. Slash is what swords do. The sword is the default
+  weapon. So the default weapon has no matchup to exploit — it is never the best
+  answer and never the wrong one. Nobody ever feels stupid for carrying a sword,
+  and nobody ever feels clever for it either. A generalist that is deliberately
+  flat is how you make specialists matter without punishing the casual player.
+
+--- DOC: THE RESISTANCE LADDER, as multipliers ---
+MOD_VERY_WEAK 2 — [DOC "Very weak: 200% damage taken"]
+MOD_WEAK 1.5 — [DOC "Weak: 150%"]
+MOD_WEAK_SLIGHT 1.25 — [DOC "Slightly weak: 125%"]
+MOD_NORMAL 1 — [DOC "Neutral: 100%"]
+MOD_RESIST_SLIGHT 0.75 — [DOC "Slightly resistant: 75%"]
+MOD_RESISTANT 0.5 — [DOC "Resistant: 50%"]
+MOD_VERY_RESISTANT 0.25 — [DOC VeryResistant, the rung below Resistant]
+MOD_IMMUNE 0 — [DOC Immune; their enum also carries Ignore]
+  THE ORDER OF OPERATIONS IS THE MECHANISM, not the ladder. Resistance is applied
+  PER DAMAGE TYPE, separately, and only THEN is armour applied to the total.
+  [DOC "the resistances are applied separately to each damage type and then the
+  armor is applied to the total damage"] That is why a split-damage weapon (the
+  knife is pierce + slash) gets PARTIAL credit against a resistance instead of
+  being shut out — and it is the single most portable idea in this document,
+  because it turns "wrong weapon" from a wall into a tax.
+
+--- DOC: ARMOUR IS A CURVE, NOT A SUBTRACTION ---
+ARMOR_PIVOT_DIV 2 — [DOC if armour < damage/2, damage taken = damage - armour]
+ARMOR_SQUARE_DIV 4 — [DOC otherwise damage taken = damage^2 / (4 x armour)]
+  So armour subtracts while it is small relative to the hit, and goes quadratic
+  once it is large — which means it ASYMPTOTES and never reaches zero. You can
+  always be hurt. That is a deliberate anti-invulnerability shape.
+
+--- DOC: BACKSTAB, the positioning multiplier ---
+BACKSTAB_DEFAULT 3 — [DOC "most weapons have a 3x multiplier"]
+BACKSTAB_TWOHAND_CLUB 2 — [DOC "two-handed clubs only get a 2x multiplier"]
+BACKSTAB_KNIFE 10 — [DOC "Knives, however, sport a 10x multiplier"]
+BACKSTAB_MIN 2 — [DOC "ranges from 2x to 6x and is shown on the weapon tooltip"]
+BACKSTAB_MAX 6 — [DOC the top of that same stated range; the knife at 10 is the
+  documented outlier ABOVE it, which is itself a statement about the knife]
+  THE KNIFE IS THE WHOLE ARGUMENT. Ten times. A knife is a bad weapon from the
+  front and the best weapon in the game from behind, and that is expressed in ONE
+  NUMBER with no special-case system attached. That is what a well-chosen
+  multiplier buys you: a playstyle for free.
+  Note also that the multiplier is ON THE TOOLTIP. The game tells you. Their
+  "deeper understanding of mechanics" is not hidden knowledge, it is printed —
+  which is worth remembering against our own legibility debt.
+
+--- DOC: PARRY AND STAGGER, the spend multiplier ---
+PARRY_SHIELD 1.5 — [DOC "Most shields in Valheim give a 1.5x Parry Bonus"]
+PARRY_BUCKLER 2 — [DOC "except the Bronze Buckler, which offers a 2x bonus"]
+PARRY_BOW 1.5 — [DOC "All bows also give a 1.5x bonus"]
+PARRY_SWORD 2 — [DOC "melee weapons range from a 2x bonus for swords"]
+PARRY_KNIFE 4 — [DOC "to 4x bonus for most knives"]
+STAGGER_DMG_MULT 2 — [DOC "while staggered, the enemy is unable to act and takes
+  double damage"; and "damage dealt to the enemy in a period of time after a
+  successful parry ... is always 2x"]
+STAGGER_LIMIT_PCT 40 — [DOC "a stagger rate of 40% of their max health"]
+STAGGER_DECAY_PCT 20 — [DOC "Stagger generated decays at a rate of 20% of your
+  stagger limit per second"]
+  TWO SEPARATE ROADS TO THE SAME 2x, and that is the good part. You can grind an
+  enemy into stagger by accumulating damage against the 40% limit, OR you can
+  parry once and get it instantly. [DOC "Parrying an attack causes an instant
+  stagger without contributing towards the stagger limit"] Patience or timing,
+  same reward. And your DEFENCE choice (what you block with) sets your OFFENCE
+  ceiling, which collapses two decisions into one item.
+
+--- DOC: SKILL RAISES YOUR FLOOR ---
+The documented player skill factor is min([0.25 ... 0.55] + 0.006 x skill level,
+1.0) — a random roll between a floor and a ceiling, both of which climb. Minimum
+damage goes from 25% of the weapon at skill 0 to 85% at 100; maximum goes from
+55% at 0 to 100% at 75 and above. Each term of that formula, one per line:
+SKILL_FLOOR_AT_0 0.25 — [DOC the floor term at skill 0: 25% of weapon damage]
+SKILL_CEIL_AT_0 0.55 — [DOC the ceiling term at skill 0: 55% of weapon damage]
+SKILL_PER_LEVEL 0.006 — [DOC the per-level coefficient on BOTH ends]
+SKILL_CAP 1 — [DOC the min(..., 1.0) clamp; you never exceed the printed damage]
+SKILL_MAX_LEVEL 100 — [DOC the skill cap, where the floor reaches 85%]
+SKILL_CEIL_MAXED_AT 75 — [DOC "maximum ... 100% of weapon damage at skill level
+  75 and above" — the level past which extra skill buys no power at all]
+  THIS IS THE BEST IDEA ON THE PAGE and it is almost invisible. Your damage is a
+  RANDOM ROLL between a floor and a ceiling, and levelling raises BOTH — but the
+  ceiling is finished at level 75. So the last quarter of mastery buys you no
+  extra power at all, only CONSISTENCY. Mastery means you stop getting robbed.
+  That is a completely different feel from "+1 damage per level", it is much
+  closer to how getting good at something actually feels, and it costs one
+  formula.
+
+--- DOC: THE MATCHUPS THIS PAGE USES ---
+SKELETON_BLUNT 2 — [DOC "Skeletons take 2x blunt + 2x frost"; and they resist pierce]
+SKELETON_FROST 2 — [DOC the frost half of that same documented line]
+TROLL_FIRE 2 — [DOC "Trolls take 2x fire"]
+SEEKER_PIERCE 2 — [DOC "Seekers take 2x pierce + 2x lightning"]
+SEEKER_LIGHTNING 2 — [DOC the lightning half of that same documented line]
+BLOB_BLUNT 2 — [DOC "Blunt damage performs well against Blobs, Oozes, Skeletons,
+  and the Stone Golem"; blobs are near-immune to pierce]
+  Each one is a physical intuition, not a lookup: bones don't care about a hole,
+  a carapace is punched through rather than bruised, you cannot stab a puddle,
+  and a stick does little to something the size of a truck. THAT is why the table
+  is learnable — it is not arbitrary, so you can guess a new enemy correctly.
+
+=============================================================================
+CONTENT — theirs, and honestly labelled
+=============================================================================
+The six weapons on the page (sword, club, knife, spear, atgeir, bow) use
+Valheim's own CLASS names, which are SOURCED from the enum. Their per-weapon
+DAMAGE SPLITS are REPRESENTATIVE early-game profiles, not exact copies of a
+specific tier's stat block — the exact per-item values live in the game's asset
+bundles behind the 403s listed above. The page's job is the SHAPE of a profile
+(this weapon is blunt, this one splits pierce and slash), and the teardown says
+so instead of implying each number is a measurement.
+
+Their secondary attacks, as documented, because the pattern matters even though
+the page does not implement all of them: [DOC] atgeir spins in a circle hitting
+everything around you and knocking it down; swords stab with a long windup for
+more damage; spears THROW and are retrievable; knives lunge forward. EVERY class
+has one, on its own input, with its own stamina cost. So a class changes HOW you
+fight, not just how much you hit for.
+
+THE FOUR CREATURES are Valheim's own, chosen because their documented matchups
+cover the three physical types cleanly. Their hp and armour are representative.
+
+=============================================================================
+WHAT IS NOT IMPLEMENTED (so nobody reads this page as complete)
+=============================================================================
+- The seven elemental types. The page models the three PHYSICAL types, because
+  those are the ones that make weapon CHOICE a decision. Fire/frost/lightning/
+  poison/spirit are named and tagged and not modelled.
+- Stamina per swing. Real Valheim gates aggression with stamina; the page is
+  turn-based, so a turn IS the cost. Named as a divergence, not an omission.
+- Secondary attacks. Documented above, not implemented. The atgeir sweep in
+  particular is a real AoE mechanic and modelling it would be a second page.
+- Stagger by ACCUMULATION. The page implements the parry road to stagger; the
+  40%-of-max-health grind and its 20%/sec decay are recorded as numbers and not
+  simulated, because the decay is per-SECOND and the page has no seconds.
+- Blocking (as opposed to parrying), shield-specific block values, and the
+  Blocking skill.
+- Weapon durability, two-handed vs one-handed shield slots, and the real
+  movesets.
+- Skill LOSS on death, which their Skills.OnDeath / LowerAllSkills path handles
+  (visible at Skills.cs:124-128). Relevant to a roguelite and deliberately left
+  for Paolo.
+- BOHEMIA'S WEAPON TYPES, RESISTANCE TABLE AND POSITIONAL DAMAGE. All three are
+  [PENDING Paolo], all three belong to the COMBAT lane, and this page invents
+  none of them. NO DAMAGE BEFORE THE DIAL.
+
+=============================================================================
+THE ARITHMETIC, CHECKED
+=============================================================================
+club (28 blunt) into a skeleton (2x blunt, 0 armour), skill 0, roll pinned max:
+  28 x 2 = 56 typed;  x 0.55 = 30.8;  no backstab;  0 armour -> 30.8
+spear (26 pierce) into the same skeleton (0.5x pierce):
+  26 x 0.5 = 13 typed;  x 0.55 = 7.15 -> 7.15
+  SO THE RIGHT WEAPON IS A 4.3x SWING ON THE SAME ENEMY, before you have moved
+  a single step. That is the knowledge lever, measured.
+knife (12 pierce + 6 slash) into a seeker (2x pierce, 1x slash, 20 armour),
+skill 0, roll max, FROM BEHIND:
+  12 x 2 = 24, 6 x 1 = 6, typed 30;  x 0.55 = 16.5;  x10 backstab = 165;
+  armour 20 < 165/2 so subtract -> 145
+  From the FRONT: 16.5, and 20 armour >= 16.5/2 so 16.5^2/(4x20) = 3.4.
+  145 vs 3.4 — A 42x SWING FROM WALKING AROUND SOMETHING. That is the
+  positioning lever, and it is the half of his sentence Bohemia does not have.
+skill floor/ceiling: level 0 -> 25%-55%; level 50 -> 55%-85%; level 75 ->
+  70%-100% (ceiling done); level 100 -> 85%-100% (floor only). Confirmed against
+  min(0.25 + 0.006L, 1) and min(0.55 + 0.006L, 1).
+armour curve: a 10-damage hit into 3 armour -> 3 < 5, so 10-3 = 7. The same hit
+  into 20 armour -> 20 >= 5, so 100/80 = 1.25. Never zero.

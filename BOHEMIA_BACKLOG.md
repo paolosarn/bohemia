@@ -25,6 +25,71 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1p. [SHIPPED 7/31 — LAB-07, COMMISSIONED BY NAME] VALHEIM'S WEAPON TYPES, AND THEY
+   TURN OUT TO ANSWER THE HOLE HIS OWN COMBAT AUDIT FOUND.
+   Paolo 7/31: "look at the weapon types in valheim. valheim does weapon types really
+   good so i like that. valheim i think is a top 5 game of all time the most we can suck
+   from it the better."
+   THE FINDING, AND IT IS BIGGER THAN A WEAPON LIST: VALHEIM'S WEAPON SYSTEM IS A
+   DAMAGE-MULTIPLIER SYSTEM WEARING A WEAPON LIST AS A COSTUME. Almost nothing good
+   about it is the damage printed on the weapon. It is FOUR MULTIPLIERS YOU EARN --
+   know what you are fighting (up to 2x), stand behind it (3x, knives 10x), time a block
+   (2x), have used the thing before (raises your floor) -- and the weapon's real job is
+   deciding WHICH of the four you can reach.
+   *** WHY IT IS A LANE DELIVERABLE AND NOT TRIVIA: his own north star
+   (laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md) is "deal the most damage and
+   take the least amount of damage by positioning and abilities and deeper understanding
+   of mechanics", and his own audit
+   (records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md) says in capitals
+   "DEAL THE MOST DAMAGE BY POSITIONING -- NOT IMPLEMENTED AT ALL" and of the seven
+   ability verbs "None of them increases your damage". HALF HIS SENTENCE HAS NO CODE
+   BEHIND IT, and Valheim's four multipliers are that missing half one for one:
+   resistance = deeper understanding, backstab = positioning, parry = what you spend,
+   skill = the switching cost that makes the choice real. ***
+   PAGE (NOT IN A TAB -- a lab reference surface, and lab_gate clause 3 forbids the
+   alpha from ever linking it): slices/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_7_31_26.html
+   Five mechanics playable end to end: damage types / resistances / backstab / parry /
+   weapon skill, as a TURN-BASED GRID encounter because that is Bohemia's language -- a
+   real-time Unity clone would prove nothing about whether the idea survives translation.
+   THE SIX IDEAS WORTH STEALING, ranked in the pattern note: (1) resistance is applied
+   PER DAMAGE TYPE and only then armour on the total, so a split-damage weapon gets
+   partial credit and "wrong weapon" is a TAX not a WALL -- the most portable idea here;
+   (2) the matchups are physical intuitions (bones don't care about a hole, you cannot
+   stab a puddle) so the table is LEARNABLE and you can guess a new enemy right; (3)
+   SKILL RAISES YOUR FLOOR -- the ceiling is finished at level 75, so the last quarter
+   of mastery buys only CONSISTENCY, which is how getting good actually feels; (4) one
+   number can be a whole playstyle (knife 10x); (5) your DEFENCE choice sets your
+   OFFENCE ceiling, and there are two roads to the same 2x (grind the 40% stagger limit
+   or parry once); (6) NOBODY IS WEAK TO SLASH -- the default weapon has no matchup to
+   exploit, so the generalist is never optimal and never wrong.
+   MODEL, NOT A MEASUREMENT (Valheim is a compiled Unity DLL). Three numbers are
+   genuinely SOURCED from real open-source C#: ValheimPlus/GameClasses/Skills.cs:101-122
+   (the real SkillType enum -- Swords Knives Clubs Polearms Spears Blocking Axes Bows...,
+   so A WEAPON TYPE IS A SKILL, not a stat block) and Player.cs:376
+   (`item?.m_shared.m_skillType`, the one field the whole system hangs off). Everything
+   else is [DOC] and tagged. Teardown lists all nine failed source probes by URL so the
+   "no source" claim is checkable: records/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_TEARDOWN_
+   7_31_26.txt. Patterns + what not to port: ..._PATTERN_NOTE_7_31_26.md.
+   GATE: lab_gate.js grew the row and 31 live checks (W0-W30) and learned the VW block.
+   413 checks, 0 fail. Eight mutations caught: resistance ignored, backstab from
+   anywhere, armour flattened, stagger removed, parry made a freebie, skill ceiling
+   uncapped, all skills levelling together, and somebody made weak to slash.
+   TWO REAL BUGS THE MACHINE CAUGHT IN MY OWN WORK, both fixed with the reason written
+   into the source: (a) runtime bodies were hand-listed WITHOUT their resistance table,
+   so resolveHit read enemy.mods[t] off undefined and ANY ATTACK WOULD HAVE THROWN --
+   the live half caught it before it was committed, which is the whole argument for
+   driving the page's own functions; (b) the proof screenshot backstabbed the seeker and
+   a x10 knife DELETED it (165 into 110 hp), so the proof shot of the backstab mechanic
+   contained no backstabbed creature. Found by looking at the rendered pixels. Also
+   capped the grid cell at 44px after measuring the board eating 52% of the phone.
+   COMBAT IS NOT THIS LANE'S SYSTEM. Under the parallel-sessions law this page touches
+   no combat code and claims nothing. FLAGGED FOR COMBAT, not handed to it.
+   NOTHING PORTED. NO DAMAGE BEFORE THE DIAL -- there is not one Bohemia damage number
+   on that page. Bohemia's weapon types, resistance table and positional damage term are
+   all [PENDING Paolo] and all three are COMBAT's to build.
+   THE ONE QUESTION: is EARN-YOUR-MULTIPLIER the shape -- a new weapon changes which
+   multipliers you can reach -- instead of a ladder where a new gun prints a bigger
+   number?
 1o. [RULED + LAWED + GATED 7/31] THE ACTION COST SHAPE IS CANON, AND THE BLEED
    TRIGGER IS ANSWERED.
    Paolo 7/31, on the CDDA page: "And sure the time cost shit sounds good." Under

@@ -1,3 +1,89 @@
+LAB (e2r7sv): 7/31 (c) LATEST — VALHEIM'S WEAPON TYPES, AND THEY ANSWER THE HOLE THE
+COMBAT AUDIT FOUND. (Two earlier 7/31 LAB sections below: the CDDA action clock, and
+the ruling that made its shape law.)
+
+=== HE COMMISSIONED IT BY NAME ===
+Paolo 7/31: "look at the weapon types in valheim. valheim does weapon types really good
+so i like that. valheim i think is a top 5 game of all time the most we can suck from it
+the better."
+
+=== THE FINDING, AND IT IS BIGGER THAN A WEAPON LIST ===
+VALHEIM'S WEAPON SYSTEM IS A DAMAGE-MULTIPLIER SYSTEM WEARING A WEAPON LIST AS A
+COSTUME. Almost nothing good about it is the damage printed on the weapon. It is FOUR
+MULTIPLIERS YOU EARN -- know what you are fighting (up to 2x), stand behind it (3x,
+knives 10x), time a block (2x), have used the thing before (raises your floor) -- and
+the weapon's real job is deciding WHICH of the four you can reach.
+
+*** AND IT LANDS EXACTLY ON THE HOLE HIS OWN AUDIT FOUND. His north star
+(laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md): "deal the most damage and take
+the least amount of damage by positioning and abilities and deeper understanding of
+mechanics." His audit (records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md),
+in capitals: "DEAL THE MOST DAMAGE BY POSITIONING -- NOT IMPLEMENTED AT ALL" and of the
+seven ability verbs, "None of them increases your damage." HALF HIS SENTENCE HAS NO CODE
+BEHIND IT. Valheim's four multipliers are that missing half one for one. He did not ask
+me to solve that; it is just what was at the bottom of the thing he pointed at. ***
+
+=== SHIPPED ===
+PAGE (NOT IN A TAB -- a lab reference surface; lab_gate clause 3 forbids the alpha from
+ever linking it): slices/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_7_31_26.html
+Five mechanics end to end: damage types / resistances / backstab / parry / weapon skill,
+built as a TURN-BASED GRID because that is Bohemia's language. A real-time Unity clone
+would prove nothing about whether the idea survives the translation, which is the only
+question that matters.
+SIX IDEAS WORTH STEALING, ranked in the pattern note: (1) resistance applied PER DAMAGE
+TYPE, then armour on the total -- so a split-damage weapon gets partial credit and
+"wrong weapon" is a TAX, not a WALL. Most portable idea in the document. (2) The
+matchups are PHYSICAL INTUITIONS (bones don't care about a hole; you cannot stab a
+puddle), so the table is learnable and you can guess a new enemy right. (3) SKILL RAISES
+YOUR FLOOR -- their ceiling is finished at level 75, so the last quarter of mastery buys
+only CONSISTENCY. Mastery means you stop getting robbed. (4) One number can be a whole
+playstyle (knife 10x). (5) Your DEFENCE choice sets your OFFENCE ceiling, and there are
+two roads to the same 2x -- grind the 40%-of-health stagger limit, or parry once.
+(6) NOBODY IS WEAK TO SLASH: the default weapon has no matchup to exploit, so the
+generalist is never optimal and never wrong. A deliberately flat generalist is a
+kindness.
+MODEL, NOT A MEASUREMENT. Valheim is a compiled Unity DLL. Three numbers are genuinely
+SOURCED from real open-source C#: ValheimPlus/GameClasses/Skills.cs:101-122 (the real
+SkillType enum, which means A WEAPON TYPE IS A SKILL rather than a stat block) and
+Player.cs:376 (`item?.m_shared.m_skillType` -- the one field the entire system hangs
+off). Everything else is [DOC] and tagged. The teardown lists all NINE failed source
+probes by URL, so "no source" is checkable rather than asserted.
+RECORDS: records/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_TEARDOWN_7_31_26.txt and
+..._PATTERN_NOTE_7_31_26.md.
+
+=== TWO REAL BUGS THE MACHINE CAUGHT IN MY OWN WORK ===
+Both fixed with the reason written into the source, because the reason is the lesson.
+1. Runtime bodies were hand-listed WITHOUT their resistance table, so resolveHit read
+   enemy.mods[t] off undefined and ANY ATTACK WOULD HAVE THROWN. The live half caught it
+   before it was ever committed. That is the entire argument for driving the page's own
+   functions instead of a second copy of the maths.
+2. The proof screenshot backstabbed the seeker, and a x10 knife DELETED it (165 into 110
+   hp) -- so the proof shot of the backstab mechanic contained no backstabbed creature.
+   Only visible by looking at the rendered pixels. Target is the troll now.
+Also capped the grid cell at 44px after measuring the board eating 52% of the phone.
+
+=== GATE ===
+lab_gate.js: new row, 31 live checks (W0-W30), learned the VW constant block. 413
+checks, 0 fail. Eight mutations caught: resistance ignored, backstab from anywhere,
+armour flattened, stagger removed, parry made a freebie, skill ceiling uncapped, all
+skills levelling together, somebody made weak to slash.
+
+=== BOUNDARY, STATED PLAINLY ===
+COMBAT IS NOT THIS LANE'S SYSTEM. Under the parallel-sessions law this page touches no
+combat code, no engine module and no bank, and it claims nothing. The findings are
+FLAGGED for the COMBAT lane, not handed to it. NOTHING PORTED. NO DAMAGE BEFORE THE
+DIAL -- there is not one Bohemia damage number on that page. Bohemia's weapon types,
+resistance table and positional damage term are all [PENDING Paolo] and all three are
+COMBAT's to build.
+
+=== WAITING ON HIM ===
+1. Is EARN-YOUR-MULTIPLIER the shape? (a new weapon changes which multipliers you can
+   reach, instead of a ladder where a new gun prints a bigger number)
+2. The three bleed rules (sharp-or-shot-never-blunt / only-what-got-past-your-clothes /
+   most-hits-don't).
+3. The camp dial playtest, and the ten open camp clauses.
+4. The action clock's denomination and ceiling number.
+
 WORLD (9lfjtf): 7/31 — THE SCHOOL IS APPROVED, THE VALLEY GOT ITS EDGES, AND THE ECONOMY
 NOW HAS A PURSE. Paolo: "WE HAVE 11 months of forward motion work we need to complete. Do
 what you have to do next and know what comes after."

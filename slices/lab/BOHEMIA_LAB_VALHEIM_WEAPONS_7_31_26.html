@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 07 — VALHEIM WEAPON TYPES (REFERENCE MODEL)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 07 — VALHEIM'S WEAPON TYPES
+  Paolo 7/31: "look at the weapon types in valheim. valheim does weapon types
+  really good so i like that. valheim i think is a top 5 game of all time the
+  most we can suck from it the better."
+
+  THE FINDING, AND IT IS BIGGER THAN A WEAPON LIST:
+    VALHEIM'S WEAPON SYSTEM IS A DAMAGE-MULTIPLIER SYSTEM WEARING A WEAPON
+    LIST AS A COSTUME. Almost nothing good about it is the damage number on the
+    weapon. It is four multipliers you EARN — by knowing what you are fighting,
+    by standing behind it, by timing a block, and by having used that weapon
+    before — and the weapon's only real job is deciding which multipliers are
+    available to you.
+
+  WHY THAT MATTERS TO US SPECIFICALLY, and this is the reason this page exists
+  rather than being a nice bit of trivia. His own north star
+  (laws/BOHEMIA_ADDENDUM_WHAT_COMBAT_IS_FOR_7_27_26.md, LOCKED):
+    "the strategy choice to deal the most damage and take the least amount of
+     damage by positioning and abilities and deeper understanding of mechanics."
+  And his own audit of where Bohemia stands against it
+  (records/BOHEMIA_COMBAT_AUDIT_AGAINST_THE_NORTH_STAR_7_27_26.md) says, in
+  capitals:
+    "DEAL THE MOST DAMAGE BY POSITIONING — NOT IMPLEMENTED AT ALL."
+    "ABILITIES ... None of them increases your damage."
+  Half his sentence has no code behind it. Every one of Valheim's four
+  multipliers is exactly that missing half:
+    - damage type vs resistance = DEEPER UNDERSTANDING OF MECHANICS
+    - backstab                  = DEAL MORE DAMAGE BY POSITIONING
+    - parry into stagger        = DEAL MORE DAMAGE BY WHAT YOU SPEND
+    - weapon skill              = the cost of switching, so the choice is real
+
+  A REFERENCE MODEL, NOT A MEASUREMENT. Valheim ships compiled Unity
+  assemblies, so most numbers below are DOCUMENTED, not read off source. Every
+  constant is tagged [SOURCED file:line] or [DOC ...] in
+  records/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_TEARDOWN_7_31_26.txt, and the three
+  that ARE sourced come from real open-source C# (ValheimPlus, which patches the
+  live game and therefore names its real types).
+
+  TRANSLATED, ON PURPOSE, INTO OUR LANGUAGE. Bohemia's combat is a TURN-BASED
+  GRID (records/BOHEMIA_COMBAT_RESEARCH_TURN_BASED_GRID_7_26_26.md), so this
+  page is a turn-based grid encounter, not a real-time Unity clone. A page that
+  copied Valheim's real-time swing timing would prove nothing about whether the
+  idea survives the translation, which is the only question that matters.
+
+  NOT BOHEMIA. No engine module, no bank, no alpha. Placeholder art only.
+  THIS PAGE CONTAINS ZERO BOHEMIA DAMAGE NUMBERS — every number is Valheim's.
+  NO DAMAGE BEFORE THE DIAL is intact: nothing here is our damage, and nothing
+  here is wired to anything.
+  COMBAT IS ANOTHER LANE'S SYSTEM. Under the parallel-sessions law this page
+  touches no combat code and claims nothing; the findings are FLAGGED for the
+  COMBAT lane and ported only on Paolo's word.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#0a0c0a; color:#e6e3d8;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#7a4a1e; color:#fff; font-size:9.5px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #board { flex:0 0 auto; position:relative; background:#141a12; }
+  #board canvas { display:block; width:100%; }
+  .wm { position:absolute; right:3px; bottom:3px; font-size:8px; color:#fff; opacity:.28; }
+  #panes { flex:1 1 auto; min-height:0; overflow-y:auto; padding:5px 7px 8px; background:#0f1310; }
+  .card { background:#161c15; border:1px solid #2c3628; border-radius:5px;
+    padding:5px 7px; margin-bottom:5px; }
+  .card h3 { margin:0 0 4px; font-size:10px; color:#e8c96a; letter-spacing:.04em; }
+  .card .sub { font-size:9px; color:#8a9382; line-height:1.5; }
+  .row { display:flex; align-items:center; gap:5px; font-size:9.5px; padding:2px 0;
+    border-bottom:1px solid #1d241b; }
+  .row .n { flex:1 1 auto; color:#cbd6a8; }
+  .row .c { flex:0 0 auto; color:#8a9382; font-size:8.5px; }
+  .row .v { flex:0 0 46px; text-align:right; color:#fff; font-weight:700; }
+  .math { font-size:9px; line-height:1.6; color:#a9b39c; }
+  .math b { color:#ffd76a; }
+  .math .hit { color:#fff; font-size:11px; }
+  .big { font-size:11px; color:#fff; line-height:1.45; }
+  .big b { color:#8fe08a; }
+  .flag { color:#ffb4a8; }
+  #wsel, #asel { display:flex; flex-wrap:wrap; gap:3px; }
+  button.chip { font-family:inherit; font-size:9px; padding:5px 6px; border-radius:4px;
+    border:1px solid #3d4a38; background:#1d241b; color:#98a48d; }
+  button.chip.on { background:#2f4a2c; border-color:#5f8c5b; color:#dff0d8; }
+  button.chip:disabled { opacity:.35; }
+  #ctl { flex:0 0 auto; padding:4px 6px 7px; background:#131711; border-top:1px solid #2a3227;
+    display:flex; flex-wrap:wrap; gap:3px; }
+  #log { font-size:9px; line-height:1.5; color:#8a9382; max-height:72px; overflow-y:auto; }
+  #log div { border-left:2px solid #2c3628; padding-left:5px; margin-bottom:2px; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE MODEL — NOT BOHEMIA. NOT A MEASUREMENT.</b> Valheim's weapon types,
+    mostly DOCUMENTED (compiled Unity DLL), three numbers sourced from real C#. Placeholder art.
+    Zero Bohemia damage numbers on this page.</div>
+
+  <div id="board"><canvas id="cv"></canvas><div class="wm">PLACEHOLDER ART</div></div>
+
+  <div id="panes">
+    <div class="card">
+      <h3>THE FINDING — IT IS NOT A WEAPON LIST, IT IS FOUR MULTIPLIERS</h3>
+      <div class="sub">The damage printed on a Valheim weapon barely matters. What matters is four
+        multipliers you EARN: know what you're fighting, stand behind it, time a block, and have
+        used the thing before. The weapon's real job is deciding WHICH of those you can reach.</div>
+      <div class="big" id="headline"></div>
+    </div>
+
+    <div class="card">
+      <h3>YOUR WEAPON</h3>
+      <div id="wsel"></div>
+      <div class="sub" id="wnote" style="margin-top:4px"></div>
+    </div>
+
+    <div class="card">
+      <h3>THE LAST HIT, ALL THE WAY THROUGH</h3>
+      <div class="math" id="math">Tap an enemy to attack it. Walk BEHIND one first and watch what
+        happens.</div>
+    </div>
+
+    <div class="card">
+      <h3>1 + 2. DAMAGE TYPES vs RESISTANCES — the knowledge lever</h3>
+      <div class="sub">Ten damage types; three physical (slash / blunt / pierce) do the work.
+        Resistance is a per-type multiplier applied to each type SEPARATELY, then armour is applied
+        to the total. So a weapon that splits its damage gets partial credit against a resistance
+        instead of being shut out.</div>
+      <div id="rtable"></div>
+      <div class="sub" style="margin-top:4px"><span class="flag">AND THE DESIGN STATEMENT:
+        NO ENEMY IN VALHEIM IS WEAK TO SLASH.</span> Slash is what swords do, and the sword is the
+        default weapon. The generalist is never optimal and never bad. That is a choice, and it is
+        why nobody ever feels stupid for carrying a sword.</div>
+    </div>
+
+    <div class="card">
+      <h3>3. BACKSTAB — the positioning lever, and it is enormous</h3>
+      <div class="sub">Most weapons 3x from behind. Two-handed clubs 2x. <b>Knives 10x.</b> That
+        single number is a whole playstyle: a knife is a bad weapon from the front and the best
+        weapon in the game from behind. This is the lever Bohemia's own audit says we do not have.</div>
+      <div id="btable"></div>
+    </div>
+
+    <div class="card">
+      <h3>4. PARRY into STAGGER — the spend lever</h3>
+      <div class="sub">Parry at the right moment and the enemy is instantly staggered, and a
+        staggered enemy takes <b>double damage</b> and cannot act. Parry strength is a property of
+        what you are holding: shields 1.5x, a buckler 2x, swords 2x, knives 4x. So your defence
+        choice is also an offence choice.</div>
+      <div id="ptable"></div>
+    </div>
+
+    <div class="card">
+      <h3>5. WEAPON SKILL — and it raises your FLOOR, not your ceiling</h3>
+      <div class="sub">This is the subtle one and it is the best idea in the list. Skill rolls your
+        damage between a floor and a ceiling that BOTH climb. At skill 0 you roll 25%-55% of the
+        weapon. At 100 you roll 85%-100%. The ceiling is reached by skill 75, so late levels buy
+        you nothing but CONSISTENCY — mastery means you stop getting robbed, not that you hit
+        harder.</div>
+      <div id="stable"></div>
+    </div>
+
+    <div class="card">
+      <h3>WHAT HAPPENED</h3>
+      <div id="log"></div>
+    </div>
+
+    <div class="card">
+      <h3>WHAT THIS DOES NOT DECIDE</h3>
+      <div class="sub"><span class="flag">NOTHING HERE IS BOHEMIA'S.</span> Every number is
+        Valheim's. Bohemia has no weapon-type system, no resistance table and no positional damage
+        term, and all three are <b>[PENDING Paolo]</b> and belong to the COMBAT lane, not this one.
+        NO DAMAGE BEFORE THE DIAL. What this page is FOR is one question: is
+        <b>earn-your-multiplier</b> the shape we want, instead of a weapon ladder where a new gun
+        just prints a bigger number?</div>
+    </div>
+  </div>
+
+  <div id="ctl"></div>
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   THE NUMBERS. Valheim ships compiled assemblies, so this block is MOSTLY
+   DOCUMENTED. Every key is tagged in
+   records/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_TEARDOWN_7_31_26.txt as
+   [SOURCED file:line] or [DOC ...], and gates/lab_gate.js clause 7 fails the
+   build on an untagged one.
+   ========================================================================= */
+var VW = {
+  /* --- SOURCED. Real open-source C# that patches the live game and therefore
+         names the game's own enum: ValheimPlus/GameClasses/Skills.cs. --- */
+  SKILL_TYPES_BEFORE_JUMP: 14,   /* Skills.cs:103-116 None + 13 named skills */
+  SKILLTYPE_JUMP: 100,           /* Skills.cs:117 Jump = 100 */
+  SKILLTYPE_ALL: 999,            /* Skills.cs:121 All = 999 */
+
+  /* --- the type system --- */
+  DMG_TYPES: 10,                 /* slash blunt pierce chop pickaxe + fire frost lightning poison spirit */
+  PHYSICAL_TYPES: 3,             /* slash blunt pierce — the three that do the work */
+  SLASH_WEAKNESS_COUNT: 0,       /* NO enemy is weak to slash. The design statement. */
+
+  /* --- the resistance ladder, as multipliers --- */
+  MOD_VERY_WEAK: 2,
+  MOD_WEAK: 1.5,
+  MOD_WEAK_SLIGHT: 1.25,
+  MOD_NORMAL: 1,
+  MOD_RESIST_SLIGHT: 0.75,
+  MOD_RESISTANT: 0.5,
+  MOD_VERY_RESISTANT: 0.25,
+  MOD_IMMUNE: 0,
+
+  /* --- armour: a piecewise curve, not a subtraction --- */
+  ARMOR_PIVOT_DIV: 2,            /* armour < damage/2 -> subtract */
+  ARMOR_SQUARE_DIV: 4,           /* else damage^2 / (4*armour) */
+
+  /* --- backstab: the positioning multiplier --- */
+  BACKSTAB_DEFAULT: 3,
+  BACKSTAB_TWOHAND_CLUB: 2,
+  BACKSTAB_KNIFE: 10,
+  BACKSTAB_MIN: 2,               /* the tooltip range across all weapons */
+  BACKSTAB_MAX: 6,
+
+  /* --- parry and stagger: the spend multiplier --- */
+  PARRY_SHIELD: 1.5,
+  PARRY_BUCKLER: 2,
+  PARRY_BOW: 1.5,
+  PARRY_SWORD: 2,
+  PARRY_KNIFE: 4,
+  STAGGER_DMG_MULT: 2,           /* a staggered target takes double, always */
+  STAGGER_LIMIT_PCT: 40,         /* stagger limit = 40% of max health */
+  STAGGER_DECAY_PCT: 20,         /* and it decays 20% of the limit per second */
+
+  /* --- skill: raises the FLOOR --- */
+  SKILL_FLOOR_AT_0: 0.25,
+  SKILL_CEIL_AT_0: 0.55,
+  SKILL_PER_LEVEL: 0.006,
+  SKILL_CAP: 1,
+  SKILL_MAX_LEVEL: 100,
+  SKILL_CEIL_MAXED_AT: 75,       /* the ceiling is done by 75; the rest is consistency */
+
+  /* --- the documented matchups this page uses --- */
+  SKELETON_BLUNT: 2,
+  SKELETON_FROST: 2,
+  TROLL_FIRE: 2,
+  SEEKER_PIERCE: 2,
+  SEEKER_LIGHTNING: 2,
+  BLOB_BLUNT: 2
+};
+
+/* =========================================================================
+   CONTENT (theirs). Weapon classes are Valheim's own SkillType names; the
+   per-weapon damage splits are representative early-game profiles, and the
+   teardown says so rather than pretending each number is exact.
+   ========================================================================= */
+var WEAPONS = [
+  { id: 'sword',  name: 'sword',   skill: 'Swords',   split: { slash: 30 },
+    back: VW.BACKSTAB_DEFAULT, parry: VW.PARRY_SWORD, reach: 1,
+    note: 'the generalist. No enemy is weak to slash, so it is never the best answer and never the wrong one.' },
+  { id: 'club',   name: 'club',    skill: 'Clubs',    split: { blunt: 28 },
+    back: VW.BACKSTAB_TWOHAND_CLUB, parry: VW.PARRY_SHIELD, reach: 1,
+    note: 'blunt. Doubles on skeletons and blobs, and is the worst pick against a troll. The most matchup-dependent weapon in the game.' },
+  { id: 'knife',  name: 'knife',   skill: 'Knives',   split: { pierce: 12, slash: 6 },
+    back: VW.BACKSTAB_KNIFE, parry: VW.PARRY_KNIFE, reach: 1,
+    note: 'TEN TIMES from behind, and 4x parry. Terrible from the front. A whole playstyle in two numbers.' },
+  { id: 'spear',  name: 'spear',   skill: 'Spears',   split: { pierce: 26 },
+    back: VW.BACKSTAB_DEFAULT, parry: VW.PARRY_SHIELD, reach: 2,
+    note: 'pierce, and it reaches. Doubles on seekers, half on a skeleton. Secondary attack throws it.' },
+  { id: 'atgeir', name: 'atgeir',  skill: 'Polearms', split: { slash: 34 },
+    back: VW.BACKSTAB_DEFAULT, parry: VW.PARRY_SHIELD, reach: 2,
+    note: 'slash with reach, and its secondary is a SWEEP that hits everything around you and knocks it down.' },
+  { id: 'bow',    name: 'bow',     skill: 'Bows',     split: { pierce: 22 },
+    back: VW.BACKSTAB_DEFAULT, parry: VW.PARRY_BOW, reach: 6,
+    note: 'pierce at range. Cannot parry meaningfully (1.5x), so range IS its defence.' }
+];
+
+/* Their creatures, with the documented matchups. mods are per damage type. */
+var ENEMIES = [
+  { id: 'skeleton', name: 'skeleton', hp: 60, armor: 0,
+    mods: { blunt: VW.MOD_VERY_WEAK, pierce: VW.MOD_RESISTANT, slash: VW.MOD_NORMAL },
+    why: 'weak to blunt (and frost), resists pierce — a bag of bones does not care about a hole' },
+  { id: 'troll', name: 'troll', hp: 160, armor: 10,
+    mods: { blunt: VW.MOD_RESISTANT, pierce: VW.MOD_NORMAL, slash: VW.MOD_NORMAL },
+    why: 'weak to fire, resists blunt — hitting something that big with a stick does little' },
+  { id: 'seeker', name: 'seeker', hp: 110, armor: 20,
+    mods: { pierce: VW.MOD_VERY_WEAK, blunt: VW.MOD_NORMAL, slash: VW.MOD_NORMAL },
+    why: 'weak to pierce (and lightning) — a carapace is punched through, not bruised' },
+  { id: 'blob', name: 'blob', hp: 50, armor: 0,
+    mods: { blunt: VW.MOD_VERY_WEAK, pierce: VW.MOD_VERY_RESISTANT, slash: VW.MOD_RESISTANT },
+    why: 'weak to blunt, nearly immune to pierce — you cannot stab a puddle' }
+];
+
+/* =========================================================================
+   MECHANIC 5 — SKILL. The floor and the ceiling both climb, and the ceiling
+   is done at level 75, so mastery buys CONSISTENCY.
+   ========================================================================= */
+function skillFloor(level) {
+  return Math.min(VW.SKILL_CAP, VW.SKILL_FLOOR_AT_0 + VW.SKILL_PER_LEVEL * level);
+}
+function skillCeil(level) {
+  return Math.min(VW.SKILL_CAP, VW.SKILL_CEIL_AT_0 + VW.SKILL_PER_LEVEL * level);
+}
+/* roll in [0,1] is supplied so the gate can pin it; play passes a random one */
+function skillFactor(level, roll) {
+  var lo = skillFloor(level), hi = skillCeil(level);
+  return lo + (hi - lo) * (roll === undefined ? Math.random() : roll);
+}
+
+/* =========================================================================
+   MECHANIC 1 + 2 — TYPES AND RESISTANCES. Per type, then armour on the total.
+   ========================================================================= */
+function typedDamage(weapon, enemy) {
+  var parts = [], total = 0;
+  for (var t in weapon.split) {
+    var raw = weapon.split[t];
+    var mod = enemy.mods[t] === undefined ? VW.MOD_NORMAL : enemy.mods[t];
+    var out = raw * mod;
+    parts.push({ type: t, raw: raw, mod: mod, out: out });
+    total += out;
+  }
+  return { parts: parts, total: total };
+}
+
+/* their armour curve: a subtraction while armour is small, a square once it is
+   not — which is why armour never reaches zero damage taken */
+function afterArmor(dmg, armor) {
+  if (armor <= 0) return dmg;
+  if (armor < dmg / VW.ARMOR_PIVOT_DIV) return dmg - armor;
+  return (dmg * dmg) / (VW.ARMOR_SQUARE_DIV * armor);
+}
+
+/* =========================================================================
+   MECHANIC 3 + 4 — BACKSTAB AND STAGGER, the two multipliers you EARN by
+   where you stand and what you spend.
+   ========================================================================= */
+function isBehind(atkX, atkY, e) {
+  /* behind = you are on the opposite side of the facing vector */
+  var dx = atkX - e.x, dy = atkY - e.y;
+  return (dx * e.fx + dy * e.fy) < 0;
+}
+
+/* the whole pipeline, in the order Valheim does it */
+function resolveHit(weapon, e, fromX, fromY, level, roll) {
+  var typed = typedDamage(weapon, e);
+  var factor = skillFactor(level, roll);
+  var afterSkill = typed.total * factor;
+  var back = isBehind(fromX, fromY, e) ? weapon.back : 1;
+  var stag = e.staggered ? VW.STAGGER_DMG_MULT : 1;
+  var beforeArmor = afterSkill * back * stag;
+  var final = afterArmor(beforeArmor, e.armor);
+  return { typed: typed, factor: factor, afterSkill: afterSkill, back: back,
+           stagger: stag, beforeArmor: beforeArmor, final: final };
+}
+
+/* =========================================================================
+   THE ENCOUNTER — turn-based grid, because that is OUR language.
+   ========================================================================= */
+var GW = 7, GH = 8, CELL = 0;
+var S = {
+  weapon: 'sword',
+  px: 3, py: 7,
+  levels: { Swords: 0, Clubs: 0, Knives: 0, Spears: 0, Polearms: 0, Bows: 0 },
+  parrying: false,
+  turn: 1,
+  bodies: [],
+  last: null,
+  log: []
+};
+
+function weapon() {
+  for (var i = 0; i < WEAPONS.length; i++) if (WEAPONS[i].id === S.weapon) return WEAPONS[i];
+  return WEAPONS[0];
+}
+function enemyDef(id) {
+  for (var i = 0; i < ENEMIES.length; i++) if (ENEMIES[i].id === id) return ENEMIES[i];
+  return null;
+}
+/* A BODY IS A FULL CREATURE, mods included. It is built FROM the def rather than
+   hand-listed beside it, because the first version hand-listed hp and armour and
+   left mods off entirely — so resolveHit read enemy.mods[t] off undefined and any
+   attack threw. The gate's live half caught it before it was ever committed,
+   which is the entire argument for driving the page's own functions instead of a
+   copy of the maths. */
+function spawn() {
+  var PLACES = [
+    { id: 'skeleton', x: 1, y: 2, fx: 0, fy: 1 },
+    { id: 'blob',     x: 3, y: 1, fx: 0, fy: 1 },
+    { id: 'seeker',   x: 5, y: 3, fx: -1, fy: 0 },
+    { id: 'troll',    x: 5, y: 6, fx: 0, fy: -1 }
+  ];
+  S.bodies = PLACES.map(function (p) {
+    var d = enemyDef(p.id);
+    return { id: p.id, x: p.x, y: p.y, fx: p.fx, fy: p.fy,
+             hp: d.hp, armor: d.armor, mods: d.mods, staggered: false };
+  });
+}
+function bodyAt(x, y) {
+  for (var i = 0; i < S.bodies.length; i++)
+    if (S.bodies[i].hp > 0 && S.bodies[i].x === x && S.bodies[i].y === y) return S.bodies[i];
+  return null;
+}
+function dist(ax, ay, bx, by) { return Math.max(Math.abs(ax - bx), Math.abs(ay - by)); }
+
+function log(m) { S.log.unshift(m); if (S.log.length > 10) S.log.pop(); }
+
+/* --- a turn: enemies act, stagger clears, you get your action back --- */
+function endTurn() {
+  S.turn++;
+  S.bodies.forEach(function (b) {
+    if (b.hp <= 0) return;
+    if (b.staggered) { b.staggered = false; return; }   /* stagger lasts one turn */
+    /* it turns to face you and steps in — so standing behind it is something you
+       have to WORK for every turn, which is the point of the mechanic */
+    var dx = S.px - b.x, dy = S.py - b.y;
+    if (Math.abs(dx) > Math.abs(dy)) { b.fx = dx > 0 ? 1 : -1; b.fy = 0; }
+    else if (dy !== 0) { b.fy = dy > 0 ? 1 : -1; b.fx = 0; }
+    if (dist(b.x, b.y, S.px, S.py) > 1) {
+      var nx = b.x + b.fx, ny = b.y + b.fy;
+      if (nx >= 0 && nx < GW && ny >= 0 && ny < GH && !bodyAt(nx, ny) && !(nx === S.px && ny === S.py)) {
+        b.x = nx; b.y = ny;
+      }
+    } else if (S.parrying) {
+      /* PARRY: it swung, you caught it — instant stagger, and it now takes 2x */
+      b.staggered = true;
+      log('PARRIED the ' + b.id + ' with your ' + weapon().name + ' (' + weapon().parry +
+          'x parry) — STAGGERED, and it takes ' + VW.STAGGER_DMG_MULT + 'x until it recovers');
+    }
+  });
+  S.parrying = false;
+  paint();
+}
+
+function attack(x, y) {
+  var b = bodyAt(x, y);
+  if (!b) return null;
+  var w = weapon();
+  if (dist(S.px, S.py, x, y) > w.reach) { log('out of reach for a ' + w.name); paint(); return null; }
+  var lvl = S.levels[w.skill];
+  var r = resolveHit(w, b, S.px, S.py, lvl, undefined);
+  b.hp -= r.final;
+  S.last = { weapon: w, enemy: b, r: r, behind: r.back > 1 };
+  /* using it levels it — that is the switching cost */
+  S.levels[w.skill] = Math.min(VW.SKILL_MAX_LEVEL, lvl + 4);
+  log(w.name + ' -> ' + b.id + ': ' + r.final.toFixed(1) + (r.back > 1 ? '  BACKSTAB x' + r.back : '') +
+      (r.stagger > 1 ? '  STAGGERED x' + r.stagger : '') + (b.hp <= 0 ? '  DEAD' : ''));
+  endTurn();
+  return r;
+}
+
+function step(dx, dy) {
+  var nx = S.px + dx, ny = S.py + dy;
+  if (nx < 0 || nx >= GW || ny < 0 || ny >= GH) return false;
+  if (bodyAt(nx, ny)) return false;
+  S.px = nx; S.py = ny;
+  endTurn();
+  return true;
+}
+function parry() {
+  S.parrying = true;
+  log('holding a parry with the ' + weapon().name + ' (' + weapon().parry + 'x) — if it swings, it eats it');
+  endTurn();
+}
+
+/* =========================================================================
+   VIEW
+   ========================================================================= */
+function el(id) { return document.getElementById(id); }
+var cv, ctx, DPR = Math.min(2, window.devicePixelRatio || 1);
+
+var OX = 0;   /* the board is centred, because a capped cell leaves a margin */
+function sizeBoard() {
+  cv = el('cv'); ctx = cv.getContext('2d');
+  var w = el('board').clientWidth || 390;
+  /* CELL IS CAPPED. Uncapped, 390/7 gives 55px cells and the board ate 52% of
+     the phone, pushing the teaching panels off screen — measured on the real
+     surface, which is the only place that shows up. 44 keeps the grid readable
+     and leaves the maths visible without scrolling. */
+  CELL = Math.min(44, Math.floor(w / GW));
+  OX = Math.floor((w - CELL * GW) / 2);
+  var h = CELL * GH;
+  cv.style.height = h + 'px';
+  cv.width = Math.floor(w * DPR); cv.height = Math.floor(h * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+
+function drawBoard() {
+  var w = cv.width / DPR, h = cv.height / DPR;
+  ctx.fillStyle = '#141a12'; ctx.fillRect(0, 0, w, h);
+  for (var y = 0; y < GH; y++) for (var x = 0; x < GW; x++) {
+    ctx.fillStyle = ((x + y) % 2) ? '#18200f' : '#151c0e';
+    ctx.fillRect(OX + x * CELL, y * CELL, CELL - 1, CELL - 1);
+  }
+  var wp = weapon();
+  /* reach ring, so the weapon's shape is visible on the board */
+  ctx.strokeStyle = 'rgba(140,200,120,0.22)';
+  for (var yy = 0; yy < GH; yy++) for (var xx = 0; xx < GW; xx++) {
+    if (dist(xx, yy, S.px, S.py) <= wp.reach && !(xx === S.px && yy === S.py)) {
+      ctx.strokeRect(OX + xx * CELL + 1.5, yy * CELL + 1.5, CELL - 4, CELL - 4);
+    }
+  }
+  S.bodies.forEach(function (b) {
+    if (b.hp <= 0) return;
+    var d = enemyDef(b.id);
+    var cx = OX + b.x * CELL + CELL / 2, cy = b.y * CELL + CELL / 2;
+    /* the body */
+    ctx.fillStyle = b.staggered ? '#d8b23a' : '#6b4a3a';
+    ctx.beginPath(); ctx.arc(cx, cy, CELL * 0.30, 0, Math.PI * 2); ctx.fill();
+    /* FACING — the whole backstab mechanic is legible or it is not a mechanic */
+    ctx.strokeStyle = '#ffe08a'; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + b.fx * CELL * 0.40, cy + b.fy * CELL * 0.40);
+    ctx.stroke();
+    /* behind-marker: the cell you want to be standing in */
+    var bx = b.x - b.fx, by = b.y - b.fy;
+    if (bx >= 0 && bx < GW && by >= 0 && by < GH) {
+      ctx.strokeStyle = 'rgba(255,120,120,0.5)'; ctx.lineWidth = 1;
+      ctx.strokeRect(OX + bx * CELL + 3, by * CELL + 3, CELL - 7, CELL - 7);
+    }
+    /* hp bar + name */
+    var frac = Math.max(0, b.hp) / d.hp;
+    ctx.fillStyle = '#20130f'; ctx.fillRect(OX + b.x * CELL + 4, b.y * CELL + CELL - 9, CELL - 9, 4);
+    ctx.fillStyle = '#c85a4a'; ctx.fillRect(OX + b.x * CELL + 4, b.y * CELL + CELL - 9, (CELL - 9) * frac, 4);
+    ctx.fillStyle = '#cbd6a8'; ctx.font = '8px ui-monospace,monospace'; ctx.textAlign = 'center';
+    ctx.fillText(b.id, cx, b.y * CELL + 10);
+  });
+  /* you */
+  var px = OX + S.px * CELL + CELL / 2, py = S.py * CELL + CELL / 2;
+  ctx.fillStyle = S.parrying ? '#8fd0ff' : '#dfe8cf';
+  ctx.beginPath(); ctx.arc(px, py, CELL * 0.26, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#0a0c0a'; ctx.font = 'bold 9px ui-monospace,monospace'; ctx.textAlign = 'center';
+  ctx.fillText(S.parrying ? 'P' : 'U', px, py + 3);
+}
+
+function paint() {
+  drawBoard();
+  var w = weapon(), lvl = S.levels[w.skill];
+
+  el('headline').innerHTML = 'your <b>' + w.name + '</b> is ' +
+    Object.keys(w.split).map(function (t) { return w.split[t] + ' ' + t; }).join(' + ') +
+    ', <b>x' + w.back + '</b> from behind, <b>x' + w.parry + '</b> parry, ' +
+    w.skill + ' at level ' + lvl + ' (rolls ' + Math.round(skillFloor(lvl) * 100) + '-' +
+    Math.round(skillCeil(lvl) * 100) + '% of it)';
+  el('wnote').textContent = w.note;
+
+  /* weapon chips */
+  var ws = el('wsel');
+  if (!ws.dataset.built) {
+    WEAPONS.forEach(function (x) {
+      var b = document.createElement('button'); b.className = 'chip'; b.textContent = x.name;
+      b.dataset.id = x.id;
+      b.onclick = function () { S.weapon = x.id; paint(); };
+      ws.appendChild(b);
+    });
+    ws.dataset.built = '1';
+  }
+  Array.prototype.forEach.call(ws.children, function (b) {
+    b.className = 'chip' + (b.dataset.id === S.weapon ? ' on' : '');
+  });
+
+  /* the last hit, all the way through — this IS the teaching surface */
+  if (S.last) {
+    var L = S.last, r = L.r;
+    var lines = r.typed.parts.map(function (p) {
+      return '&nbsp;&nbsp;' + p.raw + ' ' + p.type + ' x <b>' + p.mod + '</b> (' +
+        (p.mod > 1 ? 'weak' : p.mod < 1 ? 'resists' : 'normal') + ') = ' + p.out.toFixed(1);
+    });
+    el('math').innerHTML =
+      L.weapon.name + ' into the ' + L.enemy.id + ':<br>' + lines.join('<br>') +
+      '<br>&nbsp;&nbsp;typed total = <b>' + r.typed.total.toFixed(1) + '</b>' +
+      '<br>&nbsp;&nbsp;x skill roll <b>' + r.factor.toFixed(2) + '</b> (' + L.weapon.skill +
+      ' ' + S.levels[L.weapon.skill] + ') = ' + r.afterSkill.toFixed(1) +
+      (r.back > 1 ? '<br>&nbsp;&nbsp;x <b>' + r.back + ' BACKSTAB</b> = ' +
+        (r.afterSkill * r.back).toFixed(1) : '<br>&nbsp;&nbsp;no backstab (you were in front)') +
+      (r.stagger > 1 ? '<br>&nbsp;&nbsp;x <b>' + r.stagger + ' STAGGERED</b>' : '') +
+      '<br>&nbsp;&nbsp;armour ' + L.enemy.armor + ' -> <span class="hit">' +
+      r.final.toFixed(1) + ' damage</span>';
+  }
+
+  /* the three reference tables */
+  var rt = el('rtable'); rt.innerHTML = '';
+  ENEMIES.forEach(function (e) {
+    var best = null, worst = null;
+    WEAPONS.forEach(function (x) {
+      var t = typedDamage(x, e).total;
+      if (!best || t > best.t) best = { w: x, t: t };
+      if (!worst || t < worst.t) worst = { w: x, t: t };
+    });
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">' + e.name + '</span><span class="c">' + e.why + '</span>' +
+      '<span class="v">' + best.w.name + '</span>';
+    rt.appendChild(d);
+  });
+
+  var bt = el('btable'); bt.innerHTML = '';
+  WEAPONS.forEach(function (x) {
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">' + x.name + '</span>' +
+      '<span class="c">' + (x.back >= VW.BACKSTAB_KNIFE ? 'a whole playstyle'
+        : x.back <= VW.BACKSTAB_TWOHAND_CLUB ? 'too slow to sneak with' : 'the standard') + '</span>' +
+      '<span class="v">x' + x.back + '</span>';
+    bt.appendChild(d);
+  });
+
+  var pt = el('ptable'); pt.innerHTML = '';
+  [['shield', VW.PARRY_SHIELD], ['buckler', VW.PARRY_BUCKLER], ['sword', VW.PARRY_SWORD],
+   ['knife', VW.PARRY_KNIFE], ['bow', VW.PARRY_BOW]].forEach(function (p) {
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">' + p[0] + '</span><span class="c">then x' +
+      VW.STAGGER_DMG_MULT + ' while it is staggered</span><span class="v">x' + p[1] + '</span>';
+    pt.appendChild(d);
+  });
+
+  var st = el('stable'); st.innerHTML = '';
+  [0, 25, 50, 75, 100].forEach(function (lv) {
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">skill ' + lv + '</span>' +
+      '<span class="c">' + (lv >= VW.SKILL_CEIL_MAXED_AT ? 'ceiling already maxed — this is consistency'
+        : 'still buying ceiling') + '</span>' +
+      '<span class="v">' + Math.round(skillFloor(lv) * 100) + '-' +
+      Math.round(skillCeil(lv) * 100) + '%</span>';
+    st.appendChild(d);
+  });
+
+  var lg = el('log'); lg.innerHTML = '';
+  S.log.forEach(function (m) {
+    var d = document.createElement('div'); d.textContent = m; lg.appendChild(d);
+  });
+}
+
+/* --- input: tap the board to move or attack --- */
+function bindBoard() {
+  el('cv').addEventListener('click', function (ev) {
+    var r = cv.getBoundingClientRect();
+    var x = Math.floor((ev.clientX - r.left - OX) / CELL), y = Math.floor((ev.clientY - r.top) / CELL);
+    if (x < 0 || x >= GW || y < 0 || y >= GH) return;
+    var b = bodyAt(x, y);
+    if (b) { attack(x, y); return; }
+    var dx = Math.sign(x - S.px), dy = Math.sign(y - S.py);
+    if (dx || dy) step(dx, dy);
+  });
+}
+
+function bindCtl() {
+  var h = el('ctl');
+  [['PARRY', function () { parry(); }],
+   ['WAIT', function () { endTurn(); }],
+   ['RESET', function () { reset(); }],
+   ['MAX SKILL', function () { for (var k in S.levels) S.levels[k] = VW.SKILL_MAX_LEVEL; }]
+  ].forEach(function (p) {
+    var b = document.createElement('button'); b.className = 'chip'; b.textContent = p[0];
+    b.onclick = function () { p[1](); paint(); };
+    h.appendChild(b);
+  });
+}
+
+function reset() {
+  S.weapon = 'sword'; S.px = 3; S.py = 7; S.parrying = false; S.turn = 1;
+  S.last = null; S.log = [];
+  for (var k in S.levels) S.levels[k] = 0;
+  spawn();
+  paint();
+}
+
+/* =========================================================================
+   THE GATE HARNESS — the gate drives these, never a second copy of the maths
+   ========================================================================= */
+window.LAB = {
+  VW: VW,
+  kind: 'MODEL',
+  mechanics: ['damage types', 'resistances', 'backstab', 'parry', 'weapon skill'],
+  S: S, WEAPONS: WEAPONS, ENEMIES: ENEMIES,
+  /* 1+2 */ typedDamage: typedDamage, afterArmor: afterArmor,
+  /* 3 */ isBehind: isBehind,
+  /* 4 */ parry: parry,
+  /* 5 */ skillFloor: skillFloor, skillCeil: skillCeil, skillFactor: skillFactor,
+  /* the pipeline */ resolveHit: resolveHit,
+  /* the encounter */ attack: attack, step: step, endTurn: endTurn,
+  bodyAt: bodyAt, bodies: function () { return S.bodies; }, dist: dist,
+  setWeapon: function (id) { S.weapon = id; paint(); },
+  weapon: weapon, enemyDef: enemyDef,
+  place: function (x, y) { S.px = x; S.py = y; paint(); },
+  face: function (id, fx, fy) {
+    S.bodies.forEach(function (b) { if (b.id === id) { b.fx = fx; b.fy = fy; } });
+    paint();
+  },
+  setLevel: function (skill, lv) { S.levels[skill] = lv; paint(); },
+  levels: function () { return S.levels; },
+  last: function () { return S.last; },
+  reset: reset,
+  /* the harness contract every lab row implements: this page has no animation
+     loop to stop, so freeze/thaw are honest no-ops rather than absent */
+  freeze: function () {}, thaw: function () {}
+};
+
+sizeBoard();
+bindBoard();
+bindCtl();
+reset();
+window.addEventListener('resize', function () { sizeBoard(); paint(); });
+</script>
+</body>
+</html>

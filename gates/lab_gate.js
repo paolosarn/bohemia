@@ -78,7 +78,29 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
-    /* LAB-06, 7/31. Built because Paolo's 7/28 correction (clause 17 of the
+    /* LAB-07, commissioned by name. Paolo 7/31: "look at the weapon types in
+       valheim. valheim does weapon types really good so i like that. valheim i
+       think is a top 5 game of all time the most we can suck from it the
+       better." The second MODEL row, and the second time Valheim's compiled DLL
+       forced clause 7. Its three SOURCED numbers come from ValheimPlus, a
+       HarmonyX mod whose C# names the game's own SkillType enum. */
+    id: 'VALHEIM WEAPON TYPES',
+    game: 'Valheim',
+    kind: 'MODEL',
+    mechanics: ['damage types', 'resistances', 'backstab', 'parry', 'weapon skill'],
+    minConsts: 34,
+    page: 'slices/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_7_31_26.html',
+    record: 'records/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_TEARDOWN_7_31_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_PATTERN_NOTE_7_31_26.md',
+    live: liveValheimWeapons,
+    shot: { name: 'BOHEMIA_LAB_VALHEIM_WEAPONS_PROOF_7_31_26.png', setup: shotValheimWeapons }
+  },
+  {
+    /* LAB-06: the action-cost model, and the row that taught this gate .cpp/.h.
+       Paolo ruled its SHAPE canon the same day
+       (laws/BOHEMIA_ADDENDUM_THE_ACTION_COST_SHAPE_7_31_26.md), which is what
+       gates/action_cost_shape_gate.js then locked.
+       LAB-06, 7/31. Built because Paolo's 7/28 correction (clause 17 of the
        mobile-camp law) made the ACTION clock the centre of the survival design,
        and then nothing in the repo could say what one action costs. Clause 4 of
        laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md reserves the
@@ -229,7 +251,7 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA) = \{([\s\S]*?)\n\};/);
+  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -1368,6 +1390,266 @@ async function liveCDDA(page) {
   ok('D27 THE FINDING, MEASURED: one fixed cost (' + bridge[0].moves.toLocaleString() +
      ' moves) turns into ' + bridge.map(r => r.min.toFixed(0)).join('/') + ' minutes as you ' +
      'degrade, and never past 4x', sameMoves && risingTime && capped);
+}
+
+/* ==========================================================================
+   PART B — LIVE: VALHEIM WEAPON TYPES (LAB-07)
+
+   The claim this row makes is that a weapon system can be a set of EARNED
+   MULTIPLIERS rather than a ladder of bigger numbers. So the checks are not
+   "does a sword do 30" — they are, for each of the four multipliers: does it
+   actually multiply, is it EARNED (can you fail to get it), and does the
+   pipeline apply them in Valheim's documented order (per-type resistance, then
+   skill, then position, then stagger, then armour on the total)?
+
+   The skill roll is pinned by the gate (resolveHit takes an explicit roll) so
+   five random mechanics can be measured exactly. That parameter exists FOR this,
+   and the page defaults it to random for play.
+   ========================================================================== */
+async function liveValheimWeapons(page) {
+  const V = await page.evaluate(() => window.LAB.VW);
+  await page.evaluate(() => window.LAB.reset());
+
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('W0 the page declares the five mechanics the record declares',
+     JSON.stringify(declared) === JSON.stringify(
+       ['damage types', 'resistances', 'backstab', 'parry', 'weapon skill']));
+  ok('W0b and declares itself a MODEL', await page.evaluate(() => window.LAB.kind) === 'MODEL');
+
+  /* ---------------- 1. DAMAGE TYPES: a weapon is a PROFILE ---------------- */
+  const types = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    return L.WEAPONS.map(w => ({ id: w.id, skill: w.skill, types: Object.keys(w.split) }));
+  });
+  ok('W1 types: every weapon declares a damage-type profile, not just a number',
+     types.length >= 6 && types.every(w => w.types.length >= 1));
+  ok('W2 types: the three PHYSICAL types are all represented across the set',
+     ['slash', 'blunt', 'pierce'].every(t => types.some(w => w.types.indexOf(t) >= 0)));
+  ok('W3 types: at least one weapon SPLITS its damage — the reason a resistance ' +
+     'is a tax and not a wall', types.some(w => w.types.length > 1));
+  ok('W4 types: each weapon carries its Valheim SKILL class (the sourced enum)',
+     types.every(w => ['Swords', 'Clubs', 'Knives', 'Spears', 'Polearms', 'Bows']
+       .indexOf(w.skill) >= 0));
+
+  /* ---------------- 2. RESISTANCES: per type, THEN armour ---------------- */
+  const resist = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    const club = L.WEAPONS.find(w => w.id === 'club');
+    const spear = L.WEAPONS.find(w => w.id === 'spear');
+    const knife = L.WEAPONS.find(w => w.id === 'knife');
+    const skel = L.ENEMIES.find(e => e.id === 'skeleton');
+    const seek = L.ENEMIES.find(e => e.id === 'seeker');
+    o.clubOnSkel = L.typedDamage(club, skel);
+    o.spearOnSkel = L.typedDamage(spear, skel);
+    o.knifeOnSeek = L.typedDamage(knife, seek);
+    /* armour: the piecewise curve, both branches and the asymptote */
+    o.smallArmor = L.afterArmor(10, 3);
+    o.bigArmor = L.afterArmor(10, 20);
+    o.hugeArmor = L.afterArmor(10, 100000);
+    o.noArmor = L.afterArmor(10, 0);
+    return o;
+  });
+  ok('W5 resist: blunt DOUBLES on a skeleton (' + resist.clubOnSkel.total + ' from ' +
+     resist.clubOnSkel.parts[0].raw + ')',
+     resist.clubOnSkel.parts[0].mod === V.MOD_VERY_WEAK &&
+     resist.clubOnSkel.total === resist.clubOnSkel.parts[0].raw * V.MOD_VERY_WEAK);
+  ok('W6 resist: and pierce is HALVED on the same skeleton (' + resist.spearOnSkel.total + ')',
+     resist.spearOnSkel.parts[0].mod === V.MOD_RESISTANT);
+  ok('W7 resist: THE RIGHT WEAPON IS A ' +
+     (resist.clubOnSkel.total / resist.spearOnSkel.total).toFixed(1) +
+     'x SWING BEFORE YOU MOVE A STEP — that is the knowledge lever',
+     resist.clubOnSkel.total / resist.spearOnSkel.total >= 3);
+  ok('W8 resist: A SPLIT WEAPON IS SCORED PER TYPE, separately (' +
+     resist.knifeOnSeek.parts.map(p => p.raw + '*' + p.mod).join(' + ') + ')',
+     resist.knifeOnSeek.parts.length === 2 &&
+     resist.knifeOnSeek.parts.some(p => p.mod === V.MOD_VERY_WEAK) &&
+     resist.knifeOnSeek.parts.some(p => p.mod === V.MOD_NORMAL) &&
+     near(resist.knifeOnSeek.total,
+          resist.knifeOnSeek.parts.reduce((a, p) => a + p.raw * p.mod, 0), 0.001));
+  ok('W9 armour: it SUBTRACTS while small and goes quadratic when large (' +
+     resist.smallArmor + ' vs ' + resist.bigArmor.toFixed(2) + ')',
+     resist.smallArmor === 10 - 3 && near(resist.bigArmor, 100 / 80, 0.001));
+  ok('W10 armour: AND IT NEVER REACHES ZERO — you can always be hurt (' +
+     resist.hugeArmor.toExponential(1) + ')',
+     resist.hugeArmor > 0 && resist.noArmor === 10);
+
+  /* ---------------- 3. BACKSTAB: the positioning multiplier ---------------- */
+  const back = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    const seek = L.bodies().find(b => b.id === 'seeker');
+    L.face('seeker', 0, -1);                       /* it looks NORTH */
+    const knife = L.WEAPONS.find(w => w.id === 'knife');
+    /* stand SOUTH of it = behind */
+    o.behind = L.isBehind(seek.x, seek.y + 1, seek);
+    o.front = L.isBehind(seek.x, seek.y - 1, seek);
+    o.side = L.isBehind(seek.x + 1, seek.y, seek);
+    o.hitBehind = L.resolveHit(knife, seek, seek.x, seek.y + 1, 0, 1);
+    o.hitFront = L.resolveHit(knife, seek, seek.x, seek.y - 1, 0, 1);
+    o.mults = L.WEAPONS.map(w => ({ id: w.id, back: w.back }));
+    return o;
+  });
+  ok('W11 backstab: BEHIND is behind, IN FRONT is not, and the side is not either — ' +
+     'so it is EARNED', back.behind === true && back.front === false && back.side === false);
+  ok('W12 backstab: a knife is x' + V.BACKSTAB_KNIFE + ' from behind and x1 in front',
+     back.hitBehind.back === V.BACKSTAB_KNIFE && back.hitFront.back === 1);
+  ok('W13 backstab: WHICH IS A ' + (back.hitBehind.final / back.hitFront.final).toFixed(0) +
+     'x SWING FROM WALKING AROUND SOMETHING — this is the half of his sentence ' +
+     'Bohemia does not have', back.hitBehind.final / back.hitFront.final > 10);
+  ok('W14 backstab: the multiplier is a property of the WEAPON, and they differ (' +
+     back.mults.map(m => m.id + ':' + m.back).join(' ') + ')',
+     new Set(back.mults.map(m => m.back)).size >= 3 &&
+     back.mults.find(m => m.id === 'knife').back === V.BACKSTAB_KNIFE &&
+     back.mults.find(m => m.id === 'club').back === V.BACKSTAB_TWOHAND_CLUB);
+
+  /* ---------------- 4. PARRY -> STAGGER -> 2x, and it is SPENT ------------ */
+  const parry = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    const troll = L.bodies().find(b => b.id === 'troll');
+    /* stand next to it so it swings instead of walking */
+    L.place(troll.x - 1, troll.y);
+    o.staggeredBefore = troll.staggered;
+    L.parry();                                     /* spends the turn */
+    o.staggeredAfter = L.bodies().find(b => b.id === 'troll').staggered;
+    const sword = L.WEAPONS.find(w => w.id === 'sword');
+    const t2 = L.bodies().find(b => b.id === 'troll');
+    o.hitStaggered = L.resolveHit(sword, t2, t2.x + 99, t2.y, 0, 1).stagger;
+    t2.staggered = false;
+    o.hitNormal = L.resolveHit(sword, t2, t2.x + 99, t2.y, 0, 1).stagger;
+    /* and NOT parrying gets you nothing */
+    L.reset();
+    const t3 = L.bodies().find(b => b.id === 'troll');
+    L.place(t3.x - 1, t3.y);
+    L.endTurn();
+    o.noParryNoStagger = L.bodies().find(b => b.id === 'troll').staggered;
+    o.parryMults = L.WEAPONS.map(w => w.parry);
+    return o;
+  });
+  ok('W15 parry: SPENDING A TURN ON A PARRY STAGGERS WHAT SWINGS AT YOU',
+     parry.staggeredBefore === false && parry.staggeredAfter === true);
+  ok('W16 parry: AND NOT PARRYING GETS YOU NOTHING — it is a spend, not a freebie',
+     parry.noParryNoStagger === false);
+  ok('W17 parry: a staggered target takes exactly x' + V.STAGGER_DMG_MULT,
+     parry.hitStaggered === V.STAGGER_DMG_MULT && parry.hitNormal === 1);
+  ok('W18 parry: parry strength lives on WHAT YOU HOLD, so defence sets offence (' +
+     parry.parryMults.join('/') + ')',
+     new Set(parry.parryMults).size >= 2 &&
+     Math.max.apply(null, parry.parryMults) === V.PARRY_KNIFE);
+
+  /* ---------------- 5. WEAPON SKILL: it raises the FLOOR ------------------ */
+  const skill = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.at0 = { lo: L.skillFloor(0), hi: L.skillCeil(0) };
+    o.at50 = { lo: L.skillFloor(50), hi: L.skillCeil(50) };
+    o.at75 = { lo: L.skillFloor(75), hi: L.skillCeil(75) };
+    o.at100 = { lo: L.skillFloor(100), hi: L.skillCeil(100) };
+    o.rollLo = L.skillFactor(0, 0);
+    o.rollHi = L.skillFactor(0, 1);
+    /* using a weapon levels ITS class and not the others */
+    L.reset();
+    L.setWeapon('club');
+    const troll = L.bodies().find(b => b.id === 'troll');
+    L.place(troll.x - 1, troll.y);
+    L.attack(troll.x, troll.y);
+    o.levels = JSON.parse(JSON.stringify(L.levels()));
+    return o;
+  });
+  ok('W19 skill: at level 0 you roll ' + Math.round(skill.at0.lo * 100) + '-' +
+     Math.round(skill.at0.hi * 100) + '% of the weapon',
+     near(skill.at0.lo, V.SKILL_FLOOR_AT_0, 0.001) && near(skill.at0.hi, V.SKILL_CEIL_AT_0, 0.001));
+  ok('W20 skill: BOTH ENDS CLIMB with the level (' + Math.round(skill.at50.lo * 100) + '-' +
+     Math.round(skill.at50.hi * 100) + '% at 50)',
+     skill.at50.lo > skill.at0.lo && skill.at50.hi > skill.at0.hi);
+  ok('W21 skill: THE CEILING IS DONE BY ' + V.SKILL_CEIL_MAXED_AT + ' and caps at 100%',
+     near(skill.at75.hi, V.SKILL_CAP, 0.001) && near(skill.at100.hi, V.SKILL_CAP, 0.001));
+  ok('W22 skill: SO THE LAST QUARTER OF MASTERY BUYS ONLY CONSISTENCY — the floor ' +
+     'still climbs (' + Math.round(skill.at75.lo * 100) + '% -> ' +
+     Math.round(skill.at100.lo * 100) + '%) while the ceiling does not move',
+     skill.at100.lo > skill.at75.lo && near(skill.at100.hi, skill.at75.hi, 0.001));
+  ok('W23 skill: the roll really spans the floor and the ceiling',
+     near(skill.rollLo, V.SKILL_FLOOR_AT_0, 0.001) && near(skill.rollHi, V.SKILL_CEIL_AT_0, 0.001));
+  ok('W24 skill: swinging a club levels CLUBS and nothing else — that is the ' +
+     'switching cost that makes the weapon choice real',
+     skill.levels.Clubs > 0 && skill.levels.Swords === 0 && skill.levels.Knives === 0);
+
+  /* ---------------- THE PIPELINE ORDER, which IS the mechanism ------------ */
+  const order = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    const knife = L.WEAPONS.find(w => w.id === 'knife');
+    const seek = L.bodies().find(b => b.id === 'seeker');
+    L.face('seeker', 0, -1);
+    seek.staggered = true;
+    const r = L.resolveHit(knife, seek, seek.x, seek.y + 1, 0, 1);
+    return { r: r, armor: seek.armor };
+  });
+  const o = order.r;
+  ok('W25 pipeline: typed total is the sum of the per-type results',
+     near(o.typed.total, o.typed.parts.reduce((a, p) => a + p.out, 0), 0.001));
+  ok('W26 pipeline: skill is applied to the typed total',
+     near(o.afterSkill, o.typed.total * o.factor, 0.001));
+  ok('W27 pipeline: position AND stagger both multiply, and they COMPOUND (x' +
+     o.back + ' * x' + o.stagger + ')',
+     near(o.beforeArmor, o.afterSkill * o.back * o.stagger, 0.001) &&
+     o.back > 1 && o.stagger > 1);
+  ok('W28 pipeline: ARMOUR IS LAST, on the total — Valheim\'s documented order',
+     near(o.final, order.armor < o.beforeArmor / V.ARMOR_PIVOT_DIV
+       ? o.beforeArmor - order.armor
+       : (o.beforeArmor * o.beforeArmor) / (V.ARMOR_SQUARE_DIV * order.armor), 0.01));
+
+  /* the design statement, stored as a number and checked as one */
+  const slash = await page.evaluate(() => {
+    const L = window.LAB;
+    let weak = 0;
+    L.ENEMIES.forEach(e => { if ((e.mods.slash || 1) > 1) weak++; });
+    return { weak: weak, declared: L.VW.SLASH_WEAKNESS_COUNT };
+  });
+  ok('W29 THE DESIGN STATEMENT: NOBODY IS WEAK TO SLASH, so the default weapon is ' +
+     'never optimal and never wrong', slash.weak === 0 && slash.declared === 0);
+
+  /* and the whole thesis: the multipliers, not the printed number, decide the fight */
+  const thesis = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    const sword = L.WEAPONS.find(w => w.id === 'sword');
+    const knife = L.WEAPONS.find(w => w.id === 'knife');
+    const seek = L.bodies().find(b => b.id === 'seeker');
+    L.face('seeker', 0, -1);
+    return {
+      swordPrinted: sword.split.slash,
+      knifePrinted: knife.split.pierce + knife.split.slash,
+      swordFront: L.resolveHit(sword, seek, seek.x, seek.y - 1, 0, 1).final,
+      knifeBehind: L.resolveHit(knife, seek, seek.x, seek.y + 1, 0, 1).final
+    };
+  });
+  ok('W30 THE THESIS, MEASURED: the knife prints ' + thesis.knifePrinted + ' to the sword\'s ' +
+     thesis.swordPrinted + ' and still hits for ' + thesis.knifeBehind.toFixed(0) + ' vs ' +
+     thesis.swordFront.toFixed(0) + ' — THE MULTIPLIERS DECIDE THE FIGHT, NOT THE ' +
+     'PRINTED NUMBER',
+     thesis.knifePrinted < thesis.swordPrinted && thesis.knifeBehind > thesis.swordFront * 5);
+}
+
+async function shotValheimWeapons(page) {
+  /* the screenshot must show the mechanic, so: knife equipped, standing BEHIND
+     something, one backstab already landed and its maths on screen.
+     THE TARGET IS THE TROLL, NOT THE SEEKER. The first version backstabbed the
+     seeker and a x10 knife DELETED it (165 into 110 hp) — so the proof shot of
+     the backstab mechanic contained no backstabbed creature. Found by looking at
+     the rendered pixels, which is the only place it shows up. The troll's 160 hp
+     survives it, so the shot shows the hit AND the thing that took it. */
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    L.setWeapon('knife');
+    L.face('troll', 0, -1);
+    const troll = L.bodies().find(b => b.id === 'troll');
+    L.place(troll.x, troll.y + 1);
+    L.attack(troll.x, troll.y);
+  });
 }
 
 async function shotCDDA(page) {
