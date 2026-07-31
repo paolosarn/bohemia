@@ -338,6 +338,8 @@ GATES = [
      "the 28 scheduled bodies on the block are PEOPLE: identity DERIVED (so it survives the sim being thrown away on every save load), his named-cast and dialogue tables shipped EMPTY and kept that way, and the card he actually sees driven in a real browser", True),
     ('MASS EDIT',      ['node', 'gates/mass_edit_gate.js'],
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
+    ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
+     "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
     ('TILE FORM',      ['python3', 'gates/tileform_gate.py'],
      "the TILE REQUEST FORM law's own gate, which the law names and nobody had written: every form filled, its caption parseable and ingestable, its shopping check and anchor pointing at files that exist, and the board and the forms unable to drift apart", False),
     ('BANK LAW',       ['python3', 'gates/banklaw_gate.py'],

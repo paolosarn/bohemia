@@ -753,6 +753,35 @@ function buildSim(warm){
     if(_here){ var _floor = 6/Math.max(1,feet.length); if(_rate==null||_rate<_floor) _rate=_floor; }
     var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
       (_rate!=null) ? {occupiedRate:_rate} : {});
+/* ==== RUN PERSON FACTS (7/31) ==== */
+    /* WHO THEY ARE, not just how many. The zone map above answers HOW MANY
+       people live on this block; this answers what each of them is like, and
+       then rewrites their day with their own conditions on it.
+
+       THE SPLIT, because it is the whole reason this is legal from here:
+       bohemia_agents.js owns WHEN and WHAT KIND (it just picked every role and
+       built every schedule above, and none of that is touched).
+       bohemia_population.js owns WHICH PLACE, WHICH CONDITIONS, WHICH EDGES.
+       Conditioning a schedule the agent module built is this module's own half
+       applied to this surface's own agents - no fork, no second sim, no change
+       to WORLD's file.
+
+       AND THE SIM REALLY WALKS IT: step() reads agent.sched through whereAt()
+       every tick, so at 13:00 these bodies path to their own doors and go
+       inside. Nothing is hidden at draw time. */
+    try{ if(typeof BohemiaPopulation!=='undefined' && BohemiaPopulation.conditionAgents){
+      var _zone=null;
+      try{ if(WORLD) _zone=BohemiaPopulation.zoneAt(WORLD, POWERMAP, CELL[0], CELL[1], SEED); }catch(_ez){}
+      /* ctx is EMPTY ON PURPOSE: the run has no weather and no per-cell power
+         reading yet, so this is a clear unpowered day - 88% of the valley by
+         the CLUSTERED POWER law. When the run gains weather this object is the
+         one line that learns about it. */
+      RUN_PEOPLE = BohemiaPopulation.peopleForAgents(_agents, CELL[0], CELL[1], SEED, _zone);
+      RUN_PPL_CTX = {};
+      BohemiaPopulation.conditionAgents(_agents, RUN_PEOPLE, RUN_PPL_CTX);
+      RUN_RULES_V = BohemiaPopulation.rulesVersion();
+    } }catch(_ep){ RUN_PEOPLE=null; }
+/* ==== /RUN PERSON FACTS ==== */
     SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
       { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
     SIM.playerAt = [px,py];
@@ -767,9 +796,33 @@ var mode='int', px=0, py=0, fp=null, fpDoor=null, backAt=null, curHouse=-1;
 /* facings + walk-cycle frames, so bodies point where they are going and their
    legs move on the beat (I-MOVE-YOU-MOVE: one frame per committed step). */
 var PFACE='S', PFRAME=0, PMOVING=false, _PIDLE=null;
+/* ==== RUN PERSON FACTS (7/31) ==== */
+/* A MASS EDIT MADE AFTER BOOT HAS TO REACH BODIES THAT ARE ALREADY WALKING.
+   Paolo's 7/29 condition on the people was that editing them in bulk must
+   actually work, and a surface that conditions once at build time would keep
+   serving pre-edit days forever. rulesVersion() is an integer that moves on
+   any mutation, so this is a compare-and-skip on the frame path, not work. */
+var RUN_PEOPLE=null, RUN_PPL_CTX=null, RUN_RULES_V=-1;
+function reconditionPeople(){
+  if(!SIM || !RUN_PEOPLE) return 0;
+  try{
+    /* re-derive through the overrides layer FIRST - an edit changes what a
+       person IS, and the conditions are read off that. */
+    RUN_PEOPLE = BohemiaPopulation.peopleForAgents(SIM.agents, CELL[0], CELL[1], SEED,
+                   RUN_PEOPLE.length? RUN_PEOPLE[0].zone : null);
+    var n = BohemiaPopulation.conditionAgents(SIM.agents, RUN_PEOPLE, RUN_PPL_CTX||{});
+    RUN_RULES_V = BohemiaPopulation.rulesVersion();
+    return n;
+  }catch(_e){ return 0; }
+}
+/* ==== /RUN PERSON FACTS ==== */
 var FACES={}, _APOS={}, NPC_LOOK_SEED=0x5eed;
 function updateFaces(){
   if(!SIM) return;
+/* ==== RUN PERSON FACTS (7/31) ==== */
+  if(typeof BohemiaPopulation!=='undefined' && RUN_PEOPLE &&
+     RUN_RULES_V!==BohemiaPopulation.rulesVersion()) reconditionPeople();
+/* ==== /RUN PERSON FACTS ==== */
   SIM.outAgents().forEach(function(a){
     var prev=_APOS[a.id], d=FACES[a.id]||{d:'S',f:0,moving:false};
     if(prev && (prev[0]!==a.loc.x || prev[1]!==a.loc.y)){
@@ -1686,8 +1739,25 @@ function draw(){
         var nsx=a.loc.x-px, nsy=a.loc.y-py; if(Math.abs(nsx)>halfW||Math.abs(nsy)>halfH) continue;
         var fa=FACES[a.id]||{d:'S',f:0};
         /* PEOPLE:LOOK */var lk=lookFor(personFor(a).lookSeed);/* /PEOPLE:LOOK */
-        bodies.push({ sx:nsx, sy:nsy, set:lk?lk[fa.d]:null, frame:fa.moving?fa.f:null,
+        bodies.push({ id:a.id, sx:nsx, sy:nsy, set:lk?lk[fa.d]:null, frame:fa.moving?fa.f:null,
                       ring:null, fb:['#8f7a56','#5f7486','#9a8452','#7a5a4a','#6a7a6a'][(a.seed>>>0)%5] }); } }
+/* ==== RUN PERSON FACTS (7/31) ==== */
+      /* WHAT WAS PAINTED, not what a helper says would be painted. A gate that
+         asks a helper instead of reading the render passed 18/18 with the draw
+         deliberately sabotaged - this lane shipped that mistake once, on 7/31.
+         This is the neighbour bodies that actually went into the paint list
+         this frame, by id, and it is what the gate reads.
+
+         THE ID LIST IS THE USEFUL HALF. The run's viewport is about four tiles
+         either side of you (CELL 44 on a ~390px canvas), so standing in your
+         own doorway on a 128-tile block the honest painted count is usually
+         ZERO and a "bodies thin at midday" assertion read here would be noise.
+         What the render CAN prove from any vantage is that it never paints
+         somebody the sim says is indoors - which is exactly the surface-
+         disagrees-with-the-sim bug this whole lane exists to prevent. */
+      try{ window.__RUN_PPL_DRAWN = bodies.length;
+           window.__RUN_PPL_IDS = bodies.map(function(_b){ return _b.id; }); }catch(_ed){}
+/* ==== /RUN PERSON FACTS ==== */
     var npc=questNpcTile();
     if(npc){ var qsx=npc.x-px, qsy=npc.y-py;
       if(Math.abs(qsx)<=halfW && Math.abs(qsy)<=halfH){
@@ -1774,6 +1844,32 @@ RESOLVER.register('block-clock','WORLD', function(c, moment){
   if(SIM){ for(var i=0;i<mins;i++){ SIM.step(); steps++; } }
   return { advanced: mins, simSteps: steps };
 });
+/* ==== RUN PERSON FACTS (7/31) ==== */
+/* THE HOOK A GATE DRIVES THE DAY WITH. Stepping the sim to a wall-clock minute
+   is the only way to assert "the street empties at 13:00" on the real surface,
+   and the run's own boot already does exactly this (buildSim(450) warms it to
+   ~07:30 "so the street is already living"). No new simulation: it calls
+   SIM.step(), which is the same tick the game runs. */
+window.__RUN_PEOPLE = {
+  ready: function(){ return !!(SIM && RUN_PEOPLE); },
+  count: function(){ return SIM ? SIM.agents.length : 0; },
+  outdoors: function(){ return SIM ? SIM.outAgents().length : 0; },
+  drawn: function(){ return window.__RUN_PPL_DRAWN; },
+  minute: function(){ return SIM ? (SIM.turn % 1440) : -1; },
+  facts: function(){ return RUN_PEOPLE ? RUN_PEOPLE.map(function(p){
+    return {id:p.id, ns:p.ns, archetype:p.archetype, heatTol:p.heatTol,
+            earlyBy:p.earlyBy, nightOut:p.nightOut, darkStay:p.darkStay}; }) : null; },
+  /* run the clock to a minute of the day and report what the sim did */
+  runTo: function(min){
+    if(!SIM) return null;
+    var guard=0;
+    while((SIM.turn%1440)!==(min|0) && guard++ < 3000) SIM.step();
+    updateFaces(); draw();
+    return {minute:SIM.turn%1440, outdoors:SIM.outAgents().length, drawn:window.__RUN_PPL_DRAWN};
+  },
+  recondition: function(){ return reconditionPeople(); }
+};
+/* ==== /RUN PERSON FACTS ==== */
 RESOLVER.register('neighbours','PEOPLE', function(){
   if(!SIM) return null;
   FACES={}; _APOS={}; updateFaces();

@@ -1604,7 +1604,61 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
-0AE. [BLOCKED ON WORLD'S MODULE, SPECIFIED TO THE LINE — NOT ATTEMPTED] THE RUN
+0AF. [DONE 7/31 — AND IT UNBLOCKED 0AE BY RE-READING IT, NOT BY CROSSING A LANE]
+   THE RUN'S STREET EMPTIES AT MIDDAY TOO. The last entry (0AE) filed this as
+   BLOCKED ON WORLD'S MODULE. THAT FRAMING WAS THE MISTAKE, and it is worth more
+   than the feature.
+   0AE said the fix was five lines in bohemia_agents.js: an opts.personFor hook
+   letting a caller supply `kind` and `shift` to makeAgent. But kind and shift
+   are WHEN and WHAT KIND, which are agents.js's half - and this lane's own law,
+   written the same day, is that agents.js owns WHEN and WHAT KIND while
+   bohemia_population owns WHICH PLACE, WHICH CONDITIONS, WHICH EDGES. The run
+   was never missing kind. It was missing WHICH PLACE UNDER A CONDITION, and a
+   caller may apply its own half to its own agents. bohemia_agents.js did not
+   change by one character.
+   THE LESSON: I asked "whose FILE is this line in" when the question was "whose
+   HALF is this behaviour". A boundary drawn around files blocks work that a
+   boundary drawn around responsibilities lets through cleanly.
+   WHAT LANDED:
+     shiftEdges(sched, p)          the personal morning, kept SEPARATE from the
+                                   conditions - an EDGE may legitimately put
+                                   somebody out early, a CONDITION never may,
+                                   and folding them together made that law
+                                   unprovable.
+     conditionSchedule(sched,p,ctx) cuts a day at every condition edge and asks
+                                   placeFor once per segment. The day still
+                                   tiles [0,1440) exactly once.
+     conditionAgents(agents,people) applies both to agents agents.js built, and
+                                   always to the ORIGINAL schedule - conditioning
+                                   the last result slid every morning edge 30
+                                   minutes earlier on every bulk edit, caught by
+                                   the gate's edit-then-unedit round trip.
+     peopleForAgents(...)          one person record per run agent, derived then
+                                   overridden, in that order.
+     personFields(..., ns)         a NAMESPACE, because the CITY tab indexes
+                                   people per neighbourhood (0..23) and the RUN
+                                   per overmap cell (0..95) - the ranges overlap
+                                   and two different people would have shared one
+                                   id. Still ONE derivation point: one optional
+                                   argument, not a second function.
+   IT IS NOT A DRAW-TIME LIE: the sim re-reads agent.sched every tick, so at
+   13:00 these bodies path to their own doors and go inside.
+   MEASURED ON THE REAL RUN FILE IN A REAL BROWSER, outdoors on the block:
+     08:00  5    10:00  9    11:00 10    12:00  5    13:00  4
+     14:00  3    15:00  3    17:00  8    20:00  4
+   The street fills to 10, empties to 3 through the Mojave afternoon, refills to
+   8. A bulk edit setting every heat tolerance to 3 takes 15:00 to ZERO and
+   removing it brings the street back.
+   AND ONE FORK KILLED THE SAME TURN: a three-line "where is this person at
+   minute M" helper went into bohemia_population.js and zone_map_gate caught it
+   as a reimplementation of the agent sim. It was correct to catch it. The
+   helper now lives in the GATE, where a reader that does not reuse the code it
+   checks is the whole point.
+   | tools/bohemia_run_person_facts_patch.py (strip-and-re-appliable) +
+     engine/bohemia_population.js | gate: RUN PEOPLE, 45 assertions, proved able
+     to fail (conditionSchedule stubbed to passthrough -> 6 red) | 7/31 | YES.
+
+0AE. [CLOSED 7/31 BY 0AF — THE BLOCKER WAS A MIS-READ, NOT A LANE] THE RUN
    CANNOT GET THE HEAT CONDITION WITHOUT A CHANGE TO bohemia_agents.js.
    Investigated 7/31 and stopped at the lane boundary rather than crossing it.
    THE STATE: the run has the shared census (HOW MANY people) but not the person
@@ -1628,7 +1682,10 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    and `shift` from it when supplied, and the run passes
    BohemiaPopulation.personFields. Same pattern, no fork, no new concept - it is
    exactly how occupiedRate was added.
-   | needs WORLD | specified 7/31 | NO - not mine to write.
+   WHAT THIS ENTRY GOT RIGHT: both named wrong answers (hiding people in the
+   DRAW, reimplementing the schedule) are still wrong and neither was used.
+   WHAT IT GOT WRONG: the hook it specified was never needed. See 0AF.
+   | closed by 0AF | 7/31 | n/a.
 0AD. [DONE 7/31, HIS CORRECTION, AND HE WAS RIGHT] HEAT IS THE DAILY CONDITION.
    RAIN WAS A ROUNDING ERROR.
    > "WHOOPTY FUCKING DOO ITS NOT GONNA RAIN SO SO MUCH SO AWESOME"

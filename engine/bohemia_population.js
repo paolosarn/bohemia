@@ -315,10 +315,29 @@
   // ---- ONE DERIVATION POINT ------------------------------------------------
   // Everything a person IS, in one place. Nothing else in the codebase may
   // compute any of these fields.
-  function personFields(nx, ny, i, seed, zone, home) {
-    var r = h2(nx * 8191 + i, ny * 131 + i, (seed | 0) + 5701);
+  //
+  // `ns` (7/31) is a NAMESPACE, and it exists because two surfaces index people
+  // at two different grains. The CITY tab's bodies are indexed per
+  // NEIGHBOURHOOD (nx,ny are 4-cell blocks, 0..23); the RUN's bodies are the
+  // households of ONE overmap cell (0..95). Those number ranges overlap, so
+  // without a namespace a run person and a city person could collide on both
+  // the id string AND the hash stream - two different people wearing one
+  // record, which is precisely what a mass edit targeting an id must never hit.
+  // It is one optional argument rather than a second derivation function, so
+  // ONE DERIVATION POINT still means one.
+  //
+  // NOT A CLAIM THAT THEY ARE THE SAME PEOPLE. The run block and the city
+  // neighbourhood cover different ground at different grain, and pretending a
+  // 1:1 match exists would be a lie the machine could not check. What IS shared
+  // is the grammar, the conditions and the overrides layer - so an edit to
+  // "every scavenger" lands on both surfaces, which is the thing Paolo ruled.
+  function personFields(nx, ny, i, seed, zone, home, ns) {
+    var salt = 0;
+    if (ns) for (var c = 0; c < ns.length; c++) salt = (Math.imul(salt, 131) + ns.charCodeAt(c)) | 0;
+    var r = h2(nx * 8191 + i, ny * 131 + i, ((seed | 0) + 5701 + salt) | 0);
     return {
-      id: nx + ':' + ny + ':' + i,
+      id: (ns ? ns + ':' : '') + nx + ':' + ny + ':' + i,
+      ns: ns || '',
       nx: nx, ny: ny, i: i,
       zone: zone,                       // cluster | spread | loner
       home: [home[0], home[1]],         // fine-grid cell
@@ -448,6 +467,163 @@
     return !!(p.duskSit && minOfDay >= 17 * 60 && minOfDay < 20 * 60);
   }
 
+  // ---- CONDITIONING A REAL SCHEDULE (7/31) ---------------------------------
+  // THE SPLIT THIS LANE WROTE DOWN, MADE EXECUTABLE. bohemia_agents.js owns
+  // WHEN and WHAT KIND. This module owns WHICH PLACE, WHICH CONDITIONS, WHICH
+  // EDGES. placeFor answers that for a surface that asks per frame (the CITY
+  // tab). conditionSchedule answers it for a surface that runs a real pathing
+  // sim off a BAKED day (the RUN) - the same conditions, the same person, the
+  // same single derivation point, applied to a schedule agents.js built.
+  //
+  // WHY THIS EXISTS AT ALL: after the heat condition landed, the CITY tab
+  // emptied at midday and the RUN did not. Both surfaces agreed on the
+  // head-count and disagreed on the day, which is the exact split two days of
+  // this lane went into closing. The backlog said the fix was five lines in
+  // WORLD's module (an opts.personFor hook on makeAgent) and that this lane
+  // could not write them. THAT WAS THE WRONG FRAME. makeAgent derives kind and
+  // shift, which is WHEN and WHAT KIND - agents.js's, correctly, and nothing
+  // here wants them. What the run was missing is WHICH PLACE under a condition,
+  // which is THIS module's half, and a caller may apply it to its own agents
+  // without WORLD's file changing by one character.
+  //
+  // IT IS NOT A DRAW-TIME LIE. The run's sim re-reads `agent.sched` through the
+  // agent module's own lookup on every tick (bohemia_agents.js step()), so a
+  // conditioned block
+  // makes the body actually WALK HOME and stand in its own front room. Hiding
+  // people in the draw while the sim still walks them down the street was named
+  // as a wrong answer in the backlog and it stays named.
+  //
+  // NOTHING ABOUT THE SHAPE IS INVENTED HERE: every block boundary that is not
+  // a condition edge is agents.js's, every act is agents.js's, and the day still
+  // tiles [0, DAY) exactly once. The one act this adds is 'shade', for the
+  // hours a person is home BECAUSE OF a condition rather than because their
+  // archetype said so - and homeSpotFor puts an unknown act in the common room,
+  // which is where somebody waiting out 43 degrees actually sits.
+  //
+  // ctx: {cloudy, wet, powered, night:[from,to]}. night defaults to 20:00-05:00
+  // and is evaluated PER SEGMENT, because a baked day cannot take "is it dark"
+  // as one boolean the way a per-frame surface can.
+  var NIGHT_FROM = 20 * 60, NIGHT_TO = 5 * 60;
+  var DAY_MIN = 1440;
+
+  // NO "WHERE IS THIS PERSON AT MINUTE M" LOOKUP LIVES IN THIS FILE, AND THAT
+  // IS DELIBERATE. One was written here and zone_map_gate caught it inside the
+  // same turn: bohemia_agents.js already owns that answer, and a
+  // second three-line scan of a block list sitting next to it is exactly the
+  // fork the ENGINE SYNC LAW forbids - small enough to feel harmless, which is
+  // how every fork starts. Anything that needs to READ a schedule goes through
+  // agents.js; a gate that needs to VERIFY one computes it independently, which
+  // is a gate's job anyway. The diff below compares the blocks themselves.
+
+  // THE MORNING EDGE, and only the morning edge - kept SEPARATE from the
+  // conditions on purpose. Ultima VII's lesson and the research's: the middle
+  // of a day is never what makes a person distinctive, so earlyBy slides the
+  // first wake and nothing else, moving a person's whole morning relative to
+  // their neighbour's without touching the archetype's shape.
+  //
+  // WHY IT IS ITS OWN FUNCTION: an EDGE legitimately puts somebody on the
+  // street half an hour before their archetype would have. A CONDITION never
+  // may. Folding the two together made the law "conditions only ever send
+  // somebody home" unprovable, because the shift looked exactly like a
+  // violation. Split, each one is checkable on its own, and the gate checks
+  // both.
+  function shiftEdges(sched, p) {
+    if (!sched || sched.length < 2 || !p || !p.earlyBy) return sched;
+    var out = [], i;
+    for (i = 0; i < sched.length; i++) out.push({ t0: sched[i].t0, t1: sched[i].t1, act: sched[i].act, where: sched[i].where });
+    if (out[0].act !== 'sleep') return out;
+    var t = Math.max(1, Math.min(out[0].t1 + p.earlyBy, out[1].t1 - 1));
+    out[0].t1 = t; out[1].t0 = t;
+    return out;
+  }
+
+  function conditionSchedule(sched, p, ctx) {
+    if (!sched || !sched.length || !p) return sched;
+    ctx = ctx || {};
+    var nf = (ctx.night && ctx.night.length === 2) ? ctx.night[0] : NIGHT_FROM;
+    var nt = (ctx.night && ctx.night.length === 2) ? ctx.night[1] : NIGHT_TO;
+    var isDark = function (m) { return (nf > nt) ? (m >= nf || m < nt) : (m >= nf && m < nt); };
+
+    var blocks = [], i;
+    for (i = 0; i < sched.length; i++) blocks.push({ t0: sched[i].t0, t1: sched[i].t1, act: sched[i].act, where: sched[i].where });
+
+    // CUT at every edge a condition can turn on or off, then ask placeFor once
+    // per resulting segment. Cutting rather than sampling is what keeps this
+    // exact: a segment either is conditioned for its whole length or is not.
+    var cuts = {};
+    cuts[0] = 1; cuts[DAY_MIN] = 1;
+    for (i = 0; i < blocks.length; i++) { cuts[blocks[i].t0] = 1; cuts[blocks[i].t1] = 1; }
+    var edges = [HEAT_FROM, 12 * 60, 13 * 60, 14 * 60, 15 * 60, HEAT_TO, nf, nt];
+    for (i = 0; i < edges.length; i++) if (edges[i] > 0 && edges[i] < DAY_MIN) cuts[edges[i]] = 1;
+    var ts = Object.keys(cuts).map(Number).sort(function (a, b) { return a - b; });
+
+    var out = [], bi = 0;
+    for (i = 0; i + 1 < ts.length; i++) {
+      var t0 = ts[i], t1 = ts[i + 1];
+      if (t1 <= t0) continue;
+      while (bi < blocks.length - 1 && blocks[bi].t1 <= t0) bi++;
+      var src = blocks[bi];
+      if (!src || src.t1 <= t0 || src.t0 > t0) {           // find it honestly rather than assume
+        src = null;
+        for (var k = 0; k < blocks.length; k++) if (blocks[k].t0 <= t0 && blocks[k].t1 > t0) { src = blocks[k]; break; }
+        if (!src) src = blocks[blocks.length - 1];
+      }
+      var mid = (t0 + t1) >> 1;
+      var got = placeFor(p, src.where, {
+        min: mid, cloudy: !!ctx.cloudy, wet: !!ctx.wet,
+        powered: !!ctx.powered, dark: isDark(mid)
+      });
+      var act = (got === src.where) ? src.act : 'shade';
+      var last = out.length ? out[out.length - 1] : null;
+      if (last && last.act === act && last.where === got) last.t1 = t1;
+      else out.push({ t0: t0, t1: t1, act: act, where: got });
+    }
+    return out;
+  }
+
+  // Apply the conditions to a whole block of agents that agents.js already
+  // built. The caller owns its agents; this only rewrites the half that is
+  // this module's to own. Returns how many days it changed, so a gate can tell
+  // "ran" from "did something".
+  function conditionAgents(agents, people, ctx) {
+    if (!agents || !agents.length) return 0;
+    var n = 0;
+    for (var i = 0; i < agents.length; i++) {
+      var a = agents[i], p = people && people[i];
+      if (!a || !a.sched || !p) continue;
+      // ALWAYS CONDITION THE ORIGINAL, NEVER THE LAST RESULT. Re-applying to an
+      // already-conditioned day compounds: conditionSchedule is idempotent on
+      // `where`, but shiftEdges is NOT - it would slide the morning edge again
+      // on every bulk edit, so a person's wake time would drift 30 minutes
+      // earlier every time Paolo edited anybody. Caught by the gate's own
+      // edit-then-unedit round trip, which is why that round trip is in it.
+      if (!a.schedRaw) a.schedRaw = a.sched;
+      var was = a.sched, s = conditionSchedule(shiftEdges(a.schedRaw, p), p, ctx);
+      a.person = p;                       // the facts travel WITH the body
+      a.sched = s;
+      // "changed" is a straight comparison of the two block lists, held rather
+      // than overwritten first. Comparing the blocks needs no schedule reader
+      // at all, which is the point: see the note above conditionSchedule.
+      var diff = (was.length !== s.length);
+      for (var k = 0; !diff && k < s.length; k++)
+        diff = (s[k].t0 !== was[k].t0 || s[k].t1 !== was[k].t1 || s[k].where !== was[k].where);
+      if (diff) n++;
+    }
+    return n;
+  }
+
+  // One person record per agent on a RUN block, derived and then run through
+  // the overrides layer - derivation THEN overrides, in that order, exactly as
+  // peopleIn does it for the CITY tab, so neither surface can ever see an
+  // unedited body. `tx,ty` is the overmap cell the block sits on.
+  function peopleForAgents(agents, tx, ty, seed, zone) {
+    var out = [];
+    for (var i = 0; i < (agents ? agents.length : 0); i++) {
+      out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
+    }
+    return out;
+  }
+
   // ---- THE OVERRIDES LAYER -------------------------------------------------
   // A rule is { name, where(person) -> bool, set: {field: value | fn(person)} }.
   // Applied in order, on read. EMPTY BY LAW until Paolo rules contents.
@@ -569,6 +745,9 @@
               ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,
               placeFor: placeFor, atFavourite: atFavourite, HEAT_FROM: HEAT_FROM, HEAT_TO: HEAT_TO,
               allPeople: allPeople, where: where,
+              conditionSchedule: conditionSchedule, conditionAgents: conditionAgents, shiftEdges: shiftEdges,
+              peopleForAgents: peopleForAgents,
+              NIGHT_FROM: NIGHT_FROM, NIGHT_TO: NIGHT_TO,
               addRule: addRule, removeRule: removeRule, clearRules: clearRules, rules: rules,
               applyRules: applyRules, rulesVersion: rulesVersion,
               neighbourhoodOf: neighbourhoodOf, hash: h2, NAMES: NAMES };
