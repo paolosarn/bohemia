@@ -25,7 +25,84 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
-1q. [SHIPPED 7/31 — LAB-08] THE MODERN ECONOMIC CRASH, FUSED. AND THE FINDING IS THAT
+1r. [KILLED + LAWED + REPLACED 7/31] I BUILT THE PREQUEL. HE CORRECTED ME. THE
+   CURRENCY IS STANDING, NOT MONEY.
+   Paolo 7/31: "IM CONFUSED BY YOUR QUESTION THE WHOLE POINT OF THE GAME IS THAT IT
+   STARTS TEN YEARS AFTER THE ECONOMIC CRASH BRO WTF LIKE I DONT WANT IN THE GAME U
+   GOTTA BE DEALING WITH SOME WEIRD ECONOMIC GAMEPLAY THE WHOLE WORLD IS BASED ON THE
+   UTILITY DYING EVERYWHERE WHAT DO YOU MEANN modern economic crash valheim project
+   zomboid FALLOUT NEW VEGAS THAT ALSO DOUBLES AS A CITY BUILDER COOK IT UP"
+   WHAT I GOT WRONG: LAB-08 simulated the crash HAPPENING in a game that opens ten
+   years after it ended. Every number was real and sourced and none of it mattered --
+   THE PLAYER WAS NOT THERE. And I ended that turn asking him whether a dead utility
+   should "disappear or get an owner", A QUESTION HIS OWN CANON HAD ANSWERED TWICE
+   (CLUSTERED POWER: the lit 12% is OWNED; LIGHT=TERRITORY). I had read those as
+   atmosphere when they were the infrastructure ruling, already complete.
+   LAW: laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md, three clauses. (1) the crash
+   is BACKSTORY, nothing ever simulates it happening; (2) NO ECONOMIC GAMEPLAY as a
+   CATEGORY -- exchange rates, inflation, prices that move on a clock, withdrawal
+   caps, banks, any market the player reads; (3) the utility is DEAD EVERYWHERE
+   already, not a timer. Plus a BOUNDARY paragraph added after my own gate falsely
+   failed engine/bohemia_purse.js: WHAT IS BANNED IS A PRICE THAT MOVES BY ITSELF, NOT
+   A PRICE THAT EXISTS. The purse's empty [PENDING Paolo] PRICES table is
+   MECHANISM-MINE/CONTENTS-PAOLO'S done right. A tag is fine, a market is not.
+   KILLED: slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html, deleted + graveyarded, with a
+   post-mortem (records/BOHEMIA_THE_CRASH_KILL_7_31_26.md) naming three root causes:
+   I built the prequel (the repo's own word for the setting is POST-economic-
+   apocalypse, in CLAUDE.md's first paragraph); I asked him to re-decide settled canon
+   (the NOTES ARE RULINGS failure one step earlier -- never ask him to re-confirm his
+   own LAWS); and 491 GREEN CHECKS SAID NOTHING, because every one verified the page
+   did what its record said and none could ask whether it should exist. Its two records
+   survive marked DEAD (Zomboid precedent). NO V2. Its one CONFIRMED finding -- a dead
+   utility has an OWNER -- is load-bearing in the law that killed it.
+   THE RULE I TOOK OUT: before researching a system, NAME THE YEAR THE PLAYER IS
+   STANDING IN. Two of three root causes die to one sentence at the top of the work.
+   SHIPPED INSTEAD (LAB-09, NOT IN A TAB -- a lab reference surface):
+   slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html
+   THE FINDING: *** TEN YEARS COLD, MONEY IS NOT THE CURRENCY. STANDING IS. *** And New
+   Vegas works because FAME AND INFAMY ARE TWO SEPARATE COUNTERS THAT NEVER CANCEL --
+   which is why it has words no other game has (WILD CHILD, DARK HERO, SOFT-HEARTED
+   DEVIL), titles that exist only because the game refused to average you out. ONE
+   SLIDER IS A STAT. TWO COUNTERS IS A PERSON. Proved in play: one repeated deed walks
+   your title through three names while NEITHER NUMBER EVER FALLS.
+   THE CITY-BUILDER HALF, which is what he was pointing at: *** YOU DO NOT BUILD TO GET
+   RICH, YOU BUILD TO BECOME SOMEBODY THEY HAVE TO DEAL WITH. *** With money banned a
+   building cannot pay you, so what it does is make you worth dealing with, compounding
+   across the acts under the CENTURY RULE. The builder is not a mode bolted to an RPG,
+   it IS how you earn standing. And Valheim's comfort curve gets a second job: standing
+   WEIGHT, because a nobody's favour is worth less than a somebody's.
+   THIRD FINDING: their thresholds are per-faction and wildly unequal -- Brotherhood
+   accepts at 3, Legion idolises at 100. The cheapest door costs 3 and the dearest 100.
+   That is how you make a small faction matter WITHOUT buffing it. And the hard gate:
+   idolized needs fame >=90 AND infamy <4 -- YOU CANNOT BUY YOUR WAY OUT OF A BAD NAME
+   WITH GOOD DEEDS.
+   SOURCED, and it is better than a number: xNVSE/NVSE GameData.h:6 + :228 --
+   `class TESReputation;` and `tList<TESReputation> reputationList;`. Real open-source
+   C++ proving REPUTATION IS A FIRST-CLASS GAME DATA LIST in New Vegas, not a quest
+   variable. The SHAPE is sourced even though the values are [DOC]. Six failed probes
+   listed by URL.
+   GATES: lab_gate.js grew the row + 19 live checks (Y0-Y18) + 4 forbidden-CATEGORY
+   checks (Z1-Z4), 486 checks 0 fail. NEW: gates/ten_years_cold_gate.js, registered as
+   TEN YEARS COLD, 26 checks, and its Part C SWEEPS ALL 156 SHIPPED SURFACES for the
+   banned category -- because a banned CATEGORY needs a sweep, not a paragraph. Six
+   mutations caught (clause dropped, dead page resurrected, engine grew a moving price,
+   a fourth currency, the answer page grew an exchange rate, a dead record un-marked).
+   FOUR FALSE POSITIVES I FIXED IN MY OWN CHECKS this turn, and the pattern is now
+   named five times over in this repo: a check that hunts a WORD instead of a THING.
+   Y18 tripped on costToAccepted (the cost of RESPECT), the sweep tripped on the word
+   "devaluation" in a comment explaining what died, and it FAILED ANOTHER LANE'S
+   CORRECT MODULE. That last one is the one to remember.
+   BOUNDARY: A PEOPLE LANE WAS REGISTERED ON MAIN THIS TURN owning dialogue, NPC
+   identity, FACTION STANDING and companion social. Standing is THEIRS. This page is a
+   reference surface, touches none of their code, claims nothing, and the pattern note
+   names them. FLAGGED, not handed over. NO ECONOMY on the page by law; THREE
+   CURRENCIES untouched.
+   OPEN, and I could not answer it: IN A ROGUELITE, WHAT HAPPENS TO STANDING WHEN THE
+   RUN ENDS? Biggest question the page raises and does not settle.
+   NEXT WORTH STUDYING (flagged, not claimed): New Vegas's endgame territory
+   redistribution -- who ends up owning the dam -- the most relevant NV mechanic to a
+   100-year city-builder.
+1q. [SHIPPED 7/31 — LAB-08 — *** KILLED THE SAME DAY, SEE 1r ABOVE ***] THE MODERN ECONOMIC CRASH, FUSED. AND THE FINDING IS THAT
    OUR POWER LAW AND OUR ECONOMIC COLLAPSE ARE THE SAME LAW.
    Paolo 7/31, four words: "modern economic crash valheim project zomboid cook it up".
    THE FINDING: *** BOTH GAMES MODEL A UTILITY *VANISHING* ON A TIMER. REALITY MODELS IT

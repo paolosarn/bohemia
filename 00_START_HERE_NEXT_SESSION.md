@@ -1,3 +1,91 @@
+LAB (e2r7sv): 7/31 (e) LATEST — I BUILT THE PREQUEL, HE CORRECTED ME, AND THE ANSWER
+IS THAT THE CURRENCY IS STANDING. (Four earlier 7/31 LAB sections below.)
+
+=== WHAT I GOT WRONG, FIRST, BECAUSE IT IS THE USEFUL PART ===
+Paolo: "IM CONFUSED BY YOUR QUESTION THE WHOLE POINT OF THE GAME IS THAT IT STARTS TEN
+YEARS AFTER THE ECONOMIC CRASH BRO WTF... I DONT WANT IN THE GAME U GOTTA BE DEALING
+WITH SOME WEIRD ECONOMIC GAMEPLAY THE WHOLE WORLD IS BASED ON THE UTILITY DYING
+EVERYWHERE"
+LAB-08 simulated the crash HAPPENING in a game that opens ten years after it ended.
+Every number was real and sourced and NONE OF IT MATTERED -- the player was not there.
+Then I ended the turn asking whether a dead utility should "disappear or get an owner",
+A QUESTION HIS OWN CANON HAD ANSWERED TWICE (CLUSTERED POWER: the lit 12% is OWNED;
+LIGHT=TERRITORY). I had read those as atmosphere; they are the infrastructure ruling and
+they were already complete.
+*** THE RULE TO TAKE OUT OF THIS, and it is cheap: BEFORE RESEARCHING A SYSTEM, NAME
+THE YEAR THE PLAYER IS STANDING IN. One sentence at the top of the work kills two of the
+three root causes. The repo's own word for the setting is POST-economic-apocalypse, in
+CLAUDE.md's first paragraph, and I read it as "economic apocalypse" and built the
+apocalypse. ***
+AND THE THIRD ROOT CAUSE, worth every lane's attention: 491 GREEN CHECKS SAID NOTHING.
+Every one verified the page did what its record said; none could ask whether the page
+should exist. That is the STOP PRODUCING law's warning holding exactly true.
+
+=== LAW + KILL ===
+laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md, three clauses: (1) the crash is
+BACKSTORY, nothing simulates it happening; (2) NO ECONOMIC GAMEPLAY as a CATEGORY;
+(3) the utility is DEAD EVERYWHERE already, not a timer.
+*** PLUS A BOUNDARY PARAGRAPH EVERY LANE SHOULD READ: what is banned is A PRICE THAT
+MOVES BY ITSELF, not a price that EXISTS. My gate's first version FAILED
+engine/bohemia_purse.js -- another lane's brand-new module whose PRICES table ships
+empty and [PENDING Paolo], which is MECHANISM-MINE/CONTENTS-PAOLO'S done right. I would
+have accused a sibling lane of breaking a law it was obeying. A TAG IS FINE, A MARKET IS
+NOT. ***
+KILLED: the crash page, deleted + graveyarded + post-mortem
+(records/BOHEMIA_THE_CRASH_KILL_7_31_26.md). Its two records survive marked DEAD
+(Zomboid precedent). NO V2. Its one CONFIRMED finding -- a dead utility has an OWNER --
+is load-bearing in the law that killed it.
+
+=== SHIPPED INSTEAD: LAB-09 (NOT IN A TAB, a lab reference surface) ===
+slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html
+*** TEN YEARS COLD, MONEY IS NOT THE CURRENCY. STANDING IS. *** New Vegas works because
+FAME AND INFAMY ARE TWO SEPARATE COUNTERS THAT NEVER CANCEL -- which is why it has words
+no other game has (WILD CHILD, DARK HERO, SOFT-HEARTED DEVIL). ONE SLIDER IS A STAT, TWO
+COUNTERS IS A PERSON. Proved in play: one repeated deed walks your title through three
+names while neither number ever falls.
+THE CITY-BUILDER HALF, which is what he was pointing at: *** YOU DO NOT BUILD TO GET
+RICH, YOU BUILD TO BECOME SOMEBODY THEY HAVE TO DEAL WITH. *** With money banned a
+building cannot pay you, so it makes you worth dealing with, compounding across the acts
+under the CENTURY RULE. The builder is not a mode bolted onto an RPG, it IS how you earn
+standing. Valheim's comfort gets a second job: standing WEIGHT.
+THIRD: their thresholds are per-faction and unequal -- Brotherhood accepts at 3, Legion
+idolises at 100. That is how a small faction matters WITHOUT being buffed. And the hard
+gate: fame >=90 AND infamy <4, so YOU CANNOT BUY YOUR WAY OUT OF A BAD NAME WITH GOOD
+DEEDS.
+SOURCED, better than a number: xNVSE/NVSE GameData.h:6 + :228 -- `class TESReputation;`
+and `tList<TESReputation> reputationList;`. Real open-source C++ proving reputation is a
+FIRST-CLASS GAME DATA LIST, not a quest variable. The SHAPE is sourced even though the
+values are [DOC].
+
+=== GATES ===
+lab_gate.js: new row, 19 live checks (Y0-Y18) + 4 forbidden-CATEGORY checks (Z1-Z4).
+486 checks, 0 fail. LAB-08's row removed; crashDidNotReopenLoot KEPT because the
+forbidden-feature pattern is the most reusable thing that dead row produced.
+NEW: gates/ten_years_cold_gate.js (TEN YEARS COLD, 26 checks). Its Part C SWEEPS ALL 156
+SHIPPED SURFACES for the banned category, because a banned CATEGORY needs a sweep and
+not a paragraph. Six mutations caught.
+FOUR FALSE POSITIVES FIXED IN MY OWN CHECKS THIS TURN. The pattern is now named five
+times in this repo: A CHECK THAT HUNTS A WORD INSTEAD OF A THING. One of them failed
+another lane's correct module. If you write a gate, match the STRUCTURE.
+
+=== BOUNDARY ===
+A PEOPLE LANE WAS REGISTERED ON MAIN THIS TURN owning dialogue, NPC identity, FACTION
+STANDING and companion social. STANDING IS THEIRS. This page is a reference surface,
+touches none of their code, claims nothing, and the pattern note names them. FLAGGED,
+not handed over. No economy on the page by law; THREE CURRENCIES untouched.
+
+=== WAITING ON HIM ===
+1. Is STANDING the thing you spend, and BUILDING how you earn it? Two counters that
+   never cancel, rather than one slider?
+2. IN A ROGUELITE, WHAT HAPPENS TO STANDING WHEN THE RUN ENDS? Biggest question LAB-09
+   raises and cannot answer.
+3. Is EARN-YOUR-MULTIPLIER the shape for weapons? (LAB-07)
+4. The three bleed rules; the camp dial playtest; the ten open camp clauses; the action
+   clock's denomination and ceiling.
+NEXT WORTH STUDYING (flagged, not claimed): New Vegas's endgame territory
+redistribution -- who ends up owning the dam -- the most relevant NV mechanic to a
+100-year city-builder.
+
 LAB (e2r7sv): 7/31 (d) LATEST — THE MODERN ECONOMIC CRASH, FUSED. AND THE FINDING IS
 THAT OUR POWER LAW AND OUR ECONOMIC COLLAPSE ARE THE SAME LAW.
 (Three earlier 7/31 LAB sections below: Valheim weapon types, the CDDA action clock, and

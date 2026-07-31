@@ -78,25 +78,33 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
-    /* LAB-08, commissioned in four words. Paolo 7/31: "modern economic crash
-       valheim project zomboid cook it up". A THREE-SOURCE fusion: history (which
-       can never be file:line), Zomboid's real shutoff Lua, and Valheim comfort
-       REUSED from our own LAB-05 record rather than re-fetched.
-       THE THING IT DOES NOT DO: Zomboid's LOOT. Two loot emulations are dead and
-       laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md makes it a
-       permanent anti-reference. Saying "project zomboid" is not permission to
-       reopen a killed feature; check C1 below enforces that. */
-    id: 'THE CRASH',
-    game: 'Project Zomboid',
+    /* LAB-09. Built because he corrected LAB-08 out of existence and then named
+       what he actually wanted: "modern economic crash valheim project zomboid
+       FALLOUT NEW VEGAS THAT ALSO DOUBLES AS A CITY BUILDER COOK IT UP".
+       Money is banned by law here, so the question is what the currency IS, and
+       the answer is STANDING. FACTION STANDING NOW BELONGS TO THE PEOPLE LANE
+       (registered on main 7/31) -- this row is a reference page, touches none of
+       their code, and claims nothing. */
+    id: 'TEN YEARS COLD',
+    game: 'Fallout: New Vegas',
     kind: 'MODEL',
-    mechanics: ['the money dies', 'the freeze', 'the grid dies', 'the cartel', 'comfort'],
+    mechanics: ['standing', 'the mixed axis', 'thresholds', 'deeds', 'building to matter'],
     minConsts: 34,
-    page: 'slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html',
-    record: 'records/lab/BOHEMIA_LAB_THE_CRASH_TEARDOWN_7_31_26.txt',
-    pattern: 'records/lab/BOHEMIA_LAB_THE_CRASH_PATTERN_NOTE_7_31_26.md',
-    live: liveTheCrash,
-    shot: { name: 'BOHEMIA_LAB_THE_CRASH_PROOF_7_31_26.png', setup: shotTheCrash }
+    page: 'slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html',
+    record: 'records/lab/BOHEMIA_LAB_TEN_YEARS_COLD_TEARDOWN_7_31_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_TEN_YEARS_COLD_PATTERN_NOTE_7_31_26.md',
+    live: liveTenYearsCold,
+    shot: { name: 'BOHEMIA_LAB_TEN_YEARS_COLD_PROOF_7_31_26.png', setup: shotTenYearsCold }
   },
+    /* LAB-08 IS DEAD. Its page is graveyarded (gates/bohemia_graveyard.txt,
+       7/31) and DELETED, killed by laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md
+       the same day it shipped: it simulated the crash HAPPENING in a game that
+       opens ten years after the crash ended. Three of its five mechanics were
+       banned outright by that law. Its row is gone and there is NO V2 -- the
+       answer was a different question, and it is LAB-09 below.
+       liveTheCrash / shotTheCrash / crashDidNotReopenLoot stay in this file
+       deliberately: crashDidNotReopenLoot is the FORBIDDEN-FEATURE pattern and it
+       is the most reusable thing the row produced. */
   {
     /* LAB-07, commissioned by name. Paolo 7/31: "look at the weapon types in
        valheim. valheim does weapon types really good so i like that. valheim i
@@ -271,7 +279,7 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW|CR) = \{([\s\S]*?)\n\};/);
+  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW|CR|TY) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -400,6 +408,7 @@ function partA(em) {
      verdicts killed. A gate with no check like this cannot enforce
      laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md at all. */
   if (em.id === 'THE CRASH') crashDidNotReopenLoot(src, rec, note);
+  if (em.id === 'TEN YEARS COLD') coldHasNoEconomy(src, note);
 
   return { src, rec, note };
 }
@@ -1883,6 +1892,213 @@ async function liveTheCrash(page) {
      thesis.t1.comfort + ')',
      thesis.t1.money < thesis.t0.money && thesis.t1.light < thesis.t0.light &&
      thesis.t1.comfort > thesis.t0.comfort);
+}
+
+/* ==========================================================================
+   PART B — LIVE: TEN YEARS COLD (LAB-09)
+
+   The claim: with money banned, the currency is STANDING, and standing works
+   because fame and infamy are TWO counters that never cancel. So the checks are:
+   do the two counters stay independent, does the TITLE read from both, are the
+   mixed-axis words reachable IN PLAY (not just described), do the per-faction
+   thresholds really differ, and is BUILDING what makes you worth dealing with.
+   ========================================================================== */
+async function liveTenYearsCold(page) {
+  const T = await page.evaluate(() => window.LAB.TY);
+  await page.evaluate(() => window.LAB.reset());
+
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('Y0 the page declares the five mechanics the record declares',
+     JSON.stringify(declared) === JSON.stringify(
+       ['standing', 'the mixed axis', 'thresholds', 'deeds', 'building to matter']));
+  ok('Y0b and declares itself a MODEL', await page.evaluate(() => window.LAB.kind) === 'MODEL');
+
+  /* ---------------- 1. STANDING: two counters that never cancel --------- */
+  const two = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.startTitle = L.title('ncr');
+    L.setStanding('ncr', 50, 0);
+    o.fameOnly = { f: L.fame('ncr'), i: L.infamy('ncr'), t: L.title('ncr') };
+    /* adding infamy must NOT reduce fame — that is the whole structural claim */
+    L.setStanding('ncr', 50, 30);
+    o.both = { f: L.fame('ncr'), i: L.infamy('ncr'), t: L.title('ncr') };
+    L.setStanding('ncr', 0, 60);
+    o.infamyOnly = { f: L.fame('ncr'), i: L.infamy('ncr'), t: L.title('ncr') };
+    return o;
+  });
+  ok('Y1 standing: you start unknown to everybody', two.startTitle === 'unknown');
+  ok('Y2 standing: FAME AND INFAMY NEVER CANCEL — 50 fame stays 50 when 30 infamy ' +
+     'arrives (' + two.both.f + '/' + two.both.i + ')',
+     two.fameOnly.f === 50 && two.both.f === 50 && two.both.i === 30);
+  ok('Y3 standing: and the TITLE READS FROM BOTH, so the same fame gives a different ' +
+     'word once infamy exists ("' + two.fameOnly.t + '" -> "' + two.both.t + '")',
+     two.fameOnly.t !== two.both.t);
+  ok('Y4 standing: infamy alone is its own axis, not negative fame ("' + two.infamyOnly.t + '")',
+     two.infamyOnly.f === 0 && two.infamyOnly.t === 'vilified');
+
+  /* their hard gate: high fame cannot buy off a bad name */
+  const gate = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.setStanding('ncr', L.TY.IDOLIZED_FAME_MIN + 5, L.TY.IDOLIZED_INFAMY_MAX + 1);
+    o.highFameDirty = L.trulyIdolized('ncr');
+    L.setStanding('ncr', L.TY.IDOLIZED_FAME_MIN - 1, 0);
+    o.lowFameClean = L.trulyIdolized('ncr');
+    L.setStanding('ncr', L.TY.IDOLIZED_FAME_MIN, L.TY.IDOLIZED_INFAMY_MAX - 1);
+    o.both = L.trulyIdolized('ncr');
+    return o;
+  });
+  ok('Y5 standing: YOU CANNOT BUY YOUR WAY OUT OF A BAD NAME WITH GOOD DEEDS — 95 fame ' +
+     'with 5 infamy is not idolized, and it needs BOTH',
+     gate.highFameDirty === false && gate.lowFameClean === false && gate.both === true);
+
+  /* ---------------- 2. THE MIXED AXIS, reachable IN PLAY ---------------- */
+  const mixed = await page.evaluate(() => {
+    const L = window.LAB, o = { titles: [] };
+    L.reset();
+    for (let i = 0; i < 12; i++) {
+      L.doDeed('both');                       /* +6 fame AND +6 infamy, both factions */
+      o.titles.push(L.title('ncr'));
+    }
+    o.finalF = L.fame('ncr'); o.finalI = L.infamy('ncr');
+    o.mixed = L.isMixed('ncr');
+    return o;
+  });
+  const uniq = [...new Set(mixed.titles)];
+  ok('Y6 mixed: ONE REPEATED DEED WALKS YOU THROUGH ' + uniq.length + ' DIFFERENT TITLES ' +
+     'while NEITHER NUMBER EVER FALLS (' + uniq.join(' -> ') + ')',
+     uniq.length >= 3 && mixed.finalF > 0 && mixed.finalI > 0);
+  ok('Y7 mixed: and the mixed-axis words are REACHED IN PLAY, not just described',
+     uniq.some(t => ['WILD CHILD', 'DARK HERO', 'SOFT-HEARTED DEVIL'].indexOf(t) >= 0) &&
+     mixed.mixed === true);
+  ok('Y8 mixed: WILD CHILD specifically is reachable — the word a single slider ' +
+     'could never produce', uniq.indexOf('WILD CHILD') >= 0);
+
+  /* ---------------- 3. THRESHOLDS: the same deed is worth different ----- */
+  const thr = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.costs = L.FACTIONS.map(f => ({ id: f.id, acc: f.acc, idol: f.idol }));
+    o.spread = L.spread();
+    /* the SAME six points buys a different tier from each of them */
+    L.FACTIONS.forEach(f => L.setStanding(f.id, 6, 0));
+    o.tiers = L.FACTIONS.map(f => ({ id: f.id, t: L.fameTier(f.id) }));
+    return o;
+  });
+  ok('Y9 thresholds: their real per-faction numbers really do differ (' +
+     thr.costs.map(c => c.id + ':' + c.acc + '/' + c.idol).join(' ') + ')',
+     new Set(thr.costs.map(c => c.acc)).size === 4 && thr.spread > 1);
+  ok('Y10 thresholds: SIX POINTS BUYS A DIFFERENT TIER FROM EACH FACTION (' +
+     thr.tiers.map(t => t.id + ':' + t.t).join(' ') + ') — that is how a small faction ' +
+     'matters without being buffed',
+     new Set(thr.tiers.map(t => t.t)).size >= 2 &&
+     thr.tiers.find(t => t.id === 'bos').t > thr.tiers.find(t => t.id === 'legion').t);
+  ok('Y11 thresholds: the cheapest door in the game is the Brotherhood at ' + T.BOS_ACCEPTED +
+     ' and the dearest is the Legion at ' + T.LEGION_IDOLIZED,
+     T.BOS_ACCEPTED === 3 && T.LEGION_IDOLIZED === 100);
+
+  /* ---------------- 4. DEEDS: nothing is free with everybody ------------ */
+  const deeds = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.count = L.DEEDS.length;
+    o.multiFaction = L.DEEDS.filter(d => Object.keys(d.fame).length > 1).length;
+    o.costly = L.DEEDS.filter(d => Object.keys(d.infamy).length > 0).length;
+    /* the trap: buying from one side charges you on the other */
+    L.doDeed('raid');
+    o.legionUp = L.fame('legion');
+    o.ncrHurt = L.infamy('ncr');
+    return o;
+  });
+  ok('Y12 deeds: several deeds move MORE THAN ONE faction at once (' + deeds.multiFaction +
+     ' of ' + deeds.count + ')', deeds.multiFaction >= 2);
+  ok('Y13 deeds: and some CHARGE you while paying you (' + deeds.costly + ' of ' +
+     deeds.count + ') — standing is a set of people you choose between, not a score you farm',
+     deeds.costly >= 2 && deeds.legionUp > 0 && deeds.ncrHurt > 0);
+
+  /* ---------------- 5. BUILDING TO MATTER, and the dead grid ------------ */
+  const built = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.worth0 = L.worthMultiplier();
+    o.comfort0 = L.comfort();
+    o.rested0 = L.restedSeconds();
+    L.buildOne(); L.buildOne(); L.buildOne(); L.buildOne();
+    o.worth4 = L.worthMultiplier();
+    o.comfort4 = L.comfort();
+    o.rested4 = L.restedSeconds();
+    o.acts = [L.cityAtAct(1), L.cityAtAct(2), L.cityAtAct(3)];
+    /* the light is a STANDING, not a purchase */
+    L.reset();
+    o.darkAtStart = L.haveLight();
+    L.setStanding('bos', L.TY.BOS_ACCEPTED, 0);      /* the cheapest door */
+    o.litViaStanding = L.haveLight();
+    o.owner = L.litOwner();
+    return o;
+  });
+  ok('Y14 building: comfort and rested rise with what you put up (' + built.comfort0 + '->' +
+     built.comfort4 + ', ' + built.rested0 + 's->' + built.rested4 + 's)',
+     built.comfort4 === built.comfort0 + 4 &&
+     built.rested4 === built.rested0 + 4 * T.VH_SEC_PER_COMFORT);
+  ok('Y15 building: AND IT MAKES YOU WORTH DEALING WITH — every deed counts x' +
+     built.worth4.toFixed(1) + ' once you are somebody (from x' + built.worth0.toFixed(1) + ')',
+     built.worth4 > built.worth0);
+  ok('Y16 building: it compounds across the three acts (' + built.acts.join(' -> ') +
+     ') — the CENTURY RULE',
+     built.acts[1] > built.acts[0] && built.acts[2] > built.acts[1]);
+  ok('Y17 the dead grid: you start in the dark, and THE LIGHT IS A STANDING, NOT A ' +
+     'PURCHASE — 3 points with the cheapest faction gets you in',
+     built.darkAtStart === false && built.litViaStanding === true && built.owner !== null);
+
+  /* the thesis: no money anywhere, and standing is what moves */
+  const thesis = await page.evaluate(() => {
+    const L = window.LAB;
+    /* MONEY-SHAPED NAMES, not the word "cost". The first version matched /cost/
+       and tripped on costToAccepted() -- the cost of somebody's RESPECT, which is
+       the opposite of an economy. Fourth time this repo has shipped a check that
+       hunted a word instead of a thing. */
+    return { keys: Object.keys(L).filter(k =>
+      /price|money|cash|wallet|inflat|exchange|withdraw|deposit|currency|balance/i.test(k)) };
+  });
+  ok('Y18 THE THESIS: the harness exposes NO price, no money, no rate, nothing ' +
+     'economic at all' + (thesis.keys.length ? ' (' + thesis.keys.join(',') + ')' : '') +
+     ' — because standing is the currency', thesis.keys.length === 0);
+}
+
+/* THE FORBIDDEN-CATEGORY CHECK for LAB-09. laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD
+   bans economic gameplay as a CATEGORY, so the page that answers it must be the
+   first thing proved clean. Matched as structures, never mentions: the law and the
+   note are REQUIRED to name these things in order to ban them. */
+function coldHasNoEconomy(src, note) {
+  const ECON = [
+    [/\bexchangeRate\b|\bexchange_rate\b/i, 'an exchange rate'],
+    [/\binflation\w*\s*[:=]/i, 'an inflation term'],
+    [/\bprices?\s*[:=]\s*[[{0-9]/i, 'a price table'],
+    [/\bwithdraw\w*\s*[:=]|\bwithdrawalCap\b/i, 'a withdrawal cap'],
+    [/\bmoneyWorth\b|\brateOnDay\b|\bdailyDecay\b/, 'the dead crash page\'s own money maths']
+  ];
+  const hits = ECON.filter(([re]) => re.test(src)).map(([, what]) => what);
+  ok('Z1 TEN YEARS COLD has no economic mechanic' + (hits.length ? ' (' + hits.join(', ') + ')' : ''),
+     hits.length === 0);
+  ok('Z2 and it says on its own face that the economy is banned by law',
+     /NO ECONOMY/i.test(src) && /TEN_YEARS_COLD/.test(src));
+  ok('Z3 the THREE CURRENCIES law survives a page about what money is replaced BY',
+     /THREE CURRENCIES/.test(src) && /THREE CURRENCIES/.test(note));
+  ok('Z4 and the note names the lane that actually owns faction standing',
+     /PEOPLE|WORLD|QUEST/.test(note));
+}
+
+async function shotTenYearsCold(page) {
+  /* the shot must show the finding: a WILD CHILD who built something and is
+     therefore in the lit 12%. */
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    L.buildOne(); L.buildOne(); L.buildOne();
+    for (let i = 0; i < 10; i++) L.doDeed('both');
+    L.doDeed('salvage');
+  });
 }
 
 /* THE FORBIDDEN-FEATURE CHECK. Part A tests what a page does; this tests what it

@@ -412,6 +412,8 @@ GATES = [
      'DOSSIER-OR-DON\'T: every hero building has all its parts written up, keyed to the walkable landmarks', False),
     ('CAMP DIAL',      ['node', 'gates/camp_dial_gate.js'],
      'his mobile-camp ruling, machine-locked: tiles not seconds, one pool, small numbers, every unruled value a dial', False),
+    ('TEN YEARS COLD', ['node', 'gates/ten_years_cold_gate.js'],
+     'Paolo 7/31: the crash is BACKSTORY (act 1 opens ten years after), NO economic gameplay as a category, and the utility is already dead everywhere - swept across every shipped surface, because a banned CATEGORY needs a sweep and not a paragraph', False),
     ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
      'Paolo 7/31 approved the SHAPE of the action clock, not the numbers: fixed cost, condition as the divisor, a hard floor, thresholds not slopes - and no lane has started building the table he reserved', False),
     ('LAB PORT',       ['node', 'gates/resolve_gate.js'],

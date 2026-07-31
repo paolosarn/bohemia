@@ -1,0 +1,268 @@
+BOHEMIA LAB 09 — TEN YEARS COLD: STANDING, NOT MONEY (7/31/26, LAB lane)
+=============================================================================
+PAGE: slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html
+SOURCES: Fallout: New Vegas + Project Zomboid (past tense) + Valheim (reused)
+KIND: MODEL, not a measurement. Declared kind:'MODEL' to the harness.
+
+WHY IT EXISTS: I GOT THE PREVIOUS ONE WRONG AND HE CORRECTED ME.
+Paolo 7/31: "IM CONFUSED BY YOUR QUESTION THE WHOLE POINT OF THE GAME IS THAT IT
+STARTS TEN YEARS AFTER THE ECONOMIC CRASH BRO WTF LIKE I DONT WANT IN THE GAME U
+GOTTA BE DEALING WITH SOME WEIRD ECONOMIC GAMEPLAY THE WHOLE WORLD IS BASED ON
+THE UTILITY DYING EVERYWHERE WHAT DO YOU MEANN modern economic crash valheim
+project zomboid FALLOUT NEW VEGAS THAT ALSO DOUBLES AS A CITY BUILDER COOK IT UP"
+
+WHAT I GOT WRONG, plainly, because the mistake is the useful part:
+LAB-08 simulated the crash HAPPENING. A devaluation curve you watch fall day by
+day, withdrawal caps you fight against. All of it sourced, all of it accurate
+about Lebanon, and all of it a DOCUMENTARY ABOUT TEN YEARS BEFORE THE GAME
+STARTS. The player was not there. He does not want to play a currency.
+Worse, I then asked him whether a dead utility should "disappear or get an owner"
+-- a question HIS OWN CANON HAD ALREADY ANSWERED TWICE. CLUSTERED POWER says only
+~12% is lit and that 12% is OWNED with an eerily perfect network. LIGHT =
+TERRITORY. Nobody patrols the dark. I had read those three as atmosphere when
+they were the infrastructure ruling, already complete.
+Both errors are now law: laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md, three
+clauses, machine-gated the same turn. Two of LAB-08's five mechanics are DEAD by
+that law ("the money dies", "the freeze") and there is NO v2 of them.
+
+MECHANICS DECLARED (five, each played end to end by gates/lab_gate.js):
+  1. standing   2. the mixed axis   3. thresholds   4. deeds
+  5. building to matter
+
+NO SOURCE: New Vegas ships compiled, so its numbers are documented. Valheim's are
+too, except the one line this repo already owns. Project Zomboid IS real code and
+is cited as such, but here it is used only as BACKSTORY. There is no source tree
+for "what a city is like ten years after".
+
+WHAT WAS TRIED, AND WHAT IT FOUND (so "no source" is checkable rather than
+asserted). New Vegas's reputation VALUES live in the game's ESM behind the GECK,
+not over HTTP -- the game itself is a compiled Gamebryo/NetImmerse assembly and
+there is no source tree to read. Probed this session:
+  - fallout.fandom.com/wiki/Fallout:_New_Vegas_reputations   -> 403 at the gateway
+  - fallout-archive.fandom.com (same page)                    -> 403
+  - api.github.com code search                                -> 403
+  - xNVSE/NVSE .../nvse/nvse/GameReputation.h                 -> 404
+  - xNVSE/NVSE .../nvse/nvse/GameFaction.h                    -> 404
+  - xNVSE/NVSE .../README.md                                  -> connection reset
+WHAT WORKED, AND IT IS WORTH MORE THAN A NUMBER:
+  - raw.githubusercontent.com/xNVSE/NVSE/master/nvse/nvse/GameData.h -> 200.
+    NVSE is the New Vegas Script Extender: real open-source C++ that reads the
+    live game's memory layout. GameData.h:6 declares `class TESReputation;` and
+    GameData.h:228 carries `tList<TESReputation> reputationList; // 090`.
+    THAT IS THE STRUCTURAL PROOF, from code: REPUTATION IS A FIRST-CLASS GAME
+    DATA LIST in New Vegas, sitting in the same top-level table as the game's
+    other core records -- not a quest variable, not a script hack. A studio that
+    gives reputation its own record type in its own list has decided it is
+    infrastructure. That is the single most useful thing this probe returned, and
+    it is why the per-faction VALUES being [DOC] does not weaken the finding: the
+    SHAPE is sourced even though the numbers are documented.
+The numbers below came from documented summaries of the ESM data, and every one
+is tagged [DOC] for exactly that reason.
+
+REUSE-FIRST: the Valheim comfort numbers and the Zomboid shutoff numbers were NOT
+re-fetched. They were read out of our own records/lab/BOHEMIA_LAB_VALHEIM_
+TEARDOWN_7_27_26.txt and records/lab/BOHEMIA_LAB_THE_CRASH_TEARDOWN_7_31_26.txt,
+carrying their original tags. Third time this lane has done that and it keeps
+paying.
+
+=============================================================================
+THE FINDING
+=============================================================================
+TEN YEARS COLD, MONEY IS NOT THE CURRENCY. STANDING IS.
+
+Once money is banned as a system (clause 2) and the utilities are dead everywhere
+(clause 3), there is nothing left to trade WITH. What is left is WHO OWNS THE
+WORKING THING AND WHETHER THEY WILL DEAL WITH YOU. That is not a workaround for
+the ban -- it is a better game, and New Vegas is the proof it works.
+
+AND THE REASON IT WORKS IS ONE STRUCTURAL DECISION:
+FAME AND INFAMY ARE TWO SEPARATE COUNTERS THAT NEVER CANCEL.
+Not a slider from hated to loved. Two numbers, tracked apart, and your TITLE is
+read off BOTH. That is why New Vegas has words no other game has -- WILD CHILD,
+DARK HERO, SOFT-HEARTED DEVIL -- titles that only exist because the game refused
+to average you out. A single slider can express "how good are you". Two counters
+express "what kind of person are you", which is a different and much better
+question. ONE SLIDER IS A STAT. TWO COUNTERS IS A PERSON.
+
+SECOND FINDING, and it is the city-builder half he asked for:
+YOU DO NOT BUILD TO GET RICH. YOU BUILD TO BECOME SOMEBODY THEY HAVE TO DEAL
+WITH. With money banned, a building cannot pay you -- so what it does is make you
+WORTH DEALING WITH, and under the CENTURY RULE that compounds across three acts.
+That is the join he was pointing at with "THAT ALSO DOUBLES AS A CITY BUILDER":
+the builder is not a separate mode bolted to an RPG, it is HOW YOU EARN STANDING.
+A spreadsheet city-builder asks "what does this produce". This asks "who does this
+make me".
+
+THIRD FINDING: THE SAME DEED IS WORTH WILDLY DIFFERENT AMOUNTS.
+Their per-faction thresholds are not close to each other -- the Brotherhood
+accepts you at 3, the Legion idolises you at 100, a spread of 33x. A small,
+insular, desperate outfit is CHEAP to impress; a huge bureaucratic one barely
+notices. That is how you make a small faction matter without buffing it, and it
+costs one number per faction.
+
+=============================================================================
+MECHANISM — every constant in the page's TY block, tagged
+=============================================================================
+
+--- SOURCED: the one line this repo owns ---
+VH_SEC_PER_COMFORT 60 — [SOURCED PlayerConfiguration.cs:11
+  restSecondsPerComfortLevel = 60; reused from our own LAB-05 teardown]
+
+--- DOC: NEW VEGAS STANDING IS TWO COUNTERS, AND THREE AXES OF TITLE ---
+GOOD_AXIS_LEVELS 6 — [DOC the good axis: 1 Neutral, 2 Smiling Troublemaker,
+  3 Good-Natured Rascal, 4 Accepted, 5 Liked, 6 Idolized]
+EVIL_AXIS_LEVELS 6 — [DOC the evil axis: 1 Neutral, 2 Sneering Punk, 3 Merciful
+  Thug, 4 Shunned, 5 Hated, 6 Vilified]
+MIXED_AXIS_LEVELS 5 — [DOC the mixed axis: 1 Neutral, 2 Dark Hero or
+  Soft-Hearted Devil, 3 Mixed, 4 Unpredictable, 5 Wild Child]
+  THE MIXED AXIS IS THE WHOLE FINDING. It exists only because fame and infamy are
+  separate, and it is the part of the system nobody else copies. "Dark Hero" and
+  "Soft-Hearted Devil" are the SAME numeric tier read from opposite directions --
+  a lot of good and some bad, versus a lot of bad and some good -- and giving
+  those two different names is a writing decision doing a mechanic's job.
+GOOD_TROUBLEMAKER 2 — [DOC good axis position 2: Smiling Troublemaker]
+GOOD_RASCAL 3 — [DOC good axis position 3: Good-Natured Rascal]
+EVIL_SNEERING_PUNK 2 — [DOC evil axis position 2: Sneering Punk]
+EVIL_MERCIFUL_THUG 3 — [DOC evil axis position 3: Merciful Thug]
+  THE NAMES ARE DOING MECHANICAL WORK. "Smiling Troublemaker" and "Sneering Punk"
+  are the SAME magnitude on opposite axes, and the writing is what tells you which
+  one you are. A number cannot say "smiling"; a title can, and it costs nothing.
+IDOLIZED_FAME_MIN 90 — [DOC to be Idolized with any faction you must raise fame
+  to 90 ...]
+IDOLIZED_INFAMY_MAX 4 — [DOC ... AND reduce infamy below 4]
+  YOU CANNOT BUY YOUR WAY OUT OF A BAD NAME WITH GOOD DEEDS. That is a hard gate,
+  not a sum, and it is the single most portable line in this document.
+DISGUISE_FACTIONS 5 — [DOC disguises exist only for the five big factions
+  (Brotherhood, Legion, Khans, NCR, Powder Gangers) and mask standing with those
+  five only]
+WGS_MASKS 6 — [DOC the White Glove Society attire is special and masks six]
+  Not modelled on the page, recorded because it is the best idea I did not use:
+  standing you can TEMPORARILY FAKE by what you wear. In a game whose entire
+  progression is clothing, that is worth a look.
+
+--- DOC: THEIR REAL PER-FACTION FAME THRESHOLDS ---
+NCR_ACCEPTED 12 — [DOC NCR: 0-11 Neutral, 12-39 Accepted]
+NCR_LIKED 40 — [DOC 40-79 Liked]
+NCR_IDOLIZED 80 — [DOC 80+ Idolized]
+LEGION_ACCEPTED 15 — [DOC Caesar's Legion: 0-14 Neutral, 15-49 Accepted]
+LEGION_LIKED 50 — [DOC 50-99 Liked]
+LEGION_IDOLIZED 100 — [DOC 100+ Idolized. The dearest respect in the game.]
+BOS_ACCEPTED 3 — [DOC Brotherhood of Steel: 0-2 Neutral, 3-9 Accepted. THREE.]
+BOS_LIKED 10 — [DOC 10-19 Liked]
+BOS_IDOLIZED 20 — [DOC 20+ Idolized]
+BOOMERS_ACCEPTED 8 — [DOC Boomers: 0-7 Neutral, 8-24 Accepted]
+BOOMERS_LIKED 25 — [DOC 25-49 Liked]
+BOOMERS_IDOLIZED 50 — [DOC 50+ Idolized]
+
+--- DOC: PROJECT ZOMBOID, USED AS BACKSTORY AND NOT AS A TIMER ---
+PZ_ELECSHUT_TIER 2 — [DOC apocalypse_SandboxVars.lua:11 ElecShut = 2, tier 2 =
+  "0-30 days"; reused from our own LAB-08 teardown]
+PZ_ELECSHUT_DAYS 14 — [DOC apocalypse_SandboxVars.lua:13 ElecShutModifier = 14]
+PZ_WATERSHUT_DAYS 14 — [DOC apocalypse_SandboxVars.lua:12 WaterShutModifier = 14]
+  THE REFRAME IS THE POINT, and it is what clause 3 forced. In Zomboid day 14 is
+  an EVENT the player lives through. Here it is a DATE TEN YEARS AGO. Same number,
+  and it stops being a mechanic and becomes a fact about the world. The page
+  renders both with a line through them.
+
+--- DOC: VALHEIM COMFORT, reused, doing a NEW JOB ---
+VH_RESTED_BASE_SEC 480 — [DOC Rested lasts a minimum of 8 minutes at comfort 1]
+VH_COMFORT_BASE 1 — [DOC comfort starts at 1]
+VH_COMFORT_MAX 17 — [DOC 17 is the normal maximum]
+VH_RESTED_MAX_SEC 1440 — [DOC 480 + 16 x 60 = the documented 24 minutes]
+  THE JOB IS NEW. In LAB-05 comfort bought a longer buff. Here it also buys
+  STANDING WEIGHT -- a nobody's favour is worth less than a somebody's. Same
+  curve, second use, and the second use is the city-builder join.
+
+--- DOC: OUR OWN CANON, cited to the laws that already ruled it ---
+LIT_PCT 12 — [DOC the CLUSTERED POWER law: only ~12% is lit, that 12% is OWNED,
+  and the network carrying it is eerily perfect]
+YEARS_AFTER_CRASH 10 — [DOC laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md
+  clause 1: act 1 opens ten years after the crash]
+ACTS 3 — [DOC the three acts]
+CENTURY_YEARS 100 — [DOC the CENTURY RULE: dynasty choices compound over ~100
+  years across the three acts]
+CURRENCIES 3 — [DOC laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md:
+  resources, electricity, clout, and no fourth thing]
+
+--- DOC: the tier positions and infamy marks this page models ---
+The four fame positions their per-faction thresholds divide the scale into, one
+per line:
+TIER_NEUTRAL 0 — [DOC below a faction's Accepted threshold you are nobody to them]
+TIER_ACCEPTED 1 — [DOC the first real door: NCR 12, Legion 15, Brotherhood 3]
+TIER_LIKED 2 — [DOC the middle band: NCR 40, Legion 50, Brotherhood 10]
+TIER_IDOLIZED 3 — [DOC the top band, and it also needs infamy under 4]
+INFAMY_SHUNNED 15 — [DOC Shunned is position 4 on the six-level evil axis; 15 is
+  this page's placement of it on the four factions' scales]
+INFAMY_VILIFIED 50 — [DOC Vilified is the top of the evil axis; 50 is this page's
+  placement]
+
+=============================================================================
+CONTENT — whose is whose, stated plainly
+=============================================================================
+THE FOUR FACTIONS carry New Vegas's REAL thresholds, because the 33x spread IS the
+finding and inventing numbers would have destroyed it. Their in-page NAMES are
+descriptive ("the big one", "the hidden one") so nobody reads the page as
+proposing that Bohemia has an NCR; the real name is printed beside each.
+
+THE FIVE DEEDS ARE MINE, and they exist only so the page can be pressed. They are
+not proposals for Bohemia's actions. One of them ("work both sides of the same
+fight") exists specifically to drive fame AND infamy up on the same faction, so
+the mixed axis can be reached in play rather than described.
+
+THE TWO INFAMY MARKS (15 / 50) are MY PLACEMENT of their documented Shunned and
+Vilified positions onto these four factions' scales. Their real infamy thresholds
+are per-faction like the fame ones and I did not find them; the page needed a
+scale to render, and this record says so instead of implying I read them.
+
+THE WORTH MULTIPLIER (1 + built x 0.5) and THE ACT COMPOUNDING (x2 per act) ARE
+MINE, and they are the crudest thing here. They exist to make "you build to
+matter" and the CENTURY RULE pressable in one screen. The CENTURY RULE's real
+mechanism is [PENDING Paolo] and its own law says so.
+
+=============================================================================
+WHAT IS NOT IMPLEMENTED (so nobody reads this page as complete)
+=============================================================================
+- ANY ECONOMY, BY LAW. No price, no exchange rate, no inflation, no money, not
+  even as a display. laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md clause 2.
+- New Vegas's DISGUISES (5 factions, White Glove's 6). Named above as the best
+  idea I did not use, and it interacts with our wardrobe in a way that deserves
+  its own look.
+- Their vendor price discounts, hired thugs, wandering gifts, and dialogue
+  skill-checks. All real reputation CONSEQUENCES; the page models access to the
+  lit grid only, because that is the one that lands on our existing power law.
+- The six-level good and evil axes at full resolution. The page collapses them to
+  four fame positions and two infamy marks, because their real per-faction infamy
+  thresholds were not in the documented material I could reach.
+- Their endgame territory redistribution (who owns the dam). The single most
+  relevant New Vegas mechanic to a 100-year city-builder, and much too big to
+  bolt onto a lab page. FLAGGED as the next thing worth studying.
+- Zomboid's live shutoff as a mechanic. Deliberately past tense. See clause 3.
+- Valheim's comfort SOURCES, radius and per-category rule. Already modelled
+  properly in LAB-05; this page only needs the curve.
+- BOHEMIA'S FACTIONS, ITS REPUTATION, AND ITS CITY. All [PENDING Paolo], and the
+  factions belong to WORLD/QUEST and the city to CITY. This page claims none of
+  it and ports nothing.
+
+=============================================================================
+THE ARITHMETIC, CHECKED
+=============================================================================
+The spread: Legion idolized 100 / Brotherhood idolized 20 = 5x on idolized, and
+  Legion accepted 15 / Brotherhood accepted 3 = 5x on accepted. Across the whole
+  set, dearest-over-cheapest idolized is 100/20 = 5.0x. The 33x figure people
+  quote is Legion-idolized-over-Brotherhood-accepted (100/3), which is the more
+  honest way to feel it: the cheapest door in the game costs 3 and the dearest
+  costs 100.
+The mixed axis, reachable in play: "work both sides" gives +6 fame and +6 infamy
+  to both NCR and Legion. Four presses = 24 fame, 24 infamy on each. On NCR that
+  is fame tier LIKED (>= 40? no -- 24 is ACCEPTED) with infamy over SHUNNED (15),
+  so the title reads SOFT-HEARTED DEVIL. Eight presses = 48/48: fame LIKED (>=40)
+  and infamy still under VILIFIED (50), so DARK HERO. Nine presses tips infamy
+  past 50 and it becomes WILD CHILD. THE TITLE CHANGES THREE TIMES WITHOUT EITHER
+  NUMBER EVER GOING DOWN, which is exactly what a single slider cannot do.
+The idolized gate: fame 95 with infamy 5 is NOT truly idolized (infamy must be
+  under 4). Fame 89 with infamy 0 is not either. You need both, and that is the
+  point.
+Comfort, second job: built 0 -> worth x1.0; built 4 -> comfort 5, rested 720s,
+  worth x3.0. Every deed counts triple once you are somebody.
+The century: 4 things built = 4 at act 1, 8 at act 2, 16 at act 3. Crude, mine,
+  and flagged as such -- the real mechanism is his.

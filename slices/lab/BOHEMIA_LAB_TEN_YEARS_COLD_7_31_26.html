@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 09 — TEN YEARS COLD (NEW VEGAS + CITY BUILDER, REFERENCE MODEL)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 09 — TEN YEARS COLD (emulating Fallout: New Vegas)
+  Paolo 7/31, correcting me: "THE WHOLE POINT OF THE GAME IS THAT IT STARTS TEN
+  YEARS AFTER THE ECONOMIC CRASH... I DONT WANT IN THE GAME U GOTTA BE DEALING
+  WITH SOME WEIRD ECONOMIC GAMEPLAY THE WHOLE WORLD IS BASED ON THE UTILITY
+  DYING EVERYWHERE... modern economic crash valheim project zomboid FALLOUT NEW
+  VEGAS THAT ALSO DOUBLES AS A CITY BUILDER COOK IT UP"
+
+  He was right. LAB-08 simulated the crash HAPPENING -- a devaluation curve you
+  watch, withdrawal caps you fight -- and that is a documentary about ten years
+  ago, in a game where the player was not there. Both of those mechanics are now
+  DEAD by laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md clauses 1 and 2. This
+  page is not their replacement. It is the answer to the question that is left
+  once money is banned as a system.
+
+  THE FINDING:
+    TEN YEARS COLD, MONEY IS NOT THE CURRENCY. STANDING IS. And New Vegas proved
+    standing works because it is TWO NUMBERS, NOT ONE SLIDER -- fame and infamy
+    are tracked SEPARATELY, so you can be loved and feared by the same people at
+    the same time. One slider is a stat. Two counters is a PERSON.
+
+  THE SECOND FINDING, and it is the city-builder half he asked for:
+    YOU DO NOT BUILD TO GET RICH. YOU BUILD TO BECOME SOMEBODY THEY HAVE TO DEAL
+    WITH. What you put up is what makes you worth dealing with, and under the
+    CENTURY RULE it compounds across three acts. That is what turns a city
+    builder into an RPG instead of a spreadsheet.
+
+  THE THIRD, which is where Valheim and Zomboid actually belong here:
+    The grid is not dying. IT DIED. Ten years ago, everywhere -- that is Zomboid's
+    shutoff, in the PAST TENSE, as the world's backstory rather than a timer.
+    The ~12% still lit is OWNED (our CLUSTERED POWER law), so your access to light
+    is not a purchase, it is a STANDING. And Valheim's comfort is still the only
+    curve that rises, because it is the only one you build with your hands.
+
+  A REFERENCE MODEL, NOT A MEASUREMENT. New Vegas ships compiled; its numbers are
+  documented, not read off source. One number here is genuinely SOURCED (a Valheim
+  line we already own from LAB-05). Every constant is tagged [SOURCED ...] or
+  [DOC ...] in records/lab/BOHEMIA_LAB_TEN_YEARS_COLD_TEARDOWN_7_31_26.txt.
+
+  NOT BOHEMIA. No engine module, no bank, no alpha. Placeholder art only.
+  NO ECONOMY ON THIS PAGE, BY LAW. No price, no exchange rate, no inflation, no
+  money at all -- not even as a display. THE THREE CURRENCIES law stands:
+  resources, electricity, clout, and no fourth thing.
+  FACTIONS AND THE CITY ARE OTHER LANES' SYSTEMS. This page touches none of their
+  code and claims nothing; the findings are FLAGGED and port only on his word.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#0a0b0c; color:#e4e1d8;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#2f5a4a; color:#fff; font-size:9.5px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #hud { flex:0 0 auto; background:#111517; border-bottom:1px solid #26302f; padding:5px 7px; }
+  #panes { flex:1 1 auto; min-height:0; overflow-y:auto; padding:5px 7px 8px; background:#0d1011; }
+  .card { background:#141819; border:1px solid #26302f; border-radius:5px;
+    padding:5px 7px; margin-bottom:5px; position:relative; }
+  .card h3 { margin:0 0 4px; font-size:10px; color:#e8c96a; letter-spacing:.04em; }
+  .card .sub { font-size:9px; color:#86908c; line-height:1.5; }
+  .row { display:flex; align-items:center; gap:5px; font-size:9.5px; padding:2px 0;
+    border-bottom:1px solid #1c2322; }
+  .row .n { flex:1 1 auto; color:#cfd4bc; min-width:0; }
+  .row .c { flex:0 0 auto; color:#86908c; font-size:8.5px; min-width:0; overflow:hidden; }
+  .row .v { flex:0 0 96px; text-align:right; color:#fff; font-weight:700; white-space:nowrap; }
+  .row button { font-family:inherit; font-size:9px; padding:4px 7px; border-radius:3px;
+    border:1px solid #4d7a63; background:#22342c; color:#d8ecdf; }
+  .row button:disabled { opacity:.3; }
+  .fi { display:flex; gap:3px; align-items:center; margin:2px 0 4px; }
+  .fi .lab { flex:0 0 34px; font-size:8px; color:#86908c; }
+  .fi .bar { position:relative; flex:1 1 auto; height:9px; background:#0a0d0d;
+    border:1px solid #26302f; border-radius:2px; overflow:hidden; }
+  .fi .bar i { position:absolute; left:0; top:0; bottom:0; display:block; }
+  .fi .num { flex:0 0 34px; text-align:right; font-size:8.5px; color:#fff; }
+  .title { font-size:11px; color:#fff; font-weight:700; }
+  .big { font-size:11.5px; color:#fff; line-height:1.45; }
+  .big b { color:#9ce0b4; }
+  .flag { color:#ffb4a8; }
+  .dead { color:#8a7a7a; text-decoration:line-through; }
+  #log { font-size:9px; line-height:1.5; color:#86908c; max-height:78px; overflow-y:auto; }
+  #log div { border-left:2px solid #26302f; padding-left:5px; margin-bottom:2px; }
+  #ctl { flex:0 0 auto; padding:4px 6px 7px; background:#111517; border-top:1px solid #26302f;
+    display:flex; flex-wrap:wrap; gap:3px; }
+  button.chip { font-family:inherit; font-size:9px; padding:6px 7px; border-radius:4px;
+    border:1px solid #3d4a45; background:#1c2322; color:#9aa49f; }
+  button.chip.on { background:#22342c; border-color:#4d7a63; color:#d8ecdf; }
+  .wm { position:absolute; right:5px; bottom:3px; font-size:7.5px; color:#fff; opacity:.25; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE MODEL — NOT BOHEMIA. NOT A MEASUREMENT.</b> New Vegas standing +
+    a city builder + Valheim comfort, ten years after the crash. Their numbers, not ours.
+    <b>NO ECONOMY ON THIS PAGE, BY LAW.</b> Placeholder art.</div>
+
+  <div id="hud">
+    <div class="row"><span class="n">the world</span>
+      <span class="c" id="worldwhy"></span><span class="v" id="worldv"></span></div>
+    <div class="row"><span class="n">what you have built</span>
+      <span class="c" id="builtwhy"></span><span class="v" id="builtv"></span></div>
+    <div class="row"><span class="n">the light</span>
+      <span class="c" id="litwhy"></span><span class="v" id="litv"></span></div>
+  </div>
+
+  <div id="panes">
+    <div class="card">
+      <div class="wm">PLACEHOLDER ART</div>
+      <h3>THE FINDING — MONEY IS NOT THE CURRENCY. STANDING IS.</h3>
+      <div class="sub">Ten years cold, there is nothing left to trade with. What is left is who
+        owns the working thing and whether they will deal with you. New Vegas proved that works,
+        and the reason it works is that <b>fame and infamy are TWO SEPARATE COUNTERS</b> — you can
+        be loved and feared by the same people at the same time. One slider is a stat.
+        Two counters is a person.</div>
+      <div class="big" id="headline"></div>
+    </div>
+
+    <div class="card">
+      <h3>1 + 2. STANDING — two numbers, and the title comes from BOTH</h3>
+      <div class="sub">Tap a faction to see it. Fame and infamy never cancel: they are tracked
+        apart, and the combination names you. That is where <b>Wild Child</b>, <b>Dark Hero</b> and
+        <b>Soft-Hearted Devil</b> come from — titles that only exist because the game refused to
+        average you out.</div>
+      <div id="factions"></div>
+    </div>
+
+    <div class="card">
+      <h3>3. THE SAME DEED IS WORTH DIFFERENT AMOUNTS</h3>
+      <div class="sub">Their real thresholds are per-faction, and they are not close. The
+        Brotherhood needs <b>3</b> to accept you; the Legion needs <b>100</b> to idolise you. A
+        small, insular, desperate outfit is cheap to impress. A huge one barely notices. Same deed,
+        different standing — which is how you make a small faction worth caring about without
+        buffing it.</div>
+      <div id="thresholds"></div>
+    </div>
+
+    <div class="card">
+      <h3>4. WHAT YOU DO — and one of these is the trap</h3>
+      <div class="sub">Every deed moves BOTH counters, some of them on more than one faction at
+        once. There is no move that is free with everybody, which is the whole point: standing is
+        not a score you farm, it is a set of people you are choosing between.</div>
+      <div id="deeds"></div>
+    </div>
+
+    <div class="card">
+      <h3>5. YOU BUILD TO BECOME SOMEBODY THEY HAVE TO DEAL WITH</h3>
+      <div class="sub">The city-builder half. What you put up does not make money — money is
+        banned. It makes you <b>worth dealing with</b>, and it is the only curve on this page that
+        rises, because it is the only one you build with your hands (that part is Valheim's
+        comfort). Under the CENTURY RULE it compounds across three acts.</div>
+      <div id="build"></div>
+    </div>
+
+    <div class="card">
+      <h3>THE GRID IS NOT DYING. IT DIED.</h3>
+      <div class="sub">Ten years ago, everywhere. That is Project Zomboid's shutoff in the PAST
+        TENSE — their apocalypse preset kills power and water on <b>day 14</b> and calls it done,
+        and here that is the BACKSTORY, not a timer. What is left is the <b>~12% still lit</b>, and
+        our own CLUSTERED POWER law already says that 12% is OWNED and its network is eerily
+        perfect. <span class="flag">So the light is not something you buy. It is something you have
+        STANDING for.</span> LIGHT = TERRITORY was never atmosphere.</div>
+      <div id="grid"></div>
+    </div>
+
+    <div class="card">
+      <h3>WHAT HAPPENED</h3>
+      <div id="log"></div>
+    </div>
+
+    <div class="card">
+      <h3>WHAT THIS DOES NOT DECIDE</h3>
+      <div class="sub"><span class="flag">NO ECONOMY, BY LAW, AND NOT ONE NUMBER HERE IS
+        BOHEMIA'S.</span> There is no price, no exchange rate, no inflation and no money on this
+        page — not even as a display — per
+        laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md. THE THREE CURRENCIES law stands:
+        resources, electricity, clout, no fourth thing. Bohemia's factions belong to the WORLD and
+        QUEST lanes and its city to the CITY lane; this page claims none of it. What it is FOR is
+        one question: <b>is STANDING the thing you spend, and is BUILDING how you earn it?</b></div>
+    </div>
+  </div>
+
+  <div id="ctl"></div>
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   THE NUMBERS. New Vegas ships compiled, so this block is DOCUMENTED except
+   for one Valheim line we already own. Every key is tagged in
+   records/lab/BOHEMIA_LAB_TEN_YEARS_COLD_TEARDOWN_7_31_26.txt and
+   gates/lab_gate.js clause 7 fails the build on an untagged one.
+   ========================================================================= */
+var TY = {
+  /* --- SOURCED: the one line we own, reused from LAB-05 --- */
+  VH_SEC_PER_COMFORT: 60,      /* PlayerConfiguration.cs:11 restSecondsPerComfortLevel = 60 */
+
+  /* --- DOC: New Vegas standing is TWO counters, and three axes of title --- */
+  GOOD_AXIS_LEVELS: 6,         /* Neutral..Idolized */
+  EVIL_AXIS_LEVELS: 6,         /* Neutral..Vilified */
+  MIXED_AXIS_LEVELS: 5,        /* Neutral..Wild Child — the axis nobody else has */
+  IDOLIZED_FAME_MIN: 90,       /* to be Idolized: fame >= 90 ... */
+  IDOLIZED_INFAMY_MAX: 4,      /* ... AND infamy below 4 */
+  GOOD_TROUBLEMAKER: 2,        /* good axis position 2: Smiling Troublemaker */
+  GOOD_RASCAL: 3,              /* good axis position 3: Good-Natured Rascal */
+  EVIL_SNEERING_PUNK: 2,       /* evil axis position 2: Sneering Punk */
+  EVIL_MERCIFUL_THUG: 3,       /* evil axis position 3: Merciful Thug */
+  DISGUISE_FACTIONS: 5,        /* only the five big factions have disguises */
+  WGS_MASKS: 6,                /* White Glove attire masks six */
+
+  /* --- DOC: their real per-faction fame thresholds --- */
+  NCR_ACCEPTED: 12, NCR_LIKED: 40, NCR_IDOLIZED: 80,
+  LEGION_ACCEPTED: 15, LEGION_LIKED: 50, LEGION_IDOLIZED: 100,
+  BOS_ACCEPTED: 3, BOS_LIKED: 10, BOS_IDOLIZED: 20,
+  BOOMERS_ACCEPTED: 8, BOOMERS_LIKED: 25, BOOMERS_IDOLIZED: 50,
+
+  /* --- DOC: Project Zomboid's shutoff, used as BACKSTORY not a timer --- */
+  PZ_ELECSHUT_TIER: 2,         /* apocalypse_SandboxVars.lua:11 ElecShut = 2 */
+  PZ_ELECSHUT_DAYS: 14,        /* apocalypse_SandboxVars.lua:13 ElecShutModifier = 14 */
+  PZ_WATERSHUT_DAYS: 14,       /* apocalypse_SandboxVars.lua:12 WaterShutModifier = 14 */
+
+  /* --- DOC: Valheim comfort, reused from our own LAB-05 record --- */
+  VH_RESTED_BASE_SEC: 480,
+  VH_COMFORT_BASE: 1,
+  VH_COMFORT_MAX: 17,
+  VH_RESTED_MAX_SEC: 1440,
+
+  /* --- DOC: our own canon, cited to the laws that already ruled it --- */
+  LIT_PCT: 12,                 /* CLUSTERED POWER: only ~12% is lit, and it is OWNED */
+  YEARS_AFTER_CRASH: 10,       /* TEN YEARS COLD clause 1: act 1 opens ten years after */
+  ACTS: 3,                     /* the three acts */
+  CENTURY_YEARS: 100,          /* the CENTURY RULE: choices compound over ~100 years */
+  CURRENCIES: 3,               /* resources, electricity, clout. No fourth thing. */
+
+  /* --- DOC: the title ladder positions we model --- */
+  TIER_NEUTRAL: 0,
+  TIER_ACCEPTED: 1,
+  TIER_LIKED: 2,
+  TIER_IDOLIZED: 3,
+  INFAMY_SHUNNED: 15,          /* where a bad name starts to cost you */
+  INFAMY_VILIFIED: 50          /* and where it becomes the only thing about you */
+};
+
+/* CONTENT (theirs / ours-declared-for-the-toy). The four factions use New Vegas's
+   REAL thresholds, because the whole finding is that they differ wildly. */
+var FACTIONS = [
+  { id: 'ncr', name: 'the big one', real: 'NCR',
+    acc: TY.NCR_ACCEPTED, lik: TY.NCR_LIKED, idol: TY.NCR_IDOLIZED,
+    why: 'huge and bureaucratic. barely notices you.' },
+  { id: 'legion', name: 'the hard one', real: "Caesar's Legion",
+    acc: TY.LEGION_ACCEPTED, lik: TY.LEGION_LIKED, idol: TY.LEGION_IDOLIZED,
+    why: 'the most expensive respect in the game. 100 to be idolised.' },
+  { id: 'bos', name: 'the hidden one', real: 'Brotherhood of Steel',
+    acc: TY.BOS_ACCEPTED, lik: TY.BOS_LIKED, idol: TY.BOS_IDOLIZED,
+    why: 'tiny, insular, desperate. THREE points and you are in.' },
+  { id: 'boomers', name: 'the shut-in one', real: 'the Boomers',
+    acc: TY.BOOMERS_ACCEPTED, lik: TY.BOOMERS_LIKED, idol: TY.BOOMERS_IDOLIZED,
+    why: 'shoots strangers on sight, then adores you once you are in.' }
+];
+
+/* every deed moves BOTH counters, and several move more than one faction */
+var DEEDS = [
+  { id: 'work', name: 'do the unglamorous job', fame: { ncr: 4, bos: 1 }, infamy: {},
+    note: 'small, safe, slow. the honest grind.' },
+  { id: 'raid', name: 'take a convoy off the big one', fame: { legion: 12, boomers: 2 },
+    infamy: { ncr: 9 }, note: 'THE TRAP: buys a lot from one side and costs you the other.' },
+  { id: 'salvage', name: 'hand over the tech you found', fame: { bos: 6 }, infamy: {},
+    note: 'the hidden one only wants one thing, and pays properly for it.' },
+  { id: 'both', name: 'work both sides of the same fight', fame: { ncr: 6, legion: 6 },
+    infamy: { ncr: 6, legion: 6 },
+    note: 'THIS IS THE MIXED AXIS. fame AND infamy with the same people. you become a Wild Child.' },
+  { id: 'guard', name: 'stand guard at the shut-in gate', fame: { boomers: 9 }, infamy: {},
+    note: 'nobody else cares. they care enormously.' }
+];
+
+/* =========================================================================
+   MECHANIC 1 + 2 — STANDING. Fame and infamy NEVER cancel.
+   ========================================================================= */
+var S = {
+  fame: { ncr: 0, legion: 0, bos: 0, boomers: 0 },
+  infamy: { ncr: 0, legion: 0, bos: 0, boomers: 0 },
+  built: 0,
+  looking: 'ncr',
+  log: []
+};
+
+function facDef(id) { for (var i = 0; i < FACTIONS.length; i++) if (FACTIONS[i].id === id) return FACTIONS[i]; return FACTIONS[0]; }
+
+/* the GOOD axis: which fame tier their real thresholds put you in */
+function fameTier(id) {
+  var f = facDef(id), v = S.fame[id];
+  if (v >= f.idol) return TY.TIER_IDOLIZED;
+  if (v >= f.lik) return TY.TIER_LIKED;
+  if (v >= f.acc) return TY.TIER_ACCEPTED;
+  return TY.TIER_NEUTRAL;
+}
+/* the EVIL axis, on its own scale, entirely independent of the above */
+function infamyTier(id) {
+  var v = S.infamy[id];
+  if (v >= TY.INFAMY_VILIFIED) return 2;
+  if (v >= TY.INFAMY_SHUNNED) return 1;
+  return 0;
+}
+/* THE TITLE. This is the mechanism: it reads BOTH, and the interesting names
+   only exist where both are high. One slider could never produce them. */
+function title(id) {
+  var g = fameTier(id), e = infamyTier(id);
+  if (g === 0 && e === 0) return 'unknown';
+  if (e === 0) return ['unknown', 'accepted', 'liked', 'idolized'][g];
+  if (g === 0) return e === 2 ? 'vilified' : 'shunned';
+  /* BOTH high -> the mixed axis */
+  if (g >= 2 && e >= 2) return 'WILD CHILD';
+  if (g >= 2) return 'DARK HERO';
+  return 'SOFT-HEARTED DEVIL';
+}
+function isMixed(id) { return fameTier(id) > 0 && infamyTier(id) > 0; }
+
+/* their documented gate: idolized needs high fame AND low infamy */
+function trulyIdolized(id) {
+  return S.fame[id] >= TY.IDOLIZED_FAME_MIN && S.infamy[id] < TY.IDOLIZED_INFAMY_MAX;
+}
+
+/* =========================================================================
+   MECHANIC 3 — THE SAME DEED IS WORTH DIFFERENT AMOUNTS
+   ========================================================================= */
+function costToAccepted(id) { return facDef(id).acc; }
+function spread() {
+  var v = FACTIONS.map(function (f) { return f.idol; });
+  return Math.max.apply(null, v) / Math.min.apply(null, v);
+}
+
+/* =========================================================================
+   MECHANIC 4 — DEEDS. Every one moves both counters, several move two factions.
+   ========================================================================= */
+function deedDef(id) { for (var i = 0; i < DEEDS.length; i++) if (DEEDS[i].id === id) return DEEDS[i]; return null; }
+function doDeed(id) {
+  var d = deedDef(id);
+  if (!d) return null;
+  var moved = [];
+  for (var k in d.fame) { S.fame[k] += d.fame[k]; moved.push('+' + d.fame[k] + ' fame ' + k); }
+  for (var k2 in d.infamy) { S.infamy[k2] += d.infamy[k2]; moved.push('+' + d.infamy[k2] + ' INFAMY ' + k2); }
+  log(d.name + ' — ' + moved.join(', ') + '  [' + FACTIONS.map(function (f) {
+    return f.id + ':' + title(f.id); }).join(' ') + ']');
+  paint();
+  return moved;
+}
+
+/* =========================================================================
+   MECHANIC 5 — YOU BUILD TO MATTER. Valheim's comfort curve, doing a new job:
+   it is not a buff here, it is WHAT MAKES YOU WORTH DEALING WITH.
+   ========================================================================= */
+function comfort() { return Math.min(TY.VH_COMFORT_MAX, TY.VH_COMFORT_BASE + S.built); }
+function restedSeconds() {
+  return TY.VH_RESTED_BASE_SEC + (comfort() - TY.VH_COMFORT_BASE) * TY.VH_SEC_PER_COMFORT;
+}
+/* what you have built is a standing MULTIPLIER: a nobody's favour is worth less */
+function worthMultiplier() { return 1 + S.built * 0.5; }
+function buildOne() {
+  if (comfort() >= TY.VH_COMFORT_MAX) { log('nothing left to build at this scale'); paint(); return false; }
+  S.built++;
+  log('BUILT something. comfort ' + comfort() + ' (rested ' + restedSeconds() + 's), and every ' +
+      'deed you do now counts x' + worthMultiplier().toFixed(1) + ' because you are somebody.');
+  paint();
+  return true;
+}
+/* THE CENTURY RULE: what you built compounds across the acts. Not a currency —
+   a multiplier on how much the city remembers you. */
+function cityAtAct(act) { return S.built * Math.pow(2, act - 1); }
+
+/* =========================================================================
+   THE GRID — DEAD. PAST TENSE. Access is a STANDING, not a purchase.
+   ========================================================================= */
+function litOwner() {
+  /* whoever you stand highest with is who lets you into the light */
+  var best = null;
+  FACTIONS.forEach(function (f) {
+    var t = fameTier(f.id);
+    if (t > 0 && (!best || t > best.t)) best = { id: f.id, t: t };
+  });
+  return best;
+}
+function haveLight() { var o = litOwner(); return !!o && o.t >= TY.TIER_ACCEPTED; }
+
+function log(m) { S.log.unshift(m); if (S.log.length > 12) S.log.pop(); }
+function el(id) { return document.getElementById(id); }
+
+/* =========================================================================
+   VIEW
+   ========================================================================= */
+function paint() {
+  el('worldv').textContent = TY.YEARS_AFTER_CRASH + ' years cold';
+  el('worldwhy').textContent = 'the crash is over. nobody is simulating it.';
+  el('builtv').textContent = S.built + ' up  (x' + worthMultiplier().toFixed(1) + ')';
+  el('builtwhy').textContent = 'comfort ' + comfort() + ', rested ' + restedSeconds() + 's';
+  var o = litOwner();
+  el('litv').textContent = haveLight() ? 'YOU\'RE IN' : 'dark';
+  el('litwhy').textContent = haveLight()
+    ? facDef(o.id).name + ' lets you into the lit ' + TY.LIT_PCT + '%'
+    : 'the lit ' + TY.LIT_PCT + '% is owned. you have no standing.';
+
+  el('headline').innerHTML = S.built === 0 && !haveLight()
+    ? 'nobody knows you, so <b>nothing is for sale to you at any price</b> — and there is no ' +
+      'price anyway. Do something, or build something.'
+    : 'you are <b>' + FACTIONS.map(function (f) { return title(f.id); })
+        .filter(function (t) { return t !== 'unknown'; }).join(' / ') + '</b>' +
+      (haveLight() ? ', and that is what gets you into the light.' : ', and it is not enough yet.');
+
+  /* 1+2 the four factions, both bars each */
+  var fh = el('factions'); fh.innerHTML = '';
+  FACTIONS.forEach(function (f) {
+    var wrap = document.createElement('div');
+    var hd = document.createElement('div'); hd.className = 'row';
+    hd.innerHTML = '<span class="n">' + f.name + '</span><span class="c">' + f.real + '</span>' +
+      '<span class="v"><span class="title">' + title(f.id) + '</span></span>';
+    wrap.appendChild(hd);
+    [['fame', S.fame[f.id], f.idol, '#4d7a63'], ['infamy', S.infamy[f.id], TY.INFAMY_VILIFIED, '#8c4a44']]
+      .forEach(function (b) {
+        var d = document.createElement('div'); d.className = 'fi';
+        d.innerHTML = '<span class="lab">' + b[0] + '</span><span class="bar"><i style="width:' +
+          Math.min(100, (b[1] / b[2]) * 100) + '%;background:' + b[3] + '"></i></span>' +
+          '<span class="num">' + b[1] + '</span>';
+        wrap.appendChild(d);
+      });
+    if (isMixed(f.id)) {
+      var n = document.createElement('div'); n.className = 'sub';
+      n.innerHTML = '<span class="flag">BOTH AT ONCE.</span> fame ' + S.fame[f.id] + ' and infamy ' +
+        S.infamy[f.id] + ' — they never cancelled, so you are a <b>' + title(f.id) + '</b>. ' +
+        'One slider could not produce this word.';
+      wrap.appendChild(n);
+    }
+    fh.appendChild(wrap);
+  });
+
+  /* 3 the thresholds, side by side, because the spread IS the finding */
+  var th = el('thresholds'); th.innerHTML = '';
+  FACTIONS.forEach(function (f) {
+    var d = document.createElement('div'); d.className = 'row';
+    /* SHORT name in .n and the real one in the note: "Brotherhood of Steel" wrapped
+       onto two lines and collided with the reason text, and the 3-number value column
+       clipped at 96px. Both only visible in a screenshot of the real 390pt surface. */
+    d.innerHTML = '<span class="n">' + f.name + '</span>' +
+      '<span class="c">' + f.real + '</span>' +
+      '<span class="v" style="flex:0 0 84px">' + f.acc + '/' + f.lik + '/' + f.idol + '</span>';
+    th.appendChild(d);
+  });
+  var sp = document.createElement('div'); sp.className = 'sub';
+  sp.innerHTML = 'The spread between the cheapest and the dearest respect in the game is <b>x' +
+    spread().toFixed(1) + '</b>, and their gate for a true idolized is fame >= <b>' +
+    TY.IDOLIZED_FAME_MIN + '</b> AND infamy under <b>' + TY.IDOLIZED_INFAMY_MAX +
+    '</b> — you cannot buy your way out of a bad name with good deeds.';
+  th.appendChild(sp);
+
+  /* 4 the deeds */
+  var dh = el('deeds'); dh.innerHTML = '';
+  DEEDS.forEach(function (d) {
+    var r = document.createElement('div'); r.className = 'row';
+    var gains = Object.keys(d.fame).map(function (k) { return '+' + d.fame[k] + ' ' + k; });
+    var costs = Object.keys(d.infamy).map(function (k) { return '-' + d.infamy[k] + ' ' + k; });
+    r.innerHTML = '<span class="n">' + d.name + '</span>' +
+      '<span class="v">' + gains.join(' ') + (costs.length ? '<br>' + costs.join(' ') : '') + '</span>';
+    var b = document.createElement('button'); b.textContent = 'DO';
+    b.onclick = function () { doDeed(d.id); };
+    r.appendChild(b); dh.appendChild(r);
+    var n = document.createElement('div'); n.className = 'sub'; n.textContent = d.note;
+    dh.appendChild(n);
+  });
+
+  /* 5 building, and the century compounding */
+  var bh = el('build'); bh.innerHTML = '';
+  var br = document.createElement('div'); br.className = 'row';
+  br.innerHTML = '<span class="n">put something up</span>' +
+    '<span class="c">comfort ' + comfort() + ' -> ' + Math.min(TY.VH_COMFORT_MAX, comfort() + 1) +
+    '</span><span class="v">x' + (1 + (S.built + 1) * 0.5).toFixed(1) + ' worth</span>';
+  var bb = document.createElement('button'); bb.textContent = 'BUILD';
+  bb.disabled = comfort() >= TY.VH_COMFORT_MAX;
+  bb.onclick = function () { buildOne(); };
+  br.appendChild(bb); bh.appendChild(br);
+  for (var a = 1; a <= TY.ACTS; a++) {
+    var r2 = document.createElement('div'); r2.className = 'row';
+    r2.innerHTML = '<span class="n">act ' + a + '</span><span class="c">' +
+      (a === 1 ? 'what you put up now' : 'compounded, ' + (a - 1) * 33 + ' years on') +
+      '</span><span class="v">' + cityAtAct(a) + '</span>';
+    bh.appendChild(r2);
+  }
+  var cn = document.createElement('div'); cn.className = 'sub';
+  cn.innerHTML = 'THE CENTURY RULE, already canon: over ' + TY.CENTURY_YEARS + ' years and ' +
+    TY.ACTS + ' acts, what the dynasty built is the city\'s long memory. It is not a currency ' +
+    'and it never becomes one — there are ' + TY.CURRENCIES + ' currencies and no fourth thing.';
+  bh.appendChild(cn);
+
+  /* the dead grid */
+  var gh = el('grid'); gh.innerHTML = '';
+  [['power', TY.PZ_ELECSHUT_DAYS], ['water', TY.PZ_WATERSHUT_DAYS]].forEach(function (p) {
+    var r = document.createElement('div'); r.className = 'row';
+    r.innerHTML = '<span class="n"><span class="dead">' + p[0] + '</span></span>' +
+      '<span class="c">Zomboid kills it on day ' + p[1] + '. that was ten years ago.</span>' +
+      '<span class="v">GONE</span>';
+    gh.appendChild(r);
+  });
+  var lr = document.createElement('div'); lr.className = 'row';
+  lr.innerHTML = '<span class="n">the ' + TY.LIT_PCT + '% still lit</span>' +
+    '<span class="c">owned, and the network eerily perfect</span>' +
+    '<span class="v">' + (haveLight() ? 'standing: IN' : 'standing: OUT') + '</span>';
+  gh.appendChild(lr);
+
+  var lg = el('log'); lg.innerHTML = '';
+  S.log.forEach(function (m) {
+    var d = document.createElement('div'); d.textContent = m; lg.appendChild(d);
+  });
+}
+
+function bindCtl() {
+  var h = el('ctl');
+  [['RESET', function () { reset(); }],
+   ['MAKE ME A WILD CHILD', function () {
+     doDeed('both'); doDeed('both'); doDeed('both'); doDeed('both');
+     doDeed('both'); doDeed('both'); doDeed('both'); doDeed('both');
+   }],
+   ['THE HONEST GRIND', function () { for (var i = 0; i < 6; i++) doDeed('work'); }]
+  ].forEach(function (p) {
+    var b = document.createElement('button'); b.className = 'chip'; b.textContent = p[0];
+    b.onclick = function () { p[1](); paint(); };
+    h.appendChild(b);
+  });
+}
+
+function reset() {
+  FACTIONS.forEach(function (f) { S.fame[f.id] = 0; S.infamy[f.id] = 0; });
+  S.built = 0; S.looking = 'ncr'; S.log = [];
+  paint();
+}
+
+/* =========================================================================
+   THE GATE HARNESS — the gate drives these, never a second copy of the maths
+   ========================================================================= */
+window.LAB = {
+  TY: TY,
+  kind: 'MODEL',
+  mechanics: ['standing', 'the mixed axis', 'thresholds', 'deeds', 'building to matter'],
+  S: S, FACTIONS: FACTIONS, DEEDS: DEEDS,
+  /* 1+2 */ fameTier: fameTier, infamyTier: infamyTier, title: title, isMixed: isMixed,
+  trulyIdolized: trulyIdolized, facDef: facDef,
+  /* 3 */ costToAccepted: costToAccepted, spread: spread,
+  /* 4 */ doDeed: doDeed, deedDef: deedDef,
+  /* 5 */ comfort: comfort, restedSeconds: restedSeconds, worthMultiplier: worthMultiplier,
+  buildOne: buildOne, cityAtAct: cityAtAct, built: function () { return S.built; },
+  /* the dead grid */ litOwner: litOwner, haveLight: haveLight,
+  /* harness */
+  fame: function (id) { return S.fame[id]; }, infamy: function (id) { return S.infamy[id]; },
+  setStanding: function (id, f, i) { S.fame[id] = f; S.infamy[id] = i; paint(); },
+  reset: reset, freeze: function () {}, thaw: function () {}
+};
+
+bindCtl();
+reset();
+</script>
+</body>
+</html>

@@ -344,3 +344,34 @@ WHAT DID NOT DIE: the events themselves. All 12 game moments are still right;
 ten of them now have approved sounds banked. door_open and door_shut sit at zero
 approved and the game makes no door sound until he rules. That is the correct
 state, not a gap to be quietly filled.
+
+
+================================================================================
+DEAD 7/31/26 — slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html (LAB-08)
+KILLED BY: laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md, clauses 1 and 2.
+PAOLO'S WORDS: "THE WHOLE POINT OF THE GAME IS THAT IT STARTS TEN YEARS AFTER THE
+  ECONOMIC CRASH BRO WTF LIKE I DONT WANT IN THE GAME U GOTTA BE DEALING WITH
+  SOME WEIRD ECONOMIC GAMEPLAY"
+POST-MORTEM: records/BOHEMIA_THE_CRASH_KILL_7_31_26.md
+
+WHY IT DIED, in one line: it simulated the crash HAPPENING, in a game that opens
+ten years after the crash ended. The player was not there.
+
+Three of its five mechanics were banned outright the moment the law landed:
+"the money dies" (a devaluation curve you watch fall), "the freeze" (withdrawal
+caps) and "the grid dies" (a shutoff TIMER, when clause 3 says the utility is
+already dead everywhere and is not an event). Being accurate about Lebanon was
+not a defence.
+
+NO V2. Under laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md, rebuilding a
+rejected thing in a legal-looking new form IS the violation, and the tell is
+writing another version of it at all. THE ANSWER IS A DIFFERENT QUESTION, and it
+shipped the same turn: slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html, where
+money is banned and STANDING is the currency.
+
+NOT DEAD: records/lab/BOHEMIA_LAB_THE_CRASH_TEARDOWN_7_31_26.txt and its pattern
+note survive, marked DEAD at the top, on the same precedent as the Zomboid loot
+teardown (7/26): facts about another game's numbers, and about Lebanon's, do not
+stop being facts because the page built on them was wrong. One finding in there
+was CONFIRMED by his own correction rather than killed -- a dead utility has an
+OWNER -- and that finding is load-bearing in the law that killed the page.

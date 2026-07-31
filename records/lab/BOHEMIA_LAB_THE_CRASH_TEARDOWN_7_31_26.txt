@@ -1,3 +1,18 @@
+******************************************************************************
+*** DEAD 7/31/26. The PAGE this describes is GRAVEYARDED and DELETED, killed by
+*** laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md the same day it shipped.
+*** Paolo: "THE WHOLE POINT OF THE GAME IS THAT IT STARTS TEN YEARS AFTER THE
+*** ECONOMIC CRASH... I DONT WANT IN THE GAME U GOTTA BE DEALING WITH SOME WEIRD
+*** ECONOMIC GAMEPLAY". It simulated the crash HAPPENING, in a game that opens
+*** ten years after it ended. THERE IS NO V2. Post-mortem:
+*** records/BOHEMIA_THE_CRASH_KILL_7_31_26.md
+*** THIS FILE SURVIVES ONLY as the record of what was measured -- facts about
+*** Lebanon and about Zomboid's Lua do not stop being facts. DO NOT BUILD FROM IT.
+*** ONE FINDING IN HERE WAS CONFIRMED RATHER THAN KILLED: a dead utility has an
+*** OWNER. That one is load-bearing in the law that killed the page, and it lives
+*** on in slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html.
+******************************************************************************
+
 BOHEMIA LAB 08 — THE MODERN ECONOMIC CRASH, FUSED (7/31/26, LAB lane)
 =============================================================================
 PAGE: slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html
