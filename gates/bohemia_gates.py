@@ -334,6 +334,8 @@ GATES = [
      "Paolo 7/29: the valley's population IS its food carrying capacity, and it lands as clusters AND no man's lands AND random spread - never a flat rate, and the emptiness is authored", False),
     ('CITY PEOPLE',    ['node', 'gates/city_people_gate.js'],
      'the walk surface had ZERO people in it: measured in a real browser on the real tab that a cluster shows people, a no man\'s land shows nobody, and nobody stands where the player cannot walk', True),
+    ('PEOPLE',         ['node', 'gates/people_gate.js'],
+     "the 28 scheduled bodies on the block are PEOPLE: identity DERIVED (so it survives the sim being thrown away on every save load), his named-cast and dialogue tables shipped EMPTY and kept that way, and the card he actually sees driven in a real browser", True),
     ('MASS EDIT',      ['node', 'gates/mass_edit_gate.js'],
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('TILE FORM',      ['python3', 'gates/tileform_gate.py'],

@@ -3045,7 +3045,17 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
-0. THE DIALOGUE SYSTEM v1 (big-missing item 6): a conversation surface ON
+0. [MOSTLY ALREADY BUILT — verified 7/31, do NOT rebuild it] THE DIALOGUE
+   SYSTEM v1. REUSE-FIRST found it: engine/bohemia_quest_runtime.js plus the
+   run's own TALK sheet already play .bq conversations end to end on the real
+   run surface (speaker, portrait, says, choices, silences, noverbs), driven by
+   the one contextual verb, and gates/run_gate.js has proved S01 playable both
+   forks since 7/26. What was missing was never the runtime — it was that the
+   sheet only ever opened for the ONE quest speaker. Item 1 opened it for
+   everybody. WHAT IS ACTUALLY LEFT HERE: nothing this lane may build alone.
+   A non-quest conversation needs WORDS, and the words are Paolo's (LINES ships
+   empty). Original text kept below for the record.
+   THE DIALOGUE SYSTEM v1 (big-missing item 6): a conversation surface ON
    THE WALK — portrait + lines + choices through the run's ONE contextual
    verb (TALK already exists; today it is hardcoded quest text). Mechanism:
    a dialogue runtime any quest/NPC can feed; the quest corpus's .bq
@@ -3054,13 +3064,35 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    | one .bq conversation playable on the real run surface through the one
    verb, gated | RUN owns the surface integration; coordinate, don't
    collide | no (mechanism; the words already have verdicts).
-1. NPC IDENTITY MECHANISM (big-missing item 6): bind the run's scheduled
-   bodies to persistent identities — name, face (CHARACTER's archetype
-   warmer pattern), household, workplace — deterministic per seed so the
-   same neighbour is the same person tomorrow. NAMED CAST TIER SHIPS EMPTY
-   [PENDING Paolo — who the valley's named people are]. | same cell twice =
-   same people, headless-gated; identities visible on TALK | rig law,
-   shadows separate | no.
+1. [SHIPPED 7/31 — records/BOHEMIA_PEOPLE_IDENTITY_7_31_26.md] NPC IDENTITY
+   MECHANISM (big-missing item 6). engine/bohemia_people.js: every scheduled
+   body resolves to a PERSON — role, house, household seat, job, their day,
+   their own face — DERIVED from (blockSeed, house, slot), never stored,
+   because the run throws every agent away and rebuilds it from the seed on
+   each save load. Walk up to anybody on the RUN tab and the one button reads
+   TALK TO THE SCAVENGER; the card shows who they are and whether you have met.
+   HANG OUT was not deleted, it moved inside the conversation. A meeting ledger
+   rides in the existing save blob (additive, no env bump).
+   NAMED_CAST and LINES SHIP EMPTY and people_gate fails if either gains a row;
+   there is no procedural name generator and the gate sweeps for a name bank.
+   [PENDING Paolo] is now ONE question: do the neighbours get NAMES (his, a
+   ruled cast) or stay role-and-house forever?
+   TWO REAL BUGS FOUND BY THE GATE, both measured: (1) `agent.seed % 6` can only
+   return 0/2/4 over 528 bodies on 40 blocks, so THREE OF THE SIX townsfolk
+   bodies the alpha bakes had never been drawn — dead low bits from a float64
+   multiply in bohemia_agents.hash; fixed at the modulus (mix32) NOT in that
+   hash, because changing it would reshuffle every household in the valley.
+   (2) mine: identity was keyed to the world SEED (which is 7 for the whole
+   valley) instead of the block seed. Gate: PEOPLE, 63 checks, 8 mutations
+   caught. Proof: slices/BOHEMIA_PEOPLE_CARD_ALPHA_7_31_26.png.
+1b. (discovered 7/31) THE FACES DO NOT VARY BY FACE. CHARACTER's portrait baker
+   renders the same spec per look and varies colourway + hat, so six people are
+   six palettes of one face. Not this lane's system — flagged for CHARACTER, not
+   claimed. Nothing here is blocked on it.
+1c. (discovered 7/31) A PERSON IS PER BLOCK. Walk to another cell and those are
+   correctly different people, but nobody FOLLOWS you between cells and the
+   valley census (bohemia_population.js) is still numbers rather than
+   identities. That is the shape the companion layer (item 3) will need.
 2. FACTION STANDING LEDGER (big-missing item 4): a per-faction standing
    value the world can read/write, EMPTY of rules — no action-to-standing
    table until Paolo rules it (kill-anyone + clout laws interact here and

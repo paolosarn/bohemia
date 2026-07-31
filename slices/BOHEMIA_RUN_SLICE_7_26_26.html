@@ -145,6 +145,19 @@
     background:#241d12; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); }
   #opts button.sil{ color:var(--dim); font-style:italic; font-weight:500; }
   #opts button:active{ background:#31280f; }
+/* PEOPLE:CSS */
+  /* THE IDENTITY CARD. Deliberately NOT a debug panel: it is the top of the
+     dialogue sheet, in the sheet's own type, because a person you can read is a
+     person and a table of fields is a spreadsheet. */
+  #seat{ font-family:var(--mono); font-size:9px; letter-spacing:1.3px;
+    color:var(--faint); text-transform:uppercase; margin-top:3px; }
+  #idcard{ display:none; margin:0 0 12px; padding:10px 0 0; border-top:1px solid var(--line); }
+  #idcard .r{ display:flex; gap:10px; align-items:baseline; margin-bottom:6px; }
+  #idcard .k{ font-family:var(--mono); font-size:8.5px; letter-spacing:1.2px;
+    color:var(--faint); text-transform:uppercase; flex:none; width:82px; }
+  #idcard .v{ font-size:13px; color:var(--ink); line-height:1.35; }
+  #idcard .r.unnamed .v{ color:var(--dim); font-style:italic; }
+/* /PEOPLE:CSS */
 
   /* ---- THE PHONE (end of the run: the post) ---- */
   #phone{ position:absolute; inset:0; z-index:30; display:none; flex-direction:column;
@@ -247,7 +260,11 @@
   </div>
 
   <div id="talk"><div id="talkin">
-    <div class="spkrow"><canvas id="spkface" width="64" height="64"></canvas><div id="spk"></div></div>
+    <!-- PEOPLE:DOM -->
+    <div class="spkrow"><canvas id="spkface" width="64" height="64"></canvas>
+      <div><div id="spk"></div><div id="seat"></div></div></div>
+    <div id="idcard"></div>
+    <!-- /PEOPLE:DOM -->
     <div id="says"></div><div id="opts"></div>
   </div></div>
 
@@ -330,6 +347,9 @@
 <script src="../engine/bohemia_garage.js"></script>
 <script src="../engine/bohemia_crypt.js"></script>
 <script src="../engine/bohemia_agents.js"></script>
+<!-- PEOPLE:SCRIPT -->
+<script src="../engine/bohemia_people.js"></script>
+<!-- /PEOPLE:SCRIPT -->
 <script src="../engine/bohemia_resolve.js"></script>
 <script src="../engine/bohemia_world.js"></script>
 <script>
@@ -699,6 +719,7 @@ var SIM = null;
 function buildSim(warm){
   try{
     var seed = (SEED ^ (CELL[0]*73856093) ^ (CELL[1]*19349663)) >>> 0;
+    /* PEOPLE:SEED */PEOPLE_SEED = seed;   /* whose block this is *//* /PEOPLE:SEED */
     /* RUN PEOPLE (7/29): HOW MANY of them there are is Paolo's zone map, not a
        flat rate. agentsForBlock already took opts.occupiedRate and the run was
        never passing it, so every block in the valley used the module's
@@ -1664,7 +1685,7 @@ function draw(){
       for(var ai=0; ai<outs.length; ai++){ var a=outs[ai];
         var nsx=a.loc.x-px, nsy=a.loc.y-py; if(Math.abs(nsx)>halfW||Math.abs(nsy)>halfH) continue;
         var fa=FACES[a.id]||{d:'S',f:0};
-        var lk=lookFor(a.seed);
+        /* PEOPLE:LOOK */var lk=lookFor(personFor(a).lookSeed);/* /PEOPLE:LOOK */
         bodies.push({ sx:nsx, sy:nsy, set:lk?lk[fa.d]:null, frame:fa.moving?fa.f:null,
                       ring:null, fb:['#8f7a56','#5f7486','#9a8452','#7a5a4a','#6a7a6a'][(a.seed>>>0)%5] }); } }
     var npc=questNpcTile();
@@ -1824,13 +1845,21 @@ function contextVerb(){
                      backAt=[px,py]; enter(HOME); RUN.phase='home_after'; autoSave('home'); openPhone(); draw(); return; }
                    backAt=[px,py]; enter(doorOf[k]); autoSave('inside'); refresh(); draw(); } };
       } }
-    /* a neighbour standing near you: a block of time spent with somebody */
+    /* PEOPLE:VERB */
+    /* A NEIGHBOUR STANDING NEAR YOU IS A PERSON, NOT A TIME SINK. This branch
+       used to be an anonymous HANG OUT (1 HOUR): you spent an hour with "a
+       neighbour" and never learned which one. It is TALK now, and the hour is
+       still on the table — it is an option inside the conversation, which is
+       where hanging out with somebody belongs once you know who they are. */
     if(SIM){ var outs=SIM.outAgents();
       for(var i=0;i<outs.length;i++){ var a=outs[i];
-        if(reaches(a.loc.x,a.loc.y))
-          return { verb:'hangout', label:'HANG OUT (1 HOUR)',
-                   act:function(){ spendTime('HANGOUT','You spent an hour with a neighbour.'); } };
+        if(reaches(a.loc.x,a.loc.y)){
+          var who=personFor(a);
+          return { verb:'talk', label:'TALK TO THE '+BohemiaPeople.headingOf(who),
+                   act:(function(ag){ return function(){ openPerson(ag); }; })(a) };
+        }
       } }
+    /* /PEOPLE:VERB */
   } else {
     /* WHAT YOU ARE STANDING AT BEATS WHAT YOU COULD DO ANYWHERE. Standing in
        the doorway has to offer the doorway, or the one button stops being
@@ -2047,11 +2076,105 @@ function renderTalk(v){
     var b=document.createElement('button'); b.id='talkcont'; b.textContent='CONTINUE';
     b.addEventListener('click', closeTalk); OPTS.appendChild(b); }
 }
+/* PEOPLE:RUNTIME */
+/* ===========================================================================
+   THE PEOPLE ON THE BLOCK ARE PEOPLE (7/31, PEOPLE lane).
+   engine/bohemia_people.js derives WHO a scheduled body is from the same three
+   numbers the body itself is derived from, so the identity survives the sim
+   being thrown away and rebuilt on every save load. Everything below is
+   RENDERING: not one fact on this card is invented here, and the NAME row says
+   NOT NAMED YET because the named cast is Paolo's and its table ships empty.
+   =========================================================================== */
+var PEOPLE_MET = BohemiaPeople.makeLedger(null);   /* rides in the save blob */
+var PERSON_OPEN = null;
+/* THE BLOCK'S OWN SEED, set by buildSim. NOT the world SEED (which is 7 for the
+   whole valley) — keying people off that would hand house 3's second resident
+   the same identity in every cell there is. */
+var PEOPLE_SEED = 0;
+function personFor(agent){
+  var roster = (SIM && SIM.agents) ? SIM.agents : [agent];
+  var sizes = {};
+  roster.forEach(function(r){ var h=BohemiaPeople.seatOf(r).house; sizes[h]=(sizes[h]||0)+1; });
+  return BohemiaPeople.personOf(PEOPLE_SEED, agent,
+    { householdSize: sizes[BohemiaPeople.seatOf(agent).house] });
+}
+/* THE DAY YOU ARE ON. The meeting ledger remembers world-days, never wall-clock:
+   a save has to mean the same thing on a device in another timezone (saveBlob's
+   own rule), and the sim turn IS the world minute. */
+function worldDay(){ return Math.floor((SIM?SIM.turn:0)/1440); }
+function openPerson(agent){
+  var who = personFor(agent);
+  if(!who) return;
+  /* meet() returns the record as it now stands, so the very meeting that makes
+     it no longer the first time still reads FIRST TIME. */
+  var met = PEOPLE_MET.meet(who.key, worldDay());
+  PERSON_OPEN = who;
+  RUN.phase='talking'; TALKEL.style.display='flex';
+  SPK.textContent = BohemiaPeople.headingOf(who);
+  var seat=document.getElementById('seat');
+  if(seat) seat.textContent = BohemiaPeople.seatLineOf(who);
+  /* THE FACE IS THE BODY. portraits.looks[i] is baked as the face of looks[i]
+     (one index, one person), and the walking body is drawn with
+     looks[agent.seed % n] — so the same seed here IS the person you walked up
+     to, and the body on the street is not touched at all. */
+  var slot=document.getElementById('spkface');
+  if(slot){
+    var n = (CAST && CAST.portraits && CAST.portraits.looks.length) || 0;
+    var pf = n ? CAST.portraits.looks[(who.lookSeed>>>0) % n] : null;
+    var c2=slot.getContext('2d'); c2.imageSmoothingEnabled=false;
+    c2.clearRect(0,0,slot.width,slot.height);
+    if(pf){ slot.style.display='block'; c2.drawImage(pf,0,0,slot.width,slot.height); }
+    else slot.style.display='none';
+  }
+  var card=document.getElementById('idcard');
+  card.style.display='block'; card.innerHTML='';
+  BohemiaPeople.cardFor(who, agent, SIM?SIM.turn:0, met).forEach(function(row){
+    var d=document.createElement('div');
+    d.className = 'r' + (row.label==='NAME' && !who.name ? ' unnamed' : '');
+    var k=document.createElement('div'); k.className='k'; k.textContent=row.label;
+    var v=document.createElement('div'); v.className='v'; v.textContent=row.value;
+    d.appendChild(k); d.appendChild(v); card.appendChild(d);
+  });
+  /* WHAT THEY SAY IS EMPTY AND STAYS EMPTY. This lane builds the mouth, not the
+     words (doctrine section 6); LINES is Paolo's table and people_gate fails if
+     anything fills it. An empty conversation is honest; a placeholder line
+     becomes canon by shipping. */
+  SAYS.innerHTML='';
+  BohemiaPeople.linesFor(who).forEach(function(s){
+    var p=document.createElement('p'); p.textContent=s; SAYS.appendChild(p); });
+  OPTS.innerHTML='';
+  var hang=document.createElement('button');
+  hang.id='pplhang'; hang.textContent='Hang out for an hour';
+  hang.addEventListener('click', function(){
+    closePerson();
+    spendTime('HANGOUT','You spent an hour with the '+BohemiaPeople.headingOf(who).toLowerCase()+'.');
+  });
+  OPTS.appendChild(hang);
+  var go=document.createElement('button');
+  go.id='pplleave'; go.className='sil'; go.textContent='Leave them to it';
+  go.addEventListener('click', closePerson);
+  OPTS.appendChild(go);
+  autoSave('met');            /* the meeting is remembered the moment it happens */
+}
+function closePerson(){
+  PERSON_OPEN=null;
+  var card=document.getElementById('idcard'); if(card) card.style.display='none';
+  var seat=document.getElementById('seat'); if(seat) seat.textContent='';
+  TALKEL.style.display='none';
+  RUN.phase = (RT && RT.state.done) ? 'resolved' : 'street';
+  refresh(); draw();
+}
+/* THE QUEST'S OWN closeTalk, which now also puts the card away: the two kinds
+   of conversation share one sheet, so whichever one closes it has to leave it
+   clean for the other. */
 function closeTalk(){
   TALKEL.style.display='none';
+  var _c=document.getElementById('idcard'); if(_c) _c.style.display='none';
+  var _s=document.getElementById('seat'); if(_s) _s.textContent='';
   RUN.phase = (RT && RT.state.done) ? 'resolved' : 'street';
   afterTalk();
 }
+/* /PEOPLE:RUNTIME */
 /* THE MIDDLE OF THE RUN: once the lineman sends you after the split (stage 20),
    the quest RE-BINDS to the fixer's tile at the far end of the block, so
    objective 20 "Follow the skimmed line" is a walk, not a menu. */
@@ -2214,6 +2337,7 @@ function saveBlob(label){
            phase:RUN.phase, outcome:RUN.outcome, clout:RUN.clout,
            combat:RUN.combatOutcome, rebound:rebound,
            doors:JSON.parse(JSON.stringify(DOORST)),
+           /* PEOPLE:SAVE */met:PEOPLE_MET.serialize(),/* /PEOPLE:SAVE */
            npc:(function(){ var p=CTX.quests._placed[QID];
              return p?{x:p.x,y:p.y,speaker:p.speaker,channel:p.channel}:null; })() } };
 }
@@ -2238,6 +2362,12 @@ function applyBlob(b){
     RUN.phase=b.run.phase; RUN.outcome=b.run.outcome; RUN.clout=b.run.clout;
     RUN.combatOutcome=b.run.combat||null;
     DOORST=b.run.doors||{};
+    /* PEOPLE:LOAD */
+    /* WHO YOU HAVE MET SURVIVES THE LOAD. The bodies do not survive it — the
+       block below rebuilds every agent from the seed — which is exactly why the
+       ledger is keyed by DERIVED identity and never by an agent object. */
+    PEOPLE_MET = BohemiaPeople.makeLedger(b.run.met || null);
+    /* /PEOPLE:LOAD */
     if(b.run.curHouse>=0){ var keepPX=px, keepPY=py; enter(b.run.curHouse); px=keepPX; py=keepPY; }
     else { curHouse=-1; fp=null; fpDoor=null; }
     /* the block sim is deterministic from the seed, so a save stores HOW FAR it
@@ -2409,6 +2539,23 @@ window.__RUN = {
   /* the sentence, for gates/run_gate.js: what ONE button is offering right now,
      what the world did the last time time was spent, and how walking feels. */
   verb: function(){ return VERB ? { verb:VERB.verb, label:VERB.label } : null; },
+  /* PEOPLE:DBG */
+  /* WHO IS ON THIS BLOCK, as the identity layer sees them. Reports, never acts. */
+  people: function(){
+    if(!SIM) return null;
+    var out = SIM.agents.map(function(a){
+      var p = personFor(a);
+      return { key:p.key, id:a.id, role:p.role, tier:p.tier, name:p.name,
+               heading:BohemiaPeople.headingOf(p), seat:BohemiaPeople.seatLineOf(p),
+               lookSeed:p.lookSeed, outside:(a.loc.mode==='out'),
+               x:a.loc.x, y:a.loc.y, house:p.household.house,
+               card:BohemiaPeople.cardFor(p, a, SIM.turn, PEOPLE_MET.get(p.key)) };
+    });
+    return { turn:SIM.turn, day:worldDay(), n:out.length,
+             met:PEOPLE_MET.serialize(), looks:(CAST&&CAST.portraits)?CAST.portraits.looks.length:0,
+             open:PERSON_OPEN?PERSON_OPEN.key:null, people:out };
+  },
+  /* /PEOPLE:DBG */
   moments: function(){ return MOMENTS.map(function(m){ return {name:m.name,spends:m.spends}; }); },
   lastResolve: function(){ return LAST_RESOLVE; },
   reach: function(){ return { tiles:REACH.tiles, facing:PFACE,
