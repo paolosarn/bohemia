@@ -13,14 +13,15 @@
    ground-touching-road cells came back walk_kerb. It looked done.
 
    It was a costume. The suburb GENERATOR's codes were 0,1,2,3,4,5,6,9 and not one
-   of them was a sidewalk, so:
+   of them was a sidewalk (7 and 8 are the GRAVEYARDED tree/pool codes -- the
+   dead-world law forbids them, which is why the walk is 10), so:
      - the CITY tab drew no walk at all (different renderer, same world)
      - the tilespec dossier had no sidewalk row to tile against
      - the world model reported no walk surface to anything that asked
      - and NO GATE COULD EVER FAIL, because there was nothing to check
    A feature that lives inside one renderer's if-statement is not in the game.
 
-   So the walk is a real cell (code 7) laid by the generator, and this gate checks
+   So the walk is a real cell (code 10) laid by the generator, and this gate checks
    the WORLD MODEL, never the renderer. It would have caught the original bug.
 
    ========================================================================== */
@@ -32,7 +33,7 @@ const S = require(path.join(ROOT, 'engine/bohemia_suburb.js'));
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
-const WALK = 7, ROAD = 1, DRIVE = 3, GROUND = 0;
+const WALK = 10, ROAD = 1, DRIVE = 3, GROUND = 0;
 const SEEDS = [1, 7, 42, 999, 4242, 12345, 88, 31337];
 const CONFIGS = [
   { cw: 1, ch: 1, streets: ['S'] },
@@ -118,8 +119,8 @@ ok('driveways still exist at all', shapes.length > 0);
       generator would look fine on the one surface Paolo taps. */
 const fs = require('fs');
 const dev = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'), 'utf8');
-ok('the run reads the world\'s sidewalk cell (c===7), it does not infer one',
-   /if\(c===7\)\s*return\s*'walk_kerb'/.test(dev));
+ok('the run reads the world\'s sidewalk cell (c===10), it does not infer one',
+   /if\(c===10\)\s*return\s*'walk_kerb'/.test(dev));
 ok('the render-time kerb trick is gone from groundTile',
    !/isRoad\(gx,gy\+1\)\|\|isRoad\(gx,gy-1\)\|\|isRoad\(gx\+1,gy\)\|\|isRoad\(gx-1,gy\)\)\s*return\s*'walk_kerb'/.test(dev));
 

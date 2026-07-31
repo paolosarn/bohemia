@@ -5,7 +5,7 @@
 // the MERGE LAW: fills the union as ONE connected neighborhood, wall wrapping the
 // union, a gate per street-facing cell. Homes are exposed as footprints the world
 // model floorplans (residential). Loops + garden were graveyarded (7/18 verdict).
-// codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage 7 sidewalk
+// codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage 10 sidewalk (7=tree and 8=pool are GRAVEYARDED, dead world)
 // ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
 // dead ground (code 0). Homes NEVER touch the wall — 3-tile dead backyard minimum.
 (function(root){
@@ -94,7 +94,7 @@
         var along=(nx!==0)?y:x;                                     // coordinate running along the road
         if((along%LOTW)!==((nx>0||ny>0)?0:(LOTW>>1)))continue;      // stagger the two sides
         home(g,x,y,nx,ny);}}}
-  /* THE SIDEWALK (code 7). Paolo 7/31, LOCKED: "Im upset your suburbs dont have
+  /* THE SIDEWALK (code 10). Paolo 7/31, LOCKED: "Im upset your suburbs dont have
      a 1 grid sidewalk next to the streets".
 
      He was right, and the reason it hid is worth writing down. The RUN was already
@@ -116,7 +116,7 @@
       if(g[y][x]!==0) continue;                                  // only dead ground converts
       if(g[y][x+1]===1||g[y][x-1]===1||g[y+1][x]===1||g[y-1][x]===1) add.push([x,y]);
     }
-    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=7;     // one grid, hugging the street
+    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=10;    // one grid, hugging the street
   }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
@@ -236,7 +236,7 @@
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===5||cc===3||cc===6){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.9;}
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',7:'#57575f',9:'#9a938a'};
+  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -247,7 +247,7 @@
     4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
     5:{name:'gate',               kind:'gate',       act1:'neighborhood street entrance off the arterial'},
     6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented', enter:'garage interior: 1-2 car bays, junk shelves, a door into the house'},
-    7:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
+    10:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
   var NOTES={
@@ -258,9 +258,9 @@
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
     circulation:'Street-aware: gates only on street edges (a corner exits two streets); roads reach every lot from the gate (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface.',
-    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (7), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
+    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
-      'Every street wears a ONE-GRID SIDEWALK on both sides (code 7), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
+      'Every street wears a ONE-GRID SIDEWALK on both sides (code 10), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
       'Driveways are exactly 2 tiles wide x 3 long (Paolo 7/31, LOCKED).',
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']

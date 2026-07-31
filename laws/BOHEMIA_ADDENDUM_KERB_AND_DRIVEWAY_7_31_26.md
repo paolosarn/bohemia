@@ -38,14 +38,18 @@ never knew about it.
 
 ## WHAT IT MEANS MECHANICALLY
 
-The sidewalk is **code 7**, laid by the generator in a final pass after homes and
+The sidewalk is **code 10**, laid by the generator in a final pass after homes and
 driveways are stamped, on every dead-ground cell orthogonally adjacent to a road.
+Not 7 or 8: those are the GRAVEYARDED tree and pool codes and the dead-world law
+forbids them outright. `suburb_modular_gate` caught my first attempt using 7 within
+the hour, which is the graveyard doing exactly its job.
+
 `kind:'walk'`, so the district kit resolves it to layer `ground`, `solid:false` —
 walkable, flat, no declaration needed anywhere else. Every consumer gets it free.
 
 The run's inference trick is **deleted, deliberately**. Left in as a fallback it
 would silently re-fake the walk the moment the generator regressed, which is the
-exact mechanism that hid this for weeks. The run reads `c===7` and nothing else.
+exact mechanism that hid this for weeks. The run reads `c===10` and nothing else.
 
 ## THE GATE
 

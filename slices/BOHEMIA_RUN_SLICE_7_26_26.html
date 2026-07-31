@@ -770,10 +770,11 @@ function groundTile(c,gx,gy){
      right here: ask "is this ground next to a road?" and lay the kerb tile if so.
      It LOOKED handled on this one surface while the world model had no sidewalk
      code at all, so the city drew none and no gate could fail. The generator lays
-     code 7 now and this just reads it. The trick is deleted ON PURPOSE: leaving it
+     code 10 now and this just reads it (7 and 8 are the GRAVEYARDED tree/pool
+     codes and must never come back). The trick is deleted ON PURPOSE: leaving it
      as a fallback would silently re-fake the walk the moment the generator
      regressed, which is the exact bug that hid this for weeks. */
-  if(c===7) return 'walk_kerb';
+  if(c===10) return 'walk_kerb';
   if(pathSet()[gx+','+gy]) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
   return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
 }
