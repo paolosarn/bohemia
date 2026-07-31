@@ -290,3 +290,57 @@ WHAT SURVIVED, because it is measurement and structure rather than taste:
   no overflow - and none about the ART. The single house he approved got looked at
   closely four times at full size. The sixteen never did once.
   VOLUME DOES NOT MEAN LOOKING LESS; a factory multiplies whatever went unchecked.
+================================================================================
+2026-07-30  SFX BATCH 02 — 22 CANDIDATES DOWN (his thumbs, 60/60 judged)
+================================================================================
+Paolo: "HERE THEY ARE I JUDGED THEM. SEND THE THUMBS DOWN TO THE GRAVYARD."
+Full verdict + analysis: records/BOHEMIA_SFX_VERDICT_7_30_26.txt
+
+38 UP, 22 DOWN. The 22 dead, verbatim from the generator that made them:
+  door_open.0      mat=metal    hz=  132.0 bright=0.85 decay=0.5 drive=0.25 space=0.62
+  door_open.1      mat=metal    hz=  122.5 bright=0.85 decay=0.75 drive=0.25 space=0.55
+  door_open.2      mat=metal    hz=  179.2 bright=0.85 decay=0.5 drive=0.25 space=0.75
+  door_open.3      mat=metal    hz=  116.2 bright=0.85 decay=0.75 drive=0.25 space=0.79
+  door_open.4      mat=metal    hz=  181.1 bright=0.85 decay=0.5625 drive=0.25 space=0.79
+  door_shut.0      mat=wood     hz=   78.0 bright=0.70 decay=0.25 drive=0.35 space=0.50
+  door_shut.1      mat=wood     hz=  108.2 bright=0.70 decay=0.1875 drive=0.29 space=0.65
+  door_shut.2      mat=wood     hz=   76.3 bright=0.70 decay=0.3125 drive=0.34 space=0.40
+  door_shut.3      mat=wood     hz=   73.1 bright=0.70 decay=0.375 drive=0.24 space=0.52
+  door_shut.4      mat=wood     hz=   98.6 bright=0.70 decay=0.375 drive=0.28 space=0.39
+  hit.0            mat=bone     hz=  168.0 bright=0.80 decay=0.1875 drive=0.50 space=0.18
+  hit.1            mat=bone     hz=  224.2 bright=1.03 decay=0.3125 drive=0.38 space=0.18
+  hit.3            mat=bone     hz=  191.2 bright=0.70 decay=0.25 drive=0.66 space=0.18
+  block.0          mat=metal    hz=  296.0 bright=1.25 decay=0.375 drive=0.30 space=0.34
+  block.1          mat=metal    hz=  380.3 bright=1.87 decay=0.25 drive=0.30 space=0.29
+  block.3          mat=metal    hz=  252.1 bright=1.34 decay=0.3125 drive=0.30 space=0.45
+  block.4          mat=metal    hz=  295.3 bright=1.81 decay=0.375 drive=0.30 space=0.29
+  ui_tap.0         mat=crystal  hz= 1180.0 bright=1.20 decay=0.125 drive=0.00 space=0.22
+  ui_tap.4         mat=crystal  hz=  861.9 bright=1.12 decay=0.1875 drive=0.00 space=0.25
+  phone_buzz.0     mat=metal    hz=   62.0 bright=0.50 decay=0.1875 drive=0.45 space=0.30
+  phone_buzz.1     mat=metal    hz=   78.4 bright=0.50 decay=0.1875 drive=0.33 space=0.30
+  phone_buzz.3     mat=metal    hz=   52.2 bright=0.50 decay=0.1875 drive=0.42 space=0.30
+THE POST-MORTEM, and it is one finding, not twenty-two:
+  METAL AND WOOD DIED. Across the whole batch, metal went 3 UP / 12 DOWN and
+  wood went 0 UP / 5 DOWN, while ash, stone and bell went 25 UP / 0 DOWN and
+  crystal 8 UP / 2 DOWN. The only two events wiped out ENTIRELY are DOOR OPENS
+  (built from metal) and DOOR SHUTS (built from wood) -- the two events whose
+  material was the material that lost.
+  I read that as the same bias his music canon already carries: bells in empty
+  casinos, dead chapel choirs, struck mineral. Metal groan and wood thud are a
+  different game's vocabulary and he heard it immediately.
+
+  And within the mixed events, the survivors are consistently BRIGHTER, SHORTER,
+  HARDER-DRIVEN and MORE ARTICULATED than the dead ones (hit +29% bright / -25%
+  decay / +38% drive; ui_tap -47% decay; phone_buzz's 8- and 6-strike patterns
+  lived while the 3- and 4-strike ones died). He wants sounds that CUT and STOP.
+
+NO REMAKE OF THESE 22. GRAVEYARD IS FINAL. Specifically: the metal-groan door
+and the wood-thud door do not come back under new numbers. A future door, when
+he greenlights one, is a FRESH COOK from a material that actually won -- and
+"build the door out of metal or wood again" is now a documented dead end, not an
+untried idea.
+
+WHAT DID NOT DIE: the events themselves. All 12 game moments are still right;
+ten of them now have approved sounds banked. door_open and door_shut sit at zero
+approved and the game makes no door sound until he rules. That is the correct
+state, not a gap to be quietly filled.

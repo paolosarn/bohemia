@@ -161,6 +161,11 @@ GATES = [
      "16th-of-a-beat grid, nothing invented outside the spec table, the generator "
      "deterministic, one AudioContext (the studio's), and the bank EMPTY until Paolo "
      "thumbs one", False),
+    ('SFX WIRED',      ['python3', 'gates/sfx_wired_gate.py'],
+     "APPROVED-BUT-UNUSED IS A DEFECT, for sound: the bank holds only the 38 he "
+     "thumbed UP on 7/30, nothing he killed, no door (he killed all ten), and "
+     "WALKING IN THE REAL RUN actually requests one of his approved footsteps, "
+     "chosen by the tile the game already knows", True),
     ('RUN BEAT',       ['python3', 'gates/run_beat_gate.py'],
      "the run is on the SONG'S clock, not its own hardcoded 500ms: the beat crosses "
      "the parent->run vocabulary, the door and the slide read the live tempo, the run "

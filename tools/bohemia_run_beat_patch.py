@@ -194,6 +194,11 @@ def main():
     if BEGIN in alpha:
         i = alpha.index(BEGIN)
         j = alpha.index(END) + len(END)
+        # and take back the trailing newline the inject added after END, or the
+        # file grows a blank line every re-run and regeneration stops being a
+        # no-op. Same bug, same seam, both sound tools had it.
+        if alpha[j:j + 1] == '\n':
+            j += 1
         alpha = alpha[:i] + alpha[j:]
         print('parent bridge removed (idempotent re-inject)')
     anchor = '<div id="exportModal"'
@@ -208,6 +213,9 @@ def main():
     run = open(RUN, encoding='utf8').read()
     if 'RUN BEAT RECEIVER (7/29/26' in run:
         i = run.index('/* === RUN BEAT RECEIVER (7/29/26')
+        # CHILD opens with its own newline; eat it back (same seam bug as above)
+        if i and run[i - 1] == '\n':
+            i -= 1
         j = run.index("function rbDoorMs(){ return RB.msPerBeat()*2; }   /* a door is 2 beats, always */")
         j = run.index('\n', j) + 1
         run = run[:i] + run[j:]

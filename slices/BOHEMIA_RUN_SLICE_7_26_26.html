@@ -1258,6 +1258,35 @@ var INT_ROLE={bed:'#9a94ac',bath:'#6ea0af',kitchen:'#beaa78',living:'#b4af96',di
 
 
 
+
+
+
+
+
+/* === SFX WIRE, RUN SIDE (7/30/26) ========================================
+   The run has no AudioContext and never gets one (ONE AUDIOCONTEXT, THE
+   PARENT'S). It says what happened; the parent plays Paolo's approved sound.
+
+   THE GROUND PICKS THE FOOTSTEP, and it does it from the tile the game already
+   knows -- the same names groundKind() classifies for drawing. No new content
+   and no guessing: a roadway or a sidewalk is asphalt, gravel and shoulder are
+   gravel, everything else is dirt. */
+function sfx(ev,when){
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({type:'BOHEMIA_SFX',ev:ev,when:when||null},'*'); }catch(_e){}
+}
+function sfxGround(gx,gy){
+  try{
+    if(mode!=='ext') return 'step_asphalt';        /* indoors is a hard floor */
+    if(typeof isRoad==='function' && isRoad(gx,gy)) return 'step_asphalt';
+    var n='';
+    try{ n=(NAMEG&&NAMEG[gy]&&NAMEG[gy][gx]||'').toLowerCase(); }catch(_e){}
+    if(/gravel|shoulder|rock|caliche|lag|track/.test(n)) return 'step_gravel';
+    if(/asphalt|roadway|lane|street|sidewalk|walk|path|concrete|apron|pad|slab|lot|parking|platform|court/.test(n))
+      return 'step_asphalt';
+    return 'step_dirt';                            /* desert, yards, everything else */
+  }catch(_e){ return 'step_dirt'; }
+}
 /* === RUN BEAT RECEIVER (7/29/26, SOUNDS lane) ============================
    THE RUN USED TO COUNT ITS OWN 500 ms. That agreed with the music only because
    both numbers were typed the same, which is not the 120 BPM LAW holding, it is
@@ -1959,6 +1988,7 @@ function move(dx,dy){
       autoSave('outside'); refresh(); draw(); return; }
     if(!passInt(nx,ny)) return; px=nx; py=ny;
   }
+  sfx(sfxGround(px,py));   /* HIS footstep, chosen by the ground (7/30) */
   if(WALKMODE==='SLIDE'){ SLIDE.on=true; SLIDE.fx=dx; SLIDE.fy=dy; SLIDE.t0=Date.now(); slideKick(); }
   if(SIM){ SIM.playerAt = (mode==='ext') ? [px,py] : null; SIM.step(); updateFaces(); }
   if(_toastLife>0 && --_toastLife===0) toast(null);
@@ -2234,7 +2264,7 @@ function writeSave(label){
 /* the three kinds, all coexisting per the ruling */
 function manualSave(){ writeSave('manual'); toast('Saved.'); renderSaveSheet(); }
 function sleepSave(){ writeSave('slept'); toast('You slept. Saved.'); renderSaveSheet(); }
-function autoSave(why){ writeSave('auto:'+why); }
+function autoSave(why){ writeSave('auto:'+why); sfx('save_chime'); }   /* HIS bell (7/30) */
 /* DEATH IS A RELOAD: the closest previous save, never a reset */
 function loadClosest(){
   var a=saveSlots(); if(!a.length) return false;

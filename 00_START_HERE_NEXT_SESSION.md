@@ -393,6 +393,106 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+MAIN IS RED AND IT IS NOT THE SOUND LANE -- READ THIS FIRST, CHARACTER LANE.
+BODY VARIATION (gates/bodyvar_gate.js) fails on clean origin/main with ZERO sound
+work in the tree; I proved it in a detached worktree at origin/main before
+shipping. The failing check is:
+    ok('the frame cache hashes the dials ...',
+       /frameLookHash[\s\S]{0,400}G\.bodyVar/.test(src));
+THE CODE IS FINE. G.bodyVar is still in the hash. What happened is that fc48087
+("SHUFFLE FIT was a cache key") added a seven-line comment INSIDE frameLookHash,
+which pushed G.bodyVar from 400 characters away to 535. The gate matches on a
+fixed BYTE WINDOW, so a comment broke it. The fix is one number, or better, match
+inside the function body instead of within N characters of the name -- a
+proximity regex is a gate that any explanatory comment can knock over, which is
+the opposite of what a gate is for. I did NOT touch it: bodyvar_gate.js is the
+CHARACTER lane's file and ONE SYSTEM ONE SESSION says stay out. It is the only
+red in 175 gates.
+
+SOUNDS (xk7pjp): 7/30 (a) LATEST — HIS 38 SOUNDS ARE IN THE GAME. He judged all
+60, the 22 dead are graveyarded, and WALKING NOW MAKES HIS FOOTSTEPS.
+
+HIS VERDICT (records/BOHEMIA_SFX_VERDICT_7_30_26.txt): 38 UP / 22 DOWN, 60/60
+judged. "HERE THEY ARE I JUDGED THEM. SEND THE THUMBS DOWN TO THE GRAVYARD."
+  step_dirt 5/5   step_asphalt 5/5   step_gravel 5/5   pickup 5/5
+  kill 5/5        save_chime 5/5     ui_tap 3/5        phone_buzz 2/5
+  hit 2/5         block 1/5          door_open 0/5     door_shut 0/5
+
+VERIFIED, NOT TRANSCRIBED. Every vector in his export is exactly what
+BOH_SFX.cook(event,5) produces (7 candidates x 24 fields checked, zero
+mismatches), so an approved sound is addressed as (event, index) and what plays
+is byte-for-byte what he heard. Never hand-copy those numbers.
+
+WHAT HIS THUMBS SAY (INFERENCE, labelled as such -- he thumbed, he did not
+theorise):
+  MATERIAL DECIDED IT. ash 10/10, bell 10/10, stone 5/5, crystal 8/10 versus
+  metal 3/15 and wood 0/5. The only two events wiped out entirely are the METAL
+  door and the WOOD door. Struck mineral 33 UP / 2 DOWN; metal and wood 3 UP /
+  17 DOWN.
+  WITHIN AN EVENT: survivors are BRIGHTER, SHORTER, HARDER-DRIVEN and MORE
+  ARTICULATED. He wants sounds that CUT and STOP.
+  USE THIS. It is the closest thing to a stated taste ruling this lane has, and
+  it predicts what will die before he has to listen to it.
+
+WHAT FIRES IN THE GAME RIGHT NOW (exact, not aspirational):
+  FOOTSTEPS on every committed step, THE GROUND PICKING THE SOUND from the run's
+    own tile classifier. He approved FIVE per surface, so the game plays one of
+    his five and never the same one twice running -- a single approved footstep
+    at walking pace is a machine gun, which is what "approve unlocks volume"
+    was always for.
+  SAVED on every autosave.
+  UI TAP on the alpha's own buttons, tabs and options.
+  window.playSFX(event, when) is the one entry point; when="beat" schedules onto
+    the real song's next downbeat.
+BUILT AND BANKED BUT NOT YET TRIGGERED: pickup, hit, block, phone_buzz. Their
+  sounds are approved and playable this second; what they lack is a moment. Loot
+  has no pick-up event in the run, and hit/block live on the COMBAT iframe, which
+  is another lane's surface. THAT IS THE NEXT WIRING JOB and it needs a word with
+  that lane, not a new sound.
+
+DOORS ARE SILENT ON PURPOSE. Zero approved. Do NOT wire a door to a rejected
+sound and do NOT cook a third door batch -- STOP PRODUCING, and doors have died
+twice. When he greenlights one: the evidence says DO NOT build it from metal or
+wood again. Both dead door attempts were exactly the two materials that scored
+3/20. That is a documented dead end now, not an untried idea.
+
+GATES: SFX WIRED (gates/sfx_wired_gate.py) 130 checks -- the bank holds only what
+he thumbed UP, nothing he killed, no door, real variation kept, and it WALKS THE
+PLAYER IN THE REAL ALPHA and counts (12 steps, 12 footsteps, all his). Proved
+able to fail by promoting a killed sound and adding a door.
+  A LESSON WORTH KEEPING: that gate first ran 70 checks because the verdict
+  record held the tally but not the per-candidate UP/DOWN table, so its main
+  check passed VACUOUSLY. Writing the table took it to 130. A gate that cannot
+  find its evidence does not fail, it goes quiet -- always print the count and
+  ask whether it is the count you expected.
+  ALSO: this tool's first docstring claimed six things were wired when two were.
+  Fixed before shipping. A tool that overstates itself is a lie the next session
+  inherits.
+  AND ONE MORE, found landing this on 7/31: ALL THREE sound tools cut their old
+  block out on the marker but left behind the newline the injection had put
+  after it, so every "idempotent" re-run grew the alpha by one blank line. It
+  had piled up TWENTY of them. Nothing broke, no gate cared, and the claim
+  "regenerating changes nothing" was quietly false the whole time. Fixed in all
+  three, then PROVED by running the full set twice and diffing the md5s. If a
+  tool says it is idempotent, run it twice and compare bytes -- do not take the
+  word for it.
+
+BUILD STAMP: 7/31m - YOUR 38 SOUNDS ARE IN THE GAME (RUN TAB). (Note: two
+lanes both shipped a "7/31d" today. Letters are colliding because nothing
+allocates them; if that keeps happening it needs a gate.) (Cooked 7/30,
+landed 7/31 behind 51 commits of other lanes; rebased, not hand-merged -- the
+alpha was taken from origin/main verbatim and the three sound tools re-run.)
+
+NEXT FOR THIS LANE, in order:
+  1. TRIGGER THE REST: pickup, hit, block, phone_buzz. hit/block need the COMBAT
+     lane's surface to post BOHEMIA_SFX (one line each, on contact and on block)
+     -- coordinate, do not reach in. pickup needs a loot event to exist at all.
+  2. AMBIENT BEDS (item 2) still waits on RUN 0d's daycycle.
+  3. A DOOR, only on his word.
+  4. VARIANTS: he approved 5 footsteps per surface. If he wants more depth, the
+     factory can cook a second variation round from the APPROVED vectors rather
+     than from scratch -- that is what approval unlocks and it is cheap.
+
 WORLD (9lfjtf): 7/30 — THREE GATES SHIPPED, AND I INDEPENDENTLY DIAGNOSED THE DEAD
 ALPHA THEN THREW MY OWN FIX AWAY BECAUSE SOUNDS GOT THERE FIRST AND GOT IT RIGHTER.
 Read the CHARACTER and SOUNDS sections below for the incident itself; this is only

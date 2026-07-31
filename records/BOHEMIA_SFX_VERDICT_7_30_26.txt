@@ -1,0 +1,130 @@
+=== BOHEMIA SFX VERDICTS — HIS EXPORT, VERBATIM (7/30/26) ===
+His words with it: "HERE THEY ARE I JUDGED THEM. SEND THE THUMBS DOWN TO THE
+GRAVYARD."  and  "WE HAVE 11 months of forward motion work we need to complete
+Do what you have to do next and know what comes after do big brain online
+research if you need to then execute"
+
+BATCH: SFX-02 THE RELIQUARY (the export header says SFX-01; that is the page's
+label, the sounds are the v2 modal remake -- every vector below carries mat=,
+modes=, damp=, warble=, which only v2 has).
+JUDGED: 60/60. UP 38, DOWN 22. Nothing left blank.
+
+TALLY BY EVENT
+  step_dirt      5/5 UP      step_asphalt   5/5 UP      step_gravel  5/5 UP
+  pickup         5/5 UP      kill           5/5 UP      save_chime   5/5 UP
+  ui_tap         3/5 UP      phone_buzz     2/5 UP      hit          2/5 UP
+  block          1/5 UP
+  door_open      0/5  ALL DEAD
+  door_shut      0/5  ALL DEAD
+--- his raw export appended below ---
+
+=== THE VECTORS ===
+NOT TRANSCRIBED, VERIFIED. Every vector in his export is exactly what
+BOH_SFX.cook(event, 5) produces, so the approved sounds are reproduced from the
+shipped generator rather than copied by hand. Checked 7 candidates x 24 fields
+against his paste: zero mismatches. An approved sound is therefore addressed as
+(event, index) and cannot drift from what he heard -- and if the generator ever
+changes, gates/sfx_render_gate.py's fingerprints go red.
+
+=== WHAT THE THUMBS SAY (INFERENCE, NOT A RULING HE SPOKE) ===
+Flagged as inference on purpose: he thumbed sounds, he did not state a theory.
+This is what the 60 verdicts measure, and it is strong enough to build on.
+
+MATERIAL IS THE HEADLINE. Sorted by survival:
+    ash      10 UP /  0 DOWN     100%   (the grit footsteps)
+    bell     10 UP /  0 DOWN     100%   (kill + save, Risset's bell)
+    stone     5 UP /  0 DOWN     100%   (the asphalt footstep)
+    crystal   8 UP /  2 DOWN      80%   (pickup + UI tap)
+    bone      2 UP /  3 DOWN      40%   (the hit)
+    metal     3 UP / 12 DOWN      20%
+    wood      0 UP /  5 DOWN       0%
+  METAL AND WOOD ARE DEAD, and it is not a coincidence that the only two events
+  wiped out entirely are the METAL door and the WOOD door. Struck mineral --
+  grit, stone, crystal, bell -- went 33 UP / 2 DOWN. Metal and wood went
+  3 UP / 17 DOWN. That is the same instrument bias his music canon already
+  carries (bells in empty casinos, dead chapel choirs), showing up in the
+  effects.
+
+WITHIN AN EVENT, FOUR AXES SEPARATE UP FROM DOWN, and they all point one way:
+    BRIGHTER   hit +29% bright, ui_tap +25%
+    SHORTER    ui_tap -47% decay, hit -25%, block -24%
+    HARDER     hit +38% drive, phone_buzz +30%
+    MORE ARTICULATED   phone_buzz's survivors are the 8-hit and 6-hit patterns;
+                       the 3- and 4-hit ones died
+  Read together: he wants sounds that CUT and STOP. Not longer, not softer, not
+  rounder. The one survivor of BLOCK is the brightest, shortest, most resonant
+  of its five and the one with the MOST room (space +35%) -- so "short" is about
+  the strike, not about killing the space.
+
+=== WHAT IS NOW AT ZERO ===
+door_open and door_shut have NO approved sound. The game will have no door sound
+until he rules on one. I am NOT cooking a third door batch this session:
+STOP PRODUCING (7/26) says a second rejection ends the feature for the session,
+and doors have now died twice (once inside the v1 wholesale kill, once here).
+WHEN HE GREENLIGHTS A DOOR: the evidence says do not build it out of metal or
+wood again. Both door attempts were exactly the two materials that scored 3/20.
+
+=== HIS THUMBS, PER CANDIDATE (the machine-checkable table) ===
+This is what gates/sfx_wired_gate.py reads to prove the bank holds only what he
+approved. Without it that check passes vacuously, which is worse than no check.
+
+  UP   step_dirt.0
+  UP   step_dirt.1
+  UP   step_dirt.2
+  UP   step_dirt.3
+  UP   step_dirt.4
+  UP   step_asphalt.0
+  UP   step_asphalt.1
+  UP   step_asphalt.2
+  UP   step_asphalt.3
+  UP   step_asphalt.4
+  UP   step_gravel.0
+  UP   step_gravel.1
+  UP   step_gravel.2
+  UP   step_gravel.3
+  UP   step_gravel.4
+  DOWN door_open.0
+  DOWN door_open.1
+  DOWN door_open.2
+  DOWN door_open.3
+  DOWN door_open.4
+  DOWN door_shut.0
+  DOWN door_shut.1
+  DOWN door_shut.2
+  DOWN door_shut.3
+  DOWN door_shut.4
+  UP   pickup.0
+  UP   pickup.1
+  UP   pickup.2
+  UP   pickup.3
+  UP   pickup.4
+  DOWN hit.0
+  DOWN hit.1
+  UP   hit.2
+  DOWN hit.3
+  UP   hit.4
+  DOWN block.0
+  DOWN block.1
+  UP   block.2
+  DOWN block.3
+  DOWN block.4
+  UP   kill.0
+  UP   kill.1
+  UP   kill.2
+  UP   kill.3
+  UP   kill.4
+  DOWN ui_tap.0
+  UP   ui_tap.1
+  UP   ui_tap.2
+  UP   ui_tap.3
+  DOWN ui_tap.4
+  DOWN phone_buzz.0
+  DOWN phone_buzz.1
+  UP   phone_buzz.2
+  DOWN phone_buzz.3
+  UP   phone_buzz.4
+  UP   save_chime.0
+  UP   save_chime.1
+  UP   save_chime.2
+  UP   save_chime.3
+  UP   save_chime.4

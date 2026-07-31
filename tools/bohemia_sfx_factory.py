@@ -269,6 +269,13 @@ def main():
     if BEGIN in alpha:
         i = alpha.index(BEGIN)
         j = alpha.index(END) + len(END)
+        # AND THE NEWLINES IT BROUGHT. The inject writes a '\n' after END; a cut
+        # that stops at END leaves it, so the alpha gained one blank line every
+        # single re-run. Nothing broke and nothing complained -- it just made
+        # "regenerating changes nothing" quietly false. All three sound tools
+        # had this exact bug; all three now eat their own newline back.
+        if alpha[j:j + 1] == '\n':
+            j += 1
         alpha = alpha[:i] + alpha[j:]
         print('previous mount removed (idempotent re-inject)')
 
