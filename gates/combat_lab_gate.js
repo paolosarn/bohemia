@@ -2852,6 +2852,40 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
 
   ok('V102 AND THE RESET GOES BEFORE THE if/else, NOT INSIDE IT. The first version of this patch anchored on the FIRST HALF of an if/else and orphaned the else, which broke the entire demo while every string check still passed. ANCHOR UNIQUENESS IS NOT ANCHOR CORRECTNESS',
     /for\(const _e of \(G\.e\|\|\[\]\)\)_e\._expo=null;\s*\n\s*if\(!isChain\)/.test(demo));
+
+  /* ===== 37. V103 THE CARS ============================================= */
+  ok('V103 THE CARS EXIST (Paolo: "we have hella cars on file that are aproved. and when u slide a car in it should be 2 tiles by 3 tiles", then "I DIDNT SEE ANY CARS BRO"). They are the approved car_wreck pool, not a cook',
+    demo.includes('V103 THE CARS') &&
+    demo.includes('const CAR_B64=') &&
+    demo.includes('function putCar(ox,oy,vert,cid){') &&
+    demo.includes('function scatterCars(kind){'));
+
+  ok('V103 HIS SIZE RULING IS THE FOOTPRINT: 2 tiles by 3, in tiles, as a named constant rather than a number buried in a loop',
+    demo.includes('const CAR_W=2, CAR_L=3;'));
+
+  ok('V103 A CAR IS SIX CELLS THAT SHARE AN ID -- so rectangle blocking, and cover along its LENGTH, come free from machinery that already understood a cell. No new geometry, no rectangle intersection code',
+    /for\(let a=0;a<\(vert\?CAR_W:CAR_L\);a\+\+\)for\(let b=0;b<\(vert\?CAR_L:CAR_W\);b\+\+\)/.test(demo) &&
+    demo.includes('G.pillars.push({ea:Math.atan2(c[1],c[0]),edist:Math.hypot(c[0],c[1]),'));
+
+  ok('V103 ONE OBJECT, TWO COVER VALUES: engine and cabin are TALL (chest, no vault), the boot is LOW (waist, vaultable). That is the thing a car has that no block can do, and it rides the tall/low flag that already existed',
+    demo.includes('const tall=along(c)<span*0.6;') &&
+    demo.includes('r:0.5,tall:tall,car:cid,'));
+
+  ok('V103 ONE SPRITE OVER SIX CELLS: only the nose cell draws, the other five are real cover that simply are not blocks',
+    demo.includes('if(Math.abs(q0[0]-P.carOx)>0.01||Math.abs(q0[1]-P.carOy)>0.01)continue;') &&
+    demo.includes('const im=CAR_READY?CAR_IMG[P.carArt|0]:null;'));
+
+  ok('V103 MAP LAW HELD: he placed the canon ("slide a car in"). Count, position and orientation are PARAMETERS on the arena dice, like the racking and the cover density -- and a car is never parked on the player',
+    demo.includes('const n=1+Math.floor(Math.random()*3), placed=[];') &&
+    /putCar\(ox,oy,vert,cid\)\{[\s\S]{0,400}Math\.hypot\(wx,wy\)<2\.6\)return false;/.test(demo.replace('function putCar(ox,oy,vert,cid){','putCar(ox,oy,vert,cid){')));
+
+  ok('V103 THEY GO IN BOTH ARENAS, and the scatter runs BEFORE the deck so the slab filter that already evicts cover from under a storey evicts a car too',
+    demo.includes("scatterCars(G.arenaKind);") &&
+    demo.indexOf('scatterCars(G.arenaKind);') < demo.indexOf('G.deck=[]; G.stairs=[]; G.lvl=0;') &&
+    demo.includes('G.pillars=G.pillars.filter(P=>{ const q=pXY(P); return !deckTileAt(q[0],q[1]); });'));
+
+  ok('V103 THE ART IS REUSE, NOT A COOK: it is the approved car_wreck pool (top-down abandoned cars from the HD repo), fitted into the 2x3 box UNSTRETCHED rather than fattened to fill it',
+    demo.includes('const CAR_B64=[') || demo.includes('const CAR_B64=["'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

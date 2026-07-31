@@ -518,13 +518,15 @@ C7. STAIRS — row 1 (interior, coordinator) and row 54 / TF-CMB-005 (exterior
    is tall, checked by rendering them | structure, 44px cell, blocks sightline,
    tan 85/15 applies | PERIMETER_WALL_POOL (26 approved) for material truth;
    Jagged Alliance 2 | COMBAT lane | HIGH | FORM: TF-CMB-002
-52. OPEN | THE DEAD PASSENGER CAR AS COVER | COMBAT + RUN — there are ZERO
+52. CLOSED BY REUSE (7/30) | THE DEAD PASSENGER CAR AS COVER | COMBAT + RUN — there are ZERO
    vehicles on the combat field; a fight in a dead city with no dead cars reads
    as a test harness | structure, MULTI-TILE, must match the ONE canon
    `_vehicle` size (vehicle_size_gate); asymmetric hide height (chest at the
    engine, waist at the boot) | `car_wreck` x20 in STREET_PROP_POOLS — TRY
    FIRST, cook nothing if it reads at 45; Project Zomboid | COMBAT lane | HIGH
-   | FORM: TF-CMB-003 | NOT a duplicate of row 40 / TF-WORLD-011: that form
+   | FORM: TF-CMB-003 | *** CLOSED 7/30: the 20 were rendered and looked at, they
+   are real top-down sun-bleached abandoned cars, and they SHIPPED. Paolo ruled
+   the size (2 tiles by 3). NOTHING FOR THE ART LANE TO COOK. *** | NOT a duplicate of row 40 / TF-WORLD-011: that form
    EXCLUDES the car by its own scope note ("the CAR itself is canon and already
    sized"). Sized is not DRAWN. This row is the pixels that scope note assumes.
 53. OPEN | THE UPPER DECK SLAB (top plate + spandrel edge beam + soffit) |

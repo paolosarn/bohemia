@@ -404,6 +404,57 @@ COMBAT's to build.
 3. The camp dial playtest, and the ten open camp clauses.
 4. The action clock's denomination and ceiling number.
 
+COMBAT (04) 7/31 - THE CARS. And the reason he had to shout for them.
+
+*** PAOLO: "I DIDNT SEE ANY CARS BRO WTF IS WRONG WITH YOU!" ***
+He was right and this one is entirely on me. On 7/29 he said "we have hella cars
+on file that are aproved. and when u slide a car in it should be 2 tiles by 3
+tiles so yeah." THAT IS A RULING WITH A SIZE IN IT. I deferred it once for turn
+budget, deferred it again, and then ASKED HIM A QUESTION ABOUT IT instead of
+building it. The doctrine is explicit: anything he says that is not go/status is
+a RULING TO RECORD, NEVER A DISCUSSION TO HAVE. I turned his ruling into a
+discussion. Do not do this.
+
+*** v103 THE CARS, AND THE SHOPPING CHECK CAME BACK A CLEAN HIT ***
+banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt pool `car_wreck`, 20 items,
+provenance "HD_TILE_REPO part2 / 10. Abandoned cars (top-down, the V11 bake
+family)". RENDERED ALL 20 AND LOOKED AT THEM before writing a line: real top-down
+abandoned cars, sedans + a pickup + a cop car, every one sun-bleached and
+rust-blotched and chalky -- exactly the Mojave failure mode TF-CMB-003 spent a
+page describing (they BAKE, they do not rot). *** NOTHING COOKED. TF-CMB-003 IS
+NOW CLOSED BY REUSE and board row 52 with it. ***
+HIS SIZE RULING IS THE FOOTPRINT: 2 tiles by 3, as CAR_W/CAR_L constants. The art
+is ~44x96 (1 x 2.2 tiles), so it is fitted into the 2x3 box BY HEIGHT and centred
+-- undistorted rather than fattened to fill it. A real car does not fill its
+stall edge to edge either.
+
+*** THE ENGINEERING: I HAD THE PLAN WRONG LAST TURN AND THE RIGHT ONE IS FREE ***
+I wrote that this needed rectangle maths in about five cover functions because
+pillars are circles. Wrong.
+*** A CAR IS SIX PILLAR CELLS THAT SHARE AN ID, WITH ONE SPRITE DRAWN OVER
+THEM. *** Every cover function, the vault rule, the dash-path block, the AI
+cover-seek and the occupancy check ALREADY understand a cell. So a car gets for
+free: rectangle blocking (six cells IS a rectangle), and cover along its LENGTH
+(a line crossing it meets several cells) which is the thing a car has and a block
+does not. And the asymmetry rides the tall/low flag that already existed:
+  ENGINE + CABIN cells TALL -> hidden to the chest, cannot vault
+  BOOT cells         LOW   -> hidden to the waist, CAN vault
+*** ONE OBJECT WITH TWO COVER VALUES, which no block can do, and it needed no new
+geometry, no rectangle intersection code, nothing for a later patch to get subtly
+wrong. ***
+MEASURED LIVE over 40 rolls: 40/40 arenas have cars, 1-3 each, both arena kinds,
+6 cells per car, footprint exactly "2 x 3", 4 tall cells + 2 low.
+PLACEMENT (MAP LAW: he placed the canon, the dice place the instance): street =
+parked along the roadway squared to the kerb; warehouse = at the staging end
+where a vehicle could have driven in. Never on the player, never overlapping, and
+scatterCars runs BEFORE the deck so the existing slab filter evicts a car parked
+under a storey.
+TOOL: tools/bohemia_combat_cars_patch.py | GATE section 37 | COMBAT GATE 530 -> 538
+
+STAMP NOTE (second time in two turns): I set 7/30c while main was already on
+7/31k -- the date had rolled in another lane and I went backwards again. Landed
+on 7/31m (l reads as a 1 on a phone). READ MAIN'S STAMP BEFORE SETTING YOURS.
+
 WORLD (9lfjtf): 7/31 — THE SCHOOL IS APPROVED, THE VALLEY GOT ITS EDGES, AND THE ECONOMY
 NOW HAS A PURSE. Paolo: "WE HAVE 11 months of forward motion work we need to complete. Do
 what you have to do next and know what comes after."

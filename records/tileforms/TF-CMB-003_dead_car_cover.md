@@ -1,5 +1,33 @@
 # TILE FORM TF-CMB-003 — THE DEAD CAR YOU FIGHT FROM BEHIND
 
+> ### RULED AND ANSWERED 7/29-7/30. NOTHING WAS COOKED.
+> **Paolo 7/29: "we have hella cars on file that are aproved. and when u slide a
+> car in it should be 2 tiles by 3 tiles so yeah."** Then 7/30, after I deferred
+> it twice: **"I DIDNT SEE ANY CARS BRO WTF IS WRONG WITH YOU!"**
+>
+> **HIS SIZE RULING SUPERSEDES SECTION E's deferral to the `_vehicle` helper: a
+> car is 2 TILES BY 3.** That is the footprint, and it is what shipped.
+>
+> **AND THE SHOPPING CHECK CAME BACK A HIT, so this form is CLOSED BY REUSE.**
+> `banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt` pool `car_wreck`, 20 items,
+> provenance "HD_TILE_REPO part2 / 10. Abandoned cars (top-down, the V11 bake
+> family)". All 20 were RENDERED AND LOOKED AT before anything was built: real
+> top-down abandoned cars, sedans plus a pickup plus a cop car, every one
+> sun-bleached and rust-blotched and chalky. Exactly the Mojave failure mode
+> section G describes (they BAKE, they do not rot).
+>
+> So the answer to section B's question is: **the art already existed and did not
+> need drawing.** Shipped 7/30 in the combat demo, 8 of the 20 embedded, as a
+> six-cell footprint with one sprite over it. Engine and cabin cells are TALL,
+> boot cells are LOW, which delivers section E's asymmetric hide with no new
+> geometry at all.
+>
+> **STATUS: CLOSED BY REUSE. Nothing for the art lane to cook.** The one thing
+> that could still reopen it is Paolo looking at the shipped cars and rejecting
+> the look, in which case this form is the evidence trail and section H already
+> lists what to avoid.
+> Tool: `tools/bohemia_combat_cars_patch.py`, gate section 37.
+
 ## A. IDENTITY
 - NAME: The dead car (a stopped, sun-killed car, used as cover in a fight)
 - FAMILY/SET: COMBAT COVER family, the ONE named object in it. Not a variant of
@@ -151,5 +179,5 @@
 - [ ] caption JSON parses and matches sections C and D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: COMBAT lane | DATE: 7/28/26 | PRIORITY: HIGH
+- STATUS: CLOSED BY REUSE (7/30) | REQUESTED BY: COMBAT lane | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 52 | VERDICT: —
