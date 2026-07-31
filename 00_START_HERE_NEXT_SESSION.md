@@ -353,8 +353,32 @@ WHAT LANDED (all shipped, all gated):
   - PAPERWORK, no pixels cooked: 9 tile forms, the UI catalogue, 45 currency icon options
     and his three combined picks (laws/BOHEMIA_ADDENDUM_COMBINED_CURRENCY_ICONS_7_28_26).
 
-THE ONE THING BLOCKING THIS LANE — records/BOHEMIA_DISTRICT_SCALE_FINDING_7_28_26.md.
-He asked why the districts feel small. They ARE small, by 16x, and his own law says so.
+*** [DONE 7/31, HIS RULING] THE DISTRICTS ARE FULL SIZE. Paolo 7/30: "The districts
+should have always been full size bro." TILE_FINE/SLOT_FINE 32 -> 128. A cell is now
+128x128 = 16,384 walkable cells = 96m a side; the valley reads 5.73 mi across instead
+of 1.43. Every district generator, walkable-land, landlocked and the kit took it with
+ZERO changes -- they were already parameterised, the constant was just wrong.
+  bohemia_world.js no longer keeps its own `var T = 128`; it reads OM.TILE_FINE, so
+  there is ONE number. gates/valley_scale_gate.js (14 checks) reads the size OUT OF
+  THE LAW FILE rather than a value typed into the gate, and fails if any engine module
+  outside the overmap assigns a scale constant a literal.
+  THE CITY TAB NEEDED MORE THAN THE CONSTANT and this is the transferable part: a
+  canon block is 128x128, so when a cell was 32 the renderer glued a 4x4 GROUP of
+  cells into one block and each cell drew its own 32x32 window (`tx>>2`, `(tx&3)*FN`).
+  At 128 that asks for a 512-wide block and windows to offset 384 in a 128-row array:
+  undefined, every suburb and kit district. Byte-marrying the blob to canon WITHOUT
+  fixing that would have turned the gate GREEN ON A BROKEN CITY, which is worse than
+  the red. Fix is not "4 -> 1" but `const GRP = Math.max(1, Math.round(128/FN))`:
+  4 at the old scale (arithmetically identical to what shipped), 1 now, right at any
+  future scale. tools/bohemia_city_scale_patch.py, exact strings never a regex sweep
+  of `>>2`/`&3` (ordinary bit math elsewhere), refuses to write if any expected text
+  is missing, idempotent. Six slices carrying an embedded overmap rebuilt.
+  Shipped dbd6c90, full suite ALL GREEN 661s, stamp 7/31a. Below is the finding that
+  led here, kept because the ROOT CAUSE (two sources of truth for one number) is the
+  lesson, not the number. ***
+
+THE FINDING THAT UNBLOCKED IT — records/BOHEMIA_DISTRICT_SCALE_FINDING_7_28_26.md.
+He asked why the districts feel small. They WERE small, by 16x, and his own law said so.
   RUN   engine/bohemia_world.js   `var T = 128`     128x128 = 96m x 96m   valley 5.73 mi
   CITY  engine/bohemia_overmap.js `TILE_FINE=32`     32x32  = 24m x 24m   valley 1.43 mi
 laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md is LOCKED, is titled "revokes the 24m
@@ -364,10 +388,10 @@ ROOT CAUSE, and it is the transferable part: TWO SOURCES OF TRUTH FOR ONE NUMBER
 hardcodes 128 and never reads the overmap, so it has been right by coincidence rather than
 by obeying the law, and nothing in the repo compared them. Same shape as the ONE MAP seed
 bug fixed the same week in the same module.
-I DID NOT FLIP IT. FN appears 4,812 times in the city renderer, 48 generators fill the
+I DID NOT FLIP IT UNASKED. FN appears 4,812 times in the city renderer, 48 generators fill the
 cell, and WALKABLE-LAND would fire loudly the moment a lot becomes a neighbourhood. That
-is a fleet-wide change on his word, not mine. [PENDING Paolo: flip to 128, yes or not yet]
-WHEN HE SAYS YES: set TILE_FINE = SLOT_FINE = 128, delete the stale 7/5 header comment,
+was a fleet-wide change on his word, not mine. [ANSWERED 7/30: yes. DONE, see above.]
+HE SAID YES, AND THIS IS WHAT IT TOOK: set TILE_FINE = SLOT_FINE = 128, delete the stale 7/5 header comment,
 re-run every district gate, and ADD THE MISSING GATE that asserts the run's TILE_PER_CELL
 and the overmap's TILE_FINE are the same number. Without that gate this silently rots again.
 
