@@ -131,6 +131,51 @@ ok('cough is back to its pre-session coefficients (2 rejections = stop)',
   ok(`JUDGE ALL lists every clip in one pass (${ja.rows - 1} rows for ${ja.clips} clips)`,
     ja.rows >= ja.clips);
 
+
+  /* ONE WARDROBE (Paolo 7/31: "THIS UI IS OLD AND SHOULD BE INCORPORATED INTO THE
+     WAREDROBE... CLEANLY"). He was looking at three lists that are all "what am I
+     wearing": his painted slot rows, the generated wardrobe, and a separate
+     COLORS block. Now one shelf per category: NONE, then HIS painted piece
+     (marked, first, because it is canon), then the generated ones alphabetical,
+     with the colour editor inside the category instead of in its own block. */
+  const uni = await pg.evaluate(() => {
+    window.wardrobeRefresh();
+    const h = document.getElementById('wardrobe');
+    const secs = h.querySelectorAll('.cloFold').length;
+    h.querySelectorAll('.cloFold')[0].click();
+    const btns = [...h.querySelectorAll('button')].map(b => b.textContent);
+    return {
+      secs,
+      none: btns[0] === 'NONE',
+      hisFirst: (btns[1] || '').indexOf('✦') === 0,
+      hasGenerated: btns.some(t => t === 'RED SHIRT'),
+      oldRows: [...document.querySelectorAll('#charSlots .row b')].map(b => b.textContent),
+      colorsBlockGone: !document.body.textContent.includes('tap a color box to retint'),
+    };
+  });
+  ok(`the wardrobe is one shelf per category (${uni.secs})`, uni.secs >= 10);
+  ok('a category opens with NONE', uni.none);
+  ok('HIS painted piece is listed FIRST and marked', uni.hisFirst);
+  ok('the generated garments are in the SAME list', uni.hasGenerated);
+  ok('the old clothing slot rows are gone (only BODY dials remain): ' + uni.oldRows.join(','),
+    uni.oldRows.length === 1 && uni.oldRows[0] === 'BODY');
+  ok('the separate COLORS block is gone', uni.colorsBlockGone);
+
+  /* SHUFFLE FIT DID NOT WORK (his words) and every direct test said it did.
+     HD_CACHE keys off frameLookHash, which did not include G_WORN, so the stage
+     served the old body forever. Asserted on the LIVE CANVAS, not buildFrame --
+     a direct render call is the side door that hid this for a whole turn. */
+  const live = await pg.evaluate(() => {
+    const cv = document.getElementById('charCv');
+    const snap = () => cv.toDataURL().slice(-120);
+    window.G_WORN = {}; G.equipped.shirt = ''; drawChar(cv, G.dir, 'idle', 0.1);
+    const bare = snap();
+    window.G_WORN = { base: 'RED SHIRT' }; drawChar(cv, G.dir, 'idle', 0.1);
+    return { changed: snap() !== bare };
+  });
+  ok('wearing a garment repaints the LIVE canvas, not just buildFrame', live.changed);
+  ok('G_WORN is part of the frame look hash (the actual bug)',
+    /window\.G_WORN\?window\.G_WORN:0/.test(src));
   await b.close();
   done();
 })();
