@@ -1,3 +1,76 @@
+CITY (03): 7/31 LATEST — EVERY PERSON HAS THEIR OWN DAY, AND THREE GATES NOW HOLD IT.
+
+THE ARC OF THE LAST TWO DAYS, because the order matters:
+  7/29  he ruled the population IS the food carrying capacity, and that it lands as
+        clusters AND no man's lands AND random spread. ~65,000 in the valley, ~300 in
+        the walkable world.
+  7/29  people appeared on the CITY walk surface for the first time (it had ZERO).
+  7/29  he added a CONDITION: "make sure you do the coding right so when its time to
+        mass edit the people you can" — that is an architecture ruling and it is law.
+  7/30  the run got the same census, so both surfaces hold one city.
+  7/31  he asked: "how do other greate games make everyone have their own INDIVIDUAL
+        SCHEDULE" — and he was right that we did not have it.
+
+THE RESEARCH ANSWER, and it is the thing to internalise:
+NOBODY AUTHORS 300 DAYS. THEY AUTHOR A GRAMMAR AND 300 ADDRESS BOOKS.
+Ultima VII, Kingdom Come, Stardew, Shadows of Doubt and Majora's Mask all split the
+SHAPE of a day (shared, few) from the FACTS of a person (individual, many). Our four
+archetypes were always the right grammar. What was missing was the facts.
+Full record: records/BOHEMIA_RESEARCH_INDIVIDUAL_SCHEDULES_7_31_26.md
+
+WHAT LANDED: 4 archetypes -> 296 DISTINCT DAY-SIGNATURES across 297 people.
+  ADDRESS BOOK   workDir + workDist + favDir. Two people on an IDENTICAL schedule
+                 walk opposite ways at the same hour. Ultima VII's whole trick.
+  CONDITIONS     wetStay + darkStay. Weather was ruled in 7/28 and NOTHING consulted
+                 it. ~40% now stay in when it rains. Stardew's trick, the cheapest.
+  EDGES          earlyBy shifts only the morning; duskSit sends some to their
+                 favourite spot 17:00-20:00. The middle of a day is never distinctive.
+  FACING         derived from travel, not stored, or a body that walks east stares
+                 north forever.
+
+THE RULE THAT KEEPS IT CLEAN: bohemia_agents.js (WORLD's) still owns WHEN and WHAT
+KIND. bohemia_population.js owns WHICH PLACE, WHICH CONDITIONS, WHICH EDGES. Never
+merge them. That split is why nothing is reimplemented and nothing can drift.
+CONDITIONS ONLY EVER SEND SOMEBODY HOME, NEVER OUT — gated. Pushing people onto the
+street in bad weather would be inventing behaviour, and it is the Oblivion lesson:
+unbounded autonomy ate Bethesda's own game.
+
+THREE MISTAKES I MADE, ALL THE SAME MISTAKE, AND THIS IS THE MOST USEFUL PART:
+  1. I read SIM.outAgents() ("people outdoors right now") as the population, measured
+     1 where there were 12, and BACKED OUT WORKING CODE for an hour. The run's own
+     comment says it warms the clock to 07:30 for exactly that reason.
+  2. I wrote a facing gate that called the helper instead of reading the render. I
+     sabotaged the DRAW on purpose and it PASSED 18/18. A gate that cannot fail is
+     worse than no gate — it is a false green somebody trusts later.
+  3. Earlier: fixed the CITY tab for three turns while he plays the RUN.
+  ALL THREE ARE: I MEASURED SOMETHING ADJACENT TO THE THING AND BELIEVED IT.
+  VERIFY ON THE REAL SURFACE means assert on what was DRAWN. Not the helper. Not a
+  neighbouring variable. Not the surface he does not play.
+
+ALWAYS SABOTAGE YOUR OWN GATE BEFORE TRUSTING IT. Every gate this session was proved
+able to fail before being believed, and two of them only bit after a second pass.
+
+CHECK BEFORE YOU BUILD. Three times this session I was about to write something that
+already existed: banks_used_gate, population_gate (the LIFE session's), and the alpha
+integrity gate (another lane built it 7/30 after the outage). Look first, every time.
+
+WHAT COMES AFTER, in order:
+  1. THE RUN'S PEOPLE NEED THE FACTS. It has the head-count from the shared census but
+     its bodies still come from agents.js with no conditions and no edges — so the two
+     surfaces agree on HOW MANY and not on WHO. Careful: the run's agents walk a real
+     pathing sim, so do NOT filter who gets drawn (that is a lie); the clean hook is
+     that scheduleFor already takes a SHIFT, the same way agentsForBlock already took
+     occupiedRate. Same pattern, no fork.
+  2. The eight tile forms from 7/28 are still with the ART lane. Nothing here blocks
+     them.
+  3. [PENDING Paolo] does the game ever SHOW a schedule? Majora's Mask ships the
+     Bombers' Notebook because a routine nobody can observe is wasted work. Design
+     call, his.
+
+DO NOT: build a second schedule system. Do not raise the population because it "feels
+empty" — a quarter of the map is empty ON HIS ORDER and the gate will catch you. Do
+not let conditions push anybody OUT.
+
 PEOPLE (7h9sfy): 7/31 LATEST — THE NEIGHBOURS ARE PEOPLE NOW. First session of this
 lane. RUN TAB, build 7/31t.
 
