@@ -1165,6 +1165,35 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0Z. [STARTED 7/29, BACKED OUT ON PURPOSE — NOT SHIPPED] THE RUN'S NEIGHBOURS
+   SHOULD OBEY THE ZONE MAP AND DO NOT YET. tools/bohemia_run_people_patch.py
+   exists, applies cleanly, and is MARKED NOT WIRED at the top of its own
+   docstring. HE PLAYS THE RUN, so this matters: the CITY tab got his 7/29 zone
+   map and the run did not, which means right now the two surfaces describe two
+   different cities - the run still uses the flat OCCUPIED_RATE=0.30
+   placeholder for every block in the valley.
+   WHAT WORKS: population + powergrid modules load in the run, zero page
+   errors, the zone map answers for the real cell (cell 39,23 = 'spread',
+   rate 0.0049 against the old flat 0.30).
+   WHAT DOES NOT: calling agentsForBlock directly in the booted run with the
+   floored rate returns 12 agents; the SIM the run actually boots with has 1.
+   The option is not reaching the boot path and the cause is not found. Ruled
+   OUT: CELL vs HOME_CELL mismatch (verified equal), and the save-restore call
+   site at ~2046 (different path, only on load). NOT ruled out: buildSim
+   running before feet/doorOf are populated with its try/catch swallowing it.
+   WHY IT WAS BACKED OUT: shipping a wiring that MEASURES WRONG is worse than
+   shipping nothing, and "the modules load without errors" is not the same as
+   "it works". Verified work shipped; this did not.
+   ALSO FOUND AND WORTH KEEPING: the player's own block needs a FLOOR. The run's
+   own lineman code says "He is your neighbour, one door down. Nothing closer is
+   possible" - act 1 opens on that relationship - and the start cell comes out
+   'spread' at 0.5%, which is ZERO households on a 23-home block. Correct for
+   the valley, fatal for the one block the game opens on. The floor belongs in
+   whatever version finally ships.
+   NEXT: instrument buildSim from the inside (log _rate and _agents.length),
+   find why the boot SIM ignores the option, then prove it with a gate that
+   boots the run and asserts a cluster block and an empty block DIFFER.
+   | no gate until it works | 7/29 | YES.
 0Y. [DONE 7/29, ON HIS CONDITION] THE PEOPLE HAVE ROUTINES, AND THEY ARE
    MASS-EDITABLE. His words, given as a condition on making them move: "sure
    just make sure you do the coding right so when its time to mass edit the
