@@ -35,21 +35,23 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the lot edge | ground | no | — | 1653 |
 | 1 | `#33333c` | street / drive | drive | the cracked mall ring-road / driveway (car-drivable) | ground | no | — | 1412 |
 | 2 | `#5c5648` | concourse | building | the enclosed mall concourse, tilt-up + glazing, most glass gone | structure | yes | concourse interior: a long dead promenade, storefronts dark on both sides | 1545 |
-| 3 | `#3a4520` | weed / brush | tree-dead | weeds through the cracked lot | prop | no | — | 3 |
-| 4 | `#524c3e` | parking asphalt | ground | the mall parking field, faded striping, sun-bleached | ground | no | — | 6471 |
+| 3 | `#4c4a33` | reclaimed ground | ground | the lot edge going back to the desert — asphalt broken into plates by forty summers, creosote and tumbleweed rooted in the joints, sand drifted over the kerb line. Nothing is resurfacing this | ground | no | — | 2845 |
+| 4 | `#524c3e` | parking asphalt | ground | the parking field proper — asphalt still holding where the cars packed it down, striping ghosted to grey, oil shadows where the engines dripped | ground | no | — | 3007 |
 | 5 | `#c79a3f` | gate | gate | the main driveway curb cut off the street, amber curb | portal | no | — | 9 |
 | 6 | `#4a5766` | anchor store | building | a big-box anchor department store, sign faded, doors boarded | structure | yes | anchor store interior: a cavernous dead sales floor | 800 |
-| 7 | `#8a6a3a` | food court | building | the food court bump-out, skylight glazing shattered | structure | yes | food court interior: dead counter stalls around a seating pit | 266 |
+| 7 | `#8a6a3a` | food court | building | the food court bump-out, skylight glazing shattered | structure | yes | food court interior: dead counter stalls around a seating pit | 262 |
 | 8 | `#8a7a4a` | loading dock | portal | a service loading dock on the back face, roll-up torn | portal | no | the back-of-house service corridor | 60 |
-| 9 | `#8f8676` | pole light | prop | a tall parking-lot light standard, head dark | prop | yes | — | 4 |
-| 10 | `#55555f` | abandoned car | vehicle | a car dead in the lot, tyres flat | prop | yes | — | 200 |
-| 11 | `#c9c1aa` | stall marking | marking | faded parking-stall paint | ground | no | — | 759 |
+| 9 | `#8f8676` | pole light | prop | a tall parking-lot light standard, head dark | prop | yes | — | 9 |
+| 10 | `#55555f` | abandoned car | vehicle | a car dead in the lot, tyres flat | prop | yes | — | 134 |
+| 11 | `#c9c1aa` | stall marking | marking | faded parking-stall paint | ground | no | — | 599 |
 | 12 | `#241f1a` | entrance door | portal | a mall entrance vestibule, glass smashed or boarded | portal | no | into the concourse | 10 |
 | 13 | `#463f36` | dumpster | prop | a rusted dumpster at the service corner | prop | yes | — | 1 |
 | 14 | `#93a2a8` | skylight | structure | the concourse skylight run — most panes gone, the rest crazed white with forty summers | structure | yes | — | 300 |
 | 15 | `#7d7668` | rooftop plant | structure | the rooftop HVAC farm — cased units, one stripped to its coil, ducting collapsed | structure | yes | — | 912 |
-| 16 | `#9a9384` | roof edge | structure | the parapet line where the roof meets the wall | structure | yes | — | 1179 |
+| 16 | `#9a9384` | roof edge | structure | the parapet line where the roof meets the wall | structure | yes | — | 1183 |
 | 17 | `#7a4038` | anchor store (east) | building | the rival department store at the other end of the dumbbell, its own faded brand colour still on the parapet | structure | yes | anchor interior: three floors of stripped sales floor around a dead escalator well | 800 |
+| 18 | `#4b5730` | landscaped median | ground | a kerbed planting median dividing the parking fields — the shrubs died first, then the kerb cracked, and the sand has half-buried it | ground | no | — | 640 |
+| 19 | `#8d949a` | cart corral | prop | a steel cart corral, rails bent outward where something drove through it, two trolleys still nested inside | prop | yes | — | 203 |
 
 **Gate:** `gates/mall_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

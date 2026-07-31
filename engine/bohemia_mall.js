@@ -21,7 +21,14 @@
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
     // ---- BASE: parking asphalt lot; desert at the margins (no perimeter fence on a mall lot) ----
-    G.rect(0,0,W-1,H-1,0); G.rect(4,4,W-5,H-5,4);
+    /* THE BASE FILL IS NOT PARKING (fixed 7/31, Paolo: "not a single pixel on screen
+       answered for"). This plot was painted "parking asphalt" edge to edge and then built
+       on, so every leftover tile in the district was called parking — 39.5% of the plot
+       under one flat sentence, which is what he scored a 40. A dead mall's lot does not
+       stay asphalt either: the edges go back to the desert first, because nothing is
+       resurfacing them. So the ground is RECLAIMED, and asphalt is painted only where the
+       parking actually is. */
+    G.rect(0,0,W-1,H-1,0); G.rect(4,4,W-5,H-5,3);
     // ---- THE DUMBBELL: concourse spine + two big anchor stores at the ends — sized so the
     // enclosed building genuinely dominates the plot, matching real dead-mall aerials, not a
     // small store lost in a sea of asphalt ----
@@ -59,6 +66,17 @@
       for(x=x0-2;x<=x1+2;x++){ if(get(x,top)===4)set(x,top,11); if(get(x,top+19)===4)set(x,top+19,11); }
     }
     bay(94,12,116); bay(11,12,116);
+    /* KERBED MEDIANS AND CART CORRALS. A real mall lot is not one slab -- it is fields
+       divided by planted medians, with a corral every few bays so the carts do not walk.
+       Both are things I can write a sentence about, which is the whole test now. */
+    for(i=0;i<5;i++){ var mx=18+i*22;
+      G.rect(mx,94,mx+3,113,18); G.rect(mx,11,mx+3,30,18);
+      set(mx+1,100,3); set(mx+2,106,3); set(mx+1,17,3); set(mx+2,23,3);
+    }
+    for(i=0;i<6;i++){ var kx=28+i*16, ky=(i%2)?101:104;
+      G.rect(kx,ky,kx+5,ky+2,19); G.rect(kx,ky-88,kx+5,ky-86,19);
+    }
+    [[14,100],[118,100],[14,20],[118,20],[64,100],[64,20]].forEach(function(p){ set(p[0],p[1],9); });
     for(i=0;i<34;i++){                                                    // nobody came back for these
       var cx=12+Math.floor(r()*26)*4, cy=(r()<0.5)?(95+Math.floor(r()*4)):(12+Math.floor(r()*4));
       if(get(cx+1,cy)===4||get(cx+1,cy)===11) G.rect(cx+1,cy,cx+2,cy+3,10);
@@ -94,15 +112,15 @@
      in their own brand colours and the food court was the warm room -- so the anchors carry
      a faded slate-blue and a faded oxblood, and the food court a warm ochre. Still inside
      the dead world's value band; just no longer one mud. */
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#5c5648',3:'#3a4520',4:'#524c3e',5:'#c79a3f',6:'#4a5766',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#5c5648',3:'#4c4a33',4:'#524c3e',5:'#c79a3f',6:'#4a5766',
     7:'#8a6a3a',8:'#8a7a4a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#241f1a',13:'#463f36',
-    14:'#93a2a8',15:'#7d7668',16:'#9a9384',17:'#7a4038'};
+    14:'#93a2a8',15:'#7d7668',16:'#9a9384',17:'#7a4038',18:'#4b5730',19:'#8d949a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the lot edge'},
     1:{name:'street / drive',     kind:'drive',      act1:'the cracked mall ring-road / driveway (car-drivable)'},
     2:{name:'concourse',          kind:'building',   act1:'the enclosed mall concourse, tilt-up + glazing, most glass gone', solid:true, enter:'concourse interior: a long dead promenade, storefronts dark on both sides'},
-    3:{name:'weed / brush',       kind:'tree-dead',  act1:'weeds through the cracked lot', solid:false},
-    4:{name:'parking asphalt',    kind:'ground',     act1:'the mall parking field, faded striping, sun-bleached'},
+    3:{name:'reclaimed ground',   kind:'ground',     act1:'the lot edge going back to the desert — asphalt broken into plates by forty summers, creosote and tumbleweed rooted in the joints, sand drifted over the kerb line. Nothing is resurfacing this', solid:false},
+    4:{name:'parking asphalt',    kind:'ground',     act1:'the parking field proper — asphalt still holding where the cars packed it down, striping ghosted to grey, oil shadows where the engines dripped'},
     5:{name:'gate',               kind:'gate',       act1:'the main driveway curb cut off the street, amber curb'},
     6:{name:'anchor store',       kind:'building',   act1:'a big-box anchor department store, sign faded, doors boarded', solid:true, enter:'anchor store interior: a cavernous dead sales floor'},
     7:{name:'food court',         kind:'building',   act1:'the food court bump-out, skylight glazing shattered', solid:true, enter:'food court interior: dead counter stalls around a seating pit'},
@@ -111,6 +129,8 @@
     10:{name:'abandoned car',     kind:'vehicle',    act1:'a car dead in the lot, tyres flat', solid:true},
     11:{name:'stall marking',     kind:'marking',    act1:'faded parking-stall paint'},
     12:{name:'entrance door',     kind:'portal',     act1:'a mall entrance vestibule, glass smashed or boarded', enter:'into the concourse'},
+    18:{name:'landscaped median',kind:'ground',   act1:'a kerbed planting median dividing the parking fields — the shrubs died first, then the kerb cracked, and the sand has half-buried it'},
+    19:{name:'cart corral',      kind:'prop',     act1:'a steel cart corral, rails bent outward where something drove through it, two trolleys still nested inside'},
     14:{name:'skylight',          kind:'structure', act1:'the concourse skylight run — most panes gone, the rest crazed white with forty summers'},
     15:{name:'rooftop plant',     kind:'structure', act1:'the rooftop HVAC farm — cased units, one stripped to its coil, ducting collapsed'},
     16:{name:'roof edge',         kind:'structure', act1:'the parapet line where the roof meets the wall'},

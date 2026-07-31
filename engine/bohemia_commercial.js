@@ -52,7 +52,7 @@
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
 
     G.rect(0,0,W-1,H-1,0);
-    G.rect(3,3,W-4,H-4,4);                                    // the dead landscape setback
+    G.rect(3,3,W-4,H-4,22);                                   // the setback ground -- NOT an island
 
     /* ---- THE SERVICE ALLEY, behind everything (Paolo 7/18: every business has a back
        door for trash and deliveries) ---- */
@@ -69,7 +69,7 @@
     G.rect(12,47,66,48,10);                                   // the anchor's own awning band
     /* THE GARDEN CENTRE on the east end -- a walled outdoor yard is the other thing every
        big box has, and it breaks the roofline instead of extending the same rectangle. */
-    G.rect(72,11,88,46,4);
+    G.rect(72,11,88,46,22);
     G.rect(72,11,88,11,21); G.rect(72,46,88,46,21);           // it is a WALL, not a roofed mass
     G.rect(72,11,72,46,21); G.rect(88,11,88,46,21);
     G.rect(78,46,82,46,14);                                   // the gate you walk in through
@@ -106,8 +106,18 @@
       G.rect(8,top,86,top,11); G.rect(8,top+22,86,top+22,11);
     }
     bay(56); bay(84);
-    for(i=0;i<4;i++){ var ix=14+i*19;                         // the landscape islands
+    /* KERBED ISLANDS AND MEDIANS. A lot this size is never one slab -- it is fields split
+       by planted islands, and they are where the loose carts end up. */
+    for(i=0;i<4;i++){ var ix=14+i*19;
       G.rect(ix,79,ix+8,81,4); set(ix+4,80,3);
+    }
+    /* the medians sit INSIDE the stall bands and never cross a drive aisle -- the first
+       cut ran them the full depth of the lot and severed the circulation, dropping the
+       car's reach from 0.98 to 0.56. A median a car cannot get round is a wall. */
+    for(i=0;i<4;i++){ var mx=16+i*19;
+      G.rect(mx,56,mx+2,62,4); G.rect(mx,72,mx+2,78,4);
+      G.rect(mx,84,mx+2,90,4); G.rect(mx,100,mx+2,106,4);
+      set(mx+1,58,3); set(mx+1,75,3); set(mx+1,87,3); set(mx+1,103,3);
     }
     /* nobody came back for these */
     for(i=0;i<22;i++){
@@ -148,23 +158,23 @@
 
     /* ---- dead planting through the setback ---- */
     for(i=0;i<30;i++){ var px2=5+Math.floor(r()*(W-10)), py2=5+Math.floor(r()*(H-10));
-      if(get(px2,py2)===4){ set(px2,py2,3); } }
+      if(get(px2,py2)===22){ set(px2,py2,3); } }
 
     /* ---- ROOFS AND DOORS, from the shared machine (7/31). Every mass gets an eave, a
        ridge that stops short, and a door onto somewhere you can stand. ---- */
     K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:ROOF, door:DOOR, min:60,
-                        outside:function(c){ return c===1||c===6||c===15||c===4||c===11; } });
+                        outside:function(c){ return c===1||c===6||c===15||c===4||c===11||c===22; } });
 
     /* ---- the one car entrance, canonical south ---- */
     var gx=52;
     for(i=-5;i<=5;i++) set(gx+i,H-1,5);
-    for(y=H-1;y>=112;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===0||c===3||c===4) set(gx+x,y,1); }
+    for(y=H-1;y>=112;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===0||c===3||c===4||c===22) set(gx+x,y,1); }
     return g;
   }
 
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
-    var soft=function(c){ return c===0||c===3||c===4; };
+    var soft=function(c){ return c===0||c===3||c===4||c===22; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:6, pedOver:soft, pedInset:14});
     var g=res.g;
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
@@ -184,13 +194,13 @@
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7c7367',3:'#3a4526',4:'#4a4a35',5:'#c79a3f',
     6:'#8a8a92',7:'#3f4e52',8:'#8c3f38',9:'#2f6058',10:'#a8842f',11:'#c9c1aa',12:'#b0863a',
     13:'#a39a88',14:'#241f1a',15:'#2b2b31',16:'#6a6e72',17:'#6a6e72',18:'#9aa0a6',
-    19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c'};
+    19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c',22:'#46442f'};
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',   act1:'bare cracked dirt at the property line'},
     1:{name:'lot asphalt',        kind:'drive',    act1:'the cracked parking field and its drive aisles, weeds up every joint (car-drivable)'},
     2:{name:'store',              kind:'building', act1:'concrete shell — the anchor box and the inline shop bays, fascia stripped, glass out', enter:'retail interior: an open sales floor, checkout line stripped for metal, stock room and office behind'},
     3:{name:'dead tree',          kind:'tree-dead',act1:'a dead lot tree in its island, gone to stick', solid:false},
-    4:{name:'landscape island',   kind:'ground',   act1:'a kerbed landscape island in the lot, dirt and dead shrub'},
+    4:{name:'landscape island',   kind:'ground',   act1:'a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up'},
     5:{name:'curb cut / gate',    kind:'gate',     act1:'the driveway curb cut off the street, amber paint gone chalky'},
     6:{name:'storefront walk',    kind:'walk',     act1:'the covered concrete walk along the shopfronts, cracked, glass underfoot'},
     7:{name:'storefront glass',   kind:'building', act1:'the shopfront glazing line, dark and mostly out', layer:'structure'},
@@ -207,6 +217,7 @@
     18:{name:'shopping cart',     kind:'prop',     act1:'a shopping cart drifted up against a kerb', solid:false},
     19:{name:'fuel canopy',       kind:'structure',act1:'the fuel-island canopy, brand panels stripped, you drive under it', layer:'overhead', solid:false},
     20:{name:'fuel pump',         kind:'prop',     act1:'a dead pump, hoses down, screen dark'},
+    22:{name:'setback ground',    kind:'ground',   act1:'the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face'},
     21:{name:'garden centre wall', kind:'fence',    act1:'the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge'}
   };
   var NOTES={
