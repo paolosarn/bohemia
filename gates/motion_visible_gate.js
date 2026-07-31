@@ -113,6 +113,55 @@ const FLOOR = {
      him. Cough, whistle and search are now DELIBERATELY UNGATED for motion --
      he has called all three bad and they are waiting on his direction, not mine.
      The 8 clips he has NOT ruled on keep their floors below. */
+
+  /* THE HEADSHOT MUST ACTUALLY FALL (Paolo 7/31, third time asking:
+     "THE HEADSHOT 1 AND HEADSHOT 2 ANIMATION IS BROKEN ASFUCKKKK BRO HOLY SHITTT")
+
+     It was frozen before it could move. The headshot is the one REAL-TIME clip --
+     a ragdoll on the wall clock, off the 120 BPM grid -- and posedSkel has carried
+     that exemption since 7/2. But buildFrame calls poseHoldAt FIRST and takes its
+     answer, and the frozen-pose system had no exemption: it resolved ~12 key poses
+     from the ragdoll's first instants, cached them under 'S|headshot' forever, and
+     the physics never reached the screen again.
+
+     THE MEASUREMENT THAT NAMES IT: the skeleton fell headTop 7 -> 19 while the
+     drawn silhouette stayed rows 3-53 width 19 on EVERY frame. Body sinks, sprite
+     never moves.
+
+     A FALL IS MEASURED AS A SILHOUETTE THAT WIDENS AND DROPS, because a body going
+     from upright to flat gets wider and its top comes down. Pose values are not
+     enough -- they were moving the whole time this was broken. */
+  const fall = await pg.evaluate(async () => {
+    const out = {};
+    for (const c of ['headshot', 'headshot-2', 'idle', 'walk']) {
+      if (typeof HS !== 'undefined') HS.key = null;
+      const w = [], tops = [];
+      for (let i = 0; i < 7; i++) {
+        await new Promise(r => setTimeout(r, 200));
+        const f = buildFrame('S', c, 0.1);
+        let miny = 99, minx = 99, maxx = -1;
+        for (let k = 0; k < f.px.length; k++) if (f.px[k]) {
+          const y = (k / f.CW) | 0, x = k % f.CW;
+          if (y < miny) miny = y; if (x < minx) minx = x; if (x > maxx) maxx = x;
+        }
+        w.push(maxx - minx); tops.push(miny);
+      }
+      out[c] = { grow: Math.max(...w) - Math.min(...w), drop: Math.max(...tops) - Math.min(...tops) };
+    }
+    return out;
+  });
+  for (const c of ['headshot', 'headshot-2']) {
+    ok(`${c} actually FALLS: the silhouette widens (${fall[c].grow}px) as the body goes flat`,
+      fall[c].grow >= 4);
+    ok(`${c} actually FALLS: the top of the sprite drops (${fall[c].drop}px)`,
+      fall[c].drop >= 2);
+  }
+  ok('idle does not fall over', fall.idle.grow < 4 && fall.idle.drop < 3);
+  ok('walk does not fall over', fall.walk.grow < 4 && fall.walk.drop < 3);
+  const _src = require('fs').readFileSync(ALPHA, 'utf8');
+  ok('the frozen-pose system honours the ragdoll exemption (the actual bug)',
+    /RAGDOLL EXEMPTION, THE OTHER HALF/.test(_src) &&
+    /if\(TERMINAL\[clip\]\)return null;/.test(_src));
   await b.close();
   console.log(`\n=== MOTION VISIBLE GATE: ${p} passed, ${f} failed ===`);
   process.exit(f ? 1 : 0);
