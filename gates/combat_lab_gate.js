@@ -2438,9 +2438,15 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     demo.includes('const epos=e=>{ const p=fieldPos(e,W,H,cx,cy); return [p[0],p[1]+lvlDY(e.lvl)]; };'));
   ok('and the dead lie on the floor they fell on, instead of snapping to the lot',
     demo.includes('const _ep=epos(e);   /* V90B: the dead lie on the floor they fell on */'));
-  ok('THE HEIGHT IS READ BY VALUE CONTRAST: the storey face is near-black against the lot. The first render drew it at #3e372c and the deck read as a lighter PATCH OF GROUND rather than a thing with a height',
-    demo.includes("x.fillStyle='#15120e'; x.fillRect(p[0]-t2*0.5,fy,t2+1,-dz);") &&
-    demo.includes("x.fillStyle='rgba(0,0,0,0.55)';") &&
+  /* V105 RE-POINTED. The invariant is that A STOREY MUST READ AS TALL, and the
+   original finding stands: drawn at #3e372c it read as a lighter patch of ground.
+   v105 stops solving that with a near-black WALL, because a wall can only hide
+   the man under it, and solves it with a scaffold instead: vertical legs, which
+   are the only thing in a top-down frame that says tall, plus a hard bright kick
+   rail to read the height against. Same requirement, better answer. */
+ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: vertical legs + a bright kick rail, instead of a near-black wall)',
+    demo.includes('x.lineWidth=Math.max(2,t2*0.09); x.strokeStyle=') &&
+    demo.includes("x.strokeStyle='rgba(232,214,172,0.92)'; x.lineWidth=Math.max(2,t2*0.08);") &&
     !demo.includes("x.fillStyle='#3e372c';"));
   /* V92 REPLACED WHAT THIS CHECKED. The "steps on the tile" it asserted were a
      DECAL on a tile floating a storey above the lot -- Paolo: "looking like dog
@@ -2520,7 +2526,11 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
 {
   ok('V92 THE DECAL IS GONE: three stripes on a tile floating one storey above the lot were never a way up',
     !demo.includes("for(let s2=0;s2<3;s2++)x.fillRect(p[0]-t2*0.42,ty+t2*(0.18+s2*0.26),t2*0.84,t2*0.10); } }") &&
-    demo.includes('V92: the three stripes that used to be painted here are GONE'));
+    /* V105 RE-POINTED: the deck draw was rewritten as a scaffold and the v92 note
+       went with the code it annotated. The INVARIANT is what matters and it is
+       stronger now -- no decal, and a real run of steps that touches the ground. */
+    demo.includes('V92 A REAL RUN OF STEPS') &&
+    demo.includes('const rise=DECK_H;'));
 
   ok('V92 A REAL RUN OF STEPS joins the two floors: five steps, each with a BRIGHT TREAD and a NEAR-BLACK RISER, spanning the storey',
     demo.includes('const NS=5, run=t4*1.05, halfW=t4*0.46;') &&
@@ -2835,9 +2845,17 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('function dialKillZone(){ return G.W.hZ*dialFgv()*KILL_GRACE*ARC_MULT; }') &&
     /const fg=\(G\.pkgDiff>=1\?1\.10:1\)[\s\S]{0,400}_onePop/.test(demo));
 
-  ok('V102 THE NEEDLE SCRUBS A CLIP THAT ALREADY EXISTS: rise112 is the body coming UP OUT OF THE CROUCH, already baked and already used when a man gets off the deck. Nothing is animated -- the needle indexes it',
-    demo.includes('const R=L.rise112;') &&
-    demo.includes('if(R&&R.length)return R[Math.max(0,Math.min(R.length-1,Math.round(e._expo*(R.length-1))))];'));
+  /* *** THIS CHECK WAS WRONG AND IT PASSED FOR A WHOLE TURN. *** I wrote it
+   asserting that rise112 "is the body coming UP OUT OF THE CROUCH". It is not:
+   rise112 bakes from 'floor-rise', a man getting up OFF THE FLOOR. So the gate
+   confidently guarded the wrong clip, and Paolo is the one who caught it --
+   "they were doing animations they weren't supposed to be".
+   A CHECK THAT ASSERTS A FALSE CLAIM IS WORSE THAN NO CHECK, because it makes
+   the mistake look verified. Rewritten to name the clip by WHAT IT BAKES FROM. */
+ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the gun -- and NEVER floor-rise, which is a man getting up off the ground',
+    demo.includes('const CF=L.cfire112, CV=L.cover112;') &&
+    demo.includes('if(CF&&CF.length)return CF[Math.max(0,Math.min(CF.length-1,Math.round(e._expo*(CF.length-1))))];') &&
+    !demo.includes('const R=L.rise112;'));
 
   ok('V102 ONLY THE MAN UNDER THE DIAL ("i still like how they animate already"): the branch needs him to be the aim target, the dial to be live, and him to really be in cover. Every other body animates exactly as before',
     demo.includes('if(e.gcov&&dialLive()&&e===G.e[G.fireTarget]){'));
@@ -2872,7 +2890,9 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('r:0.5,tall:tall,car:cid,'));
 
   ok('V103 ONE SPRITE OVER SIX CELLS: only the nose cell draws, the other five are real cover that simply are not blocks',
-    demo.includes('if(Math.abs(q0[0]-P.carOx)>0.01||Math.abs(q0[1]-P.carOy)>0.01)continue;') &&
+    /* V104 RE-POINTED: the nose is a FLAG now, because comparing to a remembered
+       coordinate broke the instant the world shifted under the player. */
+    demo.includes('if(!P.nose)continue;') &&
     demo.includes('const im=CAR_READY?CAR_IMG[P.carArt|0]:null;'));
 
   ok('V103 MAP LAW HELD: he placed the canon ("slide a car in"). Count, position and orientation are PARAMETERS on the arena dice, like the racking and the cover density -- and a car is never parked on the player',
@@ -2886,6 +2906,70 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
 
   ok('V103 THE ART IS REUSE, NOT A COOK: it is the approved car_wreck pool (top-down abandoned cars from the HD repo), fitted into the 2x3 box UNSTRETCHED rather than fattened to fill it',
     demo.includes('const CAR_B64=[') || demo.includes('const CAR_B64=["'));
+
+  /* ===== 38. V104 THE CAR STAYS / THE RIGHT CLIP / YOU AIM IT ========== */
+  ok('V104 A CAR IS FOUND BY A FLAG, NEVER BY A REMEMBERED COORDINATE (Paolo: "combat ends and then the car disappears"). This field is POLAR and worldShift slides every anchored thing when you step, so v103 comparing a cell to its BIRTH position meant no cell matched after one move and the whole car stopped drawing while staying solid cover',
+    demo.includes('V104 THE CAR STAYS') &&
+    demo.includes('nose:(c===cells[0])') &&
+    demo.includes('if(!P.nose)continue;') &&
+    !demo.includes('carOx:ox,carOy:oy') &&
+    !/Math\.abs\(q0\[0\]-P\.carOx\)/.test(demo));
+
+  ok('V104 THE NEEDLE SCRUBS cover-fire, NOT floor-rise (Paolo: "they were doing animations they weren\'t supposed to be"). rise112 bakes from floor-rise, a man getting up OFF THE FLOOR; cfire112 bakes from cover-fire, the peek up onto the gun -- which is what v102 claimed rise112 was',
+    demo.includes('const CF=L.cfire112, CV=L.cover112;') &&
+    demo.includes('if(CF&&CF.length)return CF[Math.max(0,Math.min(CF.length-1,Math.round(e._expo*(CF.length-1))))];') &&
+    !/dialLive\(\)&&e===G\.e\[G\.fireTarget\]\)\{[\s\S]{0,900}L\.rise112/.test(demo));
+
+  ok('V104 AND floor-rise GOES BACK TO ITS ONE JOB: a man getting up off the floor, on _roseAt, untouched',
+    demo.includes('if(e._roseAt&&now-e._roseAt<640&&L.rise112)return L.rise112[Math.min(3,Math.floor((now-e._roseAt)/160))];'));
+
+  ok('V104 YOU AIM THE GRENADE (Paolo: "it definitely did not allow you to choose to be wrong"). Press to ARM, then TAP THE TILE -- the auto-throw is gone, because a grenade whose landing spot you cannot pick has no decision in it',
+    demo.includes('function tapTile(x,y){') &&
+    demo.includes('function throwAt(tx,ty){') &&
+    demo.includes('if(G.grenArm){ const t3=tapTile(x,y);') &&
+    !/doThrow\(\)\{[\s\S]{0,700}G\.selTarget!=null\?G\.selTarget:pickTarget\(\)/.test(demo));
+
+  ok('V104 AND YOU CAN BE WRONG: your own grenade measures YOUR distance on the same bands the enemy grenade has always used on you. No minimum range, no safety check -- choosing badly has to cost you or choosing means nothing',
+    demo.includes('const dSelf=Math.hypot(gp[0],gp[1]);') &&
+    demo.includes("setRead('YOUR OWN GRENADE','-'+sd+' -- you threw it short','#e8593a');"));
+
+  ok('V104 THE DAMAGE IS ON THE MAN (Paolo: "I didn\'t see any damage"). It very likely DID land -- one step off the tile is still inside the clip band -- and the only feedback was a line of text. Now every hit floats its number, on his storey',
+    demo.includes("G._fx.push({type:'dmgnum',ea:e.ea,edist:e.edist,lvl:e.lvl|0,n:dmg,t:0,life:1.0});") &&
+    demo.includes("if(p.type!=='dmgnum'||p.t<0)continue;") &&
+    demo.includes("x.fillText('-'+p.n, _np[0], _np[1]+lvlDY(p.lvl|0)") &&
+    demo.includes("('BLAST -- '+hurt+' HIT')"));
+
+  ok('V104 the button says it is armed, and a fresh fight is never armed',
+    demo.includes("b.textContent=G.grenArm?'TAP A TILE':('GRENADE '+n);") &&
+    demo.includes('G.pGrenLeft=P_GREN_PER_FIGHT; G.grenArm=false;'));
+
+  /* ===== 39. V105 THE SCAFFOLD ========================================= */
+  ok('V105 THE STOREY IS A SCAFFOLD, NOT A SLAB (Paolo: "make it look like a scaffold... simple like warehouse scaffold... like Home Depot"). A near-black rectangle could only ever HIDE the man under it; a scaffold is see-through by construction, which answers both of his complaints with one object',
+    demo.includes('V105 THE SCAFFOLD') &&
+    !demo.includes("x.fillStyle='#15120e'; x.fillRect(p[0]-t2*0.5,fy,t2+1,-dz);"));
+
+  ok('V105 LEGS AND X-BRACING, on the OPEN edges only so the inside of the deck stays see-through. The vertical is the only thing in a top-down frame that says TALL, and the diagonal cross is what makes a structure read SCAFFOLD instead of table',
+    demo.includes('const openL=!deckTileAt(q[0]-1,q[1]), openR=!deckTileAt(q[0]+1,q[1]);') &&
+    demo.includes('x.beginPath(); x.moveTo(lx,ty); x.lineTo(rx,by+t2);') &&
+    demo.includes('x.moveTo(rx,ty); x.lineTo(lx,by+t2); x.stroke(); } }'));
+
+  ok('V105 THE DECK IS SLATTED, not a poured plate: boards with gaps, so the lot shows between them',
+    demo.includes('const DECK_SEE=0.34, NBOARD=4;') &&
+    demo.includes('x.fillRect(p[0]-t2*0.5+bI*bw,ty,bw*0.82,t2+1); }'));
+
+  ok('V105 AND THE TILE IN YOUR WAY GETS OUT OF THE WAY -- his third ask, answered at the CAUSE this time. A deck tile with a living body under it drops to DECK_SEE alpha, so the man shows THROUGH the boards instead of being hidden and then redrawn',
+    demo.includes('const thin=_below(T);') &&
+    demo.includes('x.save(); if(thin)x.globalAlpha=DECK_SEE;'));
+
+  ok('V105 AND v93\'S GHOST STAYS AS THE BACKSTOP: two independent reads of the same fact, because he has asked to see who is underneath three times',
+    demo.includes('function underDeck(o){') &&
+    demo.includes('const UNDER_TINT=') &&
+    demo.includes('if(underDeck(e)){'));
+
+  ok('V105 IT IS STILL A READ, NOT A RULE CHANGE: a thinner tile changes what you can SEE, never what you can hit -- the cross-level cover rule is untouched',
+    demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
+    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;') &&
+    !/const thin=_below\(T\);[\s\S]{0,400}(gcov=|KILL_DMG|applyDamage)/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

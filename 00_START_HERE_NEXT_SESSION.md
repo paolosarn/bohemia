@@ -221,6 +221,86 @@ a fight [PENDING Paolo] -- the biggest consequence, since Crisis Response's whol
 is people who must not be shot. How a body's state is SHOWN [PENDING Paolo].
 NO DAMAGE BEFORE THE DIAL.
 
+COMBAT (04) 7/31 (b) - HIS T6 PLAYTEST, FIVE THINGS, ALL FIVE MINE.
+
+*** 1. "Combat ends and then the car disappears" -- NOT combat ending. THE MOMENT
+YOU MOVE. *** v103 found a car's nose cell by comparing its LIVE position to the
+position it was BORN at. But this field is POLAR and worldShift slides every
+anchored thing when you step, so after one move no cell matched, no cell drew,
+and the whole car went invisible WHILE STAYING SOLID COVER. camHome() at the end
+of a fight recentres the world, which is why he noticed it there.
+I STORED A WORLD COORDINATE IN A WORLD THAT MOVES. Now one cell carries
+nose:true. A flag cannot drift. Verified: 3 cars before, 3 after 12 world shifts.
+
+*** 2. "they were doing animations they weren't supposed to be" -- v102 SCRUBBED
+THE WRONG CLIP. *** I wrote that rise112 was "the body coming up out of the
+crouch". IT IS NOT. It bakes from 'floor-rise' -- a man getting up OFF THE FLOOR.
+So a man crouching behind a wall played get-up-off-the-ground.
+cfire112 bakes from 'cover-fire': the peek up out of cover onto the gun, whose
+own comment in the file reads "never a stand". THAT is the clip I described.
+*** I NAMED A CLIP FROM ITS VARIABLE NAME INSTEAD OF FROM WHAT IT BAKES FROM.
+One grep to the bake line would have told me. ***
+AND THE GATE CHECK I WROTE FOR v102 ASSERTED THE SAME FALSE CLAIM AND PASSED FOR
+A WHOLE TURN. A check that asserts something false is WORSE than no check,
+because it makes the mistake look verified. Rewritten to name clips by what they
+bake from.
+
+*** 3. "it definitely did not allow you to choose to be wrong" -- he is right and
+that is the real criticism. *** Auto-throw has no decision in it. Now: press
+GRENADE to ARM, then TAP THE TILE. Any tile. *** NO MINIMUM RANGE AND NO SAFETY
+CHECK: throw it short and YOU eat it, on the same bands the enemy grenade has
+always used on you. Verified live: threw at my own feet, took 43. *** Choosing
+badly has to cost you or choosing means nothing.
+"I didn't see any damage" -- it very likely DID land. They step one tile off the
+tile, which is still inside the clip band, so they took 18-25 and lived, and the
+entire feedback was one line of text. Now every hit floats its number over the
+man, on his storey, and the read counts HIT as well as DOWN.
+
+*** 4. "The two story shit looks like dog shit... make it look like a scaffold...
+simple like warehouse scaffold... like Home Depot" + for the THIRD time, let him
+see who is underneath. *** BOTH have one answer and he named it: A SCAFFOLD IS
+SEE-THROUGH BY CONSTRUCTION. What was there was a near-black rectangle, and a
+solid slab can only ever hide the man under it -- v93's ghost was me patching
+that symptom instead of the cause.
+NOW: LEGS (the vertical is the only thing in a top-down frame that says tall),
+X-BRACING on the open edges (the diagonal cross is what makes a structure read
+scaffold and not table), a SLATTED deck (boards with gaps, the lot shows
+between), and a bright KICK RAIL for the height line.
+AND THE TILE IN YOUR WAY GETS OUT OF THE WAY: any deck tile with a living body
+under it drops to 0.34 alpha. v93's ghost STAYS as the backstop -- two
+independent reads of the same fact, because he has asked three times.
+
+*** 5. "whatever pixels you're using for the streets are quality... help me
+identify that for the other chat" *** -> WRITTEN UP FOR EVERY LANE:
+records/BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE_7_31_26.md
+THE ANSWER: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt -- pools.street
+(18), pools.side (36), median, lane_div, cross, stall_line_v/h (18 each), all
+with the paint ALREADY ON the asphalt. It is the STREET BLOCKS row of the
+approved asset index (REAL_VEGAS R2) and it is already wired in CITY.
+*** AND IT CARRIES FOUR OF PAOLO'S OWN RULINGS INSIDE THE BANK, NOT IN /laws:
+markings_30yr_law, weather_rarity_law, desert_dominance_law (per-cell shuffle
+BANNED) and parking_geometry_law. That is why the tiles look right and hand-
+painted markings never do. *** The doc also carries the four things that
+actually made it look good: one bank for road AND markings, quarter-turns at
+blit time (8 variants -> 32 faces, zero payload), the MEASURED orientations
+(kerb lip on the bottom edge, gutter shadow on the top, markings run
+horizontal), and obeying the dominance law on open ground.
+
+TOOLS: bohemia_combat_carfix_clip_aim_patch.py, bohemia_combat_scaffold_patch.py
+GATE: sections 38 + 39. COMBAT GATE 538 -> 551. FIVE older checks re-pointed at
+their invariants, one of them because IT WAS ASSERTING SOMETHING FALSE.
+ALSO CAUGHT: v104 never stamped its own MARK, so the tool was not actually
+idempotent. Fixed and proven (second run is a no-op).
+
+STILL OPEN FROM T6, NOT YET DONE: he is still not sure the killshot allowance
+ramp is happening ("I'm confused as to whether after the default amount... the
+chain continues to very hard"). The read says SHOT 3 OF 2 - PAST YOUR ALLOWANCE
+in red, and that is evidently still not landing. NEXT TURN: make the RAMP itself
+visible on the dial, not just in text.
+
+*** MAIN IS RED ON RIG CHECK + BODY VARIATION AND NEITHER IS COMBAT'S *** --
+still, unchanged, proven earlier against a clean origin/main worktree.
+
 ART (f3eu53): 7/31 (b) LATEST — PAOLO KILLED THE CONDITIONER THE MOMENT HE SAW IT, AND
 HE WAS RIGHT. I ENFORCED A LAW HE NEVER MADE AGAINST ASSETS HE PAID FOR.
 
