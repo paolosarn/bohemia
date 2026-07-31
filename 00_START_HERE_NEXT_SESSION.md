@@ -1936,3 +1936,37 @@ ledger, companion social layer; queue seeded, intent in doctrine §6. The
 city-builder half gets NO lane until Paolo's design talk (records/BOHEMIA_
 THE_BIG_MISSING_7_29_26.md item 2). Paolo opens the new chat with one word:
 "people".
+--------------------------------------------------------------------------------
+7/31 (h) — HOUSE 02 SOUTH APPROVED. THE HOUSE FACTORY SHIPPED: 16 HOUSES. LIFE TAB.
+
+PAOLO, VERBATIM: "THE SOUTH LOOKS SO FUCKING GOOD BRO!!! NICEE!!!!" — APPROVE on
+house 02, south facing. Approval unlocks volume, and he asked for a big swing.
+
+THE SWING: HOUSE 02 WAS NEVER A DRAWING. It is a solid built from parameters, which
+is why it turned from south-west to south without a redraw. The same property means
+it can be VARIED. So it became the factory the FACTORY LAW asks for — typed spec,
+generator, batch output, one judge page, its own gate:
+  tools/bohemia_house_factory.py -> banks/BOHEMIA_HOUSE_SET_16_7_31_26.txt
+  slices/BOHEMIA_HOUSES16_JUDGE_7_31_26.html   (LIFE tab, top card)
+  gates/house_factory_gate.py   registered as HOUSE FACTORY, 69 checks
+
+SIXTEEN HOUSES, 854 to 1774 sq ft, all south facing, 14 DISTINCT MASSINGS: L-ranch,
+mirrored L, snout, cross-gable, two-storey, split-level, double gable, deep ranch,
+stepped split, big cross-gable. STRUCTURE-NOT-COLOUR is respected and MACHINE-HELD:
+the gate fails if fewer than 14 distinct massings, so a recolour can never do the
+work shape should.
+
+REUSE, VERIFIED PER HOUSE: every colour of all sixteen comes from
+banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (30 skins, CANON, all UP 7/21). The
+gate checks every pixel of every house against that bank rather than trusting the
+docstring — the check house 01 would have failed.
+
+THE JUDGE PAGE IS A BULK SURFACE: 16 cards, thumb each, or ALL UP / ALL DOWN and fix
+the exceptions, notes box, .txt export naming KEEP / KILL / UNJUDGED. Verified by
+clicking through from LIFE in a real browser at 390px: 16 cards, 16 images painted,
+single thumb works, ALL UP works, zero horizontal overflow.
+
+WHAT IS STILL HIS: which of the sixteen live. UNJUDGED IS DEAD applies — bulk silence
+is a verdict, so anything he does not thumb dies rather than lingering.
+
+BUILD STAMP: 7/31h. ALL GATES GREEN (954s).

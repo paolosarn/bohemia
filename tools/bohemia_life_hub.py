@@ -71,13 +71,14 @@ html = r"""<meta charset="utf-8">
        I hit that once, restored the HTML by hand, then regenerated and broke it
        again -- restoring the artifact leaves the landmine armed. The generator is
        the single source of truth; a card that is not in here does not survive. -->
-  <a href="BOHEMIA_HOUSE_ISO_JUDGE_7_29_26.html" style="display:block;text-decoration:none;background:#16210f;border:2px solid #7fc24d;border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font:800 16px -apple-system,sans-serif;color:#9fe06d">HOUSE 02 &#183; SOUTH OR SOUTH-WEST? <span style="font:600 10px sans-serif;background:#7fc24d;color:#12220a;border-radius:4px;padding:2px 6px;vertical-align:2px">ONE TAP</span></div>
+  <a href="BOHEMIA_HOUSES16_JUDGE_7_31_26.html" style="display:block;text-decoration:none;background:#16210f;border:2px solid #7fc24d;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font:800 16px -apple-system,sans-serif;color:#9fe06d">THE SIXTEEN HOUSES <span style="font:600 10px sans-serif;background:#7fc24d;color:#12220a;border-radius:4px;padding:2px 6px;vertical-align:2px">THUMB THEM ALL</span></div>
     <div style="font:12px/1.5 -apple-system,sans-serif;color:#c6dcb2;margin:4px 0 8px">
-      You said imagine it facing south instead of southwest. Both are on the card, same
-      house, same measurements, same colours, just turned. Straight up: south costs you the
-      corner where two walls meet and puts a lot more roof on screen. Pick the one that is
-      the game.
+      You said the south one looks good, so I built the other fifteen off it. Every one is
+      a different SHAPE, not a recolour: L-ranch, snout, cross-gable, two-storey,
+      split-level and the rest. All facing south. Every colour off the 30 skins you already
+      approved. Thumb each one, or ALL UP / ALL DOWN and fix the exceptions. What you keep
+      goes in the suburbs.
     </div>
   </a>
 

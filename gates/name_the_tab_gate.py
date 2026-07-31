@@ -72,6 +72,11 @@ SUPERSEDED = {
         'looked just horrible tbh" - the second house rejection of the day, which STOP PRODUCING '
         'says ends the feature for the session. Page deleted with the study it showed. Verdict: '
         'records/BOHEMIA_HOUSE_SHAPES_VERDICT_7_29_26.txt.',
+    'BOHEMIA_HOUSE_ISO_JUDGE_7_29_26.html':
+        'ANSWERED. Paolo 7/31: "THE SOUTH LOOKS SO FUCKING GOOD BRO!!! NICEE!!!!" - '
+        'approved, south facing, and approval unlocked volume. Superseded on the hub by '
+        'BOHEMIA_HOUSES16_JUDGE_7_31_26.html, the sixteen built off it. The page stays on '
+        'disk as the thing he was looking at when he ruled.',
     'BOHEMIA_SUBURB_JUDGE_7_18_26.html':
         'DEAD by laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md - it sat ten days '
         'unlinked and unjudged, and bulk silence IS a verdict. Districts are judged '

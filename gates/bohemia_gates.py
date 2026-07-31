@@ -337,6 +337,8 @@ GATES = [
      'Paolo 7/27: ONE movement UI everywhere - portrait dead centre, 8 cardinals ringed around it, controls float instead of carving a bar out of the screen', True),
     ('CMU BLOCK',      ['python3', 'gates/cmu_gate.py'],
      'TF-ART-001: the block-wall family that stops a jail, a warehouse and a family home being drawn in the same suburban stucco. Running bond (not stack), the bond dividing the corpus cell exactly, seamless laid 2x2, grey not warm, and act-1 floor/ceiling', False),
+    ('HOUSE FACTORY',  ['python3', 'gates/house_factory_gate.py'],
+     'Paolo 7/31 approved house 02 south, and approval unlocks volume - so the sixteen get the scrutiny the one got: two masses each, site-built pitch, every colour verified against his 30 approved skins, and 14+ DISTINCT MASSINGS so shape is doing the work and not a recolour', False),
     ('ISO HOUSE',      ['python3', 'gates/iso_house_gate.py'],
      'Paolo 7/29: "copy how other isometric pixel games make houses". The 2:1 diamond, two masses minimum, site-built pitch and eave, and - the check house 01 would have failed - EVERY colour machine-verified to exist in the 30 skins he approved, so a reuse check is checkable instead of a sentence', False),
     ('HOUSE SHAPE',    ['python3', 'gates/house_shape_gate.py'],
