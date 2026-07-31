@@ -1,3 +1,59 @@
+LAB (e2r7sv): 7/31 (b) LATEST — HE APPROVED THE ACTION CLOCK'S SHAPE, SO IT IS LAW
+AND GATED; AND THE BLEED TRIGGER IS ANSWERED OFF REAL CODE.
+
+=== THE RULING ===
+Paolo 7/31 on the CDDA page: "And sure the time cost shit sounds good." Under NOTES
+ARE RULINGS that IS the verdict, so it is canon the same turn:
+laws/BOHEMIA_ADDENDUM_THE_ACTION_COST_SHAPE_7_31_26.md. Six clauses: an action's cost
+is FIXED; denominated FINER than the clock; CONDITION is the divisor, never a second
+cost; the divisor has a HARD FLOOR so the conversion has a HARD CEILING (a bad day can
+never become an infinite one); THRESHOLDS NOT SLOPES, under the line is free; and THE
+TWO CLOCKS STAY TWO (camp law clause 17), written down as a CHOICE so no future lane
+"fixes" it into one.
+STILL HIS, and the gate proves nobody filled them in: the DENOMINATION (the BEAT is
+the obvious candidate since everything already quantises to 120 BPM — NO LANE PICKS
+IT), the CEILING NUMBER (Cataclysm's is 4x), and the ACTION LIST AND COSTS.
+
+=== THE GATE, AND THE BUG IT FOUND IN ITSELF ===
+gates/action_cost_shape_gate.js, registered as ACTION COST SHAPE, 31 checks.
+Part A holds the law (clauses matched by CLAIM not by number, so a renumbering cannot
+silently drop one). Part B is the one that earns its keep: THIS LAW READS LIKE
+PERMISSION TO GO BUILD A COST TABLE AND IT IS NOT, so it sweeps engine/ for a table
+STRUCTURE — never a mention, because tripping on a mention is now on this repo's
+record three times (lab_gate A10, A12, A24). Part C drives the lab page LIVE and makes
+every clause prove itself in a real browser, so the law is evidence and not opinion.
+Six mutations caught. THE SIXTH FOUND A REAL BUG IN MY OWN GATE: B3 hunts a LINK from
+a shipped surface, shipped surfaces are HTML, and my walker only collected .js — so it
+passed a planted link. Fixed, and the reason is written into the source. A gate that
+goes green first try has not been tested.
+
+=== THE BLEED ANSWER (his direct question) ===
+records/BOHEMIA_BLEED_TRIGGER_ANSWER_7_31_26.md
+BLEEDING IS A PROPERTY OF THE WEAPON THAT HIT YOU, NOT OF HOW MUCH HEALTH YOU LOST.
+Off real code — monster.cpp:2445-2447: `if( du.type == damage_bullet ||
+du.type->edged ) make_bleed( source, 1_minutes * rng( 0, adjusted_damage ) );`
+Four things fall out. The trigger is the damage TYPE (bullet, or cut/stab flagged
+`edged`; bash pointedly is NOT, so blunt force never bleeds). Severity is what got
+PAST ARMOUR (creature.cpp:1552) — which makes a jacket a medical decision in a game
+whose progression IS clothing. The roll STARTS AT ZERO, so most grazes cost nothing.
+And it is per body part (`main_parts_only`). Their ladder: 40 intensities, five bands,
+Minor to Heavy Arterial.
+Grounded in real trauma medicine: blunt trauma kills by breaking things inside you,
+penetrating trauma kills by opening vessels. That is why "was it sharp" is the first
+question and why a tourniquet is useless on a crush injury.
+MY RECOMMENDATION, three rules, shape not numbers: SHARP OR SHOT NEVER BLUNT / ONLY
+WHAT GOT PAST YOUR CLOTHES / MOST HITS DON'T. The third one is also the answer to his
+older 7/27 question — you do NOT have to prevent blood loss after every fight — and it
+is what keeps his own camp clause 6 true, that a player who ignores the camp can still
+play.
+HONEST LIMIT: monster.cpp:2445 is the MONSTER side of the hit, the path I read end to
+end. The player side routes through their JSON on-hit effects, which I did not trace.
+
+=== WHERE THE LAB LANE IS ===
+NOTHING BUILT, NO DAMAGE BEFORE THE DIAL. Waiting on him for: the bleed recommendation
+(yes/no), the denomination, the ceiling number, the action list, the camp dial
+playtest, and the ten open camp clauses. LOOT IS A CLOSED SUBJECT (two kills).
+
 LAB (e2r7sv): 7/31 LATEST — WHAT AN ACTION COSTS, ANSWERED OFF REAL C++, AND A GATE
 BUG THAT WAS PUNISHING HONEST NOTES.
 

@@ -25,6 +25,60 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1o. [RULED + LAWED + GATED 7/31] THE ACTION COST SHAPE IS CANON, AND THE BLEED
+   TRIGGER IS ANSWERED.
+   Paolo 7/31, on the CDDA page: "And sure the time cost shit sounds good." Under
+   NOTES ARE RULINGS that IS the verdict, so it became law the same turn:
+   laws/BOHEMIA_ADDENDUM_THE_ACTION_COST_SHAPE_7_31_26.md. Six clauses: (1) an
+   action's cost is FIXED; (2) it is denominated FINER than the clock; (3) your
+   CONDITION is the divisor, never a second cost; (4) the divisor has a HARD FLOOR
+   so the conversion has a HARD CEILING - a bad day can never become an infinite
+   one; (5) THRESHOLDS, NOT SLOPES - under the line is free; (6) THE TWO CLOCKS STAY
+   TWO (clause 17 of the camp law), recorded as a CHOICE so nobody later "fixes" it
+   into one.
+   STILL PENDING PAOLO, and the gate proves nobody filled them in: the DENOMINATION
+   (clause 2 - the BEAT is the obvious candidate since everything already quantises
+   to 120 BPM, but no lane picks it), the CEILING NUMBER (clause 4 - Cataclysm's is
+   4x), and the ACTION LIST AND ITS COSTS (clause 4 of the time law, untouched).
+   GATE: gates/action_cost_shape_gate.js, registered as ACTION COST SHAPE. 31 checks.
+   Part A holds the law (six clauses matched by CLAIM not by number, so a
+   renumbering cannot drop one; the three pendings must still read PENDING). Part B
+   is the one that matters - THIS LAW READS LIKE PERMISSION TO GO BUILD A COST TABLE
+   AND IT IS NOT, so it sweeps engine/ for a table STRUCTURE (never a mention - that
+   mistake is now on this repo's record three times). Part C drives the lab page
+   LIVE and makes all six clauses prove themselves in a real browser, so the law is
+   evidence-backed rather than an opinion.
+   Six mutations caught: a pending filled in, a clause dropped, the law growing its
+   own table, an engine module starting one, the floor removed from the page, and a
+   shipped surface linking the lab page. THAT LAST ONE EXPOSED A REAL BUG IN MY OWN
+   GATE - B3 hunts a LINK from a shipped surface, shipped surfaces are HTML, and my
+   walker only collected .js, so it passed a planted link. Fixed (ext is a parameter
+   now) and the reason is written into the source.
+   THE BLEED TRIGGER, his direct question ("How do we define when a charactwr takes
+   blood loss"): records/BOHEMIA_BLEED_TRIGGER_ANSWER_7_31_26.md. ANSWER: BLEEDING
+   IS A PROPERTY OF THE WEAPON THAT HIT YOU, NOT OF HOW MUCH HEALTH YOU LOST. Read
+   off real code - monster.cpp:2445-2447, `if( du.type == damage_bullet ||
+   du.type->edged ) make_bleed( source, 1_minutes * rng( 0, adjusted_damage ) );`.
+   Four things fall out: the trigger is the damage TYPE (bullet, or cut/stab flagged
+   `edged` in damage_types.json - bash pointedly is NOT, so blunt force never
+   bleeds); severity is the damage that got PAST ARMOUR (creature.cpp:1552), which
+   makes a jacket a medical decision in a game whose progression IS clothing; the
+   roll STARTS AT ZERO so most grazes cost nothing; and it is per body part
+   (`main_parts_only`). Their ladder is 40 intensities in five bands, Minor ->
+   Heavy Arterial. Grounded in real trauma medicine: blunt trauma kills by breaking
+   things inside you, penetrating trauma kills by opening vessels - which is why
+   "was it sharp" is the first question and why a tourniquet is useless on a crush.
+   MY RECOMMENDATION, three rules, shape not numbers: SHARP OR SHOT NEVER BLUNT /
+   ONLY WHAT GOT PAST YOUR CLOTHES / MOST HITS DON'T. That third rule is also the
+   answer to his older 7/27 question (do you always have to prevent blood loss after
+   every fight): NO - and it is what keeps his own clause 6 true, that a player who
+   does not care about the camp can still play.
+   HONEST LIMIT recorded: monster.cpp:2445 is the MONSTER side of the hit, which is
+   the path I read end to end; the player side routes through their JSON on-hit
+   effects, which I did not fully trace. Said so rather than implying I read both.
+   NOTHING BUILT. NO DAMAGE BEFORE THE DIAL. The numbers, the band count, the odds,
+   and whether the companion's bullet extraction is what STOPS a bullet bleed are
+   all his.
 1n. [SHIPPED 7/31 — LAB-06, AND IT ANSWERS THE HOLE HIS OWN CORRECTION OPENED]
    WHAT AN ACTION COSTS: CATACLYSM: DDA, A REAL EMULATION OFF REAL C++.
    Paolo 7/28 (clause 17 of the mobile-camp law): "time will pass just by taking

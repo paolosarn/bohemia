@@ -395,6 +395,8 @@ GATES = [
      'DOSSIER-OR-DON\'T: every hero building has all its parts written up, keyed to the walkable landmarks', False),
     ('CAMP DIAL',      ['node', 'gates/camp_dial_gate.js'],
      'his mobile-camp ruling, machine-locked: tiles not seconds, one pool, small numbers, every unruled value a dial', False),
+    ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
+     'Paolo 7/31 approved the SHAPE of the action clock, not the numbers: fixed cost, condition as the divisor, a hard floor, thresholds not slopes - and no lane has started building the table he reserved', False),
     ('LAB PORT',       ['node', 'gates/resolve_gate.js'],
      'resolve/ration/ceiling/reach: mechanism only, no content, no coupling', False),
     ('REFERENCE LAB',  ['node', 'gates/lab_gate.js'],
