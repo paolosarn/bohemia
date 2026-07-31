@@ -37,7 +37,12 @@ NEEDS: dedicated design sessions with Paolo (yap-session class), output =
 the city-builder loop addendum, then a lane can own it.
 
 ## 3. THE ECONOMY DOES NOT RUN — currencies exist, money does not move
-Three currencies LOCKED (medicine / electricity / resources), the century
+Three currencies LOCKED (RESOURCES / ELECTRICITY / CLOUT — corrected 7/31 by the
+WORLD lane: this line said "medicine" and medicine is not one of them. The law is
+laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md, Paolo 7/26, LOCKED, with
+his own words in it. A live records/ file contradicting a LOCKED law is a bug, not an
+interpretation, and it was load-bearing: it would have sent whoever built the economy
+after a currency that does not exist), the century
 rule ruled, the survival accounting researched to the bone (ceiling math,
 logistics, convoys). But no system anywhere PAYS a quest, PRICES a good,
 runs a market day, or gives currency a sink. The guarantor seat, convoy

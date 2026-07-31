@@ -1,3 +1,84 @@
+WORLD (9lfjtf): 7/31 — THE SCHOOL IS APPROVED, THE VALLEY GOT ITS EDGES, AND THE ECONOMY
+NOW HAS A PURSE. Paolo: "WE HAVE 11 months of forward motion work we need to complete. Do
+what you have to do next and know what comes after."
+
+=== WHAT I DID NEXT, AND WHY THAT ===
+records/BOHEMIA_THE_BIG_MISSING_7_29_26.md ranks the organs the game does not have. #1 is
+THE GAME DAY (wake -> quest -> travel -> resolve -> GET PAID -> spend -> sleep) and it is
+blocked on #3, THE ECONOMY, which that doc assigns to WORLD. So the highest-leverage thing
+this lane could build is the one that unblocks another lane's #1. That is what I built.
+
+engine/bohemia_purse.js — the PLAYER's three currencies and the ledger that proves them.
+What already existed and was NOT rebuilt: bohemia_economy.js is a SETTLEMENT scarcity sim
+(stock, decay, hyperbolic price), bohemia_loop.js already has the ruled clout/follower
+math, and world_resolve already advances the settlement a day per spent moment. The hole
+between them was the PLAYER: no purse, nothing credits, nothing debits, nothing spendable.
+
+THE DESIGN, and the one decision worth inheriting: BALANCES ARE A SUM OF THE LEDGER, NEVER
+A FIELD. There is no setter. Every movement declares its KIND (source / drain / convert /
+transfer — the faucet-and-drain vocabulary from Daniel Cook's value-chain method) and
+carries a REASON and a REF. That distinction is not decoration: the literature is
+unanimous that economies die of faucet pressure, and that a SOFT sink (value moved to
+another holder) does not fight inflation while a HARD sink (value destroyed) does. A bare
+counter cannot tell them apart. Purse.flow() can, on day one, instead of being
+reconstructed from a save file at month nine. Balances can never go negative; a refused
+debit writes nothing; convert is ATOMIC so currency is never burned silently.
+
+THE TABLES SHIP EMPTY AND THE GATE KEEPS THEM THAT WAY. PAYOUT, PRICES and PRODUCTION are
+pure canon. Empty table -> NO_RULING, never zero, because silence is honest and zero is a
+number nobody ruled. gates/purse_gate.js (26 claims) fails if any of the three gains a
+row. Negative-tested: adding one PAYOUT row turns it red on two claims. The realistic
+failure here is not malice, it is a future session adding "a sensible default so the loop
+can be tested" and that placeholder becoming canon by shipping.
+
+=== A CONTRADICTION I FOUND AND FIXED, worth knowing about ===
+THE BIG MISSING said "Three currencies LOCKED (medicine / electricity / resources)".
+MEDICINE IS NOT ONE OF THEM. The law
+(laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md, Paolo 7/26, LOCKED, with his
+own words in it) says RESOURCES / ELECTRICITY / CLOUT. Corrected in place. It was
+load-bearing: it would have sent whoever built the economy after a currency that does not
+exist, and clout — which DOES have ruled math already (CLOUT_WEIGHTS, 7/21) — would have
+been left out of the purse entirely.
+
+=== WHAT COMES AFTER, in order, so the next session does not have to re-derive it ===
+1. **PAOLO'S NUMBERS.** The pipe is finished and it carries nothing. ONE yap session
+   filling PAYOUT (what a quest outcome pays in the three currencies) closes the game-day
+   loop, because the RUN lane's #1 is waiting on exactly this. This is now the single
+   highest-value thing he can give the project, and it is a conversation, not a build.
+   PRICES and PRODUCTION can follow later; PAYOUT alone unblocks the day.
+2. **RUN LANE, ONE WIRE.** Purse.payQuest(purse, ev, day) already takes the loop's outcome
+   event shape verbatim ({questId, outcome, tags}). bohemia_loop.js is your file, not mine,
+   so I did not edit it — one call in the outcome sink and quests pay the moment (1) lands.
+3. **THE FACTION GAME** (BIG MISSING #4, also OWNER: WORLD). Same shape as this: a standing
+   ledger + a territory model, mechanism shipped empty and gated, because who does what to
+   whom is [HIS DESIGN]. LIGHT=TERRITORY is a render law still waiting for a territory
+   SYSTEM to mean anything. This is the next build in this lane and it does not need him
+   to start.
+4. Then the WORLD half of #6 (who exists in the valley — procedural below the named level).
+
+DELIBERATELY NOT DONE: PRODUCTION is not wired into the resolver. Buildings producing per
+day is the CITY-BUILDER half, which BIG MISSING #2 calls the single largest undesigned
+system in the game and marks [HIS DESIGN]. Wiring it would be me designing his half. The
+API is there; the pipe stays unconnected until he designs the loop.
+
+=== ALSO SHIPPED THIS SESSION ===
+- THE SCHOOL IS APPROVED: "Thumbs up i approve its like 89% lets move on"
+  (records/BOHEMIA_SCHOOL_VERDICT_7_31_26.txt). Tennis courts killed by his 7/30 ruling,
+  the auto shop took the ground, every building got a roof and a door.
+- THE EAVE PASS: every building mass in all 46 districts now gets a bright edge where its
+  roof meets the sky. It is a RENDER rule (K.buildingEdges + K.lighten, drawn by
+  bohemia_valleymap.js and by the judge tool from the same answer), NOT baked tiles —
+  baking it converts 9-60% of every building's tiles, which shrinks every FOOTPRINT, and
+  INTERIOR-MATCHES-EXTERIOR says an interior is always exactly its footprint. The batch
+  that looked like the job would have silently shrunk every interior in the valley.
+  gates/legibility_gate.js, 11 claims, negative-tested.
+- THREE GATES EARLIER IN THE DAY: TOOLS RUN (every tool actually parses — it found a
+  second broken tool on main on its first run), SQUINT, HUE.
+
+STANDING FOR THIS LANE: ACT ONE ONLY. Every district cell is its own landmark. Do not cook
+art here (ART cooks from forms only). Resolver AND purse tables stay empty until he rules
+numbers. Never auto-generate strip/resort/casino/luxor/sphere/strat/highroller/sign.
+
 CHARACTER (0lurbs): 7/31 LATEST — CLIPS ARE A-Z NOW, THE COUGH HAND REACHES THE
 MOUTH, AND HEADSHOT IS STILL OPEN. Main at db24121.
 

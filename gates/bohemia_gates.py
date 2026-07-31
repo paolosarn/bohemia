@@ -56,6 +56,8 @@ GATES = [
      'corner plaza: stores + parking connected to the streets', False),
     ('DISTRICT KIT',   ['node', 'gates/district_kit_gate.js'],
      'the factory: shared machine every district extends', False),
+    ('PURSE',          ['node', 'gates/purse_gate.js'],
+     'the money is auditable and the numbers stay Paolo\'s: balances are a sum of the ledger, never negative, never anonymous, and PAYOUT/PRICES/PRODUCTION ship EMPTY', False),
     ('LEGIBILITY',     ['node', 'gates/legibility_gate.js'],
      'you can tell what a building is: every building mass in every district gets an eave, one shared answer for the map and the judge surface', False),
     ('DISTRICT TAXONOMY', ['node', 'gates/district_taxonomy_gate.js'],
