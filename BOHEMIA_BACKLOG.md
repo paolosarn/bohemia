@@ -25,6 +25,34 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1w. [MY OWN FIX WAS INCOMPLETE, AND MY OWN GATE SAID GREEN — 7/31]
+   THE DEAD MECHANIC WAS STILL LIVE IN THE MORE AUTHORITATIVE FILE.
+   This morning I struck the upkeep/bankruptcy clause in laws/BOHEMIA_ADDENDUM_
+   CITYBUILDER_MODEL_7_1_26.md and gated it. Went looking for more of the same class and
+   found it: *** laws/BOHEMIA_GDD_v4.md:74 STILL SAID "daily upkeep on everything
+   (overbuild past income and you bankrupt)", VERBATIM, AS LIVE RULE. *** The GDD v4 is
+   held LIVE by CLAUDE.md and by gates/gdd_gate.js, which makes it MORE AUTHORITATIVE
+   than the addendum I had struck. So the contradiction I "fixed" was still on the books
+   in the file a session is likelier to read, and EARNED NOT AFFORDED reported 19/0.
+   ROOT CAUSE, and it is the useful part: MY GATE SWEPT CODE, NOT PROSE. It walked
+   engine/ and slices/ hunting an IMPLEMENTATION of upkeep and never asked whether
+   another LAW still asserted it. *** A CONTRADICTION LIVES IN PROSE BEFORE IT EVER
+   REACHES CODE. Sweeping only code catches it after somebody has already built the wrong
+   thing. *** That is the lesson for every gate in this repo that guards a ruling.
+   FIXED: the GDD v4 line is struck in place with the supersession named and a note
+   saying it was missed on the first pass. And the gate grew PART C2/C3: it now sweeps
+   ALL 385 laws/ and records/ files for the mechanic asserted as LIVE, treating a
+   struck-through or DEAD-marked line as correct (the words must stay visible with a line
+   through them) and real-world prose as history, not a mechanic -- "the telecoms went
+   bankrupt" in the emerging-tech research is correctly not a violation, which is the
+   word-versus-thing distinction working for once. C3 checks the GDD v4 master
+   specifically, since it outranks the addendum. 21 checks now.
+   Two mutations caught: un-striking the GDD v4 clause (the exact bug that shipped), and
+   a law asserting it fresh.
+   THE GENERAL FINDING FOR OTHER LANES: if your gate guards a RULING, sweep the LAWS.
+   One accidental read this morning found a live contradiction; one deliberate look found
+   a second instance of the same one, in a bigger file. There are 312 law files and 385
+   canon documents. Assume there are more of these.
 1v. [NOTES ONLY 7/31 — NOTHING BUILT, ON HIS INSTRUCTION] HIS TWO CRISIS RESPONSE
    FRAMES, AND ONE OF THEM CONFLICTS WITH OUR OWN LOCKED LAW.
    Paolo sent two screenshots of a ragdoll: "i dont need you to recreate this one. Just

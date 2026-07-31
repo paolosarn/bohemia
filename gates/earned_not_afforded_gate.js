@@ -102,6 +102,38 @@ surfaces.forEach(f => {
 ok('C1 NO SHIPPED SURFACE IMPLEMENTS UPKEEP, INCOME OR BANKRUPTCY (' + surfaces.length +
    ' swept)' + (hits.length ? ' -> ' + hits.slice(0, 3).join('; ') : ''), hits.length === 0);
 
+/* PART C2 — THE HOLE THIS GATE SHIPPED WITH, AND THE REASON IT MATTERS MOST.
+   The first version swept engine/ and slices/ for an IMPLEMENTATION of the dead
+   mechanic and never asked whether another LAW still asserted it. It did not, and the
+   claim was still live, verbatim, in laws/BOHEMIA_GDD_v4.md:74 -- a master that
+   CLAUDE.md and gates/gdd_gate.js both hold LIVE, which makes it MORE authoritative
+   than the addendum I had struck. So my fix was incomplete and my gate said green.
+   A contradiction lives in PROSE before it ever reaches code. Sweeping only code
+   catches it after somebody has already built the wrong thing. */
+const laws = walk('laws', /\.md$/, walk('records', /\.md$/, []))
+  .filter(f => f.indexOf(path.basename(LAW)) < 0 &&
+               f.indexOf('ANSWERED_QUESTIONS_INDEX') < 0);
+/* An ASSERTION is the mechanic stated as a live rule. A struck-through line (~~...~~)
+   or one carrying a DEAD marker is the record of the ruling and must pass -- the whole
+   point is that the words stay visible with a line through them. And prose about the
+   real world ("the telecoms went bankrupt") is history, not a mechanic. */
+const ASSERTS = /(daily upkeep on everything|past your income bankrupts|past income and you bankrupt|cost currency per period to maintain)/i;
+let liveAsserts = [];
+laws.forEach(f => {
+  const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+  src.split('\n').forEach((line, i) => {
+    if (!ASSERTS.test(line)) return;
+    const struck = /~~/.test(line) || /DEAD 7\/31\/26/.test(line) || /SUPERSEDED/i.test(line);
+    if (!struck) liveAsserts.push(f + ':' + (i + 1));
+  });
+});
+ok('C2 NO LAW OR RECORD STILL ASSERTS UPKEEP/BANKRUPTCY AS LIVE (' + laws.length +
+   ' swept)' + (liveAsserts.length ? ' -> ' + liveAsserts.join(', ') : ''),
+   liveAsserts.length === 0);
+ok('C3 and the GDD v4 master specifically carries the strike, since it outranks the addendum',
+   /~~\*\*daily upkeep on everything/i.test(
+     fs.readFileSync(path.join(ROOT, 'laws/BOHEMIA_GDD_v4.md'), 'utf8')));
+
 /* PART D — the pendings stay pending */
 [['the building catalog', /building catalog/i],
  ['whether degradation needs a cost', /degradation still needs a cost/i],

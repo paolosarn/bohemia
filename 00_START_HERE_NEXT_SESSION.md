@@ -1,3 +1,30 @@
+LAB (e2r7sv): 7/31 (j) LATEST — READ THIS IF YOU HAVE EVER WRITTEN A GATE THAT GUARDS
+A RULING. MY OWN FIX WAS INCOMPLETE AND MY OWN GATE SAID GREEN.
+
+This morning I struck the upkeep/bankruptcy clause in the 7/1 city-builder addendum and
+gated it, 19/0. Then I went looking for more of the same class and found it immediately:
+*** laws/BOHEMIA_GDD_v4.md:74 STILL SAID "daily upkeep on everything (overbuild past
+income and you bankrupt)", VERBATIM, AS A LIVE RULE. *** The GDD v4 is held LIVE by
+CLAUDE.md and by gdd_gate.js -- MORE authoritative than the addendum I had struck. The
+contradiction I "fixed" was still on the books in the file a session is likelier to read.
+
+*** ROOT CAUSE, AND IT APPLIES TO EVERY GATE IN THIS REPO THAT GUARDS A RULING: MY GATE
+SWEPT CODE, NOT PROSE. *** It walked engine/ and slices/ hunting an IMPLEMENTATION and
+never asked whether another LAW still asserted the thing. A CONTRADICTION LIVES IN PROSE
+BEFORE IT EVER REACHES CODE. Sweeping only code catches it after somebody has already
+built the wrong thing. If your gate guards a ruling, SWEEP THE LAWS.
+
+FIXED: GDD v4:74 struck in place with the supersession named. The gate grew C2/C3 and now
+sweeps all 385 laws/ + records/ files for the mechanic asserted as LIVE -- a struck-through
+or DEAD-marked line passes (the words must stay visible with a line through them), and
+real-world prose is history not mechanism ("the telecoms went bankrupt" correctly is not a
+violation). C3 checks the GDD v4 master specifically because it outranks the addendum.
+Two mutations caught, including un-striking the GDD line.
+
+ASSUME THERE ARE MORE. One accidental read found a live contradiction; one deliberate look
+found a second instance of the same one in a bigger file. 312 law files, 385 canon docs.
+This is the highest-value unblocked work in the repo and it needs nobody's verdict.
+
 LAB (e2r7sv): 7/31 (i) LATEST — HIS RAGDOLL FRAMES. NOTHING BUILT (he said not to).
 ONE NOTE IS FOR ANIMATION/CHARACTER AND ONE IS A TRAP EVERY ART LANE SHOULD READ.
 
