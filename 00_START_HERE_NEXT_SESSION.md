@@ -1586,3 +1586,40 @@ depth on screen.
    (The stamp regex missed because another lane had rolled the date to 7/30.)
 
 BUILD STAMP: 7/30c. ALL GATES GREEN (622s).
+
+--------------------------------------------------------------------------------
+7/30 (e) — HOUSE 02 TURNED SOUTH. Paolo: "Perfect now imagine instead of it facing
+southwest it was facing south!!"
+
+"Perfect" is a ruling on the STYLE (isometric solid, L massing, his approved skins).
+The ask is the ORIENTATION. Both facings are on the LIFE tab card now.
+
+THE HOUSE WAS NOT REDRAWN, WHICH IS THE WHOLE POINT OF HAVING BUILT IT AS A SOLID.
+Same masses, same metres, same colours, same roof geometry; only the projection and
+which faces are visible changed. tools/bohemia_iso_house.py takes BOH_FACING=south |
+southwest and both projections live in the single P() function.
+  SOUTH-WEST: the classic iso diamond, sx=(cx-cy)*22, two walls meeting at a corner.
+  SOUTH:      front squared to the screen, sx=cx*44, sy=cy*11 - z. Depth still
+              foreshortened 2:1 so a cube still reads as a cube and heights are
+              identical between the two.
+
+SAID PLAINLY TO HIM RATHER THAN BURIED: SOUTH COSTS SOMETHING. Squaring the front to
+the screen removes the corner where two walls meet, and that corner was carrying most
+of the depth read. It also puts 7.5 m of roof nearly overhead, so the main roof
+becomes a big band. It is still what he asked for and it matches how the street
+already renders, so it ships and he rules.
+
+THREE THINGS THE SOUTH VIEW NEEDED THAT THE DIAMOND DID NOT:
+  - side walls are EDGE-ON and must not be drawn at all (a zero-width sliver of the
+    wrong value down the corner).
+  - a sliver of the FAR slope above the ridge, or the ridge is just where one flat
+    colour stops and the roof reads as a second wall.
+  - real shingle courses plus a hard fascia line. The roof is the biggest single
+    shape in this projection, so faint texture reads as a slab.
+
+STILL HONEST WEAKNESSES on the south version, not hidden: the main roof band is tall
+relative to the wall (inherent to seeing 7.5 m of roof from overhead), the main
+bar's left window is partly behind the wing roof, and there is a thin stray edge line
+at the far right.
+
+BUILD STAMP: 7/30e. ALL GATES GREEN (642s). ISO HOUSE gate 10/10.

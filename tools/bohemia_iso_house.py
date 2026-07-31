@@ -61,6 +61,21 @@ SKINS = 'banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt'
 OUT = 'banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt'
 PNG = 'records/target/HOUSE_02_ISO.png'
 
+# FACING. Paolo 7/30, on the south-west version: "Perfect now imagine instead of it
+# facing southwest it was facing south!!"
+#
+# SOUTH-WEST is the classic isometric diamond: the building turned 45 degrees to the
+# camera, so you see two walls meeting at a near corner. SOUTH is the same solid,
+# rotated 45 degrees the other way so its FRONT squares up to the screen — which is
+# the view the corpus street already renders, walls facing the bottom of the screen
+# and roofs seen from above, foreshortened 2:1.
+#
+# The building is NOT redrawn for this. Same masses, same metres, same roof geometry,
+# same colours; only the projection and which faces are visible change. That is the
+# whole payoff of having built it as a solid instead of as a picture of a solid: it
+# can be turned.
+FACING = os.environ.get('BOH_FACING', 'south')
+
 CELL_M = 0.75
 TW, TH = 44, 22
 HW, HH = TW // 2, TH // 2
@@ -122,22 +137,118 @@ def main():
         span = (mss['d'] if mss['ridge'] == 'x' else mss['w']) * CELL_M
         return int(round((span / 2.0) * (PITCH / 12.0) * PXM))
 
-    W = int((FOOT_W + FOOT_D + 4) * HW)
-    H = int((FOOT_W + FOOT_D + 4) * HH + plate + max(rise_of(MAIN), rise_of(WING)) + 40)
-    OX = int((FOOT_D + 2) * HW)
-    OY = int(24 + plate + max(rise_of(MAIN), rise_of(WING)))
+    top_rise = max(rise_of(MAIN), rise_of(WING))
+    if FACING == 'south':
+        W = int((FOOT_W + 2) * TW)
+        H = int(FOOT_D * HH + plate + top_rise + 64)
+        OX_S, OY_S = TW, int(24 + plate + top_rise)
+        OX = OY = 0
+    else:
+        W = int((FOOT_W + FOOT_D + 4) * HW)
+        H = int((FOOT_W + FOOT_D + 4) * HH + plate + top_rise + 40)
+        OX = int((FOOT_D + 2) * HW)
+        OY = int(24 + plate + top_rise)
+        OX_S = OY_S = 0
 
     im = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
 
     def P(cx, cy, z=0):
-        """cell coords -> screen. THE projection, and the only one in this file."""
+        """cell coords -> screen. Both projections live here and nowhere else."""
+        if FACING == 'south':
+            # front squared to the screen; depth foreshortened 2:1, same as the
+            # diamond's, so a cube still reads as a cube and heights are unchanged
+            return (OX_S + cx * TW, OY_S + cy * HH - z)
         return (OX + (cx - cy) * HW, OY + (cx + cy) * HH - z)
 
     def draw_mass(mss):
         x0, y0 = mss['x0'], mss['y0']
         x1, y1 = x0 + mss['w'], y0 + mss['d']
         rise = rise_of(mss)
+
+        if FACING == 'south':
+            # SOUTH: the front squares up to the screen, so ONE wall is visible and
+            # the side walls are edge-on — drawing them would paint a zero-width
+            # sliver of the wrong value down the corner.
+            d.polygon([P(x0, y1), P(x1, y1), P(x1, y1, plate), P(x0, y1, plate)],
+                      fill=wall[3])
+            d.line([P(x0, y1), P(x0, y1, plate)], fill=wall[1])
+            d.line([P(x1, y1), P(x1, y1, plate)], fill=wall[1])
+            for i in range(int(round(0.30 * PXM))):      # eave shadow on the wall
+                d.line([P(x0, y1, plate - i), P(x1, y1, plate - i)], fill=wall[1])
+
+            if mss['ridge'] == 'x':
+                # ridge runs across the screen: you see the near slope as a band and
+                # nothing of the far one. The gable ends are edge-on.
+                mid = (y0 + y1) / 2.0
+                ra, rb = P(x0 - ev, mid, plate + rise), P(x1 + ev, mid, plate + rise)
+                near = [P(x0 - ev, y1 + ev, plate), P(x1 + ev, y1 + ev, plate), rb, ra]
+                # THE FAR SLOPE, as a sliver above the ridge. Without it the ridge is
+                # just where one flat colour stops, and the whole roof reads as a
+                # second wall - which is exactly what the first south draw did. From
+                # above you always catch a little of the back slope, and that band is
+                # what makes the ridge an EDGE instead of a boundary.
+                back = int(round(0.55 * PXM))
+                d.polygon([(ra[0], ra[1] - back), (rb[0], rb[1] - back), rb, ra],
+                          fill=roof[1])
+                d.polygon(near, fill=roof[3])
+                d.line([ra, rb], fill=roof[4])
+                # SHINGLE COURSES, and the first pass had them so faint the roof
+                # read as one flat slab. A roof this size in this projection is the
+                # biggest single shape on the building, so it has to carry real
+                # texture or it becomes a second wall. Courses every ~14 in with a
+                # full step of contrast, plus the vertical tab breaks that make
+                # shingles read as shingles rather than as stripes.
+                top_y, bot_y = ra[1], near[0][1]
+                nc = max(6, int((bot_y - top_y) / (0.36 * PXM)))
+                for k in range(1, nc):
+                    yy = top_y + (bot_y - top_y) * (k / float(nc))
+                    d.line([(ra[0], yy), (rb[0], yy)], fill=roof[1])
+                    d.line([(ra[0], yy - 1), (rb[0], yy - 1)], fill=roof[4])
+                    off = 0 if k % 2 else int(TW * 0.25)
+                    for xx in range(int(ra[0]) + off, int(rb[0]), int(TW * 0.5)):
+                        d.line([(xx, yy - int(0.36 * PXM)), (xx, yy - 1)],
+                               fill=roof[2])
+                # THE FASCIA. A hard dark line where the roof stops is the single
+                # cheapest thing that stops a roof floating: it is the board the
+                # gutter hangs on, and the corpus roof already reads that way.
+                d.line([near[0], near[1]], fill=roof[0])
+                d.line([(near[0][0], near[0][1] + 1), (near[1][0], near[1][1] + 1)],
+                       fill=roof[0])
+            else:
+                # ridge runs INTO the screen: the gable END faces the viewer square
+                # on, which is the strongest shape a house can show a street, and
+                # both slopes are visible running away from it.
+                mid = (x0 + x1) / 2.0
+                for (ax, bx, col) in ((x0 - ev, mid, roof[3]), (mid, x1 + ev, roof[1])):
+                    d.polygon([P(ax, y1 + ev, plate if ax != mid else plate + rise),
+                               P(bx, y1 + ev, plate + rise if bx == mid else plate),
+                               P(bx, y0 - ev, plate + rise if bx == mid else plate),
+                               P(ax, y0 - ev, plate if ax != mid else plate + rise)],
+                              fill=col)
+                # COURSES ON THE WING'S SLOPES TOO. Leaving them flat next to a
+                # textured main roof made them read as cardboard taped on. Here the
+                # eave runs INTO the screen, so the courses run that way as well and
+                # appear as near-vertical banding rather than as horizontal stripes.
+                for k in range(1, 9):
+                    t = k / 9.0
+                    for (ax, bx) in ((x0 - ev, mid), (mid, x1 + ev)):
+                        xx = ax + (bx - ax) * t
+                        za = plate + rise * (t if ax == x0 - ev else 1 - t)
+                        d.line([P(xx, y1 + ev, za), P(xx, y0 - ev, za)],
+                               fill=roof[2] if k % 2 else roof[4])
+                d.line([P(mid, y1 + ev, plate + rise), P(mid, y0 - ev, plate + rise)],
+                       fill=roof[4])
+                # the wing's own fascia, same reason as the main bar's
+                d.line([P(x0 - ev, y1 + ev, plate), P(mid, y1 + ev, plate + rise)],
+                       fill=roof[0])
+                d.line([P(mid, y1 + ev, plate + rise), P(x1 + ev, y1 + ev, plate)],
+                       fill=roof[0])
+                gable = [P(x0, y1, plate), P(x1, y1, plate), P(mid, y1, plate + rise)]
+                d.polygon(gable, fill=wall[2])
+                d.line([gable[0], gable[2]], fill=roof[0])
+                d.line([gable[1], gable[2]], fill=roof[0])
+            return (x0, y0, x1, y1)
 
         # WALLS. Two faces visible; each takes ONE flat value, because the contrast
         # where they meet IS the depth. Blending them would flatten the corner.
