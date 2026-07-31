@@ -121,7 +121,14 @@ which is what Pocket City 2 actually gates on anyway.
 - `laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md`
 - `laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md` (the dead clause, struck in place)
 
-### 11. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
+### 11. SHOULD THE VIOLENCE BE GORY?
+**NO — TRAUMATIC, NOT GORY. THEY ARE TWO DIFFERENT DIALS.** Gore is permitted but it
+is never the mechanism. A hurt body is a CLOCK, not a corpse; the cost lands on the
+PLAYER; and the strongest tools he named are not visual at all (screaming, begging).
+- `laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md`
+- `records/BOHEMIA_RESEARCH_CRISIS_RESPONSE_VIOLENCE_7_31_26.md`
+
+### 12. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
 **NO. HE THUMBS. EVERYTHING ELSE IS OURS.** Machine gates prove craft; only Paolo
 judges whether it looks right.
 - `laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md`
@@ -157,4 +164,6 @@ when does the game start | ten years after the crash | laws/BOHEMIA_ADDENDUM_TEN
 daily upkeep | no. buildings are EARNED, not afforded | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
 go bankrupt | no. no income and no bankruptcy | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
 buildings cost upkeep | no. earned by levelling, quests and act tier | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
+should the violence be gory | no. TRAUMATIC not gory; gore is never the mechanism | laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md
+how gory should | traumatic, not gory. two different dials | laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md
 ```

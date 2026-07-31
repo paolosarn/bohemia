@@ -423,6 +423,8 @@ GATES = [
      'DOSSIER-OR-DON\'T: every hero building has all its parts written up, keyed to the walkable landmarks', False),
     ('CAMP DIAL',      ['node', 'gates/camp_dial_gate.js'],
      'his mobile-camp ruling, machine-locked: tiles not seconds, one pool, small numbers, every unruled value a dial', False),
+    ('TRAUMATIC', ['node', 'gates/traumatic_gate.js'],
+     "Paolo 7/31 on Crisis Response: 'it doesnt have to be gory but I do want it to be traumatic fr' -- traumatic and gory are two different dials, a hurt body is a CLOCK not a corpse, and gore is never the MECHANISM (swept: no damage scaled by gore, no score keyed to kills)", False),
     ('EARNED NOT AFFORDED', ['node', 'gates/earned_not_afforded_gate.js'],
      'Paolo 7/31 named Pocket City 2 on top of the stack, and reading the 7/1 city-builder law found it CONTRADICTING his 7/31 no-economy law: newest wins, upkeep/income/bankruptcy are dead, and buildings are EARNED not AFFORDED - swept so no surface implements the dead mechanic', False),
     ('ANSWERED', ['python3', 'gates/answered_gate.py'],

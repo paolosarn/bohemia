@@ -1,3 +1,61 @@
+LAB (e2r7sv): 7/31 (h) LATEST — CRISIS RESPONSE: VIOLENCE IS TRAUMATIC WHEN IT MAKES
+WORK AND COSTS YOU, NOT WHEN IT LOOKS WET.
+
+Paolo: "the shooting and death effects are brutal people screaming theyll beg and shit
+its really how I want the violence to me it doesnt have to be gory but I do want it to be
+traumatic fr"
+
+=== THE FINDING ===
+Crisis Response is disturbing for two reasons and NEITHER IS AN ART DECISION.
+(1) "the least possible loss of life as the desired outcome" -- THE GOAL IS NOT TO KILL,
+which inverts a shooter's incentive: every trigger pull is a failure you chose, not a
+score you farmed. You cannot make killing feel bad while making it the win condition.
+(2) "once someone is hurt the player will be working against the clock to save them" --
+A HURT PERSON IS A CLOCK, NOT A CORPSE. The shot does not resolve when the body falls, it
+OPENS A TASK. The aftermath is the gameplay.
+(3) The mechanism under the feeling: it simulates PULSE, BREATHING, BLOOD OXYGEN. The body
+is a legible system you watch fail. Gore is a texture; a falling pulse is a story with an
+ending you can see coming.
+*** ALL THREE WORK AT ZERO GORE, which is exactly his brief. The two tools he named
+himself -- screaming, begging -- are not visual at all. ***
+
+=== AND WE ALREADY BUILT HALF OF IT TODAY ===
+The bleed trigger (records/BOHEMIA_BLEED_TRIGGER_ANSWER_7_31_26.md) and mobile-camp
+clause 8 (the camp is the medical station, a COMPANION pulls the bullet out) ARE the clock
+and the work. Bohemia had the aftermath machinery ruled and no stated reason it mattered.
+THE AFTERMATH IS THE TRAUMA -- that is now written down as why those exist.
+
+=== LAW + GATE ===
+laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md, five clauses. Gore is PERMITTED,
+never the MECHANISM. A register, not censorship.
+gates/traumatic_gate.js (TRAUMATIC, 24 checks). It does NOT try to measure trauma -- only
+he can say whether a moment lands. It checks what a machine can: the law intact with its
+pendings pending, and GORE IS NOT THE MECHANISM on 156 shipped surfaces (no damage scaled
+by gore, no score keyed to kills or brutality). Four mutations caught.
+
+=== HONEST LIMITS, and the gate fails if they get edited out ===
+EVERY PAGE ABOUT THE GAME 403'd (indiedb twice, kongregate). Built on search summaries,
+not pages I read. I HAVE NOT PLAYED IT AND HAVE NOT SEEN A FRAME -- on the screaming and
+begging HIS DESCRIPTION IS THE PRIMARY SOURCE AND MINE IS HEARSAY. And a name collision I
+could not resolve: Crisis Response on IndieDB (slug blood-bullet / ericoshow) vs a
+Kongregate dev "CRISISgames" (Madness Tactical, Dark Mansion).
+
+=== TWO MORE BUGS IN MY OWN CHECKS, and the second is a repeat ===
+(a) The gate failed on HIS OWN QUOTE because it is a multi-line markdown BLOCKQUOTE and
+collapsing whitespace left "> " markers mid-sentence. EIGHTH time this repo has assumed
+prose is flat. The shape to copy: STRIP THE MARKUP, THEN COLLAPSE.
+(b) The pending-check used a flat character window and passed a filled-in pending because
+the NEXT bullet's [PENDING Paolo] was inside the window. TWO GATES IN ONE TURN WITH THAT
+SAME BUG (earned_not_afforded's D1 too), both fixed the same way: SCOPE A PER-ITEM CHECK
+TO THE ITEM. Neither was found by reading -- only by mutating and watching green.
+
+=== FLAGGED, NOT DECIDED ===
+COMBAT owns the implementation. ART: the 20 approved GORE OVERLAYS (UP, zero consumers,
+held for story placement) are HIS art and HIS to place [PENDING Paolo]. NON-COMBATANTS in
+a fight [PENDING Paolo] -- the biggest consequence, since Crisis Response's whole engine
+is people who must not be shot. How a body's state is SHOWN [PENDING Paolo].
+NO DAMAGE BEFORE THE DIAL.
+
 ART (f3eu53): 7/31 (b) LATEST — PAOLO KILLED THE CONDITIONER THE MOMENT HE SAW IT, AND
 HE WAS RIGHT. I ENFORCED A LAW HE NEVER MADE AGAINST ASSETS HE PAID FOR.
 

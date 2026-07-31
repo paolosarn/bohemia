@@ -113,8 +113,17 @@ ok('C1 NO SHIPPED SURFACE IMPLEMENTS UPKEEP, INCOME OR BANKRUPTCY (' + surfaces.
      Caught by mutating a pending to a filled-in value and watching the gate stay
      green -- which is the only reason this line is right. A check you have not seen
      FAIL is not a check. */
+  /* SCOPED TO THE ITEM, not to a character count -- see the same fix and the same
+     reasoning in gates/traumatic_gate.js, where a flat window passed a filled-in
+     pending because the NEXT bullet's [PENDING Paolo] fell inside it. Two gates in
+     one turn with the same bug, so both are fixed the same way. */
   const m = re.exec(law);
-  const near = m ? law.slice(m.index, m.index + 320) : '';
+  let near = '';
+  if (m) {
+    near = law.slice(m.index, m.index + 400);
+    const nextBullet = near.indexOf(' - ', 1);
+    if (nextBullet > 0) near = near.slice(0, nextBullet);
+  }
   ok('D1 STILL PENDING, not quietly filled in: ' + what,
      !!m && /\[PENDING Paolo\]/.test(near));
 });

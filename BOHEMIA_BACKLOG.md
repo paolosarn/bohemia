@@ -25,6 +25,61 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1u. [RESEARCHED + LAWED + GATED 7/31] CRISIS RESPONSE, AND WHY VIOLENCE IS TRAUMATIC.
+   Paolo: "Look up crisis response its a flash game right now let me know what you find
+   the shooting and death effects are brutal people screaming theyll beg and shit its
+   really how I want the violence to me it doesnt have to be gory but I do want it to be
+   traumatic fr"
+   THE FINDING: *** VIOLENCE IS TRAUMATIC WHEN IT MAKES WORK AND COSTS YOU SOMETHING. IT
+   IS GORY WHEN IT JUST LOOKS WET. TWO DIFFERENT DIALS, AND MOST GAMES ONLY HAVE THE
+   SECOND. *** Crisis Response is disturbing for two reasons and NEITHER IS AN ART
+   DECISION: (1) "the least possible loss of life as the desired outcome" -- the goal is
+   NOT to kill, which inverts the incentive of a shooter, so every trigger pull is a
+   failure you CHOSE rather than a score you farmed; (2) "once someone is hurt the player
+   will be working against the clock to save them" -- A HURT PERSON IS A CLOCK, NOT A
+   CORPSE. The shot does not resolve when the body falls, it OPENS A TASK. Third, the
+   mechanism under the feeling: it simulates PULSE, BREATHING and BLOOD OXYGEN, so the
+   body is a legible system you watch fail -- gore is a texture, a falling pulse is a
+   story with an ending you can see coming.
+   WHY IT IS EXACTLY HIS BRIEF: all three work at ZERO GORE. A pulse falling, a scream
+   that stops mid-breath, someone begging before you decide -- not one red pixel needed.
+   The two tools he named himself (screaming, begging) are not visual at all.
+   *** AND WE ALREADY BUILT HALF OF IT TODAY. *** The bleed trigger
+   (records/BOHEMIA_BLEED_TRIGGER_ANSWER_7_31_26.md) and mobile-camp clause 8 (the camp
+   is the medical station, a COMPANION pulls the bullet out) ARE the clock and the work.
+   Bohemia had the aftermath machinery ruled and no stated reason it mattered. Crisis
+   Response is the argument that THE AFTERMATH IS THE TRAUMA.
+   LAW: laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md, five clauses. Gore is
+   PERMITTED, never the MECHANISM -- this is a register, not censorship.
+   RESEARCH: records/BOHEMIA_RESEARCH_CRISIS_RESPONSE_VIOLENCE_7_31_26.md
+   HONEST LIMITS, and they are the reason to read the record rather than trust me: EVERY
+   PAGE ABOUT THE GAME 403'd (indiedb twice, kongregate), so this is built on search
+   summaries, not pages I read. I HAVE NOT PLAYED IT AND HAVE NOT SEEN A FRAME. On the
+   screaming and the begging HIS DESCRIPTION IS THE PRIMARY SOURCE AND MINE IS HEARSAY --
+   I could not confirm the audio design at all. And there is a NAME COLLISION I could not
+   resolve: Crisis Response on IndieDB/ModDB (slug blood-bullet, ericoshow on itch.io)
+   versus a Kongregate dev "CRISISgames" whose games are Madness Tactical and Dark
+   Mansion. Cannot confirm they are the same. The gate FAILS if that honesty is edited out.
+   GATE: gates/traumatic_gate.js (TRAUMATIC, 24 checks). It does NOT try to measure
+   trauma -- only he can say whether a moment lands. It checks the two things a machine
+   can: the law is intact with its pendings still pending, and GORE IS NOT THE MECHANISM
+   on any shipped surface (156 swept: no damage scaled by gore, no score or reward keyed
+   to kills or brutality). Four mutations caught.
+   TWO BUGS IN MY OWN CHECKS AGAIN, both fixed with the reason in the source: (a) A2
+   failed on his own quote because it is a multi-line MARKDOWN BLOCKQUOTE and collapsing
+   whitespace left the "> " markers embedded mid-sentence -- EIGHTH time this repo has
+   assumed prose is flat, so the shape is now STRIP THE MARKUP THEN COLLAPSE; (b) the
+   pending-check used a flat character window and passed a filled-in pending because the
+   NEXT bullet's [PENDING Paolo] fell inside it. TWO GATES IN ONE TURN WITH THAT SAME
+   WINDOW BUG, so both are fixed the same way -- SCOPE A PER-ITEM CHECK TO THE ITEM.
+   FLAGGED, NOT DECIDED: COMBAT owns the implementation. ART -- the 20 approved GORE
+   OVERLAYS (thumbed UP, zero consumers, held for story placement) are HIS art and HIS
+   to place; "doesn't have to be gory" bears on them but does not retire them
+   [PENDING Paolo]. NON-COMBATANTS in a fight [PENDING Paolo] -- the biggest consequence
+   of this register, since Crisis Response's whole engine is people who must not be shot.
+   How a body's state is SHOWN [PENDING Paolo]. NO DAMAGE BEFORE THE DIAL.
+   THE ONE THING I WANT FROM HIM: WHERE HE PLAYS IT. Every page 403'd; he has the actual
+   game. With a reachable copy this becomes a real emulation instead of a research note.
 1t. [BUG FOUND + FIXED + GATED 7/31] TWO LIVE LAWS WERE CONTRADICTING EACH OTHER, AND
    READING BEFORE BUILDING IS WHAT FOUND IT.
    Paolo 7/31: "VALHEIM PROJECT ZOMBOID FALLOUT NEW VEGAS WITH POCKET CITY 2 ONTOP OF IT".
