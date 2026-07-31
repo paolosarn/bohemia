@@ -169,9 +169,17 @@ ok('his reason is recorded at the code', /towards the chin/.test(src));
    on each profile facing (E x=30, W x=25, rows 15-16). A four-pixel edit inside
    a full-package paste is exactly the kind of thing a later rig apply reverts
    without anyone noticing, so the live body is checked against his export. */
-const RIGEDIT = path.join(ROOT, 'records', 'rig', 'RIG_NECK_CHIN_7_28_26_layers.json');
-const RIGTOOL = path.join(ROOT, 'tools', 'bohemia_apply_rig_chin_neck_7_28.py');
-ok('his 7/28 rig export is kept verbatim in records/', fs.existsSync(RIGEDIT));
+/* SUPERSEDED 7/31: this pinned his 7/28 head/face/neck. He then shipped a 7/31
+   export -- "i updated the face in the rig... biggest changes are for ne and nw
+   where i tried to simulate ears but ur redarded so i just removed it" -- and
+   this gate went red holding the body to the OLDER export.
+   NEWEST DATE WINS (truth hierarchy), and a gate never outranks a ruling: the
+   live pin moves to 7/31. The 7/28 file stays in records/ as history, not as
+   the check. The 7/31 body is additionally fingerprinted whole by
+   gates/rig_no_drift_gate.py, which is the stronger lock. */
+const RIGEDIT = path.join(ROOT, 'records', 'rig', 'RIG_FACE_7_31_26.json');
+const RIGTOOL = path.join(ROOT, 'tools', 'bohemia_apply_rig_face_7_31.py');
+ok('his LATEST rig export (7/31) is kept verbatim in records/', fs.existsSync(RIGEDIT));
 ok('the applier is kept', fs.existsSync(RIGTOOL));
 if (fs.existsSync(RIGEDIT)) {
   const want = JSON.parse(fs.readFileSync(RIGEDIT, 'utf8'));
@@ -185,7 +193,7 @@ if (fs.existsSync(RIGEDIT)) {
     let bad = 0;
     for (const d in want) for (const q of ['1', '2', '3'])
       if (JSON.stringify(baked.layers[d][q]) !== JSON.stringify(want[d][q])) bad++;
-    ok('THE HEAD, FACE AND NECK THE GAME DRAWS ARE HIS 7/28 EXPORT, byte for byte', bad === 0);
+    ok('THE HEAD, FACE AND NECK THE GAME DRAWS ARE HIS 7/31 EXPORT, byte for byte', bad === 0);
     ok('the chin/neck column he removed on E is gone (face idx 870, neck idx 926)',
       baked.layers.E['2'].indexOf(870) < 0 && baked.layers.E['3'].indexOf(926) < 0);
     ok('the chin/neck column he removed on W is gone (face idx 865, neck idx 921)',

@@ -38,9 +38,11 @@ hats while landing his face.
 RIG CHECK (RIG IS LAW, Paolo 7/26/26): this IS the rig. It replaces the painted
 pixel lists for parts 1/2/3 in BAKED.layers and touches nothing else -- no
 skeleton, no pose, no layerOverride, no swingAmt, no other part.
-  built on: BAKED, BAKED.layers
+  built on: BAKED
   joints: none named
   parts: 1=head, 2=face, 3=neck
+  (First draft claimed BAKED.layers; rig_check_gate caught it -- the file reads
+   baked['layers'], never the dotted form. The gate is right, the claim was mine.)
 
 REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks ZERO new graphic pixels and opens NO
 banks. Every pixel written here was painted by Paolo in his own rig tool; this
@@ -48,6 +50,7 @@ tool is a transcriber.
 
   python3 tools/bohemia_apply_rig_face_7_31.py <export.json>
 """
+import base64
 import json
 import os
 import re
@@ -68,6 +71,17 @@ def main(path):
         return 1
     baked = json.loads(m.group(1))
 
+    # SAFEGUARD 1 -- never apply a structural change blind. This file transcribes
+    # PAINTED PIXELS only. If an export also moves the skeleton, the pose or the
+    # layer order, that is not a chin/neck edit, stop and check: those ride
+    # different laws (RIG LAW for the pose base, AUTHORED LAYERING for the order)
+    # and must be applied deliberately, not as a side effect of a face fix.
+    for key in ('skeleton', 'pose', 'layerOverride', 'swingAmt'):
+        if key in new and json.dumps(new[key], sort_keys=True) != json.dumps(baked.get(key), sort_keys=True):
+            print('REFUSING TO WRITE: the export also changes %s -- that is not a '
+                  'chin/neck edit, stop and check' % key)
+            return 1
+
     changed = []
     for d in DIRS:
         if d not in new:
@@ -87,6 +101,21 @@ def main(path):
 
     out = json.dumps(baked, separators=(',', ':'))
     s = s[:m.start(1)] + out + s[m.end(1):]
+
+    # SAFEGUARD 2 -- RIG IS LAW: the embedded rig tool carries its OWN copy of
+    # BAKED, and the game and the tool must draw the same body. Patching only the
+    # alpha's copy means the two would not be byte-identical after patching, which
+    # is exactly what rig_is_law_gate catches. Sync it here so the applier can
+    # never leave them disagreeing.
+    rm = re.search(r"const RIG_B64='([^']+)'", s)
+    if rm:
+        tool = base64.b64decode(rm.group(1)).decode('utf-8')
+        tb = re.search(r'const BAKED=(\{.*?\});?\n', tool, re.S)
+        if tb and tb.group(1) != out:
+            tool = tool[:tb.start(1)] + out + tool[tb.end(1):]
+            s = s[:rm.start(1)] + base64.b64encode(tool.encode()).decode('ascii') + s[rm.end(1):]
+            print('  rig tool BAKED synced (RIG IS LAW: one body, two copies, byte-identical)')
+
     open(ALPHA, 'w', encoding='utf-8').write(s)
     NAME = {'1': 'HEAD', '2': 'FACE', '3': 'NECK'}
     for d, p, a, b in changed:
