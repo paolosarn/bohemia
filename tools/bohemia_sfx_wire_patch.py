@@ -131,9 +131,36 @@ def parent_block(bank):
       return BOH_SFX.render(v,AC,dest,at);
     }catch(e){ return null; }
   };
+  /* UNLOCK ON THE FIRST TOUCH, ANY TOUCH (7/31 -- "I didnt hear ur sounds").
+     An AudioContext may only be STARTED inside a real user gesture. iOS is
+     strict about it: build one outside a gesture and it is born suspended, and
+     resume() from a postMessage handler is refused for the whole session.
+     The old wire only ever reached MUS.audio() from inside playSFX, and the
+     only gesture that could get there was a tap on a button/.tab/.opt. The
+     splash is <div id="front">, so THE FIRST THING HE EVER TOUCHES matched
+     nothing. Land straight in the RUN tab, walk, and every footstep arrives by
+     postMessage with no gesture behind it: silence, permanently, and the sound
+     is "working" the whole time. So: unlock on the first interaction of ANY
+     kind, anywhere, before anything needs to make noise. */
+  function unlock(){
+    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
+  }
+  ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
+    document.addEventListener(t, unlock, {capture:true, passive:true});
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden) unlock();      /* coming back from the lock screen */
+  });
   /* the run asks; the parent plays */
   window.addEventListener('message',function(ev){
-    try{ var d=ev&&ev.data; if(d&&d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when); }catch(e){}
+    try{
+      var d=ev&&ev.data; if(!d)return;
+      /* A TOUCH INSIDE THE IFRAME IS STILL A TOUCH. It does not bubble out to
+         this document, so the run tells us one happened and we take the chance
+         to start the audio while the browser may still count it as gestured. */
+      if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
+      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
+    }catch(e){}
   });
   /* the parent's own surfaces: every button on the phone is a UI TAP */
   document.addEventListener('click',function(e){
@@ -158,6 +185,19 @@ function sfx(ev,when){
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({type:'BOHEMIA_SFX',ev:ev,when:when||null},'*'); }catch(_e){}
 }
+/* TELL THE PARENT A FINGER LANDED (7/31). A touch in here never reaches the
+   parent's document, so the parent can be sitting with no audio at all while
+   the thumb hammers the D-pad. This fires on the gesture itself, ahead of any
+   sound, so the audio has already started by the time a footstep is asked for. */
+(function(){
+  function gesture(){
+    try{ if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_GESTURE'},'*'); }catch(_e){}
+  }
+  ['pointerdown','touchstart','mousedown','keydown'].forEach(function(t){
+    try{ document.addEventListener(t, gesture, {capture:true, passive:true}); }catch(_e){}
+  });
+})();
 function sfxGround(gx,gy){
   try{
     if(mode!=='ext') return 'step_asphalt';        /* indoors is a hard floor */

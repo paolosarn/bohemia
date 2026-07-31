@@ -1349,6 +1349,19 @@ function sfx(ev,when){
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({type:'BOHEMIA_SFX',ev:ev,when:when||null},'*'); }catch(_e){}
 }
+/* TELL THE PARENT A FINGER LANDED (7/31). A touch in here never reaches the
+   parent's document, so the parent can be sitting with no audio at all while
+   the thumb hammers the D-pad. This fires on the gesture itself, ahead of any
+   sound, so the audio has already started by the time a footstep is asked for. */
+(function(){
+  function gesture(){
+    try{ if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_GESTURE'},'*'); }catch(_e){}
+  }
+  ['pointerdown','touchstart','mousedown','keydown'].forEach(function(t){
+    try{ document.addEventListener(t, gesture, {capture:true, passive:true}); }catch(_e){}
+  });
+})();
 function sfxGround(gx,gy){
   try{
     if(mode!=='ext') return 'step_asphalt';        /* indoors is a hard floor */

@@ -1142,6 +1142,55 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 7/31 LATEST — "I didnt hear ur sounds in the game." HE WAS
+RIGHT AND MY GATE WAS WRONG. Read this before touching any gate that claims a
+surface works.
+
+WHAT THE OLD GATE DID: it proved the run ASKED for a footstep, then called
+MUS.audio() itself to start the audio, and launched Chromium with
+--autoplay-policy=no-user-gesture-required. It manufactured the exact condition
+that was broken and then reported 130 green checks. It never measured one sample
+of sound and it never checked that the postMessage actually crossed. This is the
+VERIFY-ON-THE-REAL-SURFACE law's "side-door probe is a lie", and it cost him a
+build.
+
+THE ACTUAL BUG: an AudioContext may only be STARTED inside a real user gesture.
+The only path to MUS.audio() was inside playSFX, and the only gesture that could
+reach it was a tap on a button/.tab/.opt. THE SPLASH IS <div id="front">, so the
+first thing he ever touches matched nothing. Land in the RUN tab, walk, and every
+footstep arrives by postMessage with no gesture behind it. On iOS that context is
+born suspended and resume() from a message handler is refused for the session.
+Silent forever, with every "is it wired" check green.
+
+THE FIX: unlock on the first interaction of ANY kind anywhere in the parent
+(pointerdown/touchend/mousedown/click/keydown, capture, plus visibilitychange),
+before anything needs to make noise. And because a touch inside the run iframe
+never reaches the parent's document, the run now posts BOHEMIA_GESTURE on its own
+pointerdown so the parent can start audio while the browser may still count it as
+gestured.
+
+THE GATE NOW MEASURES AIR. No autoplay override, real taps only (pointer events
+on the real nav buttons, never a call to move(), which is the side door around
+the input path), an AnalyserNode on MUS.MAST, and pass/fail on actual samples.
+140 checks. PROVED IT CATCHES THE BUG: run against the shipped build it fails 4,
+including "ONE REAL TAP ON THE SPLASH STARTED NO AUDIOCONTEXT". A gate that has
+never failed on the real defect is a guess.
+  IT ALSO HOLDS AUDIBILITY, not just presence: it measures the bed RIGHT BEFORE
+  the walk and requires the footsteps to rise out of it. "It played" and "he can
+  hear it" are different claims and only the second one is his.
+  TWO OF MY OWN MEASUREMENT BUGS, worth knowing: the first door check read the
+  footsteps' decay tails as door noise (0.2044), and the first probe read
+  window.MUS, which is undefined because MUS is a lexical global not a window
+  property, so it silently measured nothing and reported a peak of 0. A meter
+  that fails to attach reports silence, which looks exactly like a real failure.
+  The gate now fails if the analyser never attached rather than trusting a zero.
+
+STILL OPEN, NOT CHASED (not this lane): MUS.playing came back True on one gate
+run and False on the next with no change in between, so something starts the song
+nondeterministically. Flagging only.
+
+BUILD STAMP: 7/31v - THE SOUNDS ACTUALLY COME OUT NOW (RUN TAB).
+
 MAIN IS RED AND IT IS NOT THE SOUND LANE -- READ THIS FIRST, CHARACTER LANE.
 BODY VARIATION (gates/bodyvar_gate.js) fails on clean origin/main with ZERO sound
 work in the tree; I proved it in a detached worktree at origin/main before

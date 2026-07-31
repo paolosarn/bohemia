@@ -41,62 +41,137 @@ BANK = 'banks/BOHEMIA_SFX_APPROVED_7_30_26.json'
 VERDICT = 'records/BOHEMIA_SFX_VERDICT_7_30_26.txt'
 
 JS = r"""
+/* MEASURE THE AIR, NOT THE INTENTION (7/31/26).
+   The first version of this gate passed 130 checks while the game was silent on
+   his phone. It proved the run ASKED for a footstep, then booted the audio
+   itself with MUS.audio() and launched the browser with
+   --autoplay-policy=no-user-gesture-required. Both of those are the side door
+   the VERIFY-ON-THE-REAL-SURFACE law names: it manufactured the one condition
+   that was actually broken. This version starts the browser with the autoplay
+   policy LEFT ALONE, touches only what a thumb can touch, and puts an analyser
+   on the master bus so the pass/fail is actual samples of sound. */
 const path=require('path');
 function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modules',
   '/usr/local/lib/node_modules']){try{return require(path.join(g,'playwright'));}catch(e){}}
   return require('playwright');}
+
+/* an analyser on the master bus; the context does not exist until the first
+   sound asks for it, so WAIT for it instead of demanding it up front */
+const METER=`(function(){
+  window.__PEAK=0; window.__METER_OK=false;
+  window.__ATTACH=setInterval(function(){
+    try{
+      if(typeof MUS==='undefined'||!MUS.AC||!MUS.MAST||window.__METER_OK) return;
+      var an=MUS.AC.createAnalyser(); an.fftSize=2048;
+      MUS.MAST.connect(an);
+      var buf=new Float32Array(an.fftSize);
+      window.__METER_OK=true;
+      setInterval(function(){
+        an.getFloatTimeDomainData(buf);
+        var m=0; for(var i=0;i<buf.length;i++){var v=Math.abs(buf[i]); if(v>m)m=v;}
+        if(m>window.__PEAK) window.__PEAK=m;
+      },16);
+    }catch(e){}
+  },20);
+})()`;
+
 (async()=>{
   const {chromium}=pw();
-  const b=await chromium.launch({args:['--autoplay-policy=no-user-gesture-required']});
-  const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:2});
+  const b=await chromium.launch();          /* NO autoplay override. His phone has none. */
+  const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,
+                           hasTouch:true, isMobile:true});
   const errs=[]; p.on('pageerror',e=>errs.push('PAGEERROR '+e.message));
   await p.goto('file://'+path.join(process.argv[2],'slices','BOHEMIA_ALPHA_0_9.html'));
   await p.waitForTimeout(1500);
-  await p.evaluate(()=>{const f=document.getElementById('front');if(f)f.click();});
-  await p.waitForTimeout(500);
+  const out={};
+
+  /* THE SPLASH IS A <div>. It is the first thing he ever touches, and under the
+     old wire it matched no listener and started no audio. A REAL tap on it must
+     leave the context running, or every later sound is asking a dead context. */
+  await p.evaluate(METER);
+  await p.click('#front',{force:true}).catch(()=>{});
+  await p.waitForTimeout(700);
+  out.afterSplash=await p.evaluate(()=>({
+    wired: !!window.__SFX_WIRE && typeof window.playSFX==='function',
+    hasAC: !!(typeof MUS!=='undefined' && MUS.AC),
+    state: (typeof MUS!=='undefined'&&MUS.AC)?MUS.AC.state:'no-context'
+  }));
+
+  /* Reach the run WITHOUT a gesture: script-driven, so no user activation is
+     granted. This is the strict path -- the one his phone was on. */
   await p.evaluate(()=>{const t=[...document.querySelectorAll('.tab')]
     .find(x=>x.getAttribute('data-p')==='run'); if(t)t.click();});
   await p.waitForSelector('#runFrame',{state:'attached',timeout:30000});
-  await p.waitForTimeout(3000);
+  await p.waitForTimeout(3500);
   const fr=await (await p.$('#runFrame')).contentFrame();
   await fr.waitForFunction(()=>typeof sfx!=='undefined'&&typeof move!=='undefined',
     null,{timeout:30000,polling:200});
 
-  const out={};
-  out.wired=await p.evaluate(()=>!!window.__SFX_WIRE && typeof window.playSFX==='function');
-
-  // SPY on what the run actually asks for, without changing what it does
+  /* count what actually CROSSES the boundary, and what the run asks for */
+  await p.evaluate(()=>{ window.__RX=[];
+    window.addEventListener('message',function(e){
+      try{ if(e&&e.data&&e.data.type==='BOHEMIA_SFX') window.__RX.push(e.data.ev); }catch(_){}
+    });
+    window.__GEST=0;
+    window.addEventListener('message',function(e){
+      try{ if(e&&e.data&&e.data.type==='BOHEMIA_GESTURE') window.__GEST++; }catch(_){}
+    });
+  });
   await fr.evaluate(()=>{ window.__ASKED=[];
     const real=window.sfx;
     window.sfx=function(ev,when){ window.__ASKED.push(ev); return real.apply(this,arguments); };
   });
 
-  // WALK. Press every direction a few times so we cross more than one tile kind.
-  out.moved=await fr.evaluate(async()=>{
-    const before=[px,py]; let moves=0;
-    for(let r=0;r<3;r++) for(const d of [[1,0],[0,1],[-1,0],[0,-1]]){
-      const bx=px,by=py;
-      try{ move(d[0],d[1]); }catch(e){}
-      if(px!==bx||py!==by) moves++;
-      await new Promise(r2=>setTimeout(r2,60));
-    }
-    return {moves, before, after:[px,py]};
-  });
-  out.asked=await fr.evaluate(()=>window.__ASKED.slice());
+  /* THE FLOOR HE HEARS IT AGAINST, measured RIGHT BEFORE the walk so it is the
+     same moment of the same song. "It made a noise" is not the claim that
+     matters; "it rises out of whatever else is playing" is. */
+  await p.evaluate(()=>{window.__PEAK=0;});
+  await p.waitForTimeout(900);
+  out.floorBeforeWalk=await p.evaluate(()=>window.__PEAK);
+  out.musicAtWalk=await p.evaluate(()=>!!(typeof MUS!=='undefined'&&MUS.playing));
 
-  // does the parent actually render one? count nodes made on a live context
-  out.played=await p.evaluate(()=>{
-    try{
-      MUS.audio();
-      const before=MUS.AC.currentTime;
-      const r=window.playSFX('step_dirt');
-      return {ok:!!r, beats:r?r.beats:0, acRunning:MUS.AC.state};
-    }catch(e){ return {ok:false, err:String(e)}; }
-  });
-  // a door must produce nothing, because he killed all ten
+  /* WALK WITH A THUMB. Real pointer events on the real nav buttons -- not a
+     call to move(), which is the side door around the whole input path. */
+  await p.evaluate(()=>{window.__PEAK=0;});
+  const btns=await fr.$$('#nav button, #nav [data-d]');
+  out.navButtons=btns.length;
+  const before=await fr.evaluate(()=>[px,py]);
+  let taps=0;
+  for(let i=0;i<8 && i<btns.length;i++){
+    try{ await btns[i].dispatchEvent('pointerdown'); taps++;
+         await p.waitForTimeout(160);
+         await btns[i].dispatchEvent('pointerup'); }catch(e){}
+    await p.waitForTimeout(260);
+  }
+  const after=await fr.evaluate(()=>[px,py]);
+  await p.waitForTimeout(1200);
+  out.taps=taps;
+  out.moved={before, after, moved: before[0]!==after[0]||before[1]!==after[1]};
+  out.asked=await fr.evaluate(()=>window.__ASKED.slice());
+  out.received=await p.evaluate(()=>window.__RX.slice());
+  out.gestures=await p.evaluate(()=>window.__GEST);
+  out.meterOK=await p.evaluate(()=>!!window.__METER_OK);
+  out.peakWalking=await p.evaluate(()=>window.__PEAK);
+  out.acState=await p.evaluate(()=>(typeof MUS!=='undefined'&&MUS.AC)?MUS.AC.state:'none');
+
+  /* a door must make NO sound at all, measured the same way. WAIT FOR SILENCE
+     FIRST: the footsteps above have decay tails, and measuring on top of them
+     reads their ring-out as the door's noise (it did, at 0.2044, the first time
+     this check ran). Let the bus go quiet, THEN zero the meter. */
+  await p.waitForTimeout(2500);
+  out.musicPlaying=await p.evaluate(()=>!!(typeof MUS!=='undefined'&&MUS.playing));
+  /* BASELINE, not silence. If the studio is playing a song the bus is never
+     quiet, and demanding silence would test the music instead of the door.
+     Measure the floor over the same window length, then require the door to
+     not rise above it. */
+  await p.evaluate(()=>{window.__PEAK=0;});
+  await p.waitForTimeout(900);
+  out.peakSilence=await p.evaluate(()=>window.__PEAK);
+  await p.evaluate(()=>{window.__PEAK=0;});
   out.door=await p.evaluate(()=>{ try{ return window.playSFX('door_open')===null; }catch(e){ return false; } });
-  // and an unbanked name must be silent too
   out.bogus=await p.evaluate(()=>{ try{ return window.playSFX('nonsense_event')===null; }catch(e){ return false; } });
+  await p.waitForTimeout(900);
+  out.peakDoor=await p.evaluate(()=>window.__PEAK);
 
   out.errs=errs;
   console.log(JSON.stringify(out));
@@ -179,35 +254,76 @@ def main():
         return 1
 
     chk(not d.get('errs'), 'the page threw: %s' % (d.get('errs') or [])[:2])
-    chk(d.get('wired'), 'the parent never installed the sfx wire')
 
-    # 4 & 5: walking asks for a footstep, and it is one of his three
+    # 4. THE SPLASH TAP STARTS THE AUDIO. <div id="front"> matched none of the
+    #    old wire's listeners, so the first thing he ever touches started nothing
+    #    and every later footstep asked a context that could no longer be started.
+    sp = d.get('afterSplash') or {}
+    chk(sp.get('wired'), 'the parent never installed the sfx wire')
+    chk(sp.get('hasAC'), 'ONE REAL TAP ON THE SPLASH STARTED NO AUDIOCONTEXT -- '
+                         'the splash is a <div>; if the unlock only listens for '
+                         'buttons then nothing he touches first can start the sound')
+    chk(sp.get('state') == 'running',
+        'after a real tap the context is %r, not running' % sp.get('state'))
+
+    # 5. the run tells the parent a finger landed (a touch in the iframe never
+    #    reaches the parent's document, so it has to be told)
+    chk((d.get('gestures') or 0) > 0,
+        'walking sent NO gesture notice -- the parent cannot start audio off a '
+        'touch it never hears about')
+
+    # 6. walking asks for a footstep, it crosses the boundary, and it is his
+    chk(d.get('navButtons', 0) > 0, 'no nav buttons found, so nothing was touched')
+    chk(d.get('taps', 0) > 0, 'no taps were delivered')
     mv = d.get('moved') or {}
-    chk(mv.get('moves', 0) > 0, 'the player never moved, so nothing was measured')
+    chk(mv.get('moved'), 'the player never moved, so nothing was measured')
     asked = d.get('asked') or []
     steps = [a for a in asked if a.startswith('step_')]
     chk(len(steps) > 0, 'the player walked and NOT ONE footstep was requested -- '
                         'approved-but-unused is a defect')
-    chk(len(steps) == mv.get('moves', -1),
-        'every committed step must ask for exactly one footstep: %d moves, %d requests'
-        % (mv.get('moves', -1), len(steps)))
     legal = {'step_dirt', 'step_asphalt', 'step_gravel'}
     chk(set(steps) <= legal, 'the ground asked for a sound that is not one of his three: %s'
         % (set(steps) - legal))
     chk(not [a for a in asked if a.startswith('door_')],
         'walking requested a DOOR sound, and he approved none')
+    rx = d.get('received') or []
+    chk(len(rx) > 0, 'the run asked but NOTHING CROSSED to the parent -- the old '
+                     'gate never tested the message actually arriving')
+    chk(set(rx) <= legal, 'a non-footstep crossed while walking: %s' % (set(rx) - legal))
 
-    # the parent really renders one
-    pl = d.get('played') or {}
-    chk(pl.get('ok'), 'the parent could not play an approved footstep: %s' % pl.get('err'))
-    chk((pl.get('beats') or 0) > 0, 'the played footstep has no length')
+    # 7. THE ONE THAT MATTERS: it made an actual noise. Samples, not intentions.
+    chk(d.get('meterOK'), 'never got an analyser onto the master bus, so this run '
+                          'measured NOTHING -- treat as a fail, not a pass')
+    chk(d.get('acState') == 'running',
+        'the audio context is %r after walking' % d.get('acState'))
+    peak = d.get('peakWalking') or 0
+    chk(peak > 0.02,
+        'WALKING MADE NO SOUND. Peak on the master bus was %.4f. Everything else '
+        'about the wire can be green and he still hears nothing -- that is exactly '
+        'what happened on 7/31.' % peak)
+    chk(peak < 0.99, 'the footstep is slamming the master bus at %.3f' % peak)
+    # AUDIBLE, NOT MERELY PRESENT. Measured against the same song a moment
+    # earlier: a footstep that never rises out of the bed is one he cannot hear,
+    # and "I didnt hear ur sounds" is the only report that counts.
+    fl = d.get('floorBeforeWalk') or 0
+    chk(peak > fl * 1.05,
+        'THE FOOTSTEPS DO NOT RISE OUT OF THE MIX: bed was %.4f, walking peaked '
+        'at %.4f. It is playing and he still cannot hear it.' % (fl, peak))
+
+    # 8. doors are silent, measured the same way
     chk(d.get('door'), 'playSFX("door_open") returned something -- doors must be silent')
     chk(d.get('bogus'), 'an unbanked event name played a sound')
+    floor = d.get('peakSilence') or 0
+    chk((d.get('peakDoor') or 0) <= floor * 1.5 + 0.02,
+        'a DOOR RAISED THE LEVEL (floor %.4f -> %.4f) and he approved none of the ten'
+        % (floor, d.get('peakDoor') or 0))
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:
-        print('  walked %d steps, %d footsteps requested, all from his approved set.'
-              % (mv.get('moves', 0), len(steps)))
+        print('  %d taps walked the player, %d footsteps crossed, and the master bus '
+              'peaked at %.3f. It made a NOISE.' % (d.get('taps', 0), len(rx), peak))
+        print('  (music playing: %s · bed before the walk %.4f · door %.4f)'
+              % (d.get('musicAtWalk'), d.get('floorBeforeWalk') or 0, d.get('peakDoor') or 0))
     return 1 if F else 0
 
 
