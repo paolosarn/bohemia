@@ -1,29 +1,27 @@
 #!/usr/bin/env python3
 """
-BOHEMIA RUN PEOPLE (7/29/26) — *** NOT WIRED YET. DO NOT ASSUME IT WORKS. ***
+BOHEMIA RUN PEOPLE (7/29/26) — THE RUN'S NEIGHBOURS OBEY PAOLO'S ZONE MAP.
 
-STATUS: WRITTEN, APPLIED, MEASURED, AND BACKED OUT. The tool is correct as far
-as it goes and the modules load cleanly in the run (population + powergrid both
-live, zero page errors, the zone map answers for the real cell). What is NOT
-solved is the LAST MILE, and it is written down here rather than shipped
-half-working:
+A CORRECTION IS RECORDED HERE ON PURPOSE, because the mistake is more useful
+than the fix. This tool was written, applied, MEASURED AS BROKEN, and backed
+out - and the measurement was wrong, not the code.
 
-  MEASURED: calling agentsForBlock directly in the booted run with the floored
-  rate returns 12 agents. The SIM the run actually boots with has 1. So the
-  rate is not reaching the sim on the boot path, and the cause is not yet
-  found. Candidates ruled OUT: CELL and HOME_CELL do match at boot (verified),
-  and the save-restore call site at ~2046 is a different path that only runs on
-  load. Candidate NOT yet ruled out: buildSim running before feet/doorOf are
-  populated, its try/catch swallowing the failure, and an earlier SIM surviving.
+  I read `SIM.outAgents().length` and called it the population. It is not. It
+  is how many people are OUTDOORS RIGHT NOW. At startTurn 0 everybody is asleep
+  at home, so it returns 0 or 1 no matter how many live there - which is
+  exactly why the run's own boot call is `buildSim(450)`, warming the sim to
+  ~07:30 "so the street is already living". Its own comment says so.
 
-  THE RULE THAT SENT IT BACK: shipping a wiring that measures wrong is worse
-  than shipping nothing, and "it loads without errors" is not the same as "it
-  works". The CITY tab's version IS verified and shipped; this one is not.
+  Measured properly, warming the sim the way boot does:
+      zone map + floor   12 living on your block, 1 outdoors at 07:30
+      the old flat 30%   18 living,                3 outdoors
+      zone map, no floor  0 living                 (which is why the floor exists)
 
-NEXT SESSION: instrument buildSim itself (log _rate and _agents.length from
-inside it), find why the boot SIM ignores the option, then re-apply and prove
-it with a gate that boots the run and asserts a cluster block and an empty
-block differ. Do not ship it on "the modules load".
+  THE LESSON, and it is the sharper half of VERIFY ON THE REAL SURFACE: reading
+  the wrong variable is its own failure mode, and it looks exactly like a bug in
+  the code. Before backing something out for measuring wrong, check that you
+  measured the thing you think you measured. I threw away working code for an
+  hour on `outAgents()`.
 
 WHAT IT DOES WHEN IT WORKS: the run's neighbours obey Paolo's zone map.
 

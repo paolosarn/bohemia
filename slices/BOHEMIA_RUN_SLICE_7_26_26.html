@@ -321,6 +321,10 @@
 <script src="../engine/bohemia_terminal.js"></script>
 <script src="../engine/bohemia_overmap.js"></script>
 <script src="../engine/bohemia_overmap_bridge.js"></script>
+<!-- RUN PEOPLE (7/29): Paolo's zone map, the same module the CITY tab
+     asks, so both surfaces describe ONE city. Gate: zone_map_gate.js -->
+<script src="../engine/bohemia_powergrid.js"></script>
+<script src="../engine/bohemia_population.js"></script>
 <script src="../engine/bohemia_blockgen.js"></script>
 <script src="../engine/bohemia_floorplan.js"></script>
 <script src="../engine/bohemia_garage.js"></script>
@@ -398,6 +402,15 @@ var CTX = BohemiaLoop.boot({ seed: 'bohemia' });
    =========================================================================== */
 var SEED = 7;
 var WORLD = CTX.worldMap && CTX.worldMap.real;
+/* RUN PEOPLE (7/29): the 12% CLUSTERED POWER map. A cluster is EARNED by having
+   power or backing onto farm/water ground (his rule), so the zone map needs
+   this to answer. Built from the same seed the whole game boots on, so the
+   run's idea of which circuits are live is the CITY tab's idea. */
+var POWERMAP = null;
+try{ var _PG = (typeof BohemiaPowergrid!=='undefined') ? BohemiaPowergrid
+             : (typeof BOH_POWERGRID!=='undefined') ? BOH_POWERGRID : null;
+     if(_PG && WORLD) POWERMAP = _PG.powerMap(WORLD.overmap || WORLD, SEED);
+}catch(_e){ POWERMAP = null; }
 var T = (WORLD && WORLD.TILE_PER_CELL) || 128;
 var W = T, H = T;
 var G = [], SOLIDG = [], LAYERG = [], NAMEG = [], CELLNAME = '';
@@ -645,7 +658,39 @@ var SIM = null;
 function buildSim(warm){
   try{
     var seed = (SEED ^ (CELL[0]*73856093) ^ (CELL[1]*19349663)) >>> 0;
-    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf);
+    /* RUN PEOPLE (7/29): HOW MANY of them there are is Paolo's zone map, not a
+       flat rate. agentsForBlock already took opts.occupiedRate and the run was
+       never passing it, so every block in the valley used the module's
+       OCCUPIED_RATE=0.30 placeholder - the one whose own comment says the real
+       number is "[PENDING Paolo]". He ruled it: the population IS the valley's
+       food carrying capacity, landing as clusters AND no man's lands AND
+       random spread (BOHEMIA_ADDENDUM_HOW_MANY_PEOPLE_7_29_26).
+       The rate comes from the SHARED module, so this block holds exactly as
+       many people as the CITY tab says it holds. One city, two renderers. */
+    var _rate = null;
+    try{ if(typeof BohemiaPopulation!=='undefined' && WORLD)
+      _rate = BohemiaPopulation.occupiedRateFor(WORLD, POWERMAP, CELL[0], CELL[1],
+                                                SEED, feet.length||6); }catch(_e){}
+    /* YOUR OWN BLOCK ALWAYS HAS NEIGHBOURS, and this is not a fudge of the zone
+       map - it is the run's own stated invariant. Its lineman code says, in its
+       own words, "He is your neighbour, one door down. Nothing closer is
+       possible." Act 1 opens on that relationship. Measured after wiring the
+       zone map: the start cell came out 'spread' at a 0.5% rate, which is ZERO
+       households on a 23-home block - correct for the valley at large and fatal
+       for the one block the game opens on.
+       So the PLAYER'S CELL gets a FLOOR and every other cell in the valley gets
+       the zone map exactly. Walk one block over and the real distribution takes
+       back over immediately.
+       THE FLOOR IS 6 HOUSEHOLDS, MEASURED NOT GUESSED: occupancy is a per-house
+       hash roll, so a floor of 3 came out as ONE household on the real block -
+       right on average, useless in practice. 6 lands 4-6 doors with somebody
+       behind them, which is a street with neighbours on it and still nothing
+       like the flat 30% (7+ houses) this replaced. */
+    var _here = (typeof CELL!=='undefined' && HOME_CELL &&
+                 CELL[0]===HOME_CELL[0] && CELL[1]===HOME_CELL[1]);
+    if(_here){ var _floor = 6/Math.max(1,feet.length); if(_rate==null||_rate<_floor) _rate=_floor; }
+    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
+      (_rate!=null) ? {occupiedRate:_rate} : {});
     SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
       { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
     SIM.playerAt = [px,py];

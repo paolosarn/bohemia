@@ -1165,8 +1165,40 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
-0Z. [STARTED 7/29, BACKED OUT ON PURPOSE — NOT SHIPPED] THE RUN'S NEIGHBOURS
-   SHOULD OBEY THE ZONE MAP AND DO NOT YET. tools/bohemia_run_people_patch.py
+0Z. [DONE 7/29 — AND A CORRECTION TO MY OWN BACKOUT] THE RUN'S NEIGHBOURS OBEY
+   THE ZONE MAP. tools/bohemia_run_people_patch.py.
+   I BACKED THIS OUT ONCE FOR MEASURING WRONG, AND THE MEASUREMENT WAS THE
+   THING THAT WAS WRONG. I read SIM.outAgents().length and called it the
+   population. It is not - it is how many people are OUTDOORS RIGHT NOW, and at
+   startTurn 0 everybody is asleep at home. That is precisely why the run's own
+   boot call is buildSim(450), warming to ~07:30 "so the street is already
+   living"; its own comment says so. Measured properly, warmed the way boot
+   warms:
+     zone map + floor    12 living on your block,  1 outdoors at 07:30
+     the old flat 30%    18 living,                3 outdoors
+     zone map, no floor   0 living  (which is why the floor exists)
+   THE LESSON, sharper than VERIFY ON THE REAL SURFACE: reading the WRONG
+   VARIABLE is its own failure mode and it looks exactly like a bug in the code.
+   Before backing something out for measuring wrong, check you measured the
+   thing you think you measured.
+   WHAT SHIPPED: the run passes an occupiedRate from the SHARED zone map for the
+   cell you are standing on, so the run and the CITY tab hold the same number of
+   people in the same corner of the valley. agentsForBlock ALREADY took the
+   option and the run was never passing it, so every block used the flat
+   OCCUPIED_RATE=0.30 placeholder his 7/29 ruling replaced. No change to
+   bohemia_agents.js (WORLD's), no second census, no new sim.
+   ALSO: the run had no powergrid at all, so clusters could not be EARNED there.
+   It now loads engine/bohemia_powergrid.js and builds the 12% map from the same
+   seed the CITY tab uses.
+   AND THE FLOOR: the player's own block gets a minimum of 6 households. Not a
+   fudge - the run's lineman code says "He is your neighbour, one door down.
+   Nothing closer is possible" and act 1 opens on that. The start cell comes out
+   'spread' at 0.5%, which is ZERO households on a 23-home block: right for the
+   valley, fatal for the one block the game opens on. A floor of 3 measured as
+   one household; 6 lands a street with neighbours on it.
+   | gate: the run gate boots it; zone map gated separately | 7/29 | YES.
+0Z-OLD. (superseded by the entry above, kept because the mistake is the useful
+   part) THE BACKOUT THAT SHOULD NOT HAVE HAPPENED. tools/bohemia_run_people_patch.py
    exists, applies cleanly, and is MARKED NOT WIRED at the top of its own
    docstring. HE PLAYS THE RUN, so this matters: the CITY tab got his 7/29 zone
    map and the run did not, which means right now the two surfaces describe two
