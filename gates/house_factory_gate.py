@@ -14,7 +14,15 @@ failed:
      check house 01 would have failed: it documented a reuse check, sampled a few
      colours off a street tile, and drew every pixel itself.
   4. act-1 floor and ceiling.
-  5. SIXTEEN DISTINCT SHAPES, not one silhouette in sixteen colourways. The
+  5. NO TWO OPENINGS ON A WALL MAY OVERLAP. Paolo 7/31 killed the first batch for
+     "DOORS MESHING IN WITH WINDOWS" on all sixteen — the door was placed by one
+     loop and the windows by another and nothing compared them. This check reads the
+     openings the generator actually claimed.
+  6. A MASS OVER 4 m OF PLATE MUST CARRY TWO ROWS OF WINDOWS. Same verdict: "YOUR
+     TWO STORY HOUSES LOOK LIKE SHIT". A 5.3 m plate with one row near the floor and
+     a blank wall above is a warehouse, not a house. Raising a number is not adding
+     a storey.
+  7. SIXTEEN DISTINCT SHAPES, not one silhouette in sixteen colourways. The
      STRUCTURE-NOT-COLOUR law says a recolour is filler and never the headline, so
      the gate counts distinct massing footprints and fails if colour is doing the
      work that shape should.
@@ -73,6 +81,17 @@ def main():
            min(map(lum, used)) >= FLOOR and max(map(lum, used)) <= CEIL,
            '%.0f..%.0f' % (min(map(lum, used)), max(map(lum, used))))
         shapes.add((h['masses'], tuple(h['footprint_cells']), h['plate_m'], h['pitch']))
+
+        # the two defects that killed the first batch, now machine-held
+        for w in h.get('walls', []):
+            sp = sorted(w.get('openings', []))
+            ok('%s wall openings never overlap' % h['id'],
+               all(sp[i][1] <= sp[i + 1][0] for i in range(len(sp) - 1)),
+               'a door and a window share wall on %s' % h['id'])
+        ok('%s two-storey has two window rows' % h['id'],
+           h['plate_m'] < 4.0 or h.get('window_rows', 0) >= 2,
+           'plate %.2f m with %d row(s) - that is a warehouse'
+           % (h['plate_m'], h.get('window_rows', 0)))
 
     # STRUCTURE-NOT-COLOUR: shape must be doing the work, not the colourway
     ok('the sixteen differ by SHAPE, not by recolour', len(shapes) >= 14,

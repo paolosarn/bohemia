@@ -1,0 +1,55 @@
+BOHEMIA — THE SIXTEEN HOUSES — VERDICT — 7/31/26
+================================================================================
+
+PAOLO, VERBATIM, BOTH MESSAGES:
+
+    "BRO ON ALL OF THEM YOU HAVE DOORS MESHING IN WITH WINDOWS ALSO YOUR TWO STORY
+     HOUSES LOOK LIKE SHIT TRY AGAIN!"
+
+    "ALL OF THEM THUMBS DONW"
+
+VERDICT: ALL SIXTEEN KILLED. Graveyard 2026-07-31.
+
+WHAT IS **NOT** KILLED: house 02, south facing. He approved that one on its own
+("THE SOUTH LOOKS SO FUCKING GOOD BRO!!! NICEE!!!!") and has not withdrawn it. The
+approval stands; what died is the SET generated off it.
+
+================================================================================
+THE TWO DEFECTS HE NAMED, AND BOTH WERE REAL
+
+1. DOORS MESHING WITH WINDOWS — on all sixteen, and the cause was structural rather
+   than cosmetic. The front door was placed at one offset and the windows by a
+   SEPARATE loop, and nothing ever compared the two. Two independent placers on one
+   wall will collide sooner or later; here it was every single time. I had a
+   collision check for a window running past the END of its wall and no check at all
+   for a window running into another opening.
+
+2. THE TWO-STOREY HOUSES — a 5.3 m plate with ONE row of windows near the floor and
+   a blank wall above it. That is not a two-storey house, that is a warehouse, and it
+   reads as one because that is exactly what a warehouse is. A real two-storey has a
+   floor line and a SECOND ROW of windows on the upper storey. I raised a number and
+   called it a storey.
+
+BOTH WERE FIXED IN THE GENERATOR BEFORE HIS SECOND MESSAGE LANDED (one occupancy
+list per wall that every opening must claim from, an opening that cannot find clear
+wall simply not drawn, plus a real floor band and an upper-storey window row with
+its own occupancy list). THE FIX DOES NOT RESURRECT THE SET. He thumbed all sixteen
+down; GRAVEYARD IS FINAL, and re-showing sixteen repaired houses is precisely the
+"finding a legal way to ship anyway" that the STOP PRODUCING law names as the
+violation itself.
+
+================================================================================
+THE LESSON, AND IT IS ABOUT THE BATCH, NOT THE HOUSES
+
+I generated sixteen and looked at them as a CONTACT SHEET at 330 px wide. At that
+size a door merging into a window is invisible, and so is a blank second storey. I
+verified the batch page rendered, that sixteen images painted, that thumbs worked —
+every check about the MACHINERY, none about the ART. The one house he approved got
+looked at closely, four times, at full size. The sixteen never did.
+
+VOLUME DOES NOT MEAN LOOKING LESS. A factory multiplies whatever you did not check.
+
+WHAT THE MACHINE NOW HOLDS (gates/house_factory_gate.py, extended this turn): no two
+openings on a wall may overlap, and any mass over 4 m of plate must carry a second
+row of windows. Both are checkable, both would have failed this batch, and neither
+existed when it shipped.

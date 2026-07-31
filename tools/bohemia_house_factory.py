@@ -143,6 +143,7 @@ def build(bank, pitch, plate_m, roof_pref, wall_id, masses):
     door_c = ramp_of(bank, 'wall_door', 4)
     glass = ramp_of(bank, 'wall_window', 3)[0]
 
+    walls, rows = [], 1
     ev = 0.46 / CELL_M
     fw = max(m['x0'] + m['w'] for m in masses)
     fd = max(m['y0'] + m['d'] for m in masses)
@@ -224,39 +225,97 @@ def build(bank, pitch, plate_m, roof_pref, wall_id, masses):
             d.line([g[0], g[2]], fill=roof[0])
             d.line([g[1], g[2]], fill=roof[0])
 
-        # OPENINGS BELONG TO THEIR MASS and are painted with it — drawing them at
-        # the end put windows floating on the roof of the mass in front.
+        # ============ OPENINGS ============================================
+        # PAOLO 7/31: "ON ALL OF THEM YOU HAVE DOORS MESHING IN WITH WINDOWS".
+        # He is right and the cause was structural, not cosmetic: the door was
+        # placed at one offset and the windows by a separate loop, and NOTHING
+        # COMPARED THEM. Two independent placers on one wall will collide sooner
+        # or later, and here it was every time. So now every opening on a wall is
+        # claimed from ONE occupancy list, in order, and an opening that cannot
+        # find clear wall is not drawn at all.
         wh, sill = int(round(1.22 * PXM)), int(round(0.91 * PXM))
         span_m = m['w'] * CELL_M
-        if m is sorted(masses, key=lambda q: (-q['y0'], q['x0']))[0]:
-            dh = int(round(2.03 * PXM))          # the front door, on the nearest mass
-            u = span_m * 0.30
-            d.polygon([P(x0 + u / CELL_M, y1, 0), P(x0 + (u + .91) / CELL_M, y1, 0),
-                       P(x0 + (u + .91) / CELL_M, y1, dh), P(x0 + u / CELL_M, y1, dh)],
-                      fill=door_c[0])
-            d.line([P(x0 + u / CELL_M, y1, dh), P(x0 + (u + .91) / CELL_M, y1, dh)],
-                   fill=wall[4])
-        # windows spaced along whatever wall is left, never past its own end
+        taken = []                       # [(start_m, end_m)] along this wall
+
+        def claim(start, width, pad=0.55):
+            """Take a run of wall, or return None if anything is already there."""
+            a0, a1 = start - pad, start + width + pad
+            if start < 0.6 or start + width > span_m - 0.6:
+                return None
+            for (b0, b1) in taken:
+                if a0 < b1 and b0 < a1:
+                    return None
+            taken.append((start, start + width))
+            return start
+
+        def opening(u, w_m, z0, z1, fill, lintel=True):
+            a = x0 + u / CELL_M
+            b = x0 + (u + w_m) / CELL_M
+            d.polygon([P(a, y1, z0), P(b, y1, z0), P(b, y1, z1), P(a, y1, z1)],
+                      fill=fill)
+            if lintel:
+                d.line([P(a, y1, z1), P(b, y1, z1)], fill=wall[4])
+                d.line([P(a, y1, z0), P(b, y1, z0)], fill=wall[4])
+
+        # TWO STOREYS ARE TWO STOREYS, not one tall blank wall. Paolo 7/31: "YOUR
+        # TWO STORY HOUSES LOOK LIKE SHIT". They were a 5.3 m plate with a single
+        # row of windows near the floor and nothing above — which reads as a
+        # warehouse, because that IS what a warehouse looks like. A real one has a
+        # floor line and a SECOND ROW of windows on the upper storey.
+        storeys = 2 if (m['plate'] or plate_m) >= 4.0 else 1
+        if storeys == 2:
+            band = int(round(((m['plate'] or plate_m) / 2.0) * PXM))
+            for i in range(3):           # the floor/rim-joist band between storeys
+                d.line([P(x0, y1, band + i), P(x1, y1, band + i)], fill=wall[1])
+            d.line([P(x0, y1, band + 3), P(x1, y1, band + 3)], fill=wall[4])
+
+        # THE FRONT DOOR GOES DOWN FIRST and claims its wall before anything else,
+        # because it is the one opening whose position actually means something.
+        nearest = sorted(masses, key=lambda q: (-q['y0'], q['x0']))[0]
+        if m is nearest:
+            dh = int(round(2.03 * PXM))
+            du = claim(span_m * 0.30, 0.91)
+            if du is None:
+                du = claim(1.0, 0.91)
+            if du is not None:
+                opening(du, 0.91, 0, dh, door_c[0], lintel=False)
+                a = x0 + du / CELL_M
+                b = x0 + (du + 0.91) / CELL_M
+                d.line([P(a, y1, dh), P(b, y1, dh)], fill=wall[4])
+
+        # then windows fill whatever wall is genuinely left, ground floor first
         u = 1.1
         while u + 1.22 < span_m - 0.9:
-            a, b = x0 + u / CELL_M, x0 + (u + 1.22) / CELL_M
-            d.polygon([P(a, y1, sill), P(b, y1, sill),
-                       P(b, y1, sill + wh), P(a, y1, sill + wh)], fill=glass)
-            d.line([P(a, y1, sill + wh), P(b, y1, sill + wh)], fill=wall[4])
-            d.line([P(a, y1, sill), P(b, y1, sill)], fill=wall[4])
-            u += 3.4
-    return im, fw, fd
+            got = claim(u, 1.22)
+            if got is not None:
+                opening(got, 1.22, sill, sill + wh, glass)
+            u += 2.6
+        if storeys == 2:
+            # UPPER STOREY. Its own occupancy list — an upstairs window cannot
+            # collide with a downstairs door, they are on different floors.
+            taken = []
+            band_m = (m['plate'] or plate_m) / 2.0
+            up_sill = int(round((band_m + 0.85) * PXM))
+            u = 1.4
+            while u + 1.22 < span_m - 0.9:
+                got = claim(u, 1.22)
+                if got is not None:
+                    opening(got, 1.22, up_sill, up_sill + wh, glass)
+                u += 2.6
+            rows = max(rows, 2)
+        walls.append({'mass': [x0, y0], 'openings': [list(t) for t in sorted(taken)]})
+    return im, fw, fd, walls, rows
 
 
 def main():
     bank = json.load(open(SKINS))
     houses, imgs = [], []
     for (hid, name, pitch, plate, rp, wid, masses) in SPEC:
-        im, fw, fd = build(bank, pitch, plate, rp, wid, masses)
+        im, fw, fd, walls, rows = build(bank, pitch, plate, rp, wid, masses)
         b = io.BytesIO(); im.save(b, 'PNG', optimize=True)
         houses.append({'id': hid, 'name': name, 'pitch': '%d:12' % pitch,
                        'plate_m': plate, 'roof': rp, 'wall': wid,
-                       'masses': len(masses),
+                       'masses': len(masses), 'walls': walls, 'window_rows': rows,
                        'footprint_cells': [fw, fd],
                        'footprint_m': [round(fw * CELL_M, 1), round(fd * CELL_M, 1)],
                        'sqft': round(sum(m['w'] * m['d'] for m in masses)

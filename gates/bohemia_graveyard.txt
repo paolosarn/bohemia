@@ -259,3 +259,34 @@ WHAT SURVIVED, because it is measurement and structure rather than taste:
   >=12 in eave, nothing over 3.5:1) come from the research rather than from these
   drawings, and they still refuse a trailer. tools/bohemia_house_massing.py survives
   ONLY as that gate's spec table, not as art; its rendered sheet is dead.
+
+--------------------------------------------------------------------------------
+2026-07-31  THE SIXTEEN HOUSES  (the house factory's first batch)
+  banks/BOHEMIA_HOUSE_SET_16_7_31_26.txt
+  slices/BOHEMIA_HOUSES16_JUDGE_7_31_26.html
+  records/target/HOUSE_SET_16.png
+  KILLED BY: Paolo 7/31: "BRO ON ALL OF THEM YOU HAVE DOORS MESHING IN WITH WINDOWS
+  ALSO YOUR TWO STORY HOUSES LOOK LIKE SHIT TRY AGAIN!" then "ALL OF THEM THUMBS
+  DONW". All sixteen down.
+  DEAD MEANS DEAD: the repaired sixteen do not come back. Both defects were fixed in
+  the generator before his second message arrived and that changes nothing — he
+  thumbed the set down, and re-showing a repaired batch is the exact "legal way to
+  ship anyway" STOP PRODUCING names as the violation.
+
+  NOT DEAD: house 02 south (banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt). He approved
+  that one by itself and has not withdrawn it.
+
+  POST-MORTEM. Both defects were real and both were mine.
+  (1) The door was placed at one offset and the windows by a SEPARATE loop, with
+      nothing comparing them. I had a bounds check for a window running past the end
+      of its wall and NO check at all for a window running into another opening. Two
+      independent placers on one wall collide eventually; here it was every time.
+  (2) A "two-storey" was a 5.3 m plate with one row of windows near the floor and a
+      blank wall above. That is a warehouse. I raised a number and called it a storey
+      instead of building a storey - a floor line and a second row of openings.
+  THE REAL LESSON IS ABOUT THE BATCH. I looked at sixteen houses as a contact sheet
+  at 330 px wide, where a door merging into a window is invisible. Every verification
+  I ran was about the MACHINERY - sixteen cards, sixteen images painted, thumbs work,
+  no overflow - and none about the ART. The single house he approved got looked at
+  closely four times at full size. The sixteen never did once.
+  VOLUME DOES NOT MEAN LOOKING LESS; a factory multiplies whatever went unchecked.

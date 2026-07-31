@@ -1970,3 +1970,50 @@ WHAT IS STILL HIS: which of the sixteen live. UNJUDGED IS DEAD applies — bulk 
 is a verdict, so anything he does not thumb dies rather than lingering.
 
 BUILD STAMP: 7/31h. ALL GATES GREEN (954s).
+
+--------------------------------------------------------------------------------
+7/31 — ALL SIXTEEN HOUSES KILLED. THE BATCH IS DEAD; HOUSE 02 SOUTH IS NOT.
+
+PAOLO: "BRO ON ALL OF THEM YOU HAVE DOORS MESHING IN WITH WINDOWS ALSO YOUR TWO
+STORY HOUSES LOOK LIKE SHIT TRY AGAIN!" then "ALL OF THEM THUMBS DONW".
+
+ALL 16 KILLED. Graveyard 2026-07-31. Verdict:
+records/BOHEMIA_16_HOUSES_VERDICT_7_31_26.txt. Bank, judge page and contact sheet
+deleted; card pulled from the LIFE hub GENERATOR.
+
+**HOUSE 02 SOUTH IS STILL APPROVED** (banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt). He
+approved that one alone and has not withdrawn it. What died is the SET built off it.
+
+BOTH DEFECTS WERE REAL AND BOTH WERE MINE:
+ 1. The front door was placed at one offset and the windows by a SEPARATE loop, and
+    nothing ever compared them. I had a bounds check for a window running past the
+    END of its wall and NO check at all for a window running into another opening.
+    Two independent placers on one wall collide eventually; here it was every time.
+ 2. A "two-storey" was a 5.3 m plate with one row of windows near the floor and a
+    blank wall above. That is a warehouse. I raised a number and called it a storey
+    instead of building one — a floor line and a second row of openings.
+
+BOTH WERE FIXED IN THE GENERATOR BEFORE HIS SECOND MESSAGE LANDED. THAT DOES NOT
+RESURRECT THE SET. He thumbed all sixteen down; re-showing a repaired batch is the
+exact "legal way to ship anyway" STOP PRODUCING names as the violation. DO NOT
+regenerate and re-surface the sixteen.
+
+THE LESSON, AND IT IS ABOUT VOLUME: I looked at sixteen houses as a CONTACT SHEET at
+330 px wide, where a door merging into a window is invisible and a blank upper storey
+is invisible. Everything I verified was about the MACHINERY — sixteen cards, sixteen
+images painted, thumbs work, no overflow — and NOTHING about the art. The one house
+he approved got looked at closely, four times, at full size. The sixteen never did
+once. **A FACTORY MULTIPLIES WHATEVER YOU DID NOT CHECK.**
+
+NOW MACHINE-HELD (gates/house_factory_gate.py, 122 checks): no two openings on a
+wall may overlap, and any mass over 4 m of plate must carry two window rows. The
+generator now REPORTS the openings it actually claimed so the gate checks reality
+rather than a promise. PROVED BOTH CAN FAIL: replayed the exact defects and watched
+it go red naming each one.
+
+[PENDING PAOLO] the process question: one house at a time at full size, or batches?
+Batch-of-sixteen just failed, and it failed on things a single full-size look catches.
+
+[FLAG, not mine] another lane locked BOUGHT BEATS PAINTED 7/31 ("if i bought it i
+prefer it! Thats for all textures bro!!!"). House 02 and the factory use his APPROVED
+PAINTED skins. If he owns house textures, that ruling likely governs houses too.
