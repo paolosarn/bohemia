@@ -27,34 +27,46 @@ in the same breath why none applies. "None applies" is a legal answer — a char
 rig has nothing to buy against — but it has to be SAID, so the next person can see
 the shelf was considered rather than forgotten.
 
-AND THE HALF NOBODY HAD CHECKED AT ALL: what COLOUR his bought art is. Measured on
-the exact bytes the run ships, 25 of his 33 purchased road/sidewalk tiles carry PURE
-BLACK, up to 15% of the tile, against an act-1 palette law that forbids it. His
-library is an asset-store bundle drawn for high-contrast fantasy; the existing
-bought_beats_painted gate checks that his art SHIPS and ships FIRST, never what it
-looks like. So this gate also holds the CONDITIONER (tools/bohemia_bought_conditioner
-.py): his tiles moved into act-1 by a monotone remap, and PROVEN still his — same
-size, same hue, same saturation, pixel for pixel — so "make it legal" can never
-quietly become "repaint it".
+SECOND CORRECTION, 7/31, AND IT KILLED A TOOL. This gate also used to hold a
+"CONDITIONER" that rewrote his purchased road and sidewalk tiles to lift them off
+pure black, citing "act-1 forbids pure black (floor 17)".
+
+  Paolo: "I DIDNT BAN THE PURE BLACK??? WTF I DIDNT BAN ANY OF THE BOUGHT ASSETS I
+  APPROVED BO WTF"
+
+He is right and there is no such law. FLOOR=17/CEIL=232 exists in exactly four files,
+all Claude's own tools for art CLAUDE PAINTS (cmu_cook, house_cook, house_factory,
+cmu_gate); git log -S puts them in Claude cook commits. A constraint adopted for
+Claude's own painting was promoted to "act-1 law" and enforced against his property.
+Worse, clause 2 of the very law this gate cites says "VERBATIM OR NOT AT ALL. His
+tiles blit 1:1" — the conditioner opened that file, quoted its headline, and broke its
+second clause. Graveyard: gates/bohemia_graveyard.txt, 7/31.
+
+THE TELL WORTH REMEMBERING: the tool measured 1,410 of his 1,506 purchased tiles as
+"illegal". When a rule condemns 94% of what the man bought, the rule is wrong, not the
+library.
+
+SO THE COLOUR CHECK IS GONE AND ITS OPPOSITE IS HERE: this gate now enforces VERBATIM.
+Any tile shipped as his must be BYTE-IDENTICAL to the bank he paid for. Nothing in the
+machine was checking that, which is exactly why a tool that rewrote his pixels could be
+built, registered and run green.
 
 Run from repo root:  python3 gates/bought_first_gate.py
 """
-import base64, colorsys, io, json, os, re, sys
+import hashlib, json, os, re, sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
-
-from PIL import Image
 
 LIBS = [f for f in sorted(os.listdir('banks'))
         if re.search(r'(SEAMLESS_SET|MASTER_SET|VARIANT_BANK)', f)]
 LAW = 'laws/BOHEMIA_ADDENDUM_BOUGHT_BEATS_PAINTED_7_31_26.md'
 QUOTE = 'if i bought it i prefer it'
+VERBATIM = 'VERBATIM OR NOT AT ALL'
 
-COND = 'banks/BOHEMIA_BOUGHT_CONDITIONED_7_31_26.txt'
 SRC = 'banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt'
-SHEET = 'records/target/BOUGHT_CONDITIONED.png'
-FLOOR, CEIL = 17, 232
+RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
+DEAD = 'bohemia_bought_conditioner'      # must never come back
 
 # the ART lane's cook tools. Scoped to this lane deliberately: widening it fleet-wide
 # is a coordinator call, not mine to make from inside one lane.
@@ -72,17 +84,6 @@ OTHER_LANES = ['bohemia_house_art_factory.py']
 NAMES_BOUGHT = re.compile(
     r'(SEAMLESS_SET|MASTER_SET|VARIANT_BANK|purchased librar|bought librar|'
     r'BOUGHT BEATS PAINTED|nothing purchased applies|no purchased)', re.I)
-
-def rgba(im):
-    """RGBA pixels as a list of 4-tuples, without the deprecated Image.getdata().
-
-    Pillow 14 deprecates that call and it sprayed a DeprecationWarning into the
-    shared gate log on every run, which every other lane reads. tobytes() is the
-    supported path and is faster.
-    """
-    b = im.convert('RGBA').tobytes()
-    return [tuple(b[i:i + 4]) for i in range(0, len(b), 4)]
-
 
 P = F = 0
 
@@ -109,60 +110,57 @@ def main():
            'it names no purchased library and does not say why none applies - this is '
            'exactly how TF-ART-001 cooked a wall he already owned')
 
-    # ---- HIS ART, MADE LEGAL, AND STILL PROVABLY HIS ----------------------
-    ok('the conditioned bank exists', os.path.exists(COND), COND)
-    if os.path.exists(COND):
-        cond = json.load(open(COND))
-        src = {(t['pack'], t['idx']): t for t in json.load(open(SRC))['tiles']
-               if t.get('b64')}
-        tiles = cond.get('tiles') or []
-        ok('it carries his ruling verbatim', QUOTE in str(cond.get('ruling', '')))
-        ok('it conditions a real number of his tiles', len(tiles) >= 24,
-           '%d found' % len(tiles))
+    # ---- VERBATIM OR NOT AT ALL -------------------------------------------
+    # His law, clause 2, and until now nothing enforced it. A tool that rewrote his
+    # purchased pixels was built, registered and ran GREEN, because every check in
+    # the repo asked whether his art SHIPS, never whether it is UNTOUCHED.
+    if os.path.exists(LAW):
+        ok('his law still says VERBATIM OR NOT AT ALL', VERBATIM in open(LAW).read())
 
-        illegal = repainted = orphan = 0
-        for t in tiles:
-            key = (t.get('pack'), t.get('idx'))
-            s = src.get(key)
-            if not s:
-                orphan += 1          # not traceable to a tile he bought
-                continue
-            a = Image.open(io.BytesIO(base64.b64decode(s['b64']))).convert('RGBA')
-            b = Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGBA')
-            if a.size != b.size:
-                repainted += 1
-                continue
-            for (r0, g0, b0, al0), (r1, g1, b1, al1) in zip(rgba(a), rgba(b)):
-                if al1 <= 8:
-                    continue
-                L = 0.299 * r1 + 0.587 * g1 + 0.114 * b1
-                if L < FLOOR - 0.5 or L > CEIL + 0.5:
-                    illegal += 1
-                    break
-            # HUE + SATURATION UNTOUCHED is what separates conditioning from repainting
-            for (r0, g0, b0, al0), (r1, g1, b1, al1) in zip(rgba(a), rgba(b)):
-                if al0 <= 8 or al1 <= 8:
-                    continue
-                if max(r0, g0, b0) < 8:      # black has no hue to preserve
-                    continue
-                h0, s0, _v0 = colorsys.rgb_to_hsv(r0 / 255., g0 / 255., b0 / 255.)
-                h1, s1, _v1 = colorsys.rgb_to_hsv(r1 / 255., g1 / 255., b1 / 255.)
-                dh = abs(h0 - h1)
-                if min(dh, 1 - dh) > 0.06 or abs(s0 - s1) > 0.16:
-                    repainted += 1
-                    break
+    bank = json.load(open(SRC))
+    owned = {t['b64'] for t in bank['tiles'] if t.get('b64')}
+    ok('his purchased ground bank is intact', len(owned) >= 400, '%d tiles' % len(owned))
 
-        ok('every conditioned tile traces to a tile he BOUGHT', orphan == 0,
-           '%d have no source in %s - that is new art wearing his label'
-           % (orphan, os.path.basename(SRC)))
-        ok('every conditioned tile is act-1 legal (no pure black, no white)',
-           illegal == 0, '%d still out of [%d,%d]' % (illegal, FLOOR, CEIL))
-        ok('conditioning did NOT repaint his art (size, hue and saturation held)',
-           repainted == 0,
-           '%d tiles drifted - the transform is only allowed to move the black point'
-           % repainted)
-        ok('the before|after sheet is on file for his eyes', os.path.exists(SHEET),
-           SHEET)
+    # every tile the run draws as "his" must be a byte-for-byte tile from the bank
+    if os.path.exists(RUN):
+        run = open(RUN, encoding='utf8', errors='ignore').read()
+        shipped = [t for t in bank['tiles']
+                   if t.get('b64') and t.get('tier') in ('S', 'A')
+                   and t.get('pure') is True and t['b64'] in run]
+        ok('his tiles reach the run UNMODIFIED, byte for byte', len(shipped) >= 24,
+           'only %d of his exact bank bytes were found in the run - if his art is '
+           'drawn but the bytes differ, something is transforming what he bought'
+           % len(shipped))
+
+    # the conditioner must never come back in any form
+    live = []
+    for d in ('tools', 'gates', 'engine', 'banks', 'slices'):
+        if not os.path.isdir(d):
+            continue
+        for f in os.listdir(d):
+            if DEAD in f:
+                live.append(os.path.join(d, f))
+    ok('the bought-tile conditioner stays dead', not live, ', '.join(live))
+
+    grave = open('gates/bohemia_graveyard.txt').read()
+    ok('and its kill is on the record with his words', DEAD in grave
+       and 'I DIDNT BAN THE PURE BLACK' in grave)
+
+    # THE RULE THAT KILLED IT, MADE MACHINE-CHECKABLE: no tool may apply a
+    # luminance floor/ceiling to art HE BOUGHT. Claude's own painted cooks may keep
+    # theirs - that is Claude constraining Claude, which is what it always was.
+    for t in TOOLS + ['bohemia_bought_audit.py']:
+        p = 'tools/' + t
+        if not os.path.exists(p):
+            continue
+        s = open(p).read()
+        touches_bank = bool(re.search(r'SEAMLESS_SET|MASTER_SET', s))
+        claims_law = bool(re.search(r'act-?1 (palette )?law:? no pure black|'
+                                    r'act-?1 forbids pure black', s, re.I))
+        ok('%s does not enforce a black floor on art HE BOUGHT' % t,
+           not (touches_bank and claims_law),
+           'it reads a purchased library AND asserts a no-pure-black law that he '
+           'never made - that is the conditioner\'s exact mistake')
 
     for t in OTHER_LANES:
         if not os.path.exists('tools/' + t):

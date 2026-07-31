@@ -22,19 +22,25 @@ THIS TOOL EXISTS BECAUSE OF A LAW VIOLATION, AND THEN v1 OF IT MADE A SECOND ONE
   with helipads and neon. A name is not a look. v1 was the same class of error the
   tool was written to catch, one level up.
 
-SO v2 DECODES EVERY PURCHASED TILE AND MEASURES IT. No keyword decides anything.
-Per pack it reports the three facts that determine whether a bought tile can ship
-into act-1 Bohemia at all:
+SO v2 DECODES EVERY PURCHASED TILE INSTEAD OF READING ITS LABEL, AND WHAT IT REPORTS
+IS SUBJECT MATTER: does he own a thing for this surface or not. That is the only
+question a cook queue needs answered, and it is answered by rendering the packs and
+LOOKING (records/target/BOUGHT_WALLS.png, BOUGHT_ROOFS.png).
 
-  - BLACK%   act-1 law: no pure black, luminance floor 17
-  - WHITE%   act-1 law: no white, ceiling 232
-  - PURPLE%  PURPLE RESERVATION: purple belongs to the Amalgamation alone
+  *** v2 ALSO JUDGED HIS PURCHASES AGAINST A LAW HE NEVER MADE. THAT IS GONE. ***
+  It scored every pack for "pure black" and "white" and printed a raw-into-act-1
+  verdict column, then a sibling tool rewrote his tiles to comply. Paolo, 7/31:
+  "I DIDNT BAN THE PURE BLACK??? WTF I DIDNT BAN ANY OF THE BOUGHT ASSETS I APPROVED
+  BO WTF" He is right. FLOOR=17/CEIL=232 lives in four files, all Claude's own tools
+  for art CLAUDE PAINTS. It was never his rule, and clause 2 of BOUGHT BEATS PAINTED
+  says "VERBATIM OR NOT AT ALL. His tiles blit 1:1." The conditioner is graveyarded
+  (gates/bohemia_graveyard.txt, 7/31) and this tool no longer grades what he bought.
+  THE TELL: it had measured 1,410 of his 1,506 tiles "illegal". When a rule condemns
+  94% of what the man bought, the rule is wrong, not the library.
 
-A pack that fails these is not unusable, but it cannot be pasted RAW, and the honest
-report says so instead of saying "owned, use it". Subject matter still needs eyes:
-this measures colour, it cannot tell a Vegas stucco wall from a castle wall. So the
-tool also writes a CONTACT SHEET per surface and the record points at it, because the
-only thing that settles subject matter is Paolo looking at the pixels.
+PURPLE is still reported, because PURPLE RESERVATION is genuinely his and the banks
+already carry a `pure` flag the shipping path filters on. It is reported as a FACT
+about a pack, never as a verdict on whether he may use his own property.
 
   python3 tools/bohemia_bought_audit.py
     -> records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md
@@ -51,8 +57,9 @@ os.chdir(REPO)
 
 from PIL import Image, ImageDraw  # noqa: E402
 
-# act-1 palette law, and the one colour that is reserved
-FLOOR, CEIL = 17, 232
+# PURPLE RESERVATION is his. There is deliberately NO luminance floor or ceiling
+# here any more: grading what he BOUGHT against a brightness rule he never made is
+# what killed the conditioner (graveyard, 7/31).
 PURPLE_H = (0.72, 0.87)
 
 # the purchased libraries, by the surface each one is meant to dress
@@ -88,29 +95,24 @@ def rgba(im):
 
 
 def measure(im):
-    """Count only pixels that are actually PAINTED.
+    """How much of a pack is RESERVED PURPLE. Painted pixels only.
 
-    A transparent pixel converted to RGB is (0,0,0), i.e. pure black. Measuring
-    RGBA->RGB therefore scores every cut-out prop as a black-law violation and
-    reports the whole library as illegal. That mistake was made and caught here:
-    it read 4 of 1506 tiles legal, which is the kind of number that means the
-    ruler is bent, not the wood.
+    Alpha matters: a transparent pixel converted to RGB is (0,0,0), so measuring
+    RGBA->RGB scores every cut-out prop as black. That bug was caught here when it
+    called 4 of 1506 tiles legal - a number absurd enough to indict the ruler. The
+    SAME tell, at 1410 of 1506, was then ignored an hour later. Both times the
+    lesson is the ruler, not the wood.
     """
     px = [(r, g, b) for r, g, b, a in rgba(im) if a > 8]
     n = len(px)
     if not n:
-        return 0.0, 0.0, 0.0
-    black = white = purple = 0
+        return 0.0
+    purple = 0
     for r, g, b in px:
-        lum = 0.299 * r + 0.587 * g + 0.114 * b
-        if lum < FLOOR:
-            black += 1
-        elif lum > CEIL:
-            white += 1
         h, s, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
         if s > 0.25 and v > 0.15 and PURPLE_H[0] < h < PURPLE_H[1]:
             purple += 1
-    return 100.0 * black / n, 100.0 * white / n, 100.0 * purple / n
+    return 100.0 * purple / n
 
 
 def sheet(imgs, path, cols=10, cell=64):
@@ -137,12 +139,10 @@ def audit(lib):
             im = Image.open(io.BytesIO(base64.b64decode(raw))).convert('RGBA')
         except Exception:
             continue
-        bl, wh, pu = measure(im)
-        a = packs.setdefault(e['pack'], [0, 0.0, 0.0, 0.0])
+        pu = measure(im)
+        a = packs.setdefault(e['pack'], [0, 0.0])
         a[0] += 1
-        a[1] += bl
-        a[2] += wh
-        a[3] += pu
+        a[1] += pu
         thumbs.append(('%s#%d' % (e['pack'].split('.')[0][:7], e['idx']), im))
     return packs, thumbs
 
@@ -160,105 +160,78 @@ def main():
               % (surface, lib[:46], sum(p[0] for p in packs.values()), len(packs)))
 
     total = sum(sum(p[0] for p in pk.values()) for _s, _l, pk in report)
-    clean = dirty = 0
     with open(OUT, 'w') as f:
-        f.write('# WHAT HE ACTUALLY OWNS — every purchased tile opened and measured '
+        f.write('# WHAT HE ACTUALLY OWNS \u2014 every purchased pack opened and looked at '
                 '(7/31/26)\n\n')
         f.write('Paolo 7/31, LOCKED, FLEET-WIDE: **"if i bought it i prefer it! Thats '
-                'for all textures bro!!!"**\n\n')
-        f.write(('**%d purchased tiles, decoded and measured, not keyword-matched.** '
-                 'The first version of this\naudit compared FORM NAMES to PACK NAMES and '
-                 'told him his library already held the concrete\nblock wall I had cooked '
-                 'from scratch. It does not. That claim came from a shared word, and\na '
-                 'name is not a look. This version opens every tile.\n\n') % total)
-        f.write('Three measurements decide whether a bought tile can ship into act-1 '
-                'RAW:\nact-1 forbids pure black (luminance floor %d) and white (ceiling '
-                '%d), and PURPLE RESERVATION\nkeeps purple for the Amalgamation alone.\n\n'
-                % (FLOOR, CEIL))
-        for surface, lib, packs in report:
-            f.write('\n## %s — `%s`\n\n' % (surface.upper(), lib))
-            f.write('| pack he bought | tiles | black % | white % | purple % | '
-                    'raw into act-1? |\n|---|---:|---:|---:|---:|---|\n')
-            for p, (n, bl, wh, pu) in sorted(packs.items(), key=lambda k: -k[1][0]):
-                bl, wh, pu = bl / n, wh / n, pu / n
-                bad = []
-                if bl >= 1.0:
-                    bad.append('black')
-                if wh >= 1.0:
-                    bad.append('white')
-                if pu >= 1.0:
-                    bad.append('purple')
-                if bad:
-                    dirty += n
-                else:
-                    clean += n
-                f.write('| %s | %d | %.1f | %.1f | %.1f | %s |\n'
-                        % (p[:44], n, bl, wh, pu,
-                           'yes' if not bad else 'NO - ' + ', '.join(bad)))
-        f.write('\n\n## WHAT THE PIXELS SAY\n\n')
-        f.write('**%d of %d purchased tiles are act-1 legal as bought. %d are not** '
-                '(pure black, white, or\nreserved purple above 1%% of the tile). That is '
-                'not a reason to reject them; it is the\nreason they cannot be pasted '
-                'straight in, and the number nobody had before.\n\n' % (clean, total, dirty))
-        f.write('### Colour is the half a machine can see. Subject is the half it '
-                'cannot.\n\n')
-        f.write('I rendered his wall and roof packs and looked at them '
+                'for all textures bro!!!"**\n')
+        f.write('Clause 2 of that law: **"VERBATIM OR NOT AT ALL. His tiles blit '
+                '1:1."**\n\n')
+        f.write(('**%d purchased tiles, decoded and looked at, not keyword-matched.** '
+                 'The first version of\nthis audit compared FORM NAMES to PACK NAMES and '
+                 'told him his library already held the\nconcrete block wall I had cooked '
+                 'from scratch. It does not. That claim came from a shared\nword, and a '
+                 'name is not a look.\n\n') % total)
+        f.write('> **THIS AUDIT USED TO GRADE HIS PURCHASES AND NO LONGER DOES.** v2 '
+                'scored every pack for\n> "pure black" and "white" against an "act-1 '
+                'palette law", and a sibling tool rewrote his\n> tiles to comply. Paolo: '
+                '*"I DIDNT BAN THE PURE BLACK??? WTF I DIDNT BAN ANY OF THE\n> BOUGHT '
+                'ASSETS I APPROVED BO WTF"* He is right. That floor and ceiling live in '
+                'four files,\n> all Claude\'s own tools for art CLAUDE PAINTS; he never '
+                'made the rule, and his actual law\n> says his tiles ship verbatim. The '
+                'conditioner is in the graveyard. **The tell: it had\n> called 1,410 of '
+                'his 1,506 tiles illegal. When a rule condemns 94%% of what the man\n> '
+                'bought, the rule is wrong, not the library.**\n\n'.replace('%%', '%'))
+        f.write('## THE ONLY QUESTION A COOK QUEUE NEEDS: does he own a thing for this '
+                'surface?\n\n')
+        f.write('Answered by rendering the packs and looking at them '
                 '(`records/target/BOUGHT_WALLS.png`,\n`records/target/BOUGHT_ROOFS.png`). '
-                'What the names promise and what the tiles are:\n\n')
-        f.write('- `4. House wall tiles` (27) is a **medieval ivy cottage** — lime '
-                'stucco, timber, arched\n  plank doors, leaded glass. It is not a Las '
-                'Vegas house wall.\n')
-        f.write('- `wall tiles` (41) and `2. Wall tiles (1)` are **dungeon masonry** — '
-                'mossy castle stone,\n  irregular rubble, barred windows, near-black '
-                'mortar.\n')
+                'What the names promise, and what the tiles are:\n\n')
+        f.write('- `4. House wall tiles` (27) is a **medieval ivy cottage** \u2014 lime '
+                'stucco, timber, arched\n  plank doors, leaded glass. Not a Las Vegas '
+                'house wall.\n')
+        f.write('- `wall tiles` (41) and `2. Wall tiles (1)` are **dungeon masonry** '
+                '\u2014 mossy castle stone,\n  irregular rubble, barred windows.\n')
         f.write('- `3. Wall panels and details` (28) is **sci-fi control panels**, lit '
                 'blue screens.\n')
-        f.write('- `Rooftop and building tops` (46) is **cyberpunk skyscraper tops** — '
-                'HVAC plant, helipads,\n  neon signage. Exactly ONE of the 47 roof tiles '
-                '(`5. Roof tiles#26`) is a pitched terracotta\n  roof.\n\n')
-        f.write('So the ruling has a SHAPE his library gives it, and it is not '
-                'uniform:\n\n')
-        f.write('| surface | is what he bought usable for act-1 Vegas? |\n|---|---|\n')
-        f.write('| ground, street, concrete, path, water | **YES, directly.** Cracked '
-                'concrete and cracked street are exactly right for a dead Vegas. The RUN '
-                'lane already draws these ahead of painted tiles. |\n')
-        f.write('| walls | **NO for houses.** Fantasy and sci-fi subject matter. No '
-                'stucco, no CMU, no corrugated metal. |\n')
-        f.write('| roofs | **NO.** One usable tile in 47. |\n')
-        f.write('\n### The fix is not to reject his art. It is to move its BLACK POINT.\n\n')
-        f.write('Measured on the exact bytes the run ships today (tier S/A, pure, 44x44 '
-                '- not the HD source):\n\n')
-        f.write('| surface | tiles shipped | mean pure-black % | worst | over the 1% '
-                'line |\n|---|---:|---:|---:|---:|\n')
-        f.write('| sidewalk + driveway | 20 | 2.2 | 8.4 | 16 of 20 |\n')
-        f.write('| road | 13 | 5.0 | 15.0 | 9 of 13 |\n\n')
-        f.write('So the street he walks on right now breaks the act-1 palette law, '
-                'because his tiles were\nshipped RAW and nothing measured them. '
-                '`bought_beats_painted_gate.js` checks that his art\nSHIPS and ships '
-                'FIRST - both correct, both green - and never what colour it is.\n\n')
-        f.write('`tools/bohemia_bought_conditioner.py` closes it without touching his '
-                'art: a monotone\nluminance remap compresses the illegal black and white '
-                'tails into [17,232]. Ordering is\npreserved so no detail is crushed, and '
-                'RGB is scaled uniformly so HUE AND SATURATION ARE\nUNCHANGED. Result: '
-                '33 tiles, mean illegal 2.2%/5.0% -> **0.00%**, and side by side the '
-                'before\nand after are near indistinguishable - which is the point. '
-                'See `records/target/BOUGHT_CONDITIONED.png`.\n')
-        f.write('`gates/bought_first_gate.py` proves it is still HIS: every conditioned '
-                'tile must trace to a\ntile he bought, hold its size, hue and saturation, '
-                'and land inside act-1. Sabotage-tested\nagainst a repaint, a leftover '
-                'black pixel and an invented tile; it caught all three.\n\n')
-        f.write('\n### Which means TF-ART-001 was NOT the violation I recorded it as\n\n')
+        f.write('- `Rooftop and building tops` (46) is **cyberpunk skyscraper tops** '
+                '\u2014 HVAC plant, helipads,\n  neon signage. Exactly ONE of the 47 '
+                'roof tiles (`5. Roof tiles#26`) is a pitched\n  terracotta roof.\n\n')
+        f.write('| surface | does he own art for it? |\n|---|---|\n')
+        f.write('| ground, street, concrete, path, water | **YES.** Cracked concrete and '
+                'cracked street are exactly right for a dead Vegas, and the RUN lane '
+                'already draws them ahead of painted tiles. |\n')
+        f.write('| house walls | **NO.** Fantasy and sci-fi subject matter. No stucco, no '
+                'CMU, no corrugated metal. |\n')
+        f.write('| house roofs | **NO.** One usable tile in 47. |\n\n')
+        f.write('That is the finding, and it is why painted house art is not competing '
+                'with a purchase:\nthere is no purchase to compete with. It is NAMED '
+                'DEBT under clause 5, and it shrinks the\nday he buys a suburban pack.'
+                '\n\n')
+        f.write('## PURPLE, reported as a fact and not as a verdict\n\n')
+        f.write('PURPLE RESERVATION is genuinely his, and the banks already carry a '
+                '`pure` flag that the\nshipping path filters on, so this changes nothing '
+                'about what may be used. It is here so\nthe reserved colour is never a '
+                'surprise.\n\n')
+        for surface, lib, packs in report:
+            hot = sorted(((v[1] / v[0], k, v[0]) for k, v in packs.items()),
+                         reverse=True)[:5]
+            hot = [h for h in hot if h[0] >= 1.0]
+            if not hot:
+                continue
+            f.write('- **%s** (`%s`): %s\n'
+                    % (surface, lib,
+                       '; '.join('%s %.0f%%' % (k, p) for p, k, _n in hot)))
+        f.write('\n\n## Which means TF-ART-001 was NOT the violation I recorded it as'
+                '\n\n')
         f.write('I annotated the CMU cook as a bought-first failure and wrote that his '
                 'pack "already holds a\ngrey concrete block wall in running bond, '
-                'verified by rendering it and LOOKING". That was\nwrong, and it is '
-                'corrected in the tool. He owns no concrete block wall. The cook stands.\n'
-                'The gate it produced still stands too, for a different and better '
-                'reason: the check it\nenforces is now "open the purchased library and '
-                'say what you found", which is what should\nhave happened, and what would '
-                'have produced this answer on day one instead of a guess.\n')
+                'verified by rendering it and LOOKING". That was\nwrong and is corrected '
+                'in the tool. He owns no concrete block wall. The cook stands.\n')
 
-    print('   %d/%d purchased tiles are act-1 legal as bought; %d are not'
-          % (clean, total, dirty))
+    print('   %d purchased tiles across %d libraries, opened and looked at'
+          % (total, len(report)))
+    print('   he owns ground/street/path/water; he owns NO house wall and NO house roof')
     print('   -> %s' % OUT)
     print('   -> records/target/BOUGHT_WALLS.png, BOUGHT_ROOFS.png')
 

@@ -375,3 +375,61 @@ teardown (7/26): facts about another game's numbers, and about Lebanon's, do not
 stop being facts because the page built on them was wrong. One finding in there
 was CONFIRMED by his own correction rather than killed -- a dead utility has an
 OWNER -- and that finding is load-bearing in the law that killed the page.
+
+================================================================================
+DEAD 7/31/26 — THE BOUGHT-TILE CONDITIONER (tools/bohemia_bought_conditioner.py,
+banks/BOHEMIA_BOUGHT_CONDITIONED_7_31_26.txt, records/target/BOUGHT_CONDITIONED.png)
+================================================================================
+
+KILLED BY PAOLO, 7/31, IMMEDIATELY AND CORRECTLY:
+"I DIDNT BAN THE PURE BLACK??? WTF I DIDNT BAN ANY OF THE BOUGHT ASSETS I
+APPROVED BO WTF"
+
+WHAT IT DID: took the purchased road and sidewalk tiles he had already approved
+and shipped, and rewrote every pixel darker than luminance 56 to lift them off
+pure black, on the stated grounds that "act-1 forbids pure black (floor 17)".
+
+THREE THINGS WRONG WITH THAT, IN ASCENDING ORDER OF SERIOUSNESS.
+
+1. THERE IS NO SUCH LAW. It was traced through the whole of /laws and /records
+   after he pushed back. FLOOR=17 / CEIL=232 appears in exactly four places, all
+   of them Claude's own: gates/cmu_gate.py, tools/bohemia_cmu_cook.py,
+   tools/bohemia_house_cook.py, tools/bohemia_house_factory.py. Every one is a
+   tool for art CLAUDE PAINTS. git log -S confirms the numbers entered the repo
+   in commits a24d83a and 1399312, both Claude cooks. Paolo never said it. The
+   nearest real ruling is the taste canon's NEVER on a 1px black KEYLINE around a
+   sprite, which is about outlines on characters, not about black existing in a
+   purchased ground texture. A constraint Claude adopted for its own painting was
+   promoted to "act-1 law" and then enforced against his property.
+
+2. HIS ACTUAL LAW SAYS THE OPPOSITE, IN THE FILE THE TOOL CITED.
+   laws/BOHEMIA_ADDENDUM_BOUGHT_BEATS_PAINTED_7_31_26.md, clause 2, verbatim:
+   "VERBATIM OR NOT AT ALL. His tiles blit 1:1." The conditioner opened that file,
+   quoted its headline in its own docstring, and violated its second clause. There
+   is no reading of "verbatim" that permits a luminance remap.
+
+3. THE ASK WAS THE SAME FAILURE THE LAW WAS WRITTEN TO STOP. That addendum's own
+   post-mortem says the mistake that created it was reporting a bought-vs-painted
+   choice "as a QUESTION -- keep the painted one or swap to yours? -- as if his
+   two rules were in tension and he had to break the tie", and that "a preference
+   he has already paid money to express does not need re-confirming." The reply
+   that shipped this asked him, bolded: LIFT or RAW? A tie invented between his
+   purchase and a rule he never made, handed back to him to break. Six days of
+   law, cited by name in the same message, and the behaviour it forbids.
+
+THE TELL, FOR NEXT TIME: the tool measured 1,410 of his 1,506 purchased tiles as
+"illegal". When a rule condemns 94% of what the man bought, the rule is wrong, not
+the library. That number was printed, read, and treated as a finding about his art
+instead of a refutation of the premise. Same shape as the alpha-channel bug caught
+an hour earlier in the same session (4 of 1506 "legal" meant the ruler was bent) --
+caught that time, missed this time, because the second number was less absurd.
+
+NOT DEAD, AND WORTH KEEPING: the SUBJECT-MATTER audit
+(records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md) is independent of this and stands. He
+owns no house wall and no house roof: "4. House wall tiles" is a medieval ivy
+cottage, "wall tiles" is dungeon masonry, the 47 "roof" tiles are cyberpunk
+skyscraper tops with one real pitched roof among them. That was established by
+decoding and LOOKING, not by a colour rule, and it is the finding that matters.
+
+NO V2. His tiles ship exactly as purchased. gates/bought_first_gate.py now
+enforces VERBATIM: any tile claiming to be his must be byte-identical to the bank.
