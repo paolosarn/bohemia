@@ -193,6 +193,8 @@ GATES = [
      'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
+    ('MOTION VISIBLE',['node', 'gates/motion_visible_gate.js'],
+     'a clip whose name promises movement actually moves PIXELS: pray and winded rendered zero changed pixels while "animating" at 0.2px on a 56px sprite', False),
     ('RIG CHECK',      ['python3', 'gates/rig_check_gate.py'],
      'THE RIG IS LAW, finally gated: every rig-touching tool cites the joints/parts it built on and the citation is re-derived from the source, and no second anatomy can exist beside BAKED', False),
     ('ALPHA LOADS',    ['node', 'gates/alpha_loads_gate.js'],
