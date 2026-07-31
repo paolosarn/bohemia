@@ -8,7 +8,14 @@ Paolo locked Pocket City 2 as the model for the city-building layer. What Bohemi
 
 - **Zone, don't hand-place.** The player designates zones (residential / commercial / industrial equivalents in Bohemia's terms — [PENDING Paolo's naming]). The SOCIETY auto-constructs the actual buildings on zoned land. This is Paolo's explicit "not necessarily yourself, kinda like Fallout 4 but the society does it" instinct. You are the planner; the population is the labor.
 - **Everything needs road + power + water access to function.** A zone or building with no road connection, no power, or no water is dead/darkened. (Pocket City 2 abstracts power lines/sewer into "connected by road" — [PENDING Paolo: does Bohemia keep that abstraction or simulate the grid? note: the solar mega-project + Hoover-dam-equivalent already make power a real geographic thing in canon, leaning toward a light real grid].)
-- **Daily upkeep on everything.** Zones, roads, most buildings cost currency per period to maintain. Overbuilding past your income bankrupts you. This is the discipline that makes the city-builder a real economy and not a paint tool. Ties directly to the three-currency system (electricity/medicine/clout).
+- ~~**Daily upkeep on everything.** Zones, roads, most buildings cost currency per period to maintain. Overbuilding past your income bankrupts you. This is the discipline that makes the city-builder a real economy and not a paint tool. Ties directly to the three-currency system (electricity/medicine/clout).~~
+  **>>> DEAD 7/31/26. SUPERSEDED BY laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md.**
+  Paolo 7/31 banned economic gameplay as a CATEGORY (`laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md`
+  clause 2) — no income, no upkeep, no bankruptcy. TRUTH HIERARCHY: newest date wins.
+  THE DISCIPLINE IS REPLACED, NOT REMOVED: **buildings are EARNED, NOT AFFORDED** —
+  unlocked by levelling, quests and act tier, which is what Pocket City 2 actually
+  gates on anyway and what the LOCKED section below already said. Everything else in
+  this addendum stands. <<<
 - **Demand signals guide growth.** Pocket City 2 shows demand bars telling you what to build next. Bohemia equivalent [PENDING Paolo: keep explicit demand bars, or read demand diegetically through NPC need / district texture?].
 - **Zones/buildings upgrade to higher levels** once the upgrade is unlocked; upgraded = improved effects. Maps onto Bohemia's texture escalation.
 

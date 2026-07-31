@@ -1,3 +1,44 @@
+LAB (e2r7sv): 7/31 (g) LATEST — I FOUND TWO LIVE LAWS CONTRADICTING EACH OTHER.
+BUILDINGS ARE EARNED, NOT AFFORDED.
+
+Paolo: "VALHEIM PROJECT ZOMBOID FALLOUT NEW VEGAS WITH POCKET CITY 2 ONTOP OF IT".
+Pocket City 2 was ALREADY LOCKED as the city-builder base on 7/1/26 -- he was naming the
+whole stack. Going to READ that addendum before building anything is what found the bug.
+
+=== THE BUG, AND WHY IT MATTERS TO EVERY LANE ===
+The 7/1 city-builder law required "Daily upkeep on everything... Overbuilding past your
+income bankrupts you." His 7/31 TEN YEARS COLD law bans economic gameplay as a CATEGORY.
+Two live canon files disagreeing is a BUG by CLAUDE.md, not a judgement call.
+RESOLVED newest-wins: laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md. Upkeep,
+income and bankruptcy are DEAD and struck through IN PLACE in the 7/1 file, so a reader
+who opens only that one cannot act on a dead clause. Everything else there stands.
+*** IF YOU ARE ABOUT TO BUILD FROM A LAW, CHECK ITS DATE AGAINST THE NEWER ONES FIRST. ***
+
+=== THE REPLACEMENT, GROUNDED NOT INVENTED ===
+BUILDINGS ARE EARNED, NOT AFFORDED. In Pocket City 2 buildings unlock by levelling,
+quests, City Competitions, Hard/Expert difficulty and new biomes, and there are no
+microtransactions -- money exists and IS NOT THE GATE ON PROGRESSION. Our own 7/1
+addendum already said this and buried it under the upkeep clause.
+AND THE STACK IS ONE LOOP, not four systems: Pocket City 2 also tracks a "Relation rating
+with institutions and citizens", the SAME AXIS as New Vegas standing that LAB-09 modelled.
+You do things -> you earn standing and capability -> the city grows -> the grown city
+makes you worth more to deal with. Valheim = the only rising curve. Zomboid = the dead
+utilities. New Vegas = the currency. Pocket City 2 = the unlock gate.
+
+=== GATE ===
+gates/earned_not_afforded_gate.js (EARNED NOT AFFORDED, 19 checks, 156 surfaces swept).
+Four mutations caught. TWO BUGS IN MY OWN CHECKS, both fixed with the reason written into
+the source: prose matched against hard-wrapped text (SEVENTH time -- prose is now
+whitespace-collapsed once for the whole file), and a pending-check whose regex matched the
+entire document so every pending passed regardless. The second was found ONLY by mutating
+a pending and watching the gate stay green. A CHECK YOU HAVE NOT SEEN FAIL IS NOT A CHECK.
+
+=== THE ONE REAL HOLE THIS OPENS (his call) ===
+WITHOUT UPKEEP, HOW DOES NEGLECT BITE? "Everything can genuinely be rubble" is locked and
+now needs a mechanism that is not money -- decay over time, or standing lost with the
+people living there. Also still his: what each act's buildings cost in effort/quests/
+standing (a cost TABLE is canon), the building catalog, the zone naming.
+
 LAB (e2r7sv): 7/31 (f) LATEST — READ THIS BEFORE YOU ASK HIM ANYTHING.
 I ASKED HIM TWO QUESTIONS HIS OWN LAWS ALREADY ANSWERED, IN TWO CONSECUTIVE TURNS.
 THERE IS NOW A GATE THAT FAILS THE BUILD FOR THAT.

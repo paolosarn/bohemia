@@ -412,6 +412,8 @@ GATES = [
      'DOSSIER-OR-DON\'T: every hero building has all its parts written up, keyed to the walkable landmarks', False),
     ('CAMP DIAL',      ['node', 'gates/camp_dial_gate.js'],
      'his mobile-camp ruling, machine-locked: tiles not seconds, one pool, small numbers, every unruled value a dial', False),
+    ('EARNED NOT AFFORDED', ['node', 'gates/earned_not_afforded_gate.js'],
+     'Paolo 7/31 named Pocket City 2 on top of the stack, and reading the 7/1 city-builder law found it CONTRADICTING his 7/31 no-economy law: newest wins, upkeep/income/bankruptcy are dead, and buildings are EARNED not AFFORDED - swept so no surface implements the dead mechanic', False),
     ('ANSWERED', ['python3', 'gates/answered_gate.py'],
      "Paolo 7/31: 'IVE ANSWERED THIS LIKE 50 TIMESS' -- no session may ask him a question canon has already ruled; sweeps the handoff, the backlog and records/ for question-shaped text against the settled-questions index", False),
     ('TEN YEARS COLD', ['node', 'gates/ten_years_cold_gate.js'],

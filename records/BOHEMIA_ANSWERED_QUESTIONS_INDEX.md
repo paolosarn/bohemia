@@ -114,7 +114,14 @@ killed; the subject is closed.
 **NO. ACT 1 IS A DEAD WORLD.** No vegetation ever — no trees, no pools, no grass.
 - the dead-world rule, enforced in `engine/bohemia_suburb.js` and its gate
 
-### 10. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
+### 10. DO BUILDINGS COST UPKEEP? CAN THE CITY GO BANKRUPT?
+**NO. BUILDINGS ARE EARNED, NOT AFFORDED.** No upkeep, no income, no bankruptcy —
+those were superseded on 7/31. Buildings unlock by levelling, quests and act tier,
+which is what Pocket City 2 actually gates on anyway.
+- `laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md`
+- `laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md` (the dead clause, struck in place)
+
+### 11. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
 **NO. HE THUMBS. EVERYTHING ELSE IS OURS.** Machine gates prove craft; only Paolo
 judges whether it looks right.
 - `laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md`
@@ -147,4 +154,7 @@ loot like project zomboid | no. Zomboid is a permanent anti-reference for loot p
 plants in act 1 | no. act 1 is a DEAD world, no vegetation ever | laws/BOHEMIA_PROJECT_SETUP.md
 greenery in act 1 | no. act 1 is a DEAD world, no vegetation ever | laws/BOHEMIA_PROJECT_SETUP.md
 when does the game start | ten years after the crash | laws/BOHEMIA_ADDENDUM_TEN_YEARS_COLD_7_31_26.md
+daily upkeep | no. buildings are EARNED, not afforded | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
+go bankrupt | no. no income and no bankruptcy | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
+buildings cost upkeep | no. earned by levelling, quests and act tier | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
 ```

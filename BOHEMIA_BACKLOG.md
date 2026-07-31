@@ -25,6 +25,51 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1t. [BUG FOUND + FIXED + GATED 7/31] TWO LIVE LAWS WERE CONTRADICTING EACH OTHER, AND
+   READING BEFORE BUILDING IS WHAT FOUND IT.
+   Paolo 7/31: "VALHEIM PROJECT ZOMBOID FALLOUT NEW VEGAS WITH POCKET CITY 2 ONTOP OF IT".
+   Pocket City 2 was ALREADY LOCKED as the city-builder base on 7/1/26 -- he was naming
+   the whole stack, not adding a reference. So the first move was to go read that
+   addendum, and it turned out to CONTRADICT his own 7/31 law.
+   THE BUG: laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md required "Daily upkeep on
+   everything... Overbuilding past your income bankrupts you. This is the discipline that
+   makes the city-builder a real economy and not a paint tool." laws/BOHEMIA_ADDENDUM_
+   TEN_YEARS_COLD_7_31_26.md clause 2 bans economic gameplay as a CATEGORY. CLAUDE.md:
+   a contradiction between two live files is a BUG, not an interpretation choice.
+   RESOLVED, newest date wins: laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md.
+   Upkeep, income and bankruptcy are DEAD, struck through IN PLACE in the 7/1 file so a
+   reader who opens only that one cannot act on a dead clause. Everything else in the
+   7/1 addendum stands (zone-don't-hand-place, road/power/water access, demand signals,
+   act-gated buildings, buildings anchoring quests, everything can genuinely be rubble,
+   the mayor arc).
+   THE REPLACEMENT, and it is GROUNDED IN THE REFERENCE rather than invented: *** BUILDINGS
+   ARE EARNED, NOT AFFORDED. *** Researched 7/31 -- in Pocket City 2 buildings unlock by
+   levelling, quests, City Competitions, Hard/Expert difficulty and new biomes, and "there
+   are no microtransactions, all unlockable items are earned through gameplay". MONEY
+   EXISTS IN THAT GAME AND IS NOT THE GATE ON PROGRESSION. Our own 7/1 addendum already
+   said it and then buried it under the upkeep clause.
+   AND THE STACK COLLAPSES INTO ONE LOOP. Pocket City 2 also tracks a "Relation rating
+   with institutions and citizens" -- the SAME AXIS as New Vegas standing, which LAB-09
+   already modelled. So the four references were never four systems: you do things -> you
+   earn standing and capability -> the city grows -> the grown city makes you worth more
+   to deal with. Valheim supplies the only rising curve, Zomboid supplies the dead
+   utilities, New Vegas supplies the currency, Pocket City 2 supplies the unlock gate.
+   GATE: gates/earned_not_afforded_gate.js (EARNED NOT AFFORDED, 19 checks). Proves the
+   dead clause is struck in place and points at its successor, that the rest of the 7/1
+   law survives, that NO SHIPPED SURFACE implements upkeep/income/bankruptcy (156 swept),
+   and that the three pendings are not quietly filled in. Four mutations caught.
+   TWO BUGS IN MY OWN CHECKS, both fixed with the reason in the source: A7 failed on
+   hard-wrapped prose ("there are no\nmicrotransactions") -- SEVENTH time this repo has
+   assumed prose respects line endings, so prose is now whitespace-collapsed ONCE for the
+   whole file instead of per-check; and D1 built a regex with [^\n]* against text that
+   had just been collapsed, so it matched the entire document and every pending "passed"
+   regardless. Found only by mutating a pending and watching the gate stay green. A CHECK
+   YOU HAVE NOT SEEN FAIL IS NOT A CHECK.
+   STILL HIS: what each act's buildings cost in effort/quests/standing (a cost TABLE is
+   canon, same as the action-cost table); the building catalog; the zone naming; and the
+   one real hole this opens -- WITHOUT UPKEEP, HOW DOES NEGLECT BITE? "Everything can
+   genuinely be rubble" is locked and needs a mechanism that is not money.
+   Added to records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md (21 settled questions now).
 1s. [LAWED + GATED 7/31] I ASKED HIM TWO SETTLED QUESTIONS IN TWO TURNS. THERE IS NOW A
    GATE FOR THAT. (Read this before writing a JUDGE THIS list, any lane.)
    Paolo: "BROTHER FOR BOHEMIA ITS NOT A ONE LIFE RUN IVE ANSWERED THIS LIKE 50 TIMESS!!!!!"
