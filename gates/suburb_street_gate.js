@@ -109,10 +109,30 @@ ok('the sidewalk is ONE GRID wide, never a plaza'
    + (thickWalk ? ' (' + thickWalk + ' cells in a second rank)' : ''), thickWalk === 0);
 
 const shapes = Object.keys(driveShapes);
-ok('every driveway is 2 wide x 3 long, no exceptions (saw: '
+ok('every driveway is 4 wide x 5 long, no exceptions (saw: '
    + shapes.map(k => k + ' x' + driveShapes[k]).join(', ') + ')',
-   shapes.length === 1 && shapes[0] === '2x3');
+   shapes.length === 1 && shapes[0] === '4x5');
 ok('driveways still exist at all', shapes.length > 0);
+
+/* ---- D1: NO BUILDING EVER SITS ON A SIDEWALK ----------------------------
+   Paolo 7/31, his caps: "houses or buildings should NEVER SIT ON THE SIDEWALK
+   EVER ANYWHERE IN THE WORLD." The observable form of that: no MASS may be
+   orthogonally adjacent to a road, because the walk belongs in between. This is
+   enforced by ORDER (the walk is laid before homes, so home() cannot claim the
+   land) rather than by an audit, and this assertion proves the order held. */
+let onKerb = 0, massCells = 0;
+for (const cfg of CONFIGS) for (const seed of SEEDS) {
+  const b = S.generate(seed, cfg);
+  for (let y = 1; y < b.H - 1; y++) for (let x = 1; x < b.W - 1; x++) {
+    const v = b.g[y][x];
+    if (v !== 2 && v !== 6 && v !== 9 && v !== 4) continue;   // house, garage, upper, wall
+    massCells++;
+    if (at(b, x + 1, y) === ROAD || at(b, x - 1, y) === ROAD ||
+        at(b, x, y + 1) === ROAD || at(b, x, y - 1) === ROAD) onKerb++;
+  }
+}
+ok('NO BUILDING SITS ON THE SIDEWALK: zero masses touch a road (' + massCells + ' mass cells swept)'
+   + (onKerb ? ' -- ' + onKerb + ' ON THE KERB' : ''), onKerb === 0);
 
 /* 5. THE RENDERER MUST NOT FAKE IT AGAIN. The run's dev source is the file that
       ships; if the old "next to a road -> draw a kerb" trick comes back, a broken

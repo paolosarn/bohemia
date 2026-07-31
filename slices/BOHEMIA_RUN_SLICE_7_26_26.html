@@ -1450,10 +1450,68 @@ function drawBody(NX,NY,CELL,set,frame,ring,fallback){
   ctx.strokeStyle='#1a1712'; ctx.lineWidth=Math.max(1,CELL*0.04);
   ctx.strokeRect(cxp-CELL*0.16,NY+CELL*0.42,CELL*0.32,CELL*0.4);
 }
+/* ===========================================================================
+   ZOOM (Paolo 7/31, clause D4: "i should be able to ZOOM OUT UNTIL I GET INTO THE
+   CITY BUILDER MODE BRO").
+
+   THE ART IS 44px AND IS NEVER RESAMPLED (clause B1), so the zoom steps are the
+   integer ratios of 44 and nothing else. A step that would need a fractional
+   scale does not exist -- that is the law's own words: "if a zoom level cannot be
+   drawn at an integer scale, that zoom level does not exist."
+
+     step 2 -> CELL 88   close, one art pixel = 2 screen pixels
+     step 1 -> CELL 44   native, one art pixel = one screen pixel
+     downscale steps are INTEGER DIVISORS: 44/2=22, 44/4=11, so a tile is sampled
+     on a whole-pixel lattice rather than smeared across a fraction.
+
+   ZOOMING PAST THE LAST STEP HANDS OFF TO THE CITY. It is the same valley, the
+   same seed, and the bridge already exists (BOHEMIA_RUN_WHERE tells the shell
+   which cell he is standing in), so the far end of the zoom is the city view of
+   the exact block he is standing on -- not a separate place he travels to.
+   =========================================================================== */
+var ART_PX = 44;
+var ZOOM_STEPS = [4, 2, 1, -2, -4];      /* multiply, then integer-divide */
+/* DEFAULT ZOOM = step 2x, and this is not a taste call, it is arithmetic.
+   His approved DOOR bank is authored at 88x176 for a cell that is 1 wide x 2
+   tall. At CELL=44 the renderer squeezed that into 44x88 -- a HALF-SCALE
+   downsample of approved art on every frame, which is both the no-resample law
+   broken and the reason the door read as "a picture of the door" instead of a
+   door: it was mush, and small.
+   At CELL=88 the door draws 88x176 into 88x176. EXACTLY 1:1. Nothing interpolated.
+   It also puts ~13 tiles across a phone screen at DPR 3, which is the readable
+   framing, so the correct pixel answer and the correct play answer are the same
+   number. Law: THE BUILT WORLD LAW B1 + B4. */
+var ZOOM_I = 1;
+function zoomStep(){
+  var z = ZOOM_STEPS[Math.max(0, Math.min(ZOOM_STEPS.length - 1, ZOOM_I))];
+  return z > 0 ? z : 1 / (-z);           /* 1/2 and 1/4 keep the lattice whole */
+}
+function zoomBy(d){
+  var next = ZOOM_I + d;
+  /* past the far end: this IS the city builder, same cell, no loading screen */
+  if(next >= ZOOM_STEPS.length){
+    bridgePost({ type:'BOHEMIA_RUN_ZOOM_TO_CITY', cell: CELL_XY(), district: CELLNAME });
+    return;
+  }
+  ZOOM_I = Math.max(0, Math.min(ZOOM_STEPS.length - 1, next));
+  draw();
+}
+function CELL_XY(){ return (typeof CELL!=='undefined'&&CELL&&CELL.slice)?CELL.slice():[0,0]; }
+
 function draw(){
   ctx.imageSmoothingEnabled=false;
   var gw = mode==='ext'?W:fp.W, gh = mode==='ext'?H:fp.H;
-  var CELL = Math.max(16, Math.floor(Math.min(cv.width/11, cv.height/11)));
+  /* THE CELL IS AN INTEGER MULTIPLE OF THE ART, NEVER A FRACTION OF THE SCREEN.
+     This used to be Math.floor(min(cv.width,cv.height)/11) -- "fit 11 tiles across"
+     -- which on a 390px canvas gives CELL=35 for a 44px source tile. Every approved
+     tile was therefore being drawn at 0.795 scale: RESAMPLED, on every frame, which
+     the 7/26 no-resample law forbids and which is the second half of why the pixels
+     read as mush.
+     Now: CELL = 44 * an integer zoom step. An art pixel is always a whole number of
+     screen pixels, so nothing is ever interpolated. How many tiles fit on screen is
+     a CONSEQUENCE of the screen size, which is how a pixel game is supposed to work.
+     Law: laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md B1. */
+  var CELL = ART_PX * zoomStep();
   var halfW = Math.floor(cv.width/CELL/2), halfH = Math.floor(cv.height/CELL/2);
   ctx.fillStyle='#12140f'; ctx.fillRect(0,0,cv.width,cv.height);
   var doorDraws=[];   /* 2-tall door faces, drawn after the ground so they stand up */
@@ -2267,7 +2325,25 @@ cv.addEventListener('click', function(e){
   if(Math.abs(dx)>Math.abs(dy)) move(dx>0?1:-1,0); else move(0,dy>0?1:-1);
 });
 
-function fit(){ cv.width=cv.clientWidth; cv.height=cv.clientHeight; draw(); }
+/* FULL PIXEL QUALITY (Paolo 7/31, clause B1: "WHY WHEN I ZOOM IN ARE ALL THE
+   QUALITY OF THE PIXELS OF THE TILES SO DOGSHIT??? WHY IS THE PIXEL QUALITY NOT
+   AT FULL BRO WTF").
+   THIS LINE WAS THE ANSWER. It set the canvas BACKING STORE to CSS pixels and
+   ignored devicePixelRatio, so on his phone (DPR 3) a 390x795 buffer was stretched
+   by the browser across 1170x2385 real pixels -- every single pixel of his art
+   blown up 3x with the browser's own smoothing, which no imageSmoothingEnabled=false
+   inside the canvas can undo because the blur happens AFTER, on the way to the
+   screen. That is exactly what "not at full quality" looks like.
+   The buffer is now real device pixels, so one art pixel can land on one screen
+   pixel. Law: laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md B1. */
+var DPR = Math.max(1, Math.min(4, Math.round(window.devicePixelRatio || 1)));
+function fit(){
+  DPR = Math.max(1, Math.min(4, Math.round(window.devicePixelRatio || 1)));
+  cv.width  = Math.round(cv.clientWidth  * DPR);
+  cv.height = Math.round(cv.clientHeight * DPR);
+  cv.style.width = cv.clientWidth + 'px';
+  draw();
+}
 window.addEventListener('resize', fit);
 refresh(); fit(); updateFaces();
 askForCast();   /* the real bodies, straight off the rig Paolo built */

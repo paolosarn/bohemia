@@ -38,10 +38,17 @@
   // house is the bulk; the driveway is tiny. Home faces the street (nx,ny),
   // backyard goes to the wall behind it.
   // GAP = Paolo's law: at worst 3 tiles of backyard AND 3 tiles between neighbors.
-  // DVW: Paolo 7/31, LOCKED -- "all driveways [2] tiles wide not three". It was 4,
-  // which measured 3 and 4 tiles wide on the real surface depending on clipping.
-  // Two, everywhere, no exceptions. Gate: suburb_street_gate.js.
-  var DRIVE=3, DVW=2, HD=M(9), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3;
+  /* DRIVEWAY SIZE. Paolo 7/31, LOCKED, and SUPERSEDING HIS OWN EARLIER RULING THE
+     SAME DAY: "REAL DRIVE WAYS ALL OF THEM SHOULD BE 4 X 5 AND BE CONSISTEN TO
+     WHERE A GARAGE WOULD BE IN A HOUSE."
+     He said "2 tiles wide not three" earlier on 7/31 and "4 x 5" later on 7/31.
+     NEWEST DATE WINS. The 2-wide ruling is DEAD, and it is struck HERE, in the
+     code it governed, rather than left to rot in an old commit message.
+     ALIGNED TO THE GARAGE: dvOff centres the apron on the garage door it serves,
+     so the car's path and the door it drives into are one line.
+     Law: laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md clause D2.
+     Gate: gates/suburb_street_gate.js */
+  var DRIVE=5, DVW=4, HD=M(9), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3;
   // HOUSE FACTORY (Paolo 7/18: "the houses need to be modular, not all the same").
   // Typed models: constant DEPTH (so rows still pack cleanly) but varied WIDTH,
   // garage size, garage side, and STORIES. Two-story homes stamp an inset upper
@@ -69,8 +76,22 @@
       (inset?up:bd).push(c);}
     var dvOff=garOff+((GARW-DVW)>>1);
     for(var d2=1;d2<=DRIVE;d2++)for(var w2=dvOff;w2<dvOff+DVW;w2++){var c2=[(rx+nx*d2+px*w2)|0,(ry+ny*d2+py*w2)|0];dv.push(c2);foot.push(c2);}
-    // footprint must sit on open land
-    for(var i=0;i<foot.length;i++){var c=foot[i];if(!inb(g,c[0],c[1])||g[c[1]][c[0]]!==0)return false;}
+    /* NO BUILDING EVER SITS ON A SIDEWALK (Paolo 7/31, LOCKED, his own caps:
+       "houses or buildings should NEVER SIT ON THE SIDEWALK EVER ANYWHERE IN THE
+       WORLD"). The walk is laid BEFORE homes now, so a walk cell is already code
+       10 when a house asks for it and this check refuses the placement outright --
+       the mass cannot go there at all.
+       THE DRIVEWAY IS THE ONE EXCEPTION, because a real apron does cross the walk
+       to reach the street. So driveway cells are validated separately and accept
+       10 as well as bare ground. A MASS never does.
+       Law: laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md clause D1. */
+    var _isDrive={}; for(var _d=0;_d<dv.length;_d++) _isDrive[dv[_d][0]+','+dv[_d][1]]=1;
+    for(var i=0;i<foot.length;i++){var c=foot[i];
+      if(!inb(g,c[0],c[1])) return false;
+      var cur=g[c[1]][c[0]];
+      if(_isDrive[c[0]+','+c[1]]){ if(cur!==0&&cur!==10) return false; }  /* apron may cross the walk */
+      else if(cur!==0) return false;                                       /* a MASS may not, ever */
+    }
     // 3-tile skirt on the two SIDES + the BACK must be clear of any other home
     for(var d3=1;d3<=DRIVE+HD+GAP;d3++)for(var w3=h0-GAP;w3<h0+HW+GAP;w3++){
       var side=(w3<h0||w3>=h0+HW), back=(d3>DRIVE+HD);
@@ -187,6 +208,15 @@
     var rails={ty:ys[0],by:ys[n-1],lx:Lx,rx:Rx}, gates=[];
     streets.forEach(function(edge){ var cnt=gpe[edge]||1;
       for(var k=0;k<cnt;k++) gates.push(punchGate(g,edge,(k+1)/(cnt+1),W,H,rails)); });
+    /* THE WALK GOES DOWN BEFORE THE HOUSES DO (Paolo 7/31, clause D1: "houses or
+       buildings should NEVER SIT ON THE SIDEWALK EVER ANYWHERE IN THE WORLD").
+       Order is the whole enforcement. Laid AFTER homes -- which is how it shipped
+       first -- a house that happened to front the kerb simply kept the cell and the
+       walk flowed around it, so a mass could stand on public ground. Laid HERE, the
+       kerb strip is already code 10 when home() asks for the land, and home()'s own
+       footprint check refuses it. The rule is not a post-hoc audit, it is the
+       placement order: you cannot build on the walk because the walk is there first. */
+    layWalks(g);
     // THEN houses, packing every frontage — rung rows (interior + wall-backing) AND
     // BOTH sides of each rail: outer backs the side wall, inner FRONTS the rail from
     // the interior, filling the strip the rung houses can't reach (Paolo 7/18: squeeze
@@ -214,7 +244,6 @@
     for(x=0;x<W;x++){g[0][x]=4;g[H-1][x]=4;} for(y=0;y<H;y++){g[y][0]=4;g[y][W-1]=4;}
     var gpe={N:cw,S:cw,E:ch,W:ch};                              // gates scale with the edge's length
     var gates=denseFill(g,W,H,streets,gpe);
-    layWalks(g);                                                // the kerb walk, LAST
     var res={g:g,W:W,H:H,cw:cw,ch:ch,streets:streets,gates:gates};
     res.houses=homeFootprints(res).length;
     return res;

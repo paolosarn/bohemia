@@ -1,0 +1,263 @@
+# THE BUILT WORLD LAW (Paolo 7/31/26, LOCKED, BINDS EVERY SESSION)
+
+> "I NEED YOU TO MAKE PERMANENT AWESOME CHANGES TO THIS GAME RIGHT NOW AND MAKE
+> LAWS EVERY OTHER SESSION has to listen to once i approve of your work in the
+> next turn after you are done. we cant be doing one off shit where u do good in
+> this session or something and in another session it has no fucking clue man."
+
+This file is the answer to that. It is ONE message of his, taken apart into
+nineteen rulings, each one written so a session that has never seen the
+conversation still cannot get it wrong. **Every clause below is LOCKED.** None of
+them is a preference to be re-litigated, re-asked, or traded against another
+clause. If two clauses ever appear to conflict, that is a BUG in this file to be
+fixed, not a decision for a session to make.
+
+**HE SHOULD NEVER HAVE TO SAY ANY OF THESE TWICE.** Every clause carries a GATE
+column. A clause with no gate is not enforced and is therefore a lie; closing that
+column is the standing job of whichever lane owns the system.
+
+---
+
+## A. THE WORLD IS ONE PLACE
+
+**A1. ONE WORLD, NO LOADING SCREENS. NO MODE SWITCH.**
+> "i want it like project zomboid when you enter a house you still are part of the
+> same world no loading screens thats why were making this html game its not a lot
+> of processing"
+
+Walking through a door does NOT swap the player onto a different grid. The
+interior is part of the same world, at the same scale, in the same coordinate
+space, rendered by the same renderer. The player never leaves the map.
+This is the REASON the game is a single HTML build. It is not an optimisation
+target, it is the premise.
+
+**A2. A BUILDING'S INSIDE IS THE INSIDE OF *THAT* BUILDING.**
+Interior floor plate === exterior footprint, exactly (this restates the
+INTERIOR-MATCHES-EXTERIOR LAW of 7/19 and does not weaken it). What you see
+through the windows from inside is the actual world outside that wall.
+
+**A3. YOU ENTER THROUGH A DOOR. ONLY A DOOR.**
+> "WY IS IT WHEN IM IN THE OUTSIDE OF A BUILDING I CAN ENTER IT FROM JUST WALKING
+> TO ANY WALL... NOT EVEN CONCERNED WITH FRONT DOOR BACK DOOR."
+
+Bumping a wall does nothing but stop you. Entry happens at a door cell, and a
+building may have a front door and a back door, which are different doors in
+different places.
+
+**A4. YOU CAN MOVE FREELY INSIDE.**
+> "why when i enter a house i cant go left and right"
+
+Interior movement is the same movement as exterior movement: all eight
+directions, same rules, same feel. An interior that only lets you walk one axis
+is broken.
+
+---
+
+## B. WHAT YOU SEE
+
+**B1. FULL PIXEL QUALITY, ALWAYS. NOTHING IS EVER RESAMPLED.**
+> "WHY WHEN I ZOOM IN ARE ALL THE QUALITY OF THE PIXELS OF THE TILES SO DOGSHIT???
+> WHY IS THE PIXEL QUALITY NOT AT FULL BRO WTF."
+
+Art draws at integer scale, nearest-neighbour, on a canvas whose backing store
+matches the device. No smoothing filter ever touches art. This restates the 7/26
+no-resample law and extends it to every zoom level: if a zoom level cannot be
+drawn at an integer scale, that zoom level does not exist.
+
+**B2. BUILDINGS CAST SHADOWS, AND THE SUN MOVES.**
+> "WHY IS THERE NO SHADING OR SHADOWS FROM THE BUILDINGS. ARE WE DOING ANYTHING TO
+> IMPLEMENT THE DIRECTION OF SHADOWS WITH THE TIME OF DAY IT IS?"
+
+Masses cast shadows. Shadow DIRECTION and LENGTH follow the time of day. One sun,
+one direction, world-wide, consistent with the existing one-light-direction law.
+
+**B3. WHAT IS BETWEEN YOU AND THE CAMERA GOES TRANSPARENT, AND YOU KEEP WALKING.**
+> "why are we not implementing the transparency opacity when i should be behind a
+> wall thats visual but i can still walk in the direction"
+
+Occlusion fades what covers the player. It NEVER blocks or redirects movement.
+Seeing through a wall and walking behind it are two separate things and the fade
+must not touch the second.
+
+**B4. A DOOR FILLS ITS DOORWAY.**
+> "WHY IS THE DOOR NOT TAKING UP ALL THE SPACE OF THE 2 TILES ITS IN. ITS LIKE A
+> PICTURE OF THE DOOR BRO."
+
+A door occupies its whole opening, edge to edge, floor to lintel. A door drawn
+smaller than its hole, floating in a wall, is a picture of a door and is a defect.
+
+**B5. DOORS ANIMATE WHEN USED.**
+> "WHY IS THERE NO ANIMATIONS WHEN I GO THROUGH AN DOPEN A DOOR WEVE WORKED ON
+> THAT PREVIOUSLY."
+
+The approved animated door bank (7/13) plays on open and on pass-through. Art he
+approved for a motion is not allowed to ship as a still.
+
+**B6. DOORS FACING EAST AND WEST USE THE EAST AND WEST ART.**
+> "WE MADE A COUPLE VERSIONS OF DOORS WHEN THEY ARE FACING EAST AND WEST WHY ARE
+> WE NOT DOING THAT."
+
+A door on a side wall is drawn with side-facing art, not the south-facing art
+rotated, squashed, or reused.
+
+---
+
+## C. WHAT THINGS ARE MADE OF
+
+**C1. INSIDE IS NOT OUTSIDE.**
+> "WHY IS THE INTERIOR WALLS OF A BUILDING THE SAME WALLS AS THE EXTERIOR OF THE
+> BUILDING."
+
+Interior wall surfaces are interior materials. The stucco on the street face is
+not the plaster in the hallway. Same for every district, not just houses.
+
+**C2. A HOUSE FLOOR IS NOT CONCRETE.**
+> "WHY IS THE INSIDE OF THE HOUSE USING CONCRETE TILES."
+
+Interior floors are chosen by what the ROOM is. Concrete belongs in a garage, a
+warehouse, a basement. It does not belong in a living room.
+
+**C3. THE SIDEWALK IS THE ONE HE CHOSE.**
+> "WHY IS THE SIDEWALK STILL NOT THE SIDEWALK I CHOSE BRO."
+
+Restates BOUGHT BEATS PAINTED (7/31): art he picked or paid for wins over
+anything painted, on every surface, and no session re-asks which.
+
+---
+
+## D. HOW THE PLACE IS LAID OUT
+
+**D1. NO BUILDING EVER SITS ON A SIDEWALK. ANYWHERE IN THE WORLD.**
+> "houses or buildings should NEVER SIT ON THE SIDEWALK EVER ANYWHERE IN THE
+> WORLD."
+
+Capitalised and absolute in his own words. The walk is continuous public ground
+between the kerb and the private lot. A structure may front it, never occupy it.
+This binds EVERY district generator, not the suburb alone.
+
+**D2. DRIVEWAYS ARE 4 x 5 AND LINE UP WITH THE GARAGE.**
+> "REAL DRIVE WAYS ALL OF THEM SHOULD BE 4 X 5 AND BE CONSISTEN TO WHERE A GARAGE
+> WOULD BE IN A HOUSE."
+
+**SUPERSEDES the 7/31 earlier ruling of "2 tiles wide"** -- newest date wins, and
+this is the newer one. Four wide, five long, aligned to the garage door it serves.
+
+**D3. THE PLACE YOU SPAWN CAN REACH THE REST OF THE CITY ON FOOT.**
+> "THE SUBURB IM SPAWNED IN DOESNT HAVE ACCESS TO THE REST OF THE STREETS."
+
+A start position with no walkable route to the street network is a broken start.
+
+**D4. ZOOM IS CONTINUOUS, ALL THE WAY OUT TO THE CITY.**
+> "i should be able to ZOOM OUT UNTIL I GET INTO THE CITY BUILDER MODE BRO."
+
+One continuous gesture from standing on a kerb to looking at the valley. The
+city-builder view is the far end of the zoom, not a separate destination you
+travel to. (Consistent with A1: no mode switch, no loading.)
+
+---
+
+## E. HOW THIS FILE IS OBEYED
+
+**E1. THIS FILE OUTRANKS A SESSION'S CONVENIENCE.** No lane may ship something
+that violates a clause here because the clause is inconvenient for its own item.
+
+**E2. A CLAUSE WITH NO GATE IS UNENFORCED, AND SAYING IT IS DONE IS A LIE.** The
+GATE column below is the truth. It only moves in one direction.
+
+**E3. HE NEVER RE-ASKS.** If a session finds itself about to ask Paolo something
+this file already answers, the answer is here. Read it instead.
+
+**E4. NEWEST DATE WINS, AND THE OLD CLAUSE IS STRUCK HERE THE SAME TURN.** D2
+already demonstrates this: the "2 wide" ruling from earlier the same day is dead
+and is marked dead in this file rather than left to rot in a commit message.
+
+---
+
+## THE GATE COLUMN (the only honest status)
+
+| clause | what it demands | gate | state |
+|---|---|---|---|
+| A1 | one world, no mode switch | -- | NOT ENFORCED |
+| A2 | inside === that building, real windows | world_gate (dims only) | PARTIAL |
+| A3 | enter only by a door | -- | NOT ENFORCED |
+| A4 | free movement inside | -- | NOT ENFORCED |
+| B1 | integer scale, no smoothing, device resolution | **full_pixel_gate** | **ENFORCED 7/31** |
+| B2 | shadows + sun direction by time | -- | NOT ENFORCED |
+| B3 | occlusion fades, never blocks | -- | NOT ENFORCED |
+| B4 | a door fills its doorway | **full_pixel_gate** (1:1 proven) | **ENFORCED 7/31** |
+| B5 | doors animate on use | -- | NOT ENFORCED |
+| B6 | E/W doors use E/W art | -- | NOT ENFORCED (see note) |
+| C1 | interior materials != exterior | -- | NOT ENFORCED |
+| C2 | house floors are not concrete | -- | NOT ENFORCED |
+| C3 | his chosen/bought art wins | bought_beats_painted_gate | ENFORCED (ground) |
+| D1 | no building on a sidewalk, anywhere | **suburb_street_gate** | **ENFORCED 7/31 -- SUBURB ONLY, see scope note** |
+| D2 | driveways 4x5, garage-aligned | **suburb_street_gate** | **ENFORCED 7/31** |
+| D3 | spawn can reach the streets | -- | NOT ENFORCED |
+| D4 | continuous zoom out to city | -- | PARTIAL: run zooms, handoff unbuilt |
+
+**Started at 14 of 17 unenforced. Four closed on the day it was written (B1, B4,
+D1, D2), one already held (C3). Twelve to go, and the column never lies about it.**
+
+## MEASURED WHEN THESE CLOSED (7/31)
+
+- **D1**: reverting the placement order put **456 building cells back on the kerb**
+  across 24 blocks. That number is what he was looking at when he wrote the rant.
+- **D2**: every driveway across 24 blocks is now exactly 4x5. No other shape exists.
+- **B1**: on a simulated iPhone at DPR 3 the canvas backing store was **390x795 for
+  a 390x795 CSS box** -- one third of the real pixels, the rest interpolated by the
+  browser after the canvas was done. Now 1170x2385, full device resolution.
+- **B4**: his door bank is authored 88x176 for a 1x2 cell. At the old CELL=44 it
+  was drawn into 44x88 -- a half-scale downsample of approved art on every frame.
+  At CELL=88 it is **1:1 native**, which is why B1 and B4 closed with one number.
+
+## A NOTE ON B6 (east/west doors)
+
+He said "WE MADE A COUPLE VERSIONS OF DOORS WHEN THEY ARE FACING EAST AND WEST".
+The approved bank (banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt) holds 30 clips in
+four families -- `#._Doors_a_#_swing` (10), `#._Indust_#_swing` (16),
+`prov_Doors_and_Arch_#` (3), `#._Indust_#_rollup` (1). **None of the clip names
+encodes a facing.** Either the E/W variants live in a bank not yet found, or they
+were judged in a session whose output has not been located. THIS IS NOT SETTLED
+AND MUST NOT BE GUESSED: a session that "solves" B6 by rotating or mirroring the
+south door has broken the RIG LAW's sibling rule against reshaping his art.
+[PENDING: which bank holds the E/W door art.]
+
+## SCOPE NOTE ON D1 (7/31, found by the diagnosis fan-out, recorded before it can rot)
+
+D1 says **"ANYWHERE IN THE WORLD"** and today it is enforced **in the suburb only**.
+That gap is named here rather than left implied by a green gate.
+
+`layWalks()` is a PRIVATE function inside `engine/bohemia_suburb.js`. It is not a
+shared primitive on `engine/bohemia_district_kit.js`, so:
+
+- no other district generator can lay a sidewalk at all
+- no other generator declares a walk code in its legend
+- there is no registry-wide sweep asserting the rule across all 48 generators
+
+So in every non-suburb district, buildings can still front a road with no walk
+between them, and nothing fails. A specific instance was found while diagnosing:
+`engine/bohemia_mall.js` side drive lanes at x=6 and x=122 run straight through
+the anchor stores placed above them.
+
+**THE REAL FIX, IN ORDER:** promote `layWalks` to a kit primitive every generator
+calls, add a walk code to the kit legend, then sweep the registry in a gate so the
+"anywhere" in his sentence is literally true. Until that lands, D1's gate says
+SUBURB ONLY and the state column says so.
+
+## DIAGNOSED, NOT YET BUILT (7/31)
+
+Recorded so the next session starts from the finding instead of re-deriving it:
+
+- **B4 continued.** The door now draws 1:1 with no resampling, which fixed the mush
+  and the size. A further finding: each clip frame is a WALL PANEL CONTAINING a
+  door, so the door LEAF is a sub-region of the 88x176 frame. Cropping to the
+  aperture (5-arg -> 9-arg drawImage) would make the leaf fill the opening. NOT
+  DONE unilaterally: it changes how the wall around the door reads, and that is an
+  art call, not a rendering call. [PENDING Paolo: leaf-fills-opening, or
+  wall-panel-with-door?]
+- **A1/A3/A4** (one world, door-only entry, free interior movement) are ONE
+  architectural item: `mode='int'` swaps the player onto a separate grid `fp`
+  instead of keeping him in the world grid `G`. Every symptom he listed in that
+  cluster -- can't walk left/right, windows wrong, walls identical to the exterior,
+  concrete floors, entering through any wall -- is downstream of that single
+  choice. It is a LARGE change and it is the highest-value one remaining.
