@@ -814,6 +814,16 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    the blob's export flow made one-tap; true cloud lands with the ship-
    vehicle ruling [PENDING Paolo ~month 8]. | eviction scenario simulated +
    survived via persisted storage, gated | — | no.
+0v. THE BIKE (big-missing item 8, assigned 7/31 to complete the dispatch —
+   the design is LOCKED in GDD v5: man-powered ladder, bike ~4 cells/beat,
+   valley crossing 1.7h walk -> ~26min bike; nothing on any surface rides).
+   Mechanism: a rideable bike on the walk surface — mount/dismount through
+   the one contextual verb, 4 cells/beat on the same 120 BPM request clock,
+   camera/feel tuned for phone. THE UNLOCK CHAIN IS [PENDING Paolo] (GDD
+   part seven) — ship it behind a debug/dev toggle, never presented as the
+   acquisition story. WORLD supplies any loop/scheduler support. | riding
+   proven on the real surface + speed gated to the locked table | vehicle
+   art through the tile form board | yes (the ride feel is his playtest).
 0aa. BORDER WALLS INTO THE RUN (Paolo direct order 7/27, furious and right):
    the 13 approved perimeter-wall keys (banks/BOHEMIA_PERIMETER_WALL_POOL_
    7_14_26.txt, tan variants, one-wall-per-community law) are wired into the
