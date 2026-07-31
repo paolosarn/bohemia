@@ -1,3 +1,96 @@
+ART (f3eu53): 7/31 LATEST — I CHECKED WHAT HE ACTUALLY BOUGHT INSTEAD OF WHAT THE PACKS
+ARE CALLED, AND THE ANSWER REVERSED TWO OF MY OWN CONCLUSIONS. NO ART WAS COOKED.
+
+=== WHY NO ART ===
+Three rejections in a row this session: house 01 ("its ass lowkey"), the shape study
+("all of these looked just horrible"), and all sixteen factory houses ("ALL OF THEM
+THUMBS DOWN"). STOP PRODUCING (7/26) says a second rejection ends the feature for the
+session and finding a legal way to ship anyway IS the violation. So the houses were not
+re-attempted. The bank BOHEMIA_HOUSE_SET_16 is gone; house_factory_gate no-ops on an
+absent set, by design, and did not need loosening.
+
+=== THE FINDING ===
+Paolo 7/31, LOCKED FLEET-WIDE: "if i bought it i prefer it! Thats for all textures
+bro!!!" I cooked TF-ART-001, a concrete block wall, the day after that landed. So I
+audited this lane's cook queue against the shelf he PAID for.
+
+FIRST AUDIT WAS WRONG AND I SHIPPED ITS CONCLUSION BEFORE CHECKING IT. v1 matched FORM
+NAMES to PACK NAMES and reported that his library already held that exact CMU wall. On
+that basis I annotated the cook as a law violation. Then I decoded all 105 candidate
+wall tiles and looked at them at full size:
+
+  "4. House wall tiles" (27)      a MEDIEVAL IVY COTTAGE - lime stucco, timber, arched
+                                  plank doors, leaded glass
+  "wall tiles" (41), "2. Wall
+   tiles (1)" (15)                DUNGEON MASONRY - mossy castle stone, barred windows
+  "3. Wall panels and details"    SCI-FI CONTROL PANELS, lit blue screens
+  "Rooftop and building tops" (46) CYBERPUNK SKYSCRAPER TOPS - HVAC, helipads, neon
+
+HE OWNS NO CONCRETE BLOCK WALL, NO STUCCO, NO SUBURBAN HOUSE WALL, AND EXACTLY ONE
+PITCHED ROOF TILE IN 47. TF-ART-001 STANDS. The annotation is corrected in the tool.
+A pack NAME is not a LOOK, and that error is the same class as the one the audit was
+written to catch, one level up.
+
+SO THE RULING HAS A SHAPE, AND IT IS NOT UNIFORM:
+  ground / street / concrete / path / water   his bought art is DIRECTLY right for a
+                                              dead Vegas. RUN lane already draws it.
+  walls / roofs                               fantasy and sci-fi. Nothing applies.
+This also dissolves the "collision" I had flagged [PENDING Paolo] between his 7/21
+approved painted house skins and the 7/31 bought ruling. There is no collision: nothing
+he bought dresses a Vegas house, so no painted skin is being preferred over a purchase.
+
+=== THE REAL BUG, AND IT IS IN THE LIVE RUN ===
+Nobody had ever measured what COLOUR his bought tiles are. On the exact bytes the run
+ships today (tier S/A, pure, 44x44):
+
+  sidewalk + driveway   20 tiles   mean 2.2% PURE BLACK, worst 8.4%,  16/20 over 1%
+  road                  13 tiles   mean 5.0% PURE BLACK, worst 15.0%,  9/13 over 1%
+
+Act-1 forbids pure black (luminance floor 17). His library is an asset-store bundle
+drawn for high-contrast fantasy, so it bottoms out at 0. bought_beats_painted_gate.js
+checks that his art SHIPS and ships FIRST - both right, both green - and never what it
+looks like. The street he walks on is breaking the palette law.
+
+=== SHIPPED (NOT IN A TAB YET - these are tools, gates and records files) ===
+tools/bohemia_bought_conditioner.py   his tiles moved into act-1 WITHOUT redrawing them.
+  Monotone luminance remap: the illegal black and white tails compress into [17,232],
+  ordering preserved so nothing is crushed or banded, RGB scaled uniformly so HUE AND
+  SATURATION ARE UNTOUCHED. 33 tiles, 2.2%/5.0% illegal -> 0.00%. Before and after are
+  near indistinguishable by eye, which is exactly the pass condition.
+  -> banks/BOHEMIA_BOUGHT_CONDITIONED_7_31_26.txt
+  -> records/target/BOUGHT_CONDITIONED.png   (before | after, 24 pairs)
+tools/bohemia_bought_audit.py (v2)    decodes and MEASURES all 1506 purchased tiles.
+  96 are act-1 legal as bought; 1410 are not. -> records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md
+gates/bought_first_gate.py            19 checks. Every cook tool's REUSE CHECK must name
+  the PURCHASED shelf or say why none applies, AND every conditioned tile must trace to
+  a tile he bought, hold its size/hue/saturation, and land inside act-1. Sabotage-tested
+  against a repaint, a leftover black pixel and an invented tile: caught all three.
+  Registered in bohemia_gates.py as BOUGHT-FIRST (COOKS).
+records/target/BOUGHT_WALLS.png, BOUGHT_ROOFS.png   what he owns, rendered, so the next
+  session does not have to take my word for the subject matter.
+
+=== FOR THE RUN LANE, NOT MINE TO DO ===
+The conditioned bank is BUILT but NOT WIRED. Swapping the run's draw source from the raw
+purchased bank to BOHEMIA_BOUGHT_CONDITIONED_7_31_26.txt is a change to the run slice,
+which is the RUN lane's file under ONE SYSTEM ONE SESSION. Bank, gate and proof sheet
+are ready for them.
+NOTE ALSO: tools/bohemia_house_art_factory.py (another lane) names no purchased library
+in its reuse check. Reported by the gate, deliberately not edited from here.
+
+=== NO BUILD STAMP BUMP, ON PURPOSE ===
+This ship touches tools/, gates/, banks/ and records/ only. Nothing in the alpha changed.
+The stamp exists so Paolo can SEE which build he is on; bumping it for a turn with
+nothing to look at is the "I didn't see nothing new" failure inverted. Said plainly in
+the reply instead.
+
+=== PENDING PAOLO ===
+- Does he want his bought tiles CONDITIONED into act-1 (his art, legal) or does BOUGHT
+  BEATS PAINTED mean they ship exactly as purchased and act-1's black floor bends for
+  them? Mechanism is built either way; which one is canon is his.
+- Doubling the art cell 44 -> 88 px ("thats down the line").
+- What colour is rebuilt Vegas.
+- Houses: dead for this session under STOP PRODUCING. Needs him to reopen it.
+
 CITY (03): 7/31 LATEST — THE RUN EMPTIES AT MIDDAY TOO, AND THE BLOCKER THAT
 STOPPED IT WAS A MIS-READ OF MY OWN LANE BOUNDARY.
 
@@ -482,6 +575,7 @@ would be a fourth currency wearing a hat). FLAGGED FOR WORLD, not handed to it.
    most-hits-don't).
 4. The camp dial playtest, the ten open camp clauses, and the action clock's denomination
    and ceiling number.
+
 RUN (eak241): 7/31 LATEST — READ laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md FIRST.
 It is his 7/31 rant taken apart into 19 LOCKED clauses with a GATE column that is
 allowed to say NOT ENFORCED. That file is the handoff for this work.

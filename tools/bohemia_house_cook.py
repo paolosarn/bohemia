@@ -48,6 +48,12 @@ white, no dither, dead-dark openings, and no orphan pixels.
   python3 tools/bohemia_house_cook.py
     -> banks/BOHEMIA_HOUSE_01_7_29_26.txt
     -> records/target/HOUSE_01.png
+
+*** DEAD. House 01 was killed by Paolo 7/29 ("its ass lowkey") and is in the
+graveyard. Kept only as the record of how it was made. NO PURCHASED LIBRARY was
+walked when it was written, which under BOUGHT BEATS PAINTED (7/31) would be a
+failure today — noted here rather than quietly fixed, because the tool is dead and
+polishing a corpse's paperwork is not the point. ***
 """
 import base64
 import io

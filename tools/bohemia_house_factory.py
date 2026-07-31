@@ -43,6 +43,28 @@ house, no dither, one light direction, and every house passing the shape law it 
 generated under.
 
   python3 tools/bohemia_house_factory.py -> banks/BOHEMIA_HOUSE_SET_16_7_31_26.txt
+
+*** BOUGHT-FIRST CHECK, 7/31 — RUN, AND THERE IS NOTHING TO BUY AGAINST. ***
+Paolo 7/31, LOCKED FLEET-WIDE: "if i bought it i prefer it! Thats for all textures
+bro!!!" This factory dresses its houses in his THIRTY APPROVED PAINTED SKINS (verdict
+7/21, all 30 UP), so the ruling had to be tested against the shelf he PAID for before
+that could stand. Both covering libraries were decoded and viewed at full size:
+
+  BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt   303 tiles — medieval ivy cottage, dungeon
+                                          masonry, sci-fi consoles. No stucco, no CMU,
+                                          no corrugated metal, nothing suburban.
+  BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt    47 tiles — 46 are cyberpunk skyscraper tops
+                                          with HVAC plant, helipads and neon. Exactly
+                                          ONE ("5. Roof tiles#26") is a pitched
+                                          terracotta roof.
+
+So the two rulings that looked like they collided do not: nothing he bought dresses a
+Las Vegas house, and his painted skins are not being preferred over a purchased
+alternative, because there is no purchased alternative. Measured in
+records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md; sheets in records/target/BOUGHT_WALLS.png and
+BOUGHT_ROOFS.png. An earlier draft of this note called it an open question for Paolo
+on the strength of the PACK NAMES alone — that was a keyword match, not a look, and
+answering it cost one render.
 """
 import base64
 import io

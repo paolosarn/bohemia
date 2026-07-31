@@ -57,6 +57,14 @@ them, and pixel_craft_gate.py holds them.
   python3 tools/bohemia_tileset_recook.py
     -> banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt
     -> records/target/RECOOK_CONTACT.png     (all 42, before and after)
+
+*** BOUGHT-FIRST NOTE (added 7/31). This re-cook predates Paolo's BOUGHT BEATS
+PAINTED ruling ("if i bought it i prefer it! Thats for all textures bro!!!") and he
+APPROVED its output afterwards anyway — asked A or B on 7/29 he chose this set. So
+it stands on his word, not on the absence of a purchased alternative. For the record,
+purchased ground libraries DO exist (BOHEMIA_GROUND_SEAMLESS_SET, 1019 tiles) and the
+RUN lane has already wired his bought concrete and street tiles ahead of these
+painted ones, which is the ruling working exactly as written. ***
 """
 import base64
 import io

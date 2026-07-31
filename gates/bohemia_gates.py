@@ -383,6 +383,11 @@ GATES = [
      'real doors in the live SLICE tab: canon door + warm-filtered trim, crisp scaling, purity', False),
     ('REUSE FIRST',    ['python3', 'gates/reusefirst_gate.py'],
      'every art-cooking tool documents a REUSE CHECK, claimed bank reuse must actually open the bank', False),
+    ('BOUGHT-FIRST (COOKS)', ['python3', 'gates/bought_first_gate.py'],
+     'REUSE FIRST was green while I cooked a concrete block wall he had already BOUGHT: the '
+     'shopping check walked the APPROVED-ASSET index (what he has judged) and never the '
+     'PURCHASED library (what he paid for). Two shelves, one looked at. This makes the cook '
+     'tools name the purchased library, or say in writing why nothing bought applies', False),
     ('TASTE',          ['python3', 'gates/taste_gate.py'],
      'the Paolo taste canon: every NEVER cites a source, factories document a TASTE CHECK, the pre-judge kill-filter works', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],

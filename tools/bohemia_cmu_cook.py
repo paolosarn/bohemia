@@ -41,6 +41,26 @@ keyline, no dither, no pure black, no white, and the wall is SELF-SEAMLESS on al
 four edges.
 
   python3 tools/bohemia_cmu_cook.py -> banks/BOHEMIA_CMU_BLOCK_7_29_26.txt
+
+*** BOUGHT-FIRST CHECK, 7/31 — RUN, AND THIS FAMILY SURVIVES IT. ***
+Paolo 7/31, LOCKED FLEET-WIDE: "if i bought it i prefer it! Thats for all textures
+bro!!!" This wall was cooked the day after that ruling, so it was audited against the
+shelf he PAID for: banks/BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt, 303 purchased wall
+tiles. All 105 candidate tiles were decoded and viewed at full size. HE OWNS NO
+CONCRETE BLOCK WALL. "4. House wall tiles" is a medieval ivy cottage, "wall tiles" and
+"2. Wall tiles (1)" are dungeon masonry, "3. Wall panels and details" is sci-fi
+consoles. Nothing purchased applies to a CMU wall, so this cook stands.
+
+FOR THE RECORD, BECAUSE THE MISTAKE MATTERED MORE THAN THE ANSWER: the first version
+of this note said the opposite — that his pack already held this exact wall, "verified
+by rendering it and LOOKING". It had not been looked at; a pack NAME had been matched.
+The audit that produced that claim (tools/bohemia_bought_audit.py v1) compared form
+names to pack names, which is the same error one level up from the one it was written
+to catch. v2 decodes and measures every tile. A name is not a look.
+
+The REUSE CHECK above was still INCOMPLETE as written: it walked the APPROVED-ASSET
+index, the shelf of what he has JUDGED, and never the shelf of what he has BOUGHT.
+Two shelves; it named one. gates/bought_first_gate.py now requires both.
 """
 import base64
 import importlib.util
