@@ -570,7 +570,13 @@ function deriveDoors(){
         if(G[y][x]!==2) continue;
         if(isBody(x,y+1)) break;                       /* not the south face */
         var below = (y+1<H) ? G[y+1][x] : -1;
-        var s = below===3 ? 4 : below===1 ? 3 : below===0 ? 2 : below===5 ? 2 : 0;
+        /* WHAT COUNTS AS FRONTAGE. Code 10 (sidewalk) is the BEST thing a front door
+   can open onto -- it is literally the path to the street -- but it did not
+   exist when this list was written, so it scored 0 and a house fronting the
+   walk got the worst door in its footprint. Same lesson as the sim's
+   passability list: A NEW GROUND CODE MUST BE TAUGHT TO EVERY HARDCODED LIST
+   THAT RANKS OR PERMITS GROUND. Grep for the old codes before adding one. */
+        var s = below===10 ? 5 : below===3 ? 4 : below===1 ? 3 : below===0 ? 2 : below===5 ? 2 : 0;
         /* a two-tall leaf needs a wall course above it to stand in */
         if(!isBody(x,y-1)) s = 0;
         if(s>best){ best=s; pick=[x,y]; }

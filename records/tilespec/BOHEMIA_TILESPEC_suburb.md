@@ -33,15 +33,15 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dead-ground (yard) | ground | dead-dirt front/back yard, no grass, cracked | ground | no | — | 6986 |
-| 1 | `#33333c` | road | drive | cracked residential street asphalt (car-drivable) | ground | no | — | 2947 |
-| 2 | `#8a8478` | house | building | single-story stucco tract house, faded, dark windows | structure | yes | house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage | 3545 |
-| 3 | `#3f3f47` | driveway | drive | cracked concrete driveway apron (drivable to garage) | ground | no | — | 144 |
+| 0 | `dead-dirt (kit ground)` | dead-ground (yard) | ground | dead-dirt front/back yard, no grass, cracked | ground | no | — | 7087 |
+| 1 | `#33333c` | road | drive | cracked residential street asphalt (car-drivable) | ground | no | — | 3318 |
+| 2 | `#8a8478` | house | building | single-story stucco tract house, faded, dark windows | structure | yes | house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage | 2620 |
+| 3 | `#3f3f47` | driveway | drive | cracked concrete driveway apron (drivable to garage) | ground | no | — | 420 |
 | 4 | `#6b6152` | wall | fence | block perimeter wall / side fence, tan stucco, chipped | structure | yes | — | 501 |
 | 5 | `#c79a3f` | gate | gate | neighborhood street entrance off the arterial | portal | no | — | 7 |
-| 6 | `#6b6b74` | garage | building | front-corner garage, steel roll door, dented | structure | yes | garage interior: 1-2 car bays, junk shelves, a door into the house | 1148 |
-| 9 | `#9a938a` | house upper floor | building | 2-story house upper mass (taller top-down read) | structure | yes | the house floorplan upper story (bedrooms), reached by interior stairs | 347 |
-| 10 | `#57575f` | sidewalk | walk | cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation | ground | no | — | 759 |
+| 6 | `#6b6b74` | garage | building | front-corner garage, steel roll door, dented | structure | yes | garage interior: 1-2 car bays, junk shelves, a door into the house | 1001 |
+| 9 | `#9a938a` | house upper floor | building | 2-story house upper mass (taller top-down read) | structure | yes | the house floorplan upper story (bedrooms), reached by interior stairs | 615 |
+| 10 | `#57575f` | sidewalk | walk | cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation | ground | no | — | 815 |
 
 **Gate:** `gates/suburb_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -30,7 +30,12 @@ const pref = (x, y, want) => [[0, 1], [0, -1], [1, 0], [-1, 0]].some(([dx, dy]) 
 });
 feet.forEach((f, i) => {
   let pick = null;
-  for (const want of [3, 1, 0]) {
+  /* 10 = sidewalk (added 7/31). It did not exist when this fixture was written,
+     so a house fronting the walk found NO door, its residents could never leave,
+     and the midday street was empty -- which is how this gate caught the real
+     regression. Sidewalk is the FIRST preference: it is what a front door opens
+     onto. */
+  for (const want of [10, 3, 1, 0]) {
     for (let y = f.y; y < f.y + f.h && !pick; y++) for (let x = f.x; x < f.x + f.w; x++)
       if (G[y][x] === 2 && pref(x, y, want)) { pick = [x, y]; break; }
     if (pick) break;
@@ -85,9 +90,21 @@ ok('RE-CONVERGENCE: after expiry the agent returns to the scheduled life', recon
 
 // 4: stay_home + flee
 const sim3 = mkSim();
-for (let t = 0; t < 11 * 60; t++) sim3.step();
-const outs = sim3.agents.filter(a => a.loc.mode === 'out');
-ok('midday street has people to test with', outs.length >= 2);
+/* FIND THE SUBJECTS, DO NOT ASSUME THE MINUTE (7/31).
+   This stepped to exactly 11:00 and required 2 people already outside. That made
+   the PRECONDITION depend on block density: when Paolo's 4x5 driveway ruling made
+   lots deeper, the block held fewer homes, 11:00 happened to have fewer than two
+   people out, and this gate went red on its fixture rather than on anything it
+   exists to test. The assertions below are UNCHANGED -- they still test that a
+   deviation bends a life and that the agent re-converges. Only the search for two
+   test subjects is now robust: walk the day until the street has them.
+   Density is WALKABLE-LAND's job and has its own gate; it is not this one's. */
+let outs = [];
+for (let t = 0; t < 24 * 60 && outs.length < 2; t++) {
+  sim3.step();
+  if (t >= 6 * 60) outs = sim3.agents.filter(a => a.loc.mode === 'out');
+}
+ok('the day contains a moment with people on the street to test with', outs.length >= 2);
 const homer = outs[0], runner = outs[1];
 A.deviate(sim3, homer, { kind: 'stay_home', until: sim3.turn + 200 });
 const threat = [runner.loc.x, runner.loc.y];

@@ -198,7 +198,18 @@
   // fill the whole union with the packed ladder + houses; gates only on street edges.
   function denseFill(g,W,H,streets,gpe){
     var back=RD+DRIVE+HD, R=back+5, Lx=R, Rx=W-R, Ty=R, By=H-R, i;
-    var span=By-Ty, n=Math.max(2, Math.ceil(span/(2*back+2*GAP))+1);
+    /* DENSITY IS NOT ALLOWED TO PAY FOR THE DRIVEWAY (Paolo 7/31 D2 gave every
+       driveway 2 more tiles of length; WALKABLE-LAND says buildings must still
+       dominate the plot).
+       The row count used to be derived from `back`, which INCLUDES the driveway,
+       so lengthening the apron silently pushed the street rows apart and the block
+       lost 5 of its 24 homes -- caught because the life sim then ran out of people
+       to put on the street at midday. A neighbourhood is not allowed to get thinner
+       as a side effect of an apron ruling.
+       The rows are spaced by what a lot actually NEEDS back-to-back: two house
+       depths plus the 3-tile gap law. The driveway still sits in front of each
+       house; it just no longer inflates the spacing between streets. */
+    var lotDepth=RD+HD, span=By-Ty, n=Math.max(2, Math.ceil(span/(2*lotDepth+2*GAP))+1);
     var ys=[]; for(i=0;i<n;i++) ys.push(Math.round(Ty+span*i/(n-1)));
     // ROADS FIRST: rails + rungs (a fully connected ladder, no dead ends). No extra
     // stubs poked into the corners (Paolo 7/18: more street to fill a corner is a bad
