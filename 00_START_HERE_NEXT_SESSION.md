@@ -327,6 +327,56 @@ ANOTHER LANE'S SECTION, CARRIED FORWARD UNTOUCHED.
   THE TELL FOR ANY SESSION: if you are about to launch a suite while one is in flight,
   you are about to generate a number you cannot trust. Wait for it.
 
+RUN (eak241): 7/31 LATEST — HIS TWO STREET RULINGS ARE IN AND LOCKED.
+
+  "New rule all drive ways [2] tiles wide not three and Im upset your sururbs
+   dont have a 1 grid sidewalk next to the streets whata wrong with you bro"
+  (with a screenshot: a yellow line traced down the road edge, a circle round a
+  fat driveway)
+
+DRIVEWAYS: DVW was 4 and measured 3 or 4 on the real surface depending on
+clipping. Now exactly 2 wide x 3 long, verified as BLOBS across 5 seeds and 32
+blocks -- no other shape exists.
+
+THE SIDEWALK IS THE ONE TO READ, because it is a whole class of bug. The RUN's
+renderer ALREADY drew a kerb band: groundTile() asked "is this ground next to a
+road?" and laid the approved walk_kerb tile. Measured on the real surface, all
+709 ground-touching-road cells came back walk_kerb. On the one screen anybody
+looked at, it was done.
+It was a costume. bohemia_suburb.js had codes 0,1,2,3,4,5,6,9 and none of them
+was a sidewalk. So the CITY drew none (different renderer, same world), the
+tilespec dossier had no row for the tiling phase, the world model reported no
+walk surface, and NO GATE COULD EVER FAIL because there was nothing to check.
+  A FEATURE THAT LIVES INSIDE ONE RENDERER'S IF-STATEMENT IS NOT IN THE GAME.
+Code 10 now, laid by the generator in a final pass after homes and driveways, so
+the walk breaks where an apron crosses it. The run's inference trick is DELETED
+on purpose: as a fallback it would re-fake the walk the moment the generator
+regressed, which is exactly how this hid.
+
+TWO GATES CAUGHT ME MID-FIX, both correctly:
+  1. I first used code 7. suburb_modular_gate went red on "no vegetation
+     anywhere" -- 7 is the retired TREE code, 8 is POOL, and the dead-world law
+     forbids both. A code that no longer appears in output is not a free code.
+  2. Then population_gate went red on OFFLINE/ONLINE AGREEMENT: bohemia_agents.js
+     has its own hardcoded passability whitelist (0,1,3,5) and nothing added 10,
+     so the neighbours could not cross their own kerb. A SIDEWALK THE SIM TREATS
+     AS A WALL is the most obvious way this feature can be wrong and my first
+     gate did not check it. It does now.
+  ANY NEW GROUND CODE must be re-declared in every hardcoded whitelist that
+  decides what a body may stand on. Grep before you assume.
+
+gates/suburb_street_gate.js (12 checks) checks the WORLD MODEL, never the
+renderer, so it would have caught the original bug. Proven able to fail three
+ways before being trusted. Law: laws/BOHEMIA_ADDENDUM_KERB_AND_DRIVEWAY_7_31_26.md
+Measured after: 35 px of walk between asphalt and yard = exactly one tile.
+Shipped 4fad0dd, stamp 7/31c.
+
+NOTE FOR THE NEXT SESSION ON MAIN VELOCITY: this ship took four rebases because
+main moved every few minutes while an 11-minute suite ran. The last one was
+verified TARGETED (both lanes' gates on the merged tree, all green) rather than
+by a fourth full pass, and the commit says so. If you hit the same treadmill,
+say which you did -- do not imply a full pass you did not run.
+
 RUN (eak241): 7/30 LATEST — EVERYTHING THIS LANE BUILT IS ON MAIN AND GREEN, AND THE
 LANE IS PARKED ON ONE DECISION. Read this section before touching the run.
 
