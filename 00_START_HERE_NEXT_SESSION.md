@@ -1380,3 +1380,63 @@ landmine + unruled ship vehicle (RUN: cloud blob; ruling ~month 8),
 (8) vehicle ladder locked/unbuilt. Plus an 11-month straw milestone map,
 dates pending his blessing. Lanes: read it before inventing your next big
 item — if your lane owns a listed organ, IT outranks lane-local wants.
+--------------------------------------------------------------------------------
+7/30 (c) — HOUSE 02: DRAWN THE WAY ISOMETRIC GAMES ACTUALLY DRAW HOUSES. LIFE TAB.
+
+Paolo overrode the stop: "BRO WE NEED TO GET 1 house shape done bro do big brain
+online research and execute WHEN IN DOUBT HOW TO OTHER ISOMETRIC PIXEL GAMES MAKES
+HOUSES COPY THEM TO START OFF HOLY SHIT". His call, so houses resumed.
+
+THE RESEARCH FOUND THE ACTUAL MISTAKE, AND IT WAS BIGGER THAN SHAPE. Both dead
+houses were FLAT ELEVATIONS — the building seen face-on, one wall, like a
+side-scroller. That is not what an isometric game draws:
+  - "isometric projection ROTATES THE BUILDING 45 DEGREES, revealing THE ROOF AND
+    MULTIPLE WALLS AT THE SAME TIME" [slynyrd pixelblog 41]
+  - every diagonal is 2:1 — two pixels across per one down, 26.565 deg, technically
+    dimetric. It is the only ratio that gives a clean staircase with no
+    anti-aliasing. [the-pixel.art, pixnote]
+  - method: floor plan on the iso grid, EXTRUDE WALLS UP, then roof; three visible
+    faces each holding a flat value, because "depth comes from contrast in light
+    where sharp angles meet" [tuts+, pixel parmesan]
+
+THE GRID FALLS OUT OF THE CORPUS CELL WITH NO FUDGING: 44 px cell -> a 44x22 diamond,
+exactly 2:1, one-cell cube stands 22 px, 1 m of height = 29.3 px.
+
+TWO MASSES, BECAUSE MY OWN GATE SAID SO. The first iso draw was one box with a long
+gable and read as a barn — the trailer failure again in a new projection.
+house_shape_gate would have refused it. It is now an L: main bar (ridge along X) plus
+a wing projecting streetward with its own gable END, garage on the bar's other face.
+1302 sq ft, 5:12 pitch, 18 in eave.
+
+REUSE, FIXED PROPERLY: every colour comes from banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_
+7_21_26.txt (CANON, all 30 UP 7/21) and gates/iso_house_gate.py VERIFIES IT — every
+colour in the output must exist in his bank. That is the check house 01 would have
+failed: it carried a reuse check, sampled a few colours off a street tile, and drew
+every pixel itself. A reuse check the machine cannot verify is a sentence.
+
+NEW GATE: gates/iso_house_gate.py, registered as ISO HOUSE. 10 checks.
+
+THREE BUGS FIXED BY LOOKING: windows drawn after the wing FLOATED ON THE ROOF (an
+opening belongs to its mass and must be painted with it); a window placed 8.42 m
+along a 7.5 m wall hung in space off the corner (iso will happily draw an opening
+past the end of its own wall — check against the MASS, not the canvas); and the roof
+at 6:12 over 9 m depth read as a barn because in iso the roof plane ALSO spans the
+depth on screen.
+
+*** AND A REAL SELF-INFLICTED SCARE, RECORDED SO NOBODY REPEATS IT ***
+1. I ran `git stash -u`, then `cd` into a throwaway worktree, then `git stash pop`
+   THERE. The pop landed in the worktree, which I then force-removed. All
+   uncommitted work gone; the stash was dropped by the successful pop and fsck
+   times out on this repo. REBUILT FROM SCRATCH rather than doing object
+   archaeology, which was faster and deterministic. NEVER pop a stash from inside
+   another worktree.
+2. Worse: a one-liner `open(p,'w').write(s.replace(m.group(0), ...))` where the
+   regex missed. **Python opens and TRUNCATES the file before evaluating the
+   argument**, so the AttributeError left slices/BOHEMIA_ALPHA_0_9.html at ZERO
+   BYTES. That is what "the CITY frame never loaded" and "the alpha has no LIFE tab"
+   actually meant — I nearly chased a phantom rendering bug. Restored with
+   `git checkout --`. The stamp helper now READS, CHECKS, and only then writes, with
+   a size assert. Any future in-place edit of a big shipped file must do the same.
+   (The stamp regex missed because another lane had rolled the date to 7/30.)
+
+BUILD STAMP: 7/30c. ALL GATES GREEN (622s).
