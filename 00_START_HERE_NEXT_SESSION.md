@@ -404,6 +404,21 @@ COMBAT's to build.
 3. The camp dial playtest, and the ten open camp clauses.
 4. The action clock's denomination and ceiling number.
 
+*** MAIN IS RED ON TWO GATES AND NEITHER IS COMBAT'S (flagged 7/31) ***
+Proved by running both against a clean origin/main WORKTREE with none of my
+commits in it -- byte-identical failures, so this is not "it works on my branch":
+  RIG CHECK      161 passed / 1 failed
+                 > bohemia_headshot_ragdoll_exemption_patch.py: claimed joint
+                   waC is really used
+                 (commit b440d1b's own tool, failing that lane's own new gate)
+  BODY VARIATION 20 passed / 1 failed
+                 > the frame cache hashes the dials (a slider drag can never
+                   draw a stale frame)
+Neither file is one this lane touches; my commits touch the combat gate, the
+combat patch tool, the alpha's COMBAT_B64, the handoff, the tile board and
+TF-CMB-003. Combat gate 538/0 and the alpha-loads gate 20/0 both green.
+ANIM/CHARACTER LANES: these are yours and they are red on main right now.
+
 COMBAT (04) 7/31 - THE CARS. And the reason he had to shout for them.
 
 *** PAOLO: "I DIDNT SEE ANY CARS BRO WTF IS WRONG WITH YOU!" ***
