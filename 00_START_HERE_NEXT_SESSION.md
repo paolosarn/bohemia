@@ -1,5 +1,5 @@
 PEOPLE (7h9sfy): 7/31 LATEST — THE NEIGHBOURS ARE PEOPLE NOW. First session of this
-lane. RUN TAB, build 7/31n.
+lane. RUN TAB, build 7/31t.
 
 === WHAT HE CAN GO LOOK AT, IN THE RUN TAB ===
 Walk out your front door and up to anybody on the block. The one button now reads
