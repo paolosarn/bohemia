@@ -124,6 +124,30 @@ ok('the run reads the world\'s sidewalk cell (c===10), it does not infer one',
 ok('the render-time kerb trick is gone from groundTile',
    !/isRoad\(gx,gy\+1\)\|\|isRoad\(gx,gy-1\)\|\|isRoad\(gx\+1,gy\)\|\|isRoad\(gx-1,gy\)\)\s*return\s*'walk_kerb'/.test(dev));
 
+/* 6. YOU CAN ACTUALLY WALK ON IT. Added after the fact, because I shipped a
+      sidewalk the SIM treated as a wall: bohemia_agents.js carries its own
+      hardcoded passability whitelist (0,1,3,5) and nothing added 10 to it, so
+      neighbours could not cross their own kerb and population_gate went red on
+      OFFLINE/ONLINE AGREEMENT. A walk surface that blocks walking is the single
+      most obvious way this feature can be wrong and my first gate did not check
+      it. ANY new ground code has to be re-declared in every hardcoded whitelist
+      that decides what a body may stand on. */
+const agents = fs.readFileSync(path.join(ROOT, 'engine/bohemia_agents.js'), 'utf8');
+const passLine = (agents.match(/var c=G\[y\]\[x\];\s*return[^;]+;/) || [''])[0];
+ok('the sim can WALK on the sidewalk (agents\' passability whitelist admits ' + WALK + ')',
+   new RegExp('c===' + WALK + '\\b').test(passLine));
+
+/* and the module must DECLARE it, or the tiling phase has nothing to work from:
+   the dossier is generated straight off this legend (tools/bohemia_tilespec.js) */
+const legend = (typeof S.legend === 'function') ? S.legend() : S.legend;
+if (legend && legend[WALK]) {
+  ok('the sidewalk declares itself in the suburb LEGEND', !!legend[WALK].name);
+  ok('the sidewalk is kind "walk" (ground layer, never solid)', legend[WALK].kind === 'walk');
+} else {
+  ok('the sidewalk declares itself in the suburb LEGEND', false);
+  ok('the sidewalk is kind "walk" (ground layer, never solid)', false);
+}
+
 console.log('SUBURB STREET GATE: ' + pass + ' passed, ' + fail + ' failed'
   + '  (' + blocks + ' blocks, ' + totalWalk + ' walk cells, driveways '
   + shapes.join('/') + ')');

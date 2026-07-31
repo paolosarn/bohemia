@@ -11785,7 +11785,12 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       if(!gate)gate=[x0,y0];
     }
     function passable(x,y){ if(x<0||y<0||x>=W||y>=H) return false;
-      var c=G[y][x]; return c===0||c===1||c===3||c===5; }
+      /* 10 = SIDEWALK (Paolo 7/31). It was missing here the moment the suburb
+         gained one, and a sidewalk the sim treats as a wall is worse than no
+         sidewalk: neighbours could not cross their own kerb, so walks never
+         finished and population_gate went red on OFFLINE/ONLINE AGREEMENT.
+         Caught by that gate the same hour, which is the point of having it. */
+      var c=G[y][x]; return c===0||c===1||c===3||c===5||c===10; }
     // BFS path on the exterior grid (roads/driveways/dead ground)
     function path(from,to){
       if(!from||!to) return null;
