@@ -1922,3 +1922,17 @@ bar's left window is partly behind the wing roof, and there is a thin stray edge
 at the far right.
 
 BUILD STAMP: 7/30e. ALL GATES GREEN (642s). ISO HOUSE gate 10/10.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/29 — BIG-MISSING WORK ASSIGNED (Paolo: "IM SURE SOME CHATS
+YOU CAN ASSIGN THIS WORK TOO"). Assignments now IN the backlogs: RUN 00 = THE
+GAME DAY (the lane milestone — make the organs circulate; stub ledger flagged
+as stub until WORLD EC lands) + RUN 00b = durable save vs the iOS eviction
+landmine. WORLD EC = the economy skeleton (ledger/payout/prices, tables ship
+EMPTY, everything unruled reads NO_RULING). COMBAT already carries companions
+behind the extraction. ONE NEW LANE REGISTERED: "people" (also answers
+"npcs"/"factions") — dialogue system v1, NPC identity, faction standing
+ledger, companion social layer; queue seeded, intent in doctrine §6. The
+city-builder half gets NO lane until Paolo's design talk (records/BOHEMIA_
+THE_BIG_MISSING_7_29_26.md item 2). Paolo opens the new chat with one word:
+"people".

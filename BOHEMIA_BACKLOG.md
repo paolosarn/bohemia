@@ -795,6 +795,25 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+00. THE GAME DAY (assigned 7/29 off Paolo's big-missing dispatch — records/
+   BOHEMIA_THE_BIG_MISSING_7_29_26.md item 1, THE lane milestone): one full
+   playable day — wake at the base -> pick up a quest -> travel -> resolve
+   it (talk or fight) -> GET PAID in the three currencies -> spend something
+   -> sleep-save. Every organ exists; this lane makes them CIRCULATE. Use
+   S01 + hardcoded placement if the placement ruling hasn't landed (the day
+   loop outranks quest volume); payout consumes WORLD's economy skeleton
+   the moment it exists, a stub ledger until then — but the stub is FLAGGED
+   on screen as stub, never presented as economy. | the full day playable
+   on the real surface end to end, gated as one integration test | quest
+   placement + economy numbers = [PENDING Paolo], neither blocks the loop
+   shape | yes (the day itself is the judgeable).
+00b. CLOUD/DURABLE SAVE (big-missing item 7, the landmine): iOS WebKit can
+   evict localStorage after ~7 days idle — a returning player can find
+   SAVES DELETED. His one-blob cloud ruling is the answer and is unbuilt.
+   Near-term mechanism: aggressive export prompts + persist() storage API +
+   the blob's export flow made one-tap; true cloud lands with the ship-
+   vehicle ruling [PENDING Paolo ~month 8]. | eviction scenario simulated +
+   survived via persisted storage, gated | — | no.
 0aa. BORDER WALLS INTO THE RUN (Paolo direct order 7/27, furious and right):
    the 13 approved perimeter-wall keys (banks/BOHEMIA_PERIMETER_WALL_POOL_
    7_14_26.txt, tan variants, one-wall-per-community law) are wired into the
@@ -954,6 +973,16 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+EC. THE ECONOMY SKELETON (assigned 7/29 off Paolo's big-missing dispatch —
+   records/BOHEMIA_THE_BIG_MISSING_7_29_26.md item 3): the three ruled
+   currencies (medicine/electricity/resources, GDD v5 LOCKED) get a running
+   LEDGER: quest payout hook, a price table, a spend sink API — EVERY TABLE
+   SHIPS EMPTY per mechanism-mine (payout amounts, prices, convoy cadence,
+   the guarantor seat are ALL [PENDING Paolo], flagged NO_RULING by name
+   exactly like world_resolve does). The RUN's game-day loop (RUN 00)
+   consumes this the day it exists. | ledger + hooks gated headless; an
+   unruled economy visibly reads unruled | century rule + time-is-spent
+   compose here | no.
 ER. [DONE 7/29 — see 0X] (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    7_28_26.md) TWO ENGINE GAPS THIS LANE OWNS:
    (a) VERTICALITY'S ENGINE HALF. Paolo's stated direction: 2-3 story
@@ -2771,6 +2800,38 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 4. (discovered 7/26) The demo's melee/nerve loop re-rolls `pickRandomFaction`
    twice on a quest handoff (startGame + the shuffle hook). Harmless, same
    distribution, but it is duplicate work on the enter path. NON-COOK tidy.
+
+## PEOPLE  (DEDICATED LANE 7/29, from Paolo's big-missing dispatch — "IM SURE
+## SOME CHATS YOU CAN ASSIGN THIS WORK TOO". First word "people" (or "npcs"/
+## "factions"). Owns the human half: dialogue, NPC identity, faction
+## standing, companion social layer. Intent: doctrine §6. Source of truth:
+## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+0. THE DIALOGUE SYSTEM v1 (big-missing item 6): a conversation surface ON
+   THE WALK — portrait + lines + choices through the run's ONE contextual
+   verb (TALK already exists; today it is hardcoded quest text). Mechanism:
+   a dialogue runtime any quest/NPC can feed; the quest corpus's .bq
+   dialogue plays through it (REUSE-FIRST: the judge-page text player
+   already parses it — port, don't rewrite). CONTENT STAYS CORPUS/PAOLO.
+   | one .bq conversation playable on the real run surface through the one
+   verb, gated | RUN owns the surface integration; coordinate, don't
+   collide | no (mechanism; the words already have verdicts).
+1. NPC IDENTITY MECHANISM (big-missing item 6): bind the run's scheduled
+   bodies to persistent identities — name, face (CHARACTER's archetype
+   warmer pattern), household, workplace — deterministic per seed so the
+   same neighbour is the same person tomorrow. NAMED CAST TIER SHIPS EMPTY
+   [PENDING Paolo — who the valley's named people are]. | same cell twice =
+   same people, headless-gated; identities visible on TALK | rig law,
+   shadows separate | no.
+2. FACTION STANDING LEDGER (big-missing item 4): a per-faction standing
+   value the world can read/write, EMPTY of rules — no action-to-standing
+   table until Paolo rules it (kill-anyone + clout laws interact here and
+   are HIS). Territory model: cells already carry owners via light/power;
+   expose it queryably. | ledger + query API gated; zero behavior change
+   until tables fill | world_resolve's beat predicate stays WORLD's | no.
+3. COMPANION SOCIAL LAYER (big-missing item 5, WAITS on combat extraction
+   step (a)): who can join, where they live when not with you, what they
+   remember (a memory that survives the save blob). Roster/why = [PENDING
+   Paolo]. | — | COMBAT owns in-fight allies; RUN owns follow-on-walk | no.
 
 ## SOUNDS  (DEDICATED LANE, Paolo 7/29 — "i should just make a dedicated
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything

@@ -16,12 +16,17 @@ research record lives in this file's commit and the coordinator's findings.
 =============================================================================
 Paolo never writes task prompts. His words to any session:
 - **FIRST word of a NEW session names its lane**: "run" / "world" / "city" /
-  "combat" / "character" / "sounds" / "art" / "lab" / "coordinator" ("quests"
-  is HIBERNATED per the 7/26 ruling — a session opened with it replies one
-  line and stops). That word both assigns the lane and means GO.
+  "combat" / "character" / "sounds" / "people" / "art" / "lab" /
+  "coordinator" ("quests" is HIBERNATED per the 7/26 ruling — a session
+  opened with it replies one line and stops). That word both assigns the
+  lane and means GO.
   ("sounds" added 7/29 by Paolo — "i should just make a dedicated sounds
   chat". "sound" and "music" resolve to the same lane. AUDIO MOVED: the
-  CHARACTER lane no longer owns music/sfx — one system one session.) A fresh session that can't match its first word to a
+  CHARACTER lane no longer owns music/sfx — one system one session.)
+  ("people" added 7/29 off Paolo's big-missing dispatch — "IM SURE SOME
+  CHATS YOU CAN ASSIGN THIS WORK TOO". Owns the human half nobody owned:
+  dialogue, NPC identity, faction standing, the companion social layer.
+  "npcs" and "factions" resolve to the same lane.) A fresh session that can't match its first word to a
   lane asks ONE word back ("which lane?") and nothing else.
 - **After that, "go"** (or any single word, or garbled transcription, or "continue"):
   execute THE GO PROCEDURE (§2). The word carries zero information except
@@ -157,6 +162,17 @@ toward its intent instead of pinging him. Canon-level gaps stay [PENDING].
   second audio engine. Sounds are synthesized parameters, not asset files
   (the one-file alpha stays light). Juice over realism; a sound's job is to
   make the moment FEEL landed. Batches arrive as one listen-and-thumb page.
+- PEOPLE (dedicated lane, 7/29, from the big-missing dispatch): NPCs are
+  PEOPLE, not bodies — a name, a face bound to a schedule, something to say.
+  Owns the dialogue/conversation system on the walk, NPC identity
+  mechanism, the faction standing ledger, and the companion SOCIAL layer
+  (who joins, what they remember). MECHANISM-MINE at its purest: every
+  named character, faction disposition, and dialogue line of canon is
+  Paolo's — tables ship empty, procedural identity fills below the named
+  tier. Slow world, loud stories (WORLD's pacing ruling applies). Derives
+  looks from CHARACTER's rig law, never new bodies; quest TEXT stays the
+  hibernated quest lane's corpus — this lane builds the MOUTH, not the
+  words.
 - ART: the target screen is the constitution; art ships as coherent SETS
   judged in context, never loose tiles; referenced always (approved corpus +
   named outside references), invented never; 2-tile doors, human scale.
