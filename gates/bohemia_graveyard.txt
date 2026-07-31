@@ -231,3 +231,31 @@ WHAT SURVIVED, because it is measurement and structure rather than taste:
   shorter than the character). True of every future house, and untouched by this
   verdict — which is itself the point: the gate was green the whole time and had
   no opinion about the thing that was wrong.
+
+--------------------------------------------------------------------------------
+2026-07-29  THE HOUSE MASSING STUDY  (seven shapes, silhouette only)
+  records/target/HOUSE_MASSING.png
+  slices/BOHEMIA_HOUSE_SHAPE_JUDGE_7_29_26.html
+  KILLED BY: Paolo 7/29, verbatim: "Im not gonna lie all of these looked just
+  horrible tbh"
+  SECOND HOUSE REJECTION OF THE DAY. STOP PRODUCING: houses are finished for this
+  session. No third attempt, no revised study, no "one more pass".
+
+  POST-MORTEM, and it is not really about the shapes. While I was inventing house
+  art for the second time, banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt was
+  sitting in the bank: THIRTY house skins, status CANON, all thirty verdicted UP by
+  Paolo on 7/21 — shingle and barrel-tile and gravel roofs, plain and windowed and
+  boarded and doored stucco walls, three yards. Good art. Real shingle courses,
+  barrel pans, settlement cracks, plank shadows.
+  I never used one of them. That is REUSE-FIRST broken outright ("check out the
+  approved assets first before cooking", Paolo 7/22).
+  THE SUBTLE PART WORTH KEEPING: house 01 DID document a reuse check — it sampled
+  COLOURS off the approved street tiles. Sampling a colour from approved art is not
+  using approved art, and I let the cheap version satisfy a law that meant the
+  expensive one. A reuse check that opens a bank for its palette and then draws
+  every pixel itself is a reuse check in name only.
+
+  NOT DEAD: gates/house_shape_gate.py. Its numbers (>=2 masses, >=4:12 pitch,
+  >=12 in eave, nothing over 3.5:1) come from the research rather than from these
+  drawings, and they still refuse a trailer. tools/bohemia_house_massing.py survives
+  ONLY as that gate's spec table, not as art; its rendered sheet is dead.

@@ -1295,3 +1295,49 @@ ALL GATES GREEN (623s).
 
 STILL BLOCKED ON HIM: the house shape picks (LIFE tab, top card). No house until then.
 17 tile forms left in the queue after this one.
+
+--------------------------------------------------------------------------------
+7/29 (h) — HOUSES STOPPED. AND THE 30 APPROVED HOUSE SKINS I NEVER USED.
+
+PAOLO, VERBATIM: "Im not gonna lie all of these looked just horrible tbh"
+
+ALL SEVEN SHAPES KILLED. Graveyard 2026-07-29. Verdict:
+records/BOHEMIA_HOUSE_SHAPES_VERDICT_7_29_26.txt.
+
+**THIS WAS THE SECOND HOUSE REJECTION OF THE DAY, SO HOUSES ARE FINISHED FOR THIS
+SESSION.** laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md. No third attempt, no
+revised study, no rebuilding it "properly" — finding a legal way to ship anyway IS
+the violation the law names. The next house work starts from a ruling of his.
+
+THE FINDING, AND IT IS THE ONE THING BLOCKING EVERYTHING:
+
+  banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt
+  status CANON — Paolo verdict 7/21/26, ALL 30 UP
+
+THIRTY PIECES OF HOUSE ART HE APPROVED EIGHT DAYS AGO: 6 shingle roofs, 2 gravel,
+6 barrel-tile (terracotta / desert brown / gray brown), 4 plain stucco walls, 3 with
+windows, 3 boarded, 3 with doors, 3 yards. They are GOOD — real shingle courses,
+barrel pans, settlement cracks, plank shadows on the boards, stiles and rails on the
+doors. Everything my two attempts lacked.
+
+**I DREW HOUSES FROM SCRATCH TWICE WHILE THESE SAT IN THE BANK.** REUSE-FIRST broken
+outright (Paolo 7/22: "check out the approved assets first before cooking").
+
+AND THE SUBTLE PART EVERY FUTURE SESSION SHOULD READ: house 01 DID carry a reuse
+check. It opened the approved street bank and sampled COLOURS from it. Sampling a
+colour off approved art is NOT using approved art, and I let the cheap reading
+satisfy a law that meant the expensive one. A REUSE CHECK THAT OPENS A BANK FOR ITS
+PALETTE AND THEN DRAWS EVERY PIXEL ITSELF IS A REUSE CHECK IN NAME ONLY. The
+reusefirst gate cannot currently tell those two apart.
+
+STANDING QUESTION FOR PAOLO, his alone: should the sixteen houses be BUILT OUT OF HIS
+THIRTY APPROVED SKINS rather than drawn new? Nothing house-shaped moves until he says.
+
+WHAT SURVIVED: gates/house_shape_gate.py — its numbers (>=2 masses, >=4:12 pitch,
+>=12 in eave, nothing over 3.5:1) came from research, not from the rejected drawings,
+and would still refuse a trailer. tools/bohemia_house_massing.py survives ONLY as
+that gate's spec table and is marked dead-as-art at the top of the file; its rendered
+sheet and judge page are deleted.
+
+STILL LIVE AND UNBLOCKED: 17 more filed tile forms after TF-ART-001 (the CMU block
+family, shipped 7/29g and NOT IN A TAB YET).

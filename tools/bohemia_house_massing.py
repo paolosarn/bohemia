@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 """
-BOHEMIA — HOUSE MASSING STUDY (7/29/26)
+BOHEMIA — HOUSE MASSING SPEC TABLE (7/29/26)
+
+*** THE DRAWINGS THIS FILE MADE ARE DEAD. Paolo 7/29: "Im not gonna lie all of
+these looked just horrible tbh" — all seven killed, graveyard 2026-07-29, and that
+was the SECOND house rejection of the day, so houses are finished for the session.
+This file survives ONLY as the data table gates/house_shape_gate.py reads: the TYPES
+list is a spec of real suburban massings, and the gate's numbers came from research
+rather than from these drawings. DO NOT RE-RENDER THE SHEET. Do not treat any of
+this as approved art. ***
+
 
 Paolo killed house 01: "so this could be a fucking trailer home bro. a trailer home
 with a grage? its ass lowkey... i need you to care about house shapes and shit bro.

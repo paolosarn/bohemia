@@ -67,6 +67,11 @@ SUPERSEDED = {
         'it was judging; this entry exists so the deletion reads as a recorded kill '
         'rather than a page that quietly fell off the hub. Verdict: '
         'records/BOHEMIA_HOUSE_01_VERDICT_7_29_26.txt.',
+    'BOHEMIA_HOUSE_SHAPE_JUDGE_7_29_26.html':
+        'JUDGED AND KILLED the same day. Paolo 7/29: "Im not gonna lie all of these '
+        'looked just horrible tbh" - the second house rejection of the day, which STOP PRODUCING '
+        'says ends the feature for the session. Page deleted with the study it showed. Verdict: '
+        'records/BOHEMIA_HOUSE_SHAPES_VERDICT_7_29_26.txt.',
     'BOHEMIA_SUBURB_JUDGE_7_18_26.html':
         'DEAD by laws/BOHEMIA_ADDENDUM_UNJUDGED_IS_DEAD_7_26_26.md - it sat ten days '
         'unlinked and unjudged, and bulk silence IS a verdict. Districts are judged '
