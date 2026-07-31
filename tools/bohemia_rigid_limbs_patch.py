@@ -44,6 +44,12 @@ patch only REMOVES pixels that were never painted.
 Idempotent.
 
   python3 tools/bohemia_rigid_limbs_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Kills the joint weld: a limb moves as one rigid piece from its own bone rather
+  than being meshed between joints. Uses the rig chain as-is.
+  built on: SKINNER_API
+  joints: handL, handR
+  parts: none
 """
 import os, sys
 

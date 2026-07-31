@@ -56,6 +56,12 @@ WHICH pose the existing painted arm is drawn at, nothing about the art.
 Idempotent.
 
   python3 tools/bohemia_arm_hold_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Holds the arm joints at their keyed pose between beats instead of interpolating
+  every frame. Operates on the rig's existing arm chain; adds no joints.
+  built on: posedSkel, SKINNERS
+  joints: shL, shR, elL, elR, handL, handR
+  parts: none
 """
 import os, sys
 

@@ -27,6 +27,14 @@ This patch does exactly two things, both owed by the addendum:
 Idempotent: re-running on an already-patched alpha is a no-op with a report.
 
   python3 tools/bohemia_bodyvar_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Wires the one-rig variation sliders. Every dial is a re-map of the ONE painted
+  body: BOH_BODYVAR.apply(BAKED, dials) returns BAKED itself at neutral, and the
+  warps move existing joints and existing painted pixels. No second rig, no new
+  anatomy -- that is the whole point of the 7/25 one-rig ruling.
+  built on: BAKED.pose, BAKED.skeleton, rigSkel, BODY_PKG, BOH_BODYVAR, bakedFor
+  joints: neck, shL, shR, headTop
+  parts: none
 """
 import os, re, sys
 

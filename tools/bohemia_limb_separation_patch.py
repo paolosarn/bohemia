@@ -47,6 +47,12 @@ it writes is a colour already present in the garment's own ramp or his skin ramp
 Idempotent.
 
   python3 tools/bohemia_limb_separation_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Draws the limb separation line ON TOP of the clothing, positioned from the
+  rig's own shoulder joints rather than a guessed seam.
+  built on: rigSkel
+  joints: shL, shR
+  parts: none
 """
 import os, sys
 

@@ -191,6 +191,8 @@ GATES = [
      'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
+    ('RIG CHECK',      ['python3', 'gates/rig_check_gate.py'],
+     'THE RIG IS LAW, finally gated: every rig-touching tool cites the joints/parts it built on and the citation is re-derived from the source, and no second anatomy can exist beside BAKED', False),
     ('ALPHA LOADS',    ['node', 'gates/alpha_loads_gate.js'],
      'the ONE alpha actually LOADS: zero page errors, BAKED/RIG_B64/COMBAT_B64 present and full size, no loose HTML in the script body — a merge ate all three on 7/30 and shipped a black screen', False),
     ('BACK LIMB',      ['node', 'gates/back_limb_gate.js'],

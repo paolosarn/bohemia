@@ -85,6 +85,12 @@ Every replacement asserts its anchor count EXACTLY. Idempotent.
 
 Usage: python3 tools/bohemia_combat_dial_cover_patch.py
 Gate:  node gates/combat_lab_gate.js   (section 36)
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Combat cover/dial rendering draws the same BAKED body the character tab does,
+  so the fighter and the wardrobe figure are one rig.
+  built on: BAKED
+  joints: none named
+  parts: none
 """
 import base64, os, sys
 

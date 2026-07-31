@@ -26,7 +26,13 @@
 
    REUSE CHECK (REUSE-FIRST LAW): cooks zero new graphic pixels. It only
    photographs the alpha's own render of Paolo's own painted rig.
-   =========================================================================== */
+   =========================================================================== 
+  RIG CHECK (RIG IS LAW, Paolo 7/26/26): Capture harness for the variation sliders: drives BOH_BODYVAR across dial values
+  and screenshots the real surface. Read-only with respect to the rig.
+    built on: BOH_BODYVAR
+    joints: none named
+    parts: none
+*/
 const fs = require('fs'), path = require('path'), os = require('os');
 
 function loadPlaywright() {

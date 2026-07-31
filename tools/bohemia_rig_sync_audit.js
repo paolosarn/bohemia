@@ -13,7 +13,13 @@
      node tools/bohemia_rig_sync_audit.js
 
    REUSE CHECK: cooks zero pixels. It only compares two existing exports.
-   =========================================================================== */
+   =========================================================================== 
+  RIG CHECK (RIG IS LAW, Paolo 7/26/26): Asks whether the game is actually drawing the BAKED rig, or a drifted copy of
+  it. Read-only; it exists to catch exactly the divergence this law forbids.
+    built on: BAKED
+    joints: neck
+    parts: none
+*/
 const fs = require('fs'), path = require('path');
 const ALPHA = path.join(__dirname, '..', 'slices', 'BOHEMIA_ALPHA_0_9.html');
 const src = fs.readFileSync(ALPHA, 'utf8');

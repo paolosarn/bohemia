@@ -53,6 +53,12 @@ lagging behind them.
 Idempotent.
 
   python3 tools/bohemia_key_poses_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Keys the extremes of a clip and holds between them. The extremes are poses of
+  the one rig's joints; no clip defines its own skeleton.
+  built on: posedSkel
+  joints: handL, handR
+  parts: none
 """
 import os, re, sys
 

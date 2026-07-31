@@ -29,6 +29,12 @@ a divergent copy of his art and replaces it with his art.
 Idempotent.
 
   python3 tools/bohemia_rig_is_law_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): The patch that made BAKED.pose the render base for everything. This is the tool
+  that installed the law the rest of them obey.
+  built on: BAKED
+  joints: none named
+  parts: none
 """
 import base64, json, os, re, sys
 

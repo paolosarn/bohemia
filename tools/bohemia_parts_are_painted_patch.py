@@ -54,6 +54,12 @@ change is WHAT they are allowed to look at.
 Idempotent.
 
   python3 tools/bohemia_parts_are_painted_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Enforces that every part is already painted by Paolo and is drawn as painted.
+  Reads the rig's part grid; invents no pixels for any part.
+  built on: rigSkel, SKINNERS
+  joints: neck, shL, shR
+  parts: 3=neck
 """
 import os, sys
 

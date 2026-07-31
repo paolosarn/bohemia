@@ -38,6 +38,13 @@ Behind CHAR_OUTLINE so it can be A/B'd and switched off in one line.
 Idempotent.
 
   python3 tools/bohemia_character_outline_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Draws the 1px border around the composited silhouette as the last pass in
+  buildFrame. It reads the finished frame, so it inherits whatever the rig
+  produced and never consults a body definition of its own.
+  built on: SKINNER_API
+  joints: none named
+  parts: none
 """
 import os, sys
 

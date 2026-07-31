@@ -30,7 +30,13 @@
      node tools/bohemia_invented_color_audit.js
 
    REUSE CHECK (REUSE-FIRST / APPROVED-ASSETS-FIRST): cooks zero pixels.
-   =========================================================================== */
+   =========================================================================== 
+  RIG CHECK (RIG IS LAW, Paolo 7/26/26): Measures near-vs-far limb garment coverage through the real render path. Reads
+  the rig; changes nothing.
+    built on: posedSkel, SKINNERS, SKINNER_API
+    joints: none named
+    parts: none
+*/
 const fs = require('fs'), path = require('path'), os = require('os');
 function loadPlaywright() {
   const tries = ['playwright', '/opt/node22/lib/node_modules/playwright',

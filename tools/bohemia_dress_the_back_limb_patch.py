@@ -50,6 +50,13 @@ the sleeve he already painted, on the arm it already belongs to.
 Idempotent.
 
   python3 tools/bohemia_dress_the_back_limb_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Gives the FAR arm its own deform pass so the sleeve stops riding only the near
+  arm. Binds the garment pixels already on the far arm's own footprint to the
+  rig's own arm bones. Arms only (parts 5/6) -- not legs, not hands.
+  built on: SKINNERS
+  joints: none named
+  parts: 5=arm-L, 6=arm-R
 """
 import os, sys
 

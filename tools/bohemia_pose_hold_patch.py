@@ -42,6 +42,12 @@ how many distinct poses his existing painted art is asked to appear in.
 Idempotent.
 
   python3 tools/bohemia_pose_hold_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Makes a clip a small set of FROZEN poses, each frame of a hold resolving to the
+  same cache entry. The poses are the rig posed; the holds add no geometry.
+  built on: posedSkel
+  joints: none named
+  parts: 6=arm-R
 """
 import os, sys
 

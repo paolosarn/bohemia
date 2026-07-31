@@ -41,6 +41,12 @@ guessed.
 Idempotent.
 
   python3 tools/bohemia_own_shading_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Shades each part on its OWN shape using the rig's part grid, instead of one
+  body-wide gradient that ignores where parts actually are.
+  built on: rigSkel, SKINNERS
+  joints: shL, shR
+  parts: none
 """
 import os, sys
 

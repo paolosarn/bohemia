@@ -25,7 +25,14 @@
 
    REUSE CHECK (REUSE-FIRST / APPROVED-ASSETS-FIRST): cooks zero pixels of any
    kind. It only counts what the shipped renderer already draws.
-   =========================================================================== */
+   =========================================================================== 
+  RIG CHECK (RIG IS LAW, Paolo 7/26/26): Audits how much of an animated frame is NOT in the rest art, by re-running the
+  real render path (posedSkel -> SKINNERS) rather than re-implementing it. Reads
+  the rig; changes nothing in it.
+    built on: posedSkel, SKINNERS, SKINNER_API
+    joints: neck
+    parts: none
+*/
 const fs = require('fs'), path = require('path'), os = require('os');
 
 function loadPlaywright() {

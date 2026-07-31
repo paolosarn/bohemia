@@ -50,6 +50,12 @@ removes two passes that relocate and repaint pixels his rig never touched.
 Idempotent.
 
   python3 tools/bohemia_render_like_the_rig_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Makes the game render the way the rig tool does, so the surface Paolo poses in
+  and the surface he plays in agree. It aligns the render path TO the rig.
+  built on: SKINNER_API
+  joints: none named
+  parts: none
 """
 import os, sys
 

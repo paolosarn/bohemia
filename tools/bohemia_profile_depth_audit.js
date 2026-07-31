@@ -22,7 +22,13 @@
      node tools/bohemia_profile_depth_audit.js
 
    REUSE CHECK: cooks zero pixels. It only counts what the renderer already draws.
-   =========================================================================== */
+   =========================================================================== 
+  RIG CHECK (RIG IS LAW, Paolo 7/26/26): Measures whether the far arm/hand read as further away on E and W. Reads the
+  rig through the real render path; changes nothing.
+    built on: posedSkel, SKINNERS
+    joints: none named
+    parts: 5=arm-L, 6=arm-R
+*/
 const path=require('path');
 const pw=require('/opt/node22/lib/node_modules/playwright');
 const ALPHA=path.resolve('slices/BOHEMIA_ALPHA_0_9.html');

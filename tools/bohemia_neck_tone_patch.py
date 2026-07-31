@@ -45,6 +45,13 @@ neck already sat ~33 units below the face before this pass; it now sits ~45.
 Idempotent.
 
   python3 tools/bohemia_neck_tone_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Gives the neck its own skin TONE (not a shadow). Finds the throat from the
+  painted face skin each frame rather than hardcoding rows, so it follows the
+  rig wherever the head goes.
+  built on: SKINNER_API
+  joints: neck
+  parts: none
 """
 import os, sys
 

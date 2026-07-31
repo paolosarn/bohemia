@@ -2570,6 +2570,50 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 3. Music pool volume in approved styles, taste-filtered. | music gates | — |
    fresh songs = thumbs.
 
+## ===== CHARACTER: WHAT COMES AFTER (written 7/30 on Paolo's direct order,
+## ===== "Do what you have to do next and know what comes after we have a
+## ===== whole game 11 months of development left")
+## The point of writing this down: a lane that only ever pops the top item
+## optimises for the turn and never for the year. These are the things that get
+## HARDER the longer they wait, ordered by how much they cost if deferred.
+##
+## A. THE FOUNDATION IS NOW LOAD-BEARING, SO GATE IT BEFORE BUILDING ON IT.
+##    Done 7/30: RIG CHECK gate (the law had none for 4 days), ALPHA LOADS gate
+##    (main shipped a dead alpha). Still open: nothing in the machine checks
+##    that a CLIP looks like the rig POSED rather than the rig SMEARED -- the
+##    zero-morph proof covers frozen holds, not transitions. Cheap now, very
+##    expensive once the clip library is 10x bigger.
+##
+## B. THE CANVAS COUNT IS THE ONE MEASURED THING THAT GETS WORSE WITH TIME.
+##    Item 1c: 2217 live canvases in the shell, 53.8 MB of retained pixels, at
+##    44% of the iOS floor. It is fine TODAY and that is exactly the trap -- the
+##    number grows with every garment, frame and tile added over 11 months, and
+##    the fix (one canvas per thumbnail KIND, or a shared atlas) gets more
+##    invasive the more surfaces depend on the current shape. Do it while it is
+##    still a refactor instead of a rescue. NON-COOK.
+##
+## C. VOLUME IS BLOCKED ON JUDGEMENT, NOT ON CAPACITY.
+##    Item 2 (wardrobe SHAPES) is the lane's only real cooking item and it ends
+##    in thumbs. Per STOP PRODUCING and UNJUDGED IS DEAD, cooking more before he
+##    rules is the named failure mode, not diligence. The lane's honest state is:
+##    the machine can produce garments faster than he can judge them, so the
+##    bottleneck is the VERDICT SURFACE, not the factory. That makes SHARED item
+##    1 (one aggregated judge page across lanes) worth more to this lane than
+##    any amount of new cooking.
+##
+## D. THE THREE THINGS THAT ARE HIS CALL AND HAVE BEEN WAITING.
+##    Border tone; far-hand depth on E/W (measured: far 153.2 vs near 153.8, no
+##    depth cue at all); the unbuilt slider ideas (leg length vs torso,
+##    frame/bulk, posture, neck length). None of these should be decided by a
+##    session. All three are cheap to build the moment he rules.
+##
+## E. WHAT THIS LANE MUST NOT DO OVER 11 MONTHS, from its own post-mortems:
+##    never build a second rig (woman-rig v1-v4, kill-reason IGNORED-THE-RIG);
+##    never bake shading into asset pixels (SHADOWS ARE SEPARATE); never let a
+##    recolor be the headline (STRUCTURE-NOT-COLOR); never present a measured
+##    defect as a felt improvement (7/30, the canvas-scale turn -- he could not
+##    see it, and he was right).
+
 ## QUESTS — HIBERNATED (Paolo 7/26, laws/BOHEMIA_ADDENDUM_QUESTS_LANE_
 ## HIBERNATED_7_26_26.md). Do NOT pick up items below; no "quests" sessions
 ## until Paolo reopens the lane. All shipped quest work stays live and gated.

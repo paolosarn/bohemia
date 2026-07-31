@@ -52,6 +52,13 @@ Behind CLOTHES_FOLLOW so it can be A/B'd and switched off in one line.
 Idempotent.
 
   python3 tools/bohemia_clothes_follow_the_body_patch.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Fits a garment to the body the dials made, by measuring the flank of the
+  warped body and shifting cloth to match. Sources the body from BODY_PKG /
+  BOH_BODYVAR (the rig plus dials), never from a garment-side body guess.
+  built on: BAKED.layers, SKINNER_API, BODY_PKG, BOH_BODYVAR
+  joints: none named
+  parts: none
 """
 import os, sys
 

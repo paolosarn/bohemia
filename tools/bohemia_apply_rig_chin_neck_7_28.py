@@ -38,6 +38,13 @@ in the rig tool and pasted by him this turn.
 Idempotent: re-running with the same export is a no-op.
 
   python3 tools/bohemia_apply_rig_chin_neck_7_28.py
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): Applies Paolo's own 7/28 rig export verbatim, replacing the BAKED package with
+  the one he painted. It does not reshape anything: his chin and neck edits are
+  transcribed, never interpreted (RIG LAW: painted regions are sacrosanct).
+  built on: BAKED
+  joints: neck
+  parts: none
 """
 import base64, json, os, re, sys
 
