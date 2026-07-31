@@ -765,8 +765,15 @@ function groundTile(c,gx,gy){
      existed in this renderer. It is drawn from that pool now, in drawPerim(),
      which is why this returns null - the draw handles it. */
   if(c===4) return null;
-  /* dead ground: the block's yards, with the walk band where it meets the street */
-  if(isRoad(gx,gy+1)||isRoad(gx,gy-1)||isRoad(gx+1,gy)||isRoad(gx-1,gy)) return 'walk_kerb';
+  /* THE SIDEWALK IS A REAL CELL NOW (Paolo 7/31: "Im upset your suburbs dont have
+     a 1 grid sidewalk next to the streets"). This used to be a render-time trick
+     right here: ask "is this ground next to a road?" and lay the kerb tile if so.
+     It LOOKED handled on this one surface while the world model had no sidewalk
+     code at all, so the city drew none and no gate could fail. The generator lays
+     code 7 now and this just reads it. The trick is deleted ON PURPOSE: leaving it
+     as a fallback would silently re-fake the walk the moment the generator
+     regressed, which is the exact bug that hid this for weeks. */
+  if(c===7) return 'walk_kerb';
   if(pathSet()[gx+','+gy]) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
   return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
 }

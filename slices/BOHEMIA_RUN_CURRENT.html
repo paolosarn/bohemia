@@ -4880,7 +4880,7 @@ root.BQRuntime=API;
 // the MERGE LAW: fills the union as ONE connected neighborhood, wall wrapping the
 // union, a gate per street-facing cell. Homes are exposed as footprints the world
 // model floorplans (residential). Loops + garden were graveyarded (7/18 verdict).
-// codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage
+// codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage 7 sidewalk
 // ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
 // dead ground (code 0). Homes NEVER touch the wall — 3-tile dead backyard minimum.
 (function(root){
@@ -4913,7 +4913,10 @@ root.BQRuntime=API;
   // house is the bulk; the driveway is tiny. Home faces the street (nx,ny),
   // backyard goes to the wall behind it.
   // GAP = Paolo's law: at worst 3 tiles of backyard AND 3 tiles between neighbors.
-  var DRIVE=3, DVW=4, HD=M(9), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3;
+  // DVW: Paolo 7/31, LOCKED -- "all driveways [2] tiles wide not three". It was 4,
+  // which measured 3 and 4 tiles wide on the real surface depending on clipping.
+  // Two, everywhere, no exceptions. Gate: suburb_street_gate.js.
+  var DRIVE=3, DVW=2, HD=M(9), GARD=M(5), RD=Math.max(2,M(5)>>1), GAP=3;
   // HOUSE FACTORY (Paolo 7/18: "the houses need to be modular, not all the same").
   // Typed models: constant DEPTH (so rows still pack cleanly) but varied WIDTH,
   // garage size, garage side, and STORIES. Two-story homes stamp an inset upper
@@ -4966,6 +4969,30 @@ root.BQRuntime=API;
         var along=(nx!==0)?y:x;                                     // coordinate running along the road
         if((along%LOTW)!==((nx>0||ny>0)?0:(LOTW>>1)))continue;      // stagger the two sides
         home(g,x,y,nx,ny);}}}
+  /* THE SIDEWALK (code 7). Paolo 7/31, LOCKED: "Im upset your suburbs dont have
+     a 1 grid sidewalk next to the streets".
+
+     He was right, and the reason it hid is worth writing down. The RUN was already
+     drawing a kerb band: its renderer asked "is this ground cell next to a road?"
+     and laid the walk_kerb tile if so. Measured on the real surface, all 709
+     ground-touching-road cells came back walk_kerb, so on that one screen it
+     looked handled. But it was a RENDER-TIME TRICK and the world never knew:
+     this generator's codes were 0,1,2,3,4,5,6,9 with no sidewalk among them, so
+     the CITY drew none, the dossier had no row to tile against, and no gate could
+     ever fail. A feature that lives in one renderer's if-statement is not in the
+     game. So it is a REAL CELL now and every consumer gets it for free.
+
+     LAST PASS, deliberately: homes and driveways are already stamped, so a
+     driveway apron (code 3) keeps its cells and the walk breaks where a car
+     crosses it, which is what a real street does. Only dead ground converts. */
+  function layWalks(g){
+    var W=Wd(g),H=Ht(g),add=[];
+    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){
+      if(g[y][x]!==0) continue;                                  // only dead ground converts
+      if(g[y][x+1]===1||g[y][x-1]===1||g[y+1][x]===1||g[y-1][x]===1) add.push([x,y]);
+    }
+    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=7;     // one grid, hugging the street
+  }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -5062,6 +5089,7 @@ root.BQRuntime=API;
     for(x=0;x<W;x++){g[0][x]=4;g[H-1][x]=4;} for(y=0;y<H;y++){g[y][0]=4;g[y][W-1]=4;}
     var gpe={N:cw,S:cw,E:ch,W:ch};                              // gates scale with the edge's length
     var gates=denseFill(g,W,H,streets,gpe);
+    layWalks(g);                                                // the kerb walk, LAST
     var res={g:g,W:W,H:H,cw:cw,ch:ch,streets:streets,gates:gates};
     res.houses=homeFootprints(res).length;
     return res;
@@ -5083,7 +5111,7 @@ root.BQRuntime=API;
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===5||cc===3||cc===6){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.9;}
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a'};
+  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',7:'#57575f',9:'#9a938a'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -5094,6 +5122,7 @@ root.BQRuntime=API;
     4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
     5:{name:'gate',               kind:'gate',       act1:'neighborhood street entrance off the arterial'},
     6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented', enter:'garage interior: 1-2 car bays, junk shelves, a door into the house'},
+    7:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
   var NOTES={
@@ -5104,8 +5133,10 @@ root.BQRuntime=API;
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
     circulation:'Street-aware: gates only on street edges (a corner exits two streets); roads reach every lot from the gate (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface.',
-    layering:'GROUND plane: roads, driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
+    layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (7), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
+      'Every street wears a ONE-GRID SIDEWALK on both sides (code 7), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
+      'Driveways are exactly 2 tiles wide x 3 long (Paolo 7/31, LOCKED).',
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']
   };
@@ -15001,8 +15032,15 @@ function groundTile(c,gx,gy){
      existed in this renderer. It is drawn from that pool now, in drawPerim(),
      which is why this returns null - the draw handles it. */
   if(c===4) return null;
-  /* dead ground: the block's yards, with the walk band where it meets the street */
-  if(isRoad(gx,gy+1)||isRoad(gx,gy-1)||isRoad(gx+1,gy)||isRoad(gx-1,gy)) return 'walk_kerb';
+  /* THE SIDEWALK IS A REAL CELL NOW (Paolo 7/31: "Im upset your suburbs dont have
+     a 1 grid sidewalk next to the streets"). This used to be a render-time trick
+     right here: ask "is this ground next to a road?" and lay the kerb tile if so.
+     It LOOKED handled on this one surface while the world model had no sidewalk
+     code at all, so the city drew none and no gate could fail. The generator lays
+     code 7 now and this just reads it. The trick is deleted ON PURPOSE: leaving it
+     as a fallback would silently re-fake the walk the moment the generator
+     regressed, which is the exact bug that hid this for weeks. */
+  if(c===7) return 'walk_kerb';
   if(pathSet()[gx+','+gy]) return ['walk_0','walk_1','walk_2'][th(gx,gy,3)];
   return ['yard_0','yard_1','yard_2'][th(gx,gy,3)];
 }

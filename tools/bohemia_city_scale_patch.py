@@ -46,6 +46,7 @@ import sys
 
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 CANON = 'engine/bohemia_overmap.js'
+SUBURB = 'engine/bohemia_suburb.js'
 WRAP_OPEN = '(function(global){'
 WRAP_CLOSE = "})(typeof window!=='undefined'?window:globalThis);"
 MARKER = 'const GRP='
@@ -132,6 +133,29 @@ def main():
         city = city[:old.start()] + body + city[old.end():]
         changed = True
         print('  overmap body: married to canon (%d bytes)' % len(body))
+
+    # ---- 1b. marry the SUBURB generator too --------------------------------
+    # Same failure mode, different module. The alpha's city blob carried its own
+    # copy of bohemia_suburb.js, so when the generator gained the one-grid
+    # sidewalk and 2-wide driveways (Paolo 7/31) the CITY kept drawing the old
+    # 4-wide driveways and no walk at all. city_tab_gate asserts this body rides
+    # verbatim, which is why the staleness could not hide.
+    sub = open(SUBURB, encoding='utf8').read()
+    if sub in city:
+        print('  suburb body:  already canon')
+    else:
+        head = sub[:sub.index('\n', sub.index('(function(root){'))]
+        i = city.find('// BOHEMIA SUBURB')
+        if i < 0:
+            print('FAIL: could not locate the embedded suburb body'); return 1
+        # the module ends at its own IIFE close, the first one after the body
+        end = city.find('BohemiaSuburb', i)
+        end = city.find('\n', city.find('})(', end))
+        if end < 0:
+            print('FAIL: could not find the end of the embedded suburb body'); return 1
+        city = city[:i] + sub + city[end:]
+        changed = True
+        print('  suburb body:  married to canon (%d bytes)' % len(sub))
 
     # ---- 2. the derived group factor ---------------------------------------
     if MARKER in city:
