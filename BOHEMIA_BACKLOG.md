@@ -2493,7 +2493,7 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not
    wire per-NPC randomisation until he rules on it.
-1b. (MEASURED BY THE CITY LANE 7/27, handed over untouched — ONE SYSTEM, ONE
+1b. **DONE 7/30, AND PAOLO COULD NOT SEE IT.** (MEASURED BY THE CITY LANE 7/27, handed over untouched — ONE SYSTEM, ONE
    SESSION) EVERY CHARACTER SURFACE IS DISPLAYED AT A FRACTIONAL SCALE. The
    city lane built tools/bohemia_canvas_scale_audit.js to catch its own canvas
    being bilinear-upscaled to the phone screen, and the same sweep measured
@@ -2518,6 +2518,33 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    112) plus `image-rendering:pixelated` in RIG_B64, which has none. Each one
    nudges an element's size, so it is a look call as much as a fix. Reproduce
    with: node tools/bohemia_canvas_scale_audit.js
+
+   >>> CLOSED 7/30. All 13 character surfaces now land on whole-number scales
+   >>> (charCv x3, portraitCv x2, cloBig x3, cloCv x1, g8_0..7 x1, rig cv x1 with
+   >>> image-rendering:pixelated finally set inside RIG_B64). Fractional canvases
+   >>> across the build went 19 -> 4; the 4 left are combat/city and belong to
+   >>> those lanes. Gate: canvas_scale_gate.js now ASSERTS the 7 character
+   >>> surfaces (29/0) instead of printing them, so it cannot drift back.
+   >>>
+   >>> PAOLO'S VERDICT, RECORDED BECAUSE IT MATTERS MORE THAN THE NUMBERS:
+   >>> "I cant tell a difference with what you did but okay!!"
+   >>>
+   >>> HE IS RIGHT, AND THE NUMBERS ALWAYS SAID SO. The headline case was 3.2035x
+   >>> -> 3x. That is a 6% change in how wide a source pixel lands, on a 112px
+   >>> sprite. It removes a real defect (some pixels 3 screen-px wide, some 4) but
+   >>> it was never going to be a VISIBLE upgrade, and it got presented to him as
+   >>> a ship headline anyway. That was overselling.
+   >>>
+   >>> THE LESSON FOR EVERY LANE, not just this one: a measured defect is not
+   >>> automatically a felt defect. Before leading a turn with a fix, ask what the
+   >>> change looks like TO HIM, not what it does to the ratio. Hygiene work is
+   >>> worth doing and worth gating; it is not worth his attention, and it is
+   >>> never the headline. The right framing here would have been one line: "also
+   >>> cleaned up canvas scaling, you won't see it."
+   >>>
+   >>> DO NOT RE-COOK THIS. It is done, it is gated, and he has seen it. Any
+   >>> further pixel-scaling work in the character tab needs a NEW reason from
+   >>> him, not a refinement of this one.
    slices/BOHEMIA_ALPHA_0_9.html | gates/canvas_scale_gate.js already PRINTS
    these every run and deliberately does not fail on them; make them yours and
    turn them into assertions | measured, not read | no.
