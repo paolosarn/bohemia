@@ -430,7 +430,7 @@ def build_school(P):
 
     The old icon was a generic E-shaped block plus a bus. It read as 'a school-ish
     building' and nothing more, and it is one of the 32 he rejected."""
-    BLD, GYM, COURT, FIELD = P[2], P[14], P[8], P[6]
+    BLD, GYM, SHOP, YARD, FIELD = P[2], P[14], P[20], P[8], P[6]
     TRACK, MARK, BLEACH, TOWER, CARC, DRIVE = P[7], P[10], P[9], P[12], P[17], P[1]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), lot=(-3, 11.5, 15, 15), groundc=(96, 100, 78), lotc=(52, 52, 60))
@@ -499,8 +499,20 @@ def build_school(P):
           framec=tuple(min(255, int(c * 1.25)) for c in BLD))                     # main doors
     _door(s, 12.4, -0.6, 0.5, 2.2, doorc=_dark(GYM, 0.4)['c'],
           framec=tuple(min(255, int(c * 1.25)) for c in GYM))                     # gym doors
-    s.box((12.6, 2.6, 0), (3.0, 1.5, 0.06), {'c': COURT})                        # a tennis court
-    s.box((14.1, 2.6, 0.06), (0.06, 1.5, 0.03), {'c': MARK})
+    # THE AUTO SHOP, east of the gym. PAOLO 7/30: "Remove the tennis courts make do what
+    # you want." A flat court slab contributed nothing to the silhouette -- it was ground
+    # paint. The shop is a real volume with a SAWTOOTH ROOF, which is the one roof shape
+    # that says workshop at any size, and it puts the only industrial mass on a civic icon.
+    s.box((11.6, 2.2, 0), (4.6, 2.8, 0.05), {'c': YARD})                         # the oiled yard
+    s.box((12.2, 2.5, 0), (3.6, 2.0, 2.3), {'top': _dark(SHOP, 0.9), 'px': _win(SHOP, 3, 1, 11),
+          'py': _dark(SHOP, 0.86), 'nx': _dark(SHOP), 'ny': _dark(SHOP)})
+    for i in range(3):                                                            # north-light monitors
+        s.box((12.4 + i * 1.15, 2.6, 2.3), (0.62, 1.8, 0.42),
+              {'top': {'c': tuple(min(255, int(c * 1.3)) for c in SHOP)}, 'px': _dark(SHOP, 1.1),
+               'py': _dark(SHOP, 0.8), 'nx': _dark(SHOP, 0.9), 'ny': _dark(SHOP, 0.9)})
+    _door(s, 15.8, 2.9, 4.1, 1.5, doorc=_dark(SHOP, 0.35)['c'],                   # the roll-up bay
+          framec=tuple(min(255, int(c * 1.3)) for c in SHOP))
+    _vehicle(s, 11.9, 3.4, CAR, CARC, along='x')                                  # a wreck in the yard
 
     # THE STUDENT LOT — the tell. High schoolers drive, and nobody came back for these.
     for i in range(4):
@@ -1317,7 +1329,7 @@ LABEL = {
     'park': 'Park — matched: open dead TURF + a winding PATH + a small SHELTER/restroom + a dead shade tree + benches.',
     'warehouse': 'Warehouse — matched: rows of flex/tenant UNITS (one burned) with roll-up doors + a leasing office + a fortress fence.',
     'commercial': 'Commercial — matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.',
-    'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, a tennis court, and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground: that was the error in the module this replaced.',
+    'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, the AUTO SHOP under its sawtooth roof with a roll-up bay standing open over an oiled yard (Paolo 7/30 killed the tennis courts and gave the ground to it), and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground and no tennis: both were rulings, both are held at zero by the gate.',
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
     'library': 'Library — matched: a reading-room block + a stacks tower + a front COLONNADE + steps.',
     'farm': 'Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).',
@@ -1418,10 +1430,11 @@ PARTS = {
     ],
     'school': [
         'E-building — the classroom spine + three wings (code 2 "building (school/gym)"), windows',
-        'gym block — the taller gymnasium mass (code 7 tone)',
-        'court — a paved sport court (code 8)',
-        'ground entrance — doors on the spine front',
-        'school bus (canon BUS) — a dead bus at the drop-off (code 12 tone); bus/car lot + drive (code 1)',
+        'gym block — the taller gymnasium mass (code 14 tone)',
+        'auto shop (CTE) — an industrial volume with three north-light sawtooth monitors on its roof and a roll-up bay door on the front face (code 20)',
+        'shop yard — the oiled slab in front of the bays, with a dead car left in it (code 8)',
+        'ground entrance — doors on the spine front, and a second set on the gym',
+        'student lot — the cars nobody came back for (canon CAR, code 17); lot + drive (code 1)',
     ],
     'courthouse': [
         'podium — the raised civic base/steps mass (code 6 "grand steps")',
