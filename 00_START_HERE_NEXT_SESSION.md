@@ -1365,3 +1365,18 @@ sheet and judge page are deleted.
 
 STILL LIVE AND UNBLOCKED: 17 more filed tile forms after TF-ART-001 (the CMU block
 family, shipped 7/29g and NOT IN A TAB YET).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/29 — THE BIG MISSING (Paolo: "11 months of forward motion,
+what are we BIG missing"). records/BOHEMIA_THE_BIG_MISSING_7_29_26.md is the
+answer of record: (1) the GAME DAY loop has never run end to end (RUN's next
+milestone — integration, not features), (2) the CITY-BUILDER half is lore not
+gameplay [HIS DESIGN — the biggest undesigned system, yap-session agenda],
+(3) the economy doesn't run (WORLD: ledger/payout mechanism ships empty),
+(4) no faction system (WORLD: standing/territory skeleton ships empty),
+(5) companions ruled/zero built (sequenced behind combat extraction),
+(6) NPCs are bodies not people + no dialogue system, (7) the iOS save-eviction
+landmine + unruled ship vehicle (RUN: cloud blob; ruling ~month 8),
+(8) vehicle ladder locked/unbuilt. Plus an 11-month straw milestone map,
+dates pending his blessing. Lanes: read it before inventing your next big
+item — if your lane owns a listed organ, IT outranks lane-local wants.
