@@ -1217,6 +1217,34 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AB. [DONE 7/31 — THE RESEARCH, EXECUTED] EVERY PERSON HAS THEIR OWN DAY.
+   4 ARCHETYPES -> 296 DISTINCT DAY-SIGNATURES ACROSS 297 PEOPLE, measured.
+   Straight off 0AA's finding: nobody authors 300 days, they author a GRAMMAR
+   and 300 ADDRESS BOOKS. The four archetypes ARE the grammar and they were
+   always fine; what was missing was every fact that makes a day personal.
+   WHAT LANDED, in the research's own cost order:
+     1. THE ADDRESS BOOK (Ultima VII's trick, the cheapest). Every person now
+        carries workDir + workDist and favDir - their own bearing to work, at
+        their own distance, and a favourite place somewhere else. Two people on
+        an IDENTICAL schedule now walk opposite ways at the same hour.
+     2. CONDITIONS (Stardew's trick). wetStay and darkStay. Weather was ruled in
+        7/28 and NOTHING consulted it; ~40% of people now stay in when it rains
+        and most stay in on a dead circuit after dark. Two identical schedules
+        are two different people if only one of them stays home in the wet.
+     3. THE EDGES (Ultima VII's idle/weekend variants). earlyBy shifts only the
+        morning edge; duskSit sends some people to their favourite spot between
+        17:00 and 20:00. The research's third finding is that the distinctive
+        part of a day is the beginning, the end and the exceptions - never the
+        eight hours in the middle.
+   IT IS NOT A SECOND SCHEDULE SYSTEM. bohemia_agents.js still owns WHEN and
+   WHAT KIND (home/work/street). Population owns WHICH PLACE, WHICH CONDITIONS,
+   WHICH EDGES. That split is the whole trick and it keeps ENGINE SYNC intact.
+   THE CONDITIONS ONLY EVER SEND SOMEBODY HOME, never out - gated. A rule that
+   pushed people onto the street in bad weather would be inventing behaviour.
+   GATE: zone_map_gate 56 -> 69 assertions. Proved able to fail: flattening the
+   address book to one direction and killing wetStay drops distinct days from
+   296 to 158 and takes four assertions red.
+   | gate: ZONE MAP | 7/31 | YES.
 0AA. [RESEARCH DELIVERED 7/31, ON HIS ASK, 1 PENDING] HOW THE GREAT GAMES GIVE
    EVERY NPC AN *INDIVIDUAL* SCHEDULE.
    records/BOHEMIA_RESEARCH_INDIVIDUAL_SCHEDULES_7_31_26.md.

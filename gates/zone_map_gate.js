@@ -214,6 +214,64 @@ ok(`clusters carry the majority of the people (${canon.zones.cluster * P.HEADS.c
      Array.isArray(P.NAMES) && P.NAMES.length === 0);
 }
 
+/* ---- 9) INDIVIDUAL SCHEDULES (7/31) --------------------------------------
+   Paolo: "how other greate games make everyone have their own INDIVIDUAL
+   SCHEDULE". The research found the pattern every reference shares - nobody
+   authors 300 days, they author a GRAMMAR and 300 ADDRESS BOOKS - and this is
+   the assertion that the address book is REAL and not four molds in coats.
+   Before this landed: 4 archetypes, 4 distinct days, 297 people. */
+{
+  const all = P.allPeople(W0.om, W0.POWER, W0.seed, OM.TILE_FINE, OM.OVER_N, () => true);
+  const sig = p => [p.archetype, p.workDir, p.workDist, p.favDir,
+                    p.wetStay, p.darkStay, p.earlyBy, p.duskSit].join('|');
+  const distinct = new Set(all.map(sig)).size;
+  ok(`the day is INDIVIDUAL, not four molds (${distinct} distinct days across ${all.length} people)`,
+     distinct > all.length * 0.8);
+  ok(`the shared grammar is still just ${P.ARCHETYPES.length} archetypes - individuality is FACTS, not more molds`,
+     new Set(all.map(p => p.archetype)).size === P.ARCHETYPES.length && P.ARCHETYPES.length <= 6);
+
+  /* every person carries a full address book */
+  ok('every person has a workplace bearing and distance',
+     all.every(p => typeof p.workDir === 'string' && p.workDist >= 1 && p.workDist <= 3));
+  ok('every person has a favourite place bearing', all.every(p => typeof p.favDir === 'string'));
+  ok('work and favourite are not always the same direction',
+     all.filter(p => p.workDir !== p.favDir).length > all.length * 0.5);
+
+  /* CONDITIONS: some people react to weather and some do not. If everybody
+     reacted the same way it would not be a difference, it would be a global. */
+  const wet = all.filter(p => p.wetStay).length;
+  ok(`rain changes SOME people's day, not all and not none (${wet} of ${all.length} stay in)`,
+     wet > all.length * 0.15 && wet < all.length * 0.7);
+  const dusk = all.filter(p => p.duskSit).length;
+  ok(`some people sit out at dusk and some do not (${dusk})`,
+     dusk > all.length * 0.2 && dusk < all.length * 0.8);
+
+  /* the conditions must actually MOVE somebody - placeFor is where the
+     research's Stardew trick either works or is decoration */
+  const rainy = { wet: true, dark: false, powered: false };
+  const dry = { wet: false, dark: false, powered: false };
+  const movedByRain = all.filter(p => P.placeFor(p, 'street', rainy) !== P.placeFor(p, 'street', dry)).length;
+  ok(`rain actually sends people home (${movedByRain} change behaviour)`, movedByRain === wet && wet > 0);
+  ok('the conditions only ever send somebody HOME, never out',
+     all.every(p => ['home', 'street', 'work'].indexOf(P.placeFor(p, 'street', rainy)) >= 0
+                 && P.placeFor(p, 'home', rainy) === 'home'));
+
+  /* and the edges are edges: dusk behaviour fires at dusk and nowhere else */
+  const sitter = all.find(p => p.duskSit);
+  if (sitter) {
+    ok('the dusk habit fires at dusk', P.atFavourite(sitter, 18 * 60) === true);
+    ok('the dusk habit does NOT fire at noon or at 3am',
+       P.atFavourite(sitter, 12 * 60) === false && P.atFavourite(sitter, 3 * 60) === false);
+  }
+  const nonsitter = all.find(p => !p.duskSit);
+  if (nonsitter) ok('somebody who does not sit out never does', P.atFavourite(nonsitter, 18 * 60) === false);
+
+  /* determinism, because the whole point is both surfaces agree */
+  const again = P.allPeople(W0.om, W0.POWER, W0.seed, OM.TILE_FINE, OM.OVER_N, () => true);
+  ok('the address book is deterministic',
+     JSON.stringify(again.map(sig)) === JSON.stringify(all.map(sig)));
+}
+
 console.log(`ZONE MAP GATE: ${pass} passed, ${fails.length} failed`);
 console.log(`  canon seed ${CANON}: ${canon.people} people · ` +
             `${canon.zones.cluster} clusters / ${canon.zones.spread} spread / ` +

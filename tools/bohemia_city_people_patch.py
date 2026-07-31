@@ -191,17 +191,34 @@ function pplStandable(fx, fy) {
    once, cached with them: walk outward from the doorstep until the first
    walkable cell that is NOT one of their neighbours' home cells. Nobody
    teleports and nobody shares a spot. */
-function pplOutSpot(p, taken) {
-  const r = BohemiaPopulation.hash(p.nx * 977 + p.i, p.ny * 61 + p.i, 424242);
-  const dirs = [[1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
-  const d = dirs[r % dirs.length];
-  for (let step = 4; step <= 12; step++) {
+const PPL_DIRV = {N:[0,-1], S:[0,1], E:[1,0], W:[-1,0],
+                  NE:[1,-1], SE:[1,1], SW:[-1,1], NW:[-1,-1]};
+function pplSpotToward(p, dir, near, far, taken) {
+  const d = PPL_DIRV[dir] || PPL_DIRV.S;
+  for (let step = near; step <= far; step++) {
     const fx = p.home[0] + d[0] * step, fy = p.home[1] + d[1] * step;
     if (!pplStandable(fx, fy)) continue;
     if (taken && taken.has(fx + ',' + fy)) continue;
     return [fx, fy];
   }
-  return [p.home[0], p.home[1]];               /* nowhere to go: stay in */
+  return null;
+}
+/* THE ADDRESS BOOK ON THE SURFACE (7/31). Paolo asked how the great games give
+   everyone an INDIVIDUAL schedule; the answer every reference shares is that
+   NOBODY AUTHORS 300 DAYS - they author a grammar and 300 ADDRESS BOOKS. So a
+   person no longer just goes "out", they go THEIR OWN WAY: work in their own
+   bearing at their own distance, and a favourite spot in another. Two people
+   on identical schedules now walk opposite directions at the same hour, which
+   is the whole of Ultima VII's trick and the cheapest individuality there is.
+   Measured after this landed: 4 archetypes, 296 distinct day-signatures across
+   297 people. */
+function pplOutSpot(p, taken) {
+  return pplSpotToward(p, p.workDir, 4 + p.workDist * 2, 6 + p.workDist * 4, taken)
+      || pplSpotToward(p, p.favDir, 3, 8, taken)
+      || [p.home[0], p.home[1]];               /* nowhere to go: stay in */
+}
+function pplFavSpot(p, taken) {
+  return pplSpotToward(p, p.favDir, 3, 9, taken) || null;
 }
 
 /* THE CACHE IS KEYED ON THE RULES VERSION. A mass edit that does not reach the
@@ -222,6 +239,8 @@ function pplPeople(nx, ny) {
     p.sched = BohemiaAgents.scheduleFor(p.scheduleSeed, p.archetype, 8 * 60);
     p.outSpot = pplOutSpot(p, taken);
     taken.add(p.outSpot[0] + ',' + p.outSpot[1]);
+    p.favSpot = pplFavSpot(p, taken) || p.outSpot;
+    taken.add(p.favSpot[0] + ',' + p.favSpot[1]);
   }
   PPL_PEOPLE.set(k, list);
   return list;
@@ -232,9 +251,27 @@ function pplPeople(nx, ny) {
    simulation, we are asking the schedule where somebody IS at this minute and
    drawing them there. The block visibly empties in the morning and fills at
    night, and it costs one array lookup per visible person. */
+/* WHAT THE SURFACE KNOWS AND THE CENSUS DOES NOT: the weather, the dark, and
+   whether this block is on a live circuit. Passed to the module rather than
+   guessed there. */
+function pplCtx(p) {
+  let wet = false;
+  try { wet = (typeof WEATHER !== 'undefined' && WEATHER && /rain|wet/i.test(WEATHER.state || WEATHER || '')); } catch (e) {}
+  const tX = p.home[0] >> 5, tY = p.home[1] >> 5;
+  let powered = false;
+  try { powered = !!(POWER.at(tX, tY) || {}).live; } catch (e) {}
+  return { wet: wet, dark: isNight(), powered: powered };
+}
+/* HOME OR OUT, and now WHOSE out. agents.js says WHEN and WHAT KIND; the
+   person's own facts say WHICH PLACE, and their own conditions can keep them
+   in. Stardew's trick: two identical schedules are two different people if
+   only one of them stays home when it rains. */
 function pplAt(p) {
   const b = BohemiaAgents.whereAt(p, T.min | 0);
-  return (b && b.where === 'home') ? p.home : p.outSpot;
+  const kind = BohemiaPopulation.placeFor(p, (b && b.where) || 'home', pplCtx(p));
+  if (kind === 'home') return p.home;
+  if (BohemiaPopulation.atFavourite(p, T.min | 0)) return p.favSpot || p.outSpot;
+  return p.outSpot;
 }
 
 function peoplePass(ox, oy, C) {

@@ -328,8 +328,83 @@
       // SCHEDULE IS A REFERENCE, NOT A COPY. bohemia_agents.js owns what a day
       // looks like; this only says which seed to ask it with, so the two
       // modules can never disagree about a person's routine (ENGINE SYNC LAW).
-      scheduleSeed: r
+      scheduleSeed: r,
+
+      // ==== THE ADDRESS BOOK (7/31) ========================================
+      // Paolo, 7/31: "how other greate games make everyone have their own
+      // INDIVIDUAL SCHEDULE". The research
+      // (records/BOHEMIA_RESEARCH_INDIVIDUAL_SCHEDULES_7_31_26.md) found the
+      // one pattern every reference shares: NOBODY AUTHORS 300 DAYS. They
+      // author a GRAMMAR and 300 ADDRESS BOOKS. The SHAPE of a day is shared;
+      // the FACTS of the person make it individual.
+      //
+      // Ultima VII is the origin and the exact shape: every shopkeeper runs the
+      // SAME base schedule and differs by "a few unique identifiers - home,
+      // work" plus a personal idle and weekend. Our four archetypes are that
+      // shared base and they are FINE. What was missing was everything below.
+      //
+      // THIS IS NOT A SECOND SCHEDULE SYSTEM. bohemia_agents.js still owns WHEN
+      // and WHAT KIND (home / work / street). This owns WHICH PLACE, WHICH
+      // CONDITIONS, and WHICH EDGES. That split is the whole trick and it keeps
+      // the ENGINE SYNC LAW intact.
+
+      // WHERE THEY WORK. A bearing and a distance, not a district name - naming
+      // the workplace is the surface's job because only the surface knows what
+      // is actually there. Two people with identical schedules walk different
+      // ways to work, which is the cheapest individuality on the list.
+      workDir: ['N', 'E', 'S', 'W', 'NE', 'SE', 'SW', 'NW'][(r >>> 9) & 7],
+      workDist: 1 + ((r >>> 13) % 3),
+
+      // THE ONE PLACE THEY GO THAT IS NOT WORK. Shadows of Doubt gives every
+      // citizen a favourite bar; this is that, as a bearing off home.
+      favDir: ['N', 'E', 'S', 'W', 'NE', 'SE', 'SW', 'NW'][(r >>> 16) & 7],
+
+      // ==== CONDITIONS (Stardew's trick, and the cheapest of the three) =====
+      // Stardew keys schedules on weather, season, friendship, mail. Two
+      // people with the SAME schedule are different people if only one of them
+      // stays in when it rains. Weather was ruled in on 7/28 and NOTHING
+      // consulted it; this is the plug.
+      // ~40% stay in when it is wet. Not everybody, or it is not a difference.
+      wetStay: ((r >>> 20) % 5) < 2,
+      // and whether a dead circuit keeps them home after dark (LIGHT=TERRITORY:
+      // nobody patrols the dark, but some people still go out into it)
+      darkStay: ((r >>> 23) % 4) < 3,
+
+      // ==== THE EDGES (Ultima VII's idle + weekend variants) ================
+      // The research's third finding: the distinctive part of a day is the
+      // BEGINNING, the END and the exceptions - never the eight hours in the
+      // middle. These shift only the edges of whatever the archetype says.
+      earlyBy: ((r >>> 26) % 5) * 15 - 30,   // -30..+30 min on the morning edge
+      duskSit: ((r >>> 29) & 1) === 1        // sits out at dusk before turning in
     };
+  }
+
+  // WHICH PLACE, given what the schedule said. agents.js answers 'home' |
+  // 'work' | 'street'; this answers WHOSE home, WHICH work, WHICH street - and
+  // applies the person's own conditions on top.
+  //
+  // `ctx` is what the SURFACE knows and this module does not: {wet, dark,
+  // powered}. Passed in rather than imported, so this stays a pure function of
+  // a person plus the weather.
+  //
+  // Returns 'home' | 'work' | 'street', already conditioned. The surface then
+  // resolves that to a cell using workDir/workDist/favDir.
+  function placeFor(p, where, ctx) {
+    ctx = ctx || {};
+    if (where === 'home') return 'home';
+    // THE CONDITIONS, and they only ever send somebody HOME - never out. A rule
+    // that pushes people onto the street in bad weather would be inventing
+    // behaviour; a rule that keeps them in is the one real life supports.
+    if (ctx.wet && p.wetStay) return 'home';
+    if (ctx.dark && p.darkStay && !ctx.powered) return 'home';
+    return where;
+  }
+
+  // Is this person out at their FAVOURITE spot rather than plain street? Only
+  // at the dusk edge, only for the ones who do it. This is Ultima VII's idle
+  // variant: the same day, with a personal ending.
+  function atFavourite(p, minOfDay) {
+    return !!(p.duskSit && minOfDay >= 17 * 60 && minOfDay < 20 * 60);
   }
 
   // ---- THE OVERRIDES LAYER -------------------------------------------------
@@ -451,6 +526,7 @@
               zoneAt: zoneAt, headsAt: headsAt, homesIn: homesIn, census: census,
               occupiedRateFor: occupiedRateFor, HOUSEHOLD_MEAN: HOUSEHOLD_MEAN, weightOf: weightOf,
               ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,
+              placeFor: placeFor, atFavourite: atFavourite,
               allPeople: allPeople, where: where,
               addRule: addRule, removeRule: removeRule, clearRules: clearRules, rules: rules,
               applyRules: applyRules, rulesVersion: rulesVersion,
