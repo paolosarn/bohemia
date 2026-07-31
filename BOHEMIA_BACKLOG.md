@@ -1659,6 +1659,32 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AG. [RULED 7/31, RECORDED, GATED — AND IT CLOSES THE LANE'S LAST PENDING]
+   A ROUTINE IS INVISIBLE INFORMATION, AND A NAME IS ASKED FOR.
+   He answered the Majora's Mask question this lane had been holding open since
+   the individual-schedule research:
+   > "it will all be invisible information."
+   THE GAME NEVER SHOWS A SCHEDULE. Not a card, not a menu, not a phone screen,
+   not a hint. The system is FELT - busy at eleven, dead at two - never READ.
+   Observing a routine means WALKING it, which is the only way anybody has ever
+   learned a neighbour's hours in real life.
+   THE LINE IS TENSE, and this is the part a future session will get wrong:
+     PRESENT tense is EYESIGHT and stays LEGAL.  "RIGHT NOW: SCAVENGING"
+     FUTURE/HABITUAL is a TIMETABLE and is BANNED. "THEIR DAY: OUT 07:15"
+   AND A SECOND RULING NOBODY ASKED FOR: you do not know anyone's name. Everyone
+   is a generic faction or non-faction identity until you ASK them, personally,
+   in conversation; the game tracks it forever; and from then on their name pops
+   up when you see them. Two exceptions, both his: the opening dialogue, and a
+   story/quest reason.
+   [PENDING Paolo] AN IDEA HE EXPLICITLY PARKED: an Amalgamation-friendly
+   playthrough might unlock a quest that lets you SEE the invisible information.
+   He said "maybe" four times and "that's just an idea for now". NOTHING IS
+   BUILT FOR IT - no flag, no hook, no placeholder. It is recorded because it is
+   good: it turns the invisibility from a limitation into a PRICE.
+   | law: laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md
+   | gate: INVISIBLE SCHEDULE, 18 assertions, proved able to fail three ways
+     (a new timetable label, a shipped name, a waiver gone stale) | 7/31 | n/a.
+
 0AF. [DONE 7/31 — AND IT UNBLOCKED 0AE BY RE-READING IT, NOT BY CROSSING A LANE]
    THE RUN'S STREET EMPTIES AT MIDDAY TOO. The last entry (0AE) filed this as
    BLOCKED ON WORLD'S MODULE. THAT FRAMING WAS THE MISTAKE, and it is worth more
@@ -3238,6 +3264,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
+   TWO RULINGS LANDED ON THIS LANE'S SYSTEM ONE HOUR AFTER IT SHIPPED. Full law:
+   laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md
+   NOBODY DID ANYTHING WRONG: the identity card shipped 18:38 on 7/31 and the
+   ruling arrived after it. This is a heads-up, not a defect report, and the CITY
+   lane deliberately changed nothing in engine/bohemia_people.js.
+
+   (1) A ROUTINE IS INVISIBLE. > "it will all be invisible information."
+       CONFLICT, ONE ROW: cardFor() pushes { label: 'THEIR DAY', value:
+       dayLineOf(agent) } -> "OUT 07:15 · HOME 21:30". That is a printed
+       timetable and the ruling bans it. Yours to remove or to argue.
+       THE RIGHT NOW ROW IS FINE AND SHOULD STAY. The line is TENSE: present
+       tense is eyesight and is legal, future/habitual is a timetable and is not.
+       gates/invisible_schedule_gate.js holds this going forward and names THEIR
+       DAY as a DATED WAIVER - the suite stays green today, a SECOND violation
+       fails it, and the gate also fails if somebody fixes the row and leaves the
+       waiver behind.
+
+   (2) A NAME IS ASKED FOR, NEVER GIVEN, AND THIS IS NEW WORK THAT IS YOURS.
+       > "you will not know anyone's name and you'll have to ask everyone so
+       >  everyone will pretty much have generic faction or non-faction you know
+       >  identities and then you can personally ask them for their name and then
+       >  the game will track that so anytime you might see them in the future
+       >  like their name will pop up"
+       Everyone starts as a generic FACTION or NON-FACTION identity. Asking is a
+       thing the player DOES, one person at a time, in conversation. Once asked,
+       it is known forever and shows on sight.
+       YOU ARE ALREADY MOST OF THE WAY THERE: nameOf() returns null for everyone
+       and NAMED_CAST ships empty, so nothing displays a name today - the ruling
+       turns "no names exist yet" into "names are EARNED". The `met` ledger is
+       already the right shape for it (keyed per person, survives a save load,
+       derived not stored). It probably wants a second tracked fact beside `met`:
+       ASKED.
+       TWO EXCEPTIONS, both his: the opening dialogue, and a story/quest reason.
+       CONTENTS STILL HIS: the machine holds the asking, the tracking and the
+       popping-up. The actual names stay in NAMED_CAST and stay empty until he
+       writes them.
+   | filed by CITY 7/31 | law + gate landed same turn | PEOPLE lane's to build.
+
 0. [MOSTLY ALREADY BUILT — verified 7/31, do NOT rebuild it] THE DIALOGUE
    SYSTEM v1. REUSE-FIRST found it: engine/bohemia_quest_runtime.js plus the
    run's own TALK sheet already play .bq conversations end to end on the real

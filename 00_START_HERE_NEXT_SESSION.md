@@ -1,3 +1,50 @@
+CITY (03): 7/31 LATEST — HE RULED THE SCHEDULE INVISIBLE, AND RULED A NAME
+SOMETHING YOU HAVE TO ASK FOR. LAW + GATE LANDED THE SAME TURN.
+
+HIS ANSWER TO THE ONE QUESTION THIS LANE WAS HOLDING OPEN:
+  > "it will all be invisible information."
+THE GAME NEVER SHOWS A SCHEDULE. Not a card, not a menu, not a phone, not a hint.
+The system is FELT - busy at eleven, dead at two - and never READ. That closes
+the Majora's Mask question the individual-schedule research left open: observing
+a routine means WALKING it. The work is not wasted, it is diegetic.
+
+THE LINE IS TENSE, and this is the bit a future session will get wrong in one
+direction or the other:
+  PRESENT tense is EYESIGHT and is LEGAL.    "RIGHT NOW: SCAVENGING"
+  FUTURE/HABITUAL is a TIMETABLE and is BANNED. "THEIR DAY: OUT 07:15"
+The gate holds BOTH sides - it fails on a new timetable AND it fails if somebody
+over-corrects and deletes the eyesight row.
+
+AND A SECOND RULING NOBODY ASKED FOR: you do not know anyone's name. Everyone is
+a generic faction / non-faction identity until you ASK them, personally, in
+conversation. The game tracks it forever and their name pops up on sight from
+then on. Two exceptions, both his: the opening dialogue, and a story reason.
+THAT ONE IS THE PEOPLE LANE'S TO BUILD, filed for them in the backlog (P-A) and
+NOT touched from here. They are already most of the way: nameOf() returns null
+for everybody, NAMED_CAST is empty, and their `met` ledger is the right shape.
+
+ONE CONFLICT WITH WORK THAT SHIPPED AN HOUR BEFORE THE RULING, and nobody did
+anything wrong: engine/bohemia_people.js cardFor() prints a THEIR DAY row. The
+law bans it; the law did not exist when it shipped. It is a DATED WAIVER in
+gates/invisible_schedule_gate.js, so the suite is green today, a SECOND
+violation fails the build, and the waiver itself fails if the row gets fixed and
+the waiver is left behind.
+
+[PENDING Paolo] AN IDEA HE PARKED HIMSELF: an Amalgamation-friendly playthrough
+might unlock a quest that lets you SEE the invisible information. He said
+"maybe" four times and "that's just an idea for now". NOTHING IS BUILT - no
+flag, no hook, no placeholder "so it is ready". It is recorded because it is
+good: it turns invisibility from a limitation into a PRICE.
+
+LAW: laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md
+GATE: INVISIBLE SCHEDULE, 18 assertions, proved able to fail three ways (a new
+timetable label, a shipped name, a waiver gone stale). The first draft swept for
+the WORD "schedule" and flagged the bus terminal's dead SCHEDULE BOARD - a
+physical object with its hands stopped, which is set dressing and the opposite
+of a violation. The rule is a PERSON'S ROUTINE BEING DISPLAYED, not a noun.
+
+--- the turn before this one, still current ---
+
 LAB (e2r7sv): 7/31 (h) LATEST — CRISIS RESPONSE: VIOLENCE IS TRAUMATIC WHEN IT MAKES
 WORK AND COSTS YOU, NOT WHEN IT LOOKS WET.
 
