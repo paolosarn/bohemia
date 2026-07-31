@@ -1604,6 +1604,27 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AC. [DONE 7/31] PEOPLE FACE THE WAY THEY WALKED - AND THE FIRST VERSION OF THE
+   GATE COULD NOT FAIL, WHICH IS THE PART WORTH KEEPING.
+   Every person carries an idle facing from their hash. That is right for
+   somebody standing at home and WRONG the moment 0AB's address book started
+   moving them: a body that walked east to work and then stares north forever is
+   a cardboard cutout, which is the exact failure the individual-schedule work
+   existed to fix. Facing is now DERIVED - idle facing at home, direction of
+   travel anywhere else.
+   THE GATE MISTAKE, made and caught in the same turn: the first assertion
+   called pplFace() itself. I sabotaged the DRAW to use the stored facing and
+   the gate STILL PASSED 18/18, because it was testing the helper and not the
+   render. A gate that cannot fail is worse than no gate - it is a false green
+   somebody will trust later. Fixed by having peoplePass RECORD the per-body
+   facing it actually blitted (window.__PPL_FACES) and asserting against that.
+   Re-sabotaged: 2 assertions go red. NOW it is a gate.
+   THE STANDING LESSON, third time this session and the sharpest form of it:
+   VERIFY ON THE REAL SURFACE means assert on what was DRAWN, not on what a
+   helper would answer if asked. Reading the wrong variable, calling the helper
+   instead of the render, and measuring 'outdoors now' as 'lives here' are all
+   the same failure wearing different clothes.
+   | gate: CITY PEOPLE 14 -> 18 | 7/31 | YES.
 0AB. [DONE 7/31 — THE RESEARCH, EXECUTED] EVERY PERSON HAS THEIR OWN DAY.
    4 ARCHETYPES -> 296 DISTINCT DAY-SIGNATURES ACROSS 297 PEOPLE, measured.
    Straight off 0AA's finding: nobody authors 300 days, they author a GRAMMAR

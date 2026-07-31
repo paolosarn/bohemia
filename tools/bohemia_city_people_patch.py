@@ -273,6 +273,17 @@ function pplAt(p) {
   if (BohemiaPopulation.atFavourite(p, T.min | 0)) return p.favSpot || p.outSpot;
   return p.outSpot;
 }
+/* WHICH WAY THEY ARE FACING, and it has to be derived, not stored. Every person
+   carries a `face` from their hash, which is right for somebody standing at
+   home doing nothing - and wrong the moment the address book started moving
+   them. A body that walked east to work and then stares north forever reads as
+   a cardboard cutout, which is the exact failure the individual-schedule work
+   was for. So: standing at home, use their own idle facing; standing anywhere
+   else, face the way they came FROM home, because that is the way they walked. */
+function pplFace(p, at) {
+  if (at[0] === p.home[0] && at[1] === p.home[1]) return _DIRS8[p.face % 8];
+  return dirOf(at[0] - p.home[0], at[1] - p.home[1]);
+}
 
 function peoplePass(ox, oy, C) {
   if (!PLAYER_CV) return 0;                    /* no body yet: draw nobody, never a placeholder */
@@ -281,6 +292,11 @@ function peoplePass(ox, oy, C) {
   const nx0 = Math.floor((-ox / C) / span) - 1, nx1 = Math.floor(((cv.width - ox) / C) / span) + 1;
   const ny0 = Math.floor((-oy / C) / span) - 1, ny1 = Math.floor(((cv.height - oy) / C) / span) + 1;
   let drawn = 0, out = 0;
+  /* WHAT WAS ACTUALLY DRAWN, recorded for the gate. The first version of the
+     facing assertion called pplFace() itself and therefore passed even when the
+     render used a different value - a gate that cannot fail. This records the
+     real per-body facing the blit used, so the gate measures the SURFACE. */
+  const drewFaces = [];
   for (let ny = Math.max(0, ny0); ny <= ny1; ny++)
   for (let nx = Math.max(0, nx0); nx <= nx1; nx++) {
     const ppl = pplPeople(nx, ny);
@@ -291,7 +307,7 @@ function peoplePass(ox, oy, C) {
       if (fx === hx && fy === hy) continue;    /* OCCUPANCY LAW: one body per cell, player included */
       const sx = ox + fx * C, sy = oy + fy * C;
       if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
-      const dir = _DIRS8[p.face % 8];
+      const dir = pplFace(p, at);
       const set = PLAYER_CV[dir] || PLAYER_CV.S;
       const spr = set && set.idle; if (!spr) continue;
       /* the ZOOM LEVEL LAW, same ladder the player uses: never a fractional scale */
@@ -303,11 +319,13 @@ function peoplePass(ox, oy, C) {
       g.drawImage(pplTinted(dir, p.look, img),
                   Math.round(sx + C / 2 - lad / 2), Math.round(sy + C - lad), lad, lad);
       drawn++;
+      drewFaces.push({ id: p.id, dir: dir, home: (fx === p.home[0] && fy === p.home[1]) });
       if (fx !== p.home[0] || fy !== p.home[1]) out++;
     }
   }
   window.__PPL_DRAWN = drawn;
-  window.__PPL_OUT = out;                      /* how many are away from home right now */
+  window.__PPL_OUT = out;
+  window.__PPL_FACES = drewFaces;                      /* how many are away from home right now */
   return drawn;
 }
 """

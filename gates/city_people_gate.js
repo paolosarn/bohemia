@@ -113,6 +113,57 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
     ok(`stepping onto a resident's cell removes exactly that body (${clus.drawn} -> ${clus.after}, OCCUPANCY LAW)`, clus.onPlayer === 0);
   }
 
+  /* 7) FACING IS DERIVED FROM TRAVEL, not stored (7/31). Every person carries
+     an idle facing from their hash, which is right at home and WRONG the moment
+     the address book started moving them: a body that walked east to work and
+     then stares north forever is a cardboard cutout, which is the exact failure
+     the individual-schedule work existed to fix. */
+  const facing = await f.evaluate(() => {
+    let best = null;
+    for (let ty = 0; ty < 96 && !best; ty++) for (let tx = 0; tx < 96; tx++) {
+      const c = om.at(tx, ty);
+      if (!c || !BohemiaPopulation.RESIDENTIAL[c.district]) continue;
+      if (BohemiaPopulation.zoneAt(om, POWER, tx, ty, seed) === 'cluster') { best = [tx, ty]; break; }
+    }
+    if (!best) return { err: 'no cluster' };
+    const nx = best[0] >> 2, ny = best[1] >> 2;
+    MODE = 'human'; HC = 22;
+    const pp = pplPeople(nx, ny);
+    hx = pp[0].home[0] + 1; hy = pp[0].home[1] + 1; fit();
+    /* READ WHAT THE RENDER DREW, never what the helper would answer. The first
+       cut of this assertion called pplFace() itself and passed even when the
+       blit used a stored facing - it could not fail, which makes it worse than
+       no assertion at all. */
+    T.min = 3 * 60; render();
+    const nightF = (window.__PPL_FACES || []).slice();
+    T.min = 13 * 60; render();
+    const dayF = (window.__PPL_FACES || []).slice();
+    const night = nightF.map(x => x.dir);
+    const dayMap = {}; dayF.forEach(x => { dayMap[x.id] = x.dir; });
+    /* anybody standing away from home must face AWAY from home, i.e. the way
+       they walked - never their idle facing */
+    let wrong = 0, away = 0;
+    T.min = 9 * 60; render();
+    const byId = {}; pp.forEach(q => { byId[q.id] = q; });
+    for (const rec of (window.__PPL_FACES || [])) {
+      if (rec.home) continue;
+      const q = byId[rec.id]; if (!q) continue;
+      away++;
+      const at = pplAt(q);
+      if (rec.dir !== dirOf(at[0] - q.home[0], at[1] - q.home[1])) wrong++;
+    }
+    const changed = nightF.filter(x => dayMap[x.id] && dayMap[x.id] !== x.dir).length;
+    return { n: pp.length, nightFacings: new Set(night).size, changed, away, wrong };
+  });
+  ok('the facing probe found a cluster', !facing.err);
+  if (!facing.err) {
+    ok(`a block faces more than one way (${facing.nightFacings} distinct facings across ${facing.n} people)`,
+       facing.nightFacings >= 3);
+    ok(`somebody turns between night and midday (${facing.changed} changed)`, facing.changed > 0);
+    ok(`everybody away from home faces the way they walked (${facing.away} out, ${facing.wrong} wrong)`,
+       facing.wrong === 0);
+  }
+
   /* 3) a no man's land shows nobody */
   const empt = await f.evaluate(() => {
     let z = null;
