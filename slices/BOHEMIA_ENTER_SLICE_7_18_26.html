@@ -26,11 +26,22 @@
    ===================================================================== */
 (function(global){
 'use strict';
-// SLOT SCALE LAW (LOCKED 7/5/26, supersedes the 240 two-grid model):
-// 1 slot = 32x32 fine cells = 2x2 chunks (CHUNK=16) = 24m x 24m at 0.75m/cell
-// = ~6,200 sq ft explorable per slot. CDDA precedent: 24x24 per overmap tile,
-// big buildings assembled from multiple slots.
-const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
+// VALLEY SCALE LAW (LOCKED 7/6/26, laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md,
+// which REVOKES the 24m SLOT SCALE LAW of 7/5 that used to be quoted here):
+// 1 overmap cell = 128x128 fine cells = 96m x 96m at 0.75m/cell.
+// A cell is a NEIGHBOURHOOD, not a lot. The valley is 96 cells across = 5.73 miles.
+//
+// This constant read 32 until 7/30/26 even though the 7/6 law says 128 and that
+// law's own checklist marked the relock DONE. The districts were a quarter of
+// their legal size, in every direction, for three and a half weeks. Paolo
+// 7/30/26: "The districts should have always been full size bro."
+//
+// THE ROOT CAUSE WAS NOT THE NUMBER, IT WAS HAVING TWO OF THEM. bohemia_world.js
+// hardcoded its own `var T = 128` and never read this file, so the run was right
+// by a separate constant while the city was wrong by this one, and nothing
+// compared them. The world module now reads TILE_FINE from here (one source of
+// truth) and gates/valley_scale_gate.js fails if the two ever disagree again.
+const OVER_N=96, TILE_FINE=128, SLOT_FINE=128, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
 SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
@@ -1897,6 +1908,18 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var CTY= HASREQ ? require('./bohemia_cityhall.js')       : (typeof BohemiaCityhall!=='undefined'?BohemiaCityhall:root.BohemiaCityhall);
   var BAT= HASREQ ? require('./bohemia_battery.js')        : (typeof BohemiaBattery!=='undefined'?BohemiaBattery:root.BohemiaBattery);
   var TRM= HASREQ ? require('./bohemia_terminal.js')       : (typeof BohemiaTerminal!=='undefined'?BohemiaTerminal:root.BohemiaTerminal);
+  var AIR= HASREQ ? require('./bohemia_airfield.js')       : (typeof BohemiaAirfield!=='undefined'?BohemiaAirfield:root.BohemiaAirfield);
+  var ART= HASREQ ? require('./bohemia_arterial.js')       : (typeof BohemiaArterial!=='undefined'?BohemiaArterial:root.BohemiaArterial);
+  var FWY= HASREQ ? require('./bohemia_freeway.js')        : (typeof BohemiaFreeway!=='undefined'?BohemiaFreeway:root.BohemiaFreeway);
+  var DSR= HASREQ ? require('./bohemia_desert.js')         : (typeof BohemiaDesert!=='undefined'?BohemiaDesert:root.BohemiaDesert);
+  var MTN= HASREQ ? require('./bohemia_mountain.js')       : (typeof BohemiaMountain!=='undefined'?BohemiaMountain:root.BohemiaMountain);
+  var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
+  var CMP= HASREQ ? require('./bohemia_campus.js')          : (typeof BohemiaCampus!=='undefined'?BohemiaCampus:root.BohemiaCampus);
+  var SPW= HASREQ ? require('./bohemia_speedway.js')        : (typeof BohemiaSpeedway!=='undefined'?BohemiaSpeedway:root.BohemiaSpeedway);
+  var TWN= HASREQ ? require('./bohemia_town.js')            : (typeof BohemiaTown!=='undefined'?BohemiaTown:root.BohemiaTown);
+  var BLP= HASREQ ? require('./bohemia_ballpark.js')        : (typeof BohemiaBallpark!=='undefined'?BohemiaBallpark:root.BohemiaBallpark);
+  var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
+  var ICH= HASREQ ? require('./bohemia_interchange.js')    : (typeof BohemiaInterchange!=='undefined'?BohemiaInterchange:root.BohemiaInterchange);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
   // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
 
@@ -1941,8 +1964,151 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     mall:       { mod:MLL, foot:function(r){return r.footprints;},           zone:'retail' },
     cityhall:   { mod:CTY, foot:function(r){return r.footprints;},           zone:'civic' },
     battery:    { mod:BAT, foot:function(r){return r.footprints;},           zone:'warehouse' },
-    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' }
+    terminal:   { mod:TRM, foot:function(r){return r.footprints;},           zone:'institutional' },
+    // THE LANDMARK SET (7/27): the biggest two of the 88 buildable cells that were
+    // still flat. Both are real districts on the kit, street-aware and drivable.
+    campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'institutional' },
+    speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure' },
+    town:       { mod:TWN, foot:function(r){return r.footprints;},           zone:'residential' },
+    ballpark:   { mod:BLP, foot:function(r){return r.footprints;},           zone:'leisure' }
   };
+  /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
+     world"). A road cell is NOT a district: it never becomes faction territory, an
+     economy district, a spawn tier or a quest address, so it deliberately does NOT go
+     in DISTGEN (isAutoDistrict stays false for it and every consumer that counts
+     districts keeps counting exactly what it counted before). But it is REAL GROUND
+     a body stands on, and 37% of the valley is made of it, so it gets a generator and
+     plot() renders it like anything else.
+
+     A surface cell is a NETWORK TILE, not a street-fronting lot: it is handed the
+     directions whose neighbours are also road (`links`), never rotateToStreet. */
+  var SURFACEGEN = {
+    arterial: { mod:ART, zone:'default' },
+    freeway:  { mod:FWY, zone:'default' },
+    // TERRAIN (7/26): the raw land. Sampled from ONE valley-wide noise field in global
+    // coordinates (bohemia_terrain_noise.js), never from the cell seed, so ridges,
+    // rills and shorelines cross cell boundaries without a seam. Still surfaces, never
+    // districts: nobody bases a faction on a mountain.
+    desert:   { mod:DSR, zone:'default' },
+    mountain: { mod:MTN, zone:'default' },
+    water:    { mod:WAT, zone:'default' },
+    // THE AIRFIELDS (7/26): a blob, not a cell. Surfaces, not districts, for the same
+    // reason the roads are: nothing should be able to base a faction on a runway until
+    // Paolo rules that an airfield is claimable ground.
+    airport:  { mod:AIR, zone:'institutional' },
+    airbase:  { mod:AIR, zone:'institutional' },
+    /* THE RAILWAY AND THE STACK (7/27). The last two network surfaces in the valley: one
+       unbroken 90-cell mainline down column 54, and the 16-cell block where the two
+       interstates cross. The interchange is CLUSTER-BUILT for the same reason the
+       airfield is (a 300 m flyover cannot be drawn 96 m at a time); the railway is a
+       per-cell network tile like the arterial, but its continuity is computed with
+       continuityLinks so the line survives the freeways that bridge over it. */
+    rail:         { mod:RAI, zone:'default' },
+    interchange:  { mod:ICH, zone:'default' }
+  };
+  /* THE CLUSTER A CELL BELONGS TO. A runway is three kilometres long and a cell is
+     96 metres, so an airfield is not a cell, it is a BLOB of them, and no generator
+     can lay a runway without knowing where its own field starts and ends. This walks
+     the connected same-type cells once per blob, caches the result on the map, and
+     hands every cell of that blob the same bounds — which is what makes the runway
+     arrive in the next cell exactly where it left this one. */
+  function clusterBoundsOf(m,x,y,kind){
+    m.__clusters = m.__clusters || {};
+    var key0 = kind + ':' + x + ',' + y;
+    if (m.__clusters[key0]) return m.__clusters[key0];
+    var seen = {}, q = [[x,y]], head = 0, cells = [];
+    seen[x+','+y] = 1;
+    while (head < q.length && cells.length < 4096) {
+      var c = q[head++]; cells.push(c);
+      var D = [[1,0],[-1,0],[0,1],[0,-1]];
+      for (var i=0;i<4;i++){
+        var nx=c[0]+D[i][0], ny=c[1]+D[i][1], k=nx+','+ny;
+        if (seen[k]) continue;
+        var cell=m.at(nx,ny); if(!cell||cell.district!==kind) continue;
+        seen[k]=1; q.push([nx,ny]);
+      }
+    }
+    var xs=cells.map(function(c){return c[0];}), ys=cells.map(function(c){return c[1];});
+    var b = { x0:Math.min.apply(null,xs), x1:Math.max.apply(null,xs),
+              y0:Math.min.apply(null,ys), y1:Math.max.apply(null,ys), cells:cells.length };
+    cells.forEach(function(c){ m.__clusters[kind+':'+c[0]+','+c[1]] = b; });
+    return b;
+  }
+
+  /* WHICH APPROACHES A CLUSTER ACTUALLY HAS. An interchange has to put its ramps on the
+     real interstate, and the only place that truth lives is the map: which cells around
+     the block are freeway. This walks the block's perimeter once, caches it beside the
+     bounds, and hands back the COLUMNS a road arrives on from the north or south and the
+     ROWS it arrives on from the east or west. Without it the module would have to assume
+     the junction is symmetric, and an assumption is exactly what a generator should never
+     make about ground somebody else laid out. */
+  var HIWAYSET={freeway:1,beltway:1};
+  function clusterApproach(m,b,kind){
+    m.__approach = m.__approach || {};
+    var key0 = kind+':'+b.x0+','+b.y0+','+b.x1+','+b.y1;
+    if (m.__approach[key0]) return m.__approach[key0];
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var nsSet={}, ewSet={}, x, y;
+    /* FREEWAY ONLY, not ROADSET. The mile-grid arterials run right up against the
+       interchange block on every side, so asking "is this a road" answered YES for all
+       four columns and all four rows, the corridors swallowed the whole block, and eight
+       ramps rendered as nothing. An interchange is where two HIGHWAYS cross; a surface
+       street that happens to touch it is a neighbour, not an approach. */
+    for(x=b.x0;x<=b.x1;x++){ if(HIWAYSET[at(x,b.y0-1)]||HIWAYSET[at(x,b.y1+1)]) nsSet[x]=1; }
+    for(y=b.y0;y<=b.y1;y++){ if(HIWAYSET[at(b.x0-1,y)]||HIWAYSET[at(b.x1+1,y)]) ewSet[y]=1; }
+    var out={ ns:Object.keys(nsSet).map(Number).sort(function(a,c){return a-c;}),
+              ew:Object.keys(ewSet).map(Number).sort(function(a,c){return a-c;}) };
+    m.__approach[key0]=out; return out;
+  }
+
+  /* CONTINUITY, WHICH IS NOT THE SAME AS ADJACENCY. A rail cell whose neighbour is a
+     freeway has NOT hit the end of the line: the freeway bridges over and the mainline
+     runs on underneath. So a corridor's own continuation is its same-kind neighbours PLUS
+     any direction where another SURFACE is crossing it and the same kind resumes on the
+     far side, looked ahead as far as a crossing can plausibly be wide. Adjacency alone
+     would have severed the valley's one railway into three pieces at the freeways. */
+  function continuityLinks(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var D=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]], out=[];
+    for(var i=0;i<D.length;i++){
+      var d=at(x+D[i][1],y+D[i][2]);
+      if(d===kind){ out.push(D[i][0]); continue; }
+      if(!d || !SURFACEGEN[d]) continue;
+      for(var k=2;k<=4;k++){
+        var far=at(x+D[i][1]*k, y+D[i][2]*k);
+        if(far===kind){ out.push(D[i][0]); break; }
+        if(!far || !SURFACEGEN[far]) break;
+      }
+    }
+    return out;
+  }
+
+  // which edges face something OTHER than this same terrain (a mountain lays its
+  // alluvial fan onto the flat exactly there)
+  function openEdges(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var out=[];
+    if(at(x,y-1)!==kind)out.push('N'); if(at(x,y+1)!==kind)out.push('S');
+    if(at(x+1,y)!==kind)out.push('E'); if(at(x-1,y)!==kind)out.push('W');
+    return out;
+  }
+  /* Which neighbours are road, split by CLASS. A freeway continues only into another
+     freeway (it has no at-grade crossings at all); a mile-grid arterial that runs up
+     against it is not a connection, it is what crosses OVER it on a deck. Getting that
+     split right is the whole difference between a corridor and a plus sign. */
+  function roadLinks(m,x,y,kind){
+    var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
+    var D=[['N',0,-1],['S',0,1],['E',1,0],['W',-1,0]];
+    var same=[], other=[], all=[];
+    for(var i=0;i<D.length;i++){
+      var d=at(x+D[i][1],y+D[i][2]);
+      if(!ROADSET[d]) continue;
+      all.push(D[i][0]);
+      if(kind && d===kind) same.push(D[i][0]); else other.push(D[i][0]);
+    }
+    return { all:all, same:same, cross:other };
+  }
+
   function neighborStreets(m,x,y){ var at=function(xx,yy){var c=m.at(xx,yy);return c?c.district:null;};
     return KIT.streetEdges({N:at(x,y-1),S:at(x,y+1),W:at(x-1,y),E:at(x+1,y)}); }
 
@@ -2130,9 +2296,36 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         cosmetic[k2].forEach(function(e){set[e]=1;}); out[k2]=Object.keys(set); }
       return out;
     })();
-    var plotCache = {};
+    /* THE PLOT CACHE IS BOUNDED (7/26/26, WORLD lane). It was a plain object that
+       only ever grew: every cell you touched stayed generated forever. Measured, one
+       plot costs ~190 KB, so walking the valley climbed toward ~1.8 GB and the phone
+       died long before the far side. The mobile render contract has a memory clause
+       and this was the thing that would break it.
+
+       So: a bounded LRU. The cells around you stay hot, the ones behind you are let
+       go, and a released cell costs nothing to get back because the world is
+       DETERMINISTIC — regenerating it yields the identical grid, which the gate
+       proves by evicting and comparing. Cap is in CELLS (a plot is ~190 KB, so 64
+       cells is ~12 MB, comfortably inside a phone's budget with the render on top). */
+    var PLOT_CAP = 64;
+    var plotCache = {}, plotOrder = [], plotHits = 0, plotMisses = 0, plotEvictions = 0;
+    function cacheTouch(key){
+      var i = plotOrder.indexOf(key);
+      if (i >= 0) plotOrder.splice(i, 1);
+      plotOrder.push(key);
+    }
+    function cachePut(key, val){
+      plotCache[key] = val; cacheTouch(key);
+      while (plotOrder.length > PLOT_CAP) {
+        var old = plotOrder.shift();
+        if (old !== key) { delete plotCache[old]; plotEvictions++; }
+      }
+      return val;
+    }
     function plot(x,y){
-      var key=x+','+y; if(plotCache[key])return plotCache[key];
+      var key=x+','+y;
+      if(plotCache[key]){ plotHits++; cacheTouch(key); return plotCache[key]; }
+      plotMisses++;
       var cell=m.at(x,y);
       if(!cell) return null;
       // FACTORY-GENERATED DISTRICT: a real generated block (suburb / commercial /
@@ -2180,7 +2373,45 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
               return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
-        plotCache[key]=dapi; return dapi;
+        return cachePut(key, dapi);
+      }
+      // SURFACE CELL (road): a real generated corridor, built from the network links
+      // (which neighbours are also road), never street-fronted. Same read API as a
+      // district plot minus buildings, so renderers/collision treat it uniformly.
+      var sg=SURFACEGEN[cell.district];
+      if(sg && sg.mod){
+        var rl=roadLinks(m,x,y,cell.district);
+        var links=rl.all;
+        /* A CORRIDOR THAT IS NOT A ROAD gets its continuation from continuityLinks, not
+           from ROADSET: the railway's own neighbours are rail cells, and its `cross` is
+           the street grid that meets it at grade. Getting this from roadLinks would have
+           told the railway that a freeway was its own continuation. */
+        var own=ROADSET[cell.district] ? rl.same : continuityLinks(m,x,y,cell.district);
+        var bnds=clusterBoundsOf(m,x,y,cell.district);
+        var sres=sg.mod.generate(cell.seed>>>0,
+          { links:links.length?links:['N','S'], same:own.length?own:rl.same, cross:rl.cross,
+            cellX:x, cellY:y, open:openEdges(m,x,y,cell.district),
+            kind:cell.district, bounds:bnds, approach:clusterApproach(m,bnds,cell.district),
+            // which sides a RAILWAY runs up to: what a freeway has to bridge over
+            rail:['N','S','E','W'].filter(function(d,i){
+              var D=[[0,-1],[0,1],[1,0],[-1,0]][i], c2=m.at(x+D[0],y+D[1]);
+              return !!(c2 && c2.district==='rail'); }),
+            // the edges that face something that is NOT road: that is where the
+            // districts are, and therefore where the street has to let them in
+            access:['N','S','E','W'].filter(function(d){ return rl.all.indexOf(d)<0; }) });
+        var slegend=sg.mod.legend||{};
+        var stinfo=function(xx,yy){ var row=sres.g[yy]; var c=(row&&xx>=0&&xx<sres.W)?row[xx]:-1;
+          var L=slegend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          return { code:c, name:L?L.name:(c===0?'dirt shoulder':(c<0?'(off-plot)':'?')),
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; };
+        var sapi={ x:x, y:y, district:cell.district, category:KIT.category(cell.district),
+          archetype:sg.zone, surface:true, links:links, sameLinks:own, crossLinks:rl.cross,
+          block:{W:sres.W,H:sres.H,grid:sres.g,codes:true}, legend:slegend,
+          tileInfo:stinfo,
+          solidAt:function(xx,yy){ return stinfo(xx,yy).solid; },
+          portals:function(){ return []; },        // a street cell has no interior
+          buildings:[], building:function(){ return null; } };
+        return cachePut(key, sapi);
       }
       var recipe=BR.recipeFor(cell);
       var arch=recipe && recipe.opts && recipe.opts.archetype ? recipe.opts.archetype : null;
@@ -2214,12 +2445,163 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         }),
         building: function(i){ return this.buildings[i]; }
       };
-      plotCache[key]=api; return api;
+      return cachePut(key, api);
     }
+    /* ------------------------------------------------------------------------
+       THE VALLEY TILE (7/26/26, WORLD lane — engine support the RUN lane asked
+       for: "the run's block becomes a real cell of the generated valley so
+       walking off it lands in a real neighbouring district").
+
+       This is the rung this file's own header promised and never had. You could
+       address a CELL and you could address a PLOT, but there was no way to say
+       "the tile at valley position X,Y" — so nothing could walk from one cell to
+       the next. Every surface that wanted to move a body did it inside one plot
+       and stopped at the edge.
+
+       Coordinates are GLOBAL TILE coordinates over the whole valley: 0..n*128.
+       LAZY: touching a tile generates that one cell's plot and nothing else, so
+       crossing a boundary costs one cell, never the valley.
+       ---------------------------------------------------------------------- */
+    /* ONE SOURCE OF TRUTH FOR THE SCALE (7/30/26). This was `var T = 128`, a
+       second hardcoded copy of a number that also lives in bohemia_overmap.js.
+       The two disagreed for three and a half weeks (128 here, 32 there) and
+       nothing in the repo compared them, so the run walked 96m neighbourhoods
+       while the city drew 24m lots off the same seed. Read it from the overmap
+       or there is no fact of the matter about how big a district is.
+       Gate: gates/valley_scale_gate.js. */
+    var T = OM.TILE_FINE;
+    function tile(gx,gy){
+      gx=Math.floor(gx); gy=Math.floor(gy);
+      if(gx<0||gy<0||gx>=m.n*T||gy>=m.n*T) return null;          // off the valley
+      var cxi=Math.floor(gx/T), cyi=Math.floor(gy/T), tx=gx-cxi*T, ty=gy-cyi*T;
+      var cell=m.at(cxi,cyi); if(!cell) return null;
+      var p=null; try{ p=plot(cxi,cyi); }catch(e){ p=null; }
+      var info=(p&&p.tileInfo)?p.tileInfo(tx,ty):null;
+      return { gx:gx, gy:gy, cellX:cxi, cellY:cyi, tx:tx, ty:ty,
+               district:cell.district, surface:!!(p&&p.surface),
+               code:info?info.code:null,
+               // a bespoke landmark cell has no generator yet: say so honestly
+               // rather than inventing a material for it
+               name:info?info.name:'(reserved landmark ground)',
+               layer:info?info.layer:'ground',
+               solid:info?!!info.solid:false,
+               enter:info?info.enter:null };
+    }
+    function solidAt(gx,gy){ var t=tile(gx,gy); return t?t.solid:true; }   // off-map blocks
+
+    /* ONE STEP, and the whole point of it: it reports when the step CROSSED into a
+       different cell, and into what. That is the plot-to-plot transition. */
+    function step(gx,gy,dx,dy){
+      var nx=Math.floor(gx)+(dx|0), ny=Math.floor(gy)+(dy|0);
+      var from=tile(gx,gy), to=tile(nx,ny);
+      if(!to) return { ok:false, reason:'offmap', gx:gx, gy:gy, crossed:null };
+      if(to.solid) return { ok:false, reason:'blocked', gx:gx, gy:gy, to:to, crossed:null };
+      var crossed=(from && (from.cellX!==to.cellX||from.cellY!==to.cellY))
+        ? { fromCell:[from.cellX,from.cellY], toCell:[to.cellX,to.cellY],
+            fromDistrict:from.district, toDistrict:to.district } : null;
+      return { ok:true, gx:nx, gy:ny, to:to, crossed:crossed };
+    }
+
+    /* Walk a straight line as far as it goes, reporting every crossing on the way.
+       Bounded; content-agnostic; authors nothing. */
+    function walk(gx,gy,dx,dy,maxSteps){
+      var out={ steps:0, crossings:[], gx:Math.floor(gx), gy:Math.floor(gy), stopped:null };
+      var lim=maxSteps||512;
+      for(var i=0;i<lim;i++){
+        var r=step(out.gx,out.gy,dx,dy);
+        if(!r.ok){ out.stopped=r.reason; break; }
+        out.gx=r.gx; out.gy=r.gy; out.steps++;
+        if(r.crossed) out.crossings.push({ at:[r.gx,r.gy], crossed:r.crossed });
+      }
+      return out;
+    }
+
+    /* ROUTE. A straight line is not a crossing test: a suburb has houses in it, and
+       the first wall stops you. This is the real question the RUN lane is asking —
+       can a BODY get from here to there on foot, across cell boundaries, using only
+       ground the world model actually generated. Bounded breadth-first over non-solid
+       tiles; it authors nothing and decides nothing, it reports whether the ground
+       connects. Lazy per cell like everything else, and hard-capped so a bad ask can
+       never walk the whole valley. */
+    function route(gx0,gy0,gx1,gy1,opts){
+      opts=opts||{};
+      var cap=opts.maxNodes||60000;
+      var s0=tile(gx0,gy0), s1=tile(gx1,gy1);
+      if(!s0||!s1||s0.solid||s1.solid) return null;
+      var key=function(x,y){ return x+','+y; };
+      var start=key(gx0,gy0), goal=key(gx1,gy1);
+      var prev={}, seen={}; seen[start]=1;
+      var q=[[gx0,gy0]], head=0, D=[[1,0],[-1,0],[0,1],[0,-1]];
+      while(head<q.length && head<cap){
+        var cur=q[head++], cxp=cur[0], cyp=cur[1];
+        if(cxp===gx1&&cyp===gy1) break;
+        for(var i=0;i<4;i++){
+          var nx=cxp+D[i][0], ny=cyp+D[i][1], nk=key(nx,ny);
+          if(seen[nk]) continue;
+          var t=tile(nx,ny); if(!t||t.solid) continue;
+          seen[nk]=1; prev[nk]=key(cxp,cyp); q.push([nx,ny]);
+        }
+      }
+      if(!seen[goal]) return null;
+      var path=[], k=goal;
+      while(k && k!==start){ var p2=k.split(','); path.push([+p2[0],+p2[1]]); k=prev[k]; }
+      path.push([gx0,gy0]); path.reverse();
+      var cells={}, order=[];
+      path.forEach(function(pt){
+        var ck=Math.floor(pt[0]/T)+','+Math.floor(pt[1]/T);
+        if(!cells[ck]){ cells[ck]=1; order.push(ck); }
+      });
+      return { path:path, length:path.length, cells:order, explored:head };
+    }
+
+    /* ------------------------------------------------------------------------
+       STREAMING. A body walking the valley must never wait for the ground it is
+       about to stand on. stream() warms the ring of cells around a position and
+       releases everything outside it, so the cell you are walking INTO was built
+       while you were still in the last one, and the cells behind you stop costing
+       memory. Cheap to call every step: it returns immediately when the hot set
+       has not changed.
+
+       The whole thing only works because the world is deterministic — a released
+       cell regenerates identical, which the gate proves by evicting and comparing
+       byte for byte. Nothing is ever "saved" here; the seed is the save.
+       ---------------------------------------------------------------------- */
+    var streamAt = null;
+    function stream(gx, gy, o){
+      o = o || {};
+      var radius = o.radius == null ? 1 : o.radius;
+      var cxi = Math.floor(gx / T), cyi = Math.floor(gy / T);
+      var key = cxi + ',' + cyi + ':' + radius;
+      if (streamAt === key && !o.force) return { warmed:0, held:plotOrder.length, moved:false };
+      streamAt = key;
+      var warmed = 0;
+      // nearest first, so if anything ever budgets this it warms what matters most
+      var ring = [];
+      for (var dy = -radius; dy <= radius; dy++) for (var dx = -radius; dx <= radius; dx++) {
+        ring.push([dx, dy, Math.abs(dx) + Math.abs(dy)]);
+      }
+      ring.sort(function (a, b) { return a[2] - b[2]; });
+      ring.forEach(function (d) {
+        var x = cxi + d[0], y = cyi + d[1];
+        if (x < 0 || y < 0 || x >= m.n || y >= m.n) return;
+        if (plotCache[x + ',' + y]) { cacheTouch(x + ',' + y); return; }
+        try { plot(x, y); warmed++; } catch (e) { /* a cell that refuses to build is not a crash */ }
+      });
+      return { warmed: warmed, held: plotOrder.length, moved: true, at: [cxi, cyi] };
+    }
+    function cacheStats(){
+      return { held: plotOrder.length, cap: PLOT_CAP, hits: plotHits,
+               misses: plotMisses, evictions: plotEvictions };
+    }
+    function setCacheCap(n){ PLOT_CAP = Math.max(9, n | 0); return PLOT_CAP; }
+
     return {
       seed:seed, n:m.n, overmap:m,
+      tiles:m.n*T, TILE_PER_CELL:T,
+      route:route, stream:stream, cacheStats:cacheStats, setCacheCap:setCacheCap,
       at:function(x,y){return m.at(x,y);},
       plot:plot,
+      tile:tile, solidAt:solidAt, step:step, walk:walk,
       DISTRICT: OM.DISTRICT,
       landlockConnect: landlockConnect,          // LANDLOCKED DISTRICT LAW audit surface
       rawStreetEdges: function(x,y){ return rawStreetEdges(m,x,y); },
@@ -2227,6 +2609,26 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
       // LOCATION QUERY: every real auto-factory district, findable by type/category/
       // custom predicate, cheap (never generates plot content to answer). The three
       // named helpers cover the common asks; findDistricts is the escape hatch.
+      // SURFACE CELLS: real ground that is not a district (roads). Reported separately
+      // so nothing that counts districts ever accidentally counts a street.
+      isSurface: function(x,y){ var c=m.at(x,y); return !!(c && SURFACEGEN[c.district]); },
+      /* SURFACE LOCATION QUERY. districtsOfType only ever sees DISTGEN districts, so
+         once terrain became real ground the map had no way to answer "where are the
+         mountains" or "where is the lake" — the biggest things in the valley were the
+         only things you could not look up. Cheap (w.at only, never w.plot). */
+      surfaceCellsOfType: function(type){
+        var out=[]; for(var yy=0;yy<m.n;yy++)for(var xx=0;xx<m.n;xx++){
+          var c=m.at(xx,yy); if(c && c.district===type && SURFACEGEN[type]) out.push({x:xx,y:yy,district:type}); }
+        return out; },
+      nearestSurfaceOfType: function(x0,y0,type){
+        if(!SURFACEGEN[type]) return null;
+        var best=null,bd=Infinity;
+        for(var yy=0;yy<m.n;yy++)for(var xx=0;xx<m.n;xx++){
+          var c=m.at(xx,yy); if(!c||c.district!==type)continue;
+          var dx=xx-x0,dy=yy-y0,d=dx*dx+dy*dy;
+          if(d<bd){bd=d;best={x:xx,y:yy,district:type,dist:Math.sqrt(d)};} }
+        return best; },
+      roadLinks: function(x,y){ var c=m.at(x,y); return roadLinks(m,x,y,c?c.district:null); },
       districtsOfType: function(type){ return findDistricts(m, function(c){ return c.district===type; }); },
       districtsInCategory: function(category){ return findDistricts(m, function(c){ return KIT.category(c.district)===category; }); },
       nearestDistrictOfType: function(x,y,type){ return nearestDistrict(m, x, y, function(c){ return c.district===type; }); },
@@ -2245,7 +2647,9 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   // instead of sampling whatever a coordinate scan happens to land on.
   function districtTypes(){ return Object.keys(DISTGEN); }
 
-  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone, districtTypes:districtTypes};
+  function isSurfaceCell(type){ return !!SURFACEGEN[type]; }
+  var API = {world:world, isAutoDistrict:isAutoDistrict, districtZone:districtZone,
+             districtTypes:districtTypes, isSurfaceCell:isSurfaceCell};
   if(HASREQ) module.exports = API;
   root.BohemiaWorld = API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

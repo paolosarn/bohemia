@@ -610,7 +610,14 @@
        LAZY: touching a tile generates that one cell's plot and nothing else, so
        crossing a boundary costs one cell, never the valley.
        ---------------------------------------------------------------------- */
-    var T = 128;
+    /* ONE SOURCE OF TRUTH FOR THE SCALE (7/30/26). This was `var T = 128`, a
+       second hardcoded copy of a number that also lives in bohemia_overmap.js.
+       The two disagreed for three and a half weeks (128 here, 32 there) and
+       nothing in the repo compared them, so the run walked 96m neighbourhoods
+       while the city drew 24m lots off the same seed. Read it from the overmap
+       or there is no fact of the matter about how big a district is.
+       Gate: gates/valley_scale_gate.js. */
+    var T = OM.TILE_FINE;
     function tile(gx,gy){
       gx=Math.floor(gx); gy=Math.floor(gy);
       if(gx<0||gy<0||gx>=m.n*T||gy>=m.n*T) return null;          // off the valley

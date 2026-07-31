@@ -40,6 +40,8 @@ GATES = [
      'yellow=direction, white=lane', False),
     ('STREET CONNECT', ['node', 'gates/street_connectivity_gate.js'],
      'no street dead-ends into empty lots', False),
+    ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
+     'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
     ('DISTRICT REG',   ['node', 'gates/district_registry_gate.js'],
      'every district type is catalogued', False),
     ('FLOORPLAN',      ['node', 'gates/floorplan_gate.js'],

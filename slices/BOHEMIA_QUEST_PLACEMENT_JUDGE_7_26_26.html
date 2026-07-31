@@ -51,13 +51,13 @@
 <!-- engine-md5:engine/bohemia_desert.js:15b4c3fca9ebcbfc40dc5e93503a5bcf -->
 <!-- engine-md5:engine/bohemia_mountain.js:56a331b1f6f0947c87301df2f8fdffa8 -->
 <!-- engine-md5:engine/bohemia_water.js:58ae095c13335690af8d5dd5e9e3b3bf -->
-<!-- engine-md5:engine/bohemia_overmap.js:9e5e6612cfa5f55bc352918e66491342 -->
+<!-- engine-md5:engine/bohemia_overmap.js:92225d2e508114dff78dd74b79e429d9 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:ca045f639821a074c255ebef6d728088 -->
 <!-- engine-md5:engine/bohemia_garage.js:0264d8f962d9e5b62cb5330a353825a2 -->
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
-<!-- engine-md5:engine/bohemia_world.js:0042ffc3f4ab441342673a94aeaf800d -->
+<!-- engine-md5:engine/bohemia_world.js:a864e76b8270820876689b4b9cddbc1b -->
 <style>
   html,body{margin:0;background:#0d0f0a;color:#ddd;font-family:-apple-system,sans-serif}
   #bar{position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;
@@ -8213,11 +8213,22 @@
    ===================================================================== */
 (function(global){
 'use strict';
-// SLOT SCALE LAW (LOCKED 7/5/26, supersedes the 240 two-grid model):
-// 1 slot = 32x32 fine cells = 2x2 chunks (CHUNK=16) = 24m x 24m at 0.75m/cell
-// = ~6,200 sq ft explorable per slot. CDDA precedent: 24x24 per overmap tile,
-// big buildings assembled from multiple slots.
-const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
+// VALLEY SCALE LAW (LOCKED 7/6/26, laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md,
+// which REVOKES the 24m SLOT SCALE LAW of 7/5 that used to be quoted here):
+// 1 overmap cell = 128x128 fine cells = 96m x 96m at 0.75m/cell.
+// A cell is a NEIGHBOURHOOD, not a lot. The valley is 96 cells across = 5.73 miles.
+//
+// This constant read 32 until 7/30/26 even though the 7/6 law says 128 and that
+// law's own checklist marked the relock DONE. The districts were a quarter of
+// their legal size, in every direction, for three and a half weeks. Paolo
+// 7/30/26: "The districts should have always been full size bro."
+//
+// THE ROOT CAUSE WAS NOT THE NUMBER, IT WAS HAVING TWO OF THEM. bohemia_world.js
+// hardcoded its own `var T = 128` and never read this file, so the run was right
+// by a separate constant while the city was wrong by this one, and nothing
+// compared them. The world module now reads TILE_FINE from here (one source of
+// truth) and gates/valley_scale_gate.js fails if the two ever disagree again.
+const OVER_N=96, TILE_FINE=128, SLOT_FINE=128, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
 SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
@@ -10750,7 +10761,14 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        LAZY: touching a tile generates that one cell's plot and nothing else, so
        crossing a boundary costs one cell, never the valley.
        ---------------------------------------------------------------------- */
-    var T = 128;
+    /* ONE SOURCE OF TRUTH FOR THE SCALE (7/30/26). This was `var T = 128`, a
+       second hardcoded copy of a number that also lives in bohemia_overmap.js.
+       The two disagreed for three and a half weeks (128 here, 32 there) and
+       nothing in the repo compared them, so the run walked 96m neighbourhoods
+       while the city drew 24m lots off the same seed. Read it from the overmap
+       or there is no fact of the matter about how big a district is.
+       Gate: gates/valley_scale_gate.js. */
+    var T = OM.TILE_FINE;
     function tile(gx,gy){
       gx=Math.floor(gx); gy=Math.floor(gy);
       if(gx<0||gy<0||gx>=m.n*T||gy>=m.n*T) return null;          // off the valley

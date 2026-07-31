@@ -13,11 +13,22 @@
    ===================================================================== */
 (function(global){
 'use strict';
-// SLOT SCALE LAW (LOCKED 7/5/26, supersedes the 240 two-grid model):
-// 1 slot = 32x32 fine cells = 2x2 chunks (CHUNK=16) = 24m x 24m at 0.75m/cell
-// = ~6,200 sq ft explorable per slot. CDDA precedent: 24x24 per overmap tile,
-// big buildings assembled from multiple slots.
-const OVER_N=96, TILE_FINE=32, SLOT_FINE=32, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
+// VALLEY SCALE LAW (LOCKED 7/6/26, laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md,
+// which REVOKES the 24m SLOT SCALE LAW of 7/5 that used to be quoted here):
+// 1 overmap cell = 128x128 fine cells = 96m x 96m at 0.75m/cell.
+// A cell is a NEIGHBOURHOOD, not a lot. The valley is 96 cells across = 5.73 miles.
+//
+// This constant read 32 until 7/30/26 even though the 7/6 law says 128 and that
+// law's own checklist marked the relock DONE. The districts were a quarter of
+// their legal size, in every direction, for three and a half weeks. Paolo
+// 7/30/26: "The districts should have always been full size bro."
+//
+// THE ROOT CAUSE WAS NOT THE NUMBER, IT WAS HAVING TWO OF THEM. bohemia_world.js
+// hardcoded its own `var T = 128` and never read this file, so the run was right
+// by a separate constant while the city was wrong by this one, and nothing
+// compared them. The world module now reads TILE_FINE from here (one source of
+// truth) and gates/valley_scale_gate.js fails if the two ever disagree again.
+const OVER_N=96, TILE_FINE=128, SLOT_FINE=128, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
 SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
