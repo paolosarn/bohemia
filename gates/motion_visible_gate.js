@@ -46,7 +46,6 @@ const FLOOR = {
   headbang: 2400,     // measured 3558  (was 2853)
   nod: 1100,          // measured 1388  (was 1036)
   cheer: 3200,        // measured 4631  (was 2979)
-  cough: 3000,        // measured 4301  (was 2251)
   taunt: 2400,        // measured 2898  (was 2482)
 };
 
@@ -103,35 +102,17 @@ const FLOOR = {
     ok(`${c} is never a statue (>0 changed pixels)`, res[c] > 0);
   }
 
-  /* THE COUGH HAND (7/30). Paolo circled NE/E/SW: "the hand layer is fucked up".
-     The hand stopped at y18-20 while the face ends at y16, so it sat on the chest
-     as a bare-skin patch with its forearm hidden inside the torso -- a detached
-     blob. Fixed in the POSE (cough IK lift 4 -> 8), NOT with a per-pose layer
-     rule: Paolo retired dynamic hand depth TWICE (7/2, 7/26, "AUTHORED LAYERING
-     IS THE LAW") because it flipped whole arms between frames. A third attempt
-     would be the same mistake a third time.
-     Measured over all 8 facings: 45 bare-skin px on the chest band -> 12.
-     idle and walk measure 0, which is what makes 45 a defect and not a baseline. */
-  const chest = await pg.evaluate(() => {
-    const sk = {};
-    try { const q = skinRampFor(); for (let i = 1; i < q.length; i++) if (q[i]) sk[q[i].join(',')] = 1; } catch (e) {}
-    const band = (clip) => {
-      let n = 0;
-      for (const d of ['S','SE','E','NE','N','NW','W','SW']) {
-        const f = buildFrame(d, clip, 0.02);
-        for (let y = 17; y <= 26; y++) for (let x = 0; x < f.CW; x++) {
-          const c = f.px[y * f.CW + x];
-          if (c && sk[c.join(',')]) n++;
-        }
-      }
-      return n;
-    };
-    return { cough: band('cough'), idle: band('idle'), walk: band('walk') };
-  });
-  ok(`the cough hand reaches the mouth, not the chest (${chest.cough} bare-skin px, ceiling 20, was 45)`,
-    chest.cough <= 20);
-  ok(`idle keeps a clothed chest (${chest.idle} px)`, chest.idle <= 2);
-  ok(`walk keeps a clothed chest (${chest.walk} px)`, chest.walk <= 2);
+  /* THE COUGH ASSERTIONS ARE GONE, AND THAT IS THE POINT (7/31).
+     They asserted MY fix: cough moving >= 3000 px and <= 20 bare-skin px on the
+     chest. Paolo then ruled -- "damn i think you made cough worse i think we
+     gotta redo it from the ground up" -- and cough was reverted to its
+     pre-session coefficients. The gate promptly went red, which was it working:
+     it was holding the tree to a fix its author had rejected.
+     A GATE MUST NEVER OUTRANK A RULING. When he kills a change, the gate that
+     locked it dies with it in the same turn, or the machine starts arguing with
+     him. Cough, whistle and search are now DELIBERATELY UNGATED for motion --
+     he has called all three bad and they are waiting on his direction, not mine.
+     The 8 clips he has NOT ruled on keep their floors below. */
   await b.close();
   console.log(`\n=== MOTION VISIBLE GATE: ${p} passed, ${f} failed ===`);
   process.exit(f ? 1 : 0);

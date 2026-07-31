@@ -51,9 +51,13 @@ RIG CHECK (RIG IS LAW, Paolo 7/26/26): adds no joints, no anatomy, no layering
 scheme. Garments composite through the SAME gen(grid,cw,ch) contract the CLOTHES
 tab preview already used, reading the rig's own part grid; the cough revert
 restores existing coefficients. Nothing here authors a body.
-  built on: BAKED, RIG, POSE, buildFrame
+  built on: POSE, CLO_PREVIEW
   joints: none named
-  parts: read only, via the part grid handed to gen()
+  parts: none
+  (The first version of this block claimed BAKED, RIG and buildFrame. rig_check_gate
+   caught it: none of those words appear in this file. That is the gate doing
+   exactly its job -- a citation is a claim the machine can check, never a
+   name-drop -- and the claim was mine, so the claim got corrected.)
 
 REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks ZERO new graphic pixels and opens NO
 banks. Every garment drawn here already exists in GARMENTS (221 pieces, 12
