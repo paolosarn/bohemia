@@ -1604,6 +1604,41 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AD. [DONE 7/31, HIS CORRECTION, AND HE WAS RIGHT] HEAT IS THE DAILY CONDITION.
+   RAIN WAS A ROUNDING ERROR.
+   > "WHOOPTY FUCKING DOO ITS NOT GONNA RAIN SO SO MUCH SO AWESOME"
+   He read 0AB and immediately spotted what I had not: I hung individuality on
+   RAIN, and by HIS OWN 7/28 weather ruling Vegas rain is ~once a month. A
+   wet-weather habit changes behaviour on ~3% of days. That is not a difference
+   between two people, it is a rounding error dressed as a feature.
+   THE CONDITION THAT FIRES EVERY SINGLE DAY IN THE MOJAVE IS HEAT - and our own
+   canon already said so twice. The food-ceiling research: "SEASONS INVERT:
+   winter is the growing season, summer is survival under shade cloth."
+   bohemia_agents.js's scav schedule ALREADY shelters at midday and calls it,
+   in its own comment, "Mojave midday shelter". The canon named the daily driver
+   and I built the rare one instead.
+   NOW, MEASURED, ON A NORMAL CLEAR DAY:
+     08:00  297 of 297 willing to be outdoors
+     11:00  231        13:00  72        14:00  153       16:00  297
+   The street EMPTIES at midday and refills by late afternoon, every day, with
+   no weather event required. heatTol is 0-3 and spread across all four levels:
+   72 people work straight through the worst of it, 66 will not be outdoors at
+   noon for anything.
+   AND A CLOUDY DAY IS NOW VISIBLY DIFFERENT WITHOUT RAIN: 153 out at 13:00 vs
+   72 on a clear one, because cloud takes one step off everybody's heat bite.
+   That is what the weather ruling was actually for.
+   RAIN IS KEPT AND DEMOTED to what it is: flavour on a rare day, not the
+   mechanism. nightOut added as the other daily one.
+   THE GATE NOW ASSERTS THE CONDITION FIRES, not that the field exists - the
+   street must empty at midday, refill by evening, never empty completely, and a
+   cloudy day must differ from a clear one. Proved able to fail: flattening
+   heatTol to 0 takes four assertions red.
+   AND A SECOND GATE NEEDED FIXING, not the code: city_people's "somebody turns
+   between night and midday" compared 03:00 (asleep) against 13:00 - which is
+   now when everyone SHELTERS, so both samples are people at home facing their
+   idle direction. It went red on a system working perfectly. Compares against
+   09:00 now.
+   | gates: ZONE MAP 69 -> 74, CITY PEOPLE 18 | 7/31 | YES.
 0AC. [DONE 7/31] PEOPLE FACE THE WAY THEY WALKED - AND THE FIRST VERSION OF THE
    GATE COULD NOT FAIL, WHICH IS THE PART WORTH KEEPING.
    Every person carries an idle facing from their hash. That is right for

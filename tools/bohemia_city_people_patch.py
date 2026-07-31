@@ -255,12 +255,17 @@ function pplPeople(nx, ny) {
    whether this block is on a live circuit. Passed to the module rather than
    guessed there. */
 function pplCtx(p) {
-  let wet = false;
-  try { wet = (typeof WEATHER !== 'undefined' && WEATHER && /rain|wet/i.test(WEATHER.state || WEATHER || '')); } catch (e) {}
+  let wet = false, cloudy = false;
+  try { const w = (typeof WEATHER !== 'undefined' && WEATHER) ? (WEATHER.state || WEATHER || '') : '';
+        wet = /rain|wet/i.test(w); cloudy = /cloud|overcast/i.test(w); } catch (e) {}
   const tX = p.home[0] >> 5, tY = p.home[1] >> 5;
   let powered = false;
   try { powered = !!(POWER.at(tX, tY) || {}).live; } catch (e) {}
-  return { wet: wet, dark: isNight(), powered: powered };
+  /* THE CLOCK IS THE POINT (7/31). Paolo: "ITS NOT GONNA RAIN SO SO MUCH SO
+     AWESOME" - and he was right, rain falls on ~3% of days here, so hanging
+     individuality on it was a rounding error. HEAT fires every single day, so
+     the minute goes in the context and the module decides who hides from it. */
+  return { min: T.min | 0, wet: wet, cloudy: cloudy, dark: isNight(), powered: powered };
 }
 /* HOME OR OUT, and now WHOSE out. agents.js says WHEN and WHAT KIND; the
    person's own facts say WHICH PLACE, and their own conditions can keep them

@@ -134,9 +134,14 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
        cut of this assertion called pplFace() itself and passed even when the
        blit used a stored facing - it could not fail, which makes it worse than
        no assertion at all. */
+    /* 03:00 (asleep) against 09:00 (out and working). NOT against 13:00: since
+       the heat condition landed, midday is when the Mojave sends people INDOORS
+       - so 3am vs 1pm compares two sets of people who are both at home facing
+       their idle direction, and the assertion goes red on a system that is
+       working perfectly. Compare against the hour people are actually out. */
     T.min = 3 * 60; render();
     const nightF = (window.__PPL_FACES || []).slice();
-    T.min = 13 * 60; render();
+    T.min = 9 * 60; render();
     const dayF = (window.__PPL_FACES || []).slice();
     const night = nightF.map(x => x.dir);
     const dayMap = {}; dayF.forEach(x => { dayMap[x.id] = x.dir; });
@@ -159,7 +164,7 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
   if (!facing.err) {
     ok(`a block faces more than one way (${facing.nightFacings} distinct facings across ${facing.n} people)`,
        facing.nightFacings >= 3);
-    ok(`somebody turns between night and midday (${facing.changed} changed)`, facing.changed > 0);
+    ok(`somebody turns between 03:00 and 09:00 (${facing.changed} changed)`, facing.changed > 0);
     ok(`everybody away from home faces the way they walked (${facing.away} out, ${facing.wrong} wrong)`,
        facing.wrong === 0);
   }

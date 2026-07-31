@@ -359,16 +359,37 @@
       // citizen a favourite bar; this is that, as a bearing off home.
       favDir: ['N', 'E', 'S', 'W', 'NE', 'SE', 'SW', 'NW'][(r >>> 16) & 7],
 
-      // ==== CONDITIONS (Stardew's trick, and the cheapest of the three) =====
-      // Stardew keys schedules on weather, season, friendship, mail. Two
-      // people with the SAME schedule are different people if only one of them
-      // stays in when it rains. Weather was ruled in on 7/28 and NOTHING
-      // consulted it; this is the plug.
-      // ~40% stay in when it is wet. Not everybody, or it is not a difference.
-      wetStay: ((r >>> 20) % 5) < 2,
-      // and whether a dead circuit keeps them home after dark (LIGHT=TERRITORY:
-      // nobody patrols the dark, but some people still go out into it)
-      darkStay: ((r >>> 23) % 4) < 3,
+      // ==== CONDITIONS (Stardew's trick) ====================================
+      // PAOLO, 7/31, AND HE WAS RIGHT: "WHOOPTY FUCKING DOO ITS NOT GONNA RAIN
+      // SO SO MUCH SO AWESOME."
+      //
+      // The first cut of this hung individuality on RAIN. Las Vegas gets rain
+      // about once a month (his own 7/28 weather ruling: sunny > cloudy > rain,
+      // NOT diverse), so a wet-weather habit changes behaviour on roughly 3% of
+      // days. That is not a difference between two people, it is a rounding
+      // error, and he spotted it immediately.
+      //
+      // THE CONDITION THAT FIRES EVERY SINGLE DAY IN THE MOJAVE IS HEAT.
+      // Our own food-ceiling research already says it - "SEASONS INVERT: winter
+      // is the growing season, summer is survival under shade cloth" - and
+      // bohemia_agents.js's scav schedule ALREADY shelters at midday and calls
+      // it, in its own comment, the "Mojave midday shelter". The canon said heat
+      // was the daily driver and I built the rare one instead.
+      //
+      // HEAT TOLERANCE, 0-3, and it fires EVERY day between 11:00 and 16:00.
+      // 0 = works straight through the worst of it. 3 = will not be outdoors at
+      // noon for anything. This is the one that actually separates people,
+      // because every single day asks the question.
+      heatTol: (r >>> 20) & 3,
+      // NIGHT OWL: the other daily one. Some people move after dark and some
+      // will not - and LIGHT=TERRITORY means that choice is about whether their
+      // block has a live circuit. Also every day.
+      nightOut: ((r >>> 22) % 3) === 0,
+      // whether a DEAD circuit keeps them in after dark. Daily.
+      darkStay: ((r >>> 24) % 4) < 3,
+      // RAIN KEPT, AND DEMOTED TO WHAT IT IS: a rare event that makes a rare day
+      // feel different. It is flavour on ~3% of days, not the mechanism.
+      wetStay: ((r >>> 27) % 5) < 2,
 
       // ==== THE EDGES (Ultima VII's idle + weekend variants) ================
       // The research's third finding: the distinctive part of a day is the
@@ -389,14 +410,34 @@
   //
   // Returns 'home' | 'work' | 'street', already conditioned. The surface then
   // resolves that to a cell using workDir/workDist/favDir.
+  // HEAT_HOURS is when the Mojave is actually punishing. Named rather than
+  // inlined because it is the same window bohemia_agents.js's scav schedule
+  // already shelters through, and if that ever moves this must move with it.
+  var HEAT_FROM = 11 * 60, HEAT_TO = 16 * 60;
+
   function placeFor(p, where, ctx) {
     ctx = ctx || {};
     if (where === 'home') return 'home';
     // THE CONDITIONS, and they only ever send somebody HOME - never out. A rule
     // that pushes people onto the street in bad weather would be inventing
     // behaviour; a rule that keeps them in is the one real life supports.
+    //
+    // HEAT FIRST, because it is the one that fires every day. A person with
+    // heatTol 3 is indoors through the worst of it, 2 through the peak hour, 1
+    // only at the very peak, 0 never stops. Cloud cover takes the edge off, so
+    // a grey day puts some of them back outside - which is what makes a cloudy
+    // day visibly different from a clear one WITHOUT needing rain.
+    var m = ctx.min | 0;
+    if (m >= HEAT_FROM && m < HEAT_TO) {
+      var bite = p.heatTol - (ctx.cloudy ? 1 : 0);
+      if (bite >= 3) return 'home';
+      if (bite === 2 && m >= 12 * 60 && m < 15 * 60) return 'home';
+      if (bite === 1 && m >= 13 * 60 && m < 14 * 60) return 'home';
+    }
+    if (ctx.dark && !p.nightOut) {
+      if (p.darkStay && !ctx.powered) return 'home';
+    }
     if (ctx.wet && p.wetStay) return 'home';
-    if (ctx.dark && p.darkStay && !ctx.powered) return 'home';
     return where;
   }
 
@@ -526,7 +567,7 @@
               zoneAt: zoneAt, headsAt: headsAt, homesIn: homesIn, census: census,
               occupiedRateFor: occupiedRateFor, HOUSEHOLD_MEAN: HOUSEHOLD_MEAN, weightOf: weightOf,
               ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,
-              placeFor: placeFor, atFavourite: atFavourite,
+              placeFor: placeFor, atFavourite: atFavourite, HEAT_FROM: HEAT_FROM, HEAT_TO: HEAT_TO,
               allPeople: allPeople, where: where,
               addRule: addRule, removeRule: removeRule, clearRules: clearRules, rules: rules,
               applyRules: applyRules, rulesVersion: rulesVersion,

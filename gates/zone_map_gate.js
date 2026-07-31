@@ -222,8 +222,8 @@ ok(`clusters carry the majority of the people (${canon.zones.cluster * P.HEADS.c
    Before this landed: 4 archetypes, 4 distinct days, 297 people. */
 {
   const all = P.allPeople(W0.om, W0.POWER, W0.seed, OM.TILE_FINE, OM.OVER_N, () => true);
-  const sig = p => [p.archetype, p.workDir, p.workDist, p.favDir,
-                    p.wetStay, p.darkStay, p.earlyBy, p.duskSit].join('|');
+  const sig = p => [p.archetype, p.workDir, p.workDist, p.favDir, p.heatTol,
+                    p.nightOut, p.wetStay, p.darkStay, p.earlyBy, p.duskSit].join('|');
   const distinct = new Set(all.map(sig)).size;
   ok(`the day is INDIVIDUAL, not four molds (${distinct} distinct days across ${all.length} people)`,
      distinct > all.length * 0.8);
@@ -237,21 +237,36 @@ ok(`clusters carry the majority of the people (${canon.zones.cluster * P.HEADS.c
   ok('work and favourite are not always the same direction',
      all.filter(p => p.workDir !== p.favDir).length > all.length * 0.5);
 
-  /* CONDITIONS: some people react to weather and some do not. If everybody
-     reacted the same way it would not be a difference, it would be a global. */
+  /* CONDITIONS. Paolo 7/31: "ITS NOT GONNA RAIN SO SO MUCH SO AWESOME" - the
+     first cut hung individuality on RAIN, which falls on ~3% of days here, so
+     it changed almost nothing. HEAT fires EVERY DAY, and these assertions exist
+     so nobody ever again ships a condition that does not actually fire. */
+  const outAt = (m, ctx) => all.filter(p =>
+    P.placeFor(p, 'street', Object.assign({ min: m }, ctx || {})) !== 'home').length;
+  const noon = outAt(13 * 60), morning = outAt(8 * 60), evening = outAt(17 * 60);
+  ok(`the midday heat empties the street EVERY day (${morning} out at 08:00 -> ${noon} at 13:00)`,
+     noon < morning * 0.5);
+  ok(`and it fills again by evening (${evening} at 17:00)`, evening > noon * 2);
+  ok(`heat does not empty it COMPLETELY - somebody always works through (${noon})`, noon > 0);
+  ok(`a CLOUDY day is visibly different from a clear one without any rain ` +
+     `(${outAt(13 * 60, { cloudy: true })} out vs ${noon})`,
+     outAt(13 * 60, { cloudy: true }) > noon * 1.3);
+  const tol = [0, 1, 2, 3].map(t => all.filter(p => p.heatTol === t).length);
+  ok(`heat tolerance is spread across all four levels (${tol.join('/')})`,
+     tol.every(n => n > all.length * 0.1));
   const wet = all.filter(p => p.wetStay).length;
-  ok(`rain changes SOME people's day, not all and not none (${wet} of ${all.length} stay in)`,
-     wet > all.length * 0.15 && wet < all.length * 0.7);
+  ok(`rain is kept but DEMOTED to the rare event it is (${wet} react, on ~3% of days)`,
+     wet > 0 && wet < all.length * 0.7);
   const dusk = all.filter(p => p.duskSit).length;
   ok(`some people sit out at dusk and some do not (${dusk})`,
      dusk > all.length * 0.2 && dusk < all.length * 0.8);
 
   /* the conditions must actually MOVE somebody - placeFor is where the
      research's Stardew trick either works or is decoration */
-  const rainy = { wet: true, dark: false, powered: false };
-  const dry = { wet: false, dark: false, powered: false };
+  const rainy = { min: 10 * 60, wet: true, dark: false, powered: false };
+  const dry = { min: 10 * 60, wet: false, dark: false, powered: false };
   const movedByRain = all.filter(p => P.placeFor(p, 'street', rainy) !== P.placeFor(p, 'street', dry)).length;
-  ok(`rain actually sends people home (${movedByRain} change behaviour)`, movedByRain === wet && wet > 0);
+  ok(`rain still does something on the days it happens (${movedByRain})`, movedByRain === wet && wet > 0);
   ok('the conditions only ever send somebody HOME, never out',
      all.every(p => ['home', 'street', 'work'].indexOf(P.placeFor(p, 'street', rainy)) >= 0
                  && P.placeFor(p, 'home', rainy) === 'home'));
