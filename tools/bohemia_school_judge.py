@@ -28,12 +28,25 @@ SCALE = 4
 # --- the PLOT, straight from the engine module (canonical body, no re-authoring)
 js = """
 const S=require('./engine/bohemia_school.js');
+const K=require('./engine/bohemia_district_kit.js');
 const r=S.generate(31,{streets:['S']});
-process.stdout.write(JSON.stringify({g:r.g,pal:S.palette}));
+process.stdout.write(JSON.stringify({g:r.g,pal:S.palette,
+  edges:Object.keys(K.buildingEdges(r.g,S.legend))}));
 """
 raw = subprocess.run(['node', '-e', js], capture_output=True, text=True, check=True).stdout
 d = json.loads(raw)
 g, pal = d['g'], d['pal']
+# THE EAVE PASS, the same one the real map paints (engine/bohemia_valleymap.js) via the
+# same K.buildingEdges answer. Paolo judges what the game draws, not a second renderer's
+# opinion of it -- a side-door probe is a lie (VERIFY ON THE REAL SURFACE, 7/18).
+edges = set(d['edges'])
+
+
+def _lighten(hx, f=0.28):
+    v = [int(hx[i:i + 2], 16) for i in (1, 3, 5)]
+    return tuple(round(n + (255 - n) * f) for n in v)
+
+
 N = len(g)
 im = Image.new('RGB', (N * SCALE, N * SCALE))
 px = im.load()
@@ -41,7 +54,8 @@ for y in range(N):
     for x in range(N):
         v = str(g[y][x])
         hx = '#463f30' if v == '0' else pal.get(v, '#ff00ff')
-        c = (int(hx[1:3], 16), int(hx[3:5], 16), int(hx[5:7], 16))
+        c = _lighten(hx) if ('%d,%d' % (x, y)) in edges else (
+            int(hx[1:3], 16), int(hx[3:5], 16), int(hx[5:7], 16))
         for dy in range(SCALE):
             for dx in range(SCALE):
                 px[x * SCALE + dx, y * SCALE + dy] = c

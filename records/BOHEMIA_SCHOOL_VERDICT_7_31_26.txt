@@ -1,0 +1,36 @@
+BOHEMIA VERDICT — THE HIGH SCHOOL
+7/31/26
+
+PAOLO, VERBATIM:
+  "Thumbs up i approve its like 89% lets move on"
+
+VERDICT: APPROVE.
+
+WHAT WAS JUDGED
+  slices/BOHEMIA_SCHOOL_JUDGE_7_28_26.html — the walked plot beside the city icon,
+  the high school as rebuilt on his 7/29 notes and his 7/30 ruling.
+
+THE ROAD TO IT, so the number means something
+  7/27  BULK VERDICT: 32 of 45 districts rejected. "it was mostly all bad."
+  7/28  RULING: "High school." The district had to say which, and the old module was
+        a generic K-12 with a PLAYGROUND in it — an elementary-school object, and the
+        actual error. Rebuilt around the STADIUM as the landmark.
+  7/29  79%. Eight specific notes: the parking lot did not look like a parking lot,
+        unnecessary street, light towers too far out and too tall, more school
+        building in the icon, a second entryway. All eight applied.
+  7/30  He circled three objects on the plot and asked WHAT THEY WERE — the gym, the
+        tennis courts, the portables. That question was the verdict underneath the
+        verdict: all three were flat colour rectangles.
+        RULING: "Remove the tennis courts make do what you want."
+  7/31  89%. APPROVED.
+
+WHAT THE APPROVAL UNLOCKS (verdict law: APPROVE unlocks volume)
+  The roof-and-door treatment goes to the rest of the valley. The school is the
+  reference build for it, and gates/legibility_gate.js is the machine that carries it:
+  no building mass in any district may be a flat rectangle.
+
+WHAT IS STILL OPEN ON THIS DISTRICT
+  Nothing. 89% is an approval, not a snag list — he moved us on and the remaining 11%
+  is not a debt he named. If he names it later it is a fresh note, not an outstanding one.
+
+RECORDED THE SAME TURN, per NOTES ARE RULINGS (7/19) and the verdict workflow.

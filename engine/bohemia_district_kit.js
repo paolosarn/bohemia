@@ -189,6 +189,129 @@
   function tileLayer(entry){ var d=KIND_LAYER[entry&&entry.kind]||{layer:'ground',solid:false};
     return { layer: (entry&&entry.layer)||d.layer, solid: (entry&&entry.solid!=null)?entry.solid:d.solid, enter: (entry&&entry.enter)||null }; }
 
+  // ROOFS AND DOORS (Paolo 7/30-31). He circled three objects on the school plot and asked
+  // WHAT THEY WERE. All three were flat colour rectangles, which is the Pocket City bar
+  // failing out loud: "everything looks unique enough to know what it is at a glance."
+  // He approved the fixed school at 89% and said move on, and APPROVE UNLOCKS VOLUME, so
+  // the fix is a SHARED MACHINE rather than 40 hand-drawn roofs.
+  //
+  // WHAT MAKES A BUILDING READ FROM ABOVE, and it is not its fill colour:
+  //   THE EAVE   the bright line where the roof edge meets the wall, all the way round.
+  //              This is the outline, and it is the whole reason two neighbouring masses
+  //              stop being one blob. Works on ANY shape because it is computed from the
+  //              blob's own boundary, not from a rectangle.
+  //   THE RIDGE  a line down the long axis that STOPS SHORT of both ends, the way a real
+  //              hip does. A line that spans edge to edge is not a roof, it is a STRIPE --
+  //              the barcode mistake that made the parking lot "dogshit" (7/29) and the
+  //              tennis courts unreadable (7/30). Outline first, detail second.
+  //   THE DOOR   a way in, punched on the side that actually faces somewhere you can walk.
+  //
+  // Roof and door tiles are BODY tiles: they must be inside the caller's body predicate so
+  // they never punch a hole in a footprint or split one building into two.
+  function roofsAndDoors(g, opt){
+    opt = opt || {};
+    var W=g[0].length, H=g.length, x, y, i;
+    var isB = opt.building || function(){ return false; };
+    var ROOF = opt.roof, DOOR = opt.door;
+    var MIN = opt.min != null ? opt.min : 100;          // below this it is a shed, not a mass
+    var outside = opt.outside || function(c){ return !isB(c); };
+    var seen = {}, d4=[[1,0],[-1,0],[0,1],[0,-1]], made={roofs:0,doors:0,masses:0,ribbons:0};
+    for(y=0;y<H;y++) for(x=0;x<W;x++){
+      if(!isB(g[y][x]) || seen[x+','+y]) continue;
+      var st=[[x,y]], cells=[]; seen[x+','+y]=1;
+      while(st.length){ var p=st.pop(); cells.push(p);
+        for(i=0;i<4;i++){ var nx=p[0]+d4[i][0], ny=p[1]+d4[i][1], k=nx+','+ny;
+          if(!seen[k] && nx>=0 && ny>=0 && nx<W && ny<H && isB(g[ny][nx])){ seen[k]=1; st.push([nx,ny]); } } }
+      if(cells.length < MIN) continue;                   // sheds and kiosks keep their fill
+      made.masses++;
+      var inB={}; cells.forEach(function(p){ inB[p[0]+','+p[1]]=1; });
+      var x0=1e9,y0=1e9,x1=-1,y1=-1, edge=[];
+      cells.forEach(function(p){
+        if(p[0]<x0)x0=p[0]; if(p[0]>x1)x1=p[0]; if(p[1]<y0)y0=p[1]; if(p[1]>y1)y1=p[1];
+        for(var j=0;j<4;j++){ var nx=p[0]+d4[j][0], ny=p[1]+d4[j][1];
+          if(nx<0||ny<0||nx>=W||ny>=H||!inB[nx+','+ny]){ edge.push(p); return; } }
+      });
+
+      /* THE DOOR FIRST, chosen before the eave overwrites the boundary. It goes where the
+         building actually meets somewhere you can stand, and canonical-south is the front,
+         so a south-facing edge wins -- that is the face the street is on before rotation. */
+      var cand=[];
+      edge.forEach(function(p){
+        for(var j=0;j<4;j++){ var nx=p[0]+d4[j][0], ny=p[1]+d4[j][1];
+          if(nx<0||ny<0||nx>=W||ny>=H) continue;
+          if(!inB[nx+','+ny] && outside(g[ny][nx])){ cand.push([p[0],p[1],ny>p[1]?2:(ny<p[1]?1:0)]); return; } }
+      });
+      if(cand.length){
+        cand.sort(function(a,b){ return (b[2]-a[2]) || (b[1]-a[1]) || (a[0]-b[0]); });
+        var best=cand[0], run=[best];
+        for(i=0;i<cand.length && run.length<3;i++)
+          if(cand[i][1]===best[1] && Math.abs(cand[i][0]-best[0])<=2 && cand[i]!==best) run.push(cand[i]);
+        run.forEach(function(p){ g[p[1]][p[0]]=DOOR; made.doors++; });
+      }
+
+      /* THE EAVE: every boundary cell that is still building.
+         NOT ON A RIBBON. A stadium bowl, a storage unit row and a trailer skirt are one or
+         two tiles thick -- their boundary IS the whole mass, so an eave would eat the
+         building and leave an outline of nothing. A ribbon already reads as an outline;
+         it needs a door and nothing else. Measured on the real set: without this guard the
+         stadium loses 91% of its body and self-storage 80%. */
+      if(edge.length <= cells.length*0.55)
+        edge.forEach(function(p){ if(isB(g[p[1]][p[0]])){ g[p[1]][p[0]]=ROOF; made.roofs++; } });
+      else { made.ribbons++; continue; }
+
+      /* THE RIDGE: down the long axis, inset 3 from each end so it never reads as a stripe. */
+      var w=x1-x0, h=y1-y0;
+      if(Math.max(w,h) >= 9){
+        if(w>=h){ var my=Math.round((y0+y1)/2);
+          for(x=x0+3;x<=x1-3;x++) if(isB(g[my][x])){ g[my][x]=ROOF; made.roofs++; } }
+        else { var mx=Math.round((x0+x1)/2);
+          for(y=y0+3;y<=y1-3;y++) if(isB(g[y][mx])){ g[y][mx]=ROOF; made.roofs++; } }
+      }
+    }
+    return made;
+  }
+
+  /* THE EAVE PASS (Paolo 7/30-31). He circled three buildings on a district plot and asked
+     WHAT THEY WERE, and the answer was that they were flat colour rectangles. He approved
+     the fixed school at 89% and said move on -- APPROVE UNLOCKS VOLUME -- so the fix has to
+     reach all 42 districts that have buildings, not one.
+
+     IT IS A RENDER RULE, NOT DATA, AND THAT IS THE WHOLE POINT. Baking an outline into the
+     tile grid would convert 9-60% of every building's tiles to a new code, which shrinks
+     every FOOTPRINT, and INTERIOR-MATCHES-EXTERIOR (Paolo 7/19, LOCKED) says an interior is
+     always exactly its footprint -- so every building in the valley would quietly get a
+     smaller interior, and 42 district gates would go red over an encoding change that
+     changes nothing about the world. An eave is where the roof edge catches the light. That
+     is a LIGHTING concern, and SHADING SEPARATION already says light lives on its own layer
+     and is never baked into the asset.
+
+     So: this returns the boundary of every building/structure mass, and the painters draw
+     it brighter. One answer, every surface, no district module touched, no footprint moved.
+
+     buildingEdges(g, legend) -> {key:'x,y' -> true} for every mass tile that touches
+     something that is not part of the mass (including the plot edge). */
+  function buildingEdges(g, legend){
+    legend = legend || {};
+    var W=g[0].length, H=g.length, x, y, i, out={};
+    var solidKind={building:1, structure:1, fence:1, panel:1};
+    var mass={}; for(var c in legend){ if(legend[c] && solidKind[legend[c].kind]) mass[c]=1; }
+    var d4=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(y=0;y<H;y++) for(x=0;x<W;x++){
+      if(!mass[g[y][x]]) continue;
+      for(i=0;i<4;i++){ var nx=x+d4[i][0], ny=y+d4[i][1];
+        if(nx<0||ny<0||nx>=W||ny>=H || !mass[g[ny][nx]]){ out[x+','+y]=1; break; } }
+    }
+    return out;
+  }
+
+  // lift a hex swatch toward the light by f (the eave catches the sky). Pure colour maths,
+  // no palette is edited -- the district's own colour still decides what the roof IS.
+  function lighten(hex, f){
+    if(typeof hex!=='string' || hex.charAt(0)!=='#' || hex.length<7) return hex;
+    var v=[1,3,5].map(function(i){ return parseInt(hex.substr(i,2),16); });
+    return '#'+v.map(function(n){ n=Math.round(n+(255-n)*f); return (n<16?'0':'')+n.toString(16); }).join('');
+  }
+
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
   function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
@@ -217,7 +340,7 @@
     streetEdges:streetEdges,footprints:footprints,connectedFrom:connectedFrom,ground:ground,
     register:register,get:get,types:types,act:act,
     CATEGORIES:CATEGORIES,TAXONOMY:TAXONOMY,category:category,inCategory:inCategory,
-    legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob,
+    legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob,roofsAndDoors:roofsAndDoors,buildingEdges:buildingEdges,lighten:lighten,
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,

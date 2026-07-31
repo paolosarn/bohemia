@@ -131,6 +131,22 @@
           i = j;
         }
       }
+      /* THE EAVE PASS (Paolo 7/30-31). He circled three buildings on a plot and asked what
+         they were: they were flat colour fills with no edge, so two neighbouring masses
+         read as one blob and nothing had a shape. The roof edge catches the sky, so every
+         building tile that touches something that is not its own mass is painted brighter.
+         It is a lighting rule on the render, never baked into a district's tiles -- see
+         K.buildingEdges for why that distinction is load-bearing (footprints and the
+         INTERIOR-MATCHES-EXTERIOR law). One pass here reaches all 42 districts at once. */
+      if (K && K.buildingEdges) {
+        var edges = K.buildingEdges(g, plot.legend), cache = {};
+        for (var k in edges) {
+          var p = k.split(','), ex = +p[0], ey = +p[1], ec = g[ey][ex];
+          if (cache[ec] === undefined) cache[ec] = K.lighten(pal[ec] || '#3a352b', 0.28);
+          cx.fillStyle = cache[ec];
+          cx.fillRect(ex, ey, 1, 1);
+        }
+      }
       return 'plot';
     }
     if (ROAD[d]) {
