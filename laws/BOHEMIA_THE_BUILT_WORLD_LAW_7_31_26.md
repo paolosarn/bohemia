@@ -190,7 +190,7 @@ and is marked dead in this file rather than left to rot in a commit message.
 | C1 | interior materials != exterior | -- | NOT ENFORCED |
 | C2 | house floors are not concrete | -- | NOT ENFORCED |
 | C3 | his chosen/bought art wins | bought_beats_painted_gate | ENFORCED (ground) |
-| D1 | no building on a sidewalk, anywhere | **suburb_street_gate** | **ENFORCED 7/31 -- SUBURB ONLY, see scope note** |
+| D1 | no building on a sidewalk, anywhere | **suburb_street_gate** | **1 OF 48 GENERATORS. 5,195 mass cells still on public streets -- see the measured list** |
 | D2 | driveways 4x5, garage-aligned | **suburb_street_gate** | **ENFORCED 7/31** |
 | D3 | spawn can reach the streets | -- | NOT ENFORCED |
 | D4 | continuous zoom out to city | -- | RUN ONLY -- the city already has its own zoom |
@@ -358,3 +358,73 @@ ANOTHER LANE HAD ALREADY GATED THE TRUTH.
 was not in my way; it was the only thing that stopped a placebo shipping as a fix.
 Read the header of any gate you break before you touch it -- it usually contains
 the measurement you are about to redo wrong.
+
+
+## D1 MEASURED ACROSS ALL 48 GENERATORS (7/31) -- THE REAL SIZE OF "ANYWHERE"
+
+He wrote ANYWHERE IN THE WORLD in capitals. It is true in **one** district.
+
+Measured, 6 runs per district (seeds 1 / 12345 / 777 x streets ['S'] and ['S','E']),
+counting building-kind cells orthogonally adjacent to a public street with no walk
+between them:
+
+| district | mass cells on the kerb |
+|---|---|
+| mall | 1,566 |
+| industrial | 1,455 |
+| trailer | 498 |
+| farm | 438 |
+| battery | 360 |
+| medical | 288 |
+| boneyard | 186 |
+| substation | 180 |
+| town | 128 |
+| downtown | 54 |
+| railyard | 42 |
+| **TOTAL** | **5,195** |
+| suburb | **0** |
+
+**36 of 48 registered districts emit ZERO sidewalk cells of any kind.** They have
+no sidewalk concept at all -- no code, no legend row, nothing for the tiling phase
+to work from.
+
+### WHY IT IS ONLY TRUE IN ONE PLACE
+
+`layWalks()` is a PRIVATE function inside `engine/bohemia_suburb.js`. It is not a
+primitive on `engine/bohemia_district_kit.js`, so no other generator can lay a walk
+even if it wanted to, and `gates/sidewalk_gate.js` sweeps the legacy blockgen street
+recipes -- it never touches `K.types()`, so it cannot see a single district.
+
+### THE WORST CASE, VERIFIED BY HAND
+
+`engine/bohemia_mall.js:55` draws its full-height side drive lanes at x=6 and x=122
+AFTER placing the anchor stores at :29-30 (west x=2..22, east x=106..126). The lanes
+land INSIDE both stores. Measured on seed 12345: **59 street cells inside the west
+anchor footprint**, and row y=50 reads
+
+    0 0 6 6 6 6 1 6 6 6 6 6 ...
+
+a road running through the middle of a shop.
+
+**NOT FIXED HERE, AND THIS IS WHY.** The building spans x=2..126, so the only free
+columns are x=0, x=1 and x=127 -- the plot edges. Moving the ring there is not
+plumbing, it is deciding where the mall's road goes, and MAP LAW says Claude never
+designs map layouts. [PENDING: the district's owning lane reroutes it, or Paolo
+rules the ring hugs the plot edge.]
+
+### THE ORDER TO FIX IT (for whoever takes this)
+
+1. Promote `layWalks` from bohemia_suburb.js:134 to a kit primitive so every
+   generator can call it. Signature already generic: grid, road code, walk code,
+   and a predicate for what may convert.
+2. In each street-bearing generator: add a walk code + legend row, and call it
+   AFTER the road pass and BEFORE the building pass. **The order IS the
+   enforcement** -- that is what made the suburb correct, not an audit afterwards.
+3. A registry-wide gate that sweeps `K.types()` rather than one module, in the SAME
+   turn, or clause E2 says the work does not count.
+
+[PENDING Paolo, one ruling needed before the gate can be written]: WALKABLE-LAND
+already exempts vehicular venues whose vehicle surface IS the venue (drive-in,
+truck stop, parking structure). **Does D1 inherit that exemption?** A freeway
+shoulder and a railyard have no business wearing a sidewalk, but that is his call,
+not a guess to be baked into a gate.
