@@ -55,6 +55,19 @@ already existed: banks_used_gate, population_gate (the LIFE session's), and the 
 integrity gate (another lane built it 7/30 after the outage). Look first, every time.
 
 WHAT COMES AFTER, in order:
+  0. *** THE RUN AND THE CITY NOW DISAGREE ABOUT THE DAY, AND IT NEEDS WORLD. ***
+     After the heat condition landed (0AD) the CITY tab empties at midday and the
+     RUN does not. Both surfaces agree on the HEAD-COUNT and disagree on the DAY.
+     IT CANNOT BE FIXED FROM THE CITY LANE: makeAgent derives `kind` and `shift`
+     internally from its own hash (bohemia_agents.js lines 156-161) and there is
+     no caller hook; agentsForBlock threads ONLY occupiedRate.
+     TWO WRONG ANSWERS, do not reach for them: hiding people in the run's DRAW
+     (the sim still walks them there - that is a lie on the surface), or
+     reimplementing the schedule in the run (forks WORLD's sim).
+     THE RIGHT ANSWER is five lines in WORLD's module and mirrors what is already
+     there: thread an opts.personFor(houseI, n) exactly as opts.occupiedRate is
+     already threaded, let makeAgent take kind/shift from it when supplied, and
+     the run passes BohemiaPopulation.personFields. Same pattern, no new concept.
   1. THE RUN'S PEOPLE NEED THE FACTS. It has the head-count from the shared census but
      its bodies still come from agents.js with no conditions and no edges — so the two
      surfaces agree on HOW MANY and not on WHO. Careful: the run's agents walk a real

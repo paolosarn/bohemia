@@ -1604,6 +1604,31 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AE. [BLOCKED ON WORLD'S MODULE, SPECIFIED TO THE LINE — NOT ATTEMPTED] THE RUN
+   CANNOT GET THE HEAT CONDITION WITHOUT A CHANGE TO bohemia_agents.js.
+   Investigated 7/31 and stopped at the lane boundary rather than crossing it.
+   THE STATE: the run has the shared census (HOW MANY people) but not the person
+   FACTS (heat tolerance, night habit, address book). So after 0AD the CITY tab
+   empties at midday and the RUN does not - the two surfaces now agree on the
+   head-count and disagree on the day, which is the exact split this lane spent
+   two days closing.
+   WHY IT CANNOT BE DONE FROM THIS SIDE, measured in the source:
+     makeAgent(blockSeed, houseI, n, jobSite, fpOf) derives BOTH `kind` and
+     `shift` internally from its own hash (lines 156-161). There is no caller
+     hook. agentsForBlock takes opts and passes ONLY occupiedRate through.
+   THE TWO WRONG ANSWERS, named so nobody reaches for them:
+     (a) hide people at midday in the run's DRAW. The sim would still walk them
+         there - that is a lie on the surface, and it is the same class of error
+         as measuring 'outdoors now' as 'lives here'.
+     (b) reimplement the schedule in the run. That forks WORLD's sim and breaks
+         the ENGINE SYNC LAW.
+   THE RIGHT ANSWER, five lines in WORLD's module and it mirrors what is already
+   there: agentsForBlock ALREADY threads opts.occupiedRate to houseOccupied.
+   Thread an opts.personFor(houseI, n) the same way, let makeAgent take `kind`
+   and `shift` from it when supplied, and the run passes
+   BohemiaPopulation.personFields. Same pattern, no fork, no new concept - it is
+   exactly how occupiedRate was added.
+   | needs WORLD | specified 7/31 | NO - not mine to write.
 0AD. [DONE 7/31, HIS CORRECTION, AND HE WAS RIGHT] HEAT IS THE DAILY CONDITION.
    RAIN WAS A ROUNDING ERROR.
    > "WHOOPTY FUCKING DOO ITS NOT GONNA RAIN SO SO MUCH SO AWESOME"
