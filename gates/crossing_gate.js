@@ -60,8 +60,22 @@ ok('the valley is n*128 tiles square', w.tiles === w.n * T);
 
 // ---- 3. step reports crossings ---------------------------------------------
 {
+  /* FIND WALKABLE GROUND, DO NOT ASSUME A COORDINATE (7/31).
+     This hardcoded (33*T+64, 4*T+60) and assumed it was standing room. It was, on
+     the suburb layout of the day it was written. Paolo's 7/31 rulings moved the
+     furniture -- the sidewalk is laid before the houses now and driveways are 4x5 --
+     and that exact tile became the inside of a GARAGE, so the probe stepped into a
+     wall and this gate went red on its fixture rather than on crossing logic.
+     The assertion is unchanged: a step that stays inside one cell must report no
+     crossing. Only the search for a tile to stand on is now honest. */
   const gx = 33 * T + 64;
-  const inside = w.step(gx, 4 * T + 60, 0, 1);
+  let probeY = null;
+  for (let ty = 20; ty < T - 20 && probeY === null; ty++) {
+    const a = w.tile(gx, 4 * T + ty), b = w.tile(gx, 4 * T + ty + 1);
+    if (a && b && !a.solid && !b.solid) probeY = 4 * T + ty;
+  }
+  ok('the probe found walkable ground inside cell 33,4', probeY !== null);
+  const inside = w.step(gx, probeY, 0, 1);
   ok('a step inside a cell reports no crossing', inside.ok && !inside.crossed);
   // walk down the cell boundary from inside cell (33,4) into (33,5)
   let cur = { gx: gx, gy: 4 * T + 100 }, crossing = null;
