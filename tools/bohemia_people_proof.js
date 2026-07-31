@@ -10,7 +10,7 @@
 'use strict';
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const OUT = process.argv[2] || path.join(ROOT, 'slices/BOHEMIA_PEOPLE_CARD_ALPHA_7_31_26.png');
+const OUT = process.argv[2] || path.join(ROOT, 'slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26.png');
 function pw(){ for (const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modules','/usr/local/lib/node_modules'])
   { try { return require(path.join(g,'playwright')); } catch(_e){} } return require('playwright'); }
 function route(pass2d, from, to, stops){
@@ -75,6 +75,13 @@ function route(pass2d, from, to, stops){
   console.log('walked up to:', got.heading, got.seat, '| look', got.lookSeed % pl.looks);
   await fr.click('#act');
   await page.waitForTimeout(250);
+  const strangerOut = OUT.replace(/\.png$/, '_STRANGER.png');
+  await page.screenshot({ path: strangerOut });
+  console.log('wrote ' + path.relative(ROOT, strangerOut));
+  /* AND THE MOMENT ITSELF: tap the real ask button and shoot them named. */
+  await fr.click('#pplask');
+  await page.waitForTimeout(250);
+  console.log('asked ->', (await fr.textContent('#spk')).trim());
   await page.screenshot({ path: OUT });
   console.log('wrote ' + path.relative(ROOT, OUT));
   await browser.close();

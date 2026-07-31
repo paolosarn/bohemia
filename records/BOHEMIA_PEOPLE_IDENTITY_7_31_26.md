@@ -53,17 +53,88 @@ key instead of by an agent object.
   fully reversible (proved byte-for-byte both ways).
 - **tools/bohemia_people_proof.js** — the ship shot, through the real alpha.
 
+## THEN HE RULED, AND HALF THIS FILE CHANGED THE SAME DAY
+
+Paolo, hours after the above shipped: "Nobody will have a name unless you talk to
+them and ask them for their name... I hate how in other games you know everyone's
+name off the bat and I think it's complete bullshit... once you ask their name, if
+you see them again, then they would be named."
+
+Law: laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md. It is a BETTER answer than
+any of the three options he was offered, and it reverses this file's own first
+design, which asserted no names anywhere and had a gate sweeping the module for a
+name bank. That gate was rewritten the same turn. A GATE MUST NEVER OUTRANK A
+RULING.
+
+HE GAVE THIS RULING TO TWO SESSIONS AT ONCE, in different words, and both wrote it
+down. Theirs is canon (it carries a second ruling this session never heard) and the
+duplicate addendum this session wrote is archived. TWO THINGS THAT EXISTED ONLY IN
+THE ARCHIVED COPY, kept here so they are not lost:
+  - THE PLAYER IS ~24-25 AT ACT 1. He said "probably", so it is HEDGED, not canon,
+    and nothing may be built on it without asking him to confirm. It is the first
+    age the player character has ever had, and it dates the backstory tier: a
+    24-year-old ten years after the crash (TEN YEARS COLD, 7/31) was about fourteen
+    when it happened - old enough to remember everything, young enough to have been
+    raised by it.
+  - KNOWN_AT_START is for the people "you're personally assigned to know story
+    wise". The lineman is the obvious first candidate (the run's own words: "he is
+    your neighbour, one door down, nothing closer is possible") and he is
+    deliberately NOT in it, because naming him is a ruling and not an inference.
+
+AND A SECOND RULING CAME WITH IT, WHICH COST THIS LANE A FEATURE:
+A ROUTINE IS INVISIBLE INFORMATION. "it will all be invisible information." The card
+shipped a THEIR DAY row reading "OUT 06:25 · HOME 16:58" about an hour before he
+ruled it out. IT IS DELETED, not hidden - there is no day-line helper in the module
+at all now. The people still have different days; you learn them by being on the
+street at different hours, which is the only way anybody ever learned a neighbour's
+hours in real life. WHAT SURVIVES is RIGHT NOW, because present tense is eyesight
+and not a timetable. The other lane's gate (invisible_schedule_gate.js) had written
+a DATED WAIVER for this exact row; the row and the waiver were removed together,
+because a waiver for something that no longer exists is a lie the next reader
+inherits.
+
+THREE WAYS TO KNOW SOMEBODY, now:
+  known    - story and backstory people. Named from the first frame, because you
+             have known them your whole life. HIS TABLE, EMPTY.
+  asked    - you walked up, asked, and the game remembered. Forever, across saves.
+  stranger - everyone else, until you ask. Called by their trade.
+
+The card says YOU HAVE NOT ASKED where the name goes — visible, not hidden,
+because the missing thing IS the mechanic. Tap "Ask their name" and they are
+named on the card, on the one action button (TALK TO RUBEN, not TALK TO THE
+SCAVENGER), and on every future load of that save.
+
+THE NAME ITSELF IS DERIVED, NOT STORED. The ledger persists one bit — you asked —
+and the name regenerates from the identity key, exactly like every other fact in
+this module. Pool: 64 given names x 64 surnames, weighted to the real Clark
+County the valley is a corpse of (~30% Hispanic, ~12% Black, ~10% Asian/PI),
+because an all-Anglo pool would be a lie about Las Vegas. No calendar year is
+assumed; the game has never locked one. THE POOL IS REPLACEABLE BY HIM at any
+time — the mechanic is the ruling, the strings are just strings.
+
+TWO MORE BUGS THE GATE CAUGHT, both only visible on the real surface:
+  - the one button read "TALK TO THE RUBEN". The run was building that sentence
+    itself; grammar now lives in one place (addressOf) and the run stopped doing it.
+  - asking somebody their name counted as a second MEETING, so the card claimed you
+    had met them before when you had not. Opening a conversation is a meeting;
+    redrawing the card is not.
+
+PROOF, through the real alpha with the real cast:
+  slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26_STRANGER.png  (SCAVENGER / YOU HAVE NOT ASKED)
+  slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26.png           (RUBEN / Ruben Nguyen)
+
 ## WHAT IS HIS, AND IS EMPTY
 Two tables ship empty and the gate fails if either gains a row:
-- **NAMED_CAST** — who the valley's named people are. [PENDING Paolo]
+- **KNOWN_AT_START** — who you already know: main-quest and backstory people.
+  [PENDING Paolo]. The lineman is the obvious first candidate (the run's own
+  words: "he is your neighbour, one door down, nothing closer is possible") and he
+  is deliberately NOT in it, because naming him is a ruling and not an inference.
 - **LINES** — what anybody says when no quest is talking. This lane builds the
   MOUTH, not the words (doctrine section 6).
-There is NO procedural name generator and the gate sweeps the module for a name
-bank. bohemia_agents.js:24 has said since 7/19 that "character names are Paolo's"
-and nothing has repealed it. So below the named tier a person is addressed by the
-engine's OWN role word — WORKER / SCAVENGER / KEEPER / WATCH — and the card says
-NOT NAMED YET in place of a name, because silence is honest and a placeholder
-becomes canon by shipping.
+A stranger is addressed by the engine's OWN role word — WORKER / SCAVENGER /
+KEEPER / WATCH — until the player asks. (This paragraph used to say there was no
+name generator and never could be; his 7/31 ruling replaced that, and the pool
+above is the mechanism half of it. What stays his is WHO THE STORY PEOPLE ARE.)
 
 Both tables are LOAD-BEARING, not decorative: gate claims A9 and A10 plant a row
 and prove it would be used the moment he writes one.
@@ -130,7 +201,17 @@ real-browser half.
   through the real alpha with Paolo's real baked cast, because a picture he looks
   at must not contain a stand-in.
 - NOBODY SAYS ANYTHING YET, on purpose. The mouth is built and his table is
-  empty.
+  empty. Asking a name is a mechanical action; no words were put in anyone's mouth
+  to do it.
+- THE NAME POOL IS 64x64. Over ~500 people that is a birthday problem and a
+  handful share a name, which is true of real neighbourhoods and is gated at 85%
+  distinct rather than pretended away.
+- PURPLE, FLAGGED NOT FIXED: the alpha bakes NPC colourways with Math.random(),
+  so a townsfolk body can come out purple on any load — including in the proof
+  shot. PURPLE RESERVATION says purple is the Amalgamation's alone. This predates
+  this lane (the tints are re-rolled every page load and have nothing to do with
+  which look index is chosen) and the purity gate cannot see it because the cast
+  is generated at runtime rather than banked as an image. CHARACTER/alpha's.
 - The faces themselves come from CHARACTER's portrait baker and vary by colourway
   and hat, not by facial structure. Not this lane's system; flagged, not claimed.
 - Identity is per BLOCK. Walk to another cell and those are different people, as

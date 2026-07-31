@@ -3398,8 +3398,16 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
    rides in the existing save blob (additive, no env bump).
    NAMED_CAST and LINES SHIP EMPTY and people_gate fails if either gains a row;
    there is no procedural name generator and the gate sweeps for a name bank.
-   [PENDING Paolo] is now ONE question: do the neighbours get NAMES (his, a
-   ruled cast) or stay role-and-house forever?
+   >>> HE RULED THE NAMES SAME DAY: laws/BOHEMIA_ADDENDUM_YOU_HAVE_TO_ASK_7_31_26.md.
+   >>> "Nobody will have a name unless you talk to them and ask them for their
+   >>> name... I hate how in other games you know everyone's name off the bat and
+   >>> I think it's complete bullshit... once you ask their name, if you see them
+   >>> again, then they would be named." SHIPPED the same turn: strangers are
+   >>> called by their trade, an "Ask their name" button is the only door to a
+   >>> name, and asking is remembered forever across saves. The gate that
+   >>> asserted the opposite was rewritten, not worked around.
+   >>> STILL [PENDING Paolo]: WHO you already know (KNOWN_AT_START, empty) — the
+   >>> lineman is the obvious first, and naming him is his call.
    TWO REAL BUGS FOUND BY THE GATE, both measured: (1) `agent.seed % 6` can only
    return 0/2/4 over 528 bodies on 40 blocks, so THREE OF THE SIX townsfolk
    bodies the alpha bakes had never been drawn — dead low bits from a float64
@@ -3416,7 +3424,16 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
    correctly different people, but nobody FOLLOWS you between cells and the
    valley census (bohemia_population.js) is still numbers rather than
    identities. That is the shape the companion layer (item 3) will need.
-2. FACTION STANDING LEDGER (big-missing item 4): a per-faction standing
+2. *** DEAD BY RULING 7/31 — DO NOT BUILD THIS. *** laws/BOHEMIA_ADDENDUM_BUILD_
+   THE_WORLD_7_31_26.md: "NO FACTION SHIT EITHER!" The law names it exactly: "No
+   standing ledger, no territory model, no faction beats. The proposal to build
+   the faction system next is DEAD." gates/build_the_world_gate.py fails on any
+   new engine/bohemia_faction*.js. This item was the PEOPLE lane's stated next
+   step in the 7/31 handoff and that handoff was written BEFORE the ruling landed;
+   a session that picks it up is walking into a machine-enforced violation. Lifting
+   the freeze is Paolo's, and it means editing that gate.
+   ORIGINAL TEXT, for the record only:
+   FACTION STANDING LEDGER (big-missing item 4): a per-faction standing
    value the world can read/write, EMPTY of rules — no action-to-standing
    table until Paolo rules it (kill-anyone + clout laws interact here and
    are HIS). Territory model: cells already carry owners via light/power;

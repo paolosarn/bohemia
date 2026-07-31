@@ -3,13 +3,24 @@
 
    A law without a machine gate is not enforced. Three laws land here:
 
-     1. MECHANISM-MINE / CONTENTS-PAOLO'S. engine/bohemia_people.js ships two
-        EMPTY tables — NAMED_CAST (who the valley's named people are) and LINES
-        (what anybody says). Both are Paolo's. This gate fails if either gains a
-        row, and it fails if a name bank ever appears in the module. The realistic
-        way this breaks is not malice: it is a future session adding "a few
-        placeholder names so it can be tested", and the placeholder becoming
-        canon by shipping. Same failure the purse's PAYOUT table is gated against.
+     1. YOU HAVE TO ASK (Paolo 7/31, LOCKED — laws/BOHEMIA_ADDENDUM_YOU_HAVE_TO_
+        ASK_7_31_26.md). "Nobody will have a name unless you talk to them and ask
+        them for their name... I hate how in other games you know everyone's name
+        off the bat and I think it's complete bullshit... once you ask their name,
+        if you see them again, then they would be named."
+        THIS GATE ASSERTED THE EXACT OPPOSITE THIS MORNING — no names anywhere,
+        plus a sweep of the module for a name bank — which was the right read of
+        the standing rule then and is simply not the law now. A GATE MUST NEVER
+        OUTRANK A RULING (7/31 precedent: the cough assertions died with the fix
+        they locked), so the claims were rewritten rather than the ruling being
+        worked around. What holds now: a stranger is NEVER named however big the
+        pool gets, asking is what names them, the same person answers the same
+        way forever, and it survives a save.
+        STILL MECHANISM-MINE: KNOWN_AT_START (the story people you already know)
+        and LINES (what anybody says) ship EMPTY and this gate fails if either
+        gains a row. The realistic way that breaks is not malice — it is a future
+        session adding "a few placeholder names so it can be tested" and the
+        placeholder becoming canon by shipping.
 
      2. IDENTITY IS DERIVED, NEVER STORED. The run throws every agent away on a
         save load and rebuilds them from the seed. An identity hung on an agent
@@ -73,65 +84,83 @@ function roster(seed) {
    PART A — THE LAW. The two tables are his and they are empty.
    ========================================================================== */
 function partA() {
-  console.log('A. THE TABLES ARE HIS, AND THEY ARE EMPTY');
-  const src = fs.readFileSync(MOD_FILE, 'utf8');
+  console.log('A. A NAME IS EARNED, NEVER GIVEN');
 
-  ok('A1 NAMED_CAST ships empty', Object.keys(P.NAMED_CAST).length === 0);
-  ok('A2 LINES ships empty', Object.keys(P.LINES).length === 0);
+  ok('A1 KNOWN_AT_START ships empty (who you already know is his)',
+    Object.keys(P.KNOWN_AT_START).length === 0);
+  ok('A2 LINES ships empty (what anybody says is his)', Object.keys(P.LINES).length === 0);
 
-  /* A3: no name bank. A generated name is indistinguishable from canon three
-     sessions later, so the shape itself is banned — an array literal holding
-     three or more capitalised words that are not the module's own vocabulary. */
-  const allowed = new Set([...Object.values(P.ROLE_WORDS), ...Object.values(P.ACT_WORDS),
-    'NORTH', 'SOUTH', 'EAST', 'WEST', 'FIRST', 'SECOND', 'THIRD', 'FOURTH',
-    'ONE', 'TWO', 'THREE', 'FOUR', 'NOT NAMED YET', 'FIRST TIME', 'ONCE BEFORE',
-    'SOMEBODY', 'HOME ALL DAY', 'UNKNOWN', 'SCAVENGES THIS BLOCK']);
-  let bank = false;
-  for (const m of src.matchAll(/\[([^\]\n]{10,400})\]/g)) {
-    const items = m[1].split(',').map(s => s.trim()).filter(Boolean);
-    const names = items.filter(s => /^'[A-Z][a-zA-Z]{2,}'$|^"[A-Z][a-zA-Z]{2,}"$/.test(s))
-      .map(s => s.slice(1, -1).toUpperCase())
-      .filter(s => !allowed.has(s));
-    if (names.length >= 3) bank = true;
-  }
-  ok('A3 no name bank in the module', !bank);
-
-  /* A4: nobody alive has a name, because nobody has been ruled one. */
   const { agents } = roster(0xB10C);
   const people = P.peopleOf(0xB10C, agents);
-  /* the run's own invariant for the block the game opens on: 6 households with
-     somebody behind the door, so never fewer than 6 people. */
-  ok('A4 a real block generates people (' + people.length + ')', people.length >= 6);
-  ok('A5 not one of them has a name', people.every(p => P.nameOf(p) === null));
-  ok('A6 every one of them is tier procedural', people.every(p => p.tier === 'procedural'));
+  ok('A3 a real block generates people (' + people.length + ')', people.length >= 6);
 
-  /* A7: the heading falls back only to the engine's OWN four role words. */
+  /* A4-A6: THE RULING ITSELF. A pool exists now — that is the change — and it
+     must still be unreachable until the player asks. This is the claim that
+     would go red if somebody "helpfully" pre-filled names to make a screenshot
+     look better. */
+  ok('A4 every person on a fresh block is a STRANGER', people.every(p => p.tier === 'stranger'));
+  ok('A5 NOT ONE of them has a name, though the pool is right there (' +
+    P.GIVEN.length + ' x ' + P.SURNAME.length + ' available)',
+    people.every(p => P.nameOf(p) === null));
   const words = new Set(Object.values(P.ROLE_WORDS));
-  ok('A7 headings are the engine\'s own role words', people.every(p => words.has(P.headingOf(p))));
-  ok('A8 an unknown role is SOMEBODY, never a guess',
-    P.headingOf({ role: 'wanderer', household: { house: 0, slot: 0, size: 1 } }) === 'SOMEBODY');
+  ok('A6 a stranger is called by their trade, never a name',
+    people.every(p => words.has(P.headingOf(p))));
 
-  /* A9: the empty tables are LOAD-BEARING — a row would actually be used. This
-     is the check that stops the tables being decorative. */
-  P.NAMED_CAST['P:0:TEST-1'] = { name: 'Ruled Name' };
-  const named = P.personOf(0, { id: 'TEST-1', role: 'scav', seed: 7 });
-  const takes = named.tier === 'named' && P.headingOf(named) === 'RULED NAME';
-  delete P.NAMED_CAST['P:0:TEST-1'];
-  ok('A9 a ruled name would be used the moment he writes one', takes);
+  /* A7-A9: asking is what names them, and it names them the SAME way forever. */
+  const one = P.personOf(0xB10C, agents[0], { asked: true });
+  ok('A7 asking gives them a name (' + one.name + ')', !!P.nameOf(one) && one.tier === 'asked');
+  ok('A8 the same person answers the same way, every time, on any device',
+    P.personOf(0xB10C, agents[0], { asked: true }).name === one.name);
+  ok('A9 you call them by their first name once you know it',
+    P.headingOf(one) === String(one.name).split(' ')[0].toUpperCase());
+
+  /* A10-A11: the pool is a real spread, not four names in a trenchcoat. */
+  const named = new Set(), firsts = new Set();
+  let heads = 0;
+  for (let s2 = 1; s2 <= 40; s2++) {
+    const seed = (s2 * 2654435761) >>> 0;
+    const b = roster(seed);
+    b.agents.forEach(a => {
+      /* the BLOCK's seed, not a constant — house 3 slot 2 is a different person
+         on every block, and passing one seed here would collide them all */
+      const n = P.personOf(seed, a, { asked: true }).name;
+      heads++; named.add(n); firsts.add(n.split(' ')[0]);
+    });
+  }
+  /* 64 x 64 = 4096 combinations against ~500 people is a birthday problem, so a
+     handful of shared names is EXPECTED and honestly fine (real neighbourhoods
+     have two Marias). What must not happen is systematic collapse. */
+  ok('A10 the valley does not keep introducing the same person (' + named.size +
+    ' distinct names across ' + heads + ' people on 40 blocks)',
+    named.size >= heads * 0.85);
+  ok('A11 first names spread across the pool (' + firsts.size + ' of ' + P.GIVEN.length + ')',
+    firsts.size >= P.GIVEN.length * 0.7);
+  ok('A12 no duplicate rows in either pool',
+    new Set(P.GIVEN).size === P.GIVEN.length && new Set(P.SURNAME).size === P.SURNAME.length);
+
+  /* A13: the exception he ruled — story people you have known your whole life —
+     works, and needs no asking. The table stays empty; this proves it is wired. */
+  P.KNOWN_AT_START['P:0:TEST-1'] = { name: 'Ruled Name' };
+  const known = P.personOf(0, { id: 'TEST-1', role: 'scav', seed: 7 });
+  const takes = known.tier === 'known' && P.headingOf(known) === 'RULED' &&
+                P.nameOf(known) === 'Ruled Name';
+  delete P.KNOWN_AT_START['P:0:TEST-1'];
+  ok('A13 somebody he rules you already know is named WITHOUT asking', takes);
 
   P.LINES['scav'] = ['a line'];
-  const speaks = P.linesFor(people.find(p => p.role === 'scav') || people[0]).length >= 0;
   const spoke = P.linesFor({ key: 'x', role: 'scav' }).length === 1;
   delete P.LINES['scav'];
-  ok('A10 a ruled line would be spoken the moment he writes one', speaks && spoke);
-  ok('A11 with the table empty, nobody says anything', P.linesFor(people[0]).length === 0);
+  ok('A14 a ruled line would be spoken the moment he writes one', spoke);
+  ok('A15 with the table empty, nobody says anything', P.linesFor(people[0]).length === 0);
 
-  /* A12: the empty state is VISIBLE, not hidden. Silence is honest; a blank row
-     reads as finished. */
+  /* A16: the missing name is VISIBLE, not blank. The hole IS the mechanic, and
+     hiding it would make the card look finished when it is not. */
   const card = P.cardFor(people[0], agents[0], 600, null);
   const nameRow = card.find(r => r.label === 'NAME');
-  ok('A12 the card says NOT NAMED YET instead of hiding the hole',
-    !!nameRow && nameRow.value === 'NOT NAMED YET');
+  ok('A16 the card says YOU HAVE NOT ASKED rather than hiding the row',
+    !!nameRow && nameRow.value === 'YOU HAVE NOT ASKED');
+  ok('A17 and it says their name once you have',
+    (P.cardFor(one, agents[0], 600, null).find(r => r.label === 'NAME') || {}).value === one.name);
 }
 
 /* ==========================================================================
@@ -205,11 +234,17 @@ function partB() {
   ok('B13 RIGHT NOW moves with the clock',
     JSON.stringify(nightCard) !== JSON.stringify(dayCard));
 
-  /* B14: the day line comes off the schedule, so two different days read
-     differently. The 7/29 archetype work made 296 of 297 days distinct and
-     nothing has ever shown one to the player. */
-  const dayLines = new Set(a1.agents.map(x => P.dayLineOf(x)));
-  ok('B14 people have visibly different days (' + dayLines.size + ' distinct)', dayLines.size >= 6);
+  /* B14: A ROUTINE IS FELT, NEVER READ (Paolo 7/31, LOCKED). This claim used to
+     be the OPPOSITE — that the card showed you somebody's hours — and the module
+     had a helper to do it. He ruled "it will all be invisible information" about
+     an hour after it shipped. The people still HAVE different days; the player
+     just learns them by being on the street at different hours. */
+  ok('B14 the module cannot print a timetable even if asked', P.dayLineOf === undefined);
+  const anyDay = /OUT \d\d:\d\d|THEIR DAY|HOME ALL DAY/;
+  ok('B14b no card row is a timetable',
+    !P.cardFor(p1[0], a1.agents[0], 600, null).some(r => anyDay.test(r.label + ' ' + r.value)));
+  ok('B14c where they are RIGHT NOW is still legal — that is eyesight',
+    !!P.cardFor(p1[0], a1.agents[0], 600, null).find(r => r.label === 'RIGHT NOW'));
 
   /* B15: a worker's job is a real neighbouring district, not a label. */
   const jobbed = { id: 'H1-1', role: 'worker', seed: 3,
@@ -408,11 +443,12 @@ async function partC() {
     const rows = await page.$$eval('#idcard .r', els => els.map(e => ({
       k: e.querySelector('.k').textContent.trim(), v: e.querySelector('.v').textContent.trim() })));
     const row = k => (rows.find(r => r.k === k) || {}).v;
-    ok('C11 the card shows the empty named-cast honestly', row('NAME') === 'NOT NAMED YET');
+    ok('C11 a stranger\'s card says YOU HAVE NOT ASKED', row('NAME') === 'YOU HAVE NOT ASKED');
     ok('C12 LIVES is their real house', row('LIVES') === 'HOUSE ' + (target.house + 1) + ' ON THIS BLOCK');
     ok('C13 WORKS is on the card', !!row('WORKS'));
     ok('C14 RIGHT NOW is on the card', !!row('RIGHT NOW'));
-    ok('C15 THEIR DAY is on the card', /OUT \d\d:\d\d|HOME ALL DAY/.test(row('THEIR DAY') || ''));
+    ok('C15 NO TIMETABLE IS ON THE CARD (Paolo: "it will all be invisible information")',
+      !row('THEIR DAY') && !rows.some(r => /OUT \d\d:\d\d/.test(r.v)));
     ok('C16 the first meeting reads as the first', row('YOU HAVE MET') === 'FIRST TIME');
 
     /* THE FACE IS THE BODY. Read the pixels the player is looking at. */
@@ -432,20 +468,44 @@ async function partC() {
     ok('C20 the hour with them is still on offer, inside the conversation',
       await page.isVisible('#pplhang'));
 
-    await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_PEOPLE_CARD_7_31_26.png') });
+    /* ------------------------------------------------------------------
+       YOU HAVE TO ASK — the ruling, driven on the real surface by tapping
+       the real button, because "once you ask their name, if you see them
+       again, then they would be named" is a claim about PERSISTENCE and
+       persistence is exactly what a unit test cannot prove.
+       ------------------------------------------------------------------ */
+    ok('C21 a stranger is offered the ask', await page.isVisible('#pplask'));
+    ok('C22 the run knows nobody\'s name yet',
+      (await page.evaluate(() => window.__RUN.people())).namesKnown === 0);
+    await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_PEOPLE_STRANGER_7_31_26.png') });
 
-    /* WALK AWAY AND COME BACK: they remember. */
+    await page.click('#pplask');
+    const nameRow = await page.$$eval('#idcard .r', els => {
+      const r = els.find(e => e.querySelector('.k').textContent.trim() === 'NAME');
+      return r ? r.querySelector('.v').textContent.trim() : null; });
+    const spk2 = (await page.textContent('#spk')).trim();
+    ok('C23 ASKING NAMES THEM (' + nameRow + ')',
+      !!nameRow && nameRow !== 'YOU HAVE NOT ASKED' && /^[A-Z][a-z]+ [A-Z]/.test(nameRow));
+    ok('C24 the sheet stops calling them their trade and uses their name',
+      spk2 === String(nameRow).split(' ')[0].toUpperCase());
+    ok('C25 you cannot ask twice', !(await page.isVisible('#pplask')));
+    ok('C26 the run counts one name known',
+      (await page.evaluate(() => window.__RUN.people())).namesKnown === 1);
+
     await page.click('#pplleave');
-    ok('C21 leaving closes the sheet', !(await page.isVisible('#talk')));
-    const again = await walkUpTo(page, target.key, grid);
-    if (again) {
-      await page.click('#act');
-      const met2 = await page.$$eval('#idcard .r', els => {
-        const r = els.find(e => e.querySelector('.k').textContent.trim() === 'YOU HAVE MET');
-        return r ? r.querySelector('.v').textContent.trim() : null; });
-      ok('C22 the second meeting remembers the first', met2 === 'ONCE BEFORE');
-      await page.click('#pplleave');
-    } else ok('C22 the second meeting remembers the first (could not re-reach)', false);
+    const verb2 = await page.evaluate(() => window.__RUN.verb());
+    ok('C27 THE ONE BUTTON CALLS THEM BY NAME NOW (' + (verb2 && verb2.label) + ')',
+      !!verb2 && verb2.label === 'TALK TO ' + String(nameRow).split(' ')[0].toUpperCase());
+
+    await page.click('#act');
+    await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_PEOPLE_NAMED_7_31_26.png') });
+
+    const met2 = await page.$$eval('#idcard .r', els => {
+      const r = els.find(e => e.querySelector('.k').textContent.trim() === 'YOU HAVE MET');
+      return r ? r.querySelector('.v').textContent.trim() : null; });
+    ok('C28 the second meeting remembers the first', met2 === 'ONCE BEFORE');
+    await page.click('#pplleave');
+    ok('C29 leaving closes the sheet', !(await page.isVisible('#talk')));
 
     /* AND IT SURVIVES THE SAVE. The bodies do not survive a load; the people do. */
     const code = await page.evaluate(() => window.__RUN.exportCode());
@@ -455,15 +515,22 @@ async function partC() {
     await fresh.goto('file://' + RUN_FILE);
     await fresh.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
     const loaded = await fresh.evaluate(t => window.__RUN.importCode(t), code);
-    ok('C23 the save loads on a fresh page', loaded === true);
+    ok('C30 the save loads on a fresh page', loaded === true);
     const after = await fresh.evaluate(() => window.__RUN.people());
-    ok('C24 the same block comes back as the same people',
+    ok('C31 the same block comes back as the same people',
       after && after.people.length === morning.people.length &&
       after.people.every((p, i) => p.key === morning.people[i].key));
-    ok('C25 WHO YOU HAVE MET SURVIVED THE LOAD', !!after.met[target.key] && after.met[target.key].times >= 2);
-    ok('C26 the loaded page threw nothing', ferr.length === 0);
+    ok('C32 WHO YOU HAVE MET SURVIVED THE LOAD', !!after.met[target.key] && after.met[target.key].times >= 2);
+    /* THE HALF HE CALLED REALLY COOL: not that you learn a name, that the game
+       still has it next time. A fresh page, a loaded save, and they are still
+       named. */
+    ok('C33 THE NAME SURVIVED THE LOAD ON A FRESH PAGE', after.namesKnown === 1 &&
+      !!(after.people.find(p => p.key === target.key) || {}).name);
+    ok('C34 and the loaded page calls them by it',
+      (after.people.find(p => p.key === target.key) || {}).name === nameRow);
+    ok('C35 the loaded page threw nothing', ferr.length === 0);
 
-    ok('C27 the whole thing ran with zero page errors' + (errors.length ? ': ' + errors[0] : ''),
+    ok('C36 the whole thing ran with zero page errors' + (errors.length ? ': ' + errors[0] : ''),
       errors.length === 0);
     return { errors, browser };
   } finally {

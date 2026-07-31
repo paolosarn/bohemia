@@ -87,11 +87,12 @@ const POSSESSIVE = /(['"`])[^'"`\n]*\b(THEIR DAY|THEIR HOURS|THEIR ROUTINE|THEIR
 
 /* THE WAIVER. Dated, named, owned. Anything not on this list fails. */
 const WAIVED = [
-  { file: 'engine/bohemia_people.js', label: 'THEIR DAY', since: '7/31/26',
-    owner: 'PEOPLE lane',
-    why: 'shipped at 18:38 on 7/31, one hour BEFORE the ruling existed. cardFor() '
-       + 'pushes a row labelled THEIR DAY whose value is dayLineOf() -> "OUT 07:15 '
-       + '· HOME 21:30". Theirs to remove or to argue; not this lane\'s file.' }
+  /* EMPTIED 7/31 BY THE PEOPLE LANE, the turn after this gate was written. The
+     one waiver was ours — cardFor()'s THEIR DAY row, which shipped about an hour
+     before the ruling existed. The row is DELETED, not hidden: there is no day
+     line in engine/bohemia_people.js at all now, only RIGHT NOW, which is
+     eyesight. This gate's own rule is that a waiver for something that no longer
+     exists is a lie the next reader inherits, so the waiver went with the row. */
 ];
 
 const found = [];
@@ -123,7 +124,7 @@ for (const w of WAIVED) {
   ok('the ' + w.label + ' waiver still describes something real (' + w.file + ')', still);
   if (still) console.log('       WAIVED ' + w.since + ' · ' + w.owner + ' · ' + w.file + ' · ' + w.label);
 }
-ok('the waiver list has not grown past the one it was written for', WAIVED.length === 1);
+ok('the waiver list is EMPTY — the row it was written for is fixed', WAIVED.length === 0);
 
 /* ---------------------------------------------------------------------------
    3. EYESIGHT SURVIVES. Present tense is not a timetable.

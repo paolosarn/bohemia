@@ -8,6 +8,12 @@ their house, their job, where they are in their day, and whether you have met
 them before. HANG OUT is not deleted — it moves inside the conversation, which is
 where hanging out with somebody belongs once you know who they are.
 
+AND YOU HAVE TO ASK (Paolo 7/31, LOCKED — laws/BOHEMIA_ADDENDUM_YOU_HAVE_TO_ASK_
+7_31_26.md): the card says YOU HAVE NOT ASKED where a name would be, and there is
+an "Ask their name" button. Tap it and they are named — on the card, on the one
+action button, and forever after, across saves. "I hate how in other games you
+know everyone's name off the bat and I think it's complete bullshit."
+
 WHY A PATCH TOOL AND NOT AN EDIT:
   The run slice is the RUN lane's file and this is the PEOPLE lane. Under the
   parallel-sessions law the safe way to touch another lane's surface is a tool
@@ -137,7 +143,7 @@ B_VERB = """    /* PEOPLE:VERB */
       for(var i=0;i<outs.length;i++){ var a=outs[i];
         if(reaches(a.loc.x,a.loc.y)){
           var who=personFor(a);
-          return { verb:'talk', label:'TALK TO THE '+BohemiaPeople.headingOf(who),
+          return { verb:'talk', label:BohemiaPeople.addressOf(who),
                    act:(function(ag){ return function(){ openPerson(ag); }; })(a) };
         }
       } }
@@ -172,19 +178,30 @@ function personFor(agent){
   var roster = (SIM && SIM.agents) ? SIM.agents : [agent];
   var sizes = {};
   roster.forEach(function(r){ var h=BohemiaPeople.seatOf(r).house; sizes[h]=(sizes[h]||0)+1; });
+  var key = BohemiaPeople.keyOf(PEOPLE_SEED, agent);
   return BohemiaPeople.personOf(PEOPLE_SEED, agent,
-    { householdSize: sizes[BohemiaPeople.seatOf(agent).house] });
+    { householdSize: sizes[BohemiaPeople.seatOf(agent).house],
+      asked: PEOPLE_MET.asked(key) });
 }
 /* THE DAY YOU ARE ON. The meeting ledger remembers world-days, never wall-clock:
    a save has to mean the same thing on a device in another timezone (saveBlob's
    own rule), and the sim turn IS the world minute. */
 function worldDay(){ return Math.floor((SIM?SIM.turn:0)/1440); }
+/* OPENING a conversation is a meeting. RE-DRAWING the card after you ask their
+   name is not, and counting it as one made asking somebody their name inflate how
+   often you had met them - caught by the gate, on the real surface. */
 function openPerson(agent){
   var who = personFor(agent);
   if(!who) return;
   /* meet() returns the record as it now stands, so the very meeting that makes
      it no longer the first time still reads FIRST TIME. */
-  var met = PEOPLE_MET.meet(who.key, worldDay());
+  PEOPLE_MET.meet(who.key, worldDay());
+  drawPerson(agent);
+}
+function drawPerson(agent){
+  var who = personFor(agent);
+  if(!who) return;
+  var met = PEOPLE_MET.get(who.key);
   PERSON_OPEN = who;
   RUN.phase='talking'; TALKEL.style.display='flex';
   SPK.textContent = BohemiaPeople.headingOf(who);
@@ -220,11 +237,28 @@ function openPerson(agent){
   BohemiaPeople.linesFor(who).forEach(function(s){
     var p=document.createElement('p'); p.textContent=s; SAYS.appendChild(p); });
   OPTS.innerHTML='';
+  /* YOU HAVE TO ASK (Paolo 7/31, LOCKED). "Nobody will have a name unless you
+     talk to them and ask them for their name... I hate how in other games you
+     know everyone's name off the bat." So this is the only door to a name, and
+     the game remembers you walked through it: re-opening the card, walking away
+     and coming back, and loading a save all show them named from here on. */
+  if(!BohemiaPeople.nameOf(who)){
+    var ask=document.createElement('button');
+    ask.id='pplask'; ask.textContent='Ask their name';
+    ask.addEventListener('click', function(){
+      PEOPLE_MET.ask(who.key, worldDay());
+      autoSave('asked');
+      drawPerson(agent);          /* they are named from this second onward */
+    });
+    OPTS.appendChild(ask);
+  }
   var hang=document.createElement('button');
   hang.id='pplhang'; hang.textContent='Hang out for an hour';
   hang.addEventListener('click', function(){
     closePerson();
-    spendTime('HANGOUT','You spent an hour with the '+BohemiaPeople.headingOf(who).toLowerCase()+'.');
+    spendTime('HANGOUT','You spent an hour with '+
+      (BohemiaPeople.nameOf(who) ? BohemiaPeople.nameOf(who).split(' ')[0]
+                                 : 'the '+BohemiaPeople.headingOf(who).toLowerCase())+'.');
   });
   OPTS.appendChild(hang);
   var go=document.createElement('button');
@@ -317,14 +351,15 @@ B_DBG = A_DBG + """  /* PEOPLE:DBG */
     if(!SIM) return null;
     var out = SIM.agents.map(function(a){
       var p = personFor(a);
-      return { key:p.key, id:a.id, role:p.role, tier:p.tier, name:p.name,
+      return { key:p.key, id:a.id, role:p.role, tier:p.tier, name:BohemiaPeople.nameOf(p),
+               asked:PEOPLE_MET.asked(p.key),
                heading:BohemiaPeople.headingOf(p), seat:BohemiaPeople.seatLineOf(p),
                lookSeed:p.lookSeed, outside:(a.loc.mode==='out'),
                x:a.loc.x, y:a.loc.y, house:p.household.house,
                card:BohemiaPeople.cardFor(p, a, SIM.turn, PEOPLE_MET.get(p.key)) };
     });
     return { turn:SIM.turn, day:worldDay(), n:out.length,
-             met:PEOPLE_MET.serialize(), looks:(CAST&&CAST.portraits)?CAST.portraits.looks.length:0,
+             namesKnown:PEOPLE_MET.namesKnown(), met:PEOPLE_MET.serialize(), looks:(CAST&&CAST.portraits)?CAST.portraits.looks.length:0,
              open:PERSON_OPEN?PERSON_OPEN.key:null, people:out };
   },
   /* /PEOPLE:DBG */

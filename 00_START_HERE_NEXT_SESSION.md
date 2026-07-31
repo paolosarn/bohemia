@@ -162,6 +162,205 @@ physical object with its hands stopped, which is set dressing and the opposite
 of a violation. The rule is a PERSON'S ROUTINE BEING DISPLAYED, not a noun.
 
 --- the turn before this one, still current ---
+PEOPLE (7h9sfy): 7/31 LATEST — THE NEIGHBOURS ARE PEOPLE, AND YOU HAVE TO ASK THEM
+THEIR NAME. First session of this lane. RUN TAB, build 8/1d.
+
+*** READ THIS BEFORE YOU PICK ANYTHING UP: FACTIONS ARE OFF. ***
+laws/BOHEMIA_ADDENDUM_BUILD_THE_WORLD_7_31_26.md (Paolo 7/31, LOCKED): "NO FACTION
+SHIT EITHER!" The law names this lane's own item 2 exactly - "No standing ledger, no
+territory model, no faction beats. The proposal to build the faction system next is
+DEAD" - and gates/build_the_world_gate.py fails on any new engine/bohemia_faction*.js.
+The earlier version of THIS handoff told you to build it next. That was written before
+the ruling landed. The backlog entry is now marked dead. Do not build it.
+
+=== HIS NAME RULING, AND IT SHIPPED THE SAME TURN ===
+laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md. Paolo: "Nobody will have a name
+unless you talk to them and ask them for their name... I hate how in other games you
+know everyone's name off the bat and I think it's complete bullshit... once you ask
+their name, if you see them again, then they would be named."
+IN THE RUN TAB: a stranger's card says YOU HAVE NOT ASKED where the name goes, and
+there is an "Ask their name" button. Tap it and they are named - on the card, on the
+one action button (TALK TO RUBEN, not TALK TO THE SCAVENGER), and on every future load
+of that save. THREE TIERS: known (story people, HIS table, EMPTY) / asked / stranger.
+Proof, real alpha, real cast:
+  slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26_STRANGER.png
+  slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26.png
+THE NAME IS DERIVED, NOT STORED - the ledger keeps one bit (you asked) and the name
+regenerates from the identity key, same as every other fact here. Pool is 64x64,
+weighted to the real Clark County (~30% Hispanic, ~12% Black, ~10% Asian/PI) because an
+all-Anglo pool is a lie about Vegas. HE CAN REPLACE THE POOL WHENEVER; the mechanic is
+the ruling, the strings are just strings.
+
+*** HE GAVE THIS RULING TO TWO SESSIONS AT ONCE. *** Another session (01EbCC5) got the
+same answer in different words and wrote laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_
+YOU_ASK_7_31_26.md. THAT ONE IS CANON - it carries a SECOND ruling this session never
+heard. The duplicate addendum this lane wrote is archived (gates/bohemia_superseded.txt);
+its two unique facts are folded into records/BOHEMIA_PEOPLE_IDENTITY_7_31_26.md. A pile of
+overlapping addenda is how canon rots, and the truth hierarchy calls two live files on one
+ruling a BUG, not a style choice.
+
+=== THE SECOND RULING COST THIS LANE A FEATURE, AND THAT IS CORRECT ===
+A ROUTINE IS INVISIBLE INFORMATION. "it will all be invisible information." The card
+shipped a THEIR DAY row reading "OUT 06:25 · HOME 16:58" about an hour before he ruled it
+out. IT IS DELETED, not hidden - no day-line helper exists in the module at all now. The
+people still have different days; you learn them by BEING ON THE STREET at different
+hours, which is the only way anybody ever learned a neighbour's hours in real life. WHAT
+SURVIVES: RIGHT NOW, because present tense is eyesight, not a timetable. The other lane's
+gate had a DATED WAIVER naming this exact row as ours to remove or argue; the row and the
+waiver were deleted together, because their own gate says a waiver for something that no
+longer exists is a lie the next reader inherits. Their gate went 18 -> 17 assertions and
+stayed green. DO NOT PUT THE ROW BACK.
+
+A GATE MUST NEVER OUTRANK A RULING. My gate asserted the EXACT OPPOSITE that morning
+(no names anywhere, plus a sweep of the module for a name bank) and it also asserted that
+THEIR DAY was ON the card. Both were the right read of the standing rules then and simply
+are not the law now, so the claims were rewritten in the same turn rather than the rulings
+being worked around.
+
+=== WHAT HE CAN GO LOOK AT, IN THE RUN TAB ===
+Walk out your front door and up to anybody on the block. The one button now reads
+TALK TO THE SCAVENGER (or WORKER / KEEPER / WATCH) instead of HANG OUT (1 HOUR).
+Tap it: their own face, and six lines about them — where they live, what they do,
+what they are doing RIGHT NOW, the hours of their day, and whether you have met
+before. Walk away, come back tomorrow, load a save: same person, and they
+remember you. Proof shot through the real alpha with the real cast:
+slices/BOHEMIA_PEOPLE_CARD_ALPHA_7_31_26.png
+HANG OUT IS NOT GONE. It moved INSIDE the conversation ("Hang out for an hour"),
+still one verb, still costs the hour. You just know who you spent it with now.
+
+=== THE ONE DECISION WAITING ON HIM ===
+DO THE NEIGHBOURS GET NAMES? The card says NOT NAMED YET on purpose. NAMED_CAST
+and LINES ship EMPTY and the gate fails if either gains a row; there is NO
+procedural name generator and the gate sweeps the module for a name bank, because
+bohemia_agents.js:24 has said since 7/19 that "character names are Paolo's" and
+nothing repealed it. Three answers are all legal: (a) he writes a named cast,
+(b) they stay role-and-house forever (which is a real design, not a hole — you
+know the scavenger from house 16 without knowing her name), (c) he rules that
+procedural names are allowed and this lane builds the generator. UNTIL HE PICKS,
+NOTHING HERE MOVES. Do not pick for him.
+
+=== WHY ITEM 1 AND NOT ITEM 0 (do not rebuild the dialogue system) ===
+PEOPLE 0 is "THE DIALOGUE SYSTEM v1" and it was ALREADY BUILT. REUSE-FIRST found
+it before anything got cooked: engine/bohemia_quest_runtime.js plus the run's own
+TALK sheet already play .bq conversations end to end (speaker, portrait, says,
+choices, silences, noverbs), and run_gate has proved S01 playable on both forks
+since 7/26. The runtime was never missing. What was missing is that the sheet only
+ever opened for the ONE quest speaker. Backlog item 0 is annotated accordingly.
+WHAT IS ACTUALLY LEFT ON ITEM 0: nothing this lane may build alone, because a
+non-quest conversation needs WORDS and the words are his.
+
+=== THE DESIGN, and the one decision worth inheriting ===
+    an AGENT is a BODY.      Where it stands, what it is doing this minute.
+    a  PERSON is an IDENTITY. Who that is, forever.
+IDENTITY IS DERIVED, NEVER STORED. The run's applyBlob() throws every agent away
+on a save load and rebuilds them from the seed, so an identity hung on an agent
+object dies on every load. The same three numbers the body comes from
+(blockSeed, house, slot) resolve to the same person on any device, on any load.
+Persistence with nothing persisted. That is why the meeting ledger is keyed by a
+derived key and not by an agent.
+engine/bohemia_people.js. Full write-up: records/BOHEMIA_PEOPLE_IDENTITY_7_31_26.md
+
+=== TWO REAL BUGS THE GATE CAUGHT, BOTH MEASURED ===
+1. HALF OF PAOLO'S TOWNSFOLK BODIES HAVE NEVER BEEN ON SCREEN. The alpha bakes
+   RUN_LOOKS=6 and the run drew each body with looks[agent.seed % 6]. Measured
+   over 528 bodies on 40 generated blocks: that expression returns 0, 2 or 4 and
+   NEVER 1, 3 or 5. Root cause is a JavaScript trap, not a typo — bohemia_agents
+   .hash ends in `(h*2654435761)>>>0`, a float64 multiply landing near 1.1e19,
+   past 2^53, so the low ~11 bits are rounded away and every seed is a multiple
+   of 512. Dead low bits means `% smallNumber` is dead.
+   I DID NOT FIX THAT HASH, deliberately: it also decides which houses are
+   occupied, household sizes and every schedule in the valley, so changing it
+   reshuffles the population and breaks "same cell = same people" for every save
+   that exists. Fixed at the modulus instead (mix32, Math.imul, exact 32-bit).
+   All six of his bodies appear now. Gate B9 keeps the ORIGINAL measurement
+   red-able so nobody can put the raw seed back quietly.
+2. MINE, and only the real-browser half could see it: identity was keyed to the
+   world SEED — which is literally 7 for the whole valley — instead of the block
+   seed. House 3's second resident would have been the same person in every cell
+   there is, with a ledger that "remembered" strangers. Gate C4b.
+
+=== GATE ===
+gates/people_gate.js, registered as PEOPLE, 63 checks. A (12) his tables empty and
+load-bearing, no name bank, the hole VISIBLE not hidden. B (23) identity derived
+and stable across independent builds and sim rebuilds; the ledger round-trips
+through JSON. C (28) THE REAL RUN at 390x844: out the real front door, chase a
+real body across the block on the real arrows, tap the real button, read the card,
+sample the portrait's PIXELS, walk away, come back remembered, export the save,
+load it on a fresh page, still remembered.
+EIGHT MUTATIONS, ALL CAUGHT (a gate green first try has not been tested): a
+placeholder name; a placeholder line; a name bank; the raw seed put back; the NAME
+row quietly hiding the empty table; the ledger no longer surviving JSON; identity
+keyed to the valley; the body drawn from the raw seed. Two are caught ONLY by the
+browser half.
+
+=== A THIRD THING, FLAGGED NOT FIXED: PURPLE ON THE TOWNSFOLK ===
+The alpha bakes NPC colourways with Math.random() (alpha ~5719), so a townsfolk body
+can come out PURPLE on any page load - it is visible in this lane's own proof shot.
+PURPLE RESERVATION says purple is the Amalgamation's alone. This is NOT from this
+lane's look fix: the tints are re-rolled every load and have nothing to do with which
+look index gets chosen. The purity gate cannot see it either, because the run cast is
+generated at runtime rather than banked as an image. CHARACTER/alpha's system, flagged
+by owner.
+
+=== A FLAKE, NAMED SO NOBODY CHASES IT ===
+The final suite reported SFX WIRED red. It is NOT red: it passes 150/0 standalone,
+three runs in a row, right after the suite said otherwise. That gate drives real audio
+in a real browser and it was sharing a machine with the whole suite. If you see it red
+once, run `python3 gates/sfx_wired_gate.py` on its own before believing it. Reported
+here rather than quietly re-run until green, because "I ran it again and it passed" is
+a thing that has to be said out loud to mean anything.
+
+=== TWO REDS I INHERITED AND DID NOT TOUCH (proved, not assumed) ===
+The full suite came back 3 red. ONE WAS MINE and is fixed: REUSE FIRST swept this
+lane's patch tool (correctly — the code it injects calls drawImage) and it now
+carries a truthful REUSE CHECK: it cooks zero pixels and draws only the alpha's
+already-baked cast and the run's existing sheet.
+THE OTHER TWO ARE THE CHARACTER LANE'S, and I proved it the way the 7/30 note
+says to — by running them on origin/main where they came back BYTE-IDENTICAL:
+  RIG CHECK      bohemia_headshot_ragdoll_exemption_patch.py: claimed joint waC
+                 is really used                        (161 pass / 1 fail, both trees)
+  BODY VARIATION the frame cache hashes the dials       (20 pass / 1 fail, both trees)
+Both arrived with "THE HEADSHOT WAS FROZEN BEFORE IT COULD FALL". A third lane
+(ec08dcd) flagged the same two independently. Flagged by owner, NOT fixed here:
+a red you did not cause never gets fixed by editing another lane's system to make
+your own suite green.
+
+=== I ALSO CLEANED UP A HANDOFF THAT SHIPPED WITH CONFLICT MARKERS ===
+This file was on main with a live <<<<<<< / ======= / >>>>>>> in it (LAB's section
+against RUN's). BOTH sides were kept verbatim — they are different lanes' sections
+and this file is append-only, so "keep both" loses nobody's text and needed no
+judgement call. Nothing was chosen between and nothing was dropped.
+
+=== BOUNDARY, STATED PLAINLY ===
+The run surface is the RUN lane's file. Every edit to it is reproduced by
+tools/bohemia_people_identity_patch.py, which is idempotent AND fully reversible —
+proved byte-for-byte both directions. So a rebase is
+`git checkout origin/main -- slices/BOHEMIA_RUN_SLICE_7_26_26.html` then re-run the
+tool, never a hand merge. That is exactly how this session landed on top of the
+SOUNDS lane's footsteps commit, and it lost none of their bytes (RUN GATE 126/126
+after).
+
+=== WHAT COMES AFTER, in order ===
+1. WHO DOES HE ALREADY KNOW? KNOWN_AT_START is empty and it is the last open half
+   of his own ruling. The lineman is the obvious first (the run's own words: "he is
+   your neighbour, one door down, nothing closer is possible"). Naming him is a
+   ruling, not an inference, so it was NOT done. One name from Paolo closes it.
+2. PEOPLE 2, THE FACTION STANDING LEDGER: *** DEAD BY RULING, see the top. ***
+3. PEOPLE 3, the companion social layer, still waits on the combat extraction.
+4. Flagged, NOT claimed — for CHARACTER: the six portraits are six colourways of
+   ONE face (the baker renders the same spec and varies tints + hat). Six people
+   look like one person in different jackets. Not this lane's system.
+5. Flagged for whoever owns the valley: a person is per BLOCK. Nobody follows you
+   between cells, and bohemia_population.js is still numbers rather than
+   identities. That is the shape the companion layer will need.
+
+STANDING FOR THIS LANE: MECHANISM-MINE AT ITS PUREST. Every named character,
+faction disposition and line of dialogue is his. Tables ship empty and gated;
+procedural identity fills below the named tier and NEVER invents a name. Derive
+looks from CHARACTER's rig, never new bodies. Quest text stays the questbook's.
+This lane builds the MOUTH, not the words.
+
+--------------------------------------------------------------------------------
 
 LAB (e2r7sv): 7/31 (h) LATEST — CRISIS RESPONSE: VIOLENCE IS TRAUMATIC WHEN IT MAKES
 WORK AND COSTS YOU, NOT WHEN IT LOOKS WET.
@@ -474,139 +673,6 @@ DO NOT: build a second schedule system. Do not put a schedule reader back in
 bohemia_population.js. Do not raise the population because it "feels empty" - a
 quarter of the map is empty ON HIS ORDER and the gate will catch you. Do not let
 conditions push anybody OUT.
-
-PEOPLE (7h9sfy): 7/31 LATEST — THE NEIGHBOURS ARE PEOPLE NOW. First session of this
-lane. RUN TAB, build 7/31t.
-
-=== WHAT HE CAN GO LOOK AT, IN THE RUN TAB ===
-Walk out your front door and up to anybody on the block. The one button now reads
-TALK TO THE SCAVENGER (or WORKER / KEEPER / WATCH) instead of HANG OUT (1 HOUR).
-Tap it: their own face, and six lines about them — where they live, what they do,
-what they are doing RIGHT NOW, the hours of their day, and whether you have met
-before. Walk away, come back tomorrow, load a save: same person, and they
-remember you. Proof shot through the real alpha with the real cast:
-slices/BOHEMIA_PEOPLE_CARD_ALPHA_7_31_26.png
-HANG OUT IS NOT GONE. It moved INSIDE the conversation ("Hang out for an hour"),
-still one verb, still costs the hour. You just know who you spent it with now.
-
-=== THE ONE DECISION WAITING ON HIM ===
-DO THE NEIGHBOURS GET NAMES? The card says NOT NAMED YET on purpose. NAMED_CAST
-and LINES ship EMPTY and the gate fails if either gains a row; there is NO
-procedural name generator and the gate sweeps the module for a name bank, because
-bohemia_agents.js:24 has said since 7/19 that "character names are Paolo's" and
-nothing repealed it. Three answers are all legal: (a) he writes a named cast,
-(b) they stay role-and-house forever (which is a real design, not a hole — you
-know the scavenger from house 16 without knowing her name), (c) he rules that
-procedural names are allowed and this lane builds the generator. UNTIL HE PICKS,
-NOTHING HERE MOVES. Do not pick for him.
-
-=== WHY ITEM 1 AND NOT ITEM 0 (do not rebuild the dialogue system) ===
-PEOPLE 0 is "THE DIALOGUE SYSTEM v1" and it was ALREADY BUILT. REUSE-FIRST found
-it before anything got cooked: engine/bohemia_quest_runtime.js plus the run's own
-TALK sheet already play .bq conversations end to end (speaker, portrait, says,
-choices, silences, noverbs), and run_gate has proved S01 playable on both forks
-since 7/26. The runtime was never missing. What was missing is that the sheet only
-ever opened for the ONE quest speaker. Backlog item 0 is annotated accordingly.
-WHAT IS ACTUALLY LEFT ON ITEM 0: nothing this lane may build alone, because a
-non-quest conversation needs WORDS and the words are his.
-
-=== THE DESIGN, and the one decision worth inheriting ===
-    an AGENT is a BODY.      Where it stands, what it is doing this minute.
-    a  PERSON is an IDENTITY. Who that is, forever.
-IDENTITY IS DERIVED, NEVER STORED. The run's applyBlob() throws every agent away
-on a save load and rebuilds them from the seed, so an identity hung on an agent
-object dies on every load. The same three numbers the body comes from
-(blockSeed, house, slot) resolve to the same person on any device, on any load.
-Persistence with nothing persisted. That is why the meeting ledger is keyed by a
-derived key and not by an agent.
-engine/bohemia_people.js. Full write-up: records/BOHEMIA_PEOPLE_IDENTITY_7_31_26.md
-
-=== TWO REAL BUGS THE GATE CAUGHT, BOTH MEASURED ===
-1. HALF OF PAOLO'S TOWNSFOLK BODIES HAVE NEVER BEEN ON SCREEN. The alpha bakes
-   RUN_LOOKS=6 and the run drew each body with looks[agent.seed % 6]. Measured
-   over 528 bodies on 40 generated blocks: that expression returns 0, 2 or 4 and
-   NEVER 1, 3 or 5. Root cause is a JavaScript trap, not a typo — bohemia_agents
-   .hash ends in `(h*2654435761)>>>0`, a float64 multiply landing near 1.1e19,
-   past 2^53, so the low ~11 bits are rounded away and every seed is a multiple
-   of 512. Dead low bits means `% smallNumber` is dead.
-   I DID NOT FIX THAT HASH, deliberately: it also decides which houses are
-   occupied, household sizes and every schedule in the valley, so changing it
-   reshuffles the population and breaks "same cell = same people" for every save
-   that exists. Fixed at the modulus instead (mix32, Math.imul, exact 32-bit).
-   All six of his bodies appear now. Gate B9 keeps the ORIGINAL measurement
-   red-able so nobody can put the raw seed back quietly.
-2. MINE, and only the real-browser half could see it: identity was keyed to the
-   world SEED — which is literally 7 for the whole valley — instead of the block
-   seed. House 3's second resident would have been the same person in every cell
-   there is, with a ledger that "remembered" strangers. Gate C4b.
-
-=== GATE ===
-gates/people_gate.js, registered as PEOPLE, 63 checks. A (12) his tables empty and
-load-bearing, no name bank, the hole VISIBLE not hidden. B (23) identity derived
-and stable across independent builds and sim rebuilds; the ledger round-trips
-through JSON. C (28) THE REAL RUN at 390x844: out the real front door, chase a
-real body across the block on the real arrows, tap the real button, read the card,
-sample the portrait's PIXELS, walk away, come back remembered, export the save,
-load it on a fresh page, still remembered.
-EIGHT MUTATIONS, ALL CAUGHT (a gate green first try has not been tested): a
-placeholder name; a placeholder line; a name bank; the raw seed put back; the NAME
-row quietly hiding the empty table; the ledger no longer surviving JSON; identity
-keyed to the valley; the body drawn from the raw seed. Two are caught ONLY by the
-browser half.
-
-=== TWO REDS I INHERITED AND DID NOT TOUCH (proved, not assumed) ===
-The full suite came back 3 red. ONE WAS MINE and is fixed: REUSE FIRST swept this
-lane's patch tool (correctly — the code it injects calls drawImage) and it now
-carries a truthful REUSE CHECK: it cooks zero pixels and draws only the alpha's
-already-baked cast and the run's existing sheet.
-THE OTHER TWO ARE THE CHARACTER LANE'S, and I proved it the way the 7/30 note
-says to — by running them on origin/main where they came back BYTE-IDENTICAL:
-  RIG CHECK      bohemia_headshot_ragdoll_exemption_patch.py: claimed joint waC
-                 is really used                        (161 pass / 1 fail, both trees)
-  BODY VARIATION the frame cache hashes the dials       (20 pass / 1 fail, both trees)
-Both arrived with "THE HEADSHOT WAS FROZEN BEFORE IT COULD FALL". A third lane
-(ec08dcd) flagged the same two independently. Flagged by owner, NOT fixed here:
-a red you did not cause never gets fixed by editing another lane's system to make
-your own suite green.
-
-=== I ALSO CLEANED UP A HANDOFF THAT SHIPPED WITH CONFLICT MARKERS ===
-This file was on main with a live <<<<<<< / ======= / >>>>>>> in it (LAB's section
-against RUN's). BOTH sides were kept verbatim — they are different lanes' sections
-and this file is append-only, so "keep both" loses nobody's text and needed no
-judgement call. Nothing was chosen between and nothing was dropped.
-
-=== BOUNDARY, STATED PLAINLY ===
-The run surface is the RUN lane's file. Every edit to it is reproduced by
-tools/bohemia_people_identity_patch.py, which is idempotent AND fully reversible —
-proved byte-for-byte both directions. So a rebase is
-`git checkout origin/main -- slices/BOHEMIA_RUN_SLICE_7_26_26.html` then re-run the
-tool, never a hand merge. That is exactly how this session landed on top of the
-SOUNDS lane's footsteps commit, and it lost none of their bytes (RUN GATE 126/126
-after).
-
-=== WHAT COMES AFTER, in order ===
-1. HIS NAMES ANSWER (above). One word unblocks the whole lane.
-2. PEOPLE 2, THE FACTION STANDING LEDGER. NOT BLOCKED, and bigger than it looks:
-   engine/bohemia_engine.js already carries a full Factions system (STANDING
-   -100..100, rungs HOSTILE/COLD/NEUTRAL/WARM/FWU, territory, quota AI). It is not
-   wired to the player at all. The work is a PLAYER standing ledger against it,
-   shipped empty like the purse — no action-to-standing table until he rules one.
-   REUSE-FIRST: read that module before writing a line.
-3. PEOPLE 3, the companion social layer, still waits on the combat extraction.
-4. Flagged, NOT claimed — for CHARACTER: the six portraits are six colourways of
-   ONE face (the baker renders the same spec and varies tints + hat). Six people
-   look like one person in different jackets. Not this lane's system.
-5. Flagged for whoever owns the valley: a person is per BLOCK. Nobody follows you
-   between cells, and bohemia_population.js is still numbers rather than
-   identities. That is the shape the companion layer will need.
-
-STANDING FOR THIS LANE: MECHANISM-MINE AT ITS PUREST. Every named character,
-faction disposition and line of dialogue is his. Tables ship empty and gated;
-procedural identity fills below the named tier and NEVER invents a name. Derive
-looks from CHARACTER's rig, never new bodies. Quest text stays the questbook's.
-This lane builds the MOUTH, not the words.
-
---------------------------------------------------------------------------------
 
 LAB (e2r7sv): 7/31 (g) LATEST — I FOUND TWO LIVE LAWS CONTRADICTING EACH OTHER.
 BUILDINGS ARE EARNED, NOT AFFORDED.

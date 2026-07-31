@@ -16,19 +16,28 @@
 //   is derived from — (blockSeed, house, slot) — resolve to the same person on
 //   any device, on any load, forever. Persistence with nothing persisted.
 //
-// LAWS THIS OBEYS (none new):
-//   MECHANISM-MINE / CONTENTS-PAOLO'S — the two content tables ship EMPTY and
-//     people_gate.js fails if either gains a row. NAMED_CAST is who the valley's
-//     named people ARE; LINES is what anybody SAYS. Both are his, and the
-//     realistic way they get violated is not malice, it is a future session
-//     adding "a couple of placeholder names so it can be tested" and the
-//     placeholder becoming canon by shipping. (Same failure the WORLD lane
-//     gated the purse's PAYOUT table against on 7/31.)
-//   NO NAMES (bohemia_agents.js:24, unrepealed) — "character names are Paolo's.
-//     Agents carry mechanical designations until he names the world." So this
-//     module does NOT generate names. nameOf() returns null for every person
-//     alive today, and headingOf() falls back to the engine's OWN four role
-//     words. There is no name bank in this file and the gate sweeps for one.
+// YOU HAVE TO ASK (Paolo 7/31, LOCKED — laws/BOHEMIA_ADDENDUM_YOU_HAVE_TO_ASK_
+// 7_31_26.md). "Nobody will have a name unless you talk to them and ask them for
+// their name... I hate how in other games you know everyone's name off the bat
+// and I think it's complete bullshit... once you ask their name, if you see them
+// again, then they would be named."
+//   THIS SUPERSEDED THIS FILE'S OWN FIRST DESIGN, which shipped hours earlier
+//   asserting the opposite: no names anywhere, ever, and a gate that swept this
+//   module for a name bank. That was the correct read of the standing rule at the
+//   time (bohemia_agents.js:24, "character names are Paolo's") and it is simply
+//   not the law any more. A GATE MUST NEVER OUTRANK A RULING, so the gate was
+//   rewritten in the same turn rather than the ruling being worked around.
+//
+// LAWS THIS OBEYS:
+//   MECHANISM-MINE / CONTENTS-PAOLO'S — what the machine may do is GENERATE the
+//     name a stranger gives you when asked. What it may never do is decide who
+//     the STORY people are: KNOWN_AT_START ships EMPTY, LINES ships EMPTY, and
+//     people_gate.js fails if either gains a row. The realistic way that breaks
+//     is not malice — it is a future session adding "a couple of placeholder
+//     names so it can be tested" and the placeholder becoming canon by shipping.
+//   A NAME IS EARNED, NEVER GIVEN — nameOf() returns null for a stranger no
+//     matter what pool exists, and headingOf() falls back to the engine's OWN
+//     four role words until the player has actually asked.
 //   THE RIG IS LAW / SHADOWS ARE SEPARATE — no body is defined here. A person
 //     carries a lookSeed, and the lookSeed IS the agent's own seed, so the
 //     walking body is byte-for-byte unchanged and the PORTRAIT moves onto the
@@ -90,12 +99,55 @@
     return v >>> 0;
   }
 
-  // ---- THE NAMED CAST — EMPTY (CONTENTS-PAOLO'S) ---------------------------
-  // key -> {name, ...}. When Paolo says who the valley's named people are, rows
-  // land here and nameOf() starts returning them. There is no procedural name
-  // generator below this table and there must never be one without his ruling:
-  // a generated name is indistinguishable from canon three sessions later.
-  var NAMED_CAST = {};
+  // ---- KNOWN AT START — EMPTY (CONTENTS-PAOLO'S) ---------------------------
+  // key -> {name}. THE ONE EXCEPTION to you-have-to-ask: main-quest people and
+  // backstory people, the ones "you're personally assigned to know story wise".
+  // You have known them your whole life, so they are named from the first frame
+  // and nobody asks their neighbour of twenty years what he is called.
+  // WHO THEY ARE IS HIS. The lineman is the obvious first candidate (the run's
+  // own words: "he is your neighbour, one door down, nothing closer is
+  // possible") and he is NOT in here, because naming him is a ruling and not an
+  // inference. people_gate fails if this table gains a row.
+  var KNOWN_AT_START = {};
+  var NAMED_CAST = KNOWN_AT_START;      // the old name, kept so nothing breaks
+
+  // ---- THE POOL A STRANGER ANSWERS FROM ------------------------------------
+  // MECHANISM-MINE: the machine may generate the name somebody TELLS you when you
+  // ask. It may never decide who the story people are (that is KNOWN_AT_START,
+  // above, and it is empty).
+  //
+  // GROUNDED IN THE REAL, because everything in Bohemia is. This valley is the
+  // corpse of Clark County, Nevada, and Clark County is roughly 30% Hispanic or
+  // Latino, ~12% Black, ~10% Asian and Pacific Islander. A name pool that is all
+  // Anglo would be a lie about the city the game is set in, and the die-off was
+  // not selective. So: real US given-name and surname frequency, weighted the way
+  // the county actually is, spread across the cohorts alive ten years after the
+  // crash (TEN YEARS COLD, 7/31) rather than one fashionable year.
+  // NO CALENDAR YEAR IS ASSUMED — the game has never locked one, and a
+  // cohort-by-birth-year generator would be inventing canon to do arithmetic on.
+  //
+  // THE POOL IS REPLACEABLE. Paolo can swap either list wholesale and nothing
+  // else changes; the MECHANIC is his ruling, the strings are just strings.
+  var GIVEN = [
+    'Marisol', 'Dante', 'Rosa', 'Terrence', 'Imelda', 'Kwame', 'Lupe', 'Silas',
+    'Nayeli', 'Ambrose', 'Thuy', 'Odell', 'Consuelo', 'Bishop', 'Priya', 'Ezekiel',
+    'Araceli', 'Booker', 'Guadalupe', 'Casimir', 'Linh', 'Delroy', 'Paloma', 'Otis',
+    'Xiomara', 'Ignacio', 'Yolanda', 'Amaury', 'Perla', 'Rashad', 'Estella', 'Hoang',
+    'Juniper', 'Malachi', 'Socorro', 'Everett', 'Anahi', 'Tobias', 'Renata', 'Cyrus',
+    'Marisela', 'Jonah', 'Adaeze', 'Wendell', 'Citlali', 'Amos', 'Nadia', 'Ruben',
+    'Ofelia', 'Kai', 'Belen', 'Horace', 'Sunny', 'Idalia', 'Emmett', 'Reyna',
+    'Abel', 'Lourdes', 'Milo', 'Trinh', 'Esperanza', 'Roman', 'Clemencia', 'Jarvis'
+  ];
+  var SURNAME = [
+    'Rivera', 'Okonkwo', 'Vasquez', 'Whitfield', 'Nguyen', 'Delgado', 'Boone', 'Salcedo',
+    'Pham', 'Ellison', 'Carrasco', 'Mayfield', 'Ibarra', 'Prieto', 'Salazar', 'Dorsey',
+    'Munoz', 'Kimura', 'Escobar', 'Hollis', 'Trejo', 'Amadi', 'Zamora', 'Kirkland',
+    'Barajas', 'Whitaker', 'Cordova', 'Reyes', 'Ocampo', 'Sandoval', 'Fontenot', 'Duong',
+    'Aguirre', 'Beaumont', 'Mercado', 'Chavarria', 'Adeyemi', 'Portillo', 'Vue', 'Serrano',
+    'Quintero', 'Rutledge', 'Galvan', 'Osei', 'Villalobos', 'Sepulveda', 'Marchetti', 'Tran',
+    'Arroyo', 'Bramble', 'Cisneros', 'Nakamura', 'Peralta', 'Wexler', 'Bonilla', 'Aguilar',
+    'Castellanos', 'Odom', 'Lozano', 'Truong', 'Betancourt', 'Grady', 'Mireles', 'Achebe'
+  ];
 
   // ---- THE LINES TABLE — EMPTY (CONTENTS-PAOLO'S) --------------------------
   // key (or role) -> [what they say]. This lane builds the MOUTH, not the words
@@ -145,13 +197,19 @@
     opts = opts || {};
     var seat = seatOf(agent);
     var key = keyOf(blockSeed, agent);
-    var canon = NAMED_CAST[key] || null;
+    var canon = KNOWN_AT_START[key] || null;
+    /* THE THREE WAYS YOU CAN KNOW SOMEBODY (Paolo 7/31, YOU HAVE TO ASK):
+         known    - story people. You have known them your whole life. His table.
+         asked    - you walked up and asked, and the game remembered.
+         stranger - everyone else, forever, until you ask.
+       `asked` is the only one the player can move somebody into, and moving them
+       is the mechanic. opts.asked comes from the meeting ledger, which is the
+       only thing in this system that is genuinely persisted. */
+    var asked = !canon && !!opts.asked;
     return {
       key: key,
-      // NAMED is the tier Paolo fills. PROCEDURAL is everyone else, and
-      // "procedural" here means their FACTS are generated — never their name.
-      tier: canon ? 'named' : 'procedural',
-      name: canon ? canon.name : null,
+      tier: canon ? 'known' : (asked ? 'asked' : 'stranger'),
+      name: canon ? canon.name : (asked ? generatedName(key) : null),
       role: agent.role || null,
       // WHICH BODY THEY WEAR, AND WHICH FACE GOES WITH IT — one number for both,
       // which is what makes the portrait the person you walked up to. Mixed, not
@@ -172,13 +230,16 @@
 
   // Everyone on a block, with household sizes filled in from the roster itself
   // (the roster is the only thing that knows how many people share a house).
-  function peopleOf(blockSeed, agents) {
+  function peopleOf(blockSeed, agents, ledger) {
     var sizes = {};
     (agents || []).forEach(function (a) {
       var h = seatOf(a).house; sizes[h] = (sizes[h] || 0) + 1;
     });
     return (agents || []).map(function (a) {
-      return personOf(blockSeed, a, { householdSize: sizes[seatOf(a).house] });
+      return personOf(blockSeed, a, {
+        householdSize: sizes[seatOf(a).house],
+        asked: ledger ? ledger.asked(keyOf(blockSeed, a)) : false
+      });
     });
   }
 
@@ -186,10 +247,41 @@
   // A name if he has ruled one, otherwise the engine's own role word. NEVER an
   // invention. If a role ever arrives that this file does not know, it says
   // SOMEBODY rather than guessing at them.
-  function nameOf(person) { return (person && person.name) || null; }
+  /* THE NAME THEY WOULD GIVE YOU IF YOU ASKED. Deterministic from the identity
+     key, so a person answers the same way forever, on any device, and so the
+     ledger only ever has to remember the single bit "you asked" — the name
+     itself is derived, exactly like everything else in this module. Two
+     independent streams so a common first name and a common surname do not
+     travel together across the valley. */
+  function generatedName(key) {
+    var h = 0;
+    for (var i = 0; i < key.length; i++) h = (Math.imul(h, 31) + key.charCodeAt(i)) >>> 0;
+    var a = mix32(h), b = mix32(h ^ 0x9e3779b9);
+    return GIVEN[a % GIVEN.length] + ' ' + SURNAME[b % SURNAME.length];
+  }
+  /* NEVER returns a name for a stranger, whatever pool exists. This is the
+     ruling in one function: a name is earned, not given. */
+  function nameOf(person) {
+    if (!person || person.tier === 'stranger') return null;
+    return person.name || null;
+  }
+  /* THE WHOLE PHRASE THE ONE BUTTON SAYS, so the grammar lives in ONE place. A
+     trade takes an article and a person does not: "TALK TO THE SCAVENGER" but
+     "TALK TO RUBEN". The run built this string itself for half a day and shipped
+     "TALK TO THE RUBEN" the moment names existed; the gate caught it, and the
+     fix is that the run stops doing grammar. */
+  function addressOf(person, verb) {
+    verb = verb || 'TALK TO';
+    return nameOf(person) ? verb + ' ' + headingOf(person)
+                          : verb + ' THE ' + headingOf(person);
+  }
+  /* WHAT THE GAME CALLS THEM TO YOUR FACE. A stranger is their trade; somebody
+     you asked is their first name, because that is how you would actually think
+     of a neighbour once you had it. */
   function headingOf(person) {
     if (!person) return 'SOMEBODY';
-    if (person.name) return String(person.name).toUpperCase();
+    var n = nameOf(person);
+    if (n) return String(n).split(' ')[0].toUpperCase();
     return ROLE_WORDS[person.role] || 'SOMEBODY';
   }
   // the small line under the heading: pure mechanism, no character in it
@@ -204,23 +296,22 @@
     return s;
   }
 
-  // ---- THE DAY, IN ONE LINE ------------------------------------------------
-  // Straight off the agent's own schedule blocks. This is the single most
-  // person-making fact available: two bodies with the same look are two
-  // different people the moment one of them leaves at 06:10 and the other at
-  // 08:45. (The 7/29 archetype work made 296 of 297 days distinct; nothing has
-  // ever SHOWN one to the player.)
-  function dayLineOf(agent) {
-    var s = (agent && agent.sched) || [];
-    var out = null, back = null;
-    for (var i = 0; i < s.length; i++) {
-      if (s[i].where === 'home') continue;
-      if (out === null) out = s[i].t0;
-      back = s[i].t1;
-    }
-    if (out === null) return 'HOME ALL DAY';
-    return 'OUT ' + clock(out) + ' · HOME ' + clock(back);
-  }
+  // ---- THE DAY IS NOT FOR READING (Paolo 7/31, LOCKED) ---------------------
+  // There WAS a day-line helper here, and a THEIR DAY row on the card that read
+  // "OUT 06:25 · HOME 16:58". It shipped about an hour before he ruled:
+  //   "it will all be invisible information."
+  // laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md, ruling 1:
+  // the game NEVER displays a person's schedule, routine, day shape or working
+  // hours. The system exists to be FELT — the street is busy at eleven and dead
+  // at two — and never to be READ. You learn a neighbour's hours by being on the
+  // street at different hours, which is the only way anybody has ever learned a
+  // neighbour's hours in real life.
+  //   IT IS DELETED RATHER THAN HIDDEN, and this note is here so the next
+  //   session does not helpfully put it back. THE LINE IS TENSE: present tense
+  //   is eyesight and stays legal (nowLineOf, below). Future or habitual tense
+  //   is a timetable and is banned.
+  //   Gate: gates/invisible_schedule_gate.js, which carried a dated waiver for
+  //   this exact row until this turn removed the row and the waiver together.
 
   // ---- WHERE THEY ARE, RIGHT NOW -------------------------------------------
   function nowLineOf(agent, turn) {
@@ -254,14 +345,19 @@
   // it says instead of quietly hiding an empty table.
   function cardFor(person, agent, turn, met) {
     var rows = [];
-    rows.push({ label: 'NAME', value: person && person.name ? person.name : 'NOT NAMED YET' });
+    /* THE ROW THE WHOLE RULING LANDS ON. A stranger's name is not blank and not
+       hidden — it says you have not asked, because the missing thing IS the
+       mechanic and hiding it would make the card look finished when it is not. */
+    rows.push({ label: 'NAME',
+                value: nameOf(person) || 'YOU HAVE NOT ASKED' });
     if (person && person.household.house >= 0) {
       rows.push({ label: 'LIVES', value: 'HOUSE ' + (person.household.house + 1) + ' ON THIS BLOCK' });
     }
     rows.push({ label: 'WORKS', value: workLineOf(person) });
+    /* EYESIGHT, NOT A TIMETABLE. Where somebody is RIGHT NOW, while you are
+       standing in front of them, is the only tense the ruling allows. */
     var now = nowLineOf(agent, turn);
     if (now) rows.push({ label: 'RIGHT NOW', value: now });
-    rows.push({ label: 'THEIR DAY', value: dayLineOf(agent) });
     rows.push({ label: 'YOU HAVE MET', value: metWords(met) });
     return rows;
   }
@@ -284,7 +380,8 @@
       Object.keys(data).forEach(function (k) {
         var v = data[k];
         if (!v || typeof v !== 'object') return;
-        m[k] = { times: v.times | 0, first: v.first | 0, last: v.last | 0 };
+        m[k] = { times: v.times | 0, first: v.first | 0, last: v.last | 0,
+               asked: v.asked ? 1 : 0 };
       });
     }
     return {
@@ -296,9 +393,21 @@
         if (!key) return null;
         day = day | 0;
         var r = m[key];
-        if (!r) { r = m[key] = { times: 0, first: day, last: day }; }
+        if (!r) { r = m[key] = { times: 0, first: day, last: day, asked: 0 }; }
         r.times++; r.last = day;
         return r;
+      },
+      /* YOU ASKED, AND THE GAME REMEMBERS — the half of the ruling he called
+         "really cool". One bit, because the name is derived from it. */
+      ask: function (key, day) {
+        if (!key) return null;
+        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0 });
+        r.asked = 1; r.last = day | 0;
+        return r;
+      },
+      asked: function (key) { return !!(m[key] && m[key].asked); },
+      namesKnown: function () {
+        var n = 0; for (var k in m) if (m[k].asked) n++; return n;
       },
       known: function () { return Object.keys(m).length; },
       serialize: function () { return JSON.parse(JSON.stringify(m)); }
@@ -307,12 +416,13 @@
 
   var API = {
     VERSION: '7.31.26',
-    NAMED_CAST: NAMED_CAST, LINES: LINES,
+    KNOWN_AT_START: KNOWN_AT_START, NAMED_CAST: NAMED_CAST, LINES: LINES,
+    GIVEN: GIVEN, SURNAME: SURNAME, generatedName: generatedName,
     ROLE_WORDS: ROLE_WORDS, ACT_WORDS: ACT_WORDS,
     hash: hash, keyOf: keyOf, seatOf: seatOf,
     personOf: personOf, peopleOf: peopleOf,
-    nameOf: nameOf, headingOf: headingOf, seatLineOf: seatLineOf,
-    dayLineOf: dayLineOf, nowLineOf: nowLineOf, workLineOf: workLineOf,
+    nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
+    nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
     makeLedger: makeLedger, clock: clock,
     // what a person says when no quest is talking. EMPTY until he writes them:
