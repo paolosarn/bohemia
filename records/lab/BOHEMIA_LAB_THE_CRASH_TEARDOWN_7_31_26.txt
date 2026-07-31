@@ -1,0 +1,243 @@
+BOHEMIA LAB 08 — THE MODERN ECONOMIC CRASH, FUSED (7/31/26, LAB lane)
+=============================================================================
+PAGE: slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html
+SOURCES: the real record (Lebanon 2019-2026, Argentina 2001, Greece 2015, and
+  the hyperinflation record) + Project Zomboid + Valheim
+KIND: MODEL, not a measurement. Declared kind:'MODEL' to the harness.
+
+COMMISSIONED IN FOUR WORDS. Paolo 7/31: "modern economic crash valheim project
+zomboid cook it up".
+
+MECHANICS DECLARED (five, each played end to end by gates/lab_gate.js):
+  1. the money dies   2. the freeze   3. the grid dies   4. the cartel
+  5. comfort
+
+WHAT I DID NOT TOUCH, AND WHY IT MATTERS MOST HERE:
+PROJECT ZOMBOID'S LOOT. Two loot emulations died in two days (the Zomboid house,
+"really bad and not fun"; the A Dark Room scavenge, "so bad so bad") and
+laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md makes Zomboid a
+PERMANENT ANTI-REFERENCE for loot pace. He said "project zomboid" and the lazy
+reading of that is to go back to the containers. Under
+laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md a second rejection ends a
+feature for the session, and finding a legal way to ship it anyway IS the
+violation. So this row takes the ONE thing Zomboid has that is not loot and is
+genuinely world-class: THE UTILITY SHUTOFF TIMER.
+
+REUSE-FIRST: the Valheim comfort numbers were NOT re-researched. They were read
+out of our own records/lab/BOHEMIA_LAB_VALHEIM_TEARDOWN_7_27_26.txt from LAB-05,
+including which of them is SOURCED and which is DOC. That is what the 7/22 law is
+for, and it applies to findings as much as to pixels.
+
+NO SOURCE (for two of the three halves): Valheim ships compiled Unity
+assemblies, and history has no source tree at all — a real crash is cited by case
+and date, never by file:line, and pretending otherwise would be the exact lie
+clause 7 exists to prevent. The Zomboid half IS real code and is cited that way.
+
+WHAT WAS TRIED AND FAILED, so "no source" is checkable:
+  - valheim.fandom.com/wiki/Damage_mechanics                 -> 403 (twice)
+  - xgamingserver.com/tools/valheim/weapons                  -> 403
+  - api.github.com code search                               -> 403
+  - Konijima/PZ-Vanilla-Lua .../StandardSandboxOptions.lua   -> 404
+  - blind-coder/pz-vanilla .../StandardSandboxOptions.lua    -> 404
+  - asledgehammer/PZ-Lua .../StandardSandboxOptions.lua      -> 404
+  - cocolabs/pz-zdoc .../sandbox-options.txt                 -> 404
+  - quarantin/pz-server-tools .../servertest_SandboxVars.lua -> 404
+  - FWolfe/Zomboid-Modding-Guide .../sandbox_options.md      -> 404
+  - Valheim-Modding/Wiki assets_items.md                     -> 404
+WHAT WORKED:
+  - raw.githubusercontent.com/dtandersen/project-zomboid-settings/master/
+    apocalypse_SandboxVars.lua  -> 200, 134 lines. This is the APOCALYPSE preset
+    -- Zomboid's own default difficulty -- as a real Lua table. That is where the
+    seven SOURCED Zomboid numbers below come from.
+
+=============================================================================
+THE FINDING
+=============================================================================
+BOTH GAMES MODEL A UTILITY *VANISHING* ON A TIMER. REALITY MODELS IT GETTING AN
+*OWNER*.
+
+Zomboid switches the power off on day 14 and that is the end of the story: the
+grid is a boolean that flips once and never flips back. What actually happened in
+Lebanon is that the state grid fell to about FOUR HOURS A DAY and private
+generator cartels sold you the other SIX AND A HALF, by the ampere, for OVER A
+HUNDRED DOLLARS A MONTH -- priced in hard currency while wages were in the money
+that was busy dying. The utility was not deleted. It was privatised at gunpoint.
+
+That is strictly the better mechanic, because a boolean is not a decision and an
+owner is. And BOHEMIA ALREADY HALF-HAS IT: CLUSTERED POWER (12% lit, OWNED, the
+NETWORK eerily perfect) and LIGHT=TERRITORY and "nobody patrols the dark". Those
+laws were written as atmosphere. Lebanon is the evidence that they are ECONOMICS.
+THE CLAIM THIS ROW MAKES: Bohemia's power law and Bohemia's economic collapse are
+ONE LAW, and we have been treating them as two.
+
+SECOND FINDING: EVERY CURVE IN A COLLAPSE FALLS ON A CLOCK YOU DO NOT CONTROL.
+THE ONLY ONE THAT RISES IS THE ONE YOU BUILT WITH YOUR HANDS. The money, the
+withdrawal cap, the state's hours of power, the price of an ampere -- all of them
+move without asking you. Comfort is the single number on the page that only moves
+when the player moves it. That gap IS the game, and it is why the fusion he named
+actually fuses: the crash supplies the falling curves and Valheim supplies the
+only rising one.
+
+THIRD FINDING, and it is the cruellest thing on the list: THE FREEZE. Games model
+poverty as an empty wallet. Reality's version is worse -- the money is RIGHT
+THERE, it is yours, it is on a screen with your name on it, and you may have
+sixty euros of it today. Nothing in either game models "you are rich and you
+cannot reach it", and three separate real countries made it law.
+
+=============================================================================
+MECHANISM — every constant in the page's CR block, tagged
+=============================================================================
+
+--- SOURCED: PROJECT ZOMBOID'S REAL SHUTOFF CONFIG (Lua) ---
+All seven from dtandersen/project-zomboid-settings/apocalypse_SandboxVars.lua,
+the APOCALYPSE preset, fetched this session (200, 134 lines).
+PZ_WATERSHUT_TIER 2 — [SOURCED apocalypse_SandboxVars.lua:10 `WaterShut = 2,`]
+PZ_ELECSHUT_TIER 2 — [SOURCED apocalypse_SandboxVars.lua:11 `ElecShut = 2,`]
+PZ_WATERSHUT_DAYS 14 — [SOURCED apocalypse_SandboxVars.lua:12
+  `WaterShutModifier = 14,`]
+PZ_ELECSHUT_DAYS 14 — [SOURCED apocalypse_SandboxVars.lua:13
+  `ElecShutModifier = 14,`]
+  THE STRUCTURE IS THE FINDING, not the 14. A TIER picks the RANGE and a MODIFIER
+  picks the DAY inside it. So the designer sets a shape ("somewhere in the first
+  month") and the world picks a date. That is a good pattern for a roguelite:
+  the player learns the shape across runs and never memorises the date.
+PZ_DAYLENGTH 3 — [SOURCED apocalypse_SandboxVars.lua:5 `DayLength = 3,`]
+PZ_ZOMBIES 4 — [SOURCED apocalypse_SandboxVars.lua:3 `Zombies = 4,`]
+PZ_START_MONTH 7 — [SOURCED apocalypse_SandboxVars.lua:7 `StartMonth = 7,`]
+  Included because they are the same table and they show the register Zomboid's
+  whole world is configured in: small integers naming a preset, not raw values.
+
+--- SOURCED: THE ONE VALHEIM LINE WE ALREADY OWN ---
+VH_SEC_PER_COMFORT 60 — [SOURCED PlayerConfiguration.cs:11
+  `restSecondsPerComfortLevel = 60`, reused from our own LAB-05 teardown rather
+  than re-fetched]
+
+--- DOC: ZOMBOID'S SHUTOFF TIER LADDER ---
+PZ_TIER_INSTANT 1 — [DOC tier 1 = instant]
+PZ_TIER_30D 2 — [DOC tier 2 = 0-30 days, and it is the documented DEFAULT]
+PZ_TIER_2MO 3 — [DOC tier 3 = 0-2 months]
+PZ_TIER_6MO 4 — [DOC tier 4 = 0-6 months]
+PZ_TIER_1YR 5 — [DOC tier 5 = 0-1 years]
+PZ_TIER_5YR 6 — [DOC tier 6 = 0-5 years]
+PZ_TIER_LONG 7 — [DOC tier 7 = 2-6 months for water, 6-12 months for electricity]
+PZ_INSTANT_SENTINEL -1 — [DOC a modifier of -1 means instant; the modifier
+  otherwise IS the number of days before shutoff]
+
+--- DOC: LEBANON 2019-2026, THE BEST-DOCUMENTED MODERN COLLAPSE ---
+LBP_PEG 1507.5 — [DOC the lira was pegged to the USD at 1507.5 from 1997, held
+  for 22 years]
+LBP_OFFICIAL_2024 89500 — [DOC on 15 February 2024 the central bank adopted a
+  new official fixed rate of 89,500 to the dollar]
+LBP_LOST_PCT 98 — [DOC "the Lebanese pound has lost more than 98 percent of its
+  value since 2019"; earlier assessments said 94%]
+LB_BANK_ASSETS_2019_BN 217 — [DOC bank assets were $217 billion in 2019]
+LB_BANK_ASSETS_2024_BN 104 — [DOC and $104 billion in 2024. The banking system
+  halved.]
+LB_WITHDRAW_CAP_MO 400 — [DOC "Lebanese depositors face monthly withdrawal
+  restrictions on their accounts (around $400)" while the deposits themselves
+  remain essentially frozen]
+LB_STATE_POWER_HOURS 4 — [DOC in 2024 the state electricity company provided
+  about four hours of electricity a day]
+LB_GEN_AMPERES 5 — [DOC a typical generator subscription is 5 amperes]
+LB_GEN_HOURS 6.5 — [DOC for around 6.5 hours a day on average]
+LB_GEN_COST_MO 100 — [DOC in Beirut households typically pay over $100 a month
+  for a 5-ampere connection, "which barely sustains a standard AC unit"]
+  THE UNIT IS THE POINT. You do not buy electricity, you buy AMPERES -- a
+  capacity, not an amount -- and the price is a SUBSCRIPTION. That is a
+  fundamentally different economic object from a resource you stockpile, and it
+  is the shape a faction that owns the light would actually sell.
+
+--- DOC: THE OTHER TWO REAL CAPITAL CONTROLS ---
+GR_ATM_DAY_EUR 60 — [DOC Greece, late June 2015: banks shut and account holders
+  could withdraw only 60 euro a day, per bank card]
+AR_WEEK_PESOS 250 — [DOC Argentina, the corralito, 1 December 2001: a weekly
+  limit of 250 pesos on withdrawals from individual accounts]
+AR_WEEK_PESOS_LATER 300 — [DOC later raised to 300]
+
+--- DOC: THE HYPERINFLATION RECORD, EXPRESSED AS DOUBLING TIME ---
+Doubling time is used instead of an annual percentage because a percentage past a
+few thousand stops meaning anything to a human, while "prices double every
+fifteen hours" is immediately horrifying. That translation is itself a design
+lesson about how to show the player a number.
+WEIMAR_DOUBLE_DAYS 3.7 — [DOC October 1923, monthly inflation about 29,500%,
+  prices doubling every 3.7 days]
+ZWE_DOUBLE_HOURS 24.7 — [DOC Zimbabwe, November 2008, prices doubling every 24.7
+  hours at the peak]
+HUN_DOUBLE_HOURS 15 — [DOC Hungary, first half of 1946, the worst ever recorded:
+  monthly inflation of 13.6 quadrillion percent, prices doubling every 15 hours]
+VEN_ANNUAL_PCT 80000 — [DOC Venezuela's hyperinflation reached about 80,000% a
+  year at the end of 2018]
+
+--- DOC: VALHEIM COMFORT, reused from our own LAB-05 record ---
+VH_RESTED_BASE_SEC 480 — [DOC Rested lasts a minimum of 8 minutes at comfort 1]
+VH_COMFORT_BASE 1 — [DOC comfort starts at 1]
+VH_COMFORT_MAX 17 — [DOC 17 is the normal maximum]
+VH_RESTED_MAX_SEC 1440 — [DOC 480 + 16 x 60 = 1440s = the documented comfort-17
+  duration of 24 minutes]
+
+=============================================================================
+CONTENT — whose is whose, stated plainly
+=============================================================================
+THE DEVALUATION CURVE is FITTED, not quoted, and this is the one derived number
+on the page. Lebanon's real path was jagged (a black-market rate that ran far
+ahead of every official one, then a step change in Feb 2024). The page fits the
+constant monthly rate that takes 1507.5 to 89,500 over five years, which works
+out to about 7% a month. That is honest as a SHAPE and dishonest as a HISTORY,
+and the page's own code comment says so. Nobody should quote 7% as a Lebanese
+figure.
+
+THE STARTING BALANCE (20,000 local) and THE COMFORT COST LADDER (200 x the next
+level) ARE MINE, and they exist only so the page can be pressed. They are not
+proposals. Bohemia's prices belong to Paolo and the economy belongs to WORLD.
+
+THE THREE CAPS are real laws from real countries and are quoted as such. The page
+lets you switch between them because feeling 60/day next to 400/month is the
+fastest way to understand that the CAP SHAPE matters more than the number.
+
+=============================================================================
+WHAT IS NOT IMPLEMENTED (so nobody reads this page as complete)
+=============================================================================
+- ZOMBOID'S LOOT, DELIBERATELY AND PERMANENTLY. See the top of this file.
+- Zomboid's moodles, skills, traits, occupations, zombie population ramp,
+  encumbrance, injury and infection. All real, none modelled.
+- Zomboid's water shutoff as a distinct consequence: the page tracks the day it
+  happens (day 14, same as power) but models no thirst, because a water system
+  would collide with the mobile-camp law's ONE CLUMPED POOL (clause 3), which is
+  Paolo's and already ruled.
+- Valheim's comfort SOURCES (which furniture gives what), the 10 m radius, the
+  one-per-category rule, and the rested buff's actual effects. All of it is
+  already modelled properly in LAB-05; this page only needs the curve.
+- The real crash's supply side: the 72-hour shelf, letters of credit, trade-route
+  collapse. Already covered by another document —
+  records/BOHEMIA_ECONOMIC_APOCALYPSE_SCOPE_RESEARCH_7_28_26.md — and duplicating
+  it here would be the kind of rot the truth hierarchy exists to kill. This page
+  is the DAILY-LIFE half; that one is the MACRO half. They do not overlap.
+- Dollarisation and the parallel economy: Lebanon's "lollars" (bank dollars worth
+  a fraction of cash dollars) is a real and fascinating mechanic — two prices for
+  the same currency depending on where it sits. Named, not modelled, and flagged
+  below as the best remaining idea.
+- BOHEMIA'S ECONOMY, ENTIRELY. No price, no currency, no purse. The THREE
+  CURRENCIES law stands: resources, electricity, clout, and no fourth thing.
+
+=============================================================================
+THE ARITHMETIC, CHECKED
+=============================================================================
+Fitted monthly decay: (89500 / 1507.5)^(1/60) - 1 = 0.0700, so about 7.0% a month.
+  Day 0:    1,507.5 to the dollar, money worth 100.0%
+  Day 365:  3,400 or so, worth about 44%
+  Day 1825: 89,500, worth 1.68% -- i.e. 98.3% gone, which matches the
+            documented "more than 98 percent" to a decimal.
+The freeze, under Lebanon's cap ($400/month) against a 20,000 balance: 50 months
+  to get your own money out, during which the money loses ~97% of its value. YOU
+  CANNOT WIN THE RACE. That is not a balance bug, that is the actual finding, and
+  it is what "essentially frozen" means in a sentence a player can feel.
+The cartel, per ampere: $100/mo / 5A = $20 per ampere-month. In local money on
+  day 0 that is 20; on day 365 about 45; on day 1825 about 1,188. The SAME five
+  amperes, sixty times the wage cost, for the same six and a half hours of light.
+Comfort: 480s at 1, 720s at 5, 1,020s at 10, 1,440s at 17. Rises only when the
+  player spends. Falls never.
+Zomboid's day 14 against Lebanon's five years: THE TWO CLOCKS ARE THREE ORDERS OF
+  MAGNITUDE APART, and that gap is the most useful thing on this page. A game
+  needs the collapse legible inside one run; history takes half a decade. Whatever
+  Bohemia picks, it is picking a compression ratio, and it should pick it on
+  purpose rather than by accident.

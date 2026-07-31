@@ -78,6 +78,26 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
+    /* LAB-08, commissioned in four words. Paolo 7/31: "modern economic crash
+       valheim project zomboid cook it up". A THREE-SOURCE fusion: history (which
+       can never be file:line), Zomboid's real shutoff Lua, and Valheim comfort
+       REUSED from our own LAB-05 record rather than re-fetched.
+       THE THING IT DOES NOT DO: Zomboid's LOOT. Two loot emulations are dead and
+       laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md makes it a
+       permanent anti-reference. Saying "project zomboid" is not permission to
+       reopen a killed feature; check C1 below enforces that. */
+    id: 'THE CRASH',
+    game: 'Project Zomboid',
+    kind: 'MODEL',
+    mechanics: ['the money dies', 'the freeze', 'the grid dies', 'the cartel', 'comfort'],
+    minConsts: 34,
+    page: 'slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html',
+    record: 'records/lab/BOHEMIA_LAB_THE_CRASH_TEARDOWN_7_31_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_THE_CRASH_PATTERN_NOTE_7_31_26.md',
+    live: liveTheCrash,
+    shot: { name: 'BOHEMIA_LAB_THE_CRASH_PROOF_7_31_26.png', setup: shotTheCrash }
+  },
+  {
     /* LAB-07, commissioned by name. Paolo 7/31: "look at the weapon types in
        valheim. valheim does weapon types really good so i like that. valheim i
        think is a top 5 game of all time the most we can suck from it the
@@ -251,7 +271,7 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW) = \{([\s\S]*?)\n\};/);
+  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW|CR) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -372,6 +392,15 @@ function partA(em) {
     ok('A26 ' + m + ' is torn down in the record', re.test(rec));
     ok('A27 ' + m + ' appears in the pattern note', re.test(note));
   });
+
+  /* PER-ROW FORBIDDEN-FEATURE CHECKS. Everything above tests what a page DOES.
+     A killed feature needs the opposite test: proof the row did not quietly bring
+     it back. THE CRASH is the first row that needed one, because Paolo said
+     "project zomboid" and the lazy reading of that is to reopen loot, which two
+     verdicts killed. A gate with no check like this cannot enforce
+     laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md at all. */
+  if (em.id === 'THE CRASH') crashDidNotReopenLoot(src, rec, note);
+
   return { src, rec, note };
 }
 
@@ -1631,6 +1660,268 @@ async function liveValheimWeapons(page) {
      thesis.swordFront.toFixed(0) + ' — THE MULTIPLIERS DECIDE THE FIGHT, NOT THE ' +
      'PRINTED NUMBER',
      thesis.knifePrinted < thesis.swordPrinted && thesis.knifeBehind > thesis.swordFront * 5);
+}
+
+/* ==========================================================================
+   PART B — LIVE: THE CRASH (LAB-08)
+
+   The claim is that a collapse is a set of curves falling on a clock you do not
+   control, plus exactly ONE that rises only when you move it, plus the thing
+   neither game has: a dead utility that gets an OWNER instead of vanishing.
+   So the checks are: does every crash curve fall without the player's consent,
+   does comfort refuse to fall, and can you BUY BACK the thing Zomboid deletes?
+
+   And one check that is not about mechanics at all: C1 proves this row did not
+   quietly reopen Zomboid's LOOT, which is a killed feature. A gate that only
+   tests what the page does, and never what it was forbidden to do, cannot
+   enforce the STOP PRODUCING law.
+   ========================================================================== */
+async function liveTheCrash(page) {
+  const C = await page.evaluate(() => window.LAB.CR);
+  await page.evaluate(() => window.LAB.reset());
+
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('X0 the page declares the five mechanics the record declares',
+     JSON.stringify(declared) === JSON.stringify(
+       ['the money dies', 'the freeze', 'the grid dies', 'the cartel', 'comfort']));
+  ok('X0b and declares itself a MODEL', await page.evaluate(() => window.LAB.kind) === 'MODEL');
+
+  /* ---------------- 1. THE MONEY DIES, on its own clock ---------------- */
+  const money = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.day0 = L.moneyWorth(0);
+    o.day365 = L.moneyWorth(365);
+    o.day1825 = L.moneyWorth(1825);
+    o.rate0 = L.rateOnDay(0);
+    o.rate1825 = L.rateOnDay(1825);
+    o.lost1825 = L.pctLost(1825);
+    o.monthly = L.monthlyDecay();
+    /* it falls whether or not the player does anything at all */
+    const before = L.moneyWorth(L.day());
+    L.advance(90);
+    o.fellWithoutConsent = L.moneyWorth(L.day()) < before;
+    return o;
+  });
+  ok('X1 money: day 0 is the peg and 100% of value (' + Math.round(money.rate0) + ')',
+     near(money.rate0, C.LBP_PEG, 0.01) && near(money.day0, 1, 0.0001));
+  ok('X2 money: five years lands on the real 2024 official rate (' +
+     Math.round(money.rate1825).toLocaleString() + ' vs ' + C.LBP_OFFICIAL_2024.toLocaleString() + ')',
+     near(money.rate1825, C.LBP_OFFICIAL_2024, C.LBP_OFFICIAL_2024 * 0.01));
+  ok('X3 money: WHICH IS THE DOCUMENTED "MORE THAN 98% GONE" (' + money.lost1825.toFixed(1) + '%)',
+     money.lost1825 > C.LBP_LOST_PCT);
+  ok('X4 money: it falls monotonically, 100% -> ' + (money.day365 * 100).toFixed(0) + '% -> ' +
+     (money.day1825 * 100).toFixed(1) + '%',
+     money.day0 > money.day365 && money.day365 > money.day1825);
+  ok('X5 money: AND IT FALLS WITHOUT THE PLAYER DOING ANYTHING — somebody else\'s clock',
+     money.fellWithoutConsent === true);
+  ok('X6 money: the fitted rate is a plausible ~7% a month, not a guess (' +
+     (money.monthly * 100).toFixed(2) + '%)', money.monthly > 0.06 && money.monthly < 0.08);
+
+  /* the doubling-time translation, which is the HUD lesson */
+  const hyper = await page.evaluate(() => {
+    const L = window.LAB;
+    return L.HYPER.map(h => ({ id: h.id, dpd: L.doublesPerDay(h.doubleH) }));
+  });
+  const hun = hyper.find(h => h.id === 'hungary');
+  const wei = hyper.find(h => h.id === 'weimar');
+  ok('X7 money: HUNGARY 1946 DOUBLES PRICES FASTER THAN ONCE A DAY and Weimar does not — ' +
+     'the record is legible as a rate a human can feel',
+     hun.dpd > 1 && wei.dpd < 1 && hun.dpd > wei.dpd);
+
+  /* ---------------- 2. THE FREEZE: rich and unable to reach it ---------- */
+  const freeze = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.startBank = L.bank(); o.startCash = L.cash();
+    L.setCap('lebanon');
+    o.pulled1 = L.withdraw();
+    o.capAfter = L.capRemaining();
+    o.pulled2 = L.withdraw();                 /* the cap is spent for this period */
+    o.bankStillFull = L.bank();
+    L.advance(30);                            /* a new month, a new allowance */
+    o.capNextPeriod = L.capRemaining();
+    /* the shape matters more than the number: three real laws, three periods */
+    o.periods = L.CAPS.map(c => ({ id: c.id, per: c.per, amount: c.amount }));
+    L.setCap('greece');
+    o.greeceLen = L.periodLength();
+    L.setCap('argentina');
+    o.argLen = L.periodLength();
+    L.setCap('lebanon');
+    o.lebLen = L.periodLength();
+    return o;
+  });
+  ok('X8 freeze: you can pull exactly the cap and no more (' + Math.round(freeze.pulled1) +
+     ' then ' + freeze.pulled2 + ')',
+     near(freeze.pulled1, C.LB_WITHDRAW_CAP_MO, 0.01) && freeze.pulled2 === 0 &&
+     freeze.capAfter === 0);
+  ok('X9 freeze: AND THE MONEY IS STILL THERE — you are rich and cannot reach it (' +
+     Math.round(freeze.bankStillFull).toLocaleString() + ' left)',
+     freeze.bankStillFull > freeze.startBank * 0.9);
+  ok('X10 freeze: a new period restores the allowance, so it is a DRIP not a wall',
+     near(freeze.capNextPeriod, C.LB_WITHDRAW_CAP_MO, 0.01));
+  ok('X11 freeze: three REAL caps with three different period shapes — day, week, month (' +
+     freeze.greeceLen + '/' + freeze.argLen + '/' + freeze.lebLen + ')',
+     freeze.greeceLen === 1 && freeze.argLen === 7 && freeze.lebLen === 30 &&
+     freeze.periods.length === 3);
+
+  /* THE RACE YOU CANNOT WIN — the finding, measured */
+  const race = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset(); L.setCap('lebanon');
+    o.months = Math.ceil(L.bank() / L.capDef('lebanon').amount);
+    o.worthWhenDone = L.moneyWorth(o.months * 30);
+    return o;
+  });
+  ok('X12 freeze: GETTING YOUR OWN MONEY OUT TAKES ' + race.months + ' MONTHS, by which time it ' +
+     'is worth ' + (race.worthWhenDone * 100).toFixed(1) + '% — YOU CANNOT WIN THE RACE',
+     race.months > 24 && race.worthWhenDone < 0.05);
+
+  /* ---------------- 3. THE GRID DIES ON A TIMER ------------------------- */
+  const grid = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.before = L.gridDead(L.CR.PZ_ELECSHUT_DAYS - 1);
+    o.on = L.gridDead(L.CR.PZ_ELECSHUT_DAYS);
+    o.water = L.waterDead(L.CR.PZ_WATERSHUT_DAYS);
+    o.hoursBefore = L.hoursOfLight(L.CR.PZ_ELECSHUT_DAYS - 1);
+    o.hoursAfter = L.hoursOfLight(L.CR.PZ_ELECSHUT_DAYS);
+    return o;
+  });
+  ok('X13 grid: it is alive on day ' + (C.PZ_ELECSHUT_DAYS - 1) + ' and dead on day ' +
+     C.PZ_ELECSHUT_DAYS + ' — Zomboid\'s real ElecShutModifier',
+     grid.before === false && grid.on === true && grid.water === true);
+  ok('X14 grid: and the light collapses from 24 h to what is left of the state (' +
+     grid.hoursBefore + ' -> ' + grid.hoursAfter + ')',
+     grid.hoursBefore === 24 && grid.hoursAfter === C.LB_STATE_POWER_HOURS);
+
+  /* ---------------- 4. THE CARTEL: it gets an OWNER --------------------- */
+  const cartel = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.advance(L.CR.PZ_ELECSHUT_DAYS);
+    o.dark = L.hoursOfLight(L.day());
+    o.priceDay0 = L.amperePriceLocal(0);
+    o.priceNow = L.amperePriceLocal(L.day());
+    o.priceLate = L.amperePriceLocal(1825);
+    o.brokeAttempt = L.buyAmpere();            /* no cash yet */
+    L.give(1e9);
+    o.bought = L.buyAmpere();
+    o.lit = L.hoursOfLight(L.day());
+    o.amperes = L.amperes();
+    return o;
+  });
+  ok('X15 cartel: after the timer you are down to ' + cartel.dark + ' h — the state\'s leftovers',
+     cartel.dark === C.LB_STATE_POWER_HOURS);
+  ok('X16 cartel: YOU CAN BUY THE LIGHT BACK — the utility has an OWNER, it did not vanish (' +
+     cartel.dark + ' -> ' + cartel.lit + ' h)',
+     cartel.bought === true && cartel.amperes === 1 &&
+     near(cartel.lit, C.LB_STATE_POWER_HOURS + C.LB_GEN_HOURS, 0.001));
+  ok('X17 cartel: and you cannot buy it with nothing — the owner is not a charity',
+     cartel.brokeAttempt === false);
+  ok('X18 cartel: THE VICE — the SAME ampere costs ' +
+     (cartel.priceLate / cartel.priceDay0).toFixed(0) + 'x more of your money five years in, ' +
+     'for the same ' + C.LB_GEN_HOURS + ' hours',
+     cartel.priceLate > cartel.priceDay0 * 40 && cartel.priceNow > cartel.priceDay0);
+
+  /* ---------------- 5. COMFORT: the only curve that rises -------------- */
+  const comfort = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.base = L.restedSeconds(L.CR.VH_COMFORT_BASE);
+    o.max = L.restedSeconds(L.CR.VH_COMFORT_MAX);
+    o.startComfort = L.comfort();
+    /* it does NOT rise on its own, however long you wait */
+    L.advance(1825);
+    o.afterFiveYears = L.comfort();
+    /* it rises only when you spend */
+    L.give(1e9);
+    o.built = L.build();
+    o.afterBuild = L.comfort();
+    o.secAfter = L.restedSeconds(L.comfort());
+    /* and NOTHING in the crash takes it back */
+    L.advance(1825);
+    o.stillThere = L.comfort();
+    /* the documented ceiling */
+    for (let i = 0; i < 40; i++) L.build();
+    o.capped = L.comfort();
+    o.cappedSec = L.restedSeconds(L.comfort());
+    o.overCap = L.build();
+    return o;
+  });
+  ok('X19 comfort: 480s at comfort 1 and the documented 1,440s at 17 (' + comfort.base + '/' +
+     comfort.max + ')',
+     comfort.base === C.VH_RESTED_BASE_SEC && comfort.max === C.VH_RESTED_MAX_SEC);
+  ok('X20 comfort: FIVE YEARS OF COLLAPSE DOES NOT RAISE IT ONE POINT — it is not a curve, ' +
+     'it is a choice', comfort.afterFiveYears === comfort.startComfort);
+  ok('X21 comfort: it rises only when the player spends (' + comfort.startComfort + ' -> ' +
+     comfort.afterBuild + ', ' + comfort.secAfter + 's)',
+     comfort.built === true && comfort.afterBuild === comfort.startComfort + 1 &&
+     comfort.secAfter === comfort.base + C.VH_SEC_PER_COMFORT);
+  ok('X22 comfort: AND NOTHING IN THE CRASH TAKES IT BACK — five more years, still there',
+     comfort.stillThere >= comfort.afterBuild);
+  ok('X23 comfort: it stops at the documented 17 / 1,440s and refuses to go past (' +
+     comfort.capped + ')',
+     comfort.capped === C.VH_COMFORT_MAX && comfort.cappedSec === C.VH_RESTED_MAX_SEC &&
+     comfort.overCap === false);
+
+  /* ---------------- THE THESIS: falling curves vs the one rising ------- */
+  const thesis = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    const t0 = { money: L.moneyWorth(0), light: L.hoursOfLight(0), comfort: L.comfort() };
+    L.give(1e9);
+    L.build(); L.build();
+    L.advance(1825);
+    const t1 = { money: L.moneyWorth(L.day()), light: L.hoursOfLight(L.day()), comfort: L.comfort() };
+    return { t0, t1 };
+  });
+  ok('X24 THE THESIS, MEASURED: over five years the money fell (' +
+     (thesis.t0.money * 100).toFixed(0) + '% -> ' + (thesis.t1.money * 100).toFixed(1) +
+     '%), the light fell (' + thesis.t0.light + ' -> ' + thesis.t1.light +
+     ' h), AND THE ONLY THING THAT ROSE IS WHAT WAS BUILT (' + thesis.t0.comfort + ' -> ' +
+     thesis.t1.comfort + ')',
+     thesis.t1.money < thesis.t0.money && thesis.t1.light < thesis.t0.light &&
+     thesis.t1.comfort > thesis.t0.comfort);
+}
+
+/* THE FORBIDDEN-FEATURE CHECK. Part A tests what a page does; this tests what it
+   was told never to do again. Called from partA for THE CRASH only. */
+function crashDidNotReopenLoot(src, rec, note) {
+  /* a LOOT SYSTEM is a structure: containers with roll tables and per-item search
+     time. Never a mention — the record is REQUIRED to discuss loot in order to say
+     it is banned, and a check that trips on the ban is the bug this repo has now
+     shipped three times (lab_gate A10, A12, A24). */
+  const LOOT_STRUCT = [
+    /\bcontainers?\s*[:=]\s*[[{]/i,
+    /\brolls?\s*[:=]\s*\d/i,
+    /procList|ProceduralDistributions/,
+    /\bsearchTime\b|\brummage\w*\s*\(/i
+  ];
+  const hits = LOOT_STRUCT.filter(re => re.test(src));
+  ok('C1 THE CRASH did not reopen Zomboid LOOT, a killed feature' +
+     (hits.length ? ' (' + hits[0] + ')' : ''), hits.length === 0);
+  ok('C1b and it says out loud, in all three files, that loot is closed',
+     /LOOT/.test(src) && /ANTI-REFERENCE|CLOSED/i.test(src) &&
+     /ANTI-REFERENCE|closed subject/i.test(rec) && /closed subject/i.test(note));
+  /* the THREE CURRENCIES law must survive a page about money */
+  ok('C2 THE CRASH adds no fourth currency — the THREE CURRENCIES law is named and kept',
+     /THREE CURRENCIES/.test(src) && /THREE CURRENCIES/.test(note));
+}
+
+async function shotTheCrash(page) {
+  /* the shot must show the FINDING, not the fresh state: five years in, the money
+     nearly worthless, the grid dead, an ampere bought back off the owner, and
+     comfort standing because it was built. */
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    L.give(1e6);
+    L.build(); L.build(); L.build();
+    L.advance(1825);
+    L.buyAmpere();
+    L.withdraw();
+  });
 }
 
 async function shotValheimWeapons(page) {

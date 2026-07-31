@@ -25,6 +25,78 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1q. [SHIPPED 7/31 — LAB-08] THE MODERN ECONOMIC CRASH, FUSED. AND THE FINDING IS THAT
+   OUR POWER LAW AND OUR ECONOMIC COLLAPSE ARE THE SAME LAW.
+   Paolo 7/31, four words: "modern economic crash valheim project zomboid cook it up".
+   THE FINDING: *** BOTH GAMES MODEL A UTILITY *VANISHING* ON A TIMER. REALITY MODELS IT
+   GETTING AN *OWNER*. *** Zomboid flips the power off on day 14 and that is the end of
+   the story -- the grid is a boolean that flips once and never flips back. What actually
+   happened in Lebanon is that the state grid fell to about FOUR HOURS A DAY and private
+   generator cartels sold you the other SIX AND A HALF, by the AMPERE, for OVER $100 A
+   MONTH, priced in hard currency while wages were in the money that was dying. The
+   utility was not deleted, it was privatised at gunpoint. A boolean is not a decision;
+   an owner is. AND WE ALREADY HALF-HAVE IT: CLUSTERED POWER (12% lit, OWNED, network
+   eerily perfect) + LIGHT=TERRITORY were written as ATMOSPHERE, and Lebanon is the
+   evidence they are ECONOMICS. THE CLAIM: those are one law and we treat them as two.
+   SECOND FINDING: every curve in a collapse falls on a clock you do not control; the only
+   one that rises is the one you built. That is Valheim's comfort, and it is why the
+   fusion fuses -- the crash supplies the falling curves, Valheim the only rising one.
+   THIRD FINDING, and no game models it: THE FREEZE. Games model being broke as an empty
+   wallet. Reality's version is worse -- the money is RIGHT THERE, yours, on a screen with
+   your name on it, and you may have 60 euros of it today. Measured on the page: under
+   Lebanon's ~$400/month cap a 20,000 balance takes 50 MONTHS to extract, by which point
+   it is worth 1.7%. YOU CANNOT WIN THE RACE. That is what "essentially frozen" means in
+   a sentence a player can feel.
+   PAGE (NOT IN A TAB — a lab reference surface; lab_gate clause 3 forbids the alpha from
+   linking it): slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html — five mechanics end to
+   end: the money dies / the freeze / the grid dies / the cartel / comfort.
+   WHAT I DID NOT BUILD, AND IT IS THE MOST IMPORTANT LINE HERE: ZOMBOID'S LOOT. He said
+   "project zomboid" and the lazy reading is to go back to the containers. Two loot
+   emulations died in two days and laws/BOHEMIA_ADDENDUM_LOOT_IS_RESOURCES_FAST_7_26_26.md
+   makes Zomboid a PERMANENT ANTI-REFERENCE for loot pace; under STOP PRODUCING, finding a
+   legal way to ship a killed feature IS the violation. So this row took the one thing
+   Zomboid has that is not loot and is world-class: THE UTILITY SHUTOFF TIMER.
+   *** AND THAT BAN IS NOW MACHINE-ENFORCED. New gate checks C1/C1b/C2 prove the row did
+   not quietly reopen loot (matched as a STRUCTURE -- container tables, roll counts,
+   per-item search time -- never a mention, since the record is REQUIRED to discuss loot
+   in order to ban it), and C2 proves no fourth currency was added. Everything else in
+   lab_gate tests what a page DOES; this is the first check that tests what it was
+   FORBIDDEN to do. Without one, the STOP PRODUCING law had no machine behind it at all. ***
+   REUSE-FIRST APPLIED TO FINDINGS, not just pixels: the Valheim comfort numbers were read
+   out of our own LAB-05 teardown rather than re-researched, including which are SOURCED
+   and which are DOC. And I checked records/BOHEMIA_ECONOMIC_APOCALYPSE_SCOPE_RESEARCH_
+   7_28_26.md FIRST -- it already owns the MACRO half (72-hour shelf, letters of credit,
+   trade routes), so this page is deliberately the DAILY-LIFE half and they do not overlap.
+   NUMBERS: 8 SOURCED (7 from a real apocalypse_SandboxVars.lua -- WaterShut/ElecShut = 2,
+   both modifiers = 14, DayLength, Zombies, StartMonth; plus the one Valheim line we own),
+   the rest [DOC] and tagged: Lebanon (peg 1507.5 held 22 years -> official 89,500 on
+   15 Feb 2024, >98% gone, bank assets $217bn -> $104bn, ~$400/mo cap, 4 h state power,
+   5A / 6.5h / $100+ a month), Greece 2015 (60 EUR/day per card), Argentina 2001 (250
+   pesos/week, later 300), and the hyperinflation record expressed as DOUBLING TIME
+   (Weimar 3.7 days, Zimbabwe 24.7 hours, Hungary 1946 fifteen hours, Venezuela 80,000%/yr)
+   because a percentage past a few thousand stops meaning anything to a human and "prices
+   double every fifteen hours" is instantly horrifying -- that translation is a HUD lesson,
+   not an economics one. Teardown lists all TEN failed source probes by URL.
+   Records: records/lab/BOHEMIA_LAB_THE_CRASH_TEARDOWN_7_31_26.txt + ..._PATTERN_NOTE_...md
+   GATE: lab_gate.js grew the row, 25 live checks (X0-X24) + the 3 forbidden-feature
+   checks, and learned the CR block. 491 checks, 0 fail. EIGHT mutations caught: money
+   never devalues, freeze cap removed, grid never dies, light cannot be bought back,
+   ampere price frozen, comfort does not persist, comfort ceiling removed, and LOOT
+   REOPENED.
+   ONE REAL BUG THE GATE CAUGHT IN MY OWN MATHS: the devaluation curve was fitted over 60
+   months of 30 days = 1,800 days, then queried at day 1,825, so it overshot the real
+   Feb-2024 rate by 6%. Refitted per-day so the endpoint is exact. A calendar
+   approximation inside a curve you then query with real dates is a bug, not rounding.
+   Also fixed two things only a screenshot shows: the placeholder watermark was sitting on
+   top of a card heading, and Lebanon's "400/month" was clipping off the right edge.
+   THE ECONOMY IS NOT THIS LANE'S SYSTEM. WORLD is building the purse right now. This page
+   touches no economy code, adds no price and no currency, and the THREE CURRENCIES law
+   stands untouched (resources, electricity, clout, no fourth thing -- an "exchange rate"
+   would be a fourth currency wearing a hat). FLAGGED FOR WORLD, not handed to it.
+   TWO QUESTIONS, and the second is the real prize: (1) should the collapse be falling
+   curves you cannot touch plus exactly ONE rising curve that is whatever you built?
+   (2) when a utility dies in Bohemia, does it DISAPPEAR, or does it get an OWNER you
+   have to deal with?
 1p. [SHIPPED 7/31 — LAB-07, COMMISSIONED BY NAME] VALHEIM'S WEAPON TYPES, AND THEY
    TURN OUT TO ANSWER THE HOLE HIS OWN COMBAT AUDIT FOUND.
    Paolo 7/31: "look at the weapon types in valheim. valheim does weapon types really

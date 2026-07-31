@@ -1,3 +1,95 @@
+LAB (e2r7sv): 7/31 (d) LATEST — THE MODERN ECONOMIC CRASH, FUSED. AND THE FINDING IS
+THAT OUR POWER LAW AND OUR ECONOMIC COLLAPSE ARE THE SAME LAW.
+(Three earlier 7/31 LAB sections below: Valheim weapon types, the CDDA action clock, and
+the ruling that made its shape law.)
+
+=== HE COMMISSIONED IT IN FOUR WORDS ===
+Paolo 7/31: "modern economic crash valheim project zomboid cook it up"
+
+=== THE FINDING ===
+*** BOTH GAMES MODEL A UTILITY *VANISHING* ON A TIMER. REALITY MODELS IT GETTING AN
+*OWNER*. *** Zomboid flips the power off on day 14 and that is the end of the story: the
+grid is a boolean that flips once and never flips back. What actually happened in Lebanon
+is that the state grid fell to about FOUR HOURS A DAY and private generator cartels sold
+you the other SIX AND A HALF, by the AMPERE, for OVER $100 A MONTH -- priced in hard
+currency while wages were in the money that was busy dying. The utility was not deleted.
+It was privatised at gunpoint. A boolean is not a decision; an owner is.
+*** AND WE ALREADY HALF-HAVE IT. CLUSTERED POWER (12% lit, OWNED, the network eerily
+perfect) and LIGHT=TERRITORY were written as ATMOSPHERE. Lebanon is the evidence that
+they are ECONOMICS. THE CLAIM THIS ROW MAKES, and it is worth arguing with: Bohemia's
+power law and Bohemia's economic collapse are ONE LAW and we have been treating them as
+two. ***
+
+SECOND FINDING: every curve in a collapse falls on a clock you do not control; the only
+one that rises is the one you built with your hands. That is Valheim's comfort, and it is
+why the fusion he named actually fuses.
+THIRD FINDING, and no game models it: THE FREEZE. Games model being broke as an empty
+wallet. Reality's is worse -- the money is RIGHT THERE, yours, on a screen with your name
+on it, and you may have 60 euros of it today. Measured: under Lebanon's ~$400/month cap a
+20,000 balance takes 50 MONTHS to extract, by which time it is worth 1.7%. YOU CANNOT WIN
+THE RACE.
+
+=== SHIPPED ===
+PAGE (NOT IN A TAB — lab reference surface; clause 3 forbids the alpha from linking it):
+slices/lab/BOHEMIA_LAB_THE_CRASH_7_31_26.html — the money dies / the freeze / the grid
+dies / the cartel / comfort, all five playable.
+8 SOURCED numbers (7 from a real apocalypse_SandboxVars.lua: WaterShut/ElecShut = 2, both
+modifiers = 14, plus DayLength/Zombies/StartMonth; and the one Valheim line we already
+own). Everything else [DOC] and tagged: Lebanon (peg 1507.5 held 22 years -> official
+89,500 on 15 Feb 2024, >98% gone, bank assets $217bn -> $104bn, ~$400/mo cap, 4h state
+power, 5A / 6.5h / $100+), Greece 2015 (60 EUR/day per card), Argentina 2001 (250
+pesos/week), and the hyperinflation record as DOUBLING TIME (Weimar 3.7 days, Zimbabwe
+24.7 hours, Hungary 1946 fifteen hours). That last translation is a HUD lesson: a
+percentage past a few thousand means nothing to a human, "prices double every fifteen
+hours" is instantly horrifying.
+Records: records/lab/BOHEMIA_LAB_THE_CRASH_TEARDOWN_7_31_26.txt + ..._PATTERN_NOTE_...md
+(ten failed source probes listed by URL, so "no source" is checkable).
+
+=== WHAT I DID NOT BUILD, AND IT IS THE MOST IMPORTANT LINE HERE ===
+ZOMBOID'S LOOT. He said "project zomboid" and the lazy reading is to go back to the
+containers. Two loot emulations died in two days, and under STOP PRODUCING finding a legal
+way to ship a killed feature IS the violation. So the row took the one thing Zomboid has
+that is not loot and is world-class: the utility shutoff timer.
+*** AND THE BAN IS NOW MACHINE-ENFORCED. New checks C1/C1b/C2 prove the row did not
+quietly reopen loot -- matched as a STRUCTURE (container tables, roll counts, per-item
+search time), NEVER a mention, because the record is REQUIRED to discuss loot in order to
+ban it. Everything else in lab_gate tests what a page DOES; this is the first check that
+tests what it was FORBIDDEN to do. Without one, the STOP PRODUCING law had no machine
+behind it at all. Worth copying into other lanes' gates. ***
+
+=== REUSE-FIRST, APPLIED TO FINDINGS ===
+The Valheim comfort numbers were read out of our own LAB-05 teardown, not re-researched,
+including which are SOURCED and which are DOC. And I read
+records/BOHEMIA_ECONOMIC_APOCALYPSE_SCOPE_RESEARCH_7_28_26.md FIRST: it already owns the
+MACRO half (72-hour shelf, letters of credit, trade routes), so this page is deliberately
+the DAILY-LIFE half. They do not overlap and cannot rot against each other.
+
+=== GATE ===
+lab_gate.js: new row, 25 live checks (X0-X24) + 3 forbidden-feature checks, learned the CR
+block. 491 checks, 0 fail. EIGHT mutations caught, including LOOT REOPENED.
+ONE REAL BUG THE GATE CAUGHT IN MY OWN MATHS: the devaluation curve was fitted over 60
+months of 30 days = 1,800 days and then queried at day 1,825, overshooting the real
+Feb-2024 rate by 6%. Refitted per-day. A calendar approximation inside a curve you then
+query with real dates is a bug, not rounding. Also fixed two things only a screenshot
+shows: the watermark sat on a card heading, and Lebanon's "400/month" clipped off the
+right edge.
+
+=== BOUNDARY ===
+THE ECONOMY IS NOT THIS LANE'S SYSTEM. WORLD is building the purse right now. This page
+touches no economy code, adds no price and no currency, and the THREE CURRENCIES law
+stands untouched -- resources, electricity, clout, no fourth thing (an "exchange rate"
+would be a fourth currency wearing a hat). FLAGGED FOR WORLD, not handed to it.
+
+=== WAITING ON HIM ===
+1. Should the collapse be falling curves you cannot touch plus exactly ONE rising curve
+   that is whatever you built? And: when a utility dies, does it DISAPPEAR or get an
+   OWNER you have to deal with?
+2. Is EARN-YOUR-MULTIPLIER the shape for weapons? (LAB-07)
+3. The three bleed rules (sharp-or-shot-never-blunt / only-what-got-past-your-clothes /
+   most-hits-don't).
+4. The camp dial playtest, the ten open camp clauses, and the action clock's denomination
+   and ceiling number.
+
 LAB (e2r7sv): 7/31 (c) LATEST — VALHEIM'S WEAPON TYPES, AND THEY ANSWER THE HOLE THE
 COMBAT AUDIT FOUND. (Two earlier 7/31 LAB sections below: the CDDA action clock, and
 the ruling that made its shape law.)
