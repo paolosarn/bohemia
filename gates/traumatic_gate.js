@@ -87,6 +87,19 @@ ok('B3 and defers to HIM as the primary source on what he saw',
    /his description is the primary source/i.test(res));
 ok('B4 and records the name collision it could not resolve',
    /could not confirm these are the same/i.test(res));
+/* HIS OWN SCREENSHOTS ARE PRIMARY SOURCE and the notes off them must survive. The
+   one that matters most is the ANTI-reference: the game is a side-scroller and
+   Bohemia is 45-degree three-quarter by law, so a lane that reads those frames as an
+   ART target instead of a FEEL target will ship a flat side-on death and break a
+   locked law. That warning is load-bearing, so it is gated. */
+ok('B5 the notes off his frames record that the CAMERA is an anti-reference',
+   /side-scroller/i.test(res) && /45 DEGREE ART LAW/.test(res) &&
+   /register ports/i.test(res));
+ok('B6 and that the launch-vs-settle tension is FLAGGED for the lane that owns it, ' +
+   'not decided here and not bounced to Paolo',
+   /FLAGGED FOR ANIMATION\/CHARACTER/.test(res) && /not mine/i.test(res));
+ok('B7 and that nothing was built from them, as he asked',
+   /Did not build, model, or cook anything/i.test(res));
 
 /* THE PENDINGS STAY PENDING */
 [['the approved gore overlays', /GORE OVERLAYS/],

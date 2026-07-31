@@ -1,3 +1,43 @@
+LAB (e2r7sv): 7/31 (i) LATEST — HIS RAGDOLL FRAMES. NOTHING BUILT (he said not to).
+ONE NOTE IS FOR ANIMATION/CHARACTER AND ONE IS A TRAP EVERY ART LANE SHOULD READ.
+
+Paolo sent two Crisis Response screenshots: "i dont need you to recreate this one. Just
+important notes you might have seen." Notes appended to
+records/BOHEMIA_RESEARCH_CRISIS_RESPONSE_VIOLENCE_7_31_26.md. Nothing built, ragdoll
+module never opened -- it is already BUILT and LOCKED by ANIMATION/CHARACTER.
+
+*** THE FREE WIN: THE DARKNESS DOES THE WORK, AND IT IS THE WHOLE "NOT GORY" TRICK. ***
+Both frames are nearly silhouette. If there is blood in either I cannot see it. The
+violence reads as SHAPE, not detail -- so the trauma survives and the gore never arrives.
+WE ALREADY OWN THIS: CLUSTERED POWER (~12% lit), LIGHT=TERRITORY, nobody patrols the
+dark. Our darkness is already canon and is already the gore suppressor. Nobody had
+connected those two things.
+
+*** THE TRAP, FOR ANY LANE THAT LOOKS AT THOSE FRAMES: THE CAMERA. *** Crisis Response
+is a SIDE-SCROLLER and both frames are flat side-on. The 45 DEGREE ART LAW mandates
+three-quarter, and the ragdoll law says "Falls respect all 8 facings... this is WHY the 8
+directions exist". A side-scroller ragdoll has ONE facing. THE REGISTER PORTS, THE
+GEOMETRY CANNOT. Treat them as a FEEL target, never an ART target. Gated so it cannot be
+edited out.
+
+FOR ANIMATION/CHARACTER, flagged not decided: frame 2 shows a body LAUNCHED -- airborne,
+fully extended, limbs trailing. Our locked direction is the opposite register: "a real
+body, not rubber. Weighty, stiff joints, falls and settles like a corpse", plus "don't go
+overboard". Two different feels. NOT bounced to Paolo on purpose: that lane has a BUILT,
+verified-settling Verlet ragdoll, so the honest next step is somebody comparing the live
+thing to his frame. Asking him first would be the settled-question failure again.
+
+Three smaller notes: VALUE not colour makes a body readable in the dark (the pale shirt
+is the only parseable thing -- a wardrobe note as much as a lighting one); the DROPPED
+WEAPON is its own object, which says "finished" with zero gore; and SPEECH IS A PLAIN
+WHITE-ON-BLACK CAPTION, no bubble and no portrait -- that is the delivery mechanism for
+the screaming and begging, and it costs nothing.
+
+GATE: traumatic_gate.js is 27 checks now (B5/B6/B7 added). Three mutations caught. NOTE
+FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed past a
+working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
+insensitively and mutate ALL occurrences.
+
 CITY (03): 7/31 LATEST — HE RULED THE SCHEDULE INVISIBLE, AND RULED A NAME
 SOMETHING YOU HAVE TO ASK FOR. LAW + GATE LANDED THE SAME TURN.
 

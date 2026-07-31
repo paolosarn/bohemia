@@ -25,6 +25,43 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1v. [NOTES ONLY 7/31 — NOTHING BUILT, ON HIS INSTRUCTION] HIS TWO CRISIS RESPONSE
+   FRAMES, AND ONE OF THEM CONFLICTS WITH OUR OWN LOCKED LAW.
+   Paolo sent two screenshots of a ragdoll: "i dont need you to recreate this one. Just
+   important notes you might have seen". So: notes, nothing built, ragdoll module never
+   opened. It is already BUILT and LOCKED by ANIMATION/CHARACTER
+   (laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md).
+   Appended to records/BOHEMIA_RESEARCH_CRISIS_RESPONSE_VIOLENCE_7_31_26.md. Six notes:
+   (1) *** THE DARKNESS DOES THE WORK, AND IT IS THE WHOLE "NOT GORY" TRICK. *** Both
+   frames are nearly silhouette; if there is blood I cannot see it. The violence reads
+   as SHAPE, so the trauma survives and the gore never arrives. WE ALREADY OWN THIS --
+   CLUSTERED POWER (~12% lit), LIGHT=TERRITORY, nobody patrols the dark. Our darkness is
+   already canon and is already the gore suppressor. Nobody had connected those.
+   (2) VALUE NOT COLOUR makes a body readable in the dark -- the only parseable thing in
+   either frame is the pale shirt. A wardrobe note as much as a lighting one.
+   (3) The DROPPED WEAPON is its own object, clear of the hands in both frames. Says
+   "finished" with zero gore.
+   (4) SPEECH IS A PLAIN CAPTION, not a bubble: "Drop your weapons and come out!" white
+   on black, no portrait, no styling. That is the delivery mechanism for the screaming
+   and begging he wants, and it costs nothing. Also note it is a DEMAND -- the loud part
+   of that game is negotiation.
+   (5) *** THE ANTI-REFERENCE, AND THE MOST IMPORTANT NOTE: THE CAMERA. *** Crisis
+   Response is a SIDE-SCROLLER and both frames are flat side-on. The 45 DEGREE ART LAW
+   mandates three-quarter, and our ragdoll law says "Falls respect all 8 facings... this
+   is WHY the 8 directions exist". A side-scroller ragdoll has ONE facing. THE REGISTER
+   PORTS, THE GEOMETRY CANNOT. Anyone treating these frames as an ART target instead of
+   a FEEL target ships a flat side-on death and breaks a locked law. GATED (B5).
+   (6) A TENSION WITH OUR OWN LOCKED RAGDOLL, FLAGGED NOT DECIDED: frame 2 shows a body
+   LAUNCHED -- airborne, fully extended, limbs trailing. Our locked direction is the
+   opposite register: "a real body, not rubber. Weighty, stiff joints, falls and settles
+   like a corpse", with "don't go overboard" written in. Two different feels. FLAGGED FOR
+   ANIMATION/CHARACTER -- and deliberately NOT bounced to Paolo, because that lane has a
+   BUILT, verified-settling Verlet ragdoll to compare against first. Asking him before
+   somebody looks at the live thing would be the settled-question failure again.
+   GATE: traumatic_gate.js grew B5/B6/B7 (27 checks now) so the anti-reference warning,
+   the flagged-not-claimed tension, and "nothing was built" cannot be edited out. Three
+   mutations caught. Two of my mutation attempts were case-sensitive and passed a working
+   check -- worth remembering that a WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK.
 1u. [RESEARCHED + LAWED + GATED 7/31] CRISIS RESPONSE, AND WHY VIOLENCE IS TRAUMATIC.
    Paolo: "Look up crisis response its a flash game right now let me know what you find
    the shooting and death effects are brutal people screaming theyll beg and shit its
