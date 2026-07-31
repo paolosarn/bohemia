@@ -78,6 +78,24 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
+    /* LAB-06, 7/31. Built because Paolo's 7/28 correction (clause 17 of the
+       mobile-camp law) made the ACTION clock the centre of the survival design,
+       and then nothing in the repo could say what one action costs. Clause 4 of
+       laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md reserves the
+       cost TABLE to him, so this row brings the SHAPE with Cataclysm's own
+       numbers and invents none of ours. A real EMULATION, not a model: the game
+       is open source, so every constant is read off a line of its C++. */
+    id: 'CDDA ACTION COST',
+    game: 'Cataclysm: DDA',
+    mechanics: ['action cost', 'condition', 'travel', 'errands', 'sleep debt'],
+    minConsts: 34,
+    page: 'slices/lab/BOHEMIA_LAB_CDDA_ACTION_COST_7_31_26.html',
+    record: 'records/lab/BOHEMIA_LAB_CDDA_TEARDOWN_7_31_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_CDDA_PATTERN_NOTE_7_31_26.md',
+    live: liveCDDA,
+    shot: { name: 'BOHEMIA_LAB_CDDA_PROOF_7_31_26.png', setup: shotCDDA }
+  },
+  {
     /* LAB-05, commissioned by name: "Next emulation, whole mechanics: VALHEIM'S
        COMFORT LOOP... I play it and then rule Bohemia's survival system off the
        feel, not off a document." The first MODEL row: Valheim ships a compiled
@@ -211,7 +229,7 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ|ADR|VH) = \{([\s\S]*?)\n\};/);
+  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -234,7 +252,8 @@ function partA(em) {
          mechanism numbers through it. */
       if (/ours \(declared\)/.test(row)) { ours.push(k); return; }
       /* a citation is a real file in the master's tree: C# (Stardew), Lua
-         (Zomboid) or JS (A Dark Room). The extension is the proof that somebody
+         (Zomboid), JS (A Dark Room) or C++ (Cataclysm: DDA, .cpp/.h). The
+         extension is the proof that somebody
          opened the source instead of a wiki.
          A MODEL row has no such tree, so its proof is a TAG on every row —
          [SOURCED <file:line>] or [DOC <what documented it>] — and clause 7 makes
@@ -245,7 +264,8 @@ function partA(em) {
         untagged.push(k);
         return;
       }
-      if (!DERIVED_KEYS.has(k) && !/\.(cs|lua|js)\b/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
+      /* .cpp and .h added 7/31 for Cataclysm: DDA, the first C++ master. */
+      if (!DERIVED_KEYS.has(k) && !/\.(cs|lua|js|cpp|h)\b/.test(row) && !/Utility\./.test(row)) unsourced.push(k);
     });
     ok('A15 every SDV key is in the record' + (missing.length ? ' (missing ' + missing.join(',') + ')' : ''),
        missing.length === 0);
@@ -285,8 +305,42 @@ function partA(em) {
   ok('A21 record says what is NOT implemented', /NOT IMPLEMENTED|NOT PORT|DOES NOT COPY|WHAT IS NOT HERE/i.test(rec));
   ok('A22 note has a WHAT NOT TO PORT section', /WHAT NOT TO PORT/i.test(note));
   ok('A23 note names its honest limits', /HONEST LIMIT/i.test(note));
-  ok('A24 note does not claim to have ported anything',
-     !/\b(ported|wired) (it )?into the (alpha|run|engine)\b/i.test(note));
+  /* A24 hunts a CLAIM, and a claim is not a DENIAL. Fixed 7/31, the third time
+     this gate has tripped on a page's own disclaimer (A10 on cited engine paths,
+     A12 on the toast "no recipe, no item"): the CDDA note said "Nothing here is
+     wired into the engine", which is the exact sentence the law wants written,
+     and the check failed it. So the test is now per-line and skips a line that
+     negates. Same lesson every time — match the structure of the claim, never
+     the mention of the words.
+     NOT per-line, either — that was the first attempt and it failed on the very
+     note it was written for, because "Nothing here is / wired into the engine"
+     is a hard-wrapped sentence and the denial sat on the line above. So the note
+     is whitespace-collapsed first and the denial is looked for in the RUN-UP to
+     each match. Prose does not respect line endings; a check on prose must not
+     either.
+     AND THE RUN-UP IS THE SENTENCE, not a fixed number of characters. A flat
+     90-char window was the second attempt and it was WORSE than the bug: a real
+     planted claim ("I wired it into the engine this afternoon") passed, because
+     the sentence BEFORE it happened to contain the word "never". A negation only
+     negates its own sentence. Caught by mutating in the other direction, which
+     is the only reason this line is right — a gate tested one way is half
+     tested. */
+  const portClaim = /\b(ported|wired) (it )?into the (alpha|run|engine)\b/gi;
+  const DENIAL = /\b(no|not|nothing|never|neither|without|until|only when)\b/i;
+  const flat = note.replace(/\s+/g, ' ');
+  const portClaims = [];
+  let pm;
+  while ((pm = portClaim.exec(flat)) !== null) {
+    const before = flat.slice(0, pm.index);
+    /* the start of the sentence the match sits in: after the last . ! ? or : */
+    const cut = Math.max(before.lastIndexOf('. '), before.lastIndexOf('! '),
+                         before.lastIndexOf('? '), before.lastIndexOf(': '));
+    const runUp = before.slice(cut + 1);
+    if (!DENIAL.test(runUp)) portClaims.push(flat.slice(pm.index, pm.index + 60));
+  }
+  ok('A24 note does not claim to have ported anything' +
+     (portClaims.length ? ' ("' + portClaims[0] + '")' : ''),
+     portClaims.length === 0);
   ok('A25 note either flags a pending or records that its question was RULED',
      /\[PENDING Paolo\]/.test(note) || /ruled/i.test(note));
 
@@ -1091,6 +1145,244 @@ async function liveValheim(page) {
   ok('V36 THE THREE ARE ONE LOOP: the same ritual in a dressed camp buys ' +
      Math.round((coupled.dressedTTL - coupled.plainTTL) / 60) + ' more minutes',
      coupled.dressedTTL > coupled.plainTTL + 5 * V.RESTED_SEC_PER_COMFORT - 2);
+}
+
+/* ==========================================================================
+   PART B — LIVE: CDDA ACTION COST (LAB-06)
+
+   Five mechanics, and the ONE thing that has to be true or the whole finding is
+   decoration: the cost of an action must be FIXED while the TIME it eats moves
+   with your condition, and the ratio between best and worst must be capped.
+   Every check below drives the page's own functions through window.LAB, so it
+   tests the shipped maths and not a copy of it.
+   ========================================================================== */
+async function liveCDDA(page) {
+  const C = await page.evaluate(() => window.LAB.CDDA);
+  await page.evaluate(() => window.LAB.reset());
+
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('D0 the page declares the five mechanics the record declares',
+     JSON.stringify(declared) === JSON.stringify(['action cost', 'condition', 'travel', 'errands', 'sleep debt']));
+
+  /* ---------------- 1. ACTION COST: fixed, in moves ---------------- */
+  const moves = await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    const fresh = L.ACTIONS.map(a => L.actionMoves(a));
+    L.setCondition({ overloadPct: 200, pain: 40, thirst: 100 });   /* wrecked */
+    const wrecked = L.ACTIONS.map(a => L.actionMoves(a));
+    return { fresh, wrecked, thirty: L.movesForMinutes(30), one: L.movesForMinutes(1) };
+  });
+  ok('D1 cost: a minute is 6,000 moves and 30 minutes is 180,000 (' + moves.thirty + ')',
+     moves.one === 60 * C.MOVES_PER_TURN && moves.thirty === 30 * 60 * C.MOVES_PER_TURN);
+  ok('D2 cost: THE COST DOES NOT MOVE WHEN YOU DO — wrecked costs the same moves as fresh',
+     JSON.stringify(moves.fresh) === JSON.stringify(moves.wrecked));
+
+  /* ---------------- 2. CONDITION: the divisor, and its cap ---------------- */
+  const cond = await page.evaluate(() => {
+    const L = window.LAB, job = L.ACTIONS[2], o = {};
+    L.reset();
+    o.freshSpeed = L.speed(); o.freshMin = L.costMinutes(job);
+    /* each penalty alone, so the three are individually proven */
+    L.reset(); L.setCondition({ overloadPct: 100 });
+    o.weightOnly = L.speed(); o.carry = L.carryPenalty();
+    L.reset(); L.setCondition({ pain: 20 });
+    o.painOnly = L.speed();
+    L.reset(); L.setCondition({ thirst: 40 });
+    o.atThreshold = L.speed();
+    L.setCondition({ thirst: 60 });
+    o.pastThreshold = L.speed();
+    /* halve the speed and the same job must cost exactly double */
+    L.reset(); L.setCondition({ pain: 50 });
+    o.halfSpeed = L.speed(); o.halfMin = L.costMinutes(job);
+    return o;
+  });
+  ok('D3 condition: fresh is base speed and a 30-minute job costs 30 minutes (' +
+     cond.freshSpeed + ', ' + cond.freshMin.toFixed(1) + ')',
+     cond.freshSpeed === C.BASE_SPEED && near(cond.freshMin, 30, 0.01));
+  ok('D4 condition: 100% over your cap is exactly -25 speed (' + cond.weightOnly + ')',
+     cond.carry === C.CARRY_PENALTY_PER_OVERLOAD &&
+     cond.weightOnly === C.BASE_SPEED - C.CARRY_PENALTY_PER_OVERLOAD);
+  ok('D5 condition: pain comes straight off the speed (' + cond.painOnly + ')',
+     cond.painOnly === C.BASE_SPEED - 20);
+  ok('D6 condition: THIRST IS A THRESHOLD, NOT A SLOPE — 40 is free, 60 costs 20 (' +
+     cond.atThreshold + ' -> ' + cond.pastThreshold + ')',
+     cond.atThreshold === C.BASE_SPEED &&
+     cond.pastThreshold === C.BASE_SPEED - (60 - C.THIRST_PENALTY_AT));
+  ok('D7 condition: HALF THE SPEED IS DOUBLE THE TIME, on the same fixed cost (' +
+     cond.halfSpeed + ' -> ' + cond.halfMin.toFixed(1) + ' min)',
+     cond.halfSpeed === 50 && near(cond.halfMin, 60, 0.01));
+
+  const floor = await page.evaluate(() => {
+    const L = window.LAB, job = L.ACTIONS[2], o = {};
+    L.reset();
+    L.setCondition({ overloadPct: 2000, pain: 60, thirst: 120 });   /* absurd */
+    o.raw = L.rawSpeed(); o.speed = L.speed(); o.atFloor = L.atFloor();
+    o.min = L.costMinutes(job); o.mult = L.worstMultiplier();
+    o.stepSec = L.secondsFor(L.CDDA.STEP_BASE_MOVES);
+    /* and it does not keep sinking when you pile on more */
+    L.setCondition({ overloadPct: 20000, pain: 60, thirst: 120 });
+    o.speedAgain = L.speed(); o.minAgain = L.costMinutes(job);
+    return o;
+  });
+  ok('D8 floor: raw speed would be ' + floor.raw + ', the page holds it at 25',
+     floor.raw < 0 && floor.speed === Math.round(C.BASE_SPEED * C.SPEED_FLOOR_PCT / 100) &&
+     floor.atFloor === true);
+  ok('D9 floor: SO THE WORST AN ACTION EVER COSTS IS 4x — 30 minutes becomes 120, never more (' +
+     floor.min.toFixed(0) + ' min, x' + floor.mult + ')',
+     near(floor.min, 120, 0.01) && floor.mult === 4);
+  ok('D10 floor: piling on ten times the penalty changes nothing — A BAD DAY CANNOT BECOME ' +
+     'AN INFINITE ONE', floor.speedAgain === floor.speed && near(floor.minAgain, floor.min, 0.001));
+  ok('D11 floor: and a step obeys the same cap — 1.00 s fresh, ' + floor.stepSec.toFixed(2) +
+     ' s at the floor', near(floor.stepSec, 4, 0.01));
+
+  /* the day actually burns when you press a button — his clause 17 in one check */
+  const day = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.before = L.spent();
+    L.doAction('medium');
+    o.freshSpent = L.spent();
+    L.reset();
+    L.setCondition({ pain: 50 });
+    L.doAction('medium');
+    o.wreckedSpent = L.spent();
+    o.clock = L.clockText();
+    return o;
+  });
+  ok('D12 the day: pressing ONE button spends 30 minutes of the clock (' +
+     (day.freshSpent / 60).toFixed(0) + ' min)',
+     day.before === 0 && near(day.freshSpent, 1800, 1));
+  ok('D13 the day: THE SAME BUTTON COSTS A WRECKED PLAYER TWICE THE DAY (' +
+     (day.wreckedSpent / 60).toFixed(0) + ' min) — this is his clause 17, measured',
+     near(day.wreckedSpent, day.freshSpent * 2, 1));
+
+  /* ---------------- 3. TRAVEL: base + rate ---------------- */
+  const travel = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.zero = L.travelMinutes(0); o.one = L.travelMinutes(1);
+    o.three = L.travelMinutes(3); o.eight = L.travelMinutes(8);
+    /* travel is a wall-clock estimate in their code, so speed must NOT divide it */
+    L.reset(); L.doTravel(3);
+    o.freshSec = L.spent();
+    L.reset(); L.setCondition({ pain: 50 }); L.doTravel(3);
+    o.wreckedSec = L.spent();
+    return o;
+  });
+  ok('D14 travel: THE BASE IS REAL — going nowhere still costs 20 minutes (' + travel.zero + ')',
+     travel.zero === C.TRAVEL_BASE_MIN);
+  ok('D15 travel: and then it is a flat rate per distance (' + travel.one + '/' + travel.three +
+     '/' + travel.eight + ')',
+     travel.one === C.TRAVEL_BASE_MIN + C.TRAVEL_PER_DIST_MIN &&
+     travel.three === C.TRAVEL_BASE_MIN + 3 * C.TRAVEL_PER_DIST_MIN &&
+     travel.eight === C.TRAVEL_BASE_MIN + 8 * C.TRAVEL_PER_DIST_MIN);
+  ok('D16 travel: THEIR TRIP IS A WALL-CLOCK ESTIMATE — condition does NOT divide it, and ' +
+     'that is the divergence worth arguing about',
+     near(travel.freshSec, 50 * 60, 1) && near(travel.wreckedSec, travel.freshSec, 0.001));
+
+  /* ---------------- 4. ERRANDS: a declared block, paid rate x hours ------- */
+  const errand = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.payouts = L.ERRANDS.map(e => L.payoutFor(e.id));
+    o.sent = L.sendErrand('long');
+    o.doubleSend = L.sendErrand('short');           /* one at a time */
+    o.readyAtOnce = L.errandReady();
+    o.earlyCollect = L.collectErrand();
+    /* work the day until the block is done — the errand finishes while you work */
+    for (let i = 0; i < 21; i++) L.doAction('long');
+    o.readyAfter = L.errandReady();
+    o.got = L.collectErrand();
+    o.gone = L.errand();
+    o.collectTwice = L.collectErrand();
+    return o;
+  });
+  ok('D17 errands: the payout is the RATE TIMES THE HOURS (' + errand.payouts.join('/') + ')',
+     JSON.stringify(errand.payouts) === JSON.stringify([
+       C.PAYOUT_LOW * C.ERRAND_SHORT_H, C.PAYOUT_MID * C.ERRAND_MED_H,
+       C.PAYOUT_HIGH * C.ERRAND_LONG_H, C.PAYOUT_HIGH * C.ERRAND_MAX_H]));
+  ok('D18 errands: you commit the block up front and only one person is out',
+     errand.sent === true && errand.doubleSend === false);
+  ok('D19 errands: THERE IS NO COLLECTING EARLY — the block is the cost',
+     errand.readyAtOnce === false && errand.earlyCollect === 0);
+  ok('D20 errands: it finishes while you spend your own day, and pays 5 x 10 = ' +
+     (C.PAYOUT_HIGH * C.ERRAND_LONG_H) + ' (' + errand.got + ')',
+     errand.readyAfter === true && errand.got === C.PAYOUT_HIGH * C.ERRAND_LONG_H &&
+     errand.gone === null && errand.collectTwice === 0);
+
+  /* ---------------- 5. SLEEP DEBT: a ladder whose first rung is 2 days ---- */
+  const sleep = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.startTier = L.sleepTier(); o.startAwake = L.awakeMin();
+    /* a whole hard day of work is still nothing on their ladder */
+    for (let i = 0; i < 16; i++) L.doAction('long');
+    o.afterADay = L.awakeMin(); o.tierAfterADay = L.sleepTier();
+    o.tiers = [];
+    [0, 2, 4, 7, 10, 14].forEach(d => {
+      L.setAwakeMin(d * 24 * 60);
+      o.tiers.push(L.sleepTier());
+    });
+    L.setAwakeMin(2 * 24 * 60 - 1);
+    o.justUnderFirstRung = L.sleepTier();
+    /* sleeping pays it down, and cannot go negative */
+    L.setAwakeMin(3 * 24 * 60);
+    L.doSleep(8);
+    o.afterSleep = L.awakeMin();
+    L.setAwakeMin(60);
+    L.doSleep(8);
+    o.floored = L.awakeMin();
+    o.sleepCostsTheClock = L.spent();
+    return o;
+  });
+  ok('D21 sleep: you start with no debt at all',
+     sleep.startTier === 'FINE' && sleep.startAwake === 0);
+  ok('D22 sleep: SIXTEEN HOURS OF WORK IS STILL "FINE" — one rough day is free (' +
+     Math.round(sleep.afterADay) + ' min awake)',
+     near(sleep.afterADay, 16 * 60, 1) && sleep.tierAfterADay === 'FINE');
+  ok('D23 sleep: the ladder climbs exactly on their rungs (' + sleep.tiers.join('>') + ')',
+     JSON.stringify(sleep.tiers) === JSON.stringify(
+       ['FINE', 'HARMLESS', 'MINOR', 'SERIOUS', 'MAJOR', 'MASSIVE']));
+  ok('D24 sleep: ONE MINUTE UNDER TWO DAYS AND NOTHING HAS HAPPENED YET — the first rung is ' +
+     'the finding', sleep.justUnderFirstRung === 'FINE');
+  ok('D25 sleep: sleeping pays the debt at 1:1 and stops at zero (' +
+     Math.round(sleep.afterSleep) + ', ' + sleep.floored + ')',
+     near(sleep.afterSleep, 3 * 24 * 60 - 480, 1) && sleep.floored === 0);
+  ok('D26 sleep: AND SLEEP COSTS THE DAY LIKE EVERYTHING ELSE DOES',
+     sleep.sleepCostsTheClock >= 8 * 3600);
+
+  /* the whole point, in one line: a stable table and a moving day */
+  const bridge = await page.evaluate(() => {
+    const L = window.LAB;
+    const out = [];
+    [0, 25, 50, 75].forEach(p => {
+      L.reset(); L.setCondition({ pain: p });
+      out.push({ pain: p, moves: L.actionMoves(L.ACTIONS[2]), min: L.costMinutes(L.ACTIONS[2]) });
+    });
+    return out;
+  });
+  const sameMoves = bridge.every(r => r.moves === bridge[0].moves);
+  const risingTime = bridge.every((r, i) => i === 0 || r.min >= bridge[i - 1].min);
+  const capped = bridge[bridge.length - 1].min <= bridge[0].min * 4 + 0.001;
+  ok('D27 THE FINDING, MEASURED: one fixed cost (' + bridge[0].moves.toLocaleString() +
+     ' moves) turns into ' + bridge.map(r => r.min.toFixed(0)).join('/') + ' minutes as you ' +
+     'degrade, and never past 4x', sameMoves && risingTime && capped);
+}
+
+async function shotCDDA(page) {
+  /* the screenshot has to show the interesting state, not the fresh one: a
+     wrecked player mid-day with an errand out and three days of debt owed. */
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    L.setCondition({ overloadPct: 150, pain: 30, thirst: 70 });
+    L.doAction('medium');
+    L.doTravel(3);
+    L.sendErrand('med');
+    L.setAwakeMin(3 * 24 * 60);
+    L.doAction('short');
+  });
 }
 
 async function shotValheim(page) {

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 06 — WHAT DOES AN ACTION COST? (CATACLYSM: DDA, REFERENCE)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 06 — THE ACTION COST MODEL, from Cataclysm: DDA
+  laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md clause 4:
+    "A COST TABLE IS CANON, NOT MECHANISM. How much time each action costs is
+     [PENDING Paolo] until he rules it. No lane invents an action-cost table."
+  laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md clause 17 (his correction,
+  7/28): "a lot of things in this game will take up time and time will pass just
+  by taking actions... you really need to understand that sort of clock."
+
+  THAT CORRECTION IS WHY THIS PAGE EXISTS. He ruled the day is eaten by ACTIONS,
+  and then nobody in the repo could say what a single action costs. This page
+  does not invent Bohemia's costs — it goes and gets the best-engineered answer
+  in games and shows him the SHAPE, so he can rule the numbers by feel.
+
+  Cataclysm: DDA was ranked #1 for exactly this in the research dossier he
+  ordered (records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md) because it is
+  the only open-source game that answers it with real numbers. Its source is C++
+  and JSON at raw.githubusercontent.com/CleverRaven/Cataclysm-DDA/master, and
+  every constant below is read off a real line, cited in
+  records/lab/BOHEMIA_LAB_CDDA_TEARDOWN_7_31_26.txt.
+
+  THE FINDING, IN ONE LINE — and it is better than a table of minutes:
+    AN ACTION'S COST IS FIXED, IN "MOVES". YOUR CONDITION CONVERTS MOVES INTO
+    TIME. AND THE CONVERSION CAN NEVER EXCEED 4x, BECAUSE SPEED HAS A FLOOR.
+  So the cost table is a stable list of one number per action, the FELT cost
+  varies with how wrecked you are, and a bad day can never become an infinite
+  one. That is the mechanical bridge between his time law and his camp law.
+
+  AND THE SECOND FINDING, which lands straight on his tile clock: A STEP IS AN
+  ACTION, PRICED IN THE SAME CURRENCY. character.cpp:6022 costs a plain step at
+  run_cost( 100, false ) — 100 moves, one second at base speed — and 6103 caps
+  the bonuses so a step can never cost LESS than 100. So walking and doing are
+  not two clocks in their model, they are one clock with two kinds of purchase.
+  Ours are separate on purpose (clause 17 of the camp law) and that is a real
+  divergence he should know he is choosing.
+
+  Five mechanics, playable end to end:
+    1. ACTION COST — every action costs MOVES; 100 moves = 1 turn = 1 second
+                     (calendar.h:289, and a duration's raw unit IS the turn).
+    2. CONDITION   — weight, pain and thirst subtract SPEED; speed divides moves
+                     into real time; and it stops at 25% of base, never lower.
+    3. TRAVEL      — a trip is a formula: a base cost plus a per-distance rate.
+    4. ERRANDS     — send someone away for a DECLARED BLOCK (1/4/10/20 h) and
+                     the payout is a rate x hours worked.
+    5. SLEEP DEBT  — a tiered ladder in MINUTES OWED whose first rung is two
+                     whole days awake; every button you press feeds it.
+
+  NOT BOHEMIA. No engine module, no bank, no alpha. Placeholder art only.
+  BOHEMIA'S OWN ACTION LIST AND COSTS REMAIN [PENDING Paolo] — this page shows
+  the SHAPE with THEIR numbers and invents none of ours.
+  ===========================================================================
+-->
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#0c0e11; color:#e8e6df;
+    font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden;
+    touch-action:none; user-select:none; }
+  #wrap { display:flex; flex-direction:column; height:100%; }
+  #ref { flex:0 0 auto; background:#b8342a; color:#fff; font-size:10px; line-height:1.25;
+    padding:4px 6px; text-align:center; }
+  #ref b { color:#ffe08a; }
+  #stage { position:relative; flex:1 1 auto; min-height:0; overflow-y:auto;
+    background:#0f1216; padding:6px 8px 10px; }
+  .card { background:#151a20; border:1px solid #2b333f; border-radius:5px;
+    padding:6px 8px; margin-bottom:6px; }
+  .card h3 { margin:0 0 5px; font-size:10.5px; color:#ffd76a; letter-spacing:.05em; }
+  .card .sub { font-size:9px; color:#7d8798; line-height:1.5; margin-bottom:5px; }
+  .big { font-size:12px; color:#fff; }
+  .big b { color:#8fd0ff; }
+  .row { display:flex; align-items:center; gap:6px; font-size:10px; padding:3px 0;
+    border-bottom:1px solid #1b2027; }
+  .row .n { flex:1 1 auto; color:#cbd6a8; }
+  .row .v { flex:0 0 auto; color:#fff; font-weight:700; }
+  .row .c { flex:0 0 128px; text-align:right; color:#7d8798; font-size:9px; }
+  .row button { font-family:inherit; font-size:9px; padding:5px 8px; border-radius:3px;
+    border:1px solid #5f8c63; background:#2d4a30; color:#d6f0d8; }
+  .row button:disabled { opacity:.3; border-color:#454d63; background:#22262f; color:#9aa3b8; }
+  .bar { position:relative; height:12px; background:#0c1014; border:1px solid #2b333f;
+    border-radius:3px; overflow:hidden; margin:3px 0; }
+  .bar i { position:absolute; left:0; top:0; bottom:0; display:block; background:#4a6c8c; }
+  .bar span { position:absolute; left:4px; right:4px; line-height:12px; font-size:8.5px;
+    color:#fff; display:flex; justify-content:space-between; }
+  .sl { display:flex; align-items:center; gap:5px; font-size:10px; padding:3px 0; }
+  .sl .n { flex:0 0 96px; color:#8fd0ff; }
+  .sl input { flex:1 1 auto; }
+  .sl .v { flex:0 0 66px; text-align:right; color:#fff; font-weight:700; }
+  .why { font-size:9px; color:#7d8798; line-height:1.5; }
+  .flag { color:#ffb4a8; }
+  .good { color:#c8f0cd; }
+  #log { font-size:9.5px; line-height:1.5; color:#9aa3b8; max-height:96px; overflow-y:auto; }
+  #log div { border-left:2px solid #2b333f; padding-left:5px; margin-bottom:2px; }
+  #ctl { flex:0 0 auto; padding:5px 6px 8px; background:#14171d; border-top:1px solid #2c3140;
+    display:flex; flex-wrap:wrap; gap:4px; }
+  button.chip { font-family:inherit; font-size:9px; padding:6px 7px; border-radius:4px;
+    border:1px solid #454d63; background:#22262f; color:#9aa3b8; }
+  button.chip.on { background:#2d4a30; border-color:#5f8c63; color:#d6f0d8; }
+  .wm { position:absolute; right:3px; top:40%; font-size:8px; color:#fff; opacity:.22;
+    transform:rotate(90deg); transform-origin:right center; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="ref"><b>REFERENCE EMULATION — NOT BOHEMIA.</b> Cataclysm: DDA's action-cost model,
+    read off its real C++. Bohemia's own costs are still yours. Placeholder art.</div>
+
+  <div id="stage">
+    <div class="wm">PLACEHOLDER ART</div>
+
+    <div class="card">
+      <h3>THE FINDING — AND IT IS BETTER THAN A TABLE OF MINUTES</h3>
+      <div class="sub">An action's cost is FIXED, in "moves". Your CONDITION converts moves into
+        real time. And the conversion can never exceed 4x, because speed has a hard floor at 25%.
+        So the cost table stays one stable number per action, the FELT cost varies with how
+        wrecked you are, and a terrible day can never become an infinite one.</div>
+      <div class="big" id="headline"></div>
+    </div>
+
+    <div class="card">
+      <h3>THE DAY</h3>
+      <div class="bar"><i id="dayfill"></i><span><b id="clock"></b><b id="dayused"></b></span></div>
+      <div class="row"><span class="n">your speed</span><span class="c" id="speedwhy"></span>
+        <span class="v" id="speedv"></span></div>
+      <div class="why" id="floornote"></div>
+    </div>
+
+    <div class="card">
+      <h3>1. ACTION COST — every action costs MOVES</h3>
+      <div class="sub">100 moves = 1 turn = 1 second (calendar.h:289). So a 5-minute job is
+        30,000 moves, always, no matter who does it. Press one and watch the day go.</div>
+      <div id="actions"></div>
+      <div class="why" id="stepnote"></div>
+    </div>
+
+    <div class="card">
+      <h3>2. CONDITION — what makes the same action eat more of your day</h3>
+      <div class="sub">Drag these and watch every cost above change. These are THEIR penalties,
+        off character.cpp:7604-7657 — carried weight, pain, thirst — plus the floor that stops
+        the whole thing running away.</div>
+      <div id="sliders"></div>
+      <div class="why" id="condnote"></div>
+    </div>
+
+    <div class="card">
+      <h3>3. TRAVEL — a trip is a formula, not a guess</h3>
+      <div class="sub">mission_companion.cpp:1358 — <b>20 minutes + distance x 10 minutes</b>.
+        A base cost for setting out, then a rate. That is the shape our own walking clock wants.</div>
+      <div id="travel"></div>
+    </div>
+
+    <div class="card">
+      <h3>4. ERRANDS — send someone away for a DECLARED BLOCK</h3>
+      <div class="sub">Their companion missions are fixed blocks — 1, 4, 10 or 20 hours — and the
+        payout is a RATE x HOURS WORKED (merch_amount = 3/4/5 * hours). You commit the block up
+        front and collect when it is done.</div>
+      <div id="errands"></div>
+    </div>
+
+    <div class="card">
+      <h3>5. SLEEP DEBT — and the first rung is TWO WHOLE DAYS</h3>
+      <div class="sub">character.h:245-256. Their sleep debt is a ladder measured in MINUTES OWED,
+        and nothing at all happens until you have been up <b>two days</b>. Everything you press on
+        this page feeds it. One rough night is free; a week of them is not.</div>
+      <div class="row"><span class="n" id="sleepwhy"></span><span class="v" id="sleeptier"></span></div>
+      <div id="sleep"></div>
+      <div class="why">Their per-minute accrual and the penalties each tier applies live in their
+        effects JSON, which this page does not model — so read the LADDER, not a punishment curve.</div>
+    </div>
+
+    <div class="card">
+      <h3>WHAT HAPPENED</h3>
+      <div id="log"></div>
+    </div>
+
+    <div class="card">
+      <h3>WHAT THIS DOES NOT DECIDE</h3>
+      <div class="why"><span class="flag">BOHEMIA'S ACTION LIST AND ITS COSTS ARE [PENDING
+        Paolo]</span> — clause 4 of the time law says the cost table is CANON, not mechanism, and
+        no lane invents it. Every number on this page is Cataclysm's, cited to a real line. What
+        this page is FOR is the shape: cost in moves, condition as the divisor, a hard floor, and
+        a base-plus-rate for travel. If the shape is right, the numbers are a short conversation.</div>
+    </div>
+  </div>
+
+  <div id="ctl"></div>
+</div>
+<script>
+'use strict';
+/* =========================================================================
+   THE NUMBERS. Read off Cataclysm: DDA's own source at
+   raw.githubusercontent.com/CleverRaven/Cataclysm-DDA/master. Every key is
+   cross-checked against records/lab/BOHEMIA_LAB_CDDA_TEARDOWN_7_31_26.txt by
+   gates/lab_gate.js, which fails the build if one loses its file:line.
+   ========================================================================= */
+var CDDA = {
+  /* --- the fundamental unit, and the whole reason this page exists --- */
+  MOVES_PER_TURN: 100,            /* calendar.h:289 return to_turns<int>( duration ) * 100 */
+  SECONDS_PER_TURN: 1,            /* calendar.h:232 from_seconds(t) == from_turns(t) (h:223) */
+  BASE_SPEED: 100,                /* creature.cpp:189 speed_base = 100, in the constructor */
+
+  /* --- a STEP is an action too, and it is priced in the same currency --- */
+  STEP_BASE_MOVES: 100,           /* character.cpp:6022 run_cost( 100, false ) — a plain step */
+  STEP_MOVES_FLOOR: 100,          /* character.cpp:6103 movecost = 100 "Bonuses Capped" */
+  FLATGROUND_UNDER: 105,          /* character.cpp:6063 flatground = movecost < 105 */
+  PARKOUR_OBSTACLE_MULT: 0.5,     /* character.cpp:6096 run_cost_effect_mul( 0.5, "Parkour" ) */
+  DIAG_DIVISOR: 1.4142,           /* character.cpp:6034 movecost /= M_SQRT2 for a diagonal */
+
+  /* --- what makes the SAME action eat more of your day --- */
+  CARRY_PENALTY_PER_OVERLOAD: 25, /* character.cpp:7614 carry_penalty = 25*(carried-cap)/cap */
+  THIRST_PENALTY_AT: 40,          /* character.cpp:7620 if( get_thirst() > 40 ) */
+  SPEED_FLOOR_PCT: 25,            /* character.cpp:7652 "Speed cannot be less than 25% of base" */
+  MIN_BONUS_PCT: 75,              /* character.cpp:7653 min_speed_bonus = -0.75 * base */
+
+  /* --- travel is a formula --- */
+  TRAVEL_BASE_MIN: 20,            /* mission_companion.cpp:1358 20_minutes + ... */
+  TRAVEL_PER_DIST_MIN: 10,        /* mission_companion.cpp:1358 ...distance * 10_minutes */
+
+  /* --- an errand is a declared block, paid at a rate --- */
+  ERRAND_SHORT_H: 1,              /* mission_companion.cpp:763 companion_mission_time + 1_hours */
+  ERRAND_MED_H: 4,                /* mission_companion.cpp:817 + 4_hours */
+  ERRAND_LONG_H: 10,              /* mission_companion.cpp:662 + 10_hours */
+  ERRAND_MAX_H: 20,               /* mission_companion.cpp:732 + 20_hours */
+  PAYOUT_LOW: 3,                  /* mission_companion.cpp:2077 merch_amount = 3 * hours */
+  PAYOUT_MID: 4,                  /* mission_companion.cpp:2203 merch_amount = 4 * hours */
+  PAYOUT_HIGH: 5,                 /* mission_companion.cpp:2136 merch_amount = 5 * hours */
+
+  /* --- SLEEP DEBT: a tiered ladder measured in MINUTES OWED, and the first
+         rung is TWO WHOLE DAYS. character.h:245-256 enum
+         sleep_deprivation_levels, written as N * 24 * 60 minutes. --- */
+  SLEEPDEP_HARMLESS_MIN: 2880,    /* character.h:247 SLEEP_DEPRIVATION_HARMLESS = 2*24*60 */
+  SLEEPDEP_MINOR_MIN: 5760,       /* character.h:249 SLEEP_DEPRIVATION_MINOR = 4*24*60 */
+  SLEEPDEP_SERIOUS_MIN: 10080,    /* character.h:251 SLEEP_DEPRIVATION_SERIOUS = 7*24*60 */
+  SLEEPDEP_MAJOR_MIN: 14400,      /* character.h:253 SLEEP_DEPRIVATION_MAJOR = 10*24*60 */
+  SLEEPDEP_MASSIVE_MIN: 20160,    /* character.h:255 SLEEP_DEPRIVATION_MASSIVE = 14*24*60 */
+  SLEEPY_TIRED: 191,              /* character.h:165 sleepiness_levels::TIRED */
+  SLEEPY_DEAD_TIRED: 383,         /* character.h:166 DEAD_TIRED */
+  SLEEPY_EXHAUSTED: 575,          /* character.h:167 EXHAUSTED */
+  SLEEPY_MASSIVE: 1000,           /* character.h:168 MASSIVE_SLEEPINESS */
+
+  /* --- the duration ladder their code actually speaks in --- */
+  TICK_MIN: 1,                    /* character.cpp:3077 once_every( 1_minutes ) */
+  SHORT_MIN: 5,                   /* character.cpp:7547 calendar::turn > 5_minutes */
+  MED_MIN: 30,                    /* character.cpp:7012 dur < 30_minutes */
+  LONG_MIN: 60                    /* character.cpp:2378 ... ? decay_time : 1_hours */
+};
+
+/* CONTENT (theirs, cited, and NOT Bohemia's). Their code speaks in this ladder
+   of durations; the specific per-task times live in their JSON data tree, which
+   this page deliberately does not enumerate because BOHEMIA'S ACTION LIST IS
+   [PENDING Paolo] and a borrowed task list would read as a proposal. */
+var ACTIONS = [
+  { id: 'quick',  name: 'a quick thing',        min: CDDA.TICK_MIN },
+  { id: 'short',  name: 'a short task',         min: CDDA.SHORT_MIN },
+  { id: 'medium', name: 'a real piece of work', min: CDDA.MED_MIN },
+  { id: 'long',   name: 'an hour on something', min: CDDA.LONG_MIN }
+];
+
+/* =========================================================================
+   MECHANIC 1 — ACTION COST. A cost is MOVES, and moves are fixed.
+   ========================================================================= */
+function movesForMinutes(min) { return min * 60 * CDDA.MOVES_PER_TURN; }
+function actionMoves(a) { return movesForMinutes(a.min); }
+
+/* =========================================================================
+   MECHANIC 2 — CONDITION. Speed divides moves into real time, and it has a
+   FLOOR: character.cpp:7652, "Speed cannot be less than 25% of base speed".
+   ========================================================================= */
+var S = {
+  overloadPct: 0,      /* how far over your weight cap you are, in percent */
+  pain: 0,
+  thirst: 0,
+  seconds: 8 * 3600,   /* the clock, 08:00 */
+  spent: 0,            /* seconds spent today by ACTIONS */
+  awakeMin: 0,         /* minutes since you last slept — the sleep-debt counter */
+  errand: null,
+  log: []
+};
+
+function carryPenalty() {
+  /* their line: carry_penalty = 25 * (carried - cap) / cap, zero when under cap */
+  return Math.round(CDDA.CARRY_PENALTY_PER_OVERLOAD * (S.overloadPct / 100));
+}
+function painPenalty() { return S.pain; }               /* their -get_pain_penalty().speed */
+function thirstPenalty() {
+  /* their line only applies past the threshold */
+  return S.thirst > CDDA.THIRST_PENALTY_AT ? (S.thirst - CDDA.THIRST_PENALTY_AT) : 0;
+}
+function rawSpeed() {
+  return CDDA.BASE_SPEED - carryPenalty() - painPenalty() - thirstPenalty();
+}
+function speedFloor() { return Math.round(CDDA.BASE_SPEED * CDDA.SPEED_FLOOR_PCT / 100); }
+function speed() { return Math.max(speedFloor(), rawSpeed()); }
+function atFloor() { return rawSpeed() < speedFloor(); }
+
+/* moves / speed = turns, and a turn is a second (calendar.h) */
+function secondsFor(moves) { return moves / speed() * CDDA.SECONDS_PER_TURN; }
+function costMinutes(a) { return secondsFor(actionMoves(a)) / 60; }
+/* the ceiling the floor implies: base/floor = 4x, never more */
+function worstMultiplier() { return CDDA.BASE_SPEED / speedFloor(); }
+
+function doAction(id) {
+  var a = null;
+  for (var i = 0; i < ACTIONS.length; i++) if (ACTIONS[i].id === id) a = ACTIONS[i];
+  if (!a) return null;
+  var sec = secondsFor(actionMoves(a));
+  S.seconds += sec; S.spent += sec; burnAwake(sec);
+  log(a.name + ' — ' + actionMoves(a).toLocaleString() + ' moves at speed ' + speed() +
+      ' = ' + (sec / 60).toFixed(1) + ' min' +
+      (speed() < CDDA.BASE_SPEED ? ' (would be ' + a.min + ' at full speed)' : ''));
+  paint();
+  return sec;
+}
+
+/* =========================================================================
+   MECHANIC 3 — TRAVEL. mission_companion.cpp:1358, base + distance * rate.
+   ========================================================================= */
+function travelMinutes(dist) {
+  return CDDA.TRAVEL_BASE_MIN + dist * CDDA.TRAVEL_PER_DIST_MIN;
+}
+function doTravel(dist) {
+  /* their caravan time is a wall-clock estimate, not a moves cost — so it is NOT
+     divided by speed. That distinction is the interesting half of this mechanic. */
+  var sec = travelMinutes(dist) * 60;
+  S.seconds += sec; S.spent += sec; burnAwake(sec);
+  log('travelled ' + dist + ' out — ' + CDDA.TRAVEL_BASE_MIN + ' + ' + dist + ' x ' +
+      CDDA.TRAVEL_PER_DIST_MIN + ' = ' + travelMinutes(dist) + ' min (a flat estimate, ' +
+      'not divided by speed — that is their choice and it is worth arguing about)');
+  paint();
+  return sec;
+}
+
+/* =========================================================================
+   MECHANIC 4 — ERRANDS. A declared block, paid at a rate x hours.
+   ========================================================================= */
+var ERRANDS = [
+  { id: 'short', hours: CDDA.ERRAND_SHORT_H, rate: CDDA.PAYOUT_LOW },
+  { id: 'med',   hours: CDDA.ERRAND_MED_H,   rate: CDDA.PAYOUT_MID },
+  { id: 'long',  hours: CDDA.ERRAND_LONG_H,  rate: CDDA.PAYOUT_HIGH },
+  { id: 'max',   hours: CDDA.ERRAND_MAX_H,   rate: CDDA.PAYOUT_HIGH }
+];
+function errandDef(id) { for (var i = 0; i < ERRANDS.length; i++) if (ERRANDS[i].id === id) return ERRANDS[i]; return null; }
+function payoutFor(id) { var e = errandDef(id); return e ? e.rate * e.hours : 0; }
+function sendErrand(id) {
+  var e = errandDef(id);
+  if (!e || S.errand) return false;
+  S.errand = { id: id, dueAt: S.seconds + e.hours * 3600, hours: e.hours, rate: e.rate };
+  log('sent someone away for ' + e.hours + ' h — they are gone until it is done, and it will ' +
+      'pay ' + e.rate + ' x ' + e.hours + ' = ' + payoutFor(id));
+  paint();
+  return true;
+}
+function errandReady() { return !!S.errand && S.seconds >= S.errand.dueAt; }
+function collectErrand() {
+  if (!errandReady()) return 0;
+  var got = S.errand.rate * S.errand.hours;
+  log('collected the errand: ' + S.errand.rate + ' x ' + S.errand.hours + ' hours = ' + got);
+  S.errand = null;
+  paint();
+  return got;
+}
+
+/* =========================================================================
+   MECHANIC 5 — SLEEP DEBT. character.h:245-256. A TIERED LADDER measured in
+   MINUTES OWED, and the first rung is TWO WHOLE DAYS awake. That generosity is
+   the finding: one rough night is free, a week of them is not.
+
+   HONEST LIMIT, stated in code so nobody reads more into it: their per-minute
+   ACCRUAL rule and the speed/stat penalties each tier applies live in their
+   effects JSON tree, which this page does not model. What is modelled here is
+   the LADDER and the fact that the clock is what feeds it — every button you
+   press pushes you up it, which is exactly the shape his time law describes.
+   ========================================================================= */
+var SLEEP_TIERS = [
+  { at: CDDA.SLEEPDEP_MASSIVE_MIN, name: 'MASSIVE' },
+  { at: CDDA.SLEEPDEP_MAJOR_MIN,   name: 'MAJOR' },
+  { at: CDDA.SLEEPDEP_SERIOUS_MIN, name: 'SERIOUS' },
+  { at: CDDA.SLEEPDEP_MINOR_MIN,   name: 'MINOR' },
+  { at: CDDA.SLEEPDEP_HARMLESS_MIN, name: 'HARMLESS' }
+];
+function sleepTier() {
+  for (var i = 0; i < SLEEP_TIERS.length; i++) {
+    if (S.awakeMin >= SLEEP_TIERS[i].at) return SLEEP_TIERS[i].name;
+  }
+  return 'FINE';
+}
+function nextSleepTier() {
+  for (var i = SLEEP_TIERS.length - 1; i >= 0; i--) {
+    if (S.awakeMin < SLEEP_TIERS[i].at) return SLEEP_TIERS[i];
+  }
+  return null;
+}
+/* every second the day burns is a second you did not spend asleep */
+function burnAwake(sec) { S.awakeMin += sec / 60; }
+function doSleep(hours) {
+  var sec = hours * 3600;
+  S.seconds += sec; S.spent += sec;
+  /* sleeping pays the debt down at 1:1 and can never go negative */
+  S.awakeMin = Math.max(0, S.awakeMin - hours * 60);
+  log('slept ' + hours + ' h — ' + (hours * 60) + ' minutes off the debt, now ' +
+      Math.round(S.awakeMin) + ' owed (' + sleepTier() + ')');
+  paint();
+  return sec;
+}
+
+/* =========================================================================
+   VIEW
+   ========================================================================= */
+function hm(sec) {
+  var m = Math.round(sec / 60);
+  return Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm';
+}
+function clockText() {
+  var m = Math.floor(S.seconds / 60);
+  var d = Math.floor(m / 1440) + 1, h = Math.floor((m % 1440) / 60), mm = m % 60;
+  return 'day ' + d + '  ' + String(h).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+}
+function log(msg) {
+  S.log.unshift(msg);
+  if (S.log.length > 12) S.log.pop();
+}
+function el(id) { return document.getElementById(id); }
+
+function paint() {
+  var sp = speed(), mult = CDDA.BASE_SPEED / sp;
+  el('headline').innerHTML = 'a ' + CDDA.MED_MIN + '-minute job is <b>' +
+    movesForMinutes(CDDA.MED_MIN).toLocaleString() + ' moves</b>, always &mdash; ' +
+    'and right now that costs you <b>' + costMinutes(ACTIONS[2]).toFixed(0) + ' minutes</b> ' +
+    '(x' + mult.toFixed(2) + ')';
+
+  el('clock').textContent = clockText();
+  el('dayused').textContent = hm(S.spent) + ' spent on actions';
+  el('dayfill').style.width = Math.min(100, (S.spent / 86400) * 100) + '%';
+  el('speedv').textContent = sp + ' / ' + CDDA.BASE_SPEED;
+  var parts = [];
+  if (carryPenalty()) parts.push('-' + carryPenalty() + ' weight');
+  if (painPenalty()) parts.push('-' + painPenalty() + ' pain');
+  if (thirstPenalty()) parts.push('-' + thirstPenalty() + ' thirst');
+  el('speedwhy').textContent = parts.length ? parts.join('  ') : 'nothing dragging';
+  el('floornote').innerHTML = atFloor()
+    ? '<span class="flag">AT THE FLOOR.</span> Raw speed would be ' + rawSpeed() +
+      ', but character.cpp:7652 stops it at ' + speedFloor() + ' &mdash; 25% of base. ' +
+      'So the very worst an action can cost is <b>x' + worstMultiplier().toFixed(0) +
+      '</b>, never more. A bad day cannot become an infinite one.'
+    : 'The floor sits at ' + speedFloor() + ' (25% of base), so the worst any action can ever ' +
+      'cost is x' + worstMultiplier().toFixed(0) + '. That cap is the best idea in the model.';
+
+  var ah = el('actions'); ah.innerHTML = '';
+  ACTIONS.forEach(function (a) {
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">' + a.name + '</span>' +
+      '<span class="c">' + actionMoves(a).toLocaleString() + ' moves</span>' +
+      '<span class="v">' + costMinutes(a).toFixed(1) + ' min</span>';
+    var b = document.createElement('button'); b.textContent = 'DO';
+    b.onclick = function () { doAction(a.id); };
+    d.appendChild(b); ah.appendChild(d);
+  });
+
+  el('stepnote').innerHTML = 'And a STEP is on the same meter: <b>' + CDDA.STEP_BASE_MOVES +
+    ' moves</b> for a plain one (character.cpp:6022), which right now is <b>' +
+    secondsFor(CDDA.STEP_BASE_MOVES).toFixed(2) + ' s</b> a step. Bonuses cannot take it under ' +
+    CDDA.STEP_MOVES_FLOOR + ' (character.cpp:6103), so a step has a floor as well as a ceiling.';
+
+  var sh = el('sliders');
+  if (!sh.dataset.built) {
+    [['overloadPct', 'over your cap', 0, 200, '%'],
+     ['pain', 'pain', 0, 60, ''],
+     ['thirst', 'thirst', 0, 120, '']].forEach(function (p) {
+      var d = document.createElement('div'); d.className = 'sl';
+      d.innerHTML = '<span class="n">' + p[1] + '</span>';
+      var i = document.createElement('input');
+      i.type = 'range'; i.min = p[2]; i.max = p[3]; i.value = S[p[0]];
+      var v = document.createElement('span'); v.className = 'v';
+      i.oninput = function () { S[p[0]] = +i.value; paint(); };
+      d.appendChild(i); d.appendChild(v);
+      d.dataset.key = p[0]; d.dataset.unit = p[4];
+      sh.appendChild(d);
+    });
+    sh.dataset.built = '1';
+  }
+  Array.prototype.forEach.call(sh.children, function (d) {
+    d.querySelector('.v').textContent = S[d.dataset.key] + d.dataset.unit;
+    d.querySelector('input').value = S[d.dataset.key];
+  });
+  el('condnote').innerHTML = 'Their thirst penalty only starts past <b>' + CDDA.THIRST_PENALTY_AT +
+    '</b> (character.cpp:7620) &mdash; a threshold, not a slope, so being a bit thirsty is free. ' +
+    'Weight is the harshest: <b>' + CDDA.CARRY_PENALTY_PER_OVERLOAD + ' speed for every 100% ' +
+    'over your cap</b> (character.cpp:7614).';
+
+  var th = el('travel'); th.innerHTML = '';
+  [0, 1, 3, 8].forEach(function (dist) {
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">' + (dist === 0 ? 'just outside' : dist + ' away') + '</span>' +
+      '<span class="c">' + CDDA.TRAVEL_BASE_MIN + ' + ' + dist + 'x' + CDDA.TRAVEL_PER_DIST_MIN +
+      '</span><span class="v">' + travelMinutes(dist) + ' min</span>';
+    var b = document.createElement('button'); b.textContent = 'GO';
+    b.onclick = function () { doTravel(dist); };
+    d.appendChild(b); th.appendChild(d);
+  });
+
+  var eh = el('errands'); eh.innerHTML = '';
+  if (S.errand) {
+    var left = Math.max(0, S.errand.dueAt - S.seconds);
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">away on a ' + S.errand.hours + ' h errand</span>' +
+      '<span class="c">' + (left > 0 ? hm(left) + ' to go' : 'done') + '</span>' +
+      '<span class="v">' + (S.errand.rate * S.errand.hours) + '</span>';
+    var b = document.createElement('button');
+    b.textContent = 'COLLECT'; b.disabled = !errandReady();
+    b.onclick = function () { collectErrand(); };
+    d.appendChild(b); eh.appendChild(d);
+    if (left > 0) {
+      var note = document.createElement('div'); note.className = 'why';
+      note.textContent = 'Spend the day above and the errand finishes while you work — that is ' +
+        'the point of a declared block.';
+      eh.appendChild(note);
+    }
+  } else {
+    ERRANDS.forEach(function (e) {
+      var d = document.createElement('div'); d.className = 'row';
+      d.innerHTML = '<span class="n">' + e.hours + ' hour block</span>' +
+        '<span class="c">' + e.rate + ' x ' + e.hours + ' hours</span>' +
+        '<span class="v">' + payoutFor(e.id) + '</span>';
+      var b = document.createElement('button'); b.textContent = 'SEND';
+      b.onclick = function () { sendErrand(e.id); };
+      d.appendChild(b); eh.appendChild(d);
+    });
+  }
+
+  el('sleeptier').textContent = sleepTier();
+  var nt = nextSleepTier();
+  el('sleepwhy').textContent = Math.round(S.awakeMin).toLocaleString() + ' minutes awake (' +
+    (S.awakeMin / 1440).toFixed(2) + ' days)' +
+    (nt ? ' — ' + Math.round(nt.at - S.awakeMin).toLocaleString() + ' more to ' + nt.name
+        : ' — the top of the ladder');
+  var slh = el('sleep'); slh.innerHTML = '';
+  [1, 4, 8].forEach(function (h) {
+    var d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<span class="n">sleep ' + h + ' h</span>' +
+      '<span class="c">pays off ' + (h * 60) + ' min</span>' +
+      '<span class="v">-' + Math.min(h * 60, Math.round(S.awakeMin)) + '</span>';
+    var b = document.createElement('button'); b.textContent = 'SLEEP';
+    b.onclick = function () { doSleep(h); };
+    d.appendChild(b); slh.appendChild(d);
+  });
+
+  var lh = el('log'); lh.innerHTML = '';
+  S.log.forEach(function (m) {
+    var d = document.createElement('div'); d.textContent = m; lh.appendChild(d);
+  });
+}
+
+function bindCtl() {
+  var h = el('ctl');
+  [['WRECK ME', function () { S.overloadPct = 200; S.pain = 40; S.thirst = 100; }],
+   ['FRESH', function () { S.overloadPct = 0; S.pain = 0; S.thirst = 0; }],
+   ['RESET THE DAY', function () { S.seconds = 8 * 3600; S.spent = 0; S.awakeMin = 0; S.errand = null; S.log = []; }],
+   ['UP FOR 3 DAYS', function () { S.awakeMin = 3 * 24 * 60; }],
+   ['UP FOR 8 DAYS', function () { S.awakeMin = 8 * 24 * 60; }]
+  ].forEach(function (p) {
+    var b = document.createElement('button'); b.className = 'chip'; b.textContent = p[0];
+    b.onclick = function () { p[1](); paint(); };
+    h.appendChild(b);
+  });
+}
+
+/* =========================================================================
+   THE GATE HARNESS — the gate drives these, never a second copy of the maths
+   ========================================================================= */
+window.LAB = {
+  CDDA: CDDA,
+  mechanics: ['action cost', 'condition', 'travel', 'errands', 'sleep debt'],
+  S: S, ACTIONS: ACTIONS, ERRANDS: ERRANDS, SLEEP_TIERS: SLEEP_TIERS,
+  /* 1 */ movesForMinutes: movesForMinutes, actionMoves: actionMoves,
+  doAction: doAction, costMinutes: costMinutes, secondsFor: secondsFor,
+  /* 2 */ speed: speed, rawSpeed: rawSpeed, speedFloor: speedFloor, atFloor: atFloor,
+  carryPenalty: carryPenalty, painPenalty: painPenalty, thirstPenalty: thirstPenalty,
+  worstMultiplier: worstMultiplier,
+  setCondition: function (o) {
+    if (o.overloadPct !== undefined) S.overloadPct = o.overloadPct;
+    if (o.pain !== undefined) S.pain = o.pain;
+    if (o.thirst !== undefined) S.thirst = o.thirst;
+    paint();
+  },
+  /* 3 */ travelMinutes: travelMinutes, doTravel: doTravel,
+  /* 4 */ sendErrand: sendErrand, collectErrand: collectErrand, errandReady: errandReady,
+  payoutFor: payoutFor, errand: function () { return S.errand; },
+  /* 5 */ doSleep: doSleep, sleepTier: sleepTier, nextSleepTier: nextSleepTier,
+  awakeMin: function () { return S.awakeMin; },
+  /* clock */ seconds: function () { return S.seconds; }, spent: function () { return S.spent; },
+  clockText: clockText,
+  /* harness */
+  freeze: function () {}, thaw: function () {},
+  reset: function () {
+    S.overloadPct = 0; S.pain = 0; S.thirst = 0;
+    S.seconds = 8 * 3600; S.spent = 0; S.awakeMin = 0; S.errand = null; S.log = [];
+    paint();
+  },
+  /* the harness needs to get to the far end of a 14-day ladder without pressing
+     a button ten thousand times, so it may set the counter directly */
+  setAwakeMin: function (m) { S.awakeMin = m; paint(); }
+};
+
+bindCtl();
+paint();
+</script>
+</body>
+</html>

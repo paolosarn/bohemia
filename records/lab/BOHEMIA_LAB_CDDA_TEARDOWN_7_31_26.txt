@@ -1,0 +1,218 @@
+BOHEMIA LAB 06 — CATACLYSM: DDA ACTION-COST TEARDOWN (7/31/26, LAB lane)
+=============================================================================
+PAGE: slices/lab/BOHEMIA_LAB_CDDA_ACTION_COST_7_31_26.html
+GAME: Cataclysm: DDA (CleverRaven/Cataclysm-DDA, master)
+SOURCE OF TRUTH: read directly off the project's own C++ at
+  https://raw.githubusercontent.com/CleverRaven/Cataclysm-DDA/master/src/<file>
+  Fetched and grepped this session: calendar.h (716 lines), character.cpp
+  (8,391 lines), character.h, creature.h, creature.cpp, mission_companion.cpp
+  (2,952 lines). Every line number below was printed from the fetched file with
+  awk/grep this session, not recalled and not read off a wiki. Four citations I
+  had written from memory in the first draft were WRONG by a few lines and were
+  corrected against the real files before this record was written: MOVES_PER_TURN
+  (288 -> 289), BASE_SPEED (a get_speed_base() call site -> creature.cpp:189
+  where the value is actually set), SHORT_MIN (7545 -> 7547), LONG_MIN (a bare
+  "1_hours" -> character.cpp:2378 where it is really used). That correction is
+  the reason this section exists.
+
+MECHANICS DECLARED (five, each played end to end by gates/lab_gate.js):
+  1. action cost   2. condition   3. travel   4. errands   5. sleep debt
+
+WHY THIS EMULATION: laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md
+clause 4 says an action-cost table is CANON, not mechanism, and no lane invents
+one. Then Paolo's 7/28 correction (clause 17 of the mobile-camp law) made the
+action clock the centre of the survival design. So the repo needed the SHAPE of
+a real, shipped, open-source answer without inventing a single Bohemia number.
+Cataclysm: DDA was ranked #1 for exactly this question in
+records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md, before it was needed,
+because it is the only open-source game in the shortlist that answers it.
+
+=============================================================================
+THE FINDING (two of them)
+=============================================================================
+1. AN ACTION'S COST IS FIXED, IN "MOVES". YOUR CONDITION CONVERTS MOVES INTO
+   TIME. AND THE CONVERSION CAN NEVER EXCEED 4x, BECAUSE SPEED HAS A FLOOR.
+   The cost table stays one stable number per action; the FELT cost varies with
+   how wrecked you are; a bad day can never become an infinite one.
+
+2. A STEP IS AN ACTION, PRICED IN THE SAME CURRENCY. A plain step is
+   run_cost( 100, false ) — 100 moves, one second at base speed — and bonuses
+   are capped so a step can never cost LESS than 100. Walking and doing are ONE
+   clock in their model with two kinds of purchase. Bohemia's are deliberately
+   TWO clocks (clause 17 of the mobile-camp law: the buff burns on steps, the
+   day burns on every action), so this is a real divergence, chosen, not missed.
+
+=============================================================================
+MECHANISM — the numbers the page runs on. Every key in the page's CDDA block
+appears here with the file:line it was read from. gates/lab_gate.js fails the
+build if a key loses its citation or its value drifts from the page.
+=============================================================================
+
+--- THE FUNDAMENTAL UNIT ---
+MOVES_PER_TURN 100 — calendar.h:289 `return to_turns<int>( duration ) * 100;`
+  inside the friend to_moves() declared at calendar.h:160. This is the whole
+  reason the model works: an action is priced in a currency 100x finer than the
+  tick, so a cost can be divided by speed and still land on a whole tick.
+SECONDS_PER_TURN 1 — calendar.h:232 `from_seconds( const T t ) { return
+  time_duration( t ); }` reads identically to calendar.h:223
+  `from_turns( const T t ) { return time_duration( t ); }`. A duration's raw
+  unit IS the turn, and one second constructs the same duration as one turn, so
+  a turn is a second. calendar.h:227 `from_moves( t ) { return
+  time_duration( t / 100 ); }` closes the loop from the other direction.
+BASE_SPEED 100 — creature.cpp:189 `speed_base = 100;` in Creature::Creature()
+  (constructor opens at creature.cpp:183). The member is declared
+  creature.h:1276 `int speed_base = 0;` and the accessor is creature.h:927
+  `virtual int get_speed_base() const;` — the value 100 lives at the
+  constructor, which is why the citation is creature.cpp and not character.cpp.
+
+--- A STEP IS AN ACTION TOO ---
+STEP_BASE_MOVES 100 — character.cpp:6022 `ret *= 100.0f / run_cost( 100,
+  false );` — the base cost handed to run_cost for a plain, non-diagonal step.
+  run_cost itself is defined at character.cpp:6030.
+STEP_MOVES_FLOOR 100 — character.cpp:6103 `movecost = 100;` under the
+  run_cost_effect labelled "Bonuses Capped" (pushed at 6101-6102). A step can be
+  made more expensive without limit by terrain, but never cheaper than 100.
+FLATGROUND_UNDER 105 — character.cpp:6063 `const bool flatground = movecost <
+  105;`. Their definition of easy ground is a move-cost threshold, not a terrain
+  list — a good pattern for us, since our tiles already carry a cost.
+PARKOUR_OBSTACLE_MULT 0.5 — character.cpp:6096 `run_cost_effect_mul( 0.5,
+  _( "Parkour" ) );`, applied only inside the `movecost > 105` branch opened at
+  6090. A skill that halves the cost of BAD ground and does nothing on good
+  ground. That is a sharper design than a flat movement-speed perk.
+DIAG_DIVISOR 1.4142 — character.cpp:6034 `movecost /= M_SQRT2;` with the
+  comment `// because effect logic assumes 100 base cost`, undone at 6038
+  `movecost *= M_SQRT2;`. Their diagonals are honestly priced at root two.
+
+--- WHAT MAKES THE SAME ACTION EAT MORE OF YOUR DAY ---
+All four sit inside Character::recalc_speed_bonus(), which opens at
+character.cpp:7604 and closes at 7657.
+CARRY_PENALTY_PER_OVERLOAD 25 — character.cpp:7614 `carry_penalty = 25 * (
+  weight_carried() - weight_cap ) / weight_cap;`, guarded by 7613
+  `if( weight_carried() > weight_cap )`. Under your cap it is exactly zero: a
+  threshold, not a slope. 25 speed for every 100% over.
+THIRST_PENALTY_AT 40 — character.cpp:7620 `if( get_thirst() > 40 ) {`. Being a
+  bit thirsty is free. Also a threshold.
+SPEED_FLOOR_PCT 25 — character.cpp:7652, their comment verbatim: `// Speed
+  cannot be less than 25% of base speed, so minimal speed bonus is -75% base
+  speed.` This is the best idea in the whole model.
+MIN_BONUS_PCT 75 — character.cpp:7653 `const int min_speed_bonus =
+  static_cast<int>( -0.75 * get_speed_base() );`, applied at 7654-7656 by
+  adding back the difference under the label "Penalty Cap".
+  NOT MODELLED, and named so the page cannot be read as complete:
+  character.cpp:7618 `-get_pain_penalty().speed` (the page takes pain as a
+  direct speed subtraction, which is a simplification of their pain curve) and
+  character.cpp:7624 `kcal_speed_penalty()` (underweight), plus the whole
+  effects loop at 7626-7633. The page models the three penalties a player can
+  feel and see, and says so on its face.
+
+--- TRAVEL IS A FORMULA ---
+TRAVEL_BASE_MIN 20 — mission_companion.cpp:1358 `time_duration time = 20_minutes
+  + distance * 10_minutes;` in talk_function::caravan_depart (opens at 1352).
+TRAVEL_PER_DIST_MIN 10 — the same line, mission_companion.cpp:1358.
+  Note what their code does with it, at 1364: `const double
+  uncertainty_multiplier = rng_float( 0.9, 1.1 );` — the estimate is shown to
+  the player as whole hours (1360-1362) and then jittered +/-10%. The page does
+  NOT model the jitter, on purpose: the shape worth showing Paolo is base + rate.
+
+--- AN ERRAND IS A DECLARED BLOCK, PAID AT A RATE ---
+ERRAND_SHORT_H 1 — mission_companion.cpp:763 `avail |= calendar::turn >=
+  elem->companion_mission_time + 1_hours;` (same pattern again at 789).
+ERRAND_MED_H 4 — mission_companion.cpp:817 `... + 4_hours;`.
+ERRAND_LONG_H 10 — mission_companion.cpp:662 `const bool done = calendar::turn
+  >= elem->companion_mission_time + 10_hours;` (again at 696).
+ERRAND_MAX_H 20 — mission_companion.cpp:732 `... + 20_hours;`.
+PAYOUT_LOW 3 — mission_companion.cpp:2077 `int merch_amount = 3 * hours;`.
+PAYOUT_MID 4 — mission_companion.cpp:2203 `int merch_amount = 4 * hours;`.
+PAYOUT_HIGH 5 — mission_companion.cpp:2136 `int merch_amount = 5 * hours;`.
+  The interesting part is the SHAPE: payout is a rate times hours ACTUALLY
+  worked, so a block you leave running longer pays more, and the rate is what
+  distinguishes a good job from a bad one. Their richer variants exist and are
+  NOT modelled: mission_companion.cpp:1444/1446 `merch_amount += ( time / 600 )
+  * 4` and `* 7` (a per-600-turn rate), 1840 `rng( 20, 75 )` and 1927
+  `rng( 50, 100 )` (random payouts with a +25 bonus at 1847/1934), and 1759's
+  crop formula. The page shows the clean rate x hours case only.
+
+--- SLEEP DEBT: A TIERED LADDER IN MINUTES OWED ---
+Their enum sleep_deprivation_levels opens at character.h:245 and closes at 256,
+and is written as N * 24 * 60 minutes. The values below are that arithmetic
+done, which is what the page stores.
+SLEEPDEP_HARMLESS_MIN 2880 — character.h:247 `SLEEP_DEPRIVATION_HARMLESS =
+  2 * 24 * 60,` with their own comment `/// 2 days` at 246.
+SLEEPDEP_MINOR_MIN 5760 — character.h:249 `SLEEP_DEPRIVATION_MINOR = 4*24*60,`.
+SLEEPDEP_SERIOUS_MIN 10080 — character.h:251 `SLEEP_DEPRIVATION_SERIOUS =
+  7 * 24 * 60,`.
+SLEEPDEP_MAJOR_MIN 14400 — character.h:253 `SLEEP_DEPRIVATION_MAJOR =
+  10 * 24 * 60,`.
+SLEEPDEP_MASSIVE_MIN 20160 — character.h:255 `SLEEP_DEPRIVATION_MASSIVE =
+  14 * 24 * 60`.
+SLEEPY_TIRED 191 — character.h:165 `TIRED = 191,` in enum sleepiness_levels.
+SLEEPY_DEAD_TIRED 383 — character.h:166 `DEAD_TIRED = 383,`.
+SLEEPY_EXHAUSTED 575 — character.h:167 `EXHAUSTED = 575,`.
+SLEEPY_MASSIVE 1000 — character.h:168 `MASSIVE_SLEEPINESS = 1000`.
+  THE FINDING: the first rung of the debt ladder is TWO WHOLE DAYS. One rough
+  night costs nothing. That generosity is a design choice worth copying — it
+  means sleep is a strategic resource, not a nightly chore.
+
+--- THE DURATION LADDER THEIR CODE SPEAKS IN ---
+These are not an action-cost table. They are the granularity their own code
+reaches for when it needs a duration, which is the closest thing to a table
+that can be honestly extracted without enumerating their JSON data tree.
+TICK_MIN 1 — character.cpp:3077 `if( calendar::once_every( 1_minutes ) ) {` in
+  Character::reset_stats() (opens at 3075).
+SHORT_MIN 5 — character.cpp:7547 `if( it->second.second - calendar::turn >
+  5_minutes ) {`.
+MED_MIN 30 — character.cpp:7012 `if( dur >= 0_turns && dur < 30_minutes ) {`.
+LONG_MIN 60 — character.cpp:2378 `const time_duration modified_decay_time =
+  it->second > 5_minutes ? decay_time : 1_hours;`.
+
+=============================================================================
+CONTENT — theirs, and deliberately thin
+=============================================================================
+The page's ACTIONS list is FOUR GENERIC ROWS (a quick thing / a short task / a
+real piece of work / an hour on something) built from the duration ladder above.
+It is deliberately NOT a borrowed task list. Cataclysm's per-task times live in
+its JSON data tree; enumerating them would have produced a document that reads
+as a PROPOSAL for Bohemia's action costs, and clause 4 of the time law reserves
+that table to Paolo. MECHANISM-MINE / CONTENTS-PAOLO'S: the shape is mine to
+bring, the list and the numbers are his.
+
+The ERRANDS rows pair their four real block lengths with their three real
+payout rates. That pairing (which rate goes with which block) is the page's
+arrangement, not a claim about their content — their rates attach to specific
+missions, not to block lengths.
+
+=============================================================================
+WHAT IS NOT IMPLEMENTED (so nobody reads this page as complete)
+=============================================================================
+- Their pain curve (get_pain_penalty()) — the page subtracts pain from speed
+  directly, which is a simplification and is labelled as one above.
+- Underweight / kcal speed penalty (character.cpp:7624).
+- The effects loop (character.cpp:7626-7633) — mutations, bionics, drugs, the
+  martial-arts bonus at 7637, Sunlight Dependent at 7644-7646, and the
+  enchantment pass at 7647-7651.
+- Terrain move costs, encumbrance limb modifiers, move modes (run / crouch /
+  prone), vehicles, and mounts — all real parts of run_cost, none modelled.
+- The caravan's +/-10% jitter (mission_companion.cpp:1364).
+- The random and per-600-turn payout variants (1444/1446/1840/1927).
+- Sleep-debt ACCRUAL rate and the penalties each tier applies: these live in
+  their effects JSON, not in the C++ read here. The page counts minutes awake
+  1:1 and says on its own face that it models the LADDER, not a punishment
+  curve. Do not cite this page for what sleep debt DOES to you in Cataclysm.
+- Bohemia's own action list and its costs. STILL [PENDING Paolo], by law.
+
+=============================================================================
+THE ARITHMETIC, CHECKED
+=============================================================================
+A 30-minute job = 30 * 60 * 100 = 180,000 moves, always.
+  at speed 100 (fresh):            180000 / 100 = 1,800 s = 30 min
+  at speed 50 (100% overloaded,
+    pain 15, thirst 50):           180000 / 50  = 3,600 s = 60 min
+  at the floor, speed 25:          180000 / 25  = 7,200 s = 120 min
+  worst case multiplier:           100 / 25 = 4x, and never more.
+A plain step = 100 moves: 1.00 s fresh, 4.00 s at the floor.
+  (For scale, Bohemia's own crossing maths puts a step at 3.52 s — see clause 16
+  of the mobile-camp law. Their WORST step and our AVERAGE step are the same
+  number, which is a coincidence, but a useful one to feel.)
+Travel: 0 away = 20 min; 1 = 30; 3 = 50; 8 = 100 min.
+Errands: 3x1 = 3, 4x4 = 16, 5x10 = 50, 5x20 = 100.
+Sleep ladder: 2880 / 1440 = 2 days to the first rung; 20160 = 14 days to the top.

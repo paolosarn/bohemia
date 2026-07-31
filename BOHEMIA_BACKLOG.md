@@ -25,6 +25,58 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1n. [SHIPPED 7/31 — LAB-06, AND IT ANSWERS THE HOLE HIS OWN CORRECTION OPENED]
+   WHAT AN ACTION COSTS: CATACLYSM: DDA, A REAL EMULATION OFF REAL C++.
+   Paolo 7/28 (clause 17 of the mobile-camp law): "time will pass just by taking
+   actions in this game and you really need to understand that sort of clock." He was
+   right, and the moment he ruled it NOTHING IN THE REPO COULD SAY WHAT ONE ACTION
+   COSTS. Clause 4 of laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md
+   reserves the cost TABLE to him ("no lane invents an action-cost table"), so the
+   legal move was not to write costs — it was to go get the best engineered answer that
+   exists, with its real numbers, and hand him the SHAPE. Cataclysm: DDA was ranked #1
+   of nine for exactly this question in records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_
+   7_26_26.md, before it was needed, because it is the only open-source game on the
+   shortlist that answers it.
+   THE PAGE (NOT IN A TAB — it is a lab reference surface, reached by its own file, and
+   by lab_gate clause 3 it may NEVER be linked from the alpha):
+   slices/lab/BOHEMIA_LAB_CDDA_ACTION_COST_7_31_26.html — five mechanics playable end
+   to end: action cost / condition / travel / errands / sleep debt.
+   FINDING 1, and it is better than a table of minutes: AN ACTION'S COST IS FIXED, IN
+   "MOVES" (calendar.h:289, 100 moves = 1 turn = 1 second). YOUR CONDITION CONVERTS
+   MOVES INTO TIME. AND THE CONVERSION CAN NEVER EXCEED 4x, BECAUSE SPEED HAS A FLOOR
+   (character.cpp:7652, their comment verbatim: "Speed cannot be less than 25% of base
+   speed"). So the table stays stable, the FELT cost moves with how wrecked you are,
+   and a bad day can never become an infinite one. The floor is the part to steal first.
+   FINDING 2, straight onto his tile clock: A STEP IS AN ACTION, PRICED IN THE SAME
+   CURRENCY (character.cpp:6022 run_cost(100,false); 6103 caps the bonuses so a step
+   can never cost LESS than 100). Their walking and doing are ONE clock; ours are TWO
+   on purpose (clause 17). That divergence is now CHOSEN rather than unexamined. Their
+   WORST step is 4.00 s and our AVERAGE step is 3.52 s (clause 16) — a coincidence, but
+   a useful one to feel.
+   SMALLER PATTERNS: thresholds not slopes (weight free under your cap, character.cpp:
+   7613; thirst free to 40, :7620) so a penalty arrives as a decision, not a drip; a
+   skill that halves BAD ground only (Parkour, :6096); travel = base + rate (20 min +
+   dist x 10, mission_companion.cpp:1358); an errand is a DECLARED BLOCK paid rate x
+   hours (1/4/10/20 h at 3/4/5); and SLEEP DEBT'S FIRST RUNG IS TWO WHOLE DAYS
+   (character.h:247) — one rough night is free, which agrees with his own clause 6 that
+   ignoring the camp stays playable.
+   Teardown, every one of 34 constants with a file:line printed from the fetched source
+   this session: records/lab/BOHEMIA_LAB_CDDA_TEARDOWN_7_31_26.txt. It also OWNS that
+   four of my first-draft citations were wrong by a few lines (written from memory before
+   the files were fetched) and records the corrections.
+   Patterns + what not to port: records/lab/BOHEMIA_LAB_CDDA_PATTERN_NOTE_7_31_26.md.
+   GATE: gates/lab_gate.js grew the CDDA row (28 new live checks D0-D27) and learned
+   .cpp/.h citations — its first C++ master. 332 checks, all green. Six mutations
+   caught (floor removed, cost drifting with pain, travel divided by speed, early
+   errand collect, first rung moved to one day, thirst turned into a slope). ALSO FIXED
+   A REAL GATE BUG the CDDA note exposed: A24 (the no-port-claims check) was matching
+   the DENIAL every honest note is required to write. Now it collapses whitespace,
+   scopes the negation to the SENTENCE, and was mutated in BOTH directions — the
+   sentence-scoping only got written because a planted real claim ("I wired it into the
+   engine this afternoon") slipped past the first two attempts.
+   NOTHING PORTED. Bohemia's action list and its costs remain [PENDING Paolo] by law.
+   THE ONE QUESTION FOR HIM: is the SHAPE right — a fixed cost in a fine currency, your
+   condition as the divisor, and a hard cap on how bad the divisor can get?
 1m. [DONE 7/28 — TILE FORMS ORDER] FOUR FORMS FILED, AND THE FINDING THAT MOST LAB
    SURFACES MUST NEVER GET ART.
    Walked all five lab surfaces. FOUR are REFERENCE pages marked NOT BOHEMIA (Stardew

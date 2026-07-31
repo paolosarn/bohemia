@@ -1,3 +1,99 @@
+LAB (e2r7sv): 7/31 LATEST — WHAT AN ACTION COSTS, ANSWERED OFF REAL C++, AND A GATE
+BUG THAT WAS PUNISHING HONEST NOTES.
+
+=== WHY THIS EXISTED TO DO ===
+Paolo's 7/28 correction is clause 17 of laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md:
+"time will pass just by taking actions in this game and you really need to understand
+that sort of clock." He was right, and the moment he ruled it the repo had a hole —
+NOTHING COULD SAY WHAT ONE ACTION COSTS. Clause 4 of the time law reserves the cost
+TABLE to him ("no lane invents an action-cost table"), so writing costs was illegal.
+The legal move was to go get the best engineered answer that exists and hand him the
+SHAPE. Cataclysm: DDA was ranked #1 of nine for exactly this in
+records/lab/BOHEMIA_LAB_RESEARCH_CANDIDATES_7_26_26.md, filed BEFORE it was needed.
+
+=== SHIPPED, FULL SUITE GREEN ===
+PAGE (NOT IN A TAB — a lab reference surface, and by lab_gate clause 3 it may NEVER
+be linked from the alpha): slices/lab/BOHEMIA_LAB_CDDA_ACTION_COST_7_31_26.html
+Five mechanics playable end to end: action cost / condition / travel / errands /
+sleep debt. A real EMULATION, not a model — the game is open source, so all 34
+constants were read off real lines of its C++ this session.
+
+FINDING 1, better than a table of minutes: AN ACTION'S COST IS FIXED, IN "MOVES"
+(calendar.h:289 — 100 moves = 1 turn = 1 second). YOUR CONDITION CONVERTS MOVES INTO
+TIME. AND IT CAN NEVER EXCEED 4x, BECAUSE SPEED HAS A FLOOR (character.cpp:7652,
+their comment verbatim: "Speed cannot be less than 25% of base speed"). The table
+stays one stable number per action; the FELT cost moves with how wrecked you are; a
+bad day can never become an infinite one. The floor is the part to steal first.
+
+FINDING 2, straight onto our tile clock: A STEP IS AN ACTION, PRICED IN THE SAME
+CURRENCY (character.cpp:6022 run_cost(100,false); :6103 caps bonuses so a step can
+never cost LESS than 100). Their walking and doing are ONE clock. Ours are TWO on
+purpose (clause 17: the buff burns on steps, the day burns on every action). That
+divergence is now CHOSEN, not unexamined. Their WORST step is 4.00 s; our AVERAGE
+step is 3.52 s (clause 16) — coincidence, but a useful one to feel.
+
+SMALLER PATTERNS worth having: THRESHOLDS NOT SLOPES (weight free under your cap,
+:7613; thirst free to 40, :7620) so a penalty arrives as a decision, not a drip; a
+skill that halves BAD ground only (Parkour, :6096); TRAVEL = BASE + RATE (20 min +
+dist x 10, mission_companion.cpp:1358); an ERRAND IS A DECLARED BLOCK paid rate x
+hours (1/4/10/20 h at 3/4/5); and SLEEP DEBT'S FIRST RUNG IS TWO WHOLE DAYS
+(character.h:247) — one rough night is free, which agrees with his own clause 6 that
+ignoring the camp must stay playable.
+
+RECORDS: records/lab/BOHEMIA_LAB_CDDA_TEARDOWN_7_31_26.txt (all 34 constants with a
+file:line printed from the fetched source, plus every omission named by line so the
+gap is countable) and records/lab/BOHEMIA_LAB_CDDA_PATTERN_NOTE_7_31_26.md.
+
+=== TWO THINGS I GOT WRONG, BOTH RECORDED IN PLACE ===
+1. FOUR OF MY FIRST-DRAFT CITATIONS WERE WRONG by a few lines, written from memory
+   before the files were fetched (MOVES_PER_TURN 288->289; BASE_SPEED pointed at a
+   call site instead of creature.cpp:189 where the value is set; SHORT_MIN 7545->7547;
+   LONG_MIN a bare "1_hours"->character.cpp:2378). All corrected against the real
+   files and OWNED at the top of the teardown. A number you did not print from the
+   file is a guess wearing a citation — the 7/18 verify-on-the-real-surface law again.
+2. A REAL GATE BUG, THIRD OF ITS KIND: lab_gate's A24 (the no-port-claims check) was
+   failing the DENIAL that every honest note is required to write ("Nothing here is
+   wired into the engine"). Same class as A10 (cited engine paths) and A12 (the toast
+   "no recipe, no item"). Fixed properly: collapse whitespace, then scope the negation
+   to the SENTENCE. THE PART WORTH READING: my first two fixes both passed a PLANTED
+   REAL CLAIM ("I wired it into the engine this afternoon"), because per-line failed on
+   hard-wrapped prose and a flat 90-char window caught a "never" from the sentence
+   before. Only mutating in BOTH directions found that. A gate tested one way is half
+   tested.
+
+=== GATE ===
+gates/lab_gate.js: new CDDA row, 28 live checks (D0-D27), and it learned .cpp/.h
+citations — its first C++ master. 332 checks, 0 fail. Six mutations caught: floor
+removed, cost drifting with pain, travel divided by speed, early errand collect, first
+sleep rung moved to one day, thirst turned into a slope. Screenshotted on the real
+390x844 surface, top and bottom.
+
+=== WHERE THE LAB LANE ACTUALLY IS ===
+NOTHING PORTED. Under laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md a lab
+finding moves into the game only when he says so.
+BLOCKED ON PAOLO, and deliberately not producing around it (STOP PRODUCING law):
+  1. THE ONE QUESTION FOR THIS PAGE: is the SHAPE right — a fixed cost in a fine
+     currency, your condition as the divisor, and a hard cap on how bad the divisor
+     can get? If yes, the numbers are a short conversation. If no, the table was
+     never the problem.
+  2. HIS PLAYTEST OF slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html. 31 dials,
+     each with its law clause. Everything downstream of the camp waits on the feel.
+  3. THE MOBILE-CAMP PENDINGS, none of which any lane may invent: (a) the pool's
+     name, (c) supply costs, (d) whether max HP moves (MAX_HP_MOVES defaults OFF
+     because "idk" is not a ruling), (e) exact stamina numbers, (f) carry limit,
+     (g) the camp item list, (i) per-button time costs, (k) shelters per act,
+     (l) meal buff size, (m) blood-loss policy (options written and a recommendation
+     made in records/BOHEMIA_BLOOD_LOSS_OPTIONS_7_27_26.md — option 2, ONLY SERIOUS).
+  4. THE ACTION COST TABLE itself, clause 4. This page exists to make that a feel
+     question instead of a spreadsheet question.
+HELD, not formed (tile forms): H5 the supply pool's searched-container state (blocked
+on clause (a), and loot is a CLOSED lab subject after two kills); H6 friendly shelter
+looks (blocked on clause (k), and it is WORLD's district content — LAB flags, does
+not claim).
+LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
+scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
+pages from coming back.
+
 WORLD (9lfjtf): 7/30 — THREE GATES SHIPPED, AND I INDEPENDENTLY DIAGNOSED THE DEAD
 ALPHA THEN THREW MY OWN FIX AWAY BECAUSE SOUNDS GOT THERE FIRST AND GOT IT RIGHTER.
 Read the CHARACTER and SOUNDS sections below for the incident itself; this is only
