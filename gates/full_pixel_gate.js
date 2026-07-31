@@ -97,64 +97,48 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   }
 
   /* ---- THE SURFACE HE ACTUALLY PLAYS ------------------------------------
-     Everything above measures the RUN slice. He never opens it. The alpha routes
-     the RUN tab to the CITY panel on purpose (his own 7/25 one-view ruling, and
-     the alpha says so in a comment at the routing line), so the CITY renderer is
-     the game and the run slice is a development surface.
-     I fixed, measured, gated and shipped the DPR bug on the run slice and he
-     replied "ALL THE FIXES I NEEDED TO SEE ARE NOT THERE!!!" -- because they
-     genuinely were not. Measuring rigorously on the wrong canvas is not
-     verification, it is a more convincing way to be wrong. So this gate now
-     checks the CITY blob too, and that half is the half that matters. */
+     Everything above measures the RUN slice. He never opens it: the alpha routes
+     the RUN tab to the CITY panel, on purpose, per his 7/25 one-view ruling.
+
+     I FIRST "FIXED" THE CITY THE SAME WAY AND IT WAS WRONG. I patched its canvas
+     to a device-pixel buffer and asserted it here. Then canvas_scale_gate went
+     red and its header explained why: the CITY lane had ALREADY solved this on
+     7/27, a different and better way. The city sets cv.style.imageRendering =
+     'pixelated' while you walk, so the phone's 3x upscale of the 378-wide buffer
+     is NEAREST, not bilinear. There is no blur to remove.
+
+     My change was a placebo: a 44px tile ends up as the same 132 physical pixels
+     by either route, so it changed nothing visible, cost 9x the canvas memory,
+     and broke a locked contract. Reverted.
+
+     SO THIS GATE DOES NOT DEMAND A DPR BUFFER IN THE CITY. It asserts the CITY
+     LANE'S ACTUAL CONTRACT instead -- nearest while walking -- so the two gates
+     agree rather than fight, and it records that the run slice is not the surface
+     he judges on. */
   const fsx = require('fs');
   const alpha = fsx.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
-  /* EXTRACT BY INDEX, NOT BY REGEX. The alpha is 42 MB and the base64 group is
-     31 MB; a regex with a {5000,} quantifier over that blows the call stack before
-     it ever matches. This gate crashed exactly that way on its first run. */
+  ok('the RUN tab routes to the CITY panel (his 7/25 one-view ruling)',
+     alpha.indexOf("(t.dataset.p==='run') ? 'city'") >= 0);
   let city = null;
   for (let ci = alpha.indexOf('CITY_B64'); ci >= 0; ci = alpha.indexOf('CITY_B64', ci + 1)) {
-    /* the FIRST occurrence is inside a comment -- walk them until one is a real
-       assignment followed by a quote and a long base64 run */
     const tail = alpha.slice(ci + 8, ci + 20);
     const eq = tail.indexOf('=');
     if (eq < 0) continue;
     const qi = tail.slice(eq).search(/['"`]/);
     if (qi < 0) continue;
     const start = ci + 8 + eq + qi + 1;
-    const quote = alpha[start - 1];
-    const end = alpha.indexOf(quote, start);
+    const end = alpha.indexOf(alpha[start - 1], start);
     if (end - start < 100000) continue;
     city = Buffer.from(alpha.slice(start, end), 'base64').toString('utf8');
     break;
   }
   ok('the alpha carries a readable CITY blob', !!city && city.length > 100000);
   if (city) {
-    /* indexOf, NOT regex: this string is 23 MB and a regex with any backtracking
-       on it blows the call stack. Plain substring search is O(n) and cannot. */
-    ok('THE SURFACE HE PLAYS: the city canvas is sized in DEVICE pixels',
-       city.indexOf('cv.width=Math.round(w*__DPR)') >= 0);
-    ok('THE SURFACE HE PLAYS: the city context is scaled by the same factor',
-       city.indexOf('setTransform(__DPR,0,0,__DPR,0,0)') >= 0);
-    /* SCOPED TO fit(), not the whole blob. `cv.width=w; cv.height=h;` also appears
-       in offscreen helper canvases (tile bakers, the house-preview strip) where
-       sizing in CSS pixels is correct -- those are buffers, not the screen. Only
-       the WORLD canvas must be device-resolution, so only fit() is checked. */
-    const fi0 = city.indexOf('function fit(){ const st=');
-    /* STRIP COMMENTS FIRST. The patch's own comment QUOTES the old line to explain
-       what was wrong with it, so a raw search finds the prose and fails the very
-       fix it is guarding. Third time this exact trap has bitten in this session:
-       a gate must read CODE, never the story written next to it. */
-    const fitCode = fi0 < 0 ? '' :
-      city.slice(fi0, fi0 + 2400).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
-    ok('THE SURFACE HE PLAYS: the old CSS-pixel sizing is gone from fit()',
-       fi0 >= 0 && fitCode.indexOf('cv.width=w; cv.height=h;') < 0);
-    ok('THE SURFACE HE PLAYS: smoothing is off on the city world context',
-       city.indexOf('__g.imageSmoothingEnabled=false') >= 0);
-    /* the transform must be re-applied inside fit(), because assigning
-       canvas.width RESETS the context state including the transform */
-    const fi = city.indexOf('function fit(){ const st=');
-    ok('the city re-applies the scale on every resize, not once at boot',
-       fi >= 0 && city.slice(fi, fi + 1800).indexOf('setTransform(__DPR') >= 0);
+    ok('THE SURFACE HE PLAYS: the walked world upscales NEAREST, never bilinear',
+       city.indexOf("const want=(mode==='city')?'auto':'pixelated'") >= 0 &&
+       city.indexOf('cv.style.imageRendering=want') >= 0);
+    ok('THE SURFACE HE PLAYS: no stray device-pixel buffer fighting that contract',
+       city.indexOf('__FULL_PIXEL_DPR__') < 0);
   }
 
   console.log('FULL PIXEL GATE: ' + pass + ' passed, ' + fail + ' failed');

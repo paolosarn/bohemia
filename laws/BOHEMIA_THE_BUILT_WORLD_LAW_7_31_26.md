@@ -181,7 +181,7 @@ and is marked dead in this file rather than left to rot in a commit message.
 | A2 | inside === that building, real windows | world_gate (dims only) | PARTIAL |
 | A3 | enter only by a door | -- | NOT ENFORCED |
 | A4 | free movement inside | -- | NOT ENFORCED |
-| B1 | integer scale, no smoothing, device resolution | **full_pixel_gate** | **ENFORCED 7/31 on BOTH renderers** |
+| B1 | integer scale, no smoothing, device resolution | full_pixel_gate (run) + canvas_scale_gate (city) | RUN FIXED. CITY WAS ALREADY CORRECT. **HIS COMPLAINT IS STILL UNEXPLAINED** |
 | B2 | shadows + sun direction by time | -- | NOT ENFORCED |
 | B3 | occlusion fades, never blocks | -- | NOT ENFORCED |
 | B4 | a door fills its doorway | full_pixel_gate (run slice only) | RUN ONLY -- NOT on the surface he plays |
@@ -310,3 +310,51 @@ scale, smoothing off, measured at DPR 3: 1134x2457 backing for a 378x819 box).
 **B4 and D4 are NOT yet true on the city renderer** and their rows say so.
 The generator clauses (D1, D2) were always true on both, because the city embeds
 the canon suburb generator -- that is why those are the two he may actually see.
+
+
+## B1 CORRECTION: I WAS WRONG ABOUT THE CITY, AND HIS COMPLAINT IS STILL OPEN (7/31)
+
+After discovering the RUN tab opens the CITY panel, I patched the city canvas to a
+device-pixel buffer, measured it at DPR 3 (1134x2457), gated it, and was about to
+ship it as the answer to "WHY IS THE PIXEL QUALITY NOT AT FULL BRO WTF".
+
+`gates/canvas_scale_gate.js` went red and its header said why. **The CITY lane had
+already solved this on 7/27**, a different and better way:
+
+    const want=(mode==='city')?'auto':'pixelated';
+    cv.style.imageRendering=want;
+
+While he WALKS, the city canvas is `image-rendering: pixelated`, so the phone's 3x
+upscale of the 378-wide buffer is **NEAREST, not bilinear**. The blur I diagnosed
+does not happen. That lane measured it and fixed it four days before I arrived.
+
+**MY FIX WAS A PLACEBO.** A 44px tile becomes the same 132 physical pixels by
+either route, so it changed nothing visible, cost 9x the canvas memory, and broke a
+locked contract. **Reverted.**
+
+### WHAT THIS MEANS, STATED HONESTLY
+
+**HIS PIXEL-QUALITY COMPLAINT IS NOT FIXED AND NOT YET EXPLAINED.** The obvious
+mechanical causes are ruled out: the upscale is nearest, smoothing is off, and the
+draw path does not resample. The remaining candidates, none verified:
+
+1. The art is 44px magnified 3x, so each art pixel is a 3x3 block on glass. That is
+   what magnified pixel art looks like, and it may simply not be what he wants.
+2. Something upstream of the blit resamples -- a tile baked at the wrong size, or a
+   district hero minified 13:1 and cached.
+3. He may be describing a specific surface (a zoom level, the interior) rather than
+   the whole game.
+
+**THE NEXT SESSION MUST NOT GUESS.** Ask him which screen and at what zoom, or get
+a screenshot with a known stamp, before changing a single pixel of render code.
+
+### THE LESSON, WHICH IS THE SAME ONE TWICE IN ONE SESSION
+
+I fixed the run slice believing it was his surface. Corrected. Then I fixed the
+city believing the blur was there. Also wrong, and the machine caught it because
+ANOTHER LANE HAD ALREADY GATED THE TRUTH.
+
+**A RED GATE FROM ANOTHER LANE IS EVIDENCE, NOT AN OBSTACLE.** canvas_scale_gate
+was not in my way; it was the only thing that stopped a placebo shipping as a fix.
+Read the header of any gate you break before you touch it -- it usually contains
+the measurement you are about to redo wrong.
