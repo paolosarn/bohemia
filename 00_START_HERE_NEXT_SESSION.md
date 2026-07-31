@@ -1,3 +1,79 @@
+CHARACTER (0lurbs): 7/31 LATEST — CLIPS ARE A-Z NOW, THE COUGH HAND REACHES THE
+MOUTH, AND HEADSHOT IS STILL OPEN. Main at db24121.
+
+=== HIS STANDING ORDER, 7/30, OBEY IT EVERYWHERE ===
+"I need you from now on in the ui to order them alphabetically i cant find what u
+need me to find man." ANY list he has to SCAN is alphabetical, forever. Done: the
+ANIMATION clip buttons (102, opens at 'air-guitar') and the CANON CLOSET inside
+each category (221 garments). NOT sorted, on purpose: FACING and KNOCK are a
+COMPASS (S SE E NE N NW W SW) and alphabetising them destroys the rotation; the
+category headings read top-to-bottom like a body. The DATA never reorders --
+CLIPS keeps authoring order because export/ANIMBEATS key off it, only the VIEW
+sorts via a copy. Tool: tools/bohemia_ui_alphabetical_patch.py.
+WHY IT MATTERS MORE THAN IT SOUNDS: the whole verdict loop depends on him FINDING
+what you asked him to judge. 102 buttons in authoring order = he cannot, and
+STALE UNJUDGED IS DEAD.
+
+=== THE OTHER STANDING ORDER, 7/30 ===
+"we gotta COOK ... 11 months of motion not bitching and complaining." He was
+right that the lane was doing process work instead of shipping. Cook first,
+report second, and never lead a reply with green gates.
+
+=== SHIPPED THIS SESSION ===
+- THE STATUES MOVE: 9 clips raised off sub-pixel amplitude. pray and winded
+  rendered ZERO changed pixels (0.2px and 0.6px on a 56px sprite). Measured over
+  8 facings: winded 954->3824, scratch-back 666->3538, cower 1404->3566,
+  cough 2251->4301, pray 206->767. Gate: MOTION VISIBLE.
+- THE COUGH HAND: he circled NE/E/SW, "the hand layer is fucked up". The hand
+  landed at y18-20 while the face ends at y16, so it sat on the chest as a bare
+  skin patch with its forearm buried in the torso. Fixed in the POSE (IK lift
+  4->8), NOT with a layer rule -- he retired dynamic hand depth TWICE (7/2, 7/26).
+  Chest bare-skin 45 -> 12 px; idle and walk are 0.
+- ALPHA LOADS gate: the alpha must open in a browser with zero page errors and
+  all three big blobs present AND full size. Built after main shipped a DEAD
+  alpha for ~12 min (a merge ate RIG_B64 + COMBAT_B64 + BAKED).
+- RIG CHECK gate: 22 rig-touching tools now cite the joints/parts they built on,
+  re-derived from source; no second anatomy can exist beside BAKED.
+- Whole-pixel canvas scaling (he could not see it -- recorded as a lesson, see
+  BACKLOG 1b: a MEASURED defect is not automatically a FELT one).
+
+=== OPEN, AND HE IS WAITING ON IT ===
+1. HEADSHOT + HEADSHOT-2 ARE BROKEN (his words) AND I COULD NOT FIX THEM
+   HONESTLY. What I measured: hsPose keeps ONE global ragdoll and restarts it on
+   every direction change, and the ANIMATION tab renders all 8 facings at once --
+       hsReset calls, 8-up grid (24 renders): 8    one direction (24 renders): 0
+   I built the per-direction state swap for it. It moved head-drop travel from
+   12px to 13px over 1.2s, and the body demonstrably FALLS in both builds, so
+   that is NOT the visible defect. REVERTED rather than shipped as a fix that
+   fixes nothing. The reset thrash is real and worth fixing eventually; the thing
+   he is actually looking at is still unexplained.
+   ASKED HIM: does it not fall at all, or does it fall wrong? Wait for that
+   answer before touching the ragdoll -- do not guess a third time.
+   NOTE: 'ragdoll' and 'death' are GRAVEYARDED (never re-add). headshot and
+   headshot-2 are NOT -- they are live clips, so fixing them is legal.
+2. WHISTLE (34) and SEARCH (24) measure the same chest bare-skin pattern cough
+   had. DELIBERATELY NOT TOUCHED (back-limb law wrong-turn #5: "a fix that is
+   *good* is not thereby *general*"). A hand at the mouth may be correct for
+   whistling. Surfaced to him for a ruling.
+3. [PENDING Paolo] far-hand depth on E/W (far 153.2 vs near 153.8, no depth cue).
+4. [PENDING Paolo] unbuilt slider ideas: leg length vs torso, frame/bulk,
+   posture, neck length.
+   BORDER TONE IS CLOSED: it stays black, he answered it the first time and got
+   annoyed being asked again. Do not re-ask.
+
+=== HOW THIS LANE SHIPS NOW (learned the hard way today) ===
+NEVER hand-resolve an alpha conflict. Take main's alpha WHOLE
+(git checkout --ours), re-run the idempotent patch tools, re-stamp, run
+ALPHA LOADS, push. Every tool in this lane is idempotent and refuses to write
+unless its edit resolves exactly once. A pre-rebase green does NOT transfer: if
+main moved, the tree you are pushing is one no gate has ever seen.
+DEPLOY VERIFY CAVEAT: from this environment github.io is proxy-blocked AND the
+GitHub actions listing comes back CACHED (asked per_page=3, got 30, byte-identical
+every call). db24121 is git-verified as the tip of main with the right stamp, but
+the Pages run could not be confirmed from here. Do not claim "live" off that API.
+
+--------------------------------------------------------------------------------
+
 LAB (e2r7sv): 7/31 (b) LATEST — HE APPROVED THE ACTION CLOCK'S SHAPE, SO IT IS LAW
 AND GATED; AND THE BLEED TRIGGER IS ANSWERED OFF REAL CODE.
 
