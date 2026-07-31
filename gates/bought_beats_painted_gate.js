@@ -93,13 +93,34 @@ ok('placement is deterministic per cell (no per-frame shimmer)',
 /* ---- THE DEBT, BY NAME ---------------------------------------------------
    Every suburb surface still wearing painted art. This is allowed -- he may own
    nothing for it -- but it is never allowed to be SILENT. */
-const COVERED = { 1: 'road', 3: 'driveway', 10: 'sidewalk' };
 const SURFACES = {
-  0: 'dead-ground yard', 2: 'house body', 4: 'perimeter wall',
-  5: 'gate mouth', 6: 'garage', 9: 'house upper floor',
+  0: 'dead-ground yard', 1: 'road', 2: 'house body', 3: 'driveway',
+  4: 'perimeter wall', 5: 'gate mouth', 6: 'garage', 9: 'house upper floor',
+  10: 'sidewalk',
 };
-const debt = Object.entries(SURFACES).map(([c, n]) => n);
+/* DERIVED FROM THE CODE, NOT HAND-MAINTAINED. This list used to be two literal
+   objects a human kept in sync, and on 7/31 it drifted the moment the yard was
+   wired to his dirt: the gate went on printing "dead-ground yard" as painted while
+   his tiles were already drawing there. A debt list that can be WRONG is worse than
+   none, because it is read as proof. So the covered set is now read out of the run's
+   own boughtFor() switch -- the single place that decides -- and the debt is
+   whatever is left. */
+const bf = dev.match(/function boughtFor\(c\)\{([\s\S]*?)\n\}/);
+ok('the run still has a single boughtFor() that decides what he covers', !!bf);
+const covCodes = bf ? [...bf[1].matchAll(/c===(\d+)/g)].map(m => +m[1]) : [];
+const COVERED = {};
+covCodes.forEach(c => { if (SURFACES[c]) COVERED[c] = SURFACES[c]; });
+ok('every surface boughtFor() claims is a real world code', covCodes.length > 0
+   && covCodes.every(c => SURFACES[c] !== undefined),
+   'unknown code in boughtFor(): ' + covCodes.filter(c => !SURFACES[c]).join(','));
+const debt = Object.entries(SURFACES)
+  .filter(([c]) => !COVERED[c]).map(([c, n]) => n);
 ok('the painted-fallback debt is enumerated, never silent', debt.length > 0);
+/* THE LIST ONLY SHRINKS is his rule; make it a check rather than a caption. */
+const HIGH_WATER = 6;   // 7/31: yard came off the list, so 6 debts -> 5
+ok('the painted debt has not GROWN (' + debt.length + ' surfaces, was ' + HIGH_WATER + ')',
+   debt.length <= HIGH_WATER,
+   'a surface went back to painted art - that is the one direction this list may not move');
 
 console.log('  HIS ART COVERS : ' + Object.values(COVERED).join(', '));
 console.log('  STILL PAINTED  : ' + debt.join(', '));

@@ -403,10 +403,12 @@ __ART_BANKS__
    Gate: gates/bought_beats_painted_gate.js ===================================== */
 var BOUGHT_WALK_B64 = __BOUGHT_WALK_JSON__;
 var BOUGHT_ROAD_B64 = __BOUGHT_ROAD_JSON__;
+var BOUGHT_YARD_B64 = __BOUGHT_YARD_JSON__;
 function _mkimgs(arr){ return (arr||[]).map(function(b){ var im=new Image();
   im.src='data:image/png;base64,'+b; return im; }); }
 var BOUGHT_WALK_IMG = _mkimgs(BOUGHT_WALK_B64);
 var BOUGHT_ROAD_IMG = _mkimgs(BOUGHT_ROAD_B64);
+var BOUGHT_YARD_IMG = _mkimgs(BOUGHT_YARD_B64);
 /* deterministic per cell: same tile in the same place every time, no shimmer */
 function boughtImg(bank,gx,gy){
   if(!bank||!bank.length) return null;
@@ -415,14 +417,22 @@ function boughtImg(bank,gx,gy){
   return (im&&im.complete&&im.naturalWidth)?im:null;
 }
 /* WHICH SURFACES HE OWNS ART FOR. Code 10 = sidewalk and 3 = driveway are both
-   poured concrete, so his cracked-concrete pack covers them; 1 = road is his
-   cracked-street pack. Anything not listed has no bought equivalent YET and
-   honestly falls through to the painted set -- the gate tracks that debt by name
-   rather than letting it hide. */
-function boughtFor(c){ return (c===10||c===3) ? 'walk' : (c===1) ? 'road' : null; }
+   poured concrete, so the pale half of his cracked-concrete pack covers them; 1 =
+   road is his cracked-street pack; 0 = YARD is the brown dirt-and-gravel half of
+   that same concrete pack (Paolo 7/31: "implement them back right now please what I
+   approved and the loo of thigs were going for" -- the yard was the last big flat
+   PAINTED field sitting directly under his rich bought asphalt, and it was the
+   worst-looking thing on the block). Anything not listed has no bought equivalent
+   YET and honestly falls through to the painted set -- the gate tracks that debt by
+   name rather than letting it hide. */
+function boughtFor(c){ return (c===10||c===3) ? 'walk' : (c===1) ? 'road'
+                            : (c===0) ? 'yard' : null; }
 /* draws HIS tile if he owns one for this surface; false means fall back to paint */
 function drawBought(kind,gx,gy,X,Y,S){
-  var im=boughtImg(kind==='walk'?BOUGHT_WALK_IMG:BOUGHT_ROAD_IMG,gx,gy);
+  var bank = (kind==='walk') ? BOUGHT_WALK_IMG
+           : (kind==='road') ? BOUGHT_ROAD_IMG
+           : BOUGHT_YARD_IMG;
+  var im=boughtImg(bank,gx,gy);
   if(!im) return false;
   ctx.drawImage(im,X,Y,S,S); return true;
 }

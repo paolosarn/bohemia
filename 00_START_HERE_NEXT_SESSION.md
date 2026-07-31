@@ -1,3 +1,54 @@
+ART (f3eu53): 7/31 (c) LATEST — HIS BOUGHT ART NOW DRESSES THE YARD, THE BIGGEST
+SURFACE ON THE BLOCK. Paolo: "Is there anyway u can just implement them back right now
+please what I approved and the loo of thigs were going for stop wasting my time"
+
+=== THE SHOT THAT MADE THE CASE (records/target/) ===
+STREET_BEFORE_YARD.png vs STREET_AFTER_YARD.png, both from tools/bohemia_street_shot.js
+(walks out the front door and shoots the real surface). BEFORE: his purchased road and
+sidewalk are rich, cracked, weeded, manholed - and the yard directly beneath them is a
+FLAT PAINTED TAN NOISE FIELD. Two different games in one frame. AFTER: the yard is his
+cracked dirt and gravel, and the block reads as one thing.
+
+=== WHAT WAS ACTUALLY WRONG, AND IT WAS NOT A MISSING PACK ===
+His "1. Cracked contrete tiles" pack is NOT one texture. It is a desert RANGE: the same
+20 tiles run from pale poured concrete (saturation 0.19) to brown dirt and gravel (0.37).
+All 20 were being laid on the SIDEWALK, so his best dirt tiles were dressing a pavement
+while the yard got paint. The fix is a PLACEMENT split, clause 4 of his law, and it
+changes no pixel of his art:
+  sat >= 0.24 -> YARD (5 tiles, the brown gravelly ones: #19 .37, #21 .37, #26 .30 ...)
+  sat <  0.24 -> SIDEWALK + DRIVEWAY (15 tiles, the pale poured concrete)
+Measured by tools/bohemia_tile_saturation.py so the number in the builder and the number
+in any record come from ONE implementation. Builder throws if either pool empties.
+
+=== FILES (RUN LANE'S, TOUCHED ON HIS DIRECT ORDER - FLAG FOR THAT LANE) ===
+tools/build_run_slice.js          the saturation split + __BOUGHT_YARD_JSON__
+slices/BOHEMIA_RUN_SLICE_7_26_26.html  BOUGHT_YARD_B64, boughtFor(0)='yard', drawBought
+                                  takes three banks instead of a two-way ternary
+gates/bought_beats_painted_gate.js  see below
+tools/bohemia_tile_saturation.py  NEW. Decodes his tiles, reports saturation, cooks
+                                  nothing, writes nothing.
+Verified: run_gate 126/126, bought_beats_painted 16/16, full suite green except the two
+pre-existing CHARACTER reds (RIG CHECK, BODY VARIATION) that fail identically on clean
+main and are already flagged by that lane.
+
+=== A GATE THAT WAS LYING, AND WHY IT COULD ===
+bought_beats_painted_gate.js printed its "STILL PAINTED" debt list out of two HAND-
+MAINTAINED literal objects. The moment the yard was wired it drifted: the gate went on
+printing "dead-ground yard" as painted while his tiles were already drawing there. A
+debt list that can be WRONG is worse than no list, because it gets read as proof. It now
+DERIVES the covered set from the run's own boughtFor() switch - the single place that
+decides - so it cannot drift again. And "the list only shrinks" is now a CHECK against a
+high-water mark, not a caption. Debt is 6 -> 5.
+
+=== HIS ART NOW COVERS ===
+  dead-ground yard, road, driveway, sidewalk
+=== STILL PAINTED, AND PROVEN UNPAYABLE FOR NOW ===
+  house body, perimeter wall, gate mouth, garage, house upper floor
+Not a backlog item: the 7/31 audit decoded all 1,506 purchased tiles and HE OWNS NO
+HOUSE WALL AND NO HOUSE ROOF. "4. House wall tiles" is a medieval ivy cottage, "wall
+tiles" is dungeon masonry, 46 of 47 roof tiles are cyberpunk skyscraper tops. This debt
+shrinks the day he buys a suburban pack and not before.
+
 LAB (e2r7sv): 7/31 (j) LATEST — READ THIS IF YOU HAVE EVER WRITTEN A GATE THAT GUARDS
 A RULING. MY OWN FIX WAS INCOMPLETE AND MY OWN GATE SAID GREEN.
 

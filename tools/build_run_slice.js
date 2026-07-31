@@ -84,15 +84,50 @@ function boughtGround(match) {
     return match.test(pack) && (t.tier === 'S' || t.tier === 'A') && t.pure === true && t.b64;
   }).map(function (t) { return t.b64; });
 }
-var boughtWalk = boughtGround(/contrete|concrete/);      // his pack spells it "contrete"
 var boughtRoad = boughtGround(/cracked street/);
+
+/* ---- THE YARD IS HIS NOW TOO (Paolo 7/31: "Is there anyway u can just implement
+   them back right now please what I approved and the loo of thigs were going for").
+   Screenshot records/target/STREET_BEFORE_YARD.png is the argument: his bought road
+   and sidewalk are rich, cracked, weeded, detailed, and then the yard directly below
+   them was a FLAT PAINTED TAN NOISE FIELD. Same frame, two different games. The yard
+   is the largest single surface on the block and it was the worst-looking thing in
+   the shot.
+
+   His concrete pack is not one texture, it is a desert range: the same 20 tiles run
+   from pale poured concrete to brown dirt-and-gravel. So they SPLIT BY SATURATION,
+   which is a PLACEMENT decision (clause 4) and not a change to one pixel of his art
+   -- every tile still blits 1:1, verbatim, out of the bank he paid for:
+
+     sat >= 0.24  ->  YARD      the brown gravelly ones (#19 .37, #21 .37, #26 .30 ...)
+     sat <  0.24  ->  SIDEWALK  the pale poured-concrete ones
+   Measured, not eyeballed, and asserted below so the split can never silently empty
+   one of the two pools. ---- */
+var boughtAll = groundBank.tiles.filter(function (t) {
+  var pack = String(t.pack || '').toLowerCase();
+  return /contrete|concrete/.test(pack) && (t.tier === 'S' || t.tier === 'A')
+         && t.pure === true && t.b64;
+});
+/* saturation measured off the decoded PNG by the same helper the audit uses, so the
+   number in this file and the number in records/ come from one place */
+var SAT = JSON.parse(require('child_process').execFileSync('python3',
+  ['tools/bohemia_tile_saturation.py'], { encoding: 'utf8' }));
+function satOf(t) { var v = SAT[t.pack + '#' + t.idx]; return (v === undefined) ? 0 : v; }
+var boughtYard = boughtAll.filter(function (t) { return satOf(t) >= 0.24; })
+                          .map(function (t) { return t.b64; });
+var boughtWalk = boughtAll.filter(function (t) { return satOf(t) < 0.24; })
+                          .map(function (t) { return t.b64; });
 if (boughtWalk.length < 8) throw new Error('BOUGHT BEATS PAINTED: his concrete pack is missing from ' + GROUND_LIB);
 if (boughtRoad.length < 8) throw new Error('BOUGHT BEATS PAINTED: his street pack is missing from ' + GROUND_LIB);
+if (boughtYard.length < 4) throw new Error('BOUGHT BEATS PAINTED: the yard split emptied - his dirt-toned tiles vanished from ' + GROUND_LIB);
 if (html.indexOf('__BOUGHT_WALK_JSON__') < 0) throw new Error('missing __BOUGHT_WALK_JSON__ placeholder');
 if (html.indexOf('__BOUGHT_ROAD_JSON__') < 0) throw new Error('missing __BOUGHT_ROAD_JSON__ placeholder');
+if (html.indexOf('__BOUGHT_YARD_JSON__') < 0) throw new Error('missing __BOUGHT_YARD_JSON__ placeholder');
 html = html.replace('__BOUGHT_WALK_JSON__', JSON.stringify(boughtWalk));
 html = html.replace('__BOUGHT_ROAD_JSON__', JSON.stringify(boughtRoad));
-console.log('  BOUGHT GROUND: ' + boughtWalk.length + ' concrete + ' + boughtRoad.length + ' street, his own, verbatim');
+html = html.replace('__BOUGHT_YARD_JSON__', JSON.stringify(boughtYard));
+console.log('  BOUGHT GROUND: ' + boughtWalk.length + ' concrete + ' + boughtRoad.length
+            + ' street + ' + boughtYard.length + ' dirt/yard, his own, verbatim');
 
 if (html.indexOf('__ART_BANKS__') < 0) throw new Error('missing __ART_BANKS__ placeholder');
 html = html.replace('__ART_BANKS__', banks);
