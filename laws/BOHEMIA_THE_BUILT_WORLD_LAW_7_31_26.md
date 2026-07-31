@@ -181,10 +181,10 @@ and is marked dead in this file rather than left to rot in a commit message.
 | A2 | inside === that building, real windows | world_gate (dims only) | PARTIAL |
 | A3 | enter only by a door | -- | NOT ENFORCED |
 | A4 | free movement inside | -- | NOT ENFORCED |
-| B1 | integer scale, no smoothing, device resolution | **full_pixel_gate** | **ENFORCED 7/31** |
+| B1 | integer scale, no smoothing, device resolution | **full_pixel_gate** | **ENFORCED 7/31 on BOTH renderers** |
 | B2 | shadows + sun direction by time | -- | NOT ENFORCED |
 | B3 | occlusion fades, never blocks | -- | NOT ENFORCED |
-| B4 | a door fills its doorway | **full_pixel_gate** (1:1 proven) | **ENFORCED 7/31** |
+| B4 | a door fills its doorway | full_pixel_gate (run slice only) | RUN ONLY -- NOT on the surface he plays |
 | B5 | doors animate on use | -- | NOT ENFORCED |
 | B6 | E/W doors use E/W art | -- | NOT ENFORCED (see note) |
 | C1 | interior materials != exterior | -- | NOT ENFORCED |
@@ -193,7 +193,7 @@ and is marked dead in this file rather than left to rot in a commit message.
 | D1 | no building on a sidewalk, anywhere | **suburb_street_gate** | **ENFORCED 7/31 -- SUBURB ONLY, see scope note** |
 | D2 | driveways 4x5, garage-aligned | **suburb_street_gate** | **ENFORCED 7/31** |
 | D3 | spawn can reach the streets | -- | NOT ENFORCED |
-| D4 | continuous zoom out to city | -- | PARTIAL: run zooms, handoff unbuilt |
+| D4 | continuous zoom out to city | -- | RUN ONLY -- the city already has its own zoom |
 
 **Started at 14 of 17 unenforced. Four closed on the day it was written (B1, B4,
 D1, D2), one already held (C3). Twelve to go, and the column never lies about it.**
@@ -261,3 +261,52 @@ Recorded so the next session starts from the finding instead of re-deriving it:
   cluster -- can't walk left/right, windows wrong, walls identical to the exterior,
   concrete floors, entering through any wall -- is downstream of that single
   choice. It is a LARGE change and it is the highest-value one remaining.
+
+
+## THE SURFACE HE PLAYS IS THE CITY RENDERER (7/31, LOCKED, READ THIS FIRST)
+
+> "ALL THE FIXES I NEEDED TO SEE ARE NOT THERE!!!"
+
+He was right, and the reason is the most expensive mistake of the session.
+
+**THE ALPHA ROUTES THE RUN TAB TO THE CITY PANEL.** One line, on purpose, per his
+own 7/25 one-view ruling (walk zoomed in, zoom out to the city-builder, zoom out
+further to the world). The alpha states it in a comment at the routing line:
+
+    var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p;
+
+So when Paolo taps RUN he gets `CITY_B64`. **He has never once looked at
+slices/BOHEMIA_RUN_SLICE_7_26_26.html.** That file is a development surface.
+
+I found the devicePixelRatio bug in the RUN slice, fixed it there, measured it
+there in a real headless browser at DPR 3, wrote a gate for it there, proved the
+gate could fail, ran the full suite, verified the deploy, and told him it was
+fixed. Every one of those steps was real work. **All of them were on a canvas he
+cannot open.**
+
+**MEASURING RIGOROUSLY ON THE WRONG SURFACE IS NOT VERIFICATION. IT IS A MORE
+CONVINCING WAY TO BE WRONG.** This is precisely what VERIFY ON THE REAL SURFACE
+(7/18) exists to prevent, and I broke it while believing I was obeying it, because
+I never asked which file the tab actually opens.
+
+### THE RULE, for every session, forever
+
+1. **BEFORE fixing anything visual, open the alpha and find out which frame the tab
+   actually loads.** Tab name does not equal file name. RUN loads the CITY blob.
+2. **A rendering fix lands in the CITY renderer** (`CITY_B64`, patched by a tool
+   because it is a base64 blob) **or it did not land.**
+3. **The run slice is still worth fixing** -- it is where the run gate plays and
+   where the engine wiring is proven -- but a fix that exists ONLY there is
+   invisible to him and must never be reported as done.
+4. `gates/full_pixel_gate.js` now checks BOTH, and the CITY half is the half that
+   counts. Its assertions say "THE SURFACE HE PLAYS" out loud so nobody can
+   misread which one matters.
+
+### What that means for the rest of this law
+
+Clauses B1 and B4 were marked ENFORCED on the strength of run-slice work. B1 is now
+genuinely enforced on the city too (device-resolution buffer, integer 3x context
+scale, smoothing off, measured at DPR 3: 1134x2457 backing for a 378x819 box).
+**B4 and D4 are NOT yet true on the city renderer** and their rows say so.
+The generator clauses (D1, D2) were always true on both, because the city embeds
+the canon suburb generator -- that is why those are the two he may actually see.
