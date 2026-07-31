@@ -1217,6 +1217,55 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AA. [RESEARCH DELIVERED 7/31, ON HIS ASK, 1 PENDING] HOW THE GREAT GAMES GIVE
+   EVERY NPC AN *INDIVIDUAL* SCHEDULE.
+   records/BOHEMIA_RESEARCH_INDIVIDUAL_SCHEDULES_7_31_26.md.
+   HE ASKED BECAUSE HE SPOTTED THE HOLE. I wired the schedules on 7/29 without
+   ever studying the field; the 7/19 bank I leaned on answers the SIMULATION
+   ARCHITECTURE question (two-plane, needs, smart objects) and not the
+   AUTHORING one, which is the one we fail. We have 297 people and FOUR
+   archetypes with a jittered wake time. That is four schedules wearing 297
+   coats and ten minutes on a block will show it.
+   THE PATTERN, and all five references agree on it: nobody authors 300 days.
+   They author a GRAMMAR and 300 ADDRESS BOOKS. The day's SHAPE is shared; the
+   person's FACTS make it individual.
+     ULTIMA VII    ~8 base schedules in SCHEDULE.DAT, max 8 entries per NPC;
+                   shopkeepers share a base and differ by "a few unique
+                   identifiers (home, work)" plus per-NPC IDLE and WEEKEND
+                   variants. The origin, and still the right shape.
+     KCD           soul.xml, up to EIGHT activities each with its own start
+                   time - the same ceiling 25 years later, which is itself the
+                   finding: 8 blocks is enough to read as a life. KCD2 went to
+                   ~2,400 NPCs and solved it with AI LOD, NOT by cutting
+                   activities.
+     MAJORA'S MASK hand-authored to the minute - AND SHIPPED THE SCHEDULE AS A
+                   UI (the Bombers' Notebook, 20 entries). A routine nobody can
+                   observe is wasted work. That is the finding I did not expect.
+     STARDEW       conditional schedule KEYS, first match wins: season, weather,
+                   friendship, mail, quest state. The cheapest individuality
+                   trick on the list - two identical schedules are different
+                   people if only one stays in when it rains.
+     SHADOWS OF DOUBT  our closest sibling: every citizen gets a name, job,
+                   apartment and routine AT GENERATION, then runs 4-10 journeys
+                   a day. Individuality generated from the person's own facts.
+     OBLIVION      the cautionary tale: unbounded need-driven autonomy ate their
+                   own content and shipped toned down. Everyone since keeps the
+                   schedule a CONTRACT with freedom only INSIDE the block.
+   WHERE WE STAND, measured: our SHAPE is industry-correct (4-6 blocks, inside
+   the 8 ceiling; real per-person jitter) and our FACTS are EMPTY. Three abstract
+   places for everybody (home/work/street) where the industry has named
+   addresses; ZERO conditions where Stardew has a dozen; no per-person edges
+   where Ultima VII has idle and weekend variants.
+   AND WE ALREADY OWN TWO OF THE THREE FIXES AND DO NOT USE THEM: the 7/29
+   person record with stable ids is EXACTLY the address book this pattern needs
+   and carries only `archetype`; and weather is RULED IN (7/28) with a real
+   clock, and no schedule consults either.
+   PROPOSALS IN COST ORDER (not canon): address book per person > condition the
+   day on weather/power > author the EDGES not the middle.
+   [PENDING Paolo] whether the game SHOWS the schedule anywhere. Majora's Mask
+   says a routine you cannot observe is wasted; whether Bohemia wants a
+   who-is-where surface is his call, not mine.
+   | no gate until he rules | researched 7/31 | YES.
 0Z. [DONE 7/29 — AND A CORRECTION TO MY OWN BACKOUT] THE RUN'S NEIGHBOURS OBEY
    THE ZONE MAP. tools/bohemia_run_people_patch.py.
    I BACKED THIS OUT ONCE FOR MEASURING WRONG, AND THE MEASUREMENT WAS THE
