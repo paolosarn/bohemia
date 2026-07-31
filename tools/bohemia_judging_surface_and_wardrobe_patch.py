@@ -141,6 +141,16 @@ edits.append(('the JUDGE ALL panel host',
               '      <div id="judgeAll" style="display:none"></div>\n'))
 
 # ------------------------------------------------------------ 3. SHUFFLE FIT
+# THE WARDROBE HOST. Added by hand the first time, which meant a rebase replay
+# produced a build where wardrobeRefresh() found nothing and the gate crashed on
+# a null element. Same lesson as the composite anchor below: if a step is not in
+# the tool, it does not survive a rebase, and "I will remember" is not a step.
+edits.append(('the WARDROBE section in the CHARACTER tab',
+              '      <div id="charSlots"></div>\n',
+              '      <div id="charSlots"></div>\n'
+              '      <div class="row"><b>WARDROBE</b><span class="mini">every approved piece &mdash; tap to wear, tap again to take off</span></div>\n'
+              '      <div id="wardrobe"></div>\n'))
+
 edits.append(('SHUFFLE FIT button on the character stage',
               '<button id="charShuf" class="opt" style="position:absolute;right:7px;bottom:7px;line-height:1;padding:5px 9px;background:rgba(20,18,26,.72)">&#8635; SHUFFLE ANIM</button>',
               '<button id="charShuf" class="opt" style="position:absolute;right:7px;bottom:7px;line-height:1;padding:5px 9px;background:rgba(20,18,26,.72)">&#8635; SHUFFLE ANIM</button>'
