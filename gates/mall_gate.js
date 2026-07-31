@@ -9,14 +9,21 @@ const CONFIGS=[['S'],['N'],['E'],['W'],['S','E'],['N','W']];
 const purpleFree = pal => { for (const c of Object.keys(pal)) { const h = pal[c], R = parseInt(h.slice(1,3),16)/255, G = parseInt(h.slice(3,5),16)/255, B = parseInt(h.slice(5,7),16)/255, mx = Math.max(R,G,B), mn = Math.min(R,G,B), d = mx-mn; if (d>0.06&&mx>0.12){ let hu = mx===R?60*(((G-B)/d)%6):mx===G?60*((B-R)/d+2):60*((R-G)/d+4); if(hu<0)hu+=360; if(hu>=255&&hu<320) return false; } } return true; };
 let anatomy=true,filled=true,streetOk=true,cornerPed=true,drive=true,contentDom=true,hasDumpster=true;
 for(const cfg of CONFIGS)for(let s=1;s<=3;s++){const r=D.generate(s*19+4,{streets:cfg}),t=counts(r),g=r.g,W=g[0].length,H=g.length;
- if(!((t[2]||0)>2500 && (t[6]||0)>2000 && (t[7]||0)>200 && (t[8]||0)>0 && (t[12]||0)>4 && t[1]>1000 && t[4]>6000))anatomy=false;
+ /* REBUILT 7/31 on Paolo's "make it look good" ruling. The two anchors are now DIFFERENT
+    CODES because they were rival department stores in their own brand colours -- the
+    district was one grey-brown mud, which is exactly what the 7/28 hue measurement found.
+    And the roof is the district: a mall from the air is an enormous ROOF, so the skylight
+    run (14) and the rooftop plant farm (15) are asserted, not optional. */
+ if(!((t[2]||0)>1200 && (t[6]||0)>700 && (t[17]||0)>700 && (t[7]||0)>200 && (t[8]||0)>0 &&
+      (t[12]||0)>4 && (t[14]||0)>150 && (t[15]||0)>300 && (t[11]||0)>500 && (t[10]||0)>40 &&
+      t[1]>1000 && t[4]>4000))anatomy=false;
  if(!(t[13]>0))hasDumpster=false;
  const ls=K.landStats(g,D.legend); if(!(ls.contentPct>=ls.drivePct))contentDom=false;
  if(!K.legendOk(g,D.palette)||K.voidFraction(g)>0.22)filled=false; if(!D.driveConnected(r))drive=false;
  const eo=(x,y)=>(y===0?'N':y===H-1?'S':x===0?'W':x===W-1?'E':null);const gE=new Set();
  for(let y=0;y<H;y++)for(let x=0;x<W;x++){if(g[y][x]!==5)continue;const e=eo(x,y);if(!e||!cfg.includes(e))streetOk=false;else gE.add(e);}
  if(cfg.length>1){for(const e of cfg)if(!gE.has(e))cornerPed=false;}}
-ok('concourse + two anchors + food court + docks + entrance doors + parking',anatomy);
+ok('THE DUMBBELL: concourse + TWO RIVAL ANCHORS in their own colours + food court + docks + entrance doors, THE ROOF (skylight run + rooftop plant farm — a mall from the air is a roof, not a wall), a lot in real double-loaded bays with the cars still in it',anatomy);
 ok('a dumpster survives at the service corner (no overwrite regression)',hasDumpster);
 ok('WALKABLE-LAND: content dominates (real dead-mall precedent, no vehicular exemption needed)',contentDom);
 ok('every tile named + low void',filled); ok('DRIVABLE: the ring reaches every lot from the gate',drive);

@@ -1,82 +1,148 @@
-// COMMERCIAL CORNER-PLAZA GATE (Paolo 7/18/26) — the first commercial district.
-// A corner shopping plaza must: have store buildings + a parking lot, keep the lot
-// CONNECTED to the streets (curb cuts reach the aisles), and be STREET-AWARE like the
-// suburb — entrances only on the edges that touch a street, a corner exits two. Built
-// under the PLACEMENT PLAYBOOK, so it is gated the same turn it lands.
+// COMMERCIAL GATE — THE DEAD POWER CENTER (rewritten 7/31/26 for the rebuilt district)
+//
+// The old district was one flat tan L and a striped parking lot, and Paolo's 7/31 ruling
+// ("WE GOTTA BUILD THIS FUCKING WORLD!!! AND MAKE IT LOOK GOOD") sent it back. This gate
+// is rewritten to the thing that replaced it and to the standard the approved high school
+// set (89%, 7/31): a landmark silhouette, density over pavement, no flat rectangles, real
+// hue, and dressed.
+//
+// TWO THINGS THIS GATE NOW HOLDS THAT THE OLD ONE STRUCTURALLY COULD NOT:
+//
+// 1. ALL SIX PLACEMENTS. The old gate ran S / N / two corners only, with a standing note
+//    that the standalone any-edge form was "[PENDING Paolo]" — because the old generator
+//    genuinely could not do it. The rebuild is canonical-south on the district kit and
+//    rotates, which is exactly what the kit is for, so E and W are gated now and that
+//    PENDING is closed.
+//
+// 2. IT IS ACTUALLY REGISTERED. The old module never bound K: its registration sat behind
+//    `typeof K!=='undefined'`, resolving against a global some other module happened to
+//    leak, so whether this district existed at all depended on file load order — and the
+//    walked city was drawing commercial from LEGACY PREFAB STAMPS with not one enterable
+//    building. This gate asserts the registration directly, so it cannot silently fall out
+//    of the world again.
+//
+//   node gates/commercial_gate.js
 const C = require('../engine/bohemia_commercial.js');
+const K = require('../engine/bohemia_district_kit.js');
+
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
+const counts = r => { const t = {}; for (const row of r.g) for (const c of row) t[c] = (t[c] || 0) + 1; return t; };
 
-// NOTE (Paolo 7/18): commercial is the CORNER-plaza form by design — "we'd have to completely
-// remake it to squeeze between two other districts." So it's gated on the placements it's built
-// for (S / corners / N), NOT arbitrary single edges. Its standalone-any-edge form is a PENDING
-// design call for Paolo (flagged in the handoff), unlike medical/industrial/solar which now pass
-// all six placements under the street-aware/drivable law.
-const CONFIGS = [
-  { streets: ['S', 'E'] },   // corner
-  { streets: ['S', 'W'] },   // corner (other hand)
-  { streets: ['S'] },
-  { streets: ['N'] },
-];
+const CONFIGS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
+const purpleFree = pal => {
+  for (const c of Object.keys(pal)) {
+    const h = pal[c], R = parseInt(h.slice(1, 3), 16) / 255, G = parseInt(h.slice(3, 5), 16) / 255,
+          B = parseInt(h.slice(5, 7), 16) / 255, mx = Math.max(R, G, B), mn = Math.min(R, G, B), d = mx - mn;
+    if (d > 0.06 && mx > 0.12) {
+      let hu = mx === R ? 60 * (((G - B) / d) % 6) : mx === G ? 60 * ((B - R) / d + 2) : 60 * ((R - G) / d + 4);
+      if (hu < 0) hu += 360;
+      if (hu >= 255 && hu < 320) return false;
+    }
+  }
+  return true;
+};
 
-// stores + parking + a lot connected to the street at every config
-let allStores = true, allPark = true, allConn = true;
+let anatomy = true, hue = true, filled = true, streetOk = true, cornerPed = true, drive = true,
+    contentDom = true, roofsAndDoors = true, units = true, service = true;
+
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
-  const r = C.generate(s * 37 + 5, cfg);
-  if (!r.stores.length) allStores = false;
-  let park = 0, store = 0;
-  for (const row of r.g) for (const c of row) { if (c === 1 || c === 3) park++; else if (c === 2) store++; }
-  if (park < 400) allPark = false;
-  if (store < 200) allStores = false;
-  if (!C.driveConnected(r)) allConn = false;
-}
-ok('every plaza has store buildings', allStores);
-ok('every plaza has a real parking lot', allPark);
-ok('the parking lot stays connected to the street (curb cuts reach the aisles)', allConn);
+  const r = C.generate(s * 17 + 3, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
 
-// BACK ENTRANCE LAW (Paolo 7/18): every business can throw out trash — a service door
-// onto a rear service alley (the "mini road" at the back corner).
-let serviceOk = true;
-for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) if (!C.hasServiceAccess(C.generate(s * 37 + 5, cfg))) serviceOk = false;
-ok('every business has a back service door + rear alley (trash-out)', serviceOk);
+  /* THE PROGRAMME: an anchor + shop units (2) under awnings, a lot (1) with stall ticks
+     (11), the service alley (15) with docks (16), the pylon (12), outparcels — the fuel
+     canopy (19) with pumps (20) — landscape planting (3), the covered walks (6), the
+     shopfront glass (7), and it is DRESSED: cars (17) and carts (18) nobody came back for. */
+  if (!(t[2] > 2000 && t[1] > 1500 && (t[11] || 0) > 300 && (t[15] || 0) > 400 &&
+        (t[16] || 0) > 60 && (t[12] || 0) > 20 && (t[19] || 0) > 80 && (t[20] || 0) > 4 &&
+        (t[6] || 0) > 300 && (t[7] || 0) > 30 && (t[17] || 0) > 30 && (t[18] || 0) > 3 &&
+        (t[3] || 0) > 20)) anatomy = false;
 
-// GAS STATION in the street corner (needs two streets); and MORE curb cuts (2 per street)
-const cornerG = C.generate(7, { streets: ['S', 'E'] });
-ok('a corner plaza has a gas station pad in the corner', !!cornerG.gas);
-{
-  const perEdge = {};
-  for (const t of cornerG.gates) perEdge[t.edge] = (perEdge[t.edge] || 0) + 1;
-  ok('commercial gets 2+ curb cuts per street (front + service)', cornerG.streets.every(e => perEdge[e] >= 2));
-}
+  /* THE AWNINGS ARE THE COLOUR, and all THREE must be present. A strip mall is identical
+     concrete boxes made different by a row of faded brand colours; one colour is a stripe,
+     three is a strip. This is the district's whole answer to the 7/28 hue finding. */
+  if (!((t[8] || 0) > 40 && (t[9] || 0) > 40 && (t[10] || 0) > 40)) hue = false;
 
-// STREET-AWARE entrances: a curb cut (code 5) only on a street-facing edge; every
-// street gets one; a corner exits two.
-let gatesOk = true, cornerOk = true;
-for (const cfg of CONFIGS) {
-  const r = C.generate(99, cfg), g = r.g, W = r.W, H = r.H;
+  /* THE SHOP UNITS ARE SEPARATE MASSES. Drawn as one long rectangle they merge into a
+     single box and the strip reads as one blob — which is how the old district read, and
+     how the first cut of the rebuild read too, until I looked at the render. */
+  if (r.footprints.length < 8) units = false;
+
+  /* NO BUILDING IS A FLAT RECTANGLE (Paolo 7/30): every mass over 100 tiles carries a roof
+     ridge AND a doorway. Same claim the school gate holds, same reason. */
+  {
+    const isBody = v => v === 2 || v === 13 || v === 14 || v === 7;
+    const seen = new Set();
+    for (let y0 = 0; y0 < H; y0++) for (let x0 = 0; x0 < W; x0++) {
+      if (!isBody(g[y0][x0]) || seen.has(x0 + ',' + y0)) continue;
+      const st = [[x0, y0]], cells = []; seen.add(x0 + ',' + y0);
+      while (st.length) {
+        const p = st.pop(); cells.push(p);
+        for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const nx = p[0] + d[0], ny = p[1] + d[1], k = nx + ',' + ny;
+          if (!seen.has(k) && nx >= 0 && ny >= 0 && nx < W && ny < H && isBody(g[ny][nx])) { seen.add(k); st.push([nx, ny]); }
+        }
+      }
+      if (cells.length <= 100) continue;
+      if (!cells.some(p => g[p[1]][p[0]] === 13)) roofsAndDoors = false;
+      if (!cells.some(p => g[p[1]][p[0]] === 14)) roofsAndDoors = false;
+    }
+  }
+
+  const ls = K.landStats(g, C.legend);
+  if (!(ls.contentPct >= ls.drivePct)) contentDom = false;
+  if (!K.legendOk(g, C.palette) || K.voidFraction(g) > 0.20) filled = false;
+  if (!C.driveConnected(r)) drive = false;
+  if (!C.hasServiceAccess(r)) service = false;
+
   const edgeOf = (x, y) => (y === 0 ? 'N' : y === H - 1 ? 'S' : x === 0 ? 'W' : x === W - 1 ? 'E' : null);
+  const gE = new Set();
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     if (g[y][x] !== 5) continue;
     const e = edgeOf(x, y);
-    if (!e || !cfg.streets.includes(e)) gatesOk = false;
+    if (!e || !cfg.includes(e)) streetOk = false; else gE.add(e);
   }
-  const hit = new Set(r.gates.map(t => t.edge));
-  for (const e of cfg.streets) if (!hit.has(e)) gatesOk = false;
+  if (cfg.length > 1) { for (const e of cfg) if (!gE.has(e)) cornerPed = false; }
 }
+
+ok('THE POWER CENTER: a big-box ANCHOR + inline shop units + the lot with its stall ticks ' +
+   '+ the service alley with docks + the pylon + outparcel pads (fuel canopy and pumps), ' +
+   'and it is DRESSED with the cars and carts nobody came back for', anatomy);
+ok('THE AWNINGS ARE THE COLOUR: all THREE faded brand colours present, which is what makes ' +
+   'a row of identical concrete boxes read as a strip (the 7/28 hue finding, answered)', hue);
+ok('THE SHOP UNITS ARE SEPARATE MASSES, not one long box wearing one outline ' +
+   '(8+ distinct building masses)', units);
+ok('NO BUILDING IS A FLAT RECTANGLE: every mass over 100 tiles carries a ROOF and a DOOR ' +
+   '(Paolo 7/30 — he circled three buildings and asked what they were)', roofsAndDoors);
+ok('WALKABLE-LAND: content dominates pavement — the failure that kept this district ' +
+   'unregistered (the old form ran 61% drive against 30% content)', contentDom);
+ok('every tile named + low void (EXPLAIN-EVERY-TILE)', filled);
+ok('DRIVABLE: the lot, the pads, the drive-thru lane and the service alley are ONE network ' +
+   'reachable from the kerb, in all six placements', drive);
+ok('every business keeps a BACK DOOR onto the service alley (Paolo 7/18)', service);
+ok('gates sit only on street edges', streetOk);
+ok('CORNER: car entrance on the primary street + a pedestrian gate on each side street', cornerPed);
+ok('IT IS REGISTERED WITH THE DISTRICT KIT and filed as commercial — the old module never ' +
+   'bound K and the walked city was drawing legacy prefab stamps instead',
+   !!K.get('commercial') && K.category('commercial') === 'commercial');
+ok('the registered generator IS this module (one canonical body, ENGINE SYNC LAW)',
+   K.get('commercial').generate === C.generate);
+ok('buildings are ENTERABLE (the legacy stamps had not one)',
+   /interior/i.test((C.legend[2] || {}).enter || '') &&
+   C.generate(7, { streets: ['S'] }).footprints.length >= 8);
+ok('PURPLE RESERVATION: no swatch reads purple', purpleFree(C.palette));
+ok('NOTES complete (summary/reference/layout/circulation/layering/decisions)',
+   !!(C.notes && C.notes.summary && C.notes.reference.length && C.notes.layout.length &&
+      C.notes.circulation && C.notes.layering && C.notes.decisions.length));
 {
-  const corner = C.generate(99, { streets: ['S', 'E'] });
-  cornerOk = new Set(corner.gates.map(t => t.edge)).size === 2;
+  let legOk = true;
+  for (const c of Object.keys(C.legend)) if (!C.legend[c].name || !C.legend[c].kind) legOk = false;
+  ok('LEGEND: every code named + kinded', legOk);
 }
-ok('curb cuts sit ONLY on street edges, every street gets one', gatesOk);
-ok('a corner plaza exits TWO streets', cornerOk);
-
-// store footprints exposed for the world model, reasonably sized
-const fps = C.storeFootprints(C.generate(7, { streets: ['S', 'E'] }));
-ok('store footprints exposed (>0)', fps.length > 0);
-ok('store footprints are building-sized (w,h >= 6 tiles)', fps.every(f => f.w >= 6 && f.h >= 6));
-
-// determinism
-ok('deterministic per seed', JSON.stringify(C.generate(99, { streets: ['S', 'E'] }).g) === JSON.stringify(C.generate(99, { streets: ['S', 'E'] }).g));
+ok('the awnings and the fuel canopy are OVERHEAD — you walk and drive UNDER them',
+   ['8', '9', '10', '19'].every(c => C.legend[c].layer === 'overhead'));
+ok('deterministic per seed',
+   JSON.stringify(C.generate(70, { streets: ['S'] }).g) === JSON.stringify(C.generate(70, { streets: ['S'] }).g));
 
 console.log('COMMERCIAL GATE: ' + pass + ' passed, ' + fail + ' failed  (' + CONFIGS.length + ' configs)');
 process.exit(fail ? 1 : 0);

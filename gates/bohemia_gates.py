@@ -58,6 +58,8 @@ GATES = [
      'corner plaza: stores + parking connected to the streets', False),
     ('DISTRICT KIT',   ['node', 'gates/district_kit_gate.js'],
      'the factory: shared machine every district extends', False),
+    ('BUILD THE WORLD',['python3', 'gates/build_the_world_gate.py'],
+     'Paolo 7/31: quests, factions and the economy are OFF -- the footprint of all three is frozen and may only shrink', False),
     ('PURSE',          ['node', 'gates/purse_gate.js'],
      'the money is auditable and the numbers stay Paolo\'s: balances are a sum of the ledger, never negative, never anonymous, and PAYOUT/PRICES/PRODUCTION ship EMPTY', False),
     ('LEGIBILITY',     ['node', 'gates/legibility_gate.js'],
