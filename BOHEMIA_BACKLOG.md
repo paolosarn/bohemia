@@ -1724,7 +1724,47 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
-0AJ. [HIS COMPLAINT 8/1, MEASURED TO A NUMBER, FIX NOT ATTEMPTED - NEXT ITEM]
+0AK. [DONE 8/1, HIS RULING, AND HE DESCRIBED THE GEOMETRY HIMSELF] A WALL ENDS
+   AT ITS OWN TILE. laws/BOHEMIA_ADDENDUM_A_WALL_ENDS_AT_ITS_OWN_TILE_8_1_26.md
+   > "if I am a tile south of a wall and the wall is north of me, the game is
+   >  doing fine. But if I am one tile north, behind a wall, because of the view
+   >  of our game, the wall border should end at that first tile, base of the
+   >  wall... and that's for all walls... it has to be a building if walls are
+   >  two tiles thick."
+   TWO RULINGS: (1) a wall occupies its own tile and nothing else - the walkable
+   border ends at its base, and standing IN FRONT of one is already correct and
+   untouched; (2) nothing two tiles is a wall, it is a BUILDING (house facades
+   keep their 3).
+   THE CAUSE, one line in the CITY tab: `c.wallH=2`, and the draw does
+   `top = dy - (wh-1)*C` - so the face painted over its own cell AND the
+   walkable cell to its north. Measured on the real CITY frame: 22,345 perimeter
+   wall cells, 7,417 with a walkable cell under the face. You could stand inside
+   a wall in 7,417 places.
+   AND IT WAS ALSO THE "TWO LAYERS OF WALLS", which I had wrongly filed as an
+   art question in 0AJ. His 13 approved tiles are COMPLETE walls at 44x44; a
+   self-contained wall painted over a two-tile rect repeats itself, so the
+   screen showed cap-course-cap-course - "a separate tile that's a different
+   wall in the wall". ONE CAUSE, BOTH COMPLAINTS.
+   THE RUN WAS ALREADY RIGHT: drawPerim(X,Y,S) with S = one CELL. The CITY tab
+   was the odd surface out, so this DELETES a disagreement rather than adding a
+   rule to it.
+   NO WALKABLE GEOMETRY CHANGED - not one cell became solid, so NO PRISON (0AI)
+   cannot regress; re-run green at 15/15.
+   THE BANK IS NOT CONTRADICTED, and this is the reconciliation that stops it
+   being "fixed" back: the pool's "WALL HEIGHT MIN 2 TILES" states how tall the
+   wall IS IN THE WORLD (2 x 0.75m = ~1.5m, a real Vegas block wall). wallH is
+   how many GROUND CELLS the face is painted across. Different quantities.
+   Reading one as the other is what set wallH=2 on 7/27.
+   A GATE MUST NEVER OUTRANK A RULING: wallclass_gate asserted `h >= 2` and now
+   asserts `h === 1` plus "only a building may be taller", rewritten in the same
+   commit rather than worked around.
+   | tools/bohemia_city_wall_one_tile_patch.py | gates: WALL CLASS 19, NO PRISON
+     15, CITY TAB 64, CITY PEOPLE 18, ALPHA LOADS 20 | 8/1 | YES - drop in and
+     walk up to a community wall.
+
+0AJ. [SUPERSEDED BY 0AK - the first read was wrong and the miss is the useful
+   part: I filed this as an ART question and he corrected it to WHERE YOU CAN
+   WALK, which is what led to the measurement that found the real cause.]
    YOU CAN STAND INSIDE THE WALL. HE RULED IT IS ABOUT WHERE YOU CAN WALK.
    > "I'm so confused by what you choose is the limits of the wall and what's
    >  not... it looks like there's like two layers of walls at the base of the

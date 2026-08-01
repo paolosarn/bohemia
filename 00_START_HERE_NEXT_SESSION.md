@@ -1009,6 +1009,66 @@ FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed p
 working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
 insensitively and mutate ALL occurrences.
 
+CITY (03): 8/1 LATEST — A WALL ENDS AT ITS OWN TILE, AND IT WAS ONE CAUSE FOR
+BOTH THINGS HE COMPLAINED ABOUT.
+
+> "if I am one tile north, behind a wall, because of the view of our game, the
+>  wall border should end at that first tile, base of the wall... and that's for
+>  all walls... it has to be a building if walls are two tiles thick."
+
+ONE LINE IN THE CITY TAB: `c.wallH=2`, and the draw does `top = dy-(wh-1)*C`, so
+the face painted over its own cell AND the WALKABLE cell to its north. Measured
+on the real CITY frame: 22,345 perimeter wall cells, 7,417 with a walkable cell
+under the face. You could stand inside a wall in 7,417 places.
+
+AND IT WAS ALSO THE "TWO LAYERS OF WALLS" — which I had filed a turn earlier as
+an ART question, wrongly. He corrected it ("Where you can walk"), and THAT
+CORRECTION IS WHAT PRODUCED THE MEASUREMENT that found the cause. His 13
+approved tiles are COMPLETE walls at 44x44; paint a self-contained wall over a
+two-tile rect and it repeats - cap, courses, cap, courses - which is exactly "a
+separate tile that's a different wall in the wall". ONE CAUSE, BOTH COMPLAINTS.
+THE LESSON: when he says a thing looks weird, measure the GEOMETRY before
+deciding it is taste. I had already written "likely the 3/4 face rising into the
+tile above" in the previous handoff and then filed it as art anyway.
+
+THE RUN WAS ALREADY RIGHT (drawPerim at one CELL over one solid cell). The CITY
+tab was the odd surface out, so this DELETES a disagreement between the two
+surfaces instead of adding a rule to it.
+
+NO WALKABLE GEOMETRY CHANGED. Not one cell became solid - deliberately, because
+sealing cells is how you re-create the prison the NO PRISON ruling had removed
+hours earlier. NO PRISON re-ran green at 15/15 after this landed.
+
+THE BANK IS NOT CONTRADICTED, and this paragraph exists so nobody sets it back:
+the pool's "WALL HEIGHT MIN 2 TILES" says how tall the wall IS IN THE WORLD (2 x
+0.75m = ~1.5m, a real block wall). `wallH` is how many GROUND CELLS the face is
+painted across. Different quantities. Reading one as the other is what set
+wallH=2 on 7/27.
+
+A GATE MUST NEVER OUTRANK A RULING: wallclass_gate asserted `h >= 2`, now
+asserts `h === 1` plus "only a BUILDING may be taller", rewritten in the same
+commit as the fix.
+
+GATES AFTER: WALL CLASS 19, NO PRISON 15, CITY TAB 64, CITY PEOPLE 18, ALPHA
+LOADS 20 — all green.
+
+WHAT COMES AFTER, in order:
+  1. HE HAS NOT SEEN THIS YET. Drop in on the CITY tab and walk up to a
+     community wall. If the doubled course is gone and the wall reads as one
+     tile, both complaints are closed; if not, the RUN's own wall is the next
+     place to look and it is already one tile there.
+  2. THE CITY-BUILDER HALF is still the biggest hole in the game and no lane can
+     touch it (records/BOHEMIA_THE_BIG_MISSING_7_29_26.md item 2). It needs YAP
+     SESSIONS WITH PAOLO, not a lane.
+  3. The eight tile forms from 7/28 are still with the ART lane.
+  4. The run has no weather and no per-cell power reading, so darkStay/wetStay
+     are live on the CITY tab and inert in the RUN.
+
+DO NOT: make a wall two tiles tall again (that is a BUILDING, his words). Do not
+seal cells to "fix" a wall - it re-creates the prison. Do not put a schedule
+reader back into bohemia_population.js. Do not print anybody's routine.
+
+--- earlier turns, still current ---
 CITY (03): 8/1 LATEST — HE WAS LOCKED IN A SUBURB, HE WAS RIGHT, AND THE START
 CELL HAD NEVER ONCE BEEN ASKED WHETHER YOU COULD LEAVE IT.
 

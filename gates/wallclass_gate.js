@@ -157,9 +157,35 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   ok('WALL TAXONOMY HELD IN THE DRAW: the perimeter cell draws from the `perimeter` pool (' +
     r.pool + ') and never from a building-wall pool — "different than like building wall"',
     r.pool === 'perimeter' && !BUILDING.includes(r.pool));
-  ok('HEIGHT: it stands at least the 2 tiles its own bank demands (' + r.h + ')', (r.h || 0) >= 2);
-  ok('HEIGHT: and stays SHORTER than the ' + (r.houseH || 3) + '-tile house wall (' + r.h +
-    ') — a community block wall is ~6ft, a house eave ~10ft', (r.h || 0) < (r.houseH || 3));
+  /* HEIGHT — REWRITTEN 8/1 BY A RULING, NOT WORKED AROUND.
+     This asserted `h >= 2`, from the bank's "MIN 2 TILES" note, read as a DRAWN
+     GRID HEIGHT when it was set on 7/27. Paolo, 8/1, describing the geometry
+     himself: "if I am one tile north, behind a wall, because of the view of our
+     game, the wall border should end at that first tile, base of the wall...
+     and that's for all walls... it has to be a building if walls are two tiles
+     thick."
+     He is right and the measurement agreed with him: at wallH=2 the face was
+     painted over the WALKABLE cell to its north - 7,417 of them across the
+     valley - so you stood inside the wall. And because his thirteen approved
+     tiles are complete walls at 44x44, painting one over a two-tile rect
+     repeated it, which is the "two layers of walls... a different wall in the
+     wall" he saw. One cause, both complaints.
+     A GATE MUST NEVER OUTRANK A RULING (the same precedent people_gate cites
+     for the naming law), so the claim is rewritten. NEWEST DATE WINS.
+     WHAT IS ASSERTED NOW: a wall owns its own tile and nothing else, and only a
+     BUILDING may be taller - which is his second sentence, machine-held.
+     AND THE BANK IS NOT CONTRADICTED, which matters because line 58 still
+     asserts its "MIN 2 TILES" text is intact and that assertion is correct.
+     The bank is stating how tall the wall IS IN THE WORLD - two tiles of the
+     0.75m grid is ~1.5m, a real Vegas block wall. The number this gate now
+     holds is how many GROUND CELLS its face is painted across, which is a
+     different quantity entirely. His approved 44x44 tile already contains the
+     whole height; it just belongs on one cell. Both are true, and reading one
+     as the other is what put wallH=2 here in the first place. */
+  ok('HEIGHT: the wall ends at its own tile — the walkable border stops at its base (' + r.h + ')',
+    (r.h || 0) === 1);
+  ok('HEIGHT: and a BUILDING is the only thing allowed to be taller (house ' +
+    (r.houseH || 3) + ' vs wall ' + r.h + ')', (r.h || 0) < (r.houseH || 3));
   if (r.housePool) ok('the house facade still uses a BUILDING pool (' + r.housePool + '), the other side of the same law',
     BUILDING.includes(r.housePool));
 
