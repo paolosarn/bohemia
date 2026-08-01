@@ -176,12 +176,32 @@ def main():
     ok('every tile is the corpus cell (44x44, blits 1:1)',
        all(Image.open(io.BytesIO(base64.b64decode(t['b64']))).size == (44, 44)
            for t in tiles))
-    ok('the batch is unjudged and says so', bank.get('status') == 'PENDING PAOLO',
-       str(bank.get('status')))
+    # HIS VERDICT AND MY NEW WORK MUST NOT BLUR. He approved 36 tiles on 8/1; 54 were
+    # cooked after. A bank that calls all 90 canon because 36 siblings were thumbed up
+    # is how unjudged art walks into the game, and UNJUDGED IS DEAD cuts the other way
+    # too -- his approval has to stay attached to exactly what he saw.
+    verdicts = [t.get('verdict', '') for t in tiles]
+    ok('every tile carries its OWN verdict', all(verdicts), 'some tiles have none')
+    napp = sum(1 for v in verdicts if v.startswith('APPROVED'))
+    ok('his 8/1 approval is recorded on exactly the 36 tiles he saw', napp == 36,
+       '%d tiles claim his approval' % napp)
+    ok('the approved set is named so it cannot drift',
+       len(bank.get('approved_materials') or []) == 12,
+       '%d materials' % len(bank.get('approved_materials') or []))
+    ok('his verdict is quoted verbatim on the bank',
+       'fucking fantastic' in str(bank.get('verdict_batch_1', '')))
+    ok('the new work is honestly marked unjudged',
+       all(v == 'PENDING PAOLO' for v in verdicts if not v.startswith('APPROVED')))
+    ok('the verdict record exists',
+       os.path.exists('records/BOHEMIA_VERDICT_TEXTURE_MATCH_8_1_26.txt'))
 
     mats = {t.get('material') for t in tiles}
     ok('it covers the surfaces his library does NOT (walls and roofs)',
        len(mats) >= 8, '%d materials' % len(mats))
+    # APPROVAL UNLOCKS VOLUME is standing law: the approved look has to actually be
+    # spent on the filed art requests, not admired.
+    ok('approval was spent on VOLUME (the 18 filed ART forms)', len(mats) >= 24,
+       'only %d materials - the batch he approved unlocked the whole cook queue' % len(mats))
 
     if tiles:
         agg = {k: st.mean([t['measured'][k] for t in tiles if t.get('measured')])

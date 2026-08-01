@@ -1,3 +1,69 @@
+ART (f3eu53): 8/1 (b) LATEST — HE APPROVED ALL 36 ("fucking fantastic"), SO THE VOLUME
+IS SPENT: 90 TILES ACROSS 30 MATERIALS, AND THE 18 BLOCKED ART FORMS ARE UNBLOCKED.
+
+=== THE VERDICT (records/BOHEMIA_VERDICT_TEXTURE_MATCH_8_1_26.txt) ===
+Paolo 8/1, verbatim: "Holy shit so fucking good I'm so proud of you. That's awesome. I
+approved thumbs up. It's looking so good so realistic this might be the most impressive
+thing you have done for me this whole fucking ... The graphics tiles that you made are
+fucking fantastic thank you"
+ALL 36 OF BATCH 1, THUMBS UP. First art this lane has landed after three straight kills.
+
+=== WHY IT LANDED, AND IT WAS NEVER THE SHAPES ===
+                        colours/tile   edge   grain    sat
+    HIS BOUGHT concrete        1443    20.9   64.7%   0.274
+    my recooked tileset         417     8.7   24.4%   0.323
+    my house skins               81     9.4   26.2%   0.383
+    my CMU wall                   4     7.1   14.4%   0.082
+HIS ART IS ROUGH AND GREY. PAINTED ART HERE WAS SMOOTH AND TOO COLOURFUL. ~2.5x his
+local contrast, ~2.7x his grain, at ~60% of his saturation. A different ORDER OF DETAIL,
+which no choice of colours fixes. Every earlier post-mortem blamed the house shapes.
+
+=== APPROVAL UNLOCKS VOLUME, SPENT THE SAME TURN ===
+banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt is now 90 tiles / 30 materials, 90/90 inside the
+band measured off his purchases. The 18 filed ART forms were blocked because nobody
+could state "the look" in terms a cook could aim at; records/BOHEMIA_STYLE_TARGET_8_1_26
+.json now states it in numbers off his own tiles. Covered this turn:
+  TF-ART-001 CMU block      TF-ART-009 brick (running + painted over)
+  TF-ART-002 corrugated     TF-ART-010 rail ballast
+  TF-ART-003 lot asphalt    TF-ART-011 freeway asphalt
+  TF-ART-005 dead turf      TF-ART-012 tar-and-gravel roof
+  TF-ART-006 pool basin     TF-ART-013 mobile home ribbed siding
+  TF-ART-007 civic ashlar   TF-ART-014 dead furrowed crop field
+  TF-ART-008 storefront     TF-ART-015 landfill cover cap
+plus tilt-up concrete, rusted steel, weathered wood fence, tar paper, grey stucco, red
+adobe, and the twelve he approved.
+
+=== VERDICTS DO NOT BLUR (gated) ===
+Re-running the cook silently relabelled his 36 approved tiles and 54 brand-new ones with
+one status. Fixed: EVERY TILE CARRIES ITS OWN VERDICT, the approved material set is
+named so it cannot drift, and the gate asserts exactly 36 tiles claim his approval.
+A bank that calls 90 tiles canon because 36 siblings were thumbed up is how unjudged art
+walks into the game.
+
+=== TWO THINGS CAUGHT BY LOOKING AT THE VOLUME BATCH ===
+GREEN TURF   a green playing field in a dead desert city is a lie about the premise.
+             Dead Bermuda is STRAW. Base moved decisively red-over-green.
+LIT GLASS    the storefront came out a PALE grid. Act-1 has dead-dark glazing and 12%
+             power. Darkened -- then the first fix went too far: pitch-black glass
+             against bright aluminium put the tile's luminance SPREAD at 78 against his
+             20-42. WIDENING THE TOLERANCE TO LET MY OWN ART THROUGH WOULD HAVE BEEN
+             MARKING MY OWN HOMEWORK, so the art moved instead, not the ruler.
+
+=== STILL WEAK, SAID AT THE MOMENT OF SUCCESS ===
+His tiles carry BIG FEATURES that break the field: a manhole, a weed clump, a long
+crack. Mine are consistent texture at the right density. That is the distance between
+"same material family" and "same pack", and it is the next cook.
+
+=== PENDING PAOLO ===
+- 54 NEW TILES ARE UNJUDGED (everything past the 12 approved materials). Thumbs on
+  records/target/TEXTURE_MATCH_CONTACT.png.
+- WIRING: the approved textures are cooked but the run still dresses house body,
+  perimeter wall, gate mouth, garage and upper floor with the OLD smooth art. That is
+  the next execution and it is what he will actually SEE.
+- Doubling the art cell 44 -> 88 px ("thats down the line").
+- Houses: the SHAPE work can reopen now. The texture finding is the reason - the shapes
+  were never what was wrong.
+
 RUN (eak241): 8/1 LATEST — HE CAN HEAR HIS STEPS, THE STREET IS HIS AGAIN, AND
 "INSIDE" IS NOW A FACT ABOUT THE CELL INSTEAD OF A STATE OF THE PLAYER.
 

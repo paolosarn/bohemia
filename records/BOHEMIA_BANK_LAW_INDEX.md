@@ -50,7 +50,7 @@ bank cannot quietly add a rule nobody checks.
 | 28 | `banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt` | `law` | laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md |
 | 29 | `banks/BOHEMIA_TERRAIN_PICKS_7_14_26.txt` | `law` | pool membership is a Paolo verdict; pools carry the seamless bank pixels verbatim |
 | 30 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of for everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 31 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `status` | PENDING PAOLO |
+| 31 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `status` | MIXED - see per-tile verdict |
 | 32 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | `status` | UNJUDGED (first commissioned original; Paolo judges on the intersection proof) |
 | 33 | `banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
 | 34 | `banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |

@@ -1,0 +1,69 @@
+BOHEMIA VERDICT — TEXTURE MATCH BATCH 1 (8/1/26)
+================================================
+
+PAOLO, 8/1, VERBATIM:
+
+  "Holy shit so fucking good I'm so proud of you. That's awesome. I approved thumbs up.
+   It's looking so good so realistic this might be the most impressive thing you have
+   done for me this whole fucking that I saw that you made like without me wow ...
+   The graphics tiles that you made are fucking fantastic thank you"
+
+VERDICT: APPROVED. ALL 36 TILES, THUMBS UP.
+Bank: banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt        status PENDING PAOLO -> CANON
+Sheet: records/target/TEXTURE_MATCH_CONTACT.png     (his tiles top row, cooked below)
+Commit: a87c203
+
+WHAT WAS APPROVED
+-----------------
+36 tiles across 12 materials, every one for a surface his purchased library does NOT
+cover (house walls and roofs; he owns none of either in 2,525 bought tiles):
+  stucco_tan, stucco_bone, stucco_ochre        house wall, adobe/stucco
+  block_grey, block_painted                    CMU block wall
+  roof_tile_terra, roof_tile_sand              barrel tile roof
+  roof_shingle, roof_shingle_bn                asphalt shingle roof
+  metal_corrugate                              corrugated metal
+  wall_plaster_bare                            plaster blown to substrate
+  gravel_roof                                  tar and gravel roof
+
+WHY IT LANDED WHEN THREE BATCHES BEFORE IT DID NOT
+---------------------------------------------------
+Not the shapes. Every previous post-mortem blamed the shapes. Measured:
+
+                        colours/tile   edge   grain    sat
+    HIS BOUGHT concrete        1443    20.9   64.7%   0.274
+    my recooked tileset         417     8.7   24.4%   0.323
+    my house skins               81     9.4   26.2%   0.383
+    my CMU wall                   4     7.1   14.4%   0.082
+    my perimeter wall          1222     7.0   23.2%   0.466
+
+HIS ART IS ROUGH AND GREY. PAINTED ART IN THIS REPO WAS SMOOTH AND TOO COLOURFUL. ~2.5x
+his local contrast, ~2.7x his grain, at ~60% of his saturation. A different ORDER OF
+DETAIL, which no choice of colours can fix.
+  edge  = mean |luminance delta| between horizontally adjacent pixels
+  grain = % of adjacent pairs differing by more than 8 luminance
+
+APPROVAL UNLOCKS VOLUME (standing law). WHAT IT UNLOCKS
+-------------------------------------------------------
+Eighteen ART tile forms have been filed and blocked, because nobody could say what "the
+look" was in terms a cook could aim at. records/BOHEMIA_STYLE_TARGET_8_1_26.json now
+says it in numbers derived from his own purchases, and gates/texture_match_gate.py
+enforces it. Every one of TF-ART-001..018 is now cookable against a known target.
+
+STANDING RULES THIS VERDICT CREATES
+------------------------------------
+1. THE RULER IS HIS LIBRARY, NEVER A TASTE. The target is re-derived from the purchased
+   bank on every gate run, so it cannot drift.
+2. NO SMOOTH ART SHIPS AGAIN. A tile under ~600 colours, or under edge 14, or under 50%
+   grain, does not go beside his art. The gate refuses it.
+3. TOO GREY IS ALSO A DEFECT. Saturation has a FLOOR (0.15) as well as a cap (0.34);
+   dead-neutral CMU at 0.067 was as wrong as a 0.47 painted wall.
+4. PINK IS NOT A DESERT COLOUR. Desaturating a dark red at constant value makes salmon.
+   Clay goes BROWN. Permanent negative test.
+5. STRUCTURE MUST SURVIVE THE GRAIN. Noise that hits every number and tells you nothing
+   about the material is mush. Permanent negative test.
+
+KNOWN WEAKNESS, STATED AT THE MOMENT OF APPROVAL
+-------------------------------------------------
+His tiles carry BIG FEATURES that break the field: a manhole, a weed clump, a long
+crack. The approved batch is consistent texture at the right density. That is the
+distance between "same material family" and "same pack", and it is the next cook.

@@ -206,6 +206,52 @@ MATERIALS = [
          name='wall, plaster blown off to substrate'),
     dict(id='gravel_roof',     rgb=(117, 110,  97), kind='gravel',  wear=0.50,
          name='roof, tar and gravel'),
+
+    # ---- VOLUME, 8/1. Paolo approved all 36 of batch 1 ("fucking fantastic"), and
+    # APPROVAL UNLOCKS VOLUME is standing law. These answer the ART tile forms that
+    # were filed and then blocked, because until the style target existed nobody could
+    # say what "the look" was in terms a cook could aim at. Form id in the comment.
+    dict(id='brick_running',   rgb=(122,  78,  62), kind='brick',   wear=0.55,
+         name='brick masonry, running bond'),                          # TF-ART-009
+    dict(id='brick_painted',   rgb=(146, 138, 124), kind='brick',   wear=0.70,
+         name='brick masonry, painted over'),                          # TF-ART-009
+    dict(id='civic_stone',     rgb=(148, 140, 124), kind='ashlar',  wear=0.40,
+         name='civic cut-stone ashlar'),                               # TF-ART-007
+    dict(id='mobile_siding',   rgb=(140, 136, 128), kind='rib',     wear=0.65,
+         name='mobile home ribbed siding'),                            # TF-ART-013
+    # DEAD-DARK GLASS is act-1 law, and the first cook made a PALE grid: lit-looking
+    # glazing in a city with 12% power. The bay reads black, the aluminium catches light.
+    dict(id='storefront_alum', rgb=( 96,  96,  95), kind='mullion', wear=0.55,
+         name='storefront aluminium, dead-dark glazing'),              # TF-ART-008
+    dict(id='freeway_asphalt', rgb=( 78,  76,  74), kind='asphalt', wear=0.60,
+         name='freeway asphalt, wide lane'),                           # TF-ART-011
+    dict(id='lot_asphalt',     rgb=( 84,  81,  78), kind='asphalt', wear=0.70,
+         name='parking lot asphalt'),                                  # TF-ART-003
+    dict(id='rail_ballast',    rgb=(104,  98,  90), kind='gravel',  wear=0.55,
+         name='railroad ballast'),                                     # TF-ART-010
+    dict(id='pool_basin',      rgb=(150, 150, 146), kind='plaster', wear=0.65,
+         name='empty pool basin, plaster'),                            # TF-ART-006
+    # STRAW, NOT GREEN. (122,114,76) rendered olive-GREEN at this grain, and a green
+    # playing field in a dead desert city is a lie about the whole premise. Dead Bermuda
+    # in Vegas is straw: red clearly ahead of green, no chlorophyll left.
+    dict(id='dead_turf',       rgb=(152, 128,  78), kind='turf',    wear=0.75,
+         name='dead sports turf, burnt to straw'),                     # TF-ART-005
+    dict(id='crop_furrow',     rgb=(118, 100,  76), kind='furrow',  wear=0.70,
+         name='dead furrowed crop field'),                             # TF-ART-014
+    dict(id='landfill_cover',  rgb=(112, 104,  90), kind='gravel',  wear=0.80,
+         name='landfill cover cap'),                                   # TF-ART-015
+    dict(id='tiltup_concrete', rgb=(138, 136, 130), kind='tiltup',  wear=0.50,
+         name='tilt-up concrete panel'),                               # warehouse walls
+    dict(id='steel_rusted',    rgb=(112,  76,  56), kind='rib',     wear=0.85,
+         name='rusted steel sheet'),                                   # industrial
+    dict(id='wood_fence',      rgb=(124, 108,  86), kind='plank',   wear=0.75,
+         name='weathered wood fence plank'),                           # yards
+    dict(id='tar_paper',       rgb=( 88,  84,  80), kind='plaster', wear=0.60,
+         name='tar paper, roof underlayment'),                         # exposed roofs
+    dict(id='stucco_grey',     rgb=(134, 132, 126), kind='stucco',  wear=0.55,
+         name='house wall, grey stucco'),
+    dict(id='adobe_red',       rgb=(128,  96,  74), kind='stucco',  wear=0.60,
+         name='house wall, red adobe'),
 ]
 
 
@@ -249,6 +295,52 @@ def structure(kind, x, y, n, rnd_phase):
     if kind == 'rib':
         p = 7.0
         return math.cos((x % p) / p * 2 * math.pi) * 17.0
+    if kind == 'brick':
+        ch, cw = 6, 15                   # 6px course, 15px brick: modular brick at 1.7cm/px
+        row = y // ch
+        off = (row % 2) * (cw // 2)
+        if y % ch == 0 or (x + off) % cw == 0:
+            return -21.0
+        if y % ch == ch - 1:
+            return 6.0
+        return 0.0
+    if kind == 'ashlar':
+        ch, cw = 15, 22                  # big civic blocks, tight joints
+        row = y // ch
+        off = (row % 2) * (cw // 2)
+        if y % ch == 0 or (x + off) % cw == 0:
+            return -15.0
+        return 0.0
+    if kind == 'mullion':
+        if x % 22 < 2 or y % 22 < 2:     # the aluminium glazing bar catches the sun
+            return 17.0
+        return -27.0                     # THE GLASS IS DEAD, not lit. Act-1 law, and the
+                                         # first cook's -12 made a lit-looking shopfront
+                                         # in a city running on 12% power.
+                                         # NOT pitch black either: -46 against a bright
+                                         # mullion put the tile's luminance SPREAD at 78
+                                         # against his 20-42, i.e. a tile that no longer
+                                         # belonged to the same set. Widening the
+                                         # tolerance to let it through would have been
+                                         # marking my own homework, so the ART moved.
+    if kind == 'asphalt':
+        return 0.0                       # asphalt is pure aggregate, like stucco
+    if kind == 'turf':
+        return math.sin(y * 1.7) * 4.0 + math.sin(x * 0.9) * 3.0   # matted clumping
+    if kind == 'furrow':
+        p = 11.0                         # plough rows
+        return math.cos((y % p) / p * 2 * math.pi) * 19.0
+    if kind == 'tiltup':
+        if x % 44 < 2 or y % 22 < 1:     # panel joint every bay
+            return -17.0
+        return 0.0
+    if kind == 'plank':
+        pw = 9
+        if y % pw == 0:                  # the gap between boards
+            return -24.0
+        if y % pw == 1:
+            return 8.0
+        return 0.0
     if kind == 'plaster':
         return 0.0
     if kind == 'gravel':
@@ -367,6 +459,18 @@ def cook_to_target(mat, seed, tol, tries=22):
     return best, bestm[0], False
 
 
+# WHAT HE HAS ACTUALLY JUDGED. Batch 1, 8/1: "I approved thumbs up ... the graphics
+# tiles that you made are fucking fantastic". Twelve materials, 36 tiles. Everything
+# added after that verdict is NEW and UNJUDGED, and the bank has to say so per tile --
+# a batch that quietly relabels 54 fresh tiles as canon because 36 siblings were
+# approved is exactly how unjudged art sneaks into the game.
+APPROVED_8_1 = {
+    'stucco_tan', 'stucco_bone', 'stucco_ochre', 'block_grey', 'block_painted',
+    'roof_tile_terra', 'roof_tile_sand', 'roof_shingle', 'roof_shingle_bn',
+    'metal_corrugate', 'wall_plaster_bare', 'gravel_roof',
+}
+
+
 def png(im):
     buf = io.BytesIO()
     im.save(buf, 'PNG')
@@ -392,6 +496,8 @@ def main():
                 misses.append((mat['id'], k, m))
             tiles.append(dict(id='%s_%d' % (mat['id'], k), material=mat['id'],
                               name=mat['name'], kind=mat['kind'],
+                              verdict=('APPROVED 8/1' if mat['id'] in APPROVED_8_1
+                                       else 'PENDING PAOLO'),
                               measured={kk: round(vv, 3) for kk, vv in m.items()},
                               in_tolerance=ok, b64=png(im)))
             rows.append((mat['id'], k, m, ok, im))
@@ -428,7 +534,12 @@ def main():
                 'inside tolerance.',
         'target': tgt,
         'tolerance': tol,
-        'status': 'PENDING PAOLO',
+        'status': 'MIXED - see per-tile verdict',
+        'verdict_batch_1': 'Paolo 8/1 APPROVED ALL 36 of the first batch, THUMBS UP: '
+                           '"Holy shit so fucking good ... the graphics tiles that you '
+                           'made are fucking fantastic thank you". Record: '
+                           'records/BOHEMIA_VERDICT_TEXTURE_MATCH_8_1_26.txt',
+        'approved_materials': sorted(APPROVED_8_1),
         'tiles': tiles,
     }, open(OUT, 'w'))
 
