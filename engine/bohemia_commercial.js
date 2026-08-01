@@ -208,7 +208,7 @@
   /* THE PALETTE CARRIES REAL HUE. The awnings are the whole point: three faded brand
      colours over identical concrete boxes is what a strip mall IS, and it is the cheapest
      honest colour in the game. Everything stays inside the dead world's value band. */
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7c7367',3:'#3a4526',4:'#4a4a35',5:'#c79a3f',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7c7367',3:'#514f40',4:'#4a4a35',5:'#c79a3f',
     6:'#8a8a92',7:'#3f4e52',8:'#8c3f38',9:'#2f6058',10:'#a8842f',11:'#c9c1aa',12:'#b0863a',
     13:'#a39a88',14:'#241f1a',15:'#2b2b31',16:'#6a6e72',17:'#6a6e72',18:'#9aa0a6',
     19:'#5f6670',20:'#8a5a4a',21:'#6e6a5c',22:'#46442f'};

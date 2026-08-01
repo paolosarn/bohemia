@@ -128,7 +128,7 @@
      the dead world's value band; just no longer one mud. */
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#5c5648',3:'#4c4a33',4:'#524c3e',5:'#c79a3f',6:'#4a5766',
     7:'#8a6a3a',8:'#8a7a4a',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#241f1a',13:'#463f36',
-    14:'#93a2a8',15:'#7d7668',16:'#9a9384',17:'#7a4038',18:'#4b5730',19:'#8d949a'};
+    14:'#93a2a8',15:'#7d7668',16:'#9a9384',17:'#7a4038',18:'#565440',19:'#8d949a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the lot edge'},
     1:{name:'street / drive',     kind:'drive',      act1:'the cracked mall ring-road / driveway (car-drivable)'},

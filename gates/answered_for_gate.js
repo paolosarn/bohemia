@@ -112,6 +112,72 @@ ok(`3. EARNED — the monoblock debt only ever SHRINKS (${monoNow.length} distri
    `${MONOBLOCK_DEBT.size}` + (fixed.length ? '; FIXED since: ' + fixed.join(', ') : '') + ')',
    monoNow.length <= MONOBLOCK_DEBT.size);
 
+/* 2b. A NAME THAT LIES IS A BUG — DEAD THINGS ARE NOT GREEN.
+   Paolo 8/2, looking at the downtown block I had just shipped: "I'm just confused and
+   concerned. Are you putting grass in downtown?"
+   He was. 18.2% of that plot was painted hue 77 — a green — under a legend entry that
+   called it hardpan dirt. That is the exact failure this gate's own master file names as
+   lesson three, written by me one turn earlier: THE MACHINE CANNOT CHECK WHAT THE LEGEND
+   MISDESCRIBES. The write-up said dirt, the pixels said lawn, and every other claim in
+   here passed because they all read the words and none of them looked at the colour.
+   So now the words and the colour have to agree. If a tile calls itself dead, dirt, bare,
+   dust, gravel, sand, asphalt, concrete or vacant, it may not be painted a saturated
+   living green. Desaturated olive is fine — dead vegetation in the Mojave IS grey-olive —
+   the bar is SATURATION, because that is what separates a dead shrub from a watered lawn.
+   Nothing is watering Las Vegas.
+   RATCHET: 22 of these were already in the valley when the check landed. Named, may only
+   shrink, and nothing outside the list may grow a new one. */
+const GREENWASH_DEBT = new Set([
+  'apartment:3', 'arterial:11', 'ballpark:3', 'campus:3', 'chapel:3', 'chapel:4',
+  'cityhall:3', 'courthouse:3', 'desert:2', 'farm:3', 'firestation:3', 'freeway:7',
+  'interchange:7', 'jail:7', 'library:3', 'library:4', 'policestation:3', 'rail:16',
+  'speedway:3', 'swapmeet:12', 'terminal:3', 'town:3', 'trailer:3', 'truckstop:13',
+  'warehouse:3', 'water:9', 'waterpark:3',
+]);
+const DEAD_WORDS = /\bdead\b|\bdirt\b|\bbare\b|\bdry\b|dust|hardpan|gravel|\bsand\b|asphalt|concrete|rubble|scorch|cracked|vacant/i;
+const LIVING_WORDS = /\blawn\b|\bturf\b|\bgrass\b|\bhedge\b|\bfoliage\b|putting/i;
+const hsv = (hex) => {
+  if (!hex || hex[0] !== '#' || hex.length < 7) return null;
+  const R = parseInt(hex.slice(1, 3), 16), G = parseInt(hex.slice(3, 5), 16), B = parseInt(hex.slice(5, 7), 16);
+  const mx = Math.max(R, G, B), mn = Math.min(R, G, B), d = mx - mn;
+  let h = 0;
+  if (d) h = mx === R ? 60 * (((G - B) / d) % 6) : mx === G ? 60 * ((B - R) / d + 2) : 60 * ((R - G) / d + 4);
+  if (h < 0) h += 360;
+  return { h: h, s: mx ? d / mx : 0 };
+};
+{
+  let greenNow = [], greenNew = [];
+  for (const name of K.types()) {
+    const d = K.get(name);
+    if (!d || !d.generate || !d.legend || !d.palette) continue;
+    let r;
+    try { r = d.generate(11, { streets: ['S'] }); } catch (e) { continue; }
+    const seen = new Set();
+    for (const row of r.g) for (const c of row) seen.add(c);
+    for (const c of seen) {
+      const e = d.legend[c] || {}, v = hsv(d.palette[c]);
+      if (!v) continue;
+      /* DEAD is read from the whole write-up, but LIVING only from the NAME. Reading the
+         prose for the exemption is how the first cut of this check let the very tile it
+         was written for through: my own act-1 line said "NOT GRASS: nothing is watering
+         downtown Las Vegas", and the word grass in that sentence exempted it. A tile is
+         living because of what it IS, never because of a word in its description. */
+      const text = (e.name || '') + ' ' + (e.act1 || '');
+      if (v.h >= 65 && v.h <= 170 && v.s > 0.35 && DEAD_WORDS.test(text) && !LIVING_WORDS.test(e.name || '')) {
+        const key = name + ':' + c;
+        greenNow.push(key);
+        if (!GREENWASH_DEBT.has(key))
+          greenNew.push(key + ' "' + (e.name || '') + '" ' + d.palette[c]);
+      }
+    }
+  }
+  ok('DEAD THINGS ARE NOT GREEN — nothing outside the named debt calls itself dirt or dead ' +
+     'and paints itself a living lawn (Paolo 8/2: "Are you putting grass in downtown?")' +
+     (greenNew.length ? ' — ' + greenNew.slice(0, 4).join(', ') : ''), greenNew.length === 0);
+  ok(`the greenwash debt only ever SHRINKS (${greenNow.length}, was ${GREENWASH_DEBT.size})`,
+     greenNow.length <= GREENWASH_DEBT.size);
+}
+
 /* THE ANSWER SHEET IS THE SURFACE. He does not dig in files, so the write-ups have to be
    somewhere he can LOOK at them beside the picture, or they are an alibi rather than an
    answer. The gate asserts the tool and its page exist and that the page really carries

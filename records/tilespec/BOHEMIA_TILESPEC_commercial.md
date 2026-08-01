@@ -40,7 +40,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt at the property line | ground | no | — | 1461 |
 | 1 | `#33333c` | lot asphalt | drive | the cracked parking field and its drive aisles, weeds up every joint (car-drivable) | ground | no | — | 4667 |
 | 2 | `#7c7367` | store | building | concrete shell — the anchor box and the inline shop bays, fascia stripped, glass out | structure | yes | retail interior: an open sales floor, checkout line stripped for metal, stock room and office behind | 2582 |
-| 3 | `#3a4526` | dead tree | tree-dead | a dead lot tree in its island, gone to stick | prop | no | — | 167 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead lot tree in its island, gone to stick | prop | no | — | 167 |
 | 4 | `#4a4a35` | landscape island | ground | a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up | ground | no | — | 419 |
 | 5 | `#c79a3f` | curb cut / gate | gate | the driveway curb cut off the street, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#8a8a92` | storefront walk | walk | the covered concrete walk along the shopfronts, cracked, glass underfoot | ground | no | — | 499 |

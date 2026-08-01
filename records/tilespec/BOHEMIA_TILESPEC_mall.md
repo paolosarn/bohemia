@@ -50,7 +50,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 15 | `#7d7668` | rooftop plant | structure | the rooftop HVAC farm — cased units, one stripped to its coil, ducting collapsed | structure | yes | — | 828 |
 | 16 | `#9a9384` | roof edge | structure | the parapet line where the roof meets the wall | structure | yes | — | 1028 |
 | 17 | `#7a4038` | anchor store (east) | building | the rival department store at the other end of the dumbbell, its own faded brand colour still on the parapet | structure | yes | anchor interior: three floors of stripped sales floor around a dead escalator well | 888 |
-| 18 | `#4b5730` | landscaped median | ground | a kerbed planting median dividing the parking fields — the shrubs died first, then the kerb cracked, and the sand has half-buried it | ground | no | — | 620 |
+| 18 | `#565440` | landscaped median | ground | a kerbed planting median dividing the parking fields — the shrubs died first, then the kerb cracked, and the sand has half-buried it | ground | no | — | 620 |
 | 19 | `#8d949a` | cart corral | prop | a steel cart corral, rails bent outward where something drove through it, two trolleys still nested inside | prop | yes | — | 203 |
 
 **Gate:** `gates/mall_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).

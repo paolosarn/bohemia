@@ -165,7 +165,7 @@
 
   /* THE GLASS IS THE HUE — 70s bronze, 80s blue, 90s green over concrete, all faded into
      the dead world's value band and never merged into one another. */
-  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6d675b',3:'#3a4526',4:'#414a2b',5:'#c79a3f',
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6d675b',3:'#514f40',4:'#5b5343',5:'#c79a3f',
     6:'#3f5570',7:'#6a675e',8:'#7d7a71',9:'#b0863a',10:'#8e8a7c',11:'#c9c1aa',12:'#5e6a72',
     13:'#3a3a42',14:'#6a6e72',15:'#7a5c34',16:'#3f6152',17:'#9a9384',18:'#241f1a',
     19:'#6a6e72',20:'#8c3f38'};
@@ -175,7 +175,7 @@
     1:{name:'mid-block alley',    kind:'drive',    act1:'the service alley cut through the middle of the block — the townsite platted two rows of lots back-to-back onto it, so this is where every delivery, dumpster and back door on the block has always been (car-drivable, and it runs through to the street at both ends)'},
     2:{name:'podium / retail base',kind:'building',act1:'the low podium that holds the street wall — ground-floor retail with every window out, dark mezzanine above', enter:'podium interior: a stripped retail floor, the escalator well dead, a service corridor running back to the alley'},
     3:{name:'street tree',        kind:'tree-dead',act1:'a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up', solid:false},
-    4:{name:'vacant parcel',      kind:'ground',   act1:'the parcel where a building came down and nothing replaced it — the slab is still there under the dirt, its footprint printed in the asphalt, creosote rooted along the old party wall'},
+    4:{name:'vacant parcel',      kind:'ground',   act1:'the parcel where a building came down and nothing replaced it — hardpan dirt and broken slab, its old footprint still printed in the ground, sun-bleached to the colour of everything else out here. NOT GRASS: nothing is watering downtown Las Vegas'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the block entrance off the street, amber kerb paint gone chalky'},
     6:{name:'tower (blue glass)', kind:'building', act1:'an 80s blue curtain-wall tower — the glass gone milky where it survived and open to the sky where it did not', enter:'tower interior: a lobby stripped to its core, lift shafts standing open, the floor plates above reachable only by stair'},
     7:{name:'forecourt plaza',    kind:'ground',   act1:'the tower forecourt — pavers heaved up by roots, the granite benches still exactly where they were bolted'},
