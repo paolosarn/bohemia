@@ -232,8 +232,13 @@ MATERIALS = [
          name='brick masonry, painted over'),                          # TF-ART-009
     dict(id='civic_stone',     rgb=(148, 140, 124), kind='ashlar',  wear=0.40,
          name='civic cut-stone ashlar'),                               # TF-ART-007
+    # sgain 0.62: a mobile home wears VINYL or thin aluminium siding, a much softer
+    # profile than the industrial R-panel the 'rib' kind draws for corrugated metal.
+    # At full amplitude it measured 79% grain against his 77.5 ceiling - the structure
+    # was doing the work the grain should, which is a real material error and not a
+    # tuning miss.
     dict(id='mobile_siding',   rgb=(140, 136, 128), kind='rib',     wear=0.65,
-         name='mobile home ribbed siding'),                            # TF-ART-013
+         sgain=0.62, name='mobile home ribbed siding'),                # TF-ART-013
     # DEAD-DARK GLASS is act-1 law, and the first cook made a PALE grid: lit-looking
     # glazing in a city with 12% power. The bay reads black, the aluminium catches light.
     dict(id='storefront_alum', rgb=( 96,  96,  95), kind='mullion', wear=0.55,
@@ -417,8 +422,138 @@ def structure(kind, x, y, n, rnd_phase):
     return 0.0
 
 
+
+def features(rnd, mat, seed_gain=1.0):
+    """THE HERO FEATURES. Measured off his pack, not invented.
+
+    Paolo's own library is not a field of even noise with the occasional manhole. Every
+    tile has SOMETHING: measured as the share of a tile that is a strong LOCALIZED
+    deviation from its own body (|v - median| > 2 sd), his 54 shipping ground tiles run
+    a median of 7.0% and 78% of them clear 6%. Mine ran a median of 4.1% with 9 of 114
+    clearing 6% -- consistent texture at the right density, which is exactly the gap
+    between "same material family" and "same pack" this lane has been carrying as
+    named debt since the first batch landed.
+
+    So each tile gets one to three real events: a crack that travels, a patch where
+    something was repaired, a stain running down from a failure, a spall where the
+    surface blew off, a clump of dirt and debris.
+
+    EVERY COORDINATE WRAPS. A crack that leaves the right edge continues on the left,
+    which is both correct for a tiling texture and the thing that stops features
+    re-introducing the border he circled on 8/1. Nothing here is allowed to be a
+    one-sided mark.
+    """
+    d = [[0.0] * CELL for _ in range(CELL)]
+
+    def stamp(x, y, v):
+        d[int(y) % CELL][int(x) % CELL] += v
+
+    def blob(cx, cy, r, v, hard=0.0):
+        rr = int(r) + 1
+        for dy in range(-rr, rr + 1):
+            for dx in range(-rr, rr + 1):
+                dist = math.hypot(dx, dy)
+                if dist <= r:
+                    fall = 1.0 if hard else (1.0 - dist / max(r, 0.01))
+                    stamp(cx + dx, cy + dy, v * fall)
+
+    n = 2 + int(rnd.f() * 2.6 * seed_gain)          # 2..4 events
+    for _ in range(n):
+        pick = rnd.f()
+        cx, cy = rnd.f() * CELL, rnd.f() * CELL
+
+        if pick < 0.34:
+            # A CRACK NETWORK, NOT A SQUIGGLE. This was rebuilt after looking at his
+            # tiles beside mine at size: HIS cracks form a connected polygonal network
+            # that breaks the surface into PLATES and meets at junctions, which is what
+            # concrete actually does when it crazes. Mine were a random walk -- meandering
+            # worm-lines and rings that read as doodles drawn ON the surface rather than
+            # damage IN it. No amount of extra amplitude fixes a wrong model, and the
+            # numbers could not see it: the metric was happy while the tiles looked like
+            # scribbles.
+            #
+            # A plate decomposition gives it for free. Scatter seeds, and mark every
+            # pixel that is nearly equidistant from its two nearest seeds: that set IS
+            # the plate boundary, so segments come out straight-ish, meet at real
+            # junctions, and close. Distance is measured with WRAPPING, so the network
+            # continues across the tile edge instead of stopping at it.
+            seeds = [(rnd.f() * CELL, rnd.f() * CELL) for _ in range(int(rnd.r(4, 9)))]
+            depth = rnd.r(-92, -58)
+            width = rnd.r(0.75, 1.5)
+            for yy in range(CELL):
+                for xx in range(CELL):
+                    d1 = d2 = 1e9
+                    for (sx, sy) in seeds:
+                        ddx = abs(xx - sx)
+                        ddy = abs(yy - sy)
+                        ddx = min(ddx, CELL - ddx)
+                        ddy = min(ddy, CELL - ddy)
+                        dd = ddx * ddx + ddy * ddy
+                        if dd < d1:
+                            d2, d1 = d1, dd
+                        elif dd < d2:
+                            d2 = dd
+                    gap = math.sqrt(d2) - math.sqrt(d1)
+                    if gap < width:
+                        f = 1.0 - gap / width
+                        stamp(xx, yy, depth * f * f)
+                        # the lit chipped lip on the sunward side of the break
+                        if f > 0.6:
+                            stamp(xx, yy - 1, -depth * 0.18)
+
+        elif pick < 0.55:
+            # A PATCH. Somebody repaired this once: a rectangle of slightly wrong tone
+            # with a hard edge, because a patch never blends.
+            w, h = int(rnd.r(7, 17)), int(rnd.r(6, 15))
+            tone = rnd.r(-34, 32)
+            for yy in range(h):
+                for xx in range(w):
+                    edge = (xx == 0 or yy == 0 or xx == w - 1 or yy == h - 1)
+                    stamp(cx + xx, cy + yy, tone + (-30.0 if edge else 0.0))
+
+        elif pick < 0.72:
+            # A STAIN RUNNING DOWN from a failure point: rust, a leak, thirty years of
+            # weather off one bad flashing. Widens and fades as it falls.
+            ln = int(rnd.r(9, 22))
+            wdt = rnd.r(1.4, 3.4)
+            dark = rnd.r(-46, -24)
+            for i in range(ln):
+                f = i / ln
+                for k in range(int(wdt * (0.5 + f))):
+                    stamp(cx + k - wdt * f * 0.5, cy + i, dark * (1.0 - f * 0.7))
+
+        elif pick < 0.88:
+            # A SPALL: the surface blew off and the substrate shows. Bright core, hard
+            # dark rim where the face broke away.
+            # A SPALL IS A BROKEN EDGE, NOT A DRAWN CIRCLE. The first version stamped a
+            # perfect ring at a fixed radius and read as a doughnut. Real spalling has a
+            # ragged perimeter, so the radius wanders as it goes round.
+            r = rnd.r(3.0, 6.5)
+            rad = [r * rnd.r(0.62, 1.34) for _ in range(24)]
+            for a in range(0, 360, 5):
+                th = math.radians(a)
+                rr = rad[(a // 15) % 24]
+                stamp(cx + math.cos(th) * rr, cy + math.sin(th) * rr, rnd.r(-58, -30))
+                for k in range(1, int(rr)):
+                    # exposed substrate is only SLIGHTLY paler than the face. The first
+                    # pass lifted it 12-30 and every spall read as a white blob stuck on
+                    # the wall - the eye went straight to it and nothing else.
+                    stamp(cx + math.cos(th) * k, cy + math.sin(th) * k,
+                          rnd.r(3, 11) * (1.0 - k / max(rr, 1)))
+
+        else:
+            # DEBRIS AND DIRT that has collected: a tight cluster of dark specks with a
+            # few catching light on top. His tiles are full of these.
+            for _ in range(int(rnd.r(10, 26))):
+                ox, oy = rnd.r(-4.5, 4.5), rnd.r(-3.5, 3.5)
+                stamp(cx + ox, cy + oy, rnd.r(-56, -22))
+                if rnd.f() < 0.3:
+                    stamp(cx + ox, cy + oy - 1, rnd.r(16, 36))
+    return d
+
+
 def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
-         hue_shift=0.0, sat_gain=1.0):
+         hue_shift=0.0, sat_gain=1.0, feat_gain=1.0):
     rnd = Rnd(seed)
     base = tinted(mat['rgb'], scale=val_scale, hue_shift=hue_shift, sat_gain=sat_gain)
     body = fbm(rnd, (2, 4, 11, 22))       # the material's own mottling
@@ -435,6 +570,7 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
     # per-tile chip/pit sites, so no two tiles are the same wall
     pits = [(rnd.next() % CELL, rnd.next() % CELL, rnd.r(1.2, 3.0), rnd.r(-34, -14))
             for _ in range(int(6 + 10 * mat['wear']))]
+    hero = features(rnd, mat, feat_gain)
 
     im = Image.new('RGB', (CELL, CELL))
     px = im.load()
@@ -449,7 +585,7 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
             # His tiles are not fields of noise -- they have hard features (joints,
             # cracks, laps) that survive the texture and tell you what you are looking
             # at. Noise without structure is just mush wearing the right numbers.
-            L += structure(mat['kind'], x, y, CELL, phase) * 2.0
+            L += structure(mat['kind'], x, y, CELL, phase) * 2.0 * mat.get('sgain', 1.0)
             L += (stain(u, v) - 0.5) * 26.0 * mat['wear']        # dirt and streaking
             # *** NOTHING IN A TILING TEXTURE MAY BE NON-PERIODIC. ***
             # Paolo 8/1, circling two horizontal bands across the yard: "I don't want
@@ -476,6 +612,7 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
                 if d < pr:
                     L += pd * (1.0 - d / pr)
 
+            L += hero[y][x]                                      # THE HERO FEATURES
             k = 1.0 + L / 128.0
             r = base[0] * k + (fine(v, u) - 0.5) * 13.0          # per-channel break-up,
             g = base[1] * k + (fine(u + 0.37, v) - 0.5) * 13.0   # which is what pushes
@@ -487,6 +624,29 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
 
 
 # ---------------------------------------------------------------- measure and retry
+def seam_ratio(im):
+    """the seam, measured against the material's OWN worst line (see the gate).
+
+    The cook checks this itself rather than leaving it to the gate, because a bad seam
+    is not a tuning miss you can dial out - it is a bad SEED, and the fix is to draw a
+    different one. A crack network that happens to run along the boundary is the case
+    that produces it, and no amount of grain or value nudging helps.
+    """
+    im = im.convert('RGB')
+    w, h = im.size
+    b = im.tobytes()
+
+    def L(x, y):
+        i = (y * w + x) * 3
+        return 0.299 * b[i] + 0.587 * b[i + 1] + 0.114 * b[i + 2]
+
+    rowj = [st.mean([abs(L(x, y) - L(x, y + 1)) for x in range(w)]) for y in range(h - 1)]
+    colj = [st.mean([abs(L(x, y) - L(x + 1, y)) for y in range(h)]) for x in range(w - 1)]
+    sv = st.mean([abs(L(x, h - 1) - L(x, 0)) for x in range(w)]) / max(max(rowj), 1e-6)
+    sh = st.mean([abs(L(w - 1, y) - L(0, y)) for y in range(h)]) / max(max(colj), 1e-6)
+    return max(sv, sh)
+
+
 def measure(im):
     im = im.convert('RGB')
     w, h = im.size
@@ -516,7 +676,7 @@ def inside(m, tol):
 COLOURWAY = [(0.000, 1.00), (-0.020, 1.30), (0.022, 0.80)]
 
 
-def cook_to_target(mat, seed, tol, tries=22, way=0):
+def cook_to_target(mat, seed, tol, tries=40, way=0):
     """draw, MEASURE, nudge, redraw. Smooth art never leaves this function.
 
     TWO dials, because grain and edge are not the same thing and the first version of
@@ -525,6 +685,7 @@ def cook_to_target(mat, seed, tol, tries=22, way=0):
     18.4 and every tile came out soft.
     """
     gain = speck = val = 1.0
+    reseed = 0
     best = bestm = None
     tgt_e = sum(tol['edge']) / 2.0
     tgt_g = sum(tol['grain']) / 2.0
@@ -532,12 +693,16 @@ def cook_to_target(mat, seed, tol, tries=22, way=0):
     for _ in range(tries):
         ways = mat.get('ways') or COLOURWAY
         hs, sg = ways[way % len(ways)]
-        im = cook(mat, seed, gain, speck, val, hs, sg)
+        im = cook(mat, seed + reseed * 7919, gain, speck, val, hs, sg)
         m = measure(im)
+        sr = seam_ratio(im)
+        if sr > 1.18:
+            reseed += 1          # bad seed, not a bad dial: draw a different tile
+            continue
         if inside(m, tol):
             return im, m, True
         score = (abs(m['edge'] - tgt_e) / tgt_e + abs(m['grain'] - tgt_g) / tgt_g
-                 + abs(m['lum_mean'] - tgt_l) / tgt_l)
+                 + abs(m['lum_mean'] - tgt_l) / tgt_l + max(0.0, sr - 1.0) * 3.0)
         if best is None or score < bestm[1]:
             best, bestm = im, (m, score)
         speck *= 1.12 if m['edge'] < tgt_e else 0.92

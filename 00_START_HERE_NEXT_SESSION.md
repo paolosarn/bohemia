@@ -1,3 +1,60 @@
+ART (f3eu53): 8/1 (e) LATEST — THE HERO FEATURES. He told me to leave the banding and
+keep going, so I closed the gap this lane has carried as named debt since the first
+batch: his tiles have EVENTS, mine were even texture.
+
+=== MEASURED HIS PACK FIRST ===
+"Feature" = share of a tile that is a strong LOCALIZED deviation from its own body
+(|v - median| > 2 sd): a manhole, a weed clump, a long crack.
+    HIS   54 tiles   median 7.0%   78% of them clear 6%
+    MINE  114 tiles  median 4.1%    9 of 114 cleared 6%
+His pack is not mostly-plain with the occasional event. NEARLY EVERY TILE HAS SOMETHING.
+
+=== THE FIRST ATTEMPT WAS WRONG AND THE NUMBERS COULDN'T SEE IT ===
+I added cracks as a RANDOM WALK with a per-step angle jitter. Amplitude went up, the
+metric moved a little, every gate stayed green - and laid beside his tiles at 200px the
+result was WORMS AND RINGS. Meandering squiggles and perfect doughnut spalls that read
+as doodles drawn ON the surface instead of damage IN it.
+*** HIS CRACKS ARE STRUCTURAL. They form a connected polygonal network that breaks the
+surface into PLATES and meets at junctions, because that is what concrete does when it
+crazes. No amount of extra amplitude fixes a wrong model. ***
+Rebuilt as a PLATE DECOMPOSITION: scatter seeds, mark every pixel nearly equidistant
+from its two nearest ones, and that set IS the plate boundary - segments come out
+straight-ish, meet at real junctions, and close. Distances WRAP, so the network
+continues across the tile edge instead of stopping at it.
+The spall was the same error smaller: a ring stamped at a fixed radius reads as a
+doughnut, so the radius wanders now. And the exposed substrate was lifted 12-30, which
+made every spall a white blob the eye went straight to; it is 3-11 now.
+
+=== THE FACTORY ENFORCES ITS OWN GATE NOW ===
+A bad seam is not a tuning miss you can dial out - it is a BAD SEED (a crack network
+that happens to run along the boundary), and the fix is to draw a different tile. The
+cook measures seam_ratio itself and RE-SEEDS above 1.18 rather than leaving it for the
+gate to catch. Seam scoring is also folded into the best-so-far, so a near-miss never
+beats a clean tile.
+Also caught by the band, not by eye: mobile-home siding measured 79% grain against his
+77.5 ceiling because it was drawing INDUSTRIAL R-panel ribs. A mobile home wears vinyl
+or thin aluminium - a much softer profile. Structure amplitude is per-material now.
+
+=== STATE ===
+banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt  114 tiles / 38 materials, ALL APPROVED, CANON
+  114/114 in band. features median 4.9%, 17/114 above 6% (was 4.1% / 9).
+  STILL SHORT OF HIS 7.0% / 78%, said plainly rather than rounded up.
+gates/texture_match_gate.py 24 checks   banks_used 26/26   alpha loads 20/20
+records/target/FEATURE_COMPARE.png  his six beside mine at 200px, which is the only
+  view that caught the worms in the first place.
+
+=== WHAT COMES NEXT, IN ORDER ===
+1. FEATURES ARE STILL HALF HIS DENSITY. The plate network is right; the count is low.
+   Next pass raises events per tile and adds the two his pack has that mine does not:
+   VEGETATION pushing through a crack (his weed clumps are the single most characterful
+   thing in his pack) and hardware (a manhole, a drain, a vent).
+2. The house UPPER floor band, perimeter wall, gate mouth and garage mouth still wear
+   target-set art.
+3. HIS bought yard tiles band at their borders. He said 8/1: "I'll let you know when I
+   have issues with the banding until then" - so LEAVE IT. Do not touch his pixels; if
+   he reopens it, the fix is placement (drop the edge-scored tiles from the yard pool).
+4. Doubling the art cell 44 -> 88 px ("thats down the line").
+
 PEOPLE (7h9sfy): 8/1 (e) LATEST — THE FENCES ARE RE-CUT. The patch tool runs clean
 again, round-trips byte-identically, and CANNOT eat another lane's code. Nothing in the
 game changed.
