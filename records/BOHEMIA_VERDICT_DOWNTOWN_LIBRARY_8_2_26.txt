@@ -1,0 +1,39 @@
+BOHEMIA VERDICT — DOWNTOWN + LIBRARY
+8/2/26
+
+PAOLO, VERBATIM:
+  "Downtown District that one is looking like at 85%. We can approve it for now
+   that library. I'm just a little confused. It looks like it's in. There's like
+   six different buildings of the library. What's up with that? I would give it
+   a 22%."
+
+DOWNTOWN — 85%, APPROVE.
+  15% -> 85% in one pass, on the research: a cell is a BLOCK, not a downtown.
+  Fourth approved district. school 89, commercial 85, mall 85, downtown 85.
+
+LIBRARY — 22%. REJECTED, and the note is exact.
+
+WHAT HE CAUGHT, AND IT IS A THINKING ERROR NOT A DRAWING ERROR
+  A library is ONE BUILDING. I built six.
+
+  The 7/30 law says NO BUILDING IS A FLAT RECTANGLE. I turned that into "make
+  several separate buildings", which is a different thing and a wrong one.
+  ARTICULATION IS NOT FRAGMENTATION. A civic landmark is ONE mass whose parts
+  differ -- a drum, a tower, a long wing -- all joined, sharing walls, one roof
+  line stepping between them. Predock's actual building is a single continuous
+  composition, not a campus.
+
+  AND I ENCODED THE MISTAKE IN A GATE. gates/library_gate.js asserted
+  `footprints >= 4` -- the machine was REQUIRING the bug. That is worse than the
+  bug: a wrong law outlives the turn that made it and teaches every future
+  session the same error. Corrected the same turn: the library is ONE footprint,
+  and its variety is asserted by the PARTS it contains (drum, oculus ring, tower,
+  clerestory, courtyard), never by how many separate buildings it broke into.
+
+THE GENERAL LESSON, folded into laws/BOHEMIA_PAOLO_FEEDBACK_MASTER.md:
+  "not a flat rectangle" means ARTICULATE THE MASS, not SPLIT IT UP. A row of
+  storefronts is many buildings because a street of lots IS many buildings. A
+  library is one building because a library IS one building. The building type
+  decides, never the gate.
+
+STATUS: downtown APPROVED (85). Library REOPENED at 22 and rebuilt this turn.

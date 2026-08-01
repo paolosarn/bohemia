@@ -43,14 +43,24 @@ honest: every law carrying his verbatim words must be indexed here.
 | 7/31 | commercial | 65% → 75% | open |
 | 7/31 | mall | 40% → 60% | open |
 | 8/1 | commercial + mall | **85%** | **APPROVED** ("approved for now") |
+| 8/2 | downtown | **85%** | **APPROVED** ("we can approve it for now") |
+| 8/2 | library | 22% | rejected — "six different buildings" |
 
-**THE THREE APPROVED DISTRICTS ARE THE STANDARD.** High school 89%, commercial 85%,
-mall 85%. Anything that does not hold up beside those three is not done.
+**THE FOUR APPROVED DISTRICTS ARE THE STANDARD.** High school 89%, commercial 85%,
+mall 85%, downtown 85%. Anything that does not hold up beside those four is not done.
 
 ## 3. WHAT HE HAS RULED — the standing law, newest first
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — ARTICULATION IS NOT FRAGMENTATION.** "There's like six different buildings
+  of the library. What's up with that?" A library is ONE building. "No building is a
+  flat rectangle" means ARTICULATE THE MASS (a drum, a tower, a long wing, all sharing
+  walls), never SPLIT IT UP into a campus. THE BUILDING TYPE DECIDES, NEVER THE GATE —
+  a strip of storefronts is many buildings because a street of lots IS many buildings.
+  And the worse half of this one: I had encoded the mistake in `gates/library_gate.js`
+  as `footprints >= 4`, so the machine was REQUIRING the bug. A wrong law outlives the
+  turn that made it. `gates/library_gate.js` (now `footprints === 1`)
 - **8/1 — "approved for now" is an APPROVAL.** Not a hold, not a snag list I keep
   picking at. Reopening approved work on my own initiative is the STOP PRODUCING
   failure. `records/BOHEMIA_VERDICT_COMMERCIAL_MALL_8_1_26.txt`

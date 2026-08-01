@@ -25,9 +25,16 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   /* EVERY PIXEL ANSWERED FOR (7/31): no code owns 30% of the plot. */
   { const A = r.g.length * r.g[0].length; let big = 0; for (const k in t) if (t[k] > big) big = t[k];
     if (100 * big / A >= 30) anatomy = false; }
-  /* IT IS NOT ONE BLOB. A civic landmark is a composition of masses -- a drum, a tower,
-     two wings -- and the old one was a single footprint. */
-  if (r.footprints.length < 4) anatomy = false;
+  /* A LIBRARY IS ONE BUILDING. Paolo 8/2, at 22%: "There's like six different buildings of
+     the library. What's up with that?"
+     THIS GATE USED TO ASSERT `footprints >= 4` -- it was REQUIRING the bug. I read the 7/30
+     law (NO BUILDING IS A FLAT RECTANGLE) as "make several separate buildings", which is a
+     different thing and a wrong one. ARTICULATION IS NOT FRAGMENTATION: a civic landmark is
+     ONE mass whose parts differ, all joined, the roof line stepping between them. A wrong
+     law encoded in a machine is worse than a wrong drawing, because it outlives the turn
+     that made it and teaches the same error to everyone after.
+     So: ONE footprint, and the variety is asserted by the PARTS it contains, above. */
+  if (r.footprints.length !== 1) anatomy = false;
   const ls = K.landStats(g, D.legend); if (!(ls.contentPct >= ls.drivePct)) contentDom = false;
   if (!K.legendOk(g, D.palette) || K.voidFraction(g) > 0.22) filled = false;
   if (!D.driveConnected(r)) drive = false;
@@ -39,7 +46,7 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
 ok('THE DRUM AND THE TOWER: Predock\'s geometry — the drum with its oculus ring, the ' +
    'concrete tower, the reading wing under its clerestory, the museum wing, walled ' +
    'courtyards, the entry plaza with its dry fountain, the terrace it all sits on and the ' +
-   'lot with the cars still in it — four masses or more, and no code owning 30% of the plot', anatomy);
+   'lot with the cars still in it — ALL OF IT ONE BUILDING, because a library is one building (Paolo 8/2), and no code owning 30% of the plot', anatomy);
 ok('WALKABLE-LAND: content dominates (a library IS its building)', contentDom);
 ok('every tile named + low void', filled);
 ok('DRIVABLE: the drop-off + side lots reach the curb', drive);

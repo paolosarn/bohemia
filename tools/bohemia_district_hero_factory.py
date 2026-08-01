@@ -550,7 +550,14 @@ def build_library(P):
     is the geometry -- the CONES and the giant concrete TOWER -- in sandstone, because in
     Predock's own words "the color scheme is provided by the desert."
 
-    The old icon was a reading-room block behind a classical COLONNADE, which is a library
+    IT IS ONE BUILDING. Paolo scored the first rebuild 22%: "there's like six different
+    buildings of the library, what's up with that?" He was right, and it was a thinking
+    error -- I read the 7/30 "no building is a flat rectangle" law as "make several
+    buildings", which is a different thing. Predock's is a single continuous composition:
+    a drum, a tower and two wings that all share walls. So does this icon -- every mass
+    overlaps the reading-wing spine.
+
+    The icon before that was a reading-room block behind a classical COLONNADE, which is a library
     from a different country and a different century, and it drew palette code 6 -- a code
     the rebuilt district no longer has, so the factory threw KeyError: 6 and the icon bank
     could not be rebuilt at all. gates/tools_run_gate.py caught that; nothing else would
@@ -566,23 +573,42 @@ def build_library(P):
             drive=(11, 10.5, 14, 15), groundc=(122, 116, 100), lotc=(58, 58, 66))
     s.box((-1.5, -1.5, 0), (13, 11, 1.2), {'c': _dark(TERRACE, 1.0)['c']})        # the terrace
 
-    # THE DRUM. Stepped in plan so it reads round rather than square at icon size, and
-    # capped with the OCULUS ring and its lantern -- the thing you remember about it.
-    for inset, h in ((0.0, 5.4), (0.6, 5.9)):
-        s.box((0.4 + inset, 0.4 + inset, 1.2), (5.2 - inset * 2, 5.2 - inset * 2, h - 1.2),
-              {'top': _dark(BLD, 0.95), 'px': _win(BLD, 5, 3, 4), 'py': _win(BLD, 5, 3, 9),
-               'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((1.6, 1.6, 5.9), (2.8, 2.8, 0.5), {'c': OCULUS})                        # the oculus ring
-    s.box((2.4, 2.4, 6.4), (1.2, 1.2, 0.7), {'c': tuple(min(255, int(c * 1.1)) for c in OCULUS)})
+    # ONE BUILDING (Paolo 8/2: "there's like six different buildings of the library").
+    # Every mass below OVERLAPS the reading wing, so the icon is one continuous
+    # composition whose PARTS differ, never a campus of separate boxes.
+    # ARTICULATION IS NOT FRAGMENTATION.
 
-    # THE TOWER. Square, concrete, the tallest thing on the block.
-    s.box((7.6, 0.6, 1.2), (3.0, 3.0, 10.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 7, 5, 0.1),
-          'py': _win(BLD, 2, 7, 12, 0.1), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((8.1, 1.1, 11.6), (2.0, 2.0, 0.5), {'c': PLANT})
-
-    # THE READING WING: a long low bar under a clerestory that runs its whole length.
+    # THE READING WING: the spine. Everything else lands on it. Drawn first so the
+    # taller masses read as growing out of it.
     s.box((0.2, 6.2, 1.2), (11.4, 3.4, 3.6), {'top': _dark(BLD, 0.92), 'px': _win(BLD, 9, 2, 6),
           'py': _win(BLD, 3, 2, 10), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+
+    # THE DRUM, landing ON the spine (y runs 1.2..6.4, the wing starts at 6.2). Stepped
+    # in plan so it reads round rather than square at icon size, and capped with the
+    # OCULUS ring and its lantern -- the thing you remember about it.
+    # FOUR steps, not two, and it climbs: at 16x16 map zoom the icon is judged on its
+    # OUTLINE alone, and a two-step drum reads as a plain block -- squint_gate caught it
+    # as a twin of the battery district the moment the masses joined up. A stepped CONE
+    # beside a slender needle is a shape nothing else in the valley has.
+    for inset, h in ((0.0, 5.6), (0.55, 6.6), (1.15, 7.5), (1.75, 8.2)):
+        s.box((0.4 + inset, 1.2 + inset, 1.2), (5.2 - inset * 2, 5.2 - inset * 2, h - 1.2),
+              {'top': _dark(BLD, 0.95), 'px': _win(BLD, 5, 3, 4), 'py': _win(BLD, 5, 3, 9),
+               'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((2.0, 2.8, 8.2), (2.0, 2.0, 0.5), {'c': OCULUS})                        # the oculus ring
+    s.box((2.6, 3.4, 8.7), (0.8, 0.8, 0.8), {'c': tuple(min(255, int(c * 1.1)) for c in OCULUS)})
+
+    # THE TOWER: the HINGE. It shares a wall with the drum (x 5.4 < the drum's 5.6) and
+    # sits down onto the spine (y 3.2..6.4). Slender and the tallest thing on the block --
+    # a needle, so the outline reads library and not another utility block.
+    s.box((5.4, 3.2, 1.2), (2.1, 3.2, 12.6), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 8, 5, 0.1),
+          'py': _win(BLD, 2, 8, 12, 0.1), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((5.65, 3.45, 13.8), (1.6, 2.7, 0.5), {'c': PLANT})
+
+    # THE MUSEUM WING, sharing the tower's east wall and landing on the spine too.
+    s.box((7.8, 2.2, 1.2), (3.8, 4.2, 4.4), {'top': _dark(BLD, 0.88), 'px': _win(BLD, 3, 3, 8),
+          'py': _win(BLD, 3, 3, 14), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((7.8, 2.2, 5.6), (3.8, 4.2, 0.3), {'c': P[17]})                          # its roof edge
+
     for i in range(9):
         s.box((0.7 + i * 1.2, 6.5, 4.8), (0.7, 2.8, 0.5), {'c': CLERE})           # the clerestory teeth
     _door(s, 11.65, 7.4, 8.6, 2.2, doorc=_dark(BLD, 0.4)['c'],

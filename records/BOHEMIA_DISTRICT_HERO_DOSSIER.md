@@ -116,7 +116,7 @@ _Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + 
 - grand steps — the tiered steps down to grade (code 6)
 - dome/cupola — the dome on the roof center (code 10 "dome / cupola"); plaza (code 7) + lot/drive (code 1)
 
-## LIBRARY  (259x176, anchor 129,100)
+## LIBRARY  (259x190, anchor 129,115)
 _Library — matched to the rebuilt district, which is built on the real reference: Antoine Predock's Las Vegas Library and Lied Discovery Museum (1986-90, Las Vegas Blvd). The DRUM with its oculus ring and lantern, the giant concrete TOWER, and the long reading wing under a clerestory that runs its whole length, all on a raised terrace above the plaza — sandstone and concrete, because in Predock's words the colour scheme is provided by the desert. The old icon was a classical COLONNADE, which is a library from a different country and a different century._
 
 - terrace — the raised base the whole composition sits on (code 13 "terrace / walk")
