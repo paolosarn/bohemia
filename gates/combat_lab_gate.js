@@ -3171,7 +3171,10 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V109 KNOCKBACK vs COLLAPSE, and the mapping was MEASURED not guessed. All three baked falls rendered and compared frame 0 against frame 11: death[0] driftX -10.5 (the body TRAVELS, off its feet), death[1] driftX -0.3 flatten 0.25 (collapses in place), death[2] PIXEL-IDENTICAL to death[1]. So the bank holds TWO distinct falls, not three, and the mapping is an honest two-way read instead of a fiction built on art that cannot express it',
     demo.includes('const FALL_KNOCK=0;') &&
     demo.includes('const FALL_DROP=[1,2];') &&
-    demo.includes("if(src==='blast'||src==='shotgun'||d<=PT_BLANK)return FALL_KNOCK;"));
+    /* V111 RE-POINTED: the KNOCKBACK/COLLAPSE split is unchanged; WHO qualifies
+       for knockback got researched and narrowed. See the v111 section. */
+    demo.includes("if(src==='blast')return FALL_KNOCK;") &&
+    demo.includes("if(src==='shotgun'&&d<=PT_BLANK)return FALL_KNOCK;"));
 
   ok('V109 AND AN EXPLOSION THROWS A BODY: the grenade and the cooking fuel tank both pass \'blast\', so the thing that killed him is what decides how he lands, everywhere, not just on the dial',
     demo.includes("e._deathVar=deathFall(e,'blast',0); try{addWound(e);}catch(_e){}") &&
@@ -3269,6 +3272,31 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('if(p>=0.06&&!ks._dblSnd){ ks._dblSnd=true;') &&
     !demo.includes('},165);') &&
     demo.includes('function sndShot2(){'));
+
+  /* ===== 45. V111 ONLY UP CLOSE (Paolo asked, and asked for the research) === */
+  ok('V111 NOTHING THROWS A BODY -- not a shotgun, not anything. The disproof is one line of Newton\'s third law: if a gun could deliver enough momentum to launch a victim backwards, the recoil would launch the SHOOTER backwards just as hard. Movement at the instant of a hit is a body FAILING, never momentum. So "does a shotgun throw at range" was the wrong question: it does not throw at ANY range',
+    demo.includes('V111 ONLY UP CLOSE') &&
+    demo.includes("if(src==='shotgun'&&d<=PT_BLANK)return FALL_KNOCK;") &&
+    !demo.includes("if(src==='blast'||src==='shotgun'||d<=PT_BLANK)return FALL_KNOCK;"));
+
+  ok('V111 WHAT ACTUALLY CHANGES WITH RANGE IS WHETHER THE PAYLOAD ARRIVES AS ONE MASS. Forensic pathology on contact shotgun wounds: the pellets "penetrate the target as a single mass", one large round defect rather than a pattern, and "the body absorbs the entire discharge of the cartridge, not just the projectile". At distance the pattern opens and the same cartridge lands as scattered holes. One catastrophic hit drives a man down and away; a scatter folds him where he stands. A RANGE fact, not a FORCE fact',
+    demo.includes('penetrate the target as a single mass') ||
+    demo.includes('single mass'));
+
+  ok('V111 AN EXPLOSION IS THE ONE CASE WHERE THE FILM VERSION IS TRUE: overpressure is a WAVE acting on the whole surface of a body at once, not a projectile. The grenade and the cooking fuel tank still throw at any range they reach',
+    /if\(src==='blast'\)return FALL_KNOCK;/.test(demo) &&
+    demo.includes("e._deathVar=deathFall(e,'blast',0);"));
+
+  ok('V111 AND THE HOLLYWOOD REFLEX IS OUT OF THE POINT-BLANK CHECK. v109 let EVERY weapon throw a body up close, which smuggled the myth back in through a range test. A pistol at contact is still a pistol -- only the shotgun has the payload to arrive as one mass. MEASURED: shotgun at 2 tiles throws, at 4 (PT_BLANK) throws, at 5 folds, at 20 folds; pistol folds at every range; blast throws',
+    /* every point-blank knockback in the file is the shotgun-guarded one --
+       counting is the only honest way to say "no unguarded one survives" */
+    (demo.match(/d<=PT_BLANK\)return FALL_KNOCK;/g) || []).length ===
+      (demo.match(/src==='shotgun'&&d<=PT_BLANK\)return FALL_KNOCK;/g) || []).length &&
+    demo.includes("if(src==='shotgun'&&d<=PT_BLANK)return FALL_KNOCK;"));
+
+  ok('V111 AND NO NEW NUMBER WAS INVENTED. PT_BLANK is 4 tiles and this engine puts a tile at ~1.5m, so point blank is ~6m -- and the buckshot patterning literature\'s tight single-mass band sits right at that short end. The constant Paolo ruled on for an entirely different reason lands on the real one-mass distance, so it is used AS FOUND',
+    demo.includes('const PT_BLANK=4') &&
+    !/const SHOT_(MASS|KNOCK)[A-Z_]*=/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
