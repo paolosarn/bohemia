@@ -589,8 +589,28 @@ async function partD() {
     await page.goto('file://' + RUN_FILE);
     await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
     const homeCell = await page.evaluate(() => window.__RUN.cell());
-    const clinic = await page.evaluate(() => window.__RUN.gotoCell(38, 23));
-    ok('D7 the run can stand on a workplace cell', !!clinic && clinic.name === 'medical');
+    /* THE WORKPLACE IS DERIVED FROM THE DOORSTEP, NOT HARDCODED (8/1, CITY lane).
+       This asked for cell (38,23) by name, because that was the clinic next door
+       to the doorstep findHomeCell happened to pick. Then Paolo's NO DISTRICT IS
+       A PRISON ruling landed - the start cell must touch a real street, and the
+       old one did not - so the doorstep moved and D7-D10 went red while the
+       thing they assert, that a worker keeps ONE identity at home and at work,
+       was still perfectly true.
+       A gate that names a coordinate produced by a function it does not own will
+       go red every time that function is legitimately improved. So it asks the
+       run where home is and walks to whatever workplace is actually next door. */
+    /* the FOUR the commute actually uses (bohemia_agents.js JOB_DISTRICTS).
+       A wider list finds buildings nobody is ever sent to, which is how this
+       first came back green on D7 and empty on D8. */
+    const WORKPLACE = /^(commercial|industrial|medical|solar)$/;
+    const nb = await page.evaluate(() => window.__RUN.neighbours());
+    const side = Object.keys(nb).find(k => WORKPLACE.test(String(nb[k] || '')));
+    const DIR = { N: [0, -1], S: [0, 1], E: [1, 0], W: [-1, 0] };
+    ok('D7a the doorstep has a workplace next door to walk to', !!side);
+    const wc = side ? [homeCell.at[0] + DIR[side][0], homeCell.at[1] + DIR[side][1]] : [38, 23];
+    const clinic = await page.evaluate(c => window.__RUN.gotoCell(c[0], c[1]), wc);
+    ok('D7 the run can stand on a workplace cell',
+      !!clinic && WORKPLACE.test(String(clinic.name || '')));
     const atWork = await page.evaluate(() => window.__RUN.people());
     ok('D8 THE CLINIC HAS PEOPLE IN IT (' + (atWork ? atWork.n : 0) + ')', !!atWork && atWork.n > 0);
     ok('D9 and some of them are out in it right now (' +

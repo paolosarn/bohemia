@@ -1724,6 +1724,51 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AJ. [HIS COMPLAINT 8/1, NOT FIXED YET, DIAGNOSED ONLY] THE LIMITS OF THE WALL
+   ARE CONFUSING. > "I'm so confused by what you choose is the limits of the wall
+   and what's not it's very strange." Two screenshots: in both he appears to be
+   STANDING ON a wall course rather than beside it.
+   NOT GUESSED AT, AND DELIBERATELY NOT FIXED IN THE SAME TURN as the prison bug,
+   because that one had him blocked and this one is an art/collision judgement I
+   should measure before touching. THE LIKELY SHAPE: this is a 3/4 view, so a
+   wall's FRONT FACE is drawn rising into the tile ABOVE the tile it occupies.
+   Standing on the walkable cell in front of a wall therefore LOOKS like standing
+   on top of it, and the cell that reads as "on the wall" is actually the one you
+   are meant to walk. The taxonomy is right and the read is wrong.
+   | measure collision vs drawn face per wall tile on the real surface, then
+     decide | NOT STARTED | HIS, he has to look at it.
+
+0AI. [DONE 8/1, HIS ORDER, AND HE WAS LOCKED IN WHEN HE GAVE IT] NO DISTRICT IS
+   A PRISON. laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md
+   > "I'm like locked in this fucking suburb ... the streets have to touch the
+   >  streets bro ... Make sure I can't be locked in any certain district ever
+   >  again it's so fucking creepy."
+   HE WAS RIGHT AND IT WAS NOT SUBTLE. findHomeCell() scored a starting doorstep
+   on the VARIETY of districts nearby and on not being on the map rim - both
+   sensible - and NEVER ASKED WHETHER THE CELL TOUCHED A STREET. It picked
+   (39,23): rawStreetEdges=[], neighbours fort/medical/suburb/suburb, one 7-tile
+   relay gap in a 512-tile wall, and ANOTHER SUBURB on the far side of it. A
+   pathfinder took 96 steps to find that gap. 545 of 2,721 suburb-family cells
+   (20%) touch no street, so it was a 1-in-5 chance every seed.
+   AND 27 CELLS WERE SEALED OUTRIGHT - 3 estates, a school, a drive-in, a
+   commercial, a farm, 2 suburbs - no street edge AND no relay, because the relay
+   only ever walked to a SAME-FAMILY neighbour and a landlocked school has no kin.
+   FIXED:
+     the doorstep filters on a real street edge, HARD not scored. Moved (39,23)
+       -> (41,22): arterial south, freeway north, openings on both.
+     the relay got two more passes, each running only for what the last could not
+       save: ANY BUILT NEIGHBOUR (the school, the drive-in), then ACROSS ANYTHING
+       INCLUDING DESERT (the 7 in pockets with no road reachable through built
+       ground) - which is the LANDMARK ACCESS SPUR the overmap law already
+       blesses, capped at 16 hops because a spur is a driveway not a highway.
+   RESULT: 3,754 built cells · 2,857 touch a street · 897 relay · ZERO sealed.
+   | gate: NO PRISON, 15 assertions, and the doorstep is WALKED IN A REAL BROWSER
+     out of the house, across the block, through the gap, onto the road. Proved
+     able to fail: removing the filter reproduces his exact cell (39,23).
+   | STANDING RULE LEFT BEHIND: anything that CHOOSES A PLACE FOR THE PLAYER -
+     start cell, respawn, quest drop, fast travel, camp - asks "can he leave from
+     here" FIRST. Reachability is a filter, never a score. | 8/1 | YES.
+
 0AH. [DONE 8/1 — TWO OF HIS OWN BANK LAWS, UNENFORCED FOR 18 DAYS, AND 98% OF
    THE VALLEY WAS BUILT WRONG] MOST OF VEGAS IS WALLED, NOT GATED.
    Backlog 0N (7/28) named these two as the residual: "STILL UNGATED, NAMED:

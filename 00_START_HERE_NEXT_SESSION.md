@@ -477,6 +477,65 @@ FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed p
 working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
 insensitively and mutate ALL occurrences.
 
+CITY (03): 8/1 LATEST — HE WAS LOCKED IN A SUBURB, HE WAS RIGHT, AND THE START
+CELL HAD NEVER ONCE BEEN ASKED WHETHER YOU COULD LEAVE IT.
+
+> "I'm like locked in this fucking suburb ... the streets have to touch the
+>  streets bro ... Make sure I can't be locked in any certain district ever
+>  again it's so fucking creepy."
+
+THE BUG WAS AN OMISSION, NOT A MISTAKE IN THE MATHS. findHomeCell() scored a
+starting doorstep on the VARIETY of districts within a short walk and on not
+sitting on the rim of the map. Both sensible. Neither is "can you leave". It
+picked (39,23): no road on any of its four sides, neighbours fort / medical /
+suburb / suburb, and ONE 7-tile relay gap in a 512-tile perimeter wall with
+ANOTHER SUBURB on the far side. A pathfinder took 96 steps to find that gap.
+He was not imagining it and he was not bad at looking.
+  20% of suburb-family cells (545 of 2,721) touch no street, so this was a
+  one-in-five chance of a walled-in doorstep on EVERY SEED.
+
+AND UNDERNEATH IT, 27 CELLS WERE SEALED OUTRIGHT: three estates, a school, a
+drive-in, a commercial, a farm, two suburbs - no street edge AND no relay. The
+landlock relay only ever walked to a SAME-FAMILY neighbour, and a landlocked
+school has no kin to ask.
+
+FIXED:
+  THE DOORSTEP filters on a real street edge - HARD, not scored, because "mostly
+    not a prison" is not worth scoring. Moved to (41,22): arterial to the south,
+    freeway to the north, an opening on both. Walk out the south side and you
+    are on the road.
+  THE RELAY got two more passes, each running ONLY for what the previous could
+    not save: (2) any built neighbour, for the school and the drive-in; (3)
+    across anything including desert, for the seven in pockets where no road is
+    reachable through built ground at all - which IS the LANDMARK ACCESS SPUR
+    the overmap law already blesses, capped at 16 hops.
+  RESULT: 3,754 built cells · 2,857 touch a street · 897 relay · ZERO sealed.
+
+GATE: NO PRISON, 15 assertions. The valley cheaply (no orphans, every relay
+chain terminates on a real road), sampled plots (a real gap, and an interior
+that can walk to it), and THE DOORSTEP WALKED IN A REAL BROWSER on the file he
+plays - out of the house, across the block, through the gap, onto the street,
+with the buttons. Proved able to fail: removing the filter reproduces his exact
+cell, (39,23).
+
+THE STANDING RULE THIS LEAVES BEHIND, and it is the transferable part: anything
+that CHOOSES A PLACE FOR THE PLAYER - a start cell, a respawn, a quest drop, a
+fast-travel target, a camp site - asks "CAN HE LEAVE FROM HERE" before it asks
+anything else. Reachability is a FILTER, never one quality scored against
+others. That is the shape of the mistake: a scoring function that weighed the
+interesting against the survivable and had no term for the survivable.
+
+STILL OPEN, HIS OTHER COMPLAINT THE SAME MESSAGE, DIAGNOSED NOT FIXED (0AJ):
+"I'm so confused by what you choose is the limits of the wall and what's not."
+In both screenshots he appears to be STANDING ON a wall course. Left alone on
+purpose in this turn - the prison had him blocked, this is an art/collision
+judgement that should be measured on the real surface first. LIKELY SHAPE: this
+is a 3/4 view, so a wall's FRONT FACE is drawn rising into the tile ABOVE the
+one it occupies; the cell that reads as "on top of the wall" is the walkable one
+in front of it. Measure collision against the drawn face per wall tile before
+touching anything.
+
+--- earlier turns, still current ---
 CITY (03): 8/1 LATEST — 98% OF THE VALLEY WAS BUILT AS A GATED COMMUNITY, AND
 TWO OF HIS OWN BANK LAWS HAD BEEN SITTING UNENFORCED FOR 18 DAYS.
 

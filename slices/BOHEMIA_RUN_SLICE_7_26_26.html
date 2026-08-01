@@ -521,6 +521,48 @@ function findHomeCell(){
     var p=String(ds[i].id||'').split(','), cx=+p[0], cy=+p[1];
     if(isNaN(cx)||isNaN(cy)) continue;
     if(at(cx,cy)!=='suburb') continue;
+    /* YOU NEVER START LOCKED IN (Paolo 8/1: "I'm not able to leave my original
+       suburb neighborhood in the run ... I'm like locked in this fucking suburb
+       ... the streets have to touch the streets").
+       THE BUG WAS RIGHT HERE AND IT WAS AN OMISSION, not a mistake in the maths.
+       This function scored a doorstep on the VARIETY of districts within a short
+       walk and on not being on the map rim - both good things - and never once
+       asked the only question that decides whether you can leave: DOES THIS CELL
+       TOUCH A REAL STREET? It scored the most interesting-looking pocket in the
+       valley and handed him a cell with rawStreetEdges = [] - no street on any
+       of its four sides, one 7-tile relay gap on its north wall, and another
+       suburb on the far side of that. Measured: 545 of the valley's 2,721
+       suburb-family cells (20%) touch no street at all, so this was a one-in-five
+       chance of a doorstep with no road, every single seed.
+       A cell that touches a street has its OWN opening onto that street, so
+       walking out of your block puts you on the road rather than deeper into
+       somebody else's cul-de-sac. That is the whole fix: one condition, and it
+       is a HARD filter rather than a score, because "mostly not a prison" is not
+       a thing worth scoring. */
+    var _se = null;
+    try { _se = WORLD.rawStreetEdges ? WORLD.rawStreetEdges(cx,cy) : null; } catch(_e){}
+    if(!_se || !_se.length) continue;
+    /* AND SOMEWHERE TO WALK TO. The street filter above says you can LEAVE; this
+       says there is a reason to. A doorstep with a road on one side and nothing
+       but more cul-de-sacs within reach is technically free and practically the
+       same afternoon forever - and the PEOPLE lane's 8/1 work (neighbours who
+       actually go to a job and are found there) only has anywhere to send them
+       if a workplace is genuinely next door.
+       ADJACENT, not "within six cells", because act 1 is walked. This is a
+       SCORE and not a filter: a road is survival and is absolute, a job is
+       quality and can lose to a better doorstep. */
+    var _work = 0;
+    for(var wi=0; wi<4; wi++){
+      var _wd = [[1,0],[-1,0],[0,1],[0,-1]][wi];
+      var _wk = at(cx+_wd[0], cy+_wd[1]);
+      /* THE AGENT MODULE'S OWN JOB_DISTRICTS, not a list of my own. A first
+         draft counted any non-residential neighbour, landed a doorstep next
+         to DOWNTOWN, and downtown is not somewhere bohemia_agents.js ever
+         sends anybody - so the workplace next door stood empty. Using the
+         same four the commute already uses is the difference between a job
+         and a building. */
+      if(_wk && /^(commercial|industrial|medical|solar)$/.test(_wk)) _work++;
+    }
     /* how much of Las Vegas is within a short walk of this doorstep? */
     var kinds={}, nk=0, edge=0;
     for(var dy=-R; dy<=R; dy++) for(var dx=-R; dx<=R; dx++){
@@ -530,7 +572,7 @@ function findHomeCell(){
     }
     var span=(2*R+1)*(2*R+1);
     /* variety is the point; being on the rim is the thing to avoid */
-    var score = nk*100 - Math.round(300*edge/span);
+    var score = nk*100 - Math.round(300*edge/span) + _work*150;
     if(!best || score>best.score ||
        (score===best.score && (cy<best.cy || (cy===best.cy && cx<best.cx)))){
       best={cx:cx, cy:cy, score:score, kinds:nk, edge:edge};
@@ -791,14 +833,6 @@ function buildSim(warm){
     };
     var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
       (_rate!=null) ? {occupiedRate:_rate} : {});
-    /* a cell nobody LIVES on gets no households at all - the census has always
-       said so and the generator used to disagree with it on 52 of 58 cells */
-    if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
-    if(WORLD){ try{
-      _agents = _agents.concat(
-        BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
-    }catch(_e){} }
-    /* /PEOPLE:WORKERS */
 /* ==== RUN PERSON FACTS (7/31) ==== */
     /* WHO THEY ARE, not just how many. The zone map above answers HOW MANY
        people live on this block; this answers what each of them is like, and
@@ -828,6 +862,14 @@ function buildSim(warm){
       RUN_RULES_V = BohemiaPopulation.rulesVersion();
     } }catch(_ep){ RUN_PEOPLE=null; }
 /* ==== /RUN PERSON FACTS ==== */
+    /* a cell nobody LIVES on gets no households at all - the census has always
+       said so and the generator used to disagree with it on 52 of 58 cells */
+    if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
+    if(WORLD){ try{
+      _agents = _agents.concat(
+        BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
+    }catch(_e){} }
+    /* /PEOPLE:WORKERS */
     SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
       { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
     SIM.playerAt = [px,py];
