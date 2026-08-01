@@ -63,7 +63,14 @@ ok('and restores it in a finally (the CLOTHES preview owns this variable)',
          is reading the direction and the bug is back. */
       window.G_WORN = {};
       for (const d of ['S','N']) res.bare[d] = sig(d);
-      const PICK = ['DENIM JACKET','SOOT TRENCH','LEATHER JACKET','OXBLOOD SATCHEL'];
+      /* SHOES JOINED THIS LIST ON 8/1. When the direction first started flowing,
+         genShoes did not move -- it read no facing at all, so all 18 canon shoes
+         rendered byte-identical front to back and he saw a laced tongue on the back
+         of his heel. That was recorded as the honest remainder of the facing fix
+         rather than bundled into it, and then built: no laces from behind, a heel
+         counter, and a one-pixel centre seam. */
+      const PICK = ['DENIM JACKET','SOOT TRENCH','LEATHER JACKET','OXBLOOD SATCHEL',
+                    'BROWN BOOTS','WHITE SNEAKERS'];
       for (const nm of PICK) {
         const g = (window.GARMENTS || []).find(x => x.n === nm);
         if (!g) continue;
@@ -88,7 +95,7 @@ ok('and restores it in a finally (the CLOTHES preview owns this variable)',
   });
 
   ok(`the direction actually reaches the generators (${R.fed.length} fed, ${R.notFed.length} deaf${R.notFed.length ? ': ' + R.notFed.join(', ') : ''})`,
-    R.fed.length >= 3 && R.notFed.length === 0);
+    R.fed.length >= 5 && R.notFed.length === 0);
   ok('the CLOTHES preview gets its value back after a composite', R.restored === true);
   ok('the bare body itself still differs front vs back (the control)', R.bare.S !== R.bare.N);
 

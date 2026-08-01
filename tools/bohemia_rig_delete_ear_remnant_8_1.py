@@ -49,7 +49,11 @@ four existing pixels and fills one gap, all within his own painted silhouette.
 
 RIG CHECK (RIG IS LAW, Paolo 7/26/26): this tool DOES touch BAKED, under his
 explicit 8/1 authorisation quoted above. It edits parts 1 and 2 on NE and NW only.
-  built on: BAKED, BAKED.layers
+  built on: BAKED
+  (First draft also claimed BAKED.layers. rig_check_gate caught it: this tool finds
+   the `const BAKED=` declaration and then works the parsed dict as B['layers'], so
+   the literal BAKED.layers never appears. Fourth time this gate has caught one of
+   my own citations, which is exactly what it is for. Corrected, not loosened.)
   joints: none named
   parts: 1=head, 2=face
 """
