@@ -3659,6 +3659,19 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-1. THE STREET SOURCE GATE (Paolo direct order 7/31 — laws/BOHEMIA_ADDENDUM_
+   STREETS_ARE_THE_HARMONIZED_POOL_7_31_26.md; new law = new gate, do this
+   first): machine-enforce that street graphics always go through banks/
+   BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt + the finder doc records/
+   BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE_7_31_26.md. Two checks: (a)
+   tileform_gate extension — any form whose subject is street-family
+   (street/road/asphalt/sidewalk/kerb/curb/marking/crosswalk/median/lane/
+   stall) must name the harmonized bank in its shopping check or it is not
+   OPEN; (b) code sweep — street-rendering paths (run/city builders, any
+   street cook tool) provably OPEN the bank (extend the banks_used/
+   reusefirst gate family, do not invent a rival). Also assert the finder
+   doc + bank both EXIST so the pointer can never rot silently. | gate
+   registered + proved-it-can-fail | — | no.
 0. THE SHOPPING LAW MACHINE (from the 7/27 index): (a) make records/BOHEMIA_
    APPROVED_ASSET_INDEX generation a TOOL (sweep verdicts x banks x consumers
    automatically); (b) NEW GATE: every bank listed APPROVED in the index must

@@ -3283,3 +3283,15 @@ Batch-of-sixteen just failed, and it failed on things a single full-size look ca
 [FLAG, not mine] another lane locked BOUGHT BEATS PAINTED 7/31 ("if i bought it i
 prefer it! Thats for all textures bro!!!"). House 02 and the factory use his APPROVED
 PAINTED skins. If he owns house textures, that ruling likely governs houses too.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/31 — STREETS ARE THE HARMONIZED POOL (Paolo direct order,
+LOCKED): any street graphics by any session, every time, starts at records/
+BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE_7_31_26.md and sources from banks/
+BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt. Hand-painting what the bank
+holds = shopping-law violation; the bank's embedded 7/14 rulings travel with
+the tiles. Law: laws/BOHEMIA_ADDENDUM_STREETS_ARE_THE_HARMONIZED_POOL_
+7_31_26.md, also now a CLAUDE.md law bullet. Gate routed as SHARED -1 (top of
+the shared queue): tileform street-family check + code sweep on the
+banks_used/reusefirst pattern + pointer-rot assertion. Both the bank and the
+finder doc are CONFIRMED present on main.

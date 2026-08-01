@@ -100,6 +100,15 @@ research partner. He DECIDES, you PRODUCE.
 - STRUCTURE-NOT-COLOR (7/19): clothing colorways are legal but NEVER progress.
   Progress = new garment SHAPES (new geometry/silhouette/category), machine-
   locked by structure_gate.js. A recolor is filler, never the headline.
+- STREETS ARE THE HARMONIZED POOL (Paolo 7/31, LOCKED): ANY street graphics
+  work by ANY session — roadway, sidewalk, markings, medians, crossings,
+  parking stalls, street margins — starts by reading records/BOHEMIA_WHERE_
+  THE_GOOD_STREET_PIXELS_ARE_7_31_26.md and sources from banks/BOHEMIA_
+  STREET_POOLS_HARMONIZED_7_14_26.txt, EVERY TIME. Hand-painting a
+  substitute for anything the bank holds is a shopping-law violation. The
+  bank's embedded 7/14 rulings (30yr marking wash, weather rarity, desert
+  dominance, parking geometry) travel with the tiles. Full law:
+  laws/BOHEMIA_ADDENDUM_STREETS_ARE_THE_HARMONIZED_POOL_7_31_26.md
 - REUSE-FIRST (Paolo 7/22, LOCKED, "check out the approved assets first
   before cooking"): before any tool cooks NEW graphic pixels, it documents
   a `REUSE CHECK:` in its module docstring - what banks/ it looked at, and
