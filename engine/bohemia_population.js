@@ -722,6 +722,59 @@
   // distribution ever changes this rate must move with it.
   var HOUSEHOLD_MEAN = 2.2;
 
+  // ==========================================================================
+  // THE POPULATION DIAL (Paolo 8/1: "why don't you do some coding plumbing right
+  // now till I make a population slider ... I think this is gonna be extremely
+  // important anyway as we go throughout the three acts ... it should be
+  // something that's extremely easy to control ... the slider can go all the way
+  // from zero to a maximum")
+  //
+  // ONE NUMBER. Everything that asks how many people live somewhere multiplies
+  // by it, so how full the valley is becomes a single thing he can drag instead
+  // of an argument between three files. This is the plumbing for the slider HE
+  // is going to make; the slider is his, the wiring is mine.
+  //
+  // WHY IT EXISTS AT ALL, measured 8/1 and written up in
+  // records/BOHEMIA_HOW_MANY_PEOPLE_CONTRADICTION_8_1_26.md: the flat placeholder
+  // in bohemia_agents.js said 8,282 people in the valley, the zone map said 60,
+  // and GDD v5 says ~69,000 survive. Three answers, three orders of magnitude,
+  // no way to move any of them without editing code. Now there is one.
+  //
+  // THE SCALE, and it is deliberately not a percentage:
+  //   0    A GHOST VALLEY. Not "fewer people" - NOBODY. Act 3 wipeout, a dead
+  //        cell, a difficulty setting. It has to be reachable or the bottom of
+  //        the slider is a lie.
+  //   1    exactly what the zone map computes today. The default, so nothing
+  //        anywhere changes until somebody moves it.
+  //   MAX  the fullest the valley is allowed to get. Every cell that could hold
+  //        anybody holds as many as its homes physically fit.
+  // Between 0 and 1 it thins the same valley; above 1 it fills it. The zone
+  // map's SHAPE is preserved either way - clusters stay clusters and no man's
+  // lands stay empty, per his 7/29 ruling. This dial says HOW MANY, never WHERE.
+  //
+  // THE ACT TABLE SHIPS EMPTY. Three acts probably want three settings, he said
+  // so in the same breath, and WHICH numbers is his call. dialForAct() returns
+  // null until he fills it in, and the gate fails if a row lands unruled.
+  var DIAL_MIN = 0, DIAL_MAX = 4;
+  var DIAL = 1;                    // "leave the world exactly as it was"
+  var ACT_DIAL = {};               // act -> dial. HIS. EMPTY.
+  function dial() { return DIAL; }
+  function setDial(v) {
+    v = Number(v);
+    if (!isFinite(v)) return DIAL;
+    DIAL = v < DIAL_MIN ? DIAL_MIN : (v > DIAL_MAX ? DIAL_MAX : v);
+    return DIAL;
+  }
+  function dialForAct(act) {
+    return Object.prototype.hasOwnProperty.call(ACT_DIAL, act) ? ACT_DIAL[act] : null;
+  }
+  /* the one place the dial is applied, so no caller can forget it */
+  function applyDial(rate) {
+    if (!(rate > 0)) return 0;
+    var r = rate * DIAL;
+    return r < 0 ? 0 : (r > 1 ? 1 : r);
+  }
+
   function occupiedRateFor(om, POWER, tx, ty, seed, homesInPlot) {
     var n = neighbourhoodOf(tx, ty), nx = n[0], ny = n[1];
     var s = surveyNeighbourhood(om, nx, ny);
@@ -732,7 +785,9 @@
     // the neighbourhood's people spread over its own residential cells
     var perCell = heads / s.res;
     var rate = perCell / (homes * HOUSEHOLD_MEAN);
-    return rate < 0 ? 0 : (rate > 1 ? 1 : rate);
+    /* THE DIAL IS THE LAST WORD. At 0 this returns 0 for every cell in the
+       valley and the world is genuinely empty; at 1 it is exactly the zone map. */
+    return applyDial(rate);
   }
 
   // CONTENTS ARE PAOLO'S. No names, no factions, no dialogue. The mechanism
@@ -742,6 +797,9 @@
   var API = { RESIDENTIAL: RESIDENTIAL, DRAW: DRAW, SHARE: SHARE, HEADS: HEADS, NB: NB,
               zoneAt: zoneAt, headsAt: headsAt, homesIn: homesIn, census: census,
               occupiedRateFor: occupiedRateFor, HOUSEHOLD_MEAN: HOUSEHOLD_MEAN, weightOf: weightOf,
+              dial: dial, setDial: setDial, applyDial: applyDial,
+              DIAL_MIN: DIAL_MIN, DIAL_MAX: DIAL_MAX,
+              ACT_DIAL: ACT_DIAL, dialForAct: dialForAct,
               ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,
               placeFor: placeFor, atFavourite: atFavourite, HEAT_FROM: HEAT_FROM, HEAT_TO: HEAT_TO,
               allPeople: allPeople, where: where,

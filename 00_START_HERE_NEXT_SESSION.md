@@ -57,6 +57,43 @@ texture_match 24/24, banks_used 26/26, taste 27/27, reusefirst 85/85, alpha load
 - House UPPER floor band, perimeter wall, gate mouth, garage mouth still target-set.
 - His tiles carry BIG FEATURES (a manhole, a weed clump, a long crack); mine are
   consistent texture. Same material family, not yet the same pack.
+PEOPLE (7h9sfy): 8/1 (c) LATEST — THE POPULATION DIAL. Plumbing for the slider he said
+he is going to make. Record: records/BOHEMIA_POPULATION_DIAL_8_1_26.md
+
+HIS WORDS: "do some coding plumbing right now till I make a population slider ... extremely
+important as we go throughout the three acts ... extremely easy to control ... the slider
+can go all the way from zero to a maximum."
+
+ONE NUMBER. Everything that asks how many people live somewhere multiplies by it.
+    0    A GHOST VALLEY - nobody, anywhere. A real zero or the bottom of his slider is a lie.
+    1    exactly what the world does today. THE DEFAULT, so nothing moved.
+    4    DIAL_MAX, the fullest it is allowed to get.
+    dial 0 -> 0 people | 0.5 -> 1,037 | 1 -> 2,147 | 2 -> 4,310 | 4 -> 7,026 (sampled 1/9 of cells)
+
+THE ONE DESIGN DECISION: THE DIAL SAYS HOW MANY, NEVER WHERE. His 7/29 ruling is that the
+valley is clusters AND no man's lands - a SHAPE, not a number. Turning it down THINS the
+same valley and never relocates anybody; cells alive low are a strict subset of cells alive
+high. Gated.
+
+IT REACHES BOTH PATHS - the zone map inside occupiedRateFor AND the agents module's own
+placeholder - because "zero means nobody" has to be true whichever way a caller got its rate.
+That also closes half of the three-way contradiction found earlier today: the number is now
+changeable in ONE place.
+
+FOR WHOEVER BUILDS THE SLIDER: call BohemiaPopulation.setDial(v) and rebuild the block.
+That is the whole API. dial() / setDial() / applyDial() / DIAL_MIN / DIAL_MAX.
+
+ACT_DIAL SHIPS EMPTY and dialForAct() returns null. He said the slider matters across the
+three acts; WHICH number each act wants is his. people_gate fails if a row lands unruled.
+
+GATE: people_gate.js part E, 11 claims, 100 total. Includes the REAL RUN emptying when the
+dial goes to zero, because a dial nothing consumes is a decoration. Two mutations proved
+red-able: zero quietly stopping meaning zero, and placeholder act numbers in his table.
+
+STILL HIS, UNCHANGED BY THIS: which answer is right. Walking one block from home, how many
+people should be on that street.
+
+--------------------------------------------------------------------------------
 
 ART (f3eu53): 8/1 (c) LATEST — ALL 90 APPROVED, HIS COLOUR RULING APPLIED, AND THE
 TEXTURES ARE NOW ON THE HOUSES. 114 tiles / 38 materials.

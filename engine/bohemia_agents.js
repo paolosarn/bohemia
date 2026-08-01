@@ -183,6 +183,18 @@
   function agentsForBlock(blockSeed, feet, jobs, fpOf, opts){
     opts=opts||{};
     var rate=(opts.occupiedRate!=null)?opts.occupiedRate:OCCUPIED_RATE;
+    /* THE POPULATION DIAL HAS THE LAST WORD, whichever path the rate came from
+       (Paolo 8/1, the slider he is going to make). occupiedRateFor already
+       multiplies by it, so a caller on the zone map is dialled once and only
+       once; a caller on this module's own placeholder is dialled HERE, and a
+       caller that passed an explicit number gets it dialled too, because "0
+       means nobody" has to be true everywhere or the bottom of his slider is a
+       lie. bohemia_population owns the dial; this module just obeys it. */
+    try{
+      var POP=(typeof BohemiaPopulation!=='undefined')?BohemiaPopulation
+             :(root&&root.BohemiaPopulation)||null;
+      if(POP&&POP.applyDial&&!opts.preDialled) rate=POP.applyDial(rate);
+    }catch(_e){}
     var out=[];
     var jobSite=(jobs&&jobs.length)? jobs[0] : null;   // nearest site
     for(var i=0;i<feet.length;i++){

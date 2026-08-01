@@ -629,12 +629,97 @@ async function partD() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   PART E — THE POPULATION DIAL (Paolo 8/1: "till I make a population slider ...
+   extremely important as we go throughout the three acts ... extremely easy to
+   control ... all the way from zero to a maximum").
+   ONE number that everything asking "how many people live here" multiplies by.
+   The wiring is mine; the slider and the numbers are his.
+   ========================================================================== */
+async function partE() {
+  console.log('E. ONE DIAL, ZERO TO MAXIMUM');
+  const W = require(path.join(ROOT, 'engine/bohemia_world.js'));
+  global.window = global;
+  const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
+  global.BohemiaPopulation = POP;
+  const world = (global.BohemiaWorld || W).world(7);
+  const count = () => { let n = 0, c = 0;
+    for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3) {
+      const k = A.agentsForPlot(world, x, y).length; n += k; if (k) c++; }
+    return { n, c }; };
+
+  ok('E1 the dial defaults to 1 — nothing in the world moved until he moves it',
+    POP.dial() === 1);
+
+  POP.setDial(0);
+  const zero = count();
+  /* THE BOTTOM OF HIS SLIDER HAS TO BE A REAL ZERO. Not "fewer people" — nobody,
+     anywhere, so an emptied valley is reachable for act 3 or a difficulty. */
+  ok('E2 dial 0 is a GHOST VALLEY, not just fewer people (' + zero.n + ' people)',
+    zero.n === 0 && zero.c === 0);
+
+  const steps = [];
+  for (const d of [0, 0.5, 1, 2, POP.DIAL_MAX]) { POP.setDial(d); steps.push(count().n); }
+  ok('E3 more dial is never fewer people (' + steps.join(' -> ') + ')',
+    steps.every((v, i) => i === 0 || v >= steps[i - 1]));
+  ok('E4 the top of the slider really fills it up', steps[steps.length - 1] > steps[2]);
+
+  ok('E5 it clamps to its own range', POP.setDial(-5) === POP.DIAL_MIN &&
+    POP.setDial(9999) === POP.DIAL_MAX && POP.setDial('nonsense') === POP.DIAL_MAX);
+
+  /* E6: the dial says HOW MANY, never WHERE. His 7/29 zone map ruling is that
+     the valley is clusters AND no man's lands; thinning it must not relocate
+     anybody, so the cells alive at a lower dial are a SUBSET of the ones alive
+     higher up. */
+  POP.setDial(1);
+  const alive1 = new Set();
+  for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3)
+    if (A.agentsForPlot(world, x, y).length) alive1.add(x + ',' + y);
+  POP.setDial(0.5);
+  let outside = 0;
+  for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3)
+    if (A.agentsForPlot(world, x, y).length && !alive1.has(x + ',' + y)) outside++;
+  ok('E7 turning it down thins the valley, it never MOVES anybody', outside === 0);
+
+  /* E8: determinism survives. Same dial, same people, or identity is a lie. */
+  POP.setDial(1);
+  const a1 = A.agentsForPlot(world, 20, 5).map(a => a.id + '/' + a.seed).join(',');
+  POP.setDial(3); POP.setDial(1);
+  ok('E9 the same dial gives back the same people',
+    A.agentsForPlot(world, 20, 5).map(a => a.id + '/' + a.seed).join(',') === a1);
+
+  ok('E10 the ACT table ships EMPTY — which acts want which number is his',
+    Object.keys(POP.ACT_DIAL).length === 0 && POP.dialForAct(1) === null);
+
+  /* E11: THE REAL SURFACE. A dial nothing consumes is a decoration, so turn it
+     to zero and check the run itself empties. */
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  try {
+    await page.goto('file://' + RUN_FILE);
+    await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
+    const before = await page.evaluate(() => window.__RUN.people().n);
+    const after = await page.evaluate(() => {
+      BohemiaPopulation.setDial(0);
+      const c = window.__RUN.cell().at;
+      window.__RUN.gotoCell(c[0], c[1]);
+      const n = window.__RUN.people().n;
+      BohemiaPopulation.setDial(1);
+      return n;
+    });
+    ok('E11 the run itself empties when the dial goes to zero (' + before + ' -> ' + after + ')',
+      before > 0 && after === 0);
+  } finally { await browser.close(); POP.setDial(1); }
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
   partB();
   await partC();
   await partD();
+  await partE();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });
