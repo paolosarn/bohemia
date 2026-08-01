@@ -39,6 +39,21 @@ differ (checked on raw GLYPH BITMAPS, so one wordmark under ten filters cannot p
 logo may run off its own frame, and the bytes on the splash must BE the judged bytes,
 blitted with smoothing off.
 
+*** FLAG FOR THE WORLD/LIFE AND CHARACTER LANES (found 8/2 by the ART lane, NOT MINE) ***
+MAIN IS RED ON SEVEN GATES AND FIVE OF THEM ARE ONE FAILURE WEARING FIVE NAMES:
+  LIFE, DRESS, POPULATION, MEMORY, DEVIATION  -> all report ZERO AGENTS SIMMED.
+  "plot 14,10 is populated (0 agents)" / "most homes are abandoned shells (0 of 19
+  lived-in)" / "11:00 - the block lives (0 out working/scavenging)".
+  THE BLOCK HAS NO PEOPLE IN THE SIM. Earlier in this same session LIFE was green at
+  24/24 with 6 agents simmed, so this is a regression, not a known gap.
+  Bisected back EIGHT commits on main (ad3ed1c, 6e18f40, b047034, 87c6a2f, 35843c1,
+  476b643, ae3eed2) - red at every one, so it predates all of them and is older than
+  this window. Not the ART lane's: my diff is banks/, tools/, gates/logo_gate.py,
+  records/ and the alpha splash, and LIFE fails identically with my commit absent.
+  CITY PEOPLE is GREEN (10 people on screen in a real browser), so the DRAW is fine and
+  it is the SIM that is empty - which is why it is worth someone's morning.
+PARTS PAINTED and BODY VARIATION are the CHARACTER lane's, also pre-existing.
+
 === THE QUEUE, UNCHANGED AND STILL HIS ===
 1. FEATURES AT HALF HIS DENSITY (median 4.9% vs 7.0%, 17/114 vs 42/54). Plate-network
    cracks are right, the COUNT is low. Next: more events per tile, plus VEGETATION
