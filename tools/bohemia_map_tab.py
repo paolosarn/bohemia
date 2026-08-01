@@ -52,6 +52,8 @@ MODULES = [
     'engine/bohemia_desert.js', 'engine/bohemia_mountain.js', 'engine/bohemia_water.js',
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
+    # ONE WORLD INTERIORS step 1: rooms loads BEFORE world, which reads BOH_ROOMS.
+    'engine/bohemia_rooms.js',
     'engine/bohemia_world.js',
     'engine/bohemia_valleymap.js',
 ]

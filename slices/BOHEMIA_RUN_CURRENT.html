@@ -14129,6 +14129,129 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
 
 </script>
 <script>
+/* inlined: engine/bohemia_rooms.js */
+/* ===========================================================================
+   BOHEMIA ROOMS — step 1 of ONE WORLD INTERIORS
+   records/BOHEMIA_ONE_WORLD_INTERIORS_SPEC_7_31_26.md, S2 + build order step 1.
+
+   Paolo 7/31: "i want it like project zomboid when you enter a house you still
+   are part of the same world no loading screens thats why were making this html
+   game its not a lot of processing"
+
+   THE WHOLE POINT OF THIS FILE: "am I inside?" stops being a STATE OF THE PLAYER
+   and becomes a PROPERTY OF THE CELL. Today the engine answers that question by
+   swapping the player onto a separate grid, which is why six of his complaints
+   exist at once (can't walk left/right inside, windows don't match outside,
+   entering through any wall, a loading screen he can feel). None of those are
+   six bugs. They are one: `mode`.
+
+   This module does not delete `mode` — that is step 5, and the spec says each
+   step ships green on its own. This is step 1 and it changes NOTHING on screen.
+   It only computes, for every cell of a plot:
+
+       room  an id, 0 = outdoors. Cells sharing an id are ONE enclosed space.
+       roof  which roof group covers the cell (same id in step 1: a building's
+             roof covers exactly its own enclosed shell). Step 4 hides a roof
+             group when the player's room id matches it — the flood-fill reveal.
+
+   WHY FLOOD FILL AND NOT TRIGGERS. The research (recorded in the spec) is that
+   every engine converges on four techniques, and flood fill over connected
+   roofed tiles is the one recommended for tile games because it needs ZERO
+   per-building authoring. That matters here more than anywhere: Bohemia has 48
+   district generators making buildings procedurally. Anything needing a human
+   to place a door sensor is dead on arrival. It is also the algorithm the file
+   ALREADY uses — homeFootprints() and KIT.footprints() are both flood fills, so
+   this is the shape the codebase is already in, not a new idea bolted on.
+
+   FOUR-CONNECTED, NEVER EIGHT. Two houses that touch only at a CORNER are two
+   enclosed spaces, not one. You cannot walk diagonally through a corner touch in
+   real geometry, so a diagonal must never merge two rooms. Getting this wrong
+   would silently weld half a suburb block into a single "room" and every roof on
+   it would vanish at once the first time you stepped indoors. The gate holds it
+   down with a corner-touch fixture.
+
+   PURE: no DOM, no canvas, no engine imports. Takes a grid, returns arrays.
+   =========================================================================== */
+;(function (root) {
+  'use strict';
+
+  /* group(g, opt) -> { W,H, room:Int32Array, roof:Int32Array, groups:[...] }
+       g            the plot grid, g[y][x] = tile code
+       opt.indoor   fn(code,x,y) -> true if this cell is INSIDE an enclosed
+                    structure. Required: the caller owns what "inside" means,
+                    because only the district's own legend knows (MECHANISM-MINE
+                    / CONTENTS-PAOLO'S — this file never guesses at tile codes).
+
+     room[y*W+x] and roof[y*W+x] are 0 outdoors and a group id (>=1) indoors.
+     groups[i] = {id, cells, minX, minY, maxX, maxY} — cells is the count, the
+     bbox is what step 4 needs to know which roof to stop drawing. */
+  function group(g, opt) {
+    opt = opt || {};
+    var indoor = opt.indoor;
+    if (typeof indoor !== 'function') throw new Error('rooms.group: opt.indoor is required');
+    var H = g.length, W = H ? g[0].length : 0;
+    var room = new Int32Array(W * H);
+    var groups = [];
+    var next = 1;
+    var stack = [];
+
+    for (var sy = 0; sy < H; sy++) {
+      for (var sx = 0; sx < W; sx++) {
+        var si = sy * W + sx;
+        if (room[si]) continue;
+        if (!indoor(g[sy][sx], sx, sy)) continue;
+
+        var id = next++;
+        var cells = 0, minX = sx, maxX = sx, minY = sy, maxY = sy;
+        room[si] = id;
+        stack.length = 0;
+        stack.push(sx, sy);
+
+        while (stack.length) {
+          var y = stack.pop(), x = stack.pop();
+          cells++;
+          if (x < minX) minX = x; if (x > maxX) maxX = x;
+          if (y < minY) minY = y; if (y > maxY) maxY = y;
+          /* FOUR-CONNECTED. A corner touch is not a doorway. */
+          for (var d = 0; d < 4; d++) {
+            var nx = x + (d === 0 ? 1 : d === 1 ? -1 : 0);
+            var ny = y + (d === 2 ? 1 : d === 3 ? -1 : 0);
+            if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+            var ni = ny * W + nx;
+            if (room[ni]) continue;
+            if (!indoor(g[ny][nx], nx, ny)) continue;
+            room[ni] = id;
+            stack.push(nx, ny);
+          }
+        }
+        groups.push({ id: id, cells: cells, minX: minX, minY: minY, maxX: maxX, maxY: maxY });
+      }
+    }
+
+    /* THE ROOF COVERS THE SHELL. In step 1 a group's roof is exactly its own
+       enclosed footprint, which is true by construction: the roof of a building
+       is the building's plan. When step 2 stamps floorplans INTO the grid the
+       rooms subdivide and the roof stays the shell — that is why these are two
+       arrays from day one instead of one array with two names later. */
+    var roof = room;
+
+    return { W: W, H: H, room: room, roof: roof, groups: groups, count: groups.length };
+  }
+
+  /* the two reads everything else will use, so no caller ever indexes by hand */
+  function roomAt(res, x, y) {
+    if (!res || x < 0 || y < 0 || x >= res.W || y >= res.H) return 0;
+    return res.room[y * res.W + x];
+  }
+  function inside(res, x, y) { return roomAt(res, x, y) !== 0; }
+
+  var API = { group: group, roomAt: roomAt, inside: inside };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  else root.BOH_ROOMS = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+<script>
 /* inlined: engine/bohemia_world.js */
 // BOHEMIA WORLD MODEL (7/18/26) — the spine. ONE addressable hierarchy over the
 // whole valley so nothing has to address the world four different ways again:
@@ -14196,6 +14319,9 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
   var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
   var CMP= HASREQ ? require('./bohemia_campus.js')          : (typeof BohemiaCampus!=='undefined'?BohemiaCampus:root.BohemiaCampus);
   var SPW= HASREQ ? require('./bohemia_speedway.js')        : (typeof BohemiaSpeedway!=='undefined'?BohemiaSpeedway:root.BohemiaSpeedway);
+  // ONE WORLD INTERIORS step 1: inside is a property of the CELL, not a state of
+  // the player (spec S2). Nothing renders differently yet.
+  var RMS= HASREQ ? require('./bohemia_rooms.js')           : (typeof BOH_ROOMS!=='undefined'?BOH_ROOMS:root.BOH_ROOMS);
   var TWN= HASREQ ? require('./bohemia_town.js')            : (typeof BohemiaTown!=='undefined'?BohemiaTown:root.BohemiaTown);
   var BLP= HASREQ ? require('./bohemia_ballpark.js')        : (typeof BohemiaBallpark!=='undefined'?BohemiaBallpark:root.BohemiaBallpark);
   var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
@@ -14635,14 +14761,47 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
         // renderer + collision + interior/zoom systems can READ what blocks, what you pass
         // under, and what you go INTO — not just the raw code.
         var legend=dg.mod.legend||{};
+        // ONE WORLD INTERIORS step 1 (spec S2): "am I inside?" is a property of the
+        // CELL. A cell is INDOORS when its legend entry says you can go INTO it
+        // (layer 'portal') or it is the solid mass of a building that has an
+        // interior (an `enter` note in the dossier). The district's own legend is
+        // the only thing that knows, so the predicate is built from it and never
+        // from hardcoded tile codes.
+        // WHAT COUNTS AS INDOORS is not mine to guess (MECHANISM-MINE / CONTENTS-
+        // PAOLO'S). Two authorities, unioned, and neither is a hardcoded tile code:
+        //   1. the district's OWN building list (dg.foot) — if the generator calls
+        //      it a building, it is an enclosed shell, full stop.
+        //   2. the dossier legend — a mass or portal the dossier says you go INTO.
+        // (1) is what made this correct: commercial code 14 is a 5x1 'doorway'
+        // returned as a building whose dossier carries no `enter` note, so a
+        // legend-only predicate left a whole storefront roomless. The generator
+        // knew; the legend had a gap. The gate caught it, not a guess.
+        var _rooms=(function(){ if(!RMS) return null;
+          var mass={};
+          for(var fi=0;fi<feet.length;fi++){ var f=feet[fi];
+            for(var my=f.y;my<f.y+f.h;my++) for(var mx=f.x;mx<f.x+f.w;mx++) mass[mx+','+my]=1; }
+          return RMS.group(gres.g,{indoor:function(code,cx,cy){
+            if(mass[cx+','+cy]) return true;
+            var L=legend[code]; if(!L) return false;
+            var ly=KIT.tileLayer(L); return !!ly.enter && (ly.layer==='structure'||ly.layer==='portal'); }}); })();
         function tinfo(xx,yy){ var row=gres.g[yy]; var c=(row&&xx>=0&&xx<gres.W)?row[xx]:-1;
           var L=legend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          var rid=_rooms?RMS.roomAt(_rooms,xx,yy):0;
           return { code:c, name:L?L.name:(c===0?'dead-ground':(c<0?'(off-plot)':'?')),
-                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; }
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter,
+                   // 0 = outdoors. Same id = one enclosed space. roof is the group
+                   // whose covering stops drawing when you are standing in it (step 4).
+                   room:rid, roof:rid, inside:rid!==0 }; }
         var dapi={ x:x,y:y,district:cell.district,category:KIT.category(cell.district),archetype:dg.zone,
           block:{W:gres.W,H:gres.H,grid:gres.g,codes:true}, legend:legend,
           tileInfo:tinfo,
           solidAt:function(xx,yy){ return tinfo(xx,yy).solid; },   // OCCUPANCY: does this cell block a body
+          // ROOMS (one-world interiors step 1). The whole flood-fill result, so the
+          // roof-reveal pass in step 4 reads group bboxes instead of re-deriving them
+          // every frame. roomAt(x,y) is the single question anything should ask.
+          rooms:_rooms,
+          roomAt:function(xx,yy){ return _rooms?RMS.roomAt(_rooms,xx,yy):0; },
+          insideAt:function(xx,yy){ return _rooms?RMS.inside(_rooms,xx,yy):false; },
           // PORTALS: every way INTO an interior on this plot (doors, garage ramps, tunnel mouths, gates)
           portals:function(){ return KIT.footprints(gres.g,function(v){ var L=legend[v]; return !!(L&&KIT.tileLayer(L).layer==='portal'); })
             .map(function(f){ var c=gres.g[f.y][f.x], L=legend[c]; return {x:f.x,y:f.y,w:f.w,h:f.h,code:c,name:L?L.name:'',enter:(L&&L.enter)||null}; }); },

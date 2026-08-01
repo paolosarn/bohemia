@@ -46,6 +46,9 @@ GATES = [
      'every district type is catalogued', False),
     ('FLOORPLAN',      ['node', 'gates/floorplan_gate.js'],
      'every room reachable, buildings enterable', False),
+    ('ROOMS',          ['node', 'gates/rooms_gate.js'],
+     'ONE WORLD INTERIORS step 1: inside is a property of the CELL, one room group per '
+     'enclosed space, and no room id ever leaks onto the street', False),
     ('SUBURB MODULAR', ['node', 'gates/suburb_modular_gate.js'],
      'suburbs snap into 1x2 / 2x2, connected', False),
     ('STREET SOURCE',  ['node', 'gates/street_source_gate.js'],

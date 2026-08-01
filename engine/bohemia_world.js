@@ -64,6 +64,9 @@
   var WAT= HASREQ ? require('./bohemia_water.js')          : (typeof BohemiaWater!=='undefined'?BohemiaWater:root.BohemiaWater);
   var CMP= HASREQ ? require('./bohemia_campus.js')          : (typeof BohemiaCampus!=='undefined'?BohemiaCampus:root.BohemiaCampus);
   var SPW= HASREQ ? require('./bohemia_speedway.js')        : (typeof BohemiaSpeedway!=='undefined'?BohemiaSpeedway:root.BohemiaSpeedway);
+  // ONE WORLD INTERIORS step 1: inside is a property of the CELL, not a state of
+  // the player (spec S2). Nothing renders differently yet.
+  var RMS= HASREQ ? require('./bohemia_rooms.js')           : (typeof BOH_ROOMS!=='undefined'?BOH_ROOMS:root.BOH_ROOMS);
   var TWN= HASREQ ? require('./bohemia_town.js')            : (typeof BohemiaTown!=='undefined'?BohemiaTown:root.BohemiaTown);
   var BLP= HASREQ ? require('./bohemia_ballpark.js')        : (typeof BohemiaBallpark!=='undefined'?BohemiaBallpark:root.BohemiaBallpark);
   var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
@@ -503,14 +506,47 @@
         // renderer + collision + interior/zoom systems can READ what blocks, what you pass
         // under, and what you go INTO — not just the raw code.
         var legend=dg.mod.legend||{};
+        // ONE WORLD INTERIORS step 1 (spec S2): "am I inside?" is a property of the
+        // CELL. A cell is INDOORS when its legend entry says you can go INTO it
+        // (layer 'portal') or it is the solid mass of a building that has an
+        // interior (an `enter` note in the dossier). The district's own legend is
+        // the only thing that knows, so the predicate is built from it and never
+        // from hardcoded tile codes.
+        // WHAT COUNTS AS INDOORS is not mine to guess (MECHANISM-MINE / CONTENTS-
+        // PAOLO'S). Two authorities, unioned, and neither is a hardcoded tile code:
+        //   1. the district's OWN building list (dg.foot) — if the generator calls
+        //      it a building, it is an enclosed shell, full stop.
+        //   2. the dossier legend — a mass or portal the dossier says you go INTO.
+        // (1) is what made this correct: commercial code 14 is a 5x1 'doorway'
+        // returned as a building whose dossier carries no `enter` note, so a
+        // legend-only predicate left a whole storefront roomless. The generator
+        // knew; the legend had a gap. The gate caught it, not a guess.
+        var _rooms=(function(){ if(!RMS) return null;
+          var mass={};
+          for(var fi=0;fi<feet.length;fi++){ var f=feet[fi];
+            for(var my=f.y;my<f.y+f.h;my++) for(var mx=f.x;mx<f.x+f.w;mx++) mass[mx+','+my]=1; }
+          return RMS.group(gres.g,{indoor:function(code,cx,cy){
+            if(mass[cx+','+cy]) return true;
+            var L=legend[code]; if(!L) return false;
+            var ly=KIT.tileLayer(L); return !!ly.enter && (ly.layer==='structure'||ly.layer==='portal'); }}); })();
         function tinfo(xx,yy){ var row=gres.g[yy]; var c=(row&&xx>=0&&xx<gres.W)?row[xx]:-1;
           var L=legend[c], ly=KIT.tileLayer(L||{kind:'ground'});
+          var rid=_rooms?RMS.roomAt(_rooms,xx,yy):0;
           return { code:c, name:L?L.name:(c===0?'dead-ground':(c<0?'(off-plot)':'?')),
-                   layer:ly.layer, solid:ly.solid, enter:ly.enter }; }
+                   layer:ly.layer, solid:ly.solid, enter:ly.enter,
+                   // 0 = outdoors. Same id = one enclosed space. roof is the group
+                   // whose covering stops drawing when you are standing in it (step 4).
+                   room:rid, roof:rid, inside:rid!==0 }; }
         var dapi={ x:x,y:y,district:cell.district,category:KIT.category(cell.district),archetype:dg.zone,
           block:{W:gres.W,H:gres.H,grid:gres.g,codes:true}, legend:legend,
           tileInfo:tinfo,
           solidAt:function(xx,yy){ return tinfo(xx,yy).solid; },   // OCCUPANCY: does this cell block a body
+          // ROOMS (one-world interiors step 1). The whole flood-fill result, so the
+          // roof-reveal pass in step 4 reads group bboxes instead of re-deriving them
+          // every frame. roomAt(x,y) is the single question anything should ask.
+          rooms:_rooms,
+          roomAt:function(xx,yy){ return _rooms?RMS.roomAt(_rooms,xx,yy):0; },
+          insideAt:function(xx,yy){ return _rooms?RMS.inside(_rooms,xx,yy):false; },
           // PORTALS: every way INTO an interior on this plot (doors, garage ramps, tunnel mouths, gates)
           portals:function(){ return KIT.footprints(gres.g,function(v){ var L=legend[v]; return !!(L&&KIT.tileLayer(L).layer==='portal'); })
             .map(function(f){ var c=gres.g[f.y][f.x], L=legend[c]; return {x:f.x,y:f.y,w:f.w,h:f.h,code:c,name:L?L.name:'',enter:(L&&L.enter)||null}; }); },
