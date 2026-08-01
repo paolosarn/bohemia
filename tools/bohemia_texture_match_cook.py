@@ -290,11 +290,23 @@ MATERIALS = [
          name='roof, slate-grey barrel tile'),
     dict(id='roof_shingle_grn', rgb=( 84,  94,  80), kind='shingle', wear=0.60,
          name='roof, weathered green shingle'),
-    dict(id='door_garage_wht', rgb=(156, 152, 144), kind='rib',     wear=0.60,
+    dict(id='door_garage_wht', rgb=(156, 152, 144), kind='panel',   wear=0.60,
          name='garage door, ribbed steel'),
     dict(id='trim_white',      rgb=(168, 162, 150), kind='plaster', wear=0.45,
          name='house trim, chalked white'),
 ]
+
+
+# EVERY PERIOD MUST DIVIDE THE CELL. 44 = 1,2,4,11,22,44 and nothing else.
+# Paolo 8/1: "the border is very important. The border speaks a lot."
+# A module of 15px on a 44px tile completes 2.93 times and then CUTS, so every tile
+# boundary carries a broken brick, a half tab, a clipped rib -- a hard vertical line
+# down the grid that no amount of grain hides. The first pass had five materials doing
+# exactly that: shingle tabs at 15, ribs at 7, brick at 6x15, ashlar courses at 15,
+# fence planks at 9. All of them now sit on divisors, chosen to stay physically honest
+# at 1 px = 1.705 cm: an 11px brick is 18.8cm (real modular brick is 19.4), an 11px
+# plank is 18.8cm (a real 1x8 board), a 4px course is 6.8cm.
+DIVISORS = (1, 2, 4, 11, 22, 44)
 
 
 def structure(kind, x, y, n, rnd_phase):
@@ -329,16 +341,21 @@ def structure(kind, x, y, n, rnd_phase):
         course = 11
         if y % course < 2:               # the shadow line under each tab course
             return -20.0
-        tabw = 15
+        tabw = 22                    # was 15, which cut mid-tab at every tile edge
         off = ((y // course) % 2) * (tabw // 2)
         if (x + off) % tabw == 0:        # the vertical tab slot
             return -13.0
         return 3.0 if y % course > course - 3 else 0.0
     if kind == 'rib':
-        p = 7.0
+        # 11, a divisor of 44. 7.0 was NOT (44/7 = 6.28 ribs, so every tile edge sliced
+        # one in half); 4.0 divided cleanly but put a light-dark flip every 2px, which
+        # measured 95-98% grain -- a wall of static, not siding. 11px is 18.8cm at this
+        # scale, which is real wide-rib R-panel, the profile industrial siding and mobile
+        # homes actually use.
+        p = 11.0
         return math.cos((x % p) / p * 2 * math.pi) * 17.0
     if kind == 'brick':
-        ch, cw = 6, 15                   # 6px course, 15px brick: modular brick at 1.7cm/px
+        ch, cw = 4, 11                   # 6.8cm course, 18.8cm brick - and both DIVIDE 44
         row = y // ch
         off = (row % 2) * (cw // 2)
         if y % ch == 0 or (x + off) % cw == 0:
@@ -347,7 +364,7 @@ def structure(kind, x, y, n, rnd_phase):
             return 6.0
         return 0.0
     if kind == 'ashlar':
-        ch, cw = 15, 22                  # big civic blocks, tight joints
+        ch, cw = 11, 22                  # big civic blocks, tight joints; both divide 44
         row = y // ch
         off = (row % 2) * (cw // 2)
         if y % ch == 0 or (x + off) % cw == 0:
@@ -368,7 +385,9 @@ def structure(kind, x, y, n, rnd_phase):
     if kind == 'asphalt':
         return 0.0                       # asphalt is pure aggregate, like stucco
     if kind == 'turf':
-        return math.sin(y * 1.7) * 4.0 + math.sin(x * 0.9) * 3.0   # matted clumping
+        # matted clumping, expressed as whole cycles ACROSS the cell so it wraps
+        return (math.sin(y / n * 2 * math.pi * 11) * 4.0
+                + math.sin(x / n * 2 * math.pi * 4) * 3.0)
     if kind == 'furrow':
         p = 11.0                         # plough rows
         return math.cos((y % p) / p * 2 * math.pi) * 19.0
@@ -377,12 +396,20 @@ def structure(kind, x, y, n, rnd_phase):
             return -17.0
         return 0.0
     if kind == 'plank':
-        pw = 9
+        pw = 11                          # was 9: 44/9 = 4.9 boards, a split plank on every seam
         if y % pw == 0:                  # the gap between boards
             return -24.0
         if y % pw == 1:
             return 8.0
         return 0.0
+    if kind == 'panel':
+        # a garage door is WIDE horizontal panels, not fine corrugation. Sharing the
+        # 4px rib made it 98% grain: a wall of static, not a door.
+        if y % 11 == 0:
+            return -22.0
+        if y % 11 == 1:
+            return 9.0
+        return math.cos((x % 22) / 22.0 * 2 * math.pi) * 4.0
     if kind == 'plaster':
         return 0.0
     if kind == 'gravel':
@@ -424,8 +451,23 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
             # at. Noise without structure is just mush wearing the right numbers.
             L += structure(mat['kind'], x, y, CELL, phase) * 2.0
             L += (stain(u, v) - 0.5) * 26.0 * mat['wear']        # dirt and streaking
-            L += (1.0 - (x / CELL) * 0.45 - (y / CELL) * 0.55) * 16.0 - 8.0  # light: upper LEFT
-            L += max(0.0, (y / CELL - 0.72)) * -30.0 * mat['wear']  # grime at the base
+            # *** NOTHING IN A TILING TEXTURE MAY BE NON-PERIODIC. ***
+            # Paolo 8/1, circling two horizontal bands across the yard: "I don't want
+            # the borders of the tiles to look like that ... I want it to be more
+            # seamless ... the border speaks a lot".
+            # He was seeing a real bug, and it was these two lines. A LINEAR light
+            # gradient (bright top-left, dark bottom-right) and a grime band confined to
+            # the bottom 28% are both NON-PERIODIC: every tile ended bright at its top
+            # edge and dark at its bottom edge, so laying them in a grid stacked a
+            # dark-against-light step at EVERY horizontal boundary. Measured, my seams
+            # ran 1.67x the interior contrast where his bought tiles run 0.62x - his
+            # seams are quieter than their own interiors, mine were nearly 3x that.
+            # A baked per-tile light direction is wrong on its own terms too: every tile
+            # lit identically IS the grid, drawn in shading. Scene lighting belongs to
+            # the renderer. What stays is COSINE variation, which is periodic by
+            # construction and so cannot make an edge.
+            L += math.cos(u * 2 * math.pi) * 5.0 + math.cos(v * 2 * math.pi) * 6.0
+            L += math.cos(v * 2 * math.pi + 1.1) * -9.0 * mat['wear']   # wrapping grime
 
             for (pxx, pyy, pr, pd) in pits:                      # chips
                 dx = min(abs(x - pxx), CELL - abs(x - pxx))

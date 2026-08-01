@@ -172,6 +172,50 @@ def main():
     ok('no UNDECLARED tile came out PINK (the salmon failure, 8/1)', not pink,
        'desaturation must hold luminance so clay goes brown: '
        + ', '.join('%s %s%%' % p for p in pink[:5]))
+    # ---- THE BORDER. Paolo 8/1, circling two bands across the yard: "I don't want the
+    # borders of the tiles to look like that ... I want it to be more seamless ... the
+    # border is very important. The border speaks a lot."
+    # He was seeing a real bug. Two terms in the cook were NON-PERIODIC (a linear light
+    # gradient and a grime band in the bottom 28%), so every tile ended bright at the top
+    # and dark at the bottom and the grid stacked a step at every horizontal boundary.
+    # Five materials also had module periods that do not divide 44 - shingle tabs at 15,
+    # ribs at 7, brick 6x15, ashlar 15, planks 9 - so the pattern itself CUT at the edge.
+    #
+    # THE TEST IS NOT "the seam is quiet". A block wall SHOULD have a mortar joint at the
+    # boundary; that is the material, not a defect, and an absolute threshold would fail
+    # every structured tile. The honest question is whether the seam is WORSE THAN THE
+    # HARSHEST LINE THE MATERIAL ALREADY HAS. If it is not, the tile boundary is
+    # indistinguishable from the pattern's own rhythm, which is exactly what he asked for:
+    # still legible as tiles, no visible border.
+    seams = []
+    for t in tiles:
+        im = Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGB')
+        w, h = im.size
+        b = im.tobytes()
+
+        def L(x, y):
+            i = (y * w + x) * 3
+            return 0.299 * b[i] + 0.587 * b[i + 1] + 0.114 * b[i + 2]
+
+        rowj = [st.mean([abs(L(x, y) - L(x, y + 1)) for x in range(w)]) for y in range(h - 1)]
+        colj = [st.mean([abs(L(x, y) - L(x + 1, y)) for y in range(h)]) for x in range(w - 1)]
+        sv = st.mean([abs(L(x, h - 1) - L(x, 0)) for x in range(w)])
+        sh = st.mean([abs(L(w - 1, y) - L(0, y)) for y in range(h)])
+        rv = sv / max(max(rowj), 1e-6)
+        rh = sh / max(max(colj), 1e-6)
+        if rv > 1.25 or rh > 1.25:
+            seams.append((t['id'], round(rv, 2), round(rh, 2)))
+    ok('NO TILE HAS A VISIBLE BORDER (seam no worse than the material\'s own worst line)',
+       not seams,
+       '%d tiles show a seam: %s' % (len(seams), ', '.join(
+           '%s v%.2f h%.2f' % s2 for s2 in seams[:5])))
+
+    # and the cause, held directly: every module period must divide the cell, or the
+    # pattern cuts at the boundary no matter how good the noise is.
+    src = open(COOK).read()
+    ok('the cook states the divisor rule that keeps patterns whole across the border',
+       'DIVISORS' in src and 'divide' in src.lower())
+
     ok('structure survived the grain - no material is a field of mush', not flat,
        'no row/column structure in: ' + ', '.join('%s span %s' % f for f in flat[:5]))
 

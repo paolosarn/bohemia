@@ -1,3 +1,63 @@
+ART (f3eu53): 8/1 (d) LATEST — HE CIRCLED THE TILE BORDERS AND HE WAS RIGHT. TWO REAL
+BUGS, BOTH MINE, BOTH NOW GATED.
+
+Paolo 8/1, with a screenshot of the yard and two horizontal bands circled in yellow:
+"keep in mind with the textures. I don't want the borders of the tiles to look like that
+you know I want it to be more seamless. I want [of] course to always be able to tell that
+[there are] tiles in [those] squares, but the border is very important. The border speaks
+a lot so just fix some of the borders."
+
+=== MEASURED FIRST. HE WAS SEEING A REAL DEFECT, NOT A TASTE ===
+Seam discontinuity, mean |luminance step| ACROSS the tile boundary relative to the
+interior:
+    MY tiles      vertical 1.67x   horizontal 1.25x
+    HIS BOUGHT    vertical 0.62x   horizontal 0.77x
+His seams are QUIETER than his own interiors, because his library is seam-processed.
+Mine were nearly 3x that. Two causes, both mine:
+
+1. NON-PERIODIC TERMS. The cook baked a LINEAR light gradient (bright upper-left, dark
+   lower-right) and a grime band confined to the bottom 28% of the tile. Neither wraps,
+   so every tile ended bright at its top edge and dark at its bottom edge and the grid
+   stacked a dark-against-light step at EVERY horizontal boundary. Exactly the two bands
+   he circled. Replaced with COSINE variation, periodic by construction.
+   A baked per-tile light direction is wrong on its own terms anyway: every tile lit
+   identically IS the grid, drawn in shading. Scene lighting belongs to the renderer.
+
+2. MODULE PERIODS THAT DO NOT DIVIDE 44. 44 = 1,2,4,11,22,44 and nothing else. Five
+   materials were cutting mid-pattern at every edge: shingle tabs at 15, ribs at 7,
+   brick 6x15, ashlar courses at 15, fence planks at 9. All snapped to divisors, chosen
+   to stay physically honest at 1px = 1.705cm: an 11px brick is 18.8cm (real modular is
+   19.4), an 11px plank is a real 1x8 board, a 4px course is 6.8cm.
+   Two intermediate values were rejected by MEASUREMENT, not by eye: a 4px rib divides
+   44 cleanly but flips light-dark every 2px and measured 95-98% grain -- a wall of
+   static, not siding. 11px is real wide-rib R-panel, which is what industrial siding
+   and mobile homes actually use.
+
+=== THE TEST HAD TO BE THE RIGHT TEST ===
+"The seam is quiet" is the WRONG check: a block wall SHOULD have a mortar joint at the
+boundary. That is the material, and an absolute threshold fails every structured tile.
+The gate asks instead: IS THE SEAM WORSE THAN THE HARSHEST LINE THE MATERIAL ALREADY
+HAS? If not, the boundary is indistinguishable from the pattern's own rhythm - which is
+precisely what he asked for: still legible as tiles, no visible border.
+    MINE now  0.86 / 0.84 (worst 1.06)      HIS  0.25 / 0.40
+gates/texture_match_gate.py, 24 checks. Sabotage-tested by reintroducing his exact bug
+(a non-periodic vertical gradient): the gate fails it at v2.55.
+PROOF BY EYE: records/target/TEXTURE_SEAM_3x3.png - twelve materials laid 3x3. The bond,
+courses, ribs and planks flow continuously across every boundary.
+
+=== STATE ===
+banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt  114 tiles / 38 materials, ALL APPROVED, CANON
+The houses wear them (RUN tab). records/target/STREET_TEXTURED.png re-shot after the fix.
+texture_match 24/24, banks_used 26/26, taste 27/27, reusefirst 85/85, alpha loads 20/20.
+
+=== STILL DEBT ===
+- HIS bought tiles also band in the yard, and I CANNOT fix those: VERBATIM OR NOT AT ALL.
+  If that banding bothers him it is a PLACEMENT fix (drop the tiles whose content carries
+  an edge-aligned score line out of the yard pool), never a repaint. Not done yet.
+- House UPPER floor band, perimeter wall, gate mouth, garage mouth still target-set.
+- His tiles carry BIG FEATURES (a manhole, a weed clump, a long crack); mine are
+  consistent texture. Same material family, not yet the same pack.
+
 ART (f3eu53): 8/1 (c) LATEST — ALL 90 APPROVED, HIS COLOUR RULING APPLIED, AND THE
 TEXTURES ARE NOW ON THE HOUSES. 114 tiles / 38 materials.
 
