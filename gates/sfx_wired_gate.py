@@ -231,6 +231,48 @@ def main():
             '%s kept only %d approved sounds -- a walk would machine-gun'
             % (ev, len(bank.get(ev, []))))
 
+    # 7b. COMBAT PLAYS HIS SOUNDS (Paolo 7/31: "make sure any of the combat
+    #     sound effects you made you put them into the combat too"). Combat is a
+    #     srcdoc iframe carried as base64 in the alpha, so read it the way it
+    #     ships rather than trusting the patch tool's own say-so.
+    import base64
+    alpha_src = open(ALPHA, encoding='utf8').read()
+    k = "const COMBAT_B64='"
+    ci = alpha_src.index(k) + len(k)
+    cj = alpha_src.index("'", ci)
+    demo = base64.b64decode(alpha_src[ci:cj]).decode('utf8')
+    chk('function sfxAsk' in demo, 'combat cannot ask the parent for a sound')
+    chk("sfxAsk('hit')" in demo, 'combat never asks for his HIT sound')
+    chk("sfxAsk('kill')" in demo, 'combat never asks for his KILL sound')
+    chk(demo.count('function sndHit(') == 1 and demo.count('function sndKill(') == 1,
+        'sndHit/sndKill are not defined exactly once in combat')
+    chk('BOHEMIA_GESTURE' in demo,
+        'combat never reports a touch, so a whole fight can play with audio that '
+        'was never started')
+    # the placeholder beeps must no longer be what you hear FIRST
+    for fn, ev in (('sndHit', 'hit'), ('sndKill', 'kill')):
+        i = demo.index('function %s(' % fn)
+        body = demo[i:i + 260]
+        chk("sfxAsk('%s')" % ev in body and body.index("sfxAsk('%s')" % ev) < body.find('tone('),
+            '%s still beeps its placeholder before asking for his sound' % fn)
+    # he approved a BLOCK but this demo has no block mechanic: it must NOT be
+    # invented just to spend the sound
+    chk("sfxAsk('block')" not in demo,
+        'combat wires a BLOCK, but this demo has no block mechanic -- inventing '
+        'one to justify a sound is his call, not the machine\'s')
+
+    # 7c. THE RING/SILENT SWITCH. WebAudio-only pages are muted by the physical
+    #     switch on an iPhone, silently. The opt-out must be in the shipped file.
+    #     (the first version of this check tested `'audioSession' in src`, which
+    #     a rename to audioSessionXX satisfies just as happily -- it could not
+    #     fail, so it was worth nothing. Match the actual assignment.)
+    chk(re.search(r"audioSession\s*\.\s*type\s*=\s*['\"]playback['\"]", alpha_src) is not None,
+        'nothing claims the PLAYBACK audio session -- on an iPhone the ring/'
+        'silent switch mutes the whole game with no error anywhere')
+    chk(re.search(r"if\s*\(\s*navigator\.audioSession\s*\)", alpha_src) is not None,
+        'the audio session claim is not guarded, so it throws on every browser '
+        'that does not have it')
+
     # 7. one AudioContext
     run = open(RUN, encoding='utf8').read()
     chk('new AudioContext' not in run, "the run built its own AudioContext")

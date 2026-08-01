@@ -1256,6 +1256,63 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 7/31 (b) LATEST — HE SAID IT AGAIN: "I did not hear any of the
+walking sound effects." SECOND REPORT OF SILENCE. Plus: combat now plays his HIT
+and KILL.
+
+WHAT I FOUND THE SECOND TIME (the first fix was real but not sufficient):
+NOTHING CLAIMED THE PLAYBACK AUDIO SESSION. On an iPhone a page that makes sound
+only through WebAudio is muted by the PHYSICAL RING/SILENT SWITCH on the side of
+the phone. No error, no warning, nothing in the page to see -- a muted iPhone and
+a broken wire look identical from here, which is why I burned two turns guessing.
+Safari 16.4+ exposes navigator.audioSession.type='playback' to opt out of it, and
+it must be set BEFORE the context starts because it decides the category the
+context is born into. It is now set, guarded, on every unlock.
+  THIS IS A HYPOTHESIS I COULD NOT PROVE FROM HERE. Chromium on Linux has no
+  ring/silent switch, so no gate in this repo can reproduce it. If he STILL
+  hears nothing after 7/31w, the audio session was not the cause and the next
+  suspect is the phone itself (a hard refresh to re-bootstrap the service
+  worker, or headphones/Bluetooth routing). DO NOT ship a third blind fix --
+  read the status line first, see below.
+
+STOP GUESSING AT HIS PHONE: there is now a SOUND readout at the top of the MUSIC
+tab. It reports the three things that each cause silence on their own -- whether
+the audio engine ever STARTED (and its state), whether the silent-switch opt-out
+took, and how many sounds have actually rendered. Green when audio is running,
+red when not, and it says in words that a red box after tapping the screen means
+the phone and not the game. Ask him to read that box before touching any code.
+
+COMBAT PLAYS HIS SOUNDS NOW (his explicit ask). The demo already had a sound
+layer, so this is small: sndHit() and sndKill() are single functions called from
+26+ sites, and rewriting the TWO FUNCTIONS puts his sound on every hit and every
+kill without touching one call site or moving any timing. tools/
+bohemia_combat_sfx_patch.py. The old oscillator beeps survive ONLY as a fallback
+for the demo opened standalone.
+  NOT RE-QUANTISED, deliberately: most of those calls already sit inside
+  onBeat()/onOffbeat(), so asking playSFX to schedule them onto the next
+  downbeat as well would double-quantise and drag them late.
+  BLOCK IS NOT WIRED and that is the correct state. He approved one BLOCK sound
+  but THIS DEMO HAS NO BLOCK: `blocked` in there means a pillar is in your path,
+  and sndReturn() is you TAKING return fire, which is the opposite. The nearest
+  real candidate is cover absorbing a shot. Picking one and calling it a block
+  invents a mechanic to justify a sound. PENDING HIS WORD.
+  Combat is a srcdoc iframe with an AudioContext of its OWN (pre-existing,
+  violates ONE AUDIOCONTEXT, not this lane's to rip out). His sounds do not play
+  on it -- combat posts the event and the parent renders it. Combat also posts
+  BOHEMIA_GESTURE now, because a whole fight can be played without one touch
+  ever reaching the parent's document.
+
+GATE: 150 checks, and the two new families are PROVED to fail -- reverting the
+opt-out and putting combat's beep back in front of his sound each produce a red.
+  A LESSON, AGAIN: my first version of the silent-switch check was
+  `'audioSession' in src`, which a rename to audioSessionXX satisfies just as
+  happily. It could not fail, so it was worth nothing, and I only caught it
+  because I ran the negative test. A check you have not watched fail is a guess
+  wearing a gate's clothes. That is now three separate times this lane has
+  shipped a check that could not fail.
+
+BUILD STAMP: 8/1a - COMBAT GETS YOUR HIT AND KILL (COMBAT TAB).
+
 SOUNDS (xk7pjp): 7/31 LATEST — "I didnt hear ur sounds in the game." HE WAS
 RIGHT AND MY GATE WAS WRONG. Read this before touching any gate that claims a
 surface works.

@@ -100,6 +100,7 @@ def parent_block(bank):
   if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
   var APPROVED=%s;
   var last={};                       /* per event: what played last, never twice */
+  var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
   function pick(ev){
     var set=APPROVED[ev]; if(!set||!set.length)return null;   /* unjudged = silent */
     if(set.length===1)return set[0];
@@ -128,7 +129,9 @@ def parent_block(bank):
         var sd=MUS.stepDur(), s=MUS.step||0, ahead=(4-(s%%4))%%4;
         at=MUS.nextT+ahead*sd;
       }
-      return BOH_SFX.render(v,AC,dest,at);
+      var node=BOH_SFX.render(v,AC,dest,at);
+      if(node) SFX_COUNT++;         /* counted where it RENDERS, not where it is asked for */
+      return node;
     }catch(e){ return null; }
   };
   /* UNLOCK ON THE FIRST TOUCH, ANY TOUCH (7/31 -- "I didnt hear ur sounds").
@@ -142,7 +145,20 @@ def parent_block(bank):
      postMessage with no gesture behind it: silence, permanently, and the sound
      is "working" the whole time. So: unlock on the first interaction of ANY
      kind, anywhere, before anything needs to make noise. */
+  /* THE RING/SILENT SWITCH (7/31, second report of silence).
+     On iPhone, a page that makes sound ONLY through WebAudio is muted by the
+     physical switch on the side of the phone, with no error, no warning and
+     nothing in the page to see. Every check can pass and the phone stays quiet.
+     Safari 16.4+ lets a page say it is playback rather than ambient audio,
+     which opts out of that switch. Set it before the context starts, because it
+     decides the category the context is born into. Absent everywhere else, so
+     the guard is the whole compatibility story. */
+  function claimPlayback(){
+    try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+  }
+  claimPlayback();
   function unlock(){
+    claimPlayback();
     try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
   }
   ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
@@ -168,6 +184,39 @@ def parent_block(bank):
     if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
       window.playSFX('ui_tap');
   },true);
+  /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
+     times I had to guess at his phone from here, because a muted iPhone and a
+     broken wire look exactly the same from the outside: nothing. This is one
+     line in the MUSIC tab that turns "I hear nothing" into something he can
+     read back to me. It reports the three things that can each cause silence
+     on their own: whether audio ever STARTED, whether the ring/silent switch
+     opt-out took, and how many sounds have actually been fired. */
+  function statusLine(){
+    var el=document.getElementById('sfxStatus');
+    if(!el){
+      var host=document.getElementById('p-music'); if(!host)return;
+      el=document.createElement('div'); el.id='sfxStatus';
+      el.style.cssText='font:11px ui-monospace,monospace;padding:7px 9px;margin:6px 0;'+
+        'border:1px solid #3a3a30;border-radius:6px;letter-spacing:.5px;line-height:1.5';
+      host.insertBefore(el, host.firstChild);
+    }
+    var on=false, st='never started';
+    try{ if(typeof MUS!=='undefined'&&MUS.AC){ st=MUS.AC.state; on=(st==='running'); } }catch(e){}
+    var claim='n/a on this browser';
+    try{ if(navigator.audioSession) claim=navigator.audioSession.type||'unset'; }catch(e){}
+    el.style.borderColor = on ? '#4d6b45' : '#7a3a30';
+    el.style.background  = on ? 'rgba(60,90,55,0.16)' : 'rgba(120,50,40,0.16)';
+    el.style.color       = on ? '#a8c69c' : '#e8a08f';
+    el.innerHTML =
+      '<b>SOUND: '+(on?'ON':'NOT PLAYING')+'</b><br>'+
+      'audio engine: '+st+'<br>'+
+      'silent-switch opt-out: '+claim+'<br>'+
+      'sounds fired: '+SFX_COUNT+
+      (on?'':'<br>if this stays red after you tap the screen, it is the phone, not the game');
+  }
+  setInterval(statusLine, 700);
+  if(document.readyState!=='loading') statusLine();
+  else document.addEventListener('DOMContentLoaded', statusLine);
 })();
 """ % (VERDICT, BANK, json.dumps(bank, separators=(',', ':')))
 
