@@ -95,9 +95,15 @@ ok('clause 5 in code: a strip centres on its own row',
 ok('clause 7 in code: a long style widens its curtain below the jaw',
   /\(opt\.back\|\|0\)>=3&&y>hBot/.test(src));
 
-/* clause 6 is NOT built. Say so out loud rather than let silence imply done. */
-ok('clause 6 is honestly recorded as unbuilt (a fade that blends into skin tone)',
-  /\[NOT YET BUILT\.\]/.test(law));
+/* CLAUSE 6 IS BUILT (8/1). It was recorded as unbuilt for exactly as long as it was
+   unbuilt -- silence never implied done -- and now it is asserted in the code. */
+ok('clause 6 is BUILT and says so', /\*\*BUILT 8\/1\/26\.\*\*/.test(law) && !/\[NOT YET BUILT\.\]/.test(law));
+ok('clause 6 in code: the fade is a DENSITY ramp inside the shared texture function',
+  /var fadeRows=opt\.fade\|\|0/.test(src) && /if\(fadeRows\)\{/.test(src));
+ok('clause 6 in code: it blends into SKIN by skipping, not into a paler hair tone',
+  /return true;\s*\/\* the bottom is skin/.test(src));
+ok('clause 6: fades ship as CANDIDATES, never canon on my say-so',
+  /\{n:'HIGH FADE',st:'cook',layer:'hair'/.test(src));
 
 /* ---- the rulings this law grew out of are still on file ---------------- */
 ok('the wave-1 verdict sheet is kept',

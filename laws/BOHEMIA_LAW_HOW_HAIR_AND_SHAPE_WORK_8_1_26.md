@@ -97,7 +97,29 @@ Any centred feature anywhere in this codebase has this bug latent in it.
 > a natural skin color that's customizable obviously to the hair"
 
 A shape that simply stops is not a fade. A fade BLENDS INTO THAT PERSON'S SKIN
-TONE, and the blend is customizable per hair colour. **[NOT YET BUILT.]**
+TONE, and the blend is customizable per hair colour. **BUILT 8/1/26.**
+
+He was right that it is the same machinery as cornrows: *"I'm sure all the coding
+or whatever you're doing for the cornrows will help you make more hairstyles with
+fades or whatever when skin touches the hair."* A fade is not a colour ramp, it is
+a **DENSITY RAMP** — near the crown hair is solid, and toward the taper more of the
+skin underneath shows through, until it is skin. So it is expressed in the SAME
+`texSkip` that draws a cornrow, on the same head-anchored phase, which is what
+stops it scattering into noise.
+
+It blends into SKIN, not into a paler hair tone: skipping a pixel means the body's
+own colour shows, whatever that person's complexion is. That is what makes it
+"customizable obviously to the hair" for free — it is the real skin underneath, per
+citizen, with no palette of mine involved.
+
+MEASURED, HIGH FADE from behind, hair coverage per row:
+`92% -> 69% -> 54% -> 42% -> 33% -> 25% -> 0%`. BUZZ CUT, which has no fade, holds
+~90% and then stops dead. That difference is the whole clause, and it is why
+SHAVED FADE was killed ("there's no sort of fade").
+
+STILL HIS: three fade shapes ship as CANDIDATES (st:'cook'), never canon on my
+say-so, and BOH_PERSONLOOK only ever picks canon — so a fade cannot reach a citizen
+for free while the unlock in A HAIRCUT IS A LUXURY is unresolved.
 
 ### 7. LONG HAIR SHOWS FROM THE FRONT
 > "with more of the longer hairstyles even from the front I would like to see you
